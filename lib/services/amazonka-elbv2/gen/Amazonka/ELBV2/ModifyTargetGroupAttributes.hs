@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ELBV2.ModifyTargetGroupAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.ELBV2.ModifyTargetGroupAttributes
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELBV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,14 +91,15 @@ instance Core.AWSRequest ModifyTargetGroupAttributes where
   type
     AWSResponse ModifyTargetGroupAttributes =
       ModifyTargetGroupAttributesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ModifyTargetGroupAttributesResult"
       ( \s h x ->
           ModifyTargetGroupAttributesResponse'
-            Prelude.<$> ( x Core..@? "Attributes" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> ( x Data..@? "Attributes" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -112,24 +114,24 @@ instance Prelude.NFData ModifyTargetGroupAttributes where
     Prelude.rnf targetGroupArn
       `Prelude.seq` Prelude.rnf attributes
 
-instance Core.ToHeaders ModifyTargetGroupAttributes where
+instance Data.ToHeaders ModifyTargetGroupAttributes where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyTargetGroupAttributes where
+instance Data.ToPath ModifyTargetGroupAttributes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyTargetGroupAttributes where
+instance Data.ToQuery ModifyTargetGroupAttributes where
   toQuery ModifyTargetGroupAttributes' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "ModifyTargetGroupAttributes" ::
+          Data.=: ( "ModifyTargetGroupAttributes" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2015-12-01" :: Prelude.ByteString),
-        "TargetGroupArn" Core.=: targetGroupArn,
+          Data.=: ("2015-12-01" :: Prelude.ByteString),
+        "TargetGroupArn" Data.=: targetGroupArn,
         "Attributes"
-          Core.=: Core.toQueryList "member" attributes
+          Data.=: Data.toQueryList "member" attributes
       ]
 
 -- | /See:/ 'newModifyTargetGroupAttributesResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkDocs.CreateUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,10 +29,10 @@ module Amazonka.WorkDocs.CreateUser
 
     -- * Request Lenses
     createUser_authenticationToken,
-    createUser_storageRule,
     createUser_emailAddress,
-    createUser_timeZoneId,
     createUser_organizationId,
+    createUser_storageRule,
+    createUser_timeZoneId,
     createUser_username,
     createUser_givenName,
     createUser_surname,
@@ -49,7 +49,8 @@ module Amazonka.WorkDocs.CreateUser
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,15 +60,15 @@ import Amazonka.WorkDocs.Types
 data CreateUser = CreateUser'
   { -- | Amazon WorkDocs authentication token. Not required when using AWS
     -- administrator credentials to access the API.
-    authenticationToken :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | The amount of storage for the user.
-    storageRule :: Prelude.Maybe StorageRuleType,
+    authenticationToken :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The email address of the user.
-    emailAddress :: Prelude.Maybe Prelude.Text,
-    -- | The time zone ID of the user.
-    timeZoneId :: Prelude.Maybe Prelude.Text,
+    emailAddress :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The ID of the organization.
     organizationId :: Prelude.Maybe Prelude.Text,
+    -- | The amount of storage for the user.
+    storageRule :: Prelude.Maybe StorageRuleType,
+    -- | The time zone ID of the user.
+    timeZoneId :: Prelude.Maybe Prelude.Text,
     -- | The login name of the user.
     username :: Prelude.Text,
     -- | The given name of the user.
@@ -75,7 +76,7 @@ data CreateUser = CreateUser'
     -- | The surname of the user.
     surname :: Prelude.Text,
     -- | The password of the user.
-    password :: Core.Sensitive Prelude.Text
+    password :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -90,13 +91,13 @@ data CreateUser = CreateUser'
 -- 'authenticationToken', 'createUser_authenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS
 -- administrator credentials to access the API.
 --
--- 'storageRule', 'createUser_storageRule' - The amount of storage for the user.
---
 -- 'emailAddress', 'createUser_emailAddress' - The email address of the user.
 --
--- 'timeZoneId', 'createUser_timeZoneId' - The time zone ID of the user.
---
 -- 'organizationId', 'createUser_organizationId' - The ID of the organization.
+--
+-- 'storageRule', 'createUser_storageRule' - The amount of storage for the user.
+--
+-- 'timeZoneId', 'createUser_timeZoneId' - The time zone ID of the user.
 --
 -- 'username', 'createUser_username' - The login name of the user.
 --
@@ -122,36 +123,36 @@ newCreateUser
   pPassword_ =
     CreateUser'
       { authenticationToken = Prelude.Nothing,
-        storageRule = Prelude.Nothing,
         emailAddress = Prelude.Nothing,
-        timeZoneId = Prelude.Nothing,
         organizationId = Prelude.Nothing,
+        storageRule = Prelude.Nothing,
+        timeZoneId = Prelude.Nothing,
         username = pUsername_,
         givenName = pGivenName_,
         surname = pSurname_,
-        password = Core._Sensitive Lens.# pPassword_
+        password = Data._Sensitive Lens.# pPassword_
       }
 
 -- | Amazon WorkDocs authentication token. Not required when using AWS
 -- administrator credentials to access the API.
 createUser_authenticationToken :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
-createUser_authenticationToken = Lens.lens (\CreateUser' {authenticationToken} -> authenticationToken) (\s@CreateUser' {} a -> s {authenticationToken = a} :: CreateUser) Prelude.. Lens.mapping Core._Sensitive
+createUser_authenticationToken = Lens.lens (\CreateUser' {authenticationToken} -> authenticationToken) (\s@CreateUser' {} a -> s {authenticationToken = a} :: CreateUser) Prelude.. Lens.mapping Data._Sensitive
+
+-- | The email address of the user.
+createUser_emailAddress :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
+createUser_emailAddress = Lens.lens (\CreateUser' {emailAddress} -> emailAddress) (\s@CreateUser' {} a -> s {emailAddress = a} :: CreateUser) Prelude.. Lens.mapping Data._Sensitive
+
+-- | The ID of the organization.
+createUser_organizationId :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
+createUser_organizationId = Lens.lens (\CreateUser' {organizationId} -> organizationId) (\s@CreateUser' {} a -> s {organizationId = a} :: CreateUser)
 
 -- | The amount of storage for the user.
 createUser_storageRule :: Lens.Lens' CreateUser (Prelude.Maybe StorageRuleType)
 createUser_storageRule = Lens.lens (\CreateUser' {storageRule} -> storageRule) (\s@CreateUser' {} a -> s {storageRule = a} :: CreateUser)
 
--- | The email address of the user.
-createUser_emailAddress :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
-createUser_emailAddress = Lens.lens (\CreateUser' {emailAddress} -> emailAddress) (\s@CreateUser' {} a -> s {emailAddress = a} :: CreateUser)
-
 -- | The time zone ID of the user.
 createUser_timeZoneId :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
 createUser_timeZoneId = Lens.lens (\CreateUser' {timeZoneId} -> timeZoneId) (\s@CreateUser' {} a -> s {timeZoneId = a} :: CreateUser)
-
--- | The ID of the organization.
-createUser_organizationId :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
-createUser_organizationId = Lens.lens (\CreateUser' {organizationId} -> organizationId) (\s@CreateUser' {} a -> s {organizationId = a} :: CreateUser)
 
 -- | The login name of the user.
 createUser_username :: Lens.Lens' CreateUser Prelude.Text
@@ -167,26 +168,27 @@ createUser_surname = Lens.lens (\CreateUser' {surname} -> surname) (\s@CreateUse
 
 -- | The password of the user.
 createUser_password :: Lens.Lens' CreateUser Prelude.Text
-createUser_password = Lens.lens (\CreateUser' {password} -> password) (\s@CreateUser' {} a -> s {password = a} :: CreateUser) Prelude.. Core._Sensitive
+createUser_password = Lens.lens (\CreateUser' {password} -> password) (\s@CreateUser' {} a -> s {password = a} :: CreateUser) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest CreateUser where
   type AWSResponse CreateUser = CreateUserResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateUserResponse'
-            Prelude.<$> (x Core..?> "User")
+            Prelude.<$> (x Data..?> "User")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateUser where
   hashWithSalt _salt CreateUser' {..} =
     _salt `Prelude.hashWithSalt` authenticationToken
-      `Prelude.hashWithSalt` storageRule
       `Prelude.hashWithSalt` emailAddress
-      `Prelude.hashWithSalt` timeZoneId
       `Prelude.hashWithSalt` organizationId
+      `Prelude.hashWithSalt` storageRule
+      `Prelude.hashWithSalt` timeZoneId
       `Prelude.hashWithSalt` username
       `Prelude.hashWithSalt` givenName
       `Prelude.hashWithSalt` surname
@@ -195,43 +197,43 @@ instance Prelude.Hashable CreateUser where
 instance Prelude.NFData CreateUser where
   rnf CreateUser' {..} =
     Prelude.rnf authenticationToken
-      `Prelude.seq` Prelude.rnf storageRule
       `Prelude.seq` Prelude.rnf emailAddress
-      `Prelude.seq` Prelude.rnf timeZoneId
       `Prelude.seq` Prelude.rnf organizationId
+      `Prelude.seq` Prelude.rnf storageRule
+      `Prelude.seq` Prelude.rnf timeZoneId
       `Prelude.seq` Prelude.rnf username
       `Prelude.seq` Prelude.rnf givenName
       `Prelude.seq` Prelude.rnf surname
       `Prelude.seq` Prelude.rnf password
 
-instance Core.ToHeaders CreateUser where
+instance Data.ToHeaders CreateUser where
   toHeaders CreateUser' {..} =
     Prelude.mconcat
-      [ "Authentication" Core.=# authenticationToken,
+      [ "Authentication" Data.=# authenticationToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToJSON CreateUser where
+instance Data.ToJSON CreateUser where
   toJSON CreateUser' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("StorageRule" Core..=) Prelude.<$> storageRule,
-            ("EmailAddress" Core..=) Prelude.<$> emailAddress,
-            ("TimeZoneId" Core..=) Prelude.<$> timeZoneId,
-            ("OrganizationId" Core..=)
+          [ ("EmailAddress" Data..=) Prelude.<$> emailAddress,
+            ("OrganizationId" Data..=)
               Prelude.<$> organizationId,
-            Prelude.Just ("Username" Core..= username),
-            Prelude.Just ("GivenName" Core..= givenName),
-            Prelude.Just ("Surname" Core..= surname),
-            Prelude.Just ("Password" Core..= password)
+            ("StorageRule" Data..=) Prelude.<$> storageRule,
+            ("TimeZoneId" Data..=) Prelude.<$> timeZoneId,
+            Prelude.Just ("Username" Data..= username),
+            Prelude.Just ("GivenName" Data..= givenName),
+            Prelude.Just ("Surname" Data..= surname),
+            Prelude.Just ("Password" Data..= password)
           ]
       )
 
-instance Core.ToPath CreateUser where
+instance Data.ToPath CreateUser where
   toPath = Prelude.const "/api/v1/users"
 
-instance Core.ToQuery CreateUser where
+instance Data.ToQuery CreateUser where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateUserResponse' smart constructor.
@@ -241,7 +243,7 @@ data CreateUserResponse = CreateUserResponse'
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'CreateUserResponse' with all optional fields omitted.

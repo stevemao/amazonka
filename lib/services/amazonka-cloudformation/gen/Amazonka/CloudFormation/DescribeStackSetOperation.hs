@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.DescribeStackSetOperation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -152,13 +153,14 @@ instance Core.AWSRequest DescribeStackSetOperation where
   type
     AWSResponse DescribeStackSetOperation =
       DescribeStackSetOperationResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeStackSetOperationResult"
       ( \s h x ->
           DescribeStackSetOperationResponse'
-            Prelude.<$> (x Core..@? "StackSetOperation")
+            Prelude.<$> (x Data..@? "StackSetOperation")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -174,22 +176,22 @@ instance Prelude.NFData DescribeStackSetOperation where
       `Prelude.seq` Prelude.rnf stackSetName
       `Prelude.seq` Prelude.rnf operationId
 
-instance Core.ToHeaders DescribeStackSetOperation where
+instance Data.ToHeaders DescribeStackSetOperation where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeStackSetOperation where
+instance Data.ToPath DescribeStackSetOperation where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeStackSetOperation where
+instance Data.ToQuery DescribeStackSetOperation where
   toQuery DescribeStackSetOperation' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeStackSetOperation" :: Prelude.ByteString),
+          Data.=: ("DescribeStackSetOperation" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
-        "CallAs" Core.=: callAs,
-        "StackSetName" Core.=: stackSetName,
-        "OperationId" Core.=: operationId
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "CallAs" Data.=: callAs,
+        "StackSetName" Data.=: stackSetName,
+        "OperationId" Data.=: operationId
       ]
 
 -- | /See:/ 'newDescribeStackSetOperationResponse' smart constructor.

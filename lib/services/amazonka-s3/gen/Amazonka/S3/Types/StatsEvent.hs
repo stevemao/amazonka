@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.StatsEvent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.StatsEvent where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.Stats
@@ -52,9 +53,9 @@ newStatsEvent =
 statsEvent_details :: Lens.Lens' StatsEvent (Prelude.Maybe Stats)
 statsEvent_details = Lens.lens (\StatsEvent' {details} -> details) (\s@StatsEvent' {} a -> s {details = a} :: StatsEvent)
 
-instance Core.FromXML StatsEvent where
+instance Data.FromXML StatsEvent where
   parseXML x =
-    StatsEvent' Prelude.<$> (x Core..@? "Details")
+    StatsEvent' Prelude.<$> (x Data..@? "Details")
 
 instance Prelude.Hashable StatsEvent where
   hashWithSalt _salt StatsEvent' {..} =

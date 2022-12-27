@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.MultiplexSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.MultiplexSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains configuration for a Multiplex event
@@ -86,16 +87,16 @@ multiplexSettings_transportStreamBitrate = Lens.lens (\MultiplexSettings' {trans
 multiplexSettings_transportStreamId :: Lens.Lens' MultiplexSettings Prelude.Natural
 multiplexSettings_transportStreamId = Lens.lens (\MultiplexSettings' {transportStreamId} -> transportStreamId) (\s@MultiplexSettings' {} a -> s {transportStreamId = a} :: MultiplexSettings)
 
-instance Core.FromJSON MultiplexSettings where
+instance Data.FromJSON MultiplexSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MultiplexSettings"
       ( \x ->
           MultiplexSettings'
-            Prelude.<$> (x Core..:? "maximumVideoBufferDelayMilliseconds")
-            Prelude.<*> (x Core..:? "transportStreamReservedBitrate")
-            Prelude.<*> (x Core..: "transportStreamBitrate")
-            Prelude.<*> (x Core..: "transportStreamId")
+            Prelude.<$> (x Data..:? "maximumVideoBufferDelayMilliseconds")
+            Prelude.<*> (x Data..:? "transportStreamReservedBitrate")
+            Prelude.<*> (x Data..: "transportStreamBitrate")
+            Prelude.<*> (x Data..: "transportStreamId")
       )
 
 instance Prelude.Hashable MultiplexSettings where
@@ -113,19 +114,19 @@ instance Prelude.NFData MultiplexSettings where
       `Prelude.seq` Prelude.rnf transportStreamBitrate
       `Prelude.seq` Prelude.rnf transportStreamId
 
-instance Core.ToJSON MultiplexSettings where
+instance Data.ToJSON MultiplexSettings where
   toJSON MultiplexSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("maximumVideoBufferDelayMilliseconds" Core..=)
+          [ ("maximumVideoBufferDelayMilliseconds" Data..=)
               Prelude.<$> maximumVideoBufferDelayMilliseconds,
-            ("transportStreamReservedBitrate" Core..=)
+            ("transportStreamReservedBitrate" Data..=)
               Prelude.<$> transportStreamReservedBitrate,
             Prelude.Just
               ( "transportStreamBitrate"
-                  Core..= transportStreamBitrate
+                  Data..= transportStreamBitrate
               ),
             Prelude.Just
-              ("transportStreamId" Core..= transportStreamId)
+              ("transportStreamId" Data..= transportStreamId)
           ]
       )

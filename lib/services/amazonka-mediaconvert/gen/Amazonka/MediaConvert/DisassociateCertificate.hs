@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.DisassociateCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.MediaConvert.DisassociateCertificate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -81,7 +82,8 @@ instance Core.AWSRequest DisassociateCertificate where
   type
     AWSResponse DisassociateCertificate =
       DisassociateCertificateResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -96,23 +98,23 @@ instance Prelude.Hashable DisassociateCertificate where
 instance Prelude.NFData DisassociateCertificate where
   rnf DisassociateCertificate' {..} = Prelude.rnf arn
 
-instance Core.ToHeaders DisassociateCertificate where
+instance Data.ToHeaders DisassociateCertificate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DisassociateCertificate where
+instance Data.ToPath DisassociateCertificate where
   toPath DisassociateCertificate' {..} =
     Prelude.mconcat
-      ["/2017-08-29/certificates/", Core.toBS arn]
+      ["/2017-08-29/certificates/", Data.toBS arn]
 
-instance Core.ToQuery DisassociateCertificate where
+instance Data.ToQuery DisassociateCertificate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateCertificateResponse' smart constructor.

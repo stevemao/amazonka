@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT1ClickDevices.Types.DeviceEvent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,17 @@
 module Amazonka.IoT1ClickDevices.Types.DeviceEvent where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT1ClickDevices.Types.Device
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | /See:/ 'newDeviceEvent' smart constructor.
 data DeviceEvent = DeviceEvent'
-  { -- | A serialized JSON object representing the device-type specific event.
-    stdEvent :: Prelude.Maybe Prelude.Text,
-    -- | An object representing the device associated with the event.
-    device :: Prelude.Maybe Device
+  { -- | An object representing the device associated with the event.
+    device :: Prelude.Maybe Device,
+    -- | A serialized JSON object representing the device-type specific event.
+    stdEvent :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -41,41 +42,41 @@ data DeviceEvent = DeviceEvent'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'stdEvent', 'deviceEvent_stdEvent' - A serialized JSON object representing the device-type specific event.
---
 -- 'device', 'deviceEvent_device' - An object representing the device associated with the event.
+--
+-- 'stdEvent', 'deviceEvent_stdEvent' - A serialized JSON object representing the device-type specific event.
 newDeviceEvent ::
   DeviceEvent
 newDeviceEvent =
   DeviceEvent'
-    { stdEvent = Prelude.Nothing,
-      device = Prelude.Nothing
+    { device = Prelude.Nothing,
+      stdEvent = Prelude.Nothing
     }
-
--- | A serialized JSON object representing the device-type specific event.
-deviceEvent_stdEvent :: Lens.Lens' DeviceEvent (Prelude.Maybe Prelude.Text)
-deviceEvent_stdEvent = Lens.lens (\DeviceEvent' {stdEvent} -> stdEvent) (\s@DeviceEvent' {} a -> s {stdEvent = a} :: DeviceEvent)
 
 -- | An object representing the device associated with the event.
 deviceEvent_device :: Lens.Lens' DeviceEvent (Prelude.Maybe Device)
 deviceEvent_device = Lens.lens (\DeviceEvent' {device} -> device) (\s@DeviceEvent' {} a -> s {device = a} :: DeviceEvent)
 
-instance Core.FromJSON DeviceEvent where
+-- | A serialized JSON object representing the device-type specific event.
+deviceEvent_stdEvent :: Lens.Lens' DeviceEvent (Prelude.Maybe Prelude.Text)
+deviceEvent_stdEvent = Lens.lens (\DeviceEvent' {stdEvent} -> stdEvent) (\s@DeviceEvent' {} a -> s {stdEvent = a} :: DeviceEvent)
+
+instance Data.FromJSON DeviceEvent where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DeviceEvent"
       ( \x ->
           DeviceEvent'
-            Prelude.<$> (x Core..:? "stdEvent")
-            Prelude.<*> (x Core..:? "device")
+            Prelude.<$> (x Data..:? "device")
+            Prelude.<*> (x Data..:? "stdEvent")
       )
 
 instance Prelude.Hashable DeviceEvent where
   hashWithSalt _salt DeviceEvent' {..} =
-    _salt `Prelude.hashWithSalt` stdEvent
-      `Prelude.hashWithSalt` device
+    _salt `Prelude.hashWithSalt` device
+      `Prelude.hashWithSalt` stdEvent
 
 instance Prelude.NFData DeviceEvent where
   rnf DeviceEvent' {..} =
-    Prelude.rnf stdEvent
-      `Prelude.seq` Prelude.rnf device
+    Prelude.rnf device
+      `Prelude.seq` Prelude.rnf stdEvent

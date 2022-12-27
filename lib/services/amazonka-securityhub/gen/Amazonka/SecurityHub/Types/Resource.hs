@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.Resource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.Resource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.DataClassificationDetails
 import Amazonka.SecurityHub.Types.Partition
@@ -33,11 +34,11 @@ data Resource = Resource'
   { -- | Contains information about sensitive data that was detected on the
     -- resource.
     dataClassification :: Prelude.Maybe DataClassificationDetails,
+    -- | Additional details about the resource related to a finding.
+    details :: Prelude.Maybe ResourceDetails,
     -- | The canonical Amazon Web Services partition name that the Region is
     -- assigned to.
     partition :: Prelude.Maybe Partition,
-    -- | Additional details about the resource related to a finding.
-    details :: Prelude.Maybe ResourceDetails,
     -- | The canonical Amazon Web Services external Region name where this
     -- resource is located.
     region :: Prelude.Maybe Prelude.Text,
@@ -70,10 +71,10 @@ data Resource = Resource'
 -- 'dataClassification', 'resource_dataClassification' - Contains information about sensitive data that was detected on the
 -- resource.
 --
+-- 'details', 'resource_details' - Additional details about the resource related to a finding.
+--
 -- 'partition', 'resource_partition' - The canonical Amazon Web Services partition name that the Region is
 -- assigned to.
---
--- 'details', 'resource_details' - Additional details about the resource related to a finding.
 --
 -- 'region', 'resource_region' - The canonical Amazon Web Services external Region name where this
 -- resource is located.
@@ -101,8 +102,8 @@ newResource ::
 newResource pType_ pId_ =
   Resource'
     { dataClassification = Prelude.Nothing,
-      partition = Prelude.Nothing,
       details = Prelude.Nothing,
+      partition = Prelude.Nothing,
       region = Prelude.Nothing,
       resourceRole = Prelude.Nothing,
       tags = Prelude.Nothing,
@@ -115,14 +116,14 @@ newResource pType_ pId_ =
 resource_dataClassification :: Lens.Lens' Resource (Prelude.Maybe DataClassificationDetails)
 resource_dataClassification = Lens.lens (\Resource' {dataClassification} -> dataClassification) (\s@Resource' {} a -> s {dataClassification = a} :: Resource)
 
+-- | Additional details about the resource related to a finding.
+resource_details :: Lens.Lens' Resource (Prelude.Maybe ResourceDetails)
+resource_details = Lens.lens (\Resource' {details} -> details) (\s@Resource' {} a -> s {details = a} :: Resource)
+
 -- | The canonical Amazon Web Services partition name that the Region is
 -- assigned to.
 resource_partition :: Lens.Lens' Resource (Prelude.Maybe Partition)
 resource_partition = Lens.lens (\Resource' {partition} -> partition) (\s@Resource' {} a -> s {partition = a} :: Resource)
-
--- | Additional details about the resource related to a finding.
-resource_details :: Lens.Lens' Resource (Prelude.Maybe ResourceDetails)
-resource_details = Lens.lens (\Resource' {details} -> details) (\s@Resource' {} a -> s {details = a} :: Resource)
 
 -- | The canonical Amazon Web Services external Region name where this
 -- resource is located.
@@ -152,27 +153,27 @@ resource_type = Lens.lens (\Resource' {type'} -> type') (\s@Resource' {} a -> s 
 resource_id :: Lens.Lens' Resource Prelude.Text
 resource_id = Lens.lens (\Resource' {id} -> id) (\s@Resource' {} a -> s {id = a} :: Resource)
 
-instance Core.FromJSON Resource where
+instance Data.FromJSON Resource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Resource"
       ( \x ->
           Resource'
-            Prelude.<$> (x Core..:? "DataClassification")
-            Prelude.<*> (x Core..:? "Partition")
-            Prelude.<*> (x Core..:? "Details")
-            Prelude.<*> (x Core..:? "Region")
-            Prelude.<*> (x Core..:? "ResourceRole")
-            Prelude.<*> (x Core..:? "Tags" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "Type")
-            Prelude.<*> (x Core..: "Id")
+            Prelude.<$> (x Data..:? "DataClassification")
+            Prelude.<*> (x Data..:? "Details")
+            Prelude.<*> (x Data..:? "Partition")
+            Prelude.<*> (x Data..:? "Region")
+            Prelude.<*> (x Data..:? "ResourceRole")
+            Prelude.<*> (x Data..:? "Tags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "Type")
+            Prelude.<*> (x Data..: "Id")
       )
 
 instance Prelude.Hashable Resource where
   hashWithSalt _salt Resource' {..} =
     _salt `Prelude.hashWithSalt` dataClassification
-      `Prelude.hashWithSalt` partition
       `Prelude.hashWithSalt` details
+      `Prelude.hashWithSalt` partition
       `Prelude.hashWithSalt` region
       `Prelude.hashWithSalt` resourceRole
       `Prelude.hashWithSalt` tags
@@ -182,26 +183,26 @@ instance Prelude.Hashable Resource where
 instance Prelude.NFData Resource where
   rnf Resource' {..} =
     Prelude.rnf dataClassification
-      `Prelude.seq` Prelude.rnf partition
       `Prelude.seq` Prelude.rnf details
+      `Prelude.seq` Prelude.rnf partition
       `Prelude.seq` Prelude.rnf region
       `Prelude.seq` Prelude.rnf resourceRole
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf id
 
-instance Core.ToJSON Resource where
+instance Data.ToJSON Resource where
   toJSON Resource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DataClassification" Core..=)
+          [ ("DataClassification" Data..=)
               Prelude.<$> dataClassification,
-            ("Partition" Core..=) Prelude.<$> partition,
-            ("Details" Core..=) Prelude.<$> details,
-            ("Region" Core..=) Prelude.<$> region,
-            ("ResourceRole" Core..=) Prelude.<$> resourceRole,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Type" Core..= type'),
-            Prelude.Just ("Id" Core..= id)
+            ("Details" Data..=) Prelude.<$> details,
+            ("Partition" Data..=) Prelude.<$> partition,
+            ("Region" Data..=) Prelude.<$> region,
+            ("ResourceRole" Data..=) Prelude.<$> resourceRole,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Type" Data..= type'),
+            Prelude.Just ("Id" Data..= id)
           ]
       )

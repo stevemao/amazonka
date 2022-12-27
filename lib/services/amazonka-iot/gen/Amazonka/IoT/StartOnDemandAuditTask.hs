@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.StartOnDemandAuditTask
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.IoT.StartOnDemandAuditTask
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,12 +95,13 @@ instance Core.AWSRequest StartOnDemandAuditTask where
   type
     AWSResponse StartOnDemandAuditTask =
       StartOnDemandAuditTaskResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartOnDemandAuditTaskResponse'
-            Prelude.<$> (x Core..?> "taskId")
+            Prelude.<$> (x Data..?> "taskId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -111,22 +113,22 @@ instance Prelude.NFData StartOnDemandAuditTask where
   rnf StartOnDemandAuditTask' {..} =
     Prelude.rnf targetCheckNames
 
-instance Core.ToHeaders StartOnDemandAuditTask where
+instance Data.ToHeaders StartOnDemandAuditTask where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON StartOnDemandAuditTask where
+instance Data.ToJSON StartOnDemandAuditTask where
   toJSON StartOnDemandAuditTask' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("targetCheckNames" Core..= targetCheckNames)
+              ("targetCheckNames" Data..= targetCheckNames)
           ]
       )
 
-instance Core.ToPath StartOnDemandAuditTask where
+instance Data.ToPath StartOnDemandAuditTask where
   toPath = Prelude.const "/audit/tasks"
 
-instance Core.ToQuery StartOnDemandAuditTask where
+instance Data.ToQuery StartOnDemandAuditTask where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartOnDemandAuditTaskResponse' smart constructor.

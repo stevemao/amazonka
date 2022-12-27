@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WAF.Types.IPSetUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WAF.Types.IPSetUpdate where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.WAF.Types.ChangeAction
 import Amazonka.WAF.Types.IPSetDescriptor
@@ -89,12 +90,12 @@ instance Prelude.NFData IPSetUpdate where
     Prelude.rnf action
       `Prelude.seq` Prelude.rnf iPSetDescriptor
 
-instance Core.ToJSON IPSetUpdate where
+instance Data.ToJSON IPSetUpdate where
   toJSON IPSetUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Action" Core..= action),
+          [ Prelude.Just ("Action" Data..= action),
             Prelude.Just
-              ("IPSetDescriptor" Core..= iPSetDescriptor)
+              ("IPSetDescriptor" Data..= iPSetDescriptor)
           ]
       )

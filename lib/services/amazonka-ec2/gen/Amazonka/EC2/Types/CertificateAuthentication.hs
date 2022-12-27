@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.CertificateAuthentication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.CertificateAuthentication where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the client certificate used for authentication.
@@ -54,10 +55,10 @@ newCertificateAuthentication =
 certificateAuthentication_clientRootCertificateChain :: Lens.Lens' CertificateAuthentication (Prelude.Maybe Prelude.Text)
 certificateAuthentication_clientRootCertificateChain = Lens.lens (\CertificateAuthentication' {clientRootCertificateChain} -> clientRootCertificateChain) (\s@CertificateAuthentication' {} a -> s {clientRootCertificateChain = a} :: CertificateAuthentication)
 
-instance Core.FromXML CertificateAuthentication where
+instance Data.FromXML CertificateAuthentication where
   parseXML x =
     CertificateAuthentication'
-      Prelude.<$> (x Core..@? "clientRootCertificateChain")
+      Prelude.<$> (x Data..@? "clientRootCertificateChain")
 
 instance Prelude.Hashable CertificateAuthentication where
   hashWithSalt _salt CertificateAuthentication' {..} =

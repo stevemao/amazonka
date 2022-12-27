@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -49,6 +49,7 @@ library
     Amazonka.CloudWatchLogs.CreateExportTask
     Amazonka.CloudWatchLogs.CreateLogGroup
     Amazonka.CloudWatchLogs.CreateLogStream
+    Amazonka.CloudWatchLogs.DeleteDataProtectionPolicy
     Amazonka.CloudWatchLogs.DeleteDestination
     Amazonka.CloudWatchLogs.DeleteLogGroup
     Amazonka.CloudWatchLogs.DeleteLogStream
@@ -68,12 +69,14 @@ library
     Amazonka.CloudWatchLogs.DescribeSubscriptionFilters
     Amazonka.CloudWatchLogs.DisassociateKmsKey
     Amazonka.CloudWatchLogs.FilterLogEvents
+    Amazonka.CloudWatchLogs.GetDataProtectionPolicy
     Amazonka.CloudWatchLogs.GetLogEvents
     Amazonka.CloudWatchLogs.GetLogGroupFields
     Amazonka.CloudWatchLogs.GetLogRecord
     Amazonka.CloudWatchLogs.GetQueryResults
     Amazonka.CloudWatchLogs.Lens
-    Amazonka.CloudWatchLogs.ListTagsLogGroup
+    Amazonka.CloudWatchLogs.ListTagsForResource
+    Amazonka.CloudWatchLogs.PutDataProtectionPolicy
     Amazonka.CloudWatchLogs.PutDestination
     Amazonka.CloudWatchLogs.PutDestinationPolicy
     Amazonka.CloudWatchLogs.PutLogEvents
@@ -84,9 +87,10 @@ library
     Amazonka.CloudWatchLogs.PutSubscriptionFilter
     Amazonka.CloudWatchLogs.StartQuery
     Amazonka.CloudWatchLogs.StopQuery
-    Amazonka.CloudWatchLogs.TagLogGroup
+    Amazonka.CloudWatchLogs.TagResource
     Amazonka.CloudWatchLogs.TestMetricFilter
     Amazonka.CloudWatchLogs.Types
+    Amazonka.CloudWatchLogs.Types.DataProtectionStatus
     Amazonka.CloudWatchLogs.Types.Destination
     Amazonka.CloudWatchLogs.Types.Distribution
     Amazonka.CloudWatchLogs.Types.ExportTask
@@ -113,11 +117,11 @@ library
     Amazonka.CloudWatchLogs.Types.SearchedLogStream
     Amazonka.CloudWatchLogs.Types.StandardUnit
     Amazonka.CloudWatchLogs.Types.SubscriptionFilter
-    Amazonka.CloudWatchLogs.UntagLogGroup
+    Amazonka.CloudWatchLogs.UntagResource
     Amazonka.CloudWatchLogs.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-cloudwatch-logs-test
@@ -137,8 +141,8 @@ test-suite amazonka-cloudwatch-logs-test
 
   build-depends:
     , amazonka-cloudwatch-logs
-    , amazonka-core             ^>=2.0
-    , amazonka-test             ^>=2.0
+    , amazonka-core             >=2.0 && <2.1
+    , amazonka-test             >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

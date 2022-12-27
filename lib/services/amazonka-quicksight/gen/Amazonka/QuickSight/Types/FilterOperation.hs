@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.FilterOperation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.FilterOperation where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A transform operation that filters rows based on a condition.
@@ -29,9 +30,9 @@ import qualified Amazonka.Prelude as Prelude
 data FilterOperation = FilterOperation'
   { -- | An expression that must evaluate to a Boolean value. Rows for which the
     -- expression evaluates to true are kept in the dataset.
-    conditionExpression :: Prelude.Text
+    conditionExpression :: Data.Sensitive Prelude.Text
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'FilterOperation' with all optional fields omitted.
@@ -50,21 +51,21 @@ newFilterOperation ::
 newFilterOperation pConditionExpression_ =
   FilterOperation'
     { conditionExpression =
-        pConditionExpression_
+        Data._Sensitive Lens.# pConditionExpression_
     }
 
 -- | An expression that must evaluate to a Boolean value. Rows for which the
 -- expression evaluates to true are kept in the dataset.
 filterOperation_conditionExpression :: Lens.Lens' FilterOperation Prelude.Text
-filterOperation_conditionExpression = Lens.lens (\FilterOperation' {conditionExpression} -> conditionExpression) (\s@FilterOperation' {} a -> s {conditionExpression = a} :: FilterOperation)
+filterOperation_conditionExpression = Lens.lens (\FilterOperation' {conditionExpression} -> conditionExpression) (\s@FilterOperation' {} a -> s {conditionExpression = a} :: FilterOperation) Prelude.. Data._Sensitive
 
-instance Core.FromJSON FilterOperation where
+instance Data.FromJSON FilterOperation where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FilterOperation"
       ( \x ->
           FilterOperation'
-            Prelude.<$> (x Core..: "ConditionExpression")
+            Prelude.<$> (x Data..: "ConditionExpression")
       )
 
 instance Prelude.Hashable FilterOperation where
@@ -75,11 +76,11 @@ instance Prelude.NFData FilterOperation where
   rnf FilterOperation' {..} =
     Prelude.rnf conditionExpression
 
-instance Core.ToJSON FilterOperation where
+instance Data.ToJSON FilterOperation where
   toJSON FilterOperation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ConditionExpression" Core..= conditionExpression)
+              ("ConditionExpression" Data..= conditionExpression)
           ]
       )

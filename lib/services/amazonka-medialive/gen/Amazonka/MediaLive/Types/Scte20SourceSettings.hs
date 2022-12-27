@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.Scte20SourceSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.Scte20SourceSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.Scte20Convert608To708
 import qualified Amazonka.Prelude as Prelude
 
@@ -72,14 +73,14 @@ scte20SourceSettings_convert608To708 = Lens.lens (\Scte20SourceSettings' {conver
 scte20SourceSettings_source608ChannelNumber :: Lens.Lens' Scte20SourceSettings (Prelude.Maybe Prelude.Natural)
 scte20SourceSettings_source608ChannelNumber = Lens.lens (\Scte20SourceSettings' {source608ChannelNumber} -> source608ChannelNumber) (\s@Scte20SourceSettings' {} a -> s {source608ChannelNumber = a} :: Scte20SourceSettings)
 
-instance Core.FromJSON Scte20SourceSettings where
+instance Data.FromJSON Scte20SourceSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Scte20SourceSettings"
       ( \x ->
           Scte20SourceSettings'
-            Prelude.<$> (x Core..:? "convert608To708")
-            Prelude.<*> (x Core..:? "source608ChannelNumber")
+            Prelude.<$> (x Data..:? "convert608To708")
+            Prelude.<*> (x Data..:? "source608ChannelNumber")
       )
 
 instance Prelude.Hashable Scte20SourceSettings where
@@ -92,13 +93,13 @@ instance Prelude.NFData Scte20SourceSettings where
     Prelude.rnf convert608To708
       `Prelude.seq` Prelude.rnf source608ChannelNumber
 
-instance Core.ToJSON Scte20SourceSettings where
+instance Data.ToJSON Scte20SourceSettings where
   toJSON Scte20SourceSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("convert608To708" Core..=)
+          [ ("convert608To708" Data..=)
               Prelude.<$> convert608To708,
-            ("source608ChannelNumber" Core..=)
+            ("source608ChannelNumber" Data..=)
               Prelude.<$> source608ChannelNumber
           ]
       )

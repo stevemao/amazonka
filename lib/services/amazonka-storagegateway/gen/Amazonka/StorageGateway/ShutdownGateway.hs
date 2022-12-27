@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.ShutdownGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -62,7 +62,8 @@ module Amazonka.StorageGateway.ShutdownGateway
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -101,12 +102,13 @@ instance Core.AWSRequest ShutdownGateway where
   type
     AWSResponse ShutdownGateway =
       ShutdownGatewayResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ShutdownGatewayResponse'
-            Prelude.<$> (x Core..?> "GatewayARN")
+            Prelude.<$> (x Data..?> "GatewayARN")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,32 +119,32 @@ instance Prelude.Hashable ShutdownGateway where
 instance Prelude.NFData ShutdownGateway where
   rnf ShutdownGateway' {..} = Prelude.rnf gatewayARN
 
-instance Core.ToHeaders ShutdownGateway where
+instance Data.ToHeaders ShutdownGateway where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.ShutdownGateway" ::
+              Data.=# ( "StorageGateway_20130630.ShutdownGateway" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ShutdownGateway where
+instance Data.ToJSON ShutdownGateway where
   toJSON ShutdownGateway' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("GatewayARN" Core..= gatewayARN)]
+          [Prelude.Just ("GatewayARN" Data..= gatewayARN)]
       )
 
-instance Core.ToPath ShutdownGateway where
+instance Data.ToPath ShutdownGateway where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ShutdownGateway where
+instance Data.ToQuery ShutdownGateway where
   toQuery = Prelude.const Prelude.mempty
 
 -- | A JSON object containing the Amazon Resource Name (ARN) of the gateway

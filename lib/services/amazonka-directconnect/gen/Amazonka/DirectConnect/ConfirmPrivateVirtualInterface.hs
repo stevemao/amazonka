@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.ConfirmPrivateVirtualInterface
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,8 +32,8 @@ module Amazonka.DirectConnect.ConfirmPrivateVirtualInterface
     newConfirmPrivateVirtualInterface,
 
     -- * Request Lenses
-    confirmPrivateVirtualInterface_virtualGatewayId,
     confirmPrivateVirtualInterface_directConnectGatewayId,
+    confirmPrivateVirtualInterface_virtualGatewayId,
     confirmPrivateVirtualInterface_virtualInterfaceId,
 
     -- * Destructuring the Response
@@ -47,18 +47,19 @@ module Amazonka.DirectConnect.ConfirmPrivateVirtualInterface
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newConfirmPrivateVirtualInterface' smart constructor.
 data ConfirmPrivateVirtualInterface = ConfirmPrivateVirtualInterface'
-  { -- | The ID of the virtual private gateway.
-    virtualGatewayId :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the Direct Connect gateway.
+  { -- | The ID of the Direct Connect gateway.
     directConnectGatewayId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the virtual private gateway.
+    virtualGatewayId :: Prelude.Maybe Prelude.Text,
     -- | The ID of the virtual interface.
     virtualInterfaceId :: Prelude.Text
   }
@@ -72,9 +73,9 @@ data ConfirmPrivateVirtualInterface = ConfirmPrivateVirtualInterface'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'virtualGatewayId', 'confirmPrivateVirtualInterface_virtualGatewayId' - The ID of the virtual private gateway.
---
 -- 'directConnectGatewayId', 'confirmPrivateVirtualInterface_directConnectGatewayId' - The ID of the Direct Connect gateway.
+--
+-- 'virtualGatewayId', 'confirmPrivateVirtualInterface_virtualGatewayId' - The ID of the virtual private gateway.
 --
 -- 'virtualInterfaceId', 'confirmPrivateVirtualInterface_virtualInterfaceId' - The ID of the virtual interface.
 newConfirmPrivateVirtualInterface ::
@@ -84,19 +85,19 @@ newConfirmPrivateVirtualInterface ::
 newConfirmPrivateVirtualInterface
   pVirtualInterfaceId_ =
     ConfirmPrivateVirtualInterface'
-      { virtualGatewayId =
+      { directConnectGatewayId =
           Prelude.Nothing,
-        directConnectGatewayId = Prelude.Nothing,
+        virtualGatewayId = Prelude.Nothing,
         virtualInterfaceId = pVirtualInterfaceId_
       }
-
--- | The ID of the virtual private gateway.
-confirmPrivateVirtualInterface_virtualGatewayId :: Lens.Lens' ConfirmPrivateVirtualInterface (Prelude.Maybe Prelude.Text)
-confirmPrivateVirtualInterface_virtualGatewayId = Lens.lens (\ConfirmPrivateVirtualInterface' {virtualGatewayId} -> virtualGatewayId) (\s@ConfirmPrivateVirtualInterface' {} a -> s {virtualGatewayId = a} :: ConfirmPrivateVirtualInterface)
 
 -- | The ID of the Direct Connect gateway.
 confirmPrivateVirtualInterface_directConnectGatewayId :: Lens.Lens' ConfirmPrivateVirtualInterface (Prelude.Maybe Prelude.Text)
 confirmPrivateVirtualInterface_directConnectGatewayId = Lens.lens (\ConfirmPrivateVirtualInterface' {directConnectGatewayId} -> directConnectGatewayId) (\s@ConfirmPrivateVirtualInterface' {} a -> s {directConnectGatewayId = a} :: ConfirmPrivateVirtualInterface)
+
+-- | The ID of the virtual private gateway.
+confirmPrivateVirtualInterface_virtualGatewayId :: Lens.Lens' ConfirmPrivateVirtualInterface (Prelude.Maybe Prelude.Text)
+confirmPrivateVirtualInterface_virtualGatewayId = Lens.lens (\ConfirmPrivateVirtualInterface' {virtualGatewayId} -> virtualGatewayId) (\s@ConfirmPrivateVirtualInterface' {} a -> s {virtualGatewayId = a} :: ConfirmPrivateVirtualInterface)
 
 -- | The ID of the virtual interface.
 confirmPrivateVirtualInterface_virtualInterfaceId :: Lens.Lens' ConfirmPrivateVirtualInterface Prelude.Text
@@ -109,12 +110,13 @@ instance
   type
     AWSResponse ConfirmPrivateVirtualInterface =
       ConfirmPrivateVirtualInterfaceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ConfirmPrivateVirtualInterfaceResponse'
-            Prelude.<$> (x Core..?> "virtualInterfaceState")
+            Prelude.<$> (x Data..?> "virtualInterfaceState")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -125,8 +127,8 @@ instance
   hashWithSalt
     _salt
     ConfirmPrivateVirtualInterface' {..} =
-      _salt `Prelude.hashWithSalt` virtualGatewayId
-        `Prelude.hashWithSalt` directConnectGatewayId
+      _salt `Prelude.hashWithSalt` directConnectGatewayId
+        `Prelude.hashWithSalt` virtualGatewayId
         `Prelude.hashWithSalt` virtualInterfaceId
 
 instance
@@ -134,45 +136,45 @@ instance
     ConfirmPrivateVirtualInterface
   where
   rnf ConfirmPrivateVirtualInterface' {..} =
-    Prelude.rnf virtualGatewayId
-      `Prelude.seq` Prelude.rnf directConnectGatewayId
+    Prelude.rnf directConnectGatewayId
+      `Prelude.seq` Prelude.rnf virtualGatewayId
       `Prelude.seq` Prelude.rnf virtualInterfaceId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ConfirmPrivateVirtualInterface
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OvertureService.ConfirmPrivateVirtualInterface" ::
+              Data.=# ( "OvertureService.ConfirmPrivateVirtualInterface" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ConfirmPrivateVirtualInterface where
+instance Data.ToJSON ConfirmPrivateVirtualInterface where
   toJSON ConfirmPrivateVirtualInterface' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("virtualGatewayId" Core..=)
-              Prelude.<$> virtualGatewayId,
-            ("directConnectGatewayId" Core..=)
+          [ ("directConnectGatewayId" Data..=)
               Prelude.<$> directConnectGatewayId,
+            ("virtualGatewayId" Data..=)
+              Prelude.<$> virtualGatewayId,
             Prelude.Just
-              ("virtualInterfaceId" Core..= virtualInterfaceId)
+              ("virtualInterfaceId" Data..= virtualInterfaceId)
           ]
       )
 
-instance Core.ToPath ConfirmPrivateVirtualInterface where
+instance Data.ToPath ConfirmPrivateVirtualInterface where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ConfirmPrivateVirtualInterface where
+instance Data.ToQuery ConfirmPrivateVirtualInterface where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newConfirmPrivateVirtualInterfaceResponse' smart constructor.

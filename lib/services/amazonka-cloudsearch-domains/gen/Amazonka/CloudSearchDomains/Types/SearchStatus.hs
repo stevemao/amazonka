@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudSearchDomains.Types.SearchStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudSearchDomains.Types.SearchStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the resource id (@rid@) and the time it took to process the
@@ -62,13 +63,13 @@ searchStatus_rid = Lens.lens (\SearchStatus' {rid} -> rid) (\s@SearchStatus' {} 
 searchStatus_timems :: Lens.Lens' SearchStatus (Prelude.Maybe Prelude.Integer)
 searchStatus_timems = Lens.lens (\SearchStatus' {timems} -> timems) (\s@SearchStatus' {} a -> s {timems = a} :: SearchStatus)
 
-instance Core.FromJSON SearchStatus where
+instance Data.FromJSON SearchStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SearchStatus"
       ( \x ->
           SearchStatus'
-            Prelude.<$> (x Core..:? "rid") Prelude.<*> (x Core..:? "timems")
+            Prelude.<$> (x Data..:? "rid") Prelude.<*> (x Data..:? "timems")
       )
 
 instance Prelude.Hashable SearchStatus where

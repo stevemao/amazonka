@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.UpdateMonitoring
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.Kafka.UpdateMonitoring
 
     -- * Request Lenses
     updateMonitoring_enhancedMonitoring,
-    updateMonitoring_openMonitoring,
     updateMonitoring_loggingInfo,
+    updateMonitoring_openMonitoring,
     updateMonitoring_clusterArn,
     updateMonitoring_currentVersion,
 
@@ -48,8 +48,9 @@ module Amazonka.Kafka.UpdateMonitoring
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kafka.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,9 +62,9 @@ data UpdateMonitoring = UpdateMonitoring'
   { -- | Specifies which Apache Kafka metrics Amazon MSK gathers and sends to
     -- Amazon CloudWatch for this cluster.
     enhancedMonitoring :: Prelude.Maybe EnhancedMonitoring,
+    loggingInfo :: Prelude.Maybe LoggingInfo,
     -- | The settings for open monitoring.
     openMonitoring :: Prelude.Maybe OpenMonitoringInfo,
-    loggingInfo :: Prelude.Maybe LoggingInfo,
     -- | The Amazon Resource Name (ARN) that uniquely identifies the cluster.
     clusterArn :: Prelude.Text,
     -- | The version of the MSK cluster to update. Cluster versions aren\'t
@@ -85,9 +86,9 @@ data UpdateMonitoring = UpdateMonitoring'
 -- 'enhancedMonitoring', 'updateMonitoring_enhancedMonitoring' - Specifies which Apache Kafka metrics Amazon MSK gathers and sends to
 -- Amazon CloudWatch for this cluster.
 --
--- 'openMonitoring', 'updateMonitoring_openMonitoring' - The settings for open monitoring.
---
 -- 'loggingInfo', 'updateMonitoring_loggingInfo' - Undocumented member.
+--
+-- 'openMonitoring', 'updateMonitoring_openMonitoring' - The settings for open monitoring.
 --
 -- 'clusterArn', 'updateMonitoring_clusterArn' - The Amazon Resource Name (ARN) that uniquely identifies the cluster.
 --
@@ -105,8 +106,8 @@ newUpdateMonitoring pClusterArn_ pCurrentVersion_ =
   UpdateMonitoring'
     { enhancedMonitoring =
         Prelude.Nothing,
-      openMonitoring = Prelude.Nothing,
       loggingInfo = Prelude.Nothing,
+      openMonitoring = Prelude.Nothing,
       clusterArn = pClusterArn_,
       currentVersion = pCurrentVersion_
     }
@@ -116,13 +117,13 @@ newUpdateMonitoring pClusterArn_ pCurrentVersion_ =
 updateMonitoring_enhancedMonitoring :: Lens.Lens' UpdateMonitoring (Prelude.Maybe EnhancedMonitoring)
 updateMonitoring_enhancedMonitoring = Lens.lens (\UpdateMonitoring' {enhancedMonitoring} -> enhancedMonitoring) (\s@UpdateMonitoring' {} a -> s {enhancedMonitoring = a} :: UpdateMonitoring)
 
--- | The settings for open monitoring.
-updateMonitoring_openMonitoring :: Lens.Lens' UpdateMonitoring (Prelude.Maybe OpenMonitoringInfo)
-updateMonitoring_openMonitoring = Lens.lens (\UpdateMonitoring' {openMonitoring} -> openMonitoring) (\s@UpdateMonitoring' {} a -> s {openMonitoring = a} :: UpdateMonitoring)
-
 -- | Undocumented member.
 updateMonitoring_loggingInfo :: Lens.Lens' UpdateMonitoring (Prelude.Maybe LoggingInfo)
 updateMonitoring_loggingInfo = Lens.lens (\UpdateMonitoring' {loggingInfo} -> loggingInfo) (\s@UpdateMonitoring' {} a -> s {loggingInfo = a} :: UpdateMonitoring)
+
+-- | The settings for open monitoring.
+updateMonitoring_openMonitoring :: Lens.Lens' UpdateMonitoring (Prelude.Maybe OpenMonitoringInfo)
+updateMonitoring_openMonitoring = Lens.lens (\UpdateMonitoring' {openMonitoring} -> openMonitoring) (\s@UpdateMonitoring' {} a -> s {openMonitoring = a} :: UpdateMonitoring)
 
 -- | The Amazon Resource Name (ARN) that uniquely identifies the cluster.
 updateMonitoring_clusterArn :: Lens.Lens' UpdateMonitoring Prelude.Text
@@ -139,66 +140,67 @@ instance Core.AWSRequest UpdateMonitoring where
   type
     AWSResponse UpdateMonitoring =
       UpdateMonitoringResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateMonitoringResponse'
-            Prelude.<$> (x Core..?> "clusterArn")
-            Prelude.<*> (x Core..?> "clusterOperationArn")
+            Prelude.<$> (x Data..?> "clusterArn")
+            Prelude.<*> (x Data..?> "clusterOperationArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateMonitoring where
   hashWithSalt _salt UpdateMonitoring' {..} =
     _salt `Prelude.hashWithSalt` enhancedMonitoring
-      `Prelude.hashWithSalt` openMonitoring
       `Prelude.hashWithSalt` loggingInfo
+      `Prelude.hashWithSalt` openMonitoring
       `Prelude.hashWithSalt` clusterArn
       `Prelude.hashWithSalt` currentVersion
 
 instance Prelude.NFData UpdateMonitoring where
   rnf UpdateMonitoring' {..} =
     Prelude.rnf enhancedMonitoring
-      `Prelude.seq` Prelude.rnf openMonitoring
       `Prelude.seq` Prelude.rnf loggingInfo
+      `Prelude.seq` Prelude.rnf openMonitoring
       `Prelude.seq` Prelude.rnf clusterArn
       `Prelude.seq` Prelude.rnf currentVersion
 
-instance Core.ToHeaders UpdateMonitoring where
+instance Data.ToHeaders UpdateMonitoring where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateMonitoring where
+instance Data.ToJSON UpdateMonitoring where
   toJSON UpdateMonitoring' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("enhancedMonitoring" Core..=)
+          [ ("enhancedMonitoring" Data..=)
               Prelude.<$> enhancedMonitoring,
-            ("openMonitoring" Core..=)
+            ("loggingInfo" Data..=) Prelude.<$> loggingInfo,
+            ("openMonitoring" Data..=)
               Prelude.<$> openMonitoring,
-            ("loggingInfo" Core..=) Prelude.<$> loggingInfo,
             Prelude.Just
-              ("currentVersion" Core..= currentVersion)
+              ("currentVersion" Data..= currentVersion)
           ]
       )
 
-instance Core.ToPath UpdateMonitoring where
+instance Data.ToPath UpdateMonitoring where
   toPath UpdateMonitoring' {..} =
     Prelude.mconcat
       [ "/v1/clusters/",
-        Core.toBS clusterArn,
+        Data.toBS clusterArn,
         "/monitoring"
       ]
 
-instance Core.ToQuery UpdateMonitoring where
+instance Data.ToQuery UpdateMonitoring where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateMonitoringResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataSync.DeleteLocation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.DataSync.DeleteLocation
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataSync.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,7 +79,8 @@ instance Core.AWSRequest DeleteLocation where
   type
     AWSResponse DeleteLocation =
       DeleteLocationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -93,30 +95,30 @@ instance Prelude.Hashable DeleteLocation where
 instance Prelude.NFData DeleteLocation where
   rnf DeleteLocation' {..} = Prelude.rnf locationArn
 
-instance Core.ToHeaders DeleteLocation where
+instance Data.ToHeaders DeleteLocation where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("FmrsService.DeleteLocation" :: Prelude.ByteString),
+              Data.=# ("FmrsService.DeleteLocation" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteLocation where
+instance Data.ToJSON DeleteLocation where
   toJSON DeleteLocation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("LocationArn" Core..= locationArn)]
+          [Prelude.Just ("LocationArn" Data..= locationArn)]
       )
 
-instance Core.ToPath DeleteLocation where
+instance Data.ToPath DeleteLocation where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteLocation where
+instance Data.ToQuery DeleteLocation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteLocationResponse' smart constructor.

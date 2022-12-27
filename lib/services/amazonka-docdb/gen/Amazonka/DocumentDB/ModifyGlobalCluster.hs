@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DocumentDB.ModifyGlobalCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.DocumentDB.ModifyGlobalCluster
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DocumentDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -152,13 +153,14 @@ instance Core.AWSRequest ModifyGlobalCluster where
   type
     AWSResponse ModifyGlobalCluster =
       ModifyGlobalClusterResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ModifyGlobalClusterResult"
       ( \s h x ->
           ModifyGlobalClusterResponse'
-            Prelude.<$> (x Core..@? "GlobalCluster")
+            Prelude.<$> (x Data..@? "GlobalCluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -174,24 +176,24 @@ instance Prelude.NFData ModifyGlobalCluster where
       `Prelude.seq` Prelude.rnf newGlobalClusterIdentifier'
       `Prelude.seq` Prelude.rnf globalClusterIdentifier
 
-instance Core.ToHeaders ModifyGlobalCluster where
+instance Data.ToHeaders ModifyGlobalCluster where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyGlobalCluster where
+instance Data.ToPath ModifyGlobalCluster where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyGlobalCluster where
+instance Data.ToQuery ModifyGlobalCluster where
   toQuery ModifyGlobalCluster' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyGlobalCluster" :: Prelude.ByteString),
+          Data.=: ("ModifyGlobalCluster" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "DeletionProtection" Core.=: deletionProtection,
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "DeletionProtection" Data.=: deletionProtection,
         "NewGlobalClusterIdentifier"
-          Core.=: newGlobalClusterIdentifier',
+          Data.=: newGlobalClusterIdentifier',
         "GlobalClusterIdentifier"
-          Core.=: globalClusterIdentifier
+          Data.=: globalClusterIdentifier
       ]
 
 -- | /See:/ 'newModifyGlobalClusterResponse' smart constructor.

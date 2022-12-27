@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -47,16 +47,20 @@ library
     Amazonka.OpenSearch.AcceptInboundConnection
     Amazonka.OpenSearch.AddTags
     Amazonka.OpenSearch.AssociatePackage
+    Amazonka.OpenSearch.AuthorizeVpcEndpointAccess
     Amazonka.OpenSearch.CancelServiceSoftwareUpdate
     Amazonka.OpenSearch.CreateDomain
     Amazonka.OpenSearch.CreateOutboundConnection
     Amazonka.OpenSearch.CreatePackage
+    Amazonka.OpenSearch.CreateVpcEndpoint
     Amazonka.OpenSearch.DeleteDomain
     Amazonka.OpenSearch.DeleteInboundConnection
     Amazonka.OpenSearch.DeleteOutboundConnection
     Amazonka.OpenSearch.DeletePackage
+    Amazonka.OpenSearch.DeleteVpcEndpoint
     Amazonka.OpenSearch.DescribeDomain
     Amazonka.OpenSearch.DescribeDomainAutoTunes
+    Amazonka.OpenSearch.DescribeDomainChangeProgress
     Amazonka.OpenSearch.DescribeDomainConfig
     Amazonka.OpenSearch.DescribeDomains
     Amazonka.OpenSearch.DescribeInboundConnections
@@ -65,6 +69,7 @@ library
     Amazonka.OpenSearch.DescribePackages
     Amazonka.OpenSearch.DescribeReservedInstanceOfferings
     Amazonka.OpenSearch.DescribeReservedInstances
+    Amazonka.OpenSearch.DescribeVpcEndpoints
     Amazonka.OpenSearch.DissociatePackage
     Amazonka.OpenSearch.GetCompatibleVersions
     Amazonka.OpenSearch.GetPackageVersionHistory
@@ -77,9 +82,13 @@ library
     Amazonka.OpenSearch.ListPackagesForDomain
     Amazonka.OpenSearch.ListTags
     Amazonka.OpenSearch.ListVersions
+    Amazonka.OpenSearch.ListVpcEndpointAccess
+    Amazonka.OpenSearch.ListVpcEndpoints
+    Amazonka.OpenSearch.ListVpcEndpointsForDomain
     Amazonka.OpenSearch.PurchaseReservedInstanceOffering
     Amazonka.OpenSearch.RejectInboundConnection
     Amazonka.OpenSearch.RemoveTags
+    Amazonka.OpenSearch.RevokeVpcEndpointAccess
     Amazonka.OpenSearch.StartServiceSoftwareUpdate
     Amazonka.OpenSearch.Types
     Amazonka.OpenSearch.Types.AccessPoliciesStatus
@@ -88,6 +97,7 @@ library
     Amazonka.OpenSearch.Types.AdvancedSecurityOptions
     Amazonka.OpenSearch.Types.AdvancedSecurityOptionsInput
     Amazonka.OpenSearch.Types.AdvancedSecurityOptionsStatus
+    Amazonka.OpenSearch.Types.AuthorizedPrincipal
     Amazonka.OpenSearch.Types.AutoTune
     Amazonka.OpenSearch.Types.AutoTuneDesiredState
     Amazonka.OpenSearch.Types.AutoTuneDetails
@@ -100,6 +110,9 @@ library
     Amazonka.OpenSearch.Types.AutoTuneStatus
     Amazonka.OpenSearch.Types.AutoTuneType
     Amazonka.OpenSearch.Types.AWSDomainInformation
+    Amazonka.OpenSearch.Types.ChangeProgressDetails
+    Amazonka.OpenSearch.Types.ChangeProgressStage
+    Amazonka.OpenSearch.Types.ChangeProgressStatusDetails
     Amazonka.OpenSearch.Types.ClusterConfig
     Amazonka.OpenSearch.Types.ClusterConfigStatus
     Amazonka.OpenSearch.Types.CognitoOptions
@@ -117,6 +130,7 @@ library
     Amazonka.OpenSearch.Types.DomainPackageDetails
     Amazonka.OpenSearch.Types.DomainPackageStatus
     Amazonka.OpenSearch.Types.DomainStatus
+    Amazonka.OpenSearch.Types.DryRunResults
     Amazonka.OpenSearch.Types.Duration
     Amazonka.OpenSearch.Types.EBSOptions
     Amazonka.OpenSearch.Types.EBSOptionsStatus
@@ -145,11 +159,13 @@ library
     Amazonka.OpenSearch.Types.OutboundConnection
     Amazonka.OpenSearch.Types.OutboundConnectionStatus
     Amazonka.OpenSearch.Types.OutboundConnectionStatusCode
+    Amazonka.OpenSearch.Types.OverallChangeStatus
     Amazonka.OpenSearch.Types.PackageDetails
     Amazonka.OpenSearch.Types.PackageSource
     Amazonka.OpenSearch.Types.PackageStatus
     Amazonka.OpenSearch.Types.PackageType
     Amazonka.OpenSearch.Types.PackageVersionHistory
+    Amazonka.OpenSearch.Types.PrincipalType
     Amazonka.OpenSearch.Types.RecurringCharge
     Amazonka.OpenSearch.Types.ReservedInstance
     Amazonka.OpenSearch.Types.ReservedInstanceOffering
@@ -177,15 +193,21 @@ library
     Amazonka.OpenSearch.Types.VolumeType
     Amazonka.OpenSearch.Types.VPCDerivedInfo
     Amazonka.OpenSearch.Types.VPCDerivedInfoStatus
+    Amazonka.OpenSearch.Types.VpcEndpoint
+    Amazonka.OpenSearch.Types.VpcEndpointError
+    Amazonka.OpenSearch.Types.VpcEndpointErrorCode
+    Amazonka.OpenSearch.Types.VpcEndpointStatus
+    Amazonka.OpenSearch.Types.VpcEndpointSummary
     Amazonka.OpenSearch.Types.VPCOptions
     Amazonka.OpenSearch.Types.ZoneAwarenessConfig
     Amazonka.OpenSearch.UpdateDomainConfig
     Amazonka.OpenSearch.UpdatePackage
+    Amazonka.OpenSearch.UpdateVpcEndpoint
     Amazonka.OpenSearch.UpgradeDomain
     Amazonka.OpenSearch.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-opensearch-test
@@ -204,9 +226,9 @@ test-suite amazonka-opensearch-test
     Test.Amazonka.OpenSearch.Internal
 
   build-depends:
-    , amazonka-core         ^>=2.0
+    , amazonka-core         >=2.0 && <2.1
     , amazonka-opensearch
-    , amazonka-test         ^>=2.0
+    , amazonka-test         >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

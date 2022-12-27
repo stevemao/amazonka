@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.LaunchTemplateEnclaveOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.LaunchTemplateEnclaveOptions where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Indicates whether the instance is enabled for Amazon Web Services Nitro
@@ -61,10 +62,10 @@ newLaunchTemplateEnclaveOptions =
 launchTemplateEnclaveOptions_enabled :: Lens.Lens' LaunchTemplateEnclaveOptions (Prelude.Maybe Prelude.Bool)
 launchTemplateEnclaveOptions_enabled = Lens.lens (\LaunchTemplateEnclaveOptions' {enabled} -> enabled) (\s@LaunchTemplateEnclaveOptions' {} a -> s {enabled = a} :: LaunchTemplateEnclaveOptions)
 
-instance Core.FromXML LaunchTemplateEnclaveOptions where
+instance Data.FromXML LaunchTemplateEnclaveOptions where
   parseXML x =
     LaunchTemplateEnclaveOptions'
-      Prelude.<$> (x Core..@? "enabled")
+      Prelude.<$> (x Data..@? "enabled")
 
 instance
   Prelude.Hashable

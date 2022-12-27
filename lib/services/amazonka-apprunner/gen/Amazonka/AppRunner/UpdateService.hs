@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppRunner.UpdateService
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,10 @@ module Amazonka.AppRunner.UpdateService
     -- * Request Lenses
     updateService_autoScalingConfigurationArn,
     updateService_healthCheckConfiguration,
-    updateService_sourceConfiguration,
     updateService_instanceConfiguration,
+    updateService_networkConfiguration,
+    updateService_observabilityConfiguration,
+    updateService_sourceConfiguration,
     updateService_serviceArn,
 
     -- * Destructuring the Response
@@ -58,7 +60,8 @@ where
 
 import Amazonka.AppRunner.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,11 +69,20 @@ import qualified Amazonka.Response as Response
 -- | /See:/ 'newUpdateService' smart constructor.
 data UpdateService = UpdateService'
   { -- | The Amazon Resource Name (ARN) of an App Runner automatic scaling
-    -- configuration resource that you want to associate with your service.
+    -- configuration resource that you want to associate with the App Runner
+    -- service.
     autoScalingConfigurationArn :: Prelude.Maybe Prelude.Text,
     -- | The settings for the health check that App Runner performs to monitor
-    -- the health of your service.
+    -- the health of the App Runner service.
     healthCheckConfiguration :: Prelude.Maybe HealthCheckConfiguration,
+    -- | The runtime configuration to apply to instances (scaling units) of your
+    -- service.
+    instanceConfiguration :: Prelude.Maybe InstanceConfiguration,
+    -- | Configuration settings related to network traffic of the web application
+    -- that the App Runner service runs.
+    networkConfiguration :: Prelude.Maybe NetworkConfiguration,
+    -- | The observability configuration of your service.
+    observabilityConfiguration :: Prelude.Maybe ServiceObservabilityConfiguration,
     -- | The source configuration to apply to the App Runner service.
     --
     -- You can change the configuration of the code or image repository that
@@ -82,9 +94,6 @@ data UpdateService = UpdateService'
     -- configuration, set the values to members of the structure that you
     -- include.
     sourceConfiguration :: Prelude.Maybe SourceConfiguration,
-    -- | The runtime configuration to apply to instances (scaling units) of the
-    -- App Runner service.
-    instanceConfiguration :: Prelude.Maybe InstanceConfiguration,
     -- | The Amazon Resource Name (ARN) of the App Runner service that you want
     -- to update.
     serviceArn :: Prelude.Text
@@ -100,10 +109,19 @@ data UpdateService = UpdateService'
 -- for backwards compatibility:
 --
 -- 'autoScalingConfigurationArn', 'updateService_autoScalingConfigurationArn' - The Amazon Resource Name (ARN) of an App Runner automatic scaling
--- configuration resource that you want to associate with your service.
+-- configuration resource that you want to associate with the App Runner
+-- service.
 --
 -- 'healthCheckConfiguration', 'updateService_healthCheckConfiguration' - The settings for the health check that App Runner performs to monitor
--- the health of your service.
+-- the health of the App Runner service.
+--
+-- 'instanceConfiguration', 'updateService_instanceConfiguration' - The runtime configuration to apply to instances (scaling units) of your
+-- service.
+--
+-- 'networkConfiguration', 'updateService_networkConfiguration' - Configuration settings related to network traffic of the web application
+-- that the App Runner service runs.
+--
+-- 'observabilityConfiguration', 'updateService_observabilityConfiguration' - The observability configuration of your service.
 --
 -- 'sourceConfiguration', 'updateService_sourceConfiguration' - The source configuration to apply to the App Runner service.
 --
@@ -116,9 +134,6 @@ data UpdateService = UpdateService'
 -- configuration, set the values to members of the structure that you
 -- include.
 --
--- 'instanceConfiguration', 'updateService_instanceConfiguration' - The runtime configuration to apply to instances (scaling units) of the
--- App Runner service.
---
 -- 'serviceArn', 'updateService_serviceArn' - The Amazon Resource Name (ARN) of the App Runner service that you want
 -- to update.
 newUpdateService ::
@@ -130,20 +145,37 @@ newUpdateService pServiceArn_ =
     { autoScalingConfigurationArn =
         Prelude.Nothing,
       healthCheckConfiguration = Prelude.Nothing,
-      sourceConfiguration = Prelude.Nothing,
       instanceConfiguration = Prelude.Nothing,
+      networkConfiguration = Prelude.Nothing,
+      observabilityConfiguration = Prelude.Nothing,
+      sourceConfiguration = Prelude.Nothing,
       serviceArn = pServiceArn_
     }
 
 -- | The Amazon Resource Name (ARN) of an App Runner automatic scaling
--- configuration resource that you want to associate with your service.
+-- configuration resource that you want to associate with the App Runner
+-- service.
 updateService_autoScalingConfigurationArn :: Lens.Lens' UpdateService (Prelude.Maybe Prelude.Text)
 updateService_autoScalingConfigurationArn = Lens.lens (\UpdateService' {autoScalingConfigurationArn} -> autoScalingConfigurationArn) (\s@UpdateService' {} a -> s {autoScalingConfigurationArn = a} :: UpdateService)
 
 -- | The settings for the health check that App Runner performs to monitor
--- the health of your service.
+-- the health of the App Runner service.
 updateService_healthCheckConfiguration :: Lens.Lens' UpdateService (Prelude.Maybe HealthCheckConfiguration)
 updateService_healthCheckConfiguration = Lens.lens (\UpdateService' {healthCheckConfiguration} -> healthCheckConfiguration) (\s@UpdateService' {} a -> s {healthCheckConfiguration = a} :: UpdateService)
+
+-- | The runtime configuration to apply to instances (scaling units) of your
+-- service.
+updateService_instanceConfiguration :: Lens.Lens' UpdateService (Prelude.Maybe InstanceConfiguration)
+updateService_instanceConfiguration = Lens.lens (\UpdateService' {instanceConfiguration} -> instanceConfiguration) (\s@UpdateService' {} a -> s {instanceConfiguration = a} :: UpdateService)
+
+-- | Configuration settings related to network traffic of the web application
+-- that the App Runner service runs.
+updateService_networkConfiguration :: Lens.Lens' UpdateService (Prelude.Maybe NetworkConfiguration)
+updateService_networkConfiguration = Lens.lens (\UpdateService' {networkConfiguration} -> networkConfiguration) (\s@UpdateService' {} a -> s {networkConfiguration = a} :: UpdateService)
+
+-- | The observability configuration of your service.
+updateService_observabilityConfiguration :: Lens.Lens' UpdateService (Prelude.Maybe ServiceObservabilityConfiguration)
+updateService_observabilityConfiguration = Lens.lens (\UpdateService' {observabilityConfiguration} -> observabilityConfiguration) (\s@UpdateService' {} a -> s {observabilityConfiguration = a} :: UpdateService)
 
 -- | The source configuration to apply to the App Runner service.
 --
@@ -158,11 +190,6 @@ updateService_healthCheckConfiguration = Lens.lens (\UpdateService' {healthCheck
 updateService_sourceConfiguration :: Lens.Lens' UpdateService (Prelude.Maybe SourceConfiguration)
 updateService_sourceConfiguration = Lens.lens (\UpdateService' {sourceConfiguration} -> sourceConfiguration) (\s@UpdateService' {} a -> s {sourceConfiguration = a} :: UpdateService)
 
--- | The runtime configuration to apply to instances (scaling units) of the
--- App Runner service.
-updateService_instanceConfiguration :: Lens.Lens' UpdateService (Prelude.Maybe InstanceConfiguration)
-updateService_instanceConfiguration = Lens.lens (\UpdateService' {instanceConfiguration} -> instanceConfiguration) (\s@UpdateService' {} a -> s {instanceConfiguration = a} :: UpdateService)
-
 -- | The Amazon Resource Name (ARN) of the App Runner service that you want
 -- to update.
 updateService_serviceArn :: Lens.Lens' UpdateService Prelude.Text
@@ -172,14 +199,15 @@ instance Core.AWSRequest UpdateService where
   type
     AWSResponse UpdateService =
       UpdateServiceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateServiceResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Service")
-            Prelude.<*> (x Core..:> "OperationId")
+            Prelude.<*> (x Data..:> "Service")
+            Prelude.<*> (x Data..:> "OperationId")
       )
 
 instance Prelude.Hashable UpdateService where
@@ -187,51 +215,59 @@ instance Prelude.Hashable UpdateService where
     _salt
       `Prelude.hashWithSalt` autoScalingConfigurationArn
       `Prelude.hashWithSalt` healthCheckConfiguration
-      `Prelude.hashWithSalt` sourceConfiguration
       `Prelude.hashWithSalt` instanceConfiguration
+      `Prelude.hashWithSalt` networkConfiguration
+      `Prelude.hashWithSalt` observabilityConfiguration
+      `Prelude.hashWithSalt` sourceConfiguration
       `Prelude.hashWithSalt` serviceArn
 
 instance Prelude.NFData UpdateService where
   rnf UpdateService' {..} =
     Prelude.rnf autoScalingConfigurationArn
       `Prelude.seq` Prelude.rnf healthCheckConfiguration
-      `Prelude.seq` Prelude.rnf sourceConfiguration
       `Prelude.seq` Prelude.rnf instanceConfiguration
+      `Prelude.seq` Prelude.rnf networkConfiguration
+      `Prelude.seq` Prelude.rnf observabilityConfiguration
+      `Prelude.seq` Prelude.rnf sourceConfiguration
       `Prelude.seq` Prelude.rnf serviceArn
 
-instance Core.ToHeaders UpdateService where
+instance Data.ToHeaders UpdateService where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AppRunner.UpdateService" :: Prelude.ByteString),
+              Data.=# ("AppRunner.UpdateService" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateService where
+instance Data.ToJSON UpdateService where
   toJSON UpdateService' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AutoScalingConfigurationArn" Core..=)
+          [ ("AutoScalingConfigurationArn" Data..=)
               Prelude.<$> autoScalingConfigurationArn,
-            ("HealthCheckConfiguration" Core..=)
+            ("HealthCheckConfiguration" Data..=)
               Prelude.<$> healthCheckConfiguration,
-            ("SourceConfiguration" Core..=)
-              Prelude.<$> sourceConfiguration,
-            ("InstanceConfiguration" Core..=)
+            ("InstanceConfiguration" Data..=)
               Prelude.<$> instanceConfiguration,
-            Prelude.Just ("ServiceArn" Core..= serviceArn)
+            ("NetworkConfiguration" Data..=)
+              Prelude.<$> networkConfiguration,
+            ("ObservabilityConfiguration" Data..=)
+              Prelude.<$> observabilityConfiguration,
+            ("SourceConfiguration" Data..=)
+              Prelude.<$> sourceConfiguration,
+            Prelude.Just ("ServiceArn" Data..= serviceArn)
           ]
       )
 
-instance Core.ToPath UpdateService where
+instance Data.ToPath UpdateService where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateService where
+instance Data.ToQuery UpdateService where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateServiceResponse' smart constructor.

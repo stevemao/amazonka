@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideo.ListTagsForStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.KinesisVideo.ListTagsForStream
     newListTagsForStream,
 
     -- * Request Lenses
-    listTagsForStream_streamARN,
     listTagsForStream_nextToken,
+    listTagsForStream_streamARN,
     listTagsForStream_streamName,
 
     -- * Destructuring the Response
@@ -46,21 +46,22 @@ module Amazonka.KinesisVideo.ListTagsForStream
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisVideo.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListTagsForStream' smart constructor.
 data ListTagsForStream = ListTagsForStream'
-  { -- | The Amazon Resource Name (ARN) of the stream that you want to list tags
-    -- for.
-    streamARN :: Prelude.Maybe Prelude.Text,
-    -- | If you specify this parameter and the result of a @ListTagsForStream@
+  { -- | If you specify this parameter and the result of a @ListTagsForStream@
     -- call is truncated, the response includes a token that you can use in the
     -- next request to fetch the next batch of tags.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the stream that you want to list tags
+    -- for.
+    streamARN :: Prelude.Maybe Prelude.Text,
     -- | The name of the stream that you want to list tags for.
     streamName :: Prelude.Maybe Prelude.Text
   }
@@ -74,33 +75,33 @@ data ListTagsForStream = ListTagsForStream'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'streamARN', 'listTagsForStream_streamARN' - The Amazon Resource Name (ARN) of the stream that you want to list tags
--- for.
---
 -- 'nextToken', 'listTagsForStream_nextToken' - If you specify this parameter and the result of a @ListTagsForStream@
 -- call is truncated, the response includes a token that you can use in the
 -- next request to fetch the next batch of tags.
+--
+-- 'streamARN', 'listTagsForStream_streamARN' - The Amazon Resource Name (ARN) of the stream that you want to list tags
+-- for.
 --
 -- 'streamName', 'listTagsForStream_streamName' - The name of the stream that you want to list tags for.
 newListTagsForStream ::
   ListTagsForStream
 newListTagsForStream =
   ListTagsForStream'
-    { streamARN = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { nextToken = Prelude.Nothing,
+      streamARN = Prelude.Nothing,
       streamName = Prelude.Nothing
     }
-
--- | The Amazon Resource Name (ARN) of the stream that you want to list tags
--- for.
-listTagsForStream_streamARN :: Lens.Lens' ListTagsForStream (Prelude.Maybe Prelude.Text)
-listTagsForStream_streamARN = Lens.lens (\ListTagsForStream' {streamARN} -> streamARN) (\s@ListTagsForStream' {} a -> s {streamARN = a} :: ListTagsForStream)
 
 -- | If you specify this parameter and the result of a @ListTagsForStream@
 -- call is truncated, the response includes a token that you can use in the
 -- next request to fetch the next batch of tags.
 listTagsForStream_nextToken :: Lens.Lens' ListTagsForStream (Prelude.Maybe Prelude.Text)
 listTagsForStream_nextToken = Lens.lens (\ListTagsForStream' {nextToken} -> nextToken) (\s@ListTagsForStream' {} a -> s {nextToken = a} :: ListTagsForStream)
+
+-- | The Amazon Resource Name (ARN) of the stream that you want to list tags
+-- for.
+listTagsForStream_streamARN :: Lens.Lens' ListTagsForStream (Prelude.Maybe Prelude.Text)
+listTagsForStream_streamARN = Lens.lens (\ListTagsForStream' {streamARN} -> streamARN) (\s@ListTagsForStream' {} a -> s {streamARN = a} :: ListTagsForStream)
 
 -- | The name of the stream that you want to list tags for.
 listTagsForStream_streamName :: Lens.Lens' ListTagsForStream (Prelude.Maybe Prelude.Text)
@@ -110,45 +111,46 @@ instance Core.AWSRequest ListTagsForStream where
   type
     AWSResponse ListTagsForStream =
       ListTagsForStreamResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTagsForStreamResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListTagsForStream where
   hashWithSalt _salt ListTagsForStream' {..} =
-    _salt `Prelude.hashWithSalt` streamARN
-      `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` streamARN
       `Prelude.hashWithSalt` streamName
 
 instance Prelude.NFData ListTagsForStream where
   rnf ListTagsForStream' {..} =
-    Prelude.rnf streamARN
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf streamARN
       `Prelude.seq` Prelude.rnf streamName
 
-instance Core.ToHeaders ListTagsForStream where
+instance Data.ToHeaders ListTagsForStream where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON ListTagsForStream where
+instance Data.ToJSON ListTagsForStream where
   toJSON ListTagsForStream' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("StreamARN" Core..=) Prelude.<$> streamARN,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("StreamName" Core..=) Prelude.<$> streamName
+          [ ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("StreamARN" Data..=) Prelude.<$> streamARN,
+            ("StreamName" Data..=) Prelude.<$> streamName
           ]
       )
 
-instance Core.ToPath ListTagsForStream where
+instance Data.ToPath ListTagsForStream where
   toPath = Prelude.const "/listTagsForStream"
 
-instance Core.ToQuery ListTagsForStream where
+instance Data.ToQuery ListTagsForStream where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTagsForStreamResponse' smart constructor.

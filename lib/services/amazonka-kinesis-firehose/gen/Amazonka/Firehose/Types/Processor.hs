@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Firehose.Types.Processor
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.Firehose.Types.Processor where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Firehose.Types.ProcessorParameter
 import Amazonka.Firehose.Types.ProcessorType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a data processor.
@@ -65,14 +66,14 @@ processor_parameters = Lens.lens (\Processor' {parameters} -> parameters) (\s@Pr
 processor_type :: Lens.Lens' Processor ProcessorType
 processor_type = Lens.lens (\Processor' {type'} -> type') (\s@Processor' {} a -> s {type' = a} :: Processor)
 
-instance Core.FromJSON Processor where
+instance Data.FromJSON Processor where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Processor"
       ( \x ->
           Processor'
-            Prelude.<$> (x Core..:? "Parameters" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "Type")
+            Prelude.<$> (x Data..:? "Parameters" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "Type")
       )
 
 instance Prelude.Hashable Processor where
@@ -85,11 +86,11 @@ instance Prelude.NFData Processor where
     Prelude.rnf parameters
       `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON Processor where
+instance Data.ToJSON Processor where
   toJSON Processor' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Parameters" Core..=) Prelude.<$> parameters,
-            Prelude.Just ("Type" Core..= type')
+          [ ("Parameters" Data..=) Prelude.<$> parameters,
+            Prelude.Just ("Type" Data..= type')
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.GetConnectivityInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,15 +34,16 @@ module Amazonka.Greengrass.GetConnectivityInfo
     newGetConnectivityInfoResponse,
 
     -- * Response Lenses
-    getConnectivityInfoResponse_message,
     getConnectivityInfoResponse_connectivityInfo,
+    getConnectivityInfoResponse_message,
     getConnectivityInfoResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,15 +79,16 @@ instance Core.AWSRequest GetConnectivityInfo where
   type
     AWSResponse GetConnectivityInfo =
       GetConnectivityInfoResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetConnectivityInfoResponse'
-            Prelude.<$> (x Core..?> "message")
-            Prelude.<*> ( x Core..?> "ConnectivityInfo"
+            Prelude.<$> ( x Data..?> "ConnectivityInfo"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "message")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,34 +99,34 @@ instance Prelude.Hashable GetConnectivityInfo where
 instance Prelude.NFData GetConnectivityInfo where
   rnf GetConnectivityInfo' {..} = Prelude.rnf thingName
 
-instance Core.ToHeaders GetConnectivityInfo where
+instance Data.ToHeaders GetConnectivityInfo where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetConnectivityInfo where
+instance Data.ToPath GetConnectivityInfo where
   toPath GetConnectivityInfo' {..} =
     Prelude.mconcat
       [ "/greengrass/things/",
-        Core.toBS thingName,
+        Data.toBS thingName,
         "/connectivityInfo"
       ]
 
-instance Core.ToQuery GetConnectivityInfo where
+instance Data.ToQuery GetConnectivityInfo where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetConnectivityInfoResponse' smart constructor.
 data GetConnectivityInfoResponse = GetConnectivityInfoResponse'
-  { -- | A message about the connectivity info request.
-    message :: Prelude.Maybe Prelude.Text,
-    -- | Connectivity info list.
+  { -- | Connectivity info list.
     connectivityInfo :: Prelude.Maybe [ConnectivityInfo],
+    -- | A message about the connectivity info request.
+    message :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -138,9 +140,9 @@ data GetConnectivityInfoResponse = GetConnectivityInfoResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'message', 'getConnectivityInfoResponse_message' - A message about the connectivity info request.
---
 -- 'connectivityInfo', 'getConnectivityInfoResponse_connectivityInfo' - Connectivity info list.
+--
+-- 'message', 'getConnectivityInfoResponse_message' - A message about the connectivity info request.
 --
 -- 'httpStatus', 'getConnectivityInfoResponse_httpStatus' - The response's http status code.
 newGetConnectivityInfoResponse ::
@@ -149,19 +151,19 @@ newGetConnectivityInfoResponse ::
   GetConnectivityInfoResponse
 newGetConnectivityInfoResponse pHttpStatus_ =
   GetConnectivityInfoResponse'
-    { message =
+    { connectivityInfo =
         Prelude.Nothing,
-      connectivityInfo = Prelude.Nothing,
+      message = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A message about the connectivity info request.
-getConnectivityInfoResponse_message :: Lens.Lens' GetConnectivityInfoResponse (Prelude.Maybe Prelude.Text)
-getConnectivityInfoResponse_message = Lens.lens (\GetConnectivityInfoResponse' {message} -> message) (\s@GetConnectivityInfoResponse' {} a -> s {message = a} :: GetConnectivityInfoResponse)
 
 -- | Connectivity info list.
 getConnectivityInfoResponse_connectivityInfo :: Lens.Lens' GetConnectivityInfoResponse (Prelude.Maybe [ConnectivityInfo])
 getConnectivityInfoResponse_connectivityInfo = Lens.lens (\GetConnectivityInfoResponse' {connectivityInfo} -> connectivityInfo) (\s@GetConnectivityInfoResponse' {} a -> s {connectivityInfo = a} :: GetConnectivityInfoResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | A message about the connectivity info request.
+getConnectivityInfoResponse_message :: Lens.Lens' GetConnectivityInfoResponse (Prelude.Maybe Prelude.Text)
+getConnectivityInfoResponse_message = Lens.lens (\GetConnectivityInfoResponse' {message} -> message) (\s@GetConnectivityInfoResponse' {} a -> s {message = a} :: GetConnectivityInfoResponse)
 
 -- | The response's http status code.
 getConnectivityInfoResponse_httpStatus :: Lens.Lens' GetConnectivityInfoResponse Prelude.Int
@@ -169,6 +171,6 @@ getConnectivityInfoResponse_httpStatus = Lens.lens (\GetConnectivityInfoResponse
 
 instance Prelude.NFData GetConnectivityInfoResponse where
   rnf GetConnectivityInfoResponse' {..} =
-    Prelude.rnf message
-      `Prelude.seq` Prelude.rnf connectivityInfo
+    Prelude.rnf connectivityInfo
+      `Prelude.seq` Prelude.rnf message
       `Prelude.seq` Prelude.rnf httpStatus

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatch.DeleteAlarms
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,7 @@
 -- To get out of such a situation, you must break the cycle by changing the
 -- rule of one of the composite alarms in the cycle to remove a dependency
 -- that creates the cycle. The simplest change to make to break a cycle is
--- to change the @AlarmRule@ of one of the alarms to @False@.
+-- to change the @AlarmRule@ of one of the alarms to @false@.
 --
 -- Additionally, the evaluation of composite alarms stops if CloudWatch
 -- detects a cycle in the evaluation path.
@@ -58,7 +58,8 @@ where
 
 import Amazonka.CloudWatch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,7 +91,8 @@ deleteAlarms_alarmNames = Lens.lens (\DeleteAlarms' {alarmNames} -> alarmNames) 
 
 instance Core.AWSRequest DeleteAlarms where
   type AWSResponse DeleteAlarms = DeleteAlarmsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response = Response.receiveNull DeleteAlarmsResponse'
 
 instance Prelude.Hashable DeleteAlarms where
@@ -100,21 +102,21 @@ instance Prelude.Hashable DeleteAlarms where
 instance Prelude.NFData DeleteAlarms where
   rnf DeleteAlarms' {..} = Prelude.rnf alarmNames
 
-instance Core.ToHeaders DeleteAlarms where
+instance Data.ToHeaders DeleteAlarms where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteAlarms where
+instance Data.ToPath DeleteAlarms where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteAlarms where
+instance Data.ToQuery DeleteAlarms where
   toQuery DeleteAlarms' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteAlarms" :: Prelude.ByteString),
+          Data.=: ("DeleteAlarms" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-08-01" :: Prelude.ByteString),
+          Data.=: ("2010-08-01" :: Prelude.ByteString),
         "AlarmNames"
-          Core.=: Core.toQueryList "member" alarmNames
+          Data.=: Data.toQueryList "member" alarmNames
       ]
 
 -- | /See:/ 'newDeleteAlarmsResponse' smart constructor.

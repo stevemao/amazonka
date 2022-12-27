@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.DisassociatePhoneNumberFromUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,7 +98,8 @@ instance
   type
     AWSResponse DisassociatePhoneNumberFromUser =
       DisassociatePhoneNumberFromUserResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -124,24 +126,24 @@ instance
       `Prelude.seq` Prelude.rnf userId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DisassociatePhoneNumberFromUser
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON DisassociatePhoneNumberFromUser where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON DisassociatePhoneNumberFromUser where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath DisassociatePhoneNumberFromUser where
+instance Data.ToPath DisassociatePhoneNumberFromUser where
   toPath DisassociatePhoneNumberFromUser' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/users/",
-        Core.toBS userId
+        Data.toBS userId
       ]
 
-instance Core.ToQuery DisassociatePhoneNumberFromUser where
+instance Data.ToQuery DisassociatePhoneNumberFromUser where
   toQuery =
     Prelude.const
       ( Prelude.mconcat

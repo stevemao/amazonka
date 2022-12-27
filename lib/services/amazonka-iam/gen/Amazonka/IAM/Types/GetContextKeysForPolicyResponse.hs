@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.Types.GetContextKeysForPolicyResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IAM.Types.GetContextKeysForPolicyResponse where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the response to a successful GetContextKeysForPrincipalPolicy
@@ -54,11 +55,11 @@ newGetContextKeysForPolicyResponse =
 getContextKeysForPolicyResponse_contextKeyNames :: Lens.Lens' GetContextKeysForPolicyResponse (Prelude.Maybe [Prelude.Text])
 getContextKeysForPolicyResponse_contextKeyNames = Lens.lens (\GetContextKeysForPolicyResponse' {contextKeyNames} -> contextKeyNames) (\s@GetContextKeysForPolicyResponse' {} a -> s {contextKeyNames = a} :: GetContextKeysForPolicyResponse) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML GetContextKeysForPolicyResponse where
+instance Data.FromXML GetContextKeysForPolicyResponse where
   parseXML x =
     GetContextKeysForPolicyResponse'
-      Prelude.<$> ( x Core..@? "ContextKeyNames" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "member")
+      Prelude.<$> ( x Data..@? "ContextKeyNames" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "member")
                   )
 
 instance

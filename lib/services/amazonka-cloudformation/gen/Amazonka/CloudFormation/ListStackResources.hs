@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.ListStackResources
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,7 +62,7 @@ data ListStackResources = ListStackResources'
     -- to retrieve.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name or the unique stack ID that is associated with the stack, which
-    -- are not always interchangeable:
+    -- aren\'t always interchangeable:
     --
     -- -   Running stacks: You can specify either the stack\'s name or its
     --     unique stack ID.
@@ -85,7 +86,7 @@ data ListStackResources = ListStackResources'
 -- to retrieve.
 --
 -- 'stackName', 'listStackResources_stackName' - The name or the unique stack ID that is associated with the stack, which
--- are not always interchangeable:
+-- aren\'t always interchangeable:
 --
 -- -   Running stacks: You can specify either the stack\'s name or its
 --     unique stack ID.
@@ -109,7 +110,7 @@ listStackResources_nextToken :: Lens.Lens' ListStackResources (Prelude.Maybe Pre
 listStackResources_nextToken = Lens.lens (\ListStackResources' {nextToken} -> nextToken) (\s@ListStackResources' {} a -> s {nextToken = a} :: ListStackResources)
 
 -- | The name or the unique stack ID that is associated with the stack, which
--- are not always interchangeable:
+-- aren\'t always interchangeable:
 --
 -- -   Running stacks: You can specify either the stack\'s name or its
 --     unique stack ID.
@@ -146,16 +147,17 @@ instance Core.AWSRequest ListStackResources where
   type
     AWSResponse ListStackResources =
       ListStackResourcesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListStackResourcesResult"
       ( \s h x ->
           ListStackResourcesResponse'
-            Prelude.<$> (x Core..@? "NextToken")
-            Prelude.<*> ( x Core..@? "StackResourceSummaries"
+            Prelude.<$> (x Data..@? "NextToken")
+            Prelude.<*> ( x Data..@? "StackResourceSummaries"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -170,21 +172,21 @@ instance Prelude.NFData ListStackResources where
     Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf stackName
 
-instance Core.ToHeaders ListStackResources where
+instance Data.ToHeaders ListStackResources where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListStackResources where
+instance Data.ToPath ListStackResources where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListStackResources where
+instance Data.ToQuery ListStackResources where
   toQuery ListStackResources' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ListStackResources" :: Prelude.ByteString),
+          Data.=: ("ListStackResources" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
-        "NextToken" Core.=: nextToken,
-        "StackName" Core.=: stackName
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "NextToken" Data.=: nextToken,
+        "StackName" Data.=: stackName
       ]
 
 -- | The output for a ListStackResources action.

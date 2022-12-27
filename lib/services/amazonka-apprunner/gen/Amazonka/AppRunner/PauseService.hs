@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppRunner.PauseService
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ where
 
 import Amazonka.AppRunner.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,14 +86,15 @@ pauseService_serviceArn = Lens.lens (\PauseService' {serviceArn} -> serviceArn) 
 
 instance Core.AWSRequest PauseService where
   type AWSResponse PauseService = PauseServiceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PauseServiceResponse'
-            Prelude.<$> (x Core..?> "OperationId")
+            Prelude.<$> (x Data..?> "OperationId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Service")
+            Prelude.<*> (x Data..:> "Service")
       )
 
 instance Prelude.Hashable PauseService where
@@ -102,30 +104,30 @@ instance Prelude.Hashable PauseService where
 instance Prelude.NFData PauseService where
   rnf PauseService' {..} = Prelude.rnf serviceArn
 
-instance Core.ToHeaders PauseService where
+instance Data.ToHeaders PauseService where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AppRunner.PauseService" :: Prelude.ByteString),
+              Data.=# ("AppRunner.PauseService" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PauseService where
+instance Data.ToJSON PauseService where
   toJSON PauseService' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ServiceArn" Core..= serviceArn)]
+          [Prelude.Just ("ServiceArn" Data..= serviceArn)]
       )
 
-instance Core.ToPath PauseService where
+instance Data.ToPath PauseService where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PauseService where
+instance Data.ToQuery PauseService where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPauseServiceResponse' smart constructor.

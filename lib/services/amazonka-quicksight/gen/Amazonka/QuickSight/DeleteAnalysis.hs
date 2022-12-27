@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.DeleteAnalysis
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,8 @@ module Amazonka.QuickSight.DeleteAnalysis
     newDeleteAnalysis,
 
     -- * Request Lenses
-    deleteAnalysis_recoveryWindowInDays,
     deleteAnalysis_forceDeleteWithoutRecovery,
+    deleteAnalysis_recoveryWindowInDays,
     deleteAnalysis_awsAccountId,
     deleteAnalysis_analysisId,
 
@@ -53,16 +53,17 @@ module Amazonka.QuickSight.DeleteAnalysis
     newDeleteAnalysisResponse,
 
     -- * Response Lenses
-    deleteAnalysisResponse_requestId,
     deleteAnalysisResponse_analysisId,
     deleteAnalysisResponse_arn,
     deleteAnalysisResponse_deletionTime,
+    deleteAnalysisResponse_requestId,
     deleteAnalysisResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -70,15 +71,15 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteAnalysis' smart constructor.
 data DeleteAnalysis = DeleteAnalysis'
-  { -- | A value that specifies the number of days that Amazon QuickSight waits
+  { -- | This option defaults to the value @NoForceDeleteWithoutRecovery@. To
+    -- immediately delete the analysis, add the @ForceDeleteWithoutRecovery@
+    -- option. You can\'t restore an analysis after it\'s deleted.
+    forceDeleteWithoutRecovery :: Prelude.Maybe Prelude.Bool,
+    -- | A value that specifies the number of days that Amazon QuickSight waits
     -- before it deletes the analysis. You can\'t use this parameter with the
     -- @ForceDeleteWithoutRecovery@ option in the same API call. The default
     -- value is 30.
     recoveryWindowInDays :: Prelude.Maybe Prelude.Natural,
-    -- | This option defaults to the value @NoForceDeleteWithoutRecovery@. To
-    -- immediately delete the analysis, add the @ForceDeleteWithoutRecovery@
-    -- option. You can\'t restore an analysis after it\'s deleted.
-    forceDeleteWithoutRecovery :: Prelude.Maybe Prelude.Bool,
     -- | The ID of the Amazon Web Services account where you want to delete an
     -- analysis.
     awsAccountId :: Prelude.Text,
@@ -95,14 +96,14 @@ data DeleteAnalysis = DeleteAnalysis'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'forceDeleteWithoutRecovery', 'deleteAnalysis_forceDeleteWithoutRecovery' - This option defaults to the value @NoForceDeleteWithoutRecovery@. To
+-- immediately delete the analysis, add the @ForceDeleteWithoutRecovery@
+-- option. You can\'t restore an analysis after it\'s deleted.
+--
 -- 'recoveryWindowInDays', 'deleteAnalysis_recoveryWindowInDays' - A value that specifies the number of days that Amazon QuickSight waits
 -- before it deletes the analysis. You can\'t use this parameter with the
 -- @ForceDeleteWithoutRecovery@ option in the same API call. The default
 -- value is 30.
---
--- 'forceDeleteWithoutRecovery', 'deleteAnalysis_forceDeleteWithoutRecovery' - This option defaults to the value @NoForceDeleteWithoutRecovery@. To
--- immediately delete the analysis, add the @ForceDeleteWithoutRecovery@
--- option. You can\'t restore an analysis after it\'s deleted.
 --
 -- 'awsAccountId', 'deleteAnalysis_awsAccountId' - The ID of the Amazon Web Services account where you want to delete an
 -- analysis.
@@ -116,12 +117,18 @@ newDeleteAnalysis ::
   DeleteAnalysis
 newDeleteAnalysis pAwsAccountId_ pAnalysisId_ =
   DeleteAnalysis'
-    { recoveryWindowInDays =
+    { forceDeleteWithoutRecovery =
         Prelude.Nothing,
-      forceDeleteWithoutRecovery = Prelude.Nothing,
+      recoveryWindowInDays = Prelude.Nothing,
       awsAccountId = pAwsAccountId_,
       analysisId = pAnalysisId_
     }
+
+-- | This option defaults to the value @NoForceDeleteWithoutRecovery@. To
+-- immediately delete the analysis, add the @ForceDeleteWithoutRecovery@
+-- option. You can\'t restore an analysis after it\'s deleted.
+deleteAnalysis_forceDeleteWithoutRecovery :: Lens.Lens' DeleteAnalysis (Prelude.Maybe Prelude.Bool)
+deleteAnalysis_forceDeleteWithoutRecovery = Lens.lens (\DeleteAnalysis' {forceDeleteWithoutRecovery} -> forceDeleteWithoutRecovery) (\s@DeleteAnalysis' {} a -> s {forceDeleteWithoutRecovery = a} :: DeleteAnalysis)
 
 -- | A value that specifies the number of days that Amazon QuickSight waits
 -- before it deletes the analysis. You can\'t use this parameter with the
@@ -129,12 +136,6 @@ newDeleteAnalysis pAwsAccountId_ pAnalysisId_ =
 -- value is 30.
 deleteAnalysis_recoveryWindowInDays :: Lens.Lens' DeleteAnalysis (Prelude.Maybe Prelude.Natural)
 deleteAnalysis_recoveryWindowInDays = Lens.lens (\DeleteAnalysis' {recoveryWindowInDays} -> recoveryWindowInDays) (\s@DeleteAnalysis' {} a -> s {recoveryWindowInDays = a} :: DeleteAnalysis)
-
--- | This option defaults to the value @NoForceDeleteWithoutRecovery@. To
--- immediately delete the analysis, add the @ForceDeleteWithoutRecovery@
--- option. You can\'t restore an analysis after it\'s deleted.
-deleteAnalysis_forceDeleteWithoutRecovery :: Lens.Lens' DeleteAnalysis (Prelude.Maybe Prelude.Bool)
-deleteAnalysis_forceDeleteWithoutRecovery = Lens.lens (\DeleteAnalysis' {forceDeleteWithoutRecovery} -> forceDeleteWithoutRecovery) (\s@DeleteAnalysis' {} a -> s {forceDeleteWithoutRecovery = a} :: DeleteAnalysis)
 
 -- | The ID of the Amazon Web Services account where you want to delete an
 -- analysis.
@@ -149,71 +150,73 @@ instance Core.AWSRequest DeleteAnalysis where
   type
     AWSResponse DeleteAnalysis =
       DeleteAnalysisResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteAnalysisResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "AnalysisId")
-            Prelude.<*> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "DeletionTime")
+            Prelude.<$> (x Data..?> "AnalysisId")
+            Prelude.<*> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "DeletionTime")
+            Prelude.<*> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DeleteAnalysis where
   hashWithSalt _salt DeleteAnalysis' {..} =
-    _salt `Prelude.hashWithSalt` recoveryWindowInDays
+    _salt
       `Prelude.hashWithSalt` forceDeleteWithoutRecovery
+      `Prelude.hashWithSalt` recoveryWindowInDays
       `Prelude.hashWithSalt` awsAccountId
       `Prelude.hashWithSalt` analysisId
 
 instance Prelude.NFData DeleteAnalysis where
   rnf DeleteAnalysis' {..} =
-    Prelude.rnf recoveryWindowInDays
-      `Prelude.seq` Prelude.rnf forceDeleteWithoutRecovery
+    Prelude.rnf forceDeleteWithoutRecovery
+      `Prelude.seq` Prelude.rnf recoveryWindowInDays
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf analysisId
 
-instance Core.ToHeaders DeleteAnalysis where
+instance Data.ToHeaders DeleteAnalysis where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteAnalysis where
+instance Data.ToPath DeleteAnalysis where
   toPath DeleteAnalysis' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/analyses/",
-        Core.toBS analysisId
+        Data.toBS analysisId
       ]
 
-instance Core.ToQuery DeleteAnalysis where
+instance Data.ToQuery DeleteAnalysis where
   toQuery DeleteAnalysis' {..} =
     Prelude.mconcat
-      [ "recovery-window-in-days"
-          Core.=: recoveryWindowInDays,
-        "force-delete-without-recovery"
-          Core.=: forceDeleteWithoutRecovery
+      [ "force-delete-without-recovery"
+          Data.=: forceDeleteWithoutRecovery,
+        "recovery-window-in-days"
+          Data.=: recoveryWindowInDays
       ]
 
 -- | /See:/ 'newDeleteAnalysisResponse' smart constructor.
 data DeleteAnalysisResponse = DeleteAnalysisResponse'
-  { -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the deleted analysis.
+  { -- | The ID of the deleted analysis.
     analysisId :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the deleted analysis.
     arn :: Prelude.Maybe Prelude.Text,
     -- | The date and time that the analysis is scheduled to be deleted.
-    deletionTime :: Prelude.Maybe Core.POSIX,
+    deletionTime :: Prelude.Maybe Data.POSIX,
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -227,13 +230,13 @@ data DeleteAnalysisResponse = DeleteAnalysisResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'deleteAnalysisResponse_requestId' - The Amazon Web Services request ID for this operation.
---
 -- 'analysisId', 'deleteAnalysisResponse_analysisId' - The ID of the deleted analysis.
 --
 -- 'arn', 'deleteAnalysisResponse_arn' - The Amazon Resource Name (ARN) of the deleted analysis.
 --
 -- 'deletionTime', 'deleteAnalysisResponse_deletionTime' - The date and time that the analysis is scheduled to be deleted.
+--
+-- 'requestId', 'deleteAnalysisResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'status', 'deleteAnalysisResponse_status' - The HTTP status of the request.
 newDeleteAnalysisResponse ::
@@ -242,17 +245,13 @@ newDeleteAnalysisResponse ::
   DeleteAnalysisResponse
 newDeleteAnalysisResponse pStatus_ =
   DeleteAnalysisResponse'
-    { requestId =
+    { analysisId =
         Prelude.Nothing,
-      analysisId = Prelude.Nothing,
       arn = Prelude.Nothing,
       deletionTime = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       status = pStatus_
     }
-
--- | The Amazon Web Services request ID for this operation.
-deleteAnalysisResponse_requestId :: Lens.Lens' DeleteAnalysisResponse (Prelude.Maybe Prelude.Text)
-deleteAnalysisResponse_requestId = Lens.lens (\DeleteAnalysisResponse' {requestId} -> requestId) (\s@DeleteAnalysisResponse' {} a -> s {requestId = a} :: DeleteAnalysisResponse)
 
 -- | The ID of the deleted analysis.
 deleteAnalysisResponse_analysisId :: Lens.Lens' DeleteAnalysisResponse (Prelude.Maybe Prelude.Text)
@@ -264,7 +263,11 @@ deleteAnalysisResponse_arn = Lens.lens (\DeleteAnalysisResponse' {arn} -> arn) (
 
 -- | The date and time that the analysis is scheduled to be deleted.
 deleteAnalysisResponse_deletionTime :: Lens.Lens' DeleteAnalysisResponse (Prelude.Maybe Prelude.UTCTime)
-deleteAnalysisResponse_deletionTime = Lens.lens (\DeleteAnalysisResponse' {deletionTime} -> deletionTime) (\s@DeleteAnalysisResponse' {} a -> s {deletionTime = a} :: DeleteAnalysisResponse) Prelude.. Lens.mapping Core._Time
+deleteAnalysisResponse_deletionTime = Lens.lens (\DeleteAnalysisResponse' {deletionTime} -> deletionTime) (\s@DeleteAnalysisResponse' {} a -> s {deletionTime = a} :: DeleteAnalysisResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The Amazon Web Services request ID for this operation.
+deleteAnalysisResponse_requestId :: Lens.Lens' DeleteAnalysisResponse (Prelude.Maybe Prelude.Text)
+deleteAnalysisResponse_requestId = Lens.lens (\DeleteAnalysisResponse' {requestId} -> requestId) (\s@DeleteAnalysisResponse' {} a -> s {requestId = a} :: DeleteAnalysisResponse)
 
 -- | The HTTP status of the request.
 deleteAnalysisResponse_status :: Lens.Lens' DeleteAnalysisResponse Prelude.Int
@@ -272,8 +275,8 @@ deleteAnalysisResponse_status = Lens.lens (\DeleteAnalysisResponse' {status} -> 
 
 instance Prelude.NFData DeleteAnalysisResponse where
   rnf DeleteAnalysisResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf analysisId
+    Prelude.rnf analysisId
       `Prelude.seq` Prelude.rnf arn
       `Prelude.seq` Prelude.rnf deletionTime
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf status

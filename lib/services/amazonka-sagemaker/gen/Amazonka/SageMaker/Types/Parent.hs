@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.Parent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.Parent where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The trial that a trial component is associated with and the experiment
@@ -63,14 +64,14 @@ parent_experimentName = Lens.lens (\Parent' {experimentName} -> experimentName) 
 parent_trialName :: Lens.Lens' Parent (Prelude.Maybe Prelude.Text)
 parent_trialName = Lens.lens (\Parent' {trialName} -> trialName) (\s@Parent' {} a -> s {trialName = a} :: Parent)
 
-instance Core.FromJSON Parent where
+instance Data.FromJSON Parent where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Parent"
       ( \x ->
           Parent'
-            Prelude.<$> (x Core..:? "ExperimentName")
-            Prelude.<*> (x Core..:? "TrialName")
+            Prelude.<$> (x Data..:? "ExperimentName")
+            Prelude.<*> (x Data..:? "TrialName")
       )
 
 instance Prelude.Hashable Parent where

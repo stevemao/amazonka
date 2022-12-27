@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.Types.AuthenticationType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,6 +20,7 @@
 module Amazonka.ElastiCache.Types.AuthenticationType
   ( AuthenticationType
       ( ..,
+        AuthenticationType_Iam,
         AuthenticationType_No_password,
         AuthenticationType_Password
       ),
@@ -27,11 +28,12 @@ module Amazonka.ElastiCache.Types.AuthenticationType
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype AuthenticationType = AuthenticationType'
   { fromAuthenticationType ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -43,19 +45,22 @@ newtype AuthenticationType = AuthenticationType'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
+
+pattern AuthenticationType_Iam :: AuthenticationType
+pattern AuthenticationType_Iam = AuthenticationType' "iam"
 
 pattern AuthenticationType_No_password :: AuthenticationType
 pattern AuthenticationType_No_password = AuthenticationType' "no-password"
@@ -64,6 +69,7 @@ pattern AuthenticationType_Password :: AuthenticationType
 pattern AuthenticationType_Password = AuthenticationType' "password"
 
 {-# COMPLETE
+  AuthenticationType_Iam,
   AuthenticationType_No_password,
   AuthenticationType_Password,
   AuthenticationType'

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkDocs.CreateNotificationSubscription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,7 +24,7 @@
 -- receives a confirmation message, and must confirm the subscription.
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/workdocs/latest/developerguide/subscribe-notifications.html Subscribe to Notifications>
+-- <https://docs.aws.amazon.com/workdocs/latest/developerguide/manage-notifications.html Setting up notifications for an IAM user or role>
 -- in the /Amazon WorkDocs Developer Guide/.
 module Amazonka.WorkDocs.CreateNotificationSubscription
   ( -- * Creating a Request
@@ -48,7 +48,8 @@ module Amazonka.WorkDocs.CreateNotificationSubscription
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -134,12 +135,13 @@ instance
   type
     AWSResponse CreateNotificationSubscription =
       CreateNotificationSubscriptionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateNotificationSubscriptionResponse'
-            Prelude.<$> (x Core..?> "Subscription")
+            Prelude.<$> (x Data..?> "Subscription")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -166,39 +168,39 @@ instance
       `Prelude.seq` Prelude.rnf subscriptionType
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CreateNotificationSubscription
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateNotificationSubscription where
+instance Data.ToJSON CreateNotificationSubscription where
   toJSON CreateNotificationSubscription' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Endpoint" Core..= endpoint),
-            Prelude.Just ("Protocol" Core..= protocol),
+          [ Prelude.Just ("Endpoint" Data..= endpoint),
+            Prelude.Just ("Protocol" Data..= protocol),
             Prelude.Just
-              ("SubscriptionType" Core..= subscriptionType)
+              ("SubscriptionType" Data..= subscriptionType)
           ]
       )
 
-instance Core.ToPath CreateNotificationSubscription where
+instance Data.ToPath CreateNotificationSubscription where
   toPath CreateNotificationSubscription' {..} =
     Prelude.mconcat
       [ "/api/v1/organizations/",
-        Core.toBS organizationId,
+        Data.toBS organizationId,
         "/subscriptions"
       ]
 
-instance Core.ToQuery CreateNotificationSubscription where
+instance Data.ToQuery CreateNotificationSubscription where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateNotificationSubscriptionResponse' smart constructor.

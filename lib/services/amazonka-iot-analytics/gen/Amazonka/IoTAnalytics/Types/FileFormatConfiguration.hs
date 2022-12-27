@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.Types.FileFormatConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.IoTAnalytics.Types.FileFormatConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types.JsonConfiguration
 import Amazonka.IoTAnalytics.Types.ParquetConfiguration
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the configuration information of file formats. IoT Analytics
@@ -69,14 +70,14 @@ fileFormatConfiguration_jsonConfiguration = Lens.lens (\FileFormatConfiguration'
 fileFormatConfiguration_parquetConfiguration :: Lens.Lens' FileFormatConfiguration (Prelude.Maybe ParquetConfiguration)
 fileFormatConfiguration_parquetConfiguration = Lens.lens (\FileFormatConfiguration' {parquetConfiguration} -> parquetConfiguration) (\s@FileFormatConfiguration' {} a -> s {parquetConfiguration = a} :: FileFormatConfiguration)
 
-instance Core.FromJSON FileFormatConfiguration where
+instance Data.FromJSON FileFormatConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FileFormatConfiguration"
       ( \x ->
           FileFormatConfiguration'
-            Prelude.<$> (x Core..:? "jsonConfiguration")
-            Prelude.<*> (x Core..:? "parquetConfiguration")
+            Prelude.<$> (x Data..:? "jsonConfiguration")
+            Prelude.<*> (x Data..:? "parquetConfiguration")
       )
 
 instance Prelude.Hashable FileFormatConfiguration where
@@ -89,13 +90,13 @@ instance Prelude.NFData FileFormatConfiguration where
     Prelude.rnf jsonConfiguration
       `Prelude.seq` Prelude.rnf parquetConfiguration
 
-instance Core.ToJSON FileFormatConfiguration where
+instance Data.ToJSON FileFormatConfiguration where
   toJSON FileFormatConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("jsonConfiguration" Core..=)
+          [ ("jsonConfiguration" Data..=)
               Prelude.<$> jsonConfiguration,
-            ("parquetConfiguration" Core..=)
+            ("parquetConfiguration" Data..=)
               Prelude.<$> parquetConfiguration
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.Types.SipMediaApplicationCall
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Chime.Types.SipMediaApplicationCall where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A @Call@ instance for a SIP media application.
@@ -53,13 +54,13 @@ newSipMediaApplicationCall =
 sipMediaApplicationCall_transactionId :: Lens.Lens' SipMediaApplicationCall (Prelude.Maybe Prelude.Text)
 sipMediaApplicationCall_transactionId = Lens.lens (\SipMediaApplicationCall' {transactionId} -> transactionId) (\s@SipMediaApplicationCall' {} a -> s {transactionId = a} :: SipMediaApplicationCall)
 
-instance Core.FromJSON SipMediaApplicationCall where
+instance Data.FromJSON SipMediaApplicationCall where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SipMediaApplicationCall"
       ( \x ->
           SipMediaApplicationCall'
-            Prelude.<$> (x Core..:? "TransactionId")
+            Prelude.<$> (x Data..:? "TransactionId")
       )
 
 instance Prelude.Hashable SipMediaApplicationCall where

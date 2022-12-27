@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -79,7 +79,9 @@ library
     Amazonka.Discovery.Types.ContinuousExportDescription
     Amazonka.Discovery.Types.ContinuousExportStatus
     Amazonka.Discovery.Types.CustomerAgentInfo
+    Amazonka.Discovery.Types.CustomerAgentlessCollectorInfo
     Amazonka.Discovery.Types.CustomerConnectorInfo
+    Amazonka.Discovery.Types.CustomerMeCollectorInfo
     Amazonka.Discovery.Types.DataSource
     Amazonka.Discovery.Types.ExportDataFormat
     Amazonka.Discovery.Types.ExportFilter
@@ -99,7 +101,7 @@ library
     Amazonka.Discovery.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-discovery-test
@@ -118,9 +120,9 @@ test-suite amazonka-discovery-test
     Test.Amazonka.Gen.Discovery
 
   build-depends:
-    , amazonka-core         ^>=2.0
+    , amazonka-core         >=2.0 && <2.1
     , amazonka-discovery
-    , amazonka-test         ^>=2.0
+    , amazonka-test         >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

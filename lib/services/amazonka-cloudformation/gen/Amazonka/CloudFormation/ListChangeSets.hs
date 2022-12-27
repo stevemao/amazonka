@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.ListChangeSets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -123,15 +124,16 @@ instance Core.AWSRequest ListChangeSets where
   type
     AWSResponse ListChangeSets =
       ListChangeSetsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListChangeSetsResult"
       ( \s h x ->
           ListChangeSetsResponse'
-            Prelude.<$> (x Core..@? "NextToken")
-            Prelude.<*> ( x Core..@? "Summaries" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> (x Data..@? "NextToken")
+            Prelude.<*> ( x Data..@? "Summaries" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -146,21 +148,21 @@ instance Prelude.NFData ListChangeSets where
     Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf stackName
 
-instance Core.ToHeaders ListChangeSets where
+instance Data.ToHeaders ListChangeSets where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListChangeSets where
+instance Data.ToPath ListChangeSets where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListChangeSets where
+instance Data.ToQuery ListChangeSets where
   toQuery ListChangeSets' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ListChangeSets" :: Prelude.ByteString),
+          Data.=: ("ListChangeSets" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
-        "NextToken" Core.=: nextToken,
-        "StackName" Core.=: stackName
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "NextToken" Data.=: nextToken,
+        "StackName" Data.=: stackName
       ]
 
 -- | The output for the ListChangeSets action.
@@ -168,7 +170,7 @@ instance Core.ToQuery ListChangeSets where
 -- /See:/ 'newListChangeSetsResponse' smart constructor.
 data ListChangeSetsResponse = ListChangeSetsResponse'
   { -- | If the output exceeds 1 MB, a string that identifies the next page of
-    -- change sets. If there is no additional page, this value is null.
+    -- change sets. If there is no additional page, this value is @null@.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | A list of @ChangeSetSummary@ structures that provides the ID and status
     -- of each change set for the specified stack.
@@ -187,7 +189,7 @@ data ListChangeSetsResponse = ListChangeSetsResponse'
 -- for backwards compatibility:
 --
 -- 'nextToken', 'listChangeSetsResponse_nextToken' - If the output exceeds 1 MB, a string that identifies the next page of
--- change sets. If there is no additional page, this value is null.
+-- change sets. If there is no additional page, this value is @null@.
 --
 -- 'summaries', 'listChangeSetsResponse_summaries' - A list of @ChangeSetSummary@ structures that provides the ID and status
 -- of each change set for the specified stack.
@@ -206,7 +208,7 @@ newListChangeSetsResponse pHttpStatus_ =
     }
 
 -- | If the output exceeds 1 MB, a string that identifies the next page of
--- change sets. If there is no additional page, this value is null.
+-- change sets. If there is no additional page, this value is @null@.
 listChangeSetsResponse_nextToken :: Lens.Lens' ListChangeSetsResponse (Prelude.Maybe Prelude.Text)
 listChangeSetsResponse_nextToken = Lens.lens (\ListChangeSetsResponse' {nextToken} -> nextToken) (\s@ListChangeSetsResponse' {} a -> s {nextToken = a} :: ListChangeSetsResponse)
 

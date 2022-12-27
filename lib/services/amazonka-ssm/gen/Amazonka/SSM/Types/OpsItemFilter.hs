@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.OpsItemFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.OpsItemFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSM.Types.OpsItemFilterKey
 import Amazonka.SSM.Types.OpsItemFilterOperator
@@ -88,12 +89,12 @@ instance Prelude.NFData OpsItemFilter where
       `Prelude.seq` Prelude.rnf values
       `Prelude.seq` Prelude.rnf operator
 
-instance Core.ToJSON OpsItemFilter where
+instance Data.ToJSON OpsItemFilter where
   toJSON OpsItemFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Key" Core..= key),
-            Prelude.Just ("Values" Core..= values),
-            Prelude.Just ("Operator" Core..= operator)
+          [ Prelude.Just ("Key" Data..= key),
+            Prelude.Just ("Values" Data..= values),
+            Prelude.Just ("Operator" Data..= operator)
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorksCM.DescribeEvents
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,8 @@ module Amazonka.OpsWorksCM.DescribeEvents
     newDescribeEvents,
 
     -- * Request Lenses
-    describeEvents_nextToken,
     describeEvents_maxResults,
+    describeEvents_nextToken,
     describeEvents_serverName,
 
     -- * Destructuring the Response
@@ -45,14 +45,15 @@ module Amazonka.OpsWorksCM.DescribeEvents
     newDescribeEventsResponse,
 
     -- * Response Lenses
-    describeEventsResponse_serverEvents,
     describeEventsResponse_nextToken,
+    describeEventsResponse_serverEvents,
     describeEventsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorksCM.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -60,7 +61,13 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeEvents' smart constructor.
 data DescribeEvents = DescribeEvents'
-  { -- | NextToken is a string that is returned in some command responses. It
+  { -- | To receive a paginated response, use this parameter to specify the
+    -- maximum number of results to be returned with a single call. If the
+    -- number of available results exceeds this maximum, the response includes
+    -- a @NextToken@ value that you can assign to the @NextToken@ request
+    -- parameter to get the next set of results.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | NextToken is a string that is returned in some command responses. It
     -- indicates that not all entries have been returned, and that you must run
     -- at least one more request to get remaining items. To get remaining
     -- results, call @DescribeEvents@ again, and assign the token from the
@@ -69,12 +76,6 @@ data DescribeEvents = DescribeEvents'
     -- @null@. Setting a @nextToken@ value that was not returned in your
     -- previous results causes an @InvalidNextTokenException@ to occur.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | To receive a paginated response, use this parameter to specify the
-    -- maximum number of results to be returned with a single call. If the
-    -- number of available results exceeds this maximum, the response includes
-    -- a @NextToken@ value that you can assign to the @NextToken@ request
-    -- parameter to get the next set of results.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The name of the server for which you want to view events.
     serverName :: Prelude.Text
   }
@@ -88,6 +89,12 @@ data DescribeEvents = DescribeEvents'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'describeEvents_maxResults' - To receive a paginated response, use this parameter to specify the
+-- maximum number of results to be returned with a single call. If the
+-- number of available results exceeds this maximum, the response includes
+-- a @NextToken@ value that you can assign to the @NextToken@ request
+-- parameter to get the next set of results.
+--
 -- 'nextToken', 'describeEvents_nextToken' - NextToken is a string that is returned in some command responses. It
 -- indicates that not all entries have been returned, and that you must run
 -- at least one more request to get remaining items. To get remaining
@@ -97,12 +104,6 @@ data DescribeEvents = DescribeEvents'
 -- @null@. Setting a @nextToken@ value that was not returned in your
 -- previous results causes an @InvalidNextTokenException@ to occur.
 --
--- 'maxResults', 'describeEvents_maxResults' - To receive a paginated response, use this parameter to specify the
--- maximum number of results to be returned with a single call. If the
--- number of available results exceeds this maximum, the response includes
--- a @NextToken@ value that you can assign to the @NextToken@ request
--- parameter to get the next set of results.
---
 -- 'serverName', 'describeEvents_serverName' - The name of the server for which you want to view events.
 newDescribeEvents ::
   -- | 'serverName'
@@ -110,10 +111,18 @@ newDescribeEvents ::
   DescribeEvents
 newDescribeEvents pServerName_ =
   DescribeEvents'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       serverName = pServerName_
     }
+
+-- | To receive a paginated response, use this parameter to specify the
+-- maximum number of results to be returned with a single call. If the
+-- number of available results exceeds this maximum, the response includes
+-- a @NextToken@ value that you can assign to the @NextToken@ request
+-- parameter to get the next set of results.
+describeEvents_maxResults :: Lens.Lens' DescribeEvents (Prelude.Maybe Prelude.Natural)
+describeEvents_maxResults = Lens.lens (\DescribeEvents' {maxResults} -> maxResults) (\s@DescribeEvents' {} a -> s {maxResults = a} :: DescribeEvents)
 
 -- | NextToken is a string that is returned in some command responses. It
 -- indicates that not all entries have been returned, and that you must run
@@ -125,14 +134,6 @@ newDescribeEvents pServerName_ =
 -- previous results causes an @InvalidNextTokenException@ to occur.
 describeEvents_nextToken :: Lens.Lens' DescribeEvents (Prelude.Maybe Prelude.Text)
 describeEvents_nextToken = Lens.lens (\DescribeEvents' {nextToken} -> nextToken) (\s@DescribeEvents' {} a -> s {nextToken = a} :: DescribeEvents)
-
--- | To receive a paginated response, use this parameter to specify the
--- maximum number of results to be returned with a single call. If the
--- number of available results exceeds this maximum, the response includes
--- a @NextToken@ value that you can assign to the @NextToken@ request
--- parameter to get the next set of results.
-describeEvents_maxResults :: Lens.Lens' DescribeEvents (Prelude.Maybe Prelude.Natural)
-describeEvents_maxResults = Lens.lens (\DescribeEvents' {maxResults} -> maxResults) (\s@DescribeEvents' {} a -> s {maxResults = a} :: DescribeEvents)
 
 -- | The name of the server for which you want to view events.
 describeEvents_serverName :: Lens.Lens' DescribeEvents Prelude.Text
@@ -163,64 +164,63 @@ instance Core.AWSRequest DescribeEvents where
   type
     AWSResponse DescribeEvents =
       DescribeEventsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeEventsResponse'
-            Prelude.<$> (x Core..?> "ServerEvents" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "ServerEvents" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeEvents where
   hashWithSalt _salt DescribeEvents' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` serverName
 
 instance Prelude.NFData DescribeEvents where
   rnf DescribeEvents' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf serverName
 
-instance Core.ToHeaders DescribeEvents where
+instance Data.ToHeaders DescribeEvents where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorksCM_V2016_11_01.DescribeEvents" ::
+              Data.=# ( "OpsWorksCM_V2016_11_01.DescribeEvents" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeEvents where
+instance Data.ToJSON DescribeEvents where
   toJSON DescribeEvents' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("ServerName" Core..= serverName)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("ServerName" Data..= serverName)
           ]
       )
 
-instance Core.ToPath DescribeEvents where
+instance Data.ToPath DescribeEvents where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeEvents where
+instance Data.ToQuery DescribeEvents where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeEventsResponse' smart constructor.
 data DescribeEventsResponse = DescribeEventsResponse'
-  { -- | Contains the response to a @DescribeEvents@ request.
-    serverEvents :: Prelude.Maybe [ServerEvent],
-    -- | NextToken is a string that is returned in some command responses. It
+  { -- | NextToken is a string that is returned in some command responses. It
     -- indicates that not all entries have been returned, and that you must run
     -- at least one more request to get remaining items. To get remaining
     -- results, call @DescribeEvents@ again, and assign the token from the
@@ -229,6 +229,8 @@ data DescribeEventsResponse = DescribeEventsResponse'
     -- @null@. Setting a @nextToken@ value that was not returned in your
     -- previous results causes an @InvalidNextTokenException@ to occur.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Contains the response to a @DescribeEvents@ request.
+    serverEvents :: Prelude.Maybe [ServerEvent],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -242,8 +244,6 @@ data DescribeEventsResponse = DescribeEventsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'serverEvents', 'describeEventsResponse_serverEvents' - Contains the response to a @DescribeEvents@ request.
---
 -- 'nextToken', 'describeEventsResponse_nextToken' - NextToken is a string that is returned in some command responses. It
 -- indicates that not all entries have been returned, and that you must run
 -- at least one more request to get remaining items. To get remaining
@@ -253,6 +253,8 @@ data DescribeEventsResponse = DescribeEventsResponse'
 -- @null@. Setting a @nextToken@ value that was not returned in your
 -- previous results causes an @InvalidNextTokenException@ to occur.
 --
+-- 'serverEvents', 'describeEventsResponse_serverEvents' - Contains the response to a @DescribeEvents@ request.
+--
 -- 'httpStatus', 'describeEventsResponse_httpStatus' - The response's http status code.
 newDescribeEventsResponse ::
   -- | 'httpStatus'
@@ -260,15 +262,11 @@ newDescribeEventsResponse ::
   DescribeEventsResponse
 newDescribeEventsResponse pHttpStatus_ =
   DescribeEventsResponse'
-    { serverEvents =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      serverEvents = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Contains the response to a @DescribeEvents@ request.
-describeEventsResponse_serverEvents :: Lens.Lens' DescribeEventsResponse (Prelude.Maybe [ServerEvent])
-describeEventsResponse_serverEvents = Lens.lens (\DescribeEventsResponse' {serverEvents} -> serverEvents) (\s@DescribeEventsResponse' {} a -> s {serverEvents = a} :: DescribeEventsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | NextToken is a string that is returned in some command responses. It
 -- indicates that not all entries have been returned, and that you must run
@@ -281,12 +279,16 @@ describeEventsResponse_serverEvents = Lens.lens (\DescribeEventsResponse' {serve
 describeEventsResponse_nextToken :: Lens.Lens' DescribeEventsResponse (Prelude.Maybe Prelude.Text)
 describeEventsResponse_nextToken = Lens.lens (\DescribeEventsResponse' {nextToken} -> nextToken) (\s@DescribeEventsResponse' {} a -> s {nextToken = a} :: DescribeEventsResponse)
 
+-- | Contains the response to a @DescribeEvents@ request.
+describeEventsResponse_serverEvents :: Lens.Lens' DescribeEventsResponse (Prelude.Maybe [ServerEvent])
+describeEventsResponse_serverEvents = Lens.lens (\DescribeEventsResponse' {serverEvents} -> serverEvents) (\s@DescribeEventsResponse' {} a -> s {serverEvents = a} :: DescribeEventsResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The response's http status code.
 describeEventsResponse_httpStatus :: Lens.Lens' DescribeEventsResponse Prelude.Int
 describeEventsResponse_httpStatus = Lens.lens (\DescribeEventsResponse' {httpStatus} -> httpStatus) (\s@DescribeEventsResponse' {} a -> s {httpStatus = a} :: DescribeEventsResponse)
 
 instance Prelude.NFData DescribeEventsResponse where
   rnf DescribeEventsResponse' {..} =
-    Prelude.rnf serverEvents
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf serverEvents
       `Prelude.seq` Prelude.rnf httpStatus

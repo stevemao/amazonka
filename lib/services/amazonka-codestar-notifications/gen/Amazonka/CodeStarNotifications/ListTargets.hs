@@ -14,13 +14,14 @@
 
 -- |
 -- Module      : Amazonka.CodeStarNotifications.ListTargets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of the notification rule targets for an AWS account.
+-- Returns a list of the notification rule targets for an Amazon Web
+-- Services account.
 --
 -- This operation returns paginated results.
 module Amazonka.CodeStarNotifications.ListTargets
@@ -30,8 +31,8 @@ module Amazonka.CodeStarNotifications.ListTargets
 
     -- * Request Lenses
     listTargets_filters,
-    listTargets_nextToken,
     listTargets_maxResults,
+    listTargets_nextToken,
 
     -- * Destructuring the Response
     ListTargetsResponse (..),
@@ -46,7 +47,8 @@ where
 
 import Amazonka.CodeStarNotifications.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,12 +62,12 @@ data ListTargets = ListTargets'
     -- statements. Filters with different names should be applied with AND
     -- statements.
     filters :: Prelude.Maybe [ListTargetsFilter],
-    -- | An enumeration token that, when provided in a request, returns the next
-    -- batch of the results.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | A non-negative integer used to limit the number of returned results. The
     -- maximum number of results that can be returned is 100.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | An enumeration token that, when provided in a request, returns the next
+    -- batch of the results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -84,18 +86,18 @@ data ListTargets = ListTargets'
 -- statements. Filters with different names should be applied with AND
 -- statements.
 --
--- 'nextToken', 'listTargets_nextToken' - An enumeration token that, when provided in a request, returns the next
--- batch of the results.
---
 -- 'maxResults', 'listTargets_maxResults' - A non-negative integer used to limit the number of returned results. The
 -- maximum number of results that can be returned is 100.
+--
+-- 'nextToken', 'listTargets_nextToken' - An enumeration token that, when provided in a request, returns the next
+-- batch of the results.
 newListTargets ::
   ListTargets
 newListTargets =
   ListTargets'
     { filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | The filters to use to return information by service or resource type.
@@ -107,15 +109,15 @@ newListTargets =
 listTargets_filters :: Lens.Lens' ListTargets (Prelude.Maybe [ListTargetsFilter])
 listTargets_filters = Lens.lens (\ListTargets' {filters} -> filters) (\s@ListTargets' {} a -> s {filters = a} :: ListTargets) Prelude.. Lens.mapping Lens.coerced
 
--- | An enumeration token that, when provided in a request, returns the next
--- batch of the results.
-listTargets_nextToken :: Lens.Lens' ListTargets (Prelude.Maybe Prelude.Text)
-listTargets_nextToken = Lens.lens (\ListTargets' {nextToken} -> nextToken) (\s@ListTargets' {} a -> s {nextToken = a} :: ListTargets)
-
 -- | A non-negative integer used to limit the number of returned results. The
 -- maximum number of results that can be returned is 100.
 listTargets_maxResults :: Lens.Lens' ListTargets (Prelude.Maybe Prelude.Natural)
 listTargets_maxResults = Lens.lens (\ListTargets' {maxResults} -> maxResults) (\s@ListTargets' {} a -> s {maxResults = a} :: ListTargets)
+
+-- | An enumeration token that, when provided in a request, returns the next
+-- batch of the results.
+listTargets_nextToken :: Lens.Lens' ListTargets (Prelude.Maybe Prelude.Text)
+listTargets_nextToken = Lens.lens (\ListTargets' {nextToken} -> nextToken) (\s@ListTargets' {} a -> s {nextToken = a} :: ListTargets)
 
 instance Core.AWSPager ListTargets where
   page rq rs
@@ -138,53 +140,54 @@ instance Core.AWSPager ListTargets where
 
 instance Core.AWSRequest ListTargets where
   type AWSResponse ListTargets = ListTargetsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTargetsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Targets" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Targets" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListTargets where
   hashWithSalt _salt ListTargets' {..} =
     _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListTargets where
   rnf ListTargets' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListTargets where
+instance Data.ToHeaders ListTargets where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTargets where
+instance Data.ToJSON ListTargets where
   toJSON ListTargets' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListTargets where
+instance Data.ToPath ListTargets where
   toPath = Prelude.const "/listTargets"
 
-instance Core.ToQuery ListTargets where
+instance Data.ToQuery ListTargets where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTargetsResponse' smart constructor.

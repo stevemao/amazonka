@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppSync.Types.AuthorizationConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,19 +22,20 @@ module Amazonka.AppSync.Types.AuthorizationConfig where
 import Amazonka.AppSync.Types.AuthorizationType
 import Amazonka.AppSync.Types.AwsIamConfig
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The authorization config in case the HTTP endpoint requires
+-- | The authorization configuration in case the HTTP endpoint requires
 -- authorization.
 --
 -- /See:/ 'newAuthorizationConfig' smart constructor.
 data AuthorizationConfig = AuthorizationConfig'
-  { -- | The Identity and Access Management settings.
+  { -- | The Identity and Access Management (IAM) settings.
     awsIamConfig :: Prelude.Maybe AwsIamConfig,
-    -- | The authorization type required by the HTTP endpoint.
+    -- | The authorization type that the HTTP endpoint requires.
     --
-    -- -   __AWS_IAM__: The authorization type is Sigv4.
+    -- -   __AWS_IAM__: The authorization type is Signature Version 4 (SigV4).
     authorizationType :: AuthorizationType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -47,11 +48,11 @@ data AuthorizationConfig = AuthorizationConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'awsIamConfig', 'authorizationConfig_awsIamConfig' - The Identity and Access Management settings.
+-- 'awsIamConfig', 'authorizationConfig_awsIamConfig' - The Identity and Access Management (IAM) settings.
 --
--- 'authorizationType', 'authorizationConfig_authorizationType' - The authorization type required by the HTTP endpoint.
+-- 'authorizationType', 'authorizationConfig_authorizationType' - The authorization type that the HTTP endpoint requires.
 --
--- -   __AWS_IAM__: The authorization type is Sigv4.
+-- -   __AWS_IAM__: The authorization type is Signature Version 4 (SigV4).
 newAuthorizationConfig ::
   -- | 'authorizationType'
   AuthorizationType ->
@@ -63,24 +64,24 @@ newAuthorizationConfig pAuthorizationType_ =
       authorizationType = pAuthorizationType_
     }
 
--- | The Identity and Access Management settings.
+-- | The Identity and Access Management (IAM) settings.
 authorizationConfig_awsIamConfig :: Lens.Lens' AuthorizationConfig (Prelude.Maybe AwsIamConfig)
 authorizationConfig_awsIamConfig = Lens.lens (\AuthorizationConfig' {awsIamConfig} -> awsIamConfig) (\s@AuthorizationConfig' {} a -> s {awsIamConfig = a} :: AuthorizationConfig)
 
--- | The authorization type required by the HTTP endpoint.
+-- | The authorization type that the HTTP endpoint requires.
 --
--- -   __AWS_IAM__: The authorization type is Sigv4.
+-- -   __AWS_IAM__: The authorization type is Signature Version 4 (SigV4).
 authorizationConfig_authorizationType :: Lens.Lens' AuthorizationConfig AuthorizationType
 authorizationConfig_authorizationType = Lens.lens (\AuthorizationConfig' {authorizationType} -> authorizationType) (\s@AuthorizationConfig' {} a -> s {authorizationType = a} :: AuthorizationConfig)
 
-instance Core.FromJSON AuthorizationConfig where
+instance Data.FromJSON AuthorizationConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AuthorizationConfig"
       ( \x ->
           AuthorizationConfig'
-            Prelude.<$> (x Core..:? "awsIamConfig")
-            Prelude.<*> (x Core..: "authorizationType")
+            Prelude.<$> (x Data..:? "awsIamConfig")
+            Prelude.<*> (x Data..: "authorizationType")
       )
 
 instance Prelude.Hashable AuthorizationConfig where
@@ -93,12 +94,12 @@ instance Prelude.NFData AuthorizationConfig where
     Prelude.rnf awsIamConfig
       `Prelude.seq` Prelude.rnf authorizationType
 
-instance Core.ToJSON AuthorizationConfig where
+instance Data.ToJSON AuthorizationConfig where
   toJSON AuthorizationConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("awsIamConfig" Core..=) Prelude.<$> awsIamConfig,
+          [ ("awsIamConfig" Data..=) Prelude.<$> awsIamConfig,
             Prelude.Just
-              ("authorizationType" Core..= authorizationType)
+              ("authorizationType" Data..= authorizationType)
           ]
       )

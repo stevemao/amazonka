@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.ListEntityRecognizers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,39 +36,40 @@ module Amazonka.Comprehend.ListEntityRecognizers
     newListEntityRecognizers,
 
     -- * Request Lenses
-    listEntityRecognizers_nextToken,
     listEntityRecognizers_filter,
     listEntityRecognizers_maxResults,
+    listEntityRecognizers_nextToken,
 
     -- * Destructuring the Response
     ListEntityRecognizersResponse (..),
     newListEntityRecognizersResponse,
 
     -- * Response Lenses
-    listEntityRecognizersResponse_nextToken,
     listEntityRecognizersResponse_entityRecognizerPropertiesList,
+    listEntityRecognizersResponse_nextToken,
     listEntityRecognizersResponse_httpStatus,
   )
 where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListEntityRecognizers' smart constructor.
 data ListEntityRecognizers = ListEntityRecognizers'
-  { -- | Identifies the next page of results to return.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Filters the list of entities returned. You can filter on @Status@,
+  { -- | Filters the list of entities returned. You can filter on @Status@,
     -- @SubmitTimeBefore@, or @SubmitTimeAfter@. You can only set one filter at
     -- a time.
     filter' :: Prelude.Maybe EntityRecognizerFilter,
     -- | The maximum number of results to return on each page. The default is
     -- 100.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Identifies the next page of results to return.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -80,26 +81,22 @@ data ListEntityRecognizers = ListEntityRecognizers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listEntityRecognizers_nextToken' - Identifies the next page of results to return.
---
 -- 'filter'', 'listEntityRecognizers_filter' - Filters the list of entities returned. You can filter on @Status@,
 -- @SubmitTimeBefore@, or @SubmitTimeAfter@. You can only set one filter at
 -- a time.
 --
 -- 'maxResults', 'listEntityRecognizers_maxResults' - The maximum number of results to return on each page. The default is
 -- 100.
+--
+-- 'nextToken', 'listEntityRecognizers_nextToken' - Identifies the next page of results to return.
 newListEntityRecognizers ::
   ListEntityRecognizers
 newListEntityRecognizers =
   ListEntityRecognizers'
-    { nextToken = Prelude.Nothing,
-      filter' = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { filter' = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | Identifies the next page of results to return.
-listEntityRecognizers_nextToken :: Lens.Lens' ListEntityRecognizers (Prelude.Maybe Prelude.Text)
-listEntityRecognizers_nextToken = Lens.lens (\ListEntityRecognizers' {nextToken} -> nextToken) (\s@ListEntityRecognizers' {} a -> s {nextToken = a} :: ListEntityRecognizers)
 
 -- | Filters the list of entities returned. You can filter on @Status@,
 -- @SubmitTimeBefore@, or @SubmitTimeAfter@. You can only set one filter at
@@ -111,6 +108,10 @@ listEntityRecognizers_filter = Lens.lens (\ListEntityRecognizers' {filter'} -> f
 -- 100.
 listEntityRecognizers_maxResults :: Lens.Lens' ListEntityRecognizers (Prelude.Maybe Prelude.Natural)
 listEntityRecognizers_maxResults = Lens.lens (\ListEntityRecognizers' {maxResults} -> maxResults) (\s@ListEntityRecognizers' {} a -> s {maxResults = a} :: ListEntityRecognizers)
+
+-- | Identifies the next page of results to return.
+listEntityRecognizers_nextToken :: Lens.Lens' ListEntityRecognizers (Prelude.Maybe Prelude.Text)
+listEntityRecognizers_nextToken = Lens.lens (\ListEntityRecognizers' {nextToken} -> nextToken) (\s@ListEntityRecognizers' {} a -> s {nextToken = a} :: ListEntityRecognizers)
 
 instance Core.AWSPager ListEntityRecognizers where
   page rq rs
@@ -138,67 +139,68 @@ instance Core.AWSRequest ListEntityRecognizers where
   type
     AWSResponse ListEntityRecognizers =
       ListEntityRecognizersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListEntityRecognizersResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "EntityRecognizerPropertiesList"
+            Prelude.<$> ( x Data..?> "EntityRecognizerPropertiesList"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListEntityRecognizers where
   hashWithSalt _salt ListEntityRecognizers' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` filter'
+    _salt `Prelude.hashWithSalt` filter'
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListEntityRecognizers where
   rnf ListEntityRecognizers' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf filter'
+    Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListEntityRecognizers where
+instance Data.ToHeaders ListEntityRecognizers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.ListEntityRecognizers" ::
+              Data.=# ( "Comprehend_20171127.ListEntityRecognizers" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListEntityRecognizers where
+instance Data.ToJSON ListEntityRecognizers where
   toJSON ListEntityRecognizers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Filter" Core..=) Prelude.<$> filter',
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filter" Data..=) Prelude.<$> filter',
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListEntityRecognizers where
+instance Data.ToPath ListEntityRecognizers where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListEntityRecognizers where
+instance Data.ToQuery ListEntityRecognizers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListEntityRecognizersResponse' smart constructor.
 data ListEntityRecognizersResponse = ListEntityRecognizersResponse'
-  { -- | Identifies the next page of results to return.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The list of properties of an entity recognizer.
+  { -- | The list of properties of an entity recognizer.
     entityRecognizerPropertiesList :: Prelude.Maybe [EntityRecognizerProperties],
+    -- | Identifies the next page of results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -212,9 +214,9 @@ data ListEntityRecognizersResponse = ListEntityRecognizersResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listEntityRecognizersResponse_nextToken' - Identifies the next page of results to return.
---
 -- 'entityRecognizerPropertiesList', 'listEntityRecognizersResponse_entityRecognizerPropertiesList' - The list of properties of an entity recognizer.
+--
+-- 'nextToken', 'listEntityRecognizersResponse_nextToken' - Identifies the next page of results to return.
 --
 -- 'httpStatus', 'listEntityRecognizersResponse_httpStatus' - The response's http status code.
 newListEntityRecognizersResponse ::
@@ -223,20 +225,19 @@ newListEntityRecognizersResponse ::
   ListEntityRecognizersResponse
 newListEntityRecognizersResponse pHttpStatus_ =
   ListEntityRecognizersResponse'
-    { nextToken =
+    { entityRecognizerPropertiesList =
         Prelude.Nothing,
-      entityRecognizerPropertiesList =
-        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Identifies the next page of results to return.
-listEntityRecognizersResponse_nextToken :: Lens.Lens' ListEntityRecognizersResponse (Prelude.Maybe Prelude.Text)
-listEntityRecognizersResponse_nextToken = Lens.lens (\ListEntityRecognizersResponse' {nextToken} -> nextToken) (\s@ListEntityRecognizersResponse' {} a -> s {nextToken = a} :: ListEntityRecognizersResponse)
 
 -- | The list of properties of an entity recognizer.
 listEntityRecognizersResponse_entityRecognizerPropertiesList :: Lens.Lens' ListEntityRecognizersResponse (Prelude.Maybe [EntityRecognizerProperties])
 listEntityRecognizersResponse_entityRecognizerPropertiesList = Lens.lens (\ListEntityRecognizersResponse' {entityRecognizerPropertiesList} -> entityRecognizerPropertiesList) (\s@ListEntityRecognizersResponse' {} a -> s {entityRecognizerPropertiesList = a} :: ListEntityRecognizersResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | Identifies the next page of results to return.
+listEntityRecognizersResponse_nextToken :: Lens.Lens' ListEntityRecognizersResponse (Prelude.Maybe Prelude.Text)
+listEntityRecognizersResponse_nextToken = Lens.lens (\ListEntityRecognizersResponse' {nextToken} -> nextToken) (\s@ListEntityRecognizersResponse' {} a -> s {nextToken = a} :: ListEntityRecognizersResponse)
 
 -- | The response's http status code.
 listEntityRecognizersResponse_httpStatus :: Lens.Lens' ListEntityRecognizersResponse Prelude.Int
@@ -244,6 +245,6 @@ listEntityRecognizersResponse_httpStatus = Lens.lens (\ListEntityRecognizersResp
 
 instance Prelude.NFData ListEntityRecognizersResponse where
   rnf ListEntityRecognizersResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf entityRecognizerPropertiesList
+    Prelude.rnf entityRecognizerPropertiesList
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

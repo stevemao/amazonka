@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MigrationHub.ListApplicationStates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,9 +31,9 @@ module Amazonka.MigrationHub.ListApplicationStates
     newListApplicationStates,
 
     -- * Request Lenses
-    listApplicationStates_nextToken,
     listApplicationStates_applicationIds,
     listApplicationStates_maxResults,
+    listApplicationStates_nextToken,
 
     -- * Destructuring the Response
     ListApplicationStatesResponse (..),
@@ -47,7 +47,8 @@ module Amazonka.MigrationHub.ListApplicationStates
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MigrationHub.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -55,15 +56,15 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListApplicationStates' smart constructor.
 data ListApplicationStates = ListApplicationStates'
-  { -- | If a @NextToken@ was returned by a previous call, there are more results
-    -- available. To retrieve the next page of results, make the call again
-    -- using the returned token in @NextToken@.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The configurationIds from the Application Discovery Service that
+  { -- | The configurationIds from the Application Discovery Service that
     -- uniquely identifies your applications.
     applicationIds :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
     -- | Maximum number of results to be returned per page.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | If a @NextToken@ was returned by a previous call, there are more results
+    -- available. To retrieve the next page of results, make the call again
+    -- using the returned token in @NextToken@.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -75,28 +76,23 @@ data ListApplicationStates = ListApplicationStates'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listApplicationStates_nextToken' - If a @NextToken@ was returned by a previous call, there are more results
--- available. To retrieve the next page of results, make the call again
--- using the returned token in @NextToken@.
---
 -- 'applicationIds', 'listApplicationStates_applicationIds' - The configurationIds from the Application Discovery Service that
 -- uniquely identifies your applications.
 --
 -- 'maxResults', 'listApplicationStates_maxResults' - Maximum number of results to be returned per page.
+--
+-- 'nextToken', 'listApplicationStates_nextToken' - If a @NextToken@ was returned by a previous call, there are more results
+-- available. To retrieve the next page of results, make the call again
+-- using the returned token in @NextToken@.
 newListApplicationStates ::
   ListApplicationStates
 newListApplicationStates =
   ListApplicationStates'
-    { nextToken = Prelude.Nothing,
-      applicationIds = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { applicationIds =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | If a @NextToken@ was returned by a previous call, there are more results
--- available. To retrieve the next page of results, make the call again
--- using the returned token in @NextToken@.
-listApplicationStates_nextToken :: Lens.Lens' ListApplicationStates (Prelude.Maybe Prelude.Text)
-listApplicationStates_nextToken = Lens.lens (\ListApplicationStates' {nextToken} -> nextToken) (\s@ListApplicationStates' {} a -> s {nextToken = a} :: ListApplicationStates)
 
 -- | The configurationIds from the Application Discovery Service that
 -- uniquely identifies your applications.
@@ -106,6 +102,12 @@ listApplicationStates_applicationIds = Lens.lens (\ListApplicationStates' {appli
 -- | Maximum number of results to be returned per page.
 listApplicationStates_maxResults :: Lens.Lens' ListApplicationStates (Prelude.Maybe Prelude.Natural)
 listApplicationStates_maxResults = Lens.lens (\ListApplicationStates' {maxResults} -> maxResults) (\s@ListApplicationStates' {} a -> s {maxResults = a} :: ListApplicationStates)
+
+-- | If a @NextToken@ was returned by a previous call, there are more results
+-- available. To retrieve the next page of results, make the call again
+-- using the returned token in @NextToken@.
+listApplicationStates_nextToken :: Lens.Lens' ListApplicationStates (Prelude.Maybe Prelude.Text)
+listApplicationStates_nextToken = Lens.lens (\ListApplicationStates' {nextToken} -> nextToken) (\s@ListApplicationStates' {} a -> s {nextToken = a} :: ListApplicationStates)
 
 instance Core.AWSPager ListApplicationStates where
   page rq rs
@@ -133,60 +135,61 @@ instance Core.AWSRequest ListApplicationStates where
   type
     AWSResponse ListApplicationStates =
       ListApplicationStatesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListApplicationStatesResponse'
-            Prelude.<$> ( x Core..?> "ApplicationStateList"
+            Prelude.<$> ( x Data..?> "ApplicationStateList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListApplicationStates where
   hashWithSalt _salt ListApplicationStates' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` applicationIds
+    _salt `Prelude.hashWithSalt` applicationIds
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListApplicationStates where
   rnf ListApplicationStates' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf applicationIds
+    Prelude.rnf applicationIds
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListApplicationStates where
+instance Data.ToHeaders ListApplicationStates where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSMigrationHub.ListApplicationStates" ::
+              Data.=# ( "AWSMigrationHub.ListApplicationStates" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListApplicationStates where
+instance Data.ToJSON ListApplicationStates where
   toJSON ListApplicationStates' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("ApplicationIds" Core..=)
+          [ ("ApplicationIds" Data..=)
               Prelude.<$> applicationIds,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListApplicationStates where
+instance Data.ToPath ListApplicationStates where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListApplicationStates where
+instance Data.ToQuery ListApplicationStates where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListApplicationStatesResponse' smart constructor.

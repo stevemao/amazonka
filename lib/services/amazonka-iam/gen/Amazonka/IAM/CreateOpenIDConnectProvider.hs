@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.CreateOpenIDConnectProvider
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -84,8 +84,9 @@ module Amazonka.IAM.CreateOpenIDConnectProvider
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -298,15 +299,16 @@ instance Core.AWSRequest CreateOpenIDConnectProvider where
   type
     AWSResponse CreateOpenIDConnectProvider =
       CreateOpenIDConnectProviderResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateOpenIDConnectProviderResult"
       ( \s h x ->
           CreateOpenIDConnectProviderResponse'
-            Prelude.<$> (x Core..@? "OpenIDConnectProviderArn")
-            Prelude.<*> ( x Core..@? "Tags" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> (x Data..@? "OpenIDConnectProviderArn")
+            Prelude.<*> ( x Data..@? "Tags" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -325,30 +327,30 @@ instance Prelude.NFData CreateOpenIDConnectProvider where
       `Prelude.seq` Prelude.rnf url
       `Prelude.seq` Prelude.rnf thumbprintList
 
-instance Core.ToHeaders CreateOpenIDConnectProvider where
+instance Data.ToHeaders CreateOpenIDConnectProvider where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateOpenIDConnectProvider where
+instance Data.ToPath CreateOpenIDConnectProvider where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateOpenIDConnectProvider where
+instance Data.ToQuery CreateOpenIDConnectProvider where
   toQuery CreateOpenIDConnectProvider' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "CreateOpenIDConnectProvider" ::
+          Data.=: ( "CreateOpenIDConnectProvider" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
         "ClientIDList"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> clientIDList),
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> clientIDList),
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> tags),
-        "Url" Core.=: url,
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> tags),
+        "Url" Data.=: url,
         "ThumbprintList"
-          Core.=: Core.toQueryList "member" thumbprintList
+          Data.=: Data.toQueryList "member" thumbprintList
       ]
 
 -- | Contains the response to a successful CreateOpenIDConnectProvider

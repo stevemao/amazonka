@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MGN.Types.LifeCycleLastTestFinalized
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.MGN.Types.LifeCycleLastTestFinalized where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Lifecycle last Test finlized.
+-- | Lifecycle last Test finalized.
 --
 -- /See:/ 'newLifeCycleLastTestFinalized' smart constructor.
 data LifeCycleLastTestFinalized = LifeCycleLastTestFinalized'
@@ -53,13 +54,13 @@ newLifeCycleLastTestFinalized =
 lifeCycleLastTestFinalized_apiCallDateTime :: Lens.Lens' LifeCycleLastTestFinalized (Prelude.Maybe Prelude.Text)
 lifeCycleLastTestFinalized_apiCallDateTime = Lens.lens (\LifeCycleLastTestFinalized' {apiCallDateTime} -> apiCallDateTime) (\s@LifeCycleLastTestFinalized' {} a -> s {apiCallDateTime = a} :: LifeCycleLastTestFinalized)
 
-instance Core.FromJSON LifeCycleLastTestFinalized where
+instance Data.FromJSON LifeCycleLastTestFinalized where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LifeCycleLastTestFinalized"
       ( \x ->
           LifeCycleLastTestFinalized'
-            Prelude.<$> (x Core..:? "apiCallDateTime")
+            Prelude.<$> (x Data..:? "apiCallDateTime")
       )
 
 instance Prelude.Hashable LifeCycleLastTestFinalized where

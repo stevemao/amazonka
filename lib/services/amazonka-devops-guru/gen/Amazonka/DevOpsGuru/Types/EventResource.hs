@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.Types.EventResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,12 +20,14 @@
 module Amazonka.DevOpsGuru.Types.EventResource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The AWS resource that emitted an event. AWS resource events and metrics
--- are analyzed by DevOps Guru to find anomalous behavior and provide
--- recommendations to improve your operational solutions.
+-- | The Amazon Web Services resource that emitted an event. Amazon Web
+-- Services resource events and metrics are analyzed by DevOps Guru to find
+-- anomalous behavior and provide recommendations to improve your
+-- operational solutions.
 --
 -- /See:/ 'newEventResource' smart constructor.
 data EventResource = EventResource'
@@ -72,15 +74,15 @@ eventResource_name = Lens.lens (\EventResource' {name} -> name) (\s@EventResourc
 eventResource_type :: Lens.Lens' EventResource (Prelude.Maybe Prelude.Text)
 eventResource_type = Lens.lens (\EventResource' {type'} -> type') (\s@EventResource' {} a -> s {type' = a} :: EventResource)
 
-instance Core.FromJSON EventResource where
+instance Data.FromJSON EventResource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EventResource"
       ( \x ->
           EventResource'
-            Prelude.<$> (x Core..:? "Arn")
-            Prelude.<*> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "Arn")
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "Type")
       )
 
 instance Prelude.Hashable EventResource where

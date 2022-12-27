@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Resolver.Types.FirewallRuleGroupMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53Resolver.Types.FirewallRuleGroupMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53Resolver.Types.ShareStatus
 
@@ -38,19 +39,19 @@ data FirewallRuleGroupMetadata = FirewallRuleGroupMetadata'
     -- to retry failed requests without the risk of running the operation
     -- twice. This can be any unique string, for example, a timestamp.
     creatorRequestId :: Prelude.Maybe Prelude.Text,
-    -- | Whether the rule group is shared with other Amazon Web Services
-    -- accounts, or was shared with the current account by another Amazon Web
-    -- Services account. Sharing is configured through Resource Access Manager
-    -- (RAM).
-    shareStatus :: Prelude.Maybe ShareStatus,
+    -- | The ID of the rule group.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the rule group.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Web Services account ID for the account that created the rule
     -- group. When a rule group is shared with your account, this is the
     -- account that has shared the rule group with you.
     ownerId :: Prelude.Maybe Prelude.Text,
-    -- | The name of the rule group.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the rule group.
-    id :: Prelude.Maybe Prelude.Text
+    -- | Whether the rule group is shared with other Amazon Web Services
+    -- accounts, or was shared with the current account by another Amazon Web
+    -- Services account. Sharing is configured through Resource Access Manager
+    -- (RAM).
+    shareStatus :: Prelude.Maybe ShareStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -68,28 +69,28 @@ data FirewallRuleGroupMetadata = FirewallRuleGroupMetadata'
 -- to retry failed requests without the risk of running the operation
 -- twice. This can be any unique string, for example, a timestamp.
 --
--- 'shareStatus', 'firewallRuleGroupMetadata_shareStatus' - Whether the rule group is shared with other Amazon Web Services
--- accounts, or was shared with the current account by another Amazon Web
--- Services account. Sharing is configured through Resource Access Manager
--- (RAM).
+-- 'id', 'firewallRuleGroupMetadata_id' - The ID of the rule group.
+--
+-- 'name', 'firewallRuleGroupMetadata_name' - The name of the rule group.
 --
 -- 'ownerId', 'firewallRuleGroupMetadata_ownerId' - The Amazon Web Services account ID for the account that created the rule
 -- group. When a rule group is shared with your account, this is the
 -- account that has shared the rule group with you.
 --
--- 'name', 'firewallRuleGroupMetadata_name' - The name of the rule group.
---
--- 'id', 'firewallRuleGroupMetadata_id' - The ID of the rule group.
+-- 'shareStatus', 'firewallRuleGroupMetadata_shareStatus' - Whether the rule group is shared with other Amazon Web Services
+-- accounts, or was shared with the current account by another Amazon Web
+-- Services account. Sharing is configured through Resource Access Manager
+-- (RAM).
 newFirewallRuleGroupMetadata ::
   FirewallRuleGroupMetadata
 newFirewallRuleGroupMetadata =
   FirewallRuleGroupMetadata'
     { arn = Prelude.Nothing,
       creatorRequestId = Prelude.Nothing,
-      shareStatus = Prelude.Nothing,
-      ownerId = Prelude.Nothing,
+      id = Prelude.Nothing,
       name = Prelude.Nothing,
-      id = Prelude.Nothing
+      ownerId = Prelude.Nothing,
+      shareStatus = Prelude.Nothing
     }
 
 -- | The ARN (Amazon Resource Name) of the rule group.
@@ -102,12 +103,13 @@ firewallRuleGroupMetadata_arn = Lens.lens (\FirewallRuleGroupMetadata' {arn} -> 
 firewallRuleGroupMetadata_creatorRequestId :: Lens.Lens' FirewallRuleGroupMetadata (Prelude.Maybe Prelude.Text)
 firewallRuleGroupMetadata_creatorRequestId = Lens.lens (\FirewallRuleGroupMetadata' {creatorRequestId} -> creatorRequestId) (\s@FirewallRuleGroupMetadata' {} a -> s {creatorRequestId = a} :: FirewallRuleGroupMetadata)
 
--- | Whether the rule group is shared with other Amazon Web Services
--- accounts, or was shared with the current account by another Amazon Web
--- Services account. Sharing is configured through Resource Access Manager
--- (RAM).
-firewallRuleGroupMetadata_shareStatus :: Lens.Lens' FirewallRuleGroupMetadata (Prelude.Maybe ShareStatus)
-firewallRuleGroupMetadata_shareStatus = Lens.lens (\FirewallRuleGroupMetadata' {shareStatus} -> shareStatus) (\s@FirewallRuleGroupMetadata' {} a -> s {shareStatus = a} :: FirewallRuleGroupMetadata)
+-- | The ID of the rule group.
+firewallRuleGroupMetadata_id :: Lens.Lens' FirewallRuleGroupMetadata (Prelude.Maybe Prelude.Text)
+firewallRuleGroupMetadata_id = Lens.lens (\FirewallRuleGroupMetadata' {id} -> id) (\s@FirewallRuleGroupMetadata' {} a -> s {id = a} :: FirewallRuleGroupMetadata)
+
+-- | The name of the rule group.
+firewallRuleGroupMetadata_name :: Lens.Lens' FirewallRuleGroupMetadata (Prelude.Maybe Prelude.Text)
+firewallRuleGroupMetadata_name = Lens.lens (\FirewallRuleGroupMetadata' {name} -> name) (\s@FirewallRuleGroupMetadata' {} a -> s {name = a} :: FirewallRuleGroupMetadata)
 
 -- | The Amazon Web Services account ID for the account that created the rule
 -- group. When a rule group is shared with your account, this is the
@@ -115,42 +117,41 @@ firewallRuleGroupMetadata_shareStatus = Lens.lens (\FirewallRuleGroupMetadata' {
 firewallRuleGroupMetadata_ownerId :: Lens.Lens' FirewallRuleGroupMetadata (Prelude.Maybe Prelude.Text)
 firewallRuleGroupMetadata_ownerId = Lens.lens (\FirewallRuleGroupMetadata' {ownerId} -> ownerId) (\s@FirewallRuleGroupMetadata' {} a -> s {ownerId = a} :: FirewallRuleGroupMetadata)
 
--- | The name of the rule group.
-firewallRuleGroupMetadata_name :: Lens.Lens' FirewallRuleGroupMetadata (Prelude.Maybe Prelude.Text)
-firewallRuleGroupMetadata_name = Lens.lens (\FirewallRuleGroupMetadata' {name} -> name) (\s@FirewallRuleGroupMetadata' {} a -> s {name = a} :: FirewallRuleGroupMetadata)
+-- | Whether the rule group is shared with other Amazon Web Services
+-- accounts, or was shared with the current account by another Amazon Web
+-- Services account. Sharing is configured through Resource Access Manager
+-- (RAM).
+firewallRuleGroupMetadata_shareStatus :: Lens.Lens' FirewallRuleGroupMetadata (Prelude.Maybe ShareStatus)
+firewallRuleGroupMetadata_shareStatus = Lens.lens (\FirewallRuleGroupMetadata' {shareStatus} -> shareStatus) (\s@FirewallRuleGroupMetadata' {} a -> s {shareStatus = a} :: FirewallRuleGroupMetadata)
 
--- | The ID of the rule group.
-firewallRuleGroupMetadata_id :: Lens.Lens' FirewallRuleGroupMetadata (Prelude.Maybe Prelude.Text)
-firewallRuleGroupMetadata_id = Lens.lens (\FirewallRuleGroupMetadata' {id} -> id) (\s@FirewallRuleGroupMetadata' {} a -> s {id = a} :: FirewallRuleGroupMetadata)
-
-instance Core.FromJSON FirewallRuleGroupMetadata where
+instance Data.FromJSON FirewallRuleGroupMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FirewallRuleGroupMetadata"
       ( \x ->
           FirewallRuleGroupMetadata'
-            Prelude.<$> (x Core..:? "Arn")
-            Prelude.<*> (x Core..:? "CreatorRequestId")
-            Prelude.<*> (x Core..:? "ShareStatus")
-            Prelude.<*> (x Core..:? "OwnerId")
-            Prelude.<*> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "Id")
+            Prelude.<$> (x Data..:? "Arn")
+            Prelude.<*> (x Data..:? "CreatorRequestId")
+            Prelude.<*> (x Data..:? "Id")
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "OwnerId")
+            Prelude.<*> (x Data..:? "ShareStatus")
       )
 
 instance Prelude.Hashable FirewallRuleGroupMetadata where
   hashWithSalt _salt FirewallRuleGroupMetadata' {..} =
     _salt `Prelude.hashWithSalt` arn
       `Prelude.hashWithSalt` creatorRequestId
-      `Prelude.hashWithSalt` shareStatus
-      `Prelude.hashWithSalt` ownerId
-      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` id
+      `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` ownerId
+      `Prelude.hashWithSalt` shareStatus
 
 instance Prelude.NFData FirewallRuleGroupMetadata where
   rnf FirewallRuleGroupMetadata' {..} =
     Prelude.rnf arn
       `Prelude.seq` Prelude.rnf creatorRequestId
-      `Prelude.seq` Prelude.rnf shareStatus
-      `Prelude.seq` Prelude.rnf ownerId
-      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf id
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf ownerId
+      `Prelude.seq` Prelude.rnf shareStatus

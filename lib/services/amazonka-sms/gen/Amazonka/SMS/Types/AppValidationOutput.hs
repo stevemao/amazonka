@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SMS.Types.AppValidationOutput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SMS.Types.AppValidationOutput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SMS.Types.SSMOutput
 
@@ -51,13 +52,13 @@ newAppValidationOutput =
 appValidationOutput_ssmOutput :: Lens.Lens' AppValidationOutput (Prelude.Maybe SSMOutput)
 appValidationOutput_ssmOutput = Lens.lens (\AppValidationOutput' {ssmOutput} -> ssmOutput) (\s@AppValidationOutput' {} a -> s {ssmOutput = a} :: AppValidationOutput)
 
-instance Core.FromJSON AppValidationOutput where
+instance Data.FromJSON AppValidationOutput where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AppValidationOutput"
       ( \x ->
           AppValidationOutput'
-            Prelude.<$> (x Core..:? "ssmOutput")
+            Prelude.<$> (x Data..:? "ssmOutput")
       )
 
 instance Prelude.Hashable AppValidationOutput where

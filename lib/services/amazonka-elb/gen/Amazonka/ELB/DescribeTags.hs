@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ELB.DescribeTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.ELB.DescribeTags
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,14 +81,15 @@ describeTags_loadBalancerNames = Lens.lens (\DescribeTags' {loadBalancerNames} -
 
 instance Core.AWSRequest DescribeTags where
   type AWSResponse DescribeTags = DescribeTagsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeTagsResult"
       ( \s h x ->
           DescribeTagsResponse'
-            Prelude.<$> ( x Core..@? "TagDescriptions" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> ( x Data..@? "TagDescriptions" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -99,21 +101,21 @@ instance Prelude.Hashable DescribeTags where
 instance Prelude.NFData DescribeTags where
   rnf DescribeTags' {..} = Prelude.rnf loadBalancerNames
 
-instance Core.ToHeaders DescribeTags where
+instance Data.ToHeaders DescribeTags where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeTags where
+instance Data.ToPath DescribeTags where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeTags where
+instance Data.ToQuery DescribeTags where
   toQuery DescribeTags' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeTags" :: Prelude.ByteString),
+          Data.=: ("DescribeTags" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-06-01" :: Prelude.ByteString),
+          Data.=: ("2012-06-01" :: Prelude.ByteString),
         "LoadBalancerNames"
-          Core.=: Core.toQueryList "member" loadBalancerNames
+          Data.=: Data.toQueryList "member" loadBalancerNames
       ]
 
 -- | Contains the output for DescribeTags.

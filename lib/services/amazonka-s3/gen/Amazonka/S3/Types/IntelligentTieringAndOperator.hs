@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.IntelligentTieringAndOperator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.IntelligentTieringAndOperator where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.Tag
@@ -71,12 +72,12 @@ intelligentTieringAndOperator_prefix = Lens.lens (\IntelligentTieringAndOperator
 intelligentTieringAndOperator_tags :: Lens.Lens' IntelligentTieringAndOperator (Prelude.Maybe [Tag])
 intelligentTieringAndOperator_tags = Lens.lens (\IntelligentTieringAndOperator' {tags} -> tags) (\s@IntelligentTieringAndOperator' {} a -> s {tags = a} :: IntelligentTieringAndOperator) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML IntelligentTieringAndOperator where
+instance Data.FromXML IntelligentTieringAndOperator where
   parseXML x =
     IntelligentTieringAndOperator'
-      Prelude.<$> (x Core..@? "Prefix")
-      Prelude.<*> ( x Core..@? "Tag" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "Tag")
+      Prelude.<$> (x Data..@? "Prefix")
+      Prelude.<*> ( x Data..@? "Tag" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "Tag")
                   )
 
 instance
@@ -91,10 +92,10 @@ instance Prelude.NFData IntelligentTieringAndOperator where
   rnf IntelligentTieringAndOperator' {..} =
     Prelude.rnf prefix `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToXML IntelligentTieringAndOperator where
+instance Data.ToXML IntelligentTieringAndOperator where
   toXML IntelligentTieringAndOperator' {..} =
     Prelude.mconcat
-      [ "Prefix" Core.@= prefix,
+      [ "Prefix" Data.@= prefix,
         "Tag"
-          Core.@= Core.toXML (Core.toXMLList "Tag" Prelude.<$> tags)
+          Data.@= Data.toXML (Data.toXMLList "Tag" Prelude.<$> tags)
       ]

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.DeleteLayerVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.Lambda.DeleteLayerVersion
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,7 +92,8 @@ instance Core.AWSRequest DeleteLayerVersion where
   type
     AWSResponse DeleteLayerVersion =
       DeleteLayerVersionResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteLayerVersionResponse'
 
@@ -105,19 +107,19 @@ instance Prelude.NFData DeleteLayerVersion where
     Prelude.rnf layerName
       `Prelude.seq` Prelude.rnf versionNumber
 
-instance Core.ToHeaders DeleteLayerVersion where
+instance Data.ToHeaders DeleteLayerVersion where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteLayerVersion where
+instance Data.ToPath DeleteLayerVersion where
   toPath DeleteLayerVersion' {..} =
     Prelude.mconcat
       [ "/2018-10-31/layers/",
-        Core.toBS layerName,
+        Data.toBS layerName,
         "/versions/",
-        Core.toBS versionNumber
+        Data.toBS versionNumber
       ]
 
-instance Core.ToQuery DeleteLayerVersion where
+instance Data.ToQuery DeleteLayerVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteLayerVersionResponse' smart constructor.

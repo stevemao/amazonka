@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.PinpointEmail.SendEmail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,10 +38,10 @@ module Amazonka.PinpointEmail.SendEmail
     newSendEmail,
 
     -- * Request Lenses
-    sendEmail_fromEmailAddress,
     sendEmail_configurationSetName,
     sendEmail_emailTags,
     sendEmail_feedbackForwardingEmailAddress,
+    sendEmail_fromEmailAddress,
     sendEmail_replyToAddresses,
     sendEmail_destination,
     sendEmail_content,
@@ -57,7 +57,8 @@ module Amazonka.PinpointEmail.SendEmail
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.PinpointEmail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -67,10 +68,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newSendEmail' smart constructor.
 data SendEmail = SendEmail'
-  { -- | The email address that you want to use as the \"From\" address for the
-    -- email. The address that you specify has to be verified.
-    fromEmailAddress :: Prelude.Maybe Prelude.Text,
-    -- | The name of the configuration set that you want to use when sending the
+  { -- | The name of the configuration set that you want to use when sending the
     -- email.
     configurationSetName :: Prelude.Maybe Prelude.Text,
     -- | A list of tags, in the form of name\/value pairs, to apply to an email
@@ -81,6 +79,9 @@ data SendEmail = SendEmail'
     -- | The address that Amazon Pinpoint should send bounce and complaint
     -- notifications to.
     feedbackForwardingEmailAddress :: Prelude.Maybe Prelude.Text,
+    -- | The email address that you want to use as the \"From\" address for the
+    -- email. The address that you specify has to be verified.
+    fromEmailAddress :: Prelude.Maybe Prelude.Text,
     -- | The \"Reply-to\" email addresses for the message. When the recipient
     -- replies to the message, each Reply-to address receives the reply.
     replyToAddresses :: Prelude.Maybe [Prelude.Text],
@@ -100,9 +101,6 @@ data SendEmail = SendEmail'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'fromEmailAddress', 'sendEmail_fromEmailAddress' - The email address that you want to use as the \"From\" address for the
--- email. The address that you specify has to be verified.
---
 -- 'configurationSetName', 'sendEmail_configurationSetName' - The name of the configuration set that you want to use when sending the
 -- email.
 --
@@ -113,6 +111,9 @@ data SendEmail = SendEmail'
 --
 -- 'feedbackForwardingEmailAddress', 'sendEmail_feedbackForwardingEmailAddress' - The address that Amazon Pinpoint should send bounce and complaint
 -- notifications to.
+--
+-- 'fromEmailAddress', 'sendEmail_fromEmailAddress' - The email address that you want to use as the \"From\" address for the
+-- email. The address that you specify has to be verified.
 --
 -- 'replyToAddresses', 'sendEmail_replyToAddresses' - The \"Reply-to\" email addresses for the message. When the recipient
 -- replies to the message, each Reply-to address receives the reply.
@@ -129,19 +130,14 @@ newSendEmail ::
   SendEmail
 newSendEmail pDestination_ pContent_ =
   SendEmail'
-    { fromEmailAddress = Prelude.Nothing,
-      configurationSetName = Prelude.Nothing,
+    { configurationSetName = Prelude.Nothing,
       emailTags = Prelude.Nothing,
       feedbackForwardingEmailAddress = Prelude.Nothing,
+      fromEmailAddress = Prelude.Nothing,
       replyToAddresses = Prelude.Nothing,
       destination = pDestination_,
       content = pContent_
     }
-
--- | The email address that you want to use as the \"From\" address for the
--- email. The address that you specify has to be verified.
-sendEmail_fromEmailAddress :: Lens.Lens' SendEmail (Prelude.Maybe Prelude.Text)
-sendEmail_fromEmailAddress = Lens.lens (\SendEmail' {fromEmailAddress} -> fromEmailAddress) (\s@SendEmail' {} a -> s {fromEmailAddress = a} :: SendEmail)
 
 -- | The name of the configuration set that you want to use when sending the
 -- email.
@@ -160,6 +156,11 @@ sendEmail_emailTags = Lens.lens (\SendEmail' {emailTags} -> emailTags) (\s@SendE
 sendEmail_feedbackForwardingEmailAddress :: Lens.Lens' SendEmail (Prelude.Maybe Prelude.Text)
 sendEmail_feedbackForwardingEmailAddress = Lens.lens (\SendEmail' {feedbackForwardingEmailAddress} -> feedbackForwardingEmailAddress) (\s@SendEmail' {} a -> s {feedbackForwardingEmailAddress = a} :: SendEmail)
 
+-- | The email address that you want to use as the \"From\" address for the
+-- email. The address that you specify has to be verified.
+sendEmail_fromEmailAddress :: Lens.Lens' SendEmail (Prelude.Maybe Prelude.Text)
+sendEmail_fromEmailAddress = Lens.lens (\SendEmail' {fromEmailAddress} -> fromEmailAddress) (\s@SendEmail' {} a -> s {fromEmailAddress = a} :: SendEmail)
+
 -- | The \"Reply-to\" email addresses for the message. When the recipient
 -- replies to the message, each Reply-to address receives the reply.
 sendEmail_replyToAddresses :: Lens.Lens' SendEmail (Prelude.Maybe [Prelude.Text])
@@ -176,68 +177,69 @@ sendEmail_content = Lens.lens (\SendEmail' {content} -> content) (\s@SendEmail' 
 
 instance Core.AWSRequest SendEmail where
   type AWSResponse SendEmail = SendEmailResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SendEmailResponse'
-            Prelude.<$> (x Core..?> "MessageId")
+            Prelude.<$> (x Data..?> "MessageId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable SendEmail where
   hashWithSalt _salt SendEmail' {..} =
-    _salt `Prelude.hashWithSalt` fromEmailAddress
-      `Prelude.hashWithSalt` configurationSetName
+    _salt `Prelude.hashWithSalt` configurationSetName
       `Prelude.hashWithSalt` emailTags
       `Prelude.hashWithSalt` feedbackForwardingEmailAddress
+      `Prelude.hashWithSalt` fromEmailAddress
       `Prelude.hashWithSalt` replyToAddresses
       `Prelude.hashWithSalt` destination
       `Prelude.hashWithSalt` content
 
 instance Prelude.NFData SendEmail where
   rnf SendEmail' {..} =
-    Prelude.rnf fromEmailAddress
-      `Prelude.seq` Prelude.rnf configurationSetName
+    Prelude.rnf configurationSetName
       `Prelude.seq` Prelude.rnf emailTags
       `Prelude.seq` Prelude.rnf feedbackForwardingEmailAddress
+      `Prelude.seq` Prelude.rnf fromEmailAddress
       `Prelude.seq` Prelude.rnf replyToAddresses
       `Prelude.seq` Prelude.rnf destination
       `Prelude.seq` Prelude.rnf content
 
-instance Core.ToHeaders SendEmail where
+instance Data.ToHeaders SendEmail where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SendEmail where
+instance Data.ToJSON SendEmail where
   toJSON SendEmail' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("FromEmailAddress" Core..=)
-              Prelude.<$> fromEmailAddress,
-            ("ConfigurationSetName" Core..=)
+          [ ("ConfigurationSetName" Data..=)
               Prelude.<$> configurationSetName,
-            ("EmailTags" Core..=) Prelude.<$> emailTags,
-            ("FeedbackForwardingEmailAddress" Core..=)
+            ("EmailTags" Data..=) Prelude.<$> emailTags,
+            ("FeedbackForwardingEmailAddress" Data..=)
               Prelude.<$> feedbackForwardingEmailAddress,
-            ("ReplyToAddresses" Core..=)
+            ("FromEmailAddress" Data..=)
+              Prelude.<$> fromEmailAddress,
+            ("ReplyToAddresses" Data..=)
               Prelude.<$> replyToAddresses,
-            Prelude.Just ("Destination" Core..= destination),
-            Prelude.Just ("Content" Core..= content)
+            Prelude.Just ("Destination" Data..= destination),
+            Prelude.Just ("Content" Data..= content)
           ]
       )
 
-instance Core.ToPath SendEmail where
+instance Data.ToPath SendEmail where
   toPath = Prelude.const "/v1/email/outbound-emails"
 
-instance Core.ToQuery SendEmail where
+instance Data.ToQuery SendEmail where
   toQuery = Prelude.const Prelude.mempty
 
 -- | A unique message ID that you receive when Amazon Pinpoint accepts an

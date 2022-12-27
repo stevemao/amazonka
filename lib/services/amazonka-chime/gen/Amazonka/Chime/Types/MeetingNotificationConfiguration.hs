@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.Types.MeetingNotificationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Chime.Types.MeetingNotificationConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The resource target configurations for receiving Amazon Chime SDK
@@ -31,9 +32,9 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newMeetingNotificationConfiguration' smart constructor.
 data MeetingNotificationConfiguration = MeetingNotificationConfiguration'
   { -- | The SNS topic ARN.
-    snsTopicArn :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    snsTopicArn :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The SQS queue ARN.
-    sqsQueueArn :: Prelude.Maybe (Core.Sensitive Prelude.Text)
+    sqsQueueArn :: Prelude.Maybe (Data.Sensitive Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -59,11 +60,11 @@ newMeetingNotificationConfiguration =
 
 -- | The SNS topic ARN.
 meetingNotificationConfiguration_snsTopicArn :: Lens.Lens' MeetingNotificationConfiguration (Prelude.Maybe Prelude.Text)
-meetingNotificationConfiguration_snsTopicArn = Lens.lens (\MeetingNotificationConfiguration' {snsTopicArn} -> snsTopicArn) (\s@MeetingNotificationConfiguration' {} a -> s {snsTopicArn = a} :: MeetingNotificationConfiguration) Prelude.. Lens.mapping Core._Sensitive
+meetingNotificationConfiguration_snsTopicArn = Lens.lens (\MeetingNotificationConfiguration' {snsTopicArn} -> snsTopicArn) (\s@MeetingNotificationConfiguration' {} a -> s {snsTopicArn = a} :: MeetingNotificationConfiguration) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The SQS queue ARN.
 meetingNotificationConfiguration_sqsQueueArn :: Lens.Lens' MeetingNotificationConfiguration (Prelude.Maybe Prelude.Text)
-meetingNotificationConfiguration_sqsQueueArn = Lens.lens (\MeetingNotificationConfiguration' {sqsQueueArn} -> sqsQueueArn) (\s@MeetingNotificationConfiguration' {} a -> s {sqsQueueArn = a} :: MeetingNotificationConfiguration) Prelude.. Lens.mapping Core._Sensitive
+meetingNotificationConfiguration_sqsQueueArn = Lens.lens (\MeetingNotificationConfiguration' {sqsQueueArn} -> sqsQueueArn) (\s@MeetingNotificationConfiguration' {} a -> s {sqsQueueArn = a} :: MeetingNotificationConfiguration) Prelude.. Lens.mapping Data._Sensitive
 
 instance
   Prelude.Hashable
@@ -83,11 +84,11 @@ instance
     Prelude.rnf snsTopicArn
       `Prelude.seq` Prelude.rnf sqsQueueArn
 
-instance Core.ToJSON MeetingNotificationConfiguration where
+instance Data.ToJSON MeetingNotificationConfiguration where
   toJSON MeetingNotificationConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SnsTopicArn" Core..=) Prelude.<$> snsTopicArn,
-            ("SqsQueueArn" Core..=) Prelude.<$> sqsQueueArn
+          [ ("SnsTopicArn" Data..=) Prelude.<$> snsTopicArn,
+            ("SqsQueueArn" Data..=) Prelude.<$> sqsQueueArn
           ]
       )

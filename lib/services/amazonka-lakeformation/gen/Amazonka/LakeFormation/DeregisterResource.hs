@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LakeFormation.DeregisterResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.LakeFormation.DeregisterResource
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LakeFormation.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,7 +83,8 @@ instance Core.AWSRequest DeregisterResource where
   type
     AWSResponse DeregisterResource =
       DeregisterResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -97,32 +99,28 @@ instance Prelude.Hashable DeregisterResource where
 instance Prelude.NFData DeregisterResource where
   rnf DeregisterResource' {..} = Prelude.rnf resourceArn
 
-instance Core.ToHeaders DeregisterResource where
+instance Data.ToHeaders DeregisterResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
-          [ "X-Amz-Target"
-              Core.=# ( "AWSLakeFormation.DeregisterResource" ::
-                          Prelude.ByteString
-                      ),
-            "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+          [ "Content-Type"
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeregisterResource where
+instance Data.ToJSON DeregisterResource where
   toJSON DeregisterResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ResourceArn" Core..= resourceArn)]
+          [Prelude.Just ("ResourceArn" Data..= resourceArn)]
       )
 
-instance Core.ToPath DeregisterResource where
-  toPath = Prelude.const "/"
+instance Data.ToPath DeregisterResource where
+  toPath = Prelude.const "/DeregisterResource"
 
-instance Core.ToQuery DeregisterResource where
+instance Data.ToQuery DeregisterResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeregisterResourceResponse' smart constructor.

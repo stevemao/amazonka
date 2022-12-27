@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppIntegrationS.CreateEventIntegration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ where
 
 import Amazonka.AppIntegrationS.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -144,12 +145,13 @@ instance Core.AWSRequest CreateEventIntegration where
   type
     AWSResponse CreateEventIntegration =
       CreateEventIntegrationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateEventIntegrationResponse'
-            Prelude.<$> (x Core..?> "EventIntegrationArn")
+            Prelude.<$> (x Data..?> "EventIntegrationArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -171,35 +173,35 @@ instance Prelude.NFData CreateEventIntegration where
       `Prelude.seq` Prelude.rnf eventFilter
       `Prelude.seq` Prelude.rnf eventBridgeBus
 
-instance Core.ToHeaders CreateEventIntegration where
+instance Data.ToHeaders CreateEventIntegration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateEventIntegration where
+instance Data.ToJSON CreateEventIntegration where
   toJSON CreateEventIntegration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ClientToken" Core..=) Prelude.<$> clientToken,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("EventFilter" Core..= eventFilter),
+          [ ("ClientToken" Data..=) Prelude.<$> clientToken,
+            ("Description" Data..=) Prelude.<$> description,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("EventFilter" Data..= eventFilter),
             Prelude.Just
-              ("EventBridgeBus" Core..= eventBridgeBus)
+              ("EventBridgeBus" Data..= eventBridgeBus)
           ]
       )
 
-instance Core.ToPath CreateEventIntegration where
+instance Data.ToPath CreateEventIntegration where
   toPath = Prelude.const "/eventIntegrations"
 
-instance Core.ToQuery CreateEventIntegration where
+instance Data.ToQuery CreateEventIntegration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateEventIntegrationResponse' smart constructor.

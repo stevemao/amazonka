@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.Types.Finding
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.GuardDuty.Types.Finding where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types.Resource
 import Amazonka.GuardDuty.Types.ServiceInfo
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the finding, which is generated when abnormal
@@ -30,15 +31,15 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newFinding' smart constructor.
 data Finding = Finding'
-  { service :: Prelude.Maybe ServiceInfo,
-    -- | The confidence score for the finding.
+  { -- | The confidence score for the finding.
     confidence :: Prelude.Maybe Prelude.Double,
-    -- | The partition associated with the finding.
-    partition :: Prelude.Maybe Prelude.Text,
-    -- | The title of the finding.
-    title :: Prelude.Maybe Prelude.Text,
     -- | The description of the finding.
     description :: Prelude.Maybe Prelude.Text,
+    -- | The partition associated with the finding.
+    partition :: Prelude.Maybe Prelude.Text,
+    service :: Prelude.Maybe ServiceInfo,
+    -- | The title of the finding.
+    title :: Prelude.Maybe Prelude.Text,
     -- | The ID of the account in which the finding was generated.
     accountId :: Prelude.Text,
     -- | The ARN of the finding.
@@ -69,15 +70,15 @@ data Finding = Finding'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'service', 'finding_service' - Undocumented member.
---
 -- 'confidence', 'finding_confidence' - The confidence score for the finding.
+--
+-- 'description', 'finding_description' - The description of the finding.
 --
 -- 'partition', 'finding_partition' - The partition associated with the finding.
 --
--- 'title', 'finding_title' - The title of the finding.
+-- 'service', 'finding_service' - Undocumented member.
 --
--- 'description', 'finding_description' - The description of the finding.
+-- 'title', 'finding_title' - The title of the finding.
 --
 -- 'accountId', 'finding_accountId' - The ID of the account in which the finding was generated.
 --
@@ -132,11 +133,11 @@ newFinding
   pType_
   pUpdatedAt_ =
     Finding'
-      { service = Prelude.Nothing,
-        confidence = Prelude.Nothing,
-        partition = Prelude.Nothing,
-        title = Prelude.Nothing,
+      { confidence = Prelude.Nothing,
         description = Prelude.Nothing,
+        partition = Prelude.Nothing,
+        service = Prelude.Nothing,
+        title = Prelude.Nothing,
         accountId = pAccountId_,
         arn = pArn_,
         createdAt = pCreatedAt_,
@@ -149,25 +150,25 @@ newFinding
         updatedAt = pUpdatedAt_
       }
 
--- | Undocumented member.
-finding_service :: Lens.Lens' Finding (Prelude.Maybe ServiceInfo)
-finding_service = Lens.lens (\Finding' {service} -> service) (\s@Finding' {} a -> s {service = a} :: Finding)
-
 -- | The confidence score for the finding.
 finding_confidence :: Lens.Lens' Finding (Prelude.Maybe Prelude.Double)
 finding_confidence = Lens.lens (\Finding' {confidence} -> confidence) (\s@Finding' {} a -> s {confidence = a} :: Finding)
+
+-- | The description of the finding.
+finding_description :: Lens.Lens' Finding (Prelude.Maybe Prelude.Text)
+finding_description = Lens.lens (\Finding' {description} -> description) (\s@Finding' {} a -> s {description = a} :: Finding)
 
 -- | The partition associated with the finding.
 finding_partition :: Lens.Lens' Finding (Prelude.Maybe Prelude.Text)
 finding_partition = Lens.lens (\Finding' {partition} -> partition) (\s@Finding' {} a -> s {partition = a} :: Finding)
 
+-- | Undocumented member.
+finding_service :: Lens.Lens' Finding (Prelude.Maybe ServiceInfo)
+finding_service = Lens.lens (\Finding' {service} -> service) (\s@Finding' {} a -> s {service = a} :: Finding)
+
 -- | The title of the finding.
 finding_title :: Lens.Lens' Finding (Prelude.Maybe Prelude.Text)
 finding_title = Lens.lens (\Finding' {title} -> title) (\s@Finding' {} a -> s {title = a} :: Finding)
-
--- | The description of the finding.
-finding_description :: Lens.Lens' Finding (Prelude.Maybe Prelude.Text)
-finding_description = Lens.lens (\Finding' {description} -> description) (\s@Finding' {} a -> s {description = a} :: Finding)
 
 -- | The ID of the account in which the finding was generated.
 finding_accountId :: Lens.Lens' Finding Prelude.Text
@@ -209,36 +210,36 @@ finding_type = Lens.lens (\Finding' {type'} -> type') (\s@Finding' {} a -> s {ty
 finding_updatedAt :: Lens.Lens' Finding Prelude.Text
 finding_updatedAt = Lens.lens (\Finding' {updatedAt} -> updatedAt) (\s@Finding' {} a -> s {updatedAt = a} :: Finding)
 
-instance Core.FromJSON Finding where
+instance Data.FromJSON Finding where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Finding"
       ( \x ->
           Finding'
-            Prelude.<$> (x Core..:? "service")
-            Prelude.<*> (x Core..:? "confidence")
-            Prelude.<*> (x Core..:? "partition")
-            Prelude.<*> (x Core..:? "title")
-            Prelude.<*> (x Core..:? "description")
-            Prelude.<*> (x Core..: "accountId")
-            Prelude.<*> (x Core..: "arn")
-            Prelude.<*> (x Core..: "createdAt")
-            Prelude.<*> (x Core..: "id")
-            Prelude.<*> (x Core..: "region")
-            Prelude.<*> (x Core..: "resource")
-            Prelude.<*> (x Core..: "schemaVersion")
-            Prelude.<*> (x Core..: "severity")
-            Prelude.<*> (x Core..: "type")
-            Prelude.<*> (x Core..: "updatedAt")
+            Prelude.<$> (x Data..:? "confidence")
+            Prelude.<*> (x Data..:? "description")
+            Prelude.<*> (x Data..:? "partition")
+            Prelude.<*> (x Data..:? "service")
+            Prelude.<*> (x Data..:? "title")
+            Prelude.<*> (x Data..: "accountId")
+            Prelude.<*> (x Data..: "arn")
+            Prelude.<*> (x Data..: "createdAt")
+            Prelude.<*> (x Data..: "id")
+            Prelude.<*> (x Data..: "region")
+            Prelude.<*> (x Data..: "resource")
+            Prelude.<*> (x Data..: "schemaVersion")
+            Prelude.<*> (x Data..: "severity")
+            Prelude.<*> (x Data..: "type")
+            Prelude.<*> (x Data..: "updatedAt")
       )
 
 instance Prelude.Hashable Finding where
   hashWithSalt _salt Finding' {..} =
-    _salt `Prelude.hashWithSalt` service
-      `Prelude.hashWithSalt` confidence
-      `Prelude.hashWithSalt` partition
-      `Prelude.hashWithSalt` title
+    _salt `Prelude.hashWithSalt` confidence
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` partition
+      `Prelude.hashWithSalt` service
+      `Prelude.hashWithSalt` title
       `Prelude.hashWithSalt` accountId
       `Prelude.hashWithSalt` arn
       `Prelude.hashWithSalt` createdAt
@@ -252,11 +253,11 @@ instance Prelude.Hashable Finding where
 
 instance Prelude.NFData Finding where
   rnf Finding' {..} =
-    Prelude.rnf service
-      `Prelude.seq` Prelude.rnf confidence
-      `Prelude.seq` Prelude.rnf partition
-      `Prelude.seq` Prelude.rnf title
+    Prelude.rnf confidence
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf partition
+      `Prelude.seq` Prelude.rnf service
+      `Prelude.seq` Prelude.rnf title
       `Prelude.seq` Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf arn
       `Prelude.seq` Prelude.rnf createdAt

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.DetachCertificateFromDistribution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.Lightsail.DetachCertificateFromDistribution
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -97,12 +98,13 @@ instance
   type
     AWSResponse DetachCertificateFromDistribution =
       DetachCertificateFromDistributionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DetachCertificateFromDistributionResponse'
-            Prelude.<$> (x Core..?> "operation")
+            Prelude.<$> (x Data..?> "operation")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -123,43 +125,43 @@ instance
     Prelude.rnf distributionName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DetachCertificateFromDistribution
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.DetachCertificateFromDistribution" ::
+              Data.=# ( "Lightsail_20161128.DetachCertificateFromDistribution" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DetachCertificateFromDistribution
   where
   toJSON DetachCertificateFromDistribution' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("distributionName" Core..= distributionName)
+              ("distributionName" Data..= distributionName)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DetachCertificateFromDistribution
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DetachCertificateFromDistribution
   where
   toQuery = Prelude.const Prelude.mempty

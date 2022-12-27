@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.SheetControlsOption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.SheetControlsOption where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types.DashboardUIState
 
@@ -62,11 +63,11 @@ instance Prelude.NFData SheetControlsOption where
   rnf SheetControlsOption' {..} =
     Prelude.rnf visibilityState
 
-instance Core.ToJSON SheetControlsOption where
+instance Data.ToJSON SheetControlsOption where
   toJSON SheetControlsOption' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("VisibilityState" Core..=)
+          [ ("VisibilityState" Data..=)
               Prelude.<$> visibilityState
           ]
       )

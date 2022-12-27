@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -293,560 +293,560 @@ module Amazonka.CodeCommit
     -- * Errors
     -- $errors
 
-    -- ** InvalidReactionValueException
-    _InvalidReactionValueException,
-
-    -- ** InvalidRepositoryTriggerRegionException
-    _InvalidRepositoryTriggerRegionException,
-
-    -- ** InvalidContinuationTokenException
-    _InvalidContinuationTokenException,
-
-    -- ** ManualMergeRequiredException
-    _ManualMergeRequiredException,
-
-    -- ** TargetsRequiredException
-    _TargetsRequiredException,
-
-    -- ** InvalidSystemTagUsageException
-    _InvalidSystemTagUsageException,
-
-    -- ** FileEntryRequiredException
-    _FileEntryRequiredException,
-
-    -- ** EncryptionKeyNotFoundException
-    _EncryptionKeyNotFoundException,
-
-    -- ** TipsDivergenceExceededException
-    _TipsDivergenceExceededException,
-
-    -- ** InvalidRepositoryTriggerBranchNameException
-    _InvalidRepositoryTriggerBranchNameException,
-
-    -- ** PullRequestAlreadyClosedException
-    _PullRequestAlreadyClosedException,
-
-    -- ** InvalidRepositoryTriggerCustomDataException
-    _InvalidRepositoryTriggerCustomDataException,
-
-    -- ** DirectoryNameConflictsWithFileNameException
-    _DirectoryNameConflictsWithFileNameException,
-
-    -- ** ReferenceDoesNotExistException
-    _ReferenceDoesNotExistException,
-
-    -- ** ApprovalRuleNameAlreadyExistsException
-    _ApprovalRuleNameAlreadyExistsException,
-
     -- ** ActorDoesNotExistException
     _ActorDoesNotExistException,
-
-    -- ** PullRequestIdRequiredException
-    _PullRequestIdRequiredException,
-
-    -- ** OverrideAlreadySetException
-    _OverrideAlreadySetException,
-
-    -- ** InvalidRuleContentSha256Exception
-    _InvalidRuleContentSha256Exception,
-
-    -- ** InvalidEmailException
-    _InvalidEmailException,
-
-    -- ** CommitMessageLengthExceededException
-    _CommitMessageLengthExceededException,
-
-    -- ** BlobIdDoesNotExistException
-    _BlobIdDoesNotExistException,
-
-    -- ** MaximumRepositoryNamesExceededException
-    _MaximumRepositoryNamesExceededException,
-
-    -- ** TagKeysListRequiredException
-    _TagKeysListRequiredException,
-
-    -- ** PutFileEntryConflictException
-    _PutFileEntryConflictException,
-
-    -- ** FolderDoesNotExistException
-    _FolderDoesNotExistException,
-
-    -- ** InvalidRepositoryDescriptionException
-    _InvalidRepositoryDescriptionException,
-
-    -- ** RepositoryNameExistsException
-    _RepositoryNameExistsException,
-
-    -- ** ReferenceNameRequiredException
-    _ReferenceNameRequiredException,
-
-    -- ** MaximumRepositoryTriggersExceededException
-    _MaximumRepositoryTriggersExceededException,
-
-    -- ** ApprovalRuleDoesNotExistException
-    _ApprovalRuleDoesNotExistException,
-
-    -- ** InvalidBranchNameException
-    _InvalidBranchNameException,
-
-    -- ** BranchNameRequiredException
-    _BranchNameRequiredException,
-
-    -- ** MergeOptionRequiredException
-    _MergeOptionRequiredException,
-
-    -- ** InvalidFileLocationException
-    _InvalidFileLocationException,
-
-    -- ** BeforeCommitIdAndAfterCommitIdAreSameException
-    _BeforeCommitIdAndAfterCommitIdAreSameException,
-
-    -- ** RepositoryTriggersListRequiredException
-    _RepositoryTriggersListRequiredException,
-
-    -- ** IdempotencyParameterMismatchException
-    _IdempotencyParameterMismatchException,
-
-    -- ** EncryptionKeyUnavailableException
-    _EncryptionKeyUnavailableException,
-
-    -- ** InvalidRelativeFileVersionEnumException
-    _InvalidRelativeFileVersionEnumException,
-
-    -- ** InvalidRepositoryTriggerDestinationArnException
-    _InvalidRepositoryTriggerDestinationArnException,
-
-    -- ** ReactionLimitExceededException
-    _ReactionLimitExceededException,
-
-    -- ** BlobIdRequiredException
-    _BlobIdRequiredException,
-
-    -- ** RepositoryNamesRequiredException
-    _RepositoryNamesRequiredException,
-
-    -- ** ReplacementTypeRequiredException
-    _ReplacementTypeRequiredException,
-
-    -- ** InvalidActorArnException
-    _InvalidActorArnException,
-
-    -- ** InvalidCommentIdException
-    _InvalidCommentIdException,
-
-    -- ** FilePathConflictsWithSubmodulePathException
-    _FilePathConflictsWithSubmodulePathException,
-
-    -- ** InvalidDescriptionException
-    _InvalidDescriptionException,
-
-    -- ** ApprovalRuleNameRequiredException
-    _ApprovalRuleNameRequiredException,
-
-    -- ** InvalidBlobIdException
-    _InvalidBlobIdException,
-
-    -- ** PullRequestDoesNotExistException
-    _PullRequestDoesNotExistException,
-
-    -- ** NoChangeException
-    _NoChangeException,
-
-    -- ** InvalidOrderException
-    _InvalidOrderException,
-
-    -- ** InvalidApprovalRuleNameException
-    _InvalidApprovalRuleNameException,
-
-    -- ** BranchDoesNotExistException
-    _BranchDoesNotExistException,
-
-    -- ** DefaultBranchCannotBeDeletedException
-    _DefaultBranchCannotBeDeletedException,
-
-    -- ** FolderContentSizeLimitExceededException
-    _FolderContentSizeLimitExceededException,
-
-    -- ** InvalidDeletionParameterException
-    _InvalidDeletionParameterException,
-
-    -- ** InvalidReactionUserArnException
-    _InvalidReactionUserArnException,
-
-    -- ** InvalidTagsMapException
-    _InvalidTagsMapException,
-
-    -- ** InvalidPathException
-    _InvalidPathException,
-
-    -- ** PathRequiredException
-    _PathRequiredException,
-
-    -- ** InvalidTargetBranchException
-    _InvalidTargetBranchException,
-
-    -- ** RepositoryTriggerNameRequiredException
-    _RepositoryTriggerNameRequiredException,
-
-    -- ** InvalidFileModeException
-    _InvalidFileModeException,
-
-    -- ** NumberOfRuleTemplatesExceededException
-    _NumberOfRuleTemplatesExceededException,
-
-    -- ** FileModeRequiredException
-    _FileModeRequiredException,
-
-    -- ** InvalidPullRequestStatusException
-    _InvalidPullRequestStatusException,
-
-    -- ** ApprovalRuleTemplateContentRequiredException
-    _ApprovalRuleTemplateContentRequiredException,
-
-    -- ** ApprovalStateRequiredException
-    _ApprovalStateRequiredException,
-
-    -- ** ConcurrentReferenceUpdateException
-    _ConcurrentReferenceUpdateException,
-
-    -- ** ParentCommitIdRequiredException
-    _ParentCommitIdRequiredException,
-
-    -- ** InvalidSourceCommitSpecifierException
-    _InvalidSourceCommitSpecifierException,
-
-    -- ** RepositoryDoesNotExistException
-    _RepositoryDoesNotExistException,
-
-    -- ** InvalidApprovalRuleContentException
-    _InvalidApprovalRuleContentException,
-
-    -- ** MaximumBranchesExceededException
-    _MaximumBranchesExceededException,
-
-    -- ** InvalidTitleException
-    _InvalidTitleException,
-
-    -- ** CommentContentSizeLimitExceededException
-    _CommentContentSizeLimitExceededException,
-
-    -- ** PullRequestApprovalRulesNotSatisfiedException
-    _PullRequestApprovalRulesNotSatisfiedException,
-
-    -- ** InvalidParentCommitIdException
-    _InvalidParentCommitIdException,
-
-    -- ** InvalidPullRequestEventTypeException
-    _InvalidPullRequestEventTypeException,
-
-    -- ** FileContentRequiredException
-    _FileContentRequiredException,
-
-    -- ** SourceAndDestinationAreSameException
-    _SourceAndDestinationAreSameException,
-
-    -- ** ReplacementContentRequiredException
-    _ReplacementContentRequiredException,
-
-    -- ** RestrictedSourceFileException
-    _RestrictedSourceFileException,
-
-    -- ** PathDoesNotExistException
-    _PathDoesNotExistException,
-
-    -- ** InvalidResourceArnException
-    _InvalidResourceArnException,
-
-    -- ** TooManyTagsException
-    _TooManyTagsException,
-
-    -- ** EncryptionIntegrityChecksFailedException
-    _EncryptionIntegrityChecksFailedException,
-
-    -- ** SamePathRequestException
-    _SamePathRequestException,
-
-    -- ** SourceFileOrContentRequiredException
-    _SourceFileOrContentRequiredException,
-
-    -- ** InvalidMaxMergeHunksException
-    _InvalidMaxMergeHunksException,
-
-    -- ** CannotModifyApprovalRuleFromTemplateException
-    _CannotModifyApprovalRuleFromTemplateException,
-
-    -- ** InvalidReplacementContentException
-    _InvalidReplacementContentException,
-
-    -- ** ParentCommitIdOutdatedException
-    _ParentCommitIdOutdatedException,
-
-    -- ** RepositoryTriggerEventsListRequiredException
-    _RepositoryTriggerEventsListRequiredException,
-
-    -- ** CommentContentRequiredException
-    _CommentContentRequiredException,
-
-    -- ** ReactionValueRequiredException
-    _ReactionValueRequiredException,
-
-    -- ** InvalidTargetsException
-    _InvalidTargetsException,
-
-    -- ** EncryptionKeyAccessDeniedException
-    _EncryptionKeyAccessDeniedException,
-
-    -- ** BranchNameExistsException
-    _BranchNameExistsException,
-
-    -- ** InvalidCommitException
-    _InvalidCommitException,
-
-    -- ** TargetRequiredException
-    _TargetRequiredException,
-
-    -- ** InvalidConflictDetailLevelException
-    _InvalidConflictDetailLevelException,
-
-    -- ** InvalidDestinationCommitSpecifierException
-    _InvalidDestinationCommitSpecifierException,
-
-    -- ** CommentDoesNotExistException
-    _CommentDoesNotExistException,
-
-    -- ** ReferenceTypeNotSupportedException
-    _ReferenceTypeNotSupportedException,
-
-    -- ** FileNameConflictsWithDirectoryNameException
-    _FileNameConflictsWithDirectoryNameException,
-
-    -- ** NameLengthExceededException
-    _NameLengthExceededException,
-
-    -- ** InvalidSortByException
-    _InvalidSortByException,
-
-    -- ** EncryptionKeyDisabledException
-    _EncryptionKeyDisabledException,
-
-    -- ** CommitRequiredException
-    _CommitRequiredException,
-
-    -- ** MaximumOpenPullRequestsExceededException
-    _MaximumOpenPullRequestsExceededException,
-
-    -- ** ApprovalRuleTemplateNameAlreadyExistsException
-    _ApprovalRuleTemplateNameAlreadyExistsException,
-
-    -- ** InvalidTargetException
-    _InvalidTargetException,
-
-    -- ** InvalidPullRequestIdException
-    _InvalidPullRequestIdException,
-
-    -- ** CommentNotCreatedByCallerException
-    _CommentNotCreatedByCallerException,
-
-    -- ** InvalidPullRequestStatusUpdateException
-    _InvalidPullRequestStatusUpdateException,
-
-    -- ** InvalidReferenceNameException
-    _InvalidReferenceNameException,
-
-    -- ** MaximumRuleTemplatesAssociatedWithRepositoryException
-    _MaximumRuleTemplatesAssociatedWithRepositoryException,
-
-    -- ** SameFileContentException
-    _SameFileContentException,
-
-    -- ** ApprovalRuleTemplateInUseException
-    _ApprovalRuleTemplateInUseException,
-
-    -- ** MaximumNumberOfApprovalsExceededException
-    _MaximumNumberOfApprovalsExceededException,
-
-    -- ** CommitIdRequiredException
-    _CommitIdRequiredException,
-
-    -- ** FileDoesNotExistException
-    _FileDoesNotExistException,
-
-    -- ** InvalidCommitIdException
-    _InvalidCommitIdException,
-
-    -- ** InvalidTagKeysListException
-    _InvalidTagKeysListException,
-
-    -- ** FileContentAndSourceFileSpecifiedException
-    _FileContentAndSourceFileSpecifiedException,
-
-    -- ** TipOfSourceReferenceIsDifferentException
-    _TipOfSourceReferenceIsDifferentException,
-
-    -- ** RepositoryTriggerDestinationArnRequiredException
-    _RepositoryTriggerDestinationArnRequiredException,
-
-    -- ** InvalidConflictResolutionStrategyException
-    _InvalidConflictResolutionStrategyException,
-
-    -- ** InvalidClientRequestTokenException
-    _InvalidClientRequestTokenException,
-
-    -- ** MultipleConflictResolutionEntriesException
-    _MultipleConflictResolutionEntriesException,
-
-    -- ** CommitDoesNotExistException
-    _CommitDoesNotExistException,
-
-    -- ** RepositoryTriggerBranchNameListRequiredException
-    _RepositoryTriggerBranchNameListRequiredException,
-
-    -- ** ClientRequestTokenRequiredException
-    _ClientRequestTokenRequiredException,
-
-    -- ** ApprovalRuleTemplateDoesNotExistException
-    _ApprovalRuleTemplateDoesNotExistException,
-
-    -- ** TagPolicyException
-    _TagPolicyException,
-
-    -- ** InvalidMergeOptionException
-    _InvalidMergeOptionException,
-
-    -- ** CannotDeleteApprovalRuleFromTemplateException
-    _CannotDeleteApprovalRuleFromTemplateException,
-
-    -- ** CommentIdRequiredException
-    _CommentIdRequiredException,
-
-    -- ** InvalidMaxResultsException
-    _InvalidMaxResultsException,
-
-    -- ** FileTooLargeException
-    _FileTooLargeException,
-
-    -- ** ApprovalRuleTemplateNameRequiredException
-    _ApprovalRuleTemplateNameRequiredException,
-
-    -- ** MaximumFileEntriesExceededException
-    _MaximumFileEntriesExceededException,
-
-    -- ** CommitIdDoesNotExistException
-    _CommitIdDoesNotExistException,
-
-    -- ** InvalidReplacementTypeException
-    _InvalidReplacementTypeException,
-
-    -- ** InvalidRevisionIdException
-    _InvalidRevisionIdException,
-
-    -- ** RevisionNotCurrentException
-    _RevisionNotCurrentException,
-
-    -- ** InvalidApprovalRuleTemplateNameException
-    _InvalidApprovalRuleTemplateNameException,
-
-    -- ** PullRequestCannotBeApprovedByAuthorException
-    _PullRequestCannotBeApprovedByAuthorException,
-
-    -- ** MultipleRepositoriesInPullRequestException
-    _MultipleRepositoriesInPullRequestException,
-
-    -- ** RevisionIdRequiredException
-    _RevisionIdRequiredException,
-
-    -- ** FileContentSizeLimitExceededException
-    _FileContentSizeLimitExceededException,
-
-    -- ** InvalidRepositoryTriggerNameException
-    _InvalidRepositoryTriggerNameException,
-
-    -- ** RepositoryNameRequiredException
-    _RepositoryNameRequiredException,
-
-    -- ** RepositoryLimitExceededException
-    _RepositoryLimitExceededException,
-
-    -- ** TagsMapRequiredException
-    _TagsMapRequiredException,
-
-    -- ** InvalidRepositoryTriggerEventsException
-    _InvalidRepositoryTriggerEventsException,
-
-    -- ** NumberOfRulesExceededException
-    _NumberOfRulesExceededException,
-
-    -- ** BranchNameIsTagNameException
-    _BranchNameIsTagNameException,
-
-    -- ** InvalidRepositoryNameException
-    _InvalidRepositoryNameException,
-
-    -- ** CommitIdsListRequiredException
-    _CommitIdsListRequiredException,
-
-    -- ** CommitIdsLimitExceededException
-    _CommitIdsLimitExceededException,
-
-    -- ** InvalidAuthorArnException
-    _InvalidAuthorArnException,
-
-    -- ** MaximumItemsToCompareExceededException
-    _MaximumItemsToCompareExceededException,
-
-    -- ** OverrideStatusRequiredException
-    _OverrideStatusRequiredException,
 
     -- ** ApprovalRuleContentRequiredException
     _ApprovalRuleContentRequiredException,
 
-    -- ** MaximumConflictResolutionEntriesExceededException
-    _MaximumConflictResolutionEntriesExceededException,
+    -- ** ApprovalRuleDoesNotExistException
+    _ApprovalRuleDoesNotExistException,
 
-    -- ** PullRequestStatusRequiredException
-    _PullRequestStatusRequiredException,
+    -- ** ApprovalRuleNameAlreadyExistsException
+    _ApprovalRuleNameAlreadyExistsException,
 
-    -- ** InvalidConflictResolutionException
-    _InvalidConflictResolutionException,
+    -- ** ApprovalRuleNameRequiredException
+    _ApprovalRuleNameRequiredException,
 
-    -- ** InvalidApprovalRuleTemplateContentException
-    _InvalidApprovalRuleTemplateContentException,
+    -- ** ApprovalRuleTemplateContentRequiredException
+    _ApprovalRuleTemplateContentRequiredException,
 
-    -- ** InvalidApprovalStateException
-    _InvalidApprovalStateException,
+    -- ** ApprovalRuleTemplateDoesNotExistException
+    _ApprovalRuleTemplateDoesNotExistException,
 
-    -- ** RepositoryNotAssociatedWithPullRequestException
-    _RepositoryNotAssociatedWithPullRequestException,
+    -- ** ApprovalRuleTemplateInUseException
+    _ApprovalRuleTemplateInUseException,
 
-    -- ** MaximumFileContentToLoadExceededException
-    _MaximumFileContentToLoadExceededException,
+    -- ** ApprovalRuleTemplateNameAlreadyExistsException
+    _ApprovalRuleTemplateNameAlreadyExistsException,
 
-    -- ** TitleRequiredException
-    _TitleRequiredException,
+    -- ** ApprovalRuleTemplateNameRequiredException
+    _ApprovalRuleTemplateNameRequiredException,
 
-    -- ** InvalidOverrideStatusException
-    _InvalidOverrideStatusException,
+    -- ** ApprovalStateRequiredException
+    _ApprovalStateRequiredException,
 
-    -- ** InvalidFilePositionException
-    _InvalidFilePositionException,
+    -- ** AuthorDoesNotExistException
+    _AuthorDoesNotExistException,
+
+    -- ** BeforeCommitIdAndAfterCommitIdAreSameException
+    _BeforeCommitIdAndAfterCommitIdAreSameException,
+
+    -- ** BlobIdDoesNotExistException
+    _BlobIdDoesNotExistException,
+
+    -- ** BlobIdRequiredException
+    _BlobIdRequiredException,
+
+    -- ** BranchDoesNotExistException
+    _BranchDoesNotExistException,
+
+    -- ** BranchNameExistsException
+    _BranchNameExistsException,
+
+    -- ** BranchNameIsTagNameException
+    _BranchNameIsTagNameException,
+
+    -- ** BranchNameRequiredException
+    _BranchNameRequiredException,
+
+    -- ** CannotDeleteApprovalRuleFromTemplateException
+    _CannotDeleteApprovalRuleFromTemplateException,
+
+    -- ** CannotModifyApprovalRuleFromTemplateException
+    _CannotModifyApprovalRuleFromTemplateException,
+
+    -- ** ClientRequestTokenRequiredException
+    _ClientRequestTokenRequiredException,
+
+    -- ** CommentContentRequiredException
+    _CommentContentRequiredException,
+
+    -- ** CommentContentSizeLimitExceededException
+    _CommentContentSizeLimitExceededException,
 
     -- ** CommentDeletedException
     _CommentDeletedException,
 
-    -- ** ParentCommitDoesNotExistException
-    _ParentCommitDoesNotExistException,
+    -- ** CommentDoesNotExistException
+    _CommentDoesNotExistException,
+
+    -- ** CommentIdRequiredException
+    _CommentIdRequiredException,
+
+    -- ** CommentNotCreatedByCallerException
+    _CommentNotCreatedByCallerException,
+
+    -- ** CommitDoesNotExistException
+    _CommitDoesNotExistException,
+
+    -- ** CommitIdDoesNotExistException
+    _CommitIdDoesNotExistException,
+
+    -- ** CommitIdRequiredException
+    _CommitIdRequiredException,
+
+    -- ** CommitIdsLimitExceededException
+    _CommitIdsLimitExceededException,
+
+    -- ** CommitIdsListRequiredException
+    _CommitIdsListRequiredException,
+
+    -- ** CommitMessageLengthExceededException
+    _CommitMessageLengthExceededException,
+
+    -- ** CommitRequiredException
+    _CommitRequiredException,
+
+    -- ** ConcurrentReferenceUpdateException
+    _ConcurrentReferenceUpdateException,
+
+    -- ** DefaultBranchCannotBeDeletedException
+    _DefaultBranchCannotBeDeletedException,
+
+    -- ** DirectoryNameConflictsWithFileNameException
+    _DirectoryNameConflictsWithFileNameException,
+
+    -- ** EncryptionIntegrityChecksFailedException
+    _EncryptionIntegrityChecksFailedException,
+
+    -- ** EncryptionKeyAccessDeniedException
+    _EncryptionKeyAccessDeniedException,
+
+    -- ** EncryptionKeyDisabledException
+    _EncryptionKeyDisabledException,
+
+    -- ** EncryptionKeyNotFoundException
+    _EncryptionKeyNotFoundException,
+
+    -- ** EncryptionKeyUnavailableException
+    _EncryptionKeyUnavailableException,
+
+    -- ** FileContentAndSourceFileSpecifiedException
+    _FileContentAndSourceFileSpecifiedException,
+
+    -- ** FileContentRequiredException
+    _FileContentRequiredException,
+
+    -- ** FileContentSizeLimitExceededException
+    _FileContentSizeLimitExceededException,
+
+    -- ** FileDoesNotExistException
+    _FileDoesNotExistException,
+
+    -- ** FileEntryRequiredException
+    _FileEntryRequiredException,
+
+    -- ** FileModeRequiredException
+    _FileModeRequiredException,
+
+    -- ** FileNameConflictsWithDirectoryNameException
+    _FileNameConflictsWithDirectoryNameException,
+
+    -- ** FilePathConflictsWithSubmodulePathException
+    _FilePathConflictsWithSubmodulePathException,
+
+    -- ** FileTooLargeException
+    _FileTooLargeException,
+
+    -- ** FolderContentSizeLimitExceededException
+    _FolderContentSizeLimitExceededException,
+
+    -- ** FolderDoesNotExistException
+    _FolderDoesNotExistException,
+
+    -- ** IdempotencyParameterMismatchException
+    _IdempotencyParameterMismatchException,
+
+    -- ** InvalidActorArnException
+    _InvalidActorArnException,
+
+    -- ** InvalidApprovalRuleContentException
+    _InvalidApprovalRuleContentException,
+
+    -- ** InvalidApprovalRuleNameException
+    _InvalidApprovalRuleNameException,
+
+    -- ** InvalidApprovalRuleTemplateContentException
+    _InvalidApprovalRuleTemplateContentException,
 
     -- ** InvalidApprovalRuleTemplateDescriptionException
     _InvalidApprovalRuleTemplateDescriptionException,
 
-    -- ** ResourceArnRequiredException
-    _ResourceArnRequiredException,
+    -- ** InvalidApprovalRuleTemplateNameException
+    _InvalidApprovalRuleTemplateNameException,
+
+    -- ** InvalidApprovalStateException
+    _InvalidApprovalStateException,
+
+    -- ** InvalidAuthorArnException
+    _InvalidAuthorArnException,
+
+    -- ** InvalidBlobIdException
+    _InvalidBlobIdException,
+
+    -- ** InvalidBranchNameException
+    _InvalidBranchNameException,
+
+    -- ** InvalidClientRequestTokenException
+    _InvalidClientRequestTokenException,
+
+    -- ** InvalidCommentIdException
+    _InvalidCommentIdException,
+
+    -- ** InvalidCommitException
+    _InvalidCommitException,
+
+    -- ** InvalidCommitIdException
+    _InvalidCommitIdException,
+
+    -- ** InvalidConflictDetailLevelException
+    _InvalidConflictDetailLevelException,
+
+    -- ** InvalidConflictResolutionException
+    _InvalidConflictResolutionException,
+
+    -- ** InvalidConflictResolutionStrategyException
+    _InvalidConflictResolutionStrategyException,
+
+    -- ** InvalidContinuationTokenException
+    _InvalidContinuationTokenException,
+
+    -- ** InvalidDeletionParameterException
+    _InvalidDeletionParameterException,
+
+    -- ** InvalidDescriptionException
+    _InvalidDescriptionException,
+
+    -- ** InvalidDestinationCommitSpecifierException
+    _InvalidDestinationCommitSpecifierException,
+
+    -- ** InvalidEmailException
+    _InvalidEmailException,
+
+    -- ** InvalidFileLocationException
+    _InvalidFileLocationException,
+
+    -- ** InvalidFileModeException
+    _InvalidFileModeException,
+
+    -- ** InvalidFilePositionException
+    _InvalidFilePositionException,
 
     -- ** InvalidMaxConflictFilesException
     _InvalidMaxConflictFilesException,
 
-    -- ** AuthorDoesNotExistException
-    _AuthorDoesNotExistException,
+    -- ** InvalidMaxMergeHunksException
+    _InvalidMaxMergeHunksException,
+
+    -- ** InvalidMaxResultsException
+    _InvalidMaxResultsException,
+
+    -- ** InvalidMergeOptionException
+    _InvalidMergeOptionException,
+
+    -- ** InvalidOrderException
+    _InvalidOrderException,
+
+    -- ** InvalidOverrideStatusException
+    _InvalidOverrideStatusException,
+
+    -- ** InvalidParentCommitIdException
+    _InvalidParentCommitIdException,
+
+    -- ** InvalidPathException
+    _InvalidPathException,
+
+    -- ** InvalidPullRequestEventTypeException
+    _InvalidPullRequestEventTypeException,
+
+    -- ** InvalidPullRequestIdException
+    _InvalidPullRequestIdException,
+
+    -- ** InvalidPullRequestStatusException
+    _InvalidPullRequestStatusException,
+
+    -- ** InvalidPullRequestStatusUpdateException
+    _InvalidPullRequestStatusUpdateException,
+
+    -- ** InvalidReactionUserArnException
+    _InvalidReactionUserArnException,
+
+    -- ** InvalidReactionValueException
+    _InvalidReactionValueException,
+
+    -- ** InvalidReferenceNameException
+    _InvalidReferenceNameException,
+
+    -- ** InvalidRelativeFileVersionEnumException
+    _InvalidRelativeFileVersionEnumException,
+
+    -- ** InvalidReplacementContentException
+    _InvalidReplacementContentException,
+
+    -- ** InvalidReplacementTypeException
+    _InvalidReplacementTypeException,
+
+    -- ** InvalidRepositoryDescriptionException
+    _InvalidRepositoryDescriptionException,
+
+    -- ** InvalidRepositoryNameException
+    _InvalidRepositoryNameException,
+
+    -- ** InvalidRepositoryTriggerBranchNameException
+    _InvalidRepositoryTriggerBranchNameException,
+
+    -- ** InvalidRepositoryTriggerCustomDataException
+    _InvalidRepositoryTriggerCustomDataException,
+
+    -- ** InvalidRepositoryTriggerDestinationArnException
+    _InvalidRepositoryTriggerDestinationArnException,
+
+    -- ** InvalidRepositoryTriggerEventsException
+    _InvalidRepositoryTriggerEventsException,
+
+    -- ** InvalidRepositoryTriggerNameException
+    _InvalidRepositoryTriggerNameException,
+
+    -- ** InvalidRepositoryTriggerRegionException
+    _InvalidRepositoryTriggerRegionException,
+
+    -- ** InvalidResourceArnException
+    _InvalidResourceArnException,
+
+    -- ** InvalidRevisionIdException
+    _InvalidRevisionIdException,
+
+    -- ** InvalidRuleContentSha256Exception
+    _InvalidRuleContentSha256Exception,
+
+    -- ** InvalidSortByException
+    _InvalidSortByException,
+
+    -- ** InvalidSourceCommitSpecifierException
+    _InvalidSourceCommitSpecifierException,
+
+    -- ** InvalidSystemTagUsageException
+    _InvalidSystemTagUsageException,
+
+    -- ** InvalidTagKeysListException
+    _InvalidTagKeysListException,
+
+    -- ** InvalidTagsMapException
+    _InvalidTagsMapException,
+
+    -- ** InvalidTargetBranchException
+    _InvalidTargetBranchException,
+
+    -- ** InvalidTargetException
+    _InvalidTargetException,
+
+    -- ** InvalidTargetsException
+    _InvalidTargetsException,
+
+    -- ** InvalidTitleException
+    _InvalidTitleException,
+
+    -- ** ManualMergeRequiredException
+    _ManualMergeRequiredException,
+
+    -- ** MaximumBranchesExceededException
+    _MaximumBranchesExceededException,
+
+    -- ** MaximumConflictResolutionEntriesExceededException
+    _MaximumConflictResolutionEntriesExceededException,
+
+    -- ** MaximumFileContentToLoadExceededException
+    _MaximumFileContentToLoadExceededException,
+
+    -- ** MaximumFileEntriesExceededException
+    _MaximumFileEntriesExceededException,
+
+    -- ** MaximumItemsToCompareExceededException
+    _MaximumItemsToCompareExceededException,
+
+    -- ** MaximumNumberOfApprovalsExceededException
+    _MaximumNumberOfApprovalsExceededException,
+
+    -- ** MaximumOpenPullRequestsExceededException
+    _MaximumOpenPullRequestsExceededException,
+
+    -- ** MaximumRepositoryNamesExceededException
+    _MaximumRepositoryNamesExceededException,
+
+    -- ** MaximumRepositoryTriggersExceededException
+    _MaximumRepositoryTriggersExceededException,
+
+    -- ** MaximumRuleTemplatesAssociatedWithRepositoryException
+    _MaximumRuleTemplatesAssociatedWithRepositoryException,
+
+    -- ** MergeOptionRequiredException
+    _MergeOptionRequiredException,
+
+    -- ** MultipleConflictResolutionEntriesException
+    _MultipleConflictResolutionEntriesException,
+
+    -- ** MultipleRepositoriesInPullRequestException
+    _MultipleRepositoriesInPullRequestException,
+
+    -- ** NameLengthExceededException
+    _NameLengthExceededException,
+
+    -- ** NoChangeException
+    _NoChangeException,
+
+    -- ** NumberOfRuleTemplatesExceededException
+    _NumberOfRuleTemplatesExceededException,
+
+    -- ** NumberOfRulesExceededException
+    _NumberOfRulesExceededException,
+
+    -- ** OverrideAlreadySetException
+    _OverrideAlreadySetException,
+
+    -- ** OverrideStatusRequiredException
+    _OverrideStatusRequiredException,
+
+    -- ** ParentCommitDoesNotExistException
+    _ParentCommitDoesNotExistException,
+
+    -- ** ParentCommitIdOutdatedException
+    _ParentCommitIdOutdatedException,
+
+    -- ** ParentCommitIdRequiredException
+    _ParentCommitIdRequiredException,
+
+    -- ** PathDoesNotExistException
+    _PathDoesNotExistException,
+
+    -- ** PathRequiredException
+    _PathRequiredException,
+
+    -- ** PullRequestAlreadyClosedException
+    _PullRequestAlreadyClosedException,
+
+    -- ** PullRequestApprovalRulesNotSatisfiedException
+    _PullRequestApprovalRulesNotSatisfiedException,
+
+    -- ** PullRequestCannotBeApprovedByAuthorException
+    _PullRequestCannotBeApprovedByAuthorException,
+
+    -- ** PullRequestDoesNotExistException
+    _PullRequestDoesNotExistException,
+
+    -- ** PullRequestIdRequiredException
+    _PullRequestIdRequiredException,
+
+    -- ** PullRequestStatusRequiredException
+    _PullRequestStatusRequiredException,
+
+    -- ** PutFileEntryConflictException
+    _PutFileEntryConflictException,
+
+    -- ** ReactionLimitExceededException
+    _ReactionLimitExceededException,
+
+    -- ** ReactionValueRequiredException
+    _ReactionValueRequiredException,
+
+    -- ** ReferenceDoesNotExistException
+    _ReferenceDoesNotExistException,
+
+    -- ** ReferenceNameRequiredException
+    _ReferenceNameRequiredException,
+
+    -- ** ReferenceTypeNotSupportedException
+    _ReferenceTypeNotSupportedException,
+
+    -- ** ReplacementContentRequiredException
+    _ReplacementContentRequiredException,
+
+    -- ** ReplacementTypeRequiredException
+    _ReplacementTypeRequiredException,
+
+    -- ** RepositoryDoesNotExistException
+    _RepositoryDoesNotExistException,
+
+    -- ** RepositoryLimitExceededException
+    _RepositoryLimitExceededException,
+
+    -- ** RepositoryNameExistsException
+    _RepositoryNameExistsException,
+
+    -- ** RepositoryNameRequiredException
+    _RepositoryNameRequiredException,
+
+    -- ** RepositoryNamesRequiredException
+    _RepositoryNamesRequiredException,
+
+    -- ** RepositoryNotAssociatedWithPullRequestException
+    _RepositoryNotAssociatedWithPullRequestException,
+
+    -- ** RepositoryTriggerBranchNameListRequiredException
+    _RepositoryTriggerBranchNameListRequiredException,
+
+    -- ** RepositoryTriggerDestinationArnRequiredException
+    _RepositoryTriggerDestinationArnRequiredException,
+
+    -- ** RepositoryTriggerEventsListRequiredException
+    _RepositoryTriggerEventsListRequiredException,
+
+    -- ** RepositoryTriggerNameRequiredException
+    _RepositoryTriggerNameRequiredException,
+
+    -- ** RepositoryTriggersListRequiredException
+    _RepositoryTriggersListRequiredException,
+
+    -- ** ResourceArnRequiredException
+    _ResourceArnRequiredException,
+
+    -- ** RestrictedSourceFileException
+    _RestrictedSourceFileException,
+
+    -- ** RevisionIdRequiredException
+    _RevisionIdRequiredException,
+
+    -- ** RevisionNotCurrentException
+    _RevisionNotCurrentException,
+
+    -- ** SameFileContentException
+    _SameFileContentException,
+
+    -- ** SamePathRequestException
+    _SamePathRequestException,
+
+    -- ** SourceAndDestinationAreSameException
+    _SourceAndDestinationAreSameException,
+
+    -- ** SourceFileOrContentRequiredException
+    _SourceFileOrContentRequiredException,
+
+    -- ** TagKeysListRequiredException
+    _TagKeysListRequiredException,
+
+    -- ** TagPolicyException
+    _TagPolicyException,
+
+    -- ** TagsMapRequiredException
+    _TagsMapRequiredException,
+
+    -- ** TargetRequiredException
+    _TargetRequiredException,
+
+    -- ** TargetsRequiredException
+    _TargetsRequiredException,
+
+    -- ** TipOfSourceReferenceIsDifferentException
+    _TipOfSourceReferenceIsDifferentException,
+
+    -- ** TipsDivergenceExceededException
+    _TipsDivergenceExceededException,
+
+    -- ** TitleRequiredException
+    _TitleRequiredException,
+
+    -- ** TooManyTagsException
+    _TooManyTagsException,
 
     -- * Waiters
     -- $waiters
@@ -854,35 +854,11 @@ module Amazonka.CodeCommit
     -- * Operations
     -- $operations
 
-    -- ** MergePullRequestByFastForward
-    MergePullRequestByFastForward (MergePullRequestByFastForward'),
-    newMergePullRequestByFastForward,
-    MergePullRequestByFastForwardResponse (MergePullRequestByFastForwardResponse'),
-    newMergePullRequestByFastForwardResponse,
-
-    -- ** UpdateRepositoryName
-    UpdateRepositoryName (UpdateRepositoryName'),
-    newUpdateRepositoryName,
-    UpdateRepositoryNameResponse (UpdateRepositoryNameResponse'),
-    newUpdateRepositoryNameResponse,
-
-    -- ** PostCommentForPullRequest
-    PostCommentForPullRequest (PostCommentForPullRequest'),
-    newPostCommentForPullRequest,
-    PostCommentForPullRequestResponse (PostCommentForPullRequestResponse'),
-    newPostCommentForPullRequestResponse,
-
-    -- ** MergeBranchesBySquash
-    MergeBranchesBySquash (MergeBranchesBySquash'),
-    newMergeBranchesBySquash,
-    MergeBranchesBySquashResponse (MergeBranchesBySquashResponse'),
-    newMergeBranchesBySquashResponse,
-
-    -- ** GetCommit
-    GetCommit (GetCommit'),
-    newGetCommit,
-    GetCommitResponse (GetCommitResponse'),
-    newGetCommitResponse,
+    -- ** AssociateApprovalRuleTemplateWithRepository
+    AssociateApprovalRuleTemplateWithRepository (AssociateApprovalRuleTemplateWithRepository'),
+    newAssociateApprovalRuleTemplateWithRepository,
+    AssociateApprovalRuleTemplateWithRepositoryResponse (AssociateApprovalRuleTemplateWithRepositoryResponse'),
+    newAssociateApprovalRuleTemplateWithRepositoryResponse,
 
     -- ** BatchAssociateApprovalRuleTemplateWithRepositories
     BatchAssociateApprovalRuleTemplateWithRepositories (BatchAssociateApprovalRuleTemplateWithRepositories'),
@@ -890,293 +866,11 @@ module Amazonka.CodeCommit
     BatchAssociateApprovalRuleTemplateWithRepositoriesResponse (BatchAssociateApprovalRuleTemplateWithRepositoriesResponse'),
     newBatchAssociateApprovalRuleTemplateWithRepositoriesResponse,
 
-    -- ** GetCommentReactions
-    GetCommentReactions (GetCommentReactions'),
-    newGetCommentReactions,
-    GetCommentReactionsResponse (GetCommentReactionsResponse'),
-    newGetCommentReactionsResponse,
-
-    -- ** GetApprovalRuleTemplate
-    GetApprovalRuleTemplate (GetApprovalRuleTemplate'),
-    newGetApprovalRuleTemplate,
-    GetApprovalRuleTemplateResponse (GetApprovalRuleTemplateResponse'),
-    newGetApprovalRuleTemplateResponse,
-
-    -- ** DisassociateApprovalRuleTemplateFromRepository
-    DisassociateApprovalRuleTemplateFromRepository (DisassociateApprovalRuleTemplateFromRepository'),
-    newDisassociateApprovalRuleTemplateFromRepository,
-    DisassociateApprovalRuleTemplateFromRepositoryResponse (DisassociateApprovalRuleTemplateFromRepositoryResponse'),
-    newDisassociateApprovalRuleTemplateFromRepositoryResponse,
-
-    -- ** GetBranch
-    GetBranch (GetBranch'),
-    newGetBranch,
-    GetBranchResponse (GetBranchResponse'),
-    newGetBranchResponse,
-
-    -- ** GetDifferences (Paginated)
-    GetDifferences (GetDifferences'),
-    newGetDifferences,
-    GetDifferencesResponse (GetDifferencesResponse'),
-    newGetDifferencesResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** GetPullRequest
-    GetPullRequest (GetPullRequest'),
-    newGetPullRequest,
-    GetPullRequestResponse (GetPullRequestResponse'),
-    newGetPullRequestResponse,
-
-    -- ** OverridePullRequestApprovalRules
-    OverridePullRequestApprovalRules (OverridePullRequestApprovalRules'),
-    newOverridePullRequestApprovalRules,
-    OverridePullRequestApprovalRulesResponse (OverridePullRequestApprovalRulesResponse'),
-    newOverridePullRequestApprovalRulesResponse,
-
-    -- ** ListPullRequests (Paginated)
-    ListPullRequests (ListPullRequests'),
-    newListPullRequests,
-    ListPullRequestsResponse (ListPullRequestsResponse'),
-    newListPullRequestsResponse,
-
-    -- ** CreateCommit
-    CreateCommit (CreateCommit'),
-    newCreateCommit,
-    CreateCommitResponse (CreateCommitResponse'),
-    newCreateCommitResponse,
-
-    -- ** UpdatePullRequestApprovalState
-    UpdatePullRequestApprovalState (UpdatePullRequestApprovalState'),
-    newUpdatePullRequestApprovalState,
-    UpdatePullRequestApprovalStateResponse (UpdatePullRequestApprovalStateResponse'),
-    newUpdatePullRequestApprovalStateResponse,
-
-    -- ** EvaluatePullRequestApprovalRules
-    EvaluatePullRequestApprovalRules (EvaluatePullRequestApprovalRules'),
-    newEvaluatePullRequestApprovalRules,
-    EvaluatePullRequestApprovalRulesResponse (EvaluatePullRequestApprovalRulesResponse'),
-    newEvaluatePullRequestApprovalRulesResponse,
-
-    -- ** GetComment
-    GetComment (GetComment'),
-    newGetComment,
-    GetCommentResponse (GetCommentResponse'),
-    newGetCommentResponse,
-
-    -- ** CreateApprovalRuleTemplate
-    CreateApprovalRuleTemplate (CreateApprovalRuleTemplate'),
-    newCreateApprovalRuleTemplate,
-    CreateApprovalRuleTemplateResponse (CreateApprovalRuleTemplateResponse'),
-    newCreateApprovalRuleTemplateResponse,
-
-    -- ** DeleteBranch
-    DeleteBranch (DeleteBranch'),
-    newDeleteBranch,
-    DeleteBranchResponse (DeleteBranchResponse'),
-    newDeleteBranchResponse,
-
-    -- ** UpdateRepositoryDescription
-    UpdateRepositoryDescription (UpdateRepositoryDescription'),
-    newUpdateRepositoryDescription,
-    UpdateRepositoryDescriptionResponse (UpdateRepositoryDescriptionResponse'),
-    newUpdateRepositoryDescriptionResponse,
-
-    -- ** CreateBranch
-    CreateBranch (CreateBranch'),
-    newCreateBranch,
-    CreateBranchResponse (CreateBranchResponse'),
-    newCreateBranchResponse,
-
-    -- ** GetFolder
-    GetFolder (GetFolder'),
-    newGetFolder,
-    GetFolderResponse (GetFolderResponse'),
-    newGetFolderResponse,
-
-    -- ** CreatePullRequest
-    CreatePullRequest (CreatePullRequest'),
-    newCreatePullRequest,
-    CreatePullRequestResponse (CreatePullRequestResponse'),
-    newCreatePullRequestResponse,
-
-    -- ** DeleteApprovalRuleTemplate
-    DeleteApprovalRuleTemplate (DeleteApprovalRuleTemplate'),
-    newDeleteApprovalRuleTemplate,
-    DeleteApprovalRuleTemplateResponse (DeleteApprovalRuleTemplateResponse'),
-    newDeleteApprovalRuleTemplateResponse,
-
-    -- ** ListBranches (Paginated)
-    ListBranches (ListBranches'),
-    newListBranches,
-    ListBranchesResponse (ListBranchesResponse'),
-    newListBranchesResponse,
-
-    -- ** BatchGetCommits
-    BatchGetCommits (BatchGetCommits'),
-    newBatchGetCommits,
-    BatchGetCommitsResponse (BatchGetCommitsResponse'),
-    newBatchGetCommitsResponse,
-
-    -- ** PutCommentReaction
-    PutCommentReaction (PutCommentReaction'),
-    newPutCommentReaction,
-    PutCommentReactionResponse (PutCommentReactionResponse'),
-    newPutCommentReactionResponse,
-
-    -- ** UpdatePullRequestDescription
-    UpdatePullRequestDescription (UpdatePullRequestDescription'),
-    newUpdatePullRequestDescription,
-    UpdatePullRequestDescriptionResponse (UpdatePullRequestDescriptionResponse'),
-    newUpdatePullRequestDescriptionResponse,
-
-    -- ** ListRepositories (Paginated)
-    ListRepositories (ListRepositories'),
-    newListRepositories,
-    ListRepositoriesResponse (ListRepositoriesResponse'),
-    newListRepositoriesResponse,
-
-    -- ** CreateRepository
-    CreateRepository (CreateRepository'),
-    newCreateRepository,
-    CreateRepositoryResponse (CreateRepositoryResponse'),
-    newCreateRepositoryResponse,
-
-    -- ** UpdateDefaultBranch
-    UpdateDefaultBranch (UpdateDefaultBranch'),
-    newUpdateDefaultBranch,
-    UpdateDefaultBranchResponse (UpdateDefaultBranchResponse'),
-    newUpdateDefaultBranchResponse,
-
-    -- ** GetMergeOptions
-    GetMergeOptions (GetMergeOptions'),
-    newGetMergeOptions,
-    GetMergeOptionsResponse (GetMergeOptionsResponse'),
-    newGetMergeOptionsResponse,
-
-    -- ** CreatePullRequestApprovalRule
-    CreatePullRequestApprovalRule (CreatePullRequestApprovalRule'),
-    newCreatePullRequestApprovalRule,
-    CreatePullRequestApprovalRuleResponse (CreatePullRequestApprovalRuleResponse'),
-    newCreatePullRequestApprovalRuleResponse,
-
-    -- ** PostCommentReply
-    PostCommentReply (PostCommentReply'),
-    newPostCommentReply,
-    PostCommentReplyResponse (PostCommentReplyResponse'),
-    newPostCommentReplyResponse,
-
-    -- ** UpdateApprovalRuleTemplateContent
-    UpdateApprovalRuleTemplateContent (UpdateApprovalRuleTemplateContent'),
-    newUpdateApprovalRuleTemplateContent,
-    UpdateApprovalRuleTemplateContentResponse (UpdateApprovalRuleTemplateContentResponse'),
-    newUpdateApprovalRuleTemplateContentResponse,
-
-    -- ** CreateUnreferencedMergeCommit
-    CreateUnreferencedMergeCommit (CreateUnreferencedMergeCommit'),
-    newCreateUnreferencedMergeCommit,
-    CreateUnreferencedMergeCommitResponse (CreateUnreferencedMergeCommitResponse'),
-    newCreateUnreferencedMergeCommitResponse,
-
-    -- ** ListRepositoriesForApprovalRuleTemplate
-    ListRepositoriesForApprovalRuleTemplate (ListRepositoriesForApprovalRuleTemplate'),
-    newListRepositoriesForApprovalRuleTemplate,
-    ListRepositoriesForApprovalRuleTemplateResponse (ListRepositoriesForApprovalRuleTemplateResponse'),
-    newListRepositoriesForApprovalRuleTemplateResponse,
-
-    -- ** GetRepository
-    GetRepository (GetRepository'),
-    newGetRepository,
-    GetRepositoryResponse (GetRepositoryResponse'),
-    newGetRepositoryResponse,
-
     -- ** BatchDescribeMergeConflicts
     BatchDescribeMergeConflicts (BatchDescribeMergeConflicts'),
     newBatchDescribeMergeConflicts,
     BatchDescribeMergeConflictsResponse (BatchDescribeMergeConflictsResponse'),
     newBatchDescribeMergeConflictsResponse,
-
-    -- ** DeletePullRequestApprovalRule
-    DeletePullRequestApprovalRule (DeletePullRequestApprovalRule'),
-    newDeletePullRequestApprovalRule,
-    DeletePullRequestApprovalRuleResponse (DeletePullRequestApprovalRuleResponse'),
-    newDeletePullRequestApprovalRuleResponse,
-
-    -- ** GetRepositoryTriggers
-    GetRepositoryTriggers (GetRepositoryTriggers'),
-    newGetRepositoryTriggers,
-    GetRepositoryTriggersResponse (GetRepositoryTriggersResponse'),
-    newGetRepositoryTriggersResponse,
-
-    -- ** UpdateApprovalRuleTemplateName
-    UpdateApprovalRuleTemplateName (UpdateApprovalRuleTemplateName'),
-    newUpdateApprovalRuleTemplateName,
-    UpdateApprovalRuleTemplateNameResponse (UpdateApprovalRuleTemplateNameResponse'),
-    newUpdateApprovalRuleTemplateNameResponse,
-
-    -- ** PutFile
-    PutFile (PutFile'),
-    newPutFile,
-    PutFileResponse (PutFileResponse'),
-    newPutFileResponse,
-
-    -- ** DeleteFile
-    DeleteFile (DeleteFile'),
-    newDeleteFile,
-    DeleteFileResponse (DeleteFileResponse'),
-    newDeleteFileResponse,
-
-    -- ** GetCommentsForComparedCommit (Paginated)
-    GetCommentsForComparedCommit (GetCommentsForComparedCommit'),
-    newGetCommentsForComparedCommit,
-    GetCommentsForComparedCommitResponse (GetCommentsForComparedCommitResponse'),
-    newGetCommentsForComparedCommitResponse,
-
-    -- ** GetMergeCommit
-    GetMergeCommit (GetMergeCommit'),
-    newGetMergeCommit,
-    GetMergeCommitResponse (GetMergeCommitResponse'),
-    newGetMergeCommitResponse,
-
-    -- ** TestRepositoryTriggers
-    TestRepositoryTriggers (TestRepositoryTriggers'),
-    newTestRepositoryTriggers,
-    TestRepositoryTriggersResponse (TestRepositoryTriggersResponse'),
-    newTestRepositoryTriggersResponse,
-
-    -- ** MergePullRequestBySquash
-    MergePullRequestBySquash (MergePullRequestBySquash'),
-    newMergePullRequestBySquash,
-    MergePullRequestBySquashResponse (MergePullRequestBySquashResponse'),
-    newMergePullRequestBySquashResponse,
-
-    -- ** UpdateComment
-    UpdateComment (UpdateComment'),
-    newUpdateComment,
-    UpdateCommentResponse (UpdateCommentResponse'),
-    newUpdateCommentResponse,
-
-    -- ** PostCommentForComparedCommit
-    PostCommentForComparedCommit (PostCommentForComparedCommit'),
-    newPostCommentForComparedCommit,
-    PostCommentForComparedCommitResponse (PostCommentForComparedCommitResponse'),
-    newPostCommentForComparedCommitResponse,
-
-    -- ** MergeBranchesByFastForward
-    MergeBranchesByFastForward (MergeBranchesByFastForward'),
-    newMergeBranchesByFastForward,
-    MergeBranchesByFastForwardResponse (MergeBranchesByFastForwardResponse'),
-    newMergeBranchesByFastForwardResponse,
-
-    -- ** UpdatePullRequestTitle
-    UpdatePullRequestTitle (UpdatePullRequestTitle'),
-    newUpdatePullRequestTitle,
-    UpdatePullRequestTitleResponse (UpdatePullRequestTitleResponse'),
-    newUpdatePullRequestTitleResponse,
 
     -- ** BatchDisassociateApprovalRuleTemplateFromRepositories
     BatchDisassociateApprovalRuleTemplateFromRepositories (BatchDisassociateApprovalRuleTemplateFromRepositories'),
@@ -1184,95 +878,11 @@ module Amazonka.CodeCommit
     BatchDisassociateApprovalRuleTemplateFromRepositoriesResponse (BatchDisassociateApprovalRuleTemplateFromRepositoriesResponse'),
     newBatchDisassociateApprovalRuleTemplateFromRepositoriesResponse,
 
-    -- ** UpdatePullRequestApprovalRuleContent
-    UpdatePullRequestApprovalRuleContent (UpdatePullRequestApprovalRuleContent'),
-    newUpdatePullRequestApprovalRuleContent,
-    UpdatePullRequestApprovalRuleContentResponse (UpdatePullRequestApprovalRuleContentResponse'),
-    newUpdatePullRequestApprovalRuleContentResponse,
-
-    -- ** GetBlob
-    GetBlob (GetBlob'),
-    newGetBlob,
-    GetBlobResponse (GetBlobResponse'),
-    newGetBlobResponse,
-
-    -- ** AssociateApprovalRuleTemplateWithRepository
-    AssociateApprovalRuleTemplateWithRepository (AssociateApprovalRuleTemplateWithRepository'),
-    newAssociateApprovalRuleTemplateWithRepository,
-    AssociateApprovalRuleTemplateWithRepositoryResponse (AssociateApprovalRuleTemplateWithRepositoryResponse'),
-    newAssociateApprovalRuleTemplateWithRepositoryResponse,
-
-    -- ** PutRepositoryTriggers
-    PutRepositoryTriggers (PutRepositoryTriggers'),
-    newPutRepositoryTriggers,
-    PutRepositoryTriggersResponse (PutRepositoryTriggersResponse'),
-    newPutRepositoryTriggersResponse,
-
-    -- ** ListApprovalRuleTemplates
-    ListApprovalRuleTemplates (ListApprovalRuleTemplates'),
-    newListApprovalRuleTemplates,
-    ListApprovalRuleTemplatesResponse (ListApprovalRuleTemplatesResponse'),
-    newListApprovalRuleTemplatesResponse,
-
-    -- ** DescribeMergeConflicts
-    DescribeMergeConflicts (DescribeMergeConflicts'),
-    newDescribeMergeConflicts,
-    DescribeMergeConflictsResponse (DescribeMergeConflictsResponse'),
-    newDescribeMergeConflictsResponse,
-
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
-
-    -- ** MergeBranchesByThreeWay
-    MergeBranchesByThreeWay (MergeBranchesByThreeWay'),
-    newMergeBranchesByThreeWay,
-    MergeBranchesByThreeWayResponse (MergeBranchesByThreeWayResponse'),
-    newMergeBranchesByThreeWayResponse,
-
-    -- ** GetFile
-    GetFile (GetFile'),
-    newGetFile,
-    GetFileResponse (GetFileResponse'),
-    newGetFileResponse,
-
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
-
-    -- ** GetMergeConflicts
-    GetMergeConflicts (GetMergeConflicts'),
-    newGetMergeConflicts,
-    GetMergeConflictsResponse (GetMergeConflictsResponse'),
-    newGetMergeConflictsResponse,
-
-    -- ** DeleteRepository
-    DeleteRepository (DeleteRepository'),
-    newDeleteRepository,
-    DeleteRepositoryResponse (DeleteRepositoryResponse'),
-    newDeleteRepositoryResponse,
-
-    -- ** DeleteCommentContent
-    DeleteCommentContent (DeleteCommentContent'),
-    newDeleteCommentContent,
-    DeleteCommentContentResponse (DeleteCommentContentResponse'),
-    newDeleteCommentContentResponse,
-
-    -- ** MergePullRequestByThreeWay
-    MergePullRequestByThreeWay (MergePullRequestByThreeWay'),
-    newMergePullRequestByThreeWay,
-    MergePullRequestByThreeWayResponse (MergePullRequestByThreeWayResponse'),
-    newMergePullRequestByThreeWayResponse,
-
-    -- ** DescribePullRequestEvents (Paginated)
-    DescribePullRequestEvents (DescribePullRequestEvents'),
-    newDescribePullRequestEvents,
-    DescribePullRequestEventsResponse (DescribePullRequestEventsResponse'),
-    newDescribePullRequestEventsResponse,
+    -- ** BatchGetCommits
+    BatchGetCommits (BatchGetCommits'),
+    newBatchGetCommits,
+    BatchGetCommitsResponse (BatchGetCommitsResponse'),
+    newBatchGetCommitsResponse,
 
     -- ** BatchGetRepositories
     BatchGetRepositories (BatchGetRepositories'),
@@ -1280,23 +890,143 @@ module Amazonka.CodeCommit
     BatchGetRepositoriesResponse (BatchGetRepositoriesResponse'),
     newBatchGetRepositoriesResponse,
 
-    -- ** UpdateApprovalRuleTemplateDescription
-    UpdateApprovalRuleTemplateDescription (UpdateApprovalRuleTemplateDescription'),
-    newUpdateApprovalRuleTemplateDescription,
-    UpdateApprovalRuleTemplateDescriptionResponse (UpdateApprovalRuleTemplateDescriptionResponse'),
-    newUpdateApprovalRuleTemplateDescriptionResponse,
+    -- ** CreateApprovalRuleTemplate
+    CreateApprovalRuleTemplate (CreateApprovalRuleTemplate'),
+    newCreateApprovalRuleTemplate,
+    CreateApprovalRuleTemplateResponse (CreateApprovalRuleTemplateResponse'),
+    newCreateApprovalRuleTemplateResponse,
 
-    -- ** GetPullRequestOverrideState
-    GetPullRequestOverrideState (GetPullRequestOverrideState'),
-    newGetPullRequestOverrideState,
-    GetPullRequestOverrideStateResponse (GetPullRequestOverrideStateResponse'),
-    newGetPullRequestOverrideStateResponse,
+    -- ** CreateBranch
+    CreateBranch (CreateBranch'),
+    newCreateBranch,
+    CreateBranchResponse (CreateBranchResponse'),
+    newCreateBranchResponse,
 
-    -- ** GetPullRequestApprovalStates
-    GetPullRequestApprovalStates (GetPullRequestApprovalStates'),
-    newGetPullRequestApprovalStates,
-    GetPullRequestApprovalStatesResponse (GetPullRequestApprovalStatesResponse'),
-    newGetPullRequestApprovalStatesResponse,
+    -- ** CreateCommit
+    CreateCommit (CreateCommit'),
+    newCreateCommit,
+    CreateCommitResponse (CreateCommitResponse'),
+    newCreateCommitResponse,
+
+    -- ** CreatePullRequest
+    CreatePullRequest (CreatePullRequest'),
+    newCreatePullRequest,
+    CreatePullRequestResponse (CreatePullRequestResponse'),
+    newCreatePullRequestResponse,
+
+    -- ** CreatePullRequestApprovalRule
+    CreatePullRequestApprovalRule (CreatePullRequestApprovalRule'),
+    newCreatePullRequestApprovalRule,
+    CreatePullRequestApprovalRuleResponse (CreatePullRequestApprovalRuleResponse'),
+    newCreatePullRequestApprovalRuleResponse,
+
+    -- ** CreateRepository
+    CreateRepository (CreateRepository'),
+    newCreateRepository,
+    CreateRepositoryResponse (CreateRepositoryResponse'),
+    newCreateRepositoryResponse,
+
+    -- ** CreateUnreferencedMergeCommit
+    CreateUnreferencedMergeCommit (CreateUnreferencedMergeCommit'),
+    newCreateUnreferencedMergeCommit,
+    CreateUnreferencedMergeCommitResponse (CreateUnreferencedMergeCommitResponse'),
+    newCreateUnreferencedMergeCommitResponse,
+
+    -- ** DeleteApprovalRuleTemplate
+    DeleteApprovalRuleTemplate (DeleteApprovalRuleTemplate'),
+    newDeleteApprovalRuleTemplate,
+    DeleteApprovalRuleTemplateResponse (DeleteApprovalRuleTemplateResponse'),
+    newDeleteApprovalRuleTemplateResponse,
+
+    -- ** DeleteBranch
+    DeleteBranch (DeleteBranch'),
+    newDeleteBranch,
+    DeleteBranchResponse (DeleteBranchResponse'),
+    newDeleteBranchResponse,
+
+    -- ** DeleteCommentContent
+    DeleteCommentContent (DeleteCommentContent'),
+    newDeleteCommentContent,
+    DeleteCommentContentResponse (DeleteCommentContentResponse'),
+    newDeleteCommentContentResponse,
+
+    -- ** DeleteFile
+    DeleteFile (DeleteFile'),
+    newDeleteFile,
+    DeleteFileResponse (DeleteFileResponse'),
+    newDeleteFileResponse,
+
+    -- ** DeletePullRequestApprovalRule
+    DeletePullRequestApprovalRule (DeletePullRequestApprovalRule'),
+    newDeletePullRequestApprovalRule,
+    DeletePullRequestApprovalRuleResponse (DeletePullRequestApprovalRuleResponse'),
+    newDeletePullRequestApprovalRuleResponse,
+
+    -- ** DeleteRepository
+    DeleteRepository (DeleteRepository'),
+    newDeleteRepository,
+    DeleteRepositoryResponse (DeleteRepositoryResponse'),
+    newDeleteRepositoryResponse,
+
+    -- ** DescribeMergeConflicts
+    DescribeMergeConflicts (DescribeMergeConflicts'),
+    newDescribeMergeConflicts,
+    DescribeMergeConflictsResponse (DescribeMergeConflictsResponse'),
+    newDescribeMergeConflictsResponse,
+
+    -- ** DescribePullRequestEvents (Paginated)
+    DescribePullRequestEvents (DescribePullRequestEvents'),
+    newDescribePullRequestEvents,
+    DescribePullRequestEventsResponse (DescribePullRequestEventsResponse'),
+    newDescribePullRequestEventsResponse,
+
+    -- ** DisassociateApprovalRuleTemplateFromRepository
+    DisassociateApprovalRuleTemplateFromRepository (DisassociateApprovalRuleTemplateFromRepository'),
+    newDisassociateApprovalRuleTemplateFromRepository,
+    DisassociateApprovalRuleTemplateFromRepositoryResponse (DisassociateApprovalRuleTemplateFromRepositoryResponse'),
+    newDisassociateApprovalRuleTemplateFromRepositoryResponse,
+
+    -- ** EvaluatePullRequestApprovalRules
+    EvaluatePullRequestApprovalRules (EvaluatePullRequestApprovalRules'),
+    newEvaluatePullRequestApprovalRules,
+    EvaluatePullRequestApprovalRulesResponse (EvaluatePullRequestApprovalRulesResponse'),
+    newEvaluatePullRequestApprovalRulesResponse,
+
+    -- ** GetApprovalRuleTemplate
+    GetApprovalRuleTemplate (GetApprovalRuleTemplate'),
+    newGetApprovalRuleTemplate,
+    GetApprovalRuleTemplateResponse (GetApprovalRuleTemplateResponse'),
+    newGetApprovalRuleTemplateResponse,
+
+    -- ** GetBlob
+    GetBlob (GetBlob'),
+    newGetBlob,
+    GetBlobResponse (GetBlobResponse'),
+    newGetBlobResponse,
+
+    -- ** GetBranch
+    GetBranch (GetBranch'),
+    newGetBranch,
+    GetBranchResponse (GetBranchResponse'),
+    newGetBranchResponse,
+
+    -- ** GetComment
+    GetComment (GetComment'),
+    newGetComment,
+    GetCommentResponse (GetCommentResponse'),
+    newGetCommentResponse,
+
+    -- ** GetCommentReactions
+    GetCommentReactions (GetCommentReactions'),
+    newGetCommentReactions,
+    GetCommentReactionsResponse (GetCommentReactionsResponse'),
+    newGetCommentReactionsResponse,
+
+    -- ** GetCommentsForComparedCommit (Paginated)
+    GetCommentsForComparedCommit (GetCommentsForComparedCommit'),
+    newGetCommentsForComparedCommit,
+    GetCommentsForComparedCommitResponse (GetCommentsForComparedCommitResponse'),
+    newGetCommentsForComparedCommitResponse,
 
     -- ** GetCommentsForPullRequest (Paginated)
     GetCommentsForPullRequest (GetCommentsForPullRequest'),
@@ -1304,17 +1034,287 @@ module Amazonka.CodeCommit
     GetCommentsForPullRequestResponse (GetCommentsForPullRequestResponse'),
     newGetCommentsForPullRequestResponse,
 
-    -- ** UpdatePullRequestStatus
-    UpdatePullRequestStatus (UpdatePullRequestStatus'),
-    newUpdatePullRequestStatus,
-    UpdatePullRequestStatusResponse (UpdatePullRequestStatusResponse'),
-    newUpdatePullRequestStatusResponse,
+    -- ** GetCommit
+    GetCommit (GetCommit'),
+    newGetCommit,
+    GetCommitResponse (GetCommitResponse'),
+    newGetCommitResponse,
+
+    -- ** GetDifferences (Paginated)
+    GetDifferences (GetDifferences'),
+    newGetDifferences,
+    GetDifferencesResponse (GetDifferencesResponse'),
+    newGetDifferencesResponse,
+
+    -- ** GetFile
+    GetFile (GetFile'),
+    newGetFile,
+    GetFileResponse (GetFileResponse'),
+    newGetFileResponse,
+
+    -- ** GetFolder
+    GetFolder (GetFolder'),
+    newGetFolder,
+    GetFolderResponse (GetFolderResponse'),
+    newGetFolderResponse,
+
+    -- ** GetMergeCommit
+    GetMergeCommit (GetMergeCommit'),
+    newGetMergeCommit,
+    GetMergeCommitResponse (GetMergeCommitResponse'),
+    newGetMergeCommitResponse,
+
+    -- ** GetMergeConflicts
+    GetMergeConflicts (GetMergeConflicts'),
+    newGetMergeConflicts,
+    GetMergeConflictsResponse (GetMergeConflictsResponse'),
+    newGetMergeConflictsResponse,
+
+    -- ** GetMergeOptions
+    GetMergeOptions (GetMergeOptions'),
+    newGetMergeOptions,
+    GetMergeOptionsResponse (GetMergeOptionsResponse'),
+    newGetMergeOptionsResponse,
+
+    -- ** GetPullRequest
+    GetPullRequest (GetPullRequest'),
+    newGetPullRequest,
+    GetPullRequestResponse (GetPullRequestResponse'),
+    newGetPullRequestResponse,
+
+    -- ** GetPullRequestApprovalStates
+    GetPullRequestApprovalStates (GetPullRequestApprovalStates'),
+    newGetPullRequestApprovalStates,
+    GetPullRequestApprovalStatesResponse (GetPullRequestApprovalStatesResponse'),
+    newGetPullRequestApprovalStatesResponse,
+
+    -- ** GetPullRequestOverrideState
+    GetPullRequestOverrideState (GetPullRequestOverrideState'),
+    newGetPullRequestOverrideState,
+    GetPullRequestOverrideStateResponse (GetPullRequestOverrideStateResponse'),
+    newGetPullRequestOverrideStateResponse,
+
+    -- ** GetRepository
+    GetRepository (GetRepository'),
+    newGetRepository,
+    GetRepositoryResponse (GetRepositoryResponse'),
+    newGetRepositoryResponse,
+
+    -- ** GetRepositoryTriggers
+    GetRepositoryTriggers (GetRepositoryTriggers'),
+    newGetRepositoryTriggers,
+    GetRepositoryTriggersResponse (GetRepositoryTriggersResponse'),
+    newGetRepositoryTriggersResponse,
+
+    -- ** ListApprovalRuleTemplates
+    ListApprovalRuleTemplates (ListApprovalRuleTemplates'),
+    newListApprovalRuleTemplates,
+    ListApprovalRuleTemplatesResponse (ListApprovalRuleTemplatesResponse'),
+    newListApprovalRuleTemplatesResponse,
 
     -- ** ListAssociatedApprovalRuleTemplatesForRepository
     ListAssociatedApprovalRuleTemplatesForRepository (ListAssociatedApprovalRuleTemplatesForRepository'),
     newListAssociatedApprovalRuleTemplatesForRepository,
     ListAssociatedApprovalRuleTemplatesForRepositoryResponse (ListAssociatedApprovalRuleTemplatesForRepositoryResponse'),
     newListAssociatedApprovalRuleTemplatesForRepositoryResponse,
+
+    -- ** ListBranches (Paginated)
+    ListBranches (ListBranches'),
+    newListBranches,
+    ListBranchesResponse (ListBranchesResponse'),
+    newListBranchesResponse,
+
+    -- ** ListPullRequests (Paginated)
+    ListPullRequests (ListPullRequests'),
+    newListPullRequests,
+    ListPullRequestsResponse (ListPullRequestsResponse'),
+    newListPullRequestsResponse,
+
+    -- ** ListRepositories (Paginated)
+    ListRepositories (ListRepositories'),
+    newListRepositories,
+    ListRepositoriesResponse (ListRepositoriesResponse'),
+    newListRepositoriesResponse,
+
+    -- ** ListRepositoriesForApprovalRuleTemplate
+    ListRepositoriesForApprovalRuleTemplate (ListRepositoriesForApprovalRuleTemplate'),
+    newListRepositoriesForApprovalRuleTemplate,
+    ListRepositoriesForApprovalRuleTemplateResponse (ListRepositoriesForApprovalRuleTemplateResponse'),
+    newListRepositoriesForApprovalRuleTemplateResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** MergeBranchesByFastForward
+    MergeBranchesByFastForward (MergeBranchesByFastForward'),
+    newMergeBranchesByFastForward,
+    MergeBranchesByFastForwardResponse (MergeBranchesByFastForwardResponse'),
+    newMergeBranchesByFastForwardResponse,
+
+    -- ** MergeBranchesBySquash
+    MergeBranchesBySquash (MergeBranchesBySquash'),
+    newMergeBranchesBySquash,
+    MergeBranchesBySquashResponse (MergeBranchesBySquashResponse'),
+    newMergeBranchesBySquashResponse,
+
+    -- ** MergeBranchesByThreeWay
+    MergeBranchesByThreeWay (MergeBranchesByThreeWay'),
+    newMergeBranchesByThreeWay,
+    MergeBranchesByThreeWayResponse (MergeBranchesByThreeWayResponse'),
+    newMergeBranchesByThreeWayResponse,
+
+    -- ** MergePullRequestByFastForward
+    MergePullRequestByFastForward (MergePullRequestByFastForward'),
+    newMergePullRequestByFastForward,
+    MergePullRequestByFastForwardResponse (MergePullRequestByFastForwardResponse'),
+    newMergePullRequestByFastForwardResponse,
+
+    -- ** MergePullRequestBySquash
+    MergePullRequestBySquash (MergePullRequestBySquash'),
+    newMergePullRequestBySquash,
+    MergePullRequestBySquashResponse (MergePullRequestBySquashResponse'),
+    newMergePullRequestBySquashResponse,
+
+    -- ** MergePullRequestByThreeWay
+    MergePullRequestByThreeWay (MergePullRequestByThreeWay'),
+    newMergePullRequestByThreeWay,
+    MergePullRequestByThreeWayResponse (MergePullRequestByThreeWayResponse'),
+    newMergePullRequestByThreeWayResponse,
+
+    -- ** OverridePullRequestApprovalRules
+    OverridePullRequestApprovalRules (OverridePullRequestApprovalRules'),
+    newOverridePullRequestApprovalRules,
+    OverridePullRequestApprovalRulesResponse (OverridePullRequestApprovalRulesResponse'),
+    newOverridePullRequestApprovalRulesResponse,
+
+    -- ** PostCommentForComparedCommit
+    PostCommentForComparedCommit (PostCommentForComparedCommit'),
+    newPostCommentForComparedCommit,
+    PostCommentForComparedCommitResponse (PostCommentForComparedCommitResponse'),
+    newPostCommentForComparedCommitResponse,
+
+    -- ** PostCommentForPullRequest
+    PostCommentForPullRequest (PostCommentForPullRequest'),
+    newPostCommentForPullRequest,
+    PostCommentForPullRequestResponse (PostCommentForPullRequestResponse'),
+    newPostCommentForPullRequestResponse,
+
+    -- ** PostCommentReply
+    PostCommentReply (PostCommentReply'),
+    newPostCommentReply,
+    PostCommentReplyResponse (PostCommentReplyResponse'),
+    newPostCommentReplyResponse,
+
+    -- ** PutCommentReaction
+    PutCommentReaction (PutCommentReaction'),
+    newPutCommentReaction,
+    PutCommentReactionResponse (PutCommentReactionResponse'),
+    newPutCommentReactionResponse,
+
+    -- ** PutFile
+    PutFile (PutFile'),
+    newPutFile,
+    PutFileResponse (PutFileResponse'),
+    newPutFileResponse,
+
+    -- ** PutRepositoryTriggers
+    PutRepositoryTriggers (PutRepositoryTriggers'),
+    newPutRepositoryTriggers,
+    PutRepositoryTriggersResponse (PutRepositoryTriggersResponse'),
+    newPutRepositoryTriggersResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** TestRepositoryTriggers
+    TestRepositoryTriggers (TestRepositoryTriggers'),
+    newTestRepositoryTriggers,
+    TestRepositoryTriggersResponse (TestRepositoryTriggersResponse'),
+    newTestRepositoryTriggersResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UpdateApprovalRuleTemplateContent
+    UpdateApprovalRuleTemplateContent (UpdateApprovalRuleTemplateContent'),
+    newUpdateApprovalRuleTemplateContent,
+    UpdateApprovalRuleTemplateContentResponse (UpdateApprovalRuleTemplateContentResponse'),
+    newUpdateApprovalRuleTemplateContentResponse,
+
+    -- ** UpdateApprovalRuleTemplateDescription
+    UpdateApprovalRuleTemplateDescription (UpdateApprovalRuleTemplateDescription'),
+    newUpdateApprovalRuleTemplateDescription,
+    UpdateApprovalRuleTemplateDescriptionResponse (UpdateApprovalRuleTemplateDescriptionResponse'),
+    newUpdateApprovalRuleTemplateDescriptionResponse,
+
+    -- ** UpdateApprovalRuleTemplateName
+    UpdateApprovalRuleTemplateName (UpdateApprovalRuleTemplateName'),
+    newUpdateApprovalRuleTemplateName,
+    UpdateApprovalRuleTemplateNameResponse (UpdateApprovalRuleTemplateNameResponse'),
+    newUpdateApprovalRuleTemplateNameResponse,
+
+    -- ** UpdateComment
+    UpdateComment (UpdateComment'),
+    newUpdateComment,
+    UpdateCommentResponse (UpdateCommentResponse'),
+    newUpdateCommentResponse,
+
+    -- ** UpdateDefaultBranch
+    UpdateDefaultBranch (UpdateDefaultBranch'),
+    newUpdateDefaultBranch,
+    UpdateDefaultBranchResponse (UpdateDefaultBranchResponse'),
+    newUpdateDefaultBranchResponse,
+
+    -- ** UpdatePullRequestApprovalRuleContent
+    UpdatePullRequestApprovalRuleContent (UpdatePullRequestApprovalRuleContent'),
+    newUpdatePullRequestApprovalRuleContent,
+    UpdatePullRequestApprovalRuleContentResponse (UpdatePullRequestApprovalRuleContentResponse'),
+    newUpdatePullRequestApprovalRuleContentResponse,
+
+    -- ** UpdatePullRequestApprovalState
+    UpdatePullRequestApprovalState (UpdatePullRequestApprovalState'),
+    newUpdatePullRequestApprovalState,
+    UpdatePullRequestApprovalStateResponse (UpdatePullRequestApprovalStateResponse'),
+    newUpdatePullRequestApprovalStateResponse,
+
+    -- ** UpdatePullRequestDescription
+    UpdatePullRequestDescription (UpdatePullRequestDescription'),
+    newUpdatePullRequestDescription,
+    UpdatePullRequestDescriptionResponse (UpdatePullRequestDescriptionResponse'),
+    newUpdatePullRequestDescriptionResponse,
+
+    -- ** UpdatePullRequestStatus
+    UpdatePullRequestStatus (UpdatePullRequestStatus'),
+    newUpdatePullRequestStatus,
+    UpdatePullRequestStatusResponse (UpdatePullRequestStatusResponse'),
+    newUpdatePullRequestStatusResponse,
+
+    -- ** UpdatePullRequestTitle
+    UpdatePullRequestTitle (UpdatePullRequestTitle'),
+    newUpdatePullRequestTitle,
+    UpdatePullRequestTitleResponse (UpdatePullRequestTitleResponse'),
+    newUpdatePullRequestTitleResponse,
+
+    -- ** UpdateRepositoryDescription
+    UpdateRepositoryDescription (UpdateRepositoryDescription'),
+    newUpdateRepositoryDescription,
+    UpdateRepositoryDescriptionResponse (UpdateRepositoryDescriptionResponse'),
+    newUpdateRepositoryDescriptionResponse,
+
+    -- ** UpdateRepositoryName
+    UpdateRepositoryName (UpdateRepositoryName'),
+    newUpdateRepositoryName,
+    UpdateRepositoryNameResponse (UpdateRepositoryNameResponse'),
+    newUpdateRepositoryNameResponse,
 
     -- * Types
 

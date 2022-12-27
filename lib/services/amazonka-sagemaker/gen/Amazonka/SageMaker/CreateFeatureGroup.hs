@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.CreateFeatureGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,11 +38,11 @@ module Amazonka.SageMaker.CreateFeatureGroup
     newCreateFeatureGroup,
 
     -- * Request Lenses
+    createFeatureGroup_description,
     createFeatureGroup_offlineStoreConfig,
     createFeatureGroup_onlineStoreConfig,
-    createFeatureGroup_description,
-    createFeatureGroup_tags,
     createFeatureGroup_roleArn,
+    createFeatureGroup_tags,
     createFeatureGroup_featureGroupName,
     createFeatureGroup_recordIdentifierFeatureName,
     createFeatureGroup_eventTimeFeatureName,
@@ -59,7 +59,8 @@ module Amazonka.SageMaker.CreateFeatureGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -67,7 +68,9 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newCreateFeatureGroup' smart constructor.
 data CreateFeatureGroup = CreateFeatureGroup'
-  { -- | Use this to configure an @OfflineFeatureStore@. This parameter allows
+  { -- | A free-form description of a @FeatureGroup@.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Use this to configure an @OfflineFeatureStore@. This parameter allows
     -- you to specify:
     --
     -- -   The Amazon Simple Storage Service (Amazon S3) location of an
@@ -93,13 +96,11 @@ data CreateFeatureGroup = CreateFeatureGroup'
     -- You can also include an Amazon Web Services KMS key ID (@KMSKeyId@) for
     -- at-rest encryption of the @OnlineStore@.
     onlineStoreConfig :: Prelude.Maybe OnlineStoreConfig,
-    -- | A free-form description of a @FeatureGroup@.
-    description :: Prelude.Maybe Prelude.Text,
-    -- | Tags used to identify @Features@ in each @FeatureGroup@.
-    tags :: Prelude.Maybe [Tag],
     -- | The Amazon Resource Name (ARN) of the IAM execution role used to persist
     -- data into the @OfflineStore@ if an @OfflineStoreConfig@ is provided.
     roleArn :: Prelude.Maybe Prelude.Text,
+    -- | Tags used to identify @Features@ in each @FeatureGroup@.
+    tags :: Prelude.Maybe [Tag],
     -- | The name of the @FeatureGroup@. The name must be unique within an Amazon
     -- Web Services Region in an Amazon Web Services account. The name:
     --
@@ -165,6 +166,8 @@ data CreateFeatureGroup = CreateFeatureGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'createFeatureGroup_description' - A free-form description of a @FeatureGroup@.
+--
 -- 'offlineStoreConfig', 'createFeatureGroup_offlineStoreConfig' - Use this to configure an @OfflineFeatureStore@. This parameter allows
 -- you to specify:
 --
@@ -191,12 +194,10 @@ data CreateFeatureGroup = CreateFeatureGroup'
 -- You can also include an Amazon Web Services KMS key ID (@KMSKeyId@) for
 -- at-rest encryption of the @OnlineStore@.
 --
--- 'description', 'createFeatureGroup_description' - A free-form description of a @FeatureGroup@.
---
--- 'tags', 'createFeatureGroup_tags' - Tags used to identify @Features@ in each @FeatureGroup@.
---
 -- 'roleArn', 'createFeatureGroup_roleArn' - The Amazon Resource Name (ARN) of the IAM execution role used to persist
 -- data into the @OfflineStore@ if an @OfflineStoreConfig@ is provided.
+--
+-- 'tags', 'createFeatureGroup_tags' - Tags used to identify @Features@ in each @FeatureGroup@.
 --
 -- 'featureGroupName', 'createFeatureGroup_featureGroupName' - The name of the @FeatureGroup@. The name must be unique within an Amazon
 -- Web Services Region in an Amazon Web Services account. The name:
@@ -267,12 +268,11 @@ newCreateFeatureGroup
   pEventTimeFeatureName_
   pFeatureDefinitions_ =
     CreateFeatureGroup'
-      { offlineStoreConfig =
-          Prelude.Nothing,
+      { description = Prelude.Nothing,
+        offlineStoreConfig = Prelude.Nothing,
         onlineStoreConfig = Prelude.Nothing,
-        description = Prelude.Nothing,
-        tags = Prelude.Nothing,
         roleArn = Prelude.Nothing,
+        tags = Prelude.Nothing,
         featureGroupName = pFeatureGroupName_,
         recordIdentifierFeatureName =
           pRecordIdentifierFeatureName_,
@@ -280,6 +280,10 @@ newCreateFeatureGroup
         featureDefinitions =
           Lens.coerced Lens.# pFeatureDefinitions_
       }
+
+-- | A free-form description of a @FeatureGroup@.
+createFeatureGroup_description :: Lens.Lens' CreateFeatureGroup (Prelude.Maybe Prelude.Text)
+createFeatureGroup_description = Lens.lens (\CreateFeatureGroup' {description} -> description) (\s@CreateFeatureGroup' {} a -> s {description = a} :: CreateFeatureGroup)
 
 -- | Use this to configure an @OfflineFeatureStore@. This parameter allows
 -- you to specify:
@@ -311,18 +315,14 @@ createFeatureGroup_offlineStoreConfig = Lens.lens (\CreateFeatureGroup' {offline
 createFeatureGroup_onlineStoreConfig :: Lens.Lens' CreateFeatureGroup (Prelude.Maybe OnlineStoreConfig)
 createFeatureGroup_onlineStoreConfig = Lens.lens (\CreateFeatureGroup' {onlineStoreConfig} -> onlineStoreConfig) (\s@CreateFeatureGroup' {} a -> s {onlineStoreConfig = a} :: CreateFeatureGroup)
 
--- | A free-form description of a @FeatureGroup@.
-createFeatureGroup_description :: Lens.Lens' CreateFeatureGroup (Prelude.Maybe Prelude.Text)
-createFeatureGroup_description = Lens.lens (\CreateFeatureGroup' {description} -> description) (\s@CreateFeatureGroup' {} a -> s {description = a} :: CreateFeatureGroup)
-
--- | Tags used to identify @Features@ in each @FeatureGroup@.
-createFeatureGroup_tags :: Lens.Lens' CreateFeatureGroup (Prelude.Maybe [Tag])
-createFeatureGroup_tags = Lens.lens (\CreateFeatureGroup' {tags} -> tags) (\s@CreateFeatureGroup' {} a -> s {tags = a} :: CreateFeatureGroup) Prelude.. Lens.mapping Lens.coerced
-
 -- | The Amazon Resource Name (ARN) of the IAM execution role used to persist
 -- data into the @OfflineStore@ if an @OfflineStoreConfig@ is provided.
 createFeatureGroup_roleArn :: Lens.Lens' CreateFeatureGroup (Prelude.Maybe Prelude.Text)
 createFeatureGroup_roleArn = Lens.lens (\CreateFeatureGroup' {roleArn} -> roleArn) (\s@CreateFeatureGroup' {} a -> s {roleArn = a} :: CreateFeatureGroup)
+
+-- | Tags used to identify @Features@ in each @FeatureGroup@.
+createFeatureGroup_tags :: Lens.Lens' CreateFeatureGroup (Prelude.Maybe [Tag])
+createFeatureGroup_tags = Lens.lens (\CreateFeatureGroup' {tags} -> tags) (\s@CreateFeatureGroup' {} a -> s {tags = a} :: CreateFeatureGroup) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the @FeatureGroup@. The name must be unique within an Amazon
 -- Web Services Region in an Amazon Web Services account. The name:
@@ -390,22 +390,23 @@ instance Core.AWSRequest CreateFeatureGroup where
   type
     AWSResponse CreateFeatureGroup =
       CreateFeatureGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateFeatureGroupResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "FeatureGroupArn")
+            Prelude.<*> (x Data..:> "FeatureGroupArn")
       )
 
 instance Prelude.Hashable CreateFeatureGroup where
   hashWithSalt _salt CreateFeatureGroup' {..} =
-    _salt `Prelude.hashWithSalt` offlineStoreConfig
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` offlineStoreConfig
       `Prelude.hashWithSalt` onlineStoreConfig
-      `Prelude.hashWithSalt` description
-      `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` roleArn
+      `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` featureGroupName
       `Prelude.hashWithSalt` recordIdentifierFeatureName
       `Prelude.hashWithSalt` eventTimeFeatureName
@@ -413,61 +414,61 @@ instance Prelude.Hashable CreateFeatureGroup where
 
 instance Prelude.NFData CreateFeatureGroup where
   rnf CreateFeatureGroup' {..} =
-    Prelude.rnf offlineStoreConfig
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf offlineStoreConfig
       `Prelude.seq` Prelude.rnf onlineStoreConfig
-      `Prelude.seq` Prelude.rnf description
-      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf roleArn
+      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf featureGroupName
       `Prelude.seq` Prelude.rnf recordIdentifierFeatureName
       `Prelude.seq` Prelude.rnf eventTimeFeatureName
       `Prelude.seq` Prelude.rnf featureDefinitions
 
-instance Core.ToHeaders CreateFeatureGroup where
+instance Data.ToHeaders CreateFeatureGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.CreateFeatureGroup" ::
+              Data.=# ( "SageMaker.CreateFeatureGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateFeatureGroup where
+instance Data.ToJSON CreateFeatureGroup where
   toJSON CreateFeatureGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("OfflineStoreConfig" Core..=)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("OfflineStoreConfig" Data..=)
               Prelude.<$> offlineStoreConfig,
-            ("OnlineStoreConfig" Core..=)
+            ("OnlineStoreConfig" Data..=)
               Prelude.<$> onlineStoreConfig,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            ("RoleArn" Core..=) Prelude.<$> roleArn,
+            ("RoleArn" Data..=) Prelude.<$> roleArn,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("FeatureGroupName" Core..= featureGroupName),
+              ("FeatureGroupName" Data..= featureGroupName),
             Prelude.Just
               ( "RecordIdentifierFeatureName"
-                  Core..= recordIdentifierFeatureName
+                  Data..= recordIdentifierFeatureName
               ),
             Prelude.Just
               ( "EventTimeFeatureName"
-                  Core..= eventTimeFeatureName
+                  Data..= eventTimeFeatureName
               ),
             Prelude.Just
-              ("FeatureDefinitions" Core..= featureDefinitions)
+              ("FeatureDefinitions" Data..= featureDefinitions)
           ]
       )
 
-instance Core.ToPath CreateFeatureGroup where
+instance Data.ToPath CreateFeatureGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateFeatureGroup where
+instance Data.ToQuery CreateFeatureGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateFeatureGroupResponse' smart constructor.

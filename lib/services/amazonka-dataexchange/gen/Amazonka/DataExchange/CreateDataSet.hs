@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataExchange.CreateDataSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,31 +37,30 @@ module Amazonka.DataExchange.CreateDataSet
     newCreateDataSetResponse,
 
     -- * Response Lenses
-    createDataSetResponse_origin,
     createDataSetResponse_arn,
-    createDataSetResponse_createdAt,
-    createDataSetResponse_sourceId,
-    createDataSetResponse_originDetails,
-    createDataSetResponse_name,
-    createDataSetResponse_id,
     createDataSetResponse_assetType,
-    createDataSetResponse_updatedAt,
+    createDataSetResponse_createdAt,
     createDataSetResponse_description,
+    createDataSetResponse_id,
+    createDataSetResponse_name,
+    createDataSetResponse_origin,
+    createDataSetResponse_originDetails,
+    createDataSetResponse_sourceId,
     createDataSetResponse_tags,
+    createDataSetResponse_updatedAt,
     createDataSetResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataExchange.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | The request body for CreateDataSet.
---
--- /See:/ 'newCreateDataSet' smart constructor.
+-- | /See:/ 'newCreateDataSet' smart constructor.
 data CreateDataSet = CreateDataSet'
   { -- | A data set tag is an optional label that you can assign to a data set
     -- when you create it. Each tag consists of a key and an optional value,
@@ -140,22 +139,23 @@ instance Core.AWSRequest CreateDataSet where
   type
     AWSResponse CreateDataSet =
       CreateDataSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateDataSetResponse'
-            Prelude.<$> (x Core..?> "Origin")
-            Prelude.<*> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "CreatedAt")
-            Prelude.<*> (x Core..?> "SourceId")
-            Prelude.<*> (x Core..?> "OriginDetails")
-            Prelude.<*> (x Core..?> "Name")
-            Prelude.<*> (x Core..?> "Id")
-            Prelude.<*> (x Core..?> "AssetType")
-            Prelude.<*> (x Core..?> "UpdatedAt")
-            Prelude.<*> (x Core..?> "Description")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "AssetType")
+            Prelude.<*> (x Data..?> "CreatedAt")
+            Prelude.<*> (x Data..?> "Description")
+            Prelude.<*> (x Data..?> "Id")
+            Prelude.<*> (x Data..?> "Name")
+            Prelude.<*> (x Data..?> "Origin")
+            Prelude.<*> (x Data..?> "OriginDetails")
+            Prelude.<*> (x Data..?> "SourceId")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "UpdatedAt")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -173,63 +173,63 @@ instance Prelude.NFData CreateDataSet where
       `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreateDataSet where
+instance Data.ToHeaders CreateDataSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateDataSet where
+instance Data.ToJSON CreateDataSet where
   toJSON CreateDataSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("AssetType" Core..= assetType),
-            Prelude.Just ("Description" Core..= description),
-            Prelude.Just ("Name" Core..= name)
+          [ ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("AssetType" Data..= assetType),
+            Prelude.Just ("Description" Data..= description),
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateDataSet where
+instance Data.ToPath CreateDataSet where
   toPath = Prelude.const "/v1/data-sets"
 
-instance Core.ToQuery CreateDataSet where
+instance Data.ToQuery CreateDataSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateDataSetResponse' smart constructor.
 data CreateDataSetResponse = CreateDataSetResponse'
-  { -- | A property that defines the data set as OWNED by the account (for
+  { -- | The ARN for the data set.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The type of asset that is added to a data set.
+    assetType :: Prelude.Maybe AssetType,
+    -- | The date and time that the data set was created, in ISO 8601 format.
+    createdAt :: Prelude.Maybe Data.POSIX,
+    -- | The description for the data set.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the data set.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the data set.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A property that defines the data set as OWNED by the account (for
     -- providers) or ENTITLED to the account (for subscribers).
     origin :: Prelude.Maybe Origin,
-    -- | The ARN for the data set.
-    arn :: Prelude.Maybe Prelude.Text,
-    -- | The date and time that the data set was created, in ISO 8601 format.
-    createdAt :: Prelude.Maybe Core.POSIX,
+    -- | If the origin of this data set is ENTITLED, includes the details for the
+    -- product on AWS Marketplace.
+    originDetails :: Prelude.Maybe OriginDetails,
     -- | The data set ID of the owned data set corresponding to the entitled data
     -- set being viewed. This parameter is returned when a data set owner is
     -- viewing the entitled copy of its owned data set.
     sourceId :: Prelude.Maybe Prelude.Text,
-    -- | If the origin of this data set is ENTITLED, includes the details for the
-    -- product on AWS Marketplace.
-    originDetails :: Prelude.Maybe OriginDetails,
-    -- | The name of the data set.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The unique identifier for the data set.
-    id :: Prelude.Maybe Prelude.Text,
-    -- | The type of asset that is added to a data set.
-    assetType :: Prelude.Maybe AssetType,
-    -- | The date and time that the data set was last updated, in ISO 8601
-    -- format.
-    updatedAt :: Prelude.Maybe Core.POSIX,
-    -- | The description for the data set.
-    description :: Prelude.Maybe Prelude.Text,
     -- | The tags for the data set.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | The date and time that the data set was last updated, in ISO 8601
+    -- format.
+    updatedAt :: Prelude.Maybe Data.POSIX,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -243,32 +243,32 @@ data CreateDataSetResponse = CreateDataSetResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'arn', 'createDataSetResponse_arn' - The ARN for the data set.
+--
+-- 'assetType', 'createDataSetResponse_assetType' - The type of asset that is added to a data set.
+--
+-- 'createdAt', 'createDataSetResponse_createdAt' - The date and time that the data set was created, in ISO 8601 format.
+--
+-- 'description', 'createDataSetResponse_description' - The description for the data set.
+--
+-- 'id', 'createDataSetResponse_id' - The unique identifier for the data set.
+--
+-- 'name', 'createDataSetResponse_name' - The name of the data set.
+--
 -- 'origin', 'createDataSetResponse_origin' - A property that defines the data set as OWNED by the account (for
 -- providers) or ENTITLED to the account (for subscribers).
 --
--- 'arn', 'createDataSetResponse_arn' - The ARN for the data set.
---
--- 'createdAt', 'createDataSetResponse_createdAt' - The date and time that the data set was created, in ISO 8601 format.
+-- 'originDetails', 'createDataSetResponse_originDetails' - If the origin of this data set is ENTITLED, includes the details for the
+-- product on AWS Marketplace.
 --
 -- 'sourceId', 'createDataSetResponse_sourceId' - The data set ID of the owned data set corresponding to the entitled data
 -- set being viewed. This parameter is returned when a data set owner is
 -- viewing the entitled copy of its owned data set.
 --
--- 'originDetails', 'createDataSetResponse_originDetails' - If the origin of this data set is ENTITLED, includes the details for the
--- product on AWS Marketplace.
---
--- 'name', 'createDataSetResponse_name' - The name of the data set.
---
--- 'id', 'createDataSetResponse_id' - The unique identifier for the data set.
---
--- 'assetType', 'createDataSetResponse_assetType' - The type of asset that is added to a data set.
+-- 'tags', 'createDataSetResponse_tags' - The tags for the data set.
 --
 -- 'updatedAt', 'createDataSetResponse_updatedAt' - The date and time that the data set was last updated, in ISO 8601
 -- format.
---
--- 'description', 'createDataSetResponse_description' - The description for the data set.
---
--- 'tags', 'createDataSetResponse_tags' - The tags for the data set.
 --
 -- 'httpStatus', 'createDataSetResponse_httpStatus' - The response's http status code.
 newCreateDataSetResponse ::
@@ -277,32 +277,53 @@ newCreateDataSetResponse ::
   CreateDataSetResponse
 newCreateDataSetResponse pHttpStatus_ =
   CreateDataSetResponse'
-    { origin = Prelude.Nothing,
-      arn = Prelude.Nothing,
-      createdAt = Prelude.Nothing,
-      sourceId = Prelude.Nothing,
-      originDetails = Prelude.Nothing,
-      name = Prelude.Nothing,
-      id = Prelude.Nothing,
+    { arn = Prelude.Nothing,
       assetType = Prelude.Nothing,
-      updatedAt = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
       description = Prelude.Nothing,
+      id = Prelude.Nothing,
+      name = Prelude.Nothing,
+      origin = Prelude.Nothing,
+      originDetails = Prelude.Nothing,
+      sourceId = Prelude.Nothing,
       tags = Prelude.Nothing,
+      updatedAt = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The ARN for the data set.
+createDataSetResponse_arn :: Lens.Lens' CreateDataSetResponse (Prelude.Maybe Prelude.Text)
+createDataSetResponse_arn = Lens.lens (\CreateDataSetResponse' {arn} -> arn) (\s@CreateDataSetResponse' {} a -> s {arn = a} :: CreateDataSetResponse)
+
+-- | The type of asset that is added to a data set.
+createDataSetResponse_assetType :: Lens.Lens' CreateDataSetResponse (Prelude.Maybe AssetType)
+createDataSetResponse_assetType = Lens.lens (\CreateDataSetResponse' {assetType} -> assetType) (\s@CreateDataSetResponse' {} a -> s {assetType = a} :: CreateDataSetResponse)
+
+-- | The date and time that the data set was created, in ISO 8601 format.
+createDataSetResponse_createdAt :: Lens.Lens' CreateDataSetResponse (Prelude.Maybe Prelude.UTCTime)
+createDataSetResponse_createdAt = Lens.lens (\CreateDataSetResponse' {createdAt} -> createdAt) (\s@CreateDataSetResponse' {} a -> s {createdAt = a} :: CreateDataSetResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The description for the data set.
+createDataSetResponse_description :: Lens.Lens' CreateDataSetResponse (Prelude.Maybe Prelude.Text)
+createDataSetResponse_description = Lens.lens (\CreateDataSetResponse' {description} -> description) (\s@CreateDataSetResponse' {} a -> s {description = a} :: CreateDataSetResponse)
+
+-- | The unique identifier for the data set.
+createDataSetResponse_id :: Lens.Lens' CreateDataSetResponse (Prelude.Maybe Prelude.Text)
+createDataSetResponse_id = Lens.lens (\CreateDataSetResponse' {id} -> id) (\s@CreateDataSetResponse' {} a -> s {id = a} :: CreateDataSetResponse)
+
+-- | The name of the data set.
+createDataSetResponse_name :: Lens.Lens' CreateDataSetResponse (Prelude.Maybe Prelude.Text)
+createDataSetResponse_name = Lens.lens (\CreateDataSetResponse' {name} -> name) (\s@CreateDataSetResponse' {} a -> s {name = a} :: CreateDataSetResponse)
 
 -- | A property that defines the data set as OWNED by the account (for
 -- providers) or ENTITLED to the account (for subscribers).
 createDataSetResponse_origin :: Lens.Lens' CreateDataSetResponse (Prelude.Maybe Origin)
 createDataSetResponse_origin = Lens.lens (\CreateDataSetResponse' {origin} -> origin) (\s@CreateDataSetResponse' {} a -> s {origin = a} :: CreateDataSetResponse)
 
--- | The ARN for the data set.
-createDataSetResponse_arn :: Lens.Lens' CreateDataSetResponse (Prelude.Maybe Prelude.Text)
-createDataSetResponse_arn = Lens.lens (\CreateDataSetResponse' {arn} -> arn) (\s@CreateDataSetResponse' {} a -> s {arn = a} :: CreateDataSetResponse)
-
--- | The date and time that the data set was created, in ISO 8601 format.
-createDataSetResponse_createdAt :: Lens.Lens' CreateDataSetResponse (Prelude.Maybe Prelude.UTCTime)
-createDataSetResponse_createdAt = Lens.lens (\CreateDataSetResponse' {createdAt} -> createdAt) (\s@CreateDataSetResponse' {} a -> s {createdAt = a} :: CreateDataSetResponse) Prelude.. Lens.mapping Core._Time
+-- | If the origin of this data set is ENTITLED, includes the details for the
+-- product on AWS Marketplace.
+createDataSetResponse_originDetails :: Lens.Lens' CreateDataSetResponse (Prelude.Maybe OriginDetails)
+createDataSetResponse_originDetails = Lens.lens (\CreateDataSetResponse' {originDetails} -> originDetails) (\s@CreateDataSetResponse' {} a -> s {originDetails = a} :: CreateDataSetResponse)
 
 -- | The data set ID of the owned data set corresponding to the entitled data
 -- set being viewed. This parameter is returned when a data set owner is
@@ -310,35 +331,14 @@ createDataSetResponse_createdAt = Lens.lens (\CreateDataSetResponse' {createdAt}
 createDataSetResponse_sourceId :: Lens.Lens' CreateDataSetResponse (Prelude.Maybe Prelude.Text)
 createDataSetResponse_sourceId = Lens.lens (\CreateDataSetResponse' {sourceId} -> sourceId) (\s@CreateDataSetResponse' {} a -> s {sourceId = a} :: CreateDataSetResponse)
 
--- | If the origin of this data set is ENTITLED, includes the details for the
--- product on AWS Marketplace.
-createDataSetResponse_originDetails :: Lens.Lens' CreateDataSetResponse (Prelude.Maybe OriginDetails)
-createDataSetResponse_originDetails = Lens.lens (\CreateDataSetResponse' {originDetails} -> originDetails) (\s@CreateDataSetResponse' {} a -> s {originDetails = a} :: CreateDataSetResponse)
-
--- | The name of the data set.
-createDataSetResponse_name :: Lens.Lens' CreateDataSetResponse (Prelude.Maybe Prelude.Text)
-createDataSetResponse_name = Lens.lens (\CreateDataSetResponse' {name} -> name) (\s@CreateDataSetResponse' {} a -> s {name = a} :: CreateDataSetResponse)
-
--- | The unique identifier for the data set.
-createDataSetResponse_id :: Lens.Lens' CreateDataSetResponse (Prelude.Maybe Prelude.Text)
-createDataSetResponse_id = Lens.lens (\CreateDataSetResponse' {id} -> id) (\s@CreateDataSetResponse' {} a -> s {id = a} :: CreateDataSetResponse)
-
--- | The type of asset that is added to a data set.
-createDataSetResponse_assetType :: Lens.Lens' CreateDataSetResponse (Prelude.Maybe AssetType)
-createDataSetResponse_assetType = Lens.lens (\CreateDataSetResponse' {assetType} -> assetType) (\s@CreateDataSetResponse' {} a -> s {assetType = a} :: CreateDataSetResponse)
+-- | The tags for the data set.
+createDataSetResponse_tags :: Lens.Lens' CreateDataSetResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createDataSetResponse_tags = Lens.lens (\CreateDataSetResponse' {tags} -> tags) (\s@CreateDataSetResponse' {} a -> s {tags = a} :: CreateDataSetResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The date and time that the data set was last updated, in ISO 8601
 -- format.
 createDataSetResponse_updatedAt :: Lens.Lens' CreateDataSetResponse (Prelude.Maybe Prelude.UTCTime)
-createDataSetResponse_updatedAt = Lens.lens (\CreateDataSetResponse' {updatedAt} -> updatedAt) (\s@CreateDataSetResponse' {} a -> s {updatedAt = a} :: CreateDataSetResponse) Prelude.. Lens.mapping Core._Time
-
--- | The description for the data set.
-createDataSetResponse_description :: Lens.Lens' CreateDataSetResponse (Prelude.Maybe Prelude.Text)
-createDataSetResponse_description = Lens.lens (\CreateDataSetResponse' {description} -> description) (\s@CreateDataSetResponse' {} a -> s {description = a} :: CreateDataSetResponse)
-
--- | The tags for the data set.
-createDataSetResponse_tags :: Lens.Lens' CreateDataSetResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
-createDataSetResponse_tags = Lens.lens (\CreateDataSetResponse' {tags} -> tags) (\s@CreateDataSetResponse' {} a -> s {tags = a} :: CreateDataSetResponse) Prelude.. Lens.mapping Lens.coerced
+createDataSetResponse_updatedAt = Lens.lens (\CreateDataSetResponse' {updatedAt} -> updatedAt) (\s@CreateDataSetResponse' {} a -> s {updatedAt = a} :: CreateDataSetResponse) Prelude.. Lens.mapping Data._Time
 
 -- | The response's http status code.
 createDataSetResponse_httpStatus :: Lens.Lens' CreateDataSetResponse Prelude.Int
@@ -346,15 +346,15 @@ createDataSetResponse_httpStatus = Lens.lens (\CreateDataSetResponse' {httpStatu
 
 instance Prelude.NFData CreateDataSetResponse where
   rnf CreateDataSetResponse' {..} =
-    Prelude.rnf origin
-      `Prelude.seq` Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf createdAt
-      `Prelude.seq` Prelude.rnf sourceId
-      `Prelude.seq` Prelude.rnf originDetails
-      `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf id
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf assetType
-      `Prelude.seq` Prelude.rnf updatedAt
+      `Prelude.seq` Prelude.rnf createdAt
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf id
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf origin
+      `Prelude.seq` Prelude.rnf originDetails
+      `Prelude.seq` Prelude.rnf sourceId
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf updatedAt
       `Prelude.seq` Prelude.rnf httpStatus

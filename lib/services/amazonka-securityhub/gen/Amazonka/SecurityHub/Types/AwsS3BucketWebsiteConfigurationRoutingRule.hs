@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsS3BucketWebsiteConfigurationRoutingRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsS3BucketWebsiteConfigurationRoutingRule where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.AwsS3BucketWebsiteConfigurationRoutingRuleCondition
 import Amazonka.SecurityHub.Types.AwsS3BucketWebsiteConfigurationRoutingRuleRedirect
@@ -29,12 +30,12 @@ import Amazonka.SecurityHub.Types.AwsS3BucketWebsiteConfigurationRoutingRuleRedi
 --
 -- /See:/ 'newAwsS3BucketWebsiteConfigurationRoutingRule' smart constructor.
 data AwsS3BucketWebsiteConfigurationRoutingRule = AwsS3BucketWebsiteConfigurationRoutingRule'
-  { -- | Provides the rules to redirect the request if the condition in
-    -- @Condition@ is met.
-    redirect :: Prelude.Maybe AwsS3BucketWebsiteConfigurationRoutingRuleRedirect,
-    -- | Provides the condition that must be met in order to apply the routing
+  { -- | Provides the condition that must be met in order to apply the routing
     -- rule.
-    condition :: Prelude.Maybe AwsS3BucketWebsiteConfigurationRoutingRuleCondition
+    condition :: Prelude.Maybe AwsS3BucketWebsiteConfigurationRoutingRuleCondition,
+    -- | Provides the rules to redirect the request if the condition in
+    -- @Condition@ is met.
+    redirect :: Prelude.Maybe AwsS3BucketWebsiteConfigurationRoutingRuleRedirect
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,41 +47,41 @@ data AwsS3BucketWebsiteConfigurationRoutingRule = AwsS3BucketWebsiteConfiguratio
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'redirect', 'awsS3BucketWebsiteConfigurationRoutingRule_redirect' - Provides the rules to redirect the request if the condition in
--- @Condition@ is met.
---
 -- 'condition', 'awsS3BucketWebsiteConfigurationRoutingRule_condition' - Provides the condition that must be met in order to apply the routing
 -- rule.
+--
+-- 'redirect', 'awsS3BucketWebsiteConfigurationRoutingRule_redirect' - Provides the rules to redirect the request if the condition in
+-- @Condition@ is met.
 newAwsS3BucketWebsiteConfigurationRoutingRule ::
   AwsS3BucketWebsiteConfigurationRoutingRule
 newAwsS3BucketWebsiteConfigurationRoutingRule =
   AwsS3BucketWebsiteConfigurationRoutingRule'
-    { redirect =
+    { condition =
         Prelude.Nothing,
-      condition = Prelude.Nothing
+      redirect = Prelude.Nothing
     }
-
--- | Provides the rules to redirect the request if the condition in
--- @Condition@ is met.
-awsS3BucketWebsiteConfigurationRoutingRule_redirect :: Lens.Lens' AwsS3BucketWebsiteConfigurationRoutingRule (Prelude.Maybe AwsS3BucketWebsiteConfigurationRoutingRuleRedirect)
-awsS3BucketWebsiteConfigurationRoutingRule_redirect = Lens.lens (\AwsS3BucketWebsiteConfigurationRoutingRule' {redirect} -> redirect) (\s@AwsS3BucketWebsiteConfigurationRoutingRule' {} a -> s {redirect = a} :: AwsS3BucketWebsiteConfigurationRoutingRule)
 
 -- | Provides the condition that must be met in order to apply the routing
 -- rule.
 awsS3BucketWebsiteConfigurationRoutingRule_condition :: Lens.Lens' AwsS3BucketWebsiteConfigurationRoutingRule (Prelude.Maybe AwsS3BucketWebsiteConfigurationRoutingRuleCondition)
 awsS3BucketWebsiteConfigurationRoutingRule_condition = Lens.lens (\AwsS3BucketWebsiteConfigurationRoutingRule' {condition} -> condition) (\s@AwsS3BucketWebsiteConfigurationRoutingRule' {} a -> s {condition = a} :: AwsS3BucketWebsiteConfigurationRoutingRule)
 
+-- | Provides the rules to redirect the request if the condition in
+-- @Condition@ is met.
+awsS3BucketWebsiteConfigurationRoutingRule_redirect :: Lens.Lens' AwsS3BucketWebsiteConfigurationRoutingRule (Prelude.Maybe AwsS3BucketWebsiteConfigurationRoutingRuleRedirect)
+awsS3BucketWebsiteConfigurationRoutingRule_redirect = Lens.lens (\AwsS3BucketWebsiteConfigurationRoutingRule' {redirect} -> redirect) (\s@AwsS3BucketWebsiteConfigurationRoutingRule' {} a -> s {redirect = a} :: AwsS3BucketWebsiteConfigurationRoutingRule)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsS3BucketWebsiteConfigurationRoutingRule
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsS3BucketWebsiteConfigurationRoutingRule"
       ( \x ->
           AwsS3BucketWebsiteConfigurationRoutingRule'
-            Prelude.<$> (x Core..:? "Redirect")
-              Prelude.<*> (x Core..:? "Condition")
+            Prelude.<$> (x Data..:? "Condition")
+              Prelude.<*> (x Data..:? "Redirect")
       )
 
 instance
@@ -90,26 +91,26 @@ instance
   hashWithSalt
     _salt
     AwsS3BucketWebsiteConfigurationRoutingRule' {..} =
-      _salt `Prelude.hashWithSalt` redirect
-        `Prelude.hashWithSalt` condition
+      _salt `Prelude.hashWithSalt` condition
+        `Prelude.hashWithSalt` redirect
 
 instance
   Prelude.NFData
     AwsS3BucketWebsiteConfigurationRoutingRule
   where
   rnf AwsS3BucketWebsiteConfigurationRoutingRule' {..} =
-    Prelude.rnf redirect
-      `Prelude.seq` Prelude.rnf condition
+    Prelude.rnf condition
+      `Prelude.seq` Prelude.rnf redirect
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsS3BucketWebsiteConfigurationRoutingRule
   where
   toJSON
     AwsS3BucketWebsiteConfigurationRoutingRule' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("Redirect" Core..=) Prelude.<$> redirect,
-              ("Condition" Core..=) Prelude.<$> condition
+            [ ("Condition" Data..=) Prelude.<$> condition,
+              ("Redirect" Data..=) Prelude.<$> redirect
             ]
         )

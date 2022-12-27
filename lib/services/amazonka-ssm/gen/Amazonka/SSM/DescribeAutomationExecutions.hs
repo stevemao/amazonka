@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.DescribeAutomationExecutions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,22 +30,23 @@ module Amazonka.SSM.DescribeAutomationExecutions
 
     -- * Request Lenses
     describeAutomationExecutions_filters,
-    describeAutomationExecutions_nextToken,
     describeAutomationExecutions_maxResults,
+    describeAutomationExecutions_nextToken,
 
     -- * Destructuring the Response
     DescribeAutomationExecutionsResponse (..),
     newDescribeAutomationExecutionsResponse,
 
     -- * Response Lenses
-    describeAutomationExecutionsResponse_nextToken,
     describeAutomationExecutionsResponse_automationExecutionMetadataList,
+    describeAutomationExecutionsResponse_nextToken,
     describeAutomationExecutionsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,13 +56,13 @@ import Amazonka.SSM.Types
 data DescribeAutomationExecutions = DescribeAutomationExecutions'
   { -- | Filters used to limit the scope of executions that are requested.
     filters :: Prelude.Maybe (Prelude.NonEmpty AutomationExecutionFilter),
-    -- | The token for the next set of items to return. (You received this token
-    -- from a previous call.)
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of items to return for this call. The call also
     -- returns a token that you can specify in a subsequent call to get the
     -- next set of results.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -75,36 +76,36 @@ data DescribeAutomationExecutions = DescribeAutomationExecutions'
 --
 -- 'filters', 'describeAutomationExecutions_filters' - Filters used to limit the scope of executions that are requested.
 --
--- 'nextToken', 'describeAutomationExecutions_nextToken' - The token for the next set of items to return. (You received this token
--- from a previous call.)
---
 -- 'maxResults', 'describeAutomationExecutions_maxResults' - The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results.
+--
+-- 'nextToken', 'describeAutomationExecutions_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 newDescribeAutomationExecutions ::
   DescribeAutomationExecutions
 newDescribeAutomationExecutions =
   DescribeAutomationExecutions'
     { filters =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | Filters used to limit the scope of executions that are requested.
 describeAutomationExecutions_filters :: Lens.Lens' DescribeAutomationExecutions (Prelude.Maybe (Prelude.NonEmpty AutomationExecutionFilter))
 describeAutomationExecutions_filters = Lens.lens (\DescribeAutomationExecutions' {filters} -> filters) (\s@DescribeAutomationExecutions' {} a -> s {filters = a} :: DescribeAutomationExecutions) Prelude.. Lens.mapping Lens.coerced
 
--- | The token for the next set of items to return. (You received this token
--- from a previous call.)
-describeAutomationExecutions_nextToken :: Lens.Lens' DescribeAutomationExecutions (Prelude.Maybe Prelude.Text)
-describeAutomationExecutions_nextToken = Lens.lens (\DescribeAutomationExecutions' {nextToken} -> nextToken) (\s@DescribeAutomationExecutions' {} a -> s {nextToken = a} :: DescribeAutomationExecutions)
-
 -- | The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results.
 describeAutomationExecutions_maxResults :: Lens.Lens' DescribeAutomationExecutions (Prelude.Maybe Prelude.Natural)
 describeAutomationExecutions_maxResults = Lens.lens (\DescribeAutomationExecutions' {maxResults} -> maxResults) (\s@DescribeAutomationExecutions' {} a -> s {maxResults = a} :: DescribeAutomationExecutions)
+
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+describeAutomationExecutions_nextToken :: Lens.Lens' DescribeAutomationExecutions (Prelude.Maybe Prelude.Text)
+describeAutomationExecutions_nextToken = Lens.lens (\DescribeAutomationExecutions' {nextToken} -> nextToken) (\s@DescribeAutomationExecutions' {} a -> s {nextToken = a} :: DescribeAutomationExecutions)
 
 instance Core.AWSPager DescribeAutomationExecutions where
   page rq rs
@@ -132,15 +133,16 @@ instance Core.AWSRequest DescribeAutomationExecutions where
   type
     AWSResponse DescribeAutomationExecutions =
       DescribeAutomationExecutionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAutomationExecutionsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "AutomationExecutionMetadataList"
+            Prelude.<$> ( x Data..?> "AutomationExecutionMetadataList"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -150,54 +152,54 @@ instance
   where
   hashWithSalt _salt DescribeAutomationExecutions' {..} =
     _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeAutomationExecutions where
   rnf DescribeAutomationExecutions' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeAutomationExecutions where
+instance Data.ToHeaders DescribeAutomationExecutions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.DescribeAutomationExecutions" ::
+              Data.=# ( "AmazonSSM.DescribeAutomationExecutions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeAutomationExecutions where
+instance Data.ToJSON DescribeAutomationExecutions where
   toJSON DescribeAutomationExecutions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath DescribeAutomationExecutions where
+instance Data.ToPath DescribeAutomationExecutions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeAutomationExecutions where
+instance Data.ToQuery DescribeAutomationExecutions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeAutomationExecutionsResponse' smart constructor.
 data DescribeAutomationExecutionsResponse = DescribeAutomationExecutionsResponse'
-  { -- | The token to use when requesting the next set of items. If there are no
-    -- additional items to return, the string is empty.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The list of details about each automation execution which has occurred
+  { -- | The list of details about each automation execution which has occurred
     -- which matches the filter specification, if any.
     automationExecutionMetadataList :: Prelude.Maybe [AutomationExecutionMetadata],
+    -- | The token to use when requesting the next set of items. If there are no
+    -- additional items to return, the string is empty.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -211,11 +213,11 @@ data DescribeAutomationExecutionsResponse = DescribeAutomationExecutionsResponse
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeAutomationExecutionsResponse_nextToken' - The token to use when requesting the next set of items. If there are no
--- additional items to return, the string is empty.
---
 -- 'automationExecutionMetadataList', 'describeAutomationExecutionsResponse_automationExecutionMetadataList' - The list of details about each automation execution which has occurred
 -- which matches the filter specification, if any.
+--
+-- 'nextToken', 'describeAutomationExecutionsResponse_nextToken' - The token to use when requesting the next set of items. If there are no
+-- additional items to return, the string is empty.
 --
 -- 'httpStatus', 'describeAutomationExecutionsResponse_httpStatus' - The response's http status code.
 newDescribeAutomationExecutionsResponse ::
@@ -224,22 +226,21 @@ newDescribeAutomationExecutionsResponse ::
   DescribeAutomationExecutionsResponse
 newDescribeAutomationExecutionsResponse pHttpStatus_ =
   DescribeAutomationExecutionsResponse'
-    { nextToken =
+    { automationExecutionMetadataList =
         Prelude.Nothing,
-      automationExecutionMetadataList =
-        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The token to use when requesting the next set of items. If there are no
--- additional items to return, the string is empty.
-describeAutomationExecutionsResponse_nextToken :: Lens.Lens' DescribeAutomationExecutionsResponse (Prelude.Maybe Prelude.Text)
-describeAutomationExecutionsResponse_nextToken = Lens.lens (\DescribeAutomationExecutionsResponse' {nextToken} -> nextToken) (\s@DescribeAutomationExecutionsResponse' {} a -> s {nextToken = a} :: DescribeAutomationExecutionsResponse)
 
 -- | The list of details about each automation execution which has occurred
 -- which matches the filter specification, if any.
 describeAutomationExecutionsResponse_automationExecutionMetadataList :: Lens.Lens' DescribeAutomationExecutionsResponse (Prelude.Maybe [AutomationExecutionMetadata])
 describeAutomationExecutionsResponse_automationExecutionMetadataList = Lens.lens (\DescribeAutomationExecutionsResponse' {automationExecutionMetadataList} -> automationExecutionMetadataList) (\s@DescribeAutomationExecutionsResponse' {} a -> s {automationExecutionMetadataList = a} :: DescribeAutomationExecutionsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The token to use when requesting the next set of items. If there are no
+-- additional items to return, the string is empty.
+describeAutomationExecutionsResponse_nextToken :: Lens.Lens' DescribeAutomationExecutionsResponse (Prelude.Maybe Prelude.Text)
+describeAutomationExecutionsResponse_nextToken = Lens.lens (\DescribeAutomationExecutionsResponse' {nextToken} -> nextToken) (\s@DescribeAutomationExecutionsResponse' {} a -> s {nextToken = a} :: DescribeAutomationExecutionsResponse)
 
 -- | The response's http status code.
 describeAutomationExecutionsResponse_httpStatus :: Lens.Lens' DescribeAutomationExecutionsResponse Prelude.Int
@@ -250,6 +251,6 @@ instance
     DescribeAutomationExecutionsResponse
   where
   rnf DescribeAutomationExecutionsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf automationExecutionMetadataList
+    Prelude.rnf automationExecutionMetadataList
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

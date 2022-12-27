@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.Types.FieldToMatch
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WAFRegional.Types.FieldToMatch where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.WAFRegional.Types.MatchFieldType
 
@@ -202,13 +203,13 @@ fieldToMatch_data = Lens.lens (\FieldToMatch' {data'} -> data') (\s@FieldToMatch
 fieldToMatch_type :: Lens.Lens' FieldToMatch MatchFieldType
 fieldToMatch_type = Lens.lens (\FieldToMatch' {type'} -> type') (\s@FieldToMatch' {} a -> s {type' = a} :: FieldToMatch)
 
-instance Core.FromJSON FieldToMatch where
+instance Data.FromJSON FieldToMatch where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FieldToMatch"
       ( \x ->
           FieldToMatch'
-            Prelude.<$> (x Core..:? "Data") Prelude.<*> (x Core..: "Type")
+            Prelude.<$> (x Data..:? "Data") Prelude.<*> (x Data..: "Type")
       )
 
 instance Prelude.Hashable FieldToMatch where
@@ -220,11 +221,11 @@ instance Prelude.NFData FieldToMatch where
   rnf FieldToMatch' {..} =
     Prelude.rnf data' `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON FieldToMatch where
+instance Data.ToJSON FieldToMatch where
   toJSON FieldToMatch' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Data" Core..=) Prelude.<$> data',
-            Prelude.Just ("Type" Core..= type')
+          [ ("Data" Data..=) Prelude.<$> data',
+            Prelude.Just ("Type" Data..= type')
           ]
       )

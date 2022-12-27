@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.GetAutoTerminationPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.EMR.GetAutoTerminationPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,12 +81,13 @@ instance Core.AWSRequest GetAutoTerminationPolicy where
   type
     AWSResponse GetAutoTerminationPolicy =
       GetAutoTerminationPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAutoTerminationPolicyResponse'
-            Prelude.<$> (x Core..?> "AutoTerminationPolicy")
+            Prelude.<$> (x Data..?> "AutoTerminationPolicy")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,32 +99,32 @@ instance Prelude.NFData GetAutoTerminationPolicy where
   rnf GetAutoTerminationPolicy' {..} =
     Prelude.rnf clusterId
 
-instance Core.ToHeaders GetAutoTerminationPolicy where
+instance Data.ToHeaders GetAutoTerminationPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ElasticMapReduce.GetAutoTerminationPolicy" ::
+              Data.=# ( "ElasticMapReduce.GetAutoTerminationPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetAutoTerminationPolicy where
+instance Data.ToJSON GetAutoTerminationPolicy where
   toJSON GetAutoTerminationPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ClusterId" Core..= clusterId)]
+          [Prelude.Just ("ClusterId" Data..= clusterId)]
       )
 
-instance Core.ToPath GetAutoTerminationPolicy where
+instance Data.ToPath GetAutoTerminationPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetAutoTerminationPolicy where
+instance Data.ToQuery GetAutoTerminationPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetAutoTerminationPolicyResponse' smart constructor.

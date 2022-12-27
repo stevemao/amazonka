@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.InputStartingPositionConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KinesisAnalyticsV2.Types.InputStartingPositionConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.InputStartingPosition
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the point at which the application reads from the streaming
@@ -89,15 +90,15 @@ inputStartingPositionConfiguration_inputStartingPosition :: Lens.Lens' InputStar
 inputStartingPositionConfiguration_inputStartingPosition = Lens.lens (\InputStartingPositionConfiguration' {inputStartingPosition} -> inputStartingPosition) (\s@InputStartingPositionConfiguration' {} a -> s {inputStartingPosition = a} :: InputStartingPositionConfiguration)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     InputStartingPositionConfiguration
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InputStartingPositionConfiguration"
       ( \x ->
           InputStartingPositionConfiguration'
-            Prelude.<$> (x Core..:? "InputStartingPosition")
+            Prelude.<$> (x Data..:? "InputStartingPosition")
       )
 
 instance
@@ -117,13 +118,13 @@ instance
     Prelude.rnf inputStartingPosition
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     InputStartingPositionConfiguration
   where
   toJSON InputStartingPositionConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("InputStartingPosition" Core..=)
+          [ ("InputStartingPosition" Data..=)
               Prelude.<$> inputStartingPosition
           ]
       )

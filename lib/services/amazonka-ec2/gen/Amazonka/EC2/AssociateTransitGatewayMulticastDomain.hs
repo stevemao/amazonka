@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.AssociateTransitGatewayMulticastDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,10 +33,10 @@ module Amazonka.EC2.AssociateTransitGatewayMulticastDomain
     newAssociateTransitGatewayMulticastDomain,
 
     -- * Request Lenses
-    associateTransitGatewayMulticastDomain_subnetIds,
-    associateTransitGatewayMulticastDomain_transitGatewayMulticastDomainId,
-    associateTransitGatewayMulticastDomain_transitGatewayAttachmentId,
     associateTransitGatewayMulticastDomain_dryRun,
+    associateTransitGatewayMulticastDomain_subnetIds,
+    associateTransitGatewayMulticastDomain_transitGatewayAttachmentId,
+    associateTransitGatewayMulticastDomain_transitGatewayMulticastDomainId,
 
     -- * Destructuring the Response
     AssociateTransitGatewayMulticastDomainResponse (..),
@@ -49,27 +49,28 @@ module Amazonka.EC2.AssociateTransitGatewayMulticastDomain
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newAssociateTransitGatewayMulticastDomain' smart constructor.
 data AssociateTransitGatewayMulticastDomain = AssociateTransitGatewayMulticastDomain'
-  { -- | The IDs of the subnets to associate with the transit gateway multicast
-    -- domain.
-    subnetIds :: Prelude.Maybe [Prelude.Text],
-    -- | The ID of the transit gateway multicast domain.
-    transitGatewayMulticastDomainId :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the transit gateway attachment to associate with the transit
-    -- gateway multicast domain.
-    transitGatewayAttachmentId :: Prelude.Maybe Prelude.Text,
-    -- | Checks whether you have the required permissions for the action, without
+  { -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The IDs of the subnets to associate with the transit gateway multicast
+    -- domain.
+    subnetIds :: Prelude.Maybe [Prelude.Text],
+    -- | The ID of the transit gateway attachment to associate with the transit
+    -- gateway multicast domain.
+    transitGatewayAttachmentId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the transit gateway multicast domain.
+    transitGatewayMulticastDomainId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -81,44 +82,30 @@ data AssociateTransitGatewayMulticastDomain = AssociateTransitGatewayMulticastDo
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'subnetIds', 'associateTransitGatewayMulticastDomain_subnetIds' - The IDs of the subnets to associate with the transit gateway multicast
--- domain.
---
--- 'transitGatewayMulticastDomainId', 'associateTransitGatewayMulticastDomain_transitGatewayMulticastDomainId' - The ID of the transit gateway multicast domain.
---
--- 'transitGatewayAttachmentId', 'associateTransitGatewayMulticastDomain_transitGatewayAttachmentId' - The ID of the transit gateway attachment to associate with the transit
--- gateway multicast domain.
---
 -- 'dryRun', 'associateTransitGatewayMulticastDomain_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'subnetIds', 'associateTransitGatewayMulticastDomain_subnetIds' - The IDs of the subnets to associate with the transit gateway multicast
+-- domain.
+--
+-- 'transitGatewayAttachmentId', 'associateTransitGatewayMulticastDomain_transitGatewayAttachmentId' - The ID of the transit gateway attachment to associate with the transit
+-- gateway multicast domain.
+--
+-- 'transitGatewayMulticastDomainId', 'associateTransitGatewayMulticastDomain_transitGatewayMulticastDomainId' - The ID of the transit gateway multicast domain.
 newAssociateTransitGatewayMulticastDomain ::
   AssociateTransitGatewayMulticastDomain
 newAssociateTransitGatewayMulticastDomain =
   AssociateTransitGatewayMulticastDomain'
-    { subnetIds =
+    { dryRun =
         Prelude.Nothing,
-      transitGatewayMulticastDomainId =
-        Prelude.Nothing,
+      subnetIds = Prelude.Nothing,
       transitGatewayAttachmentId =
         Prelude.Nothing,
-      dryRun = Prelude.Nothing
+      transitGatewayMulticastDomainId =
+        Prelude.Nothing
     }
-
--- | The IDs of the subnets to associate with the transit gateway multicast
--- domain.
-associateTransitGatewayMulticastDomain_subnetIds :: Lens.Lens' AssociateTransitGatewayMulticastDomain (Prelude.Maybe [Prelude.Text])
-associateTransitGatewayMulticastDomain_subnetIds = Lens.lens (\AssociateTransitGatewayMulticastDomain' {subnetIds} -> subnetIds) (\s@AssociateTransitGatewayMulticastDomain' {} a -> s {subnetIds = a} :: AssociateTransitGatewayMulticastDomain) Prelude.. Lens.mapping Lens.coerced
-
--- | The ID of the transit gateway multicast domain.
-associateTransitGatewayMulticastDomain_transitGatewayMulticastDomainId :: Lens.Lens' AssociateTransitGatewayMulticastDomain (Prelude.Maybe Prelude.Text)
-associateTransitGatewayMulticastDomain_transitGatewayMulticastDomainId = Lens.lens (\AssociateTransitGatewayMulticastDomain' {transitGatewayMulticastDomainId} -> transitGatewayMulticastDomainId) (\s@AssociateTransitGatewayMulticastDomain' {} a -> s {transitGatewayMulticastDomainId = a} :: AssociateTransitGatewayMulticastDomain)
-
--- | The ID of the transit gateway attachment to associate with the transit
--- gateway multicast domain.
-associateTransitGatewayMulticastDomain_transitGatewayAttachmentId :: Lens.Lens' AssociateTransitGatewayMulticastDomain (Prelude.Maybe Prelude.Text)
-associateTransitGatewayMulticastDomain_transitGatewayAttachmentId = Lens.lens (\AssociateTransitGatewayMulticastDomain' {transitGatewayAttachmentId} -> transitGatewayAttachmentId) (\s@AssociateTransitGatewayMulticastDomain' {} a -> s {transitGatewayAttachmentId = a} :: AssociateTransitGatewayMulticastDomain)
 
 -- | Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
@@ -126,6 +113,20 @@ associateTransitGatewayMulticastDomain_transitGatewayAttachmentId = Lens.lens (\
 -- Otherwise, it is @UnauthorizedOperation@.
 associateTransitGatewayMulticastDomain_dryRun :: Lens.Lens' AssociateTransitGatewayMulticastDomain (Prelude.Maybe Prelude.Bool)
 associateTransitGatewayMulticastDomain_dryRun = Lens.lens (\AssociateTransitGatewayMulticastDomain' {dryRun} -> dryRun) (\s@AssociateTransitGatewayMulticastDomain' {} a -> s {dryRun = a} :: AssociateTransitGatewayMulticastDomain)
+
+-- | The IDs of the subnets to associate with the transit gateway multicast
+-- domain.
+associateTransitGatewayMulticastDomain_subnetIds :: Lens.Lens' AssociateTransitGatewayMulticastDomain (Prelude.Maybe [Prelude.Text])
+associateTransitGatewayMulticastDomain_subnetIds = Lens.lens (\AssociateTransitGatewayMulticastDomain' {subnetIds} -> subnetIds) (\s@AssociateTransitGatewayMulticastDomain' {} a -> s {subnetIds = a} :: AssociateTransitGatewayMulticastDomain) Prelude.. Lens.mapping Lens.coerced
+
+-- | The ID of the transit gateway attachment to associate with the transit
+-- gateway multicast domain.
+associateTransitGatewayMulticastDomain_transitGatewayAttachmentId :: Lens.Lens' AssociateTransitGatewayMulticastDomain (Prelude.Maybe Prelude.Text)
+associateTransitGatewayMulticastDomain_transitGatewayAttachmentId = Lens.lens (\AssociateTransitGatewayMulticastDomain' {transitGatewayAttachmentId} -> transitGatewayAttachmentId) (\s@AssociateTransitGatewayMulticastDomain' {} a -> s {transitGatewayAttachmentId = a} :: AssociateTransitGatewayMulticastDomain)
+
+-- | The ID of the transit gateway multicast domain.
+associateTransitGatewayMulticastDomain_transitGatewayMulticastDomainId :: Lens.Lens' AssociateTransitGatewayMulticastDomain (Prelude.Maybe Prelude.Text)
+associateTransitGatewayMulticastDomain_transitGatewayMulticastDomainId = Lens.lens (\AssociateTransitGatewayMulticastDomain' {transitGatewayMulticastDomainId} -> transitGatewayMulticastDomainId) (\s@AssociateTransitGatewayMulticastDomain' {} a -> s {transitGatewayMulticastDomainId = a} :: AssociateTransitGatewayMulticastDomain)
 
 instance
   Core.AWSRequest
@@ -135,12 +136,13 @@ instance
     AWSResponse
       AssociateTransitGatewayMulticastDomain =
       AssociateTransitGatewayMulticastDomainResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           AssociateTransitGatewayMulticastDomainResponse'
-            Prelude.<$> (x Core..@? "associations")
+            Prelude.<$> (x Data..@? "associations")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -151,52 +153,52 @@ instance
   hashWithSalt
     _salt
     AssociateTransitGatewayMulticastDomain' {..} =
-      _salt `Prelude.hashWithSalt` subnetIds
-        `Prelude.hashWithSalt` transitGatewayMulticastDomainId
+      _salt `Prelude.hashWithSalt` dryRun
+        `Prelude.hashWithSalt` subnetIds
         `Prelude.hashWithSalt` transitGatewayAttachmentId
-        `Prelude.hashWithSalt` dryRun
+        `Prelude.hashWithSalt` transitGatewayMulticastDomainId
 
 instance
   Prelude.NFData
     AssociateTransitGatewayMulticastDomain
   where
   rnf AssociateTransitGatewayMulticastDomain' {..} =
-    Prelude.rnf subnetIds
-      `Prelude.seq` Prelude.rnf transitGatewayMulticastDomainId
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf subnetIds
       `Prelude.seq` Prelude.rnf transitGatewayAttachmentId
-      `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf transitGatewayMulticastDomainId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     AssociateTransitGatewayMulticastDomain
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     AssociateTransitGatewayMulticastDomain
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     AssociateTransitGatewayMulticastDomain
   where
   toQuery AssociateTransitGatewayMulticastDomain' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "AssociateTransitGatewayMulticastDomain" ::
+          Data.=: ( "AssociateTransitGatewayMulticastDomain" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "SubnetIds" Prelude.<$> subnetIds),
-        "TransitGatewayMulticastDomainId"
-          Core.=: transitGatewayMulticastDomainId,
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "SubnetIds" Prelude.<$> subnetIds),
         "TransitGatewayAttachmentId"
-          Core.=: transitGatewayAttachmentId,
-        "DryRun" Core.=: dryRun
+          Data.=: transitGatewayAttachmentId,
+        "TransitGatewayMulticastDomainId"
+          Data.=: transitGatewayMulticastDomainId
       ]
 
 -- | /See:/ 'newAssociateTransitGatewayMulticastDomainResponse' smart constructor.

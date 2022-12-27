@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.DeletePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -59,8 +59,9 @@ module Amazonka.IAM.DeletePolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,7 +107,8 @@ deletePolicy_policyArn = Lens.lens (\DeletePolicy' {policyArn} -> policyArn) (\s
 
 instance Core.AWSRequest DeletePolicy where
   type AWSResponse DeletePolicy = DeletePolicyResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response = Response.receiveNull DeletePolicyResponse'
 
 instance Prelude.Hashable DeletePolicy where
@@ -116,20 +118,20 @@ instance Prelude.Hashable DeletePolicy where
 instance Prelude.NFData DeletePolicy where
   rnf DeletePolicy' {..} = Prelude.rnf policyArn
 
-instance Core.ToHeaders DeletePolicy where
+instance Data.ToHeaders DeletePolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeletePolicy where
+instance Data.ToPath DeletePolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeletePolicy where
+instance Data.ToQuery DeletePolicy where
   toQuery DeletePolicy' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeletePolicy" :: Prelude.ByteString),
+          Data.=: ("DeletePolicy" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "PolicyArn" Core.=: policyArn
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "PolicyArn" Data.=: policyArn
       ]
 
 -- | /See:/ 'newDeletePolicyResponse' smart constructor.

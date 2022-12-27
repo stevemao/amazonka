@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.DeleteApiDestination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ where
 
 import Amazonka.CloudWatchEvents.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteApiDestination where
   type
     AWSResponse DeleteApiDestination =
       DeleteApiDestinationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -91,32 +93,32 @@ instance Prelude.Hashable DeleteApiDestination where
 instance Prelude.NFData DeleteApiDestination where
   rnf DeleteApiDestination' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DeleteApiDestination where
+instance Data.ToHeaders DeleteApiDestination where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSEvents.DeleteApiDestination" ::
+              Data.=# ( "AWSEvents.DeleteApiDestination" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteApiDestination where
+instance Data.ToJSON DeleteApiDestination where
   toJSON DeleteApiDestination' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Name" Core..= name)]
+          [Prelude.Just ("Name" Data..= name)]
       )
 
-instance Core.ToPath DeleteApiDestination where
+instance Data.ToPath DeleteApiDestination where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteApiDestination where
+instance Data.ToQuery DeleteApiDestination where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteApiDestinationResponse' smart constructor.

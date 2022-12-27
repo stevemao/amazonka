@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.ListGameServers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,12 +32,6 @@
 --
 -- <https://docs.aws.amazon.com/gamelift/latest/fleetiqguide/gsg-intro.html GameLift FleetIQ Guide>
 --
--- __Related actions__
---
--- RegisterGameServer | ListGameServers | ClaimGameServer |
--- DescribeGameServer | UpdateGameServer | DeregisterGameServer |
--- <https://docs.aws.amazon.com/gamelift/latest/fleetiqguide/reference-awssdk-fleetiq.html All APIs by task>
---
 -- This operation returns paginated results.
 module Amazonka.GameLift.ListGameServers
   ( -- * Creating a Request
@@ -45,9 +39,9 @@ module Amazonka.GameLift.ListGameServers
     newListGameServers,
 
     -- * Request Lenses
+    listGameServers_limit,
     listGameServers_nextToken,
     listGameServers_sortOrder,
-    listGameServers_limit,
     listGameServers_gameServerGroupName,
 
     -- * Destructuring the Response
@@ -62,15 +56,19 @@ module Amazonka.GameLift.ListGameServers
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListGameServers' smart constructor.
 data ListGameServers = ListGameServers'
-  { -- | A token that indicates the start of the next sequential page of results.
+  { -- | The maximum number of results to return. Use this parameter with
+    -- @NextToken@ to get results as a set of sequential pages.
+    limit :: Prelude.Maybe Prelude.Natural,
+    -- | A token that indicates the start of the next sequential page of results.
     -- Use the token that is returned with a previous call to this operation.
     -- To start at the beginning of the result set, do not specify a value.
     nextToken :: Prelude.Maybe Prelude.Text,
@@ -80,11 +78,8 @@ data ListGameServers = ListGameServers'
     -- this parameter is left empty, game servers are returned in no particular
     -- order.
     sortOrder :: Prelude.Maybe SortOrder,
-    -- | The maximum number of results to return. Use this parameter with
-    -- @NextToken@ to get results as a set of sequential pages.
-    limit :: Prelude.Maybe Prelude.Natural,
     -- | An identifier for the game server group to retrieve a list of game
-    -- servers from. Use either the GameServerGroup name or ARN value.
+    -- servers from. Use either the name or ARN value.
     gameServerGroupName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -97,6 +92,9 @@ data ListGameServers = ListGameServers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'limit', 'listGameServers_limit' - The maximum number of results to return. Use this parameter with
+-- @NextToken@ to get results as a set of sequential pages.
+--
 -- 'nextToken', 'listGameServers_nextToken' - A token that indicates the start of the next sequential page of results.
 -- Use the token that is returned with a previous call to this operation.
 -- To start at the beginning of the result set, do not specify a value.
@@ -107,22 +105,24 @@ data ListGameServers = ListGameServers'
 -- this parameter is left empty, game servers are returned in no particular
 -- order.
 --
--- 'limit', 'listGameServers_limit' - The maximum number of results to return. Use this parameter with
--- @NextToken@ to get results as a set of sequential pages.
---
 -- 'gameServerGroupName', 'listGameServers_gameServerGroupName' - An identifier for the game server group to retrieve a list of game
--- servers from. Use either the GameServerGroup name or ARN value.
+-- servers from. Use either the name or ARN value.
 newListGameServers ::
   -- | 'gameServerGroupName'
   Prelude.Text ->
   ListGameServers
 newListGameServers pGameServerGroupName_ =
   ListGameServers'
-    { nextToken = Prelude.Nothing,
+    { limit = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       sortOrder = Prelude.Nothing,
-      limit = Prelude.Nothing,
       gameServerGroupName = pGameServerGroupName_
     }
+
+-- | The maximum number of results to return. Use this parameter with
+-- @NextToken@ to get results as a set of sequential pages.
+listGameServers_limit :: Lens.Lens' ListGameServers (Prelude.Maybe Prelude.Natural)
+listGameServers_limit = Lens.lens (\ListGameServers' {limit} -> limit) (\s@ListGameServers' {} a -> s {limit = a} :: ListGameServers)
 
 -- | A token that indicates the start of the next sequential page of results.
 -- Use the token that is returned with a previous call to this operation.
@@ -138,13 +138,8 @@ listGameServers_nextToken = Lens.lens (\ListGameServers' {nextToken} -> nextToke
 listGameServers_sortOrder :: Lens.Lens' ListGameServers (Prelude.Maybe SortOrder)
 listGameServers_sortOrder = Lens.lens (\ListGameServers' {sortOrder} -> sortOrder) (\s@ListGameServers' {} a -> s {sortOrder = a} :: ListGameServers)
 
--- | The maximum number of results to return. Use this parameter with
--- @NextToken@ to get results as a set of sequential pages.
-listGameServers_limit :: Lens.Lens' ListGameServers (Prelude.Maybe Prelude.Natural)
-listGameServers_limit = Lens.lens (\ListGameServers' {limit} -> limit) (\s@ListGameServers' {} a -> s {limit = a} :: ListGameServers)
-
 -- | An identifier for the game server group to retrieve a list of game
--- servers from. Use either the GameServerGroup name or ARN value.
+-- servers from. Use either the name or ARN value.
 listGameServers_gameServerGroupName :: Lens.Lens' ListGameServers Prelude.Text
 listGameServers_gameServerGroupName = Lens.lens (\ListGameServers' {gameServerGroupName} -> gameServerGroupName) (\s@ListGameServers' {} a -> s {gameServerGroupName = a} :: ListGameServers)
 
@@ -174,59 +169,60 @@ instance Core.AWSRequest ListGameServers where
   type
     AWSResponse ListGameServers =
       ListGameServersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListGameServersResponse'
-            Prelude.<$> (x Core..?> "GameServers" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "GameServers" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListGameServers where
   hashWithSalt _salt ListGameServers' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` sortOrder
-      `Prelude.hashWithSalt` limit
       `Prelude.hashWithSalt` gameServerGroupName
 
 instance Prelude.NFData ListGameServers where
   rnf ListGameServers' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf sortOrder
-      `Prelude.seq` Prelude.rnf limit
       `Prelude.seq` Prelude.rnf gameServerGroupName
 
-instance Core.ToHeaders ListGameServers where
+instance Data.ToHeaders ListGameServers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("GameLift.ListGameServers" :: Prelude.ByteString),
+              Data.=# ("GameLift.ListGameServers" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListGameServers where
+instance Data.ToJSON ListGameServers where
   toJSON ListGameServers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("SortOrder" Core..=) Prelude.<$> sortOrder,
-            ("Limit" Core..=) Prelude.<$> limit,
+          [ ("Limit" Data..=) Prelude.<$> limit,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("SortOrder" Data..=) Prelude.<$> sortOrder,
             Prelude.Just
-              ("GameServerGroupName" Core..= gameServerGroupName)
+              ("GameServerGroupName" Data..= gameServerGroupName)
           ]
       )
 
-instance Core.ToPath ListGameServers where
+instance Data.ToPath ListGameServers where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListGameServers where
+instance Data.ToQuery ListGameServers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListGameServersResponse' smart constructor.

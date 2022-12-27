@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideo.Types.APIName
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,6 +23,7 @@ module Amazonka.KinesisVideo.Types.APIName
         APIName_GET_CLIP,
         APIName_GET_DASH_STREAMING_SESSION_URL,
         APIName_GET_HLS_STREAMING_SESSION_URL,
+        APIName_GET_IMAGES,
         APIName_GET_MEDIA,
         APIName_GET_MEDIA_FOR_FRAGMENT_LIST,
         APIName_LIST_FRAGMENTS,
@@ -32,9 +33,10 @@ module Amazonka.KinesisVideo.Types.APIName
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
-newtype APIName = APIName' {fromAPIName :: Core.Text}
+newtype APIName = APIName' {fromAPIName :: Data.Text}
   deriving stock
     ( Prelude.Show,
       Prelude.Read,
@@ -45,18 +47,18 @@ newtype APIName = APIName' {fromAPIName :: Core.Text}
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern APIName_GET_CLIP :: APIName
@@ -67,6 +69,9 @@ pattern APIName_GET_DASH_STREAMING_SESSION_URL = APIName' "GET_DASH_STREAMING_SE
 
 pattern APIName_GET_HLS_STREAMING_SESSION_URL :: APIName
 pattern APIName_GET_HLS_STREAMING_SESSION_URL = APIName' "GET_HLS_STREAMING_SESSION_URL"
+
+pattern APIName_GET_IMAGES :: APIName
+pattern APIName_GET_IMAGES = APIName' "GET_IMAGES"
 
 pattern APIName_GET_MEDIA :: APIName
 pattern APIName_GET_MEDIA = APIName' "GET_MEDIA"
@@ -84,6 +89,7 @@ pattern APIName_PUT_MEDIA = APIName' "PUT_MEDIA"
   APIName_GET_CLIP,
   APIName_GET_DASH_STREAMING_SESSION_URL,
   APIName_GET_HLS_STREAMING_SESSION_URL,
+  APIName_GET_IMAGES,
   APIName_GET_MEDIA,
   APIName_GET_MEDIA_FOR_FRAGMENT_LIST,
   APIName_LIST_FRAGMENTS,

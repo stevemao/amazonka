@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMakerFeatureStoreRuntime.Types.BatchGetRecordResultDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMakerFeatureStoreRuntime.Types.BatchGetRecordResultDetail where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMakerFeatureStoreRuntime.Types.FeatureValue
 
@@ -82,15 +83,15 @@ batchGetRecordResultDetail_recordIdentifierValueAsString = Lens.lens (\BatchGetR
 batchGetRecordResultDetail_record :: Lens.Lens' BatchGetRecordResultDetail (Prelude.NonEmpty FeatureValue)
 batchGetRecordResultDetail_record = Lens.lens (\BatchGetRecordResultDetail' {record} -> record) (\s@BatchGetRecordResultDetail' {} a -> s {record = a} :: BatchGetRecordResultDetail) Prelude.. Lens.coerced
 
-instance Core.FromJSON BatchGetRecordResultDetail where
+instance Data.FromJSON BatchGetRecordResultDetail where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchGetRecordResultDetail"
       ( \x ->
           BatchGetRecordResultDetail'
-            Prelude.<$> (x Core..: "FeatureGroupName")
-            Prelude.<*> (x Core..: "RecordIdentifierValueAsString")
-            Prelude.<*> (x Core..: "Record")
+            Prelude.<$> (x Data..: "FeatureGroupName")
+            Prelude.<*> (x Data..: "RecordIdentifierValueAsString")
+            Prelude.<*> (x Data..: "Record")
       )
 
 instance Prelude.Hashable BatchGetRecordResultDetail where

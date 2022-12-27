@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.Types.ServiceManagedChannelS3StorageSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTAnalytics.Types.ServiceManagedChannelS3StorageSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Used to store channel data in an S3 bucket managed by IoT Analytics.
@@ -41,11 +42,11 @@ newServiceManagedChannelS3StorageSummary =
   ServiceManagedChannelS3StorageSummary'
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ServiceManagedChannelS3StorageSummary
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ServiceManagedChannelS3StorageSummary"
       ( \x ->
           Prelude.pure ServiceManagedChannelS3StorageSummary'

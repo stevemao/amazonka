@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DLM.Types.RetainRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,22 +20,56 @@
 module Amazonka.DLM.Types.RetainRule where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DLM.Types.RetentionIntervalUnitValues
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Specifies the retention rule for a lifecycle policy. You can retain
--- snapshots based on either a count or a time interval.
+-- | __[Snapshot and AMI policies only]__ Specifies a retention rule for
+-- snapshots created by snapshot policies, or for AMIs created by AMI
+-- policies.
+--
+-- For snapshot policies that have an ArchiveRule, this retention rule
+-- applies to standard tier retention. When the retention threshold is met,
+-- snapshots are moved from the standard to the archive tier.
+--
+-- For snapshot policies that do not have an __ArchiveRule__, snapshots are
+-- permanently deleted when this retention threshold is met.
+--
+-- You can retain snapshots based on either a count or a time interval.
+--
+-- -   __Count-based retention__
+--
+--     You must specify __Count__. If you specify an ArchiveRule for the
+--     schedule, then you can specify a retention count of @0@ to archive
+--     snapshots immediately after creation. If you specify a
+--     FastRestoreRule, ShareRule, or a CrossRegionCopyRule, then you must
+--     specify a retention count of @1@ or more.
+--
+-- -   __Age-based retention__
+--
+--     You must specify __Interval__ and __IntervalUnit__. If you specify
+--     an ArchiveRule for the schedule, then you can specify a retention
+--     interval of @0@ days to archive snapshots immediately after
+--     creation. If you specify a FastRestoreRule, ShareRule, or a
+--     CrossRegionCopyRule, then you must specify a retention interval of
+--     @1@ day or more.
 --
 -- /See:/ 'newRetainRule' smart constructor.
 data RetainRule = RetainRule'
   { -- | The number of snapshots to retain for each volume, up to a maximum of
-    -- 1000.
+    -- 1000. For example if you want to retain a maximum of three snapshots,
+    -- specify @3@. When the fourth snapshot is created, the oldest retained
+    -- snapshot is deleted, or it is moved to the archive tier if you have
+    -- specified an ArchiveRule.
     count :: Prelude.Maybe Prelude.Natural,
     -- | The amount of time to retain each snapshot. The maximum is 100 years.
     -- This is equivalent to 1200 months, 5200 weeks, or 36500 days.
     interval :: Prelude.Maybe Prelude.Natural,
-    -- | The unit of time for time-based retention.
+    -- | The unit of time for time-based retention. For example, to retain
+    -- snapshots for 3 months, specify @Interval=3@ and @IntervalUnit=MONTHS@.
+    -- Once the snapshot has been retained for 3 months, it is deleted, or it
+    -- is moved to the archive tier if you have specified an ArchiveRule.
     intervalUnit :: Prelude.Maybe RetentionIntervalUnitValues
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -49,12 +83,18 @@ data RetainRule = RetainRule'
 -- for backwards compatibility:
 --
 -- 'count', 'retainRule_count' - The number of snapshots to retain for each volume, up to a maximum of
--- 1000.
+-- 1000. For example if you want to retain a maximum of three snapshots,
+-- specify @3@. When the fourth snapshot is created, the oldest retained
+-- snapshot is deleted, or it is moved to the archive tier if you have
+-- specified an ArchiveRule.
 --
 -- 'interval', 'retainRule_interval' - The amount of time to retain each snapshot. The maximum is 100 years.
 -- This is equivalent to 1200 months, 5200 weeks, or 36500 days.
 --
--- 'intervalUnit', 'retainRule_intervalUnit' - The unit of time for time-based retention.
+-- 'intervalUnit', 'retainRule_intervalUnit' - The unit of time for time-based retention. For example, to retain
+-- snapshots for 3 months, specify @Interval=3@ and @IntervalUnit=MONTHS@.
+-- Once the snapshot has been retained for 3 months, it is deleted, or it
+-- is moved to the archive tier if you have specified an ArchiveRule.
 newRetainRule ::
   RetainRule
 newRetainRule =
@@ -65,7 +105,10 @@ newRetainRule =
     }
 
 -- | The number of snapshots to retain for each volume, up to a maximum of
--- 1000.
+-- 1000. For example if you want to retain a maximum of three snapshots,
+-- specify @3@. When the fourth snapshot is created, the oldest retained
+-- snapshot is deleted, or it is moved to the archive tier if you have
+-- specified an ArchiveRule.
 retainRule_count :: Lens.Lens' RetainRule (Prelude.Maybe Prelude.Natural)
 retainRule_count = Lens.lens (\RetainRule' {count} -> count) (\s@RetainRule' {} a -> s {count = a} :: RetainRule)
 
@@ -74,19 +117,22 @@ retainRule_count = Lens.lens (\RetainRule' {count} -> count) (\s@RetainRule' {} 
 retainRule_interval :: Lens.Lens' RetainRule (Prelude.Maybe Prelude.Natural)
 retainRule_interval = Lens.lens (\RetainRule' {interval} -> interval) (\s@RetainRule' {} a -> s {interval = a} :: RetainRule)
 
--- | The unit of time for time-based retention.
+-- | The unit of time for time-based retention. For example, to retain
+-- snapshots for 3 months, specify @Interval=3@ and @IntervalUnit=MONTHS@.
+-- Once the snapshot has been retained for 3 months, it is deleted, or it
+-- is moved to the archive tier if you have specified an ArchiveRule.
 retainRule_intervalUnit :: Lens.Lens' RetainRule (Prelude.Maybe RetentionIntervalUnitValues)
 retainRule_intervalUnit = Lens.lens (\RetainRule' {intervalUnit} -> intervalUnit) (\s@RetainRule' {} a -> s {intervalUnit = a} :: RetainRule)
 
-instance Core.FromJSON RetainRule where
+instance Data.FromJSON RetainRule where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RetainRule"
       ( \x ->
           RetainRule'
-            Prelude.<$> (x Core..:? "Count")
-            Prelude.<*> (x Core..:? "Interval")
-            Prelude.<*> (x Core..:? "IntervalUnit")
+            Prelude.<$> (x Data..:? "Count")
+            Prelude.<*> (x Data..:? "Interval")
+            Prelude.<*> (x Data..:? "IntervalUnit")
       )
 
 instance Prelude.Hashable RetainRule where
@@ -101,12 +147,12 @@ instance Prelude.NFData RetainRule where
       `Prelude.seq` Prelude.rnf interval
       `Prelude.seq` Prelude.rnf intervalUnit
 
-instance Core.ToJSON RetainRule where
+instance Data.ToJSON RetainRule where
   toJSON RetainRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Count" Core..=) Prelude.<$> count,
-            ("Interval" Core..=) Prelude.<$> interval,
-            ("IntervalUnit" Core..=) Prelude.<$> intervalUnit
+          [ ("Count" Data..=) Prelude.<$> count,
+            ("Interval" Data..=) Prelude.<$> interval,
+            ("IntervalUnit" Data..=) Prelude.<$> intervalUnit
           ]
       )

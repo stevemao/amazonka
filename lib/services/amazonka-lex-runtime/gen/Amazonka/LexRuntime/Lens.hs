@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.LexRuntime.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,62 +14,27 @@
 module Amazonka.LexRuntime.Lens
   ( -- * Operations
 
-    -- ** PutSession
-    putSession_accept,
-    putSession_activeContexts,
-    putSession_recentIntentSummaryView,
-    putSession_dialogAction,
-    putSession_sessionAttributes,
-    putSession_botName,
-    putSession_botAlias,
-    putSession_userId,
-    putSessionResponse_slots,
-    putSessionResponse_intentName,
-    putSessionResponse_encodedMessage,
-    putSessionResponse_dialogState,
-    putSessionResponse_activeContexts,
-    putSessionResponse_messageFormat,
-    putSessionResponse_message,
-    putSessionResponse_sessionId,
-    putSessionResponse_slotToElicit,
-    putSessionResponse_contentType,
-    putSessionResponse_sessionAttributes,
-    putSessionResponse_httpStatus,
-    putSessionResponse_audioStream,
-
     -- ** DeleteSession
     deleteSession_botName,
     deleteSession_botAlias,
     deleteSession_userId,
     deleteSessionResponse_botAlias,
     deleteSessionResponse_botName,
-    deleteSessionResponse_userId,
     deleteSessionResponse_sessionId,
+    deleteSessionResponse_userId,
     deleteSessionResponse_httpStatus,
 
-    -- ** PostText
-    postText_activeContexts,
-    postText_requestAttributes,
-    postText_sessionAttributes,
-    postText_botName,
-    postText_botAlias,
-    postText_userId,
-    postText_inputText,
-    postTextResponse_sentimentResponse,
-    postTextResponse_nluIntentConfidence,
-    postTextResponse_slots,
-    postTextResponse_responseCard,
-    postTextResponse_intentName,
-    postTextResponse_botVersion,
-    postTextResponse_dialogState,
-    postTextResponse_activeContexts,
-    postTextResponse_alternativeIntents,
-    postTextResponse_messageFormat,
-    postTextResponse_message,
-    postTextResponse_sessionId,
-    postTextResponse_slotToElicit,
-    postTextResponse_sessionAttributes,
-    postTextResponse_httpStatus,
+    -- ** GetSession
+    getSession_checkpointLabelFilter,
+    getSession_botName,
+    getSession_botAlias,
+    getSession_userId,
+    getSessionResponse_activeContexts,
+    getSessionResponse_dialogAction,
+    getSessionResponse_recentIntentSummaryView,
+    getSessionResponse_sessionAttributes,
+    getSessionResponse_sessionId,
+    getSessionResponse_httpStatus,
 
     -- ** PostContent
     postContent_accept,
@@ -81,37 +46,72 @@ module Amazonka.LexRuntime.Lens
     postContent_userId,
     postContent_contentType,
     postContent_inputStream,
-    postContentResponse_sentimentResponse,
-    postContentResponse_nluIntentConfidence,
-    postContentResponse_slots,
-    postContentResponse_encodedInputTranscript,
-    postContentResponse_intentName,
-    postContentResponse_botVersion,
-    postContentResponse_encodedMessage,
-    postContentResponse_dialogState,
     postContentResponse_activeContexts,
     postContentResponse_alternativeIntents,
+    postContentResponse_botVersion,
+    postContentResponse_contentType,
+    postContentResponse_dialogState,
+    postContentResponse_encodedInputTranscript,
+    postContentResponse_encodedMessage,
     postContentResponse_inputTranscript,
-    postContentResponse_messageFormat,
+    postContentResponse_intentName,
     postContentResponse_message,
+    postContentResponse_messageFormat,
+    postContentResponse_nluIntentConfidence,
+    postContentResponse_sentimentResponse,
+    postContentResponse_sessionAttributes,
     postContentResponse_sessionId,
     postContentResponse_slotToElicit,
-    postContentResponse_contentType,
-    postContentResponse_sessionAttributes,
+    postContentResponse_slots,
     postContentResponse_httpStatus,
     postContentResponse_audioStream,
 
-    -- ** GetSession
-    getSession_checkpointLabelFilter,
-    getSession_botName,
-    getSession_botAlias,
-    getSession_userId,
-    getSessionResponse_activeContexts,
-    getSessionResponse_sessionId,
-    getSessionResponse_recentIntentSummaryView,
-    getSessionResponse_dialogAction,
-    getSessionResponse_sessionAttributes,
-    getSessionResponse_httpStatus,
+    -- ** PostText
+    postText_activeContexts,
+    postText_requestAttributes,
+    postText_sessionAttributes,
+    postText_botName,
+    postText_botAlias,
+    postText_userId,
+    postText_inputText,
+    postTextResponse_activeContexts,
+    postTextResponse_alternativeIntents,
+    postTextResponse_botVersion,
+    postTextResponse_dialogState,
+    postTextResponse_intentName,
+    postTextResponse_message,
+    postTextResponse_messageFormat,
+    postTextResponse_nluIntentConfidence,
+    postTextResponse_responseCard,
+    postTextResponse_sentimentResponse,
+    postTextResponse_sessionAttributes,
+    postTextResponse_sessionId,
+    postTextResponse_slotToElicit,
+    postTextResponse_slots,
+    postTextResponse_httpStatus,
+
+    -- ** PutSession
+    putSession_accept,
+    putSession_activeContexts,
+    putSession_dialogAction,
+    putSession_recentIntentSummaryView,
+    putSession_sessionAttributes,
+    putSession_botName,
+    putSession_botAlias,
+    putSession_userId,
+    putSessionResponse_activeContexts,
+    putSessionResponse_contentType,
+    putSessionResponse_dialogState,
+    putSessionResponse_encodedMessage,
+    putSessionResponse_intentName,
+    putSessionResponse_message,
+    putSessionResponse_messageFormat,
+    putSessionResponse_sessionAttributes,
+    putSessionResponse_sessionId,
+    putSessionResponse_slotToElicit,
+    putSessionResponse_slots,
+    putSessionResponse_httpStatus,
+    putSessionResponse_audioStream,
 
     -- * Types
 
@@ -121,27 +121,27 @@ module Amazonka.LexRuntime.Lens
     activeContext_parameters,
 
     -- ** ActiveContextTimeToLive
-    activeContextTimeToLive_turnsToLive,
     activeContextTimeToLive_timeToLiveInSeconds,
+    activeContextTimeToLive_turnsToLive,
 
     -- ** Button
     button_text,
     button_value,
 
     -- ** DialogAction
-    dialogAction_slots,
-    dialogAction_intentName,
     dialogAction_fulfillmentState,
-    dialogAction_messageFormat,
+    dialogAction_intentName,
     dialogAction_message,
+    dialogAction_messageFormat,
     dialogAction_slotToElicit,
+    dialogAction_slots,
     dialogAction_type,
 
     -- ** GenericAttachment
-    genericAttachment_buttons,
-    genericAttachment_subTitle,
-    genericAttachment_imageUrl,
     genericAttachment_attachmentLinkUrl,
+    genericAttachment_buttons,
+    genericAttachment_imageUrl,
+    genericAttachment_subTitle,
     genericAttachment_title,
 
     -- ** IntentConfidence
@@ -149,26 +149,26 @@ module Amazonka.LexRuntime.Lens
 
     -- ** IntentSummary
     intentSummary_checkpointLabel,
-    intentSummary_slots,
-    intentSummary_intentName,
-    intentSummary_fulfillmentState,
     intentSummary_confirmationStatus,
+    intentSummary_fulfillmentState,
+    intentSummary_intentName,
     intentSummary_slotToElicit,
+    intentSummary_slots,
     intentSummary_dialogActionType,
 
     -- ** PredictedIntent
+    predictedIntent_intentName,
     predictedIntent_nluIntentConfidence,
     predictedIntent_slots,
-    predictedIntent_intentName,
 
     -- ** ResponseCard
+    responseCard_contentType,
     responseCard_genericAttachments,
     responseCard_version,
-    responseCard_contentType,
 
     -- ** SentimentResponse
-    sentimentResponse_sentimentScore,
     sentimentResponse_sentimentLabel,
+    sentimentResponse_sentimentScore,
   )
 where
 

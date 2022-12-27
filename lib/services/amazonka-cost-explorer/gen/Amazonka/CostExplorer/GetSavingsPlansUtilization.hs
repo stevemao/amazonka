@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.GetSavingsPlansUtilization
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,7 +26,7 @@
 -- @GetDimensionValues@ in @SAVINGS_PLANS@ to determine the possible
 -- dimension values.
 --
--- You cannot group by any dimension values for
+-- You can\'t group by any dimension values for
 -- @GetSavingsPlansUtilization@.
 module Amazonka.CostExplorer.GetSavingsPlansUtilization
   ( -- * Creating a Request
@@ -34,8 +34,8 @@ module Amazonka.CostExplorer.GetSavingsPlansUtilization
     newGetSavingsPlansUtilization,
 
     -- * Request Lenses
-    getSavingsPlansUtilization_granularity,
     getSavingsPlansUtilization_filter,
+    getSavingsPlansUtilization_granularity,
     getSavingsPlansUtilization_sortBy,
     getSavingsPlansUtilization_timePeriod,
 
@@ -51,21 +51,16 @@ module Amazonka.CostExplorer.GetSavingsPlansUtilization
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostExplorer.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetSavingsPlansUtilization' smart constructor.
 data GetSavingsPlansUtilization = GetSavingsPlansUtilization'
-  { -- | The granularity of the Amazon Web Services utillization data for your
-    -- Savings Plans.
-    --
-    -- The @GetSavingsPlansUtilization@ operation supports only @DAILY@ and
-    -- @MONTHLY@ granularities.
-    granularity :: Prelude.Maybe Granularity,
-    -- | Filters Savings Plans utilization coverage data for active Savings Plans
+  { -- | Filters Savings Plans utilization coverage data for active Savings Plans
     -- dimensions. You can filter data with the following dimensions:
     --
     -- -   @LINKED_ACCOUNT@
@@ -85,7 +80,13 @@ data GetSavingsPlansUtilization = GetSavingsPlansUtilization'
     -- object as the other operations, but only @AND@ is supported among each
     -- dimension.
     filter' :: Prelude.Maybe Expression,
-    -- | The value by which you want to sort the data.
+    -- | The granularity of the Amazon Web Services utillization data for your
+    -- Savings Plans.
+    --
+    -- The @GetSavingsPlansUtilization@ operation supports only @DAILY@ and
+    -- @MONTHLY@ granularities.
+    granularity :: Prelude.Maybe Granularity,
+    -- | The value that you want to sort the data by.
     --
     -- The following values are supported for @Key@:
     --
@@ -99,7 +100,7 @@ data GetSavingsPlansUtilization = GetSavingsPlansUtilization'
     --
     -- -   @NetSavings@
     --
-    -- Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@.
+    -- The supported values for @SortOrder@ are @ASCENDING@ and @DESCENDING@.
     sortBy :: Prelude.Maybe SortDefinition,
     -- | The time period that you want the usage and costs for. The @Start@ date
     -- must be within 13 months. The @End@ date must be after the @Start@ date,
@@ -116,12 +117,6 @@ data GetSavingsPlansUtilization = GetSavingsPlansUtilization'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'granularity', 'getSavingsPlansUtilization_granularity' - The granularity of the Amazon Web Services utillization data for your
--- Savings Plans.
---
--- The @GetSavingsPlansUtilization@ operation supports only @DAILY@ and
--- @MONTHLY@ granularities.
 --
 -- 'filter'', 'getSavingsPlansUtilization_filter' - Filters Savings Plans utilization coverage data for active Savings Plans
 -- dimensions. You can filter data with the following dimensions:
@@ -143,7 +138,13 @@ data GetSavingsPlansUtilization = GetSavingsPlansUtilization'
 -- object as the other operations, but only @AND@ is supported among each
 -- dimension.
 --
--- 'sortBy', 'getSavingsPlansUtilization_sortBy' - The value by which you want to sort the data.
+-- 'granularity', 'getSavingsPlansUtilization_granularity' - The granularity of the Amazon Web Services utillization data for your
+-- Savings Plans.
+--
+-- The @GetSavingsPlansUtilization@ operation supports only @DAILY@ and
+-- @MONTHLY@ granularities.
+--
+-- 'sortBy', 'getSavingsPlansUtilization_sortBy' - The value that you want to sort the data by.
 --
 -- The following values are supported for @Key@:
 --
@@ -157,7 +158,7 @@ data GetSavingsPlansUtilization = GetSavingsPlansUtilization'
 --
 -- -   @NetSavings@
 --
--- Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@.
+-- The supported values for @SortOrder@ are @ASCENDING@ and @DESCENDING@.
 --
 -- 'timePeriod', 'getSavingsPlansUtilization_timePeriod' - The time period that you want the usage and costs for. The @Start@ date
 -- must be within 13 months. The @End@ date must be after the @Start@ date,
@@ -169,20 +170,12 @@ newGetSavingsPlansUtilization ::
   GetSavingsPlansUtilization
 newGetSavingsPlansUtilization pTimePeriod_ =
   GetSavingsPlansUtilization'
-    { granularity =
+    { filter' =
         Prelude.Nothing,
-      filter' = Prelude.Nothing,
+      granularity = Prelude.Nothing,
       sortBy = Prelude.Nothing,
       timePeriod = pTimePeriod_
     }
-
--- | The granularity of the Amazon Web Services utillization data for your
--- Savings Plans.
---
--- The @GetSavingsPlansUtilization@ operation supports only @DAILY@ and
--- @MONTHLY@ granularities.
-getSavingsPlansUtilization_granularity :: Lens.Lens' GetSavingsPlansUtilization (Prelude.Maybe Granularity)
-getSavingsPlansUtilization_granularity = Lens.lens (\GetSavingsPlansUtilization' {granularity} -> granularity) (\s@GetSavingsPlansUtilization' {} a -> s {granularity = a} :: GetSavingsPlansUtilization)
 
 -- | Filters Savings Plans utilization coverage data for active Savings Plans
 -- dimensions. You can filter data with the following dimensions:
@@ -206,7 +199,15 @@ getSavingsPlansUtilization_granularity = Lens.lens (\GetSavingsPlansUtilization'
 getSavingsPlansUtilization_filter :: Lens.Lens' GetSavingsPlansUtilization (Prelude.Maybe Expression)
 getSavingsPlansUtilization_filter = Lens.lens (\GetSavingsPlansUtilization' {filter'} -> filter') (\s@GetSavingsPlansUtilization' {} a -> s {filter' = a} :: GetSavingsPlansUtilization)
 
--- | The value by which you want to sort the data.
+-- | The granularity of the Amazon Web Services utillization data for your
+-- Savings Plans.
+--
+-- The @GetSavingsPlansUtilization@ operation supports only @DAILY@ and
+-- @MONTHLY@ granularities.
+getSavingsPlansUtilization_granularity :: Lens.Lens' GetSavingsPlansUtilization (Prelude.Maybe Granularity)
+getSavingsPlansUtilization_granularity = Lens.lens (\GetSavingsPlansUtilization' {granularity} -> granularity) (\s@GetSavingsPlansUtilization' {} a -> s {granularity = a} :: GetSavingsPlansUtilization)
+
+-- | The value that you want to sort the data by.
 --
 -- The following values are supported for @Key@:
 --
@@ -220,7 +221,7 @@ getSavingsPlansUtilization_filter = Lens.lens (\GetSavingsPlansUtilization' {fil
 --
 -- -   @NetSavings@
 --
--- Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@.
+-- The supported values for @SortOrder@ are @ASCENDING@ and @DESCENDING@.
 getSavingsPlansUtilization_sortBy :: Lens.Lens' GetSavingsPlansUtilization (Prelude.Maybe SortDefinition)
 getSavingsPlansUtilization_sortBy = Lens.lens (\GetSavingsPlansUtilization' {sortBy} -> sortBy) (\s@GetSavingsPlansUtilization' {} a -> s {sortBy = a} :: GetSavingsPlansUtilization)
 
@@ -235,68 +236,69 @@ instance Core.AWSRequest GetSavingsPlansUtilization where
   type
     AWSResponse GetSavingsPlansUtilization =
       GetSavingsPlansUtilizationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSavingsPlansUtilizationResponse'
-            Prelude.<$> ( x Core..?> "SavingsPlansUtilizationsByTime"
+            Prelude.<$> ( x Data..?> "SavingsPlansUtilizationsByTime"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Total")
+            Prelude.<*> (x Data..:> "Total")
       )
 
 instance Prelude.Hashable GetSavingsPlansUtilization where
   hashWithSalt _salt GetSavingsPlansUtilization' {..} =
-    _salt `Prelude.hashWithSalt` granularity
-      `Prelude.hashWithSalt` filter'
+    _salt `Prelude.hashWithSalt` filter'
+      `Prelude.hashWithSalt` granularity
       `Prelude.hashWithSalt` sortBy
       `Prelude.hashWithSalt` timePeriod
 
 instance Prelude.NFData GetSavingsPlansUtilization where
   rnf GetSavingsPlansUtilization' {..} =
-    Prelude.rnf granularity
-      `Prelude.seq` Prelude.rnf filter'
+    Prelude.rnf filter'
+      `Prelude.seq` Prelude.rnf granularity
       `Prelude.seq` Prelude.rnf sortBy
       `Prelude.seq` Prelude.rnf timePeriod
 
-instance Core.ToHeaders GetSavingsPlansUtilization where
+instance Data.ToHeaders GetSavingsPlansUtilization where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSInsightsIndexService.GetSavingsPlansUtilization" ::
+              Data.=# ( "AWSInsightsIndexService.GetSavingsPlansUtilization" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetSavingsPlansUtilization where
+instance Data.ToJSON GetSavingsPlansUtilization where
   toJSON GetSavingsPlansUtilization' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Granularity" Core..=) Prelude.<$> granularity,
-            ("Filter" Core..=) Prelude.<$> filter',
-            ("SortBy" Core..=) Prelude.<$> sortBy,
-            Prelude.Just ("TimePeriod" Core..= timePeriod)
+          [ ("Filter" Data..=) Prelude.<$> filter',
+            ("Granularity" Data..=) Prelude.<$> granularity,
+            ("SortBy" Data..=) Prelude.<$> sortBy,
+            Prelude.Just ("TimePeriod" Data..= timePeriod)
           ]
       )
 
-instance Core.ToPath GetSavingsPlansUtilization where
+instance Data.ToPath GetSavingsPlansUtilization where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetSavingsPlansUtilization where
+instance Data.ToQuery GetSavingsPlansUtilization where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetSavingsPlansUtilizationResponse' smart constructor.
 data GetSavingsPlansUtilizationResponse = GetSavingsPlansUtilizationResponse'
-  { -- | The amount of cost\/commitment you used your Savings Plans. This allows
-    -- you to specify date ranges.
+  { -- | The amount of cost\/commitment that you used your Savings Plans. You can
+    -- use it to specify date ranges.
     savingsPlansUtilizationsByTime :: Prelude.Maybe [SavingsPlansUtilizationByTime],
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
@@ -314,8 +316,8 @@ data GetSavingsPlansUtilizationResponse = GetSavingsPlansUtilizationResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'savingsPlansUtilizationsByTime', 'getSavingsPlansUtilizationResponse_savingsPlansUtilizationsByTime' - The amount of cost\/commitment you used your Savings Plans. This allows
--- you to specify date ranges.
+-- 'savingsPlansUtilizationsByTime', 'getSavingsPlansUtilizationResponse_savingsPlansUtilizationsByTime' - The amount of cost\/commitment that you used your Savings Plans. You can
+-- use it to specify date ranges.
 --
 -- 'httpStatus', 'getSavingsPlansUtilizationResponse_httpStatus' - The response's http status code.
 --
@@ -337,8 +339,8 @@ newGetSavingsPlansUtilizationResponse
         total = pTotal_
       }
 
--- | The amount of cost\/commitment you used your Savings Plans. This allows
--- you to specify date ranges.
+-- | The amount of cost\/commitment that you used your Savings Plans. You can
+-- use it to specify date ranges.
 getSavingsPlansUtilizationResponse_savingsPlansUtilizationsByTime :: Lens.Lens' GetSavingsPlansUtilizationResponse (Prelude.Maybe [SavingsPlansUtilizationByTime])
 getSavingsPlansUtilizationResponse_savingsPlansUtilizationsByTime = Lens.lens (\GetSavingsPlansUtilizationResponse' {savingsPlansUtilizationsByTime} -> savingsPlansUtilizationsByTime) (\s@GetSavingsPlansUtilizationResponse' {} a -> s {savingsPlansUtilizationsByTime = a} :: GetSavingsPlansUtilizationResponse) Prelude.. Lens.mapping Lens.coerced
 

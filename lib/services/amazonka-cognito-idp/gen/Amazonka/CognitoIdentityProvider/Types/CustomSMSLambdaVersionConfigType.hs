@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.Types.CustomSMSLambdaVersionConfigType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,19 +21,20 @@ module Amazonka.CognitoIdentityProvider.Types.CustomSMSLambdaVersionConfigType w
 
 import Amazonka.CognitoIdentityProvider.Types.CustomSMSSenderLambdaVersionType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A custom SMS sender Lambda configuration type.
 --
 -- /See:/ 'newCustomSMSLambdaVersionConfigType' smart constructor.
 data CustomSMSLambdaVersionConfigType = CustomSMSLambdaVersionConfigType'
-  { -- | The Lambda version represents the signature of the \"request\" attribute
-    -- in the \"event\" information Amazon Cognito passes to your custom SMS
-    -- Lambda function. The only supported value is @V1_0@.
+  { -- | Signature of the \"request\" attribute in the \"event\" information that
+    -- Amazon Cognito passes to your custom SMS Lambda function. The only
+    -- supported value is @V1_0@.
     lambdaVersion :: CustomSMSSenderLambdaVersionType,
-    -- | The Lambda Amazon Resource Name of the Lambda function that Amazon
-    -- Cognito triggers to send SMS notifications to users.
+    -- | The Amazon Resource Name (ARN) of the Lambda function that Amazon
+    -- Cognito activates to send SMS notifications to users.
     lambdaArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -46,12 +47,12 @@ data CustomSMSLambdaVersionConfigType = CustomSMSLambdaVersionConfigType'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'lambdaVersion', 'customSMSLambdaVersionConfigType_lambdaVersion' - The Lambda version represents the signature of the \"request\" attribute
--- in the \"event\" information Amazon Cognito passes to your custom SMS
--- Lambda function. The only supported value is @V1_0@.
+-- 'lambdaVersion', 'customSMSLambdaVersionConfigType_lambdaVersion' - Signature of the \"request\" attribute in the \"event\" information that
+-- Amazon Cognito passes to your custom SMS Lambda function. The only
+-- supported value is @V1_0@.
 --
--- 'lambdaArn', 'customSMSLambdaVersionConfigType_lambdaArn' - The Lambda Amazon Resource Name of the Lambda function that Amazon
--- Cognito triggers to send SMS notifications to users.
+-- 'lambdaArn', 'customSMSLambdaVersionConfigType_lambdaArn' - The Amazon Resource Name (ARN) of the Lambda function that Amazon
+-- Cognito activates to send SMS notifications to users.
 newCustomSMSLambdaVersionConfigType ::
   -- | 'lambdaVersion'
   CustomSMSSenderLambdaVersionType ->
@@ -67,28 +68,28 @@ newCustomSMSLambdaVersionConfigType
         lambdaArn = pLambdaArn_
       }
 
--- | The Lambda version represents the signature of the \"request\" attribute
--- in the \"event\" information Amazon Cognito passes to your custom SMS
--- Lambda function. The only supported value is @V1_0@.
+-- | Signature of the \"request\" attribute in the \"event\" information that
+-- Amazon Cognito passes to your custom SMS Lambda function. The only
+-- supported value is @V1_0@.
 customSMSLambdaVersionConfigType_lambdaVersion :: Lens.Lens' CustomSMSLambdaVersionConfigType CustomSMSSenderLambdaVersionType
 customSMSLambdaVersionConfigType_lambdaVersion = Lens.lens (\CustomSMSLambdaVersionConfigType' {lambdaVersion} -> lambdaVersion) (\s@CustomSMSLambdaVersionConfigType' {} a -> s {lambdaVersion = a} :: CustomSMSLambdaVersionConfigType)
 
--- | The Lambda Amazon Resource Name of the Lambda function that Amazon
--- Cognito triggers to send SMS notifications to users.
+-- | The Amazon Resource Name (ARN) of the Lambda function that Amazon
+-- Cognito activates to send SMS notifications to users.
 customSMSLambdaVersionConfigType_lambdaArn :: Lens.Lens' CustomSMSLambdaVersionConfigType Prelude.Text
 customSMSLambdaVersionConfigType_lambdaArn = Lens.lens (\CustomSMSLambdaVersionConfigType' {lambdaArn} -> lambdaArn) (\s@CustomSMSLambdaVersionConfigType' {} a -> s {lambdaArn = a} :: CustomSMSLambdaVersionConfigType)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     CustomSMSLambdaVersionConfigType
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CustomSMSLambdaVersionConfigType"
       ( \x ->
           CustomSMSLambdaVersionConfigType'
-            Prelude.<$> (x Core..: "LambdaVersion")
-            Prelude.<*> (x Core..: "LambdaArn")
+            Prelude.<$> (x Data..: "LambdaVersion")
+            Prelude.<*> (x Data..: "LambdaArn")
       )
 
 instance
@@ -109,12 +110,12 @@ instance
     Prelude.rnf lambdaVersion
       `Prelude.seq` Prelude.rnf lambdaArn
 
-instance Core.ToJSON CustomSMSLambdaVersionConfigType where
+instance Data.ToJSON CustomSMSLambdaVersionConfigType where
   toJSON CustomSMSLambdaVersionConfigType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("LambdaVersion" Core..= lambdaVersion),
-            Prelude.Just ("LambdaArn" Core..= lambdaArn)
+              ("LambdaVersion" Data..= lambdaVersion),
+            Prelude.Just ("LambdaArn" Data..= lambdaArn)
           ]
       )

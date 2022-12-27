@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DeleteInternetGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,8 +38,9 @@ module Amazonka.EC2.DeleteInternetGateway
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,7 +96,8 @@ instance Core.AWSRequest DeleteInternetGateway where
   type
     AWSResponse DeleteInternetGateway =
       DeleteInternetGatewayResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull DeleteInternetGatewayResponse'
 
@@ -109,21 +111,21 @@ instance Prelude.NFData DeleteInternetGateway where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf internetGatewayId
 
-instance Core.ToHeaders DeleteInternetGateway where
+instance Data.ToHeaders DeleteInternetGateway where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteInternetGateway where
+instance Data.ToPath DeleteInternetGateway where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteInternetGateway where
+instance Data.ToQuery DeleteInternetGateway where
   toQuery DeleteInternetGateway' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteInternetGateway" :: Prelude.ByteString),
+          Data.=: ("DeleteInternetGateway" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "InternetGatewayId" Core.=: internetGatewayId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "InternetGatewayId" Data.=: internetGatewayId
       ]
 
 -- | /See:/ 'newDeleteInternetGatewayResponse' smart constructor.

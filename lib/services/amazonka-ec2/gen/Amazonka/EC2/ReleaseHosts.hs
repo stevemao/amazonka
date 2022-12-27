@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ReleaseHosts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,15 +46,16 @@ module Amazonka.EC2.ReleaseHosts
     newReleaseHostsResponse,
 
     -- * Response Lenses
-    releaseHostsResponse_unsuccessful,
     releaseHostsResponse_successful,
+    releaseHostsResponse_unsuccessful,
     releaseHostsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,16 +87,17 @@ releaseHosts_hostIds = Lens.lens (\ReleaseHosts' {hostIds} -> hostIds) (\s@Relea
 
 instance Core.AWSRequest ReleaseHosts where
   type AWSResponse ReleaseHosts = ReleaseHostsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ReleaseHostsResponse'
-            Prelude.<$> ( x Core..@? "unsuccessful" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> ( x Data..@? "successful" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
-            Prelude.<*> ( x Core..@? "successful" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<*> ( x Data..@? "unsuccessful" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -107,29 +109,29 @@ instance Prelude.Hashable ReleaseHosts where
 instance Prelude.NFData ReleaseHosts where
   rnf ReleaseHosts' {..} = Prelude.rnf hostIds
 
-instance Core.ToHeaders ReleaseHosts where
+instance Data.ToHeaders ReleaseHosts where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ReleaseHosts where
+instance Data.ToPath ReleaseHosts where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ReleaseHosts where
+instance Data.ToQuery ReleaseHosts where
   toQuery ReleaseHosts' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ReleaseHosts" :: Prelude.ByteString),
+          Data.=: ("ReleaseHosts" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQueryList "HostId" hostIds
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        Data.toQueryList "HostId" hostIds
       ]
 
 -- | /See:/ 'newReleaseHostsResponse' smart constructor.
 data ReleaseHostsResponse = ReleaseHostsResponse'
-  { -- | The IDs of the Dedicated Hosts that could not be released, including an
+  { -- | The IDs of the Dedicated Hosts that were successfully released.
+    successful :: Prelude.Maybe [Prelude.Text],
+    -- | The IDs of the Dedicated Hosts that could not be released, including an
     -- error message.
     unsuccessful :: Prelude.Maybe [UnsuccessfulItem],
-    -- | The IDs of the Dedicated Hosts that were successfully released.
-    successful :: Prelude.Maybe [Prelude.Text],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -143,10 +145,10 @@ data ReleaseHostsResponse = ReleaseHostsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'successful', 'releaseHostsResponse_successful' - The IDs of the Dedicated Hosts that were successfully released.
+--
 -- 'unsuccessful', 'releaseHostsResponse_unsuccessful' - The IDs of the Dedicated Hosts that could not be released, including an
 -- error message.
---
--- 'successful', 'releaseHostsResponse_successful' - The IDs of the Dedicated Hosts that were successfully released.
 --
 -- 'httpStatus', 'releaseHostsResponse_httpStatus' - The response's http status code.
 newReleaseHostsResponse ::
@@ -155,20 +157,19 @@ newReleaseHostsResponse ::
   ReleaseHostsResponse
 newReleaseHostsResponse pHttpStatus_ =
   ReleaseHostsResponse'
-    { unsuccessful =
-        Prelude.Nothing,
-      successful = Prelude.Nothing,
+    { successful = Prelude.Nothing,
+      unsuccessful = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The IDs of the Dedicated Hosts that were successfully released.
+releaseHostsResponse_successful :: Lens.Lens' ReleaseHostsResponse (Prelude.Maybe [Prelude.Text])
+releaseHostsResponse_successful = Lens.lens (\ReleaseHostsResponse' {successful} -> successful) (\s@ReleaseHostsResponse' {} a -> s {successful = a} :: ReleaseHostsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The IDs of the Dedicated Hosts that could not be released, including an
 -- error message.
 releaseHostsResponse_unsuccessful :: Lens.Lens' ReleaseHostsResponse (Prelude.Maybe [UnsuccessfulItem])
 releaseHostsResponse_unsuccessful = Lens.lens (\ReleaseHostsResponse' {unsuccessful} -> unsuccessful) (\s@ReleaseHostsResponse' {} a -> s {unsuccessful = a} :: ReleaseHostsResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | The IDs of the Dedicated Hosts that were successfully released.
-releaseHostsResponse_successful :: Lens.Lens' ReleaseHostsResponse (Prelude.Maybe [Prelude.Text])
-releaseHostsResponse_successful = Lens.lens (\ReleaseHostsResponse' {successful} -> successful) (\s@ReleaseHostsResponse' {} a -> s {successful = a} :: ReleaseHostsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 releaseHostsResponse_httpStatus :: Lens.Lens' ReleaseHostsResponse Prelude.Int
@@ -176,6 +177,6 @@ releaseHostsResponse_httpStatus = Lens.lens (\ReleaseHostsResponse' {httpStatus}
 
 instance Prelude.NFData ReleaseHostsResponse where
   rnf ReleaseHostsResponse' {..} =
-    Prelude.rnf unsuccessful
-      `Prelude.seq` Prelude.rnf successful
+    Prelude.rnf successful
+      `Prelude.seq` Prelude.rnf unsuccessful
       `Prelude.seq` Prelude.rnf httpStatus

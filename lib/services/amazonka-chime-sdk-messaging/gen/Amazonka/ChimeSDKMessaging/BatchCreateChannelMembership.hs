@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ChimeSDKMessaging.BatchCreateChannelMembership
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,6 +27,7 @@ module Amazonka.ChimeSDKMessaging.BatchCreateChannelMembership
     newBatchCreateChannelMembership,
 
     -- * Request Lenses
+    batchCreateChannelMembership_subChannelId,
     batchCreateChannelMembership_type,
     batchCreateChannelMembership_channelArn,
     batchCreateChannelMembership_memberArns,
@@ -37,22 +38,28 @@ module Amazonka.ChimeSDKMessaging.BatchCreateChannelMembership
     newBatchCreateChannelMembershipResponse,
 
     -- * Response Lenses
-    batchCreateChannelMembershipResponse_errors,
     batchCreateChannelMembershipResponse_batchChannelMemberships,
+    batchCreateChannelMembershipResponse_errors,
     batchCreateChannelMembershipResponse_httpStatus,
   )
 where
 
 import Amazonka.ChimeSDKMessaging.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newBatchCreateChannelMembership' smart constructor.
 data BatchCreateChannelMembership = BatchCreateChannelMembership'
-  { -- | The membership type of a user, @DEFAULT@ or @HIDDEN@. Default members
+  { -- | The ID of the SubChannel in the request.
+    --
+    -- Only required when creating membership in a SubChannel for a moderator
+    -- in an elastic channel.
+    subChannelId :: Prelude.Maybe Prelude.Text,
+    -- | The membership type of a user, @DEFAULT@ or @HIDDEN@. Default members
     -- are always returned as part of @ListChannelMemberships@. Hidden members
     -- are only returned if the type filter in @ListChannelMemberships@ equals
     -- @HIDDEN@. Otherwise hidden members are not returned. This is only
@@ -60,7 +67,7 @@ data BatchCreateChannelMembership = BatchCreateChannelMembership'
     type' :: Prelude.Maybe ChannelMembershipType,
     -- | The ARN of the channel to which you\'re adding users.
     channelArn :: Prelude.Text,
-    -- | The ARNs of the members you want to add to the channel.
+    -- | The @AppInstanceUserArn@s of the members you want to add to the channel.
     memberArns :: Prelude.NonEmpty Prelude.Text,
     -- | The @AppInstanceUserArn@ of the user that makes the API call.
     chimeBearer :: Prelude.Text
@@ -75,6 +82,11 @@ data BatchCreateChannelMembership = BatchCreateChannelMembership'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'subChannelId', 'batchCreateChannelMembership_subChannelId' - The ID of the SubChannel in the request.
+--
+-- Only required when creating membership in a SubChannel for a moderator
+-- in an elastic channel.
+--
 -- 'type'', 'batchCreateChannelMembership_type' - The membership type of a user, @DEFAULT@ or @HIDDEN@. Default members
 -- are always returned as part of @ListChannelMemberships@. Hidden members
 -- are only returned if the type filter in @ListChannelMemberships@ equals
@@ -83,7 +95,7 @@ data BatchCreateChannelMembership = BatchCreateChannelMembership'
 --
 -- 'channelArn', 'batchCreateChannelMembership_channelArn' - The ARN of the channel to which you\'re adding users.
 --
--- 'memberArns', 'batchCreateChannelMembership_memberArns' - The ARNs of the members you want to add to the channel.
+-- 'memberArns', 'batchCreateChannelMembership_memberArns' - The @AppInstanceUserArn@s of the members you want to add to the channel.
 --
 -- 'chimeBearer', 'batchCreateChannelMembership_chimeBearer' - The @AppInstanceUserArn@ of the user that makes the API call.
 newBatchCreateChannelMembership ::
@@ -99,12 +111,20 @@ newBatchCreateChannelMembership
   pMemberArns_
   pChimeBearer_ =
     BatchCreateChannelMembership'
-      { type' =
+      { subChannelId =
           Prelude.Nothing,
+        type' = Prelude.Nothing,
         channelArn = pChannelArn_,
         memberArns = Lens.coerced Lens.# pMemberArns_,
         chimeBearer = pChimeBearer_
       }
+
+-- | The ID of the SubChannel in the request.
+--
+-- Only required when creating membership in a SubChannel for a moderator
+-- in an elastic channel.
+batchCreateChannelMembership_subChannelId :: Lens.Lens' BatchCreateChannelMembership (Prelude.Maybe Prelude.Text)
+batchCreateChannelMembership_subChannelId = Lens.lens (\BatchCreateChannelMembership' {subChannelId} -> subChannelId) (\s@BatchCreateChannelMembership' {} a -> s {subChannelId = a} :: BatchCreateChannelMembership)
 
 -- | The membership type of a user, @DEFAULT@ or @HIDDEN@. Default members
 -- are always returned as part of @ListChannelMemberships@. Hidden members
@@ -118,7 +138,7 @@ batchCreateChannelMembership_type = Lens.lens (\BatchCreateChannelMembership' {t
 batchCreateChannelMembership_channelArn :: Lens.Lens' BatchCreateChannelMembership Prelude.Text
 batchCreateChannelMembership_channelArn = Lens.lens (\BatchCreateChannelMembership' {channelArn} -> channelArn) (\s@BatchCreateChannelMembership' {} a -> s {channelArn = a} :: BatchCreateChannelMembership)
 
--- | The ARNs of the members you want to add to the channel.
+-- | The @AppInstanceUserArn@s of the members you want to add to the channel.
 batchCreateChannelMembership_memberArns :: Lens.Lens' BatchCreateChannelMembership (Prelude.NonEmpty Prelude.Text)
 batchCreateChannelMembership_memberArns = Lens.lens (\BatchCreateChannelMembership' {memberArns} -> memberArns) (\s@BatchCreateChannelMembership' {} a -> s {memberArns = a} :: BatchCreateChannelMembership) Prelude.. Lens.coerced
 
@@ -130,13 +150,14 @@ instance Core.AWSRequest BatchCreateChannelMembership where
   type
     AWSResponse BatchCreateChannelMembership =
       BatchCreateChannelMembershipResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchCreateChannelMembershipResponse'
-            Prelude.<$> (x Core..?> "Errors" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "BatchChannelMemberships")
+            Prelude.<$> (x Data..?> "BatchChannelMemberships")
+            Prelude.<*> (x Data..?> "Errors" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -145,50 +166,53 @@ instance
     BatchCreateChannelMembership
   where
   hashWithSalt _salt BatchCreateChannelMembership' {..} =
-    _salt `Prelude.hashWithSalt` type'
+    _salt `Prelude.hashWithSalt` subChannelId
+      `Prelude.hashWithSalt` type'
       `Prelude.hashWithSalt` channelArn
       `Prelude.hashWithSalt` memberArns
       `Prelude.hashWithSalt` chimeBearer
 
 instance Prelude.NFData BatchCreateChannelMembership where
   rnf BatchCreateChannelMembership' {..} =
-    Prelude.rnf type'
+    Prelude.rnf subChannelId
+      `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf channelArn
       `Prelude.seq` Prelude.rnf memberArns
       `Prelude.seq` Prelude.rnf chimeBearer
 
-instance Core.ToHeaders BatchCreateChannelMembership where
+instance Data.ToHeaders BatchCreateChannelMembership where
   toHeaders BatchCreateChannelMembership' {..} =
     Prelude.mconcat
-      ["x-amz-chime-bearer" Core.=# chimeBearer]
+      ["x-amz-chime-bearer" Data.=# chimeBearer]
 
-instance Core.ToJSON BatchCreateChannelMembership where
+instance Data.ToJSON BatchCreateChannelMembership where
   toJSON BatchCreateChannelMembership' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Type" Core..=) Prelude.<$> type',
-            Prelude.Just ("MemberArns" Core..= memberArns)
+          [ ("SubChannelId" Data..=) Prelude.<$> subChannelId,
+            ("Type" Data..=) Prelude.<$> type',
+            Prelude.Just ("MemberArns" Data..= memberArns)
           ]
       )
 
-instance Core.ToPath BatchCreateChannelMembership where
+instance Data.ToPath BatchCreateChannelMembership where
   toPath BatchCreateChannelMembership' {..} =
     Prelude.mconcat
-      ["/channels/", Core.toBS channelArn, "/memberships"]
+      ["/channels/", Data.toBS channelArn, "/memberships"]
 
-instance Core.ToQuery BatchCreateChannelMembership where
+instance Data.ToQuery BatchCreateChannelMembership where
   toQuery =
     Prelude.const
       (Prelude.mconcat ["operation=batch-create"])
 
 -- | /See:/ 'newBatchCreateChannelMembershipResponse' smart constructor.
 data BatchCreateChannelMembershipResponse = BatchCreateChannelMembershipResponse'
-  { -- | If the action fails for one or more of the memberships in the request, a
+  { -- | The list of channel memberships in the response.
+    batchChannelMemberships :: Prelude.Maybe BatchChannelMemberships,
+    -- | If the action fails for one or more of the memberships in the request, a
     -- list of the memberships is returned, along with error codes and error
     -- messages.
     errors :: Prelude.Maybe [BatchCreateChannelMembershipError],
-    -- | The list of channel memberships in the response.
-    batchChannelMemberships :: Prelude.Maybe BatchChannelMemberships,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -202,11 +226,11 @@ data BatchCreateChannelMembershipResponse = BatchCreateChannelMembershipResponse
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'batchChannelMemberships', 'batchCreateChannelMembershipResponse_batchChannelMemberships' - The list of channel memberships in the response.
+--
 -- 'errors', 'batchCreateChannelMembershipResponse_errors' - If the action fails for one or more of the memberships in the request, a
 -- list of the memberships is returned, along with error codes and error
 -- messages.
---
--- 'batchChannelMemberships', 'batchCreateChannelMembershipResponse_batchChannelMemberships' - The list of channel memberships in the response.
 --
 -- 'httpStatus', 'batchCreateChannelMembershipResponse_httpStatus' - The response's http status code.
 newBatchCreateChannelMembershipResponse ::
@@ -215,22 +239,21 @@ newBatchCreateChannelMembershipResponse ::
   BatchCreateChannelMembershipResponse
 newBatchCreateChannelMembershipResponse pHttpStatus_ =
   BatchCreateChannelMembershipResponse'
-    { errors =
+    { batchChannelMemberships =
         Prelude.Nothing,
-      batchChannelMemberships =
-        Prelude.Nothing,
+      errors = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The list of channel memberships in the response.
+batchCreateChannelMembershipResponse_batchChannelMemberships :: Lens.Lens' BatchCreateChannelMembershipResponse (Prelude.Maybe BatchChannelMemberships)
+batchCreateChannelMembershipResponse_batchChannelMemberships = Lens.lens (\BatchCreateChannelMembershipResponse' {batchChannelMemberships} -> batchChannelMemberships) (\s@BatchCreateChannelMembershipResponse' {} a -> s {batchChannelMemberships = a} :: BatchCreateChannelMembershipResponse)
 
 -- | If the action fails for one or more of the memberships in the request, a
 -- list of the memberships is returned, along with error codes and error
 -- messages.
 batchCreateChannelMembershipResponse_errors :: Lens.Lens' BatchCreateChannelMembershipResponse (Prelude.Maybe [BatchCreateChannelMembershipError])
 batchCreateChannelMembershipResponse_errors = Lens.lens (\BatchCreateChannelMembershipResponse' {errors} -> errors) (\s@BatchCreateChannelMembershipResponse' {} a -> s {errors = a} :: BatchCreateChannelMembershipResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | The list of channel memberships in the response.
-batchCreateChannelMembershipResponse_batchChannelMemberships :: Lens.Lens' BatchCreateChannelMembershipResponse (Prelude.Maybe BatchChannelMemberships)
-batchCreateChannelMembershipResponse_batchChannelMemberships = Lens.lens (\BatchCreateChannelMembershipResponse' {batchChannelMemberships} -> batchChannelMemberships) (\s@BatchCreateChannelMembershipResponse' {} a -> s {batchChannelMemberships = a} :: BatchCreateChannelMembershipResponse)
 
 -- | The response's http status code.
 batchCreateChannelMembershipResponse_httpStatus :: Lens.Lens' BatchCreateChannelMembershipResponse Prelude.Int
@@ -241,6 +264,6 @@ instance
     BatchCreateChannelMembershipResponse
   where
   rnf BatchCreateChannelMembershipResponse' {..} =
-    Prelude.rnf errors
-      `Prelude.seq` Prelude.rnf batchChannelMemberships
+    Prelude.rnf batchChannelMemberships
+      `Prelude.seq` Prelude.rnf errors
       `Prelude.seq` Prelude.rnf httpStatus

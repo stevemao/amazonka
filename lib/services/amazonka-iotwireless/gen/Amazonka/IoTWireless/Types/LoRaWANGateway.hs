@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.Types.LoRaWANGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,25 @@
 module Amazonka.IoTWireless.Types.LoRaWANGateway where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.IoTWireless.Types.Beaconing
 import qualified Amazonka.Prelude as Prelude
 
 -- | LoRaWANGateway object.
 --
 -- /See:/ 'newLoRaWANGateway' smart constructor.
 data LoRaWANGateway = LoRaWANGateway'
-  { -- | The frequency band (RFRegion) value.
-    rfRegion :: Prelude.Maybe Prelude.Text,
-    subBands :: Prelude.Maybe [Prelude.Natural],
+  { -- | Beaconing object information, which consists of the data rate and
+    -- frequency parameters.
+    beaconing :: Prelude.Maybe Beaconing,
     -- | The gateway\'s EUI value.
     gatewayEui :: Prelude.Maybe Prelude.Text,
     joinEuiFilters :: Prelude.Maybe [Prelude.NonEmpty Prelude.Text],
-    netIdFilters :: Prelude.Maybe [Prelude.Text]
+    netIdFilters :: Prelude.Maybe [Prelude.Text],
+    -- | The frequency band (RFRegion) value.
+    rfRegion :: Prelude.Maybe Prelude.Text,
+    subBands :: Prelude.Maybe [Prelude.Natural]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,33 +50,34 @@ data LoRaWANGateway = LoRaWANGateway'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'rfRegion', 'loRaWANGateway_rfRegion' - The frequency band (RFRegion) value.
---
--- 'subBands', 'loRaWANGateway_subBands' - Undocumented member.
+-- 'beaconing', 'loRaWANGateway_beaconing' - Beaconing object information, which consists of the data rate and
+-- frequency parameters.
 --
 -- 'gatewayEui', 'loRaWANGateway_gatewayEui' - The gateway\'s EUI value.
 --
 -- 'joinEuiFilters', 'loRaWANGateway_joinEuiFilters' - Undocumented member.
 --
 -- 'netIdFilters', 'loRaWANGateway_netIdFilters' - Undocumented member.
+--
+-- 'rfRegion', 'loRaWANGateway_rfRegion' - The frequency band (RFRegion) value.
+--
+-- 'subBands', 'loRaWANGateway_subBands' - Undocumented member.
 newLoRaWANGateway ::
   LoRaWANGateway
 newLoRaWANGateway =
   LoRaWANGateway'
-    { rfRegion = Prelude.Nothing,
-      subBands = Prelude.Nothing,
+    { beaconing = Prelude.Nothing,
       gatewayEui = Prelude.Nothing,
       joinEuiFilters = Prelude.Nothing,
-      netIdFilters = Prelude.Nothing
+      netIdFilters = Prelude.Nothing,
+      rfRegion = Prelude.Nothing,
+      subBands = Prelude.Nothing
     }
 
--- | The frequency band (RFRegion) value.
-loRaWANGateway_rfRegion :: Lens.Lens' LoRaWANGateway (Prelude.Maybe Prelude.Text)
-loRaWANGateway_rfRegion = Lens.lens (\LoRaWANGateway' {rfRegion} -> rfRegion) (\s@LoRaWANGateway' {} a -> s {rfRegion = a} :: LoRaWANGateway)
-
--- | Undocumented member.
-loRaWANGateway_subBands :: Lens.Lens' LoRaWANGateway (Prelude.Maybe [Prelude.Natural])
-loRaWANGateway_subBands = Lens.lens (\LoRaWANGateway' {subBands} -> subBands) (\s@LoRaWANGateway' {} a -> s {subBands = a} :: LoRaWANGateway) Prelude.. Lens.mapping Lens.coerced
+-- | Beaconing object information, which consists of the data rate and
+-- frequency parameters.
+loRaWANGateway_beaconing :: Lens.Lens' LoRaWANGateway (Prelude.Maybe Beaconing)
+loRaWANGateway_beaconing = Lens.lens (\LoRaWANGateway' {beaconing} -> beaconing) (\s@LoRaWANGateway' {} a -> s {beaconing = a} :: LoRaWANGateway)
 
 -- | The gateway\'s EUI value.
 loRaWANGateway_gatewayEui :: Lens.Lens' LoRaWANGateway (Prelude.Maybe Prelude.Text)
@@ -85,44 +91,56 @@ loRaWANGateway_joinEuiFilters = Lens.lens (\LoRaWANGateway' {joinEuiFilters} -> 
 loRaWANGateway_netIdFilters :: Lens.Lens' LoRaWANGateway (Prelude.Maybe [Prelude.Text])
 loRaWANGateway_netIdFilters = Lens.lens (\LoRaWANGateway' {netIdFilters} -> netIdFilters) (\s@LoRaWANGateway' {} a -> s {netIdFilters = a} :: LoRaWANGateway) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON LoRaWANGateway where
+-- | The frequency band (RFRegion) value.
+loRaWANGateway_rfRegion :: Lens.Lens' LoRaWANGateway (Prelude.Maybe Prelude.Text)
+loRaWANGateway_rfRegion = Lens.lens (\LoRaWANGateway' {rfRegion} -> rfRegion) (\s@LoRaWANGateway' {} a -> s {rfRegion = a} :: LoRaWANGateway)
+
+-- | Undocumented member.
+loRaWANGateway_subBands :: Lens.Lens' LoRaWANGateway (Prelude.Maybe [Prelude.Natural])
+loRaWANGateway_subBands = Lens.lens (\LoRaWANGateway' {subBands} -> subBands) (\s@LoRaWANGateway' {} a -> s {subBands = a} :: LoRaWANGateway) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON LoRaWANGateway where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LoRaWANGateway"
       ( \x ->
           LoRaWANGateway'
-            Prelude.<$> (x Core..:? "RfRegion")
-            Prelude.<*> (x Core..:? "SubBands" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "GatewayEui")
-            Prelude.<*> (x Core..:? "JoinEuiFilters" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "NetIdFilters" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Beaconing")
+            Prelude.<*> (x Data..:? "GatewayEui")
+            Prelude.<*> (x Data..:? "JoinEuiFilters" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "NetIdFilters" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "RfRegion")
+            Prelude.<*> (x Data..:? "SubBands" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable LoRaWANGateway where
   hashWithSalt _salt LoRaWANGateway' {..} =
-    _salt `Prelude.hashWithSalt` rfRegion
-      `Prelude.hashWithSalt` subBands
+    _salt `Prelude.hashWithSalt` beaconing
       `Prelude.hashWithSalt` gatewayEui
       `Prelude.hashWithSalt` joinEuiFilters
       `Prelude.hashWithSalt` netIdFilters
+      `Prelude.hashWithSalt` rfRegion
+      `Prelude.hashWithSalt` subBands
 
 instance Prelude.NFData LoRaWANGateway where
   rnf LoRaWANGateway' {..} =
-    Prelude.rnf rfRegion
-      `Prelude.seq` Prelude.rnf subBands
+    Prelude.rnf beaconing
       `Prelude.seq` Prelude.rnf gatewayEui
       `Prelude.seq` Prelude.rnf joinEuiFilters
       `Prelude.seq` Prelude.rnf netIdFilters
+      `Prelude.seq` Prelude.rnf rfRegion
+      `Prelude.seq` Prelude.rnf subBands
 
-instance Core.ToJSON LoRaWANGateway where
+instance Data.ToJSON LoRaWANGateway where
   toJSON LoRaWANGateway' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RfRegion" Core..=) Prelude.<$> rfRegion,
-            ("SubBands" Core..=) Prelude.<$> subBands,
-            ("GatewayEui" Core..=) Prelude.<$> gatewayEui,
-            ("JoinEuiFilters" Core..=)
+          [ ("Beaconing" Data..=) Prelude.<$> beaconing,
+            ("GatewayEui" Data..=) Prelude.<$> gatewayEui,
+            ("JoinEuiFilters" Data..=)
               Prelude.<$> joinEuiFilters,
-            ("NetIdFilters" Core..=) Prelude.<$> netIdFilters
+            ("NetIdFilters" Data..=) Prelude.<$> netIdFilters,
+            ("RfRegion" Data..=) Prelude.<$> rfRegion,
+            ("SubBands" Data..=) Prelude.<$> subBands
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.ActionRemotePortDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.ActionRemotePortDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides information about the remote port that was involved in an
@@ -28,10 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newActionRemotePortDetails' smart constructor.
 data ActionRemotePortDetails = ActionRemotePortDetails'
-  { -- | The port name of the remote connection.
-    portName :: Prelude.Maybe Prelude.Text,
-    -- | The number of the port.
-    port :: Prelude.Maybe Prelude.Int
+  { -- | The number of the port.
+    port :: Prelude.Maybe Prelude.Int,
+    -- | The port name of the remote connection.
+    portName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,50 +44,49 @@ data ActionRemotePortDetails = ActionRemotePortDetails'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'portName', 'actionRemotePortDetails_portName' - The port name of the remote connection.
---
 -- 'port', 'actionRemotePortDetails_port' - The number of the port.
+--
+-- 'portName', 'actionRemotePortDetails_portName' - The port name of the remote connection.
 newActionRemotePortDetails ::
   ActionRemotePortDetails
 newActionRemotePortDetails =
   ActionRemotePortDetails'
-    { portName =
-        Prelude.Nothing,
-      port = Prelude.Nothing
+    { port = Prelude.Nothing,
+      portName = Prelude.Nothing
     }
-
--- | The port name of the remote connection.
-actionRemotePortDetails_portName :: Lens.Lens' ActionRemotePortDetails (Prelude.Maybe Prelude.Text)
-actionRemotePortDetails_portName = Lens.lens (\ActionRemotePortDetails' {portName} -> portName) (\s@ActionRemotePortDetails' {} a -> s {portName = a} :: ActionRemotePortDetails)
 
 -- | The number of the port.
 actionRemotePortDetails_port :: Lens.Lens' ActionRemotePortDetails (Prelude.Maybe Prelude.Int)
 actionRemotePortDetails_port = Lens.lens (\ActionRemotePortDetails' {port} -> port) (\s@ActionRemotePortDetails' {} a -> s {port = a} :: ActionRemotePortDetails)
 
-instance Core.FromJSON ActionRemotePortDetails where
+-- | The port name of the remote connection.
+actionRemotePortDetails_portName :: Lens.Lens' ActionRemotePortDetails (Prelude.Maybe Prelude.Text)
+actionRemotePortDetails_portName = Lens.lens (\ActionRemotePortDetails' {portName} -> portName) (\s@ActionRemotePortDetails' {} a -> s {portName = a} :: ActionRemotePortDetails)
+
+instance Data.FromJSON ActionRemotePortDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ActionRemotePortDetails"
       ( \x ->
           ActionRemotePortDetails'
-            Prelude.<$> (x Core..:? "PortName")
-            Prelude.<*> (x Core..:? "Port")
+            Prelude.<$> (x Data..:? "Port")
+            Prelude.<*> (x Data..:? "PortName")
       )
 
 instance Prelude.Hashable ActionRemotePortDetails where
   hashWithSalt _salt ActionRemotePortDetails' {..} =
-    _salt `Prelude.hashWithSalt` portName
-      `Prelude.hashWithSalt` port
+    _salt `Prelude.hashWithSalt` port
+      `Prelude.hashWithSalt` portName
 
 instance Prelude.NFData ActionRemotePortDetails where
   rnf ActionRemotePortDetails' {..} =
-    Prelude.rnf portName `Prelude.seq` Prelude.rnf port
+    Prelude.rnf port `Prelude.seq` Prelude.rnf portName
 
-instance Core.ToJSON ActionRemotePortDetails where
+instance Data.ToJSON ActionRemotePortDetails where
   toJSON ActionRemotePortDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PortName" Core..=) Prelude.<$> portName,
-            ("Port" Core..=) Prelude.<$> port
+          [ ("Port" Data..=) Prelude.<$> port,
+            ("PortName" Data..=) Prelude.<$> portName
           ]
       )

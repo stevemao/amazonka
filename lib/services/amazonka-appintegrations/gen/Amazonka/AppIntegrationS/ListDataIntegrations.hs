@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppIntegrationS.ListDataIntegrations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,8 @@ module Amazonka.AppIntegrationS.ListDataIntegrations
     newListDataIntegrations,
 
     -- * Request Lenses
-    listDataIntegrations_nextToken,
     listDataIntegrations_maxResults,
+    listDataIntegrations_nextToken,
 
     -- * Destructuring the Response
     ListDataIntegrationsResponse (..),
@@ -49,19 +49,20 @@ where
 
 import Amazonka.AppIntegrationS.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListDataIntegrations' smart constructor.
 data ListDataIntegrations = ListDataIntegrations'
-  { -- | The token for the next set of results. Use the value returned in the
+  { -- | The maximum number of results to return per page.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results. Use the value returned in the
     -- previous response in the next request to retrieve the next set of
     -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return per page.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,18 +74,22 @@ data ListDataIntegrations = ListDataIntegrations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listDataIntegrations_maxResults' - The maximum number of results to return per page.
+--
 -- 'nextToken', 'listDataIntegrations_nextToken' - The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
---
--- 'maxResults', 'listDataIntegrations_maxResults' - The maximum number of results to return per page.
 newListDataIntegrations ::
   ListDataIntegrations
 newListDataIntegrations =
   ListDataIntegrations'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of results to return per page.
+listDataIntegrations_maxResults :: Lens.Lens' ListDataIntegrations (Prelude.Maybe Prelude.Natural)
+listDataIntegrations_maxResults = Lens.lens (\ListDataIntegrations' {maxResults} -> maxResults) (\s@ListDataIntegrations' {} a -> s {maxResults = a} :: ListDataIntegrations)
 
 -- | The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
@@ -92,53 +97,50 @@ newListDataIntegrations =
 listDataIntegrations_nextToken :: Lens.Lens' ListDataIntegrations (Prelude.Maybe Prelude.Text)
 listDataIntegrations_nextToken = Lens.lens (\ListDataIntegrations' {nextToken} -> nextToken) (\s@ListDataIntegrations' {} a -> s {nextToken = a} :: ListDataIntegrations)
 
--- | The maximum number of results to return per page.
-listDataIntegrations_maxResults :: Lens.Lens' ListDataIntegrations (Prelude.Maybe Prelude.Natural)
-listDataIntegrations_maxResults = Lens.lens (\ListDataIntegrations' {maxResults} -> maxResults) (\s@ListDataIntegrations' {} a -> s {maxResults = a} :: ListDataIntegrations)
-
 instance Core.AWSRequest ListDataIntegrations where
   type
     AWSResponse ListDataIntegrations =
       ListDataIntegrationsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDataIntegrationsResponse'
-            Prelude.<$> (x Core..?> "DataIntegrations")
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "DataIntegrations")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListDataIntegrations where
   hashWithSalt _salt ListDataIntegrations' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListDataIntegrations where
   rnf ListDataIntegrations' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListDataIntegrations where
+instance Data.ToHeaders ListDataIntegrations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListDataIntegrations where
+instance Data.ToPath ListDataIntegrations where
   toPath = Prelude.const "/dataIntegrations"
 
-instance Core.ToQuery ListDataIntegrations where
+instance Data.ToQuery ListDataIntegrations where
   toQuery ListDataIntegrations' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListDataIntegrationsResponse' smart constructor.

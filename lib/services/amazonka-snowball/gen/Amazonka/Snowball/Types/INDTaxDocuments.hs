@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Snowball.Types.INDTaxDocuments
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,16 @@
 module Amazonka.Snowball.Types.INDTaxDocuments where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The tax documents required in AWS Regions in India.
+-- | The tax documents required in Amazon Web Services Region in India.
 --
 -- /See:/ 'newINDTaxDocuments' smart constructor.
 data INDTaxDocuments = INDTaxDocuments'
-  { -- | The Goods and Services Tax (GST) documents required in AWS Regions in
-    -- India.
+  { -- | The Goods and Services Tax (GST) documents required in Amazon Web
+    -- Services Region in India.
     gstin :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -41,24 +42,24 @@ data INDTaxDocuments = INDTaxDocuments'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'gstin', 'iNDTaxDocuments_gstin' - The Goods and Services Tax (GST) documents required in AWS Regions in
--- India.
+-- 'gstin', 'iNDTaxDocuments_gstin' - The Goods and Services Tax (GST) documents required in Amazon Web
+-- Services Region in India.
 newINDTaxDocuments ::
   INDTaxDocuments
 newINDTaxDocuments =
   INDTaxDocuments' {gstin = Prelude.Nothing}
 
--- | The Goods and Services Tax (GST) documents required in AWS Regions in
--- India.
+-- | The Goods and Services Tax (GST) documents required in Amazon Web
+-- Services Region in India.
 iNDTaxDocuments_gstin :: Lens.Lens' INDTaxDocuments (Prelude.Maybe Prelude.Text)
 iNDTaxDocuments_gstin = Lens.lens (\INDTaxDocuments' {gstin} -> gstin) (\s@INDTaxDocuments' {} a -> s {gstin = a} :: INDTaxDocuments)
 
-instance Core.FromJSON INDTaxDocuments where
+instance Data.FromJSON INDTaxDocuments where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "INDTaxDocuments"
       ( \x ->
-          INDTaxDocuments' Prelude.<$> (x Core..:? "GSTIN")
+          INDTaxDocuments' Prelude.<$> (x Data..:? "GSTIN")
       )
 
 instance Prelude.Hashable INDTaxDocuments where
@@ -68,9 +69,9 @@ instance Prelude.Hashable INDTaxDocuments where
 instance Prelude.NFData INDTaxDocuments where
   rnf INDTaxDocuments' {..} = Prelude.rnf gstin
 
-instance Core.ToJSON INDTaxDocuments where
+instance Data.ToJSON INDTaxDocuments where
   toJSON INDTaxDocuments' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("GSTIN" Core..=) Prelude.<$> gstin]
+          [("GSTIN" Data..=) Prelude.<$> gstin]
       )

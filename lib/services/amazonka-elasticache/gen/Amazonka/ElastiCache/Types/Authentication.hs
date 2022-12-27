@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.Types.Authentication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ElastiCache.Types.Authentication where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types.AuthenticationType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Indicates whether the user requires a password to authenticate.
@@ -62,11 +63,11 @@ authentication_passwordCount = Lens.lens (\Authentication' {passwordCount} -> pa
 authentication_type :: Lens.Lens' Authentication (Prelude.Maybe AuthenticationType)
 authentication_type = Lens.lens (\Authentication' {type'} -> type') (\s@Authentication' {} a -> s {type' = a} :: Authentication)
 
-instance Core.FromXML Authentication where
+instance Data.FromXML Authentication where
   parseXML x =
     Authentication'
-      Prelude.<$> (x Core..@? "PasswordCount")
-      Prelude.<*> (x Core..@? "Type")
+      Prelude.<$> (x Data..@? "PasswordCount")
+      Prelude.<*> (x Data..@? "Type")
 
 instance Prelude.Hashable Authentication where
   hashWithSalt _salt Authentication' {..} =

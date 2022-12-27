@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.CreateConfigurationSetTrackingOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ module Amazonka.SES.CreateConfigurationSetTrackingOptions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -109,7 +110,8 @@ instance
     AWSResponse
       CreateConfigurationSetTrackingOptions =
       CreateConfigurationSetTrackingOptionsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateConfigurationSetTrackingOptionsResult"
@@ -137,31 +139,31 @@ instance
       `Prelude.seq` Prelude.rnf trackingOptions
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CreateConfigurationSetTrackingOptions
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     CreateConfigurationSetTrackingOptions
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     CreateConfigurationSetTrackingOptions
   where
   toQuery CreateConfigurationSetTrackingOptions' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "CreateConfigurationSetTrackingOptions" ::
+          Data.=: ( "CreateConfigurationSetTrackingOptions" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "ConfigurationSetName" Core.=: configurationSetName,
-        "TrackingOptions" Core.=: trackingOptions
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "ConfigurationSetName" Data.=: configurationSetName,
+        "TrackingOptions" Data.=: trackingOptions
       ]
 
 -- | An empty element returned on a successful request.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Budgets.Types.CalculatedSpend
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,25 +21,26 @@ module Amazonka.Budgets.Types.CalculatedSpend where
 
 import Amazonka.Budgets.Types.Spend
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The spend objects that are associated with this budget. The
 -- @actualSpend@ tracks how much you\'ve used, cost, usage, RI units, or
--- Savings Plans units and the @forecastedSpend@ tracks how much you are
--- predicted to spend based on your historical usage profile.
+-- Savings Plans units and the @forecastedSpend@ tracks how much that
+-- you\'re predicted to spend based on your historical usage profile.
 --
--- For example, if it is the 20th of the month and you have spent @50@
+-- For example, if it\'s the 20th of the month and you have spent @50@
 -- dollars on Amazon EC2, your @actualSpend@ is @50 USD@, and your
 -- @forecastedSpend@ is @75 USD@.
 --
 -- /See:/ 'newCalculatedSpend' smart constructor.
 data CalculatedSpend = CalculatedSpend'
-  { -- | The amount of cost, usage, RI units, or Savings Plans units that you are
+  { -- | The amount of cost, usage, RI units, or Savings Plans units that you\'re
     -- forecasted to use.
     forecastedSpend :: Prelude.Maybe Spend,
     -- | The amount of cost, usage, RI units, or Savings Plans units that you
-    -- have used.
+    -- used.
     actualSpend :: Spend
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -52,11 +53,11 @@ data CalculatedSpend = CalculatedSpend'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'forecastedSpend', 'calculatedSpend_forecastedSpend' - The amount of cost, usage, RI units, or Savings Plans units that you are
+-- 'forecastedSpend', 'calculatedSpend_forecastedSpend' - The amount of cost, usage, RI units, or Savings Plans units that you\'re
 -- forecasted to use.
 --
 -- 'actualSpend', 'calculatedSpend_actualSpend' - The amount of cost, usage, RI units, or Savings Plans units that you
--- have used.
+-- used.
 newCalculatedSpend ::
   -- | 'actualSpend'
   Spend ->
@@ -67,24 +68,24 @@ newCalculatedSpend pActualSpend_ =
       actualSpend = pActualSpend_
     }
 
--- | The amount of cost, usage, RI units, or Savings Plans units that you are
+-- | The amount of cost, usage, RI units, or Savings Plans units that you\'re
 -- forecasted to use.
 calculatedSpend_forecastedSpend :: Lens.Lens' CalculatedSpend (Prelude.Maybe Spend)
 calculatedSpend_forecastedSpend = Lens.lens (\CalculatedSpend' {forecastedSpend} -> forecastedSpend) (\s@CalculatedSpend' {} a -> s {forecastedSpend = a} :: CalculatedSpend)
 
 -- | The amount of cost, usage, RI units, or Savings Plans units that you
--- have used.
+-- used.
 calculatedSpend_actualSpend :: Lens.Lens' CalculatedSpend Spend
 calculatedSpend_actualSpend = Lens.lens (\CalculatedSpend' {actualSpend} -> actualSpend) (\s@CalculatedSpend' {} a -> s {actualSpend = a} :: CalculatedSpend)
 
-instance Core.FromJSON CalculatedSpend where
+instance Data.FromJSON CalculatedSpend where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CalculatedSpend"
       ( \x ->
           CalculatedSpend'
-            Prelude.<$> (x Core..:? "ForecastedSpend")
-            Prelude.<*> (x Core..: "ActualSpend")
+            Prelude.<$> (x Data..:? "ForecastedSpend")
+            Prelude.<*> (x Data..: "ActualSpend")
       )
 
 instance Prelude.Hashable CalculatedSpend where
@@ -97,12 +98,12 @@ instance Prelude.NFData CalculatedSpend where
     Prelude.rnf forecastedSpend
       `Prelude.seq` Prelude.rnf actualSpend
 
-instance Core.ToJSON CalculatedSpend where
+instance Data.ToJSON CalculatedSpend where
   toJSON CalculatedSpend' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ForecastedSpend" Core..=)
+          [ ("ForecastedSpend" Data..=)
               Prelude.<$> forecastedSpend,
-            Prelude.Just ("ActualSpend" Core..= actualSpend)
+            Prelude.Just ("ActualSpend" Data..= actualSpend)
           ]
       )

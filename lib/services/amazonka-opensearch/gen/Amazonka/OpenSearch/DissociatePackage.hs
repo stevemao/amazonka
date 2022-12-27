@@ -14,13 +14,17 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.DissociatePackage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Dissociates a package from the Amazon OpenSearch Service domain.
+-- Removes a package from the specified Amazon OpenSearch Service domain.
+-- The package can\'t be in use with any OpenSearch index for the
+-- dissociation to succeed. The package is still available in OpenSearch
+-- Service for association later. For more information, see
+-- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/custom-packages.html Custom packages for Amazon OpenSearch Service>.
 module Amazonka.OpenSearch.DissociatePackage
   ( -- * Creating a Request
     DissociatePackage (..),
@@ -41,21 +45,22 @@ module Amazonka.OpenSearch.DissociatePackage
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpenSearch.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Container for the request parameters to the @ DissociatePackage @
+-- | Container for the request parameters to the @DissociatePackage@
 -- operation.
 --
 -- /See:/ 'newDissociatePackage' smart constructor.
 data DissociatePackage = DissociatePackage'
-  { -- | The internal ID of the package to associate with a domain. Use
-    -- @DescribePackages@ to find this value.
+  { -- | Internal ID of the package to dissociate from the domain. Use
+    -- @ListPackagesForDomain@ to find this value.
     packageID :: Prelude.Text,
-    -- | The name of the domain to associate the package with.
+    -- | Name of the domain to dissociate the package from.
     domainName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -68,10 +73,10 @@ data DissociatePackage = DissociatePackage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'packageID', 'dissociatePackage_packageID' - The internal ID of the package to associate with a domain. Use
--- @DescribePackages@ to find this value.
+-- 'packageID', 'dissociatePackage_packageID' - Internal ID of the package to dissociate from the domain. Use
+-- @ListPackagesForDomain@ to find this value.
 --
--- 'domainName', 'dissociatePackage_domainName' - The name of the domain to associate the package with.
+-- 'domainName', 'dissociatePackage_domainName' - Name of the domain to dissociate the package from.
 newDissociatePackage ::
   -- | 'packageID'
   Prelude.Text ->
@@ -84,12 +89,12 @@ newDissociatePackage pPackageID_ pDomainName_ =
       domainName = pDomainName_
     }
 
--- | The internal ID of the package to associate with a domain. Use
--- @DescribePackages@ to find this value.
+-- | Internal ID of the package to dissociate from the domain. Use
+-- @ListPackagesForDomain@ to find this value.
 dissociatePackage_packageID :: Lens.Lens' DissociatePackage Prelude.Text
 dissociatePackage_packageID = Lens.lens (\DissociatePackage' {packageID} -> packageID) (\s@DissociatePackage' {} a -> s {packageID = a} :: DissociatePackage)
 
--- | The name of the domain to associate the package with.
+-- | Name of the domain to dissociate the package from.
 dissociatePackage_domainName :: Lens.Lens' DissociatePackage Prelude.Text
 dissociatePackage_domainName = Lens.lens (\DissociatePackage' {domainName} -> domainName) (\s@DissociatePackage' {} a -> s {domainName = a} :: DissociatePackage)
 
@@ -97,12 +102,13 @@ instance Core.AWSRequest DissociatePackage where
   type
     AWSResponse DissociatePackage =
       DissociatePackageResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DissociatePackageResponse'
-            Prelude.<$> (x Core..?> "DomainPackageDetails")
+            Prelude.<$> (x Data..?> "DomainPackageDetails")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,29 +122,29 @@ instance Prelude.NFData DissociatePackage where
     Prelude.rnf packageID
       `Prelude.seq` Prelude.rnf domainName
 
-instance Core.ToHeaders DissociatePackage where
+instance Data.ToHeaders DissociatePackage where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON DissociatePackage where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON DissociatePackage where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath DissociatePackage where
+instance Data.ToPath DissociatePackage where
   toPath DissociatePackage' {..} =
     Prelude.mconcat
       [ "/2021-01-01/packages/dissociate/",
-        Core.toBS packageID,
+        Data.toBS packageID,
         "/",
-        Core.toBS domainName
+        Data.toBS domainName
       ]
 
-instance Core.ToQuery DissociatePackage where
+instance Data.ToQuery DissociatePackage where
   toQuery = Prelude.const Prelude.mempty
 
--- | Container for the response returned by @ DissociatePackage @ operation.
+-- | Container for the response returned by an @DissociatePackage@ operation.
 --
 -- /See:/ 'newDissociatePackageResponse' smart constructor.
 data DissociatePackageResponse = DissociatePackageResponse'
-  { -- | @DomainPackageDetails@
+  { -- | Information about a package that has been dissociated from the domain.
     domainPackageDetails :: Prelude.Maybe DomainPackageDetails,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -153,7 +159,7 @@ data DissociatePackageResponse = DissociatePackageResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'domainPackageDetails', 'dissociatePackageResponse_domainPackageDetails' - @DomainPackageDetails@
+-- 'domainPackageDetails', 'dissociatePackageResponse_domainPackageDetails' - Information about a package that has been dissociated from the domain.
 --
 -- 'httpStatus', 'dissociatePackageResponse_httpStatus' - The response's http status code.
 newDissociatePackageResponse ::
@@ -167,7 +173,7 @@ newDissociatePackageResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | @DomainPackageDetails@
+-- | Information about a package that has been dissociated from the domain.
 dissociatePackageResponse_domainPackageDetails :: Lens.Lens' DissociatePackageResponse (Prelude.Maybe DomainPackageDetails)
 dissociatePackageResponse_domainPackageDetails = Lens.lens (\DissociatePackageResponse' {domainPackageDetails} -> domainPackageDetails) (\s@DissociatePackageResponse' {} a -> s {domainPackageDetails = a} :: DissociatePackageResponse)
 

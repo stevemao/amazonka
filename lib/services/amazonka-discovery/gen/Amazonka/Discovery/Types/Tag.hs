@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Discovery.Types.Tag
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,13 @@
 module Amazonka.Discovery.Types.Tag where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Metadata that help you categorize IT assets.
+--
+-- Do not store sensitive information (like personal data) in tags.
 --
 -- /See:/ 'newTag' smart constructor.
 data Tag = Tag'
@@ -71,11 +74,11 @@ instance Prelude.NFData Tag where
   rnf Tag' {..} =
     Prelude.rnf key `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON Tag where
+instance Data.ToJSON Tag where
   toJSON Tag' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("key" Core..= key),
-            Prelude.Just ("value" Core..= value)
+          [ Prelude.Just ("key" Data..= key),
+            Prelude.Just ("value" Data..= value)
           ]
       )

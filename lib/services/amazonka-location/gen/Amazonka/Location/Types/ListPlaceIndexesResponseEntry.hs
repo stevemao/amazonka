@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Location.Types.ListPlaceIndexesResponseEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Location.Types.ListPlaceIndexesResponseEntry where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types.PricingPlan
 import qualified Amazonka.Prelude as Prelude
 
@@ -28,33 +29,30 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newListPlaceIndexesResponseEntry' smart constructor.
 data ListPlaceIndexesResponseEntry = ListPlaceIndexesResponseEntry'
-  { -- | The timestamp for when the place index resource was created in
+  { -- | No longer used. Always returns @RequestBasedUsage@.
+    pricingPlan :: Prelude.Maybe PricingPlan,
+    -- | The timestamp for when the place index resource was created in
     -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
     -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
-    createTime :: Core.POSIX,
-    -- | The data provider of geospatial data. Indicates one of the available
-    -- providers:
+    createTime :: Data.POSIX,
+    -- | The data provider of geospatial data. Values can be one of the
+    -- following:
     --
     -- -   @Esri@
     --
     -- -   @Here@
     --
-    -- For additional details on data providers, see
+    -- For more information about data providers, see
     -- <https://docs.aws.amazon.com/location/latest/developerguide/what-is-data-provider.html Amazon Location Service data providers>.
     dataSource :: Prelude.Text,
     -- | The optional description for the place index resource.
     description :: Prelude.Text,
     -- | The name of the place index resource.
     indexName :: Prelude.Text,
-    -- | The pricing plan for the specified place index resource.
-    --
-    -- For additional details and restrictions on each pricing plan option, see
-    -- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
-    pricingPlan :: PricingPlan,
     -- | The timestamp for when the place index resource was last updated in
     -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
     -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
-    updateTime :: Core.POSIX
+    updateTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -66,28 +64,25 @@ data ListPlaceIndexesResponseEntry = ListPlaceIndexesResponseEntry'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'pricingPlan', 'listPlaceIndexesResponseEntry_pricingPlan' - No longer used. Always returns @RequestBasedUsage@.
+--
 -- 'createTime', 'listPlaceIndexesResponseEntry_createTime' - The timestamp for when the place index resource was created in
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
 --
--- 'dataSource', 'listPlaceIndexesResponseEntry_dataSource' - The data provider of geospatial data. Indicates one of the available
--- providers:
+-- 'dataSource', 'listPlaceIndexesResponseEntry_dataSource' - The data provider of geospatial data. Values can be one of the
+-- following:
 --
 -- -   @Esri@
 --
 -- -   @Here@
 --
--- For additional details on data providers, see
+-- For more information about data providers, see
 -- <https://docs.aws.amazon.com/location/latest/developerguide/what-is-data-provider.html Amazon Location Service data providers>.
 --
 -- 'description', 'listPlaceIndexesResponseEntry_description' - The optional description for the place index resource.
 --
 -- 'indexName', 'listPlaceIndexesResponseEntry_indexName' - The name of the place index resource.
---
--- 'pricingPlan', 'listPlaceIndexesResponseEntry_pricingPlan' - The pricing plan for the specified place index resource.
---
--- For additional details and restrictions on each pricing plan option, see
--- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
 --
 -- 'updateTime', 'listPlaceIndexesResponseEntry_updateTime' - The timestamp for when the place index resource was last updated in
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
@@ -101,8 +96,6 @@ newListPlaceIndexesResponseEntry ::
   Prelude.Text ->
   -- | 'indexName'
   Prelude.Text ->
-  -- | 'pricingPlan'
-  PricingPlan ->
   -- | 'updateTime'
   Prelude.UTCTime ->
   ListPlaceIndexesResponseEntry
@@ -111,32 +104,35 @@ newListPlaceIndexesResponseEntry
   pDataSource_
   pDescription_
   pIndexName_
-  pPricingPlan_
   pUpdateTime_ =
     ListPlaceIndexesResponseEntry'
-      { createTime =
-          Core._Time Lens.# pCreateTime_,
+      { pricingPlan =
+          Prelude.Nothing,
+        createTime = Data._Time Lens.# pCreateTime_,
         dataSource = pDataSource_,
         description = pDescription_,
         indexName = pIndexName_,
-        pricingPlan = pPricingPlan_,
-        updateTime = Core._Time Lens.# pUpdateTime_
+        updateTime = Data._Time Lens.# pUpdateTime_
       }
+
+-- | No longer used. Always returns @RequestBasedUsage@.
+listPlaceIndexesResponseEntry_pricingPlan :: Lens.Lens' ListPlaceIndexesResponseEntry (Prelude.Maybe PricingPlan)
+listPlaceIndexesResponseEntry_pricingPlan = Lens.lens (\ListPlaceIndexesResponseEntry' {pricingPlan} -> pricingPlan) (\s@ListPlaceIndexesResponseEntry' {} a -> s {pricingPlan = a} :: ListPlaceIndexesResponseEntry)
 
 -- | The timestamp for when the place index resource was created in
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
 listPlaceIndexesResponseEntry_createTime :: Lens.Lens' ListPlaceIndexesResponseEntry Prelude.UTCTime
-listPlaceIndexesResponseEntry_createTime = Lens.lens (\ListPlaceIndexesResponseEntry' {createTime} -> createTime) (\s@ListPlaceIndexesResponseEntry' {} a -> s {createTime = a} :: ListPlaceIndexesResponseEntry) Prelude.. Core._Time
+listPlaceIndexesResponseEntry_createTime = Lens.lens (\ListPlaceIndexesResponseEntry' {createTime} -> createTime) (\s@ListPlaceIndexesResponseEntry' {} a -> s {createTime = a} :: ListPlaceIndexesResponseEntry) Prelude.. Data._Time
 
--- | The data provider of geospatial data. Indicates one of the available
--- providers:
+-- | The data provider of geospatial data. Values can be one of the
+-- following:
 --
 -- -   @Esri@
 --
 -- -   @Here@
 --
--- For additional details on data providers, see
+-- For more information about data providers, see
 -- <https://docs.aws.amazon.com/location/latest/developerguide/what-is-data-provider.html Amazon Location Service data providers>.
 listPlaceIndexesResponseEntry_dataSource :: Lens.Lens' ListPlaceIndexesResponseEntry Prelude.Text
 listPlaceIndexesResponseEntry_dataSource = Lens.lens (\ListPlaceIndexesResponseEntry' {dataSource} -> dataSource) (\s@ListPlaceIndexesResponseEntry' {} a -> s {dataSource = a} :: ListPlaceIndexesResponseEntry)
@@ -149,31 +145,24 @@ listPlaceIndexesResponseEntry_description = Lens.lens (\ListPlaceIndexesResponse
 listPlaceIndexesResponseEntry_indexName :: Lens.Lens' ListPlaceIndexesResponseEntry Prelude.Text
 listPlaceIndexesResponseEntry_indexName = Lens.lens (\ListPlaceIndexesResponseEntry' {indexName} -> indexName) (\s@ListPlaceIndexesResponseEntry' {} a -> s {indexName = a} :: ListPlaceIndexesResponseEntry)
 
--- | The pricing plan for the specified place index resource.
---
--- For additional details and restrictions on each pricing plan option, see
--- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
-listPlaceIndexesResponseEntry_pricingPlan :: Lens.Lens' ListPlaceIndexesResponseEntry PricingPlan
-listPlaceIndexesResponseEntry_pricingPlan = Lens.lens (\ListPlaceIndexesResponseEntry' {pricingPlan} -> pricingPlan) (\s@ListPlaceIndexesResponseEntry' {} a -> s {pricingPlan = a} :: ListPlaceIndexesResponseEntry)
-
 -- | The timestamp for when the place index resource was last updated in
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
 listPlaceIndexesResponseEntry_updateTime :: Lens.Lens' ListPlaceIndexesResponseEntry Prelude.UTCTime
-listPlaceIndexesResponseEntry_updateTime = Lens.lens (\ListPlaceIndexesResponseEntry' {updateTime} -> updateTime) (\s@ListPlaceIndexesResponseEntry' {} a -> s {updateTime = a} :: ListPlaceIndexesResponseEntry) Prelude.. Core._Time
+listPlaceIndexesResponseEntry_updateTime = Lens.lens (\ListPlaceIndexesResponseEntry' {updateTime} -> updateTime) (\s@ListPlaceIndexesResponseEntry' {} a -> s {updateTime = a} :: ListPlaceIndexesResponseEntry) Prelude.. Data._Time
 
-instance Core.FromJSON ListPlaceIndexesResponseEntry where
+instance Data.FromJSON ListPlaceIndexesResponseEntry where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ListPlaceIndexesResponseEntry"
       ( \x ->
           ListPlaceIndexesResponseEntry'
-            Prelude.<$> (x Core..: "CreateTime")
-            Prelude.<*> (x Core..: "DataSource")
-            Prelude.<*> (x Core..: "Description")
-            Prelude.<*> (x Core..: "IndexName")
-            Prelude.<*> (x Core..: "PricingPlan")
-            Prelude.<*> (x Core..: "UpdateTime")
+            Prelude.<$> (x Data..:? "PricingPlan")
+            Prelude.<*> (x Data..: "CreateTime")
+            Prelude.<*> (x Data..: "DataSource")
+            Prelude.<*> (x Data..: "Description")
+            Prelude.<*> (x Data..: "IndexName")
+            Prelude.<*> (x Data..: "UpdateTime")
       )
 
 instance
@@ -181,18 +170,18 @@ instance
     ListPlaceIndexesResponseEntry
   where
   hashWithSalt _salt ListPlaceIndexesResponseEntry' {..} =
-    _salt `Prelude.hashWithSalt` createTime
+    _salt `Prelude.hashWithSalt` pricingPlan
+      `Prelude.hashWithSalt` createTime
       `Prelude.hashWithSalt` dataSource
       `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` indexName
-      `Prelude.hashWithSalt` pricingPlan
       `Prelude.hashWithSalt` updateTime
 
 instance Prelude.NFData ListPlaceIndexesResponseEntry where
   rnf ListPlaceIndexesResponseEntry' {..} =
-    Prelude.rnf createTime
+    Prelude.rnf pricingPlan
+      `Prelude.seq` Prelude.rnf createTime
       `Prelude.seq` Prelude.rnf dataSource
       `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf indexName
-      `Prelude.seq` Prelude.rnf pricingPlan
       `Prelude.seq` Prelude.rnf updateTime

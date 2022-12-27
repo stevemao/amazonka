@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.Types.SoftwareTokenMfaConfigType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,15 @@
 module Amazonka.CognitoIdentityProvider.Types.SoftwareTokenMfaConfigType where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The type used for enabling software token MFA at the user pool level.
 --
 -- /See:/ 'newSoftwareTokenMfaConfigType' smart constructor.
 data SoftwareTokenMfaConfigType = SoftwareTokenMfaConfigType'
-  { -- | Specifies whether software token MFA is enabled.
+  { -- | Specifies whether software token MFA is activated.
     enabled :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -40,7 +41,7 @@ data SoftwareTokenMfaConfigType = SoftwareTokenMfaConfigType'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'enabled', 'softwareTokenMfaConfigType_enabled' - Specifies whether software token MFA is enabled.
+-- 'enabled', 'softwareTokenMfaConfigType_enabled' - Specifies whether software token MFA is activated.
 newSoftwareTokenMfaConfigType ::
   SoftwareTokenMfaConfigType
 newSoftwareTokenMfaConfigType =
@@ -49,17 +50,17 @@ newSoftwareTokenMfaConfigType =
         Prelude.Nothing
     }
 
--- | Specifies whether software token MFA is enabled.
+-- | Specifies whether software token MFA is activated.
 softwareTokenMfaConfigType_enabled :: Lens.Lens' SoftwareTokenMfaConfigType (Prelude.Maybe Prelude.Bool)
 softwareTokenMfaConfigType_enabled = Lens.lens (\SoftwareTokenMfaConfigType' {enabled} -> enabled) (\s@SoftwareTokenMfaConfigType' {} a -> s {enabled = a} :: SoftwareTokenMfaConfigType)
 
-instance Core.FromJSON SoftwareTokenMfaConfigType where
+instance Data.FromJSON SoftwareTokenMfaConfigType where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SoftwareTokenMfaConfigType"
       ( \x ->
           SoftwareTokenMfaConfigType'
-            Prelude.<$> (x Core..:? "Enabled")
+            Prelude.<$> (x Data..:? "Enabled")
       )
 
 instance Prelude.Hashable SoftwareTokenMfaConfigType where
@@ -70,9 +71,9 @@ instance Prelude.NFData SoftwareTokenMfaConfigType where
   rnf SoftwareTokenMfaConfigType' {..} =
     Prelude.rnf enabled
 
-instance Core.ToJSON SoftwareTokenMfaConfigType where
+instance Data.ToJSON SoftwareTokenMfaConfigType where
   toJSON SoftwareTokenMfaConfigType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Enabled" Core..=) Prelude.<$> enabled]
+          [("Enabled" Data..=) Prelude.<$> enabled]
       )

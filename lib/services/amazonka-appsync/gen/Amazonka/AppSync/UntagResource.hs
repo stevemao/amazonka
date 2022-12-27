@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppSync.UntagResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,14 +41,15 @@ where
 
 import Amazonka.AppSync.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUntagResource' smart constructor.
 data UntagResource = UntagResource'
-  { -- | The @GraphqlApi@ ARN.
+  { -- | The @GraphqlApi@ Amazon Resource Name (ARN).
     resourceArn :: Prelude.Text,
     -- | A list of @TagKey@ objects.
     tagKeys :: Prelude.NonEmpty Prelude.Text
@@ -63,7 +64,7 @@ data UntagResource = UntagResource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceArn', 'untagResource_resourceArn' - The @GraphqlApi@ ARN.
+-- 'resourceArn', 'untagResource_resourceArn' - The @GraphqlApi@ Amazon Resource Name (ARN).
 --
 -- 'tagKeys', 'untagResource_tagKeys' - A list of @TagKey@ objects.
 newUntagResource ::
@@ -78,7 +79,7 @@ newUntagResource pResourceArn_ pTagKeys_ =
       tagKeys = Lens.coerced Lens.# pTagKeys_
     }
 
--- | The @GraphqlApi@ ARN.
+-- | The @GraphqlApi@ Amazon Resource Name (ARN).
 untagResource_resourceArn :: Lens.Lens' UntagResource Prelude.Text
 untagResource_resourceArn = Lens.lens (\UntagResource' {resourceArn} -> resourceArn) (\s@UntagResource' {} a -> s {resourceArn = a} :: UntagResource)
 
@@ -90,7 +91,8 @@ instance Core.AWSRequest UntagResource where
   type
     AWSResponse UntagResource =
       UntagResourceResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -108,26 +110,26 @@ instance Prelude.NFData UntagResource where
     Prelude.rnf resourceArn
       `Prelude.seq` Prelude.rnf tagKeys
 
-instance Core.ToHeaders UntagResource where
+instance Data.ToHeaders UntagResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath UntagResource where
+instance Data.ToPath UntagResource where
   toPath UntagResource' {..} =
     Prelude.mconcat
-      ["/v1/tags/", Core.toBS resourceArn]
+      ["/v1/tags/", Data.toBS resourceArn]
 
-instance Core.ToQuery UntagResource where
+instance Data.ToQuery UntagResource where
   toQuery UntagResource' {..} =
     Prelude.mconcat
-      ["tagKeys" Core.=: Core.toQueryList "member" tagKeys]
+      ["tagKeys" Data.=: Data.toQueryList "member" tagKeys]
 
 -- | /See:/ 'newUntagResourceResponse' smart constructor.
 data UntagResourceResponse = UntagResourceResponse'

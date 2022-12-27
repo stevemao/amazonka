@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ConnectParticipant.GetAttachment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,6 +22,9 @@
 --
 -- Provides a pre-signed URL for download of a completed attachment. This
 -- is an asynchronous API for use with active contacts.
+--
+-- The Amazon Connect Participant Service APIs do not use
+-- <https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html Signature Version 4 authentication>.
 module Amazonka.ConnectParticipant.GetAttachment
   ( -- * Creating a Request
     GetAttachment (..),
@@ -36,15 +39,16 @@ module Amazonka.ConnectParticipant.GetAttachment
     newGetAttachmentResponse,
 
     -- * Response Lenses
-    getAttachmentResponse_urlExpiry,
     getAttachmentResponse_url,
+    getAttachmentResponse_urlExpiry,
     getAttachmentResponse_httpStatus,
   )
 where
 
 import Amazonka.ConnectParticipant.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,13 +97,14 @@ instance Core.AWSRequest GetAttachment where
   type
     AWSResponse GetAttachment =
       GetAttachmentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAttachmentResponse'
-            Prelude.<$> (x Core..?> "UrlExpiry")
-            Prelude.<*> (x Core..?> "Url")
+            Prelude.<$> (x Data..?> "Url")
+            Prelude.<*> (x Data..?> "UrlExpiry")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -113,36 +118,37 @@ instance Prelude.NFData GetAttachment where
     Prelude.rnf attachmentId
       `Prelude.seq` Prelude.rnf connectionToken
 
-instance Core.ToHeaders GetAttachment where
+instance Data.ToHeaders GetAttachment where
   toHeaders GetAttachment' {..} =
     Prelude.mconcat
-      [ "X-Amz-Bearer" Core.=# connectionToken,
+      [ "X-Amz-Bearer" Data.=# connectionToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToJSON GetAttachment where
+instance Data.ToJSON GetAttachment where
   toJSON GetAttachment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("AttachmentId" Core..= attachmentId)]
+          [Prelude.Just ("AttachmentId" Data..= attachmentId)]
       )
 
-instance Core.ToPath GetAttachment where
+instance Data.ToPath GetAttachment where
   toPath = Prelude.const "/participant/attachment"
 
-instance Core.ToQuery GetAttachment where
+instance Data.ToQuery GetAttachment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetAttachmentResponse' smart constructor.
 data GetAttachmentResponse = GetAttachmentResponse'
-  { -- | The expiration time of the URL in ISO timestamp. It\'s specified in ISO
+  { -- | This is the pre-signed URL that can be used for uploading the file to
+    -- Amazon S3 when used in response to
+    -- <https://docs.aws.amazon.com/connect-participant/latest/APIReference/API_StartAttachmentUpload.html StartAttachmentUpload>.
+    url :: Prelude.Maybe Prelude.Text,
+    -- | The expiration time of the URL in ISO timestamp. It\'s specified in ISO
     -- 8601 format: yyyy-MM-ddThh:mm:ss.SSSZ. For example,
     -- 2019-11-08T02:41:28.172Z.
     urlExpiry :: Prelude.Maybe Prelude.Text,
-    -- | The pre-signed URL using which file would be downloaded from Amazon S3
-    -- by the API caller.
-    url :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -156,12 +162,13 @@ data GetAttachmentResponse = GetAttachmentResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'url', 'getAttachmentResponse_url' - This is the pre-signed URL that can be used for uploading the file to
+-- Amazon S3 when used in response to
+-- <https://docs.aws.amazon.com/connect-participant/latest/APIReference/API_StartAttachmentUpload.html StartAttachmentUpload>.
+--
 -- 'urlExpiry', 'getAttachmentResponse_urlExpiry' - The expiration time of the URL in ISO timestamp. It\'s specified in ISO
 -- 8601 format: yyyy-MM-ddThh:mm:ss.SSSZ. For example,
 -- 2019-11-08T02:41:28.172Z.
---
--- 'url', 'getAttachmentResponse_url' - The pre-signed URL using which file would be downloaded from Amazon S3
--- by the API caller.
 --
 -- 'httpStatus', 'getAttachmentResponse_httpStatus' - The response's http status code.
 newGetAttachmentResponse ::
@@ -170,10 +177,16 @@ newGetAttachmentResponse ::
   GetAttachmentResponse
 newGetAttachmentResponse pHttpStatus_ =
   GetAttachmentResponse'
-    { urlExpiry = Prelude.Nothing,
-      url = Prelude.Nothing,
+    { url = Prelude.Nothing,
+      urlExpiry = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | This is the pre-signed URL that can be used for uploading the file to
+-- Amazon S3 when used in response to
+-- <https://docs.aws.amazon.com/connect-participant/latest/APIReference/API_StartAttachmentUpload.html StartAttachmentUpload>.
+getAttachmentResponse_url :: Lens.Lens' GetAttachmentResponse (Prelude.Maybe Prelude.Text)
+getAttachmentResponse_url = Lens.lens (\GetAttachmentResponse' {url} -> url) (\s@GetAttachmentResponse' {} a -> s {url = a} :: GetAttachmentResponse)
 
 -- | The expiration time of the URL in ISO timestamp. It\'s specified in ISO
 -- 8601 format: yyyy-MM-ddThh:mm:ss.SSSZ. For example,
@@ -181,17 +194,12 @@ newGetAttachmentResponse pHttpStatus_ =
 getAttachmentResponse_urlExpiry :: Lens.Lens' GetAttachmentResponse (Prelude.Maybe Prelude.Text)
 getAttachmentResponse_urlExpiry = Lens.lens (\GetAttachmentResponse' {urlExpiry} -> urlExpiry) (\s@GetAttachmentResponse' {} a -> s {urlExpiry = a} :: GetAttachmentResponse)
 
--- | The pre-signed URL using which file would be downloaded from Amazon S3
--- by the API caller.
-getAttachmentResponse_url :: Lens.Lens' GetAttachmentResponse (Prelude.Maybe Prelude.Text)
-getAttachmentResponse_url = Lens.lens (\GetAttachmentResponse' {url} -> url) (\s@GetAttachmentResponse' {} a -> s {url = a} :: GetAttachmentResponse)
-
 -- | The response's http status code.
 getAttachmentResponse_httpStatus :: Lens.Lens' GetAttachmentResponse Prelude.Int
 getAttachmentResponse_httpStatus = Lens.lens (\GetAttachmentResponse' {httpStatus} -> httpStatus) (\s@GetAttachmentResponse' {} a -> s {httpStatus = a} :: GetAttachmentResponse)
 
 instance Prelude.NFData GetAttachmentResponse where
   rnf GetAttachmentResponse' {..} =
-    Prelude.rnf urlExpiry
-      `Prelude.seq` Prelude.rnf url
+    Prelude.rnf url
+      `Prelude.seq` Prelude.rnf urlExpiry
       `Prelude.seq` Prelude.rnf httpStatus

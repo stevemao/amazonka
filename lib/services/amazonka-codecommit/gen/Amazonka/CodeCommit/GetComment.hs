@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.GetComment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,12 +84,13 @@ getComment_commentId = Lens.lens (\GetComment' {commentId} -> commentId) (\s@Get
 
 instance Core.AWSRequest GetComment where
   type AWSResponse GetComment = GetCommentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetCommentResponse'
-            Prelude.<$> (x Core..?> "comment")
+            Prelude.<$> (x Data..?> "comment")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -99,32 +101,32 @@ instance Prelude.Hashable GetComment where
 instance Prelude.NFData GetComment where
   rnf GetComment' {..} = Prelude.rnf commentId
 
-instance Core.ToHeaders GetComment where
+instance Data.ToHeaders GetComment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.GetComment" ::
+              Data.=# ( "CodeCommit_20150413.GetComment" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetComment where
+instance Data.ToJSON GetComment where
   toJSON GetComment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("commentId" Core..= commentId)]
+          [Prelude.Just ("commentId" Data..= commentId)]
       )
 
-instance Core.ToPath GetComment where
+instance Data.ToPath GetComment where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetComment where
+instance Data.ToQuery GetComment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetCommentResponse' smart constructor.

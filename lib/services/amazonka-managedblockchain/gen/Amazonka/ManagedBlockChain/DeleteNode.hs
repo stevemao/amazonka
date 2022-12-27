@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.ManagedBlockChain.DeleteNode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a node that your AWS account owns. All data on the node is lost
--- and cannot be recovered.
+-- Deletes a node that your Amazon Web Services account owns. All data on
+-- the node is lost and cannot be recovered.
 --
 -- Applies to Hyperledger Fabric and Ethereum.
 module Amazonka.ManagedBlockChain.DeleteNode
@@ -44,7 +44,8 @@ module Amazonka.ManagedBlockChain.DeleteNode
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ManagedBlockChain.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -62,6 +63,8 @@ data DeleteNode = DeleteNode'
     -- Ethereum public networks have the following @NetworkId@s:
     --
     -- -   @n-ethereum-mainnet@
+    --
+    -- -   @n-ethereum-goerli@
     --
     -- -   @n-ethereum-rinkeby@
     --
@@ -90,6 +93,8 @@ data DeleteNode = DeleteNode'
 -- Ethereum public networks have the following @NetworkId@s:
 --
 -- -   @n-ethereum-mainnet@
+--
+-- -   @n-ethereum-goerli@
 --
 -- -   @n-ethereum-rinkeby@
 --
@@ -122,6 +127,8 @@ deleteNode_memberId = Lens.lens (\DeleteNode' {memberId} -> memberId) (\s@Delete
 --
 -- -   @n-ethereum-mainnet@
 --
+-- -   @n-ethereum-goerli@
+--
 -- -   @n-ethereum-rinkeby@
 --
 -- -   @n-ethereum-ropsten@
@@ -134,7 +141,8 @@ deleteNode_nodeId = Lens.lens (\DeleteNode' {nodeId} -> nodeId) (\s@DeleteNode' 
 
 instance Core.AWSRequest DeleteNode where
   type AWSResponse DeleteNode = DeleteNodeResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -154,29 +162,29 @@ instance Prelude.NFData DeleteNode where
       `Prelude.seq` Prelude.rnf networkId
       `Prelude.seq` Prelude.rnf nodeId
 
-instance Core.ToHeaders DeleteNode where
+instance Data.ToHeaders DeleteNode where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteNode where
+instance Data.ToPath DeleteNode where
   toPath DeleteNode' {..} =
     Prelude.mconcat
       [ "/networks/",
-        Core.toBS networkId,
+        Data.toBS networkId,
         "/nodes/",
-        Core.toBS nodeId
+        Data.toBS nodeId
       ]
 
-instance Core.ToQuery DeleteNode where
+instance Data.ToQuery DeleteNode where
   toQuery DeleteNode' {..} =
-    Prelude.mconcat ["memberId" Core.=: memberId]
+    Prelude.mconcat ["memberId" Data.=: memberId]
 
 -- | /See:/ 'newDeleteNodeResponse' smart constructor.
 data DeleteNodeResponse = DeleteNodeResponse'

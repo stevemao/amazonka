@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.Types.DomainInformationContainer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,13 +20,17 @@
 module Amazonka.OpenSearch.Types.DomainInformationContainer where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpenSearch.Types.AWSDomainInformation
 import qualified Amazonka.Prelude as Prelude
 
--- | /See:/ 'newDomainInformationContainer' smart constructor.
+-- | Container for information about an OpenSearch Service domain.
+--
+-- /See:/ 'newDomainInformationContainer' smart constructor.
 data DomainInformationContainer = DomainInformationContainer'
-  { aWSDomainInformation :: Prelude.Maybe AWSDomainInformation
+  { -- | Information about an Amazon OpenSearch Service domain.
+    aWSDomainInformation :: Prelude.Maybe AWSDomainInformation
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -38,7 +42,7 @@ data DomainInformationContainer = DomainInformationContainer'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'aWSDomainInformation', 'domainInformationContainer_aWSDomainInformation' - Undocumented member.
+-- 'aWSDomainInformation', 'domainInformationContainer_aWSDomainInformation' - Information about an Amazon OpenSearch Service domain.
 newDomainInformationContainer ::
   DomainInformationContainer
 newDomainInformationContainer =
@@ -47,17 +51,17 @@ newDomainInformationContainer =
         Prelude.Nothing
     }
 
--- | Undocumented member.
+-- | Information about an Amazon OpenSearch Service domain.
 domainInformationContainer_aWSDomainInformation :: Lens.Lens' DomainInformationContainer (Prelude.Maybe AWSDomainInformation)
 domainInformationContainer_aWSDomainInformation = Lens.lens (\DomainInformationContainer' {aWSDomainInformation} -> aWSDomainInformation) (\s@DomainInformationContainer' {} a -> s {aWSDomainInformation = a} :: DomainInformationContainer)
 
-instance Core.FromJSON DomainInformationContainer where
+instance Data.FromJSON DomainInformationContainer where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DomainInformationContainer"
       ( \x ->
           DomainInformationContainer'
-            Prelude.<$> (x Core..:? "AWSDomainInformation")
+            Prelude.<$> (x Data..:? "AWSDomainInformation")
       )
 
 instance Prelude.Hashable DomainInformationContainer where
@@ -68,11 +72,11 @@ instance Prelude.NFData DomainInformationContainer where
   rnf DomainInformationContainer' {..} =
     Prelude.rnf aWSDomainInformation
 
-instance Core.ToJSON DomainInformationContainer where
+instance Data.ToJSON DomainInformationContainer where
   toJSON DomainInformationContainer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AWSDomainInformation" Core..=)
+          [ ("AWSDomainInformation" Data..=)
               Prelude.<$> aWSDomainInformation
           ]
       )

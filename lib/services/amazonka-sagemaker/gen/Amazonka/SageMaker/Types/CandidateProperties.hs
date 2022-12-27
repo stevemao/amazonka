@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.CandidateProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.CandidateProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.CandidateArtifactLocations
 import Amazonka.SageMaker.Types.MetricDatum
@@ -64,15 +65,15 @@ candidateProperties_candidateArtifactLocations = Lens.lens (\CandidateProperties
 candidateProperties_candidateMetrics :: Lens.Lens' CandidateProperties (Prelude.Maybe [MetricDatum])
 candidateProperties_candidateMetrics = Lens.lens (\CandidateProperties' {candidateMetrics} -> candidateMetrics) (\s@CandidateProperties' {} a -> s {candidateMetrics = a} :: CandidateProperties) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON CandidateProperties where
+instance Data.FromJSON CandidateProperties where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CandidateProperties"
       ( \x ->
           CandidateProperties'
-            Prelude.<$> (x Core..:? "CandidateArtifactLocations")
-            Prelude.<*> ( x Core..:? "CandidateMetrics"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "CandidateArtifactLocations")
+            Prelude.<*> ( x Data..:? "CandidateMetrics"
+                            Data..!= Prelude.mempty
                         )
       )
 

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.AssetHierarchy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTSiteWise.Types.AssetHierarchy where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an asset hierarchy that contains a hierarchy\'s name and ID.
@@ -75,13 +76,13 @@ assetHierarchy_id = Lens.lens (\AssetHierarchy' {id} -> id) (\s@AssetHierarchy' 
 assetHierarchy_name :: Lens.Lens' AssetHierarchy Prelude.Text
 assetHierarchy_name = Lens.lens (\AssetHierarchy' {name} -> name) (\s@AssetHierarchy' {} a -> s {name = a} :: AssetHierarchy)
 
-instance Core.FromJSON AssetHierarchy where
+instance Data.FromJSON AssetHierarchy where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AssetHierarchy"
       ( \x ->
           AssetHierarchy'
-            Prelude.<$> (x Core..:? "id") Prelude.<*> (x Core..: "name")
+            Prelude.<$> (x Data..:? "id") Prelude.<*> (x Data..: "name")
       )
 
 instance Prelude.Hashable AssetHierarchy where

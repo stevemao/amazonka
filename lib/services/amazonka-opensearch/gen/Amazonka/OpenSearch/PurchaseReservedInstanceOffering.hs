@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.PurchaseReservedInstanceOffering
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Allows you to purchase reserved OpenSearch instances.
+-- Allows you to purchase Amazon OpenSearch Service Reserved Instances.
 module Amazonka.OpenSearch.PurchaseReservedInstanceOffering
   ( -- * Creating a Request
     PurchaseReservedInstanceOffering (..),
@@ -43,19 +43,21 @@ module Amazonka.OpenSearch.PurchaseReservedInstanceOffering
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpenSearch.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Container for parameters to @PurchaseReservedInstanceOffering@
+-- | Container for request parameters to the
+-- @PurchaseReservedInstanceOffering@ operation.
 --
 -- /See:/ 'newPurchaseReservedInstanceOffering' smart constructor.
 data PurchaseReservedInstanceOffering = PurchaseReservedInstanceOffering'
   { -- | The number of OpenSearch instances to reserve.
     instanceCount :: Prelude.Maybe Prelude.Natural,
-    -- | The ID of the reserved OpenSearch instance offering to purchase.
+    -- | The ID of the Reserved Instance offering to purchase.
     reservedInstanceOfferingId :: Prelude.Text,
     -- | A customer-specified identifier to track this reservation.
     reservationName :: Prelude.Text
@@ -72,7 +74,7 @@ data PurchaseReservedInstanceOffering = PurchaseReservedInstanceOffering'
 --
 -- 'instanceCount', 'purchaseReservedInstanceOffering_instanceCount' - The number of OpenSearch instances to reserve.
 --
--- 'reservedInstanceOfferingId', 'purchaseReservedInstanceOffering_reservedInstanceOfferingId' - The ID of the reserved OpenSearch instance offering to purchase.
+-- 'reservedInstanceOfferingId', 'purchaseReservedInstanceOffering_reservedInstanceOfferingId' - The ID of the Reserved Instance offering to purchase.
 --
 -- 'reservationName', 'purchaseReservedInstanceOffering_reservationName' - A customer-specified identifier to track this reservation.
 newPurchaseReservedInstanceOffering ::
@@ -96,7 +98,7 @@ newPurchaseReservedInstanceOffering
 purchaseReservedInstanceOffering_instanceCount :: Lens.Lens' PurchaseReservedInstanceOffering (Prelude.Maybe Prelude.Natural)
 purchaseReservedInstanceOffering_instanceCount = Lens.lens (\PurchaseReservedInstanceOffering' {instanceCount} -> instanceCount) (\s@PurchaseReservedInstanceOffering' {} a -> s {instanceCount = a} :: PurchaseReservedInstanceOffering)
 
--- | The ID of the reserved OpenSearch instance offering to purchase.
+-- | The ID of the Reserved Instance offering to purchase.
 purchaseReservedInstanceOffering_reservedInstanceOfferingId :: Lens.Lens' PurchaseReservedInstanceOffering Prelude.Text
 purchaseReservedInstanceOffering_reservedInstanceOfferingId = Lens.lens (\PurchaseReservedInstanceOffering' {reservedInstanceOfferingId} -> reservedInstanceOfferingId) (\s@PurchaseReservedInstanceOffering' {} a -> s {reservedInstanceOfferingId = a} :: PurchaseReservedInstanceOffering)
 
@@ -111,13 +113,14 @@ instance
   type
     AWSResponse PurchaseReservedInstanceOffering =
       PurchaseReservedInstanceOfferingResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PurchaseReservedInstanceOfferingResponse'
-            Prelude.<$> (x Core..?> "ReservationName")
-            Prelude.<*> (x Core..?> "ReservedInstanceId")
+            Prelude.<$> (x Data..?> "ReservationName")
+            Prelude.<*> (x Data..?> "ReservedInstanceId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -142,32 +145,32 @@ instance
       `Prelude.seq` Prelude.rnf reservationName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     PurchaseReservedInstanceOffering
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON PurchaseReservedInstanceOffering where
+instance Data.ToJSON PurchaseReservedInstanceOffering where
   toJSON PurchaseReservedInstanceOffering' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("InstanceCount" Core..=) Prelude.<$> instanceCount,
+          [ ("InstanceCount" Data..=) Prelude.<$> instanceCount,
             Prelude.Just
               ( "ReservedInstanceOfferingId"
-                  Core..= reservedInstanceOfferingId
+                  Data..= reservedInstanceOfferingId
               ),
             Prelude.Just
-              ("ReservationName" Core..= reservationName)
+              ("ReservationName" Data..= reservationName)
           ]
       )
 
-instance Core.ToPath PurchaseReservedInstanceOffering where
+instance Data.ToPath PurchaseReservedInstanceOffering where
   toPath =
     Prelude.const
       "/2021-01-01/opensearch/purchaseReservedInstanceOffering"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     PurchaseReservedInstanceOffering
   where
   toQuery = Prelude.const Prelude.mempty
@@ -178,7 +181,7 @@ instance
 data PurchaseReservedInstanceOfferingResponse = PurchaseReservedInstanceOfferingResponse'
   { -- | The customer-specified identifier used to track this reservation.
     reservationName :: Prelude.Maybe Prelude.Text,
-    -- | Details of the reserved OpenSearch instance which was purchased.
+    -- | The ID of the Reserved Instance offering that was purchased.
     reservedInstanceId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -195,7 +198,7 @@ data PurchaseReservedInstanceOfferingResponse = PurchaseReservedInstanceOffering
 --
 -- 'reservationName', 'purchaseReservedInstanceOfferingResponse_reservationName' - The customer-specified identifier used to track this reservation.
 --
--- 'reservedInstanceId', 'purchaseReservedInstanceOfferingResponse_reservedInstanceId' - Details of the reserved OpenSearch instance which was purchased.
+-- 'reservedInstanceId', 'purchaseReservedInstanceOfferingResponse_reservedInstanceId' - The ID of the Reserved Instance offering that was purchased.
 --
 -- 'httpStatus', 'purchaseReservedInstanceOfferingResponse_httpStatus' - The response's http status code.
 newPurchaseReservedInstanceOfferingResponse ::
@@ -216,7 +219,7 @@ newPurchaseReservedInstanceOfferingResponse
 purchaseReservedInstanceOfferingResponse_reservationName :: Lens.Lens' PurchaseReservedInstanceOfferingResponse (Prelude.Maybe Prelude.Text)
 purchaseReservedInstanceOfferingResponse_reservationName = Lens.lens (\PurchaseReservedInstanceOfferingResponse' {reservationName} -> reservationName) (\s@PurchaseReservedInstanceOfferingResponse' {} a -> s {reservationName = a} :: PurchaseReservedInstanceOfferingResponse)
 
--- | Details of the reserved OpenSearch instance which was purchased.
+-- | The ID of the Reserved Instance offering that was purchased.
 purchaseReservedInstanceOfferingResponse_reservedInstanceId :: Lens.Lens' PurchaseReservedInstanceOfferingResponse (Prelude.Maybe Prelude.Text)
 purchaseReservedInstanceOfferingResponse_reservedInstanceId = Lens.lens (\PurchaseReservedInstanceOfferingResponse' {reservedInstanceId} -> reservedInstanceId) (\s@PurchaseReservedInstanceOfferingResponse' {} a -> s {reservedInstanceId = a} :: PurchaseReservedInstanceOfferingResponse)
 

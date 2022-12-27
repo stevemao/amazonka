@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.CreateQuickConnect
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,15 +38,16 @@ module Amazonka.Connect.CreateQuickConnect
     newCreateQuickConnectResponse,
 
     -- * Response Lenses
-    createQuickConnectResponse_quickConnectId,
     createQuickConnectResponse_quickConnectARN,
+    createQuickConnectResponse_quickConnectId,
     createQuickConnectResponse_httpStatus,
   )
 where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,7 +56,8 @@ import qualified Amazonka.Response as Response
 data CreateQuickConnect = CreateQuickConnect'
   { -- | The description of the quick connect.
     description :: Prelude.Maybe Prelude.Text,
-    -- | One or more tags.
+    -- | The tags used to organize, track, or control access for this resource.
+    -- For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The identifier of the Amazon Connect instance. You can find the
     -- instanceId in the ARN of the instance.
@@ -77,7 +79,8 @@ data CreateQuickConnect = CreateQuickConnect'
 --
 -- 'description', 'createQuickConnect_description' - The description of the quick connect.
 --
--- 'tags', 'createQuickConnect_tags' - One or more tags.
+-- 'tags', 'createQuickConnect_tags' - The tags used to organize, track, or control access for this resource.
+-- For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.
 --
 -- 'instanceId', 'createQuickConnect_instanceId' - The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -109,7 +112,8 @@ newCreateQuickConnect
 createQuickConnect_description :: Lens.Lens' CreateQuickConnect (Prelude.Maybe Prelude.Text)
 createQuickConnect_description = Lens.lens (\CreateQuickConnect' {description} -> description) (\s@CreateQuickConnect' {} a -> s {description = a} :: CreateQuickConnect)
 
--- | One or more tags.
+-- | The tags used to organize, track, or control access for this resource.
+-- For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.
 createQuickConnect_tags :: Lens.Lens' CreateQuickConnect (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createQuickConnect_tags = Lens.lens (\CreateQuickConnect' {tags} -> tags) (\s@CreateQuickConnect' {} a -> s {tags = a} :: CreateQuickConnect) Prelude.. Lens.mapping Lens.coerced
 
@@ -130,13 +134,14 @@ instance Core.AWSRequest CreateQuickConnect where
   type
     AWSResponse CreateQuickConnect =
       CreateQuickConnectResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateQuickConnectResponse'
-            Prelude.<$> (x Core..?> "QuickConnectId")
-            Prelude.<*> (x Core..?> "QuickConnectARN")
+            Prelude.<$> (x Data..?> "QuickConnectARN")
+            Prelude.<*> (x Data..?> "QuickConnectId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -156,43 +161,43 @@ instance Prelude.NFData CreateQuickConnect where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf quickConnectConfig
 
-instance Core.ToHeaders CreateQuickConnect where
+instance Data.ToHeaders CreateQuickConnect where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateQuickConnect where
+instance Data.ToJSON CreateQuickConnect where
   toJSON CreateQuickConnect' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name),
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name),
             Prelude.Just
-              ("QuickConnectConfig" Core..= quickConnectConfig)
+              ("QuickConnectConfig" Data..= quickConnectConfig)
           ]
       )
 
-instance Core.ToPath CreateQuickConnect where
+instance Data.ToPath CreateQuickConnect where
   toPath CreateQuickConnect' {..} =
     Prelude.mconcat
-      ["/quick-connects/", Core.toBS instanceId]
+      ["/quick-connects/", Data.toBS instanceId]
 
-instance Core.ToQuery CreateQuickConnect where
+instance Data.ToQuery CreateQuickConnect where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateQuickConnectResponse' smart constructor.
 data CreateQuickConnectResponse = CreateQuickConnectResponse'
-  { -- | The identifier for the quick connect.
-    quickConnectId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) for the quick connect.
+  { -- | The Amazon Resource Name (ARN) for the quick connect.
     quickConnectARN :: Prelude.Maybe Prelude.Text,
+    -- | The identifier for the quick connect.
+    quickConnectId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -206,9 +211,9 @@ data CreateQuickConnectResponse = CreateQuickConnectResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'quickConnectId', 'createQuickConnectResponse_quickConnectId' - The identifier for the quick connect.
---
 -- 'quickConnectARN', 'createQuickConnectResponse_quickConnectARN' - The Amazon Resource Name (ARN) for the quick connect.
+--
+-- 'quickConnectId', 'createQuickConnectResponse_quickConnectId' - The identifier for the quick connect.
 --
 -- 'httpStatus', 'createQuickConnectResponse_httpStatus' - The response's http status code.
 newCreateQuickConnectResponse ::
@@ -217,19 +222,19 @@ newCreateQuickConnectResponse ::
   CreateQuickConnectResponse
 newCreateQuickConnectResponse pHttpStatus_ =
   CreateQuickConnectResponse'
-    { quickConnectId =
+    { quickConnectARN =
         Prelude.Nothing,
-      quickConnectARN = Prelude.Nothing,
+      quickConnectId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The identifier for the quick connect.
-createQuickConnectResponse_quickConnectId :: Lens.Lens' CreateQuickConnectResponse (Prelude.Maybe Prelude.Text)
-createQuickConnectResponse_quickConnectId = Lens.lens (\CreateQuickConnectResponse' {quickConnectId} -> quickConnectId) (\s@CreateQuickConnectResponse' {} a -> s {quickConnectId = a} :: CreateQuickConnectResponse)
 
 -- | The Amazon Resource Name (ARN) for the quick connect.
 createQuickConnectResponse_quickConnectARN :: Lens.Lens' CreateQuickConnectResponse (Prelude.Maybe Prelude.Text)
 createQuickConnectResponse_quickConnectARN = Lens.lens (\CreateQuickConnectResponse' {quickConnectARN} -> quickConnectARN) (\s@CreateQuickConnectResponse' {} a -> s {quickConnectARN = a} :: CreateQuickConnectResponse)
+
+-- | The identifier for the quick connect.
+createQuickConnectResponse_quickConnectId :: Lens.Lens' CreateQuickConnectResponse (Prelude.Maybe Prelude.Text)
+createQuickConnectResponse_quickConnectId = Lens.lens (\CreateQuickConnectResponse' {quickConnectId} -> quickConnectId) (\s@CreateQuickConnectResponse' {} a -> s {quickConnectId = a} :: CreateQuickConnectResponse)
 
 -- | The response's http status code.
 createQuickConnectResponse_httpStatus :: Lens.Lens' CreateQuickConnectResponse Prelude.Int
@@ -237,6 +242,6 @@ createQuickConnectResponse_httpStatus = Lens.lens (\CreateQuickConnectResponse' 
 
 instance Prelude.NFData CreateQuickConnectResponse where
   rnf CreateQuickConnectResponse' {..} =
-    Prelude.rnf quickConnectId
-      `Prelude.seq` Prelude.rnf quickConnectARN
+    Prelude.rnf quickConnectARN
+      `Prelude.seq` Prelude.rnf quickConnectId
       `Prelude.seq` Prelude.rnf httpStatus

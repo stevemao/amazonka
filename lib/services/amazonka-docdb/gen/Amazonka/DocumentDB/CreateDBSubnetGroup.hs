@@ -14,14 +14,15 @@
 
 -- |
 -- Module      : Amazonka.DocumentDB.CreateDBSubnetGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Creates a new subnet group. subnet groups must contain at least one
--- subnet in at least two Availability Zones in the Region.
+-- subnet in at least two Availability Zones in the Amazon Web Services
+-- Region.
 module Amazonka.DocumentDB.CreateDBSubnetGroup
   ( -- * Creating a Request
     CreateDBSubnetGroup (..),
@@ -44,8 +45,9 @@ module Amazonka.DocumentDB.CreateDBSubnetGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DocumentDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -135,13 +137,14 @@ instance Core.AWSRequest CreateDBSubnetGroup where
   type
     AWSResponse CreateDBSubnetGroup =
       CreateDBSubnetGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateDBSubnetGroupResult"
       ( \s h x ->
           CreateDBSubnetGroupResponse'
-            Prelude.<$> (x Core..@? "DBSubnetGroup")
+            Prelude.<$> (x Data..@? "DBSubnetGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -159,27 +162,27 @@ instance Prelude.NFData CreateDBSubnetGroup where
       `Prelude.seq` Prelude.rnf dbSubnetGroupDescription
       `Prelude.seq` Prelude.rnf subnetIds
 
-instance Core.ToHeaders CreateDBSubnetGroup where
+instance Data.ToHeaders CreateDBSubnetGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateDBSubnetGroup where
+instance Data.ToPath CreateDBSubnetGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateDBSubnetGroup where
+instance Data.ToQuery CreateDBSubnetGroup where
   toQuery CreateDBSubnetGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateDBSubnetGroup" :: Prelude.ByteString),
+          Data.=: ("CreateDBSubnetGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Tag" Prelude.<$> tags),
-        "DBSubnetGroupName" Core.=: dbSubnetGroupName,
+          Data.=: Data.toQuery
+            (Data.toQueryList "Tag" Prelude.<$> tags),
+        "DBSubnetGroupName" Data.=: dbSubnetGroupName,
         "DBSubnetGroupDescription"
-          Core.=: dbSubnetGroupDescription,
+          Data.=: dbSubnetGroupDescription,
         "SubnetIds"
-          Core.=: Core.toQueryList "SubnetIdentifier" subnetIds
+          Data.=: Data.toQueryList "SubnetIdentifier" subnetIds
       ]
 
 -- | /See:/ 'newCreateDBSubnetGroupResponse' smart constructor.

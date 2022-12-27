@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DAX.Types.ParameterGroupStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DAX.Types.ParameterGroupStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The status of a parameter group.
@@ -71,17 +72,17 @@ parameterGroupStatus_parameterApplyStatus = Lens.lens (\ParameterGroupStatus' {p
 parameterGroupStatus_parameterGroupName :: Lens.Lens' ParameterGroupStatus (Prelude.Maybe Prelude.Text)
 parameterGroupStatus_parameterGroupName = Lens.lens (\ParameterGroupStatus' {parameterGroupName} -> parameterGroupName) (\s@ParameterGroupStatus' {} a -> s {parameterGroupName = a} :: ParameterGroupStatus)
 
-instance Core.FromJSON ParameterGroupStatus where
+instance Data.FromJSON ParameterGroupStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ParameterGroupStatus"
       ( \x ->
           ParameterGroupStatus'
-            Prelude.<$> ( x Core..:? "NodeIdsToReboot"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "NodeIdsToReboot"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "ParameterApplyStatus")
-            Prelude.<*> (x Core..:? "ParameterGroupName")
+            Prelude.<*> (x Data..:? "ParameterApplyStatus")
+            Prelude.<*> (x Data..:? "ParameterGroupName")
       )
 
 instance Prelude.Hashable ParameterGroupStatus where

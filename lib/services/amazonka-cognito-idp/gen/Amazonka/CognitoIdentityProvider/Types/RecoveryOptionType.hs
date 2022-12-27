@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.Types.RecoveryOptionType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CognitoIdentityProvider.Types.RecoveryOptionType where
 
 import Amazonka.CognitoIdentityProvider.Types.RecoveryOptionNameType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A map containing a priority as a key, and recovery method name as a
@@ -32,7 +33,7 @@ data RecoveryOptionType = RecoveryOptionType'
   { -- | A positive integer specifying priority of a method with 1 being the
     -- highest priority.
     priority :: Prelude.Natural,
-    -- | Specifies the recovery method for a user.
+    -- | The recovery method for a user.
     name :: RecoveryOptionNameType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -48,7 +49,7 @@ data RecoveryOptionType = RecoveryOptionType'
 -- 'priority', 'recoveryOptionType_priority' - A positive integer specifying priority of a method with 1 being the
 -- highest priority.
 --
--- 'name', 'recoveryOptionType_name' - Specifies the recovery method for a user.
+-- 'name', 'recoveryOptionType_name' - The recovery method for a user.
 newRecoveryOptionType ::
   -- | 'priority'
   Prelude.Natural ->
@@ -66,18 +67,18 @@ newRecoveryOptionType pPriority_ pName_ =
 recoveryOptionType_priority :: Lens.Lens' RecoveryOptionType Prelude.Natural
 recoveryOptionType_priority = Lens.lens (\RecoveryOptionType' {priority} -> priority) (\s@RecoveryOptionType' {} a -> s {priority = a} :: RecoveryOptionType)
 
--- | Specifies the recovery method for a user.
+-- | The recovery method for a user.
 recoveryOptionType_name :: Lens.Lens' RecoveryOptionType RecoveryOptionNameType
 recoveryOptionType_name = Lens.lens (\RecoveryOptionType' {name} -> name) (\s@RecoveryOptionType' {} a -> s {name = a} :: RecoveryOptionType)
 
-instance Core.FromJSON RecoveryOptionType where
+instance Data.FromJSON RecoveryOptionType where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RecoveryOptionType"
       ( \x ->
           RecoveryOptionType'
-            Prelude.<$> (x Core..: "Priority")
-            Prelude.<*> (x Core..: "Name")
+            Prelude.<$> (x Data..: "Priority")
+            Prelude.<*> (x Data..: "Name")
       )
 
 instance Prelude.Hashable RecoveryOptionType where
@@ -89,11 +90,11 @@ instance Prelude.NFData RecoveryOptionType where
   rnf RecoveryOptionType' {..} =
     Prelude.rnf priority `Prelude.seq` Prelude.rnf name
 
-instance Core.ToJSON RecoveryOptionType where
+instance Data.ToJSON RecoveryOptionType where
   toJSON RecoveryOptionType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Priority" Core..= priority),
-            Prelude.Just ("Name" Core..= name)
+          [ Prelude.Just ("Priority" Data..= priority),
+            Prelude.Just ("Name" Data..= name)
           ]
       )

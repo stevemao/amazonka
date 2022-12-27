@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudTrail.ListPublicKeys
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,24 +37,25 @@ module Amazonka.CloudTrail.ListPublicKeys
     newListPublicKeys,
 
     -- * Request Lenses
-    listPublicKeys_startTime,
-    listPublicKeys_nextToken,
     listPublicKeys_endTime,
+    listPublicKeys_nextToken,
+    listPublicKeys_startTime,
 
     -- * Destructuring the Response
     ListPublicKeysResponse (..),
     newListPublicKeysResponse,
 
     -- * Response Lenses
-    listPublicKeysResponse_publicKeyList,
     listPublicKeysResponse_nextToken,
+    listPublicKeysResponse_publicKeyList,
     listPublicKeysResponse_httpStatus,
   )
 where
 
 import Amazonka.CloudTrail.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -63,16 +64,16 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListPublicKeys' smart constructor.
 data ListPublicKeys = ListPublicKeys'
-  { -- | Optionally specifies, in UTC, the start of the time range to look up
-    -- public keys for CloudTrail digest files. If not specified, the current
-    -- time is used, and the current public key is returned.
-    startTime :: Prelude.Maybe Core.POSIX,
-    -- | Reserved for future use.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Optionally specifies, in UTC, the end of the time range to look up
+  { -- | Optionally specifies, in UTC, the end of the time range to look up
     -- public keys for CloudTrail digest files. If not specified, the current
     -- time is used.
-    endTime :: Prelude.Maybe Core.POSIX
+    endTime :: Prelude.Maybe Data.POSIX,
+    -- | Reserved for future use.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Optionally specifies, in UTC, the start of the time range to look up
+    -- public keys for CloudTrail digest files. If not specified, the current
+    -- time is used, and the current public key is returned.
+    startTime :: Prelude.Maybe Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -84,39 +85,39 @@ data ListPublicKeys = ListPublicKeys'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'startTime', 'listPublicKeys_startTime' - Optionally specifies, in UTC, the start of the time range to look up
--- public keys for CloudTrail digest files. If not specified, the current
--- time is used, and the current public key is returned.
---
--- 'nextToken', 'listPublicKeys_nextToken' - Reserved for future use.
---
 -- 'endTime', 'listPublicKeys_endTime' - Optionally specifies, in UTC, the end of the time range to look up
 -- public keys for CloudTrail digest files. If not specified, the current
 -- time is used.
+--
+-- 'nextToken', 'listPublicKeys_nextToken' - Reserved for future use.
+--
+-- 'startTime', 'listPublicKeys_startTime' - Optionally specifies, in UTC, the start of the time range to look up
+-- public keys for CloudTrail digest files. If not specified, the current
+-- time is used, and the current public key is returned.
 newListPublicKeys ::
   ListPublicKeys
 newListPublicKeys =
   ListPublicKeys'
-    { startTime = Prelude.Nothing,
+    { endTime = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      endTime = Prelude.Nothing
+      startTime = Prelude.Nothing
     }
-
--- | Optionally specifies, in UTC, the start of the time range to look up
--- public keys for CloudTrail digest files. If not specified, the current
--- time is used, and the current public key is returned.
-listPublicKeys_startTime :: Lens.Lens' ListPublicKeys (Prelude.Maybe Prelude.UTCTime)
-listPublicKeys_startTime = Lens.lens (\ListPublicKeys' {startTime} -> startTime) (\s@ListPublicKeys' {} a -> s {startTime = a} :: ListPublicKeys) Prelude.. Lens.mapping Core._Time
-
--- | Reserved for future use.
-listPublicKeys_nextToken :: Lens.Lens' ListPublicKeys (Prelude.Maybe Prelude.Text)
-listPublicKeys_nextToken = Lens.lens (\ListPublicKeys' {nextToken} -> nextToken) (\s@ListPublicKeys' {} a -> s {nextToken = a} :: ListPublicKeys)
 
 -- | Optionally specifies, in UTC, the end of the time range to look up
 -- public keys for CloudTrail digest files. If not specified, the current
 -- time is used.
 listPublicKeys_endTime :: Lens.Lens' ListPublicKeys (Prelude.Maybe Prelude.UTCTime)
-listPublicKeys_endTime = Lens.lens (\ListPublicKeys' {endTime} -> endTime) (\s@ListPublicKeys' {} a -> s {endTime = a} :: ListPublicKeys) Prelude.. Lens.mapping Core._Time
+listPublicKeys_endTime = Lens.lens (\ListPublicKeys' {endTime} -> endTime) (\s@ListPublicKeys' {} a -> s {endTime = a} :: ListPublicKeys) Prelude.. Lens.mapping Data._Time
+
+-- | Reserved for future use.
+listPublicKeys_nextToken :: Lens.Lens' ListPublicKeys (Prelude.Maybe Prelude.Text)
+listPublicKeys_nextToken = Lens.lens (\ListPublicKeys' {nextToken} -> nextToken) (\s@ListPublicKeys' {} a -> s {nextToken = a} :: ListPublicKeys)
+
+-- | Optionally specifies, in UTC, the start of the time range to look up
+-- public keys for CloudTrail digest files. If not specified, the current
+-- time is used, and the current public key is returned.
+listPublicKeys_startTime :: Lens.Lens' ListPublicKeys (Prelude.Maybe Prelude.UTCTime)
+listPublicKeys_startTime = Lens.lens (\ListPublicKeys' {startTime} -> startTime) (\s@ListPublicKeys' {} a -> s {startTime = a} :: ListPublicKeys) Prelude.. Lens.mapping Data._Time
 
 instance Core.AWSPager ListPublicKeys where
   page rq rs
@@ -143,57 +144,58 @@ instance Core.AWSRequest ListPublicKeys where
   type
     AWSResponse ListPublicKeys =
       ListPublicKeysResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPublicKeysResponse'
-            Prelude.<$> (x Core..?> "PublicKeyList" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "PublicKeyList" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListPublicKeys where
   hashWithSalt _salt ListPublicKeys' {..} =
-    _salt `Prelude.hashWithSalt` startTime
+    _salt `Prelude.hashWithSalt` endTime
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` endTime
+      `Prelude.hashWithSalt` startTime
 
 instance Prelude.NFData ListPublicKeys where
   rnf ListPublicKeys' {..} =
-    Prelude.rnf startTime
+    Prelude.rnf endTime
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf endTime
+      `Prelude.seq` Prelude.rnf startTime
 
-instance Core.ToHeaders ListPublicKeys where
+instance Data.ToHeaders ListPublicKeys where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.ListPublicKeys" ::
+              Data.=# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.ListPublicKeys" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListPublicKeys where
+instance Data.ToJSON ListPublicKeys where
   toJSON ListPublicKeys' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("StartTime" Core..=) Prelude.<$> startTime,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("EndTime" Core..=) Prelude.<$> endTime
+          [ ("EndTime" Data..=) Prelude.<$> endTime,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("StartTime" Data..=) Prelude.<$> startTime
           ]
       )
 
-instance Core.ToPath ListPublicKeys where
+instance Data.ToPath ListPublicKeys where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListPublicKeys where
+instance Data.ToQuery ListPublicKeys where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Returns the objects or data listed below if successful. Otherwise,
@@ -201,12 +203,12 @@ instance Core.ToQuery ListPublicKeys where
 --
 -- /See:/ 'newListPublicKeysResponse' smart constructor.
 data ListPublicKeysResponse = ListPublicKeysResponse'
-  { -- | Contains an array of PublicKey objects.
+  { -- | Reserved for future use.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Contains an array of PublicKey objects.
     --
     -- The returned public keys may have validity time ranges that overlap.
     publicKeyList :: Prelude.Maybe [PublicKey],
-    -- | Reserved for future use.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -220,11 +222,11 @@ data ListPublicKeysResponse = ListPublicKeysResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'nextToken', 'listPublicKeysResponse_nextToken' - Reserved for future use.
+--
 -- 'publicKeyList', 'listPublicKeysResponse_publicKeyList' - Contains an array of PublicKey objects.
 --
 -- The returned public keys may have validity time ranges that overlap.
---
--- 'nextToken', 'listPublicKeysResponse_nextToken' - Reserved for future use.
 --
 -- 'httpStatus', 'listPublicKeysResponse_httpStatus' - The response's http status code.
 newListPublicKeysResponse ::
@@ -233,11 +235,15 @@ newListPublicKeysResponse ::
   ListPublicKeysResponse
 newListPublicKeysResponse pHttpStatus_ =
   ListPublicKeysResponse'
-    { publicKeyList =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      publicKeyList = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | Reserved for future use.
+listPublicKeysResponse_nextToken :: Lens.Lens' ListPublicKeysResponse (Prelude.Maybe Prelude.Text)
+listPublicKeysResponse_nextToken = Lens.lens (\ListPublicKeysResponse' {nextToken} -> nextToken) (\s@ListPublicKeysResponse' {} a -> s {nextToken = a} :: ListPublicKeysResponse)
 
 -- | Contains an array of PublicKey objects.
 --
@@ -245,16 +251,12 @@ newListPublicKeysResponse pHttpStatus_ =
 listPublicKeysResponse_publicKeyList :: Lens.Lens' ListPublicKeysResponse (Prelude.Maybe [PublicKey])
 listPublicKeysResponse_publicKeyList = Lens.lens (\ListPublicKeysResponse' {publicKeyList} -> publicKeyList) (\s@ListPublicKeysResponse' {} a -> s {publicKeyList = a} :: ListPublicKeysResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | Reserved for future use.
-listPublicKeysResponse_nextToken :: Lens.Lens' ListPublicKeysResponse (Prelude.Maybe Prelude.Text)
-listPublicKeysResponse_nextToken = Lens.lens (\ListPublicKeysResponse' {nextToken} -> nextToken) (\s@ListPublicKeysResponse' {} a -> s {nextToken = a} :: ListPublicKeysResponse)
-
 -- | The response's http status code.
 listPublicKeysResponse_httpStatus :: Lens.Lens' ListPublicKeysResponse Prelude.Int
 listPublicKeysResponse_httpStatus = Lens.lens (\ListPublicKeysResponse' {httpStatus} -> httpStatus) (\s@ListPublicKeysResponse' {} a -> s {httpStatus = a} :: ListPublicKeysResponse)
 
 instance Prelude.NFData ListPublicKeysResponse where
   rnf ListPublicKeysResponse' {..} =
-    Prelude.rnf publicKeyList
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf publicKeyList
       `Prelude.seq` Prelude.rnf httpStatus

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Location.DescribeRouteCalculator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,6 +34,7 @@ module Amazonka.Location.DescribeRouteCalculator
     newDescribeRouteCalculatorResponse,
 
     -- * Response Lenses
+    describeRouteCalculatorResponse_pricingPlan,
     describeRouteCalculatorResponse_tags,
     describeRouteCalculatorResponse_httpStatus,
     describeRouteCalculatorResponse_calculatorArn,
@@ -41,13 +42,13 @@ module Amazonka.Location.DescribeRouteCalculator
     describeRouteCalculatorResponse_createTime,
     describeRouteCalculatorResponse_dataSource,
     describeRouteCalculatorResponse_description,
-    describeRouteCalculatorResponse_pricingPlan,
     describeRouteCalculatorResponse_updateTime,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -87,20 +88,21 @@ instance Core.AWSRequest DescribeRouteCalculator where
   type
     AWSResponse DescribeRouteCalculator =
       DescribeRouteCalculatorResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeRouteCalculatorResponse'
-            Prelude.<$> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "PricingPlan")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "CalculatorArn")
-            Prelude.<*> (x Core..:> "CalculatorName")
-            Prelude.<*> (x Core..:> "CreateTime")
-            Prelude.<*> (x Core..:> "DataSource")
-            Prelude.<*> (x Core..:> "Description")
-            Prelude.<*> (x Core..:> "PricingPlan")
-            Prelude.<*> (x Core..:> "UpdateTime")
+            Prelude.<*> (x Data..:> "CalculatorArn")
+            Prelude.<*> (x Data..:> "CalculatorName")
+            Prelude.<*> (x Data..:> "CreateTime")
+            Prelude.<*> (x Data..:> "DataSource")
+            Prelude.<*> (x Data..:> "Description")
+            Prelude.<*> (x Data..:> "UpdateTime")
       )
 
 instance Prelude.Hashable DescribeRouteCalculator where
@@ -111,28 +113,30 @@ instance Prelude.NFData DescribeRouteCalculator where
   rnf DescribeRouteCalculator' {..} =
     Prelude.rnf calculatorName
 
-instance Core.ToHeaders DescribeRouteCalculator where
+instance Data.ToHeaders DescribeRouteCalculator where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeRouteCalculator where
+instance Data.ToPath DescribeRouteCalculator where
   toPath DescribeRouteCalculator' {..} =
     Prelude.mconcat
-      ["/routes/v0/calculators/", Core.toBS calculatorName]
+      ["/routes/v0/calculators/", Data.toBS calculatorName]
 
-instance Core.ToQuery DescribeRouteCalculator where
+instance Data.ToQuery DescribeRouteCalculator where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeRouteCalculatorResponse' smart constructor.
 data DescribeRouteCalculatorResponse = DescribeRouteCalculatorResponse'
-  { -- | Tags associated with route calculator resource.
+  { -- | Always returns @RequestBasedUsage@.
+    pricingPlan :: Prelude.Maybe PricingPlan,
+    -- | Tags associated with route calculator resource.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
@@ -149,7 +153,7 @@ data DescribeRouteCalculatorResponse = DescribeRouteCalculatorResponse'
     -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
     --
     -- -   For example, @2020–07-2T12:15:20.000Z+01:00@
-    createTime :: Core.POSIX,
+    createTime :: Data.POSIX,
     -- | The data provider of traffic and road network data. Indicates one of the
     -- available providers:
     --
@@ -162,17 +166,12 @@ data DescribeRouteCalculatorResponse = DescribeRouteCalculatorResponse'
     dataSource :: Prelude.Text,
     -- | The optional description of the route calculator resource.
     description :: Prelude.Text,
-    -- | The pricing plan selected for the specified route calculator resource.
-    --
-    -- For additional details and restrictions on each pricing plan option, see
-    -- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
-    pricingPlan :: PricingPlan,
     -- | The timestamp when the route calculator resource was last updated in
     -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
     -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
     --
     -- -   For example, @2020–07-2T12:15:20.000Z+01:00@
-    updateTime :: Core.POSIX
+    updateTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -183,6 +182,8 @@ data DescribeRouteCalculatorResponse = DescribeRouteCalculatorResponse'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'pricingPlan', 'describeRouteCalculatorResponse_pricingPlan' - Always returns @RequestBasedUsage@.
 --
 -- 'tags', 'describeRouteCalculatorResponse_tags' - Tags associated with route calculator resource.
 --
@@ -214,11 +215,6 @@ data DescribeRouteCalculatorResponse = DescribeRouteCalculatorResponse'
 --
 -- 'description', 'describeRouteCalculatorResponse_description' - The optional description of the route calculator resource.
 --
--- 'pricingPlan', 'describeRouteCalculatorResponse_pricingPlan' - The pricing plan selected for the specified route calculator resource.
---
--- For additional details and restrictions on each pricing plan option, see
--- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
---
 -- 'updateTime', 'describeRouteCalculatorResponse_updateTime' - The timestamp when the route calculator resource was last updated in
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
@@ -237,8 +233,6 @@ newDescribeRouteCalculatorResponse ::
   Prelude.Text ->
   -- | 'description'
   Prelude.Text ->
-  -- | 'pricingPlan'
-  PricingPlan ->
   -- | 'updateTime'
   Prelude.UTCTime ->
   DescribeRouteCalculatorResponse
@@ -249,22 +243,25 @@ newDescribeRouteCalculatorResponse
   pCreateTime_
   pDataSource_
   pDescription_
-  pPricingPlan_
   pUpdateTime_ =
     DescribeRouteCalculatorResponse'
-      { tags =
+      { pricingPlan =
           Prelude.Nothing,
+        tags = Prelude.Nothing,
         httpStatus = pHttpStatus_,
         calculatorArn = pCalculatorArn_,
         calculatorName = pCalculatorName_,
         createTime =
-          Core._Time Lens.# pCreateTime_,
+          Data._Time Lens.# pCreateTime_,
         dataSource = pDataSource_,
         description = pDescription_,
-        pricingPlan = pPricingPlan_,
         updateTime =
-          Core._Time Lens.# pUpdateTime_
+          Data._Time Lens.# pUpdateTime_
       }
+
+-- | Always returns @RequestBasedUsage@.
+describeRouteCalculatorResponse_pricingPlan :: Lens.Lens' DescribeRouteCalculatorResponse (Prelude.Maybe PricingPlan)
+describeRouteCalculatorResponse_pricingPlan = Lens.lens (\DescribeRouteCalculatorResponse' {pricingPlan} -> pricingPlan) (\s@DescribeRouteCalculatorResponse' {} a -> s {pricingPlan = a} :: DescribeRouteCalculatorResponse)
 
 -- | Tags associated with route calculator resource.
 describeRouteCalculatorResponse_tags :: Lens.Lens' DescribeRouteCalculatorResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -292,7 +289,7 @@ describeRouteCalculatorResponse_calculatorName = Lens.lens (\DescribeRouteCalcul
 --
 -- -   For example, @2020–07-2T12:15:20.000Z+01:00@
 describeRouteCalculatorResponse_createTime :: Lens.Lens' DescribeRouteCalculatorResponse Prelude.UTCTime
-describeRouteCalculatorResponse_createTime = Lens.lens (\DescribeRouteCalculatorResponse' {createTime} -> createTime) (\s@DescribeRouteCalculatorResponse' {} a -> s {createTime = a} :: DescribeRouteCalculatorResponse) Prelude.. Core._Time
+describeRouteCalculatorResponse_createTime = Lens.lens (\DescribeRouteCalculatorResponse' {createTime} -> createTime) (\s@DescribeRouteCalculatorResponse' {} a -> s {createTime = a} :: DescribeRouteCalculatorResponse) Prelude.. Data._Time
 
 -- | The data provider of traffic and road network data. Indicates one of the
 -- available providers:
@@ -310,32 +307,25 @@ describeRouteCalculatorResponse_dataSource = Lens.lens (\DescribeRouteCalculator
 describeRouteCalculatorResponse_description :: Lens.Lens' DescribeRouteCalculatorResponse Prelude.Text
 describeRouteCalculatorResponse_description = Lens.lens (\DescribeRouteCalculatorResponse' {description} -> description) (\s@DescribeRouteCalculatorResponse' {} a -> s {description = a} :: DescribeRouteCalculatorResponse)
 
--- | The pricing plan selected for the specified route calculator resource.
---
--- For additional details and restrictions on each pricing plan option, see
--- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
-describeRouteCalculatorResponse_pricingPlan :: Lens.Lens' DescribeRouteCalculatorResponse PricingPlan
-describeRouteCalculatorResponse_pricingPlan = Lens.lens (\DescribeRouteCalculatorResponse' {pricingPlan} -> pricingPlan) (\s@DescribeRouteCalculatorResponse' {} a -> s {pricingPlan = a} :: DescribeRouteCalculatorResponse)
-
 -- | The timestamp when the route calculator resource was last updated in
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
 --
 -- -   For example, @2020–07-2T12:15:20.000Z+01:00@
 describeRouteCalculatorResponse_updateTime :: Lens.Lens' DescribeRouteCalculatorResponse Prelude.UTCTime
-describeRouteCalculatorResponse_updateTime = Lens.lens (\DescribeRouteCalculatorResponse' {updateTime} -> updateTime) (\s@DescribeRouteCalculatorResponse' {} a -> s {updateTime = a} :: DescribeRouteCalculatorResponse) Prelude.. Core._Time
+describeRouteCalculatorResponse_updateTime = Lens.lens (\DescribeRouteCalculatorResponse' {updateTime} -> updateTime) (\s@DescribeRouteCalculatorResponse' {} a -> s {updateTime = a} :: DescribeRouteCalculatorResponse) Prelude.. Data._Time
 
 instance
   Prelude.NFData
     DescribeRouteCalculatorResponse
   where
   rnf DescribeRouteCalculatorResponse' {..} =
-    Prelude.rnf tags
+    Prelude.rnf pricingPlan
+      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf calculatorArn
       `Prelude.seq` Prelude.rnf calculatorName
       `Prelude.seq` Prelude.rnf createTime
       `Prelude.seq` Prelude.rnf dataSource
       `Prelude.seq` Prelude.rnf description
-      `Prelude.seq` Prelude.rnf pricingPlan
       `Prelude.seq` Prelude.rnf updateTime

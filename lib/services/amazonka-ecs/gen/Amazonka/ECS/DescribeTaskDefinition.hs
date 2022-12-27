@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.DescribeTaskDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,24 +40,25 @@ module Amazonka.ECS.DescribeTaskDefinition
     newDescribeTaskDefinitionResponse,
 
     -- * Response Lenses
-    describeTaskDefinitionResponse_taskDefinition,
     describeTaskDefinitionResponse_tags,
+    describeTaskDefinitionResponse_taskDefinition,
     describeTaskDefinitionResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeTaskDefinition' smart constructor.
 data DescribeTaskDefinition = DescribeTaskDefinition'
-  { -- | Specifies whether to see the resource tags for the task definition. If
+  { -- | Determines whether to see the resource tags for the task definition. If
     -- @TAGS@ is specified, the tags are included in the response. If this
-    -- field is omitted, tags are not included in the response.
+    -- field is omitted, tags aren\'t included in the response.
     include :: Prelude.Maybe [TaskDefinitionField],
     -- | The @family@ for the latest @ACTIVE@ revision, @family@ and @revision@
     -- (@family:revision@) for a specific revision in the family, or full
@@ -74,9 +75,9 @@ data DescribeTaskDefinition = DescribeTaskDefinition'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'include', 'describeTaskDefinition_include' - Specifies whether to see the resource tags for the task definition. If
+-- 'include', 'describeTaskDefinition_include' - Determines whether to see the resource tags for the task definition. If
 -- @TAGS@ is specified, the tags are included in the response. If this
--- field is omitted, tags are not included in the response.
+-- field is omitted, tags aren\'t included in the response.
 --
 -- 'taskDefinition', 'describeTaskDefinition_taskDefinition' - The @family@ for the latest @ACTIVE@ revision, @family@ and @revision@
 -- (@family:revision@) for a specific revision in the family, or full
@@ -91,9 +92,9 @@ newDescribeTaskDefinition pTaskDefinition_ =
       taskDefinition = pTaskDefinition_
     }
 
--- | Specifies whether to see the resource tags for the task definition. If
+-- | Determines whether to see the resource tags for the task definition. If
 -- @TAGS@ is specified, the tags are included in the response. If this
--- field is omitted, tags are not included in the response.
+-- field is omitted, tags aren\'t included in the response.
 describeTaskDefinition_include :: Lens.Lens' DescribeTaskDefinition (Prelude.Maybe [TaskDefinitionField])
 describeTaskDefinition_include = Lens.lens (\DescribeTaskDefinition' {include} -> include) (\s@DescribeTaskDefinition' {} a -> s {include = a} :: DescribeTaskDefinition) Prelude.. Lens.mapping Lens.coerced
 
@@ -107,13 +108,14 @@ instance Core.AWSRequest DescribeTaskDefinition where
   type
     AWSResponse DescribeTaskDefinition =
       DescribeTaskDefinitionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeTaskDefinitionResponse'
-            Prelude.<$> (x Core..?> "taskDefinition")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "taskDefinition")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -127,44 +129,42 @@ instance Prelude.NFData DescribeTaskDefinition where
     Prelude.rnf include
       `Prelude.seq` Prelude.rnf taskDefinition
 
-instance Core.ToHeaders DescribeTaskDefinition where
+instance Data.ToHeaders DescribeTaskDefinition where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerServiceV20141113.DescribeTaskDefinition" ::
+              Data.=# ( "AmazonEC2ContainerServiceV20141113.DescribeTaskDefinition" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeTaskDefinition where
+instance Data.ToJSON DescribeTaskDefinition where
   toJSON DescribeTaskDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("include" Core..=) Prelude.<$> include,
+          [ ("include" Data..=) Prelude.<$> include,
             Prelude.Just
-              ("taskDefinition" Core..= taskDefinition)
+              ("taskDefinition" Data..= taskDefinition)
           ]
       )
 
-instance Core.ToPath DescribeTaskDefinition where
+instance Data.ToPath DescribeTaskDefinition where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeTaskDefinition where
+instance Data.ToQuery DescribeTaskDefinition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeTaskDefinitionResponse' smart constructor.
 data DescribeTaskDefinitionResponse = DescribeTaskDefinitionResponse'
-  { -- | The full task definition description.
-    taskDefinition :: Prelude.Maybe TaskDefinition,
-    -- | The metadata that is applied to the task definition to help you
+  { -- | The metadata that\'s applied to the task definition to help you
     -- categorize and organize them. Each tag consists of a key and an optional
-    -- value, both of which you define.
+    -- value. You define both.
     --
     -- The following basic restrictions apply to tags:
     --
@@ -191,6 +191,8 @@ data DescribeTaskDefinitionResponse = DescribeTaskDefinitionResponse'
     --     values with this prefix. Tags with this prefix do not count against
     --     your tags per resource limit.
     tags :: Prelude.Maybe [Tag],
+    -- | The full task definition description.
+    taskDefinition :: Prelude.Maybe TaskDefinition,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -204,11 +206,9 @@ data DescribeTaskDefinitionResponse = DescribeTaskDefinitionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'taskDefinition', 'describeTaskDefinitionResponse_taskDefinition' - The full task definition description.
---
--- 'tags', 'describeTaskDefinitionResponse_tags' - The metadata that is applied to the task definition to help you
+-- 'tags', 'describeTaskDefinitionResponse_tags' - The metadata that\'s applied to the task definition to help you
 -- categorize and organize them. Each tag consists of a key and an optional
--- value, both of which you define.
+-- value. You define both.
 --
 -- The following basic restrictions apply to tags:
 --
@@ -235,6 +235,8 @@ data DescribeTaskDefinitionResponse = DescribeTaskDefinitionResponse'
 --     values with this prefix. Tags with this prefix do not count against
 --     your tags per resource limit.
 --
+-- 'taskDefinition', 'describeTaskDefinitionResponse_taskDefinition' - The full task definition description.
+--
 -- 'httpStatus', 'describeTaskDefinitionResponse_httpStatus' - The response's http status code.
 newDescribeTaskDefinitionResponse ::
   -- | 'httpStatus'
@@ -242,19 +244,15 @@ newDescribeTaskDefinitionResponse ::
   DescribeTaskDefinitionResponse
 newDescribeTaskDefinitionResponse pHttpStatus_ =
   DescribeTaskDefinitionResponse'
-    { taskDefinition =
+    { tags =
         Prelude.Nothing,
-      tags = Prelude.Nothing,
+      taskDefinition = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The full task definition description.
-describeTaskDefinitionResponse_taskDefinition :: Lens.Lens' DescribeTaskDefinitionResponse (Prelude.Maybe TaskDefinition)
-describeTaskDefinitionResponse_taskDefinition = Lens.lens (\DescribeTaskDefinitionResponse' {taskDefinition} -> taskDefinition) (\s@DescribeTaskDefinitionResponse' {} a -> s {taskDefinition = a} :: DescribeTaskDefinitionResponse)
-
--- | The metadata that is applied to the task definition to help you
+-- | The metadata that\'s applied to the task definition to help you
 -- categorize and organize them. Each tag consists of a key and an optional
--- value, both of which you define.
+-- value. You define both.
 --
 -- The following basic restrictions apply to tags:
 --
@@ -283,6 +281,10 @@ describeTaskDefinitionResponse_taskDefinition = Lens.lens (\DescribeTaskDefiniti
 describeTaskDefinitionResponse_tags :: Lens.Lens' DescribeTaskDefinitionResponse (Prelude.Maybe [Tag])
 describeTaskDefinitionResponse_tags = Lens.lens (\DescribeTaskDefinitionResponse' {tags} -> tags) (\s@DescribeTaskDefinitionResponse' {} a -> s {tags = a} :: DescribeTaskDefinitionResponse) Prelude.. Lens.mapping Lens.coerced
 
+-- | The full task definition description.
+describeTaskDefinitionResponse_taskDefinition :: Lens.Lens' DescribeTaskDefinitionResponse (Prelude.Maybe TaskDefinition)
+describeTaskDefinitionResponse_taskDefinition = Lens.lens (\DescribeTaskDefinitionResponse' {taskDefinition} -> taskDefinition) (\s@DescribeTaskDefinitionResponse' {} a -> s {taskDefinition = a} :: DescribeTaskDefinitionResponse)
+
 -- | The response's http status code.
 describeTaskDefinitionResponse_httpStatus :: Lens.Lens' DescribeTaskDefinitionResponse Prelude.Int
 describeTaskDefinitionResponse_httpStatus = Lens.lens (\DescribeTaskDefinitionResponse' {httpStatus} -> httpStatus) (\s@DescribeTaskDefinitionResponse' {} a -> s {httpStatus = a} :: DescribeTaskDefinitionResponse)
@@ -292,6 +294,6 @@ instance
     DescribeTaskDefinitionResponse
   where
   rnf DescribeTaskDefinitionResponse' {..} =
-    Prelude.rnf taskDefinition
-      `Prelude.seq` Prelude.rnf tags
+    Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf taskDefinition
       `Prelude.seq` Prelude.rnf httpStatus

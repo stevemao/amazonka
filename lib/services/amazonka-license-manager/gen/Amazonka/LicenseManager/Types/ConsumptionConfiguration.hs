@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.Types.ConsumptionConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LicenseManager.Types.ConsumptionConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LicenseManager.Types.BorrowConfiguration
 import Amazonka.LicenseManager.Types.ProvisionalConfiguration
 import Amazonka.LicenseManager.Types.RenewType
@@ -74,15 +75,15 @@ consumptionConfiguration_provisionalConfiguration = Lens.lens (\ConsumptionConfi
 consumptionConfiguration_renewType :: Lens.Lens' ConsumptionConfiguration (Prelude.Maybe RenewType)
 consumptionConfiguration_renewType = Lens.lens (\ConsumptionConfiguration' {renewType} -> renewType) (\s@ConsumptionConfiguration' {} a -> s {renewType = a} :: ConsumptionConfiguration)
 
-instance Core.FromJSON ConsumptionConfiguration where
+instance Data.FromJSON ConsumptionConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ConsumptionConfiguration"
       ( \x ->
           ConsumptionConfiguration'
-            Prelude.<$> (x Core..:? "BorrowConfiguration")
-            Prelude.<*> (x Core..:? "ProvisionalConfiguration")
-            Prelude.<*> (x Core..:? "RenewType")
+            Prelude.<$> (x Data..:? "BorrowConfiguration")
+            Prelude.<*> (x Data..:? "ProvisionalConfiguration")
+            Prelude.<*> (x Data..:? "RenewType")
       )
 
 instance Prelude.Hashable ConsumptionConfiguration where
@@ -97,14 +98,14 @@ instance Prelude.NFData ConsumptionConfiguration where
       `Prelude.seq` Prelude.rnf provisionalConfiguration
       `Prelude.seq` Prelude.rnf renewType
 
-instance Core.ToJSON ConsumptionConfiguration where
+instance Data.ToJSON ConsumptionConfiguration where
   toJSON ConsumptionConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("BorrowConfiguration" Core..=)
+          [ ("BorrowConfiguration" Data..=)
               Prelude.<$> borrowConfiguration,
-            ("ProvisionalConfiguration" Core..=)
+            ("ProvisionalConfiguration" Data..=)
               Prelude.<$> provisionalConfiguration,
-            ("RenewType" Core..=) Prelude.<$> renewType
+            ("RenewType" Data..=) Prelude.<$> renewType
           ]
       )

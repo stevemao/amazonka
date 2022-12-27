@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.GetSipRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,12 +77,13 @@ getSipRule_sipRuleId = Lens.lens (\GetSipRule' {sipRuleId} -> sipRuleId) (\s@Get
 
 instance Core.AWSRequest GetSipRule where
   type AWSResponse GetSipRule = GetSipRuleResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSipRuleResponse'
-            Prelude.<$> (x Core..?> "SipRule")
+            Prelude.<$> (x Data..?> "SipRule")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -92,15 +94,15 @@ instance Prelude.Hashable GetSipRule where
 instance Prelude.NFData GetSipRule where
   rnf GetSipRule' {..} = Prelude.rnf sipRuleId
 
-instance Core.ToHeaders GetSipRule where
+instance Data.ToHeaders GetSipRule where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetSipRule where
+instance Data.ToPath GetSipRule where
   toPath GetSipRule' {..} =
     Prelude.mconcat
-      ["/sip-rules/", Core.toBS sipRuleId]
+      ["/sip-rules/", Data.toBS sipRuleId]
 
-instance Core.ToQuery GetSipRule where
+instance Data.ToQuery GetSipRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetSipRuleResponse' smart constructor.

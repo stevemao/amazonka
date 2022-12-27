@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalytics.Types.ReferenceDataSourceUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.KinesisAnalytics.Types.ReferenceDataSourceUpdate where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalytics.Types.S3ReferenceDataSourceUpdate
 import Amazonka.KinesisAnalytics.Types.SourceSchema
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | When you update a reference data source configuration for an
@@ -34,16 +35,16 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newReferenceDataSourceUpdate' smart constructor.
 data ReferenceDataSourceUpdate = ReferenceDataSourceUpdate'
-  { -- | In-application table name that is created by this update.
-    tableNameUpdate :: Prelude.Maybe Prelude.Text,
+  { -- | Describes the format of the data in the streaming source, and how each
+    -- data element maps to corresponding columns created in the in-application
+    -- stream.
+    referenceSchemaUpdate :: Prelude.Maybe SourceSchema,
     -- | Describes the S3 bucket name, object key name, and IAM role that Amazon
     -- Kinesis Analytics can assume to read the Amazon S3 object on your behalf
     -- and populate the in-application reference table.
     s3ReferenceDataSourceUpdate :: Prelude.Maybe S3ReferenceDataSourceUpdate,
-    -- | Describes the format of the data in the streaming source, and how each
-    -- data element maps to corresponding columns created in the in-application
-    -- stream.
-    referenceSchemaUpdate :: Prelude.Maybe SourceSchema,
+    -- | In-application table name that is created by this update.
+    tableNameUpdate :: Prelude.Maybe Prelude.Text,
     -- | ID of the reference data source being updated. You can use the
     -- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication>
     -- operation to get this value.
@@ -59,15 +60,15 @@ data ReferenceDataSourceUpdate = ReferenceDataSourceUpdate'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tableNameUpdate', 'referenceDataSourceUpdate_tableNameUpdate' - In-application table name that is created by this update.
+-- 'referenceSchemaUpdate', 'referenceDataSourceUpdate_referenceSchemaUpdate' - Describes the format of the data in the streaming source, and how each
+-- data element maps to corresponding columns created in the in-application
+-- stream.
 --
 -- 's3ReferenceDataSourceUpdate', 'referenceDataSourceUpdate_s3ReferenceDataSourceUpdate' - Describes the S3 bucket name, object key name, and IAM role that Amazon
 -- Kinesis Analytics can assume to read the Amazon S3 object on your behalf
 -- and populate the in-application reference table.
 --
--- 'referenceSchemaUpdate', 'referenceDataSourceUpdate_referenceSchemaUpdate' - Describes the format of the data in the streaming source, and how each
--- data element maps to corresponding columns created in the in-application
--- stream.
+-- 'tableNameUpdate', 'referenceDataSourceUpdate_tableNameUpdate' - In-application table name that is created by this update.
 --
 -- 'referenceId', 'referenceDataSourceUpdate_referenceId' - ID of the reference data source being updated. You can use the
 -- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication>
@@ -78,16 +79,18 @@ newReferenceDataSourceUpdate ::
   ReferenceDataSourceUpdate
 newReferenceDataSourceUpdate pReferenceId_ =
   ReferenceDataSourceUpdate'
-    { tableNameUpdate =
+    { referenceSchemaUpdate =
         Prelude.Nothing,
       s3ReferenceDataSourceUpdate = Prelude.Nothing,
-      referenceSchemaUpdate = Prelude.Nothing,
+      tableNameUpdate = Prelude.Nothing,
       referenceId = pReferenceId_
     }
 
--- | In-application table name that is created by this update.
-referenceDataSourceUpdate_tableNameUpdate :: Lens.Lens' ReferenceDataSourceUpdate (Prelude.Maybe Prelude.Text)
-referenceDataSourceUpdate_tableNameUpdate = Lens.lens (\ReferenceDataSourceUpdate' {tableNameUpdate} -> tableNameUpdate) (\s@ReferenceDataSourceUpdate' {} a -> s {tableNameUpdate = a} :: ReferenceDataSourceUpdate)
+-- | Describes the format of the data in the streaming source, and how each
+-- data element maps to corresponding columns created in the in-application
+-- stream.
+referenceDataSourceUpdate_referenceSchemaUpdate :: Lens.Lens' ReferenceDataSourceUpdate (Prelude.Maybe SourceSchema)
+referenceDataSourceUpdate_referenceSchemaUpdate = Lens.lens (\ReferenceDataSourceUpdate' {referenceSchemaUpdate} -> referenceSchemaUpdate) (\s@ReferenceDataSourceUpdate' {} a -> s {referenceSchemaUpdate = a} :: ReferenceDataSourceUpdate)
 
 -- | Describes the S3 bucket name, object key name, and IAM role that Amazon
 -- Kinesis Analytics can assume to read the Amazon S3 object on your behalf
@@ -95,11 +98,9 @@ referenceDataSourceUpdate_tableNameUpdate = Lens.lens (\ReferenceDataSourceUpdat
 referenceDataSourceUpdate_s3ReferenceDataSourceUpdate :: Lens.Lens' ReferenceDataSourceUpdate (Prelude.Maybe S3ReferenceDataSourceUpdate)
 referenceDataSourceUpdate_s3ReferenceDataSourceUpdate = Lens.lens (\ReferenceDataSourceUpdate' {s3ReferenceDataSourceUpdate} -> s3ReferenceDataSourceUpdate) (\s@ReferenceDataSourceUpdate' {} a -> s {s3ReferenceDataSourceUpdate = a} :: ReferenceDataSourceUpdate)
 
--- | Describes the format of the data in the streaming source, and how each
--- data element maps to corresponding columns created in the in-application
--- stream.
-referenceDataSourceUpdate_referenceSchemaUpdate :: Lens.Lens' ReferenceDataSourceUpdate (Prelude.Maybe SourceSchema)
-referenceDataSourceUpdate_referenceSchemaUpdate = Lens.lens (\ReferenceDataSourceUpdate' {referenceSchemaUpdate} -> referenceSchemaUpdate) (\s@ReferenceDataSourceUpdate' {} a -> s {referenceSchemaUpdate = a} :: ReferenceDataSourceUpdate)
+-- | In-application table name that is created by this update.
+referenceDataSourceUpdate_tableNameUpdate :: Lens.Lens' ReferenceDataSourceUpdate (Prelude.Maybe Prelude.Text)
+referenceDataSourceUpdate_tableNameUpdate = Lens.lens (\ReferenceDataSourceUpdate' {tableNameUpdate} -> tableNameUpdate) (\s@ReferenceDataSourceUpdate' {} a -> s {tableNameUpdate = a} :: ReferenceDataSourceUpdate)
 
 -- | ID of the reference data source being updated. You can use the
 -- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html DescribeApplication>
@@ -109,28 +110,28 @@ referenceDataSourceUpdate_referenceId = Lens.lens (\ReferenceDataSourceUpdate' {
 
 instance Prelude.Hashable ReferenceDataSourceUpdate where
   hashWithSalt _salt ReferenceDataSourceUpdate' {..} =
-    _salt `Prelude.hashWithSalt` tableNameUpdate
+    _salt `Prelude.hashWithSalt` referenceSchemaUpdate
       `Prelude.hashWithSalt` s3ReferenceDataSourceUpdate
-      `Prelude.hashWithSalt` referenceSchemaUpdate
+      `Prelude.hashWithSalt` tableNameUpdate
       `Prelude.hashWithSalt` referenceId
 
 instance Prelude.NFData ReferenceDataSourceUpdate where
   rnf ReferenceDataSourceUpdate' {..} =
-    Prelude.rnf tableNameUpdate
+    Prelude.rnf referenceSchemaUpdate
       `Prelude.seq` Prelude.rnf s3ReferenceDataSourceUpdate
-      `Prelude.seq` Prelude.rnf referenceSchemaUpdate
+      `Prelude.seq` Prelude.rnf tableNameUpdate
       `Prelude.seq` Prelude.rnf referenceId
 
-instance Core.ToJSON ReferenceDataSourceUpdate where
+instance Data.ToJSON ReferenceDataSourceUpdate where
   toJSON ReferenceDataSourceUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TableNameUpdate" Core..=)
-              Prelude.<$> tableNameUpdate,
-            ("S3ReferenceDataSourceUpdate" Core..=)
-              Prelude.<$> s3ReferenceDataSourceUpdate,
-            ("ReferenceSchemaUpdate" Core..=)
+          [ ("ReferenceSchemaUpdate" Data..=)
               Prelude.<$> referenceSchemaUpdate,
-            Prelude.Just ("ReferenceId" Core..= referenceId)
+            ("S3ReferenceDataSourceUpdate" Data..=)
+              Prelude.<$> s3ReferenceDataSourceUpdate,
+            ("TableNameUpdate" Data..=)
+              Prelude.<$> tableNameUpdate,
+            Prelude.Just ("ReferenceId" Data..= referenceId)
           ]
       )

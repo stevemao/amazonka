@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Signer.ListSigningProfiles
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,25 +36,26 @@ module Amazonka.Signer.ListSigningProfiles
     newListSigningProfiles,
 
     -- * Request Lenses
+    listSigningProfiles_includeCanceled,
+    listSigningProfiles_maxResults,
     listSigningProfiles_nextToken,
     listSigningProfiles_platformId,
     listSigningProfiles_statuses,
-    listSigningProfiles_includeCanceled,
-    listSigningProfiles_maxResults,
 
     -- * Destructuring the Response
     ListSigningProfilesResponse (..),
     newListSigningProfilesResponse,
 
     -- * Response Lenses
-    listSigningProfilesResponse_profiles,
     listSigningProfilesResponse_nextToken,
+    listSigningProfilesResponse_profiles,
     listSigningProfilesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,7 +63,11 @@ import Amazonka.Signer.Types
 
 -- | /See:/ 'newListSigningProfiles' smart constructor.
 data ListSigningProfiles = ListSigningProfiles'
-  { -- | Value for specifying the next set of paginated results to return. After
+  { -- | Designates whether to include profiles with the status of @CANCELED@.
+    includeCanceled :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of profiles to be returned.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Value for specifying the next set of paginated results to return. After
     -- you receive a response with truncated results, use this parameter in a
     -- subsequent request. Set it to the value of @nextToken@ from the response
     -- that you just received.
@@ -72,11 +77,7 @@ data ListSigningProfiles = ListSigningProfiles'
     platformId :: Prelude.Maybe Prelude.Text,
     -- | Filters results to return only signing jobs with statuses in the
     -- specified list.
-    statuses :: Prelude.Maybe [SigningProfileStatus],
-    -- | Designates whether to include profiles with the status of @CANCELED@.
-    includeCanceled :: Prelude.Maybe Prelude.Bool,
-    -- | The maximum number of profiles to be returned.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    statuses :: Prelude.Maybe [SigningProfileStatus]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -88,6 +89,10 @@ data ListSigningProfiles = ListSigningProfiles'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'includeCanceled', 'listSigningProfiles_includeCanceled' - Designates whether to include profiles with the status of @CANCELED@.
+--
+-- 'maxResults', 'listSigningProfiles_maxResults' - The maximum number of profiles to be returned.
+--
 -- 'nextToken', 'listSigningProfiles_nextToken' - Value for specifying the next set of paginated results to return. After
 -- you receive a response with truncated results, use this parameter in a
 -- subsequent request. Set it to the value of @nextToken@ from the response
@@ -98,20 +103,25 @@ data ListSigningProfiles = ListSigningProfiles'
 --
 -- 'statuses', 'listSigningProfiles_statuses' - Filters results to return only signing jobs with statuses in the
 -- specified list.
---
--- 'includeCanceled', 'listSigningProfiles_includeCanceled' - Designates whether to include profiles with the status of @CANCELED@.
---
--- 'maxResults', 'listSigningProfiles_maxResults' - The maximum number of profiles to be returned.
 newListSigningProfiles ::
   ListSigningProfiles
 newListSigningProfiles =
   ListSigningProfiles'
-    { nextToken = Prelude.Nothing,
+    { includeCanceled =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       platformId = Prelude.Nothing,
-      statuses = Prelude.Nothing,
-      includeCanceled = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      statuses = Prelude.Nothing
     }
+
+-- | Designates whether to include profiles with the status of @CANCELED@.
+listSigningProfiles_includeCanceled :: Lens.Lens' ListSigningProfiles (Prelude.Maybe Prelude.Bool)
+listSigningProfiles_includeCanceled = Lens.lens (\ListSigningProfiles' {includeCanceled} -> includeCanceled) (\s@ListSigningProfiles' {} a -> s {includeCanceled = a} :: ListSigningProfiles)
+
+-- | The maximum number of profiles to be returned.
+listSigningProfiles_maxResults :: Lens.Lens' ListSigningProfiles (Prelude.Maybe Prelude.Natural)
+listSigningProfiles_maxResults = Lens.lens (\ListSigningProfiles' {maxResults} -> maxResults) (\s@ListSigningProfiles' {} a -> s {maxResults = a} :: ListSigningProfiles)
 
 -- | Value for specifying the next set of paginated results to return. After
 -- you receive a response with truncated results, use this parameter in a
@@ -129,14 +139,6 @@ listSigningProfiles_platformId = Lens.lens (\ListSigningProfiles' {platformId} -
 -- specified list.
 listSigningProfiles_statuses :: Lens.Lens' ListSigningProfiles (Prelude.Maybe [SigningProfileStatus])
 listSigningProfiles_statuses = Lens.lens (\ListSigningProfiles' {statuses} -> statuses) (\s@ListSigningProfiles' {} a -> s {statuses = a} :: ListSigningProfiles) Prelude.. Lens.mapping Lens.coerced
-
--- | Designates whether to include profiles with the status of @CANCELED@.
-listSigningProfiles_includeCanceled :: Lens.Lens' ListSigningProfiles (Prelude.Maybe Prelude.Bool)
-listSigningProfiles_includeCanceled = Lens.lens (\ListSigningProfiles' {includeCanceled} -> includeCanceled) (\s@ListSigningProfiles' {} a -> s {includeCanceled = a} :: ListSigningProfiles)
-
--- | The maximum number of profiles to be returned.
-listSigningProfiles_maxResults :: Lens.Lens' ListSigningProfiles (Prelude.Maybe Prelude.Natural)
-listSigningProfiles_maxResults = Lens.lens (\ListSigningProfiles' {maxResults} -> maxResults) (\s@ListSigningProfiles' {} a -> s {maxResults = a} :: ListSigningProfiles)
 
 instance Core.AWSPager ListSigningProfiles where
   page rq rs
@@ -164,66 +166,67 @@ instance Core.AWSRequest ListSigningProfiles where
   type
     AWSResponse ListSigningProfiles =
       ListSigningProfilesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListSigningProfilesResponse'
-            Prelude.<$> (x Core..?> "profiles" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "profiles" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListSigningProfiles where
   hashWithSalt _salt ListSigningProfiles' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` includeCanceled
+      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` platformId
       `Prelude.hashWithSalt` statuses
-      `Prelude.hashWithSalt` includeCanceled
-      `Prelude.hashWithSalt` maxResults
 
 instance Prelude.NFData ListSigningProfiles where
   rnf ListSigningProfiles' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf includeCanceled
+      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf platformId
       `Prelude.seq` Prelude.rnf statuses
-      `Prelude.seq` Prelude.rnf includeCanceled
-      `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders ListSigningProfiles where
+instance Data.ToHeaders ListSigningProfiles where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListSigningProfiles where
+instance Data.ToPath ListSigningProfiles where
   toPath = Prelude.const "/signing-profiles"
 
-instance Core.ToQuery ListSigningProfiles where
+instance Data.ToQuery ListSigningProfiles where
   toQuery ListSigningProfiles' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "platformId" Core.=: platformId,
+      [ "includeCanceled" Data.=: includeCanceled,
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "platformId" Data.=: platformId,
         "statuses"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> statuses),
-        "includeCanceled" Core.=: includeCanceled,
-        "maxResults" Core.=: maxResults
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> statuses)
       ]
 
 -- | /See:/ 'newListSigningProfilesResponse' smart constructor.
 data ListSigningProfilesResponse = ListSigningProfilesResponse'
-  { -- | A list of profiles that are available in the AWS account. This includes
+  { -- | Value for specifying the next set of paginated results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of profiles that are available in the AWS account. This includes
     -- profiles with the status of @CANCELED@ if the @includeCanceled@
     -- parameter is set to @true@.
     profiles :: Prelude.Maybe [SigningProfile],
-    -- | Value for specifying the next set of paginated results to return.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -237,11 +240,11 @@ data ListSigningProfilesResponse = ListSigningProfilesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'nextToken', 'listSigningProfilesResponse_nextToken' - Value for specifying the next set of paginated results to return.
+--
 -- 'profiles', 'listSigningProfilesResponse_profiles' - A list of profiles that are available in the AWS account. This includes
 -- profiles with the status of @CANCELED@ if the @includeCanceled@
 -- parameter is set to @true@.
---
--- 'nextToken', 'listSigningProfilesResponse_nextToken' - Value for specifying the next set of paginated results to return.
 --
 -- 'httpStatus', 'listSigningProfilesResponse_httpStatus' - The response's http status code.
 newListSigningProfilesResponse ::
@@ -250,11 +253,15 @@ newListSigningProfilesResponse ::
   ListSigningProfilesResponse
 newListSigningProfilesResponse pHttpStatus_ =
   ListSigningProfilesResponse'
-    { profiles =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      profiles = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | Value for specifying the next set of paginated results to return.
+listSigningProfilesResponse_nextToken :: Lens.Lens' ListSigningProfilesResponse (Prelude.Maybe Prelude.Text)
+listSigningProfilesResponse_nextToken = Lens.lens (\ListSigningProfilesResponse' {nextToken} -> nextToken) (\s@ListSigningProfilesResponse' {} a -> s {nextToken = a} :: ListSigningProfilesResponse)
 
 -- | A list of profiles that are available in the AWS account. This includes
 -- profiles with the status of @CANCELED@ if the @includeCanceled@
@@ -262,16 +269,12 @@ newListSigningProfilesResponse pHttpStatus_ =
 listSigningProfilesResponse_profiles :: Lens.Lens' ListSigningProfilesResponse (Prelude.Maybe [SigningProfile])
 listSigningProfilesResponse_profiles = Lens.lens (\ListSigningProfilesResponse' {profiles} -> profiles) (\s@ListSigningProfilesResponse' {} a -> s {profiles = a} :: ListSigningProfilesResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | Value for specifying the next set of paginated results to return.
-listSigningProfilesResponse_nextToken :: Lens.Lens' ListSigningProfilesResponse (Prelude.Maybe Prelude.Text)
-listSigningProfilesResponse_nextToken = Lens.lens (\ListSigningProfilesResponse' {nextToken} -> nextToken) (\s@ListSigningProfilesResponse' {} a -> s {nextToken = a} :: ListSigningProfilesResponse)
-
 -- | The response's http status code.
 listSigningProfilesResponse_httpStatus :: Lens.Lens' ListSigningProfilesResponse Prelude.Int
 listSigningProfilesResponse_httpStatus = Lens.lens (\ListSigningProfilesResponse' {httpStatus} -> httpStatus) (\s@ListSigningProfilesResponse' {} a -> s {httpStatus = a} :: ListSigningProfilesResponse)
 
 instance Prelude.NFData ListSigningProfilesResponse where
   rnf ListSigningProfilesResponse' {..} =
-    Prelude.rnf profiles
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf profiles
       `Prelude.seq` Prelude.rnf httpStatus

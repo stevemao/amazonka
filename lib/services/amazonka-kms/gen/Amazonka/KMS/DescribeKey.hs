@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KMS.DescribeKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,14 +29,19 @@
 -- This detailed information includes the key ARN, creation date (and
 -- deletion date, if applicable), the key state, and the origin and
 -- expiration date (if any) of the key material. It includes fields, like
--- @KeySpec@, that help you distinguish symmetric from asymmetric KMS keys.
--- It also provides information that is particularly important to
--- asymmetric keys, such as the key usage (encryption or signing) and the
--- encryption algorithms or signing algorithms that the KMS key supports.
--- For KMS keys in custom key stores, it includes information about the
--- custom key store, such as the key store ID and the CloudHSM cluster ID.
--- For multi-Region keys, it displays the primary key and all related
--- replica keys.
+-- @KeySpec@, that help you distinguish different types of KMS keys. It
+-- also displays the key usage (encryption, signing, or generating and
+-- verifying MACs) and the algorithms that the KMS key supports.
+--
+-- For
+-- <kms/latest/developerguide/multi-region-keys-overview.html multi-Region keys>,
+-- @DescribeKey@ displays the primary key and all related replica keys. For
+-- KMS keys in
+-- <kms/latest/developerguide/keystore-cloudhsm.html CloudHSM key stores>,
+-- it includes information about the key store, such as the key store ID
+-- and the CloudHSM cluster ID. For KMS keys in
+-- <kms/latest/developerguide/keystore-external.html external key stores>,
+-- it includes the custom key store ID and the ID of the external key.
 --
 -- @DescribeKey@ does not return the following information:
 --
@@ -47,19 +52,18 @@
 --     this information, use GetKeyRotationStatus. Also, some key states
 --     prevent a KMS key from being automatically rotated. For details, see
 --     <https://docs.aws.amazon.com/kms/latest/developerguide/rotate-keys.html#rotate-keys-how-it-works How Automatic Key Rotation Works>
---     in /Key Management Service Developer Guide/.
+--     in the /Key Management Service Developer Guide/.
 --
 -- -   Tags on the KMS key. To get this information, use ListResourceTags.
 --
 -- -   Key policies and grants on the KMS key. To get this information, use
 --     GetKeyPolicy and ListGrants.
 --
--- If you call the @DescribeKey@ operation on a /predefined Amazon Web
--- Services alias/, that is, an Amazon Web Services alias with no key ID,
--- KMS creates an
--- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-managed-cmk Amazon Web Services managed key>.
--- Then, it associates the alias with the new KMS key, and returns the
--- @KeyId@ and @Arn@ of the new KMS key in the response.
+-- In general, @DescribeKey@ is a non-mutating operation. It returns data
+-- about KMS keys, but doesn\'t change them. However, Amazon Web Services
+-- services use @DescribeKey@ to create
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-managed-cmk Amazon Web Services managed keys>
+-- from a /predefined Amazon Web Services alias/ with no key ID.
 --
 -- __Cross-account use__: Yes. To perform this operation with a KMS key in
 -- a different Amazon Web Services account, specify the key ARN or alias
@@ -104,8 +108,9 @@ module Amazonka.KMS.DescribeKey
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -246,12 +251,13 @@ describeKey_keyId = Lens.lens (\DescribeKey' {keyId} -> keyId) (\s@DescribeKey' 
 
 instance Core.AWSRequest DescribeKey where
   type AWSResponse DescribeKey = DescribeKeyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeKeyResponse'
-            Prelude.<$> (x Core..?> "KeyMetadata")
+            Prelude.<$> (x Data..?> "KeyMetadata")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -265,32 +271,32 @@ instance Prelude.NFData DescribeKey where
     Prelude.rnf grantTokens
       `Prelude.seq` Prelude.rnf keyId
 
-instance Core.ToHeaders DescribeKey where
+instance Data.ToHeaders DescribeKey where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("TrentService.DescribeKey" :: Prelude.ByteString),
+              Data.=# ("TrentService.DescribeKey" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeKey where
+instance Data.ToJSON DescribeKey where
   toJSON DescribeKey' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("GrantTokens" Core..=) Prelude.<$> grantTokens,
-            Prelude.Just ("KeyId" Core..= keyId)
+          [ ("GrantTokens" Data..=) Prelude.<$> grantTokens,
+            Prelude.Just ("KeyId" Data..= keyId)
           ]
       )
 
-instance Core.ToPath DescribeKey where
+instance Data.ToPath DescribeKey where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeKey where
+instance Data.ToQuery DescribeKey where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeKeyResponse' smart constructor.

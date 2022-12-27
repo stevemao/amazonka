@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.XRay.Types.AnomalousService
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.XRay.Types.AnomalousService where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.XRay.Types.ServiceId
 
@@ -51,13 +52,13 @@ newAnomalousService =
 anomalousService_serviceId :: Lens.Lens' AnomalousService (Prelude.Maybe ServiceId)
 anomalousService_serviceId = Lens.lens (\AnomalousService' {serviceId} -> serviceId) (\s@AnomalousService' {} a -> s {serviceId = a} :: AnomalousService)
 
-instance Core.FromJSON AnomalousService where
+instance Data.FromJSON AnomalousService where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AnomalousService"
       ( \x ->
           AnomalousService'
-            Prelude.<$> (x Core..:? "ServiceId")
+            Prelude.<$> (x Data..:? "ServiceId")
       )
 
 instance Prelude.Hashable AnomalousService where

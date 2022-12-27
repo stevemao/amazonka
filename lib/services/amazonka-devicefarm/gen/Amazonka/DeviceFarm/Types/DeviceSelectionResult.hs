@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.Types.DeviceSelectionResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.DeviceFarm.Types.DeviceSelectionResult where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types.DeviceFilter
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the run results requested by the device selection configuration
@@ -30,10 +31,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newDeviceSelectionResult' smart constructor.
 data DeviceSelectionResult = DeviceSelectionResult'
-  { -- | The number of devices that matched the device filter selection criteria.
-    matchedDevicesCount :: Prelude.Maybe Prelude.Int,
-    -- | The filters in a device selection result.
+  { -- | The filters in a device selection result.
     filters :: Prelude.Maybe [DeviceFilter],
+    -- | The number of devices that matched the device filter selection criteria.
+    matchedDevicesCount :: Prelude.Maybe Prelude.Int,
     -- | The maximum number of devices to be selected by a device filter and
     -- included in a test run.
     maxDevices :: Prelude.Maybe Prelude.Int
@@ -48,9 +49,9 @@ data DeviceSelectionResult = DeviceSelectionResult'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'matchedDevicesCount', 'deviceSelectionResult_matchedDevicesCount' - The number of devices that matched the device filter selection criteria.
---
 -- 'filters', 'deviceSelectionResult_filters' - The filters in a device selection result.
+--
+-- 'matchedDevicesCount', 'deviceSelectionResult_matchedDevicesCount' - The number of devices that matched the device filter selection criteria.
 --
 -- 'maxDevices', 'deviceSelectionResult_maxDevices' - The maximum number of devices to be selected by a device filter and
 -- included in a test run.
@@ -58,44 +59,43 @@ newDeviceSelectionResult ::
   DeviceSelectionResult
 newDeviceSelectionResult =
   DeviceSelectionResult'
-    { matchedDevicesCount =
-        Prelude.Nothing,
-      filters = Prelude.Nothing,
+    { filters = Prelude.Nothing,
+      matchedDevicesCount = Prelude.Nothing,
       maxDevices = Prelude.Nothing
     }
-
--- | The number of devices that matched the device filter selection criteria.
-deviceSelectionResult_matchedDevicesCount :: Lens.Lens' DeviceSelectionResult (Prelude.Maybe Prelude.Int)
-deviceSelectionResult_matchedDevicesCount = Lens.lens (\DeviceSelectionResult' {matchedDevicesCount} -> matchedDevicesCount) (\s@DeviceSelectionResult' {} a -> s {matchedDevicesCount = a} :: DeviceSelectionResult)
 
 -- | The filters in a device selection result.
 deviceSelectionResult_filters :: Lens.Lens' DeviceSelectionResult (Prelude.Maybe [DeviceFilter])
 deviceSelectionResult_filters = Lens.lens (\DeviceSelectionResult' {filters} -> filters) (\s@DeviceSelectionResult' {} a -> s {filters = a} :: DeviceSelectionResult) Prelude.. Lens.mapping Lens.coerced
+
+-- | The number of devices that matched the device filter selection criteria.
+deviceSelectionResult_matchedDevicesCount :: Lens.Lens' DeviceSelectionResult (Prelude.Maybe Prelude.Int)
+deviceSelectionResult_matchedDevicesCount = Lens.lens (\DeviceSelectionResult' {matchedDevicesCount} -> matchedDevicesCount) (\s@DeviceSelectionResult' {} a -> s {matchedDevicesCount = a} :: DeviceSelectionResult)
 
 -- | The maximum number of devices to be selected by a device filter and
 -- included in a test run.
 deviceSelectionResult_maxDevices :: Lens.Lens' DeviceSelectionResult (Prelude.Maybe Prelude.Int)
 deviceSelectionResult_maxDevices = Lens.lens (\DeviceSelectionResult' {maxDevices} -> maxDevices) (\s@DeviceSelectionResult' {} a -> s {maxDevices = a} :: DeviceSelectionResult)
 
-instance Core.FromJSON DeviceSelectionResult where
+instance Data.FromJSON DeviceSelectionResult where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DeviceSelectionResult"
       ( \x ->
           DeviceSelectionResult'
-            Prelude.<$> (x Core..:? "matchedDevicesCount")
-            Prelude.<*> (x Core..:? "filters" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "maxDevices")
+            Prelude.<$> (x Data..:? "filters" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "matchedDevicesCount")
+            Prelude.<*> (x Data..:? "maxDevices")
       )
 
 instance Prelude.Hashable DeviceSelectionResult where
   hashWithSalt _salt DeviceSelectionResult' {..} =
-    _salt `Prelude.hashWithSalt` matchedDevicesCount
-      `Prelude.hashWithSalt` filters
+    _salt `Prelude.hashWithSalt` filters
+      `Prelude.hashWithSalt` matchedDevicesCount
       `Prelude.hashWithSalt` maxDevices
 
 instance Prelude.NFData DeviceSelectionResult where
   rnf DeviceSelectionResult' {..} =
-    Prelude.rnf matchedDevicesCount
-      `Prelude.seq` Prelude.rnf filters
+    Prelude.rnf filters
+      `Prelude.seq` Prelude.rnf matchedDevicesCount
       `Prelude.seq` Prelude.rnf maxDevices

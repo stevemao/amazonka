@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.Types.VirtualMFADevice
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,35 +20,36 @@
 module Amazonka.IAM.Types.VirtualMFADevice where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types.Tag
 import Amazonka.IAM.Types.User
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about a virtual MFA device.
 --
 -- /See:/ 'newVirtualMFADevice' smart constructor.
 data VirtualMFADevice = VirtualMFADevice'
-  { -- | A QR code PNG image that encodes
+  { -- | The base32 seed defined as specified in
+    -- <https://tools.ietf.org/html/rfc3548.txt RFC3548>. The
+    -- @Base32StringSeed@ is base64-encoded.
+    base32StringSeed :: Prelude.Maybe (Data.Sensitive Data.Base64),
+    -- | The date and time on which the virtual MFA device was enabled.
+    enableDate :: Prelude.Maybe Data.ISO8601,
+    -- | A QR code PNG image that encodes
     -- @otpauth:\/\/totp\/$virtualMFADeviceName\@$AccountName?secret=$Base32String@
     -- where @$virtualMFADeviceName@ is one of the create call arguments.
     -- @AccountName@ is the user name if set (otherwise, the account ID
     -- otherwise), and @Base32String@ is the seed in base32 format. The
     -- @Base32String@ value is base64-encoded.
-    qRCodePNG :: Prelude.Maybe (Core.Sensitive Core.Base64),
-    -- | The base32 seed defined as specified in
-    -- <https://tools.ietf.org/html/rfc3548.txt RFC3548>. The
-    -- @Base32StringSeed@ is base64-encoded.
-    base32StringSeed :: Prelude.Maybe (Core.Sensitive Core.Base64),
-    -- | The IAM user associated with this virtual MFA device.
-    user :: Prelude.Maybe User,
-    -- | The date and time on which the virtual MFA device was enabled.
-    enableDate :: Prelude.Maybe Core.ISO8601,
+    qRCodePNG :: Prelude.Maybe (Data.Sensitive Data.Base64),
     -- | A list of tags that are attached to the virtual MFA device. For more
     -- information about tagging, see
     -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
     -- in the /IAM User Guide/.
     tags :: Prelude.Maybe [Tag],
+    -- | The IAM user associated with this virtual MFA device.
+    user :: Prelude.Maybe User,
     -- | The serial number associated with @VirtualMFADevice@.
     serialNumber :: Prelude.Text
   }
@@ -62,6 +63,16 @@ data VirtualMFADevice = VirtualMFADevice'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'base32StringSeed', 'virtualMFADevice_base32StringSeed' - The base32 seed defined as specified in
+-- <https://tools.ietf.org/html/rfc3548.txt RFC3548>. The
+-- @Base32StringSeed@ is base64-encoded.--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+--
+-- 'enableDate', 'virtualMFADevice_enableDate' - The date and time on which the virtual MFA device was enabled.
+--
 -- 'qRCodePNG', 'virtualMFADevice_qRCodePNG' - A QR code PNG image that encodes
 -- @otpauth:\/\/totp\/$virtualMFADeviceName\@$AccountName?secret=$Base32String@
 -- where @$virtualMFADeviceName@ is one of the create call arguments.
@@ -73,22 +84,12 @@ data VirtualMFADevice = VirtualMFADevice'
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 --
--- 'base32StringSeed', 'virtualMFADevice_base32StringSeed' - The base32 seed defined as specified in
--- <https://tools.ietf.org/html/rfc3548.txt RFC3548>. The
--- @Base32StringSeed@ is base64-encoded.--
--- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
--- -- The underlying isomorphism will encode to Base64 representation during
--- -- serialisation, and decode from Base64 representation during deserialisation.
--- -- This 'Lens' accepts and returns only raw unencoded data.
---
--- 'user', 'virtualMFADevice_user' - The IAM user associated with this virtual MFA device.
---
--- 'enableDate', 'virtualMFADevice_enableDate' - The date and time on which the virtual MFA device was enabled.
---
 -- 'tags', 'virtualMFADevice_tags' - A list of tags that are attached to the virtual MFA device. For more
 -- information about tagging, see
 -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
 -- in the /IAM User Guide/.
+--
+-- 'user', 'virtualMFADevice_user' - The IAM user associated with this virtual MFA device.
 --
 -- 'serialNumber', 'virtualMFADevice_serialNumber' - The serial number associated with @VirtualMFADevice@.
 newVirtualMFADevice ::
@@ -97,13 +98,28 @@ newVirtualMFADevice ::
   VirtualMFADevice
 newVirtualMFADevice pSerialNumber_ =
   VirtualMFADevice'
-    { qRCodePNG = Prelude.Nothing,
-      base32StringSeed = Prelude.Nothing,
-      user = Prelude.Nothing,
+    { base32StringSeed =
+        Prelude.Nothing,
       enableDate = Prelude.Nothing,
+      qRCodePNG = Prelude.Nothing,
       tags = Prelude.Nothing,
+      user = Prelude.Nothing,
       serialNumber = pSerialNumber_
     }
+
+-- | The base32 seed defined as specified in
+-- <https://tools.ietf.org/html/rfc3548.txt RFC3548>. The
+-- @Base32StringSeed@ is base64-encoded.--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+virtualMFADevice_base32StringSeed :: Lens.Lens' VirtualMFADevice (Prelude.Maybe Prelude.ByteString)
+virtualMFADevice_base32StringSeed = Lens.lens (\VirtualMFADevice' {base32StringSeed} -> base32StringSeed) (\s@VirtualMFADevice' {} a -> s {base32StringSeed = a} :: VirtualMFADevice) Prelude.. Lens.mapping (Data._Sensitive Prelude.. Data._Base64)
+
+-- | The date and time on which the virtual MFA device was enabled.
+virtualMFADevice_enableDate :: Lens.Lens' VirtualMFADevice (Prelude.Maybe Prelude.UTCTime)
+virtualMFADevice_enableDate = Lens.lens (\VirtualMFADevice' {enableDate} -> enableDate) (\s@VirtualMFADevice' {} a -> s {enableDate = a} :: VirtualMFADevice) Prelude.. Lens.mapping Data._Time
 
 -- | A QR code PNG image that encodes
 -- @otpauth:\/\/totp\/$virtualMFADeviceName\@$AccountName?secret=$Base32String@
@@ -116,25 +132,7 @@ newVirtualMFADevice pSerialNumber_ =
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 virtualMFADevice_qRCodePNG :: Lens.Lens' VirtualMFADevice (Prelude.Maybe Prelude.ByteString)
-virtualMFADevice_qRCodePNG = Lens.lens (\VirtualMFADevice' {qRCodePNG} -> qRCodePNG) (\s@VirtualMFADevice' {} a -> s {qRCodePNG = a} :: VirtualMFADevice) Prelude.. Lens.mapping (Core._Sensitive Prelude.. Core._Base64)
-
--- | The base32 seed defined as specified in
--- <https://tools.ietf.org/html/rfc3548.txt RFC3548>. The
--- @Base32StringSeed@ is base64-encoded.--
--- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
--- -- The underlying isomorphism will encode to Base64 representation during
--- -- serialisation, and decode from Base64 representation during deserialisation.
--- -- This 'Lens' accepts and returns only raw unencoded data.
-virtualMFADevice_base32StringSeed :: Lens.Lens' VirtualMFADevice (Prelude.Maybe Prelude.ByteString)
-virtualMFADevice_base32StringSeed = Lens.lens (\VirtualMFADevice' {base32StringSeed} -> base32StringSeed) (\s@VirtualMFADevice' {} a -> s {base32StringSeed = a} :: VirtualMFADevice) Prelude.. Lens.mapping (Core._Sensitive Prelude.. Core._Base64)
-
--- | The IAM user associated with this virtual MFA device.
-virtualMFADevice_user :: Lens.Lens' VirtualMFADevice (Prelude.Maybe User)
-virtualMFADevice_user = Lens.lens (\VirtualMFADevice' {user} -> user) (\s@VirtualMFADevice' {} a -> s {user = a} :: VirtualMFADevice)
-
--- | The date and time on which the virtual MFA device was enabled.
-virtualMFADevice_enableDate :: Lens.Lens' VirtualMFADevice (Prelude.Maybe Prelude.UTCTime)
-virtualMFADevice_enableDate = Lens.lens (\VirtualMFADevice' {enableDate} -> enableDate) (\s@VirtualMFADevice' {} a -> s {enableDate = a} :: VirtualMFADevice) Prelude.. Lens.mapping Core._Time
+virtualMFADevice_qRCodePNG = Lens.lens (\VirtualMFADevice' {qRCodePNG} -> qRCodePNG) (\s@VirtualMFADevice' {} a -> s {qRCodePNG = a} :: VirtualMFADevice) Prelude.. Lens.mapping (Data._Sensitive Prelude.. Data._Base64)
 
 -- | A list of tags that are attached to the virtual MFA device. For more
 -- information about tagging, see
@@ -143,36 +141,40 @@ virtualMFADevice_enableDate = Lens.lens (\VirtualMFADevice' {enableDate} -> enab
 virtualMFADevice_tags :: Lens.Lens' VirtualMFADevice (Prelude.Maybe [Tag])
 virtualMFADevice_tags = Lens.lens (\VirtualMFADevice' {tags} -> tags) (\s@VirtualMFADevice' {} a -> s {tags = a} :: VirtualMFADevice) Prelude.. Lens.mapping Lens.coerced
 
+-- | The IAM user associated with this virtual MFA device.
+virtualMFADevice_user :: Lens.Lens' VirtualMFADevice (Prelude.Maybe User)
+virtualMFADevice_user = Lens.lens (\VirtualMFADevice' {user} -> user) (\s@VirtualMFADevice' {} a -> s {user = a} :: VirtualMFADevice)
+
 -- | The serial number associated with @VirtualMFADevice@.
 virtualMFADevice_serialNumber :: Lens.Lens' VirtualMFADevice Prelude.Text
 virtualMFADevice_serialNumber = Lens.lens (\VirtualMFADevice' {serialNumber} -> serialNumber) (\s@VirtualMFADevice' {} a -> s {serialNumber = a} :: VirtualMFADevice)
 
-instance Core.FromXML VirtualMFADevice where
+instance Data.FromXML VirtualMFADevice where
   parseXML x =
     VirtualMFADevice'
-      Prelude.<$> (x Core..@? "QRCodePNG")
-      Prelude.<*> (x Core..@? "Base32StringSeed")
-      Prelude.<*> (x Core..@? "User")
-      Prelude.<*> (x Core..@? "EnableDate")
-      Prelude.<*> ( x Core..@? "Tags" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "member")
+      Prelude.<$> (x Data..@? "Base32StringSeed")
+      Prelude.<*> (x Data..@? "EnableDate")
+      Prelude.<*> (x Data..@? "QRCodePNG")
+      Prelude.<*> ( x Data..@? "Tags" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "member")
                   )
-      Prelude.<*> (x Core..@ "SerialNumber")
+      Prelude.<*> (x Data..@? "User")
+      Prelude.<*> (x Data..@ "SerialNumber")
 
 instance Prelude.Hashable VirtualMFADevice where
   hashWithSalt _salt VirtualMFADevice' {..} =
-    _salt `Prelude.hashWithSalt` qRCodePNG
-      `Prelude.hashWithSalt` base32StringSeed
-      `Prelude.hashWithSalt` user
+    _salt `Prelude.hashWithSalt` base32StringSeed
       `Prelude.hashWithSalt` enableDate
+      `Prelude.hashWithSalt` qRCodePNG
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` user
       `Prelude.hashWithSalt` serialNumber
 
 instance Prelude.NFData VirtualMFADevice where
   rnf VirtualMFADevice' {..} =
-    Prelude.rnf qRCodePNG
-      `Prelude.seq` Prelude.rnf base32StringSeed
-      `Prelude.seq` Prelude.rnf user
+    Prelude.rnf base32StringSeed
       `Prelude.seq` Prelude.rnf enableDate
+      `Prelude.seq` Prelude.rnf qRCodePNG
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf user
       `Prelude.seq` Prelude.rnf serialNumber

@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.Location.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,13 +18,13 @@ module Amazonka.Location.Types
     defaultService,
 
     -- * Errors
-    _ValidationException,
     _AccessDeniedException,
     _ConflictException,
-    _ServiceQuotaExceededException,
-    _ThrottlingException,
     _InternalServerException,
     _ResourceNotFoundException,
+    _ServiceQuotaExceededException,
+    _ThrottlingException,
+    _ValidationException,
 
     -- * BatchItemErrorCode
     BatchItemErrorCode (..),
@@ -42,6 +43,9 @@ module Amazonka.Location.Types
 
     -- * PricingPlan
     PricingPlan (..),
+
+    -- * RouteMatrixErrorCode
+    RouteMatrixErrorCode (..),
 
     -- * TravelMode
     TravelMode (..),
@@ -109,8 +113,16 @@ module Amazonka.Location.Types
     -- * CalculateRouteCarModeOptions
     CalculateRouteCarModeOptions (..),
     newCalculateRouteCarModeOptions,
-    calculateRouteCarModeOptions_avoidTolls,
     calculateRouteCarModeOptions_avoidFerries,
+    calculateRouteCarModeOptions_avoidTolls,
+
+    -- * CalculateRouteMatrixSummary
+    CalculateRouteMatrixSummary (..),
+    newCalculateRouteMatrixSummary,
+    calculateRouteMatrixSummary_dataSource,
+    calculateRouteMatrixSummary_distanceUnit,
+    calculateRouteMatrixSummary_errorCount,
+    calculateRouteMatrixSummary_routeCount,
 
     -- * CalculateRouteSummary
     CalculateRouteSummary (..),
@@ -124,10 +136,16 @@ module Amazonka.Location.Types
     -- * CalculateRouteTruckModeOptions
     CalculateRouteTruckModeOptions (..),
     newCalculateRouteTruckModeOptions,
-    calculateRouteTruckModeOptions_weight,
+    calculateRouteTruckModeOptions_avoidFerries,
     calculateRouteTruckModeOptions_avoidTolls,
     calculateRouteTruckModeOptions_dimensions,
-    calculateRouteTruckModeOptions_avoidFerries,
+    calculateRouteTruckModeOptions_weight,
+
+    -- * Circle
+    Circle (..),
+    newCircle,
+    circle_center,
+    circle_radius,
 
     -- * DataSourceConfiguration
     DataSourceConfiguration (..),
@@ -137,7 +155,9 @@ module Amazonka.Location.Types
     -- * DevicePosition
     DevicePosition (..),
     newDevicePosition,
+    devicePosition_accuracy,
     devicePosition_deviceId,
+    devicePosition_positionProperties,
     devicePosition_position,
     devicePosition_receivedTime,
     devicePosition_sampleTime,
@@ -145,6 +165,8 @@ module Amazonka.Location.Types
     -- * DevicePositionUpdate
     DevicePositionUpdate (..),
     newDevicePositionUpdate,
+    devicePositionUpdate_accuracy,
+    devicePositionUpdate_positionProperties,
     devicePositionUpdate_deviceId,
     devicePositionUpdate_position,
     devicePositionUpdate_sampleTime,
@@ -152,6 +174,7 @@ module Amazonka.Location.Types
     -- * GeofenceGeometry
     GeofenceGeometry (..),
     newGeofenceGeometry,
+    geofenceGeometry_circle,
     geofenceGeometry_polygon,
 
     -- * Leg
@@ -172,6 +195,8 @@ module Amazonka.Location.Types
     -- * ListDevicePositionsResponseEntry
     ListDevicePositionsResponseEntry (..),
     newListDevicePositionsResponseEntry,
+    listDevicePositionsResponseEntry_accuracy,
+    listDevicePositionsResponseEntry_positionProperties,
     listDevicePositionsResponseEntry_deviceId,
     listDevicePositionsResponseEntry_position,
     listDevicePositionsResponseEntry_sampleTime,
@@ -179,11 +204,11 @@ module Amazonka.Location.Types
     -- * ListGeofenceCollectionsResponseEntry
     ListGeofenceCollectionsResponseEntry (..),
     newListGeofenceCollectionsResponseEntry,
+    listGeofenceCollectionsResponseEntry_pricingPlan,
     listGeofenceCollectionsResponseEntry_pricingPlanDataSource,
     listGeofenceCollectionsResponseEntry_collectionName,
     listGeofenceCollectionsResponseEntry_createTime,
     listGeofenceCollectionsResponseEntry_description,
-    listGeofenceCollectionsResponseEntry_pricingPlan,
     listGeofenceCollectionsResponseEntry_updateTime,
 
     -- * ListGeofenceResponseEntry
@@ -198,40 +223,40 @@ module Amazonka.Location.Types
     -- * ListMapsResponseEntry
     ListMapsResponseEntry (..),
     newListMapsResponseEntry,
+    listMapsResponseEntry_pricingPlan,
     listMapsResponseEntry_createTime,
     listMapsResponseEntry_dataSource,
     listMapsResponseEntry_description,
     listMapsResponseEntry_mapName,
-    listMapsResponseEntry_pricingPlan,
     listMapsResponseEntry_updateTime,
 
     -- * ListPlaceIndexesResponseEntry
     ListPlaceIndexesResponseEntry (..),
     newListPlaceIndexesResponseEntry,
+    listPlaceIndexesResponseEntry_pricingPlan,
     listPlaceIndexesResponseEntry_createTime,
     listPlaceIndexesResponseEntry_dataSource,
     listPlaceIndexesResponseEntry_description,
     listPlaceIndexesResponseEntry_indexName,
-    listPlaceIndexesResponseEntry_pricingPlan,
     listPlaceIndexesResponseEntry_updateTime,
 
     -- * ListRouteCalculatorsResponseEntry
     ListRouteCalculatorsResponseEntry (..),
     newListRouteCalculatorsResponseEntry,
+    listRouteCalculatorsResponseEntry_pricingPlan,
     listRouteCalculatorsResponseEntry_calculatorName,
     listRouteCalculatorsResponseEntry_createTime,
     listRouteCalculatorsResponseEntry_dataSource,
     listRouteCalculatorsResponseEntry_description,
-    listRouteCalculatorsResponseEntry_pricingPlan,
     listRouteCalculatorsResponseEntry_updateTime,
 
     -- * ListTrackersResponseEntry
     ListTrackersResponseEntry (..),
     newListTrackersResponseEntry,
+    listTrackersResponseEntry_pricingPlan,
     listTrackersResponseEntry_pricingPlanDataSource,
     listTrackersResponseEntry_createTime,
     listTrackersResponseEntry_description,
-    listTrackersResponseEntry_pricingPlan,
     listTrackersResponseEntry_trackerName,
     listTrackersResponseEntry_updateTime,
 
@@ -243,15 +268,19 @@ module Amazonka.Location.Types
     -- * Place
     Place (..),
     newPlace,
-    place_municipality,
     place_addressNumber,
-    place_postalCode,
     place_country,
+    place_interpolated,
+    place_label,
+    place_municipality,
+    place_neighborhood,
+    place_postalCode,
+    place_region,
     place_street,
     place_subRegion,
-    place_region,
-    place_label,
-    place_neighborhood,
+    place_timeZone,
+    place_unitNumber,
+    place_unitType,
     place_geometry,
 
     -- * PlaceGeometry
@@ -259,31 +288,73 @@ module Amazonka.Location.Types
     newPlaceGeometry,
     placeGeometry_point,
 
+    -- * PositionalAccuracy
+    PositionalAccuracy (..),
+    newPositionalAccuracy,
+    positionalAccuracy_horizontal,
+
+    -- * RouteMatrixEntry
+    RouteMatrixEntry (..),
+    newRouteMatrixEntry,
+    routeMatrixEntry_distance,
+    routeMatrixEntry_durationSeconds,
+    routeMatrixEntry_error,
+
+    -- * RouteMatrixEntryError
+    RouteMatrixEntryError (..),
+    newRouteMatrixEntryError,
+    routeMatrixEntryError_message,
+    routeMatrixEntryError_code,
+
     -- * SearchForPositionResult
     SearchForPositionResult (..),
     newSearchForPositionResult,
+    searchForPositionResult_placeId,
+    searchForPositionResult_distance,
     searchForPositionResult_place,
+
+    -- * SearchForSuggestionsResult
+    SearchForSuggestionsResult (..),
+    newSearchForSuggestionsResult,
+    searchForSuggestionsResult_placeId,
+    searchForSuggestionsResult_text,
 
     -- * SearchForTextResult
     SearchForTextResult (..),
     newSearchForTextResult,
+    searchForTextResult_distance,
+    searchForTextResult_placeId,
+    searchForTextResult_relevance,
     searchForTextResult_place,
 
     -- * SearchPlaceIndexForPositionSummary
     SearchPlaceIndexForPositionSummary (..),
     newSearchPlaceIndexForPositionSummary,
+    searchPlaceIndexForPositionSummary_language,
     searchPlaceIndexForPositionSummary_maxResults,
     searchPlaceIndexForPositionSummary_dataSource,
     searchPlaceIndexForPositionSummary_position,
 
+    -- * SearchPlaceIndexForSuggestionsSummary
+    SearchPlaceIndexForSuggestionsSummary (..),
+    newSearchPlaceIndexForSuggestionsSummary,
+    searchPlaceIndexForSuggestionsSummary_biasPosition,
+    searchPlaceIndexForSuggestionsSummary_filterBBox,
+    searchPlaceIndexForSuggestionsSummary_filterCountries,
+    searchPlaceIndexForSuggestionsSummary_language,
+    searchPlaceIndexForSuggestionsSummary_maxResults,
+    searchPlaceIndexForSuggestionsSummary_dataSource,
+    searchPlaceIndexForSuggestionsSummary_text,
+
     -- * SearchPlaceIndexForTextSummary
     SearchPlaceIndexForTextSummary (..),
     newSearchPlaceIndexForTextSummary,
-    searchPlaceIndexForTextSummary_filterBBox,
-    searchPlaceIndexForTextSummary_resultBBox,
     searchPlaceIndexForTextSummary_biasPosition,
+    searchPlaceIndexForTextSummary_filterBBox,
     searchPlaceIndexForTextSummary_filterCountries,
+    searchPlaceIndexForTextSummary_language,
     searchPlaceIndexForTextSummary_maxResults,
+    searchPlaceIndexForTextSummary_resultBBox,
     searchPlaceIndexForTextSummary_dataSource,
     searchPlaceIndexForTextSummary_text,
 
@@ -296,13 +367,19 @@ module Amazonka.Location.Types
     step_endPosition,
     step_startPosition,
 
+    -- * TimeZone
+    TimeZone (..),
+    newTimeZone,
+    timeZone_offset,
+    timeZone_name,
+
     -- * TruckDimensions
     TruckDimensions (..),
     newTruckDimensions,
-    truckDimensions_length,
     truckDimensions_height,
-    truckDimensions_width,
+    truckDimensions_length,
     truckDimensions_unit,
+    truckDimensions_width,
 
     -- * TruckWeight
     TruckWeight (..),
@@ -313,7 +390,7 @@ module Amazonka.Location.Types
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.Location.Types.BatchDeleteDevicePositionHistoryError
 import Amazonka.Location.Types.BatchDeleteGeofenceError
 import Amazonka.Location.Types.BatchEvaluateGeofencesError
@@ -325,8 +402,10 @@ import Amazonka.Location.Types.BatchPutGeofenceRequestEntry
 import Amazonka.Location.Types.BatchPutGeofenceSuccess
 import Amazonka.Location.Types.BatchUpdateDevicePositionError
 import Amazonka.Location.Types.CalculateRouteCarModeOptions
+import Amazonka.Location.Types.CalculateRouteMatrixSummary
 import Amazonka.Location.Types.CalculateRouteSummary
 import Amazonka.Location.Types.CalculateRouteTruckModeOptions
+import Amazonka.Location.Types.Circle
 import Amazonka.Location.Types.DataSourceConfiguration
 import Amazonka.Location.Types.DevicePosition
 import Amazonka.Location.Types.DevicePositionUpdate
@@ -347,12 +426,19 @@ import Amazonka.Location.Types.MapConfiguration
 import Amazonka.Location.Types.Place
 import Amazonka.Location.Types.PlaceGeometry
 import Amazonka.Location.Types.PositionFiltering
+import Amazonka.Location.Types.PositionalAccuracy
 import Amazonka.Location.Types.PricingPlan
+import Amazonka.Location.Types.RouteMatrixEntry
+import Amazonka.Location.Types.RouteMatrixEntryError
+import Amazonka.Location.Types.RouteMatrixErrorCode
 import Amazonka.Location.Types.SearchForPositionResult
+import Amazonka.Location.Types.SearchForSuggestionsResult
 import Amazonka.Location.Types.SearchForTextResult
 import Amazonka.Location.Types.SearchPlaceIndexForPositionSummary
+import Amazonka.Location.Types.SearchPlaceIndexForSuggestionsSummary
 import Amazonka.Location.Types.SearchPlaceIndexForTextSummary
 import Amazonka.Location.Types.Step
+import Amazonka.Location.Types.TimeZone
 import Amazonka.Location.Types.TravelMode
 import Amazonka.Location.Types.TruckDimensions
 import Amazonka.Location.Types.TruckWeight
@@ -364,41 +450,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "Location",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "geo",
-      Core._serviceSigningName = "geo",
-      Core._serviceVersion = "2020-11-19",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError = Core.parseJSONError "Location",
-      Core._serviceRetry = retry
+    { Core.abbrev = "Location",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "geo",
+      Core.signingName = "geo",
+      Core.version = "2020-11-19",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "Location",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -406,37 +500,21 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
-
--- | The input failed to meet the constraints specified by the AWS service.
-_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ValidationException =
-  Core._MatchServiceError
-    defaultService
-    "ValidationException"
-    Prelude.. Core.hasStatus 400
 
 -- | The request was denied because of insufficient access or permissions.
 -- Check with an administrator to verify your permissions.
@@ -454,6 +532,23 @@ _ConflictException =
     defaultService
     "ConflictException"
     Prelude.. Core.hasStatus 409
+
+-- | The request has failed to process because of an unknown server error,
+-- exception, or failure.
+_InternalServerException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InternalServerException =
+  Core._MatchServiceError
+    defaultService
+    "InternalServerException"
+    Prelude.. Core.hasStatus 500
+
+-- | The resource that you\'ve entered was not found in your AWS account.
+_ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ResourceNotFoundException =
+  Core._MatchServiceError
+    defaultService
+    "ResourceNotFoundException"
+    Prelude.. Core.hasStatus 404
 
 -- | The operation was denied because the request would exceed the maximum
 -- <https://docs.aws.amazon.com/location/latest/developerguide/location-quotas.html quota>
@@ -473,19 +568,10 @@ _ThrottlingException =
     "ThrottlingException"
     Prelude.. Core.hasStatus 429
 
--- | The request has failed to process because of an unknown server error,
--- exception, or failure.
-_InternalServerException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InternalServerException =
+-- | The input failed to meet the constraints specified by the AWS service.
+_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ValidationException =
   Core._MatchServiceError
     defaultService
-    "InternalServerException"
-    Prelude.. Core.hasStatus 500
-
--- | The resource that you\'ve entered was not found in your AWS account.
-_ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ResourceNotFoundException =
-  Core._MatchServiceError
-    defaultService
-    "ResourceNotFoundException"
-    Prelude.. Core.hasStatus 404
+    "ValidationException"
+    Prelude.. Core.hasStatus 400

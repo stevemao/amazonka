@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.ValidationData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,17 @@
 module Amazonka.Rekognition.Types.ValidationData where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types.Asset
 
 -- | Contains the Amazon S3 bucket location of the validation data for a
 -- model training job.
 --
--- The validation data includes error information for individual JSON lines
--- in the dataset. For more information, see Debugging a Failed Model
--- Training in the Amazon Rekognition Custom Labels Developer Guide.
+-- The validation data includes error information for individual JSON Lines
+-- in the dataset. For more information, see /Debugging a Failed Model
+-- Training/ in the Amazon Rekognition Custom Labels Developer Guide.
 --
 -- You get the @ValidationData@ object for the training dataset
 -- (TrainingDataResult) and the test dataset (TestingDataResult) by calling
@@ -64,13 +65,13 @@ newValidationData =
 validationData_assets :: Lens.Lens' ValidationData (Prelude.Maybe [Asset])
 validationData_assets = Lens.lens (\ValidationData' {assets} -> assets) (\s@ValidationData' {} a -> s {assets = a} :: ValidationData) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON ValidationData where
+instance Data.FromJSON ValidationData where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ValidationData"
       ( \x ->
           ValidationData'
-            Prelude.<$> (x Core..:? "Assets" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Assets" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable ValidationData where

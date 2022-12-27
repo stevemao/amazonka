@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.DeleteOptionGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,7 +36,8 @@ module Amazonka.RDS.DeleteOptionGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -84,7 +85,8 @@ instance Core.AWSRequest DeleteOptionGroup where
   type
     AWSResponse DeleteOptionGroup =
       DeleteOptionGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull DeleteOptionGroupResponse'
 
@@ -96,20 +98,20 @@ instance Prelude.NFData DeleteOptionGroup where
   rnf DeleteOptionGroup' {..} =
     Prelude.rnf optionGroupName
 
-instance Core.ToHeaders DeleteOptionGroup where
+instance Data.ToHeaders DeleteOptionGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteOptionGroup where
+instance Data.ToPath DeleteOptionGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteOptionGroup where
+instance Data.ToQuery DeleteOptionGroup where
   toQuery DeleteOptionGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteOptionGroup" :: Prelude.ByteString),
+          Data.=: ("DeleteOptionGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "OptionGroupName" Core.=: optionGroupName
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "OptionGroupName" Data.=: optionGroupName
       ]
 
 -- | /See:/ 'newDeleteOptionGroupResponse' smart constructor.

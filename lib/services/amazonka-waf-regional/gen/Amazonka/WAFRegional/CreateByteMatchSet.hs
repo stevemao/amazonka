@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.CreateByteMatchSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -74,7 +74,8 @@ module Amazonka.WAFRegional.CreateByteMatchSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -127,13 +128,14 @@ instance Core.AWSRequest CreateByteMatchSet where
   type
     AWSResponse CreateByteMatchSet =
       CreateByteMatchSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateByteMatchSetResponse'
-            Prelude.<$> (x Core..?> "ByteMatchSet")
-            Prelude.<*> (x Core..?> "ChangeToken")
+            Prelude.<$> (x Data..?> "ByteMatchSet")
+            Prelude.<*> (x Data..?> "ChangeToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -147,34 +149,34 @@ instance Prelude.NFData CreateByteMatchSet where
     Prelude.rnf name
       `Prelude.seq` Prelude.rnf changeToken
 
-instance Core.ToHeaders CreateByteMatchSet where
+instance Data.ToHeaders CreateByteMatchSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_Regional_20161128.CreateByteMatchSet" ::
+              Data.=# ( "AWSWAF_Regional_20161128.CreateByteMatchSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateByteMatchSet where
+instance Data.ToJSON CreateByteMatchSet where
   toJSON CreateByteMatchSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("ChangeToken" Core..= changeToken)
+          [ Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("ChangeToken" Data..= changeToken)
           ]
       )
 
-instance Core.ToPath CreateByteMatchSet where
+instance Data.ToPath CreateByteMatchSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateByteMatchSet where
+instance Data.ToQuery CreateByteMatchSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateByteMatchSetResponse' smart constructor.

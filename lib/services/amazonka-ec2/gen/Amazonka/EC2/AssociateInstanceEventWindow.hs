@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.AssociateInstanceEventWindow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,8 +48,9 @@ module Amazonka.EC2.AssociateInstanceEventWindow
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -120,12 +121,13 @@ instance Core.AWSRequest AssociateInstanceEventWindow where
   type
     AWSResponse AssociateInstanceEventWindow =
       AssociateInstanceEventWindowResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           AssociateInstanceEventWindowResponse'
-            Prelude.<$> (x Core..@? "instanceEventWindow")
+            Prelude.<$> (x Data..@? "instanceEventWindow")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -144,25 +146,25 @@ instance Prelude.NFData AssociateInstanceEventWindow where
       `Prelude.seq` Prelude.rnf instanceEventWindowId
       `Prelude.seq` Prelude.rnf associationTarget
 
-instance Core.ToHeaders AssociateInstanceEventWindow where
+instance Data.ToHeaders AssociateInstanceEventWindow where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath AssociateInstanceEventWindow where
+instance Data.ToPath AssociateInstanceEventWindow where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AssociateInstanceEventWindow where
+instance Data.ToQuery AssociateInstanceEventWindow where
   toQuery AssociateInstanceEventWindow' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "AssociateInstanceEventWindow" ::
+          Data.=: ( "AssociateInstanceEventWindow" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
         "InstanceEventWindowId"
-          Core.=: instanceEventWindowId,
-        "AssociationTarget" Core.=: associationTarget
+          Data.=: instanceEventWindowId,
+        "AssociationTarget" Data.=: associationTarget
       ]
 
 -- | /See:/ 'newAssociateInstanceEventWindowResponse' smart constructor.

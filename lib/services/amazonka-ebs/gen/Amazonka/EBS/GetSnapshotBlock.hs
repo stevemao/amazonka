@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EBS.GetSnapshotBlock
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,17 +36,18 @@ module Amazonka.EBS.GetSnapshotBlock
     newGetSnapshotBlockResponse,
 
     -- * Response Lenses
-    getSnapshotBlockResponse_dataLength,
-    getSnapshotBlockResponse_checksumAlgorithm,
     getSnapshotBlockResponse_checksum,
+    getSnapshotBlockResponse_checksumAlgorithm,
+    getSnapshotBlockResponse_dataLength,
     getSnapshotBlockResponse_httpStatus,
     getSnapshotBlockResponse_blockData,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EBS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,16 +55,22 @@ import qualified Amazonka.Response as Response
 -- | /See:/ 'newGetSnapshotBlock' smart constructor.
 data GetSnapshotBlock = GetSnapshotBlock'
   { -- | The ID of the snapshot containing the block from which to get data.
+    --
+    -- If the specified snapshot is encrypted, you must have permission to use
+    -- the KMS key that was used to encrypt the snapshot. For more information,
+    -- see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebsapis-using-encryption.html Using encryption>
+    -- in the /Amazon Elastic Compute Cloud User Guide/.
     snapshotId :: Prelude.Text,
-    -- | The block index of the block from which to get data.
-    --
-    -- Obtain the @BlockIndex@ by running the @ListChangedBlocks@ or
-    -- @ListSnapshotBlocks@ operations.
+    -- | The block index of the block in which to read the data. A block index is
+    -- a logical index in units of @512@ KiB blocks. To identify the block
+    -- index, divide the logical offset of the data in the logical volume by
+    -- the block size (logical offset of data\/@524288@). The logical offset of
+    -- the data must be @512@ KiB aligned.
     blockIndex :: Prelude.Natural,
-    -- | The block token of the block from which to get data.
-    --
-    -- Obtain the @BlockToken@ by running the @ListChangedBlocks@ or
-    -- @ListSnapshotBlocks@ operations.
+    -- | The block token of the block from which to get data. You can obtain the
+    -- @BlockToken@ by running the @ListChangedBlocks@ or @ListSnapshotBlocks@
+    -- operations.
     blockToken :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -78,15 +85,21 @@ data GetSnapshotBlock = GetSnapshotBlock'
 --
 -- 'snapshotId', 'getSnapshotBlock_snapshotId' - The ID of the snapshot containing the block from which to get data.
 --
--- 'blockIndex', 'getSnapshotBlock_blockIndex' - The block index of the block from which to get data.
+-- If the specified snapshot is encrypted, you must have permission to use
+-- the KMS key that was used to encrypt the snapshot. For more information,
+-- see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebsapis-using-encryption.html Using encryption>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
 --
--- Obtain the @BlockIndex@ by running the @ListChangedBlocks@ or
--- @ListSnapshotBlocks@ operations.
+-- 'blockIndex', 'getSnapshotBlock_blockIndex' - The block index of the block in which to read the data. A block index is
+-- a logical index in units of @512@ KiB blocks. To identify the block
+-- index, divide the logical offset of the data in the logical volume by
+-- the block size (logical offset of data\/@524288@). The logical offset of
+-- the data must be @512@ KiB aligned.
 --
--- 'blockToken', 'getSnapshotBlock_blockToken' - The block token of the block from which to get data.
---
--- Obtain the @BlockToken@ by running the @ListChangedBlocks@ or
--- @ListSnapshotBlocks@ operations.
+-- 'blockToken', 'getSnapshotBlock_blockToken' - The block token of the block from which to get data. You can obtain the
+-- @BlockToken@ by running the @ListChangedBlocks@ or @ListSnapshotBlocks@
+-- operations.
 newGetSnapshotBlock ::
   -- | 'snapshotId'
   Prelude.Text ->
@@ -106,20 +119,26 @@ newGetSnapshotBlock
       }
 
 -- | The ID of the snapshot containing the block from which to get data.
+--
+-- If the specified snapshot is encrypted, you must have permission to use
+-- the KMS key that was used to encrypt the snapshot. For more information,
+-- see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebsapis-using-encryption.html Using encryption>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
 getSnapshotBlock_snapshotId :: Lens.Lens' GetSnapshotBlock Prelude.Text
 getSnapshotBlock_snapshotId = Lens.lens (\GetSnapshotBlock' {snapshotId} -> snapshotId) (\s@GetSnapshotBlock' {} a -> s {snapshotId = a} :: GetSnapshotBlock)
 
--- | The block index of the block from which to get data.
---
--- Obtain the @BlockIndex@ by running the @ListChangedBlocks@ or
--- @ListSnapshotBlocks@ operations.
+-- | The block index of the block in which to read the data. A block index is
+-- a logical index in units of @512@ KiB blocks. To identify the block
+-- index, divide the logical offset of the data in the logical volume by
+-- the block size (logical offset of data\/@524288@). The logical offset of
+-- the data must be @512@ KiB aligned.
 getSnapshotBlock_blockIndex :: Lens.Lens' GetSnapshotBlock Prelude.Natural
 getSnapshotBlock_blockIndex = Lens.lens (\GetSnapshotBlock' {blockIndex} -> blockIndex) (\s@GetSnapshotBlock' {} a -> s {blockIndex = a} :: GetSnapshotBlock)
 
--- | The block token of the block from which to get data.
---
--- Obtain the @BlockToken@ by running the @ListChangedBlocks@ or
--- @ListSnapshotBlocks@ operations.
+-- | The block token of the block from which to get data. You can obtain the
+-- @BlockToken@ by running the @ListChangedBlocks@ or @ListSnapshotBlocks@
+-- operations.
 getSnapshotBlock_blockToken :: Lens.Lens' GetSnapshotBlock Prelude.Text
 getSnapshotBlock_blockToken = Lens.lens (\GetSnapshotBlock' {blockToken} -> blockToken) (\s@GetSnapshotBlock' {} a -> s {blockToken = a} :: GetSnapshotBlock)
 
@@ -127,14 +146,15 @@ instance Core.AWSRequest GetSnapshotBlock where
   type
     AWSResponse GetSnapshotBlock =
       GetSnapshotBlockResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveBody
       ( \s h x ->
           GetSnapshotBlockResponse'
-            Prelude.<$> (h Core..#? "x-amz-Data-Length")
-            Prelude.<*> (h Core..#? "x-amz-Checksum-Algorithm")
-            Prelude.<*> (h Core..#? "x-amz-Checksum")
+            Prelude.<$> (h Data..#? "x-amz-Checksum")
+            Prelude.<*> (h Data..#? "x-amz-Checksum-Algorithm")
+            Prelude.<*> (h Data..#? "x-amz-Data-Length")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
             Prelude.<*> (Prelude.pure x)
       )
@@ -151,43 +171,43 @@ instance Prelude.NFData GetSnapshotBlock where
       `Prelude.seq` Prelude.rnf blockIndex
       `Prelude.seq` Prelude.rnf blockToken
 
-instance Core.ToHeaders GetSnapshotBlock where
+instance Data.ToHeaders GetSnapshotBlock where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetSnapshotBlock where
+instance Data.ToPath GetSnapshotBlock where
   toPath GetSnapshotBlock' {..} =
     Prelude.mconcat
       [ "/snapshots/",
-        Core.toBS snapshotId,
+        Data.toBS snapshotId,
         "/blocks/",
-        Core.toBS blockIndex
+        Data.toBS blockIndex
       ]
 
-instance Core.ToQuery GetSnapshotBlock where
+instance Data.ToQuery GetSnapshotBlock where
   toQuery GetSnapshotBlock' {..} =
-    Prelude.mconcat ["blockToken" Core.=: blockToken]
+    Prelude.mconcat ["blockToken" Data.=: blockToken]
 
 -- | /See:/ 'newGetSnapshotBlockResponse' smart constructor.
 data GetSnapshotBlockResponse = GetSnapshotBlockResponse'
-  { -- | The size of the data in the block.
-    dataLength :: Prelude.Maybe Prelude.Int,
+  { -- | The checksum generated for the block, which is Base64 encoded.
+    checksum :: Prelude.Maybe Prelude.Text,
     -- | The algorithm used to generate the checksum for the block, such as
     -- SHA256.
     checksumAlgorithm :: Prelude.Maybe ChecksumAlgorithm,
-    -- | The checksum generated for the block, which is Base64 encoded.
-    checksum :: Prelude.Maybe Prelude.Text,
+    -- | The size of the data in the block.
+    dataLength :: Prelude.Maybe Prelude.Int,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | The data content of the block.
-    blockData :: Core.ResponseBody
+    blockData :: Data.ResponseBody
   }
   deriving (Prelude.Show, Prelude.Generic)
 
@@ -199,12 +219,12 @@ data GetSnapshotBlockResponse = GetSnapshotBlockResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'dataLength', 'getSnapshotBlockResponse_dataLength' - The size of the data in the block.
+-- 'checksum', 'getSnapshotBlockResponse_checksum' - The checksum generated for the block, which is Base64 encoded.
 --
 -- 'checksumAlgorithm', 'getSnapshotBlockResponse_checksumAlgorithm' - The algorithm used to generate the checksum for the block, such as
 -- SHA256.
 --
--- 'checksum', 'getSnapshotBlockResponse_checksum' - The checksum generated for the block, which is Base64 encoded.
+-- 'dataLength', 'getSnapshotBlockResponse_dataLength' - The size of the data in the block.
 --
 -- 'httpStatus', 'getSnapshotBlockResponse_httpStatus' - The response's http status code.
 --
@@ -213,35 +233,35 @@ newGetSnapshotBlockResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
   -- | 'blockData'
-  Core.ResponseBody ->
+  Data.ResponseBody ->
   GetSnapshotBlockResponse
 newGetSnapshotBlockResponse pHttpStatus_ pBlockData_ =
   GetSnapshotBlockResponse'
-    { dataLength =
+    { checksum =
         Prelude.Nothing,
       checksumAlgorithm = Prelude.Nothing,
-      checksum = Prelude.Nothing,
+      dataLength = Prelude.Nothing,
       httpStatus = pHttpStatus_,
       blockData = pBlockData_
     }
 
--- | The size of the data in the block.
-getSnapshotBlockResponse_dataLength :: Lens.Lens' GetSnapshotBlockResponse (Prelude.Maybe Prelude.Int)
-getSnapshotBlockResponse_dataLength = Lens.lens (\GetSnapshotBlockResponse' {dataLength} -> dataLength) (\s@GetSnapshotBlockResponse' {} a -> s {dataLength = a} :: GetSnapshotBlockResponse)
+-- | The checksum generated for the block, which is Base64 encoded.
+getSnapshotBlockResponse_checksum :: Lens.Lens' GetSnapshotBlockResponse (Prelude.Maybe Prelude.Text)
+getSnapshotBlockResponse_checksum = Lens.lens (\GetSnapshotBlockResponse' {checksum} -> checksum) (\s@GetSnapshotBlockResponse' {} a -> s {checksum = a} :: GetSnapshotBlockResponse)
 
 -- | The algorithm used to generate the checksum for the block, such as
 -- SHA256.
 getSnapshotBlockResponse_checksumAlgorithm :: Lens.Lens' GetSnapshotBlockResponse (Prelude.Maybe ChecksumAlgorithm)
 getSnapshotBlockResponse_checksumAlgorithm = Lens.lens (\GetSnapshotBlockResponse' {checksumAlgorithm} -> checksumAlgorithm) (\s@GetSnapshotBlockResponse' {} a -> s {checksumAlgorithm = a} :: GetSnapshotBlockResponse)
 
--- | The checksum generated for the block, which is Base64 encoded.
-getSnapshotBlockResponse_checksum :: Lens.Lens' GetSnapshotBlockResponse (Prelude.Maybe Prelude.Text)
-getSnapshotBlockResponse_checksum = Lens.lens (\GetSnapshotBlockResponse' {checksum} -> checksum) (\s@GetSnapshotBlockResponse' {} a -> s {checksum = a} :: GetSnapshotBlockResponse)
+-- | The size of the data in the block.
+getSnapshotBlockResponse_dataLength :: Lens.Lens' GetSnapshotBlockResponse (Prelude.Maybe Prelude.Int)
+getSnapshotBlockResponse_dataLength = Lens.lens (\GetSnapshotBlockResponse' {dataLength} -> dataLength) (\s@GetSnapshotBlockResponse' {} a -> s {dataLength = a} :: GetSnapshotBlockResponse)
 
 -- | The response's http status code.
 getSnapshotBlockResponse_httpStatus :: Lens.Lens' GetSnapshotBlockResponse Prelude.Int
 getSnapshotBlockResponse_httpStatus = Lens.lens (\GetSnapshotBlockResponse' {httpStatus} -> httpStatus) (\s@GetSnapshotBlockResponse' {} a -> s {httpStatus = a} :: GetSnapshotBlockResponse)
 
 -- | The data content of the block.
-getSnapshotBlockResponse_blockData :: Lens.Lens' GetSnapshotBlockResponse Core.ResponseBody
+getSnapshotBlockResponse_blockData :: Lens.Lens' GetSnapshotBlockResponse Data.ResponseBody
 getSnapshotBlockResponse_blockData = Lens.lens (\GetSnapshotBlockResponse' {blockData} -> blockData) (\s@GetSnapshotBlockResponse' {} a -> s {blockData = a} :: GetSnapshotBlockResponse)

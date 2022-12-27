@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.Types.WorkflowExecutionOpenCounts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SWF.Types.WorkflowExecutionOpenCounts where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the counts of open tasks, child workflow executions and timers
@@ -109,17 +110,17 @@ workflowExecutionOpenCounts_openTimers = Lens.lens (\WorkflowExecutionOpenCounts
 workflowExecutionOpenCounts_openChildWorkflowExecutions :: Lens.Lens' WorkflowExecutionOpenCounts Prelude.Natural
 workflowExecutionOpenCounts_openChildWorkflowExecutions = Lens.lens (\WorkflowExecutionOpenCounts' {openChildWorkflowExecutions} -> openChildWorkflowExecutions) (\s@WorkflowExecutionOpenCounts' {} a -> s {openChildWorkflowExecutions = a} :: WorkflowExecutionOpenCounts)
 
-instance Core.FromJSON WorkflowExecutionOpenCounts where
+instance Data.FromJSON WorkflowExecutionOpenCounts where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "WorkflowExecutionOpenCounts"
       ( \x ->
           WorkflowExecutionOpenCounts'
-            Prelude.<$> (x Core..:? "openLambdaFunctions")
-            Prelude.<*> (x Core..: "openActivityTasks")
-            Prelude.<*> (x Core..: "openDecisionTasks")
-            Prelude.<*> (x Core..: "openTimers")
-            Prelude.<*> (x Core..: "openChildWorkflowExecutions")
+            Prelude.<$> (x Data..:? "openLambdaFunctions")
+            Prelude.<*> (x Data..: "openActivityTasks")
+            Prelude.<*> (x Data..: "openDecisionTasks")
+            Prelude.<*> (x Data..: "openTimers")
+            Prelude.<*> (x Data..: "openChildWorkflowExecutions")
       )
 
 instance Prelude.Hashable WorkflowExecutionOpenCounts where

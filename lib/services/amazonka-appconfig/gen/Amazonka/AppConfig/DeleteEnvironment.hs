@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.AppConfig.DeleteEnvironment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Delete an environment. Deleting an environment does not delete a
+-- Deletes an environment. Deleting an environment does not delete a
 -- configuration from a host.
 module Amazonka.AppConfig.DeleteEnvironment
   ( -- * Creating a Request
@@ -39,16 +39,18 @@ where
 
 import Amazonka.AppConfig.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteEnvironment' smart constructor.
 data DeleteEnvironment = DeleteEnvironment'
-  { -- | The application ID that includes the environment you want to delete.
+  { -- | The application ID that includes the environment that you want to
+    -- delete.
     applicationId :: Prelude.Text,
-    -- | The ID of the environment you want to delete.
+    -- | The ID of the environment that you want to delete.
     environmentId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -61,9 +63,10 @@ data DeleteEnvironment = DeleteEnvironment'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'applicationId', 'deleteEnvironment_applicationId' - The application ID that includes the environment you want to delete.
+-- 'applicationId', 'deleteEnvironment_applicationId' - The application ID that includes the environment that you want to
+-- delete.
 --
--- 'environmentId', 'deleteEnvironment_environmentId' - The ID of the environment you want to delete.
+-- 'environmentId', 'deleteEnvironment_environmentId' - The ID of the environment that you want to delete.
 newDeleteEnvironment ::
   -- | 'applicationId'
   Prelude.Text ->
@@ -76,11 +79,12 @@ newDeleteEnvironment pApplicationId_ pEnvironmentId_ =
       environmentId = pEnvironmentId_
     }
 
--- | The application ID that includes the environment you want to delete.
+-- | The application ID that includes the environment that you want to
+-- delete.
 deleteEnvironment_applicationId :: Lens.Lens' DeleteEnvironment Prelude.Text
 deleteEnvironment_applicationId = Lens.lens (\DeleteEnvironment' {applicationId} -> applicationId) (\s@DeleteEnvironment' {} a -> s {applicationId = a} :: DeleteEnvironment)
 
--- | The ID of the environment you want to delete.
+-- | The ID of the environment that you want to delete.
 deleteEnvironment_environmentId :: Lens.Lens' DeleteEnvironment Prelude.Text
 deleteEnvironment_environmentId = Lens.lens (\DeleteEnvironment' {environmentId} -> environmentId) (\s@DeleteEnvironment' {} a -> s {environmentId = a} :: DeleteEnvironment)
 
@@ -88,7 +92,8 @@ instance Core.AWSRequest DeleteEnvironment where
   type
     AWSResponse DeleteEnvironment =
       DeleteEnvironmentResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteEnvironmentResponse'
 
@@ -102,27 +107,27 @@ instance Prelude.NFData DeleteEnvironment where
     Prelude.rnf applicationId
       `Prelude.seq` Prelude.rnf environmentId
 
-instance Core.ToHeaders DeleteEnvironment where
+instance Data.ToHeaders DeleteEnvironment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteEnvironment where
+instance Data.ToPath DeleteEnvironment where
   toPath DeleteEnvironment' {..} =
     Prelude.mconcat
       [ "/applications/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/environments/",
-        Core.toBS environmentId
+        Data.toBS environmentId
       ]
 
-instance Core.ToQuery DeleteEnvironment where
+instance Data.ToQuery DeleteEnvironment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteEnvironmentResponse' smart constructor.

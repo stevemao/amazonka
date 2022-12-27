@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.KinesisStreamingDestinationInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,10 @@
 module Amazonka.DynamoDB.Types.KinesisStreamingDestinationInput where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | /See:/ 'newKinesisStreamingDestinationInput' smart constructor.
@@ -85,11 +87,11 @@ instance
     Prelude.rnf tableName
       `Prelude.seq` Prelude.rnf streamArn
 
-instance Core.ToJSON KinesisStreamingDestinationInput where
+instance Data.ToJSON KinesisStreamingDestinationInput where
   toJSON KinesisStreamingDestinationInput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("TableName" Core..= tableName),
-            Prelude.Just ("StreamArn" Core..= streamArn)
+          [ Prelude.Just ("TableName" Data..= tableName),
+            Prelude.Just ("StreamArn" Data..= streamArn)
           ]
       )

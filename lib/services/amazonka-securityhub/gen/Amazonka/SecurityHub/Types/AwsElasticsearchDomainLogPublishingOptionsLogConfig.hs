@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsElasticsearchDomainLogPublishingOptionsLogConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.SecurityHub.Types.AwsElasticsearchDomainLogPublishingOptionsLogConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The log configuration.
 --
 -- /See:/ 'newAwsElasticsearchDomainLogPublishingOptionsLogConfig' smart constructor.
 data AwsElasticsearchDomainLogPublishingOptionsLogConfig = AwsElasticsearchDomainLogPublishingOptionsLogConfig'
-  { -- | Whether the log publishing is enabled.
-    enabled :: Prelude.Maybe Prelude.Bool,
-    -- | The ARN of the CloudWatch Logs group to publish the logs to.
-    cloudWatchLogsLogGroupArn :: Prelude.Maybe Prelude.Text
+  { -- | The ARN of the CloudWatch Logs group to publish the logs to.
+    cloudWatchLogsLogGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | Whether the log publishing is enabled.
+    enabled :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,38 +43,38 @@ data AwsElasticsearchDomainLogPublishingOptionsLogConfig = AwsElasticsearchDomai
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'enabled', 'awsElasticsearchDomainLogPublishingOptionsLogConfig_enabled' - Whether the log publishing is enabled.
---
 -- 'cloudWatchLogsLogGroupArn', 'awsElasticsearchDomainLogPublishingOptionsLogConfig_cloudWatchLogsLogGroupArn' - The ARN of the CloudWatch Logs group to publish the logs to.
+--
+-- 'enabled', 'awsElasticsearchDomainLogPublishingOptionsLogConfig_enabled' - Whether the log publishing is enabled.
 newAwsElasticsearchDomainLogPublishingOptionsLogConfig ::
   AwsElasticsearchDomainLogPublishingOptionsLogConfig
 newAwsElasticsearchDomainLogPublishingOptionsLogConfig =
   AwsElasticsearchDomainLogPublishingOptionsLogConfig'
-    { enabled =
+    { cloudWatchLogsLogGroupArn =
         Prelude.Nothing,
-      cloudWatchLogsLogGroupArn =
+      enabled =
         Prelude.Nothing
     }
-
--- | Whether the log publishing is enabled.
-awsElasticsearchDomainLogPublishingOptionsLogConfig_enabled :: Lens.Lens' AwsElasticsearchDomainLogPublishingOptionsLogConfig (Prelude.Maybe Prelude.Bool)
-awsElasticsearchDomainLogPublishingOptionsLogConfig_enabled = Lens.lens (\AwsElasticsearchDomainLogPublishingOptionsLogConfig' {enabled} -> enabled) (\s@AwsElasticsearchDomainLogPublishingOptionsLogConfig' {} a -> s {enabled = a} :: AwsElasticsearchDomainLogPublishingOptionsLogConfig)
 
 -- | The ARN of the CloudWatch Logs group to publish the logs to.
 awsElasticsearchDomainLogPublishingOptionsLogConfig_cloudWatchLogsLogGroupArn :: Lens.Lens' AwsElasticsearchDomainLogPublishingOptionsLogConfig (Prelude.Maybe Prelude.Text)
 awsElasticsearchDomainLogPublishingOptionsLogConfig_cloudWatchLogsLogGroupArn = Lens.lens (\AwsElasticsearchDomainLogPublishingOptionsLogConfig' {cloudWatchLogsLogGroupArn} -> cloudWatchLogsLogGroupArn) (\s@AwsElasticsearchDomainLogPublishingOptionsLogConfig' {} a -> s {cloudWatchLogsLogGroupArn = a} :: AwsElasticsearchDomainLogPublishingOptionsLogConfig)
 
+-- | Whether the log publishing is enabled.
+awsElasticsearchDomainLogPublishingOptionsLogConfig_enabled :: Lens.Lens' AwsElasticsearchDomainLogPublishingOptionsLogConfig (Prelude.Maybe Prelude.Bool)
+awsElasticsearchDomainLogPublishingOptionsLogConfig_enabled = Lens.lens (\AwsElasticsearchDomainLogPublishingOptionsLogConfig' {enabled} -> enabled) (\s@AwsElasticsearchDomainLogPublishingOptionsLogConfig' {} a -> s {enabled = a} :: AwsElasticsearchDomainLogPublishingOptionsLogConfig)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsElasticsearchDomainLogPublishingOptionsLogConfig
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsElasticsearchDomainLogPublishingOptionsLogConfig"
       ( \x ->
           AwsElasticsearchDomainLogPublishingOptionsLogConfig'
-            Prelude.<$> (x Core..:? "Enabled")
-              Prelude.<*> (x Core..:? "CloudWatchLogsLogGroupArn")
+            Prelude.<$> (x Data..:? "CloudWatchLogsLogGroupArn")
+              Prelude.<*> (x Data..:? "Enabled")
       )
 
 instance
@@ -83,8 +84,9 @@ instance
   hashWithSalt
     _salt
     AwsElasticsearchDomainLogPublishingOptionsLogConfig' {..} =
-      _salt `Prelude.hashWithSalt` enabled
+      _salt
         `Prelude.hashWithSalt` cloudWatchLogsLogGroupArn
+        `Prelude.hashWithSalt` enabled
 
 instance
   Prelude.NFData
@@ -92,19 +94,19 @@ instance
   where
   rnf
     AwsElasticsearchDomainLogPublishingOptionsLogConfig' {..} =
-      Prelude.rnf enabled
-        `Prelude.seq` Prelude.rnf cloudWatchLogsLogGroupArn
+      Prelude.rnf cloudWatchLogsLogGroupArn
+        `Prelude.seq` Prelude.rnf enabled
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsElasticsearchDomainLogPublishingOptionsLogConfig
   where
   toJSON
     AwsElasticsearchDomainLogPublishingOptionsLogConfig' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("Enabled" Core..=) Prelude.<$> enabled,
-              ("CloudWatchLogsLogGroupArn" Core..=)
-                Prelude.<$> cloudWatchLogsLogGroupArn
+            [ ("CloudWatchLogsLogGroupArn" Data..=)
+                Prelude.<$> cloudWatchLogsLogGroupArn,
+              ("Enabled" Data..=) Prelude.<$> enabled
             ]
         )

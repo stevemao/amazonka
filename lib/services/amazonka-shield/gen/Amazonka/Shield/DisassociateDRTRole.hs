@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Shield.DisassociateDRTRole
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,14 +22,6 @@
 --
 -- Removes the Shield Response Team\'s (SRT) access to your Amazon Web
 -- Services account.
---
--- To make a @DisassociateDRTRole@ request, you must be subscribed to the
--- <https://aws.amazon.com/premiumsupport/business-support/ Business Support plan>
--- or the
--- <https://aws.amazon.com/premiumsupport/enterprise-support/ Enterprise Support plan>.
--- However, if you are not subscribed to one of these support plans, but
--- had been previously and had granted the SRT access to your account, you
--- can submit a @DisassociateDRTRole@ request to remove this access.
 module Amazonka.Shield.DisassociateDRTRole
   ( -- * Creating a Request
     DisassociateDRTRole (..),
@@ -45,7 +37,8 @@ module Amazonka.Shield.DisassociateDRTRole
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -69,7 +62,8 @@ instance Core.AWSRequest DisassociateDRTRole where
   type
     AWSResponse DisassociateDRTRole =
       DisassociateDRTRoleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -84,28 +78,28 @@ instance Prelude.Hashable DisassociateDRTRole where
 instance Prelude.NFData DisassociateDRTRole where
   rnf _ = ()
 
-instance Core.ToHeaders DisassociateDRTRole where
+instance Data.ToHeaders DisassociateDRTRole where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSShield_20160616.DisassociateDRTRole" ::
+              Data.=# ( "AWSShield_20160616.DisassociateDRTRole" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisassociateDRTRole where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON DisassociateDRTRole where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath DisassociateDRTRole where
+instance Data.ToPath DisassociateDRTRole where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisassociateDRTRole where
+instance Data.ToQuery DisassociateDRTRole where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateDRTRoleResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.ClusterStateChangeReason
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EMR.Types.ClusterStateChangeReason where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types.ClusterStateChangeReasonCode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The reason that the cluster changed to its current state.
@@ -62,14 +63,14 @@ clusterStateChangeReason_code = Lens.lens (\ClusterStateChangeReason' {code} -> 
 clusterStateChangeReason_message :: Lens.Lens' ClusterStateChangeReason (Prelude.Maybe Prelude.Text)
 clusterStateChangeReason_message = Lens.lens (\ClusterStateChangeReason' {message} -> message) (\s@ClusterStateChangeReason' {} a -> s {message = a} :: ClusterStateChangeReason)
 
-instance Core.FromJSON ClusterStateChangeReason where
+instance Data.FromJSON ClusterStateChangeReason where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ClusterStateChangeReason"
       ( \x ->
           ClusterStateChangeReason'
-            Prelude.<$> (x Core..:? "Code")
-            Prelude.<*> (x Core..:? "Message")
+            Prelude.<$> (x Data..:? "Code")
+            Prelude.<*> (x Data..:? "Message")
       )
 
 instance Prelude.Hashable ClusterStateChangeReason where

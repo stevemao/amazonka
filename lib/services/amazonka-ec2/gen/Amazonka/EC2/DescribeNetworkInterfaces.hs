@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeNetworkInterfaces
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,11 +29,11 @@ module Amazonka.EC2.DescribeNetworkInterfaces
     newDescribeNetworkInterfaces,
 
     -- * Request Lenses
-    describeNetworkInterfaces_networkInterfaceIds,
-    describeNetworkInterfaces_filters,
-    describeNetworkInterfaces_nextToken,
     describeNetworkInterfaces_dryRun,
+    describeNetworkInterfaces_filters,
     describeNetworkInterfaces_maxResults,
+    describeNetworkInterfaces_networkInterfaceIds,
+    describeNetworkInterfaces_nextToken,
 
     -- * Destructuring the Response
     DescribeNetworkInterfacesResponse (..),
@@ -47,8 +47,9 @@ module Amazonka.EC2.DescribeNetworkInterfaces
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,10 +58,11 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeNetworkInterfaces' smart constructor.
 data DescribeNetworkInterfaces = DescribeNetworkInterfaces'
-  { -- | One or more network interface IDs.
-    --
-    -- Default: Describes all your network interfaces.
-    networkInterfaceIds :: Prelude.Maybe [Prelude.Text],
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | One or more filters.
     --
     -- -   @addresses.private-ip-address@ - The private IPv4 addresses
@@ -125,6 +127,14 @@ data DescribeNetworkInterfaces = DescribeNetworkInterfaces'
     -- -   @ipv6-addresses.ipv6-address@ - An IPv6 address associated with the
     --     network interface.
     --
+    -- -   @interface-type@ - The type of network interface
+    --     (@api_gateway_managed@ | @aws_codestar_connections_managed@ |
+    --     @branch@ | @efa@ | @gateway_load_balancer@ |
+    --     @gateway_load_balancer_endpoint@ | @global_accelerator_managed@ |
+    --     @interface@ | @iot_rules_managed@ | @lambda@ | @load_balancer@ |
+    --     @nat_gateway@ | @network_load_balancer@ | @quicksight@ |
+    --     @transit_gateway@ | @trunk@ | @vpc_endpoint@).
+    --
     -- -   @mac-address@ - The MAC address of the network interface.
     --
     -- -   @network-interface-id@ - The ID of the network interface.
@@ -170,18 +180,17 @@ data DescribeNetworkInterfaces = DescribeNetworkInterfaces'
     --
     -- -   @vpc-id@ - The ID of the VPC for the network interface.
     filters :: Prelude.Maybe [Filter],
-    -- | The token to retrieve the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | The maximum number of items to return for this request. The request
     -- returns a token that you can specify in a subsequent call to get the
     -- next set of results. You cannot specify this parameter and the network
     -- interface IDs parameter in the same request.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The network interface IDs.
+    --
+    -- Default: Describes all your network interfaces.
+    networkInterfaceIds :: Prelude.Maybe [Prelude.Text],
+    -- | The token to retrieve the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -193,9 +202,10 @@ data DescribeNetworkInterfaces = DescribeNetworkInterfaces'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'networkInterfaceIds', 'describeNetworkInterfaces_networkInterfaceIds' - One or more network interface IDs.
---
--- Default: Describes all your network interfaces.
+-- 'dryRun', 'describeNetworkInterfaces_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'filters', 'describeNetworkInterfaces_filters' - One or more filters.
 --
@@ -261,6 +271,14 @@ data DescribeNetworkInterfaces = DescribeNetworkInterfaces'
 -- -   @ipv6-addresses.ipv6-address@ - An IPv6 address associated with the
 --     network interface.
 --
+-- -   @interface-type@ - The type of network interface
+--     (@api_gateway_managed@ | @aws_codestar_connections_managed@ |
+--     @branch@ | @efa@ | @gateway_load_balancer@ |
+--     @gateway_load_balancer_endpoint@ | @global_accelerator_managed@ |
+--     @interface@ | @iot_rules_managed@ | @lambda@ | @load_balancer@ |
+--     @nat_gateway@ | @network_load_balancer@ | @quicksight@ |
+--     @transit_gateway@ | @trunk@ | @vpc_endpoint@).
+--
 -- -   @mac-address@ - The MAC address of the network interface.
 --
 -- -   @network-interface-id@ - The ID of the network interface.
@@ -306,34 +324,34 @@ data DescribeNetworkInterfaces = DescribeNetworkInterfaces'
 --
 -- -   @vpc-id@ - The ID of the VPC for the network interface.
 --
--- 'nextToken', 'describeNetworkInterfaces_nextToken' - The token to retrieve the next page of results.
---
--- 'dryRun', 'describeNetworkInterfaces_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
---
 -- 'maxResults', 'describeNetworkInterfaces_maxResults' - The maximum number of items to return for this request. The request
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results. You cannot specify this parameter and the network
 -- interface IDs parameter in the same request.
+--
+-- 'networkInterfaceIds', 'describeNetworkInterfaces_networkInterfaceIds' - The network interface IDs.
+--
+-- Default: Describes all your network interfaces.
+--
+-- 'nextToken', 'describeNetworkInterfaces_nextToken' - The token to retrieve the next page of results.
 newDescribeNetworkInterfaces ::
   DescribeNetworkInterfaces
 newDescribeNetworkInterfaces =
   DescribeNetworkInterfaces'
-    { networkInterfaceIds =
+    { dryRun =
         Prelude.Nothing,
       filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      networkInterfaceIds = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
--- | One or more network interface IDs.
---
--- Default: Describes all your network interfaces.
-describeNetworkInterfaces_networkInterfaceIds :: Lens.Lens' DescribeNetworkInterfaces (Prelude.Maybe [Prelude.Text])
-describeNetworkInterfaces_networkInterfaceIds = Lens.lens (\DescribeNetworkInterfaces' {networkInterfaceIds} -> networkInterfaceIds) (\s@DescribeNetworkInterfaces' {} a -> s {networkInterfaceIds = a} :: DescribeNetworkInterfaces) Prelude.. Lens.mapping Lens.coerced
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeNetworkInterfaces_dryRun :: Lens.Lens' DescribeNetworkInterfaces (Prelude.Maybe Prelude.Bool)
+describeNetworkInterfaces_dryRun = Lens.lens (\DescribeNetworkInterfaces' {dryRun} -> dryRun) (\s@DescribeNetworkInterfaces' {} a -> s {dryRun = a} :: DescribeNetworkInterfaces)
 
 -- | One or more filters.
 --
@@ -399,6 +417,14 @@ describeNetworkInterfaces_networkInterfaceIds = Lens.lens (\DescribeNetworkInter
 -- -   @ipv6-addresses.ipv6-address@ - An IPv6 address associated with the
 --     network interface.
 --
+-- -   @interface-type@ - The type of network interface
+--     (@api_gateway_managed@ | @aws_codestar_connections_managed@ |
+--     @branch@ | @efa@ | @gateway_load_balancer@ |
+--     @gateway_load_balancer_endpoint@ | @global_accelerator_managed@ |
+--     @interface@ | @iot_rules_managed@ | @lambda@ | @load_balancer@ |
+--     @nat_gateway@ | @network_load_balancer@ | @quicksight@ |
+--     @transit_gateway@ | @trunk@ | @vpc_endpoint@).
+--
 -- -   @mac-address@ - The MAC address of the network interface.
 --
 -- -   @network-interface-id@ - The ID of the network interface.
@@ -446,23 +472,22 @@ describeNetworkInterfaces_networkInterfaceIds = Lens.lens (\DescribeNetworkInter
 describeNetworkInterfaces_filters :: Lens.Lens' DescribeNetworkInterfaces (Prelude.Maybe [Filter])
 describeNetworkInterfaces_filters = Lens.lens (\DescribeNetworkInterfaces' {filters} -> filters) (\s@DescribeNetworkInterfaces' {} a -> s {filters = a} :: DescribeNetworkInterfaces) Prelude.. Lens.mapping Lens.coerced
 
--- | The token to retrieve the next page of results.
-describeNetworkInterfaces_nextToken :: Lens.Lens' DescribeNetworkInterfaces (Prelude.Maybe Prelude.Text)
-describeNetworkInterfaces_nextToken = Lens.lens (\DescribeNetworkInterfaces' {nextToken} -> nextToken) (\s@DescribeNetworkInterfaces' {} a -> s {nextToken = a} :: DescribeNetworkInterfaces)
-
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describeNetworkInterfaces_dryRun :: Lens.Lens' DescribeNetworkInterfaces (Prelude.Maybe Prelude.Bool)
-describeNetworkInterfaces_dryRun = Lens.lens (\DescribeNetworkInterfaces' {dryRun} -> dryRun) (\s@DescribeNetworkInterfaces' {} a -> s {dryRun = a} :: DescribeNetworkInterfaces)
-
 -- | The maximum number of items to return for this request. The request
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results. You cannot specify this parameter and the network
 -- interface IDs parameter in the same request.
 describeNetworkInterfaces_maxResults :: Lens.Lens' DescribeNetworkInterfaces (Prelude.Maybe Prelude.Natural)
 describeNetworkInterfaces_maxResults = Lens.lens (\DescribeNetworkInterfaces' {maxResults} -> maxResults) (\s@DescribeNetworkInterfaces' {} a -> s {maxResults = a} :: DescribeNetworkInterfaces)
+
+-- | The network interface IDs.
+--
+-- Default: Describes all your network interfaces.
+describeNetworkInterfaces_networkInterfaceIds :: Lens.Lens' DescribeNetworkInterfaces (Prelude.Maybe [Prelude.Text])
+describeNetworkInterfaces_networkInterfaceIds = Lens.lens (\DescribeNetworkInterfaces' {networkInterfaceIds} -> networkInterfaceIds) (\s@DescribeNetworkInterfaces' {} a -> s {networkInterfaceIds = a} :: DescribeNetworkInterfaces) Prelude.. Lens.mapping Lens.coerced
+
+-- | The token to retrieve the next page of results.
+describeNetworkInterfaces_nextToken :: Lens.Lens' DescribeNetworkInterfaces (Prelude.Maybe Prelude.Text)
+describeNetworkInterfaces_nextToken = Lens.lens (\DescribeNetworkInterfaces' {nextToken} -> nextToken) (\s@DescribeNetworkInterfaces' {} a -> s {nextToken = a} :: DescribeNetworkInterfaces)
 
 instance Core.AWSPager DescribeNetworkInterfaces where
   page rq rs
@@ -490,57 +515,58 @@ instance Core.AWSRequest DescribeNetworkInterfaces where
   type
     AWSResponse DescribeNetworkInterfaces =
       DescribeNetworkInterfacesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeNetworkInterfacesResponse'
-            Prelude.<$> ( x Core..@? "networkInterfaceSet"
+            Prelude.<$> ( x Data..@? "networkInterfaceSet"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
-            Prelude.<*> (x Core..@? "nextToken")
+            Prelude.<*> (x Data..@? "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeNetworkInterfaces where
   hashWithSalt _salt DescribeNetworkInterfaces' {..} =
-    _salt `Prelude.hashWithSalt` networkInterfaceIds
+    _salt `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` networkInterfaceIds
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeNetworkInterfaces where
   rnf DescribeNetworkInterfaces' {..} =
-    Prelude.rnf networkInterfaceIds
+    Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf networkInterfaceIds
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeNetworkInterfaces where
+instance Data.ToHeaders DescribeNetworkInterfaces where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeNetworkInterfaces where
+instance Data.ToPath DescribeNetworkInterfaces where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeNetworkInterfaces where
+instance Data.ToQuery DescribeNetworkInterfaces where
   toQuery DescribeNetworkInterfaces' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeNetworkInterfaces" :: Prelude.ByteString),
+          Data.=: ("DescribeNetworkInterfaces" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          ( Core.toQueryList "NetworkInterfaceId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        "MaxResults" Data.=: maxResults,
+        Data.toQuery
+          ( Data.toQueryList "NetworkInterfaceId"
               Prelude.<$> networkInterfaceIds
           ),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults
+        "NextToken" Data.=: nextToken
       ]
 
 -- | Contains the output of DescribeNetworkInterfaces.

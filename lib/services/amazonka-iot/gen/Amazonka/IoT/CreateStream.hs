@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.CreateStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,17 +45,18 @@ module Amazonka.IoT.CreateStream
     newCreateStreamResponse,
 
     -- * Response Lenses
-    createStreamResponse_streamVersion,
-    createStreamResponse_streamArn,
     createStreamResponse_description,
+    createStreamResponse_streamArn,
     createStreamResponse_streamId,
+    createStreamResponse_streamVersion,
     createStreamResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -70,8 +71,8 @@ data CreateStream = CreateStream'
     streamId :: Prelude.Text,
     -- | The files to stream.
     files :: Prelude.NonEmpty StreamFile,
-    -- | An IAM role that allows the IoT service principal assumes to access your
-    -- S3 files.
+    -- | An IAM role that allows the IoT service principal to access your S3
+    -- files.
     roleArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -92,8 +93,8 @@ data CreateStream = CreateStream'
 --
 -- 'files', 'createStream_files' - The files to stream.
 --
--- 'roleArn', 'createStream_roleArn' - An IAM role that allows the IoT service principal assumes to access your
--- S3 files.
+-- 'roleArn', 'createStream_roleArn' - An IAM role that allows the IoT service principal to access your S3
+-- files.
 newCreateStream ::
   -- | 'streamId'
   Prelude.Text ->
@@ -127,22 +128,23 @@ createStream_streamId = Lens.lens (\CreateStream' {streamId} -> streamId) (\s@Cr
 createStream_files :: Lens.Lens' CreateStream (Prelude.NonEmpty StreamFile)
 createStream_files = Lens.lens (\CreateStream' {files} -> files) (\s@CreateStream' {} a -> s {files = a} :: CreateStream) Prelude.. Lens.coerced
 
--- | An IAM role that allows the IoT service principal assumes to access your
--- S3 files.
+-- | An IAM role that allows the IoT service principal to access your S3
+-- files.
 createStream_roleArn :: Lens.Lens' CreateStream Prelude.Text
 createStream_roleArn = Lens.lens (\CreateStream' {roleArn} -> roleArn) (\s@CreateStream' {} a -> s {roleArn = a} :: CreateStream)
 
 instance Core.AWSRequest CreateStream where
   type AWSResponse CreateStream = CreateStreamResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateStreamResponse'
-            Prelude.<$> (x Core..?> "streamVersion")
-            Prelude.<*> (x Core..?> "streamArn")
-            Prelude.<*> (x Core..?> "description")
-            Prelude.<*> (x Core..?> "streamId")
+            Prelude.<$> (x Data..?> "description")
+            Prelude.<*> (x Data..?> "streamArn")
+            Prelude.<*> (x Data..?> "streamId")
+            Prelude.<*> (x Data..?> "streamVersion")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -162,37 +164,37 @@ instance Prelude.NFData CreateStream where
       `Prelude.seq` Prelude.rnf files
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToHeaders CreateStream where
+instance Data.ToHeaders CreateStream where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateStream where
+instance Data.ToJSON CreateStream where
   toJSON CreateStream' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("description" Core..=) Prelude.<$> description,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("files" Core..= files),
-            Prelude.Just ("roleArn" Core..= roleArn)
+          [ ("description" Data..=) Prelude.<$> description,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("files" Data..= files),
+            Prelude.Just ("roleArn" Data..= roleArn)
           ]
       )
 
-instance Core.ToPath CreateStream where
+instance Data.ToPath CreateStream where
   toPath CreateStream' {..} =
-    Prelude.mconcat ["/streams/", Core.toBS streamId]
+    Prelude.mconcat ["/streams/", Data.toBS streamId]
 
-instance Core.ToQuery CreateStream where
+instance Data.ToQuery CreateStream where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateStreamResponse' smart constructor.
 data CreateStreamResponse = CreateStreamResponse'
-  { -- | The version of the stream.
-    streamVersion :: Prelude.Maybe Prelude.Natural,
+  { -- | A description of the stream.
+    description :: Prelude.Maybe Prelude.Text,
     -- | The stream ARN.
     streamArn :: Prelude.Maybe Prelude.Text,
-    -- | A description of the stream.
-    description :: Prelude.Maybe Prelude.Text,
     -- | The stream ID.
     streamId :: Prelude.Maybe Prelude.Text,
+    -- | The version of the stream.
+    streamVersion :: Prelude.Maybe Prelude.Natural,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -206,13 +208,13 @@ data CreateStreamResponse = CreateStreamResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'streamVersion', 'createStreamResponse_streamVersion' - The version of the stream.
+-- 'description', 'createStreamResponse_description' - A description of the stream.
 --
 -- 'streamArn', 'createStreamResponse_streamArn' - The stream ARN.
 --
--- 'description', 'createStreamResponse_description' - A description of the stream.
---
 -- 'streamId', 'createStreamResponse_streamId' - The stream ID.
+--
+-- 'streamVersion', 'createStreamResponse_streamVersion' - The version of the stream.
 --
 -- 'httpStatus', 'createStreamResponse_httpStatus' - The response's http status code.
 newCreateStreamResponse ::
@@ -221,29 +223,29 @@ newCreateStreamResponse ::
   CreateStreamResponse
 newCreateStreamResponse pHttpStatus_ =
   CreateStreamResponse'
-    { streamVersion =
+    { description =
         Prelude.Nothing,
       streamArn = Prelude.Nothing,
-      description = Prelude.Nothing,
       streamId = Prelude.Nothing,
+      streamVersion = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The version of the stream.
-createStreamResponse_streamVersion :: Lens.Lens' CreateStreamResponse (Prelude.Maybe Prelude.Natural)
-createStreamResponse_streamVersion = Lens.lens (\CreateStreamResponse' {streamVersion} -> streamVersion) (\s@CreateStreamResponse' {} a -> s {streamVersion = a} :: CreateStreamResponse)
-
--- | The stream ARN.
-createStreamResponse_streamArn :: Lens.Lens' CreateStreamResponse (Prelude.Maybe Prelude.Text)
-createStreamResponse_streamArn = Lens.lens (\CreateStreamResponse' {streamArn} -> streamArn) (\s@CreateStreamResponse' {} a -> s {streamArn = a} :: CreateStreamResponse)
 
 -- | A description of the stream.
 createStreamResponse_description :: Lens.Lens' CreateStreamResponse (Prelude.Maybe Prelude.Text)
 createStreamResponse_description = Lens.lens (\CreateStreamResponse' {description} -> description) (\s@CreateStreamResponse' {} a -> s {description = a} :: CreateStreamResponse)
 
+-- | The stream ARN.
+createStreamResponse_streamArn :: Lens.Lens' CreateStreamResponse (Prelude.Maybe Prelude.Text)
+createStreamResponse_streamArn = Lens.lens (\CreateStreamResponse' {streamArn} -> streamArn) (\s@CreateStreamResponse' {} a -> s {streamArn = a} :: CreateStreamResponse)
+
 -- | The stream ID.
 createStreamResponse_streamId :: Lens.Lens' CreateStreamResponse (Prelude.Maybe Prelude.Text)
 createStreamResponse_streamId = Lens.lens (\CreateStreamResponse' {streamId} -> streamId) (\s@CreateStreamResponse' {} a -> s {streamId = a} :: CreateStreamResponse)
+
+-- | The version of the stream.
+createStreamResponse_streamVersion :: Lens.Lens' CreateStreamResponse (Prelude.Maybe Prelude.Natural)
+createStreamResponse_streamVersion = Lens.lens (\CreateStreamResponse' {streamVersion} -> streamVersion) (\s@CreateStreamResponse' {} a -> s {streamVersion = a} :: CreateStreamResponse)
 
 -- | The response's http status code.
 createStreamResponse_httpStatus :: Lens.Lens' CreateStreamResponse Prelude.Int
@@ -251,8 +253,8 @@ createStreamResponse_httpStatus = Lens.lens (\CreateStreamResponse' {httpStatus}
 
 instance Prelude.NFData CreateStreamResponse where
   rnf CreateStreamResponse' {..} =
-    Prelude.rnf streamVersion
+    Prelude.rnf description
       `Prelude.seq` Prelude.rnf streamArn
-      `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf streamId
+      `Prelude.seq` Prelude.rnf streamVersion
       `Prelude.seq` Prelude.rnf httpStatus

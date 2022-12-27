@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.Types.OpenMonitoringInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Kafka.Types.OpenMonitoringInfo where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kafka.Types.PrometheusInfo
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | JMX and Node monitoring for the MSK cluster.
@@ -53,6 +54,15 @@ newOpenMonitoringInfo pPrometheus_ =
 openMonitoringInfo_prometheus :: Lens.Lens' OpenMonitoringInfo PrometheusInfo
 openMonitoringInfo_prometheus = Lens.lens (\OpenMonitoringInfo' {prometheus} -> prometheus) (\s@OpenMonitoringInfo' {} a -> s {prometheus = a} :: OpenMonitoringInfo)
 
+instance Data.FromJSON OpenMonitoringInfo where
+  parseJSON =
+    Data.withObject
+      "OpenMonitoringInfo"
+      ( \x ->
+          OpenMonitoringInfo'
+            Prelude.<$> (x Data..: "prometheus")
+      )
+
 instance Prelude.Hashable OpenMonitoringInfo where
   hashWithSalt _salt OpenMonitoringInfo' {..} =
     _salt `Prelude.hashWithSalt` prometheus
@@ -60,9 +70,9 @@ instance Prelude.Hashable OpenMonitoringInfo where
 instance Prelude.NFData OpenMonitoringInfo where
   rnf OpenMonitoringInfo' {..} = Prelude.rnf prometheus
 
-instance Core.ToJSON OpenMonitoringInfo where
+instance Data.ToJSON OpenMonitoringInfo where
   toJSON OpenMonitoringInfo' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("prometheus" Core..= prometheus)]
+          [Prelude.Just ("prometheus" Data..= prometheus)]
       )

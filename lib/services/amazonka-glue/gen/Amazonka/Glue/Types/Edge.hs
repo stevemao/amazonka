@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.Edge
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.Glue.Types.Edge where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | An edge represents a directed connection between two components on a
--- workflow graph.
+-- | An edge represents a directed connection between two Glue components
+-- that are part of the workflow the edge belongs to.
 --
 -- /See:/ 'newEdge' smart constructor.
 data Edge = Edge'
-  { -- | The unique of the node within the workflow where the edge starts.
-    sourceId :: Prelude.Maybe Prelude.Text,
-    -- | The unique of the node within the workflow where the edge ends.
-    destinationId :: Prelude.Maybe Prelude.Text
+  { -- | The unique of the node within the workflow where the edge ends.
+    destinationId :: Prelude.Maybe Prelude.Text,
+    -- | The unique of the node within the workflow where the edge starts.
+    sourceId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,41 +44,41 @@ data Edge = Edge'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sourceId', 'edge_sourceId' - The unique of the node within the workflow where the edge starts.
---
 -- 'destinationId', 'edge_destinationId' - The unique of the node within the workflow where the edge ends.
+--
+-- 'sourceId', 'edge_sourceId' - The unique of the node within the workflow where the edge starts.
 newEdge ::
   Edge
 newEdge =
   Edge'
-    { sourceId = Prelude.Nothing,
-      destinationId = Prelude.Nothing
+    { destinationId = Prelude.Nothing,
+      sourceId = Prelude.Nothing
     }
-
--- | The unique of the node within the workflow where the edge starts.
-edge_sourceId :: Lens.Lens' Edge (Prelude.Maybe Prelude.Text)
-edge_sourceId = Lens.lens (\Edge' {sourceId} -> sourceId) (\s@Edge' {} a -> s {sourceId = a} :: Edge)
 
 -- | The unique of the node within the workflow where the edge ends.
 edge_destinationId :: Lens.Lens' Edge (Prelude.Maybe Prelude.Text)
 edge_destinationId = Lens.lens (\Edge' {destinationId} -> destinationId) (\s@Edge' {} a -> s {destinationId = a} :: Edge)
 
-instance Core.FromJSON Edge where
+-- | The unique of the node within the workflow where the edge starts.
+edge_sourceId :: Lens.Lens' Edge (Prelude.Maybe Prelude.Text)
+edge_sourceId = Lens.lens (\Edge' {sourceId} -> sourceId) (\s@Edge' {} a -> s {sourceId = a} :: Edge)
+
+instance Data.FromJSON Edge where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Edge"
       ( \x ->
           Edge'
-            Prelude.<$> (x Core..:? "SourceId")
-            Prelude.<*> (x Core..:? "DestinationId")
+            Prelude.<$> (x Data..:? "DestinationId")
+            Prelude.<*> (x Data..:? "SourceId")
       )
 
 instance Prelude.Hashable Edge where
   hashWithSalt _salt Edge' {..} =
-    _salt `Prelude.hashWithSalt` sourceId
-      `Prelude.hashWithSalt` destinationId
+    _salt `Prelude.hashWithSalt` destinationId
+      `Prelude.hashWithSalt` sourceId
 
 instance Prelude.NFData Edge where
   rnf Edge' {..} =
-    Prelude.rnf sourceId
-      `Prelude.seq` Prelude.rnf destinationId
+    Prelude.rnf destinationId
+      `Prelude.seq` Prelude.rnf sourceId

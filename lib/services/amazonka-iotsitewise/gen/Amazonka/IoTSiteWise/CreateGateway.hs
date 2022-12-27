@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.CreateGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.IoTSiteWise.CreateGateway
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -115,14 +116,15 @@ instance Core.AWSRequest CreateGateway where
   type
     AWSResponse CreateGateway =
       CreateGatewayResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateGatewayResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "gatewayId")
-            Prelude.<*> (x Core..:> "gatewayArn")
+            Prelude.<*> (x Data..:> "gatewayId")
+            Prelude.<*> (x Data..:> "gatewayArn")
       )
 
 instance Prelude.Hashable CreateGateway where
@@ -137,32 +139,32 @@ instance Prelude.NFData CreateGateway where
       `Prelude.seq` Prelude.rnf gatewayName
       `Prelude.seq` Prelude.rnf gatewayPlatform
 
-instance Core.ToHeaders CreateGateway where
+instance Data.ToHeaders CreateGateway where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateGateway where
+instance Data.ToJSON CreateGateway where
   toJSON CreateGateway' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("gatewayName" Core..= gatewayName),
+          [ ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("gatewayName" Data..= gatewayName),
             Prelude.Just
-              ("gatewayPlatform" Core..= gatewayPlatform)
+              ("gatewayPlatform" Data..= gatewayPlatform)
           ]
       )
 
-instance Core.ToPath CreateGateway where
+instance Data.ToPath CreateGateway where
   toPath = Prelude.const "/20200301/gateways"
 
-instance Core.ToQuery CreateGateway where
+instance Data.ToQuery CreateGateway where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateGatewayResponse' smart constructor.

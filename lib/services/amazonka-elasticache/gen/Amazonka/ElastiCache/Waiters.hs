@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -8,7 +9,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.Waiters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -16,21 +17,22 @@
 module Amazonka.ElastiCache.Waiters where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.DescribeCacheClusters
 import Amazonka.ElastiCache.DescribeReplicationGroups
 import Amazonka.ElastiCache.Lens
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Polls 'Amazonka.ElastiCache.DescribeCacheClusters' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
 newCacheClusterAvailable :: Core.Wait DescribeCacheClusters
 newCacheClusterAvailable =
   Core.Wait
-    { Core._waitName = "CacheClusterAvailable",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
+    { Core.name = "CacheClusterAvailable",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
         [ Core.matchAll
             "available"
             Core.AcceptSuccess
@@ -42,7 +44,7 @@ newCacheClusterAvailable =
                 )
                 Prelude.. cacheCluster_cacheClusterStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "deleted"
@@ -55,7 +57,7 @@ newCacheClusterAvailable =
                 )
                 Prelude.. cacheCluster_cacheClusterStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "deleting"
@@ -68,7 +70,7 @@ newCacheClusterAvailable =
                 )
                 Prelude.. cacheCluster_cacheClusterStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "incompatible-network"
@@ -81,7 +83,7 @@ newCacheClusterAvailable =
                 )
                 Prelude.. cacheCluster_cacheClusterStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "restore-failed"
@@ -94,7 +96,7 @@ newCacheClusterAvailable =
                 )
                 Prelude.. cacheCluster_cacheClusterStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }
@@ -103,10 +105,10 @@ newCacheClusterAvailable =
 newCacheClusterDeleted :: Core.Wait DescribeCacheClusters
 newCacheClusterDeleted =
   Core.Wait
-    { Core._waitName = "CacheClusterDeleted",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
+    { Core.name = "CacheClusterDeleted",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
         [ Core.matchAll
             "deleted"
             Core.AcceptSuccess
@@ -118,7 +120,7 @@ newCacheClusterDeleted =
                 )
                 Prelude.. cacheCluster_cacheClusterStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchError
             "CacheClusterNotFound"
@@ -134,7 +136,7 @@ newCacheClusterDeleted =
                 )
                 Prelude.. cacheCluster_cacheClusterStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "creating"
@@ -147,7 +149,7 @@ newCacheClusterDeleted =
                 )
                 Prelude.. cacheCluster_cacheClusterStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "incompatible-network"
@@ -160,7 +162,7 @@ newCacheClusterDeleted =
                 )
                 Prelude.. cacheCluster_cacheClusterStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "modifying"
@@ -173,7 +175,7 @@ newCacheClusterDeleted =
                 )
                 Prelude.. cacheCluster_cacheClusterStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "restore-failed"
@@ -186,7 +188,7 @@ newCacheClusterDeleted =
                 )
                 Prelude.. cacheCluster_cacheClusterStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "snapshotting"
@@ -199,7 +201,44 @@ newCacheClusterDeleted =
                 )
                 Prelude.. cacheCluster_cacheClusterStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
+            )
+        ]
+    }
+
+-- | Polls 'Amazonka.ElastiCache.DescribeReplicationGroups' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
+newReplicationGroupAvailable :: Core.Wait DescribeReplicationGroups
+newReplicationGroupAvailable =
+  Core.Wait
+    { Core.name = "ReplicationGroupAvailable",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
+        [ Core.matchAll
+            "available"
+            Core.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationGroupsResponse_replicationGroups
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationGroup_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchAny
+            "deleted"
+            Core.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeReplicationGroupsResponse_replicationGroups
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. replicationGroup_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }
@@ -208,11 +247,10 @@ newCacheClusterDeleted =
 newReplicationGroupDeleted :: Core.Wait DescribeReplicationGroups
 newReplicationGroupDeleted =
   Core.Wait
-    { Core._waitName =
-        "ReplicationGroupDeleted",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
+    { Core.name = "ReplicationGroupDeleted",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
         [ Core.matchAll
             "deleted"
             Core.AcceptSuccess
@@ -224,7 +262,7 @@ newReplicationGroupDeleted =
                 )
                 Prelude.. replicationGroup_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "available"
@@ -237,48 +275,10 @@ newReplicationGroupDeleted =
                 )
                 Prelude.. replicationGroup_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchError
             "ReplicationGroupNotFoundFault"
             Core.AcceptSuccess
-        ]
-    }
-
--- | Polls 'Amazonka.ElastiCache.DescribeReplicationGroups' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-newReplicationGroupAvailable :: Core.Wait DescribeReplicationGroups
-newReplicationGroupAvailable =
-  Core.Wait
-    { Core._waitName =
-        "ReplicationGroupAvailable",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
-        [ Core.matchAll
-            "available"
-            Core.AcceptSuccess
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeReplicationGroupsResponse_replicationGroups
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. replicationGroup_status
-                Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
-            ),
-          Core.matchAny
-            "deleted"
-            Core.AcceptFailure
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeReplicationGroupsResponse_replicationGroups
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. replicationGroup_status
-                Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
-            )
         ]
     }

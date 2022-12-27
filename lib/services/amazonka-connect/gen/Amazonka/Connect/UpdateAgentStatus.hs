@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.UpdateAgentStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,11 +30,11 @@ module Amazonka.Connect.UpdateAgentStatus
     newUpdateAgentStatus,
 
     -- * Request Lenses
+    updateAgentStatus_description,
     updateAgentStatus_displayOrder,
-    updateAgentStatus_state,
     updateAgentStatus_name,
     updateAgentStatus_resetOrderNumber,
-    updateAgentStatus_description,
+    updateAgentStatus_state,
     updateAgentStatus_instanceId,
     updateAgentStatus_agentStatusId,
 
@@ -46,23 +46,24 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateAgentStatus' smart constructor.
 data UpdateAgentStatus = UpdateAgentStatus'
-  { -- | The display order of the agent status.
+  { -- | The description of the agent status.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The display order of the agent status.
     displayOrder :: Prelude.Maybe Prelude.Natural,
-    -- | The state of the agent status.
-    state :: Prelude.Maybe AgentStatusState,
     -- | The name of the agent status.
     name :: Prelude.Maybe Prelude.Text,
     -- | A number indicating the reset order of the agent status.
     resetOrderNumber :: Prelude.Maybe Prelude.Bool,
-    -- | The description of the agent status.
-    description :: Prelude.Maybe Prelude.Text,
+    -- | The state of the agent status.
+    state :: Prelude.Maybe AgentStatusState,
     -- | The identifier of the Amazon Connect instance. You can find the
     -- instanceId in the ARN of the instance.
     instanceId :: Prelude.Text,
@@ -79,15 +80,15 @@ data UpdateAgentStatus = UpdateAgentStatus'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'displayOrder', 'updateAgentStatus_displayOrder' - The display order of the agent status.
+-- 'description', 'updateAgentStatus_description' - The description of the agent status.
 --
--- 'state', 'updateAgentStatus_state' - The state of the agent status.
+-- 'displayOrder', 'updateAgentStatus_displayOrder' - The display order of the agent status.
 --
 -- 'name', 'updateAgentStatus_name' - The name of the agent status.
 --
 -- 'resetOrderNumber', 'updateAgentStatus_resetOrderNumber' - A number indicating the reset order of the agent status.
 --
--- 'description', 'updateAgentStatus_description' - The description of the agent status.
+-- 'state', 'updateAgentStatus_state' - The state of the agent status.
 --
 -- 'instanceId', 'updateAgentStatus_instanceId' - The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -101,22 +102,22 @@ newUpdateAgentStatus ::
   UpdateAgentStatus
 newUpdateAgentStatus pInstanceId_ pAgentStatusId_ =
   UpdateAgentStatus'
-    { displayOrder = Prelude.Nothing,
-      state = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      displayOrder = Prelude.Nothing,
       name = Prelude.Nothing,
       resetOrderNumber = Prelude.Nothing,
-      description = Prelude.Nothing,
+      state = Prelude.Nothing,
       instanceId = pInstanceId_,
       agentStatusId = pAgentStatusId_
     }
 
+-- | The description of the agent status.
+updateAgentStatus_description :: Lens.Lens' UpdateAgentStatus (Prelude.Maybe Prelude.Text)
+updateAgentStatus_description = Lens.lens (\UpdateAgentStatus' {description} -> description) (\s@UpdateAgentStatus' {} a -> s {description = a} :: UpdateAgentStatus)
+
 -- | The display order of the agent status.
 updateAgentStatus_displayOrder :: Lens.Lens' UpdateAgentStatus (Prelude.Maybe Prelude.Natural)
 updateAgentStatus_displayOrder = Lens.lens (\UpdateAgentStatus' {displayOrder} -> displayOrder) (\s@UpdateAgentStatus' {} a -> s {displayOrder = a} :: UpdateAgentStatus)
-
--- | The state of the agent status.
-updateAgentStatus_state :: Lens.Lens' UpdateAgentStatus (Prelude.Maybe AgentStatusState)
-updateAgentStatus_state = Lens.lens (\UpdateAgentStatus' {state} -> state) (\s@UpdateAgentStatus' {} a -> s {state = a} :: UpdateAgentStatus)
 
 -- | The name of the agent status.
 updateAgentStatus_name :: Lens.Lens' UpdateAgentStatus (Prelude.Maybe Prelude.Text)
@@ -126,9 +127,9 @@ updateAgentStatus_name = Lens.lens (\UpdateAgentStatus' {name} -> name) (\s@Upda
 updateAgentStatus_resetOrderNumber :: Lens.Lens' UpdateAgentStatus (Prelude.Maybe Prelude.Bool)
 updateAgentStatus_resetOrderNumber = Lens.lens (\UpdateAgentStatus' {resetOrderNumber} -> resetOrderNumber) (\s@UpdateAgentStatus' {} a -> s {resetOrderNumber = a} :: UpdateAgentStatus)
 
--- | The description of the agent status.
-updateAgentStatus_description :: Lens.Lens' UpdateAgentStatus (Prelude.Maybe Prelude.Text)
-updateAgentStatus_description = Lens.lens (\UpdateAgentStatus' {description} -> description) (\s@UpdateAgentStatus' {} a -> s {description = a} :: UpdateAgentStatus)
+-- | The state of the agent status.
+updateAgentStatus_state :: Lens.Lens' UpdateAgentStatus (Prelude.Maybe AgentStatusState)
+updateAgentStatus_state = Lens.lens (\UpdateAgentStatus' {state} -> state) (\s@UpdateAgentStatus' {} a -> s {state = a} :: UpdateAgentStatus)
 
 -- | The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -143,64 +144,65 @@ instance Core.AWSRequest UpdateAgentStatus where
   type
     AWSResponse UpdateAgentStatus =
       UpdateAgentStatusResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull UpdateAgentStatusResponse'
 
 instance Prelude.Hashable UpdateAgentStatus where
   hashWithSalt _salt UpdateAgentStatus' {..} =
-    _salt `Prelude.hashWithSalt` displayOrder
-      `Prelude.hashWithSalt` state
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` displayOrder
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` resetOrderNumber
-      `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` state
       `Prelude.hashWithSalt` instanceId
       `Prelude.hashWithSalt` agentStatusId
 
 instance Prelude.NFData UpdateAgentStatus where
   rnf UpdateAgentStatus' {..} =
-    Prelude.rnf displayOrder
-      `Prelude.seq` Prelude.rnf state
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf displayOrder
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf resetOrderNumber
-      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf state
       `Prelude.seq` Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf agentStatusId
 
-instance Core.ToHeaders UpdateAgentStatus where
+instance Data.ToHeaders UpdateAgentStatus where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateAgentStatus where
+instance Data.ToJSON UpdateAgentStatus where
   toJSON UpdateAgentStatus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DisplayOrder" Core..=) Prelude.<$> displayOrder,
-            ("State" Core..=) Prelude.<$> state,
-            ("Name" Core..=) Prelude.<$> name,
-            ("ResetOrderNumber" Core..=)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("DisplayOrder" Data..=) Prelude.<$> displayOrder,
+            ("Name" Data..=) Prelude.<$> name,
+            ("ResetOrderNumber" Data..=)
               Prelude.<$> resetOrderNumber,
-            ("Description" Core..=) Prelude.<$> description
+            ("State" Data..=) Prelude.<$> state
           ]
       )
 
-instance Core.ToPath UpdateAgentStatus where
+instance Data.ToPath UpdateAgentStatus where
   toPath UpdateAgentStatus' {..} =
     Prelude.mconcat
       [ "/agent-status/",
-        Core.toBS instanceId,
+        Data.toBS instanceId,
         "/",
-        Core.toBS agentStatusId
+        Data.toBS agentStatusId
       ]
 
-instance Core.ToQuery UpdateAgentStatus where
+instance Data.ToQuery UpdateAgentStatus where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateAgentStatusResponse' smart constructor.

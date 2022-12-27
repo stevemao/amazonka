@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.DescribeEndpointAccess
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,26 +29,27 @@ module Amazonka.Redshift.DescribeEndpointAccess
     newDescribeEndpointAccess,
 
     -- * Request Lenses
-    describeEndpointAccess_endpointName,
-    describeEndpointAccess_vpcId,
     describeEndpointAccess_clusterIdentifier,
+    describeEndpointAccess_endpointName,
     describeEndpointAccess_marker,
     describeEndpointAccess_maxRecords,
     describeEndpointAccess_resourceOwner,
+    describeEndpointAccess_vpcId,
 
     -- * Destructuring the Response
     DescribeEndpointAccessResponse (..),
     newDescribeEndpointAccessResponse,
 
     -- * Response Lenses
-    describeEndpointAccessResponse_marker,
     describeEndpointAccessResponse_endpointAccessList,
+    describeEndpointAccessResponse_marker,
     describeEndpointAccessResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -56,12 +57,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeEndpointAccess' smart constructor.
 data DescribeEndpointAccess = DescribeEndpointAccess'
-  { -- | The name of the endpoint to be described.
-    endpointName :: Prelude.Maybe Prelude.Text,
-    -- | The virtual private cloud (VPC) identifier with access to the cluster.
-    vpcId :: Prelude.Maybe Prelude.Text,
-    -- | The cluster identifier associated with the described endpoint.
+  { -- | The cluster identifier associated with the described endpoint.
     clusterIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The name of the endpoint to be described.
+    endpointName :: Prelude.Maybe Prelude.Text,
     -- | An optional pagination token provided by a previous
     -- @DescribeEndpointAccess@ request. If this parameter is specified, the
     -- response includes only records beyond the marker, up to the value
@@ -73,7 +72,9 @@ data DescribeEndpointAccess = DescribeEndpointAccess'
     -- results can be retrieved.
     maxRecords :: Prelude.Maybe Prelude.Int,
     -- | The Amazon Web Services account ID of the owner of the cluster.
-    resourceOwner :: Prelude.Maybe Prelude.Text
+    resourceOwner :: Prelude.Maybe Prelude.Text,
+    -- | The virtual private cloud (VPC) identifier with access to the cluster.
+    vpcId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -85,11 +86,9 @@ data DescribeEndpointAccess = DescribeEndpointAccess'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'endpointName', 'describeEndpointAccess_endpointName' - The name of the endpoint to be described.
---
--- 'vpcId', 'describeEndpointAccess_vpcId' - The virtual private cloud (VPC) identifier with access to the cluster.
---
 -- 'clusterIdentifier', 'describeEndpointAccess_clusterIdentifier' - The cluster identifier associated with the described endpoint.
+--
+-- 'endpointName', 'describeEndpointAccess_endpointName' - The name of the endpoint to be described.
 --
 -- 'marker', 'describeEndpointAccess_marker' - An optional pagination token provided by a previous
 -- @DescribeEndpointAccess@ request. If this parameter is specified, the
@@ -102,30 +101,28 @@ data DescribeEndpointAccess = DescribeEndpointAccess'
 -- results can be retrieved.
 --
 -- 'resourceOwner', 'describeEndpointAccess_resourceOwner' - The Amazon Web Services account ID of the owner of the cluster.
+--
+-- 'vpcId', 'describeEndpointAccess_vpcId' - The virtual private cloud (VPC) identifier with access to the cluster.
 newDescribeEndpointAccess ::
   DescribeEndpointAccess
 newDescribeEndpointAccess =
   DescribeEndpointAccess'
-    { endpointName =
+    { clusterIdentifier =
         Prelude.Nothing,
-      vpcId = Prelude.Nothing,
-      clusterIdentifier = Prelude.Nothing,
+      endpointName = Prelude.Nothing,
       marker = Prelude.Nothing,
       maxRecords = Prelude.Nothing,
-      resourceOwner = Prelude.Nothing
+      resourceOwner = Prelude.Nothing,
+      vpcId = Prelude.Nothing
     }
-
--- | The name of the endpoint to be described.
-describeEndpointAccess_endpointName :: Lens.Lens' DescribeEndpointAccess (Prelude.Maybe Prelude.Text)
-describeEndpointAccess_endpointName = Lens.lens (\DescribeEndpointAccess' {endpointName} -> endpointName) (\s@DescribeEndpointAccess' {} a -> s {endpointName = a} :: DescribeEndpointAccess)
-
--- | The virtual private cloud (VPC) identifier with access to the cluster.
-describeEndpointAccess_vpcId :: Lens.Lens' DescribeEndpointAccess (Prelude.Maybe Prelude.Text)
-describeEndpointAccess_vpcId = Lens.lens (\DescribeEndpointAccess' {vpcId} -> vpcId) (\s@DescribeEndpointAccess' {} a -> s {vpcId = a} :: DescribeEndpointAccess)
 
 -- | The cluster identifier associated with the described endpoint.
 describeEndpointAccess_clusterIdentifier :: Lens.Lens' DescribeEndpointAccess (Prelude.Maybe Prelude.Text)
 describeEndpointAccess_clusterIdentifier = Lens.lens (\DescribeEndpointAccess' {clusterIdentifier} -> clusterIdentifier) (\s@DescribeEndpointAccess' {} a -> s {clusterIdentifier = a} :: DescribeEndpointAccess)
+
+-- | The name of the endpoint to be described.
+describeEndpointAccess_endpointName :: Lens.Lens' DescribeEndpointAccess (Prelude.Maybe Prelude.Text)
+describeEndpointAccess_endpointName = Lens.lens (\DescribeEndpointAccess' {endpointName} -> endpointName) (\s@DescribeEndpointAccess' {} a -> s {endpointName = a} :: DescribeEndpointAccess)
 
 -- | An optional pagination token provided by a previous
 -- @DescribeEndpointAccess@ request. If this parameter is specified, the
@@ -144,6 +141,10 @@ describeEndpointAccess_maxRecords = Lens.lens (\DescribeEndpointAccess' {maxReco
 -- | The Amazon Web Services account ID of the owner of the cluster.
 describeEndpointAccess_resourceOwner :: Lens.Lens' DescribeEndpointAccess (Prelude.Maybe Prelude.Text)
 describeEndpointAccess_resourceOwner = Lens.lens (\DescribeEndpointAccess' {resourceOwner} -> resourceOwner) (\s@DescribeEndpointAccess' {} a -> s {resourceOwner = a} :: DescribeEndpointAccess)
+
+-- | The virtual private cloud (VPC) identifier with access to the cluster.
+describeEndpointAccess_vpcId :: Lens.Lens' DescribeEndpointAccess (Prelude.Maybe Prelude.Text)
+describeEndpointAccess_vpcId = Lens.lens (\DescribeEndpointAccess' {vpcId} -> vpcId) (\s@DescribeEndpointAccess' {} a -> s {vpcId = a} :: DescribeEndpointAccess)
 
 instance Core.AWSPager DescribeEndpointAccess where
   page rq rs
@@ -171,68 +172,69 @@ instance Core.AWSRequest DescribeEndpointAccess where
   type
     AWSResponse DescribeEndpointAccess =
       DescribeEndpointAccessResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeEndpointAccessResult"
       ( \s h x ->
           DescribeEndpointAccessResponse'
-            Prelude.<$> (x Core..@? "Marker")
-            Prelude.<*> ( x Core..@? "EndpointAccessList"
+            Prelude.<$> ( x Data..@? "EndpointAccessList"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeEndpointAccess where
   hashWithSalt _salt DescribeEndpointAccess' {..} =
-    _salt `Prelude.hashWithSalt` endpointName
-      `Prelude.hashWithSalt` vpcId
-      `Prelude.hashWithSalt` clusterIdentifier
+    _salt `Prelude.hashWithSalt` clusterIdentifier
+      `Prelude.hashWithSalt` endpointName
       `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
       `Prelude.hashWithSalt` resourceOwner
+      `Prelude.hashWithSalt` vpcId
 
 instance Prelude.NFData DescribeEndpointAccess where
   rnf DescribeEndpointAccess' {..} =
-    Prelude.rnf endpointName
-      `Prelude.seq` Prelude.rnf vpcId
-      `Prelude.seq` Prelude.rnf clusterIdentifier
+    Prelude.rnf clusterIdentifier
+      `Prelude.seq` Prelude.rnf endpointName
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
       `Prelude.seq` Prelude.rnf resourceOwner
+      `Prelude.seq` Prelude.rnf vpcId
 
-instance Core.ToHeaders DescribeEndpointAccess where
+instance Data.ToHeaders DescribeEndpointAccess where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeEndpointAccess where
+instance Data.ToPath DescribeEndpointAccess where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeEndpointAccess where
+instance Data.ToQuery DescribeEndpointAccess where
   toQuery DescribeEndpointAccess' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeEndpointAccess" :: Prelude.ByteString),
+          Data.=: ("DescribeEndpointAccess" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "EndpointName" Core.=: endpointName,
-        "VpcId" Core.=: vpcId,
-        "ClusterIdentifier" Core.=: clusterIdentifier,
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords,
-        "ResourceOwner" Core.=: resourceOwner
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "ClusterIdentifier" Data.=: clusterIdentifier,
+        "EndpointName" Data.=: endpointName,
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
+        "ResourceOwner" Data.=: resourceOwner,
+        "VpcId" Data.=: vpcId
       ]
 
 -- | /See:/ 'newDescribeEndpointAccessResponse' smart constructor.
 data DescribeEndpointAccessResponse = DescribeEndpointAccessResponse'
-  { -- | An optional pagination token provided by a previous
+  { -- | The list of endpoints with access to the cluster.
+    endpointAccessList :: Prelude.Maybe [EndpointAccess],
+    -- | An optional pagination token provided by a previous
     -- @DescribeEndpointAccess@ request. If this parameter is specified, the
     -- response includes only records beyond the marker, up to the value
     -- specified by the @MaxRecords@ parameter.
     marker :: Prelude.Maybe Prelude.Text,
-    -- | The list of endpoints with access to the cluster.
-    endpointAccessList :: Prelude.Maybe [EndpointAccess],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -246,12 +248,12 @@ data DescribeEndpointAccessResponse = DescribeEndpointAccessResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'endpointAccessList', 'describeEndpointAccessResponse_endpointAccessList' - The list of endpoints with access to the cluster.
+--
 -- 'marker', 'describeEndpointAccessResponse_marker' - An optional pagination token provided by a previous
 -- @DescribeEndpointAccess@ request. If this parameter is specified, the
 -- response includes only records beyond the marker, up to the value
 -- specified by the @MaxRecords@ parameter.
---
--- 'endpointAccessList', 'describeEndpointAccessResponse_endpointAccessList' - The list of endpoints with access to the cluster.
 --
 -- 'httpStatus', 'describeEndpointAccessResponse_httpStatus' - The response's http status code.
 newDescribeEndpointAccessResponse ::
@@ -260,11 +262,15 @@ newDescribeEndpointAccessResponse ::
   DescribeEndpointAccessResponse
 newDescribeEndpointAccessResponse pHttpStatus_ =
   DescribeEndpointAccessResponse'
-    { marker =
+    { endpointAccessList =
         Prelude.Nothing,
-      endpointAccessList = Prelude.Nothing,
+      marker = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The list of endpoints with access to the cluster.
+describeEndpointAccessResponse_endpointAccessList :: Lens.Lens' DescribeEndpointAccessResponse (Prelude.Maybe [EndpointAccess])
+describeEndpointAccessResponse_endpointAccessList = Lens.lens (\DescribeEndpointAccessResponse' {endpointAccessList} -> endpointAccessList) (\s@DescribeEndpointAccessResponse' {} a -> s {endpointAccessList = a} :: DescribeEndpointAccessResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | An optional pagination token provided by a previous
 -- @DescribeEndpointAccess@ request. If this parameter is specified, the
@@ -272,10 +278,6 @@ newDescribeEndpointAccessResponse pHttpStatus_ =
 -- specified by the @MaxRecords@ parameter.
 describeEndpointAccessResponse_marker :: Lens.Lens' DescribeEndpointAccessResponse (Prelude.Maybe Prelude.Text)
 describeEndpointAccessResponse_marker = Lens.lens (\DescribeEndpointAccessResponse' {marker} -> marker) (\s@DescribeEndpointAccessResponse' {} a -> s {marker = a} :: DescribeEndpointAccessResponse)
-
--- | The list of endpoints with access to the cluster.
-describeEndpointAccessResponse_endpointAccessList :: Lens.Lens' DescribeEndpointAccessResponse (Prelude.Maybe [EndpointAccess])
-describeEndpointAccessResponse_endpointAccessList = Lens.lens (\DescribeEndpointAccessResponse' {endpointAccessList} -> endpointAccessList) (\s@DescribeEndpointAccessResponse' {} a -> s {endpointAccessList = a} :: DescribeEndpointAccessResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeEndpointAccessResponse_httpStatus :: Lens.Lens' DescribeEndpointAccessResponse Prelude.Int
@@ -286,6 +288,6 @@ instance
     DescribeEndpointAccessResponse
   where
   rnf DescribeEndpointAccessResponse' {..} =
-    Prelude.rnf marker
-      `Prelude.seq` Prelude.rnf endpointAccessList
+    Prelude.rnf endpointAccessList
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf httpStatus

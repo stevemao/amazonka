@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.ListProjectAssets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.IoTSiteWise.ListProjectAssets
     newListProjectAssets,
 
     -- * Request Lenses
-    listProjectAssets_nextToken,
     listProjectAssets_maxResults,
+    listProjectAssets_nextToken,
     listProjectAssets_projectId,
 
     -- * Destructuring the Response
@@ -46,20 +46,21 @@ module Amazonka.IoTSiteWise.ListProjectAssets
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListProjectAssets' smart constructor.
 data ListProjectAssets = ListProjectAssets'
-  { -- | The token to be used for the next set of paginated results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return for each paginated request.
+  { -- | The maximum number of results to return for each paginated request.
     --
     -- Default: 50
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to be used for the next set of paginated results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ID of the project.
     projectId :: Prelude.Text
   }
@@ -73,11 +74,11 @@ data ListProjectAssets = ListProjectAssets'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listProjectAssets_nextToken' - The token to be used for the next set of paginated results.
---
 -- 'maxResults', 'listProjectAssets_maxResults' - The maximum number of results to return for each paginated request.
 --
 -- Default: 50
+--
+-- 'nextToken', 'listProjectAssets_nextToken' - The token to be used for the next set of paginated results.
 --
 -- 'projectId', 'listProjectAssets_projectId' - The ID of the project.
 newListProjectAssets ::
@@ -86,20 +87,20 @@ newListProjectAssets ::
   ListProjectAssets
 newListProjectAssets pProjectId_ =
   ListProjectAssets'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       projectId = pProjectId_
     }
-
--- | The token to be used for the next set of paginated results.
-listProjectAssets_nextToken :: Lens.Lens' ListProjectAssets (Prelude.Maybe Prelude.Text)
-listProjectAssets_nextToken = Lens.lens (\ListProjectAssets' {nextToken} -> nextToken) (\s@ListProjectAssets' {} a -> s {nextToken = a} :: ListProjectAssets)
 
 -- | The maximum number of results to return for each paginated request.
 --
 -- Default: 50
 listProjectAssets_maxResults :: Lens.Lens' ListProjectAssets (Prelude.Maybe Prelude.Natural)
 listProjectAssets_maxResults = Lens.lens (\ListProjectAssets' {maxResults} -> maxResults) (\s@ListProjectAssets' {} a -> s {maxResults = a} :: ListProjectAssets)
+
+-- | The token to be used for the next set of paginated results.
+listProjectAssets_nextToken :: Lens.Lens' ListProjectAssets (Prelude.Maybe Prelude.Text)
+listProjectAssets_nextToken = Lens.lens (\ListProjectAssets' {nextToken} -> nextToken) (\s@ListProjectAssets' {} a -> s {nextToken = a} :: ListProjectAssets)
 
 -- | The ID of the project.
 listProjectAssets_projectId :: Lens.Lens' ListProjectAssets Prelude.Text
@@ -128,49 +129,50 @@ instance Core.AWSRequest ListProjectAssets where
   type
     AWSResponse ListProjectAssets =
       ListProjectAssetsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListProjectAssetsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "assetIds" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "assetIds" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListProjectAssets where
   hashWithSalt _salt ListProjectAssets' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` projectId
 
 instance Prelude.NFData ListProjectAssets where
   rnf ListProjectAssets' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf projectId
 
-instance Core.ToHeaders ListProjectAssets where
+instance Data.ToHeaders ListProjectAssets where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListProjectAssets where
+instance Data.ToPath ListProjectAssets where
   toPath ListProjectAssets' {..} =
     Prelude.mconcat
-      ["/projects/", Core.toBS projectId, "/assets"]
+      ["/projects/", Data.toBS projectId, "/assets"]
 
-instance Core.ToQuery ListProjectAssets where
+instance Data.ToQuery ListProjectAssets where
   toQuery ListProjectAssets' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListProjectAssetsResponse' smart constructor.

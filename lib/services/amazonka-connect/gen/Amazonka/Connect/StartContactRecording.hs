@@ -14,13 +14,20 @@
 
 -- |
 -- Module      : Amazonka.Connect.StartContactRecording
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Starts recording the contact when the agent joins the call.
+-- Starts recording the contact:
+--
+-- -   If the API is called /before/ the agent joins the call, recording
+--     starts when the agent joins the call.
+--
+-- -   If the API is called /after/ the agent joins the call, recording
+--     starts at the time of the API call.
+--
 -- StartContactRecording is a one-time action. For example, if you use
 -- StopContactRecording to stop recording an ongoing call, you can\'t use
 -- StartContactRecording to restart it. For scenarios where the recording
@@ -56,7 +63,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -138,7 +146,8 @@ instance Core.AWSRequest StartContactRecording where
   type
     AWSResponse StartContactRecording =
       StartContactRecordingResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -160,36 +169,36 @@ instance Prelude.NFData StartContactRecording where
       `Prelude.seq` Prelude.rnf initialContactId
       `Prelude.seq` Prelude.rnf voiceRecordingConfiguration
 
-instance Core.ToHeaders StartContactRecording where
+instance Data.ToHeaders StartContactRecording where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartContactRecording where
+instance Data.ToJSON StartContactRecording where
   toJSON StartContactRecording' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("InstanceId" Core..= instanceId),
-            Prelude.Just ("ContactId" Core..= contactId),
+          [ Prelude.Just ("InstanceId" Data..= instanceId),
+            Prelude.Just ("ContactId" Data..= contactId),
             Prelude.Just
-              ("InitialContactId" Core..= initialContactId),
+              ("InitialContactId" Data..= initialContactId),
             Prelude.Just
               ( "VoiceRecordingConfiguration"
-                  Core..= voiceRecordingConfiguration
+                  Data..= voiceRecordingConfiguration
               )
           ]
       )
 
-instance Core.ToPath StartContactRecording where
+instance Data.ToPath StartContactRecording where
   toPath = Prelude.const "/contact/start-recording"
 
-instance Core.ToQuery StartContactRecording where
+instance Data.ToQuery StartContactRecording where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartContactRecordingResponse' smart constructor.

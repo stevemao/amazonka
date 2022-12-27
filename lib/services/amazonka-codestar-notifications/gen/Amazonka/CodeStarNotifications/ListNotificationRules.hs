@@ -14,13 +14,14 @@
 
 -- |
 -- Module      : Amazonka.CodeStarNotifications.ListNotificationRules
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of the notification rules for an AWS account.
+-- Returns a list of the notification rules for an Amazon Web Services
+-- account.
 --
 -- This operation returns paginated results.
 module Amazonka.CodeStarNotifications.ListNotificationRules
@@ -30,8 +31,8 @@ module Amazonka.CodeStarNotifications.ListNotificationRules
 
     -- * Request Lenses
     listNotificationRules_filters,
-    listNotificationRules_nextToken,
     listNotificationRules_maxResults,
+    listNotificationRules_nextToken,
 
     -- * Destructuring the Response
     ListNotificationRulesResponse (..),
@@ -46,7 +47,8 @@ where
 
 import Amazonka.CodeStarNotifications.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,12 +62,12 @@ data ListNotificationRules = ListNotificationRules'
     -- statements. Filters with different names should be applied with AND
     -- statements.
     filters :: Prelude.Maybe [ListNotificationRulesFilter],
-    -- | An enumeration token that, when provided in a request, returns the next
-    -- batch of the results.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | A non-negative integer used to limit the number of returned results. The
     -- maximum number of results that can be returned is 100.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | An enumeration token that, when provided in a request, returns the next
+    -- batch of the results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -84,18 +86,18 @@ data ListNotificationRules = ListNotificationRules'
 -- statements. Filters with different names should be applied with AND
 -- statements.
 --
--- 'nextToken', 'listNotificationRules_nextToken' - An enumeration token that, when provided in a request, returns the next
--- batch of the results.
---
 -- 'maxResults', 'listNotificationRules_maxResults' - A non-negative integer used to limit the number of returned results. The
 -- maximum number of results that can be returned is 100.
+--
+-- 'nextToken', 'listNotificationRules_nextToken' - An enumeration token that, when provided in a request, returns the next
+-- batch of the results.
 newListNotificationRules ::
   ListNotificationRules
 newListNotificationRules =
   ListNotificationRules'
     { filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | The filters to use to return information by service or resource type.
@@ -107,15 +109,15 @@ newListNotificationRules =
 listNotificationRules_filters :: Lens.Lens' ListNotificationRules (Prelude.Maybe [ListNotificationRulesFilter])
 listNotificationRules_filters = Lens.lens (\ListNotificationRules' {filters} -> filters) (\s@ListNotificationRules' {} a -> s {filters = a} :: ListNotificationRules) Prelude.. Lens.mapping Lens.coerced
 
--- | An enumeration token that, when provided in a request, returns the next
--- batch of the results.
-listNotificationRules_nextToken :: Lens.Lens' ListNotificationRules (Prelude.Maybe Prelude.Text)
-listNotificationRules_nextToken = Lens.lens (\ListNotificationRules' {nextToken} -> nextToken) (\s@ListNotificationRules' {} a -> s {nextToken = a} :: ListNotificationRules)
-
 -- | A non-negative integer used to limit the number of returned results. The
 -- maximum number of results that can be returned is 100.
 listNotificationRules_maxResults :: Lens.Lens' ListNotificationRules (Prelude.Maybe Prelude.Natural)
 listNotificationRules_maxResults = Lens.lens (\ListNotificationRules' {maxResults} -> maxResults) (\s@ListNotificationRules' {} a -> s {maxResults = a} :: ListNotificationRules)
+
+-- | An enumeration token that, when provided in a request, returns the next
+-- batch of the results.
+listNotificationRules_nextToken :: Lens.Lens' ListNotificationRules (Prelude.Maybe Prelude.Text)
+listNotificationRules_nextToken = Lens.lens (\ListNotificationRules' {nextToken} -> nextToken) (\s@ListNotificationRules' {} a -> s {nextToken = a} :: ListNotificationRules)
 
 instance Core.AWSPager ListNotificationRules where
   page rq rs
@@ -143,13 +145,14 @@ instance Core.AWSRequest ListNotificationRules where
   type
     AWSResponse ListNotificationRules =
       ListNotificationRulesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListNotificationRulesResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "NotificationRules"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "NotificationRules"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -158,40 +161,40 @@ instance Core.AWSRequest ListNotificationRules where
 instance Prelude.Hashable ListNotificationRules where
   hashWithSalt _salt ListNotificationRules' {..} =
     _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListNotificationRules where
   rnf ListNotificationRules' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListNotificationRules where
+instance Data.ToHeaders ListNotificationRules where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListNotificationRules where
+instance Data.ToJSON ListNotificationRules where
   toJSON ListNotificationRules' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListNotificationRules where
+instance Data.ToPath ListNotificationRules where
   toPath = Prelude.const "/listNotificationRules"
 
-instance Core.ToQuery ListNotificationRules where
+instance Data.ToQuery ListNotificationRules where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListNotificationRulesResponse' smart constructor.
@@ -199,8 +202,8 @@ data ListNotificationRulesResponse = ListNotificationRulesResponse'
   { -- | An enumeration token that can be used in a request to return the next
     -- batch of the results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The list of notification rules for the AWS account, by Amazon Resource
-    -- Name (ARN) and ID.
+    -- | The list of notification rules for the Amazon Web Services account, by
+    -- Amazon Resource Name (ARN) and ID.
     notificationRules :: Prelude.Maybe [NotificationRuleSummary],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -218,8 +221,8 @@ data ListNotificationRulesResponse = ListNotificationRulesResponse'
 -- 'nextToken', 'listNotificationRulesResponse_nextToken' - An enumeration token that can be used in a request to return the next
 -- batch of the results.
 --
--- 'notificationRules', 'listNotificationRulesResponse_notificationRules' - The list of notification rules for the AWS account, by Amazon Resource
--- Name (ARN) and ID.
+-- 'notificationRules', 'listNotificationRulesResponse_notificationRules' - The list of notification rules for the Amazon Web Services account, by
+-- Amazon Resource Name (ARN) and ID.
 --
 -- 'httpStatus', 'listNotificationRulesResponse_httpStatus' - The response's http status code.
 newListNotificationRulesResponse ::
@@ -239,8 +242,8 @@ newListNotificationRulesResponse pHttpStatus_ =
 listNotificationRulesResponse_nextToken :: Lens.Lens' ListNotificationRulesResponse (Prelude.Maybe Prelude.Text)
 listNotificationRulesResponse_nextToken = Lens.lens (\ListNotificationRulesResponse' {nextToken} -> nextToken) (\s@ListNotificationRulesResponse' {} a -> s {nextToken = a} :: ListNotificationRulesResponse)
 
--- | The list of notification rules for the AWS account, by Amazon Resource
--- Name (ARN) and ID.
+-- | The list of notification rules for the Amazon Web Services account, by
+-- Amazon Resource Name (ARN) and ID.
 listNotificationRulesResponse_notificationRules :: Lens.Lens' ListNotificationRulesResponse (Prelude.Maybe [NotificationRuleSummary])
 listNotificationRulesResponse_notificationRules = Lens.lens (\ListNotificationRulesResponse' {notificationRules} -> notificationRules) (\s@ListNotificationRulesResponse' {} a -> s {notificationRules = a} :: ListNotificationRulesResponse) Prelude.. Lens.mapping Lens.coerced
 

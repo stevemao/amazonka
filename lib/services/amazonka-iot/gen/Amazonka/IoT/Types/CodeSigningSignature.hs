@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.CodeSigningSignature
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoT.Types.CodeSigningSignature where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the signature for a file.
@@ -28,7 +29,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newCodeSigningSignature' smart constructor.
 data CodeSigningSignature = CodeSigningSignature'
   { -- | A base64 encoded binary representation of the code signing signature.
-    inlineDocument :: Prelude.Maybe Core.Base64
+    inlineDocument :: Prelude.Maybe Data.Base64
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -59,15 +60,15 @@ newCodeSigningSignature =
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 codeSigningSignature_inlineDocument :: Lens.Lens' CodeSigningSignature (Prelude.Maybe Prelude.ByteString)
-codeSigningSignature_inlineDocument = Lens.lens (\CodeSigningSignature' {inlineDocument} -> inlineDocument) (\s@CodeSigningSignature' {} a -> s {inlineDocument = a} :: CodeSigningSignature) Prelude.. Lens.mapping Core._Base64
+codeSigningSignature_inlineDocument = Lens.lens (\CodeSigningSignature' {inlineDocument} -> inlineDocument) (\s@CodeSigningSignature' {} a -> s {inlineDocument = a} :: CodeSigningSignature) Prelude.. Lens.mapping Data._Base64
 
-instance Core.FromJSON CodeSigningSignature where
+instance Data.FromJSON CodeSigningSignature where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CodeSigningSignature"
       ( \x ->
           CodeSigningSignature'
-            Prelude.<$> (x Core..:? "inlineDocument")
+            Prelude.<$> (x Data..:? "inlineDocument")
       )
 
 instance Prelude.Hashable CodeSigningSignature where
@@ -78,11 +79,11 @@ instance Prelude.NFData CodeSigningSignature where
   rnf CodeSigningSignature' {..} =
     Prelude.rnf inlineDocument
 
-instance Core.ToJSON CodeSigningSignature where
+instance Data.ToJSON CodeSigningSignature where
   toJSON CodeSigningSignature' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("inlineDocument" Core..=)
+          [ ("inlineDocument" Data..=)
               Prelude.<$> inlineDocument
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.Types.NodeToNodeEncryptionOptionsStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.ElasticSearch.Types.NodeToNodeEncryptionOptionsStatus where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types.NodeToNodeEncryptionOptions
 import Amazonka.ElasticSearch.Types.OptionStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Status of the node-to-node encryption options for the specified
@@ -78,16 +79,16 @@ nodeToNodeEncryptionOptionsStatus_status :: Lens.Lens' NodeToNodeEncryptionOptio
 nodeToNodeEncryptionOptionsStatus_status = Lens.lens (\NodeToNodeEncryptionOptionsStatus' {status} -> status) (\s@NodeToNodeEncryptionOptionsStatus' {} a -> s {status = a} :: NodeToNodeEncryptionOptionsStatus)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     NodeToNodeEncryptionOptionsStatus
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NodeToNodeEncryptionOptionsStatus"
       ( \x ->
           NodeToNodeEncryptionOptionsStatus'
-            Prelude.<$> (x Core..: "Options")
-            Prelude.<*> (x Core..: "Status")
+            Prelude.<$> (x Data..: "Options")
+            Prelude.<*> (x Data..: "Status")
       )
 
 instance

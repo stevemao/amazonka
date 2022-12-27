@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.Types.LifecycleState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,6 +33,7 @@ module Amazonka.AutoScaling.Types.LifecycleState
         LifecycleState_Terminating,
         LifecycleState_Terminating_Proceed,
         LifecycleState_Terminating_Wait,
+        LifecycleState_Warmed_Hibernated,
         LifecycleState_Warmed_Pending,
         LifecycleState_Warmed_Pending_Proceed,
         LifecycleState_Warmed_Pending_Wait,
@@ -47,11 +48,12 @@ module Amazonka.AutoScaling.Types.LifecycleState
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype LifecycleState = LifecycleState'
   { fromLifecycleState ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -63,18 +65,18 @@ newtype LifecycleState = LifecycleState'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern LifecycleState_Detached :: LifecycleState
@@ -115,6 +117,9 @@ pattern LifecycleState_Terminating_Proceed = LifecycleState' "Terminating:Procee
 
 pattern LifecycleState_Terminating_Wait :: LifecycleState
 pattern LifecycleState_Terminating_Wait = LifecycleState' "Terminating:Wait"
+
+pattern LifecycleState_Warmed_Hibernated :: LifecycleState
+pattern LifecycleState_Warmed_Hibernated = LifecycleState' "Warmed:Hibernated"
 
 pattern LifecycleState_Warmed_Pending :: LifecycleState
 pattern LifecycleState_Warmed_Pending = LifecycleState' "Warmed:Pending"
@@ -157,6 +162,7 @@ pattern LifecycleState_Warmed_Terminating_Wait = LifecycleState' "Warmed:Termina
   LifecycleState_Terminating,
   LifecycleState_Terminating_Proceed,
   LifecycleState_Terminating_Wait,
+  LifecycleState_Warmed_Hibernated,
   LifecycleState_Warmed_Pending,
   LifecycleState_Warmed_Pending_Proceed,
   LifecycleState_Warmed_Pending_Wait,

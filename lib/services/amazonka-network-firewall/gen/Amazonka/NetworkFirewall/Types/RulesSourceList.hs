@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.Types.RulesSourceList
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.NetworkFirewall.Types.RulesSourceList where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkFirewall.Types.GeneratedRulesType
 import Amazonka.NetworkFirewall.Types.TargetType
 import qualified Amazonka.Prelude as Prelude
@@ -36,14 +37,13 @@ import qualified Amazonka.Prelude as Prelude
 -- @HOME_NET@ rule variable to include the CIDR range of the deployment VPC
 -- plus the other CIDR ranges. For more information, see RuleVariables in
 -- this guide and
--- <https://docs.aws.amazon.com/network-firewall/latest/developerguide/stateful-rule-groups-domain-names.html Stateful domain list rule groups in AWS Network Firewall>
+-- <https://docs.aws.amazon.com/network-firewall/latest/developerguide/stateful-rule-groups-domain-names.html Stateful domain list rule groups in Network Firewall>
 -- in the /Network Firewall Developer Guide/.
 --
 -- /See:/ 'newRulesSourceList' smart constructor.
 data RulesSourceList = RulesSourceList'
-  { -- | The domains that you want to inspect for in your traffic flows. To
-    -- provide multiple domains, separate them with commas. Valid domain
-    -- specifications are the following:
+  { -- | The domains that you want to inspect for in your traffic flows. Valid
+    -- domain specifications are the following:
     --
     -- -   Explicit names. For example, @abc.example.com@ matches only the
     --     domain @abc.example.com@.
@@ -70,9 +70,8 @@ data RulesSourceList = RulesSourceList'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'targets', 'rulesSourceList_targets' - The domains that you want to inspect for in your traffic flows. To
--- provide multiple domains, separate them with commas. Valid domain
--- specifications are the following:
+-- 'targets', 'rulesSourceList_targets' - The domains that you want to inspect for in your traffic flows. Valid
+-- domain specifications are the following:
 --
 -- -   Explicit names. For example, @abc.example.com@ matches only the
 --     domain @abc.example.com@.
@@ -98,9 +97,8 @@ newRulesSourceList pGeneratedRulesType_ =
       generatedRulesType = pGeneratedRulesType_
     }
 
--- | The domains that you want to inspect for in your traffic flows. To
--- provide multiple domains, separate them with commas. Valid domain
--- specifications are the following:
+-- | The domains that you want to inspect for in your traffic flows. Valid
+-- domain specifications are the following:
 --
 -- -   Explicit names. For example, @abc.example.com@ matches only the
 --     domain @abc.example.com@.
@@ -122,15 +120,15 @@ rulesSourceList_targetTypes = Lens.lens (\RulesSourceList' {targetTypes} -> targ
 rulesSourceList_generatedRulesType :: Lens.Lens' RulesSourceList GeneratedRulesType
 rulesSourceList_generatedRulesType = Lens.lens (\RulesSourceList' {generatedRulesType} -> generatedRulesType) (\s@RulesSourceList' {} a -> s {generatedRulesType = a} :: RulesSourceList)
 
-instance Core.FromJSON RulesSourceList where
+instance Data.FromJSON RulesSourceList where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RulesSourceList"
       ( \x ->
           RulesSourceList'
-            Prelude.<$> (x Core..:? "Targets" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "TargetTypes" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "GeneratedRulesType")
+            Prelude.<$> (x Data..:? "Targets" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "TargetTypes" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "GeneratedRulesType")
       )
 
 instance Prelude.Hashable RulesSourceList where
@@ -145,13 +143,13 @@ instance Prelude.NFData RulesSourceList where
       `Prelude.seq` Prelude.rnf targetTypes
       `Prelude.seq` Prelude.rnf generatedRulesType
 
-instance Core.ToJSON RulesSourceList where
+instance Data.ToJSON RulesSourceList where
   toJSON RulesSourceList' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Targets" Core..= targets),
-            Prelude.Just ("TargetTypes" Core..= targetTypes),
+          [ Prelude.Just ("Targets" Data..= targets),
+            Prelude.Just ("TargetTypes" Data..= targetTypes),
             Prelude.Just
-              ("GeneratedRulesType" Core..= generatedRulesType)
+              ("GeneratedRulesType" Data..= generatedRulesType)
           ]
       )

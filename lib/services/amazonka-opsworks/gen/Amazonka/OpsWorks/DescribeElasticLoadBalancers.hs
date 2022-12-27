@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.DescribeElasticLoadBalancers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ module Amazonka.OpsWorks.DescribeElasticLoadBalancers
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -102,12 +103,13 @@ instance Core.AWSRequest DescribeElasticLoadBalancers where
   type
     AWSResponse DescribeElasticLoadBalancers =
       DescribeElasticLoadBalancersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeElasticLoadBalancersResponse'
-            Prelude.<$> ( x Core..?> "ElasticLoadBalancers"
+            Prelude.<$> ( x Data..?> "ElasticLoadBalancers"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -126,34 +128,34 @@ instance Prelude.NFData DescribeElasticLoadBalancers where
     Prelude.rnf layerIds
       `Prelude.seq` Prelude.rnf stackId
 
-instance Core.ToHeaders DescribeElasticLoadBalancers where
+instance Data.ToHeaders DescribeElasticLoadBalancers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.DescribeElasticLoadBalancers" ::
+              Data.=# ( "OpsWorks_20130218.DescribeElasticLoadBalancers" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeElasticLoadBalancers where
+instance Data.ToJSON DescribeElasticLoadBalancers where
   toJSON DescribeElasticLoadBalancers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("LayerIds" Core..=) Prelude.<$> layerIds,
-            ("StackId" Core..=) Prelude.<$> stackId
+          [ ("LayerIds" Data..=) Prelude.<$> layerIds,
+            ("StackId" Data..=) Prelude.<$> stackId
           ]
       )
 
-instance Core.ToPath DescribeElasticLoadBalancers where
+instance Data.ToPath DescribeElasticLoadBalancers where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeElasticLoadBalancers where
+instance Data.ToQuery DescribeElasticLoadBalancers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the response to a @DescribeElasticLoadBalancers@ request.

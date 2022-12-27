@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.DescribeDBProxyTargetGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.RDS.DescribeDBProxyTargetGroups
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -173,15 +174,16 @@ instance Core.AWSRequest DescribeDBProxyTargetGroups where
   type
     AWSResponse DescribeDBProxyTargetGroups =
       DescribeDBProxyTargetGroupsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeDBProxyTargetGroupsResult"
       ( \s h x ->
           DescribeDBProxyTargetGroupsResponse'
-            Prelude.<$> (x Core..@? "Marker")
-            Prelude.<*> ( x Core..@? "TargetGroups" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> (x Data..@? "Marker")
+            Prelude.<*> ( x Data..@? "TargetGroups" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -202,28 +204,28 @@ instance Prelude.NFData DescribeDBProxyTargetGroups where
       `Prelude.seq` Prelude.rnf targetGroupName
       `Prelude.seq` Prelude.rnf dbProxyName
 
-instance Core.ToHeaders DescribeDBProxyTargetGroups where
+instance Data.ToHeaders DescribeDBProxyTargetGroups where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeDBProxyTargetGroups where
+instance Data.ToPath DescribeDBProxyTargetGroups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeDBProxyTargetGroups where
+instance Data.ToQuery DescribeDBProxyTargetGroups where
   toQuery DescribeDBProxyTargetGroups' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeDBProxyTargetGroups" ::
+          Data.=: ( "DescribeDBProxyTargetGroups" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "Filters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Filter" Prelude.<$> filters),
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords,
-        "TargetGroupName" Core.=: targetGroupName,
-        "DBProxyName" Core.=: dbProxyName
+          Data.=: Data.toQuery
+            (Data.toQueryList "Filter" Prelude.<$> filters),
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
+        "TargetGroupName" Data.=: targetGroupName,
+        "DBProxyName" Data.=: dbProxyName
       ]
 
 -- | /See:/ 'newDescribeDBProxyTargetGroupsResponse' smart constructor.

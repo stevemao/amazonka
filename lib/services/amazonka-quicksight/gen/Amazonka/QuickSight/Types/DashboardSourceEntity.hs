@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.DashboardSourceEntity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.DashboardSourceEntity where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types.DashboardSourceTemplate
 
@@ -62,11 +63,11 @@ instance Prelude.NFData DashboardSourceEntity where
   rnf DashboardSourceEntity' {..} =
     Prelude.rnf sourceTemplate
 
-instance Core.ToJSON DashboardSourceEntity where
+instance Data.ToJSON DashboardSourceEntity where
   toJSON DashboardSourceEntity' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SourceTemplate" Core..=)
+          [ ("SourceTemplate" Data..=)
               Prelude.<$> sourceTemplate
           ]
       )

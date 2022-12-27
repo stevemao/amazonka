@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.SSOAdmin.AttachManagedPolicyToPermissionSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Attaches an IAM managed policy ARN to a permission set.
+-- Attaches an AWS managed policy ARN to a permission set.
 --
 -- If the permission set is already referenced by one or more account
 -- assignments, you will need to call @ ProvisionPermissionSet @ after this
@@ -46,7 +46,8 @@ module Amazonka.SSOAdmin.AttachManagedPolicyToPermissionSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,15 +55,15 @@ import Amazonka.SSOAdmin.Types
 
 -- | /See:/ 'newAttachManagedPolicyToPermissionSet' smart constructor.
 data AttachManagedPolicyToPermissionSet = AttachManagedPolicyToPermissionSet'
-  { -- | The ARN of the SSO instance under which the operation will be executed.
-    -- For more information about ARNs, see
-    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
-    -- in the /Amazon Web Services General Reference/.
+  { -- | The ARN of the IAM Identity Center instance under which the operation
+    -- will be executed. For more information about ARNs, see
+    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+    -- in the /AWS General Reference/.
     instanceArn :: Prelude.Text,
     -- | The ARN of the PermissionSet that the managed policy should be attached
     -- to.
     permissionSetArn :: Prelude.Text,
-    -- | The IAM managed policy ARN to be attached to a permission set.
+    -- | The AWS managed policy ARN to be attached to a permission set.
     managedPolicyArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -75,15 +76,15 @@ data AttachManagedPolicyToPermissionSet = AttachManagedPolicyToPermissionSet'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'instanceArn', 'attachManagedPolicyToPermissionSet_instanceArn' - The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- 'instanceArn', 'attachManagedPolicyToPermissionSet_instanceArn' - The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 --
 -- 'permissionSetArn', 'attachManagedPolicyToPermissionSet_permissionSetArn' - The ARN of the PermissionSet that the managed policy should be attached
 -- to.
 --
--- 'managedPolicyArn', 'attachManagedPolicyToPermissionSet_managedPolicyArn' - The IAM managed policy ARN to be attached to a permission set.
+-- 'managedPolicyArn', 'attachManagedPolicyToPermissionSet_managedPolicyArn' - The AWS managed policy ARN to be attached to a permission set.
 newAttachManagedPolicyToPermissionSet ::
   -- | 'instanceArn'
   Prelude.Text ->
@@ -103,10 +104,10 @@ newAttachManagedPolicyToPermissionSet
         managedPolicyArn = pManagedPolicyArn_
       }
 
--- | The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- | The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 attachManagedPolicyToPermissionSet_instanceArn :: Lens.Lens' AttachManagedPolicyToPermissionSet Prelude.Text
 attachManagedPolicyToPermissionSet_instanceArn = Lens.lens (\AttachManagedPolicyToPermissionSet' {instanceArn} -> instanceArn) (\s@AttachManagedPolicyToPermissionSet' {} a -> s {instanceArn = a} :: AttachManagedPolicyToPermissionSet)
 
@@ -115,7 +116,7 @@ attachManagedPolicyToPermissionSet_instanceArn = Lens.lens (\AttachManagedPolicy
 attachManagedPolicyToPermissionSet_permissionSetArn :: Lens.Lens' AttachManagedPolicyToPermissionSet Prelude.Text
 attachManagedPolicyToPermissionSet_permissionSetArn = Lens.lens (\AttachManagedPolicyToPermissionSet' {permissionSetArn} -> permissionSetArn) (\s@AttachManagedPolicyToPermissionSet' {} a -> s {permissionSetArn = a} :: AttachManagedPolicyToPermissionSet)
 
--- | The IAM managed policy ARN to be attached to a permission set.
+-- | The AWS managed policy ARN to be attached to a permission set.
 attachManagedPolicyToPermissionSet_managedPolicyArn :: Lens.Lens' AttachManagedPolicyToPermissionSet Prelude.Text
 attachManagedPolicyToPermissionSet_managedPolicyArn = Lens.lens (\AttachManagedPolicyToPermissionSet' {managedPolicyArn} -> managedPolicyArn) (\s@AttachManagedPolicyToPermissionSet' {} a -> s {managedPolicyArn = a} :: AttachManagedPolicyToPermissionSet)
 
@@ -126,7 +127,8 @@ instance
   type
     AWSResponse AttachManagedPolicyToPermissionSet =
       AttachManagedPolicyToPermissionSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -155,46 +157,46 @@ instance
       `Prelude.seq` Prelude.rnf managedPolicyArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     AttachManagedPolicyToPermissionSet
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SWBExternalService.AttachManagedPolicyToPermissionSet" ::
+              Data.=# ( "SWBExternalService.AttachManagedPolicyToPermissionSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AttachManagedPolicyToPermissionSet
   where
   toJSON AttachManagedPolicyToPermissionSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("InstanceArn" Core..= instanceArn),
+          [ Prelude.Just ("InstanceArn" Data..= instanceArn),
             Prelude.Just
-              ("PermissionSetArn" Core..= permissionSetArn),
+              ("PermissionSetArn" Data..= permissionSetArn),
             Prelude.Just
-              ("ManagedPolicyArn" Core..= managedPolicyArn)
+              ("ManagedPolicyArn" Data..= managedPolicyArn)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     AttachManagedPolicyToPermissionSet
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     AttachManagedPolicyToPermissionSet
   where
   toQuery = Prelude.const Prelude.mempty

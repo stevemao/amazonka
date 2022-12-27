@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GreengrassV2.Types.IoTJobAbortConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.GreengrassV2.Types.IoTJobAbortConfig where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GreengrassV2.Types.IoTJobAbortCriteria
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains a list of criteria that define when and how to cancel a
@@ -60,13 +61,13 @@ newIoTJobAbortConfig pCriteriaList_ =
 ioTJobAbortConfig_criteriaList :: Lens.Lens' IoTJobAbortConfig (Prelude.NonEmpty IoTJobAbortCriteria)
 ioTJobAbortConfig_criteriaList = Lens.lens (\IoTJobAbortConfig' {criteriaList} -> criteriaList) (\s@IoTJobAbortConfig' {} a -> s {criteriaList = a} :: IoTJobAbortConfig) Prelude.. Lens.coerced
 
-instance Core.FromJSON IoTJobAbortConfig where
+instance Data.FromJSON IoTJobAbortConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IoTJobAbortConfig"
       ( \x ->
           IoTJobAbortConfig'
-            Prelude.<$> (x Core..: "criteriaList")
+            Prelude.<$> (x Data..: "criteriaList")
       )
 
 instance Prelude.Hashable IoTJobAbortConfig where
@@ -76,9 +77,9 @@ instance Prelude.Hashable IoTJobAbortConfig where
 instance Prelude.NFData IoTJobAbortConfig where
   rnf IoTJobAbortConfig' {..} = Prelude.rnf criteriaList
 
-instance Core.ToJSON IoTJobAbortConfig where
+instance Data.ToJSON IoTJobAbortConfig where
   toJSON IoTJobAbortConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("criteriaList" Core..= criteriaList)]
+          [Prelude.Just ("criteriaList" Data..= criteriaList)]
       )

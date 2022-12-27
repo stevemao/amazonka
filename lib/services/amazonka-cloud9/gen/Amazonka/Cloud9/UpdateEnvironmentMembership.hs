@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Cloud9.UpdateEnvironmentMembership
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.Cloud9.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -129,12 +130,13 @@ instance Core.AWSRequest UpdateEnvironmentMembership where
   type
     AWSResponse UpdateEnvironmentMembership =
       UpdateEnvironmentMembershipResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateEnvironmentMembershipResponse'
-            Prelude.<$> (x Core..?> "membership")
+            Prelude.<$> (x Data..?> "membership")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -150,36 +152,36 @@ instance Prelude.NFData UpdateEnvironmentMembership where
       `Prelude.seq` Prelude.rnf userArn
       `Prelude.seq` Prelude.rnf permissions
 
-instance Core.ToHeaders UpdateEnvironmentMembership where
+instance Data.ToHeaders UpdateEnvironmentMembership where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCloud9WorkspaceManagementService.UpdateEnvironmentMembership" ::
+              Data.=# ( "AWSCloud9WorkspaceManagementService.UpdateEnvironmentMembership" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateEnvironmentMembership where
+instance Data.ToJSON UpdateEnvironmentMembership where
   toJSON UpdateEnvironmentMembership' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("environmentId" Core..= environmentId),
-            Prelude.Just ("userArn" Core..= userArn),
-            Prelude.Just ("permissions" Core..= permissions)
+              ("environmentId" Data..= environmentId),
+            Prelude.Just ("userArn" Data..= userArn),
+            Prelude.Just ("permissions" Data..= permissions)
           ]
       )
 
-instance Core.ToPath UpdateEnvironmentMembership where
+instance Data.ToPath UpdateEnvironmentMembership where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateEnvironmentMembership where
+instance Data.ToQuery UpdateEnvironmentMembership where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateEnvironmentMembershipResponse' smart constructor.

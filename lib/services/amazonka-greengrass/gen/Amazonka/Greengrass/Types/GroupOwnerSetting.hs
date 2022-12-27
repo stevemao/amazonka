@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.Types.GroupOwnerSetting
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Greengrass.Types.GroupOwnerSetting where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Group owner related settings for local resources.
@@ -74,14 +75,14 @@ groupOwnerSetting_autoAddGroupOwner = Lens.lens (\GroupOwnerSetting' {autoAddGro
 groupOwnerSetting_groupOwner :: Lens.Lens' GroupOwnerSetting (Prelude.Maybe Prelude.Text)
 groupOwnerSetting_groupOwner = Lens.lens (\GroupOwnerSetting' {groupOwner} -> groupOwner) (\s@GroupOwnerSetting' {} a -> s {groupOwner = a} :: GroupOwnerSetting)
 
-instance Core.FromJSON GroupOwnerSetting where
+instance Data.FromJSON GroupOwnerSetting where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GroupOwnerSetting"
       ( \x ->
           GroupOwnerSetting'
-            Prelude.<$> (x Core..:? "AutoAddGroupOwner")
-            Prelude.<*> (x Core..:? "GroupOwner")
+            Prelude.<$> (x Data..:? "AutoAddGroupOwner")
+            Prelude.<*> (x Data..:? "GroupOwner")
       )
 
 instance Prelude.Hashable GroupOwnerSetting where
@@ -94,12 +95,12 @@ instance Prelude.NFData GroupOwnerSetting where
     Prelude.rnf autoAddGroupOwner
       `Prelude.seq` Prelude.rnf groupOwner
 
-instance Core.ToJSON GroupOwnerSetting where
+instance Data.ToJSON GroupOwnerSetting where
   toJSON GroupOwnerSetting' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AutoAddGroupOwner" Core..=)
+          [ ("AutoAddGroupOwner" Data..=)
               Prelude.<$> autoAddGroupOwner,
-            ("GroupOwner" Core..=) Prelude.<$> groupOwner
+            ("GroupOwner" Data..=) Prelude.<$> groupOwner
           ]
       )

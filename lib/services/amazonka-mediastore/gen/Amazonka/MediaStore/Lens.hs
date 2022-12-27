@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.MediaStore.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,121 +14,121 @@
 module Amazonka.MediaStore.Lens
   ( -- * Operations
 
-    -- ** StopAccessLogging
-    stopAccessLogging_containerName,
-    stopAccessLoggingResponse_httpStatus,
-
-    -- ** PutLifecyclePolicy
-    putLifecyclePolicy_containerName,
-    putLifecyclePolicy_lifecyclePolicy,
-    putLifecyclePolicyResponse_httpStatus,
-
-    -- ** DeleteLifecyclePolicy
-    deleteLifecyclePolicy_containerName,
-    deleteLifecyclePolicyResponse_httpStatus,
-
-    -- ** ListTagsForResource
-    listTagsForResource_resource,
-    listTagsForResourceResponse_tags,
-    listTagsForResourceResponse_httpStatus,
-
     -- ** CreateContainer
     createContainer_tags,
     createContainer_containerName,
     createContainerResponse_httpStatus,
     createContainerResponse_container,
 
-    -- ** ListContainers
-    listContainers_nextToken,
-    listContainers_maxResults,
-    listContainersResponse_nextToken,
-    listContainersResponse_httpStatus,
-    listContainersResponse_containers,
-
     -- ** DeleteContainer
     deleteContainer_containerName,
     deleteContainerResponse_httpStatus,
 
-    -- ** PutCorsPolicy
-    putCorsPolicy_containerName,
-    putCorsPolicy_corsPolicy,
-    putCorsPolicyResponse_httpStatus,
+    -- ** DeleteContainerPolicy
+    deleteContainerPolicy_containerName,
+    deleteContainerPolicyResponse_httpStatus,
 
     -- ** DeleteCorsPolicy
     deleteCorsPolicy_containerName,
     deleteCorsPolicyResponse_httpStatus,
 
-    -- ** StartAccessLogging
-    startAccessLogging_containerName,
-    startAccessLoggingResponse_httpStatus,
+    -- ** DeleteLifecyclePolicy
+    deleteLifecyclePolicy_containerName,
+    deleteLifecyclePolicyResponse_httpStatus,
+
+    -- ** DeleteMetricPolicy
+    deleteMetricPolicy_containerName,
+    deleteMetricPolicyResponse_httpStatus,
 
     -- ** DescribeContainer
     describeContainer_containerName,
     describeContainerResponse_container,
     describeContainerResponse_httpStatus,
 
-    -- ** GetMetricPolicy
-    getMetricPolicy_containerName,
-    getMetricPolicyResponse_httpStatus,
-    getMetricPolicyResponse_metricPolicy,
-
-    -- ** DeleteMetricPolicy
-    deleteMetricPolicy_containerName,
-    deleteMetricPolicyResponse_httpStatus,
-
-    -- ** PutMetricPolicy
-    putMetricPolicy_containerName,
-    putMetricPolicy_metricPolicy,
-    putMetricPolicyResponse_httpStatus,
-
-    -- ** GetLifecyclePolicy
-    getLifecyclePolicy_containerName,
-    getLifecyclePolicyResponse_httpStatus,
-    getLifecyclePolicyResponse_lifecyclePolicy,
-
-    -- ** TagResource
-    tagResource_resource,
-    tagResource_tags,
-    tagResourceResponse_httpStatus,
+    -- ** GetContainerPolicy
+    getContainerPolicy_containerName,
+    getContainerPolicyResponse_httpStatus,
+    getContainerPolicyResponse_policy,
 
     -- ** GetCorsPolicy
     getCorsPolicy_containerName,
     getCorsPolicyResponse_httpStatus,
     getCorsPolicyResponse_corsPolicy,
 
-    -- ** UntagResource
-    untagResource_resource,
-    untagResource_tagKeys,
-    untagResourceResponse_httpStatus,
+    -- ** GetLifecyclePolicy
+    getLifecyclePolicy_containerName,
+    getLifecyclePolicyResponse_httpStatus,
+    getLifecyclePolicyResponse_lifecyclePolicy,
 
-    -- ** DeleteContainerPolicy
-    deleteContainerPolicy_containerName,
-    deleteContainerPolicyResponse_httpStatus,
+    -- ** GetMetricPolicy
+    getMetricPolicy_containerName,
+    getMetricPolicyResponse_httpStatus,
+    getMetricPolicyResponse_metricPolicy,
+
+    -- ** ListContainers
+    listContainers_maxResults,
+    listContainers_nextToken,
+    listContainersResponse_nextToken,
+    listContainersResponse_httpStatus,
+    listContainersResponse_containers,
+
+    -- ** ListTagsForResource
+    listTagsForResource_resource,
+    listTagsForResourceResponse_tags,
+    listTagsForResourceResponse_httpStatus,
 
     -- ** PutContainerPolicy
     putContainerPolicy_containerName,
     putContainerPolicy_policy,
     putContainerPolicyResponse_httpStatus,
 
-    -- ** GetContainerPolicy
-    getContainerPolicy_containerName,
-    getContainerPolicyResponse_httpStatus,
-    getContainerPolicyResponse_policy,
+    -- ** PutCorsPolicy
+    putCorsPolicy_containerName,
+    putCorsPolicy_corsPolicy,
+    putCorsPolicyResponse_httpStatus,
+
+    -- ** PutLifecyclePolicy
+    putLifecyclePolicy_containerName,
+    putLifecyclePolicy_lifecyclePolicy,
+    putLifecyclePolicyResponse_httpStatus,
+
+    -- ** PutMetricPolicy
+    putMetricPolicy_containerName,
+    putMetricPolicy_metricPolicy,
+    putMetricPolicyResponse_httpStatus,
+
+    -- ** StartAccessLogging
+    startAccessLogging_containerName,
+    startAccessLoggingResponse_httpStatus,
+
+    -- ** StopAccessLogging
+    stopAccessLogging_containerName,
+    stopAccessLoggingResponse_httpStatus,
+
+    -- ** TagResource
+    tagResource_resource,
+    tagResource_tags,
+    tagResourceResponse_httpStatus,
+
+    -- ** UntagResource
+    untagResource_resource,
+    untagResource_tagKeys,
+    untagResourceResponse_httpStatus,
 
     -- * Types
 
     -- ** Container
-    container_creationTime,
-    container_status,
-    container_accessLoggingEnabled,
     container_arn,
-    container_name,
+    container_accessLoggingEnabled,
+    container_creationTime,
     container_endpoint,
+    container_name,
+    container_status,
 
     -- ** CorsRule
     corsRule_allowedMethods,
-    corsRule_maxAgeSeconds,
     corsRule_exposeHeaders,
+    corsRule_maxAgeSeconds,
     corsRule_allowedOrigins,
     corsRule_allowedHeaders,
 

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.ListBlueprints
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.Glue.ListBlueprints
     newListBlueprints,
 
     -- * Request Lenses
-    listBlueprints_nextToken,
     listBlueprints_maxResults,
+    listBlueprints_nextToken,
     listBlueprints_tags,
 
     -- * Destructuring the Response
@@ -43,18 +43,19 @@ module Amazonka.Glue.ListBlueprints
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListBlueprints' smart constructor.
 data ListBlueprints = ListBlueprints'
-  { -- | A continuation token, if this is a continuation request.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum size of a list to return.
+  { -- | The maximum size of a list to return.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A continuation token, if this is a continuation request.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | Filters the list by an Amazon Web Services resource tag.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text)
   }
@@ -68,27 +69,27 @@ data ListBlueprints = ListBlueprints'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listBlueprints_nextToken' - A continuation token, if this is a continuation request.
---
 -- 'maxResults', 'listBlueprints_maxResults' - The maximum size of a list to return.
+--
+-- 'nextToken', 'listBlueprints_nextToken' - A continuation token, if this is a continuation request.
 --
 -- 'tags', 'listBlueprints_tags' - Filters the list by an Amazon Web Services resource tag.
 newListBlueprints ::
   ListBlueprints
 newListBlueprints =
   ListBlueprints'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       tags = Prelude.Nothing
     }
-
--- | A continuation token, if this is a continuation request.
-listBlueprints_nextToken :: Lens.Lens' ListBlueprints (Prelude.Maybe Prelude.Text)
-listBlueprints_nextToken = Lens.lens (\ListBlueprints' {nextToken} -> nextToken) (\s@ListBlueprints' {} a -> s {nextToken = a} :: ListBlueprints)
 
 -- | The maximum size of a list to return.
 listBlueprints_maxResults :: Lens.Lens' ListBlueprints (Prelude.Maybe Prelude.Natural)
 listBlueprints_maxResults = Lens.lens (\ListBlueprints' {maxResults} -> maxResults) (\s@ListBlueprints' {} a -> s {maxResults = a} :: ListBlueprints)
+
+-- | A continuation token, if this is a continuation request.
+listBlueprints_nextToken :: Lens.Lens' ListBlueprints (Prelude.Maybe Prelude.Text)
+listBlueprints_nextToken = Lens.lens (\ListBlueprints' {nextToken} -> nextToken) (\s@ListBlueprints' {} a -> s {nextToken = a} :: ListBlueprints)
 
 -- | Filters the list by an Amazon Web Services resource tag.
 listBlueprints_tags :: Lens.Lens' ListBlueprints (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -98,55 +99,56 @@ instance Core.AWSRequest ListBlueprints where
   type
     AWSResponse ListBlueprints =
       ListBlueprintsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListBlueprintsResponse'
-            Prelude.<$> (x Core..?> "Blueprints" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Blueprints" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListBlueprints where
   hashWithSalt _salt ListBlueprints' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` tags
 
 instance Prelude.NFData ListBlueprints where
   rnf ListBlueprints' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders ListBlueprints where
+instance Data.ToHeaders ListBlueprints where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.ListBlueprints" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.ListBlueprints" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListBlueprints where
+instance Data.ToJSON ListBlueprints where
   toJSON ListBlueprints' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            ("Tags" Core..=) Prelude.<$> tags
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("Tags" Data..=) Prelude.<$> tags
           ]
       )
 
-instance Core.ToPath ListBlueprints where
+instance Data.ToPath ListBlueprints where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListBlueprints where
+instance Data.ToQuery ListBlueprints where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListBlueprintsResponse' smart constructor.

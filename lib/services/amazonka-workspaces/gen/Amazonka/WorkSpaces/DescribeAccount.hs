@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkSpaces.DescribeAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,14 +32,15 @@ module Amazonka.WorkSpaces.DescribeAccount
     newDescribeAccountResponse,
 
     -- * Response Lenses
-    describeAccountResponse_dedicatedTenancySupport,
     describeAccountResponse_dedicatedTenancyManagementCidrRange,
+    describeAccountResponse_dedicatedTenancySupport,
     describeAccountResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -63,13 +64,14 @@ instance Core.AWSRequest DescribeAccount where
   type
     AWSResponse DescribeAccount =
       DescribeAccountResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAccountResponse'
-            Prelude.<$> (x Core..?> "DedicatedTenancySupport")
-            Prelude.<*> (x Core..?> "DedicatedTenancyManagementCidrRange")
+            Prelude.<$> (x Data..?> "DedicatedTenancyManagementCidrRange")
+            Prelude.<*> (x Data..?> "DedicatedTenancySupport")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -80,35 +82,33 @@ instance Prelude.Hashable DescribeAccount where
 instance Prelude.NFData DescribeAccount where
   rnf _ = ()
 
-instance Core.ToHeaders DescribeAccount where
+instance Data.ToHeaders DescribeAccount where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkspacesService.DescribeAccount" ::
+              Data.=# ( "WorkspacesService.DescribeAccount" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeAccount where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON DescribeAccount where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath DescribeAccount where
+instance Data.ToPath DescribeAccount where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeAccount where
+instance Data.ToQuery DescribeAccount where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeAccountResponse' smart constructor.
 data DescribeAccountResponse = DescribeAccountResponse'
-  { -- | The status of BYOL (whether BYOL is enabled or disabled).
-    dedicatedTenancySupport :: Prelude.Maybe DedicatedTenancySupportResultEnum,
-    -- | The IP address range, specified as an IPv4 CIDR block, used for the
+  { -- | The IP address range, specified as an IPv4 CIDR block, used for the
     -- management network interface.
     --
     -- The management network interface is connected to a secure Amazon
@@ -116,6 +116,8 @@ data DescribeAccountResponse = DescribeAccountResponse'
     -- the WorkSpace desktop to Amazon WorkSpaces clients, and to allow Amazon
     -- WorkSpaces to manage the WorkSpace.
     dedicatedTenancyManagementCidrRange :: Prelude.Maybe Prelude.Text,
+    -- | The status of BYOL (whether BYOL is enabled or disabled).
+    dedicatedTenancySupport :: Prelude.Maybe DedicatedTenancySupportResultEnum,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -129,8 +131,6 @@ data DescribeAccountResponse = DescribeAccountResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'dedicatedTenancySupport', 'describeAccountResponse_dedicatedTenancySupport' - The status of BYOL (whether BYOL is enabled or disabled).
---
 -- 'dedicatedTenancyManagementCidrRange', 'describeAccountResponse_dedicatedTenancyManagementCidrRange' - The IP address range, specified as an IPv4 CIDR block, used for the
 -- management network interface.
 --
@@ -139,6 +139,8 @@ data DescribeAccountResponse = DescribeAccountResponse'
 -- the WorkSpace desktop to Amazon WorkSpaces clients, and to allow Amazon
 -- WorkSpaces to manage the WorkSpace.
 --
+-- 'dedicatedTenancySupport', 'describeAccountResponse_dedicatedTenancySupport' - The status of BYOL (whether BYOL is enabled or disabled).
+--
 -- 'httpStatus', 'describeAccountResponse_httpStatus' - The response's http status code.
 newDescribeAccountResponse ::
   -- | 'httpStatus'
@@ -146,16 +148,11 @@ newDescribeAccountResponse ::
   DescribeAccountResponse
 newDescribeAccountResponse pHttpStatus_ =
   DescribeAccountResponse'
-    { dedicatedTenancySupport =
+    { dedicatedTenancyManagementCidrRange =
         Prelude.Nothing,
-      dedicatedTenancyManagementCidrRange =
-        Prelude.Nothing,
+      dedicatedTenancySupport = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The status of BYOL (whether BYOL is enabled or disabled).
-describeAccountResponse_dedicatedTenancySupport :: Lens.Lens' DescribeAccountResponse (Prelude.Maybe DedicatedTenancySupportResultEnum)
-describeAccountResponse_dedicatedTenancySupport = Lens.lens (\DescribeAccountResponse' {dedicatedTenancySupport} -> dedicatedTenancySupport) (\s@DescribeAccountResponse' {} a -> s {dedicatedTenancySupport = a} :: DescribeAccountResponse)
 
 -- | The IP address range, specified as an IPv4 CIDR block, used for the
 -- management network interface.
@@ -167,12 +164,16 @@ describeAccountResponse_dedicatedTenancySupport = Lens.lens (\DescribeAccountRes
 describeAccountResponse_dedicatedTenancyManagementCidrRange :: Lens.Lens' DescribeAccountResponse (Prelude.Maybe Prelude.Text)
 describeAccountResponse_dedicatedTenancyManagementCidrRange = Lens.lens (\DescribeAccountResponse' {dedicatedTenancyManagementCidrRange} -> dedicatedTenancyManagementCidrRange) (\s@DescribeAccountResponse' {} a -> s {dedicatedTenancyManagementCidrRange = a} :: DescribeAccountResponse)
 
+-- | The status of BYOL (whether BYOL is enabled or disabled).
+describeAccountResponse_dedicatedTenancySupport :: Lens.Lens' DescribeAccountResponse (Prelude.Maybe DedicatedTenancySupportResultEnum)
+describeAccountResponse_dedicatedTenancySupport = Lens.lens (\DescribeAccountResponse' {dedicatedTenancySupport} -> dedicatedTenancySupport) (\s@DescribeAccountResponse' {} a -> s {dedicatedTenancySupport = a} :: DescribeAccountResponse)
+
 -- | The response's http status code.
 describeAccountResponse_httpStatus :: Lens.Lens' DescribeAccountResponse Prelude.Int
 describeAccountResponse_httpStatus = Lens.lens (\DescribeAccountResponse' {httpStatus} -> httpStatus) (\s@DescribeAccountResponse' {} a -> s {httpStatus = a} :: DescribeAccountResponse)
 
 instance Prelude.NFData DescribeAccountResponse where
   rnf DescribeAccountResponse' {..} =
-    Prelude.rnf dedicatedTenancySupport
-      `Prelude.seq` Prelude.rnf dedicatedTenancyManagementCidrRange
+    Prelude.rnf dedicatedTenancyManagementCidrRange
+      `Prelude.seq` Prelude.rnf dedicatedTenancySupport
       `Prelude.seq` Prelude.rnf httpStatus

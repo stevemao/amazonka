@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.TableAutoScalingDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,23 @@
 module Amazonka.DynamoDB.Types.TableAutoScalingDescription where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.ReplicaAutoScalingDescription
 import Amazonka.DynamoDB.Types.TableStatus
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the auto scaling configuration for a global table.
 --
 -- /See:/ 'newTableAutoScalingDescription' smart constructor.
 data TableAutoScalingDescription = TableAutoScalingDescription'
-  { -- | The current state of the table:
+  { -- | Represents replicas of the global table.
+    replicas :: Prelude.Maybe [ReplicaAutoScalingDescription],
+    -- | The name of the table.
+    tableName :: Prelude.Maybe Prelude.Text,
+    -- | The current state of the table:
     --
     -- -   @CREATING@ - The table is being created.
     --
@@ -39,11 +45,7 @@ data TableAutoScalingDescription = TableAutoScalingDescription'
     -- -   @DELETING@ - The table is being deleted.
     --
     -- -   @ACTIVE@ - The table is ready for use.
-    tableStatus :: Prelude.Maybe TableStatus,
-    -- | Represents replicas of the global table.
-    replicas :: Prelude.Maybe [ReplicaAutoScalingDescription],
-    -- | The name of the table.
-    tableName :: Prelude.Maybe Prelude.Text
+    tableStatus :: Prelude.Maybe TableStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -55,6 +57,10 @@ data TableAutoScalingDescription = TableAutoScalingDescription'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'replicas', 'tableAutoScalingDescription_replicas' - Represents replicas of the global table.
+--
+-- 'tableName', 'tableAutoScalingDescription_tableName' - The name of the table.
+--
 -- 'tableStatus', 'tableAutoScalingDescription_tableStatus' - The current state of the table:
 --
 -- -   @CREATING@ - The table is being created.
@@ -64,19 +70,23 @@ data TableAutoScalingDescription = TableAutoScalingDescription'
 -- -   @DELETING@ - The table is being deleted.
 --
 -- -   @ACTIVE@ - The table is ready for use.
---
--- 'replicas', 'tableAutoScalingDescription_replicas' - Represents replicas of the global table.
---
--- 'tableName', 'tableAutoScalingDescription_tableName' - The name of the table.
 newTableAutoScalingDescription ::
   TableAutoScalingDescription
 newTableAutoScalingDescription =
   TableAutoScalingDescription'
-    { tableStatus =
+    { replicas =
         Prelude.Nothing,
-      replicas = Prelude.Nothing,
-      tableName = Prelude.Nothing
+      tableName = Prelude.Nothing,
+      tableStatus = Prelude.Nothing
     }
+
+-- | Represents replicas of the global table.
+tableAutoScalingDescription_replicas :: Lens.Lens' TableAutoScalingDescription (Prelude.Maybe [ReplicaAutoScalingDescription])
+tableAutoScalingDescription_replicas = Lens.lens (\TableAutoScalingDescription' {replicas} -> replicas) (\s@TableAutoScalingDescription' {} a -> s {replicas = a} :: TableAutoScalingDescription) Prelude.. Lens.mapping Lens.coerced
+
+-- | The name of the table.
+tableAutoScalingDescription_tableName :: Lens.Lens' TableAutoScalingDescription (Prelude.Maybe Prelude.Text)
+tableAutoScalingDescription_tableName = Lens.lens (\TableAutoScalingDescription' {tableName} -> tableName) (\s@TableAutoScalingDescription' {} a -> s {tableName = a} :: TableAutoScalingDescription)
 
 -- | The current state of the table:
 --
@@ -90,33 +100,25 @@ newTableAutoScalingDescription =
 tableAutoScalingDescription_tableStatus :: Lens.Lens' TableAutoScalingDescription (Prelude.Maybe TableStatus)
 tableAutoScalingDescription_tableStatus = Lens.lens (\TableAutoScalingDescription' {tableStatus} -> tableStatus) (\s@TableAutoScalingDescription' {} a -> s {tableStatus = a} :: TableAutoScalingDescription)
 
--- | Represents replicas of the global table.
-tableAutoScalingDescription_replicas :: Lens.Lens' TableAutoScalingDescription (Prelude.Maybe [ReplicaAutoScalingDescription])
-tableAutoScalingDescription_replicas = Lens.lens (\TableAutoScalingDescription' {replicas} -> replicas) (\s@TableAutoScalingDescription' {} a -> s {replicas = a} :: TableAutoScalingDescription) Prelude.. Lens.mapping Lens.coerced
-
--- | The name of the table.
-tableAutoScalingDescription_tableName :: Lens.Lens' TableAutoScalingDescription (Prelude.Maybe Prelude.Text)
-tableAutoScalingDescription_tableName = Lens.lens (\TableAutoScalingDescription' {tableName} -> tableName) (\s@TableAutoScalingDescription' {} a -> s {tableName = a} :: TableAutoScalingDescription)
-
-instance Core.FromJSON TableAutoScalingDescription where
+instance Data.FromJSON TableAutoScalingDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TableAutoScalingDescription"
       ( \x ->
           TableAutoScalingDescription'
-            Prelude.<$> (x Core..:? "TableStatus")
-            Prelude.<*> (x Core..:? "Replicas" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "TableName")
+            Prelude.<$> (x Data..:? "Replicas" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "TableName")
+            Prelude.<*> (x Data..:? "TableStatus")
       )
 
 instance Prelude.Hashable TableAutoScalingDescription where
   hashWithSalt _salt TableAutoScalingDescription' {..} =
-    _salt `Prelude.hashWithSalt` tableStatus
-      `Prelude.hashWithSalt` replicas
+    _salt `Prelude.hashWithSalt` replicas
       `Prelude.hashWithSalt` tableName
+      `Prelude.hashWithSalt` tableStatus
 
 instance Prelude.NFData TableAutoScalingDescription where
   rnf TableAutoScalingDescription' {..} =
-    Prelude.rnf tableStatus
-      `Prelude.seq` Prelude.rnf replicas
+    Prelude.rnf replicas
       `Prelude.seq` Prelude.rnf tableName
+      `Prelude.seq` Prelude.rnf tableStatus

@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.SSOOIDC
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -11,28 +11,48 @@
 --
 -- Derived from API version @2019-06-10@ of the AWS service descriptions, licensed under Apache 2.0.
 --
--- AWS Single Sign-On (SSO) OpenID Connect (OIDC) is a web service that
--- enables a client (such as AWS CLI or a native application) to register
--- with AWS SSO. The service also enables the client to fetch the user’s
--- access token upon successful authentication and authorization with AWS
--- SSO. This service conforms with the OAuth 2.0 based implementation of
--- the device authorization grant standard
--- (<https://tools.ietf.org/html/rfc8628>).
+-- AWS IAM Identity Center (successor to AWS Single Sign-On) OpenID Connect
+-- (OIDC) is a web service that enables a client (such as AWS CLI or a
+-- native application) to register with IAM Identity Center. The service
+-- also enables the client to fetch the user’s access token upon successful
+-- authentication and authorization with IAM Identity Center.
 --
--- For general information about AWS SSO, see
--- <https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html What is AWS Single Sign-On?>
--- in the /AWS SSO User Guide/.
+-- Although AWS Single Sign-On was renamed, the @sso@ and @identitystore@
+-- API namespaces will continue to retain their original name for backward
+-- compatibility purposes. For more information, see
+-- <https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html#renamed IAM Identity Center rename>.
 --
--- This API reference guide describes the AWS SSO OIDC operations that you
--- can call programatically and includes detailed information on data types
--- and errors.
+-- __Considerations for Using This Guide__
 --
--- AWS provides SDKs that consist of libraries and sample code for various
--- programming languages and platforms such as Java, Ruby, .Net, iOS, and
--- Android. The SDKs provide a convenient way to create programmatic access
--- to AWS SSO and other AWS services. For more information about the AWS
--- SDKs, including how to download and install them, see
--- <http://aws.amazon.com/tools/ Tools for Amazon Web Services>.
+-- Before you begin using this guide, we recommend that you first review
+-- the following important information about how the IAM Identity Center
+-- OIDC service works.
+--
+-- -   The IAM Identity Center OIDC service currently implements only the
+--     portions of the OAuth 2.0 Device Authorization Grant standard
+--     (<https://tools.ietf.org/html/rfc8628>) that are necessary to enable
+--     single sign-on authentication with the AWS CLI. Support for other
+--     OIDC flows frequently needed for native applications, such as
+--     Authorization Code Flow (+ PKCE), will be addressed in future
+--     releases.
+--
+-- -   The service emits only OIDC access tokens, such that obtaining a new
+--     token (For example, token refresh) requires explicit user
+--     re-authentication.
+--
+-- -   The access tokens provided by this service grant access to all AWS
+--     account entitlements assigned to an IAM Identity Center user, not
+--     just a particular application.
+--
+-- -   The documentation in this guide does not describe the mechanism to
+--     convert the access token into AWS Auth (“sigv4”) credentials for use
+--     with IAM-protected AWS service endpoints. For more information, see
+--     <https://docs.aws.amazon.com/singlesignon/latest/PortalAPIReference/API_GetRoleCredentials.html GetRoleCredentials>
+--     in the /IAM Identity Center Portal API Reference Guide/.
+--
+-- For general information about IAM Identity Center, see
+-- <https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html What is IAM Identity Center?>
+-- in the /IAM Identity Center User Guide/.
 module Amazonka.SSOOIDC
   ( -- * Service Configuration
     defaultService,
@@ -43,14 +63,14 @@ module Amazonka.SSOOIDC
     -- ** AccessDeniedException
     _AccessDeniedException,
 
-    -- ** InvalidRequestException
-    _InvalidRequestException,
+    -- ** AuthorizationPendingException
+    _AuthorizationPendingException,
 
-    -- ** InvalidScopeException
-    _InvalidScopeException,
+    -- ** ExpiredTokenException
+    _ExpiredTokenException,
 
-    -- ** UnsupportedGrantTypeException
-    _UnsupportedGrantTypeException,
+    -- ** InternalServerException
+    _InternalServerException,
 
     -- ** InvalidClientException
     _InvalidClientException,
@@ -58,35 +78,29 @@ module Amazonka.SSOOIDC
     -- ** InvalidClientMetadataException
     _InvalidClientMetadataException,
 
-    -- ** UnauthorizedClientException
-    _UnauthorizedClientException,
+    -- ** InvalidGrantException
+    _InvalidGrantException,
+
+    -- ** InvalidRequestException
+    _InvalidRequestException,
+
+    -- ** InvalidScopeException
+    _InvalidScopeException,
 
     -- ** SlowDownException
     _SlowDownException,
 
-    -- ** InternalServerException
-    _InternalServerException,
+    -- ** UnauthorizedClientException
+    _UnauthorizedClientException,
 
-    -- ** InvalidGrantException
-    _InvalidGrantException,
-
-    -- ** AuthorizationPendingException
-    _AuthorizationPendingException,
-
-    -- ** ExpiredTokenException
-    _ExpiredTokenException,
+    -- ** UnsupportedGrantTypeException
+    _UnsupportedGrantTypeException,
 
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
-
-    -- ** StartDeviceAuthorization
-    StartDeviceAuthorization (StartDeviceAuthorization'),
-    newStartDeviceAuthorization,
-    StartDeviceAuthorizationResponse (StartDeviceAuthorizationResponse'),
-    newStartDeviceAuthorizationResponse,
 
     -- ** CreateToken
     CreateToken (CreateToken'),
@@ -99,6 +113,12 @@ module Amazonka.SSOOIDC
     newRegisterClient,
     RegisterClientResponse (RegisterClientResponse'),
     newRegisterClientResponse,
+
+    -- ** StartDeviceAuthorization
+    StartDeviceAuthorization (StartDeviceAuthorization'),
+    newStartDeviceAuthorization,
+    StartDeviceAuthorizationResponse (StartDeviceAuthorizationResponse'),
+    newStartDeviceAuthorizationResponse,
 
     -- * Types
   )

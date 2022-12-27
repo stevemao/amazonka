@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.ListPipelineExecutionSteps
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,24 +29,25 @@ module Amazonka.SageMaker.ListPipelineExecutionSteps
     newListPipelineExecutionSteps,
 
     -- * Request Lenses
-    listPipelineExecutionSteps_pipelineExecutionArn,
-    listPipelineExecutionSteps_nextToken,
-    listPipelineExecutionSteps_sortOrder,
     listPipelineExecutionSteps_maxResults,
+    listPipelineExecutionSteps_nextToken,
+    listPipelineExecutionSteps_pipelineExecutionArn,
+    listPipelineExecutionSteps_sortOrder,
 
     -- * Destructuring the Response
     ListPipelineExecutionStepsResponse (..),
     newListPipelineExecutionStepsResponse,
 
     -- * Response Lenses
-    listPipelineExecutionStepsResponse_pipelineExecutionSteps,
     listPipelineExecutionStepsResponse_nextToken,
+    listPipelineExecutionStepsResponse_pipelineExecutionSteps,
     listPipelineExecutionStepsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,17 +55,17 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newListPipelineExecutionSteps' smart constructor.
 data ListPipelineExecutionSteps = ListPipelineExecutionSteps'
-  { -- | The Amazon Resource Name (ARN) of the pipeline execution.
-    pipelineExecutionArn :: Prelude.Maybe Prelude.Text,
+  { -- | The maximum number of pipeline execution steps to return in the
+    -- response.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | If the result of the previous @ListPipelineExecutionSteps@ request was
     -- truncated, the response includes a @NextToken@. To retrieve the next set
     -- of pipeline execution steps, use the token in the next request.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the pipeline execution.
+    pipelineExecutionArn :: Prelude.Maybe Prelude.Text,
     -- | The field by which to sort results. The default is @CreatedTime@.
-    sortOrder :: Prelude.Maybe SortOrder,
-    -- | The maximum number of pipeline execution steps to return in the
-    -- response.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    sortOrder :: Prelude.Maybe SortOrder
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -76,30 +77,31 @@ data ListPipelineExecutionSteps = ListPipelineExecutionSteps'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'pipelineExecutionArn', 'listPipelineExecutionSteps_pipelineExecutionArn' - The Amazon Resource Name (ARN) of the pipeline execution.
+-- 'maxResults', 'listPipelineExecutionSteps_maxResults' - The maximum number of pipeline execution steps to return in the
+-- response.
 --
 -- 'nextToken', 'listPipelineExecutionSteps_nextToken' - If the result of the previous @ListPipelineExecutionSteps@ request was
 -- truncated, the response includes a @NextToken@. To retrieve the next set
 -- of pipeline execution steps, use the token in the next request.
 --
--- 'sortOrder', 'listPipelineExecutionSteps_sortOrder' - The field by which to sort results. The default is @CreatedTime@.
+-- 'pipelineExecutionArn', 'listPipelineExecutionSteps_pipelineExecutionArn' - The Amazon Resource Name (ARN) of the pipeline execution.
 --
--- 'maxResults', 'listPipelineExecutionSteps_maxResults' - The maximum number of pipeline execution steps to return in the
--- response.
+-- 'sortOrder', 'listPipelineExecutionSteps_sortOrder' - The field by which to sort results. The default is @CreatedTime@.
 newListPipelineExecutionSteps ::
   ListPipelineExecutionSteps
 newListPipelineExecutionSteps =
   ListPipelineExecutionSteps'
-    { pipelineExecutionArn =
+    { maxResults =
         Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      sortOrder = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      pipelineExecutionArn = Prelude.Nothing,
+      sortOrder = Prelude.Nothing
     }
 
--- | The Amazon Resource Name (ARN) of the pipeline execution.
-listPipelineExecutionSteps_pipelineExecutionArn :: Lens.Lens' ListPipelineExecutionSteps (Prelude.Maybe Prelude.Text)
-listPipelineExecutionSteps_pipelineExecutionArn = Lens.lens (\ListPipelineExecutionSteps' {pipelineExecutionArn} -> pipelineExecutionArn) (\s@ListPipelineExecutionSteps' {} a -> s {pipelineExecutionArn = a} :: ListPipelineExecutionSteps)
+-- | The maximum number of pipeline execution steps to return in the
+-- response.
+listPipelineExecutionSteps_maxResults :: Lens.Lens' ListPipelineExecutionSteps (Prelude.Maybe Prelude.Natural)
+listPipelineExecutionSteps_maxResults = Lens.lens (\ListPipelineExecutionSteps' {maxResults} -> maxResults) (\s@ListPipelineExecutionSteps' {} a -> s {maxResults = a} :: ListPipelineExecutionSteps)
 
 -- | If the result of the previous @ListPipelineExecutionSteps@ request was
 -- truncated, the response includes a @NextToken@. To retrieve the next set
@@ -107,14 +109,13 @@ listPipelineExecutionSteps_pipelineExecutionArn = Lens.lens (\ListPipelineExecut
 listPipelineExecutionSteps_nextToken :: Lens.Lens' ListPipelineExecutionSteps (Prelude.Maybe Prelude.Text)
 listPipelineExecutionSteps_nextToken = Lens.lens (\ListPipelineExecutionSteps' {nextToken} -> nextToken) (\s@ListPipelineExecutionSteps' {} a -> s {nextToken = a} :: ListPipelineExecutionSteps)
 
+-- | The Amazon Resource Name (ARN) of the pipeline execution.
+listPipelineExecutionSteps_pipelineExecutionArn :: Lens.Lens' ListPipelineExecutionSteps (Prelude.Maybe Prelude.Text)
+listPipelineExecutionSteps_pipelineExecutionArn = Lens.lens (\ListPipelineExecutionSteps' {pipelineExecutionArn} -> pipelineExecutionArn) (\s@ListPipelineExecutionSteps' {} a -> s {pipelineExecutionArn = a} :: ListPipelineExecutionSteps)
+
 -- | The field by which to sort results. The default is @CreatedTime@.
 listPipelineExecutionSteps_sortOrder :: Lens.Lens' ListPipelineExecutionSteps (Prelude.Maybe SortOrder)
 listPipelineExecutionSteps_sortOrder = Lens.lens (\ListPipelineExecutionSteps' {sortOrder} -> sortOrder) (\s@ListPipelineExecutionSteps' {} a -> s {sortOrder = a} :: ListPipelineExecutionSteps)
-
--- | The maximum number of pipeline execution steps to return in the
--- response.
-listPipelineExecutionSteps_maxResults :: Lens.Lens' ListPipelineExecutionSteps (Prelude.Maybe Prelude.Natural)
-listPipelineExecutionSteps_maxResults = Lens.lens (\ListPipelineExecutionSteps' {maxResults} -> maxResults) (\s@ListPipelineExecutionSteps' {} a -> s {maxResults = a} :: ListPipelineExecutionSteps)
 
 instance Core.AWSPager ListPipelineExecutionSteps where
   page rq rs
@@ -142,76 +143,77 @@ instance Core.AWSRequest ListPipelineExecutionSteps where
   type
     AWSResponse ListPipelineExecutionSteps =
       ListPipelineExecutionStepsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPipelineExecutionStepsResponse'
-            Prelude.<$> ( x Core..?> "PipelineExecutionSteps"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "PipelineExecutionSteps"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListPipelineExecutionSteps where
   hashWithSalt _salt ListPipelineExecutionSteps' {..} =
-    _salt `Prelude.hashWithSalt` pipelineExecutionArn
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` pipelineExecutionArn
       `Prelude.hashWithSalt` sortOrder
-      `Prelude.hashWithSalt` maxResults
 
 instance Prelude.NFData ListPipelineExecutionSteps where
   rnf ListPipelineExecutionSteps' {..} =
-    Prelude.rnf pipelineExecutionArn
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf pipelineExecutionArn
       `Prelude.seq` Prelude.rnf sortOrder
-      `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders ListPipelineExecutionSteps where
+instance Data.ToHeaders ListPipelineExecutionSteps where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.ListPipelineExecutionSteps" ::
+              Data.=# ( "SageMaker.ListPipelineExecutionSteps" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListPipelineExecutionSteps where
+instance Data.ToJSON ListPipelineExecutionSteps where
   toJSON ListPipelineExecutionSteps' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PipelineExecutionArn" Core..=)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("PipelineExecutionArn" Data..=)
               Prelude.<$> pipelineExecutionArn,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("SortOrder" Core..=) Prelude.<$> sortOrder,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+            ("SortOrder" Data..=) Prelude.<$> sortOrder
           ]
       )
 
-instance Core.ToPath ListPipelineExecutionSteps where
+instance Data.ToPath ListPipelineExecutionSteps where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListPipelineExecutionSteps where
+instance Data.ToQuery ListPipelineExecutionSteps where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListPipelineExecutionStepsResponse' smart constructor.
 data ListPipelineExecutionStepsResponse = ListPipelineExecutionStepsResponse'
-  { -- | A list of @PipeLineExecutionStep@ objects. Each @PipeLineExecutionStep@
+  { -- | If the result of the previous @ListPipelineExecutionSteps@ request was
+    -- truncated, the response includes a @NextToken@. To retrieve the next set
+    -- of pipeline execution steps, use the token in the next request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of @PipeLineExecutionStep@ objects. Each @PipeLineExecutionStep@
     -- consists of StepName, StartTime, EndTime, StepStatus, and Metadata.
     -- Metadata is an object with properties for each job that contains
     -- relevant information about the job created by the step.
     pipelineExecutionSteps :: Prelude.Maybe [PipelineExecutionStep],
-    -- | If the result of the previous @ListPipelineExecutionSteps@ request was
-    -- truncated, the response includes a @NextToken@. To retrieve the next set
-    -- of pipeline execution steps, use the token in the next request.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -225,14 +227,14 @@ data ListPipelineExecutionStepsResponse = ListPipelineExecutionStepsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'nextToken', 'listPipelineExecutionStepsResponse_nextToken' - If the result of the previous @ListPipelineExecutionSteps@ request was
+-- truncated, the response includes a @NextToken@. To retrieve the next set
+-- of pipeline execution steps, use the token in the next request.
+--
 -- 'pipelineExecutionSteps', 'listPipelineExecutionStepsResponse_pipelineExecutionSteps' - A list of @PipeLineExecutionStep@ objects. Each @PipeLineExecutionStep@
 -- consists of StepName, StartTime, EndTime, StepStatus, and Metadata.
 -- Metadata is an object with properties for each job that contains
 -- relevant information about the job created by the step.
---
--- 'nextToken', 'listPipelineExecutionStepsResponse_nextToken' - If the result of the previous @ListPipelineExecutionSteps@ request was
--- truncated, the response includes a @NextToken@. To retrieve the next set
--- of pipeline execution steps, use the token in the next request.
 --
 -- 'httpStatus', 'listPipelineExecutionStepsResponse_httpStatus' - The response's http status code.
 newListPipelineExecutionStepsResponse ::
@@ -241,11 +243,18 @@ newListPipelineExecutionStepsResponse ::
   ListPipelineExecutionStepsResponse
 newListPipelineExecutionStepsResponse pHttpStatus_ =
   ListPipelineExecutionStepsResponse'
-    { pipelineExecutionSteps =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      pipelineExecutionSteps =
+        Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | If the result of the previous @ListPipelineExecutionSteps@ request was
+-- truncated, the response includes a @NextToken@. To retrieve the next set
+-- of pipeline execution steps, use the token in the next request.
+listPipelineExecutionStepsResponse_nextToken :: Lens.Lens' ListPipelineExecutionStepsResponse (Prelude.Maybe Prelude.Text)
+listPipelineExecutionStepsResponse_nextToken = Lens.lens (\ListPipelineExecutionStepsResponse' {nextToken} -> nextToken) (\s@ListPipelineExecutionStepsResponse' {} a -> s {nextToken = a} :: ListPipelineExecutionStepsResponse)
 
 -- | A list of @PipeLineExecutionStep@ objects. Each @PipeLineExecutionStep@
 -- consists of StepName, StartTime, EndTime, StepStatus, and Metadata.
@@ -253,12 +262,6 @@ newListPipelineExecutionStepsResponse pHttpStatus_ =
 -- relevant information about the job created by the step.
 listPipelineExecutionStepsResponse_pipelineExecutionSteps :: Lens.Lens' ListPipelineExecutionStepsResponse (Prelude.Maybe [PipelineExecutionStep])
 listPipelineExecutionStepsResponse_pipelineExecutionSteps = Lens.lens (\ListPipelineExecutionStepsResponse' {pipelineExecutionSteps} -> pipelineExecutionSteps) (\s@ListPipelineExecutionStepsResponse' {} a -> s {pipelineExecutionSteps = a} :: ListPipelineExecutionStepsResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | If the result of the previous @ListPipelineExecutionSteps@ request was
--- truncated, the response includes a @NextToken@. To retrieve the next set
--- of pipeline execution steps, use the token in the next request.
-listPipelineExecutionStepsResponse_nextToken :: Lens.Lens' ListPipelineExecutionStepsResponse (Prelude.Maybe Prelude.Text)
-listPipelineExecutionStepsResponse_nextToken = Lens.lens (\ListPipelineExecutionStepsResponse' {nextToken} -> nextToken) (\s@ListPipelineExecutionStepsResponse' {} a -> s {nextToken = a} :: ListPipelineExecutionStepsResponse)
 
 -- | The response's http status code.
 listPipelineExecutionStepsResponse_httpStatus :: Lens.Lens' ListPipelineExecutionStepsResponse Prelude.Int
@@ -269,6 +272,6 @@ instance
     ListPipelineExecutionStepsResponse
   where
   rnf ListPipelineExecutionStepsResponse' {..} =
-    Prelude.rnf pipelineExecutionSteps
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf pipelineExecutionSteps
       `Prelude.seq` Prelude.rnf httpStatus

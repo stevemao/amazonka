@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppSync.DeleteFunction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.AppSync.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,7 +91,8 @@ instance Core.AWSRequest DeleteFunction where
   type
     AWSResponse DeleteFunction =
       DeleteFunctionResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -108,27 +110,27 @@ instance Prelude.NFData DeleteFunction where
     Prelude.rnf apiId
       `Prelude.seq` Prelude.rnf functionId
 
-instance Core.ToHeaders DeleteFunction where
+instance Data.ToHeaders DeleteFunction where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteFunction where
+instance Data.ToPath DeleteFunction where
   toPath DeleteFunction' {..} =
     Prelude.mconcat
       [ "/v1/apis/",
-        Core.toBS apiId,
+        Data.toBS apiId,
         "/functions/",
-        Core.toBS functionId
+        Data.toBS functionId
       ]
 
-instance Core.ToQuery DeleteFunction where
+instance Data.ToQuery DeleteFunction where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteFunctionResponse' smart constructor.

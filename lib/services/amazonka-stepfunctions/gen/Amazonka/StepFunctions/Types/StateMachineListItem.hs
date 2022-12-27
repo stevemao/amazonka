@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.StepFunctions.Types.StateMachineListItem
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.StepFunctions.Types.StateMachineListItem where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.StepFunctions.Types.StateMachineType
 
@@ -49,7 +50,7 @@ data StateMachineListItem = StateMachineListItem'
     name :: Prelude.Text,
     type' :: StateMachineType,
     -- | The date the state machine is created.
-    creationDate :: Core.POSIX
+    creationDate :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -103,7 +104,7 @@ newStateMachineListItem
           pStateMachineArn_,
         name = pName_,
         type' = pType_,
-        creationDate = Core._Time Lens.# pCreationDate_
+        creationDate = Data._Time Lens.# pCreationDate_
       }
 
 -- | The Amazon Resource Name (ARN) that identifies the state machine.
@@ -135,18 +136,18 @@ stateMachineListItem_type = Lens.lens (\StateMachineListItem' {type'} -> type') 
 
 -- | The date the state machine is created.
 stateMachineListItem_creationDate :: Lens.Lens' StateMachineListItem Prelude.UTCTime
-stateMachineListItem_creationDate = Lens.lens (\StateMachineListItem' {creationDate} -> creationDate) (\s@StateMachineListItem' {} a -> s {creationDate = a} :: StateMachineListItem) Prelude.. Core._Time
+stateMachineListItem_creationDate = Lens.lens (\StateMachineListItem' {creationDate} -> creationDate) (\s@StateMachineListItem' {} a -> s {creationDate = a} :: StateMachineListItem) Prelude.. Data._Time
 
-instance Core.FromJSON StateMachineListItem where
+instance Data.FromJSON StateMachineListItem where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StateMachineListItem"
       ( \x ->
           StateMachineListItem'
-            Prelude.<$> (x Core..: "stateMachineArn")
-            Prelude.<*> (x Core..: "name")
-            Prelude.<*> (x Core..: "type")
-            Prelude.<*> (x Core..: "creationDate")
+            Prelude.<$> (x Data..: "stateMachineArn")
+            Prelude.<*> (x Data..: "name")
+            Prelude.<*> (x Data..: "type")
+            Prelude.<*> (x Data..: "creationDate")
       )
 
 instance Prelude.Hashable StateMachineListItem where

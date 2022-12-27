@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.CreateServiceAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.ServiceCatalog.CreateServiceAction
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -70,15 +71,15 @@ data CreateServiceAction = CreateServiceAction'
     -- | The self-service action definition. Can be one of the following:
     --
     -- [Name]
-    --     The name of the AWS Systems Manager document (SSM document). For
-    --     example, @AWS-RestartEC2Instance@.
+    --     The name of the Amazon Web Services Systems Manager document (SSM
+    --     document). For example, @AWS-RestartEC2Instance@.
     --
     --     If you are using a shared SSM document, you must provide the ARN
     --     instead of the name.
     --
     -- [Version]
-    --     The AWS Systems Manager automation document version. For example,
-    --     @\"Version\": \"1\"@
+    --     The Amazon Web Services Systems Manager automation document version.
+    --     For example, @\"Version\": \"1\"@
     --
     -- [AssumeRole]
     --     The Amazon Resource Name (ARN) of the role that performs the
@@ -127,15 +128,15 @@ data CreateServiceAction = CreateServiceAction'
 -- 'definition', 'createServiceAction_definition' - The self-service action definition. Can be one of the following:
 --
 -- [Name]
---     The name of the AWS Systems Manager document (SSM document). For
---     example, @AWS-RestartEC2Instance@.
+--     The name of the Amazon Web Services Systems Manager document (SSM
+--     document). For example, @AWS-RestartEC2Instance@.
 --
 --     If you are using a shared SSM document, you must provide the ARN
 --     instead of the name.
 --
 -- [Version]
---     The AWS Systems Manager automation document version. For example,
---     @\"Version\": \"1\"@
+--     The Amazon Web Services Systems Manager automation document version.
+--     For example, @\"Version\": \"1\"@
 --
 -- [AssumeRole]
 --     The Amazon Resource Name (ARN) of the role that performs the
@@ -202,15 +203,15 @@ createServiceAction_definitionType = Lens.lens (\CreateServiceAction' {definitio
 -- | The self-service action definition. Can be one of the following:
 --
 -- [Name]
---     The name of the AWS Systems Manager document (SSM document). For
---     example, @AWS-RestartEC2Instance@.
+--     The name of the Amazon Web Services Systems Manager document (SSM
+--     document). For example, @AWS-RestartEC2Instance@.
 --
 --     If you are using a shared SSM document, you must provide the ARN
 --     instead of the name.
 --
 -- [Version]
---     The AWS Systems Manager automation document version. For example,
---     @\"Version\": \"1\"@
+--     The Amazon Web Services Systems Manager automation document version.
+--     For example, @\"Version\": \"1\"@
 --
 -- [AssumeRole]
 --     The Amazon Resource Name (ARN) of the role that performs the
@@ -239,12 +240,13 @@ instance Core.AWSRequest CreateServiceAction where
   type
     AWSResponse CreateServiceAction =
       CreateServiceActionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateServiceActionResponse'
-            Prelude.<$> (x Core..?> "ServiceActionDetail")
+            Prelude.<$> (x Data..?> "ServiceActionDetail")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -266,41 +268,41 @@ instance Prelude.NFData CreateServiceAction where
       `Prelude.seq` Prelude.rnf definition
       `Prelude.seq` Prelude.rnf idempotencyToken
 
-instance Core.ToHeaders CreateServiceAction where
+instance Data.ToHeaders CreateServiceAction where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.CreateServiceAction" ::
+              Data.=# ( "AWS242ServiceCatalogService.CreateServiceAction" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateServiceAction where
+instance Data.ToJSON CreateServiceAction where
   toJSON CreateServiceAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            ("Description" Core..=) Prelude.<$> description,
-            Prelude.Just ("Name" Core..= name),
+            ("Description" Data..=) Prelude.<$> description,
+            Prelude.Just ("Name" Data..= name),
             Prelude.Just
-              ("DefinitionType" Core..= definitionType),
-            Prelude.Just ("Definition" Core..= definition),
+              ("DefinitionType" Data..= definitionType),
+            Prelude.Just ("Definition" Data..= definition),
             Prelude.Just
-              ("IdempotencyToken" Core..= idempotencyToken)
+              ("IdempotencyToken" Data..= idempotencyToken)
           ]
       )
 
-instance Core.ToPath CreateServiceAction where
+instance Data.ToPath CreateServiceAction where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateServiceAction where
+instance Data.ToQuery CreateServiceAction where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateServiceActionResponse' smart constructor.

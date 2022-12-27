@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.Types.DetectorModelConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.IoTEvents.Types.DetectorModelConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types.DetectorModelVersionStatus
 import Amazonka.IoTEvents.Types.EvaluationMethod
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about how the detector model is configured.
@@ -30,15 +31,18 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newDetectorModelConfiguration' smart constructor.
 data DetectorModelConfiguration = DetectorModelConfiguration'
   { -- | The time the detector model was created.
-    creationTime :: Prelude.Maybe Core.POSIX,
-    -- | The status of the detector model.
-    status :: Prelude.Maybe DetectorModelVersionStatus,
-    -- | The name of the detector model.
-    detectorModelName :: Prelude.Maybe Prelude.Text,
+    creationTime :: Prelude.Maybe Data.POSIX,
     -- | The ARN of the detector model.
     detectorModelArn :: Prelude.Maybe Prelude.Text,
     -- | A brief description of the detector model.
     detectorModelDescription :: Prelude.Maybe Prelude.Text,
+    -- | The name of the detector model.
+    detectorModelName :: Prelude.Maybe Prelude.Text,
+    -- | The version of the detector model.
+    detectorModelVersion :: Prelude.Maybe Prelude.Text,
+    -- | Information about the order in which events are evaluated and how
+    -- actions are executed.
+    evaluationMethod :: Prelude.Maybe EvaluationMethod,
     -- | The value used to identify a detector instance. When a device or system
     -- sends input, a new detector instance with a unique key value is created.
     -- AWS IoT Events can continue to route input to its corresponding detector
@@ -49,16 +53,13 @@ data DetectorModelConfiguration = DetectorModelConfiguration'
     -- the message to the correct detector instance, the device must send a
     -- message payload that contains the same attribute-value.
     key :: Prelude.Maybe Prelude.Text,
-    -- | The version of the detector model.
-    detectorModelVersion :: Prelude.Maybe Prelude.Text,
     -- | The time the detector model was last updated.
-    lastUpdateTime :: Prelude.Maybe Core.POSIX,
-    -- | Information about the order in which events are evaluated and how
-    -- actions are executed.
-    evaluationMethod :: Prelude.Maybe EvaluationMethod,
+    lastUpdateTime :: Prelude.Maybe Data.POSIX,
     -- | The ARN of the role that grants permission to AWS IoT Events to perform
     -- its operations.
-    roleArn :: Prelude.Maybe Prelude.Text
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | The status of the detector model.
+    status :: Prelude.Maybe DetectorModelVersionStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -72,13 +73,16 @@ data DetectorModelConfiguration = DetectorModelConfiguration'
 --
 -- 'creationTime', 'detectorModelConfiguration_creationTime' - The time the detector model was created.
 --
--- 'status', 'detectorModelConfiguration_status' - The status of the detector model.
---
--- 'detectorModelName', 'detectorModelConfiguration_detectorModelName' - The name of the detector model.
---
 -- 'detectorModelArn', 'detectorModelConfiguration_detectorModelArn' - The ARN of the detector model.
 --
 -- 'detectorModelDescription', 'detectorModelConfiguration_detectorModelDescription' - A brief description of the detector model.
+--
+-- 'detectorModelName', 'detectorModelConfiguration_detectorModelName' - The name of the detector model.
+--
+-- 'detectorModelVersion', 'detectorModelConfiguration_detectorModelVersion' - The version of the detector model.
+--
+-- 'evaluationMethod', 'detectorModelConfiguration_evaluationMethod' - Information about the order in which events are evaluated and how
+-- actions are executed.
 --
 -- 'key', 'detectorModelConfiguration_key' - The value used to identify a detector instance. When a device or system
 -- sends input, a new detector instance with a unique key value is created.
@@ -90,43 +94,32 @@ data DetectorModelConfiguration = DetectorModelConfiguration'
 -- the message to the correct detector instance, the device must send a
 -- message payload that contains the same attribute-value.
 --
--- 'detectorModelVersion', 'detectorModelConfiguration_detectorModelVersion' - The version of the detector model.
---
 -- 'lastUpdateTime', 'detectorModelConfiguration_lastUpdateTime' - The time the detector model was last updated.
---
--- 'evaluationMethod', 'detectorModelConfiguration_evaluationMethod' - Information about the order in which events are evaluated and how
--- actions are executed.
 --
 -- 'roleArn', 'detectorModelConfiguration_roleArn' - The ARN of the role that grants permission to AWS IoT Events to perform
 -- its operations.
+--
+-- 'status', 'detectorModelConfiguration_status' - The status of the detector model.
 newDetectorModelConfiguration ::
   DetectorModelConfiguration
 newDetectorModelConfiguration =
   DetectorModelConfiguration'
     { creationTime =
         Prelude.Nothing,
-      status = Prelude.Nothing,
-      detectorModelName = Prelude.Nothing,
       detectorModelArn = Prelude.Nothing,
       detectorModelDescription = Prelude.Nothing,
-      key = Prelude.Nothing,
+      detectorModelName = Prelude.Nothing,
       detectorModelVersion = Prelude.Nothing,
-      lastUpdateTime = Prelude.Nothing,
       evaluationMethod = Prelude.Nothing,
-      roleArn = Prelude.Nothing
+      key = Prelude.Nothing,
+      lastUpdateTime = Prelude.Nothing,
+      roleArn = Prelude.Nothing,
+      status = Prelude.Nothing
     }
 
 -- | The time the detector model was created.
 detectorModelConfiguration_creationTime :: Lens.Lens' DetectorModelConfiguration (Prelude.Maybe Prelude.UTCTime)
-detectorModelConfiguration_creationTime = Lens.lens (\DetectorModelConfiguration' {creationTime} -> creationTime) (\s@DetectorModelConfiguration' {} a -> s {creationTime = a} :: DetectorModelConfiguration) Prelude.. Lens.mapping Core._Time
-
--- | The status of the detector model.
-detectorModelConfiguration_status :: Lens.Lens' DetectorModelConfiguration (Prelude.Maybe DetectorModelVersionStatus)
-detectorModelConfiguration_status = Lens.lens (\DetectorModelConfiguration' {status} -> status) (\s@DetectorModelConfiguration' {} a -> s {status = a} :: DetectorModelConfiguration)
-
--- | The name of the detector model.
-detectorModelConfiguration_detectorModelName :: Lens.Lens' DetectorModelConfiguration (Prelude.Maybe Prelude.Text)
-detectorModelConfiguration_detectorModelName = Lens.lens (\DetectorModelConfiguration' {detectorModelName} -> detectorModelName) (\s@DetectorModelConfiguration' {} a -> s {detectorModelName = a} :: DetectorModelConfiguration)
+detectorModelConfiguration_creationTime = Lens.lens (\DetectorModelConfiguration' {creationTime} -> creationTime) (\s@DetectorModelConfiguration' {} a -> s {creationTime = a} :: DetectorModelConfiguration) Prelude.. Lens.mapping Data._Time
 
 -- | The ARN of the detector model.
 detectorModelConfiguration_detectorModelArn :: Lens.Lens' DetectorModelConfiguration (Prelude.Maybe Prelude.Text)
@@ -135,6 +128,19 @@ detectorModelConfiguration_detectorModelArn = Lens.lens (\DetectorModelConfigura
 -- | A brief description of the detector model.
 detectorModelConfiguration_detectorModelDescription :: Lens.Lens' DetectorModelConfiguration (Prelude.Maybe Prelude.Text)
 detectorModelConfiguration_detectorModelDescription = Lens.lens (\DetectorModelConfiguration' {detectorModelDescription} -> detectorModelDescription) (\s@DetectorModelConfiguration' {} a -> s {detectorModelDescription = a} :: DetectorModelConfiguration)
+
+-- | The name of the detector model.
+detectorModelConfiguration_detectorModelName :: Lens.Lens' DetectorModelConfiguration (Prelude.Maybe Prelude.Text)
+detectorModelConfiguration_detectorModelName = Lens.lens (\DetectorModelConfiguration' {detectorModelName} -> detectorModelName) (\s@DetectorModelConfiguration' {} a -> s {detectorModelName = a} :: DetectorModelConfiguration)
+
+-- | The version of the detector model.
+detectorModelConfiguration_detectorModelVersion :: Lens.Lens' DetectorModelConfiguration (Prelude.Maybe Prelude.Text)
+detectorModelConfiguration_detectorModelVersion = Lens.lens (\DetectorModelConfiguration' {detectorModelVersion} -> detectorModelVersion) (\s@DetectorModelConfiguration' {} a -> s {detectorModelVersion = a} :: DetectorModelConfiguration)
+
+-- | Information about the order in which events are evaluated and how
+-- actions are executed.
+detectorModelConfiguration_evaluationMethod :: Lens.Lens' DetectorModelConfiguration (Prelude.Maybe EvaluationMethod)
+detectorModelConfiguration_evaluationMethod = Lens.lens (\DetectorModelConfiguration' {evaluationMethod} -> evaluationMethod) (\s@DetectorModelConfiguration' {} a -> s {evaluationMethod = a} :: DetectorModelConfiguration)
 
 -- | The value used to identify a detector instance. When a device or system
 -- sends input, a new detector instance with a unique key value is created.
@@ -148,64 +154,59 @@ detectorModelConfiguration_detectorModelDescription = Lens.lens (\DetectorModelC
 detectorModelConfiguration_key :: Lens.Lens' DetectorModelConfiguration (Prelude.Maybe Prelude.Text)
 detectorModelConfiguration_key = Lens.lens (\DetectorModelConfiguration' {key} -> key) (\s@DetectorModelConfiguration' {} a -> s {key = a} :: DetectorModelConfiguration)
 
--- | The version of the detector model.
-detectorModelConfiguration_detectorModelVersion :: Lens.Lens' DetectorModelConfiguration (Prelude.Maybe Prelude.Text)
-detectorModelConfiguration_detectorModelVersion = Lens.lens (\DetectorModelConfiguration' {detectorModelVersion} -> detectorModelVersion) (\s@DetectorModelConfiguration' {} a -> s {detectorModelVersion = a} :: DetectorModelConfiguration)
-
 -- | The time the detector model was last updated.
 detectorModelConfiguration_lastUpdateTime :: Lens.Lens' DetectorModelConfiguration (Prelude.Maybe Prelude.UTCTime)
-detectorModelConfiguration_lastUpdateTime = Lens.lens (\DetectorModelConfiguration' {lastUpdateTime} -> lastUpdateTime) (\s@DetectorModelConfiguration' {} a -> s {lastUpdateTime = a} :: DetectorModelConfiguration) Prelude.. Lens.mapping Core._Time
-
--- | Information about the order in which events are evaluated and how
--- actions are executed.
-detectorModelConfiguration_evaluationMethod :: Lens.Lens' DetectorModelConfiguration (Prelude.Maybe EvaluationMethod)
-detectorModelConfiguration_evaluationMethod = Lens.lens (\DetectorModelConfiguration' {evaluationMethod} -> evaluationMethod) (\s@DetectorModelConfiguration' {} a -> s {evaluationMethod = a} :: DetectorModelConfiguration)
+detectorModelConfiguration_lastUpdateTime = Lens.lens (\DetectorModelConfiguration' {lastUpdateTime} -> lastUpdateTime) (\s@DetectorModelConfiguration' {} a -> s {lastUpdateTime = a} :: DetectorModelConfiguration) Prelude.. Lens.mapping Data._Time
 
 -- | The ARN of the role that grants permission to AWS IoT Events to perform
 -- its operations.
 detectorModelConfiguration_roleArn :: Lens.Lens' DetectorModelConfiguration (Prelude.Maybe Prelude.Text)
 detectorModelConfiguration_roleArn = Lens.lens (\DetectorModelConfiguration' {roleArn} -> roleArn) (\s@DetectorModelConfiguration' {} a -> s {roleArn = a} :: DetectorModelConfiguration)
 
-instance Core.FromJSON DetectorModelConfiguration where
+-- | The status of the detector model.
+detectorModelConfiguration_status :: Lens.Lens' DetectorModelConfiguration (Prelude.Maybe DetectorModelVersionStatus)
+detectorModelConfiguration_status = Lens.lens (\DetectorModelConfiguration' {status} -> status) (\s@DetectorModelConfiguration' {} a -> s {status = a} :: DetectorModelConfiguration)
+
+instance Data.FromJSON DetectorModelConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DetectorModelConfiguration"
       ( \x ->
           DetectorModelConfiguration'
-            Prelude.<$> (x Core..:? "creationTime")
-            Prelude.<*> (x Core..:? "status")
-            Prelude.<*> (x Core..:? "detectorModelName")
-            Prelude.<*> (x Core..:? "detectorModelArn")
-            Prelude.<*> (x Core..:? "detectorModelDescription")
-            Prelude.<*> (x Core..:? "key")
-            Prelude.<*> (x Core..:? "detectorModelVersion")
-            Prelude.<*> (x Core..:? "lastUpdateTime")
-            Prelude.<*> (x Core..:? "evaluationMethod")
-            Prelude.<*> (x Core..:? "roleArn")
+            Prelude.<$> (x Data..:? "creationTime")
+            Prelude.<*> (x Data..:? "detectorModelArn")
+            Prelude.<*> (x Data..:? "detectorModelDescription")
+            Prelude.<*> (x Data..:? "detectorModelName")
+            Prelude.<*> (x Data..:? "detectorModelVersion")
+            Prelude.<*> (x Data..:? "evaluationMethod")
+            Prelude.<*> (x Data..:? "key")
+            Prelude.<*> (x Data..:? "lastUpdateTime")
+            Prelude.<*> (x Data..:? "roleArn")
+            Prelude.<*> (x Data..:? "status")
       )
 
 instance Prelude.Hashable DetectorModelConfiguration where
   hashWithSalt _salt DetectorModelConfiguration' {..} =
     _salt `Prelude.hashWithSalt` creationTime
-      `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` detectorModelName
       `Prelude.hashWithSalt` detectorModelArn
       `Prelude.hashWithSalt` detectorModelDescription
-      `Prelude.hashWithSalt` key
+      `Prelude.hashWithSalt` detectorModelName
       `Prelude.hashWithSalt` detectorModelVersion
-      `Prelude.hashWithSalt` lastUpdateTime
       `Prelude.hashWithSalt` evaluationMethod
+      `Prelude.hashWithSalt` key
+      `Prelude.hashWithSalt` lastUpdateTime
       `Prelude.hashWithSalt` roleArn
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData DetectorModelConfiguration where
   rnf DetectorModelConfiguration' {..} =
     Prelude.rnf creationTime
-      `Prelude.seq` Prelude.rnf status
-      `Prelude.seq` Prelude.rnf detectorModelName
       `Prelude.seq` Prelude.rnf detectorModelArn
       `Prelude.seq` Prelude.rnf detectorModelDescription
-      `Prelude.seq` Prelude.rnf key
+      `Prelude.seq` Prelude.rnf detectorModelName
       `Prelude.seq` Prelude.rnf detectorModelVersion
-      `Prelude.seq` Prelude.rnf lastUpdateTime
       `Prelude.seq` Prelude.rnf evaluationMethod
+      `Prelude.seq` Prelude.rnf key
+      `Prelude.seq` Prelude.rnf lastUpdateTime
       `Prelude.seq` Prelude.rnf roleArn
+      `Prelude.seq` Prelude.rnf status

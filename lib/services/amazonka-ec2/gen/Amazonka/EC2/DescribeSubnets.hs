@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeSubnets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,36 +33,38 @@ module Amazonka.EC2.DescribeSubnets
     newDescribeSubnets,
 
     -- * Request Lenses
-    describeSubnets_subnetIds,
-    describeSubnets_filters,
-    describeSubnets_nextToken,
     describeSubnets_dryRun,
+    describeSubnets_filters,
     describeSubnets_maxResults,
+    describeSubnets_nextToken,
+    describeSubnets_subnetIds,
 
     -- * Destructuring the Response
     DescribeSubnetsResponse (..),
     newDescribeSubnetsResponse,
 
     -- * Response Lenses
-    describeSubnetsResponse_subnets,
     describeSubnetsResponse_nextToken,
+    describeSubnetsResponse_subnets,
     describeSubnetsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeSubnets' smart constructor.
 data DescribeSubnets = DescribeSubnets'
-  { -- | One or more subnet IDs.
-    --
-    -- Default: Describes all your subnets.
-    subnetIds :: Prelude.Maybe [Prelude.Text],
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | One or more filters.
     --
     -- -   @availability-zone@ - The Availability Zone for the subnet. You can
@@ -79,9 +81,21 @@ data DescribeSubnets = DescribeSubnets'
     --     to be returned for the subnet. You can also use @cidr@ or
     --     @cidrBlock@ as the filter names.
     --
+    -- -   @customer-owned-ipv4-pool@ - The customer-owned IPv4 address pool
+    --     associated with the subnet.
+    --
     -- -   @default-for-az@ - Indicates whether this is the default subnet for
-    --     the Availability Zone. You can also use @defaultForAz@ as the filter
-    --     name.
+    --     the Availability Zone (@true@ | @false@). You can also use
+    --     @defaultForAz@ as the filter name.
+    --
+    -- -   @enable-dns64@ - Indicates whether DNS queries made to the
+    --     Amazon-provided DNS Resolver in this subnet should return synthetic
+    --     IPv6 addresses for IPv4-only destinations.
+    --
+    -- -   @enable-lni-at-device-index@ - Indicates the device position for
+    --     local network interfaces in this subnet. For example, @1@ indicates
+    --     local network interfaces in this subnet are the secondary network
+    --     interface (eth1).
     --
     -- -   @ipv6-cidr-block-association.ipv6-cidr-block@ - An IPv6 CIDR block
     --     associated with the subnet.
@@ -92,10 +106,35 @@ data DescribeSubnets = DescribeSubnets'
     -- -   @ipv6-cidr-block-association.state@ - The state of an IPv6 CIDR
     --     block associated with the subnet.
     --
+    -- -   @ipv6-native@ - Indicates whether this is an IPv6 only subnet
+    --     (@true@ | @false@).
+    --
+    -- -   @map-customer-owned-ip-on-launch@ - Indicates whether a network
+    --     interface created in this subnet (including a network interface
+    --     created by RunInstances) receives a customer-owned IPv4 address.
+    --
+    -- -   @map-public-ip-on-launch@ - Indicates whether instances launched in
+    --     this subnet receive a public IPv4 address.
+    --
     -- -   @outpost-arn@ - The Amazon Resource Name (ARN) of the Outpost.
     --
     -- -   @owner-id@ - The ID of the Amazon Web Services account that owns the
     --     subnet.
+    --
+    -- -   @private-dns-name-options-on-launch.hostname-type@ - The type of
+    --     hostname to assign to instances in the subnet at launch. For
+    --     IPv4-only and dual-stack (IPv4 and IPv6) subnets, an instance DNS
+    --     name can be based on the instance IPv4 address (ip-name) or the
+    --     instance ID (resource-name). For IPv6 only subnets, an instance DNS
+    --     name must be based on the instance ID (resource-name).
+    --
+    -- -   @private-dns-name-options-on-launch.enable-resource-name-dns-a-record@
+    --     - Indicates whether to respond to DNS queries for instance hostnames
+    --     with DNS A records.
+    --
+    -- -   @private-dns-name-options-on-launch.enable-resource-name-dns-aaaa-record@
+    --     - Indicates whether to respond to DNS queries for instance hostnames
+    --     with DNS AAAA records.
     --
     -- -   @state@ - The state of the subnet (@pending@ | @available@).
     --
@@ -115,17 +154,16 @@ data DescribeSubnets = DescribeSubnets'
     --
     -- -   @vpc-id@ - The ID of the VPC for the subnet.
     filters :: Prelude.Maybe [Filter],
-    -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | The maximum number of results to return with a single call. To retrieve
     -- the remaining results, make another call with the returned @nextToken@
     -- value.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | One or more subnet IDs.
+    --
+    -- Default: Describes all your subnets.
+    subnetIds :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -137,9 +175,10 @@ data DescribeSubnets = DescribeSubnets'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'subnetIds', 'describeSubnets_subnetIds' - One or more subnet IDs.
---
--- Default: Describes all your subnets.
+-- 'dryRun', 'describeSubnets_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'filters', 'describeSubnets_filters' - One or more filters.
 --
@@ -157,9 +196,21 @@ data DescribeSubnets = DescribeSubnets'
 --     to be returned for the subnet. You can also use @cidr@ or
 --     @cidrBlock@ as the filter names.
 --
+-- -   @customer-owned-ipv4-pool@ - The customer-owned IPv4 address pool
+--     associated with the subnet.
+--
 -- -   @default-for-az@ - Indicates whether this is the default subnet for
---     the Availability Zone. You can also use @defaultForAz@ as the filter
---     name.
+--     the Availability Zone (@true@ | @false@). You can also use
+--     @defaultForAz@ as the filter name.
+--
+-- -   @enable-dns64@ - Indicates whether DNS queries made to the
+--     Amazon-provided DNS Resolver in this subnet should return synthetic
+--     IPv6 addresses for IPv4-only destinations.
+--
+-- -   @enable-lni-at-device-index@ - Indicates the device position for
+--     local network interfaces in this subnet. For example, @1@ indicates
+--     local network interfaces in this subnet are the secondary network
+--     interface (eth1).
 --
 -- -   @ipv6-cidr-block-association.ipv6-cidr-block@ - An IPv6 CIDR block
 --     associated with the subnet.
@@ -170,10 +221,35 @@ data DescribeSubnets = DescribeSubnets'
 -- -   @ipv6-cidr-block-association.state@ - The state of an IPv6 CIDR
 --     block associated with the subnet.
 --
+-- -   @ipv6-native@ - Indicates whether this is an IPv6 only subnet
+--     (@true@ | @false@).
+--
+-- -   @map-customer-owned-ip-on-launch@ - Indicates whether a network
+--     interface created in this subnet (including a network interface
+--     created by RunInstances) receives a customer-owned IPv4 address.
+--
+-- -   @map-public-ip-on-launch@ - Indicates whether instances launched in
+--     this subnet receive a public IPv4 address.
+--
 -- -   @outpost-arn@ - The Amazon Resource Name (ARN) of the Outpost.
 --
 -- -   @owner-id@ - The ID of the Amazon Web Services account that owns the
 --     subnet.
+--
+-- -   @private-dns-name-options-on-launch.hostname-type@ - The type of
+--     hostname to assign to instances in the subnet at launch. For
+--     IPv4-only and dual-stack (IPv4 and IPv6) subnets, an instance DNS
+--     name can be based on the instance IPv4 address (ip-name) or the
+--     instance ID (resource-name). For IPv6 only subnets, an instance DNS
+--     name must be based on the instance ID (resource-name).
+--
+-- -   @private-dns-name-options-on-launch.enable-resource-name-dns-a-record@
+--     - Indicates whether to respond to DNS queries for instance hostnames
+--     with DNS A records.
+--
+-- -   @private-dns-name-options-on-launch.enable-resource-name-dns-aaaa-record@
+--     - Indicates whether to respond to DNS queries for instance hostnames
+--     with DNS AAAA records.
 --
 -- -   @state@ - The state of the subnet (@pending@ | @available@).
 --
@@ -193,32 +269,32 @@ data DescribeSubnets = DescribeSubnets'
 --
 -- -   @vpc-id@ - The ID of the VPC for the subnet.
 --
--- 'nextToken', 'describeSubnets_nextToken' - The token for the next page of results.
---
--- 'dryRun', 'describeSubnets_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
---
 -- 'maxResults', 'describeSubnets_maxResults' - The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
+--
+-- 'nextToken', 'describeSubnets_nextToken' - The token for the next page of results.
+--
+-- 'subnetIds', 'describeSubnets_subnetIds' - One or more subnet IDs.
+--
+-- Default: Describes all your subnets.
 newDescribeSubnets ::
   DescribeSubnets
 newDescribeSubnets =
   DescribeSubnets'
-    { subnetIds = Prelude.Nothing,
+    { dryRun = Prelude.Nothing,
       filters = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      subnetIds = Prelude.Nothing
     }
 
--- | One or more subnet IDs.
---
--- Default: Describes all your subnets.
-describeSubnets_subnetIds :: Lens.Lens' DescribeSubnets (Prelude.Maybe [Prelude.Text])
-describeSubnets_subnetIds = Lens.lens (\DescribeSubnets' {subnetIds} -> subnetIds) (\s@DescribeSubnets' {} a -> s {subnetIds = a} :: DescribeSubnets) Prelude.. Lens.mapping Lens.coerced
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeSubnets_dryRun :: Lens.Lens' DescribeSubnets (Prelude.Maybe Prelude.Bool)
+describeSubnets_dryRun = Lens.lens (\DescribeSubnets' {dryRun} -> dryRun) (\s@DescribeSubnets' {} a -> s {dryRun = a} :: DescribeSubnets)
 
 -- | One or more filters.
 --
@@ -236,9 +312,21 @@ describeSubnets_subnetIds = Lens.lens (\DescribeSubnets' {subnetIds} -> subnetId
 --     to be returned for the subnet. You can also use @cidr@ or
 --     @cidrBlock@ as the filter names.
 --
+-- -   @customer-owned-ipv4-pool@ - The customer-owned IPv4 address pool
+--     associated with the subnet.
+--
 -- -   @default-for-az@ - Indicates whether this is the default subnet for
---     the Availability Zone. You can also use @defaultForAz@ as the filter
---     name.
+--     the Availability Zone (@true@ | @false@). You can also use
+--     @defaultForAz@ as the filter name.
+--
+-- -   @enable-dns64@ - Indicates whether DNS queries made to the
+--     Amazon-provided DNS Resolver in this subnet should return synthetic
+--     IPv6 addresses for IPv4-only destinations.
+--
+-- -   @enable-lni-at-device-index@ - Indicates the device position for
+--     local network interfaces in this subnet. For example, @1@ indicates
+--     local network interfaces in this subnet are the secondary network
+--     interface (eth1).
 --
 -- -   @ipv6-cidr-block-association.ipv6-cidr-block@ - An IPv6 CIDR block
 --     associated with the subnet.
@@ -249,10 +337,35 @@ describeSubnets_subnetIds = Lens.lens (\DescribeSubnets' {subnetIds} -> subnetId
 -- -   @ipv6-cidr-block-association.state@ - The state of an IPv6 CIDR
 --     block associated with the subnet.
 --
+-- -   @ipv6-native@ - Indicates whether this is an IPv6 only subnet
+--     (@true@ | @false@).
+--
+-- -   @map-customer-owned-ip-on-launch@ - Indicates whether a network
+--     interface created in this subnet (including a network interface
+--     created by RunInstances) receives a customer-owned IPv4 address.
+--
+-- -   @map-public-ip-on-launch@ - Indicates whether instances launched in
+--     this subnet receive a public IPv4 address.
+--
 -- -   @outpost-arn@ - The Amazon Resource Name (ARN) of the Outpost.
 --
 -- -   @owner-id@ - The ID of the Amazon Web Services account that owns the
 --     subnet.
+--
+-- -   @private-dns-name-options-on-launch.hostname-type@ - The type of
+--     hostname to assign to instances in the subnet at launch. For
+--     IPv4-only and dual-stack (IPv4 and IPv6) subnets, an instance DNS
+--     name can be based on the instance IPv4 address (ip-name) or the
+--     instance ID (resource-name). For IPv6 only subnets, an instance DNS
+--     name must be based on the instance ID (resource-name).
+--
+-- -   @private-dns-name-options-on-launch.enable-resource-name-dns-a-record@
+--     - Indicates whether to respond to DNS queries for instance hostnames
+--     with DNS A records.
+--
+-- -   @private-dns-name-options-on-launch.enable-resource-name-dns-aaaa-record@
+--     - Indicates whether to respond to DNS queries for instance hostnames
+--     with DNS AAAA records.
 --
 -- -   @state@ - The state of the subnet (@pending@ | @available@).
 --
@@ -274,22 +387,21 @@ describeSubnets_subnetIds = Lens.lens (\DescribeSubnets' {subnetIds} -> subnetId
 describeSubnets_filters :: Lens.Lens' DescribeSubnets (Prelude.Maybe [Filter])
 describeSubnets_filters = Lens.lens (\DescribeSubnets' {filters} -> filters) (\s@DescribeSubnets' {} a -> s {filters = a} :: DescribeSubnets) Prelude.. Lens.mapping Lens.coerced
 
--- | The token for the next page of results.
-describeSubnets_nextToken :: Lens.Lens' DescribeSubnets (Prelude.Maybe Prelude.Text)
-describeSubnets_nextToken = Lens.lens (\DescribeSubnets' {nextToken} -> nextToken) (\s@DescribeSubnets' {} a -> s {nextToken = a} :: DescribeSubnets)
-
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describeSubnets_dryRun :: Lens.Lens' DescribeSubnets (Prelude.Maybe Prelude.Bool)
-describeSubnets_dryRun = Lens.lens (\DescribeSubnets' {dryRun} -> dryRun) (\s@DescribeSubnets' {} a -> s {dryRun = a} :: DescribeSubnets)
-
 -- | The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
 describeSubnets_maxResults :: Lens.Lens' DescribeSubnets (Prelude.Maybe Prelude.Natural)
 describeSubnets_maxResults = Lens.lens (\DescribeSubnets' {maxResults} -> maxResults) (\s@DescribeSubnets' {} a -> s {maxResults = a} :: DescribeSubnets)
+
+-- | The token for the next page of results.
+describeSubnets_nextToken :: Lens.Lens' DescribeSubnets (Prelude.Maybe Prelude.Text)
+describeSubnets_nextToken = Lens.lens (\DescribeSubnets' {nextToken} -> nextToken) (\s@DescribeSubnets' {} a -> s {nextToken = a} :: DescribeSubnets)
+
+-- | One or more subnet IDs.
+--
+-- Default: Describes all your subnets.
+describeSubnets_subnetIds :: Lens.Lens' DescribeSubnets (Prelude.Maybe [Prelude.Text])
+describeSubnets_subnetIds = Lens.lens (\DescribeSubnets' {subnetIds} -> subnetIds) (\s@DescribeSubnets' {} a -> s {subnetIds = a} :: DescribeSubnets) Prelude.. Lens.mapping Lens.coerced
 
 instance Core.AWSPager DescribeSubnets where
   page rq rs
@@ -316,63 +428,64 @@ instance Core.AWSRequest DescribeSubnets where
   type
     AWSResponse DescribeSubnets =
       DescribeSubnetsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeSubnetsResponse'
-            Prelude.<$> ( x Core..@? "subnetSet" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> (x Data..@? "nextToken")
+            Prelude.<*> ( x Data..@? "subnetSet" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
-            Prelude.<*> (x Core..@? "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeSubnets where
   hashWithSalt _salt DescribeSubnets' {..} =
-    _salt `Prelude.hashWithSalt` subnetIds
+    _salt `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` subnetIds
 
 instance Prelude.NFData DescribeSubnets where
   rnf DescribeSubnets' {..} =
-    Prelude.rnf subnetIds
+    Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf subnetIds
 
-instance Core.ToHeaders DescribeSubnets where
+instance Data.ToHeaders DescribeSubnets where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeSubnets where
+instance Data.ToPath DescribeSubnets where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeSubnets where
+instance Data.ToQuery DescribeSubnets where
   toQuery DescribeSubnets' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeSubnets" :: Prelude.ByteString),
+          Data.=: ("DescribeSubnets" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "SubnetId" Prelude.<$> subnetIds),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
+        Data.toQuery
+          (Data.toQueryList "SubnetId" Prelude.<$> subnetIds)
       ]
 
 -- | /See:/ 'newDescribeSubnetsResponse' smart constructor.
 data DescribeSubnetsResponse = DescribeSubnetsResponse'
-  { -- | Information about one or more subnets.
-    subnets :: Prelude.Maybe [Subnet],
-    -- | The token to use to retrieve the next page of results. This value is
+  { -- | The token to use to retrieve the next page of results. This value is
     -- @null@ when there are no more results to return.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about one or more subnets.
+    subnets :: Prelude.Maybe [Subnet],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -386,10 +499,10 @@ data DescribeSubnetsResponse = DescribeSubnetsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'subnets', 'describeSubnetsResponse_subnets' - Information about one or more subnets.
---
 -- 'nextToken', 'describeSubnetsResponse_nextToken' - The token to use to retrieve the next page of results. This value is
 -- @null@ when there are no more results to return.
+--
+-- 'subnets', 'describeSubnetsResponse_subnets' - Information about one or more subnets.
 --
 -- 'httpStatus', 'describeSubnetsResponse_httpStatus' - The response's http status code.
 newDescribeSubnetsResponse ::
@@ -398,19 +511,20 @@ newDescribeSubnetsResponse ::
   DescribeSubnetsResponse
 newDescribeSubnetsResponse pHttpStatus_ =
   DescribeSubnetsResponse'
-    { subnets = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { nextToken =
+        Prelude.Nothing,
+      subnets = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Information about one or more subnets.
-describeSubnetsResponse_subnets :: Lens.Lens' DescribeSubnetsResponse (Prelude.Maybe [Subnet])
-describeSubnetsResponse_subnets = Lens.lens (\DescribeSubnetsResponse' {subnets} -> subnets) (\s@DescribeSubnetsResponse' {} a -> s {subnets = a} :: DescribeSubnetsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token to use to retrieve the next page of results. This value is
 -- @null@ when there are no more results to return.
 describeSubnetsResponse_nextToken :: Lens.Lens' DescribeSubnetsResponse (Prelude.Maybe Prelude.Text)
 describeSubnetsResponse_nextToken = Lens.lens (\DescribeSubnetsResponse' {nextToken} -> nextToken) (\s@DescribeSubnetsResponse' {} a -> s {nextToken = a} :: DescribeSubnetsResponse)
+
+-- | Information about one or more subnets.
+describeSubnetsResponse_subnets :: Lens.Lens' DescribeSubnetsResponse (Prelude.Maybe [Subnet])
+describeSubnetsResponse_subnets = Lens.lens (\DescribeSubnetsResponse' {subnets} -> subnets) (\s@DescribeSubnetsResponse' {} a -> s {subnets = a} :: DescribeSubnetsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeSubnetsResponse_httpStatus :: Lens.Lens' DescribeSubnetsResponse Prelude.Int
@@ -418,6 +532,6 @@ describeSubnetsResponse_httpStatus = Lens.lens (\DescribeSubnetsResponse' {httpS
 
 instance Prelude.NFData DescribeSubnetsResponse where
   rnf DescribeSubnetsResponse' {..} =
-    Prelude.rnf subnets
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf subnets
       `Prelude.seq` Prelude.rnf httpStatus

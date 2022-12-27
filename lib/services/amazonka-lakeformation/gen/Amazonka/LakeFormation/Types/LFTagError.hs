@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LakeFormation.Types.LFTagError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.LakeFormation.Types.LFTagError where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LakeFormation.Types.ErrorDetail
 import Amazonka.LakeFormation.Types.LFTagPair
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A structure containing an error related to a @TagResource@ or
@@ -30,10 +31,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newLFTagError' smart constructor.
 data LFTagError = LFTagError'
-  { -- | The key-name of the tag.
-    lFTag :: Prelude.Maybe LFTagPair,
-    -- | An error that occurred with the attachment or detachment of the tag.
-    error :: Prelude.Maybe ErrorDetail
+  { -- | An error that occurred with the attachment or detachment of the LF-tag.
+    error :: Prelude.Maybe ErrorDetail,
+    -- | The key-name of the LF-tag.
+    lFTag :: Prelude.Maybe LFTagPair
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,40 +46,40 @@ data LFTagError = LFTagError'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'lFTag', 'lFTagError_lFTag' - The key-name of the tag.
+-- 'error', 'lFTagError_error' - An error that occurred with the attachment or detachment of the LF-tag.
 --
--- 'error', 'lFTagError_error' - An error that occurred with the attachment or detachment of the tag.
+-- 'lFTag', 'lFTagError_lFTag' - The key-name of the LF-tag.
 newLFTagError ::
   LFTagError
 newLFTagError =
   LFTagError'
-    { lFTag = Prelude.Nothing,
-      error = Prelude.Nothing
+    { error = Prelude.Nothing,
+      lFTag = Prelude.Nothing
     }
 
--- | The key-name of the tag.
-lFTagError_lFTag :: Lens.Lens' LFTagError (Prelude.Maybe LFTagPair)
-lFTagError_lFTag = Lens.lens (\LFTagError' {lFTag} -> lFTag) (\s@LFTagError' {} a -> s {lFTag = a} :: LFTagError)
-
--- | An error that occurred with the attachment or detachment of the tag.
+-- | An error that occurred with the attachment or detachment of the LF-tag.
 lFTagError_error :: Lens.Lens' LFTagError (Prelude.Maybe ErrorDetail)
 lFTagError_error = Lens.lens (\LFTagError' {error} -> error) (\s@LFTagError' {} a -> s {error = a} :: LFTagError)
 
-instance Core.FromJSON LFTagError where
+-- | The key-name of the LF-tag.
+lFTagError_lFTag :: Lens.Lens' LFTagError (Prelude.Maybe LFTagPair)
+lFTagError_lFTag = Lens.lens (\LFTagError' {lFTag} -> lFTag) (\s@LFTagError' {} a -> s {lFTag = a} :: LFTagError)
+
+instance Data.FromJSON LFTagError where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LFTagError"
       ( \x ->
           LFTagError'
-            Prelude.<$> (x Core..:? "LFTag")
-            Prelude.<*> (x Core..:? "Error")
+            Prelude.<$> (x Data..:? "Error")
+            Prelude.<*> (x Data..:? "LFTag")
       )
 
 instance Prelude.Hashable LFTagError where
   hashWithSalt _salt LFTagError' {..} =
-    _salt `Prelude.hashWithSalt` lFTag
-      `Prelude.hashWithSalt` error
+    _salt `Prelude.hashWithSalt` error
+      `Prelude.hashWithSalt` lFTag
 
 instance Prelude.NFData LFTagError where
   rnf LFTagError' {..} =
-    Prelude.rnf lFTag `Prelude.seq` Prelude.rnf error
+    Prelude.rnf error `Prelude.seq` Prelude.rnf lFTag

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FIS.Types.ExperimentActionState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.FIS.Types.ExperimentActionState where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FIS.Types.ExperimentActionStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the state of an action.
 --
 -- /See:/ 'newExperimentActionState' smart constructor.
 data ExperimentActionState = ExperimentActionState'
-  { -- | The state of the action.
-    status :: Prelude.Maybe ExperimentActionStatus,
-    -- | The reason for the state.
-    reason :: Prelude.Maybe Prelude.Text
+  { -- | The reason for the state.
+    reason :: Prelude.Maybe Prelude.Text,
+    -- | The state of the action.
+    status :: Prelude.Maybe ExperimentActionStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,40 +44,40 @@ data ExperimentActionState = ExperimentActionState'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'experimentActionState_status' - The state of the action.
---
 -- 'reason', 'experimentActionState_reason' - The reason for the state.
+--
+-- 'status', 'experimentActionState_status' - The state of the action.
 newExperimentActionState ::
   ExperimentActionState
 newExperimentActionState =
   ExperimentActionState'
-    { status = Prelude.Nothing,
-      reason = Prelude.Nothing
+    { reason = Prelude.Nothing,
+      status = Prelude.Nothing
     }
-
--- | The state of the action.
-experimentActionState_status :: Lens.Lens' ExperimentActionState (Prelude.Maybe ExperimentActionStatus)
-experimentActionState_status = Lens.lens (\ExperimentActionState' {status} -> status) (\s@ExperimentActionState' {} a -> s {status = a} :: ExperimentActionState)
 
 -- | The reason for the state.
 experimentActionState_reason :: Lens.Lens' ExperimentActionState (Prelude.Maybe Prelude.Text)
 experimentActionState_reason = Lens.lens (\ExperimentActionState' {reason} -> reason) (\s@ExperimentActionState' {} a -> s {reason = a} :: ExperimentActionState)
 
-instance Core.FromJSON ExperimentActionState where
+-- | The state of the action.
+experimentActionState_status :: Lens.Lens' ExperimentActionState (Prelude.Maybe ExperimentActionStatus)
+experimentActionState_status = Lens.lens (\ExperimentActionState' {status} -> status) (\s@ExperimentActionState' {} a -> s {status = a} :: ExperimentActionState)
+
+instance Data.FromJSON ExperimentActionState where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ExperimentActionState"
       ( \x ->
           ExperimentActionState'
-            Prelude.<$> (x Core..:? "status")
-            Prelude.<*> (x Core..:? "reason")
+            Prelude.<$> (x Data..:? "reason")
+            Prelude.<*> (x Data..:? "status")
       )
 
 instance Prelude.Hashable ExperimentActionState where
   hashWithSalt _salt ExperimentActionState' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` reason
+    _salt `Prelude.hashWithSalt` reason
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData ExperimentActionState where
   rnf ExperimentActionState' {..} =
-    Prelude.rnf status `Prelude.seq` Prelude.rnf reason
+    Prelude.rnf reason `Prelude.seq` Prelude.rnf status

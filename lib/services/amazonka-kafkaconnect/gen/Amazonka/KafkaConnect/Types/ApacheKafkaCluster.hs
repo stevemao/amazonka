@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.Types.ApacheKafkaCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KafkaConnect.Types.ApacheKafkaCluster where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KafkaConnect.Types.Vpc
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The details of the Apache Kafka cluster to which the connector is
@@ -81,12 +82,12 @@ instance Prelude.NFData ApacheKafkaCluster where
     Prelude.rnf bootstrapServers
       `Prelude.seq` Prelude.rnf vpc
 
-instance Core.ToJSON ApacheKafkaCluster where
+instance Data.ToJSON ApacheKafkaCluster where
   toJSON ApacheKafkaCluster' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("bootstrapServers" Core..= bootstrapServers),
-            Prelude.Just ("vpc" Core..= vpc)
+              ("bootstrapServers" Data..= bootstrapServers),
+            Prelude.Just ("vpc" Data..= vpc)
           ]
       )

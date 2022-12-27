@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.Types.ConfigureShard
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElastiCache.Types.ConfigureShard where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Node group (shard) configuration options when adding or removing
@@ -170,19 +171,19 @@ instance Prelude.NFData ConfigureShard where
       `Prelude.seq` Prelude.rnf nodeGroupId
       `Prelude.seq` Prelude.rnf newReplicaCount'
 
-instance Core.ToQuery ConfigureShard where
+instance Data.ToQuery ConfigureShard where
   toQuery ConfigureShard' {..} =
     Prelude.mconcat
       [ "PreferredAvailabilityZones"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "PreferredAvailabilityZone"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "PreferredAvailabilityZone"
                 Prelude.<$> preferredAvailabilityZones
             ),
         "PreferredOutpostArns"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "PreferredOutpostArn"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "PreferredOutpostArn"
                 Prelude.<$> preferredOutpostArns
             ),
-        "NodeGroupId" Core.=: nodeGroupId,
-        "NewReplicaCount" Core.=: newReplicaCount'
+        "NodeGroupId" Data.=: nodeGroupId,
+        "NewReplicaCount" Data.=: newReplicaCount'
       ]

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Budgets.DescribeBudgetActionsForBudget
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Budgets.DescribeBudgetActionsForBudget
     newDescribeBudgetActionsForBudget,
 
     -- * Request Lenses
-    describeBudgetActionsForBudget_nextToken,
     describeBudgetActionsForBudget_maxResults,
+    describeBudgetActionsForBudget_nextToken,
     describeBudgetActionsForBudget_accountId,
     describeBudgetActionsForBudget_budgetName,
 
@@ -47,15 +47,16 @@ where
 
 import Amazonka.Budgets.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeBudgetActionsForBudget' smart constructor.
 data DescribeBudgetActionsForBudget = DescribeBudgetActionsForBudget'
-  { nextToken :: Prelude.Maybe Prelude.Text,
-    maxResults :: Prelude.Maybe Prelude.Natural,
+  { maxResults :: Prelude.Maybe Prelude.Natural,
+    nextToken :: Prelude.Maybe Prelude.Text,
     accountId :: Prelude.Text,
     budgetName :: Prelude.Text
   }
@@ -69,9 +70,9 @@ data DescribeBudgetActionsForBudget = DescribeBudgetActionsForBudget'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeBudgetActionsForBudget_nextToken' - Undocumented member.
---
 -- 'maxResults', 'describeBudgetActionsForBudget_maxResults' - Undocumented member.
+--
+-- 'nextToken', 'describeBudgetActionsForBudget_nextToken' - Undocumented member.
 --
 -- 'accountId', 'describeBudgetActionsForBudget_accountId' - Undocumented member.
 --
@@ -86,20 +87,20 @@ newDescribeBudgetActionsForBudget
   pAccountId_
   pBudgetName_ =
     DescribeBudgetActionsForBudget'
-      { nextToken =
+      { maxResults =
           Prelude.Nothing,
-        maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         accountId = pAccountId_,
         budgetName = pBudgetName_
       }
 
 -- | Undocumented member.
-describeBudgetActionsForBudget_nextToken :: Lens.Lens' DescribeBudgetActionsForBudget (Prelude.Maybe Prelude.Text)
-describeBudgetActionsForBudget_nextToken = Lens.lens (\DescribeBudgetActionsForBudget' {nextToken} -> nextToken) (\s@DescribeBudgetActionsForBudget' {} a -> s {nextToken = a} :: DescribeBudgetActionsForBudget)
-
--- | Undocumented member.
 describeBudgetActionsForBudget_maxResults :: Lens.Lens' DescribeBudgetActionsForBudget (Prelude.Maybe Prelude.Natural)
 describeBudgetActionsForBudget_maxResults = Lens.lens (\DescribeBudgetActionsForBudget' {maxResults} -> maxResults) (\s@DescribeBudgetActionsForBudget' {} a -> s {maxResults = a} :: DescribeBudgetActionsForBudget)
+
+-- | Undocumented member.
+describeBudgetActionsForBudget_nextToken :: Lens.Lens' DescribeBudgetActionsForBudget (Prelude.Maybe Prelude.Text)
+describeBudgetActionsForBudget_nextToken = Lens.lens (\DescribeBudgetActionsForBudget' {nextToken} -> nextToken) (\s@DescribeBudgetActionsForBudget' {} a -> s {nextToken = a} :: DescribeBudgetActionsForBudget)
 
 -- | Undocumented member.
 describeBudgetActionsForBudget_accountId :: Lens.Lens' DescribeBudgetActionsForBudget Prelude.Text
@@ -137,14 +138,15 @@ instance
   type
     AWSResponse DescribeBudgetActionsForBudget =
       DescribeBudgetActionsForBudgetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeBudgetActionsForBudgetResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Actions" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Actions" Core..!@ Prelude.mempty)
       )
 
 instance
@@ -154,8 +156,8 @@ instance
   hashWithSalt
     _salt
     DescribeBudgetActionsForBudget' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` accountId
         `Prelude.hashWithSalt` budgetName
 
@@ -164,44 +166,44 @@ instance
     DescribeBudgetActionsForBudget
   where
   rnf DescribeBudgetActionsForBudget' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf budgetName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeBudgetActionsForBudget
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSBudgetServiceGateway.DescribeBudgetActionsForBudget" ::
+              Data.=# ( "AWSBudgetServiceGateway.DescribeBudgetActionsForBudget" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeBudgetActionsForBudget where
+instance Data.ToJSON DescribeBudgetActionsForBudget where
   toJSON DescribeBudgetActionsForBudget' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("AccountId" Core..= accountId),
-            Prelude.Just ("BudgetName" Core..= budgetName)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("AccountId" Data..= accountId),
+            Prelude.Just ("BudgetName" Data..= budgetName)
           ]
       )
 
-instance Core.ToPath DescribeBudgetActionsForBudget where
+instance Data.ToPath DescribeBudgetActionsForBudget where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeBudgetActionsForBudget where
+instance Data.ToQuery DescribeBudgetActionsForBudget where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeBudgetActionsForBudgetResponse' smart constructor.

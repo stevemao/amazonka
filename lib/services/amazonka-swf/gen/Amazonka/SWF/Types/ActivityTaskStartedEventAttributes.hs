@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.Types.ActivityTaskStartedEventAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SWF.Types.ActivityTaskStartedEventAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides the details of the @ActivityTaskStarted@ event.
@@ -81,16 +82,16 @@ activityTaskStartedEventAttributes_scheduledEventId :: Lens.Lens' ActivityTaskSt
 activityTaskStartedEventAttributes_scheduledEventId = Lens.lens (\ActivityTaskStartedEventAttributes' {scheduledEventId} -> scheduledEventId) (\s@ActivityTaskStartedEventAttributes' {} a -> s {scheduledEventId = a} :: ActivityTaskStartedEventAttributes)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ActivityTaskStartedEventAttributes
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ActivityTaskStartedEventAttributes"
       ( \x ->
           ActivityTaskStartedEventAttributes'
-            Prelude.<$> (x Core..:? "identity")
-            Prelude.<*> (x Core..: "scheduledEventId")
+            Prelude.<$> (x Data..:? "identity")
+            Prelude.<*> (x Data..: "scheduledEventId")
       )
 
 instance

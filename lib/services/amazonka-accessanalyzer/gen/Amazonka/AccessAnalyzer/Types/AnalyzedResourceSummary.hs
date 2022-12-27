@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AccessAnalyzer.Types.AnalyzedResourceSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AccessAnalyzer.Types.AnalyzedResourceSummary where
 
 import Amazonka.AccessAnalyzer.Types.ResourceType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the ARN of the analyzed resource.
@@ -81,15 +82,15 @@ analyzedResourceSummary_resourceOwnerAccount = Lens.lens (\AnalyzedResourceSumma
 analyzedResourceSummary_resourceType :: Lens.Lens' AnalyzedResourceSummary ResourceType
 analyzedResourceSummary_resourceType = Lens.lens (\AnalyzedResourceSummary' {resourceType} -> resourceType) (\s@AnalyzedResourceSummary' {} a -> s {resourceType = a} :: AnalyzedResourceSummary)
 
-instance Core.FromJSON AnalyzedResourceSummary where
+instance Data.FromJSON AnalyzedResourceSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AnalyzedResourceSummary"
       ( \x ->
           AnalyzedResourceSummary'
-            Prelude.<$> (x Core..: "resourceArn")
-            Prelude.<*> (x Core..: "resourceOwnerAccount")
-            Prelude.<*> (x Core..: "resourceType")
+            Prelude.<$> (x Data..: "resourceArn")
+            Prelude.<*> (x Data..: "resourceOwnerAccount")
+            Prelude.<*> (x Data..: "resourceType")
       )
 
 instance Prelude.Hashable AnalyzedResourceSummary where

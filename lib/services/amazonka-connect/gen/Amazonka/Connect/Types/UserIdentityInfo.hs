@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.Types.UserIdentityInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Connect.Types.UserIdentityInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the identity of a user.
@@ -30,12 +31,22 @@ data UserIdentityInfo = UserIdentityInfo'
   { -- | The email address. If you are using SAML for identity management and
     -- include this parameter, an error is returned.
     email :: Prelude.Maybe Prelude.Text,
+    -- | The first name. This is required if you are using Amazon Connect or SAML
+    -- for identity management.
+    firstName :: Prelude.Maybe Prelude.Text,
     -- | The last name. This is required if you are using Amazon Connect or SAML
     -- for identity management.
     lastName :: Prelude.Maybe Prelude.Text,
-    -- | The first name. This is required if you are using Amazon Connect or SAML
-    -- for identity management.
-    firstName :: Prelude.Maybe Prelude.Text
+    -- | The user\'s mobile number.
+    mobile :: Prelude.Maybe Prelude.Text,
+    -- | The user\'s secondary email address. If you provide a secondary email,
+    -- the user receives email notifications - other than password reset
+    -- notifications - to this email address instead of to their primary email
+    -- address.
+    --
+    -- Pattern:
+    -- @(?=^.{0,265}$)[a-zA-Z0-9._%+-]+\@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,63}@
+    secondaryEmail :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -50,18 +61,30 @@ data UserIdentityInfo = UserIdentityInfo'
 -- 'email', 'userIdentityInfo_email' - The email address. If you are using SAML for identity management and
 -- include this parameter, an error is returned.
 --
+-- 'firstName', 'userIdentityInfo_firstName' - The first name. This is required if you are using Amazon Connect or SAML
+-- for identity management.
+--
 -- 'lastName', 'userIdentityInfo_lastName' - The last name. This is required if you are using Amazon Connect or SAML
 -- for identity management.
 --
--- 'firstName', 'userIdentityInfo_firstName' - The first name. This is required if you are using Amazon Connect or SAML
--- for identity management.
+-- 'mobile', 'userIdentityInfo_mobile' - The user\'s mobile number.
+--
+-- 'secondaryEmail', 'userIdentityInfo_secondaryEmail' - The user\'s secondary email address. If you provide a secondary email,
+-- the user receives email notifications - other than password reset
+-- notifications - to this email address instead of to their primary email
+-- address.
+--
+-- Pattern:
+-- @(?=^.{0,265}$)[a-zA-Z0-9._%+-]+\@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,63}@
 newUserIdentityInfo ::
   UserIdentityInfo
 newUserIdentityInfo =
   UserIdentityInfo'
     { email = Prelude.Nothing,
+      firstName = Prelude.Nothing,
       lastName = Prelude.Nothing,
-      firstName = Prelude.Nothing
+      mobile = Prelude.Nothing,
+      secondaryEmail = Prelude.Nothing
     }
 
 -- | The email address. If you are using SAML for identity management and
@@ -69,45 +92,68 @@ newUserIdentityInfo =
 userIdentityInfo_email :: Lens.Lens' UserIdentityInfo (Prelude.Maybe Prelude.Text)
 userIdentityInfo_email = Lens.lens (\UserIdentityInfo' {email} -> email) (\s@UserIdentityInfo' {} a -> s {email = a} :: UserIdentityInfo)
 
--- | The last name. This is required if you are using Amazon Connect or SAML
--- for identity management.
-userIdentityInfo_lastName :: Lens.Lens' UserIdentityInfo (Prelude.Maybe Prelude.Text)
-userIdentityInfo_lastName = Lens.lens (\UserIdentityInfo' {lastName} -> lastName) (\s@UserIdentityInfo' {} a -> s {lastName = a} :: UserIdentityInfo)
-
 -- | The first name. This is required if you are using Amazon Connect or SAML
 -- for identity management.
 userIdentityInfo_firstName :: Lens.Lens' UserIdentityInfo (Prelude.Maybe Prelude.Text)
 userIdentityInfo_firstName = Lens.lens (\UserIdentityInfo' {firstName} -> firstName) (\s@UserIdentityInfo' {} a -> s {firstName = a} :: UserIdentityInfo)
 
-instance Core.FromJSON UserIdentityInfo where
+-- | The last name. This is required if you are using Amazon Connect or SAML
+-- for identity management.
+userIdentityInfo_lastName :: Lens.Lens' UserIdentityInfo (Prelude.Maybe Prelude.Text)
+userIdentityInfo_lastName = Lens.lens (\UserIdentityInfo' {lastName} -> lastName) (\s@UserIdentityInfo' {} a -> s {lastName = a} :: UserIdentityInfo)
+
+-- | The user\'s mobile number.
+userIdentityInfo_mobile :: Lens.Lens' UserIdentityInfo (Prelude.Maybe Prelude.Text)
+userIdentityInfo_mobile = Lens.lens (\UserIdentityInfo' {mobile} -> mobile) (\s@UserIdentityInfo' {} a -> s {mobile = a} :: UserIdentityInfo)
+
+-- | The user\'s secondary email address. If you provide a secondary email,
+-- the user receives email notifications - other than password reset
+-- notifications - to this email address instead of to their primary email
+-- address.
+--
+-- Pattern:
+-- @(?=^.{0,265}$)[a-zA-Z0-9._%+-]+\@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,63}@
+userIdentityInfo_secondaryEmail :: Lens.Lens' UserIdentityInfo (Prelude.Maybe Prelude.Text)
+userIdentityInfo_secondaryEmail = Lens.lens (\UserIdentityInfo' {secondaryEmail} -> secondaryEmail) (\s@UserIdentityInfo' {} a -> s {secondaryEmail = a} :: UserIdentityInfo)
+
+instance Data.FromJSON UserIdentityInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UserIdentityInfo"
       ( \x ->
           UserIdentityInfo'
-            Prelude.<$> (x Core..:? "Email")
-            Prelude.<*> (x Core..:? "LastName")
-            Prelude.<*> (x Core..:? "FirstName")
+            Prelude.<$> (x Data..:? "Email")
+            Prelude.<*> (x Data..:? "FirstName")
+            Prelude.<*> (x Data..:? "LastName")
+            Prelude.<*> (x Data..:? "Mobile")
+            Prelude.<*> (x Data..:? "SecondaryEmail")
       )
 
 instance Prelude.Hashable UserIdentityInfo where
   hashWithSalt _salt UserIdentityInfo' {..} =
     _salt `Prelude.hashWithSalt` email
-      `Prelude.hashWithSalt` lastName
       `Prelude.hashWithSalt` firstName
+      `Prelude.hashWithSalt` lastName
+      `Prelude.hashWithSalt` mobile
+      `Prelude.hashWithSalt` secondaryEmail
 
 instance Prelude.NFData UserIdentityInfo where
   rnf UserIdentityInfo' {..} =
     Prelude.rnf email
-      `Prelude.seq` Prelude.rnf lastName
       `Prelude.seq` Prelude.rnf firstName
+      `Prelude.seq` Prelude.rnf lastName
+      `Prelude.seq` Prelude.rnf mobile
+      `Prelude.seq` Prelude.rnf secondaryEmail
 
-instance Core.ToJSON UserIdentityInfo where
+instance Data.ToJSON UserIdentityInfo where
   toJSON UserIdentityInfo' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Email" Core..=) Prelude.<$> email,
-            ("LastName" Core..=) Prelude.<$> lastName,
-            ("FirstName" Core..=) Prelude.<$> firstName
+          [ ("Email" Data..=) Prelude.<$> email,
+            ("FirstName" Data..=) Prelude.<$> firstName,
+            ("LastName" Data..=) Prelude.<$> lastName,
+            ("Mobile" Data..=) Prelude.<$> mobile,
+            ("SecondaryEmail" Data..=)
+              Prelude.<$> secondaryEmail
           ]
       )

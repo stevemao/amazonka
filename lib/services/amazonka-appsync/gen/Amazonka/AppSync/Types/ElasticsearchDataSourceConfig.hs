@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppSync.Types.ElasticsearchDataSourceConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppSync.Types.ElasticsearchDataSourceConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an OpenSearch data source configuration.
@@ -72,14 +73,14 @@ elasticsearchDataSourceConfig_endpoint = Lens.lens (\ElasticsearchDataSourceConf
 elasticsearchDataSourceConfig_awsRegion :: Lens.Lens' ElasticsearchDataSourceConfig Prelude.Text
 elasticsearchDataSourceConfig_awsRegion = Lens.lens (\ElasticsearchDataSourceConfig' {awsRegion} -> awsRegion) (\s@ElasticsearchDataSourceConfig' {} a -> s {awsRegion = a} :: ElasticsearchDataSourceConfig)
 
-instance Core.FromJSON ElasticsearchDataSourceConfig where
+instance Data.FromJSON ElasticsearchDataSourceConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ElasticsearchDataSourceConfig"
       ( \x ->
           ElasticsearchDataSourceConfig'
-            Prelude.<$> (x Core..: "endpoint")
-            Prelude.<*> (x Core..: "awsRegion")
+            Prelude.<$> (x Data..: "endpoint")
+            Prelude.<*> (x Data..: "awsRegion")
       )
 
 instance
@@ -95,11 +96,11 @@ instance Prelude.NFData ElasticsearchDataSourceConfig where
     Prelude.rnf endpoint
       `Prelude.seq` Prelude.rnf awsRegion
 
-instance Core.ToJSON ElasticsearchDataSourceConfig where
+instance Data.ToJSON ElasticsearchDataSourceConfig where
   toJSON ElasticsearchDataSourceConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("endpoint" Core..= endpoint),
-            Prelude.Just ("awsRegion" Core..= awsRegion)
+          [ Prelude.Just ("endpoint" Data..= endpoint),
+            Prelude.Just ("awsRegion" Data..= awsRegion)
           ]
       )

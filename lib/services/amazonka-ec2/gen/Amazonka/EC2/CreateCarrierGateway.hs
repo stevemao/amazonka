@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.CreateCarrierGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.EC2.CreateCarrierGateway
 
     -- * Request Lenses
     createCarrierGateway_clientToken,
-    createCarrierGateway_tagSpecifications,
     createCarrierGateway_dryRun,
+    createCarrierGateway_tagSpecifications,
     createCarrierGateway_vpcId,
 
     -- * Destructuring the Response
@@ -46,8 +46,9 @@ module Amazonka.EC2.CreateCarrierGateway
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,13 +59,13 @@ data CreateCarrierGateway = CreateCarrierGateway'
     -- idempotency of the request. For more information, see
     -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html How to ensure idempotency>.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | The tags to associate with the carrier gateway.
-    tagSpecifications :: Prelude.Maybe [TagSpecification],
     -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The tags to associate with the carrier gateway.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
     -- | The ID of the VPC to associate with the carrier gateway.
     vpcId :: Prelude.Text
   }
@@ -82,12 +83,12 @@ data CreateCarrierGateway = CreateCarrierGateway'
 -- idempotency of the request. For more information, see
 -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html How to ensure idempotency>.
 --
--- 'tagSpecifications', 'createCarrierGateway_tagSpecifications' - The tags to associate with the carrier gateway.
---
 -- 'dryRun', 'createCarrierGateway_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'tagSpecifications', 'createCarrierGateway_tagSpecifications' - The tags to associate with the carrier gateway.
 --
 -- 'vpcId', 'createCarrierGateway_vpcId' - The ID of the VPC to associate with the carrier gateway.
 newCreateCarrierGateway ::
@@ -98,8 +99,8 @@ newCreateCarrierGateway pVpcId_ =
   CreateCarrierGateway'
     { clientToken =
         Prelude.Nothing,
-      tagSpecifications = Prelude.Nothing,
       dryRun = Prelude.Nothing,
+      tagSpecifications = Prelude.Nothing,
       vpcId = pVpcId_
     }
 
@@ -109,16 +110,16 @@ newCreateCarrierGateway pVpcId_ =
 createCarrierGateway_clientToken :: Lens.Lens' CreateCarrierGateway (Prelude.Maybe Prelude.Text)
 createCarrierGateway_clientToken = Lens.lens (\CreateCarrierGateway' {clientToken} -> clientToken) (\s@CreateCarrierGateway' {} a -> s {clientToken = a} :: CreateCarrierGateway)
 
--- | The tags to associate with the carrier gateway.
-createCarrierGateway_tagSpecifications :: Lens.Lens' CreateCarrierGateway (Prelude.Maybe [TagSpecification])
-createCarrierGateway_tagSpecifications = Lens.lens (\CreateCarrierGateway' {tagSpecifications} -> tagSpecifications) (\s@CreateCarrierGateway' {} a -> s {tagSpecifications = a} :: CreateCarrierGateway) Prelude.. Lens.mapping Lens.coerced
-
 -- | Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
 createCarrierGateway_dryRun :: Lens.Lens' CreateCarrierGateway (Prelude.Maybe Prelude.Bool)
 createCarrierGateway_dryRun = Lens.lens (\CreateCarrierGateway' {dryRun} -> dryRun) (\s@CreateCarrierGateway' {} a -> s {dryRun = a} :: CreateCarrierGateway)
+
+-- | The tags to associate with the carrier gateway.
+createCarrierGateway_tagSpecifications :: Lens.Lens' CreateCarrierGateway (Prelude.Maybe [TagSpecification])
+createCarrierGateway_tagSpecifications = Lens.lens (\CreateCarrierGateway' {tagSpecifications} -> tagSpecifications) (\s@CreateCarrierGateway' {} a -> s {tagSpecifications = a} :: CreateCarrierGateway) Prelude.. Lens.mapping Lens.coerced
 
 -- | The ID of the VPC to associate with the carrier gateway.
 createCarrierGateway_vpcId :: Lens.Lens' CreateCarrierGateway Prelude.Text
@@ -128,49 +129,50 @@ instance Core.AWSRequest CreateCarrierGateway where
   type
     AWSResponse CreateCarrierGateway =
       CreateCarrierGatewayResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CreateCarrierGatewayResponse'
-            Prelude.<$> (x Core..@? "carrierGateway")
+            Prelude.<$> (x Data..@? "carrierGateway")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateCarrierGateway where
   hashWithSalt _salt CreateCarrierGateway' {..} =
     _salt `Prelude.hashWithSalt` clientToken
-      `Prelude.hashWithSalt` tagSpecifications
       `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` tagSpecifications
       `Prelude.hashWithSalt` vpcId
 
 instance Prelude.NFData CreateCarrierGateway where
   rnf CreateCarrierGateway' {..} =
     Prelude.rnf clientToken
-      `Prelude.seq` Prelude.rnf tagSpecifications
       `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf tagSpecifications
       `Prelude.seq` Prelude.rnf vpcId
 
-instance Core.ToHeaders CreateCarrierGateway where
+instance Data.ToHeaders CreateCarrierGateway where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateCarrierGateway where
+instance Data.ToPath CreateCarrierGateway where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateCarrierGateway where
+instance Data.ToQuery CreateCarrierGateway where
   toQuery CreateCarrierGateway' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateCarrierGateway" :: Prelude.ByteString),
+          Data.=: ("CreateCarrierGateway" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "ClientToken" Core.=: clientToken,
-        Core.toQuery
-          ( Core.toQueryList "TagSpecification"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "ClientToken" Data.=: clientToken,
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          ( Data.toQueryList "TagSpecification"
               Prelude.<$> tagSpecifications
           ),
-        "DryRun" Core.=: dryRun,
-        "VpcId" Core.=: vpcId
+        "VpcId" Data.=: vpcId
       ]
 
 -- | /See:/ 'newCreateCarrierGatewayResponse' smart constructor.

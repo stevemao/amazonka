@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentity.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,17 +18,17 @@ module Amazonka.CognitoIdentity.Types
     defaultService,
 
     -- * Errors
+    _ConcurrentModificationException,
+    _DeveloperUserAlreadyRegisteredException,
+    _ExternalServiceException,
+    _InternalErrorException,
     _InvalidIdentityPoolConfigurationException,
     _InvalidParameterException,
-    _NotAuthorizedException,
-    _InternalErrorException,
-    _ExternalServiceException,
-    _TooManyRequestsException,
-    _ConcurrentModificationException,
-    _ResourceConflictException,
-    _DeveloperUserAlreadyRegisteredException,
-    _ResourceNotFoundException,
     _LimitExceededException,
+    _NotAuthorizedException,
+    _ResourceConflictException,
+    _ResourceNotFoundException,
+    _TooManyRequestsException,
 
     -- * AmbiguousRoleResolutionType
     AmbiguousRoleResolutionType (..),
@@ -45,35 +46,35 @@ module Amazonka.CognitoIdentity.Types
     CognitoIdentityProvider (..),
     newCognitoIdentityProvider,
     cognitoIdentityProvider_clientId,
-    cognitoIdentityProvider_serverSideTokenCheck,
     cognitoIdentityProvider_providerName,
+    cognitoIdentityProvider_serverSideTokenCheck,
 
     -- * Credentials
     Credentials (..),
     newCredentials,
-    credentials_sessionToken,
+    credentials_accessKeyId,
     credentials_expiration,
     credentials_secretKey,
-    credentials_accessKeyId,
+    credentials_sessionToken,
 
     -- * IdentityDescription
     IdentityDescription (..),
     newIdentityDescription,
-    identityDescription_lastModifiedDate,
     identityDescription_creationDate,
-    identityDescription_logins,
     identityDescription_identityId,
+    identityDescription_lastModifiedDate,
+    identityDescription_logins,
 
     -- * IdentityPool
     IdentityPool (..),
     newIdentityPool,
-    identityPool_samlProviderARNs,
-    identityPool_supportedLoginProviders,
     identityPool_allowClassicFlow,
+    identityPool_cognitoIdentityProviders,
     identityPool_developerProviderName,
     identityPool_identityPoolTags,
     identityPool_openIdConnectProviderARNs,
-    identityPool_cognitoIdentityProviders,
+    identityPool_samlProviderARNs,
+    identityPool_supportedLoginProviders,
     identityPool_identityPoolId,
     identityPool_identityPoolName,
     identityPool_allowUnauthenticatedIdentities,
@@ -95,8 +96,8 @@ module Amazonka.CognitoIdentity.Types
     -- * RoleMapping
     RoleMapping (..),
     newRoleMapping,
-    roleMapping_rulesConfiguration,
     roleMapping_ambiguousRoleResolution,
+    roleMapping_rulesConfiguration,
     roleMapping_type,
 
     -- * RulesConfigurationType
@@ -126,7 +127,7 @@ import Amazonka.CognitoIdentity.Types.RoleMappingType
 import Amazonka.CognitoIdentity.Types.RulesConfigurationType
 import Amazonka.CognitoIdentity.Types.UnprocessedIdentityId
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 
@@ -134,43 +135,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev =
-        "CognitoIdentity",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "cognito-identity",
-      Core._serviceSigningName = "cognito-identity",
-      Core._serviceVersion = "2014-06-30",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
-        Core.parseJSONError "CognitoIdentity",
-      Core._serviceRetry = retry
+    { Core.abbrev = "CognitoIdentity",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "cognito-identity",
+      Core.signingName = "cognito-identity",
+      Core.version = "2014-06-30",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "CognitoIdentity",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -178,29 +185,52 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
+
+-- | Thrown if there are parallel requests to modify a resource.
+_ConcurrentModificationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ConcurrentModificationException =
+  Core._MatchServiceError
+    defaultService
+    "ConcurrentModificationException"
+
+-- | The provided developer user identifier is already registered with
+-- Cognito under a different identity ID.
+_DeveloperUserAlreadyRegisteredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DeveloperUserAlreadyRegisteredException =
+  Core._MatchServiceError
+    defaultService
+    "DeveloperUserAlreadyRegisteredException"
+
+-- | An exception thrown when a dependent service such as Facebook or Twitter
+-- is not responding
+_ExternalServiceException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ExternalServiceException =
+  Core._MatchServiceError
+    defaultService
+    "ExternalServiceException"
+
+-- | Thrown when the service encounters an error during processing the
+-- request.
+_InternalErrorException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InternalErrorException =
+  Core._MatchServiceError
+    defaultService
+    "InternalErrorException"
 
 -- | Thrown if the identity pool has no role associated for the given auth
 -- type (auth\/unauth) or if the AssumeRole fails.
@@ -217,42 +247,19 @@ _InvalidParameterException =
     defaultService
     "InvalidParameterException"
 
+-- | Thrown when the total number of user pools has exceeded a preset limit.
+_LimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_LimitExceededException =
+  Core._MatchServiceError
+    defaultService
+    "LimitExceededException"
+
 -- | Thrown when a user is not authorized to access the requested resource.
 _NotAuthorizedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
 _NotAuthorizedException =
   Core._MatchServiceError
     defaultService
     "NotAuthorizedException"
-
--- | Thrown when the service encounters an error during processing the
--- request.
-_InternalErrorException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InternalErrorException =
-  Core._MatchServiceError
-    defaultService
-    "InternalErrorException"
-
--- | An exception thrown when a dependent service such as Facebook or Twitter
--- is not responding
-_ExternalServiceException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ExternalServiceException =
-  Core._MatchServiceError
-    defaultService
-    "ExternalServiceException"
-
--- | Thrown when a request is throttled.
-_TooManyRequestsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TooManyRequestsException =
-  Core._MatchServiceError
-    defaultService
-    "TooManyRequestsException"
-
--- | Thrown if there are parallel requests to modify a resource.
-_ConcurrentModificationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ConcurrentModificationException =
-  Core._MatchServiceError
-    defaultService
-    "ConcurrentModificationException"
 
 -- | Thrown when a user tries to use a login which is already linked to
 -- another account.
@@ -262,14 +269,6 @@ _ResourceConflictException =
     defaultService
     "ResourceConflictException"
 
--- | The provided developer user identifier is already registered with
--- Cognito under a different identity ID.
-_DeveloperUserAlreadyRegisteredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DeveloperUserAlreadyRegisteredException =
-  Core._MatchServiceError
-    defaultService
-    "DeveloperUserAlreadyRegisteredException"
-
 -- | Thrown when the requested resource (for example, a dataset or record)
 -- does not exist.
 _ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -278,9 +277,9 @@ _ResourceNotFoundException =
     defaultService
     "ResourceNotFoundException"
 
--- | Thrown when the total number of user pools has exceeded a preset limit.
-_LimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_LimitExceededException =
+-- | Thrown when a request is throttled.
+_TooManyRequestsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TooManyRequestsException =
   Core._MatchServiceError
     defaultService
-    "LimitExceededException"
+    "TooManyRequestsException"

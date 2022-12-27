@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AmplifyBackend.Types.SmsSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,15 @@
 module Amazonka.AmplifyBackend.Types.SmsSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | SMS settings for authentication.
 --
 -- /See:/ 'newSmsSettings' smart constructor.
 data SmsSettings = SmsSettings'
-  { -- | The body of the SMS message.
+  { -- | The contents of the SMS message.
     smsMessage :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -40,22 +41,22 @@ data SmsSettings = SmsSettings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'smsMessage', 'smsSettings_smsMessage' - The body of the SMS message.
+-- 'smsMessage', 'smsSettings_smsMessage' - The contents of the SMS message.
 newSmsSettings ::
   SmsSettings
 newSmsSettings =
   SmsSettings' {smsMessage = Prelude.Nothing}
 
--- | The body of the SMS message.
+-- | The contents of the SMS message.
 smsSettings_smsMessage :: Lens.Lens' SmsSettings (Prelude.Maybe Prelude.Text)
 smsSettings_smsMessage = Lens.lens (\SmsSettings' {smsMessage} -> smsMessage) (\s@SmsSettings' {} a -> s {smsMessage = a} :: SmsSettings)
 
-instance Core.FromJSON SmsSettings where
+instance Data.FromJSON SmsSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SmsSettings"
       ( \x ->
-          SmsSettings' Prelude.<$> (x Core..:? "smsMessage")
+          SmsSettings' Prelude.<$> (x Data..:? "smsMessage")
       )
 
 instance Prelude.Hashable SmsSettings where
@@ -65,9 +66,9 @@ instance Prelude.Hashable SmsSettings where
 instance Prelude.NFData SmsSettings where
   rnf SmsSettings' {..} = Prelude.rnf smsMessage
 
-instance Core.ToJSON SmsSettings where
+instance Data.ToJSON SmsSettings where
   toJSON SmsSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("smsMessage" Core..=) Prelude.<$> smsMessage]
+          [("smsMessage" Data..=) Prelude.<$> smsMessage]
       )

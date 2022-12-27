@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.Types.ErrorDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,13 +20,14 @@
 module Amazonka.ElasticSearch.Types.ErrorDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | /See:/ 'newErrorDetails' smart constructor.
 data ErrorDetails = ErrorDetails'
-  { errorType :: Prelude.Maybe Prelude.Text,
-    errorMessage :: Prelude.Maybe Prelude.Text
+  { errorMessage :: Prelude.Maybe Prelude.Text,
+    errorType :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -38,41 +39,41 @@ data ErrorDetails = ErrorDetails'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'errorType', 'errorDetails_errorType' - Undocumented member.
---
 -- 'errorMessage', 'errorDetails_errorMessage' - Undocumented member.
+--
+-- 'errorType', 'errorDetails_errorType' - Undocumented member.
 newErrorDetails ::
   ErrorDetails
 newErrorDetails =
   ErrorDetails'
-    { errorType = Prelude.Nothing,
-      errorMessage = Prelude.Nothing
+    { errorMessage = Prelude.Nothing,
+      errorType = Prelude.Nothing
     }
-
--- | Undocumented member.
-errorDetails_errorType :: Lens.Lens' ErrorDetails (Prelude.Maybe Prelude.Text)
-errorDetails_errorType = Lens.lens (\ErrorDetails' {errorType} -> errorType) (\s@ErrorDetails' {} a -> s {errorType = a} :: ErrorDetails)
 
 -- | Undocumented member.
 errorDetails_errorMessage :: Lens.Lens' ErrorDetails (Prelude.Maybe Prelude.Text)
 errorDetails_errorMessage = Lens.lens (\ErrorDetails' {errorMessage} -> errorMessage) (\s@ErrorDetails' {} a -> s {errorMessage = a} :: ErrorDetails)
 
-instance Core.FromJSON ErrorDetails where
+-- | Undocumented member.
+errorDetails_errorType :: Lens.Lens' ErrorDetails (Prelude.Maybe Prelude.Text)
+errorDetails_errorType = Lens.lens (\ErrorDetails' {errorType} -> errorType) (\s@ErrorDetails' {} a -> s {errorType = a} :: ErrorDetails)
+
+instance Data.FromJSON ErrorDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ErrorDetails"
       ( \x ->
           ErrorDetails'
-            Prelude.<$> (x Core..:? "ErrorType")
-            Prelude.<*> (x Core..:? "ErrorMessage")
+            Prelude.<$> (x Data..:? "ErrorMessage")
+            Prelude.<*> (x Data..:? "ErrorType")
       )
 
 instance Prelude.Hashable ErrorDetails where
   hashWithSalt _salt ErrorDetails' {..} =
-    _salt `Prelude.hashWithSalt` errorType
-      `Prelude.hashWithSalt` errorMessage
+    _salt `Prelude.hashWithSalt` errorMessage
+      `Prelude.hashWithSalt` errorType
 
 instance Prelude.NFData ErrorDetails where
   rnf ErrorDetails' {..} =
-    Prelude.rnf errorType
-      `Prelude.seq` Prelude.rnf errorMessage
+    Prelude.rnf errorMessage
+      `Prelude.seq` Prelude.rnf errorType

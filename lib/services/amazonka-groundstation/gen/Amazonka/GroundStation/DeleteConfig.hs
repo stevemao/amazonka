@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GroundStation.DeleteConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.GroundStation.DeleteConfig
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GroundStation.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,10 +93,11 @@ deleteConfig_configType = Lens.lens (\DeleteConfig' {configType} -> configType) 
 
 instance Core.AWSRequest DeleteConfig where
   type AWSResponse DeleteConfig = ConfigIdResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable DeleteConfig where
   hashWithSalt _salt DeleteConfig' {..} =
@@ -107,25 +109,25 @@ instance Prelude.NFData DeleteConfig where
     Prelude.rnf configId
       `Prelude.seq` Prelude.rnf configType
 
-instance Core.ToHeaders DeleteConfig where
+instance Data.ToHeaders DeleteConfig where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteConfig where
+instance Data.ToPath DeleteConfig where
   toPath DeleteConfig' {..} =
     Prelude.mconcat
       [ "/config/",
-        Core.toBS configType,
+        Data.toBS configType,
         "/",
-        Core.toBS configId
+        Data.toBS configId
       ]
 
-instance Core.ToQuery DeleteConfig where
+instance Data.ToQuery DeleteConfig where
   toQuery = Prelude.const Prelude.mempty

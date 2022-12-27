@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.Types.StudioComponentInitializationScript
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Nimble.Types.StudioComponentInitializationScript where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types.LaunchProfilePlatform
 import Amazonka.Nimble.Types.StudioComponentInitializationScriptRunContext
 import qualified Amazonka.Prelude as Prelude
@@ -29,17 +30,17 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newStudioComponentInitializationScript' smart constructor.
 data StudioComponentInitializationScript = StudioComponentInitializationScript'
-  { -- | The initialization script.
-    script :: Prelude.Maybe Prelude.Text,
+  { -- | The version number of the protocol that is used by the launch profile.
+    -- The only valid version is \"2021-03-31\".
+    launchProfileProtocolVersion :: Prelude.Maybe Prelude.Text,
     -- | The platform of the initialization script, either WINDOWS or LINUX.
     platform :: Prelude.Maybe LaunchProfilePlatform,
     -- | The method to use when running the initialization script.
     runContext :: Prelude.Maybe StudioComponentInitializationScriptRunContext,
-    -- | The version number of the protocol that is used by the launch profile.
-    -- The only valid version is \"2021-03-31\".
-    launchProfileProtocolVersion :: Prelude.Maybe Prelude.Text
+    -- | The initialization script.
+    script :: Prelude.Maybe (Data.Sensitive Prelude.Text)
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'StudioComponentInitializationScript' with all optional fields omitted.
@@ -49,29 +50,29 @@ data StudioComponentInitializationScript = StudioComponentInitializationScript'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'script', 'studioComponentInitializationScript_script' - The initialization script.
+-- 'launchProfileProtocolVersion', 'studioComponentInitializationScript_launchProfileProtocolVersion' - The version number of the protocol that is used by the launch profile.
+-- The only valid version is \"2021-03-31\".
 --
 -- 'platform', 'studioComponentInitializationScript_platform' - The platform of the initialization script, either WINDOWS or LINUX.
 --
 -- 'runContext', 'studioComponentInitializationScript_runContext' - The method to use when running the initialization script.
 --
--- 'launchProfileProtocolVersion', 'studioComponentInitializationScript_launchProfileProtocolVersion' - The version number of the protocol that is used by the launch profile.
--- The only valid version is \"2021-03-31\".
+-- 'script', 'studioComponentInitializationScript_script' - The initialization script.
 newStudioComponentInitializationScript ::
   StudioComponentInitializationScript
 newStudioComponentInitializationScript =
   StudioComponentInitializationScript'
-    { script =
+    { launchProfileProtocolVersion =
         Prelude.Nothing,
       platform = Prelude.Nothing,
       runContext = Prelude.Nothing,
-      launchProfileProtocolVersion =
-        Prelude.Nothing
+      script = Prelude.Nothing
     }
 
--- | The initialization script.
-studioComponentInitializationScript_script :: Lens.Lens' StudioComponentInitializationScript (Prelude.Maybe Prelude.Text)
-studioComponentInitializationScript_script = Lens.lens (\StudioComponentInitializationScript' {script} -> script) (\s@StudioComponentInitializationScript' {} a -> s {script = a} :: StudioComponentInitializationScript)
+-- | The version number of the protocol that is used by the launch profile.
+-- The only valid version is \"2021-03-31\".
+studioComponentInitializationScript_launchProfileProtocolVersion :: Lens.Lens' StudioComponentInitializationScript (Prelude.Maybe Prelude.Text)
+studioComponentInitializationScript_launchProfileProtocolVersion = Lens.lens (\StudioComponentInitializationScript' {launchProfileProtocolVersion} -> launchProfileProtocolVersion) (\s@StudioComponentInitializationScript' {} a -> s {launchProfileProtocolVersion = a} :: StudioComponentInitializationScript)
 
 -- | The platform of the initialization script, either WINDOWS or LINUX.
 studioComponentInitializationScript_platform :: Lens.Lens' StudioComponentInitializationScript (Prelude.Maybe LaunchProfilePlatform)
@@ -81,24 +82,23 @@ studioComponentInitializationScript_platform = Lens.lens (\StudioComponentInitia
 studioComponentInitializationScript_runContext :: Lens.Lens' StudioComponentInitializationScript (Prelude.Maybe StudioComponentInitializationScriptRunContext)
 studioComponentInitializationScript_runContext = Lens.lens (\StudioComponentInitializationScript' {runContext} -> runContext) (\s@StudioComponentInitializationScript' {} a -> s {runContext = a} :: StudioComponentInitializationScript)
 
--- | The version number of the protocol that is used by the launch profile.
--- The only valid version is \"2021-03-31\".
-studioComponentInitializationScript_launchProfileProtocolVersion :: Lens.Lens' StudioComponentInitializationScript (Prelude.Maybe Prelude.Text)
-studioComponentInitializationScript_launchProfileProtocolVersion = Lens.lens (\StudioComponentInitializationScript' {launchProfileProtocolVersion} -> launchProfileProtocolVersion) (\s@StudioComponentInitializationScript' {} a -> s {launchProfileProtocolVersion = a} :: StudioComponentInitializationScript)
+-- | The initialization script.
+studioComponentInitializationScript_script :: Lens.Lens' StudioComponentInitializationScript (Prelude.Maybe Prelude.Text)
+studioComponentInitializationScript_script = Lens.lens (\StudioComponentInitializationScript' {script} -> script) (\s@StudioComponentInitializationScript' {} a -> s {script = a} :: StudioComponentInitializationScript) Prelude.. Lens.mapping Data._Sensitive
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     StudioComponentInitializationScript
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StudioComponentInitializationScript"
       ( \x ->
           StudioComponentInitializationScript'
-            Prelude.<$> (x Core..:? "script")
-            Prelude.<*> (x Core..:? "platform")
-            Prelude.<*> (x Core..:? "runContext")
-            Prelude.<*> (x Core..:? "launchProfileProtocolVersion")
+            Prelude.<$> (x Data..:? "launchProfileProtocolVersion")
+            Prelude.<*> (x Data..:? "platform")
+            Prelude.<*> (x Data..:? "runContext")
+            Prelude.<*> (x Data..:? "script")
       )
 
 instance
@@ -108,32 +108,33 @@ instance
   hashWithSalt
     _salt
     StudioComponentInitializationScript' {..} =
-      _salt `Prelude.hashWithSalt` script
+      _salt
+        `Prelude.hashWithSalt` launchProfileProtocolVersion
         `Prelude.hashWithSalt` platform
         `Prelude.hashWithSalt` runContext
-        `Prelude.hashWithSalt` launchProfileProtocolVersion
+        `Prelude.hashWithSalt` script
 
 instance
   Prelude.NFData
     StudioComponentInitializationScript
   where
   rnf StudioComponentInitializationScript' {..} =
-    Prelude.rnf script
+    Prelude.rnf launchProfileProtocolVersion
       `Prelude.seq` Prelude.rnf platform
       `Prelude.seq` Prelude.rnf runContext
-      `Prelude.seq` Prelude.rnf launchProfileProtocolVersion
+      `Prelude.seq` Prelude.rnf script
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     StudioComponentInitializationScript
   where
   toJSON StudioComponentInitializationScript' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("script" Core..=) Prelude.<$> script,
-            ("platform" Core..=) Prelude.<$> platform,
-            ("runContext" Core..=) Prelude.<$> runContext,
-            ("launchProfileProtocolVersion" Core..=)
-              Prelude.<$> launchProfileProtocolVersion
+          [ ("launchProfileProtocolVersion" Data..=)
+              Prelude.<$> launchProfileProtocolVersion,
+            ("platform" Data..=) Prelude.<$> platform,
+            ("runContext" Data..=) Prelude.<$> runContext,
+            ("script" Data..=) Prelude.<$> script
           ]
       )

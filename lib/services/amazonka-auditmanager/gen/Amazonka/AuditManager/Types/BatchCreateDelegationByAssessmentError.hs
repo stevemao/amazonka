@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.Types.BatchCreateDelegationByAssessmentError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AuditManager.Types.BatchCreateDelegationByAssessmentError where
 
 import Amazonka.AuditManager.Types.CreateDelegationRequest
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An error entity for the @BatchCreateDelegationByAssessment@ API. This is
@@ -31,10 +32,11 @@ import qualified Amazonka.Prelude as Prelude
 data BatchCreateDelegationByAssessmentError = BatchCreateDelegationByAssessmentError'
   { -- | The API request to batch create delegations in Audit Manager.
     createDelegationRequest :: Prelude.Maybe CreateDelegationRequest,
-    -- | The error code returned by the @BatchCreateDelegationByAssessment@ API.
+    -- | The error code that the @BatchCreateDelegationByAssessment@ API
+    -- returned.
     errorCode :: Prelude.Maybe Prelude.Text,
-    -- | The error message returned by the @BatchCreateDelegationByAssessment@
-    -- API.
+    -- | The error message that the @BatchCreateDelegationByAssessment@ API
+    -- returned.
     errorMessage :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -49,10 +51,11 @@ data BatchCreateDelegationByAssessmentError = BatchCreateDelegationByAssessmentE
 --
 -- 'createDelegationRequest', 'batchCreateDelegationByAssessmentError_createDelegationRequest' - The API request to batch create delegations in Audit Manager.
 --
--- 'errorCode', 'batchCreateDelegationByAssessmentError_errorCode' - The error code returned by the @BatchCreateDelegationByAssessment@ API.
+-- 'errorCode', 'batchCreateDelegationByAssessmentError_errorCode' - The error code that the @BatchCreateDelegationByAssessment@ API
+-- returned.
 --
--- 'errorMessage', 'batchCreateDelegationByAssessmentError_errorMessage' - The error message returned by the @BatchCreateDelegationByAssessment@
--- API.
+-- 'errorMessage', 'batchCreateDelegationByAssessmentError_errorMessage' - The error message that the @BatchCreateDelegationByAssessment@ API
+-- returned.
 newBatchCreateDelegationByAssessmentError ::
   BatchCreateDelegationByAssessmentError
 newBatchCreateDelegationByAssessmentError =
@@ -67,27 +70,28 @@ newBatchCreateDelegationByAssessmentError =
 batchCreateDelegationByAssessmentError_createDelegationRequest :: Lens.Lens' BatchCreateDelegationByAssessmentError (Prelude.Maybe CreateDelegationRequest)
 batchCreateDelegationByAssessmentError_createDelegationRequest = Lens.lens (\BatchCreateDelegationByAssessmentError' {createDelegationRequest} -> createDelegationRequest) (\s@BatchCreateDelegationByAssessmentError' {} a -> s {createDelegationRequest = a} :: BatchCreateDelegationByAssessmentError)
 
--- | The error code returned by the @BatchCreateDelegationByAssessment@ API.
+-- | The error code that the @BatchCreateDelegationByAssessment@ API
+-- returned.
 batchCreateDelegationByAssessmentError_errorCode :: Lens.Lens' BatchCreateDelegationByAssessmentError (Prelude.Maybe Prelude.Text)
 batchCreateDelegationByAssessmentError_errorCode = Lens.lens (\BatchCreateDelegationByAssessmentError' {errorCode} -> errorCode) (\s@BatchCreateDelegationByAssessmentError' {} a -> s {errorCode = a} :: BatchCreateDelegationByAssessmentError)
 
--- | The error message returned by the @BatchCreateDelegationByAssessment@
--- API.
+-- | The error message that the @BatchCreateDelegationByAssessment@ API
+-- returned.
 batchCreateDelegationByAssessmentError_errorMessage :: Lens.Lens' BatchCreateDelegationByAssessmentError (Prelude.Maybe Prelude.Text)
 batchCreateDelegationByAssessmentError_errorMessage = Lens.lens (\BatchCreateDelegationByAssessmentError' {errorMessage} -> errorMessage) (\s@BatchCreateDelegationByAssessmentError' {} a -> s {errorMessage = a} :: BatchCreateDelegationByAssessmentError)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     BatchCreateDelegationByAssessmentError
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchCreateDelegationByAssessmentError"
       ( \x ->
           BatchCreateDelegationByAssessmentError'
-            Prelude.<$> (x Core..:? "createDelegationRequest")
-            Prelude.<*> (x Core..:? "errorCode")
-            Prelude.<*> (x Core..:? "errorMessage")
+            Prelude.<$> (x Data..:? "createDelegationRequest")
+            Prelude.<*> (x Data..:? "errorCode")
+            Prelude.<*> (x Data..:? "errorMessage")
       )
 
 instance

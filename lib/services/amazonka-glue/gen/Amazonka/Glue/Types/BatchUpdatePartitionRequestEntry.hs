@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.BatchUpdatePartitionRequestEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Glue.Types.BatchUpdatePartitionRequestEntry where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types.PartitionInput
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A structure that contains the values and structure used to update a
@@ -84,13 +85,13 @@ instance
     Prelude.rnf partitionValueList
       `Prelude.seq` Prelude.rnf partitionInput
 
-instance Core.ToJSON BatchUpdatePartitionRequestEntry where
+instance Data.ToJSON BatchUpdatePartitionRequestEntry where
   toJSON BatchUpdatePartitionRequestEntry' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("PartitionValueList" Core..= partitionValueList),
+              ("PartitionValueList" Data..= partitionValueList),
             Prelude.Just
-              ("PartitionInput" Core..= partitionInput)
+              ("PartitionInput" Data..= partitionInput)
           ]
       )

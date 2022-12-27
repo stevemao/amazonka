@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ManagedBlockChain.Types.NetworkEthereumAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ManagedBlockChain.Types.NetworkEthereumAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Attributes of Ethereum for a network.
@@ -31,6 +32,8 @@ data NetworkEthereumAttributes = NetworkEthereumAttributes'
     -- are as follows:
     --
     -- -   mainnet = @1@
+    --
+    -- -   goerli = @5@
     --
     -- -   rinkeby = @4@
     --
@@ -52,6 +55,8 @@ data NetworkEthereumAttributes = NetworkEthereumAttributes'
 --
 -- -   mainnet = @1@
 --
+-- -   goerli = @5@
+--
 -- -   rinkeby = @4@
 --
 -- -   ropsten = @3@
@@ -68,19 +73,21 @@ newNetworkEthereumAttributes =
 --
 -- -   mainnet = @1@
 --
+-- -   goerli = @5@
+--
 -- -   rinkeby = @4@
 --
 -- -   ropsten = @3@
 networkEthereumAttributes_chainId :: Lens.Lens' NetworkEthereumAttributes (Prelude.Maybe Prelude.Text)
 networkEthereumAttributes_chainId = Lens.lens (\NetworkEthereumAttributes' {chainId} -> chainId) (\s@NetworkEthereumAttributes' {} a -> s {chainId = a} :: NetworkEthereumAttributes)
 
-instance Core.FromJSON NetworkEthereumAttributes where
+instance Data.FromJSON NetworkEthereumAttributes where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NetworkEthereumAttributes"
       ( \x ->
           NetworkEthereumAttributes'
-            Prelude.<$> (x Core..:? "ChainId")
+            Prelude.<$> (x Data..:? "ChainId")
       )
 
 instance Prelude.Hashable NetworkEthereumAttributes where

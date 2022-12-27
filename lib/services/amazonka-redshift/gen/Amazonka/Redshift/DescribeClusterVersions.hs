@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.DescribeClusterVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,9 +35,9 @@ module Amazonka.Redshift.DescribeClusterVersions
 
     -- * Request Lenses
     describeClusterVersions_clusterParameterGroupFamily,
+    describeClusterVersions_clusterVersion,
     describeClusterVersions_marker,
     describeClusterVersions_maxRecords,
-    describeClusterVersions_clusterVersion,
 
     -- * Destructuring the Response
     DescribeClusterVersionsResponse (..),
@@ -51,7 +51,8 @@ module Amazonka.Redshift.DescribeClusterVersions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -72,6 +73,10 @@ data DescribeClusterVersions = DescribeClusterVersions'
     --
     -- -   Cannot end with a hyphen or contain two consecutive hyphens
     clusterParameterGroupFamily :: Prelude.Maybe Prelude.Text,
+    -- | The specific cluster version to return.
+    --
+    -- Example: @1.0@
+    clusterVersion :: Prelude.Maybe Prelude.Text,
     -- | An optional parameter that specifies the starting point to return a set
     -- of response records. When the results of a DescribeClusterVersions
     -- request exceed the value specified in @MaxRecords@, Amazon Web Services
@@ -88,11 +93,7 @@ data DescribeClusterVersions = DescribeClusterVersions'
     -- Default: @100@
     --
     -- Constraints: minimum 20, maximum 100.
-    maxRecords :: Prelude.Maybe Prelude.Int,
-    -- | The specific cluster version to return.
-    --
-    -- Example: @1.0@
-    clusterVersion :: Prelude.Maybe Prelude.Text
+    maxRecords :: Prelude.Maybe Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -115,6 +116,10 @@ data DescribeClusterVersions = DescribeClusterVersions'
 --
 -- -   Cannot end with a hyphen or contain two consecutive hyphens
 --
+-- 'clusterVersion', 'describeClusterVersions_clusterVersion' - The specific cluster version to return.
+--
+-- Example: @1.0@
+--
 -- 'marker', 'describeClusterVersions_marker' - An optional parameter that specifies the starting point to return a set
 -- of response records. When the results of a DescribeClusterVersions
 -- request exceed the value specified in @MaxRecords@, Amazon Web Services
@@ -131,19 +136,15 @@ data DescribeClusterVersions = DescribeClusterVersions'
 -- Default: @100@
 --
 -- Constraints: minimum 20, maximum 100.
---
--- 'clusterVersion', 'describeClusterVersions_clusterVersion' - The specific cluster version to return.
---
--- Example: @1.0@
 newDescribeClusterVersions ::
   DescribeClusterVersions
 newDescribeClusterVersions =
   DescribeClusterVersions'
     { clusterParameterGroupFamily =
         Prelude.Nothing,
+      clusterVersion = Prelude.Nothing,
       marker = Prelude.Nothing,
-      maxRecords = Prelude.Nothing,
-      clusterVersion = Prelude.Nothing
+      maxRecords = Prelude.Nothing
     }
 
 -- | The name of a specific cluster parameter group family to return details
@@ -158,6 +159,12 @@ newDescribeClusterVersions =
 -- -   Cannot end with a hyphen or contain two consecutive hyphens
 describeClusterVersions_clusterParameterGroupFamily :: Lens.Lens' DescribeClusterVersions (Prelude.Maybe Prelude.Text)
 describeClusterVersions_clusterParameterGroupFamily = Lens.lens (\DescribeClusterVersions' {clusterParameterGroupFamily} -> clusterParameterGroupFamily) (\s@DescribeClusterVersions' {} a -> s {clusterParameterGroupFamily = a} :: DescribeClusterVersions)
+
+-- | The specific cluster version to return.
+--
+-- Example: @1.0@
+describeClusterVersions_clusterVersion :: Lens.Lens' DescribeClusterVersions (Prelude.Maybe Prelude.Text)
+describeClusterVersions_clusterVersion = Lens.lens (\DescribeClusterVersions' {clusterVersion} -> clusterVersion) (\s@DescribeClusterVersions' {} a -> s {clusterVersion = a} :: DescribeClusterVersions)
 
 -- | An optional parameter that specifies the starting point to return a set
 -- of response records. When the results of a DescribeClusterVersions
@@ -179,12 +186,6 @@ describeClusterVersions_marker = Lens.lens (\DescribeClusterVersions' {marker} -
 -- Constraints: minimum 20, maximum 100.
 describeClusterVersions_maxRecords :: Lens.Lens' DescribeClusterVersions (Prelude.Maybe Prelude.Int)
 describeClusterVersions_maxRecords = Lens.lens (\DescribeClusterVersions' {maxRecords} -> maxRecords) (\s@DescribeClusterVersions' {} a -> s {maxRecords = a} :: DescribeClusterVersions)
-
--- | The specific cluster version to return.
---
--- Example: @1.0@
-describeClusterVersions_clusterVersion :: Lens.Lens' DescribeClusterVersions (Prelude.Maybe Prelude.Text)
-describeClusterVersions_clusterVersion = Lens.lens (\DescribeClusterVersions' {clusterVersion} -> clusterVersion) (\s@DescribeClusterVersions' {} a -> s {clusterVersion = a} :: DescribeClusterVersions)
 
 instance Core.AWSPager DescribeClusterVersions where
   page rq rs
@@ -212,16 +213,17 @@ instance Core.AWSRequest DescribeClusterVersions where
   type
     AWSResponse DescribeClusterVersions =
       DescribeClusterVersionsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeClusterVersionsResult"
       ( \s h x ->
           DescribeClusterVersionsResponse'
-            Prelude.<$> ( x Core..@? "ClusterVersions" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "ClusterVersion")
+            Prelude.<$> ( x Data..@? "ClusterVersions" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "ClusterVersion")
                         )
-            Prelude.<*> (x Core..@? "Marker")
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -229,35 +231,35 @@ instance Prelude.Hashable DescribeClusterVersions where
   hashWithSalt _salt DescribeClusterVersions' {..} =
     _salt
       `Prelude.hashWithSalt` clusterParameterGroupFamily
+      `Prelude.hashWithSalt` clusterVersion
       `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
-      `Prelude.hashWithSalt` clusterVersion
 
 instance Prelude.NFData DescribeClusterVersions where
   rnf DescribeClusterVersions' {..} =
     Prelude.rnf clusterParameterGroupFamily
+      `Prelude.seq` Prelude.rnf clusterVersion
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
-      `Prelude.seq` Prelude.rnf clusterVersion
 
-instance Core.ToHeaders DescribeClusterVersions where
+instance Data.ToHeaders DescribeClusterVersions where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeClusterVersions where
+instance Data.ToPath DescribeClusterVersions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeClusterVersions where
+instance Data.ToQuery DescribeClusterVersions where
   toQuery DescribeClusterVersions' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeClusterVersions" :: Prelude.ByteString),
+          Data.=: ("DescribeClusterVersions" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
         "ClusterParameterGroupFamily"
-          Core.=: clusterParameterGroupFamily,
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords,
-        "ClusterVersion" Core.=: clusterVersion
+          Data.=: clusterParameterGroupFamily,
+        "ClusterVersion" Data.=: clusterVersion,
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords
       ]
 
 -- | Contains the output from the DescribeClusterVersions action.

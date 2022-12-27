@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.Types.ThreatIntelligenceDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.GuardDuty.Types.ThreatIntelligenceDetail where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An instance of a threat intelligence detail that constitutes evidence
@@ -28,11 +29,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newThreatIntelligenceDetail' smart constructor.
 data ThreatIntelligenceDetail = ThreatIntelligenceDetail'
-  { -- | A list of names of the threats in the threat intelligence list that
+  { -- | The name of the threat intelligence list that triggered the finding.
+    threatListName :: Prelude.Maybe Prelude.Text,
+    -- | A list of names of the threats in the threat intelligence list that
     -- triggered the finding.
-    threatNames :: Prelude.Maybe [Prelude.Text],
-    -- | The name of the threat intelligence list that triggered the finding.
-    threatListName :: Prelude.Maybe Prelude.Text
+    threatNames :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,44 +45,44 @@ data ThreatIntelligenceDetail = ThreatIntelligenceDetail'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'threatListName', 'threatIntelligenceDetail_threatListName' - The name of the threat intelligence list that triggered the finding.
+--
 -- 'threatNames', 'threatIntelligenceDetail_threatNames' - A list of names of the threats in the threat intelligence list that
 -- triggered the finding.
---
--- 'threatListName', 'threatIntelligenceDetail_threatListName' - The name of the threat intelligence list that triggered the finding.
 newThreatIntelligenceDetail ::
   ThreatIntelligenceDetail
 newThreatIntelligenceDetail =
   ThreatIntelligenceDetail'
-    { threatNames =
+    { threatListName =
         Prelude.Nothing,
-      threatListName = Prelude.Nothing
+      threatNames = Prelude.Nothing
     }
+
+-- | The name of the threat intelligence list that triggered the finding.
+threatIntelligenceDetail_threatListName :: Lens.Lens' ThreatIntelligenceDetail (Prelude.Maybe Prelude.Text)
+threatIntelligenceDetail_threatListName = Lens.lens (\ThreatIntelligenceDetail' {threatListName} -> threatListName) (\s@ThreatIntelligenceDetail' {} a -> s {threatListName = a} :: ThreatIntelligenceDetail)
 
 -- | A list of names of the threats in the threat intelligence list that
 -- triggered the finding.
 threatIntelligenceDetail_threatNames :: Lens.Lens' ThreatIntelligenceDetail (Prelude.Maybe [Prelude.Text])
 threatIntelligenceDetail_threatNames = Lens.lens (\ThreatIntelligenceDetail' {threatNames} -> threatNames) (\s@ThreatIntelligenceDetail' {} a -> s {threatNames = a} :: ThreatIntelligenceDetail) Prelude.. Lens.mapping Lens.coerced
 
--- | The name of the threat intelligence list that triggered the finding.
-threatIntelligenceDetail_threatListName :: Lens.Lens' ThreatIntelligenceDetail (Prelude.Maybe Prelude.Text)
-threatIntelligenceDetail_threatListName = Lens.lens (\ThreatIntelligenceDetail' {threatListName} -> threatListName) (\s@ThreatIntelligenceDetail' {} a -> s {threatListName = a} :: ThreatIntelligenceDetail)
-
-instance Core.FromJSON ThreatIntelligenceDetail where
+instance Data.FromJSON ThreatIntelligenceDetail where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ThreatIntelligenceDetail"
       ( \x ->
           ThreatIntelligenceDetail'
-            Prelude.<$> (x Core..:? "threatNames" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "threatListName")
+            Prelude.<$> (x Data..:? "threatListName")
+            Prelude.<*> (x Data..:? "threatNames" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable ThreatIntelligenceDetail where
   hashWithSalt _salt ThreatIntelligenceDetail' {..} =
-    _salt `Prelude.hashWithSalt` threatNames
-      `Prelude.hashWithSalt` threatListName
+    _salt `Prelude.hashWithSalt` threatListName
+      `Prelude.hashWithSalt` threatNames
 
 instance Prelude.NFData ThreatIntelligenceDetail where
   rnf ThreatIntelligenceDetail' {..} =
-    Prelude.rnf threatNames
-      `Prelude.seq` Prelude.rnf threatListName
+    Prelude.rnf threatListName
+      `Prelude.seq` Prelude.rnf threatNames

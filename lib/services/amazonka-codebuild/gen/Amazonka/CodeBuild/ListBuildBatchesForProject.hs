@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.ListBuildBatchesForProject
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,11 +29,11 @@ module Amazonka.CodeBuild.ListBuildBatchesForProject
     newListBuildBatchesForProject,
 
     -- * Request Lenses
-    listBuildBatchesForProject_sortOrder,
-    listBuildBatchesForProject_nextToken,
-    listBuildBatchesForProject_projectName,
     listBuildBatchesForProject_filter,
     listBuildBatchesForProject_maxResults,
+    listBuildBatchesForProject_nextToken,
+    listBuildBatchesForProject_projectName,
+    listBuildBatchesForProject_sortOrder,
 
     -- * Destructuring the Response
     ListBuildBatchesForProjectResponse (..),
@@ -48,31 +48,32 @@ where
 
 import Amazonka.CodeBuild.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListBuildBatchesForProject' smart constructor.
 data ListBuildBatchesForProject = ListBuildBatchesForProject'
-  { -- | Specifies the sort order of the returned items. Valid values include:
-    --
-    -- -   @ASCENDING@: List the batch build identifiers in ascending order by
-    --     identifier.
-    --
-    -- -   @DESCENDING@: List the batch build identifiers in descending order
-    --     by identifier.
-    sortOrder :: Prelude.Maybe SortOrderType,
+  { -- | A @BuildBatchFilter@ object that specifies the filters for the search.
+    filter' :: Prelude.Maybe BuildBatchFilter,
+    -- | The maximum number of results to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The @nextToken@ value returned from a previous call to
     -- @ListBuildBatchesForProject@. This specifies the next item to return. To
     -- return the beginning of the list, exclude this parameter.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the project.
     projectName :: Prelude.Maybe Prelude.Text,
-    -- | A @BuildBatchFilter@ object that specifies the filters for the search.
-    filter' :: Prelude.Maybe BuildBatchFilter,
-    -- | The maximum number of results to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    -- | Specifies the sort order of the returned items. Valid values include:
+    --
+    -- -   @ASCENDING@: List the batch build identifiers in ascending order by
+    --     identifier.
+    --
+    -- -   @DESCENDING@: List the batch build identifiers in descending order
+    --     by identifier.
+    sortOrder :: Prelude.Maybe SortOrderType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -84,13 +85,9 @@ data ListBuildBatchesForProject = ListBuildBatchesForProject'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sortOrder', 'listBuildBatchesForProject_sortOrder' - Specifies the sort order of the returned items. Valid values include:
+-- 'filter'', 'listBuildBatchesForProject_filter' - A @BuildBatchFilter@ object that specifies the filters for the search.
 --
--- -   @ASCENDING@: List the batch build identifiers in ascending order by
---     identifier.
---
--- -   @DESCENDING@: List the batch build identifiers in descending order
---     by identifier.
+-- 'maxResults', 'listBuildBatchesForProject_maxResults' - The maximum number of results to return.
 --
 -- 'nextToken', 'listBuildBatchesForProject_nextToken' - The @nextToken@ value returned from a previous call to
 -- @ListBuildBatchesForProject@. This specifies the next item to return. To
@@ -98,30 +95,32 @@ data ListBuildBatchesForProject = ListBuildBatchesForProject'
 --
 -- 'projectName', 'listBuildBatchesForProject_projectName' - The name of the project.
 --
--- 'filter'', 'listBuildBatchesForProject_filter' - A @BuildBatchFilter@ object that specifies the filters for the search.
---
--- 'maxResults', 'listBuildBatchesForProject_maxResults' - The maximum number of results to return.
-newListBuildBatchesForProject ::
-  ListBuildBatchesForProject
-newListBuildBatchesForProject =
-  ListBuildBatchesForProject'
-    { sortOrder =
-        Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      projectName = Prelude.Nothing,
-      filter' = Prelude.Nothing,
-      maxResults = Prelude.Nothing
-    }
-
--- | Specifies the sort order of the returned items. Valid values include:
+-- 'sortOrder', 'listBuildBatchesForProject_sortOrder' - Specifies the sort order of the returned items. Valid values include:
 --
 -- -   @ASCENDING@: List the batch build identifiers in ascending order by
 --     identifier.
 --
 -- -   @DESCENDING@: List the batch build identifiers in descending order
 --     by identifier.
-listBuildBatchesForProject_sortOrder :: Lens.Lens' ListBuildBatchesForProject (Prelude.Maybe SortOrderType)
-listBuildBatchesForProject_sortOrder = Lens.lens (\ListBuildBatchesForProject' {sortOrder} -> sortOrder) (\s@ListBuildBatchesForProject' {} a -> s {sortOrder = a} :: ListBuildBatchesForProject)
+newListBuildBatchesForProject ::
+  ListBuildBatchesForProject
+newListBuildBatchesForProject =
+  ListBuildBatchesForProject'
+    { filter' =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      projectName = Prelude.Nothing,
+      sortOrder = Prelude.Nothing
+    }
+
+-- | A @BuildBatchFilter@ object that specifies the filters for the search.
+listBuildBatchesForProject_filter :: Lens.Lens' ListBuildBatchesForProject (Prelude.Maybe BuildBatchFilter)
+listBuildBatchesForProject_filter = Lens.lens (\ListBuildBatchesForProject' {filter'} -> filter') (\s@ListBuildBatchesForProject' {} a -> s {filter' = a} :: ListBuildBatchesForProject)
+
+-- | The maximum number of results to return.
+listBuildBatchesForProject_maxResults :: Lens.Lens' ListBuildBatchesForProject (Prelude.Maybe Prelude.Natural)
+listBuildBatchesForProject_maxResults = Lens.lens (\ListBuildBatchesForProject' {maxResults} -> maxResults) (\s@ListBuildBatchesForProject' {} a -> s {maxResults = a} :: ListBuildBatchesForProject)
 
 -- | The @nextToken@ value returned from a previous call to
 -- @ListBuildBatchesForProject@. This specifies the next item to return. To
@@ -133,13 +132,15 @@ listBuildBatchesForProject_nextToken = Lens.lens (\ListBuildBatchesForProject' {
 listBuildBatchesForProject_projectName :: Lens.Lens' ListBuildBatchesForProject (Prelude.Maybe Prelude.Text)
 listBuildBatchesForProject_projectName = Lens.lens (\ListBuildBatchesForProject' {projectName} -> projectName) (\s@ListBuildBatchesForProject' {} a -> s {projectName = a} :: ListBuildBatchesForProject)
 
--- | A @BuildBatchFilter@ object that specifies the filters for the search.
-listBuildBatchesForProject_filter :: Lens.Lens' ListBuildBatchesForProject (Prelude.Maybe BuildBatchFilter)
-listBuildBatchesForProject_filter = Lens.lens (\ListBuildBatchesForProject' {filter'} -> filter') (\s@ListBuildBatchesForProject' {} a -> s {filter' = a} :: ListBuildBatchesForProject)
-
--- | The maximum number of results to return.
-listBuildBatchesForProject_maxResults :: Lens.Lens' ListBuildBatchesForProject (Prelude.Maybe Prelude.Natural)
-listBuildBatchesForProject_maxResults = Lens.lens (\ListBuildBatchesForProject' {maxResults} -> maxResults) (\s@ListBuildBatchesForProject' {} a -> s {maxResults = a} :: ListBuildBatchesForProject)
+-- | Specifies the sort order of the returned items. Valid values include:
+--
+-- -   @ASCENDING@: List the batch build identifiers in ascending order by
+--     identifier.
+--
+-- -   @DESCENDING@: List the batch build identifiers in descending order
+--     by identifier.
+listBuildBatchesForProject_sortOrder :: Lens.Lens' ListBuildBatchesForProject (Prelude.Maybe SortOrderType)
+listBuildBatchesForProject_sortOrder = Lens.lens (\ListBuildBatchesForProject' {sortOrder} -> sortOrder) (\s@ListBuildBatchesForProject' {} a -> s {sortOrder = a} :: ListBuildBatchesForProject)
 
 instance Core.AWSPager ListBuildBatchesForProject where
   page rq rs
@@ -167,63 +168,64 @@ instance Core.AWSRequest ListBuildBatchesForProject where
   type
     AWSResponse ListBuildBatchesForProject =
       ListBuildBatchesForProjectResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListBuildBatchesForProjectResponse'
-            Prelude.<$> (x Core..?> "ids" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "ids" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListBuildBatchesForProject where
   hashWithSalt _salt ListBuildBatchesForProject' {..} =
-    _salt `Prelude.hashWithSalt` sortOrder
+    _salt `Prelude.hashWithSalt` filter'
+      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` projectName
-      `Prelude.hashWithSalt` filter'
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` sortOrder
 
 instance Prelude.NFData ListBuildBatchesForProject where
   rnf ListBuildBatchesForProject' {..} =
-    Prelude.rnf sortOrder
+    Prelude.rnf filter'
+      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf projectName
-      `Prelude.seq` Prelude.rnf filter'
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf sortOrder
 
-instance Core.ToHeaders ListBuildBatchesForProject where
+instance Data.ToHeaders ListBuildBatchesForProject where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeBuild_20161006.ListBuildBatchesForProject" ::
+              Data.=# ( "CodeBuild_20161006.ListBuildBatchesForProject" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListBuildBatchesForProject where
+instance Data.ToJSON ListBuildBatchesForProject where
   toJSON ListBuildBatchesForProject' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("sortOrder" Core..=) Prelude.<$> sortOrder,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("projectName" Core..=) Prelude.<$> projectName,
-            ("filter" Core..=) Prelude.<$> filter',
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("filter" Data..=) Prelude.<$> filter',
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            ("projectName" Data..=) Prelude.<$> projectName,
+            ("sortOrder" Data..=) Prelude.<$> sortOrder
           ]
       )
 
-instance Core.ToPath ListBuildBatchesForProject where
+instance Data.ToPath ListBuildBatchesForProject where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListBuildBatchesForProject where
+instance Data.ToQuery ListBuildBatchesForProject where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListBuildBatchesForProjectResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ELBV2.Types.HttpHeaderConditionConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ELBV2.Types.HttpHeaderConditionConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about an HTTP header condition.
@@ -30,10 +31,17 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newHttpHeaderConditionConfig' smart constructor.
 data HttpHeaderConditionConfig = HttpHeaderConditionConfig'
-  { -- | One or more strings to compare against the value of the HTTP header. The
-    -- maximum size of each string is 128 characters. The comparison strings
-    -- are case insensitive. The following wildcard characters are supported: *
-    -- (matches 0 or more characters) and ? (matches exactly 1 character).
+  { -- | The name of the HTTP header field. The maximum size is 40 characters.
+    -- The header name is case insensitive. The allowed characters are
+    -- specified by RFC 7230. Wildcards are not supported.
+    --
+    -- You can\'t use an HTTP header condition to specify the host header. Use
+    -- HostHeaderConditionConfig to specify a host header condition.
+    httpHeaderName :: Prelude.Maybe Prelude.Text,
+    -- | The strings to compare against the value of the HTTP header. The maximum
+    -- size of each string is 128 characters. The comparison strings are case
+    -- insensitive. The following wildcard characters are supported: * (matches
+    -- 0 or more characters) and ? (matches exactly 1 character).
     --
     -- If the same header appears multiple times in the request, we search them
     -- in order until a match is found.
@@ -41,14 +49,7 @@ data HttpHeaderConditionConfig = HttpHeaderConditionConfig'
     -- If you specify multiple strings, the condition is satisfied if one of
     -- the strings matches the value of the HTTP header. To require that all of
     -- the strings are a match, create one condition per string.
-    values :: Prelude.Maybe [Prelude.Text],
-    -- | The name of the HTTP header field. The maximum size is 40 characters.
-    -- The header name is case insensitive. The allowed characters are
-    -- specified by RFC 7230. Wildcards are not supported.
-    --
-    -- You can\'t use an HTTP header condition to specify the host header. Use
-    -- HostHeaderConditionConfig to specify a host header condition.
-    httpHeaderName :: Prelude.Maybe Prelude.Text
+    values :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -60,37 +61,17 @@ data HttpHeaderConditionConfig = HttpHeaderConditionConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'values', 'httpHeaderConditionConfig_values' - One or more strings to compare against the value of the HTTP header. The
--- maximum size of each string is 128 characters. The comparison strings
--- are case insensitive. The following wildcard characters are supported: *
--- (matches 0 or more characters) and ? (matches exactly 1 character).
---
--- If the same header appears multiple times in the request, we search them
--- in order until a match is found.
---
--- If you specify multiple strings, the condition is satisfied if one of
--- the strings matches the value of the HTTP header. To require that all of
--- the strings are a match, create one condition per string.
---
 -- 'httpHeaderName', 'httpHeaderConditionConfig_httpHeaderName' - The name of the HTTP header field. The maximum size is 40 characters.
 -- The header name is case insensitive. The allowed characters are
 -- specified by RFC 7230. Wildcards are not supported.
 --
 -- You can\'t use an HTTP header condition to specify the host header. Use
 -- HostHeaderConditionConfig to specify a host header condition.
-newHttpHeaderConditionConfig ::
-  HttpHeaderConditionConfig
-newHttpHeaderConditionConfig =
-  HttpHeaderConditionConfig'
-    { values =
-        Prelude.Nothing,
-      httpHeaderName = Prelude.Nothing
-    }
-
--- | One or more strings to compare against the value of the HTTP header. The
--- maximum size of each string is 128 characters. The comparison strings
--- are case insensitive. The following wildcard characters are supported: *
--- (matches 0 or more characters) and ? (matches exactly 1 character).
+--
+-- 'values', 'httpHeaderConditionConfig_values' - The strings to compare against the value of the HTTP header. The maximum
+-- size of each string is 128 characters. The comparison strings are case
+-- insensitive. The following wildcard characters are supported: * (matches
+-- 0 or more characters) and ? (matches exactly 1 character).
 --
 -- If the same header appears multiple times in the request, we search them
 -- in order until a match is found.
@@ -98,8 +79,14 @@ newHttpHeaderConditionConfig =
 -- If you specify multiple strings, the condition is satisfied if one of
 -- the strings matches the value of the HTTP header. To require that all of
 -- the strings are a match, create one condition per string.
-httpHeaderConditionConfig_values :: Lens.Lens' HttpHeaderConditionConfig (Prelude.Maybe [Prelude.Text])
-httpHeaderConditionConfig_values = Lens.lens (\HttpHeaderConditionConfig' {values} -> values) (\s@HttpHeaderConditionConfig' {} a -> s {values = a} :: HttpHeaderConditionConfig) Prelude.. Lens.mapping Lens.coerced
+newHttpHeaderConditionConfig ::
+  HttpHeaderConditionConfig
+newHttpHeaderConditionConfig =
+  HttpHeaderConditionConfig'
+    { httpHeaderName =
+        Prelude.Nothing,
+      values = Prelude.Nothing
+    }
 
 -- | The name of the HTTP header field. The maximum size is 40 characters.
 -- The header name is case insensitive. The allowed characters are
@@ -110,29 +97,43 @@ httpHeaderConditionConfig_values = Lens.lens (\HttpHeaderConditionConfig' {value
 httpHeaderConditionConfig_httpHeaderName :: Lens.Lens' HttpHeaderConditionConfig (Prelude.Maybe Prelude.Text)
 httpHeaderConditionConfig_httpHeaderName = Lens.lens (\HttpHeaderConditionConfig' {httpHeaderName} -> httpHeaderName) (\s@HttpHeaderConditionConfig' {} a -> s {httpHeaderName = a} :: HttpHeaderConditionConfig)
 
-instance Core.FromXML HttpHeaderConditionConfig where
+-- | The strings to compare against the value of the HTTP header. The maximum
+-- size of each string is 128 characters. The comparison strings are case
+-- insensitive. The following wildcard characters are supported: * (matches
+-- 0 or more characters) and ? (matches exactly 1 character).
+--
+-- If the same header appears multiple times in the request, we search them
+-- in order until a match is found.
+--
+-- If you specify multiple strings, the condition is satisfied if one of
+-- the strings matches the value of the HTTP header. To require that all of
+-- the strings are a match, create one condition per string.
+httpHeaderConditionConfig_values :: Lens.Lens' HttpHeaderConditionConfig (Prelude.Maybe [Prelude.Text])
+httpHeaderConditionConfig_values = Lens.lens (\HttpHeaderConditionConfig' {values} -> values) (\s@HttpHeaderConditionConfig' {} a -> s {values = a} :: HttpHeaderConditionConfig) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromXML HttpHeaderConditionConfig where
   parseXML x =
     HttpHeaderConditionConfig'
-      Prelude.<$> ( x Core..@? "Values" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "member")
+      Prelude.<$> (x Data..@? "HttpHeaderName")
+      Prelude.<*> ( x Data..@? "Values" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "member")
                   )
-      Prelude.<*> (x Core..@? "HttpHeaderName")
 
 instance Prelude.Hashable HttpHeaderConditionConfig where
   hashWithSalt _salt HttpHeaderConditionConfig' {..} =
-    _salt `Prelude.hashWithSalt` values
-      `Prelude.hashWithSalt` httpHeaderName
+    _salt `Prelude.hashWithSalt` httpHeaderName
+      `Prelude.hashWithSalt` values
 
 instance Prelude.NFData HttpHeaderConditionConfig where
   rnf HttpHeaderConditionConfig' {..} =
-    Prelude.rnf values
-      `Prelude.seq` Prelude.rnf httpHeaderName
+    Prelude.rnf httpHeaderName
+      `Prelude.seq` Prelude.rnf values
 
-instance Core.ToQuery HttpHeaderConditionConfig where
+instance Data.ToQuery HttpHeaderConditionConfig where
   toQuery HttpHeaderConditionConfig' {..} =
     Prelude.mconcat
-      [ "Values"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> values),
-        "HttpHeaderName" Core.=: httpHeaderName
+      [ "HttpHeaderName" Data.=: httpHeaderName,
+        "Values"
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> values)
       ]

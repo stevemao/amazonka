@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppStream.CreateDirectoryConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,6 +29,7 @@ module Amazonka.AppStream.CreateDirectoryConfig
     newCreateDirectoryConfig,
 
     -- * Request Lenses
+    createDirectoryConfig_certificateBasedAuthProperties,
     createDirectoryConfig_serviceAccountCredentials,
     createDirectoryConfig_directoryName,
     createDirectoryConfig_organizationalUnitDistinguishedNames,
@@ -45,14 +46,26 @@ where
 
 import Amazonka.AppStream.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateDirectoryConfig' smart constructor.
 data CreateDirectoryConfig = CreateDirectoryConfig'
-  { -- | The credentials for the service account used by the fleet or image
+  { -- | The certificate-based authentication properties used to authenticate
+    -- SAML 2.0 Identity Provider (IdP) user identities to Active Directory
+    -- domain-joined streaming instances. Fallback is turned on by default when
+    -- certificate-based authentication is __Enabled__ . Fallback allows users
+    -- to log in using their AD domain password if certificate-based
+    -- authentication is unsuccessful, or to unlock a desktop lock screen.
+    -- __Enabled_no_directory_login_fallback__ enables certificate-based
+    -- authentication, but does not allow users to log in using their AD domain
+    -- password. Users will be disconnected to re-authenticate using
+    -- certificates.
+    certificateBasedAuthProperties :: Prelude.Maybe CertificateBasedAuthProperties,
+    -- | The credentials for the service account used by the fleet or image
     -- builder to connect to the directory.
     serviceAccountCredentials :: Prelude.Maybe ServiceAccountCredentials,
     -- | The fully qualified name of the directory (for example,
@@ -72,6 +85,17 @@ data CreateDirectoryConfig = CreateDirectoryConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'certificateBasedAuthProperties', 'createDirectoryConfig_certificateBasedAuthProperties' - The certificate-based authentication properties used to authenticate
+-- SAML 2.0 Identity Provider (IdP) user identities to Active Directory
+-- domain-joined streaming instances. Fallback is turned on by default when
+-- certificate-based authentication is __Enabled__ . Fallback allows users
+-- to log in using their AD domain password if certificate-based
+-- authentication is unsuccessful, or to unlock a desktop lock screen.
+-- __Enabled_no_directory_login_fallback__ enables certificate-based
+-- authentication, but does not allow users to log in using their AD domain
+-- password. Users will be disconnected to re-authenticate using
+-- certificates.
+--
 -- 'serviceAccountCredentials', 'createDirectoryConfig_serviceAccountCredentials' - The credentials for the service account used by the fleet or image
 -- builder to connect to the directory.
 --
@@ -86,12 +110,26 @@ newCreateDirectoryConfig ::
   CreateDirectoryConfig
 newCreateDirectoryConfig pDirectoryName_ =
   CreateDirectoryConfig'
-    { serviceAccountCredentials =
+    { certificateBasedAuthProperties =
         Prelude.Nothing,
+      serviceAccountCredentials = Prelude.Nothing,
       directoryName = pDirectoryName_,
       organizationalUnitDistinguishedNames =
         Prelude.mempty
     }
+
+-- | The certificate-based authentication properties used to authenticate
+-- SAML 2.0 Identity Provider (IdP) user identities to Active Directory
+-- domain-joined streaming instances. Fallback is turned on by default when
+-- certificate-based authentication is __Enabled__ . Fallback allows users
+-- to log in using their AD domain password if certificate-based
+-- authentication is unsuccessful, or to unlock a desktop lock screen.
+-- __Enabled_no_directory_login_fallback__ enables certificate-based
+-- authentication, but does not allow users to log in using their AD domain
+-- password. Users will be disconnected to re-authenticate using
+-- certificates.
+createDirectoryConfig_certificateBasedAuthProperties :: Lens.Lens' CreateDirectoryConfig (Prelude.Maybe CertificateBasedAuthProperties)
+createDirectoryConfig_certificateBasedAuthProperties = Lens.lens (\CreateDirectoryConfig' {certificateBasedAuthProperties} -> certificateBasedAuthProperties) (\s@CreateDirectoryConfig' {} a -> s {certificateBasedAuthProperties = a} :: CreateDirectoryConfig)
 
 -- | The credentials for the service account used by the fleet or image
 -- builder to connect to the directory.
@@ -112,61 +150,66 @@ instance Core.AWSRequest CreateDirectoryConfig where
   type
     AWSResponse CreateDirectoryConfig =
       CreateDirectoryConfigResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateDirectoryConfigResponse'
-            Prelude.<$> (x Core..?> "DirectoryConfig")
+            Prelude.<$> (x Data..?> "DirectoryConfig")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateDirectoryConfig where
   hashWithSalt _salt CreateDirectoryConfig' {..} =
     _salt
+      `Prelude.hashWithSalt` certificateBasedAuthProperties
       `Prelude.hashWithSalt` serviceAccountCredentials
       `Prelude.hashWithSalt` directoryName
       `Prelude.hashWithSalt` organizationalUnitDistinguishedNames
 
 instance Prelude.NFData CreateDirectoryConfig where
   rnf CreateDirectoryConfig' {..} =
-    Prelude.rnf serviceAccountCredentials
+    Prelude.rnf certificateBasedAuthProperties
+      `Prelude.seq` Prelude.rnf serviceAccountCredentials
       `Prelude.seq` Prelude.rnf directoryName
       `Prelude.seq` Prelude.rnf organizationalUnitDistinguishedNames
 
-instance Core.ToHeaders CreateDirectoryConfig where
+instance Data.ToHeaders CreateDirectoryConfig where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "PhotonAdminProxyService.CreateDirectoryConfig" ::
+              Data.=# ( "PhotonAdminProxyService.CreateDirectoryConfig" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateDirectoryConfig where
+instance Data.ToJSON CreateDirectoryConfig where
   toJSON CreateDirectoryConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ServiceAccountCredentials" Core..=)
+          [ ("CertificateBasedAuthProperties" Data..=)
+              Prelude.<$> certificateBasedAuthProperties,
+            ("ServiceAccountCredentials" Data..=)
               Prelude.<$> serviceAccountCredentials,
-            Prelude.Just ("DirectoryName" Core..= directoryName),
+            Prelude.Just ("DirectoryName" Data..= directoryName),
             Prelude.Just
               ( "OrganizationalUnitDistinguishedNames"
-                  Core..= organizationalUnitDistinguishedNames
+                  Data..= organizationalUnitDistinguishedNames
               )
           ]
       )
 
-instance Core.ToPath CreateDirectoryConfig where
+instance Data.ToPath CreateDirectoryConfig where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateDirectoryConfig where
+instance Data.ToQuery CreateDirectoryConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateDirectoryConfigResponse' smart constructor.

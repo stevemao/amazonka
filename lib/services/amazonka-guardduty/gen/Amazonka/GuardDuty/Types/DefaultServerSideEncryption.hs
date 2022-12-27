@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.Types.DefaultServerSideEncryption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.GuardDuty.Types.DefaultServerSideEncryption where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information on the server side encryption method used in the S3
@@ -68,14 +69,14 @@ defaultServerSideEncryption_encryptionType = Lens.lens (\DefaultServerSideEncryp
 defaultServerSideEncryption_kmsMasterKeyArn :: Lens.Lens' DefaultServerSideEncryption (Prelude.Maybe Prelude.Text)
 defaultServerSideEncryption_kmsMasterKeyArn = Lens.lens (\DefaultServerSideEncryption' {kmsMasterKeyArn} -> kmsMasterKeyArn) (\s@DefaultServerSideEncryption' {} a -> s {kmsMasterKeyArn = a} :: DefaultServerSideEncryption)
 
-instance Core.FromJSON DefaultServerSideEncryption where
+instance Data.FromJSON DefaultServerSideEncryption where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DefaultServerSideEncryption"
       ( \x ->
           DefaultServerSideEncryption'
-            Prelude.<$> (x Core..:? "encryptionType")
-            Prelude.<*> (x Core..:? "kmsMasterKeyArn")
+            Prelude.<$> (x Data..:? "encryptionType")
+            Prelude.<*> (x Data..:? "kmsMasterKeyArn")
       )
 
 instance Prelude.Hashable DefaultServerSideEncryption where

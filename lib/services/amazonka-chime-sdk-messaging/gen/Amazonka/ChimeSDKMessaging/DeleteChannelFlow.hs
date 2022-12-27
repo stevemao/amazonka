@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ChimeSDKMessaging.DeleteChannelFlow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.ChimeSDKMessaging.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,7 +84,8 @@ instance Core.AWSRequest DeleteChannelFlow where
   type
     AWSResponse DeleteChannelFlow =
       DeleteChannelFlowResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteChannelFlowResponse'
 
@@ -95,15 +97,15 @@ instance Prelude.NFData DeleteChannelFlow where
   rnf DeleteChannelFlow' {..} =
     Prelude.rnf channelFlowArn
 
-instance Core.ToHeaders DeleteChannelFlow where
+instance Data.ToHeaders DeleteChannelFlow where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteChannelFlow where
+instance Data.ToPath DeleteChannelFlow where
   toPath DeleteChannelFlow' {..} =
     Prelude.mconcat
-      ["/channel-flows/", Core.toBS channelFlowArn]
+      ["/channel-flows/", Data.toBS channelFlowArn]
 
-instance Core.ToQuery DeleteChannelFlow where
+instance Data.ToQuery DeleteChannelFlow where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteChannelFlowResponse' smart constructor.

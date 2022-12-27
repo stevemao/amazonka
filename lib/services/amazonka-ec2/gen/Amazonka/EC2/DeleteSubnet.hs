@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DeleteSubnet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,8 +38,9 @@ module Amazonka.EC2.DeleteSubnet
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,7 +94,8 @@ deleteSubnet_subnetId = Lens.lens (\DeleteSubnet' {subnetId} -> subnetId) (\s@De
 
 instance Core.AWSRequest DeleteSubnet where
   type AWSResponse DeleteSubnet = DeleteSubnetResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response = Response.receiveNull DeleteSubnetResponse'
 
 instance Prelude.Hashable DeleteSubnet where
@@ -106,21 +108,21 @@ instance Prelude.NFData DeleteSubnet where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf subnetId
 
-instance Core.ToHeaders DeleteSubnet where
+instance Data.ToHeaders DeleteSubnet where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteSubnet where
+instance Data.ToPath DeleteSubnet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteSubnet where
+instance Data.ToQuery DeleteSubnet where
   toQuery DeleteSubnet' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteSubnet" :: Prelude.ByteString),
+          Data.=: ("DeleteSubnet" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "SubnetId" Core.=: subnetId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "SubnetId" Data.=: subnetId
       ]
 
 -- | /See:/ 'newDeleteSubnetResponse' smart constructor.

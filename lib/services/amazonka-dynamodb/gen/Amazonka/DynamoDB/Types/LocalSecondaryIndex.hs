@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.LocalSecondaryIndex
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,12 @@
 module Amazonka.DynamoDB.Types.LocalSecondaryIndex where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.KeySchemaElement
 import Amazonka.DynamoDB.Types.Projection
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the properties of a local secondary index.
@@ -148,12 +150,12 @@ instance Prelude.NFData LocalSecondaryIndex where
       `Prelude.seq` Prelude.rnf keySchema
       `Prelude.seq` Prelude.rnf projection
 
-instance Core.ToJSON LocalSecondaryIndex where
+instance Data.ToJSON LocalSecondaryIndex where
   toJSON LocalSecondaryIndex' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("IndexName" Core..= indexName),
-            Prelude.Just ("KeySchema" Core..= keySchema),
-            Prelude.Just ("Projection" Core..= projection)
+          [ Prelude.Just ("IndexName" Data..= indexName),
+            Prelude.Just ("KeySchema" Data..= keySchema),
+            Prelude.Just ("Projection" Data..= projection)
           ]
       )

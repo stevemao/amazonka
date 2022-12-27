@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.ListTagsForResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,7 +50,7 @@ import qualified Amazonka.Response as Response
 -- | /See:/ 'newListTagsForResource' smart constructor.
 data ListTagsForResource = ListTagsForResource'
   { -- | The resource ARN.
-    resourceARN :: Core.Sensitive Prelude.Text
+    resourceARN :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -69,23 +70,24 @@ newListTagsForResource ::
 newListTagsForResource pResourceARN_ =
   ListTagsForResource'
     { resourceARN =
-        Core._Sensitive Lens.# pResourceARN_
+        Data._Sensitive Lens.# pResourceARN_
     }
 
 -- | The resource ARN.
 listTagsForResource_resourceARN :: Lens.Lens' ListTagsForResource Prelude.Text
-listTagsForResource_resourceARN = Lens.lens (\ListTagsForResource' {resourceARN} -> resourceARN) (\s@ListTagsForResource' {} a -> s {resourceARN = a} :: ListTagsForResource) Prelude.. Core._Sensitive
+listTagsForResource_resourceARN = Lens.lens (\ListTagsForResource' {resourceARN} -> resourceARN) (\s@ListTagsForResource' {} a -> s {resourceARN = a} :: ListTagsForResource) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest ListTagsForResource where
   type
     AWSResponse ListTagsForResource =
       ListTagsForResourceResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTagsForResourceResponse'
-            Prelude.<$> (x Core..?> "Tags")
+            Prelude.<$> (x Data..?> "Tags")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,15 +99,15 @@ instance Prelude.NFData ListTagsForResource where
   rnf ListTagsForResource' {..} =
     Prelude.rnf resourceARN
 
-instance Core.ToHeaders ListTagsForResource where
+instance Data.ToHeaders ListTagsForResource where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListTagsForResource where
+instance Data.ToPath ListTagsForResource where
   toPath = Prelude.const "/tags"
 
-instance Core.ToQuery ListTagsForResource where
+instance Data.ToQuery ListTagsForResource where
   toQuery ListTagsForResource' {..} =
-    Prelude.mconcat ["arn" Core.=: resourceARN]
+    Prelude.mconcat ["arn" Data.=: resourceARN]
 
 -- | /See:/ 'newListTagsForResourceResponse' smart constructor.
 data ListTagsForResourceResponse = ListTagsForResourceResponse'

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.PutBucketReplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -93,9 +93,10 @@ module Amazonka.S3.PutBucketReplication
     newPutBucketReplication,
 
     -- * Request Lenses
-    putBucketReplication_token,
+    putBucketReplication_checksumAlgorithm,
     putBucketReplication_contentMD5,
     putBucketReplication_expectedBucketOwner,
+    putBucketReplication_token,
     putBucketReplication_bucket,
     putBucketReplication_replicationConfiguration,
 
@@ -106,7 +107,8 @@ module Amazonka.S3.PutBucketReplication
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -114,8 +116,18 @@ import Amazonka.S3.Types
 
 -- | /See:/ 'newPutBucketReplication' smart constructor.
 data PutBucketReplication = PutBucketReplication'
-  { -- | A token to allow Object Lock to be enabled for an existing bucket.
-    token :: Prelude.Maybe Prelude.Text,
+  { -- | Indicates the algorithm used to create the checksum for the object when
+    -- using the SDK. This header will not provide any additional functionality
+    -- if not using the SDK. When sending this header, there must be a
+    -- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+    -- Otherwise, Amazon S3 fails the request with the HTTP status code
+    -- @400 Bad Request@. For more information, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+    -- in the /Amazon S3 User Guide/.
+    --
+    -- If you provide an individual checksum, Amazon S3 ignores any provided
+    -- @ChecksumAlgorithm@ parameter.
+    checksumAlgorithm :: Prelude.Maybe ChecksumAlgorithm,
     -- | The base64-encoded 128-bit MD5 digest of the data. You must use this
     -- header as a message integrity check to verify that the request body was
     -- not corrupted in transit. For more information, see
@@ -126,9 +138,11 @@ data PutBucketReplication = PutBucketReplication'
     -- automatically.
     contentMD5 :: Prelude.Maybe Prelude.Text,
     -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
+    -- | A token to allow Object Lock to be enabled for an existing bucket.
+    token :: Prelude.Maybe Prelude.Text,
     -- | The name of the bucket
     bucket :: BucketName,
     replicationConfiguration :: ReplicationConfiguration
@@ -143,7 +157,17 @@ data PutBucketReplication = PutBucketReplication'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'token', 'putBucketReplication_token' - A token to allow Object Lock to be enabled for an existing bucket.
+-- 'checksumAlgorithm', 'putBucketReplication_checksumAlgorithm' - Indicates the algorithm used to create the checksum for the object when
+-- using the SDK. This header will not provide any additional functionality
+-- if not using the SDK. When sending this header, there must be a
+-- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+-- Otherwise, Amazon S3 fails the request with the HTTP status code
+-- @400 Bad Request@. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+-- in the /Amazon S3 User Guide/.
+--
+-- If you provide an individual checksum, Amazon S3 ignores any provided
+-- @ChecksumAlgorithm@ parameter.
 --
 -- 'contentMD5', 'putBucketReplication_contentMD5' - The base64-encoded 128-bit MD5 digest of the data. You must use this
 -- header as a message integrity check to verify that the request body was
@@ -155,8 +179,10 @@ data PutBucketReplication = PutBucketReplication'
 -- automatically.
 --
 -- 'expectedBucketOwner', 'putBucketReplication_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
+--
+-- 'token', 'putBucketReplication_token' - A token to allow Object Lock to be enabled for an existing bucket.
 --
 -- 'bucket', 'putBucketReplication_bucket' - The name of the bucket
 --
@@ -171,17 +197,29 @@ newPutBucketReplication
   pBucket_
   pReplicationConfiguration_ =
     PutBucketReplication'
-      { token = Prelude.Nothing,
+      { checksumAlgorithm =
+          Prelude.Nothing,
         contentMD5 = Prelude.Nothing,
         expectedBucketOwner = Prelude.Nothing,
+        token = Prelude.Nothing,
         bucket = pBucket_,
         replicationConfiguration =
           pReplicationConfiguration_
       }
 
--- | A token to allow Object Lock to be enabled for an existing bucket.
-putBucketReplication_token :: Lens.Lens' PutBucketReplication (Prelude.Maybe Prelude.Text)
-putBucketReplication_token = Lens.lens (\PutBucketReplication' {token} -> token) (\s@PutBucketReplication' {} a -> s {token = a} :: PutBucketReplication)
+-- | Indicates the algorithm used to create the checksum for the object when
+-- using the SDK. This header will not provide any additional functionality
+-- if not using the SDK. When sending this header, there must be a
+-- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+-- Otherwise, Amazon S3 fails the request with the HTTP status code
+-- @400 Bad Request@. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+-- in the /Amazon S3 User Guide/.
+--
+-- If you provide an individual checksum, Amazon S3 ignores any provided
+-- @ChecksumAlgorithm@ parameter.
+putBucketReplication_checksumAlgorithm :: Lens.Lens' PutBucketReplication (Prelude.Maybe ChecksumAlgorithm)
+putBucketReplication_checksumAlgorithm = Lens.lens (\PutBucketReplication' {checksumAlgorithm} -> checksumAlgorithm) (\s@PutBucketReplication' {} a -> s {checksumAlgorithm = a} :: PutBucketReplication)
 
 -- | The base64-encoded 128-bit MD5 digest of the data. You must use this
 -- header as a message integrity check to verify that the request body was
@@ -195,10 +233,14 @@ putBucketReplication_contentMD5 :: Lens.Lens' PutBucketReplication (Prelude.Mayb
 putBucketReplication_contentMD5 = Lens.lens (\PutBucketReplication' {contentMD5} -> contentMD5) (\s@PutBucketReplication' {} a -> s {contentMD5 = a} :: PutBucketReplication)
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 putBucketReplication_expectedBucketOwner :: Lens.Lens' PutBucketReplication (Prelude.Maybe Prelude.Text)
 putBucketReplication_expectedBucketOwner = Lens.lens (\PutBucketReplication' {expectedBucketOwner} -> expectedBucketOwner) (\s@PutBucketReplication' {} a -> s {expectedBucketOwner = a} :: PutBucketReplication)
+
+-- | A token to allow Object Lock to be enabled for an existing bucket.
+putBucketReplication_token :: Lens.Lens' PutBucketReplication (Prelude.Maybe Prelude.Text)
+putBucketReplication_token = Lens.lens (\PutBucketReplication' {token} -> token) (\s@PutBucketReplication' {} a -> s {token = a} :: PutBucketReplication)
 
 -- | The name of the bucket
 putBucketReplication_bucket :: Lens.Lens' PutBucketReplication BucketName
@@ -212,48 +254,52 @@ instance Core.AWSRequest PutBucketReplication where
   type
     AWSResponse PutBucketReplication =
       PutBucketReplicationResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.putXML defaultService
+      Prelude.. Request.putXML (overrides defaultService)
   response =
     Response.receiveNull PutBucketReplicationResponse'
 
 instance Prelude.Hashable PutBucketReplication where
   hashWithSalt _salt PutBucketReplication' {..} =
-    _salt `Prelude.hashWithSalt` token
+    _salt `Prelude.hashWithSalt` checksumAlgorithm
       `Prelude.hashWithSalt` contentMD5
       `Prelude.hashWithSalt` expectedBucketOwner
+      `Prelude.hashWithSalt` token
       `Prelude.hashWithSalt` bucket
       `Prelude.hashWithSalt` replicationConfiguration
 
 instance Prelude.NFData PutBucketReplication where
   rnf PutBucketReplication' {..} =
-    Prelude.rnf token
+    Prelude.rnf checksumAlgorithm
       `Prelude.seq` Prelude.rnf contentMD5
       `Prelude.seq` Prelude.rnf expectedBucketOwner
+      `Prelude.seq` Prelude.rnf token
       `Prelude.seq` Prelude.rnf bucket
       `Prelude.seq` Prelude.rnf replicationConfiguration
 
-instance Core.ToElement PutBucketReplication where
+instance Data.ToElement PutBucketReplication where
   toElement PutBucketReplication' {..} =
-    Core.mkElement
+    Data.mkElement
       "{http://s3.amazonaws.com/doc/2006-03-01/}ReplicationConfiguration"
       replicationConfiguration
 
-instance Core.ToHeaders PutBucketReplication where
+instance Data.ToHeaders PutBucketReplication where
   toHeaders PutBucketReplication' {..} =
     Prelude.mconcat
-      [ "x-amz-bucket-object-lock-token" Core.=# token,
-        "Content-MD5" Core.=# contentMD5,
+      [ "x-amz-sdk-checksum-algorithm"
+          Data.=# checksumAlgorithm,
+        "Content-MD5" Data.=# contentMD5,
         "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner,
+        "x-amz-bucket-object-lock-token" Data.=# token
       ]
 
-instance Core.ToPath PutBucketReplication where
+instance Data.ToPath PutBucketReplication where
   toPath PutBucketReplication' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery PutBucketReplication where
+instance Data.ToQuery PutBucketReplication where
   toQuery =
     Prelude.const (Prelude.mconcat ["replication"])
 

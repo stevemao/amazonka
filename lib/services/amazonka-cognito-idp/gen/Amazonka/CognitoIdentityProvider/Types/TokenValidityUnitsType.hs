@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.Types.TokenValidityUnitsType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,23 +21,27 @@ module Amazonka.CognitoIdentityProvider.Types.TokenValidityUnitsType where
 
 import Amazonka.CognitoIdentityProvider.Types.TimeUnitsType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The data type for TokenValidityUnits that specifics the time
--- measurements for token validity.
+-- | The data type TokenValidityUnits specifies the time units you use when
+-- you set the duration of ID, access, and refresh tokens.
 --
 -- /See:/ 'newTokenValidityUnitsType' smart constructor.
 data TokenValidityUnitsType = TokenValidityUnitsType'
-  { -- | A time unit in “seconds”, “minutes”, “hours” or “days” for the value in
-    -- AccessTokenValidity, defaults to hours.
+  { -- | A time unit of @seconds@, @minutes@, @hours@, or @days@ for the value
+    -- that you set in the @AccessTokenValidity@ parameter. The default
+    -- @AccessTokenValidity@ time unit is hours.
     accessToken :: Prelude.Maybe TimeUnitsType,
-    -- | A time unit in “seconds”, “minutes”, “hours” or “days” for the value in
-    -- RefreshTokenValidity, defaults to days.
-    refreshToken :: Prelude.Maybe TimeUnitsType,
-    -- | A time unit in “seconds”, “minutes”, “hours” or “days” for the value in
-    -- IdTokenValidity, defaults to hours.
-    idToken :: Prelude.Maybe TimeUnitsType
+    -- | A time unit of @seconds@, @minutes@, @hours@, or @days@ for the value
+    -- that you set in the @IdTokenValidity@ parameter. The default
+    -- @IdTokenValidity@ time unit is hours.
+    idToken :: Prelude.Maybe TimeUnitsType,
+    -- | A time unit of @seconds@, @minutes@, @hours@, or @days@ for the value
+    -- that you set in the @RefreshTokenValidity@ parameter. The default
+    -- @RefreshTokenValidity@ time unit is days.
+    refreshToken :: Prelude.Maybe TimeUnitsType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -49,68 +53,74 @@ data TokenValidityUnitsType = TokenValidityUnitsType'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'accessToken', 'tokenValidityUnitsType_accessToken' - A time unit in “seconds”, “minutes”, “hours” or “days” for the value in
--- AccessTokenValidity, defaults to hours.
+-- 'accessToken', 'tokenValidityUnitsType_accessToken' - A time unit of @seconds@, @minutes@, @hours@, or @days@ for the value
+-- that you set in the @AccessTokenValidity@ parameter. The default
+-- @AccessTokenValidity@ time unit is hours.
 --
--- 'refreshToken', 'tokenValidityUnitsType_refreshToken' - A time unit in “seconds”, “minutes”, “hours” or “days” for the value in
--- RefreshTokenValidity, defaults to days.
+-- 'idToken', 'tokenValidityUnitsType_idToken' - A time unit of @seconds@, @minutes@, @hours@, or @days@ for the value
+-- that you set in the @IdTokenValidity@ parameter. The default
+-- @IdTokenValidity@ time unit is hours.
 --
--- 'idToken', 'tokenValidityUnitsType_idToken' - A time unit in “seconds”, “minutes”, “hours” or “days” for the value in
--- IdTokenValidity, defaults to hours.
+-- 'refreshToken', 'tokenValidityUnitsType_refreshToken' - A time unit of @seconds@, @minutes@, @hours@, or @days@ for the value
+-- that you set in the @RefreshTokenValidity@ parameter. The default
+-- @RefreshTokenValidity@ time unit is days.
 newTokenValidityUnitsType ::
   TokenValidityUnitsType
 newTokenValidityUnitsType =
   TokenValidityUnitsType'
     { accessToken =
         Prelude.Nothing,
-      refreshToken = Prelude.Nothing,
-      idToken = Prelude.Nothing
+      idToken = Prelude.Nothing,
+      refreshToken = Prelude.Nothing
     }
 
--- | A time unit in “seconds”, “minutes”, “hours” or “days” for the value in
--- AccessTokenValidity, defaults to hours.
+-- | A time unit of @seconds@, @minutes@, @hours@, or @days@ for the value
+-- that you set in the @AccessTokenValidity@ parameter. The default
+-- @AccessTokenValidity@ time unit is hours.
 tokenValidityUnitsType_accessToken :: Lens.Lens' TokenValidityUnitsType (Prelude.Maybe TimeUnitsType)
 tokenValidityUnitsType_accessToken = Lens.lens (\TokenValidityUnitsType' {accessToken} -> accessToken) (\s@TokenValidityUnitsType' {} a -> s {accessToken = a} :: TokenValidityUnitsType)
 
--- | A time unit in “seconds”, “minutes”, “hours” or “days” for the value in
--- RefreshTokenValidity, defaults to days.
-tokenValidityUnitsType_refreshToken :: Lens.Lens' TokenValidityUnitsType (Prelude.Maybe TimeUnitsType)
-tokenValidityUnitsType_refreshToken = Lens.lens (\TokenValidityUnitsType' {refreshToken} -> refreshToken) (\s@TokenValidityUnitsType' {} a -> s {refreshToken = a} :: TokenValidityUnitsType)
-
--- | A time unit in “seconds”, “minutes”, “hours” or “days” for the value in
--- IdTokenValidity, defaults to hours.
+-- | A time unit of @seconds@, @minutes@, @hours@, or @days@ for the value
+-- that you set in the @IdTokenValidity@ parameter. The default
+-- @IdTokenValidity@ time unit is hours.
 tokenValidityUnitsType_idToken :: Lens.Lens' TokenValidityUnitsType (Prelude.Maybe TimeUnitsType)
 tokenValidityUnitsType_idToken = Lens.lens (\TokenValidityUnitsType' {idToken} -> idToken) (\s@TokenValidityUnitsType' {} a -> s {idToken = a} :: TokenValidityUnitsType)
 
-instance Core.FromJSON TokenValidityUnitsType where
+-- | A time unit of @seconds@, @minutes@, @hours@, or @days@ for the value
+-- that you set in the @RefreshTokenValidity@ parameter. The default
+-- @RefreshTokenValidity@ time unit is days.
+tokenValidityUnitsType_refreshToken :: Lens.Lens' TokenValidityUnitsType (Prelude.Maybe TimeUnitsType)
+tokenValidityUnitsType_refreshToken = Lens.lens (\TokenValidityUnitsType' {refreshToken} -> refreshToken) (\s@TokenValidityUnitsType' {} a -> s {refreshToken = a} :: TokenValidityUnitsType)
+
+instance Data.FromJSON TokenValidityUnitsType where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TokenValidityUnitsType"
       ( \x ->
           TokenValidityUnitsType'
-            Prelude.<$> (x Core..:? "AccessToken")
-            Prelude.<*> (x Core..:? "RefreshToken")
-            Prelude.<*> (x Core..:? "IdToken")
+            Prelude.<$> (x Data..:? "AccessToken")
+            Prelude.<*> (x Data..:? "IdToken")
+            Prelude.<*> (x Data..:? "RefreshToken")
       )
 
 instance Prelude.Hashable TokenValidityUnitsType where
   hashWithSalt _salt TokenValidityUnitsType' {..} =
     _salt `Prelude.hashWithSalt` accessToken
-      `Prelude.hashWithSalt` refreshToken
       `Prelude.hashWithSalt` idToken
+      `Prelude.hashWithSalt` refreshToken
 
 instance Prelude.NFData TokenValidityUnitsType where
   rnf TokenValidityUnitsType' {..} =
     Prelude.rnf accessToken
-      `Prelude.seq` Prelude.rnf refreshToken
       `Prelude.seq` Prelude.rnf idToken
+      `Prelude.seq` Prelude.rnf refreshToken
 
-instance Core.ToJSON TokenValidityUnitsType where
+instance Data.ToJSON TokenValidityUnitsType where
   toJSON TokenValidityUnitsType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AccessToken" Core..=) Prelude.<$> accessToken,
-            ("RefreshToken" Core..=) Prelude.<$> refreshToken,
-            ("IdToken" Core..=) Prelude.<$> idToken
+          [ ("AccessToken" Data..=) Prelude.<$> accessToken,
+            ("IdToken" Data..=) Prelude.<$> idToken,
+            ("RefreshToken" Data..=) Prelude.<$> refreshToken
           ]
       )

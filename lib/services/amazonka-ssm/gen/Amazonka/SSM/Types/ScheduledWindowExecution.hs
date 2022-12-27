@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.ScheduledWindowExecution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.ScheduledWindowExecution where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a scheduled execution for a maintenance window.
@@ -74,15 +75,15 @@ scheduledWindowExecution_name = Lens.lens (\ScheduledWindowExecution' {name} -> 
 scheduledWindowExecution_windowId :: Lens.Lens' ScheduledWindowExecution (Prelude.Maybe Prelude.Text)
 scheduledWindowExecution_windowId = Lens.lens (\ScheduledWindowExecution' {windowId} -> windowId) (\s@ScheduledWindowExecution' {} a -> s {windowId = a} :: ScheduledWindowExecution)
 
-instance Core.FromJSON ScheduledWindowExecution where
+instance Data.FromJSON ScheduledWindowExecution where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ScheduledWindowExecution"
       ( \x ->
           ScheduledWindowExecution'
-            Prelude.<$> (x Core..:? "ExecutionTime")
-            Prelude.<*> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "WindowId")
+            Prelude.<$> (x Data..:? "ExecutionTime")
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "WindowId")
       )
 
 instance Prelude.Hashable ScheduledWindowExecution where

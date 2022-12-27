@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchLogs.TestMetricFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.CloudWatchLogs.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,12 +96,13 @@ instance Core.AWSRequest TestMetricFilter where
   type
     AWSResponse TestMetricFilter =
       TestMetricFilterResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           TestMetricFilterResponse'
-            Prelude.<$> (x Core..?> "matches" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "matches" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -114,36 +116,36 @@ instance Prelude.NFData TestMetricFilter where
     Prelude.rnf filterPattern
       `Prelude.seq` Prelude.rnf logEventMessages
 
-instance Core.ToHeaders TestMetricFilter where
+instance Data.ToHeaders TestMetricFilter where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Logs_20140328.TestMetricFilter" ::
+              Data.=# ( "Logs_20140328.TestMetricFilter" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON TestMetricFilter where
+instance Data.ToJSON TestMetricFilter where
   toJSON TestMetricFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("filterPattern" Core..= filterPattern),
+              ("filterPattern" Data..= filterPattern),
             Prelude.Just
-              ("logEventMessages" Core..= logEventMessages)
+              ("logEventMessages" Data..= logEventMessages)
           ]
       )
 
-instance Core.ToPath TestMetricFilter where
+instance Data.ToPath TestMetricFilter where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery TestMetricFilter where
+instance Data.ToQuery TestMetricFilter where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newTestMetricFilterResponse' smart constructor.

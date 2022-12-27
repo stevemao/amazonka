@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Grafana.Types.AwsSsoAuthentication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,17 @@
 module Amazonka.Grafana.Types.AwsSsoAuthentication where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A structure containing information about how this workspace works with
--- Amazon Web Services SSO.
+-- IAM Identity Center.
 --
 -- /See:/ 'newAwsSsoAuthentication' smart constructor.
 data AwsSsoAuthentication = AwsSsoAuthentication'
-  { -- | The ID of the Amazon Web Services SSO-managed application that is
-    -- created by Amazon Managed Grafana.
+  { -- | The ID of the IAM Identity Center-managed application that is created by
+    -- Amazon Managed Grafana.
     ssoClientId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -42,8 +43,8 @@ data AwsSsoAuthentication = AwsSsoAuthentication'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'ssoClientId', 'awsSsoAuthentication_ssoClientId' - The ID of the Amazon Web Services SSO-managed application that is
--- created by Amazon Managed Grafana.
+-- 'ssoClientId', 'awsSsoAuthentication_ssoClientId' - The ID of the IAM Identity Center-managed application that is created by
+-- Amazon Managed Grafana.
 newAwsSsoAuthentication ::
   AwsSsoAuthentication
 newAwsSsoAuthentication =
@@ -52,18 +53,18 @@ newAwsSsoAuthentication =
         Prelude.Nothing
     }
 
--- | The ID of the Amazon Web Services SSO-managed application that is
--- created by Amazon Managed Grafana.
+-- | The ID of the IAM Identity Center-managed application that is created by
+-- Amazon Managed Grafana.
 awsSsoAuthentication_ssoClientId :: Lens.Lens' AwsSsoAuthentication (Prelude.Maybe Prelude.Text)
 awsSsoAuthentication_ssoClientId = Lens.lens (\AwsSsoAuthentication' {ssoClientId} -> ssoClientId) (\s@AwsSsoAuthentication' {} a -> s {ssoClientId = a} :: AwsSsoAuthentication)
 
-instance Core.FromJSON AwsSsoAuthentication where
+instance Data.FromJSON AwsSsoAuthentication where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsSsoAuthentication"
       ( \x ->
           AwsSsoAuthentication'
-            Prelude.<$> (x Core..:? "ssoClientId")
+            Prelude.<$> (x Data..:? "ssoClientId")
       )
 
 instance Prelude.Hashable AwsSsoAuthentication where

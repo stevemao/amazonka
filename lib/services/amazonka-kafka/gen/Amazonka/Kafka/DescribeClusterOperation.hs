@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.DescribeClusterOperation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.Kafka.DescribeClusterOperation
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kafka.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,12 +84,13 @@ instance Core.AWSRequest DescribeClusterOperation where
   type
     AWSResponse DescribeClusterOperation =
       DescribeClusterOperationResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeClusterOperationResponse'
-            Prelude.<$> (x Core..?> "clusterOperationInfo")
+            Prelude.<$> (x Data..?> "clusterOperationInfo")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -100,23 +102,23 @@ instance Prelude.NFData DescribeClusterOperation where
   rnf DescribeClusterOperation' {..} =
     Prelude.rnf clusterOperationArn
 
-instance Core.ToHeaders DescribeClusterOperation where
+instance Data.ToHeaders DescribeClusterOperation where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeClusterOperation where
+instance Data.ToPath DescribeClusterOperation where
   toPath DescribeClusterOperation' {..} =
     Prelude.mconcat
-      ["/v1/operations/", Core.toBS clusterOperationArn]
+      ["/v1/operations/", Data.toBS clusterOperationArn]
 
-instance Core.ToQuery DescribeClusterOperation where
+instance Data.ToQuery DescribeClusterOperation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeClusterOperationResponse' smart constructor.

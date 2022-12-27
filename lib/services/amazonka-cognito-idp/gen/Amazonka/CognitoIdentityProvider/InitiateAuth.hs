@@ -14,32 +14,34 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.InitiateAuth
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Initiates the authentication flow.
+-- Initiates sign-in for a user in the Amazon Cognito user directory. You
+-- can\'t sign in a user with a federated IdP with @InitiateAuth@. For more
+-- information, see
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-identity-federation.html Adding user pool sign-in through a third party>.
 --
 -- This action might generate an SMS text message. Starting June 1, 2021,
--- U.S. telecom carriers require that you register an origination phone
--- number before you can send SMS messages to U.S. phone numbers. If you
--- use SMS text messages in Amazon Cognito, you must register a phone
--- number with
--- <https://console.aws.amazon.com/pinpoint/home/ Amazon Pinpoint>. Cognito
--- will use the the registered number automatically. Otherwise, Cognito
--- users that must receive SMS messages might be unable to sign up,
--- activate their accounts, or sign in.
+-- US telecom carriers require you to register an origination phone number
+-- before you can send SMS messages to US phone numbers. If you use SMS
+-- text messages in Amazon Cognito, you must register a phone number with
+-- <https://console.aws.amazon.com/pinpoint/home/ Amazon Pinpoint>. Amazon
+-- Cognito uses the registered number automatically. Otherwise, Amazon
+-- Cognito users who must receive SMS messages might not be able to sign
+-- up, activate their accounts, or sign in.
 --
 -- If you have never used SMS text messages with Amazon Cognito or any
--- other Amazon Web Service, Amazon SNS might place your account in SMS
--- sandbox. In
+-- other Amazon Web Service, Amazon Simple Notification Service might place
+-- your account in the SMS sandbox. In
 -- /<https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html sandbox mode>/
--- , you’ll have limitations, such as sending messages to only verified
--- phone numbers. After testing in the sandbox environment, you can move
--- out of the SMS sandbox and into production. For more information, see
--- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-sms-userpool-settings.html SMS message settings for Cognito User Pools>
+-- , you can send messages only to verified phone numbers. After you test
+-- your app while in the sandbox environment, you can move out of the
+-- sandbox and into production. For more information, see
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-sms-userpool-settings.html SMS message settings for Amazon Cognito user pools>
 -- in the /Amazon Cognito Developer Guide/.
 module Amazonka.CognitoIdentityProvider.InitiateAuth
   ( -- * Creating a Request
@@ -47,10 +49,10 @@ module Amazonka.CognitoIdentityProvider.InitiateAuth
     newInitiateAuth,
 
     -- * Request Lenses
-    initiateAuth_clientMetadata,
     initiateAuth_analyticsMetadata,
-    initiateAuth_userContextData,
     initiateAuth_authParameters,
+    initiateAuth_clientMetadata,
+    initiateAuth_userContextData,
     initiateAuth_authFlow,
     initiateAuth_clientId,
 
@@ -59,9 +61,9 @@ module Amazonka.CognitoIdentityProvider.InitiateAuth
     newInitiateAuthResponse,
 
     -- * Response Lenses
+    initiateAuthResponse_authenticationResult,
     initiateAuthResponse_challengeName,
     initiateAuthResponse_challengeParameters,
-    initiateAuthResponse_authenticationResult,
     initiateAuthResponse_session,
     initiateAuthResponse_httpStatus,
   )
@@ -69,7 +71,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,7 +81,27 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newInitiateAuth' smart constructor.
 data InitiateAuth = InitiateAuth'
-  { -- | A map of custom key-value pairs that you can provide as input for
+  { -- | The Amazon Pinpoint analytics metadata that contributes to your metrics
+    -- for @InitiateAuth@ calls.
+    analyticsMetadata :: Prelude.Maybe AnalyticsMetadataType,
+    -- | The authentication parameters. These are inputs corresponding to the
+    -- @AuthFlow@ that you\'re invoking. The required values depend on the
+    -- value of @AuthFlow@:
+    --
+    -- -   For @USER_SRP_AUTH@: @USERNAME@ (required), @SRP_A@ (required),
+    --     @SECRET_HASH@ (required if the app client is configured with a
+    --     client secret), @DEVICE_KEY@.
+    --
+    -- -   For @REFRESH_TOKEN_AUTH\/REFRESH_TOKEN@: @REFRESH_TOKEN@ (required),
+    --     @SECRET_HASH@ (required if the app client is configured with a
+    --     client secret), @DEVICE_KEY@.
+    --
+    -- -   For @CUSTOM_AUTH@: @USERNAME@ (required), @SECRET_HASH@ (if app
+    --     client is configured with client secret), @DEVICE_KEY@. To start the
+    --     authentication flow with password verification, include
+    --     @ChallengeName: SRP_A@ and @SRP_A: (The SRP_A Value)@.
+    authParameters :: Prelude.Maybe (Data.Sensitive (Prelude.HashMap Prelude.Text Prelude.Text)),
+    -- | A map of custom key-value pairs that you can provide as input for
     -- certain custom workflows that this action triggers.
     --
     -- You create custom workflows by assigning Lambda functions to user pool
@@ -101,7 +124,7 @@ data InitiateAuth = InitiateAuth'
     -- value to enhance your workflow for your specific needs.
     --
     -- When you use the InitiateAuth API action, Amazon Cognito also invokes
-    -- the functions for the following triggers, but it does not provide the
+    -- the functions for the following triggers, but it doesn\'t provide the
     -- ClientMetadata value as input:
     --
     -- -   Post authentication
@@ -117,58 +140,38 @@ data InitiateAuth = InitiateAuth'
     -- -   Verify auth challenge
     --
     -- For more information, see
-    -- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers>
+    -- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing user pool Workflows with Lambda Triggers>
     -- in the /Amazon Cognito Developer Guide/.
     --
-    -- Take the following limitations into consideration when you use the
-    -- ClientMetadata parameter:
+    -- When you use the ClientMetadata parameter, remember that Amazon Cognito
+    -- won\'t do the following:
     --
-    -- -   Amazon Cognito does not store the ClientMetadata value. This data is
-    --     available only to Lambda triggers that are assigned to a user pool
-    --     to support custom workflows. If your user pool configuration does
-    --     not include triggers, the ClientMetadata parameter serves no
-    --     purpose.
+    -- -   Store the ClientMetadata value. This data is available only to
+    --     Lambda triggers that are assigned to a user pool to support custom
+    --     workflows. If your user pool configuration doesn\'t include
+    --     triggers, the ClientMetadata parameter serves no purpose.
     --
-    -- -   Amazon Cognito does not validate the ClientMetadata value.
+    -- -   Validate the ClientMetadata value.
     --
-    -- -   Amazon Cognito does not encrypt the the ClientMetadata value, so
-    --     don\'t use it to provide sensitive information.
+    -- -   Encrypt the ClientMetadata value. Don\'t use Amazon Cognito to
+    --     provide sensitive information.
     clientMetadata :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | The Amazon Pinpoint analytics metadata for collecting metrics for
-    -- @InitiateAuth@ calls.
-    analyticsMetadata :: Prelude.Maybe AnalyticsMetadataType,
-    -- | Contextual data such as the user\'s device fingerprint, IP address, or
-    -- location used for evaluating the risk of an unexpected event by Amazon
-    -- Cognito advanced security.
+    -- | Contextual data about your user session, such as the device fingerprint,
+    -- IP address, or location. Amazon Cognito advanced security evaluates the
+    -- risk of an authentication event based on the context that your app
+    -- generates and passes to Amazon Cognito when it makes API requests.
     userContextData :: Prelude.Maybe UserContextDataType,
-    -- | The authentication parameters. These are inputs corresponding to the
-    -- @AuthFlow@ that you are invoking. The required values depend on the
-    -- value of @AuthFlow@:
+    -- | The authentication flow for this call to run. The API action will depend
+    -- on this value. For example:
     --
-    -- -   For @USER_SRP_AUTH@: @USERNAME@ (required), @SRP_A@ (required),
-    --     @SECRET_HASH@ (required if the app client is configured with a
-    --     client secret), @DEVICE_KEY@.
+    -- -   @REFRESH_TOKEN_AUTH@ takes in a valid refresh token and returns new
+    --     tokens.
     --
-    -- -   For @REFRESH_TOKEN_AUTH\/REFRESH_TOKEN@: @REFRESH_TOKEN@ (required),
-    --     @SECRET_HASH@ (required if the app client is configured with a
-    --     client secret), @DEVICE_KEY@.
+    -- -   @USER_SRP_AUTH@ takes in @USERNAME@ and @SRP_A@ and returns the SRP
+    --     variables to be used for next challenge execution.
     --
-    -- -   For @CUSTOM_AUTH@: @USERNAME@ (required), @SECRET_HASH@ (if app
-    --     client is configured with client secret), @DEVICE_KEY@. To start the
-    --     authentication flow with password verification, include
-    --     @ChallengeName: SRP_A@ and @SRP_A: (The SRP_A Value)@.
-    authParameters :: Prelude.Maybe (Core.Sensitive (Prelude.HashMap Prelude.Text Prelude.Text)),
-    -- | The authentication flow for this call to execute. The API action will
-    -- depend on this value. For example:
-    --
-    -- -   @REFRESH_TOKEN_AUTH@ will take in a valid refresh token and return
-    --     new tokens.
-    --
-    -- -   @USER_SRP_AUTH@ will take in @USERNAME@ and @SRP_A@ and return the
-    --     SRP variables to be used for next challenge execution.
-    --
-    -- -   @USER_PASSWORD_AUTH@ will take in @USERNAME@ and @PASSWORD@ and
-    --     return the next challenge or tokens.
+    -- -   @USER_PASSWORD_AUTH@ takes in @USERNAME@ and @PASSWORD@ and returns
+    --     the next challenge or tokens.
     --
     -- Valid values include:
     --
@@ -181,20 +184,15 @@ data InitiateAuth = InitiateAuth'
     --
     -- -   @CUSTOM_AUTH@: Custom authentication flow.
     --
-    -- -   @USER_PASSWORD_AUTH@: Non-SRP authentication flow; USERNAME and
-    --     PASSWORD are passed directly. If a user migration Lambda trigger is
-    --     set, this flow will invoke the user migration Lambda if the USERNAME
-    --     is not found in the user pool.
+    -- -   @USER_PASSWORD_AUTH@: Non-SRP authentication flow; user name and
+    --     password are passed directly. If a user migration Lambda trigger is
+    --     set, this flow will invoke the user migration Lambda if it doesn\'t
+    --     find the user name in the user pool.
     --
-    -- -   @ADMIN_USER_PASSWORD_AUTH@: Admin-based user password
-    --     authentication. This replaces the @ADMIN_NO_SRP_AUTH@ authentication
-    --     flow. In this flow, Cognito receives the password in the request
-    --     instead of using the SRP process to verify passwords.
-    --
-    -- @ADMIN_NO_SRP_AUTH@ is not a valid value.
+    -- @ADMIN_NO_SRP_AUTH@ isn\'t a valid value.
     authFlow :: AuthFlowType,
     -- | The app client ID.
-    clientId :: Core.Sensitive Prelude.Text
+    clientId :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -205,6 +203,26 @@ data InitiateAuth = InitiateAuth'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'analyticsMetadata', 'initiateAuth_analyticsMetadata' - The Amazon Pinpoint analytics metadata that contributes to your metrics
+-- for @InitiateAuth@ calls.
+--
+-- 'authParameters', 'initiateAuth_authParameters' - The authentication parameters. These are inputs corresponding to the
+-- @AuthFlow@ that you\'re invoking. The required values depend on the
+-- value of @AuthFlow@:
+--
+-- -   For @USER_SRP_AUTH@: @USERNAME@ (required), @SRP_A@ (required),
+--     @SECRET_HASH@ (required if the app client is configured with a
+--     client secret), @DEVICE_KEY@.
+--
+-- -   For @REFRESH_TOKEN_AUTH\/REFRESH_TOKEN@: @REFRESH_TOKEN@ (required),
+--     @SECRET_HASH@ (required if the app client is configured with a
+--     client secret), @DEVICE_KEY@.
+--
+-- -   For @CUSTOM_AUTH@: @USERNAME@ (required), @SECRET_HASH@ (if app
+--     client is configured with client secret), @DEVICE_KEY@. To start the
+--     authentication flow with password verification, include
+--     @ChallengeName: SRP_A@ and @SRP_A: (The SRP_A Value)@.
 --
 -- 'clientMetadata', 'initiateAuth_clientMetadata' - A map of custom key-value pairs that you can provide as input for
 -- certain custom workflows that this action triggers.
@@ -229,7 +247,7 @@ data InitiateAuth = InitiateAuth'
 -- value to enhance your workflow for your specific needs.
 --
 -- When you use the InitiateAuth API action, Amazon Cognito also invokes
--- the functions for the following triggers, but it does not provide the
+-- the functions for the following triggers, but it doesn\'t provide the
 -- ClientMetadata value as input:
 --
 -- -   Post authentication
@@ -245,32 +263,81 @@ data InitiateAuth = InitiateAuth'
 -- -   Verify auth challenge
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers>
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing user pool Workflows with Lambda Triggers>
 -- in the /Amazon Cognito Developer Guide/.
 --
--- Take the following limitations into consideration when you use the
--- ClientMetadata parameter:
+-- When you use the ClientMetadata parameter, remember that Amazon Cognito
+-- won\'t do the following:
 --
--- -   Amazon Cognito does not store the ClientMetadata value. This data is
---     available only to Lambda triggers that are assigned to a user pool
---     to support custom workflows. If your user pool configuration does
---     not include triggers, the ClientMetadata parameter serves no
---     purpose.
+-- -   Store the ClientMetadata value. This data is available only to
+--     Lambda triggers that are assigned to a user pool to support custom
+--     workflows. If your user pool configuration doesn\'t include
+--     triggers, the ClientMetadata parameter serves no purpose.
 --
--- -   Amazon Cognito does not validate the ClientMetadata value.
+-- -   Validate the ClientMetadata value.
 --
--- -   Amazon Cognito does not encrypt the the ClientMetadata value, so
---     don\'t use it to provide sensitive information.
+-- -   Encrypt the ClientMetadata value. Don\'t use Amazon Cognito to
+--     provide sensitive information.
 --
--- 'analyticsMetadata', 'initiateAuth_analyticsMetadata' - The Amazon Pinpoint analytics metadata for collecting metrics for
--- @InitiateAuth@ calls.
+-- 'userContextData', 'initiateAuth_userContextData' - Contextual data about your user session, such as the device fingerprint,
+-- IP address, or location. Amazon Cognito advanced security evaluates the
+-- risk of an authentication event based on the context that your app
+-- generates and passes to Amazon Cognito when it makes API requests.
 --
--- 'userContextData', 'initiateAuth_userContextData' - Contextual data such as the user\'s device fingerprint, IP address, or
--- location used for evaluating the risk of an unexpected event by Amazon
--- Cognito advanced security.
+-- 'authFlow', 'initiateAuth_authFlow' - The authentication flow for this call to run. The API action will depend
+-- on this value. For example:
 --
--- 'authParameters', 'initiateAuth_authParameters' - The authentication parameters. These are inputs corresponding to the
--- @AuthFlow@ that you are invoking. The required values depend on the
+-- -   @REFRESH_TOKEN_AUTH@ takes in a valid refresh token and returns new
+--     tokens.
+--
+-- -   @USER_SRP_AUTH@ takes in @USERNAME@ and @SRP_A@ and returns the SRP
+--     variables to be used for next challenge execution.
+--
+-- -   @USER_PASSWORD_AUTH@ takes in @USERNAME@ and @PASSWORD@ and returns
+--     the next challenge or tokens.
+--
+-- Valid values include:
+--
+-- -   @USER_SRP_AUTH@: Authentication flow for the Secure Remote Password
+--     (SRP) protocol.
+--
+-- -   @REFRESH_TOKEN_AUTH@\/@REFRESH_TOKEN@: Authentication flow for
+--     refreshing the access token and ID token by supplying a valid
+--     refresh token.
+--
+-- -   @CUSTOM_AUTH@: Custom authentication flow.
+--
+-- -   @USER_PASSWORD_AUTH@: Non-SRP authentication flow; user name and
+--     password are passed directly. If a user migration Lambda trigger is
+--     set, this flow will invoke the user migration Lambda if it doesn\'t
+--     find the user name in the user pool.
+--
+-- @ADMIN_NO_SRP_AUTH@ isn\'t a valid value.
+--
+-- 'clientId', 'initiateAuth_clientId' - The app client ID.
+newInitiateAuth ::
+  -- | 'authFlow'
+  AuthFlowType ->
+  -- | 'clientId'
+  Prelude.Text ->
+  InitiateAuth
+newInitiateAuth pAuthFlow_ pClientId_ =
+  InitiateAuth'
+    { analyticsMetadata = Prelude.Nothing,
+      authParameters = Prelude.Nothing,
+      clientMetadata = Prelude.Nothing,
+      userContextData = Prelude.Nothing,
+      authFlow = pAuthFlow_,
+      clientId = Data._Sensitive Lens.# pClientId_
+    }
+
+-- | The Amazon Pinpoint analytics metadata that contributes to your metrics
+-- for @InitiateAuth@ calls.
+initiateAuth_analyticsMetadata :: Lens.Lens' InitiateAuth (Prelude.Maybe AnalyticsMetadataType)
+initiateAuth_analyticsMetadata = Lens.lens (\InitiateAuth' {analyticsMetadata} -> analyticsMetadata) (\s@InitiateAuth' {} a -> s {analyticsMetadata = a} :: InitiateAuth)
+
+-- | The authentication parameters. These are inputs corresponding to the
+-- @AuthFlow@ that you\'re invoking. The required values depend on the
 -- value of @AuthFlow@:
 --
 -- -   For @USER_SRP_AUTH@: @USERNAME@ (required), @SRP_A@ (required),
@@ -285,58 +352,8 @@ data InitiateAuth = InitiateAuth'
 --     client is configured with client secret), @DEVICE_KEY@. To start the
 --     authentication flow with password verification, include
 --     @ChallengeName: SRP_A@ and @SRP_A: (The SRP_A Value)@.
---
--- 'authFlow', 'initiateAuth_authFlow' - The authentication flow for this call to execute. The API action will
--- depend on this value. For example:
---
--- -   @REFRESH_TOKEN_AUTH@ will take in a valid refresh token and return
---     new tokens.
---
--- -   @USER_SRP_AUTH@ will take in @USERNAME@ and @SRP_A@ and return the
---     SRP variables to be used for next challenge execution.
---
--- -   @USER_PASSWORD_AUTH@ will take in @USERNAME@ and @PASSWORD@ and
---     return the next challenge or tokens.
---
--- Valid values include:
---
--- -   @USER_SRP_AUTH@: Authentication flow for the Secure Remote Password
---     (SRP) protocol.
---
--- -   @REFRESH_TOKEN_AUTH@\/@REFRESH_TOKEN@: Authentication flow for
---     refreshing the access token and ID token by supplying a valid
---     refresh token.
---
--- -   @CUSTOM_AUTH@: Custom authentication flow.
---
--- -   @USER_PASSWORD_AUTH@: Non-SRP authentication flow; USERNAME and
---     PASSWORD are passed directly. If a user migration Lambda trigger is
---     set, this flow will invoke the user migration Lambda if the USERNAME
---     is not found in the user pool.
---
--- -   @ADMIN_USER_PASSWORD_AUTH@: Admin-based user password
---     authentication. This replaces the @ADMIN_NO_SRP_AUTH@ authentication
---     flow. In this flow, Cognito receives the password in the request
---     instead of using the SRP process to verify passwords.
---
--- @ADMIN_NO_SRP_AUTH@ is not a valid value.
---
--- 'clientId', 'initiateAuth_clientId' - The app client ID.
-newInitiateAuth ::
-  -- | 'authFlow'
-  AuthFlowType ->
-  -- | 'clientId'
-  Prelude.Text ->
-  InitiateAuth
-newInitiateAuth pAuthFlow_ pClientId_ =
-  InitiateAuth'
-    { clientMetadata = Prelude.Nothing,
-      analyticsMetadata = Prelude.Nothing,
-      userContextData = Prelude.Nothing,
-      authParameters = Prelude.Nothing,
-      authFlow = pAuthFlow_,
-      clientId = Core._Sensitive Lens.# pClientId_
-    }
+initiateAuth_authParameters :: Lens.Lens' InitiateAuth (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+initiateAuth_authParameters = Lens.lens (\InitiateAuth' {authParameters} -> authParameters) (\s@InitiateAuth' {} a -> s {authParameters = a} :: InitiateAuth) Prelude.. Lens.mapping (Data._Sensitive Prelude.. Lens.coerced)
 
 -- | A map of custom key-value pairs that you can provide as input for
 -- certain custom workflows that this action triggers.
@@ -361,7 +378,7 @@ newInitiateAuth pAuthFlow_ pClientId_ =
 -- value to enhance your workflow for your specific needs.
 --
 -- When you use the InitiateAuth API action, Amazon Cognito also invokes
--- the functions for the following triggers, but it does not provide the
+-- the functions for the following triggers, but it doesn\'t provide the
 -- ClientMetadata value as input:
 --
 -- -   Post authentication
@@ -377,66 +394,42 @@ newInitiateAuth pAuthFlow_ pClientId_ =
 -- -   Verify auth challenge
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers>
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing user pool Workflows with Lambda Triggers>
 -- in the /Amazon Cognito Developer Guide/.
 --
--- Take the following limitations into consideration when you use the
--- ClientMetadata parameter:
+-- When you use the ClientMetadata parameter, remember that Amazon Cognito
+-- won\'t do the following:
 --
--- -   Amazon Cognito does not store the ClientMetadata value. This data is
---     available only to Lambda triggers that are assigned to a user pool
---     to support custom workflows. If your user pool configuration does
---     not include triggers, the ClientMetadata parameter serves no
---     purpose.
+-- -   Store the ClientMetadata value. This data is available only to
+--     Lambda triggers that are assigned to a user pool to support custom
+--     workflows. If your user pool configuration doesn\'t include
+--     triggers, the ClientMetadata parameter serves no purpose.
 --
--- -   Amazon Cognito does not validate the ClientMetadata value.
+-- -   Validate the ClientMetadata value.
 --
--- -   Amazon Cognito does not encrypt the the ClientMetadata value, so
---     don\'t use it to provide sensitive information.
+-- -   Encrypt the ClientMetadata value. Don\'t use Amazon Cognito to
+--     provide sensitive information.
 initiateAuth_clientMetadata :: Lens.Lens' InitiateAuth (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 initiateAuth_clientMetadata = Lens.lens (\InitiateAuth' {clientMetadata} -> clientMetadata) (\s@InitiateAuth' {} a -> s {clientMetadata = a} :: InitiateAuth) Prelude.. Lens.mapping Lens.coerced
 
--- | The Amazon Pinpoint analytics metadata for collecting metrics for
--- @InitiateAuth@ calls.
-initiateAuth_analyticsMetadata :: Lens.Lens' InitiateAuth (Prelude.Maybe AnalyticsMetadataType)
-initiateAuth_analyticsMetadata = Lens.lens (\InitiateAuth' {analyticsMetadata} -> analyticsMetadata) (\s@InitiateAuth' {} a -> s {analyticsMetadata = a} :: InitiateAuth)
-
--- | Contextual data such as the user\'s device fingerprint, IP address, or
--- location used for evaluating the risk of an unexpected event by Amazon
--- Cognito advanced security.
+-- | Contextual data about your user session, such as the device fingerprint,
+-- IP address, or location. Amazon Cognito advanced security evaluates the
+-- risk of an authentication event based on the context that your app
+-- generates and passes to Amazon Cognito when it makes API requests.
 initiateAuth_userContextData :: Lens.Lens' InitiateAuth (Prelude.Maybe UserContextDataType)
 initiateAuth_userContextData = Lens.lens (\InitiateAuth' {userContextData} -> userContextData) (\s@InitiateAuth' {} a -> s {userContextData = a} :: InitiateAuth)
 
--- | The authentication parameters. These are inputs corresponding to the
--- @AuthFlow@ that you are invoking. The required values depend on the
--- value of @AuthFlow@:
+-- | The authentication flow for this call to run. The API action will depend
+-- on this value. For example:
 --
--- -   For @USER_SRP_AUTH@: @USERNAME@ (required), @SRP_A@ (required),
---     @SECRET_HASH@ (required if the app client is configured with a
---     client secret), @DEVICE_KEY@.
+-- -   @REFRESH_TOKEN_AUTH@ takes in a valid refresh token and returns new
+--     tokens.
 --
--- -   For @REFRESH_TOKEN_AUTH\/REFRESH_TOKEN@: @REFRESH_TOKEN@ (required),
---     @SECRET_HASH@ (required if the app client is configured with a
---     client secret), @DEVICE_KEY@.
+-- -   @USER_SRP_AUTH@ takes in @USERNAME@ and @SRP_A@ and returns the SRP
+--     variables to be used for next challenge execution.
 --
--- -   For @CUSTOM_AUTH@: @USERNAME@ (required), @SECRET_HASH@ (if app
---     client is configured with client secret), @DEVICE_KEY@. To start the
---     authentication flow with password verification, include
---     @ChallengeName: SRP_A@ and @SRP_A: (The SRP_A Value)@.
-initiateAuth_authParameters :: Lens.Lens' InitiateAuth (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
-initiateAuth_authParameters = Lens.lens (\InitiateAuth' {authParameters} -> authParameters) (\s@InitiateAuth' {} a -> s {authParameters = a} :: InitiateAuth) Prelude.. Lens.mapping (Core._Sensitive Prelude.. Lens.coerced)
-
--- | The authentication flow for this call to execute. The API action will
--- depend on this value. For example:
---
--- -   @REFRESH_TOKEN_AUTH@ will take in a valid refresh token and return
---     new tokens.
---
--- -   @USER_SRP_AUTH@ will take in @USERNAME@ and @SRP_A@ and return the
---     SRP variables to be used for next challenge execution.
---
--- -   @USER_PASSWORD_AUTH@ will take in @USERNAME@ and @PASSWORD@ and
---     return the next challenge or tokens.
+-- -   @USER_PASSWORD_AUTH@ takes in @USERNAME@ and @PASSWORD@ and returns
+--     the next challenge or tokens.
 --
 -- Valid values include:
 --
@@ -449,106 +442,109 @@ initiateAuth_authParameters = Lens.lens (\InitiateAuth' {authParameters} -> auth
 --
 -- -   @CUSTOM_AUTH@: Custom authentication flow.
 --
--- -   @USER_PASSWORD_AUTH@: Non-SRP authentication flow; USERNAME and
---     PASSWORD are passed directly. If a user migration Lambda trigger is
---     set, this flow will invoke the user migration Lambda if the USERNAME
---     is not found in the user pool.
+-- -   @USER_PASSWORD_AUTH@: Non-SRP authentication flow; user name and
+--     password are passed directly. If a user migration Lambda trigger is
+--     set, this flow will invoke the user migration Lambda if it doesn\'t
+--     find the user name in the user pool.
 --
--- -   @ADMIN_USER_PASSWORD_AUTH@: Admin-based user password
---     authentication. This replaces the @ADMIN_NO_SRP_AUTH@ authentication
---     flow. In this flow, Cognito receives the password in the request
---     instead of using the SRP process to verify passwords.
---
--- @ADMIN_NO_SRP_AUTH@ is not a valid value.
+-- @ADMIN_NO_SRP_AUTH@ isn\'t a valid value.
 initiateAuth_authFlow :: Lens.Lens' InitiateAuth AuthFlowType
 initiateAuth_authFlow = Lens.lens (\InitiateAuth' {authFlow} -> authFlow) (\s@InitiateAuth' {} a -> s {authFlow = a} :: InitiateAuth)
 
 -- | The app client ID.
 initiateAuth_clientId :: Lens.Lens' InitiateAuth Prelude.Text
-initiateAuth_clientId = Lens.lens (\InitiateAuth' {clientId} -> clientId) (\s@InitiateAuth' {} a -> s {clientId = a} :: InitiateAuth) Prelude.. Core._Sensitive
+initiateAuth_clientId = Lens.lens (\InitiateAuth' {clientId} -> clientId) (\s@InitiateAuth' {} a -> s {clientId = a} :: InitiateAuth) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest InitiateAuth where
   type AWSResponse InitiateAuth = InitiateAuthResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           InitiateAuthResponse'
-            Prelude.<$> (x Core..?> "ChallengeName")
-            Prelude.<*> ( x Core..?> "ChallengeParameters"
+            Prelude.<$> (x Data..?> "AuthenticationResult")
+            Prelude.<*> (x Data..?> "ChallengeName")
+            Prelude.<*> ( x Data..?> "ChallengeParameters"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "AuthenticationResult")
-            Prelude.<*> (x Core..?> "Session")
+            Prelude.<*> (x Data..?> "Session")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable InitiateAuth where
   hashWithSalt _salt InitiateAuth' {..} =
-    _salt `Prelude.hashWithSalt` clientMetadata
-      `Prelude.hashWithSalt` analyticsMetadata
-      `Prelude.hashWithSalt` userContextData
+    _salt `Prelude.hashWithSalt` analyticsMetadata
       `Prelude.hashWithSalt` authParameters
+      `Prelude.hashWithSalt` clientMetadata
+      `Prelude.hashWithSalt` userContextData
       `Prelude.hashWithSalt` authFlow
       `Prelude.hashWithSalt` clientId
 
 instance Prelude.NFData InitiateAuth where
   rnf InitiateAuth' {..} =
-    Prelude.rnf clientMetadata
-      `Prelude.seq` Prelude.rnf analyticsMetadata
-      `Prelude.seq` Prelude.rnf userContextData
+    Prelude.rnf analyticsMetadata
       `Prelude.seq` Prelude.rnf authParameters
+      `Prelude.seq` Prelude.rnf clientMetadata
+      `Prelude.seq` Prelude.rnf userContextData
       `Prelude.seq` Prelude.rnf authFlow
       `Prelude.seq` Prelude.rnf clientId
 
-instance Core.ToHeaders InitiateAuth where
+instance Data.ToHeaders InitiateAuth where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.InitiateAuth" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.InitiateAuth" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON InitiateAuth where
+instance Data.ToJSON InitiateAuth where
   toJSON InitiateAuth' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ClientMetadata" Core..=)
-              Prelude.<$> clientMetadata,
-            ("AnalyticsMetadata" Core..=)
+          [ ("AnalyticsMetadata" Data..=)
               Prelude.<$> analyticsMetadata,
-            ("UserContextData" Core..=)
-              Prelude.<$> userContextData,
-            ("AuthParameters" Core..=)
+            ("AuthParameters" Data..=)
               Prelude.<$> authParameters,
-            Prelude.Just ("AuthFlow" Core..= authFlow),
-            Prelude.Just ("ClientId" Core..= clientId)
+            ("ClientMetadata" Data..=)
+              Prelude.<$> clientMetadata,
+            ("UserContextData" Data..=)
+              Prelude.<$> userContextData,
+            Prelude.Just ("AuthFlow" Data..= authFlow),
+            Prelude.Just ("ClientId" Data..= clientId)
           ]
       )
 
-instance Core.ToPath InitiateAuth where
+instance Data.ToPath InitiateAuth where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery InitiateAuth where
+instance Data.ToQuery InitiateAuth where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Initiates the authentication response.
 --
 -- /See:/ 'newInitiateAuthResponse' smart constructor.
 data InitiateAuthResponse = InitiateAuthResponse'
-  { -- | The name of the challenge which you are responding to with this call.
-    -- This is returned to you in the @AdminInitiateAuth@ response if you need
-    -- to pass another challenge.
+  { -- | The result of the authentication response. This result is only returned
+    -- if the caller doesn\'t need to pass another challenge. If the caller
+    -- does need to pass another challenge before it gets tokens,
+    -- @ChallengeName@, @ChallengeParameters@, and @Session@ are returned.
+    authenticationResult :: Prelude.Maybe AuthenticationResultType,
+    -- | The name of the challenge that you\'re responding to with this call.
+    -- This name is returned in the @AdminInitiateAuth@ response if you must
+    -- pass another challenge.
     --
-    -- Valid values include the following. Note that all of these challenges
-    -- require @USERNAME@ and @SECRET_HASH@ (if applicable) in the parameters.
+    -- Valid values include the following:
+    --
+    -- All of the following challenges require @USERNAME@ and @SECRET_HASH@ (if
+    -- applicable) in the parameters.
     --
     -- -   @SMS_MFA@: Next challenge is to supply an @SMS_MFA_CODE@, delivered
     --     via SMS.
@@ -561,45 +557,53 @@ data InitiateAuthResponse = InitiateAuthResponse'
     --     flow determines that the user should pass another challenge before
     --     tokens are issued.
     --
-    -- -   @DEVICE_SRP_AUTH@: If device tracking was enabled on your user pool
-    --     and the previous challenges were passed, this challenge is returned
-    --     so that Amazon Cognito can start tracking this device.
+    -- -   @DEVICE_SRP_AUTH@: If device tracking was activated on your user
+    --     pool and the previous challenges were passed, this challenge is
+    --     returned so that Amazon Cognito can start tracking this device.
     --
     -- -   @DEVICE_PASSWORD_VERIFIER@: Similar to @PASSWORD_VERIFIER@, but for
     --     devices only.
     --
     -- -   @NEW_PASSWORD_REQUIRED@: For users who are required to change their
-    --     passwords after successful first login. This challenge should be
-    --     passed with @NEW_PASSWORD@ and any other required attributes.
+    --     passwords after successful first login.
+    --
+    --     Respond to this challenge with @NEW_PASSWORD@ and any required
+    --     attributes that Amazon Cognito returned in the @requiredAttributes@
+    --     parameter. You can also set values for attributes that aren\'t
+    --     required by your user pool and that your app client can write. For
+    --     more information, see
+    --     <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_RespondToAuthChallenge.html RespondToAuthChallenge>.
+    --
+    --     In a @NEW_PASSWORD_REQUIRED@ challenge response, you can\'t modify a
+    --     required attribute that already has a value. In
+    --     @RespondToAuthChallenge@, set a value for any keys that Amazon
+    --     Cognito returned in the @requiredAttributes@ parameter, then use the
+    --     @UpdateUserAttributes@ API operation to modify the value of any
+    --     additional attributes.
     --
     -- -   @MFA_SETUP@: For users who are required to setup an MFA factor
-    --     before they can sign-in. The MFA types enabled for the user pool
+    --     before they can sign in. The MFA types activated for the user pool
     --     will be listed in the challenge parameters @MFA_CAN_SETUP@ value.
     --
-    --     To setup software token MFA, use the session returned here from
-    --     @InitiateAuth@ as an input to @AssociateSoftwareToken@, and use the
+    --     To set up software token MFA, use the session returned here from
+    --     @InitiateAuth@ as an input to @AssociateSoftwareToken@. Use the
     --     session returned by @VerifySoftwareToken@ as an input to
     --     @RespondToAuthChallenge@ with challenge name @MFA_SETUP@ to complete
-    --     sign-in. To setup SMS MFA, users will need help from an
-    --     administrator to add a phone number to their account and then call
+    --     sign-in. To set up SMS MFA, an administrator should help the user to
+    --     add a phone number to their account, and then the user should call
     --     @InitiateAuth@ again to restart sign-in.
     challengeName :: Prelude.Maybe ChallengeNameType,
-    -- | The challenge parameters. These are returned to you in the
-    -- @InitiateAuth@ response if you need to pass another challenge. The
-    -- responses in this parameter should be used to compute inputs to the next
-    -- call (@RespondToAuthChallenge@).
+    -- | The challenge parameters. These are returned in the @InitiateAuth@
+    -- response if you must pass another challenge. The responses in this
+    -- parameter should be used to compute inputs to the next call
+    -- (@RespondToAuthChallenge@).
     --
     -- All challenges require @USERNAME@ and @SECRET_HASH@ (if applicable).
     challengeParameters :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | The result of the authentication response. This is only returned if the
-    -- caller does not need to pass another challenge. If the caller does need
-    -- to pass another challenge before it gets tokens, @ChallengeName@,
-    -- @ChallengeParameters@, and @Session@ are returned.
-    authenticationResult :: Prelude.Maybe AuthenticationResultType,
-    -- | The session which should be passed both ways in challenge-response calls
-    -- to the service. If the caller needs to go through another challenge,
-    -- they return a session with other challenge parameters. This session
-    -- should be passed as it is to the next @RespondToAuthChallenge@ API call.
+    -- | The session that should pass both ways in challenge-response calls to
+    -- the service. If the caller must pass another challenge, they return a
+    -- session with other challenge parameters. This session should be passed
+    -- as it is to the next @RespondToAuthChallenge@ API call.
     session :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -614,12 +618,19 @@ data InitiateAuthResponse = InitiateAuthResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'challengeName', 'initiateAuthResponse_challengeName' - The name of the challenge which you are responding to with this call.
--- This is returned to you in the @AdminInitiateAuth@ response if you need
--- to pass another challenge.
+-- 'authenticationResult', 'initiateAuthResponse_authenticationResult' - The result of the authentication response. This result is only returned
+-- if the caller doesn\'t need to pass another challenge. If the caller
+-- does need to pass another challenge before it gets tokens,
+-- @ChallengeName@, @ChallengeParameters@, and @Session@ are returned.
 --
--- Valid values include the following. Note that all of these challenges
--- require @USERNAME@ and @SECRET_HASH@ (if applicable) in the parameters.
+-- 'challengeName', 'initiateAuthResponse_challengeName' - The name of the challenge that you\'re responding to with this call.
+-- This name is returned in the @AdminInitiateAuth@ response if you must
+-- pass another challenge.
+--
+-- Valid values include the following:
+--
+-- All of the following challenges require @USERNAME@ and @SECRET_HASH@ (if
+-- applicable) in the parameters.
 --
 -- -   @SMS_MFA@: Next challenge is to supply an @SMS_MFA_CODE@, delivered
 --     via SMS.
@@ -632,45 +643,53 @@ data InitiateAuthResponse = InitiateAuthResponse'
 --     flow determines that the user should pass another challenge before
 --     tokens are issued.
 --
--- -   @DEVICE_SRP_AUTH@: If device tracking was enabled on your user pool
---     and the previous challenges were passed, this challenge is returned
---     so that Amazon Cognito can start tracking this device.
+-- -   @DEVICE_SRP_AUTH@: If device tracking was activated on your user
+--     pool and the previous challenges were passed, this challenge is
+--     returned so that Amazon Cognito can start tracking this device.
 --
 -- -   @DEVICE_PASSWORD_VERIFIER@: Similar to @PASSWORD_VERIFIER@, but for
 --     devices only.
 --
 -- -   @NEW_PASSWORD_REQUIRED@: For users who are required to change their
---     passwords after successful first login. This challenge should be
---     passed with @NEW_PASSWORD@ and any other required attributes.
+--     passwords after successful first login.
+--
+--     Respond to this challenge with @NEW_PASSWORD@ and any required
+--     attributes that Amazon Cognito returned in the @requiredAttributes@
+--     parameter. You can also set values for attributes that aren\'t
+--     required by your user pool and that your app client can write. For
+--     more information, see
+--     <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_RespondToAuthChallenge.html RespondToAuthChallenge>.
+--
+--     In a @NEW_PASSWORD_REQUIRED@ challenge response, you can\'t modify a
+--     required attribute that already has a value. In
+--     @RespondToAuthChallenge@, set a value for any keys that Amazon
+--     Cognito returned in the @requiredAttributes@ parameter, then use the
+--     @UpdateUserAttributes@ API operation to modify the value of any
+--     additional attributes.
 --
 -- -   @MFA_SETUP@: For users who are required to setup an MFA factor
---     before they can sign-in. The MFA types enabled for the user pool
+--     before they can sign in. The MFA types activated for the user pool
 --     will be listed in the challenge parameters @MFA_CAN_SETUP@ value.
 --
---     To setup software token MFA, use the session returned here from
---     @InitiateAuth@ as an input to @AssociateSoftwareToken@, and use the
+--     To set up software token MFA, use the session returned here from
+--     @InitiateAuth@ as an input to @AssociateSoftwareToken@. Use the
 --     session returned by @VerifySoftwareToken@ as an input to
 --     @RespondToAuthChallenge@ with challenge name @MFA_SETUP@ to complete
---     sign-in. To setup SMS MFA, users will need help from an
---     administrator to add a phone number to their account and then call
+--     sign-in. To set up SMS MFA, an administrator should help the user to
+--     add a phone number to their account, and then the user should call
 --     @InitiateAuth@ again to restart sign-in.
 --
--- 'challengeParameters', 'initiateAuthResponse_challengeParameters' - The challenge parameters. These are returned to you in the
--- @InitiateAuth@ response if you need to pass another challenge. The
--- responses in this parameter should be used to compute inputs to the next
--- call (@RespondToAuthChallenge@).
+-- 'challengeParameters', 'initiateAuthResponse_challengeParameters' - The challenge parameters. These are returned in the @InitiateAuth@
+-- response if you must pass another challenge. The responses in this
+-- parameter should be used to compute inputs to the next call
+-- (@RespondToAuthChallenge@).
 --
 -- All challenges require @USERNAME@ and @SECRET_HASH@ (if applicable).
 --
--- 'authenticationResult', 'initiateAuthResponse_authenticationResult' - The result of the authentication response. This is only returned if the
--- caller does not need to pass another challenge. If the caller does need
--- to pass another challenge before it gets tokens, @ChallengeName@,
--- @ChallengeParameters@, and @Session@ are returned.
---
--- 'session', 'initiateAuthResponse_session' - The session which should be passed both ways in challenge-response calls
--- to the service. If the caller needs to go through another challenge,
--- they return a session with other challenge parameters. This session
--- should be passed as it is to the next @RespondToAuthChallenge@ API call.
+-- 'session', 'initiateAuthResponse_session' - The session that should pass both ways in challenge-response calls to
+-- the service. If the caller must pass another challenge, they return a
+-- session with other challenge parameters. This session should be passed
+-- as it is to the next @RespondToAuthChallenge@ API call.
 --
 -- 'httpStatus', 'initiateAuthResponse_httpStatus' - The response's http status code.
 newInitiateAuthResponse ::
@@ -679,20 +698,29 @@ newInitiateAuthResponse ::
   InitiateAuthResponse
 newInitiateAuthResponse pHttpStatus_ =
   InitiateAuthResponse'
-    { challengeName =
+    { authenticationResult =
         Prelude.Nothing,
+      challengeName = Prelude.Nothing,
       challengeParameters = Prelude.Nothing,
-      authenticationResult = Prelude.Nothing,
       session = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The name of the challenge which you are responding to with this call.
--- This is returned to you in the @AdminInitiateAuth@ response if you need
--- to pass another challenge.
+-- | The result of the authentication response. This result is only returned
+-- if the caller doesn\'t need to pass another challenge. If the caller
+-- does need to pass another challenge before it gets tokens,
+-- @ChallengeName@, @ChallengeParameters@, and @Session@ are returned.
+initiateAuthResponse_authenticationResult :: Lens.Lens' InitiateAuthResponse (Prelude.Maybe AuthenticationResultType)
+initiateAuthResponse_authenticationResult = Lens.lens (\InitiateAuthResponse' {authenticationResult} -> authenticationResult) (\s@InitiateAuthResponse' {} a -> s {authenticationResult = a} :: InitiateAuthResponse)
+
+-- | The name of the challenge that you\'re responding to with this call.
+-- This name is returned in the @AdminInitiateAuth@ response if you must
+-- pass another challenge.
 --
--- Valid values include the following. Note that all of these challenges
--- require @USERNAME@ and @SECRET_HASH@ (if applicable) in the parameters.
+-- Valid values include the following:
+--
+-- All of the following challenges require @USERNAME@ and @SECRET_HASH@ (if
+-- applicable) in the parameters.
 --
 -- -   @SMS_MFA@: Next challenge is to supply an @SMS_MFA_CODE@, delivered
 --     via SMS.
@@ -705,51 +733,57 @@ newInitiateAuthResponse pHttpStatus_ =
 --     flow determines that the user should pass another challenge before
 --     tokens are issued.
 --
--- -   @DEVICE_SRP_AUTH@: If device tracking was enabled on your user pool
---     and the previous challenges were passed, this challenge is returned
---     so that Amazon Cognito can start tracking this device.
+-- -   @DEVICE_SRP_AUTH@: If device tracking was activated on your user
+--     pool and the previous challenges were passed, this challenge is
+--     returned so that Amazon Cognito can start tracking this device.
 --
 -- -   @DEVICE_PASSWORD_VERIFIER@: Similar to @PASSWORD_VERIFIER@, but for
 --     devices only.
 --
 -- -   @NEW_PASSWORD_REQUIRED@: For users who are required to change their
---     passwords after successful first login. This challenge should be
---     passed with @NEW_PASSWORD@ and any other required attributes.
+--     passwords after successful first login.
+--
+--     Respond to this challenge with @NEW_PASSWORD@ and any required
+--     attributes that Amazon Cognito returned in the @requiredAttributes@
+--     parameter. You can also set values for attributes that aren\'t
+--     required by your user pool and that your app client can write. For
+--     more information, see
+--     <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_RespondToAuthChallenge.html RespondToAuthChallenge>.
+--
+--     In a @NEW_PASSWORD_REQUIRED@ challenge response, you can\'t modify a
+--     required attribute that already has a value. In
+--     @RespondToAuthChallenge@, set a value for any keys that Amazon
+--     Cognito returned in the @requiredAttributes@ parameter, then use the
+--     @UpdateUserAttributes@ API operation to modify the value of any
+--     additional attributes.
 --
 -- -   @MFA_SETUP@: For users who are required to setup an MFA factor
---     before they can sign-in. The MFA types enabled for the user pool
+--     before they can sign in. The MFA types activated for the user pool
 --     will be listed in the challenge parameters @MFA_CAN_SETUP@ value.
 --
---     To setup software token MFA, use the session returned here from
---     @InitiateAuth@ as an input to @AssociateSoftwareToken@, and use the
+--     To set up software token MFA, use the session returned here from
+--     @InitiateAuth@ as an input to @AssociateSoftwareToken@. Use the
 --     session returned by @VerifySoftwareToken@ as an input to
 --     @RespondToAuthChallenge@ with challenge name @MFA_SETUP@ to complete
---     sign-in. To setup SMS MFA, users will need help from an
---     administrator to add a phone number to their account and then call
+--     sign-in. To set up SMS MFA, an administrator should help the user to
+--     add a phone number to their account, and then the user should call
 --     @InitiateAuth@ again to restart sign-in.
 initiateAuthResponse_challengeName :: Lens.Lens' InitiateAuthResponse (Prelude.Maybe ChallengeNameType)
 initiateAuthResponse_challengeName = Lens.lens (\InitiateAuthResponse' {challengeName} -> challengeName) (\s@InitiateAuthResponse' {} a -> s {challengeName = a} :: InitiateAuthResponse)
 
--- | The challenge parameters. These are returned to you in the
--- @InitiateAuth@ response if you need to pass another challenge. The
--- responses in this parameter should be used to compute inputs to the next
--- call (@RespondToAuthChallenge@).
+-- | The challenge parameters. These are returned in the @InitiateAuth@
+-- response if you must pass another challenge. The responses in this
+-- parameter should be used to compute inputs to the next call
+-- (@RespondToAuthChallenge@).
 --
 -- All challenges require @USERNAME@ and @SECRET_HASH@ (if applicable).
 initiateAuthResponse_challengeParameters :: Lens.Lens' InitiateAuthResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 initiateAuthResponse_challengeParameters = Lens.lens (\InitiateAuthResponse' {challengeParameters} -> challengeParameters) (\s@InitiateAuthResponse' {} a -> s {challengeParameters = a} :: InitiateAuthResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | The result of the authentication response. This is only returned if the
--- caller does not need to pass another challenge. If the caller does need
--- to pass another challenge before it gets tokens, @ChallengeName@,
--- @ChallengeParameters@, and @Session@ are returned.
-initiateAuthResponse_authenticationResult :: Lens.Lens' InitiateAuthResponse (Prelude.Maybe AuthenticationResultType)
-initiateAuthResponse_authenticationResult = Lens.lens (\InitiateAuthResponse' {authenticationResult} -> authenticationResult) (\s@InitiateAuthResponse' {} a -> s {authenticationResult = a} :: InitiateAuthResponse)
-
--- | The session which should be passed both ways in challenge-response calls
--- to the service. If the caller needs to go through another challenge,
--- they return a session with other challenge parameters. This session
--- should be passed as it is to the next @RespondToAuthChallenge@ API call.
+-- | The session that should pass both ways in challenge-response calls to
+-- the service. If the caller must pass another challenge, they return a
+-- session with other challenge parameters. This session should be passed
+-- as it is to the next @RespondToAuthChallenge@ API call.
 initiateAuthResponse_session :: Lens.Lens' InitiateAuthResponse (Prelude.Maybe Prelude.Text)
 initiateAuthResponse_session = Lens.lens (\InitiateAuthResponse' {session} -> session) (\s@InitiateAuthResponse' {} a -> s {session = a} :: InitiateAuthResponse)
 
@@ -759,8 +793,8 @@ initiateAuthResponse_httpStatus = Lens.lens (\InitiateAuthResponse' {httpStatus}
 
 instance Prelude.NFData InitiateAuthResponse where
   rnf InitiateAuthResponse' {..} =
-    Prelude.rnf challengeName
+    Prelude.rnf authenticationResult
+      `Prelude.seq` Prelude.rnf challengeName
       `Prelude.seq` Prelude.rnf challengeParameters
-      `Prelude.seq` Prelude.rnf authenticationResult
       `Prelude.seq` Prelude.rnf session
       `Prelude.seq` Prelude.rnf httpStatus

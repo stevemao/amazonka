@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DocumentDB.DescribeDBClusters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,8 +51,9 @@ module Amazonka.DocumentDB.DescribeDBClusters
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DocumentDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -203,16 +204,17 @@ instance Core.AWSRequest DescribeDBClusters where
   type
     AWSResponse DescribeDBClusters =
       DescribeDBClustersResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeDBClustersResult"
       ( \s h x ->
           DescribeDBClustersResponse'
-            Prelude.<$> ( x Core..@? "DBClusters" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "DBCluster")
+            Prelude.<$> ( x Data..@? "DBClusters" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "DBCluster")
                         )
-            Prelude.<*> (x Core..@? "Marker")
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -230,25 +232,25 @@ instance Prelude.NFData DescribeDBClusters where
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
 
-instance Core.ToHeaders DescribeDBClusters where
+instance Data.ToHeaders DescribeDBClusters where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeDBClusters where
+instance Data.ToPath DescribeDBClusters where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeDBClusters where
+instance Data.ToQuery DescribeDBClusters where
   toQuery DescribeDBClusters' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeDBClusters" :: Prelude.ByteString),
+          Data.=: ("DescribeDBClusters" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "DBClusterIdentifier" Core.=: dbClusterIdentifier,
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBClusterIdentifier" Data.=: dbClusterIdentifier,
         "Filters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Filter" Prelude.<$> filters),
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords
+          Data.=: Data.toQuery
+            (Data.toQueryList "Filter" Prelude.<$> filters),
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords
       ]
 
 -- | Represents the output of DescribeDBClusters.

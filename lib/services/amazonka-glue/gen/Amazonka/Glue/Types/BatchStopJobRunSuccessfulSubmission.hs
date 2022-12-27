@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.BatchStopJobRunSuccessfulSubmission
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Glue.Types.BatchStopJobRunSuccessfulSubmission where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Records a successful request to stop a specified @JobRun@.
@@ -63,16 +64,16 @@ batchStopJobRunSuccessfulSubmission_jobRunId :: Lens.Lens' BatchStopJobRunSucces
 batchStopJobRunSuccessfulSubmission_jobRunId = Lens.lens (\BatchStopJobRunSuccessfulSubmission' {jobRunId} -> jobRunId) (\s@BatchStopJobRunSuccessfulSubmission' {} a -> s {jobRunId = a} :: BatchStopJobRunSuccessfulSubmission)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     BatchStopJobRunSuccessfulSubmission
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchStopJobRunSuccessfulSubmission"
       ( \x ->
           BatchStopJobRunSuccessfulSubmission'
-            Prelude.<$> (x Core..:? "JobName")
-            Prelude.<*> (x Core..:? "JobRunId")
+            Prelude.<$> (x Data..:? "JobName")
+            Prelude.<*> (x Data..:? "JobRunId")
       )
 
 instance

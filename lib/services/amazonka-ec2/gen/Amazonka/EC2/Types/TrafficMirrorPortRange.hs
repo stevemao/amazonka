@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.TrafficMirrorPortRange
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.TrafficMirrorPortRange where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the Traffic Mirror port range.
@@ -68,11 +69,11 @@ trafficMirrorPortRange_fromPort = Lens.lens (\TrafficMirrorPortRange' {fromPort}
 trafficMirrorPortRange_toPort :: Lens.Lens' TrafficMirrorPortRange (Prelude.Maybe Prelude.Int)
 trafficMirrorPortRange_toPort = Lens.lens (\TrafficMirrorPortRange' {toPort} -> toPort) (\s@TrafficMirrorPortRange' {} a -> s {toPort = a} :: TrafficMirrorPortRange)
 
-instance Core.FromXML TrafficMirrorPortRange where
+instance Data.FromXML TrafficMirrorPortRange where
   parseXML x =
     TrafficMirrorPortRange'
-      Prelude.<$> (x Core..@? "fromPort")
-      Prelude.<*> (x Core..@? "toPort")
+      Prelude.<$> (x Data..@? "fromPort")
+      Prelude.<*> (x Data..@? "toPort")
 
 instance Prelude.Hashable TrafficMirrorPortRange where
   hashWithSalt _salt TrafficMirrorPortRange' {..} =

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IVS.BatchGetChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.IVS.BatchGetChannel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IVS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,13 +79,14 @@ instance Core.AWSRequest BatchGetChannel where
   type
     AWSResponse BatchGetChannel =
       BatchGetChannelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchGetChannelResponse'
-            Prelude.<$> (x Core..?> "channels" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "errors" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "channels" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "errors" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -95,28 +97,28 @@ instance Prelude.Hashable BatchGetChannel where
 instance Prelude.NFData BatchGetChannel where
   rnf BatchGetChannel' {..} = Prelude.rnf arns
 
-instance Core.ToHeaders BatchGetChannel where
+instance Data.ToHeaders BatchGetChannel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchGetChannel where
+instance Data.ToJSON BatchGetChannel where
   toJSON BatchGetChannel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("arns" Core..= arns)]
+          [Prelude.Just ("arns" Data..= arns)]
       )
 
-instance Core.ToPath BatchGetChannel where
+instance Data.ToPath BatchGetChannel where
   toPath = Prelude.const "/BatchGetChannel"
 
-instance Core.ToQuery BatchGetChannel where
+instance Data.ToQuery BatchGetChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchGetChannelResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.Types.ReportFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CodeBuild.Types.ReportFilter where
 
 import Amazonka.CodeBuild.Types.ReportStatusType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A filter used to return reports with the status specified by the input
@@ -59,9 +60,9 @@ instance Prelude.Hashable ReportFilter where
 instance Prelude.NFData ReportFilter where
   rnf ReportFilter' {..} = Prelude.rnf status
 
-instance Core.ToJSON ReportFilter where
+instance Data.ToJSON ReportFilter where
   toJSON ReportFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("status" Core..=) Prelude.<$> status]
+          [("status" Data..=) Prelude.<$> status]
       )

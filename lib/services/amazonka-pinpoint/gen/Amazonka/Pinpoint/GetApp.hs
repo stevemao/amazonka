@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.GetApp
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.Pinpoint.GetApp
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -78,13 +79,14 @@ getApp_applicationId = Lens.lens (\GetApp' {applicationId} -> applicationId) (\s
 
 instance Core.AWSRequest GetApp where
   type AWSResponse GetApp = GetAppResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAppResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable GetApp where
@@ -94,23 +96,23 @@ instance Prelude.Hashable GetApp where
 instance Prelude.NFData GetApp where
   rnf GetApp' {..} = Prelude.rnf applicationId
 
-instance Core.ToHeaders GetApp where
+instance Data.ToHeaders GetApp where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetApp where
+instance Data.ToPath GetApp where
   toPath GetApp' {..} =
     Prelude.mconcat
-      ["/v1/apps/", Core.toBS applicationId]
+      ["/v1/apps/", Data.toBS applicationId]
 
-instance Core.ToQuery GetApp where
+instance Data.ToQuery GetApp where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetAppResponse' smart constructor.

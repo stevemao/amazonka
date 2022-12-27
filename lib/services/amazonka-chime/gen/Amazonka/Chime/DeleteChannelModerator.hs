@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.DeleteChannelModerator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -104,7 +105,8 @@ instance Core.AWSRequest DeleteChannelModerator where
   type
     AWSResponse DeleteChannelModerator =
       DeleteChannelModeratorResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteChannelModeratorResponse'
@@ -121,21 +123,21 @@ instance Prelude.NFData DeleteChannelModerator where
       `Prelude.seq` Prelude.rnf channelArn
       `Prelude.seq` Prelude.rnf channelModeratorArn
 
-instance Core.ToHeaders DeleteChannelModerator where
+instance Data.ToHeaders DeleteChannelModerator where
   toHeaders DeleteChannelModerator' {..} =
     Prelude.mconcat
-      ["x-amz-chime-bearer" Core.=# chimeBearer]
+      ["x-amz-chime-bearer" Data.=# chimeBearer]
 
-instance Core.ToPath DeleteChannelModerator where
+instance Data.ToPath DeleteChannelModerator where
   toPath DeleteChannelModerator' {..} =
     Prelude.mconcat
       [ "/channels/",
-        Core.toBS channelArn,
+        Data.toBS channelArn,
         "/moderators/",
-        Core.toBS channelModeratorArn
+        Data.toBS channelModeratorArn
       ]
 
-instance Core.ToQuery DeleteChannelModerator where
+instance Data.ToQuery DeleteChannelModerator where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteChannelModeratorResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutVision.DescribeDataset
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.LookoutVision.DescribeDataset
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LookoutVision.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -103,12 +104,13 @@ instance Core.AWSRequest DescribeDataset where
   type
     AWSResponse DescribeDataset =
       DescribeDatasetResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeDatasetResponse'
-            Prelude.<$> (x Core..?> "DatasetDescription")
+            Prelude.<$> (x Data..?> "DatasetDescription")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -122,27 +124,27 @@ instance Prelude.NFData DescribeDataset where
     Prelude.rnf projectName
       `Prelude.seq` Prelude.rnf datasetType
 
-instance Core.ToHeaders DescribeDataset where
+instance Data.ToHeaders DescribeDataset where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeDataset where
+instance Data.ToPath DescribeDataset where
   toPath DescribeDataset' {..} =
     Prelude.mconcat
       [ "/2020-11-20/projects/",
-        Core.toBS projectName,
+        Data.toBS projectName,
         "/datasets/",
-        Core.toBS datasetType
+        Data.toBS datasetType
       ]
 
-instance Core.ToQuery DescribeDataset where
+instance Data.ToQuery DescribeDataset where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeDatasetResponse' smart constructor.

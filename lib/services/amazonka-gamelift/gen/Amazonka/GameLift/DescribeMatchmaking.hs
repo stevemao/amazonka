@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.DescribeMatchmaking
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,22 +31,14 @@
 -- This operation is not designed to be continually called to track
 -- matchmaking ticket status. This practice can cause you to exceed your
 -- API limit, which results in errors. Instead, as a best practice, set up
--- an Amazon Simple Notification Service (SNS) to receive notifications,
--- and provide the topic ARN in the matchmaking configuration. Continuously
--- poling ticket status with DescribeMatchmaking should only be used for
--- games in development with low matchmaking usage.
+-- an Amazon Simple Notification Service to receive notifications, and
+-- provide the topic ARN in the matchmaking configuration.
 --
 -- __Learn more__
 --
 -- <https://docs.aws.amazon.com/gamelift/latest/flexmatchguide/match-client.html Add FlexMatch to a game client>
 --
 -- <https://docs.aws.amazon.com/gamelift/latest/flexmatchguide/match-notification.html Set Up FlexMatch event notification>
---
--- __Related actions__
---
--- StartMatchmaking | DescribeMatchmaking | StopMatchmaking | AcceptMatch |
--- StartMatchBackfill |
--- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.DescribeMatchmaking
   ( -- * Creating a Request
     DescribeMatchmaking (..),
@@ -66,15 +58,14 @@ module Amazonka.GameLift.DescribeMatchmaking
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newDescribeMatchmaking' smart constructor.
+-- | /See:/ 'newDescribeMatchmaking' smart constructor.
 data DescribeMatchmaking = DescribeMatchmaking'
   { -- | A unique identifier for a matchmaking ticket. You can include up to 10
     -- ID values.
@@ -106,12 +97,13 @@ instance Core.AWSRequest DescribeMatchmaking where
   type
     AWSResponse DescribeMatchmaking =
       DescribeMatchmakingResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeMatchmakingResponse'
-            Prelude.<$> (x Core..?> "TicketList" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "TicketList" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -122,37 +114,35 @@ instance Prelude.Hashable DescribeMatchmaking where
 instance Prelude.NFData DescribeMatchmaking where
   rnf DescribeMatchmaking' {..} = Prelude.rnf ticketIds
 
-instance Core.ToHeaders DescribeMatchmaking where
+instance Data.ToHeaders DescribeMatchmaking where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.DescribeMatchmaking" ::
+              Data.=# ( "GameLift.DescribeMatchmaking" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeMatchmaking where
+instance Data.ToJSON DescribeMatchmaking where
   toJSON DescribeMatchmaking' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("TicketIds" Core..= ticketIds)]
+          [Prelude.Just ("TicketIds" Data..= ticketIds)]
       )
 
-instance Core.ToPath DescribeMatchmaking where
+instance Data.ToPath DescribeMatchmaking where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeMatchmaking where
+instance Data.ToQuery DescribeMatchmaking where
   toQuery = Prelude.const Prelude.mempty
 
--- | Represents the returned data in response to a request operation.
---
--- /See:/ 'newDescribeMatchmakingResponse' smart constructor.
+-- | /See:/ 'newDescribeMatchmakingResponse' smart constructor.
 data DescribeMatchmakingResponse = DescribeMatchmakingResponse'
   { -- | A collection of existing matchmaking ticket objects matching the
     -- request.

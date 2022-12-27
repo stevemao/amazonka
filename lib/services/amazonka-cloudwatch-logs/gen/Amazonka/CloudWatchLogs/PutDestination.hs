@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchLogs.PutDestination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,8 +24,8 @@
 -- destinations for cross-account subscriptions.
 --
 -- A destination encapsulates a physical resource (such as an Amazon
--- Kinesis stream) and enables you to subscribe to a real-time stream of
--- log events for a different account, ingested using
+-- Kinesis stream). With a destination, you can subscribe to a real-time
+-- stream of log events for a different account, ingested using
 -- <https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutLogEvents.html PutLogEvents>.
 --
 -- Through an access policy, a destination controls what is written to it.
@@ -45,6 +45,7 @@ module Amazonka.CloudWatchLogs.PutDestination
     newPutDestination,
 
     -- * Request Lenses
+    putDestination_tags,
     putDestination_destinationName,
     putDestination_targetArn,
     putDestination_roleArn,
@@ -61,14 +62,20 @@ where
 
 import Amazonka.CloudWatchLogs.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newPutDestination' smart constructor.
 data PutDestination = PutDestination'
-  { -- | A name for the destination.
+  { -- | An optional list of key-value pairs to associate with the resource.
+    --
+    -- For more information about tagging, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services resources>
+    tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | A name for the destination.
     destinationName :: Prelude.Text,
     -- | The ARN of an Amazon Kinesis stream to which to deliver matching log
     -- events.
@@ -86,6 +93,11 @@ data PutDestination = PutDestination'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'tags', 'putDestination_tags' - An optional list of key-value pairs to associate with the resource.
+--
+-- For more information about tagging, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services resources>
 --
 -- 'destinationName', 'putDestination_destinationName' - A name for the destination.
 --
@@ -107,11 +119,18 @@ newPutDestination
   pTargetArn_
   pRoleArn_ =
     PutDestination'
-      { destinationName =
-          pDestinationName_,
+      { tags = Prelude.Nothing,
+        destinationName = pDestinationName_,
         targetArn = pTargetArn_,
         roleArn = pRoleArn_
       }
+
+-- | An optional list of key-value pairs to associate with the resource.
+--
+-- For more information about tagging, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services resources>
+putDestination_tags :: Lens.Lens' PutDestination (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+putDestination_tags = Lens.lens (\PutDestination' {tags} -> tags) (\s@PutDestination' {} a -> s {tags = a} :: PutDestination) Prelude.. Lens.mapping Lens.coerced
 
 -- | A name for the destination.
 putDestination_destinationName :: Lens.Lens' PutDestination Prelude.Text
@@ -131,57 +150,61 @@ instance Core.AWSRequest PutDestination where
   type
     AWSResponse PutDestination =
       PutDestinationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutDestinationResponse'
-            Prelude.<$> (x Core..?> "destination")
+            Prelude.<$> (x Data..?> "destination")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable PutDestination where
   hashWithSalt _salt PutDestination' {..} =
-    _salt `Prelude.hashWithSalt` destinationName
+    _salt `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` destinationName
       `Prelude.hashWithSalt` targetArn
       `Prelude.hashWithSalt` roleArn
 
 instance Prelude.NFData PutDestination where
   rnf PutDestination' {..} =
-    Prelude.rnf destinationName
+    Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf destinationName
       `Prelude.seq` Prelude.rnf targetArn
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToHeaders PutDestination where
+instance Data.ToHeaders PutDestination where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Logs_20140328.PutDestination" ::
+              Data.=# ( "Logs_20140328.PutDestination" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutDestination where
+instance Data.ToJSON PutDestination where
   toJSON PutDestination' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just
-              ("destinationName" Core..= destinationName),
-            Prelude.Just ("targetArn" Core..= targetArn),
-            Prelude.Just ("roleArn" Core..= roleArn)
+          [ ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just
+              ("destinationName" Data..= destinationName),
+            Prelude.Just ("targetArn" Data..= targetArn),
+            Prelude.Just ("roleArn" Data..= roleArn)
           ]
       )
 
-instance Core.ToPath PutDestination where
+instance Data.ToPath PutDestination where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutDestination where
+instance Data.ToQuery PutDestination where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutDestinationResponse' smart constructor.

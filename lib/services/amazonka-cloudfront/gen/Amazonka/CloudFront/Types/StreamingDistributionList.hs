@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.StreamingDistributionList
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudFront.Types.StreamingDistributionList where
 
 import Amazonka.CloudFront.Types.StreamingDistributionSummary
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A streaming distribution list.
@@ -29,7 +30,8 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newStreamingDistributionList' smart constructor.
 data StreamingDistributionList = StreamingDistributionList'
   { -- | A complex type that contains one @StreamingDistributionSummary@ element
-    -- for each distribution that was created by the current account.
+    -- for each distribution that was created by the current Amazon Web
+    -- Services account.
     items :: Prelude.Maybe [StreamingDistributionSummary],
     -- | If @IsTruncated@ is @true@, this element is present and contains the
     -- value you can use for the @Marker@ request parameter to continue listing
@@ -45,7 +47,7 @@ data StreamingDistributionList = StreamingDistributionList'
     -- distributions in the list.
     isTruncated :: Prelude.Bool,
     -- | The number of streaming distributions that were created by the current
-    -- account.
+    -- Amazon Web Services account.
     quantity :: Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -59,7 +61,8 @@ data StreamingDistributionList = StreamingDistributionList'
 -- for backwards compatibility:
 --
 -- 'items', 'streamingDistributionList_items' - A complex type that contains one @StreamingDistributionSummary@ element
--- for each distribution that was created by the current account.
+-- for each distribution that was created by the current Amazon Web
+-- Services account.
 --
 -- 'nextMarker', 'streamingDistributionList_nextMarker' - If @IsTruncated@ is @true@, this element is present and contains the
 -- value you can use for the @Marker@ request parameter to continue listing
@@ -75,7 +78,7 @@ data StreamingDistributionList = StreamingDistributionList'
 -- distributions in the list.
 --
 -- 'quantity', 'streamingDistributionList_quantity' - The number of streaming distributions that were created by the current
--- account.
+-- Amazon Web Services account.
 newStreamingDistributionList ::
   -- | 'marker'
   Prelude.Text ->
@@ -101,7 +104,8 @@ newStreamingDistributionList
       }
 
 -- | A complex type that contains one @StreamingDistributionSummary@ element
--- for each distribution that was created by the current account.
+-- for each distribution that was created by the current Amazon Web
+-- Services account.
 streamingDistributionList_items :: Lens.Lens' StreamingDistributionList (Prelude.Maybe [StreamingDistributionSummary])
 streamingDistributionList_items = Lens.lens (\StreamingDistributionList' {items} -> items) (\s@StreamingDistributionList' {} a -> s {items = a} :: StreamingDistributionList) Prelude.. Lens.mapping Lens.coerced
 
@@ -127,22 +131,22 @@ streamingDistributionList_isTruncated :: Lens.Lens' StreamingDistributionList Pr
 streamingDistributionList_isTruncated = Lens.lens (\StreamingDistributionList' {isTruncated} -> isTruncated) (\s@StreamingDistributionList' {} a -> s {isTruncated = a} :: StreamingDistributionList)
 
 -- | The number of streaming distributions that were created by the current
--- account.
+-- Amazon Web Services account.
 streamingDistributionList_quantity :: Lens.Lens' StreamingDistributionList Prelude.Int
 streamingDistributionList_quantity = Lens.lens (\StreamingDistributionList' {quantity} -> quantity) (\s@StreamingDistributionList' {} a -> s {quantity = a} :: StreamingDistributionList)
 
-instance Core.FromXML StreamingDistributionList where
+instance Data.FromXML StreamingDistributionList where
   parseXML x =
     StreamingDistributionList'
-      Prelude.<$> ( x Core..@? "Items" Core..!@ Prelude.mempty
+      Prelude.<$> ( x Data..@? "Items" Core..!@ Prelude.mempty
                       Prelude.>>= Core.may
-                        (Core.parseXMLList "StreamingDistributionSummary")
+                        (Data.parseXMLList "StreamingDistributionSummary")
                   )
-      Prelude.<*> (x Core..@? "NextMarker")
-      Prelude.<*> (x Core..@ "Marker")
-      Prelude.<*> (x Core..@ "MaxItems")
-      Prelude.<*> (x Core..@ "IsTruncated")
-      Prelude.<*> (x Core..@ "Quantity")
+      Prelude.<*> (x Data..@? "NextMarker")
+      Prelude.<*> (x Data..@ "Marker")
+      Prelude.<*> (x Data..@ "MaxItems")
+      Prelude.<*> (x Data..@ "IsTruncated")
+      Prelude.<*> (x Data..@ "Quantity")
 
 instance Prelude.Hashable StreamingDistributionList where
   hashWithSalt _salt StreamingDistributionList' {..} =

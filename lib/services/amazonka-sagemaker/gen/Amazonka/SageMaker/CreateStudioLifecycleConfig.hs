@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.CreateStudioLifecycleConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.SageMaker.CreateStudioLifecycleConfig
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -129,12 +130,13 @@ instance Core.AWSRequest CreateStudioLifecycleConfig where
   type
     AWSResponse CreateStudioLifecycleConfig =
       CreateStudioLifecycleConfigResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateStudioLifecycleConfigResponse'
-            Prelude.<$> (x Core..?> "StudioLifecycleConfigArn")
+            Prelude.<$> (x Data..?> "StudioLifecycleConfigArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -152,45 +154,45 @@ instance Prelude.NFData CreateStudioLifecycleConfig where
       `Prelude.seq` Prelude.rnf studioLifecycleConfigContent
       `Prelude.seq` Prelude.rnf studioLifecycleConfigAppType
 
-instance Core.ToHeaders CreateStudioLifecycleConfig where
+instance Data.ToHeaders CreateStudioLifecycleConfig where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.CreateStudioLifecycleConfig" ::
+              Data.=# ( "SageMaker.CreateStudioLifecycleConfig" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateStudioLifecycleConfig where
+instance Data.ToJSON CreateStudioLifecycleConfig where
   toJSON CreateStudioLifecycleConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Tags" Core..=) Prelude.<$> tags,
+          [ ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
               ( "StudioLifecycleConfigName"
-                  Core..= studioLifecycleConfigName
+                  Data..= studioLifecycleConfigName
               ),
             Prelude.Just
               ( "StudioLifecycleConfigContent"
-                  Core..= studioLifecycleConfigContent
+                  Data..= studioLifecycleConfigContent
               ),
             Prelude.Just
               ( "StudioLifecycleConfigAppType"
-                  Core..= studioLifecycleConfigAppType
+                  Data..= studioLifecycleConfigAppType
               )
           ]
       )
 
-instance Core.ToPath CreateStudioLifecycleConfig where
+instance Data.ToPath CreateStudioLifecycleConfig where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateStudioLifecycleConfig where
+instance Data.ToQuery CreateStudioLifecycleConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateStudioLifecycleConfigResponse' smart constructor.

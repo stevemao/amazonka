@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.AssociationExecutionTargetsFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.AssociationExecutionTargetsFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSM.Types.AssociationExecutionTargetsFilterKey
 
@@ -84,13 +85,13 @@ instance
     Prelude.rnf key `Prelude.seq` Prelude.rnf value
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AssociationExecutionTargetsFilter
   where
   toJSON AssociationExecutionTargetsFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Key" Core..= key),
-            Prelude.Just ("Value" Core..= value)
+          [ Prelude.Just ("Key" Data..= key),
+            Prelude.Just ("Value" Data..= value)
           ]
       )

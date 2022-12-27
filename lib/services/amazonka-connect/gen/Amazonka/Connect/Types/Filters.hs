@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.Types.Filters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,18 +21,21 @@ module Amazonka.Connect.Types.Filters where
 
 import Amazonka.Connect.Types.Channel
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the filter to apply when retrieving metrics.
 --
 -- /See:/ 'newFilters' smart constructor.
 data Filters = Filters'
-  { -- | The queues to use to filter the metrics. You can specify up to 100
-    -- queues per request.
-    queues :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
-    -- | The channel to use to filter the metrics.
-    channels :: Prelude.Maybe [Channel]
+  { -- | The channel to use to filter the metrics.
+    channels :: Prelude.Maybe [Channel],
+    -- | The queues to use to filter the metrics. You should specify at least one
+    -- queue, and can specify up to 100 queues per request. The
+    -- @GetCurrentMetricsData@ API in particular requires a queue when you
+    -- include a @Filter@ in your request.
+    queues :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,42 +47,46 @@ data Filters = Filters'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'queues', 'filters_queues' - The queues to use to filter the metrics. You can specify up to 100
--- queues per request.
---
 -- 'channels', 'filters_channels' - The channel to use to filter the metrics.
+--
+-- 'queues', 'filters_queues' - The queues to use to filter the metrics. You should specify at least one
+-- queue, and can specify up to 100 queues per request. The
+-- @GetCurrentMetricsData@ API in particular requires a queue when you
+-- include a @Filter@ in your request.
 newFilters ::
   Filters
 newFilters =
   Filters'
-    { queues = Prelude.Nothing,
-      channels = Prelude.Nothing
+    { channels = Prelude.Nothing,
+      queues = Prelude.Nothing
     }
-
--- | The queues to use to filter the metrics. You can specify up to 100
--- queues per request.
-filters_queues :: Lens.Lens' Filters (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
-filters_queues = Lens.lens (\Filters' {queues} -> queues) (\s@Filters' {} a -> s {queues = a} :: Filters) Prelude.. Lens.mapping Lens.coerced
 
 -- | The channel to use to filter the metrics.
 filters_channels :: Lens.Lens' Filters (Prelude.Maybe [Channel])
 filters_channels = Lens.lens (\Filters' {channels} -> channels) (\s@Filters' {} a -> s {channels = a} :: Filters) Prelude.. Lens.mapping Lens.coerced
 
+-- | The queues to use to filter the metrics. You should specify at least one
+-- queue, and can specify up to 100 queues per request. The
+-- @GetCurrentMetricsData@ API in particular requires a queue when you
+-- include a @Filter@ in your request.
+filters_queues :: Lens.Lens' Filters (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+filters_queues = Lens.lens (\Filters' {queues} -> queues) (\s@Filters' {} a -> s {queues = a} :: Filters) Prelude.. Lens.mapping Lens.coerced
+
 instance Prelude.Hashable Filters where
   hashWithSalt _salt Filters' {..} =
-    _salt `Prelude.hashWithSalt` queues
-      `Prelude.hashWithSalt` channels
+    _salt `Prelude.hashWithSalt` channels
+      `Prelude.hashWithSalt` queues
 
 instance Prelude.NFData Filters where
   rnf Filters' {..} =
-    Prelude.rnf queues
-      `Prelude.seq` Prelude.rnf channels
+    Prelude.rnf channels
+      `Prelude.seq` Prelude.rnf queues
 
-instance Core.ToJSON Filters where
+instance Data.ToJSON Filters where
   toJSON Filters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Queues" Core..=) Prelude.<$> queues,
-            ("Channels" Core..=) Prelude.<$> channels
+          [ ("Channels" Data..=) Prelude.<$> channels,
+            ("Queues" Data..=) Prelude.<$> queues
           ]
       )

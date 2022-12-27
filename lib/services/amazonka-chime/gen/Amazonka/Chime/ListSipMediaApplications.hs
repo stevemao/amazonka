@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.ListSipMediaApplications
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.Chime.ListSipMediaApplications
     newListSipMediaApplications,
 
     -- * Request Lenses
-    listSipMediaApplications_nextToken,
     listSipMediaApplications_maxResults,
+    listSipMediaApplications_nextToken,
 
     -- * Destructuring the Response
     ListSipMediaApplicationsResponse (..),
@@ -43,18 +43,19 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListSipMediaApplications' smart constructor.
 data ListSipMediaApplications = ListSipMediaApplications'
-  { -- | The token to use to retrieve the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in a single call. Defaults to
+  { -- | The maximum number of results to return in a single call. Defaults to
     -- 100.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to use to retrieve the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -66,39 +67,40 @@ data ListSipMediaApplications = ListSipMediaApplications'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listSipMediaApplications_nextToken' - The token to use to retrieve the next page of results.
---
 -- 'maxResults', 'listSipMediaApplications_maxResults' - The maximum number of results to return in a single call. Defaults to
 -- 100.
+--
+-- 'nextToken', 'listSipMediaApplications_nextToken' - The token to use to retrieve the next page of results.
 newListSipMediaApplications ::
   ListSipMediaApplications
 newListSipMediaApplications =
   ListSipMediaApplications'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
-
--- | The token to use to retrieve the next page of results.
-listSipMediaApplications_nextToken :: Lens.Lens' ListSipMediaApplications (Prelude.Maybe Prelude.Text)
-listSipMediaApplications_nextToken = Lens.lens (\ListSipMediaApplications' {nextToken} -> nextToken) (\s@ListSipMediaApplications' {} a -> s {nextToken = a} :: ListSipMediaApplications)
 
 -- | The maximum number of results to return in a single call. Defaults to
 -- 100.
 listSipMediaApplications_maxResults :: Lens.Lens' ListSipMediaApplications (Prelude.Maybe Prelude.Natural)
 listSipMediaApplications_maxResults = Lens.lens (\ListSipMediaApplications' {maxResults} -> maxResults) (\s@ListSipMediaApplications' {} a -> s {maxResults = a} :: ListSipMediaApplications)
 
+-- | The token to use to retrieve the next page of results.
+listSipMediaApplications_nextToken :: Lens.Lens' ListSipMediaApplications (Prelude.Maybe Prelude.Text)
+listSipMediaApplications_nextToken = Lens.lens (\ListSipMediaApplications' {nextToken} -> nextToken) (\s@ListSipMediaApplications' {} a -> s {nextToken = a} :: ListSipMediaApplications)
+
 instance Core.AWSRequest ListSipMediaApplications where
   type
     AWSResponse ListSipMediaApplications =
       ListSipMediaApplicationsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListSipMediaApplicationsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "SipMediaApplications"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "SipMediaApplications"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -106,25 +108,25 @@ instance Core.AWSRequest ListSipMediaApplications where
 
 instance Prelude.Hashable ListSipMediaApplications where
   hashWithSalt _salt ListSipMediaApplications' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListSipMediaApplications where
   rnf ListSipMediaApplications' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListSipMediaApplications where
+instance Data.ToHeaders ListSipMediaApplications where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListSipMediaApplications where
+instance Data.ToPath ListSipMediaApplications where
   toPath = Prelude.const "/sip-media-applications"
 
-instance Core.ToQuery ListSipMediaApplications where
+instance Data.ToQuery ListSipMediaApplications where
   toQuery ListSipMediaApplications' {..} =
     Prelude.mconcat
-      [ "next-token" Core.=: nextToken,
-        "max-results" Core.=: maxResults
+      [ "max-results" Data.=: maxResults,
+        "next-token" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListSipMediaApplicationsResponse' smart constructor.

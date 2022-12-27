@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppStream.Types.SharedImagePermissions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppStream.Types.SharedImagePermissions where
 
 import Amazonka.AppStream.Types.ImagePermissions
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the permissions that are available to the specified AWS
@@ -73,14 +74,14 @@ sharedImagePermissions_sharedAccountId = Lens.lens (\SharedImagePermissions' {sh
 sharedImagePermissions_imagePermissions :: Lens.Lens' SharedImagePermissions ImagePermissions
 sharedImagePermissions_imagePermissions = Lens.lens (\SharedImagePermissions' {imagePermissions} -> imagePermissions) (\s@SharedImagePermissions' {} a -> s {imagePermissions = a} :: SharedImagePermissions)
 
-instance Core.FromJSON SharedImagePermissions where
+instance Data.FromJSON SharedImagePermissions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SharedImagePermissions"
       ( \x ->
           SharedImagePermissions'
-            Prelude.<$> (x Core..: "sharedAccountId")
-            Prelude.<*> (x Core..: "imagePermissions")
+            Prelude.<$> (x Data..: "sharedAccountId")
+            Prelude.<*> (x Data..: "imagePermissions")
       )
 
 instance Prelude.Hashable SharedImagePermissions where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FIS.ListExperimentTemplates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,35 +27,36 @@ module Amazonka.FIS.ListExperimentTemplates
     newListExperimentTemplates,
 
     -- * Request Lenses
-    listExperimentTemplates_nextToken,
     listExperimentTemplates_maxResults,
+    listExperimentTemplates_nextToken,
 
     -- * Destructuring the Response
     ListExperimentTemplatesResponse (..),
     newListExperimentTemplatesResponse,
 
     -- * Response Lenses
-    listExperimentTemplatesResponse_nextToken,
     listExperimentTemplatesResponse_experimentTemplates,
+    listExperimentTemplatesResponse_nextToken,
     listExperimentTemplatesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FIS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListExperimentTemplates' smart constructor.
 data ListExperimentTemplates = ListExperimentTemplates'
-  { -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return with a single call. To retrieve
+  { -- | The maximum number of results to return with a single call. To retrieve
     -- the remaining results, make another call with the returned @nextToken@
     -- value.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,23 +68,19 @@ data ListExperimentTemplates = ListExperimentTemplates'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listExperimentTemplates_nextToken' - The token for the next page of results.
---
 -- 'maxResults', 'listExperimentTemplates_maxResults' - The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
+--
+-- 'nextToken', 'listExperimentTemplates_nextToken' - The token for the next page of results.
 newListExperimentTemplates ::
   ListExperimentTemplates
 newListExperimentTemplates =
   ListExperimentTemplates'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
-
--- | The token for the next page of results.
-listExperimentTemplates_nextToken :: Lens.Lens' ListExperimentTemplates (Prelude.Maybe Prelude.Text)
-listExperimentTemplates_nextToken = Lens.lens (\ListExperimentTemplates' {nextToken} -> nextToken) (\s@ListExperimentTemplates' {} a -> s {nextToken = a} :: ListExperimentTemplates)
 
 -- | The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
@@ -91,60 +88,65 @@ listExperimentTemplates_nextToken = Lens.lens (\ListExperimentTemplates' {nextTo
 listExperimentTemplates_maxResults :: Lens.Lens' ListExperimentTemplates (Prelude.Maybe Prelude.Natural)
 listExperimentTemplates_maxResults = Lens.lens (\ListExperimentTemplates' {maxResults} -> maxResults) (\s@ListExperimentTemplates' {} a -> s {maxResults = a} :: ListExperimentTemplates)
 
+-- | The token for the next page of results.
+listExperimentTemplates_nextToken :: Lens.Lens' ListExperimentTemplates (Prelude.Maybe Prelude.Text)
+listExperimentTemplates_nextToken = Lens.lens (\ListExperimentTemplates' {nextToken} -> nextToken) (\s@ListExperimentTemplates' {} a -> s {nextToken = a} :: ListExperimentTemplates)
+
 instance Core.AWSRequest ListExperimentTemplates where
   type
     AWSResponse ListExperimentTemplates =
       ListExperimentTemplatesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListExperimentTemplatesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> ( x Core..?> "experimentTemplates"
+            Prelude.<$> ( x Data..?> "experimentTemplates"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListExperimentTemplates where
   hashWithSalt _salt ListExperimentTemplates' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListExperimentTemplates where
   rnf ListExperimentTemplates' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListExperimentTemplates where
+instance Data.ToHeaders ListExperimentTemplates where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListExperimentTemplates where
+instance Data.ToPath ListExperimentTemplates where
   toPath = Prelude.const "/experimentTemplates"
 
-instance Core.ToQuery ListExperimentTemplates where
+instance Data.ToQuery ListExperimentTemplates where
   toQuery ListExperimentTemplates' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListExperimentTemplatesResponse' smart constructor.
 data ListExperimentTemplatesResponse = ListExperimentTemplatesResponse'
-  { -- | The token to use to retrieve the next page of results. This value is
+  { -- | The experiment templates.
+    experimentTemplates :: Prelude.Maybe [ExperimentTemplateSummary],
+    -- | The token to use to retrieve the next page of results. This value is
     -- @null@ when there are no more results to return.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The experiment templates.
-    experimentTemplates :: Prelude.Maybe [ExperimentTemplateSummary],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -158,10 +160,10 @@ data ListExperimentTemplatesResponse = ListExperimentTemplatesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'experimentTemplates', 'listExperimentTemplatesResponse_experimentTemplates' - The experiment templates.
+--
 -- 'nextToken', 'listExperimentTemplatesResponse_nextToken' - The token to use to retrieve the next page of results. This value is
 -- @null@ when there are no more results to return.
---
--- 'experimentTemplates', 'listExperimentTemplatesResponse_experimentTemplates' - The experiment templates.
 --
 -- 'httpStatus', 'listExperimentTemplatesResponse_httpStatus' - The response's http status code.
 newListExperimentTemplatesResponse ::
@@ -170,20 +172,20 @@ newListExperimentTemplatesResponse ::
   ListExperimentTemplatesResponse
 newListExperimentTemplatesResponse pHttpStatus_ =
   ListExperimentTemplatesResponse'
-    { nextToken =
+    { experimentTemplates =
         Prelude.Nothing,
-      experimentTemplates = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The experiment templates.
+listExperimentTemplatesResponse_experimentTemplates :: Lens.Lens' ListExperimentTemplatesResponse (Prelude.Maybe [ExperimentTemplateSummary])
+listExperimentTemplatesResponse_experimentTemplates = Lens.lens (\ListExperimentTemplatesResponse' {experimentTemplates} -> experimentTemplates) (\s@ListExperimentTemplatesResponse' {} a -> s {experimentTemplates = a} :: ListExperimentTemplatesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token to use to retrieve the next page of results. This value is
 -- @null@ when there are no more results to return.
 listExperimentTemplatesResponse_nextToken :: Lens.Lens' ListExperimentTemplatesResponse (Prelude.Maybe Prelude.Text)
 listExperimentTemplatesResponse_nextToken = Lens.lens (\ListExperimentTemplatesResponse' {nextToken} -> nextToken) (\s@ListExperimentTemplatesResponse' {} a -> s {nextToken = a} :: ListExperimentTemplatesResponse)
-
--- | The experiment templates.
-listExperimentTemplatesResponse_experimentTemplates :: Lens.Lens' ListExperimentTemplatesResponse (Prelude.Maybe [ExperimentTemplateSummary])
-listExperimentTemplatesResponse_experimentTemplates = Lens.lens (\ListExperimentTemplatesResponse' {experimentTemplates} -> experimentTemplates) (\s@ListExperimentTemplatesResponse' {} a -> s {experimentTemplates = a} :: ListExperimentTemplatesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listExperimentTemplatesResponse_httpStatus :: Lens.Lens' ListExperimentTemplatesResponse Prelude.Int
@@ -194,6 +196,6 @@ instance
     ListExperimentTemplatesResponse
   where
   rnf ListExperimentTemplatesResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf experimentTemplates
+    Prelude.rnf experimentTemplates
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

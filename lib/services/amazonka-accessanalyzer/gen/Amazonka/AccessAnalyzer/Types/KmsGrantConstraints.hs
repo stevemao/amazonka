@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AccessAnalyzer.Types.KmsGrantConstraints
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AccessAnalyzer.Types.KmsGrantConstraints where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Use this structure to propose allowing
@@ -95,17 +96,17 @@ kmsGrantConstraints_encryptionContextEquals = Lens.lens (\KmsGrantConstraints' {
 kmsGrantConstraints_encryptionContextSubset :: Lens.Lens' KmsGrantConstraints (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 kmsGrantConstraints_encryptionContextSubset = Lens.lens (\KmsGrantConstraints' {encryptionContextSubset} -> encryptionContextSubset) (\s@KmsGrantConstraints' {} a -> s {encryptionContextSubset = a} :: KmsGrantConstraints) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON KmsGrantConstraints where
+instance Data.FromJSON KmsGrantConstraints where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "KmsGrantConstraints"
       ( \x ->
           KmsGrantConstraints'
-            Prelude.<$> ( x Core..:? "encryptionContextEquals"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "encryptionContextEquals"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> ( x Core..:? "encryptionContextSubset"
-                            Core..!= Prelude.mempty
+            Prelude.<*> ( x Data..:? "encryptionContextSubset"
+                            Data..!= Prelude.mempty
                         )
       )
 
@@ -120,13 +121,13 @@ instance Prelude.NFData KmsGrantConstraints where
     Prelude.rnf encryptionContextEquals
       `Prelude.seq` Prelude.rnf encryptionContextSubset
 
-instance Core.ToJSON KmsGrantConstraints where
+instance Data.ToJSON KmsGrantConstraints where
   toJSON KmsGrantConstraints' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("encryptionContextEquals" Core..=)
+          [ ("encryptionContextEquals" Data..=)
               Prelude.<$> encryptionContextEquals,
-            ("encryptionContextSubset" Core..=)
+            ("encryptionContextSubset" Data..=)
               Prelude.<$> encryptionContextSubset
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.SearchContacts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,17 +29,17 @@ module Amazonka.AlexaBusiness.SearchContacts
 
     -- * Request Lenses
     searchContacts_filters,
-    searchContacts_sortCriteria,
-    searchContacts_nextToken,
     searchContacts_maxResults,
+    searchContacts_nextToken,
+    searchContacts_sortCriteria,
 
     -- * Destructuring the Response
     SearchContactsResponse (..),
     newSearchContactsResponse,
 
     -- * Response Lenses
-    searchContactsResponse_nextToken,
     searchContactsResponse_contacts,
+    searchContactsResponse_nextToken,
     searchContactsResponse_totalCount,
     searchContactsResponse_httpStatus,
   )
@@ -47,7 +47,8 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,18 +59,18 @@ data SearchContacts = SearchContacts'
     -- supported filter keys are DisplayName, FirstName, LastName, and
     -- AddressBookArns.
     filters :: Prelude.Maybe [Filter],
-    -- | The sort order to use in listing the specified set of contacts. The
-    -- supported sort keys are DisplayName, FirstName, and LastName.
-    sortCriteria :: Prelude.Maybe [Sort],
+    -- | The maximum number of results to include in the response. If more
+    -- results exist than the specified MaxResults value, a token is included
+    -- in the response so that the remaining results can be retrieved.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | An optional token returned from a prior request. Use this token for
     -- pagination of results from this action. If this parameter is specified,
     -- the response only includes results beyond the token, up to the value
     -- specified by MaxResults.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to include in the response. If more
-    -- results exist than the specified MaxResults value, a token is included
-    -- in the response so that the remaining results can be retrieved.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    -- | The sort order to use in listing the specified set of contacts. The
+    -- supported sort keys are DisplayName, FirstName, and LastName.
+    sortCriteria :: Prelude.Maybe [Sort]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -85,25 +86,25 @@ data SearchContacts = SearchContacts'
 -- supported filter keys are DisplayName, FirstName, LastName, and
 -- AddressBookArns.
 --
--- 'sortCriteria', 'searchContacts_sortCriteria' - The sort order to use in listing the specified set of contacts. The
--- supported sort keys are DisplayName, FirstName, and LastName.
+-- 'maxResults', 'searchContacts_maxResults' - The maximum number of results to include in the response. If more
+-- results exist than the specified MaxResults value, a token is included
+-- in the response so that the remaining results can be retrieved.
 --
 -- 'nextToken', 'searchContacts_nextToken' - An optional token returned from a prior request. Use this token for
 -- pagination of results from this action. If this parameter is specified,
 -- the response only includes results beyond the token, up to the value
 -- specified by MaxResults.
 --
--- 'maxResults', 'searchContacts_maxResults' - The maximum number of results to include in the response. If more
--- results exist than the specified MaxResults value, a token is included
--- in the response so that the remaining results can be retrieved.
+-- 'sortCriteria', 'searchContacts_sortCriteria' - The sort order to use in listing the specified set of contacts. The
+-- supported sort keys are DisplayName, FirstName, and LastName.
 newSearchContacts ::
   SearchContacts
 newSearchContacts =
   SearchContacts'
     { filters = Prelude.Nothing,
-      sortCriteria = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      sortCriteria = Prelude.Nothing
     }
 
 -- | The filters to use to list a specified set of address books. The
@@ -112,10 +113,11 @@ newSearchContacts =
 searchContacts_filters :: Lens.Lens' SearchContacts (Prelude.Maybe [Filter])
 searchContacts_filters = Lens.lens (\SearchContacts' {filters} -> filters) (\s@SearchContacts' {} a -> s {filters = a} :: SearchContacts) Prelude.. Lens.mapping Lens.coerced
 
--- | The sort order to use in listing the specified set of contacts. The
--- supported sort keys are DisplayName, FirstName, and LastName.
-searchContacts_sortCriteria :: Lens.Lens' SearchContacts (Prelude.Maybe [Sort])
-searchContacts_sortCriteria = Lens.lens (\SearchContacts' {sortCriteria} -> sortCriteria) (\s@SearchContacts' {} a -> s {sortCriteria = a} :: SearchContacts) Prelude.. Lens.mapping Lens.coerced
+-- | The maximum number of results to include in the response. If more
+-- results exist than the specified MaxResults value, a token is included
+-- in the response so that the remaining results can be retrieved.
+searchContacts_maxResults :: Lens.Lens' SearchContacts (Prelude.Maybe Prelude.Natural)
+searchContacts_maxResults = Lens.lens (\SearchContacts' {maxResults} -> maxResults) (\s@SearchContacts' {} a -> s {maxResults = a} :: SearchContacts)
 
 -- | An optional token returned from a prior request. Use this token for
 -- pagination of results from this action. If this parameter is specified,
@@ -124,80 +126,80 @@ searchContacts_sortCriteria = Lens.lens (\SearchContacts' {sortCriteria} -> sort
 searchContacts_nextToken :: Lens.Lens' SearchContacts (Prelude.Maybe Prelude.Text)
 searchContacts_nextToken = Lens.lens (\SearchContacts' {nextToken} -> nextToken) (\s@SearchContacts' {} a -> s {nextToken = a} :: SearchContacts)
 
--- | The maximum number of results to include in the response. If more
--- results exist than the specified MaxResults value, a token is included
--- in the response so that the remaining results can be retrieved.
-searchContacts_maxResults :: Lens.Lens' SearchContacts (Prelude.Maybe Prelude.Natural)
-searchContacts_maxResults = Lens.lens (\SearchContacts' {maxResults} -> maxResults) (\s@SearchContacts' {} a -> s {maxResults = a} :: SearchContacts)
+-- | The sort order to use in listing the specified set of contacts. The
+-- supported sort keys are DisplayName, FirstName, and LastName.
+searchContacts_sortCriteria :: Lens.Lens' SearchContacts (Prelude.Maybe [Sort])
+searchContacts_sortCriteria = Lens.lens (\SearchContacts' {sortCriteria} -> sortCriteria) (\s@SearchContacts' {} a -> s {sortCriteria = a} :: SearchContacts) Prelude.. Lens.mapping Lens.coerced
 
 instance Core.AWSRequest SearchContacts where
   type
     AWSResponse SearchContacts =
       SearchContactsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SearchContactsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Contacts" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "TotalCount")
+            Prelude.<$> (x Data..?> "Contacts" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "TotalCount")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable SearchContacts where
   hashWithSalt _salt SearchContacts' {..} =
     _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` sortCriteria
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` sortCriteria
 
 instance Prelude.NFData SearchContacts where
   rnf SearchContacts' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf sortCriteria
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf sortCriteria
 
-instance Core.ToHeaders SearchContacts where
+instance Data.ToHeaders SearchContacts where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.SearchContacts" ::
+              Data.=# ( "AlexaForBusiness.SearchContacts" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SearchContacts where
+instance Data.ToJSON SearchContacts where
   toJSON SearchContacts' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("SortCriteria" Core..=) Prelude.<$> sortCriteria,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("SortCriteria" Data..=) Prelude.<$> sortCriteria
           ]
       )
 
-instance Core.ToPath SearchContacts where
+instance Data.ToPath SearchContacts where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SearchContacts where
+instance Data.ToQuery SearchContacts where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSearchContactsResponse' smart constructor.
 data SearchContactsResponse = SearchContactsResponse'
-  { -- | The token returned to indicate that there is more data available.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The contacts that meet the specified set of filter criteria, in sort
+  { -- | The contacts that meet the specified set of filter criteria, in sort
     -- order.
     contacts :: Prelude.Maybe [ContactData],
+    -- | The token returned to indicate that there is more data available.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The total number of contacts returned.
     totalCount :: Prelude.Maybe Prelude.Int,
     -- | The response's http status code.
@@ -213,10 +215,10 @@ data SearchContactsResponse = SearchContactsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'searchContactsResponse_nextToken' - The token returned to indicate that there is more data available.
---
 -- 'contacts', 'searchContactsResponse_contacts' - The contacts that meet the specified set of filter criteria, in sort
 -- order.
+--
+-- 'nextToken', 'searchContactsResponse_nextToken' - The token returned to indicate that there is more data available.
 --
 -- 'totalCount', 'searchContactsResponse_totalCount' - The total number of contacts returned.
 --
@@ -227,21 +229,20 @@ newSearchContactsResponse ::
   SearchContactsResponse
 newSearchContactsResponse pHttpStatus_ =
   SearchContactsResponse'
-    { nextToken =
-        Prelude.Nothing,
-      contacts = Prelude.Nothing,
+    { contacts = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       totalCount = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The token returned to indicate that there is more data available.
-searchContactsResponse_nextToken :: Lens.Lens' SearchContactsResponse (Prelude.Maybe Prelude.Text)
-searchContactsResponse_nextToken = Lens.lens (\SearchContactsResponse' {nextToken} -> nextToken) (\s@SearchContactsResponse' {} a -> s {nextToken = a} :: SearchContactsResponse)
 
 -- | The contacts that meet the specified set of filter criteria, in sort
 -- order.
 searchContactsResponse_contacts :: Lens.Lens' SearchContactsResponse (Prelude.Maybe [ContactData])
 searchContactsResponse_contacts = Lens.lens (\SearchContactsResponse' {contacts} -> contacts) (\s@SearchContactsResponse' {} a -> s {contacts = a} :: SearchContactsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The token returned to indicate that there is more data available.
+searchContactsResponse_nextToken :: Lens.Lens' SearchContactsResponse (Prelude.Maybe Prelude.Text)
+searchContactsResponse_nextToken = Lens.lens (\SearchContactsResponse' {nextToken} -> nextToken) (\s@SearchContactsResponse' {} a -> s {nextToken = a} :: SearchContactsResponse)
 
 -- | The total number of contacts returned.
 searchContactsResponse_totalCount :: Lens.Lens' SearchContactsResponse (Prelude.Maybe Prelude.Int)
@@ -253,7 +254,7 @@ searchContactsResponse_httpStatus = Lens.lens (\SearchContactsResponse' {httpSta
 
 instance Prelude.NFData SearchContactsResponse where
   rnf SearchContactsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf contacts
+    Prelude.rnf contacts
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf totalCount
       `Prelude.seq` Prelude.rnf httpStatus

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.CreateTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,11 +27,11 @@
 -- unique per resource.
 --
 -- For more information about tags, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html Tagging Your Resources>
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html Tag your Amazon EC2 resources>
 -- in the /Amazon Elastic Compute Cloud User Guide/. For more information
 -- about creating IAM policies that control users\' access to resources
 -- based on tags, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-iam-actions-resources.html Supported Resource-Level Permissions for Amazon EC2 API Actions>
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-iam-actions-resources.html Supported resource-level permissions for Amazon EC2 API actions>
 -- in the /Amazon Elastic Compute Cloud User Guide/.
 module Amazonka.EC2.CreateTags
   ( -- * Creating a Request
@@ -50,8 +50,9 @@ module Amazonka.EC2.CreateTags
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -127,7 +128,8 @@ createTags_tags = Lens.lens (\CreateTags' {tags} -> tags) (\s@CreateTags' {} a -
 
 instance Core.AWSRequest CreateTags where
   type AWSResponse CreateTags = CreateTagsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response = Response.receiveNull CreateTagsResponse'
 
 instance Prelude.Hashable CreateTags where
@@ -142,22 +144,22 @@ instance Prelude.NFData CreateTags where
       `Prelude.seq` Prelude.rnf resources
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders CreateTags where
+instance Data.ToHeaders CreateTags where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateTags where
+instance Data.ToPath CreateTags where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateTags where
+instance Data.ToQuery CreateTags where
   toQuery CreateTags' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateTags" :: Prelude.ByteString),
+          Data.=: ("CreateTags" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        Core.toQueryList "ResourceId" resources,
-        Core.toQueryList "Tag" tags
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQueryList "ResourceId" resources,
+        Data.toQueryList "Tag" tags
       ]
 
 -- | /See:/ 'newCreateTagsResponse' smart constructor.

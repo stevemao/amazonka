@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.ListDocuments
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,8 @@ module Amazonka.SSM.ListDocuments
     -- * Request Lenses
     listDocuments_documentFilterList,
     listDocuments_filters,
-    listDocuments_nextToken,
     listDocuments_maxResults,
+    listDocuments_nextToken,
 
     -- * Destructuring the Response
     ListDocumentsResponse (..),
@@ -48,7 +48,8 @@ module Amazonka.SSM.ListDocuments
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -70,13 +71,13 @@ data ListDocuments = ListDocuments'
     -- tag key and one or more tag values. For example:
     -- @Key=tag:tagName,Values=valueName1,valueName2@
     filters :: Prelude.Maybe [DocumentKeyValuesFilter],
-    -- | The token for the next set of items to return. (You received this token
-    -- from a previous call.)
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of items to return for this call. The call also
     -- returns a token that you can specify in a subsequent call to get the
     -- next set of results.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -102,12 +103,12 @@ data ListDocuments = ListDocuments'
 -- tag key and one or more tag values. For example:
 -- @Key=tag:tagName,Values=valueName1,valueName2@
 --
--- 'nextToken', 'listDocuments_nextToken' - The token for the next set of items to return. (You received this token
--- from a previous call.)
---
 -- 'maxResults', 'listDocuments_maxResults' - The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results.
+--
+-- 'nextToken', 'listDocuments_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 newListDocuments ::
   ListDocuments
 newListDocuments =
@@ -115,8 +116,8 @@ newListDocuments =
     { documentFilterList =
         Prelude.Nothing,
       filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | This data type is deprecated. Instead, use @Filters@.
@@ -137,16 +138,16 @@ listDocuments_documentFilterList = Lens.lens (\ListDocuments' {documentFilterLis
 listDocuments_filters :: Lens.Lens' ListDocuments (Prelude.Maybe [DocumentKeyValuesFilter])
 listDocuments_filters = Lens.lens (\ListDocuments' {filters} -> filters) (\s@ListDocuments' {} a -> s {filters = a} :: ListDocuments) Prelude.. Lens.mapping Lens.coerced
 
--- | The token for the next set of items to return. (You received this token
--- from a previous call.)
-listDocuments_nextToken :: Lens.Lens' ListDocuments (Prelude.Maybe Prelude.Text)
-listDocuments_nextToken = Lens.lens (\ListDocuments' {nextToken} -> nextToken) (\s@ListDocuments' {} a -> s {nextToken = a} :: ListDocuments)
-
 -- | The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results.
 listDocuments_maxResults :: Lens.Lens' ListDocuments (Prelude.Maybe Prelude.Natural)
 listDocuments_maxResults = Lens.lens (\ListDocuments' {maxResults} -> maxResults) (\s@ListDocuments' {} a -> s {maxResults = a} :: ListDocuments)
+
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+listDocuments_nextToken :: Lens.Lens' ListDocuments (Prelude.Maybe Prelude.Text)
+listDocuments_nextToken = Lens.lens (\ListDocuments' {nextToken} -> nextToken) (\s@ListDocuments' {} a -> s {nextToken = a} :: ListDocuments)
 
 instance Core.AWSPager ListDocuments where
   page rq rs
@@ -172,15 +173,16 @@ instance Core.AWSRequest ListDocuments where
   type
     AWSResponse ListDocuments =
       ListDocumentsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDocumentsResponse'
-            Prelude.<$> ( x Core..?> "DocumentIdentifiers"
+            Prelude.<$> ( x Data..?> "DocumentIdentifiers"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -188,45 +190,45 @@ instance Prelude.Hashable ListDocuments where
   hashWithSalt _salt ListDocuments' {..} =
     _salt `Prelude.hashWithSalt` documentFilterList
       `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListDocuments where
   rnf ListDocuments' {..} =
     Prelude.rnf documentFilterList
       `Prelude.seq` Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListDocuments where
+instance Data.ToHeaders ListDocuments where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AmazonSSM.ListDocuments" :: Prelude.ByteString),
+              Data.=# ("AmazonSSM.ListDocuments" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListDocuments where
+instance Data.ToJSON ListDocuments where
   toJSON ListDocuments' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DocumentFilterList" Core..=)
+          [ ("DocumentFilterList" Data..=)
               Prelude.<$> documentFilterList,
-            ("Filters" Core..=) Prelude.<$> filters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+            ("Filters" Data..=) Prelude.<$> filters,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListDocuments where
+instance Data.ToPath ListDocuments where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListDocuments where
+instance Data.ToQuery ListDocuments where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListDocumentsResponse' smart constructor.

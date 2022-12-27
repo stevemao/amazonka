@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.CreateContainerServiceDeployment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@
 -- the health check configuration.
 --
 -- You can deploy containers to your container service using container
--- images from a public registry like Docker Hub, or from your local
--- machine. For more information, see
+-- images from a public registry such as Amazon ECR Public, or from your
+-- local machine. For more information, see
 -- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-creating-container-images Creating container images for your Amazon Lightsail container services>
 -- in the /Amazon Lightsail Developer Guide/.
 module Amazonka.Lightsail.CreateContainerServiceDeployment
@@ -40,8 +40,8 @@ module Amazonka.Lightsail.CreateContainerServiceDeployment
     newCreateContainerServiceDeployment,
 
     -- * Request Lenses
-    createContainerServiceDeployment_publicEndpoint,
     createContainerServiceDeployment_containers,
+    createContainerServiceDeployment_publicEndpoint,
     createContainerServiceDeployment_serviceName,
 
     -- * Destructuring the Response
@@ -55,7 +55,8 @@ module Amazonka.Lightsail.CreateContainerServiceDeployment
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -63,12 +64,12 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateContainerServiceDeployment' smart constructor.
 data CreateContainerServiceDeployment = CreateContainerServiceDeployment'
-  { -- | An object that describes the settings of the public endpoint for the
-    -- container service.
-    publicEndpoint :: Prelude.Maybe EndpointRequest,
-    -- | An object that describes the settings of the containers that will be
+  { -- | An object that describes the settings of the containers that will be
     -- launched on the container service.
     containers :: Prelude.Maybe (Prelude.HashMap Prelude.Text Container),
+    -- | An object that describes the settings of the public endpoint for the
+    -- container service.
+    publicEndpoint :: Prelude.Maybe EndpointRequest,
     -- | The name of the container service for which to create the deployment.
     serviceName :: Prelude.Text
   }
@@ -82,11 +83,11 @@ data CreateContainerServiceDeployment = CreateContainerServiceDeployment'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'publicEndpoint', 'createContainerServiceDeployment_publicEndpoint' - An object that describes the settings of the public endpoint for the
--- container service.
---
 -- 'containers', 'createContainerServiceDeployment_containers' - An object that describes the settings of the containers that will be
 -- launched on the container service.
+--
+-- 'publicEndpoint', 'createContainerServiceDeployment_publicEndpoint' - An object that describes the settings of the public endpoint for the
+-- container service.
 --
 -- 'serviceName', 'createContainerServiceDeployment_serviceName' - The name of the container service for which to create the deployment.
 newCreateContainerServiceDeployment ::
@@ -95,21 +96,21 @@ newCreateContainerServiceDeployment ::
   CreateContainerServiceDeployment
 newCreateContainerServiceDeployment pServiceName_ =
   CreateContainerServiceDeployment'
-    { publicEndpoint =
+    { containers =
         Prelude.Nothing,
-      containers = Prelude.Nothing,
+      publicEndpoint = Prelude.Nothing,
       serviceName = pServiceName_
     }
-
--- | An object that describes the settings of the public endpoint for the
--- container service.
-createContainerServiceDeployment_publicEndpoint :: Lens.Lens' CreateContainerServiceDeployment (Prelude.Maybe EndpointRequest)
-createContainerServiceDeployment_publicEndpoint = Lens.lens (\CreateContainerServiceDeployment' {publicEndpoint} -> publicEndpoint) (\s@CreateContainerServiceDeployment' {} a -> s {publicEndpoint = a} :: CreateContainerServiceDeployment)
 
 -- | An object that describes the settings of the containers that will be
 -- launched on the container service.
 createContainerServiceDeployment_containers :: Lens.Lens' CreateContainerServiceDeployment (Prelude.Maybe (Prelude.HashMap Prelude.Text Container))
 createContainerServiceDeployment_containers = Lens.lens (\CreateContainerServiceDeployment' {containers} -> containers) (\s@CreateContainerServiceDeployment' {} a -> s {containers = a} :: CreateContainerServiceDeployment) Prelude.. Lens.mapping Lens.coerced
+
+-- | An object that describes the settings of the public endpoint for the
+-- container service.
+createContainerServiceDeployment_publicEndpoint :: Lens.Lens' CreateContainerServiceDeployment (Prelude.Maybe EndpointRequest)
+createContainerServiceDeployment_publicEndpoint = Lens.lens (\CreateContainerServiceDeployment' {publicEndpoint} -> publicEndpoint) (\s@CreateContainerServiceDeployment' {} a -> s {publicEndpoint = a} :: CreateContainerServiceDeployment)
 
 -- | The name of the container service for which to create the deployment.
 createContainerServiceDeployment_serviceName :: Lens.Lens' CreateContainerServiceDeployment Prelude.Text
@@ -122,12 +123,13 @@ instance
   type
     AWSResponse CreateContainerServiceDeployment =
       CreateContainerServiceDeploymentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateContainerServiceDeploymentResponse'
-            Prelude.<$> (x Core..?> "containerService")
+            Prelude.<$> (x Data..?> "containerService")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -138,8 +140,8 @@ instance
   hashWithSalt
     _salt
     CreateContainerServiceDeployment' {..} =
-      _salt `Prelude.hashWithSalt` publicEndpoint
-        `Prelude.hashWithSalt` containers
+      _salt `Prelude.hashWithSalt` containers
+        `Prelude.hashWithSalt` publicEndpoint
         `Prelude.hashWithSalt` serviceName
 
 instance
@@ -147,44 +149,44 @@ instance
     CreateContainerServiceDeployment
   where
   rnf CreateContainerServiceDeployment' {..} =
-    Prelude.rnf publicEndpoint
-      `Prelude.seq` Prelude.rnf containers
+    Prelude.rnf containers
+      `Prelude.seq` Prelude.rnf publicEndpoint
       `Prelude.seq` Prelude.rnf serviceName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CreateContainerServiceDeployment
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.CreateContainerServiceDeployment" ::
+              Data.=# ( "Lightsail_20161128.CreateContainerServiceDeployment" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateContainerServiceDeployment where
+instance Data.ToJSON CreateContainerServiceDeployment where
   toJSON CreateContainerServiceDeployment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("publicEndpoint" Core..=)
+          [ ("containers" Data..=) Prelude.<$> containers,
+            ("publicEndpoint" Data..=)
               Prelude.<$> publicEndpoint,
-            ("containers" Core..=) Prelude.<$> containers,
-            Prelude.Just ("serviceName" Core..= serviceName)
+            Prelude.Just ("serviceName" Data..= serviceName)
           ]
       )
 
-instance Core.ToPath CreateContainerServiceDeployment where
+instance Data.ToPath CreateContainerServiceDeployment where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     CreateContainerServiceDeployment
   where
   toQuery = Prelude.const Prelude.mempty

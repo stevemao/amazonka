@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SMS.ListApps
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.SMS.ListApps
 
     -- * Request Lenses
     listApps_appIds,
-    listApps_nextToken,
     listApps_maxResults,
+    listApps_nextToken,
 
     -- * Destructuring the Response
     ListAppsResponse (..),
@@ -45,7 +45,8 @@ module Amazonka.SMS.ListApps
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,12 +56,12 @@ import Amazonka.SMS.Types
 data ListApps = ListApps'
   { -- | The unique application IDs.
     appIds :: Prelude.Maybe [Prelude.Text],
-    -- | The token for the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of results to return in a single call. The default
     -- value is 100. To retrieve the remaining results, make another call with
     -- the returned @NextToken@ value.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -74,33 +75,33 @@ data ListApps = ListApps'
 --
 -- 'appIds', 'listApps_appIds' - The unique application IDs.
 --
--- 'nextToken', 'listApps_nextToken' - The token for the next set of results.
---
 -- 'maxResults', 'listApps_maxResults' - The maximum number of results to return in a single call. The default
 -- value is 100. To retrieve the remaining results, make another call with
 -- the returned @NextToken@ value.
+--
+-- 'nextToken', 'listApps_nextToken' - The token for the next set of results.
 newListApps ::
   ListApps
 newListApps =
   ListApps'
     { appIds = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | The unique application IDs.
 listApps_appIds :: Lens.Lens' ListApps (Prelude.Maybe [Prelude.Text])
 listApps_appIds = Lens.lens (\ListApps' {appIds} -> appIds) (\s@ListApps' {} a -> s {appIds = a} :: ListApps) Prelude.. Lens.mapping Lens.coerced
 
--- | The token for the next set of results.
-listApps_nextToken :: Lens.Lens' ListApps (Prelude.Maybe Prelude.Text)
-listApps_nextToken = Lens.lens (\ListApps' {nextToken} -> nextToken) (\s@ListApps' {} a -> s {nextToken = a} :: ListApps)
-
 -- | The maximum number of results to return in a single call. The default
 -- value is 100. To retrieve the remaining results, make another call with
 -- the returned @NextToken@ value.
 listApps_maxResults :: Lens.Lens' ListApps (Prelude.Maybe Prelude.Int)
 listApps_maxResults = Lens.lens (\ListApps' {maxResults} -> maxResults) (\s@ListApps' {} a -> s {maxResults = a} :: ListApps)
+
+-- | The token for the next set of results.
+listApps_nextToken :: Lens.Lens' ListApps (Prelude.Maybe Prelude.Text)
+listApps_nextToken = Lens.lens (\ListApps' {nextToken} -> nextToken) (\s@ListApps' {} a -> s {nextToken = a} :: ListApps)
 
 instance Core.AWSPager ListApps where
   page rq rs
@@ -123,57 +124,58 @@ instance Core.AWSPager ListApps where
 
 instance Core.AWSRequest ListApps where
   type AWSResponse ListApps = ListAppsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAppsResponse'
-            Prelude.<$> (x Core..?> "apps" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "apps" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListApps where
   hashWithSalt _salt ListApps' {..} =
     _salt `Prelude.hashWithSalt` appIds
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListApps where
   rnf ListApps' {..} =
     Prelude.rnf appIds
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListApps where
+instance Data.ToHeaders ListApps where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSServerMigrationService_V2016_10_24.ListApps" ::
+              Data.=# ( "AWSServerMigrationService_V2016_10_24.ListApps" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListApps where
+instance Data.ToJSON ListApps where
   toJSON ListApps' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("appIds" Core..=) Prelude.<$> appIds,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("appIds" Data..=) Prelude.<$> appIds,
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListApps where
+instance Data.ToPath ListApps where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListApps where
+instance Data.ToQuery ListApps where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListAppsResponse' smart constructor.

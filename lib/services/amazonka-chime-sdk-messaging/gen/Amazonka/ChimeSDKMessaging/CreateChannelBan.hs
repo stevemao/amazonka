@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ChimeSDKMessaging.CreateChannelBan
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,7 +54,8 @@ where
 
 import Amazonka.ChimeSDKMessaging.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -63,7 +64,7 @@ import qualified Amazonka.Response as Response
 data CreateChannelBan = CreateChannelBan'
   { -- | The ARN of the ban request.
     channelArn :: Prelude.Text,
-    -- | The ARN of the member being banned.
+    -- | The @AppInstanceUserArn@ of the member being banned.
     memberArn :: Prelude.Text,
     -- | The @AppInstanceUserArn@ of the user that makes the API call.
     chimeBearer :: Prelude.Text
@@ -80,7 +81,7 @@ data CreateChannelBan = CreateChannelBan'
 --
 -- 'channelArn', 'createChannelBan_channelArn' - The ARN of the ban request.
 --
--- 'memberArn', 'createChannelBan_memberArn' - The ARN of the member being banned.
+-- 'memberArn', 'createChannelBan_memberArn' - The @AppInstanceUserArn@ of the member being banned.
 --
 -- 'chimeBearer', 'createChannelBan_chimeBearer' - The @AppInstanceUserArn@ of the user that makes the API call.
 newCreateChannelBan ::
@@ -105,7 +106,7 @@ newCreateChannelBan
 createChannelBan_channelArn :: Lens.Lens' CreateChannelBan Prelude.Text
 createChannelBan_channelArn = Lens.lens (\CreateChannelBan' {channelArn} -> channelArn) (\s@CreateChannelBan' {} a -> s {channelArn = a} :: CreateChannelBan)
 
--- | The ARN of the member being banned.
+-- | The @AppInstanceUserArn@ of the member being banned.
 createChannelBan_memberArn :: Lens.Lens' CreateChannelBan Prelude.Text
 createChannelBan_memberArn = Lens.lens (\CreateChannelBan' {memberArn} -> memberArn) (\s@CreateChannelBan' {} a -> s {memberArn = a} :: CreateChannelBan)
 
@@ -117,13 +118,14 @@ instance Core.AWSRequest CreateChannelBan where
   type
     AWSResponse CreateChannelBan =
       CreateChannelBanResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateChannelBanResponse'
-            Prelude.<$> (x Core..?> "ChannelArn")
-            Prelude.<*> (x Core..?> "Member")
+            Prelude.<$> (x Data..?> "ChannelArn")
+            Prelude.<*> (x Data..?> "Member")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -139,24 +141,24 @@ instance Prelude.NFData CreateChannelBan where
       `Prelude.seq` Prelude.rnf memberArn
       `Prelude.seq` Prelude.rnf chimeBearer
 
-instance Core.ToHeaders CreateChannelBan where
+instance Data.ToHeaders CreateChannelBan where
   toHeaders CreateChannelBan' {..} =
     Prelude.mconcat
-      ["x-amz-chime-bearer" Core.=# chimeBearer]
+      ["x-amz-chime-bearer" Data.=# chimeBearer]
 
-instance Core.ToJSON CreateChannelBan where
+instance Data.ToJSON CreateChannelBan where
   toJSON CreateChannelBan' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("MemberArn" Core..= memberArn)]
+          [Prelude.Just ("MemberArn" Data..= memberArn)]
       )
 
-instance Core.ToPath CreateChannelBan where
+instance Data.ToPath CreateChannelBan where
   toPath CreateChannelBan' {..} =
     Prelude.mconcat
-      ["/channels/", Core.toBS channelArn, "/bans"]
+      ["/channels/", Data.toBS channelArn, "/bans"]
 
-instance Core.ToQuery CreateChannelBan where
+instance Data.ToQuery CreateChannelBan where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateChannelBanResponse' smart constructor.

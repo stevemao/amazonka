@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConnect.Types.DestinationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConnect.Types.DestinationConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConnect.Types.Interface
 import qualified Amazonka.Prelude as Prelude
 
@@ -109,16 +110,16 @@ destinationConfiguration_interface = Lens.lens (\DestinationConfiguration' {inte
 destinationConfiguration_outboundIp :: Lens.Lens' DestinationConfiguration Prelude.Text
 destinationConfiguration_outboundIp = Lens.lens (\DestinationConfiguration' {outboundIp} -> outboundIp) (\s@DestinationConfiguration' {} a -> s {outboundIp = a} :: DestinationConfiguration)
 
-instance Core.FromJSON DestinationConfiguration where
+instance Data.FromJSON DestinationConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DestinationConfiguration"
       ( \x ->
           DestinationConfiguration'
-            Prelude.<$> (x Core..: "destinationIp")
-            Prelude.<*> (x Core..: "destinationPort")
-            Prelude.<*> (x Core..: "interface")
-            Prelude.<*> (x Core..: "outboundIp")
+            Prelude.<$> (x Data..: "destinationIp")
+            Prelude.<*> (x Data..: "destinationPort")
+            Prelude.<*> (x Data..: "interface")
+            Prelude.<*> (x Data..: "outboundIp")
       )
 
 instance Prelude.Hashable DestinationConfiguration where

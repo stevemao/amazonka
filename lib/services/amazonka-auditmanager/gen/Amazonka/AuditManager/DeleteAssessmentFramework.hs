@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.DeleteAssessmentFramework
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,14 +40,15 @@ where
 
 import Amazonka.AuditManager.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteAssessmentFramework' smart constructor.
 data DeleteAssessmentFramework = DeleteAssessmentFramework'
-  { -- | The identifier for the specified framework.
+  { -- | The identifier for the custom framework.
     frameworkId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -60,7 +61,7 @@ data DeleteAssessmentFramework = DeleteAssessmentFramework'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'frameworkId', 'deleteAssessmentFramework_frameworkId' - The identifier for the specified framework.
+-- 'frameworkId', 'deleteAssessmentFramework_frameworkId' - The identifier for the custom framework.
 newDeleteAssessmentFramework ::
   -- | 'frameworkId'
   Prelude.Text ->
@@ -71,7 +72,7 @@ newDeleteAssessmentFramework pFrameworkId_ =
         pFrameworkId_
     }
 
--- | The identifier for the specified framework.
+-- | The identifier for the custom framework.
 deleteAssessmentFramework_frameworkId :: Lens.Lens' DeleteAssessmentFramework Prelude.Text
 deleteAssessmentFramework_frameworkId = Lens.lens (\DeleteAssessmentFramework' {frameworkId} -> frameworkId) (\s@DeleteAssessmentFramework' {} a -> s {frameworkId = a} :: DeleteAssessmentFramework)
 
@@ -79,7 +80,8 @@ instance Core.AWSRequest DeleteAssessmentFramework where
   type
     AWSResponse DeleteAssessmentFramework =
       DeleteAssessmentFrameworkResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -95,23 +97,23 @@ instance Prelude.NFData DeleteAssessmentFramework where
   rnf DeleteAssessmentFramework' {..} =
     Prelude.rnf frameworkId
 
-instance Core.ToHeaders DeleteAssessmentFramework where
+instance Data.ToHeaders DeleteAssessmentFramework where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteAssessmentFramework where
+instance Data.ToPath DeleteAssessmentFramework where
   toPath DeleteAssessmentFramework' {..} =
     Prelude.mconcat
-      ["/assessmentFrameworks/", Core.toBS frameworkId]
+      ["/assessmentFrameworks/", Data.toBS frameworkId]
 
-instance Core.ToQuery DeleteAssessmentFramework where
+instance Data.ToQuery DeleteAssessmentFramework where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAssessmentFrameworkResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.GetDevice
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -73,12 +74,13 @@ getDevice_deviceArn = Lens.lens (\GetDevice' {deviceArn} -> deviceArn) (\s@GetDe
 
 instance Core.AWSRequest GetDevice where
   type AWSResponse GetDevice = GetDeviceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDeviceResponse'
-            Prelude.<$> (x Core..?> "Device")
+            Prelude.<$> (x Data..?> "Device")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -89,30 +91,30 @@ instance Prelude.Hashable GetDevice where
 instance Prelude.NFData GetDevice where
   rnf GetDevice' {..} = Prelude.rnf deviceArn
 
-instance Core.ToHeaders GetDevice where
+instance Data.ToHeaders GetDevice where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AlexaForBusiness.GetDevice" :: Prelude.ByteString),
+              Data.=# ("AlexaForBusiness.GetDevice" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetDevice where
+instance Data.ToJSON GetDevice where
   toJSON GetDevice' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("DeviceArn" Core..=) Prelude.<$> deviceArn]
+          [("DeviceArn" Data..=) Prelude.<$> deviceArn]
       )
 
-instance Core.ToPath GetDevice where
+instance Data.ToPath GetDevice where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetDevice where
+instance Data.ToQuery GetDevice where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetDeviceResponse' smart constructor.

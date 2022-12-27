@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.ListTagsForResources
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.Route53.ListTagsForResources
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -114,14 +115,15 @@ instance Core.AWSRequest ListTagsForResources where
   type
     AWSResponse ListTagsForResources =
       ListTagsForResourcesResponse
-  request = Request.postXML defaultService
+  request overrides =
+    Request.postXML (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ListTagsForResourcesResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..@? "ResourceTagSets" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.parseXMLList "ResourceTagSet"
+            Prelude.<*> ( x Data..@? "ResourceTagSets" Core..!@ Prelude.mempty
+                            Prelude.>>= Data.parseXMLList "ResourceTagSet"
                         )
       )
 
@@ -135,27 +137,27 @@ instance Prelude.NFData ListTagsForResources where
     Prelude.rnf resourceType
       `Prelude.seq` Prelude.rnf resourceIds
 
-instance Core.ToElement ListTagsForResources where
+instance Data.ToElement ListTagsForResources where
   toElement =
-    Core.mkElement
+    Data.mkElement
       "{https://route53.amazonaws.com/doc/2013-04-01/}ListTagsForResourcesRequest"
 
-instance Core.ToHeaders ListTagsForResources where
+instance Data.ToHeaders ListTagsForResources where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListTagsForResources where
+instance Data.ToPath ListTagsForResources where
   toPath ListTagsForResources' {..} =
     Prelude.mconcat
-      ["/2013-04-01/tags/", Core.toBS resourceType]
+      ["/2013-04-01/tags/", Data.toBS resourceType]
 
-instance Core.ToQuery ListTagsForResources where
+instance Data.ToQuery ListTagsForResources where
   toQuery = Prelude.const Prelude.mempty
 
-instance Core.ToXML ListTagsForResources where
+instance Data.ToXML ListTagsForResources where
   toXML ListTagsForResources' {..} =
     Prelude.mconcat
       [ "ResourceIds"
-          Core.@= Core.toXMLList "ResourceId" resourceIds
+          Data.@= Data.toXMLList "ResourceId" resourceIds
       ]
 
 -- | A complex type containing tags for the specified resources.

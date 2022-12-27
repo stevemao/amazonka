@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.IamInstanceProfileSpecification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.IamInstanceProfileSpecification where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an IAM instance profile.
@@ -63,10 +64,10 @@ iamInstanceProfileSpecification_arn = Lens.lens (\IamInstanceProfileSpecificatio
 iamInstanceProfileSpecification_name :: Lens.Lens' IamInstanceProfileSpecification (Prelude.Maybe Prelude.Text)
 iamInstanceProfileSpecification_name = Lens.lens (\IamInstanceProfileSpecification' {name} -> name) (\s@IamInstanceProfileSpecification' {} a -> s {name = a} :: IamInstanceProfileSpecification)
 
-instance Core.FromXML IamInstanceProfileSpecification where
+instance Data.FromXML IamInstanceProfileSpecification where
   parseXML x =
     IamInstanceProfileSpecification'
-      Prelude.<$> (x Core..@? "arn") Prelude.<*> (x Core..@? "name")
+      Prelude.<$> (x Data..@? "arn") Prelude.<*> (x Data..@? "name")
 
 instance
   Prelude.Hashable
@@ -85,7 +86,7 @@ instance
   rnf IamInstanceProfileSpecification' {..} =
     Prelude.rnf arn `Prelude.seq` Prelude.rnf name
 
-instance Core.ToQuery IamInstanceProfileSpecification where
+instance Data.ToQuery IamInstanceProfileSpecification where
   toQuery IamInstanceProfileSpecification' {..} =
     Prelude.mconcat
-      ["Arn" Core.=: arn, "Name" Core.=: name]
+      ["Arn" Data.=: arn, "Name" Data.=: name]

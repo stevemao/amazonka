@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Location.GetMapSprites
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.Location.GetMapSprites
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -59,7 +60,7 @@ data GetMapSprites = GetMapSprites'
     --
     -- -   @sprites\@2x.png@ for high pixel density displays
     --
-    -- For the JSON document contain image offsets. Use the following ﬁle
+    -- For the JSON document containing image offsets. Use the following ﬁle
     -- names:
     --
     -- -   @sprites.json@
@@ -86,7 +87,7 @@ data GetMapSprites = GetMapSprites'
 --
 -- -   @sprites\@2x.png@ for high pixel density displays
 --
--- For the JSON document contain image offsets. Use the following ﬁle
+-- For the JSON document containing image offsets. Use the following ﬁle
 -- names:
 --
 -- -   @sprites.json@
@@ -113,7 +114,7 @@ newGetMapSprites pFileName_ pMapName_ =
 --
 -- -   @sprites\@2x.png@ for high pixel density displays
 --
--- For the JSON document contain image offsets. Use the following ﬁle
+-- For the JSON document containing image offsets. Use the following ﬁle
 -- names:
 --
 -- -   @sprites.json@
@@ -130,13 +131,14 @@ instance Core.AWSRequest GetMapSprites where
   type
     AWSResponse GetMapSprites =
       GetMapSpritesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveBytes
       ( \s h x ->
           GetMapSpritesResponse'
             Prelude.<$> (Prelude.pure (Prelude.Just (Prelude.coerce x)))
-            Prelude.<*> (h Core..#? "Content-Type")
+            Prelude.<*> (h Data..#? "Content-Type")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -150,27 +152,27 @@ instance Prelude.NFData GetMapSprites where
     Prelude.rnf fileName
       `Prelude.seq` Prelude.rnf mapName
 
-instance Core.ToHeaders GetMapSprites where
+instance Data.ToHeaders GetMapSprites where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetMapSprites where
+instance Data.ToPath GetMapSprites where
   toPath GetMapSprites' {..} =
     Prelude.mconcat
       [ "/maps/v0/maps/",
-        Core.toBS mapName,
+        Data.toBS mapName,
         "/sprites/",
-        Core.toBS fileName
+        Data.toBS fileName
       ]
 
-instance Core.ToQuery GetMapSprites where
+instance Data.ToQuery GetMapSprites where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetMapSpritesResponse' smart constructor.

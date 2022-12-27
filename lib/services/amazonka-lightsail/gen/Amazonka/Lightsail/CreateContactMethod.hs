@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.CreateContactMethod
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,9 +24,10 @@
 --
 -- A contact method is used to send you notifications about your Amazon
 -- Lightsail resources. You can add one email address and one mobile phone
--- number contact method in each AWS Region. However, SMS text messaging is
--- not supported in some AWS Regions, and SMS text messages cannot be sent
--- to some countries\/regions. For more information, see
+-- number contact method in each Amazon Web Services Region. However, SMS
+-- text messaging is not supported in some Amazon Web Services Regions, and
+-- SMS text messages cannot be sent to some countries\/regions. For more
+-- information, see
 -- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-notifications Notifications in Amazon Lightsail>.
 module Amazonka.Lightsail.CreateContactMethod
   ( -- * Creating a Request
@@ -48,7 +49,8 @@ module Amazonka.Lightsail.CreateContactMethod
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -59,7 +61,8 @@ data CreateContactMethod = CreateContactMethod'
   { -- | The protocol of the contact method, such as @Email@ or @SMS@ (text
     -- messaging).
     --
-    -- The @SMS@ protocol is supported only in the following AWS Regions.
+    -- The @SMS@ protocol is supported only in the following Amazon Web
+    -- Services Regions.
     --
     -- -   US East (N. Virginia) (@us-east-1@)
     --
@@ -74,7 +77,8 @@ data CreateContactMethod = CreateContactMethod'
     -- -   Asia Pacific (Sydney) (@ap-southeast-2@)
     --
     -- For a list of countries\/regions where SMS text messages can be sent,
-    -- and the latest AWS Regions where SMS text messaging is supported, see
+    -- and the latest Amazon Web Services Regions where SMS text messaging is
+    -- supported, see
     -- <https://docs.aws.amazon.com/sns/latest/dg/sns-supported-regions-countries.html Supported Regions and Countries>
     -- in the /Amazon SNS Developer Guide/.
     --
@@ -106,7 +110,8 @@ data CreateContactMethod = CreateContactMethod'
 -- 'protocol', 'createContactMethod_protocol' - The protocol of the contact method, such as @Email@ or @SMS@ (text
 -- messaging).
 --
--- The @SMS@ protocol is supported only in the following AWS Regions.
+-- The @SMS@ protocol is supported only in the following Amazon Web
+-- Services Regions.
 --
 -- -   US East (N. Virginia) (@us-east-1@)
 --
@@ -121,7 +126,8 @@ data CreateContactMethod = CreateContactMethod'
 -- -   Asia Pacific (Sydney) (@ap-southeast-2@)
 --
 -- For a list of countries\/regions where SMS text messages can be sent,
--- and the latest AWS Regions where SMS text messaging is supported, see
+-- and the latest Amazon Web Services Regions where SMS text messaging is
+-- supported, see
 -- <https://docs.aws.amazon.com/sns/latest/dg/sns-supported-regions-countries.html Supported Regions and Countries>
 -- in the /Amazon SNS Developer Guide/.
 --
@@ -153,7 +159,8 @@ newCreateContactMethod pProtocol_ pContactEndpoint_ =
 -- | The protocol of the contact method, such as @Email@ or @SMS@ (text
 -- messaging).
 --
--- The @SMS@ protocol is supported only in the following AWS Regions.
+-- The @SMS@ protocol is supported only in the following Amazon Web
+-- Services Regions.
 --
 -- -   US East (N. Virginia) (@us-east-1@)
 --
@@ -168,7 +175,8 @@ newCreateContactMethod pProtocol_ pContactEndpoint_ =
 -- -   Asia Pacific (Sydney) (@ap-southeast-2@)
 --
 -- For a list of countries\/regions where SMS text messages can be sent,
--- and the latest AWS Regions where SMS text messaging is supported, see
+-- and the latest Amazon Web Services Regions where SMS text messaging is
+-- supported, see
 -- <https://docs.aws.amazon.com/sns/latest/dg/sns-supported-regions-countries.html Supported Regions and Countries>
 -- in the /Amazon SNS Developer Guide/.
 --
@@ -194,12 +202,13 @@ instance Core.AWSRequest CreateContactMethod where
   type
     AWSResponse CreateContactMethod =
       CreateContactMethodResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateContactMethodResponse'
-            Prelude.<$> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -213,35 +222,35 @@ instance Prelude.NFData CreateContactMethod where
     Prelude.rnf protocol
       `Prelude.seq` Prelude.rnf contactEndpoint
 
-instance Core.ToHeaders CreateContactMethod where
+instance Data.ToHeaders CreateContactMethod where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.CreateContactMethod" ::
+              Data.=# ( "Lightsail_20161128.CreateContactMethod" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateContactMethod where
+instance Data.ToJSON CreateContactMethod where
   toJSON CreateContactMethod' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("protocol" Core..= protocol),
+          [ Prelude.Just ("protocol" Data..= protocol),
             Prelude.Just
-              ("contactEndpoint" Core..= contactEndpoint)
+              ("contactEndpoint" Data..= contactEndpoint)
           ]
       )
 
-instance Core.ToPath CreateContactMethod where
+instance Data.ToPath CreateContactMethod where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateContactMethod where
+instance Data.ToQuery CreateContactMethod where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateContactMethodResponse' smart constructor.

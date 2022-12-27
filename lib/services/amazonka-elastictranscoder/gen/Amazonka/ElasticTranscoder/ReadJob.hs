@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticTranscoder.ReadJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.ElasticTranscoder.ReadJob
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticTranscoder.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,13 +80,14 @@ readJob_id = Lens.lens (\ReadJob' {id} -> id) (\s@ReadJob' {} a -> s {id = a} ::
 
 instance Core.AWSRequest ReadJob where
   type AWSResponse ReadJob = ReadJobResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ReadJobResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Job")
+            Prelude.<*> (x Data..:> "Job")
       )
 
 instance Prelude.Hashable ReadJob where
@@ -95,14 +97,14 @@ instance Prelude.Hashable ReadJob where
 instance Prelude.NFData ReadJob where
   rnf ReadJob' {..} = Prelude.rnf id
 
-instance Core.ToHeaders ReadJob where
+instance Data.ToHeaders ReadJob where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ReadJob where
+instance Data.ToPath ReadJob where
   toPath ReadJob' {..} =
-    Prelude.mconcat ["/2012-09-25/jobs/", Core.toBS id]
+    Prelude.mconcat ["/2012-09-25/jobs/", Data.toBS id]
 
-instance Core.ToQuery ReadJob where
+instance Data.ToQuery ReadJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The @ReadJobResponse@ structure.

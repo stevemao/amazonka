@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.SelectAggregateResourceConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,9 +48,9 @@ module Amazonka.Config.SelectAggregateResourceConfig
     newSelectAggregateResourceConfig,
 
     -- * Request Lenses
-    selectAggregateResourceConfig_nextToken,
     selectAggregateResourceConfig_limit,
     selectAggregateResourceConfig_maxResults,
+    selectAggregateResourceConfig_nextToken,
     selectAggregateResourceConfig_expression,
     selectAggregateResourceConfig_configurationAggregatorName,
 
@@ -59,30 +59,31 @@ module Amazonka.Config.SelectAggregateResourceConfig
     newSelectAggregateResourceConfigResponse,
 
     -- * Response Lenses
-    selectAggregateResourceConfigResponse_results,
-    selectAggregateResourceConfigResponse_queryInfo,
     selectAggregateResourceConfigResponse_nextToken,
+    selectAggregateResourceConfigResponse_queryInfo,
+    selectAggregateResourceConfigResponse_results,
     selectAggregateResourceConfigResponse_httpStatus,
   )
 where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newSelectAggregateResourceConfig' smart constructor.
 data SelectAggregateResourceConfig = SelectAggregateResourceConfig'
-  { -- | The nextToken string returned in a previous request that you use to
-    -- request the next page of results in a paginated response.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of query results returned on each page.
+  { -- | The maximum number of query results returned on each page.
     limit :: Prelude.Maybe Prelude.Natural,
     -- | The maximum number of query results returned on each page. Config also
     -- allows the Limit request parameter.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The nextToken string returned in a previous request that you use to
+    -- request the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The SQL query SELECT command.
     expression :: Prelude.Text,
     -- | The name of the configuration aggregator.
@@ -98,13 +99,13 @@ data SelectAggregateResourceConfig = SelectAggregateResourceConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'selectAggregateResourceConfig_nextToken' - The nextToken string returned in a previous request that you use to
--- request the next page of results in a paginated response.
---
 -- 'limit', 'selectAggregateResourceConfig_limit' - The maximum number of query results returned on each page.
 --
 -- 'maxResults', 'selectAggregateResourceConfig_maxResults' - The maximum number of query results returned on each page. Config also
 -- allows the Limit request parameter.
+--
+-- 'nextToken', 'selectAggregateResourceConfig_nextToken' - The nextToken string returned in a previous request that you use to
+-- request the next page of results in a paginated response.
 --
 -- 'expression', 'selectAggregateResourceConfig_expression' - The SQL query SELECT command.
 --
@@ -119,19 +120,14 @@ newSelectAggregateResourceConfig
   pExpression_
   pConfigurationAggregatorName_ =
     SelectAggregateResourceConfig'
-      { nextToken =
+      { limit =
           Prelude.Nothing,
-        limit = Prelude.Nothing,
         maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         expression = pExpression_,
         configurationAggregatorName =
           pConfigurationAggregatorName_
       }
-
--- | The nextToken string returned in a previous request that you use to
--- request the next page of results in a paginated response.
-selectAggregateResourceConfig_nextToken :: Lens.Lens' SelectAggregateResourceConfig (Prelude.Maybe Prelude.Text)
-selectAggregateResourceConfig_nextToken = Lens.lens (\SelectAggregateResourceConfig' {nextToken} -> nextToken) (\s@SelectAggregateResourceConfig' {} a -> s {nextToken = a} :: SelectAggregateResourceConfig)
 
 -- | The maximum number of query results returned on each page.
 selectAggregateResourceConfig_limit :: Lens.Lens' SelectAggregateResourceConfig (Prelude.Maybe Prelude.Natural)
@@ -141,6 +137,11 @@ selectAggregateResourceConfig_limit = Lens.lens (\SelectAggregateResourceConfig'
 -- allows the Limit request parameter.
 selectAggregateResourceConfig_maxResults :: Lens.Lens' SelectAggregateResourceConfig (Prelude.Maybe Prelude.Natural)
 selectAggregateResourceConfig_maxResults = Lens.lens (\SelectAggregateResourceConfig' {maxResults} -> maxResults) (\s@SelectAggregateResourceConfig' {} a -> s {maxResults = a} :: SelectAggregateResourceConfig)
+
+-- | The nextToken string returned in a previous request that you use to
+-- request the next page of results in a paginated response.
+selectAggregateResourceConfig_nextToken :: Lens.Lens' SelectAggregateResourceConfig (Prelude.Maybe Prelude.Text)
+selectAggregateResourceConfig_nextToken = Lens.lens (\SelectAggregateResourceConfig' {nextToken} -> nextToken) (\s@SelectAggregateResourceConfig' {} a -> s {nextToken = a} :: SelectAggregateResourceConfig)
 
 -- | The SQL query SELECT command.
 selectAggregateResourceConfig_expression :: Lens.Lens' SelectAggregateResourceConfig Prelude.Text
@@ -179,14 +180,15 @@ instance
   type
     AWSResponse SelectAggregateResourceConfig =
       SelectAggregateResourceConfigResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SelectAggregateResourceConfigResponse'
-            Prelude.<$> (x Core..?> "Results" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "QueryInfo")
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "QueryInfo")
+            Prelude.<*> (x Data..?> "Results" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -195,64 +197,64 @@ instance
     SelectAggregateResourceConfig
   where
   hashWithSalt _salt SelectAggregateResourceConfig' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` limit
+    _salt `Prelude.hashWithSalt` limit
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` expression
       `Prelude.hashWithSalt` configurationAggregatorName
 
 instance Prelude.NFData SelectAggregateResourceConfig where
   rnf SelectAggregateResourceConfig' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf limit
+    Prelude.rnf limit
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf expression
       `Prelude.seq` Prelude.rnf configurationAggregatorName
 
-instance Core.ToHeaders SelectAggregateResourceConfig where
+instance Data.ToHeaders SelectAggregateResourceConfig where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.SelectAggregateResourceConfig" ::
+              Data.=# ( "StarlingDoveService.SelectAggregateResourceConfig" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SelectAggregateResourceConfig where
+instance Data.ToJSON SelectAggregateResourceConfig where
   toJSON SelectAggregateResourceConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Limit" Core..=) Prelude.<$> limit,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("Expression" Core..= expression),
+          [ ("Limit" Data..=) Prelude.<$> limit,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("Expression" Data..= expression),
             Prelude.Just
               ( "ConfigurationAggregatorName"
-                  Core..= configurationAggregatorName
+                  Data..= configurationAggregatorName
               )
           ]
       )
 
-instance Core.ToPath SelectAggregateResourceConfig where
+instance Data.ToPath SelectAggregateResourceConfig where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SelectAggregateResourceConfig where
+instance Data.ToQuery SelectAggregateResourceConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSelectAggregateResourceConfigResponse' smart constructor.
 data SelectAggregateResourceConfigResponse = SelectAggregateResourceConfigResponse'
-  { -- | Returns the results for the SQL query.
-    results :: Prelude.Maybe [Prelude.Text],
-    queryInfo :: Prelude.Maybe QueryInfo,
-    -- | The nextToken string returned in a previous request that you use to
+  { -- | The nextToken string returned in a previous request that you use to
     -- request the next page of results in a paginated response.
     nextToken :: Prelude.Maybe Prelude.Text,
+    queryInfo :: Prelude.Maybe QueryInfo,
+    -- | Returns the results for the SQL query.
+    results :: Prelude.Maybe [Prelude.Text],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -266,12 +268,12 @@ data SelectAggregateResourceConfigResponse = SelectAggregateResourceConfigRespon
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'results', 'selectAggregateResourceConfigResponse_results' - Returns the results for the SQL query.
+-- 'nextToken', 'selectAggregateResourceConfigResponse_nextToken' - The nextToken string returned in a previous request that you use to
+-- request the next page of results in a paginated response.
 --
 -- 'queryInfo', 'selectAggregateResourceConfigResponse_queryInfo' - Undocumented member.
 --
--- 'nextToken', 'selectAggregateResourceConfigResponse_nextToken' - The nextToken string returned in a previous request that you use to
--- request the next page of results in a paginated response.
+-- 'results', 'selectAggregateResourceConfigResponse_results' - Returns the results for the SQL query.
 --
 -- 'httpStatus', 'selectAggregateResourceConfigResponse_httpStatus' - The response's http status code.
 newSelectAggregateResourceConfigResponse ::
@@ -280,25 +282,25 @@ newSelectAggregateResourceConfigResponse ::
   SelectAggregateResourceConfigResponse
 newSelectAggregateResourceConfigResponse pHttpStatus_ =
   SelectAggregateResourceConfigResponse'
-    { results =
+    { nextToken =
         Prelude.Nothing,
       queryInfo = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      results = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Returns the results for the SQL query.
-selectAggregateResourceConfigResponse_results :: Lens.Lens' SelectAggregateResourceConfigResponse (Prelude.Maybe [Prelude.Text])
-selectAggregateResourceConfigResponse_results = Lens.lens (\SelectAggregateResourceConfigResponse' {results} -> results) (\s@SelectAggregateResourceConfigResponse' {} a -> s {results = a} :: SelectAggregateResourceConfigResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | Undocumented member.
-selectAggregateResourceConfigResponse_queryInfo :: Lens.Lens' SelectAggregateResourceConfigResponse (Prelude.Maybe QueryInfo)
-selectAggregateResourceConfigResponse_queryInfo = Lens.lens (\SelectAggregateResourceConfigResponse' {queryInfo} -> queryInfo) (\s@SelectAggregateResourceConfigResponse' {} a -> s {queryInfo = a} :: SelectAggregateResourceConfigResponse)
 
 -- | The nextToken string returned in a previous request that you use to
 -- request the next page of results in a paginated response.
 selectAggregateResourceConfigResponse_nextToken :: Lens.Lens' SelectAggregateResourceConfigResponse (Prelude.Maybe Prelude.Text)
 selectAggregateResourceConfigResponse_nextToken = Lens.lens (\SelectAggregateResourceConfigResponse' {nextToken} -> nextToken) (\s@SelectAggregateResourceConfigResponse' {} a -> s {nextToken = a} :: SelectAggregateResourceConfigResponse)
+
+-- | Undocumented member.
+selectAggregateResourceConfigResponse_queryInfo :: Lens.Lens' SelectAggregateResourceConfigResponse (Prelude.Maybe QueryInfo)
+selectAggregateResourceConfigResponse_queryInfo = Lens.lens (\SelectAggregateResourceConfigResponse' {queryInfo} -> queryInfo) (\s@SelectAggregateResourceConfigResponse' {} a -> s {queryInfo = a} :: SelectAggregateResourceConfigResponse)
+
+-- | Returns the results for the SQL query.
+selectAggregateResourceConfigResponse_results :: Lens.Lens' SelectAggregateResourceConfigResponse (Prelude.Maybe [Prelude.Text])
+selectAggregateResourceConfigResponse_results = Lens.lens (\SelectAggregateResourceConfigResponse' {results} -> results) (\s@SelectAggregateResourceConfigResponse' {} a -> s {results = a} :: SelectAggregateResourceConfigResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 selectAggregateResourceConfigResponse_httpStatus :: Lens.Lens' SelectAggregateResourceConfigResponse Prelude.Int
@@ -309,7 +311,7 @@ instance
     SelectAggregateResourceConfigResponse
   where
   rnf SelectAggregateResourceConfigResponse' {..} =
-    Prelude.rnf results
+    Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf queryInfo
-      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf results
       `Prelude.seq` Prelude.rnf httpStatus

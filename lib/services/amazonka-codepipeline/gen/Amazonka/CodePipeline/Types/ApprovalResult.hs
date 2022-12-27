@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.Types.ApprovalResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CodePipeline.Types.ApprovalResult where
 
 import Amazonka.CodePipeline.Types.ApprovalStatus
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents information about the result of an approval request.
@@ -79,11 +80,11 @@ instance Prelude.NFData ApprovalResult where
     Prelude.rnf summary
       `Prelude.seq` Prelude.rnf status
 
-instance Core.ToJSON ApprovalResult where
+instance Data.ToJSON ApprovalResult where
   toJSON ApprovalResult' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("summary" Core..= summary),
-            Prelude.Just ("status" Core..= status)
+          [ Prelude.Just ("summary" Data..= summary),
+            Prelude.Just ("status" Data..= status)
           ]
       )

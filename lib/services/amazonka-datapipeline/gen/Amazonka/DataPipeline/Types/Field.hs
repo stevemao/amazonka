@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataPipeline.Types.Field
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DataPipeline.Types.Field where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A key-value pair that describes a property of a pipeline object. The
@@ -74,15 +75,15 @@ field_stringValue = Lens.lens (\Field' {stringValue} -> stringValue) (\s@Field' 
 field_key :: Lens.Lens' Field Prelude.Text
 field_key = Lens.lens (\Field' {key} -> key) (\s@Field' {} a -> s {key = a} :: Field)
 
-instance Core.FromJSON Field where
+instance Data.FromJSON Field where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Field"
       ( \x ->
           Field'
-            Prelude.<$> (x Core..:? "refValue")
-            Prelude.<*> (x Core..:? "stringValue")
-            Prelude.<*> (x Core..: "key")
+            Prelude.<$> (x Data..:? "refValue")
+            Prelude.<*> (x Data..:? "stringValue")
+            Prelude.<*> (x Data..: "key")
       )
 
 instance Prelude.Hashable Field where
@@ -97,12 +98,12 @@ instance Prelude.NFData Field where
       `Prelude.seq` Prelude.rnf stringValue
       `Prelude.seq` Prelude.rnf key
 
-instance Core.ToJSON Field where
+instance Data.ToJSON Field where
   toJSON Field' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("refValue" Core..=) Prelude.<$> refValue,
-            ("stringValue" Core..=) Prelude.<$> stringValue,
-            Prelude.Just ("key" Core..= key)
+          [ ("refValue" Data..=) Prelude.<$> refValue,
+            ("stringValue" Data..=) Prelude.<$> stringValue,
+            Prelude.Just ("key" Data..= key)
           ]
       )

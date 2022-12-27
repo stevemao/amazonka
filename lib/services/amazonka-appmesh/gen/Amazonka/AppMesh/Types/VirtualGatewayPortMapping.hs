@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.VirtualGatewayPortMapping
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppMesh.Types.VirtualGatewayPortMapping where
 
 import Amazonka.AppMesh.Types.VirtualGatewayPortProtocol
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents a port mapping.
@@ -66,14 +67,14 @@ virtualGatewayPortMapping_port = Lens.lens (\VirtualGatewayPortMapping' {port} -
 virtualGatewayPortMapping_protocol :: Lens.Lens' VirtualGatewayPortMapping VirtualGatewayPortProtocol
 virtualGatewayPortMapping_protocol = Lens.lens (\VirtualGatewayPortMapping' {protocol} -> protocol) (\s@VirtualGatewayPortMapping' {} a -> s {protocol = a} :: VirtualGatewayPortMapping)
 
-instance Core.FromJSON VirtualGatewayPortMapping where
+instance Data.FromJSON VirtualGatewayPortMapping where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VirtualGatewayPortMapping"
       ( \x ->
           VirtualGatewayPortMapping'
-            Prelude.<$> (x Core..: "port")
-            Prelude.<*> (x Core..: "protocol")
+            Prelude.<$> (x Data..: "port")
+            Prelude.<*> (x Data..: "protocol")
       )
 
 instance Prelude.Hashable VirtualGatewayPortMapping where
@@ -85,11 +86,11 @@ instance Prelude.NFData VirtualGatewayPortMapping where
   rnf VirtualGatewayPortMapping' {..} =
     Prelude.rnf port `Prelude.seq` Prelude.rnf protocol
 
-instance Core.ToJSON VirtualGatewayPortMapping where
+instance Data.ToJSON VirtualGatewayPortMapping where
   toJSON VirtualGatewayPortMapping' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("port" Core..= port),
-            Prelude.Just ("protocol" Core..= protocol)
+          [ Prelude.Just ("port" Data..= port),
+            Prelude.Just ("protocol" Data..= protocol)
           ]
       )

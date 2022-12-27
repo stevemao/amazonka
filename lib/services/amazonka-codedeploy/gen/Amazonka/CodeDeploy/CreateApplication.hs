@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.CreateApplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.CodeDeploy.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,7 +61,7 @@ data CreateApplication = CreateApplication'
     -- value, both of which you define.
     tags :: Prelude.Maybe [Tag],
     -- | The name of the application. This name must be unique with the
-    -- applicable IAM user or AWS account.
+    -- applicable IAM or Amazon Web Services account.
     applicationName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -81,7 +82,7 @@ data CreateApplication = CreateApplication'
 -- value, both of which you define.
 --
 -- 'applicationName', 'createApplication_applicationName' - The name of the application. This name must be unique with the
--- applicable IAM user or AWS account.
+-- applicable IAM or Amazon Web Services account.
 newCreateApplication ::
   -- | 'applicationName'
   Prelude.Text ->
@@ -106,7 +107,7 @@ createApplication_tags :: Lens.Lens' CreateApplication (Prelude.Maybe [Tag])
 createApplication_tags = Lens.lens (\CreateApplication' {tags} -> tags) (\s@CreateApplication' {} a -> s {tags = a} :: CreateApplication) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the application. This name must be unique with the
--- applicable IAM user or AWS account.
+-- applicable IAM or Amazon Web Services account.
 createApplication_applicationName :: Lens.Lens' CreateApplication Prelude.Text
 createApplication_applicationName = Lens.lens (\CreateApplication' {applicationName} -> applicationName) (\s@CreateApplication' {} a -> s {applicationName = a} :: CreateApplication)
 
@@ -114,12 +115,13 @@ instance Core.AWSRequest CreateApplication where
   type
     AWSResponse CreateApplication =
       CreateApplicationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateApplicationResponse'
-            Prelude.<$> (x Core..?> "applicationId")
+            Prelude.<$> (x Data..?> "applicationId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -135,37 +137,37 @@ instance Prelude.NFData CreateApplication where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf applicationName
 
-instance Core.ToHeaders CreateApplication where
+instance Data.ToHeaders CreateApplication where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeDeploy_20141006.CreateApplication" ::
+              Data.=# ( "CodeDeploy_20141006.CreateApplication" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateApplication where
+instance Data.ToJSON CreateApplication where
   toJSON CreateApplication' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("computePlatform" Core..=)
+          [ ("computePlatform" Data..=)
               Prelude.<$> computePlatform,
-            ("tags" Core..=) Prelude.<$> tags,
+            ("tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("applicationName" Core..= applicationName)
+              ("applicationName" Data..= applicationName)
           ]
       )
 
-instance Core.ToPath CreateApplication where
+instance Data.ToPath CreateApplication where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateApplication where
+instance Data.ToQuery CreateApplication where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @CreateApplication@ operation.

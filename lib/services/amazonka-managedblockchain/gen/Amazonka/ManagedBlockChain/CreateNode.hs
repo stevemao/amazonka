@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ManagedBlockChain.CreateNode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.ManagedBlockChain.CreateNode
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ManagedBlockChain.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -75,13 +76,15 @@ data CreateNode = CreateNode'
     -- idempotency of the operation. An idempotent operation completes no more
     -- than one time. This identifier is required only if you make a service
     -- request directly using an HTTP client. It is generated automatically if
-    -- you use an AWS SDK or the AWS CLI.
+    -- you use an Amazon Web Services SDK or the CLI.
     clientRequestToken :: Prelude.Text,
     -- | The unique identifier of the network for the node.
     --
     -- Ethereum public networks have the following @NetworkId@s:
     --
     -- -   @n-ethereum-mainnet@
+    --
+    -- -   @n-ethereum-goerli@
     --
     -- -   @n-ethereum-rinkeby@
     --
@@ -121,13 +124,15 @@ data CreateNode = CreateNode'
 -- idempotency of the operation. An idempotent operation completes no more
 -- than one time. This identifier is required only if you make a service
 -- request directly using an HTTP client. It is generated automatically if
--- you use an AWS SDK or the AWS CLI.
+-- you use an Amazon Web Services SDK or the CLI.
 --
 -- 'networkId', 'createNode_networkId' - The unique identifier of the network for the node.
 --
 -- Ethereum public networks have the following @NetworkId@s:
 --
 -- -   @n-ethereum-mainnet@
+--
+-- -   @n-ethereum-goerli@
 --
 -- -   @n-ethereum-rinkeby@
 --
@@ -179,7 +184,7 @@ createNode_tags = Lens.lens (\CreateNode' {tags} -> tags) (\s@CreateNode' {} a -
 -- idempotency of the operation. An idempotent operation completes no more
 -- than one time. This identifier is required only if you make a service
 -- request directly using an HTTP client. It is generated automatically if
--- you use an AWS SDK or the AWS CLI.
+-- you use an Amazon Web Services SDK or the CLI.
 createNode_clientRequestToken :: Lens.Lens' CreateNode Prelude.Text
 createNode_clientRequestToken = Lens.lens (\CreateNode' {clientRequestToken} -> clientRequestToken) (\s@CreateNode' {} a -> s {clientRequestToken = a} :: CreateNode)
 
@@ -188,6 +193,8 @@ createNode_clientRequestToken = Lens.lens (\CreateNode' {clientRequestToken} -> 
 -- Ethereum public networks have the following @NetworkId@s:
 --
 -- -   @n-ethereum-mainnet@
+--
+-- -   @n-ethereum-goerli@
 --
 -- -   @n-ethereum-rinkeby@
 --
@@ -201,12 +208,13 @@ createNode_nodeConfiguration = Lens.lens (\CreateNode' {nodeConfiguration} -> no
 
 instance Core.AWSRequest CreateNode where
   type AWSResponse CreateNode = CreateNodeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateNodeResponse'
-            Prelude.<$> (x Core..?> "NodeId")
+            Prelude.<$> (x Data..?> "NodeId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -226,36 +234,36 @@ instance Prelude.NFData CreateNode where
       `Prelude.seq` Prelude.rnf networkId
       `Prelude.seq` Prelude.rnf nodeConfiguration
 
-instance Core.ToHeaders CreateNode where
+instance Data.ToHeaders CreateNode where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateNode where
+instance Data.ToJSON CreateNode where
   toJSON CreateNode' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MemberId" Core..=) Prelude.<$> memberId,
-            ("Tags" Core..=) Prelude.<$> tags,
+          [ ("MemberId" Data..=) Prelude.<$> memberId,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("ClientRequestToken" Core..= clientRequestToken),
+              ("ClientRequestToken" Data..= clientRequestToken),
             Prelude.Just
-              ("NodeConfiguration" Core..= nodeConfiguration)
+              ("NodeConfiguration" Data..= nodeConfiguration)
           ]
       )
 
-instance Core.ToPath CreateNode where
+instance Data.ToPath CreateNode where
   toPath CreateNode' {..} =
     Prelude.mconcat
-      ["/networks/", Core.toBS networkId, "/nodes"]
+      ["/networks/", Data.toBS networkId, "/nodes"]
 
-instance Core.ToQuery CreateNode where
+instance Data.ToQuery CreateNode where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateNodeResponse' smart constructor.

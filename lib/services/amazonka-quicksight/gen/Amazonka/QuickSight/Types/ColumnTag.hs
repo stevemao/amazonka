@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.ColumnTag
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,13 +20,14 @@
 module Amazonka.QuickSight.Types.ColumnTag where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types.ColumnDescription
 import Amazonka.QuickSight.Types.GeoSpatialDataRole
 
--- | A tag for a column in a TagColumnOperation structure. This is a variant
--- type structure. For this structure to be valid, only one of the
+-- | A tag for a column in a @ TagColumnOperation @ structure. This is a
+-- variant type structure. For this structure to be valid, only one of the
 -- attributes can be non-null.
 --
 -- /See:/ 'newColumnTag' smart constructor.
@@ -65,14 +66,14 @@ columnTag_columnDescription = Lens.lens (\ColumnTag' {columnDescription} -> colu
 columnTag_columnGeographicRole :: Lens.Lens' ColumnTag (Prelude.Maybe GeoSpatialDataRole)
 columnTag_columnGeographicRole = Lens.lens (\ColumnTag' {columnGeographicRole} -> columnGeographicRole) (\s@ColumnTag' {} a -> s {columnGeographicRole = a} :: ColumnTag)
 
-instance Core.FromJSON ColumnTag where
+instance Data.FromJSON ColumnTag where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ColumnTag"
       ( \x ->
           ColumnTag'
-            Prelude.<$> (x Core..:? "ColumnDescription")
-            Prelude.<*> (x Core..:? "ColumnGeographicRole")
+            Prelude.<$> (x Data..:? "ColumnDescription")
+            Prelude.<*> (x Data..:? "ColumnGeographicRole")
       )
 
 instance Prelude.Hashable ColumnTag where
@@ -85,13 +86,13 @@ instance Prelude.NFData ColumnTag where
     Prelude.rnf columnDescription
       `Prelude.seq` Prelude.rnf columnGeographicRole
 
-instance Core.ToJSON ColumnTag where
+instance Data.ToJSON ColumnTag where
   toJSON ColumnTag' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ColumnDescription" Core..=)
+          [ ("ColumnDescription" Data..=)
               Prelude.<$> columnDescription,
-            ("ColumnGeographicRole" Core..=)
+            ("ColumnGeographicRole" Data..=)
               Prelude.<$> columnGeographicRole
           ]
       )

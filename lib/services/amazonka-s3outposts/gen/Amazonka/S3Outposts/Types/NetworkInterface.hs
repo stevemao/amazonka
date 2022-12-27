@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3Outposts.Types.NetworkInterface
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3Outposts.Types.NetworkInterface where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The container for the network interface.
@@ -53,13 +54,13 @@ newNetworkInterface =
 networkInterface_networkInterfaceId :: Lens.Lens' NetworkInterface (Prelude.Maybe Prelude.Text)
 networkInterface_networkInterfaceId = Lens.lens (\NetworkInterface' {networkInterfaceId} -> networkInterfaceId) (\s@NetworkInterface' {} a -> s {networkInterfaceId = a} :: NetworkInterface)
 
-instance Core.FromJSON NetworkInterface where
+instance Data.FromJSON NetworkInterface where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NetworkInterface"
       ( \x ->
           NetworkInterface'
-            Prelude.<$> (x Core..:? "NetworkInterfaceId")
+            Prelude.<$> (x Data..:? "NetworkInterfaceId")
       )
 
 instance Prelude.Hashable NetworkInterface where

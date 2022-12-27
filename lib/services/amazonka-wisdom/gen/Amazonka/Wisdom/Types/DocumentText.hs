@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.Types.DocumentText
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Wisdom.Types.DocumentText where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Wisdom.Types.Highlight
 
@@ -28,10 +29,10 @@ import Amazonka.Wisdom.Types.Highlight
 --
 -- /See:/ 'newDocumentText' smart constructor.
 data DocumentText = DocumentText'
-  { -- | Text in the document.
-    text :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | Highlights in the document text.
-    highlights :: Prelude.Maybe [Highlight]
+  { -- | Highlights in the document text.
+    highlights :: Prelude.Maybe [Highlight],
+    -- | Text in the document.
+    text :: Prelude.Maybe (Data.Sensitive Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -43,41 +44,41 @@ data DocumentText = DocumentText'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'text', 'documentText_text' - Text in the document.
---
 -- 'highlights', 'documentText_highlights' - Highlights in the document text.
+--
+-- 'text', 'documentText_text' - Text in the document.
 newDocumentText ::
   DocumentText
 newDocumentText =
   DocumentText'
-    { text = Prelude.Nothing,
-      highlights = Prelude.Nothing
+    { highlights = Prelude.Nothing,
+      text = Prelude.Nothing
     }
-
--- | Text in the document.
-documentText_text :: Lens.Lens' DocumentText (Prelude.Maybe Prelude.Text)
-documentText_text = Lens.lens (\DocumentText' {text} -> text) (\s@DocumentText' {} a -> s {text = a} :: DocumentText) Prelude.. Lens.mapping Core._Sensitive
 
 -- | Highlights in the document text.
 documentText_highlights :: Lens.Lens' DocumentText (Prelude.Maybe [Highlight])
 documentText_highlights = Lens.lens (\DocumentText' {highlights} -> highlights) (\s@DocumentText' {} a -> s {highlights = a} :: DocumentText) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON DocumentText where
+-- | Text in the document.
+documentText_text :: Lens.Lens' DocumentText (Prelude.Maybe Prelude.Text)
+documentText_text = Lens.lens (\DocumentText' {text} -> text) (\s@DocumentText' {} a -> s {text = a} :: DocumentText) Prelude.. Lens.mapping Data._Sensitive
+
+instance Data.FromJSON DocumentText where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DocumentText"
       ( \x ->
           DocumentText'
-            Prelude.<$> (x Core..:? "text")
-            Prelude.<*> (x Core..:? "highlights" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "highlights" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "text")
       )
 
 instance Prelude.Hashable DocumentText where
   hashWithSalt _salt DocumentText' {..} =
-    _salt `Prelude.hashWithSalt` text
-      `Prelude.hashWithSalt` highlights
+    _salt `Prelude.hashWithSalt` highlights
+      `Prelude.hashWithSalt` text
 
 instance Prelude.NFData DocumentText where
   rnf DocumentText' {..} =
-    Prelude.rnf text
-      `Prelude.seq` Prelude.rnf highlights
+    Prelude.rnf highlights
+      `Prelude.seq` Prelude.rnf text

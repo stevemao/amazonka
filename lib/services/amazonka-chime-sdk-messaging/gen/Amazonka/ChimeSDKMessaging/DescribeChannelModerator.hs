@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ChimeSDKMessaging.DescribeChannelModerator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ where
 
 import Amazonka.ChimeSDKMessaging.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,7 +57,7 @@ import qualified Amazonka.Response as Response
 data DescribeChannelModerator = DescribeChannelModerator'
   { -- | The ARN of the channel.
     channelArn :: Prelude.Text,
-    -- | The ARN of the channel moderator.
+    -- | The @AppInstanceUserArn@ of the channel moderator.
     channelModeratorArn :: Prelude.Text,
     -- | The @AppInstanceUserArn@ of the user that makes the API call.
     chimeBearer :: Prelude.Text
@@ -73,7 +74,7 @@ data DescribeChannelModerator = DescribeChannelModerator'
 --
 -- 'channelArn', 'describeChannelModerator_channelArn' - The ARN of the channel.
 --
--- 'channelModeratorArn', 'describeChannelModerator_channelModeratorArn' - The ARN of the channel moderator.
+-- 'channelModeratorArn', 'describeChannelModerator_channelModeratorArn' - The @AppInstanceUserArn@ of the channel moderator.
 --
 -- 'chimeBearer', 'describeChannelModerator_chimeBearer' - The @AppInstanceUserArn@ of the user that makes the API call.
 newDescribeChannelModerator ::
@@ -99,7 +100,7 @@ newDescribeChannelModerator
 describeChannelModerator_channelArn :: Lens.Lens' DescribeChannelModerator Prelude.Text
 describeChannelModerator_channelArn = Lens.lens (\DescribeChannelModerator' {channelArn} -> channelArn) (\s@DescribeChannelModerator' {} a -> s {channelArn = a} :: DescribeChannelModerator)
 
--- | The ARN of the channel moderator.
+-- | The @AppInstanceUserArn@ of the channel moderator.
 describeChannelModerator_channelModeratorArn :: Lens.Lens' DescribeChannelModerator Prelude.Text
 describeChannelModerator_channelModeratorArn = Lens.lens (\DescribeChannelModerator' {channelModeratorArn} -> channelModeratorArn) (\s@DescribeChannelModerator' {} a -> s {channelModeratorArn = a} :: DescribeChannelModerator)
 
@@ -111,12 +112,13 @@ instance Core.AWSRequest DescribeChannelModerator where
   type
     AWSResponse DescribeChannelModerator =
       DescribeChannelModeratorResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeChannelModeratorResponse'
-            Prelude.<$> (x Core..?> "ChannelModerator")
+            Prelude.<$> (x Data..?> "ChannelModerator")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -132,21 +134,21 @@ instance Prelude.NFData DescribeChannelModerator where
       `Prelude.seq` Prelude.rnf channelModeratorArn
       `Prelude.seq` Prelude.rnf chimeBearer
 
-instance Core.ToHeaders DescribeChannelModerator where
+instance Data.ToHeaders DescribeChannelModerator where
   toHeaders DescribeChannelModerator' {..} =
     Prelude.mconcat
-      ["x-amz-chime-bearer" Core.=# chimeBearer]
+      ["x-amz-chime-bearer" Data.=# chimeBearer]
 
-instance Core.ToPath DescribeChannelModerator where
+instance Data.ToPath DescribeChannelModerator where
   toPath DescribeChannelModerator' {..} =
     Prelude.mconcat
       [ "/channels/",
-        Core.toBS channelArn,
+        Data.toBS channelArn,
         "/moderators/",
-        Core.toBS channelModeratorArn
+        Data.toBS channelModeratorArn
       ]
 
-instance Core.ToQuery DescribeChannelModerator where
+instance Data.ToQuery DescribeChannelModerator where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeChannelModeratorResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.EnablePolicyType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,9 +25,10 @@
 -- organizational unit (OU), or account in that root. You can undo this by
 -- using the DisablePolicyType operation.
 --
--- This is an asynchronous request that AWS performs in the background. AWS
--- recommends that you first use ListRoots to see the status of policy
--- types for a specified root, and then use this operation.
+-- This is an asynchronous request that Amazon Web Services performs in the
+-- background. Amazon Web Services recommends that you first use ListRoots
+-- to see the status of policy types for a specified root, and then use
+-- this operation.
 --
 -- This operation can be called only from the organization\'s management
 -- account.
@@ -55,7 +56,8 @@ module Amazonka.Organizations.EnablePolicyType
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -144,12 +146,13 @@ instance Core.AWSRequest EnablePolicyType where
   type
     AWSResponse EnablePolicyType =
       EnablePolicyTypeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           EnablePolicyTypeResponse'
-            Prelude.<$> (x Core..?> "Root")
+            Prelude.<$> (x Data..?> "Root")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -163,34 +166,34 @@ instance Prelude.NFData EnablePolicyType where
     Prelude.rnf rootId
       `Prelude.seq` Prelude.rnf policyType
 
-instance Core.ToHeaders EnablePolicyType where
+instance Data.ToHeaders EnablePolicyType where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.EnablePolicyType" ::
+              Data.=# ( "AWSOrganizationsV20161128.EnablePolicyType" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON EnablePolicyType where
+instance Data.ToJSON EnablePolicyType where
   toJSON EnablePolicyType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("RootId" Core..= rootId),
-            Prelude.Just ("PolicyType" Core..= policyType)
+          [ Prelude.Just ("RootId" Data..= rootId),
+            Prelude.Just ("PolicyType" Data..= policyType)
           ]
       )
 
-instance Core.ToPath EnablePolicyType where
+instance Data.ToPath EnablePolicyType where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery EnablePolicyType where
+instance Data.ToQuery EnablePolicyType where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newEnablePolicyTypeResponse' smart constructor.

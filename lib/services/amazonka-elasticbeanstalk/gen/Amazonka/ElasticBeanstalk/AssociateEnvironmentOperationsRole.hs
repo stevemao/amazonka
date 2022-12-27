@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.AssociateEnvironmentOperationsRole
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.ElasticBeanstalk.AssociateEnvironmentOperationsRole
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticBeanstalk.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -103,7 +104,8 @@ instance
   type
     AWSResponse AssociateEnvironmentOperationsRole =
       AssociateEnvironmentOperationsRoleResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       AssociateEnvironmentOperationsRoleResponse'
@@ -127,31 +129,31 @@ instance
       `Prelude.seq` Prelude.rnf operationsRole
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     AssociateEnvironmentOperationsRole
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     AssociateEnvironmentOperationsRole
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     AssociateEnvironmentOperationsRole
   where
   toQuery AssociateEnvironmentOperationsRole' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "AssociateEnvironmentOperationsRole" ::
+          Data.=: ( "AssociateEnvironmentOperationsRole" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "EnvironmentName" Core.=: environmentName,
-        "OperationsRole" Core.=: operationsRole
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "EnvironmentName" Data.=: environmentName,
+        "OperationsRole" Data.=: operationsRole
       ]
 
 -- | /See:/ 'newAssociateEnvironmentOperationsRoleResponse' smart constructor.

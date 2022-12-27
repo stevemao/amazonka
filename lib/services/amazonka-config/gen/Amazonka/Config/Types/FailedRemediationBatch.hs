@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Config.Types.FailedRemediationBatch
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,18 +21,19 @@ module Amazonka.Config.Types.FailedRemediationBatch where
 
 import Amazonka.Config.Types.RemediationConfiguration
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | List of each of the failed remediations with specific reasons.
 --
 -- /See:/ 'newFailedRemediationBatch' smart constructor.
 data FailedRemediationBatch = FailedRemediationBatch'
-  { -- | Returns a failure message. For example, the resource is already
+  { -- | Returns remediation configurations of the failed items.
+    failedItems :: Prelude.Maybe [RemediationConfiguration],
+    -- | Returns a failure message. For example, the resource is already
     -- compliant.
-    failureMessage :: Prelude.Maybe Prelude.Text,
-    -- | Returns remediation configurations of the failed items.
-    failedItems :: Prelude.Maybe [RemediationConfiguration]
+    failureMessage :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,44 +45,44 @@ data FailedRemediationBatch = FailedRemediationBatch'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'failedItems', 'failedRemediationBatch_failedItems' - Returns remediation configurations of the failed items.
+--
 -- 'failureMessage', 'failedRemediationBatch_failureMessage' - Returns a failure message. For example, the resource is already
 -- compliant.
---
--- 'failedItems', 'failedRemediationBatch_failedItems' - Returns remediation configurations of the failed items.
 newFailedRemediationBatch ::
   FailedRemediationBatch
 newFailedRemediationBatch =
   FailedRemediationBatch'
-    { failureMessage =
+    { failedItems =
         Prelude.Nothing,
-      failedItems = Prelude.Nothing
+      failureMessage = Prelude.Nothing
     }
+
+-- | Returns remediation configurations of the failed items.
+failedRemediationBatch_failedItems :: Lens.Lens' FailedRemediationBatch (Prelude.Maybe [RemediationConfiguration])
+failedRemediationBatch_failedItems = Lens.lens (\FailedRemediationBatch' {failedItems} -> failedItems) (\s@FailedRemediationBatch' {} a -> s {failedItems = a} :: FailedRemediationBatch) Prelude.. Lens.mapping Lens.coerced
 
 -- | Returns a failure message. For example, the resource is already
 -- compliant.
 failedRemediationBatch_failureMessage :: Lens.Lens' FailedRemediationBatch (Prelude.Maybe Prelude.Text)
 failedRemediationBatch_failureMessage = Lens.lens (\FailedRemediationBatch' {failureMessage} -> failureMessage) (\s@FailedRemediationBatch' {} a -> s {failureMessage = a} :: FailedRemediationBatch)
 
--- | Returns remediation configurations of the failed items.
-failedRemediationBatch_failedItems :: Lens.Lens' FailedRemediationBatch (Prelude.Maybe [RemediationConfiguration])
-failedRemediationBatch_failedItems = Lens.lens (\FailedRemediationBatch' {failedItems} -> failedItems) (\s@FailedRemediationBatch' {} a -> s {failedItems = a} :: FailedRemediationBatch) Prelude.. Lens.mapping Lens.coerced
-
-instance Core.FromJSON FailedRemediationBatch where
+instance Data.FromJSON FailedRemediationBatch where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FailedRemediationBatch"
       ( \x ->
           FailedRemediationBatch'
-            Prelude.<$> (x Core..:? "FailureMessage")
-            Prelude.<*> (x Core..:? "FailedItems" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "FailedItems" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "FailureMessage")
       )
 
 instance Prelude.Hashable FailedRemediationBatch where
   hashWithSalt _salt FailedRemediationBatch' {..} =
-    _salt `Prelude.hashWithSalt` failureMessage
-      `Prelude.hashWithSalt` failedItems
+    _salt `Prelude.hashWithSalt` failedItems
+      `Prelude.hashWithSalt` failureMessage
 
 instance Prelude.NFData FailedRemediationBatch where
   rnf FailedRemediationBatch' {..} =
-    Prelude.rnf failureMessage
-      `Prelude.seq` Prelude.rnf failedItems
+    Prelude.rnf failedItems
+      `Prelude.seq` Prelude.rnf failureMessage

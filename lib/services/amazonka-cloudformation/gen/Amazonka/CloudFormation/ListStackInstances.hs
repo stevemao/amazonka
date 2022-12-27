@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.ListStackInstances
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,12 +32,12 @@ module Amazonka.CloudFormation.ListStackInstances
     newListStackInstances,
 
     -- * Request Lenses
-    listStackInstances_stackInstanceRegion,
     listStackInstances_callAs,
     listStackInstances_filters,
+    listStackInstances_maxResults,
     listStackInstances_nextToken,
     listStackInstances_stackInstanceAccount,
-    listStackInstances_maxResults,
+    listStackInstances_stackInstanceRegion,
     listStackInstances_stackSetName,
 
     -- * Destructuring the Response
@@ -53,16 +53,15 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListStackInstances' smart constructor.
 data ListStackInstances = ListStackInstances'
-  { -- | The name of the Region where you want to list stack instances.
-    stackInstanceRegion :: Prelude.Maybe Prelude.Text,
-    -- | [Service-managed permissions] Specifies whether you are acting as an
+  { -- | [Service-managed permissions] Specifies whether you are acting as an
     -- account administrator in the organization\'s management account or as a
     -- delegated administrator in a member account.
     --
@@ -79,9 +78,14 @@ data ListStackInstances = ListStackInstances'
     --     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator>
     --     in the /CloudFormation User Guide/.
     callAs :: Prelude.Maybe CallAs,
-    -- | The status that stack instances are filtered by.
+    -- | The filter to apply to stack instances
     filters :: Prelude.Maybe [StackInstanceFilter],
-    -- | If the previous request didn\'t return all of the remaining results, the
+    -- | The maximum number of results to be returned with a single call. If the
+    -- number of available results exceeds this maximum, the response includes
+    -- a @NextToken@ value that you can assign to the @NextToken@ request
+    -- parameter to get the next set of results.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | If the previous request didn\'t return all the remaining results, the
     -- response\'s @NextToken@ parameter value is set to a token. To retrieve
     -- the next set of results, call @ListStackInstances@ again and assign that
     -- token to the request object\'s @NextToken@ parameter. If there are no
@@ -91,11 +95,8 @@ data ListStackInstances = ListStackInstances'
     -- | The name of the Amazon Web Services account that you want to list stack
     -- instances for.
     stackInstanceAccount :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to be returned with a single call. If the
-    -- number of available results exceeds this maximum, the response includes
-    -- a @NextToken@ value that you can assign to the @NextToken@ request
-    -- parameter to get the next set of results.
-    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The name of the Region where you want to list stack instances.
+    stackInstanceRegion :: Prelude.Maybe Prelude.Text,
     -- | The name or unique ID of the stack set that you want to list stack
     -- instances for.
     stackSetName :: Prelude.Text
@@ -109,8 +110,6 @@ data ListStackInstances = ListStackInstances'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'stackInstanceRegion', 'listStackInstances_stackInstanceRegion' - The name of the Region where you want to list stack instances.
 --
 -- 'callAs', 'listStackInstances_callAs' - [Service-managed permissions] Specifies whether you are acting as an
 -- account administrator in the organization\'s management account or as a
@@ -129,9 +128,14 @@ data ListStackInstances = ListStackInstances'
 --     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator>
 --     in the /CloudFormation User Guide/.
 --
--- 'filters', 'listStackInstances_filters' - The status that stack instances are filtered by.
+-- 'filters', 'listStackInstances_filters' - The filter to apply to stack instances
 --
--- 'nextToken', 'listStackInstances_nextToken' - If the previous request didn\'t return all of the remaining results, the
+-- 'maxResults', 'listStackInstances_maxResults' - The maximum number of results to be returned with a single call. If the
+-- number of available results exceeds this maximum, the response includes
+-- a @NextToken@ value that you can assign to the @NextToken@ request
+-- parameter to get the next set of results.
+--
+-- 'nextToken', 'listStackInstances_nextToken' - If the previous request didn\'t return all the remaining results, the
 -- response\'s @NextToken@ parameter value is set to a token. To retrieve
 -- the next set of results, call @ListStackInstances@ again and assign that
 -- token to the request object\'s @NextToken@ parameter. If there are no
@@ -141,10 +145,7 @@ data ListStackInstances = ListStackInstances'
 -- 'stackInstanceAccount', 'listStackInstances_stackInstanceAccount' - The name of the Amazon Web Services account that you want to list stack
 -- instances for.
 --
--- 'maxResults', 'listStackInstances_maxResults' - The maximum number of results to be returned with a single call. If the
--- number of available results exceeds this maximum, the response includes
--- a @NextToken@ value that you can assign to the @NextToken@ request
--- parameter to get the next set of results.
+-- 'stackInstanceRegion', 'listStackInstances_stackInstanceRegion' - The name of the Region where you want to list stack instances.
 --
 -- 'stackSetName', 'listStackInstances_stackSetName' - The name or unique ID of the stack set that you want to list stack
 -- instances for.
@@ -154,19 +155,14 @@ newListStackInstances ::
   ListStackInstances
 newListStackInstances pStackSetName_ =
   ListStackInstances'
-    { stackInstanceRegion =
-        Prelude.Nothing,
-      callAs = Prelude.Nothing,
+    { callAs = Prelude.Nothing,
       filters = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
       stackInstanceAccount = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      stackInstanceRegion = Prelude.Nothing,
       stackSetName = pStackSetName_
     }
-
--- | The name of the Region where you want to list stack instances.
-listStackInstances_stackInstanceRegion :: Lens.Lens' ListStackInstances (Prelude.Maybe Prelude.Text)
-listStackInstances_stackInstanceRegion = Lens.lens (\ListStackInstances' {stackInstanceRegion} -> stackInstanceRegion) (\s@ListStackInstances' {} a -> s {stackInstanceRegion = a} :: ListStackInstances)
 
 -- | [Service-managed permissions] Specifies whether you are acting as an
 -- account administrator in the organization\'s management account or as a
@@ -187,11 +183,18 @@ listStackInstances_stackInstanceRegion = Lens.lens (\ListStackInstances' {stackI
 listStackInstances_callAs :: Lens.Lens' ListStackInstances (Prelude.Maybe CallAs)
 listStackInstances_callAs = Lens.lens (\ListStackInstances' {callAs} -> callAs) (\s@ListStackInstances' {} a -> s {callAs = a} :: ListStackInstances)
 
--- | The status that stack instances are filtered by.
+-- | The filter to apply to stack instances
 listStackInstances_filters :: Lens.Lens' ListStackInstances (Prelude.Maybe [StackInstanceFilter])
 listStackInstances_filters = Lens.lens (\ListStackInstances' {filters} -> filters) (\s@ListStackInstances' {} a -> s {filters = a} :: ListStackInstances) Prelude.. Lens.mapping Lens.coerced
 
--- | If the previous request didn\'t return all of the remaining results, the
+-- | The maximum number of results to be returned with a single call. If the
+-- number of available results exceeds this maximum, the response includes
+-- a @NextToken@ value that you can assign to the @NextToken@ request
+-- parameter to get the next set of results.
+listStackInstances_maxResults :: Lens.Lens' ListStackInstances (Prelude.Maybe Prelude.Natural)
+listStackInstances_maxResults = Lens.lens (\ListStackInstances' {maxResults} -> maxResults) (\s@ListStackInstances' {} a -> s {maxResults = a} :: ListStackInstances)
+
+-- | If the previous request didn\'t return all the remaining results, the
 -- response\'s @NextToken@ parameter value is set to a token. To retrieve
 -- the next set of results, call @ListStackInstances@ again and assign that
 -- token to the request object\'s @NextToken@ parameter. If there are no
@@ -205,12 +208,9 @@ listStackInstances_nextToken = Lens.lens (\ListStackInstances' {nextToken} -> ne
 listStackInstances_stackInstanceAccount :: Lens.Lens' ListStackInstances (Prelude.Maybe Prelude.Text)
 listStackInstances_stackInstanceAccount = Lens.lens (\ListStackInstances' {stackInstanceAccount} -> stackInstanceAccount) (\s@ListStackInstances' {} a -> s {stackInstanceAccount = a} :: ListStackInstances)
 
--- | The maximum number of results to be returned with a single call. If the
--- number of available results exceeds this maximum, the response includes
--- a @NextToken@ value that you can assign to the @NextToken@ request
--- parameter to get the next set of results.
-listStackInstances_maxResults :: Lens.Lens' ListStackInstances (Prelude.Maybe Prelude.Natural)
-listStackInstances_maxResults = Lens.lens (\ListStackInstances' {maxResults} -> maxResults) (\s@ListStackInstances' {} a -> s {maxResults = a} :: ListStackInstances)
+-- | The name of the Region where you want to list stack instances.
+listStackInstances_stackInstanceRegion :: Lens.Lens' ListStackInstances (Prelude.Maybe Prelude.Text)
+listStackInstances_stackInstanceRegion = Lens.lens (\ListStackInstances' {stackInstanceRegion} -> stackInstanceRegion) (\s@ListStackInstances' {} a -> s {stackInstanceRegion = a} :: ListStackInstances)
 
 -- | The name or unique ID of the stack set that you want to list stack
 -- instances for.
@@ -243,67 +243,68 @@ instance Core.AWSRequest ListStackInstances where
   type
     AWSResponse ListStackInstances =
       ListStackInstancesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListStackInstancesResult"
       ( \s h x ->
           ListStackInstancesResponse'
-            Prelude.<$> (x Core..@? "NextToken")
-            Prelude.<*> ( x Core..@? "Summaries" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> (x Data..@? "NextToken")
+            Prelude.<*> ( x Data..@? "Summaries" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListStackInstances where
   hashWithSalt _salt ListStackInstances' {..} =
-    _salt `Prelude.hashWithSalt` stackInstanceRegion
-      `Prelude.hashWithSalt` callAs
+    _salt `Prelude.hashWithSalt` callAs
       `Prelude.hashWithSalt` filters
+      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` stackInstanceAccount
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` stackInstanceRegion
       `Prelude.hashWithSalt` stackSetName
 
 instance Prelude.NFData ListStackInstances where
   rnf ListStackInstances' {..} =
-    Prelude.rnf stackInstanceRegion
-      `Prelude.seq` Prelude.rnf callAs
+    Prelude.rnf callAs
       `Prelude.seq` Prelude.rnf filters
+      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf stackInstanceAccount
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf stackInstanceRegion
       `Prelude.seq` Prelude.rnf stackSetName
 
-instance Core.ToHeaders ListStackInstances where
+instance Data.ToHeaders ListStackInstances where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListStackInstances where
+instance Data.ToPath ListStackInstances where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListStackInstances where
+instance Data.ToQuery ListStackInstances where
   toQuery ListStackInstances' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ListStackInstances" :: Prelude.ByteString),
+          Data.=: ("ListStackInstances" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
-        "StackInstanceRegion" Core.=: stackInstanceRegion,
-        "CallAs" Core.=: callAs,
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "CallAs" Data.=: callAs,
         "Filters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        "StackInstanceAccount" Core.=: stackInstanceAccount,
-        "MaxResults" Core.=: maxResults,
-        "StackSetName" Core.=: stackSetName
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> filters),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
+        "StackInstanceAccount" Data.=: stackInstanceAccount,
+        "StackInstanceRegion" Data.=: stackInstanceRegion,
+        "StackSetName" Data.=: stackSetName
       ]
 
 -- | /See:/ 'newListStackInstancesResponse' smart constructor.
 data ListStackInstancesResponse = ListStackInstancesResponse'
-  { -- | If the request doesn\'t return all of the remaining results, @NextToken@
-    -- is set to a token. To retrieve the next set of results, call
+  { -- | If the request doesn\'t return all the remaining results, @NextToken@ is
+    -- set to a token. To retrieve the next set of results, call
     -- @ListStackInstances@ again and assign that token to the request
     -- object\'s @NextToken@ parameter. If the request returns all results,
     -- @NextToken@ is set to @null@.
@@ -324,8 +325,8 @@ data ListStackInstancesResponse = ListStackInstancesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listStackInstancesResponse_nextToken' - If the request doesn\'t return all of the remaining results, @NextToken@
--- is set to a token. To retrieve the next set of results, call
+-- 'nextToken', 'listStackInstancesResponse_nextToken' - If the request doesn\'t return all the remaining results, @NextToken@ is
+-- set to a token. To retrieve the next set of results, call
 -- @ListStackInstances@ again and assign that token to the request
 -- object\'s @NextToken@ parameter. If the request returns all results,
 -- @NextToken@ is set to @null@.
@@ -346,8 +347,8 @@ newListStackInstancesResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | If the request doesn\'t return all of the remaining results, @NextToken@
--- is set to a token. To retrieve the next set of results, call
+-- | If the request doesn\'t return all the remaining results, @NextToken@ is
+-- set to a token. To retrieve the next set of results, call
 -- @ListStackInstances@ again and assign that token to the request
 -- object\'s @NextToken@ parameter. If the request returns all results,
 -- @NextToken@ is set to @null@.

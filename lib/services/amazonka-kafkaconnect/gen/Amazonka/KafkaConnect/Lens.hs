@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,67 +14,10 @@
 module Amazonka.KafkaConnect.Lens
   ( -- * Operations
 
-    -- ** ListWorkerConfigurations
-    listWorkerConfigurations_nextToken,
-    listWorkerConfigurations_maxResults,
-    listWorkerConfigurationsResponse_workerConfigurations,
-    listWorkerConfigurationsResponse_nextToken,
-    listWorkerConfigurationsResponse_httpStatus,
-
-    -- ** DescribeCustomPlugin
-    describeCustomPlugin_customPluginArn,
-    describeCustomPluginResponse_creationTime,
-    describeCustomPluginResponse_latestRevision,
-    describeCustomPluginResponse_name,
-    describeCustomPluginResponse_customPluginArn,
-    describeCustomPluginResponse_customPluginState,
-    describeCustomPluginResponse_description,
-    describeCustomPluginResponse_httpStatus,
-
-    -- ** DeleteConnector
-    deleteConnector_currentVersion,
-    deleteConnector_connectorArn,
-    deleteConnectorResponse_connectorArn,
-    deleteConnectorResponse_connectorState,
-    deleteConnectorResponse_httpStatus,
-
-    -- ** UpdateConnector
-    updateConnector_capacity,
-    updateConnector_connectorArn,
-    updateConnector_currentVersion,
-    updateConnectorResponse_connectorArn,
-    updateConnectorResponse_connectorState,
-    updateConnectorResponse_httpStatus,
-
-    -- ** CreateWorkerConfiguration
-    createWorkerConfiguration_description,
-    createWorkerConfiguration_name,
-    createWorkerConfiguration_propertiesFileContent,
-    createWorkerConfigurationResponse_creationTime,
-    createWorkerConfigurationResponse_latestRevision,
-    createWorkerConfigurationResponse_name,
-    createWorkerConfigurationResponse_workerConfigurationArn,
-    createWorkerConfigurationResponse_httpStatus,
-
-    -- ** ListConnectors
-    listConnectors_connectorNamePrefix,
-    listConnectors_nextToken,
-    listConnectors_maxResults,
-    listConnectorsResponse_connectors,
-    listConnectorsResponse_nextToken,
-    listConnectorsResponse_httpStatus,
-
-    -- ** ListCustomPlugins
-    listCustomPlugins_nextToken,
-    listCustomPlugins_maxResults,
-    listCustomPluginsResponse_customPlugins,
-    listCustomPluginsResponse_nextToken,
-    listCustomPluginsResponse_httpStatus,
-
     -- ** CreateConnector
+    createConnector_connectorDescription,
     createConnector_logDelivery,
     createConnector_workerConfiguration,
-    createConnector_connectorDescription,
     createConnector_capacity,
     createConnector_connectorConfiguration,
     createConnector_connectorName,
@@ -89,45 +32,110 @@ module Amazonka.KafkaConnect.Lens
     createConnectorResponse_connectorState,
     createConnectorResponse_httpStatus,
 
-    -- ** DescribeWorkerConfiguration
-    describeWorkerConfiguration_workerConfigurationArn,
-    describeWorkerConfigurationResponse_creationTime,
-    describeWorkerConfigurationResponse_latestRevision,
-    describeWorkerConfigurationResponse_name,
-    describeWorkerConfigurationResponse_workerConfigurationArn,
-    describeWorkerConfigurationResponse_description,
-    describeWorkerConfigurationResponse_httpStatus,
-
-    -- ** DescribeConnector
-    describeConnector_connectorArn,
-    describeConnectorResponse_creationTime,
-    describeConnectorResponse_kafkaCluster,
-    describeConnectorResponse_kafkaConnectVersion,
-    describeConnectorResponse_logDelivery,
-    describeConnectorResponse_currentVersion,
-    describeConnectorResponse_connectorConfiguration,
-    describeConnectorResponse_workerConfiguration,
-    describeConnectorResponse_connectorArn,
-    describeConnectorResponse_connectorName,
-    describeConnectorResponse_connectorState,
-    describeConnectorResponse_capacity,
-    describeConnectorResponse_plugins,
-    describeConnectorResponse_connectorDescription,
-    describeConnectorResponse_kafkaClusterClientAuthentication,
-    describeConnectorResponse_kafkaClusterEncryptionInTransit,
-    describeConnectorResponse_serviceExecutionRoleArn,
-    describeConnectorResponse_httpStatus,
-
     -- ** CreateCustomPlugin
     createCustomPlugin_description,
     createCustomPlugin_contentType,
     createCustomPlugin_location,
     createCustomPlugin_name,
-    createCustomPluginResponse_name,
     createCustomPluginResponse_customPluginArn,
     createCustomPluginResponse_customPluginState,
+    createCustomPluginResponse_name,
     createCustomPluginResponse_revision,
     createCustomPluginResponse_httpStatus,
+
+    -- ** CreateWorkerConfiguration
+    createWorkerConfiguration_description,
+    createWorkerConfiguration_name,
+    createWorkerConfiguration_propertiesFileContent,
+    createWorkerConfigurationResponse_creationTime,
+    createWorkerConfigurationResponse_latestRevision,
+    createWorkerConfigurationResponse_name,
+    createWorkerConfigurationResponse_workerConfigurationArn,
+    createWorkerConfigurationResponse_httpStatus,
+
+    -- ** DeleteConnector
+    deleteConnector_currentVersion,
+    deleteConnector_connectorArn,
+    deleteConnectorResponse_connectorArn,
+    deleteConnectorResponse_connectorState,
+    deleteConnectorResponse_httpStatus,
+
+    -- ** DeleteCustomPlugin
+    deleteCustomPlugin_customPluginArn,
+    deleteCustomPluginResponse_customPluginArn,
+    deleteCustomPluginResponse_customPluginState,
+    deleteCustomPluginResponse_httpStatus,
+
+    -- ** DescribeConnector
+    describeConnector_connectorArn,
+    describeConnectorResponse_capacity,
+    describeConnectorResponse_connectorArn,
+    describeConnectorResponse_connectorConfiguration,
+    describeConnectorResponse_connectorDescription,
+    describeConnectorResponse_connectorName,
+    describeConnectorResponse_connectorState,
+    describeConnectorResponse_creationTime,
+    describeConnectorResponse_currentVersion,
+    describeConnectorResponse_kafkaCluster,
+    describeConnectorResponse_kafkaClusterClientAuthentication,
+    describeConnectorResponse_kafkaClusterEncryptionInTransit,
+    describeConnectorResponse_kafkaConnectVersion,
+    describeConnectorResponse_logDelivery,
+    describeConnectorResponse_plugins,
+    describeConnectorResponse_serviceExecutionRoleArn,
+    describeConnectorResponse_stateDescription,
+    describeConnectorResponse_workerConfiguration,
+    describeConnectorResponse_httpStatus,
+
+    -- ** DescribeCustomPlugin
+    describeCustomPlugin_customPluginArn,
+    describeCustomPluginResponse_creationTime,
+    describeCustomPluginResponse_customPluginArn,
+    describeCustomPluginResponse_customPluginState,
+    describeCustomPluginResponse_description,
+    describeCustomPluginResponse_latestRevision,
+    describeCustomPluginResponse_name,
+    describeCustomPluginResponse_stateDescription,
+    describeCustomPluginResponse_httpStatus,
+
+    -- ** DescribeWorkerConfiguration
+    describeWorkerConfiguration_workerConfigurationArn,
+    describeWorkerConfigurationResponse_creationTime,
+    describeWorkerConfigurationResponse_description,
+    describeWorkerConfigurationResponse_latestRevision,
+    describeWorkerConfigurationResponse_name,
+    describeWorkerConfigurationResponse_workerConfigurationArn,
+    describeWorkerConfigurationResponse_httpStatus,
+
+    -- ** ListConnectors
+    listConnectors_connectorNamePrefix,
+    listConnectors_maxResults,
+    listConnectors_nextToken,
+    listConnectorsResponse_connectors,
+    listConnectorsResponse_nextToken,
+    listConnectorsResponse_httpStatus,
+
+    -- ** ListCustomPlugins
+    listCustomPlugins_maxResults,
+    listCustomPlugins_nextToken,
+    listCustomPluginsResponse_customPlugins,
+    listCustomPluginsResponse_nextToken,
+    listCustomPluginsResponse_httpStatus,
+
+    -- ** ListWorkerConfigurations
+    listWorkerConfigurations_maxResults,
+    listWorkerConfigurations_nextToken,
+    listWorkerConfigurationsResponse_nextToken,
+    listWorkerConfigurationsResponse_workerConfigurations,
+    listWorkerConfigurationsResponse_httpStatus,
+
+    -- ** UpdateConnector
+    updateConnector_capacity,
+    updateConnector_connectorArn,
+    updateConnector_currentVersion,
+    updateConnectorResponse_connectorArn,
+    updateConnectorResponse_connectorState,
+    updateConnectorResponse_httpStatus,
 
     -- * Types
 
@@ -147,11 +155,11 @@ module Amazonka.KafkaConnect.Lens
     autoScaling_minWorkerCount,
 
     -- ** AutoScalingDescription
-    autoScalingDescription_scaleInPolicy,
-    autoScalingDescription_mcuCount,
-    autoScalingDescription_scaleOutPolicy,
     autoScalingDescription_maxWorkerCount,
+    autoScalingDescription_mcuCount,
     autoScalingDescription_minWorkerCount,
+    autoScalingDescription_scaleInPolicy,
+    autoScalingDescription_scaleOutPolicy,
 
     -- ** AutoScalingUpdate
     autoScalingUpdate_maxWorkerCount,
@@ -181,21 +189,21 @@ module Amazonka.KafkaConnect.Lens
     cloudWatchLogsLogDeliveryDescription_logGroup,
 
     -- ** ConnectorSummary
-    connectorSummary_creationTime,
-    connectorSummary_kafkaCluster,
-    connectorSummary_kafkaConnectVersion,
-    connectorSummary_logDelivery,
-    connectorSummary_currentVersion,
-    connectorSummary_workerConfiguration,
+    connectorSummary_capacity,
     connectorSummary_connectorArn,
+    connectorSummary_connectorDescription,
     connectorSummary_connectorName,
     connectorSummary_connectorState,
-    connectorSummary_capacity,
-    connectorSummary_plugins,
-    connectorSummary_connectorDescription,
+    connectorSummary_creationTime,
+    connectorSummary_currentVersion,
+    connectorSummary_kafkaCluster,
     connectorSummary_kafkaClusterClientAuthentication,
     connectorSummary_kafkaClusterEncryptionInTransit,
+    connectorSummary_kafkaConnectVersion,
+    connectorSummary_logDelivery,
+    connectorSummary_plugins,
     connectorSummary_serviceExecutionRoleArn,
+    connectorSummary_workerConfiguration,
 
     -- ** CustomPlugin
     customPlugin_customPluginArn,
@@ -216,28 +224,28 @@ module Amazonka.KafkaConnect.Lens
     customPluginLocationDescription_s3Location,
 
     -- ** CustomPluginRevisionSummary
-    customPluginRevisionSummary_creationTime,
-    customPluginRevisionSummary_location,
-    customPluginRevisionSummary_fileDescription,
-    customPluginRevisionSummary_revision,
-    customPluginRevisionSummary_description,
     customPluginRevisionSummary_contentType,
+    customPluginRevisionSummary_creationTime,
+    customPluginRevisionSummary_description,
+    customPluginRevisionSummary_fileDescription,
+    customPluginRevisionSummary_location,
+    customPluginRevisionSummary_revision,
 
     -- ** CustomPluginSummary
     customPluginSummary_creationTime,
-    customPluginSummary_latestRevision,
-    customPluginSummary_name,
     customPluginSummary_customPluginArn,
     customPluginSummary_customPluginState,
     customPluginSummary_description,
+    customPluginSummary_latestRevision,
+    customPluginSummary_name,
 
     -- ** FirehoseLogDelivery
     firehoseLogDelivery_deliveryStream,
     firehoseLogDelivery_enabled,
 
     -- ** FirehoseLogDeliveryDescription
-    firehoseLogDeliveryDescription_enabled,
     firehoseLogDeliveryDescription_deliveryStream,
+    firehoseLogDeliveryDescription_enabled,
 
     -- ** KafkaCluster
     kafkaCluster_apacheKafkaCluster,
@@ -274,8 +282,8 @@ module Amazonka.KafkaConnect.Lens
     provisionedCapacity_workerCount,
 
     -- ** ProvisionedCapacityDescription
-    provisionedCapacityDescription_workerCount,
     provisionedCapacityDescription_mcuCount,
+    provisionedCapacityDescription_workerCount,
 
     -- ** ProvisionedCapacityUpdate
     provisionedCapacityUpdate_mcuCount,
@@ -287,19 +295,19 @@ module Amazonka.KafkaConnect.Lens
     s3Location_fileKey,
 
     -- ** S3LocationDescription
-    s3LocationDescription_objectVersion,
     s3LocationDescription_bucketArn,
     s3LocationDescription_fileKey,
+    s3LocationDescription_objectVersion,
 
     -- ** S3LogDelivery
-    s3LogDelivery_prefix,
     s3LogDelivery_bucket,
+    s3LogDelivery_prefix,
     s3LogDelivery_enabled,
 
     -- ** S3LogDeliveryDescription
+    s3LogDeliveryDescription_bucket,
     s3LogDeliveryDescription_enabled,
     s3LogDeliveryDescription_prefix,
-    s3LogDeliveryDescription_bucket,
 
     -- ** ScaleInPolicy
     scaleInPolicy_cpuUtilizationPercentage,
@@ -319,6 +327,10 @@ module Amazonka.KafkaConnect.Lens
     -- ** ScaleOutPolicyUpdate
     scaleOutPolicyUpdate_cpuUtilizationPercentage,
 
+    -- ** StateDescription
+    stateDescription_code,
+    stateDescription_message,
+
     -- ** Vpc
     vpc_securityGroups,
     vpc_subnets,
@@ -332,26 +344,26 @@ module Amazonka.KafkaConnect.Lens
     workerConfiguration_workerConfigurationArn,
 
     -- ** WorkerConfigurationDescription
-    workerConfigurationDescription_workerConfigurationArn,
     workerConfigurationDescription_revision,
+    workerConfigurationDescription_workerConfigurationArn,
 
     -- ** WorkerConfigurationRevisionDescription
     workerConfigurationRevisionDescription_creationTime,
-    workerConfigurationRevisionDescription_revision,
-    workerConfigurationRevisionDescription_propertiesFileContent,
     workerConfigurationRevisionDescription_description,
+    workerConfigurationRevisionDescription_propertiesFileContent,
+    workerConfigurationRevisionDescription_revision,
 
     -- ** WorkerConfigurationRevisionSummary
     workerConfigurationRevisionSummary_creationTime,
-    workerConfigurationRevisionSummary_revision,
     workerConfigurationRevisionSummary_description,
+    workerConfigurationRevisionSummary_revision,
 
     -- ** WorkerConfigurationSummary
     workerConfigurationSummary_creationTime,
+    workerConfigurationSummary_description,
     workerConfigurationSummary_latestRevision,
     workerConfigurationSummary_name,
     workerConfigurationSummary_workerConfigurationArn,
-    workerConfigurationSummary_description,
 
     -- ** WorkerLogDelivery
     workerLogDelivery_cloudWatchLogs,
@@ -369,6 +381,7 @@ import Amazonka.KafkaConnect.CreateConnector
 import Amazonka.KafkaConnect.CreateCustomPlugin
 import Amazonka.KafkaConnect.CreateWorkerConfiguration
 import Amazonka.KafkaConnect.DeleteConnector
+import Amazonka.KafkaConnect.DeleteCustomPlugin
 import Amazonka.KafkaConnect.DescribeConnector
 import Amazonka.KafkaConnect.DescribeCustomPlugin
 import Amazonka.KafkaConnect.DescribeWorkerConfiguration
@@ -418,6 +431,7 @@ import Amazonka.KafkaConnect.Types.ScaleInPolicyUpdate
 import Amazonka.KafkaConnect.Types.ScaleOutPolicy
 import Amazonka.KafkaConnect.Types.ScaleOutPolicyDescription
 import Amazonka.KafkaConnect.Types.ScaleOutPolicyUpdate
+import Amazonka.KafkaConnect.Types.StateDescription
 import Amazonka.KafkaConnect.Types.Vpc
 import Amazonka.KafkaConnect.Types.VpcDescription
 import Amazonka.KafkaConnect.Types.WorkerConfiguration

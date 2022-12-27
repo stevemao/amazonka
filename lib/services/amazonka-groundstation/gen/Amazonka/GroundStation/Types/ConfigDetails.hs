@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GroundStation.Types.ConfigDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.GroundStation.Types.ConfigDetails where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GroundStation.Types.AntennaDemodDecodeDetails
 import Amazonka.GroundStation.Types.EndpointDetails
 import Amazonka.GroundStation.Types.S3RecordingDetails
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details for certain @Config@ object types in a contact.
@@ -32,9 +33,9 @@ import qualified Amazonka.Prelude as Prelude
 data ConfigDetails = ConfigDetails'
   { -- | Details for antenna demod decode @Config@ in a contact.
     antennaDemodDecodeDetails :: Prelude.Maybe AntennaDemodDecodeDetails,
+    endpointDetails :: Prelude.Maybe EndpointDetails,
     -- | Details for an S3 recording @Config@ in a contact.
-    s3RecordingDetails :: Prelude.Maybe S3RecordingDetails,
-    endpointDetails :: Prelude.Maybe EndpointDetails
+    s3RecordingDetails :: Prelude.Maybe S3RecordingDetails
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,51 +49,51 @@ data ConfigDetails = ConfigDetails'
 --
 -- 'antennaDemodDecodeDetails', 'configDetails_antennaDemodDecodeDetails' - Details for antenna demod decode @Config@ in a contact.
 --
--- 's3RecordingDetails', 'configDetails_s3RecordingDetails' - Details for an S3 recording @Config@ in a contact.
---
 -- 'endpointDetails', 'configDetails_endpointDetails' - Undocumented member.
+--
+-- 's3RecordingDetails', 'configDetails_s3RecordingDetails' - Details for an S3 recording @Config@ in a contact.
 newConfigDetails ::
   ConfigDetails
 newConfigDetails =
   ConfigDetails'
     { antennaDemodDecodeDetails =
         Prelude.Nothing,
-      s3RecordingDetails = Prelude.Nothing,
-      endpointDetails = Prelude.Nothing
+      endpointDetails = Prelude.Nothing,
+      s3RecordingDetails = Prelude.Nothing
     }
 
 -- | Details for antenna demod decode @Config@ in a contact.
 configDetails_antennaDemodDecodeDetails :: Lens.Lens' ConfigDetails (Prelude.Maybe AntennaDemodDecodeDetails)
 configDetails_antennaDemodDecodeDetails = Lens.lens (\ConfigDetails' {antennaDemodDecodeDetails} -> antennaDemodDecodeDetails) (\s@ConfigDetails' {} a -> s {antennaDemodDecodeDetails = a} :: ConfigDetails)
 
--- | Details for an S3 recording @Config@ in a contact.
-configDetails_s3RecordingDetails :: Lens.Lens' ConfigDetails (Prelude.Maybe S3RecordingDetails)
-configDetails_s3RecordingDetails = Lens.lens (\ConfigDetails' {s3RecordingDetails} -> s3RecordingDetails) (\s@ConfigDetails' {} a -> s {s3RecordingDetails = a} :: ConfigDetails)
-
 -- | Undocumented member.
 configDetails_endpointDetails :: Lens.Lens' ConfigDetails (Prelude.Maybe EndpointDetails)
 configDetails_endpointDetails = Lens.lens (\ConfigDetails' {endpointDetails} -> endpointDetails) (\s@ConfigDetails' {} a -> s {endpointDetails = a} :: ConfigDetails)
 
-instance Core.FromJSON ConfigDetails where
+-- | Details for an S3 recording @Config@ in a contact.
+configDetails_s3RecordingDetails :: Lens.Lens' ConfigDetails (Prelude.Maybe S3RecordingDetails)
+configDetails_s3RecordingDetails = Lens.lens (\ConfigDetails' {s3RecordingDetails} -> s3RecordingDetails) (\s@ConfigDetails' {} a -> s {s3RecordingDetails = a} :: ConfigDetails)
+
+instance Data.FromJSON ConfigDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ConfigDetails"
       ( \x ->
           ConfigDetails'
-            Prelude.<$> (x Core..:? "antennaDemodDecodeDetails")
-            Prelude.<*> (x Core..:? "s3RecordingDetails")
-            Prelude.<*> (x Core..:? "endpointDetails")
+            Prelude.<$> (x Data..:? "antennaDemodDecodeDetails")
+            Prelude.<*> (x Data..:? "endpointDetails")
+            Prelude.<*> (x Data..:? "s3RecordingDetails")
       )
 
 instance Prelude.Hashable ConfigDetails where
   hashWithSalt _salt ConfigDetails' {..} =
     _salt
       `Prelude.hashWithSalt` antennaDemodDecodeDetails
-      `Prelude.hashWithSalt` s3RecordingDetails
       `Prelude.hashWithSalt` endpointDetails
+      `Prelude.hashWithSalt` s3RecordingDetails
 
 instance Prelude.NFData ConfigDetails where
   rnf ConfigDetails' {..} =
     Prelude.rnf antennaDemodDecodeDetails
-      `Prelude.seq` Prelude.rnf s3RecordingDetails
       `Prelude.seq` Prelude.rnf endpointDetails
+      `Prelude.seq` Prelude.rnf s3RecordingDetails

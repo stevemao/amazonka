@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStarNotifications.Types.NotificationRuleSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeStarNotifications.Types.NotificationRuleSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a specified notification rule.
@@ -61,13 +62,13 @@ notificationRuleSummary_arn = Lens.lens (\NotificationRuleSummary' {arn} -> arn)
 notificationRuleSummary_id :: Lens.Lens' NotificationRuleSummary (Prelude.Maybe Prelude.Text)
 notificationRuleSummary_id = Lens.lens (\NotificationRuleSummary' {id} -> id) (\s@NotificationRuleSummary' {} a -> s {id = a} :: NotificationRuleSummary)
 
-instance Core.FromJSON NotificationRuleSummary where
+instance Data.FromJSON NotificationRuleSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NotificationRuleSummary"
       ( \x ->
           NotificationRuleSummary'
-            Prelude.<$> (x Core..:? "Arn") Prelude.<*> (x Core..:? "Id")
+            Prelude.<$> (x Data..:? "Arn") Prelude.<*> (x Data..:? "Id")
       )
 
 instance Prelude.Hashable NotificationRuleSummary where

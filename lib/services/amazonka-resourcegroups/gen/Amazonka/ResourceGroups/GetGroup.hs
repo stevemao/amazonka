@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ResourceGroups.GetGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ module Amazonka.ResourceGroups.GetGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import Amazonka.ResourceGroups.Types
@@ -91,12 +92,13 @@ getGroup_groupName = Lens.lens (\GetGroup' {groupName} -> groupName) (\s@GetGrou
 
 instance Core.AWSRequest GetGroup where
   type AWSResponse GetGroup = GetGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetGroupResponse'
-            Prelude.<$> (x Core..?> "Group")
+            Prelude.<$> (x Data..?> "Group")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -110,22 +112,22 @@ instance Prelude.NFData GetGroup where
     Prelude.rnf group'
       `Prelude.seq` Prelude.rnf groupName
 
-instance Core.ToHeaders GetGroup where
+instance Data.ToHeaders GetGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON GetGroup where
+instance Data.ToJSON GetGroup where
   toJSON GetGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Group" Core..=) Prelude.<$> group',
-            ("GroupName" Core..=) Prelude.<$> groupName
+          [ ("Group" Data..=) Prelude.<$> group',
+            ("GroupName" Data..=) Prelude.<$> groupName
           ]
       )
 
-instance Core.ToPath GetGroup where
+instance Data.ToPath GetGroup where
   toPath = Prelude.const "/get-group"
 
-instance Core.ToQuery GetGroup where
+instance Data.ToQuery GetGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetGroupResponse' smart constructor.

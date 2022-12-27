@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.StepFunctions.Types.TaskSubmitFailedEventDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,21 @@
 module Amazonka.StepFunctions.Types.TaskSubmitFailedEventDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains details about a task that failed to submit during an execution.
 --
 -- /See:/ 'newTaskSubmitFailedEventDetails' smart constructor.
 data TaskSubmitFailedEventDetails = TaskSubmitFailedEventDetails'
-  { -- | The error code of the failure.
-    error :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | A more detailed explanation of the cause of the failure.
-    cause :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | The action of the resource called by a task state.
-    resourceType :: Prelude.Text,
+  { -- | A more detailed explanation of the cause of the failure.
+    cause :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | The error code of the failure.
+    error :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The service name of the resource in a task state.
+    resourceType :: Prelude.Text,
+    -- | The action of the resource called by a task state.
     resource :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
@@ -46,13 +47,13 @@ data TaskSubmitFailedEventDetails = TaskSubmitFailedEventDetails'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'error', 'taskSubmitFailedEventDetails_error' - The error code of the failure.
---
 -- 'cause', 'taskSubmitFailedEventDetails_cause' - A more detailed explanation of the cause of the failure.
 --
--- 'resourceType', 'taskSubmitFailedEventDetails_resourceType' - The action of the resource called by a task state.
+-- 'error', 'taskSubmitFailedEventDetails_error' - The error code of the failure.
 --
--- 'resource', 'taskSubmitFailedEventDetails_resource' - The service name of the resource in a task state.
+-- 'resourceType', 'taskSubmitFailedEventDetails_resourceType' - The service name of the resource in a task state.
+--
+-- 'resource', 'taskSubmitFailedEventDetails_resource' - The action of the resource called by a task state.
 newTaskSubmitFailedEventDetails ::
   -- | 'resourceType'
   Prelude.Text ->
@@ -63,39 +64,39 @@ newTaskSubmitFailedEventDetails
   pResourceType_
   pResource_ =
     TaskSubmitFailedEventDetails'
-      { error =
+      { cause =
           Prelude.Nothing,
-        cause = Prelude.Nothing,
+        error = Prelude.Nothing,
         resourceType = pResourceType_,
         resource = pResource_
       }
 
--- | The error code of the failure.
-taskSubmitFailedEventDetails_error :: Lens.Lens' TaskSubmitFailedEventDetails (Prelude.Maybe Prelude.Text)
-taskSubmitFailedEventDetails_error = Lens.lens (\TaskSubmitFailedEventDetails' {error} -> error) (\s@TaskSubmitFailedEventDetails' {} a -> s {error = a} :: TaskSubmitFailedEventDetails) Prelude.. Lens.mapping Core._Sensitive
-
 -- | A more detailed explanation of the cause of the failure.
 taskSubmitFailedEventDetails_cause :: Lens.Lens' TaskSubmitFailedEventDetails (Prelude.Maybe Prelude.Text)
-taskSubmitFailedEventDetails_cause = Lens.lens (\TaskSubmitFailedEventDetails' {cause} -> cause) (\s@TaskSubmitFailedEventDetails' {} a -> s {cause = a} :: TaskSubmitFailedEventDetails) Prelude.. Lens.mapping Core._Sensitive
+taskSubmitFailedEventDetails_cause = Lens.lens (\TaskSubmitFailedEventDetails' {cause} -> cause) (\s@TaskSubmitFailedEventDetails' {} a -> s {cause = a} :: TaskSubmitFailedEventDetails) Prelude.. Lens.mapping Data._Sensitive
 
--- | The action of the resource called by a task state.
+-- | The error code of the failure.
+taskSubmitFailedEventDetails_error :: Lens.Lens' TaskSubmitFailedEventDetails (Prelude.Maybe Prelude.Text)
+taskSubmitFailedEventDetails_error = Lens.lens (\TaskSubmitFailedEventDetails' {error} -> error) (\s@TaskSubmitFailedEventDetails' {} a -> s {error = a} :: TaskSubmitFailedEventDetails) Prelude.. Lens.mapping Data._Sensitive
+
+-- | The service name of the resource in a task state.
 taskSubmitFailedEventDetails_resourceType :: Lens.Lens' TaskSubmitFailedEventDetails Prelude.Text
 taskSubmitFailedEventDetails_resourceType = Lens.lens (\TaskSubmitFailedEventDetails' {resourceType} -> resourceType) (\s@TaskSubmitFailedEventDetails' {} a -> s {resourceType = a} :: TaskSubmitFailedEventDetails)
 
--- | The service name of the resource in a task state.
+-- | The action of the resource called by a task state.
 taskSubmitFailedEventDetails_resource :: Lens.Lens' TaskSubmitFailedEventDetails Prelude.Text
 taskSubmitFailedEventDetails_resource = Lens.lens (\TaskSubmitFailedEventDetails' {resource} -> resource) (\s@TaskSubmitFailedEventDetails' {} a -> s {resource = a} :: TaskSubmitFailedEventDetails)
 
-instance Core.FromJSON TaskSubmitFailedEventDetails where
+instance Data.FromJSON TaskSubmitFailedEventDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TaskSubmitFailedEventDetails"
       ( \x ->
           TaskSubmitFailedEventDetails'
-            Prelude.<$> (x Core..:? "error")
-            Prelude.<*> (x Core..:? "cause")
-            Prelude.<*> (x Core..: "resourceType")
-            Prelude.<*> (x Core..: "resource")
+            Prelude.<$> (x Data..:? "cause")
+            Prelude.<*> (x Data..:? "error")
+            Prelude.<*> (x Data..: "resourceType")
+            Prelude.<*> (x Data..: "resource")
       )
 
 instance
@@ -103,14 +104,14 @@ instance
     TaskSubmitFailedEventDetails
   where
   hashWithSalt _salt TaskSubmitFailedEventDetails' {..} =
-    _salt `Prelude.hashWithSalt` error
-      `Prelude.hashWithSalt` cause
+    _salt `Prelude.hashWithSalt` cause
+      `Prelude.hashWithSalt` error
       `Prelude.hashWithSalt` resourceType
       `Prelude.hashWithSalt` resource
 
 instance Prelude.NFData TaskSubmitFailedEventDetails where
   rnf TaskSubmitFailedEventDetails' {..} =
-    Prelude.rnf error
-      `Prelude.seq` Prelude.rnf cause
+    Prelude.rnf cause
+      `Prelude.seq` Prelude.rnf error
       `Prelude.seq` Prelude.rnf resourceType
       `Prelude.seq` Prelude.rnf resource

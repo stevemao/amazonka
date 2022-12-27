@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.Types.Tag
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AutoScaling.Types.Tag where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a tag for an Auto Scaling group.
@@ -122,12 +123,12 @@ instance Prelude.NFData Tag where
       `Prelude.seq` Prelude.rnf propagateAtLaunch
       `Prelude.seq` Prelude.rnf value
 
-instance Core.ToQuery Tag where
+instance Data.ToQuery Tag where
   toQuery Tag' {..} =
     Prelude.mconcat
-      [ "Key" Core.=: key,
-        "ResourceId" Core.=: resourceId,
-        "ResourceType" Core.=: resourceType,
-        "PropagateAtLaunch" Core.=: propagateAtLaunch,
-        "Value" Core.=: value
+      [ "Key" Data.=: key,
+        "ResourceId" Data.=: resourceId,
+        "ResourceType" Data.=: resourceType,
+        "PropagateAtLaunch" Data.=: propagateAtLaunch,
+        "Value" Data.=: value
       ]

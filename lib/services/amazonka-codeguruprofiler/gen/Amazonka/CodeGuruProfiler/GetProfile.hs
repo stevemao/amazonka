@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruProfiler.GetProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,11 +31,11 @@ module Amazonka.CodeGuruProfiler.GetProfile
     newGetProfile,
 
     -- * Request Lenses
-    getProfile_startTime,
-    getProfile_period,
     getProfile_accept,
     getProfile_endTime,
     getProfile_maxDepth,
+    getProfile_period,
+    getProfile_startTime,
     getProfile_profilingGroupName,
 
     -- * Destructuring the Response
@@ -52,7 +52,8 @@ where
 
 import Amazonka.CodeGuruProfiler.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,19 +62,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newGetProfile' smart constructor.
 data GetProfile = GetProfile'
-  { -- | The start time of the profile to get. Specify using the ISO 8601 format.
-    -- For example, 2020-06-01T13:15:02.001Z represents 1 millisecond past June
-    -- 1, 2020 1:15:02 PM UTC.
-    --
-    -- >  <p> If you specify <code>startTime</code>, then you must also specify <code>period</code> or <code>endTime</code>, but not both. </p>
-    startTime :: Prelude.Maybe Core.POSIX,
-    -- | Used with @startTime@ or @endTime@ to specify the time range for the
-    -- returned aggregated profile. Specify using the ISO 8601 format. For
-    -- example, @P1DT1H1M1S@.
-    --
-    -- >  <p> To get the latest aggregated profile, specify only <code>period</code>. </p>
-    period :: Prelude.Maybe Prelude.Text,
-    -- | The format of the returned profiling data. The format maps to the
+  { -- | The format of the returned profiling data. The format maps to the
     -- @Accept@ and @Content-Type@ headers of the HTTP request. You can specify
     -- one of the following: or the default .
     --
@@ -85,13 +74,25 @@ data GetProfile = GetProfile'
     --
     -- If you specify @endTime@, then you must also specify @period@ or
     -- @startTime@, but not both.
-    endTime :: Prelude.Maybe Core.POSIX,
+    endTime :: Prelude.Maybe Data.POSIX,
     -- | The maximum depth of the stacks in the code that is represented in the
     -- aggregated profile. For example, if CodeGuru Profiler finds a method
     -- @A@, which calls method @B@, which calls method @C@, which calls method
     -- @D@, then the depth is 4. If the @maxDepth@ is set to 2, then the
     -- aggregated profile contains representations of methods @A@ and @B@.
     maxDepth :: Prelude.Maybe Prelude.Natural,
+    -- | Used with @startTime@ or @endTime@ to specify the time range for the
+    -- returned aggregated profile. Specify using the ISO 8601 format. For
+    -- example, @P1DT1H1M1S@.
+    --
+    -- >  <p> To get the latest aggregated profile, specify only <code>period</code>. </p>
+    period :: Prelude.Maybe Prelude.Text,
+    -- | The start time of the profile to get. Specify using the ISO 8601 format.
+    -- For example, 2020-06-01T13:15:02.001Z represents 1 millisecond past June
+    -- 1, 2020 1:15:02 PM UTC.
+    --
+    -- >  <p> If you specify <code>startTime</code>, then you must also specify <code>period</code> or <code>endTime</code>, but not both. </p>
+    startTime :: Prelude.Maybe Data.POSIX,
     -- | The name of the profiling group to get.
     profilingGroupName :: Prelude.Text
   }
@@ -104,18 +105,6 @@ data GetProfile = GetProfile'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'startTime', 'getProfile_startTime' - The start time of the profile to get. Specify using the ISO 8601 format.
--- For example, 2020-06-01T13:15:02.001Z represents 1 millisecond past June
--- 1, 2020 1:15:02 PM UTC.
---
--- >  <p> If you specify <code>startTime</code>, then you must also specify <code>period</code> or <code>endTime</code>, but not both. </p>
---
--- 'period', 'getProfile_period' - Used with @startTime@ or @endTime@ to specify the time range for the
--- returned aggregated profile. Specify using the ISO 8601 format. For
--- example, @P1DT1H1M1S@.
---
--- >  <p> To get the latest aggregated profile, specify only <code>period</code>. </p>
 --
 -- 'accept', 'getProfile_accept' - The format of the returned profiling data. The format maps to the
 -- @Accept@ and @Content-Type@ headers of the HTTP request. You can specify
@@ -136,6 +125,18 @@ data GetProfile = GetProfile'
 -- @D@, then the depth is 4. If the @maxDepth@ is set to 2, then the
 -- aggregated profile contains representations of methods @A@ and @B@.
 --
+-- 'period', 'getProfile_period' - Used with @startTime@ or @endTime@ to specify the time range for the
+-- returned aggregated profile. Specify using the ISO 8601 format. For
+-- example, @P1DT1H1M1S@.
+--
+-- >  <p> To get the latest aggregated profile, specify only <code>period</code>. </p>
+--
+-- 'startTime', 'getProfile_startTime' - The start time of the profile to get. Specify using the ISO 8601 format.
+-- For example, 2020-06-01T13:15:02.001Z represents 1 millisecond past June
+-- 1, 2020 1:15:02 PM UTC.
+--
+-- >  <p> If you specify <code>startTime</code>, then you must also specify <code>period</code> or <code>endTime</code>, but not both. </p>
+--
 -- 'profilingGroupName', 'getProfile_profilingGroupName' - The name of the profiling group to get.
 newGetProfile ::
   -- | 'profilingGroupName'
@@ -143,29 +144,13 @@ newGetProfile ::
   GetProfile
 newGetProfile pProfilingGroupName_ =
   GetProfile'
-    { startTime = Prelude.Nothing,
-      period = Prelude.Nothing,
-      accept = Prelude.Nothing,
+    { accept = Prelude.Nothing,
       endTime = Prelude.Nothing,
       maxDepth = Prelude.Nothing,
+      period = Prelude.Nothing,
+      startTime = Prelude.Nothing,
       profilingGroupName = pProfilingGroupName_
     }
-
--- | The start time of the profile to get. Specify using the ISO 8601 format.
--- For example, 2020-06-01T13:15:02.001Z represents 1 millisecond past June
--- 1, 2020 1:15:02 PM UTC.
---
--- >  <p> If you specify <code>startTime</code>, then you must also specify <code>period</code> or <code>endTime</code>, but not both. </p>
-getProfile_startTime :: Lens.Lens' GetProfile (Prelude.Maybe Prelude.UTCTime)
-getProfile_startTime = Lens.lens (\GetProfile' {startTime} -> startTime) (\s@GetProfile' {} a -> s {startTime = a} :: GetProfile) Prelude.. Lens.mapping Core._Time
-
--- | Used with @startTime@ or @endTime@ to specify the time range for the
--- returned aggregated profile. Specify using the ISO 8601 format. For
--- example, @P1DT1H1M1S@.
---
--- >  <p> To get the latest aggregated profile, specify only <code>period</code>. </p>
-getProfile_period :: Lens.Lens' GetProfile (Prelude.Maybe Prelude.Text)
-getProfile_period = Lens.lens (\GetProfile' {period} -> period) (\s@GetProfile' {} a -> s {period = a} :: GetProfile)
 
 -- | The format of the returned profiling data. The format maps to the
 -- @Accept@ and @Content-Type@ headers of the HTTP request. You can specify
@@ -182,7 +167,7 @@ getProfile_accept = Lens.lens (\GetProfile' {accept} -> accept) (\s@GetProfile' 
 -- If you specify @endTime@, then you must also specify @period@ or
 -- @startTime@, but not both.
 getProfile_endTime :: Lens.Lens' GetProfile (Prelude.Maybe Prelude.UTCTime)
-getProfile_endTime = Lens.lens (\GetProfile' {endTime} -> endTime) (\s@GetProfile' {} a -> s {endTime = a} :: GetProfile) Prelude.. Lens.mapping Core._Time
+getProfile_endTime = Lens.lens (\GetProfile' {endTime} -> endTime) (\s@GetProfile' {} a -> s {endTime = a} :: GetProfile) Prelude.. Lens.mapping Data._Time
 
 -- | The maximum depth of the stacks in the code that is represented in the
 -- aggregated profile. For example, if CodeGuru Profiler finds a method
@@ -192,64 +177,81 @@ getProfile_endTime = Lens.lens (\GetProfile' {endTime} -> endTime) (\s@GetProfil
 getProfile_maxDepth :: Lens.Lens' GetProfile (Prelude.Maybe Prelude.Natural)
 getProfile_maxDepth = Lens.lens (\GetProfile' {maxDepth} -> maxDepth) (\s@GetProfile' {} a -> s {maxDepth = a} :: GetProfile)
 
+-- | Used with @startTime@ or @endTime@ to specify the time range for the
+-- returned aggregated profile. Specify using the ISO 8601 format. For
+-- example, @P1DT1H1M1S@.
+--
+-- >  <p> To get the latest aggregated profile, specify only <code>period</code>. </p>
+getProfile_period :: Lens.Lens' GetProfile (Prelude.Maybe Prelude.Text)
+getProfile_period = Lens.lens (\GetProfile' {period} -> period) (\s@GetProfile' {} a -> s {period = a} :: GetProfile)
+
+-- | The start time of the profile to get. Specify using the ISO 8601 format.
+-- For example, 2020-06-01T13:15:02.001Z represents 1 millisecond past June
+-- 1, 2020 1:15:02 PM UTC.
+--
+-- >  <p> If you specify <code>startTime</code>, then you must also specify <code>period</code> or <code>endTime</code>, but not both. </p>
+getProfile_startTime :: Lens.Lens' GetProfile (Prelude.Maybe Prelude.UTCTime)
+getProfile_startTime = Lens.lens (\GetProfile' {startTime} -> startTime) (\s@GetProfile' {} a -> s {startTime = a} :: GetProfile) Prelude.. Lens.mapping Data._Time
+
 -- | The name of the profiling group to get.
 getProfile_profilingGroupName :: Lens.Lens' GetProfile Prelude.Text
 getProfile_profilingGroupName = Lens.lens (\GetProfile' {profilingGroupName} -> profilingGroupName) (\s@GetProfile' {} a -> s {profilingGroupName = a} :: GetProfile)
 
 instance Core.AWSRequest GetProfile where
   type AWSResponse GetProfile = GetProfileResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveBytes
       ( \s h x ->
           GetProfileResponse'
-            Prelude.<$> (h Core..#? "Content-Encoding")
+            Prelude.<$> (h Data..#? "Content-Encoding")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (h Core..# "Content-Type")
+            Prelude.<*> (h Data..# "Content-Type")
             Prelude.<*> (Prelude.pure x)
       )
 
 instance Prelude.Hashable GetProfile where
   hashWithSalt _salt GetProfile' {..} =
-    _salt `Prelude.hashWithSalt` startTime
-      `Prelude.hashWithSalt` period
-      `Prelude.hashWithSalt` accept
+    _salt `Prelude.hashWithSalt` accept
       `Prelude.hashWithSalt` endTime
       `Prelude.hashWithSalt` maxDepth
+      `Prelude.hashWithSalt` period
+      `Prelude.hashWithSalt` startTime
       `Prelude.hashWithSalt` profilingGroupName
 
 instance Prelude.NFData GetProfile where
   rnf GetProfile' {..} =
-    Prelude.rnf startTime
-      `Prelude.seq` Prelude.rnf period
-      `Prelude.seq` Prelude.rnf accept
+    Prelude.rnf accept
       `Prelude.seq` Prelude.rnf endTime
       `Prelude.seq` Prelude.rnf maxDepth
+      `Prelude.seq` Prelude.rnf period
+      `Prelude.seq` Prelude.rnf startTime
       `Prelude.seq` Prelude.rnf profilingGroupName
 
-instance Core.ToHeaders GetProfile where
+instance Data.ToHeaders GetProfile where
   toHeaders GetProfile' {..} =
     Prelude.mconcat
-      [ "Accept" Core.=# accept,
+      [ "Accept" Data.=# accept,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToPath GetProfile where
+instance Data.ToPath GetProfile where
   toPath GetProfile' {..} =
     Prelude.mconcat
       [ "/profilingGroups/",
-        Core.toBS profilingGroupName,
+        Data.toBS profilingGroupName,
         "/profile"
       ]
 
-instance Core.ToQuery GetProfile where
+instance Data.ToQuery GetProfile where
   toQuery GetProfile' {..} =
     Prelude.mconcat
-      [ "startTime" Core.=: startTime,
-        "period" Core.=: period,
-        "endTime" Core.=: endTime,
-        "maxDepth" Core.=: maxDepth
+      [ "endTime" Data.=: endTime,
+        "maxDepth" Data.=: maxDepth,
+        "period" Data.=: period,
+        "startTime" Data.=: startTime
       ]
 
 -- | The structure representing the getProfileResponse.

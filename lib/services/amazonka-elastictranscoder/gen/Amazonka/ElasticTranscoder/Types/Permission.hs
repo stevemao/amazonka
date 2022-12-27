@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticTranscoder.Types.Permission
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElasticTranscoder.Types.Permission where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The @Permission@ structure.
@@ -43,6 +44,12 @@ data Permission = Permission'
     --     permissions for the thumbnails that Elastic Transcoder adds to the
     --     Amazon S3 bucket.
     access :: Prelude.Maybe [Prelude.Text],
+    -- | The AWS user or group that you want to have access to transcoded files
+    -- and playlists. To identify the user or group, you can specify the
+    -- canonical user ID for an AWS account, an origin access identity for a
+    -- CloudFront distribution, the registered email address of an AWS account,
+    -- or a predefined Amazon S3 group.
+    grantee :: Prelude.Maybe Prelude.Text,
     -- | The type of value that appears in the Grantee object:
     --
     -- -   @Canonical@: Either the canonical user ID for an AWS account or an
@@ -54,13 +61,7 @@ data Permission = Permission'
     --
     -- -   @Group@: One of the following predefined Amazon S3 groups:
     --     @AllUsers@, @AuthenticatedUsers@, or @LogDelivery@.
-    granteeType :: Prelude.Maybe Prelude.Text,
-    -- | The AWS user or group that you want to have access to transcoded files
-    -- and playlists. To identify the user or group, you can specify the
-    -- canonical user ID for an AWS account, an origin access identity for a
-    -- CloudFront distribution, the registered email address of an AWS account,
-    -- or a predefined Amazon S3 group.
-    grantee :: Prelude.Maybe Prelude.Text
+    granteeType :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -88,6 +89,12 @@ data Permission = Permission'
 --     permissions for the thumbnails that Elastic Transcoder adds to the
 --     Amazon S3 bucket.
 --
+-- 'grantee', 'permission_grantee' - The AWS user or group that you want to have access to transcoded files
+-- and playlists. To identify the user or group, you can specify the
+-- canonical user ID for an AWS account, an origin access identity for a
+-- CloudFront distribution, the registered email address of an AWS account,
+-- or a predefined Amazon S3 group.
+--
 -- 'granteeType', 'permission_granteeType' - The type of value that appears in the Grantee object:
 --
 -- -   @Canonical@: Either the canonical user ID for an AWS account or an
@@ -99,19 +106,13 @@ data Permission = Permission'
 --
 -- -   @Group@: One of the following predefined Amazon S3 groups:
 --     @AllUsers@, @AuthenticatedUsers@, or @LogDelivery@.
---
--- 'grantee', 'permission_grantee' - The AWS user or group that you want to have access to transcoded files
--- and playlists. To identify the user or group, you can specify the
--- canonical user ID for an AWS account, an origin access identity for a
--- CloudFront distribution, the registered email address of an AWS account,
--- or a predefined Amazon S3 group.
 newPermission ::
   Permission
 newPermission =
   Permission'
     { access = Prelude.Nothing,
-      granteeType = Prelude.Nothing,
-      grantee = Prelude.Nothing
+      grantee = Prelude.Nothing,
+      granteeType = Prelude.Nothing
     }
 
 -- | The permission that you want to give to the AWS user that is listed in
@@ -132,6 +133,14 @@ newPermission =
 permission_access :: Lens.Lens' Permission (Prelude.Maybe [Prelude.Text])
 permission_access = Lens.lens (\Permission' {access} -> access) (\s@Permission' {} a -> s {access = a} :: Permission) Prelude.. Lens.mapping Lens.coerced
 
+-- | The AWS user or group that you want to have access to transcoded files
+-- and playlists. To identify the user or group, you can specify the
+-- canonical user ID for an AWS account, an origin access identity for a
+-- CloudFront distribution, the registered email address of an AWS account,
+-- or a predefined Amazon S3 group.
+permission_grantee :: Lens.Lens' Permission (Prelude.Maybe Prelude.Text)
+permission_grantee = Lens.lens (\Permission' {grantee} -> grantee) (\s@Permission' {} a -> s {grantee = a} :: Permission)
+
 -- | The type of value that appears in the Grantee object:
 --
 -- -   @Canonical@: Either the canonical user ID for an AWS account or an
@@ -146,43 +155,35 @@ permission_access = Lens.lens (\Permission' {access} -> access) (\s@Permission' 
 permission_granteeType :: Lens.Lens' Permission (Prelude.Maybe Prelude.Text)
 permission_granteeType = Lens.lens (\Permission' {granteeType} -> granteeType) (\s@Permission' {} a -> s {granteeType = a} :: Permission)
 
--- | The AWS user or group that you want to have access to transcoded files
--- and playlists. To identify the user or group, you can specify the
--- canonical user ID for an AWS account, an origin access identity for a
--- CloudFront distribution, the registered email address of an AWS account,
--- or a predefined Amazon S3 group.
-permission_grantee :: Lens.Lens' Permission (Prelude.Maybe Prelude.Text)
-permission_grantee = Lens.lens (\Permission' {grantee} -> grantee) (\s@Permission' {} a -> s {grantee = a} :: Permission)
-
-instance Core.FromJSON Permission where
+instance Data.FromJSON Permission where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Permission"
       ( \x ->
           Permission'
-            Prelude.<$> (x Core..:? "Access" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "GranteeType")
-            Prelude.<*> (x Core..:? "Grantee")
+            Prelude.<$> (x Data..:? "Access" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Grantee")
+            Prelude.<*> (x Data..:? "GranteeType")
       )
 
 instance Prelude.Hashable Permission where
   hashWithSalt _salt Permission' {..} =
     _salt `Prelude.hashWithSalt` access
-      `Prelude.hashWithSalt` granteeType
       `Prelude.hashWithSalt` grantee
+      `Prelude.hashWithSalt` granteeType
 
 instance Prelude.NFData Permission where
   rnf Permission' {..} =
     Prelude.rnf access
-      `Prelude.seq` Prelude.rnf granteeType
       `Prelude.seq` Prelude.rnf grantee
+      `Prelude.seq` Prelude.rnf granteeType
 
-instance Core.ToJSON Permission where
+instance Data.ToJSON Permission where
   toJSON Permission' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Access" Core..=) Prelude.<$> access,
-            ("GranteeType" Core..=) Prelude.<$> granteeType,
-            ("Grantee" Core..=) Prelude.<$> grantee
+          [ ("Access" Data..=) Prelude.<$> access,
+            ("Grantee" Data..=) Prelude.<$> grantee,
+            ("GranteeType" Data..=) Prelude.<$> granteeType
           ]
       )

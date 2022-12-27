@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DMS.DescribeReplicationTaskAssessmentRuns
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,15 +45,16 @@ module Amazonka.DMS.DescribeReplicationTaskAssessmentRuns
     newDescribeReplicationTaskAssessmentRunsResponse,
 
     -- * Response Lenses
-    describeReplicationTaskAssessmentRunsResponse_replicationTaskAssessmentRuns,
     describeReplicationTaskAssessmentRunsResponse_marker,
+    describeReplicationTaskAssessmentRunsResponse_replicationTaskAssessmentRuns,
     describeReplicationTaskAssessmentRunsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DMS.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -141,15 +142,16 @@ instance
     AWSResponse
       DescribeReplicationTaskAssessmentRuns =
       DescribeReplicationTaskAssessmentRunsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeReplicationTaskAssessmentRunsResponse'
-            Prelude.<$> ( x Core..?> "ReplicationTaskAssessmentRuns"
-                            Core..!@ Prelude.mempty
-                        )
-              Prelude.<*> (x Core..?> "Marker")
+            Prelude.<$> (x Data..?> "Marker")
+              Prelude.<*> ( x Data..?> "ReplicationTaskAssessmentRuns"
+                              Core..!@ Prelude.mempty
+                          )
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -174,44 +176,44 @@ instance
       `Prelude.seq` Prelude.rnf maxRecords
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeReplicationTaskAssessmentRuns
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonDMSv20160101.DescribeReplicationTaskAssessmentRuns" ::
+              Data.=# ( "AmazonDMSv20160101.DescribeReplicationTaskAssessmentRuns" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DescribeReplicationTaskAssessmentRuns
   where
   toJSON DescribeReplicationTaskAssessmentRuns' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("Marker" Core..=) Prelude.<$> marker,
-            ("MaxRecords" Core..=) Prelude.<$> maxRecords
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("Marker" Data..=) Prelude.<$> marker,
+            ("MaxRecords" Data..=) Prelude.<$> maxRecords
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeReplicationTaskAssessmentRuns
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeReplicationTaskAssessmentRuns
   where
   toQuery = Prelude.const Prelude.mempty
@@ -220,13 +222,13 @@ instance
 --
 -- /See:/ 'newDescribeReplicationTaskAssessmentRunsResponse' smart constructor.
 data DescribeReplicationTaskAssessmentRunsResponse = DescribeReplicationTaskAssessmentRunsResponse'
-  { -- | One or more premigration assessment runs as specified by @Filters@.
-    replicationTaskAssessmentRuns :: Prelude.Maybe [ReplicationTaskAssessmentRun],
-    -- | A pagination token returned for you to pass to a subsequent request. If
+  { -- | A pagination token returned for you to pass to a subsequent request. If
     -- you pass this token as the @Marker@ value in a subsequent request, the
     -- response includes only records beyond the marker, up to the value
     -- specified in the request by @MaxRecords@.
     marker :: Prelude.Maybe Prelude.Text,
+    -- | One or more premigration assessment runs as specified by @Filters@.
+    replicationTaskAssessmentRuns :: Prelude.Maybe [ReplicationTaskAssessmentRun],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -240,12 +242,12 @@ data DescribeReplicationTaskAssessmentRunsResponse = DescribeReplicationTaskAsse
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'replicationTaskAssessmentRuns', 'describeReplicationTaskAssessmentRunsResponse_replicationTaskAssessmentRuns' - One or more premigration assessment runs as specified by @Filters@.
---
 -- 'marker', 'describeReplicationTaskAssessmentRunsResponse_marker' - A pagination token returned for you to pass to a subsequent request. If
 -- you pass this token as the @Marker@ value in a subsequent request, the
 -- response includes only records beyond the marker, up to the value
 -- specified in the request by @MaxRecords@.
+--
+-- 'replicationTaskAssessmentRuns', 'describeReplicationTaskAssessmentRunsResponse_replicationTaskAssessmentRuns' - One or more premigration assessment runs as specified by @Filters@.
 --
 -- 'httpStatus', 'describeReplicationTaskAssessmentRunsResponse_httpStatus' - The response's http status code.
 newDescribeReplicationTaskAssessmentRunsResponse ::
@@ -255,15 +257,12 @@ newDescribeReplicationTaskAssessmentRunsResponse ::
 newDescribeReplicationTaskAssessmentRunsResponse
   pHttpStatus_ =
     DescribeReplicationTaskAssessmentRunsResponse'
-      { replicationTaskAssessmentRuns =
+      { marker =
           Prelude.Nothing,
-        marker = Prelude.Nothing,
+        replicationTaskAssessmentRuns =
+          Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | One or more premigration assessment runs as specified by @Filters@.
-describeReplicationTaskAssessmentRunsResponse_replicationTaskAssessmentRuns :: Lens.Lens' DescribeReplicationTaskAssessmentRunsResponse (Prelude.Maybe [ReplicationTaskAssessmentRun])
-describeReplicationTaskAssessmentRunsResponse_replicationTaskAssessmentRuns = Lens.lens (\DescribeReplicationTaskAssessmentRunsResponse' {replicationTaskAssessmentRuns} -> replicationTaskAssessmentRuns) (\s@DescribeReplicationTaskAssessmentRunsResponse' {} a -> s {replicationTaskAssessmentRuns = a} :: DescribeReplicationTaskAssessmentRunsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A pagination token returned for you to pass to a subsequent request. If
 -- you pass this token as the @Marker@ value in a subsequent request, the
@@ -271,6 +270,10 @@ describeReplicationTaskAssessmentRunsResponse_replicationTaskAssessmentRuns = Le
 -- specified in the request by @MaxRecords@.
 describeReplicationTaskAssessmentRunsResponse_marker :: Lens.Lens' DescribeReplicationTaskAssessmentRunsResponse (Prelude.Maybe Prelude.Text)
 describeReplicationTaskAssessmentRunsResponse_marker = Lens.lens (\DescribeReplicationTaskAssessmentRunsResponse' {marker} -> marker) (\s@DescribeReplicationTaskAssessmentRunsResponse' {} a -> s {marker = a} :: DescribeReplicationTaskAssessmentRunsResponse)
+
+-- | One or more premigration assessment runs as specified by @Filters@.
+describeReplicationTaskAssessmentRunsResponse_replicationTaskAssessmentRuns :: Lens.Lens' DescribeReplicationTaskAssessmentRunsResponse (Prelude.Maybe [ReplicationTaskAssessmentRun])
+describeReplicationTaskAssessmentRunsResponse_replicationTaskAssessmentRuns = Lens.lens (\DescribeReplicationTaskAssessmentRunsResponse' {replicationTaskAssessmentRuns} -> replicationTaskAssessmentRuns) (\s@DescribeReplicationTaskAssessmentRunsResponse' {} a -> s {replicationTaskAssessmentRuns = a} :: DescribeReplicationTaskAssessmentRunsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeReplicationTaskAssessmentRunsResponse_httpStatus :: Lens.Lens' DescribeReplicationTaskAssessmentRunsResponse Prelude.Int
@@ -282,6 +285,6 @@ instance
   where
   rnf
     DescribeReplicationTaskAssessmentRunsResponse' {..} =
-      Prelude.rnf replicationTaskAssessmentRuns
-        `Prelude.seq` Prelude.rnf marker
+      Prelude.rnf marker
+        `Prelude.seq` Prelude.rnf replicationTaskAssessmentRuns
         `Prelude.seq` Prelude.rnf httpStatus

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DeleteScheduledAudit
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.IoT.DeleteScheduledAudit
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,7 +84,8 @@ instance Core.AWSRequest DeleteScheduledAudit where
   type
     AWSResponse DeleteScheduledAudit =
       DeleteScheduledAuditResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -99,17 +101,17 @@ instance Prelude.NFData DeleteScheduledAudit where
   rnf DeleteScheduledAudit' {..} =
     Prelude.rnf scheduledAuditName
 
-instance Core.ToHeaders DeleteScheduledAudit where
+instance Data.ToHeaders DeleteScheduledAudit where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteScheduledAudit where
+instance Data.ToPath DeleteScheduledAudit where
   toPath DeleteScheduledAudit' {..} =
     Prelude.mconcat
       [ "/audit/scheduledaudits/",
-        Core.toBS scheduledAuditName
+        Data.toBS scheduledAuditName
       ]
 
-instance Core.ToQuery DeleteScheduledAudit where
+instance Data.ToQuery DeleteScheduledAudit where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteScheduledAuditResponse' smart constructor.

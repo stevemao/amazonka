@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Batch.Types.JobDependency
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,14 +21,15 @@ module Amazonka.Batch.Types.JobDependency where
 
 import Amazonka.Batch.Types.ArrayJobDependency
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | An object representing an Batch job dependency.
+-- | An object that represents an Batch job dependency.
 --
 -- /See:/ 'newJobDependency' smart constructor.
 data JobDependency = JobDependency'
-  { -- | The job ID of the Batch job associated with this dependency.
+  { -- | The job ID of the Batch job that\'s associated with this dependency.
     jobId :: Prelude.Maybe Prelude.Text,
     -- | The type of the job dependency.
     type' :: Prelude.Maybe ArrayJobDependency
@@ -43,7 +44,7 @@ data JobDependency = JobDependency'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'jobId', 'jobDependency_jobId' - The job ID of the Batch job associated with this dependency.
+-- 'jobId', 'jobDependency_jobId' - The job ID of the Batch job that\'s associated with this dependency.
 --
 -- 'type'', 'jobDependency_type' - The type of the job dependency.
 newJobDependency ::
@@ -54,7 +55,7 @@ newJobDependency =
       type' = Prelude.Nothing
     }
 
--- | The job ID of the Batch job associated with this dependency.
+-- | The job ID of the Batch job that\'s associated with this dependency.
 jobDependency_jobId :: Lens.Lens' JobDependency (Prelude.Maybe Prelude.Text)
 jobDependency_jobId = Lens.lens (\JobDependency' {jobId} -> jobId) (\s@JobDependency' {} a -> s {jobId = a} :: JobDependency)
 
@@ -62,13 +63,13 @@ jobDependency_jobId = Lens.lens (\JobDependency' {jobId} -> jobId) (\s@JobDepend
 jobDependency_type :: Lens.Lens' JobDependency (Prelude.Maybe ArrayJobDependency)
 jobDependency_type = Lens.lens (\JobDependency' {type'} -> type') (\s@JobDependency' {} a -> s {type' = a} :: JobDependency)
 
-instance Core.FromJSON JobDependency where
+instance Data.FromJSON JobDependency where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "JobDependency"
       ( \x ->
           JobDependency'
-            Prelude.<$> (x Core..:? "jobId") Prelude.<*> (x Core..:? "type")
+            Prelude.<$> (x Data..:? "jobId") Prelude.<*> (x Data..:? "type")
       )
 
 instance Prelude.Hashable JobDependency where
@@ -80,11 +81,11 @@ instance Prelude.NFData JobDependency where
   rnf JobDependency' {..} =
     Prelude.rnf jobId `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON JobDependency where
+instance Data.ToJSON JobDependency where
   toJSON JobDependency' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("jobId" Core..=) Prelude.<$> jobId,
-            ("type" Core..=) Prelude.<$> type'
+          [ ("jobId" Data..=) Prelude.<$> jobId,
+            ("type" Data..=) Prelude.<$> type'
           ]
       )

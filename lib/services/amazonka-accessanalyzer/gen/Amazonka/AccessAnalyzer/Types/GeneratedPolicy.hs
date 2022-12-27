@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AccessAnalyzer.Types.GeneratedPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AccessAnalyzer.Types.GeneratedPolicy where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the text for the generated policy.
@@ -61,12 +62,12 @@ newGeneratedPolicy pPolicy_ =
 generatedPolicy_policy :: Lens.Lens' GeneratedPolicy Prelude.Text
 generatedPolicy_policy = Lens.lens (\GeneratedPolicy' {policy} -> policy) (\s@GeneratedPolicy' {} a -> s {policy = a} :: GeneratedPolicy)
 
-instance Core.FromJSON GeneratedPolicy where
+instance Data.FromJSON GeneratedPolicy where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GeneratedPolicy"
       ( \x ->
-          GeneratedPolicy' Prelude.<$> (x Core..: "policy")
+          GeneratedPolicy' Prelude.<$> (x Data..: "policy")
       )
 
 instance Prelude.Hashable GeneratedPolicy where

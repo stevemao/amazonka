@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.DeleteInstanceProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.IAM.DeleteInstanceProfile
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,7 +101,8 @@ instance Core.AWSRequest DeleteInstanceProfile where
   type
     AWSResponse DeleteInstanceProfile =
       DeleteInstanceProfileResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull DeleteInstanceProfileResponse'
 
@@ -112,20 +114,20 @@ instance Prelude.NFData DeleteInstanceProfile where
   rnf DeleteInstanceProfile' {..} =
     Prelude.rnf instanceProfileName
 
-instance Core.ToHeaders DeleteInstanceProfile where
+instance Data.ToHeaders DeleteInstanceProfile where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteInstanceProfile where
+instance Data.ToPath DeleteInstanceProfile where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteInstanceProfile where
+instance Data.ToQuery DeleteInstanceProfile where
   toQuery DeleteInstanceProfile' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteInstanceProfile" :: Prelude.ByteString),
+          Data.=: ("DeleteInstanceProfile" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "InstanceProfileName" Core.=: instanceProfileName
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "InstanceProfileName" Data.=: instanceProfileName
       ]
 
 -- | /See:/ 'newDeleteInstanceProfileResponse' smart constructor.

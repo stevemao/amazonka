@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideo.GetDataEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,8 +51,9 @@ module Amazonka.KinesisVideo.GetDataEndpoint
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisVideo.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -117,12 +118,13 @@ instance Core.AWSRequest GetDataEndpoint where
   type
     AWSResponse GetDataEndpoint =
       GetDataEndpointResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDataEndpointResponse'
-            Prelude.<$> (x Core..?> "DataEndpoint")
+            Prelude.<$> (x Data..?> "DataEndpoint")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -138,23 +140,23 @@ instance Prelude.NFData GetDataEndpoint where
       `Prelude.seq` Prelude.rnf streamName
       `Prelude.seq` Prelude.rnf aPIName
 
-instance Core.ToHeaders GetDataEndpoint where
+instance Data.ToHeaders GetDataEndpoint where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON GetDataEndpoint where
+instance Data.ToJSON GetDataEndpoint where
   toJSON GetDataEndpoint' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("StreamARN" Core..=) Prelude.<$> streamARN,
-            ("StreamName" Core..=) Prelude.<$> streamName,
-            Prelude.Just ("APIName" Core..= aPIName)
+          [ ("StreamARN" Data..=) Prelude.<$> streamARN,
+            ("StreamName" Data..=) Prelude.<$> streamName,
+            Prelude.Just ("APIName" Data..= aPIName)
           ]
       )
 
-instance Core.ToPath GetDataEndpoint where
+instance Data.ToPath GetDataEndpoint where
   toPath = Prelude.const "/getDataEndpoint"
 
-instance Core.ToQuery GetDataEndpoint where
+instance Data.ToQuery GetDataEndpoint where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetDataEndpointResponse' smart constructor.

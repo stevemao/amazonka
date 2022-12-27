@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.Types.LambdaFunctionStartedEventAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SWF.Types.LambdaFunctionStartedEventAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides the details of the @LambdaFunctionStarted@ event. It isn\'t set
@@ -64,15 +65,15 @@ lambdaFunctionStartedEventAttributes_scheduledEventId :: Lens.Lens' LambdaFuncti
 lambdaFunctionStartedEventAttributes_scheduledEventId = Lens.lens (\LambdaFunctionStartedEventAttributes' {scheduledEventId} -> scheduledEventId) (\s@LambdaFunctionStartedEventAttributes' {} a -> s {scheduledEventId = a} :: LambdaFunctionStartedEventAttributes)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     LambdaFunctionStartedEventAttributes
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LambdaFunctionStartedEventAttributes"
       ( \x ->
           LambdaFunctionStartedEventAttributes'
-            Prelude.<$> (x Core..: "scheduledEventId")
+            Prelude.<$> (x Data..: "scheduledEventId")
       )
 
 instance

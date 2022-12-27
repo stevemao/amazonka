@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.RemoveAutoTerminationPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.EMR.RemoveAutoTerminationPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,7 +83,8 @@ instance Core.AWSRequest RemoveAutoTerminationPolicy where
   type
     AWSResponse RemoveAutoTerminationPolicy =
       RemoveAutoTerminationPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -98,32 +100,32 @@ instance Prelude.NFData RemoveAutoTerminationPolicy where
   rnf RemoveAutoTerminationPolicy' {..} =
     Prelude.rnf clusterId
 
-instance Core.ToHeaders RemoveAutoTerminationPolicy where
+instance Data.ToHeaders RemoveAutoTerminationPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ElasticMapReduce.RemoveAutoTerminationPolicy" ::
+              Data.=# ( "ElasticMapReduce.RemoveAutoTerminationPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RemoveAutoTerminationPolicy where
+instance Data.ToJSON RemoveAutoTerminationPolicy where
   toJSON RemoveAutoTerminationPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ClusterId" Core..= clusterId)]
+          [Prelude.Just ("ClusterId" Data..= clusterId)]
       )
 
-instance Core.ToPath RemoveAutoTerminationPolicy where
+instance Data.ToPath RemoveAutoTerminationPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RemoveAutoTerminationPolicy where
+instance Data.ToQuery RemoveAutoTerminationPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRemoveAutoTerminationPolicyResponse' smart constructor.

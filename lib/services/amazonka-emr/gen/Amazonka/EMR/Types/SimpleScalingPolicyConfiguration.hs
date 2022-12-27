@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.SimpleScalingPolicyConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EMR.Types.SimpleScalingPolicyConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types.AdjustmentType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An automatic scaling configuration, which describes how the policy adds
@@ -139,17 +140,17 @@ simpleScalingPolicyConfiguration_scalingAdjustment :: Lens.Lens' SimpleScalingPo
 simpleScalingPolicyConfiguration_scalingAdjustment = Lens.lens (\SimpleScalingPolicyConfiguration' {scalingAdjustment} -> scalingAdjustment) (\s@SimpleScalingPolicyConfiguration' {} a -> s {scalingAdjustment = a} :: SimpleScalingPolicyConfiguration)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     SimpleScalingPolicyConfiguration
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SimpleScalingPolicyConfiguration"
       ( \x ->
           SimpleScalingPolicyConfiguration'
-            Prelude.<$> (x Core..:? "AdjustmentType")
-            Prelude.<*> (x Core..:? "CoolDown")
-            Prelude.<*> (x Core..: "ScalingAdjustment")
+            Prelude.<$> (x Data..:? "AdjustmentType")
+            Prelude.<*> (x Data..:? "CoolDown")
+            Prelude.<*> (x Data..: "ScalingAdjustment")
       )
 
 instance
@@ -172,14 +173,14 @@ instance
       `Prelude.seq` Prelude.rnf coolDown
       `Prelude.seq` Prelude.rnf scalingAdjustment
 
-instance Core.ToJSON SimpleScalingPolicyConfiguration where
+instance Data.ToJSON SimpleScalingPolicyConfiguration where
   toJSON SimpleScalingPolicyConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AdjustmentType" Core..=)
+          [ ("AdjustmentType" Data..=)
               Prelude.<$> adjustmentType,
-            ("CoolDown" Core..=) Prelude.<$> coolDown,
+            ("CoolDown" Data..=) Prelude.<$> coolDown,
             Prelude.Just
-              ("ScalingAdjustment" Core..= scalingAdjustment)
+              ("ScalingAdjustment" Data..= scalingAdjustment)
           ]
       )

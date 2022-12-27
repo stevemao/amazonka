@@ -1,6 +1,6 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_library", "haskell_test")
 
-# rule generated from amazonka-sns/amazonka-sns.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-sns/amazonka-sns.cabal by gazelle_cabal
 haskell_library(
     name = "amazonka-sns",
     srcs = [
@@ -16,6 +16,7 @@ haskell_library(
         "gen/Amazonka/SNS/DeletePlatformApplication.hs",
         "gen/Amazonka/SNS/DeleteSMSSandboxPhoneNumber.hs",
         "gen/Amazonka/SNS/DeleteTopic.hs",
+        "gen/Amazonka/SNS/GetDataProtectionPolicy.hs",
         "gen/Amazonka/SNS/GetEndpointAttributes.hs",
         "gen/Amazonka/SNS/GetPlatformApplicationAttributes.hs",
         "gen/Amazonka/SNS/GetSMSAttributes.hs",
@@ -34,6 +35,8 @@ haskell_library(
         "gen/Amazonka/SNS/ListTopics.hs",
         "gen/Amazonka/SNS/OptInPhoneNumber.hs",
         "gen/Amazonka/SNS/Publish.hs",
+        "gen/Amazonka/SNS/PublishBatch.hs",
+        "gen/Amazonka/SNS/PutDataProtectionPolicy.hs",
         "gen/Amazonka/SNS/RemovePermission.hs",
         "gen/Amazonka/SNS/SetEndpointAttributes.hs",
         "gen/Amazonka/SNS/SetPlatformApplicationAttributes.hs",
@@ -43,12 +46,15 @@ haskell_library(
         "gen/Amazonka/SNS/Subscribe.hs",
         "gen/Amazonka/SNS/TagResource.hs",
         "gen/Amazonka/SNS/Types.hs",
+        "gen/Amazonka/SNS/Types/BatchResultErrorEntry.hs",
         "gen/Amazonka/SNS/Types/Endpoint.hs",
         "gen/Amazonka/SNS/Types/LanguageCodeString.hs",
         "gen/Amazonka/SNS/Types/MessageAttributeValue.hs",
         "gen/Amazonka/SNS/Types/NumberCapability.hs",
         "gen/Amazonka/SNS/Types/PhoneNumberInformation.hs",
         "gen/Amazonka/SNS/Types/PlatformApplication.hs",
+        "gen/Amazonka/SNS/Types/PublishBatchRequestEntry.hs",
+        "gen/Amazonka/SNS/Types/PublishBatchResultEntry.hs",
         "gen/Amazonka/SNS/Types/RouteType.hs",
         "gen/Amazonka/SNS/Types/SMSSandboxPhoneNumber.hs",
         "gen/Amazonka/SNS/Types/SMSSandboxPhoneNumberVerificationStatus.hs",
@@ -60,14 +66,13 @@ haskell_library(
         "gen/Amazonka/SNS/VerifySMSSandboxPhoneNumber.hs",
         "gen/Amazonka/SNS/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_sns=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
-        "-DVERSION_amazonka_sns=\"2.0\"",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -76,7 +81,7 @@ haskell_library(
     ],
 )
 
-# rule generated from amazonka-sns/amazonka-sns.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-sns/amazonka-sns.cabal by gazelle_cabal
 haskell_test(
     name = "amazonka-sns-test",
     srcs = [
@@ -85,11 +90,12 @@ haskell_test(
         "test/Test/Amazonka/SNS.hs",
         "test/Test/Amazonka/SNS/Internal.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_sns=\"2.0\"",
         "-Wall",
         "-threaded",
-        "-DVERSION_amazonka_sns=\"2.0\"",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

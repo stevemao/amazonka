@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.DeleteRequestValidator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -47,9 +48,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDeleteRequestValidator' smart constructor.
 data DeleteRequestValidator = DeleteRequestValidator'
-  { -- | [Required] The string identifier of the associated RestApi.
+  { -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] The identifier of the RequestValidator to be deleted.
+    -- | The identifier of the RequestValidator to be deleted.
     requestValidatorId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -62,9 +63,9 @@ data DeleteRequestValidator = DeleteRequestValidator'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'restApiId', 'deleteRequestValidator_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'deleteRequestValidator_restApiId' - The string identifier of the associated RestApi.
 --
--- 'requestValidatorId', 'deleteRequestValidator_requestValidatorId' - [Required] The identifier of the RequestValidator to be deleted.
+-- 'requestValidatorId', 'deleteRequestValidator_requestValidatorId' - The identifier of the RequestValidator to be deleted.
 newDeleteRequestValidator ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -79,11 +80,11 @@ newDeleteRequestValidator
         requestValidatorId = pRequestValidatorId_
       }
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 deleteRequestValidator_restApiId :: Lens.Lens' DeleteRequestValidator Prelude.Text
 deleteRequestValidator_restApiId = Lens.lens (\DeleteRequestValidator' {restApiId} -> restApiId) (\s@DeleteRequestValidator' {} a -> s {restApiId = a} :: DeleteRequestValidator)
 
--- | [Required] The identifier of the RequestValidator to be deleted.
+-- | The identifier of the RequestValidator to be deleted.
 deleteRequestValidator_requestValidatorId :: Lens.Lens' DeleteRequestValidator Prelude.Text
 deleteRequestValidator_requestValidatorId = Lens.lens (\DeleteRequestValidator' {requestValidatorId} -> requestValidatorId) (\s@DeleteRequestValidator' {} a -> s {requestValidatorId = a} :: DeleteRequestValidator)
 
@@ -91,7 +92,8 @@ instance Core.AWSRequest DeleteRequestValidator where
   type
     AWSResponse DeleteRequestValidator =
       DeleteRequestValidatorResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteRequestValidatorResponse'
@@ -106,25 +108,25 @@ instance Prelude.NFData DeleteRequestValidator where
     Prelude.rnf restApiId
       `Prelude.seq` Prelude.rnf requestValidatorId
 
-instance Core.ToHeaders DeleteRequestValidator where
+instance Data.ToHeaders DeleteRequestValidator where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath DeleteRequestValidator where
+instance Data.ToPath DeleteRequestValidator where
   toPath DeleteRequestValidator' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/requestvalidators/",
-        Core.toBS requestValidatorId
+        Data.toBS requestValidatorId
       ]
 
-instance Core.ToQuery DeleteRequestValidator where
+instance Data.ToQuery DeleteRequestValidator where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteRequestValidatorResponse' smart constructor.

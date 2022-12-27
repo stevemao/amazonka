@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.DeleteModel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.FraudDetector.DeleteModel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,7 +95,8 @@ deleteModel_modelType = Lens.lens (\DeleteModel' {modelType} -> modelType) (\s@D
 
 instance Core.AWSRequest DeleteModel where
   type AWSResponse DeleteModel = DeleteModelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -112,34 +114,34 @@ instance Prelude.NFData DeleteModel where
     Prelude.rnf modelId
       `Prelude.seq` Prelude.rnf modelType
 
-instance Core.ToHeaders DeleteModel where
+instance Data.ToHeaders DeleteModel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.DeleteModel" ::
+              Data.=# ( "AWSHawksNestServiceFacade.DeleteModel" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteModel where
+instance Data.ToJSON DeleteModel where
   toJSON DeleteModel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("modelId" Core..= modelId),
-            Prelude.Just ("modelType" Core..= modelType)
+          [ Prelude.Just ("modelId" Data..= modelId),
+            Prelude.Just ("modelType" Data..= modelType)
           ]
       )
 
-instance Core.ToPath DeleteModel where
+instance Data.ToPath DeleteModel where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteModel where
+instance Data.ToQuery DeleteModel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteModelResponse' smart constructor.

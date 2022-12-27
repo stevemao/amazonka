@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideoSignaling
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,23 +22,23 @@ module Amazonka.KinesisVideoSignaling
     -- * Errors
     -- $errors
 
-    -- ** InvalidArgumentException
-    _InvalidArgumentException,
-
-    -- ** NotAuthorizedException
-    _NotAuthorizedException,
-
     -- ** ClientLimitExceededException
     _ClientLimitExceededException,
 
-    -- ** SessionExpiredException
-    _SessionExpiredException,
+    -- ** InvalidArgumentException
+    _InvalidArgumentException,
 
     -- ** InvalidClientException
     _InvalidClientException,
 
+    -- ** NotAuthorizedException
+    _NotAuthorizedException,
+
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
+
+    -- ** SessionExpiredException
+    _SessionExpiredException,
 
     -- * Waiters
     -- $waiters
@@ -46,17 +46,17 @@ module Amazonka.KinesisVideoSignaling
     -- * Operations
     -- $operations
 
-    -- ** SendAlexaOfferToMaster
-    SendAlexaOfferToMaster (SendAlexaOfferToMaster'),
-    newSendAlexaOfferToMaster,
-    SendAlexaOfferToMasterResponse (SendAlexaOfferToMasterResponse'),
-    newSendAlexaOfferToMasterResponse,
-
     -- ** GetIceServerConfig
     GetIceServerConfig (GetIceServerConfig'),
     newGetIceServerConfig,
     GetIceServerConfigResponse (GetIceServerConfigResponse'),
     newGetIceServerConfigResponse,
+
+    -- ** SendAlexaOfferToMaster
+    SendAlexaOfferToMaster (SendAlexaOfferToMaster'),
+    newSendAlexaOfferToMaster,
+    SendAlexaOfferToMasterResponse (SendAlexaOfferToMasterResponse'),
+    newSendAlexaOfferToMasterResponse,
 
     -- * Types
 

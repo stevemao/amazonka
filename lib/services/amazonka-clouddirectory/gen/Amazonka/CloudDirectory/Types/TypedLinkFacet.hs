@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.TypedLinkFacet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudDirectory.Types.TypedLinkFacet where
 
 import Amazonka.CloudDirectory.Types.TypedLinkAttributeDefinition
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Defines the typed links structure and its attributes. To create a typed
@@ -107,15 +108,15 @@ instance Prelude.NFData TypedLinkFacet where
       `Prelude.seq` Prelude.rnf attributes
       `Prelude.seq` Prelude.rnf identityAttributeOrder
 
-instance Core.ToJSON TypedLinkFacet where
+instance Data.ToJSON TypedLinkFacet where
   toJSON TypedLinkFacet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Attributes" Core..= attributes),
+          [ Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Attributes" Data..= attributes),
             Prelude.Just
               ( "IdentityAttributeOrder"
-                  Core..= identityAttributeOrder
+                  Data..= identityAttributeOrder
               )
           ]
       )

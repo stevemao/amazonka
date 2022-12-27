@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApiGatewayV2.DeleteRouteRequestParameter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ where
 
 import Amazonka.ApiGatewayV2.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -103,7 +104,8 @@ instance Core.AWSRequest DeleteRouteRequestParameter where
   type
     AWSResponse DeleteRouteRequestParameter =
       DeleteRouteRequestParameterResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteRouteRequestParameterResponse'
@@ -120,29 +122,29 @@ instance Prelude.NFData DeleteRouteRequestParameter where
       `Prelude.seq` Prelude.rnf apiId
       `Prelude.seq` Prelude.rnf routeId
 
-instance Core.ToHeaders DeleteRouteRequestParameter where
+instance Data.ToHeaders DeleteRouteRequestParameter where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteRouteRequestParameter where
+instance Data.ToPath DeleteRouteRequestParameter where
   toPath DeleteRouteRequestParameter' {..} =
     Prelude.mconcat
       [ "/v2/apis/",
-        Core.toBS apiId,
+        Data.toBS apiId,
         "/routes/",
-        Core.toBS routeId,
+        Data.toBS routeId,
         "/requestparameters/",
-        Core.toBS requestParameterKey
+        Data.toBS requestParameterKey
       ]
 
-instance Core.ToQuery DeleteRouteRequestParameter where
+instance Data.ToQuery DeleteRouteRequestParameter where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteRouteRequestParameterResponse' smart constructor.

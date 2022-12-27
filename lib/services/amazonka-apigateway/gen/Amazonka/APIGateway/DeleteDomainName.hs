@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.DeleteDomainName
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,7 +37,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -46,7 +47,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDeleteDomainName' smart constructor.
 data DeleteDomainName = DeleteDomainName'
-  { -- | [Required] The name of the DomainName resource to be deleted.
+  { -- | The name of the DomainName resource to be deleted.
     domainName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -59,7 +60,7 @@ data DeleteDomainName = DeleteDomainName'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'domainName', 'deleteDomainName_domainName' - [Required] The name of the DomainName resource to be deleted.
+-- 'domainName', 'deleteDomainName_domainName' - The name of the DomainName resource to be deleted.
 newDeleteDomainName ::
   -- | 'domainName'
   Prelude.Text ->
@@ -67,7 +68,7 @@ newDeleteDomainName ::
 newDeleteDomainName pDomainName_ =
   DeleteDomainName' {domainName = pDomainName_}
 
--- | [Required] The name of the DomainName resource to be deleted.
+-- | The name of the DomainName resource to be deleted.
 deleteDomainName_domainName :: Lens.Lens' DeleteDomainName Prelude.Text
 deleteDomainName_domainName = Lens.lens (\DeleteDomainName' {domainName} -> domainName) (\s@DeleteDomainName' {} a -> s {domainName = a} :: DeleteDomainName)
 
@@ -75,7 +76,8 @@ instance Core.AWSRequest DeleteDomainName where
   type
     AWSResponse DeleteDomainName =
       DeleteDomainNameResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteDomainNameResponse'
 
@@ -86,21 +88,21 @@ instance Prelude.Hashable DeleteDomainName where
 instance Prelude.NFData DeleteDomainName where
   rnf DeleteDomainName' {..} = Prelude.rnf domainName
 
-instance Core.ToHeaders DeleteDomainName where
+instance Data.ToHeaders DeleteDomainName where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath DeleteDomainName where
+instance Data.ToPath DeleteDomainName where
   toPath DeleteDomainName' {..} =
     Prelude.mconcat
-      ["/domainnames/", Core.toBS domainName]
+      ["/domainnames/", Data.toBS domainName]
 
-instance Core.ToQuery DeleteDomainName where
+instance Data.ToQuery DeleteDomainName where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteDomainNameResponse' smart constructor.

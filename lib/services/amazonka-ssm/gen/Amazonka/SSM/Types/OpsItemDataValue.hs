@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.OpsItemDataValue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.OpsItemDataValue where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSM.Types.OpsItemDataType
 
@@ -29,11 +30,11 @@ import Amazonka.SSM.Types.OpsItemDataType
 --
 -- /See:/ 'newOpsItemDataValue' smart constructor.
 data OpsItemDataValue = OpsItemDataValue'
-  { -- | The value of the OperationalData key.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The type of key-value pair. Valid types include @SearchableString@ and
+  { -- | The type of key-value pair. Valid types include @SearchableString@ and
     -- @String@.
-    type' :: Prelude.Maybe OpsItemDataType
+    type' :: Prelude.Maybe OpsItemDataType,
+    -- | The value of the OperationalData key.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,50 +46,50 @@ data OpsItemDataValue = OpsItemDataValue'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'opsItemDataValue_value' - The value of the OperationalData key.
---
 -- 'type'', 'opsItemDataValue_type' - The type of key-value pair. Valid types include @SearchableString@ and
 -- @String@.
+--
+-- 'value', 'opsItemDataValue_value' - The value of the OperationalData key.
 newOpsItemDataValue ::
   OpsItemDataValue
 newOpsItemDataValue =
   OpsItemDataValue'
-    { value = Prelude.Nothing,
-      type' = Prelude.Nothing
+    { type' = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The value of the OperationalData key.
-opsItemDataValue_value :: Lens.Lens' OpsItemDataValue (Prelude.Maybe Prelude.Text)
-opsItemDataValue_value = Lens.lens (\OpsItemDataValue' {value} -> value) (\s@OpsItemDataValue' {} a -> s {value = a} :: OpsItemDataValue)
 
 -- | The type of key-value pair. Valid types include @SearchableString@ and
 -- @String@.
 opsItemDataValue_type :: Lens.Lens' OpsItemDataValue (Prelude.Maybe OpsItemDataType)
 opsItemDataValue_type = Lens.lens (\OpsItemDataValue' {type'} -> type') (\s@OpsItemDataValue' {} a -> s {type' = a} :: OpsItemDataValue)
 
-instance Core.FromJSON OpsItemDataValue where
+-- | The value of the OperationalData key.
+opsItemDataValue_value :: Lens.Lens' OpsItemDataValue (Prelude.Maybe Prelude.Text)
+opsItemDataValue_value = Lens.lens (\OpsItemDataValue' {value} -> value) (\s@OpsItemDataValue' {} a -> s {value = a} :: OpsItemDataValue)
+
+instance Data.FromJSON OpsItemDataValue where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OpsItemDataValue"
       ( \x ->
           OpsItemDataValue'
-            Prelude.<$> (x Core..:? "Value") Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "Type") Prelude.<*> (x Data..:? "Value")
       )
 
 instance Prelude.Hashable OpsItemDataValue where
   hashWithSalt _salt OpsItemDataValue' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` type'
+    _salt `Prelude.hashWithSalt` type'
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData OpsItemDataValue where
   rnf OpsItemDataValue' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf type'
+    Prelude.rnf type' `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON OpsItemDataValue where
+instance Data.ToJSON OpsItemDataValue where
   toJSON OpsItemDataValue' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Value" Core..=) Prelude.<$> value,
-            ("Type" Core..=) Prelude.<$> type'
+          [ ("Type" Data..=) Prelude.<$> type',
+            ("Value" Data..=) Prelude.<$> value
           ]
       )

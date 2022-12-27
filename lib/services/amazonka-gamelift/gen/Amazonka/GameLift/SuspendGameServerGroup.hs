@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.SuspendGameServerGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,7 +25,8 @@
 --
 -- Temporarily stops activity on a game server group without terminating
 -- instances or the game server group. You can restart activity by calling
--- ResumeGameServerGroup. You can suspend the following activity:
+-- <gamelift/latest/apireference/API_ResumeGameServerGroup.html ResumeGameServerGroup>.
+-- You can suspend the following activity:
 --
 -- -   __Instance type replacement__ - This activity evaluates the current
 --     game hosting viability of all Spot instance types that are defined
@@ -38,19 +39,12 @@
 --     metrics, and capacity scaling activities continue to be active.
 --
 -- To suspend activity, specify a game server group ARN and the type of
--- activity to be suspended. If successful, a GameServerGroup object is
+-- activity to be suspended. If successful, a @GameServerGroup@ object is
 -- returned showing that the activity is listed in @SuspendedActions@.
 --
 -- __Learn more__
 --
 -- <https://docs.aws.amazon.com/gamelift/latest/fleetiqguide/gsg-intro.html GameLift FleetIQ Guide>
---
--- __Related actions__
---
--- CreateGameServerGroup | ListGameServerGroups | DescribeGameServerGroup |
--- UpdateGameServerGroup | DeleteGameServerGroup | ResumeGameServerGroup |
--- SuspendGameServerGroup | DescribeGameServerInstances |
--- <https://docs.aws.amazon.com/gamelift/latest/fleetiqguide/reference-awssdk-fleetiq.html All APIs by task>
 module Amazonka.GameLift.SuspendGameServerGroup
   ( -- * Creating a Request
     SuspendGameServerGroup (..),
@@ -71,16 +65,17 @@ module Amazonka.GameLift.SuspendGameServerGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newSuspendGameServerGroup' smart constructor.
 data SuspendGameServerGroup = SuspendGameServerGroup'
-  { -- | A unique identifier for the game server group. Use either the
-    -- GameServerGroup name or ARN value.
+  { -- | A unique identifier for the game server group. Use either the name or
+    -- ARN value.
     gameServerGroupName :: Prelude.Text,
     -- | The activity to suspend for this game server group.
     suspendActions :: Prelude.NonEmpty GameServerGroupAction
@@ -95,8 +90,8 @@ data SuspendGameServerGroup = SuspendGameServerGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'gameServerGroupName', 'suspendGameServerGroup_gameServerGroupName' - A unique identifier for the game server group. Use either the
--- GameServerGroup name or ARN value.
+-- 'gameServerGroupName', 'suspendGameServerGroup_gameServerGroupName' - A unique identifier for the game server group. Use either the name or
+-- ARN value.
 --
 -- 'suspendActions', 'suspendGameServerGroup_suspendActions' - The activity to suspend for this game server group.
 newSuspendGameServerGroup ::
@@ -115,8 +110,8 @@ newSuspendGameServerGroup
           Lens.coerced Lens.# pSuspendActions_
       }
 
--- | A unique identifier for the game server group. Use either the
--- GameServerGroup name or ARN value.
+-- | A unique identifier for the game server group. Use either the name or
+-- ARN value.
 suspendGameServerGroup_gameServerGroupName :: Lens.Lens' SuspendGameServerGroup Prelude.Text
 suspendGameServerGroup_gameServerGroupName = Lens.lens (\SuspendGameServerGroup' {gameServerGroupName} -> gameServerGroupName) (\s@SuspendGameServerGroup' {} a -> s {gameServerGroupName = a} :: SuspendGameServerGroup)
 
@@ -128,12 +123,13 @@ instance Core.AWSRequest SuspendGameServerGroup where
   type
     AWSResponse SuspendGameServerGroup =
       SuspendGameServerGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SuspendGameServerGroupResponse'
-            Prelude.<$> (x Core..?> "GameServerGroup")
+            Prelude.<$> (x Data..?> "GameServerGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -147,36 +143,36 @@ instance Prelude.NFData SuspendGameServerGroup where
     Prelude.rnf gameServerGroupName
       `Prelude.seq` Prelude.rnf suspendActions
 
-instance Core.ToHeaders SuspendGameServerGroup where
+instance Data.ToHeaders SuspendGameServerGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.SuspendGameServerGroup" ::
+              Data.=# ( "GameLift.SuspendGameServerGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SuspendGameServerGroup where
+instance Data.ToJSON SuspendGameServerGroup where
   toJSON SuspendGameServerGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("GameServerGroupName" Core..= gameServerGroupName),
+              ("GameServerGroupName" Data..= gameServerGroupName),
             Prelude.Just
-              ("SuspendActions" Core..= suspendActions)
+              ("SuspendActions" Data..= suspendActions)
           ]
       )
 
-instance Core.ToPath SuspendGameServerGroup where
+instance Data.ToPath SuspendGameServerGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SuspendGameServerGroup where
+instance Data.ToQuery SuspendGameServerGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSuspendGameServerGroupResponse' smart constructor.

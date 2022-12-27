@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.TransactGetItem
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,11 @@
 module Amazonka.DynamoDB.Types.TransactGetItem where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.Get
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies an item to be retrieved as part of the transaction.
@@ -67,9 +69,9 @@ instance Prelude.Hashable TransactGetItem where
 instance Prelude.NFData TransactGetItem where
   rnf TransactGetItem' {..} = Prelude.rnf get'
 
-instance Core.ToJSON TransactGetItem where
+instance Data.ToJSON TransactGetItem where
   toJSON TransactGetItem' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Get" Core..= get')]
+          [Prelude.Just ("Get" Data..= get')]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.Types.OutputDataConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,11 @@
 module Amazonka.Comprehend.Types.OutputDataConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Provides configuration parameters for the output of topic detection
--- jobs.
+-- | Provides configuration parameters for the output of inference jobs.
 --
 -- /See:/ 'newOutputDataConfig' smart constructor.
 data OutputDataConfig = OutputDataConfig'
@@ -52,6 +52,10 @@ data OutputDataConfig = OutputDataConfig'
     -- file in a directory specific to the job. The @S3Uri@ field contains the
     -- location of the output file, called @output.tar.gz@. It is a compressed
     -- archive that contains the ouput of the operation.
+    --
+    -- For a PII entity detection job, the output file is plain text, not a
+    -- compressed archive. The output file name is the same as the input file,
+    -- with @.out@ appended at the end.
     s3Uri :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -88,6 +92,10 @@ data OutputDataConfig = OutputDataConfig'
 -- file in a directory specific to the job. The @S3Uri@ field contains the
 -- location of the output file, called @output.tar.gz@. It is a compressed
 -- archive that contains the ouput of the operation.
+--
+-- For a PII entity detection job, the output file is plain text, not a
+-- compressed archive. The output file name is the same as the input file,
+-- with @.out@ appended at the end.
 newOutputDataConfig ::
   -- | 's3Uri'
   Prelude.Text ->
@@ -124,17 +132,21 @@ outputDataConfig_kmsKeyId = Lens.lens (\OutputDataConfig' {kmsKeyId} -> kmsKeyId
 -- file in a directory specific to the job. The @S3Uri@ field contains the
 -- location of the output file, called @output.tar.gz@. It is a compressed
 -- archive that contains the ouput of the operation.
+--
+-- For a PII entity detection job, the output file is plain text, not a
+-- compressed archive. The output file name is the same as the input file,
+-- with @.out@ appended at the end.
 outputDataConfig_s3Uri :: Lens.Lens' OutputDataConfig Prelude.Text
 outputDataConfig_s3Uri = Lens.lens (\OutputDataConfig' {s3Uri} -> s3Uri) (\s@OutputDataConfig' {} a -> s {s3Uri = a} :: OutputDataConfig)
 
-instance Core.FromJSON OutputDataConfig where
+instance Data.FromJSON OutputDataConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OutputDataConfig"
       ( \x ->
           OutputDataConfig'
-            Prelude.<$> (x Core..:? "KmsKeyId")
-            Prelude.<*> (x Core..: "S3Uri")
+            Prelude.<$> (x Data..:? "KmsKeyId")
+            Prelude.<*> (x Data..: "S3Uri")
       )
 
 instance Prelude.Hashable OutputDataConfig where
@@ -147,11 +159,11 @@ instance Prelude.NFData OutputDataConfig where
     Prelude.rnf kmsKeyId
       `Prelude.seq` Prelude.rnf s3Uri
 
-instance Core.ToJSON OutputDataConfig where
+instance Data.ToJSON OutputDataConfig where
   toJSON OutputDataConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("KmsKeyId" Core..=) Prelude.<$> kmsKeyId,
-            Prelude.Just ("S3Uri" Core..= s3Uri)
+          [ ("KmsKeyId" Data..=) Prelude.<$> kmsKeyId,
+            Prelude.Just ("S3Uri" Data..= s3Uri)
           ]
       )

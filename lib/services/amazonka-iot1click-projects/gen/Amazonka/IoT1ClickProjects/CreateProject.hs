@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT1ClickProjects.CreateProject
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.IoT1ClickProjects.CreateProject
     newCreateProject,
 
     -- * Request Lenses
-    createProject_placementTemplate,
     createProject_description,
+    createProject_placementTemplate,
     createProject_tags,
     createProject_projectName,
 
@@ -44,22 +44,23 @@ module Amazonka.IoT1ClickProjects.CreateProject
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT1ClickProjects.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateProject' smart constructor.
 data CreateProject = CreateProject'
-  { -- | The schema defining the placement to be created. A placement template
+  { -- | An optional description for the project.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The schema defining the placement to be created. A placement template
     -- defines placement default attributes and device templates. You cannot
     -- add or remove device templates after the project has been created.
     -- However, you can update @callbackOverrides@ for the device templates
     -- using the @UpdateProject@ API.
     placementTemplate :: Prelude.Maybe PlacementTemplate,
-    -- | An optional description for the project.
-    description :: Prelude.Maybe Prelude.Text,
     -- | Optional tags (metadata key\/value pairs) to be associated with the
     -- project. For example,
     -- @{ {\"key1\": \"value1\", \"key2\": \"value2\"} }@. For more
@@ -79,13 +80,13 @@ data CreateProject = CreateProject'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'createProject_description' - An optional description for the project.
+--
 -- 'placementTemplate', 'createProject_placementTemplate' - The schema defining the placement to be created. A placement template
 -- defines placement default attributes and device templates. You cannot
 -- add or remove device templates after the project has been created.
 -- However, you can update @callbackOverrides@ for the device templates
 -- using the @UpdateProject@ API.
---
--- 'description', 'createProject_description' - An optional description for the project.
 --
 -- 'tags', 'createProject_tags' - Optional tags (metadata key\/value pairs) to be associated with the
 -- project. For example,
@@ -100,11 +101,15 @@ newCreateProject ::
   CreateProject
 newCreateProject pProjectName_ =
   CreateProject'
-    { placementTemplate = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      placementTemplate = Prelude.Nothing,
       tags = Prelude.Nothing,
       projectName = pProjectName_
     }
+
+-- | An optional description for the project.
+createProject_description :: Lens.Lens' CreateProject (Prelude.Maybe Prelude.Text)
+createProject_description = Lens.lens (\CreateProject' {description} -> description) (\s@CreateProject' {} a -> s {description = a} :: CreateProject)
 
 -- | The schema defining the placement to be created. A placement template
 -- defines placement default attributes and device templates. You cannot
@@ -113,10 +118,6 @@ newCreateProject pProjectName_ =
 -- using the @UpdateProject@ API.
 createProject_placementTemplate :: Lens.Lens' CreateProject (Prelude.Maybe PlacementTemplate)
 createProject_placementTemplate = Lens.lens (\CreateProject' {placementTemplate} -> placementTemplate) (\s@CreateProject' {} a -> s {placementTemplate = a} :: CreateProject)
-
--- | An optional description for the project.
-createProject_description :: Lens.Lens' CreateProject (Prelude.Maybe Prelude.Text)
-createProject_description = Lens.lens (\CreateProject' {description} -> description) (\s@CreateProject' {} a -> s {description = a} :: CreateProject)
 
 -- | Optional tags (metadata key\/value pairs) to be associated with the
 -- project. For example,
@@ -134,7 +135,8 @@ instance Core.AWSRequest CreateProject where
   type
     AWSResponse CreateProject =
       CreateProjectResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -144,45 +146,45 @@ instance Core.AWSRequest CreateProject where
 
 instance Prelude.Hashable CreateProject where
   hashWithSalt _salt CreateProject' {..} =
-    _salt `Prelude.hashWithSalt` placementTemplate
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` placementTemplate
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` projectName
 
 instance Prelude.NFData CreateProject where
   rnf CreateProject' {..} =
-    Prelude.rnf placementTemplate
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf placementTemplate
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf projectName
 
-instance Core.ToHeaders CreateProject where
+instance Data.ToHeaders CreateProject where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateProject where
+instance Data.ToJSON CreateProject where
   toJSON CreateProject' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("placementTemplate" Core..=)
+          [ ("description" Data..=) Prelude.<$> description,
+            ("placementTemplate" Data..=)
               Prelude.<$> placementTemplate,
-            ("description" Core..=) Prelude.<$> description,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("projectName" Core..= projectName)
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("projectName" Data..= projectName)
           ]
       )
 
-instance Core.ToPath CreateProject where
+instance Data.ToPath CreateProject where
   toPath = Prelude.const "/projects"
 
-instance Core.ToQuery CreateProject where
+instance Data.ToQuery CreateProject where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateProjectResponse' smart constructor.

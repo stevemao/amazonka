@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QLDBSession.Types.CommitTransactionResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QLDBSession.Types.CommitTransactionResult where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QLDBSession.Types.IOUsage
 import Amazonka.QLDBSession.Types.TimingInformation
@@ -29,12 +30,12 @@ import Amazonka.QLDBSession.Types.TimingInformation
 --
 -- /See:/ 'newCommitTransactionResult' smart constructor.
 data CommitTransactionResult = CommitTransactionResult'
-  { -- | Contains server-side performance information for the command.
-    timingInformation :: Prelude.Maybe TimingInformation,
+  { -- | The commit digest of the committed transaction.
+    commitDigest :: Prelude.Maybe Data.Base64,
     -- | Contains metrics about the number of I\/O requests that were consumed.
     consumedIOs :: Prelude.Maybe IOUsage,
-    -- | The commit digest of the committed transaction.
-    commitDigest :: Prelude.Maybe Core.Base64,
+    -- | Contains server-side performance information for the command.
+    timingInformation :: Prelude.Maybe TimingInformation,
     -- | The transaction ID of the committed transaction.
     transactionId :: Prelude.Maybe Prelude.Text
   }
@@ -48,35 +49,27 @@ data CommitTransactionResult = CommitTransactionResult'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'timingInformation', 'commitTransactionResult_timingInformation' - Contains server-side performance information for the command.
---
--- 'consumedIOs', 'commitTransactionResult_consumedIOs' - Contains metrics about the number of I\/O requests that were consumed.
---
 -- 'commitDigest', 'commitTransactionResult_commitDigest' - The commit digest of the committed transaction.--
 -- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
 -- -- The underlying isomorphism will encode to Base64 representation during
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 --
+-- 'consumedIOs', 'commitTransactionResult_consumedIOs' - Contains metrics about the number of I\/O requests that were consumed.
+--
+-- 'timingInformation', 'commitTransactionResult_timingInformation' - Contains server-side performance information for the command.
+--
 -- 'transactionId', 'commitTransactionResult_transactionId' - The transaction ID of the committed transaction.
 newCommitTransactionResult ::
   CommitTransactionResult
 newCommitTransactionResult =
   CommitTransactionResult'
-    { timingInformation =
+    { commitDigest =
         Prelude.Nothing,
       consumedIOs = Prelude.Nothing,
-      commitDigest = Prelude.Nothing,
+      timingInformation = Prelude.Nothing,
       transactionId = Prelude.Nothing
     }
-
--- | Contains server-side performance information for the command.
-commitTransactionResult_timingInformation :: Lens.Lens' CommitTransactionResult (Prelude.Maybe TimingInformation)
-commitTransactionResult_timingInformation = Lens.lens (\CommitTransactionResult' {timingInformation} -> timingInformation) (\s@CommitTransactionResult' {} a -> s {timingInformation = a} :: CommitTransactionResult)
-
--- | Contains metrics about the number of I\/O requests that were consumed.
-commitTransactionResult_consumedIOs :: Lens.Lens' CommitTransactionResult (Prelude.Maybe IOUsage)
-commitTransactionResult_consumedIOs = Lens.lens (\CommitTransactionResult' {consumedIOs} -> consumedIOs) (\s@CommitTransactionResult' {} a -> s {consumedIOs = a} :: CommitTransactionResult)
 
 -- | The commit digest of the committed transaction.--
 -- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
@@ -84,34 +77,42 @@ commitTransactionResult_consumedIOs = Lens.lens (\CommitTransactionResult' {cons
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 commitTransactionResult_commitDigest :: Lens.Lens' CommitTransactionResult (Prelude.Maybe Prelude.ByteString)
-commitTransactionResult_commitDigest = Lens.lens (\CommitTransactionResult' {commitDigest} -> commitDigest) (\s@CommitTransactionResult' {} a -> s {commitDigest = a} :: CommitTransactionResult) Prelude.. Lens.mapping Core._Base64
+commitTransactionResult_commitDigest = Lens.lens (\CommitTransactionResult' {commitDigest} -> commitDigest) (\s@CommitTransactionResult' {} a -> s {commitDigest = a} :: CommitTransactionResult) Prelude.. Lens.mapping Data._Base64
+
+-- | Contains metrics about the number of I\/O requests that were consumed.
+commitTransactionResult_consumedIOs :: Lens.Lens' CommitTransactionResult (Prelude.Maybe IOUsage)
+commitTransactionResult_consumedIOs = Lens.lens (\CommitTransactionResult' {consumedIOs} -> consumedIOs) (\s@CommitTransactionResult' {} a -> s {consumedIOs = a} :: CommitTransactionResult)
+
+-- | Contains server-side performance information for the command.
+commitTransactionResult_timingInformation :: Lens.Lens' CommitTransactionResult (Prelude.Maybe TimingInformation)
+commitTransactionResult_timingInformation = Lens.lens (\CommitTransactionResult' {timingInformation} -> timingInformation) (\s@CommitTransactionResult' {} a -> s {timingInformation = a} :: CommitTransactionResult)
 
 -- | The transaction ID of the committed transaction.
 commitTransactionResult_transactionId :: Lens.Lens' CommitTransactionResult (Prelude.Maybe Prelude.Text)
 commitTransactionResult_transactionId = Lens.lens (\CommitTransactionResult' {transactionId} -> transactionId) (\s@CommitTransactionResult' {} a -> s {transactionId = a} :: CommitTransactionResult)
 
-instance Core.FromJSON CommitTransactionResult where
+instance Data.FromJSON CommitTransactionResult where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CommitTransactionResult"
       ( \x ->
           CommitTransactionResult'
-            Prelude.<$> (x Core..:? "TimingInformation")
-            Prelude.<*> (x Core..:? "ConsumedIOs")
-            Prelude.<*> (x Core..:? "CommitDigest")
-            Prelude.<*> (x Core..:? "TransactionId")
+            Prelude.<$> (x Data..:? "CommitDigest")
+            Prelude.<*> (x Data..:? "ConsumedIOs")
+            Prelude.<*> (x Data..:? "TimingInformation")
+            Prelude.<*> (x Data..:? "TransactionId")
       )
 
 instance Prelude.Hashable CommitTransactionResult where
   hashWithSalt _salt CommitTransactionResult' {..} =
-    _salt `Prelude.hashWithSalt` timingInformation
+    _salt `Prelude.hashWithSalt` commitDigest
       `Prelude.hashWithSalt` consumedIOs
-      `Prelude.hashWithSalt` commitDigest
+      `Prelude.hashWithSalt` timingInformation
       `Prelude.hashWithSalt` transactionId
 
 instance Prelude.NFData CommitTransactionResult where
   rnf CommitTransactionResult' {..} =
-    Prelude.rnf timingInformation
+    Prelude.rnf commitDigest
       `Prelude.seq` Prelude.rnf consumedIOs
-      `Prelude.seq` Prelude.rnf commitDigest
+      `Prelude.seq` Prelude.rnf timingInformation
       `Prelude.seq` Prelude.rnf transactionId

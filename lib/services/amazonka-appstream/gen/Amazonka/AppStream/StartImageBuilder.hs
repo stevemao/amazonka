@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppStream.StartImageBuilder
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.AppStream.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,12 +94,13 @@ instance Core.AWSRequest StartImageBuilder where
   type
     AWSResponse StartImageBuilder =
       StartImageBuilderResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartImageBuilderResponse'
-            Prelude.<$> (x Core..?> "ImageBuilder")
+            Prelude.<$> (x Data..?> "ImageBuilder")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -112,35 +114,35 @@ instance Prelude.NFData StartImageBuilder where
     Prelude.rnf appstreamAgentVersion
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders StartImageBuilder where
+instance Data.ToHeaders StartImageBuilder where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "PhotonAdminProxyService.StartImageBuilder" ::
+              Data.=# ( "PhotonAdminProxyService.StartImageBuilder" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartImageBuilder where
+instance Data.ToJSON StartImageBuilder where
   toJSON StartImageBuilder' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AppstreamAgentVersion" Core..=)
+          [ ("AppstreamAgentVersion" Data..=)
               Prelude.<$> appstreamAgentVersion,
-            Prelude.Just ("Name" Core..= name)
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath StartImageBuilder where
+instance Data.ToPath StartImageBuilder where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartImageBuilder where
+instance Data.ToQuery StartImageBuilder where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartImageBuilderResponse' smart constructor.

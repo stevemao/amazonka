@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.AttachCertificateToDistribution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,11 +29,11 @@
 -- Use the @CreateCertificate@ action to create a certificate that you can
 -- attach to your distribution.
 --
--- Only certificates created in the @us-east-1@ AWS Region can be attached
--- to Lightsail distributions. Lightsail distributions are global resources
--- that can reference an origin in any AWS Region, and distribute its
--- content globally. However, all distributions are located in the
--- @us-east-1@ Region.
+-- Only certificates created in the @us-east-1@ Amazon Web Services Region
+-- can be attached to Lightsail distributions. Lightsail distributions are
+-- global resources that can reference an origin in any Amazon Web Services
+-- Region, and distribute its content globally. However, all distributions
+-- are located in the @us-east-1@ Region.
 module Amazonka.Lightsail.AttachCertificateToDistribution
   ( -- * Creating a Request
     AttachCertificateToDistribution (..),
@@ -54,7 +54,8 @@ module Amazonka.Lightsail.AttachCertificateToDistribution
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -155,12 +156,13 @@ instance
   type
     AWSResponse AttachCertificateToDistribution =
       AttachCertificateToDistributionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AttachCertificateToDistributionResponse'
-            Prelude.<$> (x Core..?> "operation")
+            Prelude.<$> (x Data..?> "operation")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -183,38 +185,38 @@ instance
       `Prelude.seq` Prelude.rnf certificateName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     AttachCertificateToDistribution
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.AttachCertificateToDistribution" ::
+              Data.=# ( "Lightsail_20161128.AttachCertificateToDistribution" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AttachCertificateToDistribution where
+instance Data.ToJSON AttachCertificateToDistribution where
   toJSON AttachCertificateToDistribution' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("distributionName" Core..= distributionName),
+              ("distributionName" Data..= distributionName),
             Prelude.Just
-              ("certificateName" Core..= certificateName)
+              ("certificateName" Data..= certificateName)
           ]
       )
 
-instance Core.ToPath AttachCertificateToDistribution where
+instance Data.ToPath AttachCertificateToDistribution where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AttachCertificateToDistribution where
+instance Data.ToQuery AttachCertificateToDistribution where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAttachCertificateToDistributionResponse' smart constructor.

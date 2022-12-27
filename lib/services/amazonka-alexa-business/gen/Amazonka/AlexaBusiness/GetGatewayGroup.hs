@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.GetGatewayGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,12 +81,13 @@ instance Core.AWSRequest GetGatewayGroup where
   type
     AWSResponse GetGatewayGroup =
       GetGatewayGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetGatewayGroupResponse'
-            Prelude.<$> (x Core..?> "GatewayGroup")
+            Prelude.<$> (x Data..?> "GatewayGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,34 +99,34 @@ instance Prelude.NFData GetGatewayGroup where
   rnf GetGatewayGroup' {..} =
     Prelude.rnf gatewayGroupArn
 
-instance Core.ToHeaders GetGatewayGroup where
+instance Data.ToHeaders GetGatewayGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.GetGatewayGroup" ::
+              Data.=# ( "AlexaForBusiness.GetGatewayGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetGatewayGroup where
+instance Data.ToJSON GetGatewayGroup where
   toJSON GetGatewayGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("GatewayGroupArn" Core..= gatewayGroupArn)
+              ("GatewayGroupArn" Data..= gatewayGroupArn)
           ]
       )
 
-instance Core.ToPath GetGatewayGroup where
+instance Data.ToPath GetGatewayGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetGatewayGroup where
+instance Data.ToQuery GetGatewayGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetGatewayGroupResponse' smart constructor.

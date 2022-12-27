@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsCodeBuildProjectEnvironment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsCodeBuildProjectEnvironment where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.AwsCodeBuildProjectEnvironmentEnvironmentVariablesDetails
 import Amazonka.SecurityHub.Types.AwsCodeBuildProjectEnvironmentRegistryCredential
@@ -29,7 +30,12 @@ import Amazonka.SecurityHub.Types.AwsCodeBuildProjectEnvironmentRegistryCredenti
 --
 -- /See:/ 'newAwsCodeBuildProjectEnvironment' smart constructor.
 data AwsCodeBuildProjectEnvironment = AwsCodeBuildProjectEnvironment'
-  { -- | The type of credentials CodeBuild uses to pull images in your build.
+  { -- | The certificate to use with this build project.
+    certificate :: Prelude.Maybe Prelude.Text,
+    -- | A set of environment variables to make available to builds for the build
+    -- project.
+    environmentVariables :: Prelude.Maybe [AwsCodeBuildProjectEnvironmentEnvironmentVariablesDetails],
+    -- | The type of credentials CodeBuild uses to pull images in your build.
     --
     -- Valid values:
     --
@@ -49,11 +55,6 @@ data AwsCodeBuildProjectEnvironment = AwsCodeBuildProjectEnvironment'
     privilegedMode :: Prelude.Maybe Prelude.Bool,
     -- | The credentials for access to a private registry.
     registryCredential :: Prelude.Maybe AwsCodeBuildProjectEnvironmentRegistryCredential,
-    -- | The certificate to use with this build project.
-    certificate :: Prelude.Maybe Prelude.Text,
-    -- | A set of environment variables to make available to builds for the build
-    -- project.
-    environmentVariables :: Prelude.Maybe [AwsCodeBuildProjectEnvironmentEnvironmentVariablesDetails],
     -- | The type of build environment to use for related builds.
     --
     -- The environment type @ARM_CONTAINER@ is available only in Regions US
@@ -88,6 +89,11 @@ data AwsCodeBuildProjectEnvironment = AwsCodeBuildProjectEnvironment'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'certificate', 'awsCodeBuildProjectEnvironment_certificate' - The certificate to use with this build project.
+--
+-- 'environmentVariables', 'awsCodeBuildProjectEnvironment_environmentVariables' - A set of environment variables to make available to builds for the build
+-- project.
+--
 -- 'imagePullCredentialsType', 'awsCodeBuildProjectEnvironment_imagePullCredentialsType' - The type of credentials CodeBuild uses to pull images in your build.
 --
 -- Valid values:
@@ -107,11 +113,6 @@ data AwsCodeBuildProjectEnvironment = AwsCodeBuildProjectEnvironment'
 -- to @true@ if the build project is used to build Docker images.
 --
 -- 'registryCredential', 'awsCodeBuildProjectEnvironment_registryCredential' - The credentials for access to a private registry.
---
--- 'certificate', 'awsCodeBuildProjectEnvironment_certificate' - The certificate to use with this build project.
---
--- 'environmentVariables', 'awsCodeBuildProjectEnvironment_environmentVariables' - A set of environment variables to make available to builds for the build
--- project.
 --
 -- 'type'', 'awsCodeBuildProjectEnvironment_type' - The type of build environment to use for related builds.
 --
@@ -139,14 +140,23 @@ newAwsCodeBuildProjectEnvironment ::
   AwsCodeBuildProjectEnvironment
 newAwsCodeBuildProjectEnvironment =
   AwsCodeBuildProjectEnvironment'
-    { imagePullCredentialsType =
+    { certificate =
         Prelude.Nothing,
+      environmentVariables = Prelude.Nothing,
+      imagePullCredentialsType = Prelude.Nothing,
       privilegedMode = Prelude.Nothing,
       registryCredential = Prelude.Nothing,
-      certificate = Prelude.Nothing,
-      environmentVariables = Prelude.Nothing,
       type' = Prelude.Nothing
     }
+
+-- | The certificate to use with this build project.
+awsCodeBuildProjectEnvironment_certificate :: Lens.Lens' AwsCodeBuildProjectEnvironment (Prelude.Maybe Prelude.Text)
+awsCodeBuildProjectEnvironment_certificate = Lens.lens (\AwsCodeBuildProjectEnvironment' {certificate} -> certificate) (\s@AwsCodeBuildProjectEnvironment' {} a -> s {certificate = a} :: AwsCodeBuildProjectEnvironment)
+
+-- | A set of environment variables to make available to builds for the build
+-- project.
+awsCodeBuildProjectEnvironment_environmentVariables :: Lens.Lens' AwsCodeBuildProjectEnvironment (Prelude.Maybe [AwsCodeBuildProjectEnvironmentEnvironmentVariablesDetails])
+awsCodeBuildProjectEnvironment_environmentVariables = Lens.lens (\AwsCodeBuildProjectEnvironment' {environmentVariables} -> environmentVariables) (\s@AwsCodeBuildProjectEnvironment' {} a -> s {environmentVariables = a} :: AwsCodeBuildProjectEnvironment) Prelude.. Lens.mapping Lens.coerced
 
 -- | The type of credentials CodeBuild uses to pull images in your build.
 --
@@ -174,15 +184,6 @@ awsCodeBuildProjectEnvironment_privilegedMode = Lens.lens (\AwsCodeBuildProjectE
 awsCodeBuildProjectEnvironment_registryCredential :: Lens.Lens' AwsCodeBuildProjectEnvironment (Prelude.Maybe AwsCodeBuildProjectEnvironmentRegistryCredential)
 awsCodeBuildProjectEnvironment_registryCredential = Lens.lens (\AwsCodeBuildProjectEnvironment' {registryCredential} -> registryCredential) (\s@AwsCodeBuildProjectEnvironment' {} a -> s {registryCredential = a} :: AwsCodeBuildProjectEnvironment)
 
--- | The certificate to use with this build project.
-awsCodeBuildProjectEnvironment_certificate :: Lens.Lens' AwsCodeBuildProjectEnvironment (Prelude.Maybe Prelude.Text)
-awsCodeBuildProjectEnvironment_certificate = Lens.lens (\AwsCodeBuildProjectEnvironment' {certificate} -> certificate) (\s@AwsCodeBuildProjectEnvironment' {} a -> s {certificate = a} :: AwsCodeBuildProjectEnvironment)
-
--- | A set of environment variables to make available to builds for the build
--- project.
-awsCodeBuildProjectEnvironment_environmentVariables :: Lens.Lens' AwsCodeBuildProjectEnvironment (Prelude.Maybe [AwsCodeBuildProjectEnvironmentEnvironmentVariablesDetails])
-awsCodeBuildProjectEnvironment_environmentVariables = Lens.lens (\AwsCodeBuildProjectEnvironment' {environmentVariables} -> environmentVariables) (\s@AwsCodeBuildProjectEnvironment' {} a -> s {environmentVariables = a} :: AwsCodeBuildProjectEnvironment) Prelude.. Lens.mapping Lens.coerced
-
 -- | The type of build environment to use for related builds.
 --
 -- The environment type @ARM_CONTAINER@ is available only in Regions US
@@ -208,20 +209,20 @@ awsCodeBuildProjectEnvironment_environmentVariables = Lens.lens (\AwsCodeBuildPr
 awsCodeBuildProjectEnvironment_type :: Lens.Lens' AwsCodeBuildProjectEnvironment (Prelude.Maybe Prelude.Text)
 awsCodeBuildProjectEnvironment_type = Lens.lens (\AwsCodeBuildProjectEnvironment' {type'} -> type') (\s@AwsCodeBuildProjectEnvironment' {} a -> s {type' = a} :: AwsCodeBuildProjectEnvironment)
 
-instance Core.FromJSON AwsCodeBuildProjectEnvironment where
+instance Data.FromJSON AwsCodeBuildProjectEnvironment where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsCodeBuildProjectEnvironment"
       ( \x ->
           AwsCodeBuildProjectEnvironment'
-            Prelude.<$> (x Core..:? "ImagePullCredentialsType")
-            Prelude.<*> (x Core..:? "PrivilegedMode")
-            Prelude.<*> (x Core..:? "RegistryCredential")
-            Prelude.<*> (x Core..:? "Certificate")
-            Prelude.<*> ( x Core..:? "EnvironmentVariables"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "Certificate")
+            Prelude.<*> ( x Data..:? "EnvironmentVariables"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "Type")
+            Prelude.<*> (x Data..:? "ImagePullCredentialsType")
+            Prelude.<*> (x Data..:? "PrivilegedMode")
+            Prelude.<*> (x Data..:? "RegistryCredential")
+            Prelude.<*> (x Data..:? "Type")
       )
 
 instance
@@ -231,12 +232,11 @@ instance
   hashWithSalt
     _salt
     AwsCodeBuildProjectEnvironment' {..} =
-      _salt
+      _salt `Prelude.hashWithSalt` certificate
+        `Prelude.hashWithSalt` environmentVariables
         `Prelude.hashWithSalt` imagePullCredentialsType
         `Prelude.hashWithSalt` privilegedMode
         `Prelude.hashWithSalt` registryCredential
-        `Prelude.hashWithSalt` certificate
-        `Prelude.hashWithSalt` environmentVariables
         `Prelude.hashWithSalt` type'
 
 instance
@@ -244,26 +244,26 @@ instance
     AwsCodeBuildProjectEnvironment
   where
   rnf AwsCodeBuildProjectEnvironment' {..} =
-    Prelude.rnf imagePullCredentialsType
+    Prelude.rnf certificate
+      `Prelude.seq` Prelude.rnf environmentVariables
+      `Prelude.seq` Prelude.rnf imagePullCredentialsType
       `Prelude.seq` Prelude.rnf privilegedMode
       `Prelude.seq` Prelude.rnf registryCredential
-      `Prelude.seq` Prelude.rnf certificate
-      `Prelude.seq` Prelude.rnf environmentVariables
       `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON AwsCodeBuildProjectEnvironment where
+instance Data.ToJSON AwsCodeBuildProjectEnvironment where
   toJSON AwsCodeBuildProjectEnvironment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ImagePullCredentialsType" Core..=)
-              Prelude.<$> imagePullCredentialsType,
-            ("PrivilegedMode" Core..=)
-              Prelude.<$> privilegedMode,
-            ("RegistryCredential" Core..=)
-              Prelude.<$> registryCredential,
-            ("Certificate" Core..=) Prelude.<$> certificate,
-            ("EnvironmentVariables" Core..=)
+          [ ("Certificate" Data..=) Prelude.<$> certificate,
+            ("EnvironmentVariables" Data..=)
               Prelude.<$> environmentVariables,
-            ("Type" Core..=) Prelude.<$> type'
+            ("ImagePullCredentialsType" Data..=)
+              Prelude.<$> imagePullCredentialsType,
+            ("PrivilegedMode" Data..=)
+              Prelude.<$> privilegedMode,
+            ("RegistryCredential" Data..=)
+              Prelude.<$> registryCredential,
+            ("Type" Data..=) Prelude.<$> type'
           ]
       )

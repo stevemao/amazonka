@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.AcknowledgeJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.CodePipeline.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,12 +101,13 @@ instance Core.AWSRequest AcknowledgeJob where
   type
     AWSResponse AcknowledgeJob =
       AcknowledgeJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AcknowledgeJobResponse'
-            Prelude.<$> (x Core..?> "status")
+            Prelude.<$> (x Data..?> "status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -118,34 +120,34 @@ instance Prelude.NFData AcknowledgeJob where
   rnf AcknowledgeJob' {..} =
     Prelude.rnf jobId `Prelude.seq` Prelude.rnf nonce
 
-instance Core.ToHeaders AcknowledgeJob where
+instance Data.ToHeaders AcknowledgeJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodePipeline_20150709.AcknowledgeJob" ::
+              Data.=# ( "CodePipeline_20150709.AcknowledgeJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AcknowledgeJob where
+instance Data.ToJSON AcknowledgeJob where
   toJSON AcknowledgeJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("jobId" Core..= jobId),
-            Prelude.Just ("nonce" Core..= nonce)
+          [ Prelude.Just ("jobId" Data..= jobId),
+            Prelude.Just ("nonce" Data..= nonce)
           ]
       )
 
-instance Core.ToPath AcknowledgeJob where
+instance Data.ToPath AcknowledgeJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AcknowledgeJob where
+instance Data.ToQuery AcknowledgeJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of an AcknowledgeJob action.

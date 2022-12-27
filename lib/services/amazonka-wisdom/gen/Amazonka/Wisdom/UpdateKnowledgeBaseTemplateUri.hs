@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.UpdateKnowledgeBaseTemplateUri
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.Wisdom.UpdateKnowledgeBaseTemplateUri
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,8 +55,8 @@ import Amazonka.Wisdom.Types
 
 -- | /See:/ 'newUpdateKnowledgeBaseTemplateUri' smart constructor.
 data UpdateKnowledgeBaseTemplateUri = UpdateKnowledgeBaseTemplateUri'
-  { -- | The the identifier of the knowledge base. Can be either the ID or the
-    -- ARN. URLs cannot contain the ARN.
+  { -- | The identifier of the knowledge base. Can be either the ID or the ARN.
+    -- URLs cannot contain the ARN.
     knowledgeBaseId :: Prelude.Text,
     -- | The template URI to update.
     templateUri :: Prelude.Text
@@ -70,8 +71,8 @@ data UpdateKnowledgeBaseTemplateUri = UpdateKnowledgeBaseTemplateUri'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'knowledgeBaseId', 'updateKnowledgeBaseTemplateUri_knowledgeBaseId' - The the identifier of the knowledge base. Can be either the ID or the
--- ARN. URLs cannot contain the ARN.
+-- 'knowledgeBaseId', 'updateKnowledgeBaseTemplateUri_knowledgeBaseId' - The identifier of the knowledge base. Can be either the ID or the ARN.
+-- URLs cannot contain the ARN.
 --
 -- 'templateUri', 'updateKnowledgeBaseTemplateUri_templateUri' - The template URI to update.
 newUpdateKnowledgeBaseTemplateUri ::
@@ -89,8 +90,8 @@ newUpdateKnowledgeBaseTemplateUri
         templateUri = pTemplateUri_
       }
 
--- | The the identifier of the knowledge base. Can be either the ID or the
--- ARN. URLs cannot contain the ARN.
+-- | The identifier of the knowledge base. Can be either the ID or the ARN.
+-- URLs cannot contain the ARN.
 updateKnowledgeBaseTemplateUri_knowledgeBaseId :: Lens.Lens' UpdateKnowledgeBaseTemplateUri Prelude.Text
 updateKnowledgeBaseTemplateUri_knowledgeBaseId = Lens.lens (\UpdateKnowledgeBaseTemplateUri' {knowledgeBaseId} -> knowledgeBaseId) (\s@UpdateKnowledgeBaseTemplateUri' {} a -> s {knowledgeBaseId = a} :: UpdateKnowledgeBaseTemplateUri)
 
@@ -105,12 +106,13 @@ instance
   type
     AWSResponse UpdateKnowledgeBaseTemplateUri =
       UpdateKnowledgeBaseTemplateUriResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateKnowledgeBaseTemplateUriResponse'
-            Prelude.<$> (x Core..?> "knowledgeBase")
+            Prelude.<$> (x Data..?> "knowledgeBase")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -133,35 +135,35 @@ instance
       `Prelude.seq` Prelude.rnf templateUri
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateKnowledgeBaseTemplateUri
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateKnowledgeBaseTemplateUri where
+instance Data.ToJSON UpdateKnowledgeBaseTemplateUri where
   toJSON UpdateKnowledgeBaseTemplateUri' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("templateUri" Core..= templateUri)]
+          [Prelude.Just ("templateUri" Data..= templateUri)]
       )
 
-instance Core.ToPath UpdateKnowledgeBaseTemplateUri where
+instance Data.ToPath UpdateKnowledgeBaseTemplateUri where
   toPath UpdateKnowledgeBaseTemplateUri' {..} =
     Prelude.mconcat
       [ "/knowledgeBases/",
-        Core.toBS knowledgeBaseId,
+        Data.toBS knowledgeBaseId,
         "/templateUri"
       ]
 
-instance Core.ToQuery UpdateKnowledgeBaseTemplateUri where
+instance Data.ToQuery UpdateKnowledgeBaseTemplateUri where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateKnowledgeBaseTemplateUriResponse' smart constructor.

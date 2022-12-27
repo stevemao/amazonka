@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ImportKeyPair
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,8 +37,8 @@ module Amazonka.EC2.ImportKeyPair
     newImportKeyPair,
 
     -- * Request Lenses
-    importKeyPair_tagSpecifications,
     importKeyPair_dryRun,
+    importKeyPair_tagSpecifications,
     importKeyPair_keyName,
     importKeyPair_publicKeyMaterial,
 
@@ -56,26 +56,27 @@ module Amazonka.EC2.ImportKeyPair
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newImportKeyPair' smart constructor.
 data ImportKeyPair = ImportKeyPair'
-  { -- | The tags to apply to the imported key pair.
-    tagSpecifications :: Prelude.Maybe [TagSpecification],
-    -- | Checks whether you have the required permissions for the action, without
+  { -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The tags to apply to the imported key pair.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
     -- | A unique name for the key pair.
     keyName :: Prelude.Text,
     -- | The public key. For API calls, the text must be base64-encoded. For
     -- command line tools, base64 encoding is performed for you.
-    publicKeyMaterial :: Core.Base64
+    publicKeyMaterial :: Data.Base64
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -87,12 +88,12 @@ data ImportKeyPair = ImportKeyPair'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tagSpecifications', 'importKeyPair_tagSpecifications' - The tags to apply to the imported key pair.
---
 -- 'dryRun', 'importKeyPair_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'tagSpecifications', 'importKeyPair_tagSpecifications' - The tags to apply to the imported key pair.
 --
 -- 'keyName', 'importKeyPair_keyName' - A unique name for the key pair.
 --
@@ -110,16 +111,12 @@ newImportKeyPair ::
   ImportKeyPair
 newImportKeyPair pKeyName_ pPublicKeyMaterial_ =
   ImportKeyPair'
-    { tagSpecifications = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
+    { dryRun = Prelude.Nothing,
+      tagSpecifications = Prelude.Nothing,
       keyName = pKeyName_,
       publicKeyMaterial =
-        Core._Base64 Lens.# pPublicKeyMaterial_
+        Data._Base64 Lens.# pPublicKeyMaterial_
     }
-
--- | The tags to apply to the imported key pair.
-importKeyPair_tagSpecifications :: Lens.Lens' ImportKeyPair (Prelude.Maybe [TagSpecification])
-importKeyPair_tagSpecifications = Lens.lens (\ImportKeyPair' {tagSpecifications} -> tagSpecifications) (\s@ImportKeyPair' {} a -> s {tagSpecifications = a} :: ImportKeyPair) Prelude.. Lens.mapping Lens.coerced
 
 -- | Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
@@ -127,6 +124,10 @@ importKeyPair_tagSpecifications = Lens.lens (\ImportKeyPair' {tagSpecifications}
 -- Otherwise, it is @UnauthorizedOperation@.
 importKeyPair_dryRun :: Lens.Lens' ImportKeyPair (Prelude.Maybe Prelude.Bool)
 importKeyPair_dryRun = Lens.lens (\ImportKeyPair' {dryRun} -> dryRun) (\s@ImportKeyPair' {} a -> s {dryRun = a} :: ImportKeyPair)
+
+-- | The tags to apply to the imported key pair.
+importKeyPair_tagSpecifications :: Lens.Lens' ImportKeyPair (Prelude.Maybe [TagSpecification])
+importKeyPair_tagSpecifications = Lens.lens (\ImportKeyPair' {tagSpecifications} -> tagSpecifications) (\s@ImportKeyPair' {} a -> s {tagSpecifications = a} :: ImportKeyPair) Prelude.. Lens.mapping Lens.coerced
 
 -- | A unique name for the key pair.
 importKeyPair_keyName :: Lens.Lens' ImportKeyPair Prelude.Text
@@ -139,65 +140,71 @@ importKeyPair_keyName = Lens.lens (\ImportKeyPair' {keyName} -> keyName) (\s@Imp
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 importKeyPair_publicKeyMaterial :: Lens.Lens' ImportKeyPair Prelude.ByteString
-importKeyPair_publicKeyMaterial = Lens.lens (\ImportKeyPair' {publicKeyMaterial} -> publicKeyMaterial) (\s@ImportKeyPair' {} a -> s {publicKeyMaterial = a} :: ImportKeyPair) Prelude.. Core._Base64
+importKeyPair_publicKeyMaterial = Lens.lens (\ImportKeyPair' {publicKeyMaterial} -> publicKeyMaterial) (\s@ImportKeyPair' {} a -> s {publicKeyMaterial = a} :: ImportKeyPair) Prelude.. Data._Base64
 
 instance Core.AWSRequest ImportKeyPair where
   type
     AWSResponse ImportKeyPair =
       ImportKeyPairResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ImportKeyPairResponse'
-            Prelude.<$> (x Core..@? "keyFingerprint")
-            Prelude.<*> (x Core..@? "keyName")
-            Prelude.<*> (x Core..@? "keyPairId")
-            Prelude.<*> ( x Core..@? "tagSet" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> (x Data..@? "keyFingerprint")
+            Prelude.<*> (x Data..@? "keyName")
+            Prelude.<*> (x Data..@? "keyPairId")
+            Prelude.<*> ( x Data..@? "tagSet" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ImportKeyPair where
   hashWithSalt _salt ImportKeyPair' {..} =
-    _salt `Prelude.hashWithSalt` tagSpecifications
-      `Prelude.hashWithSalt` dryRun
+    _salt `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` tagSpecifications
       `Prelude.hashWithSalt` keyName
       `Prelude.hashWithSalt` publicKeyMaterial
 
 instance Prelude.NFData ImportKeyPair where
   rnf ImportKeyPair' {..} =
-    Prelude.rnf tagSpecifications
-      `Prelude.seq` Prelude.rnf dryRun
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf tagSpecifications
       `Prelude.seq` Prelude.rnf keyName
       `Prelude.seq` Prelude.rnf publicKeyMaterial
 
-instance Core.ToHeaders ImportKeyPair where
+instance Data.ToHeaders ImportKeyPair where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ImportKeyPair where
+instance Data.ToPath ImportKeyPair where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ImportKeyPair where
+instance Data.ToQuery ImportKeyPair where
   toQuery ImportKeyPair' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ImportKeyPair" :: Prelude.ByteString),
+          Data.=: ("ImportKeyPair" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          ( Core.toQueryList "TagSpecification"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          ( Data.toQueryList "TagSpecification"
               Prelude.<$> tagSpecifications
           ),
-        "DryRun" Core.=: dryRun,
-        "KeyName" Core.=: keyName,
-        "PublicKeyMaterial" Core.=: publicKeyMaterial
+        "KeyName" Data.=: keyName,
+        "PublicKeyMaterial" Data.=: publicKeyMaterial
       ]
 
 -- | /See:/ 'newImportKeyPairResponse' smart constructor.
 data ImportKeyPairResponse = ImportKeyPairResponse'
-  { -- | The MD5 public key fingerprint as specified in section 4 of RFC 4716.
+  { -- | -   For RSA key pairs, the key fingerprint is the MD5 public key
+    --     fingerprint as specified in section 4 of RFC 4716.
+    --
+    -- -   For ED25519 key pairs, the key fingerprint is the base64-encoded
+    --     SHA-256 digest, which is the default for OpenSSH, starting with
+    --     <http://www.openssh.com/txt/release-6.8 OpenSSH 6.8>.
     keyFingerprint :: Prelude.Maybe Prelude.Text,
     -- | The key pair name that you provided.
     keyName :: Prelude.Maybe Prelude.Text,
@@ -218,7 +225,12 @@ data ImportKeyPairResponse = ImportKeyPairResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'keyFingerprint', 'importKeyPairResponse_keyFingerprint' - The MD5 public key fingerprint as specified in section 4 of RFC 4716.
+-- 'keyFingerprint', 'importKeyPairResponse_keyFingerprint' - -   For RSA key pairs, the key fingerprint is the MD5 public key
+--     fingerprint as specified in section 4 of RFC 4716.
+--
+-- -   For ED25519 key pairs, the key fingerprint is the base64-encoded
+--     SHA-256 digest, which is the default for OpenSSH, starting with
+--     <http://www.openssh.com/txt/release-6.8 OpenSSH 6.8>.
 --
 -- 'keyName', 'importKeyPairResponse_keyName' - The key pair name that you provided.
 --
@@ -241,7 +253,12 @@ newImportKeyPairResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The MD5 public key fingerprint as specified in section 4 of RFC 4716.
+-- | -   For RSA key pairs, the key fingerprint is the MD5 public key
+--     fingerprint as specified in section 4 of RFC 4716.
+--
+-- -   For ED25519 key pairs, the key fingerprint is the base64-encoded
+--     SHA-256 digest, which is the default for OpenSSH, starting with
+--     <http://www.openssh.com/txt/release-6.8 OpenSSH 6.8>.
 importKeyPairResponse_keyFingerprint :: Lens.Lens' ImportKeyPairResponse (Prelude.Maybe Prelude.Text)
 importKeyPairResponse_keyFingerprint = Lens.lens (\ImportKeyPairResponse' {keyFingerprint} -> keyFingerprint) (\s@ImportKeyPairResponse' {} a -> s {keyFingerprint = a} :: ImportKeyPairResponse)
 

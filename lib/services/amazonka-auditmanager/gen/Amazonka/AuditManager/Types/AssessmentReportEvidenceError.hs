@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.Types.AssessmentReportEvidenceError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.AuditManager.Types.AssessmentReportEvidenceError where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | An error entity for the @AssessmentReportEvidence@ API. This is used to
+-- | An error entity for assessment report evidence errors. This is used to
 -- provide more meaningful errors than a simple string message.
 --
 -- /See:/ 'newAssessmentReportEvidenceError' smart constructor.
 data AssessmentReportEvidenceError = AssessmentReportEvidenceError'
-  { -- | The error code returned by the @AssessmentReportEvidence@ API.
+  { -- | The error code that was returned.
     errorCode :: Prelude.Maybe Prelude.Text,
-    -- | The error message returned by the @AssessmentReportEvidence@ API.
+    -- | The error message that was returned.
     errorMessage :: Prelude.Maybe Prelude.Text,
     -- | The identifier for the evidence.
     evidenceId :: Prelude.Maybe Prelude.Text
@@ -45,9 +46,9 @@ data AssessmentReportEvidenceError = AssessmentReportEvidenceError'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'errorCode', 'assessmentReportEvidenceError_errorCode' - The error code returned by the @AssessmentReportEvidence@ API.
+-- 'errorCode', 'assessmentReportEvidenceError_errorCode' - The error code that was returned.
 --
--- 'errorMessage', 'assessmentReportEvidenceError_errorMessage' - The error message returned by the @AssessmentReportEvidence@ API.
+-- 'errorMessage', 'assessmentReportEvidenceError_errorMessage' - The error message that was returned.
 --
 -- 'evidenceId', 'assessmentReportEvidenceError_evidenceId' - The identifier for the evidence.
 newAssessmentReportEvidenceError ::
@@ -60,11 +61,11 @@ newAssessmentReportEvidenceError =
       evidenceId = Prelude.Nothing
     }
 
--- | The error code returned by the @AssessmentReportEvidence@ API.
+-- | The error code that was returned.
 assessmentReportEvidenceError_errorCode :: Lens.Lens' AssessmentReportEvidenceError (Prelude.Maybe Prelude.Text)
 assessmentReportEvidenceError_errorCode = Lens.lens (\AssessmentReportEvidenceError' {errorCode} -> errorCode) (\s@AssessmentReportEvidenceError' {} a -> s {errorCode = a} :: AssessmentReportEvidenceError)
 
--- | The error message returned by the @AssessmentReportEvidence@ API.
+-- | The error message that was returned.
 assessmentReportEvidenceError_errorMessage :: Lens.Lens' AssessmentReportEvidenceError (Prelude.Maybe Prelude.Text)
 assessmentReportEvidenceError_errorMessage = Lens.lens (\AssessmentReportEvidenceError' {errorMessage} -> errorMessage) (\s@AssessmentReportEvidenceError' {} a -> s {errorMessage = a} :: AssessmentReportEvidenceError)
 
@@ -72,15 +73,15 @@ assessmentReportEvidenceError_errorMessage = Lens.lens (\AssessmentReportEvidenc
 assessmentReportEvidenceError_evidenceId :: Lens.Lens' AssessmentReportEvidenceError (Prelude.Maybe Prelude.Text)
 assessmentReportEvidenceError_evidenceId = Lens.lens (\AssessmentReportEvidenceError' {evidenceId} -> evidenceId) (\s@AssessmentReportEvidenceError' {} a -> s {evidenceId = a} :: AssessmentReportEvidenceError)
 
-instance Core.FromJSON AssessmentReportEvidenceError where
+instance Data.FromJSON AssessmentReportEvidenceError where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AssessmentReportEvidenceError"
       ( \x ->
           AssessmentReportEvidenceError'
-            Prelude.<$> (x Core..:? "errorCode")
-            Prelude.<*> (x Core..:? "errorMessage")
-            Prelude.<*> (x Core..:? "evidenceId")
+            Prelude.<$> (x Data..:? "errorCode")
+            Prelude.<*> (x Data..:? "errorMessage")
+            Prelude.<*> (x Data..:? "evidenceId")
       )
 
 instance

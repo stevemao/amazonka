@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.ListInputs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.MediaLive.ListInputs
     newListInputs,
 
     -- * Request Lenses
-    listInputs_nextToken,
     listInputs_maxResults,
+    listInputs_nextToken,
 
     -- * Destructuring the Response
     ListInputsResponse (..),
@@ -44,7 +44,8 @@ module Amazonka.MediaLive.ListInputs
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -54,8 +55,8 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListInputs' smart constructor.
 data ListInputs = ListInputs'
-  { nextToken :: Prelude.Maybe Prelude.Text,
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { maxResults :: Prelude.Maybe Prelude.Natural,
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,24 +68,24 @@ data ListInputs = ListInputs'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listInputs_nextToken' - Undocumented member.
---
 -- 'maxResults', 'listInputs_maxResults' - Undocumented member.
+--
+-- 'nextToken', 'listInputs_nextToken' - Undocumented member.
 newListInputs ::
   ListInputs
 newListInputs =
   ListInputs'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | Undocumented member.
-listInputs_nextToken :: Lens.Lens' ListInputs (Prelude.Maybe Prelude.Text)
-listInputs_nextToken = Lens.lens (\ListInputs' {nextToken} -> nextToken) (\s@ListInputs' {} a -> s {nextToken = a} :: ListInputs)
 
 -- | Undocumented member.
 listInputs_maxResults :: Lens.Lens' ListInputs (Prelude.Maybe Prelude.Natural)
 listInputs_maxResults = Lens.lens (\ListInputs' {maxResults} -> maxResults) (\s@ListInputs' {} a -> s {maxResults = a} :: ListInputs)
+
+-- | Undocumented member.
+listInputs_nextToken :: Lens.Lens' ListInputs (Prelude.Maybe Prelude.Text)
+listInputs_nextToken = Lens.lens (\ListInputs' {nextToken} -> nextToken) (\s@ListInputs' {} a -> s {nextToken = a} :: ListInputs)
 
 instance Core.AWSPager ListInputs where
   page rq rs
@@ -107,45 +108,46 @@ instance Core.AWSPager ListInputs where
 
 instance Core.AWSRequest ListInputs where
   type AWSResponse ListInputs = ListInputsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListInputsResponse'
-            Prelude.<$> (x Core..?> "inputs" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "inputs" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListInputs where
   hashWithSalt _salt ListInputs' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListInputs where
   rnf ListInputs' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListInputs where
+instance Data.ToHeaders ListInputs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListInputs where
+instance Data.ToPath ListInputs where
   toPath = Prelude.const "/prod/inputs"
 
-instance Core.ToQuery ListInputs where
+instance Data.ToQuery ListInputs where
   toQuery ListInputs' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | Placeholder documentation for ListInputsResponse

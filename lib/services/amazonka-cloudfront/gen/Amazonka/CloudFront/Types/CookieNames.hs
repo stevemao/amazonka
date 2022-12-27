@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.CookieNames
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudFront.Types.CookieNames where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains a list of cookie names.
@@ -63,13 +64,13 @@ cookieNames_items = Lens.lens (\CookieNames' {items} -> items) (\s@CookieNames' 
 cookieNames_quantity :: Lens.Lens' CookieNames Prelude.Int
 cookieNames_quantity = Lens.lens (\CookieNames' {quantity} -> quantity) (\s@CookieNames' {} a -> s {quantity = a} :: CookieNames)
 
-instance Core.FromXML CookieNames where
+instance Data.FromXML CookieNames where
   parseXML x =
     CookieNames'
-      Prelude.<$> ( x Core..@? "Items" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "Name")
+      Prelude.<$> ( x Data..@? "Items" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "Name")
                   )
-      Prelude.<*> (x Core..@ "Quantity")
+      Prelude.<*> (x Data..@ "Quantity")
 
 instance Prelude.Hashable CookieNames where
   hashWithSalt _salt CookieNames' {..} =
@@ -81,10 +82,10 @@ instance Prelude.NFData CookieNames where
     Prelude.rnf items
       `Prelude.seq` Prelude.rnf quantity
 
-instance Core.ToXML CookieNames where
+instance Data.ToXML CookieNames where
   toXML CookieNames' {..} =
     Prelude.mconcat
       [ "Items"
-          Core.@= Core.toXML (Core.toXMLList "Name" Prelude.<$> items),
-        "Quantity" Core.@= quantity
+          Data.@= Data.toXML (Data.toXMLList "Name" Prelude.<$> items),
+        "Quantity" Data.@= quantity
       ]

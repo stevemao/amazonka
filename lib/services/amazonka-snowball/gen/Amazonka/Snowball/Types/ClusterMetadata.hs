@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Snowball.Types.ClusterMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Snowball.Types.ClusterMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Snowball.Types.ClusterState
 import Amazonka.Snowball.Types.JobResource
@@ -35,30 +36,42 @@ import Amazonka.Snowball.Types.TaxDocuments
 --
 -- /See:/ 'newClusterMetadata' smart constructor.
 data ClusterMetadata = ClusterMetadata'
-  { -- | The type of job for this cluster. Currently, the only job type supported
+  { -- | The automatically generated ID for a specific address.
+    addressId :: Prelude.Maybe Prelude.Text,
+    -- | The automatically generated ID for a cluster.
+    clusterId :: Prelude.Maybe Prelude.Text,
+    -- | The current status of the cluster.
+    clusterState :: Prelude.Maybe ClusterState,
+    -- | The creation date for this cluster.
+    creationDate :: Prelude.Maybe Data.POSIX,
+    -- | The optional description of the cluster.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the address that you want a cluster shipped to, after it will
+    -- be shipped to its primary address. This field is not supported in most
+    -- regions.
+    forwardingAddressId :: Prelude.Maybe Prelude.Text,
+    -- | The type of job for this cluster. Currently, the only job type supported
     -- for clusters is @LOCAL_USE@.
     jobType :: Prelude.Maybe JobType,
     -- | The @KmsKeyARN@ Amazon Resource Name (ARN) associated with this cluster.
     -- This ARN was created using the
     -- <https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html CreateKey>
-    -- API action in AWS Key Management Service (AWS KMS).
+    -- API action in Key Management Service (KMS.
     kmsKeyARN :: Prelude.Maybe Prelude.Text,
-    -- | The current status of the cluster.
-    clusterState :: Prelude.Maybe ClusterState,
     -- | The Amazon Simple Notification Service (Amazon SNS) notification
     -- settings for this cluster.
     notification :: Prelude.Maybe Notification,
-    -- | The ID of the address that you want a cluster shipped to, after it will
-    -- be shipped to its primary address. This field is not supported in most
-    -- regions.
-    forwardingAddressId :: Prelude.Maybe Prelude.Text,
-    -- | The automatically generated ID for a specific address.
-    addressId :: Prelude.Maybe Prelude.Text,
-    -- | The type of AWS Snow device to use for this cluster.
-    --
-    -- For cluster jobs, AWS Snow Family currently supports only the @EDGE@
-    -- device type.
-    snowballType :: Prelude.Maybe SnowballType,
+    -- | Represents metadata and configuration settings for services on an Amazon
+    -- Web Services Snow Family device.
+    onDeviceServiceConfiguration :: Prelude.Maybe OnDeviceServiceConfiguration,
+    -- | The arrays of JobResource objects that can include updated S3Resource
+    -- objects or LambdaResource objects.
+    resources :: Prelude.Maybe JobResource,
+    -- | The role ARN associated with this cluster. This ARN was created using
+    -- the
+    -- <https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html CreateRole>
+    -- API action in Identity and Access Management (IAM).
+    roleARN :: Prelude.Maybe Prelude.Text,
     -- | The shipping speed for each node in this cluster. This speed doesn\'t
     -- dictate how soon you\'ll get each device, rather it represents how
     -- quickly each device moves to its destination while in transit. Regional
@@ -76,25 +89,13 @@ data ClusterMetadata = ClusterMetadata'
     --
     -- -   In the US, you have access to one-day shipping and two-day shipping.
     shippingOption :: Prelude.Maybe ShippingOption,
-    -- | The arrays of JobResource objects that can include updated S3Resource
-    -- objects or LambdaResource objects.
-    resources :: Prelude.Maybe JobResource,
-    -- | Represents metadata and configuration settings for services on an AWS
-    -- Snow Family device.
-    onDeviceServiceConfiguration :: Prelude.Maybe OnDeviceServiceConfiguration,
-    -- | The automatically generated ID for a cluster.
-    clusterId :: Prelude.Maybe Prelude.Text,
-    -- | The creation date for this cluster.
-    creationDate :: Prelude.Maybe Core.POSIX,
-    -- | The optional description of the cluster.
-    description :: Prelude.Maybe Prelude.Text,
-    -- | The tax documents required in your AWS Region.
-    taxDocuments :: Prelude.Maybe TaxDocuments,
-    -- | The role ARN associated with this cluster. This ARN was created using
-    -- the
-    -- <https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html CreateRole>
-    -- API action in AWS Identity and Access Management (IAM).
-    roleARN :: Prelude.Maybe Prelude.Text
+    -- | The type of Snowcone device to use for this cluster.
+    --
+    -- For cluster jobs, Amazon Web Services Snow Family currently supports
+    -- only the @EDGE@ device type.
+    snowballType :: Prelude.Maybe SnowballType,
+    -- | The tax documents required in your Amazon Web Services Region.
+    taxDocuments :: Prelude.Maybe TaxDocuments
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -106,29 +107,41 @@ data ClusterMetadata = ClusterMetadata'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'addressId', 'clusterMetadata_addressId' - The automatically generated ID for a specific address.
+--
+-- 'clusterId', 'clusterMetadata_clusterId' - The automatically generated ID for a cluster.
+--
+-- 'clusterState', 'clusterMetadata_clusterState' - The current status of the cluster.
+--
+-- 'creationDate', 'clusterMetadata_creationDate' - The creation date for this cluster.
+--
+-- 'description', 'clusterMetadata_description' - The optional description of the cluster.
+--
+-- 'forwardingAddressId', 'clusterMetadata_forwardingAddressId' - The ID of the address that you want a cluster shipped to, after it will
+-- be shipped to its primary address. This field is not supported in most
+-- regions.
+--
 -- 'jobType', 'clusterMetadata_jobType' - The type of job for this cluster. Currently, the only job type supported
 -- for clusters is @LOCAL_USE@.
 --
 -- 'kmsKeyARN', 'clusterMetadata_kmsKeyARN' - The @KmsKeyARN@ Amazon Resource Name (ARN) associated with this cluster.
 -- This ARN was created using the
 -- <https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html CreateKey>
--- API action in AWS Key Management Service (AWS KMS).
---
--- 'clusterState', 'clusterMetadata_clusterState' - The current status of the cluster.
+-- API action in Key Management Service (KMS.
 --
 -- 'notification', 'clusterMetadata_notification' - The Amazon Simple Notification Service (Amazon SNS) notification
 -- settings for this cluster.
 --
--- 'forwardingAddressId', 'clusterMetadata_forwardingAddressId' - The ID of the address that you want a cluster shipped to, after it will
--- be shipped to its primary address. This field is not supported in most
--- regions.
+-- 'onDeviceServiceConfiguration', 'clusterMetadata_onDeviceServiceConfiguration' - Represents metadata and configuration settings for services on an Amazon
+-- Web Services Snow Family device.
 --
--- 'addressId', 'clusterMetadata_addressId' - The automatically generated ID for a specific address.
+-- 'resources', 'clusterMetadata_resources' - The arrays of JobResource objects that can include updated S3Resource
+-- objects or LambdaResource objects.
 --
--- 'snowballType', 'clusterMetadata_snowballType' - The type of AWS Snow device to use for this cluster.
---
--- For cluster jobs, AWS Snow Family currently supports only the @EDGE@
--- device type.
+-- 'roleARN', 'clusterMetadata_roleARN' - The role ARN associated with this cluster. This ARN was created using
+-- the
+-- <https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html CreateRole>
+-- API action in Identity and Access Management (IAM).
 --
 -- 'shippingOption', 'clusterMetadata_shippingOption' - The shipping speed for each node in this cluster. This speed doesn\'t
 -- dictate how soon you\'ll get each device, rather it represents how
@@ -147,44 +160,58 @@ data ClusterMetadata = ClusterMetadata'
 --
 -- -   In the US, you have access to one-day shipping and two-day shipping.
 --
--- 'resources', 'clusterMetadata_resources' - The arrays of JobResource objects that can include updated S3Resource
--- objects or LambdaResource objects.
+-- 'snowballType', 'clusterMetadata_snowballType' - The type of Snowcone device to use for this cluster.
 --
--- 'onDeviceServiceConfiguration', 'clusterMetadata_onDeviceServiceConfiguration' - Represents metadata and configuration settings for services on an AWS
--- Snow Family device.
+-- For cluster jobs, Amazon Web Services Snow Family currently supports
+-- only the @EDGE@ device type.
 --
--- 'clusterId', 'clusterMetadata_clusterId' - The automatically generated ID for a cluster.
---
--- 'creationDate', 'clusterMetadata_creationDate' - The creation date for this cluster.
---
--- 'description', 'clusterMetadata_description' - The optional description of the cluster.
---
--- 'taxDocuments', 'clusterMetadata_taxDocuments' - The tax documents required in your AWS Region.
---
--- 'roleARN', 'clusterMetadata_roleARN' - The role ARN associated with this cluster. This ARN was created using
--- the
--- <https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html CreateRole>
--- API action in AWS Identity and Access Management (IAM).
+-- 'taxDocuments', 'clusterMetadata_taxDocuments' - The tax documents required in your Amazon Web Services Region.
 newClusterMetadata ::
   ClusterMetadata
 newClusterMetadata =
   ClusterMetadata'
-    { jobType = Prelude.Nothing,
-      kmsKeyARN = Prelude.Nothing,
-      clusterState = Prelude.Nothing,
-      notification = Prelude.Nothing,
-      forwardingAddressId = Prelude.Nothing,
-      addressId = Prelude.Nothing,
-      snowballType = Prelude.Nothing,
-      shippingOption = Prelude.Nothing,
-      resources = Prelude.Nothing,
-      onDeviceServiceConfiguration = Prelude.Nothing,
+    { addressId = Prelude.Nothing,
       clusterId = Prelude.Nothing,
+      clusterState = Prelude.Nothing,
       creationDate = Prelude.Nothing,
       description = Prelude.Nothing,
-      taxDocuments = Prelude.Nothing,
-      roleARN = Prelude.Nothing
+      forwardingAddressId = Prelude.Nothing,
+      jobType = Prelude.Nothing,
+      kmsKeyARN = Prelude.Nothing,
+      notification = Prelude.Nothing,
+      onDeviceServiceConfiguration = Prelude.Nothing,
+      resources = Prelude.Nothing,
+      roleARN = Prelude.Nothing,
+      shippingOption = Prelude.Nothing,
+      snowballType = Prelude.Nothing,
+      taxDocuments = Prelude.Nothing
     }
+
+-- | The automatically generated ID for a specific address.
+clusterMetadata_addressId :: Lens.Lens' ClusterMetadata (Prelude.Maybe Prelude.Text)
+clusterMetadata_addressId = Lens.lens (\ClusterMetadata' {addressId} -> addressId) (\s@ClusterMetadata' {} a -> s {addressId = a} :: ClusterMetadata)
+
+-- | The automatically generated ID for a cluster.
+clusterMetadata_clusterId :: Lens.Lens' ClusterMetadata (Prelude.Maybe Prelude.Text)
+clusterMetadata_clusterId = Lens.lens (\ClusterMetadata' {clusterId} -> clusterId) (\s@ClusterMetadata' {} a -> s {clusterId = a} :: ClusterMetadata)
+
+-- | The current status of the cluster.
+clusterMetadata_clusterState :: Lens.Lens' ClusterMetadata (Prelude.Maybe ClusterState)
+clusterMetadata_clusterState = Lens.lens (\ClusterMetadata' {clusterState} -> clusterState) (\s@ClusterMetadata' {} a -> s {clusterState = a} :: ClusterMetadata)
+
+-- | The creation date for this cluster.
+clusterMetadata_creationDate :: Lens.Lens' ClusterMetadata (Prelude.Maybe Prelude.UTCTime)
+clusterMetadata_creationDate = Lens.lens (\ClusterMetadata' {creationDate} -> creationDate) (\s@ClusterMetadata' {} a -> s {creationDate = a} :: ClusterMetadata) Prelude.. Lens.mapping Data._Time
+
+-- | The optional description of the cluster.
+clusterMetadata_description :: Lens.Lens' ClusterMetadata (Prelude.Maybe Prelude.Text)
+clusterMetadata_description = Lens.lens (\ClusterMetadata' {description} -> description) (\s@ClusterMetadata' {} a -> s {description = a} :: ClusterMetadata)
+
+-- | The ID of the address that you want a cluster shipped to, after it will
+-- be shipped to its primary address. This field is not supported in most
+-- regions.
+clusterMetadata_forwardingAddressId :: Lens.Lens' ClusterMetadata (Prelude.Maybe Prelude.Text)
+clusterMetadata_forwardingAddressId = Lens.lens (\ClusterMetadata' {forwardingAddressId} -> forwardingAddressId) (\s@ClusterMetadata' {} a -> s {forwardingAddressId = a} :: ClusterMetadata)
 
 -- | The type of job for this cluster. Currently, the only job type supported
 -- for clusters is @LOCAL_USE@.
@@ -194,35 +221,31 @@ clusterMetadata_jobType = Lens.lens (\ClusterMetadata' {jobType} -> jobType) (\s
 -- | The @KmsKeyARN@ Amazon Resource Name (ARN) associated with this cluster.
 -- This ARN was created using the
 -- <https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html CreateKey>
--- API action in AWS Key Management Service (AWS KMS).
+-- API action in Key Management Service (KMS.
 clusterMetadata_kmsKeyARN :: Lens.Lens' ClusterMetadata (Prelude.Maybe Prelude.Text)
 clusterMetadata_kmsKeyARN = Lens.lens (\ClusterMetadata' {kmsKeyARN} -> kmsKeyARN) (\s@ClusterMetadata' {} a -> s {kmsKeyARN = a} :: ClusterMetadata)
-
--- | The current status of the cluster.
-clusterMetadata_clusterState :: Lens.Lens' ClusterMetadata (Prelude.Maybe ClusterState)
-clusterMetadata_clusterState = Lens.lens (\ClusterMetadata' {clusterState} -> clusterState) (\s@ClusterMetadata' {} a -> s {clusterState = a} :: ClusterMetadata)
 
 -- | The Amazon Simple Notification Service (Amazon SNS) notification
 -- settings for this cluster.
 clusterMetadata_notification :: Lens.Lens' ClusterMetadata (Prelude.Maybe Notification)
 clusterMetadata_notification = Lens.lens (\ClusterMetadata' {notification} -> notification) (\s@ClusterMetadata' {} a -> s {notification = a} :: ClusterMetadata)
 
--- | The ID of the address that you want a cluster shipped to, after it will
--- be shipped to its primary address. This field is not supported in most
--- regions.
-clusterMetadata_forwardingAddressId :: Lens.Lens' ClusterMetadata (Prelude.Maybe Prelude.Text)
-clusterMetadata_forwardingAddressId = Lens.lens (\ClusterMetadata' {forwardingAddressId} -> forwardingAddressId) (\s@ClusterMetadata' {} a -> s {forwardingAddressId = a} :: ClusterMetadata)
+-- | Represents metadata and configuration settings for services on an Amazon
+-- Web Services Snow Family device.
+clusterMetadata_onDeviceServiceConfiguration :: Lens.Lens' ClusterMetadata (Prelude.Maybe OnDeviceServiceConfiguration)
+clusterMetadata_onDeviceServiceConfiguration = Lens.lens (\ClusterMetadata' {onDeviceServiceConfiguration} -> onDeviceServiceConfiguration) (\s@ClusterMetadata' {} a -> s {onDeviceServiceConfiguration = a} :: ClusterMetadata)
 
--- | The automatically generated ID for a specific address.
-clusterMetadata_addressId :: Lens.Lens' ClusterMetadata (Prelude.Maybe Prelude.Text)
-clusterMetadata_addressId = Lens.lens (\ClusterMetadata' {addressId} -> addressId) (\s@ClusterMetadata' {} a -> s {addressId = a} :: ClusterMetadata)
+-- | The arrays of JobResource objects that can include updated S3Resource
+-- objects or LambdaResource objects.
+clusterMetadata_resources :: Lens.Lens' ClusterMetadata (Prelude.Maybe JobResource)
+clusterMetadata_resources = Lens.lens (\ClusterMetadata' {resources} -> resources) (\s@ClusterMetadata' {} a -> s {resources = a} :: ClusterMetadata)
 
--- | The type of AWS Snow device to use for this cluster.
---
--- For cluster jobs, AWS Snow Family currently supports only the @EDGE@
--- device type.
-clusterMetadata_snowballType :: Lens.Lens' ClusterMetadata (Prelude.Maybe SnowballType)
-clusterMetadata_snowballType = Lens.lens (\ClusterMetadata' {snowballType} -> snowballType) (\s@ClusterMetadata' {} a -> s {snowballType = a} :: ClusterMetadata)
+-- | The role ARN associated with this cluster. This ARN was created using
+-- the
+-- <https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html CreateRole>
+-- API action in Identity and Access Management (IAM).
+clusterMetadata_roleARN :: Lens.Lens' ClusterMetadata (Prelude.Maybe Prelude.Text)
+clusterMetadata_roleARN = Lens.lens (\ClusterMetadata' {roleARN} -> roleARN) (\s@ClusterMetadata' {} a -> s {roleARN = a} :: ClusterMetadata)
 
 -- | The shipping speed for each node in this cluster. This speed doesn\'t
 -- dictate how soon you\'ll get each device, rather it represents how
@@ -243,94 +266,72 @@ clusterMetadata_snowballType = Lens.lens (\ClusterMetadata' {snowballType} -> sn
 clusterMetadata_shippingOption :: Lens.Lens' ClusterMetadata (Prelude.Maybe ShippingOption)
 clusterMetadata_shippingOption = Lens.lens (\ClusterMetadata' {shippingOption} -> shippingOption) (\s@ClusterMetadata' {} a -> s {shippingOption = a} :: ClusterMetadata)
 
--- | The arrays of JobResource objects that can include updated S3Resource
--- objects or LambdaResource objects.
-clusterMetadata_resources :: Lens.Lens' ClusterMetadata (Prelude.Maybe JobResource)
-clusterMetadata_resources = Lens.lens (\ClusterMetadata' {resources} -> resources) (\s@ClusterMetadata' {} a -> s {resources = a} :: ClusterMetadata)
+-- | The type of Snowcone device to use for this cluster.
+--
+-- For cluster jobs, Amazon Web Services Snow Family currently supports
+-- only the @EDGE@ device type.
+clusterMetadata_snowballType :: Lens.Lens' ClusterMetadata (Prelude.Maybe SnowballType)
+clusterMetadata_snowballType = Lens.lens (\ClusterMetadata' {snowballType} -> snowballType) (\s@ClusterMetadata' {} a -> s {snowballType = a} :: ClusterMetadata)
 
--- | Represents metadata and configuration settings for services on an AWS
--- Snow Family device.
-clusterMetadata_onDeviceServiceConfiguration :: Lens.Lens' ClusterMetadata (Prelude.Maybe OnDeviceServiceConfiguration)
-clusterMetadata_onDeviceServiceConfiguration = Lens.lens (\ClusterMetadata' {onDeviceServiceConfiguration} -> onDeviceServiceConfiguration) (\s@ClusterMetadata' {} a -> s {onDeviceServiceConfiguration = a} :: ClusterMetadata)
-
--- | The automatically generated ID for a cluster.
-clusterMetadata_clusterId :: Lens.Lens' ClusterMetadata (Prelude.Maybe Prelude.Text)
-clusterMetadata_clusterId = Lens.lens (\ClusterMetadata' {clusterId} -> clusterId) (\s@ClusterMetadata' {} a -> s {clusterId = a} :: ClusterMetadata)
-
--- | The creation date for this cluster.
-clusterMetadata_creationDate :: Lens.Lens' ClusterMetadata (Prelude.Maybe Prelude.UTCTime)
-clusterMetadata_creationDate = Lens.lens (\ClusterMetadata' {creationDate} -> creationDate) (\s@ClusterMetadata' {} a -> s {creationDate = a} :: ClusterMetadata) Prelude.. Lens.mapping Core._Time
-
--- | The optional description of the cluster.
-clusterMetadata_description :: Lens.Lens' ClusterMetadata (Prelude.Maybe Prelude.Text)
-clusterMetadata_description = Lens.lens (\ClusterMetadata' {description} -> description) (\s@ClusterMetadata' {} a -> s {description = a} :: ClusterMetadata)
-
--- | The tax documents required in your AWS Region.
+-- | The tax documents required in your Amazon Web Services Region.
 clusterMetadata_taxDocuments :: Lens.Lens' ClusterMetadata (Prelude.Maybe TaxDocuments)
 clusterMetadata_taxDocuments = Lens.lens (\ClusterMetadata' {taxDocuments} -> taxDocuments) (\s@ClusterMetadata' {} a -> s {taxDocuments = a} :: ClusterMetadata)
 
--- | The role ARN associated with this cluster. This ARN was created using
--- the
--- <https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html CreateRole>
--- API action in AWS Identity and Access Management (IAM).
-clusterMetadata_roleARN :: Lens.Lens' ClusterMetadata (Prelude.Maybe Prelude.Text)
-clusterMetadata_roleARN = Lens.lens (\ClusterMetadata' {roleARN} -> roleARN) (\s@ClusterMetadata' {} a -> s {roleARN = a} :: ClusterMetadata)
-
-instance Core.FromJSON ClusterMetadata where
+instance Data.FromJSON ClusterMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ClusterMetadata"
       ( \x ->
           ClusterMetadata'
-            Prelude.<$> (x Core..:? "JobType")
-            Prelude.<*> (x Core..:? "KmsKeyARN")
-            Prelude.<*> (x Core..:? "ClusterState")
-            Prelude.<*> (x Core..:? "Notification")
-            Prelude.<*> (x Core..:? "ForwardingAddressId")
-            Prelude.<*> (x Core..:? "AddressId")
-            Prelude.<*> (x Core..:? "SnowballType")
-            Prelude.<*> (x Core..:? "ShippingOption")
-            Prelude.<*> (x Core..:? "Resources")
-            Prelude.<*> (x Core..:? "OnDeviceServiceConfiguration")
-            Prelude.<*> (x Core..:? "ClusterId")
-            Prelude.<*> (x Core..:? "CreationDate")
-            Prelude.<*> (x Core..:? "Description")
-            Prelude.<*> (x Core..:? "TaxDocuments")
-            Prelude.<*> (x Core..:? "RoleARN")
+            Prelude.<$> (x Data..:? "AddressId")
+            Prelude.<*> (x Data..:? "ClusterId")
+            Prelude.<*> (x Data..:? "ClusterState")
+            Prelude.<*> (x Data..:? "CreationDate")
+            Prelude.<*> (x Data..:? "Description")
+            Prelude.<*> (x Data..:? "ForwardingAddressId")
+            Prelude.<*> (x Data..:? "JobType")
+            Prelude.<*> (x Data..:? "KmsKeyARN")
+            Prelude.<*> (x Data..:? "Notification")
+            Prelude.<*> (x Data..:? "OnDeviceServiceConfiguration")
+            Prelude.<*> (x Data..:? "Resources")
+            Prelude.<*> (x Data..:? "RoleARN")
+            Prelude.<*> (x Data..:? "ShippingOption")
+            Prelude.<*> (x Data..:? "SnowballType")
+            Prelude.<*> (x Data..:? "TaxDocuments")
       )
 
 instance Prelude.Hashable ClusterMetadata where
   hashWithSalt _salt ClusterMetadata' {..} =
-    _salt `Prelude.hashWithSalt` jobType
-      `Prelude.hashWithSalt` kmsKeyARN
-      `Prelude.hashWithSalt` clusterState
-      `Prelude.hashWithSalt` notification
-      `Prelude.hashWithSalt` forwardingAddressId
-      `Prelude.hashWithSalt` addressId
-      `Prelude.hashWithSalt` snowballType
-      `Prelude.hashWithSalt` shippingOption
-      `Prelude.hashWithSalt` resources
-      `Prelude.hashWithSalt` onDeviceServiceConfiguration
+    _salt `Prelude.hashWithSalt` addressId
       `Prelude.hashWithSalt` clusterId
+      `Prelude.hashWithSalt` clusterState
       `Prelude.hashWithSalt` creationDate
       `Prelude.hashWithSalt` description
-      `Prelude.hashWithSalt` taxDocuments
+      `Prelude.hashWithSalt` forwardingAddressId
+      `Prelude.hashWithSalt` jobType
+      `Prelude.hashWithSalt` kmsKeyARN
+      `Prelude.hashWithSalt` notification
+      `Prelude.hashWithSalt` onDeviceServiceConfiguration
+      `Prelude.hashWithSalt` resources
       `Prelude.hashWithSalt` roleARN
+      `Prelude.hashWithSalt` shippingOption
+      `Prelude.hashWithSalt` snowballType
+      `Prelude.hashWithSalt` taxDocuments
 
 instance Prelude.NFData ClusterMetadata where
   rnf ClusterMetadata' {..} =
-    Prelude.rnf jobType
-      `Prelude.seq` Prelude.rnf kmsKeyARN
-      `Prelude.seq` Prelude.rnf clusterState
-      `Prelude.seq` Prelude.rnf notification
-      `Prelude.seq` Prelude.rnf forwardingAddressId
-      `Prelude.seq` Prelude.rnf addressId
-      `Prelude.seq` Prelude.rnf snowballType
-      `Prelude.seq` Prelude.rnf shippingOption
-      `Prelude.seq` Prelude.rnf resources
-      `Prelude.seq` Prelude.rnf onDeviceServiceConfiguration
+    Prelude.rnf addressId
       `Prelude.seq` Prelude.rnf clusterId
+      `Prelude.seq` Prelude.rnf clusterState
       `Prelude.seq` Prelude.rnf creationDate
       `Prelude.seq` Prelude.rnf description
-      `Prelude.seq` Prelude.rnf taxDocuments
+      `Prelude.seq` Prelude.rnf forwardingAddressId
+      `Prelude.seq` Prelude.rnf jobType
+      `Prelude.seq` Prelude.rnf kmsKeyARN
+      `Prelude.seq` Prelude.rnf notification
+      `Prelude.seq` Prelude.rnf onDeviceServiceConfiguration
+      `Prelude.seq` Prelude.rnf resources
       `Prelude.seq` Prelude.rnf roleARN
+      `Prelude.seq` Prelude.rnf shippingOption
+      `Prelude.seq` Prelude.rnf snowballType
+      `Prelude.seq` Prelude.rnf taxDocuments

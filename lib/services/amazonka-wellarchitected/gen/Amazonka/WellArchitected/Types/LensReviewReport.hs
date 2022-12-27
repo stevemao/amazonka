@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WellArchitected.Types.LensReviewReport
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,18 @@
 module Amazonka.WellArchitected.Types.LensReviewReport where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A report of a lens review.
 --
 -- /See:/ 'newLensReviewReport' smart constructor.
 data LensReviewReport = LensReviewReport'
-  { lensAlias :: Prelude.Maybe Prelude.Text,
-    base64String :: Prelude.Maybe Prelude.Text
+  { base64String :: Prelude.Maybe Prelude.Text,
+    lensAlias :: Prelude.Maybe Prelude.Text,
+    -- | The ARN for the lens.
+    lensArn :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -40,41 +43,51 @@ data LensReviewReport = LensReviewReport'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'base64String', 'lensReviewReport_base64String' - Undocumented member.
+--
 -- 'lensAlias', 'lensReviewReport_lensAlias' - Undocumented member.
 --
--- 'base64String', 'lensReviewReport_base64String' - Undocumented member.
+-- 'lensArn', 'lensReviewReport_lensArn' - The ARN for the lens.
 newLensReviewReport ::
   LensReviewReport
 newLensReviewReport =
   LensReviewReport'
-    { lensAlias = Prelude.Nothing,
-      base64String = Prelude.Nothing
+    { base64String = Prelude.Nothing,
+      lensAlias = Prelude.Nothing,
+      lensArn = Prelude.Nothing
     }
-
--- | Undocumented member.
-lensReviewReport_lensAlias :: Lens.Lens' LensReviewReport (Prelude.Maybe Prelude.Text)
-lensReviewReport_lensAlias = Lens.lens (\LensReviewReport' {lensAlias} -> lensAlias) (\s@LensReviewReport' {} a -> s {lensAlias = a} :: LensReviewReport)
 
 -- | Undocumented member.
 lensReviewReport_base64String :: Lens.Lens' LensReviewReport (Prelude.Maybe Prelude.Text)
 lensReviewReport_base64String = Lens.lens (\LensReviewReport' {base64String} -> base64String) (\s@LensReviewReport' {} a -> s {base64String = a} :: LensReviewReport)
 
-instance Core.FromJSON LensReviewReport where
+-- | Undocumented member.
+lensReviewReport_lensAlias :: Lens.Lens' LensReviewReport (Prelude.Maybe Prelude.Text)
+lensReviewReport_lensAlias = Lens.lens (\LensReviewReport' {lensAlias} -> lensAlias) (\s@LensReviewReport' {} a -> s {lensAlias = a} :: LensReviewReport)
+
+-- | The ARN for the lens.
+lensReviewReport_lensArn :: Lens.Lens' LensReviewReport (Prelude.Maybe Prelude.Text)
+lensReviewReport_lensArn = Lens.lens (\LensReviewReport' {lensArn} -> lensArn) (\s@LensReviewReport' {} a -> s {lensArn = a} :: LensReviewReport)
+
+instance Data.FromJSON LensReviewReport where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LensReviewReport"
       ( \x ->
           LensReviewReport'
-            Prelude.<$> (x Core..:? "LensAlias")
-            Prelude.<*> (x Core..:? "Base64String")
+            Prelude.<$> (x Data..:? "Base64String")
+            Prelude.<*> (x Data..:? "LensAlias")
+            Prelude.<*> (x Data..:? "LensArn")
       )
 
 instance Prelude.Hashable LensReviewReport where
   hashWithSalt _salt LensReviewReport' {..} =
-    _salt `Prelude.hashWithSalt` lensAlias
-      `Prelude.hashWithSalt` base64String
+    _salt `Prelude.hashWithSalt` base64String
+      `Prelude.hashWithSalt` lensAlias
+      `Prelude.hashWithSalt` lensArn
 
 instance Prelude.NFData LensReviewReport where
   rnf LensReviewReport' {..} =
-    Prelude.rnf lensAlias
-      `Prelude.seq` Prelude.rnf base64String
+    Prelude.rnf base64String
+      `Prelude.seq` Prelude.rnf lensAlias
+      `Prelude.seq` Prelude.rnf lensArn

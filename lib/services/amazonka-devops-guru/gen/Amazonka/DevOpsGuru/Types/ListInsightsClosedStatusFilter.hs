@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.Types.ListInsightsClosedStatusFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.DevOpsGuru.Types.ListInsightsClosedStatusFilter where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DevOpsGuru.Types.EndTimeRange
 import Amazonka.DevOpsGuru.Types.InsightType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Used to filter for insights that have the status @CLOSED@.
@@ -90,11 +91,11 @@ instance
     Prelude.rnf type'
       `Prelude.seq` Prelude.rnf endTimeRange
 
-instance Core.ToJSON ListInsightsClosedStatusFilter where
+instance Data.ToJSON ListInsightsClosedStatusFilter where
   toJSON ListInsightsClosedStatusFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Type" Core..= type'),
-            Prelude.Just ("EndTimeRange" Core..= endTimeRange)
+          [ Prelude.Just ("Type" Data..= type'),
+            Prelude.Just ("EndTimeRange" Data..= endTimeRange)
           ]
       )

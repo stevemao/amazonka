@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.IoTDeviceAdvisor
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -11,26 +11,24 @@
 --
 -- Derived from API version @2020-09-18@ of the AWS service descriptions, licensed under Apache 2.0.
 --
--- AWS IoT Core Device Advisor is a cloud-based, fully managed test
--- capability for validating IoT devices during device software
--- development. Device Advisor provides pre-built tests that you can use to
--- validate IoT devices for reliable and secure connectivity with AWS IoT
--- Core before deploying devices to production. By using Device Advisor,
--- you can confirm that your devices can connect to AWS IoT Core, follow
--- security best practices and, if applicable, receive software updates
--- from IoT Device Management. You can also download signed qualification
--- reports to submit to the AWS Partner Network to get your device
--- qualified for the AWS Partner Device Catalog without the need to send
--- your device in and wait for it to be tested.
+-- Amazon Web Services IoT Core Device Advisor is a cloud-based, fully
+-- managed test capability for validating IoT devices during device
+-- software development. Device Advisor provides pre-built tests that you
+-- can use to validate IoT devices for reliable and secure connectivity
+-- with Amazon Web Services IoT Core before deploying devices to
+-- production. By using Device Advisor, you can confirm that your devices
+-- can connect to Amazon Web Services IoT Core, follow security best
+-- practices and, if applicable, receive software updates from IoT Device
+-- Management. You can also download signed qualification reports to submit
+-- to the Amazon Web Services Partner Network to get your device qualified
+-- for the Amazon Web Services Partner Device Catalog without the need to
+-- send your device in and wait for it to be tested.
 module Amazonka.IoTDeviceAdvisor
   ( -- * Service Configuration
     defaultService,
 
     -- * Errors
     -- $errors
-
-    -- ** ValidationException
-    _ValidationException,
 
     -- ** ConflictException
     _ConflictException,
@@ -41,47 +39,14 @@ module Amazonka.IoTDeviceAdvisor
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
 
+    -- ** ValidationException
+    _ValidationException,
+
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
-
-    -- ** GetSuiteRunReport
-    GetSuiteRunReport (GetSuiteRunReport'),
-    newGetSuiteRunReport,
-    GetSuiteRunReportResponse (GetSuiteRunReportResponse'),
-    newGetSuiteRunReportResponse,
-
-    -- ** StartSuiteRun
-    StartSuiteRun (StartSuiteRun'),
-    newStartSuiteRun,
-    StartSuiteRunResponse (StartSuiteRunResponse'),
-    newStartSuiteRunResponse,
-
-    -- ** ListSuiteDefinitions
-    ListSuiteDefinitions (ListSuiteDefinitions'),
-    newListSuiteDefinitions,
-    ListSuiteDefinitionsResponse (ListSuiteDefinitionsResponse'),
-    newListSuiteDefinitionsResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** DeleteSuiteDefinition
-    DeleteSuiteDefinition (DeleteSuiteDefinition'),
-    newDeleteSuiteDefinition,
-    DeleteSuiteDefinitionResponse (DeleteSuiteDefinitionResponse'),
-    newDeleteSuiteDefinitionResponse,
-
-    -- ** UpdateSuiteDefinition
-    UpdateSuiteDefinition (UpdateSuiteDefinition'),
-    newUpdateSuiteDefinition,
-    UpdateSuiteDefinitionResponse (UpdateSuiteDefinitionResponse'),
-    newUpdateSuiteDefinitionResponse,
 
     -- ** CreateSuiteDefinition
     CreateSuiteDefinition (CreateSuiteDefinition'),
@@ -89,17 +54,65 @@ module Amazonka.IoTDeviceAdvisor
     CreateSuiteDefinitionResponse (CreateSuiteDefinitionResponse'),
     newCreateSuiteDefinitionResponse,
 
-    -- ** StopSuiteRun
-    StopSuiteRun (StopSuiteRun'),
-    newStopSuiteRun,
-    StopSuiteRunResponse (StopSuiteRunResponse'),
-    newStopSuiteRunResponse,
+    -- ** DeleteSuiteDefinition
+    DeleteSuiteDefinition (DeleteSuiteDefinition'),
+    newDeleteSuiteDefinition,
+    DeleteSuiteDefinitionResponse (DeleteSuiteDefinitionResponse'),
+    newDeleteSuiteDefinitionResponse,
+
+    -- ** GetEndpoint
+    GetEndpoint (GetEndpoint'),
+    newGetEndpoint,
+    GetEndpointResponse (GetEndpointResponse'),
+    newGetEndpointResponse,
 
     -- ** GetSuiteDefinition
     GetSuiteDefinition (GetSuiteDefinition'),
     newGetSuiteDefinition,
     GetSuiteDefinitionResponse (GetSuiteDefinitionResponse'),
     newGetSuiteDefinitionResponse,
+
+    -- ** GetSuiteRun
+    GetSuiteRun (GetSuiteRun'),
+    newGetSuiteRun,
+    GetSuiteRunResponse (GetSuiteRunResponse'),
+    newGetSuiteRunResponse,
+
+    -- ** GetSuiteRunReport
+    GetSuiteRunReport (GetSuiteRunReport'),
+    newGetSuiteRunReport,
+    GetSuiteRunReportResponse (GetSuiteRunReportResponse'),
+    newGetSuiteRunReportResponse,
+
+    -- ** ListSuiteDefinitions
+    ListSuiteDefinitions (ListSuiteDefinitions'),
+    newListSuiteDefinitions,
+    ListSuiteDefinitionsResponse (ListSuiteDefinitionsResponse'),
+    newListSuiteDefinitionsResponse,
+
+    -- ** ListSuiteRuns
+    ListSuiteRuns (ListSuiteRuns'),
+    newListSuiteRuns,
+    ListSuiteRunsResponse (ListSuiteRunsResponse'),
+    newListSuiteRunsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** StartSuiteRun
+    StartSuiteRun (StartSuiteRun'),
+    newStartSuiteRun,
+    StartSuiteRunResponse (StartSuiteRunResponse'),
+    newStartSuiteRunResponse,
+
+    -- ** StopSuiteRun
+    StopSuiteRun (StopSuiteRun'),
+    newStopSuiteRun,
+    StopSuiteRunResponse (StopSuiteRunResponse'),
+    newStopSuiteRunResponse,
 
     -- ** TagResource
     TagResource (TagResource'),
@@ -113,25 +126,28 @@ module Amazonka.IoTDeviceAdvisor
     UntagResourceResponse (UntagResourceResponse'),
     newUntagResourceResponse,
 
-    -- ** ListSuiteRuns
-    ListSuiteRuns (ListSuiteRuns'),
-    newListSuiteRuns,
-    ListSuiteRunsResponse (ListSuiteRunsResponse'),
-    newListSuiteRunsResponse,
-
-    -- ** GetSuiteRun
-    GetSuiteRun (GetSuiteRun'),
-    newGetSuiteRun,
-    GetSuiteRunResponse (GetSuiteRunResponse'),
-    newGetSuiteRunResponse,
+    -- ** UpdateSuiteDefinition
+    UpdateSuiteDefinition (UpdateSuiteDefinition'),
+    newUpdateSuiteDefinition,
+    UpdateSuiteDefinitionResponse (UpdateSuiteDefinitionResponse'),
+    newUpdateSuiteDefinitionResponse,
 
     -- * Types
+
+    -- ** Protocol
+    Protocol (..),
 
     -- ** Status
     Status (..),
 
     -- ** SuiteRunStatus
     SuiteRunStatus (..),
+
+    -- ** TestCaseScenarioStatus
+    TestCaseScenarioStatus (..),
+
+    -- ** TestCaseScenarioType
+    TestCaseScenarioType (..),
 
     -- ** DeviceUnderTest
     DeviceUnderTest (DeviceUnderTest'),
@@ -161,6 +177,10 @@ module Amazonka.IoTDeviceAdvisor
     TestCaseRun (TestCaseRun'),
     newTestCaseRun,
 
+    -- ** TestCaseScenario
+    TestCaseScenario (TestCaseScenario'),
+    newTestCaseScenario,
+
     -- ** TestResult
     TestResult (TestResult'),
     newTestResult,
@@ -169,6 +189,7 @@ where
 
 import Amazonka.IoTDeviceAdvisor.CreateSuiteDefinition
 import Amazonka.IoTDeviceAdvisor.DeleteSuiteDefinition
+import Amazonka.IoTDeviceAdvisor.GetEndpoint
 import Amazonka.IoTDeviceAdvisor.GetSuiteDefinition
 import Amazonka.IoTDeviceAdvisor.GetSuiteRun
 import Amazonka.IoTDeviceAdvisor.GetSuiteRunReport

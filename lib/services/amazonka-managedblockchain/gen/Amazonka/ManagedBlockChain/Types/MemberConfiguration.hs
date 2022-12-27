@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ManagedBlockChain.Types.MemberConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ManagedBlockChain.Types.MemberConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ManagedBlockChain.Types.MemberFrameworkConfiguration
 import Amazonka.ManagedBlockChain.Types.MemberLogPublishingConfiguration
 import qualified Amazonka.Prelude as Prelude
@@ -31,23 +32,27 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newMemberConfiguration' smart constructor.
 data MemberConfiguration = MemberConfiguration'
-  { -- | The Amazon Resource Name (ARN) of the customer managed key in AWS Key
-    -- Management Service (AWS KMS) to use for encryption at rest in the
-    -- member. This parameter is inherited by any nodes that this member
-    -- creates.
+  { -- | An optional description of the member.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the customer managed key in Key
+    -- Management Service (KMS) to use for encryption at rest in the member.
+    -- This parameter is inherited by any nodes that this member creates. For
+    -- more information, see
+    -- <https://docs.aws.amazon.com/managed-blockchain/latest/hyperledger-fabric-dev/managed-blockchain-encryption-at-rest.html Encryption at Rest>
+    -- in the /Amazon Managed Blockchain Hyperledger Fabric Developer Guide/.
     --
     -- Use one of the following options to specify this parameter:
     --
-    -- -   __Undefined or empty string__ - The member uses an AWS owned KMS key
-    --     for encryption by default.
+    -- -   __Undefined or empty string__ - By default, use an KMS key that is
+    --     owned and managed by Amazon Web Services on your behalf.
     --
-    -- -   __A valid symmetric customer managed KMS key__ - The member uses the
-    --     specified key for encryption.
+    -- -   __A valid symmetric customer managed KMS key__ - Use the specified
+    --     KMS key in your account that you create, own, and manage.
     --
     --     Amazon Managed Blockchain doesn\'t support asymmetric keys. For more
     --     information, see
     --     <https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html Using symmetric and asymmetric keys>
-    --     in the /AWS Key Management Service Developer Guide/.
+    --     in the /Key Management Service Developer Guide/.
     --
     --     The following is an example of a KMS key ARN:
     --     @arn:aws:kms:us-east-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
@@ -55,8 +60,6 @@ data MemberConfiguration = MemberConfiguration'
     -- | Configuration properties for logging events associated with a member of
     -- a Managed Blockchain network.
     logPublishingConfiguration :: Prelude.Maybe MemberLogPublishingConfiguration,
-    -- | An optional description of the member.
-    description :: Prelude.Maybe Prelude.Text,
     -- | Tags assigned to the member. Tags consist of a key and optional value.
     -- For more information about tags, see
     -- <https://docs.aws.amazon.com/managed-blockchain/latest/hyperledger-fabric-dev/tagging-resources.html Tagging Resources>
@@ -82,31 +85,33 @@ data MemberConfiguration = MemberConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'kmsKeyArn', 'memberConfiguration_kmsKeyArn' - The Amazon Resource Name (ARN) of the customer managed key in AWS Key
--- Management Service (AWS KMS) to use for encryption at rest in the
--- member. This parameter is inherited by any nodes that this member
--- creates.
+-- 'description', 'memberConfiguration_description' - An optional description of the member.
+--
+-- 'kmsKeyArn', 'memberConfiguration_kmsKeyArn' - The Amazon Resource Name (ARN) of the customer managed key in Key
+-- Management Service (KMS) to use for encryption at rest in the member.
+-- This parameter is inherited by any nodes that this member creates. For
+-- more information, see
+-- <https://docs.aws.amazon.com/managed-blockchain/latest/hyperledger-fabric-dev/managed-blockchain-encryption-at-rest.html Encryption at Rest>
+-- in the /Amazon Managed Blockchain Hyperledger Fabric Developer Guide/.
 --
 -- Use one of the following options to specify this parameter:
 --
--- -   __Undefined or empty string__ - The member uses an AWS owned KMS key
---     for encryption by default.
+-- -   __Undefined or empty string__ - By default, use an KMS key that is
+--     owned and managed by Amazon Web Services on your behalf.
 --
--- -   __A valid symmetric customer managed KMS key__ - The member uses the
---     specified key for encryption.
+-- -   __A valid symmetric customer managed KMS key__ - Use the specified
+--     KMS key in your account that you create, own, and manage.
 --
 --     Amazon Managed Blockchain doesn\'t support asymmetric keys. For more
 --     information, see
 --     <https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html Using symmetric and asymmetric keys>
---     in the /AWS Key Management Service Developer Guide/.
+--     in the /Key Management Service Developer Guide/.
 --
 --     The following is an example of a KMS key ARN:
 --     @arn:aws:kms:us-east-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
 --
 -- 'logPublishingConfiguration', 'memberConfiguration_logPublishingConfiguration' - Configuration properties for logging events associated with a member of
 -- a Managed Blockchain network.
---
--- 'description', 'memberConfiguration_description' - An optional description of the member.
 --
 -- 'tags', 'memberConfiguration_tags' - Tags assigned to the member. Tags consist of a key and optional value.
 -- For more information about tags, see
@@ -131,31 +136,37 @@ newMemberConfiguration
   pName_
   pFrameworkConfiguration_ =
     MemberConfiguration'
-      { kmsKeyArn = Prelude.Nothing,
+      { description = Prelude.Nothing,
+        kmsKeyArn = Prelude.Nothing,
         logPublishingConfiguration = Prelude.Nothing,
-        description = Prelude.Nothing,
         tags = Prelude.Nothing,
         name = pName_,
         frameworkConfiguration = pFrameworkConfiguration_
       }
 
--- | The Amazon Resource Name (ARN) of the customer managed key in AWS Key
--- Management Service (AWS KMS) to use for encryption at rest in the
--- member. This parameter is inherited by any nodes that this member
--- creates.
+-- | An optional description of the member.
+memberConfiguration_description :: Lens.Lens' MemberConfiguration (Prelude.Maybe Prelude.Text)
+memberConfiguration_description = Lens.lens (\MemberConfiguration' {description} -> description) (\s@MemberConfiguration' {} a -> s {description = a} :: MemberConfiguration)
+
+-- | The Amazon Resource Name (ARN) of the customer managed key in Key
+-- Management Service (KMS) to use for encryption at rest in the member.
+-- This parameter is inherited by any nodes that this member creates. For
+-- more information, see
+-- <https://docs.aws.amazon.com/managed-blockchain/latest/hyperledger-fabric-dev/managed-blockchain-encryption-at-rest.html Encryption at Rest>
+-- in the /Amazon Managed Blockchain Hyperledger Fabric Developer Guide/.
 --
 -- Use one of the following options to specify this parameter:
 --
--- -   __Undefined or empty string__ - The member uses an AWS owned KMS key
---     for encryption by default.
+-- -   __Undefined or empty string__ - By default, use an KMS key that is
+--     owned and managed by Amazon Web Services on your behalf.
 --
--- -   __A valid symmetric customer managed KMS key__ - The member uses the
---     specified key for encryption.
+-- -   __A valid symmetric customer managed KMS key__ - Use the specified
+--     KMS key in your account that you create, own, and manage.
 --
 --     Amazon Managed Blockchain doesn\'t support asymmetric keys. For more
 --     information, see
 --     <https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html Using symmetric and asymmetric keys>
---     in the /AWS Key Management Service Developer Guide/.
+--     in the /Key Management Service Developer Guide/.
 --
 --     The following is an example of a KMS key ARN:
 --     @arn:aws:kms:us-east-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
@@ -166,10 +177,6 @@ memberConfiguration_kmsKeyArn = Lens.lens (\MemberConfiguration' {kmsKeyArn} -> 
 -- a Managed Blockchain network.
 memberConfiguration_logPublishingConfiguration :: Lens.Lens' MemberConfiguration (Prelude.Maybe MemberLogPublishingConfiguration)
 memberConfiguration_logPublishingConfiguration = Lens.lens (\MemberConfiguration' {logPublishingConfiguration} -> logPublishingConfiguration) (\s@MemberConfiguration' {} a -> s {logPublishingConfiguration = a} :: MemberConfiguration)
-
--- | An optional description of the member.
-memberConfiguration_description :: Lens.Lens' MemberConfiguration (Prelude.Maybe Prelude.Text)
-memberConfiguration_description = Lens.lens (\MemberConfiguration' {description} -> description) (\s@MemberConfiguration' {} a -> s {description = a} :: MemberConfiguration)
 
 -- | Tags assigned to the member. Tags consist of a key and optional value.
 -- For more information about tags, see
@@ -193,35 +200,35 @@ memberConfiguration_frameworkConfiguration = Lens.lens (\MemberConfiguration' {f
 
 instance Prelude.Hashable MemberConfiguration where
   hashWithSalt _salt MemberConfiguration' {..} =
-    _salt `Prelude.hashWithSalt` kmsKeyArn
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` kmsKeyArn
       `Prelude.hashWithSalt` logPublishingConfiguration
-      `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` frameworkConfiguration
 
 instance Prelude.NFData MemberConfiguration where
   rnf MemberConfiguration' {..} =
-    Prelude.rnf kmsKeyArn
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf kmsKeyArn
       `Prelude.seq` Prelude.rnf logPublishingConfiguration
-      `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf frameworkConfiguration
 
-instance Core.ToJSON MemberConfiguration where
+instance Data.ToJSON MemberConfiguration where
   toJSON MemberConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("KmsKeyArn" Core..=) Prelude.<$> kmsKeyArn,
-            ("LogPublishingConfiguration" Core..=)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("KmsKeyArn" Data..=) Prelude.<$> kmsKeyArn,
+            ("LogPublishingConfiguration" Data..=)
               Prelude.<$> logPublishingConfiguration,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name),
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name),
             Prelude.Just
               ( "FrameworkConfiguration"
-                  Core..= frameworkConfiguration
+                  Data..= frameworkConfiguration
               )
           ]
       )

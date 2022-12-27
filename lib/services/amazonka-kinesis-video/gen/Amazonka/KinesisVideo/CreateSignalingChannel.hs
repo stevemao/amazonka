@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideo.CreateSignalingChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.KinesisVideo.CreateSignalingChannel
     newCreateSignalingChannel,
 
     -- * Request Lenses
-    createSignalingChannel_singleMasterConfiguration,
     createSignalingChannel_channelType,
+    createSignalingChannel_singleMasterConfiguration,
     createSignalingChannel_tags,
     createSignalingChannel_channelName,
 
@@ -45,25 +45,27 @@ module Amazonka.KinesisVideo.CreateSignalingChannel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisVideo.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateSignalingChannel' smart constructor.
 data CreateSignalingChannel = CreateSignalingChannel'
-  { -- | A structure containing the configuration for the @SINGLE_MASTER@ channel
-    -- type.
-    singleMasterConfiguration :: Prelude.Maybe SingleMasterConfiguration,
-    -- | A type of the signaling channel that you are creating. Currently,
+  { -- | A type of the signaling channel that you are creating. Currently,
     -- @SINGLE_MASTER@ is the only supported channel type.
     channelType :: Prelude.Maybe ChannelType,
+    -- | A structure containing the configuration for the @SINGLE_MASTER@ channel
+    -- type.
+    singleMasterConfiguration :: Prelude.Maybe SingleMasterConfiguration,
     -- | A set of tags (key-value pairs) that you want to associate with this
     -- channel.
     tags :: Prelude.Maybe [Tag],
     -- | A name for the signaling channel that you are creating. It must be
-    -- unique for each AWS account and AWS Region.
+    -- unique for each Amazon Web Services account and Amazon Web Services
+    -- Region.
     channelName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -76,39 +78,40 @@ data CreateSignalingChannel = CreateSignalingChannel'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'singleMasterConfiguration', 'createSignalingChannel_singleMasterConfiguration' - A structure containing the configuration for the @SINGLE_MASTER@ channel
--- type.
---
 -- 'channelType', 'createSignalingChannel_channelType' - A type of the signaling channel that you are creating. Currently,
 -- @SINGLE_MASTER@ is the only supported channel type.
+--
+-- 'singleMasterConfiguration', 'createSignalingChannel_singleMasterConfiguration' - A structure containing the configuration for the @SINGLE_MASTER@ channel
+-- type.
 --
 -- 'tags', 'createSignalingChannel_tags' - A set of tags (key-value pairs) that you want to associate with this
 -- channel.
 --
 -- 'channelName', 'createSignalingChannel_channelName' - A name for the signaling channel that you are creating. It must be
--- unique for each AWS account and AWS Region.
+-- unique for each Amazon Web Services account and Amazon Web Services
+-- Region.
 newCreateSignalingChannel ::
   -- | 'channelName'
   Prelude.Text ->
   CreateSignalingChannel
 newCreateSignalingChannel pChannelName_ =
   CreateSignalingChannel'
-    { singleMasterConfiguration =
+    { channelType =
         Prelude.Nothing,
-      channelType = Prelude.Nothing,
+      singleMasterConfiguration = Prelude.Nothing,
       tags = Prelude.Nothing,
       channelName = pChannelName_
     }
-
--- | A structure containing the configuration for the @SINGLE_MASTER@ channel
--- type.
-createSignalingChannel_singleMasterConfiguration :: Lens.Lens' CreateSignalingChannel (Prelude.Maybe SingleMasterConfiguration)
-createSignalingChannel_singleMasterConfiguration = Lens.lens (\CreateSignalingChannel' {singleMasterConfiguration} -> singleMasterConfiguration) (\s@CreateSignalingChannel' {} a -> s {singleMasterConfiguration = a} :: CreateSignalingChannel)
 
 -- | A type of the signaling channel that you are creating. Currently,
 -- @SINGLE_MASTER@ is the only supported channel type.
 createSignalingChannel_channelType :: Lens.Lens' CreateSignalingChannel (Prelude.Maybe ChannelType)
 createSignalingChannel_channelType = Lens.lens (\CreateSignalingChannel' {channelType} -> channelType) (\s@CreateSignalingChannel' {} a -> s {channelType = a} :: CreateSignalingChannel)
+
+-- | A structure containing the configuration for the @SINGLE_MASTER@ channel
+-- type.
+createSignalingChannel_singleMasterConfiguration :: Lens.Lens' CreateSignalingChannel (Prelude.Maybe SingleMasterConfiguration)
+createSignalingChannel_singleMasterConfiguration = Lens.lens (\CreateSignalingChannel' {singleMasterConfiguration} -> singleMasterConfiguration) (\s@CreateSignalingChannel' {} a -> s {singleMasterConfiguration = a} :: CreateSignalingChannel)
 
 -- | A set of tags (key-value pairs) that you want to associate with this
 -- channel.
@@ -116,7 +119,8 @@ createSignalingChannel_tags :: Lens.Lens' CreateSignalingChannel (Prelude.Maybe 
 createSignalingChannel_tags = Lens.lens (\CreateSignalingChannel' {tags} -> tags) (\s@CreateSignalingChannel' {} a -> s {tags = a} :: CreateSignalingChannel) Prelude.. Lens.mapping Lens.coerced
 
 -- | A name for the signaling channel that you are creating. It must be
--- unique for each AWS account and AWS Region.
+-- unique for each Amazon Web Services account and Amazon Web Services
+-- Region.
 createSignalingChannel_channelName :: Lens.Lens' CreateSignalingChannel Prelude.Text
 createSignalingChannel_channelName = Lens.lens (\CreateSignalingChannel' {channelName} -> channelName) (\s@CreateSignalingChannel' {} a -> s {channelName = a} :: CreateSignalingChannel)
 
@@ -124,49 +128,49 @@ instance Core.AWSRequest CreateSignalingChannel where
   type
     AWSResponse CreateSignalingChannel =
       CreateSignalingChannelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateSignalingChannelResponse'
-            Prelude.<$> (x Core..?> "ChannelARN")
+            Prelude.<$> (x Data..?> "ChannelARN")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateSignalingChannel where
   hashWithSalt _salt CreateSignalingChannel' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` channelType
       `Prelude.hashWithSalt` singleMasterConfiguration
-      `Prelude.hashWithSalt` channelType
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` channelName
 
 instance Prelude.NFData CreateSignalingChannel where
   rnf CreateSignalingChannel' {..} =
-    Prelude.rnf singleMasterConfiguration
-      `Prelude.seq` Prelude.rnf channelType
+    Prelude.rnf channelType
+      `Prelude.seq` Prelude.rnf singleMasterConfiguration
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf channelName
 
-instance Core.ToHeaders CreateSignalingChannel where
+instance Data.ToHeaders CreateSignalingChannel where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateSignalingChannel where
+instance Data.ToJSON CreateSignalingChannel where
   toJSON CreateSignalingChannel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SingleMasterConfiguration" Core..=)
+          [ ("ChannelType" Data..=) Prelude.<$> channelType,
+            ("SingleMasterConfiguration" Data..=)
               Prelude.<$> singleMasterConfiguration,
-            ("ChannelType" Core..=) Prelude.<$> channelType,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("ChannelName" Core..= channelName)
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("ChannelName" Data..= channelName)
           ]
       )
 
-instance Core.ToPath CreateSignalingChannel where
+instance Data.ToPath CreateSignalingChannel where
   toPath = Prelude.const "/createSignalingChannel"
 
-instance Core.ToQuery CreateSignalingChannel where
+instance Data.ToQuery CreateSignalingChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateSignalingChannelResponse' smart constructor.

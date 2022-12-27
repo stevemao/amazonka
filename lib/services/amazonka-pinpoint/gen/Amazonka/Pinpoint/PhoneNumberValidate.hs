@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.PhoneNumberValidate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.Pinpoint.PhoneNumberValidate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -79,13 +80,14 @@ instance Core.AWSRequest PhoneNumberValidate where
   type
     AWSResponse PhoneNumberValidate =
       PhoneNumberValidateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PhoneNumberValidateResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable PhoneNumberValidate where
@@ -96,32 +98,25 @@ instance Prelude.NFData PhoneNumberValidate where
   rnf PhoneNumberValidate' {..} =
     Prelude.rnf numberValidateRequest
 
-instance Core.ToHeaders PhoneNumberValidate where
+instance Data.ToHeaders PhoneNumberValidate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PhoneNumberValidate where
+instance Data.ToJSON PhoneNumberValidate where
   toJSON PhoneNumberValidate' {..} =
-    Core.object
-      ( Prelude.catMaybes
-          [ Prelude.Just
-              ( "NumberValidateRequest"
-                  Core..= numberValidateRequest
-              )
-          ]
-      )
+    Data.toJSON numberValidateRequest
 
-instance Core.ToPath PhoneNumberValidate where
+instance Data.ToPath PhoneNumberValidate where
   toPath = Prelude.const "/v1/phone/number/validate"
 
-instance Core.ToQuery PhoneNumberValidate where
+instance Data.ToQuery PhoneNumberValidate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPhoneNumberValidateResponse' smart constructor.

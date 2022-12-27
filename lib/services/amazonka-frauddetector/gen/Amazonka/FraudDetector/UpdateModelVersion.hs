@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.UpdateModelVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,17 +44,18 @@ module Amazonka.FraudDetector.UpdateModelVersion
     newUpdateModelVersionResponse,
 
     -- * Response Lenses
-    updateModelVersionResponse_status,
-    updateModelVersionResponse_modelType,
     updateModelVersionResponse_modelId,
+    updateModelVersionResponse_modelType,
     updateModelVersionResponse_modelVersionNumber,
+    updateModelVersionResponse_status,
     updateModelVersionResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -151,15 +152,16 @@ instance Core.AWSRequest UpdateModelVersion where
   type
     AWSResponse UpdateModelVersion =
       UpdateModelVersionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateModelVersionResponse'
-            Prelude.<$> (x Core..?> "status")
-            Prelude.<*> (x Core..?> "modelType")
-            Prelude.<*> (x Core..?> "modelId")
-            Prelude.<*> (x Core..?> "modelVersionNumber")
+            Prelude.<$> (x Data..?> "modelId")
+            Prelude.<*> (x Data..?> "modelType")
+            Prelude.<*> (x Data..?> "modelVersionNumber")
+            Prelude.<*> (x Data..?> "status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -181,53 +183,53 @@ instance Prelude.NFData UpdateModelVersion where
       `Prelude.seq` Prelude.rnf modelType
       `Prelude.seq` Prelude.rnf majorVersionNumber
 
-instance Core.ToHeaders UpdateModelVersion where
+instance Data.ToHeaders UpdateModelVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.UpdateModelVersion" ::
+              Data.=# ( "AWSHawksNestServiceFacade.UpdateModelVersion" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateModelVersion where
+instance Data.ToJSON UpdateModelVersion where
   toJSON UpdateModelVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("externalEventsDetail" Core..=)
+          [ ("externalEventsDetail" Data..=)
               Prelude.<$> externalEventsDetail,
-            ("ingestedEventsDetail" Core..=)
+            ("ingestedEventsDetail" Data..=)
               Prelude.<$> ingestedEventsDetail,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("modelId" Core..= modelId),
-            Prelude.Just ("modelType" Core..= modelType),
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("modelId" Data..= modelId),
+            Prelude.Just ("modelType" Data..= modelType),
             Prelude.Just
-              ("majorVersionNumber" Core..= majorVersionNumber)
+              ("majorVersionNumber" Data..= majorVersionNumber)
           ]
       )
 
-instance Core.ToPath UpdateModelVersion where
+instance Data.ToPath UpdateModelVersion where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateModelVersion where
+instance Data.ToQuery UpdateModelVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateModelVersionResponse' smart constructor.
 data UpdateModelVersionResponse = UpdateModelVersionResponse'
-  { -- | The status of the updated model version.
-    status :: Prelude.Maybe Prelude.Text,
+  { -- | The model ID.
+    modelId :: Prelude.Maybe Prelude.Text,
     -- | The model type.
     modelType :: Prelude.Maybe ModelTypeEnum,
-    -- | The model ID.
-    modelId :: Prelude.Maybe Prelude.Text,
     -- | The model version number of the model version updated.
     modelVersionNumber :: Prelude.Maybe Prelude.Text,
+    -- | The status of the updated model version.
+    status :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -241,13 +243,13 @@ data UpdateModelVersionResponse = UpdateModelVersionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'updateModelVersionResponse_status' - The status of the updated model version.
+-- 'modelId', 'updateModelVersionResponse_modelId' - The model ID.
 --
 -- 'modelType', 'updateModelVersionResponse_modelType' - The model type.
 --
--- 'modelId', 'updateModelVersionResponse_modelId' - The model ID.
---
 -- 'modelVersionNumber', 'updateModelVersionResponse_modelVersionNumber' - The model version number of the model version updated.
+--
+-- 'status', 'updateModelVersionResponse_status' - The status of the updated model version.
 --
 -- 'httpStatus', 'updateModelVersionResponse_httpStatus' - The response's http status code.
 newUpdateModelVersionResponse ::
@@ -256,29 +258,29 @@ newUpdateModelVersionResponse ::
   UpdateModelVersionResponse
 newUpdateModelVersionResponse pHttpStatus_ =
   UpdateModelVersionResponse'
-    { status =
+    { modelId =
         Prelude.Nothing,
       modelType = Prelude.Nothing,
-      modelId = Prelude.Nothing,
       modelVersionNumber = Prelude.Nothing,
+      status = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The status of the updated model version.
-updateModelVersionResponse_status :: Lens.Lens' UpdateModelVersionResponse (Prelude.Maybe Prelude.Text)
-updateModelVersionResponse_status = Lens.lens (\UpdateModelVersionResponse' {status} -> status) (\s@UpdateModelVersionResponse' {} a -> s {status = a} :: UpdateModelVersionResponse)
-
--- | The model type.
-updateModelVersionResponse_modelType :: Lens.Lens' UpdateModelVersionResponse (Prelude.Maybe ModelTypeEnum)
-updateModelVersionResponse_modelType = Lens.lens (\UpdateModelVersionResponse' {modelType} -> modelType) (\s@UpdateModelVersionResponse' {} a -> s {modelType = a} :: UpdateModelVersionResponse)
 
 -- | The model ID.
 updateModelVersionResponse_modelId :: Lens.Lens' UpdateModelVersionResponse (Prelude.Maybe Prelude.Text)
 updateModelVersionResponse_modelId = Lens.lens (\UpdateModelVersionResponse' {modelId} -> modelId) (\s@UpdateModelVersionResponse' {} a -> s {modelId = a} :: UpdateModelVersionResponse)
 
+-- | The model type.
+updateModelVersionResponse_modelType :: Lens.Lens' UpdateModelVersionResponse (Prelude.Maybe ModelTypeEnum)
+updateModelVersionResponse_modelType = Lens.lens (\UpdateModelVersionResponse' {modelType} -> modelType) (\s@UpdateModelVersionResponse' {} a -> s {modelType = a} :: UpdateModelVersionResponse)
+
 -- | The model version number of the model version updated.
 updateModelVersionResponse_modelVersionNumber :: Lens.Lens' UpdateModelVersionResponse (Prelude.Maybe Prelude.Text)
 updateModelVersionResponse_modelVersionNumber = Lens.lens (\UpdateModelVersionResponse' {modelVersionNumber} -> modelVersionNumber) (\s@UpdateModelVersionResponse' {} a -> s {modelVersionNumber = a} :: UpdateModelVersionResponse)
+
+-- | The status of the updated model version.
+updateModelVersionResponse_status :: Lens.Lens' UpdateModelVersionResponse (Prelude.Maybe Prelude.Text)
+updateModelVersionResponse_status = Lens.lens (\UpdateModelVersionResponse' {status} -> status) (\s@UpdateModelVersionResponse' {} a -> s {status = a} :: UpdateModelVersionResponse)
 
 -- | The response's http status code.
 updateModelVersionResponse_httpStatus :: Lens.Lens' UpdateModelVersionResponse Prelude.Int
@@ -286,8 +288,8 @@ updateModelVersionResponse_httpStatus = Lens.lens (\UpdateModelVersionResponse' 
 
 instance Prelude.NFData UpdateModelVersionResponse where
   rnf UpdateModelVersionResponse' {..} =
-    Prelude.rnf status
+    Prelude.rnf modelId
       `Prelude.seq` Prelude.rnf modelType
-      `Prelude.seq` Prelude.rnf modelId
       `Prelude.seq` Prelude.rnf modelVersionNumber
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf httpStatus

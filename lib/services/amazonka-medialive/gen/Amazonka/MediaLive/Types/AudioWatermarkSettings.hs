@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.AudioWatermarkSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.AudioWatermarkSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.NielsenWatermarksSettings
 import qualified Amazonka.Prelude as Prelude
 
@@ -54,13 +55,13 @@ newAudioWatermarkSettings =
 audioWatermarkSettings_nielsenWatermarksSettings :: Lens.Lens' AudioWatermarkSettings (Prelude.Maybe NielsenWatermarksSettings)
 audioWatermarkSettings_nielsenWatermarksSettings = Lens.lens (\AudioWatermarkSettings' {nielsenWatermarksSettings} -> nielsenWatermarksSettings) (\s@AudioWatermarkSettings' {} a -> s {nielsenWatermarksSettings = a} :: AudioWatermarkSettings)
 
-instance Core.FromJSON AudioWatermarkSettings where
+instance Data.FromJSON AudioWatermarkSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AudioWatermarkSettings"
       ( \x ->
           AudioWatermarkSettings'
-            Prelude.<$> (x Core..:? "nielsenWatermarksSettings")
+            Prelude.<$> (x Data..:? "nielsenWatermarksSettings")
       )
 
 instance Prelude.Hashable AudioWatermarkSettings where
@@ -72,11 +73,11 @@ instance Prelude.NFData AudioWatermarkSettings where
   rnf AudioWatermarkSettings' {..} =
     Prelude.rnf nielsenWatermarksSettings
 
-instance Core.ToJSON AudioWatermarkSettings where
+instance Data.ToJSON AudioWatermarkSettings where
   toJSON AudioWatermarkSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nielsenWatermarksSettings" Core..=)
+          [ ("nielsenWatermarksSettings" Data..=)
               Prelude.<$> nielsenWatermarksSettings
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.EventBridgeDestinationProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppFlow.Types.EventBridgeDestinationProperties where
 
 import Amazonka.AppFlow.Types.ErrorHandlingConfig
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The properties that are applied when Amazon EventBridge is being used as
@@ -66,16 +67,16 @@ eventBridgeDestinationProperties_object :: Lens.Lens' EventBridgeDestinationProp
 eventBridgeDestinationProperties_object = Lens.lens (\EventBridgeDestinationProperties' {object'} -> object') (\s@EventBridgeDestinationProperties' {} a -> s {object' = a} :: EventBridgeDestinationProperties)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     EventBridgeDestinationProperties
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EventBridgeDestinationProperties"
       ( \x ->
           EventBridgeDestinationProperties'
-            Prelude.<$> (x Core..:? "errorHandlingConfig")
-            Prelude.<*> (x Core..: "object")
+            Prelude.<$> (x Data..:? "errorHandlingConfig")
+            Prelude.<*> (x Data..: "object")
       )
 
 instance
@@ -96,12 +97,12 @@ instance
     Prelude.rnf errorHandlingConfig
       `Prelude.seq` Prelude.rnf object'
 
-instance Core.ToJSON EventBridgeDestinationProperties where
+instance Data.ToJSON EventBridgeDestinationProperties where
   toJSON EventBridgeDestinationProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("errorHandlingConfig" Core..=)
+          [ ("errorHandlingConfig" Data..=)
               Prelude.<$> errorHandlingConfig,
-            Prelude.Just ("object" Core..= object')
+            Prelude.Just ("object" Data..= object')
           ]
       )

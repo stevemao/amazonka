@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.Types.NetworkFirewallBlackHoleRouteDetectedViolation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.FMS.Types.NetworkFirewallBlackHoleRouteDetectedViolation where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FMS.Types.Route
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Violation detail for an internet gateway route with an inactive state in
@@ -31,12 +32,12 @@ import qualified Amazonka.Prelude as Prelude
 data NetworkFirewallBlackHoleRouteDetectedViolation = NetworkFirewallBlackHoleRouteDetectedViolation'
   { -- | Information about the route table ID.
     routeTableId :: Prelude.Maybe Prelude.Text,
-    -- | Information about the VPC ID.
-    vpcId :: Prelude.Maybe Prelude.Text,
     -- | Information about the route or routes that are in violation.
     violatingRoutes :: Prelude.Maybe [Route],
     -- | The subnet that has an inactive state.
-    violationTarget :: Prelude.Maybe Prelude.Text
+    violationTarget :: Prelude.Maybe Prelude.Text,
+    -- | Information about the VPC ID.
+    vpcId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -50,31 +51,27 @@ data NetworkFirewallBlackHoleRouteDetectedViolation = NetworkFirewallBlackHoleRo
 --
 -- 'routeTableId', 'networkFirewallBlackHoleRouteDetectedViolation_routeTableId' - Information about the route table ID.
 --
--- 'vpcId', 'networkFirewallBlackHoleRouteDetectedViolation_vpcId' - Information about the VPC ID.
---
 -- 'violatingRoutes', 'networkFirewallBlackHoleRouteDetectedViolation_violatingRoutes' - Information about the route or routes that are in violation.
 --
 -- 'violationTarget', 'networkFirewallBlackHoleRouteDetectedViolation_violationTarget' - The subnet that has an inactive state.
+--
+-- 'vpcId', 'networkFirewallBlackHoleRouteDetectedViolation_vpcId' - Information about the VPC ID.
 newNetworkFirewallBlackHoleRouteDetectedViolation ::
   NetworkFirewallBlackHoleRouteDetectedViolation
 newNetworkFirewallBlackHoleRouteDetectedViolation =
   NetworkFirewallBlackHoleRouteDetectedViolation'
     { routeTableId =
         Prelude.Nothing,
-      vpcId = Prelude.Nothing,
       violatingRoutes =
         Prelude.Nothing,
       violationTarget =
-        Prelude.Nothing
+        Prelude.Nothing,
+      vpcId = Prelude.Nothing
     }
 
 -- | Information about the route table ID.
 networkFirewallBlackHoleRouteDetectedViolation_routeTableId :: Lens.Lens' NetworkFirewallBlackHoleRouteDetectedViolation (Prelude.Maybe Prelude.Text)
 networkFirewallBlackHoleRouteDetectedViolation_routeTableId = Lens.lens (\NetworkFirewallBlackHoleRouteDetectedViolation' {routeTableId} -> routeTableId) (\s@NetworkFirewallBlackHoleRouteDetectedViolation' {} a -> s {routeTableId = a} :: NetworkFirewallBlackHoleRouteDetectedViolation)
-
--- | Information about the VPC ID.
-networkFirewallBlackHoleRouteDetectedViolation_vpcId :: Lens.Lens' NetworkFirewallBlackHoleRouteDetectedViolation (Prelude.Maybe Prelude.Text)
-networkFirewallBlackHoleRouteDetectedViolation_vpcId = Lens.lens (\NetworkFirewallBlackHoleRouteDetectedViolation' {vpcId} -> vpcId) (\s@NetworkFirewallBlackHoleRouteDetectedViolation' {} a -> s {vpcId = a} :: NetworkFirewallBlackHoleRouteDetectedViolation)
 
 -- | Information about the route or routes that are in violation.
 networkFirewallBlackHoleRouteDetectedViolation_violatingRoutes :: Lens.Lens' NetworkFirewallBlackHoleRouteDetectedViolation (Prelude.Maybe [Route])
@@ -84,21 +81,25 @@ networkFirewallBlackHoleRouteDetectedViolation_violatingRoutes = Lens.lens (\Net
 networkFirewallBlackHoleRouteDetectedViolation_violationTarget :: Lens.Lens' NetworkFirewallBlackHoleRouteDetectedViolation (Prelude.Maybe Prelude.Text)
 networkFirewallBlackHoleRouteDetectedViolation_violationTarget = Lens.lens (\NetworkFirewallBlackHoleRouteDetectedViolation' {violationTarget} -> violationTarget) (\s@NetworkFirewallBlackHoleRouteDetectedViolation' {} a -> s {violationTarget = a} :: NetworkFirewallBlackHoleRouteDetectedViolation)
 
+-- | Information about the VPC ID.
+networkFirewallBlackHoleRouteDetectedViolation_vpcId :: Lens.Lens' NetworkFirewallBlackHoleRouteDetectedViolation (Prelude.Maybe Prelude.Text)
+networkFirewallBlackHoleRouteDetectedViolation_vpcId = Lens.lens (\NetworkFirewallBlackHoleRouteDetectedViolation' {vpcId} -> vpcId) (\s@NetworkFirewallBlackHoleRouteDetectedViolation' {} a -> s {vpcId = a} :: NetworkFirewallBlackHoleRouteDetectedViolation)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     NetworkFirewallBlackHoleRouteDetectedViolation
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NetworkFirewallBlackHoleRouteDetectedViolation"
       ( \x ->
           NetworkFirewallBlackHoleRouteDetectedViolation'
-            Prelude.<$> (x Core..:? "RouteTableId")
-              Prelude.<*> (x Core..:? "VpcId")
-              Prelude.<*> ( x Core..:? "ViolatingRoutes"
-                              Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "RouteTableId")
+              Prelude.<*> ( x Data..:? "ViolatingRoutes"
+                              Data..!= Prelude.mempty
                           )
-              Prelude.<*> (x Core..:? "ViolationTarget")
+              Prelude.<*> (x Data..:? "ViolationTarget")
+              Prelude.<*> (x Data..:? "VpcId")
       )
 
 instance
@@ -109,9 +110,9 @@ instance
     _salt
     NetworkFirewallBlackHoleRouteDetectedViolation' {..} =
       _salt `Prelude.hashWithSalt` routeTableId
-        `Prelude.hashWithSalt` vpcId
         `Prelude.hashWithSalt` violatingRoutes
         `Prelude.hashWithSalt` violationTarget
+        `Prelude.hashWithSalt` vpcId
 
 instance
   Prelude.NFData
@@ -120,6 +121,6 @@ instance
   rnf
     NetworkFirewallBlackHoleRouteDetectedViolation' {..} =
       Prelude.rnf routeTableId
-        `Prelude.seq` Prelude.rnf vpcId
         `Prelude.seq` Prelude.rnf violatingRoutes
         `Prelude.seq` Prelude.rnf violationTarget
+        `Prelude.seq` Prelude.rnf vpcId

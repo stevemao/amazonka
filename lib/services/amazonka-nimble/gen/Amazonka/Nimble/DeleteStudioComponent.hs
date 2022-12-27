@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.DeleteStudioComponent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.Nimble.DeleteStudioComponent
 
     -- * Request Lenses
     deleteStudioComponent_clientToken,
-    deleteStudioComponent_studioId,
     deleteStudioComponent_studioComponentId,
+    deleteStudioComponent_studioId,
 
     -- * Destructuring the Response
     DeleteStudioComponentResponse (..),
@@ -42,7 +42,8 @@ module Amazonka.Nimble.DeleteStudioComponent
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -50,19 +51,15 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteStudioComponent' smart constructor.
 data DeleteStudioComponent = DeleteStudioComponent'
-  { -- | To make an idempotent API request using one of these actions, specify a
-    -- client token in the request. You should not reuse the same client token
-    -- for other API requests. If you retry a request that completed
-    -- successfully using the same client token and the same parameters, the
-    -- retry succeeds without performing any further actions. If you retry a
-    -- successful request using the same client token, but one or more of the
-    -- parameters are different, the retry fails with a ValidationException
-    -- error.
+  { -- | Unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request. If you don’t specify a client token, the AWS
+    -- SDK automatically generates a client token and uses it for the request
+    -- to ensure idempotency.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | The studio ID.
-    studioId :: Prelude.Text,
     -- | The studio component ID.
-    studioComponentId :: Prelude.Text
+    studioComponentId :: Prelude.Text,
+    -- | The studio ID.
+    studioId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -74,96 +71,89 @@ data DeleteStudioComponent = DeleteStudioComponent'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'clientToken', 'deleteStudioComponent_clientToken' - To make an idempotent API request using one of these actions, specify a
--- client token in the request. You should not reuse the same client token
--- for other API requests. If you retry a request that completed
--- successfully using the same client token and the same parameters, the
--- retry succeeds without performing any further actions. If you retry a
--- successful request using the same client token, but one or more of the
--- parameters are different, the retry fails with a ValidationException
--- error.
---
--- 'studioId', 'deleteStudioComponent_studioId' - The studio ID.
+-- 'clientToken', 'deleteStudioComponent_clientToken' - Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. If you don’t specify a client token, the AWS
+-- SDK automatically generates a client token and uses it for the request
+-- to ensure idempotency.
 --
 -- 'studioComponentId', 'deleteStudioComponent_studioComponentId' - The studio component ID.
+--
+-- 'studioId', 'deleteStudioComponent_studioId' - The studio ID.
 newDeleteStudioComponent ::
-  -- | 'studioId'
-  Prelude.Text ->
   -- | 'studioComponentId'
+  Prelude.Text ->
+  -- | 'studioId'
   Prelude.Text ->
   DeleteStudioComponent
 newDeleteStudioComponent
-  pStudioId_
-  pStudioComponentId_ =
+  pStudioComponentId_
+  pStudioId_ =
     DeleteStudioComponent'
       { clientToken =
           Prelude.Nothing,
-        studioId = pStudioId_,
-        studioComponentId = pStudioComponentId_
+        studioComponentId = pStudioComponentId_,
+        studioId = pStudioId_
       }
 
--- | To make an idempotent API request using one of these actions, specify a
--- client token in the request. You should not reuse the same client token
--- for other API requests. If you retry a request that completed
--- successfully using the same client token and the same parameters, the
--- retry succeeds without performing any further actions. If you retry a
--- successful request using the same client token, but one or more of the
--- parameters are different, the retry fails with a ValidationException
--- error.
+-- | Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. If you don’t specify a client token, the AWS
+-- SDK automatically generates a client token and uses it for the request
+-- to ensure idempotency.
 deleteStudioComponent_clientToken :: Lens.Lens' DeleteStudioComponent (Prelude.Maybe Prelude.Text)
 deleteStudioComponent_clientToken = Lens.lens (\DeleteStudioComponent' {clientToken} -> clientToken) (\s@DeleteStudioComponent' {} a -> s {clientToken = a} :: DeleteStudioComponent)
-
--- | The studio ID.
-deleteStudioComponent_studioId :: Lens.Lens' DeleteStudioComponent Prelude.Text
-deleteStudioComponent_studioId = Lens.lens (\DeleteStudioComponent' {studioId} -> studioId) (\s@DeleteStudioComponent' {} a -> s {studioId = a} :: DeleteStudioComponent)
 
 -- | The studio component ID.
 deleteStudioComponent_studioComponentId :: Lens.Lens' DeleteStudioComponent Prelude.Text
 deleteStudioComponent_studioComponentId = Lens.lens (\DeleteStudioComponent' {studioComponentId} -> studioComponentId) (\s@DeleteStudioComponent' {} a -> s {studioComponentId = a} :: DeleteStudioComponent)
 
+-- | The studio ID.
+deleteStudioComponent_studioId :: Lens.Lens' DeleteStudioComponent Prelude.Text
+deleteStudioComponent_studioId = Lens.lens (\DeleteStudioComponent' {studioId} -> studioId) (\s@DeleteStudioComponent' {} a -> s {studioId = a} :: DeleteStudioComponent)
+
 instance Core.AWSRequest DeleteStudioComponent where
   type
     AWSResponse DeleteStudioComponent =
       DeleteStudioComponentResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteStudioComponentResponse'
-            Prelude.<$> (x Core..?> "studioComponent")
+            Prelude.<$> (x Data..?> "studioComponent")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DeleteStudioComponent where
   hashWithSalt _salt DeleteStudioComponent' {..} =
     _salt `Prelude.hashWithSalt` clientToken
-      `Prelude.hashWithSalt` studioId
       `Prelude.hashWithSalt` studioComponentId
+      `Prelude.hashWithSalt` studioId
 
 instance Prelude.NFData DeleteStudioComponent where
   rnf DeleteStudioComponent' {..} =
     Prelude.rnf clientToken
-      `Prelude.seq` Prelude.rnf studioId
       `Prelude.seq` Prelude.rnf studioComponentId
+      `Prelude.seq` Prelude.rnf studioId
 
-instance Core.ToHeaders DeleteStudioComponent where
+instance Data.ToHeaders DeleteStudioComponent where
   toHeaders DeleteStudioComponent' {..} =
     Prelude.mconcat
-      [ "X-Amz-Client-Token" Core.=# clientToken,
+      [ "X-Amz-Client-Token" Data.=# clientToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToPath DeleteStudioComponent where
+instance Data.ToPath DeleteStudioComponent where
   toPath DeleteStudioComponent' {..} =
     Prelude.mconcat
       [ "/2020-08-01/studios/",
-        Core.toBS studioId,
+        Data.toBS studioId,
         "/studio-components/",
-        Core.toBS studioComponentId
+        Data.toBS studioComponentId
       ]
 
-instance Core.ToQuery DeleteStudioComponent where
+instance Data.ToQuery DeleteStudioComponent where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteStudioComponentResponse' smart constructor.
@@ -173,7 +163,7 @@ data DeleteStudioComponentResponse = DeleteStudioComponentResponse'
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'DeleteStudioComponentResponse' with all optional fields omitted.

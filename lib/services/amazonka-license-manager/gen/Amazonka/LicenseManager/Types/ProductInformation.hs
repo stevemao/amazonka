@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.Types.ProductInformation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LicenseManager.Types.ProductInformation where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LicenseManager.Types.ProductInformationFilter
 import qualified Amazonka.Prelude as Prelude
 
@@ -220,15 +221,15 @@ productInformation_resourceType = Lens.lens (\ProductInformation' {resourceType}
 productInformation_productInformationFilterList :: Lens.Lens' ProductInformation [ProductInformationFilter]
 productInformation_productInformationFilterList = Lens.lens (\ProductInformation' {productInformationFilterList} -> productInformationFilterList) (\s@ProductInformation' {} a -> s {productInformationFilterList = a} :: ProductInformation) Prelude.. Lens.coerced
 
-instance Core.FromJSON ProductInformation where
+instance Data.FromJSON ProductInformation where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ProductInformation"
       ( \x ->
           ProductInformation'
-            Prelude.<$> (x Core..: "ResourceType")
-            Prelude.<*> ( x Core..:? "ProductInformationFilterList"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..: "ResourceType")
+            Prelude.<*> ( x Data..:? "ProductInformationFilterList"
+                            Data..!= Prelude.mempty
                         )
       )
 
@@ -242,14 +243,14 @@ instance Prelude.NFData ProductInformation where
     Prelude.rnf resourceType
       `Prelude.seq` Prelude.rnf productInformationFilterList
 
-instance Core.ToJSON ProductInformation where
+instance Data.ToJSON ProductInformation where
   toJSON ProductInformation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ResourceType" Core..= resourceType),
+          [ Prelude.Just ("ResourceType" Data..= resourceType),
             Prelude.Just
               ( "ProductInformationFilterList"
-                  Core..= productInformationFilterList
+                  Data..= productInformationFilterList
               )
           ]
       )

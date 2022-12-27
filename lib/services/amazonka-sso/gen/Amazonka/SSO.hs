@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.SSO
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -11,24 +11,26 @@
 --
 -- Derived from API version @2019-06-10@ of the AWS service descriptions, licensed under Apache 2.0.
 --
--- AWS Single Sign-On Portal is a web service that makes it easy for you to
--- assign user access to AWS SSO resources such as the user portal. Users
--- can get AWS account applications and roles assigned to them and get
--- federated into the application.
+-- AWS IAM Identity Center (successor to AWS Single Sign-On) Portal is a
+-- web service that makes it easy for you to assign user access to IAM
+-- Identity Center resources such as the AWS access portal. Users can get
+-- AWS account applications and roles assigned to them and get federated
+-- into the application.
 --
--- For general information about AWS SSO, see
--- <https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html What is AWS Single Sign-On?>
--- in the /AWS SSO User Guide/.
+-- Although AWS Single Sign-On was renamed, the @sso@ and @identitystore@
+-- API namespaces will continue to retain their original name for backward
+-- compatibility purposes. For more information, see
+-- <https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html#renamed IAM Identity Center rename>.
 --
--- This API reference guide describes the AWS SSO Portal operations that
--- you can call programatically and includes detailed information on data
--- types and errors.
+-- This reference guide describes the IAM Identity Center Portal operations
+-- that you can call programatically and includes detailed information on
+-- data types and errors.
 --
 -- AWS provides SDKs that consist of libraries and sample code for various
 -- programming languages and platforms, such as Java, Ruby, .Net, iOS, or
 -- Android. The SDKs provide a convenient way to create programmatic access
--- to AWS SSO and other AWS services. For more information about the AWS
--- SDKs, including how to download and install them, see
+-- to IAM Identity Center and other AWS services. For more information
+-- about the AWS SDKs, including how to download and install them, see
 -- <http://aws.amazon.com/tools/ Tools for Amazon Web Services>.
 module Amazonka.SSO
   ( -- * Service Configuration
@@ -40,14 +42,14 @@ module Amazonka.SSO
     -- ** InvalidRequestException
     _InvalidRequestException,
 
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
+
     -- ** TooManyRequestsException
     _TooManyRequestsException,
 
     -- ** UnauthorizedException
     _UnauthorizedException,
-
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
 
     -- * Waiters
     -- $waiters
@@ -55,17 +57,17 @@ module Amazonka.SSO
     -- * Operations
     -- $operations
 
-    -- ** Logout
-    Logout (Logout'),
-    newLogout,
-    LogoutResponse (LogoutResponse'),
-    newLogoutResponse,
-
     -- ** GetRoleCredentials
     GetRoleCredentials (GetRoleCredentials'),
     newGetRoleCredentials,
     GetRoleCredentialsResponse (GetRoleCredentialsResponse'),
     newGetRoleCredentialsResponse,
+
+    -- ** ListAccountRoles (Paginated)
+    ListAccountRoles (ListAccountRoles'),
+    newListAccountRoles,
+    ListAccountRolesResponse (ListAccountRolesResponse'),
+    newListAccountRolesResponse,
 
     -- ** ListAccounts (Paginated)
     ListAccounts (ListAccounts'),
@@ -73,11 +75,11 @@ module Amazonka.SSO
     ListAccountsResponse (ListAccountsResponse'),
     newListAccountsResponse,
 
-    -- ** ListAccountRoles (Paginated)
-    ListAccountRoles (ListAccountRoles'),
-    newListAccountRoles,
-    ListAccountRolesResponse (ListAccountRolesResponse'),
-    newListAccountRolesResponse,
+    -- ** Logout
+    Logout (Logout'),
+    newLogout,
+    LogoutResponse (LogoutResponse'),
+    newLogoutResponse,
 
     -- * Types
 

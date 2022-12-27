@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.AppConfig.TagResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Metadata to assign to an AppConfig resource. Tags help organize and
+-- Assigns metadata to an AppConfig resource. Tags help organize and
 -- categorize your AppConfig resources. Each tag consists of a key and an
 -- optional value, both of which you define. You can specify a maximum of
 -- 50 tags for a resource.
@@ -41,7 +41,8 @@ where
 
 import Amazonka.AppConfig.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,7 +93,8 @@ tagResource_tags = Lens.lens (\TagResource' {tags} -> tags) (\s@TagResource' {} 
 
 instance Core.AWSRequest TagResource where
   type AWSResponse TagResource = TagResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull TagResourceResponse'
 
 instance Prelude.Hashable TagResource where
@@ -105,29 +107,29 @@ instance Prelude.NFData TagResource where
     Prelude.rnf resourceArn
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders TagResource where
+instance Data.ToHeaders TagResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON TagResource where
+instance Data.ToJSON TagResource where
   toJSON TagResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Tags" Core..= tags)]
+          [Prelude.Just ("Tags" Data..= tags)]
       )
 
-instance Core.ToPath TagResource where
+instance Data.ToPath TagResource where
   toPath TagResource' {..} =
-    Prelude.mconcat ["/tags/", Core.toBS resourceArn]
+    Prelude.mconcat ["/tags/", Data.toBS resourceArn]
 
-instance Core.ToQuery TagResource where
+instance Data.ToQuery TagResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newTagResourceResponse' smart constructor.

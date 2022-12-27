@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.ListAttachedPolicies
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,8 +34,8 @@ module Amazonka.IoT.ListAttachedPolicies
 
     -- * Request Lenses
     listAttachedPolicies_marker,
-    listAttachedPolicies_recursive,
     listAttachedPolicies_pageSize,
+    listAttachedPolicies_recursive,
     listAttachedPolicies_target,
 
     -- * Destructuring the Response
@@ -50,8 +50,9 @@ module Amazonka.IoT.ListAttachedPolicies
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,10 +61,10 @@ import qualified Amazonka.Response as Response
 data ListAttachedPolicies = ListAttachedPolicies'
   { -- | The token to retrieve the next set of results.
     marker :: Prelude.Maybe Prelude.Text,
-    -- | When true, recursively list attached policies.
-    recursive :: Prelude.Maybe Prelude.Bool,
     -- | The maximum number of results to be returned per request.
     pageSize :: Prelude.Maybe Prelude.Natural,
+    -- | When true, recursively list attached policies.
+    recursive :: Prelude.Maybe Prelude.Bool,
     -- | The group or principal for which the policies will be listed. Valid
     -- principals are CertificateArn
     -- (arn:aws:iot:/region/:/accountId/:cert\//certificateId/), thingGroupArn
@@ -83,9 +84,9 @@ data ListAttachedPolicies = ListAttachedPolicies'
 --
 -- 'marker', 'listAttachedPolicies_marker' - The token to retrieve the next set of results.
 --
--- 'recursive', 'listAttachedPolicies_recursive' - When true, recursively list attached policies.
---
 -- 'pageSize', 'listAttachedPolicies_pageSize' - The maximum number of results to be returned per request.
+--
+-- 'recursive', 'listAttachedPolicies_recursive' - When true, recursively list attached policies.
 --
 -- 'target', 'listAttachedPolicies_target' - The group or principal for which the policies will be listed. Valid
 -- principals are CertificateArn
@@ -99,8 +100,8 @@ newListAttachedPolicies ::
 newListAttachedPolicies pTarget_ =
   ListAttachedPolicies'
     { marker = Prelude.Nothing,
-      recursive = Prelude.Nothing,
       pageSize = Prelude.Nothing,
+      recursive = Prelude.Nothing,
       target = pTarget_
     }
 
@@ -108,13 +109,13 @@ newListAttachedPolicies pTarget_ =
 listAttachedPolicies_marker :: Lens.Lens' ListAttachedPolicies (Prelude.Maybe Prelude.Text)
 listAttachedPolicies_marker = Lens.lens (\ListAttachedPolicies' {marker} -> marker) (\s@ListAttachedPolicies' {} a -> s {marker = a} :: ListAttachedPolicies)
 
--- | When true, recursively list attached policies.
-listAttachedPolicies_recursive :: Lens.Lens' ListAttachedPolicies (Prelude.Maybe Prelude.Bool)
-listAttachedPolicies_recursive = Lens.lens (\ListAttachedPolicies' {recursive} -> recursive) (\s@ListAttachedPolicies' {} a -> s {recursive = a} :: ListAttachedPolicies)
-
 -- | The maximum number of results to be returned per request.
 listAttachedPolicies_pageSize :: Lens.Lens' ListAttachedPolicies (Prelude.Maybe Prelude.Natural)
 listAttachedPolicies_pageSize = Lens.lens (\ListAttachedPolicies' {pageSize} -> pageSize) (\s@ListAttachedPolicies' {} a -> s {pageSize = a} :: ListAttachedPolicies)
+
+-- | When true, recursively list attached policies.
+listAttachedPolicies_recursive :: Lens.Lens' ListAttachedPolicies (Prelude.Maybe Prelude.Bool)
+listAttachedPolicies_recursive = Lens.lens (\ListAttachedPolicies' {recursive} -> recursive) (\s@ListAttachedPolicies' {} a -> s {recursive = a} :: ListAttachedPolicies)
 
 -- | The group or principal for which the policies will be listed. Valid
 -- principals are CertificateArn
@@ -150,47 +151,48 @@ instance Core.AWSRequest ListAttachedPolicies where
   type
     AWSResponse ListAttachedPolicies =
       ListAttachedPoliciesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAttachedPoliciesResponse'
-            Prelude.<$> (x Core..?> "nextMarker")
-            Prelude.<*> (x Core..?> "policies" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "nextMarker")
+            Prelude.<*> (x Data..?> "policies" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListAttachedPolicies where
   hashWithSalt _salt ListAttachedPolicies' {..} =
     _salt `Prelude.hashWithSalt` marker
-      `Prelude.hashWithSalt` recursive
       `Prelude.hashWithSalt` pageSize
+      `Prelude.hashWithSalt` recursive
       `Prelude.hashWithSalt` target
 
 instance Prelude.NFData ListAttachedPolicies where
   rnf ListAttachedPolicies' {..} =
     Prelude.rnf marker
-      `Prelude.seq` Prelude.rnf recursive
       `Prelude.seq` Prelude.rnf pageSize
+      `Prelude.seq` Prelude.rnf recursive
       `Prelude.seq` Prelude.rnf target
 
-instance Core.ToHeaders ListAttachedPolicies where
+instance Data.ToHeaders ListAttachedPolicies where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON ListAttachedPolicies where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON ListAttachedPolicies where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath ListAttachedPolicies where
+instance Data.ToPath ListAttachedPolicies where
   toPath ListAttachedPolicies' {..} =
     Prelude.mconcat
-      ["/attached-policies/", Core.toBS target]
+      ["/attached-policies/", Data.toBS target]
 
-instance Core.ToQuery ListAttachedPolicies where
+instance Data.ToQuery ListAttachedPolicies where
   toQuery ListAttachedPolicies' {..} =
     Prelude.mconcat
-      [ "marker" Core.=: marker,
-        "recursive" Core.=: recursive,
-        "pageSize" Core.=: pageSize
+      [ "marker" Data.=: marker,
+        "pageSize" Data.=: pageSize,
+        "recursive" Data.=: recursive
       ]
 
 -- | /See:/ 'newListAttachedPoliciesResponse' smart constructor.

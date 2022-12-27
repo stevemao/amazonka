@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Backup.GetBackupPlanFromJSON
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.Backup.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,12 +81,13 @@ instance Core.AWSRequest GetBackupPlanFromJSON where
   type
     AWSResponse GetBackupPlanFromJSON =
       GetBackupPlanFromJSONResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetBackupPlanFromJSONResponse'
-            Prelude.<$> (x Core..?> "BackupPlan")
+            Prelude.<$> (x Data..?> "BackupPlan")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,32 +99,32 @@ instance Prelude.NFData GetBackupPlanFromJSON where
   rnf GetBackupPlanFromJSON' {..} =
     Prelude.rnf backupPlanTemplateJson
 
-instance Core.ToHeaders GetBackupPlanFromJSON where
+instance Data.ToHeaders GetBackupPlanFromJSON where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetBackupPlanFromJSON where
+instance Data.ToJSON GetBackupPlanFromJSON where
   toJSON GetBackupPlanFromJSON' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "BackupPlanTemplateJson"
-                  Core..= backupPlanTemplateJson
+                  Data..= backupPlanTemplateJson
               )
           ]
       )
 
-instance Core.ToPath GetBackupPlanFromJSON where
+instance Data.ToPath GetBackupPlanFromJSON where
   toPath = Prelude.const "/backup/template/json/toPlan"
 
-instance Core.ToQuery GetBackupPlanFromJSON where
+instance Data.ToQuery GetBackupPlanFromJSON where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetBackupPlanFromJSONResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.GetBlueprints
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,7 +54,8 @@ module Amazonka.Lightsail.GetBlueprints
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -62,8 +63,8 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetBlueprints' smart constructor.
 data GetBlueprints = GetBlueprints'
-  { -- | A Boolean value indicating whether to include inactive results in your
-    -- request.
+  { -- | A Boolean value that indicates whether to include inactive (unavailable)
+    -- blueprints in the response of your request.
     includeInactive :: Prelude.Maybe Prelude.Bool,
     -- | The token to advance to the next page of results from your request.
     --
@@ -82,8 +83,8 @@ data GetBlueprints = GetBlueprints'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'includeInactive', 'getBlueprints_includeInactive' - A Boolean value indicating whether to include inactive results in your
--- request.
+-- 'includeInactive', 'getBlueprints_includeInactive' - A Boolean value that indicates whether to include inactive (unavailable)
+-- blueprints in the response of your request.
 --
 -- 'pageToken', 'getBlueprints_pageToken' - The token to advance to the next page of results from your request.
 --
@@ -98,8 +99,8 @@ newGetBlueprints =
       pageToken = Prelude.Nothing
     }
 
--- | A Boolean value indicating whether to include inactive results in your
--- request.
+-- | A Boolean value that indicates whether to include inactive (unavailable)
+-- blueprints in the response of your request.
 getBlueprints_includeInactive :: Lens.Lens' GetBlueprints (Prelude.Maybe Prelude.Bool)
 getBlueprints_includeInactive = Lens.lens (\GetBlueprints' {includeInactive} -> includeInactive) (\s@GetBlueprints' {} a -> s {includeInactive = a} :: GetBlueprints)
 
@@ -137,13 +138,14 @@ instance Core.AWSRequest GetBlueprints where
   type
     AWSResponse GetBlueprints =
       GetBlueprintsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetBlueprintsResponse'
-            Prelude.<$> (x Core..?> "blueprints" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextPageToken")
+            Prelude.<$> (x Data..?> "blueprints" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextPageToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -157,35 +159,35 @@ instance Prelude.NFData GetBlueprints where
     Prelude.rnf includeInactive
       `Prelude.seq` Prelude.rnf pageToken
 
-instance Core.ToHeaders GetBlueprints where
+instance Data.ToHeaders GetBlueprints where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.GetBlueprints" ::
+              Data.=# ( "Lightsail_20161128.GetBlueprints" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetBlueprints where
+instance Data.ToJSON GetBlueprints where
   toJSON GetBlueprints' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("includeInactive" Core..=)
+          [ ("includeInactive" Data..=)
               Prelude.<$> includeInactive,
-            ("pageToken" Core..=) Prelude.<$> pageToken
+            ("pageToken" Data..=) Prelude.<$> pageToken
           ]
       )
 
-instance Core.ToPath GetBlueprints where
+instance Data.ToPath GetBlueprints where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetBlueprints where
+instance Data.ToQuery GetBlueprints where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetBlueprintsResponse' smart constructor.

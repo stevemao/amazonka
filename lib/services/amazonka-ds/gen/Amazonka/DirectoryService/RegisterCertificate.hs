@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.RegisterCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.DirectoryService.RegisterCertificate
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -124,12 +125,13 @@ instance Core.AWSRequest RegisterCertificate where
   type
     AWSResponse RegisterCertificate =
       RegisterCertificateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RegisterCertificateResponse'
-            Prelude.<$> (x Core..?> "CertificateId")
+            Prelude.<$> (x Data..?> "CertificateId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -147,38 +149,38 @@ instance Prelude.NFData RegisterCertificate where
       `Prelude.seq` Prelude.rnf directoryId
       `Prelude.seq` Prelude.rnf certificateData
 
-instance Core.ToHeaders RegisterCertificate where
+instance Data.ToHeaders RegisterCertificate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.RegisterCertificate" ::
+              Data.=# ( "DirectoryService_20150416.RegisterCertificate" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RegisterCertificate where
+instance Data.ToJSON RegisterCertificate where
   toJSON RegisterCertificate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ClientCertAuthSettings" Core..=)
+          [ ("ClientCertAuthSettings" Data..=)
               Prelude.<$> clientCertAuthSettings,
-            ("Type" Core..=) Prelude.<$> type',
-            Prelude.Just ("DirectoryId" Core..= directoryId),
+            ("Type" Data..=) Prelude.<$> type',
+            Prelude.Just ("DirectoryId" Data..= directoryId),
             Prelude.Just
-              ("CertificateData" Core..= certificateData)
+              ("CertificateData" Data..= certificateData)
           ]
       )
 
-instance Core.ToPath RegisterCertificate where
+instance Data.ToPath RegisterCertificate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RegisterCertificate where
+instance Data.ToQuery RegisterCertificate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRegisterCertificateResponse' smart constructor.

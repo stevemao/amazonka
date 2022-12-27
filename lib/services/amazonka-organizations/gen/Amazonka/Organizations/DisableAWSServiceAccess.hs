@@ -14,25 +14,25 @@
 
 -- |
 -- Module      : Amazonka.Organizations.DisableAWSServiceAccess
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disables the integration of an AWS service (the service that is
--- specified by @ServicePrincipal@) with AWS Organizations. When you
+-- Disables the integration of an Amazon Web Services service (the service
+-- that is specified by @ServicePrincipal@) with Organizations. When you
 -- disable integration, the specified service no longer can create a
--- <http://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html service-linked role>
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html service-linked role>
 -- in /new/ accounts in your organization. This means the service can\'t
 -- perform operations on your behalf on any new accounts in your
 -- organization. The service can still perform operations in older accounts
--- until the service completes its clean-up from AWS Organizations.
+-- until the service completes its clean-up from Organizations.
 --
 -- We __/strongly recommend/__ that you don\'t use this command to disable
--- integration between AWS Organizations and the specified AWS service.
--- Instead, use the console or commands that are provided by the specified
--- service. This lets the trusted service perform any required
+-- integration between Organizations and the specified Amazon Web Services
+-- service. Instead, use the console or commands that are provided by the
+-- specified service. This lets the trusted service perform any required
 -- initialization when enabling trusted access, such as creating any
 -- required resources and any required clean up of resources when disabling
 -- trusted access.
@@ -40,7 +40,7 @@
 -- For information about how to disable trusted service access to your
 -- organization using the trusted service, see the __Learn more__ link
 -- under the __Supports Trusted Access__ column at
--- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services_list.html AWS services that you can use with AWS Organizations>.
+-- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services_list.html Amazon Web Services services that you can use with Organizations>.
 -- on this page.
 --
 -- If you disable access by using this command, it causes the following
@@ -50,7 +50,7 @@
 --     accounts in your organization. This means that the service can\'t
 --     perform operations on your behalf on any new accounts in your
 --     organization. The service can still perform operations in older
---     accounts until the service completes its clean-up from AWS
+--     accounts until the service completes its clean-up from
 --     Organizations.
 --
 -- -   The service can no longer perform tasks in the member accounts in
@@ -70,17 +70,17 @@
 -- any resources that are required only for the integration. How the
 -- service cleans up its resources in the organization\'s accounts depends
 -- on that service. For more information, see the documentation for the
--- other AWS service.
+-- other Amazon Web Services service.
 --
 -- After you perform the @DisableAWSServiceAccess@ operation, the specified
 -- service can no longer perform operations in your organization\'s
 -- accounts
 --
--- For more information about integrating other services with AWS
+-- For more information about integrating other services with
 -- Organizations, including the list of services that work with
 -- Organizations, see
--- <http://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html Integrating AWS Organizations with Other AWS Services>
--- in the /AWS Organizations User Guide./
+-- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html Integrating Organizations with Other Amazon Web Services Services>
+-- in the /Organizations User Guide./
 --
 -- This operation can be called only from the organization\'s management
 -- account.
@@ -99,7 +99,8 @@ module Amazonka.Organizations.DisableAWSServiceAccess
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -107,9 +108,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDisableAWSServiceAccess' smart constructor.
 data DisableAWSServiceAccess = DisableAWSServiceAccess'
-  { -- | The service principal name of the AWS service for which you want to
-    -- disable integration with your organization. This is typically in the
-    -- form of a URL, such as @ service-abbreviation.amazonaws.com@.
+  { -- | The service principal name of the Amazon Web Services service for which
+    -- you want to disable integration with your organization. This is
+    -- typically in the form of a URL, such as
+    -- @ service-abbreviation.amazonaws.com@.
     servicePrincipal :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -122,9 +124,10 @@ data DisableAWSServiceAccess = DisableAWSServiceAccess'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'servicePrincipal', 'disableAWSServiceAccess_servicePrincipal' - The service principal name of the AWS service for which you want to
--- disable integration with your organization. This is typically in the
--- form of a URL, such as @ service-abbreviation.amazonaws.com@.
+-- 'servicePrincipal', 'disableAWSServiceAccess_servicePrincipal' - The service principal name of the Amazon Web Services service for which
+-- you want to disable integration with your organization. This is
+-- typically in the form of a URL, such as
+-- @ service-abbreviation.amazonaws.com@.
 newDisableAWSServiceAccess ::
   -- | 'servicePrincipal'
   Prelude.Text ->
@@ -135,9 +138,10 @@ newDisableAWSServiceAccess pServicePrincipal_ =
         pServicePrincipal_
     }
 
--- | The service principal name of the AWS service for which you want to
--- disable integration with your organization. This is typically in the
--- form of a URL, such as @ service-abbreviation.amazonaws.com@.
+-- | The service principal name of the Amazon Web Services service for which
+-- you want to disable integration with your organization. This is
+-- typically in the form of a URL, such as
+-- @ service-abbreviation.amazonaws.com@.
 disableAWSServiceAccess_servicePrincipal :: Lens.Lens' DisableAWSServiceAccess Prelude.Text
 disableAWSServiceAccess_servicePrincipal = Lens.lens (\DisableAWSServiceAccess' {servicePrincipal} -> servicePrincipal) (\s@DisableAWSServiceAccess' {} a -> s {servicePrincipal = a} :: DisableAWSServiceAccess)
 
@@ -145,7 +149,8 @@ instance Core.AWSRequest DisableAWSServiceAccess where
   type
     AWSResponse DisableAWSServiceAccess =
       DisableAWSServiceAccessResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       DisableAWSServiceAccessResponse'
@@ -158,34 +163,34 @@ instance Prelude.NFData DisableAWSServiceAccess where
   rnf DisableAWSServiceAccess' {..} =
     Prelude.rnf servicePrincipal
 
-instance Core.ToHeaders DisableAWSServiceAccess where
+instance Data.ToHeaders DisableAWSServiceAccess where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.DisableAWSServiceAccess" ::
+              Data.=# ( "AWSOrganizationsV20161128.DisableAWSServiceAccess" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisableAWSServiceAccess where
+instance Data.ToJSON DisableAWSServiceAccess where
   toJSON DisableAWSServiceAccess' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ServicePrincipal" Core..= servicePrincipal)
+              ("ServicePrincipal" Data..= servicePrincipal)
           ]
       )
 
-instance Core.ToPath DisableAWSServiceAccess where
+instance Data.ToPath DisableAWSServiceAccess where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisableAWSServiceAccess where
+instance Data.ToQuery DisableAWSServiceAccess where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisableAWSServiceAccessResponse' smart constructor.

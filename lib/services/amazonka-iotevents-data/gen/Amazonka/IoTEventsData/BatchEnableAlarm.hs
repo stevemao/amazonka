@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEventsData.BatchEnableAlarm
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.IoTEventsData.BatchEnableAlarm
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEventsData.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,12 +85,13 @@ instance Core.AWSRequest BatchEnableAlarm where
   type
     AWSResponse BatchEnableAlarm =
       BatchEnableAlarmResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchEnableAlarmResponse'
-            Prelude.<$> (x Core..?> "errorEntries" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "errorEntries" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -101,24 +103,24 @@ instance Prelude.NFData BatchEnableAlarm where
   rnf BatchEnableAlarm' {..} =
     Prelude.rnf enableActionRequests
 
-instance Core.ToHeaders BatchEnableAlarm where
+instance Data.ToHeaders BatchEnableAlarm where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON BatchEnableAlarm where
+instance Data.ToJSON BatchEnableAlarm where
   toJSON BatchEnableAlarm' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "enableActionRequests"
-                  Core..= enableActionRequests
+                  Data..= enableActionRequests
               )
           ]
       )
 
-instance Core.ToPath BatchEnableAlarm where
+instance Data.ToPath BatchEnableAlarm where
   toPath = Prelude.const "/alarms/enable"
 
-instance Core.ToQuery BatchEnableAlarm where
+instance Data.ToQuery BatchEnableAlarm where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchEnableAlarmResponse' smart constructor.

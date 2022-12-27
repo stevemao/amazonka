@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.UpdateBucket
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,16 +23,17 @@
 -- Updates an existing Amazon Lightsail bucket.
 --
 -- Use this action to update the configuration of an existing bucket, such
--- as versioning, public accessibility, and the AWS accounts that can
--- access the bucket.
+-- as versioning, public accessibility, and the Amazon Web Services
+-- accounts that can access the bucket.
 module Amazonka.Lightsail.UpdateBucket
   ( -- * Creating a Request
     UpdateBucket (..),
     newUpdateBucket,
 
     -- * Request Lenses
-    updateBucket_readonlyAccessAccounts,
+    updateBucket_accessLogConfig,
     updateBucket_accessRules,
+    updateBucket_readonlyAccessAccounts,
     updateBucket_versioning,
     updateBucket_bucketName,
 
@@ -48,7 +49,8 @@ module Amazonka.Lightsail.UpdateBucket
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -56,14 +58,17 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateBucket' smart constructor.
 data UpdateBucket = UpdateBucket'
-  { -- | An array of strings to specify the AWS account IDs that can access the
-    -- bucket.
-    --
-    -- You can give a maximum of 10 AWS accounts access to a bucket.
-    readonlyAccessAccounts :: Prelude.Maybe [Prelude.Text],
+  { -- | An object that describes the access log configuration for the bucket.
+    accessLogConfig :: Prelude.Maybe BucketAccessLogConfig,
     -- | An object that sets the public accessibility of objects in the specified
     -- bucket.
     accessRules :: Prelude.Maybe AccessRules,
+    -- | An array of strings to specify the Amazon Web Services account IDs that
+    -- can access the bucket.
+    --
+    -- You can give a maximum of 10 Amazon Web Services accounts access to a
+    -- bucket.
+    readonlyAccessAccounts :: Prelude.Maybe [Prelude.Text],
     -- | Specifies whether to enable or suspend versioning of objects in the
     -- bucket.
     --
@@ -87,12 +92,15 @@ data UpdateBucket = UpdateBucket'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'readonlyAccessAccounts', 'updateBucket_readonlyAccessAccounts' - An array of strings to specify the AWS account IDs that can access the
--- bucket.
---
--- You can give a maximum of 10 AWS accounts access to a bucket.
+-- 'accessLogConfig', 'updateBucket_accessLogConfig' - An object that describes the access log configuration for the bucket.
 --
 -- 'accessRules', 'updateBucket_accessRules' - An object that sets the public accessibility of objects in the specified
+-- bucket.
+--
+-- 'readonlyAccessAccounts', 'updateBucket_readonlyAccessAccounts' - An array of strings to specify the Amazon Web Services account IDs that
+-- can access the bucket.
+--
+-- You can give a maximum of 10 Amazon Web Services accounts access to a
 -- bucket.
 --
 -- 'versioning', 'updateBucket_versioning' - Specifies whether to enable or suspend versioning of objects in the
@@ -112,24 +120,29 @@ newUpdateBucket ::
   UpdateBucket
 newUpdateBucket pBucketName_ =
   UpdateBucket'
-    { readonlyAccessAccounts =
-        Prelude.Nothing,
+    { accessLogConfig = Prelude.Nothing,
       accessRules = Prelude.Nothing,
+      readonlyAccessAccounts = Prelude.Nothing,
       versioning = Prelude.Nothing,
       bucketName = pBucketName_
     }
 
--- | An array of strings to specify the AWS account IDs that can access the
--- bucket.
---
--- You can give a maximum of 10 AWS accounts access to a bucket.
-updateBucket_readonlyAccessAccounts :: Lens.Lens' UpdateBucket (Prelude.Maybe [Prelude.Text])
-updateBucket_readonlyAccessAccounts = Lens.lens (\UpdateBucket' {readonlyAccessAccounts} -> readonlyAccessAccounts) (\s@UpdateBucket' {} a -> s {readonlyAccessAccounts = a} :: UpdateBucket) Prelude.. Lens.mapping Lens.coerced
+-- | An object that describes the access log configuration for the bucket.
+updateBucket_accessLogConfig :: Lens.Lens' UpdateBucket (Prelude.Maybe BucketAccessLogConfig)
+updateBucket_accessLogConfig = Lens.lens (\UpdateBucket' {accessLogConfig} -> accessLogConfig) (\s@UpdateBucket' {} a -> s {accessLogConfig = a} :: UpdateBucket)
 
 -- | An object that sets the public accessibility of objects in the specified
 -- bucket.
 updateBucket_accessRules :: Lens.Lens' UpdateBucket (Prelude.Maybe AccessRules)
 updateBucket_accessRules = Lens.lens (\UpdateBucket' {accessRules} -> accessRules) (\s@UpdateBucket' {} a -> s {accessRules = a} :: UpdateBucket)
+
+-- | An array of strings to specify the Amazon Web Services account IDs that
+-- can access the bucket.
+--
+-- You can give a maximum of 10 Amazon Web Services accounts access to a
+-- bucket.
+updateBucket_readonlyAccessAccounts :: Lens.Lens' UpdateBucket (Prelude.Maybe [Prelude.Text])
+updateBucket_readonlyAccessAccounts = Lens.lens (\UpdateBucket' {readonlyAccessAccounts} -> readonlyAccessAccounts) (\s@UpdateBucket' {} a -> s {readonlyAccessAccounts = a} :: UpdateBucket) Prelude.. Lens.mapping Lens.coerced
 
 -- | Specifies whether to enable or suspend versioning of objects in the
 -- bucket.
@@ -149,61 +162,66 @@ updateBucket_bucketName = Lens.lens (\UpdateBucket' {bucketName} -> bucketName) 
 
 instance Core.AWSRequest UpdateBucket where
   type AWSResponse UpdateBucket = UpdateBucketResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateBucketResponse'
-            Prelude.<$> (x Core..?> "bucket")
-            Prelude.<*> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "bucket")
+            Prelude.<*> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateBucket where
   hashWithSalt _salt UpdateBucket' {..} =
-    _salt `Prelude.hashWithSalt` readonlyAccessAccounts
+    _salt `Prelude.hashWithSalt` accessLogConfig
       `Prelude.hashWithSalt` accessRules
+      `Prelude.hashWithSalt` readonlyAccessAccounts
       `Prelude.hashWithSalt` versioning
       `Prelude.hashWithSalt` bucketName
 
 instance Prelude.NFData UpdateBucket where
   rnf UpdateBucket' {..} =
-    Prelude.rnf readonlyAccessAccounts
+    Prelude.rnf accessLogConfig
       `Prelude.seq` Prelude.rnf accessRules
+      `Prelude.seq` Prelude.rnf readonlyAccessAccounts
       `Prelude.seq` Prelude.rnf versioning
       `Prelude.seq` Prelude.rnf bucketName
 
-instance Core.ToHeaders UpdateBucket where
+instance Data.ToHeaders UpdateBucket where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.UpdateBucket" ::
+              Data.=# ( "Lightsail_20161128.UpdateBucket" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateBucket where
+instance Data.ToJSON UpdateBucket where
   toJSON UpdateBucket' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("readonlyAccessAccounts" Core..=)
+          [ ("accessLogConfig" Data..=)
+              Prelude.<$> accessLogConfig,
+            ("accessRules" Data..=) Prelude.<$> accessRules,
+            ("readonlyAccessAccounts" Data..=)
               Prelude.<$> readonlyAccessAccounts,
-            ("accessRules" Core..=) Prelude.<$> accessRules,
-            ("versioning" Core..=) Prelude.<$> versioning,
-            Prelude.Just ("bucketName" Core..= bucketName)
+            ("versioning" Data..=) Prelude.<$> versioning,
+            Prelude.Just ("bucketName" Data..= bucketName)
           ]
       )
 
-instance Core.ToPath UpdateBucket where
+instance Data.ToPath UpdateBucket where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateBucket where
+instance Data.ToQuery UpdateBucket where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateBucketResponse' smart constructor.

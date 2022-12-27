@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GreengrassV2.Types.ComponentLatestVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,16 @@
 module Amazonka.GreengrassV2.Types.ComponentLatestVersion where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GreengrassV2.Types.ComponentPlatform
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the latest version of a component.
 --
 -- /See:/ 'newComponentLatestVersion' smart constructor.
 data ComponentLatestVersion = ComponentLatestVersion'
-  { -- | The platforms that the component version supports.
-    platforms :: Prelude.Maybe [ComponentPlatform],
-    -- | The
+  { -- | The
     -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
     -- of the component version.
     arn :: Prelude.Maybe Prelude.Text,
@@ -38,11 +37,13 @@ data ComponentLatestVersion = ComponentLatestVersion'
     componentVersion :: Prelude.Maybe Prelude.Text,
     -- | The time at which the component was created, expressed in ISO 8601
     -- format.
-    creationTimestamp :: Prelude.Maybe Core.POSIX,
-    -- | The publisher of the component version.
-    publisher :: Prelude.Maybe Prelude.Text,
+    creationTimestamp :: Prelude.Maybe Data.POSIX,
     -- | The description of the component version.
-    description :: Prelude.Maybe Prelude.Text
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The platforms that the component version supports.
+    platforms :: Prelude.Maybe [ComponentPlatform],
+    -- | The publisher of the component version.
+    publisher :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -54,8 +55,6 @@ data ComponentLatestVersion = ComponentLatestVersion'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'platforms', 'componentLatestVersion_platforms' - The platforms that the component version supports.
---
 -- 'arn', 'componentLatestVersion_arn' - The
 -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
 -- of the component version.
@@ -65,25 +64,22 @@ data ComponentLatestVersion = ComponentLatestVersion'
 -- 'creationTimestamp', 'componentLatestVersion_creationTimestamp' - The time at which the component was created, expressed in ISO 8601
 -- format.
 --
--- 'publisher', 'componentLatestVersion_publisher' - The publisher of the component version.
---
 -- 'description', 'componentLatestVersion_description' - The description of the component version.
+--
+-- 'platforms', 'componentLatestVersion_platforms' - The platforms that the component version supports.
+--
+-- 'publisher', 'componentLatestVersion_publisher' - The publisher of the component version.
 newComponentLatestVersion ::
   ComponentLatestVersion
 newComponentLatestVersion =
   ComponentLatestVersion'
-    { platforms =
-        Prelude.Nothing,
-      arn = Prelude.Nothing,
+    { arn = Prelude.Nothing,
       componentVersion = Prelude.Nothing,
       creationTimestamp = Prelude.Nothing,
-      publisher = Prelude.Nothing,
-      description = Prelude.Nothing
+      description = Prelude.Nothing,
+      platforms = Prelude.Nothing,
+      publisher = Prelude.Nothing
     }
-
--- | The platforms that the component version supports.
-componentLatestVersion_platforms :: Lens.Lens' ComponentLatestVersion (Prelude.Maybe [ComponentPlatform])
-componentLatestVersion_platforms = Lens.lens (\ComponentLatestVersion' {platforms} -> platforms) (\s@ComponentLatestVersion' {} a -> s {platforms = a} :: ComponentLatestVersion) Prelude.. Lens.mapping Lens.coerced
 
 -- | The
 -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
@@ -98,44 +94,48 @@ componentLatestVersion_componentVersion = Lens.lens (\ComponentLatestVersion' {c
 -- | The time at which the component was created, expressed in ISO 8601
 -- format.
 componentLatestVersion_creationTimestamp :: Lens.Lens' ComponentLatestVersion (Prelude.Maybe Prelude.UTCTime)
-componentLatestVersion_creationTimestamp = Lens.lens (\ComponentLatestVersion' {creationTimestamp} -> creationTimestamp) (\s@ComponentLatestVersion' {} a -> s {creationTimestamp = a} :: ComponentLatestVersion) Prelude.. Lens.mapping Core._Time
-
--- | The publisher of the component version.
-componentLatestVersion_publisher :: Lens.Lens' ComponentLatestVersion (Prelude.Maybe Prelude.Text)
-componentLatestVersion_publisher = Lens.lens (\ComponentLatestVersion' {publisher} -> publisher) (\s@ComponentLatestVersion' {} a -> s {publisher = a} :: ComponentLatestVersion)
+componentLatestVersion_creationTimestamp = Lens.lens (\ComponentLatestVersion' {creationTimestamp} -> creationTimestamp) (\s@ComponentLatestVersion' {} a -> s {creationTimestamp = a} :: ComponentLatestVersion) Prelude.. Lens.mapping Data._Time
 
 -- | The description of the component version.
 componentLatestVersion_description :: Lens.Lens' ComponentLatestVersion (Prelude.Maybe Prelude.Text)
 componentLatestVersion_description = Lens.lens (\ComponentLatestVersion' {description} -> description) (\s@ComponentLatestVersion' {} a -> s {description = a} :: ComponentLatestVersion)
 
-instance Core.FromJSON ComponentLatestVersion where
+-- | The platforms that the component version supports.
+componentLatestVersion_platforms :: Lens.Lens' ComponentLatestVersion (Prelude.Maybe [ComponentPlatform])
+componentLatestVersion_platforms = Lens.lens (\ComponentLatestVersion' {platforms} -> platforms) (\s@ComponentLatestVersion' {} a -> s {platforms = a} :: ComponentLatestVersion) Prelude.. Lens.mapping Lens.coerced
+
+-- | The publisher of the component version.
+componentLatestVersion_publisher :: Lens.Lens' ComponentLatestVersion (Prelude.Maybe Prelude.Text)
+componentLatestVersion_publisher = Lens.lens (\ComponentLatestVersion' {publisher} -> publisher) (\s@ComponentLatestVersion' {} a -> s {publisher = a} :: ComponentLatestVersion)
+
+instance Data.FromJSON ComponentLatestVersion where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ComponentLatestVersion"
       ( \x ->
           ComponentLatestVersion'
-            Prelude.<$> (x Core..:? "platforms" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "arn")
-            Prelude.<*> (x Core..:? "componentVersion")
-            Prelude.<*> (x Core..:? "creationTimestamp")
-            Prelude.<*> (x Core..:? "publisher")
-            Prelude.<*> (x Core..:? "description")
+            Prelude.<$> (x Data..:? "arn")
+            Prelude.<*> (x Data..:? "componentVersion")
+            Prelude.<*> (x Data..:? "creationTimestamp")
+            Prelude.<*> (x Data..:? "description")
+            Prelude.<*> (x Data..:? "platforms" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "publisher")
       )
 
 instance Prelude.Hashable ComponentLatestVersion where
   hashWithSalt _salt ComponentLatestVersion' {..} =
-    _salt `Prelude.hashWithSalt` platforms
-      `Prelude.hashWithSalt` arn
+    _salt `Prelude.hashWithSalt` arn
       `Prelude.hashWithSalt` componentVersion
       `Prelude.hashWithSalt` creationTimestamp
-      `Prelude.hashWithSalt` publisher
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` platforms
+      `Prelude.hashWithSalt` publisher
 
 instance Prelude.NFData ComponentLatestVersion where
   rnf ComponentLatestVersion' {..} =
-    Prelude.rnf platforms
-      `Prelude.seq` Prelude.rnf arn
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf componentVersion
       `Prelude.seq` Prelude.rnf creationTimestamp
-      `Prelude.seq` Prelude.rnf publisher
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf platforms
+      `Prelude.seq` Prelude.rnf publisher

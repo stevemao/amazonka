@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.ValidateSecurityProfileBehaviors
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,15 +38,16 @@ module Amazonka.IoT.ValidateSecurityProfileBehaviors
     newValidateSecurityProfileBehaviorsResponse,
 
     -- * Response Lenses
-    validateSecurityProfileBehaviorsResponse_validationErrors,
     validateSecurityProfileBehaviorsResponse_valid,
+    validateSecurityProfileBehaviorsResponse_validationErrors,
     validateSecurityProfileBehaviorsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,15 +90,16 @@ instance
   type
     AWSResponse ValidateSecurityProfileBehaviors =
       ValidateSecurityProfileBehaviorsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ValidateSecurityProfileBehaviorsResponse'
-            Prelude.<$> ( x Core..?> "validationErrors"
+            Prelude.<$> (x Data..?> "valid")
+            Prelude.<*> ( x Data..?> "validationErrors"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "valid")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -118,35 +120,35 @@ instance
     Prelude.rnf behaviors
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ValidateSecurityProfileBehaviors
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON ValidateSecurityProfileBehaviors where
+instance Data.ToJSON ValidateSecurityProfileBehaviors where
   toJSON ValidateSecurityProfileBehaviors' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("behaviors" Core..= behaviors)]
+          [Prelude.Just ("behaviors" Data..= behaviors)]
       )
 
-instance Core.ToPath ValidateSecurityProfileBehaviors where
+instance Data.ToPath ValidateSecurityProfileBehaviors where
   toPath =
     Prelude.const
       "/security-profile-behaviors/validate"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ValidateSecurityProfileBehaviors
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newValidateSecurityProfileBehaviorsResponse' smart constructor.
 data ValidateSecurityProfileBehaviorsResponse = ValidateSecurityProfileBehaviorsResponse'
-  { -- | The list of any errors found in the behaviors.
-    validationErrors :: Prelude.Maybe [ValidationError],
-    -- | True if the behaviors were valid.
+  { -- | True if the behaviors were valid.
     valid :: Prelude.Maybe Prelude.Bool,
+    -- | The list of any errors found in the behaviors.
+    validationErrors :: Prelude.Maybe [ValidationError],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -160,9 +162,9 @@ data ValidateSecurityProfileBehaviorsResponse = ValidateSecurityProfileBehaviors
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'validationErrors', 'validateSecurityProfileBehaviorsResponse_validationErrors' - The list of any errors found in the behaviors.
---
 -- 'valid', 'validateSecurityProfileBehaviorsResponse_valid' - True if the behaviors were valid.
+--
+-- 'validationErrors', 'validateSecurityProfileBehaviorsResponse_validationErrors' - The list of any errors found in the behaviors.
 --
 -- 'httpStatus', 'validateSecurityProfileBehaviorsResponse_httpStatus' - The response's http status code.
 newValidateSecurityProfileBehaviorsResponse ::
@@ -172,19 +174,20 @@ newValidateSecurityProfileBehaviorsResponse ::
 newValidateSecurityProfileBehaviorsResponse
   pHttpStatus_ =
     ValidateSecurityProfileBehaviorsResponse'
-      { validationErrors =
+      { valid =
           Prelude.Nothing,
-        valid = Prelude.Nothing,
+        validationErrors =
+          Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | The list of any errors found in the behaviors.
-validateSecurityProfileBehaviorsResponse_validationErrors :: Lens.Lens' ValidateSecurityProfileBehaviorsResponse (Prelude.Maybe [ValidationError])
-validateSecurityProfileBehaviorsResponse_validationErrors = Lens.lens (\ValidateSecurityProfileBehaviorsResponse' {validationErrors} -> validationErrors) (\s@ValidateSecurityProfileBehaviorsResponse' {} a -> s {validationErrors = a} :: ValidateSecurityProfileBehaviorsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | True if the behaviors were valid.
 validateSecurityProfileBehaviorsResponse_valid :: Lens.Lens' ValidateSecurityProfileBehaviorsResponse (Prelude.Maybe Prelude.Bool)
 validateSecurityProfileBehaviorsResponse_valid = Lens.lens (\ValidateSecurityProfileBehaviorsResponse' {valid} -> valid) (\s@ValidateSecurityProfileBehaviorsResponse' {} a -> s {valid = a} :: ValidateSecurityProfileBehaviorsResponse)
+
+-- | The list of any errors found in the behaviors.
+validateSecurityProfileBehaviorsResponse_validationErrors :: Lens.Lens' ValidateSecurityProfileBehaviorsResponse (Prelude.Maybe [ValidationError])
+validateSecurityProfileBehaviorsResponse_validationErrors = Lens.lens (\ValidateSecurityProfileBehaviorsResponse' {validationErrors} -> validationErrors) (\s@ValidateSecurityProfileBehaviorsResponse' {} a -> s {validationErrors = a} :: ValidateSecurityProfileBehaviorsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 validateSecurityProfileBehaviorsResponse_httpStatus :: Lens.Lens' ValidateSecurityProfileBehaviorsResponse Prelude.Int
@@ -195,6 +198,6 @@ instance
     ValidateSecurityProfileBehaviorsResponse
   where
   rnf ValidateSecurityProfileBehaviorsResponse' {..} =
-    Prelude.rnf validationErrors
-      `Prelude.seq` Prelude.rnf valid
+    Prelude.rnf valid
+      `Prelude.seq` Prelude.rnf validationErrors
       `Prelude.seq` Prelude.rnf httpStatus

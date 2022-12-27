@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideo.DescribeStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.KinesisVideo.DescribeStream
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisVideo.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,12 +89,13 @@ instance Core.AWSRequest DescribeStream where
   type
     AWSResponse DescribeStream =
       DescribeStreamResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeStreamResponse'
-            Prelude.<$> (x Core..?> "StreamInfo")
+            Prelude.<$> (x Data..?> "StreamInfo")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -107,22 +109,22 @@ instance Prelude.NFData DescribeStream where
     Prelude.rnf streamARN
       `Prelude.seq` Prelude.rnf streamName
 
-instance Core.ToHeaders DescribeStream where
+instance Data.ToHeaders DescribeStream where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON DescribeStream where
+instance Data.ToJSON DescribeStream where
   toJSON DescribeStream' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("StreamARN" Core..=) Prelude.<$> streamARN,
-            ("StreamName" Core..=) Prelude.<$> streamName
+          [ ("StreamARN" Data..=) Prelude.<$> streamARN,
+            ("StreamName" Data..=) Prelude.<$> streamName
           ]
       )
 
-instance Core.ToPath DescribeStream where
+instance Data.ToPath DescribeStream where
   toPath = Prelude.const "/describeStream"
 
-instance Core.ToQuery DescribeStream where
+instance Data.ToQuery DescribeStream where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeStreamResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.InstanceInformationFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,13 +20,14 @@
 module Amazonka.SSM.Types.InstanceInformationFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSM.Types.InstanceInformationFilterKey
 
--- | Describes a filter for a specific list of instances. You can filter
--- instances information by using tags. You specify tags by using a
--- key-value mapping.
+-- | Describes a filter for a specific list of managed nodes. You can filter
+-- node information by using tags. You specify tags by using a key-value
+-- mapping.
 --
 -- Use this operation instead of the
 -- DescribeInstanceInformationRequest$InstanceInformationFilterList method.
@@ -82,11 +83,11 @@ instance Prelude.NFData InstanceInformationFilter where
   rnf InstanceInformationFilter' {..} =
     Prelude.rnf key `Prelude.seq` Prelude.rnf valueSet
 
-instance Core.ToJSON InstanceInformationFilter where
+instance Data.ToJSON InstanceInformationFilter where
   toJSON InstanceInformationFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("key" Core..= key),
-            Prelude.Just ("valueSet" Core..= valueSet)
+          [ Prelude.Just ("key" Data..= key),
+            Prelude.Just ("valueSet" Data..= valueSet)
           ]
       )

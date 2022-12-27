@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.CreateBatchImportJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.FraudDetector.CreateBatchImportJob
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -64,8 +65,13 @@ data CreateBatchImportJob = CreateBatchImportJob'
     -- | The name of the event type.
     eventTypeName :: Prelude.Text,
     -- | The ARN of the IAM role created for Amazon S3 bucket that holds your
-    -- data file. The IAM role must have read and write permissions to both
-    -- input and output S3 buckets.
+    -- data file.
+    --
+    -- The IAM role must have read permissions to your input S3 bucket and
+    -- write permissions to your output S3 bucket. For more information about
+    -- bucket permissions, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-policies-s3.html User policy examples>
+    -- in the /Amazon S3 User Guide/.
     iamRoleArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -90,8 +96,13 @@ data CreateBatchImportJob = CreateBatchImportJob'
 -- 'eventTypeName', 'createBatchImportJob_eventTypeName' - The name of the event type.
 --
 -- 'iamRoleArn', 'createBatchImportJob_iamRoleArn' - The ARN of the IAM role created for Amazon S3 bucket that holds your
--- data file. The IAM role must have read and write permissions to both
--- input and output S3 buckets.
+-- data file.
+--
+-- The IAM role must have read permissions to your input S3 bucket and
+-- write permissions to your output S3 bucket. For more information about
+-- bucket permissions, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-policies-s3.html User policy examples>
+-- in the /Amazon S3 User Guide/.
 newCreateBatchImportJob ::
   -- | 'jobId'
   Prelude.Text ->
@@ -141,8 +152,13 @@ createBatchImportJob_eventTypeName :: Lens.Lens' CreateBatchImportJob Prelude.Te
 createBatchImportJob_eventTypeName = Lens.lens (\CreateBatchImportJob' {eventTypeName} -> eventTypeName) (\s@CreateBatchImportJob' {} a -> s {eventTypeName = a} :: CreateBatchImportJob)
 
 -- | The ARN of the IAM role created for Amazon S3 bucket that holds your
--- data file. The IAM role must have read and write permissions to both
--- input and output S3 buckets.
+-- data file.
+--
+-- The IAM role must have read permissions to your input S3 bucket and
+-- write permissions to your output S3 bucket. For more information about
+-- bucket permissions, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-policies-s3.html User policy examples>
+-- in the /Amazon S3 User Guide/.
 createBatchImportJob_iamRoleArn :: Lens.Lens' CreateBatchImportJob Prelude.Text
 createBatchImportJob_iamRoleArn = Lens.lens (\CreateBatchImportJob' {iamRoleArn} -> iamRoleArn) (\s@CreateBatchImportJob' {} a -> s {iamRoleArn = a} :: CreateBatchImportJob)
 
@@ -150,7 +166,8 @@ instance Core.AWSRequest CreateBatchImportJob where
   type
     AWSResponse CreateBatchImportJob =
       CreateBatchImportJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -176,38 +193,38 @@ instance Prelude.NFData CreateBatchImportJob where
       `Prelude.seq` Prelude.rnf eventTypeName
       `Prelude.seq` Prelude.rnf iamRoleArn
 
-instance Core.ToHeaders CreateBatchImportJob where
+instance Data.ToHeaders CreateBatchImportJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.CreateBatchImportJob" ::
+              Data.=# ( "AWSHawksNestServiceFacade.CreateBatchImportJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateBatchImportJob where
+instance Data.ToJSON CreateBatchImportJob where
   toJSON CreateBatchImportJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("jobId" Core..= jobId),
-            Prelude.Just ("inputPath" Core..= inputPath),
-            Prelude.Just ("outputPath" Core..= outputPath),
-            Prelude.Just ("eventTypeName" Core..= eventTypeName),
-            Prelude.Just ("iamRoleArn" Core..= iamRoleArn)
+          [ ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("jobId" Data..= jobId),
+            Prelude.Just ("inputPath" Data..= inputPath),
+            Prelude.Just ("outputPath" Data..= outputPath),
+            Prelude.Just ("eventTypeName" Data..= eventTypeName),
+            Prelude.Just ("iamRoleArn" Data..= iamRoleArn)
           ]
       )
 
-instance Core.ToPath CreateBatchImportJob where
+instance Data.ToPath CreateBatchImportJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateBatchImportJob where
+instance Data.ToQuery CreateBatchImportJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateBatchImportJobResponse' smart constructor.

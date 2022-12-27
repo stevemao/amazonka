@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.UpdateConfigurationSetReputationMetricsEnabled
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.SES.UpdateConfigurationSetReputationMetricsEnabled
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -109,7 +110,8 @@ instance
     AWSResponse
       UpdateConfigurationSetReputationMetricsEnabled =
       UpdateConfigurationSetReputationMetricsEnabledResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       UpdateConfigurationSetReputationMetricsEnabledResponse'
@@ -134,32 +136,32 @@ instance
         `Prelude.seq` Prelude.rnf enabled
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateConfigurationSetReputationMetricsEnabled
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     UpdateConfigurationSetReputationMetricsEnabled
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     UpdateConfigurationSetReputationMetricsEnabled
   where
   toQuery
     UpdateConfigurationSetReputationMetricsEnabled' {..} =
       Prelude.mconcat
         [ "Action"
-            Core.=: ( "UpdateConfigurationSetReputationMetricsEnabled" ::
+            Data.=: ( "UpdateConfigurationSetReputationMetricsEnabled" ::
                         Prelude.ByteString
                     ),
           "Version"
-            Core.=: ("2010-12-01" :: Prelude.ByteString),
-          "ConfigurationSetName" Core.=: configurationSetName,
-          "Enabled" Core.=: enabled
+            Data.=: ("2010-12-01" :: Prelude.ByteString),
+          "ConfigurationSetName" Data.=: configurationSetName,
+          "Enabled" Data.=: enabled
         ]
 
 -- | /See:/ 'newUpdateConfigurationSetReputationMetricsEnabledResponse' smart constructor.

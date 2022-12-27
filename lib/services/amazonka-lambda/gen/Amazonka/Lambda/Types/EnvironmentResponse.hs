@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.Types.EnvironmentResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,21 @@
 module Amazonka.Lambda.Types.EnvironmentResponse where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types.EnvironmentError
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The results of an operation to update or read environment variables. If
--- the operation is successful, the response contains the environment
--- variables. If it failed, the response contains details about the error.
+-- the operation succeeds, the response contains the environment variables.
+-- If it fails, the response contains details about the error.
 --
 -- /See:/ 'newEnvironmentResponse' smart constructor.
 data EnvironmentResponse = EnvironmentResponse'
-  { -- | Environment variable key-value pairs.
-    variables :: Prelude.Maybe (Core.Sensitive (Prelude.HashMap Prelude.Text (Core.Sensitive Prelude.Text))),
-    -- | Error messages for environment variables that couldn\'t be applied.
-    error :: Prelude.Maybe EnvironmentError
+  { -- | Error messages for environment variables that couldn\'t be applied.
+    error :: Prelude.Maybe EnvironmentError,
+    -- | Environment variable key-value pairs. Omitted from CloudTrail logs.
+    variables :: Prelude.Maybe (Data.Sensitive (Prelude.HashMap Prelude.Text (Data.Sensitive Prelude.Text)))
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -45,41 +46,41 @@ data EnvironmentResponse = EnvironmentResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'variables', 'environmentResponse_variables' - Environment variable key-value pairs.
---
 -- 'error', 'environmentResponse_error' - Error messages for environment variables that couldn\'t be applied.
+--
+-- 'variables', 'environmentResponse_variables' - Environment variable key-value pairs. Omitted from CloudTrail logs.
 newEnvironmentResponse ::
   EnvironmentResponse
 newEnvironmentResponse =
   EnvironmentResponse'
-    { variables = Prelude.Nothing,
-      error = Prelude.Nothing
+    { error = Prelude.Nothing,
+      variables = Prelude.Nothing
     }
-
--- | Environment variable key-value pairs.
-environmentResponse_variables :: Lens.Lens' EnvironmentResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
-environmentResponse_variables = Lens.lens (\EnvironmentResponse' {variables} -> variables) (\s@EnvironmentResponse' {} a -> s {variables = a} :: EnvironmentResponse) Prelude.. Lens.mapping (Core._Sensitive Prelude.. Lens.coerced)
 
 -- | Error messages for environment variables that couldn\'t be applied.
 environmentResponse_error :: Lens.Lens' EnvironmentResponse (Prelude.Maybe EnvironmentError)
 environmentResponse_error = Lens.lens (\EnvironmentResponse' {error} -> error) (\s@EnvironmentResponse' {} a -> s {error = a} :: EnvironmentResponse)
 
-instance Core.FromJSON EnvironmentResponse where
+-- | Environment variable key-value pairs. Omitted from CloudTrail logs.
+environmentResponse_variables :: Lens.Lens' EnvironmentResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+environmentResponse_variables = Lens.lens (\EnvironmentResponse' {variables} -> variables) (\s@EnvironmentResponse' {} a -> s {variables = a} :: EnvironmentResponse) Prelude.. Lens.mapping (Data._Sensitive Prelude.. Lens.coerced)
+
+instance Data.FromJSON EnvironmentResponse where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EnvironmentResponse"
       ( \x ->
           EnvironmentResponse'
-            Prelude.<$> (x Core..:? "Variables" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Error")
+            Prelude.<$> (x Data..:? "Error")
+            Prelude.<*> (x Data..:? "Variables" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable EnvironmentResponse where
   hashWithSalt _salt EnvironmentResponse' {..} =
-    _salt `Prelude.hashWithSalt` variables
-      `Prelude.hashWithSalt` error
+    _salt `Prelude.hashWithSalt` error
+      `Prelude.hashWithSalt` variables
 
 instance Prelude.NFData EnvironmentResponse where
   rnf EnvironmentResponse' {..} =
-    Prelude.rnf variables
-      `Prelude.seq` Prelude.rnf error
+    Prelude.rnf error
+      `Prelude.seq` Prelude.rnf variables

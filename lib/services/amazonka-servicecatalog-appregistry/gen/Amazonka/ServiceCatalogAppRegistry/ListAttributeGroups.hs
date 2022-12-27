@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalogAppRegistry.ListAttributeGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.ServiceCatalogAppRegistry.ListAttributeGroups
     newListAttributeGroups,
 
     -- * Request Lenses
-    listAttributeGroups_nextToken,
     listAttributeGroups_maxResults,
+    listAttributeGroups_nextToken,
 
     -- * Destructuring the Response
     ListAttributeGroupsResponse (..),
@@ -45,7 +45,8 @@ module Amazonka.ServiceCatalogAppRegistry.ListAttributeGroups
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,12 +54,12 @@ import Amazonka.ServiceCatalogAppRegistry.Types
 
 -- | /See:/ 'newListAttributeGroups' smart constructor.
 data ListAttributeGroups = ListAttributeGroups'
-  { -- | The token to use to get the next page of results after a previous API
-    -- call.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The upper bound of the number of results to return (cannot exceed 25).
+  { -- | The upper bound of the number of results to return (cannot exceed 25).
     -- If this parameter is omitted, it defaults to 25. This value is optional.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to use to get the next page of results after a previous API
+    -- call.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -70,28 +71,28 @@ data ListAttributeGroups = ListAttributeGroups'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listAttributeGroups_nextToken' - The token to use to get the next page of results after a previous API
--- call.
---
 -- 'maxResults', 'listAttributeGroups_maxResults' - The upper bound of the number of results to return (cannot exceed 25).
 -- If this parameter is omitted, it defaults to 25. This value is optional.
+--
+-- 'nextToken', 'listAttributeGroups_nextToken' - The token to use to get the next page of results after a previous API
+-- call.
 newListAttributeGroups ::
   ListAttributeGroups
 newListAttributeGroups =
   ListAttributeGroups'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The token to use to get the next page of results after a previous API
--- call.
-listAttributeGroups_nextToken :: Lens.Lens' ListAttributeGroups (Prelude.Maybe Prelude.Text)
-listAttributeGroups_nextToken = Lens.lens (\ListAttributeGroups' {nextToken} -> nextToken) (\s@ListAttributeGroups' {} a -> s {nextToken = a} :: ListAttributeGroups)
 
 -- | The upper bound of the number of results to return (cannot exceed 25).
 -- If this parameter is omitted, it defaults to 25. This value is optional.
 listAttributeGroups_maxResults :: Lens.Lens' ListAttributeGroups (Prelude.Maybe Prelude.Natural)
 listAttributeGroups_maxResults = Lens.lens (\ListAttributeGroups' {maxResults} -> maxResults) (\s@ListAttributeGroups' {} a -> s {maxResults = a} :: ListAttributeGroups)
+
+-- | The token to use to get the next page of results after a previous API
+-- call.
+listAttributeGroups_nextToken :: Lens.Lens' ListAttributeGroups (Prelude.Maybe Prelude.Text)
+listAttributeGroups_nextToken = Lens.lens (\ListAttributeGroups' {nextToken} -> nextToken) (\s@ListAttributeGroups' {} a -> s {nextToken = a} :: ListAttributeGroups)
 
 instance Core.AWSPager ListAttributeGroups where
   page rq rs
@@ -119,47 +120,48 @@ instance Core.AWSRequest ListAttributeGroups where
   type
     AWSResponse ListAttributeGroups =
       ListAttributeGroupsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAttributeGroupsResponse'
-            Prelude.<$> ( x Core..?> "attributeGroups"
+            Prelude.<$> ( x Data..?> "attributeGroups"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListAttributeGroups where
   hashWithSalt _salt ListAttributeGroups' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListAttributeGroups where
   rnf ListAttributeGroups' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListAttributeGroups where
+instance Data.ToHeaders ListAttributeGroups where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListAttributeGroups where
+instance Data.ToPath ListAttributeGroups where
   toPath = Prelude.const "/attribute-groups"
 
-instance Core.ToQuery ListAttributeGroups where
+instance Data.ToQuery ListAttributeGroups where
   toQuery ListAttributeGroups' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListAttributeGroupsResponse' smart constructor.

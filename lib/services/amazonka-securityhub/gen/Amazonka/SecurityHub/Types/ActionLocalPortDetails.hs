@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.ActionLocalPortDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.ActionLocalPortDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | For @NetworkConnectionAction@ and @PortProbeDetails@, @LocalPortDetails@
@@ -29,10 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newActionLocalPortDetails' smart constructor.
 data ActionLocalPortDetails = ActionLocalPortDetails'
-  { -- | The port name of the local connection.
-    portName :: Prelude.Maybe Prelude.Text,
-    -- | The number of the port.
-    port :: Prelude.Maybe Prelude.Int
+  { -- | The number of the port.
+    port :: Prelude.Maybe Prelude.Int,
+    -- | The port name of the local connection.
+    portName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,49 +45,49 @@ data ActionLocalPortDetails = ActionLocalPortDetails'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'portName', 'actionLocalPortDetails_portName' - The port name of the local connection.
---
 -- 'port', 'actionLocalPortDetails_port' - The number of the port.
+--
+-- 'portName', 'actionLocalPortDetails_portName' - The port name of the local connection.
 newActionLocalPortDetails ::
   ActionLocalPortDetails
 newActionLocalPortDetails =
   ActionLocalPortDetails'
-    { portName = Prelude.Nothing,
-      port = Prelude.Nothing
+    { port = Prelude.Nothing,
+      portName = Prelude.Nothing
     }
-
--- | The port name of the local connection.
-actionLocalPortDetails_portName :: Lens.Lens' ActionLocalPortDetails (Prelude.Maybe Prelude.Text)
-actionLocalPortDetails_portName = Lens.lens (\ActionLocalPortDetails' {portName} -> portName) (\s@ActionLocalPortDetails' {} a -> s {portName = a} :: ActionLocalPortDetails)
 
 -- | The number of the port.
 actionLocalPortDetails_port :: Lens.Lens' ActionLocalPortDetails (Prelude.Maybe Prelude.Int)
 actionLocalPortDetails_port = Lens.lens (\ActionLocalPortDetails' {port} -> port) (\s@ActionLocalPortDetails' {} a -> s {port = a} :: ActionLocalPortDetails)
 
-instance Core.FromJSON ActionLocalPortDetails where
+-- | The port name of the local connection.
+actionLocalPortDetails_portName :: Lens.Lens' ActionLocalPortDetails (Prelude.Maybe Prelude.Text)
+actionLocalPortDetails_portName = Lens.lens (\ActionLocalPortDetails' {portName} -> portName) (\s@ActionLocalPortDetails' {} a -> s {portName = a} :: ActionLocalPortDetails)
+
+instance Data.FromJSON ActionLocalPortDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ActionLocalPortDetails"
       ( \x ->
           ActionLocalPortDetails'
-            Prelude.<$> (x Core..:? "PortName")
-            Prelude.<*> (x Core..:? "Port")
+            Prelude.<$> (x Data..:? "Port")
+            Prelude.<*> (x Data..:? "PortName")
       )
 
 instance Prelude.Hashable ActionLocalPortDetails where
   hashWithSalt _salt ActionLocalPortDetails' {..} =
-    _salt `Prelude.hashWithSalt` portName
-      `Prelude.hashWithSalt` port
+    _salt `Prelude.hashWithSalt` port
+      `Prelude.hashWithSalt` portName
 
 instance Prelude.NFData ActionLocalPortDetails where
   rnf ActionLocalPortDetails' {..} =
-    Prelude.rnf portName `Prelude.seq` Prelude.rnf port
+    Prelude.rnf port `Prelude.seq` Prelude.rnf portName
 
-instance Core.ToJSON ActionLocalPortDetails where
+instance Data.ToJSON ActionLocalPortDetails where
   toJSON ActionLocalPortDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PortName" Core..=) Prelude.<$> portName,
-            ("Port" Core..=) Prelude.<$> port
+          [ ("Port" Data..=) Prelude.<$> port,
+            ("PortName" Data..=) Prelude.<$> portName
           ]
       )

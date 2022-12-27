@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetDocumentationPart
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- -- | Undocumented operation.
+-- Gets a documentation part.
 module Amazonka.APIGateway.GetDocumentationPart
   ( -- * Creating a Request
     GetDocumentationPart (..),
@@ -35,15 +35,16 @@ module Amazonka.APIGateway.GetDocumentationPart
     newDocumentationPart,
 
     -- * Response Lenses
-    documentationPart_location,
     documentationPart_id,
+    documentationPart_location,
     documentationPart_properties,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,9 +53,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newGetDocumentationPart' smart constructor.
 data GetDocumentationPart = GetDocumentationPart'
-  { -- | [Required] The string identifier of the associated RestApi.
+  { -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] The string identifier of the associated RestApi.
+    -- | The string identifier of the associated RestApi.
     documentationPartId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -67,9 +68,9 @@ data GetDocumentationPart = GetDocumentationPart'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'restApiId', 'getDocumentationPart_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'getDocumentationPart_restApiId' - The string identifier of the associated RestApi.
 --
--- 'documentationPartId', 'getDocumentationPart_documentationPartId' - [Required] The string identifier of the associated RestApi.
+-- 'documentationPartId', 'getDocumentationPart_documentationPartId' - The string identifier of the associated RestApi.
 newGetDocumentationPart ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -84,11 +85,11 @@ newGetDocumentationPart
         documentationPartId = pDocumentationPartId_
       }
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 getDocumentationPart_restApiId :: Lens.Lens' GetDocumentationPart Prelude.Text
 getDocumentationPart_restApiId = Lens.lens (\GetDocumentationPart' {restApiId} -> restApiId) (\s@GetDocumentationPart' {} a -> s {restApiId = a} :: GetDocumentationPart)
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 getDocumentationPart_documentationPartId :: Lens.Lens' GetDocumentationPart Prelude.Text
 getDocumentationPart_documentationPartId = Lens.lens (\GetDocumentationPart' {documentationPartId} -> documentationPartId) (\s@GetDocumentationPart' {} a -> s {documentationPartId = a} :: GetDocumentationPart)
 
@@ -96,10 +97,11 @@ instance Core.AWSRequest GetDocumentationPart where
   type
     AWSResponse GetDocumentationPart =
       DocumentationPart
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetDocumentationPart where
   hashWithSalt _salt GetDocumentationPart' {..} =
@@ -111,23 +113,23 @@ instance Prelude.NFData GetDocumentationPart where
     Prelude.rnf restApiId
       `Prelude.seq` Prelude.rnf documentationPartId
 
-instance Core.ToHeaders GetDocumentationPart where
+instance Data.ToHeaders GetDocumentationPart where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetDocumentationPart where
+instance Data.ToPath GetDocumentationPart where
   toPath GetDocumentationPart' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/documentation/parts/",
-        Core.toBS documentationPartId
+        Data.toBS documentationPartId
       ]
 
-instance Core.ToQuery GetDocumentationPart where
+instance Data.ToQuery GetDocumentationPart where
   toQuery = Prelude.const Prelude.mempty

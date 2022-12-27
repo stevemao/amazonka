@@ -14,13 +14,17 @@
 
 -- |
 -- Module      : Amazonka.MemoryDb.FailoverShard
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Used to failover a shard
+-- Used to failover a shard. This API is designed for testing the behavior
+-- of your application in case of MemoryDB failover. It is not designed to
+-- be used as a production-level tool for initiating a failover to overcome
+-- a problem you may have with the cluster. Moreover, in certain conditions
+-- such as large scale operational events, Amazon may block this API.
 module Amazonka.MemoryDb.FailoverShard
   ( -- * Creating a Request
     FailoverShard (..),
@@ -41,7 +45,8 @@ module Amazonka.MemoryDb.FailoverShard
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MemoryDb.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -91,12 +96,13 @@ instance Core.AWSRequest FailoverShard where
   type
     AWSResponse FailoverShard =
       FailoverShardResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           FailoverShardResponse'
-            Prelude.<$> (x Core..?> "Cluster")
+            Prelude.<$> (x Data..?> "Cluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -110,34 +116,34 @@ instance Prelude.NFData FailoverShard where
     Prelude.rnf clusterName
       `Prelude.seq` Prelude.rnf shardName
 
-instance Core.ToHeaders FailoverShard where
+instance Data.ToHeaders FailoverShard where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonMemoryDB.FailoverShard" ::
+              Data.=# ( "AmazonMemoryDB.FailoverShard" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON FailoverShard where
+instance Data.ToJSON FailoverShard where
   toJSON FailoverShard' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ClusterName" Core..= clusterName),
-            Prelude.Just ("ShardName" Core..= shardName)
+          [ Prelude.Just ("ClusterName" Data..= clusterName),
+            Prelude.Just ("ShardName" Data..= shardName)
           ]
       )
 
-instance Core.ToPath FailoverShard where
+instance Data.ToPath FailoverShard where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery FailoverShard where
+instance Data.ToQuery FailoverShard where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newFailoverShardResponse' smart constructor.

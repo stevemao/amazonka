@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LakeFormation.Types.LFTagPair
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.LakeFormation.Types.LFTagPair where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | A structure containing a tag key-value pair.
+-- | A structure containing an LF-tag key-value pair.
 --
 -- /See:/ 'newLFTagPair' smart constructor.
 data LFTagPair = LFTagPair'
   { -- | The identifier for the Data Catalog. By default, the account ID. The
     -- Data Catalog is the persistent metadata store. It contains database
     -- definitions, table definitions, and other control information to manage
-    -- your AWS Lake Formation environment.
+    -- your Lake Formation environment.
     catalogId :: Prelude.Maybe Prelude.Text,
-    -- | The key-name for the tag.
+    -- | The key-name for the LF-tag.
     tagKey :: Prelude.Text,
     -- | A list of possible values an attribute can take.
     tagValues :: Prelude.NonEmpty Prelude.Text
@@ -50,9 +51,9 @@ data LFTagPair = LFTagPair'
 -- 'catalogId', 'lFTagPair_catalogId' - The identifier for the Data Catalog. By default, the account ID. The
 -- Data Catalog is the persistent metadata store. It contains database
 -- definitions, table definitions, and other control information to manage
--- your AWS Lake Formation environment.
+-- your Lake Formation environment.
 --
--- 'tagKey', 'lFTagPair_tagKey' - The key-name for the tag.
+-- 'tagKey', 'lFTagPair_tagKey' - The key-name for the LF-tag.
 --
 -- 'tagValues', 'lFTagPair_tagValues' - A list of possible values an attribute can take.
 newLFTagPair ::
@@ -71,11 +72,11 @@ newLFTagPair pTagKey_ pTagValues_ =
 -- | The identifier for the Data Catalog. By default, the account ID. The
 -- Data Catalog is the persistent metadata store. It contains database
 -- definitions, table definitions, and other control information to manage
--- your AWS Lake Formation environment.
+-- your Lake Formation environment.
 lFTagPair_catalogId :: Lens.Lens' LFTagPair (Prelude.Maybe Prelude.Text)
 lFTagPair_catalogId = Lens.lens (\LFTagPair' {catalogId} -> catalogId) (\s@LFTagPair' {} a -> s {catalogId = a} :: LFTagPair)
 
--- | The key-name for the tag.
+-- | The key-name for the LF-tag.
 lFTagPair_tagKey :: Lens.Lens' LFTagPair Prelude.Text
 lFTagPair_tagKey = Lens.lens (\LFTagPair' {tagKey} -> tagKey) (\s@LFTagPair' {} a -> s {tagKey = a} :: LFTagPair)
 
@@ -83,15 +84,15 @@ lFTagPair_tagKey = Lens.lens (\LFTagPair' {tagKey} -> tagKey) (\s@LFTagPair' {} 
 lFTagPair_tagValues :: Lens.Lens' LFTagPair (Prelude.NonEmpty Prelude.Text)
 lFTagPair_tagValues = Lens.lens (\LFTagPair' {tagValues} -> tagValues) (\s@LFTagPair' {} a -> s {tagValues = a} :: LFTagPair) Prelude.. Lens.coerced
 
-instance Core.FromJSON LFTagPair where
+instance Data.FromJSON LFTagPair where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LFTagPair"
       ( \x ->
           LFTagPair'
-            Prelude.<$> (x Core..:? "CatalogId")
-            Prelude.<*> (x Core..: "TagKey")
-            Prelude.<*> (x Core..: "TagValues")
+            Prelude.<$> (x Data..:? "CatalogId")
+            Prelude.<*> (x Data..: "TagKey")
+            Prelude.<*> (x Data..: "TagValues")
       )
 
 instance Prelude.Hashable LFTagPair where
@@ -106,12 +107,12 @@ instance Prelude.NFData LFTagPair where
       `Prelude.seq` Prelude.rnf tagKey
       `Prelude.seq` Prelude.rnf tagValues
 
-instance Core.ToJSON LFTagPair where
+instance Data.ToJSON LFTagPair where
   toJSON LFTagPair' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            Prelude.Just ("TagKey" Core..= tagKey),
-            Prelude.Just ("TagValues" Core..= tagValues)
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            Prelude.Just ("TagKey" Data..= tagKey),
+            Prelude.Just ("TagValues" Data..= tagValues)
           ]
       )

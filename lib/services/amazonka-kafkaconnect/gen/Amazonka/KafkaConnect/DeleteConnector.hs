@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.DeleteConnector
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.KafkaConnect.DeleteConnector
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KafkaConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,13 +91,14 @@ instance Core.AWSRequest DeleteConnector where
   type
     AWSResponse DeleteConnector =
       DeleteConnectorResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteConnectorResponse'
-            Prelude.<$> (x Core..?> "connectorArn")
-            Prelude.<*> (x Core..?> "connectorState")
+            Prelude.<$> (x Data..?> "connectorArn")
+            Prelude.<*> (x Data..?> "connectorState")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -110,26 +112,26 @@ instance Prelude.NFData DeleteConnector where
     Prelude.rnf currentVersion
       `Prelude.seq` Prelude.rnf connectorArn
 
-instance Core.ToHeaders DeleteConnector where
+instance Data.ToHeaders DeleteConnector where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteConnector where
+instance Data.ToPath DeleteConnector where
   toPath DeleteConnector' {..} =
     Prelude.mconcat
-      ["/v1/connectors/", Core.toBS connectorArn]
+      ["/v1/connectors/", Data.toBS connectorArn]
 
-instance Core.ToQuery DeleteConnector where
+instance Data.ToQuery DeleteConnector where
   toQuery DeleteConnector' {..} =
     Prelude.mconcat
-      ["currentVersion" Core.=: currentVersion]
+      ["currentVersion" Data.=: currentVersion]
 
 -- | /See:/ 'newDeleteConnectorResponse' smart constructor.
 data DeleteConnectorResponse = DeleteConnectorResponse'

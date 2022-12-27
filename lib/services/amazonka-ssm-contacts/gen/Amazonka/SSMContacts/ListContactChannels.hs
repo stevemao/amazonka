@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSMContacts.ListContactChannels
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.SSMContacts.ListContactChannels
     newListContactChannels,
 
     -- * Request Lenses
-    listContactChannels_nextToken,
     listContactChannels_maxResults,
+    listContactChannels_nextToken,
     listContactChannels_contactId,
 
     -- * Destructuring the Response
@@ -45,7 +45,8 @@ module Amazonka.SSMContacts.ListContactChannels
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,10 +54,10 @@ import Amazonka.SSMContacts.Types
 
 -- | /See:/ 'newListContactChannels' smart constructor.
 data ListContactChannels = ListContactChannels'
-  { -- | The pagination token to continue to the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of contact channels per page.
+  { -- | The maximum number of contact channels per page.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token to continue to the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the contact.
     contactId :: Prelude.Text
   }
@@ -70,9 +71,9 @@ data ListContactChannels = ListContactChannels'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listContactChannels_nextToken' - The pagination token to continue to the next page of results.
---
 -- 'maxResults', 'listContactChannels_maxResults' - The maximum number of contact channels per page.
+--
+-- 'nextToken', 'listContactChannels_nextToken' - The pagination token to continue to the next page of results.
 --
 -- 'contactId', 'listContactChannels_contactId' - The Amazon Resource Name (ARN) of the contact.
 newListContactChannels ::
@@ -81,18 +82,18 @@ newListContactChannels ::
   ListContactChannels
 newListContactChannels pContactId_ =
   ListContactChannels'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       contactId = pContactId_
     }
-
--- | The pagination token to continue to the next page of results.
-listContactChannels_nextToken :: Lens.Lens' ListContactChannels (Prelude.Maybe Prelude.Text)
-listContactChannels_nextToken = Lens.lens (\ListContactChannels' {nextToken} -> nextToken) (\s@ListContactChannels' {} a -> s {nextToken = a} :: ListContactChannels)
 
 -- | The maximum number of contact channels per page.
 listContactChannels_maxResults :: Lens.Lens' ListContactChannels (Prelude.Maybe Prelude.Natural)
 listContactChannels_maxResults = Lens.lens (\ListContactChannels' {maxResults} -> maxResults) (\s@ListContactChannels' {} a -> s {maxResults = a} :: ListContactChannels)
+
+-- | The pagination token to continue to the next page of results.
+listContactChannels_nextToken :: Lens.Lens' ListContactChannels (Prelude.Maybe Prelude.Text)
+listContactChannels_nextToken = Lens.lens (\ListContactChannels' {nextToken} -> nextToken) (\s@ListContactChannels' {} a -> s {nextToken = a} :: ListContactChannels)
 
 -- | The Amazon Resource Name (ARN) of the contact.
 listContactChannels_contactId :: Lens.Lens' ListContactChannels Prelude.Text
@@ -123,59 +124,60 @@ instance Core.AWSRequest ListContactChannels where
   type
     AWSResponse ListContactChannels =
       ListContactChannelsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListContactChannelsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "ContactChannels"
+            Prelude.<*> ( x Data..?> "ContactChannels"
                             Core..!@ Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable ListContactChannels where
   hashWithSalt _salt ListContactChannels' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` contactId
 
 instance Prelude.NFData ListContactChannels where
   rnf ListContactChannels' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf contactId
 
-instance Core.ToHeaders ListContactChannels where
+instance Data.ToHeaders ListContactChannels where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SSMContacts.ListContactChannels" ::
+              Data.=# ( "SSMContacts.ListContactChannels" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListContactChannels where
+instance Data.ToJSON ListContactChannels where
   toJSON ListContactChannels' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("ContactId" Core..= contactId)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("ContactId" Data..= contactId)
           ]
       )
 
-instance Core.ToPath ListContactChannels where
+instance Data.ToPath ListContactChannels where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListContactChannels where
+instance Data.ToQuery ListContactChannels where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListContactChannelsResponse' smart constructor.

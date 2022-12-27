@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Signer.GetSigningProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,26 +35,27 @@ module Amazonka.Signer.GetSigningProfile
     newGetSigningProfileResponse,
 
     -- * Response Lenses
-    getSigningProfileResponse_status,
+    getSigningProfileResponse_arn,
     getSigningProfileResponse_overrides,
     getSigningProfileResponse_platformDisplayName,
-    getSigningProfileResponse_arn,
-    getSigningProfileResponse_signingMaterial,
-    getSigningProfileResponse_profileVersion,
-    getSigningProfileResponse_profileName,
-    getSigningProfileResponse_profileVersionArn,
     getSigningProfileResponse_platformId,
+    getSigningProfileResponse_profileName,
+    getSigningProfileResponse_profileVersion,
+    getSigningProfileResponse_profileVersionArn,
     getSigningProfileResponse_revocationRecord,
-    getSigningProfileResponse_statusReason,
     getSigningProfileResponse_signatureValidityPeriod,
+    getSigningProfileResponse_signingMaterial,
     getSigningProfileResponse_signingParameters,
+    getSigningProfileResponse_status,
+    getSigningProfileResponse_statusReason,
     getSigningProfileResponse_tags,
     getSigningProfileResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,27 +103,28 @@ instance Core.AWSRequest GetSigningProfile where
   type
     AWSResponse GetSigningProfile =
       GetSigningProfileResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSigningProfileResponse'
-            Prelude.<$> (x Core..?> "status")
-            Prelude.<*> (x Core..?> "overrides")
-            Prelude.<*> (x Core..?> "platformDisplayName")
-            Prelude.<*> (x Core..?> "arn")
-            Prelude.<*> (x Core..?> "signingMaterial")
-            Prelude.<*> (x Core..?> "profileVersion")
-            Prelude.<*> (x Core..?> "profileName")
-            Prelude.<*> (x Core..?> "profileVersionArn")
-            Prelude.<*> (x Core..?> "platformId")
-            Prelude.<*> (x Core..?> "revocationRecord")
-            Prelude.<*> (x Core..?> "statusReason")
-            Prelude.<*> (x Core..?> "signatureValidityPeriod")
-            Prelude.<*> ( x Core..?> "signingParameters"
+            Prelude.<$> (x Data..?> "arn")
+            Prelude.<*> (x Data..?> "overrides")
+            Prelude.<*> (x Data..?> "platformDisplayName")
+            Prelude.<*> (x Data..?> "platformId")
+            Prelude.<*> (x Data..?> "profileName")
+            Prelude.<*> (x Data..?> "profileVersion")
+            Prelude.<*> (x Data..?> "profileVersionArn")
+            Prelude.<*> (x Data..?> "revocationRecord")
+            Prelude.<*> (x Data..?> "signatureValidityPeriod")
+            Prelude.<*> (x Data..?> "signingMaterial")
+            Prelude.<*> ( x Data..?> "signingParameters"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "status")
+            Prelude.<*> (x Data..?> "statusReason")
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -136,57 +138,57 @@ instance Prelude.NFData GetSigningProfile where
     Prelude.rnf profileOwner
       `Prelude.seq` Prelude.rnf profileName
 
-instance Core.ToHeaders GetSigningProfile where
+instance Data.ToHeaders GetSigningProfile where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetSigningProfile where
+instance Data.ToPath GetSigningProfile where
   toPath GetSigningProfile' {..} =
     Prelude.mconcat
-      ["/signing-profiles/", Core.toBS profileName]
+      ["/signing-profiles/", Data.toBS profileName]
 
-instance Core.ToQuery GetSigningProfile where
+instance Data.ToQuery GetSigningProfile where
   toQuery GetSigningProfile' {..} =
     Prelude.mconcat
-      ["profileOwner" Core.=: profileOwner]
+      ["profileOwner" Data.=: profileOwner]
 
 -- | /See:/ 'newGetSigningProfileResponse' smart constructor.
 data GetSigningProfileResponse = GetSigningProfileResponse'
-  { -- | The status of the target signing profile.
-    status :: Prelude.Maybe SigningProfileStatus,
+  { -- | The Amazon Resource Name (ARN) for the signing profile.
+    arn :: Prelude.Maybe Prelude.Text,
     -- | A list of overrides applied by the target signing profile for signing
     -- operations.
     overrides :: Prelude.Maybe SigningPlatformOverrides,
     -- | A human-readable name for the signing platform associated with the
     -- signing profile.
     platformDisplayName :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) for the signing profile.
-    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the platform that is used by the target signing profile.
+    platformId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the target signing profile.
+    profileName :: Prelude.Maybe Prelude.Text,
+    -- | The current version of the signing profile.
+    profileVersion :: Prelude.Maybe Prelude.Text,
+    -- | The signing profile ARN, including the profile version.
+    profileVersionArn :: Prelude.Maybe Prelude.Text,
+    revocationRecord :: Prelude.Maybe SigningProfileRevocationRecord,
+    signatureValidityPeriod :: Prelude.Maybe SignatureValidityPeriod,
     -- | The ARN of the certificate that the target profile uses for signing
     -- operations.
     signingMaterial :: Prelude.Maybe SigningMaterial,
-    -- | The current version of the signing profile.
-    profileVersion :: Prelude.Maybe Prelude.Text,
-    -- | The name of the target signing profile.
-    profileName :: Prelude.Maybe Prelude.Text,
-    -- | The signing profile ARN, including the profile version.
-    profileVersionArn :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the platform that is used by the target signing profile.
-    platformId :: Prelude.Maybe Prelude.Text,
-    revocationRecord :: Prelude.Maybe SigningProfileRevocationRecord,
-    -- | Reason for the status of the target signing profile.
-    statusReason :: Prelude.Maybe Prelude.Text,
-    signatureValidityPeriod :: Prelude.Maybe SignatureValidityPeriod,
     -- | A map of key-value pairs for signing operations that is attached to the
     -- target signing profile.
     signingParameters :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | The status of the target signing profile.
+    status :: Prelude.Maybe SigningProfileStatus,
+    -- | Reason for the status of the target signing profile.
+    statusReason :: Prelude.Maybe Prelude.Text,
     -- | A list of tags associated with the signing profile.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The response's http status code.
@@ -202,7 +204,7 @@ data GetSigningProfileResponse = GetSigningProfileResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'getSigningProfileResponse_status' - The status of the target signing profile.
+-- 'arn', 'getSigningProfileResponse_arn' - The Amazon Resource Name (ARN) for the signing profile.
 --
 -- 'overrides', 'getSigningProfileResponse_overrides' - A list of overrides applied by the target signing profile for signing
 -- operations.
@@ -210,27 +212,27 @@ data GetSigningProfileResponse = GetSigningProfileResponse'
 -- 'platformDisplayName', 'getSigningProfileResponse_platformDisplayName' - A human-readable name for the signing platform associated with the
 -- signing profile.
 --
--- 'arn', 'getSigningProfileResponse_arn' - The Amazon Resource Name (ARN) for the signing profile.
+-- 'platformId', 'getSigningProfileResponse_platformId' - The ID of the platform that is used by the target signing profile.
+--
+-- 'profileName', 'getSigningProfileResponse_profileName' - The name of the target signing profile.
+--
+-- 'profileVersion', 'getSigningProfileResponse_profileVersion' - The current version of the signing profile.
+--
+-- 'profileVersionArn', 'getSigningProfileResponse_profileVersionArn' - The signing profile ARN, including the profile version.
+--
+-- 'revocationRecord', 'getSigningProfileResponse_revocationRecord' - Undocumented member.
+--
+-- 'signatureValidityPeriod', 'getSigningProfileResponse_signatureValidityPeriod' - Undocumented member.
 --
 -- 'signingMaterial', 'getSigningProfileResponse_signingMaterial' - The ARN of the certificate that the target profile uses for signing
 -- operations.
 --
--- 'profileVersion', 'getSigningProfileResponse_profileVersion' - The current version of the signing profile.
---
--- 'profileName', 'getSigningProfileResponse_profileName' - The name of the target signing profile.
---
--- 'profileVersionArn', 'getSigningProfileResponse_profileVersionArn' - The signing profile ARN, including the profile version.
---
--- 'platformId', 'getSigningProfileResponse_platformId' - The ID of the platform that is used by the target signing profile.
---
--- 'revocationRecord', 'getSigningProfileResponse_revocationRecord' - Undocumented member.
---
--- 'statusReason', 'getSigningProfileResponse_statusReason' - Reason for the status of the target signing profile.
---
--- 'signatureValidityPeriod', 'getSigningProfileResponse_signatureValidityPeriod' - Undocumented member.
---
 -- 'signingParameters', 'getSigningProfileResponse_signingParameters' - A map of key-value pairs for signing operations that is attached to the
 -- target signing profile.
+--
+-- 'status', 'getSigningProfileResponse_status' - The status of the target signing profile.
+--
+-- 'statusReason', 'getSigningProfileResponse_statusReason' - Reason for the status of the target signing profile.
 --
 -- 'tags', 'getSigningProfileResponse_tags' - A list of tags associated with the signing profile.
 --
@@ -241,27 +243,26 @@ newGetSigningProfileResponse ::
   GetSigningProfileResponse
 newGetSigningProfileResponse pHttpStatus_ =
   GetSigningProfileResponse'
-    { status =
-        Prelude.Nothing,
+    { arn = Prelude.Nothing,
       overrides = Prelude.Nothing,
       platformDisplayName = Prelude.Nothing,
-      arn = Prelude.Nothing,
-      signingMaterial = Prelude.Nothing,
-      profileVersion = Prelude.Nothing,
-      profileName = Prelude.Nothing,
-      profileVersionArn = Prelude.Nothing,
       platformId = Prelude.Nothing,
+      profileName = Prelude.Nothing,
+      profileVersion = Prelude.Nothing,
+      profileVersionArn = Prelude.Nothing,
       revocationRecord = Prelude.Nothing,
-      statusReason = Prelude.Nothing,
       signatureValidityPeriod = Prelude.Nothing,
+      signingMaterial = Prelude.Nothing,
       signingParameters = Prelude.Nothing,
+      status = Prelude.Nothing,
+      statusReason = Prelude.Nothing,
       tags = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The status of the target signing profile.
-getSigningProfileResponse_status :: Lens.Lens' GetSigningProfileResponse (Prelude.Maybe SigningProfileStatus)
-getSigningProfileResponse_status = Lens.lens (\GetSigningProfileResponse' {status} -> status) (\s@GetSigningProfileResponse' {} a -> s {status = a} :: GetSigningProfileResponse)
+-- | The Amazon Resource Name (ARN) for the signing profile.
+getSigningProfileResponse_arn :: Lens.Lens' GetSigningProfileResponse (Prelude.Maybe Prelude.Text)
+getSigningProfileResponse_arn = Lens.lens (\GetSigningProfileResponse' {arn} -> arn) (\s@GetSigningProfileResponse' {} a -> s {arn = a} :: GetSigningProfileResponse)
 
 -- | A list of overrides applied by the target signing profile for signing
 -- operations.
@@ -273,47 +274,47 @@ getSigningProfileResponse_overrides = Lens.lens (\GetSigningProfileResponse' {ov
 getSigningProfileResponse_platformDisplayName :: Lens.Lens' GetSigningProfileResponse (Prelude.Maybe Prelude.Text)
 getSigningProfileResponse_platformDisplayName = Lens.lens (\GetSigningProfileResponse' {platformDisplayName} -> platformDisplayName) (\s@GetSigningProfileResponse' {} a -> s {platformDisplayName = a} :: GetSigningProfileResponse)
 
--- | The Amazon Resource Name (ARN) for the signing profile.
-getSigningProfileResponse_arn :: Lens.Lens' GetSigningProfileResponse (Prelude.Maybe Prelude.Text)
-getSigningProfileResponse_arn = Lens.lens (\GetSigningProfileResponse' {arn} -> arn) (\s@GetSigningProfileResponse' {} a -> s {arn = a} :: GetSigningProfileResponse)
+-- | The ID of the platform that is used by the target signing profile.
+getSigningProfileResponse_platformId :: Lens.Lens' GetSigningProfileResponse (Prelude.Maybe Prelude.Text)
+getSigningProfileResponse_platformId = Lens.lens (\GetSigningProfileResponse' {platformId} -> platformId) (\s@GetSigningProfileResponse' {} a -> s {platformId = a} :: GetSigningProfileResponse)
+
+-- | The name of the target signing profile.
+getSigningProfileResponse_profileName :: Lens.Lens' GetSigningProfileResponse (Prelude.Maybe Prelude.Text)
+getSigningProfileResponse_profileName = Lens.lens (\GetSigningProfileResponse' {profileName} -> profileName) (\s@GetSigningProfileResponse' {} a -> s {profileName = a} :: GetSigningProfileResponse)
+
+-- | The current version of the signing profile.
+getSigningProfileResponse_profileVersion :: Lens.Lens' GetSigningProfileResponse (Prelude.Maybe Prelude.Text)
+getSigningProfileResponse_profileVersion = Lens.lens (\GetSigningProfileResponse' {profileVersion} -> profileVersion) (\s@GetSigningProfileResponse' {} a -> s {profileVersion = a} :: GetSigningProfileResponse)
+
+-- | The signing profile ARN, including the profile version.
+getSigningProfileResponse_profileVersionArn :: Lens.Lens' GetSigningProfileResponse (Prelude.Maybe Prelude.Text)
+getSigningProfileResponse_profileVersionArn = Lens.lens (\GetSigningProfileResponse' {profileVersionArn} -> profileVersionArn) (\s@GetSigningProfileResponse' {} a -> s {profileVersionArn = a} :: GetSigningProfileResponse)
+
+-- | Undocumented member.
+getSigningProfileResponse_revocationRecord :: Lens.Lens' GetSigningProfileResponse (Prelude.Maybe SigningProfileRevocationRecord)
+getSigningProfileResponse_revocationRecord = Lens.lens (\GetSigningProfileResponse' {revocationRecord} -> revocationRecord) (\s@GetSigningProfileResponse' {} a -> s {revocationRecord = a} :: GetSigningProfileResponse)
+
+-- | Undocumented member.
+getSigningProfileResponse_signatureValidityPeriod :: Lens.Lens' GetSigningProfileResponse (Prelude.Maybe SignatureValidityPeriod)
+getSigningProfileResponse_signatureValidityPeriod = Lens.lens (\GetSigningProfileResponse' {signatureValidityPeriod} -> signatureValidityPeriod) (\s@GetSigningProfileResponse' {} a -> s {signatureValidityPeriod = a} :: GetSigningProfileResponse)
 
 -- | The ARN of the certificate that the target profile uses for signing
 -- operations.
 getSigningProfileResponse_signingMaterial :: Lens.Lens' GetSigningProfileResponse (Prelude.Maybe SigningMaterial)
 getSigningProfileResponse_signingMaterial = Lens.lens (\GetSigningProfileResponse' {signingMaterial} -> signingMaterial) (\s@GetSigningProfileResponse' {} a -> s {signingMaterial = a} :: GetSigningProfileResponse)
 
--- | The current version of the signing profile.
-getSigningProfileResponse_profileVersion :: Lens.Lens' GetSigningProfileResponse (Prelude.Maybe Prelude.Text)
-getSigningProfileResponse_profileVersion = Lens.lens (\GetSigningProfileResponse' {profileVersion} -> profileVersion) (\s@GetSigningProfileResponse' {} a -> s {profileVersion = a} :: GetSigningProfileResponse)
-
--- | The name of the target signing profile.
-getSigningProfileResponse_profileName :: Lens.Lens' GetSigningProfileResponse (Prelude.Maybe Prelude.Text)
-getSigningProfileResponse_profileName = Lens.lens (\GetSigningProfileResponse' {profileName} -> profileName) (\s@GetSigningProfileResponse' {} a -> s {profileName = a} :: GetSigningProfileResponse)
-
--- | The signing profile ARN, including the profile version.
-getSigningProfileResponse_profileVersionArn :: Lens.Lens' GetSigningProfileResponse (Prelude.Maybe Prelude.Text)
-getSigningProfileResponse_profileVersionArn = Lens.lens (\GetSigningProfileResponse' {profileVersionArn} -> profileVersionArn) (\s@GetSigningProfileResponse' {} a -> s {profileVersionArn = a} :: GetSigningProfileResponse)
-
--- | The ID of the platform that is used by the target signing profile.
-getSigningProfileResponse_platformId :: Lens.Lens' GetSigningProfileResponse (Prelude.Maybe Prelude.Text)
-getSigningProfileResponse_platformId = Lens.lens (\GetSigningProfileResponse' {platformId} -> platformId) (\s@GetSigningProfileResponse' {} a -> s {platformId = a} :: GetSigningProfileResponse)
-
--- | Undocumented member.
-getSigningProfileResponse_revocationRecord :: Lens.Lens' GetSigningProfileResponse (Prelude.Maybe SigningProfileRevocationRecord)
-getSigningProfileResponse_revocationRecord = Lens.lens (\GetSigningProfileResponse' {revocationRecord} -> revocationRecord) (\s@GetSigningProfileResponse' {} a -> s {revocationRecord = a} :: GetSigningProfileResponse)
-
--- | Reason for the status of the target signing profile.
-getSigningProfileResponse_statusReason :: Lens.Lens' GetSigningProfileResponse (Prelude.Maybe Prelude.Text)
-getSigningProfileResponse_statusReason = Lens.lens (\GetSigningProfileResponse' {statusReason} -> statusReason) (\s@GetSigningProfileResponse' {} a -> s {statusReason = a} :: GetSigningProfileResponse)
-
--- | Undocumented member.
-getSigningProfileResponse_signatureValidityPeriod :: Lens.Lens' GetSigningProfileResponse (Prelude.Maybe SignatureValidityPeriod)
-getSigningProfileResponse_signatureValidityPeriod = Lens.lens (\GetSigningProfileResponse' {signatureValidityPeriod} -> signatureValidityPeriod) (\s@GetSigningProfileResponse' {} a -> s {signatureValidityPeriod = a} :: GetSigningProfileResponse)
-
 -- | A map of key-value pairs for signing operations that is attached to the
 -- target signing profile.
 getSigningProfileResponse_signingParameters :: Lens.Lens' GetSigningProfileResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 getSigningProfileResponse_signingParameters = Lens.lens (\GetSigningProfileResponse' {signingParameters} -> signingParameters) (\s@GetSigningProfileResponse' {} a -> s {signingParameters = a} :: GetSigningProfileResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The status of the target signing profile.
+getSigningProfileResponse_status :: Lens.Lens' GetSigningProfileResponse (Prelude.Maybe SigningProfileStatus)
+getSigningProfileResponse_status = Lens.lens (\GetSigningProfileResponse' {status} -> status) (\s@GetSigningProfileResponse' {} a -> s {status = a} :: GetSigningProfileResponse)
+
+-- | Reason for the status of the target signing profile.
+getSigningProfileResponse_statusReason :: Lens.Lens' GetSigningProfileResponse (Prelude.Maybe Prelude.Text)
+getSigningProfileResponse_statusReason = Lens.lens (\GetSigningProfileResponse' {statusReason} -> statusReason) (\s@GetSigningProfileResponse' {} a -> s {statusReason = a} :: GetSigningProfileResponse)
 
 -- | A list of tags associated with the signing profile.
 getSigningProfileResponse_tags :: Lens.Lens' GetSigningProfileResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -325,18 +326,18 @@ getSigningProfileResponse_httpStatus = Lens.lens (\GetSigningProfileResponse' {h
 
 instance Prelude.NFData GetSigningProfileResponse where
   rnf GetSigningProfileResponse' {..} =
-    Prelude.rnf status
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf overrides
       `Prelude.seq` Prelude.rnf platformDisplayName
-      `Prelude.seq` Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf signingMaterial
-      `Prelude.seq` Prelude.rnf profileVersion
-      `Prelude.seq` Prelude.rnf profileName
-      `Prelude.seq` Prelude.rnf profileVersionArn
       `Prelude.seq` Prelude.rnf platformId
+      `Prelude.seq` Prelude.rnf profileName
+      `Prelude.seq` Prelude.rnf profileVersion
+      `Prelude.seq` Prelude.rnf profileVersionArn
       `Prelude.seq` Prelude.rnf revocationRecord
-      `Prelude.seq` Prelude.rnf statusReason
       `Prelude.seq` Prelude.rnf signatureValidityPeriod
+      `Prelude.seq` Prelude.rnf signingMaterial
       `Prelude.seq` Prelude.rnf signingParameters
+      `Prelude.seq` Prelude.rnf status
+      `Prelude.seq` Prelude.rnf statusReason
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.AutoScalingPolicyUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,11 @@
 module Amazonka.DynamoDB.Types.AutoScalingPolicyUpdate where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.AutoScalingTargetTrackingScalingPolicyConfigurationUpdate
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the auto scaling policy to be modified.
@@ -78,14 +80,14 @@ instance Prelude.NFData AutoScalingPolicyUpdate where
     Prelude.rnf policyName
       `Prelude.seq` Prelude.rnf targetTrackingScalingPolicyConfiguration
 
-instance Core.ToJSON AutoScalingPolicyUpdate where
+instance Data.ToJSON AutoScalingPolicyUpdate where
   toJSON AutoScalingPolicyUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PolicyName" Core..=) Prelude.<$> policyName,
+          [ ("PolicyName" Data..=) Prelude.<$> policyName,
             Prelude.Just
               ( "TargetTrackingScalingPolicyConfiguration"
-                  Core..= targetTrackingScalingPolicyConfiguration
+                  Data..= targetTrackingScalingPolicyConfiguration
               )
           ]
       )

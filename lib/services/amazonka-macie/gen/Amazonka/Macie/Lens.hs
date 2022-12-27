@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.Macie.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,44 +14,44 @@
 module Amazonka.Macie.Lens
   ( -- * Operations
 
+    -- ** AssociateMemberAccount
+    associateMemberAccount_memberAccountId,
+
     -- ** AssociateS3Resources
     associateS3Resources_memberAccountId,
     associateS3Resources_s3Resources,
     associateS3ResourcesResponse_failedS3Resources,
     associateS3ResourcesResponse_httpStatus,
 
-    -- ** AssociateMemberAccount
-    associateMemberAccount_memberAccountId,
-
-    -- ** UpdateS3Resources
-    updateS3Resources_memberAccountId,
-    updateS3Resources_s3ResourcesUpdate,
-    updateS3ResourcesResponse_failedS3Resources,
-    updateS3ResourcesResponse_httpStatus,
-
-    -- ** ListMemberAccounts
-    listMemberAccounts_nextToken,
-    listMemberAccounts_maxResults,
-    listMemberAccountsResponse_nextToken,
-    listMemberAccountsResponse_memberAccounts,
-    listMemberAccountsResponse_httpStatus,
-
     -- ** DisassociateMemberAccount
     disassociateMemberAccount_memberAccountId,
-
-    -- ** ListS3Resources
-    listS3Resources_memberAccountId,
-    listS3Resources_nextToken,
-    listS3Resources_maxResults,
-    listS3ResourcesResponse_nextToken,
-    listS3ResourcesResponse_s3Resources,
-    listS3ResourcesResponse_httpStatus,
 
     -- ** DisassociateS3Resources
     disassociateS3Resources_memberAccountId,
     disassociateS3Resources_associatedS3Resources,
     disassociateS3ResourcesResponse_failedS3Resources,
     disassociateS3ResourcesResponse_httpStatus,
+
+    -- ** ListMemberAccounts
+    listMemberAccounts_maxResults,
+    listMemberAccounts_nextToken,
+    listMemberAccountsResponse_memberAccounts,
+    listMemberAccountsResponse_nextToken,
+    listMemberAccountsResponse_httpStatus,
+
+    -- ** ListS3Resources
+    listS3Resources_maxResults,
+    listS3Resources_memberAccountId,
+    listS3Resources_nextToken,
+    listS3ResourcesResponse_nextToken,
+    listS3ResourcesResponse_s3Resources,
+    listS3ResourcesResponse_httpStatus,
+
+    -- ** UpdateS3Resources
+    updateS3Resources_memberAccountId,
+    updateS3Resources_s3ResourcesUpdate,
+    updateS3ResourcesResponse_failedS3Resources,
+    updateS3ResourcesResponse_httpStatus,
 
     -- * Types
 

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SES.Types.Content
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SES.Types.Content where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents textual data, plus an optional character set specification.
@@ -74,7 +75,7 @@ instance Prelude.NFData Content where
   rnf Content' {..} =
     Prelude.rnf charset `Prelude.seq` Prelude.rnf data'
 
-instance Core.ToQuery Content where
+instance Data.ToQuery Content where
   toQuery Content' {..} =
     Prelude.mconcat
-      ["Charset" Core.=: charset, "Data" Core.=: data']
+      ["Charset" Data.=: charset, "Data" Data.=: data']

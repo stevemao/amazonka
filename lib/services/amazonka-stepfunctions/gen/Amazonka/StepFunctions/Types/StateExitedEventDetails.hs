@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.StepFunctions.Types.StateExitedEventDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.StepFunctions.Types.StateExitedEventDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.StepFunctions.Types.HistoryEventExecutionDataDetails
 
@@ -30,7 +31,7 @@ import Amazonka.StepFunctions.Types.HistoryEventExecutionDataDetails
 data StateExitedEventDetails = StateExitedEventDetails'
   { -- | The JSON output data of the state. Length constraints apply to the
     -- payload size, and are expressed as bytes in UTF-8 encoding.
-    output :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    output :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | Contains details about the output of an execution history event.
     outputDetails :: Prelude.Maybe HistoryEventExecutionDataDetails,
     -- | The name of the state.
@@ -96,7 +97,7 @@ newStateExitedEventDetails pName_ =
 -- | The JSON output data of the state. Length constraints apply to the
 -- payload size, and are expressed as bytes in UTF-8 encoding.
 stateExitedEventDetails_output :: Lens.Lens' StateExitedEventDetails (Prelude.Maybe Prelude.Text)
-stateExitedEventDetails_output = Lens.lens (\StateExitedEventDetails' {output} -> output) (\s@StateExitedEventDetails' {} a -> s {output = a} :: StateExitedEventDetails) Prelude.. Lens.mapping Core._Sensitive
+stateExitedEventDetails_output = Lens.lens (\StateExitedEventDetails' {output} -> output) (\s@StateExitedEventDetails' {} a -> s {output = a} :: StateExitedEventDetails) Prelude.. Lens.mapping Data._Sensitive
 
 -- | Contains details about the output of an execution history event.
 stateExitedEventDetails_outputDetails :: Lens.Lens' StateExitedEventDetails (Prelude.Maybe HistoryEventExecutionDataDetails)
@@ -121,15 +122,15 @@ stateExitedEventDetails_outputDetails = Lens.lens (\StateExitedEventDetails' {ou
 stateExitedEventDetails_name :: Lens.Lens' StateExitedEventDetails Prelude.Text
 stateExitedEventDetails_name = Lens.lens (\StateExitedEventDetails' {name} -> name) (\s@StateExitedEventDetails' {} a -> s {name = a} :: StateExitedEventDetails)
 
-instance Core.FromJSON StateExitedEventDetails where
+instance Data.FromJSON StateExitedEventDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StateExitedEventDetails"
       ( \x ->
           StateExitedEventDetails'
-            Prelude.<$> (x Core..:? "output")
-            Prelude.<*> (x Core..:? "outputDetails")
-            Prelude.<*> (x Core..: "name")
+            Prelude.<$> (x Data..:? "output")
+            Prelude.<*> (x Data..:? "outputDetails")
+            Prelude.<*> (x Data..: "name")
       )
 
 instance Prelude.Hashable StateExitedEventDetails where

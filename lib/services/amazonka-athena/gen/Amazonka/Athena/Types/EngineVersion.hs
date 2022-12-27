@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Athena.Types.EngineVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,12 @@
 module Amazonka.Athena.Types.EngineVersion where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The Athena engine version for running queries.
+-- | The Athena engine version for running queries, or the PySpark engine
+-- version for running sessions.
 --
 -- /See:/ 'newEngineVersion' smart constructor.
 data EngineVersion = EngineVersion'
@@ -86,14 +88,14 @@ engineVersion_effectiveEngineVersion = Lens.lens (\EngineVersion' {effectiveEngi
 engineVersion_selectedEngineVersion :: Lens.Lens' EngineVersion (Prelude.Maybe Prelude.Text)
 engineVersion_selectedEngineVersion = Lens.lens (\EngineVersion' {selectedEngineVersion} -> selectedEngineVersion) (\s@EngineVersion' {} a -> s {selectedEngineVersion = a} :: EngineVersion)
 
-instance Core.FromJSON EngineVersion where
+instance Data.FromJSON EngineVersion where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EngineVersion"
       ( \x ->
           EngineVersion'
-            Prelude.<$> (x Core..:? "EffectiveEngineVersion")
-            Prelude.<*> (x Core..:? "SelectedEngineVersion")
+            Prelude.<$> (x Data..:? "EffectiveEngineVersion")
+            Prelude.<*> (x Data..:? "SelectedEngineVersion")
       )
 
 instance Prelude.Hashable EngineVersion where
@@ -106,13 +108,13 @@ instance Prelude.NFData EngineVersion where
     Prelude.rnf effectiveEngineVersion
       `Prelude.seq` Prelude.rnf selectedEngineVersion
 
-instance Core.ToJSON EngineVersion where
+instance Data.ToJSON EngineVersion where
   toJSON EngineVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EffectiveEngineVersion" Core..=)
+          [ ("EffectiveEngineVersion" Data..=)
               Prelude.<$> effectiveEngineVersion,
-            ("SelectedEngineVersion" Core..=)
+            ("SelectedEngineVersion" Data..=)
               Prelude.<$> selectedEngineVersion
           ]
       )

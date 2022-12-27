@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Forecast.CreateForecastExportJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,6 +48,7 @@ module Amazonka.Forecast.CreateForecastExportJob
     newCreateForecastExportJob,
 
     -- * Request Lenses
+    createForecastExportJob_format,
     createForecastExportJob_tags,
     createForecastExportJob_forecastExportJobName,
     createForecastExportJob_forecastArn,
@@ -64,15 +65,19 @@ module Amazonka.Forecast.CreateForecastExportJob
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Forecast.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateForecastExportJob' smart constructor.
 data CreateForecastExportJob = CreateForecastExportJob'
-  { -- | The optional metadata that you apply to the forecast export job to help
+  { -- | The format of the exported data, CSV or PARQUET. The default value is
+    -- CSV.
+    format :: Prelude.Maybe Prelude.Text,
+    -- | The optional metadata that you apply to the forecast export job to help
     -- you categorize and organize them. Each tag consists of a key and an
     -- optional value, both of which you define.
     --
@@ -125,6 +130,9 @@ data CreateForecastExportJob = CreateForecastExportJob'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'format', 'createForecastExportJob_format' - The format of the exported data, CSV or PARQUET. The default value is
+-- CSV.
 --
 -- 'tags', 'createForecastExportJob_tags' - The optional metadata that you apply to the forecast export job to help
 -- you categorize and organize them. Each tag consists of a key and an
@@ -181,11 +189,17 @@ newCreateForecastExportJob
   pForecastArn_
   pDestination_ =
     CreateForecastExportJob'
-      { tags = Prelude.Nothing,
+      { format = Prelude.Nothing,
+        tags = Prelude.Nothing,
         forecastExportJobName = pForecastExportJobName_,
         forecastArn = pForecastArn_,
         destination = pDestination_
       }
+
+-- | The format of the exported data, CSV or PARQUET. The default value is
+-- CSV.
+createForecastExportJob_format :: Lens.Lens' CreateForecastExportJob (Prelude.Maybe Prelude.Text)
+createForecastExportJob_format = Lens.lens (\CreateForecastExportJob' {format} -> format) (\s@CreateForecastExportJob' {} a -> s {format = a} :: CreateForecastExportJob)
 
 -- | The optional metadata that you apply to the forecast export job to help
 -- you categorize and organize them. Each tag consists of a key and an
@@ -242,62 +256,66 @@ instance Core.AWSRequest CreateForecastExportJob where
   type
     AWSResponse CreateForecastExportJob =
       CreateForecastExportJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateForecastExportJobResponse'
-            Prelude.<$> (x Core..?> "ForecastExportJobArn")
+            Prelude.<$> (x Data..?> "ForecastExportJobArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateForecastExportJob where
   hashWithSalt _salt CreateForecastExportJob' {..} =
-    _salt `Prelude.hashWithSalt` tags
+    _salt `Prelude.hashWithSalt` format
+      `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` forecastExportJobName
       `Prelude.hashWithSalt` forecastArn
       `Prelude.hashWithSalt` destination
 
 instance Prelude.NFData CreateForecastExportJob where
   rnf CreateForecastExportJob' {..} =
-    Prelude.rnf tags
+    Prelude.rnf format
+      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf forecastExportJobName
       `Prelude.seq` Prelude.rnf forecastArn
       `Prelude.seq` Prelude.rnf destination
 
-instance Core.ToHeaders CreateForecastExportJob where
+instance Data.ToHeaders CreateForecastExportJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonForecast.CreateForecastExportJob" ::
+              Data.=# ( "AmazonForecast.CreateForecastExportJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateForecastExportJob where
+instance Data.ToJSON CreateForecastExportJob where
   toJSON CreateForecastExportJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Tags" Core..=) Prelude.<$> tags,
+          [ ("Format" Data..=) Prelude.<$> format,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
               ( "ForecastExportJobName"
-                  Core..= forecastExportJobName
+                  Data..= forecastExportJobName
               ),
-            Prelude.Just ("ForecastArn" Core..= forecastArn),
-            Prelude.Just ("Destination" Core..= destination)
+            Prelude.Just ("ForecastArn" Data..= forecastArn),
+            Prelude.Just ("Destination" Data..= destination)
           ]
       )
 
-instance Core.ToPath CreateForecastExportJob where
+instance Data.ToPath CreateForecastExportJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateForecastExportJob where
+instance Data.ToQuery CreateForecastExportJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateForecastExportJobResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ImageBuilder.CreateDistributionConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,16 +39,17 @@ module Amazonka.ImageBuilder.CreateDistributionConfiguration
     newCreateDistributionConfigurationResponse,
 
     -- * Response Lenses
-    createDistributionConfigurationResponse_requestId,
     createDistributionConfigurationResponse_clientToken,
     createDistributionConfigurationResponse_distributionConfigurationArn,
+    createDistributionConfigurationResponse_requestId,
     createDistributionConfigurationResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ImageBuilder.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -130,14 +131,15 @@ instance
   type
     AWSResponse CreateDistributionConfiguration =
       CreateDistributionConfigurationResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateDistributionConfigurationResponse'
-            Prelude.<$> (x Core..?> "requestId")
-            Prelude.<*> (x Core..?> "clientToken")
-            Prelude.<*> (x Core..?> "distributionConfigurationArn")
+            Prelude.<$> (x Data..?> "clientToken")
+            Prelude.<*> (x Data..?> "distributionConfigurationArn")
+            Prelude.<*> (x Data..?> "requestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -166,47 +168,47 @@ instance
       `Prelude.seq` Prelude.rnf clientToken
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CreateDistributionConfiguration
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateDistributionConfiguration where
+instance Data.ToJSON CreateDistributionConfiguration where
   toJSON CreateDistributionConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("description" Core..=) Prelude.<$> description,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("name" Core..= name),
-            Prelude.Just ("distributions" Core..= distributions),
-            Prelude.Just ("clientToken" Core..= clientToken)
+          [ ("description" Data..=) Prelude.<$> description,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("name" Data..= name),
+            Prelude.Just ("distributions" Data..= distributions),
+            Prelude.Just ("clientToken" Data..= clientToken)
           ]
       )
 
-instance Core.ToPath CreateDistributionConfiguration where
+instance Data.ToPath CreateDistributionConfiguration where
   toPath =
     Prelude.const "/CreateDistributionConfiguration"
 
-instance Core.ToQuery CreateDistributionConfiguration where
+instance Data.ToQuery CreateDistributionConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateDistributionConfigurationResponse' smart constructor.
 data CreateDistributionConfigurationResponse = CreateDistributionConfigurationResponse'
-  { -- | The request ID that uniquely identifies this request.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The idempotency token used to make this request idempotent.
+  { -- | The idempotency token used to make this request idempotent.
     clientToken :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the distribution configuration that
     -- was created by this request.
     distributionConfigurationArn :: Prelude.Maybe Prelude.Text,
+    -- | The request ID that uniquely identifies this request.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -220,12 +222,12 @@ data CreateDistributionConfigurationResponse = CreateDistributionConfigurationRe
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'createDistributionConfigurationResponse_requestId' - The request ID that uniquely identifies this request.
---
 -- 'clientToken', 'createDistributionConfigurationResponse_clientToken' - The idempotency token used to make this request idempotent.
 --
 -- 'distributionConfigurationArn', 'createDistributionConfigurationResponse_distributionConfigurationArn' - The Amazon Resource Name (ARN) of the distribution configuration that
 -- was created by this request.
+--
+-- 'requestId', 'createDistributionConfigurationResponse_requestId' - The request ID that uniquely identifies this request.
 --
 -- 'httpStatus', 'createDistributionConfigurationResponse_httpStatus' - The response's http status code.
 newCreateDistributionConfigurationResponse ::
@@ -235,17 +237,13 @@ newCreateDistributionConfigurationResponse ::
 newCreateDistributionConfigurationResponse
   pHttpStatus_ =
     CreateDistributionConfigurationResponse'
-      { requestId =
+      { clientToken =
           Prelude.Nothing,
-        clientToken = Prelude.Nothing,
         distributionConfigurationArn =
           Prelude.Nothing,
+        requestId = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | The request ID that uniquely identifies this request.
-createDistributionConfigurationResponse_requestId :: Lens.Lens' CreateDistributionConfigurationResponse (Prelude.Maybe Prelude.Text)
-createDistributionConfigurationResponse_requestId = Lens.lens (\CreateDistributionConfigurationResponse' {requestId} -> requestId) (\s@CreateDistributionConfigurationResponse' {} a -> s {requestId = a} :: CreateDistributionConfigurationResponse)
 
 -- | The idempotency token used to make this request idempotent.
 createDistributionConfigurationResponse_clientToken :: Lens.Lens' CreateDistributionConfigurationResponse (Prelude.Maybe Prelude.Text)
@@ -256,6 +254,10 @@ createDistributionConfigurationResponse_clientToken = Lens.lens (\CreateDistribu
 createDistributionConfigurationResponse_distributionConfigurationArn :: Lens.Lens' CreateDistributionConfigurationResponse (Prelude.Maybe Prelude.Text)
 createDistributionConfigurationResponse_distributionConfigurationArn = Lens.lens (\CreateDistributionConfigurationResponse' {distributionConfigurationArn} -> distributionConfigurationArn) (\s@CreateDistributionConfigurationResponse' {} a -> s {distributionConfigurationArn = a} :: CreateDistributionConfigurationResponse)
 
+-- | The request ID that uniquely identifies this request.
+createDistributionConfigurationResponse_requestId :: Lens.Lens' CreateDistributionConfigurationResponse (Prelude.Maybe Prelude.Text)
+createDistributionConfigurationResponse_requestId = Lens.lens (\CreateDistributionConfigurationResponse' {requestId} -> requestId) (\s@CreateDistributionConfigurationResponse' {} a -> s {requestId = a} :: CreateDistributionConfigurationResponse)
+
 -- | The response's http status code.
 createDistributionConfigurationResponse_httpStatus :: Lens.Lens' CreateDistributionConfigurationResponse Prelude.Int
 createDistributionConfigurationResponse_httpStatus = Lens.lens (\CreateDistributionConfigurationResponse' {httpStatus} -> httpStatus) (\s@CreateDistributionConfigurationResponse' {} a -> s {httpStatus = a} :: CreateDistributionConfigurationResponse)
@@ -265,7 +267,7 @@ instance
     CreateDistributionConfigurationResponse
   where
   rnf CreateDistributionConfigurationResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf clientToken
+    Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf distributionConfigurationArn
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf httpStatus

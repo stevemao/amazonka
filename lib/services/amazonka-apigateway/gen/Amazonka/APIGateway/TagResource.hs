@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.TagResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -47,9 +48,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newTagResource' smart constructor.
 data TagResource = TagResource'
-  { -- | [Required] The ARN of a resource that can be tagged.
+  { -- | The ARN of a resource that can be tagged.
     resourceArn :: Prelude.Text,
-    -- | [Required] The key-value map of strings. The valid character set is
+    -- | The key-value map of strings. The valid character set is
     -- [a-zA-Z+-=._:\/]. The tag key can be up to 128 characters and must not
     -- start with @aws:@. The tag value can be up to 256 characters.
     tags :: Prelude.HashMap Prelude.Text Prelude.Text
@@ -64,9 +65,9 @@ data TagResource = TagResource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceArn', 'tagResource_resourceArn' - [Required] The ARN of a resource that can be tagged.
+-- 'resourceArn', 'tagResource_resourceArn' - The ARN of a resource that can be tagged.
 --
--- 'tags', 'tagResource_tags' - [Required] The key-value map of strings. The valid character set is
+-- 'tags', 'tagResource_tags' - The key-value map of strings. The valid character set is
 -- [a-zA-Z+-=._:\/]. The tag key can be up to 128 characters and must not
 -- start with @aws:@. The tag value can be up to 256 characters.
 newTagResource ::
@@ -79,11 +80,11 @@ newTagResource pResourceArn_ =
       tags = Prelude.mempty
     }
 
--- | [Required] The ARN of a resource that can be tagged.
+-- | The ARN of a resource that can be tagged.
 tagResource_resourceArn :: Lens.Lens' TagResource Prelude.Text
 tagResource_resourceArn = Lens.lens (\TagResource' {resourceArn} -> resourceArn) (\s@TagResource' {} a -> s {resourceArn = a} :: TagResource)
 
--- | [Required] The key-value map of strings. The valid character set is
+-- | The key-value map of strings. The valid character set is
 -- [a-zA-Z+-=._:\/]. The tag key can be up to 128 characters and must not
 -- start with @aws:@. The tag value can be up to 256 characters.
 tagResource_tags :: Lens.Lens' TagResource (Prelude.HashMap Prelude.Text Prelude.Text)
@@ -91,7 +92,8 @@ tagResource_tags = Lens.lens (\TagResource' {tags} -> tags) (\s@TagResource' {} 
 
 instance Core.AWSRequest TagResource where
   type AWSResponse TagResource = TagResourceResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response = Response.receiveNull TagResourceResponse'
 
 instance Prelude.Hashable TagResource where
@@ -104,27 +106,27 @@ instance Prelude.NFData TagResource where
     Prelude.rnf resourceArn
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders TagResource where
+instance Data.ToHeaders TagResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToJSON TagResource where
+instance Data.ToJSON TagResource where
   toJSON TagResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("tags" Core..= tags)]
+          [Prelude.Just ("tags" Data..= tags)]
       )
 
-instance Core.ToPath TagResource where
+instance Data.ToPath TagResource where
   toPath TagResource' {..} =
-    Prelude.mconcat ["/tags/", Core.toBS resourceArn]
+    Prelude.mconcat ["/tags/", Data.toBS resourceArn]
 
-instance Core.ToQuery TagResource where
+instance Data.ToQuery TagResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newTagResourceResponse' smart constructor.

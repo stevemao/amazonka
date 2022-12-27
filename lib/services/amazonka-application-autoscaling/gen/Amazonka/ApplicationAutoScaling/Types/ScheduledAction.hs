@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ApplicationAutoScaling.Types.ScheduledAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,14 +23,17 @@ import Amazonka.ApplicationAutoScaling.Types.ScalableDimension
 import Amazonka.ApplicationAutoScaling.Types.ScalableTargetAction
 import Amazonka.ApplicationAutoScaling.Types.ServiceNamespace
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a scheduled action.
 --
 -- /See:/ 'newScheduledAction' smart constructor.
 data ScheduledAction = ScheduledAction'
-  { -- | The scalable dimension. This string consists of the service namespace,
+  { -- | The date and time that the action is scheduled to end, in UTC.
+    endTime :: Prelude.Maybe Data.POSIX,
+    -- | The scalable dimension. This string consists of the service namespace,
     -- resource type, and scaling property.
     --
     -- -   @ecs:service:DesiredCount@ - The desired task count of an ECS
@@ -96,16 +99,14 @@ data ScheduledAction = ScheduledAction'
     -- -   @neptune:cluster:ReadReplicaCount@ - The count of read replicas in
     --     an Amazon Neptune DB cluster.
     scalableDimension :: Prelude.Maybe ScalableDimension,
-    -- | The date and time that the action is scheduled to begin, in UTC.
-    startTime :: Prelude.Maybe Core.POSIX,
-    -- | The date and time that the action is scheduled to end, in UTC.
-    endTime :: Prelude.Maybe Core.POSIX,
     -- | The new minimum and maximum capacity. You can set both values or just
     -- one. At the scheduled time, if the current capacity is below the minimum
     -- capacity, Application Auto Scaling scales out to the minimum capacity.
     -- If the current capacity is above the maximum capacity, Application Auto
     -- Scaling scales in to the maximum capacity.
     scalableTargetAction :: Prelude.Maybe ScalableTargetAction,
+    -- | The date and time that the action is scheduled to begin, in UTC.
+    startTime :: Prelude.Maybe Data.POSIX,
     -- | The time zone used when referring to the date and time of a scheduled
     -- action, when the scheduled action uses an at or cron expression.
     timezone :: Prelude.Maybe Prelude.Text,
@@ -210,7 +211,7 @@ data ScheduledAction = ScheduledAction'
     --     identifier is the cluster name. Example: @cluster:mycluster@.
     resourceId :: Prelude.Text,
     -- | The date and time that the scheduled action was created.
-    creationTime :: Core.POSIX
+    creationTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -221,6 +222,8 @@ data ScheduledAction = ScheduledAction'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'endTime', 'scheduledAction_endTime' - The date and time that the action is scheduled to end, in UTC.
 --
 -- 'scalableDimension', 'scheduledAction_scalableDimension' - The scalable dimension. This string consists of the service namespace,
 -- resource type, and scaling property.
@@ -288,15 +291,13 @@ data ScheduledAction = ScheduledAction'
 -- -   @neptune:cluster:ReadReplicaCount@ - The count of read replicas in
 --     an Amazon Neptune DB cluster.
 --
--- 'startTime', 'scheduledAction_startTime' - The date and time that the action is scheduled to begin, in UTC.
---
--- 'endTime', 'scheduledAction_endTime' - The date and time that the action is scheduled to end, in UTC.
---
 -- 'scalableTargetAction', 'scheduledAction_scalableTargetAction' - The new minimum and maximum capacity. You can set both values or just
 -- one. At the scheduled time, if the current capacity is below the minimum
 -- capacity, Application Auto Scaling scales out to the minimum capacity.
 -- If the current capacity is above the maximum capacity, Application Auto
 -- Scaling scales in to the maximum capacity.
+--
+-- 'startTime', 'scheduledAction_startTime' - The date and time that the action is scheduled to begin, in UTC.
 --
 -- 'timezone', 'scheduledAction_timezone' - The time zone used when referring to the date and time of a scheduled
 -- action, when the scheduled action uses an at or cron expression.
@@ -424,19 +425,22 @@ newScheduledAction
   pResourceId_
   pCreationTime_ =
     ScheduledAction'
-      { scalableDimension =
-          Prelude.Nothing,
-        startTime = Prelude.Nothing,
-        endTime = Prelude.Nothing,
+      { endTime = Prelude.Nothing,
+        scalableDimension = Prelude.Nothing,
         scalableTargetAction = Prelude.Nothing,
+        startTime = Prelude.Nothing,
         timezone = Prelude.Nothing,
         scheduledActionName = pScheduledActionName_,
         scheduledActionARN = pScheduledActionARN_,
         serviceNamespace = pServiceNamespace_,
         schedule = pSchedule_,
         resourceId = pResourceId_,
-        creationTime = Core._Time Lens.# pCreationTime_
+        creationTime = Data._Time Lens.# pCreationTime_
       }
+
+-- | The date and time that the action is scheduled to end, in UTC.
+scheduledAction_endTime :: Lens.Lens' ScheduledAction (Prelude.Maybe Prelude.UTCTime)
+scheduledAction_endTime = Lens.lens (\ScheduledAction' {endTime} -> endTime) (\s@ScheduledAction' {} a -> s {endTime = a} :: ScheduledAction) Prelude.. Lens.mapping Data._Time
 
 -- | The scalable dimension. This string consists of the service namespace,
 -- resource type, and scaling property.
@@ -506,14 +510,6 @@ newScheduledAction
 scheduledAction_scalableDimension :: Lens.Lens' ScheduledAction (Prelude.Maybe ScalableDimension)
 scheduledAction_scalableDimension = Lens.lens (\ScheduledAction' {scalableDimension} -> scalableDimension) (\s@ScheduledAction' {} a -> s {scalableDimension = a} :: ScheduledAction)
 
--- | The date and time that the action is scheduled to begin, in UTC.
-scheduledAction_startTime :: Lens.Lens' ScheduledAction (Prelude.Maybe Prelude.UTCTime)
-scheduledAction_startTime = Lens.lens (\ScheduledAction' {startTime} -> startTime) (\s@ScheduledAction' {} a -> s {startTime = a} :: ScheduledAction) Prelude.. Lens.mapping Core._Time
-
--- | The date and time that the action is scheduled to end, in UTC.
-scheduledAction_endTime :: Lens.Lens' ScheduledAction (Prelude.Maybe Prelude.UTCTime)
-scheduledAction_endTime = Lens.lens (\ScheduledAction' {endTime} -> endTime) (\s@ScheduledAction' {} a -> s {endTime = a} :: ScheduledAction) Prelude.. Lens.mapping Core._Time
-
 -- | The new minimum and maximum capacity. You can set both values or just
 -- one. At the scheduled time, if the current capacity is below the minimum
 -- capacity, Application Auto Scaling scales out to the minimum capacity.
@@ -521,6 +517,10 @@ scheduledAction_endTime = Lens.lens (\ScheduledAction' {endTime} -> endTime) (\s
 -- Scaling scales in to the maximum capacity.
 scheduledAction_scalableTargetAction :: Lens.Lens' ScheduledAction (Prelude.Maybe ScalableTargetAction)
 scheduledAction_scalableTargetAction = Lens.lens (\ScheduledAction' {scalableTargetAction} -> scalableTargetAction) (\s@ScheduledAction' {} a -> s {scalableTargetAction = a} :: ScheduledAction)
+
+-- | The date and time that the action is scheduled to begin, in UTC.
+scheduledAction_startTime :: Lens.Lens' ScheduledAction (Prelude.Maybe Prelude.UTCTime)
+scheduledAction_startTime = Lens.lens (\ScheduledAction' {startTime} -> startTime) (\s@ScheduledAction' {} a -> s {startTime = a} :: ScheduledAction) Prelude.. Lens.mapping Data._Time
 
 -- | The time zone used when referring to the date and time of a scheduled
 -- action, when the scheduled action uses an at or cron expression.
@@ -639,33 +639,33 @@ scheduledAction_resourceId = Lens.lens (\ScheduledAction' {resourceId} -> resour
 
 -- | The date and time that the scheduled action was created.
 scheduledAction_creationTime :: Lens.Lens' ScheduledAction Prelude.UTCTime
-scheduledAction_creationTime = Lens.lens (\ScheduledAction' {creationTime} -> creationTime) (\s@ScheduledAction' {} a -> s {creationTime = a} :: ScheduledAction) Prelude.. Core._Time
+scheduledAction_creationTime = Lens.lens (\ScheduledAction' {creationTime} -> creationTime) (\s@ScheduledAction' {} a -> s {creationTime = a} :: ScheduledAction) Prelude.. Data._Time
 
-instance Core.FromJSON ScheduledAction where
+instance Data.FromJSON ScheduledAction where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ScheduledAction"
       ( \x ->
           ScheduledAction'
-            Prelude.<$> (x Core..:? "ScalableDimension")
-            Prelude.<*> (x Core..:? "StartTime")
-            Prelude.<*> (x Core..:? "EndTime")
-            Prelude.<*> (x Core..:? "ScalableTargetAction")
-            Prelude.<*> (x Core..:? "Timezone")
-            Prelude.<*> (x Core..: "ScheduledActionName")
-            Prelude.<*> (x Core..: "ScheduledActionARN")
-            Prelude.<*> (x Core..: "ServiceNamespace")
-            Prelude.<*> (x Core..: "Schedule")
-            Prelude.<*> (x Core..: "ResourceId")
-            Prelude.<*> (x Core..: "CreationTime")
+            Prelude.<$> (x Data..:? "EndTime")
+            Prelude.<*> (x Data..:? "ScalableDimension")
+            Prelude.<*> (x Data..:? "ScalableTargetAction")
+            Prelude.<*> (x Data..:? "StartTime")
+            Prelude.<*> (x Data..:? "Timezone")
+            Prelude.<*> (x Data..: "ScheduledActionName")
+            Prelude.<*> (x Data..: "ScheduledActionARN")
+            Prelude.<*> (x Data..: "ServiceNamespace")
+            Prelude.<*> (x Data..: "Schedule")
+            Prelude.<*> (x Data..: "ResourceId")
+            Prelude.<*> (x Data..: "CreationTime")
       )
 
 instance Prelude.Hashable ScheduledAction where
   hashWithSalt _salt ScheduledAction' {..} =
-    _salt `Prelude.hashWithSalt` scalableDimension
-      `Prelude.hashWithSalt` startTime
-      `Prelude.hashWithSalt` endTime
+    _salt `Prelude.hashWithSalt` endTime
+      `Prelude.hashWithSalt` scalableDimension
       `Prelude.hashWithSalt` scalableTargetAction
+      `Prelude.hashWithSalt` startTime
       `Prelude.hashWithSalt` timezone
       `Prelude.hashWithSalt` scheduledActionName
       `Prelude.hashWithSalt` scheduledActionARN
@@ -676,10 +676,10 @@ instance Prelude.Hashable ScheduledAction where
 
 instance Prelude.NFData ScheduledAction where
   rnf ScheduledAction' {..} =
-    Prelude.rnf scalableDimension
-      `Prelude.seq` Prelude.rnf startTime
-      `Prelude.seq` Prelude.rnf endTime
+    Prelude.rnf endTime
+      `Prelude.seq` Prelude.rnf scalableDimension
       `Prelude.seq` Prelude.rnf scalableTargetAction
+      `Prelude.seq` Prelude.rnf startTime
       `Prelude.seq` Prelude.rnf timezone
       `Prelude.seq` Prelude.rnf scheduledActionName
       `Prelude.seq` Prelude.rnf scheduledActionARN

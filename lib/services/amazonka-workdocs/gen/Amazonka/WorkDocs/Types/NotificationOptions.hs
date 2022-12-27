@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WorkDocs.Types.NotificationOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WorkDocs.Types.NotificationOptions where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Set of options which defines notification preferences of given action.
@@ -28,7 +29,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newNotificationOptions' smart constructor.
 data NotificationOptions = NotificationOptions'
   { -- | Text value to be included in the email body.
-    emailMessage :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    emailMessage :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | Boolean value to indicate an email notification should be sent to the
     -- receipients.
     sendEmail :: Prelude.Maybe Prelude.Bool
@@ -58,7 +59,7 @@ newNotificationOptions =
 
 -- | Text value to be included in the email body.
 notificationOptions_emailMessage :: Lens.Lens' NotificationOptions (Prelude.Maybe Prelude.Text)
-notificationOptions_emailMessage = Lens.lens (\NotificationOptions' {emailMessage} -> emailMessage) (\s@NotificationOptions' {} a -> s {emailMessage = a} :: NotificationOptions) Prelude.. Lens.mapping Core._Sensitive
+notificationOptions_emailMessage = Lens.lens (\NotificationOptions' {emailMessage} -> emailMessage) (\s@NotificationOptions' {} a -> s {emailMessage = a} :: NotificationOptions) Prelude.. Lens.mapping Data._Sensitive
 
 -- | Boolean value to indicate an email notification should be sent to the
 -- receipients.
@@ -75,11 +76,11 @@ instance Prelude.NFData NotificationOptions where
     Prelude.rnf emailMessage
       `Prelude.seq` Prelude.rnf sendEmail
 
-instance Core.ToJSON NotificationOptions where
+instance Data.ToJSON NotificationOptions where
   toJSON NotificationOptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EmailMessage" Core..=) Prelude.<$> emailMessage,
-            ("SendEmail" Core..=) Prelude.<$> sendEmail
+          [ ("EmailMessage" Data..=) Prelude.<$> emailMessage,
+            ("SendEmail" Data..=) Prelude.<$> sendEmail
           ]
       )

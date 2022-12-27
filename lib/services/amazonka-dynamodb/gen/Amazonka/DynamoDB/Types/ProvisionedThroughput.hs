@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.ProvisionedThroughput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,10 @@
 module Amazonka.DynamoDB.Types.ProvisionedThroughput where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the provisioned throughput settings for a specified table or
@@ -107,14 +109,14 @@ provisionedThroughput_readCapacityUnits = Lens.lens (\ProvisionedThroughput' {re
 provisionedThroughput_writeCapacityUnits :: Lens.Lens' ProvisionedThroughput Prelude.Natural
 provisionedThroughput_writeCapacityUnits = Lens.lens (\ProvisionedThroughput' {writeCapacityUnits} -> writeCapacityUnits) (\s@ProvisionedThroughput' {} a -> s {writeCapacityUnits = a} :: ProvisionedThroughput)
 
-instance Core.FromJSON ProvisionedThroughput where
+instance Data.FromJSON ProvisionedThroughput where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ProvisionedThroughput"
       ( \x ->
           ProvisionedThroughput'
-            Prelude.<$> (x Core..: "ReadCapacityUnits")
-            Prelude.<*> (x Core..: "WriteCapacityUnits")
+            Prelude.<$> (x Data..: "ReadCapacityUnits")
+            Prelude.<*> (x Data..: "WriteCapacityUnits")
       )
 
 instance Prelude.Hashable ProvisionedThroughput where
@@ -127,13 +129,13 @@ instance Prelude.NFData ProvisionedThroughput where
     Prelude.rnf readCapacityUnits
       `Prelude.seq` Prelude.rnf writeCapacityUnits
 
-instance Core.ToJSON ProvisionedThroughput where
+instance Data.ToJSON ProvisionedThroughput where
   toJSON ProvisionedThroughput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ReadCapacityUnits" Core..= readCapacityUnits),
+              ("ReadCapacityUnits" Data..= readCapacityUnits),
             Prelude.Just
-              ("WriteCapacityUnits" Core..= writeCapacityUnits)
+              ("WriteCapacityUnits" Data..= writeCapacityUnits)
           ]
       )

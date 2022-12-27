@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.Types.NotifyEmailType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.CognitoIdentityProvider.Types.NotifyEmailType where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The notify email type.
 --
 -- /See:/ 'newNotifyEmailType' smart constructor.
 data NotifyEmailType = NotifyEmailType'
-  { -- | The text body.
-    textBody :: Prelude.Maybe Prelude.Text,
-    -- | The HTML body.
+  { -- | The email HTML body.
     htmlBody :: Prelude.Maybe Prelude.Text,
-    -- | The subject.
+    -- | The email text body.
+    textBody :: Prelude.Maybe Prelude.Text,
+    -- | The email subject.
     subject :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -44,63 +45,63 @@ data NotifyEmailType = NotifyEmailType'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'textBody', 'notifyEmailType_textBody' - The text body.
+-- 'htmlBody', 'notifyEmailType_htmlBody' - The email HTML body.
 --
--- 'htmlBody', 'notifyEmailType_htmlBody' - The HTML body.
+-- 'textBody', 'notifyEmailType_textBody' - The email text body.
 --
--- 'subject', 'notifyEmailType_subject' - The subject.
+-- 'subject', 'notifyEmailType_subject' - The email subject.
 newNotifyEmailType ::
   -- | 'subject'
   Prelude.Text ->
   NotifyEmailType
 newNotifyEmailType pSubject_ =
   NotifyEmailType'
-    { textBody = Prelude.Nothing,
-      htmlBody = Prelude.Nothing,
+    { htmlBody = Prelude.Nothing,
+      textBody = Prelude.Nothing,
       subject = pSubject_
     }
 
--- | The text body.
-notifyEmailType_textBody :: Lens.Lens' NotifyEmailType (Prelude.Maybe Prelude.Text)
-notifyEmailType_textBody = Lens.lens (\NotifyEmailType' {textBody} -> textBody) (\s@NotifyEmailType' {} a -> s {textBody = a} :: NotifyEmailType)
-
--- | The HTML body.
+-- | The email HTML body.
 notifyEmailType_htmlBody :: Lens.Lens' NotifyEmailType (Prelude.Maybe Prelude.Text)
 notifyEmailType_htmlBody = Lens.lens (\NotifyEmailType' {htmlBody} -> htmlBody) (\s@NotifyEmailType' {} a -> s {htmlBody = a} :: NotifyEmailType)
 
--- | The subject.
+-- | The email text body.
+notifyEmailType_textBody :: Lens.Lens' NotifyEmailType (Prelude.Maybe Prelude.Text)
+notifyEmailType_textBody = Lens.lens (\NotifyEmailType' {textBody} -> textBody) (\s@NotifyEmailType' {} a -> s {textBody = a} :: NotifyEmailType)
+
+-- | The email subject.
 notifyEmailType_subject :: Lens.Lens' NotifyEmailType Prelude.Text
 notifyEmailType_subject = Lens.lens (\NotifyEmailType' {subject} -> subject) (\s@NotifyEmailType' {} a -> s {subject = a} :: NotifyEmailType)
 
-instance Core.FromJSON NotifyEmailType where
+instance Data.FromJSON NotifyEmailType where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NotifyEmailType"
       ( \x ->
           NotifyEmailType'
-            Prelude.<$> (x Core..:? "TextBody")
-            Prelude.<*> (x Core..:? "HtmlBody")
-            Prelude.<*> (x Core..: "Subject")
+            Prelude.<$> (x Data..:? "HtmlBody")
+            Prelude.<*> (x Data..:? "TextBody")
+            Prelude.<*> (x Data..: "Subject")
       )
 
 instance Prelude.Hashable NotifyEmailType where
   hashWithSalt _salt NotifyEmailType' {..} =
-    _salt `Prelude.hashWithSalt` textBody
-      `Prelude.hashWithSalt` htmlBody
+    _salt `Prelude.hashWithSalt` htmlBody
+      `Prelude.hashWithSalt` textBody
       `Prelude.hashWithSalt` subject
 
 instance Prelude.NFData NotifyEmailType where
   rnf NotifyEmailType' {..} =
-    Prelude.rnf textBody
-      `Prelude.seq` Prelude.rnf htmlBody
+    Prelude.rnf htmlBody
+      `Prelude.seq` Prelude.rnf textBody
       `Prelude.seq` Prelude.rnf subject
 
-instance Core.ToJSON NotifyEmailType where
+instance Data.ToJSON NotifyEmailType where
   toJSON NotifyEmailType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TextBody" Core..=) Prelude.<$> textBody,
-            ("HtmlBody" Core..=) Prelude.<$> htmlBody,
-            Prelude.Just ("Subject" Core..= subject)
+          [ ("HtmlBody" Data..=) Prelude.<$> htmlBody,
+            ("TextBody" Data..=) Prelude.<$> textBody,
+            Prelude.Just ("Subject" Data..= subject)
           ]
       )

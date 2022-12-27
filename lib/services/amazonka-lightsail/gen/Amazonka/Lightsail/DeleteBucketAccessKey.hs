@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.DeleteBucketAccessKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.Lightsail.DeleteBucketAccessKey
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -60,8 +61,9 @@ data DeleteBucketAccessKey = DeleteBucketAccessKey'
     bucketName :: Prelude.Text,
     -- | The ID of the access key to delete.
     --
-    -- Use the GetBucketAccessKeys action to get a list of access key IDs that
-    -- you can specify.
+    -- Use the
+    -- <https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetBucketAccessKeys.html GetBucketAccessKeys>
+    -- action to get a list of access key IDs that you can specify.
     accessKeyId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -78,8 +80,9 @@ data DeleteBucketAccessKey = DeleteBucketAccessKey'
 --
 -- 'accessKeyId', 'deleteBucketAccessKey_accessKeyId' - The ID of the access key to delete.
 --
--- Use the GetBucketAccessKeys action to get a list of access key IDs that
--- you can specify.
+-- Use the
+-- <https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetBucketAccessKeys.html GetBucketAccessKeys>
+-- action to get a list of access key IDs that you can specify.
 newDeleteBucketAccessKey ::
   -- | 'bucketName'
   Prelude.Text ->
@@ -98,8 +101,9 @@ deleteBucketAccessKey_bucketName = Lens.lens (\DeleteBucketAccessKey' {bucketNam
 
 -- | The ID of the access key to delete.
 --
--- Use the GetBucketAccessKeys action to get a list of access key IDs that
--- you can specify.
+-- Use the
+-- <https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetBucketAccessKeys.html GetBucketAccessKeys>
+-- action to get a list of access key IDs that you can specify.
 deleteBucketAccessKey_accessKeyId :: Lens.Lens' DeleteBucketAccessKey Prelude.Text
 deleteBucketAccessKey_accessKeyId = Lens.lens (\DeleteBucketAccessKey' {accessKeyId} -> accessKeyId) (\s@DeleteBucketAccessKey' {} a -> s {accessKeyId = a} :: DeleteBucketAccessKey)
 
@@ -107,12 +111,13 @@ instance Core.AWSRequest DeleteBucketAccessKey where
   type
     AWSResponse DeleteBucketAccessKey =
       DeleteBucketAccessKeyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteBucketAccessKeyResponse'
-            Prelude.<$> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -126,34 +131,34 @@ instance Prelude.NFData DeleteBucketAccessKey where
     Prelude.rnf bucketName
       `Prelude.seq` Prelude.rnf accessKeyId
 
-instance Core.ToHeaders DeleteBucketAccessKey where
+instance Data.ToHeaders DeleteBucketAccessKey where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.DeleteBucketAccessKey" ::
+              Data.=# ( "Lightsail_20161128.DeleteBucketAccessKey" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteBucketAccessKey where
+instance Data.ToJSON DeleteBucketAccessKey where
   toJSON DeleteBucketAccessKey' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("bucketName" Core..= bucketName),
-            Prelude.Just ("accessKeyId" Core..= accessKeyId)
+          [ Prelude.Just ("bucketName" Data..= bucketName),
+            Prelude.Just ("accessKeyId" Data..= accessKeyId)
           ]
       )
 
-instance Core.ToPath DeleteBucketAccessKey where
+instance Data.ToPath DeleteBucketAccessKey where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteBucketAccessKey where
+instance Data.ToQuery DeleteBucketAccessKey where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteBucketAccessKeyResponse' smart constructor.

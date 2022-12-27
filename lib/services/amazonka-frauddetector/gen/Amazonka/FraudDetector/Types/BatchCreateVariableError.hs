@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.Types.BatchCreateVariableError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.FraudDetector.Types.BatchCreateVariableError where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides the error of the batch create variable API.
 --
 -- /See:/ 'newBatchCreateVariableError' smart constructor.
 data BatchCreateVariableError = BatchCreateVariableError'
-  { -- | The name.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The error code.
+  { -- | The error code.
     code :: Prelude.Maybe Prelude.Int,
     -- | The error message.
-    message :: Prelude.Maybe Prelude.Text
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The name.
+    name :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,23 +45,19 @@ data BatchCreateVariableError = BatchCreateVariableError'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'batchCreateVariableError_name' - The name.
---
 -- 'code', 'batchCreateVariableError_code' - The error code.
 --
 -- 'message', 'batchCreateVariableError_message' - The error message.
+--
+-- 'name', 'batchCreateVariableError_name' - The name.
 newBatchCreateVariableError ::
   BatchCreateVariableError
 newBatchCreateVariableError =
   BatchCreateVariableError'
-    { name = Prelude.Nothing,
-      code = Prelude.Nothing,
-      message = Prelude.Nothing
+    { code = Prelude.Nothing,
+      message = Prelude.Nothing,
+      name = Prelude.Nothing
     }
-
--- | The name.
-batchCreateVariableError_name :: Lens.Lens' BatchCreateVariableError (Prelude.Maybe Prelude.Text)
-batchCreateVariableError_name = Lens.lens (\BatchCreateVariableError' {name} -> name) (\s@BatchCreateVariableError' {} a -> s {name = a} :: BatchCreateVariableError)
 
 -- | The error code.
 batchCreateVariableError_code :: Lens.Lens' BatchCreateVariableError (Prelude.Maybe Prelude.Int)
@@ -70,25 +67,29 @@ batchCreateVariableError_code = Lens.lens (\BatchCreateVariableError' {code} -> 
 batchCreateVariableError_message :: Lens.Lens' BatchCreateVariableError (Prelude.Maybe Prelude.Text)
 batchCreateVariableError_message = Lens.lens (\BatchCreateVariableError' {message} -> message) (\s@BatchCreateVariableError' {} a -> s {message = a} :: BatchCreateVariableError)
 
-instance Core.FromJSON BatchCreateVariableError where
+-- | The name.
+batchCreateVariableError_name :: Lens.Lens' BatchCreateVariableError (Prelude.Maybe Prelude.Text)
+batchCreateVariableError_name = Lens.lens (\BatchCreateVariableError' {name} -> name) (\s@BatchCreateVariableError' {} a -> s {name = a} :: BatchCreateVariableError)
+
+instance Data.FromJSON BatchCreateVariableError where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchCreateVariableError"
       ( \x ->
           BatchCreateVariableError'
-            Prelude.<$> (x Core..:? "name")
-            Prelude.<*> (x Core..:? "code")
-            Prelude.<*> (x Core..:? "message")
+            Prelude.<$> (x Data..:? "code")
+            Prelude.<*> (x Data..:? "message")
+            Prelude.<*> (x Data..:? "name")
       )
 
 instance Prelude.Hashable BatchCreateVariableError where
   hashWithSalt _salt BatchCreateVariableError' {..} =
-    _salt `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` code
+    _salt `Prelude.hashWithSalt` code
       `Prelude.hashWithSalt` message
+      `Prelude.hashWithSalt` name
 
 instance Prelude.NFData BatchCreateVariableError where
   rnf BatchCreateVariableError' {..} =
-    Prelude.rnf name
-      `Prelude.seq` Prelude.rnf code
+    Prelude.rnf code
       `Prelude.seq` Prelude.rnf message
+      `Prelude.seq` Prelude.rnf name

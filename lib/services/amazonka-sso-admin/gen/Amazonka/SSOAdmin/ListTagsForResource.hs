@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSOAdmin.ListTagsForResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.SSOAdmin.ListTagsForResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,10 +57,10 @@ data ListTagsForResource = ListTagsForResource'
   { -- | The pagination token for the list API. Initially the value is null. Use
     -- the output of previous API calls to make subsequent calls.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the SSO instance under which the operation will be executed.
-    -- For more information about ARNs, see
-    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
-    -- in the /Amazon Web Services General Reference/.
+    -- | The ARN of the IAM Identity Center instance under which the operation
+    -- will be executed. For more information about ARNs, see
+    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+    -- in the /AWS General Reference/.
     instanceArn :: Prelude.Text,
     -- | The ARN of the resource with the tags to be listed.
     resourceArn :: Prelude.Text
@@ -77,10 +78,10 @@ data ListTagsForResource = ListTagsForResource'
 -- 'nextToken', 'listTagsForResource_nextToken' - The pagination token for the list API. Initially the value is null. Use
 -- the output of previous API calls to make subsequent calls.
 --
--- 'instanceArn', 'listTagsForResource_instanceArn' - The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- 'instanceArn', 'listTagsForResource_instanceArn' - The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 --
 -- 'resourceArn', 'listTagsForResource_resourceArn' - The ARN of the resource with the tags to be listed.
 newListTagsForResource ::
@@ -101,10 +102,10 @@ newListTagsForResource pInstanceArn_ pResourceArn_ =
 listTagsForResource_nextToken :: Lens.Lens' ListTagsForResource (Prelude.Maybe Prelude.Text)
 listTagsForResource_nextToken = Lens.lens (\ListTagsForResource' {nextToken} -> nextToken) (\s@ListTagsForResource' {} a -> s {nextToken = a} :: ListTagsForResource)
 
--- | The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- | The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 listTagsForResource_instanceArn :: Lens.Lens' ListTagsForResource Prelude.Text
 listTagsForResource_instanceArn = Lens.lens (\ListTagsForResource' {instanceArn} -> instanceArn) (\s@ListTagsForResource' {} a -> s {instanceArn = a} :: ListTagsForResource)
 
@@ -138,13 +139,14 @@ instance Core.AWSRequest ListTagsForResource where
   type
     AWSResponse ListTagsForResource =
       ListTagsForResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTagsForResourceResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -160,35 +162,35 @@ instance Prelude.NFData ListTagsForResource where
       `Prelude.seq` Prelude.rnf instanceArn
       `Prelude.seq` Prelude.rnf resourceArn
 
-instance Core.ToHeaders ListTagsForResource where
+instance Data.ToHeaders ListTagsForResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SWBExternalService.ListTagsForResource" ::
+              Data.=# ( "SWBExternalService.ListTagsForResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTagsForResource where
+instance Data.ToJSON ListTagsForResource where
   toJSON ListTagsForResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            Prelude.Just ("InstanceArn" Core..= instanceArn),
-            Prelude.Just ("ResourceArn" Core..= resourceArn)
+          [ ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("InstanceArn" Data..= instanceArn),
+            Prelude.Just ("ResourceArn" Data..= resourceArn)
           ]
       )
 
-instance Core.ToPath ListTagsForResource where
+instance Data.ToPath ListTagsForResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTagsForResource where
+instance Data.ToQuery ListTagsForResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTagsForResourceResponse' smart constructor.

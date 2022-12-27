@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GreengrassV2.DeleteComponent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.GreengrassV2.DeleteComponent
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GreengrassV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,7 +86,8 @@ instance Core.AWSRequest DeleteComponent where
   type
     AWSResponse DeleteComponent =
       DeleteComponentResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteComponentResponse'
 
@@ -96,23 +98,15 @@ instance Prelude.Hashable DeleteComponent where
 instance Prelude.NFData DeleteComponent where
   rnf DeleteComponent' {..} = Prelude.rnf arn
 
-instance Core.ToHeaders DeleteComponent where
-  toHeaders =
-    Prelude.const
-      ( Prelude.mconcat
-          [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
-                          Prelude.ByteString
-                      )
-          ]
-      )
+instance Data.ToHeaders DeleteComponent where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteComponent where
+instance Data.ToPath DeleteComponent where
   toPath DeleteComponent' {..} =
     Prelude.mconcat
-      ["/greengrass/v2/components/", Core.toBS arn]
+      ["/greengrass/v2/components/", Data.toBS arn]
 
-instance Core.ToQuery DeleteComponent where
+instance Data.ToQuery DeleteComponent where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteComponentResponse' smart constructor.

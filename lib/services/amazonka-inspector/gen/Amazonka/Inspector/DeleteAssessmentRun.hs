@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Inspector.DeleteAssessmentRun
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,8 +37,9 @@ module Amazonka.Inspector.DeleteAssessmentRun
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Inspector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,7 +78,8 @@ instance Core.AWSRequest DeleteAssessmentRun where
   type
     AWSResponse DeleteAssessmentRun =
       DeleteAssessmentRunResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteAssessmentRunResponse'
 
@@ -89,34 +91,34 @@ instance Prelude.NFData DeleteAssessmentRun where
   rnf DeleteAssessmentRun' {..} =
     Prelude.rnf assessmentRunArn
 
-instance Core.ToHeaders DeleteAssessmentRun where
+instance Data.ToHeaders DeleteAssessmentRun where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "InspectorService.DeleteAssessmentRun" ::
+              Data.=# ( "InspectorService.DeleteAssessmentRun" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteAssessmentRun where
+instance Data.ToJSON DeleteAssessmentRun where
   toJSON DeleteAssessmentRun' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("assessmentRunArn" Core..= assessmentRunArn)
+              ("assessmentRunArn" Data..= assessmentRunArn)
           ]
       )
 
-instance Core.ToPath DeleteAssessmentRun where
+instance Data.ToPath DeleteAssessmentRun where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteAssessmentRun where
+instance Data.ToQuery DeleteAssessmentRun where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAssessmentRunResponse' smart constructor.

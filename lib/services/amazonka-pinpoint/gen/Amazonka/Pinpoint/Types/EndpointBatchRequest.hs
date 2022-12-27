@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.EndpointBatchRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.EndpointBatchRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types.EndpointBatchItem
 import qualified Amazonka.Prelude as Prelude
 
@@ -65,9 +66,9 @@ instance Prelude.Hashable EndpointBatchRequest where
 instance Prelude.NFData EndpointBatchRequest where
   rnf EndpointBatchRequest' {..} = Prelude.rnf item
 
-instance Core.ToJSON EndpointBatchRequest where
+instance Data.ToJSON EndpointBatchRequest where
   toJSON EndpointBatchRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Item" Core..= item)]
+          [Prelude.Just ("Item" Data..= item)]
       )

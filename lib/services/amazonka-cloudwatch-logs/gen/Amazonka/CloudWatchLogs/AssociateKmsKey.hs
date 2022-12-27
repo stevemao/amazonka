@@ -14,31 +14,31 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchLogs.AssociateKmsKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Associates the specified Key Management Service customer master key
--- (CMK) with the specified log group.
+-- Associates the specified KMS key with the specified log group.
 --
--- Associating an KMS CMK with a log group overrides any existing
--- associations between the log group and a CMK. After a CMK is associated
--- with a log group, all newly ingested data for the log group is encrypted
--- using the CMK. This association is stored as long as the data encrypted
--- with the CMK is still within CloudWatch Logs. This enables CloudWatch
--- Logs to decrypt this data whenever it is requested.
+-- Associating a KMS key with a log group overrides any existing
+-- associations between the log group and a KMS key. After a KMS key is
+-- associated with a log group, all newly ingested data for the log group
+-- is encrypted using the KMS key. This association is stored as long as
+-- the data encrypted with the KMS keyis still within CloudWatch Logs. This
+-- enables CloudWatch Logs to decrypt this data whenever it is requested.
 --
--- CloudWatch Logs supports only symmetric CMKs. Do not use an associate an
--- asymmetric CMK with your log group. For more information, see
+-- CloudWatch Logs supports only symmetric KMS keys. Do not use an
+-- associate an asymmetric KMS key with your log group. For more
+-- information, see
 -- <https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html Using Symmetric and Asymmetric Keys>.
 --
 -- It can take up to 5 minutes for this operation to take effect.
 --
--- If you attempt to associate a CMK with a log group but the CMK does not
--- exist or the CMK is disabled, you receive an @InvalidParameterException@
--- error.
+-- If you attempt to associate a KMS key with a log group but the KMS key
+-- does not exist or the KMS key is disabled, you receive an
+-- @InvalidParameterException@ error.
 module Amazonka.CloudWatchLogs.AssociateKmsKey
   ( -- * Creating a Request
     AssociateKmsKey (..),
@@ -56,7 +56,8 @@ where
 
 import Amazonka.CloudWatchLogs.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -65,9 +66,9 @@ import qualified Amazonka.Response as Response
 data AssociateKmsKey = AssociateKmsKey'
   { -- | The name of the log group.
     logGroupName :: Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the CMK to use when encrypting log
-    -- data. This must be a symmetric CMK. For more information, see
-    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms Amazon Resource Names - Key Management Service>
+    -- | The Amazon Resource Name (ARN) of the KMS key to use when encrypting log
+    -- data. This must be a symmetric KMS key. For more information, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms Amazon Resource Names>
     -- and
     -- <https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html Using Symmetric and Asymmetric Keys>.
     kmsKeyId :: Prelude.Text
@@ -84,9 +85,9 @@ data AssociateKmsKey = AssociateKmsKey'
 --
 -- 'logGroupName', 'associateKmsKey_logGroupName' - The name of the log group.
 --
--- 'kmsKeyId', 'associateKmsKey_kmsKeyId' - The Amazon Resource Name (ARN) of the CMK to use when encrypting log
--- data. This must be a symmetric CMK. For more information, see
--- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms Amazon Resource Names - Key Management Service>
+-- 'kmsKeyId', 'associateKmsKey_kmsKeyId' - The Amazon Resource Name (ARN) of the KMS key to use when encrypting log
+-- data. This must be a symmetric KMS key. For more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms Amazon Resource Names>
 -- and
 -- <https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html Using Symmetric and Asymmetric Keys>.
 newAssociateKmsKey ::
@@ -105,9 +106,9 @@ newAssociateKmsKey pLogGroupName_ pKmsKeyId_ =
 associateKmsKey_logGroupName :: Lens.Lens' AssociateKmsKey Prelude.Text
 associateKmsKey_logGroupName = Lens.lens (\AssociateKmsKey' {logGroupName} -> logGroupName) (\s@AssociateKmsKey' {} a -> s {logGroupName = a} :: AssociateKmsKey)
 
--- | The Amazon Resource Name (ARN) of the CMK to use when encrypting log
--- data. This must be a symmetric CMK. For more information, see
--- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms Amazon Resource Names - Key Management Service>
+-- | The Amazon Resource Name (ARN) of the KMS key to use when encrypting log
+-- data. This must be a symmetric KMS key. For more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms Amazon Resource Names>
 -- and
 -- <https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html Using Symmetric and Asymmetric Keys>.
 associateKmsKey_kmsKeyId :: Lens.Lens' AssociateKmsKey Prelude.Text
@@ -117,7 +118,8 @@ instance Core.AWSRequest AssociateKmsKey where
   type
     AWSResponse AssociateKmsKey =
       AssociateKmsKeyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull AssociateKmsKeyResponse'
 
@@ -131,34 +133,34 @@ instance Prelude.NFData AssociateKmsKey where
     Prelude.rnf logGroupName
       `Prelude.seq` Prelude.rnf kmsKeyId
 
-instance Core.ToHeaders AssociateKmsKey where
+instance Data.ToHeaders AssociateKmsKey where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Logs_20140328.AssociateKmsKey" ::
+              Data.=# ( "Logs_20140328.AssociateKmsKey" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateKmsKey where
+instance Data.ToJSON AssociateKmsKey where
   toJSON AssociateKmsKey' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("logGroupName" Core..= logGroupName),
-            Prelude.Just ("kmsKeyId" Core..= kmsKeyId)
+          [ Prelude.Just ("logGroupName" Data..= logGroupName),
+            Prelude.Just ("kmsKeyId" Data..= kmsKeyId)
           ]
       )
 
-instance Core.ToPath AssociateKmsKey where
+instance Data.ToPath AssociateKmsKey where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AssociateKmsKey where
+instance Data.ToQuery AssociateKmsKey where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateKmsKeyResponse' smart constructor.

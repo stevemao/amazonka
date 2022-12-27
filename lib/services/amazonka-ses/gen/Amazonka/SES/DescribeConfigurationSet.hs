@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.DescribeConfigurationSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,17 +39,18 @@ module Amazonka.SES.DescribeConfigurationSet
     newDescribeConfigurationSetResponse,
 
     -- * Response Lenses
-    describeConfigurationSetResponse_deliveryOptions,
-    describeConfigurationSetResponse_trackingOptions,
     describeConfigurationSetResponse_configurationSet,
-    describeConfigurationSetResponse_reputationOptions,
+    describeConfigurationSetResponse_deliveryOptions,
     describeConfigurationSetResponse_eventDestinations,
+    describeConfigurationSetResponse_reputationOptions,
+    describeConfigurationSetResponse_trackingOptions,
     describeConfigurationSetResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -103,20 +104,21 @@ instance Core.AWSRequest DescribeConfigurationSet where
   type
     AWSResponse DescribeConfigurationSet =
       DescribeConfigurationSetResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeConfigurationSetResult"
       ( \s h x ->
           DescribeConfigurationSetResponse'
-            Prelude.<$> (x Core..@? "DeliveryOptions")
-            Prelude.<*> (x Core..@? "TrackingOptions")
-            Prelude.<*> (x Core..@? "ConfigurationSet")
-            Prelude.<*> (x Core..@? "ReputationOptions")
-            Prelude.<*> ( x Core..@? "EventDestinations"
+            Prelude.<$> (x Data..@? "ConfigurationSet")
+            Prelude.<*> (x Data..@? "DeliveryOptions")
+            Prelude.<*> ( x Data..@? "EventDestinations"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
+            Prelude.<*> (x Data..@? "ReputationOptions")
+            Prelude.<*> (x Data..@? "TrackingOptions")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -131,25 +133,25 @@ instance Prelude.NFData DescribeConfigurationSet where
     Prelude.rnf configurationSetAttributeNames
       `Prelude.seq` Prelude.rnf configurationSetName
 
-instance Core.ToHeaders DescribeConfigurationSet where
+instance Data.ToHeaders DescribeConfigurationSet where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeConfigurationSet where
+instance Data.ToPath DescribeConfigurationSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeConfigurationSet where
+instance Data.ToQuery DescribeConfigurationSet where
   toQuery DescribeConfigurationSet' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeConfigurationSet" :: Prelude.ByteString),
+          Data.=: ("DescribeConfigurationSet" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
         "ConfigurationSetAttributeNames"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> configurationSetAttributeNames
             ),
-        "ConfigurationSetName" Core.=: configurationSetName
+        "ConfigurationSetName" Data.=: configurationSetName
       ]
 
 -- | Represents the details of a configuration set. Configuration sets enable
@@ -159,18 +161,18 @@ instance Core.ToQuery DescribeConfigurationSet where
 --
 -- /See:/ 'newDescribeConfigurationSetResponse' smart constructor.
 data DescribeConfigurationSetResponse = DescribeConfigurationSetResponse'
-  { deliveryOptions :: Prelude.Maybe DeliveryOptions,
-    -- | The name of the custom open and click tracking domain associated with
-    -- the configuration set.
-    trackingOptions :: Prelude.Maybe TrackingOptions,
-    -- | The configuration set object associated with the specified configuration
+  { -- | The configuration set object associated with the specified configuration
     -- set.
     configurationSet :: Prelude.Maybe ConfigurationSet,
+    deliveryOptions :: Prelude.Maybe DeliveryOptions,
+    -- | A list of event destinations associated with the configuration set.
+    eventDestinations :: Prelude.Maybe [EventDestination],
     -- | An object that represents the reputation settings for the configuration
     -- set.
     reputationOptions :: Prelude.Maybe ReputationOptions,
-    -- | A list of event destinations associated with the configuration set.
-    eventDestinations :: Prelude.Maybe [EventDestination],
+    -- | The name of the custom open and click tracking domain associated with
+    -- the configuration set.
+    trackingOptions :: Prelude.Maybe TrackingOptions,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -184,18 +186,18 @@ data DescribeConfigurationSetResponse = DescribeConfigurationSetResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'deliveryOptions', 'describeConfigurationSetResponse_deliveryOptions' - Undocumented member.
---
--- 'trackingOptions', 'describeConfigurationSetResponse_trackingOptions' - The name of the custom open and click tracking domain associated with
--- the configuration set.
---
 -- 'configurationSet', 'describeConfigurationSetResponse_configurationSet' - The configuration set object associated with the specified configuration
 -- set.
+--
+-- 'deliveryOptions', 'describeConfigurationSetResponse_deliveryOptions' - Undocumented member.
+--
+-- 'eventDestinations', 'describeConfigurationSetResponse_eventDestinations' - A list of event destinations associated with the configuration set.
 --
 -- 'reputationOptions', 'describeConfigurationSetResponse_reputationOptions' - An object that represents the reputation settings for the configuration
 -- set.
 --
--- 'eventDestinations', 'describeConfigurationSetResponse_eventDestinations' - A list of event destinations associated with the configuration set.
+-- 'trackingOptions', 'describeConfigurationSetResponse_trackingOptions' - The name of the custom open and click tracking domain associated with
+-- the configuration set.
 --
 -- 'httpStatus', 'describeConfigurationSetResponse_httpStatus' - The response's http status code.
 newDescribeConfigurationSetResponse ::
@@ -204,37 +206,37 @@ newDescribeConfigurationSetResponse ::
   DescribeConfigurationSetResponse
 newDescribeConfigurationSetResponse pHttpStatus_ =
   DescribeConfigurationSetResponse'
-    { deliveryOptions =
+    { configurationSet =
         Prelude.Nothing,
-      trackingOptions = Prelude.Nothing,
-      configurationSet = Prelude.Nothing,
-      reputationOptions = Prelude.Nothing,
+      deliveryOptions = Prelude.Nothing,
       eventDestinations = Prelude.Nothing,
+      reputationOptions = Prelude.Nothing,
+      trackingOptions = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Undocumented member.
-describeConfigurationSetResponse_deliveryOptions :: Lens.Lens' DescribeConfigurationSetResponse (Prelude.Maybe DeliveryOptions)
-describeConfigurationSetResponse_deliveryOptions = Lens.lens (\DescribeConfigurationSetResponse' {deliveryOptions} -> deliveryOptions) (\s@DescribeConfigurationSetResponse' {} a -> s {deliveryOptions = a} :: DescribeConfigurationSetResponse)
-
--- | The name of the custom open and click tracking domain associated with
--- the configuration set.
-describeConfigurationSetResponse_trackingOptions :: Lens.Lens' DescribeConfigurationSetResponse (Prelude.Maybe TrackingOptions)
-describeConfigurationSetResponse_trackingOptions = Lens.lens (\DescribeConfigurationSetResponse' {trackingOptions} -> trackingOptions) (\s@DescribeConfigurationSetResponse' {} a -> s {trackingOptions = a} :: DescribeConfigurationSetResponse)
 
 -- | The configuration set object associated with the specified configuration
 -- set.
 describeConfigurationSetResponse_configurationSet :: Lens.Lens' DescribeConfigurationSetResponse (Prelude.Maybe ConfigurationSet)
 describeConfigurationSetResponse_configurationSet = Lens.lens (\DescribeConfigurationSetResponse' {configurationSet} -> configurationSet) (\s@DescribeConfigurationSetResponse' {} a -> s {configurationSet = a} :: DescribeConfigurationSetResponse)
 
+-- | Undocumented member.
+describeConfigurationSetResponse_deliveryOptions :: Lens.Lens' DescribeConfigurationSetResponse (Prelude.Maybe DeliveryOptions)
+describeConfigurationSetResponse_deliveryOptions = Lens.lens (\DescribeConfigurationSetResponse' {deliveryOptions} -> deliveryOptions) (\s@DescribeConfigurationSetResponse' {} a -> s {deliveryOptions = a} :: DescribeConfigurationSetResponse)
+
+-- | A list of event destinations associated with the configuration set.
+describeConfigurationSetResponse_eventDestinations :: Lens.Lens' DescribeConfigurationSetResponse (Prelude.Maybe [EventDestination])
+describeConfigurationSetResponse_eventDestinations = Lens.lens (\DescribeConfigurationSetResponse' {eventDestinations} -> eventDestinations) (\s@DescribeConfigurationSetResponse' {} a -> s {eventDestinations = a} :: DescribeConfigurationSetResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | An object that represents the reputation settings for the configuration
 -- set.
 describeConfigurationSetResponse_reputationOptions :: Lens.Lens' DescribeConfigurationSetResponse (Prelude.Maybe ReputationOptions)
 describeConfigurationSetResponse_reputationOptions = Lens.lens (\DescribeConfigurationSetResponse' {reputationOptions} -> reputationOptions) (\s@DescribeConfigurationSetResponse' {} a -> s {reputationOptions = a} :: DescribeConfigurationSetResponse)
 
--- | A list of event destinations associated with the configuration set.
-describeConfigurationSetResponse_eventDestinations :: Lens.Lens' DescribeConfigurationSetResponse (Prelude.Maybe [EventDestination])
-describeConfigurationSetResponse_eventDestinations = Lens.lens (\DescribeConfigurationSetResponse' {eventDestinations} -> eventDestinations) (\s@DescribeConfigurationSetResponse' {} a -> s {eventDestinations = a} :: DescribeConfigurationSetResponse) Prelude.. Lens.mapping Lens.coerced
+-- | The name of the custom open and click tracking domain associated with
+-- the configuration set.
+describeConfigurationSetResponse_trackingOptions :: Lens.Lens' DescribeConfigurationSetResponse (Prelude.Maybe TrackingOptions)
+describeConfigurationSetResponse_trackingOptions = Lens.lens (\DescribeConfigurationSetResponse' {trackingOptions} -> trackingOptions) (\s@DescribeConfigurationSetResponse' {} a -> s {trackingOptions = a} :: DescribeConfigurationSetResponse)
 
 -- | The response's http status code.
 describeConfigurationSetResponse_httpStatus :: Lens.Lens' DescribeConfigurationSetResponse Prelude.Int
@@ -245,9 +247,9 @@ instance
     DescribeConfigurationSetResponse
   where
   rnf DescribeConfigurationSetResponse' {..} =
-    Prelude.rnf deliveryOptions
-      `Prelude.seq` Prelude.rnf trackingOptions
-      `Prelude.seq` Prelude.rnf configurationSet
-      `Prelude.seq` Prelude.rnf reputationOptions
+    Prelude.rnf configurationSet
+      `Prelude.seq` Prelude.rnf deliveryOptions
       `Prelude.seq` Prelude.rnf eventDestinations
+      `Prelude.seq` Prelude.rnf reputationOptions
+      `Prelude.seq` Prelude.rnf trackingOptions
       `Prelude.seq` Prelude.rnf httpStatus

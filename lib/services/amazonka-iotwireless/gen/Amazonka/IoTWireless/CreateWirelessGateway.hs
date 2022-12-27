@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.CreateWirelessGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,9 +27,9 @@ module Amazonka.IoTWireless.CreateWirelessGateway
     newCreateWirelessGateway,
 
     -- * Request Lenses
-    createWirelessGateway_name,
     createWirelessGateway_clientRequestToken,
     createWirelessGateway_description,
+    createWirelessGateway_name,
     createWirelessGateway_tags,
     createWirelessGateway_loRaWAN,
 
@@ -45,23 +45,24 @@ module Amazonka.IoTWireless.CreateWirelessGateway
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateWirelessGateway' smart constructor.
 data CreateWirelessGateway = CreateWirelessGateway'
-  { -- | The name of the new resource.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | Each resource must have a unique client request token. If you try to
+  { -- | Each resource must have a unique client request token. If you try to
     -- create a new resource with the same token as a resource that already
     -- exists, an exception occurs. If you omit this value, AWS SDKs will
     -- automatically generate a unique client request.
     clientRequestToken :: Prelude.Maybe Prelude.Text,
     -- | The description of the new resource.
     description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the new resource.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The tags to attach to the new wireless gateway. Tags are metadata that
     -- you can use to manage a resource.
     tags :: Prelude.Maybe [Tag],
@@ -79,14 +80,14 @@ data CreateWirelessGateway = CreateWirelessGateway'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'createWirelessGateway_name' - The name of the new resource.
---
 -- 'clientRequestToken', 'createWirelessGateway_clientRequestToken' - Each resource must have a unique client request token. If you try to
 -- create a new resource with the same token as a resource that already
 -- exists, an exception occurs. If you omit this value, AWS SDKs will
 -- automatically generate a unique client request.
 --
 -- 'description', 'createWirelessGateway_description' - The description of the new resource.
+--
+-- 'name', 'createWirelessGateway_name' - The name of the new resource.
 --
 -- 'tags', 'createWirelessGateway_tags' - The tags to attach to the new wireless gateway. Tags are metadata that
 -- you can use to manage a resource.
@@ -99,16 +100,13 @@ newCreateWirelessGateway ::
   CreateWirelessGateway
 newCreateWirelessGateway pLoRaWAN_ =
   CreateWirelessGateway'
-    { name = Prelude.Nothing,
-      clientRequestToken = Prelude.Nothing,
+    { clientRequestToken =
+        Prelude.Nothing,
       description = Prelude.Nothing,
+      name = Prelude.Nothing,
       tags = Prelude.Nothing,
       loRaWAN = pLoRaWAN_
     }
-
--- | The name of the new resource.
-createWirelessGateway_name :: Lens.Lens' CreateWirelessGateway (Prelude.Maybe Prelude.Text)
-createWirelessGateway_name = Lens.lens (\CreateWirelessGateway' {name} -> name) (\s@CreateWirelessGateway' {} a -> s {name = a} :: CreateWirelessGateway)
 
 -- | Each resource must have a unique client request token. If you try to
 -- create a new resource with the same token as a resource that already
@@ -120,6 +118,10 @@ createWirelessGateway_clientRequestToken = Lens.lens (\CreateWirelessGateway' {c
 -- | The description of the new resource.
 createWirelessGateway_description :: Lens.Lens' CreateWirelessGateway (Prelude.Maybe Prelude.Text)
 createWirelessGateway_description = Lens.lens (\CreateWirelessGateway' {description} -> description) (\s@CreateWirelessGateway' {} a -> s {description = a} :: CreateWirelessGateway)
+
+-- | The name of the new resource.
+createWirelessGateway_name :: Lens.Lens' CreateWirelessGateway (Prelude.Maybe Prelude.Text)
+createWirelessGateway_name = Lens.lens (\CreateWirelessGateway' {name} -> name) (\s@CreateWirelessGateway' {} a -> s {name = a} :: CreateWirelessGateway)
 
 -- | The tags to attach to the new wireless gateway. Tags are metadata that
 -- you can use to manage a resource.
@@ -135,52 +137,53 @@ instance Core.AWSRequest CreateWirelessGateway where
   type
     AWSResponse CreateWirelessGateway =
       CreateWirelessGatewayResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateWirelessGatewayResponse'
-            Prelude.<$> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "Id")
+            Prelude.<$> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "Id")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateWirelessGateway where
   hashWithSalt _salt CreateWirelessGateway' {..} =
-    _salt `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` clientRequestToken
+    _salt `Prelude.hashWithSalt` clientRequestToken
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` loRaWAN
 
 instance Prelude.NFData CreateWirelessGateway where
   rnf CreateWirelessGateway' {..} =
-    Prelude.rnf name
-      `Prelude.seq` Prelude.rnf clientRequestToken
+    Prelude.rnf clientRequestToken
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf loRaWAN
 
-instance Core.ToHeaders CreateWirelessGateway where
+instance Data.ToHeaders CreateWirelessGateway where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateWirelessGateway where
+instance Data.ToJSON CreateWirelessGateway where
   toJSON CreateWirelessGateway' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Name" Core..=) Prelude.<$> name,
-            ("ClientRequestToken" Core..=)
+          [ ("ClientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("LoRaWAN" Core..= loRaWAN)
+            ("Description" Data..=) Prelude.<$> description,
+            ("Name" Data..=) Prelude.<$> name,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("LoRaWAN" Data..= loRaWAN)
           ]
       )
 
-instance Core.ToPath CreateWirelessGateway where
+instance Data.ToPath CreateWirelessGateway where
   toPath = Prelude.const "/wireless-gateways"
 
-instance Core.ToQuery CreateWirelessGateway where
+instance Data.ToQuery CreateWirelessGateway where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateWirelessGatewayResponse' smart constructor.

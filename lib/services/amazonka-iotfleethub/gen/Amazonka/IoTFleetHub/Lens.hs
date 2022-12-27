@@ -6,46 +6,13 @@
 
 -- |
 -- Module      : Amazonka.IoTFleetHub.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 module Amazonka.IoTFleetHub.Lens
   ( -- * Operations
-
-    -- ** DescribeApplication
-    describeApplication_applicationId,
-    describeApplicationResponse_applicationDescription,
-    describeApplicationResponse_ssoClientId,
-    describeApplicationResponse_errorMessage,
-    describeApplicationResponse_tags,
-    describeApplicationResponse_httpStatus,
-    describeApplicationResponse_applicationId,
-    describeApplicationResponse_applicationArn,
-    describeApplicationResponse_applicationName,
-    describeApplicationResponse_applicationUrl,
-    describeApplicationResponse_applicationState,
-    describeApplicationResponse_applicationCreationDate,
-    describeApplicationResponse_applicationLastUpdateDate,
-    describeApplicationResponse_roleArn,
-
-    -- ** ListTagsForResource
-    listTagsForResource_resourceArn,
-    listTagsForResourceResponse_tags,
-    listTagsForResourceResponse_httpStatus,
-
-    -- ** DeleteApplication
-    deleteApplication_clientToken,
-    deleteApplication_applicationId,
-    deleteApplicationResponse_httpStatus,
-
-    -- ** UpdateApplication
-    updateApplication_applicationDescription,
-    updateApplication_clientToken,
-    updateApplication_applicationName,
-    updateApplication_applicationId,
-    updateApplicationResponse_httpStatus,
 
     -- ** CreateApplication
     createApplication_applicationDescription,
@@ -57,29 +24,62 @@ module Amazonka.IoTFleetHub.Lens
     createApplicationResponse_applicationId,
     createApplicationResponse_applicationArn,
 
+    -- ** DeleteApplication
+    deleteApplication_clientToken,
+    deleteApplication_applicationId,
+    deleteApplicationResponse_httpStatus,
+
+    -- ** DescribeApplication
+    describeApplication_applicationId,
+    describeApplicationResponse_applicationDescription,
+    describeApplicationResponse_errorMessage,
+    describeApplicationResponse_ssoClientId,
+    describeApplicationResponse_tags,
+    describeApplicationResponse_httpStatus,
+    describeApplicationResponse_applicationId,
+    describeApplicationResponse_applicationArn,
+    describeApplicationResponse_applicationName,
+    describeApplicationResponse_applicationUrl,
+    describeApplicationResponse_applicationState,
+    describeApplicationResponse_applicationCreationDate,
+    describeApplicationResponse_applicationLastUpdateDate,
+    describeApplicationResponse_roleArn,
+
+    -- ** ListApplications
+    listApplications_nextToken,
+    listApplicationsResponse_applicationSummaries,
+    listApplicationsResponse_nextToken,
+    listApplicationsResponse_httpStatus,
+
+    -- ** ListTagsForResource
+    listTagsForResource_resourceArn,
+    listTagsForResourceResponse_tags,
+    listTagsForResourceResponse_httpStatus,
+
     -- ** TagResource
     tagResource_resourceArn,
     tagResource_tags,
     tagResourceResponse_httpStatus,
-
-    -- ** ListApplications
-    listApplications_nextToken,
-    listApplicationsResponse_nextToken,
-    listApplicationsResponse_applicationSummaries,
-    listApplicationsResponse_httpStatus,
 
     -- ** UntagResource
     untagResource_resourceArn,
     untagResource_tagKeys,
     untagResourceResponse_httpStatus,
 
+    -- ** UpdateApplication
+    updateApplication_applicationDescription,
+    updateApplication_applicationName,
+    updateApplication_clientToken,
+    updateApplication_applicationId,
+    updateApplicationResponse_httpStatus,
+
     -- * Types
 
     -- ** ApplicationSummary
-    applicationSummary_applicationDescription,
-    applicationSummary_applicationState,
     applicationSummary_applicationCreationDate,
+    applicationSummary_applicationDescription,
     applicationSummary_applicationLastUpdateDate,
+    applicationSummary_applicationState,
     applicationSummary_applicationId,
     applicationSummary_applicationName,
     applicationSummary_applicationUrl,

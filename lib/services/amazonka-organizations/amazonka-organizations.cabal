@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -47,6 +47,7 @@ library
     Amazonka.Organizations.AcceptHandshake
     Amazonka.Organizations.AttachPolicy
     Amazonka.Organizations.CancelHandshake
+    Amazonka.Organizations.CloseAccount
     Amazonka.Organizations.CreateAccount
     Amazonka.Organizations.CreateGovCloudAccount
     Amazonka.Organizations.CreateOrganization
@@ -56,6 +57,7 @@ library
     Amazonka.Organizations.DeleteOrganization
     Amazonka.Organizations.DeleteOrganizationalUnit
     Amazonka.Organizations.DeletePolicy
+    Amazonka.Organizations.DeleteResourcePolicy
     Amazonka.Organizations.DeregisterDelegatedAdministrator
     Amazonka.Organizations.DescribeAccount
     Amazonka.Organizations.DescribeCreateAccountStatus
@@ -64,6 +66,7 @@ library
     Amazonka.Organizations.DescribeOrganization
     Amazonka.Organizations.DescribeOrganizationalUnit
     Amazonka.Organizations.DescribePolicy
+    Amazonka.Organizations.DescribeResourcePolicy
     Amazonka.Organizations.DetachPolicy
     Amazonka.Organizations.DisableAWSServiceAccess
     Amazonka.Organizations.DisablePolicyType
@@ -90,6 +93,7 @@ library
     Amazonka.Organizations.ListTagsForResource
     Amazonka.Organizations.ListTargetsForPolicy
     Amazonka.Organizations.MoveAccount
+    Amazonka.Organizations.PutResourcePolicy
     Amazonka.Organizations.RegisterDelegatedAdministrator
     Amazonka.Organizations.RemoveAccountFromOrganization
     Amazonka.Organizations.TagResource
@@ -127,6 +131,8 @@ library
     Amazonka.Organizations.Types.PolicyType
     Amazonka.Organizations.Types.PolicyTypeStatus
     Amazonka.Organizations.Types.PolicyTypeSummary
+    Amazonka.Organizations.Types.ResourcePolicy
+    Amazonka.Organizations.Types.ResourcePolicySummary
     Amazonka.Organizations.Types.Root
     Amazonka.Organizations.Types.Tag
     Amazonka.Organizations.Types.TargetType
@@ -136,7 +142,7 @@ library
     Amazonka.Organizations.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-organizations-test
@@ -155,9 +161,9 @@ test-suite amazonka-organizations-test
     Test.Amazonka.Organizations.Internal
 
   build-depends:
-    , amazonka-core           ^>=2.0
+    , amazonka-core           >=2.0 && <2.1
     , amazonka-organizations
-    , amazonka-test           ^>=2.0
+    , amazonka-test           >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

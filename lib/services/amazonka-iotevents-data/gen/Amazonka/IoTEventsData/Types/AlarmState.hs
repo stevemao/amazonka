@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEventsData.Types.AlarmState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.IoTEventsData.Types.AlarmState where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEventsData.Types.AlarmStateName
 import Amazonka.IoTEventsData.Types.CustomerAction
 import Amazonka.IoTEventsData.Types.RuleEvaluation
 import Amazonka.IoTEventsData.Types.SystemEvent
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the current state of the alarm.
@@ -34,6 +35,8 @@ data AlarmState = AlarmState'
   { -- | Contains information about the action that you can take to respond to
     -- the alarm.
     customerAction :: Prelude.Maybe CustomerAction,
+    -- | Information needed to evaluate data.
+    ruleEvaluation :: Prelude.Maybe RuleEvaluation,
     -- | The name of the alarm state. The state name can be one of the following
     -- values:
     --
@@ -60,8 +63,6 @@ data AlarmState = AlarmState'
     --     within the specified range. To change the alarm to the @NORMAL@
     --     state, you must acknowledge the alarm.
     stateName :: Prelude.Maybe AlarmStateName,
-    -- | Information needed to evaluate data.
-    ruleEvaluation :: Prelude.Maybe RuleEvaluation,
     -- | Contains information about alarm state changes.
     systemEvent :: Prelude.Maybe SystemEvent
   }
@@ -77,6 +78,8 @@ data AlarmState = AlarmState'
 --
 -- 'customerAction', 'alarmState_customerAction' - Contains information about the action that you can take to respond to
 -- the alarm.
+--
+-- 'ruleEvaluation', 'alarmState_ruleEvaluation' - Information needed to evaluate data.
 --
 -- 'stateName', 'alarmState_stateName' - The name of the alarm state. The state name can be one of the following
 -- values:
@@ -104,16 +107,14 @@ data AlarmState = AlarmState'
 --     within the specified range. To change the alarm to the @NORMAL@
 --     state, you must acknowledge the alarm.
 --
--- 'ruleEvaluation', 'alarmState_ruleEvaluation' - Information needed to evaluate data.
---
 -- 'systemEvent', 'alarmState_systemEvent' - Contains information about alarm state changes.
 newAlarmState ::
   AlarmState
 newAlarmState =
   AlarmState'
     { customerAction = Prelude.Nothing,
-      stateName = Prelude.Nothing,
       ruleEvaluation = Prelude.Nothing,
+      stateName = Prelude.Nothing,
       systemEvent = Prelude.Nothing
     }
 
@@ -121,6 +122,10 @@ newAlarmState =
 -- the alarm.
 alarmState_customerAction :: Lens.Lens' AlarmState (Prelude.Maybe CustomerAction)
 alarmState_customerAction = Lens.lens (\AlarmState' {customerAction} -> customerAction) (\s@AlarmState' {} a -> s {customerAction = a} :: AlarmState)
+
+-- | Information needed to evaluate data.
+alarmState_ruleEvaluation :: Lens.Lens' AlarmState (Prelude.Maybe RuleEvaluation)
+alarmState_ruleEvaluation = Lens.lens (\AlarmState' {ruleEvaluation} -> ruleEvaluation) (\s@AlarmState' {} a -> s {ruleEvaluation = a} :: AlarmState)
 
 -- | The name of the alarm state. The state name can be one of the following
 -- values:
@@ -150,36 +155,32 @@ alarmState_customerAction = Lens.lens (\AlarmState' {customerAction} -> customer
 alarmState_stateName :: Lens.Lens' AlarmState (Prelude.Maybe AlarmStateName)
 alarmState_stateName = Lens.lens (\AlarmState' {stateName} -> stateName) (\s@AlarmState' {} a -> s {stateName = a} :: AlarmState)
 
--- | Information needed to evaluate data.
-alarmState_ruleEvaluation :: Lens.Lens' AlarmState (Prelude.Maybe RuleEvaluation)
-alarmState_ruleEvaluation = Lens.lens (\AlarmState' {ruleEvaluation} -> ruleEvaluation) (\s@AlarmState' {} a -> s {ruleEvaluation = a} :: AlarmState)
-
 -- | Contains information about alarm state changes.
 alarmState_systemEvent :: Lens.Lens' AlarmState (Prelude.Maybe SystemEvent)
 alarmState_systemEvent = Lens.lens (\AlarmState' {systemEvent} -> systemEvent) (\s@AlarmState' {} a -> s {systemEvent = a} :: AlarmState)
 
-instance Core.FromJSON AlarmState where
+instance Data.FromJSON AlarmState where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AlarmState"
       ( \x ->
           AlarmState'
-            Prelude.<$> (x Core..:? "customerAction")
-            Prelude.<*> (x Core..:? "stateName")
-            Prelude.<*> (x Core..:? "ruleEvaluation")
-            Prelude.<*> (x Core..:? "systemEvent")
+            Prelude.<$> (x Data..:? "customerAction")
+            Prelude.<*> (x Data..:? "ruleEvaluation")
+            Prelude.<*> (x Data..:? "stateName")
+            Prelude.<*> (x Data..:? "systemEvent")
       )
 
 instance Prelude.Hashable AlarmState where
   hashWithSalt _salt AlarmState' {..} =
     _salt `Prelude.hashWithSalt` customerAction
-      `Prelude.hashWithSalt` stateName
       `Prelude.hashWithSalt` ruleEvaluation
+      `Prelude.hashWithSalt` stateName
       `Prelude.hashWithSalt` systemEvent
 
 instance Prelude.NFData AlarmState where
   rnf AlarmState' {..} =
     Prelude.rnf customerAction
-      `Prelude.seq` Prelude.rnf stateName
       `Prelude.seq` Prelude.rnf ruleEvaluation
+      `Prelude.seq` Prelude.rnf stateName
       `Prelude.seq` Prelude.rnf systemEvent

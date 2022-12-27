@@ -16,20 +16,21 @@ haskell_library(
         "gen/Amazonka/RDSData/Types/ColumnMetadata.hs",
         "gen/Amazonka/RDSData/Types/DecimalReturnType.hs",
         "gen/Amazonka/RDSData/Types/Field.hs",
+        "gen/Amazonka/RDSData/Types/LongReturnType.hs",
+        "gen/Amazonka/RDSData/Types/RecordsFormatType.hs",
         "gen/Amazonka/RDSData/Types/ResultSetOptions.hs",
         "gen/Amazonka/RDSData/Types/SqlParameter.hs",
         "gen/Amazonka/RDSData/Types/TypeHint.hs",
         "gen/Amazonka/RDSData/Types/UpdateResult.hs",
         "gen/Amazonka/RDSData/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
         "-DVERSION_amazonka_rds_data=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -47,11 +48,12 @@ haskell_test(
         "test/Test/Amazonka/RDSData.hs",
         "test/Test/Amazonka/RDSData/Internal.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
         "-DVERSION_amazonka_rds_data=\"2.0\"",
         "-Wall",
         "-threaded",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

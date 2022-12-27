@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.DeleteBucketWebsite
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -57,7 +57,8 @@ module Amazonka.S3.DeleteBucketWebsite
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,8 +67,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newDeleteBucketWebsite' smart constructor.
 data DeleteBucketWebsite = DeleteBucketWebsite'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The bucket name for which you want to remove the website configuration.
     bucket :: BucketName
@@ -83,8 +84,8 @@ data DeleteBucketWebsite = DeleteBucketWebsite'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'deleteBucketWebsite_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'deleteBucketWebsite_bucket' - The bucket name for which you want to remove the website configuration.
 newDeleteBucketWebsite ::
@@ -99,8 +100,8 @@ newDeleteBucketWebsite pBucket_ =
     }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 deleteBucketWebsite_expectedBucketOwner :: Lens.Lens' DeleteBucketWebsite (Prelude.Maybe Prelude.Text)
 deleteBucketWebsite_expectedBucketOwner = Lens.lens (\DeleteBucketWebsite' {expectedBucketOwner} -> expectedBucketOwner) (\s@DeleteBucketWebsite' {} a -> s {expectedBucketOwner = a} :: DeleteBucketWebsite)
 
@@ -112,9 +113,9 @@ instance Core.AWSRequest DeleteBucketWebsite where
   type
     AWSResponse DeleteBucketWebsite =
       DeleteBucketWebsiteResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.delete defaultService
+      Prelude.. Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteBucketWebsiteResponse'
 
@@ -128,18 +129,18 @@ instance Prelude.NFData DeleteBucketWebsite where
     Prelude.rnf expectedBucketOwner
       `Prelude.seq` Prelude.rnf bucket
 
-instance Core.ToHeaders DeleteBucketWebsite where
+instance Data.ToHeaders DeleteBucketWebsite where
   toHeaders DeleteBucketWebsite' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath DeleteBucketWebsite where
+instance Data.ToPath DeleteBucketWebsite where
   toPath DeleteBucketWebsite' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery DeleteBucketWebsite where
+instance Data.ToQuery DeleteBucketWebsite where
   toQuery = Prelude.const (Prelude.mconcat ["website"])
 
 -- | /See:/ 'newDeleteBucketWebsiteResponse' smart constructor.

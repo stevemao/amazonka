@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.FrameCaptureCdnSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.FrameCaptureCdnSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.FrameCaptureS3Settings
 import qualified Amazonka.Prelude as Prelude
 
@@ -53,13 +54,13 @@ newFrameCaptureCdnSettings =
 frameCaptureCdnSettings_frameCaptureS3Settings :: Lens.Lens' FrameCaptureCdnSettings (Prelude.Maybe FrameCaptureS3Settings)
 frameCaptureCdnSettings_frameCaptureS3Settings = Lens.lens (\FrameCaptureCdnSettings' {frameCaptureS3Settings} -> frameCaptureS3Settings) (\s@FrameCaptureCdnSettings' {} a -> s {frameCaptureS3Settings = a} :: FrameCaptureCdnSettings)
 
-instance Core.FromJSON FrameCaptureCdnSettings where
+instance Data.FromJSON FrameCaptureCdnSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FrameCaptureCdnSettings"
       ( \x ->
           FrameCaptureCdnSettings'
-            Prelude.<$> (x Core..:? "frameCaptureS3Settings")
+            Prelude.<$> (x Data..:? "frameCaptureS3Settings")
       )
 
 instance Prelude.Hashable FrameCaptureCdnSettings where
@@ -70,11 +71,11 @@ instance Prelude.NFData FrameCaptureCdnSettings where
   rnf FrameCaptureCdnSettings' {..} =
     Prelude.rnf frameCaptureS3Settings
 
-instance Core.ToJSON FrameCaptureCdnSettings where
+instance Data.ToJSON FrameCaptureCdnSettings where
   toJSON FrameCaptureCdnSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("frameCaptureS3Settings" Core..=)
+          [ ("frameCaptureS3Settings" Data..=)
               Prelude.<$> frameCaptureS3Settings
           ]
       )

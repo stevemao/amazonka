@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataBrew.DeleteSchedule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.DataBrew.DeleteSchedule
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataBrew.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,13 +78,14 @@ instance Core.AWSRequest DeleteSchedule where
   type
     AWSResponse DeleteSchedule =
       DeleteScheduleResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteScheduleResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Name")
+            Prelude.<*> (x Data..:> "Name")
       )
 
 instance Prelude.Hashable DeleteSchedule where
@@ -93,22 +95,22 @@ instance Prelude.Hashable DeleteSchedule where
 instance Prelude.NFData DeleteSchedule where
   rnf DeleteSchedule' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DeleteSchedule where
+instance Data.ToHeaders DeleteSchedule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteSchedule where
+instance Data.ToPath DeleteSchedule where
   toPath DeleteSchedule' {..} =
-    Prelude.mconcat ["/schedules/", Core.toBS name]
+    Prelude.mconcat ["/schedules/", Data.toBS name]
 
-instance Core.ToQuery DeleteSchedule where
+instance Data.ToQuery DeleteSchedule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteScheduleResponse' smart constructor.

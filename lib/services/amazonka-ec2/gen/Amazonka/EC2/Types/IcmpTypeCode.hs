@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.IcmpTypeCode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.IcmpTypeCode where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the ICMP type and code.
@@ -65,10 +66,10 @@ icmpTypeCode_code = Lens.lens (\IcmpTypeCode' {code} -> code) (\s@IcmpTypeCode' 
 icmpTypeCode_type :: Lens.Lens' IcmpTypeCode (Prelude.Maybe Prelude.Int)
 icmpTypeCode_type = Lens.lens (\IcmpTypeCode' {type'} -> type') (\s@IcmpTypeCode' {} a -> s {type' = a} :: IcmpTypeCode)
 
-instance Core.FromXML IcmpTypeCode where
+instance Data.FromXML IcmpTypeCode where
   parseXML x =
     IcmpTypeCode'
-      Prelude.<$> (x Core..@? "code") Prelude.<*> (x Core..@? "type")
+      Prelude.<$> (x Data..@? "code") Prelude.<*> (x Data..@? "type")
 
 instance Prelude.Hashable IcmpTypeCode where
   hashWithSalt _salt IcmpTypeCode' {..} =
@@ -79,7 +80,7 @@ instance Prelude.NFData IcmpTypeCode where
   rnf IcmpTypeCode' {..} =
     Prelude.rnf code `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToQuery IcmpTypeCode where
+instance Data.ToQuery IcmpTypeCode where
   toQuery IcmpTypeCode' {..} =
     Prelude.mconcat
-      ["Code" Core.=: code, "Type" Core.=: type']
+      ["Code" Data.=: code, "Type" Data.=: type']

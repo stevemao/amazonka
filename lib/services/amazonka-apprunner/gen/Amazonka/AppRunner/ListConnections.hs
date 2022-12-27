@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppRunner.ListConnections
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.AppRunner.ListConnections
 
     -- * Request Lenses
     listConnections_connectionName,
-    listConnections_nextToken,
     listConnections_maxResults,
+    listConnections_nextToken,
 
     -- * Destructuring the Response
     ListConnectionsResponse (..),
@@ -45,7 +45,8 @@ where
 
 import Amazonka.AppRunner.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,19 +56,19 @@ data ListConnections = ListConnections'
   { -- | If specified, only this connection is returned. If not specified, the
     -- result isn\'t filtered by name.
     connectionName :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to include in each response (result page).
+    -- Used for a paginated request.
+    --
+    -- If you don\'t specify @MaxResults@, the request retrieves all available
+    -- results in a single response.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | A token from a previous result page. Used for a paginated request. The
     -- request retrieves the next result page. All other parameter values must
     -- be identical to the ones specified in the initial request.
     --
     -- If you don\'t specify @NextToken@, the request retrieves the first
     -- result page.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to include in each response (result page).
-    -- Used for a paginated request.
-    --
-    -- If you don\'t specify @MaxResults@, the request retrieves all available
-    -- results in a single response.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -82,31 +83,39 @@ data ListConnections = ListConnections'
 -- 'connectionName', 'listConnections_connectionName' - If specified, only this connection is returned. If not specified, the
 -- result isn\'t filtered by name.
 --
+-- 'maxResults', 'listConnections_maxResults' - The maximum number of results to include in each response (result page).
+-- Used for a paginated request.
+--
+-- If you don\'t specify @MaxResults@, the request retrieves all available
+-- results in a single response.
+--
 -- 'nextToken', 'listConnections_nextToken' - A token from a previous result page. Used for a paginated request. The
 -- request retrieves the next result page. All other parameter values must
 -- be identical to the ones specified in the initial request.
 --
 -- If you don\'t specify @NextToken@, the request retrieves the first
 -- result page.
---
--- 'maxResults', 'listConnections_maxResults' - The maximum number of results to include in each response (result page).
--- Used for a paginated request.
---
--- If you don\'t specify @MaxResults@, the request retrieves all available
--- results in a single response.
 newListConnections ::
   ListConnections
 newListConnections =
   ListConnections'
     { connectionName = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | If specified, only this connection is returned. If not specified, the
 -- result isn\'t filtered by name.
 listConnections_connectionName :: Lens.Lens' ListConnections (Prelude.Maybe Prelude.Text)
 listConnections_connectionName = Lens.lens (\ListConnections' {connectionName} -> connectionName) (\s@ListConnections' {} a -> s {connectionName = a} :: ListConnections)
+
+-- | The maximum number of results to include in each response (result page).
+-- Used for a paginated request.
+--
+-- If you don\'t specify @MaxResults@, the request retrieves all available
+-- results in a single response.
+listConnections_maxResults :: Lens.Lens' ListConnections (Prelude.Maybe Prelude.Natural)
+listConnections_maxResults = Lens.lens (\ListConnections' {maxResults} -> maxResults) (\s@ListConnections' {} a -> s {maxResults = a} :: ListConnections)
 
 -- | A token from a previous result page. Used for a paginated request. The
 -- request retrieves the next result page. All other parameter values must
@@ -117,26 +126,19 @@ listConnections_connectionName = Lens.lens (\ListConnections' {connectionName} -
 listConnections_nextToken :: Lens.Lens' ListConnections (Prelude.Maybe Prelude.Text)
 listConnections_nextToken = Lens.lens (\ListConnections' {nextToken} -> nextToken) (\s@ListConnections' {} a -> s {nextToken = a} :: ListConnections)
 
--- | The maximum number of results to include in each response (result page).
--- Used for a paginated request.
---
--- If you don\'t specify @MaxResults@, the request retrieves all available
--- results in a single response.
-listConnections_maxResults :: Lens.Lens' ListConnections (Prelude.Maybe Prelude.Natural)
-listConnections_maxResults = Lens.lens (\ListConnections' {maxResults} -> maxResults) (\s@ListConnections' {} a -> s {maxResults = a} :: ListConnections)
-
 instance Core.AWSRequest ListConnections where
   type
     AWSResponse ListConnections =
       ListConnectionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListConnectionsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "ConnectionSummaryList"
+            Prelude.<*> ( x Data..?> "ConnectionSummaryList"
                             Core..!@ Prelude.mempty
                         )
       )
@@ -144,43 +146,43 @@ instance Core.AWSRequest ListConnections where
 instance Prelude.Hashable ListConnections where
   hashWithSalt _salt ListConnections' {..} =
     _salt `Prelude.hashWithSalt` connectionName
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListConnections where
   rnf ListConnections' {..} =
     Prelude.rnf connectionName
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListConnections where
+instance Data.ToHeaders ListConnections where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AppRunner.ListConnections" :: Prelude.ByteString),
+              Data.=# ("AppRunner.ListConnections" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListConnections where
+instance Data.ToJSON ListConnections where
   toJSON ListConnections' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ConnectionName" Core..=)
+          [ ("ConnectionName" Data..=)
               Prelude.<$> connectionName,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListConnections where
+instance Data.ToPath ListConnections where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListConnections where
+instance Data.ToQuery ListConnections where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListConnectionsResponse' smart constructor.

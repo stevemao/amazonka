@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.RebootCacheCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,7 +37,7 @@
 --
 -- If you make changes to parameters that require a Redis (cluster mode
 -- enabled) cluster reboot for the changes to be applied, see
--- <http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.Rebooting.html Rebooting a Cluster>
+-- <http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/nodes.rebooting.html Rebooting a Cluster>
 -- for an alternate process.
 module Amazonka.ElastiCache.RebootCacheCluster
   ( -- * Creating a Request
@@ -59,8 +59,9 @@ module Amazonka.ElastiCache.RebootCacheCluster
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -116,13 +117,14 @@ instance Core.AWSRequest RebootCacheCluster where
   type
     AWSResponse RebootCacheCluster =
       RebootCacheClusterResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "RebootCacheClusterResult"
       ( \s h x ->
           RebootCacheClusterResponse'
-            Prelude.<$> (x Core..@? "CacheCluster")
+            Prelude.<$> (x Data..@? "CacheCluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -136,22 +138,22 @@ instance Prelude.NFData RebootCacheCluster where
     Prelude.rnf cacheClusterId
       `Prelude.seq` Prelude.rnf cacheNodeIdsToReboot
 
-instance Core.ToHeaders RebootCacheCluster where
+instance Data.ToHeaders RebootCacheCluster where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath RebootCacheCluster where
+instance Data.ToPath RebootCacheCluster where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RebootCacheCluster where
+instance Data.ToQuery RebootCacheCluster where
   toQuery RebootCacheCluster' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("RebootCacheCluster" :: Prelude.ByteString),
+          Data.=: ("RebootCacheCluster" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
-        "CacheClusterId" Core.=: cacheClusterId,
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
+        "CacheClusterId" Data.=: cacheClusterId,
         "CacheNodeIdsToReboot"
-          Core.=: Core.toQueryList "CacheNodeId" cacheNodeIdsToReboot
+          Data.=: Data.toQueryList "CacheNodeId" cacheNodeIdsToReboot
       ]
 
 -- | /See:/ 'newRebootCacheClusterResponse' smart constructor.

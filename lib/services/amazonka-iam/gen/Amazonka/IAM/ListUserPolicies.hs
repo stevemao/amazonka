@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.ListUserPolicies
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,16 +49,17 @@ module Amazonka.IAM.ListUserPolicies
     newListUserPoliciesResponse,
 
     -- * Response Lenses
-    listUserPoliciesResponse_marker,
     listUserPoliciesResponse_isTruncated,
+    listUserPoliciesResponse_marker,
     listUserPoliciesResponse_httpStatus,
     listUserPoliciesResponse_policyNames,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -182,17 +183,18 @@ instance Core.AWSRequest ListUserPolicies where
   type
     AWSResponse ListUserPolicies =
       ListUserPoliciesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListUserPoliciesResult"
       ( \s h x ->
           ListUserPoliciesResponse'
-            Prelude.<$> (x Core..@? "Marker")
-            Prelude.<*> (x Core..@? "IsTruncated")
+            Prelude.<$> (x Data..@? "IsTruncated")
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..@? "PolicyNames" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.parseXMLList "member"
+            Prelude.<*> ( x Data..@? "PolicyNames" Core..!@ Prelude.mempty
+                            Prelude.>>= Data.parseXMLList "member"
                         )
       )
 
@@ -208,33 +210,29 @@ instance Prelude.NFData ListUserPolicies where
       `Prelude.seq` Prelude.rnf maxItems
       `Prelude.seq` Prelude.rnf userName
 
-instance Core.ToHeaders ListUserPolicies where
+instance Data.ToHeaders ListUserPolicies where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListUserPolicies where
+instance Data.ToPath ListUserPolicies where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListUserPolicies where
+instance Data.ToQuery ListUserPolicies where
   toQuery ListUserPolicies' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ListUserPolicies" :: Prelude.ByteString),
+          Data.=: ("ListUserPolicies" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "Marker" Core.=: marker,
-        "MaxItems" Core.=: maxItems,
-        "UserName" Core.=: userName
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "Marker" Data.=: marker,
+        "MaxItems" Data.=: maxItems,
+        "UserName" Data.=: userName
       ]
 
 -- | Contains the response to a successful ListUserPolicies request.
 --
 -- /See:/ 'newListUserPoliciesResponse' smart constructor.
 data ListUserPoliciesResponse = ListUserPoliciesResponse'
-  { -- | When @IsTruncated@ is @true@, this element is present and contains the
-    -- value to use for the @Marker@ parameter in a subsequent pagination
-    -- request.
-    marker :: Prelude.Maybe Prelude.Text,
-    -- | A flag that indicates whether there are more items to return. If your
+  { -- | A flag that indicates whether there are more items to return. If your
     -- results were truncated, you can make a subsequent pagination request
     -- using the @Marker@ request parameter to retrieve more items. Note that
     -- IAM might return fewer than the @MaxItems@ number of results even when
@@ -242,6 +240,10 @@ data ListUserPoliciesResponse = ListUserPoliciesResponse'
     -- @IsTruncated@ after every call to ensure that you receive all your
     -- results.
     isTruncated :: Prelude.Maybe Prelude.Bool,
+    -- | When @IsTruncated@ is @true@, this element is present and contains the
+    -- value to use for the @Marker@ parameter in a subsequent pagination
+    -- request.
+    marker :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | A list of policy names.
@@ -257,10 +259,6 @@ data ListUserPoliciesResponse = ListUserPoliciesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'marker', 'listUserPoliciesResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
--- value to use for the @Marker@ parameter in a subsequent pagination
--- request.
---
 -- 'isTruncated', 'listUserPoliciesResponse_isTruncated' - A flag that indicates whether there are more items to return. If your
 -- results were truncated, you can make a subsequent pagination request
 -- using the @Marker@ request parameter to retrieve more items. Note that
@@ -268,6 +266,10 @@ data ListUserPoliciesResponse = ListUserPoliciesResponse'
 -- there are more results available. We recommend that you check
 -- @IsTruncated@ after every call to ensure that you receive all your
 -- results.
+--
+-- 'marker', 'listUserPoliciesResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
 --
 -- 'httpStatus', 'listUserPoliciesResponse_httpStatus' - The response's http status code.
 --
@@ -278,17 +280,12 @@ newListUserPoliciesResponse ::
   ListUserPoliciesResponse
 newListUserPoliciesResponse pHttpStatus_ =
   ListUserPoliciesResponse'
-    { marker = Prelude.Nothing,
-      isTruncated = Prelude.Nothing,
+    { isTruncated =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
       httpStatus = pHttpStatus_,
       policyNames = Prelude.mempty
     }
-
--- | When @IsTruncated@ is @true@, this element is present and contains the
--- value to use for the @Marker@ parameter in a subsequent pagination
--- request.
-listUserPoliciesResponse_marker :: Lens.Lens' ListUserPoliciesResponse (Prelude.Maybe Prelude.Text)
-listUserPoliciesResponse_marker = Lens.lens (\ListUserPoliciesResponse' {marker} -> marker) (\s@ListUserPoliciesResponse' {} a -> s {marker = a} :: ListUserPoliciesResponse)
 
 -- | A flag that indicates whether there are more items to return. If your
 -- results were truncated, you can make a subsequent pagination request
@@ -300,6 +297,12 @@ listUserPoliciesResponse_marker = Lens.lens (\ListUserPoliciesResponse' {marker}
 listUserPoliciesResponse_isTruncated :: Lens.Lens' ListUserPoliciesResponse (Prelude.Maybe Prelude.Bool)
 listUserPoliciesResponse_isTruncated = Lens.lens (\ListUserPoliciesResponse' {isTruncated} -> isTruncated) (\s@ListUserPoliciesResponse' {} a -> s {isTruncated = a} :: ListUserPoliciesResponse)
 
+-- | When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
+listUserPoliciesResponse_marker :: Lens.Lens' ListUserPoliciesResponse (Prelude.Maybe Prelude.Text)
+listUserPoliciesResponse_marker = Lens.lens (\ListUserPoliciesResponse' {marker} -> marker) (\s@ListUserPoliciesResponse' {} a -> s {marker = a} :: ListUserPoliciesResponse)
+
 -- | The response's http status code.
 listUserPoliciesResponse_httpStatus :: Lens.Lens' ListUserPoliciesResponse Prelude.Int
 listUserPoliciesResponse_httpStatus = Lens.lens (\ListUserPoliciesResponse' {httpStatus} -> httpStatus) (\s@ListUserPoliciesResponse' {} a -> s {httpStatus = a} :: ListUserPoliciesResponse)
@@ -310,7 +313,7 @@ listUserPoliciesResponse_policyNames = Lens.lens (\ListUserPoliciesResponse' {po
 
 instance Prelude.NFData ListUserPoliciesResponse where
   rnf ListUserPoliciesResponse' {..} =
-    Prelude.rnf marker
-      `Prelude.seq` Prelude.rnf isTruncated
+    Prelude.rnf isTruncated
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf policyNames

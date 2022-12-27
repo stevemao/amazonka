@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.EC2InstanceConnect
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,14 +21,20 @@ module Amazonka.EC2InstanceConnect
     -- * Errors
     -- $errors
 
-    -- ** SerialConsoleSessionUnavailableException
-    _SerialConsoleSessionUnavailableException,
-
     -- ** AuthException
     _AuthException,
 
-    -- ** SerialConsoleSessionLimitExceededException
-    _SerialConsoleSessionLimitExceededException,
+    -- ** EC2InstanceNotFoundException
+    _EC2InstanceNotFoundException,
+
+    -- ** EC2InstanceStateInvalidException
+    _EC2InstanceStateInvalidException,
+
+    -- ** EC2InstanceTypeInvalidException
+    _EC2InstanceTypeInvalidException,
+
+    -- ** EC2InstanceUnavailableException
+    _EC2InstanceUnavailableException,
 
     -- ** InvalidArgsException
     _InvalidArgsException,
@@ -36,17 +42,17 @@ module Amazonka.EC2InstanceConnect
     -- ** SerialConsoleAccessDisabledException
     _SerialConsoleAccessDisabledException,
 
-    -- ** ThrottlingException
-    _ThrottlingException,
+    -- ** SerialConsoleSessionLimitExceededException
+    _SerialConsoleSessionLimitExceededException,
+
+    -- ** SerialConsoleSessionUnavailableException
+    _SerialConsoleSessionUnavailableException,
 
     -- ** ServiceException
     _ServiceException,
 
-    -- ** EC2InstanceTypeInvalidException
-    _EC2InstanceTypeInvalidException,
-
-    -- ** EC2InstanceNotFoundException
-    _EC2InstanceNotFoundException,
+    -- ** ThrottlingException
+    _ThrottlingException,
 
     -- * Waiters
     -- $waiters

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.Types.EnvironmentLanguage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CodeBuild.Types.EnvironmentLanguage where
 import Amazonka.CodeBuild.Types.EnvironmentImage
 import Amazonka.CodeBuild.Types.LanguageType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A set of Docker images that are related by programming language and are
@@ -67,14 +68,14 @@ environmentLanguage_images = Lens.lens (\EnvironmentLanguage' {images} -> images
 environmentLanguage_language :: Lens.Lens' EnvironmentLanguage (Prelude.Maybe LanguageType)
 environmentLanguage_language = Lens.lens (\EnvironmentLanguage' {language} -> language) (\s@EnvironmentLanguage' {} a -> s {language = a} :: EnvironmentLanguage)
 
-instance Core.FromJSON EnvironmentLanguage where
+instance Data.FromJSON EnvironmentLanguage where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EnvironmentLanguage"
       ( \x ->
           EnvironmentLanguage'
-            Prelude.<$> (x Core..:? "images" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "language")
+            Prelude.<$> (x Data..:? "images" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "language")
       )
 
 instance Prelude.Hashable EnvironmentLanguage where

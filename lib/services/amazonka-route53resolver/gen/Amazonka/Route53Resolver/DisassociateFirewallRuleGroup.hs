@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Resolver.DisassociateFirewallRuleGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Route53Resolver.DisassociateFirewallRuleGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,12 +86,13 @@ instance
   type
     AWSResponse DisassociateFirewallRuleGroup =
       DisassociateFirewallRuleGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DisassociateFirewallRuleGroupResponse'
-            Prelude.<$> (x Core..?> "FirewallRuleGroupAssociation")
+            Prelude.<$> (x Data..?> "FirewallRuleGroupAssociation")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -106,36 +108,36 @@ instance Prelude.NFData DisassociateFirewallRuleGroup where
   rnf DisassociateFirewallRuleGroup' {..} =
     Prelude.rnf firewallRuleGroupAssociationId
 
-instance Core.ToHeaders DisassociateFirewallRuleGroup where
+instance Data.ToHeaders DisassociateFirewallRuleGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53Resolver.DisassociateFirewallRuleGroup" ::
+              Data.=# ( "Route53Resolver.DisassociateFirewallRuleGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisassociateFirewallRuleGroup where
+instance Data.ToJSON DisassociateFirewallRuleGroup where
   toJSON DisassociateFirewallRuleGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "FirewallRuleGroupAssociationId"
-                  Core..= firewallRuleGroupAssociationId
+                  Data..= firewallRuleGroupAssociationId
               )
           ]
       )
 
-instance Core.ToPath DisassociateFirewallRuleGroup where
+instance Data.ToPath DisassociateFirewallRuleGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisassociateFirewallRuleGroup where
+instance Data.ToQuery DisassociateFirewallRuleGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateFirewallRuleGroupResponse' smart constructor.

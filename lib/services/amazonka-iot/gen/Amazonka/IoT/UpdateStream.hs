@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.UpdateStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,8 +32,8 @@ module Amazonka.IoT.UpdateStream
     newUpdateStream,
 
     -- * Request Lenses
-    updateStream_files,
     updateStream_description,
+    updateStream_files,
     updateStream_roleArn,
     updateStream_streamId,
 
@@ -42,27 +42,28 @@ module Amazonka.IoT.UpdateStream
     newUpdateStreamResponse,
 
     -- * Response Lenses
-    updateStreamResponse_streamVersion,
-    updateStreamResponse_streamArn,
     updateStreamResponse_description,
+    updateStreamResponse_streamArn,
     updateStreamResponse_streamId,
+    updateStreamResponse_streamVersion,
     updateStreamResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateStream' smart constructor.
 data UpdateStream = UpdateStream'
-  { -- | The files associated with the stream.
-    files :: Prelude.Maybe (Prelude.NonEmpty StreamFile),
-    -- | The description of the stream.
+  { -- | The description of the stream.
     description :: Prelude.Maybe Prelude.Text,
+    -- | The files associated with the stream.
+    files :: Prelude.Maybe (Prelude.NonEmpty StreamFile),
     -- | An IAM role that allows the IoT service principal assumes to access your
     -- S3 files.
     roleArn :: Prelude.Maybe Prelude.Text,
@@ -79,9 +80,9 @@ data UpdateStream = UpdateStream'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'files', 'updateStream_files' - The files associated with the stream.
---
 -- 'description', 'updateStream_description' - The description of the stream.
+--
+-- 'files', 'updateStream_files' - The files associated with the stream.
 --
 -- 'roleArn', 'updateStream_roleArn' - An IAM role that allows the IoT service principal assumes to access your
 -- S3 files.
@@ -93,19 +94,19 @@ newUpdateStream ::
   UpdateStream
 newUpdateStream pStreamId_ =
   UpdateStream'
-    { files = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      files = Prelude.Nothing,
       roleArn = Prelude.Nothing,
       streamId = pStreamId_
     }
 
--- | The files associated with the stream.
-updateStream_files :: Lens.Lens' UpdateStream (Prelude.Maybe (Prelude.NonEmpty StreamFile))
-updateStream_files = Lens.lens (\UpdateStream' {files} -> files) (\s@UpdateStream' {} a -> s {files = a} :: UpdateStream) Prelude.. Lens.mapping Lens.coerced
-
 -- | The description of the stream.
 updateStream_description :: Lens.Lens' UpdateStream (Prelude.Maybe Prelude.Text)
 updateStream_description = Lens.lens (\UpdateStream' {description} -> description) (\s@UpdateStream' {} a -> s {description = a} :: UpdateStream)
+
+-- | The files associated with the stream.
+updateStream_files :: Lens.Lens' UpdateStream (Prelude.Maybe (Prelude.NonEmpty StreamFile))
+updateStream_files = Lens.lens (\UpdateStream' {files} -> files) (\s@UpdateStream' {} a -> s {files = a} :: UpdateStream) Prelude.. Lens.mapping Lens.coerced
 
 -- | An IAM role that allows the IoT service principal assumes to access your
 -- S3 files.
@@ -118,62 +119,63 @@ updateStream_streamId = Lens.lens (\UpdateStream' {streamId} -> streamId) (\s@Up
 
 instance Core.AWSRequest UpdateStream where
   type AWSResponse UpdateStream = UpdateStreamResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateStreamResponse'
-            Prelude.<$> (x Core..?> "streamVersion")
-            Prelude.<*> (x Core..?> "streamArn")
-            Prelude.<*> (x Core..?> "description")
-            Prelude.<*> (x Core..?> "streamId")
+            Prelude.<$> (x Data..?> "description")
+            Prelude.<*> (x Data..?> "streamArn")
+            Prelude.<*> (x Data..?> "streamId")
+            Prelude.<*> (x Data..?> "streamVersion")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateStream where
   hashWithSalt _salt UpdateStream' {..} =
-    _salt `Prelude.hashWithSalt` files
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` files
       `Prelude.hashWithSalt` roleArn
       `Prelude.hashWithSalt` streamId
 
 instance Prelude.NFData UpdateStream where
   rnf UpdateStream' {..} =
-    Prelude.rnf files
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf files
       `Prelude.seq` Prelude.rnf roleArn
       `Prelude.seq` Prelude.rnf streamId
 
-instance Core.ToHeaders UpdateStream where
+instance Data.ToHeaders UpdateStream where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateStream where
+instance Data.ToJSON UpdateStream where
   toJSON UpdateStream' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("files" Core..=) Prelude.<$> files,
-            ("description" Core..=) Prelude.<$> description,
-            ("roleArn" Core..=) Prelude.<$> roleArn
+          [ ("description" Data..=) Prelude.<$> description,
+            ("files" Data..=) Prelude.<$> files,
+            ("roleArn" Data..=) Prelude.<$> roleArn
           ]
       )
 
-instance Core.ToPath UpdateStream where
+instance Data.ToPath UpdateStream where
   toPath UpdateStream' {..} =
-    Prelude.mconcat ["/streams/", Core.toBS streamId]
+    Prelude.mconcat ["/streams/", Data.toBS streamId]
 
-instance Core.ToQuery UpdateStream where
+instance Data.ToQuery UpdateStream where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateStreamResponse' smart constructor.
 data UpdateStreamResponse = UpdateStreamResponse'
-  { -- | The stream version.
-    streamVersion :: Prelude.Maybe Prelude.Natural,
+  { -- | A description of the stream.
+    description :: Prelude.Maybe Prelude.Text,
     -- | The stream ARN.
     streamArn :: Prelude.Maybe Prelude.Text,
-    -- | A description of the stream.
-    description :: Prelude.Maybe Prelude.Text,
     -- | The stream ID.
     streamId :: Prelude.Maybe Prelude.Text,
+    -- | The stream version.
+    streamVersion :: Prelude.Maybe Prelude.Natural,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -187,13 +189,13 @@ data UpdateStreamResponse = UpdateStreamResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'streamVersion', 'updateStreamResponse_streamVersion' - The stream version.
+-- 'description', 'updateStreamResponse_description' - A description of the stream.
 --
 -- 'streamArn', 'updateStreamResponse_streamArn' - The stream ARN.
 --
--- 'description', 'updateStreamResponse_description' - A description of the stream.
---
 -- 'streamId', 'updateStreamResponse_streamId' - The stream ID.
+--
+-- 'streamVersion', 'updateStreamResponse_streamVersion' - The stream version.
 --
 -- 'httpStatus', 'updateStreamResponse_httpStatus' - The response's http status code.
 newUpdateStreamResponse ::
@@ -202,29 +204,29 @@ newUpdateStreamResponse ::
   UpdateStreamResponse
 newUpdateStreamResponse pHttpStatus_ =
   UpdateStreamResponse'
-    { streamVersion =
+    { description =
         Prelude.Nothing,
       streamArn = Prelude.Nothing,
-      description = Prelude.Nothing,
       streamId = Prelude.Nothing,
+      streamVersion = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The stream version.
-updateStreamResponse_streamVersion :: Lens.Lens' UpdateStreamResponse (Prelude.Maybe Prelude.Natural)
-updateStreamResponse_streamVersion = Lens.lens (\UpdateStreamResponse' {streamVersion} -> streamVersion) (\s@UpdateStreamResponse' {} a -> s {streamVersion = a} :: UpdateStreamResponse)
-
--- | The stream ARN.
-updateStreamResponse_streamArn :: Lens.Lens' UpdateStreamResponse (Prelude.Maybe Prelude.Text)
-updateStreamResponse_streamArn = Lens.lens (\UpdateStreamResponse' {streamArn} -> streamArn) (\s@UpdateStreamResponse' {} a -> s {streamArn = a} :: UpdateStreamResponse)
 
 -- | A description of the stream.
 updateStreamResponse_description :: Lens.Lens' UpdateStreamResponse (Prelude.Maybe Prelude.Text)
 updateStreamResponse_description = Lens.lens (\UpdateStreamResponse' {description} -> description) (\s@UpdateStreamResponse' {} a -> s {description = a} :: UpdateStreamResponse)
 
+-- | The stream ARN.
+updateStreamResponse_streamArn :: Lens.Lens' UpdateStreamResponse (Prelude.Maybe Prelude.Text)
+updateStreamResponse_streamArn = Lens.lens (\UpdateStreamResponse' {streamArn} -> streamArn) (\s@UpdateStreamResponse' {} a -> s {streamArn = a} :: UpdateStreamResponse)
+
 -- | The stream ID.
 updateStreamResponse_streamId :: Lens.Lens' UpdateStreamResponse (Prelude.Maybe Prelude.Text)
 updateStreamResponse_streamId = Lens.lens (\UpdateStreamResponse' {streamId} -> streamId) (\s@UpdateStreamResponse' {} a -> s {streamId = a} :: UpdateStreamResponse)
+
+-- | The stream version.
+updateStreamResponse_streamVersion :: Lens.Lens' UpdateStreamResponse (Prelude.Maybe Prelude.Natural)
+updateStreamResponse_streamVersion = Lens.lens (\UpdateStreamResponse' {streamVersion} -> streamVersion) (\s@UpdateStreamResponse' {} a -> s {streamVersion = a} :: UpdateStreamResponse)
 
 -- | The response's http status code.
 updateStreamResponse_httpStatus :: Lens.Lens' UpdateStreamResponse Prelude.Int
@@ -232,8 +234,8 @@ updateStreamResponse_httpStatus = Lens.lens (\UpdateStreamResponse' {httpStatus}
 
 instance Prelude.NFData UpdateStreamResponse where
   rnf UpdateStreamResponse' {..} =
-    Prelude.rnf streamVersion
+    Prelude.rnf description
       `Prelude.seq` Prelude.rnf streamArn
-      `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf streamId
+      `Prelude.seq` Prelude.rnf streamVersion
       `Prelude.seq` Prelude.rnf httpStatus

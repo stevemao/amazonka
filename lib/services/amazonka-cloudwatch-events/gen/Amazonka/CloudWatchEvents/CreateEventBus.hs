@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.CreateEventBus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.CloudWatchEvents.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -126,12 +127,13 @@ instance Core.AWSRequest CreateEventBus where
   type
     AWSResponse CreateEventBus =
       CreateEventBusResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateEventBusResponse'
-            Prelude.<$> (x Core..?> "EventBusArn")
+            Prelude.<$> (x Data..?> "EventBusArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -147,34 +149,34 @@ instance Prelude.NFData CreateEventBus where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreateEventBus where
+instance Data.ToHeaders CreateEventBus where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSEvents.CreateEventBus" :: Prelude.ByteString),
+              Data.=# ("AWSEvents.CreateEventBus" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateEventBus where
+instance Data.ToJSON CreateEventBus where
   toJSON CreateEventBus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EventSourceName" Core..=)
+          [ ("EventSourceName" Data..=)
               Prelude.<$> eventSourceName,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name)
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateEventBus where
+instance Data.ToPath CreateEventBus where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateEventBus where
+instance Data.ToQuery CreateEventBus where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateEventBusResponse' smart constructor.

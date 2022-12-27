@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideoMedia
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,20 +17,20 @@ module Amazonka.KinesisVideoMedia
     -- * Errors
     -- $errors
 
+    -- ** ClientLimitExceededException
+    _ClientLimitExceededException,
+
     -- ** ConnectionLimitExceededException
     _ConnectionLimitExceededException,
 
     -- ** InvalidArgumentException
     _InvalidArgumentException,
 
-    -- ** NotAuthorizedException
-    _NotAuthorizedException,
-
-    -- ** ClientLimitExceededException
-    _ClientLimitExceededException,
-
     -- ** InvalidEndpointException
     _InvalidEndpointException,
+
+    -- ** NotAuthorizedException
+    _NotAuthorizedException,
 
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,

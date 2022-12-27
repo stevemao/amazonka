@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.Types.DBSecurityGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.RDS.Types.DBSecurityGroup where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types.EC2SecurityGroup
 import Amazonka.RDS.Types.IPRange
@@ -32,21 +33,21 @@ import Amazonka.RDS.Types.IPRange
 --
 -- /See:/ 'newDBSecurityGroup' smart constructor.
 data DBSecurityGroup = DBSecurityGroup'
-  { -- | Provides the VpcId of the DB security group.
-    vpcId :: Prelude.Maybe Prelude.Text,
-    -- | Provides the Amazon Web Services ID of the owner of a specific DB
-    -- security group.
-    ownerId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) for the DB security group.
+  { -- | The Amazon Resource Name (ARN) for the DB security group.
     dbSecurityGroupArn :: Prelude.Maybe Prelude.Text,
-    -- | Contains a list of @IPRange@ elements.
-    iPRanges :: Prelude.Maybe [IPRange],
+    -- | Provides the description of the DB security group.
+    dbSecurityGroupDescription :: Prelude.Maybe Prelude.Text,
     -- | Specifies the name of the DB security group.
     dbSecurityGroupName :: Prelude.Maybe Prelude.Text,
     -- | Contains a list of @EC2SecurityGroup@ elements.
     eC2SecurityGroups :: Prelude.Maybe [EC2SecurityGroup],
-    -- | Provides the description of the DB security group.
-    dbSecurityGroupDescription :: Prelude.Maybe Prelude.Text
+    -- | Contains a list of @IPRange@ elements.
+    iPRanges :: Prelude.Maybe [IPRange],
+    -- | Provides the Amazon Web Services ID of the owner of a specific DB
+    -- security group.
+    ownerId :: Prelude.Maybe Prelude.Text,
+    -- | Provides the VpcId of the DB security group.
+    vpcId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -58,49 +59,41 @@ data DBSecurityGroup = DBSecurityGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'vpcId', 'dbSecurityGroup_vpcId' - Provides the VpcId of the DB security group.
---
--- 'ownerId', 'dbSecurityGroup_ownerId' - Provides the Amazon Web Services ID of the owner of a specific DB
--- security group.
---
 -- 'dbSecurityGroupArn', 'dbSecurityGroup_dbSecurityGroupArn' - The Amazon Resource Name (ARN) for the DB security group.
 --
--- 'iPRanges', 'dbSecurityGroup_iPRanges' - Contains a list of @IPRange@ elements.
+-- 'dbSecurityGroupDescription', 'dbSecurityGroup_dbSecurityGroupDescription' - Provides the description of the DB security group.
 --
 -- 'dbSecurityGroupName', 'dbSecurityGroup_dbSecurityGroupName' - Specifies the name of the DB security group.
 --
 -- 'eC2SecurityGroups', 'dbSecurityGroup_eC2SecurityGroups' - Contains a list of @EC2SecurityGroup@ elements.
 --
--- 'dbSecurityGroupDescription', 'dbSecurityGroup_dbSecurityGroupDescription' - Provides the description of the DB security group.
+-- 'iPRanges', 'dbSecurityGroup_iPRanges' - Contains a list of @IPRange@ elements.
+--
+-- 'ownerId', 'dbSecurityGroup_ownerId' - Provides the Amazon Web Services ID of the owner of a specific DB
+-- security group.
+--
+-- 'vpcId', 'dbSecurityGroup_vpcId' - Provides the VpcId of the DB security group.
 newDBSecurityGroup ::
   DBSecurityGroup
 newDBSecurityGroup =
   DBSecurityGroup'
-    { vpcId = Prelude.Nothing,
-      ownerId = Prelude.Nothing,
-      dbSecurityGroupArn = Prelude.Nothing,
-      iPRanges = Prelude.Nothing,
+    { dbSecurityGroupArn =
+        Prelude.Nothing,
+      dbSecurityGroupDescription = Prelude.Nothing,
       dbSecurityGroupName = Prelude.Nothing,
       eC2SecurityGroups = Prelude.Nothing,
-      dbSecurityGroupDescription = Prelude.Nothing
+      iPRanges = Prelude.Nothing,
+      ownerId = Prelude.Nothing,
+      vpcId = Prelude.Nothing
     }
-
--- | Provides the VpcId of the DB security group.
-dbSecurityGroup_vpcId :: Lens.Lens' DBSecurityGroup (Prelude.Maybe Prelude.Text)
-dbSecurityGroup_vpcId = Lens.lens (\DBSecurityGroup' {vpcId} -> vpcId) (\s@DBSecurityGroup' {} a -> s {vpcId = a} :: DBSecurityGroup)
-
--- | Provides the Amazon Web Services ID of the owner of a specific DB
--- security group.
-dbSecurityGroup_ownerId :: Lens.Lens' DBSecurityGroup (Prelude.Maybe Prelude.Text)
-dbSecurityGroup_ownerId = Lens.lens (\DBSecurityGroup' {ownerId} -> ownerId) (\s@DBSecurityGroup' {} a -> s {ownerId = a} :: DBSecurityGroup)
 
 -- | The Amazon Resource Name (ARN) for the DB security group.
 dbSecurityGroup_dbSecurityGroupArn :: Lens.Lens' DBSecurityGroup (Prelude.Maybe Prelude.Text)
 dbSecurityGroup_dbSecurityGroupArn = Lens.lens (\DBSecurityGroup' {dbSecurityGroupArn} -> dbSecurityGroupArn) (\s@DBSecurityGroup' {} a -> s {dbSecurityGroupArn = a} :: DBSecurityGroup)
 
--- | Contains a list of @IPRange@ elements.
-dbSecurityGroup_iPRanges :: Lens.Lens' DBSecurityGroup (Prelude.Maybe [IPRange])
-dbSecurityGroup_iPRanges = Lens.lens (\DBSecurityGroup' {iPRanges} -> iPRanges) (\s@DBSecurityGroup' {} a -> s {iPRanges = a} :: DBSecurityGroup) Prelude.. Lens.mapping Lens.coerced
+-- | Provides the description of the DB security group.
+dbSecurityGroup_dbSecurityGroupDescription :: Lens.Lens' DBSecurityGroup (Prelude.Maybe Prelude.Text)
+dbSecurityGroup_dbSecurityGroupDescription = Lens.lens (\DBSecurityGroup' {dbSecurityGroupDescription} -> dbSecurityGroupDescription) (\s@DBSecurityGroup' {} a -> s {dbSecurityGroupDescription = a} :: DBSecurityGroup)
 
 -- | Specifies the name of the DB security group.
 dbSecurityGroup_dbSecurityGroupName :: Lens.Lens' DBSecurityGroup (Prelude.Maybe Prelude.Text)
@@ -110,42 +103,51 @@ dbSecurityGroup_dbSecurityGroupName = Lens.lens (\DBSecurityGroup' {dbSecurityGr
 dbSecurityGroup_eC2SecurityGroups :: Lens.Lens' DBSecurityGroup (Prelude.Maybe [EC2SecurityGroup])
 dbSecurityGroup_eC2SecurityGroups = Lens.lens (\DBSecurityGroup' {eC2SecurityGroups} -> eC2SecurityGroups) (\s@DBSecurityGroup' {} a -> s {eC2SecurityGroups = a} :: DBSecurityGroup) Prelude.. Lens.mapping Lens.coerced
 
--- | Provides the description of the DB security group.
-dbSecurityGroup_dbSecurityGroupDescription :: Lens.Lens' DBSecurityGroup (Prelude.Maybe Prelude.Text)
-dbSecurityGroup_dbSecurityGroupDescription = Lens.lens (\DBSecurityGroup' {dbSecurityGroupDescription} -> dbSecurityGroupDescription) (\s@DBSecurityGroup' {} a -> s {dbSecurityGroupDescription = a} :: DBSecurityGroup)
+-- | Contains a list of @IPRange@ elements.
+dbSecurityGroup_iPRanges :: Lens.Lens' DBSecurityGroup (Prelude.Maybe [IPRange])
+dbSecurityGroup_iPRanges = Lens.lens (\DBSecurityGroup' {iPRanges} -> iPRanges) (\s@DBSecurityGroup' {} a -> s {iPRanges = a} :: DBSecurityGroup) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML DBSecurityGroup where
+-- | Provides the Amazon Web Services ID of the owner of a specific DB
+-- security group.
+dbSecurityGroup_ownerId :: Lens.Lens' DBSecurityGroup (Prelude.Maybe Prelude.Text)
+dbSecurityGroup_ownerId = Lens.lens (\DBSecurityGroup' {ownerId} -> ownerId) (\s@DBSecurityGroup' {} a -> s {ownerId = a} :: DBSecurityGroup)
+
+-- | Provides the VpcId of the DB security group.
+dbSecurityGroup_vpcId :: Lens.Lens' DBSecurityGroup (Prelude.Maybe Prelude.Text)
+dbSecurityGroup_vpcId = Lens.lens (\DBSecurityGroup' {vpcId} -> vpcId) (\s@DBSecurityGroup' {} a -> s {vpcId = a} :: DBSecurityGroup)
+
+instance Data.FromXML DBSecurityGroup where
   parseXML x =
     DBSecurityGroup'
-      Prelude.<$> (x Core..@? "VpcId")
-      Prelude.<*> (x Core..@? "OwnerId")
-      Prelude.<*> (x Core..@? "DBSecurityGroupArn")
-      Prelude.<*> ( x Core..@? "IPRanges" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "IPRange")
-                  )
-      Prelude.<*> (x Core..@? "DBSecurityGroupName")
-      Prelude.<*> ( x Core..@? "EC2SecurityGroups"
+      Prelude.<$> (x Data..@? "DBSecurityGroupArn")
+      Prelude.<*> (x Data..@? "DBSecurityGroupDescription")
+      Prelude.<*> (x Data..@? "DBSecurityGroupName")
+      Prelude.<*> ( x Data..@? "EC2SecurityGroups"
                       Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "EC2SecurityGroup")
+                      Prelude.>>= Core.may (Data.parseXMLList "EC2SecurityGroup")
                   )
-      Prelude.<*> (x Core..@? "DBSecurityGroupDescription")
+      Prelude.<*> ( x Data..@? "IPRanges" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "IPRange")
+                  )
+      Prelude.<*> (x Data..@? "OwnerId")
+      Prelude.<*> (x Data..@? "VpcId")
 
 instance Prelude.Hashable DBSecurityGroup where
   hashWithSalt _salt DBSecurityGroup' {..} =
-    _salt `Prelude.hashWithSalt` vpcId
-      `Prelude.hashWithSalt` ownerId
-      `Prelude.hashWithSalt` dbSecurityGroupArn
-      `Prelude.hashWithSalt` iPRanges
+    _salt `Prelude.hashWithSalt` dbSecurityGroupArn
+      `Prelude.hashWithSalt` dbSecurityGroupDescription
       `Prelude.hashWithSalt` dbSecurityGroupName
       `Prelude.hashWithSalt` eC2SecurityGroups
-      `Prelude.hashWithSalt` dbSecurityGroupDescription
+      `Prelude.hashWithSalt` iPRanges
+      `Prelude.hashWithSalt` ownerId
+      `Prelude.hashWithSalt` vpcId
 
 instance Prelude.NFData DBSecurityGroup where
   rnf DBSecurityGroup' {..} =
-    Prelude.rnf vpcId
-      `Prelude.seq` Prelude.rnf ownerId
-      `Prelude.seq` Prelude.rnf dbSecurityGroupArn
-      `Prelude.seq` Prelude.rnf iPRanges
+    Prelude.rnf dbSecurityGroupArn
+      `Prelude.seq` Prelude.rnf dbSecurityGroupDescription
       `Prelude.seq` Prelude.rnf dbSecurityGroupName
       `Prelude.seq` Prelude.rnf eC2SecurityGroups
-      `Prelude.seq` Prelude.rnf dbSecurityGroupDescription
+      `Prelude.seq` Prelude.rnf iPRanges
+      `Prelude.seq` Prelude.rnf ownerId
+      `Prelude.seq` Prelude.rnf vpcId

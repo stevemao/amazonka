@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.DescribeModelBiasJobDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,8 +35,8 @@ module Amazonka.SageMaker.DescribeModelBiasJobDefinition
 
     -- * Response Lenses
     describeModelBiasJobDefinitionResponse_modelBiasBaselineConfig,
-    describeModelBiasJobDefinitionResponse_stoppingCondition,
     describeModelBiasJobDefinitionResponse_networkConfig,
+    describeModelBiasJobDefinitionResponse_stoppingCondition,
     describeModelBiasJobDefinitionResponse_httpStatus,
     describeModelBiasJobDefinitionResponse_jobDefinitionArn,
     describeModelBiasJobDefinitionResponse_jobDefinitionName,
@@ -50,7 +50,8 @@ module Amazonka.SageMaker.DescribeModelBiasJobDefinition
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,23 +97,24 @@ instance
   type
     AWSResponse DescribeModelBiasJobDefinition =
       DescribeModelBiasJobDefinitionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeModelBiasJobDefinitionResponse'
-            Prelude.<$> (x Core..?> "ModelBiasBaselineConfig")
-            Prelude.<*> (x Core..?> "StoppingCondition")
-            Prelude.<*> (x Core..?> "NetworkConfig")
+            Prelude.<$> (x Data..?> "ModelBiasBaselineConfig")
+            Prelude.<*> (x Data..?> "NetworkConfig")
+            Prelude.<*> (x Data..?> "StoppingCondition")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "JobDefinitionArn")
-            Prelude.<*> (x Core..:> "JobDefinitionName")
-            Prelude.<*> (x Core..:> "CreationTime")
-            Prelude.<*> (x Core..:> "ModelBiasAppSpecification")
-            Prelude.<*> (x Core..:> "ModelBiasJobInput")
-            Prelude.<*> (x Core..:> "ModelBiasJobOutputConfig")
-            Prelude.<*> (x Core..:> "JobResources")
-            Prelude.<*> (x Core..:> "RoleArn")
+            Prelude.<*> (x Data..:> "JobDefinitionArn")
+            Prelude.<*> (x Data..:> "JobDefinitionName")
+            Prelude.<*> (x Data..:> "CreationTime")
+            Prelude.<*> (x Data..:> "ModelBiasAppSpecification")
+            Prelude.<*> (x Data..:> "ModelBiasJobInput")
+            Prelude.<*> (x Data..:> "ModelBiasJobOutputConfig")
+            Prelude.<*> (x Data..:> "JobResources")
+            Prelude.<*> (x Data..:> "RoleArn")
       )
 
 instance
@@ -132,45 +134,45 @@ instance
     Prelude.rnf jobDefinitionName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeModelBiasJobDefinition
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.DescribeModelBiasJobDefinition" ::
+              Data.=# ( "SageMaker.DescribeModelBiasJobDefinition" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeModelBiasJobDefinition where
+instance Data.ToJSON DescribeModelBiasJobDefinition where
   toJSON DescribeModelBiasJobDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("JobDefinitionName" Core..= jobDefinitionName)
+              ("JobDefinitionName" Data..= jobDefinitionName)
           ]
       )
 
-instance Core.ToPath DescribeModelBiasJobDefinition where
+instance Data.ToPath DescribeModelBiasJobDefinition where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeModelBiasJobDefinition where
+instance Data.ToQuery DescribeModelBiasJobDefinition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeModelBiasJobDefinitionResponse' smart constructor.
 data DescribeModelBiasJobDefinitionResponse = DescribeModelBiasJobDefinitionResponse'
   { -- | The baseline configuration for a model bias job.
     modelBiasBaselineConfig :: Prelude.Maybe ModelBiasBaselineConfig,
-    stoppingCondition :: Prelude.Maybe MonitoringStoppingCondition,
     -- | Networking options for a model bias job.
     networkConfig :: Prelude.Maybe MonitoringNetworkConfig,
+    stoppingCondition :: Prelude.Maybe MonitoringStoppingCondition,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | The Amazon Resource Name (ARN) of the model bias job.
@@ -179,7 +181,7 @@ data DescribeModelBiasJobDefinitionResponse = DescribeModelBiasJobDefinitionResp
     -- Amazon Web Services Region in the Amazon Web Services account.
     jobDefinitionName :: Prelude.Text,
     -- | The time at which the model bias job was created.
-    creationTime :: Core.POSIX,
+    creationTime :: Data.POSIX,
     -- | Configures the model bias job to run a specified Docker container image.
     modelBiasAppSpecification :: ModelBiasAppSpecification,
     -- | Inputs for the model bias job.
@@ -203,9 +205,9 @@ data DescribeModelBiasJobDefinitionResponse = DescribeModelBiasJobDefinitionResp
 --
 -- 'modelBiasBaselineConfig', 'describeModelBiasJobDefinitionResponse_modelBiasBaselineConfig' - The baseline configuration for a model bias job.
 --
--- 'stoppingCondition', 'describeModelBiasJobDefinitionResponse_stoppingCondition' - Undocumented member.
---
 -- 'networkConfig', 'describeModelBiasJobDefinitionResponse_networkConfig' - Networking options for a model bias job.
+--
+-- 'stoppingCondition', 'describeModelBiasJobDefinitionResponse_stoppingCondition' - Undocumented member.
 --
 -- 'httpStatus', 'describeModelBiasJobDefinitionResponse_httpStatus' - The response's http status code.
 --
@@ -260,15 +262,15 @@ newDescribeModelBiasJobDefinitionResponse
     DescribeModelBiasJobDefinitionResponse'
       { modelBiasBaselineConfig =
           Prelude.Nothing,
-        stoppingCondition = Prelude.Nothing,
         networkConfig = Prelude.Nothing,
+        stoppingCondition = Prelude.Nothing,
         httpStatus = pHttpStatus_,
         jobDefinitionArn =
           pJobDefinitionArn_,
         jobDefinitionName =
           pJobDefinitionName_,
         creationTime =
-          Core._Time Lens.# pCreationTime_,
+          Data._Time Lens.# pCreationTime_,
         modelBiasAppSpecification =
           pModelBiasAppSpecification_,
         modelBiasJobInput =
@@ -283,13 +285,13 @@ newDescribeModelBiasJobDefinitionResponse
 describeModelBiasJobDefinitionResponse_modelBiasBaselineConfig :: Lens.Lens' DescribeModelBiasJobDefinitionResponse (Prelude.Maybe ModelBiasBaselineConfig)
 describeModelBiasJobDefinitionResponse_modelBiasBaselineConfig = Lens.lens (\DescribeModelBiasJobDefinitionResponse' {modelBiasBaselineConfig} -> modelBiasBaselineConfig) (\s@DescribeModelBiasJobDefinitionResponse' {} a -> s {modelBiasBaselineConfig = a} :: DescribeModelBiasJobDefinitionResponse)
 
--- | Undocumented member.
-describeModelBiasJobDefinitionResponse_stoppingCondition :: Lens.Lens' DescribeModelBiasJobDefinitionResponse (Prelude.Maybe MonitoringStoppingCondition)
-describeModelBiasJobDefinitionResponse_stoppingCondition = Lens.lens (\DescribeModelBiasJobDefinitionResponse' {stoppingCondition} -> stoppingCondition) (\s@DescribeModelBiasJobDefinitionResponse' {} a -> s {stoppingCondition = a} :: DescribeModelBiasJobDefinitionResponse)
-
 -- | Networking options for a model bias job.
 describeModelBiasJobDefinitionResponse_networkConfig :: Lens.Lens' DescribeModelBiasJobDefinitionResponse (Prelude.Maybe MonitoringNetworkConfig)
 describeModelBiasJobDefinitionResponse_networkConfig = Lens.lens (\DescribeModelBiasJobDefinitionResponse' {networkConfig} -> networkConfig) (\s@DescribeModelBiasJobDefinitionResponse' {} a -> s {networkConfig = a} :: DescribeModelBiasJobDefinitionResponse)
+
+-- | Undocumented member.
+describeModelBiasJobDefinitionResponse_stoppingCondition :: Lens.Lens' DescribeModelBiasJobDefinitionResponse (Prelude.Maybe MonitoringStoppingCondition)
+describeModelBiasJobDefinitionResponse_stoppingCondition = Lens.lens (\DescribeModelBiasJobDefinitionResponse' {stoppingCondition} -> stoppingCondition) (\s@DescribeModelBiasJobDefinitionResponse' {} a -> s {stoppingCondition = a} :: DescribeModelBiasJobDefinitionResponse)
 
 -- | The response's http status code.
 describeModelBiasJobDefinitionResponse_httpStatus :: Lens.Lens' DescribeModelBiasJobDefinitionResponse Prelude.Int
@@ -306,7 +308,7 @@ describeModelBiasJobDefinitionResponse_jobDefinitionName = Lens.lens (\DescribeM
 
 -- | The time at which the model bias job was created.
 describeModelBiasJobDefinitionResponse_creationTime :: Lens.Lens' DescribeModelBiasJobDefinitionResponse Prelude.UTCTime
-describeModelBiasJobDefinitionResponse_creationTime = Lens.lens (\DescribeModelBiasJobDefinitionResponse' {creationTime} -> creationTime) (\s@DescribeModelBiasJobDefinitionResponse' {} a -> s {creationTime = a} :: DescribeModelBiasJobDefinitionResponse) Prelude.. Core._Time
+describeModelBiasJobDefinitionResponse_creationTime = Lens.lens (\DescribeModelBiasJobDefinitionResponse' {creationTime} -> creationTime) (\s@DescribeModelBiasJobDefinitionResponse' {} a -> s {creationTime = a} :: DescribeModelBiasJobDefinitionResponse) Prelude.. Data._Time
 
 -- | Configures the model bias job to run a specified Docker container image.
 describeModelBiasJobDefinitionResponse_modelBiasAppSpecification :: Lens.Lens' DescribeModelBiasJobDefinitionResponse ModelBiasAppSpecification
@@ -336,8 +338,8 @@ instance
   where
   rnf DescribeModelBiasJobDefinitionResponse' {..} =
     Prelude.rnf modelBiasBaselineConfig
-      `Prelude.seq` Prelude.rnf stoppingCondition
       `Prelude.seq` Prelude.rnf networkConfig
+      `Prelude.seq` Prelude.rnf stoppingCondition
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf jobDefinitionArn
       `Prelude.seq` Prelude.rnf jobDefinitionName

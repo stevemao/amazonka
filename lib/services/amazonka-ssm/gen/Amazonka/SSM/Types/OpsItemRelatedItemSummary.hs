@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.OpsItemRelatedItemSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.OpsItemRelatedItemSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSM.Types.OpsItemIdentity
 
@@ -30,20 +31,20 @@ import Amazonka.SSM.Types.OpsItemIdentity
 data OpsItemRelatedItemSummary = OpsItemRelatedItemSummary'
   { -- | The association ID.
     associationId :: Prelude.Maybe Prelude.Text,
-    -- | The OpsItem ID.
-    opsItemId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the related-item resource.
-    resourceUri :: Prelude.Maybe Prelude.Text,
-    -- | The resource type.
-    resourceType :: Prelude.Maybe Prelude.Text,
-    -- | The time the related-item association was created.
-    createdTime :: Prelude.Maybe Core.POSIX,
-    createdBy :: Prelude.Maybe OpsItemIdentity,
-    -- | The time the related-item association was last updated.
-    lastModifiedTime :: Prelude.Maybe Core.POSIX,
     -- | The association type.
     associationType :: Prelude.Maybe Prelude.Text,
-    lastModifiedBy :: Prelude.Maybe OpsItemIdentity
+    createdBy :: Prelude.Maybe OpsItemIdentity,
+    -- | The time the related-item association was created.
+    createdTime :: Prelude.Maybe Data.POSIX,
+    lastModifiedBy :: Prelude.Maybe OpsItemIdentity,
+    -- | The time the related-item association was last updated.
+    lastModifiedTime :: Prelude.Maybe Data.POSIX,
+    -- | The OpsItem ID.
+    opsItemId :: Prelude.Maybe Prelude.Text,
+    -- | The resource type.
+    resourceType :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the related-item resource.
+    resourceUri :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -57,110 +58,110 @@ data OpsItemRelatedItemSummary = OpsItemRelatedItemSummary'
 --
 -- 'associationId', 'opsItemRelatedItemSummary_associationId' - The association ID.
 --
--- 'opsItemId', 'opsItemRelatedItemSummary_opsItemId' - The OpsItem ID.
---
--- 'resourceUri', 'opsItemRelatedItemSummary_resourceUri' - The Amazon Resource Name (ARN) of the related-item resource.
---
--- 'resourceType', 'opsItemRelatedItemSummary_resourceType' - The resource type.
---
--- 'createdTime', 'opsItemRelatedItemSummary_createdTime' - The time the related-item association was created.
+-- 'associationType', 'opsItemRelatedItemSummary_associationType' - The association type.
 --
 -- 'createdBy', 'opsItemRelatedItemSummary_createdBy' - Undocumented member.
 --
--- 'lastModifiedTime', 'opsItemRelatedItemSummary_lastModifiedTime' - The time the related-item association was last updated.
---
--- 'associationType', 'opsItemRelatedItemSummary_associationType' - The association type.
+-- 'createdTime', 'opsItemRelatedItemSummary_createdTime' - The time the related-item association was created.
 --
 -- 'lastModifiedBy', 'opsItemRelatedItemSummary_lastModifiedBy' - Undocumented member.
+--
+-- 'lastModifiedTime', 'opsItemRelatedItemSummary_lastModifiedTime' - The time the related-item association was last updated.
+--
+-- 'opsItemId', 'opsItemRelatedItemSummary_opsItemId' - The OpsItem ID.
+--
+-- 'resourceType', 'opsItemRelatedItemSummary_resourceType' - The resource type.
+--
+-- 'resourceUri', 'opsItemRelatedItemSummary_resourceUri' - The Amazon Resource Name (ARN) of the related-item resource.
 newOpsItemRelatedItemSummary ::
   OpsItemRelatedItemSummary
 newOpsItemRelatedItemSummary =
   OpsItemRelatedItemSummary'
     { associationId =
         Prelude.Nothing,
-      opsItemId = Prelude.Nothing,
-      resourceUri = Prelude.Nothing,
-      resourceType = Prelude.Nothing,
-      createdTime = Prelude.Nothing,
-      createdBy = Prelude.Nothing,
-      lastModifiedTime = Prelude.Nothing,
       associationType = Prelude.Nothing,
-      lastModifiedBy = Prelude.Nothing
+      createdBy = Prelude.Nothing,
+      createdTime = Prelude.Nothing,
+      lastModifiedBy = Prelude.Nothing,
+      lastModifiedTime = Prelude.Nothing,
+      opsItemId = Prelude.Nothing,
+      resourceType = Prelude.Nothing,
+      resourceUri = Prelude.Nothing
     }
 
 -- | The association ID.
 opsItemRelatedItemSummary_associationId :: Lens.Lens' OpsItemRelatedItemSummary (Prelude.Maybe Prelude.Text)
 opsItemRelatedItemSummary_associationId = Lens.lens (\OpsItemRelatedItemSummary' {associationId} -> associationId) (\s@OpsItemRelatedItemSummary' {} a -> s {associationId = a} :: OpsItemRelatedItemSummary)
 
--- | The OpsItem ID.
-opsItemRelatedItemSummary_opsItemId :: Lens.Lens' OpsItemRelatedItemSummary (Prelude.Maybe Prelude.Text)
-opsItemRelatedItemSummary_opsItemId = Lens.lens (\OpsItemRelatedItemSummary' {opsItemId} -> opsItemId) (\s@OpsItemRelatedItemSummary' {} a -> s {opsItemId = a} :: OpsItemRelatedItemSummary)
-
--- | The Amazon Resource Name (ARN) of the related-item resource.
-opsItemRelatedItemSummary_resourceUri :: Lens.Lens' OpsItemRelatedItemSummary (Prelude.Maybe Prelude.Text)
-opsItemRelatedItemSummary_resourceUri = Lens.lens (\OpsItemRelatedItemSummary' {resourceUri} -> resourceUri) (\s@OpsItemRelatedItemSummary' {} a -> s {resourceUri = a} :: OpsItemRelatedItemSummary)
-
--- | The resource type.
-opsItemRelatedItemSummary_resourceType :: Lens.Lens' OpsItemRelatedItemSummary (Prelude.Maybe Prelude.Text)
-opsItemRelatedItemSummary_resourceType = Lens.lens (\OpsItemRelatedItemSummary' {resourceType} -> resourceType) (\s@OpsItemRelatedItemSummary' {} a -> s {resourceType = a} :: OpsItemRelatedItemSummary)
-
--- | The time the related-item association was created.
-opsItemRelatedItemSummary_createdTime :: Lens.Lens' OpsItemRelatedItemSummary (Prelude.Maybe Prelude.UTCTime)
-opsItemRelatedItemSummary_createdTime = Lens.lens (\OpsItemRelatedItemSummary' {createdTime} -> createdTime) (\s@OpsItemRelatedItemSummary' {} a -> s {createdTime = a} :: OpsItemRelatedItemSummary) Prelude.. Lens.mapping Core._Time
-
--- | Undocumented member.
-opsItemRelatedItemSummary_createdBy :: Lens.Lens' OpsItemRelatedItemSummary (Prelude.Maybe OpsItemIdentity)
-opsItemRelatedItemSummary_createdBy = Lens.lens (\OpsItemRelatedItemSummary' {createdBy} -> createdBy) (\s@OpsItemRelatedItemSummary' {} a -> s {createdBy = a} :: OpsItemRelatedItemSummary)
-
--- | The time the related-item association was last updated.
-opsItemRelatedItemSummary_lastModifiedTime :: Lens.Lens' OpsItemRelatedItemSummary (Prelude.Maybe Prelude.UTCTime)
-opsItemRelatedItemSummary_lastModifiedTime = Lens.lens (\OpsItemRelatedItemSummary' {lastModifiedTime} -> lastModifiedTime) (\s@OpsItemRelatedItemSummary' {} a -> s {lastModifiedTime = a} :: OpsItemRelatedItemSummary) Prelude.. Lens.mapping Core._Time
-
 -- | The association type.
 opsItemRelatedItemSummary_associationType :: Lens.Lens' OpsItemRelatedItemSummary (Prelude.Maybe Prelude.Text)
 opsItemRelatedItemSummary_associationType = Lens.lens (\OpsItemRelatedItemSummary' {associationType} -> associationType) (\s@OpsItemRelatedItemSummary' {} a -> s {associationType = a} :: OpsItemRelatedItemSummary)
 
 -- | Undocumented member.
+opsItemRelatedItemSummary_createdBy :: Lens.Lens' OpsItemRelatedItemSummary (Prelude.Maybe OpsItemIdentity)
+opsItemRelatedItemSummary_createdBy = Lens.lens (\OpsItemRelatedItemSummary' {createdBy} -> createdBy) (\s@OpsItemRelatedItemSummary' {} a -> s {createdBy = a} :: OpsItemRelatedItemSummary)
+
+-- | The time the related-item association was created.
+opsItemRelatedItemSummary_createdTime :: Lens.Lens' OpsItemRelatedItemSummary (Prelude.Maybe Prelude.UTCTime)
+opsItemRelatedItemSummary_createdTime = Lens.lens (\OpsItemRelatedItemSummary' {createdTime} -> createdTime) (\s@OpsItemRelatedItemSummary' {} a -> s {createdTime = a} :: OpsItemRelatedItemSummary) Prelude.. Lens.mapping Data._Time
+
+-- | Undocumented member.
 opsItemRelatedItemSummary_lastModifiedBy :: Lens.Lens' OpsItemRelatedItemSummary (Prelude.Maybe OpsItemIdentity)
 opsItemRelatedItemSummary_lastModifiedBy = Lens.lens (\OpsItemRelatedItemSummary' {lastModifiedBy} -> lastModifiedBy) (\s@OpsItemRelatedItemSummary' {} a -> s {lastModifiedBy = a} :: OpsItemRelatedItemSummary)
 
-instance Core.FromJSON OpsItemRelatedItemSummary where
+-- | The time the related-item association was last updated.
+opsItemRelatedItemSummary_lastModifiedTime :: Lens.Lens' OpsItemRelatedItemSummary (Prelude.Maybe Prelude.UTCTime)
+opsItemRelatedItemSummary_lastModifiedTime = Lens.lens (\OpsItemRelatedItemSummary' {lastModifiedTime} -> lastModifiedTime) (\s@OpsItemRelatedItemSummary' {} a -> s {lastModifiedTime = a} :: OpsItemRelatedItemSummary) Prelude.. Lens.mapping Data._Time
+
+-- | The OpsItem ID.
+opsItemRelatedItemSummary_opsItemId :: Lens.Lens' OpsItemRelatedItemSummary (Prelude.Maybe Prelude.Text)
+opsItemRelatedItemSummary_opsItemId = Lens.lens (\OpsItemRelatedItemSummary' {opsItemId} -> opsItemId) (\s@OpsItemRelatedItemSummary' {} a -> s {opsItemId = a} :: OpsItemRelatedItemSummary)
+
+-- | The resource type.
+opsItemRelatedItemSummary_resourceType :: Lens.Lens' OpsItemRelatedItemSummary (Prelude.Maybe Prelude.Text)
+opsItemRelatedItemSummary_resourceType = Lens.lens (\OpsItemRelatedItemSummary' {resourceType} -> resourceType) (\s@OpsItemRelatedItemSummary' {} a -> s {resourceType = a} :: OpsItemRelatedItemSummary)
+
+-- | The Amazon Resource Name (ARN) of the related-item resource.
+opsItemRelatedItemSummary_resourceUri :: Lens.Lens' OpsItemRelatedItemSummary (Prelude.Maybe Prelude.Text)
+opsItemRelatedItemSummary_resourceUri = Lens.lens (\OpsItemRelatedItemSummary' {resourceUri} -> resourceUri) (\s@OpsItemRelatedItemSummary' {} a -> s {resourceUri = a} :: OpsItemRelatedItemSummary)
+
+instance Data.FromJSON OpsItemRelatedItemSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OpsItemRelatedItemSummary"
       ( \x ->
           OpsItemRelatedItemSummary'
-            Prelude.<$> (x Core..:? "AssociationId")
-            Prelude.<*> (x Core..:? "OpsItemId")
-            Prelude.<*> (x Core..:? "ResourceUri")
-            Prelude.<*> (x Core..:? "ResourceType")
-            Prelude.<*> (x Core..:? "CreatedTime")
-            Prelude.<*> (x Core..:? "CreatedBy")
-            Prelude.<*> (x Core..:? "LastModifiedTime")
-            Prelude.<*> (x Core..:? "AssociationType")
-            Prelude.<*> (x Core..:? "LastModifiedBy")
+            Prelude.<$> (x Data..:? "AssociationId")
+            Prelude.<*> (x Data..:? "AssociationType")
+            Prelude.<*> (x Data..:? "CreatedBy")
+            Prelude.<*> (x Data..:? "CreatedTime")
+            Prelude.<*> (x Data..:? "LastModifiedBy")
+            Prelude.<*> (x Data..:? "LastModifiedTime")
+            Prelude.<*> (x Data..:? "OpsItemId")
+            Prelude.<*> (x Data..:? "ResourceType")
+            Prelude.<*> (x Data..:? "ResourceUri")
       )
 
 instance Prelude.Hashable OpsItemRelatedItemSummary where
   hashWithSalt _salt OpsItemRelatedItemSummary' {..} =
     _salt `Prelude.hashWithSalt` associationId
-      `Prelude.hashWithSalt` opsItemId
-      `Prelude.hashWithSalt` resourceUri
-      `Prelude.hashWithSalt` resourceType
-      `Prelude.hashWithSalt` createdTime
-      `Prelude.hashWithSalt` createdBy
-      `Prelude.hashWithSalt` lastModifiedTime
       `Prelude.hashWithSalt` associationType
+      `Prelude.hashWithSalt` createdBy
+      `Prelude.hashWithSalt` createdTime
       `Prelude.hashWithSalt` lastModifiedBy
+      `Prelude.hashWithSalt` lastModifiedTime
+      `Prelude.hashWithSalt` opsItemId
+      `Prelude.hashWithSalt` resourceType
+      `Prelude.hashWithSalt` resourceUri
 
 instance Prelude.NFData OpsItemRelatedItemSummary where
   rnf OpsItemRelatedItemSummary' {..} =
     Prelude.rnf associationId
-      `Prelude.seq` Prelude.rnf opsItemId
-      `Prelude.seq` Prelude.rnf resourceUri
-      `Prelude.seq` Prelude.rnf resourceType
-      `Prelude.seq` Prelude.rnf createdTime
-      `Prelude.seq` Prelude.rnf createdBy
-      `Prelude.seq` Prelude.rnf lastModifiedTime
       `Prelude.seq` Prelude.rnf associationType
+      `Prelude.seq` Prelude.rnf createdBy
+      `Prelude.seq` Prelude.rnf createdTime
       `Prelude.seq` Prelude.rnf lastModifiedBy
+      `Prelude.seq` Prelude.rnf lastModifiedTime
+      `Prelude.seq` Prelude.rnf opsItemId
+      `Prelude.seq` Prelude.rnf resourceType
+      `Prelude.seq` Prelude.rnf resourceUri

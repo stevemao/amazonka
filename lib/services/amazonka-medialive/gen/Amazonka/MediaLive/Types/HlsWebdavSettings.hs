@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.HlsWebdavSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.HlsWebdavSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.HlsWebdavHttpTransferMode
 import qualified Amazonka.Prelude as Prelude
 
@@ -28,16 +29,16 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newHlsWebdavSettings' smart constructor.
 data HlsWebdavSettings = HlsWebdavSettings'
-  { -- | Specify whether or not to use chunked transfer encoding to WebDAV.
-    httpTransferMode :: Prelude.Maybe HlsWebdavHttpTransferMode,
-    -- | Number of retry attempts that will be made before the Live Event is put
-    -- into an error state.
-    numRetries :: Prelude.Maybe Prelude.Natural,
-    -- | Number of seconds to wait before retrying connection to the CDN if the
+  { -- | Number of seconds to wait before retrying connection to the CDN if the
     -- connection is lost.
     connectionRetryInterval :: Prelude.Maybe Prelude.Natural,
     -- | Size in seconds of file cache for streaming outputs.
     filecacheDuration :: Prelude.Maybe Prelude.Natural,
+    -- | Specify whether or not to use chunked transfer encoding to WebDAV.
+    httpTransferMode :: Prelude.Maybe HlsWebdavHttpTransferMode,
+    -- | Number of retry attempts that will be made before the Live Event is put
+    -- into an error state.
+    numRetries :: Prelude.Maybe Prelude.Natural,
     -- | If a streaming output fails, number of seconds to wait until a restart
     -- is initiated. A value of 0 means never restart.
     restartDelay :: Prelude.Maybe Prelude.Natural
@@ -52,15 +53,15 @@ data HlsWebdavSettings = HlsWebdavSettings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'httpTransferMode', 'hlsWebdavSettings_httpTransferMode' - Specify whether or not to use chunked transfer encoding to WebDAV.
---
--- 'numRetries', 'hlsWebdavSettings_numRetries' - Number of retry attempts that will be made before the Live Event is put
--- into an error state.
---
 -- 'connectionRetryInterval', 'hlsWebdavSettings_connectionRetryInterval' - Number of seconds to wait before retrying connection to the CDN if the
 -- connection is lost.
 --
 -- 'filecacheDuration', 'hlsWebdavSettings_filecacheDuration' - Size in seconds of file cache for streaming outputs.
+--
+-- 'httpTransferMode', 'hlsWebdavSettings_httpTransferMode' - Specify whether or not to use chunked transfer encoding to WebDAV.
+--
+-- 'numRetries', 'hlsWebdavSettings_numRetries' - Number of retry attempts that will be made before the Live Event is put
+-- into an error state.
 --
 -- 'restartDelay', 'hlsWebdavSettings_restartDelay' - If a streaming output fails, number of seconds to wait until a restart
 -- is initiated. A value of 0 means never restart.
@@ -68,22 +69,13 @@ newHlsWebdavSettings ::
   HlsWebdavSettings
 newHlsWebdavSettings =
   HlsWebdavSettings'
-    { httpTransferMode =
+    { connectionRetryInterval =
         Prelude.Nothing,
-      numRetries = Prelude.Nothing,
-      connectionRetryInterval = Prelude.Nothing,
       filecacheDuration = Prelude.Nothing,
+      httpTransferMode = Prelude.Nothing,
+      numRetries = Prelude.Nothing,
       restartDelay = Prelude.Nothing
     }
-
--- | Specify whether or not to use chunked transfer encoding to WebDAV.
-hlsWebdavSettings_httpTransferMode :: Lens.Lens' HlsWebdavSettings (Prelude.Maybe HlsWebdavHttpTransferMode)
-hlsWebdavSettings_httpTransferMode = Lens.lens (\HlsWebdavSettings' {httpTransferMode} -> httpTransferMode) (\s@HlsWebdavSettings' {} a -> s {httpTransferMode = a} :: HlsWebdavSettings)
-
--- | Number of retry attempts that will be made before the Live Event is put
--- into an error state.
-hlsWebdavSettings_numRetries :: Lens.Lens' HlsWebdavSettings (Prelude.Maybe Prelude.Natural)
-hlsWebdavSettings_numRetries = Lens.lens (\HlsWebdavSettings' {numRetries} -> numRetries) (\s@HlsWebdavSettings' {} a -> s {numRetries = a} :: HlsWebdavSettings)
 
 -- | Number of seconds to wait before retrying connection to the CDN if the
 -- connection is lost.
@@ -94,51 +86,61 @@ hlsWebdavSettings_connectionRetryInterval = Lens.lens (\HlsWebdavSettings' {conn
 hlsWebdavSettings_filecacheDuration :: Lens.Lens' HlsWebdavSettings (Prelude.Maybe Prelude.Natural)
 hlsWebdavSettings_filecacheDuration = Lens.lens (\HlsWebdavSettings' {filecacheDuration} -> filecacheDuration) (\s@HlsWebdavSettings' {} a -> s {filecacheDuration = a} :: HlsWebdavSettings)
 
+-- | Specify whether or not to use chunked transfer encoding to WebDAV.
+hlsWebdavSettings_httpTransferMode :: Lens.Lens' HlsWebdavSettings (Prelude.Maybe HlsWebdavHttpTransferMode)
+hlsWebdavSettings_httpTransferMode = Lens.lens (\HlsWebdavSettings' {httpTransferMode} -> httpTransferMode) (\s@HlsWebdavSettings' {} a -> s {httpTransferMode = a} :: HlsWebdavSettings)
+
+-- | Number of retry attempts that will be made before the Live Event is put
+-- into an error state.
+hlsWebdavSettings_numRetries :: Lens.Lens' HlsWebdavSettings (Prelude.Maybe Prelude.Natural)
+hlsWebdavSettings_numRetries = Lens.lens (\HlsWebdavSettings' {numRetries} -> numRetries) (\s@HlsWebdavSettings' {} a -> s {numRetries = a} :: HlsWebdavSettings)
+
 -- | If a streaming output fails, number of seconds to wait until a restart
 -- is initiated. A value of 0 means never restart.
 hlsWebdavSettings_restartDelay :: Lens.Lens' HlsWebdavSettings (Prelude.Maybe Prelude.Natural)
 hlsWebdavSettings_restartDelay = Lens.lens (\HlsWebdavSettings' {restartDelay} -> restartDelay) (\s@HlsWebdavSettings' {} a -> s {restartDelay = a} :: HlsWebdavSettings)
 
-instance Core.FromJSON HlsWebdavSettings where
+instance Data.FromJSON HlsWebdavSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HlsWebdavSettings"
       ( \x ->
           HlsWebdavSettings'
-            Prelude.<$> (x Core..:? "httpTransferMode")
-            Prelude.<*> (x Core..:? "numRetries")
-            Prelude.<*> (x Core..:? "connectionRetryInterval")
-            Prelude.<*> (x Core..:? "filecacheDuration")
-            Prelude.<*> (x Core..:? "restartDelay")
+            Prelude.<$> (x Data..:? "connectionRetryInterval")
+            Prelude.<*> (x Data..:? "filecacheDuration")
+            Prelude.<*> (x Data..:? "httpTransferMode")
+            Prelude.<*> (x Data..:? "numRetries")
+            Prelude.<*> (x Data..:? "restartDelay")
       )
 
 instance Prelude.Hashable HlsWebdavSettings where
   hashWithSalt _salt HlsWebdavSettings' {..} =
-    _salt `Prelude.hashWithSalt` httpTransferMode
-      `Prelude.hashWithSalt` numRetries
+    _salt
       `Prelude.hashWithSalt` connectionRetryInterval
       `Prelude.hashWithSalt` filecacheDuration
+      `Prelude.hashWithSalt` httpTransferMode
+      `Prelude.hashWithSalt` numRetries
       `Prelude.hashWithSalt` restartDelay
 
 instance Prelude.NFData HlsWebdavSettings where
   rnf HlsWebdavSettings' {..} =
-    Prelude.rnf httpTransferMode
-      `Prelude.seq` Prelude.rnf numRetries
-      `Prelude.seq` Prelude.rnf connectionRetryInterval
+    Prelude.rnf connectionRetryInterval
       `Prelude.seq` Prelude.rnf filecacheDuration
+      `Prelude.seq` Prelude.rnf httpTransferMode
+      `Prelude.seq` Prelude.rnf numRetries
       `Prelude.seq` Prelude.rnf restartDelay
 
-instance Core.ToJSON HlsWebdavSettings where
+instance Data.ToJSON HlsWebdavSettings where
   toJSON HlsWebdavSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("httpTransferMode" Core..=)
-              Prelude.<$> httpTransferMode,
-            ("numRetries" Core..=) Prelude.<$> numRetries,
-            ("connectionRetryInterval" Core..=)
+          [ ("connectionRetryInterval" Data..=)
               Prelude.<$> connectionRetryInterval,
-            ("filecacheDuration" Core..=)
+            ("filecacheDuration" Data..=)
               Prelude.<$> filecacheDuration,
-            ("restartDelay" Core..=) Prelude.<$> restartDelay
+            ("httpTransferMode" Data..=)
+              Prelude.<$> httpTransferMode,
+            ("numRetries" Data..=) Prelude.<$> numRetries,
+            ("restartDelay" Data..=) Prelude.<$> restartDelay
           ]
       )

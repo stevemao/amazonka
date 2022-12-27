@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.DescribeDevice
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,13 +36,14 @@ module Amazonka.SageMaker.DescribeDevice
     newDescribeDeviceResponse,
 
     -- * Response Lenses
-    describeDeviceResponse_deviceArn,
-    describeDeviceResponse_nextToken,
-    describeDeviceResponse_models,
-    describeDeviceResponse_maxModels,
-    describeDeviceResponse_latestHeartbeat,
+    describeDeviceResponse_agentVersion,
     describeDeviceResponse_description,
+    describeDeviceResponse_deviceArn,
     describeDeviceResponse_iotThingName,
+    describeDeviceResponse_latestHeartbeat,
+    describeDeviceResponse_maxModels,
+    describeDeviceResponse_models,
+    describeDeviceResponse_nextToken,
     describeDeviceResponse_httpStatus,
     describeDeviceResponse_deviceName,
     describeDeviceResponse_deviceFleetName,
@@ -51,7 +52,8 @@ module Amazonka.SageMaker.DescribeDevice
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -110,22 +112,24 @@ instance Core.AWSRequest DescribeDevice where
   type
     AWSResponse DescribeDevice =
       DescribeDeviceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeDeviceResponse'
-            Prelude.<$> (x Core..?> "DeviceArn")
-            Prelude.<*> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Models" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "MaxModels")
-            Prelude.<*> (x Core..?> "LatestHeartbeat")
-            Prelude.<*> (x Core..?> "Description")
-            Prelude.<*> (x Core..?> "IotThingName")
+            Prelude.<$> (x Data..?> "AgentVersion")
+            Prelude.<*> (x Data..?> "Description")
+            Prelude.<*> (x Data..?> "DeviceArn")
+            Prelude.<*> (x Data..?> "IotThingName")
+            Prelude.<*> (x Data..?> "LatestHeartbeat")
+            Prelude.<*> (x Data..?> "MaxModels")
+            Prelude.<*> (x Data..?> "Models" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "DeviceName")
-            Prelude.<*> (x Core..:> "DeviceFleetName")
-            Prelude.<*> (x Core..:> "RegistrationTime")
+            Prelude.<*> (x Data..:> "DeviceName")
+            Prelude.<*> (x Data..:> "DeviceFleetName")
+            Prelude.<*> (x Data..:> "RegistrationTime")
       )
 
 instance Prelude.Hashable DescribeDevice where
@@ -140,54 +144,56 @@ instance Prelude.NFData DescribeDevice where
       `Prelude.seq` Prelude.rnf deviceName
       `Prelude.seq` Prelude.rnf deviceFleetName
 
-instance Core.ToHeaders DescribeDevice where
+instance Data.ToHeaders DescribeDevice where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.DescribeDevice" :: Prelude.ByteString),
+              Data.=# ("SageMaker.DescribeDevice" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeDevice where
+instance Data.ToJSON DescribeDevice where
   toJSON DescribeDevice' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            Prelude.Just ("DeviceName" Core..= deviceName),
+          [ ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("DeviceName" Data..= deviceName),
             Prelude.Just
-              ("DeviceFleetName" Core..= deviceFleetName)
+              ("DeviceFleetName" Data..= deviceFleetName)
           ]
       )
 
-instance Core.ToPath DescribeDevice where
+instance Data.ToPath DescribeDevice where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeDevice where
+instance Data.ToQuery DescribeDevice where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeDeviceResponse' smart constructor.
 data DescribeDeviceResponse = DescribeDeviceResponse'
-  { -- | The Amazon Resource Name (ARN) of the device.
-    deviceArn :: Prelude.Maybe Prelude.Text,
-    -- | The response from the last list when returning a list large enough to
-    -- need tokening.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Models on the device.
-    models :: Prelude.Maybe [EdgeModel],
-    -- | The maximum number of models.
-    maxModels :: Prelude.Maybe Prelude.Int,
-    -- | The last heartbeat received from the device.
-    latestHeartbeat :: Prelude.Maybe Core.POSIX,
+  { -- | Edge Manager agent version.
+    agentVersion :: Prelude.Maybe Prelude.Text,
     -- | A description of the device.
     description :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the device.
+    deviceArn :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Web Services Internet of Things (IoT) object thing name
     -- associated with the device.
     iotThingName :: Prelude.Maybe Prelude.Text,
+    -- | The last heartbeat received from the device.
+    latestHeartbeat :: Prelude.Maybe Data.POSIX,
+    -- | The maximum number of models.
+    maxModels :: Prelude.Maybe Prelude.Int,
+    -- | Models on the device.
+    models :: Prelude.Maybe [EdgeModel],
+    -- | The response from the last list when returning a list large enough to
+    -- need tokening.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | The unique identifier of the device.
@@ -195,7 +201,7 @@ data DescribeDeviceResponse = DescribeDeviceResponse'
     -- | The name of the fleet the device belongs to.
     deviceFleetName :: Prelude.Text,
     -- | The timestamp of the last registration or de-reregistration.
-    registrationTime :: Core.POSIX
+    registrationTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -207,21 +213,23 @@ data DescribeDeviceResponse = DescribeDeviceResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'deviceArn', 'describeDeviceResponse_deviceArn' - The Amazon Resource Name (ARN) of the device.
---
--- 'nextToken', 'describeDeviceResponse_nextToken' - The response from the last list when returning a list large enough to
--- need tokening.
---
--- 'models', 'describeDeviceResponse_models' - Models on the device.
---
--- 'maxModels', 'describeDeviceResponse_maxModels' - The maximum number of models.
---
--- 'latestHeartbeat', 'describeDeviceResponse_latestHeartbeat' - The last heartbeat received from the device.
+-- 'agentVersion', 'describeDeviceResponse_agentVersion' - Edge Manager agent version.
 --
 -- 'description', 'describeDeviceResponse_description' - A description of the device.
 --
+-- 'deviceArn', 'describeDeviceResponse_deviceArn' - The Amazon Resource Name (ARN) of the device.
+--
 -- 'iotThingName', 'describeDeviceResponse_iotThingName' - The Amazon Web Services Internet of Things (IoT) object thing name
 -- associated with the device.
+--
+-- 'latestHeartbeat', 'describeDeviceResponse_latestHeartbeat' - The last heartbeat received from the device.
+--
+-- 'maxModels', 'describeDeviceResponse_maxModels' - The maximum number of models.
+--
+-- 'models', 'describeDeviceResponse_models' - Models on the device.
+--
+-- 'nextToken', 'describeDeviceResponse_nextToken' - The response from the last list when returning a list large enough to
+-- need tokening.
 --
 -- 'httpStatus', 'describeDeviceResponse_httpStatus' - The response's http status code.
 --
@@ -246,50 +254,55 @@ newDescribeDeviceResponse
   pDeviceFleetName_
   pRegistrationTime_ =
     DescribeDeviceResponse'
-      { deviceArn =
+      { agentVersion =
           Prelude.Nothing,
-        nextToken = Prelude.Nothing,
-        models = Prelude.Nothing,
-        maxModels = Prelude.Nothing,
-        latestHeartbeat = Prelude.Nothing,
         description = Prelude.Nothing,
+        deviceArn = Prelude.Nothing,
         iotThingName = Prelude.Nothing,
+        latestHeartbeat = Prelude.Nothing,
+        maxModels = Prelude.Nothing,
+        models = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         httpStatus = pHttpStatus_,
         deviceName = pDeviceName_,
         deviceFleetName = pDeviceFleetName_,
         registrationTime =
-          Core._Time Lens.# pRegistrationTime_
+          Data._Time Lens.# pRegistrationTime_
       }
 
--- | The Amazon Resource Name (ARN) of the device.
-describeDeviceResponse_deviceArn :: Lens.Lens' DescribeDeviceResponse (Prelude.Maybe Prelude.Text)
-describeDeviceResponse_deviceArn = Lens.lens (\DescribeDeviceResponse' {deviceArn} -> deviceArn) (\s@DescribeDeviceResponse' {} a -> s {deviceArn = a} :: DescribeDeviceResponse)
-
--- | The response from the last list when returning a list large enough to
--- need tokening.
-describeDeviceResponse_nextToken :: Lens.Lens' DescribeDeviceResponse (Prelude.Maybe Prelude.Text)
-describeDeviceResponse_nextToken = Lens.lens (\DescribeDeviceResponse' {nextToken} -> nextToken) (\s@DescribeDeviceResponse' {} a -> s {nextToken = a} :: DescribeDeviceResponse)
-
--- | Models on the device.
-describeDeviceResponse_models :: Lens.Lens' DescribeDeviceResponse (Prelude.Maybe [EdgeModel])
-describeDeviceResponse_models = Lens.lens (\DescribeDeviceResponse' {models} -> models) (\s@DescribeDeviceResponse' {} a -> s {models = a} :: DescribeDeviceResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | The maximum number of models.
-describeDeviceResponse_maxModels :: Lens.Lens' DescribeDeviceResponse (Prelude.Maybe Prelude.Int)
-describeDeviceResponse_maxModels = Lens.lens (\DescribeDeviceResponse' {maxModels} -> maxModels) (\s@DescribeDeviceResponse' {} a -> s {maxModels = a} :: DescribeDeviceResponse)
-
--- | The last heartbeat received from the device.
-describeDeviceResponse_latestHeartbeat :: Lens.Lens' DescribeDeviceResponse (Prelude.Maybe Prelude.UTCTime)
-describeDeviceResponse_latestHeartbeat = Lens.lens (\DescribeDeviceResponse' {latestHeartbeat} -> latestHeartbeat) (\s@DescribeDeviceResponse' {} a -> s {latestHeartbeat = a} :: DescribeDeviceResponse) Prelude.. Lens.mapping Core._Time
+-- | Edge Manager agent version.
+describeDeviceResponse_agentVersion :: Lens.Lens' DescribeDeviceResponse (Prelude.Maybe Prelude.Text)
+describeDeviceResponse_agentVersion = Lens.lens (\DescribeDeviceResponse' {agentVersion} -> agentVersion) (\s@DescribeDeviceResponse' {} a -> s {agentVersion = a} :: DescribeDeviceResponse)
 
 -- | A description of the device.
 describeDeviceResponse_description :: Lens.Lens' DescribeDeviceResponse (Prelude.Maybe Prelude.Text)
 describeDeviceResponse_description = Lens.lens (\DescribeDeviceResponse' {description} -> description) (\s@DescribeDeviceResponse' {} a -> s {description = a} :: DescribeDeviceResponse)
 
+-- | The Amazon Resource Name (ARN) of the device.
+describeDeviceResponse_deviceArn :: Lens.Lens' DescribeDeviceResponse (Prelude.Maybe Prelude.Text)
+describeDeviceResponse_deviceArn = Lens.lens (\DescribeDeviceResponse' {deviceArn} -> deviceArn) (\s@DescribeDeviceResponse' {} a -> s {deviceArn = a} :: DescribeDeviceResponse)
+
 -- | The Amazon Web Services Internet of Things (IoT) object thing name
 -- associated with the device.
 describeDeviceResponse_iotThingName :: Lens.Lens' DescribeDeviceResponse (Prelude.Maybe Prelude.Text)
 describeDeviceResponse_iotThingName = Lens.lens (\DescribeDeviceResponse' {iotThingName} -> iotThingName) (\s@DescribeDeviceResponse' {} a -> s {iotThingName = a} :: DescribeDeviceResponse)
+
+-- | The last heartbeat received from the device.
+describeDeviceResponse_latestHeartbeat :: Lens.Lens' DescribeDeviceResponse (Prelude.Maybe Prelude.UTCTime)
+describeDeviceResponse_latestHeartbeat = Lens.lens (\DescribeDeviceResponse' {latestHeartbeat} -> latestHeartbeat) (\s@DescribeDeviceResponse' {} a -> s {latestHeartbeat = a} :: DescribeDeviceResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The maximum number of models.
+describeDeviceResponse_maxModels :: Lens.Lens' DescribeDeviceResponse (Prelude.Maybe Prelude.Int)
+describeDeviceResponse_maxModels = Lens.lens (\DescribeDeviceResponse' {maxModels} -> maxModels) (\s@DescribeDeviceResponse' {} a -> s {maxModels = a} :: DescribeDeviceResponse)
+
+-- | Models on the device.
+describeDeviceResponse_models :: Lens.Lens' DescribeDeviceResponse (Prelude.Maybe [EdgeModel])
+describeDeviceResponse_models = Lens.lens (\DescribeDeviceResponse' {models} -> models) (\s@DescribeDeviceResponse' {} a -> s {models = a} :: DescribeDeviceResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The response from the last list when returning a list large enough to
+-- need tokening.
+describeDeviceResponse_nextToken :: Lens.Lens' DescribeDeviceResponse (Prelude.Maybe Prelude.Text)
+describeDeviceResponse_nextToken = Lens.lens (\DescribeDeviceResponse' {nextToken} -> nextToken) (\s@DescribeDeviceResponse' {} a -> s {nextToken = a} :: DescribeDeviceResponse)
 
 -- | The response's http status code.
 describeDeviceResponse_httpStatus :: Lens.Lens' DescribeDeviceResponse Prelude.Int
@@ -305,17 +318,18 @@ describeDeviceResponse_deviceFleetName = Lens.lens (\DescribeDeviceResponse' {de
 
 -- | The timestamp of the last registration or de-reregistration.
 describeDeviceResponse_registrationTime :: Lens.Lens' DescribeDeviceResponse Prelude.UTCTime
-describeDeviceResponse_registrationTime = Lens.lens (\DescribeDeviceResponse' {registrationTime} -> registrationTime) (\s@DescribeDeviceResponse' {} a -> s {registrationTime = a} :: DescribeDeviceResponse) Prelude.. Core._Time
+describeDeviceResponse_registrationTime = Lens.lens (\DescribeDeviceResponse' {registrationTime} -> registrationTime) (\s@DescribeDeviceResponse' {} a -> s {registrationTime = a} :: DescribeDeviceResponse) Prelude.. Data._Time
 
 instance Prelude.NFData DescribeDeviceResponse where
   rnf DescribeDeviceResponse' {..} =
-    Prelude.rnf deviceArn
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf models
-      `Prelude.seq` Prelude.rnf maxModels
-      `Prelude.seq` Prelude.rnf latestHeartbeat
+    Prelude.rnf agentVersion
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf deviceArn
       `Prelude.seq` Prelude.rnf iotThingName
+      `Prelude.seq` Prelude.rnf latestHeartbeat
+      `Prelude.seq` Prelude.rnf maxModels
+      `Prelude.seq` Prelude.rnf models
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf deviceName
       `Prelude.seq` Prelude.rnf deviceFleetName

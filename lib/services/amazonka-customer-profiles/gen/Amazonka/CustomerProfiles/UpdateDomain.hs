@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CustomerProfiles.UpdateDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,16 +30,23 @@
 -- to enable
 -- <https://docs.aws.amazon.com/customerprofiles/latest/APIReference/API_GetMatches.html identity resolution>:
 -- set @Matching@ to true.
+--
+-- To prevent cross-service impersonation when you call this API, see
+-- <https://docs.aws.amazon.com/connect/latest/adminguide/cross-service-confused-deputy-prevention.html Cross-service confused deputy prevention>
+-- for sample policies that you should apply.
+--
+-- To add or remove tags on an existing Domain, see
+-- <https://docs.aws.amazon.com/customerprofiles/latest/APIReference/API_TagResource.html TagResource>\/<https://docs.aws.amazon.com/customerprofiles/latest/APIReference/API_UntagResource.html UntagResource>.
 module Amazonka.CustomerProfiles.UpdateDomain
   ( -- * Creating a Request
     UpdateDomain (..),
     newUpdateDomain,
 
     -- * Request Lenses
-    updateDomain_defaultExpirationDays,
-    updateDomain_defaultEncryptionKey,
-    updateDomain_matching,
     updateDomain_deadLetterQueueUrl,
+    updateDomain_defaultEncryptionKey,
+    updateDomain_defaultExpirationDays,
+    updateDomain_matching,
     updateDomain_tags,
     updateDomain_domainName,
 
@@ -48,10 +55,10 @@ module Amazonka.CustomerProfiles.UpdateDomain
     newUpdateDomainResponse,
 
     -- * Response Lenses
-    updateDomainResponse_defaultExpirationDays,
-    updateDomainResponse_defaultEncryptionKey,
-    updateDomainResponse_matching,
     updateDomainResponse_deadLetterQueueUrl,
+    updateDomainResponse_defaultEncryptionKey,
+    updateDomainResponse_defaultExpirationDays,
+    updateDomainResponse_matching,
     updateDomainResponse_tags,
     updateDomainResponse_httpStatus,
     updateDomainResponse_domainName,
@@ -61,35 +68,41 @@ module Amazonka.CustomerProfiles.UpdateDomain
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CustomerProfiles.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateDomain' smart constructor.
 data UpdateDomain = UpdateDomain'
-  { -- | The default number of days until the data within the domain expires.
-    defaultExpirationDays :: Prelude.Maybe Prelude.Natural,
-    -- | The default encryption key, which is an AWS managed key, is used when no
-    -- specific type of encryption key is specified. It is used to encrypt all
-    -- data before it is placed in permanent or semi-permanent storage. If
-    -- specified as an empty string, it will clear any existing value.
-    defaultEncryptionKey :: Prelude.Maybe Prelude.Text,
-    -- | The process of matching duplicate profiles. If Matching = true, Amazon
-    -- Connect Customer Profiles starts a weekly batch process every Saturday
-    -- at 12AM UTC to detect duplicate profiles in your domains. After that
-    -- batch process completes, use the
-    -- <https://docs.aws.amazon.com/customerprofiles/latest/APIReference/API_GetMatches.html GetMatches>
-    -- API to return and review the results.
-    matching :: Prelude.Maybe MatchingRequest,
-    -- | The URL of the SQS dead letter queue, which is used for reporting errors
+  { -- | The URL of the SQS dead letter queue, which is used for reporting errors
     -- associated with ingesting data from third party applications. If
     -- specified as an empty string, it will clear any existing value. You must
     -- set up a policy on the DeadLetterQueue for the SendMessage operation to
     -- enable Amazon Connect Customer Profiles to send messages to the
     -- DeadLetterQueue.
     deadLetterQueueUrl :: Prelude.Maybe Prelude.Text,
+    -- | The default encryption key, which is an AWS managed key, is used when no
+    -- specific type of encryption key is specified. It is used to encrypt all
+    -- data before it is placed in permanent or semi-permanent storage. If
+    -- specified as an empty string, it will clear any existing value.
+    defaultEncryptionKey :: Prelude.Maybe Prelude.Text,
+    -- | The default number of days until the data within the domain expires.
+    defaultExpirationDays :: Prelude.Maybe Prelude.Natural,
+    -- | The process of matching duplicate profiles. If @Matching@ = @true@,
+    -- Amazon Connect Customer Profiles starts a weekly batch process called
+    -- Identity Resolution Job. If you do not specify a date and time for
+    -- Identity Resolution Job to run, by default it runs every Saturday at
+    -- 12AM UTC to detect duplicate profiles in your domains.
+    --
+    -- After the Identity Resolution Job completes, use the
+    -- <https://docs.aws.amazon.com/customerprofiles/latest/APIReference/API_GetMatches.html GetMatches>
+    -- API to return and review the results. Or, if you have configured
+    -- @ExportingConfig@ in the @MatchingRequest@, you can download the results
+    -- from S3.
+    matching :: Prelude.Maybe MatchingRequest,
     -- | The tags used to organize, track, or control access for this resource.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The unique name of the domain.
@@ -105,26 +118,31 @@ data UpdateDomain = UpdateDomain'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'defaultExpirationDays', 'updateDomain_defaultExpirationDays' - The default number of days until the data within the domain expires.
---
--- 'defaultEncryptionKey', 'updateDomain_defaultEncryptionKey' - The default encryption key, which is an AWS managed key, is used when no
--- specific type of encryption key is specified. It is used to encrypt all
--- data before it is placed in permanent or semi-permanent storage. If
--- specified as an empty string, it will clear any existing value.
---
--- 'matching', 'updateDomain_matching' - The process of matching duplicate profiles. If Matching = true, Amazon
--- Connect Customer Profiles starts a weekly batch process every Saturday
--- at 12AM UTC to detect duplicate profiles in your domains. After that
--- batch process completes, use the
--- <https://docs.aws.amazon.com/customerprofiles/latest/APIReference/API_GetMatches.html GetMatches>
--- API to return and review the results.
---
 -- 'deadLetterQueueUrl', 'updateDomain_deadLetterQueueUrl' - The URL of the SQS dead letter queue, which is used for reporting errors
 -- associated with ingesting data from third party applications. If
 -- specified as an empty string, it will clear any existing value. You must
 -- set up a policy on the DeadLetterQueue for the SendMessage operation to
 -- enable Amazon Connect Customer Profiles to send messages to the
 -- DeadLetterQueue.
+--
+-- 'defaultEncryptionKey', 'updateDomain_defaultEncryptionKey' - The default encryption key, which is an AWS managed key, is used when no
+-- specific type of encryption key is specified. It is used to encrypt all
+-- data before it is placed in permanent or semi-permanent storage. If
+-- specified as an empty string, it will clear any existing value.
+--
+-- 'defaultExpirationDays', 'updateDomain_defaultExpirationDays' - The default number of days until the data within the domain expires.
+--
+-- 'matching', 'updateDomain_matching' - The process of matching duplicate profiles. If @Matching@ = @true@,
+-- Amazon Connect Customer Profiles starts a weekly batch process called
+-- Identity Resolution Job. If you do not specify a date and time for
+-- Identity Resolution Job to run, by default it runs every Saturday at
+-- 12AM UTC to detect duplicate profiles in your domains.
+--
+-- After the Identity Resolution Job completes, use the
+-- <https://docs.aws.amazon.com/customerprofiles/latest/APIReference/API_GetMatches.html GetMatches>
+-- API to return and review the results. Or, if you have configured
+-- @ExportingConfig@ in the @MatchingRequest@, you can download the results
+-- from S3.
 --
 -- 'tags', 'updateDomain_tags' - The tags used to organize, track, or control access for this resource.
 --
@@ -135,34 +153,13 @@ newUpdateDomain ::
   UpdateDomain
 newUpdateDomain pDomainName_ =
   UpdateDomain'
-    { defaultExpirationDays =
-        Prelude.Nothing,
+    { deadLetterQueueUrl = Prelude.Nothing,
       defaultEncryptionKey = Prelude.Nothing,
+      defaultExpirationDays = Prelude.Nothing,
       matching = Prelude.Nothing,
-      deadLetterQueueUrl = Prelude.Nothing,
       tags = Prelude.Nothing,
       domainName = pDomainName_
     }
-
--- | The default number of days until the data within the domain expires.
-updateDomain_defaultExpirationDays :: Lens.Lens' UpdateDomain (Prelude.Maybe Prelude.Natural)
-updateDomain_defaultExpirationDays = Lens.lens (\UpdateDomain' {defaultExpirationDays} -> defaultExpirationDays) (\s@UpdateDomain' {} a -> s {defaultExpirationDays = a} :: UpdateDomain)
-
--- | The default encryption key, which is an AWS managed key, is used when no
--- specific type of encryption key is specified. It is used to encrypt all
--- data before it is placed in permanent or semi-permanent storage. If
--- specified as an empty string, it will clear any existing value.
-updateDomain_defaultEncryptionKey :: Lens.Lens' UpdateDomain (Prelude.Maybe Prelude.Text)
-updateDomain_defaultEncryptionKey = Lens.lens (\UpdateDomain' {defaultEncryptionKey} -> defaultEncryptionKey) (\s@UpdateDomain' {} a -> s {defaultEncryptionKey = a} :: UpdateDomain)
-
--- | The process of matching duplicate profiles. If Matching = true, Amazon
--- Connect Customer Profiles starts a weekly batch process every Saturday
--- at 12AM UTC to detect duplicate profiles in your domains. After that
--- batch process completes, use the
--- <https://docs.aws.amazon.com/customerprofiles/latest/APIReference/API_GetMatches.html GetMatches>
--- API to return and review the results.
-updateDomain_matching :: Lens.Lens' UpdateDomain (Prelude.Maybe MatchingRequest)
-updateDomain_matching = Lens.lens (\UpdateDomain' {matching} -> matching) (\s@UpdateDomain' {} a -> s {matching = a} :: UpdateDomain)
 
 -- | The URL of the SQS dead letter queue, which is used for reporting errors
 -- associated with ingesting data from third party applications. If
@@ -172,6 +169,31 @@ updateDomain_matching = Lens.lens (\UpdateDomain' {matching} -> matching) (\s@Up
 -- DeadLetterQueue.
 updateDomain_deadLetterQueueUrl :: Lens.Lens' UpdateDomain (Prelude.Maybe Prelude.Text)
 updateDomain_deadLetterQueueUrl = Lens.lens (\UpdateDomain' {deadLetterQueueUrl} -> deadLetterQueueUrl) (\s@UpdateDomain' {} a -> s {deadLetterQueueUrl = a} :: UpdateDomain)
+
+-- | The default encryption key, which is an AWS managed key, is used when no
+-- specific type of encryption key is specified. It is used to encrypt all
+-- data before it is placed in permanent or semi-permanent storage. If
+-- specified as an empty string, it will clear any existing value.
+updateDomain_defaultEncryptionKey :: Lens.Lens' UpdateDomain (Prelude.Maybe Prelude.Text)
+updateDomain_defaultEncryptionKey = Lens.lens (\UpdateDomain' {defaultEncryptionKey} -> defaultEncryptionKey) (\s@UpdateDomain' {} a -> s {defaultEncryptionKey = a} :: UpdateDomain)
+
+-- | The default number of days until the data within the domain expires.
+updateDomain_defaultExpirationDays :: Lens.Lens' UpdateDomain (Prelude.Maybe Prelude.Natural)
+updateDomain_defaultExpirationDays = Lens.lens (\UpdateDomain' {defaultExpirationDays} -> defaultExpirationDays) (\s@UpdateDomain' {} a -> s {defaultExpirationDays = a} :: UpdateDomain)
+
+-- | The process of matching duplicate profiles. If @Matching@ = @true@,
+-- Amazon Connect Customer Profiles starts a weekly batch process called
+-- Identity Resolution Job. If you do not specify a date and time for
+-- Identity Resolution Job to run, by default it runs every Saturday at
+-- 12AM UTC to detect duplicate profiles in your domains.
+--
+-- After the Identity Resolution Job completes, use the
+-- <https://docs.aws.amazon.com/customerprofiles/latest/APIReference/API_GetMatches.html GetMatches>
+-- API to return and review the results. Or, if you have configured
+-- @ExportingConfig@ in the @MatchingRequest@, you can download the results
+-- from S3.
+updateDomain_matching :: Lens.Lens' UpdateDomain (Prelude.Maybe MatchingRequest)
+updateDomain_matching = Lens.lens (\UpdateDomain' {matching} -> matching) (\s@UpdateDomain' {} a -> s {matching = a} :: UpdateDomain)
 
 -- | The tags used to organize, track, or control access for this resource.
 updateDomain_tags :: Lens.Lens' UpdateDomain (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -183,91 +205,97 @@ updateDomain_domainName = Lens.lens (\UpdateDomain' {domainName} -> domainName) 
 
 instance Core.AWSRequest UpdateDomain where
   type AWSResponse UpdateDomain = UpdateDomainResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateDomainResponse'
-            Prelude.<$> (x Core..?> "DefaultExpirationDays")
-            Prelude.<*> (x Core..?> "DefaultEncryptionKey")
-            Prelude.<*> (x Core..?> "Matching")
-            Prelude.<*> (x Core..?> "DeadLetterQueueUrl")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "DeadLetterQueueUrl")
+            Prelude.<*> (x Data..?> "DefaultEncryptionKey")
+            Prelude.<*> (x Data..?> "DefaultExpirationDays")
+            Prelude.<*> (x Data..?> "Matching")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "DomainName")
-            Prelude.<*> (x Core..:> "CreatedAt")
-            Prelude.<*> (x Core..:> "LastUpdatedAt")
+            Prelude.<*> (x Data..:> "DomainName")
+            Prelude.<*> (x Data..:> "CreatedAt")
+            Prelude.<*> (x Data..:> "LastUpdatedAt")
       )
 
 instance Prelude.Hashable UpdateDomain where
   hashWithSalt _salt UpdateDomain' {..} =
-    _salt `Prelude.hashWithSalt` defaultExpirationDays
+    _salt `Prelude.hashWithSalt` deadLetterQueueUrl
       `Prelude.hashWithSalt` defaultEncryptionKey
+      `Prelude.hashWithSalt` defaultExpirationDays
       `Prelude.hashWithSalt` matching
-      `Prelude.hashWithSalt` deadLetterQueueUrl
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` domainName
 
 instance Prelude.NFData UpdateDomain where
   rnf UpdateDomain' {..} =
-    Prelude.rnf defaultExpirationDays
+    Prelude.rnf deadLetterQueueUrl
       `Prelude.seq` Prelude.rnf defaultEncryptionKey
+      `Prelude.seq` Prelude.rnf defaultExpirationDays
       `Prelude.seq` Prelude.rnf matching
-      `Prelude.seq` Prelude.rnf deadLetterQueueUrl
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf domainName
 
-instance Core.ToHeaders UpdateDomain where
+instance Data.ToHeaders UpdateDomain where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateDomain where
+instance Data.ToJSON UpdateDomain where
   toJSON UpdateDomain' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DefaultExpirationDays" Core..=)
-              Prelude.<$> defaultExpirationDays,
-            ("DefaultEncryptionKey" Core..=)
-              Prelude.<$> defaultEncryptionKey,
-            ("Matching" Core..=) Prelude.<$> matching,
-            ("DeadLetterQueueUrl" Core..=)
+          [ ("DeadLetterQueueUrl" Data..=)
               Prelude.<$> deadLetterQueueUrl,
-            ("Tags" Core..=) Prelude.<$> tags
+            ("DefaultEncryptionKey" Data..=)
+              Prelude.<$> defaultEncryptionKey,
+            ("DefaultExpirationDays" Data..=)
+              Prelude.<$> defaultExpirationDays,
+            ("Matching" Data..=) Prelude.<$> matching,
+            ("Tags" Data..=) Prelude.<$> tags
           ]
       )
 
-instance Core.ToPath UpdateDomain where
+instance Data.ToPath UpdateDomain where
   toPath UpdateDomain' {..} =
-    Prelude.mconcat ["/domains/", Core.toBS domainName]
+    Prelude.mconcat ["/domains/", Data.toBS domainName]
 
-instance Core.ToQuery UpdateDomain where
+instance Data.ToQuery UpdateDomain where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateDomainResponse' smart constructor.
 data UpdateDomainResponse = UpdateDomainResponse'
-  { -- | The default number of days until the data within the domain expires.
-    defaultExpirationDays :: Prelude.Maybe Prelude.Natural,
+  { -- | The URL of the SQS dead letter queue, which is used for reporting errors
+    -- associated with ingesting data from third party applications.
+    deadLetterQueueUrl :: Prelude.Maybe Prelude.Text,
     -- | The default encryption key, which is an AWS managed key, is used when no
     -- specific type of encryption key is specified. It is used to encrypt all
     -- data before it is placed in permanent or semi-permanent storage.
     defaultEncryptionKey :: Prelude.Maybe Prelude.Text,
-    -- | The process of matching duplicate profiles. If Matching = true, Amazon
-    -- Connect Customer Profiles starts a weekly batch process every Saturday
-    -- at 12AM UTC to detect duplicate profiles in your domains. After that
-    -- batch process completes, use the
+    -- | The default number of days until the data within the domain expires.
+    defaultExpirationDays :: Prelude.Maybe Prelude.Natural,
+    -- | The process of matching duplicate profiles. If @Matching@ = @true@,
+    -- Amazon Connect Customer Profiles starts a weekly batch process called
+    -- Identity Resolution Job. If you do not specify a date and time for
+    -- Identity Resolution Job to run, by default it runs every Saturday at
+    -- 12AM UTC to detect duplicate profiles in your domains.
+    --
+    -- After the Identity Resolution Job completes, use the
     -- <https://docs.aws.amazon.com/customerprofiles/latest/APIReference/API_GetMatches.html GetMatches>
-    -- API to return and review the results.
+    -- API to return and review the results. Or, if you have configured
+    -- @ExportingConfig@ in the @MatchingRequest@, you can download the results
+    -- from S3.
     matching :: Prelude.Maybe MatchingResponse,
-    -- | The URL of the SQS dead letter queue, which is used for reporting errors
-    -- associated with ingesting data from third party applications.
-    deadLetterQueueUrl :: Prelude.Maybe Prelude.Text,
     -- | The tags used to organize, track, or control access for this resource.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The response's http status code.
@@ -275,9 +303,9 @@ data UpdateDomainResponse = UpdateDomainResponse'
     -- | The unique name of the domain.
     domainName :: Prelude.Text,
     -- | The timestamp of when the domain was created.
-    createdAt :: Core.POSIX,
+    createdAt :: Data.POSIX,
     -- | The timestamp of when the domain was most recently edited.
-    lastUpdatedAt :: Core.POSIX
+    lastUpdatedAt :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -289,21 +317,26 @@ data UpdateDomainResponse = UpdateDomainResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'defaultExpirationDays', 'updateDomainResponse_defaultExpirationDays' - The default number of days until the data within the domain expires.
+-- 'deadLetterQueueUrl', 'updateDomainResponse_deadLetterQueueUrl' - The URL of the SQS dead letter queue, which is used for reporting errors
+-- associated with ingesting data from third party applications.
 --
 -- 'defaultEncryptionKey', 'updateDomainResponse_defaultEncryptionKey' - The default encryption key, which is an AWS managed key, is used when no
 -- specific type of encryption key is specified. It is used to encrypt all
 -- data before it is placed in permanent or semi-permanent storage.
 --
--- 'matching', 'updateDomainResponse_matching' - The process of matching duplicate profiles. If Matching = true, Amazon
--- Connect Customer Profiles starts a weekly batch process every Saturday
--- at 12AM UTC to detect duplicate profiles in your domains. After that
--- batch process completes, use the
--- <https://docs.aws.amazon.com/customerprofiles/latest/APIReference/API_GetMatches.html GetMatches>
--- API to return and review the results.
+-- 'defaultExpirationDays', 'updateDomainResponse_defaultExpirationDays' - The default number of days until the data within the domain expires.
 --
--- 'deadLetterQueueUrl', 'updateDomainResponse_deadLetterQueueUrl' - The URL of the SQS dead letter queue, which is used for reporting errors
--- associated with ingesting data from third party applications.
+-- 'matching', 'updateDomainResponse_matching' - The process of matching duplicate profiles. If @Matching@ = @true@,
+-- Amazon Connect Customer Profiles starts a weekly batch process called
+-- Identity Resolution Job. If you do not specify a date and time for
+-- Identity Resolution Job to run, by default it runs every Saturday at
+-- 12AM UTC to detect duplicate profiles in your domains.
+--
+-- After the Identity Resolution Job completes, use the
+-- <https://docs.aws.amazon.com/customerprofiles/latest/APIReference/API_GetMatches.html GetMatches>
+-- API to return and review the results. Or, if you have configured
+-- @ExportingConfig@ in the @MatchingRequest@, you can download the results
+-- from S3.
 --
 -- 'tags', 'updateDomainResponse_tags' - The tags used to organize, track, or control access for this resource.
 --
@@ -330,21 +363,22 @@ newUpdateDomainResponse
   pCreatedAt_
   pLastUpdatedAt_ =
     UpdateDomainResponse'
-      { defaultExpirationDays =
+      { deadLetterQueueUrl =
           Prelude.Nothing,
         defaultEncryptionKey = Prelude.Nothing,
+        defaultExpirationDays = Prelude.Nothing,
         matching = Prelude.Nothing,
-        deadLetterQueueUrl = Prelude.Nothing,
         tags = Prelude.Nothing,
         httpStatus = pHttpStatus_,
         domainName = pDomainName_,
-        createdAt = Core._Time Lens.# pCreatedAt_,
-        lastUpdatedAt = Core._Time Lens.# pLastUpdatedAt_
+        createdAt = Data._Time Lens.# pCreatedAt_,
+        lastUpdatedAt = Data._Time Lens.# pLastUpdatedAt_
       }
 
--- | The default number of days until the data within the domain expires.
-updateDomainResponse_defaultExpirationDays :: Lens.Lens' UpdateDomainResponse (Prelude.Maybe Prelude.Natural)
-updateDomainResponse_defaultExpirationDays = Lens.lens (\UpdateDomainResponse' {defaultExpirationDays} -> defaultExpirationDays) (\s@UpdateDomainResponse' {} a -> s {defaultExpirationDays = a} :: UpdateDomainResponse)
+-- | The URL of the SQS dead letter queue, which is used for reporting errors
+-- associated with ingesting data from third party applications.
+updateDomainResponse_deadLetterQueueUrl :: Lens.Lens' UpdateDomainResponse (Prelude.Maybe Prelude.Text)
+updateDomainResponse_deadLetterQueueUrl = Lens.lens (\UpdateDomainResponse' {deadLetterQueueUrl} -> deadLetterQueueUrl) (\s@UpdateDomainResponse' {} a -> s {deadLetterQueueUrl = a} :: UpdateDomainResponse)
 
 -- | The default encryption key, which is an AWS managed key, is used when no
 -- specific type of encryption key is specified. It is used to encrypt all
@@ -352,19 +386,23 @@ updateDomainResponse_defaultExpirationDays = Lens.lens (\UpdateDomainResponse' {
 updateDomainResponse_defaultEncryptionKey :: Lens.Lens' UpdateDomainResponse (Prelude.Maybe Prelude.Text)
 updateDomainResponse_defaultEncryptionKey = Lens.lens (\UpdateDomainResponse' {defaultEncryptionKey} -> defaultEncryptionKey) (\s@UpdateDomainResponse' {} a -> s {defaultEncryptionKey = a} :: UpdateDomainResponse)
 
--- | The process of matching duplicate profiles. If Matching = true, Amazon
--- Connect Customer Profiles starts a weekly batch process every Saturday
--- at 12AM UTC to detect duplicate profiles in your domains. After that
--- batch process completes, use the
+-- | The default number of days until the data within the domain expires.
+updateDomainResponse_defaultExpirationDays :: Lens.Lens' UpdateDomainResponse (Prelude.Maybe Prelude.Natural)
+updateDomainResponse_defaultExpirationDays = Lens.lens (\UpdateDomainResponse' {defaultExpirationDays} -> defaultExpirationDays) (\s@UpdateDomainResponse' {} a -> s {defaultExpirationDays = a} :: UpdateDomainResponse)
+
+-- | The process of matching duplicate profiles. If @Matching@ = @true@,
+-- Amazon Connect Customer Profiles starts a weekly batch process called
+-- Identity Resolution Job. If you do not specify a date and time for
+-- Identity Resolution Job to run, by default it runs every Saturday at
+-- 12AM UTC to detect duplicate profiles in your domains.
+--
+-- After the Identity Resolution Job completes, use the
 -- <https://docs.aws.amazon.com/customerprofiles/latest/APIReference/API_GetMatches.html GetMatches>
--- API to return and review the results.
+-- API to return and review the results. Or, if you have configured
+-- @ExportingConfig@ in the @MatchingRequest@, you can download the results
+-- from S3.
 updateDomainResponse_matching :: Lens.Lens' UpdateDomainResponse (Prelude.Maybe MatchingResponse)
 updateDomainResponse_matching = Lens.lens (\UpdateDomainResponse' {matching} -> matching) (\s@UpdateDomainResponse' {} a -> s {matching = a} :: UpdateDomainResponse)
-
--- | The URL of the SQS dead letter queue, which is used for reporting errors
--- associated with ingesting data from third party applications.
-updateDomainResponse_deadLetterQueueUrl :: Lens.Lens' UpdateDomainResponse (Prelude.Maybe Prelude.Text)
-updateDomainResponse_deadLetterQueueUrl = Lens.lens (\UpdateDomainResponse' {deadLetterQueueUrl} -> deadLetterQueueUrl) (\s@UpdateDomainResponse' {} a -> s {deadLetterQueueUrl = a} :: UpdateDomainResponse)
 
 -- | The tags used to organize, track, or control access for this resource.
 updateDomainResponse_tags :: Lens.Lens' UpdateDomainResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -380,18 +418,18 @@ updateDomainResponse_domainName = Lens.lens (\UpdateDomainResponse' {domainName}
 
 -- | The timestamp of when the domain was created.
 updateDomainResponse_createdAt :: Lens.Lens' UpdateDomainResponse Prelude.UTCTime
-updateDomainResponse_createdAt = Lens.lens (\UpdateDomainResponse' {createdAt} -> createdAt) (\s@UpdateDomainResponse' {} a -> s {createdAt = a} :: UpdateDomainResponse) Prelude.. Core._Time
+updateDomainResponse_createdAt = Lens.lens (\UpdateDomainResponse' {createdAt} -> createdAt) (\s@UpdateDomainResponse' {} a -> s {createdAt = a} :: UpdateDomainResponse) Prelude.. Data._Time
 
 -- | The timestamp of when the domain was most recently edited.
 updateDomainResponse_lastUpdatedAt :: Lens.Lens' UpdateDomainResponse Prelude.UTCTime
-updateDomainResponse_lastUpdatedAt = Lens.lens (\UpdateDomainResponse' {lastUpdatedAt} -> lastUpdatedAt) (\s@UpdateDomainResponse' {} a -> s {lastUpdatedAt = a} :: UpdateDomainResponse) Prelude.. Core._Time
+updateDomainResponse_lastUpdatedAt = Lens.lens (\UpdateDomainResponse' {lastUpdatedAt} -> lastUpdatedAt) (\s@UpdateDomainResponse' {} a -> s {lastUpdatedAt = a} :: UpdateDomainResponse) Prelude.. Data._Time
 
 instance Prelude.NFData UpdateDomainResponse where
   rnf UpdateDomainResponse' {..} =
-    Prelude.rnf defaultExpirationDays
+    Prelude.rnf deadLetterQueueUrl
       `Prelude.seq` Prelude.rnf defaultEncryptionKey
+      `Prelude.seq` Prelude.rnf defaultExpirationDays
       `Prelude.seq` Prelude.rnf matching
-      `Prelude.seq` Prelude.rnf deadLetterQueueUrl
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf domainName

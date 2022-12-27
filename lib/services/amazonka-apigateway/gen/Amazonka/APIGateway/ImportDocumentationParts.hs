@@ -14,21 +14,21 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.ImportDocumentationParts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- -- | Undocumented operation.
+-- Imports documentation parts
 module Amazonka.APIGateway.ImportDocumentationParts
   ( -- * Creating a Request
     ImportDocumentationParts (..),
     newImportDocumentationParts,
 
     -- * Request Lenses
-    importDocumentationParts_mode,
     importDocumentationParts_failOnWarnings,
+    importDocumentationParts_mode,
     importDocumentationParts_restApiId,
     importDocumentationParts_body,
 
@@ -45,7 +45,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,18 +56,18 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newImportDocumentationParts' smart constructor.
 data ImportDocumentationParts = ImportDocumentationParts'
-  { -- | A query parameter to indicate whether to overwrite (@OVERWRITE@) any
-    -- existing DocumentationParts definition or to merge (@MERGE@) the new
-    -- definition into the existing one. The default value is @MERGE@.
-    mode :: Prelude.Maybe PutMode,
-    -- | A query parameter to specify whether to rollback the documentation
+  { -- | A query parameter to specify whether to rollback the documentation
     -- importation (@true@) or not (@false@) when a warning is encountered. The
     -- default value is @false@.
     failOnWarnings :: Prelude.Maybe Prelude.Bool,
-    -- | [Required] The string identifier of the associated RestApi.
+    -- | A query parameter to indicate whether to overwrite (@OVERWRITE@) any
+    -- existing DocumentationParts definition or to merge (@MERGE@) the new
+    -- definition into the existing one. The default value is @MERGE@.
+    mode :: Prelude.Maybe PutMode,
+    -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] Raw byte array representing the to-be-imported documentation
-    -- parts. To import from an OpenAPI file, this is a JSON object.
+    -- | Raw byte array representing the to-be-imported documentation parts. To
+    -- import from an OpenAPI file, this is a JSON object.
     body :: Prelude.ByteString
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
@@ -79,18 +80,18 @@ data ImportDocumentationParts = ImportDocumentationParts'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'mode', 'importDocumentationParts_mode' - A query parameter to indicate whether to overwrite (@OVERWRITE@) any
--- existing DocumentationParts definition or to merge (@MERGE@) the new
--- definition into the existing one. The default value is @MERGE@.
---
 -- 'failOnWarnings', 'importDocumentationParts_failOnWarnings' - A query parameter to specify whether to rollback the documentation
 -- importation (@true@) or not (@false@) when a warning is encountered. The
 -- default value is @false@.
 --
--- 'restApiId', 'importDocumentationParts_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'mode', 'importDocumentationParts_mode' - A query parameter to indicate whether to overwrite (@OVERWRITE@) any
+-- existing DocumentationParts definition or to merge (@MERGE@) the new
+-- definition into the existing one. The default value is @MERGE@.
 --
--- 'body', 'importDocumentationParts_body' - [Required] Raw byte array representing the to-be-imported documentation
--- parts. To import from an OpenAPI file, this is a JSON object.
+-- 'restApiId', 'importDocumentationParts_restApiId' - The string identifier of the associated RestApi.
+--
+-- 'body', 'importDocumentationParts_body' - Raw byte array representing the to-be-imported documentation parts. To
+-- import from an OpenAPI file, this is a JSON object.
 newImportDocumentationParts ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -99,17 +100,12 @@ newImportDocumentationParts ::
   ImportDocumentationParts
 newImportDocumentationParts pRestApiId_ pBody_ =
   ImportDocumentationParts'
-    { mode = Prelude.Nothing,
-      failOnWarnings = Prelude.Nothing,
+    { failOnWarnings =
+        Prelude.Nothing,
+      mode = Prelude.Nothing,
       restApiId = pRestApiId_,
       body = pBody_
     }
-
--- | A query parameter to indicate whether to overwrite (@OVERWRITE@) any
--- existing DocumentationParts definition or to merge (@MERGE@) the new
--- definition into the existing one. The default value is @MERGE@.
-importDocumentationParts_mode :: Lens.Lens' ImportDocumentationParts (Prelude.Maybe PutMode)
-importDocumentationParts_mode = Lens.lens (\ImportDocumentationParts' {mode} -> mode) (\s@ImportDocumentationParts' {} a -> s {mode = a} :: ImportDocumentationParts)
 
 -- | A query parameter to specify whether to rollback the documentation
 -- importation (@true@) or not (@false@) when a warning is encountered. The
@@ -117,12 +113,18 @@ importDocumentationParts_mode = Lens.lens (\ImportDocumentationParts' {mode} -> 
 importDocumentationParts_failOnWarnings :: Lens.Lens' ImportDocumentationParts (Prelude.Maybe Prelude.Bool)
 importDocumentationParts_failOnWarnings = Lens.lens (\ImportDocumentationParts' {failOnWarnings} -> failOnWarnings) (\s@ImportDocumentationParts' {} a -> s {failOnWarnings = a} :: ImportDocumentationParts)
 
--- | [Required] The string identifier of the associated RestApi.
+-- | A query parameter to indicate whether to overwrite (@OVERWRITE@) any
+-- existing DocumentationParts definition or to merge (@MERGE@) the new
+-- definition into the existing one. The default value is @MERGE@.
+importDocumentationParts_mode :: Lens.Lens' ImportDocumentationParts (Prelude.Maybe PutMode)
+importDocumentationParts_mode = Lens.lens (\ImportDocumentationParts' {mode} -> mode) (\s@ImportDocumentationParts' {} a -> s {mode = a} :: ImportDocumentationParts)
+
+-- | The string identifier of the associated RestApi.
 importDocumentationParts_restApiId :: Lens.Lens' ImportDocumentationParts Prelude.Text
 importDocumentationParts_restApiId = Lens.lens (\ImportDocumentationParts' {restApiId} -> restApiId) (\s@ImportDocumentationParts' {} a -> s {restApiId = a} :: ImportDocumentationParts)
 
--- | [Required] Raw byte array representing the to-be-imported documentation
--- parts. To import from an OpenAPI file, this is a JSON object.
+-- | Raw byte array representing the to-be-imported documentation parts. To
+-- import from an OpenAPI file, this is a JSON object.
 importDocumentationParts_body :: Lens.Lens' ImportDocumentationParts Prelude.ByteString
 importDocumentationParts_body = Lens.lens (\ImportDocumentationParts' {body} -> body) (\s@ImportDocumentationParts' {} a -> s {body = a} :: ImportDocumentationParts)
 
@@ -130,66 +132,60 @@ instance Core.AWSRequest ImportDocumentationParts where
   type
     AWSResponse ImportDocumentationParts =
       ImportDocumentationPartsResponse
-  request = Request.putBody defaultService
+  request overrides =
+    Request.putBody (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ImportDocumentationPartsResponse'
-            Prelude.<$> (x Core..?> "ids" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "warnings" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "ids" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "warnings" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ImportDocumentationParts where
   hashWithSalt _salt ImportDocumentationParts' {..} =
-    _salt `Prelude.hashWithSalt` mode
-      `Prelude.hashWithSalt` failOnWarnings
+    _salt `Prelude.hashWithSalt` failOnWarnings
+      `Prelude.hashWithSalt` mode
       `Prelude.hashWithSalt` restApiId
       `Prelude.hashWithSalt` body
 
 instance Prelude.NFData ImportDocumentationParts where
   rnf ImportDocumentationParts' {..} =
-    Prelude.rnf mode
-      `Prelude.seq` Prelude.rnf failOnWarnings
+    Prelude.rnf failOnWarnings
+      `Prelude.seq` Prelude.rnf mode
       `Prelude.seq` Prelude.rnf restApiId
       `Prelude.seq` Prelude.rnf body
 
-instance Core.ToBody ImportDocumentationParts where
+instance Data.ToBody ImportDocumentationParts where
   toBody ImportDocumentationParts' {..} =
-    Core.toBody body
+    Data.toBody body
 
-instance Core.ToHeaders ImportDocumentationParts where
+instance Data.ToHeaders ImportDocumentationParts where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath ImportDocumentationParts where
+instance Data.ToPath ImportDocumentationParts where
   toPath ImportDocumentationParts' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/documentation/parts"
       ]
 
-instance Core.ToQuery ImportDocumentationParts where
+instance Data.ToQuery ImportDocumentationParts where
   toQuery ImportDocumentationParts' {..} =
     Prelude.mconcat
-      [ "mode" Core.=: mode,
-        "failonwarnings" Core.=: failOnWarnings
+      [ "failonwarnings" Data.=: failOnWarnings,
+        "mode" Data.=: mode
       ]
 
 -- | A collection of the imported DocumentationPart identifiers.
---
--- This is used to return the result when documentation parts in an
--- external (e.g., OpenAPI) file are imported into API Gateway
---
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-documenting-api.html Documenting an API>,
--- <https://docs.aws.amazon.com/apigateway/api-reference/link-relation/documentationpart-import/ documentationpart:import>,
--- DocumentationPart
 --
 -- /See:/ 'newImportDocumentationPartsResponse' smart constructor.
 data ImportDocumentationPartsResponse = ImportDocumentationPartsResponse'

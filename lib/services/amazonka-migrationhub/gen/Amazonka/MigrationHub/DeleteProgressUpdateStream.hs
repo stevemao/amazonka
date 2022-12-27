@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MigrationHub.DeleteProgressUpdateStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -62,7 +62,8 @@ module Amazonka.MigrationHub.DeleteProgressUpdateStream
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MigrationHub.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -119,7 +120,8 @@ instance Core.AWSRequest DeleteProgressUpdateStream where
   type
     AWSResponse DeleteProgressUpdateStream =
       DeleteProgressUpdateStreamResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -137,37 +139,37 @@ instance Prelude.NFData DeleteProgressUpdateStream where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf progressUpdateStreamName
 
-instance Core.ToHeaders DeleteProgressUpdateStream where
+instance Data.ToHeaders DeleteProgressUpdateStream where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSMigrationHub.DeleteProgressUpdateStream" ::
+              Data.=# ( "AWSMigrationHub.DeleteProgressUpdateStream" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteProgressUpdateStream where
+instance Data.ToJSON DeleteProgressUpdateStream where
   toJSON DeleteProgressUpdateStream' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DryRun" Core..=) Prelude.<$> dryRun,
+          [ ("DryRun" Data..=) Prelude.<$> dryRun,
             Prelude.Just
               ( "ProgressUpdateStreamName"
-                  Core..= progressUpdateStreamName
+                  Data..= progressUpdateStreamName
               )
           ]
       )
 
-instance Core.ToPath DeleteProgressUpdateStream where
+instance Data.ToPath DeleteProgressUpdateStream where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteProgressUpdateStream where
+instance Data.ToQuery DeleteProgressUpdateStream where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteProgressUpdateStreamResponse' smart constructor.

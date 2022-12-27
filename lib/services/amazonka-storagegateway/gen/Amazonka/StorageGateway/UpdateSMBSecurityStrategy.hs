@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.UpdateSMBSecurityStrategy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.StorageGateway.UpdateSMBSecurityStrategy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -146,12 +147,13 @@ instance Core.AWSRequest UpdateSMBSecurityStrategy where
   type
     AWSResponse UpdateSMBSecurityStrategy =
       UpdateSMBSecurityStrategyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateSMBSecurityStrategyResponse'
-            Prelude.<$> (x Core..?> "GatewayARN")
+            Prelude.<$> (x Data..?> "GatewayARN")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -165,35 +167,35 @@ instance Prelude.NFData UpdateSMBSecurityStrategy where
     Prelude.rnf gatewayARN
       `Prelude.seq` Prelude.rnf sMBSecurityStrategy
 
-instance Core.ToHeaders UpdateSMBSecurityStrategy where
+instance Data.ToHeaders UpdateSMBSecurityStrategy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.UpdateSMBSecurityStrategy" ::
+              Data.=# ( "StorageGateway_20130630.UpdateSMBSecurityStrategy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateSMBSecurityStrategy where
+instance Data.ToJSON UpdateSMBSecurityStrategy where
   toJSON UpdateSMBSecurityStrategy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("GatewayARN" Core..= gatewayARN),
+          [ Prelude.Just ("GatewayARN" Data..= gatewayARN),
             Prelude.Just
-              ("SMBSecurityStrategy" Core..= sMBSecurityStrategy)
+              ("SMBSecurityStrategy" Data..= sMBSecurityStrategy)
           ]
       )
 
-instance Core.ToPath UpdateSMBSecurityStrategy where
+instance Data.ToPath UpdateSMBSecurityStrategy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateSMBSecurityStrategy where
+instance Data.ToQuery UpdateSMBSecurityStrategy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateSMBSecurityStrategyResponse' smart constructor.

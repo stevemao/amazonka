@@ -12,40 +12,47 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.Types.Entity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 module Amazonka.Comprehend.Types.Entity where
 
+import Amazonka.Comprehend.Types.BlockReference
 import Amazonka.Comprehend.Types.EntityType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides information about an entity.
 --
 -- /See:/ 'newEntity' smart constructor.
 data Entity = Entity'
-  { -- | A character offset in the input text that shows where the entity begins
-    -- (the first character is at position 0). The offset returns the position
-    -- of each UTF-8 code point in the string. A /code point/ is the abstract
-    -- character from a particular graphical representation. For example, a
-    -- multi-byte UTF-8 character maps to a single code point.
+  { -- | The zero-based offset from the beginning of the source text to the first
+    -- character in the entity.
+    --
+    -- This field is empty for non-text input.
     beginOffset :: Prelude.Maybe Prelude.Int,
-    -- | The text of the entity.
-    text :: Prelude.Maybe Prelude.Text,
+    -- | A reference to each block for this entity. This field is empty for
+    -- plain-text input.
+    blockReferences :: Prelude.Maybe [BlockReference],
+    -- | The zero-based offset from the beginning of the source text to the last
+    -- character in the entity.
+    --
+    -- This field is empty for non-text input.
+    endOffset :: Prelude.Maybe Prelude.Int,
     -- | The level of confidence that Amazon Comprehend has in the accuracy of
     -- the detection.
     score :: Prelude.Maybe Prelude.Double,
-    -- | A character offset in the input text that shows where the entity ends.
-    -- The offset returns the position of each UTF-8 code point in the string.
-    -- A /code point/ is the abstract character from a particular graphical
-    -- representation. For example, a multi-byte UTF-8 character maps to a
-    -- single code point.
-    endOffset :: Prelude.Maybe Prelude.Int,
-    -- | The entity\'s type.
+    -- | The text of the entity.
+    text :: Prelude.Maybe Prelude.Text,
+    -- | The entity type. For entity detection using the built-in model, this
+    -- field contains one of the standard entity types listed below.
+    --
+    -- For custom entity detection, this field contains one of the entity types
+    -- that you specified when you trained your custom model.
     type' :: Prelude.Maybe EntityType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -58,89 +65,107 @@ data Entity = Entity'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'beginOffset', 'entity_beginOffset' - A character offset in the input text that shows where the entity begins
--- (the first character is at position 0). The offset returns the position
--- of each UTF-8 code point in the string. A /code point/ is the abstract
--- character from a particular graphical representation. For example, a
--- multi-byte UTF-8 character maps to a single code point.
+-- 'beginOffset', 'entity_beginOffset' - The zero-based offset from the beginning of the source text to the first
+-- character in the entity.
 --
--- 'text', 'entity_text' - The text of the entity.
+-- This field is empty for non-text input.
+--
+-- 'blockReferences', 'entity_blockReferences' - A reference to each block for this entity. This field is empty for
+-- plain-text input.
+--
+-- 'endOffset', 'entity_endOffset' - The zero-based offset from the beginning of the source text to the last
+-- character in the entity.
+--
+-- This field is empty for non-text input.
 --
 -- 'score', 'entity_score' - The level of confidence that Amazon Comprehend has in the accuracy of
 -- the detection.
 --
--- 'endOffset', 'entity_endOffset' - A character offset in the input text that shows where the entity ends.
--- The offset returns the position of each UTF-8 code point in the string.
--- A /code point/ is the abstract character from a particular graphical
--- representation. For example, a multi-byte UTF-8 character maps to a
--- single code point.
+-- 'text', 'entity_text' - The text of the entity.
 --
--- 'type'', 'entity_type' - The entity\'s type.
+-- 'type'', 'entity_type' - The entity type. For entity detection using the built-in model, this
+-- field contains one of the standard entity types listed below.
+--
+-- For custom entity detection, this field contains one of the entity types
+-- that you specified when you trained your custom model.
 newEntity ::
   Entity
 newEntity =
   Entity'
     { beginOffset = Prelude.Nothing,
-      text = Prelude.Nothing,
-      score = Prelude.Nothing,
+      blockReferences = Prelude.Nothing,
       endOffset = Prelude.Nothing,
+      score = Prelude.Nothing,
+      text = Prelude.Nothing,
       type' = Prelude.Nothing
     }
 
--- | A character offset in the input text that shows where the entity begins
--- (the first character is at position 0). The offset returns the position
--- of each UTF-8 code point in the string. A /code point/ is the abstract
--- character from a particular graphical representation. For example, a
--- multi-byte UTF-8 character maps to a single code point.
+-- | The zero-based offset from the beginning of the source text to the first
+-- character in the entity.
+--
+-- This field is empty for non-text input.
 entity_beginOffset :: Lens.Lens' Entity (Prelude.Maybe Prelude.Int)
 entity_beginOffset = Lens.lens (\Entity' {beginOffset} -> beginOffset) (\s@Entity' {} a -> s {beginOffset = a} :: Entity)
 
--- | The text of the entity.
-entity_text :: Lens.Lens' Entity (Prelude.Maybe Prelude.Text)
-entity_text = Lens.lens (\Entity' {text} -> text) (\s@Entity' {} a -> s {text = a} :: Entity)
+-- | A reference to each block for this entity. This field is empty for
+-- plain-text input.
+entity_blockReferences :: Lens.Lens' Entity (Prelude.Maybe [BlockReference])
+entity_blockReferences = Lens.lens (\Entity' {blockReferences} -> blockReferences) (\s@Entity' {} a -> s {blockReferences = a} :: Entity) Prelude.. Lens.mapping Lens.coerced
+
+-- | The zero-based offset from the beginning of the source text to the last
+-- character in the entity.
+--
+-- This field is empty for non-text input.
+entity_endOffset :: Lens.Lens' Entity (Prelude.Maybe Prelude.Int)
+entity_endOffset = Lens.lens (\Entity' {endOffset} -> endOffset) (\s@Entity' {} a -> s {endOffset = a} :: Entity)
 
 -- | The level of confidence that Amazon Comprehend has in the accuracy of
 -- the detection.
 entity_score :: Lens.Lens' Entity (Prelude.Maybe Prelude.Double)
 entity_score = Lens.lens (\Entity' {score} -> score) (\s@Entity' {} a -> s {score = a} :: Entity)
 
--- | A character offset in the input text that shows where the entity ends.
--- The offset returns the position of each UTF-8 code point in the string.
--- A /code point/ is the abstract character from a particular graphical
--- representation. For example, a multi-byte UTF-8 character maps to a
--- single code point.
-entity_endOffset :: Lens.Lens' Entity (Prelude.Maybe Prelude.Int)
-entity_endOffset = Lens.lens (\Entity' {endOffset} -> endOffset) (\s@Entity' {} a -> s {endOffset = a} :: Entity)
+-- | The text of the entity.
+entity_text :: Lens.Lens' Entity (Prelude.Maybe Prelude.Text)
+entity_text = Lens.lens (\Entity' {text} -> text) (\s@Entity' {} a -> s {text = a} :: Entity)
 
--- | The entity\'s type.
+-- | The entity type. For entity detection using the built-in model, this
+-- field contains one of the standard entity types listed below.
+--
+-- For custom entity detection, this field contains one of the entity types
+-- that you specified when you trained your custom model.
 entity_type :: Lens.Lens' Entity (Prelude.Maybe EntityType)
 entity_type = Lens.lens (\Entity' {type'} -> type') (\s@Entity' {} a -> s {type' = a} :: Entity)
 
-instance Core.FromJSON Entity where
+instance Data.FromJSON Entity where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Entity"
       ( \x ->
           Entity'
-            Prelude.<$> (x Core..:? "BeginOffset")
-            Prelude.<*> (x Core..:? "Text")
-            Prelude.<*> (x Core..:? "Score")
-            Prelude.<*> (x Core..:? "EndOffset")
-            Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "BeginOffset")
+            Prelude.<*> ( x Data..:? "BlockReferences"
+                            Data..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Data..:? "EndOffset")
+            Prelude.<*> (x Data..:? "Score")
+            Prelude.<*> (x Data..:? "Text")
+            Prelude.<*> (x Data..:? "Type")
       )
 
 instance Prelude.Hashable Entity where
   hashWithSalt _salt Entity' {..} =
     _salt `Prelude.hashWithSalt` beginOffset
-      `Prelude.hashWithSalt` text
-      `Prelude.hashWithSalt` score
+      `Prelude.hashWithSalt` blockReferences
       `Prelude.hashWithSalt` endOffset
+      `Prelude.hashWithSalt` score
+      `Prelude.hashWithSalt` text
       `Prelude.hashWithSalt` type'
 
 instance Prelude.NFData Entity where
   rnf Entity' {..} =
     Prelude.rnf beginOffset
-      `Prelude.seq` Prelude.rnf text
-      `Prelude.seq` Prelude.rnf score
+      `Prelude.seq` Prelude.rnf blockReferences
       `Prelude.seq` Prelude.rnf endOffset
+      `Prelude.seq` Prelude.rnf score
+      `Prelude.seq` Prelude.rnf text
       `Prelude.seq` Prelude.rnf type'

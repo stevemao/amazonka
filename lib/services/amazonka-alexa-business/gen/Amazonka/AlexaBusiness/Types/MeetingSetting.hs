@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.Types.MeetingSetting
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AlexaBusiness.Types.MeetingSetting where
 
 import Amazonka.AlexaBusiness.Types.RequirePin
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The values that indicate whether a pin is always required (YES), never
@@ -61,12 +62,12 @@ newMeetingSetting pRequirePin_ =
 meetingSetting_requirePin :: Lens.Lens' MeetingSetting RequirePin
 meetingSetting_requirePin = Lens.lens (\MeetingSetting' {requirePin} -> requirePin) (\s@MeetingSetting' {} a -> s {requirePin = a} :: MeetingSetting)
 
-instance Core.FromJSON MeetingSetting where
+instance Data.FromJSON MeetingSetting where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MeetingSetting"
       ( \x ->
-          MeetingSetting' Prelude.<$> (x Core..: "RequirePin")
+          MeetingSetting' Prelude.<$> (x Data..: "RequirePin")
       )
 
 instance Prelude.Hashable MeetingSetting where
@@ -76,9 +77,9 @@ instance Prelude.Hashable MeetingSetting where
 instance Prelude.NFData MeetingSetting where
   rnf MeetingSetting' {..} = Prelude.rnf requirePin
 
-instance Core.ToJSON MeetingSetting where
+instance Data.ToJSON MeetingSetting where
   toJSON MeetingSetting' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("RequirePin" Core..= requirePin)]
+          [Prelude.Just ("RequirePin" Data..= requirePin)]
       )

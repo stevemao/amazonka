@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.LakeFormation.DescribeResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Retrieves the current data access role for the given resource registered
--- in AWS Lake Formation.
+-- in Lake Formation.
 module Amazonka.LakeFormation.DescribeResource
   ( -- * Creating a Request
     DescribeResource (..),
@@ -41,8 +41,9 @@ module Amazonka.LakeFormation.DescribeResource
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LakeFormation.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,12 +79,13 @@ instance Core.AWSRequest DescribeResource where
   type
     AWSResponse DescribeResource =
       DescribeResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeResourceResponse'
-            Prelude.<$> (x Core..?> "ResourceInfo")
+            Prelude.<$> (x Data..?> "ResourceInfo")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -94,37 +96,33 @@ instance Prelude.Hashable DescribeResource where
 instance Prelude.NFData DescribeResource where
   rnf DescribeResource' {..} = Prelude.rnf resourceArn
 
-instance Core.ToHeaders DescribeResource where
+instance Data.ToHeaders DescribeResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
-          [ "X-Amz-Target"
-              Core.=# ( "AWSLakeFormation.DescribeResource" ::
-                          Prelude.ByteString
-                      ),
-            "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+          [ "Content-Type"
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeResource where
+instance Data.ToJSON DescribeResource where
   toJSON DescribeResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ResourceArn" Core..= resourceArn)]
+          [Prelude.Just ("ResourceArn" Data..= resourceArn)]
       )
 
-instance Core.ToPath DescribeResource where
-  toPath = Prelude.const "/"
+instance Data.ToPath DescribeResource where
+  toPath = Prelude.const "/DescribeResource"
 
-instance Core.ToQuery DescribeResource where
+instance Data.ToQuery DescribeResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeResourceResponse' smart constructor.
 data DescribeResourceResponse = DescribeResourceResponse'
-  { -- | A structure containing information about an AWS Lake Formation resource.
+  { -- | A structure containing information about an Lake Formation resource.
     resourceInfo :: Prelude.Maybe ResourceInfo,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -139,7 +137,7 @@ data DescribeResourceResponse = DescribeResourceResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceInfo', 'describeResourceResponse_resourceInfo' - A structure containing information about an AWS Lake Formation resource.
+-- 'resourceInfo', 'describeResourceResponse_resourceInfo' - A structure containing information about an Lake Formation resource.
 --
 -- 'httpStatus', 'describeResourceResponse_httpStatus' - The response's http status code.
 newDescribeResourceResponse ::
@@ -153,7 +151,7 @@ newDescribeResourceResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | A structure containing information about an AWS Lake Formation resource.
+-- | A structure containing information about an Lake Formation resource.
 describeResourceResponse_resourceInfo :: Lens.Lens' DescribeResourceResponse (Prelude.Maybe ResourceInfo)
 describeResourceResponse_resourceInfo = Lens.lens (\DescribeResourceResponse' {resourceInfo} -> resourceInfo) (\s@DescribeResourceResponse' {} a -> s {resourceInfo = a} :: DescribeResourceResponse)
 

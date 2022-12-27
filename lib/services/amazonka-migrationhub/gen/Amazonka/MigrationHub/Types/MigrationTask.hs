@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MigrationHub.Types.MigrationTask
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MigrationHub.Types.MigrationTask where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MigrationHub.Types.ResourceAttribute
 import Amazonka.MigrationHub.Types.Task
 import qualified Amazonka.Prelude as Prelude
@@ -29,19 +30,19 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newMigrationTask' smart constructor.
 data MigrationTask = MigrationTask'
-  { -- | The timestamp when the task was gathered.
-    updateDateTime :: Prelude.Maybe Core.POSIX,
+  { -- | Unique identifier that references the migration task. /Do not store
+    -- personal data in this field./
+    migrationTaskName :: Prelude.Maybe Prelude.Text,
+    -- | A name that identifies the vendor of the migration tool being used.
+    progressUpdateStream :: Prelude.Maybe Prelude.Text,
     -- | Information about the resource that is being migrated. This data will be
     -- used to map the task to a resource in the Application Discovery Service
     -- repository.
     resourceAttributeList :: Prelude.Maybe [ResourceAttribute],
     -- | Task object encapsulating task information.
     task :: Prelude.Maybe Task,
-    -- | A name that identifies the vendor of the migration tool being used.
-    progressUpdateStream :: Prelude.Maybe Prelude.Text,
-    -- | Unique identifier that references the migration task. /Do not store
-    -- personal data in this field./
-    migrationTaskName :: Prelude.Maybe Prelude.Text
+    -- | The timestamp when the task was gathered.
+    updateDateTime :: Prelude.Maybe Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -53,7 +54,10 @@ data MigrationTask = MigrationTask'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'updateDateTime', 'migrationTask_updateDateTime' - The timestamp when the task was gathered.
+-- 'migrationTaskName', 'migrationTask_migrationTaskName' - Unique identifier that references the migration task. /Do not store
+-- personal data in this field./
+--
+-- 'progressUpdateStream', 'migrationTask_progressUpdateStream' - A name that identifies the vendor of the migration tool being used.
 --
 -- 'resourceAttributeList', 'migrationTask_resourceAttributeList' - Information about the resource that is being migrated. This data will be
 -- used to map the task to a resource in the Application Discovery Service
@@ -61,24 +65,26 @@ data MigrationTask = MigrationTask'
 --
 -- 'task', 'migrationTask_task' - Task object encapsulating task information.
 --
--- 'progressUpdateStream', 'migrationTask_progressUpdateStream' - A name that identifies the vendor of the migration tool being used.
---
--- 'migrationTaskName', 'migrationTask_migrationTaskName' - Unique identifier that references the migration task. /Do not store
--- personal data in this field./
+-- 'updateDateTime', 'migrationTask_updateDateTime' - The timestamp when the task was gathered.
 newMigrationTask ::
   MigrationTask
 newMigrationTask =
   MigrationTask'
-    { updateDateTime = Prelude.Nothing,
+    { migrationTaskName = Prelude.Nothing,
+      progressUpdateStream = Prelude.Nothing,
       resourceAttributeList = Prelude.Nothing,
       task = Prelude.Nothing,
-      progressUpdateStream = Prelude.Nothing,
-      migrationTaskName = Prelude.Nothing
+      updateDateTime = Prelude.Nothing
     }
 
--- | The timestamp when the task was gathered.
-migrationTask_updateDateTime :: Lens.Lens' MigrationTask (Prelude.Maybe Prelude.UTCTime)
-migrationTask_updateDateTime = Lens.lens (\MigrationTask' {updateDateTime} -> updateDateTime) (\s@MigrationTask' {} a -> s {updateDateTime = a} :: MigrationTask) Prelude.. Lens.mapping Core._Time
+-- | Unique identifier that references the migration task. /Do not store
+-- personal data in this field./
+migrationTask_migrationTaskName :: Lens.Lens' MigrationTask (Prelude.Maybe Prelude.Text)
+migrationTask_migrationTaskName = Lens.lens (\MigrationTask' {migrationTaskName} -> migrationTaskName) (\s@MigrationTask' {} a -> s {migrationTaskName = a} :: MigrationTask)
+
+-- | A name that identifies the vendor of the migration tool being used.
+migrationTask_progressUpdateStream :: Lens.Lens' MigrationTask (Prelude.Maybe Prelude.Text)
+migrationTask_progressUpdateStream = Lens.lens (\MigrationTask' {progressUpdateStream} -> progressUpdateStream) (\s@MigrationTask' {} a -> s {progressUpdateStream = a} :: MigrationTask)
 
 -- | Information about the resource that is being migrated. This data will be
 -- used to map the task to a resource in the Application Discovery Service
@@ -90,42 +96,37 @@ migrationTask_resourceAttributeList = Lens.lens (\MigrationTask' {resourceAttrib
 migrationTask_task :: Lens.Lens' MigrationTask (Prelude.Maybe Task)
 migrationTask_task = Lens.lens (\MigrationTask' {task} -> task) (\s@MigrationTask' {} a -> s {task = a} :: MigrationTask)
 
--- | A name that identifies the vendor of the migration tool being used.
-migrationTask_progressUpdateStream :: Lens.Lens' MigrationTask (Prelude.Maybe Prelude.Text)
-migrationTask_progressUpdateStream = Lens.lens (\MigrationTask' {progressUpdateStream} -> progressUpdateStream) (\s@MigrationTask' {} a -> s {progressUpdateStream = a} :: MigrationTask)
+-- | The timestamp when the task was gathered.
+migrationTask_updateDateTime :: Lens.Lens' MigrationTask (Prelude.Maybe Prelude.UTCTime)
+migrationTask_updateDateTime = Lens.lens (\MigrationTask' {updateDateTime} -> updateDateTime) (\s@MigrationTask' {} a -> s {updateDateTime = a} :: MigrationTask) Prelude.. Lens.mapping Data._Time
 
--- | Unique identifier that references the migration task. /Do not store
--- personal data in this field./
-migrationTask_migrationTaskName :: Lens.Lens' MigrationTask (Prelude.Maybe Prelude.Text)
-migrationTask_migrationTaskName = Lens.lens (\MigrationTask' {migrationTaskName} -> migrationTaskName) (\s@MigrationTask' {} a -> s {migrationTaskName = a} :: MigrationTask)
-
-instance Core.FromJSON MigrationTask where
+instance Data.FromJSON MigrationTask where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MigrationTask"
       ( \x ->
           MigrationTask'
-            Prelude.<$> (x Core..:? "UpdateDateTime")
-            Prelude.<*> ( x Core..:? "ResourceAttributeList"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "MigrationTaskName")
+            Prelude.<*> (x Data..:? "ProgressUpdateStream")
+            Prelude.<*> ( x Data..:? "ResourceAttributeList"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "Task")
-            Prelude.<*> (x Core..:? "ProgressUpdateStream")
-            Prelude.<*> (x Core..:? "MigrationTaskName")
+            Prelude.<*> (x Data..:? "Task")
+            Prelude.<*> (x Data..:? "UpdateDateTime")
       )
 
 instance Prelude.Hashable MigrationTask where
   hashWithSalt _salt MigrationTask' {..} =
-    _salt `Prelude.hashWithSalt` updateDateTime
+    _salt `Prelude.hashWithSalt` migrationTaskName
+      `Prelude.hashWithSalt` progressUpdateStream
       `Prelude.hashWithSalt` resourceAttributeList
       `Prelude.hashWithSalt` task
-      `Prelude.hashWithSalt` progressUpdateStream
-      `Prelude.hashWithSalt` migrationTaskName
+      `Prelude.hashWithSalt` updateDateTime
 
 instance Prelude.NFData MigrationTask where
   rnf MigrationTask' {..} =
-    Prelude.rnf updateDateTime
+    Prelude.rnf migrationTaskName
+      `Prelude.seq` Prelude.rnf progressUpdateStream
       `Prelude.seq` Prelude.rnf resourceAttributeList
       `Prelude.seq` Prelude.rnf task
-      `Prelude.seq` Prelude.rnf progressUpdateStream
-      `Prelude.seq` Prelude.rnf migrationTaskName
+      `Prelude.seq` Prelude.rnf updateDateTime

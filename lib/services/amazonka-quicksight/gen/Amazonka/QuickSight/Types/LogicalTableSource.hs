@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.LogicalTableSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.LogicalTableSource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types.JoinInstruction
 
@@ -73,15 +74,15 @@ logicalTableSource_joinInstruction = Lens.lens (\LogicalTableSource' {joinInstru
 logicalTableSource_physicalTableId :: Lens.Lens' LogicalTableSource (Prelude.Maybe Prelude.Text)
 logicalTableSource_physicalTableId = Lens.lens (\LogicalTableSource' {physicalTableId} -> physicalTableId) (\s@LogicalTableSource' {} a -> s {physicalTableId = a} :: LogicalTableSource)
 
-instance Core.FromJSON LogicalTableSource where
+instance Data.FromJSON LogicalTableSource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LogicalTableSource"
       ( \x ->
           LogicalTableSource'
-            Prelude.<$> (x Core..:? "DataSetArn")
-            Prelude.<*> (x Core..:? "JoinInstruction")
-            Prelude.<*> (x Core..:? "PhysicalTableId")
+            Prelude.<$> (x Data..:? "DataSetArn")
+            Prelude.<*> (x Data..:? "JoinInstruction")
+            Prelude.<*> (x Data..:? "PhysicalTableId")
       )
 
 instance Prelude.Hashable LogicalTableSource where
@@ -96,14 +97,14 @@ instance Prelude.NFData LogicalTableSource where
       `Prelude.seq` Prelude.rnf joinInstruction
       `Prelude.seq` Prelude.rnf physicalTableId
 
-instance Core.ToJSON LogicalTableSource where
+instance Data.ToJSON LogicalTableSource where
   toJSON LogicalTableSource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DataSetArn" Core..=) Prelude.<$> dataSetArn,
-            ("JoinInstruction" Core..=)
+          [ ("DataSetArn" Data..=) Prelude.<$> dataSetArn,
+            ("JoinInstruction" Data..=)
               Prelude.<$> joinInstruction,
-            ("PhysicalTableId" Core..=)
+            ("PhysicalTableId" Data..=)
               Prelude.<$> physicalTableId
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.GenerateCredentialReport
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,15 +34,16 @@ module Amazonka.IAM.GenerateCredentialReport
     newGenerateCredentialReportResponse,
 
     -- * Response Lenses
-    generateCredentialReportResponse_state,
     generateCredentialReportResponse_description,
+    generateCredentialReportResponse_state,
     generateCredentialReportResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,14 +67,15 @@ instance Core.AWSRequest GenerateCredentialReport where
   type
     AWSResponse GenerateCredentialReport =
       GenerateCredentialReportResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GenerateCredentialReportResult"
       ( \s h x ->
           GenerateCredentialReportResponse'
-            Prelude.<$> (x Core..@? "State")
-            Prelude.<*> (x Core..@? "Description")
+            Prelude.<$> (x Data..@? "Description")
+            Prelude.<*> (x Data..@? "State")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -84,20 +86,20 @@ instance Prelude.Hashable GenerateCredentialReport where
 instance Prelude.NFData GenerateCredentialReport where
   rnf _ = ()
 
-instance Core.ToHeaders GenerateCredentialReport where
+instance Data.ToHeaders GenerateCredentialReport where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GenerateCredentialReport where
+instance Data.ToPath GenerateCredentialReport where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GenerateCredentialReport where
+instance Data.ToQuery GenerateCredentialReport where
   toQuery =
     Prelude.const
       ( Prelude.mconcat
           [ "Action"
-              Core.=: ("GenerateCredentialReport" :: Prelude.ByteString),
+              Data.=: ("GenerateCredentialReport" :: Prelude.ByteString),
             "Version"
-              Core.=: ("2010-05-08" :: Prelude.ByteString)
+              Data.=: ("2010-05-08" :: Prelude.ByteString)
           ]
       )
 
@@ -105,10 +107,10 @@ instance Core.ToQuery GenerateCredentialReport where
 --
 -- /See:/ 'newGenerateCredentialReportResponse' smart constructor.
 data GenerateCredentialReportResponse = GenerateCredentialReportResponse'
-  { -- | Information about the state of the credential report.
-    state :: Prelude.Maybe ReportStateType,
-    -- | Information about the credential report.
+  { -- | Information about the credential report.
     description :: Prelude.Maybe Prelude.Text,
+    -- | Information about the state of the credential report.
+    state :: Prelude.Maybe ReportStateType,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -122,9 +124,9 @@ data GenerateCredentialReportResponse = GenerateCredentialReportResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'state', 'generateCredentialReportResponse_state' - Information about the state of the credential report.
---
 -- 'description', 'generateCredentialReportResponse_description' - Information about the credential report.
+--
+-- 'state', 'generateCredentialReportResponse_state' - Information about the state of the credential report.
 --
 -- 'httpStatus', 'generateCredentialReportResponse_httpStatus' - The response's http status code.
 newGenerateCredentialReportResponse ::
@@ -133,19 +135,19 @@ newGenerateCredentialReportResponse ::
   GenerateCredentialReportResponse
 newGenerateCredentialReportResponse pHttpStatus_ =
   GenerateCredentialReportResponse'
-    { state =
+    { description =
         Prelude.Nothing,
-      description = Prelude.Nothing,
+      state = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Information about the state of the credential report.
-generateCredentialReportResponse_state :: Lens.Lens' GenerateCredentialReportResponse (Prelude.Maybe ReportStateType)
-generateCredentialReportResponse_state = Lens.lens (\GenerateCredentialReportResponse' {state} -> state) (\s@GenerateCredentialReportResponse' {} a -> s {state = a} :: GenerateCredentialReportResponse)
 
 -- | Information about the credential report.
 generateCredentialReportResponse_description :: Lens.Lens' GenerateCredentialReportResponse (Prelude.Maybe Prelude.Text)
 generateCredentialReportResponse_description = Lens.lens (\GenerateCredentialReportResponse' {description} -> description) (\s@GenerateCredentialReportResponse' {} a -> s {description = a} :: GenerateCredentialReportResponse)
+
+-- | Information about the state of the credential report.
+generateCredentialReportResponse_state :: Lens.Lens' GenerateCredentialReportResponse (Prelude.Maybe ReportStateType)
+generateCredentialReportResponse_state = Lens.lens (\GenerateCredentialReportResponse' {state} -> state) (\s@GenerateCredentialReportResponse' {} a -> s {state = a} :: GenerateCredentialReportResponse)
 
 -- | The response's http status code.
 generateCredentialReportResponse_httpStatus :: Lens.Lens' GenerateCredentialReportResponse Prelude.Int
@@ -156,6 +158,6 @@ instance
     GenerateCredentialReportResponse
   where
   rnf GenerateCredentialReportResponse' {..} =
-    Prelude.rnf state
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf state
       `Prelude.seq` Prelude.rnf httpStatus

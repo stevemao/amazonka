@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -8,7 +9,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruReviewer.Waiters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +21,18 @@ import Amazonka.CodeGuruReviewer.DescribeRepositoryAssociation
 import Amazonka.CodeGuruReviewer.Lens
 import Amazonka.CodeGuruReviewer.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Polls 'Amazonka.CodeGuruReviewer.DescribeCodeReview' every 10 seconds until a successful state is reached. An error is returned after 60 failed checks.
+-- | Polls 'Amazonka.CodeGuruReviewer.DescribeCodeReview' every 10 seconds until a successful state is reached. An error is returned after 180 failed checks.
 newCodeReviewCompleted :: Core.Wait DescribeCodeReview
 newCodeReviewCompleted =
   Core.Wait
-    { Core._waitName = "CodeReviewCompleted",
-      Core._waitAttempts = 60,
-      Core._waitDelay = 10,
-      Core._waitAcceptors =
+    { Core.name = "CodeReviewCompleted",
+      Core.attempts = 180,
+      Core.delay = 10,
+      Core.acceptors =
         [ Core.matchAll
             "Completed"
             Core.AcceptSuccess
@@ -38,7 +40,16 @@ newCodeReviewCompleted =
                 Prelude.. Lens._Just
                 Prelude.. codeReview_state
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchAll
+            "Failed"
+            Core.AcceptFailure
+            ( describeCodeReviewResponse_codeReview
+                Prelude.. Lens._Just
+                Prelude.. codeReview_state
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAll
             "Pending"
@@ -47,20 +58,20 @@ newCodeReviewCompleted =
                 Prelude.. Lens._Just
                 Prelude.. codeReview_state
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }
 
--- | Polls 'Amazonka.CodeGuruReviewer.DescribeRepositoryAssociation' every 10 seconds until a successful state is reached. An error is returned after 20 failed checks.
+-- | Polls 'Amazonka.CodeGuruReviewer.DescribeRepositoryAssociation' every 10 seconds until a successful state is reached. An error is returned after 30 failed checks.
 newRepositoryAssociationSucceeded :: Core.Wait DescribeRepositoryAssociation
 newRepositoryAssociationSucceeded =
   Core.Wait
-    { Core._waitName =
+    { Core.name =
         "RepositoryAssociationSucceeded",
-      Core._waitAttempts = 20,
-      Core._waitDelay = 10,
-      Core._waitAcceptors =
+      Core.attempts = 30,
+      Core.delay = 10,
+      Core.acceptors =
         [ Core.matchAll
             "Associated"
             Core.AcceptSuccess
@@ -68,7 +79,16 @@ newRepositoryAssociationSucceeded =
                 Prelude.. Lens._Just
                 Prelude.. repositoryAssociation_state
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchAll
+            "Failed"
+            Core.AcceptFailure
+            ( describeRepositoryAssociationResponse_repositoryAssociation
+                Prelude.. Lens._Just
+                Prelude.. repositoryAssociation_state
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAll
             "Associating"
@@ -77,7 +97,7 @@ newRepositoryAssociationSucceeded =
                 Prelude.. Lens._Just
                 Prelude.. repositoryAssociation_state
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }

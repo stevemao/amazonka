@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.DeleteRelationalDatabase
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,8 +32,8 @@ module Amazonka.Lightsail.DeleteRelationalDatabase
     newDeleteRelationalDatabase,
 
     -- * Request Lenses
-    deleteRelationalDatabase_skipFinalSnapshot,
     deleteRelationalDatabase_finalRelationalDatabaseSnapshotName,
+    deleteRelationalDatabase_skipFinalSnapshot,
     deleteRelationalDatabase_relationalDatabaseName,
 
     -- * Destructuring the Response
@@ -47,7 +47,8 @@ module Amazonka.Lightsail.DeleteRelationalDatabase
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -55,17 +56,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteRelationalDatabase' smart constructor.
 data DeleteRelationalDatabase = DeleteRelationalDatabase'
-  { -- | Determines whether a final database snapshot is created before your
-    -- database is deleted. If @true@ is specified, no database snapshot is
-    -- created. If @false@ is specified, a database snapshot is created before
-    -- your database is deleted.
-    --
-    -- You must specify the @final relational database snapshot name@ parameter
-    -- if the @skip final snapshot@ parameter is @false@.
-    --
-    -- Default: @false@
-    skipFinalSnapshot :: Prelude.Maybe Prelude.Bool,
-    -- | The name of the database snapshot created if @skip final snapshot@ is
+  { -- | The name of the database snapshot created if @skip final snapshot@ is
     -- @false@, which is the default value for that parameter.
     --
     -- Specifying this parameter and also specifying the @skip final snapshot@
@@ -77,6 +68,16 @@ data DeleteRelationalDatabase = DeleteRelationalDatabase'
     --
     -- -   The first and last character must be a letter or number.
     finalRelationalDatabaseSnapshotName :: Prelude.Maybe Prelude.Text,
+    -- | Determines whether a final database snapshot is created before your
+    -- database is deleted. If @true@ is specified, no database snapshot is
+    -- created. If @false@ is specified, a database snapshot is created before
+    -- your database is deleted.
+    --
+    -- You must specify the @final relational database snapshot name@ parameter
+    -- if the @skip final snapshot@ parameter is @false@.
+    --
+    -- Default: @false@
+    skipFinalSnapshot :: Prelude.Maybe Prelude.Bool,
     -- | The name of the database that you are deleting.
     relationalDatabaseName :: Prelude.Text
   }
@@ -90,16 +91,6 @@ data DeleteRelationalDatabase = DeleteRelationalDatabase'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'skipFinalSnapshot', 'deleteRelationalDatabase_skipFinalSnapshot' - Determines whether a final database snapshot is created before your
--- database is deleted. If @true@ is specified, no database snapshot is
--- created. If @false@ is specified, a database snapshot is created before
--- your database is deleted.
---
--- You must specify the @final relational database snapshot name@ parameter
--- if the @skip final snapshot@ parameter is @false@.
---
--- Default: @false@
---
 -- 'finalRelationalDatabaseSnapshotName', 'deleteRelationalDatabase_finalRelationalDatabaseSnapshotName' - The name of the database snapshot created if @skip final snapshot@ is
 -- @false@, which is the default value for that parameter.
 --
@@ -112,21 +103,7 @@ data DeleteRelationalDatabase = DeleteRelationalDatabase'
 --
 -- -   The first and last character must be a letter or number.
 --
--- 'relationalDatabaseName', 'deleteRelationalDatabase_relationalDatabaseName' - The name of the database that you are deleting.
-newDeleteRelationalDatabase ::
-  -- | 'relationalDatabaseName'
-  Prelude.Text ->
-  DeleteRelationalDatabase
-newDeleteRelationalDatabase pRelationalDatabaseName_ =
-  DeleteRelationalDatabase'
-    { skipFinalSnapshot =
-        Prelude.Nothing,
-      finalRelationalDatabaseSnapshotName =
-        Prelude.Nothing,
-      relationalDatabaseName = pRelationalDatabaseName_
-    }
-
--- | Determines whether a final database snapshot is created before your
+-- 'skipFinalSnapshot', 'deleteRelationalDatabase_skipFinalSnapshot' - Determines whether a final database snapshot is created before your
 -- database is deleted. If @true@ is specified, no database snapshot is
 -- created. If @false@ is specified, a database snapshot is created before
 -- your database is deleted.
@@ -135,8 +112,19 @@ newDeleteRelationalDatabase pRelationalDatabaseName_ =
 -- if the @skip final snapshot@ parameter is @false@.
 --
 -- Default: @false@
-deleteRelationalDatabase_skipFinalSnapshot :: Lens.Lens' DeleteRelationalDatabase (Prelude.Maybe Prelude.Bool)
-deleteRelationalDatabase_skipFinalSnapshot = Lens.lens (\DeleteRelationalDatabase' {skipFinalSnapshot} -> skipFinalSnapshot) (\s@DeleteRelationalDatabase' {} a -> s {skipFinalSnapshot = a} :: DeleteRelationalDatabase)
+--
+-- 'relationalDatabaseName', 'deleteRelationalDatabase_relationalDatabaseName' - The name of the database that you are deleting.
+newDeleteRelationalDatabase ::
+  -- | 'relationalDatabaseName'
+  Prelude.Text ->
+  DeleteRelationalDatabase
+newDeleteRelationalDatabase pRelationalDatabaseName_ =
+  DeleteRelationalDatabase'
+    { finalRelationalDatabaseSnapshotName =
+        Prelude.Nothing,
+      skipFinalSnapshot = Prelude.Nothing,
+      relationalDatabaseName = pRelationalDatabaseName_
+    }
 
 -- | The name of the database snapshot created if @skip final snapshot@ is
 -- @false@, which is the default value for that parameter.
@@ -152,6 +140,18 @@ deleteRelationalDatabase_skipFinalSnapshot = Lens.lens (\DeleteRelationalDatabas
 deleteRelationalDatabase_finalRelationalDatabaseSnapshotName :: Lens.Lens' DeleteRelationalDatabase (Prelude.Maybe Prelude.Text)
 deleteRelationalDatabase_finalRelationalDatabaseSnapshotName = Lens.lens (\DeleteRelationalDatabase' {finalRelationalDatabaseSnapshotName} -> finalRelationalDatabaseSnapshotName) (\s@DeleteRelationalDatabase' {} a -> s {finalRelationalDatabaseSnapshotName = a} :: DeleteRelationalDatabase)
 
+-- | Determines whether a final database snapshot is created before your
+-- database is deleted. If @true@ is specified, no database snapshot is
+-- created. If @false@ is specified, a database snapshot is created before
+-- your database is deleted.
+--
+-- You must specify the @final relational database snapshot name@ parameter
+-- if the @skip final snapshot@ parameter is @false@.
+--
+-- Default: @false@
+deleteRelationalDatabase_skipFinalSnapshot :: Lens.Lens' DeleteRelationalDatabase (Prelude.Maybe Prelude.Bool)
+deleteRelationalDatabase_skipFinalSnapshot = Lens.lens (\DeleteRelationalDatabase' {skipFinalSnapshot} -> skipFinalSnapshot) (\s@DeleteRelationalDatabase' {} a -> s {skipFinalSnapshot = a} :: DeleteRelationalDatabase)
+
 -- | The name of the database that you are deleting.
 deleteRelationalDatabase_relationalDatabaseName :: Lens.Lens' DeleteRelationalDatabase Prelude.Text
 deleteRelationalDatabase_relationalDatabaseName = Lens.lens (\DeleteRelationalDatabase' {relationalDatabaseName} -> relationalDatabaseName) (\s@DeleteRelationalDatabase' {} a -> s {relationalDatabaseName = a} :: DeleteRelationalDatabase)
@@ -160,61 +160,63 @@ instance Core.AWSRequest DeleteRelationalDatabase where
   type
     AWSResponse DeleteRelationalDatabase =
       DeleteRelationalDatabaseResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteRelationalDatabaseResponse'
-            Prelude.<$> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DeleteRelationalDatabase where
   hashWithSalt _salt DeleteRelationalDatabase' {..} =
-    _salt `Prelude.hashWithSalt` skipFinalSnapshot
+    _salt
       `Prelude.hashWithSalt` finalRelationalDatabaseSnapshotName
+      `Prelude.hashWithSalt` skipFinalSnapshot
       `Prelude.hashWithSalt` relationalDatabaseName
 
 instance Prelude.NFData DeleteRelationalDatabase where
   rnf DeleteRelationalDatabase' {..} =
-    Prelude.rnf skipFinalSnapshot
-      `Prelude.seq` Prelude.rnf finalRelationalDatabaseSnapshotName
+    Prelude.rnf finalRelationalDatabaseSnapshotName
+      `Prelude.seq` Prelude.rnf skipFinalSnapshot
       `Prelude.seq` Prelude.rnf relationalDatabaseName
 
-instance Core.ToHeaders DeleteRelationalDatabase where
+instance Data.ToHeaders DeleteRelationalDatabase where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.DeleteRelationalDatabase" ::
+              Data.=# ( "Lightsail_20161128.DeleteRelationalDatabase" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteRelationalDatabase where
+instance Data.ToJSON DeleteRelationalDatabase where
   toJSON DeleteRelationalDatabase' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("skipFinalSnapshot" Core..=)
-              Prelude.<$> skipFinalSnapshot,
-            ("finalRelationalDatabaseSnapshotName" Core..=)
+          [ ("finalRelationalDatabaseSnapshotName" Data..=)
               Prelude.<$> finalRelationalDatabaseSnapshotName,
+            ("skipFinalSnapshot" Data..=)
+              Prelude.<$> skipFinalSnapshot,
             Prelude.Just
               ( "relationalDatabaseName"
-                  Core..= relationalDatabaseName
+                  Data..= relationalDatabaseName
               )
           ]
       )
 
-instance Core.ToPath DeleteRelationalDatabase where
+instance Data.ToPath DeleteRelationalDatabase where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteRelationalDatabase where
+instance Data.ToQuery DeleteRelationalDatabase where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteRelationalDatabaseResponse' smart constructor.

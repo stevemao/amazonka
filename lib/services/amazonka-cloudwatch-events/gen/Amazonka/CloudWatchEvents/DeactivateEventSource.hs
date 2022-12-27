@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.DeactivateEventSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.CloudWatchEvents.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,7 +82,8 @@ instance Core.AWSRequest DeactivateEventSource where
   type
     AWSResponse DeactivateEventSource =
       DeactivateEventSourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeactivateEventSourceResponse'
 
@@ -92,32 +94,32 @@ instance Prelude.Hashable DeactivateEventSource where
 instance Prelude.NFData DeactivateEventSource where
   rnf DeactivateEventSource' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DeactivateEventSource where
+instance Data.ToHeaders DeactivateEventSource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSEvents.DeactivateEventSource" ::
+              Data.=# ( "AWSEvents.DeactivateEventSource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeactivateEventSource where
+instance Data.ToJSON DeactivateEventSource where
   toJSON DeactivateEventSource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Name" Core..= name)]
+          [Prelude.Just ("Name" Data..= name)]
       )
 
-instance Core.ToPath DeactivateEventSource where
+instance Data.ToPath DeactivateEventSource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeactivateEventSource where
+instance Data.ToQuery DeactivateEventSource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeactivateEventSourceResponse' smart constructor.

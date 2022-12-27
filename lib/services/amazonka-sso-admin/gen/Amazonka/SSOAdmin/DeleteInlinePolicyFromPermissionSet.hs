@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSOAdmin.DeleteInlinePolicyFromPermissionSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.SSOAdmin.DeleteInlinePolicyFromPermissionSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -48,10 +49,10 @@ import Amazonka.SSOAdmin.Types
 
 -- | /See:/ 'newDeleteInlinePolicyFromPermissionSet' smart constructor.
 data DeleteInlinePolicyFromPermissionSet = DeleteInlinePolicyFromPermissionSet'
-  { -- | The ARN of the SSO instance under which the operation will be executed.
-    -- For more information about ARNs, see
-    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
-    -- in the /Amazon Web Services General Reference/.
+  { -- | The ARN of the IAM Identity Center instance under which the operation
+    -- will be executed. For more information about ARNs, see
+    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+    -- in the /AWS General Reference/.
     instanceArn :: Prelude.Text,
     -- | The ARN of the permission set that will be used to remove access.
     permissionSetArn :: Prelude.Text
@@ -66,10 +67,10 @@ data DeleteInlinePolicyFromPermissionSet = DeleteInlinePolicyFromPermissionSet'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'instanceArn', 'deleteInlinePolicyFromPermissionSet_instanceArn' - The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- 'instanceArn', 'deleteInlinePolicyFromPermissionSet_instanceArn' - The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 --
 -- 'permissionSetArn', 'deleteInlinePolicyFromPermissionSet_permissionSetArn' - The ARN of the permission set that will be used to remove access.
 newDeleteInlinePolicyFromPermissionSet ::
@@ -87,10 +88,10 @@ newDeleteInlinePolicyFromPermissionSet
         permissionSetArn = pPermissionSetArn_
       }
 
--- | The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- | The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 deleteInlinePolicyFromPermissionSet_instanceArn :: Lens.Lens' DeleteInlinePolicyFromPermissionSet Prelude.Text
 deleteInlinePolicyFromPermissionSet_instanceArn = Lens.lens (\DeleteInlinePolicyFromPermissionSet' {instanceArn} -> instanceArn) (\s@DeleteInlinePolicyFromPermissionSet' {} a -> s {instanceArn = a} :: DeleteInlinePolicyFromPermissionSet)
 
@@ -105,7 +106,8 @@ instance
   type
     AWSResponse DeleteInlinePolicyFromPermissionSet =
       DeleteInlinePolicyFromPermissionSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -132,44 +134,44 @@ instance
       `Prelude.seq` Prelude.rnf permissionSetArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteInlinePolicyFromPermissionSet
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SWBExternalService.DeleteInlinePolicyFromPermissionSet" ::
+              Data.=# ( "SWBExternalService.DeleteInlinePolicyFromPermissionSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DeleteInlinePolicyFromPermissionSet
   where
   toJSON DeleteInlinePolicyFromPermissionSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("InstanceArn" Core..= instanceArn),
+          [ Prelude.Just ("InstanceArn" Data..= instanceArn),
             Prelude.Just
-              ("PermissionSetArn" Core..= permissionSetArn)
+              ("PermissionSetArn" Data..= permissionSetArn)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DeleteInlinePolicyFromPermissionSet
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DeleteInlinePolicyFromPermissionSet
   where
   toQuery = Prelude.const Prelude.mempty

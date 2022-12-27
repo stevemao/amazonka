@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.SetActiveReceiptRuleSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ module Amazonka.SES.SetActiveReceiptRuleSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,7 +94,8 @@ instance Core.AWSRequest SetActiveReceiptRuleSet where
   type
     AWSResponse SetActiveReceiptRuleSet =
       SetActiveReceiptRuleSetResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "SetActiveReceiptRuleSetResult"
@@ -110,20 +112,20 @@ instance Prelude.NFData SetActiveReceiptRuleSet where
   rnf SetActiveReceiptRuleSet' {..} =
     Prelude.rnf ruleSetName
 
-instance Core.ToHeaders SetActiveReceiptRuleSet where
+instance Data.ToHeaders SetActiveReceiptRuleSet where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath SetActiveReceiptRuleSet where
+instance Data.ToPath SetActiveReceiptRuleSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SetActiveReceiptRuleSet where
+instance Data.ToQuery SetActiveReceiptRuleSet where
   toQuery SetActiveReceiptRuleSet' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("SetActiveReceiptRuleSet" :: Prelude.ByteString),
+          Data.=: ("SetActiveReceiptRuleSet" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "RuleSetName" Core.=: ruleSetName
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "RuleSetName" Data.=: ruleSetName
       ]
 
 -- | An empty element returned on a successful request.

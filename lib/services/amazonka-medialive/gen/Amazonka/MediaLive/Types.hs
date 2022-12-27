@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,15 +18,15 @@ module Amazonka.MediaLive.Types
     defaultService,
 
     -- * Errors
-    _GatewayTimeoutException,
-    _UnprocessableEntityException,
-    _ConflictException,
-    _ForbiddenException,
-    _NotFoundException,
-    _TooManyRequestsException,
-    _InternalServerErrorException,
     _BadGatewayException,
     _BadRequestException,
+    _ConflictException,
+    _ForbiddenException,
+    _GatewayTimeoutException,
+    _InternalServerErrorException,
+    _NotFoundException,
+    _TooManyRequestsException,
+    _UnprocessableEntityException,
 
     -- * AacCodingMode
     AacCodingMode (..),
@@ -65,6 +66,9 @@ module Amazonka.MediaLive.Types
 
     -- * AcceptHeader
     AcceptHeader (..),
+
+    -- * AccessibilityType
+    AccessibilityType (..),
 
     -- * AfdSignaling
     AfdSignaling (..),
@@ -164,6 +168,15 @@ module Amazonka.MediaLive.Types
 
     -- * DvbSubOcrLanguage
     DvbSubOcrLanguage (..),
+
+    -- * Eac3AtmosCodingMode
+    Eac3AtmosCodingMode (..),
+
+    -- * Eac3AtmosDrcLine
+    Eac3AtmosDrcLine (..),
+
+    -- * Eac3AtmosDrcRf
+    Eac3AtmosDrcRf (..),
 
     -- * Eac3AttenuationControl
     Eac3AttenuationControl (..),
@@ -411,6 +424,9 @@ module Amazonka.MediaLive.Types
     -- * HlsProgramDateTime
     HlsProgramDateTime (..),
 
+    -- * HlsProgramDateTimeClock
+    HlsProgramDateTimeClock (..),
+
     -- * HlsRedundantManifest
     HlsRedundantManifest (..),
 
@@ -591,6 +607,9 @@ module Amazonka.MediaLive.Types
     -- * M3u8TimedMetadataBehavior
     M3u8TimedMetadataBehavior (..),
 
+    -- * MaintenanceDay
+    MaintenanceDay (..),
+
     -- * MotionGraphicsInsertion
     MotionGraphicsInsertion (..),
 
@@ -651,6 +670,12 @@ module Amazonka.MediaLive.Types
     -- * PreferredChannelPipeline
     PreferredChannelPipeline (..),
 
+    -- * RebootInputDeviceForce
+    RebootInputDeviceForce (..),
+
+    -- * ReservationAutomaticRenewal
+    ReservationAutomaticRenewal (..),
+
     -- * ReservationCodec
     ReservationCodec (..),
 
@@ -707,6 +732,9 @@ module Amazonka.MediaLive.Types
 
     -- * Scte35DeviceRestrictions
     Scte35DeviceRestrictions (..),
+
+    -- * Scte35InputMode
+    Scte35InputMode (..),
 
     -- * Scte35NoRegionalBlackoutFlag
     Scte35NoRegionalBlackoutFlag (..),
@@ -786,26 +814,26 @@ module Amazonka.MediaLive.Types
     -- * AacSettings
     AacSettings (..),
     newAacSettings,
-    aacSettings_rawFormat,
+    aacSettings_bitrate,
     aacSettings_codingMode,
+    aacSettings_inputType,
     aacSettings_profile,
     aacSettings_rateControlMode,
+    aacSettings_rawFormat,
     aacSettings_sampleRate,
     aacSettings_spec,
-    aacSettings_bitrate,
     aacSettings_vbrQuality,
-    aacSettings_inputType,
 
     -- * Ac3Settings
     Ac3Settings (..),
     newAc3Settings,
-    ac3Settings_lfeFilter,
-    ac3Settings_metadataControl,
+    ac3Settings_bitrate,
     ac3Settings_bitstreamMode,
     ac3Settings_codingMode,
-    ac3Settings_bitrate,
     ac3Settings_dialnorm,
     ac3Settings_drcProfile,
+    ac3Settings_lfeFilter,
+    ac3Settings_metadataControl,
 
     -- * AncillarySourceSettings
     AncillarySourceSettings (..),
@@ -826,8 +854,8 @@ module Amazonka.MediaLive.Types
     -- * ArchiveGroupSettings
     ArchiveGroupSettings (..),
     newArchiveGroupSettings,
-    archiveGroupSettings_rolloverInterval,
     archiveGroupSettings_archiveCdnSettings,
+    archiveGroupSettings_rolloverInterval,
     archiveGroupSettings_destination,
 
     -- * ArchiveOutputSettings
@@ -859,25 +887,26 @@ module Amazonka.MediaLive.Types
     -- * AudioCodecSettings
     AudioCodecSettings (..),
     newAudioCodecSettings,
-    audioCodecSettings_passThroughSettings,
-    audioCodecSettings_ac3Settings,
-    audioCodecSettings_mp2Settings,
-    audioCodecSettings_wavSettings,
     audioCodecSettings_aacSettings,
+    audioCodecSettings_ac3Settings,
+    audioCodecSettings_eac3AtmosSettings,
     audioCodecSettings_eac3Settings,
+    audioCodecSettings_mp2Settings,
+    audioCodecSettings_passThroughSettings,
+    audioCodecSettings_wavSettings,
 
     -- * AudioDescription
     AudioDescription (..),
     newAudioDescription,
-    audioDescription_languageCode,
-    audioDescription_audioType,
     audioDescription_audioNormalizationSettings,
-    audioDescription_languageCodeControl,
-    audioDescription_codecSettings,
-    audioDescription_audioWatermarkingSettings,
-    audioDescription_streamName,
-    audioDescription_remixSettings,
+    audioDescription_audioType,
     audioDescription_audioTypeControl,
+    audioDescription_audioWatermarkingSettings,
+    audioDescription_codecSettings,
+    audioDescription_languageCode,
+    audioDescription_languageCodeControl,
+    audioDescription_remixSettings,
+    audioDescription_streamName,
     audioDescription_audioSelectorName,
     audioDescription_name,
 
@@ -896,17 +925,17 @@ module Amazonka.MediaLive.Types
     -- * AudioNormalizationSettings
     AudioNormalizationSettings (..),
     newAudioNormalizationSettings,
+    audioNormalizationSettings_algorithm,
     audioNormalizationSettings_algorithmControl,
     audioNormalizationSettings_targetLkfs,
-    audioNormalizationSettings_algorithm,
 
     -- * AudioOnlyHlsSettings
     AudioOnlyHlsSettings (..),
     newAudioOnlyHlsSettings,
-    audioOnlyHlsSettings_audioOnlyImage,
-    audioOnlyHlsSettings_segmentType,
     audioOnlyHlsSettings_audioGroupId,
+    audioOnlyHlsSettings_audioOnlyImage,
     audioOnlyHlsSettings_audioTrackType,
+    audioOnlyHlsSettings_segmentType,
 
     -- * AudioPidSelection
     AudioPidSelection (..),
@@ -922,10 +951,10 @@ module Amazonka.MediaLive.Types
     -- * AudioSelectorSettings
     AudioSelectorSettings (..),
     newAudioSelectorSettings,
-    audioSelectorSettings_audioLanguageSelection,
-    audioSelectorSettings_audioTrackSelection,
     audioSelectorSettings_audioHlsRenditionSelection,
+    audioSelectorSettings_audioLanguageSelection,
     audioSelectorSettings_audioPidSelection,
+    audioSelectorSettings_audioTrackSelection,
 
     -- * AudioSilenceFailoverSettings
     AudioSilenceFailoverSettings (..),
@@ -951,16 +980,16 @@ module Amazonka.MediaLive.Types
     -- * AutomaticInputFailoverSettings
     AutomaticInputFailoverSettings (..),
     newAutomaticInputFailoverSettings,
-    automaticInputFailoverSettings_failoverConditions,
     automaticInputFailoverSettings_errorClearTimeMsec,
+    automaticInputFailoverSettings_failoverConditions,
     automaticInputFailoverSettings_inputPreference,
     automaticInputFailoverSettings_secondaryInputId,
 
     -- * AvailBlanking
     AvailBlanking (..),
     newAvailBlanking,
-    availBlanking_state,
     availBlanking_availBlankingImage,
+    availBlanking_state,
 
     -- * AvailConfiguration
     AvailConfiguration (..),
@@ -970,6 +999,7 @@ module Amazonka.MediaLive.Types
     -- * AvailSettings
     AvailSettings (..),
     newAvailSettings,
+    availSettings_esam,
     availSettings_scte35SpliceInsert,
     availSettings_scte35TimeSignalApos,
 
@@ -977,8 +1007,8 @@ module Amazonka.MediaLive.Types
     BatchFailedResultModel (..),
     newBatchFailedResultModel,
     batchFailedResultModel_arn,
-    batchFailedResultModel_id,
     batchFailedResultModel_code,
+    batchFailedResultModel_id,
     batchFailedResultModel_message,
 
     -- * BatchScheduleActionCreateRequest
@@ -1004,45 +1034,46 @@ module Amazonka.MediaLive.Types
     -- * BatchSuccessfulResultModel
     BatchSuccessfulResultModel (..),
     newBatchSuccessfulResultModel,
-    batchSuccessfulResultModel_state,
     batchSuccessfulResultModel_arn,
     batchSuccessfulResultModel_id,
+    batchSuccessfulResultModel_state,
 
     -- * BlackoutSlate
     BlackoutSlate (..),
     newBlackoutSlate,
-    blackoutSlate_networkEndBlackoutImage,
-    blackoutSlate_state,
-    blackoutSlate_networkEndBlackout,
-    blackoutSlate_networkId,
     blackoutSlate_blackoutSlateImage,
+    blackoutSlate_networkEndBlackout,
+    blackoutSlate_networkEndBlackoutImage,
+    blackoutSlate_networkId,
+    blackoutSlate_state,
 
     -- * BurnInDestinationSettings
     BurnInDestinationSettings (..),
     newBurnInDestinationSettings,
-    burnInDestinationSettings_backgroundOpacity,
-    burnInDestinationSettings_fontOpacity,
-    burnInDestinationSettings_shadowYOffset,
-    burnInDestinationSettings_fontResolution,
-    burnInDestinationSettings_yPosition,
-    burnInDestinationSettings_backgroundColor,
-    burnInDestinationSettings_shadowXOffset,
-    burnInDestinationSettings_fontSize,
-    burnInDestinationSettings_xPosition,
     burnInDestinationSettings_alignment,
-    burnInDestinationSettings_shadowOpacity,
-    burnInDestinationSettings_teletextGridControl,
+    burnInDestinationSettings_backgroundColor,
+    burnInDestinationSettings_backgroundOpacity,
+    burnInDestinationSettings_font,
+    burnInDestinationSettings_fontColor,
+    burnInDestinationSettings_fontOpacity,
+    burnInDestinationSettings_fontResolution,
+    burnInDestinationSettings_fontSize,
     burnInDestinationSettings_outlineColor,
     burnInDestinationSettings_outlineSize,
-    burnInDestinationSettings_font,
     burnInDestinationSettings_shadowColor,
-    burnInDestinationSettings_fontColor,
+    burnInDestinationSettings_shadowOpacity,
+    burnInDestinationSettings_shadowXOffset,
+    burnInDestinationSettings_shadowYOffset,
+    burnInDestinationSettings_teletextGridControl,
+    burnInDestinationSettings_xPosition,
+    burnInDestinationSettings_yPosition,
 
     -- * CaptionDescription
     CaptionDescription (..),
     newCaptionDescription,
-    captionDescription_languageCode,
+    captionDescription_accessibility,
     captionDescription_destinationSettings,
+    captionDescription_languageCode,
     captionDescription_languageDescription,
     captionDescription_captionSelectorName,
     captionDescription_name,
@@ -1050,19 +1081,19 @@ module Amazonka.MediaLive.Types
     -- * CaptionDestinationSettings
     CaptionDestinationSettings (..),
     newCaptionDestinationSettings,
-    captionDestinationSettings_teletextDestinationSettings,
-    captionDestinationSettings_ebuTtDDestinationSettings,
-    captionDestinationSettings_rtmpCaptionInfoDestinationSettings,
-    captionDestinationSettings_dvbSubDestinationSettings,
-    captionDestinationSettings_scte27DestinationSettings,
-    captionDestinationSettings_ttmlDestinationSettings,
-    captionDestinationSettings_scte20PlusEmbeddedDestinationSettings,
-    captionDestinationSettings_embeddedPlusScte20DestinationSettings,
-    captionDestinationSettings_smpteTtDestinationSettings,
-    captionDestinationSettings_webvttDestinationSettings,
-    captionDestinationSettings_embeddedDestinationSettings,
-    captionDestinationSettings_burnInDestinationSettings,
     captionDestinationSettings_aribDestinationSettings,
+    captionDestinationSettings_burnInDestinationSettings,
+    captionDestinationSettings_dvbSubDestinationSettings,
+    captionDestinationSettings_ebuTtDDestinationSettings,
+    captionDestinationSettings_embeddedDestinationSettings,
+    captionDestinationSettings_embeddedPlusScte20DestinationSettings,
+    captionDestinationSettings_rtmpCaptionInfoDestinationSettings,
+    captionDestinationSettings_scte20PlusEmbeddedDestinationSettings,
+    captionDestinationSettings_scte27DestinationSettings,
+    captionDestinationSettings_smpteTtDestinationSettings,
+    captionDestinationSettings_teletextDestinationSettings,
+    captionDestinationSettings_ttmlDestinationSettings,
+    captionDestinationSettings_webvttDestinationSettings,
 
     -- * CaptionLanguageMapping
     CaptionLanguageMapping (..),
@@ -1089,13 +1120,13 @@ module Amazonka.MediaLive.Types
     -- * CaptionSelectorSettings
     CaptionSelectorSettings (..),
     newCaptionSelectorSettings,
-    captionSelectorSettings_teletextSourceSettings,
-    captionSelectorSettings_aribSourceSettings,
-    captionSelectorSettings_scte27SourceSettings,
-    captionSelectorSettings_dvbSubSourceSettings,
     captionSelectorSettings_ancillarySourceSettings,
-    captionSelectorSettings_scte20SourceSettings,
+    captionSelectorSettings_aribSourceSettings,
+    captionSelectorSettings_dvbSubSourceSettings,
     captionSelectorSettings_embeddedSourceSettings,
+    captionSelectorSettings_scte20SourceSettings,
+    captionSelectorSettings_scte27SourceSettings,
+    captionSelectorSettings_teletextSourceSettings,
 
     -- * CdiInputSpecification
     CdiInputSpecification (..),
@@ -1105,23 +1136,24 @@ module Amazonka.MediaLive.Types
     -- * Channel
     Channel (..),
     newChannel,
-    channel_state,
-    channel_logLevel,
     channel_arn,
-    channel_pipelinesRunningCount,
-    channel_pipelineDetails,
-    channel_inputSpecification,
-    channel_inputAttachments,
-    channel_destinations,
-    channel_name,
     channel_cdiInputSpecification,
-    channel_id,
     channel_channelClass,
-    channel_vpc,
+    channel_destinations,
     channel_egressEndpoints,
-    channel_tags,
     channel_encoderSettings,
+    channel_id,
+    channel_inputAttachments,
+    channel_inputSpecification,
+    channel_logLevel,
+    channel_maintenance,
+    channel_name,
+    channel_pipelineDetails,
+    channel_pipelinesRunningCount,
     channel_roleArn,
+    channel_state,
+    channel_tags,
+    channel_vpc,
 
     -- * ChannelEgressEndpoint
     ChannelEgressEndpoint (..),
@@ -1131,25 +1163,30 @@ module Amazonka.MediaLive.Types
     -- * ChannelSummary
     ChannelSummary (..),
     newChannelSummary,
-    channelSummary_state,
-    channelSummary_logLevel,
     channelSummary_arn,
-    channelSummary_pipelinesRunningCount,
-    channelSummary_inputSpecification,
-    channelSummary_inputAttachments,
-    channelSummary_destinations,
-    channelSummary_name,
     channelSummary_cdiInputSpecification,
-    channelSummary_id,
     channelSummary_channelClass,
-    channelSummary_vpc,
+    channelSummary_destinations,
     channelSummary_egressEndpoints,
-    channelSummary_tags,
+    channelSummary_id,
+    channelSummary_inputAttachments,
+    channelSummary_inputSpecification,
+    channelSummary_logLevel,
+    channelSummary_maintenance,
+    channelSummary_name,
+    channelSummary_pipelinesRunningCount,
     channelSummary_roleArn,
+    channelSummary_state,
+    channelSummary_tags,
+    channelSummary_vpc,
 
     -- * ColorSpacePassthroughSettings
     ColorSpacePassthroughSettings (..),
     newColorSpacePassthroughSettings,
+
+    -- * DolbyVision81Settings
+    DolbyVision81Settings (..),
+    newDolbyVision81Settings,
 
     -- * DvbNitSettings
     DvbNitSettings (..),
@@ -1161,31 +1198,31 @@ module Amazonka.MediaLive.Types
     -- * DvbSdtSettings
     DvbSdtSettings (..),
     newDvbSdtSettings,
-    dvbSdtSettings_repInterval,
-    dvbSdtSettings_serviceProviderName,
     dvbSdtSettings_outputSdt,
+    dvbSdtSettings_repInterval,
     dvbSdtSettings_serviceName,
+    dvbSdtSettings_serviceProviderName,
 
     -- * DvbSubDestinationSettings
     DvbSubDestinationSettings (..),
     newDvbSubDestinationSettings,
-    dvbSubDestinationSettings_backgroundOpacity,
-    dvbSubDestinationSettings_fontOpacity,
-    dvbSubDestinationSettings_shadowYOffset,
-    dvbSubDestinationSettings_fontResolution,
-    dvbSubDestinationSettings_yPosition,
-    dvbSubDestinationSettings_backgroundColor,
-    dvbSubDestinationSettings_shadowXOffset,
-    dvbSubDestinationSettings_fontSize,
-    dvbSubDestinationSettings_xPosition,
     dvbSubDestinationSettings_alignment,
-    dvbSubDestinationSettings_shadowOpacity,
-    dvbSubDestinationSettings_teletextGridControl,
+    dvbSubDestinationSettings_backgroundColor,
+    dvbSubDestinationSettings_backgroundOpacity,
+    dvbSubDestinationSettings_font,
+    dvbSubDestinationSettings_fontColor,
+    dvbSubDestinationSettings_fontOpacity,
+    dvbSubDestinationSettings_fontResolution,
+    dvbSubDestinationSettings_fontSize,
     dvbSubDestinationSettings_outlineColor,
     dvbSubDestinationSettings_outlineSize,
-    dvbSubDestinationSettings_font,
     dvbSubDestinationSettings_shadowColor,
-    dvbSubDestinationSettings_fontColor,
+    dvbSubDestinationSettings_shadowOpacity,
+    dvbSubDestinationSettings_shadowXOffset,
+    dvbSubDestinationSettings_shadowYOffset,
+    dvbSubDestinationSettings_teletextGridControl,
+    dvbSubDestinationSettings_xPosition,
+    dvbSubDestinationSettings_yPosition,
 
     -- * DvbSubSourceSettings
     DvbSubSourceSettings (..),
@@ -1198,35 +1235,46 @@ module Amazonka.MediaLive.Types
     newDvbTdtSettings,
     dvbTdtSettings_repInterval,
 
+    -- * Eac3AtmosSettings
+    Eac3AtmosSettings (..),
+    newEac3AtmosSettings,
+    eac3AtmosSettings_bitrate,
+    eac3AtmosSettings_codingMode,
+    eac3AtmosSettings_dialnorm,
+    eac3AtmosSettings_drcLine,
+    eac3AtmosSettings_drcRf,
+    eac3AtmosSettings_heightTrim,
+    eac3AtmosSettings_surroundTrim,
+
     -- * Eac3Settings
     Eac3Settings (..),
     newEac3Settings,
-    eac3Settings_stereoDownmix,
-    eac3Settings_loRoCenterMixLevel,
-    eac3Settings_ltRtCenterMixLevel,
-    eac3Settings_lfeFilter,
-    eac3Settings_ltRtSurroundMixLevel,
-    eac3Settings_metadataControl,
-    eac3Settings_loRoSurroundMixLevel,
-    eac3Settings_surroundMode,
     eac3Settings_attenuationControl,
-    eac3Settings_passthroughControl,
+    eac3Settings_bitrate,
     eac3Settings_bitstreamMode,
-    eac3Settings_lfeControl,
     eac3Settings_codingMode,
+    eac3Settings_dcFilter,
+    eac3Settings_dialnorm,
     eac3Settings_drcLine,
     eac3Settings_drcRf,
-    eac3Settings_dcFilter,
-    eac3Settings_bitrate,
+    eac3Settings_lfeControl,
+    eac3Settings_lfeFilter,
+    eac3Settings_loRoCenterMixLevel,
+    eac3Settings_loRoSurroundMixLevel,
+    eac3Settings_ltRtCenterMixLevel,
+    eac3Settings_ltRtSurroundMixLevel,
+    eac3Settings_metadataControl,
+    eac3Settings_passthroughControl,
     eac3Settings_phaseControl,
+    eac3Settings_stereoDownmix,
     eac3Settings_surroundExMode,
-    eac3Settings_dialnorm,
+    eac3Settings_surroundMode,
 
     -- * EbuTtDDestinationSettings
     EbuTtDDestinationSettings (..),
     newEbuTtDDestinationSettings,
-    ebuTtDDestinationSettings_fillLineGap,
     ebuTtDDestinationSettings_copyrightHolder,
+    ebuTtDDestinationSettings_fillLineGap,
     ebuTtDDestinationSettings_fontFamily,
     ebuTtDDestinationSettings_styleControl,
 
@@ -1243,24 +1291,34 @@ module Amazonka.MediaLive.Types
     newEmbeddedSourceSettings,
     embeddedSourceSettings_convert608To708,
     embeddedSourceSettings_scte20Detection,
-    embeddedSourceSettings_source608TrackNumber,
     embeddedSourceSettings_source608ChannelNumber,
+    embeddedSourceSettings_source608TrackNumber,
 
     -- * EncoderSettings
     EncoderSettings (..),
     newEncoderSettings,
-    encoderSettings_captionDescriptions,
-    encoderSettings_availConfiguration,
-    encoderSettings_featureActivations,
-    encoderSettings_nielsenConfiguration,
     encoderSettings_availBlanking,
+    encoderSettings_availConfiguration,
+    encoderSettings_blackoutSlate,
+    encoderSettings_captionDescriptions,
+    encoderSettings_featureActivations,
     encoderSettings_globalConfiguration,
     encoderSettings_motionGraphicsConfiguration,
-    encoderSettings_blackoutSlate,
+    encoderSettings_nielsenConfiguration,
     encoderSettings_videoDescriptions,
     encoderSettings_audioDescriptions,
     encoderSettings_outputGroups,
     encoderSettings_timecodeConfig,
+
+    -- * Esam
+    Esam (..),
+    newEsam,
+    esam_adAvailOffset,
+    esam_passwordParam,
+    esam_username,
+    esam_zoneIdentity,
+    esam_acquisitionPointId,
+    esam_poisEndpoint,
 
     -- * FailoverCondition
     FailoverCondition (..),
@@ -1270,9 +1328,9 @@ module Amazonka.MediaLive.Types
     -- * FailoverConditionSettings
     FailoverConditionSettings (..),
     newFailoverConditionSettings,
-    failoverConditionSettings_videoBlackSettings,
-    failoverConditionSettings_inputLossSettings,
     failoverConditionSettings_audioSilenceSettings,
+    failoverConditionSettings_inputLossSettings,
+    failoverConditionSettings_videoBlackSettings,
 
     -- * FeatureActivations
     FeatureActivations (..),
@@ -1282,9 +1340,9 @@ module Amazonka.MediaLive.Types
     -- * FecOutputSettings
     FecOutputSettings (..),
     newFecOutputSettings,
-    fecOutputSettings_rowLength,
-    fecOutputSettings_includeFec,
     fecOutputSettings_columnDepth,
+    fecOutputSettings_includeFec,
+    fecOutputSettings_rowLength,
 
     -- * FixedModeScheduleActionStartSettings
     FixedModeScheduleActionStartSettings (..),
@@ -1294,8 +1352,8 @@ module Amazonka.MediaLive.Types
     -- * Fmp4HlsSettings
     Fmp4HlsSettings (..),
     newFmp4HlsSettings,
-    fmp4HlsSettings_nielsenId3Behavior,
     fmp4HlsSettings_audioRenditionSets,
+    fmp4HlsSettings_nielsenId3Behavior,
     fmp4HlsSettings_timedMetadataBehavior,
 
     -- * FollowModeScheduleActionStartSettings
@@ -1332,25 +1390,25 @@ module Amazonka.MediaLive.Types
     -- * FrameCaptureSettings
     FrameCaptureSettings (..),
     newFrameCaptureSettings,
-    frameCaptureSettings_captureIntervalUnits,
     frameCaptureSettings_captureInterval,
+    frameCaptureSettings_captureIntervalUnits,
 
     -- * GlobalConfiguration
     GlobalConfiguration (..),
     newGlobalConfiguration,
-    globalConfiguration_outputLockingMode,
-    globalConfiguration_inputLossBehavior,
     globalConfiguration_initialAudioGain,
-    globalConfiguration_supportLowFramerateInputs,
     globalConfiguration_inputEndAction,
+    globalConfiguration_inputLossBehavior,
+    globalConfiguration_outputLockingMode,
     globalConfiguration_outputTimingSource,
+    globalConfiguration_supportLowFramerateInputs,
 
     -- * H264ColorSpaceSettings
     H264ColorSpaceSettings (..),
     newH264ColorSpaceSettings,
-    h264ColorSpaceSettings_rec709Settings,
-    h264ColorSpaceSettings_rec601Settings,
     h264ColorSpaceSettings_colorSpacePassthroughSettings,
+    h264ColorSpaceSettings_rec601Settings,
+    h264ColorSpaceSettings_rec709Settings,
 
     -- * H264FilterSettings
     H264FilterSettings (..),
@@ -1360,55 +1418,56 @@ module Amazonka.MediaLive.Types
     -- * H264Settings
     H264Settings (..),
     newH264Settings,
-    h264Settings_temporalAq,
-    h264Settings_sceneChangeDetect,
-    h264Settings_scanType,
-    h264Settings_timecodeInsertion,
-    h264Settings_parNumerator,
+    h264Settings_adaptiveQuantization,
     h264Settings_afdSignaling,
+    h264Settings_bitrate,
+    h264Settings_bufFillPct,
+    h264Settings_bufSize,
+    h264Settings_colorMetadata,
+    h264Settings_colorSpaceSettings,
+    h264Settings_entropyEncoding,
+    h264Settings_filterSettings,
+    h264Settings_fixedAfd,
+    h264Settings_flickerAq,
+    h264Settings_forceFieldPictures,
+    h264Settings_framerateControl,
+    h264Settings_framerateDenominator,
+    h264Settings_framerateNumerator,
+    h264Settings_gopBReference,
+    h264Settings_gopClosedCadence,
+    h264Settings_gopNumBFrames,
     h264Settings_gopSize,
     h264Settings_gopSizeUnits,
-    h264Settings_subgopLength,
-    h264Settings_qualityLevel,
-    h264Settings_slices,
-    h264Settings_profile,
-    h264Settings_rateControlMode,
-    h264Settings_minIInterval,
-    h264Settings_qvbrQualityLevel,
-    h264Settings_colorSpaceSettings,
-    h264Settings_parControl,
-    h264Settings_flickerAq,
-    h264Settings_bufSize,
-    h264Settings_spatialAq,
-    h264Settings_gopNumBFrames,
-    h264Settings_fixedAfd,
-    h264Settings_softness,
-    h264Settings_filterSettings,
-    h264Settings_bitrate,
-    h264Settings_framerateDenominator,
-    h264Settings_forceFieldPictures,
-    h264Settings_entropyEncoding,
-    h264Settings_framerateControl,
-    h264Settings_colorMetadata,
-    h264Settings_lookAheadRateControl,
-    h264Settings_adaptiveQuantization,
-    h264Settings_framerateNumerator,
     h264Settings_level,
-    h264Settings_gopBReference,
+    h264Settings_lookAheadRateControl,
     h264Settings_maxBitrate,
-    h264Settings_syntax,
-    h264Settings_bufFillPct,
-    h264Settings_gopClosedCadence,
+    h264Settings_minIInterval,
     h264Settings_numRefFrames,
+    h264Settings_parControl,
     h264Settings_parDenominator,
+    h264Settings_parNumerator,
+    h264Settings_profile,
+    h264Settings_qualityLevel,
+    h264Settings_qvbrQualityLevel,
+    h264Settings_rateControlMode,
+    h264Settings_scanType,
+    h264Settings_sceneChangeDetect,
+    h264Settings_slices,
+    h264Settings_softness,
+    h264Settings_spatialAq,
+    h264Settings_subgopLength,
+    h264Settings_syntax,
+    h264Settings_temporalAq,
+    h264Settings_timecodeInsertion,
 
     -- * H265ColorSpaceSettings
     H265ColorSpaceSettings (..),
     newH265ColorSpaceSettings,
-    h265ColorSpaceSettings_hdr10Settings,
-    h265ColorSpaceSettings_rec709Settings,
-    h265ColorSpaceSettings_rec601Settings,
     h265ColorSpaceSettings_colorSpacePassthroughSettings,
+    h265ColorSpaceSettings_dolbyVision81Settings,
+    h265ColorSpaceSettings_hdr10Settings,
+    h265ColorSpaceSettings_rec601Settings,
+    h265ColorSpaceSettings_rec709Settings,
 
     -- * H265FilterSettings
     H265FilterSettings (..),
@@ -1418,114 +1477,115 @@ module Amazonka.MediaLive.Types
     -- * H265Settings
     H265Settings (..),
     newH265Settings,
-    h265Settings_sceneChangeDetect,
-    h265Settings_scanType,
-    h265Settings_timecodeInsertion,
-    h265Settings_parNumerator,
+    h265Settings_adaptiveQuantization,
     h265Settings_afdSignaling,
+    h265Settings_alternativeTransferFunction,
+    h265Settings_bitrate,
+    h265Settings_bufSize,
+    h265Settings_colorMetadata,
+    h265Settings_colorSpaceSettings,
+    h265Settings_filterSettings,
+    h265Settings_fixedAfd,
+    h265Settings_flickerAq,
+    h265Settings_gopClosedCadence,
     h265Settings_gopSize,
     h265Settings_gopSizeUnits,
-    h265Settings_slices,
-    h265Settings_profile,
-    h265Settings_alternativeTransferFunction,
-    h265Settings_rateControlMode,
-    h265Settings_minIInterval,
-    h265Settings_qvbrQualityLevel,
-    h265Settings_colorSpaceSettings,
-    h265Settings_flickerAq,
-    h265Settings_bufSize,
-    h265Settings_tier,
-    h265Settings_fixedAfd,
-    h265Settings_filterSettings,
-    h265Settings_bitrate,
-    h265Settings_colorMetadata,
-    h265Settings_lookAheadRateControl,
-    h265Settings_adaptiveQuantization,
     h265Settings_level,
+    h265Settings_lookAheadRateControl,
     h265Settings_maxBitrate,
-    h265Settings_gopClosedCadence,
+    h265Settings_minIInterval,
     h265Settings_parDenominator,
+    h265Settings_parNumerator,
+    h265Settings_profile,
+    h265Settings_qvbrQualityLevel,
+    h265Settings_rateControlMode,
+    h265Settings_scanType,
+    h265Settings_sceneChangeDetect,
+    h265Settings_slices,
+    h265Settings_tier,
+    h265Settings_timecodeInsertion,
     h265Settings_framerateNumerator,
     h265Settings_framerateDenominator,
 
     -- * Hdr10Settings
     Hdr10Settings (..),
     newHdr10Settings,
-    hdr10Settings_maxFall,
     hdr10Settings_maxCll,
+    hdr10Settings_maxFall,
 
     -- * HlsAkamaiSettings
     HlsAkamaiSettings (..),
     newHlsAkamaiSettings,
-    hlsAkamaiSettings_httpTransferMode,
-    hlsAkamaiSettings_numRetries,
-    hlsAkamaiSettings_token,
     hlsAkamaiSettings_connectionRetryInterval,
     hlsAkamaiSettings_filecacheDuration,
+    hlsAkamaiSettings_httpTransferMode,
+    hlsAkamaiSettings_numRetries,
     hlsAkamaiSettings_restartDelay,
     hlsAkamaiSettings_salt,
+    hlsAkamaiSettings_token,
 
     -- * HlsBasicPutSettings
     HlsBasicPutSettings (..),
     newHlsBasicPutSettings,
-    hlsBasicPutSettings_numRetries,
     hlsBasicPutSettings_connectionRetryInterval,
     hlsBasicPutSettings_filecacheDuration,
+    hlsBasicPutSettings_numRetries,
     hlsBasicPutSettings_restartDelay,
 
     -- * HlsCdnSettings
     HlsCdnSettings (..),
     newHlsCdnSettings,
     hlsCdnSettings_hlsAkamaiSettings,
+    hlsCdnSettings_hlsBasicPutSettings,
     hlsCdnSettings_hlsMediaStoreSettings,
     hlsCdnSettings_hlsS3Settings,
-    hlsCdnSettings_hlsBasicPutSettings,
     hlsCdnSettings_hlsWebdavSettings,
 
     -- * HlsGroupSettings
     HlsGroupSettings (..),
     newHlsGroupSettings,
-    hlsGroupSettings_directoryStructure,
-    hlsGroupSettings_encryptionType,
-    hlsGroupSettings_timedMetadataId3Period,
-    hlsGroupSettings_ivInManifest,
-    hlsGroupSettings_discontinuityTags,
-    hlsGroupSettings_tsFileMode,
-    hlsGroupSettings_minSegmentLength,
-    hlsGroupSettings_iFrameOnlyPlaylists,
-    hlsGroupSettings_programDateTime,
-    hlsGroupSettings_indexNSegments,
-    hlsGroupSettings_programDateTimePeriod,
-    hlsGroupSettings_codecSpecification,
-    hlsGroupSettings_hlsCdnSettings,
-    hlsGroupSettings_captionLanguageMappings,
-    hlsGroupSettings_inputLossAction,
-    hlsGroupSettings_mode,
-    hlsGroupSettings_keyProviderSettings,
-    hlsGroupSettings_incompleteSegmentBehavior,
-    hlsGroupSettings_constantIv,
-    hlsGroupSettings_baseUrlManifest,
     hlsGroupSettings_adMarkers,
-    hlsGroupSettings_keyFormat,
-    hlsGroupSettings_segmentLength,
-    hlsGroupSettings_hlsId3SegmentTagging,
-    hlsGroupSettings_timedMetadataId3Frame,
     hlsGroupSettings_baseUrlContent,
-    hlsGroupSettings_outputSelection,
-    hlsGroupSettings_captionLanguageSetting,
-    hlsGroupSettings_segmentsPerSubdirectory,
-    hlsGroupSettings_manifestDurationFormat,
-    hlsGroupSettings_ivSource,
-    hlsGroupSettings_segmentationMode,
-    hlsGroupSettings_keyFormatVersions,
-    hlsGroupSettings_clientCache,
-    hlsGroupSettings_timestampDeltaMilliseconds,
-    hlsGroupSettings_baseUrlManifest1,
-    hlsGroupSettings_redundantManifest,
-    hlsGroupSettings_streamInfResolution,
-    hlsGroupSettings_keepSegments,
     hlsGroupSettings_baseUrlContent1,
+    hlsGroupSettings_baseUrlManifest,
+    hlsGroupSettings_baseUrlManifest1,
+    hlsGroupSettings_captionLanguageMappings,
+    hlsGroupSettings_captionLanguageSetting,
+    hlsGroupSettings_clientCache,
+    hlsGroupSettings_codecSpecification,
+    hlsGroupSettings_constantIv,
+    hlsGroupSettings_directoryStructure,
+    hlsGroupSettings_discontinuityTags,
+    hlsGroupSettings_encryptionType,
+    hlsGroupSettings_hlsCdnSettings,
+    hlsGroupSettings_hlsId3SegmentTagging,
+    hlsGroupSettings_iFrameOnlyPlaylists,
+    hlsGroupSettings_incompleteSegmentBehavior,
+    hlsGroupSettings_indexNSegments,
+    hlsGroupSettings_inputLossAction,
+    hlsGroupSettings_ivInManifest,
+    hlsGroupSettings_ivSource,
+    hlsGroupSettings_keepSegments,
+    hlsGroupSettings_keyFormat,
+    hlsGroupSettings_keyFormatVersions,
+    hlsGroupSettings_keyProviderSettings,
     hlsGroupSettings_manifestCompression,
+    hlsGroupSettings_manifestDurationFormat,
+    hlsGroupSettings_minSegmentLength,
+    hlsGroupSettings_mode,
+    hlsGroupSettings_outputSelection,
+    hlsGroupSettings_programDateTime,
+    hlsGroupSettings_programDateTimeClock,
+    hlsGroupSettings_programDateTimePeriod,
+    hlsGroupSettings_redundantManifest,
+    hlsGroupSettings_segmentLength,
+    hlsGroupSettings_segmentationMode,
+    hlsGroupSettings_segmentsPerSubdirectory,
+    hlsGroupSettings_streamInfResolution,
+    hlsGroupSettings_timedMetadataId3Frame,
+    hlsGroupSettings_timedMetadataId3Period,
+    hlsGroupSettings_timestampDeltaMilliseconds,
+    hlsGroupSettings_tsFileMode,
     hlsGroupSettings_destination,
 
     -- * HlsId3SegmentTaggingScheduleActionSettings
@@ -1536,27 +1596,27 @@ module Amazonka.MediaLive.Types
     -- * HlsInputSettings
     HlsInputSettings (..),
     newHlsInputSettings,
+    hlsInputSettings_bandwidth,
     hlsInputSettings_bufferSegments,
     hlsInputSettings_retries,
     hlsInputSettings_retryInterval,
-    hlsInputSettings_bandwidth,
     hlsInputSettings_scte35Source,
 
     -- * HlsMediaStoreSettings
     HlsMediaStoreSettings (..),
     newHlsMediaStoreSettings,
-    hlsMediaStoreSettings_numRetries,
     hlsMediaStoreSettings_connectionRetryInterval,
     hlsMediaStoreSettings_filecacheDuration,
     hlsMediaStoreSettings_mediaStoreStorageClass,
+    hlsMediaStoreSettings_numRetries,
     hlsMediaStoreSettings_restartDelay,
 
     -- * HlsOutputSettings
     HlsOutputSettings (..),
     newHlsOutputSettings,
     hlsOutputSettings_h265PackagingType,
-    hlsOutputSettings_segmentModifier,
     hlsOutputSettings_nameModifier,
+    hlsOutputSettings_segmentModifier,
     hlsOutputSettings_hlsSettings,
 
     -- * HlsS3Settings
@@ -1567,8 +1627,8 @@ module Amazonka.MediaLive.Types
     -- * HlsSettings
     HlsSettings (..),
     newHlsSettings,
-    hlsSettings_fmp4HlsSettings,
     hlsSettings_audioOnlyHlsSettings,
+    hlsSettings_fmp4HlsSettings,
     hlsSettings_frameCaptureHlsSettings,
     hlsSettings_standardHlsSettings,
 
@@ -1580,10 +1640,10 @@ module Amazonka.MediaLive.Types
     -- * HlsWebdavSettings
     HlsWebdavSettings (..),
     newHlsWebdavSettings,
-    hlsWebdavSettings_httpTransferMode,
-    hlsWebdavSettings_numRetries,
     hlsWebdavSettings_connectionRetryInterval,
     hlsWebdavSettings_filecacheDuration,
+    hlsWebdavSettings_httpTransferMode,
+    hlsWebdavSettings_numRetries,
     hlsWebdavSettings_restartDelay,
 
     -- * HtmlMotionGraphicsSettings
@@ -1597,29 +1657,29 @@ module Amazonka.MediaLive.Types
     -- * Input
     Input (..),
     newInput,
-    input_state,
-    input_securityGroups,
     input_arn,
-    input_inputDevices,
-    input_inputPartnerIds,
-    input_sources,
-    input_destinations,
-    input_name,
     input_attachedChannels,
+    input_destinations,
     input_id,
     input_inputClass,
-    input_type,
-    input_mediaConnectFlows,
+    input_inputDevices,
+    input_inputPartnerIds,
     input_inputSourceType,
-    input_tags,
+    input_mediaConnectFlows,
+    input_name,
     input_roleArn,
+    input_securityGroups,
+    input_sources,
+    input_state,
+    input_tags,
+    input_type,
 
     -- * InputAttachment
     InputAttachment (..),
     newInputAttachment,
+    inputAttachment_automaticInputFailoverSettings,
     inputAttachment_inputAttachmentName,
     inputAttachment_inputId,
-    inputAttachment_automaticInputFailoverSettings,
     inputAttachment_inputSettings,
 
     -- * InputChannelLevel
@@ -1631,17 +1691,17 @@ module Amazonka.MediaLive.Types
     -- * InputClippingSettings
     InputClippingSettings (..),
     newInputClippingSettings,
-    inputClippingSettings_stopTimecode,
     inputClippingSettings_startTimecode,
+    inputClippingSettings_stopTimecode,
     inputClippingSettings_inputTimecodeSource,
 
     -- * InputDestination
     InputDestination (..),
     newInputDestination,
-    inputDestination_url,
     inputDestination_ip,
-    inputDestination_vpc,
     inputDestination_port,
+    inputDestination_url,
+    inputDestination_vpc,
 
     -- * InputDestinationRequest
     InputDestinationRequest (..),
@@ -1651,8 +1711,8 @@ module Amazonka.MediaLive.Types
     -- * InputDestinationVpc
     InputDestinationVpc (..),
     newInputDestinationVpc,
-    inputDestinationVpc_networkInterfaceId,
     inputDestinationVpc_availabilityZone,
+    inputDestinationVpc_networkInterfaceId,
 
     -- * InputDeviceConfigurableSettings
     InputDeviceConfigurableSettings (..),
@@ -1663,21 +1723,21 @@ module Amazonka.MediaLive.Types
     -- * InputDeviceHdSettings
     InputDeviceHdSettings (..),
     newInputDeviceHdSettings,
-    inputDeviceHdSettings_framerate,
-    inputDeviceHdSettings_scanType,
-    inputDeviceHdSettings_deviceState,
-    inputDeviceHdSettings_height,
     inputDeviceHdSettings_activeInput,
-    inputDeviceHdSettings_width,
     inputDeviceHdSettings_configuredInput,
+    inputDeviceHdSettings_deviceState,
+    inputDeviceHdSettings_framerate,
+    inputDeviceHdSettings_height,
     inputDeviceHdSettings_maxBitrate,
+    inputDeviceHdSettings_scanType,
+    inputDeviceHdSettings_width,
 
     -- * InputDeviceNetworkSettings
     InputDeviceNetworkSettings (..),
     newInputDeviceNetworkSettings,
-    inputDeviceNetworkSettings_ipAddress,
-    inputDeviceNetworkSettings_gateway,
     inputDeviceNetworkSettings_dnsAddresses,
+    inputDeviceNetworkSettings_gateway,
+    inputDeviceNetworkSettings_ipAddress,
     inputDeviceNetworkSettings_ipScheme,
     inputDeviceNetworkSettings_subnetMask,
 
@@ -1695,45 +1755,45 @@ module Amazonka.MediaLive.Types
     InputDeviceSummary (..),
     newInputDeviceSummary,
     inputDeviceSummary_arn,
-    inputDeviceSummary_macAddress,
-    inputDeviceSummary_hdDeviceSettings,
-    inputDeviceSummary_uhdDeviceSettings,
-    inputDeviceSummary_name,
-    inputDeviceSummary_id,
-    inputDeviceSummary_deviceUpdateStatus,
-    inputDeviceSummary_deviceSettingsSyncState,
-    inputDeviceSummary_type,
-    inputDeviceSummary_serialNumber,
-    inputDeviceSummary_networkSettings,
     inputDeviceSummary_connectionState,
+    inputDeviceSummary_deviceSettingsSyncState,
+    inputDeviceSummary_deviceUpdateStatus,
+    inputDeviceSummary_hdDeviceSettings,
+    inputDeviceSummary_id,
+    inputDeviceSummary_macAddress,
+    inputDeviceSummary_name,
+    inputDeviceSummary_networkSettings,
+    inputDeviceSummary_serialNumber,
+    inputDeviceSummary_type,
+    inputDeviceSummary_uhdDeviceSettings,
 
     -- * InputDeviceUhdSettings
     InputDeviceUhdSettings (..),
     newInputDeviceUhdSettings,
-    inputDeviceUhdSettings_framerate,
-    inputDeviceUhdSettings_scanType,
-    inputDeviceUhdSettings_deviceState,
-    inputDeviceUhdSettings_height,
     inputDeviceUhdSettings_activeInput,
-    inputDeviceUhdSettings_width,
     inputDeviceUhdSettings_configuredInput,
+    inputDeviceUhdSettings_deviceState,
+    inputDeviceUhdSettings_framerate,
+    inputDeviceUhdSettings_height,
     inputDeviceUhdSettings_maxBitrate,
+    inputDeviceUhdSettings_scanType,
+    inputDeviceUhdSettings_width,
 
     -- * InputLocation
     InputLocation (..),
     newInputLocation,
-    inputLocation_username,
     inputLocation_passwordParam,
+    inputLocation_username,
     inputLocation_uri,
 
     -- * InputLossBehavior
     InputLossBehavior (..),
     newInputLossBehavior,
-    inputLossBehavior_inputLossImageColor,
     inputLossBehavior_blackFrameMsec,
-    inputLossBehavior_repeatFrameMsec,
-    inputLossBehavior_inputLossImageType,
+    inputLossBehavior_inputLossImageColor,
     inputLossBehavior_inputLossImageSlate,
+    inputLossBehavior_inputLossImageType,
+    inputLossBehavior_repeatFrameMsec,
 
     -- * InputLossFailoverSettings
     InputLossFailoverSettings (..),
@@ -1750,47 +1810,48 @@ module Amazonka.MediaLive.Types
     -- * InputSecurityGroup
     InputSecurityGroup (..),
     newInputSecurityGroup,
-    inputSecurityGroup_state,
     inputSecurityGroup_arn,
-    inputSecurityGroup_inputs,
     inputSecurityGroup_id,
-    inputSecurityGroup_whitelistRules,
+    inputSecurityGroup_inputs,
+    inputSecurityGroup_state,
     inputSecurityGroup_tags,
+    inputSecurityGroup_whitelistRules,
 
     -- * InputSettings
     InputSettings (..),
     newInputSettings,
-    inputSettings_videoSelector,
-    inputSettings_smpte2038DataPreference,
-    inputSettings_networkInputSettings,
     inputSettings_audioSelectors,
+    inputSettings_captionSelectors,
     inputSettings_deblockFilter,
     inputSettings_denoiseFilter,
     inputSettings_filterStrength,
-    inputSettings_captionSelectors,
     inputSettings_inputFilter,
+    inputSettings_networkInputSettings,
+    inputSettings_scte35Pid,
+    inputSettings_smpte2038DataPreference,
     inputSettings_sourceEndBehavior,
+    inputSettings_videoSelector,
 
     -- * InputSource
     InputSource (..),
     newInputSource,
+    inputSource_passwordParam,
     inputSource_url,
     inputSource_username,
-    inputSource_passwordParam,
 
     -- * InputSourceRequest
     InputSourceRequest (..),
     newInputSourceRequest,
+    inputSourceRequest_passwordParam,
     inputSourceRequest_url,
     inputSourceRequest_username,
-    inputSourceRequest_passwordParam,
 
     -- * InputSpecification
     InputSpecification (..),
     newInputSpecification,
-    inputSpecification_resolution,
     inputSpecification_codec,
     inputSpecification_maximumBitrate,
+    inputSpecification_resolution,
 
     -- * InputSwitchScheduleActionSettings
     InputSwitchScheduleActionSettings (..),
@@ -1823,74 +1884,95 @@ module Amazonka.MediaLive.Types
     -- * M2tsSettings
     M2tsSettings (..),
     newM2tsSettings,
-    m2tsSettings_pmtPid,
-    m2tsSettings_etvSignalPid,
-    m2tsSettings_videoPid,
-    m2tsSettings_nielsenId3Behavior,
-    m2tsSettings_bufferModel,
-    m2tsSettings_scte35Pid,
-    m2tsSettings_transportStreamId,
-    m2tsSettings_programNum,
-    m2tsSettings_fragmentTime,
-    m2tsSettings_timedMetadataBehavior,
-    m2tsSettings_ccDescriptor,
-    m2tsSettings_pmtInterval,
-    m2tsSettings_dvbSdtSettings,
-    m2tsSettings_ecmPid,
-    m2tsSettings_nullPacketBitrate,
-    m2tsSettings_audioBufferModel,
-    m2tsSettings_timedMetadataPid,
-    m2tsSettings_klv,
-    m2tsSettings_audioFramesPerPes,
-    m2tsSettings_pcrPeriod,
-    m2tsSettings_pcrPid,
-    m2tsSettings_segmentationMarkers,
-    m2tsSettings_aribCaptionsPidControl,
-    m2tsSettings_klvDataPids,
-    m2tsSettings_ebpLookaheadMs,
-    m2tsSettings_dvbSubPids,
-    m2tsSettings_scte27Pids,
-    m2tsSettings_patInterval,
-    m2tsSettings_audioStreamType,
-    m2tsSettings_esRateInPes,
-    m2tsSettings_etvPlatformPid,
-    m2tsSettings_bitrate,
-    m2tsSettings_scte35Control,
-    m2tsSettings_audioPids,
-    m2tsSettings_dvbTeletextPid,
-    m2tsSettings_ebif,
+    m2tsSettings_absentInputAudioBehavior,
     m2tsSettings_arib,
     m2tsSettings_aribCaptionsPid,
-    m2tsSettings_absentInputAudioBehavior,
-    m2tsSettings_segmentationTime,
-    m2tsSettings_ebpAudioInterval,
+    m2tsSettings_aribCaptionsPidControl,
+    m2tsSettings_audioBufferModel,
+    m2tsSettings_audioFramesPerPes,
+    m2tsSettings_audioPids,
+    m2tsSettings_audioStreamType,
+    m2tsSettings_bitrate,
+    m2tsSettings_bufferModel,
+    m2tsSettings_ccDescriptor,
     m2tsSettings_dvbNitSettings,
-    m2tsSettings_pcrControl,
-    m2tsSettings_ebpPlacement,
-    m2tsSettings_rateMode,
-    m2tsSettings_segmentationStyle,
+    m2tsSettings_dvbSdtSettings,
+    m2tsSettings_dvbSubPids,
     m2tsSettings_dvbTdtSettings,
+    m2tsSettings_dvbTeletextPid,
+    m2tsSettings_ebif,
+    m2tsSettings_ebpAudioInterval,
+    m2tsSettings_ebpLookaheadMs,
+    m2tsSettings_ebpPlacement,
+    m2tsSettings_ecmPid,
+    m2tsSettings_esRateInPes,
+    m2tsSettings_etvPlatformPid,
+    m2tsSettings_etvSignalPid,
+    m2tsSettings_fragmentTime,
+    m2tsSettings_klv,
+    m2tsSettings_klvDataPids,
+    m2tsSettings_nielsenId3Behavior,
+    m2tsSettings_nullPacketBitrate,
+    m2tsSettings_patInterval,
+    m2tsSettings_pcrControl,
+    m2tsSettings_pcrPeriod,
+    m2tsSettings_pcrPid,
+    m2tsSettings_pmtInterval,
+    m2tsSettings_pmtPid,
+    m2tsSettings_programNum,
+    m2tsSettings_rateMode,
+    m2tsSettings_scte27Pids,
+    m2tsSettings_scte35Control,
+    m2tsSettings_scte35Pid,
+    m2tsSettings_segmentationMarkers,
+    m2tsSettings_segmentationStyle,
+    m2tsSettings_segmentationTime,
+    m2tsSettings_timedMetadataBehavior,
+    m2tsSettings_timedMetadataPid,
+    m2tsSettings_transportStreamId,
+    m2tsSettings_videoPid,
 
     -- * M3u8Settings
     M3u8Settings (..),
     newM3u8Settings,
-    m3u8Settings_pmtPid,
-    m3u8Settings_videoPid,
-    m3u8Settings_nielsenId3Behavior,
-    m3u8Settings_scte35Pid,
-    m3u8Settings_transportStreamId,
-    m3u8Settings_programNum,
-    m3u8Settings_timedMetadataBehavior,
-    m3u8Settings_pmtInterval,
-    m3u8Settings_ecmPid,
-    m3u8Settings_timedMetadataPid,
     m3u8Settings_audioFramesPerPes,
+    m3u8Settings_audioPids,
+    m3u8Settings_ecmPid,
+    m3u8Settings_nielsenId3Behavior,
+    m3u8Settings_patInterval,
+    m3u8Settings_pcrControl,
     m3u8Settings_pcrPeriod,
     m3u8Settings_pcrPid,
-    m3u8Settings_patInterval,
-    m3u8Settings_audioPids,
+    m3u8Settings_pmtInterval,
+    m3u8Settings_pmtPid,
+    m3u8Settings_programNum,
     m3u8Settings_scte35Behavior,
-    m3u8Settings_pcrControl,
+    m3u8Settings_scte35Pid,
+    m3u8Settings_timedMetadataBehavior,
+    m3u8Settings_timedMetadataPid,
+    m3u8Settings_transportStreamId,
+    m3u8Settings_videoPid,
+
+    -- * MaintenanceCreateSettings
+    MaintenanceCreateSettings (..),
+    newMaintenanceCreateSettings,
+    maintenanceCreateSettings_maintenanceDay,
+    maintenanceCreateSettings_maintenanceStartTime,
+
+    -- * MaintenanceStatus
+    MaintenanceStatus (..),
+    newMaintenanceStatus,
+    maintenanceStatus_maintenanceDay,
+    maintenanceStatus_maintenanceDeadline,
+    maintenanceStatus_maintenanceScheduledDate,
+    maintenanceStatus_maintenanceStartTime,
+
+    -- * MaintenanceUpdateSettings
+    MaintenanceUpdateSettings (..),
+    newMaintenanceUpdateSettings,
+    maintenanceUpdateSettings_maintenanceDay,
+    maintenanceUpdateSettings_maintenanceScheduledDate,
+    maintenanceUpdateSettings_maintenanceStartTime,
 
     -- * MediaConnectFlow
     MediaConnectFlow (..),
@@ -1919,10 +2001,10 @@ module Amazonka.MediaLive.Types
     -- * MotionGraphicsActivateScheduleActionSettings
     MotionGraphicsActivateScheduleActionSettings (..),
     newMotionGraphicsActivateScheduleActionSettings,
+    motionGraphicsActivateScheduleActionSettings_duration,
+    motionGraphicsActivateScheduleActionSettings_passwordParam,
     motionGraphicsActivateScheduleActionSettings_url,
     motionGraphicsActivateScheduleActionSettings_username,
-    motionGraphicsActivateScheduleActionSettings_passwordParam,
-    motionGraphicsActivateScheduleActionSettings_duration,
 
     -- * MotionGraphicsConfiguration
     MotionGraphicsConfiguration (..),
@@ -1942,9 +2024,9 @@ module Amazonka.MediaLive.Types
     -- * Mp2Settings
     Mp2Settings (..),
     newMp2Settings,
+    mp2Settings_bitrate,
     mp2Settings_codingMode,
     mp2Settings_sampleRate,
-    mp2Settings_bitrate,
 
     -- * Mpeg2FilterSettings
     Mpeg2FilterSettings (..),
@@ -1954,44 +2036,44 @@ module Amazonka.MediaLive.Types
     -- * Mpeg2Settings
     Mpeg2Settings (..),
     newMpeg2Settings,
-    mpeg2Settings_scanType,
-    mpeg2Settings_timecodeInsertion,
+    mpeg2Settings_adaptiveQuantization,
     mpeg2Settings_afdSignaling,
+    mpeg2Settings_colorMetadata,
+    mpeg2Settings_colorSpace,
+    mpeg2Settings_displayAspectRatio,
+    mpeg2Settings_filterSettings,
+    mpeg2Settings_fixedAfd,
+    mpeg2Settings_gopClosedCadence,
+    mpeg2Settings_gopNumBFrames,
     mpeg2Settings_gopSize,
     mpeg2Settings_gopSizeUnits,
+    mpeg2Settings_scanType,
     mpeg2Settings_subgopLength,
-    mpeg2Settings_displayAspectRatio,
-    mpeg2Settings_gopNumBFrames,
-    mpeg2Settings_fixedAfd,
-    mpeg2Settings_filterSettings,
-    mpeg2Settings_colorMetadata,
-    mpeg2Settings_adaptiveQuantization,
-    mpeg2Settings_gopClosedCadence,
-    mpeg2Settings_colorSpace,
+    mpeg2Settings_timecodeInsertion,
     mpeg2Settings_framerateNumerator,
     mpeg2Settings_framerateDenominator,
 
     -- * MsSmoothGroupSettings
     MsSmoothGroupSettings (..),
     newMsSmoothGroupSettings,
-    msSmoothGroupSettings_fragmentLength,
-    msSmoothGroupSettings_streamManifestBehavior,
-    msSmoothGroupSettings_sendDelayMs,
-    msSmoothGroupSettings_eventStopBehavior,
-    msSmoothGroupSettings_timestampOffsetMode,
-    msSmoothGroupSettings_numRetries,
     msSmoothGroupSettings_acquisitionPointId,
-    msSmoothGroupSettings_inputLossAction,
-    msSmoothGroupSettings_timestampOffset,
-    msSmoothGroupSettings_certificateMode,
-    msSmoothGroupSettings_sparseTrackType,
-    msSmoothGroupSettings_connectionRetryInterval,
-    msSmoothGroupSettings_filecacheDuration,
-    msSmoothGroupSettings_restartDelay,
-    msSmoothGroupSettings_eventIdMode,
     msSmoothGroupSettings_audioOnlyTimecodeControl,
-    msSmoothGroupSettings_segmentationMode,
+    msSmoothGroupSettings_certificateMode,
+    msSmoothGroupSettings_connectionRetryInterval,
     msSmoothGroupSettings_eventId,
+    msSmoothGroupSettings_eventIdMode,
+    msSmoothGroupSettings_eventStopBehavior,
+    msSmoothGroupSettings_filecacheDuration,
+    msSmoothGroupSettings_fragmentLength,
+    msSmoothGroupSettings_inputLossAction,
+    msSmoothGroupSettings_numRetries,
+    msSmoothGroupSettings_restartDelay,
+    msSmoothGroupSettings_segmentationMode,
+    msSmoothGroupSettings_sendDelayMs,
+    msSmoothGroupSettings_sparseTrackType,
+    msSmoothGroupSettings_streamManifestBehavior,
+    msSmoothGroupSettings_timestampOffset,
+    msSmoothGroupSettings_timestampOffsetMode,
     msSmoothGroupSettings_destination,
 
     -- * MsSmoothOutputSettings
@@ -2003,15 +2085,15 @@ module Amazonka.MediaLive.Types
     -- * Multiplex
     Multiplex (..),
     newMultiplex,
-    multiplex_state,
     multiplex_arn,
-    multiplex_pipelinesRunningCount,
     multiplex_availabilityZones,
-    multiplex_programCount,
     multiplex_destinations,
-    multiplex_name,
     multiplex_id,
     multiplex_multiplexSettings,
+    multiplex_name,
+    multiplex_pipelinesRunningCount,
+    multiplex_programCount,
+    multiplex_state,
     multiplex_tags,
 
     -- * MultiplexGroupSettings
@@ -2036,11 +2118,11 @@ module Amazonka.MediaLive.Types
     -- * MultiplexProgram
     MultiplexProgram (..),
     newMultiplexProgram,
+    multiplexProgram_channelId,
+    multiplexProgram_multiplexProgramSettings,
     multiplexProgram_packetIdentifiersMap,
     multiplexProgram_pipelineDetails,
     multiplexProgram_programName,
-    multiplexProgram_channelId,
-    multiplexProgram_multiplexProgramSettings,
 
     -- * MultiplexProgramChannelDestinationSettings
     MultiplexProgramChannelDestinationSettings (..),
@@ -2051,25 +2133,25 @@ module Amazonka.MediaLive.Types
     -- * MultiplexProgramPacketIdentifiersMap
     MultiplexProgramPacketIdentifiersMap (..),
     newMultiplexProgramPacketIdentifiersMap,
-    multiplexProgramPacketIdentifiersMap_pmtPid,
-    multiplexProgramPacketIdentifiersMap_etvSignalPid,
-    multiplexProgramPacketIdentifiersMap_videoPid,
-    multiplexProgramPacketIdentifiersMap_scte35Pid,
-    multiplexProgramPacketIdentifiersMap_privateMetadataPid,
-    multiplexProgramPacketIdentifiersMap_timedMetadataPid,
-    multiplexProgramPacketIdentifiersMap_pcrPid,
-    multiplexProgramPacketIdentifiersMap_klvDataPids,
-    multiplexProgramPacketIdentifiersMap_dvbSubPids,
-    multiplexProgramPacketIdentifiersMap_scte27Pids,
-    multiplexProgramPacketIdentifiersMap_etvPlatformPid,
     multiplexProgramPacketIdentifiersMap_audioPids,
+    multiplexProgramPacketIdentifiersMap_dvbSubPids,
     multiplexProgramPacketIdentifiersMap_dvbTeletextPid,
+    multiplexProgramPacketIdentifiersMap_etvPlatformPid,
+    multiplexProgramPacketIdentifiersMap_etvSignalPid,
+    multiplexProgramPacketIdentifiersMap_klvDataPids,
+    multiplexProgramPacketIdentifiersMap_pcrPid,
+    multiplexProgramPacketIdentifiersMap_pmtPid,
+    multiplexProgramPacketIdentifiersMap_privateMetadataPid,
+    multiplexProgramPacketIdentifiersMap_scte27Pids,
+    multiplexProgramPacketIdentifiersMap_scte35Pid,
+    multiplexProgramPacketIdentifiersMap_timedMetadataPid,
+    multiplexProgramPacketIdentifiersMap_videoPid,
 
     -- * MultiplexProgramPipelineDetail
     MultiplexProgramPipelineDetail (..),
     newMultiplexProgramPipelineDetail,
-    multiplexProgramPipelineDetail_pipelineId,
     multiplexProgramPipelineDetail_activeChannelPipeline,
+    multiplexProgramPipelineDetail_pipelineId,
 
     -- * MultiplexProgramServiceDescriptor
     MultiplexProgramServiceDescriptor (..),
@@ -2081,15 +2163,15 @@ module Amazonka.MediaLive.Types
     MultiplexProgramSettings (..),
     newMultiplexProgramSettings,
     multiplexProgramSettings_preferredChannelPipeline,
-    multiplexProgramSettings_videoSettings,
     multiplexProgramSettings_serviceDescriptor,
+    multiplexProgramSettings_videoSettings,
     multiplexProgramSettings_programNumber,
 
     -- * MultiplexProgramSummary
     MultiplexProgramSummary (..),
     newMultiplexProgramSummary,
-    multiplexProgramSummary_programName,
     multiplexProgramSummary_channelId,
+    multiplexProgramSummary_programName,
 
     -- * MultiplexSettings
     MultiplexSettings (..),
@@ -2107,28 +2189,28 @@ module Amazonka.MediaLive.Types
     -- * MultiplexStatmuxVideoSettings
     MultiplexStatmuxVideoSettings (..),
     newMultiplexStatmuxVideoSettings,
-    multiplexStatmuxVideoSettings_priority,
-    multiplexStatmuxVideoSettings_minimumBitrate,
     multiplexStatmuxVideoSettings_maximumBitrate,
+    multiplexStatmuxVideoSettings_minimumBitrate,
+    multiplexStatmuxVideoSettings_priority,
 
     -- * MultiplexSummary
     MultiplexSummary (..),
     newMultiplexSummary,
-    multiplexSummary_state,
     multiplexSummary_arn,
-    multiplexSummary_pipelinesRunningCount,
     multiplexSummary_availabilityZones,
-    multiplexSummary_programCount,
-    multiplexSummary_name,
     multiplexSummary_id,
     multiplexSummary_multiplexSettings,
+    multiplexSummary_name,
+    multiplexSummary_pipelinesRunningCount,
+    multiplexSummary_programCount,
+    multiplexSummary_state,
     multiplexSummary_tags,
 
     -- * MultiplexVideoSettings
     MultiplexVideoSettings (..),
     newMultiplexVideoSettings,
-    multiplexVideoSettings_statmuxSettings,
     multiplexVideoSettings_constantBitrate,
+    multiplexVideoSettings_statmuxSettings,
 
     -- * NetworkInputSettings
     NetworkInputSettings (..),
@@ -2159,48 +2241,48 @@ module Amazonka.MediaLive.Types
     NielsenWatermarksSettings (..),
     newNielsenWatermarksSettings,
     nielsenWatermarksSettings_nielsenCbetSettings,
-    nielsenWatermarksSettings_nielsenNaesIiNwSettings,
     nielsenWatermarksSettings_nielsenDistributionType,
+    nielsenWatermarksSettings_nielsenNaesIiNwSettings,
 
     -- * Offering
     Offering (..),
     newOffering,
-    offering_resourceSpecification,
-    offering_currencyCode,
     offering_arn,
-    offering_offeringId,
-    offering_region,
-    offering_offeringType,
-    offering_usagePrice,
-    offering_fixedPrice,
-    offering_durationUnits,
-    offering_offeringDescription,
+    offering_currencyCode,
     offering_duration,
+    offering_durationUnits,
+    offering_fixedPrice,
+    offering_offeringDescription,
+    offering_offeringId,
+    offering_offeringType,
+    offering_region,
+    offering_resourceSpecification,
+    offering_usagePrice,
 
     -- * Output
     Output (..),
     newOutput,
-    output_captionDescriptionNames,
-    output_videoDescriptionName,
-    output_outputName,
     output_audioDescriptionNames,
+    output_captionDescriptionNames,
+    output_outputName,
+    output_videoDescriptionName,
     output_outputSettings,
 
     -- * OutputDestination
     OutputDestination (..),
     newOutputDestination,
-    outputDestination_settings,
-    outputDestination_mediaPackageSettings,
     outputDestination_id,
+    outputDestination_mediaPackageSettings,
     outputDestination_multiplexSettings,
+    outputDestination_settings,
 
     -- * OutputDestinationSettings
     OutputDestinationSettings (..),
     newOutputDestinationSettings,
-    outputDestinationSettings_url,
-    outputDestinationSettings_username,
     outputDestinationSettings_passwordParam,
     outputDestinationSettings_streamName,
+    outputDestinationSettings_url,
+    outputDestinationSettings_username,
 
     -- * OutputGroup
     OutputGroup (..),
@@ -2212,14 +2294,14 @@ module Amazonka.MediaLive.Types
     -- * OutputGroupSettings
     OutputGroupSettings (..),
     newOutputGroupSettings,
+    outputGroupSettings_archiveGroupSettings,
+    outputGroupSettings_frameCaptureGroupSettings,
+    outputGroupSettings_hlsGroupSettings,
     outputGroupSettings_mediaPackageGroupSettings,
     outputGroupSettings_msSmoothGroupSettings,
-    outputGroupSettings_rtmpGroupSettings,
     outputGroupSettings_multiplexGroupSettings,
-    outputGroupSettings_hlsGroupSettings,
-    outputGroupSettings_archiveGroupSettings,
+    outputGroupSettings_rtmpGroupSettings,
     outputGroupSettings_udpGroupSettings,
-    outputGroupSettings_frameCaptureGroupSettings,
 
     -- * OutputLocationRef
     OutputLocationRef (..),
@@ -2229,14 +2311,14 @@ module Amazonka.MediaLive.Types
     -- * OutputSettings
     OutputSettings (..),
     newOutputSettings,
-    outputSettings_multiplexOutputSettings,
     outputSettings_archiveOutputSettings,
-    outputSettings_rtmpOutputSettings,
-    outputSettings_mediaPackageOutputSettings,
-    outputSettings_hlsOutputSettings,
     outputSettings_frameCaptureOutputSettings,
-    outputSettings_udpOutputSettings,
+    outputSettings_hlsOutputSettings,
+    outputSettings_mediaPackageOutputSettings,
     outputSettings_msSmoothOutputSettings,
+    outputSettings_multiplexOutputSettings,
+    outputSettings_rtmpOutputSettings,
+    outputSettings_udpOutputSettings,
 
     -- * PassThroughSettings
     PassThroughSettings (..),
@@ -2250,11 +2332,11 @@ module Amazonka.MediaLive.Types
     -- * PipelineDetail
     PipelineDetail (..),
     newPipelineDetail,
-    pipelineDetail_pipelineId,
-    pipelineDetail_activeInputSwitchActionName,
-    pipelineDetail_activeMotionGraphicsUri,
     pipelineDetail_activeInputAttachmentName,
+    pipelineDetail_activeInputSwitchActionName,
     pipelineDetail_activeMotionGraphicsActionName,
+    pipelineDetail_activeMotionGraphicsUri,
+    pipelineDetail_pipelineId,
 
     -- * PipelinePauseStateSettings
     PipelinePauseStateSettings (..),
@@ -2280,39 +2362,46 @@ module Amazonka.MediaLive.Types
     remixSettings_channelsOut,
     remixSettings_channelMappings,
 
+    -- * RenewalSettings
+    RenewalSettings (..),
+    newRenewalSettings,
+    renewalSettings_automaticRenewal,
+    renewalSettings_renewalCount,
+
     -- * Reservation
     Reservation (..),
     newReservation,
-    reservation_state,
-    reservation_resourceSpecification,
-    reservation_currencyCode,
     reservation_arn,
-    reservation_start,
     reservation_count,
-    reservation_end,
-    reservation_name,
-    reservation_reservationId,
-    reservation_offeringId,
-    reservation_region,
-    reservation_offeringType,
-    reservation_usagePrice,
-    reservation_fixedPrice,
-    reservation_durationUnits,
-    reservation_offeringDescription,
+    reservation_currencyCode,
     reservation_duration,
+    reservation_durationUnits,
+    reservation_end,
+    reservation_fixedPrice,
+    reservation_name,
+    reservation_offeringDescription,
+    reservation_offeringId,
+    reservation_offeringType,
+    reservation_region,
+    reservation_renewalSettings,
+    reservation_reservationId,
+    reservation_resourceSpecification,
+    reservation_start,
+    reservation_state,
     reservation_tags,
+    reservation_usagePrice,
 
     -- * ReservationResourceSpecification
     ReservationResourceSpecification (..),
     newReservationResourceSpecification,
-    reservationResourceSpecification_videoQuality,
-    reservationResourceSpecification_maximumFramerate,
-    reservationResourceSpecification_resourceType,
-    reservationResourceSpecification_resolution,
-    reservationResourceSpecification_codec,
-    reservationResourceSpecification_specialFeature,
     reservationResourceSpecification_channelClass,
+    reservationResourceSpecification_codec,
     reservationResourceSpecification_maximumBitrate,
+    reservationResourceSpecification_maximumFramerate,
+    reservationResourceSpecification_resolution,
+    reservationResourceSpecification_resourceType,
+    reservationResourceSpecification_specialFeature,
+    reservationResourceSpecification_videoQuality,
 
     -- * RtmpCaptionInfoDestinationSettings
     RtmpCaptionInfoDestinationSettings (..),
@@ -2321,20 +2410,20 @@ module Amazonka.MediaLive.Types
     -- * RtmpGroupSettings
     RtmpGroupSettings (..),
     newRtmpGroupSettings,
-    rtmpGroupSettings_inputLossAction,
-    rtmpGroupSettings_captionData,
     rtmpGroupSettings_adMarkers,
-    rtmpGroupSettings_restartDelay,
     rtmpGroupSettings_authenticationScheme,
-    rtmpGroupSettings_cacheLength,
     rtmpGroupSettings_cacheFullBehavior,
+    rtmpGroupSettings_cacheLength,
+    rtmpGroupSettings_captionData,
+    rtmpGroupSettings_inputLossAction,
+    rtmpGroupSettings_restartDelay,
 
     -- * RtmpOutputSettings
     RtmpOutputSettings (..),
     newRtmpOutputSettings,
-    rtmpOutputSettings_numRetries,
     rtmpOutputSettings_certificateMode,
     rtmpOutputSettings_connectionRetryInterval,
+    rtmpOutputSettings_numRetries,
     rtmpOutputSettings_destination,
 
     -- * ScheduleAction
@@ -2347,25 +2436,26 @@ module Amazonka.MediaLive.Types
     -- * ScheduleActionSettings
     ScheduleActionSettings (..),
     newScheduleActionSettings,
-    scheduleActionSettings_staticImageDeactivateSettings,
-    scheduleActionSettings_scte35SpliceInsertSettings,
-    scheduleActionSettings_motionGraphicsImageActivateSettings,
-    scheduleActionSettings_staticImageActivateSettings,
-    scheduleActionSettings_motionGraphicsImageDeactivateSettings,
-    scheduleActionSettings_scte35TimeSignalSettings,
-    scheduleActionSettings_inputPrepareSettings,
     scheduleActionSettings_hlsId3SegmentTaggingSettings,
-    scheduleActionSettings_scte35ReturnToNetworkSettings,
-    scheduleActionSettings_pauseStateSettings,
     scheduleActionSettings_hlsTimedMetadataSettings,
+    scheduleActionSettings_inputPrepareSettings,
     scheduleActionSettings_inputSwitchSettings,
+    scheduleActionSettings_motionGraphicsImageActivateSettings,
+    scheduleActionSettings_motionGraphicsImageDeactivateSettings,
+    scheduleActionSettings_pauseStateSettings,
+    scheduleActionSettings_scte35InputSettings,
+    scheduleActionSettings_scte35ReturnToNetworkSettings,
+    scheduleActionSettings_scte35SpliceInsertSettings,
+    scheduleActionSettings_scte35TimeSignalSettings,
+    scheduleActionSettings_staticImageActivateSettings,
+    scheduleActionSettings_staticImageDeactivateSettings,
 
     -- * ScheduleActionStartSettings
     ScheduleActionStartSettings (..),
     newScheduleActionStartSettings,
-    scheduleActionStartSettings_immediateModeScheduleActionStartSettings,
-    scheduleActionStartSettings_followModeScheduleActionStartSettings,
     scheduleActionStartSettings_fixedModeScheduleActionStartSettings,
+    scheduleActionStartSettings_followModeScheduleActionStartSettings,
+    scheduleActionStartSettings_immediateModeScheduleActionStartSettings,
 
     -- * Scte20PlusEmbeddedDestinationSettings
     Scte20PlusEmbeddedDestinationSettings (..),
@@ -2405,6 +2495,12 @@ module Amazonka.MediaLive.Types
     newScte35DescriptorSettings,
     scte35DescriptorSettings_segmentationDescriptorScte35DescriptorSettings,
 
+    -- * Scte35InputScheduleActionSettings
+    Scte35InputScheduleActionSettings (..),
+    newScte35InputScheduleActionSettings,
+    scte35InputScheduleActionSettings_inputAttachmentNameReference,
+    scte35InputScheduleActionSettings_mode,
+
     -- * Scte35ReturnToNetworkScheduleActionSettings
     Scte35ReturnToNetworkScheduleActionSettings (..),
     newScte35ReturnToNetworkScheduleActionSettings,
@@ -2413,24 +2509,24 @@ module Amazonka.MediaLive.Types
     -- * Scte35SegmentationDescriptor
     Scte35SegmentationDescriptor (..),
     newScte35SegmentationDescriptor,
-    scte35SegmentationDescriptor_segmentationUpidType,
-    scte35SegmentationDescriptor_segmentsExpected,
-    scte35SegmentationDescriptor_subSegmentsExpected,
+    scte35SegmentationDescriptor_deliveryRestrictions,
     scte35SegmentationDescriptor_segmentNum,
     scte35SegmentationDescriptor_segmentationDuration,
     scte35SegmentationDescriptor_segmentationTypeId,
-    scte35SegmentationDescriptor_deliveryRestrictions,
     scte35SegmentationDescriptor_segmentationUpid,
+    scte35SegmentationDescriptor_segmentationUpidType,
+    scte35SegmentationDescriptor_segmentsExpected,
     scte35SegmentationDescriptor_subSegmentNum,
+    scte35SegmentationDescriptor_subSegmentsExpected,
     scte35SegmentationDescriptor_segmentationEventId,
     scte35SegmentationDescriptor_segmentationCancelIndicator,
 
     -- * Scte35SpliceInsert
     Scte35SpliceInsert (..),
     newScte35SpliceInsert,
-    scte35SpliceInsert_webDeliveryAllowedFlag,
     scte35SpliceInsert_adAvailOffset,
     scte35SpliceInsert_noRegionalBlackoutFlag,
+    scte35SpliceInsert_webDeliveryAllowedFlag,
 
     -- * Scte35SpliceInsertScheduleActionSettings
     Scte35SpliceInsertScheduleActionSettings (..),
@@ -2441,9 +2537,9 @@ module Amazonka.MediaLive.Types
     -- * Scte35TimeSignalApos
     Scte35TimeSignalApos (..),
     newScte35TimeSignalApos,
-    scte35TimeSignalApos_webDeliveryAllowedFlag,
     scte35TimeSignalApos_adAvailOffset,
     scte35TimeSignalApos_noRegionalBlackoutFlag,
+    scte35TimeSignalApos_webDeliveryAllowedFlag,
 
     -- * Scte35TimeSignalScheduleActionSettings
     Scte35TimeSignalScheduleActionSettings (..),
@@ -2468,15 +2564,15 @@ module Amazonka.MediaLive.Types
     -- * StaticImageActivateScheduleActionSettings
     StaticImageActivateScheduleActionSettings (..),
     newStaticImageActivateScheduleActionSettings,
-    staticImageActivateScheduleActionSettings_imageX,
-    staticImageActivateScheduleActionSettings_height,
-    staticImageActivateScheduleActionSettings_fadeOut,
-    staticImageActivateScheduleActionSettings_width,
-    staticImageActivateScheduleActionSettings_opacity,
-    staticImageActivateScheduleActionSettings_layer,
     staticImageActivateScheduleActionSettings_duration,
-    staticImageActivateScheduleActionSettings_imageY,
     staticImageActivateScheduleActionSettings_fadeIn,
+    staticImageActivateScheduleActionSettings_fadeOut,
+    staticImageActivateScheduleActionSettings_height,
+    staticImageActivateScheduleActionSettings_imageX,
+    staticImageActivateScheduleActionSettings_imageY,
+    staticImageActivateScheduleActionSettings_layer,
+    staticImageActivateScheduleActionSettings_opacity,
+    staticImageActivateScheduleActionSettings_width,
     staticImageActivateScheduleActionSettings_image,
 
     -- * StaticImageDeactivateScheduleActionSettings
@@ -2510,8 +2606,8 @@ module Amazonka.MediaLive.Types
     -- * TemporalFilterSettings
     TemporalFilterSettings (..),
     newTemporalFilterSettings,
-    temporalFilterSettings_strength,
     temporalFilterSettings_postFilterSharpening,
+    temporalFilterSettings_strength,
 
     -- * TimecodeConfig
     TimecodeConfig (..),
@@ -2522,10 +2618,10 @@ module Amazonka.MediaLive.Types
     -- * TransferringInputDeviceSummary
     TransferringInputDeviceSummary (..),
     newTransferringInputDeviceSummary,
-    transferringInputDeviceSummary_transferType,
     transferringInputDeviceSummary_id,
-    transferringInputDeviceSummary_targetCustomerId,
     transferringInputDeviceSummary_message,
+    transferringInputDeviceSummary_targetCustomerId,
+    transferringInputDeviceSummary_transferType,
 
     -- * TtmlDestinationSettings
     TtmlDestinationSettings (..),
@@ -2540,50 +2636,50 @@ module Amazonka.MediaLive.Types
     -- * UdpGroupSettings
     UdpGroupSettings (..),
     newUdpGroupSettings,
-    udpGroupSettings_timedMetadataId3Period,
     udpGroupSettings_inputLossAction,
     udpGroupSettings_timedMetadataId3Frame,
+    udpGroupSettings_timedMetadataId3Period,
 
     -- * UdpOutputSettings
     UdpOutputSettings (..),
     newUdpOutputSettings,
-    udpOutputSettings_fecOutputSettings,
     udpOutputSettings_bufferMsec,
+    udpOutputSettings_fecOutputSettings,
     udpOutputSettings_destination,
     udpOutputSettings_containerSettings,
 
     -- * VideoBlackFailoverSettings
     VideoBlackFailoverSettings (..),
     newVideoBlackFailoverSettings,
-    videoBlackFailoverSettings_videoBlackThresholdMsec,
     videoBlackFailoverSettings_blackDetectThreshold,
+    videoBlackFailoverSettings_videoBlackThresholdMsec,
 
     -- * VideoCodecSettings
     VideoCodecSettings (..),
     newVideoCodecSettings,
     videoCodecSettings_frameCaptureSettings,
-    videoCodecSettings_h265Settings,
     videoCodecSettings_h264Settings,
+    videoCodecSettings_h265Settings,
     videoCodecSettings_mpeg2Settings,
 
     -- * VideoDescription
     VideoDescription (..),
     newVideoDescription,
+    videoDescription_codecSettings,
     videoDescription_height,
+    videoDescription_respondToAfd,
+    videoDescription_scalingBehavior,
     videoDescription_sharpness,
     videoDescription_width,
-    videoDescription_scalingBehavior,
-    videoDescription_respondToAfd,
-    videoDescription_codecSettings,
     videoDescription_name,
 
     -- * VideoSelector
     VideoSelector (..),
     newVideoSelector,
-    videoSelector_selectorSettings,
-    videoSelector_colorSpaceUsage,
-    videoSelector_colorSpaceSettings,
     videoSelector_colorSpace,
+    videoSelector_colorSpaceSettings,
+    videoSelector_colorSpaceUsage,
+    videoSelector_selectorSettings,
 
     -- * VideoSelectorColorSpaceSettings
     VideoSelectorColorSpaceSettings (..),
@@ -2603,23 +2699,23 @@ module Amazonka.MediaLive.Types
     -- * VideoSelectorSettings
     VideoSelectorSettings (..),
     newVideoSelectorSettings,
-    videoSelectorSettings_videoSelectorProgramId,
     videoSelectorSettings_videoSelectorPid,
+    videoSelectorSettings_videoSelectorProgramId,
 
     -- * VpcOutputSettings
     VpcOutputSettings (..),
     newVpcOutputSettings,
-    vpcOutputSettings_securityGroupIds,
     vpcOutputSettings_publicAddressAllocationIds,
+    vpcOutputSettings_securityGroupIds,
     vpcOutputSettings_subnetIds,
 
     -- * VpcOutputSettingsDescription
     VpcOutputSettingsDescription (..),
     newVpcOutputSettingsDescription,
+    vpcOutputSettingsDescription_availabilityZones,
+    vpcOutputSettingsDescription_networkInterfaceIds,
     vpcOutputSettingsDescription_securityGroupIds,
     vpcOutputSettingsDescription_subnetIds,
-    vpcOutputSettingsDescription_networkInterfaceIds,
-    vpcOutputSettingsDescription_availabilityZones,
 
     -- * WavSettings
     WavSettings (..),
@@ -2636,7 +2732,7 @@ module Amazonka.MediaLive.Types
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.MediaLive.Types.AacCodingMode
 import Amazonka.MediaLive.Types.AacInputType
 import Amazonka.MediaLive.Types.AacProfile
@@ -2652,6 +2748,7 @@ import Amazonka.MediaLive.Types.Ac3LfeFilter
 import Amazonka.MediaLive.Types.Ac3MetadataControl
 import Amazonka.MediaLive.Types.Ac3Settings
 import Amazonka.MediaLive.Types.AcceptHeader
+import Amazonka.MediaLive.Types.AccessibilityType
 import Amazonka.MediaLive.Types.AfdSignaling
 import Amazonka.MediaLive.Types.AncillarySourceSettings
 import Amazonka.MediaLive.Types.ArchiveCdnSettings
@@ -2722,6 +2819,7 @@ import Amazonka.MediaLive.Types.ColorSpacePassthroughSettings
 import Amazonka.MediaLive.Types.ContentType
 import Amazonka.MediaLive.Types.DeviceSettingsSyncState
 import Amazonka.MediaLive.Types.DeviceUpdateStatus
+import Amazonka.MediaLive.Types.DolbyVision81Settings
 import Amazonka.MediaLive.Types.DvbNitSettings
 import Amazonka.MediaLive.Types.DvbSdtOutputSdt
 import Amazonka.MediaLive.Types.DvbSdtSettings
@@ -2735,6 +2833,10 @@ import Amazonka.MediaLive.Types.DvbSubDestinationTeletextGridControl
 import Amazonka.MediaLive.Types.DvbSubOcrLanguage
 import Amazonka.MediaLive.Types.DvbSubSourceSettings
 import Amazonka.MediaLive.Types.DvbTdtSettings
+import Amazonka.MediaLive.Types.Eac3AtmosCodingMode
+import Amazonka.MediaLive.Types.Eac3AtmosDrcLine
+import Amazonka.MediaLive.Types.Eac3AtmosDrcRf
+import Amazonka.MediaLive.Types.Eac3AtmosSettings
 import Amazonka.MediaLive.Types.Eac3AttenuationControl
 import Amazonka.MediaLive.Types.Eac3BitstreamMode
 import Amazonka.MediaLive.Types.Eac3CodingMode
@@ -2759,6 +2861,7 @@ import Amazonka.MediaLive.Types.EmbeddedPlusScte20DestinationSettings
 import Amazonka.MediaLive.Types.EmbeddedScte20Detection
 import Amazonka.MediaLive.Types.EmbeddedSourceSettings
 import Amazonka.MediaLive.Types.EncoderSettings
+import Amazonka.MediaLive.Types.Esam
 import Amazonka.MediaLive.Types.FailoverCondition
 import Amazonka.MediaLive.Types.FailoverConditionSettings
 import Amazonka.MediaLive.Types.FeatureActivations
@@ -2852,6 +2955,7 @@ import Amazonka.MediaLive.Types.HlsMode
 import Amazonka.MediaLive.Types.HlsOutputSelection
 import Amazonka.MediaLive.Types.HlsOutputSettings
 import Amazonka.MediaLive.Types.HlsProgramDateTime
+import Amazonka.MediaLive.Types.HlsProgramDateTimeClock
 import Amazonka.MediaLive.Types.HlsRedundantManifest
 import Amazonka.MediaLive.Types.HlsS3Settings
 import Amazonka.MediaLive.Types.HlsScte35SourceType
@@ -2948,6 +3052,10 @@ import Amazonka.MediaLive.Types.M3u8PcrControl
 import Amazonka.MediaLive.Types.M3u8Scte35Behavior
 import Amazonka.MediaLive.Types.M3u8Settings
 import Amazonka.MediaLive.Types.M3u8TimedMetadataBehavior
+import Amazonka.MediaLive.Types.MaintenanceCreateSettings
+import Amazonka.MediaLive.Types.MaintenanceDay
+import Amazonka.MediaLive.Types.MaintenanceStatus
+import Amazonka.MediaLive.Types.MaintenanceUpdateSettings
 import Amazonka.MediaLive.Types.MediaConnectFlow
 import Amazonka.MediaLive.Types.MediaConnectFlowRequest
 import Amazonka.MediaLive.Types.MediaPackageGroupSettings
@@ -3017,10 +3125,13 @@ import Amazonka.MediaLive.Types.PipelineId
 import Amazonka.MediaLive.Types.PipelinePauseStateSettings
 import Amazonka.MediaLive.Types.PreferredChannelPipeline
 import Amazonka.MediaLive.Types.RawSettings
+import Amazonka.MediaLive.Types.RebootInputDeviceForce
 import Amazonka.MediaLive.Types.Rec601Settings
 import Amazonka.MediaLive.Types.Rec709Settings
 import Amazonka.MediaLive.Types.RemixSettings
+import Amazonka.MediaLive.Types.RenewalSettings
 import Amazonka.MediaLive.Types.Reservation
+import Amazonka.MediaLive.Types.ReservationAutomaticRenewal
 import Amazonka.MediaLive.Types.ReservationCodec
 import Amazonka.MediaLive.Types.ReservationMaximumBitrate
 import Amazonka.MediaLive.Types.ReservationMaximumFramerate
@@ -3054,6 +3165,8 @@ import Amazonka.MediaLive.Types.Scte35DeliveryRestrictions
 import Amazonka.MediaLive.Types.Scte35Descriptor
 import Amazonka.MediaLive.Types.Scte35DescriptorSettings
 import Amazonka.MediaLive.Types.Scte35DeviceRestrictions
+import Amazonka.MediaLive.Types.Scte35InputMode
+import Amazonka.MediaLive.Types.Scte35InputScheduleActionSettings
 import Amazonka.MediaLive.Types.Scte35NoRegionalBlackoutFlag
 import Amazonka.MediaLive.Types.Scte35ReturnToNetworkScheduleActionSettings
 import Amazonka.MediaLive.Types.Scte35SegmentationCancelIndicator
@@ -3120,41 +3233,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "MediaLive",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "medialive",
-      Core._serviceSigningName = "medialive",
-      Core._serviceVersion = "2017-10-14",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError = Core.parseJSONError "MediaLive",
-      Core._serviceRetry = retry
+    { Core.abbrev = "MediaLive",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "medialive",
+      Core.signingName = "medialive",
+      Core.version = "2017-10-14",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "MediaLive",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -3162,45 +3283,37 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
 
--- | Placeholder documentation for GatewayTimeoutException
-_GatewayTimeoutException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_GatewayTimeoutException =
+-- | Placeholder documentation for BadGatewayException
+_BadGatewayException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_BadGatewayException =
   Core._MatchServiceError
     defaultService
-    "GatewayTimeoutException"
-    Prelude.. Core.hasStatus 504
+    "BadGatewayException"
+    Prelude.. Core.hasStatus 502
 
--- | Placeholder documentation for UnprocessableEntityException
-_UnprocessableEntityException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_UnprocessableEntityException =
+-- | Placeholder documentation for BadRequestException
+_BadRequestException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_BadRequestException =
   Core._MatchServiceError
     defaultService
-    "UnprocessableEntityException"
-    Prelude.. Core.hasStatus 422
+    "BadRequestException"
+    Prelude.. Core.hasStatus 400
 
 -- | Placeholder documentation for ConflictException
 _ConflictException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -3218,6 +3331,22 @@ _ForbiddenException =
     "ForbiddenException"
     Prelude.. Core.hasStatus 403
 
+-- | Placeholder documentation for GatewayTimeoutException
+_GatewayTimeoutException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_GatewayTimeoutException =
+  Core._MatchServiceError
+    defaultService
+    "GatewayTimeoutException"
+    Prelude.. Core.hasStatus 504
+
+-- | Placeholder documentation for InternalServerErrorException
+_InternalServerErrorException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InternalServerErrorException =
+  Core._MatchServiceError
+    defaultService
+    "InternalServerErrorException"
+    Prelude.. Core.hasStatus 500
+
 -- | Placeholder documentation for NotFoundException
 _NotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
 _NotFoundException =
@@ -3234,26 +3363,10 @@ _TooManyRequestsException =
     "TooManyRequestsException"
     Prelude.. Core.hasStatus 429
 
--- | Placeholder documentation for InternalServerErrorException
-_InternalServerErrorException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InternalServerErrorException =
+-- | Placeholder documentation for UnprocessableEntityException
+_UnprocessableEntityException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_UnprocessableEntityException =
   Core._MatchServiceError
     defaultService
-    "InternalServerErrorException"
-    Prelude.. Core.hasStatus 500
-
--- | Placeholder documentation for BadGatewayException
-_BadGatewayException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_BadGatewayException =
-  Core._MatchServiceError
-    defaultService
-    "BadGatewayException"
-    Prelude.. Core.hasStatus 502
-
--- | Placeholder documentation for BadRequestException
-_BadRequestException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_BadRequestException =
-  Core._MatchServiceError
-    defaultService
-    "BadRequestException"
-    Prelude.. Core.hasStatus 400
+    "UnprocessableEntityException"
+    Prelude.. Core.hasStatus 422

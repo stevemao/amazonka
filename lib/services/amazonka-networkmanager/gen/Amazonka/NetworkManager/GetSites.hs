@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkManager.GetSites
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.NetworkManager.GetSites
     newGetSites,
 
     -- * Request Lenses
+    getSites_maxResults,
     getSites_nextToken,
     getSites_siteIds,
-    getSites_maxResults,
     getSites_globalNetworkId,
 
     -- * Destructuring the Response
@@ -46,7 +46,8 @@ module Amazonka.NetworkManager.GetSites
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -54,12 +55,12 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetSites' smart constructor.
 data GetSites = GetSites'
-  { -- | The token for the next page of results.
+  { -- | The maximum number of results to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next page of results.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | One or more site IDs. The maximum is 10.
     siteIds :: Prelude.Maybe [Prelude.Text],
-    -- | The maximum number of results to return.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The ID of the global network.
     globalNetworkId :: Prelude.Text
   }
@@ -73,11 +74,11 @@ data GetSites = GetSites'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'getSites_maxResults' - The maximum number of results to return.
+--
 -- 'nextToken', 'getSites_nextToken' - The token for the next page of results.
 --
 -- 'siteIds', 'getSites_siteIds' - One or more site IDs. The maximum is 10.
---
--- 'maxResults', 'getSites_maxResults' - The maximum number of results to return.
 --
 -- 'globalNetworkId', 'getSites_globalNetworkId' - The ID of the global network.
 newGetSites ::
@@ -86,11 +87,15 @@ newGetSites ::
   GetSites
 newGetSites pGlobalNetworkId_ =
   GetSites'
-    { nextToken = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       siteIds = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
       globalNetworkId = pGlobalNetworkId_
     }
+
+-- | The maximum number of results to return.
+getSites_maxResults :: Lens.Lens' GetSites (Prelude.Maybe Prelude.Natural)
+getSites_maxResults = Lens.lens (\GetSites' {maxResults} -> maxResults) (\s@GetSites' {} a -> s {maxResults = a} :: GetSites)
 
 -- | The token for the next page of results.
 getSites_nextToken :: Lens.Lens' GetSites (Prelude.Maybe Prelude.Text)
@@ -99,10 +104,6 @@ getSites_nextToken = Lens.lens (\GetSites' {nextToken} -> nextToken) (\s@GetSite
 -- | One or more site IDs. The maximum is 10.
 getSites_siteIds :: Lens.Lens' GetSites (Prelude.Maybe [Prelude.Text])
 getSites_siteIds = Lens.lens (\GetSites' {siteIds} -> siteIds) (\s@GetSites' {} a -> s {siteIds = a} :: GetSites) Prelude.. Lens.mapping Lens.coerced
-
--- | The maximum number of results to return.
-getSites_maxResults :: Lens.Lens' GetSites (Prelude.Maybe Prelude.Natural)
-getSites_maxResults = Lens.lens (\GetSites' {maxResults} -> maxResults) (\s@GetSites' {} a -> s {maxResults = a} :: GetSites)
 
 -- | The ID of the global network.
 getSites_globalNetworkId :: Lens.Lens' GetSites Prelude.Text
@@ -129,57 +130,58 @@ instance Core.AWSPager GetSites where
 
 instance Core.AWSRequest GetSites where
   type AWSResponse GetSites = GetSitesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSitesResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Sites" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Sites" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetSites where
   hashWithSalt _salt GetSites' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` siteIds
-      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` globalNetworkId
 
 instance Prelude.NFData GetSites where
   rnf GetSites' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf siteIds
-      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf globalNetworkId
 
-instance Core.ToHeaders GetSites where
+instance Data.ToHeaders GetSites where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetSites where
+instance Data.ToPath GetSites where
   toPath GetSites' {..} =
     Prelude.mconcat
       [ "/global-networks/",
-        Core.toBS globalNetworkId,
+        Data.toBS globalNetworkId,
         "/sites"
       ]
 
-instance Core.ToQuery GetSites where
+instance Data.ToQuery GetSites where
   toQuery GetSites' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
         "siteIds"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> siteIds),
-        "maxResults" Core.=: maxResults
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> siteIds)
       ]
 
 -- | /See:/ 'newGetSitesResponse' smart constructor.

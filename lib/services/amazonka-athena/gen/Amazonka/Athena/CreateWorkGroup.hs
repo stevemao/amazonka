@@ -14,13 +14,16 @@
 
 -- |
 -- Module      : Amazonka.Athena.CreateWorkGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a workgroup with the specified name.
+-- Creates a workgroup with the specified name. Only one of
+-- @Configurations@ or @Configuration@ can be specified; @Configurations@
+-- for a workgroup with multi engine support (for example, an Apache Spark
+-- enabled workgroup) or @Configuration@ for an Athena SQL workgroup.
 module Amazonka.Athena.CreateWorkGroup
   ( -- * Creating a Request
     CreateWorkGroup (..),
@@ -43,20 +46,22 @@ where
 
 import Amazonka.Athena.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateWorkGroup' smart constructor.
 data CreateWorkGroup = CreateWorkGroup'
-  { -- | The configuration for the workgroup, which includes the location in
-    -- Amazon S3 where query results are stored, the encryption configuration,
-    -- if any, used for encrypting query results, whether the Amazon CloudWatch
-    -- Metrics are enabled for the workgroup, the limit for the amount of bytes
-    -- scanned (cutoff) per query, if it is specified, and whether workgroup\'s
-    -- settings (specified with @EnforceWorkGroupConfiguration@) in the
-    -- @WorkGroupConfiguration@ override client-side settings. See
+  { -- | Contains configuration information for creating an Athena SQL workgroup,
+    -- which includes the location in Amazon S3 where query results are stored,
+    -- the encryption configuration, if any, used for encrypting query results,
+    -- whether the Amazon CloudWatch Metrics are enabled for the workgroup, the
+    -- limit for the amount of bytes scanned (cutoff) per query, if it is
+    -- specified, and whether workgroup\'s settings (specified with
+    -- @EnforceWorkGroupConfiguration@) in the @WorkGroupConfiguration@
+    -- override client-side settings. See
     -- WorkGroupConfiguration$EnforceWorkGroupConfiguration.
     configuration :: Prelude.Maybe WorkGroupConfiguration,
     -- | The workgroup description.
@@ -76,13 +81,14 @@ data CreateWorkGroup = CreateWorkGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'configuration', 'createWorkGroup_configuration' - The configuration for the workgroup, which includes the location in
--- Amazon S3 where query results are stored, the encryption configuration,
--- if any, used for encrypting query results, whether the Amazon CloudWatch
--- Metrics are enabled for the workgroup, the limit for the amount of bytes
--- scanned (cutoff) per query, if it is specified, and whether workgroup\'s
--- settings (specified with @EnforceWorkGroupConfiguration@) in the
--- @WorkGroupConfiguration@ override client-side settings. See
+-- 'configuration', 'createWorkGroup_configuration' - Contains configuration information for creating an Athena SQL workgroup,
+-- which includes the location in Amazon S3 where query results are stored,
+-- the encryption configuration, if any, used for encrypting query results,
+-- whether the Amazon CloudWatch Metrics are enabled for the workgroup, the
+-- limit for the amount of bytes scanned (cutoff) per query, if it is
+-- specified, and whether workgroup\'s settings (specified with
+-- @EnforceWorkGroupConfiguration@) in the @WorkGroupConfiguration@
+-- override client-side settings. See
 -- WorkGroupConfiguration$EnforceWorkGroupConfiguration.
 --
 -- 'description', 'createWorkGroup_description' - The workgroup description.
@@ -102,13 +108,14 @@ newCreateWorkGroup pName_ =
       name = pName_
     }
 
--- | The configuration for the workgroup, which includes the location in
--- Amazon S3 where query results are stored, the encryption configuration,
--- if any, used for encrypting query results, whether the Amazon CloudWatch
--- Metrics are enabled for the workgroup, the limit for the amount of bytes
--- scanned (cutoff) per query, if it is specified, and whether workgroup\'s
--- settings (specified with @EnforceWorkGroupConfiguration@) in the
--- @WorkGroupConfiguration@ override client-side settings. See
+-- | Contains configuration information for creating an Athena SQL workgroup,
+-- which includes the location in Amazon S3 where query results are stored,
+-- the encryption configuration, if any, used for encrypting query results,
+-- whether the Amazon CloudWatch Metrics are enabled for the workgroup, the
+-- limit for the amount of bytes scanned (cutoff) per query, if it is
+-- specified, and whether workgroup\'s settings (specified with
+-- @EnforceWorkGroupConfiguration@) in the @WorkGroupConfiguration@
+-- override client-side settings. See
 -- WorkGroupConfiguration$EnforceWorkGroupConfiguration.
 createWorkGroup_configuration :: Lens.Lens' CreateWorkGroup (Prelude.Maybe WorkGroupConfiguration)
 createWorkGroup_configuration = Lens.lens (\CreateWorkGroup' {configuration} -> configuration) (\s@CreateWorkGroup' {} a -> s {configuration = a} :: CreateWorkGroup)
@@ -129,7 +136,8 @@ instance Core.AWSRequest CreateWorkGroup where
   type
     AWSResponse CreateWorkGroup =
       CreateWorkGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -151,36 +159,36 @@ instance Prelude.NFData CreateWorkGroup where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreateWorkGroup where
+instance Data.ToHeaders CreateWorkGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonAthena.CreateWorkGroup" ::
+              Data.=# ( "AmazonAthena.CreateWorkGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateWorkGroup where
+instance Data.ToJSON CreateWorkGroup where
   toJSON CreateWorkGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Configuration" Core..=) Prelude.<$> configuration,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name)
+          [ ("Configuration" Data..=) Prelude.<$> configuration,
+            ("Description" Data..=) Prelude.<$> description,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateWorkGroup where
+instance Data.ToPath CreateWorkGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateWorkGroup where
+instance Data.ToQuery CreateWorkGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateWorkGroupResponse' smart constructor.

@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,23 +20,29 @@ module Amazonka.Personalize
     -- * Errors
     -- $errors
 
-    -- ** ResourceAlreadyExistsException
-    _ResourceAlreadyExistsException,
+    -- ** InvalidInputException
+    _InvalidInputException,
 
     -- ** InvalidNextTokenException
     _InvalidNextTokenException,
 
-    -- ** InvalidInputException
-    _InvalidInputException,
+    -- ** LimitExceededException
+    _LimitExceededException,
+
+    -- ** ResourceAlreadyExistsException
+    _ResourceAlreadyExistsException,
+
+    -- ** ResourceInUseException
+    _ResourceInUseException,
 
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
 
-    -- ** LimitExceededException
-    _LimitExceededException,
+    -- ** TooManyTagKeysException
+    _TooManyTagKeysException,
 
-    -- ** ResourceInUseException
-    _ResourceInUseException,
+    -- ** TooManyTagsException
+    _TooManyTagsException,
 
     -- * Waiters
     -- $waiters
@@ -44,77 +50,17 @@ module Amazonka.Personalize
     -- * Operations
     -- $operations
 
-    -- ** ListDatasetGroups (Paginated)
-    ListDatasetGroups (ListDatasetGroups'),
-    newListDatasetGroups,
-    ListDatasetGroupsResponse (ListDatasetGroupsResponse'),
-    newListDatasetGroupsResponse,
-
     -- ** CreateBatchInferenceJob
     CreateBatchInferenceJob (CreateBatchInferenceJob'),
     newCreateBatchInferenceJob,
     CreateBatchInferenceJobResponse (CreateBatchInferenceJobResponse'),
     newCreateBatchInferenceJobResponse,
 
-    -- ** CreateFilter
-    CreateFilter (CreateFilter'),
-    newCreateFilter,
-    CreateFilterResponse (CreateFilterResponse'),
-    newCreateFilterResponse,
-
-    -- ** CreateDatasetImportJob
-    CreateDatasetImportJob (CreateDatasetImportJob'),
-    newCreateDatasetImportJob,
-    CreateDatasetImportJobResponse (CreateDatasetImportJobResponse'),
-    newCreateDatasetImportJobResponse,
-
-    -- ** DescribeSolution
-    DescribeSolution (DescribeSolution'),
-    newDescribeSolution,
-    DescribeSolutionResponse (DescribeSolutionResponse'),
-    newDescribeSolutionResponse,
-
-    -- ** DescribeDatasetExportJob
-    DescribeDatasetExportJob (DescribeDatasetExportJob'),
-    newDescribeDatasetExportJob,
-    DescribeDatasetExportJobResponse (DescribeDatasetExportJobResponse'),
-    newDescribeDatasetExportJobResponse,
-
-    -- ** DeleteCampaign
-    DeleteCampaign (DeleteCampaign'),
-    newDeleteCampaign,
-    DeleteCampaignResponse (DeleteCampaignResponse'),
-    newDeleteCampaignResponse,
-
-    -- ** UpdateCampaign
-    UpdateCampaign (UpdateCampaign'),
-    newUpdateCampaign,
-    UpdateCampaignResponse (UpdateCampaignResponse'),
-    newUpdateCampaignResponse,
-
-    -- ** ListCampaigns (Paginated)
-    ListCampaigns (ListCampaigns'),
-    newListCampaigns,
-    ListCampaignsResponse (ListCampaignsResponse'),
-    newListCampaignsResponse,
-
-    -- ** DescribeDataset
-    DescribeDataset (DescribeDataset'),
-    newDescribeDataset,
-    DescribeDatasetResponse (DescribeDatasetResponse'),
-    newDescribeDatasetResponse,
-
-    -- ** CreateSolutionVersion
-    CreateSolutionVersion (CreateSolutionVersion'),
-    newCreateSolutionVersion,
-    CreateSolutionVersionResponse (CreateSolutionVersionResponse'),
-    newCreateSolutionVersionResponse,
-
-    -- ** StopSolutionVersionCreation
-    StopSolutionVersionCreation (StopSolutionVersionCreation'),
-    newStopSolutionVersionCreation,
-    StopSolutionVersionCreationResponse (StopSolutionVersionCreationResponse'),
-    newStopSolutionVersionCreationResponse,
+    -- ** CreateBatchSegmentJob
+    CreateBatchSegmentJob (CreateBatchSegmentJob'),
+    newCreateBatchSegmentJob,
+    CreateBatchSegmentJobResponse (CreateBatchSegmentJobResponse'),
+    newCreateBatchSegmentJobResponse,
 
     -- ** CreateCampaign
     CreateCampaign (CreateCampaign'),
@@ -122,17 +68,11 @@ module Amazonka.Personalize
     CreateCampaignResponse (CreateCampaignResponse'),
     newCreateCampaignResponse,
 
-    -- ** DescribeFilter
-    DescribeFilter (DescribeFilter'),
-    newDescribeFilter,
-    DescribeFilterResponse (DescribeFilterResponse'),
-    newDescribeFilterResponse,
-
-    -- ** ListEventTrackers (Paginated)
-    ListEventTrackers (ListEventTrackers'),
-    newListEventTrackers,
-    ListEventTrackersResponse (ListEventTrackersResponse'),
-    newListEventTrackersResponse,
+    -- ** CreateDataset
+    CreateDataset (CreateDataset'),
+    newCreateDataset,
+    CreateDatasetResponse (CreateDatasetResponse'),
+    newCreateDatasetResponse,
 
     -- ** CreateDatasetExportJob
     CreateDatasetExportJob (CreateDatasetExportJob'),
@@ -140,29 +80,17 @@ module Amazonka.Personalize
     CreateDatasetExportJobResponse (CreateDatasetExportJobResponse'),
     newCreateDatasetExportJobResponse,
 
-    -- ** CreateSolution
-    CreateSolution (CreateSolution'),
-    newCreateSolution,
-    CreateSolutionResponse (CreateSolutionResponse'),
-    newCreateSolutionResponse,
+    -- ** CreateDatasetGroup
+    CreateDatasetGroup (CreateDatasetGroup'),
+    newCreateDatasetGroup,
+    CreateDatasetGroupResponse (CreateDatasetGroupResponse'),
+    newCreateDatasetGroupResponse,
 
-    -- ** DeleteEventTracker
-    DeleteEventTracker (DeleteEventTracker'),
-    newDeleteEventTracker,
-    DeleteEventTrackerResponse (DeleteEventTrackerResponse'),
-    newDeleteEventTrackerResponse,
-
-    -- ** DescribeDatasetImportJob
-    DescribeDatasetImportJob (DescribeDatasetImportJob'),
-    newDescribeDatasetImportJob,
-    DescribeDatasetImportJobResponse (DescribeDatasetImportJobResponse'),
-    newDescribeDatasetImportJobResponse,
-
-    -- ** ListSchemas (Paginated)
-    ListSchemas (ListSchemas'),
-    newListSchemas,
-    ListSchemasResponse (ListSchemasResponse'),
-    newListSchemasResponse,
+    -- ** CreateDatasetImportJob
+    CreateDatasetImportJob (CreateDatasetImportJob'),
+    newCreateDatasetImportJob,
+    CreateDatasetImportJobResponse (CreateDatasetImportJobResponse'),
+    newCreateDatasetImportJobResponse,
 
     -- ** CreateEventTracker
     CreateEventTracker (CreateEventTracker'),
@@ -170,95 +98,23 @@ module Amazonka.Personalize
     CreateEventTrackerResponse (CreateEventTrackerResponse'),
     newCreateEventTrackerResponse,
 
-    -- ** DeleteSolution
-    DeleteSolution (DeleteSolution'),
-    newDeleteSolution,
-    DeleteSolutionResponse (DeleteSolutionResponse'),
-    newDeleteSolutionResponse,
+    -- ** CreateFilter
+    CreateFilter (CreateFilter'),
+    newCreateFilter,
+    CreateFilterResponse (CreateFilterResponse'),
+    newCreateFilterResponse,
 
-    -- ** DescribeCampaign
-    DescribeCampaign (DescribeCampaign'),
-    newDescribeCampaign,
-    DescribeCampaignResponse (DescribeCampaignResponse'),
-    newDescribeCampaignResponse,
+    -- ** CreateMetricAttribution
+    CreateMetricAttribution (CreateMetricAttribution'),
+    newCreateMetricAttribution,
+    CreateMetricAttributionResponse (CreateMetricAttributionResponse'),
+    newCreateMetricAttributionResponse,
 
-    -- ** DeleteDataset
-    DeleteDataset (DeleteDataset'),
-    newDeleteDataset,
-    DeleteDatasetResponse (DeleteDatasetResponse'),
-    newDeleteDatasetResponse,
-
-    -- ** CreateDataset
-    CreateDataset (CreateDataset'),
-    newCreateDataset,
-    CreateDatasetResponse (CreateDatasetResponse'),
-    newCreateDatasetResponse,
-
-    -- ** DescribeSolutionVersion
-    DescribeSolutionVersion (DescribeSolutionVersion'),
-    newDescribeSolutionVersion,
-    DescribeSolutionVersionResponse (DescribeSolutionVersionResponse'),
-    newDescribeSolutionVersionResponse,
-
-    -- ** DescribeEventTracker
-    DescribeEventTracker (DescribeEventTracker'),
-    newDescribeEventTracker,
-    DescribeEventTrackerResponse (DescribeEventTrackerResponse'),
-    newDescribeEventTrackerResponse,
-
-    -- ** ListDatasetImportJobs (Paginated)
-    ListDatasetImportJobs (ListDatasetImportJobs'),
-    newListDatasetImportJobs,
-    ListDatasetImportJobsResponse (ListDatasetImportJobsResponse'),
-    newListDatasetImportJobsResponse,
-
-    -- ** DeleteFilter
-    DeleteFilter (DeleteFilter'),
-    newDeleteFilter,
-    DeleteFilterResponse (DeleteFilterResponse'),
-    newDeleteFilterResponse,
-
-    -- ** ListBatchInferenceJobs (Paginated)
-    ListBatchInferenceJobs (ListBatchInferenceJobs'),
-    newListBatchInferenceJobs,
-    ListBatchInferenceJobsResponse (ListBatchInferenceJobsResponse'),
-    newListBatchInferenceJobsResponse,
-
-    -- ** ListFilters (Paginated)
-    ListFilters (ListFilters'),
-    newListFilters,
-    ListFiltersResponse (ListFiltersResponse'),
-    newListFiltersResponse,
-
-    -- ** DeleteDatasetGroup
-    DeleteDatasetGroup (DeleteDatasetGroup'),
-    newDeleteDatasetGroup,
-    DeleteDatasetGroupResponse (DeleteDatasetGroupResponse'),
-    newDeleteDatasetGroupResponse,
-
-    -- ** DescribeSchema
-    DescribeSchema (DescribeSchema'),
-    newDescribeSchema,
-    DescribeSchemaResponse (DescribeSchemaResponse'),
-    newDescribeSchemaResponse,
-
-    -- ** DescribeAlgorithm
-    DescribeAlgorithm (DescribeAlgorithm'),
-    newDescribeAlgorithm,
-    DescribeAlgorithmResponse (DescribeAlgorithmResponse'),
-    newDescribeAlgorithmResponse,
-
-    -- ** ListSolutionVersions (Paginated)
-    ListSolutionVersions (ListSolutionVersions'),
-    newListSolutionVersions,
-    ListSolutionVersionsResponse (ListSolutionVersionsResponse'),
-    newListSolutionVersionsResponse,
-
-    -- ** DescribeBatchInferenceJob
-    DescribeBatchInferenceJob (DescribeBatchInferenceJob'),
-    newDescribeBatchInferenceJob,
-    DescribeBatchInferenceJobResponse (DescribeBatchInferenceJobResponse'),
-    newDescribeBatchInferenceJobResponse,
+    -- ** CreateRecommender
+    CreateRecommender (CreateRecommender'),
+    newCreateRecommender,
+    CreateRecommenderResponse (CreateRecommenderResponse'),
+    newCreateRecommenderResponse,
 
     -- ** CreateSchema
     CreateSchema (CreateSchema'),
@@ -266,41 +122,59 @@ module Amazonka.Personalize
     CreateSchemaResponse (CreateSchemaResponse'),
     newCreateSchemaResponse,
 
-    -- ** DescribeRecipe
-    DescribeRecipe (DescribeRecipe'),
-    newDescribeRecipe,
-    DescribeRecipeResponse (DescribeRecipeResponse'),
-    newDescribeRecipeResponse,
+    -- ** CreateSolution
+    CreateSolution (CreateSolution'),
+    newCreateSolution,
+    CreateSolutionResponse (CreateSolutionResponse'),
+    newCreateSolutionResponse,
 
-    -- ** ListSolutions (Paginated)
-    ListSolutions (ListSolutions'),
-    newListSolutions,
-    ListSolutionsResponse (ListSolutionsResponse'),
-    newListSolutionsResponse,
+    -- ** CreateSolutionVersion
+    CreateSolutionVersion (CreateSolutionVersion'),
+    newCreateSolutionVersion,
+    CreateSolutionVersionResponse (CreateSolutionVersionResponse'),
+    newCreateSolutionVersionResponse,
 
-    -- ** ListDatasetExportJobs (Paginated)
-    ListDatasetExportJobs (ListDatasetExportJobs'),
-    newListDatasetExportJobs,
-    ListDatasetExportJobsResponse (ListDatasetExportJobsResponse'),
-    newListDatasetExportJobsResponse,
+    -- ** DeleteCampaign
+    DeleteCampaign (DeleteCampaign'),
+    newDeleteCampaign,
+    DeleteCampaignResponse (DeleteCampaignResponse'),
+    newDeleteCampaignResponse,
 
-    -- ** DescribeDatasetGroup
-    DescribeDatasetGroup (DescribeDatasetGroup'),
-    newDescribeDatasetGroup,
-    DescribeDatasetGroupResponse (DescribeDatasetGroupResponse'),
-    newDescribeDatasetGroupResponse,
+    -- ** DeleteDataset
+    DeleteDataset (DeleteDataset'),
+    newDeleteDataset,
+    DeleteDatasetResponse (DeleteDatasetResponse'),
+    newDeleteDatasetResponse,
 
-    -- ** DescribeFeatureTransformation
-    DescribeFeatureTransformation (DescribeFeatureTransformation'),
-    newDescribeFeatureTransformation,
-    DescribeFeatureTransformationResponse (DescribeFeatureTransformationResponse'),
-    newDescribeFeatureTransformationResponse,
+    -- ** DeleteDatasetGroup
+    DeleteDatasetGroup (DeleteDatasetGroup'),
+    newDeleteDatasetGroup,
+    DeleteDatasetGroupResponse (DeleteDatasetGroupResponse'),
+    newDeleteDatasetGroupResponse,
 
-    -- ** GetSolutionMetrics
-    GetSolutionMetrics (GetSolutionMetrics'),
-    newGetSolutionMetrics,
-    GetSolutionMetricsResponse (GetSolutionMetricsResponse'),
-    newGetSolutionMetricsResponse,
+    -- ** DeleteEventTracker
+    DeleteEventTracker (DeleteEventTracker'),
+    newDeleteEventTracker,
+    DeleteEventTrackerResponse (DeleteEventTrackerResponse'),
+    newDeleteEventTrackerResponse,
+
+    -- ** DeleteFilter
+    DeleteFilter (DeleteFilter'),
+    newDeleteFilter,
+    DeleteFilterResponse (DeleteFilterResponse'),
+    newDeleteFilterResponse,
+
+    -- ** DeleteMetricAttribution
+    DeleteMetricAttribution (DeleteMetricAttribution'),
+    newDeleteMetricAttribution,
+    DeleteMetricAttributionResponse (DeleteMetricAttributionResponse'),
+    newDeleteMetricAttributionResponse,
+
+    -- ** DeleteRecommender
+    DeleteRecommender (DeleteRecommender'),
+    newDeleteRecommender,
+    DeleteRecommenderResponse (DeleteRecommenderResponse'),
+    newDeleteRecommenderResponse,
 
     -- ** DeleteSchema
     DeleteSchema (DeleteSchema'),
@@ -308,17 +182,185 @@ module Amazonka.Personalize
     DeleteSchemaResponse (DeleteSchemaResponse'),
     newDeleteSchemaResponse,
 
+    -- ** DeleteSolution
+    DeleteSolution (DeleteSolution'),
+    newDeleteSolution,
+    DeleteSolutionResponse (DeleteSolutionResponse'),
+    newDeleteSolutionResponse,
+
+    -- ** DescribeAlgorithm
+    DescribeAlgorithm (DescribeAlgorithm'),
+    newDescribeAlgorithm,
+    DescribeAlgorithmResponse (DescribeAlgorithmResponse'),
+    newDescribeAlgorithmResponse,
+
+    -- ** DescribeBatchInferenceJob
+    DescribeBatchInferenceJob (DescribeBatchInferenceJob'),
+    newDescribeBatchInferenceJob,
+    DescribeBatchInferenceJobResponse (DescribeBatchInferenceJobResponse'),
+    newDescribeBatchInferenceJobResponse,
+
+    -- ** DescribeBatchSegmentJob
+    DescribeBatchSegmentJob (DescribeBatchSegmentJob'),
+    newDescribeBatchSegmentJob,
+    DescribeBatchSegmentJobResponse (DescribeBatchSegmentJobResponse'),
+    newDescribeBatchSegmentJobResponse,
+
+    -- ** DescribeCampaign
+    DescribeCampaign (DescribeCampaign'),
+    newDescribeCampaign,
+    DescribeCampaignResponse (DescribeCampaignResponse'),
+    newDescribeCampaignResponse,
+
+    -- ** DescribeDataset
+    DescribeDataset (DescribeDataset'),
+    newDescribeDataset,
+    DescribeDatasetResponse (DescribeDatasetResponse'),
+    newDescribeDatasetResponse,
+
+    -- ** DescribeDatasetExportJob
+    DescribeDatasetExportJob (DescribeDatasetExportJob'),
+    newDescribeDatasetExportJob,
+    DescribeDatasetExportJobResponse (DescribeDatasetExportJobResponse'),
+    newDescribeDatasetExportJobResponse,
+
+    -- ** DescribeDatasetGroup
+    DescribeDatasetGroup (DescribeDatasetGroup'),
+    newDescribeDatasetGroup,
+    DescribeDatasetGroupResponse (DescribeDatasetGroupResponse'),
+    newDescribeDatasetGroupResponse,
+
+    -- ** DescribeDatasetImportJob
+    DescribeDatasetImportJob (DescribeDatasetImportJob'),
+    newDescribeDatasetImportJob,
+    DescribeDatasetImportJobResponse (DescribeDatasetImportJobResponse'),
+    newDescribeDatasetImportJobResponse,
+
+    -- ** DescribeEventTracker
+    DescribeEventTracker (DescribeEventTracker'),
+    newDescribeEventTracker,
+    DescribeEventTrackerResponse (DescribeEventTrackerResponse'),
+    newDescribeEventTrackerResponse,
+
+    -- ** DescribeFeatureTransformation
+    DescribeFeatureTransformation (DescribeFeatureTransformation'),
+    newDescribeFeatureTransformation,
+    DescribeFeatureTransformationResponse (DescribeFeatureTransformationResponse'),
+    newDescribeFeatureTransformationResponse,
+
+    -- ** DescribeFilter
+    DescribeFilter (DescribeFilter'),
+    newDescribeFilter,
+    DescribeFilterResponse (DescribeFilterResponse'),
+    newDescribeFilterResponse,
+
+    -- ** DescribeMetricAttribution
+    DescribeMetricAttribution (DescribeMetricAttribution'),
+    newDescribeMetricAttribution,
+    DescribeMetricAttributionResponse (DescribeMetricAttributionResponse'),
+    newDescribeMetricAttributionResponse,
+
+    -- ** DescribeRecipe
+    DescribeRecipe (DescribeRecipe'),
+    newDescribeRecipe,
+    DescribeRecipeResponse (DescribeRecipeResponse'),
+    newDescribeRecipeResponse,
+
+    -- ** DescribeRecommender
+    DescribeRecommender (DescribeRecommender'),
+    newDescribeRecommender,
+    DescribeRecommenderResponse (DescribeRecommenderResponse'),
+    newDescribeRecommenderResponse,
+
+    -- ** DescribeSchema
+    DescribeSchema (DescribeSchema'),
+    newDescribeSchema,
+    DescribeSchemaResponse (DescribeSchemaResponse'),
+    newDescribeSchemaResponse,
+
+    -- ** DescribeSolution
+    DescribeSolution (DescribeSolution'),
+    newDescribeSolution,
+    DescribeSolutionResponse (DescribeSolutionResponse'),
+    newDescribeSolutionResponse,
+
+    -- ** DescribeSolutionVersion
+    DescribeSolutionVersion (DescribeSolutionVersion'),
+    newDescribeSolutionVersion,
+    DescribeSolutionVersionResponse (DescribeSolutionVersionResponse'),
+    newDescribeSolutionVersionResponse,
+
+    -- ** GetSolutionMetrics
+    GetSolutionMetrics (GetSolutionMetrics'),
+    newGetSolutionMetrics,
+    GetSolutionMetricsResponse (GetSolutionMetricsResponse'),
+    newGetSolutionMetricsResponse,
+
+    -- ** ListBatchInferenceJobs (Paginated)
+    ListBatchInferenceJobs (ListBatchInferenceJobs'),
+    newListBatchInferenceJobs,
+    ListBatchInferenceJobsResponse (ListBatchInferenceJobsResponse'),
+    newListBatchInferenceJobsResponse,
+
+    -- ** ListBatchSegmentJobs (Paginated)
+    ListBatchSegmentJobs (ListBatchSegmentJobs'),
+    newListBatchSegmentJobs,
+    ListBatchSegmentJobsResponse (ListBatchSegmentJobsResponse'),
+    newListBatchSegmentJobsResponse,
+
+    -- ** ListCampaigns (Paginated)
+    ListCampaigns (ListCampaigns'),
+    newListCampaigns,
+    ListCampaignsResponse (ListCampaignsResponse'),
+    newListCampaignsResponse,
+
+    -- ** ListDatasetExportJobs (Paginated)
+    ListDatasetExportJobs (ListDatasetExportJobs'),
+    newListDatasetExportJobs,
+    ListDatasetExportJobsResponse (ListDatasetExportJobsResponse'),
+    newListDatasetExportJobsResponse,
+
+    -- ** ListDatasetGroups (Paginated)
+    ListDatasetGroups (ListDatasetGroups'),
+    newListDatasetGroups,
+    ListDatasetGroupsResponse (ListDatasetGroupsResponse'),
+    newListDatasetGroupsResponse,
+
+    -- ** ListDatasetImportJobs (Paginated)
+    ListDatasetImportJobs (ListDatasetImportJobs'),
+    newListDatasetImportJobs,
+    ListDatasetImportJobsResponse (ListDatasetImportJobsResponse'),
+    newListDatasetImportJobsResponse,
+
     -- ** ListDatasets (Paginated)
     ListDatasets (ListDatasets'),
     newListDatasets,
     ListDatasetsResponse (ListDatasetsResponse'),
     newListDatasetsResponse,
 
-    -- ** CreateDatasetGroup
-    CreateDatasetGroup (CreateDatasetGroup'),
-    newCreateDatasetGroup,
-    CreateDatasetGroupResponse (CreateDatasetGroupResponse'),
-    newCreateDatasetGroupResponse,
+    -- ** ListEventTrackers (Paginated)
+    ListEventTrackers (ListEventTrackers'),
+    newListEventTrackers,
+    ListEventTrackersResponse (ListEventTrackersResponse'),
+    newListEventTrackersResponse,
+
+    -- ** ListFilters (Paginated)
+    ListFilters (ListFilters'),
+    newListFilters,
+    ListFiltersResponse (ListFiltersResponse'),
+    newListFiltersResponse,
+
+    -- ** ListMetricAttributionMetrics (Paginated)
+    ListMetricAttributionMetrics (ListMetricAttributionMetrics'),
+    newListMetricAttributionMetrics,
+    ListMetricAttributionMetricsResponse (ListMetricAttributionMetricsResponse'),
+    newListMetricAttributionMetricsResponse,
+
+    -- ** ListMetricAttributions (Paginated)
+    ListMetricAttributions (ListMetricAttributions'),
+    newListMetricAttributions,
+    ListMetricAttributionsResponse (ListMetricAttributionsResponse'),
+    newListMetricAttributionsResponse,
 
     -- ** ListRecipes (Paginated)
     ListRecipes (ListRecipes'),
@@ -326,7 +368,91 @@ module Amazonka.Personalize
     ListRecipesResponse (ListRecipesResponse'),
     newListRecipesResponse,
 
+    -- ** ListRecommenders (Paginated)
+    ListRecommenders (ListRecommenders'),
+    newListRecommenders,
+    ListRecommendersResponse (ListRecommendersResponse'),
+    newListRecommendersResponse,
+
+    -- ** ListSchemas (Paginated)
+    ListSchemas (ListSchemas'),
+    newListSchemas,
+    ListSchemasResponse (ListSchemasResponse'),
+    newListSchemasResponse,
+
+    -- ** ListSolutionVersions (Paginated)
+    ListSolutionVersions (ListSolutionVersions'),
+    newListSolutionVersions,
+    ListSolutionVersionsResponse (ListSolutionVersionsResponse'),
+    newListSolutionVersionsResponse,
+
+    -- ** ListSolutions (Paginated)
+    ListSolutions (ListSolutions'),
+    newListSolutions,
+    ListSolutionsResponse (ListSolutionsResponse'),
+    newListSolutionsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** StartRecommender
+    StartRecommender (StartRecommender'),
+    newStartRecommender,
+    StartRecommenderResponse (StartRecommenderResponse'),
+    newStartRecommenderResponse,
+
+    -- ** StopRecommender
+    StopRecommender (StopRecommender'),
+    newStopRecommender,
+    StopRecommenderResponse (StopRecommenderResponse'),
+    newStopRecommenderResponse,
+
+    -- ** StopSolutionVersionCreation
+    StopSolutionVersionCreation (StopSolutionVersionCreation'),
+    newStopSolutionVersionCreation,
+    StopSolutionVersionCreationResponse (StopSolutionVersionCreationResponse'),
+    newStopSolutionVersionCreationResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UpdateCampaign
+    UpdateCampaign (UpdateCampaign'),
+    newUpdateCampaign,
+    UpdateCampaignResponse (UpdateCampaignResponse'),
+    newUpdateCampaignResponse,
+
+    -- ** UpdateMetricAttribution
+    UpdateMetricAttribution (UpdateMetricAttribution'),
+    newUpdateMetricAttribution,
+    UpdateMetricAttributionResponse (UpdateMetricAttributionResponse'),
+    newUpdateMetricAttributionResponse,
+
+    -- ** UpdateRecommender
+    UpdateRecommender (UpdateRecommender'),
+    newUpdateRecommender,
+    UpdateRecommenderResponse (UpdateRecommenderResponse'),
+    newUpdateRecommenderResponse,
+
     -- * Types
+
+    -- ** Domain
+    Domain (..),
+
+    -- ** ImportMode
+    ImportMode (..),
 
     -- ** IngestionMode
     IngestionMode (..),
@@ -375,6 +501,22 @@ module Amazonka.Personalize
     -- ** BatchInferenceJobSummary
     BatchInferenceJobSummary (BatchInferenceJobSummary'),
     newBatchInferenceJobSummary,
+
+    -- ** BatchSegmentJob
+    BatchSegmentJob (BatchSegmentJob'),
+    newBatchSegmentJob,
+
+    -- ** BatchSegmentJobInput
+    BatchSegmentJobInput (BatchSegmentJobInput'),
+    newBatchSegmentJobInput,
+
+    -- ** BatchSegmentJobOutput
+    BatchSegmentJobOutput (BatchSegmentJobOutput'),
+    newBatchSegmentJobOutput,
+
+    -- ** BatchSegmentJobSummary
+    BatchSegmentJobSummary (BatchSegmentJobSummary'),
+    newBatchSegmentJobSummary,
 
     -- ** Campaign
     Campaign (Campaign'),
@@ -504,6 +646,22 @@ module Amazonka.Personalize
     IntegerHyperParameterRange (IntegerHyperParameterRange'),
     newIntegerHyperParameterRange,
 
+    -- ** MetricAttribute
+    MetricAttribute (MetricAttribute'),
+    newMetricAttribute,
+
+    -- ** MetricAttribution
+    MetricAttribution (MetricAttribution'),
+    newMetricAttribution,
+
+    -- ** MetricAttributionOutput
+    MetricAttributionOutput (MetricAttributionOutput'),
+    newMetricAttributionOutput,
+
+    -- ** MetricAttributionSummary
+    MetricAttributionSummary (MetricAttributionSummary'),
+    newMetricAttributionSummary,
+
     -- ** OptimizationObjective
     OptimizationObjective (OptimizationObjective'),
     newOptimizationObjective,
@@ -515,6 +673,22 @@ module Amazonka.Personalize
     -- ** RecipeSummary
     RecipeSummary (RecipeSummary'),
     newRecipeSummary,
+
+    -- ** Recommender
+    Recommender (Recommender'),
+    newRecommender,
+
+    -- ** RecommenderConfig
+    RecommenderConfig (RecommenderConfig'),
+    newRecommenderConfig,
+
+    -- ** RecommenderSummary
+    RecommenderSummary (RecommenderSummary'),
+    newRecommenderSummary,
+
+    -- ** RecommenderUpdateSummary
+    RecommenderUpdateSummary (RecommenderUpdateSummary'),
+    newRecommenderUpdateSummary,
 
     -- ** S3DataConfig
     S3DataConfig (S3DataConfig'),
@@ -540,6 +714,10 @@ module Amazonka.Personalize
     SolutionVersionSummary (SolutionVersionSummary'),
     newSolutionVersionSummary,
 
+    -- ** Tag
+    Tag (Tag'),
+    newTag,
+
     -- ** TunedHPOParams
     TunedHPOParams (TunedHPOParams'),
     newTunedHPOParams,
@@ -547,6 +725,7 @@ module Amazonka.Personalize
 where
 
 import Amazonka.Personalize.CreateBatchInferenceJob
+import Amazonka.Personalize.CreateBatchSegmentJob
 import Amazonka.Personalize.CreateCampaign
 import Amazonka.Personalize.CreateDataset
 import Amazonka.Personalize.CreateDatasetExportJob
@@ -554,6 +733,8 @@ import Amazonka.Personalize.CreateDatasetGroup
 import Amazonka.Personalize.CreateDatasetImportJob
 import Amazonka.Personalize.CreateEventTracker
 import Amazonka.Personalize.CreateFilter
+import Amazonka.Personalize.CreateMetricAttribution
+import Amazonka.Personalize.CreateRecommender
 import Amazonka.Personalize.CreateSchema
 import Amazonka.Personalize.CreateSolution
 import Amazonka.Personalize.CreateSolutionVersion
@@ -562,10 +743,13 @@ import Amazonka.Personalize.DeleteDataset
 import Amazonka.Personalize.DeleteDatasetGroup
 import Amazonka.Personalize.DeleteEventTracker
 import Amazonka.Personalize.DeleteFilter
+import Amazonka.Personalize.DeleteMetricAttribution
+import Amazonka.Personalize.DeleteRecommender
 import Amazonka.Personalize.DeleteSchema
 import Amazonka.Personalize.DeleteSolution
 import Amazonka.Personalize.DescribeAlgorithm
 import Amazonka.Personalize.DescribeBatchInferenceJob
+import Amazonka.Personalize.DescribeBatchSegmentJob
 import Amazonka.Personalize.DescribeCampaign
 import Amazonka.Personalize.DescribeDataset
 import Amazonka.Personalize.DescribeDatasetExportJob
@@ -574,13 +758,16 @@ import Amazonka.Personalize.DescribeDatasetImportJob
 import Amazonka.Personalize.DescribeEventTracker
 import Amazonka.Personalize.DescribeFeatureTransformation
 import Amazonka.Personalize.DescribeFilter
+import Amazonka.Personalize.DescribeMetricAttribution
 import Amazonka.Personalize.DescribeRecipe
+import Amazonka.Personalize.DescribeRecommender
 import Amazonka.Personalize.DescribeSchema
 import Amazonka.Personalize.DescribeSolution
 import Amazonka.Personalize.DescribeSolutionVersion
 import Amazonka.Personalize.GetSolutionMetrics
 import Amazonka.Personalize.Lens
 import Amazonka.Personalize.ListBatchInferenceJobs
+import Amazonka.Personalize.ListBatchSegmentJobs
 import Amazonka.Personalize.ListCampaigns
 import Amazonka.Personalize.ListDatasetExportJobs
 import Amazonka.Personalize.ListDatasetGroups
@@ -588,13 +775,23 @@ import Amazonka.Personalize.ListDatasetImportJobs
 import Amazonka.Personalize.ListDatasets
 import Amazonka.Personalize.ListEventTrackers
 import Amazonka.Personalize.ListFilters
+import Amazonka.Personalize.ListMetricAttributionMetrics
+import Amazonka.Personalize.ListMetricAttributions
 import Amazonka.Personalize.ListRecipes
+import Amazonka.Personalize.ListRecommenders
 import Amazonka.Personalize.ListSchemas
 import Amazonka.Personalize.ListSolutionVersions
 import Amazonka.Personalize.ListSolutions
+import Amazonka.Personalize.ListTagsForResource
+import Amazonka.Personalize.StartRecommender
+import Amazonka.Personalize.StopRecommender
 import Amazonka.Personalize.StopSolutionVersionCreation
+import Amazonka.Personalize.TagResource
 import Amazonka.Personalize.Types
+import Amazonka.Personalize.UntagResource
 import Amazonka.Personalize.UpdateCampaign
+import Amazonka.Personalize.UpdateMetricAttribution
+import Amazonka.Personalize.UpdateRecommender
 import Amazonka.Personalize.Waiters
 
 -- $errors

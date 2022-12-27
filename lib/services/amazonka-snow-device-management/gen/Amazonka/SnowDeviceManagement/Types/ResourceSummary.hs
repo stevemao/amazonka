@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SnowDeviceManagement.Types.ResourceSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SnowDeviceManagement.Types.ResourceSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A summary of a resource available on the device.
@@ -72,15 +73,15 @@ resourceSummary_id = Lens.lens (\ResourceSummary' {id} -> id) (\s@ResourceSummar
 resourceSummary_resourceType :: Lens.Lens' ResourceSummary Prelude.Text
 resourceSummary_resourceType = Lens.lens (\ResourceSummary' {resourceType} -> resourceType) (\s@ResourceSummary' {} a -> s {resourceType = a} :: ResourceSummary)
 
-instance Core.FromJSON ResourceSummary where
+instance Data.FromJSON ResourceSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResourceSummary"
       ( \x ->
           ResourceSummary'
-            Prelude.<$> (x Core..:? "arn")
-            Prelude.<*> (x Core..:? "id")
-            Prelude.<*> (x Core..: "resourceType")
+            Prelude.<$> (x Data..:? "arn")
+            Prelude.<*> (x Data..:? "id")
+            Prelude.<*> (x Data..: "resourceType")
       )
 
 instance Prelude.Hashable ResourceSummary where

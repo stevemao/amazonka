@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.VeevaConnectorProfileCredentials
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppFlow.Types.VeevaConnectorProfileCredentials where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The connector-specific profile credentials required when using Veeva.
@@ -30,7 +31,7 @@ data VeevaConnectorProfileCredentials = VeevaConnectorProfileCredentials'
   { -- | The name of the user.
     username :: Prelude.Text,
     -- | The password that corresponds to the user name.
-    password :: Core.Sensitive Prelude.Text
+    password :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -58,7 +59,7 @@ newVeevaConnectorProfileCredentials
       { username =
           pUsername_,
         password =
-          Core._Sensitive Lens.# pPassword_
+          Data._Sensitive Lens.# pPassword_
       }
 
 -- | The name of the user.
@@ -67,7 +68,7 @@ veevaConnectorProfileCredentials_username = Lens.lens (\VeevaConnectorProfileCre
 
 -- | The password that corresponds to the user name.
 veevaConnectorProfileCredentials_password :: Lens.Lens' VeevaConnectorProfileCredentials Prelude.Text
-veevaConnectorProfileCredentials_password = Lens.lens (\VeevaConnectorProfileCredentials' {password} -> password) (\s@VeevaConnectorProfileCredentials' {} a -> s {password = a} :: VeevaConnectorProfileCredentials) Prelude.. Core._Sensitive
+veevaConnectorProfileCredentials_password = Lens.lens (\VeevaConnectorProfileCredentials' {password} -> password) (\s@VeevaConnectorProfileCredentials' {} a -> s {password = a} :: VeevaConnectorProfileCredentials) Prelude.. Data._Sensitive
 
 instance
   Prelude.Hashable
@@ -87,11 +88,11 @@ instance
     Prelude.rnf username
       `Prelude.seq` Prelude.rnf password
 
-instance Core.ToJSON VeevaConnectorProfileCredentials where
+instance Data.ToJSON VeevaConnectorProfileCredentials where
   toJSON VeevaConnectorProfileCredentials' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("username" Core..= username),
-            Prelude.Just ("password" Core..= password)
+          [ Prelude.Just ("username" Data..= username),
+            Prelude.Just ("password" Data..= password)
           ]
       )

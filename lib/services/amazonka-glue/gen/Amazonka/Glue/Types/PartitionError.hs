@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.PartitionError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.Glue.Types.PartitionError where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types.ErrorDetail
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about a partition error.
 --
 -- /See:/ 'newPartitionError' smart constructor.
 data PartitionError = PartitionError'
-  { -- | The values that define the partition.
-    partitionValues :: Prelude.Maybe [Prelude.Text],
-    -- | The details about the partition error.
-    errorDetail :: Prelude.Maybe ErrorDetail
+  { -- | The details about the partition error.
+    errorDetail :: Prelude.Maybe ErrorDetail,
+    -- | The values that define the partition.
+    partitionValues :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,43 +44,43 @@ data PartitionError = PartitionError'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'partitionValues', 'partitionError_partitionValues' - The values that define the partition.
---
 -- 'errorDetail', 'partitionError_errorDetail' - The details about the partition error.
+--
+-- 'partitionValues', 'partitionError_partitionValues' - The values that define the partition.
 newPartitionError ::
   PartitionError
 newPartitionError =
   PartitionError'
-    { partitionValues = Prelude.Nothing,
-      errorDetail = Prelude.Nothing
+    { errorDetail = Prelude.Nothing,
+      partitionValues = Prelude.Nothing
     }
-
--- | The values that define the partition.
-partitionError_partitionValues :: Lens.Lens' PartitionError (Prelude.Maybe [Prelude.Text])
-partitionError_partitionValues = Lens.lens (\PartitionError' {partitionValues} -> partitionValues) (\s@PartitionError' {} a -> s {partitionValues = a} :: PartitionError) Prelude.. Lens.mapping Lens.coerced
 
 -- | The details about the partition error.
 partitionError_errorDetail :: Lens.Lens' PartitionError (Prelude.Maybe ErrorDetail)
 partitionError_errorDetail = Lens.lens (\PartitionError' {errorDetail} -> errorDetail) (\s@PartitionError' {} a -> s {errorDetail = a} :: PartitionError)
 
-instance Core.FromJSON PartitionError where
+-- | The values that define the partition.
+partitionError_partitionValues :: Lens.Lens' PartitionError (Prelude.Maybe [Prelude.Text])
+partitionError_partitionValues = Lens.lens (\PartitionError' {partitionValues} -> partitionValues) (\s@PartitionError' {} a -> s {partitionValues = a} :: PartitionError) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON PartitionError where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PartitionError"
       ( \x ->
           PartitionError'
-            Prelude.<$> ( x Core..:? "PartitionValues"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "ErrorDetail")
+            Prelude.<*> ( x Data..:? "PartitionValues"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "ErrorDetail")
       )
 
 instance Prelude.Hashable PartitionError where
   hashWithSalt _salt PartitionError' {..} =
-    _salt `Prelude.hashWithSalt` partitionValues
-      `Prelude.hashWithSalt` errorDetail
+    _salt `Prelude.hashWithSalt` errorDetail
+      `Prelude.hashWithSalt` partitionValues
 
 instance Prelude.NFData PartitionError where
   rnf PartitionError' {..} =
-    Prelude.rnf partitionValues
-      `Prelude.seq` Prelude.rnf errorDetail
+    Prelude.rnf errorDetail
+      `Prelude.seq` Prelude.rnf partitionValues

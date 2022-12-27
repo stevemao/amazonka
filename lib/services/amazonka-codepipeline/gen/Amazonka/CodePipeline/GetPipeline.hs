@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.GetPipeline
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,15 +38,16 @@ module Amazonka.CodePipeline.GetPipeline
     newGetPipelineResponse,
 
     -- * Response Lenses
-    getPipelineResponse_pipeline,
     getPipelineResponse_metadata,
+    getPipelineResponse_pipeline,
     getPipelineResponse_httpStatus,
   )
 where
 
 import Amazonka.CodePipeline.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,13 +100,14 @@ getPipeline_name = Lens.lens (\GetPipeline' {name} -> name) (\s@GetPipeline' {} 
 
 instance Core.AWSRequest GetPipeline where
   type AWSResponse GetPipeline = GetPipelineResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetPipelineResponse'
-            Prelude.<$> (x Core..?> "pipeline")
-            Prelude.<*> (x Core..?> "metadata")
+            Prelude.<$> (x Data..?> "metadata")
+            Prelude.<*> (x Data..?> "pipeline")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -118,46 +120,46 @@ instance Prelude.NFData GetPipeline where
   rnf GetPipeline' {..} =
     Prelude.rnf version `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders GetPipeline where
+instance Data.ToHeaders GetPipeline where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodePipeline_20150709.GetPipeline" ::
+              Data.=# ( "CodePipeline_20150709.GetPipeline" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetPipeline where
+instance Data.ToJSON GetPipeline where
   toJSON GetPipeline' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("version" Core..=) Prelude.<$> version,
-            Prelude.Just ("name" Core..= name)
+          [ ("version" Data..=) Prelude.<$> version,
+            Prelude.Just ("name" Data..= name)
           ]
       )
 
-instance Core.ToPath GetPipeline where
+instance Data.ToPath GetPipeline where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetPipeline where
+instance Data.ToQuery GetPipeline where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @GetPipeline@ action.
 --
 -- /See:/ 'newGetPipelineResponse' smart constructor.
 data GetPipelineResponse = GetPipelineResponse'
-  { -- | Represents the structure of actions and stages to be performed in the
-    -- pipeline.
-    pipeline :: Prelude.Maybe PipelineDeclaration,
-    -- | Represents the pipeline metadata information returned as part of the
+  { -- | Represents the pipeline metadata information returned as part of the
     -- output of a @GetPipeline@ action.
     metadata :: Prelude.Maybe PipelineMetadata,
+    -- | Represents the structure of actions and stages to be performed in the
+    -- pipeline.
+    pipeline :: Prelude.Maybe PipelineDeclaration,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -171,11 +173,11 @@ data GetPipelineResponse = GetPipelineResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'pipeline', 'getPipelineResponse_pipeline' - Represents the structure of actions and stages to be performed in the
--- pipeline.
---
 -- 'metadata', 'getPipelineResponse_metadata' - Represents the pipeline metadata information returned as part of the
 -- output of a @GetPipeline@ action.
+--
+-- 'pipeline', 'getPipelineResponse_pipeline' - Represents the structure of actions and stages to be performed in the
+-- pipeline.
 --
 -- 'httpStatus', 'getPipelineResponse_httpStatus' - The response's http status code.
 newGetPipelineResponse ::
@@ -184,20 +186,20 @@ newGetPipelineResponse ::
   GetPipelineResponse
 newGetPipelineResponse pHttpStatus_ =
   GetPipelineResponse'
-    { pipeline = Prelude.Nothing,
-      metadata = Prelude.Nothing,
+    { metadata = Prelude.Nothing,
+      pipeline = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Represents the structure of actions and stages to be performed in the
--- pipeline.
-getPipelineResponse_pipeline :: Lens.Lens' GetPipelineResponse (Prelude.Maybe PipelineDeclaration)
-getPipelineResponse_pipeline = Lens.lens (\GetPipelineResponse' {pipeline} -> pipeline) (\s@GetPipelineResponse' {} a -> s {pipeline = a} :: GetPipelineResponse)
 
 -- | Represents the pipeline metadata information returned as part of the
 -- output of a @GetPipeline@ action.
 getPipelineResponse_metadata :: Lens.Lens' GetPipelineResponse (Prelude.Maybe PipelineMetadata)
 getPipelineResponse_metadata = Lens.lens (\GetPipelineResponse' {metadata} -> metadata) (\s@GetPipelineResponse' {} a -> s {metadata = a} :: GetPipelineResponse)
+
+-- | Represents the structure of actions and stages to be performed in the
+-- pipeline.
+getPipelineResponse_pipeline :: Lens.Lens' GetPipelineResponse (Prelude.Maybe PipelineDeclaration)
+getPipelineResponse_pipeline = Lens.lens (\GetPipelineResponse' {pipeline} -> pipeline) (\s@GetPipelineResponse' {} a -> s {pipeline = a} :: GetPipelineResponse)
 
 -- | The response's http status code.
 getPipelineResponse_httpStatus :: Lens.Lens' GetPipelineResponse Prelude.Int
@@ -205,6 +207,6 @@ getPipelineResponse_httpStatus = Lens.lens (\GetPipelineResponse' {httpStatus} -
 
 instance Prelude.NFData GetPipelineResponse where
   rnf GetPipelineResponse' {..} =
-    Prelude.rnf pipeline
-      `Prelude.seq` Prelude.rnf metadata
+    Prelude.rnf metadata
+      `Prelude.seq` Prelude.rnf pipeline
       `Prelude.seq` Prelude.rnf httpStatus

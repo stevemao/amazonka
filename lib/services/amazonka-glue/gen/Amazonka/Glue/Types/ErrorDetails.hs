@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.ErrorDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Glue.Types.ErrorDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object containing error details.
@@ -61,14 +62,14 @@ errorDetails_errorCode = Lens.lens (\ErrorDetails' {errorCode} -> errorCode) (\s
 errorDetails_errorMessage :: Lens.Lens' ErrorDetails (Prelude.Maybe Prelude.Text)
 errorDetails_errorMessage = Lens.lens (\ErrorDetails' {errorMessage} -> errorMessage) (\s@ErrorDetails' {} a -> s {errorMessage = a} :: ErrorDetails)
 
-instance Core.FromJSON ErrorDetails where
+instance Data.FromJSON ErrorDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ErrorDetails"
       ( \x ->
           ErrorDetails'
-            Prelude.<$> (x Core..:? "ErrorCode")
-            Prelude.<*> (x Core..:? "ErrorMessage")
+            Prelude.<$> (x Data..:? "ErrorCode")
+            Prelude.<*> (x Data..:? "ErrorMessage")
       )
 
 instance Prelude.Hashable ErrorDetails where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CustomerProfiles.Types.ServiceNowSourceProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CustomerProfiles.Types.ServiceNowSourceProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The properties that are applied when ServiceNow is being used as a
@@ -61,9 +62,9 @@ instance Prelude.NFData ServiceNowSourceProperties where
   rnf ServiceNowSourceProperties' {..} =
     Prelude.rnf object'
 
-instance Core.ToJSON ServiceNowSourceProperties where
+instance Data.ToJSON ServiceNowSourceProperties where
   toJSON ServiceNowSourceProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Object" Core..= object')]
+          [Prelude.Just ("Object" Data..= object')]
       )

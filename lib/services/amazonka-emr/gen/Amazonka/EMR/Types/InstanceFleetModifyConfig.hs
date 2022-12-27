@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.InstanceFleetModifyConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.EMR.Types.InstanceFleetModifyConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration parameters for an instance fleet modification request.
@@ -94,15 +95,15 @@ instance Prelude.NFData InstanceFleetModifyConfig where
       `Prelude.seq` Prelude.rnf targetSpotCapacity
       `Prelude.seq` Prelude.rnf instanceFleetId
 
-instance Core.ToJSON InstanceFleetModifyConfig where
+instance Data.ToJSON InstanceFleetModifyConfig where
   toJSON InstanceFleetModifyConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TargetOnDemandCapacity" Core..=)
+          [ ("TargetOnDemandCapacity" Data..=)
               Prelude.<$> targetOnDemandCapacity,
-            ("TargetSpotCapacity" Core..=)
+            ("TargetSpotCapacity" Data..=)
               Prelude.<$> targetSpotCapacity,
             Prelude.Just
-              ("InstanceFleetId" Core..= instanceFleetId)
+              ("InstanceFleetId" Data..= instanceFleetId)
           ]
       )

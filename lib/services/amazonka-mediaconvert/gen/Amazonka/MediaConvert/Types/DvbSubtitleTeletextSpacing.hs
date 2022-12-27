@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.DvbSubtitleTeletextSpacing
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,17 +28,18 @@ module Amazonka.MediaConvert.Types.DvbSubtitleTeletextSpacing
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Specify whether the Text spacing (TextSpacing) in your captions is set
--- by the captions grid, or varies depending on letter width. Choose fixed
--- grid (FIXED_GRID) to conform to the spacing specified in the captions
--- file more accurately. Choose proportional (PROPORTIONAL) to make the
--- text easier to read for closed captions. Within your job settings, all
--- of your DVB-Sub settings must be identical.
+-- | Specify whether the Text spacing (TeletextSpacing) in your captions is
+-- set by the captions grid, or varies depending on letter width. Choose
+-- fixed grid (FIXED_GRID) to conform to the spacing specified in the
+-- captions file more accurately. Choose proportional (PROPORTIONAL) to
+-- make the text easier to read for closed captions. Within your job
+-- settings, all of your DVB-Sub settings must be identical.
 newtype DvbSubtitleTeletextSpacing = DvbSubtitleTeletextSpacing'
   { fromDvbSubtitleTeletextSpacing ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -50,18 +51,18 @@ newtype DvbSubtitleTeletextSpacing = DvbSubtitleTeletextSpacing'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern DvbSubtitleTeletextSpacing_AUTO :: DvbSubtitleTeletextSpacing

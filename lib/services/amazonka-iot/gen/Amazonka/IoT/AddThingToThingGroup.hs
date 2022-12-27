@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.AddThingToThingGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,10 +31,10 @@ module Amazonka.IoT.AddThingToThingGroup
     newAddThingToThingGroup,
 
     -- * Request Lenses
-    addThingToThingGroup_thingGroupArn,
-    addThingToThingGroup_thingArn,
-    addThingToThingGroup_thingGroupName,
     addThingToThingGroup_overrideDynamicGroups,
+    addThingToThingGroup_thingArn,
+    addThingToThingGroup_thingGroupArn,
+    addThingToThingGroup_thingGroupName,
     addThingToThingGroup_thingName,
 
     -- * Destructuring the Response
@@ -47,25 +47,26 @@ module Amazonka.IoT.AddThingToThingGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newAddThingToThingGroup' smart constructor.
 data AddThingToThingGroup = AddThingToThingGroup'
-  { -- | The ARN of the group to which you are adding a thing.
-    thingGroupArn :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the thing to add to a group.
-    thingArn :: Prelude.Maybe Prelude.Text,
-    -- | The name of the group to which you are adding a thing.
-    thingGroupName :: Prelude.Maybe Prelude.Text,
-    -- | Override dynamic thing groups with static thing groups when 10-group
+  { -- | Override dynamic thing groups with static thing groups when 10-group
     -- limit is reached. If a thing belongs to 10 thing groups, and one or more
     -- of those groups are dynamic thing groups, adding a thing to a static
     -- group removes the thing from the last dynamic group.
     overrideDynamicGroups :: Prelude.Maybe Prelude.Bool,
+    -- | The ARN of the thing to add to a group.
+    thingArn :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the group to which you are adding a thing.
+    thingGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the group to which you are adding a thing.
+    thingGroupName :: Prelude.Maybe Prelude.Text,
     -- | The name of the thing to add to a group.
     thingName :: Prelude.Maybe Prelude.Text
   }
@@ -79,41 +80,29 @@ data AddThingToThingGroup = AddThingToThingGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'thingGroupArn', 'addThingToThingGroup_thingGroupArn' - The ARN of the group to which you are adding a thing.
---
--- 'thingArn', 'addThingToThingGroup_thingArn' - The ARN of the thing to add to a group.
---
--- 'thingGroupName', 'addThingToThingGroup_thingGroupName' - The name of the group to which you are adding a thing.
---
 -- 'overrideDynamicGroups', 'addThingToThingGroup_overrideDynamicGroups' - Override dynamic thing groups with static thing groups when 10-group
 -- limit is reached. If a thing belongs to 10 thing groups, and one or more
 -- of those groups are dynamic thing groups, adding a thing to a static
 -- group removes the thing from the last dynamic group.
+--
+-- 'thingArn', 'addThingToThingGroup_thingArn' - The ARN of the thing to add to a group.
+--
+-- 'thingGroupArn', 'addThingToThingGroup_thingGroupArn' - The ARN of the group to which you are adding a thing.
+--
+-- 'thingGroupName', 'addThingToThingGroup_thingGroupName' - The name of the group to which you are adding a thing.
 --
 -- 'thingName', 'addThingToThingGroup_thingName' - The name of the thing to add to a group.
 newAddThingToThingGroup ::
   AddThingToThingGroup
 newAddThingToThingGroup =
   AddThingToThingGroup'
-    { thingGroupArn =
+    { overrideDynamicGroups =
         Prelude.Nothing,
       thingArn = Prelude.Nothing,
+      thingGroupArn = Prelude.Nothing,
       thingGroupName = Prelude.Nothing,
-      overrideDynamicGroups = Prelude.Nothing,
       thingName = Prelude.Nothing
     }
-
--- | The ARN of the group to which you are adding a thing.
-addThingToThingGroup_thingGroupArn :: Lens.Lens' AddThingToThingGroup (Prelude.Maybe Prelude.Text)
-addThingToThingGroup_thingGroupArn = Lens.lens (\AddThingToThingGroup' {thingGroupArn} -> thingGroupArn) (\s@AddThingToThingGroup' {} a -> s {thingGroupArn = a} :: AddThingToThingGroup)
-
--- | The ARN of the thing to add to a group.
-addThingToThingGroup_thingArn :: Lens.Lens' AddThingToThingGroup (Prelude.Maybe Prelude.Text)
-addThingToThingGroup_thingArn = Lens.lens (\AddThingToThingGroup' {thingArn} -> thingArn) (\s@AddThingToThingGroup' {} a -> s {thingArn = a} :: AddThingToThingGroup)
-
--- | The name of the group to which you are adding a thing.
-addThingToThingGroup_thingGroupName :: Lens.Lens' AddThingToThingGroup (Prelude.Maybe Prelude.Text)
-addThingToThingGroup_thingGroupName = Lens.lens (\AddThingToThingGroup' {thingGroupName} -> thingGroupName) (\s@AddThingToThingGroup' {} a -> s {thingGroupName = a} :: AddThingToThingGroup)
 
 -- | Override dynamic thing groups with static thing groups when 10-group
 -- limit is reached. If a thing belongs to 10 thing groups, and one or more
@@ -121,6 +110,18 @@ addThingToThingGroup_thingGroupName = Lens.lens (\AddThingToThingGroup' {thingGr
 -- group removes the thing from the last dynamic group.
 addThingToThingGroup_overrideDynamicGroups :: Lens.Lens' AddThingToThingGroup (Prelude.Maybe Prelude.Bool)
 addThingToThingGroup_overrideDynamicGroups = Lens.lens (\AddThingToThingGroup' {overrideDynamicGroups} -> overrideDynamicGroups) (\s@AddThingToThingGroup' {} a -> s {overrideDynamicGroups = a} :: AddThingToThingGroup)
+
+-- | The ARN of the thing to add to a group.
+addThingToThingGroup_thingArn :: Lens.Lens' AddThingToThingGroup (Prelude.Maybe Prelude.Text)
+addThingToThingGroup_thingArn = Lens.lens (\AddThingToThingGroup' {thingArn} -> thingArn) (\s@AddThingToThingGroup' {} a -> s {thingArn = a} :: AddThingToThingGroup)
+
+-- | The ARN of the group to which you are adding a thing.
+addThingToThingGroup_thingGroupArn :: Lens.Lens' AddThingToThingGroup (Prelude.Maybe Prelude.Text)
+addThingToThingGroup_thingGroupArn = Lens.lens (\AddThingToThingGroup' {thingGroupArn} -> thingGroupArn) (\s@AddThingToThingGroup' {} a -> s {thingGroupArn = a} :: AddThingToThingGroup)
+
+-- | The name of the group to which you are adding a thing.
+addThingToThingGroup_thingGroupName :: Lens.Lens' AddThingToThingGroup (Prelude.Maybe Prelude.Text)
+addThingToThingGroup_thingGroupName = Lens.lens (\AddThingToThingGroup' {thingGroupName} -> thingGroupName) (\s@AddThingToThingGroup' {} a -> s {thingGroupName = a} :: AddThingToThingGroup)
 
 -- | The name of the thing to add to a group.
 addThingToThingGroup_thingName :: Lens.Lens' AddThingToThingGroup (Prelude.Maybe Prelude.Text)
@@ -130,7 +131,8 @@ instance Core.AWSRequest AddThingToThingGroup where
   type
     AWSResponse AddThingToThingGroup =
       AddThingToThingGroupResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -140,42 +142,42 @@ instance Core.AWSRequest AddThingToThingGroup where
 
 instance Prelude.Hashable AddThingToThingGroup where
   hashWithSalt _salt AddThingToThingGroup' {..} =
-    _salt `Prelude.hashWithSalt` thingGroupArn
+    _salt `Prelude.hashWithSalt` overrideDynamicGroups
       `Prelude.hashWithSalt` thingArn
+      `Prelude.hashWithSalt` thingGroupArn
       `Prelude.hashWithSalt` thingGroupName
-      `Prelude.hashWithSalt` overrideDynamicGroups
       `Prelude.hashWithSalt` thingName
 
 instance Prelude.NFData AddThingToThingGroup where
   rnf AddThingToThingGroup' {..} =
-    Prelude.rnf thingGroupArn
+    Prelude.rnf overrideDynamicGroups
       `Prelude.seq` Prelude.rnf thingArn
+      `Prelude.seq` Prelude.rnf thingGroupArn
       `Prelude.seq` Prelude.rnf thingGroupName
-      `Prelude.seq` Prelude.rnf overrideDynamicGroups
       `Prelude.seq` Prelude.rnf thingName
 
-instance Core.ToHeaders AddThingToThingGroup where
+instance Data.ToHeaders AddThingToThingGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON AddThingToThingGroup where
+instance Data.ToJSON AddThingToThingGroup where
   toJSON AddThingToThingGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("thingGroupArn" Core..=) Prelude.<$> thingGroupArn,
-            ("thingArn" Core..=) Prelude.<$> thingArn,
-            ("thingGroupName" Core..=)
-              Prelude.<$> thingGroupName,
-            ("overrideDynamicGroups" Core..=)
+          [ ("overrideDynamicGroups" Data..=)
               Prelude.<$> overrideDynamicGroups,
-            ("thingName" Core..=) Prelude.<$> thingName
+            ("thingArn" Data..=) Prelude.<$> thingArn,
+            ("thingGroupArn" Data..=) Prelude.<$> thingGroupArn,
+            ("thingGroupName" Data..=)
+              Prelude.<$> thingGroupName,
+            ("thingName" Data..=) Prelude.<$> thingName
           ]
       )
 
-instance Core.ToPath AddThingToThingGroup where
+instance Data.ToPath AddThingToThingGroup where
   toPath =
     Prelude.const "/thing-groups/addThingToThingGroup"
 
-instance Core.ToQuery AddThingToThingGroup where
+instance Data.ToQuery AddThingToThingGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAddThingToThingGroupResponse' smart constructor.

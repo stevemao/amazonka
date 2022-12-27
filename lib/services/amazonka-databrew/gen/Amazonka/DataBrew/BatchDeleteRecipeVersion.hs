@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataBrew.BatchDeleteRecipeVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -69,8 +69,9 @@ module Amazonka.DataBrew.BatchDeleteRecipeVersion
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataBrew.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -126,14 +127,15 @@ instance Core.AWSRequest BatchDeleteRecipeVersion where
   type
     AWSResponse BatchDeleteRecipeVersion =
       BatchDeleteRecipeVersionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchDeleteRecipeVersionResponse'
-            Prelude.<$> (x Core..?> "Errors" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Errors" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Name")
+            Prelude.<*> (x Data..:> "Name")
       )
 
 instance Prelude.Hashable BatchDeleteRecipeVersion where
@@ -146,35 +148,35 @@ instance Prelude.NFData BatchDeleteRecipeVersion where
     Prelude.rnf name
       `Prelude.seq` Prelude.rnf recipeVersions
 
-instance Core.ToHeaders BatchDeleteRecipeVersion where
+instance Data.ToHeaders BatchDeleteRecipeVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchDeleteRecipeVersion where
+instance Data.ToJSON BatchDeleteRecipeVersion where
   toJSON BatchDeleteRecipeVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("RecipeVersions" Core..= recipeVersions)
+              ("RecipeVersions" Data..= recipeVersions)
           ]
       )
 
-instance Core.ToPath BatchDeleteRecipeVersion where
+instance Data.ToPath BatchDeleteRecipeVersion where
   toPath BatchDeleteRecipeVersion' {..} =
     Prelude.mconcat
       [ "/recipes/",
-        Core.toBS name,
+        Data.toBS name,
         "/batchDeleteRecipeVersion"
       ]
 
-instance Core.ToQuery BatchDeleteRecipeVersion where
+instance Data.ToQuery BatchDeleteRecipeVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchDeleteRecipeVersionResponse' smart constructor.

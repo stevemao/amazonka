@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Proton.ListServiceTemplates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Proton.ListServiceTemplates
     newListServiceTemplates,
 
     -- * Request Lenses
-    listServiceTemplates_nextToken,
     listServiceTemplates_maxResults,
+    listServiceTemplates_nextToken,
 
     -- * Destructuring the Response
     ListServiceTemplatesResponse (..),
@@ -44,7 +44,8 @@ module Amazonka.Proton.ListServiceTemplates
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types
 import qualified Amazonka.Request as Request
@@ -52,12 +53,12 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListServiceTemplates' smart constructor.
 data ListServiceTemplates = ListServiceTemplates'
-  { -- | A token to indicate the location of the next service template in the
+  { -- | The maximum number of service templates to list.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token that indicates the location of the next service template in the
     -- array of service templates, after the list of service templates
     -- previously requested.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of service templates to list.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -69,28 +70,28 @@ data ListServiceTemplates = ListServiceTemplates'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listServiceTemplates_nextToken' - A token to indicate the location of the next service template in the
+-- 'maxResults', 'listServiceTemplates_maxResults' - The maximum number of service templates to list.
+--
+-- 'nextToken', 'listServiceTemplates_nextToken' - A token that indicates the location of the next service template in the
 -- array of service templates, after the list of service templates
 -- previously requested.
---
--- 'maxResults', 'listServiceTemplates_maxResults' - The maximum number of service templates to list.
 newListServiceTemplates ::
   ListServiceTemplates
 newListServiceTemplates =
   ListServiceTemplates'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | A token to indicate the location of the next service template in the
--- array of service templates, after the list of service templates
--- previously requested.
-listServiceTemplates_nextToken :: Lens.Lens' ListServiceTemplates (Prelude.Maybe Prelude.Text)
-listServiceTemplates_nextToken = Lens.lens (\ListServiceTemplates' {nextToken} -> nextToken) (\s@ListServiceTemplates' {} a -> s {nextToken = a} :: ListServiceTemplates)
 
 -- | The maximum number of service templates to list.
 listServiceTemplates_maxResults :: Lens.Lens' ListServiceTemplates (Prelude.Maybe Prelude.Natural)
 listServiceTemplates_maxResults = Lens.lens (\ListServiceTemplates' {maxResults} -> maxResults) (\s@ListServiceTemplates' {} a -> s {maxResults = a} :: ListServiceTemplates)
+
+-- | A token that indicates the location of the next service template in the
+-- array of service templates, after the list of service templates
+-- previously requested.
+listServiceTemplates_nextToken :: Lens.Lens' ListServiceTemplates (Prelude.Maybe Prelude.Text)
+listServiceTemplates_nextToken = Lens.lens (\ListServiceTemplates' {nextToken} -> nextToken) (\s@ListServiceTemplates' {} a -> s {nextToken = a} :: ListServiceTemplates)
 
 instance Core.AWSPager ListServiceTemplates where
   page rq rs
@@ -115,59 +116,60 @@ instance Core.AWSRequest ListServiceTemplates where
   type
     AWSResponse ListServiceTemplates =
       ListServiceTemplatesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListServiceTemplatesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "templates" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "templates" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListServiceTemplates where
   hashWithSalt _salt ListServiceTemplates' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListServiceTemplates where
   rnf ListServiceTemplates' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListServiceTemplates where
+instance Data.ToHeaders ListServiceTemplates where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AwsProton20200720.ListServiceTemplates" ::
+              Data.=# ( "AwsProton20200720.ListServiceTemplates" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListServiceTemplates where
+instance Data.ToJSON ListServiceTemplates where
   toJSON ListServiceTemplates' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListServiceTemplates where
+instance Data.ToPath ListServiceTemplates where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListServiceTemplates where
+instance Data.ToQuery ListServiceTemplates where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListServiceTemplatesResponse' smart constructor.
 data ListServiceTemplatesResponse = ListServiceTemplatesResponse'
-  { -- | A token to indicate the location of the next service template in the
+  { -- | A token that indicates the location of the next service template in the
     -- array of service templates, after the current requested list of service
     -- templates.
     nextToken :: Prelude.Maybe Prelude.Text,
@@ -186,7 +188,7 @@ data ListServiceTemplatesResponse = ListServiceTemplatesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listServiceTemplatesResponse_nextToken' - A token to indicate the location of the next service template in the
+-- 'nextToken', 'listServiceTemplatesResponse_nextToken' - A token that indicates the location of the next service template in the
 -- array of service templates, after the current requested list of service
 -- templates.
 --
@@ -205,7 +207,7 @@ newListServiceTemplatesResponse pHttpStatus_ =
       templates = Prelude.mempty
     }
 
--- | A token to indicate the location of the next service template in the
+-- | A token that indicates the location of the next service template in the
 -- array of service templates, after the current requested list of service
 -- templates.
 listServiceTemplatesResponse_nextToken :: Lens.Lens' ListServiceTemplatesResponse (Prelude.Maybe Prelude.Text)

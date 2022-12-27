@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.DeletePhoneNumber
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,7 +79,8 @@ instance Core.AWSRequest DeletePhoneNumber where
   type
     AWSResponse DeletePhoneNumber =
       DeletePhoneNumberResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeletePhoneNumberResponse'
 
@@ -90,15 +92,15 @@ instance Prelude.NFData DeletePhoneNumber where
   rnf DeletePhoneNumber' {..} =
     Prelude.rnf phoneNumberId
 
-instance Core.ToHeaders DeletePhoneNumber where
+instance Data.ToHeaders DeletePhoneNumber where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeletePhoneNumber where
+instance Data.ToPath DeletePhoneNumber where
   toPath DeletePhoneNumber' {..} =
     Prelude.mconcat
-      ["/phone-numbers/", Core.toBS phoneNumberId]
+      ["/phone-numbers/", Data.toBS phoneNumberId]
 
-instance Core.ToQuery DeletePhoneNumber where
+instance Data.ToQuery DeletePhoneNumber where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeletePhoneNumberResponse' smart constructor.

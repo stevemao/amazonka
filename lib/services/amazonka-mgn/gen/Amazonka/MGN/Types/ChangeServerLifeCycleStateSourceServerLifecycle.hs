@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MGN.Types.ChangeServerLifeCycleStateSourceServerLifecycle
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MGN.Types.ChangeServerLifeCycleStateSourceServerLifecycle where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MGN.Types.ChangeServerLifeCycleStateSourceServerLifecycleState
 import qualified Amazonka.Prelude as Prelude
 
@@ -75,12 +76,12 @@ instance
       Prelude.rnf state
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ChangeServerLifeCycleStateSourceServerLifecycle
   where
   toJSON
     ChangeServerLifeCycleStateSourceServerLifecycle' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [Prelude.Just ("state" Core..= state)]
+            [Prelude.Just ("state" Data..= state)]
         )

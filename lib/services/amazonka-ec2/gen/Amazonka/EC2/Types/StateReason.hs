@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.StateReason
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.StateReason where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a state change.
@@ -185,11 +186,11 @@ stateReason_code = Lens.lens (\StateReason' {code} -> code) (\s@StateReason' {} 
 stateReason_message :: Lens.Lens' StateReason (Prelude.Maybe Prelude.Text)
 stateReason_message = Lens.lens (\StateReason' {message} -> message) (\s@StateReason' {} a -> s {message = a} :: StateReason)
 
-instance Core.FromXML StateReason where
+instance Data.FromXML StateReason where
   parseXML x =
     StateReason'
-      Prelude.<$> (x Core..@? "code")
-      Prelude.<*> (x Core..@? "message")
+      Prelude.<$> (x Data..@? "code")
+      Prelude.<*> (x Data..@? "message")
 
 instance Prelude.Hashable StateReason where
   hashWithSalt _salt StateReason' {..} =

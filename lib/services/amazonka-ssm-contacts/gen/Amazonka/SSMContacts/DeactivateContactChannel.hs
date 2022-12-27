@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSMContacts.DeactivateContactChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.SSMContacts.DeactivateContactChannel
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,7 +84,8 @@ instance Core.AWSRequest DeactivateContactChannel where
   type
     AWSResponse DeactivateContactChannel =
       DeactivateContactChannelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -99,34 +101,34 @@ instance Prelude.NFData DeactivateContactChannel where
   rnf DeactivateContactChannel' {..} =
     Prelude.rnf contactChannelId
 
-instance Core.ToHeaders DeactivateContactChannel where
+instance Data.ToHeaders DeactivateContactChannel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SSMContacts.DeactivateContactChannel" ::
+              Data.=# ( "SSMContacts.DeactivateContactChannel" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeactivateContactChannel where
+instance Data.ToJSON DeactivateContactChannel where
   toJSON DeactivateContactChannel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ContactChannelId" Core..= contactChannelId)
+              ("ContactChannelId" Data..= contactChannelId)
           ]
       )
 
-instance Core.ToPath DeactivateContactChannel where
+instance Data.ToPath DeactivateContactChannel where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeactivateContactChannel where
+instance Data.ToQuery DeactivateContactChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeactivateContactChannelResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.AwsJobTimeoutConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoT.Types.AwsJobTimeoutConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the amount of time each device has to finish its execution of
@@ -84,11 +85,11 @@ instance Prelude.NFData AwsJobTimeoutConfig where
   rnf AwsJobTimeoutConfig' {..} =
     Prelude.rnf inProgressTimeoutInMinutes
 
-instance Core.ToJSON AwsJobTimeoutConfig where
+instance Data.ToJSON AwsJobTimeoutConfig where
   toJSON AwsJobTimeoutConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("inProgressTimeoutInMinutes" Core..=)
+          [ ("inProgressTimeoutInMinutes" Data..=)
               Prelude.<$> inProgressTimeoutInMinutes
           ]
       )

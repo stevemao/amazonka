@@ -14,13 +14,16 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.ListAcceptedPortfolioShares
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists all portfolios for which sharing was accepted by this account.
+-- Lists all imported portfolios for which account-to-account shares were
+-- accepted by this account. By specifying the @PortfolioShareType@, you
+-- can list portfolios for which organizational shares were accepted by
+-- this account.
 --
 -- This operation returns paginated results.
 module Amazonka.ServiceCatalog.ListAcceptedPortfolioShares
@@ -29,10 +32,10 @@ module Amazonka.ServiceCatalog.ListAcceptedPortfolioShares
     newListAcceptedPortfolioShares,
 
     -- * Request Lenses
-    listAcceptedPortfolioShares_portfolioShareType,
     listAcceptedPortfolioShares_acceptLanguage,
-    listAcceptedPortfolioShares_pageToken,
     listAcceptedPortfolioShares_pageSize,
+    listAcceptedPortfolioShares_pageToken,
+    listAcceptedPortfolioShares_portfolioShareType,
 
     -- * Destructuring the Response
     ListAcceptedPortfolioSharesResponse (..),
@@ -46,7 +49,8 @@ module Amazonka.ServiceCatalog.ListAcceptedPortfolioShares
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,17 +58,7 @@ import Amazonka.ServiceCatalog.Types
 
 -- | /See:/ 'newListAcceptedPortfolioShares' smart constructor.
 data ListAcceptedPortfolioShares = ListAcceptedPortfolioShares'
-  { -- | The type of shared portfolios to list. The default is to list imported
-    -- portfolios.
-    --
-    -- -   @AWS_ORGANIZATIONS@ - List portfolios shared by the management
-    --     account of your organization
-    --
-    -- -   @AWS_SERVICECATALOG@ - List default portfolios
-    --
-    -- -   @IMPORTED@ - List imported portfolios
-    portfolioShareType :: Prelude.Maybe PortfolioShareType,
-    -- | The language code.
+  { -- | The language code.
     --
     -- -   @en@ - English (default)
     --
@@ -72,11 +66,23 @@ data ListAcceptedPortfolioShares = ListAcceptedPortfolioShares'
     --
     -- -   @zh@ - Chinese
     acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return with this call.
+    pageSize :: Prelude.Maybe Prelude.Natural,
     -- | The page token for the next set of results. To retrieve the first set of
     -- results, use null.
     pageToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return with this call.
-    pageSize :: Prelude.Maybe Prelude.Natural
+    -- | The type of shared portfolios to list. The default is to list imported
+    -- portfolios.
+    --
+    -- -   @AWS_ORGANIZATIONS@ - List portfolios accepted and shared via
+    --     organizational sharing by the management account or delegated
+    --     administrator of your organization.
+    --
+    -- -   @AWS_SERVICECATALOG@ - Deprecated type.
+    --
+    -- -   @IMPORTED@ - List imported portfolios that have been accepted and
+    --     shared through account-to-account sharing.
+    portfolioShareType :: Prelude.Maybe PortfolioShareType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -88,16 +94,6 @@ data ListAcceptedPortfolioShares = ListAcceptedPortfolioShares'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'portfolioShareType', 'listAcceptedPortfolioShares_portfolioShareType' - The type of shared portfolios to list. The default is to list imported
--- portfolios.
---
--- -   @AWS_ORGANIZATIONS@ - List portfolios shared by the management
---     account of your organization
---
--- -   @AWS_SERVICECATALOG@ - List default portfolios
---
--- -   @IMPORTED@ - List imported portfolios
---
 -- 'acceptLanguage', 'listAcceptedPortfolioShares_acceptLanguage' - The language code.
 --
 -- -   @en@ - English (default)
@@ -106,32 +102,32 @@ data ListAcceptedPortfolioShares = ListAcceptedPortfolioShares'
 --
 -- -   @zh@ - Chinese
 --
+-- 'pageSize', 'listAcceptedPortfolioShares_pageSize' - The maximum number of items to return with this call.
+--
 -- 'pageToken', 'listAcceptedPortfolioShares_pageToken' - The page token for the next set of results. To retrieve the first set of
 -- results, use null.
 --
--- 'pageSize', 'listAcceptedPortfolioShares_pageSize' - The maximum number of items to return with this call.
+-- 'portfolioShareType', 'listAcceptedPortfolioShares_portfolioShareType' - The type of shared portfolios to list. The default is to list imported
+-- portfolios.
+--
+-- -   @AWS_ORGANIZATIONS@ - List portfolios accepted and shared via
+--     organizational sharing by the management account or delegated
+--     administrator of your organization.
+--
+-- -   @AWS_SERVICECATALOG@ - Deprecated type.
+--
+-- -   @IMPORTED@ - List imported portfolios that have been accepted and
+--     shared through account-to-account sharing.
 newListAcceptedPortfolioShares ::
   ListAcceptedPortfolioShares
 newListAcceptedPortfolioShares =
   ListAcceptedPortfolioShares'
-    { portfolioShareType =
+    { acceptLanguage =
         Prelude.Nothing,
-      acceptLanguage = Prelude.Nothing,
+      pageSize = Prelude.Nothing,
       pageToken = Prelude.Nothing,
-      pageSize = Prelude.Nothing
+      portfolioShareType = Prelude.Nothing
     }
-
--- | The type of shared portfolios to list. The default is to list imported
--- portfolios.
---
--- -   @AWS_ORGANIZATIONS@ - List portfolios shared by the management
---     account of your organization
---
--- -   @AWS_SERVICECATALOG@ - List default portfolios
---
--- -   @IMPORTED@ - List imported portfolios
-listAcceptedPortfolioShares_portfolioShareType :: Lens.Lens' ListAcceptedPortfolioShares (Prelude.Maybe PortfolioShareType)
-listAcceptedPortfolioShares_portfolioShareType = Lens.lens (\ListAcceptedPortfolioShares' {portfolioShareType} -> portfolioShareType) (\s@ListAcceptedPortfolioShares' {} a -> s {portfolioShareType = a} :: ListAcceptedPortfolioShares)
 
 -- | The language code.
 --
@@ -143,14 +139,28 @@ listAcceptedPortfolioShares_portfolioShareType = Lens.lens (\ListAcceptedPortfol
 listAcceptedPortfolioShares_acceptLanguage :: Lens.Lens' ListAcceptedPortfolioShares (Prelude.Maybe Prelude.Text)
 listAcceptedPortfolioShares_acceptLanguage = Lens.lens (\ListAcceptedPortfolioShares' {acceptLanguage} -> acceptLanguage) (\s@ListAcceptedPortfolioShares' {} a -> s {acceptLanguage = a} :: ListAcceptedPortfolioShares)
 
+-- | The maximum number of items to return with this call.
+listAcceptedPortfolioShares_pageSize :: Lens.Lens' ListAcceptedPortfolioShares (Prelude.Maybe Prelude.Natural)
+listAcceptedPortfolioShares_pageSize = Lens.lens (\ListAcceptedPortfolioShares' {pageSize} -> pageSize) (\s@ListAcceptedPortfolioShares' {} a -> s {pageSize = a} :: ListAcceptedPortfolioShares)
+
 -- | The page token for the next set of results. To retrieve the first set of
 -- results, use null.
 listAcceptedPortfolioShares_pageToken :: Lens.Lens' ListAcceptedPortfolioShares (Prelude.Maybe Prelude.Text)
 listAcceptedPortfolioShares_pageToken = Lens.lens (\ListAcceptedPortfolioShares' {pageToken} -> pageToken) (\s@ListAcceptedPortfolioShares' {} a -> s {pageToken = a} :: ListAcceptedPortfolioShares)
 
--- | The maximum number of items to return with this call.
-listAcceptedPortfolioShares_pageSize :: Lens.Lens' ListAcceptedPortfolioShares (Prelude.Maybe Prelude.Natural)
-listAcceptedPortfolioShares_pageSize = Lens.lens (\ListAcceptedPortfolioShares' {pageSize} -> pageSize) (\s@ListAcceptedPortfolioShares' {} a -> s {pageSize = a} :: ListAcceptedPortfolioShares)
+-- | The type of shared portfolios to list. The default is to list imported
+-- portfolios.
+--
+-- -   @AWS_ORGANIZATIONS@ - List portfolios accepted and shared via
+--     organizational sharing by the management account or delegated
+--     administrator of your organization.
+--
+-- -   @AWS_SERVICECATALOG@ - Deprecated type.
+--
+-- -   @IMPORTED@ - List imported portfolios that have been accepted and
+--     shared through account-to-account sharing.
+listAcceptedPortfolioShares_portfolioShareType :: Lens.Lens' ListAcceptedPortfolioShares (Prelude.Maybe PortfolioShareType)
+listAcceptedPortfolioShares_portfolioShareType = Lens.lens (\ListAcceptedPortfolioShares' {portfolioShareType} -> portfolioShareType) (\s@ListAcceptedPortfolioShares' {} a -> s {portfolioShareType = a} :: ListAcceptedPortfolioShares)
 
 instance Core.AWSPager ListAcceptedPortfolioShares where
   page rq rs
@@ -178,13 +188,14 @@ instance Core.AWSRequest ListAcceptedPortfolioShares where
   type
     AWSResponse ListAcceptedPortfolioShares =
       ListAcceptedPortfolioSharesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAcceptedPortfolioSharesResponse'
-            Prelude.<$> (x Core..?> "NextPageToken")
-            Prelude.<*> ( x Core..?> "PortfolioDetails"
+            Prelude.<$> (x Data..?> "NextPageToken")
+            Prelude.<*> ( x Data..?> "PortfolioDetails"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -192,50 +203,50 @@ instance Core.AWSRequest ListAcceptedPortfolioShares where
 
 instance Prelude.Hashable ListAcceptedPortfolioShares where
   hashWithSalt _salt ListAcceptedPortfolioShares' {..} =
-    _salt `Prelude.hashWithSalt` portfolioShareType
-      `Prelude.hashWithSalt` acceptLanguage
-      `Prelude.hashWithSalt` pageToken
+    _salt `Prelude.hashWithSalt` acceptLanguage
       `Prelude.hashWithSalt` pageSize
+      `Prelude.hashWithSalt` pageToken
+      `Prelude.hashWithSalt` portfolioShareType
 
 instance Prelude.NFData ListAcceptedPortfolioShares where
   rnf ListAcceptedPortfolioShares' {..} =
-    Prelude.rnf portfolioShareType
-      `Prelude.seq` Prelude.rnf acceptLanguage
-      `Prelude.seq` Prelude.rnf pageToken
+    Prelude.rnf acceptLanguage
       `Prelude.seq` Prelude.rnf pageSize
+      `Prelude.seq` Prelude.rnf pageToken
+      `Prelude.seq` Prelude.rnf portfolioShareType
 
-instance Core.ToHeaders ListAcceptedPortfolioShares where
+instance Data.ToHeaders ListAcceptedPortfolioShares where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.ListAcceptedPortfolioShares" ::
+              Data.=# ( "AWS242ServiceCatalogService.ListAcceptedPortfolioShares" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListAcceptedPortfolioShares where
+instance Data.ToJSON ListAcceptedPortfolioShares where
   toJSON ListAcceptedPortfolioShares' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PortfolioShareType" Core..=)
-              Prelude.<$> portfolioShareType,
-            ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            ("PageToken" Core..=) Prelude.<$> pageToken,
-            ("PageSize" Core..=) Prelude.<$> pageSize
+            ("PageSize" Data..=) Prelude.<$> pageSize,
+            ("PageToken" Data..=) Prelude.<$> pageToken,
+            ("PortfolioShareType" Data..=)
+              Prelude.<$> portfolioShareType
           ]
       )
 
-instance Core.ToPath ListAcceptedPortfolioShares where
+instance Data.ToPath ListAcceptedPortfolioShares where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListAcceptedPortfolioShares where
+instance Data.ToQuery ListAcceptedPortfolioShares where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListAcceptedPortfolioSharesResponse' smart constructor.

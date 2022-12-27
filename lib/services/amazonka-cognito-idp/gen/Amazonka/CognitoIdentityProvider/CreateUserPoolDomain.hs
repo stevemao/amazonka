@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.CreateUserPoolDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,7 +61,9 @@ data CreateUserPoolDomain = CreateUserPoolDomain'
     -- For more information about the hosted domain and custom domains, see
     -- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-assign-domain.html Configuring a User Pool Domain>.
     customDomainConfig :: Prelude.Maybe CustomDomainConfigType,
-    -- | The domain string.
+    -- | The domain string. For custom domains, this is the fully-qualified
+    -- domain name, such as @auth.example.com@. For Amazon Cognito prefix
+    -- domains, this is the prefix alone, such as @auth@.
     domain :: Prelude.Text,
     -- | The user pool ID.
     userPoolId :: Prelude.Text
@@ -85,7 +88,9 @@ data CreateUserPoolDomain = CreateUserPoolDomain'
 -- For more information about the hosted domain and custom domains, see
 -- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-assign-domain.html Configuring a User Pool Domain>.
 --
--- 'domain', 'createUserPoolDomain_domain' - The domain string.
+-- 'domain', 'createUserPoolDomain_domain' - The domain string. For custom domains, this is the fully-qualified
+-- domain name, such as @auth.example.com@. For Amazon Cognito prefix
+-- domains, this is the prefix alone, such as @auth@.
 --
 -- 'userPoolId', 'createUserPoolDomain_userPoolId' - The user pool ID.
 newCreateUserPoolDomain ::
@@ -114,7 +119,9 @@ newCreateUserPoolDomain pDomain_ pUserPoolId_ =
 createUserPoolDomain_customDomainConfig :: Lens.Lens' CreateUserPoolDomain (Prelude.Maybe CustomDomainConfigType)
 createUserPoolDomain_customDomainConfig = Lens.lens (\CreateUserPoolDomain' {customDomainConfig} -> customDomainConfig) (\s@CreateUserPoolDomain' {} a -> s {customDomainConfig = a} :: CreateUserPoolDomain)
 
--- | The domain string.
+-- | The domain string. For custom domains, this is the fully-qualified
+-- domain name, such as @auth.example.com@. For Amazon Cognito prefix
+-- domains, this is the prefix alone, such as @auth@.
 createUserPoolDomain_domain :: Lens.Lens' CreateUserPoolDomain Prelude.Text
 createUserPoolDomain_domain = Lens.lens (\CreateUserPoolDomain' {domain} -> domain) (\s@CreateUserPoolDomain' {} a -> s {domain = a} :: CreateUserPoolDomain)
 
@@ -126,12 +133,13 @@ instance Core.AWSRequest CreateUserPoolDomain where
   type
     AWSResponse CreateUserPoolDomain =
       CreateUserPoolDomainResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateUserPoolDomainResponse'
-            Prelude.<$> (x Core..?> "CloudFrontDomain")
+            Prelude.<$> (x Data..?> "CloudFrontDomain")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -147,36 +155,36 @@ instance Prelude.NFData CreateUserPoolDomain where
       `Prelude.seq` Prelude.rnf domain
       `Prelude.seq` Prelude.rnf userPoolId
 
-instance Core.ToHeaders CreateUserPoolDomain where
+instance Data.ToHeaders CreateUserPoolDomain where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.CreateUserPoolDomain" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.CreateUserPoolDomain" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateUserPoolDomain where
+instance Data.ToJSON CreateUserPoolDomain where
   toJSON CreateUserPoolDomain' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CustomDomainConfig" Core..=)
+          [ ("CustomDomainConfig" Data..=)
               Prelude.<$> customDomainConfig,
-            Prelude.Just ("Domain" Core..= domain),
-            Prelude.Just ("UserPoolId" Core..= userPoolId)
+            Prelude.Just ("Domain" Data..= domain),
+            Prelude.Just ("UserPoolId" Data..= userPoolId)
           ]
       )
 
-instance Core.ToPath CreateUserPoolDomain where
+instance Data.ToPath CreateUserPoolDomain where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateUserPoolDomain where
+instance Data.ToQuery CreateUserPoolDomain where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateUserPoolDomainResponse' smart constructor.

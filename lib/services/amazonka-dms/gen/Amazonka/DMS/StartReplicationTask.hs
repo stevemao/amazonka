@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DMS.StartReplicationTask
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,8 +32,8 @@ module Amazonka.DMS.StartReplicationTask
 
     -- * Request Lenses
     startReplicationTask_cdcStartPosition,
-    startReplicationTask_cdcStopPosition,
     startReplicationTask_cdcStartTime,
+    startReplicationTask_cdcStopPosition,
     startReplicationTask_replicationTaskArn,
     startReplicationTask_startReplicationTaskType,
 
@@ -48,8 +48,9 @@ module Amazonka.DMS.StartReplicationTask
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DMS.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,6 +79,12 @@ data StartReplicationTask = StartReplicationTask'
     -- more information, see
     -- <https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.PostgreSQL.html#CHAP_Source.PostgreSQL.ConnectionAttrib Extra Connection Attributes When Using PostgreSQL as a Source for DMS>.
     cdcStartPosition :: Prelude.Maybe Prelude.Text,
+    -- | Indicates the start time for a change data capture (CDC) operation. Use
+    -- either CdcStartTime or CdcStartPosition to specify when you want a CDC
+    -- operation to start. Specifying both values results in an error.
+    --
+    -- Timestamp Example: --cdc-start-time “2018-03-08T12:12:12”
+    cdcStartTime :: Prelude.Maybe Data.POSIX,
     -- | Indicates when you want a change data capture (CDC) operation to stop.
     -- The value can be either server time or commit time.
     --
@@ -87,15 +94,19 @@ data StartReplicationTask = StartReplicationTask'
     -- Commit time example: --cdc-stop-position “commit_time:
     -- 2018-02-09T12:12:12 “
     cdcStopPosition :: Prelude.Maybe Prelude.Text,
-    -- | Indicates the start time for a change data capture (CDC) operation. Use
-    -- either CdcStartTime or CdcStartPosition to specify when you want a CDC
-    -- operation to start. Specifying both values results in an error.
-    --
-    -- Timestamp Example: --cdc-start-time “2018-03-08T12:12:12”
-    cdcStartTime :: Prelude.Maybe Core.POSIX,
     -- | The Amazon Resource Name (ARN) of the replication task to be started.
     replicationTaskArn :: Prelude.Text,
-    -- | A type of replication task.
+    -- | The type of replication task to start.
+    --
+    -- When the migration type is @full-load@ or @full-load-and-cdc@, the only
+    -- valid value for the first run of the task is @start-replication@. You
+    -- use @reload-target@ to restart the task and @resume-processing@ to
+    -- resume the task.
+    --
+    -- When the migration type is @cdc@, you use @start-replication@ to start
+    -- or restart the task, and @resume-processing@ to resume the task.
+    -- @reload-target@ is not a valid value for a task with migration type of
+    -- @cdc@.
     startReplicationTaskType :: StartReplicationTaskTypeValue
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -128,6 +139,12 @@ data StartReplicationTask = StartReplicationTask'
 -- more information, see
 -- <https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.PostgreSQL.html#CHAP_Source.PostgreSQL.ConnectionAttrib Extra Connection Attributes When Using PostgreSQL as a Source for DMS>.
 --
+-- 'cdcStartTime', 'startReplicationTask_cdcStartTime' - Indicates the start time for a change data capture (CDC) operation. Use
+-- either CdcStartTime or CdcStartPosition to specify when you want a CDC
+-- operation to start. Specifying both values results in an error.
+--
+-- Timestamp Example: --cdc-start-time “2018-03-08T12:12:12”
+--
 -- 'cdcStopPosition', 'startReplicationTask_cdcStopPosition' - Indicates when you want a change data capture (CDC) operation to stop.
 -- The value can be either server time or commit time.
 --
@@ -137,15 +154,19 @@ data StartReplicationTask = StartReplicationTask'
 -- Commit time example: --cdc-stop-position “commit_time:
 -- 2018-02-09T12:12:12 “
 --
--- 'cdcStartTime', 'startReplicationTask_cdcStartTime' - Indicates the start time for a change data capture (CDC) operation. Use
--- either CdcStartTime or CdcStartPosition to specify when you want a CDC
--- operation to start. Specifying both values results in an error.
---
--- Timestamp Example: --cdc-start-time “2018-03-08T12:12:12”
---
 -- 'replicationTaskArn', 'startReplicationTask_replicationTaskArn' - The Amazon Resource Name (ARN) of the replication task to be started.
 --
--- 'startReplicationTaskType', 'startReplicationTask_startReplicationTaskType' - A type of replication task.
+-- 'startReplicationTaskType', 'startReplicationTask_startReplicationTaskType' - The type of replication task to start.
+--
+-- When the migration type is @full-load@ or @full-load-and-cdc@, the only
+-- valid value for the first run of the task is @start-replication@. You
+-- use @reload-target@ to restart the task and @resume-processing@ to
+-- resume the task.
+--
+-- When the migration type is @cdc@, you use @start-replication@ to start
+-- or restart the task, and @resume-processing@ to resume the task.
+-- @reload-target@ is not a valid value for a task with migration type of
+-- @cdc@.
 newStartReplicationTask ::
   -- | 'replicationTaskArn'
   Prelude.Text ->
@@ -158,8 +179,8 @@ newStartReplicationTask
     StartReplicationTask'
       { cdcStartPosition =
           Prelude.Nothing,
-        cdcStopPosition = Prelude.Nothing,
         cdcStartTime = Prelude.Nothing,
+        cdcStopPosition = Prelude.Nothing,
         replicationTaskArn = pReplicationTaskArn_,
         startReplicationTaskType =
           pStartReplicationTaskType_
@@ -187,6 +208,14 @@ newStartReplicationTask
 startReplicationTask_cdcStartPosition :: Lens.Lens' StartReplicationTask (Prelude.Maybe Prelude.Text)
 startReplicationTask_cdcStartPosition = Lens.lens (\StartReplicationTask' {cdcStartPosition} -> cdcStartPosition) (\s@StartReplicationTask' {} a -> s {cdcStartPosition = a} :: StartReplicationTask)
 
+-- | Indicates the start time for a change data capture (CDC) operation. Use
+-- either CdcStartTime or CdcStartPosition to specify when you want a CDC
+-- operation to start. Specifying both values results in an error.
+--
+-- Timestamp Example: --cdc-start-time “2018-03-08T12:12:12”
+startReplicationTask_cdcStartTime :: Lens.Lens' StartReplicationTask (Prelude.Maybe Prelude.UTCTime)
+startReplicationTask_cdcStartTime = Lens.lens (\StartReplicationTask' {cdcStartTime} -> cdcStartTime) (\s@StartReplicationTask' {} a -> s {cdcStartTime = a} :: StartReplicationTask) Prelude.. Lens.mapping Data._Time
+
 -- | Indicates when you want a change data capture (CDC) operation to stop.
 -- The value can be either server time or commit time.
 --
@@ -198,19 +227,21 @@ startReplicationTask_cdcStartPosition = Lens.lens (\StartReplicationTask' {cdcSt
 startReplicationTask_cdcStopPosition :: Lens.Lens' StartReplicationTask (Prelude.Maybe Prelude.Text)
 startReplicationTask_cdcStopPosition = Lens.lens (\StartReplicationTask' {cdcStopPosition} -> cdcStopPosition) (\s@StartReplicationTask' {} a -> s {cdcStopPosition = a} :: StartReplicationTask)
 
--- | Indicates the start time for a change data capture (CDC) operation. Use
--- either CdcStartTime or CdcStartPosition to specify when you want a CDC
--- operation to start. Specifying both values results in an error.
---
--- Timestamp Example: --cdc-start-time “2018-03-08T12:12:12”
-startReplicationTask_cdcStartTime :: Lens.Lens' StartReplicationTask (Prelude.Maybe Prelude.UTCTime)
-startReplicationTask_cdcStartTime = Lens.lens (\StartReplicationTask' {cdcStartTime} -> cdcStartTime) (\s@StartReplicationTask' {} a -> s {cdcStartTime = a} :: StartReplicationTask) Prelude.. Lens.mapping Core._Time
-
 -- | The Amazon Resource Name (ARN) of the replication task to be started.
 startReplicationTask_replicationTaskArn :: Lens.Lens' StartReplicationTask Prelude.Text
 startReplicationTask_replicationTaskArn = Lens.lens (\StartReplicationTask' {replicationTaskArn} -> replicationTaskArn) (\s@StartReplicationTask' {} a -> s {replicationTaskArn = a} :: StartReplicationTask)
 
--- | A type of replication task.
+-- | The type of replication task to start.
+--
+-- When the migration type is @full-load@ or @full-load-and-cdc@, the only
+-- valid value for the first run of the task is @start-replication@. You
+-- use @reload-target@ to restart the task and @resume-processing@ to
+-- resume the task.
+--
+-- When the migration type is @cdc@, you use @start-replication@ to start
+-- or restart the task, and @resume-processing@ to resume the task.
+-- @reload-target@ is not a valid value for a task with migration type of
+-- @cdc@.
 startReplicationTask_startReplicationTaskType :: Lens.Lens' StartReplicationTask StartReplicationTaskTypeValue
 startReplicationTask_startReplicationTaskType = Lens.lens (\StartReplicationTask' {startReplicationTaskType} -> startReplicationTaskType) (\s@StartReplicationTask' {} a -> s {startReplicationTaskType = a} :: StartReplicationTask)
 
@@ -218,68 +249,69 @@ instance Core.AWSRequest StartReplicationTask where
   type
     AWSResponse StartReplicationTask =
       StartReplicationTaskResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartReplicationTaskResponse'
-            Prelude.<$> (x Core..?> "ReplicationTask")
+            Prelude.<$> (x Data..?> "ReplicationTask")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable StartReplicationTask where
   hashWithSalt _salt StartReplicationTask' {..} =
     _salt `Prelude.hashWithSalt` cdcStartPosition
-      `Prelude.hashWithSalt` cdcStopPosition
       `Prelude.hashWithSalt` cdcStartTime
+      `Prelude.hashWithSalt` cdcStopPosition
       `Prelude.hashWithSalt` replicationTaskArn
       `Prelude.hashWithSalt` startReplicationTaskType
 
 instance Prelude.NFData StartReplicationTask where
   rnf StartReplicationTask' {..} =
     Prelude.rnf cdcStartPosition
-      `Prelude.seq` Prelude.rnf cdcStopPosition
       `Prelude.seq` Prelude.rnf cdcStartTime
+      `Prelude.seq` Prelude.rnf cdcStopPosition
       `Prelude.seq` Prelude.rnf replicationTaskArn
       `Prelude.seq` Prelude.rnf startReplicationTaskType
 
-instance Core.ToHeaders StartReplicationTask where
+instance Data.ToHeaders StartReplicationTask where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonDMSv20160101.StartReplicationTask" ::
+              Data.=# ( "AmazonDMSv20160101.StartReplicationTask" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartReplicationTask where
+instance Data.ToJSON StartReplicationTask where
   toJSON StartReplicationTask' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CdcStartPosition" Core..=)
+          [ ("CdcStartPosition" Data..=)
               Prelude.<$> cdcStartPosition,
-            ("CdcStopPosition" Core..=)
+            ("CdcStartTime" Data..=) Prelude.<$> cdcStartTime,
+            ("CdcStopPosition" Data..=)
               Prelude.<$> cdcStopPosition,
-            ("CdcStartTime" Core..=) Prelude.<$> cdcStartTime,
             Prelude.Just
-              ("ReplicationTaskArn" Core..= replicationTaskArn),
+              ("ReplicationTaskArn" Data..= replicationTaskArn),
             Prelude.Just
               ( "StartReplicationTaskType"
-                  Core..= startReplicationTaskType
+                  Data..= startReplicationTaskType
               )
           ]
       )
 
-instance Core.ToPath StartReplicationTask where
+instance Data.ToPath StartReplicationTask where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartReplicationTask where
+instance Data.ToQuery StartReplicationTask where
   toQuery = Prelude.const Prelude.mempty
 
 -- |

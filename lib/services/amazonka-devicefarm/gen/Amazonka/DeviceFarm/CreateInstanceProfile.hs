@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.CreateInstanceProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,10 +28,10 @@ module Amazonka.DeviceFarm.CreateInstanceProfile
     newCreateInstanceProfile,
 
     -- * Request Lenses
-    createInstanceProfile_rebootAfterUse,
-    createInstanceProfile_packageCleanup,
-    createInstanceProfile_excludeAppPackagesFromCleanup,
     createInstanceProfile_description,
+    createInstanceProfile_excludeAppPackagesFromCleanup,
+    createInstanceProfile_packageCleanup,
+    createInstanceProfile_rebootAfterUse,
     createInstanceProfile_name,
 
     -- * Destructuring the Response
@@ -45,28 +45,29 @@ module Amazonka.DeviceFarm.CreateInstanceProfile
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateInstanceProfile' smart constructor.
 data CreateInstanceProfile = CreateInstanceProfile'
-  { -- | When set to @true@, Device Farm reboots the instance after a test run.
-    -- The default value is @true@.
-    rebootAfterUse :: Prelude.Maybe Prelude.Bool,
-    -- | When set to @true@, Device Farm removes app packages after a test run.
-    -- The default value is @false@ for private devices.
-    packageCleanup :: Prelude.Maybe Prelude.Bool,
+  { -- | The description of your instance profile.
+    description :: Prelude.Maybe Prelude.Text,
     -- | An array of strings that specifies the list of app packages that should
     -- not be cleaned up from the device after a test run.
     --
     -- The list of packages is considered only if you set @packageCleanup@ to
     -- @true@.
     excludeAppPackagesFromCleanup :: Prelude.Maybe [Prelude.Text],
-    -- | The description of your instance profile.
-    description :: Prelude.Maybe Prelude.Text,
+    -- | When set to @true@, Device Farm removes app packages after a test run.
+    -- The default value is @false@ for private devices.
+    packageCleanup :: Prelude.Maybe Prelude.Bool,
+    -- | When set to @true@, Device Farm reboots the instance after a test run.
+    -- The default value is @true@.
+    rebootAfterUse :: Prelude.Maybe Prelude.Bool,
     -- | The name of your instance profile.
     name :: Prelude.Text
   }
@@ -80,11 +81,7 @@ data CreateInstanceProfile = CreateInstanceProfile'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'rebootAfterUse', 'createInstanceProfile_rebootAfterUse' - When set to @true@, Device Farm reboots the instance after a test run.
--- The default value is @true@.
---
--- 'packageCleanup', 'createInstanceProfile_packageCleanup' - When set to @true@, Device Farm removes app packages after a test run.
--- The default value is @false@ for private devices.
+-- 'description', 'createInstanceProfile_description' - The description of your instance profile.
 --
 -- 'excludeAppPackagesFromCleanup', 'createInstanceProfile_excludeAppPackagesFromCleanup' - An array of strings that specifies the list of app packages that should
 -- not be cleaned up from the device after a test run.
@@ -92,7 +89,11 @@ data CreateInstanceProfile = CreateInstanceProfile'
 -- The list of packages is considered only if you set @packageCleanup@ to
 -- @true@.
 --
--- 'description', 'createInstanceProfile_description' - The description of your instance profile.
+-- 'packageCleanup', 'createInstanceProfile_packageCleanup' - When set to @true@, Device Farm removes app packages after a test run.
+-- The default value is @false@ for private devices.
+--
+-- 'rebootAfterUse', 'createInstanceProfile_rebootAfterUse' - When set to @true@, Device Farm reboots the instance after a test run.
+-- The default value is @true@.
 --
 -- 'name', 'createInstanceProfile_name' - The name of your instance profile.
 newCreateInstanceProfile ::
@@ -101,23 +102,17 @@ newCreateInstanceProfile ::
   CreateInstanceProfile
 newCreateInstanceProfile pName_ =
   CreateInstanceProfile'
-    { rebootAfterUse =
+    { description =
         Prelude.Nothing,
-      packageCleanup = Prelude.Nothing,
       excludeAppPackagesFromCleanup = Prelude.Nothing,
-      description = Prelude.Nothing,
+      packageCleanup = Prelude.Nothing,
+      rebootAfterUse = Prelude.Nothing,
       name = pName_
     }
 
--- | When set to @true@, Device Farm reboots the instance after a test run.
--- The default value is @true@.
-createInstanceProfile_rebootAfterUse :: Lens.Lens' CreateInstanceProfile (Prelude.Maybe Prelude.Bool)
-createInstanceProfile_rebootAfterUse = Lens.lens (\CreateInstanceProfile' {rebootAfterUse} -> rebootAfterUse) (\s@CreateInstanceProfile' {} a -> s {rebootAfterUse = a} :: CreateInstanceProfile)
-
--- | When set to @true@, Device Farm removes app packages after a test run.
--- The default value is @false@ for private devices.
-createInstanceProfile_packageCleanup :: Lens.Lens' CreateInstanceProfile (Prelude.Maybe Prelude.Bool)
-createInstanceProfile_packageCleanup = Lens.lens (\CreateInstanceProfile' {packageCleanup} -> packageCleanup) (\s@CreateInstanceProfile' {} a -> s {packageCleanup = a} :: CreateInstanceProfile)
+-- | The description of your instance profile.
+createInstanceProfile_description :: Lens.Lens' CreateInstanceProfile (Prelude.Maybe Prelude.Text)
+createInstanceProfile_description = Lens.lens (\CreateInstanceProfile' {description} -> description) (\s@CreateInstanceProfile' {} a -> s {description = a} :: CreateInstanceProfile)
 
 -- | An array of strings that specifies the list of app packages that should
 -- not be cleaned up from the device after a test run.
@@ -127,9 +122,15 @@ createInstanceProfile_packageCleanup = Lens.lens (\CreateInstanceProfile' {packa
 createInstanceProfile_excludeAppPackagesFromCleanup :: Lens.Lens' CreateInstanceProfile (Prelude.Maybe [Prelude.Text])
 createInstanceProfile_excludeAppPackagesFromCleanup = Lens.lens (\CreateInstanceProfile' {excludeAppPackagesFromCleanup} -> excludeAppPackagesFromCleanup) (\s@CreateInstanceProfile' {} a -> s {excludeAppPackagesFromCleanup = a} :: CreateInstanceProfile) Prelude.. Lens.mapping Lens.coerced
 
--- | The description of your instance profile.
-createInstanceProfile_description :: Lens.Lens' CreateInstanceProfile (Prelude.Maybe Prelude.Text)
-createInstanceProfile_description = Lens.lens (\CreateInstanceProfile' {description} -> description) (\s@CreateInstanceProfile' {} a -> s {description = a} :: CreateInstanceProfile)
+-- | When set to @true@, Device Farm removes app packages after a test run.
+-- The default value is @false@ for private devices.
+createInstanceProfile_packageCleanup :: Lens.Lens' CreateInstanceProfile (Prelude.Maybe Prelude.Bool)
+createInstanceProfile_packageCleanup = Lens.lens (\CreateInstanceProfile' {packageCleanup} -> packageCleanup) (\s@CreateInstanceProfile' {} a -> s {packageCleanup = a} :: CreateInstanceProfile)
+
+-- | When set to @true@, Device Farm reboots the instance after a test run.
+-- The default value is @true@.
+createInstanceProfile_rebootAfterUse :: Lens.Lens' CreateInstanceProfile (Prelude.Maybe Prelude.Bool)
+createInstanceProfile_rebootAfterUse = Lens.lens (\CreateInstanceProfile' {rebootAfterUse} -> rebootAfterUse) (\s@CreateInstanceProfile' {} a -> s {rebootAfterUse = a} :: CreateInstanceProfile)
 
 -- | The name of your instance profile.
 createInstanceProfile_name :: Lens.Lens' CreateInstanceProfile Prelude.Text
@@ -139,65 +140,66 @@ instance Core.AWSRequest CreateInstanceProfile where
   type
     AWSResponse CreateInstanceProfile =
       CreateInstanceProfileResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateInstanceProfileResponse'
-            Prelude.<$> (x Core..?> "instanceProfile")
+            Prelude.<$> (x Data..?> "instanceProfile")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateInstanceProfile where
   hashWithSalt _salt CreateInstanceProfile' {..} =
-    _salt `Prelude.hashWithSalt` rebootAfterUse
-      `Prelude.hashWithSalt` packageCleanup
+    _salt `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` excludeAppPackagesFromCleanup
-      `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` packageCleanup
+      `Prelude.hashWithSalt` rebootAfterUse
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData CreateInstanceProfile where
   rnf CreateInstanceProfile' {..} =
-    Prelude.rnf rebootAfterUse
-      `Prelude.seq` Prelude.rnf packageCleanup
+    Prelude.rnf description
       `Prelude.seq` Prelude.rnf excludeAppPackagesFromCleanup
-      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf packageCleanup
+      `Prelude.seq` Prelude.rnf rebootAfterUse
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreateInstanceProfile where
+instance Data.ToHeaders CreateInstanceProfile where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.CreateInstanceProfile" ::
+              Data.=# ( "DeviceFarm_20150623.CreateInstanceProfile" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateInstanceProfile where
+instance Data.ToJSON CreateInstanceProfile where
   toJSON CreateInstanceProfile' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("rebootAfterUse" Core..=)
-              Prelude.<$> rebootAfterUse,
-            ("packageCleanup" Core..=)
-              Prelude.<$> packageCleanup,
-            ("excludeAppPackagesFromCleanup" Core..=)
+          [ ("description" Data..=) Prelude.<$> description,
+            ("excludeAppPackagesFromCleanup" Data..=)
               Prelude.<$> excludeAppPackagesFromCleanup,
-            ("description" Core..=) Prelude.<$> description,
-            Prelude.Just ("name" Core..= name)
+            ("packageCleanup" Data..=)
+              Prelude.<$> packageCleanup,
+            ("rebootAfterUse" Data..=)
+              Prelude.<$> rebootAfterUse,
+            Prelude.Just ("name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateInstanceProfile where
+instance Data.ToPath CreateInstanceProfile where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateInstanceProfile where
+instance Data.ToQuery CreateInstanceProfile where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateInstanceProfileResponse' smart constructor.

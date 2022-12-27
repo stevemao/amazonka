@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.CreateProcessingJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,11 +28,11 @@ module Amazonka.SageMaker.CreateProcessingJob
 
     -- * Request Lenses
     createProcessingJob_environment,
-    createProcessingJob_stoppingCondition,
     createProcessingJob_experimentConfig,
-    createProcessingJob_processingInputs,
     createProcessingJob_networkConfig,
+    createProcessingJob_processingInputs,
     createProcessingJob_processingOutputConfig,
+    createProcessingJob_stoppingCondition,
     createProcessingJob_tags,
     createProcessingJob_processingJobName,
     createProcessingJob_processingResources,
@@ -50,7 +50,8 @@ module Amazonka.SageMaker.CreateProcessingJob
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,19 +62,19 @@ data CreateProcessingJob = CreateProcessingJob'
   { -- | The environment variables to set in the Docker container. Up to 100 key
     -- and values entries in the map are supported.
     environment :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | The time limit for how long the processing job is allowed to run.
-    stoppingCondition :: Prelude.Maybe ProcessingStoppingCondition,
     experimentConfig :: Prelude.Maybe ExperimentConfig,
-    -- | An array of inputs configuring the data to download into the processing
-    -- container.
-    processingInputs :: Prelude.Maybe [ProcessingInput],
     -- | Networking options for a processing job, such as whether to allow
     -- inbound and outbound network calls to and from processing containers,
     -- and the VPC subnets and security groups to use for VPC-enabled
     -- processing jobs.
     networkConfig :: Prelude.Maybe NetworkConfig,
+    -- | An array of inputs configuring the data to download into the processing
+    -- container.
+    processingInputs :: Prelude.Maybe [ProcessingInput],
     -- | Output configuration for the processing job.
     processingOutputConfig :: Prelude.Maybe ProcessingOutputConfig,
+    -- | The time limit for how long the processing job is allowed to run.
+    stoppingCondition :: Prelude.Maybe ProcessingStoppingCondition,
     -- | (Optional) An array of key-value pairs. For more information, see
     -- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags>
     -- in the /Amazon Web Services Billing and Cost Management User Guide/.
@@ -104,19 +105,19 @@ data CreateProcessingJob = CreateProcessingJob'
 -- 'environment', 'createProcessingJob_environment' - The environment variables to set in the Docker container. Up to 100 key
 -- and values entries in the map are supported.
 --
--- 'stoppingCondition', 'createProcessingJob_stoppingCondition' - The time limit for how long the processing job is allowed to run.
---
 -- 'experimentConfig', 'createProcessingJob_experimentConfig' - Undocumented member.
---
--- 'processingInputs', 'createProcessingJob_processingInputs' - An array of inputs configuring the data to download into the processing
--- container.
 --
 -- 'networkConfig', 'createProcessingJob_networkConfig' - Networking options for a processing job, such as whether to allow
 -- inbound and outbound network calls to and from processing containers,
 -- and the VPC subnets and security groups to use for VPC-enabled
 -- processing jobs.
 --
+-- 'processingInputs', 'createProcessingJob_processingInputs' - An array of inputs configuring the data to download into the processing
+-- container.
+--
 -- 'processingOutputConfig', 'createProcessingJob_processingOutputConfig' - Output configuration for the processing job.
+--
+-- 'stoppingCondition', 'createProcessingJob_stoppingCondition' - The time limit for how long the processing job is allowed to run.
 --
 -- 'tags', 'createProcessingJob_tags' - (Optional) An array of key-value pairs. For more information, see
 -- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags>
@@ -150,11 +151,11 @@ newCreateProcessingJob
   pRoleArn_ =
     CreateProcessingJob'
       { environment = Prelude.Nothing,
-        stoppingCondition = Prelude.Nothing,
         experimentConfig = Prelude.Nothing,
-        processingInputs = Prelude.Nothing,
         networkConfig = Prelude.Nothing,
+        processingInputs = Prelude.Nothing,
         processingOutputConfig = Prelude.Nothing,
+        stoppingCondition = Prelude.Nothing,
         tags = Prelude.Nothing,
         processingJobName = pProcessingJobName_,
         processingResources = pProcessingResources_,
@@ -167,18 +168,9 @@ newCreateProcessingJob
 createProcessingJob_environment :: Lens.Lens' CreateProcessingJob (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createProcessingJob_environment = Lens.lens (\CreateProcessingJob' {environment} -> environment) (\s@CreateProcessingJob' {} a -> s {environment = a} :: CreateProcessingJob) Prelude.. Lens.mapping Lens.coerced
 
--- | The time limit for how long the processing job is allowed to run.
-createProcessingJob_stoppingCondition :: Lens.Lens' CreateProcessingJob (Prelude.Maybe ProcessingStoppingCondition)
-createProcessingJob_stoppingCondition = Lens.lens (\CreateProcessingJob' {stoppingCondition} -> stoppingCondition) (\s@CreateProcessingJob' {} a -> s {stoppingCondition = a} :: CreateProcessingJob)
-
 -- | Undocumented member.
 createProcessingJob_experimentConfig :: Lens.Lens' CreateProcessingJob (Prelude.Maybe ExperimentConfig)
 createProcessingJob_experimentConfig = Lens.lens (\CreateProcessingJob' {experimentConfig} -> experimentConfig) (\s@CreateProcessingJob' {} a -> s {experimentConfig = a} :: CreateProcessingJob)
-
--- | An array of inputs configuring the data to download into the processing
--- container.
-createProcessingJob_processingInputs :: Lens.Lens' CreateProcessingJob (Prelude.Maybe [ProcessingInput])
-createProcessingJob_processingInputs = Lens.lens (\CreateProcessingJob' {processingInputs} -> processingInputs) (\s@CreateProcessingJob' {} a -> s {processingInputs = a} :: CreateProcessingJob) Prelude.. Lens.mapping Lens.coerced
 
 -- | Networking options for a processing job, such as whether to allow
 -- inbound and outbound network calls to and from processing containers,
@@ -187,9 +179,18 @@ createProcessingJob_processingInputs = Lens.lens (\CreateProcessingJob' {process
 createProcessingJob_networkConfig :: Lens.Lens' CreateProcessingJob (Prelude.Maybe NetworkConfig)
 createProcessingJob_networkConfig = Lens.lens (\CreateProcessingJob' {networkConfig} -> networkConfig) (\s@CreateProcessingJob' {} a -> s {networkConfig = a} :: CreateProcessingJob)
 
+-- | An array of inputs configuring the data to download into the processing
+-- container.
+createProcessingJob_processingInputs :: Lens.Lens' CreateProcessingJob (Prelude.Maybe [ProcessingInput])
+createProcessingJob_processingInputs = Lens.lens (\CreateProcessingJob' {processingInputs} -> processingInputs) (\s@CreateProcessingJob' {} a -> s {processingInputs = a} :: CreateProcessingJob) Prelude.. Lens.mapping Lens.coerced
+
 -- | Output configuration for the processing job.
 createProcessingJob_processingOutputConfig :: Lens.Lens' CreateProcessingJob (Prelude.Maybe ProcessingOutputConfig)
 createProcessingJob_processingOutputConfig = Lens.lens (\CreateProcessingJob' {processingOutputConfig} -> processingOutputConfig) (\s@CreateProcessingJob' {} a -> s {processingOutputConfig = a} :: CreateProcessingJob)
+
+-- | The time limit for how long the processing job is allowed to run.
+createProcessingJob_stoppingCondition :: Lens.Lens' CreateProcessingJob (Prelude.Maybe ProcessingStoppingCondition)
+createProcessingJob_stoppingCondition = Lens.lens (\CreateProcessingJob' {stoppingCondition} -> stoppingCondition) (\s@CreateProcessingJob' {} a -> s {stoppingCondition = a} :: CreateProcessingJob)
 
 -- | (Optional) An array of key-value pairs. For more information, see
 -- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags>
@@ -221,23 +222,24 @@ instance Core.AWSRequest CreateProcessingJob where
   type
     AWSResponse CreateProcessingJob =
       CreateProcessingJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateProcessingJobResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "ProcessingJobArn")
+            Prelude.<*> (x Data..:> "ProcessingJobArn")
       )
 
 instance Prelude.Hashable CreateProcessingJob where
   hashWithSalt _salt CreateProcessingJob' {..} =
     _salt `Prelude.hashWithSalt` environment
-      `Prelude.hashWithSalt` stoppingCondition
       `Prelude.hashWithSalt` experimentConfig
-      `Prelude.hashWithSalt` processingInputs
       `Prelude.hashWithSalt` networkConfig
+      `Prelude.hashWithSalt` processingInputs
       `Prelude.hashWithSalt` processingOutputConfig
+      `Prelude.hashWithSalt` stoppingCondition
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` processingJobName
       `Prelude.hashWithSalt` processingResources
@@ -247,61 +249,61 @@ instance Prelude.Hashable CreateProcessingJob where
 instance Prelude.NFData CreateProcessingJob where
   rnf CreateProcessingJob' {..} =
     Prelude.rnf environment
-      `Prelude.seq` Prelude.rnf stoppingCondition
       `Prelude.seq` Prelude.rnf experimentConfig
-      `Prelude.seq` Prelude.rnf processingInputs
       `Prelude.seq` Prelude.rnf networkConfig
+      `Prelude.seq` Prelude.rnf processingInputs
       `Prelude.seq` Prelude.rnf processingOutputConfig
+      `Prelude.seq` Prelude.rnf stoppingCondition
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf processingJobName
       `Prelude.seq` Prelude.rnf processingResources
       `Prelude.seq` Prelude.rnf appSpecification
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToHeaders CreateProcessingJob where
+instance Data.ToHeaders CreateProcessingJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.CreateProcessingJob" ::
+              Data.=# ( "SageMaker.CreateProcessingJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateProcessingJob where
+instance Data.ToJSON CreateProcessingJob where
   toJSON CreateProcessingJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Environment" Core..=) Prelude.<$> environment,
-            ("StoppingCondition" Core..=)
-              Prelude.<$> stoppingCondition,
-            ("ExperimentConfig" Core..=)
+          [ ("Environment" Data..=) Prelude.<$> environment,
+            ("ExperimentConfig" Data..=)
               Prelude.<$> experimentConfig,
-            ("ProcessingInputs" Core..=)
+            ("NetworkConfig" Data..=) Prelude.<$> networkConfig,
+            ("ProcessingInputs" Data..=)
               Prelude.<$> processingInputs,
-            ("NetworkConfig" Core..=) Prelude.<$> networkConfig,
-            ("ProcessingOutputConfig" Core..=)
+            ("ProcessingOutputConfig" Data..=)
               Prelude.<$> processingOutputConfig,
-            ("Tags" Core..=) Prelude.<$> tags,
+            ("StoppingCondition" Data..=)
+              Prelude.<$> stoppingCondition,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("ProcessingJobName" Core..= processingJobName),
+              ("ProcessingJobName" Data..= processingJobName),
             Prelude.Just
-              ("ProcessingResources" Core..= processingResources),
+              ("ProcessingResources" Data..= processingResources),
             Prelude.Just
-              ("AppSpecification" Core..= appSpecification),
-            Prelude.Just ("RoleArn" Core..= roleArn)
+              ("AppSpecification" Data..= appSpecification),
+            Prelude.Just ("RoleArn" Data..= roleArn)
           ]
       )
 
-instance Core.ToPath CreateProcessingJob where
+instance Data.ToPath CreateProcessingJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateProcessingJob where
+instance Data.ToQuery CreateProcessingJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateProcessingJobResponse' smart constructor.

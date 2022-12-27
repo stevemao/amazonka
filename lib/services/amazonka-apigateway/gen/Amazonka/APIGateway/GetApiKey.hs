@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetApiKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,22 +35,23 @@ module Amazonka.APIGateway.GetApiKey
     newApiKey,
 
     -- * Response Lenses
-    apiKey_enabled,
-    apiKey_value,
-    apiKey_customerId,
     apiKey_createdDate,
-    apiKey_name,
-    apiKey_id,
-    apiKey_stageKeys,
-    apiKey_lastUpdatedDate,
+    apiKey_customerId,
     apiKey_description,
+    apiKey_enabled,
+    apiKey_id,
+    apiKey_lastUpdatedDate,
+    apiKey_name,
+    apiKey_stageKeys,
     apiKey_tags,
+    apiKey_value,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,7 +63,7 @@ data GetApiKey = GetApiKey'
   { -- | A boolean flag to specify whether (@true@) or not (@false@) the result
     -- contains the key value.
     includeValue :: Prelude.Maybe Prelude.Bool,
-    -- | [Required] The identifier of the ApiKey resource.
+    -- | The identifier of the ApiKey resource.
     apiKey :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -78,7 +79,7 @@ data GetApiKey = GetApiKey'
 -- 'includeValue', 'getApiKey_includeValue' - A boolean flag to specify whether (@true@) or not (@false@) the result
 -- contains the key value.
 --
--- 'apiKey', 'getApiKey_apiKey' - [Required] The identifier of the ApiKey resource.
+-- 'apiKey', 'getApiKey_apiKey' - The identifier of the ApiKey resource.
 newGetApiKey ::
   -- | 'apiKey'
   Prelude.Text ->
@@ -94,16 +95,17 @@ newGetApiKey pApiKey_ =
 getApiKey_includeValue :: Lens.Lens' GetApiKey (Prelude.Maybe Prelude.Bool)
 getApiKey_includeValue = Lens.lens (\GetApiKey' {includeValue} -> includeValue) (\s@GetApiKey' {} a -> s {includeValue = a} :: GetApiKey)
 
--- | [Required] The identifier of the ApiKey resource.
+-- | The identifier of the ApiKey resource.
 getApiKey_apiKey :: Lens.Lens' GetApiKey Prelude.Text
 getApiKey_apiKey = Lens.lens (\GetApiKey' {apiKey} -> apiKey) (\s@GetApiKey' {} a -> s {apiKey = a} :: GetApiKey)
 
 instance Core.AWSRequest GetApiKey where
   type AWSResponse GetApiKey = ApiKey
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetApiKey where
   hashWithSalt _salt GetApiKey' {..} =
@@ -115,20 +117,20 @@ instance Prelude.NFData GetApiKey where
     Prelude.rnf includeValue
       `Prelude.seq` Prelude.rnf apiKey
 
-instance Core.ToHeaders GetApiKey where
+instance Data.ToHeaders GetApiKey where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetApiKey where
+instance Data.ToPath GetApiKey where
   toPath GetApiKey' {..} =
-    Prelude.mconcat ["/apikeys/", Core.toBS apiKey]
+    Prelude.mconcat ["/apikeys/", Data.toBS apiKey]
 
-instance Core.ToQuery GetApiKey where
+instance Data.ToQuery GetApiKey where
   toQuery GetApiKey' {..} =
     Prelude.mconcat
-      ["includeValue" Core.=: includeValue]
+      ["includeValue" Data.=: includeValue]

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EFS.DeleteAccessPoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.EFS.DeleteAccessPoint
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EFS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,7 +80,8 @@ instance Core.AWSRequest DeleteAccessPoint where
   type
     AWSResponse DeleteAccessPoint =
       DeleteAccessPointResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteAccessPointResponse'
 
@@ -91,17 +93,17 @@ instance Prelude.NFData DeleteAccessPoint where
   rnf DeleteAccessPoint' {..} =
     Prelude.rnf accessPointId
 
-instance Core.ToHeaders DeleteAccessPoint where
+instance Data.ToHeaders DeleteAccessPoint where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteAccessPoint where
+instance Data.ToPath DeleteAccessPoint where
   toPath DeleteAccessPoint' {..} =
     Prelude.mconcat
       [ "/2015-02-01/access-points/",
-        Core.toBS accessPointId
+        Data.toBS accessPointId
       ]
 
-instance Core.ToQuery DeleteAccessPoint where
+instance Data.ToQuery DeleteAccessPoint where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAccessPointResponse' smart constructor.

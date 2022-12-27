@@ -14,11 +14,14 @@
 
 -- |
 -- Module      : Amazonka.Connect.CreateHoursOfOperation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
+--
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
 -- Creates hours of operation.
 module Amazonka.Connect.CreateHoursOfOperation
@@ -47,7 +50,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,7 +60,8 @@ import qualified Amazonka.Response as Response
 data CreateHoursOfOperation = CreateHoursOfOperation'
   { -- | The description of the hours of operation.
     description :: Prelude.Maybe Prelude.Text,
-    -- | One or more tags.
+    -- | The tags used to organize, track, or control access for this resource.
+    -- For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The identifier of the Amazon Connect instance. You can find the
     -- instanceId in the ARN of the instance.
@@ -81,7 +86,8 @@ data CreateHoursOfOperation = CreateHoursOfOperation'
 --
 -- 'description', 'createHoursOfOperation_description' - The description of the hours of operation.
 --
--- 'tags', 'createHoursOfOperation_tags' - One or more tags.
+-- 'tags', 'createHoursOfOperation_tags' - The tags used to organize, track, or control access for this resource.
+-- For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.
 --
 -- 'instanceId', 'createHoursOfOperation_instanceId' - The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -118,7 +124,8 @@ newCreateHoursOfOperation
 createHoursOfOperation_description :: Lens.Lens' CreateHoursOfOperation (Prelude.Maybe Prelude.Text)
 createHoursOfOperation_description = Lens.lens (\CreateHoursOfOperation' {description} -> description) (\s@CreateHoursOfOperation' {} a -> s {description = a} :: CreateHoursOfOperation)
 
--- | One or more tags.
+-- | The tags used to organize, track, or control access for this resource.
+-- For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.
 createHoursOfOperation_tags :: Lens.Lens' CreateHoursOfOperation (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createHoursOfOperation_tags = Lens.lens (\CreateHoursOfOperation' {tags} -> tags) (\s@CreateHoursOfOperation' {} a -> s {tags = a} :: CreateHoursOfOperation) Prelude.. Lens.mapping Lens.coerced
 
@@ -144,13 +151,14 @@ instance Core.AWSRequest CreateHoursOfOperation where
   type
     AWSResponse CreateHoursOfOperation =
       CreateHoursOfOperationResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateHoursOfOperationResponse'
-            Prelude.<$> (x Core..?> "HoursOfOperationArn")
-            Prelude.<*> (x Core..?> "HoursOfOperationId")
+            Prelude.<$> (x Data..?> "HoursOfOperationArn")
+            Prelude.<*> (x Data..?> "HoursOfOperationId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -172,35 +180,35 @@ instance Prelude.NFData CreateHoursOfOperation where
       `Prelude.seq` Prelude.rnf timeZone
       `Prelude.seq` Prelude.rnf config
 
-instance Core.ToHeaders CreateHoursOfOperation where
+instance Data.ToHeaders CreateHoursOfOperation where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateHoursOfOperation where
+instance Data.ToJSON CreateHoursOfOperation where
   toJSON CreateHoursOfOperation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("TimeZone" Core..= timeZone),
-            Prelude.Just ("Config" Core..= config)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("TimeZone" Data..= timeZone),
+            Prelude.Just ("Config" Data..= config)
           ]
       )
 
-instance Core.ToPath CreateHoursOfOperation where
+instance Data.ToPath CreateHoursOfOperation where
   toPath CreateHoursOfOperation' {..} =
     Prelude.mconcat
-      ["/hours-of-operations/", Core.toBS instanceId]
+      ["/hours-of-operations/", Data.toBS instanceId]
 
-instance Core.ToQuery CreateHoursOfOperation where
+instance Data.ToQuery CreateHoursOfOperation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateHoursOfOperationResponse' smart constructor.

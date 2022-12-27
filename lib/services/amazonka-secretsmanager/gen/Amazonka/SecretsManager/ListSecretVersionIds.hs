@@ -14,33 +14,28 @@
 
 -- |
 -- Module      : Amazonka.SecretsManager.ListSecretVersionIds
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists all of the versions attached to the specified secret. The output
--- does not include the @SecretString@ or @SecretBinary@ fields. By
--- default, the list includes only versions that have at least one staging
--- label in @VersionStage@ attached.
+-- Lists the versions of a secret. Secrets Manager uses staging labels to
+-- indicate the different versions of a secret. For more information, see
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/getting-started.html#term_version Secrets Manager concepts: Versions>.
 --
--- Always check the @NextToken@ response parameter when calling any of the
--- @List*@ operations. These operations can occasionally return an empty or
--- shorter than expected list of results even when there more results
--- become available. When this happens, the @NextToken@ response parameter
--- contains a value to pass to the next call to the same API to request the
--- next part of the list.
+-- To list the secrets in the account, use ListSecrets.
 --
--- __Minimum permissions__
+-- Secrets Manager generates a CloudTrail log entry when you call this
+-- action. Do not include sensitive information in request parameters
+-- because it might be logged. For more information, see
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieve-ct-entries.html Logging Secrets Manager events with CloudTrail>.
 --
--- To run this command, you must have the following permissions:
---
--- -   secretsmanager:ListSecretVersionIds
---
--- __Related operations__
---
--- -   To list the secrets in an account, use ListSecrets.
+-- __Required permissions:__ @secretsmanager:ListSecretVersionIds@. For
+-- more information, see
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#reference_iam-permissions_actions IAM policy actions for Secrets Manager>
+-- and
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html Authentication and access control in Secrets Manager>.
 --
 -- This operation returns paginated results.
 module Amazonka.SecretsManager.ListSecretVersionIds
@@ -49,9 +44,9 @@ module Amazonka.SecretsManager.ListSecretVersionIds
     newListSecretVersionIds,
 
     -- * Request Lenses
-    listSecretVersionIds_nextToken,
     listSecretVersionIds_includeDeprecated,
     listSecretVersionIds_maxResults,
+    listSecretVersionIds_nextToken,
     listSecretVersionIds_secretId,
 
     -- * Destructuring the Response
@@ -60,15 +55,16 @@ module Amazonka.SecretsManager.ListSecretVersionIds
 
     -- * Response Lenses
     listSecretVersionIdsResponse_arn,
-    listSecretVersionIdsResponse_versions,
-    listSecretVersionIdsResponse_nextToken,
     listSecretVersionIdsResponse_name,
+    listSecretVersionIdsResponse_nextToken,
+    listSecretVersionIdsResponse_versions,
     listSecretVersionIdsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,34 +72,25 @@ import Amazonka.SecretsManager.Types
 
 -- | /See:/ 'newListSecretVersionIds' smart constructor.
 data ListSecretVersionIds = ListSecretVersionIds'
-  { -- | (Optional) Use this parameter in a request if you receive a @NextToken@
-    -- response in a previous request indicating there\'s more output
-    -- available. In a subsequent call, set it to the value of the previous
-    -- call @NextToken@ response to indicate where the output should continue
-    -- from.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | (Optional) Specifies that you want the results to include versions that
-    -- do not have any staging labels attached to them. Such versions are
-    -- considered deprecated and are subject to deletion by Secrets Manager as
-    -- needed.
+  { -- | Specifies whether to include versions of secrets that don\'t have any
+    -- staging labels attached to them. Versions without staging labels are
+    -- considered deprecated and are subject to deletion by Secrets Manager.
     includeDeprecated :: Prelude.Maybe Prelude.Bool,
-    -- | (Optional) Limits the number of results you want to include in the
-    -- response. If you don\'t include this parameter, it defaults to a value
-    -- that\'s specific to the operation. If additional items exist beyond the
-    -- maximum you specify, the @NextToken@ response element is present and has
-    -- a value (isn\'t null). Include that value as the @NextToken@ request
-    -- parameter in the next call to the operation to get the next part of the
-    -- results. Note that Secrets Manager might return fewer results than the
-    -- maximum even when there are more results available. You should check
-    -- @NextToken@ after every operation to ensure that you receive all of the
-    -- results.
+    -- | The number of results to include in the response.
+    --
+    -- If there are more results available, in the response, Secrets Manager
+    -- includes @NextToken@. To get the next results, call
+    -- @ListSecretVersionIds@ again with the value from @NextToken@.
     maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | The identifier for the secret containing the versions you want to list.
-    -- You can specify either the Amazon Resource Name (ARN) or the friendly
-    -- name of the secret.
+    -- | A token that indicates where the output should continue from, if a
+    -- previous call did not show all results. To get the next results, call
+    -- @ListSecretVersionIds@ again with this value.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The ARN or name of the secret whose versions you want to list.
     --
     -- For an ARN, we recommend that you specify a complete ARN rather than a
-    -- partial ARN.
+    -- partial ARN. See
+    -- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen Finding a secret from a partial ARN>.
     secretId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -116,80 +103,63 @@ data ListSecretVersionIds = ListSecretVersionIds'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listSecretVersionIds_nextToken' - (Optional) Use this parameter in a request if you receive a @NextToken@
--- response in a previous request indicating there\'s more output
--- available. In a subsequent call, set it to the value of the previous
--- call @NextToken@ response to indicate where the output should continue
--- from.
+-- 'includeDeprecated', 'listSecretVersionIds_includeDeprecated' - Specifies whether to include versions of secrets that don\'t have any
+-- staging labels attached to them. Versions without staging labels are
+-- considered deprecated and are subject to deletion by Secrets Manager.
 --
--- 'includeDeprecated', 'listSecretVersionIds_includeDeprecated' - (Optional) Specifies that you want the results to include versions that
--- do not have any staging labels attached to them. Such versions are
--- considered deprecated and are subject to deletion by Secrets Manager as
--- needed.
+-- 'maxResults', 'listSecretVersionIds_maxResults' - The number of results to include in the response.
 --
--- 'maxResults', 'listSecretVersionIds_maxResults' - (Optional) Limits the number of results you want to include in the
--- response. If you don\'t include this parameter, it defaults to a value
--- that\'s specific to the operation. If additional items exist beyond the
--- maximum you specify, the @NextToken@ response element is present and has
--- a value (isn\'t null). Include that value as the @NextToken@ request
--- parameter in the next call to the operation to get the next part of the
--- results. Note that Secrets Manager might return fewer results than the
--- maximum even when there are more results available. You should check
--- @NextToken@ after every operation to ensure that you receive all of the
--- results.
+-- If there are more results available, in the response, Secrets Manager
+-- includes @NextToken@. To get the next results, call
+-- @ListSecretVersionIds@ again with the value from @NextToken@.
 --
--- 'secretId', 'listSecretVersionIds_secretId' - The identifier for the secret containing the versions you want to list.
--- You can specify either the Amazon Resource Name (ARN) or the friendly
--- name of the secret.
+-- 'nextToken', 'listSecretVersionIds_nextToken' - A token that indicates where the output should continue from, if a
+-- previous call did not show all results. To get the next results, call
+-- @ListSecretVersionIds@ again with this value.
+--
+-- 'secretId', 'listSecretVersionIds_secretId' - The ARN or name of the secret whose versions you want to list.
 --
 -- For an ARN, we recommend that you specify a complete ARN rather than a
--- partial ARN.
+-- partial ARN. See
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen Finding a secret from a partial ARN>.
 newListSecretVersionIds ::
   -- | 'secretId'
   Prelude.Text ->
   ListSecretVersionIds
 newListSecretVersionIds pSecretId_ =
   ListSecretVersionIds'
-    { nextToken = Prelude.Nothing,
-      includeDeprecated = Prelude.Nothing,
+    { includeDeprecated =
+        Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       secretId = pSecretId_
     }
 
--- | (Optional) Use this parameter in a request if you receive a @NextToken@
--- response in a previous request indicating there\'s more output
--- available. In a subsequent call, set it to the value of the previous
--- call @NextToken@ response to indicate where the output should continue
--- from.
-listSecretVersionIds_nextToken :: Lens.Lens' ListSecretVersionIds (Prelude.Maybe Prelude.Text)
-listSecretVersionIds_nextToken = Lens.lens (\ListSecretVersionIds' {nextToken} -> nextToken) (\s@ListSecretVersionIds' {} a -> s {nextToken = a} :: ListSecretVersionIds)
-
--- | (Optional) Specifies that you want the results to include versions that
--- do not have any staging labels attached to them. Such versions are
--- considered deprecated and are subject to deletion by Secrets Manager as
--- needed.
+-- | Specifies whether to include versions of secrets that don\'t have any
+-- staging labels attached to them. Versions without staging labels are
+-- considered deprecated and are subject to deletion by Secrets Manager.
 listSecretVersionIds_includeDeprecated :: Lens.Lens' ListSecretVersionIds (Prelude.Maybe Prelude.Bool)
 listSecretVersionIds_includeDeprecated = Lens.lens (\ListSecretVersionIds' {includeDeprecated} -> includeDeprecated) (\s@ListSecretVersionIds' {} a -> s {includeDeprecated = a} :: ListSecretVersionIds)
 
--- | (Optional) Limits the number of results you want to include in the
--- response. If you don\'t include this parameter, it defaults to a value
--- that\'s specific to the operation. If additional items exist beyond the
--- maximum you specify, the @NextToken@ response element is present and has
--- a value (isn\'t null). Include that value as the @NextToken@ request
--- parameter in the next call to the operation to get the next part of the
--- results. Note that Secrets Manager might return fewer results than the
--- maximum even when there are more results available. You should check
--- @NextToken@ after every operation to ensure that you receive all of the
--- results.
+-- | The number of results to include in the response.
+--
+-- If there are more results available, in the response, Secrets Manager
+-- includes @NextToken@. To get the next results, call
+-- @ListSecretVersionIds@ again with the value from @NextToken@.
 listSecretVersionIds_maxResults :: Lens.Lens' ListSecretVersionIds (Prelude.Maybe Prelude.Natural)
 listSecretVersionIds_maxResults = Lens.lens (\ListSecretVersionIds' {maxResults} -> maxResults) (\s@ListSecretVersionIds' {} a -> s {maxResults = a} :: ListSecretVersionIds)
 
--- | The identifier for the secret containing the versions you want to list.
--- You can specify either the Amazon Resource Name (ARN) or the friendly
--- name of the secret.
+-- | A token that indicates where the output should continue from, if a
+-- previous call did not show all results. To get the next results, call
+-- @ListSecretVersionIds@ again with this value.
+listSecretVersionIds_nextToken :: Lens.Lens' ListSecretVersionIds (Prelude.Maybe Prelude.Text)
+listSecretVersionIds_nextToken = Lens.lens (\ListSecretVersionIds' {nextToken} -> nextToken) (\s@ListSecretVersionIds' {} a -> s {nextToken = a} :: ListSecretVersionIds)
+
+-- | The ARN or name of the secret whose versions you want to list.
 --
 -- For an ARN, we recommend that you specify a complete ARN rather than a
--- partial ARN.
+-- partial ARN. See
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen Finding a secret from a partial ARN>.
 listSecretVersionIds_secretId :: Lens.Lens' ListSecretVersionIds Prelude.Text
 listSecretVersionIds_secretId = Lens.lens (\ListSecretVersionIds' {secretId} -> secretId) (\s@ListSecretVersionIds' {} a -> s {secretId = a} :: ListSecretVersionIds)
 
@@ -219,90 +189,80 @@ instance Core.AWSRequest ListSecretVersionIds where
   type
     AWSResponse ListSecretVersionIds =
       ListSecretVersionIdsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListSecretVersionIdsResponse'
-            Prelude.<$> (x Core..?> "ARN")
-            Prelude.<*> (x Core..?> "Versions" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Name")
+            Prelude.<$> (x Data..?> "ARN")
+            Prelude.<*> (x Data..?> "Name")
+            Prelude.<*> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Versions" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListSecretVersionIds where
   hashWithSalt _salt ListSecretVersionIds' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` includeDeprecated
+    _salt `Prelude.hashWithSalt` includeDeprecated
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` secretId
 
 instance Prelude.NFData ListSecretVersionIds where
   rnf ListSecretVersionIds' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf includeDeprecated
+    Prelude.rnf includeDeprecated
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf secretId
 
-instance Core.ToHeaders ListSecretVersionIds where
+instance Data.ToHeaders ListSecretVersionIds where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "secretsmanager.ListSecretVersionIds" ::
+              Data.=# ( "secretsmanager.ListSecretVersionIds" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListSecretVersionIds where
+instance Data.ToJSON ListSecretVersionIds where
   toJSON ListSecretVersionIds' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("IncludeDeprecated" Core..=)
+          [ ("IncludeDeprecated" Data..=)
               Prelude.<$> includeDeprecated,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("SecretId" Core..= secretId)
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("SecretId" Data..= secretId)
           ]
       )
 
-instance Core.ToPath ListSecretVersionIds where
+instance Data.ToPath ListSecretVersionIds where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListSecretVersionIds where
+instance Data.ToQuery ListSecretVersionIds where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListSecretVersionIdsResponse' smart constructor.
 data ListSecretVersionIdsResponse = ListSecretVersionIdsResponse'
-  { -- | The Amazon Resource Name (ARN) for the secret.
-    --
-    -- Secrets Manager automatically adds several random characters to the name
-    -- at the end of the ARN when you initially create a secret. This affects
-    -- only the ARN and not the actual friendly name. This ensures that if you
-    -- create a new secret with the same name as an old secret that you
-    -- previously deleted, then users with access to the old secret /don\'t/
-    -- automatically get access to the new secret because the ARNs are
-    -- different.
+  { -- | The ARN of the secret.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | The list of the currently available versions of the specified secret.
-    versions :: Prelude.Maybe [SecretVersionsListEntry],
-    -- | If present in the response, this value indicates that there\'s more
-    -- output available than included in the current response. This can occur
-    -- even when the response includes no values at all, such as when you ask
-    -- for a filtered view of a very long list. Use this value in the
-    -- @NextToken@ request parameter in a subsequent call to the operation to
-    -- continue processing and get the next part of the output. You should
-    -- repeat this until the @NextToken@ response element comes back empty (as
-    -- @null@).
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The friendly name of the secret.
+    -- | The name of the secret.
     name :: Prelude.Maybe Prelude.Text,
+    -- | Secrets Manager includes this value if there\'s more output available
+    -- than what is included in the current response. This can occur even when
+    -- the response includes no values at all, such as when you ask for a
+    -- filtered view of a long list. To get the next results, call
+    -- @ListSecretVersionIds@ again with this value.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of the versions of the secret.
+    versions :: Prelude.Maybe [SecretVersionsListEntry],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -316,28 +276,17 @@ data ListSecretVersionIdsResponse = ListSecretVersionIdsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'arn', 'listSecretVersionIdsResponse_arn' - The Amazon Resource Name (ARN) for the secret.
+-- 'arn', 'listSecretVersionIdsResponse_arn' - The ARN of the secret.
 --
--- Secrets Manager automatically adds several random characters to the name
--- at the end of the ARN when you initially create a secret. This affects
--- only the ARN and not the actual friendly name. This ensures that if you
--- create a new secret with the same name as an old secret that you
--- previously deleted, then users with access to the old secret /don\'t/
--- automatically get access to the new secret because the ARNs are
--- different.
+-- 'name', 'listSecretVersionIdsResponse_name' - The name of the secret.
 --
--- 'versions', 'listSecretVersionIdsResponse_versions' - The list of the currently available versions of the specified secret.
+-- 'nextToken', 'listSecretVersionIdsResponse_nextToken' - Secrets Manager includes this value if there\'s more output available
+-- than what is included in the current response. This can occur even when
+-- the response includes no values at all, such as when you ask for a
+-- filtered view of a long list. To get the next results, call
+-- @ListSecretVersionIds@ again with this value.
 --
--- 'nextToken', 'listSecretVersionIdsResponse_nextToken' - If present in the response, this value indicates that there\'s more
--- output available than included in the current response. This can occur
--- even when the response includes no values at all, such as when you ask
--- for a filtered view of a very long list. Use this value in the
--- @NextToken@ request parameter in a subsequent call to the operation to
--- continue processing and get the next part of the output. You should
--- repeat this until the @NextToken@ response element comes back empty (as
--- @null@).
---
--- 'name', 'listSecretVersionIdsResponse_name' - The friendly name of the secret.
+-- 'versions', 'listSecretVersionIdsResponse_versions' - A list of the versions of the secret.
 --
 -- 'httpStatus', 'listSecretVersionIdsResponse_httpStatus' - The response's http status code.
 newListSecretVersionIdsResponse ::
@@ -348,42 +297,31 @@ newListSecretVersionIdsResponse pHttpStatus_ =
   ListSecretVersionIdsResponse'
     { arn =
         Prelude.Nothing,
-      versions = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       name = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      versions = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The Amazon Resource Name (ARN) for the secret.
---
--- Secrets Manager automatically adds several random characters to the name
--- at the end of the ARN when you initially create a secret. This affects
--- only the ARN and not the actual friendly name. This ensures that if you
--- create a new secret with the same name as an old secret that you
--- previously deleted, then users with access to the old secret /don\'t/
--- automatically get access to the new secret because the ARNs are
--- different.
+-- | The ARN of the secret.
 listSecretVersionIdsResponse_arn :: Lens.Lens' ListSecretVersionIdsResponse (Prelude.Maybe Prelude.Text)
 listSecretVersionIdsResponse_arn = Lens.lens (\ListSecretVersionIdsResponse' {arn} -> arn) (\s@ListSecretVersionIdsResponse' {} a -> s {arn = a} :: ListSecretVersionIdsResponse)
 
--- | The list of the currently available versions of the specified secret.
-listSecretVersionIdsResponse_versions :: Lens.Lens' ListSecretVersionIdsResponse (Prelude.Maybe [SecretVersionsListEntry])
-listSecretVersionIdsResponse_versions = Lens.lens (\ListSecretVersionIdsResponse' {versions} -> versions) (\s@ListSecretVersionIdsResponse' {} a -> s {versions = a} :: ListSecretVersionIdsResponse) Prelude.. Lens.mapping Lens.coerced
+-- | The name of the secret.
+listSecretVersionIdsResponse_name :: Lens.Lens' ListSecretVersionIdsResponse (Prelude.Maybe Prelude.Text)
+listSecretVersionIdsResponse_name = Lens.lens (\ListSecretVersionIdsResponse' {name} -> name) (\s@ListSecretVersionIdsResponse' {} a -> s {name = a} :: ListSecretVersionIdsResponse)
 
--- | If present in the response, this value indicates that there\'s more
--- output available than included in the current response. This can occur
--- even when the response includes no values at all, such as when you ask
--- for a filtered view of a very long list. Use this value in the
--- @NextToken@ request parameter in a subsequent call to the operation to
--- continue processing and get the next part of the output. You should
--- repeat this until the @NextToken@ response element comes back empty (as
--- @null@).
+-- | Secrets Manager includes this value if there\'s more output available
+-- than what is included in the current response. This can occur even when
+-- the response includes no values at all, such as when you ask for a
+-- filtered view of a long list. To get the next results, call
+-- @ListSecretVersionIds@ again with this value.
 listSecretVersionIdsResponse_nextToken :: Lens.Lens' ListSecretVersionIdsResponse (Prelude.Maybe Prelude.Text)
 listSecretVersionIdsResponse_nextToken = Lens.lens (\ListSecretVersionIdsResponse' {nextToken} -> nextToken) (\s@ListSecretVersionIdsResponse' {} a -> s {nextToken = a} :: ListSecretVersionIdsResponse)
 
--- | The friendly name of the secret.
-listSecretVersionIdsResponse_name :: Lens.Lens' ListSecretVersionIdsResponse (Prelude.Maybe Prelude.Text)
-listSecretVersionIdsResponse_name = Lens.lens (\ListSecretVersionIdsResponse' {name} -> name) (\s@ListSecretVersionIdsResponse' {} a -> s {name = a} :: ListSecretVersionIdsResponse)
+-- | A list of the versions of the secret.
+listSecretVersionIdsResponse_versions :: Lens.Lens' ListSecretVersionIdsResponse (Prelude.Maybe [SecretVersionsListEntry])
+listSecretVersionIdsResponse_versions = Lens.lens (\ListSecretVersionIdsResponse' {versions} -> versions) (\s@ListSecretVersionIdsResponse' {} a -> s {versions = a} :: ListSecretVersionIdsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listSecretVersionIdsResponse_httpStatus :: Lens.Lens' ListSecretVersionIdsResponse Prelude.Int
@@ -392,7 +330,7 @@ listSecretVersionIdsResponse_httpStatus = Lens.lens (\ListSecretVersionIdsRespon
 instance Prelude.NFData ListSecretVersionIdsResponse where
   rnf ListSecretVersionIdsResponse' {..} =
     Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf versions
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf versions
       `Prelude.seq` Prelude.rnf httpStatus

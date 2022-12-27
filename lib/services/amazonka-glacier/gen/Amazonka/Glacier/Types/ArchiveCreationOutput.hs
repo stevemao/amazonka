@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glacier.Types.ArchiveCreationOutput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Glacier.Types.ArchiveCreationOutput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the Amazon S3 Glacier response to your request.
@@ -78,15 +79,15 @@ archiveCreationOutput_checksum = Lens.lens (\ArchiveCreationOutput' {checksum} -
 archiveCreationOutput_location :: Lens.Lens' ArchiveCreationOutput (Prelude.Maybe Prelude.Text)
 archiveCreationOutput_location = Lens.lens (\ArchiveCreationOutput' {location} -> location) (\s@ArchiveCreationOutput' {} a -> s {location = a} :: ArchiveCreationOutput)
 
-instance Core.FromJSON ArchiveCreationOutput where
+instance Data.FromJSON ArchiveCreationOutput where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ArchiveCreationOutput"
       ( \x ->
           ArchiveCreationOutput'
-            Prelude.<$> (x Core..:? "x-amz-archive-id")
-            Prelude.<*> (x Core..:? "x-amz-sha256-tree-hash")
-            Prelude.<*> (x Core..:? "Location")
+            Prelude.<$> (x Data..:? "x-amz-archive-id")
+            Prelude.<*> (x Data..:? "x-amz-sha256-tree-hash")
+            Prelude.<*> (x Data..:? "Location")
       )
 
 instance Prelude.Hashable ArchiveCreationOutput where

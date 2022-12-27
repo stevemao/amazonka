@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WAF.Types.RegexMatchSetSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WAF.Types.RegexMatchSetSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | This is __AWS WAF Classic__ documentation. For more information, see
@@ -97,14 +98,14 @@ regexMatchSetSummary_regexMatchSetId = Lens.lens (\RegexMatchSetSummary' {regexM
 regexMatchSetSummary_name :: Lens.Lens' RegexMatchSetSummary Prelude.Text
 regexMatchSetSummary_name = Lens.lens (\RegexMatchSetSummary' {name} -> name) (\s@RegexMatchSetSummary' {} a -> s {name = a} :: RegexMatchSetSummary)
 
-instance Core.FromJSON RegexMatchSetSummary where
+instance Data.FromJSON RegexMatchSetSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RegexMatchSetSummary"
       ( \x ->
           RegexMatchSetSummary'
-            Prelude.<$> (x Core..: "RegexMatchSetId")
-            Prelude.<*> (x Core..: "Name")
+            Prelude.<$> (x Data..: "RegexMatchSetId")
+            Prelude.<*> (x Data..: "Name")
       )
 
 instance Prelude.Hashable RegexMatchSetSummary where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.ListDedicatedIpPools
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.SESV2.ListDedicatedIpPools
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -103,15 +104,16 @@ instance Core.AWSRequest ListDedicatedIpPools where
   type
     AWSResponse ListDedicatedIpPools =
       ListDedicatedIpPoolsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDedicatedIpPoolsResponse'
-            Prelude.<$> ( x Core..?> "DedicatedIpPools"
+            Prelude.<$> ( x Data..?> "DedicatedIpPools"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -125,25 +127,25 @@ instance Prelude.NFData ListDedicatedIpPools where
     Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf pageSize
 
-instance Core.ToHeaders ListDedicatedIpPools where
+instance Data.ToHeaders ListDedicatedIpPools where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListDedicatedIpPools where
+instance Data.ToPath ListDedicatedIpPools where
   toPath = Prelude.const "/v2/email/dedicated-ip-pools"
 
-instance Core.ToQuery ListDedicatedIpPools where
+instance Data.ToQuery ListDedicatedIpPools where
   toQuery ListDedicatedIpPools' {..} =
     Prelude.mconcat
-      [ "NextToken" Core.=: nextToken,
-        "PageSize" Core.=: pageSize
+      [ "NextToken" Data.=: nextToken,
+        "PageSize" Data.=: pageSize
       ]
 
 -- | A list of dedicated IP pools.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.CreateToken
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,9 +32,9 @@ module Amazonka.LicenseManager.CreateToken
     newCreateToken,
 
     -- * Request Lenses
-    createToken_tokenProperties,
-    createToken_roleArns,
     createToken_expirationInDays,
+    createToken_roleArns,
+    createToken_tokenProperties,
     createToken_licenseArn,
     createToken_clientToken,
 
@@ -51,7 +51,8 @@ module Amazonka.LicenseManager.CreateToken
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LicenseManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -59,15 +60,15 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateToken' smart constructor.
 data CreateToken = CreateToken'
-  { -- | Data specified by the caller to be included in the JWT token. The data
-    -- is mapped to the amr claim of the JWT token.
-    tokenProperties :: Prelude.Maybe [Prelude.Text],
+  { -- | Token expiration, in days, counted from token creation. The default is
+    -- 365 days.
+    expirationInDays :: Prelude.Maybe Prelude.Int,
     -- | Amazon Resource Name (ARN) of the IAM roles to embed in the token.
     -- License Manager does not check whether the roles are in use.
     roleArns :: Prelude.Maybe [Prelude.Text],
-    -- | Token expiration, in days, counted from token creation. The default is
-    -- 365 days.
-    expirationInDays :: Prelude.Maybe Prelude.Int,
+    -- | Data specified by the caller to be included in the JWT token. The data
+    -- is mapped to the amr claim of the JWT token.
+    tokenProperties :: Prelude.Maybe [Prelude.Text],
     -- | Amazon Resource Name (ARN) of the license. The ARN is mapped to the aud
     -- claim of the JWT token.
     licenseArn :: Prelude.Text,
@@ -84,14 +85,14 @@ data CreateToken = CreateToken'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tokenProperties', 'createToken_tokenProperties' - Data specified by the caller to be included in the JWT token. The data
--- is mapped to the amr claim of the JWT token.
+-- 'expirationInDays', 'createToken_expirationInDays' - Token expiration, in days, counted from token creation. The default is
+-- 365 days.
 --
 -- 'roleArns', 'createToken_roleArns' - Amazon Resource Name (ARN) of the IAM roles to embed in the token.
 -- License Manager does not check whether the roles are in use.
 --
--- 'expirationInDays', 'createToken_expirationInDays' - Token expiration, in days, counted from token creation. The default is
--- 365 days.
+-- 'tokenProperties', 'createToken_tokenProperties' - Data specified by the caller to be included in the JWT token. The data
+-- is mapped to the amr claim of the JWT token.
 --
 -- 'licenseArn', 'createToken_licenseArn' - Amazon Resource Name (ARN) of the license. The ARN is mapped to the aud
 -- claim of the JWT token.
@@ -105,27 +106,27 @@ newCreateToken ::
   CreateToken
 newCreateToken pLicenseArn_ pClientToken_ =
   CreateToken'
-    { tokenProperties = Prelude.Nothing,
+    { expirationInDays = Prelude.Nothing,
       roleArns = Prelude.Nothing,
-      expirationInDays = Prelude.Nothing,
+      tokenProperties = Prelude.Nothing,
       licenseArn = pLicenseArn_,
       clientToken = pClientToken_
     }
 
--- | Data specified by the caller to be included in the JWT token. The data
--- is mapped to the amr claim of the JWT token.
-createToken_tokenProperties :: Lens.Lens' CreateToken (Prelude.Maybe [Prelude.Text])
-createToken_tokenProperties = Lens.lens (\CreateToken' {tokenProperties} -> tokenProperties) (\s@CreateToken' {} a -> s {tokenProperties = a} :: CreateToken) Prelude.. Lens.mapping Lens.coerced
+-- | Token expiration, in days, counted from token creation. The default is
+-- 365 days.
+createToken_expirationInDays :: Lens.Lens' CreateToken (Prelude.Maybe Prelude.Int)
+createToken_expirationInDays = Lens.lens (\CreateToken' {expirationInDays} -> expirationInDays) (\s@CreateToken' {} a -> s {expirationInDays = a} :: CreateToken)
 
 -- | Amazon Resource Name (ARN) of the IAM roles to embed in the token.
 -- License Manager does not check whether the roles are in use.
 createToken_roleArns :: Lens.Lens' CreateToken (Prelude.Maybe [Prelude.Text])
 createToken_roleArns = Lens.lens (\CreateToken' {roleArns} -> roleArns) (\s@CreateToken' {} a -> s {roleArns = a} :: CreateToken) Prelude.. Lens.mapping Lens.coerced
 
--- | Token expiration, in days, counted from token creation. The default is
--- 365 days.
-createToken_expirationInDays :: Lens.Lens' CreateToken (Prelude.Maybe Prelude.Int)
-createToken_expirationInDays = Lens.lens (\CreateToken' {expirationInDays} -> expirationInDays) (\s@CreateToken' {} a -> s {expirationInDays = a} :: CreateToken)
+-- | Data specified by the caller to be included in the JWT token. The data
+-- is mapped to the amr claim of the JWT token.
+createToken_tokenProperties :: Lens.Lens' CreateToken (Prelude.Maybe [Prelude.Text])
+createToken_tokenProperties = Lens.lens (\CreateToken' {tokenProperties} -> tokenProperties) (\s@CreateToken' {} a -> s {tokenProperties = a} :: CreateToken) Prelude.. Lens.mapping Lens.coerced
 
 -- | Amazon Resource Name (ARN) of the license. The ARN is mapped to the aud
 -- claim of the JWT token.
@@ -138,66 +139,67 @@ createToken_clientToken = Lens.lens (\CreateToken' {clientToken} -> clientToken)
 
 instance Core.AWSRequest CreateToken where
   type AWSResponse CreateToken = CreateTokenResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateTokenResponse'
-            Prelude.<$> (x Core..?> "Token")
-            Prelude.<*> (x Core..?> "TokenId")
-            Prelude.<*> (x Core..?> "TokenType")
+            Prelude.<$> (x Data..?> "Token")
+            Prelude.<*> (x Data..?> "TokenId")
+            Prelude.<*> (x Data..?> "TokenType")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateToken where
   hashWithSalt _salt CreateToken' {..} =
-    _salt `Prelude.hashWithSalt` tokenProperties
+    _salt `Prelude.hashWithSalt` expirationInDays
       `Prelude.hashWithSalt` roleArns
-      `Prelude.hashWithSalt` expirationInDays
+      `Prelude.hashWithSalt` tokenProperties
       `Prelude.hashWithSalt` licenseArn
       `Prelude.hashWithSalt` clientToken
 
 instance Prelude.NFData CreateToken where
   rnf CreateToken' {..} =
-    Prelude.rnf tokenProperties
+    Prelude.rnf expirationInDays
       `Prelude.seq` Prelude.rnf roleArns
-      `Prelude.seq` Prelude.rnf expirationInDays
+      `Prelude.seq` Prelude.rnf tokenProperties
       `Prelude.seq` Prelude.rnf licenseArn
       `Prelude.seq` Prelude.rnf clientToken
 
-instance Core.ToHeaders CreateToken where
+instance Data.ToHeaders CreateToken where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSLicenseManager.CreateToken" ::
+              Data.=# ( "AWSLicenseManager.CreateToken" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateToken where
+instance Data.ToJSON CreateToken where
   toJSON CreateToken' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TokenProperties" Core..=)
-              Prelude.<$> tokenProperties,
-            ("RoleArns" Core..=) Prelude.<$> roleArns,
-            ("ExpirationInDays" Core..=)
+          [ ("ExpirationInDays" Data..=)
               Prelude.<$> expirationInDays,
-            Prelude.Just ("LicenseArn" Core..= licenseArn),
-            Prelude.Just ("ClientToken" Core..= clientToken)
+            ("RoleArns" Data..=) Prelude.<$> roleArns,
+            ("TokenProperties" Data..=)
+              Prelude.<$> tokenProperties,
+            Prelude.Just ("LicenseArn" Data..= licenseArn),
+            Prelude.Just ("ClientToken" Data..= clientToken)
           ]
       )
 
-instance Core.ToPath CreateToken where
+instance Data.ToPath CreateToken where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateToken where
+instance Data.ToQuery CreateToken where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateTokenResponse' smart constructor.

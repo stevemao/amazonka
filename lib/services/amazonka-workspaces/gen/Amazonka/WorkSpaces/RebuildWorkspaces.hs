@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkSpaces.RebuildWorkspaces
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ module Amazonka.WorkSpaces.RebuildWorkspaces
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,12 +91,13 @@ instance Core.AWSRequest RebuildWorkspaces where
   type
     AWSResponse RebuildWorkspaces =
       RebuildWorkspacesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RebuildWorkspacesResponse'
-            Prelude.<$> (x Core..?> "FailedRequests" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "FailedRequests" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -108,36 +110,36 @@ instance Prelude.NFData RebuildWorkspaces where
   rnf RebuildWorkspaces' {..} =
     Prelude.rnf rebuildWorkspaceRequests
 
-instance Core.ToHeaders RebuildWorkspaces where
+instance Data.ToHeaders RebuildWorkspaces where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkspacesService.RebuildWorkspaces" ::
+              Data.=# ( "WorkspacesService.RebuildWorkspaces" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RebuildWorkspaces where
+instance Data.ToJSON RebuildWorkspaces where
   toJSON RebuildWorkspaces' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "RebuildWorkspaceRequests"
-                  Core..= rebuildWorkspaceRequests
+                  Data..= rebuildWorkspaceRequests
               )
           ]
       )
 
-instance Core.ToPath RebuildWorkspaces where
+instance Data.ToPath RebuildWorkspaces where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RebuildWorkspaces where
+instance Data.ToQuery RebuildWorkspaces where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRebuildWorkspacesResponse' smart constructor.

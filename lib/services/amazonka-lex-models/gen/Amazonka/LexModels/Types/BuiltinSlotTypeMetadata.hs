@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.Types.BuiltinSlotTypeMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LexModels.Types.BuiltinSlotTypeMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LexModels.Types.Locale
 import qualified Amazonka.Prelude as Prelude
 
@@ -72,15 +73,15 @@ builtinSlotTypeMetadata_signature = Lens.lens (\BuiltinSlotTypeMetadata' {signat
 builtinSlotTypeMetadata_supportedLocales :: Lens.Lens' BuiltinSlotTypeMetadata (Prelude.Maybe [Locale])
 builtinSlotTypeMetadata_supportedLocales = Lens.lens (\BuiltinSlotTypeMetadata' {supportedLocales} -> supportedLocales) (\s@BuiltinSlotTypeMetadata' {} a -> s {supportedLocales = a} :: BuiltinSlotTypeMetadata) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON BuiltinSlotTypeMetadata where
+instance Data.FromJSON BuiltinSlotTypeMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BuiltinSlotTypeMetadata"
       ( \x ->
           BuiltinSlotTypeMetadata'
-            Prelude.<$> (x Core..:? "signature")
-            Prelude.<*> ( x Core..:? "supportedLocales"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "signature")
+            Prelude.<*> ( x Data..:? "supportedLocales"
+                            Data..!= Prelude.mempty
                         )
       )
 

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.CreateRole
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,10 +33,10 @@ module Amazonka.IAM.CreateRole
     newCreateRole,
 
     -- * Request Lenses
+    createRole_description,
     createRole_maxSessionDuration,
     createRole_path,
     createRole_permissionsBoundary,
-    createRole_description,
     createRole_tags,
     createRole_roleName,
     createRole_assumeRolePolicyDocument,
@@ -52,20 +52,23 @@ module Amazonka.IAM.CreateRole
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateRole' smart constructor.
 data CreateRole = CreateRole'
-  { -- | The maximum session duration (in seconds) that you want to set for the
+  { -- | A description of the role.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The maximum session duration (in seconds) that you want to set for the
     -- specified role. If you do not specify a value for this setting, the
-    -- default maximum of one hour is applied. This setting can have a value
-    -- from 1 hour to 12 hours.
+    -- default value of one hour is applied. This setting can have a value from
+    -- 1 hour to 12 hours.
     --
-    -- Anyone who assumes the role from the or API can use the
+    -- Anyone who assumes the role from the CLI or API can use the
     -- @DurationSeconds@ API parameter or the @duration-seconds@ CLI parameter
     -- to request a longer session. The @MaxSessionDuration@ setting determines
     -- the maximum duration that can be requested using the @DurationSeconds@
@@ -95,8 +98,6 @@ data CreateRole = CreateRole'
     -- | The ARN of the policy that is used to set the permissions boundary for
     -- the role.
     permissionsBoundary :: Prelude.Maybe Prelude.Text,
-    -- | A description of the role.
-    description :: Prelude.Maybe Prelude.Text,
     -- | A list of tags that you want to attach to the new role. Each tag
     -- consists of a key name and an associated value. For more information
     -- about tagging, see
@@ -147,12 +148,14 @@ data CreateRole = CreateRole'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'createRole_description' - A description of the role.
+--
 -- 'maxSessionDuration', 'createRole_maxSessionDuration' - The maximum session duration (in seconds) that you want to set for the
 -- specified role. If you do not specify a value for this setting, the
--- default maximum of one hour is applied. This setting can have a value
--- from 1 hour to 12 hours.
+-- default value of one hour is applied. This setting can have a value from
+-- 1 hour to 12 hours.
 --
--- Anyone who assumes the role from the or API can use the
+-- Anyone who assumes the role from the CLI or API can use the
 -- @DurationSeconds@ API parameter or the @duration-seconds@ CLI parameter
 -- to request a longer session. The @MaxSessionDuration@ setting determines
 -- the maximum duration that can be requested using the @DurationSeconds@
@@ -181,8 +184,6 @@ data CreateRole = CreateRole'
 --
 -- 'permissionsBoundary', 'createRole_permissionsBoundary' - The ARN of the policy that is used to set the permissions boundary for
 -- the role.
---
--- 'description', 'createRole_description' - A description of the role.
 --
 -- 'tags', 'createRole_tags' - A list of tags that you want to attach to the new role. Each tag
 -- consists of a key name and an associated value. For more information
@@ -230,22 +231,26 @@ newCreateRole ::
   CreateRole
 newCreateRole pRoleName_ pAssumeRolePolicyDocument_ =
   CreateRole'
-    { maxSessionDuration = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      maxSessionDuration = Prelude.Nothing,
       path = Prelude.Nothing,
       permissionsBoundary = Prelude.Nothing,
-      description = Prelude.Nothing,
       tags = Prelude.Nothing,
       roleName = pRoleName_,
       assumeRolePolicyDocument =
         pAssumeRolePolicyDocument_
     }
 
+-- | A description of the role.
+createRole_description :: Lens.Lens' CreateRole (Prelude.Maybe Prelude.Text)
+createRole_description = Lens.lens (\CreateRole' {description} -> description) (\s@CreateRole' {} a -> s {description = a} :: CreateRole)
+
 -- | The maximum session duration (in seconds) that you want to set for the
 -- specified role. If you do not specify a value for this setting, the
--- default maximum of one hour is applied. This setting can have a value
--- from 1 hour to 12 hours.
+-- default value of one hour is applied. This setting can have a value from
+-- 1 hour to 12 hours.
 --
--- Anyone who assumes the role from the or API can use the
+-- Anyone who assumes the role from the CLI or API can use the
 -- @DurationSeconds@ API parameter or the @duration-seconds@ CLI parameter
 -- to request a longer session. The @MaxSessionDuration@ setting determines
 -- the maximum duration that can be requested using the @DurationSeconds@
@@ -280,10 +285,6 @@ createRole_path = Lens.lens (\CreateRole' {path} -> path) (\s@CreateRole' {} a -
 -- the role.
 createRole_permissionsBoundary :: Lens.Lens' CreateRole (Prelude.Maybe Prelude.Text)
 createRole_permissionsBoundary = Lens.lens (\CreateRole' {permissionsBoundary} -> permissionsBoundary) (\s@CreateRole' {} a -> s {permissionsBoundary = a} :: CreateRole)
-
--- | A description of the role.
-createRole_description :: Lens.Lens' CreateRole (Prelude.Maybe Prelude.Text)
-createRole_description = Lens.lens (\CreateRole' {description} -> description) (\s@CreateRole' {} a -> s {description = a} :: CreateRole)
 
 -- | A list of tags that you want to attach to the new role. Each tag
 -- consists of a key name and an associated value. For more information
@@ -332,59 +333,60 @@ createRole_assumeRolePolicyDocument = Lens.lens (\CreateRole' {assumeRolePolicyD
 
 instance Core.AWSRequest CreateRole where
   type AWSResponse CreateRole = CreateRoleResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateRoleResult"
       ( \s h x ->
           CreateRoleResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "Role")
+            Prelude.<*> (x Data..@ "Role")
       )
 
 instance Prelude.Hashable CreateRole where
   hashWithSalt _salt CreateRole' {..} =
-    _salt `Prelude.hashWithSalt` maxSessionDuration
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` maxSessionDuration
       `Prelude.hashWithSalt` path
       `Prelude.hashWithSalt` permissionsBoundary
-      `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` roleName
       `Prelude.hashWithSalt` assumeRolePolicyDocument
 
 instance Prelude.NFData CreateRole where
   rnf CreateRole' {..} =
-    Prelude.rnf maxSessionDuration
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf maxSessionDuration
       `Prelude.seq` Prelude.rnf path
       `Prelude.seq` Prelude.rnf permissionsBoundary
-      `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf roleName
       `Prelude.seq` Prelude.rnf assumeRolePolicyDocument
 
-instance Core.ToHeaders CreateRole where
+instance Data.ToHeaders CreateRole where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateRole where
+instance Data.ToPath CreateRole where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateRole where
+instance Data.ToQuery CreateRole where
   toQuery CreateRole' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateRole" :: Prelude.ByteString),
+          Data.=: ("CreateRole" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "MaxSessionDuration" Core.=: maxSessionDuration,
-        "Path" Core.=: path,
-        "PermissionsBoundary" Core.=: permissionsBoundary,
-        "Description" Core.=: description,
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "Description" Data.=: description,
+        "MaxSessionDuration" Data.=: maxSessionDuration,
+        "Path" Data.=: path,
+        "PermissionsBoundary" Data.=: permissionsBoundary,
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> tags),
-        "RoleName" Core.=: roleName,
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> tags),
+        "RoleName" Data.=: roleName,
         "AssumeRolePolicyDocument"
-          Core.=: assumeRolePolicyDocument
+          Data.=: assumeRolePolicyDocument
       ]
 
 -- | Contains the response to a successful CreateRole request.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.ListManagedDataIdentifiers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,6 +22,8 @@
 --
 -- Retrieves information about all the managed data identifiers that Amazon
 -- Macie currently provides.
+--
+-- This operation returns paginated results.
 module Amazonka.MacieV2.ListManagedDataIdentifiers
   ( -- * Creating a Request
     ListManagedDataIdentifiers (..),
@@ -42,7 +44,8 @@ module Amazonka.MacieV2.ListManagedDataIdentifiers
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -79,17 +82,40 @@ newListManagedDataIdentifiers =
 listManagedDataIdentifiers_nextToken :: Lens.Lens' ListManagedDataIdentifiers (Prelude.Maybe Prelude.Text)
 listManagedDataIdentifiers_nextToken = Lens.lens (\ListManagedDataIdentifiers' {nextToken} -> nextToken) (\s@ListManagedDataIdentifiers' {} a -> s {nextToken = a} :: ListManagedDataIdentifiers)
 
+instance Core.AWSPager ListManagedDataIdentifiers where
+  page rq rs
+    | Core.stop
+        ( rs
+            Lens.^? listManagedDataIdentifiersResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Core.stop
+        ( rs
+            Lens.^? listManagedDataIdentifiersResponse_items
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Prelude.& listManagedDataIdentifiers_nextToken
+          Lens..~ rs
+          Lens.^? listManagedDataIdentifiersResponse_nextToken
+            Prelude.. Lens._Just
+
 instance Core.AWSRequest ListManagedDataIdentifiers where
   type
     AWSResponse ListManagedDataIdentifiers =
       ListManagedDataIdentifiersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListManagedDataIdentifiersResponse'
-            Prelude.<$> (x Core..?> "items" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "items" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -101,29 +127,29 @@ instance Prelude.NFData ListManagedDataIdentifiers where
   rnf ListManagedDataIdentifiers' {..} =
     Prelude.rnf nextToken
 
-instance Core.ToHeaders ListManagedDataIdentifiers where
+instance Data.ToHeaders ListManagedDataIdentifiers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListManagedDataIdentifiers where
+instance Data.ToJSON ListManagedDataIdentifiers where
   toJSON ListManagedDataIdentifiers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("nextToken" Core..=) Prelude.<$> nextToken]
+          [("nextToken" Data..=) Prelude.<$> nextToken]
       )
 
-instance Core.ToPath ListManagedDataIdentifiers where
+instance Data.ToPath ListManagedDataIdentifiers where
   toPath =
     Prelude.const "/managed-data-identifiers/list"
 
-instance Core.ToQuery ListManagedDataIdentifiers where
+instance Data.ToQuery ListManagedDataIdentifiers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListManagedDataIdentifiersResponse' smart constructor.

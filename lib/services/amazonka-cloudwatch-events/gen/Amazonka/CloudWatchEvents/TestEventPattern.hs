@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.TestEventPattern
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ where
 
 import Amazonka.CloudWatchEvents.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -154,12 +155,13 @@ instance Core.AWSRequest TestEventPattern where
   type
     AWSResponse TestEventPattern =
       TestEventPatternResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           TestEventPatternResponse'
-            Prelude.<$> (x Core..?> "Result")
+            Prelude.<$> (x Data..?> "Result")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -173,32 +175,32 @@ instance Prelude.NFData TestEventPattern where
     Prelude.rnf eventPattern
       `Prelude.seq` Prelude.rnf event
 
-instance Core.ToHeaders TestEventPattern where
+instance Data.ToHeaders TestEventPattern where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSEvents.TestEventPattern" :: Prelude.ByteString),
+              Data.=# ("AWSEvents.TestEventPattern" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON TestEventPattern where
+instance Data.ToJSON TestEventPattern where
   toJSON TestEventPattern' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("EventPattern" Core..= eventPattern),
-            Prelude.Just ("Event" Core..= event)
+          [ Prelude.Just ("EventPattern" Data..= eventPattern),
+            Prelude.Just ("Event" Data..= event)
           ]
       )
 
-instance Core.ToPath TestEventPattern where
+instance Data.ToPath TestEventPattern where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery TestEventPattern where
+instance Data.ToQuery TestEventPattern where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newTestEventPatternResponse' smart constructor.

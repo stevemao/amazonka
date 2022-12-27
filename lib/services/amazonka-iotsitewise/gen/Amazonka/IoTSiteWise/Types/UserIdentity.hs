@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.UserIdentity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,15 @@
 module Amazonka.IoTSiteWise.Types.UserIdentity where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information for a user identity in an access policy.
 --
 -- /See:/ 'newUserIdentity' smart constructor.
 data UserIdentity = UserIdentity'
-  { -- | The Amazon Web Services SSO ID of the user.
+  { -- | The IAM Identity Center ID of the user.
     id :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -40,22 +41,22 @@ data UserIdentity = UserIdentity'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'id', 'userIdentity_id' - The Amazon Web Services SSO ID of the user.
+-- 'id', 'userIdentity_id' - The IAM Identity Center ID of the user.
 newUserIdentity ::
   -- | 'id'
   Prelude.Text ->
   UserIdentity
 newUserIdentity pId_ = UserIdentity' {id = pId_}
 
--- | The Amazon Web Services SSO ID of the user.
+-- | The IAM Identity Center ID of the user.
 userIdentity_id :: Lens.Lens' UserIdentity Prelude.Text
 userIdentity_id = Lens.lens (\UserIdentity' {id} -> id) (\s@UserIdentity' {} a -> s {id = a} :: UserIdentity)
 
-instance Core.FromJSON UserIdentity where
+instance Data.FromJSON UserIdentity where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UserIdentity"
-      (\x -> UserIdentity' Prelude.<$> (x Core..: "id"))
+      (\x -> UserIdentity' Prelude.<$> (x Data..: "id"))
 
 instance Prelude.Hashable UserIdentity where
   hashWithSalt _salt UserIdentity' {..} =
@@ -64,7 +65,7 @@ instance Prelude.Hashable UserIdentity where
 instance Prelude.NFData UserIdentity where
   rnf UserIdentity' {..} = Prelude.rnf id
 
-instance Core.ToJSON UserIdentity where
+instance Data.ToJSON UserIdentity where
   toJSON UserIdentity' {..} =
-    Core.object
-      (Prelude.catMaybes [Prelude.Just ("id" Core..= id)])
+    Data.object
+      (Prelude.catMaybes [Prelude.Just ("id" Data..= id)])

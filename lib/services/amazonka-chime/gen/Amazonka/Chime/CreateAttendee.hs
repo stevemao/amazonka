@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.CreateAttendee
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,7 +60,7 @@ data CreateAttendee = CreateAttendee'
     meetingId :: Prelude.Text,
     -- | The Amazon Chime SDK external user ID. An idempotency token. Links the
     -- attendee to an identity managed by a builder application.
-    externalUserId :: Core.Sensitive Prelude.Text
+    externalUserId :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -88,7 +89,7 @@ newCreateAttendee pMeetingId_ pExternalUserId_ =
     { tags = Prelude.Nothing,
       meetingId = pMeetingId_,
       externalUserId =
-        Core._Sensitive Lens.# pExternalUserId_
+        Data._Sensitive Lens.# pExternalUserId_
     }
 
 -- | The tag key-value pairs.
@@ -102,18 +103,19 @@ createAttendee_meetingId = Lens.lens (\CreateAttendee' {meetingId} -> meetingId)
 -- | The Amazon Chime SDK external user ID. An idempotency token. Links the
 -- attendee to an identity managed by a builder application.
 createAttendee_externalUserId :: Lens.Lens' CreateAttendee Prelude.Text
-createAttendee_externalUserId = Lens.lens (\CreateAttendee' {externalUserId} -> externalUserId) (\s@CreateAttendee' {} a -> s {externalUserId = a} :: CreateAttendee) Prelude.. Core._Sensitive
+createAttendee_externalUserId = Lens.lens (\CreateAttendee' {externalUserId} -> externalUserId) (\s@CreateAttendee' {} a -> s {externalUserId = a} :: CreateAttendee) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest CreateAttendee where
   type
     AWSResponse CreateAttendee =
       CreateAttendeeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateAttendeeResponse'
-            Prelude.<$> (x Core..?> "Attendee")
+            Prelude.<$> (x Data..?> "Attendee")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -129,25 +131,25 @@ instance Prelude.NFData CreateAttendee where
       `Prelude.seq` Prelude.rnf meetingId
       `Prelude.seq` Prelude.rnf externalUserId
 
-instance Core.ToHeaders CreateAttendee where
+instance Data.ToHeaders CreateAttendee where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateAttendee where
+instance Data.ToJSON CreateAttendee where
   toJSON CreateAttendee' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Tags" Core..=) Prelude.<$> tags,
+          [ ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("ExternalUserId" Core..= externalUserId)
+              ("ExternalUserId" Data..= externalUserId)
           ]
       )
 
-instance Core.ToPath CreateAttendee where
+instance Data.ToPath CreateAttendee where
   toPath CreateAttendee' {..} =
     Prelude.mconcat
-      ["/meetings/", Core.toBS meetingId, "/attendees"]
+      ["/meetings/", Data.toBS meetingId, "/attendees"]
 
-instance Core.ToQuery CreateAttendee where
+instance Data.ToQuery CreateAttendee where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateAttendeeResponse' smart constructor.

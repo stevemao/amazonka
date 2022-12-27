@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StepFunctions.SendTaskHeartbeat
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -57,7 +57,8 @@ module Amazonka.StepFunctions.SendTaskHeartbeat
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,7 +107,8 @@ instance Core.AWSRequest SendTaskHeartbeat where
   type
     AWSResponse SendTaskHeartbeat =
       SendTaskHeartbeatResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -121,32 +123,32 @@ instance Prelude.Hashable SendTaskHeartbeat where
 instance Prelude.NFData SendTaskHeartbeat where
   rnf SendTaskHeartbeat' {..} = Prelude.rnf taskToken
 
-instance Core.ToHeaders SendTaskHeartbeat where
+instance Data.ToHeaders SendTaskHeartbeat where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSStepFunctions.SendTaskHeartbeat" ::
+              Data.=# ( "AWSStepFunctions.SendTaskHeartbeat" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SendTaskHeartbeat where
+instance Data.ToJSON SendTaskHeartbeat where
   toJSON SendTaskHeartbeat' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("taskToken" Core..= taskToken)]
+          [Prelude.Just ("taskToken" Data..= taskToken)]
       )
 
-instance Core.ToPath SendTaskHeartbeat where
+instance Data.ToPath SendTaskHeartbeat where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SendTaskHeartbeat where
+instance Data.ToQuery SendTaskHeartbeat where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSendTaskHeartbeatResponse' smart constructor.

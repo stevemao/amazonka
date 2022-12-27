@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.MarketplaceAnalytics
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,31 +27,25 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestStartSupportDataExport $
---             newStartSupportDataExport
---
---         , requestGenerateDataSet $
+--         [ requestGenerateDataSet $
 --             newGenerateDataSet
+--
+--         , requestStartSupportDataExport $
+--             newStartSupportDataExport
 --
 --           ]
 
 --     , testGroup "response"
---         [ responseStartSupportDataExport $
---             newStartSupportDataExportResponse
---
---         , responseGenerateDataSet $
+--         [ responseGenerateDataSet $
 --             newGenerateDataSetResponse
+--
+--         , responseStartSupportDataExport $
+--             newStartSupportDataExportResponse
 --
 --           ]
 --     ]
 
 -- Requests
-
-requestStartSupportDataExport :: StartSupportDataExport -> TestTree
-requestStartSupportDataExport =
-  req
-    "StartSupportDataExport"
-    "fixture/StartSupportDataExport.yaml"
 
 requestGenerateDataSet :: GenerateDataSet -> TestTree
 requestGenerateDataSet =
@@ -59,15 +53,13 @@ requestGenerateDataSet =
     "GenerateDataSet"
     "fixture/GenerateDataSet.yaml"
 
--- Responses
+requestStartSupportDataExport :: StartSupportDataExport -> TestTree
+requestStartSupportDataExport =
+  req
+    "StartSupportDataExport"
+    "fixture/StartSupportDataExport.yaml"
 
-responseStartSupportDataExport :: StartSupportDataExportResponse -> TestTree
-responseStartSupportDataExport =
-  res
-    "StartSupportDataExportResponse"
-    "fixture/StartSupportDataExportResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy StartSupportDataExport)
+-- Responses
 
 responseGenerateDataSet :: GenerateDataSetResponse -> TestTree
 responseGenerateDataSet =
@@ -76,3 +68,11 @@ responseGenerateDataSet =
     "fixture/GenerateDataSetResponse.proto"
     defaultService
     (Proxy.Proxy :: Proxy.Proxy GenerateDataSet)
+
+responseStartSupportDataExport :: StartSupportDataExportResponse -> TestTree
+responseStartSupportDataExport =
+  res
+    "StartSupportDataExportResponse"
+    "fixture/StartSupportDataExportResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy StartSupportDataExport)

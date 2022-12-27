@@ -14,19 +14,19 @@
 
 -- |
 -- Module      : Amazonka.VoiceId.OptOutSpeaker
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Opts out a speaker from Voice ID system. A speaker can be opted out
--- regardless of whether or not they already exist in the system. If they
--- don\'t yet exist, a new speaker is created in an opted out state. If
--- they already exist, their existing status is overridden and they are
--- opted out. Enrollment and evaluation authentication requests are
--- rejected for opted out speakers, and opted out speakers have no voice
--- embeddings stored in the system.
+-- Opts out a speaker from Voice ID. A speaker can be opted out regardless
+-- of whether or not they already exist in Voice ID. If they don\'t yet
+-- exist, a new speaker is created in an opted out state. If they already
+-- exist, their existing status is overridden and they are opted out.
+-- Enrollment and evaluation authentication requests are rejected for opted
+-- out speakers, and opted out speakers have no voice embeddings stored in
+-- Voice ID.
 module Amazonka.VoiceId.OptOutSpeaker
   ( -- * Creating a Request
     OptOutSpeaker (..),
@@ -47,7 +47,8 @@ module Amazonka.VoiceId.OptOutSpeaker
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,7 +59,7 @@ data OptOutSpeaker = OptOutSpeaker'
   { -- | The identifier of the domain containing the speaker.
     domainId :: Prelude.Text,
     -- | The identifier of the speaker you want opted-out.
-    speakerId :: Core.Sensitive Prelude.Text
+    speakerId :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -82,7 +83,7 @@ newOptOutSpeaker ::
 newOptOutSpeaker pDomainId_ pSpeakerId_ =
   OptOutSpeaker'
     { domainId = pDomainId_,
-      speakerId = Core._Sensitive Lens.# pSpeakerId_
+      speakerId = Data._Sensitive Lens.# pSpeakerId_
     }
 
 -- | The identifier of the domain containing the speaker.
@@ -91,18 +92,19 @@ optOutSpeaker_domainId = Lens.lens (\OptOutSpeaker' {domainId} -> domainId) (\s@
 
 -- | The identifier of the speaker you want opted-out.
 optOutSpeaker_speakerId :: Lens.Lens' OptOutSpeaker Prelude.Text
-optOutSpeaker_speakerId = Lens.lens (\OptOutSpeaker' {speakerId} -> speakerId) (\s@OptOutSpeaker' {} a -> s {speakerId = a} :: OptOutSpeaker) Prelude.. Core._Sensitive
+optOutSpeaker_speakerId = Lens.lens (\OptOutSpeaker' {speakerId} -> speakerId) (\s@OptOutSpeaker' {} a -> s {speakerId = a} :: OptOutSpeaker) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest OptOutSpeaker where
   type
     AWSResponse OptOutSpeaker =
       OptOutSpeakerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           OptOutSpeakerResponse'
-            Prelude.<$> (x Core..?> "Speaker")
+            Prelude.<$> (x Data..?> "Speaker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,32 +118,32 @@ instance Prelude.NFData OptOutSpeaker where
     Prelude.rnf domainId
       `Prelude.seq` Prelude.rnf speakerId
 
-instance Core.ToHeaders OptOutSpeaker where
+instance Data.ToHeaders OptOutSpeaker where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("VoiceID.OptOutSpeaker" :: Prelude.ByteString),
+              Data.=# ("VoiceID.OptOutSpeaker" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON OptOutSpeaker where
+instance Data.ToJSON OptOutSpeaker where
   toJSON OptOutSpeaker' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("DomainId" Core..= domainId),
-            Prelude.Just ("SpeakerId" Core..= speakerId)
+          [ Prelude.Just ("DomainId" Data..= domainId),
+            Prelude.Just ("SpeakerId" Data..= speakerId)
           ]
       )
 
-instance Core.ToPath OptOutSpeaker where
+instance Data.ToPath OptOutSpeaker where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery OptOutSpeaker where
+instance Data.ToQuery OptOutSpeaker where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newOptOutSpeakerResponse' smart constructor.

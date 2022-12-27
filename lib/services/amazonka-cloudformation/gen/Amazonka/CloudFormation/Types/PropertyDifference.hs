@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.Types.PropertyDifference
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudFormation.Types.PropertyDifference where
 
 import Amazonka.CloudFormation.Types.DifferenceType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a resource property whose actual value differs from
@@ -42,7 +43,7 @@ data PropertyDifference = PropertyDifference'
     actualValue :: Prelude.Text,
     -- | The type of property difference.
     --
-    -- -   @ADD@: A value has been added to a resource property that is an
+    -- -   @ADD@: A value has been added to a resource property that\'s an
     --     array or list data type.
     --
     -- -   @REMOVE@: The property has been removed from the current resource
@@ -72,7 +73,7 @@ data PropertyDifference = PropertyDifference'
 --
 -- 'differenceType', 'propertyDifference_differenceType' - The type of property difference.
 --
--- -   @ADD@: A value has been added to a resource property that is an
+-- -   @ADD@: A value has been added to a resource property that\'s an
 --     array or list data type.
 --
 -- -   @REMOVE@: The property has been removed from the current resource
@@ -118,7 +119,7 @@ propertyDifference_actualValue = Lens.lens (\PropertyDifference' {actualValue} -
 
 -- | The type of property difference.
 --
--- -   @ADD@: A value has been added to a resource property that is an
+-- -   @ADD@: A value has been added to a resource property that\'s an
 --     array or list data type.
 --
 -- -   @REMOVE@: The property has been removed from the current resource
@@ -130,13 +131,13 @@ propertyDifference_actualValue = Lens.lens (\PropertyDifference' {actualValue} -
 propertyDifference_differenceType :: Lens.Lens' PropertyDifference DifferenceType
 propertyDifference_differenceType = Lens.lens (\PropertyDifference' {differenceType} -> differenceType) (\s@PropertyDifference' {} a -> s {differenceType = a} :: PropertyDifference)
 
-instance Core.FromXML PropertyDifference where
+instance Data.FromXML PropertyDifference where
   parseXML x =
     PropertyDifference'
-      Prelude.<$> (x Core..@ "PropertyPath")
-      Prelude.<*> (x Core..@ "ExpectedValue")
-      Prelude.<*> (x Core..@ "ActualValue")
-      Prelude.<*> (x Core..@ "DifferenceType")
+      Prelude.<$> (x Data..@ "PropertyPath")
+      Prelude.<*> (x Data..@ "ExpectedValue")
+      Prelude.<*> (x Data..@ "ActualValue")
+      Prelude.<*> (x Data..@ "DifferenceType")
 
 instance Prelude.Hashable PropertyDifference where
   hashWithSalt _salt PropertyDifference' {..} =

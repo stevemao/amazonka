@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.InvalidationBatch
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudFront.Types.InvalidationBatch where
 
 import Amazonka.CloudFront.Types.Paths
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An invalidation batch.
@@ -126,11 +127,11 @@ invalidationBatch_paths = Lens.lens (\InvalidationBatch' {paths} -> paths) (\s@I
 invalidationBatch_callerReference :: Lens.Lens' InvalidationBatch Prelude.Text
 invalidationBatch_callerReference = Lens.lens (\InvalidationBatch' {callerReference} -> callerReference) (\s@InvalidationBatch' {} a -> s {callerReference = a} :: InvalidationBatch)
 
-instance Core.FromXML InvalidationBatch where
+instance Data.FromXML InvalidationBatch where
   parseXML x =
     InvalidationBatch'
-      Prelude.<$> (x Core..@ "Paths")
-      Prelude.<*> (x Core..@ "CallerReference")
+      Prelude.<$> (x Data..@ "Paths")
+      Prelude.<*> (x Data..@ "CallerReference")
 
 instance Prelude.Hashable InvalidationBatch where
   hashWithSalt _salt InvalidationBatch' {..} =
@@ -142,9 +143,9 @@ instance Prelude.NFData InvalidationBatch where
     Prelude.rnf paths
       `Prelude.seq` Prelude.rnf callerReference
 
-instance Core.ToXML InvalidationBatch where
+instance Data.ToXML InvalidationBatch where
   toXML InvalidationBatch' {..} =
     Prelude.mconcat
-      [ "Paths" Core.@= paths,
-        "CallerReference" Core.@= callerReference
+      [ "Paths" Data.@= paths,
+        "CallerReference" Data.@= callerReference
       ]

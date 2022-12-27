@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.PutAssetPropertyValueEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTSiteWise.Types.PutAssetPropertyValueEntry where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types.AssetPropertyValue
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains a list of value updates for an asset property in the list of
@@ -31,7 +32,9 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newPutAssetPropertyValueEntry' smart constructor.
 data PutAssetPropertyValueEntry = PutAssetPropertyValueEntry'
-  { -- | The alias that identifies the property, such as an OPC-UA server data
+  { -- | The ID of the asset to update.
+    assetId :: Prelude.Maybe Prelude.Text,
+    -- | The alias that identifies the property, such as an OPC-UA server data
     -- stream path (for example,
     -- @\/company\/windfarm\/3\/turbine\/7\/temperature@). For more
     -- information, see
@@ -40,8 +43,6 @@ data PutAssetPropertyValueEntry = PutAssetPropertyValueEntry'
     propertyAlias :: Prelude.Maybe Prelude.Text,
     -- | The ID of the asset property for this entry.
     propertyId :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the asset to update.
-    assetId :: Prelude.Maybe Prelude.Text,
     -- | The user specified ID for the entry. You can use this ID to identify
     -- which entries failed.
     entryId :: Prelude.Text,
@@ -59,6 +60,8 @@ data PutAssetPropertyValueEntry = PutAssetPropertyValueEntry'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'assetId', 'putAssetPropertyValueEntry_assetId' - The ID of the asset to update.
+--
 -- 'propertyAlias', 'putAssetPropertyValueEntry_propertyAlias' - The alias that identifies the property, such as an OPC-UA server data
 -- stream path (for example,
 -- @\/company\/windfarm\/3\/turbine\/7\/temperature@). For more
@@ -67,8 +70,6 @@ data PutAssetPropertyValueEntry = PutAssetPropertyValueEntry'
 -- in the /IoT SiteWise User Guide/.
 --
 -- 'propertyId', 'putAssetPropertyValueEntry_propertyId' - The ID of the asset property for this entry.
---
--- 'assetId', 'putAssetPropertyValueEntry_assetId' - The ID of the asset to update.
 --
 -- 'entryId', 'putAssetPropertyValueEntry_entryId' - The user specified ID for the entry. You can use this ID to identify
 -- which entries failed.
@@ -81,13 +82,17 @@ newPutAssetPropertyValueEntry ::
   PutAssetPropertyValueEntry
 newPutAssetPropertyValueEntry pEntryId_ =
   PutAssetPropertyValueEntry'
-    { propertyAlias =
+    { assetId =
         Prelude.Nothing,
+      propertyAlias = Prelude.Nothing,
       propertyId = Prelude.Nothing,
-      assetId = Prelude.Nothing,
       entryId = pEntryId_,
       propertyValues = Prelude.mempty
     }
+
+-- | The ID of the asset to update.
+putAssetPropertyValueEntry_assetId :: Lens.Lens' PutAssetPropertyValueEntry (Prelude.Maybe Prelude.Text)
+putAssetPropertyValueEntry_assetId = Lens.lens (\PutAssetPropertyValueEntry' {assetId} -> assetId) (\s@PutAssetPropertyValueEntry' {} a -> s {assetId = a} :: PutAssetPropertyValueEntry)
 
 -- | The alias that identifies the property, such as an OPC-UA server data
 -- stream path (for example,
@@ -102,10 +107,6 @@ putAssetPropertyValueEntry_propertyAlias = Lens.lens (\PutAssetPropertyValueEntr
 putAssetPropertyValueEntry_propertyId :: Lens.Lens' PutAssetPropertyValueEntry (Prelude.Maybe Prelude.Text)
 putAssetPropertyValueEntry_propertyId = Lens.lens (\PutAssetPropertyValueEntry' {propertyId} -> propertyId) (\s@PutAssetPropertyValueEntry' {} a -> s {propertyId = a} :: PutAssetPropertyValueEntry)
 
--- | The ID of the asset to update.
-putAssetPropertyValueEntry_assetId :: Lens.Lens' PutAssetPropertyValueEntry (Prelude.Maybe Prelude.Text)
-putAssetPropertyValueEntry_assetId = Lens.lens (\PutAssetPropertyValueEntry' {assetId} -> assetId) (\s@PutAssetPropertyValueEntry' {} a -> s {assetId = a} :: PutAssetPropertyValueEntry)
-
 -- | The user specified ID for the entry. You can use this ID to identify
 -- which entries failed.
 putAssetPropertyValueEntry_entryId :: Lens.Lens' PutAssetPropertyValueEntry Prelude.Text
@@ -118,29 +119,29 @@ putAssetPropertyValueEntry_propertyValues = Lens.lens (\PutAssetPropertyValueEnt
 
 instance Prelude.Hashable PutAssetPropertyValueEntry where
   hashWithSalt _salt PutAssetPropertyValueEntry' {..} =
-    _salt `Prelude.hashWithSalt` propertyAlias
+    _salt `Prelude.hashWithSalt` assetId
+      `Prelude.hashWithSalt` propertyAlias
       `Prelude.hashWithSalt` propertyId
-      `Prelude.hashWithSalt` assetId
       `Prelude.hashWithSalt` entryId
       `Prelude.hashWithSalt` propertyValues
 
 instance Prelude.NFData PutAssetPropertyValueEntry where
   rnf PutAssetPropertyValueEntry' {..} =
-    Prelude.rnf propertyAlias
+    Prelude.rnf assetId
+      `Prelude.seq` Prelude.rnf propertyAlias
       `Prelude.seq` Prelude.rnf propertyId
-      `Prelude.seq` Prelude.rnf assetId
       `Prelude.seq` Prelude.rnf entryId
       `Prelude.seq` Prelude.rnf propertyValues
 
-instance Core.ToJSON PutAssetPropertyValueEntry where
+instance Data.ToJSON PutAssetPropertyValueEntry where
   toJSON PutAssetPropertyValueEntry' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("propertyAlias" Core..=) Prelude.<$> propertyAlias,
-            ("propertyId" Core..=) Prelude.<$> propertyId,
-            ("assetId" Core..=) Prelude.<$> assetId,
-            Prelude.Just ("entryId" Core..= entryId),
+          [ ("assetId" Data..=) Prelude.<$> assetId,
+            ("propertyAlias" Data..=) Prelude.<$> propertyAlias,
+            ("propertyId" Data..=) Prelude.<$> propertyId,
+            Prelude.Just ("entryId" Data..= entryId),
             Prelude.Just
-              ("propertyValues" Core..= propertyValues)
+              ("propertyValues" Data..= propertyValues)
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Shield.DescribeSubscription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,7 +37,8 @@ module Amazonka.Shield.DescribeSubscription
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,12 +62,13 @@ instance Core.AWSRequest DescribeSubscription where
   type
     AWSResponse DescribeSubscription =
       DescribeSubscriptionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeSubscriptionResponse'
-            Prelude.<$> (x Core..?> "Subscription")
+            Prelude.<$> (x Data..?> "Subscription")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -77,28 +79,28 @@ instance Prelude.Hashable DescribeSubscription where
 instance Prelude.NFData DescribeSubscription where
   rnf _ = ()
 
-instance Core.ToHeaders DescribeSubscription where
+instance Data.ToHeaders DescribeSubscription where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSShield_20160616.DescribeSubscription" ::
+              Data.=# ( "AWSShield_20160616.DescribeSubscription" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeSubscription where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON DescribeSubscription where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath DescribeSubscription where
+instance Data.ToPath DescribeSubscription where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeSubscription where
+instance Data.ToQuery DescribeSubscription where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeSubscriptionResponse' smart constructor.

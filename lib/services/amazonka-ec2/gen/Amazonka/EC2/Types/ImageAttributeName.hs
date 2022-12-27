@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.ImageAttributeName
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,22 +23,27 @@ module Amazonka.EC2.Types.ImageAttributeName
         ImageAttributeName_BlockDeviceMapping,
         ImageAttributeName_BootMode,
         ImageAttributeName_Description,
+        ImageAttributeName_ImdsSupport,
         ImageAttributeName_Kernel,
+        ImageAttributeName_LastLaunchedTime,
         ImageAttributeName_LaunchPermission,
         ImageAttributeName_ProductCodes,
         ImageAttributeName_Ramdisk,
-        ImageAttributeName_SriovNetSupport
+        ImageAttributeName_SriovNetSupport,
+        ImageAttributeName_TpmSupport,
+        ImageAttributeName_UefiData
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import qualified Amazonka.Prelude as Prelude
 
 newtype ImageAttributeName = ImageAttributeName'
   { fromImageAttributeName ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -50,18 +55,18 @@ newtype ImageAttributeName = ImageAttributeName'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern ImageAttributeName_BlockDeviceMapping :: ImageAttributeName
@@ -73,8 +78,14 @@ pattern ImageAttributeName_BootMode = ImageAttributeName' "bootMode"
 pattern ImageAttributeName_Description :: ImageAttributeName
 pattern ImageAttributeName_Description = ImageAttributeName' "description"
 
+pattern ImageAttributeName_ImdsSupport :: ImageAttributeName
+pattern ImageAttributeName_ImdsSupport = ImageAttributeName' "imdsSupport"
+
 pattern ImageAttributeName_Kernel :: ImageAttributeName
 pattern ImageAttributeName_Kernel = ImageAttributeName' "kernel"
+
+pattern ImageAttributeName_LastLaunchedTime :: ImageAttributeName
+pattern ImageAttributeName_LastLaunchedTime = ImageAttributeName' "lastLaunchedTime"
 
 pattern ImageAttributeName_LaunchPermission :: ImageAttributeName
 pattern ImageAttributeName_LaunchPermission = ImageAttributeName' "launchPermission"
@@ -88,14 +99,24 @@ pattern ImageAttributeName_Ramdisk = ImageAttributeName' "ramdisk"
 pattern ImageAttributeName_SriovNetSupport :: ImageAttributeName
 pattern ImageAttributeName_SriovNetSupport = ImageAttributeName' "sriovNetSupport"
 
+pattern ImageAttributeName_TpmSupport :: ImageAttributeName
+pattern ImageAttributeName_TpmSupport = ImageAttributeName' "tpmSupport"
+
+pattern ImageAttributeName_UefiData :: ImageAttributeName
+pattern ImageAttributeName_UefiData = ImageAttributeName' "uefiData"
+
 {-# COMPLETE
   ImageAttributeName_BlockDeviceMapping,
   ImageAttributeName_BootMode,
   ImageAttributeName_Description,
+  ImageAttributeName_ImdsSupport,
   ImageAttributeName_Kernel,
+  ImageAttributeName_LastLaunchedTime,
   ImageAttributeName_LaunchPermission,
   ImageAttributeName_ProductCodes,
   ImageAttributeName_Ramdisk,
   ImageAttributeName_SriovNetSupport,
+  ImageAttributeName_TpmSupport,
+  ImageAttributeName_UefiData,
   ImageAttributeName'
   #-}

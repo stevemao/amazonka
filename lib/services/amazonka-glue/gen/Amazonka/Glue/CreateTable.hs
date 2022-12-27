@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.CreateTable
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,9 @@ module Amazonka.Glue.CreateTable
     newCreateTable,
 
     -- * Request Lenses
-    createTable_partitionIndexes,
     createTable_catalogId,
+    createTable_partitionIndexes,
+    createTable_transactionId,
     createTable_databaseName,
     createTable_tableInput,
 
@@ -42,20 +43,23 @@ module Amazonka.Glue.CreateTable
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateTable' smart constructor.
 data CreateTable = CreateTable'
-  { -- | A list of partition indexes, @PartitionIndex@ structures, to create in
-    -- the table.
-    partitionIndexes :: Prelude.Maybe [PartitionIndex],
-    -- | The ID of the Data Catalog in which to create the @Table@. If none is
+  { -- | The ID of the Data Catalog in which to create the @Table@. If none is
     -- supplied, the Amazon Web Services account ID is used by default.
     catalogId :: Prelude.Maybe Prelude.Text,
+    -- | A list of partition indexes, @PartitionIndex@ structures, to create in
+    -- the table.
+    partitionIndexes :: Prelude.Maybe [PartitionIndex],
+    -- | The ID of the transaction.
+    transactionId :: Prelude.Maybe Prelude.Text,
     -- | The catalog database in which to create the new table. For Hive
     -- compatibility, this name is entirely lowercase.
     databaseName :: Prelude.Text,
@@ -73,11 +77,13 @@ data CreateTable = CreateTable'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'catalogId', 'createTable_catalogId' - The ID of the Data Catalog in which to create the @Table@. If none is
+-- supplied, the Amazon Web Services account ID is used by default.
+--
 -- 'partitionIndexes', 'createTable_partitionIndexes' - A list of partition indexes, @PartitionIndex@ structures, to create in
 -- the table.
 --
--- 'catalogId', 'createTable_catalogId' - The ID of the Data Catalog in which to create the @Table@. If none is
--- supplied, the Amazon Web Services account ID is used by default.
+-- 'transactionId', 'createTable_transactionId' - The ID of the transaction.
 --
 -- 'databaseName', 'createTable_databaseName' - The catalog database in which to create the new table. For Hive
 -- compatibility, this name is entirely lowercase.
@@ -92,21 +98,26 @@ newCreateTable ::
   CreateTable
 newCreateTable pDatabaseName_ pTableInput_ =
   CreateTable'
-    { partitionIndexes = Prelude.Nothing,
-      catalogId = Prelude.Nothing,
+    { catalogId = Prelude.Nothing,
+      partitionIndexes = Prelude.Nothing,
+      transactionId = Prelude.Nothing,
       databaseName = pDatabaseName_,
       tableInput = pTableInput_
     }
+
+-- | The ID of the Data Catalog in which to create the @Table@. If none is
+-- supplied, the Amazon Web Services account ID is used by default.
+createTable_catalogId :: Lens.Lens' CreateTable (Prelude.Maybe Prelude.Text)
+createTable_catalogId = Lens.lens (\CreateTable' {catalogId} -> catalogId) (\s@CreateTable' {} a -> s {catalogId = a} :: CreateTable)
 
 -- | A list of partition indexes, @PartitionIndex@ structures, to create in
 -- the table.
 createTable_partitionIndexes :: Lens.Lens' CreateTable (Prelude.Maybe [PartitionIndex])
 createTable_partitionIndexes = Lens.lens (\CreateTable' {partitionIndexes} -> partitionIndexes) (\s@CreateTable' {} a -> s {partitionIndexes = a} :: CreateTable) Prelude.. Lens.mapping Lens.coerced
 
--- | The ID of the Data Catalog in which to create the @Table@. If none is
--- supplied, the Amazon Web Services account ID is used by default.
-createTable_catalogId :: Lens.Lens' CreateTable (Prelude.Maybe Prelude.Text)
-createTable_catalogId = Lens.lens (\CreateTable' {catalogId} -> catalogId) (\s@CreateTable' {} a -> s {catalogId = a} :: CreateTable)
+-- | The ID of the transaction.
+createTable_transactionId :: Lens.Lens' CreateTable (Prelude.Maybe Prelude.Text)
+createTable_transactionId = Lens.lens (\CreateTable' {transactionId} -> transactionId) (\s@CreateTable' {} a -> s {transactionId = a} :: CreateTable)
 
 -- | The catalog database in which to create the new table. For Hive
 -- compatibility, this name is entirely lowercase.
@@ -120,7 +131,8 @@ createTable_tableInput = Lens.lens (\CreateTable' {tableInput} -> tableInput) (\
 
 instance Core.AWSRequest CreateTable where
   type AWSResponse CreateTable = CreateTableResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -130,47 +142,50 @@ instance Core.AWSRequest CreateTable where
 
 instance Prelude.Hashable CreateTable where
   hashWithSalt _salt CreateTable' {..} =
-    _salt `Prelude.hashWithSalt` partitionIndexes
-      `Prelude.hashWithSalt` catalogId
+    _salt `Prelude.hashWithSalt` catalogId
+      `Prelude.hashWithSalt` partitionIndexes
+      `Prelude.hashWithSalt` transactionId
       `Prelude.hashWithSalt` databaseName
       `Prelude.hashWithSalt` tableInput
 
 instance Prelude.NFData CreateTable where
   rnf CreateTable' {..} =
-    Prelude.rnf partitionIndexes
-      `Prelude.seq` Prelude.rnf catalogId
+    Prelude.rnf catalogId
+      `Prelude.seq` Prelude.rnf partitionIndexes
+      `Prelude.seq` Prelude.rnf transactionId
       `Prelude.seq` Prelude.rnf databaseName
       `Prelude.seq` Prelude.rnf tableInput
 
-instance Core.ToHeaders CreateTable where
+instance Data.ToHeaders CreateTable where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.CreateTable" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.CreateTable" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateTable where
+instance Data.ToJSON CreateTable where
   toJSON CreateTable' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PartitionIndexes" Core..=)
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            ("PartitionIndexes" Data..=)
               Prelude.<$> partitionIndexes,
-            ("CatalogId" Core..=) Prelude.<$> catalogId,
-            Prelude.Just ("DatabaseName" Core..= databaseName),
-            Prelude.Just ("TableInput" Core..= tableInput)
+            ("TransactionId" Data..=) Prelude.<$> transactionId,
+            Prelude.Just ("DatabaseName" Data..= databaseName),
+            Prelude.Just ("TableInput" Data..= tableInput)
           ]
       )
 
-instance Core.ToPath CreateTable where
+instance Data.ToPath CreateTable where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateTable where
+instance Data.ToQuery CreateTable where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateTableResponse' smart constructor.

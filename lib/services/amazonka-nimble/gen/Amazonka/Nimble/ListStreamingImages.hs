@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.ListStreamingImages
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,8 +32,8 @@ module Amazonka.Nimble.ListStreamingImages
     newListStreamingImages,
 
     -- * Request Lenses
-    listStreamingImages_owner,
     listStreamingImages_nextToken,
+    listStreamingImages_owner,
     listStreamingImages_studioId,
 
     -- * Destructuring the Response
@@ -41,14 +41,15 @@ module Amazonka.Nimble.ListStreamingImages
     newListStreamingImagesResponse,
 
     -- * Response Lenses
-    listStreamingImagesResponse_streamingImages,
     listStreamingImagesResponse_nextToken,
+    listStreamingImagesResponse_streamingImages,
     listStreamingImagesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -56,11 +57,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListStreamingImages' smart constructor.
 data ListStreamingImages = ListStreamingImages'
-  { -- | The owner.
-    owner :: Prelude.Maybe Prelude.Text,
-    -- | The token for the next set of results, or null if there are no more
-    -- results.
+  { -- | The token to request the next page of results.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Filter this request to streaming images with the given owner
+    owner :: Prelude.Maybe Prelude.Text,
     -- | The studio ID.
     studioId :: Prelude.Text
   }
@@ -74,10 +74,9 @@ data ListStreamingImages = ListStreamingImages'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'owner', 'listStreamingImages_owner' - The owner.
+-- 'nextToken', 'listStreamingImages_nextToken' - The token to request the next page of results.
 --
--- 'nextToken', 'listStreamingImages_nextToken' - The token for the next set of results, or null if there are no more
--- results.
+-- 'owner', 'listStreamingImages_owner' - Filter this request to streaming images with the given owner
 --
 -- 'studioId', 'listStreamingImages_studioId' - The studio ID.
 newListStreamingImages ::
@@ -86,19 +85,18 @@ newListStreamingImages ::
   ListStreamingImages
 newListStreamingImages pStudioId_ =
   ListStreamingImages'
-    { owner = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { nextToken = Prelude.Nothing,
+      owner = Prelude.Nothing,
       studioId = pStudioId_
     }
 
--- | The owner.
-listStreamingImages_owner :: Lens.Lens' ListStreamingImages (Prelude.Maybe Prelude.Text)
-listStreamingImages_owner = Lens.lens (\ListStreamingImages' {owner} -> owner) (\s@ListStreamingImages' {} a -> s {owner = a} :: ListStreamingImages)
-
--- | The token for the next set of results, or null if there are no more
--- results.
+-- | The token to request the next page of results.
 listStreamingImages_nextToken :: Lens.Lens' ListStreamingImages (Prelude.Maybe Prelude.Text)
 listStreamingImages_nextToken = Lens.lens (\ListStreamingImages' {nextToken} -> nextToken) (\s@ListStreamingImages' {} a -> s {nextToken = a} :: ListStreamingImages)
+
+-- | Filter this request to streaming images with the given owner
+listStreamingImages_owner :: Lens.Lens' ListStreamingImages (Prelude.Maybe Prelude.Text)
+listStreamingImages_owner = Lens.lens (\ListStreamingImages' {owner} -> owner) (\s@ListStreamingImages' {} a -> s {owner = a} :: ListStreamingImages)
 
 -- | The studio ID.
 listStreamingImages_studioId :: Lens.Lens' ListStreamingImages Prelude.Text
@@ -130,67 +128,68 @@ instance Core.AWSRequest ListStreamingImages where
   type
     AWSResponse ListStreamingImages =
       ListStreamingImagesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListStreamingImagesResponse'
-            Prelude.<$> ( x Core..?> "streamingImages"
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> ( x Data..?> "streamingImages"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListStreamingImages where
   hashWithSalt _salt ListStreamingImages' {..} =
-    _salt `Prelude.hashWithSalt` owner
-      `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` owner
       `Prelude.hashWithSalt` studioId
 
 instance Prelude.NFData ListStreamingImages where
   rnf ListStreamingImages' {..} =
-    Prelude.rnf owner
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf owner
       `Prelude.seq` Prelude.rnf studioId
 
-instance Core.ToHeaders ListStreamingImages where
+instance Data.ToHeaders ListStreamingImages where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListStreamingImages where
+instance Data.ToPath ListStreamingImages where
   toPath ListStreamingImages' {..} =
     Prelude.mconcat
       [ "/2020-08-01/studios/",
-        Core.toBS studioId,
+        Data.toBS studioId,
         "/streaming-images"
       ]
 
-instance Core.ToQuery ListStreamingImages where
+instance Data.ToQuery ListStreamingImages where
   toQuery ListStreamingImages' {..} =
     Prelude.mconcat
-      [ "owner" Core.=: owner,
-        "nextToken" Core.=: nextToken
+      [ "nextToken" Data.=: nextToken,
+        "owner" Data.=: owner
       ]
 
 -- | /See:/ 'newListStreamingImagesResponse' smart constructor.
 data ListStreamingImagesResponse = ListStreamingImagesResponse'
-  { -- | A collection of streaming images.
-    streamingImages :: Prelude.Maybe [StreamingImage],
-    -- | The token for the next set of results, or null if there are no more
+  { -- | The token for the next set of results, or null if there are no more
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A collection of streaming images.
+    streamingImages :: Prelude.Maybe [StreamingImage],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'ListStreamingImagesResponse' with all optional fields omitted.
@@ -200,10 +199,10 @@ data ListStreamingImagesResponse = ListStreamingImagesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'streamingImages', 'listStreamingImagesResponse_streamingImages' - A collection of streaming images.
---
 -- 'nextToken', 'listStreamingImagesResponse_nextToken' - The token for the next set of results, or null if there are no more
 -- results.
+--
+-- 'streamingImages', 'listStreamingImagesResponse_streamingImages' - A collection of streaming images.
 --
 -- 'httpStatus', 'listStreamingImagesResponse_httpStatus' - The response's http status code.
 newListStreamingImagesResponse ::
@@ -212,20 +211,20 @@ newListStreamingImagesResponse ::
   ListStreamingImagesResponse
 newListStreamingImagesResponse pHttpStatus_ =
   ListStreamingImagesResponse'
-    { streamingImages =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      streamingImages = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A collection of streaming images.
-listStreamingImagesResponse_streamingImages :: Lens.Lens' ListStreamingImagesResponse (Prelude.Maybe [StreamingImage])
-listStreamingImagesResponse_streamingImages = Lens.lens (\ListStreamingImagesResponse' {streamingImages} -> streamingImages) (\s@ListStreamingImagesResponse' {} a -> s {streamingImages = a} :: ListStreamingImagesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token for the next set of results, or null if there are no more
 -- results.
 listStreamingImagesResponse_nextToken :: Lens.Lens' ListStreamingImagesResponse (Prelude.Maybe Prelude.Text)
 listStreamingImagesResponse_nextToken = Lens.lens (\ListStreamingImagesResponse' {nextToken} -> nextToken) (\s@ListStreamingImagesResponse' {} a -> s {nextToken = a} :: ListStreamingImagesResponse)
+
+-- | A collection of streaming images.
+listStreamingImagesResponse_streamingImages :: Lens.Lens' ListStreamingImagesResponse (Prelude.Maybe [StreamingImage])
+listStreamingImagesResponse_streamingImages = Lens.lens (\ListStreamingImagesResponse' {streamingImages} -> streamingImages) (\s@ListStreamingImagesResponse' {} a -> s {streamingImages = a} :: ListStreamingImagesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listStreamingImagesResponse_httpStatus :: Lens.Lens' ListStreamingImagesResponse Prelude.Int
@@ -233,6 +232,6 @@ listStreamingImagesResponse_httpStatus = Lens.lens (\ListStreamingImagesResponse
 
 instance Prelude.NFData ListStreamingImagesResponse where
   rnf ListStreamingImagesResponse' {..} =
-    Prelude.rnf streamingImages
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf streamingImages
       `Prelude.seq` Prelude.rnf httpStatus

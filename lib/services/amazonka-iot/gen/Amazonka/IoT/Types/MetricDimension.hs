@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.MetricDimension
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoT.Types.MetricDimension where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.DimensionValueOperator
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The dimension of a metric.
@@ -79,14 +80,14 @@ metricDimension_operator = Lens.lens (\MetricDimension' {operator} -> operator) 
 metricDimension_dimensionName :: Lens.Lens' MetricDimension Prelude.Text
 metricDimension_dimensionName = Lens.lens (\MetricDimension' {dimensionName} -> dimensionName) (\s@MetricDimension' {} a -> s {dimensionName = a} :: MetricDimension)
 
-instance Core.FromJSON MetricDimension where
+instance Data.FromJSON MetricDimension where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MetricDimension"
       ( \x ->
           MetricDimension'
-            Prelude.<$> (x Core..:? "operator")
-            Prelude.<*> (x Core..: "dimensionName")
+            Prelude.<$> (x Data..:? "operator")
+            Prelude.<*> (x Data..: "dimensionName")
       )
 
 instance Prelude.Hashable MetricDimension where
@@ -99,12 +100,12 @@ instance Prelude.NFData MetricDimension where
     Prelude.rnf operator
       `Prelude.seq` Prelude.rnf dimensionName
 
-instance Core.ToJSON MetricDimension where
+instance Data.ToJSON MetricDimension where
   toJSON MetricDimension' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("operator" Core..=) Prelude.<$> operator,
+          [ ("operator" Data..=) Prelude.<$> operator,
             Prelude.Just
-              ("dimensionName" Core..= dimensionName)
+              ("dimensionName" Data..= dimensionName)
           ]
       )

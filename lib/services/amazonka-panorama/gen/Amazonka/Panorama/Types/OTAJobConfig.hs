@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Panorama.Types.OTAJobConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Panorama.Types.OTAJobConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An over-the-air update (OTA) job configuration.
@@ -59,9 +60,9 @@ instance Prelude.Hashable OTAJobConfig where
 instance Prelude.NFData OTAJobConfig where
   rnf OTAJobConfig' {..} = Prelude.rnf imageVersion
 
-instance Core.ToJSON OTAJobConfig where
+instance Data.ToJSON OTAJobConfig where
   toJSON OTAJobConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ImageVersion" Core..= imageVersion)]
+          [Prelude.Just ("ImageVersion" Data..= imageVersion)]
       )

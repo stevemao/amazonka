@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutMetrics.UpdateMetricSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,13 +27,14 @@ module Amazonka.LookoutMetrics.UpdateMetricSet
     newUpdateMetricSet,
 
     -- * Request Lenses
+    updateMetricSet_dimensionFilterList,
     updateMetricSet_dimensionList,
+    updateMetricSet_metricList,
+    updateMetricSet_metricSetDescription,
+    updateMetricSet_metricSetFrequency,
+    updateMetricSet_metricSource,
     updateMetricSet_offset,
     updateMetricSet_timestampColumn,
-    updateMetricSet_metricList,
-    updateMetricSet_metricSource,
-    updateMetricSet_metricSetFrequency,
-    updateMetricSet_metricSetDescription,
     updateMetricSet_metricSetArn,
 
     -- * Destructuring the Response
@@ -47,7 +48,8 @@ module Amazonka.LookoutMetrics.UpdateMetricSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LookoutMetrics.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -55,21 +57,27 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateMetricSet' smart constructor.
 data UpdateMetricSet = UpdateMetricSet'
-  { -- | The dimension list.
+  { -- | Describes a list of filters for choosing specific dimensions and
+    -- specific values. Each filter consists of the dimension and one of its
+    -- values that you want to include. When multiple dimensions or values are
+    -- specified, the dimensions are joined with an AND operation and the
+    -- values are joined with an OR operation.
+    dimensionFilterList :: Prelude.Maybe [MetricSetDimensionFilter],
+    -- | The dimension list.
     dimensionList :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
+    -- | The metric list.
+    metricList :: Prelude.Maybe (Prelude.NonEmpty Metric),
+    -- | The dataset\'s description.
+    metricSetDescription :: Prelude.Maybe Prelude.Text,
+    -- | The dataset\'s interval.
+    metricSetFrequency :: Prelude.Maybe Frequency,
+    metricSource :: Prelude.Maybe MetricSource,
     -- | After an interval ends, the amount of seconds that the detector waits
-    -- before importing data. Offset is only supported for S3 and Redshift
-    -- datasources.
+    -- before importing data. Offset is only supported for S3, Redshift, Athena
+    -- and datasources.
     offset :: Prelude.Maybe Prelude.Natural,
     -- | The timestamp column.
     timestampColumn :: Prelude.Maybe TimestampColumn,
-    -- | The metric list.
-    metricList :: Prelude.Maybe (Prelude.NonEmpty Metric),
-    metricSource :: Prelude.Maybe MetricSource,
-    -- | The dataset\'s interval.
-    metricSetFrequency :: Prelude.Maybe Frequency,
-    -- | The dataset\'s description.
-    metricSetDescription :: Prelude.Maybe Prelude.Text,
     -- | The ARN of the dataset to update.
     metricSetArn :: Prelude.Text
   }
@@ -83,21 +91,27 @@ data UpdateMetricSet = UpdateMetricSet'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'dimensionFilterList', 'updateMetricSet_dimensionFilterList' - Describes a list of filters for choosing specific dimensions and
+-- specific values. Each filter consists of the dimension and one of its
+-- values that you want to include. When multiple dimensions or values are
+-- specified, the dimensions are joined with an AND operation and the
+-- values are joined with an OR operation.
+--
 -- 'dimensionList', 'updateMetricSet_dimensionList' - The dimension list.
---
--- 'offset', 'updateMetricSet_offset' - After an interval ends, the amount of seconds that the detector waits
--- before importing data. Offset is only supported for S3 and Redshift
--- datasources.
---
--- 'timestampColumn', 'updateMetricSet_timestampColumn' - The timestamp column.
 --
 -- 'metricList', 'updateMetricSet_metricList' - The metric list.
 --
--- 'metricSource', 'updateMetricSet_metricSource' - Undocumented member.
+-- 'metricSetDescription', 'updateMetricSet_metricSetDescription' - The dataset\'s description.
 --
 -- 'metricSetFrequency', 'updateMetricSet_metricSetFrequency' - The dataset\'s interval.
 --
--- 'metricSetDescription', 'updateMetricSet_metricSetDescription' - The dataset\'s description.
+-- 'metricSource', 'updateMetricSet_metricSource' - Undocumented member.
+--
+-- 'offset', 'updateMetricSet_offset' - After an interval ends, the amount of seconds that the detector waits
+-- before importing data. Offset is only supported for S3, Redshift, Athena
+-- and datasources.
+--
+-- 'timestampColumn', 'updateMetricSet_timestampColumn' - The timestamp column.
 --
 -- 'metricSetArn', 'updateMetricSet_metricSetArn' - The ARN of the dataset to update.
 newUpdateMetricSet ::
@@ -106,45 +120,55 @@ newUpdateMetricSet ::
   UpdateMetricSet
 newUpdateMetricSet pMetricSetArn_ =
   UpdateMetricSet'
-    { dimensionList = Prelude.Nothing,
+    { dimensionFilterList =
+        Prelude.Nothing,
+      dimensionList = Prelude.Nothing,
+      metricList = Prelude.Nothing,
+      metricSetDescription = Prelude.Nothing,
+      metricSetFrequency = Prelude.Nothing,
+      metricSource = Prelude.Nothing,
       offset = Prelude.Nothing,
       timestampColumn = Prelude.Nothing,
-      metricList = Prelude.Nothing,
-      metricSource = Prelude.Nothing,
-      metricSetFrequency = Prelude.Nothing,
-      metricSetDescription = Prelude.Nothing,
       metricSetArn = pMetricSetArn_
     }
+
+-- | Describes a list of filters for choosing specific dimensions and
+-- specific values. Each filter consists of the dimension and one of its
+-- values that you want to include. When multiple dimensions or values are
+-- specified, the dimensions are joined with an AND operation and the
+-- values are joined with an OR operation.
+updateMetricSet_dimensionFilterList :: Lens.Lens' UpdateMetricSet (Prelude.Maybe [MetricSetDimensionFilter])
+updateMetricSet_dimensionFilterList = Lens.lens (\UpdateMetricSet' {dimensionFilterList} -> dimensionFilterList) (\s@UpdateMetricSet' {} a -> s {dimensionFilterList = a} :: UpdateMetricSet) Prelude.. Lens.mapping Lens.coerced
 
 -- | The dimension list.
 updateMetricSet_dimensionList :: Lens.Lens' UpdateMetricSet (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
 updateMetricSet_dimensionList = Lens.lens (\UpdateMetricSet' {dimensionList} -> dimensionList) (\s@UpdateMetricSet' {} a -> s {dimensionList = a} :: UpdateMetricSet) Prelude.. Lens.mapping Lens.coerced
 
+-- | The metric list.
+updateMetricSet_metricList :: Lens.Lens' UpdateMetricSet (Prelude.Maybe (Prelude.NonEmpty Metric))
+updateMetricSet_metricList = Lens.lens (\UpdateMetricSet' {metricList} -> metricList) (\s@UpdateMetricSet' {} a -> s {metricList = a} :: UpdateMetricSet) Prelude.. Lens.mapping Lens.coerced
+
+-- | The dataset\'s description.
+updateMetricSet_metricSetDescription :: Lens.Lens' UpdateMetricSet (Prelude.Maybe Prelude.Text)
+updateMetricSet_metricSetDescription = Lens.lens (\UpdateMetricSet' {metricSetDescription} -> metricSetDescription) (\s@UpdateMetricSet' {} a -> s {metricSetDescription = a} :: UpdateMetricSet)
+
+-- | The dataset\'s interval.
+updateMetricSet_metricSetFrequency :: Lens.Lens' UpdateMetricSet (Prelude.Maybe Frequency)
+updateMetricSet_metricSetFrequency = Lens.lens (\UpdateMetricSet' {metricSetFrequency} -> metricSetFrequency) (\s@UpdateMetricSet' {} a -> s {metricSetFrequency = a} :: UpdateMetricSet)
+
+-- | Undocumented member.
+updateMetricSet_metricSource :: Lens.Lens' UpdateMetricSet (Prelude.Maybe MetricSource)
+updateMetricSet_metricSource = Lens.lens (\UpdateMetricSet' {metricSource} -> metricSource) (\s@UpdateMetricSet' {} a -> s {metricSource = a} :: UpdateMetricSet)
+
 -- | After an interval ends, the amount of seconds that the detector waits
--- before importing data. Offset is only supported for S3 and Redshift
--- datasources.
+-- before importing data. Offset is only supported for S3, Redshift, Athena
+-- and datasources.
 updateMetricSet_offset :: Lens.Lens' UpdateMetricSet (Prelude.Maybe Prelude.Natural)
 updateMetricSet_offset = Lens.lens (\UpdateMetricSet' {offset} -> offset) (\s@UpdateMetricSet' {} a -> s {offset = a} :: UpdateMetricSet)
 
 -- | The timestamp column.
 updateMetricSet_timestampColumn :: Lens.Lens' UpdateMetricSet (Prelude.Maybe TimestampColumn)
 updateMetricSet_timestampColumn = Lens.lens (\UpdateMetricSet' {timestampColumn} -> timestampColumn) (\s@UpdateMetricSet' {} a -> s {timestampColumn = a} :: UpdateMetricSet)
-
--- | The metric list.
-updateMetricSet_metricList :: Lens.Lens' UpdateMetricSet (Prelude.Maybe (Prelude.NonEmpty Metric))
-updateMetricSet_metricList = Lens.lens (\UpdateMetricSet' {metricList} -> metricList) (\s@UpdateMetricSet' {} a -> s {metricList = a} :: UpdateMetricSet) Prelude.. Lens.mapping Lens.coerced
-
--- | Undocumented member.
-updateMetricSet_metricSource :: Lens.Lens' UpdateMetricSet (Prelude.Maybe MetricSource)
-updateMetricSet_metricSource = Lens.lens (\UpdateMetricSet' {metricSource} -> metricSource) (\s@UpdateMetricSet' {} a -> s {metricSource = a} :: UpdateMetricSet)
-
--- | The dataset\'s interval.
-updateMetricSet_metricSetFrequency :: Lens.Lens' UpdateMetricSet (Prelude.Maybe Frequency)
-updateMetricSet_metricSetFrequency = Lens.lens (\UpdateMetricSet' {metricSetFrequency} -> metricSetFrequency) (\s@UpdateMetricSet' {} a -> s {metricSetFrequency = a} :: UpdateMetricSet)
-
--- | The dataset\'s description.
-updateMetricSet_metricSetDescription :: Lens.Lens' UpdateMetricSet (Prelude.Maybe Prelude.Text)
-updateMetricSet_metricSetDescription = Lens.lens (\UpdateMetricSet' {metricSetDescription} -> metricSetDescription) (\s@UpdateMetricSet' {} a -> s {metricSetDescription = a} :: UpdateMetricSet)
 
 -- | The ARN of the dataset to update.
 updateMetricSet_metricSetArn :: Lens.Lens' UpdateMetricSet Prelude.Text
@@ -154,70 +178,75 @@ instance Core.AWSRequest UpdateMetricSet where
   type
     AWSResponse UpdateMetricSet =
       UpdateMetricSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateMetricSetResponse'
-            Prelude.<$> (x Core..?> "MetricSetArn")
+            Prelude.<$> (x Data..?> "MetricSetArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateMetricSet where
   hashWithSalt _salt UpdateMetricSet' {..} =
-    _salt `Prelude.hashWithSalt` dimensionList
+    _salt `Prelude.hashWithSalt` dimensionFilterList
+      `Prelude.hashWithSalt` dimensionList
+      `Prelude.hashWithSalt` metricList
+      `Prelude.hashWithSalt` metricSetDescription
+      `Prelude.hashWithSalt` metricSetFrequency
+      `Prelude.hashWithSalt` metricSource
       `Prelude.hashWithSalt` offset
       `Prelude.hashWithSalt` timestampColumn
-      `Prelude.hashWithSalt` metricList
-      `Prelude.hashWithSalt` metricSource
-      `Prelude.hashWithSalt` metricSetFrequency
-      `Prelude.hashWithSalt` metricSetDescription
       `Prelude.hashWithSalt` metricSetArn
 
 instance Prelude.NFData UpdateMetricSet where
   rnf UpdateMetricSet' {..} =
-    Prelude.rnf dimensionList
+    Prelude.rnf dimensionFilterList
+      `Prelude.seq` Prelude.rnf dimensionList
+      `Prelude.seq` Prelude.rnf metricList
+      `Prelude.seq` Prelude.rnf metricSetDescription
+      `Prelude.seq` Prelude.rnf metricSetFrequency
+      `Prelude.seq` Prelude.rnf metricSource
       `Prelude.seq` Prelude.rnf offset
       `Prelude.seq` Prelude.rnf timestampColumn
-      `Prelude.seq` Prelude.rnf metricList
-      `Prelude.seq` Prelude.rnf metricSource
-      `Prelude.seq` Prelude.rnf metricSetFrequency
-      `Prelude.seq` Prelude.rnf metricSetDescription
       `Prelude.seq` Prelude.rnf metricSetArn
 
-instance Core.ToHeaders UpdateMetricSet where
+instance Data.ToHeaders UpdateMetricSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateMetricSet where
+instance Data.ToJSON UpdateMetricSet where
   toJSON UpdateMetricSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DimensionList" Core..=) Prelude.<$> dimensionList,
-            ("Offset" Core..=) Prelude.<$> offset,
-            ("TimestampColumn" Core..=)
-              Prelude.<$> timestampColumn,
-            ("MetricList" Core..=) Prelude.<$> metricList,
-            ("MetricSource" Core..=) Prelude.<$> metricSource,
-            ("MetricSetFrequency" Core..=)
-              Prelude.<$> metricSetFrequency,
-            ("MetricSetDescription" Core..=)
+          [ ("DimensionFilterList" Data..=)
+              Prelude.<$> dimensionFilterList,
+            ("DimensionList" Data..=) Prelude.<$> dimensionList,
+            ("MetricList" Data..=) Prelude.<$> metricList,
+            ("MetricSetDescription" Data..=)
               Prelude.<$> metricSetDescription,
-            Prelude.Just ("MetricSetArn" Core..= metricSetArn)
+            ("MetricSetFrequency" Data..=)
+              Prelude.<$> metricSetFrequency,
+            ("MetricSource" Data..=) Prelude.<$> metricSource,
+            ("Offset" Data..=) Prelude.<$> offset,
+            ("TimestampColumn" Data..=)
+              Prelude.<$> timestampColumn,
+            Prelude.Just ("MetricSetArn" Data..= metricSetArn)
           ]
       )
 
-instance Core.ToPath UpdateMetricSet where
+instance Data.ToPath UpdateMetricSet where
   toPath = Prelude.const "/UpdateMetricSet"
 
-instance Core.ToQuery UpdateMetricSet where
+instance Data.ToQuery UpdateMetricSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateMetricSetResponse' smart constructor.

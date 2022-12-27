@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.Types.PortRange
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.NetworkFirewall.Types.PortRange where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A single port range specification. This is used for source and
@@ -73,14 +74,14 @@ portRange_fromPort = Lens.lens (\PortRange' {fromPort} -> fromPort) (\s@PortRang
 portRange_toPort :: Lens.Lens' PortRange Prelude.Natural
 portRange_toPort = Lens.lens (\PortRange' {toPort} -> toPort) (\s@PortRange' {} a -> s {toPort = a} :: PortRange)
 
-instance Core.FromJSON PortRange where
+instance Data.FromJSON PortRange where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PortRange"
       ( \x ->
           PortRange'
-            Prelude.<$> (x Core..: "FromPort")
-            Prelude.<*> (x Core..: "ToPort")
+            Prelude.<$> (x Data..: "FromPort")
+            Prelude.<*> (x Data..: "ToPort")
       )
 
 instance Prelude.Hashable PortRange where
@@ -93,11 +94,11 @@ instance Prelude.NFData PortRange where
     Prelude.rnf fromPort
       `Prelude.seq` Prelude.rnf toPort
 
-instance Core.ToJSON PortRange where
+instance Data.ToJSON PortRange where
   toJSON PortRange' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("FromPort" Core..= fromPort),
-            Prelude.Just ("ToPort" Core..= toPort)
+          [ Prelude.Just ("FromPort" Data..= fromPort),
+            Prelude.Just ("ToPort" Data..= toPort)
           ]
       )

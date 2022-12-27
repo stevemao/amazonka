@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.InputLambdaProcessorUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KinesisAnalyticsV2.Types.InputLambdaProcessorUpdate where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | For a SQL-based Kinesis Data Analytics application, represents an update
@@ -83,11 +84,11 @@ instance Prelude.NFData InputLambdaProcessorUpdate where
   rnf InputLambdaProcessorUpdate' {..} =
     Prelude.rnf resourceARNUpdate
 
-instance Core.ToJSON InputLambdaProcessorUpdate where
+instance Data.ToJSON InputLambdaProcessorUpdate where
   toJSON InputLambdaProcessorUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ResourceARNUpdate" Core..= resourceARNUpdate)
+              ("ResourceARNUpdate" Data..= resourceARNUpdate)
           ]
       )

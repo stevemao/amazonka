@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.AssociationStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.AssociationStatus where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.AssociationStatusCode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the state of a target network association.
@@ -66,11 +67,11 @@ associationStatus_code = Lens.lens (\AssociationStatus' {code} -> code) (\s@Asso
 associationStatus_message :: Lens.Lens' AssociationStatus (Prelude.Maybe Prelude.Text)
 associationStatus_message = Lens.lens (\AssociationStatus' {message} -> message) (\s@AssociationStatus' {} a -> s {message = a} :: AssociationStatus)
 
-instance Core.FromXML AssociationStatus where
+instance Data.FromXML AssociationStatus where
   parseXML x =
     AssociationStatus'
-      Prelude.<$> (x Core..@? "code")
-      Prelude.<*> (x Core..@? "message")
+      Prelude.<$> (x Data..@? "code")
+      Prelude.<*> (x Data..@? "message")
 
 instance Prelude.Hashable AssociationStatus where
   hashWithSalt _salt AssociationStatus' {..} =

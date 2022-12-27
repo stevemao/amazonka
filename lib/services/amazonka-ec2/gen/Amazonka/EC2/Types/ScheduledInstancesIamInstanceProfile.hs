@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.ScheduledInstancesIamInstanceProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.ScheduledInstancesIamInstanceProfile where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an IAM instance profile for a Scheduled Instance.
@@ -81,9 +82,9 @@ instance
     Prelude.rnf arn `Prelude.seq` Prelude.rnf name
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ScheduledInstancesIamInstanceProfile
   where
   toQuery ScheduledInstancesIamInstanceProfile' {..} =
     Prelude.mconcat
-      ["Arn" Core.=: arn, "Name" Core.=: name]
+      ["Arn" Data.=: arn, "Name" Data.=: name]

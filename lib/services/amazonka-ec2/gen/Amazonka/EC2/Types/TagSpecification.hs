@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.TagSpecification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,13 +20,19 @@
 module Amazonka.EC2.Types.TagSpecification where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.ResourceType
 import Amazonka.EC2.Types.Tag
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The tags to apply to a resource when the resource is being created.
+--
+-- The @Valid Values@ lists all the resource types that can be tagged.
+-- However, the action you\'re using might not support tagging all of these
+-- resource types. If you try to tag a resource type that is unsupported
+-- for the action you\'re using, you\'ll get an error.
 --
 -- /See:/ 'newTagSpecification' smart constructor.
 data TagSpecification = TagSpecification'
@@ -64,12 +70,12 @@ tagSpecification_resourceType = Lens.lens (\TagSpecification' {resourceType} -> 
 tagSpecification_tags :: Lens.Lens' TagSpecification (Prelude.Maybe [Tag])
 tagSpecification_tags = Lens.lens (\TagSpecification' {tags} -> tags) (\s@TagSpecification' {} a -> s {tags = a} :: TagSpecification) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML TagSpecification where
+instance Data.FromXML TagSpecification where
   parseXML x =
     TagSpecification'
-      Prelude.<$> (x Core..@? "resourceType")
-      Prelude.<*> ( x Core..@? "Tag" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+      Prelude.<$> (x Data..@? "resourceType")
+      Prelude.<*> ( x Data..@? "Tag" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
 
 instance Prelude.Hashable TagSpecification where
@@ -82,10 +88,10 @@ instance Prelude.NFData TagSpecification where
     Prelude.rnf resourceType
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToQuery TagSpecification where
+instance Data.ToQuery TagSpecification where
   toQuery TagSpecification' {..} =
     Prelude.mconcat
-      [ "ResourceType" Core.=: resourceType,
-        Core.toQuery
-          (Core.toQueryList "Tag" Prelude.<$> tags)
+      [ "ResourceType" Data.=: resourceType,
+        Data.toQuery
+          (Data.toQueryList "Tag" Prelude.<$> tags)
       ]

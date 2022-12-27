@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.AuroraPostgreSqlParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.AuroraPostgreSqlParameters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Parameters for Amazon Aurora PostgreSQL-Compatible Edition.
@@ -79,15 +80,15 @@ auroraPostgreSqlParameters_port = Lens.lens (\AuroraPostgreSqlParameters' {port}
 auroraPostgreSqlParameters_database :: Lens.Lens' AuroraPostgreSqlParameters Prelude.Text
 auroraPostgreSqlParameters_database = Lens.lens (\AuroraPostgreSqlParameters' {database} -> database) (\s@AuroraPostgreSqlParameters' {} a -> s {database = a} :: AuroraPostgreSqlParameters)
 
-instance Core.FromJSON AuroraPostgreSqlParameters where
+instance Data.FromJSON AuroraPostgreSqlParameters where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AuroraPostgreSqlParameters"
       ( \x ->
           AuroraPostgreSqlParameters'
-            Prelude.<$> (x Core..: "Host")
-            Prelude.<*> (x Core..: "Port")
-            Prelude.<*> (x Core..: "Database")
+            Prelude.<$> (x Data..: "Host")
+            Prelude.<*> (x Data..: "Port")
+            Prelude.<*> (x Data..: "Database")
       )
 
 instance Prelude.Hashable AuroraPostgreSqlParameters where
@@ -102,12 +103,12 @@ instance Prelude.NFData AuroraPostgreSqlParameters where
       `Prelude.seq` Prelude.rnf port
       `Prelude.seq` Prelude.rnf database
 
-instance Core.ToJSON AuroraPostgreSqlParameters where
+instance Data.ToJSON AuroraPostgreSqlParameters where
   toJSON AuroraPostgreSqlParameters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Host" Core..= host),
-            Prelude.Just ("Port" Core..= port),
-            Prelude.Just ("Database" Core..= database)
+          [ Prelude.Just ("Host" Data..= host),
+            Prelude.Just ("Port" Data..= port),
+            Prelude.Just ("Database" Data..= database)
           ]
       )

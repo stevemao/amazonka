@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECRPublic.DescribeImages
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,10 +35,10 @@ module Amazonka.ECRPublic.DescribeImages
     newDescribeImages,
 
     -- * Request Lenses
-    describeImages_registryId,
     describeImages_imageIds,
-    describeImages_nextToken,
     describeImages_maxResults,
+    describeImages_nextToken,
+    describeImages_registryId,
     describeImages_repositoryName,
 
     -- * Destructuring the Response
@@ -53,27 +53,17 @@ module Amazonka.ECRPublic.DescribeImages
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECRPublic.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeImages' smart constructor.
 data DescribeImages = DescribeImages'
-  { -- | The AWS account ID associated with the public registry that contains the
-    -- repository in which to describe images. If you do not specify a
-    -- registry, the default public registry is assumed.
-    registryId :: Prelude.Maybe Prelude.Text,
-    -- | The list of image IDs for the requested repository.
+  { -- | The list of image IDs for the requested repository.
     imageIds :: Prelude.Maybe (Prelude.NonEmpty ImageIdentifier),
-    -- | The @nextToken@ value returned from a previous paginated
-    -- @DescribeImages@ request where @maxResults@ was used and the results
-    -- exceeded the value of that parameter. Pagination continues from the end
-    -- of the previous results that returned the @nextToken@ value. This value
-    -- is @null@ when there are no more results to return. This option cannot
-    -- be used when you specify images with @imageIds@.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of repository results returned by @DescribeImages@ in
     -- paginated output. When this parameter is used, @DescribeImages@ only
     -- returns @maxResults@ results in a single page along with a @nextToken@
@@ -84,6 +74,17 @@ data DescribeImages = DescribeImages'
     -- and a @nextToken@ value, if applicable. This option cannot be used when
     -- you specify images with @imageIds@.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The @nextToken@ value returned from a previous paginated
+    -- @DescribeImages@ request where @maxResults@ was used and the results
+    -- exceeded the value of that parameter. Pagination continues from the end
+    -- of the previous results that returned the @nextToken@ value. This value
+    -- is @null@ when there are no more results to return. This option cannot
+    -- be used when you specify images with @imageIds@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The AWS account ID associated with the public registry that contains the
+    -- repository in which to describe images. If you do not specify a
+    -- registry, the default public registry is assumed.
+    registryId :: Prelude.Maybe Prelude.Text,
     -- | The repository that contains the images to describe.
     repositoryName :: Prelude.Text
   }
@@ -97,18 +98,7 @@ data DescribeImages = DescribeImages'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'registryId', 'describeImages_registryId' - The AWS account ID associated with the public registry that contains the
--- repository in which to describe images. If you do not specify a
--- registry, the default public registry is assumed.
---
 -- 'imageIds', 'describeImages_imageIds' - The list of image IDs for the requested repository.
---
--- 'nextToken', 'describeImages_nextToken' - The @nextToken@ value returned from a previous paginated
--- @DescribeImages@ request where @maxResults@ was used and the results
--- exceeded the value of that parameter. Pagination continues from the end
--- of the previous results that returned the @nextToken@ value. This value
--- is @null@ when there are no more results to return. This option cannot
--- be used when you specify images with @imageIds@.
 --
 -- 'maxResults', 'describeImages_maxResults' - The maximum number of repository results returned by @DescribeImages@ in
 -- paginated output. When this parameter is used, @DescribeImages@ only
@@ -120,6 +110,17 @@ data DescribeImages = DescribeImages'
 -- and a @nextToken@ value, if applicable. This option cannot be used when
 -- you specify images with @imageIds@.
 --
+-- 'nextToken', 'describeImages_nextToken' - The @nextToken@ value returned from a previous paginated
+-- @DescribeImages@ request where @maxResults@ was used and the results
+-- exceeded the value of that parameter. Pagination continues from the end
+-- of the previous results that returned the @nextToken@ value. This value
+-- is @null@ when there are no more results to return. This option cannot
+-- be used when you specify images with @imageIds@.
+--
+-- 'registryId', 'describeImages_registryId' - The AWS account ID associated with the public registry that contains the
+-- repository in which to describe images. If you do not specify a
+-- registry, the default public registry is assumed.
+--
 -- 'repositoryName', 'describeImages_repositoryName' - The repository that contains the images to describe.
 newDescribeImages ::
   -- | 'repositoryName'
@@ -127,31 +128,16 @@ newDescribeImages ::
   DescribeImages
 newDescribeImages pRepositoryName_ =
   DescribeImages'
-    { registryId = Prelude.Nothing,
-      imageIds = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { imageIds = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      registryId = Prelude.Nothing,
       repositoryName = pRepositoryName_
     }
-
--- | The AWS account ID associated with the public registry that contains the
--- repository in which to describe images. If you do not specify a
--- registry, the default public registry is assumed.
-describeImages_registryId :: Lens.Lens' DescribeImages (Prelude.Maybe Prelude.Text)
-describeImages_registryId = Lens.lens (\DescribeImages' {registryId} -> registryId) (\s@DescribeImages' {} a -> s {registryId = a} :: DescribeImages)
 
 -- | The list of image IDs for the requested repository.
 describeImages_imageIds :: Lens.Lens' DescribeImages (Prelude.Maybe (Prelude.NonEmpty ImageIdentifier))
 describeImages_imageIds = Lens.lens (\DescribeImages' {imageIds} -> imageIds) (\s@DescribeImages' {} a -> s {imageIds = a} :: DescribeImages) Prelude.. Lens.mapping Lens.coerced
-
--- | The @nextToken@ value returned from a previous paginated
--- @DescribeImages@ request where @maxResults@ was used and the results
--- exceeded the value of that parameter. Pagination continues from the end
--- of the previous results that returned the @nextToken@ value. This value
--- is @null@ when there are no more results to return. This option cannot
--- be used when you specify images with @imageIds@.
-describeImages_nextToken :: Lens.Lens' DescribeImages (Prelude.Maybe Prelude.Text)
-describeImages_nextToken = Lens.lens (\DescribeImages' {nextToken} -> nextToken) (\s@DescribeImages' {} a -> s {nextToken = a} :: DescribeImages)
 
 -- | The maximum number of repository results returned by @DescribeImages@ in
 -- paginated output. When this parameter is used, @DescribeImages@ only
@@ -164,6 +150,21 @@ describeImages_nextToken = Lens.lens (\DescribeImages' {nextToken} -> nextToken)
 -- you specify images with @imageIds@.
 describeImages_maxResults :: Lens.Lens' DescribeImages (Prelude.Maybe Prelude.Natural)
 describeImages_maxResults = Lens.lens (\DescribeImages' {maxResults} -> maxResults) (\s@DescribeImages' {} a -> s {maxResults = a} :: DescribeImages)
+
+-- | The @nextToken@ value returned from a previous paginated
+-- @DescribeImages@ request where @maxResults@ was used and the results
+-- exceeded the value of that parameter. Pagination continues from the end
+-- of the previous results that returned the @nextToken@ value. This value
+-- is @null@ when there are no more results to return. This option cannot
+-- be used when you specify images with @imageIds@.
+describeImages_nextToken :: Lens.Lens' DescribeImages (Prelude.Maybe Prelude.Text)
+describeImages_nextToken = Lens.lens (\DescribeImages' {nextToken} -> nextToken) (\s@DescribeImages' {} a -> s {nextToken = a} :: DescribeImages)
+
+-- | The AWS account ID associated with the public registry that contains the
+-- repository in which to describe images. If you do not specify a
+-- registry, the default public registry is assumed.
+describeImages_registryId :: Lens.Lens' DescribeImages (Prelude.Maybe Prelude.Text)
+describeImages_registryId = Lens.lens (\DescribeImages' {registryId} -> registryId) (\s@DescribeImages' {} a -> s {registryId = a} :: DescribeImages)
 
 -- | The repository that contains the images to describe.
 describeImages_repositoryName :: Lens.Lens' DescribeImages Prelude.Text
@@ -194,64 +195,65 @@ instance Core.AWSRequest DescribeImages where
   type
     AWSResponse DescribeImages =
       DescribeImagesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeImagesResponse'
-            Prelude.<$> (x Core..?> "imageDetails" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "imageDetails" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeImages where
   hashWithSalt _salt DescribeImages' {..} =
-    _salt `Prelude.hashWithSalt` registryId
-      `Prelude.hashWithSalt` imageIds
-      `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` imageIds
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` registryId
       `Prelude.hashWithSalt` repositoryName
 
 instance Prelude.NFData DescribeImages where
   rnf DescribeImages' {..} =
-    Prelude.rnf registryId
-      `Prelude.seq` Prelude.rnf imageIds
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf imageIds
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf registryId
       `Prelude.seq` Prelude.rnf repositoryName
 
-instance Core.ToHeaders DescribeImages where
+instance Data.ToHeaders DescribeImages where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SpencerFrontendService.DescribeImages" ::
+              Data.=# ( "SpencerFrontendService.DescribeImages" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeImages where
+instance Data.ToJSON DescribeImages where
   toJSON DescribeImages' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("registryId" Core..=) Prelude.<$> registryId,
-            ("imageIds" Core..=) Prelude.<$> imageIds,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
+          [ ("imageIds" Data..=) Prelude.<$> imageIds,
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            ("registryId" Data..=) Prelude.<$> registryId,
             Prelude.Just
-              ("repositoryName" Core..= repositoryName)
+              ("repositoryName" Data..= repositoryName)
           ]
       )
 
-instance Core.ToPath DescribeImages where
+instance Data.ToPath DescribeImages where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeImages where
+instance Data.ToQuery DescribeImages where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeImagesResponse' smart constructor.

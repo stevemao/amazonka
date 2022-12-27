@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.CreateGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.IAM.CreateGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -142,14 +143,15 @@ createGroup_groupName = Lens.lens (\CreateGroup' {groupName} -> groupName) (\s@C
 
 instance Core.AWSRequest CreateGroup where
   type AWSResponse CreateGroup = CreateGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateGroupResult"
       ( \s h x ->
           CreateGroupResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "Group")
+            Prelude.<*> (x Data..@ "Group")
       )
 
 instance Prelude.Hashable CreateGroup where
@@ -162,21 +164,21 @@ instance Prelude.NFData CreateGroup where
     Prelude.rnf path
       `Prelude.seq` Prelude.rnf groupName
 
-instance Core.ToHeaders CreateGroup where
+instance Data.ToHeaders CreateGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateGroup where
+instance Data.ToPath CreateGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateGroup where
+instance Data.ToQuery CreateGroup where
   toQuery CreateGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateGroup" :: Prelude.ByteString),
+          Data.=: ("CreateGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "Path" Core.=: path,
-        "GroupName" Core.=: groupName
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "Path" Data.=: path,
+        "GroupName" Data.=: groupName
       ]
 
 -- | Contains the response to a successful CreateGroup request.

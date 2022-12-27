@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.Types.DeliveryOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SESV2.Types.DeliveryOptions where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SESV2.Types.TlsPolicy
 
@@ -77,14 +78,14 @@ deliveryOptions_sendingPoolName = Lens.lens (\DeliveryOptions' {sendingPoolName}
 deliveryOptions_tlsPolicy :: Lens.Lens' DeliveryOptions (Prelude.Maybe TlsPolicy)
 deliveryOptions_tlsPolicy = Lens.lens (\DeliveryOptions' {tlsPolicy} -> tlsPolicy) (\s@DeliveryOptions' {} a -> s {tlsPolicy = a} :: DeliveryOptions)
 
-instance Core.FromJSON DeliveryOptions where
+instance Data.FromJSON DeliveryOptions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DeliveryOptions"
       ( \x ->
           DeliveryOptions'
-            Prelude.<$> (x Core..:? "SendingPoolName")
-            Prelude.<*> (x Core..:? "TlsPolicy")
+            Prelude.<$> (x Data..:? "SendingPoolName")
+            Prelude.<*> (x Data..:? "TlsPolicy")
       )
 
 instance Prelude.Hashable DeliveryOptions where
@@ -97,12 +98,12 @@ instance Prelude.NFData DeliveryOptions where
     Prelude.rnf sendingPoolName
       `Prelude.seq` Prelude.rnf tlsPolicy
 
-instance Core.ToJSON DeliveryOptions where
+instance Data.ToJSON DeliveryOptions where
   toJSON DeliveryOptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SendingPoolName" Core..=)
+          [ ("SendingPoolName" Data..=)
               Prelude.<$> sendingPoolName,
-            ("TlsPolicy" Core..=) Prelude.<$> tlsPolicy
+            ("TlsPolicy" Data..=) Prelude.<$> tlsPolicy
           ]
       )

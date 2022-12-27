@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Location.Types.BatchDeleteDevicePositionHistoryError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Location.Types.BatchDeleteDevicePositionHistoryError where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types.BatchItemError
 import qualified Amazonka.Prelude as Prelude
 
@@ -69,16 +70,16 @@ batchDeleteDevicePositionHistoryError_error :: Lens.Lens' BatchDeleteDevicePosit
 batchDeleteDevicePositionHistoryError_error = Lens.lens (\BatchDeleteDevicePositionHistoryError' {error} -> error) (\s@BatchDeleteDevicePositionHistoryError' {} a -> s {error = a} :: BatchDeleteDevicePositionHistoryError)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     BatchDeleteDevicePositionHistoryError
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchDeleteDevicePositionHistoryError"
       ( \x ->
           BatchDeleteDevicePositionHistoryError'
-            Prelude.<$> (x Core..: "DeviceId")
-            Prelude.<*> (x Core..: "Error")
+            Prelude.<$> (x Data..: "DeviceId")
+            Prelude.<*> (x Data..: "Error")
       )
 
 instance

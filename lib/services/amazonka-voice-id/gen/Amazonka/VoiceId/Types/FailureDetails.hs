@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.VoiceId.Types.FailureDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.VoiceId.Types.FailureDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains error details for a failed batch job.
@@ -61,14 +62,14 @@ failureDetails_message = Lens.lens (\FailureDetails' {message} -> message) (\s@F
 failureDetails_statusCode :: Lens.Lens' FailureDetails (Prelude.Maybe Prelude.Int)
 failureDetails_statusCode = Lens.lens (\FailureDetails' {statusCode} -> statusCode) (\s@FailureDetails' {} a -> s {statusCode = a} :: FailureDetails)
 
-instance Core.FromJSON FailureDetails where
+instance Data.FromJSON FailureDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FailureDetails"
       ( \x ->
           FailureDetails'
-            Prelude.<$> (x Core..:? "Message")
-            Prelude.<*> (x Core..:? "StatusCode")
+            Prelude.<$> (x Data..:? "Message")
+            Prelude.<*> (x Data..:? "StatusCode")
       )
 
 instance Prelude.Hashable FailureDetails where

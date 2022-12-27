@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.CreateInstanceSnapshot
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.Lightsail.CreateInstanceSnapshot
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -115,12 +116,13 @@ instance Core.AWSRequest CreateInstanceSnapshot where
   type
     AWSResponse CreateInstanceSnapshot =
       CreateInstanceSnapshotResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateInstanceSnapshotResponse'
-            Prelude.<$> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -136,38 +138,38 @@ instance Prelude.NFData CreateInstanceSnapshot where
       `Prelude.seq` Prelude.rnf instanceSnapshotName
       `Prelude.seq` Prelude.rnf instanceName
 
-instance Core.ToHeaders CreateInstanceSnapshot where
+instance Data.ToHeaders CreateInstanceSnapshot where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.CreateInstanceSnapshot" ::
+              Data.=# ( "Lightsail_20161128.CreateInstanceSnapshot" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateInstanceSnapshot where
+instance Data.ToJSON CreateInstanceSnapshot where
   toJSON CreateInstanceSnapshot' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("tags" Core..=) Prelude.<$> tags,
+          [ ("tags" Data..=) Prelude.<$> tags,
             Prelude.Just
               ( "instanceSnapshotName"
-                  Core..= instanceSnapshotName
+                  Data..= instanceSnapshotName
               ),
-            Prelude.Just ("instanceName" Core..= instanceName)
+            Prelude.Just ("instanceName" Data..= instanceName)
           ]
       )
 
-instance Core.ToPath CreateInstanceSnapshot where
+instance Data.ToPath CreateInstanceSnapshot where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateInstanceSnapshot where
+instance Data.ToQuery CreateInstanceSnapshot where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateInstanceSnapshotResponse' smart constructor.

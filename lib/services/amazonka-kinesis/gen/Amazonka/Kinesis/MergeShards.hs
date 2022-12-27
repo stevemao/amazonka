@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Kinesis.MergeShards
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,8 @@
 -- stream does not exist, @MergeShards@ returns a
 -- @ResourceNotFoundException@.
 --
--- You can use DescribeStream to check the state of the stream, which is
--- returned in @StreamStatus@.
+-- You can use DescribeStreamSummary to check the state of the stream,
+-- which is returned in @StreamStatus@.
 --
 -- @MergeShards@ is an asynchronous operation. Upon receiving a
 -- @MergeShards@ request, Amazon Kinesis Data Streams immediately returns a
@@ -53,8 +53,8 @@
 -- Read and write operations continue to work while the stream is in the
 -- @UPDATING@ state.
 --
--- You use DescribeStream to determine the shard IDs that are specified in
--- the @MergeShards@ request.
+-- You use DescribeStreamSummary and the ListShards APIs to determine the
+-- shard IDs that are specified in the @MergeShards@ request.
 --
 -- If you try to operate on too many streams in parallel using
 -- CreateStream, DeleteStream, @MergeShards@, or SplitShard, you receive a
@@ -78,8 +78,9 @@ module Amazonka.Kinesis.MergeShards
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kinesis.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -145,7 +146,8 @@ mergeShards_adjacentShardToMerge = Lens.lens (\MergeShards' {adjacentShardToMerg
 
 instance Core.AWSRequest MergeShards where
   type AWSResponse MergeShards = MergeShardsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull MergeShardsResponse'
 
 instance Prelude.Hashable MergeShards where
@@ -160,38 +162,38 @@ instance Prelude.NFData MergeShards where
       `Prelude.seq` Prelude.rnf shardToMerge
       `Prelude.seq` Prelude.rnf adjacentShardToMerge
 
-instance Core.ToHeaders MergeShards where
+instance Data.ToHeaders MergeShards where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Kinesis_20131202.MergeShards" ::
+              Data.=# ( "Kinesis_20131202.MergeShards" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON MergeShards where
+instance Data.ToJSON MergeShards where
   toJSON MergeShards' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("StreamName" Core..= streamName),
-            Prelude.Just ("ShardToMerge" Core..= shardToMerge),
+          [ Prelude.Just ("StreamName" Data..= streamName),
+            Prelude.Just ("ShardToMerge" Data..= shardToMerge),
             Prelude.Just
               ( "AdjacentShardToMerge"
-                  Core..= adjacentShardToMerge
+                  Data..= adjacentShardToMerge
               )
           ]
       )
 
-instance Core.ToPath MergeShards where
+instance Data.ToPath MergeShards where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery MergeShards where
+instance Data.ToQuery MergeShards where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newMergeShardsResponse' smart constructor.

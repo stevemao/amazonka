@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.ExpressionVariable
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTSiteWise.Types.ExpressionVariable where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types.VariableValue
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains expression variable information.
@@ -63,13 +64,13 @@ expressionVariable_name = Lens.lens (\ExpressionVariable' {name} -> name) (\s@Ex
 expressionVariable_value :: Lens.Lens' ExpressionVariable VariableValue
 expressionVariable_value = Lens.lens (\ExpressionVariable' {value} -> value) (\s@ExpressionVariable' {} a -> s {value = a} :: ExpressionVariable)
 
-instance Core.FromJSON ExpressionVariable where
+instance Data.FromJSON ExpressionVariable where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ExpressionVariable"
       ( \x ->
           ExpressionVariable'
-            Prelude.<$> (x Core..: "name") Prelude.<*> (x Core..: "value")
+            Prelude.<$> (x Data..: "name") Prelude.<*> (x Data..: "value")
       )
 
 instance Prelude.Hashable ExpressionVariable where
@@ -81,11 +82,11 @@ instance Prelude.NFData ExpressionVariable where
   rnf ExpressionVariable' {..} =
     Prelude.rnf name `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON ExpressionVariable where
+instance Data.ToJSON ExpressionVariable where
   toJSON ExpressionVariable' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("name" Core..= name),
-            Prelude.Just ("value" Core..= value)
+          [ Prelude.Just ("name" Data..= name),
+            Prelude.Just ("value" Data..= value)
           ]
       )

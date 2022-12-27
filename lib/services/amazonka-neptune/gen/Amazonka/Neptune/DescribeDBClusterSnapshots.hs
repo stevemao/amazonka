@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Neptune.DescribeDBClusterSnapshots
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,27 +31,28 @@ module Amazonka.Neptune.DescribeDBClusterSnapshots
 
     -- * Request Lenses
     describeDBClusterSnapshots_dbClusterIdentifier,
-    describeDBClusterSnapshots_includeShared,
     describeDBClusterSnapshots_dbClusterSnapshotIdentifier,
     describeDBClusterSnapshots_filters,
-    describeDBClusterSnapshots_snapshotType,
+    describeDBClusterSnapshots_includePublic,
+    describeDBClusterSnapshots_includeShared,
     describeDBClusterSnapshots_marker,
     describeDBClusterSnapshots_maxRecords,
-    describeDBClusterSnapshots_includePublic,
+    describeDBClusterSnapshots_snapshotType,
 
     -- * Destructuring the Response
     DescribeDBClusterSnapshotsResponse (..),
     newDescribeDBClusterSnapshotsResponse,
 
     -- * Response Lenses
-    describeDBClusterSnapshotsResponse_marker,
     describeDBClusterSnapshotsResponse_dbClusterSnapshots,
+    describeDBClusterSnapshotsResponse_marker,
     describeDBClusterSnapshotsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Neptune.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -68,14 +69,6 @@ data DescribeDBClusterSnapshots = DescribeDBClusterSnapshots'
     --
     -- -   If supplied, must match the identifier of an existing DBCluster.
     dbClusterIdentifier :: Prelude.Maybe Prelude.Text,
-    -- | True to include shared manual DB cluster snapshots from other Amazon
-    -- accounts that this AWS account has been given permission to copy or
-    -- restore, and otherwise false. The default is @false@.
-    --
-    -- You can give an Amazon account permission to restore a manual DB cluster
-    -- snapshot from another Amazon account by the
-    -- ModifyDBClusterSnapshotAttribute API action.
-    includeShared :: Prelude.Maybe Prelude.Bool,
     -- | A specific DB cluster snapshot identifier to describe. This parameter
     -- can\'t be used in conjunction with the @DBClusterIdentifier@ parameter.
     -- This value is stored as a lowercase string.
@@ -90,6 +83,35 @@ data DescribeDBClusterSnapshots = DescribeDBClusterSnapshots'
     dbClusterSnapshotIdentifier :: Prelude.Maybe Prelude.Text,
     -- | This parameter is not currently supported.
     filters :: Prelude.Maybe [Filter],
+    -- | True to include manual DB cluster snapshots that are public and can be
+    -- copied or restored by any Amazon account, and otherwise false. The
+    -- default is @false@. The default is false.
+    --
+    -- You can share a manual DB cluster snapshot as public by using the
+    -- ModifyDBClusterSnapshotAttribute API action.
+    includePublic :: Prelude.Maybe Prelude.Bool,
+    -- | True to include shared manual DB cluster snapshots from other Amazon
+    -- accounts that this Amazon account has been given permission to copy or
+    -- restore, and otherwise false. The default is @false@.
+    --
+    -- You can give an Amazon account permission to restore a manual DB cluster
+    -- snapshot from another Amazon account by the
+    -- ModifyDBClusterSnapshotAttribute API action.
+    includeShared :: Prelude.Maybe Prelude.Bool,
+    -- | An optional pagination token provided by a previous
+    -- @DescribeDBClusterSnapshots@ request. If this parameter is specified,
+    -- the response includes only records beyond the marker, up to the value
+    -- specified by @MaxRecords@.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of records to include in the response. If more
+    -- records exist than the specified @MaxRecords@ value, a pagination token
+    -- called a marker is included in the response so that the remaining
+    -- results can be retrieved.
+    --
+    -- Default: 100
+    --
+    -- Constraints: Minimum 20, maximum 100.
+    maxRecords :: Prelude.Maybe Prelude.Int,
     -- | The type of DB cluster snapshots to be returned. You can specify one of
     -- the following values:
     --
@@ -97,7 +119,7 @@ data DescribeDBClusterSnapshots = DescribeDBClusterSnapshots'
     --     automatically taken by Amazon Neptune for my Amazon account.
     --
     -- -   @manual@ - Return all DB cluster snapshots that have been taken by
-    --     my AWS account.
+    --     my Amazon account.
     --
     -- -   @shared@ - Return all manual DB cluster snapshots that have been
     --     shared to my Amazon account.
@@ -116,28 +138,7 @@ data DescribeDBClusterSnapshots = DescribeDBClusterSnapshots'
     -- parameter doesn\'t apply when @SnapshotType@ is set to @shared@. The
     -- @IncludeShared@ parameter doesn\'t apply when @SnapshotType@ is set to
     -- @public@.
-    snapshotType :: Prelude.Maybe Prelude.Text,
-    -- | An optional pagination token provided by a previous
-    -- @DescribeDBClusterSnapshots@ request. If this parameter is specified,
-    -- the response includes only records beyond the marker, up to the value
-    -- specified by @MaxRecords@.
-    marker :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of records to include in the response. If more
-    -- records exist than the specified @MaxRecords@ value, a pagination token
-    -- called a marker is included in the response so that the remaining
-    -- results can be retrieved.
-    --
-    -- Default: 100
-    --
-    -- Constraints: Minimum 20, maximum 100.
-    maxRecords :: Prelude.Maybe Prelude.Int,
-    -- | True to include manual DB cluster snapshots that are public and can be
-    -- copied or restored by any Amazon account, and otherwise false. The
-    -- default is @false@. The default is false.
-    --
-    -- You can share a manual DB cluster snapshot as public by using the
-    -- ModifyDBClusterSnapshotAttribute API action.
-    includePublic :: Prelude.Maybe Prelude.Bool
+    snapshotType :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -158,14 +159,6 @@ data DescribeDBClusterSnapshots = DescribeDBClusterSnapshots'
 --
 -- -   If supplied, must match the identifier of an existing DBCluster.
 --
--- 'includeShared', 'describeDBClusterSnapshots_includeShared' - True to include shared manual DB cluster snapshots from other Amazon
--- accounts that this AWS account has been given permission to copy or
--- restore, and otherwise false. The default is @false@.
---
--- You can give an Amazon account permission to restore a manual DB cluster
--- snapshot from another Amazon account by the
--- ModifyDBClusterSnapshotAttribute API action.
---
 -- 'dbClusterSnapshotIdentifier', 'describeDBClusterSnapshots_dbClusterSnapshotIdentifier' - A specific DB cluster snapshot identifier to describe. This parameter
 -- can\'t be used in conjunction with the @DBClusterIdentifier@ parameter.
 -- This value is stored as a lowercase string.
@@ -180,6 +173,35 @@ data DescribeDBClusterSnapshots = DescribeDBClusterSnapshots'
 --
 -- 'filters', 'describeDBClusterSnapshots_filters' - This parameter is not currently supported.
 --
+-- 'includePublic', 'describeDBClusterSnapshots_includePublic' - True to include manual DB cluster snapshots that are public and can be
+-- copied or restored by any Amazon account, and otherwise false. The
+-- default is @false@. The default is false.
+--
+-- You can share a manual DB cluster snapshot as public by using the
+-- ModifyDBClusterSnapshotAttribute API action.
+--
+-- 'includeShared', 'describeDBClusterSnapshots_includeShared' - True to include shared manual DB cluster snapshots from other Amazon
+-- accounts that this Amazon account has been given permission to copy or
+-- restore, and otherwise false. The default is @false@.
+--
+-- You can give an Amazon account permission to restore a manual DB cluster
+-- snapshot from another Amazon account by the
+-- ModifyDBClusterSnapshotAttribute API action.
+--
+-- 'marker', 'describeDBClusterSnapshots_marker' - An optional pagination token provided by a previous
+-- @DescribeDBClusterSnapshots@ request. If this parameter is specified,
+-- the response includes only records beyond the marker, up to the value
+-- specified by @MaxRecords@.
+--
+-- 'maxRecords', 'describeDBClusterSnapshots_maxRecords' - The maximum number of records to include in the response. If more
+-- records exist than the specified @MaxRecords@ value, a pagination token
+-- called a marker is included in the response so that the remaining
+-- results can be retrieved.
+--
+-- Default: 100
+--
+-- Constraints: Minimum 20, maximum 100.
+--
 -- 'snapshotType', 'describeDBClusterSnapshots_snapshotType' - The type of DB cluster snapshots to be returned. You can specify one of
 -- the following values:
 --
@@ -187,7 +209,7 @@ data DescribeDBClusterSnapshots = DescribeDBClusterSnapshots'
 --     automatically taken by Amazon Neptune for my Amazon account.
 --
 -- -   @manual@ - Return all DB cluster snapshots that have been taken by
---     my AWS account.
+--     my Amazon account.
 --
 -- -   @shared@ - Return all manual DB cluster snapshots that have been
 --     shared to my Amazon account.
@@ -206,40 +228,19 @@ data DescribeDBClusterSnapshots = DescribeDBClusterSnapshots'
 -- parameter doesn\'t apply when @SnapshotType@ is set to @shared@. The
 -- @IncludeShared@ parameter doesn\'t apply when @SnapshotType@ is set to
 -- @public@.
---
--- 'marker', 'describeDBClusterSnapshots_marker' - An optional pagination token provided by a previous
--- @DescribeDBClusterSnapshots@ request. If this parameter is specified,
--- the response includes only records beyond the marker, up to the value
--- specified by @MaxRecords@.
---
--- 'maxRecords', 'describeDBClusterSnapshots_maxRecords' - The maximum number of records to include in the response. If more
--- records exist than the specified @MaxRecords@ value, a pagination token
--- called a marker is included in the response so that the remaining
--- results can be retrieved.
---
--- Default: 100
---
--- Constraints: Minimum 20, maximum 100.
---
--- 'includePublic', 'describeDBClusterSnapshots_includePublic' - True to include manual DB cluster snapshots that are public and can be
--- copied or restored by any Amazon account, and otherwise false. The
--- default is @false@. The default is false.
---
--- You can share a manual DB cluster snapshot as public by using the
--- ModifyDBClusterSnapshotAttribute API action.
 newDescribeDBClusterSnapshots ::
   DescribeDBClusterSnapshots
 newDescribeDBClusterSnapshots =
   DescribeDBClusterSnapshots'
     { dbClusterIdentifier =
         Prelude.Nothing,
-      includeShared = Prelude.Nothing,
       dbClusterSnapshotIdentifier = Prelude.Nothing,
       filters = Prelude.Nothing,
-      snapshotType = Prelude.Nothing,
+      includePublic = Prelude.Nothing,
+      includeShared = Prelude.Nothing,
       marker = Prelude.Nothing,
       maxRecords = Prelude.Nothing,
-      includePublic = Prelude.Nothing
+      snapshotType = Prelude.Nothing
     }
 
 -- | The ID of the DB cluster to retrieve the list of DB cluster snapshots
@@ -252,16 +253,6 @@ newDescribeDBClusterSnapshots =
 -- -   If supplied, must match the identifier of an existing DBCluster.
 describeDBClusterSnapshots_dbClusterIdentifier :: Lens.Lens' DescribeDBClusterSnapshots (Prelude.Maybe Prelude.Text)
 describeDBClusterSnapshots_dbClusterIdentifier = Lens.lens (\DescribeDBClusterSnapshots' {dbClusterIdentifier} -> dbClusterIdentifier) (\s@DescribeDBClusterSnapshots' {} a -> s {dbClusterIdentifier = a} :: DescribeDBClusterSnapshots)
-
--- | True to include shared manual DB cluster snapshots from other Amazon
--- accounts that this AWS account has been given permission to copy or
--- restore, and otherwise false. The default is @false@.
---
--- You can give an Amazon account permission to restore a manual DB cluster
--- snapshot from another Amazon account by the
--- ModifyDBClusterSnapshotAttribute API action.
-describeDBClusterSnapshots_includeShared :: Lens.Lens' DescribeDBClusterSnapshots (Prelude.Maybe Prelude.Bool)
-describeDBClusterSnapshots_includeShared = Lens.lens (\DescribeDBClusterSnapshots' {includeShared} -> includeShared) (\s@DescribeDBClusterSnapshots' {} a -> s {includeShared = a} :: DescribeDBClusterSnapshots)
 
 -- | A specific DB cluster snapshot identifier to describe. This parameter
 -- can\'t be used in conjunction with the @DBClusterIdentifier@ parameter.
@@ -281,6 +272,43 @@ describeDBClusterSnapshots_dbClusterSnapshotIdentifier = Lens.lens (\DescribeDBC
 describeDBClusterSnapshots_filters :: Lens.Lens' DescribeDBClusterSnapshots (Prelude.Maybe [Filter])
 describeDBClusterSnapshots_filters = Lens.lens (\DescribeDBClusterSnapshots' {filters} -> filters) (\s@DescribeDBClusterSnapshots' {} a -> s {filters = a} :: DescribeDBClusterSnapshots) Prelude.. Lens.mapping Lens.coerced
 
+-- | True to include manual DB cluster snapshots that are public and can be
+-- copied or restored by any Amazon account, and otherwise false. The
+-- default is @false@. The default is false.
+--
+-- You can share a manual DB cluster snapshot as public by using the
+-- ModifyDBClusterSnapshotAttribute API action.
+describeDBClusterSnapshots_includePublic :: Lens.Lens' DescribeDBClusterSnapshots (Prelude.Maybe Prelude.Bool)
+describeDBClusterSnapshots_includePublic = Lens.lens (\DescribeDBClusterSnapshots' {includePublic} -> includePublic) (\s@DescribeDBClusterSnapshots' {} a -> s {includePublic = a} :: DescribeDBClusterSnapshots)
+
+-- | True to include shared manual DB cluster snapshots from other Amazon
+-- accounts that this Amazon account has been given permission to copy or
+-- restore, and otherwise false. The default is @false@.
+--
+-- You can give an Amazon account permission to restore a manual DB cluster
+-- snapshot from another Amazon account by the
+-- ModifyDBClusterSnapshotAttribute API action.
+describeDBClusterSnapshots_includeShared :: Lens.Lens' DescribeDBClusterSnapshots (Prelude.Maybe Prelude.Bool)
+describeDBClusterSnapshots_includeShared = Lens.lens (\DescribeDBClusterSnapshots' {includeShared} -> includeShared) (\s@DescribeDBClusterSnapshots' {} a -> s {includeShared = a} :: DescribeDBClusterSnapshots)
+
+-- | An optional pagination token provided by a previous
+-- @DescribeDBClusterSnapshots@ request. If this parameter is specified,
+-- the response includes only records beyond the marker, up to the value
+-- specified by @MaxRecords@.
+describeDBClusterSnapshots_marker :: Lens.Lens' DescribeDBClusterSnapshots (Prelude.Maybe Prelude.Text)
+describeDBClusterSnapshots_marker = Lens.lens (\DescribeDBClusterSnapshots' {marker} -> marker) (\s@DescribeDBClusterSnapshots' {} a -> s {marker = a} :: DescribeDBClusterSnapshots)
+
+-- | The maximum number of records to include in the response. If more
+-- records exist than the specified @MaxRecords@ value, a pagination token
+-- called a marker is included in the response so that the remaining
+-- results can be retrieved.
+--
+-- Default: 100
+--
+-- Constraints: Minimum 20, maximum 100.
+describeDBClusterSnapshots_maxRecords :: Lens.Lens' DescribeDBClusterSnapshots (Prelude.Maybe Prelude.Int)
+describeDBClusterSnapshots_maxRecords = Lens.lens (\DescribeDBClusterSnapshots' {maxRecords} -> maxRecords) (\s@DescribeDBClusterSnapshots' {} a -> s {maxRecords = a} :: DescribeDBClusterSnapshots)
+
 -- | The type of DB cluster snapshots to be returned. You can specify one of
 -- the following values:
 --
@@ -288,7 +316,7 @@ describeDBClusterSnapshots_filters = Lens.lens (\DescribeDBClusterSnapshots' {fi
 --     automatically taken by Amazon Neptune for my Amazon account.
 --
 -- -   @manual@ - Return all DB cluster snapshots that have been taken by
---     my AWS account.
+--     my Amazon account.
 --
 -- -   @shared@ - Return all manual DB cluster snapshots that have been
 --     shared to my Amazon account.
@@ -309,33 +337,6 @@ describeDBClusterSnapshots_filters = Lens.lens (\DescribeDBClusterSnapshots' {fi
 -- @public@.
 describeDBClusterSnapshots_snapshotType :: Lens.Lens' DescribeDBClusterSnapshots (Prelude.Maybe Prelude.Text)
 describeDBClusterSnapshots_snapshotType = Lens.lens (\DescribeDBClusterSnapshots' {snapshotType} -> snapshotType) (\s@DescribeDBClusterSnapshots' {} a -> s {snapshotType = a} :: DescribeDBClusterSnapshots)
-
--- | An optional pagination token provided by a previous
--- @DescribeDBClusterSnapshots@ request. If this parameter is specified,
--- the response includes only records beyond the marker, up to the value
--- specified by @MaxRecords@.
-describeDBClusterSnapshots_marker :: Lens.Lens' DescribeDBClusterSnapshots (Prelude.Maybe Prelude.Text)
-describeDBClusterSnapshots_marker = Lens.lens (\DescribeDBClusterSnapshots' {marker} -> marker) (\s@DescribeDBClusterSnapshots' {} a -> s {marker = a} :: DescribeDBClusterSnapshots)
-
--- | The maximum number of records to include in the response. If more
--- records exist than the specified @MaxRecords@ value, a pagination token
--- called a marker is included in the response so that the remaining
--- results can be retrieved.
---
--- Default: 100
---
--- Constraints: Minimum 20, maximum 100.
-describeDBClusterSnapshots_maxRecords :: Lens.Lens' DescribeDBClusterSnapshots (Prelude.Maybe Prelude.Int)
-describeDBClusterSnapshots_maxRecords = Lens.lens (\DescribeDBClusterSnapshots' {maxRecords} -> maxRecords) (\s@DescribeDBClusterSnapshots' {} a -> s {maxRecords = a} :: DescribeDBClusterSnapshots)
-
--- | True to include manual DB cluster snapshots that are public and can be
--- copied or restored by any Amazon account, and otherwise false. The
--- default is @false@. The default is false.
---
--- You can share a manual DB cluster snapshot as public by using the
--- ModifyDBClusterSnapshotAttribute API action.
-describeDBClusterSnapshots_includePublic :: Lens.Lens' DescribeDBClusterSnapshots (Prelude.Maybe Prelude.Bool)
-describeDBClusterSnapshots_includePublic = Lens.lens (\DescribeDBClusterSnapshots' {includePublic} -> includePublic) (\s@DescribeDBClusterSnapshots' {} a -> s {includePublic = a} :: DescribeDBClusterSnapshots)
 
 instance Core.AWSPager DescribeDBClusterSnapshots where
   page rq rs
@@ -363,77 +364,78 @@ instance Core.AWSRequest DescribeDBClusterSnapshots where
   type
     AWSResponse DescribeDBClusterSnapshots =
       DescribeDBClusterSnapshotsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeDBClusterSnapshotsResult"
       ( \s h x ->
           DescribeDBClusterSnapshotsResponse'
-            Prelude.<$> (x Core..@? "Marker")
-            Prelude.<*> ( x Core..@? "DBClusterSnapshots"
+            Prelude.<$> ( x Data..@? "DBClusterSnapshots"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "DBClusterSnapshot")
+                            Prelude.>>= Core.may (Data.parseXMLList "DBClusterSnapshot")
                         )
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeDBClusterSnapshots where
   hashWithSalt _salt DescribeDBClusterSnapshots' {..} =
     _salt `Prelude.hashWithSalt` dbClusterIdentifier
-      `Prelude.hashWithSalt` includeShared
       `Prelude.hashWithSalt` dbClusterSnapshotIdentifier
       `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` snapshotType
+      `Prelude.hashWithSalt` includePublic
+      `Prelude.hashWithSalt` includeShared
       `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
-      `Prelude.hashWithSalt` includePublic
+      `Prelude.hashWithSalt` snapshotType
 
 instance Prelude.NFData DescribeDBClusterSnapshots where
   rnf DescribeDBClusterSnapshots' {..} =
     Prelude.rnf dbClusterIdentifier
-      `Prelude.seq` Prelude.rnf includeShared
       `Prelude.seq` Prelude.rnf dbClusterSnapshotIdentifier
       `Prelude.seq` Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf snapshotType
+      `Prelude.seq` Prelude.rnf includePublic
+      `Prelude.seq` Prelude.rnf includeShared
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
-      `Prelude.seq` Prelude.rnf includePublic
+      `Prelude.seq` Prelude.rnf snapshotType
 
-instance Core.ToHeaders DescribeDBClusterSnapshots where
+instance Data.ToHeaders DescribeDBClusterSnapshots where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeDBClusterSnapshots where
+instance Data.ToPath DescribeDBClusterSnapshots where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeDBClusterSnapshots where
+instance Data.ToQuery DescribeDBClusterSnapshots where
   toQuery DescribeDBClusterSnapshots' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeDBClusterSnapshots" :: Prelude.ByteString),
+          Data.=: ("DescribeDBClusterSnapshots" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "DBClusterIdentifier" Core.=: dbClusterIdentifier,
-        "IncludeShared" Core.=: includeShared,
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBClusterIdentifier" Data.=: dbClusterIdentifier,
         "DBClusterSnapshotIdentifier"
-          Core.=: dbClusterSnapshotIdentifier,
+          Data.=: dbClusterSnapshotIdentifier,
         "Filters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Filter" Prelude.<$> filters),
-        "SnapshotType" Core.=: snapshotType,
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords,
-        "IncludePublic" Core.=: includePublic
+          Data.=: Data.toQuery
+            (Data.toQueryList "Filter" Prelude.<$> filters),
+        "IncludePublic" Data.=: includePublic,
+        "IncludeShared" Data.=: includeShared,
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
+        "SnapshotType" Data.=: snapshotType
       ]
 
 -- | /See:/ 'newDescribeDBClusterSnapshotsResponse' smart constructor.
 data DescribeDBClusterSnapshotsResponse = DescribeDBClusterSnapshotsResponse'
-  { -- | An optional pagination token provided by a previous
+  { -- | Provides a list of DB cluster snapshots for the user.
+    dbClusterSnapshots :: Prelude.Maybe [DBClusterSnapshot],
+    -- | An optional pagination token provided by a previous
     -- DescribeDBClusterSnapshots request. If this parameter is specified, the
     -- response includes only records beyond the marker, up to the value
     -- specified by @MaxRecords@.
     marker :: Prelude.Maybe Prelude.Text,
-    -- | Provides a list of DB cluster snapshots for the user.
-    dbClusterSnapshots :: Prelude.Maybe [DBClusterSnapshot],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -447,12 +449,12 @@ data DescribeDBClusterSnapshotsResponse = DescribeDBClusterSnapshotsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'dbClusterSnapshots', 'describeDBClusterSnapshotsResponse_dbClusterSnapshots' - Provides a list of DB cluster snapshots for the user.
+--
 -- 'marker', 'describeDBClusterSnapshotsResponse_marker' - An optional pagination token provided by a previous
 -- DescribeDBClusterSnapshots request. If this parameter is specified, the
 -- response includes only records beyond the marker, up to the value
 -- specified by @MaxRecords@.
---
--- 'dbClusterSnapshots', 'describeDBClusterSnapshotsResponse_dbClusterSnapshots' - Provides a list of DB cluster snapshots for the user.
 --
 -- 'httpStatus', 'describeDBClusterSnapshotsResponse_httpStatus' - The response's http status code.
 newDescribeDBClusterSnapshotsResponse ::
@@ -461,11 +463,15 @@ newDescribeDBClusterSnapshotsResponse ::
   DescribeDBClusterSnapshotsResponse
 newDescribeDBClusterSnapshotsResponse pHttpStatus_ =
   DescribeDBClusterSnapshotsResponse'
-    { marker =
+    { dbClusterSnapshots =
         Prelude.Nothing,
-      dbClusterSnapshots = Prelude.Nothing,
+      marker = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | Provides a list of DB cluster snapshots for the user.
+describeDBClusterSnapshotsResponse_dbClusterSnapshots :: Lens.Lens' DescribeDBClusterSnapshotsResponse (Prelude.Maybe [DBClusterSnapshot])
+describeDBClusterSnapshotsResponse_dbClusterSnapshots = Lens.lens (\DescribeDBClusterSnapshotsResponse' {dbClusterSnapshots} -> dbClusterSnapshots) (\s@DescribeDBClusterSnapshotsResponse' {} a -> s {dbClusterSnapshots = a} :: DescribeDBClusterSnapshotsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | An optional pagination token provided by a previous
 -- DescribeDBClusterSnapshots request. If this parameter is specified, the
@@ -473,10 +479,6 @@ newDescribeDBClusterSnapshotsResponse pHttpStatus_ =
 -- specified by @MaxRecords@.
 describeDBClusterSnapshotsResponse_marker :: Lens.Lens' DescribeDBClusterSnapshotsResponse (Prelude.Maybe Prelude.Text)
 describeDBClusterSnapshotsResponse_marker = Lens.lens (\DescribeDBClusterSnapshotsResponse' {marker} -> marker) (\s@DescribeDBClusterSnapshotsResponse' {} a -> s {marker = a} :: DescribeDBClusterSnapshotsResponse)
-
--- | Provides a list of DB cluster snapshots for the user.
-describeDBClusterSnapshotsResponse_dbClusterSnapshots :: Lens.Lens' DescribeDBClusterSnapshotsResponse (Prelude.Maybe [DBClusterSnapshot])
-describeDBClusterSnapshotsResponse_dbClusterSnapshots = Lens.lens (\DescribeDBClusterSnapshotsResponse' {dbClusterSnapshots} -> dbClusterSnapshots) (\s@DescribeDBClusterSnapshotsResponse' {} a -> s {dbClusterSnapshots = a} :: DescribeDBClusterSnapshotsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeDBClusterSnapshotsResponse_httpStatus :: Lens.Lens' DescribeDBClusterSnapshotsResponse Prelude.Int
@@ -487,6 +489,6 @@ instance
     DescribeDBClusterSnapshotsResponse
   where
   rnf DescribeDBClusterSnapshotsResponse' {..} =
-    Prelude.rnf marker
-      `Prelude.seq` Prelude.rnf dbClusterSnapshots
+    Prelude.rnf dbClusterSnapshots
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf httpStatus

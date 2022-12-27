@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.DescribeGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,14 +37,15 @@ module Amazonka.QuickSight.DescribeGroup
     newDescribeGroupResponse,
 
     -- * Response Lenses
-    describeGroupResponse_requestId,
     describeGroupResponse_group,
+    describeGroupResponse_requestId,
     describeGroupResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -58,7 +59,7 @@ data DescribeGroup = DescribeGroup'
     -- Currently, you use the ID for the Amazon Web Services account that
     -- contains your Amazon QuickSight account.
     awsAccountId :: Prelude.Text,
-    -- | The namespace. Currently, you should set this to @default@.
+    -- | The namespace of the group that you want described.
     namespace :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -77,7 +78,7 @@ data DescribeGroup = DescribeGroup'
 -- Currently, you use the ID for the Amazon Web Services account that
 -- contains your Amazon QuickSight account.
 --
--- 'namespace', 'describeGroup_namespace' - The namespace. Currently, you should set this to @default@.
+-- 'namespace', 'describeGroup_namespace' - The namespace of the group that you want described.
 newDescribeGroup ::
   -- | 'groupName'
   Prelude.Text ->
@@ -106,7 +107,7 @@ describeGroup_groupName = Lens.lens (\DescribeGroup' {groupName} -> groupName) (
 describeGroup_awsAccountId :: Lens.Lens' DescribeGroup Prelude.Text
 describeGroup_awsAccountId = Lens.lens (\DescribeGroup' {awsAccountId} -> awsAccountId) (\s@DescribeGroup' {} a -> s {awsAccountId = a} :: DescribeGroup)
 
--- | The namespace. Currently, you should set this to @default@.
+-- | The namespace of the group that you want described.
 describeGroup_namespace :: Lens.Lens' DescribeGroup Prelude.Text
 describeGroup_namespace = Lens.lens (\DescribeGroup' {namespace} -> namespace) (\s@DescribeGroup' {} a -> s {namespace = a} :: DescribeGroup)
 
@@ -114,13 +115,14 @@ instance Core.AWSRequest DescribeGroup where
   type
     AWSResponse DescribeGroup =
       DescribeGroupResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeGroupResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "Group")
+            Prelude.<$> (x Data..?> "Group")
+            Prelude.<*> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -136,37 +138,37 @@ instance Prelude.NFData DescribeGroup where
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf namespace
 
-instance Core.ToHeaders DescribeGroup where
+instance Data.ToHeaders DescribeGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeGroup where
+instance Data.ToPath DescribeGroup where
   toPath DescribeGroup' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/namespaces/",
-        Core.toBS namespace,
+        Data.toBS namespace,
         "/groups/",
-        Core.toBS groupName
+        Data.toBS groupName
       ]
 
-instance Core.ToQuery DescribeGroup where
+instance Data.ToQuery DescribeGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeGroupResponse' smart constructor.
 data DescribeGroupResponse = DescribeGroupResponse'
-  { -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The name of the group.
+  { -- | The name of the group.
     group' :: Prelude.Maybe Group,
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -180,9 +182,9 @@ data DescribeGroupResponse = DescribeGroupResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'describeGroupResponse_requestId' - The Amazon Web Services request ID for this operation.
---
 -- 'group'', 'describeGroupResponse_group' - The name of the group.
+--
+-- 'requestId', 'describeGroupResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'status', 'describeGroupResponse_status' - The HTTP status of the request.
 newDescribeGroupResponse ::
@@ -191,18 +193,18 @@ newDescribeGroupResponse ::
   DescribeGroupResponse
 newDescribeGroupResponse pStatus_ =
   DescribeGroupResponse'
-    { requestId = Prelude.Nothing,
-      group' = Prelude.Nothing,
+    { group' = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       status = pStatus_
     }
-
--- | The Amazon Web Services request ID for this operation.
-describeGroupResponse_requestId :: Lens.Lens' DescribeGroupResponse (Prelude.Maybe Prelude.Text)
-describeGroupResponse_requestId = Lens.lens (\DescribeGroupResponse' {requestId} -> requestId) (\s@DescribeGroupResponse' {} a -> s {requestId = a} :: DescribeGroupResponse)
 
 -- | The name of the group.
 describeGroupResponse_group :: Lens.Lens' DescribeGroupResponse (Prelude.Maybe Group)
 describeGroupResponse_group = Lens.lens (\DescribeGroupResponse' {group'} -> group') (\s@DescribeGroupResponse' {} a -> s {group' = a} :: DescribeGroupResponse)
+
+-- | The Amazon Web Services request ID for this operation.
+describeGroupResponse_requestId :: Lens.Lens' DescribeGroupResponse (Prelude.Maybe Prelude.Text)
+describeGroupResponse_requestId = Lens.lens (\DescribeGroupResponse' {requestId} -> requestId) (\s@DescribeGroupResponse' {} a -> s {requestId = a} :: DescribeGroupResponse)
 
 -- | The HTTP status of the request.
 describeGroupResponse_status :: Lens.Lens' DescribeGroupResponse Prelude.Int
@@ -210,6 +212,6 @@ describeGroupResponse_status = Lens.lens (\DescribeGroupResponse' {status} -> st
 
 instance Prelude.NFData DescribeGroupResponse where
   rnf DescribeGroupResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf group'
+    Prelude.rnf group'
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf status

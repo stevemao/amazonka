@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Support.Types.TrustedAdvisorResourceDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Support.Types.TrustedAdvisorResourceDetail where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about a resource identified by a Trusted Advisor
@@ -28,10 +29,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newTrustedAdvisorResourceDetail' smart constructor.
 data TrustedAdvisorResourceDetail = TrustedAdvisorResourceDetail'
-  { -- | Specifies whether the AWS resource was ignored by Trusted Advisor
-    -- because it was marked as suppressed by the user.
+  { -- | Specifies whether the Amazon Web Services resource was ignored by
+    -- Trusted Advisor because it was marked as suppressed by the user.
     isSuppressed :: Prelude.Maybe Prelude.Bool,
-    -- | The AWS Region in which the identified resource is located.
+    -- | The Amazon Web Services Region in which the identified resource is
+    -- located.
     region :: Prelude.Maybe Prelude.Text,
     -- | The status code for the resource identified in the Trusted Advisor
     -- check.
@@ -56,10 +58,11 @@ data TrustedAdvisorResourceDetail = TrustedAdvisorResourceDetail'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'isSuppressed', 'trustedAdvisorResourceDetail_isSuppressed' - Specifies whether the AWS resource was ignored by Trusted Advisor
--- because it was marked as suppressed by the user.
+-- 'isSuppressed', 'trustedAdvisorResourceDetail_isSuppressed' - Specifies whether the Amazon Web Services resource was ignored by
+-- Trusted Advisor because it was marked as suppressed by the user.
 --
--- 'region', 'trustedAdvisorResourceDetail_region' - The AWS Region in which the identified resource is located.
+-- 'region', 'trustedAdvisorResourceDetail_region' - The Amazon Web Services Region in which the identified resource is
+-- located.
 --
 -- 'status', 'trustedAdvisorResourceDetail_status' - The status code for the resource identified in the Trusted Advisor
 -- check.
@@ -88,12 +91,13 @@ newTrustedAdvisorResourceDetail pStatus_ pResourceId_ =
       metadata = Prelude.mempty
     }
 
--- | Specifies whether the AWS resource was ignored by Trusted Advisor
--- because it was marked as suppressed by the user.
+-- | Specifies whether the Amazon Web Services resource was ignored by
+-- Trusted Advisor because it was marked as suppressed by the user.
 trustedAdvisorResourceDetail_isSuppressed :: Lens.Lens' TrustedAdvisorResourceDetail (Prelude.Maybe Prelude.Bool)
 trustedAdvisorResourceDetail_isSuppressed = Lens.lens (\TrustedAdvisorResourceDetail' {isSuppressed} -> isSuppressed) (\s@TrustedAdvisorResourceDetail' {} a -> s {isSuppressed = a} :: TrustedAdvisorResourceDetail)
 
--- | The AWS Region in which the identified resource is located.
+-- | The Amazon Web Services Region in which the identified resource is
+-- located.
 trustedAdvisorResourceDetail_region :: Lens.Lens' TrustedAdvisorResourceDetail (Prelude.Maybe Prelude.Text)
 trustedAdvisorResourceDetail_region = Lens.lens (\TrustedAdvisorResourceDetail' {region} -> region) (\s@TrustedAdvisorResourceDetail' {} a -> s {region = a} :: TrustedAdvisorResourceDetail)
 
@@ -115,17 +119,17 @@ trustedAdvisorResourceDetail_resourceId = Lens.lens (\TrustedAdvisorResourceDeta
 trustedAdvisorResourceDetail_metadata :: Lens.Lens' TrustedAdvisorResourceDetail [Prelude.Text]
 trustedAdvisorResourceDetail_metadata = Lens.lens (\TrustedAdvisorResourceDetail' {metadata} -> metadata) (\s@TrustedAdvisorResourceDetail' {} a -> s {metadata = a} :: TrustedAdvisorResourceDetail) Prelude.. Lens.coerced
 
-instance Core.FromJSON TrustedAdvisorResourceDetail where
+instance Data.FromJSON TrustedAdvisorResourceDetail where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TrustedAdvisorResourceDetail"
       ( \x ->
           TrustedAdvisorResourceDetail'
-            Prelude.<$> (x Core..:? "isSuppressed")
-            Prelude.<*> (x Core..:? "region")
-            Prelude.<*> (x Core..: "status")
-            Prelude.<*> (x Core..: "resourceId")
-            Prelude.<*> (x Core..:? "metadata" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "isSuppressed")
+            Prelude.<*> (x Data..:? "region")
+            Prelude.<*> (x Data..: "status")
+            Prelude.<*> (x Data..: "resourceId")
+            Prelude.<*> (x Data..:? "metadata" Data..!= Prelude.mempty)
       )
 
 instance

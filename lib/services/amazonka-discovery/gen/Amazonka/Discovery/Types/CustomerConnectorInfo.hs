@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Discovery.Types.CustomerConnectorInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Discovery.Types.CustomerConnectorInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Inventory data for installed discovery connectors.
@@ -128,19 +129,19 @@ customerConnectorInfo_totalConnectors = Lens.lens (\CustomerConnectorInfo' {tota
 customerConnectorInfo_unknownConnectors :: Lens.Lens' CustomerConnectorInfo Prelude.Int
 customerConnectorInfo_unknownConnectors = Lens.lens (\CustomerConnectorInfo' {unknownConnectors} -> unknownConnectors) (\s@CustomerConnectorInfo' {} a -> s {unknownConnectors = a} :: CustomerConnectorInfo)
 
-instance Core.FromJSON CustomerConnectorInfo where
+instance Data.FromJSON CustomerConnectorInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CustomerConnectorInfo"
       ( \x ->
           CustomerConnectorInfo'
-            Prelude.<$> (x Core..: "activeConnectors")
-            Prelude.<*> (x Core..: "healthyConnectors")
-            Prelude.<*> (x Core..: "blackListedConnectors")
-            Prelude.<*> (x Core..: "shutdownConnectors")
-            Prelude.<*> (x Core..: "unhealthyConnectors")
-            Prelude.<*> (x Core..: "totalConnectors")
-            Prelude.<*> (x Core..: "unknownConnectors")
+            Prelude.<$> (x Data..: "activeConnectors")
+            Prelude.<*> (x Data..: "healthyConnectors")
+            Prelude.<*> (x Data..: "blackListedConnectors")
+            Prelude.<*> (x Data..: "shutdownConnectors")
+            Prelude.<*> (x Data..: "unhealthyConnectors")
+            Prelude.<*> (x Data..: "totalConnectors")
+            Prelude.<*> (x Data..: "unknownConnectors")
       )
 
 instance Prelude.Hashable CustomerConnectorInfo where

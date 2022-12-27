@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ComprehendMedical.DetectEntitiesV2
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -56,7 +56,8 @@ where
 
 import Amazonka.ComprehendMedical.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,18 +99,19 @@ instance Core.AWSRequest DetectEntitiesV2 where
   type
     AWSResponse DetectEntitiesV2 =
       DetectEntitiesV2Response
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DetectEntitiesV2Response'
-            Prelude.<$> (x Core..?> "PaginationToken")
-            Prelude.<*> ( x Core..?> "UnmappedAttributes"
+            Prelude.<$> (x Data..?> "PaginationToken")
+            Prelude.<*> ( x Data..?> "UnmappedAttributes"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Entities" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..:> "ModelVersion")
+            Prelude.<*> (x Data..?> "Entities" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..:> "ModelVersion")
       )
 
 instance Prelude.Hashable DetectEntitiesV2 where
@@ -119,32 +121,32 @@ instance Prelude.Hashable DetectEntitiesV2 where
 instance Prelude.NFData DetectEntitiesV2 where
   rnf DetectEntitiesV2' {..} = Prelude.rnf text
 
-instance Core.ToHeaders DetectEntitiesV2 where
+instance Data.ToHeaders DetectEntitiesV2 where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ComprehendMedical_20181030.DetectEntitiesV2" ::
+              Data.=# ( "ComprehendMedical_20181030.DetectEntitiesV2" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DetectEntitiesV2 where
+instance Data.ToJSON DetectEntitiesV2 where
   toJSON DetectEntitiesV2' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Text" Core..= text)]
+          [Prelude.Just ("Text" Data..= text)]
       )
 
-instance Core.ToPath DetectEntitiesV2 where
+instance Data.ToPath DetectEntitiesV2 where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DetectEntitiesV2 where
+instance Data.ToQuery DetectEntitiesV2 where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDetectEntitiesV2Response' smart constructor.

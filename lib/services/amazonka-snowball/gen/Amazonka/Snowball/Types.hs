@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.Snowball.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,17 +18,17 @@ module Amazonka.Snowball.Types
     defaultService,
 
     -- * Errors
-    _InvalidResourceException,
-    _UnsupportedAddressException,
-    _ReturnShippingLabelAlreadyExistsException,
-    _KMSRequestFailedException,
-    _InvalidJobStateException,
-    _InvalidInputCombinationException,
+    _ClusterLimitExceededException,
     _ConflictException,
     _Ec2RequestFailedException,
-    _InvalidNextTokenException,
     _InvalidAddressException,
-    _ClusterLimitExceededException,
+    _InvalidInputCombinationException,
+    _InvalidJobStateException,
+    _InvalidNextTokenException,
+    _InvalidResourceException,
+    _KMSRequestFailedException,
+    _ReturnShippingLabelAlreadyExistsException,
+    _UnsupportedAddressException,
 
     -- * ClusterState
     ClusterState (..),
@@ -71,61 +72,61 @@ module Amazonka.Snowball.Types
     -- * Address
     Address (..),
     newAddress,
-    address_isRestricted,
-    address_street3,
-    address_landmark,
-    address_postalCode,
-    address_country,
-    address_stateOrProvince,
-    address_street2,
     address_addressId,
     address_city,
-    address_phoneNumber,
     address_company,
+    address_country,
+    address_isRestricted,
+    address_landmark,
     address_name,
+    address_phoneNumber,
+    address_postalCode,
     address_prefectureOrDistrict,
+    address_stateOrProvince,
     address_street1,
+    address_street2,
+    address_street3,
 
     -- * ClusterListEntry
     ClusterListEntry (..),
     newClusterListEntry,
-    clusterListEntry_clusterState,
     clusterListEntry_clusterId,
+    clusterListEntry_clusterState,
     clusterListEntry_creationDate,
     clusterListEntry_description,
 
     -- * ClusterMetadata
     ClusterMetadata (..),
     newClusterMetadata,
-    clusterMetadata_jobType,
-    clusterMetadata_kmsKeyARN,
-    clusterMetadata_clusterState,
-    clusterMetadata_notification,
-    clusterMetadata_forwardingAddressId,
     clusterMetadata_addressId,
-    clusterMetadata_snowballType,
-    clusterMetadata_shippingOption,
-    clusterMetadata_resources,
-    clusterMetadata_onDeviceServiceConfiguration,
     clusterMetadata_clusterId,
+    clusterMetadata_clusterState,
     clusterMetadata_creationDate,
     clusterMetadata_description,
-    clusterMetadata_taxDocuments,
+    clusterMetadata_forwardingAddressId,
+    clusterMetadata_jobType,
+    clusterMetadata_kmsKeyARN,
+    clusterMetadata_notification,
+    clusterMetadata_onDeviceServiceConfiguration,
+    clusterMetadata_resources,
     clusterMetadata_roleARN,
+    clusterMetadata_shippingOption,
+    clusterMetadata_snowballType,
+    clusterMetadata_taxDocuments,
 
     -- * CompatibleImage
     CompatibleImage (..),
     newCompatibleImage,
-    compatibleImage_name,
     compatibleImage_amiId,
+    compatibleImage_name,
 
     -- * DataTransfer
     DataTransfer (..),
     newDataTransfer,
-    dataTransfer_totalObjects,
-    dataTransfer_totalBytes,
-    dataTransfer_objectsTransferred,
     dataTransfer_bytesTransferred,
+    dataTransfer_objectsTransferred,
+    dataTransfer_totalBytes,
+    dataTransfer_totalObjects,
 
     -- * DeviceConfiguration
     DeviceConfiguration (..),
@@ -151,46 +152,46 @@ module Amazonka.Snowball.Types
     -- * JobListEntry
     JobListEntry (..),
     newJobListEntry,
-    jobListEntry_jobType,
-    jobListEntry_jobId,
-    jobListEntry_jobState,
-    jobListEntry_snowballType,
     jobListEntry_creationDate,
     jobListEntry_description,
     jobListEntry_isMaster,
+    jobListEntry_jobId,
+    jobListEntry_jobState,
+    jobListEntry_jobType,
+    jobListEntry_snowballType,
 
     -- * JobLogs
     JobLogs (..),
     newJobLogs,
-    jobLogs_jobFailureLogURI,
     jobLogs_jobCompletionReportURI,
+    jobLogs_jobFailureLogURI,
     jobLogs_jobSuccessLogURI,
 
     -- * JobMetadata
     JobMetadata (..),
     newJobMetadata,
-    jobMetadata_jobType,
-    jobMetadata_kmsKeyARN,
-    jobMetadata_remoteManagement,
-    jobMetadata_jobId,
-    jobMetadata_jobLogInfo,
-    jobMetadata_notification,
-    jobMetadata_jobState,
-    jobMetadata_forwardingAddressId,
-    jobMetadata_shippingDetails,
     jobMetadata_addressId,
-    jobMetadata_snowballType,
-    jobMetadata_dataTransferProgress,
-    jobMetadata_longTermPricingId,
-    jobMetadata_resources,
-    jobMetadata_onDeviceServiceConfiguration,
     jobMetadata_clusterId,
     jobMetadata_creationDate,
-    jobMetadata_deviceConfiguration,
+    jobMetadata_dataTransferProgress,
     jobMetadata_description,
-    jobMetadata_taxDocuments,
+    jobMetadata_deviceConfiguration,
+    jobMetadata_forwardingAddressId,
+    jobMetadata_jobId,
+    jobMetadata_jobLogInfo,
+    jobMetadata_jobState,
+    jobMetadata_jobType,
+    jobMetadata_kmsKeyARN,
+    jobMetadata_longTermPricingId,
+    jobMetadata_notification,
+    jobMetadata_onDeviceServiceConfiguration,
+    jobMetadata_remoteManagement,
+    jobMetadata_resources,
     jobMetadata_roleARN,
+    jobMetadata_shippingDetails,
     jobMetadata_snowballCapacityPreference,
+    jobMetadata_snowballType,
+    jobMetadata_taxDocuments,
 
     -- * JobResource
     JobResource (..),
@@ -202,8 +203,8 @@ module Amazonka.Snowball.Types
     -- * KeyRange
     KeyRange (..),
     newKeyRange,
-    keyRange_endMarker,
     keyRange_beginMarker,
+    keyRange_endMarker,
 
     -- * LambdaResource
     LambdaResource (..),
@@ -214,16 +215,16 @@ module Amazonka.Snowball.Types
     -- * LongTermPricingListEntry
     LongTermPricingListEntry (..),
     newLongTermPricingListEntry,
-    longTermPricingListEntry_longTermPricingType,
-    longTermPricingListEntry_longTermPricingStartDate,
-    longTermPricingListEntry_snowballType,
-    longTermPricingListEntry_longTermPricingId,
-    longTermPricingListEntry_longTermPricingEndDate,
     longTermPricingListEntry_currentActiveJob,
     longTermPricingListEntry_isLongTermPricingAutoRenew,
-    longTermPricingListEntry_longTermPricingStatus,
     longTermPricingListEntry_jobIds,
+    longTermPricingListEntry_longTermPricingEndDate,
+    longTermPricingListEntry_longTermPricingId,
+    longTermPricingListEntry_longTermPricingStartDate,
+    longTermPricingListEntry_longTermPricingStatus,
+    longTermPricingListEntry_longTermPricingType,
     longTermPricingListEntry_replacementJob,
+    longTermPricingListEntry_snowballType,
 
     -- * NFSOnDeviceServiceConfiguration
     NFSOnDeviceServiceConfiguration (..),
@@ -234,20 +235,21 @@ module Amazonka.Snowball.Types
     -- * Notification
     Notification (..),
     newNotification,
+    notification_jobStatesToNotify,
     notification_notifyAll,
     notification_snsTopicARN,
-    notification_jobStatesToNotify,
 
     -- * OnDeviceServiceConfiguration
     OnDeviceServiceConfiguration (..),
     newOnDeviceServiceConfiguration,
     onDeviceServiceConfiguration_nFSOnDeviceService,
+    onDeviceServiceConfiguration_tGWOnDeviceService,
 
     -- * S3Resource
     S3Resource (..),
     newS3Resource,
-    s3Resource_keyRange,
     s3Resource_bucketArn,
+    s3Resource_keyRange,
     s3Resource_targetOnDeviceServices,
 
     -- * Shipment
@@ -259,20 +261,26 @@ module Amazonka.Snowball.Types
     -- * ShippingDetails
     ShippingDetails (..),
     newShippingDetails,
-    shippingDetails_shippingOption,
-    shippingDetails_outboundShipment,
     shippingDetails_inboundShipment,
+    shippingDetails_outboundShipment,
+    shippingDetails_shippingOption,
 
     -- * SnowconeDeviceConfiguration
     SnowconeDeviceConfiguration (..),
     newSnowconeDeviceConfiguration,
     snowconeDeviceConfiguration_wirelessConnection,
 
+    -- * TGWOnDeviceServiceConfiguration
+    TGWOnDeviceServiceConfiguration (..),
+    newTGWOnDeviceServiceConfiguration,
+    tGWOnDeviceServiceConfiguration_storageLimit,
+    tGWOnDeviceServiceConfiguration_storageUnit,
+
     -- * TargetOnDeviceService
     TargetOnDeviceService (..),
     newTargetOnDeviceService,
-    targetOnDeviceService_transferOption,
     targetOnDeviceService_serviceName,
+    targetOnDeviceService_transferOption,
 
     -- * TaxDocuments
     TaxDocuments (..),
@@ -287,7 +295,7 @@ module Amazonka.Snowball.Types
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 import Amazonka.Snowball.Types.Address
@@ -325,6 +333,7 @@ import Amazonka.Snowball.Types.SnowballCapacity
 import Amazonka.Snowball.Types.SnowballType
 import Amazonka.Snowball.Types.SnowconeDeviceConfiguration
 import Amazonka.Snowball.Types.StorageUnit
+import Amazonka.Snowball.Types.TGWOnDeviceServiceConfiguration
 import Amazonka.Snowball.Types.TargetOnDeviceService
 import Amazonka.Snowball.Types.TaxDocuments
 import Amazonka.Snowball.Types.TransferOption
@@ -334,41 +343,49 @@ import Amazonka.Snowball.Types.WirelessConnection
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "Snowball",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "snowball",
-      Core._serviceSigningName = "snowball",
-      Core._serviceVersion = "2016-06-30",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError = Core.parseJSONError "Snowball",
-      Core._serviceRetry = retry
+    { Core.abbrev = "Snowball",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "snowball",
+      Core.signingName = "snowball",
+      Core.version = "2016-06-30",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "Snowball",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -376,80 +393,31 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
 
--- | The specified resource can\'t be found. Check the information you
--- provided in your last request, and try again.
-_InvalidResourceException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidResourceException =
+-- | Job creation failed. Currently, clusters support five nodes. If you have
+-- fewer than five nodes for your cluster and you have more nodes to create
+-- for this cluster, try again and create jobs until your cluster has
+-- exactly five nodes.
+_ClusterLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ClusterLimitExceededException =
   Core._MatchServiceError
     defaultService
-    "InvalidResourceException"
-
--- | The address is either outside the serviceable area for your region, or
--- an error occurred. Check the address with your region\'s carrier and try
--- again. If the issue persists, contact AWS Support.
-_UnsupportedAddressException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_UnsupportedAddressException =
-  Core._MatchServiceError
-    defaultService
-    "UnsupportedAddressException"
-
--- | You get this exception if you call @CreateReturnShippingLabel@ and a
--- valid return shipping label already exists. In this case, use
--- @DescribeReturnShippingLabel@ to get the url.
-_ReturnShippingLabelAlreadyExistsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ReturnShippingLabelAlreadyExistsException =
-  Core._MatchServiceError
-    defaultService
-    "ReturnShippingLabelAlreadyExistsException"
-
--- | The provided AWS Key Management Service key lacks the permissions to
--- perform the specified CreateJob or UpdateJob action.
-_KMSRequestFailedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_KMSRequestFailedException =
-  Core._MatchServiceError
-    defaultService
-    "KMSRequestFailedException"
-
--- | The action can\'t be performed because the job\'s current state doesn\'t
--- allow that action to be performed.
-_InvalidJobStateException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidJobStateException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidJobStateException"
-
--- | Job or cluster creation failed. One or more inputs were invalid. Confirm
--- that the CreateClusterRequest$SnowballType value supports your
--- CreateJobRequest$JobType, and try again.
-_InvalidInputCombinationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidInputCombinationException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidInputCombinationException"
+    "ClusterLimitExceededException"
 
 -- | You get this exception when you call @CreateReturnShippingLabel@ more
 -- than once when other requests are not completed.
@@ -467,6 +435,31 @@ _Ec2RequestFailedException =
     defaultService
     "Ec2RequestFailedException"
 
+-- | The address provided was invalid. Check the address with your region\'s
+-- carrier, and try again.
+_InvalidAddressException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidAddressException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidAddressException"
+
+-- | Job or cluster creation failed. One or more inputs were invalid. Confirm
+-- that the CreateClusterRequest$SnowballType value supports your
+-- CreateJobRequest$JobType, and try again.
+_InvalidInputCombinationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidInputCombinationException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidInputCombinationException"
+
+-- | The action can\'t be performed because the job\'s current state doesn\'t
+-- allow that action to be performed.
+_InvalidJobStateException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidJobStateException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidJobStateException"
+
 -- | The @NextToken@ string was altered unexpectedly, and the operation has
 -- stopped. Run the operation without changing the @NextToken@ string, and
 -- try again.
@@ -476,20 +469,36 @@ _InvalidNextTokenException =
     defaultService
     "InvalidNextTokenException"
 
--- | The address provided was invalid. Check the address with your region\'s
--- carrier, and try again.
-_InvalidAddressException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidAddressException =
+-- | The specified resource can\'t be found. Check the information you
+-- provided in your last request, and try again.
+_InvalidResourceException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidResourceException =
   Core._MatchServiceError
     defaultService
-    "InvalidAddressException"
+    "InvalidResourceException"
 
--- | Job creation failed. Currently, clusters support five nodes. If you have
--- fewer than five nodes for your cluster and you have more nodes to create
--- for this cluster, try again and create jobs until your cluster has
--- exactly five nodes.
-_ClusterLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ClusterLimitExceededException =
+-- | The provided Key Management Service key lacks the permissions to perform
+-- the specified CreateJob or UpdateJob action.
+_KMSRequestFailedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_KMSRequestFailedException =
   Core._MatchServiceError
     defaultService
-    "ClusterLimitExceededException"
+    "KMSRequestFailedException"
+
+-- | You get this exception if you call @CreateReturnShippingLabel@ and a
+-- valid return shipping label already exists. In this case, use
+-- @DescribeReturnShippingLabel@ to get the URL.
+_ReturnShippingLabelAlreadyExistsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ReturnShippingLabelAlreadyExistsException =
+  Core._MatchServiceError
+    defaultService
+    "ReturnShippingLabelAlreadyExistsException"
+
+-- | The address is either outside the serviceable area for your region, or
+-- an error occurred. Check the address with your region\'s carrier and try
+-- again. If the issue persists, contact Amazon Web Services Support.
+_UnsupportedAddressException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_UnsupportedAddressException =
+  Core._MatchServiceError
+    defaultService
+    "UnsupportedAddressException"

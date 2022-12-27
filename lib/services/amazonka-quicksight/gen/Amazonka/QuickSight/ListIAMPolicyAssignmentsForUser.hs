@@ -14,23 +14,23 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.ListIAMPolicyAssignmentsForUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists all the IAMpolicy assignments, including the Amazon Resource Names
--- (ARNs) for the IAM policies assigned to the specified user and group or
--- groups that the user belongs to.
+-- Lists all the IAM policy assignments, including the Amazon Resource
+-- Names (ARNs) for the IAM policies assigned to the specified user and
+-- group or groups that the user belongs to.
 module Amazonka.QuickSight.ListIAMPolicyAssignmentsForUser
   ( -- * Creating a Request
     ListIAMPolicyAssignmentsForUser (..),
     newListIAMPolicyAssignmentsForUser,
 
     -- * Request Lenses
-    listIAMPolicyAssignmentsForUser_nextToken,
     listIAMPolicyAssignmentsForUser_maxResults,
+    listIAMPolicyAssignmentsForUser_nextToken,
     listIAMPolicyAssignmentsForUser_awsAccountId,
     listIAMPolicyAssignmentsForUser_userName,
     listIAMPolicyAssignmentsForUser_namespace,
@@ -40,15 +40,16 @@ module Amazonka.QuickSight.ListIAMPolicyAssignmentsForUser
     newListIAMPolicyAssignmentsForUserResponse,
 
     -- * Response Lenses
-    listIAMPolicyAssignmentsForUserResponse_requestId,
     listIAMPolicyAssignmentsForUserResponse_activeAssignments,
     listIAMPolicyAssignmentsForUserResponse_nextToken,
+    listIAMPolicyAssignmentsForUserResponse_requestId,
     listIAMPolicyAssignmentsForUserResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -56,11 +57,11 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListIAMPolicyAssignmentsForUser' smart constructor.
 data ListIAMPolicyAssignmentsForUser = ListIAMPolicyAssignmentsForUser'
-  { -- | The token for the next set of results, or null if there are no more
+  { -- | The maximum number of results to be returned per request.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results, or null if there are no more
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to be returned per request.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The ID of the Amazon Web Services account that contains the assignments.
     awsAccountId :: Prelude.Text,
     -- | The name of the user.
@@ -78,10 +79,10 @@ data ListIAMPolicyAssignmentsForUser = ListIAMPolicyAssignmentsForUser'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listIAMPolicyAssignmentsForUser_maxResults' - The maximum number of results to be returned per request.
+--
 -- 'nextToken', 'listIAMPolicyAssignmentsForUser_nextToken' - The token for the next set of results, or null if there are no more
 -- results.
---
--- 'maxResults', 'listIAMPolicyAssignmentsForUser_maxResults' - The maximum number of results to be returned per request.
 --
 -- 'awsAccountId', 'listIAMPolicyAssignmentsForUser_awsAccountId' - The ID of the Amazon Web Services account that contains the assignments.
 --
@@ -101,22 +102,22 @@ newListIAMPolicyAssignmentsForUser
   pUserName_
   pNamespace_ =
     ListIAMPolicyAssignmentsForUser'
-      { nextToken =
+      { maxResults =
           Prelude.Nothing,
-        maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         awsAccountId = pAwsAccountId_,
         userName = pUserName_,
         namespace = pNamespace_
       }
 
+-- | The maximum number of results to be returned per request.
+listIAMPolicyAssignmentsForUser_maxResults :: Lens.Lens' ListIAMPolicyAssignmentsForUser (Prelude.Maybe Prelude.Natural)
+listIAMPolicyAssignmentsForUser_maxResults = Lens.lens (\ListIAMPolicyAssignmentsForUser' {maxResults} -> maxResults) (\s@ListIAMPolicyAssignmentsForUser' {} a -> s {maxResults = a} :: ListIAMPolicyAssignmentsForUser)
+
 -- | The token for the next set of results, or null if there are no more
 -- results.
 listIAMPolicyAssignmentsForUser_nextToken :: Lens.Lens' ListIAMPolicyAssignmentsForUser (Prelude.Maybe Prelude.Text)
 listIAMPolicyAssignmentsForUser_nextToken = Lens.lens (\ListIAMPolicyAssignmentsForUser' {nextToken} -> nextToken) (\s@ListIAMPolicyAssignmentsForUser' {} a -> s {nextToken = a} :: ListIAMPolicyAssignmentsForUser)
-
--- | The maximum number of results to be returned per request.
-listIAMPolicyAssignmentsForUser_maxResults :: Lens.Lens' ListIAMPolicyAssignmentsForUser (Prelude.Maybe Prelude.Natural)
-listIAMPolicyAssignmentsForUser_maxResults = Lens.lens (\ListIAMPolicyAssignmentsForUser' {maxResults} -> maxResults) (\s@ListIAMPolicyAssignmentsForUser' {} a -> s {maxResults = a} :: ListIAMPolicyAssignmentsForUser)
 
 -- | The ID of the Amazon Web Services account that contains the assignments.
 listIAMPolicyAssignmentsForUser_awsAccountId :: Lens.Lens' ListIAMPolicyAssignmentsForUser Prelude.Text
@@ -137,16 +138,17 @@ instance
   type
     AWSResponse ListIAMPolicyAssignmentsForUser =
       ListIAMPolicyAssignmentsForUserResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListIAMPolicyAssignmentsForUserResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> ( x Core..?> "ActiveAssignments"
+            Prelude.<$> ( x Data..?> "ActiveAssignments"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -157,8 +159,8 @@ instance
   hashWithSalt
     _salt
     ListIAMPolicyAssignmentsForUser' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` awsAccountId
         `Prelude.hashWithSalt` userName
         `Prelude.hashWithSalt` namespace
@@ -168,54 +170,54 @@ instance
     ListIAMPolicyAssignmentsForUser
   where
   rnf ListIAMPolicyAssignmentsForUser' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf userName
       `Prelude.seq` Prelude.rnf namespace
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListIAMPolicyAssignmentsForUser
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListIAMPolicyAssignmentsForUser where
+instance Data.ToPath ListIAMPolicyAssignmentsForUser where
   toPath ListIAMPolicyAssignmentsForUser' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/namespaces/",
-        Core.toBS namespace,
+        Data.toBS namespace,
         "/users/",
-        Core.toBS userName,
+        Data.toBS userName,
         "/iam-policy-assignments"
       ]
 
-instance Core.ToQuery ListIAMPolicyAssignmentsForUser where
+instance Data.ToQuery ListIAMPolicyAssignmentsForUser where
   toQuery ListIAMPolicyAssignmentsForUser' {..} =
     Prelude.mconcat
-      [ "next-token" Core.=: nextToken,
-        "max-results" Core.=: maxResults
+      [ "max-results" Data.=: maxResults,
+        "next-token" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListIAMPolicyAssignmentsForUserResponse' smart constructor.
 data ListIAMPolicyAssignmentsForUserResponse = ListIAMPolicyAssignmentsForUserResponse'
-  { -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The active assignments for this user.
+  { -- | The active assignments for this user.
     activeAssignments :: Prelude.Maybe [ActiveIAMPolicyAssignment],
     -- | The token for the next set of results, or null if there are no more
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -229,12 +231,12 @@ data ListIAMPolicyAssignmentsForUserResponse = ListIAMPolicyAssignmentsForUserRe
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'listIAMPolicyAssignmentsForUserResponse_requestId' - The Amazon Web Services request ID for this operation.
---
 -- 'activeAssignments', 'listIAMPolicyAssignmentsForUserResponse_activeAssignments' - The active assignments for this user.
 --
 -- 'nextToken', 'listIAMPolicyAssignmentsForUserResponse_nextToken' - The token for the next set of results, or null if there are no more
 -- results.
+--
+-- 'requestId', 'listIAMPolicyAssignmentsForUserResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'status', 'listIAMPolicyAssignmentsForUserResponse_status' - The HTTP status of the request.
 newListIAMPolicyAssignmentsForUserResponse ::
@@ -243,17 +245,12 @@ newListIAMPolicyAssignmentsForUserResponse ::
   ListIAMPolicyAssignmentsForUserResponse
 newListIAMPolicyAssignmentsForUserResponse pStatus_ =
   ListIAMPolicyAssignmentsForUserResponse'
-    { requestId =
-        Prelude.Nothing,
-      activeAssignments =
+    { activeAssignments =
         Prelude.Nothing,
       nextToken = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       status = pStatus_
     }
-
--- | The Amazon Web Services request ID for this operation.
-listIAMPolicyAssignmentsForUserResponse_requestId :: Lens.Lens' ListIAMPolicyAssignmentsForUserResponse (Prelude.Maybe Prelude.Text)
-listIAMPolicyAssignmentsForUserResponse_requestId = Lens.lens (\ListIAMPolicyAssignmentsForUserResponse' {requestId} -> requestId) (\s@ListIAMPolicyAssignmentsForUserResponse' {} a -> s {requestId = a} :: ListIAMPolicyAssignmentsForUserResponse)
 
 -- | The active assignments for this user.
 listIAMPolicyAssignmentsForUserResponse_activeAssignments :: Lens.Lens' ListIAMPolicyAssignmentsForUserResponse (Prelude.Maybe [ActiveIAMPolicyAssignment])
@@ -264,6 +261,10 @@ listIAMPolicyAssignmentsForUserResponse_activeAssignments = Lens.lens (\ListIAMP
 listIAMPolicyAssignmentsForUserResponse_nextToken :: Lens.Lens' ListIAMPolicyAssignmentsForUserResponse (Prelude.Maybe Prelude.Text)
 listIAMPolicyAssignmentsForUserResponse_nextToken = Lens.lens (\ListIAMPolicyAssignmentsForUserResponse' {nextToken} -> nextToken) (\s@ListIAMPolicyAssignmentsForUserResponse' {} a -> s {nextToken = a} :: ListIAMPolicyAssignmentsForUserResponse)
 
+-- | The Amazon Web Services request ID for this operation.
+listIAMPolicyAssignmentsForUserResponse_requestId :: Lens.Lens' ListIAMPolicyAssignmentsForUserResponse (Prelude.Maybe Prelude.Text)
+listIAMPolicyAssignmentsForUserResponse_requestId = Lens.lens (\ListIAMPolicyAssignmentsForUserResponse' {requestId} -> requestId) (\s@ListIAMPolicyAssignmentsForUserResponse' {} a -> s {requestId = a} :: ListIAMPolicyAssignmentsForUserResponse)
+
 -- | The HTTP status of the request.
 listIAMPolicyAssignmentsForUserResponse_status :: Lens.Lens' ListIAMPolicyAssignmentsForUserResponse Prelude.Int
 listIAMPolicyAssignmentsForUserResponse_status = Lens.lens (\ListIAMPolicyAssignmentsForUserResponse' {status} -> status) (\s@ListIAMPolicyAssignmentsForUserResponse' {} a -> s {status = a} :: ListIAMPolicyAssignmentsForUserResponse)
@@ -273,7 +274,7 @@ instance
     ListIAMPolicyAssignmentsForUserResponse
   where
   rnf ListIAMPolicyAssignmentsForUserResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf activeAssignments
+    Prelude.rnf activeAssignments
       `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf status

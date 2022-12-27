@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.LookupPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,8 @@ module Amazonka.CloudDirectory.LookupPolicy
     newLookupPolicy,
 
     -- * Request Lenses
-    lookupPolicy_nextToken,
     lookupPolicy_maxResults,
+    lookupPolicy_nextToken,
     lookupPolicy_directoryArn,
     lookupPolicy_objectReference,
 
@@ -54,18 +54,19 @@ where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newLookupPolicy' smart constructor.
 data LookupPolicy = LookupPolicy'
-  { -- | The token to request the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to be retrieved in a single call. This is an
+  { -- | The maximum number of items to be retrieved in a single call. This is an
     -- approximate number.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to request the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) that is associated with the Directory.
     -- For more information, see arns.
     directoryArn :: Prelude.Text,
@@ -82,10 +83,10 @@ data LookupPolicy = LookupPolicy'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'lookupPolicy_nextToken' - The token to request the next page of results.
---
 -- 'maxResults', 'lookupPolicy_maxResults' - The maximum number of items to be retrieved in a single call. This is an
 -- approximate number.
+--
+-- 'nextToken', 'lookupPolicy_nextToken' - The token to request the next page of results.
 --
 -- 'directoryArn', 'lookupPolicy_directoryArn' - The Amazon Resource Name (ARN) that is associated with the Directory.
 -- For more information, see arns.
@@ -99,20 +100,20 @@ newLookupPolicy ::
   LookupPolicy
 newLookupPolicy pDirectoryArn_ pObjectReference_ =
   LookupPolicy'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       directoryArn = pDirectoryArn_,
       objectReference = pObjectReference_
     }
-
--- | The token to request the next page of results.
-lookupPolicy_nextToken :: Lens.Lens' LookupPolicy (Prelude.Maybe Prelude.Text)
-lookupPolicy_nextToken = Lens.lens (\LookupPolicy' {nextToken} -> nextToken) (\s@LookupPolicy' {} a -> s {nextToken = a} :: LookupPolicy)
 
 -- | The maximum number of items to be retrieved in a single call. This is an
 -- approximate number.
 lookupPolicy_maxResults :: Lens.Lens' LookupPolicy (Prelude.Maybe Prelude.Natural)
 lookupPolicy_maxResults = Lens.lens (\LookupPolicy' {maxResults} -> maxResults) (\s@LookupPolicy' {} a -> s {maxResults = a} :: LookupPolicy)
+
+-- | The token to request the next page of results.
+lookupPolicy_nextToken :: Lens.Lens' LookupPolicy (Prelude.Maybe Prelude.Text)
+lookupPolicy_nextToken = Lens.lens (\LookupPolicy' {nextToken} -> nextToken) (\s@LookupPolicy' {} a -> s {nextToken = a} :: LookupPolicy)
 
 -- | The Amazon Resource Name (ARN) that is associated with the Directory.
 -- For more information, see arns.
@@ -145,13 +146,14 @@ instance Core.AWSPager LookupPolicy where
 
 instance Core.AWSRequest LookupPolicy where
   type AWSResponse LookupPolicy = LookupPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           LookupPolicyResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "PolicyToPathList"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "PolicyToPathList"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -159,40 +161,40 @@ instance Core.AWSRequest LookupPolicy where
 
 instance Prelude.Hashable LookupPolicy where
   hashWithSalt _salt LookupPolicy' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` directoryArn
       `Prelude.hashWithSalt` objectReference
 
 instance Prelude.NFData LookupPolicy where
   rnf LookupPolicy' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf directoryArn
       `Prelude.seq` Prelude.rnf objectReference
 
-instance Core.ToHeaders LookupPolicy where
+instance Data.ToHeaders LookupPolicy where
   toHeaders LookupPolicy' {..} =
     Prelude.mconcat
-      ["x-amz-data-partition" Core.=# directoryArn]
+      ["x-amz-data-partition" Data.=# directoryArn]
 
-instance Core.ToJSON LookupPolicy where
+instance Data.ToJSON LookupPolicy where
   toJSON LookupPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("ObjectReference" Core..= objectReference)
+              ("ObjectReference" Data..= objectReference)
           ]
       )
 
-instance Core.ToPath LookupPolicy where
+instance Data.ToPath LookupPolicy where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/policy/lookup"
 
-instance Core.ToQuery LookupPolicy where
+instance Data.ToQuery LookupPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newLookupPolicyResponse' smart constructor.

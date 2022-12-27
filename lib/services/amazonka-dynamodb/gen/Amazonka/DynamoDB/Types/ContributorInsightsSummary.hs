@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.ContributorInsightsSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,11 @@
 module Amazonka.DynamoDB.Types.ContributorInsightsSummary where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.ContributorInsightsStatus
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a Contributor Insights summary entry.
@@ -32,10 +34,10 @@ data ContributorInsightsSummary = ContributorInsightsSummary'
   { -- | Describes the current status for contributor insights for the given
     -- table and index, if applicable.
     contributorInsightsStatus :: Prelude.Maybe ContributorInsightsStatus,
-    -- | Name of the table associated with the summary.
-    tableName :: Prelude.Maybe Prelude.Text,
     -- | Name of the index associated with the summary, if any.
-    indexName :: Prelude.Maybe Prelude.Text
+    indexName :: Prelude.Maybe Prelude.Text,
+    -- | Name of the table associated with the summary.
+    tableName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -50,17 +52,17 @@ data ContributorInsightsSummary = ContributorInsightsSummary'
 -- 'contributorInsightsStatus', 'contributorInsightsSummary_contributorInsightsStatus' - Describes the current status for contributor insights for the given
 -- table and index, if applicable.
 --
--- 'tableName', 'contributorInsightsSummary_tableName' - Name of the table associated with the summary.
---
 -- 'indexName', 'contributorInsightsSummary_indexName' - Name of the index associated with the summary, if any.
+--
+-- 'tableName', 'contributorInsightsSummary_tableName' - Name of the table associated with the summary.
 newContributorInsightsSummary ::
   ContributorInsightsSummary
 newContributorInsightsSummary =
   ContributorInsightsSummary'
     { contributorInsightsStatus =
         Prelude.Nothing,
-      tableName = Prelude.Nothing,
-      indexName = Prelude.Nothing
+      indexName = Prelude.Nothing,
+      tableName = Prelude.Nothing
     }
 
 -- | Describes the current status for contributor insights for the given
@@ -68,34 +70,34 @@ newContributorInsightsSummary =
 contributorInsightsSummary_contributorInsightsStatus :: Lens.Lens' ContributorInsightsSummary (Prelude.Maybe ContributorInsightsStatus)
 contributorInsightsSummary_contributorInsightsStatus = Lens.lens (\ContributorInsightsSummary' {contributorInsightsStatus} -> contributorInsightsStatus) (\s@ContributorInsightsSummary' {} a -> s {contributorInsightsStatus = a} :: ContributorInsightsSummary)
 
--- | Name of the table associated with the summary.
-contributorInsightsSummary_tableName :: Lens.Lens' ContributorInsightsSummary (Prelude.Maybe Prelude.Text)
-contributorInsightsSummary_tableName = Lens.lens (\ContributorInsightsSummary' {tableName} -> tableName) (\s@ContributorInsightsSummary' {} a -> s {tableName = a} :: ContributorInsightsSummary)
-
 -- | Name of the index associated with the summary, if any.
 contributorInsightsSummary_indexName :: Lens.Lens' ContributorInsightsSummary (Prelude.Maybe Prelude.Text)
 contributorInsightsSummary_indexName = Lens.lens (\ContributorInsightsSummary' {indexName} -> indexName) (\s@ContributorInsightsSummary' {} a -> s {indexName = a} :: ContributorInsightsSummary)
 
-instance Core.FromJSON ContributorInsightsSummary where
+-- | Name of the table associated with the summary.
+contributorInsightsSummary_tableName :: Lens.Lens' ContributorInsightsSummary (Prelude.Maybe Prelude.Text)
+contributorInsightsSummary_tableName = Lens.lens (\ContributorInsightsSummary' {tableName} -> tableName) (\s@ContributorInsightsSummary' {} a -> s {tableName = a} :: ContributorInsightsSummary)
+
+instance Data.FromJSON ContributorInsightsSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ContributorInsightsSummary"
       ( \x ->
           ContributorInsightsSummary'
-            Prelude.<$> (x Core..:? "ContributorInsightsStatus")
-            Prelude.<*> (x Core..:? "TableName")
-            Prelude.<*> (x Core..:? "IndexName")
+            Prelude.<$> (x Data..:? "ContributorInsightsStatus")
+            Prelude.<*> (x Data..:? "IndexName")
+            Prelude.<*> (x Data..:? "TableName")
       )
 
 instance Prelude.Hashable ContributorInsightsSummary where
   hashWithSalt _salt ContributorInsightsSummary' {..} =
     _salt
       `Prelude.hashWithSalt` contributorInsightsStatus
-      `Prelude.hashWithSalt` tableName
       `Prelude.hashWithSalt` indexName
+      `Prelude.hashWithSalt` tableName
 
 instance Prelude.NFData ContributorInsightsSummary where
   rnf ContributorInsightsSummary' {..} =
     Prelude.rnf contributorInsightsStatus
-      `Prelude.seq` Prelude.rnf tableName
       `Prelude.seq` Prelude.rnf indexName
+      `Prelude.seq` Prelude.rnf tableName

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsCloudFrontDistributionCacheBehavior
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsCloudFrontDistributionCacheBehavior where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a cache behavior for the distribution.
@@ -84,15 +85,15 @@ awsCloudFrontDistributionCacheBehavior_viewerProtocolPolicy :: Lens.Lens' AwsClo
 awsCloudFrontDistributionCacheBehavior_viewerProtocolPolicy = Lens.lens (\AwsCloudFrontDistributionCacheBehavior' {viewerProtocolPolicy} -> viewerProtocolPolicy) (\s@AwsCloudFrontDistributionCacheBehavior' {} a -> s {viewerProtocolPolicy = a} :: AwsCloudFrontDistributionCacheBehavior)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsCloudFrontDistributionCacheBehavior
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsCloudFrontDistributionCacheBehavior"
       ( \x ->
           AwsCloudFrontDistributionCacheBehavior'
-            Prelude.<$> (x Core..:? "ViewerProtocolPolicy")
+            Prelude.<$> (x Data..:? "ViewerProtocolPolicy")
       )
 
 instance
@@ -112,13 +113,13 @@ instance
     Prelude.rnf viewerProtocolPolicy
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsCloudFrontDistributionCacheBehavior
   where
   toJSON AwsCloudFrontDistributionCacheBehavior' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ViewerProtocolPolicy" Core..=)
+          [ ("ViewerProtocolPolicy" Data..=)
               Prelude.<$> viewerProtocolPolicy
           ]
       )

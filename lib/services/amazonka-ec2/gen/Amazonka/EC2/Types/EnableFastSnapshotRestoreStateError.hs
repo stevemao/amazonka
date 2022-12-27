@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.EnableFastSnapshotRestoreStateError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.EnableFastSnapshotRestoreStateError where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an error that occurred when enabling fast snapshot restores.
@@ -64,13 +65,13 @@ enableFastSnapshotRestoreStateError_message :: Lens.Lens' EnableFastSnapshotRest
 enableFastSnapshotRestoreStateError_message = Lens.lens (\EnableFastSnapshotRestoreStateError' {message} -> message) (\s@EnableFastSnapshotRestoreStateError' {} a -> s {message = a} :: EnableFastSnapshotRestoreStateError)
 
 instance
-  Core.FromXML
+  Data.FromXML
     EnableFastSnapshotRestoreStateError
   where
   parseXML x =
     EnableFastSnapshotRestoreStateError'
-      Prelude.<$> (x Core..@? "code")
-      Prelude.<*> (x Core..@? "message")
+      Prelude.<$> (x Data..@? "code")
+      Prelude.<*> (x Data..@? "message")
 
 instance
   Prelude.Hashable

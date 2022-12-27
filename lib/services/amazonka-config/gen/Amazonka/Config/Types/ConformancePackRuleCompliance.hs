@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Config.Types.ConformancePackRuleCompliance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Config.Types.ConformancePackRuleCompliance where
 
 import Amazonka.Config.Types.ConformancePackComplianceType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Compliance information of one or more Config rules within a conformance
@@ -29,18 +30,18 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newConformancePackRuleCompliance' smart constructor.
 data ConformancePackRuleCompliance = ConformancePackRuleCompliance'
-  { -- | Controls for the conformance pack. A control is a process to prevent or
-    -- detect problems while meeting objectives. A control can align with a
-    -- specific compliance regime or map to internal controls defined by an
-    -- organization.
-    controls :: Prelude.Maybe [Prelude.Text],
-    -- | Name of the config rule.
-    configRuleName :: Prelude.Maybe Prelude.Text,
-    -- | Compliance of the Config rule.
+  { -- | Compliance of the Config rule.
     --
     -- The allowed values are @COMPLIANT@, @NON_COMPLIANT@, and
     -- @INSUFFICIENT_DATA@.
-    complianceType :: Prelude.Maybe ConformancePackComplianceType
+    complianceType :: Prelude.Maybe ConformancePackComplianceType,
+    -- | Name of the Config rule.
+    configRuleName :: Prelude.Maybe Prelude.Text,
+    -- | Controls for the conformance pack. A control is a process to prevent or
+    -- detect problems while meeting objectives. A control can align with a
+    -- specific compliance regime or map to internal controls defined by an
+    -- organization.
+    controls :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -52,37 +53,26 @@ data ConformancePackRuleCompliance = ConformancePackRuleCompliance'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'controls', 'conformancePackRuleCompliance_controls' - Controls for the conformance pack. A control is a process to prevent or
--- detect problems while meeting objectives. A control can align with a
--- specific compliance regime or map to internal controls defined by an
--- organization.
---
--- 'configRuleName', 'conformancePackRuleCompliance_configRuleName' - Name of the config rule.
---
 -- 'complianceType', 'conformancePackRuleCompliance_complianceType' - Compliance of the Config rule.
 --
 -- The allowed values are @COMPLIANT@, @NON_COMPLIANT@, and
 -- @INSUFFICIENT_DATA@.
+--
+-- 'configRuleName', 'conformancePackRuleCompliance_configRuleName' - Name of the Config rule.
+--
+-- 'controls', 'conformancePackRuleCompliance_controls' - Controls for the conformance pack. A control is a process to prevent or
+-- detect problems while meeting objectives. A control can align with a
+-- specific compliance regime or map to internal controls defined by an
+-- organization.
 newConformancePackRuleCompliance ::
   ConformancePackRuleCompliance
 newConformancePackRuleCompliance =
   ConformancePackRuleCompliance'
-    { controls =
+    { complianceType =
         Prelude.Nothing,
       configRuleName = Prelude.Nothing,
-      complianceType = Prelude.Nothing
+      controls = Prelude.Nothing
     }
-
--- | Controls for the conformance pack. A control is a process to prevent or
--- detect problems while meeting objectives. A control can align with a
--- specific compliance regime or map to internal controls defined by an
--- organization.
-conformancePackRuleCompliance_controls :: Lens.Lens' ConformancePackRuleCompliance (Prelude.Maybe [Prelude.Text])
-conformancePackRuleCompliance_controls = Lens.lens (\ConformancePackRuleCompliance' {controls} -> controls) (\s@ConformancePackRuleCompliance' {} a -> s {controls = a} :: ConformancePackRuleCompliance) Prelude.. Lens.mapping Lens.coerced
-
--- | Name of the config rule.
-conformancePackRuleCompliance_configRuleName :: Lens.Lens' ConformancePackRuleCompliance (Prelude.Maybe Prelude.Text)
-conformancePackRuleCompliance_configRuleName = Lens.lens (\ConformancePackRuleCompliance' {configRuleName} -> configRuleName) (\s@ConformancePackRuleCompliance' {} a -> s {configRuleName = a} :: ConformancePackRuleCompliance)
 
 -- | Compliance of the Config rule.
 --
@@ -91,15 +81,26 @@ conformancePackRuleCompliance_configRuleName = Lens.lens (\ConformancePackRuleCo
 conformancePackRuleCompliance_complianceType :: Lens.Lens' ConformancePackRuleCompliance (Prelude.Maybe ConformancePackComplianceType)
 conformancePackRuleCompliance_complianceType = Lens.lens (\ConformancePackRuleCompliance' {complianceType} -> complianceType) (\s@ConformancePackRuleCompliance' {} a -> s {complianceType = a} :: ConformancePackRuleCompliance)
 
-instance Core.FromJSON ConformancePackRuleCompliance where
+-- | Name of the Config rule.
+conformancePackRuleCompliance_configRuleName :: Lens.Lens' ConformancePackRuleCompliance (Prelude.Maybe Prelude.Text)
+conformancePackRuleCompliance_configRuleName = Lens.lens (\ConformancePackRuleCompliance' {configRuleName} -> configRuleName) (\s@ConformancePackRuleCompliance' {} a -> s {configRuleName = a} :: ConformancePackRuleCompliance)
+
+-- | Controls for the conformance pack. A control is a process to prevent or
+-- detect problems while meeting objectives. A control can align with a
+-- specific compliance regime or map to internal controls defined by an
+-- organization.
+conformancePackRuleCompliance_controls :: Lens.Lens' ConformancePackRuleCompliance (Prelude.Maybe [Prelude.Text])
+conformancePackRuleCompliance_controls = Lens.lens (\ConformancePackRuleCompliance' {controls} -> controls) (\s@ConformancePackRuleCompliance' {} a -> s {controls = a} :: ConformancePackRuleCompliance) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON ConformancePackRuleCompliance where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ConformancePackRuleCompliance"
       ( \x ->
           ConformancePackRuleCompliance'
-            Prelude.<$> (x Core..:? "Controls" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "ConfigRuleName")
-            Prelude.<*> (x Core..:? "ComplianceType")
+            Prelude.<$> (x Data..:? "ComplianceType")
+            Prelude.<*> (x Data..:? "ConfigRuleName")
+            Prelude.<*> (x Data..:? "Controls" Data..!= Prelude.mempty)
       )
 
 instance
@@ -107,12 +108,12 @@ instance
     ConformancePackRuleCompliance
   where
   hashWithSalt _salt ConformancePackRuleCompliance' {..} =
-    _salt `Prelude.hashWithSalt` controls
+    _salt `Prelude.hashWithSalt` complianceType
       `Prelude.hashWithSalt` configRuleName
-      `Prelude.hashWithSalt` complianceType
+      `Prelude.hashWithSalt` controls
 
 instance Prelude.NFData ConformancePackRuleCompliance where
   rnf ConformancePackRuleCompliance' {..} =
-    Prelude.rnf controls
+    Prelude.rnf complianceType
       `Prelude.seq` Prelude.rnf configRuleName
-      `Prelude.seq` Prelude.rnf complianceType
+      `Prelude.seq` Prelude.rnf controls

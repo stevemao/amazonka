@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.Signer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,20 +41,26 @@ module Amazonka.Signer
     -- * Errors
     -- $errors
 
-    -- ** ValidationException
-    _ValidationException,
-
     -- ** AccessDeniedException
     _AccessDeniedException,
+
+    -- ** BadRequestException
+    _BadRequestException,
 
     -- ** ConflictException
     _ConflictException,
 
-    -- ** ServiceLimitExceededException
-    _ServiceLimitExceededException,
+    -- ** InternalServiceErrorException
+    _InternalServiceErrorException,
 
     -- ** NotFoundException
     _NotFoundException,
+
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
+
+    -- ** ServiceLimitExceededException
+    _ServiceLimitExceededException,
 
     -- ** ThrottlingException
     _ThrottlingException,
@@ -62,14 +68,8 @@ module Amazonka.Signer
     -- ** TooManyRequestsException
     _TooManyRequestsException,
 
-    -- ** InternalServiceErrorException
-    _InternalServiceErrorException,
-
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
-
-    -- ** BadRequestException
-    _BadRequestException,
+    -- ** ValidationException
+    _ValidationException,
 
     -- * Waiters
     -- $waiters
@@ -80,23 +80,11 @@ module Amazonka.Signer
     -- * Operations
     -- $operations
 
-    -- ** StartSigningJob
-    StartSigningJob (StartSigningJob'),
-    newStartSigningJob,
-    StartSigningJobResponse (StartSigningJobResponse'),
-    newStartSigningJobResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** RevokeSigningProfile
-    RevokeSigningProfile (RevokeSigningProfile'),
-    newRevokeSigningProfile,
-    RevokeSigningProfileResponse (RevokeSigningProfileResponse'),
-    newRevokeSigningProfileResponse,
+    -- ** AddProfilePermission
+    AddProfilePermission (AddProfilePermission'),
+    newAddProfilePermission,
+    AddProfilePermissionResponse (AddProfilePermissionResponse'),
+    newAddProfilePermissionResponse,
 
     -- ** CancelSigningProfile
     CancelSigningProfile (CancelSigningProfile'),
@@ -104,35 +92,11 @@ module Amazonka.Signer
     CancelSigningProfileResponse (CancelSigningProfileResponse'),
     newCancelSigningProfileResponse,
 
-    -- ** PutSigningProfile
-    PutSigningProfile (PutSigningProfile'),
-    newPutSigningProfile,
-    PutSigningProfileResponse (PutSigningProfileResponse'),
-    newPutSigningProfileResponse,
-
-    -- ** AddProfilePermission
-    AddProfilePermission (AddProfilePermission'),
-    newAddProfilePermission,
-    AddProfilePermissionResponse (AddProfilePermissionResponse'),
-    newAddProfilePermissionResponse,
-
-    -- ** ListSigningProfiles (Paginated)
-    ListSigningProfiles (ListSigningProfiles'),
-    newListSigningProfiles,
-    ListSigningProfilesResponse (ListSigningProfilesResponse'),
-    newListSigningProfilesResponse,
-
-    -- ** ListProfilePermissions
-    ListProfilePermissions (ListProfilePermissions'),
-    newListProfilePermissions,
-    ListProfilePermissionsResponse (ListProfilePermissionsResponse'),
-    newListProfilePermissionsResponse,
-
-    -- ** RevokeSignature
-    RevokeSignature (RevokeSignature'),
-    newRevokeSignature,
-    RevokeSignatureResponse (RevokeSignatureResponse'),
-    newRevokeSignatureResponse,
+    -- ** DescribeSigningJob
+    DescribeSigningJob (DescribeSigningJob'),
+    newDescribeSigningJob,
+    DescribeSigningJobResponse (DescribeSigningJobResponse'),
+    newDescribeSigningJobResponse,
 
     -- ** GetSigningPlatform
     GetSigningPlatform (GetSigningPlatform'),
@@ -140,17 +104,71 @@ module Amazonka.Signer
     GetSigningPlatformResponse (GetSigningPlatformResponse'),
     newGetSigningPlatformResponse,
 
-    -- ** ListSigningPlatforms (Paginated)
-    ListSigningPlatforms (ListSigningPlatforms'),
-    newListSigningPlatforms,
-    ListSigningPlatformsResponse (ListSigningPlatformsResponse'),
-    newListSigningPlatformsResponse,
+    -- ** GetSigningProfile
+    GetSigningProfile (GetSigningProfile'),
+    newGetSigningProfile,
+    GetSigningProfileResponse (GetSigningProfileResponse'),
+    newGetSigningProfileResponse,
+
+    -- ** ListProfilePermissions
+    ListProfilePermissions (ListProfilePermissions'),
+    newListProfilePermissions,
+    ListProfilePermissionsResponse (ListProfilePermissionsResponse'),
+    newListProfilePermissionsResponse,
 
     -- ** ListSigningJobs (Paginated)
     ListSigningJobs (ListSigningJobs'),
     newListSigningJobs,
     ListSigningJobsResponse (ListSigningJobsResponse'),
     newListSigningJobsResponse,
+
+    -- ** ListSigningPlatforms (Paginated)
+    ListSigningPlatforms (ListSigningPlatforms'),
+    newListSigningPlatforms,
+    ListSigningPlatformsResponse (ListSigningPlatformsResponse'),
+    newListSigningPlatformsResponse,
+
+    -- ** ListSigningProfiles (Paginated)
+    ListSigningProfiles (ListSigningProfiles'),
+    newListSigningProfiles,
+    ListSigningProfilesResponse (ListSigningProfilesResponse'),
+    newListSigningProfilesResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** PutSigningProfile
+    PutSigningProfile (PutSigningProfile'),
+    newPutSigningProfile,
+    PutSigningProfileResponse (PutSigningProfileResponse'),
+    newPutSigningProfileResponse,
+
+    -- ** RemoveProfilePermission
+    RemoveProfilePermission (RemoveProfilePermission'),
+    newRemoveProfilePermission,
+    RemoveProfilePermissionResponse (RemoveProfilePermissionResponse'),
+    newRemoveProfilePermissionResponse,
+
+    -- ** RevokeSignature
+    RevokeSignature (RevokeSignature'),
+    newRevokeSignature,
+    RevokeSignatureResponse (RevokeSignatureResponse'),
+    newRevokeSignatureResponse,
+
+    -- ** RevokeSigningProfile
+    RevokeSigningProfile (RevokeSigningProfile'),
+    newRevokeSigningProfile,
+    RevokeSigningProfileResponse (RevokeSigningProfileResponse'),
+    newRevokeSigningProfileResponse,
+
+    -- ** StartSigningJob
+    StartSigningJob (StartSigningJob'),
+    newStartSigningJob,
+    StartSigningJobResponse (StartSigningJobResponse'),
+    newStartSigningJobResponse,
 
     -- ** TagResource
     TagResource (TagResource'),
@@ -163,24 +181,6 @@ module Amazonka.Signer
     newUntagResource,
     UntagResourceResponse (UntagResourceResponse'),
     newUntagResourceResponse,
-
-    -- ** RemoveProfilePermission
-    RemoveProfilePermission (RemoveProfilePermission'),
-    newRemoveProfilePermission,
-    RemoveProfilePermissionResponse (RemoveProfilePermissionResponse'),
-    newRemoveProfilePermissionResponse,
-
-    -- ** GetSigningProfile
-    GetSigningProfile (GetSigningProfile'),
-    newGetSigningProfile,
-    GetSigningProfileResponse (GetSigningProfileResponse'),
-    newGetSigningProfileResponse,
-
-    -- ** DescribeSigningJob
-    DescribeSigningJob (DescribeSigningJob'),
-    newDescribeSigningJob,
-    DescribeSigningJobResponse (DescribeSigningJobResponse'),
-    newDescribeSigningJobResponse,
 
     -- * Types
 

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Resolver.GetResolverRulePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.Route53Resolver.GetResolverRulePolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,12 +84,13 @@ instance Core.AWSRequest GetResolverRulePolicy where
   type
     AWSResponse GetResolverRulePolicy =
       GetResolverRulePolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetResolverRulePolicyResponse'
-            Prelude.<$> (x Core..?> "ResolverRulePolicy")
+            Prelude.<$> (x Data..?> "ResolverRulePolicy")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -99,32 +101,32 @@ instance Prelude.Hashable GetResolverRulePolicy where
 instance Prelude.NFData GetResolverRulePolicy where
   rnf GetResolverRulePolicy' {..} = Prelude.rnf arn
 
-instance Core.ToHeaders GetResolverRulePolicy where
+instance Data.ToHeaders GetResolverRulePolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53Resolver.GetResolverRulePolicy" ::
+              Data.=# ( "Route53Resolver.GetResolverRulePolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetResolverRulePolicy where
+instance Data.ToJSON GetResolverRulePolicy where
   toJSON GetResolverRulePolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Arn" Core..= arn)]
+          [Prelude.Just ("Arn" Data..= arn)]
       )
 
-instance Core.ToPath GetResolverRulePolicy where
+instance Data.ToPath GetResolverRulePolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetResolverRulePolicy where
+instance Data.ToQuery GetResolverRulePolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetResolverRulePolicyResponse' smart constructor.

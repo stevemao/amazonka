@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.DescribeDBClusterBacktracks
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,8 +23,8 @@
 -- Returns information about backtracks for a DB cluster.
 --
 -- For more information on Amazon Aurora, see
--- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What Is Amazon Aurora?>
--- in the /Amazon Aurora User Guide./
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What is Amazon Aurora?>
+-- in the /Amazon Aurora User Guide/.
 --
 -- This action only applies to Aurora MySQL DB clusters.
 --
@@ -46,14 +46,15 @@ module Amazonka.RDS.DescribeDBClusterBacktracks
     newDescribeDBClusterBacktracksResponse,
 
     -- * Response Lenses
-    describeDBClusterBacktracksResponse_marker,
     describeDBClusterBacktracksResponse_dbClusterBacktracks,
+    describeDBClusterBacktracksResponse_marker,
     describeDBClusterBacktracksResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -300,17 +301,18 @@ instance Core.AWSRequest DescribeDBClusterBacktracks where
   type
     AWSResponse DescribeDBClusterBacktracks =
       DescribeDBClusterBacktracksResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeDBClusterBacktracksResult"
       ( \s h x ->
           DescribeDBClusterBacktracksResponse'
-            Prelude.<$> (x Core..@? "Marker")
-            Prelude.<*> ( x Core..@? "DBClusterBacktracks"
+            Prelude.<$> ( x Data..@? "DBClusterBacktracks"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "DBClusterBacktrack")
+                            Prelude.>>= Core.may (Data.parseXMLList "DBClusterBacktrack")
                         )
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -330,28 +332,28 @@ instance Prelude.NFData DescribeDBClusterBacktracks where
       `Prelude.seq` Prelude.rnf maxRecords
       `Prelude.seq` Prelude.rnf dbClusterIdentifier
 
-instance Core.ToHeaders DescribeDBClusterBacktracks where
+instance Data.ToHeaders DescribeDBClusterBacktracks where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeDBClusterBacktracks where
+instance Data.ToPath DescribeDBClusterBacktracks where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeDBClusterBacktracks where
+instance Data.ToQuery DescribeDBClusterBacktracks where
   toQuery DescribeDBClusterBacktracks' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeDBClusterBacktracks" ::
+          Data.=: ( "DescribeDBClusterBacktracks" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "BacktrackIdentifier" Core.=: backtrackIdentifier,
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "BacktrackIdentifier" Data.=: backtrackIdentifier,
         "Filters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Filter" Prelude.<$> filters),
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords,
-        "DBClusterIdentifier" Core.=: dbClusterIdentifier
+          Data.=: Data.toQuery
+            (Data.toQueryList "Filter" Prelude.<$> filters),
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
+        "DBClusterIdentifier" Data.=: dbClusterIdentifier
       ]
 
 -- | Contains the result of a successful invocation of the
@@ -359,11 +361,11 @@ instance Core.ToQuery DescribeDBClusterBacktracks where
 --
 -- /See:/ 'newDescribeDBClusterBacktracksResponse' smart constructor.
 data DescribeDBClusterBacktracksResponse = DescribeDBClusterBacktracksResponse'
-  { -- | A pagination token that can be used in a later
+  { -- | Contains a list of backtracks for the user.
+    dbClusterBacktracks :: Prelude.Maybe [DBClusterBacktrack],
+    -- | A pagination token that can be used in a later
     -- @DescribeDBClusterBacktracks@ request.
     marker :: Prelude.Maybe Prelude.Text,
-    -- | Contains a list of backtracks for the user.
-    dbClusterBacktracks :: Prelude.Maybe [DBClusterBacktrack],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -377,10 +379,10 @@ data DescribeDBClusterBacktracksResponse = DescribeDBClusterBacktracksResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'dbClusterBacktracks', 'describeDBClusterBacktracksResponse_dbClusterBacktracks' - Contains a list of backtracks for the user.
+--
 -- 'marker', 'describeDBClusterBacktracksResponse_marker' - A pagination token that can be used in a later
 -- @DescribeDBClusterBacktracks@ request.
---
--- 'dbClusterBacktracks', 'describeDBClusterBacktracksResponse_dbClusterBacktracks' - Contains a list of backtracks for the user.
 --
 -- 'httpStatus', 'describeDBClusterBacktracksResponse_httpStatus' - The response's http status code.
 newDescribeDBClusterBacktracksResponse ::
@@ -389,20 +391,20 @@ newDescribeDBClusterBacktracksResponse ::
   DescribeDBClusterBacktracksResponse
 newDescribeDBClusterBacktracksResponse pHttpStatus_ =
   DescribeDBClusterBacktracksResponse'
-    { marker =
+    { dbClusterBacktracks =
         Prelude.Nothing,
-      dbClusterBacktracks = Prelude.Nothing,
+      marker = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | Contains a list of backtracks for the user.
+describeDBClusterBacktracksResponse_dbClusterBacktracks :: Lens.Lens' DescribeDBClusterBacktracksResponse (Prelude.Maybe [DBClusterBacktrack])
+describeDBClusterBacktracksResponse_dbClusterBacktracks = Lens.lens (\DescribeDBClusterBacktracksResponse' {dbClusterBacktracks} -> dbClusterBacktracks) (\s@DescribeDBClusterBacktracksResponse' {} a -> s {dbClusterBacktracks = a} :: DescribeDBClusterBacktracksResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A pagination token that can be used in a later
 -- @DescribeDBClusterBacktracks@ request.
 describeDBClusterBacktracksResponse_marker :: Lens.Lens' DescribeDBClusterBacktracksResponse (Prelude.Maybe Prelude.Text)
 describeDBClusterBacktracksResponse_marker = Lens.lens (\DescribeDBClusterBacktracksResponse' {marker} -> marker) (\s@DescribeDBClusterBacktracksResponse' {} a -> s {marker = a} :: DescribeDBClusterBacktracksResponse)
-
--- | Contains a list of backtracks for the user.
-describeDBClusterBacktracksResponse_dbClusterBacktracks :: Lens.Lens' DescribeDBClusterBacktracksResponse (Prelude.Maybe [DBClusterBacktrack])
-describeDBClusterBacktracksResponse_dbClusterBacktracks = Lens.lens (\DescribeDBClusterBacktracksResponse' {dbClusterBacktracks} -> dbClusterBacktracks) (\s@DescribeDBClusterBacktracksResponse' {} a -> s {dbClusterBacktracks = a} :: DescribeDBClusterBacktracksResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeDBClusterBacktracksResponse_httpStatus :: Lens.Lens' DescribeDBClusterBacktracksResponse Prelude.Int
@@ -413,6 +415,6 @@ instance
     DescribeDBClusterBacktracksResponse
   where
   rnf DescribeDBClusterBacktracksResponse' {..} =
-    Prelude.rnf marker
-      `Prelude.seq` Prelude.rnf dbClusterBacktracks
+    Prelude.rnf dbClusterBacktracks
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf httpStatus

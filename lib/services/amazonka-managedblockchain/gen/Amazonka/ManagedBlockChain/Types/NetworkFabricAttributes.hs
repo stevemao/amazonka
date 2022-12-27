@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ManagedBlockChain.Types.NetworkFabricAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ManagedBlockChain.Types.NetworkFabricAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ManagedBlockChain.Types.Edition
 import qualified Amazonka.Prelude as Prelude
 
@@ -68,14 +69,14 @@ networkFabricAttributes_edition = Lens.lens (\NetworkFabricAttributes' {edition}
 networkFabricAttributes_orderingServiceEndpoint :: Lens.Lens' NetworkFabricAttributes (Prelude.Maybe Prelude.Text)
 networkFabricAttributes_orderingServiceEndpoint = Lens.lens (\NetworkFabricAttributes' {orderingServiceEndpoint} -> orderingServiceEndpoint) (\s@NetworkFabricAttributes' {} a -> s {orderingServiceEndpoint = a} :: NetworkFabricAttributes)
 
-instance Core.FromJSON NetworkFabricAttributes where
+instance Data.FromJSON NetworkFabricAttributes where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NetworkFabricAttributes"
       ( \x ->
           NetworkFabricAttributes'
-            Prelude.<$> (x Core..:? "Edition")
-            Prelude.<*> (x Core..:? "OrderingServiceEndpoint")
+            Prelude.<$> (x Data..:? "Edition")
+            Prelude.<*> (x Data..:? "OrderingServiceEndpoint")
       )
 
 instance Prelude.Hashable NetworkFabricAttributes where

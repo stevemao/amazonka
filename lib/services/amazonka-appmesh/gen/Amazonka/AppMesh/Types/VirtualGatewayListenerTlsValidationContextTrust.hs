@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.VirtualGatewayListenerTlsValidationContextTrust
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.AppMesh.Types.VirtualGatewayListenerTlsValidationContextTrust wh
 import Amazonka.AppMesh.Types.VirtualGatewayTlsValidationContextFileTrust
 import Amazonka.AppMesh.Types.VirtualGatewayTlsValidationContextSdsTrust
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents a virtual gateway\'s listener\'s Transport
@@ -30,13 +31,13 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newVirtualGatewayListenerTlsValidationContextTrust' smart constructor.
 data VirtualGatewayListenerTlsValidationContextTrust = VirtualGatewayListenerTlsValidationContextTrust'
-  { -- | A reference to an object that represents a virtual gateway\'s
+  { -- | An object that represents a Transport Layer Security (TLS) validation
+    -- context trust for a local file.
+    file :: Prelude.Maybe VirtualGatewayTlsValidationContextFileTrust,
+    -- | A reference to an object that represents a virtual gateway\'s
     -- listener\'s Transport Layer Security (TLS) Secret Discovery Service
     -- validation context trust.
-    sds :: Prelude.Maybe VirtualGatewayTlsValidationContextSdsTrust,
-    -- | An object that represents a Transport Layer Security (TLS) validation
-    -- context trust for a local file.
-    file :: Prelude.Maybe VirtualGatewayTlsValidationContextFileTrust
+    sds :: Prelude.Maybe VirtualGatewayTlsValidationContextSdsTrust
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,20 +49,25 @@ data VirtualGatewayListenerTlsValidationContextTrust = VirtualGatewayListenerTls
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'file', 'virtualGatewayListenerTlsValidationContextTrust_file' - An object that represents a Transport Layer Security (TLS) validation
+-- context trust for a local file.
+--
 -- 'sds', 'virtualGatewayListenerTlsValidationContextTrust_sds' - A reference to an object that represents a virtual gateway\'s
 -- listener\'s Transport Layer Security (TLS) Secret Discovery Service
 -- validation context trust.
---
--- 'file', 'virtualGatewayListenerTlsValidationContextTrust_file' - An object that represents a Transport Layer Security (TLS) validation
--- context trust for a local file.
 newVirtualGatewayListenerTlsValidationContextTrust ::
   VirtualGatewayListenerTlsValidationContextTrust
 newVirtualGatewayListenerTlsValidationContextTrust =
   VirtualGatewayListenerTlsValidationContextTrust'
-    { sds =
+    { file =
         Prelude.Nothing,
-      file = Prelude.Nothing
+      sds = Prelude.Nothing
     }
+
+-- | An object that represents a Transport Layer Security (TLS) validation
+-- context trust for a local file.
+virtualGatewayListenerTlsValidationContextTrust_file :: Lens.Lens' VirtualGatewayListenerTlsValidationContextTrust (Prelude.Maybe VirtualGatewayTlsValidationContextFileTrust)
+virtualGatewayListenerTlsValidationContextTrust_file = Lens.lens (\VirtualGatewayListenerTlsValidationContextTrust' {file} -> file) (\s@VirtualGatewayListenerTlsValidationContextTrust' {} a -> s {file = a} :: VirtualGatewayListenerTlsValidationContextTrust)
 
 -- | A reference to an object that represents a virtual gateway\'s
 -- listener\'s Transport Layer Security (TLS) Secret Discovery Service
@@ -69,21 +75,16 @@ newVirtualGatewayListenerTlsValidationContextTrust =
 virtualGatewayListenerTlsValidationContextTrust_sds :: Lens.Lens' VirtualGatewayListenerTlsValidationContextTrust (Prelude.Maybe VirtualGatewayTlsValidationContextSdsTrust)
 virtualGatewayListenerTlsValidationContextTrust_sds = Lens.lens (\VirtualGatewayListenerTlsValidationContextTrust' {sds} -> sds) (\s@VirtualGatewayListenerTlsValidationContextTrust' {} a -> s {sds = a} :: VirtualGatewayListenerTlsValidationContextTrust)
 
--- | An object that represents a Transport Layer Security (TLS) validation
--- context trust for a local file.
-virtualGatewayListenerTlsValidationContextTrust_file :: Lens.Lens' VirtualGatewayListenerTlsValidationContextTrust (Prelude.Maybe VirtualGatewayTlsValidationContextFileTrust)
-virtualGatewayListenerTlsValidationContextTrust_file = Lens.lens (\VirtualGatewayListenerTlsValidationContextTrust' {file} -> file) (\s@VirtualGatewayListenerTlsValidationContextTrust' {} a -> s {file = a} :: VirtualGatewayListenerTlsValidationContextTrust)
-
 instance
-  Core.FromJSON
+  Data.FromJSON
     VirtualGatewayListenerTlsValidationContextTrust
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VirtualGatewayListenerTlsValidationContextTrust"
       ( \x ->
           VirtualGatewayListenerTlsValidationContextTrust'
-            Prelude.<$> (x Core..:? "sds") Prelude.<*> (x Core..:? "file")
+            Prelude.<$> (x Data..:? "file") Prelude.<*> (x Data..:? "sds")
       )
 
 instance
@@ -93,8 +94,8 @@ instance
   hashWithSalt
     _salt
     VirtualGatewayListenerTlsValidationContextTrust' {..} =
-      _salt `Prelude.hashWithSalt` sds
-        `Prelude.hashWithSalt` file
+      _salt `Prelude.hashWithSalt` file
+        `Prelude.hashWithSalt` sds
 
 instance
   Prelude.NFData
@@ -102,17 +103,17 @@ instance
   where
   rnf
     VirtualGatewayListenerTlsValidationContextTrust' {..} =
-      Prelude.rnf sds `Prelude.seq` Prelude.rnf file
+      Prelude.rnf file `Prelude.seq` Prelude.rnf sds
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     VirtualGatewayListenerTlsValidationContextTrust
   where
   toJSON
     VirtualGatewayListenerTlsValidationContextTrust' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("sds" Core..=) Prelude.<$> sds,
-              ("file" Core..=) Prelude.<$> file
+            [ ("file" Data..=) Prelude.<$> file,
+              ("sds" Data..=) Prelude.<$> sds
             ]
         )

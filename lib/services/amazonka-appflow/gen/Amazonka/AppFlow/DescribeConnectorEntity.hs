@@ -14,20 +14,21 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.DescribeConnectorEntity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Provides details regarding the entity used with the connector, with a
--- description of the data model for each entity.
+-- description of the data model for each field in that entity.
 module Amazonka.AppFlow.DescribeConnectorEntity
   ( -- * Creating a Request
     DescribeConnectorEntity (..),
     newDescribeConnectorEntity,
 
     -- * Request Lenses
+    describeConnectorEntity_apiVersion,
     describeConnectorEntity_connectorProfileName,
     describeConnectorEntity_connectorType,
     describeConnectorEntity_connectorEntityName,
@@ -44,14 +45,17 @@ where
 
 import Amazonka.AppFlow.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeConnectorEntity' smart constructor.
 data DescribeConnectorEntity = DescribeConnectorEntity'
-  { -- | The name of the connector profile. The name is unique for each
+  { -- | The version of the API that\'s used by the connector.
+    apiVersion :: Prelude.Maybe Prelude.Text,
+    -- | The name of the connector profile. The name is unique for each
     -- @ConnectorProfile@ in the Amazon Web Services account.
     connectorProfileName :: Prelude.Maybe Prelude.Text,
     -- | The type of connector application, such as Salesforce, Amplitude, and so
@@ -70,6 +74,8 @@ data DescribeConnectorEntity = DescribeConnectorEntity'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'apiVersion', 'describeConnectorEntity_apiVersion' - The version of the API that\'s used by the connector.
+--
 -- 'connectorProfileName', 'describeConnectorEntity_connectorProfileName' - The name of the connector profile. The name is unique for each
 -- @ConnectorProfile@ in the Amazon Web Services account.
 --
@@ -83,11 +89,16 @@ newDescribeConnectorEntity ::
   DescribeConnectorEntity
 newDescribeConnectorEntity pConnectorEntityName_ =
   DescribeConnectorEntity'
-    { connectorProfileName =
+    { apiVersion =
         Prelude.Nothing,
+      connectorProfileName = Prelude.Nothing,
       connectorType = Prelude.Nothing,
       connectorEntityName = pConnectorEntityName_
     }
+
+-- | The version of the API that\'s used by the connector.
+describeConnectorEntity_apiVersion :: Lens.Lens' DescribeConnectorEntity (Prelude.Maybe Prelude.Text)
+describeConnectorEntity_apiVersion = Lens.lens (\DescribeConnectorEntity' {apiVersion} -> apiVersion) (\s@DescribeConnectorEntity' {} a -> s {apiVersion = a} :: DescribeConnectorEntity)
 
 -- | The name of the connector profile. The name is unique for each
 -- @ConnectorProfile@ in the Amazon Web Services account.
@@ -107,56 +118,60 @@ instance Core.AWSRequest DescribeConnectorEntity where
   type
     AWSResponse DescribeConnectorEntity =
       DescribeConnectorEntityResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeConnectorEntityResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "connectorEntityFields"
+            Prelude.<*> ( x Data..?> "connectorEntityFields"
                             Core..!@ Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable DescribeConnectorEntity where
   hashWithSalt _salt DescribeConnectorEntity' {..} =
-    _salt `Prelude.hashWithSalt` connectorProfileName
+    _salt `Prelude.hashWithSalt` apiVersion
+      `Prelude.hashWithSalt` connectorProfileName
       `Prelude.hashWithSalt` connectorType
       `Prelude.hashWithSalt` connectorEntityName
 
 instance Prelude.NFData DescribeConnectorEntity where
   rnf DescribeConnectorEntity' {..} =
-    Prelude.rnf connectorProfileName
+    Prelude.rnf apiVersion
+      `Prelude.seq` Prelude.rnf connectorProfileName
       `Prelude.seq` Prelude.rnf connectorType
       `Prelude.seq` Prelude.rnf connectorEntityName
 
-instance Core.ToHeaders DescribeConnectorEntity where
+instance Data.ToHeaders DescribeConnectorEntity where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeConnectorEntity where
+instance Data.ToJSON DescribeConnectorEntity where
   toJSON DescribeConnectorEntity' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("connectorProfileName" Core..=)
+          [ ("apiVersion" Data..=) Prelude.<$> apiVersion,
+            ("connectorProfileName" Data..=)
               Prelude.<$> connectorProfileName,
-            ("connectorType" Core..=) Prelude.<$> connectorType,
+            ("connectorType" Data..=) Prelude.<$> connectorType,
             Prelude.Just
-              ("connectorEntityName" Core..= connectorEntityName)
+              ("connectorEntityName" Data..= connectorEntityName)
           ]
       )
 
-instance Core.ToPath DescribeConnectorEntity where
+instance Data.ToPath DescribeConnectorEntity where
   toPath = Prelude.const "/describe-connector-entity"
 
-instance Core.ToQuery DescribeConnectorEntity where
+instance Data.ToQuery DescribeConnectorEntity where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeConnectorEntityResponse' smart constructor.

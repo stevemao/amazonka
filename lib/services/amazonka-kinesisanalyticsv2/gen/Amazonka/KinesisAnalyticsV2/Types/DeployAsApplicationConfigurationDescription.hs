@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.DeployAsApplicationConfigurationDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KinesisAnalyticsV2.Types.DeployAsApplicationConfigurationDescription where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.S3ContentBaseLocationDescription
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configuration information required to deploy an Amazon Data
@@ -62,15 +63,15 @@ deployAsApplicationConfigurationDescription_s3ContentLocationDescription :: Lens
 deployAsApplicationConfigurationDescription_s3ContentLocationDescription = Lens.lens (\DeployAsApplicationConfigurationDescription' {s3ContentLocationDescription} -> s3ContentLocationDescription) (\s@DeployAsApplicationConfigurationDescription' {} a -> s {s3ContentLocationDescription = a} :: DeployAsApplicationConfigurationDescription)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     DeployAsApplicationConfigurationDescription
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DeployAsApplicationConfigurationDescription"
       ( \x ->
           DeployAsApplicationConfigurationDescription'
-            Prelude.<$> (x Core..: "S3ContentLocationDescription")
+            Prelude.<$> (x Data..: "S3ContentLocationDescription")
       )
 
 instance

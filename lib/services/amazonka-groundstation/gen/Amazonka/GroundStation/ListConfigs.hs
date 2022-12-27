@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GroundStation.ListConfigs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.GroundStation.ListConfigs
     newListConfigs,
 
     -- * Request Lenses
-    listConfigs_nextToken,
     listConfigs_maxResults,
+    listConfigs_nextToken,
 
     -- * Destructuring the Response
     ListConfigsResponse (..),
@@ -44,8 +44,9 @@ module Amazonka.GroundStation.ListConfigs
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GroundStation.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,11 +55,11 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListConfigs' smart constructor.
 data ListConfigs = ListConfigs'
-  { -- | Next token returned in the request of a previous @ListConfigs@ call.
+  { -- | Maximum number of @Configs@ returned.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Next token returned in the request of a previous @ListConfigs@ call.
     -- Used to get the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Maximum number of @Configs@ returned.
-    maxResults :: Prelude.Maybe Prelude.Int
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -70,26 +71,26 @@ data ListConfigs = ListConfigs'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listConfigs_maxResults' - Maximum number of @Configs@ returned.
+--
 -- 'nextToken', 'listConfigs_nextToken' - Next token returned in the request of a previous @ListConfigs@ call.
 -- Used to get the next page of results.
---
--- 'maxResults', 'listConfigs_maxResults' - Maximum number of @Configs@ returned.
 newListConfigs ::
   ListConfigs
 newListConfigs =
   ListConfigs'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | Maximum number of @Configs@ returned.
+listConfigs_maxResults :: Lens.Lens' ListConfigs (Prelude.Maybe Prelude.Natural)
+listConfigs_maxResults = Lens.lens (\ListConfigs' {maxResults} -> maxResults) (\s@ListConfigs' {} a -> s {maxResults = a} :: ListConfigs)
 
 -- | Next token returned in the request of a previous @ListConfigs@ call.
 -- Used to get the next page of results.
 listConfigs_nextToken :: Lens.Lens' ListConfigs (Prelude.Maybe Prelude.Text)
 listConfigs_nextToken = Lens.lens (\ListConfigs' {nextToken} -> nextToken) (\s@ListConfigs' {} a -> s {nextToken = a} :: ListConfigs)
-
--- | Maximum number of @Configs@ returned.
-listConfigs_maxResults :: Lens.Lens' ListConfigs (Prelude.Maybe Prelude.Int)
-listConfigs_maxResults = Lens.lens (\ListConfigs' {maxResults} -> maxResults) (\s@ListConfigs' {} a -> s {maxResults = a} :: ListConfigs)
 
 instance Core.AWSPager ListConfigs where
   page rq rs
@@ -112,45 +113,46 @@ instance Core.AWSPager ListConfigs where
 
 instance Core.AWSRequest ListConfigs where
   type AWSResponse ListConfigs = ListConfigsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListConfigsResponse'
-            Prelude.<$> (x Core..?> "configList" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "configList" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListConfigs where
   hashWithSalt _salt ListConfigs' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListConfigs where
   rnf ListConfigs' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListConfigs where
+instance Data.ToHeaders ListConfigs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListConfigs where
+instance Data.ToPath ListConfigs where
   toPath = Prelude.const "/config"
 
-instance Core.ToQuery ListConfigs where
+instance Data.ToQuery ListConfigs where
   toQuery ListConfigs' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- |

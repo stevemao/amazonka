@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QLDB.CancelJournalKinesisStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.QLDB.CancelJournalKinesisStream
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QLDB.Types
 import qualified Amazonka.Request as Request
@@ -100,12 +101,13 @@ instance Core.AWSRequest CancelJournalKinesisStream where
   type
     AWSResponse CancelJournalKinesisStream =
       CancelJournalKinesisStreamResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CancelJournalKinesisStreamResponse'
-            Prelude.<$> (x Core..?> "StreamId")
+            Prelude.<$> (x Data..?> "StreamId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -119,27 +121,27 @@ instance Prelude.NFData CancelJournalKinesisStream where
     Prelude.rnf ledgerName
       `Prelude.seq` Prelude.rnf streamId
 
-instance Core.ToHeaders CancelJournalKinesisStream where
+instance Data.ToHeaders CancelJournalKinesisStream where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath CancelJournalKinesisStream where
+instance Data.ToPath CancelJournalKinesisStream where
   toPath CancelJournalKinesisStream' {..} =
     Prelude.mconcat
       [ "/ledgers/",
-        Core.toBS ledgerName,
+        Data.toBS ledgerName,
         "/journal-kinesis-streams/",
-        Core.toBS streamId
+        Data.toBS streamId
       ]
 
-instance Core.ToQuery CancelJournalKinesisStream where
+instance Data.ToQuery CancelJournalKinesisStream where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCancelJournalKinesisStreamResponse' smart constructor.

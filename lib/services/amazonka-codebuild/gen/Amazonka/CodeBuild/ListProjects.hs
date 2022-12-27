@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.ListProjects
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,9 +30,9 @@ module Amazonka.CodeBuild.ListProjects
     newListProjects,
 
     -- * Request Lenses
-    listProjects_sortOrder,
     listProjects_nextToken,
     listProjects_sortBy,
+    listProjects_sortOrder,
 
     -- * Destructuring the Response
     ListProjectsResponse (..),
@@ -47,23 +47,15 @@ where
 
 import Amazonka.CodeBuild.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListProjects' smart constructor.
 data ListProjects = ListProjects'
-  { -- | The order in which to list build projects. Valid values include:
-    --
-    -- -   @ASCENDING@: List in ascending order.
-    --
-    -- -   @DESCENDING@: List in descending order.
-    --
-    -- Use @sortBy@ to specify the criterion to be used to list build project
-    -- names.
-    sortOrder :: Prelude.Maybe SortOrderType,
-    -- | During a previous call, if there are more than 100 items in the list,
+  { -- | During a previous call, if there are more than 100 items in the list,
     -- only the first 100 items are returned, along with a unique string called
     -- a /nextToken/. To get the next batch of items in the list, call this
     -- operation again, adding the next token to the call. To get all of the
@@ -82,7 +74,16 @@ data ListProjects = ListProjects'
     --
     -- Use @sortOrder@ to specify in what order to list the build project names
     -- based on the preceding criteria.
-    sortBy :: Prelude.Maybe ProjectSortByType
+    sortBy :: Prelude.Maybe ProjectSortByType,
+    -- | The order in which to list build projects. Valid values include:
+    --
+    -- -   @ASCENDING@: List in ascending order.
+    --
+    -- -   @DESCENDING@: List in descending order.
+    --
+    -- Use @sortBy@ to specify the criterion to be used to list build project
+    -- names.
+    sortOrder :: Prelude.Maybe SortOrderType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -93,15 +94,6 @@ data ListProjects = ListProjects'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'sortOrder', 'listProjects_sortOrder' - The order in which to list build projects. Valid values include:
---
--- -   @ASCENDING@: List in ascending order.
---
--- -   @DESCENDING@: List in descending order.
---
--- Use @sortBy@ to specify the criterion to be used to list build project
--- names.
 --
 -- 'nextToken', 'listProjects_nextToken' - During a previous call, if there are more than 100 items in the list,
 -- only the first 100 items are returned, along with a unique string called
@@ -122,16 +114,8 @@ data ListProjects = ListProjects'
 --
 -- Use @sortOrder@ to specify in what order to list the build project names
 -- based on the preceding criteria.
-newListProjects ::
-  ListProjects
-newListProjects =
-  ListProjects'
-    { sortOrder = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      sortBy = Prelude.Nothing
-    }
-
--- | The order in which to list build projects. Valid values include:
+--
+-- 'sortOrder', 'listProjects_sortOrder' - The order in which to list build projects. Valid values include:
 --
 -- -   @ASCENDING@: List in ascending order.
 --
@@ -139,8 +123,14 @@ newListProjects =
 --
 -- Use @sortBy@ to specify the criterion to be used to list build project
 -- names.
-listProjects_sortOrder :: Lens.Lens' ListProjects (Prelude.Maybe SortOrderType)
-listProjects_sortOrder = Lens.lens (\ListProjects' {sortOrder} -> sortOrder) (\s@ListProjects' {} a -> s {sortOrder = a} :: ListProjects)
+newListProjects ::
+  ListProjects
+newListProjects =
+  ListProjects'
+    { nextToken = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      sortOrder = Prelude.Nothing
+    }
 
 -- | During a previous call, if there are more than 100 items in the list,
 -- only the first 100 items are returned, along with a unique string called
@@ -166,6 +156,17 @@ listProjects_nextToken = Lens.lens (\ListProjects' {nextToken} -> nextToken) (\s
 listProjects_sortBy :: Lens.Lens' ListProjects (Prelude.Maybe ProjectSortByType)
 listProjects_sortBy = Lens.lens (\ListProjects' {sortBy} -> sortBy) (\s@ListProjects' {} a -> s {sortBy = a} :: ListProjects)
 
+-- | The order in which to list build projects. Valid values include:
+--
+-- -   @ASCENDING@: List in ascending order.
+--
+-- -   @DESCENDING@: List in descending order.
+--
+-- Use @sortBy@ to specify the criterion to be used to list build project
+-- names.
+listProjects_sortOrder :: Lens.Lens' ListProjects (Prelude.Maybe SortOrderType)
+listProjects_sortOrder = Lens.lens (\ListProjects' {sortOrder} -> sortOrder) (\s@ListProjects' {} a -> s {sortOrder = a} :: ListProjects)
+
 instance Core.AWSPager ListProjects where
   page rq rs
     | Core.stop
@@ -188,57 +189,58 @@ instance Core.AWSPager ListProjects where
 
 instance Core.AWSRequest ListProjects where
   type AWSResponse ListProjects = ListProjectsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListProjectsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "projects")
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "projects")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListProjects where
   hashWithSalt _salt ListProjects' {..} =
-    _salt `Prelude.hashWithSalt` sortOrder
-      `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` sortBy
+      `Prelude.hashWithSalt` sortOrder
 
 instance Prelude.NFData ListProjects where
   rnf ListProjects' {..} =
-    Prelude.rnf sortOrder
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf sortBy
+      `Prelude.seq` Prelude.rnf sortOrder
 
-instance Core.ToHeaders ListProjects where
+instance Data.ToHeaders ListProjects where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeBuild_20161006.ListProjects" ::
+              Data.=# ( "CodeBuild_20161006.ListProjects" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListProjects where
+instance Data.ToJSON ListProjects where
   toJSON ListProjects' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("sortOrder" Core..=) Prelude.<$> sortOrder,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("sortBy" Core..=) Prelude.<$> sortBy
+          [ ("nextToken" Data..=) Prelude.<$> nextToken,
+            ("sortBy" Data..=) Prelude.<$> sortBy,
+            ("sortOrder" Data..=) Prelude.<$> sortOrder
           ]
       )
 
-instance Core.ToPath ListProjects where
+instance Data.ToPath ListProjects where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListProjects where
+instance Data.ToQuery ListProjects where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListProjectsResponse' smart constructor.

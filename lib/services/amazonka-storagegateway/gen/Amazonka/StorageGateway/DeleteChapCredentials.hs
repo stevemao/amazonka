@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.DeleteChapCredentials
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,14 +37,15 @@ module Amazonka.StorageGateway.DeleteChapCredentials
     newDeleteChapCredentialsResponse,
 
     -- * Response Lenses
-    deleteChapCredentialsResponse_targetARN,
     deleteChapCredentialsResponse_initiatorName,
+    deleteChapCredentialsResponse_targetARN,
     deleteChapCredentialsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,13 +107,14 @@ instance Core.AWSRequest DeleteChapCredentials where
   type
     AWSResponse DeleteChapCredentials =
       DeleteChapCredentialsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteChapCredentialsResponse'
-            Prelude.<$> (x Core..?> "TargetARN")
-            Prelude.<*> (x Core..?> "InitiatorName")
+            Prelude.<$> (x Data..?> "InitiatorName")
+            Prelude.<*> (x Data..?> "TargetARN")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -126,45 +128,45 @@ instance Prelude.NFData DeleteChapCredentials where
     Prelude.rnf targetARN
       `Prelude.seq` Prelude.rnf initiatorName
 
-instance Core.ToHeaders DeleteChapCredentials where
+instance Data.ToHeaders DeleteChapCredentials where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.DeleteChapCredentials" ::
+              Data.=# ( "StorageGateway_20130630.DeleteChapCredentials" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteChapCredentials where
+instance Data.ToJSON DeleteChapCredentials where
   toJSON DeleteChapCredentials' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("TargetARN" Core..= targetARN),
+          [ Prelude.Just ("TargetARN" Data..= targetARN),
             Prelude.Just
-              ("InitiatorName" Core..= initiatorName)
+              ("InitiatorName" Data..= initiatorName)
           ]
       )
 
-instance Core.ToPath DeleteChapCredentials where
+instance Data.ToPath DeleteChapCredentials where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteChapCredentials where
+instance Data.ToQuery DeleteChapCredentials where
   toQuery = Prelude.const Prelude.mempty
 
 -- | A JSON object containing the following fields:
 --
 -- /See:/ 'newDeleteChapCredentialsResponse' smart constructor.
 data DeleteChapCredentialsResponse = DeleteChapCredentialsResponse'
-  { -- | The Amazon Resource Name (ARN) of the target.
-    targetARN :: Prelude.Maybe Prelude.Text,
-    -- | The iSCSI initiator that connects to the target.
+  { -- | The iSCSI initiator that connects to the target.
     initiatorName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the target.
+    targetARN :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -178,9 +180,9 @@ data DeleteChapCredentialsResponse = DeleteChapCredentialsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'targetARN', 'deleteChapCredentialsResponse_targetARN' - The Amazon Resource Name (ARN) of the target.
---
 -- 'initiatorName', 'deleteChapCredentialsResponse_initiatorName' - The iSCSI initiator that connects to the target.
+--
+-- 'targetARN', 'deleteChapCredentialsResponse_targetARN' - The Amazon Resource Name (ARN) of the target.
 --
 -- 'httpStatus', 'deleteChapCredentialsResponse_httpStatus' - The response's http status code.
 newDeleteChapCredentialsResponse ::
@@ -189,19 +191,19 @@ newDeleteChapCredentialsResponse ::
   DeleteChapCredentialsResponse
 newDeleteChapCredentialsResponse pHttpStatus_ =
   DeleteChapCredentialsResponse'
-    { targetARN =
+    { initiatorName =
         Prelude.Nothing,
-      initiatorName = Prelude.Nothing,
+      targetARN = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The Amazon Resource Name (ARN) of the target.
-deleteChapCredentialsResponse_targetARN :: Lens.Lens' DeleteChapCredentialsResponse (Prelude.Maybe Prelude.Text)
-deleteChapCredentialsResponse_targetARN = Lens.lens (\DeleteChapCredentialsResponse' {targetARN} -> targetARN) (\s@DeleteChapCredentialsResponse' {} a -> s {targetARN = a} :: DeleteChapCredentialsResponse)
 
 -- | The iSCSI initiator that connects to the target.
 deleteChapCredentialsResponse_initiatorName :: Lens.Lens' DeleteChapCredentialsResponse (Prelude.Maybe Prelude.Text)
 deleteChapCredentialsResponse_initiatorName = Lens.lens (\DeleteChapCredentialsResponse' {initiatorName} -> initiatorName) (\s@DeleteChapCredentialsResponse' {} a -> s {initiatorName = a} :: DeleteChapCredentialsResponse)
+
+-- | The Amazon Resource Name (ARN) of the target.
+deleteChapCredentialsResponse_targetARN :: Lens.Lens' DeleteChapCredentialsResponse (Prelude.Maybe Prelude.Text)
+deleteChapCredentialsResponse_targetARN = Lens.lens (\DeleteChapCredentialsResponse' {targetARN} -> targetARN) (\s@DeleteChapCredentialsResponse' {} a -> s {targetARN = a} :: DeleteChapCredentialsResponse)
 
 -- | The response's http status code.
 deleteChapCredentialsResponse_httpStatus :: Lens.Lens' DeleteChapCredentialsResponse Prelude.Int
@@ -209,6 +211,6 @@ deleteChapCredentialsResponse_httpStatus = Lens.lens (\DeleteChapCredentialsResp
 
 instance Prelude.NFData DeleteChapCredentialsResponse where
   rnf DeleteChapCredentialsResponse' {..} =
-    Prelude.rnf targetARN
-      `Prelude.seq` Prelude.rnf initiatorName
+    Prelude.rnf initiatorName
+      `Prelude.seq` Prelude.rnf targetARN
       `Prelude.seq` Prelude.rnf httpStatus

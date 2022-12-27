@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.GetComplianceDetailsByConfigRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,8 @@ module Amazonka.Config.GetComplianceDetailsByConfigRule
 
     -- * Request Lenses
     getComplianceDetailsByConfigRule_complianceTypes,
-    getComplianceDetailsByConfigRule_nextToken,
     getComplianceDetailsByConfigRule_limit,
+    getComplianceDetailsByConfigRule_nextToken,
     getComplianceDetailsByConfigRule_configRuleName,
 
     -- * Destructuring the Response
@@ -50,7 +50,8 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -64,13 +65,13 @@ data GetComplianceDetailsByConfigRule = GetComplianceDetailsByConfigRule'
     -- The allowed values are @COMPLIANT@, @NON_COMPLIANT@, and
     -- @NOT_APPLICABLE@.
     complianceTypes :: Prelude.Maybe [ComplianceType],
-    -- | The @nextToken@ string returned on a previous page that you use to get
-    -- the next page of results in a paginated response.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of evaluation results returned on each page. The
     -- default is 10. You cannot specify a number greater than 100. If you
     -- specify 0, Config uses the default.
     limit :: Prelude.Maybe Prelude.Natural,
+    -- | The @nextToken@ string returned on a previous page that you use to get
+    -- the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the Config rule for which you want compliance information.
     configRuleName :: Prelude.Text
   }
@@ -89,12 +90,12 @@ data GetComplianceDetailsByConfigRule = GetComplianceDetailsByConfigRule'
 -- The allowed values are @COMPLIANT@, @NON_COMPLIANT@, and
 -- @NOT_APPLICABLE@.
 --
--- 'nextToken', 'getComplianceDetailsByConfigRule_nextToken' - The @nextToken@ string returned on a previous page that you use to get
--- the next page of results in a paginated response.
---
 -- 'limit', 'getComplianceDetailsByConfigRule_limit' - The maximum number of evaluation results returned on each page. The
 -- default is 10. You cannot specify a number greater than 100. If you
 -- specify 0, Config uses the default.
+--
+-- 'nextToken', 'getComplianceDetailsByConfigRule_nextToken' - The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
 --
 -- 'configRuleName', 'getComplianceDetailsByConfigRule_configRuleName' - The name of the Config rule for which you want compliance information.
 newGetComplianceDetailsByConfigRule ::
@@ -105,8 +106,8 @@ newGetComplianceDetailsByConfigRule pConfigRuleName_ =
   GetComplianceDetailsByConfigRule'
     { complianceTypes =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       limit = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       configRuleName = pConfigRuleName_
     }
 
@@ -117,16 +118,16 @@ newGetComplianceDetailsByConfigRule pConfigRuleName_ =
 getComplianceDetailsByConfigRule_complianceTypes :: Lens.Lens' GetComplianceDetailsByConfigRule (Prelude.Maybe [ComplianceType])
 getComplianceDetailsByConfigRule_complianceTypes = Lens.lens (\GetComplianceDetailsByConfigRule' {complianceTypes} -> complianceTypes) (\s@GetComplianceDetailsByConfigRule' {} a -> s {complianceTypes = a} :: GetComplianceDetailsByConfigRule) Prelude.. Lens.mapping Lens.coerced
 
--- | The @nextToken@ string returned on a previous page that you use to get
--- the next page of results in a paginated response.
-getComplianceDetailsByConfigRule_nextToken :: Lens.Lens' GetComplianceDetailsByConfigRule (Prelude.Maybe Prelude.Text)
-getComplianceDetailsByConfigRule_nextToken = Lens.lens (\GetComplianceDetailsByConfigRule' {nextToken} -> nextToken) (\s@GetComplianceDetailsByConfigRule' {} a -> s {nextToken = a} :: GetComplianceDetailsByConfigRule)
-
 -- | The maximum number of evaluation results returned on each page. The
 -- default is 10. You cannot specify a number greater than 100. If you
 -- specify 0, Config uses the default.
 getComplianceDetailsByConfigRule_limit :: Lens.Lens' GetComplianceDetailsByConfigRule (Prelude.Maybe Prelude.Natural)
 getComplianceDetailsByConfigRule_limit = Lens.lens (\GetComplianceDetailsByConfigRule' {limit} -> limit) (\s@GetComplianceDetailsByConfigRule' {} a -> s {limit = a} :: GetComplianceDetailsByConfigRule)
+
+-- | The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
+getComplianceDetailsByConfigRule_nextToken :: Lens.Lens' GetComplianceDetailsByConfigRule (Prelude.Maybe Prelude.Text)
+getComplianceDetailsByConfigRule_nextToken = Lens.lens (\GetComplianceDetailsByConfigRule' {nextToken} -> nextToken) (\s@GetComplianceDetailsByConfigRule' {} a -> s {nextToken = a} :: GetComplianceDetailsByConfigRule)
 
 -- | The name of the Config rule for which you want compliance information.
 getComplianceDetailsByConfigRule_configRuleName :: Lens.Lens' GetComplianceDetailsByConfigRule Prelude.Text
@@ -164,15 +165,16 @@ instance
   type
     AWSResponse GetComplianceDetailsByConfigRule =
       GetComplianceDetailsByConfigRuleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetComplianceDetailsByConfigRuleResponse'
-            Prelude.<$> ( x Core..?> "EvaluationResults"
+            Prelude.<$> ( x Data..?> "EvaluationResults"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -184,8 +186,8 @@ instance
     _salt
     GetComplianceDetailsByConfigRule' {..} =
       _salt `Prelude.hashWithSalt` complianceTypes
-        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` limit
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` configRuleName
 
 instance
@@ -194,46 +196,46 @@ instance
   where
   rnf GetComplianceDetailsByConfigRule' {..} =
     Prelude.rnf complianceTypes
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf configRuleName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetComplianceDetailsByConfigRule
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.GetComplianceDetailsByConfigRule" ::
+              Data.=# ( "StarlingDoveService.GetComplianceDetailsByConfigRule" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetComplianceDetailsByConfigRule where
+instance Data.ToJSON GetComplianceDetailsByConfigRule where
   toJSON GetComplianceDetailsByConfigRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ComplianceTypes" Core..=)
+          [ ("ComplianceTypes" Data..=)
               Prelude.<$> complianceTypes,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Limit" Core..=) Prelude.<$> limit,
+            ("Limit" Data..=) Prelude.<$> limit,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("ConfigRuleName" Core..= configRuleName)
+              ("ConfigRuleName" Data..= configRuleName)
           ]
       )
 
-instance Core.ToPath GetComplianceDetailsByConfigRule where
+instance Data.ToPath GetComplianceDetailsByConfigRule where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetComplianceDetailsByConfigRule
   where
   toQuery = Prelude.const Prelude.mempty

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMakerEdge.SendHeartbeat
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,6 +29,7 @@ module Amazonka.SageMakerEdge.SendHeartbeat
 
     -- * Request Lenses
     sendHeartbeat_agentMetrics,
+    sendHeartbeat_deploymentResult,
     sendHeartbeat_models,
     sendHeartbeat_agentVersion,
     sendHeartbeat_deviceName,
@@ -41,7 +42,8 @@ module Amazonka.SageMakerEdge.SendHeartbeat
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,6 +54,8 @@ data SendHeartbeat = SendHeartbeat'
   { -- | For internal use. Returns a list of SageMaker Edge Manager agent
     -- operating metrics.
     agentMetrics :: Prelude.Maybe [EdgeMetric],
+    -- | Returns the result of a deployment on the device.
+    deploymentResult :: Prelude.Maybe DeploymentResult,
     -- | Returns a list of models deployed on the the device.
     models :: Prelude.Maybe [Model],
     -- | Returns the version of the agent.
@@ -74,6 +78,8 @@ data SendHeartbeat = SendHeartbeat'
 -- 'agentMetrics', 'sendHeartbeat_agentMetrics' - For internal use. Returns a list of SageMaker Edge Manager agent
 -- operating metrics.
 --
+-- 'deploymentResult', 'sendHeartbeat_deploymentResult' - Returns the result of a deployment on the device.
+--
 -- 'models', 'sendHeartbeat_models' - Returns a list of models deployed on the the device.
 --
 -- 'agentVersion', 'sendHeartbeat_agentVersion' - Returns the version of the agent.
@@ -95,6 +101,7 @@ newSendHeartbeat
   pDeviceFleetName_ =
     SendHeartbeat'
       { agentMetrics = Prelude.Nothing,
+        deploymentResult = Prelude.Nothing,
         models = Prelude.Nothing,
         agentVersion = pAgentVersion_,
         deviceName = pDeviceName_,
@@ -105,6 +112,10 @@ newSendHeartbeat
 -- operating metrics.
 sendHeartbeat_agentMetrics :: Lens.Lens' SendHeartbeat (Prelude.Maybe [EdgeMetric])
 sendHeartbeat_agentMetrics = Lens.lens (\SendHeartbeat' {agentMetrics} -> agentMetrics) (\s@SendHeartbeat' {} a -> s {agentMetrics = a} :: SendHeartbeat) Prelude.. Lens.mapping Lens.coerced
+
+-- | Returns the result of a deployment on the device.
+sendHeartbeat_deploymentResult :: Lens.Lens' SendHeartbeat (Prelude.Maybe DeploymentResult)
+sendHeartbeat_deploymentResult = Lens.lens (\SendHeartbeat' {deploymentResult} -> deploymentResult) (\s@SendHeartbeat' {} a -> s {deploymentResult = a} :: SendHeartbeat)
 
 -- | Returns a list of models deployed on the the device.
 sendHeartbeat_models :: Lens.Lens' SendHeartbeat (Prelude.Maybe [Model])
@@ -126,13 +137,15 @@ instance Core.AWSRequest SendHeartbeat where
   type
     AWSResponse SendHeartbeat =
       SendHeartbeatResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull SendHeartbeatResponse'
 
 instance Prelude.Hashable SendHeartbeat where
   hashWithSalt _salt SendHeartbeat' {..} =
     _salt `Prelude.hashWithSalt` agentMetrics
+      `Prelude.hashWithSalt` deploymentResult
       `Prelude.hashWithSalt` models
       `Prelude.hashWithSalt` agentVersion
       `Prelude.hashWithSalt` deviceName
@@ -141,39 +154,42 @@ instance Prelude.Hashable SendHeartbeat where
 instance Prelude.NFData SendHeartbeat where
   rnf SendHeartbeat' {..} =
     Prelude.rnf agentMetrics
+      `Prelude.seq` Prelude.rnf deploymentResult
       `Prelude.seq` Prelude.rnf models
       `Prelude.seq` Prelude.rnf agentVersion
       `Prelude.seq` Prelude.rnf deviceName
       `Prelude.seq` Prelude.rnf deviceFleetName
 
-instance Core.ToHeaders SendHeartbeat where
+instance Data.ToHeaders SendHeartbeat where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SendHeartbeat where
+instance Data.ToJSON SendHeartbeat where
   toJSON SendHeartbeat' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AgentMetrics" Core..=) Prelude.<$> agentMetrics,
-            ("Models" Core..=) Prelude.<$> models,
-            Prelude.Just ("AgentVersion" Core..= agentVersion),
-            Prelude.Just ("DeviceName" Core..= deviceName),
+          [ ("AgentMetrics" Data..=) Prelude.<$> agentMetrics,
+            ("DeploymentResult" Data..=)
+              Prelude.<$> deploymentResult,
+            ("Models" Data..=) Prelude.<$> models,
+            Prelude.Just ("AgentVersion" Data..= agentVersion),
+            Prelude.Just ("DeviceName" Data..= deviceName),
             Prelude.Just
-              ("DeviceFleetName" Core..= deviceFleetName)
+              ("DeviceFleetName" Data..= deviceFleetName)
           ]
       )
 
-instance Core.ToPath SendHeartbeat where
+instance Data.ToPath SendHeartbeat where
   toPath = Prelude.const "/SendHeartbeat"
 
-instance Core.ToQuery SendHeartbeat where
+instance Data.ToQuery SendHeartbeat where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSendHeartbeatResponse' smart constructor.

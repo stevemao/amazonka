@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.Types.BulkEmailContent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SESV2.Types.BulkEmailContent where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SESV2.Types.Template
 
@@ -59,9 +60,9 @@ instance Prelude.Hashable BulkEmailContent where
 instance Prelude.NFData BulkEmailContent where
   rnf BulkEmailContent' {..} = Prelude.rnf template
 
-instance Core.ToJSON BulkEmailContent where
+instance Data.ToJSON BulkEmailContent where
   toJSON BulkEmailContent' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Template" Core..=) Prelude.<$> template]
+          [("Template" Data..=) Prelude.<$> template]
       )

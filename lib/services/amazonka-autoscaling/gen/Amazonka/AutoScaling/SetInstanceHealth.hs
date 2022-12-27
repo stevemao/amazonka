@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.SetInstanceHealth
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -132,7 +133,8 @@ instance Core.AWSRequest SetInstanceHealth where
   type
     AWSResponse SetInstanceHealth =
       SetInstanceHealthResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull SetInstanceHealthResponse'
 
@@ -149,23 +151,23 @@ instance Prelude.NFData SetInstanceHealth where
       `Prelude.seq` Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf healthStatus
 
-instance Core.ToHeaders SetInstanceHealth where
+instance Data.ToHeaders SetInstanceHealth where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath SetInstanceHealth where
+instance Data.ToPath SetInstanceHealth where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SetInstanceHealth where
+instance Data.ToQuery SetInstanceHealth where
   toQuery SetInstanceHealth' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("SetInstanceHealth" :: Prelude.ByteString),
+          Data.=: ("SetInstanceHealth" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
         "ShouldRespectGracePeriod"
-          Core.=: shouldRespectGracePeriod,
-        "InstanceId" Core.=: instanceId,
-        "HealthStatus" Core.=: healthStatus
+          Data.=: shouldRespectGracePeriod,
+        "InstanceId" Data.=: instanceId,
+        "HealthStatus" Data.=: healthStatus
       ]
 
 -- | /See:/ 'newSetInstanceHealthResponse' smart constructor.

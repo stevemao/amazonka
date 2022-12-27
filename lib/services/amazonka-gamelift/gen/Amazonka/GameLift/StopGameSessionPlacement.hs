@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.StopGameSessionPlacement
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,14 +23,6 @@
 -- Cancels a game session placement that is in @PENDING@ status. To stop a
 -- placement, provide the placement ID values. If successful, the placement
 -- is moved to @CANCELLED@ status.
---
--- __Related actions__
---
--- CreateGameSession | DescribeGameSessions | DescribeGameSessionDetails |
--- SearchGameSessions | UpdateGameSession | GetGameSessionLogUrl |
--- StartGameSessionPlacement | DescribeGameSessionPlacement |
--- StopGameSessionPlacement |
--- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.StopGameSessionPlacement
   ( -- * Creating a Request
     StopGameSessionPlacement (..),
@@ -50,17 +42,16 @@ module Amazonka.GameLift.StopGameSessionPlacement
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newStopGameSessionPlacement' smart constructor.
+-- | /See:/ 'newStopGameSessionPlacement' smart constructor.
 data StopGameSessionPlacement = StopGameSessionPlacement'
-  { -- | A unique identifier for a game session placement to cancel.
+  { -- | A unique identifier for a game session placement to stop.
     placementId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -73,7 +64,7 @@ data StopGameSessionPlacement = StopGameSessionPlacement'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'placementId', 'stopGameSessionPlacement_placementId' - A unique identifier for a game session placement to cancel.
+-- 'placementId', 'stopGameSessionPlacement_placementId' - A unique identifier for a game session placement to stop.
 newStopGameSessionPlacement ::
   -- | 'placementId'
   Prelude.Text ->
@@ -84,7 +75,7 @@ newStopGameSessionPlacement pPlacementId_ =
         pPlacementId_
     }
 
--- | A unique identifier for a game session placement to cancel.
+-- | A unique identifier for a game session placement to stop.
 stopGameSessionPlacement_placementId :: Lens.Lens' StopGameSessionPlacement Prelude.Text
 stopGameSessionPlacement_placementId = Lens.lens (\StopGameSessionPlacement' {placementId} -> placementId) (\s@StopGameSessionPlacement' {} a -> s {placementId = a} :: StopGameSessionPlacement)
 
@@ -92,12 +83,13 @@ instance Core.AWSRequest StopGameSessionPlacement where
   type
     AWSResponse StopGameSessionPlacement =
       StopGameSessionPlacementResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StopGameSessionPlacementResponse'
-            Prelude.<$> (x Core..?> "GameSessionPlacement")
+            Prelude.<$> (x Data..?> "GameSessionPlacement")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -109,37 +101,35 @@ instance Prelude.NFData StopGameSessionPlacement where
   rnf StopGameSessionPlacement' {..} =
     Prelude.rnf placementId
 
-instance Core.ToHeaders StopGameSessionPlacement where
+instance Data.ToHeaders StopGameSessionPlacement where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.StopGameSessionPlacement" ::
+              Data.=# ( "GameLift.StopGameSessionPlacement" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopGameSessionPlacement where
+instance Data.ToJSON StopGameSessionPlacement where
   toJSON StopGameSessionPlacement' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("PlacementId" Core..= placementId)]
+          [Prelude.Just ("PlacementId" Data..= placementId)]
       )
 
-instance Core.ToPath StopGameSessionPlacement where
+instance Data.ToPath StopGameSessionPlacement where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopGameSessionPlacement where
+instance Data.ToQuery StopGameSessionPlacement where
   toQuery = Prelude.const Prelude.mempty
 
--- | Represents the returned data in response to a request operation.
---
--- /See:/ 'newStopGameSessionPlacementResponse' smart constructor.
+-- | /See:/ 'newStopGameSessionPlacementResponse' smart constructor.
 data StopGameSessionPlacementResponse = StopGameSessionPlacementResponse'
   { -- | Object that describes the canceled game session placement, with
     -- @CANCELLED@ status and an end time stamp.

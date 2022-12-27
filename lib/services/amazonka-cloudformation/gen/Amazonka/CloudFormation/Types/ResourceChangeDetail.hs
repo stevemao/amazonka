@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.Types.ResourceChangeDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,8 @@ import Amazonka.CloudFormation.Types.ChangeSource
 import Amazonka.CloudFormation.Types.EvaluationType
 import Amazonka.CloudFormation.Types.ResourceTargetDefinition
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | For a resource with @Modify@ as the action, the @ResourceChange@
@@ -33,7 +34,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newResourceChangeDetail' smart constructor.
 data ResourceChangeDetail = ResourceChangeDetail'
   { -- | The identity of the entity that triggered this change. This entity is a
-    -- member of the group that is specified by the @ChangeSource@ field. For
+    -- member of the group that\'s specified by the @ChangeSource@ field. For
     -- example, if you modified the value of the @KeyPairName@ parameter, the
     -- @CausingEntity@ is the name of the parameter (@KeyPairName@).
     --
@@ -75,10 +76,10 @@ data ResourceChangeDetail = ResourceChangeDetail'
     -- that this property value will change, and its value, so this is a
     -- @Static@ evaluation.
     --
-    -- For @Dynamic@ evaluations, cannot determine the target value because it
+    -- For @Dynamic@ evaluations, can\'t determine the target value because it
     -- depends on the result of an intrinsic function, such as a @Ref@ or
     -- @Fn::GetAtt@ intrinsic function, when the stack is updated. For example,
-    -- if your template includes a reference to a resource that is
+    -- if your template includes a reference to a resource that\'s
     -- conditionally recreated, the value of the reference (the physical ID of
     -- the resource) might change, depending on if the resource is recreated.
     -- If the resource is recreated, it will have a new physical ID, so all
@@ -99,7 +100,7 @@ data ResourceChangeDetail = ResourceChangeDetail'
 -- for backwards compatibility:
 --
 -- 'causingEntity', 'resourceChangeDetail_causingEntity' - The identity of the entity that triggered this change. This entity is a
--- member of the group that is specified by the @ChangeSource@ field. For
+-- member of the group that\'s specified by the @ChangeSource@ field. For
 -- example, if you modified the value of the @KeyPairName@ parameter, the
 -- @CausingEntity@ is the name of the parameter (@KeyPairName@).
 --
@@ -141,10 +142,10 @@ data ResourceChangeDetail = ResourceChangeDetail'
 -- that this property value will change, and its value, so this is a
 -- @Static@ evaluation.
 --
--- For @Dynamic@ evaluations, cannot determine the target value because it
+-- For @Dynamic@ evaluations, can\'t determine the target value because it
 -- depends on the result of an intrinsic function, such as a @Ref@ or
 -- @Fn::GetAtt@ intrinsic function, when the stack is updated. For example,
--- if your template includes a reference to a resource that is
+-- if your template includes a reference to a resource that\'s
 -- conditionally recreated, the value of the reference (the physical ID of
 -- the resource) might change, depending on if the resource is recreated.
 -- If the resource is recreated, it will have a new physical ID, so all
@@ -164,7 +165,7 @@ newResourceChangeDetail =
     }
 
 -- | The identity of the entity that triggered this change. This entity is a
--- member of the group that is specified by the @ChangeSource@ field. For
+-- member of the group that\'s specified by the @ChangeSource@ field. For
 -- example, if you modified the value of the @KeyPairName@ parameter, the
 -- @CausingEntity@ is the name of the parameter (@KeyPairName@).
 --
@@ -210,10 +211,10 @@ resourceChangeDetail_changeSource = Lens.lens (\ResourceChangeDetail' {changeSou
 -- that this property value will change, and its value, so this is a
 -- @Static@ evaluation.
 --
--- For @Dynamic@ evaluations, cannot determine the target value because it
+-- For @Dynamic@ evaluations, can\'t determine the target value because it
 -- depends on the result of an intrinsic function, such as a @Ref@ or
 -- @Fn::GetAtt@ intrinsic function, when the stack is updated. For example,
--- if your template includes a reference to a resource that is
+-- if your template includes a reference to a resource that\'s
 -- conditionally recreated, the value of the reference (the physical ID of
 -- the resource) might change, depending on if the resource is recreated.
 -- If the resource is recreated, it will have a new physical ID, so all
@@ -226,13 +227,13 @@ resourceChangeDetail_evaluation = Lens.lens (\ResourceChangeDetail' {evaluation}
 resourceChangeDetail_target :: Lens.Lens' ResourceChangeDetail (Prelude.Maybe ResourceTargetDefinition)
 resourceChangeDetail_target = Lens.lens (\ResourceChangeDetail' {target} -> target) (\s@ResourceChangeDetail' {} a -> s {target = a} :: ResourceChangeDetail)
 
-instance Core.FromXML ResourceChangeDetail where
+instance Data.FromXML ResourceChangeDetail where
   parseXML x =
     ResourceChangeDetail'
-      Prelude.<$> (x Core..@? "CausingEntity")
-      Prelude.<*> (x Core..@? "ChangeSource")
-      Prelude.<*> (x Core..@? "Evaluation")
-      Prelude.<*> (x Core..@? "Target")
+      Prelude.<$> (x Data..@? "CausingEntity")
+      Prelude.<*> (x Data..@? "ChangeSource")
+      Prelude.<*> (x Data..@? "Evaluation")
+      Prelude.<*> (x Data..@? "Target")
 
 instance Prelude.Hashable ResourceChangeDetail where
   hashWithSalt _salt ResourceChangeDetail' {..} =

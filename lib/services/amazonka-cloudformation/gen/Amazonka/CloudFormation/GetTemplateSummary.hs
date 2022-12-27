@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.GetTemplateSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,7 +31,7 @@
 --
 -- For deleted stacks, @GetTemplateSummary@ returns the template
 -- information for up to 90 days after the stack has been deleted. If the
--- template does not exist, a @ValidationError@ is returned.
+-- template doesn\'t exist, a @ValidationError@ is returned.
 module Amazonka.CloudFormation.GetTemplateSummary
   ( -- * Creating a Request
     GetTemplateSummary (..),
@@ -39,32 +39,33 @@ module Amazonka.CloudFormation.GetTemplateSummary
 
     -- * Request Lenses
     getTemplateSummary_callAs,
+    getTemplateSummary_stackName,
+    getTemplateSummary_stackSetName,
     getTemplateSummary_templateBody,
     getTemplateSummary_templateURL,
-    getTemplateSummary_stackSetName,
-    getTemplateSummary_stackName,
 
     -- * Destructuring the Response
     GetTemplateSummaryResponse (..),
     newGetTemplateSummaryResponse,
 
     -- * Response Lenses
-    getTemplateSummaryResponse_declaredTransforms,
-    getTemplateSummaryResponse_version,
-    getTemplateSummaryResponse_capabilitiesReason,
-    getTemplateSummaryResponse_parameters,
-    getTemplateSummaryResponse_metadata,
-    getTemplateSummaryResponse_resourceIdentifierSummaries,
-    getTemplateSummaryResponse_description,
     getTemplateSummaryResponse_capabilities,
+    getTemplateSummaryResponse_capabilitiesReason,
+    getTemplateSummaryResponse_declaredTransforms,
+    getTemplateSummaryResponse_description,
+    getTemplateSummaryResponse_metadata,
+    getTemplateSummaryResponse_parameters,
+    getTemplateSummaryResponse_resourceIdentifierSummaries,
     getTemplateSummaryResponse_resourceTypes,
+    getTemplateSummaryResponse_version,
     getTemplateSummaryResponse_httpStatus,
   )
 where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,38 +91,38 @@ data GetTemplateSummary = GetTemplateSummary'
     --     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator>
     --     in the /CloudFormation User Guide/.
     callAs :: Prelude.Maybe CallAs,
+    -- | The name or the stack ID that\'s associated with the stack, which
+    -- aren\'t always interchangeable. For running stacks, you can specify
+    -- either the stack\'s name or its unique stack ID. For deleted stack, you
+    -- must specify the unique stack ID.
+    --
+    -- Conditional: You must specify only one of the following parameters:
+    -- @StackName@, @StackSetName@, @TemplateBody@, or @TemplateURL@.
+    stackName :: Prelude.Maybe Prelude.Text,
+    -- | The name or unique ID of the stack set from which the stack was created.
+    --
+    -- Conditional: You must specify only one of the following parameters:
+    -- @StackName@, @StackSetName@, @TemplateBody@, or @TemplateURL@.
+    stackSetName :: Prelude.Maybe Prelude.Text,
     -- | Structure containing the template body with a minimum length of 1 byte
     -- and a maximum length of 51,200 bytes. For more information about
     -- templates, see
-    -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html Template Anatomy>
+    -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html Template anatomy>
     -- in the CloudFormation User Guide.
     --
     -- Conditional: You must specify only one of the following parameters:
     -- @StackName@, @StackSetName@, @TemplateBody@, or @TemplateURL@.
     templateBody :: Prelude.Maybe Prelude.Text,
     -- | Location of file containing the template body. The URL must point to a
-    -- template (max size: 460,800 bytes) that is located in an Amazon S3
+    -- template (max size: 460,800 bytes) that\'s located in an Amazon S3
     -- bucket or a Systems Manager document. For more information about
     -- templates, see
-    -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html Template Anatomy>
+    -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html Template anatomy>
     -- in the CloudFormation User Guide.
     --
     -- Conditional: You must specify only one of the following parameters:
     -- @StackName@, @StackSetName@, @TemplateBody@, or @TemplateURL@.
-    templateURL :: Prelude.Maybe Prelude.Text,
-    -- | The name or unique ID of the stack set from which the stack was created.
-    --
-    -- Conditional: You must specify only one of the following parameters:
-    -- @StackName@, @StackSetName@, @TemplateBody@, or @TemplateURL@.
-    stackSetName :: Prelude.Maybe Prelude.Text,
-    -- | The name or the stack ID that is associated with the stack, which are
-    -- not always interchangeable. For running stacks, you can specify either
-    -- the stack\'s name or its unique stack ID. For deleted stack, you must
-    -- specify the unique stack ID.
-    --
-    -- Conditional: You must specify only one of the following parameters:
-    -- @StackName@, @StackSetName@, @TemplateBody@, or @TemplateURL@.
-    stackName :: Prelude.Maybe Prelude.Text
+    templateURL :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -150,21 +151,10 @@ data GetTemplateSummary = GetTemplateSummary'
 --     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator>
 --     in the /CloudFormation User Guide/.
 --
--- 'templateBody', 'getTemplateSummary_templateBody' - Structure containing the template body with a minimum length of 1 byte
--- and a maximum length of 51,200 bytes. For more information about
--- templates, see
--- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html Template Anatomy>
--- in the CloudFormation User Guide.
---
--- Conditional: You must specify only one of the following parameters:
--- @StackName@, @StackSetName@, @TemplateBody@, or @TemplateURL@.
---
--- 'templateURL', 'getTemplateSummary_templateURL' - Location of file containing the template body. The URL must point to a
--- template (max size: 460,800 bytes) that is located in an Amazon S3
--- bucket or a Systems Manager document. For more information about
--- templates, see
--- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html Template Anatomy>
--- in the CloudFormation User Guide.
+-- 'stackName', 'getTemplateSummary_stackName' - The name or the stack ID that\'s associated with the stack, which
+-- aren\'t always interchangeable. For running stacks, you can specify
+-- either the stack\'s name or its unique stack ID. For deleted stack, you
+-- must specify the unique stack ID.
 --
 -- Conditional: You must specify only one of the following parameters:
 -- @StackName@, @StackSetName@, @TemplateBody@, or @TemplateURL@.
@@ -174,10 +164,21 @@ data GetTemplateSummary = GetTemplateSummary'
 -- Conditional: You must specify only one of the following parameters:
 -- @StackName@, @StackSetName@, @TemplateBody@, or @TemplateURL@.
 --
--- 'stackName', 'getTemplateSummary_stackName' - The name or the stack ID that is associated with the stack, which are
--- not always interchangeable. For running stacks, you can specify either
--- the stack\'s name or its unique stack ID. For deleted stack, you must
--- specify the unique stack ID.
+-- 'templateBody', 'getTemplateSummary_templateBody' - Structure containing the template body with a minimum length of 1 byte
+-- and a maximum length of 51,200 bytes. For more information about
+-- templates, see
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html Template anatomy>
+-- in the CloudFormation User Guide.
+--
+-- Conditional: You must specify only one of the following parameters:
+-- @StackName@, @StackSetName@, @TemplateBody@, or @TemplateURL@.
+--
+-- 'templateURL', 'getTemplateSummary_templateURL' - Location of file containing the template body. The URL must point to a
+-- template (max size: 460,800 bytes) that\'s located in an Amazon S3
+-- bucket or a Systems Manager document. For more information about
+-- templates, see
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html Template anatomy>
+-- in the CloudFormation User Guide.
 --
 -- Conditional: You must specify only one of the following parameters:
 -- @StackName@, @StackSetName@, @TemplateBody@, or @TemplateURL@.
@@ -186,10 +187,10 @@ newGetTemplateSummary ::
 newGetTemplateSummary =
   GetTemplateSummary'
     { callAs = Prelude.Nothing,
-      templateBody = Prelude.Nothing,
-      templateURL = Prelude.Nothing,
+      stackName = Prelude.Nothing,
       stackSetName = Prelude.Nothing,
-      stackName = Prelude.Nothing
+      templateBody = Prelude.Nothing,
+      templateURL = Prelude.Nothing
     }
 
 -- | [Service-managed permissions] Specifies whether you are acting as an
@@ -211,28 +212,15 @@ newGetTemplateSummary =
 getTemplateSummary_callAs :: Lens.Lens' GetTemplateSummary (Prelude.Maybe CallAs)
 getTemplateSummary_callAs = Lens.lens (\GetTemplateSummary' {callAs} -> callAs) (\s@GetTemplateSummary' {} a -> s {callAs = a} :: GetTemplateSummary)
 
--- | Structure containing the template body with a minimum length of 1 byte
--- and a maximum length of 51,200 bytes. For more information about
--- templates, see
--- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html Template Anatomy>
--- in the CloudFormation User Guide.
+-- | The name or the stack ID that\'s associated with the stack, which
+-- aren\'t always interchangeable. For running stacks, you can specify
+-- either the stack\'s name or its unique stack ID. For deleted stack, you
+-- must specify the unique stack ID.
 --
 -- Conditional: You must specify only one of the following parameters:
 -- @StackName@, @StackSetName@, @TemplateBody@, or @TemplateURL@.
-getTemplateSummary_templateBody :: Lens.Lens' GetTemplateSummary (Prelude.Maybe Prelude.Text)
-getTemplateSummary_templateBody = Lens.lens (\GetTemplateSummary' {templateBody} -> templateBody) (\s@GetTemplateSummary' {} a -> s {templateBody = a} :: GetTemplateSummary)
-
--- | Location of file containing the template body. The URL must point to a
--- template (max size: 460,800 bytes) that is located in an Amazon S3
--- bucket or a Systems Manager document. For more information about
--- templates, see
--- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html Template Anatomy>
--- in the CloudFormation User Guide.
---
--- Conditional: You must specify only one of the following parameters:
--- @StackName@, @StackSetName@, @TemplateBody@, or @TemplateURL@.
-getTemplateSummary_templateURL :: Lens.Lens' GetTemplateSummary (Prelude.Maybe Prelude.Text)
-getTemplateSummary_templateURL = Lens.lens (\GetTemplateSummary' {templateURL} -> templateURL) (\s@GetTemplateSummary' {} a -> s {templateURL = a} :: GetTemplateSummary)
+getTemplateSummary_stackName :: Lens.Lens' GetTemplateSummary (Prelude.Maybe Prelude.Text)
+getTemplateSummary_stackName = Lens.lens (\GetTemplateSummary' {stackName} -> stackName) (\s@GetTemplateSummary' {} a -> s {stackName = a} :: GetTemplateSummary)
 
 -- | The name or unique ID of the stack set from which the stack was created.
 --
@@ -241,112 +229,105 @@ getTemplateSummary_templateURL = Lens.lens (\GetTemplateSummary' {templateURL} -
 getTemplateSummary_stackSetName :: Lens.Lens' GetTemplateSummary (Prelude.Maybe Prelude.Text)
 getTemplateSummary_stackSetName = Lens.lens (\GetTemplateSummary' {stackSetName} -> stackSetName) (\s@GetTemplateSummary' {} a -> s {stackSetName = a} :: GetTemplateSummary)
 
--- | The name or the stack ID that is associated with the stack, which are
--- not always interchangeable. For running stacks, you can specify either
--- the stack\'s name or its unique stack ID. For deleted stack, you must
--- specify the unique stack ID.
+-- | Structure containing the template body with a minimum length of 1 byte
+-- and a maximum length of 51,200 bytes. For more information about
+-- templates, see
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html Template anatomy>
+-- in the CloudFormation User Guide.
 --
 -- Conditional: You must specify only one of the following parameters:
 -- @StackName@, @StackSetName@, @TemplateBody@, or @TemplateURL@.
-getTemplateSummary_stackName :: Lens.Lens' GetTemplateSummary (Prelude.Maybe Prelude.Text)
-getTemplateSummary_stackName = Lens.lens (\GetTemplateSummary' {stackName} -> stackName) (\s@GetTemplateSummary' {} a -> s {stackName = a} :: GetTemplateSummary)
+getTemplateSummary_templateBody :: Lens.Lens' GetTemplateSummary (Prelude.Maybe Prelude.Text)
+getTemplateSummary_templateBody = Lens.lens (\GetTemplateSummary' {templateBody} -> templateBody) (\s@GetTemplateSummary' {} a -> s {templateBody = a} :: GetTemplateSummary)
+
+-- | Location of file containing the template body. The URL must point to a
+-- template (max size: 460,800 bytes) that\'s located in an Amazon S3
+-- bucket or a Systems Manager document. For more information about
+-- templates, see
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html Template anatomy>
+-- in the CloudFormation User Guide.
+--
+-- Conditional: You must specify only one of the following parameters:
+-- @StackName@, @StackSetName@, @TemplateBody@, or @TemplateURL@.
+getTemplateSummary_templateURL :: Lens.Lens' GetTemplateSummary (Prelude.Maybe Prelude.Text)
+getTemplateSummary_templateURL = Lens.lens (\GetTemplateSummary' {templateURL} -> templateURL) (\s@GetTemplateSummary' {} a -> s {templateURL = a} :: GetTemplateSummary)
 
 instance Core.AWSRequest GetTemplateSummary where
   type
     AWSResponse GetTemplateSummary =
       GetTemplateSummaryResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GetTemplateSummaryResult"
       ( \s h x ->
           GetTemplateSummaryResponse'
-            Prelude.<$> ( x Core..@? "DeclaredTransforms"
+            Prelude.<$> ( x Data..@? "Capabilities" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
+                        )
+            Prelude.<*> (x Data..@? "CapabilitiesReason")
+            Prelude.<*> ( x Data..@? "DeclaredTransforms"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> (x Core..@? "Version")
-            Prelude.<*> (x Core..@? "CapabilitiesReason")
-            Prelude.<*> ( x Core..@? "Parameters" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<*> (x Data..@? "Description")
+            Prelude.<*> (x Data..@? "Metadata")
+            Prelude.<*> ( x Data..@? "Parameters" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> (x Core..@? "Metadata")
-            Prelude.<*> ( x Core..@? "ResourceIdentifierSummaries"
+            Prelude.<*> ( x Data..@? "ResourceIdentifierSummaries"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> (x Core..@? "Description")
-            Prelude.<*> ( x Core..@? "Capabilities" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<*> ( x Data..@? "ResourceTypes" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> ( x Core..@? "ResourceTypes" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
-                        )
+            Prelude.<*> (x Data..@? "Version")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetTemplateSummary where
   hashWithSalt _salt GetTemplateSummary' {..} =
     _salt `Prelude.hashWithSalt` callAs
+      `Prelude.hashWithSalt` stackName
+      `Prelude.hashWithSalt` stackSetName
       `Prelude.hashWithSalt` templateBody
       `Prelude.hashWithSalt` templateURL
-      `Prelude.hashWithSalt` stackSetName
-      `Prelude.hashWithSalt` stackName
 
 instance Prelude.NFData GetTemplateSummary where
   rnf GetTemplateSummary' {..} =
     Prelude.rnf callAs
+      `Prelude.seq` Prelude.rnf stackName
+      `Prelude.seq` Prelude.rnf stackSetName
       `Prelude.seq` Prelude.rnf templateBody
       `Prelude.seq` Prelude.rnf templateURL
-      `Prelude.seq` Prelude.rnf stackSetName
-      `Prelude.seq` Prelude.rnf stackName
 
-instance Core.ToHeaders GetTemplateSummary where
+instance Data.ToHeaders GetTemplateSummary where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetTemplateSummary where
+instance Data.ToPath GetTemplateSummary where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetTemplateSummary where
+instance Data.ToQuery GetTemplateSummary where
   toQuery GetTemplateSummary' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("GetTemplateSummary" :: Prelude.ByteString),
+          Data.=: ("GetTemplateSummary" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
-        "CallAs" Core.=: callAs,
-        "TemplateBody" Core.=: templateBody,
-        "TemplateURL" Core.=: templateURL,
-        "StackSetName" Core.=: stackSetName,
-        "StackName" Core.=: stackName
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "CallAs" Data.=: callAs,
+        "StackName" Data.=: stackName,
+        "StackSetName" Data.=: stackSetName,
+        "TemplateBody" Data.=: templateBody,
+        "TemplateURL" Data.=: templateURL
       ]
 
 -- | The output for the GetTemplateSummary action.
 --
 -- /See:/ 'newGetTemplateSummaryResponse' smart constructor.
 data GetTemplateSummaryResponse = GetTemplateSummaryResponse'
-  { -- | A list of the transforms that are declared in the template.
-    declaredTransforms :: Prelude.Maybe [Prelude.Text],
-    -- | The Amazon Web Services template format version, which identifies the
-    -- capabilities of the template.
-    version :: Prelude.Maybe Prelude.Text,
-    -- | The list of resources that generated the values in the @Capabilities@
-    -- response element.
-    capabilitiesReason :: Prelude.Maybe Prelude.Text,
-    -- | A list of parameter declarations that describe various properties for
-    -- each parameter.
-    parameters :: Prelude.Maybe [ParameterDeclaration],
-    -- | The value that is defined for the @Metadata@ property of the template.
-    metadata :: Prelude.Maybe Prelude.Text,
-    -- | A list of resource identifier summaries that describe the target
-    -- resources of an import operation and the properties you can provide
-    -- during the import to identify the target resources. For example,
-    -- @BucketName@ is a possible identifier property for an @AWS::S3::Bucket@
-    -- resource.
-    resourceIdentifierSummaries :: Prelude.Maybe [ResourceIdentifierSummary],
-    -- | The value that is defined in the @Description@ property of the template.
-    description :: Prelude.Maybe Prelude.Text,
-    -- | The capabilities found within the template. If your template contains
+  { -- | The capabilities found within the template. If your template contains
     -- IAM resources, you must specify the @CAPABILITY_IAM@ or
     -- @CAPABILITY_NAMED_IAM@ value for this parameter when you use the
     -- CreateStack or UpdateStack actions with your template; otherwise, those
@@ -355,10 +336,31 @@ data GetTemplateSummaryResponse = GetTemplateSummaryResponse'
     -- For more information, see
     -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities Acknowledging IAM Resources in CloudFormation Templates>.
     capabilities :: Prelude.Maybe [Capability],
+    -- | The list of resources that generated the values in the @Capabilities@
+    -- response element.
+    capabilitiesReason :: Prelude.Maybe Prelude.Text,
+    -- | A list of the transforms that are declared in the template.
+    declaredTransforms :: Prelude.Maybe [Prelude.Text],
+    -- | The value that\'s defined in the @Description@ property of the template.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The value that\'s defined for the @Metadata@ property of the template.
+    metadata :: Prelude.Maybe Prelude.Text,
+    -- | A list of parameter declarations that describe various properties for
+    -- each parameter.
+    parameters :: Prelude.Maybe [ParameterDeclaration],
+    -- | A list of resource identifier summaries that describe the target
+    -- resources of an import operation and the properties you can provide
+    -- during the import to identify the target resources. For example,
+    -- @BucketName@ is a possible identifier property for an @AWS::S3::Bucket@
+    -- resource.
+    resourceIdentifierSummaries :: Prelude.Maybe [ResourceIdentifierSummary],
     -- | A list of all the template resource types that are defined in the
     -- template, such as @AWS::EC2::Instance@, @AWS::Dynamo::Table@, and
     -- @Custom::MyCustomInstance@.
     resourceTypes :: Prelude.Maybe [Prelude.Text],
+    -- | The Amazon Web Services template format version, which identifies the
+    -- capabilities of the template.
+    version :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -372,27 +374,6 @@ data GetTemplateSummaryResponse = GetTemplateSummaryResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'declaredTransforms', 'getTemplateSummaryResponse_declaredTransforms' - A list of the transforms that are declared in the template.
---
--- 'version', 'getTemplateSummaryResponse_version' - The Amazon Web Services template format version, which identifies the
--- capabilities of the template.
---
--- 'capabilitiesReason', 'getTemplateSummaryResponse_capabilitiesReason' - The list of resources that generated the values in the @Capabilities@
--- response element.
---
--- 'parameters', 'getTemplateSummaryResponse_parameters' - A list of parameter declarations that describe various properties for
--- each parameter.
---
--- 'metadata', 'getTemplateSummaryResponse_metadata' - The value that is defined for the @Metadata@ property of the template.
---
--- 'resourceIdentifierSummaries', 'getTemplateSummaryResponse_resourceIdentifierSummaries' - A list of resource identifier summaries that describe the target
--- resources of an import operation and the properties you can provide
--- during the import to identify the target resources. For example,
--- @BucketName@ is a possible identifier property for an @AWS::S3::Bucket@
--- resource.
---
--- 'description', 'getTemplateSummaryResponse_description' - The value that is defined in the @Description@ property of the template.
---
 -- 'capabilities', 'getTemplateSummaryResponse_capabilities' - The capabilities found within the template. If your template contains
 -- IAM resources, you must specify the @CAPABILITY_IAM@ or
 -- @CAPABILITY_NAMED_IAM@ value for this parameter when you use the
@@ -402,9 +383,30 @@ data GetTemplateSummaryResponse = GetTemplateSummaryResponse'
 -- For more information, see
 -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities Acknowledging IAM Resources in CloudFormation Templates>.
 --
+-- 'capabilitiesReason', 'getTemplateSummaryResponse_capabilitiesReason' - The list of resources that generated the values in the @Capabilities@
+-- response element.
+--
+-- 'declaredTransforms', 'getTemplateSummaryResponse_declaredTransforms' - A list of the transforms that are declared in the template.
+--
+-- 'description', 'getTemplateSummaryResponse_description' - The value that\'s defined in the @Description@ property of the template.
+--
+-- 'metadata', 'getTemplateSummaryResponse_metadata' - The value that\'s defined for the @Metadata@ property of the template.
+--
+-- 'parameters', 'getTemplateSummaryResponse_parameters' - A list of parameter declarations that describe various properties for
+-- each parameter.
+--
+-- 'resourceIdentifierSummaries', 'getTemplateSummaryResponse_resourceIdentifierSummaries' - A list of resource identifier summaries that describe the target
+-- resources of an import operation and the properties you can provide
+-- during the import to identify the target resources. For example,
+-- @BucketName@ is a possible identifier property for an @AWS::S3::Bucket@
+-- resource.
+--
 -- 'resourceTypes', 'getTemplateSummaryResponse_resourceTypes' - A list of all the template resource types that are defined in the
 -- template, such as @AWS::EC2::Instance@, @AWS::Dynamo::Table@, and
 -- @Custom::MyCustomInstance@.
+--
+-- 'version', 'getTemplateSummaryResponse_version' - The Amazon Web Services template format version, which identifies the
+-- capabilities of the template.
 --
 -- 'httpStatus', 'getTemplateSummaryResponse_httpStatus' - The response's http status code.
 newGetTemplateSummaryResponse ::
@@ -413,53 +415,18 @@ newGetTemplateSummaryResponse ::
   GetTemplateSummaryResponse
 newGetTemplateSummaryResponse pHttpStatus_ =
   GetTemplateSummaryResponse'
-    { declaredTransforms =
+    { capabilities =
         Prelude.Nothing,
-      version = Prelude.Nothing,
       capabilitiesReason = Prelude.Nothing,
-      parameters = Prelude.Nothing,
-      metadata = Prelude.Nothing,
-      resourceIdentifierSummaries = Prelude.Nothing,
+      declaredTransforms = Prelude.Nothing,
       description = Prelude.Nothing,
-      capabilities = Prelude.Nothing,
+      metadata = Prelude.Nothing,
+      parameters = Prelude.Nothing,
+      resourceIdentifierSummaries = Prelude.Nothing,
       resourceTypes = Prelude.Nothing,
+      version = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A list of the transforms that are declared in the template.
-getTemplateSummaryResponse_declaredTransforms :: Lens.Lens' GetTemplateSummaryResponse (Prelude.Maybe [Prelude.Text])
-getTemplateSummaryResponse_declaredTransforms = Lens.lens (\GetTemplateSummaryResponse' {declaredTransforms} -> declaredTransforms) (\s@GetTemplateSummaryResponse' {} a -> s {declaredTransforms = a} :: GetTemplateSummaryResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | The Amazon Web Services template format version, which identifies the
--- capabilities of the template.
-getTemplateSummaryResponse_version :: Lens.Lens' GetTemplateSummaryResponse (Prelude.Maybe Prelude.Text)
-getTemplateSummaryResponse_version = Lens.lens (\GetTemplateSummaryResponse' {version} -> version) (\s@GetTemplateSummaryResponse' {} a -> s {version = a} :: GetTemplateSummaryResponse)
-
--- | The list of resources that generated the values in the @Capabilities@
--- response element.
-getTemplateSummaryResponse_capabilitiesReason :: Lens.Lens' GetTemplateSummaryResponse (Prelude.Maybe Prelude.Text)
-getTemplateSummaryResponse_capabilitiesReason = Lens.lens (\GetTemplateSummaryResponse' {capabilitiesReason} -> capabilitiesReason) (\s@GetTemplateSummaryResponse' {} a -> s {capabilitiesReason = a} :: GetTemplateSummaryResponse)
-
--- | A list of parameter declarations that describe various properties for
--- each parameter.
-getTemplateSummaryResponse_parameters :: Lens.Lens' GetTemplateSummaryResponse (Prelude.Maybe [ParameterDeclaration])
-getTemplateSummaryResponse_parameters = Lens.lens (\GetTemplateSummaryResponse' {parameters} -> parameters) (\s@GetTemplateSummaryResponse' {} a -> s {parameters = a} :: GetTemplateSummaryResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | The value that is defined for the @Metadata@ property of the template.
-getTemplateSummaryResponse_metadata :: Lens.Lens' GetTemplateSummaryResponse (Prelude.Maybe Prelude.Text)
-getTemplateSummaryResponse_metadata = Lens.lens (\GetTemplateSummaryResponse' {metadata} -> metadata) (\s@GetTemplateSummaryResponse' {} a -> s {metadata = a} :: GetTemplateSummaryResponse)
-
--- | A list of resource identifier summaries that describe the target
--- resources of an import operation and the properties you can provide
--- during the import to identify the target resources. For example,
--- @BucketName@ is a possible identifier property for an @AWS::S3::Bucket@
--- resource.
-getTemplateSummaryResponse_resourceIdentifierSummaries :: Lens.Lens' GetTemplateSummaryResponse (Prelude.Maybe [ResourceIdentifierSummary])
-getTemplateSummaryResponse_resourceIdentifierSummaries = Lens.lens (\GetTemplateSummaryResponse' {resourceIdentifierSummaries} -> resourceIdentifierSummaries) (\s@GetTemplateSummaryResponse' {} a -> s {resourceIdentifierSummaries = a} :: GetTemplateSummaryResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | The value that is defined in the @Description@ property of the template.
-getTemplateSummaryResponse_description :: Lens.Lens' GetTemplateSummaryResponse (Prelude.Maybe Prelude.Text)
-getTemplateSummaryResponse_description = Lens.lens (\GetTemplateSummaryResponse' {description} -> description) (\s@GetTemplateSummaryResponse' {} a -> s {description = a} :: GetTemplateSummaryResponse)
 
 -- | The capabilities found within the template. If your template contains
 -- IAM resources, you must specify the @CAPABILITY_IAM@ or
@@ -472,11 +439,46 @@ getTemplateSummaryResponse_description = Lens.lens (\GetTemplateSummaryResponse'
 getTemplateSummaryResponse_capabilities :: Lens.Lens' GetTemplateSummaryResponse (Prelude.Maybe [Capability])
 getTemplateSummaryResponse_capabilities = Lens.lens (\GetTemplateSummaryResponse' {capabilities} -> capabilities) (\s@GetTemplateSummaryResponse' {} a -> s {capabilities = a} :: GetTemplateSummaryResponse) Prelude.. Lens.mapping Lens.coerced
 
+-- | The list of resources that generated the values in the @Capabilities@
+-- response element.
+getTemplateSummaryResponse_capabilitiesReason :: Lens.Lens' GetTemplateSummaryResponse (Prelude.Maybe Prelude.Text)
+getTemplateSummaryResponse_capabilitiesReason = Lens.lens (\GetTemplateSummaryResponse' {capabilitiesReason} -> capabilitiesReason) (\s@GetTemplateSummaryResponse' {} a -> s {capabilitiesReason = a} :: GetTemplateSummaryResponse)
+
+-- | A list of the transforms that are declared in the template.
+getTemplateSummaryResponse_declaredTransforms :: Lens.Lens' GetTemplateSummaryResponse (Prelude.Maybe [Prelude.Text])
+getTemplateSummaryResponse_declaredTransforms = Lens.lens (\GetTemplateSummaryResponse' {declaredTransforms} -> declaredTransforms) (\s@GetTemplateSummaryResponse' {} a -> s {declaredTransforms = a} :: GetTemplateSummaryResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The value that\'s defined in the @Description@ property of the template.
+getTemplateSummaryResponse_description :: Lens.Lens' GetTemplateSummaryResponse (Prelude.Maybe Prelude.Text)
+getTemplateSummaryResponse_description = Lens.lens (\GetTemplateSummaryResponse' {description} -> description) (\s@GetTemplateSummaryResponse' {} a -> s {description = a} :: GetTemplateSummaryResponse)
+
+-- | The value that\'s defined for the @Metadata@ property of the template.
+getTemplateSummaryResponse_metadata :: Lens.Lens' GetTemplateSummaryResponse (Prelude.Maybe Prelude.Text)
+getTemplateSummaryResponse_metadata = Lens.lens (\GetTemplateSummaryResponse' {metadata} -> metadata) (\s@GetTemplateSummaryResponse' {} a -> s {metadata = a} :: GetTemplateSummaryResponse)
+
+-- | A list of parameter declarations that describe various properties for
+-- each parameter.
+getTemplateSummaryResponse_parameters :: Lens.Lens' GetTemplateSummaryResponse (Prelude.Maybe [ParameterDeclaration])
+getTemplateSummaryResponse_parameters = Lens.lens (\GetTemplateSummaryResponse' {parameters} -> parameters) (\s@GetTemplateSummaryResponse' {} a -> s {parameters = a} :: GetTemplateSummaryResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | A list of resource identifier summaries that describe the target
+-- resources of an import operation and the properties you can provide
+-- during the import to identify the target resources. For example,
+-- @BucketName@ is a possible identifier property for an @AWS::S3::Bucket@
+-- resource.
+getTemplateSummaryResponse_resourceIdentifierSummaries :: Lens.Lens' GetTemplateSummaryResponse (Prelude.Maybe [ResourceIdentifierSummary])
+getTemplateSummaryResponse_resourceIdentifierSummaries = Lens.lens (\GetTemplateSummaryResponse' {resourceIdentifierSummaries} -> resourceIdentifierSummaries) (\s@GetTemplateSummaryResponse' {} a -> s {resourceIdentifierSummaries = a} :: GetTemplateSummaryResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | A list of all the template resource types that are defined in the
 -- template, such as @AWS::EC2::Instance@, @AWS::Dynamo::Table@, and
 -- @Custom::MyCustomInstance@.
 getTemplateSummaryResponse_resourceTypes :: Lens.Lens' GetTemplateSummaryResponse (Prelude.Maybe [Prelude.Text])
 getTemplateSummaryResponse_resourceTypes = Lens.lens (\GetTemplateSummaryResponse' {resourceTypes} -> resourceTypes) (\s@GetTemplateSummaryResponse' {} a -> s {resourceTypes = a} :: GetTemplateSummaryResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The Amazon Web Services template format version, which identifies the
+-- capabilities of the template.
+getTemplateSummaryResponse_version :: Lens.Lens' GetTemplateSummaryResponse (Prelude.Maybe Prelude.Text)
+getTemplateSummaryResponse_version = Lens.lens (\GetTemplateSummaryResponse' {version} -> version) (\s@GetTemplateSummaryResponse' {} a -> s {version = a} :: GetTemplateSummaryResponse)
 
 -- | The response's http status code.
 getTemplateSummaryResponse_httpStatus :: Lens.Lens' GetTemplateSummaryResponse Prelude.Int
@@ -484,13 +486,13 @@ getTemplateSummaryResponse_httpStatus = Lens.lens (\GetTemplateSummaryResponse' 
 
 instance Prelude.NFData GetTemplateSummaryResponse where
   rnf GetTemplateSummaryResponse' {..} =
-    Prelude.rnf declaredTransforms
-      `Prelude.seq` Prelude.rnf version
+    Prelude.rnf capabilities
       `Prelude.seq` Prelude.rnf capabilitiesReason
-      `Prelude.seq` Prelude.rnf parameters
-      `Prelude.seq` Prelude.rnf metadata
-      `Prelude.seq` Prelude.rnf resourceIdentifierSummaries
+      `Prelude.seq` Prelude.rnf declaredTransforms
       `Prelude.seq` Prelude.rnf description
-      `Prelude.seq` Prelude.rnf capabilities
+      `Prelude.seq` Prelude.rnf metadata
+      `Prelude.seq` Prelude.rnf parameters
+      `Prelude.seq` Prelude.rnf resourceIdentifierSummaries
       `Prelude.seq` Prelude.rnf resourceTypes
+      `Prelude.seq` Prelude.rnf version
       `Prelude.seq` Prelude.rnf httpStatus

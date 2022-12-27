@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.RowInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.QuickSight.Types.RowInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about rows for a data set SPICE ingestion.
 --
 -- /See:/ 'newRowInfo' smart constructor.
 data RowInfo = RowInfo'
-  { -- | The number of rows that were ingested.
+  { -- | The number of rows that were not ingested.
+    rowsDropped :: Prelude.Maybe Prelude.Integer,
+    -- | The number of rows that were ingested.
     rowsIngested :: Prelude.Maybe Prelude.Integer,
     -- | The total number of rows in the dataset.
-    totalRowsInDataset :: Prelude.Maybe Prelude.Integer,
-    -- | The number of rows that were not ingested.
-    rowsDropped :: Prelude.Maybe Prelude.Integer
+    totalRowsInDataset :: Prelude.Maybe Prelude.Integer
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,19 +45,23 @@ data RowInfo = RowInfo'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'rowsDropped', 'rowInfo_rowsDropped' - The number of rows that were not ingested.
+--
 -- 'rowsIngested', 'rowInfo_rowsIngested' - The number of rows that were ingested.
 --
 -- 'totalRowsInDataset', 'rowInfo_totalRowsInDataset' - The total number of rows in the dataset.
---
--- 'rowsDropped', 'rowInfo_rowsDropped' - The number of rows that were not ingested.
 newRowInfo ::
   RowInfo
 newRowInfo =
   RowInfo'
-    { rowsIngested = Prelude.Nothing,
-      totalRowsInDataset = Prelude.Nothing,
-      rowsDropped = Prelude.Nothing
+    { rowsDropped = Prelude.Nothing,
+      rowsIngested = Prelude.Nothing,
+      totalRowsInDataset = Prelude.Nothing
     }
+
+-- | The number of rows that were not ingested.
+rowInfo_rowsDropped :: Lens.Lens' RowInfo (Prelude.Maybe Prelude.Integer)
+rowInfo_rowsDropped = Lens.lens (\RowInfo' {rowsDropped} -> rowsDropped) (\s@RowInfo' {} a -> s {rowsDropped = a} :: RowInfo)
 
 -- | The number of rows that were ingested.
 rowInfo_rowsIngested :: Lens.Lens' RowInfo (Prelude.Maybe Prelude.Integer)
@@ -66,29 +71,25 @@ rowInfo_rowsIngested = Lens.lens (\RowInfo' {rowsIngested} -> rowsIngested) (\s@
 rowInfo_totalRowsInDataset :: Lens.Lens' RowInfo (Prelude.Maybe Prelude.Integer)
 rowInfo_totalRowsInDataset = Lens.lens (\RowInfo' {totalRowsInDataset} -> totalRowsInDataset) (\s@RowInfo' {} a -> s {totalRowsInDataset = a} :: RowInfo)
 
--- | The number of rows that were not ingested.
-rowInfo_rowsDropped :: Lens.Lens' RowInfo (Prelude.Maybe Prelude.Integer)
-rowInfo_rowsDropped = Lens.lens (\RowInfo' {rowsDropped} -> rowsDropped) (\s@RowInfo' {} a -> s {rowsDropped = a} :: RowInfo)
-
-instance Core.FromJSON RowInfo where
+instance Data.FromJSON RowInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RowInfo"
       ( \x ->
           RowInfo'
-            Prelude.<$> (x Core..:? "RowsIngested")
-            Prelude.<*> (x Core..:? "TotalRowsInDataset")
-            Prelude.<*> (x Core..:? "RowsDropped")
+            Prelude.<$> (x Data..:? "RowsDropped")
+            Prelude.<*> (x Data..:? "RowsIngested")
+            Prelude.<*> (x Data..:? "TotalRowsInDataset")
       )
 
 instance Prelude.Hashable RowInfo where
   hashWithSalt _salt RowInfo' {..} =
-    _salt `Prelude.hashWithSalt` rowsIngested
+    _salt `Prelude.hashWithSalt` rowsDropped
+      `Prelude.hashWithSalt` rowsIngested
       `Prelude.hashWithSalt` totalRowsInDataset
-      `Prelude.hashWithSalt` rowsDropped
 
 instance Prelude.NFData RowInfo where
   rnf RowInfo' {..} =
-    Prelude.rnf rowsIngested
+    Prelude.rnf rowsDropped
+      `Prelude.seq` Prelude.rnf rowsIngested
       `Prelude.seq` Prelude.rnf totalRowsInDataset
-      `Prelude.seq` Prelude.rnf rowsDropped

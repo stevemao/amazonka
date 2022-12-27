@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.DescribeLoadBasedAutoScaling
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.OpsWorks.DescribeLoadBasedAutoScaling
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -86,12 +87,13 @@ instance Core.AWSRequest DescribeLoadBasedAutoScaling where
   type
     AWSResponse DescribeLoadBasedAutoScaling =
       DescribeLoadBasedAutoScalingResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeLoadBasedAutoScalingResponse'
-            Prelude.<$> ( x Core..?> "LoadBasedAutoScalingConfigurations"
+            Prelude.<$> ( x Data..?> "LoadBasedAutoScalingConfigurations"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -108,32 +110,32 @@ instance Prelude.NFData DescribeLoadBasedAutoScaling where
   rnf DescribeLoadBasedAutoScaling' {..} =
     Prelude.rnf layerIds
 
-instance Core.ToHeaders DescribeLoadBasedAutoScaling where
+instance Data.ToHeaders DescribeLoadBasedAutoScaling where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.DescribeLoadBasedAutoScaling" ::
+              Data.=# ( "OpsWorks_20130218.DescribeLoadBasedAutoScaling" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeLoadBasedAutoScaling where
+instance Data.ToJSON DescribeLoadBasedAutoScaling where
   toJSON DescribeLoadBasedAutoScaling' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("LayerIds" Core..= layerIds)]
+          [Prelude.Just ("LayerIds" Data..= layerIds)]
       )
 
-instance Core.ToPath DescribeLoadBasedAutoScaling where
+instance Data.ToPath DescribeLoadBasedAutoScaling where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeLoadBasedAutoScaling where
+instance Data.ToQuery DescribeLoadBasedAutoScaling where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the response to a @DescribeLoadBasedAutoScaling@ request.

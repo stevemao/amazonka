@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.WavSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.WavSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.WavCodingMode
 import qualified Amazonka.Prelude as Prelude
 
@@ -74,15 +75,15 @@ wavSettings_codingMode = Lens.lens (\WavSettings' {codingMode} -> codingMode) (\
 wavSettings_sampleRate :: Lens.Lens' WavSettings (Prelude.Maybe Prelude.Double)
 wavSettings_sampleRate = Lens.lens (\WavSettings' {sampleRate} -> sampleRate) (\s@WavSettings' {} a -> s {sampleRate = a} :: WavSettings)
 
-instance Core.FromJSON WavSettings where
+instance Data.FromJSON WavSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "WavSettings"
       ( \x ->
           WavSettings'
-            Prelude.<$> (x Core..:? "bitDepth")
-            Prelude.<*> (x Core..:? "codingMode")
-            Prelude.<*> (x Core..:? "sampleRate")
+            Prelude.<$> (x Data..:? "bitDepth")
+            Prelude.<*> (x Data..:? "codingMode")
+            Prelude.<*> (x Data..:? "sampleRate")
       )
 
 instance Prelude.Hashable WavSettings where
@@ -97,12 +98,12 @@ instance Prelude.NFData WavSettings where
       `Prelude.seq` Prelude.rnf codingMode
       `Prelude.seq` Prelude.rnf sampleRate
 
-instance Core.ToJSON WavSettings where
+instance Data.ToJSON WavSettings where
   toJSON WavSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("bitDepth" Core..=) Prelude.<$> bitDepth,
-            ("codingMode" Core..=) Prelude.<$> codingMode,
-            ("sampleRate" Core..=) Prelude.<$> sampleRate
+          [ ("bitDepth" Data..=) Prelude.<$> bitDepth,
+            ("codingMode" Data..=) Prelude.<$> codingMode,
+            ("sampleRate" Data..=) Prelude.<$> sampleRate
           ]
       )

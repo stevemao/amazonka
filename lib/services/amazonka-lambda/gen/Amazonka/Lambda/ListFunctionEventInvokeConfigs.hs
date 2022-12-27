@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.ListFunctionEventInvokeConfigs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,8 +49,9 @@ module Amazonka.Lambda.ListFunctionEventInvokeConfigs
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -171,15 +172,16 @@ instance
   type
     AWSResponse ListFunctionEventInvokeConfigs =
       ListFunctionEventInvokeConfigsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListFunctionEventInvokeConfigsResponse'
-            Prelude.<$> ( x Core..?> "FunctionEventInvokeConfigs"
+            Prelude.<$> ( x Data..?> "FunctionEventInvokeConfigs"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextMarker")
+            Prelude.<*> (x Data..?> "NextMarker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -204,24 +206,24 @@ instance
       `Prelude.seq` Prelude.rnf functionName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListFunctionEventInvokeConfigs
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListFunctionEventInvokeConfigs where
+instance Data.ToPath ListFunctionEventInvokeConfigs where
   toPath ListFunctionEventInvokeConfigs' {..} =
     Prelude.mconcat
       [ "/2019-09-25/functions/",
-        Core.toBS functionName,
+        Data.toBS functionName,
         "/event-invoke-config/list"
       ]
 
-instance Core.ToQuery ListFunctionEventInvokeConfigs where
+instance Data.ToQuery ListFunctionEventInvokeConfigs where
   toQuery ListFunctionEventInvokeConfigs' {..} =
     Prelude.mconcat
-      [ "Marker" Core.=: marker,
-        "MaxItems" Core.=: maxItems
+      [ "Marker" Data.=: marker,
+        "MaxItems" Data.=: maxItems
       ]
 
 -- | /See:/ 'newListFunctionEventInvokeConfigsResponse' smart constructor.

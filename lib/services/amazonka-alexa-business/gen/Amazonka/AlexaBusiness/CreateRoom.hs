@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.CreateRoom
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,10 +27,10 @@ module Amazonka.AlexaBusiness.CreateRoom
     newCreateRoom,
 
     -- * Request Lenses
-    createRoom_profileArn,
-    createRoom_providerCalendarId,
     createRoom_clientRequestToken,
     createRoom_description,
+    createRoom_profileArn,
+    createRoom_providerCalendarId,
     createRoom_tags,
     createRoom_roomName,
 
@@ -46,22 +46,23 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateRoom' smart constructor.
 data CreateRoom = CreateRoom'
-  { -- | The profile ARN for the room. This is required.
-    profileArn :: Prelude.Maybe Prelude.Text,
-    -- | The calendar ARN for the room.
-    providerCalendarId :: Prelude.Maybe Prelude.Text,
-    -- | A unique, user-specified identifier for this request that ensures
+  { -- | A unique, user-specified identifier for this request that ensures
     -- idempotency.
     clientRequestToken :: Prelude.Maybe Prelude.Text,
     -- | The description for the room.
     description :: Prelude.Maybe Prelude.Text,
+    -- | The profile ARN for the room. This is required.
+    profileArn :: Prelude.Maybe Prelude.Text,
+    -- | The calendar ARN for the room.
+    providerCalendarId :: Prelude.Maybe Prelude.Text,
     -- | The tags for the room.
     tags :: Prelude.Maybe [Tag],
     -- | The name for the room.
@@ -77,14 +78,14 @@ data CreateRoom = CreateRoom'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'profileArn', 'createRoom_profileArn' - The profile ARN for the room. This is required.
---
--- 'providerCalendarId', 'createRoom_providerCalendarId' - The calendar ARN for the room.
---
 -- 'clientRequestToken', 'createRoom_clientRequestToken' - A unique, user-specified identifier for this request that ensures
 -- idempotency.
 --
 -- 'description', 'createRoom_description' - The description for the room.
+--
+-- 'profileArn', 'createRoom_profileArn' - The profile ARN for the room. This is required.
+--
+-- 'providerCalendarId', 'createRoom_providerCalendarId' - The calendar ARN for the room.
 --
 -- 'tags', 'createRoom_tags' - The tags for the room.
 --
@@ -95,21 +96,13 @@ newCreateRoom ::
   CreateRoom
 newCreateRoom pRoomName_ =
   CreateRoom'
-    { profileArn = Prelude.Nothing,
-      providerCalendarId = Prelude.Nothing,
-      clientRequestToken = Prelude.Nothing,
+    { clientRequestToken = Prelude.Nothing,
       description = Prelude.Nothing,
+      profileArn = Prelude.Nothing,
+      providerCalendarId = Prelude.Nothing,
       tags = Prelude.Nothing,
       roomName = pRoomName_
     }
-
--- | The profile ARN for the room. This is required.
-createRoom_profileArn :: Lens.Lens' CreateRoom (Prelude.Maybe Prelude.Text)
-createRoom_profileArn = Lens.lens (\CreateRoom' {profileArn} -> profileArn) (\s@CreateRoom' {} a -> s {profileArn = a} :: CreateRoom)
-
--- | The calendar ARN for the room.
-createRoom_providerCalendarId :: Lens.Lens' CreateRoom (Prelude.Maybe Prelude.Text)
-createRoom_providerCalendarId = Lens.lens (\CreateRoom' {providerCalendarId} -> providerCalendarId) (\s@CreateRoom' {} a -> s {providerCalendarId = a} :: CreateRoom)
 
 -- | A unique, user-specified identifier for this request that ensures
 -- idempotency.
@@ -119,6 +112,14 @@ createRoom_clientRequestToken = Lens.lens (\CreateRoom' {clientRequestToken} -> 
 -- | The description for the room.
 createRoom_description :: Lens.Lens' CreateRoom (Prelude.Maybe Prelude.Text)
 createRoom_description = Lens.lens (\CreateRoom' {description} -> description) (\s@CreateRoom' {} a -> s {description = a} :: CreateRoom)
+
+-- | The profile ARN for the room. This is required.
+createRoom_profileArn :: Lens.Lens' CreateRoom (Prelude.Maybe Prelude.Text)
+createRoom_profileArn = Lens.lens (\CreateRoom' {profileArn} -> profileArn) (\s@CreateRoom' {} a -> s {profileArn = a} :: CreateRoom)
+
+-- | The calendar ARN for the room.
+createRoom_providerCalendarId :: Lens.Lens' CreateRoom (Prelude.Maybe Prelude.Text)
+createRoom_providerCalendarId = Lens.lens (\CreateRoom' {providerCalendarId} -> providerCalendarId) (\s@CreateRoom' {} a -> s {providerCalendarId = a} :: CreateRoom)
 
 -- | The tags for the room.
 createRoom_tags :: Lens.Lens' CreateRoom (Prelude.Maybe [Tag])
@@ -130,67 +131,68 @@ createRoom_roomName = Lens.lens (\CreateRoom' {roomName} -> roomName) (\s@Create
 
 instance Core.AWSRequest CreateRoom where
   type AWSResponse CreateRoom = CreateRoomResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateRoomResponse'
-            Prelude.<$> (x Core..?> "RoomArn")
+            Prelude.<$> (x Data..?> "RoomArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateRoom where
   hashWithSalt _salt CreateRoom' {..} =
-    _salt `Prelude.hashWithSalt` profileArn
-      `Prelude.hashWithSalt` providerCalendarId
-      `Prelude.hashWithSalt` clientRequestToken
+    _salt `Prelude.hashWithSalt` clientRequestToken
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` profileArn
+      `Prelude.hashWithSalt` providerCalendarId
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` roomName
 
 instance Prelude.NFData CreateRoom where
   rnf CreateRoom' {..} =
-    Prelude.rnf profileArn
-      `Prelude.seq` Prelude.rnf providerCalendarId
-      `Prelude.seq` Prelude.rnf clientRequestToken
+    Prelude.rnf clientRequestToken
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf profileArn
+      `Prelude.seq` Prelude.rnf providerCalendarId
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf roomName
 
-instance Core.ToHeaders CreateRoom where
+instance Data.ToHeaders CreateRoom where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.CreateRoom" ::
+              Data.=# ( "AlexaForBusiness.CreateRoom" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateRoom where
+instance Data.ToJSON CreateRoom where
   toJSON CreateRoom' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ProfileArn" Core..=) Prelude.<$> profileArn,
-            ("ProviderCalendarId" Core..=)
-              Prelude.<$> providerCalendarId,
-            ("ClientRequestToken" Core..=)
+          [ ("ClientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("RoomName" Core..= roomName)
+            ("Description" Data..=) Prelude.<$> description,
+            ("ProfileArn" Data..=) Prelude.<$> profileArn,
+            ("ProviderCalendarId" Data..=)
+              Prelude.<$> providerCalendarId,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("RoomName" Data..= roomName)
           ]
       )
 
-instance Core.ToPath CreateRoom where
+instance Data.ToPath CreateRoom where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateRoom where
+instance Data.ToQuery CreateRoom where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateRoomResponse' smart constructor.

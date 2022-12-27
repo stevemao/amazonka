@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.DescribeChannelModeratedByAppInstanceUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -114,12 +115,13 @@ instance
     AWSResponse
       DescribeChannelModeratedByAppInstanceUser =
       DescribeChannelModeratedByAppInstanceUserResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeChannelModeratedByAppInstanceUserResponse'
-            Prelude.<$> (x Core..?> "Channel")
+            Prelude.<$> (x Data..?> "Channel")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -144,30 +146,30 @@ instance
       `Prelude.seq` Prelude.rnf appInstanceUserArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeChannelModeratedByAppInstanceUser
   where
   toHeaders
     DescribeChannelModeratedByAppInstanceUser' {..} =
       Prelude.mconcat
-        ["x-amz-chime-bearer" Core.=# chimeBearer]
+        ["x-amz-chime-bearer" Data.=# chimeBearer]
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeChannelModeratedByAppInstanceUser
   where
   toPath DescribeChannelModeratedByAppInstanceUser' {..} =
     Prelude.mconcat
-      ["/channels/", Core.toBS channelArn]
+      ["/channels/", Data.toBS channelArn]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeChannelModeratedByAppInstanceUser
   where
   toQuery
     DescribeChannelModeratedByAppInstanceUser' {..} =
       Prelude.mconcat
-        [ "app-instance-user-arn" Core.=: appInstanceUserArn,
+        [ "app-instance-user-arn" Data.=: appInstanceUserArn,
           "scope=app-instance-user-moderated-channel"
         ]
 

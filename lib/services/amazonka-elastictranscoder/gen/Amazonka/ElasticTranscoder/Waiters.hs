@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -8,7 +9,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticTranscoder.Waiters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -16,27 +17,28 @@
 module Amazonka.ElasticTranscoder.Waiters where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticTranscoder.Lens
 import Amazonka.ElasticTranscoder.ReadJob
 import Amazonka.ElasticTranscoder.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Polls 'Amazonka.ElasticTranscoder.ReadJob' every 30 seconds until a successful state is reached. An error is returned after 120 failed checks.
 newJobComplete :: Core.Wait ReadJob
 newJobComplete =
   Core.Wait
-    { Core._waitName = "JobComplete",
-      Core._waitAttempts = 120,
-      Core._waitDelay = 30,
-      Core._waitAcceptors =
+    { Core.name = "JobComplete",
+      Core.attempts = 120,
+      Core.delay = 30,
+      Core.acceptors =
         [ Core.matchAll
             "Complete"
             Core.AcceptSuccess
             ( readJobResponse_job
                 Prelude.. job_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAll
             "Canceled"
@@ -44,7 +46,7 @@ newJobComplete =
             ( readJobResponse_job
                 Prelude.. job_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAll
             "Error"
@@ -52,7 +54,7 @@ newJobComplete =
             ( readJobResponse_job
                 Prelude.. job_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }

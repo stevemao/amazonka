@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.Types.SolutionStackDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElasticBeanstalk.Types.SolutionStackDescription where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the solution stack.
@@ -62,14 +63,14 @@ solutionStackDescription_permittedFileTypes = Lens.lens (\SolutionStackDescripti
 solutionStackDescription_solutionStackName :: Lens.Lens' SolutionStackDescription (Prelude.Maybe Prelude.Text)
 solutionStackDescription_solutionStackName = Lens.lens (\SolutionStackDescription' {solutionStackName} -> solutionStackName) (\s@SolutionStackDescription' {} a -> s {solutionStackName = a} :: SolutionStackDescription)
 
-instance Core.FromXML SolutionStackDescription where
+instance Data.FromXML SolutionStackDescription where
   parseXML x =
     SolutionStackDescription'
-      Prelude.<$> ( x Core..@? "PermittedFileTypes"
+      Prelude.<$> ( x Data..@? "PermittedFileTypes"
                       Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "member")
+                      Prelude.>>= Core.may (Data.parseXMLList "member")
                   )
-      Prelude.<*> (x Core..@? "SolutionStackName")
+      Prelude.<*> (x Data..@? "SolutionStackName")
 
 instance Prelude.Hashable SolutionStackDescription where
   hashWithSalt _salt SolutionStackDescription' {..} =

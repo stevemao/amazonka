@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.Types.LicenseConversionContext
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LicenseManager.Types.LicenseConversionContext where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a license type conversion task.
@@ -62,13 +63,13 @@ newLicenseConversionContext =
 licenseConversionContext_usageOperation :: Lens.Lens' LicenseConversionContext (Prelude.Maybe Prelude.Text)
 licenseConversionContext_usageOperation = Lens.lens (\LicenseConversionContext' {usageOperation} -> usageOperation) (\s@LicenseConversionContext' {} a -> s {usageOperation = a} :: LicenseConversionContext)
 
-instance Core.FromJSON LicenseConversionContext where
+instance Data.FromJSON LicenseConversionContext where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LicenseConversionContext"
       ( \x ->
           LicenseConversionContext'
-            Prelude.<$> (x Core..:? "UsageOperation")
+            Prelude.<$> (x Data..:? "UsageOperation")
       )
 
 instance Prelude.Hashable LicenseConversionContext where
@@ -79,11 +80,11 @@ instance Prelude.NFData LicenseConversionContext where
   rnf LicenseConversionContext' {..} =
     Prelude.rnf usageOperation
 
-instance Core.ToJSON LicenseConversionContext where
+instance Data.ToJSON LicenseConversionContext where
   toJSON LicenseConversionContext' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("UsageOperation" Core..=)
+          [ ("UsageOperation" Data..=)
               Prelude.<$> usageOperation
           ]
       )

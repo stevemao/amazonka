@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.BatchEnableStandards
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.SecurityHub.BatchEnableStandards
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,12 +87,13 @@ instance Core.AWSRequest BatchEnableStandards where
   type
     AWSResponse BatchEnableStandards =
       BatchEnableStandardsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchEnableStandardsResponse'
-            Prelude.<$> ( x Core..?> "StandardsSubscriptions"
+            Prelude.<$> ( x Data..?> "StandardsSubscriptions"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -106,32 +108,32 @@ instance Prelude.NFData BatchEnableStandards where
   rnf BatchEnableStandards' {..} =
     Prelude.rnf standardsSubscriptionRequests
 
-instance Core.ToHeaders BatchEnableStandards where
+instance Data.ToHeaders BatchEnableStandards where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchEnableStandards where
+instance Data.ToJSON BatchEnableStandards where
   toJSON BatchEnableStandards' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "StandardsSubscriptionRequests"
-                  Core..= standardsSubscriptionRequests
+                  Data..= standardsSubscriptionRequests
               )
           ]
       )
 
-instance Core.ToPath BatchEnableStandards where
+instance Data.ToPath BatchEnableStandards where
   toPath = Prelude.const "/standards/register"
 
-instance Core.ToQuery BatchEnableStandards where
+instance Data.ToQuery BatchEnableStandards where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchEnableStandardsResponse' smart constructor.

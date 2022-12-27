@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.Types.ResourceChangeDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ServiceCatalog.Types.ResourceChangeDetail where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.ServiceCatalog.Types.EvaluationType
 import Amazonka.ServiceCatalog.Types.ResourceTargetDefinition
@@ -79,15 +80,15 @@ resourceChangeDetail_evaluation = Lens.lens (\ResourceChangeDetail' {evaluation}
 resourceChangeDetail_target :: Lens.Lens' ResourceChangeDetail (Prelude.Maybe ResourceTargetDefinition)
 resourceChangeDetail_target = Lens.lens (\ResourceChangeDetail' {target} -> target) (\s@ResourceChangeDetail' {} a -> s {target = a} :: ResourceChangeDetail)
 
-instance Core.FromJSON ResourceChangeDetail where
+instance Data.FromJSON ResourceChangeDetail where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResourceChangeDetail"
       ( \x ->
           ResourceChangeDetail'
-            Prelude.<$> (x Core..:? "CausingEntity")
-            Prelude.<*> (x Core..:? "Evaluation")
-            Prelude.<*> (x Core..:? "Target")
+            Prelude.<$> (x Data..:? "CausingEntity")
+            Prelude.<*> (x Data..:? "Evaluation")
+            Prelude.<*> (x Data..:? "Target")
       )
 
 instance Prelude.Hashable ResourceChangeDetail where

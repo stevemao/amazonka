@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.ConfigurationErrorDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTSiteWise.Types.ConfigurationErrorDetails where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types.ErrorCode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the details of an IoT SiteWise configuration error.
@@ -66,13 +67,13 @@ configurationErrorDetails_code = Lens.lens (\ConfigurationErrorDetails' {code} -
 configurationErrorDetails_message :: Lens.Lens' ConfigurationErrorDetails Prelude.Text
 configurationErrorDetails_message = Lens.lens (\ConfigurationErrorDetails' {message} -> message) (\s@ConfigurationErrorDetails' {} a -> s {message = a} :: ConfigurationErrorDetails)
 
-instance Core.FromJSON ConfigurationErrorDetails where
+instance Data.FromJSON ConfigurationErrorDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ConfigurationErrorDetails"
       ( \x ->
           ConfigurationErrorDetails'
-            Prelude.<$> (x Core..: "code") Prelude.<*> (x Core..: "message")
+            Prelude.<$> (x Data..: "code") Prelude.<*> (x Data..: "message")
       )
 
 instance Prelude.Hashable ConfigurationErrorDetails where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Batch.Types.Volume
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,30 +22,32 @@ module Amazonka.Batch.Types.Volume where
 import Amazonka.Batch.Types.EFSVolumeConfiguration
 import Amazonka.Batch.Types.Host
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | A data volume used in a job\'s container properties.
+-- | A data volume that\'s used in a job\'s container properties.
 --
 -- /See:/ 'newVolume' smart constructor.
 data Volume = Volume'
-  { -- | The name of the volume. Up to 255 letters (uppercase and lowercase),
-    -- numbers, hyphens, and underscores are allowed. This name is referenced
-    -- in the @sourceVolume@ parameter of container definition @mountPoints@.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | This parameter is specified when you are using an Amazon Elastic File
+  { -- | This parameter is specified when you\'re using an Amazon Elastic File
     -- System file system for job storage. Jobs that are running on Fargate
     -- resources must specify a @platformVersion@ of at least @1.4.0@.
     efsVolumeConfiguration :: Prelude.Maybe EFSVolumeConfiguration,
     -- | The contents of the @host@ parameter determine whether your data volume
-    -- persists on the host container instance and where it is stored. If the
+    -- persists on the host container instance and where it\'s stored. If the
     -- host parameter is empty, then the Docker daemon assigns a host path for
     -- your data volume. However, the data isn\'t guaranteed to persist after
-    -- the containers associated with it stop running.
+    -- the containers that are associated with it stop running.
     --
     -- This parameter isn\'t applicable to jobs that are running on Fargate
     -- resources and shouldn\'t be provided.
-    host :: Prelude.Maybe Host
+    host :: Prelude.Maybe Host,
+    -- | The name of the volume. It can be up to 255 characters long. It can
+    -- contain uppercase and lowercase letters, numbers, hyphens (-), and
+    -- underscores (_). This name is referenced in the @sourceVolume@ parameter
+    -- of container definition @mountPoints@.
+    name :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -57,84 +59,86 @@ data Volume = Volume'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'volume_name' - The name of the volume. Up to 255 letters (uppercase and lowercase),
--- numbers, hyphens, and underscores are allowed. This name is referenced
--- in the @sourceVolume@ parameter of container definition @mountPoints@.
---
--- 'efsVolumeConfiguration', 'volume_efsVolumeConfiguration' - This parameter is specified when you are using an Amazon Elastic File
+-- 'efsVolumeConfiguration', 'volume_efsVolumeConfiguration' - This parameter is specified when you\'re using an Amazon Elastic File
 -- System file system for job storage. Jobs that are running on Fargate
 -- resources must specify a @platformVersion@ of at least @1.4.0@.
 --
 -- 'host', 'volume_host' - The contents of the @host@ parameter determine whether your data volume
--- persists on the host container instance and where it is stored. If the
+-- persists on the host container instance and where it\'s stored. If the
 -- host parameter is empty, then the Docker daemon assigns a host path for
 -- your data volume. However, the data isn\'t guaranteed to persist after
--- the containers associated with it stop running.
+-- the containers that are associated with it stop running.
 --
 -- This parameter isn\'t applicable to jobs that are running on Fargate
 -- resources and shouldn\'t be provided.
+--
+-- 'name', 'volume_name' - The name of the volume. It can be up to 255 characters long. It can
+-- contain uppercase and lowercase letters, numbers, hyphens (-), and
+-- underscores (_). This name is referenced in the @sourceVolume@ parameter
+-- of container definition @mountPoints@.
 newVolume ::
   Volume
 newVolume =
   Volume'
-    { name = Prelude.Nothing,
-      efsVolumeConfiguration = Prelude.Nothing,
-      host = Prelude.Nothing
+    { efsVolumeConfiguration = Prelude.Nothing,
+      host = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
--- | The name of the volume. Up to 255 letters (uppercase and lowercase),
--- numbers, hyphens, and underscores are allowed. This name is referenced
--- in the @sourceVolume@ parameter of container definition @mountPoints@.
-volume_name :: Lens.Lens' Volume (Prelude.Maybe Prelude.Text)
-volume_name = Lens.lens (\Volume' {name} -> name) (\s@Volume' {} a -> s {name = a} :: Volume)
-
--- | This parameter is specified when you are using an Amazon Elastic File
+-- | This parameter is specified when you\'re using an Amazon Elastic File
 -- System file system for job storage. Jobs that are running on Fargate
 -- resources must specify a @platformVersion@ of at least @1.4.0@.
 volume_efsVolumeConfiguration :: Lens.Lens' Volume (Prelude.Maybe EFSVolumeConfiguration)
 volume_efsVolumeConfiguration = Lens.lens (\Volume' {efsVolumeConfiguration} -> efsVolumeConfiguration) (\s@Volume' {} a -> s {efsVolumeConfiguration = a} :: Volume)
 
 -- | The contents of the @host@ parameter determine whether your data volume
--- persists on the host container instance and where it is stored. If the
+-- persists on the host container instance and where it\'s stored. If the
 -- host parameter is empty, then the Docker daemon assigns a host path for
 -- your data volume. However, the data isn\'t guaranteed to persist after
--- the containers associated with it stop running.
+-- the containers that are associated with it stop running.
 --
 -- This parameter isn\'t applicable to jobs that are running on Fargate
 -- resources and shouldn\'t be provided.
 volume_host :: Lens.Lens' Volume (Prelude.Maybe Host)
 volume_host = Lens.lens (\Volume' {host} -> host) (\s@Volume' {} a -> s {host = a} :: Volume)
 
-instance Core.FromJSON Volume where
+-- | The name of the volume. It can be up to 255 characters long. It can
+-- contain uppercase and lowercase letters, numbers, hyphens (-), and
+-- underscores (_). This name is referenced in the @sourceVolume@ parameter
+-- of container definition @mountPoints@.
+volume_name :: Lens.Lens' Volume (Prelude.Maybe Prelude.Text)
+volume_name = Lens.lens (\Volume' {name} -> name) (\s@Volume' {} a -> s {name = a} :: Volume)
+
+instance Data.FromJSON Volume where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Volume"
       ( \x ->
           Volume'
-            Prelude.<$> (x Core..:? "name")
-            Prelude.<*> (x Core..:? "efsVolumeConfiguration")
-            Prelude.<*> (x Core..:? "host")
+            Prelude.<$> (x Data..:? "efsVolumeConfiguration")
+            Prelude.<*> (x Data..:? "host")
+            Prelude.<*> (x Data..:? "name")
       )
 
 instance Prelude.Hashable Volume where
   hashWithSalt _salt Volume' {..} =
-    _salt `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` efsVolumeConfiguration
+    _salt `Prelude.hashWithSalt` efsVolumeConfiguration
       `Prelude.hashWithSalt` host
+      `Prelude.hashWithSalt` name
 
 instance Prelude.NFData Volume where
   rnf Volume' {..} =
-    Prelude.rnf name
-      `Prelude.seq` Prelude.rnf efsVolumeConfiguration
+    Prelude.rnf efsVolumeConfiguration
       `Prelude.seq` Prelude.rnf host
+      `Prelude.seq` Prelude.rnf name
 
-instance Core.ToJSON Volume where
+instance Data.ToJSON Volume where
   toJSON Volume' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("name" Core..=) Prelude.<$> name,
-            ("efsVolumeConfiguration" Core..=)
+          [ ("efsVolumeConfiguration" Data..=)
               Prelude.<$> efsVolumeConfiguration,
-            ("host" Core..=) Prelude.<$> host
+            ("host" Data..=) Prelude.<$> host,
+            ("name" Data..=) Prelude.<$> name
           ]
       )

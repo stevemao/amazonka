@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsEcsClusterConfigurationExecuteCommandConfigurationDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsEcsClusterConfigurationExecuteCommandConfigurationDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.AwsEcsClusterConfigurationExecuteCommandConfigurationLogConfigurationDetails
 
@@ -28,12 +29,12 @@ import Amazonka.SecurityHub.Types.AwsEcsClusterConfigurationExecuteCommandConfig
 --
 -- /See:/ 'newAwsEcsClusterConfigurationExecuteCommandConfigurationDetails' smart constructor.
 data AwsEcsClusterConfigurationExecuteCommandConfigurationDetails = AwsEcsClusterConfigurationExecuteCommandConfigurationDetails'
-  { -- | The log configuration for the results of the run command actions.
-    -- Required if @Logging@ is @NONE@.
-    logConfiguration :: Prelude.Maybe AwsEcsClusterConfigurationExecuteCommandConfigurationLogConfigurationDetails,
-    -- | The identifier of the KMS key that is used to encrypt the data between
+  { -- | The identifier of the KMS key that is used to encrypt the data between
     -- the local client and the container.
     kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The log configuration for the results of the run command actions.
+    -- Required if @Logging@ is @NONE@.
+    logConfiguration :: Prelude.Maybe AwsEcsClusterConfigurationExecuteCommandConfigurationLogConfigurationDetails,
     -- | The log setting to use for redirecting logs for run command results.
     logging :: Prelude.Maybe Prelude.Text
   }
@@ -47,51 +48,51 @@ data AwsEcsClusterConfigurationExecuteCommandConfigurationDetails = AwsEcsCluste
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'logConfiguration', 'awsEcsClusterConfigurationExecuteCommandConfigurationDetails_logConfiguration' - The log configuration for the results of the run command actions.
--- Required if @Logging@ is @NONE@.
---
 -- 'kmsKeyId', 'awsEcsClusterConfigurationExecuteCommandConfigurationDetails_kmsKeyId' - The identifier of the KMS key that is used to encrypt the data between
 -- the local client and the container.
+--
+-- 'logConfiguration', 'awsEcsClusterConfigurationExecuteCommandConfigurationDetails_logConfiguration' - The log configuration for the results of the run command actions.
+-- Required if @Logging@ is @NONE@.
 --
 -- 'logging', 'awsEcsClusterConfigurationExecuteCommandConfigurationDetails_logging' - The log setting to use for redirecting logs for run command results.
 newAwsEcsClusterConfigurationExecuteCommandConfigurationDetails ::
   AwsEcsClusterConfigurationExecuteCommandConfigurationDetails
 newAwsEcsClusterConfigurationExecuteCommandConfigurationDetails =
   AwsEcsClusterConfigurationExecuteCommandConfigurationDetails'
-    { logConfiguration =
+    { kmsKeyId =
         Prelude.Nothing,
-      kmsKeyId =
+      logConfiguration =
         Prelude.Nothing,
       logging =
         Prelude.Nothing
     }
-
--- | The log configuration for the results of the run command actions.
--- Required if @Logging@ is @NONE@.
-awsEcsClusterConfigurationExecuteCommandConfigurationDetails_logConfiguration :: Lens.Lens' AwsEcsClusterConfigurationExecuteCommandConfigurationDetails (Prelude.Maybe AwsEcsClusterConfigurationExecuteCommandConfigurationLogConfigurationDetails)
-awsEcsClusterConfigurationExecuteCommandConfigurationDetails_logConfiguration = Lens.lens (\AwsEcsClusterConfigurationExecuteCommandConfigurationDetails' {logConfiguration} -> logConfiguration) (\s@AwsEcsClusterConfigurationExecuteCommandConfigurationDetails' {} a -> s {logConfiguration = a} :: AwsEcsClusterConfigurationExecuteCommandConfigurationDetails)
 
 -- | The identifier of the KMS key that is used to encrypt the data between
 -- the local client and the container.
 awsEcsClusterConfigurationExecuteCommandConfigurationDetails_kmsKeyId :: Lens.Lens' AwsEcsClusterConfigurationExecuteCommandConfigurationDetails (Prelude.Maybe Prelude.Text)
 awsEcsClusterConfigurationExecuteCommandConfigurationDetails_kmsKeyId = Lens.lens (\AwsEcsClusterConfigurationExecuteCommandConfigurationDetails' {kmsKeyId} -> kmsKeyId) (\s@AwsEcsClusterConfigurationExecuteCommandConfigurationDetails' {} a -> s {kmsKeyId = a} :: AwsEcsClusterConfigurationExecuteCommandConfigurationDetails)
 
+-- | The log configuration for the results of the run command actions.
+-- Required if @Logging@ is @NONE@.
+awsEcsClusterConfigurationExecuteCommandConfigurationDetails_logConfiguration :: Lens.Lens' AwsEcsClusterConfigurationExecuteCommandConfigurationDetails (Prelude.Maybe AwsEcsClusterConfigurationExecuteCommandConfigurationLogConfigurationDetails)
+awsEcsClusterConfigurationExecuteCommandConfigurationDetails_logConfiguration = Lens.lens (\AwsEcsClusterConfigurationExecuteCommandConfigurationDetails' {logConfiguration} -> logConfiguration) (\s@AwsEcsClusterConfigurationExecuteCommandConfigurationDetails' {} a -> s {logConfiguration = a} :: AwsEcsClusterConfigurationExecuteCommandConfigurationDetails)
+
 -- | The log setting to use for redirecting logs for run command results.
 awsEcsClusterConfigurationExecuteCommandConfigurationDetails_logging :: Lens.Lens' AwsEcsClusterConfigurationExecuteCommandConfigurationDetails (Prelude.Maybe Prelude.Text)
 awsEcsClusterConfigurationExecuteCommandConfigurationDetails_logging = Lens.lens (\AwsEcsClusterConfigurationExecuteCommandConfigurationDetails' {logging} -> logging) (\s@AwsEcsClusterConfigurationExecuteCommandConfigurationDetails' {} a -> s {logging = a} :: AwsEcsClusterConfigurationExecuteCommandConfigurationDetails)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsEcsClusterConfigurationExecuteCommandConfigurationDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsEcsClusterConfigurationExecuteCommandConfigurationDetails"
       ( \x ->
           AwsEcsClusterConfigurationExecuteCommandConfigurationDetails'
-            Prelude.<$> (x Core..:? "LogConfiguration")
-              Prelude.<*> (x Core..:? "KmsKeyId")
-              Prelude.<*> (x Core..:? "Logging")
+            Prelude.<$> (x Data..:? "KmsKeyId")
+              Prelude.<*> (x Data..:? "LogConfiguration")
+              Prelude.<*> (x Data..:? "Logging")
       )
 
 instance
@@ -101,8 +102,8 @@ instance
   hashWithSalt
     _salt
     AwsEcsClusterConfigurationExecuteCommandConfigurationDetails' {..} =
-      _salt `Prelude.hashWithSalt` logConfiguration
-        `Prelude.hashWithSalt` kmsKeyId
+      _salt `Prelude.hashWithSalt` kmsKeyId
+        `Prelude.hashWithSalt` logConfiguration
         `Prelude.hashWithSalt` logging
 
 instance
@@ -111,21 +112,21 @@ instance
   where
   rnf
     AwsEcsClusterConfigurationExecuteCommandConfigurationDetails' {..} =
-      Prelude.rnf logConfiguration
-        `Prelude.seq` Prelude.rnf kmsKeyId
+      Prelude.rnf kmsKeyId
+        `Prelude.seq` Prelude.rnf logConfiguration
         `Prelude.seq` Prelude.rnf logging
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsEcsClusterConfigurationExecuteCommandConfigurationDetails
   where
   toJSON
     AwsEcsClusterConfigurationExecuteCommandConfigurationDetails' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("LogConfiguration" Core..=)
+            [ ("KmsKeyId" Data..=) Prelude.<$> kmsKeyId,
+              ("LogConfiguration" Data..=)
                 Prelude.<$> logConfiguration,
-              ("KmsKeyId" Core..=) Prelude.<$> kmsKeyId,
-              ("Logging" Core..=) Prelude.<$> logging
+              ("Logging" Data..=) Prelude.<$> logging
             ]
         )

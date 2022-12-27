@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.ListHumanTaskUis
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,10 +31,10 @@ module Amazonka.SageMaker.ListHumanTaskUis
 
     -- * Request Lenses
     listHumanTaskUis_creationTimeAfter,
-    listHumanTaskUis_nextToken,
-    listHumanTaskUis_sortOrder,
     listHumanTaskUis_creationTimeBefore,
     listHumanTaskUis_maxResults,
+    listHumanTaskUis_nextToken,
+    listHumanTaskUis_sortOrder,
 
     -- * Destructuring the Response
     ListHumanTaskUisResponse (..),
@@ -48,7 +48,8 @@ module Amazonka.SageMaker.ListHumanTaskUis
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,20 +59,20 @@ import Amazonka.SageMaker.Types
 data ListHumanTaskUis = ListHumanTaskUis'
   { -- | A filter that returns only human task user interfaces with a creation
     -- time greater than or equal to the specified timestamp.
-    creationTimeAfter :: Prelude.Maybe Core.POSIX,
-    -- | A token to resume pagination.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | An optional value that specifies whether you want the results sorted in
-    -- @Ascending@ or @Descending@ order.
-    sortOrder :: Prelude.Maybe SortOrder,
+    creationTimeAfter :: Prelude.Maybe Data.POSIX,
     -- | A filter that returns only human task user interfaces that were created
     -- before the specified timestamp.
-    creationTimeBefore :: Prelude.Maybe Core.POSIX,
+    creationTimeBefore :: Prelude.Maybe Data.POSIX,
     -- | The total number of items to return. If the total number of available
     -- items is more than the value specified in @MaxResults@, then a
     -- @NextToken@ will be provided in the output that you can use to resume
     -- pagination.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token to resume pagination.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An optional value that specifies whether you want the results sorted in
+    -- @Ascending@ or @Descending@ order.
+    sortOrder :: Prelude.Maybe SortOrder
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -86,11 +87,6 @@ data ListHumanTaskUis = ListHumanTaskUis'
 -- 'creationTimeAfter', 'listHumanTaskUis_creationTimeAfter' - A filter that returns only human task user interfaces with a creation
 -- time greater than or equal to the specified timestamp.
 --
--- 'nextToken', 'listHumanTaskUis_nextToken' - A token to resume pagination.
---
--- 'sortOrder', 'listHumanTaskUis_sortOrder' - An optional value that specifies whether you want the results sorted in
--- @Ascending@ or @Descending@ order.
---
 -- 'creationTimeBefore', 'listHumanTaskUis_creationTimeBefore' - A filter that returns only human task user interfaces that were created
 -- before the specified timestamp.
 --
@@ -98,22 +94,39 @@ data ListHumanTaskUis = ListHumanTaskUis'
 -- items is more than the value specified in @MaxResults@, then a
 -- @NextToken@ will be provided in the output that you can use to resume
 -- pagination.
+--
+-- 'nextToken', 'listHumanTaskUis_nextToken' - A token to resume pagination.
+--
+-- 'sortOrder', 'listHumanTaskUis_sortOrder' - An optional value that specifies whether you want the results sorted in
+-- @Ascending@ or @Descending@ order.
 newListHumanTaskUis ::
   ListHumanTaskUis
 newListHumanTaskUis =
   ListHumanTaskUis'
     { creationTimeAfter =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      sortOrder = Prelude.Nothing,
       creationTimeBefore = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      sortOrder = Prelude.Nothing
     }
 
 -- | A filter that returns only human task user interfaces with a creation
 -- time greater than or equal to the specified timestamp.
 listHumanTaskUis_creationTimeAfter :: Lens.Lens' ListHumanTaskUis (Prelude.Maybe Prelude.UTCTime)
-listHumanTaskUis_creationTimeAfter = Lens.lens (\ListHumanTaskUis' {creationTimeAfter} -> creationTimeAfter) (\s@ListHumanTaskUis' {} a -> s {creationTimeAfter = a} :: ListHumanTaskUis) Prelude.. Lens.mapping Core._Time
+listHumanTaskUis_creationTimeAfter = Lens.lens (\ListHumanTaskUis' {creationTimeAfter} -> creationTimeAfter) (\s@ListHumanTaskUis' {} a -> s {creationTimeAfter = a} :: ListHumanTaskUis) Prelude.. Lens.mapping Data._Time
+
+-- | A filter that returns only human task user interfaces that were created
+-- before the specified timestamp.
+listHumanTaskUis_creationTimeBefore :: Lens.Lens' ListHumanTaskUis (Prelude.Maybe Prelude.UTCTime)
+listHumanTaskUis_creationTimeBefore = Lens.lens (\ListHumanTaskUis' {creationTimeBefore} -> creationTimeBefore) (\s@ListHumanTaskUis' {} a -> s {creationTimeBefore = a} :: ListHumanTaskUis) Prelude.. Lens.mapping Data._Time
+
+-- | The total number of items to return. If the total number of available
+-- items is more than the value specified in @MaxResults@, then a
+-- @NextToken@ will be provided in the output that you can use to resume
+-- pagination.
+listHumanTaskUis_maxResults :: Lens.Lens' ListHumanTaskUis (Prelude.Maybe Prelude.Natural)
+listHumanTaskUis_maxResults = Lens.lens (\ListHumanTaskUis' {maxResults} -> maxResults) (\s@ListHumanTaskUis' {} a -> s {maxResults = a} :: ListHumanTaskUis)
 
 -- | A token to resume pagination.
 listHumanTaskUis_nextToken :: Lens.Lens' ListHumanTaskUis (Prelude.Maybe Prelude.Text)
@@ -123,18 +136,6 @@ listHumanTaskUis_nextToken = Lens.lens (\ListHumanTaskUis' {nextToken} -> nextTo
 -- @Ascending@ or @Descending@ order.
 listHumanTaskUis_sortOrder :: Lens.Lens' ListHumanTaskUis (Prelude.Maybe SortOrder)
 listHumanTaskUis_sortOrder = Lens.lens (\ListHumanTaskUis' {sortOrder} -> sortOrder) (\s@ListHumanTaskUis' {} a -> s {sortOrder = a} :: ListHumanTaskUis)
-
--- | A filter that returns only human task user interfaces that were created
--- before the specified timestamp.
-listHumanTaskUis_creationTimeBefore :: Lens.Lens' ListHumanTaskUis (Prelude.Maybe Prelude.UTCTime)
-listHumanTaskUis_creationTimeBefore = Lens.lens (\ListHumanTaskUis' {creationTimeBefore} -> creationTimeBefore) (\s@ListHumanTaskUis' {} a -> s {creationTimeBefore = a} :: ListHumanTaskUis) Prelude.. Lens.mapping Core._Time
-
--- | The total number of items to return. If the total number of available
--- items is more than the value specified in @MaxResults@, then a
--- @NextToken@ will be provided in the output that you can use to resume
--- pagination.
-listHumanTaskUis_maxResults :: Lens.Lens' ListHumanTaskUis (Prelude.Maybe Prelude.Natural)
-listHumanTaskUis_maxResults = Lens.lens (\ListHumanTaskUis' {maxResults} -> maxResults) (\s@ListHumanTaskUis' {} a -> s {maxResults = a} :: ListHumanTaskUis)
 
 instance Core.AWSPager ListHumanTaskUis where
   page rq rs
@@ -161,14 +162,15 @@ instance Core.AWSRequest ListHumanTaskUis where
   type
     AWSResponse ListHumanTaskUis =
       ListHumanTaskUisResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListHumanTaskUisResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "HumanTaskUiSummaries"
+            Prelude.<*> ( x Data..?> "HumanTaskUiSummaries"
                             Core..!@ Prelude.mempty
                         )
       )
@@ -176,50 +178,50 @@ instance Core.AWSRequest ListHumanTaskUis where
 instance Prelude.Hashable ListHumanTaskUis where
   hashWithSalt _salt ListHumanTaskUis' {..} =
     _salt `Prelude.hashWithSalt` creationTimeAfter
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` sortOrder
       `Prelude.hashWithSalt` creationTimeBefore
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` sortOrder
 
 instance Prelude.NFData ListHumanTaskUis where
   rnf ListHumanTaskUis' {..} =
     Prelude.rnf creationTimeAfter
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf sortOrder
       `Prelude.seq` Prelude.rnf creationTimeBefore
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf sortOrder
 
-instance Core.ToHeaders ListHumanTaskUis where
+instance Data.ToHeaders ListHumanTaskUis where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.ListHumanTaskUis" :: Prelude.ByteString),
+              Data.=# ("SageMaker.ListHumanTaskUis" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListHumanTaskUis where
+instance Data.ToJSON ListHumanTaskUis where
   toJSON ListHumanTaskUis' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CreationTimeAfter" Core..=)
+          [ ("CreationTimeAfter" Data..=)
               Prelude.<$> creationTimeAfter,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("SortOrder" Core..=) Prelude.<$> sortOrder,
-            ("CreationTimeBefore" Core..=)
+            ("CreationTimeBefore" Data..=)
               Prelude.<$> creationTimeBefore,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("SortOrder" Data..=) Prelude.<$> sortOrder
           ]
       )
 
-instance Core.ToPath ListHumanTaskUis where
+instance Data.ToPath ListHumanTaskUis where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListHumanTaskUis where
+instance Data.ToQuery ListHumanTaskUis where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListHumanTaskUisResponse' smart constructor.

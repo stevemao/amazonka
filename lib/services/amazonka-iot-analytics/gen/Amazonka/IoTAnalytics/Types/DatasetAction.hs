@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.Types.DatasetAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.IoTAnalytics.Types.DatasetAction where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types.ContainerDatasetAction
 import Amazonka.IoTAnalytics.Types.SqlQueryDatasetAction
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A @DatasetAction@ object that specifies how dataset contents are
@@ -30,16 +31,16 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newDatasetAction' smart constructor.
 data DatasetAction = DatasetAction'
-  { -- | An @SqlQueryDatasetAction@ object that uses an SQL query to
-    -- automatically create dataset contents.
-    queryAction :: Prelude.Maybe SqlQueryDatasetAction,
-    -- | The name of the dataset action by which dataset contents are
+  { -- | The name of the dataset action by which dataset contents are
     -- automatically created.
     actionName :: Prelude.Maybe Prelude.Text,
     -- | Information that allows the system to run a containerized application to
     -- create the dataset contents. The application must be in a Docker
     -- container along with any required support libraries.
-    containerAction :: Prelude.Maybe ContainerDatasetAction
+    containerAction :: Prelude.Maybe ContainerDatasetAction,
+    -- | An @SqlQueryDatasetAction@ object that uses an SQL query to
+    -- automatically create dataset contents.
+    queryAction :: Prelude.Maybe SqlQueryDatasetAction
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -51,28 +52,23 @@ data DatasetAction = DatasetAction'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'queryAction', 'datasetAction_queryAction' - An @SqlQueryDatasetAction@ object that uses an SQL query to
--- automatically create dataset contents.
---
 -- 'actionName', 'datasetAction_actionName' - The name of the dataset action by which dataset contents are
 -- automatically created.
 --
 -- 'containerAction', 'datasetAction_containerAction' - Information that allows the system to run a containerized application to
 -- create the dataset contents. The application must be in a Docker
 -- container along with any required support libraries.
+--
+-- 'queryAction', 'datasetAction_queryAction' - An @SqlQueryDatasetAction@ object that uses an SQL query to
+-- automatically create dataset contents.
 newDatasetAction ::
   DatasetAction
 newDatasetAction =
   DatasetAction'
-    { queryAction = Prelude.Nothing,
-      actionName = Prelude.Nothing,
-      containerAction = Prelude.Nothing
+    { actionName = Prelude.Nothing,
+      containerAction = Prelude.Nothing,
+      queryAction = Prelude.Nothing
     }
-
--- | An @SqlQueryDatasetAction@ object that uses an SQL query to
--- automatically create dataset contents.
-datasetAction_queryAction :: Lens.Lens' DatasetAction (Prelude.Maybe SqlQueryDatasetAction)
-datasetAction_queryAction = Lens.lens (\DatasetAction' {queryAction} -> queryAction) (\s@DatasetAction' {} a -> s {queryAction = a} :: DatasetAction)
 
 -- | The name of the dataset action by which dataset contents are
 -- automatically created.
@@ -85,36 +81,41 @@ datasetAction_actionName = Lens.lens (\DatasetAction' {actionName} -> actionName
 datasetAction_containerAction :: Lens.Lens' DatasetAction (Prelude.Maybe ContainerDatasetAction)
 datasetAction_containerAction = Lens.lens (\DatasetAction' {containerAction} -> containerAction) (\s@DatasetAction' {} a -> s {containerAction = a} :: DatasetAction)
 
-instance Core.FromJSON DatasetAction where
+-- | An @SqlQueryDatasetAction@ object that uses an SQL query to
+-- automatically create dataset contents.
+datasetAction_queryAction :: Lens.Lens' DatasetAction (Prelude.Maybe SqlQueryDatasetAction)
+datasetAction_queryAction = Lens.lens (\DatasetAction' {queryAction} -> queryAction) (\s@DatasetAction' {} a -> s {queryAction = a} :: DatasetAction)
+
+instance Data.FromJSON DatasetAction where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DatasetAction"
       ( \x ->
           DatasetAction'
-            Prelude.<$> (x Core..:? "queryAction")
-            Prelude.<*> (x Core..:? "actionName")
-            Prelude.<*> (x Core..:? "containerAction")
+            Prelude.<$> (x Data..:? "actionName")
+            Prelude.<*> (x Data..:? "containerAction")
+            Prelude.<*> (x Data..:? "queryAction")
       )
 
 instance Prelude.Hashable DatasetAction where
   hashWithSalt _salt DatasetAction' {..} =
-    _salt `Prelude.hashWithSalt` queryAction
-      `Prelude.hashWithSalt` actionName
+    _salt `Prelude.hashWithSalt` actionName
       `Prelude.hashWithSalt` containerAction
+      `Prelude.hashWithSalt` queryAction
 
 instance Prelude.NFData DatasetAction where
   rnf DatasetAction' {..} =
-    Prelude.rnf queryAction
-      `Prelude.seq` Prelude.rnf actionName
+    Prelude.rnf actionName
       `Prelude.seq` Prelude.rnf containerAction
+      `Prelude.seq` Prelude.rnf queryAction
 
-instance Core.ToJSON DatasetAction where
+instance Data.ToJSON DatasetAction where
   toJSON DatasetAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("queryAction" Core..=) Prelude.<$> queryAction,
-            ("actionName" Core..=) Prelude.<$> actionName,
-            ("containerAction" Core..=)
-              Prelude.<$> containerAction
+          [ ("actionName" Data..=) Prelude.<$> actionName,
+            ("containerAction" Data..=)
+              Prelude.<$> containerAction,
+            ("queryAction" Data..=) Prelude.<$> queryAction
           ]
       )

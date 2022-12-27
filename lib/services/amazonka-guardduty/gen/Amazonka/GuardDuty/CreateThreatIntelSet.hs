@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.CreateThreatIntelSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,8 +48,9 @@ module Amazonka.GuardDuty.CreateThreatIntelSet
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -69,8 +70,7 @@ data CreateThreatIntelSet = CreateThreatIntelSet'
     name :: Prelude.Text,
     -- | The format of the file that contains the ThreatIntelSet.
     format :: ThreatIntelSetFormat,
-    -- | The URI of the file that contains the ThreatIntelSet. For example:
-    -- https:\/\/s3.us-west-2.amazonaws.com\/my-bucket\/my-object-key.
+    -- | The URI of the file that contains the ThreatIntelSet.
     location :: Prelude.Text,
     -- | A Boolean value that indicates whether GuardDuty is to start using the
     -- uploaded ThreatIntelSet.
@@ -99,8 +99,7 @@ data CreateThreatIntelSet = CreateThreatIntelSet'
 --
 -- 'format', 'createThreatIntelSet_format' - The format of the file that contains the ThreatIntelSet.
 --
--- 'location', 'createThreatIntelSet_location' - The URI of the file that contains the ThreatIntelSet. For example:
--- https:\/\/s3.us-west-2.amazonaws.com\/my-bucket\/my-object-key.
+-- 'location', 'createThreatIntelSet_location' - The URI of the file that contains the ThreatIntelSet.
 --
 -- 'activate', 'createThreatIntelSet_activate' - A Boolean value that indicates whether GuardDuty is to start using the
 -- uploaded ThreatIntelSet.
@@ -156,8 +155,7 @@ createThreatIntelSet_name = Lens.lens (\CreateThreatIntelSet' {name} -> name) (\
 createThreatIntelSet_format :: Lens.Lens' CreateThreatIntelSet ThreatIntelSetFormat
 createThreatIntelSet_format = Lens.lens (\CreateThreatIntelSet' {format} -> format) (\s@CreateThreatIntelSet' {} a -> s {format = a} :: CreateThreatIntelSet)
 
--- | The URI of the file that contains the ThreatIntelSet. For example:
--- https:\/\/s3.us-west-2.amazonaws.com\/my-bucket\/my-object-key.
+-- | The URI of the file that contains the ThreatIntelSet.
 createThreatIntelSet_location :: Lens.Lens' CreateThreatIntelSet Prelude.Text
 createThreatIntelSet_location = Lens.lens (\CreateThreatIntelSet' {location} -> location) (\s@CreateThreatIntelSet' {} a -> s {location = a} :: CreateThreatIntelSet)
 
@@ -170,13 +168,14 @@ instance Core.AWSRequest CreateThreatIntelSet where
   type
     AWSResponse CreateThreatIntelSet =
       CreateThreatIntelSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateThreatIntelSetResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "threatIntelSetId")
+            Prelude.<*> (x Data..:> "threatIntelSetId")
       )
 
 instance Prelude.Hashable CreateThreatIntelSet where
@@ -199,39 +198,39 @@ instance Prelude.NFData CreateThreatIntelSet where
       `Prelude.seq` Prelude.rnf location
       `Prelude.seq` Prelude.rnf activate
 
-instance Core.ToHeaders CreateThreatIntelSet where
+instance Data.ToHeaders CreateThreatIntelSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateThreatIntelSet where
+instance Data.ToJSON CreateThreatIntelSet where
   toJSON CreateThreatIntelSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("name" Core..= name),
-            Prelude.Just ("format" Core..= format),
-            Prelude.Just ("location" Core..= location),
-            Prelude.Just ("activate" Core..= activate)
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("name" Data..= name),
+            Prelude.Just ("format" Data..= format),
+            Prelude.Just ("location" Data..= location),
+            Prelude.Just ("activate" Data..= activate)
           ]
       )
 
-instance Core.ToPath CreateThreatIntelSet where
+instance Data.ToPath CreateThreatIntelSet where
   toPath CreateThreatIntelSet' {..} =
     Prelude.mconcat
       [ "/detector/",
-        Core.toBS detectorId,
+        Data.toBS detectorId,
         "/threatintelset"
       ]
 
-instance Core.ToQuery CreateThreatIntelSet where
+instance Data.ToQuery CreateThreatIntelSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateThreatIntelSetResponse' smart constructor.

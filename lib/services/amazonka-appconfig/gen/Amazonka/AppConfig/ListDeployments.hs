@@ -14,21 +14,22 @@
 
 -- |
 -- Module      : Amazonka.AppConfig.ListDeployments
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the deployments for an environment.
+-- Lists the deployments for an environment in descending deployment number
+-- order.
 module Amazonka.AppConfig.ListDeployments
   ( -- * Creating a Request
     ListDeployments (..),
     newListDeployments,
 
     -- * Request Lenses
-    listDeployments_nextToken,
     listDeployments_maxResults,
+    listDeployments_nextToken,
     listDeployments_applicationId,
     listDeployments_environmentId,
 
@@ -45,20 +46,23 @@ where
 
 import Amazonka.AppConfig.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListDeployments' smart constructor.
 data ListDeployments = ListDeployments'
-  { -- | A token to start the list. Use this token to get the next set of
-    -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return for this call. The call also
-    -- returns a token that you can specify in a subsequent call to get the
-    -- next set of results.
+  { -- | The maximum number of items that may be returned for this call. If there
+    -- are items that have not yet been returned, the response will include a
+    -- non-null @NextToken@ that you can provide in a subsequent call to get
+    -- the next set of results.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token returned by a prior call to this operation indicating the next
+    -- set of results to be returned. If not specified, the operation will
+    -- return the first set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The application ID.
     applicationId :: Prelude.Text,
     -- | The environment ID.
@@ -74,12 +78,14 @@ data ListDeployments = ListDeployments'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listDeployments_nextToken' - A token to start the list. Use this token to get the next set of
--- results.
+-- 'maxResults', 'listDeployments_maxResults' - The maximum number of items that may be returned for this call. If there
+-- are items that have not yet been returned, the response will include a
+-- non-null @NextToken@ that you can provide in a subsequent call to get
+-- the next set of results.
 --
--- 'maxResults', 'listDeployments_maxResults' - The maximum number of items to return for this call. The call also
--- returns a token that you can specify in a subsequent call to get the
--- next set of results.
+-- 'nextToken', 'listDeployments_nextToken' - The token returned by a prior call to this operation indicating the next
+-- set of results to be returned. If not specified, the operation will
+-- return the first set of results.
 --
 -- 'applicationId', 'listDeployments_applicationId' - The application ID.
 --
@@ -92,22 +98,24 @@ newListDeployments ::
   ListDeployments
 newListDeployments pApplicationId_ pEnvironmentId_ =
   ListDeployments'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       applicationId = pApplicationId_,
       environmentId = pEnvironmentId_
     }
 
--- | A token to start the list. Use this token to get the next set of
--- results.
-listDeployments_nextToken :: Lens.Lens' ListDeployments (Prelude.Maybe Prelude.Text)
-listDeployments_nextToken = Lens.lens (\ListDeployments' {nextToken} -> nextToken) (\s@ListDeployments' {} a -> s {nextToken = a} :: ListDeployments)
-
--- | The maximum number of items to return for this call. The call also
--- returns a token that you can specify in a subsequent call to get the
--- next set of results.
+-- | The maximum number of items that may be returned for this call. If there
+-- are items that have not yet been returned, the response will include a
+-- non-null @NextToken@ that you can provide in a subsequent call to get
+-- the next set of results.
 listDeployments_maxResults :: Lens.Lens' ListDeployments (Prelude.Maybe Prelude.Natural)
 listDeployments_maxResults = Lens.lens (\ListDeployments' {maxResults} -> maxResults) (\s@ListDeployments' {} a -> s {maxResults = a} :: ListDeployments)
+
+-- | The token returned by a prior call to this operation indicating the next
+-- set of results to be returned. If not specified, the operation will
+-- return the first set of results.
+listDeployments_nextToken :: Lens.Lens' ListDeployments (Prelude.Maybe Prelude.Text)
+listDeployments_nextToken = Lens.lens (\ListDeployments' {nextToken} -> nextToken) (\s@ListDeployments' {} a -> s {nextToken = a} :: ListDeployments)
 
 -- | The application ID.
 listDeployments_applicationId :: Lens.Lens' ListDeployments Prelude.Text
@@ -121,56 +129,57 @@ instance Core.AWSRequest ListDeployments where
   type
     AWSResponse ListDeployments =
       ListDeploymentsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDeploymentsResponse'
-            Prelude.<$> (x Core..?> "Items" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Items" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListDeployments where
   hashWithSalt _salt ListDeployments' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` applicationId
       `Prelude.hashWithSalt` environmentId
 
 instance Prelude.NFData ListDeployments where
   rnf ListDeployments' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf applicationId
       `Prelude.seq` Prelude.rnf environmentId
 
-instance Core.ToHeaders ListDeployments where
+instance Data.ToHeaders ListDeployments where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListDeployments where
+instance Data.ToPath ListDeployments where
   toPath ListDeployments' {..} =
     Prelude.mconcat
       [ "/applications/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/environments/",
-        Core.toBS environmentId,
+        Data.toBS environmentId,
         "/deployments"
       ]
 
-instance Core.ToQuery ListDeployments where
+instance Data.ToQuery ListDeployments where
   toQuery ListDeployments' {..} =
     Prelude.mconcat
-      [ "next_token" Core.=: nextToken,
-        "max_results" Core.=: maxResults
+      [ "max_results" Data.=: maxResults,
+        "next_token" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListDeploymentsResponse' smart constructor.

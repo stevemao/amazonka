@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GroundStation.Types.DataflowEndpointConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.GroundStation.Types.DataflowEndpointConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the dataflow endpoint @Config@.
@@ -64,14 +65,14 @@ dataflowEndpointConfig_dataflowEndpointRegion = Lens.lens (\DataflowEndpointConf
 dataflowEndpointConfig_dataflowEndpointName :: Lens.Lens' DataflowEndpointConfig Prelude.Text
 dataflowEndpointConfig_dataflowEndpointName = Lens.lens (\DataflowEndpointConfig' {dataflowEndpointName} -> dataflowEndpointName) (\s@DataflowEndpointConfig' {} a -> s {dataflowEndpointName = a} :: DataflowEndpointConfig)
 
-instance Core.FromJSON DataflowEndpointConfig where
+instance Data.FromJSON DataflowEndpointConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DataflowEndpointConfig"
       ( \x ->
           DataflowEndpointConfig'
-            Prelude.<$> (x Core..:? "dataflowEndpointRegion")
-            Prelude.<*> (x Core..: "dataflowEndpointName")
+            Prelude.<$> (x Data..:? "dataflowEndpointRegion")
+            Prelude.<*> (x Data..: "dataflowEndpointName")
       )
 
 instance Prelude.Hashable DataflowEndpointConfig where
@@ -84,15 +85,15 @@ instance Prelude.NFData DataflowEndpointConfig where
     Prelude.rnf dataflowEndpointRegion
       `Prelude.seq` Prelude.rnf dataflowEndpointName
 
-instance Core.ToJSON DataflowEndpointConfig where
+instance Data.ToJSON DataflowEndpointConfig where
   toJSON DataflowEndpointConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("dataflowEndpointRegion" Core..=)
+          [ ("dataflowEndpointRegion" Data..=)
               Prelude.<$> dataflowEndpointRegion,
             Prelude.Just
               ( "dataflowEndpointName"
-                  Core..= dataflowEndpointName
+                  Data..= dataflowEndpointName
               )
           ]
       )

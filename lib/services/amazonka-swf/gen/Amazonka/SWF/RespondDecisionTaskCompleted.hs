@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.RespondDecisionTaskCompleted
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -56,7 +56,8 @@ module Amazonka.SWF.RespondDecisionTaskCompleted
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -137,7 +138,8 @@ instance Core.AWSRequest RespondDecisionTaskCompleted where
   type
     AWSResponse RespondDecisionTaskCompleted =
       RespondDecisionTaskCompletedResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       RespondDecisionTaskCompletedResponse'
@@ -157,36 +159,36 @@ instance Prelude.NFData RespondDecisionTaskCompleted where
       `Prelude.seq` Prelude.rnf executionContext
       `Prelude.seq` Prelude.rnf taskToken
 
-instance Core.ToHeaders RespondDecisionTaskCompleted where
+instance Data.ToHeaders RespondDecisionTaskCompleted where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SimpleWorkflowService.RespondDecisionTaskCompleted" ::
+              Data.=# ( "SimpleWorkflowService.RespondDecisionTaskCompleted" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RespondDecisionTaskCompleted where
+instance Data.ToJSON RespondDecisionTaskCompleted where
   toJSON RespondDecisionTaskCompleted' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("decisions" Core..=) Prelude.<$> decisions,
-            ("executionContext" Core..=)
+          [ ("decisions" Data..=) Prelude.<$> decisions,
+            ("executionContext" Data..=)
               Prelude.<$> executionContext,
-            Prelude.Just ("taskToken" Core..= taskToken)
+            Prelude.Just ("taskToken" Data..= taskToken)
           ]
       )
 
-instance Core.ToPath RespondDecisionTaskCompleted where
+instance Data.ToPath RespondDecisionTaskCompleted where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RespondDecisionTaskCompleted where
+instance Data.ToQuery RespondDecisionTaskCompleted where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRespondDecisionTaskCompletedResponse' smart constructor.

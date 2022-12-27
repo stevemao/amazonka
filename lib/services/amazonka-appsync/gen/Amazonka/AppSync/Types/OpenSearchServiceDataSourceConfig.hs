@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppSync.Types.OpenSearchServiceDataSourceConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppSync.Types.OpenSearchServiceDataSourceConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an OpenSearch data source configuration.
@@ -69,16 +70,16 @@ openSearchServiceDataSourceConfig_awsRegion :: Lens.Lens' OpenSearchServiceDataS
 openSearchServiceDataSourceConfig_awsRegion = Lens.lens (\OpenSearchServiceDataSourceConfig' {awsRegion} -> awsRegion) (\s@OpenSearchServiceDataSourceConfig' {} a -> s {awsRegion = a} :: OpenSearchServiceDataSourceConfig)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     OpenSearchServiceDataSourceConfig
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OpenSearchServiceDataSourceConfig"
       ( \x ->
           OpenSearchServiceDataSourceConfig'
-            Prelude.<$> (x Core..: "endpoint")
-            Prelude.<*> (x Core..: "awsRegion")
+            Prelude.<$> (x Data..: "endpoint")
+            Prelude.<*> (x Data..: "awsRegion")
       )
 
 instance
@@ -100,13 +101,13 @@ instance
       `Prelude.seq` Prelude.rnf awsRegion
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     OpenSearchServiceDataSourceConfig
   where
   toJSON OpenSearchServiceDataSourceConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("endpoint" Core..= endpoint),
-            Prelude.Just ("awsRegion" Core..= awsRegion)
+          [ Prelude.Just ("endpoint" Data..= endpoint),
+            Prelude.Just ("awsRegion" Data..= awsRegion)
           ]
       )

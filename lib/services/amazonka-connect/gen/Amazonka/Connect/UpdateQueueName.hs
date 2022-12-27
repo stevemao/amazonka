@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.UpdateQueueName
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.Connect.UpdateQueueName
     newUpdateQueueName,
 
     -- * Request Lenses
-    updateQueueName_name,
     updateQueueName_description,
+    updateQueueName_name,
     updateQueueName_instanceId,
     updateQueueName_queueId,
 
@@ -44,17 +44,18 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateQueueName' smart constructor.
 data UpdateQueueName = UpdateQueueName'
-  { -- | The name of the queue.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The description of the queue.
+  { -- | The description of the queue.
     description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the queue.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The identifier of the Amazon Connect instance. You can find the
     -- instanceId in the ARN of the instance.
     instanceId :: Prelude.Text,
@@ -71,9 +72,9 @@ data UpdateQueueName = UpdateQueueName'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'updateQueueName_name' - The name of the queue.
---
 -- 'description', 'updateQueueName_description' - The description of the queue.
+--
+-- 'name', 'updateQueueName_name' - The name of the queue.
 --
 -- 'instanceId', 'updateQueueName_instanceId' - The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -87,19 +88,19 @@ newUpdateQueueName ::
   UpdateQueueName
 newUpdateQueueName pInstanceId_ pQueueId_ =
   UpdateQueueName'
-    { name = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      name = Prelude.Nothing,
       instanceId = pInstanceId_,
       queueId = pQueueId_
     }
 
--- | The name of the queue.
-updateQueueName_name :: Lens.Lens' UpdateQueueName (Prelude.Maybe Prelude.Text)
-updateQueueName_name = Lens.lens (\UpdateQueueName' {name} -> name) (\s@UpdateQueueName' {} a -> s {name = a} :: UpdateQueueName)
-
 -- | The description of the queue.
 updateQueueName_description :: Lens.Lens' UpdateQueueName (Prelude.Maybe Prelude.Text)
 updateQueueName_description = Lens.lens (\UpdateQueueName' {description} -> description) (\s@UpdateQueueName' {} a -> s {description = a} :: UpdateQueueName)
+
+-- | The name of the queue.
+updateQueueName_name :: Lens.Lens' UpdateQueueName (Prelude.Maybe Prelude.Text)
+updateQueueName_name = Lens.lens (\UpdateQueueName' {name} -> name) (\s@UpdateQueueName' {} a -> s {name = a} :: UpdateQueueName)
 
 -- | The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -114,55 +115,56 @@ instance Core.AWSRequest UpdateQueueName where
   type
     AWSResponse UpdateQueueName =
       UpdateQueueNameResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull UpdateQueueNameResponse'
 
 instance Prelude.Hashable UpdateQueueName where
   hashWithSalt _salt UpdateQueueName' {..} =
-    _salt `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` instanceId
       `Prelude.hashWithSalt` queueId
 
 instance Prelude.NFData UpdateQueueName where
   rnf UpdateQueueName' {..} =
-    Prelude.rnf name
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf queueId
 
-instance Core.ToHeaders UpdateQueueName where
+instance Data.ToHeaders UpdateQueueName where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateQueueName where
+instance Data.ToJSON UpdateQueueName where
   toJSON UpdateQueueName' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Name" Core..=) Prelude.<$> name,
-            ("Description" Core..=) Prelude.<$> description
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Name" Data..=) Prelude.<$> name
           ]
       )
 
-instance Core.ToPath UpdateQueueName where
+instance Data.ToPath UpdateQueueName where
   toPath UpdateQueueName' {..} =
     Prelude.mconcat
       [ "/queues/",
-        Core.toBS instanceId,
+        Data.toBS instanceId,
         "/",
-        Core.toBS queueId,
+        Data.toBS queueId,
         "/name"
       ]
 
-instance Core.ToQuery UpdateQueueName where
+instance Data.ToQuery UpdateQueueName where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateQueueNameResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.DeleteInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,8 +37,8 @@ module Amazonka.OpsWorks.DeleteInstance
     newDeleteInstance,
 
     -- * Request Lenses
-    deleteInstance_deleteVolumes,
     deleteInstance_deleteElasticIp,
+    deleteInstance_deleteVolumes,
     deleteInstance_instanceId,
 
     -- * Destructuring the Response
@@ -48,7 +48,8 @@ module Amazonka.OpsWorks.DeleteInstance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -56,10 +57,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteInstance' smart constructor.
 data DeleteInstance = DeleteInstance'
-  { -- | Whether to delete the instance\'s Amazon EBS volumes.
-    deleteVolumes :: Prelude.Maybe Prelude.Bool,
-    -- | Whether to delete the instance Elastic IP address.
+  { -- | Whether to delete the instance Elastic IP address.
     deleteElasticIp :: Prelude.Maybe Prelude.Bool,
+    -- | Whether to delete the instance\'s Amazon EBS volumes.
+    deleteVolumes :: Prelude.Maybe Prelude.Bool,
     -- | The instance ID.
     instanceId :: Prelude.Text
   }
@@ -73,9 +74,9 @@ data DeleteInstance = DeleteInstance'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'deleteVolumes', 'deleteInstance_deleteVolumes' - Whether to delete the instance\'s Amazon EBS volumes.
---
 -- 'deleteElasticIp', 'deleteInstance_deleteElasticIp' - Whether to delete the instance Elastic IP address.
+--
+-- 'deleteVolumes', 'deleteInstance_deleteVolumes' - Whether to delete the instance\'s Amazon EBS volumes.
 --
 -- 'instanceId', 'deleteInstance_instanceId' - The instance ID.
 newDeleteInstance ::
@@ -84,18 +85,18 @@ newDeleteInstance ::
   DeleteInstance
 newDeleteInstance pInstanceId_ =
   DeleteInstance'
-    { deleteVolumes = Prelude.Nothing,
-      deleteElasticIp = Prelude.Nothing,
+    { deleteElasticIp = Prelude.Nothing,
+      deleteVolumes = Prelude.Nothing,
       instanceId = pInstanceId_
     }
-
--- | Whether to delete the instance\'s Amazon EBS volumes.
-deleteInstance_deleteVolumes :: Lens.Lens' DeleteInstance (Prelude.Maybe Prelude.Bool)
-deleteInstance_deleteVolumes = Lens.lens (\DeleteInstance' {deleteVolumes} -> deleteVolumes) (\s@DeleteInstance' {} a -> s {deleteVolumes = a} :: DeleteInstance)
 
 -- | Whether to delete the instance Elastic IP address.
 deleteInstance_deleteElasticIp :: Lens.Lens' DeleteInstance (Prelude.Maybe Prelude.Bool)
 deleteInstance_deleteElasticIp = Lens.lens (\DeleteInstance' {deleteElasticIp} -> deleteElasticIp) (\s@DeleteInstance' {} a -> s {deleteElasticIp = a} :: DeleteInstance)
+
+-- | Whether to delete the instance\'s Amazon EBS volumes.
+deleteInstance_deleteVolumes :: Lens.Lens' DeleteInstance (Prelude.Maybe Prelude.Bool)
+deleteInstance_deleteVolumes = Lens.lens (\DeleteInstance' {deleteVolumes} -> deleteVolumes) (\s@DeleteInstance' {} a -> s {deleteVolumes = a} :: DeleteInstance)
 
 -- | The instance ID.
 deleteInstance_instanceId :: Lens.Lens' DeleteInstance Prelude.Text
@@ -105,52 +106,53 @@ instance Core.AWSRequest DeleteInstance where
   type
     AWSResponse DeleteInstance =
       DeleteInstanceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteInstanceResponse'
 
 instance Prelude.Hashable DeleteInstance where
   hashWithSalt _salt DeleteInstance' {..} =
-    _salt `Prelude.hashWithSalt` deleteVolumes
-      `Prelude.hashWithSalt` deleteElasticIp
+    _salt `Prelude.hashWithSalt` deleteElasticIp
+      `Prelude.hashWithSalt` deleteVolumes
       `Prelude.hashWithSalt` instanceId
 
 instance Prelude.NFData DeleteInstance where
   rnf DeleteInstance' {..} =
-    Prelude.rnf deleteVolumes
-      `Prelude.seq` Prelude.rnf deleteElasticIp
+    Prelude.rnf deleteElasticIp
+      `Prelude.seq` Prelude.rnf deleteVolumes
       `Prelude.seq` Prelude.rnf instanceId
 
-instance Core.ToHeaders DeleteInstance where
+instance Data.ToHeaders DeleteInstance where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.DeleteInstance" ::
+              Data.=# ( "OpsWorks_20130218.DeleteInstance" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteInstance where
+instance Data.ToJSON DeleteInstance where
   toJSON DeleteInstance' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DeleteVolumes" Core..=) Prelude.<$> deleteVolumes,
-            ("DeleteElasticIp" Core..=)
+          [ ("DeleteElasticIp" Data..=)
               Prelude.<$> deleteElasticIp,
-            Prelude.Just ("InstanceId" Core..= instanceId)
+            ("DeleteVolumes" Data..=) Prelude.<$> deleteVolumes,
+            Prelude.Just ("InstanceId" Data..= instanceId)
           ]
       )
 
-instance Core.ToPath DeleteInstance where
+instance Data.ToPath DeleteInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteInstance where
+instance Data.ToQuery DeleteInstance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteInstanceResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.DeleteOpenIDConnectProvider
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.IAM.DeleteOpenIDConnectProvider
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,7 +92,8 @@ instance Core.AWSRequest DeleteOpenIDConnectProvider where
   type
     AWSResponse DeleteOpenIDConnectProvider =
       DeleteOpenIDConnectProviderResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       DeleteOpenIDConnectProviderResponse'
@@ -105,23 +107,23 @@ instance Prelude.NFData DeleteOpenIDConnectProvider where
   rnf DeleteOpenIDConnectProvider' {..} =
     Prelude.rnf openIDConnectProviderArn
 
-instance Core.ToHeaders DeleteOpenIDConnectProvider where
+instance Data.ToHeaders DeleteOpenIDConnectProvider where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteOpenIDConnectProvider where
+instance Data.ToPath DeleteOpenIDConnectProvider where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteOpenIDConnectProvider where
+instance Data.ToQuery DeleteOpenIDConnectProvider where
   toQuery DeleteOpenIDConnectProvider' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DeleteOpenIDConnectProvider" ::
+          Data.=: ( "DeleteOpenIDConnectProvider" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
         "OpenIDConnectProviderArn"
-          Core.=: openIDConnectProviderArn
+          Data.=: openIDConnectProviderArn
       ]
 
 -- | /See:/ 'newDeleteOpenIDConnectProviderResponse' smart constructor.

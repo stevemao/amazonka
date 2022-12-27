@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.DescribeStackResources
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -62,7 +62,8 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,13 +84,13 @@ data DescribeStackResources = DescribeStackResources'
     -- EC2 @InstanceId@ to @DescribeStackResources@ to find which stack the
     -- instance belongs to and what other resources are part of the stack.
     --
-    -- Required: Conditional. If you do not specify @PhysicalResourceId@, you
+    -- Required: Conditional. If you don\'t specify @PhysicalResourceId@, you
     -- must specify @StackName@.
     --
     -- Default: There is no default value.
     physicalResourceId :: Prelude.Maybe Prelude.Text,
     -- | The name or the unique stack ID that is associated with the stack, which
-    -- are not always interchangeable:
+    -- aren\'t always interchangeable:
     --
     -- -   Running stacks: You can specify either the stack\'s name or its
     --     unique stack ID.
@@ -98,7 +99,7 @@ data DescribeStackResources = DescribeStackResources'
     --
     -- Default: There is no default value.
     --
-    -- Required: Conditional. If you do not specify @StackName@, you must
+    -- Required: Conditional. If you don\'t specify @StackName@, you must
     -- specify @PhysicalResourceId@.
     stackName :: Prelude.Maybe Prelude.Text
   }
@@ -124,13 +125,13 @@ data DescribeStackResources = DescribeStackResources'
 -- EC2 @InstanceId@ to @DescribeStackResources@ to find which stack the
 -- instance belongs to and what other resources are part of the stack.
 --
--- Required: Conditional. If you do not specify @PhysicalResourceId@, you
+-- Required: Conditional. If you don\'t specify @PhysicalResourceId@, you
 -- must specify @StackName@.
 --
 -- Default: There is no default value.
 --
 -- 'stackName', 'describeStackResources_stackName' - The name or the unique stack ID that is associated with the stack, which
--- are not always interchangeable:
+-- aren\'t always interchangeable:
 --
 -- -   Running stacks: You can specify either the stack\'s name or its
 --     unique stack ID.
@@ -139,7 +140,7 @@ data DescribeStackResources = DescribeStackResources'
 --
 -- Default: There is no default value.
 --
--- Required: Conditional. If you do not specify @StackName@, you must
+-- Required: Conditional. If you don\'t specify @StackName@, you must
 -- specify @PhysicalResourceId@.
 newDescribeStackResources ::
   DescribeStackResources
@@ -165,7 +166,7 @@ describeStackResources_logicalResourceId = Lens.lens (\DescribeStackResources' {
 -- EC2 @InstanceId@ to @DescribeStackResources@ to find which stack the
 -- instance belongs to and what other resources are part of the stack.
 --
--- Required: Conditional. If you do not specify @PhysicalResourceId@, you
+-- Required: Conditional. If you don\'t specify @PhysicalResourceId@, you
 -- must specify @StackName@.
 --
 -- Default: There is no default value.
@@ -173,7 +174,7 @@ describeStackResources_physicalResourceId :: Lens.Lens' DescribeStackResources (
 describeStackResources_physicalResourceId = Lens.lens (\DescribeStackResources' {physicalResourceId} -> physicalResourceId) (\s@DescribeStackResources' {} a -> s {physicalResourceId = a} :: DescribeStackResources)
 
 -- | The name or the unique stack ID that is associated with the stack, which
--- are not always interchangeable:
+-- aren\'t always interchangeable:
 --
 -- -   Running stacks: You can specify either the stack\'s name or its
 --     unique stack ID.
@@ -182,7 +183,7 @@ describeStackResources_physicalResourceId = Lens.lens (\DescribeStackResources' 
 --
 -- Default: There is no default value.
 --
--- Required: Conditional. If you do not specify @StackName@, you must
+-- Required: Conditional. If you don\'t specify @StackName@, you must
 -- specify @PhysicalResourceId@.
 describeStackResources_stackName :: Lens.Lens' DescribeStackResources (Prelude.Maybe Prelude.Text)
 describeStackResources_stackName = Lens.lens (\DescribeStackResources' {stackName} -> stackName) (\s@DescribeStackResources' {} a -> s {stackName = a} :: DescribeStackResources)
@@ -191,14 +192,15 @@ instance Core.AWSRequest DescribeStackResources where
   type
     AWSResponse DescribeStackResources =
       DescribeStackResourcesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeStackResourcesResult"
       ( \s h x ->
           DescribeStackResourcesResponse'
-            Prelude.<$> ( x Core..@? "StackResources" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> ( x Data..@? "StackResources" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -215,22 +217,22 @@ instance Prelude.NFData DescribeStackResources where
       `Prelude.seq` Prelude.rnf physicalResourceId
       `Prelude.seq` Prelude.rnf stackName
 
-instance Core.ToHeaders DescribeStackResources where
+instance Data.ToHeaders DescribeStackResources where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeStackResources where
+instance Data.ToPath DescribeStackResources where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeStackResources where
+instance Data.ToQuery DescribeStackResources where
   toQuery DescribeStackResources' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeStackResources" :: Prelude.ByteString),
+          Data.=: ("DescribeStackResources" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
-        "LogicalResourceId" Core.=: logicalResourceId,
-        "PhysicalResourceId" Core.=: physicalResourceId,
-        "StackName" Core.=: stackName
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "LogicalResourceId" Data.=: logicalResourceId,
+        "PhysicalResourceId" Data.=: physicalResourceId,
+        "StackName" Data.=: stackName
       ]
 
 -- | The output for a DescribeStackResources action.

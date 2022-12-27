@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.Types.Job
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,17 +21,18 @@ module Amazonka.CodePipeline.Types.Job where
 
 import Amazonka.CodePipeline.Types.JobData
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents information about a job.
 --
 -- /See:/ 'newJob' smart constructor.
 data Job = Job'
-  { -- | Other data about a job.
-    data' :: Prelude.Maybe JobData,
-    -- | The ID of the AWS account to use when performing the job.
+  { -- | The ID of the AWS account to use when performing the job.
     accountId :: Prelude.Maybe Prelude.Text,
+    -- | Other data about a job.
+    data' :: Prelude.Maybe JobData,
     -- | The unique system-generated ID of the job.
     id :: Prelude.Maybe Prelude.Text,
     -- | A system-generated random number that AWS CodePipeline uses to ensure
@@ -49,9 +50,9 @@ data Job = Job'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'data'', 'job_data' - Other data about a job.
---
 -- 'accountId', 'job_accountId' - The ID of the AWS account to use when performing the job.
+--
+-- 'data'', 'job_data' - Other data about a job.
 --
 -- 'id', 'job_id' - The unique system-generated ID of the job.
 --
@@ -62,19 +63,19 @@ newJob ::
   Job
 newJob =
   Job'
-    { data' = Prelude.Nothing,
-      accountId = Prelude.Nothing,
+    { accountId = Prelude.Nothing,
+      data' = Prelude.Nothing,
       id = Prelude.Nothing,
       nonce = Prelude.Nothing
     }
 
--- | Other data about a job.
-job_data :: Lens.Lens' Job (Prelude.Maybe JobData)
-job_data = Lens.lens (\Job' {data'} -> data') (\s@Job' {} a -> s {data' = a} :: Job)
-
 -- | The ID of the AWS account to use when performing the job.
 job_accountId :: Lens.Lens' Job (Prelude.Maybe Prelude.Text)
 job_accountId = Lens.lens (\Job' {accountId} -> accountId) (\s@Job' {} a -> s {accountId = a} :: Job)
+
+-- | Other data about a job.
+job_data :: Lens.Lens' Job (Prelude.Maybe JobData)
+job_data = Lens.lens (\Job' {data'} -> data') (\s@Job' {} a -> s {data' = a} :: Job)
 
 -- | The unique system-generated ID of the job.
 job_id :: Lens.Lens' Job (Prelude.Maybe Prelude.Text)
@@ -86,28 +87,28 @@ job_id = Lens.lens (\Job' {id} -> id) (\s@Job' {} a -> s {id = a} :: Job)
 job_nonce :: Lens.Lens' Job (Prelude.Maybe Prelude.Text)
 job_nonce = Lens.lens (\Job' {nonce} -> nonce) (\s@Job' {} a -> s {nonce = a} :: Job)
 
-instance Core.FromJSON Job where
+instance Data.FromJSON Job where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Job"
       ( \x ->
           Job'
-            Prelude.<$> (x Core..:? "data")
-            Prelude.<*> (x Core..:? "accountId")
-            Prelude.<*> (x Core..:? "id")
-            Prelude.<*> (x Core..:? "nonce")
+            Prelude.<$> (x Data..:? "accountId")
+            Prelude.<*> (x Data..:? "data")
+            Prelude.<*> (x Data..:? "id")
+            Prelude.<*> (x Data..:? "nonce")
       )
 
 instance Prelude.Hashable Job where
   hashWithSalt _salt Job' {..} =
-    _salt `Prelude.hashWithSalt` data'
-      `Prelude.hashWithSalt` accountId
+    _salt `Prelude.hashWithSalt` accountId
+      `Prelude.hashWithSalt` data'
       `Prelude.hashWithSalt` id
       `Prelude.hashWithSalt` nonce
 
 instance Prelude.NFData Job where
   rnf Job' {..} =
-    Prelude.rnf data'
-      `Prelude.seq` Prelude.rnf accountId
+    Prelude.rnf accountId
+      `Prelude.seq` Prelude.rnf data'
       `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf nonce

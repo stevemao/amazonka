@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GreengrassV2.ResolveComponentCandidates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,8 @@ module Amazonka.GreengrassV2.ResolveComponentCandidates
     newResolveComponentCandidates,
 
     -- * Request Lenses
-    resolveComponentCandidates_platform,
     resolveComponentCandidates_componentCandidates,
+    resolveComponentCandidates_platform,
 
     -- * Destructuring the Response
     ResolveComponentCandidatesResponse (..),
@@ -60,18 +60,19 @@ module Amazonka.GreengrassV2.ResolveComponentCandidates
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GreengrassV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newResolveComponentCandidates' smart constructor.
 data ResolveComponentCandidates = ResolveComponentCandidates'
-  { -- | The platform to use to resolve compatible components.
-    platform :: ComponentPlatform,
-    -- | The list of components to resolve.
-    componentCandidates :: [ComponentCandidate]
+  { -- | The list of components to resolve.
+    componentCandidates :: Prelude.Maybe [ComponentCandidate],
+    -- | The platform to use to resolve compatible components.
+    platform :: Prelude.Maybe ComponentPlatform
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -83,37 +84,37 @@ data ResolveComponentCandidates = ResolveComponentCandidates'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'platform', 'resolveComponentCandidates_platform' - The platform to use to resolve compatible components.
---
 -- 'componentCandidates', 'resolveComponentCandidates_componentCandidates' - The list of components to resolve.
+--
+-- 'platform', 'resolveComponentCandidates_platform' - The platform to use to resolve compatible components.
 newResolveComponentCandidates ::
-  -- | 'platform'
-  ComponentPlatform ->
   ResolveComponentCandidates
-newResolveComponentCandidates pPlatform_ =
+newResolveComponentCandidates =
   ResolveComponentCandidates'
-    { platform = pPlatform_,
-      componentCandidates = Prelude.mempty
+    { componentCandidates =
+        Prelude.Nothing,
+      platform = Prelude.Nothing
     }
 
--- | The platform to use to resolve compatible components.
-resolveComponentCandidates_platform :: Lens.Lens' ResolveComponentCandidates ComponentPlatform
-resolveComponentCandidates_platform = Lens.lens (\ResolveComponentCandidates' {platform} -> platform) (\s@ResolveComponentCandidates' {} a -> s {platform = a} :: ResolveComponentCandidates)
-
 -- | The list of components to resolve.
-resolveComponentCandidates_componentCandidates :: Lens.Lens' ResolveComponentCandidates [ComponentCandidate]
-resolveComponentCandidates_componentCandidates = Lens.lens (\ResolveComponentCandidates' {componentCandidates} -> componentCandidates) (\s@ResolveComponentCandidates' {} a -> s {componentCandidates = a} :: ResolveComponentCandidates) Prelude.. Lens.coerced
+resolveComponentCandidates_componentCandidates :: Lens.Lens' ResolveComponentCandidates (Prelude.Maybe [ComponentCandidate])
+resolveComponentCandidates_componentCandidates = Lens.lens (\ResolveComponentCandidates' {componentCandidates} -> componentCandidates) (\s@ResolveComponentCandidates' {} a -> s {componentCandidates = a} :: ResolveComponentCandidates) Prelude.. Lens.mapping Lens.coerced
+
+-- | The platform to use to resolve compatible components.
+resolveComponentCandidates_platform :: Lens.Lens' ResolveComponentCandidates (Prelude.Maybe ComponentPlatform)
+resolveComponentCandidates_platform = Lens.lens (\ResolveComponentCandidates' {platform} -> platform) (\s@ResolveComponentCandidates' {} a -> s {platform = a} :: ResolveComponentCandidates)
 
 instance Core.AWSRequest ResolveComponentCandidates where
   type
     AWSResponse ResolveComponentCandidates =
       ResolveComponentCandidatesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ResolveComponentCandidatesResponse'
-            Prelude.<$> ( x Core..?> "resolvedComponentVersions"
+            Prelude.<$> ( x Data..?> "resolvedComponentVersions"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -121,41 +122,33 @@ instance Core.AWSRequest ResolveComponentCandidates where
 
 instance Prelude.Hashable ResolveComponentCandidates where
   hashWithSalt _salt ResolveComponentCandidates' {..} =
-    _salt `Prelude.hashWithSalt` platform
-      `Prelude.hashWithSalt` componentCandidates
+    _salt `Prelude.hashWithSalt` componentCandidates
+      `Prelude.hashWithSalt` platform
 
 instance Prelude.NFData ResolveComponentCandidates where
   rnf ResolveComponentCandidates' {..} =
-    Prelude.rnf platform
-      `Prelude.seq` Prelude.rnf componentCandidates
+    Prelude.rnf componentCandidates
+      `Prelude.seq` Prelude.rnf platform
 
-instance Core.ToHeaders ResolveComponentCandidates where
-  toHeaders =
-    Prelude.const
-      ( Prelude.mconcat
-          [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
-                          Prelude.ByteString
-                      )
-          ]
-      )
+instance Data.ToHeaders ResolveComponentCandidates where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON ResolveComponentCandidates where
+instance Data.ToJSON ResolveComponentCandidates where
   toJSON ResolveComponentCandidates' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("platform" Core..= platform),
-            Prelude.Just
-              ("componentCandidates" Core..= componentCandidates)
+          [ ("componentCandidates" Data..=)
+              Prelude.<$> componentCandidates,
+            ("platform" Data..=) Prelude.<$> platform
           ]
       )
 
-instance Core.ToPath ResolveComponentCandidates where
+instance Data.ToPath ResolveComponentCandidates where
   toPath =
     Prelude.const
       "/greengrass/v2/resolveComponentCandidates"
 
-instance Core.ToQuery ResolveComponentCandidates where
+instance Data.ToQuery ResolveComponentCandidates where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newResolveComponentCandidatesResponse' smart constructor.

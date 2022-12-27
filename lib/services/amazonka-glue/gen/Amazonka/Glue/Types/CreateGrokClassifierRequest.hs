@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.CreateGrokClassifierRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Glue.Types.CreateGrokClassifierRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies a @grok@ classifier for @CreateClassifier@ to create.
@@ -106,15 +107,15 @@ instance Prelude.NFData CreateGrokClassifierRequest where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf grokPattern
 
-instance Core.ToJSON CreateGrokClassifierRequest where
+instance Data.ToJSON CreateGrokClassifierRequest where
   toJSON CreateGrokClassifierRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CustomPatterns" Core..=)
+          [ ("CustomPatterns" Data..=)
               Prelude.<$> customPatterns,
             Prelude.Just
-              ("Classification" Core..= classification),
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("GrokPattern" Core..= grokPattern)
+              ("Classification" Data..= classification),
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("GrokPattern" Data..= grokPattern)
           ]
       )

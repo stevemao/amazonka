@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.CapacityReservationFleetCancellationState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.CapacityReservationFleetCancellationState where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.CapacityReservationFleetState
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a Capacity Reservation Fleet that was successfully cancelled.
@@ -79,14 +80,14 @@ capacityReservationFleetCancellationState_previousFleetState :: Lens.Lens' Capac
 capacityReservationFleetCancellationState_previousFleetState = Lens.lens (\CapacityReservationFleetCancellationState' {previousFleetState} -> previousFleetState) (\s@CapacityReservationFleetCancellationState' {} a -> s {previousFleetState = a} :: CapacityReservationFleetCancellationState)
 
 instance
-  Core.FromXML
+  Data.FromXML
     CapacityReservationFleetCancellationState
   where
   parseXML x =
     CapacityReservationFleetCancellationState'
-      Prelude.<$> (x Core..@? "capacityReservationFleetId")
-        Prelude.<*> (x Core..@? "currentFleetState")
-        Prelude.<*> (x Core..@? "previousFleetState")
+      Prelude.<$> (x Data..@? "capacityReservationFleetId")
+        Prelude.<*> (x Data..@? "currentFleetState")
+        Prelude.<*> (x Data..@? "previousFleetState")
 
 instance
   Prelude.Hashable

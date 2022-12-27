@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.DeleteFileShare
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.StorageGateway.DeleteFileShare
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -110,12 +111,13 @@ instance Core.AWSRequest DeleteFileShare where
   type
     AWSResponse DeleteFileShare =
       DeleteFileShareResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteFileShareResponse'
-            Prelude.<$> (x Core..?> "FileShareARN")
+            Prelude.<$> (x Data..?> "FileShareARN")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -129,34 +131,34 @@ instance Prelude.NFData DeleteFileShare where
     Prelude.rnf forceDelete
       `Prelude.seq` Prelude.rnf fileShareARN
 
-instance Core.ToHeaders DeleteFileShare where
+instance Data.ToHeaders DeleteFileShare where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.DeleteFileShare" ::
+              Data.=# ( "StorageGateway_20130630.DeleteFileShare" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteFileShare where
+instance Data.ToJSON DeleteFileShare where
   toJSON DeleteFileShare' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ForceDelete" Core..=) Prelude.<$> forceDelete,
-            Prelude.Just ("FileShareARN" Core..= fileShareARN)
+          [ ("ForceDelete" Data..=) Prelude.<$> forceDelete,
+            Prelude.Just ("FileShareARN" Data..= fileShareARN)
           ]
       )
 
-instance Core.ToPath DeleteFileShare where
+instance Data.ToPath DeleteFileShare where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteFileShare where
+instance Data.ToQuery DeleteFileShare where
   toQuery = Prelude.const Prelude.mempty
 
 -- | DeleteFileShareOutput

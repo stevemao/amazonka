@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.DeleteReplicationGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,8 +52,9 @@ module Amazonka.ElastiCache.DeleteReplicationGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -130,13 +131,14 @@ instance Core.AWSRequest DeleteReplicationGroup where
   type
     AWSResponse DeleteReplicationGroup =
       DeleteReplicationGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeleteReplicationGroupResult"
       ( \s h x ->
           DeleteReplicationGroupResponse'
-            Prelude.<$> (x Core..@? "ReplicationGroup")
+            Prelude.<$> (x Data..@? "ReplicationGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -153,23 +155,23 @@ instance Prelude.NFData DeleteReplicationGroup where
       `Prelude.seq` Prelude.rnf retainPrimaryCluster
       `Prelude.seq` Prelude.rnf replicationGroupId
 
-instance Core.ToHeaders DeleteReplicationGroup where
+instance Data.ToHeaders DeleteReplicationGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteReplicationGroup where
+instance Data.ToPath DeleteReplicationGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteReplicationGroup where
+instance Data.ToQuery DeleteReplicationGroup where
   toQuery DeleteReplicationGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteReplicationGroup" :: Prelude.ByteString),
+          Data.=: ("DeleteReplicationGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
         "FinalSnapshotIdentifier"
-          Core.=: finalSnapshotIdentifier,
-        "RetainPrimaryCluster" Core.=: retainPrimaryCluster,
-        "ReplicationGroupId" Core.=: replicationGroupId
+          Data.=: finalSnapshotIdentifier,
+        "RetainPrimaryCluster" Data.=: retainPrimaryCluster,
+        "ReplicationGroupId" Data.=: replicationGroupId
       ]
 
 -- | /See:/ 'newDeleteReplicationGroupResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MGN.Types.DataReplicationInitiationStep
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.MGN.Types.DataReplicationInitiationStep where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MGN.Types.DataReplicationInitiationStepName
 import Amazonka.MGN.Types.DataReplicationInitiationStepStatus
 import qualified Amazonka.Prelude as Prelude
 
--- | Data replication intiation step.
+-- | Data replication initiation step.
 --
 -- /See:/ 'newDataReplicationInitiationStep' smart constructor.
 data DataReplicationInitiationStep = DataReplicationInitiationStep'
-  { -- | Request to query data initiation status.
-    status :: Prelude.Maybe DataReplicationInitiationStepStatus,
-    -- | Request to query data initiation step name.
-    name :: Prelude.Maybe DataReplicationInitiationStepName
+  { -- | Request to query data initiation step name.
+    name :: Prelude.Maybe DataReplicationInitiationStepName,
+    -- | Request to query data initiation status.
+    status :: Prelude.Maybe DataReplicationInitiationStepStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,34 +45,34 @@ data DataReplicationInitiationStep = DataReplicationInitiationStep'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'dataReplicationInitiationStep_status' - Request to query data initiation status.
---
 -- 'name', 'dataReplicationInitiationStep_name' - Request to query data initiation step name.
+--
+-- 'status', 'dataReplicationInitiationStep_status' - Request to query data initiation status.
 newDataReplicationInitiationStep ::
   DataReplicationInitiationStep
 newDataReplicationInitiationStep =
   DataReplicationInitiationStep'
-    { status =
+    { name =
         Prelude.Nothing,
-      name = Prelude.Nothing
+      status = Prelude.Nothing
     }
-
--- | Request to query data initiation status.
-dataReplicationInitiationStep_status :: Lens.Lens' DataReplicationInitiationStep (Prelude.Maybe DataReplicationInitiationStepStatus)
-dataReplicationInitiationStep_status = Lens.lens (\DataReplicationInitiationStep' {status} -> status) (\s@DataReplicationInitiationStep' {} a -> s {status = a} :: DataReplicationInitiationStep)
 
 -- | Request to query data initiation step name.
 dataReplicationInitiationStep_name :: Lens.Lens' DataReplicationInitiationStep (Prelude.Maybe DataReplicationInitiationStepName)
 dataReplicationInitiationStep_name = Lens.lens (\DataReplicationInitiationStep' {name} -> name) (\s@DataReplicationInitiationStep' {} a -> s {name = a} :: DataReplicationInitiationStep)
 
-instance Core.FromJSON DataReplicationInitiationStep where
+-- | Request to query data initiation status.
+dataReplicationInitiationStep_status :: Lens.Lens' DataReplicationInitiationStep (Prelude.Maybe DataReplicationInitiationStepStatus)
+dataReplicationInitiationStep_status = Lens.lens (\DataReplicationInitiationStep' {status} -> status) (\s@DataReplicationInitiationStep' {} a -> s {status = a} :: DataReplicationInitiationStep)
+
+instance Data.FromJSON DataReplicationInitiationStep where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DataReplicationInitiationStep"
       ( \x ->
           DataReplicationInitiationStep'
-            Prelude.<$> (x Core..:? "status")
-            Prelude.<*> (x Core..:? "name")
+            Prelude.<$> (x Data..:? "name")
+            Prelude.<*> (x Data..:? "status")
       )
 
 instance
@@ -79,9 +80,9 @@ instance
     DataReplicationInitiationStep
   where
   hashWithSalt _salt DataReplicationInitiationStep' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData DataReplicationInitiationStep where
   rnf DataReplicationInitiationStep' {..} =
-    Prelude.rnf status `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name `Prelude.seq` Prelude.rnf status

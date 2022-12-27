@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.DeleteStage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -47,9 +48,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDeleteStage' smart constructor.
 data DeleteStage = DeleteStage'
-  { -- | [Required] The string identifier of the associated RestApi.
+  { -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] The name of the Stage resource to delete.
+    -- | The name of the Stage resource to delete.
     stageName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -62,9 +63,9 @@ data DeleteStage = DeleteStage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'restApiId', 'deleteStage_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'deleteStage_restApiId' - The string identifier of the associated RestApi.
 --
--- 'stageName', 'deleteStage_stageName' - [Required] The name of the Stage resource to delete.
+-- 'stageName', 'deleteStage_stageName' - The name of the Stage resource to delete.
 newDeleteStage ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -77,17 +78,18 @@ newDeleteStage pRestApiId_ pStageName_ =
       stageName = pStageName_
     }
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 deleteStage_restApiId :: Lens.Lens' DeleteStage Prelude.Text
 deleteStage_restApiId = Lens.lens (\DeleteStage' {restApiId} -> restApiId) (\s@DeleteStage' {} a -> s {restApiId = a} :: DeleteStage)
 
--- | [Required] The name of the Stage resource to delete.
+-- | The name of the Stage resource to delete.
 deleteStage_stageName :: Lens.Lens' DeleteStage Prelude.Text
 deleteStage_stageName = Lens.lens (\DeleteStage' {stageName} -> stageName) (\s@DeleteStage' {} a -> s {stageName = a} :: DeleteStage)
 
 instance Core.AWSRequest DeleteStage where
   type AWSResponse DeleteStage = DeleteStageResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response = Response.receiveNull DeleteStageResponse'
 
 instance Prelude.Hashable DeleteStage where
@@ -100,25 +102,25 @@ instance Prelude.NFData DeleteStage where
     Prelude.rnf restApiId
       `Prelude.seq` Prelude.rnf stageName
 
-instance Core.ToHeaders DeleteStage where
+instance Data.ToHeaders DeleteStage where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath DeleteStage where
+instance Data.ToPath DeleteStage where
   toPath DeleteStage' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/stages/",
-        Core.toBS stageName
+        Data.toBS stageName
       ]
 
-instance Core.ToQuery DeleteStage where
+instance Data.ToQuery DeleteStage where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteStageResponse' smart constructor.

@@ -14,13 +14,15 @@
 
 -- |
 -- Module      : Amazonka.MediaTailor.DeleteProgram
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a specific program on a specific channel.
+-- Deletes a program within a channel. For information about programs, see
+-- <https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-programs.html Working with programs>
+-- in the /MediaTailor User Guide/.
 module Amazonka.MediaTailor.DeleteProgram
   ( -- * Creating a Request
     DeleteProgram (..),
@@ -40,7 +42,8 @@ module Amazonka.MediaTailor.DeleteProgram
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaTailor.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -48,9 +51,9 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteProgram' smart constructor.
 data DeleteProgram = DeleteProgram'
-  { -- | The identifier for the channel you are working on.
+  { -- | The name of the channel.
     channelName :: Prelude.Text,
-    -- | The identifier for the program you are working on.
+    -- | The name of the program.
     programName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -63,9 +66,9 @@ data DeleteProgram = DeleteProgram'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'channelName', 'deleteProgram_channelName' - The identifier for the channel you are working on.
+-- 'channelName', 'deleteProgram_channelName' - The name of the channel.
 --
--- 'programName', 'deleteProgram_programName' - The identifier for the program you are working on.
+-- 'programName', 'deleteProgram_programName' - The name of the program.
 newDeleteProgram ::
   -- | 'channelName'
   Prelude.Text ->
@@ -78,11 +81,11 @@ newDeleteProgram pChannelName_ pProgramName_ =
       programName = pProgramName_
     }
 
--- | The identifier for the channel you are working on.
+-- | The name of the channel.
 deleteProgram_channelName :: Lens.Lens' DeleteProgram Prelude.Text
 deleteProgram_channelName = Lens.lens (\DeleteProgram' {channelName} -> channelName) (\s@DeleteProgram' {} a -> s {channelName = a} :: DeleteProgram)
 
--- | The identifier for the program you are working on.
+-- | The name of the program.
 deleteProgram_programName :: Lens.Lens' DeleteProgram Prelude.Text
 deleteProgram_programName = Lens.lens (\DeleteProgram' {programName} -> programName) (\s@DeleteProgram' {} a -> s {programName = a} :: DeleteProgram)
 
@@ -90,7 +93,8 @@ instance Core.AWSRequest DeleteProgram where
   type
     AWSResponse DeleteProgram =
       DeleteProgramResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -108,27 +112,27 @@ instance Prelude.NFData DeleteProgram where
     Prelude.rnf channelName
       `Prelude.seq` Prelude.rnf programName
 
-instance Core.ToHeaders DeleteProgram where
+instance Data.ToHeaders DeleteProgram where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteProgram where
+instance Data.ToPath DeleteProgram where
   toPath DeleteProgram' {..} =
     Prelude.mconcat
       [ "/channel/",
-        Core.toBS channelName,
+        Data.toBS channelName,
         "/program/",
-        Core.toBS programName
+        Data.toBS programName
       ]
 
-instance Core.ToQuery DeleteProgram where
+instance Data.ToQuery DeleteProgram where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteProgramResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.Types.IpPermission
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.GameLift.Types.IpPermission where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types.IpProtocol
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A range of IP addresses and port settings that allow inbound traffic to
@@ -32,16 +33,18 @@ import qualified Amazonka.Prelude as Prelude
 -- automatically opens two port ranges, one for TCP messaging and one for
 -- UDP.
 --
--- __Related actions__
---
--- DescribeFleetPortSettings
---
 -- /See:/ 'newIpPermission' smart constructor.
 data IpPermission = IpPermission'
   { -- | A starting value for a range of allowed port numbers.
+    --
+    -- For fleets using Windows and Linux builds, only ports 1026-60000 are
+    -- valid.
     fromPort :: Prelude.Natural,
     -- | An ending value for a range of allowed port numbers. Port numbers are
     -- end-inclusive. This value must be higher than @FromPort@.
+    --
+    -- For fleets using Windows and Linux builds, only ports 1026-60000 are
+    -- valid.
     toPort :: Prelude.Natural,
     -- | A range of allowed IP addresses. This value must be expressed in CIDR
     -- notation. Example: \"@000.000.000.000\/[subnet mask]@\" or optionally
@@ -62,8 +65,14 @@ data IpPermission = IpPermission'
 --
 -- 'fromPort', 'ipPermission_fromPort' - A starting value for a range of allowed port numbers.
 --
+-- For fleets using Windows and Linux builds, only ports 1026-60000 are
+-- valid.
+--
 -- 'toPort', 'ipPermission_toPort' - An ending value for a range of allowed port numbers. Port numbers are
 -- end-inclusive. This value must be higher than @FromPort@.
+--
+-- For fleets using Windows and Linux builds, only ports 1026-60000 are
+-- valid.
 --
 -- 'ipRange', 'ipPermission_ipRange' - A range of allowed IP addresses. This value must be expressed in CIDR
 -- notation. Example: \"@000.000.000.000\/[subnet mask]@\" or optionally
@@ -93,11 +102,17 @@ newIpPermission
       }
 
 -- | A starting value for a range of allowed port numbers.
+--
+-- For fleets using Windows and Linux builds, only ports 1026-60000 are
+-- valid.
 ipPermission_fromPort :: Lens.Lens' IpPermission Prelude.Natural
 ipPermission_fromPort = Lens.lens (\IpPermission' {fromPort} -> fromPort) (\s@IpPermission' {} a -> s {fromPort = a} :: IpPermission)
 
 -- | An ending value for a range of allowed port numbers. Port numbers are
 -- end-inclusive. This value must be higher than @FromPort@.
+--
+-- For fleets using Windows and Linux builds, only ports 1026-60000 are
+-- valid.
 ipPermission_toPort :: Lens.Lens' IpPermission Prelude.Natural
 ipPermission_toPort = Lens.lens (\IpPermission' {toPort} -> toPort) (\s@IpPermission' {} a -> s {toPort = a} :: IpPermission)
 
@@ -111,16 +126,16 @@ ipPermission_ipRange = Lens.lens (\IpPermission' {ipRange} -> ipRange) (\s@IpPer
 ipPermission_protocol :: Lens.Lens' IpPermission IpProtocol
 ipPermission_protocol = Lens.lens (\IpPermission' {protocol} -> protocol) (\s@IpPermission' {} a -> s {protocol = a} :: IpPermission)
 
-instance Core.FromJSON IpPermission where
+instance Data.FromJSON IpPermission where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IpPermission"
       ( \x ->
           IpPermission'
-            Prelude.<$> (x Core..: "FromPort")
-            Prelude.<*> (x Core..: "ToPort")
-            Prelude.<*> (x Core..: "IpRange")
-            Prelude.<*> (x Core..: "Protocol")
+            Prelude.<$> (x Data..: "FromPort")
+            Prelude.<*> (x Data..: "ToPort")
+            Prelude.<*> (x Data..: "IpRange")
+            Prelude.<*> (x Data..: "Protocol")
       )
 
 instance Prelude.Hashable IpPermission where
@@ -137,13 +152,13 @@ instance Prelude.NFData IpPermission where
       `Prelude.seq` Prelude.rnf ipRange
       `Prelude.seq` Prelude.rnf protocol
 
-instance Core.ToJSON IpPermission where
+instance Data.ToJSON IpPermission where
   toJSON IpPermission' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("FromPort" Core..= fromPort),
-            Prelude.Just ("ToPort" Core..= toPort),
-            Prelude.Just ("IpRange" Core..= ipRange),
-            Prelude.Just ("Protocol" Core..= protocol)
+          [ Prelude.Just ("FromPort" Data..= fromPort),
+            Prelude.Just ("ToPort" Data..= toPort),
+            Prelude.Just ("IpRange" Data..= ipRange),
+            Prelude.Just ("Protocol" Data..= protocol)
           ]
       )

@@ -14,21 +14,21 @@
 
 -- |
 -- Module      : Amazonka.SSM.CreateAssociationBatch
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Associates the specified Amazon Web Services Systems Manager document
--- (SSM document) with the specified instances or targets.
+-- (SSM document) with the specified managed nodes or targets.
 --
--- When you associate a document with one or more instances using instance
--- IDs or tags, Amazon Web Services Systems Manager Agent (SSM Agent)
--- running on the instance processes the document and configures the
--- instance as specified.
+-- When you associate a document with one or more managed nodes using IDs
+-- or tags, Amazon Web Services Systems Manager Agent (SSM Agent) running
+-- on the managed node processes the document and configures the node as
+-- specified.
 --
--- If you associate a document with an instance that already has an
+-- If you associate a document with a managed node that already has an
 -- associated document, the system returns the AssociationAlreadyExists
 -- exception.
 module Amazonka.SSM.CreateAssociationBatch
@@ -44,14 +44,15 @@ module Amazonka.SSM.CreateAssociationBatch
     newCreateAssociationBatchResponse,
 
     -- * Response Lenses
-    createAssociationBatchResponse_successful,
     createAssociationBatchResponse_failed,
+    createAssociationBatchResponse_successful,
     createAssociationBatchResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,7 +63,7 @@ data CreateAssociationBatch = CreateAssociationBatch'
   { -- | One or more associations.
     entries :: Prelude.NonEmpty CreateAssociationBatchRequestEntry
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'CreateAssociationBatch' with all optional fields omitted.
@@ -91,13 +92,14 @@ instance Core.AWSRequest CreateAssociationBatch where
   type
     AWSResponse CreateAssociationBatch =
       CreateAssociationBatchResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateAssociationBatchResponse'
-            Prelude.<$> (x Core..?> "Successful" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "Failed" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Failed" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Successful" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -108,44 +110,44 @@ instance Prelude.Hashable CreateAssociationBatch where
 instance Prelude.NFData CreateAssociationBatch where
   rnf CreateAssociationBatch' {..} = Prelude.rnf entries
 
-instance Core.ToHeaders CreateAssociationBatch where
+instance Data.ToHeaders CreateAssociationBatch where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.CreateAssociationBatch" ::
+              Data.=# ( "AmazonSSM.CreateAssociationBatch" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateAssociationBatch where
+instance Data.ToJSON CreateAssociationBatch where
   toJSON CreateAssociationBatch' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Entries" Core..= entries)]
+          [Prelude.Just ("Entries" Data..= entries)]
       )
 
-instance Core.ToPath CreateAssociationBatch where
+instance Data.ToPath CreateAssociationBatch where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateAssociationBatch where
+instance Data.ToQuery CreateAssociationBatch where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateAssociationBatchResponse' smart constructor.
 data CreateAssociationBatchResponse = CreateAssociationBatchResponse'
-  { -- | Information about the associations that succeeded.
-    successful :: Prelude.Maybe [AssociationDescription],
-    -- | Information about the associations that failed.
+  { -- | Information about the associations that failed.
     failed :: Prelude.Maybe [FailedCreateAssociation],
+    -- | Information about the associations that succeeded.
+    successful :: Prelude.Maybe [AssociationDescription],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'CreateAssociationBatchResponse' with all optional fields omitted.
@@ -155,9 +157,9 @@ data CreateAssociationBatchResponse = CreateAssociationBatchResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'successful', 'createAssociationBatchResponse_successful' - Information about the associations that succeeded.
---
 -- 'failed', 'createAssociationBatchResponse_failed' - Information about the associations that failed.
+--
+-- 'successful', 'createAssociationBatchResponse_successful' - Information about the associations that succeeded.
 --
 -- 'httpStatus', 'createAssociationBatchResponse_httpStatus' - The response's http status code.
 newCreateAssociationBatchResponse ::
@@ -166,19 +168,19 @@ newCreateAssociationBatchResponse ::
   CreateAssociationBatchResponse
 newCreateAssociationBatchResponse pHttpStatus_ =
   CreateAssociationBatchResponse'
-    { successful =
+    { failed =
         Prelude.Nothing,
-      failed = Prelude.Nothing,
+      successful = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Information about the associations that succeeded.
-createAssociationBatchResponse_successful :: Lens.Lens' CreateAssociationBatchResponse (Prelude.Maybe [AssociationDescription])
-createAssociationBatchResponse_successful = Lens.lens (\CreateAssociationBatchResponse' {successful} -> successful) (\s@CreateAssociationBatchResponse' {} a -> s {successful = a} :: CreateAssociationBatchResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | Information about the associations that failed.
 createAssociationBatchResponse_failed :: Lens.Lens' CreateAssociationBatchResponse (Prelude.Maybe [FailedCreateAssociation])
 createAssociationBatchResponse_failed = Lens.lens (\CreateAssociationBatchResponse' {failed} -> failed) (\s@CreateAssociationBatchResponse' {} a -> s {failed = a} :: CreateAssociationBatchResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | Information about the associations that succeeded.
+createAssociationBatchResponse_successful :: Lens.Lens' CreateAssociationBatchResponse (Prelude.Maybe [AssociationDescription])
+createAssociationBatchResponse_successful = Lens.lens (\CreateAssociationBatchResponse' {successful} -> successful) (\s@CreateAssociationBatchResponse' {} a -> s {successful = a} :: CreateAssociationBatchResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 createAssociationBatchResponse_httpStatus :: Lens.Lens' CreateAssociationBatchResponse Prelude.Int
@@ -189,6 +191,6 @@ instance
     CreateAssociationBatchResponse
   where
   rnf CreateAssociationBatchResponse' {..} =
-    Prelude.rnf successful
-      `Prelude.seq` Prelude.rnf failed
+    Prelude.rnf failed
+      `Prelude.seq` Prelude.rnf successful
       `Prelude.seq` Prelude.rnf httpStatus

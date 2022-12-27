@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppConfig.UpdateApplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.AppConfig.UpdateApplication
     newUpdateApplication,
 
     -- * Request Lenses
-    updateApplication_name,
     updateApplication_description,
+    updateApplication_name,
     updateApplication_applicationId,
 
     -- * Destructuring the Response
@@ -36,25 +36,26 @@ module Amazonka.AppConfig.UpdateApplication
     newApplication,
 
     -- * Response Lenses
-    application_name,
-    application_id,
     application_description,
+    application_id,
+    application_name,
   )
 where
 
 import Amazonka.AppConfig.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateApplication' smart constructor.
 data UpdateApplication = UpdateApplication'
-  { -- | The name of the application.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | A description of the application.
+  { -- | A description of the application.
     description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the application.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The application ID.
     applicationId :: Prelude.Text
   }
@@ -68,9 +69,9 @@ data UpdateApplication = UpdateApplication'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'updateApplication_name' - The name of the application.
---
 -- 'description', 'updateApplication_description' - A description of the application.
+--
+-- 'name', 'updateApplication_name' - The name of the application.
 --
 -- 'applicationId', 'updateApplication_applicationId' - The application ID.
 newUpdateApplication ::
@@ -79,18 +80,18 @@ newUpdateApplication ::
   UpdateApplication
 newUpdateApplication pApplicationId_ =
   UpdateApplication'
-    { name = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      name = Prelude.Nothing,
       applicationId = pApplicationId_
     }
-
--- | The name of the application.
-updateApplication_name :: Lens.Lens' UpdateApplication (Prelude.Maybe Prelude.Text)
-updateApplication_name = Lens.lens (\UpdateApplication' {name} -> name) (\s@UpdateApplication' {} a -> s {name = a} :: UpdateApplication)
 
 -- | A description of the application.
 updateApplication_description :: Lens.Lens' UpdateApplication (Prelude.Maybe Prelude.Text)
 updateApplication_description = Lens.lens (\UpdateApplication' {description} -> description) (\s@UpdateApplication' {} a -> s {description = a} :: UpdateApplication)
+
+-- | The name of the application.
+updateApplication_name :: Lens.Lens' UpdateApplication (Prelude.Maybe Prelude.Text)
+updateApplication_name = Lens.lens (\UpdateApplication' {name} -> name) (\s@UpdateApplication' {} a -> s {name = a} :: UpdateApplication)
 
 -- | The application ID.
 updateApplication_applicationId :: Lens.Lens' UpdateApplication Prelude.Text
@@ -98,47 +99,48 @@ updateApplication_applicationId = Lens.lens (\UpdateApplication' {applicationId}
 
 instance Core.AWSRequest UpdateApplication where
   type AWSResponse UpdateApplication = Application
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable UpdateApplication where
   hashWithSalt _salt UpdateApplication' {..} =
-    _salt `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` applicationId
 
 instance Prelude.NFData UpdateApplication where
   rnf UpdateApplication' {..} =
-    Prelude.rnf name
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf applicationId
 
-instance Core.ToHeaders UpdateApplication where
+instance Data.ToHeaders UpdateApplication where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateApplication where
+instance Data.ToJSON UpdateApplication where
   toJSON UpdateApplication' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Name" Core..=) Prelude.<$> name,
-            ("Description" Core..=) Prelude.<$> description
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Name" Data..=) Prelude.<$> name
           ]
       )
 
-instance Core.ToPath UpdateApplication where
+instance Data.ToPath UpdateApplication where
   toPath UpdateApplication' {..} =
     Prelude.mconcat
-      ["/applications/", Core.toBS applicationId]
+      ["/applications/", Data.toBS applicationId]
 
-instance Core.ToQuery UpdateApplication where
+instance Data.ToQuery UpdateApplication where
   toQuery = Prelude.const Prelude.mempty

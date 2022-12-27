@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.UpdateMaintenanceStartTime
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.StorageGateway.UpdateMaintenanceStartTime
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -162,12 +163,13 @@ instance Core.AWSRequest UpdateMaintenanceStartTime where
   type
     AWSResponse UpdateMaintenanceStartTime =
       UpdateMaintenanceStartTimeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateMaintenanceStartTimeResponse'
-            Prelude.<$> (x Core..?> "GatewayARN")
+            Prelude.<$> (x Data..?> "GatewayARN")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -187,37 +189,37 @@ instance Prelude.NFData UpdateMaintenanceStartTime where
       `Prelude.seq` Prelude.rnf hourOfDay
       `Prelude.seq` Prelude.rnf minuteOfHour
 
-instance Core.ToHeaders UpdateMaintenanceStartTime where
+instance Data.ToHeaders UpdateMaintenanceStartTime where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.UpdateMaintenanceStartTime" ::
+              Data.=# ( "StorageGateway_20130630.UpdateMaintenanceStartTime" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateMaintenanceStartTime where
+instance Data.ToJSON UpdateMaintenanceStartTime where
   toJSON UpdateMaintenanceStartTime' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DayOfMonth" Core..=) Prelude.<$> dayOfMonth,
-            ("DayOfWeek" Core..=) Prelude.<$> dayOfWeek,
-            Prelude.Just ("GatewayARN" Core..= gatewayARN),
-            Prelude.Just ("HourOfDay" Core..= hourOfDay),
-            Prelude.Just ("MinuteOfHour" Core..= minuteOfHour)
+          [ ("DayOfMonth" Data..=) Prelude.<$> dayOfMonth,
+            ("DayOfWeek" Data..=) Prelude.<$> dayOfWeek,
+            Prelude.Just ("GatewayARN" Data..= gatewayARN),
+            Prelude.Just ("HourOfDay" Data..= hourOfDay),
+            Prelude.Just ("MinuteOfHour" Data..= minuteOfHour)
           ]
       )
 
-instance Core.ToPath UpdateMaintenanceStartTime where
+instance Data.ToPath UpdateMaintenanceStartTime where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateMaintenanceStartTime where
+instance Data.ToQuery UpdateMaintenanceStartTime where
   toQuery = Prelude.const Prelude.mempty
 
 -- | A JSON object containing the Amazon Resource Name (ARN) of the gateway

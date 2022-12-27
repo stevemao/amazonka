@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GlobalAccelerator.UpdateListener
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,9 +27,9 @@ module Amazonka.GlobalAccelerator.UpdateListener
     newUpdateListener,
 
     -- * Request Lenses
+    updateListener_clientAffinity,
     updateListener_portRanges,
     updateListener_protocol,
-    updateListener_clientAffinity,
     updateListener_listenerArn,
 
     -- * Destructuring the Response
@@ -43,34 +43,28 @@ module Amazonka.GlobalAccelerator.UpdateListener
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GlobalAccelerator.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateListener' smart constructor.
 data UpdateListener = UpdateListener'
-  { -- | The updated list of port ranges for the connections from clients to the
-    -- accelerator.
-    portRanges :: Prelude.Maybe (Prelude.NonEmpty PortRange),
-    -- | The updated protocol for the connections from clients to the
-    -- accelerator.
-    protocol :: Prelude.Maybe Protocol,
-    -- | Client affinity lets you direct all requests from a user to the same
+  { -- | Client affinity lets you direct all requests from a user to the same
     -- endpoint, if you have stateful applications, regardless of the port and
     -- protocol of the client request. Client affinity gives you control over
     -- whether to always route each client to the same specific endpoint.
     --
-    -- AWS Global Accelerator uses a consistent-flow hashing algorithm to
-    -- choose the optimal endpoint for a connection. If client affinity is
-    -- @NONE@, Global Accelerator uses the \"five-tuple\" (5-tuple)
-    -- properties—source IP address, source port, destination IP address,
-    -- destination port, and protocol—to select the hash value, and then
-    -- chooses the best endpoint. However, with this setting, if someone uses
-    -- different ports to connect to Global Accelerator, their connections
-    -- might not be always routed to the same endpoint because the hash value
-    -- changes.
+    -- Global Accelerator uses a consistent-flow hashing algorithm to choose
+    -- the optimal endpoint for a connection. If client affinity is @NONE@,
+    -- Global Accelerator uses the \"five-tuple\" (5-tuple) properties—source
+    -- IP address, source port, destination IP address, destination port, and
+    -- protocol—to select the hash value, and then chooses the best endpoint.
+    -- However, with this setting, if someone uses different ports to connect
+    -- to Global Accelerator, their connections might not be always routed to
+    -- the same endpoint because the hash value changes.
     --
     -- If you want a given client to always be routed to the same endpoint, set
     -- client affinity to @SOURCE_IP@ instead. When you use the @SOURCE_IP@
@@ -80,6 +74,12 @@ data UpdateListener = UpdateListener'
     --
     -- The default value is @NONE@.
     clientAffinity :: Prelude.Maybe ClientAffinity,
+    -- | The updated list of port ranges for the connections from clients to the
+    -- accelerator.
+    portRanges :: Prelude.Maybe (Prelude.NonEmpty PortRange),
+    -- | The updated protocol for the connections from clients to the
+    -- accelerator.
+    protocol :: Prelude.Maybe Protocol,
     -- | The Amazon Resource Name (ARN) of the listener to update.
     listenerArn :: Prelude.Text
   }
@@ -93,26 +93,19 @@ data UpdateListener = UpdateListener'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'portRanges', 'updateListener_portRanges' - The updated list of port ranges for the connections from clients to the
--- accelerator.
---
--- 'protocol', 'updateListener_protocol' - The updated protocol for the connections from clients to the
--- accelerator.
---
 -- 'clientAffinity', 'updateListener_clientAffinity' - Client affinity lets you direct all requests from a user to the same
 -- endpoint, if you have stateful applications, regardless of the port and
 -- protocol of the client request. Client affinity gives you control over
 -- whether to always route each client to the same specific endpoint.
 --
--- AWS Global Accelerator uses a consistent-flow hashing algorithm to
--- choose the optimal endpoint for a connection. If client affinity is
--- @NONE@, Global Accelerator uses the \"five-tuple\" (5-tuple)
--- properties—source IP address, source port, destination IP address,
--- destination port, and protocol—to select the hash value, and then
--- chooses the best endpoint. However, with this setting, if someone uses
--- different ports to connect to Global Accelerator, their connections
--- might not be always routed to the same endpoint because the hash value
--- changes.
+-- Global Accelerator uses a consistent-flow hashing algorithm to choose
+-- the optimal endpoint for a connection. If client affinity is @NONE@,
+-- Global Accelerator uses the \"five-tuple\" (5-tuple) properties—source
+-- IP address, source port, destination IP address, destination port, and
+-- protocol—to select the hash value, and then chooses the best endpoint.
+-- However, with this setting, if someone uses different ports to connect
+-- to Global Accelerator, their connections might not be always routed to
+-- the same endpoint because the hash value changes.
 --
 -- If you want a given client to always be routed to the same endpoint, set
 -- client affinity to @SOURCE_IP@ instead. When you use the @SOURCE_IP@
@@ -122,6 +115,12 @@ data UpdateListener = UpdateListener'
 --
 -- The default value is @NONE@.
 --
+-- 'portRanges', 'updateListener_portRanges' - The updated list of port ranges for the connections from clients to the
+-- accelerator.
+--
+-- 'protocol', 'updateListener_protocol' - The updated protocol for the connections from clients to the
+-- accelerator.
+--
 -- 'listenerArn', 'updateListener_listenerArn' - The Amazon Resource Name (ARN) of the listener to update.
 newUpdateListener ::
   -- | 'listenerArn'
@@ -129,36 +128,25 @@ newUpdateListener ::
   UpdateListener
 newUpdateListener pListenerArn_ =
   UpdateListener'
-    { portRanges = Prelude.Nothing,
+    { clientAffinity = Prelude.Nothing,
+      portRanges = Prelude.Nothing,
       protocol = Prelude.Nothing,
-      clientAffinity = Prelude.Nothing,
       listenerArn = pListenerArn_
     }
-
--- | The updated list of port ranges for the connections from clients to the
--- accelerator.
-updateListener_portRanges :: Lens.Lens' UpdateListener (Prelude.Maybe (Prelude.NonEmpty PortRange))
-updateListener_portRanges = Lens.lens (\UpdateListener' {portRanges} -> portRanges) (\s@UpdateListener' {} a -> s {portRanges = a} :: UpdateListener) Prelude.. Lens.mapping Lens.coerced
-
--- | The updated protocol for the connections from clients to the
--- accelerator.
-updateListener_protocol :: Lens.Lens' UpdateListener (Prelude.Maybe Protocol)
-updateListener_protocol = Lens.lens (\UpdateListener' {protocol} -> protocol) (\s@UpdateListener' {} a -> s {protocol = a} :: UpdateListener)
 
 -- | Client affinity lets you direct all requests from a user to the same
 -- endpoint, if you have stateful applications, regardless of the port and
 -- protocol of the client request. Client affinity gives you control over
 -- whether to always route each client to the same specific endpoint.
 --
--- AWS Global Accelerator uses a consistent-flow hashing algorithm to
--- choose the optimal endpoint for a connection. If client affinity is
--- @NONE@, Global Accelerator uses the \"five-tuple\" (5-tuple)
--- properties—source IP address, source port, destination IP address,
--- destination port, and protocol—to select the hash value, and then
--- chooses the best endpoint. However, with this setting, if someone uses
--- different ports to connect to Global Accelerator, their connections
--- might not be always routed to the same endpoint because the hash value
--- changes.
+-- Global Accelerator uses a consistent-flow hashing algorithm to choose
+-- the optimal endpoint for a connection. If client affinity is @NONE@,
+-- Global Accelerator uses the \"five-tuple\" (5-tuple) properties—source
+-- IP address, source port, destination IP address, destination port, and
+-- protocol—to select the hash value, and then chooses the best endpoint.
+-- However, with this setting, if someone uses different ports to connect
+-- to Global Accelerator, their connections might not be always routed to
+-- the same endpoint because the hash value changes.
 --
 -- If you want a given client to always be routed to the same endpoint, set
 -- client affinity to @SOURCE_IP@ instead. When you use the @SOURCE_IP@
@@ -170,6 +158,16 @@ updateListener_protocol = Lens.lens (\UpdateListener' {protocol} -> protocol) (\
 updateListener_clientAffinity :: Lens.Lens' UpdateListener (Prelude.Maybe ClientAffinity)
 updateListener_clientAffinity = Lens.lens (\UpdateListener' {clientAffinity} -> clientAffinity) (\s@UpdateListener' {} a -> s {clientAffinity = a} :: UpdateListener)
 
+-- | The updated list of port ranges for the connections from clients to the
+-- accelerator.
+updateListener_portRanges :: Lens.Lens' UpdateListener (Prelude.Maybe (Prelude.NonEmpty PortRange))
+updateListener_portRanges = Lens.lens (\UpdateListener' {portRanges} -> portRanges) (\s@UpdateListener' {} a -> s {portRanges = a} :: UpdateListener) Prelude.. Lens.mapping Lens.coerced
+
+-- | The updated protocol for the connections from clients to the
+-- accelerator.
+updateListener_protocol :: Lens.Lens' UpdateListener (Prelude.Maybe Protocol)
+updateListener_protocol = Lens.lens (\UpdateListener' {protocol} -> protocol) (\s@UpdateListener' {} a -> s {protocol = a} :: UpdateListener)
+
 -- | The Amazon Resource Name (ARN) of the listener to update.
 updateListener_listenerArn :: Lens.Lens' UpdateListener Prelude.Text
 updateListener_listenerArn = Lens.lens (\UpdateListener' {listenerArn} -> listenerArn) (\s@UpdateListener' {} a -> s {listenerArn = a} :: UpdateListener)
@@ -178,60 +176,61 @@ instance Core.AWSRequest UpdateListener where
   type
     AWSResponse UpdateListener =
       UpdateListenerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateListenerResponse'
-            Prelude.<$> (x Core..?> "Listener")
+            Prelude.<$> (x Data..?> "Listener")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateListener where
   hashWithSalt _salt UpdateListener' {..} =
-    _salt `Prelude.hashWithSalt` portRanges
+    _salt `Prelude.hashWithSalt` clientAffinity
+      `Prelude.hashWithSalt` portRanges
       `Prelude.hashWithSalt` protocol
-      `Prelude.hashWithSalt` clientAffinity
       `Prelude.hashWithSalt` listenerArn
 
 instance Prelude.NFData UpdateListener where
   rnf UpdateListener' {..} =
-    Prelude.rnf portRanges
+    Prelude.rnf clientAffinity
+      `Prelude.seq` Prelude.rnf portRanges
       `Prelude.seq` Prelude.rnf protocol
-      `Prelude.seq` Prelude.rnf clientAffinity
       `Prelude.seq` Prelude.rnf listenerArn
 
-instance Core.ToHeaders UpdateListener where
+instance Data.ToHeaders UpdateListener where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GlobalAccelerator_V20180706.UpdateListener" ::
+              Data.=# ( "GlobalAccelerator_V20180706.UpdateListener" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateListener where
+instance Data.ToJSON UpdateListener where
   toJSON UpdateListener' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PortRanges" Core..=) Prelude.<$> portRanges,
-            ("Protocol" Core..=) Prelude.<$> protocol,
-            ("ClientAffinity" Core..=)
+          [ ("ClientAffinity" Data..=)
               Prelude.<$> clientAffinity,
-            Prelude.Just ("ListenerArn" Core..= listenerArn)
+            ("PortRanges" Data..=) Prelude.<$> portRanges,
+            ("Protocol" Data..=) Prelude.<$> protocol,
+            Prelude.Just ("ListenerArn" Data..= listenerArn)
           ]
       )
 
-instance Core.ToPath UpdateListener where
+instance Data.ToPath UpdateListener where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateListener where
+instance Data.ToQuery UpdateListener where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateListenerResponse' smart constructor.

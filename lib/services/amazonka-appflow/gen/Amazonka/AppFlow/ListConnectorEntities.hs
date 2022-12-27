@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.ListConnectorEntities
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,10 @@ module Amazonka.AppFlow.ListConnectorEntities
     newListConnectorEntities,
 
     -- * Request Lenses
+    listConnectorEntities_apiVersion,
     listConnectorEntities_connectorProfileName,
-    listConnectorEntities_entitiesPath,
     listConnectorEntities_connectorType,
+    listConnectorEntities_entitiesPath,
 
     -- * Destructuring the Response
     ListConnectorEntitiesResponse (..),
@@ -45,26 +46,29 @@ where
 
 import Amazonka.AppFlow.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListConnectorEntities' smart constructor.
 data ListConnectorEntities = ListConnectorEntities'
-  { -- | The name of the connector profile. The name is unique for each
+  { -- | The version of the API that\'s used by the connector.
+    apiVersion :: Prelude.Maybe Prelude.Text,
+    -- | The name of the connector profile. The name is unique for each
     -- @ConnectorProfile@ in the Amazon Web Services account, and is used to
     -- query the downstream connector.
     connectorProfileName :: Prelude.Maybe Prelude.Text,
+    -- | The type of connector, such as Salesforce, Amplitude, and so on.
+    connectorType :: Prelude.Maybe ConnectorType,
     -- | This optional parameter is specific to connector implementation. Some
     -- connectors support multiple levels or categories of entities. You can
     -- find out the list of roots for such providers by sending a request
     -- without the @entitiesPath@ parameter. If the connector supports entities
     -- at different roots, this initial request returns the list of roots.
     -- Otherwise, this request returns all entities supported by the provider.
-    entitiesPath :: Prelude.Maybe Prelude.Text,
-    -- | The type of connector, such as Salesforce, Amplitude, and so on.
-    connectorType :: Prelude.Maybe ConnectorType
+    entitiesPath :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -76,9 +80,13 @@ data ListConnectorEntities = ListConnectorEntities'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'apiVersion', 'listConnectorEntities_apiVersion' - The version of the API that\'s used by the connector.
+--
 -- 'connectorProfileName', 'listConnectorEntities_connectorProfileName' - The name of the connector profile. The name is unique for each
 -- @ConnectorProfile@ in the Amazon Web Services account, and is used to
 -- query the downstream connector.
+--
+-- 'connectorType', 'listConnectorEntities_connectorType' - The type of connector, such as Salesforce, Amplitude, and so on.
 --
 -- 'entitiesPath', 'listConnectorEntities_entitiesPath' - This optional parameter is specific to connector implementation. Some
 -- connectors support multiple levels or categories of entities. You can
@@ -86,23 +94,30 @@ data ListConnectorEntities = ListConnectorEntities'
 -- without the @entitiesPath@ parameter. If the connector supports entities
 -- at different roots, this initial request returns the list of roots.
 -- Otherwise, this request returns all entities supported by the provider.
---
--- 'connectorType', 'listConnectorEntities_connectorType' - The type of connector, such as Salesforce, Amplitude, and so on.
 newListConnectorEntities ::
   ListConnectorEntities
 newListConnectorEntities =
   ListConnectorEntities'
-    { connectorProfileName =
+    { apiVersion =
         Prelude.Nothing,
-      entitiesPath = Prelude.Nothing,
-      connectorType = Prelude.Nothing
+      connectorProfileName = Prelude.Nothing,
+      connectorType = Prelude.Nothing,
+      entitiesPath = Prelude.Nothing
     }
+
+-- | The version of the API that\'s used by the connector.
+listConnectorEntities_apiVersion :: Lens.Lens' ListConnectorEntities (Prelude.Maybe Prelude.Text)
+listConnectorEntities_apiVersion = Lens.lens (\ListConnectorEntities' {apiVersion} -> apiVersion) (\s@ListConnectorEntities' {} a -> s {apiVersion = a} :: ListConnectorEntities)
 
 -- | The name of the connector profile. The name is unique for each
 -- @ConnectorProfile@ in the Amazon Web Services account, and is used to
 -- query the downstream connector.
 listConnectorEntities_connectorProfileName :: Lens.Lens' ListConnectorEntities (Prelude.Maybe Prelude.Text)
 listConnectorEntities_connectorProfileName = Lens.lens (\ListConnectorEntities' {connectorProfileName} -> connectorProfileName) (\s@ListConnectorEntities' {} a -> s {connectorProfileName = a} :: ListConnectorEntities)
+
+-- | The type of connector, such as Salesforce, Amplitude, and so on.
+listConnectorEntities_connectorType :: Lens.Lens' ListConnectorEntities (Prelude.Maybe ConnectorType)
+listConnectorEntities_connectorType = Lens.lens (\ListConnectorEntities' {connectorType} -> connectorType) (\s@ListConnectorEntities' {} a -> s {connectorType = a} :: ListConnectorEntities)
 
 -- | This optional parameter is specific to connector implementation. Some
 -- connectors support multiple levels or categories of entities. You can
@@ -113,63 +128,63 @@ listConnectorEntities_connectorProfileName = Lens.lens (\ListConnectorEntities' 
 listConnectorEntities_entitiesPath :: Lens.Lens' ListConnectorEntities (Prelude.Maybe Prelude.Text)
 listConnectorEntities_entitiesPath = Lens.lens (\ListConnectorEntities' {entitiesPath} -> entitiesPath) (\s@ListConnectorEntities' {} a -> s {entitiesPath = a} :: ListConnectorEntities)
 
--- | The type of connector, such as Salesforce, Amplitude, and so on.
-listConnectorEntities_connectorType :: Lens.Lens' ListConnectorEntities (Prelude.Maybe ConnectorType)
-listConnectorEntities_connectorType = Lens.lens (\ListConnectorEntities' {connectorType} -> connectorType) (\s@ListConnectorEntities' {} a -> s {connectorType = a} :: ListConnectorEntities)
-
 instance Core.AWSRequest ListConnectorEntities where
   type
     AWSResponse ListConnectorEntities =
       ListConnectorEntitiesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListConnectorEntitiesResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "connectorEntityMap"
+            Prelude.<*> ( x Data..?> "connectorEntityMap"
                             Core..!@ Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable ListConnectorEntities where
   hashWithSalt _salt ListConnectorEntities' {..} =
-    _salt `Prelude.hashWithSalt` connectorProfileName
-      `Prelude.hashWithSalt` entitiesPath
+    _salt `Prelude.hashWithSalt` apiVersion
+      `Prelude.hashWithSalt` connectorProfileName
       `Prelude.hashWithSalt` connectorType
+      `Prelude.hashWithSalt` entitiesPath
 
 instance Prelude.NFData ListConnectorEntities where
   rnf ListConnectorEntities' {..} =
-    Prelude.rnf connectorProfileName
-      `Prelude.seq` Prelude.rnf entitiesPath
+    Prelude.rnf apiVersion
+      `Prelude.seq` Prelude.rnf connectorProfileName
       `Prelude.seq` Prelude.rnf connectorType
+      `Prelude.seq` Prelude.rnf entitiesPath
 
-instance Core.ToHeaders ListConnectorEntities where
+instance Data.ToHeaders ListConnectorEntities where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListConnectorEntities where
+instance Data.ToJSON ListConnectorEntities where
   toJSON ListConnectorEntities' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("connectorProfileName" Core..=)
+          [ ("apiVersion" Data..=) Prelude.<$> apiVersion,
+            ("connectorProfileName" Data..=)
               Prelude.<$> connectorProfileName,
-            ("entitiesPath" Core..=) Prelude.<$> entitiesPath,
-            ("connectorType" Core..=) Prelude.<$> connectorType
+            ("connectorType" Data..=) Prelude.<$> connectorType,
+            ("entitiesPath" Data..=) Prelude.<$> entitiesPath
           ]
       )
 
-instance Core.ToPath ListConnectorEntities where
+instance Data.ToPath ListConnectorEntities where
   toPath = Prelude.const "/list-connector-entities"
 
-instance Core.ToQuery ListConnectorEntities where
+instance Data.ToQuery ListConnectorEntities where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListConnectorEntitiesResponse' smart constructor.

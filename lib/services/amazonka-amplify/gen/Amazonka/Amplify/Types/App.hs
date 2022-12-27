@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Amplify.Types.App
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,8 +23,10 @@ import Amazonka.Amplify.Types.AutoBranchCreationConfig
 import Amazonka.Amplify.Types.CustomRule
 import Amazonka.Amplify.Types.Platform
 import Amazonka.Amplify.Types.ProductionBranch
+import Amazonka.Amplify.Types.RepositoryCloneMethod
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the different branches of a repository for building,
@@ -32,31 +34,41 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newApp' smart constructor.
 data App = App'
-  { -- | Describes the custom HTTP headers for the Amplify app.
-    customHeaders :: Prelude.Maybe Prelude.Text,
-    -- | The basic authorization credentials for branches for the Amplify app.
-    basicAuthCredentials :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | Describes the content of the build specification (build spec) for the
-    -- Amplify app.
-    buildSpec :: Prelude.Maybe Prelude.Text,
-    -- | Automatically disconnect a branch in the Amplify Console when you delete
-    -- a branch from your Git repository.
-    enableBranchAutoDeletion :: Prelude.Maybe Prelude.Bool,
-    -- | Describes the custom redirect and rewrite rules for the Amplify app.
-    customRules :: Prelude.Maybe [CustomRule],
-    -- | The AWS Identity and Access Management (IAM) service role for the Amazon
-    -- Resource Name (ARN) of the Amplify app.
-    iamServiceRoleArn :: Prelude.Maybe Prelude.Text,
+  { -- | Describes the automated branch creation configuration for the Amplify
+    -- app.
+    autoBranchCreationConfig :: Prelude.Maybe AutoBranchCreationConfig,
     -- | Describes the automated branch creation glob patterns for the Amplify
     -- app.
     autoBranchCreationPatterns :: Prelude.Maybe [Prelude.Text],
-    -- | Describes the information about a production branch of the Amplify app.
-    productionBranch :: Prelude.Maybe ProductionBranch,
-    -- | Describes the automated branch creation configuration for the Amplify
-    -- app.
-    autoBranchCreationConfig :: Prelude.Maybe AutoBranchCreationConfig,
+    -- | The basic authorization credentials for branches for the Amplify app.
+    -- You must base64-encode the authorization credentials and provide them in
+    -- the format @user:password@.
+    basicAuthCredentials :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | Describes the content of the build specification (build spec) for the
+    -- Amplify app.
+    buildSpec :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | Describes the custom HTTP headers for the Amplify app.
+    customHeaders :: Prelude.Maybe Prelude.Text,
+    -- | Describes the custom redirect and rewrite rules for the Amplify app.
+    customRules :: Prelude.Maybe [CustomRule],
     -- | Enables automated branch creation for the Amplify app.
     enableAutoBranchCreation :: Prelude.Maybe Prelude.Bool,
+    -- | Automatically disconnect a branch in the Amplify Console when you delete
+    -- a branch from your Git repository.
+    enableBranchAutoDeletion :: Prelude.Maybe Prelude.Bool,
+    -- | The AWS Identity and Access Management (IAM) service role for the Amazon
+    -- Resource Name (ARN) of the Amplify app.
+    iamServiceRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | Describes the information about a production branch of the Amplify app.
+    productionBranch :: Prelude.Maybe ProductionBranch,
+    -- | This is for internal use.
+    --
+    -- The Amplify service uses this parameter to specify the authentication
+    -- protocol to use to access the Git repository for an Amplify app. Amplify
+    -- specifies @TOKEN@ for a GitHub repository, @SIGV4@ for an Amazon Web
+    -- Services CodeCommit repository, and @SSH@ for GitLab and Bitbucket
+    -- repositories.
+    repositoryCloneMethod :: Prelude.Maybe RepositoryCloneMethod,
     -- | The tag for the Amplify app.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The unique ID of the Amplify app.
@@ -67,14 +79,17 @@ data App = App'
     name :: Prelude.Text,
     -- | The description for the Amplify app.
     description :: Prelude.Text,
-    -- | The repository for the Amplify app.
+    -- | The Git repository for the Amplify app.
     repository :: Prelude.Text,
-    -- | The platform for the Amplify app.
+    -- | The platform for the Amplify app. For a static app, set the platform
+    -- type to @WEB@. For a dynamic server-side rendered (SSR) app, set the
+    -- platform type to @WEB_COMPUTE@. For an app requiring Amplify Hosting\'s
+    -- original SSR support only, set the platform type to @WEB_DYNAMIC@.
     platform :: Platform,
     -- | Creates a date and time for the Amplify app.
-    createTime :: Core.POSIX,
+    createTime :: Data.POSIX,
     -- | Updates the date and time for the Amplify app.
-    updateTime :: Core.POSIX,
+    updateTime :: Data.POSIX,
     -- | The environment variables for the Amplify app.
     environmentVariables :: Prelude.HashMap Prelude.Text Prelude.Text,
     -- | The default domain for the Amplify app.
@@ -94,30 +109,40 @@ data App = App'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'customHeaders', 'app_customHeaders' - Describes the custom HTTP headers for the Amplify app.
---
--- 'basicAuthCredentials', 'app_basicAuthCredentials' - The basic authorization credentials for branches for the Amplify app.
---
--- 'buildSpec', 'app_buildSpec' - Describes the content of the build specification (build spec) for the
--- Amplify app.
---
--- 'enableBranchAutoDeletion', 'app_enableBranchAutoDeletion' - Automatically disconnect a branch in the Amplify Console when you delete
--- a branch from your Git repository.
---
--- 'customRules', 'app_customRules' - Describes the custom redirect and rewrite rules for the Amplify app.
---
--- 'iamServiceRoleArn', 'app_iamServiceRoleArn' - The AWS Identity and Access Management (IAM) service role for the Amazon
--- Resource Name (ARN) of the Amplify app.
+-- 'autoBranchCreationConfig', 'app_autoBranchCreationConfig' - Describes the automated branch creation configuration for the Amplify
+-- app.
 --
 -- 'autoBranchCreationPatterns', 'app_autoBranchCreationPatterns' - Describes the automated branch creation glob patterns for the Amplify
 -- app.
 --
--- 'productionBranch', 'app_productionBranch' - Describes the information about a production branch of the Amplify app.
+-- 'basicAuthCredentials', 'app_basicAuthCredentials' - The basic authorization credentials for branches for the Amplify app.
+-- You must base64-encode the authorization credentials and provide them in
+-- the format @user:password@.
 --
--- 'autoBranchCreationConfig', 'app_autoBranchCreationConfig' - Describes the automated branch creation configuration for the Amplify
--- app.
+-- 'buildSpec', 'app_buildSpec' - Describes the content of the build specification (build spec) for the
+-- Amplify app.
+--
+-- 'customHeaders', 'app_customHeaders' - Describes the custom HTTP headers for the Amplify app.
+--
+-- 'customRules', 'app_customRules' - Describes the custom redirect and rewrite rules for the Amplify app.
 --
 -- 'enableAutoBranchCreation', 'app_enableAutoBranchCreation' - Enables automated branch creation for the Amplify app.
+--
+-- 'enableBranchAutoDeletion', 'app_enableBranchAutoDeletion' - Automatically disconnect a branch in the Amplify Console when you delete
+-- a branch from your Git repository.
+--
+-- 'iamServiceRoleArn', 'app_iamServiceRoleArn' - The AWS Identity and Access Management (IAM) service role for the Amazon
+-- Resource Name (ARN) of the Amplify app.
+--
+-- 'productionBranch', 'app_productionBranch' - Describes the information about a production branch of the Amplify app.
+--
+-- 'repositoryCloneMethod', 'app_repositoryCloneMethod' - This is for internal use.
+--
+-- The Amplify service uses this parameter to specify the authentication
+-- protocol to use to access the Git repository for an Amplify app. Amplify
+-- specifies @TOKEN@ for a GitHub repository, @SIGV4@ for an Amazon Web
+-- Services CodeCommit repository, and @SSH@ for GitLab and Bitbucket
+-- repositories.
 --
 -- 'tags', 'app_tags' - The tag for the Amplify app.
 --
@@ -129,9 +154,12 @@ data App = App'
 --
 -- 'description', 'app_description' - The description for the Amplify app.
 --
--- 'repository', 'app_repository' - The repository for the Amplify app.
+-- 'repository', 'app_repository' - The Git repository for the Amplify app.
 --
--- 'platform', 'app_platform' - The platform for the Amplify app.
+-- 'platform', 'app_platform' - The platform for the Amplify app. For a static app, set the platform
+-- type to @WEB@. For a dynamic server-side rendered (SSR) app, set the
+-- platform type to @WEB_COMPUTE@. For an app requiring Amplify Hosting\'s
+-- original SSR support only, set the platform type to @WEB_DYNAMIC@.
 --
 -- 'createTime', 'app_createTime' - Creates a date and time for the Amplify app.
 --
@@ -181,16 +209,17 @@ newApp
   pEnableBranchAutoBuild_
   pEnableBasicAuth_ =
     App'
-      { customHeaders = Prelude.Nothing,
+      { autoBranchCreationConfig = Prelude.Nothing,
+        autoBranchCreationPatterns = Prelude.Nothing,
         basicAuthCredentials = Prelude.Nothing,
         buildSpec = Prelude.Nothing,
-        enableBranchAutoDeletion = Prelude.Nothing,
+        customHeaders = Prelude.Nothing,
         customRules = Prelude.Nothing,
-        iamServiceRoleArn = Prelude.Nothing,
-        autoBranchCreationPatterns = Prelude.Nothing,
-        productionBranch = Prelude.Nothing,
-        autoBranchCreationConfig = Prelude.Nothing,
         enableAutoBranchCreation = Prelude.Nothing,
+        enableBranchAutoDeletion = Prelude.Nothing,
+        iamServiceRoleArn = Prelude.Nothing,
+        productionBranch = Prelude.Nothing,
+        repositoryCloneMethod = Prelude.Nothing,
         tags = Prelude.Nothing,
         appId = pAppId_,
         appArn = pAppArn_,
@@ -198,58 +227,70 @@ newApp
         description = pDescription_,
         repository = pRepository_,
         platform = pPlatform_,
-        createTime = Core._Time Lens.# pCreateTime_,
-        updateTime = Core._Time Lens.# pUpdateTime_,
+        createTime = Data._Time Lens.# pCreateTime_,
+        updateTime = Data._Time Lens.# pUpdateTime_,
         environmentVariables = Prelude.mempty,
         defaultDomain = pDefaultDomain_,
         enableBranchAutoBuild = pEnableBranchAutoBuild_,
         enableBasicAuth = pEnableBasicAuth_
       }
 
--- | Describes the custom HTTP headers for the Amplify app.
-app_customHeaders :: Lens.Lens' App (Prelude.Maybe Prelude.Text)
-app_customHeaders = Lens.lens (\App' {customHeaders} -> customHeaders) (\s@App' {} a -> s {customHeaders = a} :: App)
-
--- | The basic authorization credentials for branches for the Amplify app.
-app_basicAuthCredentials :: Lens.Lens' App (Prelude.Maybe Prelude.Text)
-app_basicAuthCredentials = Lens.lens (\App' {basicAuthCredentials} -> basicAuthCredentials) (\s@App' {} a -> s {basicAuthCredentials = a} :: App) Prelude.. Lens.mapping Core._Sensitive
-
--- | Describes the content of the build specification (build spec) for the
--- Amplify app.
-app_buildSpec :: Lens.Lens' App (Prelude.Maybe Prelude.Text)
-app_buildSpec = Lens.lens (\App' {buildSpec} -> buildSpec) (\s@App' {} a -> s {buildSpec = a} :: App)
-
--- | Automatically disconnect a branch in the Amplify Console when you delete
--- a branch from your Git repository.
-app_enableBranchAutoDeletion :: Lens.Lens' App (Prelude.Maybe Prelude.Bool)
-app_enableBranchAutoDeletion = Lens.lens (\App' {enableBranchAutoDeletion} -> enableBranchAutoDeletion) (\s@App' {} a -> s {enableBranchAutoDeletion = a} :: App)
-
--- | Describes the custom redirect and rewrite rules for the Amplify app.
-app_customRules :: Lens.Lens' App (Prelude.Maybe [CustomRule])
-app_customRules = Lens.lens (\App' {customRules} -> customRules) (\s@App' {} a -> s {customRules = a} :: App) Prelude.. Lens.mapping Lens.coerced
-
--- | The AWS Identity and Access Management (IAM) service role for the Amazon
--- Resource Name (ARN) of the Amplify app.
-app_iamServiceRoleArn :: Lens.Lens' App (Prelude.Maybe Prelude.Text)
-app_iamServiceRoleArn = Lens.lens (\App' {iamServiceRoleArn} -> iamServiceRoleArn) (\s@App' {} a -> s {iamServiceRoleArn = a} :: App)
+-- | Describes the automated branch creation configuration for the Amplify
+-- app.
+app_autoBranchCreationConfig :: Lens.Lens' App (Prelude.Maybe AutoBranchCreationConfig)
+app_autoBranchCreationConfig = Lens.lens (\App' {autoBranchCreationConfig} -> autoBranchCreationConfig) (\s@App' {} a -> s {autoBranchCreationConfig = a} :: App)
 
 -- | Describes the automated branch creation glob patterns for the Amplify
 -- app.
 app_autoBranchCreationPatterns :: Lens.Lens' App (Prelude.Maybe [Prelude.Text])
 app_autoBranchCreationPatterns = Lens.lens (\App' {autoBranchCreationPatterns} -> autoBranchCreationPatterns) (\s@App' {} a -> s {autoBranchCreationPatterns = a} :: App) Prelude.. Lens.mapping Lens.coerced
 
--- | Describes the information about a production branch of the Amplify app.
-app_productionBranch :: Lens.Lens' App (Prelude.Maybe ProductionBranch)
-app_productionBranch = Lens.lens (\App' {productionBranch} -> productionBranch) (\s@App' {} a -> s {productionBranch = a} :: App)
+-- | The basic authorization credentials for branches for the Amplify app.
+-- You must base64-encode the authorization credentials and provide them in
+-- the format @user:password@.
+app_basicAuthCredentials :: Lens.Lens' App (Prelude.Maybe Prelude.Text)
+app_basicAuthCredentials = Lens.lens (\App' {basicAuthCredentials} -> basicAuthCredentials) (\s@App' {} a -> s {basicAuthCredentials = a} :: App) Prelude.. Lens.mapping Data._Sensitive
 
--- | Describes the automated branch creation configuration for the Amplify
--- app.
-app_autoBranchCreationConfig :: Lens.Lens' App (Prelude.Maybe AutoBranchCreationConfig)
-app_autoBranchCreationConfig = Lens.lens (\App' {autoBranchCreationConfig} -> autoBranchCreationConfig) (\s@App' {} a -> s {autoBranchCreationConfig = a} :: App)
+-- | Describes the content of the build specification (build spec) for the
+-- Amplify app.
+app_buildSpec :: Lens.Lens' App (Prelude.Maybe Prelude.Text)
+app_buildSpec = Lens.lens (\App' {buildSpec} -> buildSpec) (\s@App' {} a -> s {buildSpec = a} :: App) Prelude.. Lens.mapping Data._Sensitive
+
+-- | Describes the custom HTTP headers for the Amplify app.
+app_customHeaders :: Lens.Lens' App (Prelude.Maybe Prelude.Text)
+app_customHeaders = Lens.lens (\App' {customHeaders} -> customHeaders) (\s@App' {} a -> s {customHeaders = a} :: App)
+
+-- | Describes the custom redirect and rewrite rules for the Amplify app.
+app_customRules :: Lens.Lens' App (Prelude.Maybe [CustomRule])
+app_customRules = Lens.lens (\App' {customRules} -> customRules) (\s@App' {} a -> s {customRules = a} :: App) Prelude.. Lens.mapping Lens.coerced
 
 -- | Enables automated branch creation for the Amplify app.
 app_enableAutoBranchCreation :: Lens.Lens' App (Prelude.Maybe Prelude.Bool)
 app_enableAutoBranchCreation = Lens.lens (\App' {enableAutoBranchCreation} -> enableAutoBranchCreation) (\s@App' {} a -> s {enableAutoBranchCreation = a} :: App)
+
+-- | Automatically disconnect a branch in the Amplify Console when you delete
+-- a branch from your Git repository.
+app_enableBranchAutoDeletion :: Lens.Lens' App (Prelude.Maybe Prelude.Bool)
+app_enableBranchAutoDeletion = Lens.lens (\App' {enableBranchAutoDeletion} -> enableBranchAutoDeletion) (\s@App' {} a -> s {enableBranchAutoDeletion = a} :: App)
+
+-- | The AWS Identity and Access Management (IAM) service role for the Amazon
+-- Resource Name (ARN) of the Amplify app.
+app_iamServiceRoleArn :: Lens.Lens' App (Prelude.Maybe Prelude.Text)
+app_iamServiceRoleArn = Lens.lens (\App' {iamServiceRoleArn} -> iamServiceRoleArn) (\s@App' {} a -> s {iamServiceRoleArn = a} :: App)
+
+-- | Describes the information about a production branch of the Amplify app.
+app_productionBranch :: Lens.Lens' App (Prelude.Maybe ProductionBranch)
+app_productionBranch = Lens.lens (\App' {productionBranch} -> productionBranch) (\s@App' {} a -> s {productionBranch = a} :: App)
+
+-- | This is for internal use.
+--
+-- The Amplify service uses this parameter to specify the authentication
+-- protocol to use to access the Git repository for an Amplify app. Amplify
+-- specifies @TOKEN@ for a GitHub repository, @SIGV4@ for an Amazon Web
+-- Services CodeCommit repository, and @SSH@ for GitLab and Bitbucket
+-- repositories.
+app_repositoryCloneMethod :: Lens.Lens' App (Prelude.Maybe RepositoryCloneMethod)
+app_repositoryCloneMethod = Lens.lens (\App' {repositoryCloneMethod} -> repositoryCloneMethod) (\s@App' {} a -> s {repositoryCloneMethod = a} :: App)
 
 -- | The tag for the Amplify app.
 app_tags :: Lens.Lens' App (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -271,21 +312,24 @@ app_name = Lens.lens (\App' {name} -> name) (\s@App' {} a -> s {name = a} :: App
 app_description :: Lens.Lens' App Prelude.Text
 app_description = Lens.lens (\App' {description} -> description) (\s@App' {} a -> s {description = a} :: App)
 
--- | The repository for the Amplify app.
+-- | The Git repository for the Amplify app.
 app_repository :: Lens.Lens' App Prelude.Text
 app_repository = Lens.lens (\App' {repository} -> repository) (\s@App' {} a -> s {repository = a} :: App)
 
--- | The platform for the Amplify app.
+-- | The platform for the Amplify app. For a static app, set the platform
+-- type to @WEB@. For a dynamic server-side rendered (SSR) app, set the
+-- platform type to @WEB_COMPUTE@. For an app requiring Amplify Hosting\'s
+-- original SSR support only, set the platform type to @WEB_DYNAMIC@.
 app_platform :: Lens.Lens' App Platform
 app_platform = Lens.lens (\App' {platform} -> platform) (\s@App' {} a -> s {platform = a} :: App)
 
 -- | Creates a date and time for the Amplify app.
 app_createTime :: Lens.Lens' App Prelude.UTCTime
-app_createTime = Lens.lens (\App' {createTime} -> createTime) (\s@App' {} a -> s {createTime = a} :: App) Prelude.. Core._Time
+app_createTime = Lens.lens (\App' {createTime} -> createTime) (\s@App' {} a -> s {createTime = a} :: App) Prelude.. Data._Time
 
 -- | Updates the date and time for the Amplify app.
 app_updateTime :: Lens.Lens' App Prelude.UTCTime
-app_updateTime = Lens.lens (\App' {updateTime} -> updateTime) (\s@App' {} a -> s {updateTime = a} :: App) Prelude.. Core._Time
+app_updateTime = Lens.lens (\App' {updateTime} -> updateTime) (\s@App' {} a -> s {updateTime = a} :: App) Prelude.. Data._Time
 
 -- | The environment variables for the Amplify app.
 app_environmentVariables :: Lens.Lens' App (Prelude.HashMap Prelude.Text Prelude.Text)
@@ -303,53 +347,56 @@ app_enableBranchAutoBuild = Lens.lens (\App' {enableBranchAutoBuild} -> enableBr
 app_enableBasicAuth :: Lens.Lens' App Prelude.Bool
 app_enableBasicAuth = Lens.lens (\App' {enableBasicAuth} -> enableBasicAuth) (\s@App' {} a -> s {enableBasicAuth = a} :: App)
 
-instance Core.FromJSON App where
+instance Data.FromJSON App where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "App"
       ( \x ->
           App'
-            Prelude.<$> (x Core..:? "customHeaders")
-            Prelude.<*> (x Core..:? "basicAuthCredentials")
-            Prelude.<*> (x Core..:? "buildSpec")
-            Prelude.<*> (x Core..:? "enableBranchAutoDeletion")
-            Prelude.<*> (x Core..:? "customRules" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "iamServiceRoleArn")
-            Prelude.<*> ( x Core..:? "autoBranchCreationPatterns"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "autoBranchCreationConfig")
+            Prelude.<*> ( x Data..:? "autoBranchCreationPatterns"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "productionBranch")
-            Prelude.<*> (x Core..:? "autoBranchCreationConfig")
-            Prelude.<*> (x Core..:? "enableAutoBranchCreation")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "appId")
-            Prelude.<*> (x Core..: "appArn")
-            Prelude.<*> (x Core..: "name")
-            Prelude.<*> (x Core..: "description")
-            Prelude.<*> (x Core..: "repository")
-            Prelude.<*> (x Core..: "platform")
-            Prelude.<*> (x Core..: "createTime")
-            Prelude.<*> (x Core..: "updateTime")
-            Prelude.<*> ( x Core..:? "environmentVariables"
-                            Core..!= Prelude.mempty
+            Prelude.<*> (x Data..:? "basicAuthCredentials")
+            Prelude.<*> (x Data..:? "buildSpec")
+            Prelude.<*> (x Data..:? "customHeaders")
+            Prelude.<*> (x Data..:? "customRules" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "enableAutoBranchCreation")
+            Prelude.<*> (x Data..:? "enableBranchAutoDeletion")
+            Prelude.<*> (x Data..:? "iamServiceRoleArn")
+            Prelude.<*> (x Data..:? "productionBranch")
+            Prelude.<*> (x Data..:? "repositoryCloneMethod")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "appId")
+            Prelude.<*> (x Data..: "appArn")
+            Prelude.<*> (x Data..: "name")
+            Prelude.<*> (x Data..: "description")
+            Prelude.<*> (x Data..: "repository")
+            Prelude.<*> (x Data..: "platform")
+            Prelude.<*> (x Data..: "createTime")
+            Prelude.<*> (x Data..: "updateTime")
+            Prelude.<*> ( x Data..:? "environmentVariables"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..: "defaultDomain")
-            Prelude.<*> (x Core..: "enableBranchAutoBuild")
-            Prelude.<*> (x Core..: "enableBasicAuth")
+            Prelude.<*> (x Data..: "defaultDomain")
+            Prelude.<*> (x Data..: "enableBranchAutoBuild")
+            Prelude.<*> (x Data..: "enableBasicAuth")
       )
 
 instance Prelude.Hashable App where
   hashWithSalt _salt App' {..} =
-    _salt `Prelude.hashWithSalt` customHeaders
+    _salt
+      `Prelude.hashWithSalt` autoBranchCreationConfig
+      `Prelude.hashWithSalt` autoBranchCreationPatterns
       `Prelude.hashWithSalt` basicAuthCredentials
       `Prelude.hashWithSalt` buildSpec
-      `Prelude.hashWithSalt` enableBranchAutoDeletion
+      `Prelude.hashWithSalt` customHeaders
       `Prelude.hashWithSalt` customRules
-      `Prelude.hashWithSalt` iamServiceRoleArn
-      `Prelude.hashWithSalt` autoBranchCreationPatterns
-      `Prelude.hashWithSalt` productionBranch
-      `Prelude.hashWithSalt` autoBranchCreationConfig
       `Prelude.hashWithSalt` enableAutoBranchCreation
+      `Prelude.hashWithSalt` enableBranchAutoDeletion
+      `Prelude.hashWithSalt` iamServiceRoleArn
+      `Prelude.hashWithSalt` productionBranch
+      `Prelude.hashWithSalt` repositoryCloneMethod
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` appId
       `Prelude.hashWithSalt` appArn
@@ -366,16 +413,17 @@ instance Prelude.Hashable App where
 
 instance Prelude.NFData App where
   rnf App' {..} =
-    Prelude.rnf customHeaders
+    Prelude.rnf autoBranchCreationConfig
+      `Prelude.seq` Prelude.rnf autoBranchCreationPatterns
       `Prelude.seq` Prelude.rnf basicAuthCredentials
       `Prelude.seq` Prelude.rnf buildSpec
-      `Prelude.seq` Prelude.rnf enableBranchAutoDeletion
+      `Prelude.seq` Prelude.rnf customHeaders
       `Prelude.seq` Prelude.rnf customRules
-      `Prelude.seq` Prelude.rnf iamServiceRoleArn
-      `Prelude.seq` Prelude.rnf autoBranchCreationPatterns
-      `Prelude.seq` Prelude.rnf productionBranch
-      `Prelude.seq` Prelude.rnf autoBranchCreationConfig
       `Prelude.seq` Prelude.rnf enableAutoBranchCreation
+      `Prelude.seq` Prelude.rnf enableBranchAutoDeletion
+      `Prelude.seq` Prelude.rnf iamServiceRoleArn
+      `Prelude.seq` Prelude.rnf productionBranch
+      `Prelude.seq` Prelude.rnf repositoryCloneMethod
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf appId
       `Prelude.seq` Prelude.rnf appArn

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.ContainerImage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.ContainerImage where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a container image that is registered to an Amazon Lightsail
@@ -28,12 +29,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newContainerImage' smart constructor.
 data ContainerImage = ContainerImage'
-  { -- | The name of the container image.
-    image :: Prelude.Maybe Prelude.Text,
-    -- | The timestamp when the container image was created.
-    createdAt :: Prelude.Maybe Core.POSIX,
+  { -- | The timestamp when the container image was created.
+    createdAt :: Prelude.Maybe Data.POSIX,
     -- | The digest of the container image.
-    digest :: Prelude.Maybe Prelude.Text
+    digest :: Prelude.Maybe Prelude.Text,
+    -- | The name of the container image.
+    image :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,51 +46,51 @@ data ContainerImage = ContainerImage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'image', 'containerImage_image' - The name of the container image.
---
 -- 'createdAt', 'containerImage_createdAt' - The timestamp when the container image was created.
 --
 -- 'digest', 'containerImage_digest' - The digest of the container image.
+--
+-- 'image', 'containerImage_image' - The name of the container image.
 newContainerImage ::
   ContainerImage
 newContainerImage =
   ContainerImage'
-    { image = Prelude.Nothing,
-      createdAt = Prelude.Nothing,
-      digest = Prelude.Nothing
+    { createdAt = Prelude.Nothing,
+      digest = Prelude.Nothing,
+      image = Prelude.Nothing
     }
-
--- | The name of the container image.
-containerImage_image :: Lens.Lens' ContainerImage (Prelude.Maybe Prelude.Text)
-containerImage_image = Lens.lens (\ContainerImage' {image} -> image) (\s@ContainerImage' {} a -> s {image = a} :: ContainerImage)
 
 -- | The timestamp when the container image was created.
 containerImage_createdAt :: Lens.Lens' ContainerImage (Prelude.Maybe Prelude.UTCTime)
-containerImage_createdAt = Lens.lens (\ContainerImage' {createdAt} -> createdAt) (\s@ContainerImage' {} a -> s {createdAt = a} :: ContainerImage) Prelude.. Lens.mapping Core._Time
+containerImage_createdAt = Lens.lens (\ContainerImage' {createdAt} -> createdAt) (\s@ContainerImage' {} a -> s {createdAt = a} :: ContainerImage) Prelude.. Lens.mapping Data._Time
 
 -- | The digest of the container image.
 containerImage_digest :: Lens.Lens' ContainerImage (Prelude.Maybe Prelude.Text)
 containerImage_digest = Lens.lens (\ContainerImage' {digest} -> digest) (\s@ContainerImage' {} a -> s {digest = a} :: ContainerImage)
 
-instance Core.FromJSON ContainerImage where
+-- | The name of the container image.
+containerImage_image :: Lens.Lens' ContainerImage (Prelude.Maybe Prelude.Text)
+containerImage_image = Lens.lens (\ContainerImage' {image} -> image) (\s@ContainerImage' {} a -> s {image = a} :: ContainerImage)
+
+instance Data.FromJSON ContainerImage where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ContainerImage"
       ( \x ->
           ContainerImage'
-            Prelude.<$> (x Core..:? "image")
-            Prelude.<*> (x Core..:? "createdAt")
-            Prelude.<*> (x Core..:? "digest")
+            Prelude.<$> (x Data..:? "createdAt")
+            Prelude.<*> (x Data..:? "digest")
+            Prelude.<*> (x Data..:? "image")
       )
 
 instance Prelude.Hashable ContainerImage where
   hashWithSalt _salt ContainerImage' {..} =
-    _salt `Prelude.hashWithSalt` image
-      `Prelude.hashWithSalt` createdAt
+    _salt `Prelude.hashWithSalt` createdAt
       `Prelude.hashWithSalt` digest
+      `Prelude.hashWithSalt` image
 
 instance Prelude.NFData ContainerImage where
   rnf ContainerImage' {..} =
-    Prelude.rnf image
-      `Prelude.seq` Prelude.rnf createdAt
+    Prelude.rnf createdAt
       `Prelude.seq` Prelude.rnf digest
+      `Prelude.seq` Prelude.rnf image

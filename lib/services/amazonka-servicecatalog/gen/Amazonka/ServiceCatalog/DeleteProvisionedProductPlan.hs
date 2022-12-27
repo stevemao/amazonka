@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.DeleteProvisionedProductPlan
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.ServiceCatalog.DeleteProvisionedProductPlan
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,8 +58,8 @@ data DeleteProvisionedProductPlan = DeleteProvisionedProductPlan'
     --
     -- -   @zh@ - Chinese
     acceptLanguage :: Prelude.Maybe Prelude.Text,
-    -- | If set to true, AWS Service Catalog stops managing the specified
-    -- provisioned product even if it cannot delete the underlying resources.
+    -- | If set to true, Service Catalog stops managing the specified provisioned
+    -- product even if it cannot delete the underlying resources.
     ignoreErrors :: Prelude.Maybe Prelude.Bool,
     -- | The plan identifier.
     planId :: Prelude.Text
@@ -81,8 +82,8 @@ data DeleteProvisionedProductPlan = DeleteProvisionedProductPlan'
 --
 -- -   @zh@ - Chinese
 --
--- 'ignoreErrors', 'deleteProvisionedProductPlan_ignoreErrors' - If set to true, AWS Service Catalog stops managing the specified
--- provisioned product even if it cannot delete the underlying resources.
+-- 'ignoreErrors', 'deleteProvisionedProductPlan_ignoreErrors' - If set to true, Service Catalog stops managing the specified provisioned
+-- product even if it cannot delete the underlying resources.
 --
 -- 'planId', 'deleteProvisionedProductPlan_planId' - The plan identifier.
 newDeleteProvisionedProductPlan ::
@@ -107,8 +108,8 @@ newDeleteProvisionedProductPlan pPlanId_ =
 deleteProvisionedProductPlan_acceptLanguage :: Lens.Lens' DeleteProvisionedProductPlan (Prelude.Maybe Prelude.Text)
 deleteProvisionedProductPlan_acceptLanguage = Lens.lens (\DeleteProvisionedProductPlan' {acceptLanguage} -> acceptLanguage) (\s@DeleteProvisionedProductPlan' {} a -> s {acceptLanguage = a} :: DeleteProvisionedProductPlan)
 
--- | If set to true, AWS Service Catalog stops managing the specified
--- provisioned product even if it cannot delete the underlying resources.
+-- | If set to true, Service Catalog stops managing the specified provisioned
+-- product even if it cannot delete the underlying resources.
 deleteProvisionedProductPlan_ignoreErrors :: Lens.Lens' DeleteProvisionedProductPlan (Prelude.Maybe Prelude.Bool)
 deleteProvisionedProductPlan_ignoreErrors = Lens.lens (\DeleteProvisionedProductPlan' {ignoreErrors} -> ignoreErrors) (\s@DeleteProvisionedProductPlan' {} a -> s {ignoreErrors = a} :: DeleteProvisionedProductPlan)
 
@@ -120,7 +121,8 @@ instance Core.AWSRequest DeleteProvisionedProductPlan where
   type
     AWSResponse DeleteProvisionedProductPlan =
       DeleteProvisionedProductPlanResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -143,36 +145,36 @@ instance Prelude.NFData DeleteProvisionedProductPlan where
       `Prelude.seq` Prelude.rnf ignoreErrors
       `Prelude.seq` Prelude.rnf planId
 
-instance Core.ToHeaders DeleteProvisionedProductPlan where
+instance Data.ToHeaders DeleteProvisionedProductPlan where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.DeleteProvisionedProductPlan" ::
+              Data.=# ( "AWS242ServiceCatalogService.DeleteProvisionedProductPlan" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteProvisionedProductPlan where
+instance Data.ToJSON DeleteProvisionedProductPlan where
   toJSON DeleteProvisionedProductPlan' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            ("IgnoreErrors" Core..=) Prelude.<$> ignoreErrors,
-            Prelude.Just ("PlanId" Core..= planId)
+            ("IgnoreErrors" Data..=) Prelude.<$> ignoreErrors,
+            Prelude.Just ("PlanId" Data..= planId)
           ]
       )
 
-instance Core.ToPath DeleteProvisionedProductPlan where
+instance Data.ToPath DeleteProvisionedProductPlan where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteProvisionedProductPlan where
+instance Data.ToQuery DeleteProvisionedProductPlan where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteProvisionedProductPlanResponse' smart constructor.

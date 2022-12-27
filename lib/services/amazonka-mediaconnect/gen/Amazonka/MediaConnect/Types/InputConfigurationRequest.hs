@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConnect.Types.InputConfigurationRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConnect.Types.InputConfigurationRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConnect.Types.InterfaceRequest
 import qualified Amazonka.Prelude as Prelude
 
@@ -80,11 +81,11 @@ instance Prelude.NFData InputConfigurationRequest where
     Prelude.rnf inputPort
       `Prelude.seq` Prelude.rnf interface
 
-instance Core.ToJSON InputConfigurationRequest where
+instance Data.ToJSON InputConfigurationRequest where
   toJSON InputConfigurationRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("inputPort" Core..= inputPort),
-            Prelude.Just ("interface" Core..= interface)
+          [ Prelude.Just ("inputPort" Data..= inputPort),
+            Prelude.Just ("interface" Data..= interface)
           ]
       )

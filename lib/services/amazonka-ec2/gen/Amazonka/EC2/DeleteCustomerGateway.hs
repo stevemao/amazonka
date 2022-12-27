@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DeleteCustomerGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,8 +38,9 @@ module Amazonka.EC2.DeleteCustomerGateway
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,7 +98,8 @@ instance Core.AWSRequest DeleteCustomerGateway where
   type
     AWSResponse DeleteCustomerGateway =
       DeleteCustomerGatewayResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull DeleteCustomerGatewayResponse'
 
@@ -111,21 +113,21 @@ instance Prelude.NFData DeleteCustomerGateway where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf customerGatewayId
 
-instance Core.ToHeaders DeleteCustomerGateway where
+instance Data.ToHeaders DeleteCustomerGateway where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteCustomerGateway where
+instance Data.ToPath DeleteCustomerGateway where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteCustomerGateway where
+instance Data.ToQuery DeleteCustomerGateway where
   toQuery DeleteCustomerGateway' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteCustomerGateway" :: Prelude.ByteString),
+          Data.=: ("DeleteCustomerGateway" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "CustomerGatewayId" Core.=: customerGatewayId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "CustomerGatewayId" Data.=: customerGatewayId
       ]
 
 -- | /See:/ 'newDeleteCustomerGatewayResponse' smart constructor.

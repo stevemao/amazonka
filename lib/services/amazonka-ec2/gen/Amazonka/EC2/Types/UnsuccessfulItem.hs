@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.UnsuccessfulItem
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.UnsuccessfulItem where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.UnsuccessfulItemError
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about items that were not successfully processed in a batch
@@ -30,10 +31,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newUnsuccessfulItem' smart constructor.
 data UnsuccessfulItem = UnsuccessfulItem'
-  { -- | The ID of the resource.
-    resourceId :: Prelude.Maybe Prelude.Text,
-    -- | Information about the error.
-    error :: Prelude.Maybe UnsuccessfulItemError
+  { -- | Information about the error.
+    error :: Prelude.Maybe UnsuccessfulItemError,
+    -- | The ID of the resource.
+    resourceId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,37 +46,37 @@ data UnsuccessfulItem = UnsuccessfulItem'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceId', 'unsuccessfulItem_resourceId' - The ID of the resource.
---
 -- 'error', 'unsuccessfulItem_error' - Information about the error.
+--
+-- 'resourceId', 'unsuccessfulItem_resourceId' - The ID of the resource.
 newUnsuccessfulItem ::
   UnsuccessfulItem
 newUnsuccessfulItem =
   UnsuccessfulItem'
-    { resourceId = Prelude.Nothing,
-      error = Prelude.Nothing
+    { error = Prelude.Nothing,
+      resourceId = Prelude.Nothing
     }
-
--- | The ID of the resource.
-unsuccessfulItem_resourceId :: Lens.Lens' UnsuccessfulItem (Prelude.Maybe Prelude.Text)
-unsuccessfulItem_resourceId = Lens.lens (\UnsuccessfulItem' {resourceId} -> resourceId) (\s@UnsuccessfulItem' {} a -> s {resourceId = a} :: UnsuccessfulItem)
 
 -- | Information about the error.
 unsuccessfulItem_error :: Lens.Lens' UnsuccessfulItem (Prelude.Maybe UnsuccessfulItemError)
 unsuccessfulItem_error = Lens.lens (\UnsuccessfulItem' {error} -> error) (\s@UnsuccessfulItem' {} a -> s {error = a} :: UnsuccessfulItem)
 
-instance Core.FromXML UnsuccessfulItem where
+-- | The ID of the resource.
+unsuccessfulItem_resourceId :: Lens.Lens' UnsuccessfulItem (Prelude.Maybe Prelude.Text)
+unsuccessfulItem_resourceId = Lens.lens (\UnsuccessfulItem' {resourceId} -> resourceId) (\s@UnsuccessfulItem' {} a -> s {resourceId = a} :: UnsuccessfulItem)
+
+instance Data.FromXML UnsuccessfulItem where
   parseXML x =
     UnsuccessfulItem'
-      Prelude.<$> (x Core..@? "resourceId")
-      Prelude.<*> (x Core..@? "error")
+      Prelude.<$> (x Data..@? "error")
+      Prelude.<*> (x Data..@? "resourceId")
 
 instance Prelude.Hashable UnsuccessfulItem where
   hashWithSalt _salt UnsuccessfulItem' {..} =
-    _salt `Prelude.hashWithSalt` resourceId
-      `Prelude.hashWithSalt` error
+    _salt `Prelude.hashWithSalt` error
+      `Prelude.hashWithSalt` resourceId
 
 instance Prelude.NFData UnsuccessfulItem where
   rnf UnsuccessfulItem' {..} =
-    Prelude.rnf resourceId
-      `Prelude.seq` Prelude.rnf error
+    Prelude.rnf error
+      `Prelude.seq` Prelude.rnf resourceId

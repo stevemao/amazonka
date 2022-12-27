@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.DescribeDataset
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.IoTAnalytics.DescribeDataset
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,12 +78,13 @@ instance Core.AWSRequest DescribeDataset where
   type
     AWSResponse DescribeDataset =
       DescribeDatasetResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeDatasetResponse'
-            Prelude.<$> (x Core..?> "dataset")
+            Prelude.<$> (x Data..?> "dataset")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -93,15 +95,15 @@ instance Prelude.Hashable DescribeDataset where
 instance Prelude.NFData DescribeDataset where
   rnf DescribeDataset' {..} = Prelude.rnf datasetName
 
-instance Core.ToHeaders DescribeDataset where
+instance Data.ToHeaders DescribeDataset where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeDataset where
+instance Data.ToPath DescribeDataset where
   toPath DescribeDataset' {..} =
     Prelude.mconcat
-      ["/datasets/", Core.toBS datasetName]
+      ["/datasets/", Data.toBS datasetName]
 
-instance Core.ToQuery DescribeDataset where
+instance Data.ToQuery DescribeDataset where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeDatasetResponse' smart constructor.

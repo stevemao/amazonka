@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DeleteCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.IoT.DeleteCertificate
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,7 +103,8 @@ instance Core.AWSRequest DeleteCertificate where
   type
     AWSResponse DeleteCertificate =
       DeleteCertificateResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteCertificateResponse'
 
@@ -116,17 +118,17 @@ instance Prelude.NFData DeleteCertificate where
     Prelude.rnf forceDelete
       `Prelude.seq` Prelude.rnf certificateId
 
-instance Core.ToHeaders DeleteCertificate where
+instance Data.ToHeaders DeleteCertificate where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteCertificate where
+instance Data.ToPath DeleteCertificate where
   toPath DeleteCertificate' {..} =
     Prelude.mconcat
-      ["/certificates/", Core.toBS certificateId]
+      ["/certificates/", Data.toBS certificateId]
 
-instance Core.ToQuery DeleteCertificate where
+instance Data.ToQuery DeleteCertificate where
   toQuery DeleteCertificate' {..} =
-    Prelude.mconcat ["forceDelete" Core.=: forceDelete]
+    Prelude.mconcat ["forceDelete" Data.=: forceDelete]
 
 -- | /See:/ 'newDeleteCertificateResponse' smart constructor.
 data DeleteCertificateResponse = DeleteCertificateResponse'

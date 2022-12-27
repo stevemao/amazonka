@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.IoT1ClickDevices.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,48 +14,16 @@
 module Amazonka.IoT1ClickDevices.Lens
   ( -- * Operations
 
-    -- ** GetDeviceMethods
-    getDeviceMethods_deviceId,
-    getDeviceMethodsResponse_deviceMethods,
-    getDeviceMethodsResponse_httpStatus,
-
-    -- ** ListTagsForResource
-    listTagsForResource_resourceArn,
-    listTagsForResourceResponse_tags,
-    listTagsForResourceResponse_httpStatus,
-
     -- ** ClaimDevicesByClaimCode
     claimDevicesByClaimCode_claimCode,
     claimDevicesByClaimCodeResponse_claimCode,
     claimDevicesByClaimCodeResponse_total,
     claimDevicesByClaimCodeResponse_httpStatus,
 
-    -- ** InitiateDeviceClaim
-    initiateDeviceClaim_deviceId,
-    initiateDeviceClaimResponse_state,
-    initiateDeviceClaimResponse_httpStatus,
-
-    -- ** InvokeDeviceMethod
-    invokeDeviceMethod_deviceMethodParameters,
-    invokeDeviceMethod_deviceMethod,
-    invokeDeviceMethod_deviceId,
-    invokeDeviceMethodResponse_deviceMethodResponse,
-    invokeDeviceMethodResponse_httpStatus,
-
     -- ** DescribeDevice
     describeDevice_deviceId,
     describeDeviceResponse_deviceDescription,
     describeDeviceResponse_httpStatus,
-
-    -- ** ListDeviceEvents
-    listDeviceEvents_nextToken,
-    listDeviceEvents_maxResults,
-    listDeviceEvents_deviceId,
-    listDeviceEvents_fromTimeStamp,
-    listDeviceEvents_toTimeStamp,
-    listDeviceEventsResponse_nextToken,
-    listDeviceEventsResponse_events,
-    listDeviceEventsResponse_httpStatus,
 
     -- ** FinalizeDeviceClaim
     finalizeDeviceClaim_tags,
@@ -63,9 +31,54 @@ module Amazonka.IoT1ClickDevices.Lens
     finalizeDeviceClaimResponse_state,
     finalizeDeviceClaimResponse_httpStatus,
 
+    -- ** GetDeviceMethods
+    getDeviceMethods_deviceId,
+    getDeviceMethodsResponse_deviceMethods,
+    getDeviceMethodsResponse_httpStatus,
+
+    -- ** InitiateDeviceClaim
+    initiateDeviceClaim_deviceId,
+    initiateDeviceClaimResponse_state,
+    initiateDeviceClaimResponse_httpStatus,
+
+    -- ** InvokeDeviceMethod
+    invokeDeviceMethod_deviceMethod,
+    invokeDeviceMethod_deviceMethodParameters,
+    invokeDeviceMethod_deviceId,
+    invokeDeviceMethodResponse_deviceMethodResponse,
+    invokeDeviceMethodResponse_httpStatus,
+
+    -- ** ListDeviceEvents
+    listDeviceEvents_maxResults,
+    listDeviceEvents_nextToken,
+    listDeviceEvents_deviceId,
+    listDeviceEvents_fromTimeStamp,
+    listDeviceEvents_toTimeStamp,
+    listDeviceEventsResponse_events,
+    listDeviceEventsResponse_nextToken,
+    listDeviceEventsResponse_httpStatus,
+
+    -- ** ListDevices
+    listDevices_deviceType,
+    listDevices_maxResults,
+    listDevices_nextToken,
+    listDevicesResponse_devices,
+    listDevicesResponse_nextToken,
+    listDevicesResponse_httpStatus,
+
+    -- ** ListTagsForResource
+    listTagsForResource_resourceArn,
+    listTagsForResourceResponse_tags,
+    listTagsForResourceResponse_httpStatus,
+
     -- ** TagResource
     tagResource_resourceArn,
     tagResource_tags,
+
+    -- ** UnclaimDevice
+    unclaimDevice_deviceId,
+    unclaimDeviceResponse_state,
+    unclaimDeviceResponse_httpStatus,
 
     -- ** UntagResource
     untagResource_tagKeys,
@@ -75,19 +88,6 @@ module Amazonka.IoT1ClickDevices.Lens
     updateDeviceState_enabled,
     updateDeviceState_deviceId,
     updateDeviceStateResponse_httpStatus,
-
-    -- ** UnclaimDevice
-    unclaimDevice_deviceId,
-    unclaimDeviceResponse_state,
-    unclaimDeviceResponse_httpStatus,
-
-    -- ** ListDevices
-    listDevices_nextToken,
-    listDevices_deviceType,
-    listDevices_maxResults,
-    listDevicesResponse_nextToken,
-    listDevicesResponse_devices,
-    listDevicesResponse_httpStatus,
 
     -- * Types
 
@@ -99,21 +99,21 @@ module Amazonka.IoT1ClickDevices.Lens
     device_type,
 
     -- ** DeviceDescription
-    deviceDescription_remainingLife,
-    deviceDescription_enabled,
     deviceDescription_arn,
     deviceDescription_attributes,
     deviceDescription_deviceId,
-    deviceDescription_type,
+    deviceDescription_enabled,
+    deviceDescription_remainingLife,
     deviceDescription_tags,
+    deviceDescription_type,
 
     -- ** DeviceEvent
-    deviceEvent_stdEvent,
     deviceEvent_device,
+    deviceEvent_stdEvent,
 
     -- ** DeviceMethod
-    deviceMethod_methodName,
     deviceMethod_deviceType,
+    deviceMethod_methodName,
   )
 where
 

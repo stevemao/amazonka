@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SavingsPlans.Types.SavingsPlanOfferingRate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SavingsPlans.Types.SavingsPlanOfferingRate where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SavingsPlans.Types.ParentSavingsPlanOffering
 import Amazonka.SavingsPlans.Types.SavingsPlanOfferingRateProperty
@@ -34,20 +35,20 @@ import Amazonka.SavingsPlans.Types.SavingsPlanRateUnit
 data SavingsPlanOfferingRate = SavingsPlanOfferingRate'
   { -- | The specific AWS operation for the line item in the billing report.
     operation :: Prelude.Maybe Prelude.Text,
-    -- | The usage details of the line item in the billing report.
-    usageType :: Prelude.Maybe Prelude.Text,
     -- | The product type.
     productType :: Prelude.Maybe SavingsPlanProductType,
-    -- | The Savings Plan offering.
-    savingsPlanOffering :: Prelude.Maybe ParentSavingsPlanOffering,
+    -- | The properties.
+    properties :: Prelude.Maybe [SavingsPlanOfferingRateProperty],
     -- | The Savings Plan rate.
     rate :: Prelude.Maybe Prelude.Text,
+    -- | The Savings Plan offering.
+    savingsPlanOffering :: Prelude.Maybe ParentSavingsPlanOffering,
     -- | The service.
     serviceCode :: Prelude.Maybe SavingsPlanRateServiceCode,
     -- | The unit.
     unit :: Prelude.Maybe SavingsPlanRateUnit,
-    -- | The properties.
-    properties :: Prelude.Maybe [SavingsPlanOfferingRateProperty]
+    -- | The usage details of the line item in the billing report.
+    usageType :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -61,53 +62,53 @@ data SavingsPlanOfferingRate = SavingsPlanOfferingRate'
 --
 -- 'operation', 'savingsPlanOfferingRate_operation' - The specific AWS operation for the line item in the billing report.
 --
--- 'usageType', 'savingsPlanOfferingRate_usageType' - The usage details of the line item in the billing report.
---
 -- 'productType', 'savingsPlanOfferingRate_productType' - The product type.
 --
--- 'savingsPlanOffering', 'savingsPlanOfferingRate_savingsPlanOffering' - The Savings Plan offering.
+-- 'properties', 'savingsPlanOfferingRate_properties' - The properties.
 --
 -- 'rate', 'savingsPlanOfferingRate_rate' - The Savings Plan rate.
+--
+-- 'savingsPlanOffering', 'savingsPlanOfferingRate_savingsPlanOffering' - The Savings Plan offering.
 --
 -- 'serviceCode', 'savingsPlanOfferingRate_serviceCode' - The service.
 --
 -- 'unit', 'savingsPlanOfferingRate_unit' - The unit.
 --
--- 'properties', 'savingsPlanOfferingRate_properties' - The properties.
+-- 'usageType', 'savingsPlanOfferingRate_usageType' - The usage details of the line item in the billing report.
 newSavingsPlanOfferingRate ::
   SavingsPlanOfferingRate
 newSavingsPlanOfferingRate =
   SavingsPlanOfferingRate'
     { operation =
         Prelude.Nothing,
-      usageType = Prelude.Nothing,
       productType = Prelude.Nothing,
-      savingsPlanOffering = Prelude.Nothing,
+      properties = Prelude.Nothing,
       rate = Prelude.Nothing,
+      savingsPlanOffering = Prelude.Nothing,
       serviceCode = Prelude.Nothing,
       unit = Prelude.Nothing,
-      properties = Prelude.Nothing
+      usageType = Prelude.Nothing
     }
 
 -- | The specific AWS operation for the line item in the billing report.
 savingsPlanOfferingRate_operation :: Lens.Lens' SavingsPlanOfferingRate (Prelude.Maybe Prelude.Text)
 savingsPlanOfferingRate_operation = Lens.lens (\SavingsPlanOfferingRate' {operation} -> operation) (\s@SavingsPlanOfferingRate' {} a -> s {operation = a} :: SavingsPlanOfferingRate)
 
--- | The usage details of the line item in the billing report.
-savingsPlanOfferingRate_usageType :: Lens.Lens' SavingsPlanOfferingRate (Prelude.Maybe Prelude.Text)
-savingsPlanOfferingRate_usageType = Lens.lens (\SavingsPlanOfferingRate' {usageType} -> usageType) (\s@SavingsPlanOfferingRate' {} a -> s {usageType = a} :: SavingsPlanOfferingRate)
-
 -- | The product type.
 savingsPlanOfferingRate_productType :: Lens.Lens' SavingsPlanOfferingRate (Prelude.Maybe SavingsPlanProductType)
 savingsPlanOfferingRate_productType = Lens.lens (\SavingsPlanOfferingRate' {productType} -> productType) (\s@SavingsPlanOfferingRate' {} a -> s {productType = a} :: SavingsPlanOfferingRate)
 
--- | The Savings Plan offering.
-savingsPlanOfferingRate_savingsPlanOffering :: Lens.Lens' SavingsPlanOfferingRate (Prelude.Maybe ParentSavingsPlanOffering)
-savingsPlanOfferingRate_savingsPlanOffering = Lens.lens (\SavingsPlanOfferingRate' {savingsPlanOffering} -> savingsPlanOffering) (\s@SavingsPlanOfferingRate' {} a -> s {savingsPlanOffering = a} :: SavingsPlanOfferingRate)
+-- | The properties.
+savingsPlanOfferingRate_properties :: Lens.Lens' SavingsPlanOfferingRate (Prelude.Maybe [SavingsPlanOfferingRateProperty])
+savingsPlanOfferingRate_properties = Lens.lens (\SavingsPlanOfferingRate' {properties} -> properties) (\s@SavingsPlanOfferingRate' {} a -> s {properties = a} :: SavingsPlanOfferingRate) Prelude.. Lens.mapping Lens.coerced
 
 -- | The Savings Plan rate.
 savingsPlanOfferingRate_rate :: Lens.Lens' SavingsPlanOfferingRate (Prelude.Maybe Prelude.Text)
 savingsPlanOfferingRate_rate = Lens.lens (\SavingsPlanOfferingRate' {rate} -> rate) (\s@SavingsPlanOfferingRate' {} a -> s {rate = a} :: SavingsPlanOfferingRate)
+
+-- | The Savings Plan offering.
+savingsPlanOfferingRate_savingsPlanOffering :: Lens.Lens' SavingsPlanOfferingRate (Prelude.Maybe ParentSavingsPlanOffering)
+savingsPlanOfferingRate_savingsPlanOffering = Lens.lens (\SavingsPlanOfferingRate' {savingsPlanOffering} -> savingsPlanOffering) (\s@SavingsPlanOfferingRate' {} a -> s {savingsPlanOffering = a} :: SavingsPlanOfferingRate)
 
 -- | The service.
 savingsPlanOfferingRate_serviceCode :: Lens.Lens' SavingsPlanOfferingRate (Prelude.Maybe SavingsPlanRateServiceCode)
@@ -117,44 +118,44 @@ savingsPlanOfferingRate_serviceCode = Lens.lens (\SavingsPlanOfferingRate' {serv
 savingsPlanOfferingRate_unit :: Lens.Lens' SavingsPlanOfferingRate (Prelude.Maybe SavingsPlanRateUnit)
 savingsPlanOfferingRate_unit = Lens.lens (\SavingsPlanOfferingRate' {unit} -> unit) (\s@SavingsPlanOfferingRate' {} a -> s {unit = a} :: SavingsPlanOfferingRate)
 
--- | The properties.
-savingsPlanOfferingRate_properties :: Lens.Lens' SavingsPlanOfferingRate (Prelude.Maybe [SavingsPlanOfferingRateProperty])
-savingsPlanOfferingRate_properties = Lens.lens (\SavingsPlanOfferingRate' {properties} -> properties) (\s@SavingsPlanOfferingRate' {} a -> s {properties = a} :: SavingsPlanOfferingRate) Prelude.. Lens.mapping Lens.coerced
+-- | The usage details of the line item in the billing report.
+savingsPlanOfferingRate_usageType :: Lens.Lens' SavingsPlanOfferingRate (Prelude.Maybe Prelude.Text)
+savingsPlanOfferingRate_usageType = Lens.lens (\SavingsPlanOfferingRate' {usageType} -> usageType) (\s@SavingsPlanOfferingRate' {} a -> s {usageType = a} :: SavingsPlanOfferingRate)
 
-instance Core.FromJSON SavingsPlanOfferingRate where
+instance Data.FromJSON SavingsPlanOfferingRate where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SavingsPlanOfferingRate"
       ( \x ->
           SavingsPlanOfferingRate'
-            Prelude.<$> (x Core..:? "operation")
-            Prelude.<*> (x Core..:? "usageType")
-            Prelude.<*> (x Core..:? "productType")
-            Prelude.<*> (x Core..:? "savingsPlanOffering")
-            Prelude.<*> (x Core..:? "rate")
-            Prelude.<*> (x Core..:? "serviceCode")
-            Prelude.<*> (x Core..:? "unit")
-            Prelude.<*> (x Core..:? "properties" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "operation")
+            Prelude.<*> (x Data..:? "productType")
+            Prelude.<*> (x Data..:? "properties" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "rate")
+            Prelude.<*> (x Data..:? "savingsPlanOffering")
+            Prelude.<*> (x Data..:? "serviceCode")
+            Prelude.<*> (x Data..:? "unit")
+            Prelude.<*> (x Data..:? "usageType")
       )
 
 instance Prelude.Hashable SavingsPlanOfferingRate where
   hashWithSalt _salt SavingsPlanOfferingRate' {..} =
     _salt `Prelude.hashWithSalt` operation
-      `Prelude.hashWithSalt` usageType
       `Prelude.hashWithSalt` productType
-      `Prelude.hashWithSalt` savingsPlanOffering
+      `Prelude.hashWithSalt` properties
       `Prelude.hashWithSalt` rate
+      `Prelude.hashWithSalt` savingsPlanOffering
       `Prelude.hashWithSalt` serviceCode
       `Prelude.hashWithSalt` unit
-      `Prelude.hashWithSalt` properties
+      `Prelude.hashWithSalt` usageType
 
 instance Prelude.NFData SavingsPlanOfferingRate where
   rnf SavingsPlanOfferingRate' {..} =
     Prelude.rnf operation
-      `Prelude.seq` Prelude.rnf usageType
       `Prelude.seq` Prelude.rnf productType
-      `Prelude.seq` Prelude.rnf savingsPlanOffering
+      `Prelude.seq` Prelude.rnf properties
       `Prelude.seq` Prelude.rnf rate
+      `Prelude.seq` Prelude.rnf savingsPlanOffering
       `Prelude.seq` Prelude.rnf serviceCode
       `Prelude.seq` Prelude.rnf unit
-      `Prelude.seq` Prelude.rnf properties
+      `Prelude.seq` Prelude.rnf usageType

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruReviewer.Types.RecommendationFeedbackSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,14 +21,17 @@ module Amazonka.CodeGuruReviewer.Types.RecommendationFeedbackSummary where
 
 import Amazonka.CodeGuruReviewer.Types.Reaction
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about recommendation feedback summaries.
 --
 -- /See:/ 'newRecommendationFeedbackSummary' smart constructor.
 data RecommendationFeedbackSummary = RecommendationFeedbackSummary'
-  { -- | The recommendation ID that can be used to track the provided
+  { -- | List for storing reactions. Reactions are utf-8 text code for emojis.
+    reactions :: Prelude.Maybe [Reaction],
+    -- | The recommendation ID that can be used to track the provided
     -- recommendations. Later on it can be used to collect the feedback.
     recommendationId :: Prelude.Maybe Prelude.Text,
     -- | The ID of the user that gave the feedback.
@@ -38,9 +41,7 @@ data RecommendationFeedbackSummary = RecommendationFeedbackSummary'
     -- information, see
     -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#Principal_specifying Specifying a Principal>
     -- in the /Amazon Web Services Identity and Access Management User Guide/.
-    userId :: Prelude.Maybe Prelude.Text,
-    -- | List for storing reactions. Reactions are utf-8 text code for emojis.
-    reactions :: Prelude.Maybe [Reaction]
+    userId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -52,6 +53,8 @@ data RecommendationFeedbackSummary = RecommendationFeedbackSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'reactions', 'recommendationFeedbackSummary_reactions' - List for storing reactions. Reactions are utf-8 text code for emojis.
+--
 -- 'recommendationId', 'recommendationFeedbackSummary_recommendationId' - The recommendation ID that can be used to track the provided
 -- recommendations. Later on it can be used to collect the feedback.
 --
@@ -62,17 +65,19 @@ data RecommendationFeedbackSummary = RecommendationFeedbackSummary'
 -- information, see
 -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#Principal_specifying Specifying a Principal>
 -- in the /Amazon Web Services Identity and Access Management User Guide/.
---
--- 'reactions', 'recommendationFeedbackSummary_reactions' - List for storing reactions. Reactions are utf-8 text code for emojis.
 newRecommendationFeedbackSummary ::
   RecommendationFeedbackSummary
 newRecommendationFeedbackSummary =
   RecommendationFeedbackSummary'
-    { recommendationId =
+    { reactions =
         Prelude.Nothing,
-      userId = Prelude.Nothing,
-      reactions = Prelude.Nothing
+      recommendationId = Prelude.Nothing,
+      userId = Prelude.Nothing
     }
+
+-- | List for storing reactions. Reactions are utf-8 text code for emojis.
+recommendationFeedbackSummary_reactions :: Lens.Lens' RecommendationFeedbackSummary (Prelude.Maybe [Reaction])
+recommendationFeedbackSummary_reactions = Lens.lens (\RecommendationFeedbackSummary' {reactions} -> reactions) (\s@RecommendationFeedbackSummary' {} a -> s {reactions = a} :: RecommendationFeedbackSummary) Prelude.. Lens.mapping Lens.coerced
 
 -- | The recommendation ID that can be used to track the provided
 -- recommendations. Later on it can be used to collect the feedback.
@@ -89,19 +94,15 @@ recommendationFeedbackSummary_recommendationId = Lens.lens (\RecommendationFeedb
 recommendationFeedbackSummary_userId :: Lens.Lens' RecommendationFeedbackSummary (Prelude.Maybe Prelude.Text)
 recommendationFeedbackSummary_userId = Lens.lens (\RecommendationFeedbackSummary' {userId} -> userId) (\s@RecommendationFeedbackSummary' {} a -> s {userId = a} :: RecommendationFeedbackSummary)
 
--- | List for storing reactions. Reactions are utf-8 text code for emojis.
-recommendationFeedbackSummary_reactions :: Lens.Lens' RecommendationFeedbackSummary (Prelude.Maybe [Reaction])
-recommendationFeedbackSummary_reactions = Lens.lens (\RecommendationFeedbackSummary' {reactions} -> reactions) (\s@RecommendationFeedbackSummary' {} a -> s {reactions = a} :: RecommendationFeedbackSummary) Prelude.. Lens.mapping Lens.coerced
-
-instance Core.FromJSON RecommendationFeedbackSummary where
+instance Data.FromJSON RecommendationFeedbackSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RecommendationFeedbackSummary"
       ( \x ->
           RecommendationFeedbackSummary'
-            Prelude.<$> (x Core..:? "RecommendationId")
-            Prelude.<*> (x Core..:? "UserId")
-            Prelude.<*> (x Core..:? "Reactions" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Reactions" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "RecommendationId")
+            Prelude.<*> (x Data..:? "UserId")
       )
 
 instance
@@ -109,12 +110,12 @@ instance
     RecommendationFeedbackSummary
   where
   hashWithSalt _salt RecommendationFeedbackSummary' {..} =
-    _salt `Prelude.hashWithSalt` recommendationId
+    _salt `Prelude.hashWithSalt` reactions
+      `Prelude.hashWithSalt` recommendationId
       `Prelude.hashWithSalt` userId
-      `Prelude.hashWithSalt` reactions
 
 instance Prelude.NFData RecommendationFeedbackSummary where
   rnf RecommendationFeedbackSummary' {..} =
-    Prelude.rnf recommendationId
+    Prelude.rnf reactions
+      `Prelude.seq` Prelude.rnf recommendationId
       `Prelude.seq` Prelude.rnf userId
-      `Prelude.seq` Prelude.rnf reactions

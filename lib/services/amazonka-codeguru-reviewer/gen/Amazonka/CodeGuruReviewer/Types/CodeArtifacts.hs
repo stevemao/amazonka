@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruReviewer.Types.CodeArtifacts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeGuruReviewer.Types.CodeArtifacts where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Code artifacts are source code artifacts and build artifacts used in a
@@ -37,7 +38,7 @@ data CodeArtifacts = CodeArtifacts'
   { -- | The S3 object key for a build artifacts .zip file that contains .jar or
     -- .class files. This is required for a code review with security analysis.
     -- For more information, see
-    -- <https://docs.aws.amazon.com/codeguru/latest/reviewer-ug/code-review-security.html Create code reviews with security analysis>
+    -- <https://docs.aws.amazon.com/codeguru/latest/reviewer-ug/working-with-cicd.html Create code reviews with GitHub Actions>
     -- in the /Amazon CodeGuru Reviewer User Guide/.
     buildArtifactsObjectKey :: Prelude.Maybe Prelude.Text,
     -- | The S3 object key for a source code .zip file. This is required for all
@@ -57,7 +58,7 @@ data CodeArtifacts = CodeArtifacts'
 -- 'buildArtifactsObjectKey', 'codeArtifacts_buildArtifactsObjectKey' - The S3 object key for a build artifacts .zip file that contains .jar or
 -- .class files. This is required for a code review with security analysis.
 -- For more information, see
--- <https://docs.aws.amazon.com/codeguru/latest/reviewer-ug/code-review-security.html Create code reviews with security analysis>
+-- <https://docs.aws.amazon.com/codeguru/latest/reviewer-ug/working-with-cicd.html Create code reviews with GitHub Actions>
 -- in the /Amazon CodeGuru Reviewer User Guide/.
 --
 -- 'sourceCodeArtifactsObjectKey', 'codeArtifacts_sourceCodeArtifactsObjectKey' - The S3 object key for a source code .zip file. This is required for all
@@ -77,7 +78,7 @@ newCodeArtifacts pSourceCodeArtifactsObjectKey_ =
 -- | The S3 object key for a build artifacts .zip file that contains .jar or
 -- .class files. This is required for a code review with security analysis.
 -- For more information, see
--- <https://docs.aws.amazon.com/codeguru/latest/reviewer-ug/code-review-security.html Create code reviews with security analysis>
+-- <https://docs.aws.amazon.com/codeguru/latest/reviewer-ug/working-with-cicd.html Create code reviews with GitHub Actions>
 -- in the /Amazon CodeGuru Reviewer User Guide/.
 codeArtifacts_buildArtifactsObjectKey :: Lens.Lens' CodeArtifacts (Prelude.Maybe Prelude.Text)
 codeArtifacts_buildArtifactsObjectKey = Lens.lens (\CodeArtifacts' {buildArtifactsObjectKey} -> buildArtifactsObjectKey) (\s@CodeArtifacts' {} a -> s {buildArtifactsObjectKey = a} :: CodeArtifacts)
@@ -87,14 +88,14 @@ codeArtifacts_buildArtifactsObjectKey = Lens.lens (\CodeArtifacts' {buildArtifac
 codeArtifacts_sourceCodeArtifactsObjectKey :: Lens.Lens' CodeArtifacts Prelude.Text
 codeArtifacts_sourceCodeArtifactsObjectKey = Lens.lens (\CodeArtifacts' {sourceCodeArtifactsObjectKey} -> sourceCodeArtifactsObjectKey) (\s@CodeArtifacts' {} a -> s {sourceCodeArtifactsObjectKey = a} :: CodeArtifacts)
 
-instance Core.FromJSON CodeArtifacts where
+instance Data.FromJSON CodeArtifacts where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CodeArtifacts"
       ( \x ->
           CodeArtifacts'
-            Prelude.<$> (x Core..:? "BuildArtifactsObjectKey")
-            Prelude.<*> (x Core..: "SourceCodeArtifactsObjectKey")
+            Prelude.<$> (x Data..:? "BuildArtifactsObjectKey")
+            Prelude.<*> (x Data..: "SourceCodeArtifactsObjectKey")
       )
 
 instance Prelude.Hashable CodeArtifacts where
@@ -108,15 +109,15 @@ instance Prelude.NFData CodeArtifacts where
     Prelude.rnf buildArtifactsObjectKey
       `Prelude.seq` Prelude.rnf sourceCodeArtifactsObjectKey
 
-instance Core.ToJSON CodeArtifacts where
+instance Data.ToJSON CodeArtifacts where
   toJSON CodeArtifacts' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("BuildArtifactsObjectKey" Core..=)
+          [ ("BuildArtifactsObjectKey" Data..=)
               Prelude.<$> buildArtifactsObjectKey,
             Prelude.Just
               ( "SourceCodeArtifactsObjectKey"
-                  Core..= sourceCodeArtifactsObjectKey
+                  Data..= sourceCodeArtifactsObjectKey
               )
           ]
       )

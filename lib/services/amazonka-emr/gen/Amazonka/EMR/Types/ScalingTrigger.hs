@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.ScalingTrigger
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EMR.Types.ScalingTrigger where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types.CloudWatchAlarmDefinition
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The conditions that trigger an automatic scaling activity.
@@ -62,13 +63,13 @@ newScalingTrigger pCloudWatchAlarmDefinition_ =
 scalingTrigger_cloudWatchAlarmDefinition :: Lens.Lens' ScalingTrigger CloudWatchAlarmDefinition
 scalingTrigger_cloudWatchAlarmDefinition = Lens.lens (\ScalingTrigger' {cloudWatchAlarmDefinition} -> cloudWatchAlarmDefinition) (\s@ScalingTrigger' {} a -> s {cloudWatchAlarmDefinition = a} :: ScalingTrigger)
 
-instance Core.FromJSON ScalingTrigger where
+instance Data.FromJSON ScalingTrigger where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ScalingTrigger"
       ( \x ->
           ScalingTrigger'
-            Prelude.<$> (x Core..: "CloudWatchAlarmDefinition")
+            Prelude.<$> (x Data..: "CloudWatchAlarmDefinition")
       )
 
 instance Prelude.Hashable ScalingTrigger where
@@ -80,13 +81,13 @@ instance Prelude.NFData ScalingTrigger where
   rnf ScalingTrigger' {..} =
     Prelude.rnf cloudWatchAlarmDefinition
 
-instance Core.ToJSON ScalingTrigger where
+instance Data.ToJSON ScalingTrigger where
   toJSON ScalingTrigger' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "CloudWatchAlarmDefinition"
-                  Core..= cloudWatchAlarmDefinition
+                  Data..= cloudWatchAlarmDefinition
               )
           ]
       )

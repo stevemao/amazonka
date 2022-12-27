@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.HoneyCode.Types.Table
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.HoneyCode.Types.Table where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object representing the properties of a table in a workbook.
@@ -61,14 +62,14 @@ table_tableId = Lens.lens (\Table' {tableId} -> tableId) (\s@Table' {} a -> s {t
 table_tableName :: Lens.Lens' Table (Prelude.Maybe Prelude.Text)
 table_tableName = Lens.lens (\Table' {tableName} -> tableName) (\s@Table' {} a -> s {tableName = a} :: Table)
 
-instance Core.FromJSON Table where
+instance Data.FromJSON Table where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Table"
       ( \x ->
           Table'
-            Prelude.<$> (x Core..:? "tableId")
-            Prelude.<*> (x Core..:? "tableName")
+            Prelude.<$> (x Data..:? "tableId")
+            Prelude.<*> (x Data..:? "tableName")
       )
 
 instance Prelude.Hashable Table where

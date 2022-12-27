@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.ListDashboards
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.QuickSight.ListDashboards
     newListDashboards,
 
     -- * Request Lenses
-    listDashboards_nextToken,
     listDashboards_maxResults,
+    listDashboards_nextToken,
     listDashboards_awsAccountId,
 
     -- * Destructuring the Response
@@ -38,15 +38,16 @@ module Amazonka.QuickSight.ListDashboards
     newListDashboardsResponse,
 
     -- * Response Lenses
-    listDashboardsResponse_requestId,
-    listDashboardsResponse_nextToken,
     listDashboardsResponse_dashboardSummaryList,
+    listDashboardsResponse_nextToken,
+    listDashboardsResponse_requestId,
     listDashboardsResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -54,11 +55,11 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListDashboards' smart constructor.
 data ListDashboards = ListDashboards'
-  { -- | The token for the next set of results, or null if there are no more
+  { -- | The maximum number of results to be returned per request.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results, or null if there are no more
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to be returned per request.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The ID of the Amazon Web Services account that contains the dashboards
     -- that you\'re listing.
     awsAccountId :: Prelude.Text
@@ -73,10 +74,10 @@ data ListDashboards = ListDashboards'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listDashboards_maxResults' - The maximum number of results to be returned per request.
+--
 -- 'nextToken', 'listDashboards_nextToken' - The token for the next set of results, or null if there are no more
 -- results.
---
--- 'maxResults', 'listDashboards_maxResults' - The maximum number of results to be returned per request.
 --
 -- 'awsAccountId', 'listDashboards_awsAccountId' - The ID of the Amazon Web Services account that contains the dashboards
 -- that you\'re listing.
@@ -86,19 +87,19 @@ newListDashboards ::
   ListDashboards
 newListDashboards pAwsAccountId_ =
   ListDashboards'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       awsAccountId = pAwsAccountId_
     }
+
+-- | The maximum number of results to be returned per request.
+listDashboards_maxResults :: Lens.Lens' ListDashboards (Prelude.Maybe Prelude.Natural)
+listDashboards_maxResults = Lens.lens (\ListDashboards' {maxResults} -> maxResults) (\s@ListDashboards' {} a -> s {maxResults = a} :: ListDashboards)
 
 -- | The token for the next set of results, or null if there are no more
 -- results.
 listDashboards_nextToken :: Lens.Lens' ListDashboards (Prelude.Maybe Prelude.Text)
 listDashboards_nextToken = Lens.lens (\ListDashboards' {nextToken} -> nextToken) (\s@ListDashboards' {} a -> s {nextToken = a} :: ListDashboards)
-
--- | The maximum number of results to be returned per request.
-listDashboards_maxResults :: Lens.Lens' ListDashboards (Prelude.Maybe Prelude.Natural)
-listDashboards_maxResults = Lens.lens (\ListDashboards' {maxResults} -> maxResults) (\s@ListDashboards' {} a -> s {maxResults = a} :: ListDashboards)
 
 -- | The ID of the Amazon Web Services account that contains the dashboards
 -- that you\'re listing.
@@ -130,65 +131,66 @@ instance Core.AWSRequest ListDashboards where
   type
     AWSResponse ListDashboards =
       ListDashboardsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDashboardsResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "DashboardSummaryList"
+            Prelude.<$> ( x Data..?> "DashboardSummaryList"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListDashboards where
   hashWithSalt _salt ListDashboards' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` awsAccountId
 
 instance Prelude.NFData ListDashboards where
   rnf ListDashboards' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf awsAccountId
 
-instance Core.ToHeaders ListDashboards where
+instance Data.ToHeaders ListDashboards where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListDashboards where
+instance Data.ToPath ListDashboards where
   toPath ListDashboards' {..} =
     Prelude.mconcat
-      ["/accounts/", Core.toBS awsAccountId, "/dashboards"]
+      ["/accounts/", Data.toBS awsAccountId, "/dashboards"]
 
-instance Core.ToQuery ListDashboards where
+instance Data.ToQuery ListDashboards where
   toQuery ListDashboards' {..} =
     Prelude.mconcat
-      [ "next-token" Core.=: nextToken,
-        "max-results" Core.=: maxResults
+      [ "max-results" Data.=: maxResults,
+        "next-token" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListDashboardsResponse' smart constructor.
 data ListDashboardsResponse = ListDashboardsResponse'
-  { -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The token for the next set of results, or null if there are no more
-    -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | A structure that contains all of the dashboards in your Amazon Web
+  { -- | A structure that contains all of the dashboards in your Amazon Web
     -- Services account. This structure provides basic information about the
     -- dashboards.
     dashboardSummaryList :: Prelude.Maybe [DashboardSummary],
+    -- | The token for the next set of results, or null if there are no more
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -202,14 +204,14 @@ data ListDashboardsResponse = ListDashboardsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'listDashboardsResponse_requestId' - The Amazon Web Services request ID for this operation.
+-- 'dashboardSummaryList', 'listDashboardsResponse_dashboardSummaryList' - A structure that contains all of the dashboards in your Amazon Web
+-- Services account. This structure provides basic information about the
+-- dashboards.
 --
 -- 'nextToken', 'listDashboardsResponse_nextToken' - The token for the next set of results, or null if there are no more
 -- results.
 --
--- 'dashboardSummaryList', 'listDashboardsResponse_dashboardSummaryList' - A structure that contains all of the dashboards in your Amazon Web
--- Services account. This structure provides basic information about the
--- dashboards.
+-- 'requestId', 'listDashboardsResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'status', 'listDashboardsResponse_status' - The HTTP status of the request.
 newListDashboardsResponse ::
@@ -218,21 +220,12 @@ newListDashboardsResponse ::
   ListDashboardsResponse
 newListDashboardsResponse pStatus_ =
   ListDashboardsResponse'
-    { requestId =
+    { dashboardSummaryList =
         Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      dashboardSummaryList = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       status = pStatus_
     }
-
--- | The Amazon Web Services request ID for this operation.
-listDashboardsResponse_requestId :: Lens.Lens' ListDashboardsResponse (Prelude.Maybe Prelude.Text)
-listDashboardsResponse_requestId = Lens.lens (\ListDashboardsResponse' {requestId} -> requestId) (\s@ListDashboardsResponse' {} a -> s {requestId = a} :: ListDashboardsResponse)
-
--- | The token for the next set of results, or null if there are no more
--- results.
-listDashboardsResponse_nextToken :: Lens.Lens' ListDashboardsResponse (Prelude.Maybe Prelude.Text)
-listDashboardsResponse_nextToken = Lens.lens (\ListDashboardsResponse' {nextToken} -> nextToken) (\s@ListDashboardsResponse' {} a -> s {nextToken = a} :: ListDashboardsResponse)
 
 -- | A structure that contains all of the dashboards in your Amazon Web
 -- Services account. This structure provides basic information about the
@@ -240,13 +233,22 @@ listDashboardsResponse_nextToken = Lens.lens (\ListDashboardsResponse' {nextToke
 listDashboardsResponse_dashboardSummaryList :: Lens.Lens' ListDashboardsResponse (Prelude.Maybe [DashboardSummary])
 listDashboardsResponse_dashboardSummaryList = Lens.lens (\ListDashboardsResponse' {dashboardSummaryList} -> dashboardSummaryList) (\s@ListDashboardsResponse' {} a -> s {dashboardSummaryList = a} :: ListDashboardsResponse) Prelude.. Lens.mapping Lens.coerced
 
+-- | The token for the next set of results, or null if there are no more
+-- results.
+listDashboardsResponse_nextToken :: Lens.Lens' ListDashboardsResponse (Prelude.Maybe Prelude.Text)
+listDashboardsResponse_nextToken = Lens.lens (\ListDashboardsResponse' {nextToken} -> nextToken) (\s@ListDashboardsResponse' {} a -> s {nextToken = a} :: ListDashboardsResponse)
+
+-- | The Amazon Web Services request ID for this operation.
+listDashboardsResponse_requestId :: Lens.Lens' ListDashboardsResponse (Prelude.Maybe Prelude.Text)
+listDashboardsResponse_requestId = Lens.lens (\ListDashboardsResponse' {requestId} -> requestId) (\s@ListDashboardsResponse' {} a -> s {requestId = a} :: ListDashboardsResponse)
+
 -- | The HTTP status of the request.
 listDashboardsResponse_status :: Lens.Lens' ListDashboardsResponse Prelude.Int
 listDashboardsResponse_status = Lens.lens (\ListDashboardsResponse' {status} -> status) (\s@ListDashboardsResponse' {} a -> s {status = a} :: ListDashboardsResponse)
 
 instance Prelude.NFData ListDashboardsResponse where
   rnf ListDashboardsResponse' {..} =
-    Prelude.rnf requestId
+    Prelude.rnf dashboardSummaryList
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf dashboardSummaryList
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf status

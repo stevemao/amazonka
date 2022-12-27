@@ -14,11 +14,15 @@
 
 -- |
 -- Module      : Amazonka.ECR.PutImageScanningConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
+--
+-- The @PutImageScanningConfiguration@ API is being deprecated, in favor of
+-- specifying the image scanning configuration at the registry level. For
+-- more information, see PutRegistryScanningConfiguration.
 --
 -- Updates the image scanning configuration for the specified repository.
 module Amazonka.ECR.PutImageScanningConfiguration
@@ -36,16 +40,17 @@ module Amazonka.ECR.PutImageScanningConfiguration
     newPutImageScanningConfigurationResponse,
 
     -- * Response Lenses
-    putImageScanningConfigurationResponse_registryId,
     putImageScanningConfigurationResponse_imageScanningConfiguration,
+    putImageScanningConfigurationResponse_registryId,
     putImageScanningConfigurationResponse_repositoryName,
     putImageScanningConfigurationResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -128,14 +133,15 @@ instance
   type
     AWSResponse PutImageScanningConfiguration =
       PutImageScanningConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutImageScanningConfigurationResponse'
-            Prelude.<$> (x Core..?> "registryId")
-            Prelude.<*> (x Core..?> "imageScanningConfiguration")
-            Prelude.<*> (x Core..?> "repositoryName")
+            Prelude.<$> (x Data..?> "imageScanningConfiguration")
+            Prelude.<*> (x Data..?> "registryId")
+            Prelude.<*> (x Data..?> "repositoryName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -154,47 +160,47 @@ instance Prelude.NFData PutImageScanningConfiguration where
       `Prelude.seq` Prelude.rnf repositoryName
       `Prelude.seq` Prelude.rnf imageScanningConfiguration
 
-instance Core.ToHeaders PutImageScanningConfiguration where
+instance Data.ToHeaders PutImageScanningConfiguration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerRegistry_V20150921.PutImageScanningConfiguration" ::
+              Data.=# ( "AmazonEC2ContainerRegistry_V20150921.PutImageScanningConfiguration" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutImageScanningConfiguration where
+instance Data.ToJSON PutImageScanningConfiguration where
   toJSON PutImageScanningConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("registryId" Core..=) Prelude.<$> registryId,
+          [ ("registryId" Data..=) Prelude.<$> registryId,
             Prelude.Just
-              ("repositoryName" Core..= repositoryName),
+              ("repositoryName" Data..= repositoryName),
             Prelude.Just
               ( "imageScanningConfiguration"
-                  Core..= imageScanningConfiguration
+                  Data..= imageScanningConfiguration
               )
           ]
       )
 
-instance Core.ToPath PutImageScanningConfiguration where
+instance Data.ToPath PutImageScanningConfiguration where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutImageScanningConfiguration where
+instance Data.ToQuery PutImageScanningConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutImageScanningConfigurationResponse' smart constructor.
 data PutImageScanningConfigurationResponse = PutImageScanningConfigurationResponse'
-  { -- | The registry ID associated with the request.
-    registryId :: Prelude.Maybe Prelude.Text,
-    -- | The image scanning configuration setting for the repository.
+  { -- | The image scanning configuration setting for the repository.
     imageScanningConfiguration :: Prelude.Maybe ImageScanningConfiguration,
+    -- | The registry ID associated with the request.
+    registryId :: Prelude.Maybe Prelude.Text,
     -- | The repository name associated with the request.
     repositoryName :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
@@ -210,9 +216,9 @@ data PutImageScanningConfigurationResponse = PutImageScanningConfigurationRespon
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'registryId', 'putImageScanningConfigurationResponse_registryId' - The registry ID associated with the request.
---
 -- 'imageScanningConfiguration', 'putImageScanningConfigurationResponse_imageScanningConfiguration' - The image scanning configuration setting for the repository.
+--
+-- 'registryId', 'putImageScanningConfigurationResponse_registryId' - The registry ID associated with the request.
 --
 -- 'repositoryName', 'putImageScanningConfigurationResponse_repositoryName' - The repository name associated with the request.
 --
@@ -223,21 +229,20 @@ newPutImageScanningConfigurationResponse ::
   PutImageScanningConfigurationResponse
 newPutImageScanningConfigurationResponse pHttpStatus_ =
   PutImageScanningConfigurationResponse'
-    { registryId =
+    { imageScanningConfiguration =
         Prelude.Nothing,
-      imageScanningConfiguration =
-        Prelude.Nothing,
+      registryId = Prelude.Nothing,
       repositoryName = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The registry ID associated with the request.
-putImageScanningConfigurationResponse_registryId :: Lens.Lens' PutImageScanningConfigurationResponse (Prelude.Maybe Prelude.Text)
-putImageScanningConfigurationResponse_registryId = Lens.lens (\PutImageScanningConfigurationResponse' {registryId} -> registryId) (\s@PutImageScanningConfigurationResponse' {} a -> s {registryId = a} :: PutImageScanningConfigurationResponse)
-
 -- | The image scanning configuration setting for the repository.
 putImageScanningConfigurationResponse_imageScanningConfiguration :: Lens.Lens' PutImageScanningConfigurationResponse (Prelude.Maybe ImageScanningConfiguration)
 putImageScanningConfigurationResponse_imageScanningConfiguration = Lens.lens (\PutImageScanningConfigurationResponse' {imageScanningConfiguration} -> imageScanningConfiguration) (\s@PutImageScanningConfigurationResponse' {} a -> s {imageScanningConfiguration = a} :: PutImageScanningConfigurationResponse)
+
+-- | The registry ID associated with the request.
+putImageScanningConfigurationResponse_registryId :: Lens.Lens' PutImageScanningConfigurationResponse (Prelude.Maybe Prelude.Text)
+putImageScanningConfigurationResponse_registryId = Lens.lens (\PutImageScanningConfigurationResponse' {registryId} -> registryId) (\s@PutImageScanningConfigurationResponse' {} a -> s {registryId = a} :: PutImageScanningConfigurationResponse)
 
 -- | The repository name associated with the request.
 putImageScanningConfigurationResponse_repositoryName :: Lens.Lens' PutImageScanningConfigurationResponse (Prelude.Maybe Prelude.Text)
@@ -252,7 +257,7 @@ instance
     PutImageScanningConfigurationResponse
   where
   rnf PutImageScanningConfigurationResponse' {..} =
-    Prelude.rnf registryId
-      `Prelude.seq` Prelude.rnf imageScanningConfiguration
+    Prelude.rnf imageScanningConfiguration
+      `Prelude.seq` Prelude.rnf registryId
       `Prelude.seq` Prelude.rnf repositoryName
       `Prelude.seq` Prelude.rnf httpStatus

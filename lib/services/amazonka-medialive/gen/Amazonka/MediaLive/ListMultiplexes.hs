@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.ListMultiplexes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,22 +29,23 @@ module Amazonka.MediaLive.ListMultiplexes
     newListMultiplexes,
 
     -- * Request Lenses
-    listMultiplexes_nextToken,
     listMultiplexes_maxResults,
+    listMultiplexes_nextToken,
 
     -- * Destructuring the Response
     ListMultiplexesResponse (..),
     newListMultiplexesResponse,
 
     -- * Response Lenses
-    listMultiplexesResponse_nextToken,
     listMultiplexesResponse_multiplexes,
+    listMultiplexesResponse_nextToken,
     listMultiplexesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -54,10 +55,10 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListMultiplexes' smart constructor.
 data ListMultiplexes = ListMultiplexes'
-  { -- | The token to retrieve the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | The maximum number of items to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to retrieve the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -69,24 +70,24 @@ data ListMultiplexes = ListMultiplexes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listMultiplexes_nextToken' - The token to retrieve the next page of results.
---
 -- 'maxResults', 'listMultiplexes_maxResults' - The maximum number of items to return.
+--
+-- 'nextToken', 'listMultiplexes_nextToken' - The token to retrieve the next page of results.
 newListMultiplexes ::
   ListMultiplexes
 newListMultiplexes =
   ListMultiplexes'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The token to retrieve the next page of results.
-listMultiplexes_nextToken :: Lens.Lens' ListMultiplexes (Prelude.Maybe Prelude.Text)
-listMultiplexes_nextToken = Lens.lens (\ListMultiplexes' {nextToken} -> nextToken) (\s@ListMultiplexes' {} a -> s {nextToken = a} :: ListMultiplexes)
 
 -- | The maximum number of items to return.
 listMultiplexes_maxResults :: Lens.Lens' ListMultiplexes (Prelude.Maybe Prelude.Natural)
 listMultiplexes_maxResults = Lens.lens (\ListMultiplexes' {maxResults} -> maxResults) (\s@ListMultiplexes' {} a -> s {maxResults = a} :: ListMultiplexes)
+
+-- | The token to retrieve the next page of results.
+listMultiplexes_nextToken :: Lens.Lens' ListMultiplexes (Prelude.Maybe Prelude.Text)
+listMultiplexes_nextToken = Lens.lens (\ListMultiplexes' {nextToken} -> nextToken) (\s@ListMultiplexes' {} a -> s {nextToken = a} :: ListMultiplexes)
 
 instance Core.AWSPager ListMultiplexes where
   page rq rs
@@ -114,55 +115,56 @@ instance Core.AWSRequest ListMultiplexes where
   type
     AWSResponse ListMultiplexes =
       ListMultiplexesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListMultiplexesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "multiplexes" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "multiplexes" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListMultiplexes where
   hashWithSalt _salt ListMultiplexes' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListMultiplexes where
   rnf ListMultiplexes' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListMultiplexes where
+instance Data.ToHeaders ListMultiplexes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListMultiplexes where
+instance Data.ToPath ListMultiplexes where
   toPath = Prelude.const "/prod/multiplexes"
 
-instance Core.ToQuery ListMultiplexes where
+instance Data.ToQuery ListMultiplexes where
   toQuery ListMultiplexes' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | Placeholder documentation for ListMultiplexesResponse
 --
 -- /See:/ 'newListMultiplexesResponse' smart constructor.
 data ListMultiplexesResponse = ListMultiplexesResponse'
-  { -- | Token for the next ListMultiplexes request.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | List of multiplexes.
+  { -- | List of multiplexes.
     multiplexes :: Prelude.Maybe [MultiplexSummary],
+    -- | Token for the next ListMultiplexes request.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -176,9 +178,9 @@ data ListMultiplexesResponse = ListMultiplexesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listMultiplexesResponse_nextToken' - Token for the next ListMultiplexes request.
---
 -- 'multiplexes', 'listMultiplexesResponse_multiplexes' - List of multiplexes.
+--
+-- 'nextToken', 'listMultiplexesResponse_nextToken' - Token for the next ListMultiplexes request.
 --
 -- 'httpStatus', 'listMultiplexesResponse_httpStatus' - The response's http status code.
 newListMultiplexesResponse ::
@@ -187,19 +189,19 @@ newListMultiplexesResponse ::
   ListMultiplexesResponse
 newListMultiplexesResponse pHttpStatus_ =
   ListMultiplexesResponse'
-    { nextToken =
+    { multiplexes =
         Prelude.Nothing,
-      multiplexes = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Token for the next ListMultiplexes request.
-listMultiplexesResponse_nextToken :: Lens.Lens' ListMultiplexesResponse (Prelude.Maybe Prelude.Text)
-listMultiplexesResponse_nextToken = Lens.lens (\ListMultiplexesResponse' {nextToken} -> nextToken) (\s@ListMultiplexesResponse' {} a -> s {nextToken = a} :: ListMultiplexesResponse)
 
 -- | List of multiplexes.
 listMultiplexesResponse_multiplexes :: Lens.Lens' ListMultiplexesResponse (Prelude.Maybe [MultiplexSummary])
 listMultiplexesResponse_multiplexes = Lens.lens (\ListMultiplexesResponse' {multiplexes} -> multiplexes) (\s@ListMultiplexesResponse' {} a -> s {multiplexes = a} :: ListMultiplexesResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | Token for the next ListMultiplexes request.
+listMultiplexesResponse_nextToken :: Lens.Lens' ListMultiplexesResponse (Prelude.Maybe Prelude.Text)
+listMultiplexesResponse_nextToken = Lens.lens (\ListMultiplexesResponse' {nextToken} -> nextToken) (\s@ListMultiplexesResponse' {} a -> s {nextToken = a} :: ListMultiplexesResponse)
 
 -- | The response's http status code.
 listMultiplexesResponse_httpStatus :: Lens.Lens' ListMultiplexesResponse Prelude.Int
@@ -207,6 +209,6 @@ listMultiplexesResponse_httpStatus = Lens.lens (\ListMultiplexesResponse' {httpS
 
 instance Prelude.NFData ListMultiplexesResponse where
   rnf ListMultiplexesResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf multiplexes
+    Prelude.rnf multiplexes
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

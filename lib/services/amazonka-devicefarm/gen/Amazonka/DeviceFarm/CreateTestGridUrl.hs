@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.CreateTestGridUrl
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.DeviceFarm.CreateTestGridUrl
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,13 +97,14 @@ instance Core.AWSRequest CreateTestGridUrl where
   type
     AWSResponse CreateTestGridUrl =
       CreateTestGridUrlResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateTestGridUrlResponse'
-            Prelude.<$> (x Core..?> "expires")
-            Prelude.<*> (x Core..?> "url")
+            Prelude.<$> (x Data..?> "expires")
+            Prelude.<*> (x Data..?> "url")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,45 +118,45 @@ instance Prelude.NFData CreateTestGridUrl where
     Prelude.rnf projectArn
       `Prelude.seq` Prelude.rnf expiresInSeconds
 
-instance Core.ToHeaders CreateTestGridUrl where
+instance Data.ToHeaders CreateTestGridUrl where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.CreateTestGridUrl" ::
+              Data.=# ( "DeviceFarm_20150623.CreateTestGridUrl" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateTestGridUrl where
+instance Data.ToJSON CreateTestGridUrl where
   toJSON CreateTestGridUrl' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("projectArn" Core..= projectArn),
+          [ Prelude.Just ("projectArn" Data..= projectArn),
             Prelude.Just
-              ("expiresInSeconds" Core..= expiresInSeconds)
+              ("expiresInSeconds" Data..= expiresInSeconds)
           ]
       )
 
-instance Core.ToPath CreateTestGridUrl where
+instance Data.ToPath CreateTestGridUrl where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateTestGridUrl where
+instance Data.ToQuery CreateTestGridUrl where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateTestGridUrlResponse' smart constructor.
 data CreateTestGridUrlResponse = CreateTestGridUrlResponse'
   { -- | The number of seconds the URL from CreateTestGridUrlResult$url stays
     -- active.
-    expires :: Prelude.Maybe Core.POSIX,
+    expires :: Prelude.Maybe Data.POSIX,
     -- | A signed URL, expiring in CreateTestGridUrlRequest$expiresInSeconds
     -- seconds, to be passed to a @RemoteWebDriver@.
-    url :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    url :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -190,12 +192,12 @@ newCreateTestGridUrlResponse pHttpStatus_ =
 -- | The number of seconds the URL from CreateTestGridUrlResult$url stays
 -- active.
 createTestGridUrlResponse_expires :: Lens.Lens' CreateTestGridUrlResponse (Prelude.Maybe Prelude.UTCTime)
-createTestGridUrlResponse_expires = Lens.lens (\CreateTestGridUrlResponse' {expires} -> expires) (\s@CreateTestGridUrlResponse' {} a -> s {expires = a} :: CreateTestGridUrlResponse) Prelude.. Lens.mapping Core._Time
+createTestGridUrlResponse_expires = Lens.lens (\CreateTestGridUrlResponse' {expires} -> expires) (\s@CreateTestGridUrlResponse' {} a -> s {expires = a} :: CreateTestGridUrlResponse) Prelude.. Lens.mapping Data._Time
 
 -- | A signed URL, expiring in CreateTestGridUrlRequest$expiresInSeconds
 -- seconds, to be passed to a @RemoteWebDriver@.
 createTestGridUrlResponse_url :: Lens.Lens' CreateTestGridUrlResponse (Prelude.Maybe Prelude.Text)
-createTestGridUrlResponse_url = Lens.lens (\CreateTestGridUrlResponse' {url} -> url) (\s@CreateTestGridUrlResponse' {} a -> s {url = a} :: CreateTestGridUrlResponse) Prelude.. Lens.mapping Core._Sensitive
+createTestGridUrlResponse_url = Lens.lens (\CreateTestGridUrlResponse' {url} -> url) (\s@CreateTestGridUrlResponse' {} a -> s {url = a} :: CreateTestGridUrlResponse) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The response's http status code.
 createTestGridUrlResponse_httpStatus :: Lens.Lens' CreateTestGridUrlResponse Prelude.Int

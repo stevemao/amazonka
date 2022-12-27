@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.RedactConversationMessage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,7 +107,8 @@ instance Core.AWSRequest RedactConversationMessage where
   type
     AWSResponse RedactConversationMessage =
       RedactConversationMessageResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -126,24 +128,24 @@ instance Prelude.NFData RedactConversationMessage where
       `Prelude.seq` Prelude.rnf conversationId
       `Prelude.seq` Prelude.rnf messageId
 
-instance Core.ToHeaders RedactConversationMessage where
+instance Data.ToHeaders RedactConversationMessage where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON RedactConversationMessage where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON RedactConversationMessage where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath RedactConversationMessage where
+instance Data.ToPath RedactConversationMessage where
   toPath RedactConversationMessage' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/conversations/",
-        Core.toBS conversationId,
+        Data.toBS conversationId,
         "/messages/",
-        Core.toBS messageId
+        Data.toBS messageId
       ]
 
-instance Core.ToQuery RedactConversationMessage where
+instance Data.ToQuery RedactConversationMessage where
   toQuery =
     Prelude.const
       (Prelude.mconcat ["operation=redact"])

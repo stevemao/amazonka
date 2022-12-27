@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.Types.AddonVersionInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EKS.Types.AddonVersionInfo where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EKS.Types.Compatibility
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about an add-on version.
@@ -32,8 +33,10 @@ data AddonVersionInfo = AddonVersionInfo'
     addonVersion :: Prelude.Maybe Prelude.Text,
     -- | The architectures that the version supports.
     architecture :: Prelude.Maybe [Prelude.Text],
-    -- | An object that represents the compatibilities of a version.
-    compatibilities :: Prelude.Maybe [Compatibility]
+    -- | An object representing the compatibilities of a version.
+    compatibilities :: Prelude.Maybe [Compatibility],
+    -- | Whether the add-on requires configuration.
+    requiresConfiguration :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -49,14 +52,17 @@ data AddonVersionInfo = AddonVersionInfo'
 --
 -- 'architecture', 'addonVersionInfo_architecture' - The architectures that the version supports.
 --
--- 'compatibilities', 'addonVersionInfo_compatibilities' - An object that represents the compatibilities of a version.
+-- 'compatibilities', 'addonVersionInfo_compatibilities' - An object representing the compatibilities of a version.
+--
+-- 'requiresConfiguration', 'addonVersionInfo_requiresConfiguration' - Whether the add-on requires configuration.
 newAddonVersionInfo ::
   AddonVersionInfo
 newAddonVersionInfo =
   AddonVersionInfo'
     { addonVersion = Prelude.Nothing,
       architecture = Prelude.Nothing,
-      compatibilities = Prelude.Nothing
+      compatibilities = Prelude.Nothing,
+      requiresConfiguration = Prelude.Nothing
     }
 
 -- | The version of the add-on.
@@ -67,21 +73,26 @@ addonVersionInfo_addonVersion = Lens.lens (\AddonVersionInfo' {addonVersion} -> 
 addonVersionInfo_architecture :: Lens.Lens' AddonVersionInfo (Prelude.Maybe [Prelude.Text])
 addonVersionInfo_architecture = Lens.lens (\AddonVersionInfo' {architecture} -> architecture) (\s@AddonVersionInfo' {} a -> s {architecture = a} :: AddonVersionInfo) Prelude.. Lens.mapping Lens.coerced
 
--- | An object that represents the compatibilities of a version.
+-- | An object representing the compatibilities of a version.
 addonVersionInfo_compatibilities :: Lens.Lens' AddonVersionInfo (Prelude.Maybe [Compatibility])
 addonVersionInfo_compatibilities = Lens.lens (\AddonVersionInfo' {compatibilities} -> compatibilities) (\s@AddonVersionInfo' {} a -> s {compatibilities = a} :: AddonVersionInfo) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON AddonVersionInfo where
+-- | Whether the add-on requires configuration.
+addonVersionInfo_requiresConfiguration :: Lens.Lens' AddonVersionInfo (Prelude.Maybe Prelude.Bool)
+addonVersionInfo_requiresConfiguration = Lens.lens (\AddonVersionInfo' {requiresConfiguration} -> requiresConfiguration) (\s@AddonVersionInfo' {} a -> s {requiresConfiguration = a} :: AddonVersionInfo)
+
+instance Data.FromJSON AddonVersionInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AddonVersionInfo"
       ( \x ->
           AddonVersionInfo'
-            Prelude.<$> (x Core..:? "addonVersion")
-            Prelude.<*> (x Core..:? "architecture" Core..!= Prelude.mempty)
-            Prelude.<*> ( x Core..:? "compatibilities"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "addonVersion")
+            Prelude.<*> (x Data..:? "architecture" Data..!= Prelude.mempty)
+            Prelude.<*> ( x Data..:? "compatibilities"
+                            Data..!= Prelude.mempty
                         )
+            Prelude.<*> (x Data..:? "requiresConfiguration")
       )
 
 instance Prelude.Hashable AddonVersionInfo where
@@ -89,9 +100,11 @@ instance Prelude.Hashable AddonVersionInfo where
     _salt `Prelude.hashWithSalt` addonVersion
       `Prelude.hashWithSalt` architecture
       `Prelude.hashWithSalt` compatibilities
+      `Prelude.hashWithSalt` requiresConfiguration
 
 instance Prelude.NFData AddonVersionInfo where
   rnf AddonVersionInfo' {..} =
     Prelude.rnf addonVersion
       `Prelude.seq` Prelude.rnf architecture
       `Prelude.seq` Prelude.rnf compatibilities
+      `Prelude.seq` Prelude.rnf requiresConfiguration

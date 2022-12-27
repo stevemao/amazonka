@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.ListCustomPlugins
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.KafkaConnect.ListCustomPlugins
     newListCustomPlugins,
 
     -- * Request Lenses
-    listCustomPlugins_nextToken,
     listCustomPlugins_maxResults,
+    listCustomPlugins_nextToken,
 
     -- * Destructuring the Response
     ListCustomPluginsResponse (..),
@@ -44,20 +44,21 @@ module Amazonka.KafkaConnect.ListCustomPlugins
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KafkaConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListCustomPlugins' smart constructor.
 data ListCustomPlugins = ListCustomPlugins'
-  { -- | If the response of a ListCustomPlugins operation is truncated, it will
+  { -- | The maximum number of custom plugins to list in one response.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | If the response of a ListCustomPlugins operation is truncated, it will
     -- include a NextToken. Send this NextToken in a subsequent request to
     -- continue listing from where the previous operation left off.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of custom plugins to list in one response.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -69,28 +70,28 @@ data ListCustomPlugins = ListCustomPlugins'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listCustomPlugins_maxResults' - The maximum number of custom plugins to list in one response.
+--
 -- 'nextToken', 'listCustomPlugins_nextToken' - If the response of a ListCustomPlugins operation is truncated, it will
 -- include a NextToken. Send this NextToken in a subsequent request to
 -- continue listing from where the previous operation left off.
---
--- 'maxResults', 'listCustomPlugins_maxResults' - The maximum number of custom plugins to list in one response.
 newListCustomPlugins ::
   ListCustomPlugins
 newListCustomPlugins =
   ListCustomPlugins'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of custom plugins to list in one response.
+listCustomPlugins_maxResults :: Lens.Lens' ListCustomPlugins (Prelude.Maybe Prelude.Natural)
+listCustomPlugins_maxResults = Lens.lens (\ListCustomPlugins' {maxResults} -> maxResults) (\s@ListCustomPlugins' {} a -> s {maxResults = a} :: ListCustomPlugins)
 
 -- | If the response of a ListCustomPlugins operation is truncated, it will
 -- include a NextToken. Send this NextToken in a subsequent request to
 -- continue listing from where the previous operation left off.
 listCustomPlugins_nextToken :: Lens.Lens' ListCustomPlugins (Prelude.Maybe Prelude.Text)
 listCustomPlugins_nextToken = Lens.lens (\ListCustomPlugins' {nextToken} -> nextToken) (\s@ListCustomPlugins' {} a -> s {nextToken = a} :: ListCustomPlugins)
-
--- | The maximum number of custom plugins to list in one response.
-listCustomPlugins_maxResults :: Lens.Lens' ListCustomPlugins (Prelude.Maybe Prelude.Natural)
-listCustomPlugins_maxResults = Lens.lens (\ListCustomPlugins' {maxResults} -> maxResults) (\s@ListCustomPlugins' {} a -> s {maxResults = a} :: ListCustomPlugins)
 
 instance Core.AWSPager ListCustomPlugins where
   page rq rs
@@ -118,45 +119,46 @@ instance Core.AWSRequest ListCustomPlugins where
   type
     AWSResponse ListCustomPlugins =
       ListCustomPluginsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListCustomPluginsResponse'
-            Prelude.<$> (x Core..?> "customPlugins" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "customPlugins" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListCustomPlugins where
   hashWithSalt _salt ListCustomPlugins' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListCustomPlugins where
   rnf ListCustomPlugins' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListCustomPlugins where
+instance Data.ToHeaders ListCustomPlugins where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListCustomPlugins where
+instance Data.ToPath ListCustomPlugins where
   toPath = Prelude.const "/v1/custom-plugins"
 
-instance Core.ToQuery ListCustomPlugins where
+instance Data.ToQuery ListCustomPlugins where
   toQuery ListCustomPlugins' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListCustomPluginsResponse' smart constructor.

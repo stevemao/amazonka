@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.ReleaseLabelFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.EMR.Types.ReleaseLabelFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The release label filters by application or version prefix.
@@ -71,11 +72,11 @@ instance Prelude.NFData ReleaseLabelFilter where
     Prelude.rnf application
       `Prelude.seq` Prelude.rnf prefix
 
-instance Core.ToJSON ReleaseLabelFilter where
+instance Data.ToJSON ReleaseLabelFilter where
   toJSON ReleaseLabelFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Application" Core..=) Prelude.<$> application,
-            ("Prefix" Core..=) Prelude.<$> prefix
+          [ ("Application" Data..=) Prelude.<$> application,
+            ("Prefix" Data..=) Prelude.<$> prefix
           ]
       )

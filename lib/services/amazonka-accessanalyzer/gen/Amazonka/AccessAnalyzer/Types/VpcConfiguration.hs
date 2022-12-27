@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AccessAnalyzer.Types.VpcConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AccessAnalyzer.Types.VpcConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The proposed virtual private cloud (VPC) configuration for the Amazon S3
@@ -58,12 +59,12 @@ newVpcConfiguration pVpcId_ =
 vpcConfiguration_vpcId :: Lens.Lens' VpcConfiguration Prelude.Text
 vpcConfiguration_vpcId = Lens.lens (\VpcConfiguration' {vpcId} -> vpcId) (\s@VpcConfiguration' {} a -> s {vpcId = a} :: VpcConfiguration)
 
-instance Core.FromJSON VpcConfiguration where
+instance Data.FromJSON VpcConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VpcConfiguration"
       ( \x ->
-          VpcConfiguration' Prelude.<$> (x Core..: "vpcId")
+          VpcConfiguration' Prelude.<$> (x Data..: "vpcId")
       )
 
 instance Prelude.Hashable VpcConfiguration where
@@ -73,9 +74,9 @@ instance Prelude.Hashable VpcConfiguration where
 instance Prelude.NFData VpcConfiguration where
   rnf VpcConfiguration' {..} = Prelude.rnf vpcId
 
-instance Core.ToJSON VpcConfiguration where
+instance Data.ToJSON VpcConfiguration where
   toJSON VpcConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("vpcId" Core..= vpcId)]
+          [Prelude.Just ("vpcId" Data..= vpcId)]
       )

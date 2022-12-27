@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.DeleteDevicePool
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.DeviceFarm.DeleteDevicePool
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,7 +83,8 @@ instance Core.AWSRequest DeleteDevicePool where
   type
     AWSResponse DeleteDevicePool =
       DeleteDevicePoolResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -97,32 +99,32 @@ instance Prelude.Hashable DeleteDevicePool where
 instance Prelude.NFData DeleteDevicePool where
   rnf DeleteDevicePool' {..} = Prelude.rnf arn
 
-instance Core.ToHeaders DeleteDevicePool where
+instance Data.ToHeaders DeleteDevicePool where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.DeleteDevicePool" ::
+              Data.=# ( "DeviceFarm_20150623.DeleteDevicePool" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteDevicePool where
+instance Data.ToJSON DeleteDevicePool where
   toJSON DeleteDevicePool' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("arn" Core..= arn)]
+          [Prelude.Just ("arn" Data..= arn)]
       )
 
-instance Core.ToPath DeleteDevicePool where
+instance Data.ToPath DeleteDevicePool where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDevicePool where
+instance Data.ToQuery DeleteDevicePool where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a delete device pool request.

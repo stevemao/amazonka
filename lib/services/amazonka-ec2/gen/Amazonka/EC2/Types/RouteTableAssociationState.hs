@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.RouteTableAssociationState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.RouteTableAssociationState where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.RouteTableAssociationStateCode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the state of an association between a route table and a subnet
@@ -65,11 +66,11 @@ routeTableAssociationState_state = Lens.lens (\RouteTableAssociationState' {stat
 routeTableAssociationState_statusMessage :: Lens.Lens' RouteTableAssociationState (Prelude.Maybe Prelude.Text)
 routeTableAssociationState_statusMessage = Lens.lens (\RouteTableAssociationState' {statusMessage} -> statusMessage) (\s@RouteTableAssociationState' {} a -> s {statusMessage = a} :: RouteTableAssociationState)
 
-instance Core.FromXML RouteTableAssociationState where
+instance Data.FromXML RouteTableAssociationState where
   parseXML x =
     RouteTableAssociationState'
-      Prelude.<$> (x Core..@? "state")
-      Prelude.<*> (x Core..@? "statusMessage")
+      Prelude.<$> (x Data..@? "state")
+      Prelude.<*> (x Data..@? "statusMessage")
 
 instance Prelude.Hashable RouteTableAssociationState where
   hashWithSalt _salt RouteTableAssociationState' {..} =

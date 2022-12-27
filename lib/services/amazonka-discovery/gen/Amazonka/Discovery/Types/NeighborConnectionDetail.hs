@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Discovery.Types.NeighborConnectionDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.Discovery.Types.NeighborConnectionDetail where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details about neighboring servers.
 --
 -- /See:/ 'newNeighborConnectionDetail' smart constructor.
 data NeighborConnectionDetail = NeighborConnectionDetail'
-  { -- | The network protocol used for the connection.
-    transportProtocol :: Prelude.Maybe Prelude.Text,
-    -- | The destination network port for the connection.
+  { -- | The destination network port for the connection.
     destinationPort :: Prelude.Maybe Prelude.Int,
+    -- | The network protocol used for the connection.
+    transportProtocol :: Prelude.Maybe Prelude.Text,
     -- | The ID of the server that opened the network connection.
     sourceServerId :: Prelude.Text,
     -- | The ID of the server that accepted the network connection.
@@ -48,9 +49,9 @@ data NeighborConnectionDetail = NeighborConnectionDetail'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'transportProtocol', 'neighborConnectionDetail_transportProtocol' - The network protocol used for the connection.
---
 -- 'destinationPort', 'neighborConnectionDetail_destinationPort' - The destination network port for the connection.
+--
+-- 'transportProtocol', 'neighborConnectionDetail_transportProtocol' - The network protocol used for the connection.
 --
 -- 'sourceServerId', 'neighborConnectionDetail_sourceServerId' - The ID of the server that opened the network connection.
 --
@@ -70,21 +71,21 @@ newNeighborConnectionDetail
   pDestinationServerId_
   pConnectionsCount_ =
     NeighborConnectionDetail'
-      { transportProtocol =
+      { destinationPort =
           Prelude.Nothing,
-        destinationPort = Prelude.Nothing,
+        transportProtocol = Prelude.Nothing,
         sourceServerId = pSourceServerId_,
         destinationServerId = pDestinationServerId_,
         connectionsCount = pConnectionsCount_
       }
 
--- | The network protocol used for the connection.
-neighborConnectionDetail_transportProtocol :: Lens.Lens' NeighborConnectionDetail (Prelude.Maybe Prelude.Text)
-neighborConnectionDetail_transportProtocol = Lens.lens (\NeighborConnectionDetail' {transportProtocol} -> transportProtocol) (\s@NeighborConnectionDetail' {} a -> s {transportProtocol = a} :: NeighborConnectionDetail)
-
 -- | The destination network port for the connection.
 neighborConnectionDetail_destinationPort :: Lens.Lens' NeighborConnectionDetail (Prelude.Maybe Prelude.Int)
 neighborConnectionDetail_destinationPort = Lens.lens (\NeighborConnectionDetail' {destinationPort} -> destinationPort) (\s@NeighborConnectionDetail' {} a -> s {destinationPort = a} :: NeighborConnectionDetail)
+
+-- | The network protocol used for the connection.
+neighborConnectionDetail_transportProtocol :: Lens.Lens' NeighborConnectionDetail (Prelude.Maybe Prelude.Text)
+neighborConnectionDetail_transportProtocol = Lens.lens (\NeighborConnectionDetail' {transportProtocol} -> transportProtocol) (\s@NeighborConnectionDetail' {} a -> s {transportProtocol = a} :: NeighborConnectionDetail)
 
 -- | The ID of the server that opened the network connection.
 neighborConnectionDetail_sourceServerId :: Lens.Lens' NeighborConnectionDetail Prelude.Text
@@ -98,31 +99,31 @@ neighborConnectionDetail_destinationServerId = Lens.lens (\NeighborConnectionDet
 neighborConnectionDetail_connectionsCount :: Lens.Lens' NeighborConnectionDetail Prelude.Integer
 neighborConnectionDetail_connectionsCount = Lens.lens (\NeighborConnectionDetail' {connectionsCount} -> connectionsCount) (\s@NeighborConnectionDetail' {} a -> s {connectionsCount = a} :: NeighborConnectionDetail)
 
-instance Core.FromJSON NeighborConnectionDetail where
+instance Data.FromJSON NeighborConnectionDetail where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NeighborConnectionDetail"
       ( \x ->
           NeighborConnectionDetail'
-            Prelude.<$> (x Core..:? "transportProtocol")
-            Prelude.<*> (x Core..:? "destinationPort")
-            Prelude.<*> (x Core..: "sourceServerId")
-            Prelude.<*> (x Core..: "destinationServerId")
-            Prelude.<*> (x Core..: "connectionsCount")
+            Prelude.<$> (x Data..:? "destinationPort")
+            Prelude.<*> (x Data..:? "transportProtocol")
+            Prelude.<*> (x Data..: "sourceServerId")
+            Prelude.<*> (x Data..: "destinationServerId")
+            Prelude.<*> (x Data..: "connectionsCount")
       )
 
 instance Prelude.Hashable NeighborConnectionDetail where
   hashWithSalt _salt NeighborConnectionDetail' {..} =
-    _salt `Prelude.hashWithSalt` transportProtocol
-      `Prelude.hashWithSalt` destinationPort
+    _salt `Prelude.hashWithSalt` destinationPort
+      `Prelude.hashWithSalt` transportProtocol
       `Prelude.hashWithSalt` sourceServerId
       `Prelude.hashWithSalt` destinationServerId
       `Prelude.hashWithSalt` connectionsCount
 
 instance Prelude.NFData NeighborConnectionDetail where
   rnf NeighborConnectionDetail' {..} =
-    Prelude.rnf transportProtocol
-      `Prelude.seq` Prelude.rnf destinationPort
+    Prelude.rnf destinationPort
+      `Prelude.seq` Prelude.rnf transportProtocol
       `Prelude.seq` Prelude.rnf sourceServerId
       `Prelude.seq` Prelude.rnf destinationServerId
       `Prelude.seq` Prelude.rnf connectionsCount

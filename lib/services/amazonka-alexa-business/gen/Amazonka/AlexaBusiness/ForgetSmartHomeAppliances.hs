@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.ForgetSmartHomeAppliances
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ instance Core.AWSRequest ForgetSmartHomeAppliances where
   type
     AWSResponse ForgetSmartHomeAppliances =
       ForgetSmartHomeAppliancesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -92,32 +94,32 @@ instance Prelude.NFData ForgetSmartHomeAppliances where
   rnf ForgetSmartHomeAppliances' {..} =
     Prelude.rnf roomArn
 
-instance Core.ToHeaders ForgetSmartHomeAppliances where
+instance Data.ToHeaders ForgetSmartHomeAppliances where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.ForgetSmartHomeAppliances" ::
+              Data.=# ( "AlexaForBusiness.ForgetSmartHomeAppliances" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ForgetSmartHomeAppliances where
+instance Data.ToJSON ForgetSmartHomeAppliances where
   toJSON ForgetSmartHomeAppliances' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("RoomArn" Core..= roomArn)]
+          [Prelude.Just ("RoomArn" Data..= roomArn)]
       )
 
-instance Core.ToPath ForgetSmartHomeAppliances where
+instance Data.ToPath ForgetSmartHomeAppliances where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ForgetSmartHomeAppliances where
+instance Data.ToQuery ForgetSmartHomeAppliances where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newForgetSmartHomeAppliancesResponse' smart constructor.

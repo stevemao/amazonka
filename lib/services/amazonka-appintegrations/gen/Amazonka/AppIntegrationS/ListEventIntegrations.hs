@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppIntegrationS.ListEventIntegrations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.AppIntegrationS.ListEventIntegrations
     newListEventIntegrations,
 
     -- * Request Lenses
-    listEventIntegrations_nextToken,
     listEventIntegrations_maxResults,
+    listEventIntegrations_nextToken,
 
     -- * Destructuring the Response
     ListEventIntegrationsResponse (..),
@@ -43,19 +43,20 @@ where
 
 import Amazonka.AppIntegrationS.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListEventIntegrations' smart constructor.
 data ListEventIntegrations = ListEventIntegrations'
-  { -- | The token for the next set of results. Use the value returned in the
+  { -- | The maximum number of results to return per page.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results. Use the value returned in the
     -- previous response in the next request to retrieve the next set of
     -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return per page.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,18 +68,23 @@ data ListEventIntegrations = ListEventIntegrations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listEventIntegrations_maxResults' - The maximum number of results to return per page.
+--
 -- 'nextToken', 'listEventIntegrations_nextToken' - The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
---
--- 'maxResults', 'listEventIntegrations_maxResults' - The maximum number of results to return per page.
 newListEventIntegrations ::
   ListEventIntegrations
 newListEventIntegrations =
   ListEventIntegrations'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of results to return per page.
+listEventIntegrations_maxResults :: Lens.Lens' ListEventIntegrations (Prelude.Maybe Prelude.Natural)
+listEventIntegrations_maxResults = Lens.lens (\ListEventIntegrations' {maxResults} -> maxResults) (\s@ListEventIntegrations' {} a -> s {maxResults = a} :: ListEventIntegrations)
 
 -- | The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
@@ -86,53 +92,50 @@ newListEventIntegrations =
 listEventIntegrations_nextToken :: Lens.Lens' ListEventIntegrations (Prelude.Maybe Prelude.Text)
 listEventIntegrations_nextToken = Lens.lens (\ListEventIntegrations' {nextToken} -> nextToken) (\s@ListEventIntegrations' {} a -> s {nextToken = a} :: ListEventIntegrations)
 
--- | The maximum number of results to return per page.
-listEventIntegrations_maxResults :: Lens.Lens' ListEventIntegrations (Prelude.Maybe Prelude.Natural)
-listEventIntegrations_maxResults = Lens.lens (\ListEventIntegrations' {maxResults} -> maxResults) (\s@ListEventIntegrations' {} a -> s {maxResults = a} :: ListEventIntegrations)
-
 instance Core.AWSRequest ListEventIntegrations where
   type
     AWSResponse ListEventIntegrations =
       ListEventIntegrationsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListEventIntegrationsResponse'
-            Prelude.<$> (x Core..?> "EventIntegrations")
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "EventIntegrations")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListEventIntegrations where
   hashWithSalt _salt ListEventIntegrations' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListEventIntegrations where
   rnf ListEventIntegrations' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListEventIntegrations where
+instance Data.ToHeaders ListEventIntegrations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListEventIntegrations where
+instance Data.ToPath ListEventIntegrations where
   toPath = Prelude.const "/eventIntegrations"
 
-instance Core.ToQuery ListEventIntegrations where
+instance Data.ToQuery ListEventIntegrations where
   toQuery ListEventIntegrations' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListEventIntegrationsResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Forecast.DescribePredictorBacktestExportJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,20 +48,22 @@ module Amazonka.Forecast.DescribePredictorBacktestExportJob
 
     -- * Response Lenses
     describePredictorBacktestExportJobResponse_creationTime,
-    describePredictorBacktestExportJobResponse_status,
     describePredictorBacktestExportJobResponse_destination,
+    describePredictorBacktestExportJobResponse_format,
+    describePredictorBacktestExportJobResponse_lastModificationTime,
+    describePredictorBacktestExportJobResponse_message,
     describePredictorBacktestExportJobResponse_predictorArn,
     describePredictorBacktestExportJobResponse_predictorBacktestExportJobArn,
-    describePredictorBacktestExportJobResponse_message,
     describePredictorBacktestExportJobResponse_predictorBacktestExportJobName,
-    describePredictorBacktestExportJobResponse_lastModificationTime,
+    describePredictorBacktestExportJobResponse_status,
     describePredictorBacktestExportJobResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Forecast.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -104,19 +106,21 @@ instance
   type
     AWSResponse DescribePredictorBacktestExportJob =
       DescribePredictorBacktestExportJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribePredictorBacktestExportJobResponse'
-            Prelude.<$> (x Core..?> "CreationTime")
-              Prelude.<*> (x Core..?> "Status")
-              Prelude.<*> (x Core..?> "Destination")
-              Prelude.<*> (x Core..?> "PredictorArn")
-              Prelude.<*> (x Core..?> "PredictorBacktestExportJobArn")
-              Prelude.<*> (x Core..?> "Message")
-              Prelude.<*> (x Core..?> "PredictorBacktestExportJobName")
-              Prelude.<*> (x Core..?> "LastModificationTime")
+            Prelude.<$> (x Data..?> "CreationTime")
+              Prelude.<*> (x Data..?> "Destination")
+              Prelude.<*> (x Data..?> "Format")
+              Prelude.<*> (x Data..?> "LastModificationTime")
+              Prelude.<*> (x Data..?> "Message")
+              Prelude.<*> (x Data..?> "PredictorArn")
+              Prelude.<*> (x Data..?> "PredictorBacktestExportJobArn")
+              Prelude.<*> (x Data..?> "PredictorBacktestExportJobName")
+              Prelude.<*> (x Data..?> "Status")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -138,45 +142,45 @@ instance
     Prelude.rnf predictorBacktestExportJobArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribePredictorBacktestExportJob
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonForecast.DescribePredictorBacktestExportJob" ::
+              Data.=# ( "AmazonForecast.DescribePredictorBacktestExportJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DescribePredictorBacktestExportJob
   where
   toJSON DescribePredictorBacktestExportJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "PredictorBacktestExportJobArn"
-                  Core..= predictorBacktestExportJobArn
+                  Data..= predictorBacktestExportJobArn
               )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribePredictorBacktestExportJob
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribePredictorBacktestExportJob
   where
   toQuery = Prelude.const Prelude.mempty
@@ -184,27 +188,10 @@ instance
 -- | /See:/ 'newDescribePredictorBacktestExportJobResponse' smart constructor.
 data DescribePredictorBacktestExportJobResponse = DescribePredictorBacktestExportJobResponse'
   { -- | When the predictor backtest export job was created.
-    creationTime :: Prelude.Maybe Core.POSIX,
-    -- | The status of the predictor backtest export job. States include:
-    --
-    -- -   @ACTIVE@
-    --
-    -- -   @CREATE_PENDING@, @CREATE_IN_PROGRESS@, @CREATE_FAILED@
-    --
-    -- -   @CREATE_STOPPING@, @CREATE_STOPPED@
-    --
-    -- -   @DELETE_PENDING@, @DELETE_IN_PROGRESS@, @DELETE_FAILED@
-    status :: Prelude.Maybe Prelude.Text,
+    creationTime :: Prelude.Maybe Data.POSIX,
     destination :: Prelude.Maybe DataDestination,
-    -- | The Amazon Resource Name (ARN) of the predictor.
-    predictorArn :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the predictor backtest export job.
-    predictorBacktestExportJobArn :: Prelude.Maybe Prelude.Text,
-    -- | Information about any errors that may have occurred during the backtest
-    -- export.
-    message :: Prelude.Maybe Prelude.Text,
-    -- | The name of the predictor backtest export job.
-    predictorBacktestExportJobName :: Prelude.Maybe Prelude.Text,
+    -- | The format of the exported data, CSV or PARQUET.
+    format :: Prelude.Maybe Prelude.Text,
     -- | The last time the resource was modified. The timestamp depends on the
     -- status of the job:
     --
@@ -217,7 +204,26 @@ data DescribePredictorBacktestExportJobResponse = DescribePredictorBacktestExpor
     -- -   @CREATE_STOPPED@ - When the job stopped.
     --
     -- -   @ACTIVE@ or @CREATE_FAILED@ - When the job finished or failed.
-    lastModificationTime :: Prelude.Maybe Core.POSIX,
+    lastModificationTime :: Prelude.Maybe Data.POSIX,
+    -- | Information about any errors that may have occurred during the backtest
+    -- export.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the predictor.
+    predictorArn :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the predictor backtest export job.
+    predictorBacktestExportJobArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the predictor backtest export job.
+    predictorBacktestExportJobName :: Prelude.Maybe Prelude.Text,
+    -- | The status of the predictor backtest export job. States include:
+    --
+    -- -   @ACTIVE@
+    --
+    -- -   @CREATE_PENDING@, @CREATE_IN_PROGRESS@, @CREATE_FAILED@
+    --
+    -- -   @CREATE_STOPPING@, @CREATE_STOPPED@
+    --
+    -- -   @DELETE_PENDING@, @DELETE_IN_PROGRESS@, @DELETE_FAILED@
+    status :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -233,26 +239,9 @@ data DescribePredictorBacktestExportJobResponse = DescribePredictorBacktestExpor
 --
 -- 'creationTime', 'describePredictorBacktestExportJobResponse_creationTime' - When the predictor backtest export job was created.
 --
--- 'status', 'describePredictorBacktestExportJobResponse_status' - The status of the predictor backtest export job. States include:
---
--- -   @ACTIVE@
---
--- -   @CREATE_PENDING@, @CREATE_IN_PROGRESS@, @CREATE_FAILED@
---
--- -   @CREATE_STOPPING@, @CREATE_STOPPED@
---
--- -   @DELETE_PENDING@, @DELETE_IN_PROGRESS@, @DELETE_FAILED@
---
 -- 'destination', 'describePredictorBacktestExportJobResponse_destination' - Undocumented member.
 --
--- 'predictorArn', 'describePredictorBacktestExportJobResponse_predictorArn' - The Amazon Resource Name (ARN) of the predictor.
---
--- 'predictorBacktestExportJobArn', 'describePredictorBacktestExportJobResponse_predictorBacktestExportJobArn' - The Amazon Resource Name (ARN) of the predictor backtest export job.
---
--- 'message', 'describePredictorBacktestExportJobResponse_message' - Information about any errors that may have occurred during the backtest
--- export.
---
--- 'predictorBacktestExportJobName', 'describePredictorBacktestExportJobResponse_predictorBacktestExportJobName' - The name of the predictor backtest export job.
+-- 'format', 'describePredictorBacktestExportJobResponse_format' - The format of the exported data, CSV or PARQUET.
 --
 -- 'lastModificationTime', 'describePredictorBacktestExportJobResponse_lastModificationTime' - The last time the resource was modified. The timestamp depends on the
 -- status of the job:
@@ -267,6 +256,25 @@ data DescribePredictorBacktestExportJobResponse = DescribePredictorBacktestExpor
 --
 -- -   @ACTIVE@ or @CREATE_FAILED@ - When the job finished or failed.
 --
+-- 'message', 'describePredictorBacktestExportJobResponse_message' - Information about any errors that may have occurred during the backtest
+-- export.
+--
+-- 'predictorArn', 'describePredictorBacktestExportJobResponse_predictorArn' - The Amazon Resource Name (ARN) of the predictor.
+--
+-- 'predictorBacktestExportJobArn', 'describePredictorBacktestExportJobResponse_predictorBacktestExportJobArn' - The Amazon Resource Name (ARN) of the predictor backtest export job.
+--
+-- 'predictorBacktestExportJobName', 'describePredictorBacktestExportJobResponse_predictorBacktestExportJobName' - The name of the predictor backtest export job.
+--
+-- 'status', 'describePredictorBacktestExportJobResponse_status' - The status of the predictor backtest export job. States include:
+--
+-- -   @ACTIVE@
+--
+-- -   @CREATE_PENDING@, @CREATE_IN_PROGRESS@, @CREATE_FAILED@
+--
+-- -   @CREATE_STOPPING@, @CREATE_STOPPED@
+--
+-- -   @DELETE_PENDING@, @DELETE_IN_PROGRESS@, @DELETE_FAILED@
+--
 -- 'httpStatus', 'describePredictorBacktestExportJobResponse_httpStatus' - The response's http status code.
 newDescribePredictorBacktestExportJobResponse ::
   -- | 'httpStatus'
@@ -277,55 +285,31 @@ newDescribePredictorBacktestExportJobResponse
     DescribePredictorBacktestExportJobResponse'
       { creationTime =
           Prelude.Nothing,
-        status = Prelude.Nothing,
         destination = Prelude.Nothing,
+        format = Prelude.Nothing,
+        lastModificationTime =
+          Prelude.Nothing,
+        message = Prelude.Nothing,
         predictorArn = Prelude.Nothing,
         predictorBacktestExportJobArn =
           Prelude.Nothing,
-        message = Prelude.Nothing,
         predictorBacktestExportJobName =
           Prelude.Nothing,
-        lastModificationTime =
-          Prelude.Nothing,
+        status = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
 
 -- | When the predictor backtest export job was created.
 describePredictorBacktestExportJobResponse_creationTime :: Lens.Lens' DescribePredictorBacktestExportJobResponse (Prelude.Maybe Prelude.UTCTime)
-describePredictorBacktestExportJobResponse_creationTime = Lens.lens (\DescribePredictorBacktestExportJobResponse' {creationTime} -> creationTime) (\s@DescribePredictorBacktestExportJobResponse' {} a -> s {creationTime = a} :: DescribePredictorBacktestExportJobResponse) Prelude.. Lens.mapping Core._Time
-
--- | The status of the predictor backtest export job. States include:
---
--- -   @ACTIVE@
---
--- -   @CREATE_PENDING@, @CREATE_IN_PROGRESS@, @CREATE_FAILED@
---
--- -   @CREATE_STOPPING@, @CREATE_STOPPED@
---
--- -   @DELETE_PENDING@, @DELETE_IN_PROGRESS@, @DELETE_FAILED@
-describePredictorBacktestExportJobResponse_status :: Lens.Lens' DescribePredictorBacktestExportJobResponse (Prelude.Maybe Prelude.Text)
-describePredictorBacktestExportJobResponse_status = Lens.lens (\DescribePredictorBacktestExportJobResponse' {status} -> status) (\s@DescribePredictorBacktestExportJobResponse' {} a -> s {status = a} :: DescribePredictorBacktestExportJobResponse)
+describePredictorBacktestExportJobResponse_creationTime = Lens.lens (\DescribePredictorBacktestExportJobResponse' {creationTime} -> creationTime) (\s@DescribePredictorBacktestExportJobResponse' {} a -> s {creationTime = a} :: DescribePredictorBacktestExportJobResponse) Prelude.. Lens.mapping Data._Time
 
 -- | Undocumented member.
 describePredictorBacktestExportJobResponse_destination :: Lens.Lens' DescribePredictorBacktestExportJobResponse (Prelude.Maybe DataDestination)
 describePredictorBacktestExportJobResponse_destination = Lens.lens (\DescribePredictorBacktestExportJobResponse' {destination} -> destination) (\s@DescribePredictorBacktestExportJobResponse' {} a -> s {destination = a} :: DescribePredictorBacktestExportJobResponse)
 
--- | The Amazon Resource Name (ARN) of the predictor.
-describePredictorBacktestExportJobResponse_predictorArn :: Lens.Lens' DescribePredictorBacktestExportJobResponse (Prelude.Maybe Prelude.Text)
-describePredictorBacktestExportJobResponse_predictorArn = Lens.lens (\DescribePredictorBacktestExportJobResponse' {predictorArn} -> predictorArn) (\s@DescribePredictorBacktestExportJobResponse' {} a -> s {predictorArn = a} :: DescribePredictorBacktestExportJobResponse)
-
--- | The Amazon Resource Name (ARN) of the predictor backtest export job.
-describePredictorBacktestExportJobResponse_predictorBacktestExportJobArn :: Lens.Lens' DescribePredictorBacktestExportJobResponse (Prelude.Maybe Prelude.Text)
-describePredictorBacktestExportJobResponse_predictorBacktestExportJobArn = Lens.lens (\DescribePredictorBacktestExportJobResponse' {predictorBacktestExportJobArn} -> predictorBacktestExportJobArn) (\s@DescribePredictorBacktestExportJobResponse' {} a -> s {predictorBacktestExportJobArn = a} :: DescribePredictorBacktestExportJobResponse)
-
--- | Information about any errors that may have occurred during the backtest
--- export.
-describePredictorBacktestExportJobResponse_message :: Lens.Lens' DescribePredictorBacktestExportJobResponse (Prelude.Maybe Prelude.Text)
-describePredictorBacktestExportJobResponse_message = Lens.lens (\DescribePredictorBacktestExportJobResponse' {message} -> message) (\s@DescribePredictorBacktestExportJobResponse' {} a -> s {message = a} :: DescribePredictorBacktestExportJobResponse)
-
--- | The name of the predictor backtest export job.
-describePredictorBacktestExportJobResponse_predictorBacktestExportJobName :: Lens.Lens' DescribePredictorBacktestExportJobResponse (Prelude.Maybe Prelude.Text)
-describePredictorBacktestExportJobResponse_predictorBacktestExportJobName = Lens.lens (\DescribePredictorBacktestExportJobResponse' {predictorBacktestExportJobName} -> predictorBacktestExportJobName) (\s@DescribePredictorBacktestExportJobResponse' {} a -> s {predictorBacktestExportJobName = a} :: DescribePredictorBacktestExportJobResponse)
+-- | The format of the exported data, CSV or PARQUET.
+describePredictorBacktestExportJobResponse_format :: Lens.Lens' DescribePredictorBacktestExportJobResponse (Prelude.Maybe Prelude.Text)
+describePredictorBacktestExportJobResponse_format = Lens.lens (\DescribePredictorBacktestExportJobResponse' {format} -> format) (\s@DescribePredictorBacktestExportJobResponse' {} a -> s {format = a} :: DescribePredictorBacktestExportJobResponse)
 
 -- | The last time the resource was modified. The timestamp depends on the
 -- status of the job:
@@ -340,7 +324,36 @@ describePredictorBacktestExportJobResponse_predictorBacktestExportJobName = Lens
 --
 -- -   @ACTIVE@ or @CREATE_FAILED@ - When the job finished or failed.
 describePredictorBacktestExportJobResponse_lastModificationTime :: Lens.Lens' DescribePredictorBacktestExportJobResponse (Prelude.Maybe Prelude.UTCTime)
-describePredictorBacktestExportJobResponse_lastModificationTime = Lens.lens (\DescribePredictorBacktestExportJobResponse' {lastModificationTime} -> lastModificationTime) (\s@DescribePredictorBacktestExportJobResponse' {} a -> s {lastModificationTime = a} :: DescribePredictorBacktestExportJobResponse) Prelude.. Lens.mapping Core._Time
+describePredictorBacktestExportJobResponse_lastModificationTime = Lens.lens (\DescribePredictorBacktestExportJobResponse' {lastModificationTime} -> lastModificationTime) (\s@DescribePredictorBacktestExportJobResponse' {} a -> s {lastModificationTime = a} :: DescribePredictorBacktestExportJobResponse) Prelude.. Lens.mapping Data._Time
+
+-- | Information about any errors that may have occurred during the backtest
+-- export.
+describePredictorBacktestExportJobResponse_message :: Lens.Lens' DescribePredictorBacktestExportJobResponse (Prelude.Maybe Prelude.Text)
+describePredictorBacktestExportJobResponse_message = Lens.lens (\DescribePredictorBacktestExportJobResponse' {message} -> message) (\s@DescribePredictorBacktestExportJobResponse' {} a -> s {message = a} :: DescribePredictorBacktestExportJobResponse)
+
+-- | The Amazon Resource Name (ARN) of the predictor.
+describePredictorBacktestExportJobResponse_predictorArn :: Lens.Lens' DescribePredictorBacktestExportJobResponse (Prelude.Maybe Prelude.Text)
+describePredictorBacktestExportJobResponse_predictorArn = Lens.lens (\DescribePredictorBacktestExportJobResponse' {predictorArn} -> predictorArn) (\s@DescribePredictorBacktestExportJobResponse' {} a -> s {predictorArn = a} :: DescribePredictorBacktestExportJobResponse)
+
+-- | The Amazon Resource Name (ARN) of the predictor backtest export job.
+describePredictorBacktestExportJobResponse_predictorBacktestExportJobArn :: Lens.Lens' DescribePredictorBacktestExportJobResponse (Prelude.Maybe Prelude.Text)
+describePredictorBacktestExportJobResponse_predictorBacktestExportJobArn = Lens.lens (\DescribePredictorBacktestExportJobResponse' {predictorBacktestExportJobArn} -> predictorBacktestExportJobArn) (\s@DescribePredictorBacktestExportJobResponse' {} a -> s {predictorBacktestExportJobArn = a} :: DescribePredictorBacktestExportJobResponse)
+
+-- | The name of the predictor backtest export job.
+describePredictorBacktestExportJobResponse_predictorBacktestExportJobName :: Lens.Lens' DescribePredictorBacktestExportJobResponse (Prelude.Maybe Prelude.Text)
+describePredictorBacktestExportJobResponse_predictorBacktestExportJobName = Lens.lens (\DescribePredictorBacktestExportJobResponse' {predictorBacktestExportJobName} -> predictorBacktestExportJobName) (\s@DescribePredictorBacktestExportJobResponse' {} a -> s {predictorBacktestExportJobName = a} :: DescribePredictorBacktestExportJobResponse)
+
+-- | The status of the predictor backtest export job. States include:
+--
+-- -   @ACTIVE@
+--
+-- -   @CREATE_PENDING@, @CREATE_IN_PROGRESS@, @CREATE_FAILED@
+--
+-- -   @CREATE_STOPPING@, @CREATE_STOPPED@
+--
+-- -   @DELETE_PENDING@, @DELETE_IN_PROGRESS@, @DELETE_FAILED@
+describePredictorBacktestExportJobResponse_status :: Lens.Lens' DescribePredictorBacktestExportJobResponse (Prelude.Maybe Prelude.Text)
+describePredictorBacktestExportJobResponse_status = Lens.lens (\DescribePredictorBacktestExportJobResponse' {status} -> status) (\s@DescribePredictorBacktestExportJobResponse' {} a -> s {status = a} :: DescribePredictorBacktestExportJobResponse)
 
 -- | The response's http status code.
 describePredictorBacktestExportJobResponse_httpStatus :: Lens.Lens' DescribePredictorBacktestExportJobResponse Prelude.Int
@@ -352,11 +365,12 @@ instance
   where
   rnf DescribePredictorBacktestExportJobResponse' {..} =
     Prelude.rnf creationTime
-      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf destination
+      `Prelude.seq` Prelude.rnf format
+      `Prelude.seq` Prelude.rnf lastModificationTime
+      `Prelude.seq` Prelude.rnf message
       `Prelude.seq` Prelude.rnf predictorArn
       `Prelude.seq` Prelude.rnf predictorBacktestExportJobArn
-      `Prelude.seq` Prelude.rnf message
       `Prelude.seq` Prelude.rnf predictorBacktestExportJobName
-      `Prelude.seq` Prelude.rnf lastModificationTime
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf httpStatus

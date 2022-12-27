@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.Types.FailureDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CodePipeline.Types.FailureDetails where
 
 import Amazonka.CodePipeline.Types.FailureType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents information about failure details.
@@ -88,13 +89,13 @@ instance Prelude.NFData FailureDetails where
       `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf message
 
-instance Core.ToJSON FailureDetails where
+instance Data.ToJSON FailureDetails where
   toJSON FailureDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("externalExecutionId" Core..=)
+          [ ("externalExecutionId" Data..=)
               Prelude.<$> externalExecutionId,
-            Prelude.Just ("type" Core..= type'),
-            Prelude.Just ("message" Core..= message)
+            Prelude.Just ("type" Data..= type'),
+            Prelude.Just ("message" Data..= message)
           ]
       )

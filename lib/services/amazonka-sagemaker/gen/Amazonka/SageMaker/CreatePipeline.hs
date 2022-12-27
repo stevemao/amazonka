@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.CreatePipeline
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,11 +27,13 @@ module Amazonka.SageMaker.CreatePipeline
     newCreatePipeline,
 
     -- * Request Lenses
-    createPipeline_pipelineDisplayName,
+    createPipeline_parallelismConfiguration,
+    createPipeline_pipelineDefinition,
+    createPipeline_pipelineDefinitionS3Location,
     createPipeline_pipelineDescription,
+    createPipeline_pipelineDisplayName,
     createPipeline_tags,
     createPipeline_pipelineName,
-    createPipeline_pipelineDefinition,
     createPipeline_clientRequestToken,
     createPipeline_roleArn,
 
@@ -46,7 +48,8 @@ module Amazonka.SageMaker.CreatePipeline
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,16 +57,23 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newCreatePipeline' smart constructor.
 data CreatePipeline = CreatePipeline'
-  { -- | The display name of the pipeline.
-    pipelineDisplayName :: Prelude.Maybe Prelude.Text,
+  { -- | This is the configuration that controls the parallelism of the pipeline.
+    -- If specified, it applies to all runs of this pipeline by default.
+    parallelismConfiguration :: Prelude.Maybe ParallelismConfiguration,
+    -- | The JSON pipeline definition of the pipeline.
+    pipelineDefinition :: Prelude.Maybe Prelude.Text,
+    -- | The location of the pipeline definition stored in Amazon S3. If
+    -- specified, SageMaker will retrieve the pipeline definition from this
+    -- location.
+    pipelineDefinitionS3Location :: Prelude.Maybe PipelineDefinitionS3Location,
     -- | A description of the pipeline.
     pipelineDescription :: Prelude.Maybe Prelude.Text,
+    -- | The display name of the pipeline.
+    pipelineDisplayName :: Prelude.Maybe Prelude.Text,
     -- | A list of tags to apply to the created pipeline.
     tags :: Prelude.Maybe [Tag],
     -- | The name of the pipeline.
     pipelineName :: Prelude.Text,
-    -- | The JSON pipeline definition of the pipeline.
-    pipelineDefinition :: Prelude.Text,
     -- | A unique, case-sensitive identifier that you provide to ensure the
     -- idempotency of the operation. An idempotent operation completes no more
     -- than one time.
@@ -82,15 +92,22 @@ data CreatePipeline = CreatePipeline'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'pipelineDisplayName', 'createPipeline_pipelineDisplayName' - The display name of the pipeline.
+-- 'parallelismConfiguration', 'createPipeline_parallelismConfiguration' - This is the configuration that controls the parallelism of the pipeline.
+-- If specified, it applies to all runs of this pipeline by default.
+--
+-- 'pipelineDefinition', 'createPipeline_pipelineDefinition' - The JSON pipeline definition of the pipeline.
+--
+-- 'pipelineDefinitionS3Location', 'createPipeline_pipelineDefinitionS3Location' - The location of the pipeline definition stored in Amazon S3. If
+-- specified, SageMaker will retrieve the pipeline definition from this
+-- location.
 --
 -- 'pipelineDescription', 'createPipeline_pipelineDescription' - A description of the pipeline.
+--
+-- 'pipelineDisplayName', 'createPipeline_pipelineDisplayName' - The display name of the pipeline.
 --
 -- 'tags', 'createPipeline_tags' - A list of tags to apply to the created pipeline.
 --
 -- 'pipelineName', 'createPipeline_pipelineName' - The name of the pipeline.
---
--- 'pipelineDefinition', 'createPipeline_pipelineDefinition' - The JSON pipeline definition of the pipeline.
 --
 -- 'clientRequestToken', 'createPipeline_clientRequestToken' - A unique, case-sensitive identifier that you provide to ensure the
 -- idempotency of the operation. An idempotent operation completes no more
@@ -101,8 +118,6 @@ data CreatePipeline = CreatePipeline'
 newCreatePipeline ::
   -- | 'pipelineName'
   Prelude.Text ->
-  -- | 'pipelineDefinition'
-  Prelude.Text ->
   -- | 'clientRequestToken'
   Prelude.Text ->
   -- | 'roleArn'
@@ -110,27 +125,43 @@ newCreatePipeline ::
   CreatePipeline
 newCreatePipeline
   pPipelineName_
-  pPipelineDefinition_
   pClientRequestToken_
   pRoleArn_ =
     CreatePipeline'
-      { pipelineDisplayName =
+      { parallelismConfiguration =
           Prelude.Nothing,
+        pipelineDefinition = Prelude.Nothing,
+        pipelineDefinitionS3Location = Prelude.Nothing,
         pipelineDescription = Prelude.Nothing,
+        pipelineDisplayName = Prelude.Nothing,
         tags = Prelude.Nothing,
         pipelineName = pPipelineName_,
-        pipelineDefinition = pPipelineDefinition_,
         clientRequestToken = pClientRequestToken_,
         roleArn = pRoleArn_
       }
 
--- | The display name of the pipeline.
-createPipeline_pipelineDisplayName :: Lens.Lens' CreatePipeline (Prelude.Maybe Prelude.Text)
-createPipeline_pipelineDisplayName = Lens.lens (\CreatePipeline' {pipelineDisplayName} -> pipelineDisplayName) (\s@CreatePipeline' {} a -> s {pipelineDisplayName = a} :: CreatePipeline)
+-- | This is the configuration that controls the parallelism of the pipeline.
+-- If specified, it applies to all runs of this pipeline by default.
+createPipeline_parallelismConfiguration :: Lens.Lens' CreatePipeline (Prelude.Maybe ParallelismConfiguration)
+createPipeline_parallelismConfiguration = Lens.lens (\CreatePipeline' {parallelismConfiguration} -> parallelismConfiguration) (\s@CreatePipeline' {} a -> s {parallelismConfiguration = a} :: CreatePipeline)
+
+-- | The JSON pipeline definition of the pipeline.
+createPipeline_pipelineDefinition :: Lens.Lens' CreatePipeline (Prelude.Maybe Prelude.Text)
+createPipeline_pipelineDefinition = Lens.lens (\CreatePipeline' {pipelineDefinition} -> pipelineDefinition) (\s@CreatePipeline' {} a -> s {pipelineDefinition = a} :: CreatePipeline)
+
+-- | The location of the pipeline definition stored in Amazon S3. If
+-- specified, SageMaker will retrieve the pipeline definition from this
+-- location.
+createPipeline_pipelineDefinitionS3Location :: Lens.Lens' CreatePipeline (Prelude.Maybe PipelineDefinitionS3Location)
+createPipeline_pipelineDefinitionS3Location = Lens.lens (\CreatePipeline' {pipelineDefinitionS3Location} -> pipelineDefinitionS3Location) (\s@CreatePipeline' {} a -> s {pipelineDefinitionS3Location = a} :: CreatePipeline)
 
 -- | A description of the pipeline.
 createPipeline_pipelineDescription :: Lens.Lens' CreatePipeline (Prelude.Maybe Prelude.Text)
 createPipeline_pipelineDescription = Lens.lens (\CreatePipeline' {pipelineDescription} -> pipelineDescription) (\s@CreatePipeline' {} a -> s {pipelineDescription = a} :: CreatePipeline)
+
+-- | The display name of the pipeline.
+createPipeline_pipelineDisplayName :: Lens.Lens' CreatePipeline (Prelude.Maybe Prelude.Text)
+createPipeline_pipelineDisplayName = Lens.lens (\CreatePipeline' {pipelineDisplayName} -> pipelineDisplayName) (\s@CreatePipeline' {} a -> s {pipelineDisplayName = a} :: CreatePipeline)
 
 -- | A list of tags to apply to the created pipeline.
 createPipeline_tags :: Lens.Lens' CreatePipeline (Prelude.Maybe [Tag])
@@ -139,10 +170,6 @@ createPipeline_tags = Lens.lens (\CreatePipeline' {tags} -> tags) (\s@CreatePipe
 -- | The name of the pipeline.
 createPipeline_pipelineName :: Lens.Lens' CreatePipeline Prelude.Text
 createPipeline_pipelineName = Lens.lens (\CreatePipeline' {pipelineName} -> pipelineName) (\s@CreatePipeline' {} a -> s {pipelineName = a} :: CreatePipeline)
-
--- | The JSON pipeline definition of the pipeline.
-createPipeline_pipelineDefinition :: Lens.Lens' CreatePipeline Prelude.Text
-createPipeline_pipelineDefinition = Lens.lens (\CreatePipeline' {pipelineDefinition} -> pipelineDefinition) (\s@CreatePipeline' {} a -> s {pipelineDefinition = a} :: CreatePipeline)
 
 -- | A unique, case-sensitive identifier that you provide to ensure the
 -- idempotency of the operation. An idempotent operation completes no more
@@ -159,70 +186,80 @@ instance Core.AWSRequest CreatePipeline where
   type
     AWSResponse CreatePipeline =
       CreatePipelineResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreatePipelineResponse'
-            Prelude.<$> (x Core..?> "PipelineArn")
+            Prelude.<$> (x Data..?> "PipelineArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreatePipeline where
   hashWithSalt _salt CreatePipeline' {..} =
-    _salt `Prelude.hashWithSalt` pipelineDisplayName
+    _salt
+      `Prelude.hashWithSalt` parallelismConfiguration
+      `Prelude.hashWithSalt` pipelineDefinition
+      `Prelude.hashWithSalt` pipelineDefinitionS3Location
       `Prelude.hashWithSalt` pipelineDescription
+      `Prelude.hashWithSalt` pipelineDisplayName
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` pipelineName
-      `Prelude.hashWithSalt` pipelineDefinition
       `Prelude.hashWithSalt` clientRequestToken
       `Prelude.hashWithSalt` roleArn
 
 instance Prelude.NFData CreatePipeline where
   rnf CreatePipeline' {..} =
-    Prelude.rnf pipelineDisplayName
+    Prelude.rnf parallelismConfiguration
+      `Prelude.seq` Prelude.rnf pipelineDefinition
+      `Prelude.seq` Prelude.rnf pipelineDefinitionS3Location
       `Prelude.seq` Prelude.rnf pipelineDescription
+      `Prelude.seq` Prelude.rnf pipelineDisplayName
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf pipelineName
-      `Prelude.seq` Prelude.rnf pipelineDefinition
       `Prelude.seq` Prelude.rnf clientRequestToken
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToHeaders CreatePipeline where
+instance Data.ToHeaders CreatePipeline where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.CreatePipeline" :: Prelude.ByteString),
+              Data.=# ("SageMaker.CreatePipeline" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreatePipeline where
+instance Data.ToJSON CreatePipeline where
   toJSON CreatePipeline' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PipelineDisplayName" Core..=)
-              Prelude.<$> pipelineDisplayName,
-            ("PipelineDescription" Core..=)
+          [ ("ParallelismConfiguration" Data..=)
+              Prelude.<$> parallelismConfiguration,
+            ("PipelineDefinition" Data..=)
+              Prelude.<$> pipelineDefinition,
+            ("PipelineDefinitionS3Location" Data..=)
+              Prelude.<$> pipelineDefinitionS3Location,
+            ("PipelineDescription" Data..=)
               Prelude.<$> pipelineDescription,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("PipelineName" Core..= pipelineName),
+            ("PipelineDisplayName" Data..=)
+              Prelude.<$> pipelineDisplayName,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("PipelineName" Data..= pipelineName),
             Prelude.Just
-              ("PipelineDefinition" Core..= pipelineDefinition),
-            Prelude.Just
-              ("ClientRequestToken" Core..= clientRequestToken),
-            Prelude.Just ("RoleArn" Core..= roleArn)
+              ("ClientRequestToken" Data..= clientRequestToken),
+            Prelude.Just ("RoleArn" Data..= roleArn)
           ]
       )
 
-instance Core.ToPath CreatePipeline where
+instance Data.ToPath CreatePipeline where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreatePipeline where
+instance Data.ToQuery CreatePipeline where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreatePipelineResponse' smart constructor.

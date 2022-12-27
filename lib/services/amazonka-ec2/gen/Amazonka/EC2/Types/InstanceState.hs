@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.InstanceState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.InstanceState where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.InstanceStateName
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the current state of an instance.
@@ -139,10 +140,10 @@ instanceState_name = Lens.lens (\InstanceState' {name} -> name) (\s@InstanceStat
 instanceState_code :: Lens.Lens' InstanceState Prelude.Int
 instanceState_code = Lens.lens (\InstanceState' {code} -> code) (\s@InstanceState' {} a -> s {code = a} :: InstanceState)
 
-instance Core.FromXML InstanceState where
+instance Data.FromXML InstanceState where
   parseXML x =
     InstanceState'
-      Prelude.<$> (x Core..@ "name") Prelude.<*> (x Core..@ "code")
+      Prelude.<$> (x Data..@ "name") Prelude.<*> (x Data..@ "code")
 
 instance Prelude.Hashable InstanceState where
   hashWithSalt _salt InstanceState' {..} =

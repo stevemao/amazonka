@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.DescribeOrganizationalUnit
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,7 +24,7 @@
 --
 -- This operation can be called only from the organization\'s management
 -- account or by a member account that is a delegated administrator for an
--- AWS service.
+-- Amazon Web Services service.
 module Amazonka.Organizations.DescribeOrganizationalUnit
   ( -- * Creating a Request
     DescribeOrganizationalUnit (..),
@@ -44,7 +44,8 @@ module Amazonka.Organizations.DescribeOrganizationalUnit
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -108,12 +109,13 @@ instance Core.AWSRequest DescribeOrganizationalUnit where
   type
     AWSResponse DescribeOrganizationalUnit =
       DescribeOrganizationalUnitResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeOrganizationalUnitResponse'
-            Prelude.<$> (x Core..?> "OrganizationalUnit")
+            Prelude.<$> (x Data..?> "OrganizationalUnit")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -125,36 +127,36 @@ instance Prelude.NFData DescribeOrganizationalUnit where
   rnf DescribeOrganizationalUnit' {..} =
     Prelude.rnf organizationalUnitId
 
-instance Core.ToHeaders DescribeOrganizationalUnit where
+instance Data.ToHeaders DescribeOrganizationalUnit where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.DescribeOrganizationalUnit" ::
+              Data.=# ( "AWSOrganizationsV20161128.DescribeOrganizationalUnit" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeOrganizationalUnit where
+instance Data.ToJSON DescribeOrganizationalUnit where
   toJSON DescribeOrganizationalUnit' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "OrganizationalUnitId"
-                  Core..= organizationalUnitId
+                  Data..= organizationalUnitId
               )
           ]
       )
 
-instance Core.ToPath DescribeOrganizationalUnit where
+instance Data.ToPath DescribeOrganizationalUnit where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeOrganizationalUnit where
+instance Data.ToQuery DescribeOrganizationalUnit where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeOrganizationalUnitResponse' smart constructor.

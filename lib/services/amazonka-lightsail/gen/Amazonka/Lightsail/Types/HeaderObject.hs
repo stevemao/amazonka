@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.HeaderObject
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.HeaderObject where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types.ForwardValues
 import Amazonka.Lightsail.Types.HeaderEnum
 import qualified Amazonka.Prelude as Prelude
@@ -103,16 +104,16 @@ headerObject_headersAllowList = Lens.lens (\HeaderObject' {headersAllowList} -> 
 headerObject_option :: Lens.Lens' HeaderObject (Prelude.Maybe ForwardValues)
 headerObject_option = Lens.lens (\HeaderObject' {option} -> option) (\s@HeaderObject' {} a -> s {option = a} :: HeaderObject)
 
-instance Core.FromJSON HeaderObject where
+instance Data.FromJSON HeaderObject where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HeaderObject"
       ( \x ->
           HeaderObject'
-            Prelude.<$> ( x Core..:? "headersAllowList"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "headersAllowList"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "option")
+            Prelude.<*> (x Data..:? "option")
       )
 
 instance Prelude.Hashable HeaderObject where
@@ -125,12 +126,12 @@ instance Prelude.NFData HeaderObject where
     Prelude.rnf headersAllowList
       `Prelude.seq` Prelude.rnf option
 
-instance Core.ToJSON HeaderObject where
+instance Data.ToJSON HeaderObject where
   toJSON HeaderObject' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("headersAllowList" Core..=)
+          [ ("headersAllowList" Data..=)
               Prelude.<$> headersAllowList,
-            ("option" Core..=) Prelude.<$> option
+            ("option" Data..=) Prelude.<$> option
           ]
       )

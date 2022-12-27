@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.VirtualGatewayTlsValidationContextTrust
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,8 @@ import Amazonka.AppMesh.Types.VirtualGatewayTlsValidationContextAcmTrust
 import Amazonka.AppMesh.Types.VirtualGatewayTlsValidationContextFileTrust
 import Amazonka.AppMesh.Types.VirtualGatewayTlsValidationContextSdsTrust
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents a Transport Layer Security (TLS) validation
@@ -34,12 +35,12 @@ data VirtualGatewayTlsValidationContextTrust = VirtualGatewayTlsValidationContex
   { -- | A reference to an object that represents a Transport Layer Security
     -- (TLS) validation context trust for an Certificate Manager certificate.
     acm :: Prelude.Maybe VirtualGatewayTlsValidationContextAcmTrust,
-    -- | A reference to an object that represents a virtual gateway\'s Transport
-    -- Layer Security (TLS) Secret Discovery Service validation context trust.
-    sds :: Prelude.Maybe VirtualGatewayTlsValidationContextSdsTrust,
     -- | An object that represents a Transport Layer Security (TLS) validation
     -- context trust for a local file.
-    file :: Prelude.Maybe VirtualGatewayTlsValidationContextFileTrust
+    file :: Prelude.Maybe VirtualGatewayTlsValidationContextFileTrust,
+    -- | A reference to an object that represents a virtual gateway\'s Transport
+    -- Layer Security (TLS) Secret Discovery Service validation context trust.
+    sds :: Prelude.Maybe VirtualGatewayTlsValidationContextSdsTrust
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -54,19 +55,19 @@ data VirtualGatewayTlsValidationContextTrust = VirtualGatewayTlsValidationContex
 -- 'acm', 'virtualGatewayTlsValidationContextTrust_acm' - A reference to an object that represents a Transport Layer Security
 -- (TLS) validation context trust for an Certificate Manager certificate.
 --
--- 'sds', 'virtualGatewayTlsValidationContextTrust_sds' - A reference to an object that represents a virtual gateway\'s Transport
--- Layer Security (TLS) Secret Discovery Service validation context trust.
---
 -- 'file', 'virtualGatewayTlsValidationContextTrust_file' - An object that represents a Transport Layer Security (TLS) validation
 -- context trust for a local file.
+--
+-- 'sds', 'virtualGatewayTlsValidationContextTrust_sds' - A reference to an object that represents a virtual gateway\'s Transport
+-- Layer Security (TLS) Secret Discovery Service validation context trust.
 newVirtualGatewayTlsValidationContextTrust ::
   VirtualGatewayTlsValidationContextTrust
 newVirtualGatewayTlsValidationContextTrust =
   VirtualGatewayTlsValidationContextTrust'
     { acm =
         Prelude.Nothing,
-      sds = Prelude.Nothing,
-      file = Prelude.Nothing
+      file = Prelude.Nothing,
+      sds = Prelude.Nothing
     }
 
 -- | A reference to an object that represents a Transport Layer Security
@@ -74,28 +75,28 @@ newVirtualGatewayTlsValidationContextTrust =
 virtualGatewayTlsValidationContextTrust_acm :: Lens.Lens' VirtualGatewayTlsValidationContextTrust (Prelude.Maybe VirtualGatewayTlsValidationContextAcmTrust)
 virtualGatewayTlsValidationContextTrust_acm = Lens.lens (\VirtualGatewayTlsValidationContextTrust' {acm} -> acm) (\s@VirtualGatewayTlsValidationContextTrust' {} a -> s {acm = a} :: VirtualGatewayTlsValidationContextTrust)
 
--- | A reference to an object that represents a virtual gateway\'s Transport
--- Layer Security (TLS) Secret Discovery Service validation context trust.
-virtualGatewayTlsValidationContextTrust_sds :: Lens.Lens' VirtualGatewayTlsValidationContextTrust (Prelude.Maybe VirtualGatewayTlsValidationContextSdsTrust)
-virtualGatewayTlsValidationContextTrust_sds = Lens.lens (\VirtualGatewayTlsValidationContextTrust' {sds} -> sds) (\s@VirtualGatewayTlsValidationContextTrust' {} a -> s {sds = a} :: VirtualGatewayTlsValidationContextTrust)
-
 -- | An object that represents a Transport Layer Security (TLS) validation
 -- context trust for a local file.
 virtualGatewayTlsValidationContextTrust_file :: Lens.Lens' VirtualGatewayTlsValidationContextTrust (Prelude.Maybe VirtualGatewayTlsValidationContextFileTrust)
 virtualGatewayTlsValidationContextTrust_file = Lens.lens (\VirtualGatewayTlsValidationContextTrust' {file} -> file) (\s@VirtualGatewayTlsValidationContextTrust' {} a -> s {file = a} :: VirtualGatewayTlsValidationContextTrust)
 
+-- | A reference to an object that represents a virtual gateway\'s Transport
+-- Layer Security (TLS) Secret Discovery Service validation context trust.
+virtualGatewayTlsValidationContextTrust_sds :: Lens.Lens' VirtualGatewayTlsValidationContextTrust (Prelude.Maybe VirtualGatewayTlsValidationContextSdsTrust)
+virtualGatewayTlsValidationContextTrust_sds = Lens.lens (\VirtualGatewayTlsValidationContextTrust' {sds} -> sds) (\s@VirtualGatewayTlsValidationContextTrust' {} a -> s {sds = a} :: VirtualGatewayTlsValidationContextTrust)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     VirtualGatewayTlsValidationContextTrust
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VirtualGatewayTlsValidationContextTrust"
       ( \x ->
           VirtualGatewayTlsValidationContextTrust'
-            Prelude.<$> (x Core..:? "acm")
-            Prelude.<*> (x Core..:? "sds")
-            Prelude.<*> (x Core..:? "file")
+            Prelude.<$> (x Data..:? "acm")
+            Prelude.<*> (x Data..:? "file")
+            Prelude.<*> (x Data..:? "sds")
       )
 
 instance
@@ -106,8 +107,8 @@ instance
     _salt
     VirtualGatewayTlsValidationContextTrust' {..} =
       _salt `Prelude.hashWithSalt` acm
-        `Prelude.hashWithSalt` sds
         `Prelude.hashWithSalt` file
+        `Prelude.hashWithSalt` sds
 
 instance
   Prelude.NFData
@@ -115,18 +116,18 @@ instance
   where
   rnf VirtualGatewayTlsValidationContextTrust' {..} =
     Prelude.rnf acm
-      `Prelude.seq` Prelude.rnf sds
       `Prelude.seq` Prelude.rnf file
+      `Prelude.seq` Prelude.rnf sds
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     VirtualGatewayTlsValidationContextTrust
   where
   toJSON VirtualGatewayTlsValidationContextTrust' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("acm" Core..=) Prelude.<$> acm,
-            ("sds" Core..=) Prelude.<$> sds,
-            ("file" Core..=) Prelude.<$> file
+          [ ("acm" Data..=) Prelude.<$> acm,
+            ("file" Data..=) Prelude.<$> file,
+            ("sds" Data..=) Prelude.<$> sds
           ]
       )

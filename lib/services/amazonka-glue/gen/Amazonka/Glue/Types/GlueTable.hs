@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.GlueTable
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Glue.Types.GlueTable where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The database and table in the Glue Data Catalog that is used for input
@@ -28,7 +29,16 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newGlueTable' smart constructor.
 data GlueTable = GlueTable'
-  { -- | A unique identifier for the Glue Data Catalog.
+  { -- | Additional options for the table. Currently there are two keys
+    -- supported:
+    --
+    -- -   @pushDownPredicate@: to filter on partitions without having to list
+    --     and read all the files in your dataset.
+    --
+    -- -   @catalogPartitionPredicate@: to use server-side partition pruning
+    --     using partition indexes in the Glue Data Catalog.
+    additionalOptions :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | A unique identifier for the Glue Data Catalog.
     catalogId :: Prelude.Maybe Prelude.Text,
     -- | The name of the connection to the Glue Data Catalog.
     connectionName :: Prelude.Maybe Prelude.Text,
@@ -47,6 +57,15 @@ data GlueTable = GlueTable'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'additionalOptions', 'glueTable_additionalOptions' - Additional options for the table. Currently there are two keys
+-- supported:
+--
+-- -   @pushDownPredicate@: to filter on partitions without having to list
+--     and read all the files in your dataset.
+--
+-- -   @catalogPartitionPredicate@: to use server-side partition pruning
+--     using partition indexes in the Glue Data Catalog.
+--
 -- 'catalogId', 'glueTable_catalogId' - A unique identifier for the Glue Data Catalog.
 --
 -- 'connectionName', 'glueTable_connectionName' - The name of the connection to the Glue Data Catalog.
@@ -62,11 +81,23 @@ newGlueTable ::
   GlueTable
 newGlueTable pDatabaseName_ pTableName_ =
   GlueTable'
-    { catalogId = Prelude.Nothing,
+    { additionalOptions = Prelude.Nothing,
+      catalogId = Prelude.Nothing,
       connectionName = Prelude.Nothing,
       databaseName = pDatabaseName_,
       tableName = pTableName_
     }
+
+-- | Additional options for the table. Currently there are two keys
+-- supported:
+--
+-- -   @pushDownPredicate@: to filter on partitions without having to list
+--     and read all the files in your dataset.
+--
+-- -   @catalogPartitionPredicate@: to use server-side partition pruning
+--     using partition indexes in the Glue Data Catalog.
+glueTable_additionalOptions :: Lens.Lens' GlueTable (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+glueTable_additionalOptions = Lens.lens (\GlueTable' {additionalOptions} -> additionalOptions) (\s@GlueTable' {} a -> s {additionalOptions = a} :: GlueTable) Prelude.. Lens.mapping Lens.coerced
 
 -- | A unique identifier for the Glue Data Catalog.
 glueTable_catalogId :: Lens.Lens' GlueTable (Prelude.Maybe Prelude.Text)
@@ -84,40 +115,47 @@ glueTable_databaseName = Lens.lens (\GlueTable' {databaseName} -> databaseName) 
 glueTable_tableName :: Lens.Lens' GlueTable Prelude.Text
 glueTable_tableName = Lens.lens (\GlueTable' {tableName} -> tableName) (\s@GlueTable' {} a -> s {tableName = a} :: GlueTable)
 
-instance Core.FromJSON GlueTable where
+instance Data.FromJSON GlueTable where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GlueTable"
       ( \x ->
           GlueTable'
-            Prelude.<$> (x Core..:? "CatalogId")
-            Prelude.<*> (x Core..:? "ConnectionName")
-            Prelude.<*> (x Core..: "DatabaseName")
-            Prelude.<*> (x Core..: "TableName")
+            Prelude.<$> ( x Data..:? "AdditionalOptions"
+                            Data..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Data..:? "CatalogId")
+            Prelude.<*> (x Data..:? "ConnectionName")
+            Prelude.<*> (x Data..: "DatabaseName")
+            Prelude.<*> (x Data..: "TableName")
       )
 
 instance Prelude.Hashable GlueTable where
   hashWithSalt _salt GlueTable' {..} =
-    _salt `Prelude.hashWithSalt` catalogId
+    _salt `Prelude.hashWithSalt` additionalOptions
+      `Prelude.hashWithSalt` catalogId
       `Prelude.hashWithSalt` connectionName
       `Prelude.hashWithSalt` databaseName
       `Prelude.hashWithSalt` tableName
 
 instance Prelude.NFData GlueTable where
   rnf GlueTable' {..} =
-    Prelude.rnf catalogId
+    Prelude.rnf additionalOptions
+      `Prelude.seq` Prelude.rnf catalogId
       `Prelude.seq` Prelude.rnf connectionName
       `Prelude.seq` Prelude.rnf databaseName
       `Prelude.seq` Prelude.rnf tableName
 
-instance Core.ToJSON GlueTable where
+instance Data.ToJSON GlueTable where
   toJSON GlueTable' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            ("ConnectionName" Core..=)
+          [ ("AdditionalOptions" Data..=)
+              Prelude.<$> additionalOptions,
+            ("CatalogId" Data..=) Prelude.<$> catalogId,
+            ("ConnectionName" Data..=)
               Prelude.<$> connectionName,
-            Prelude.Just ("DatabaseName" Core..= databaseName),
-            Prelude.Just ("TableName" Core..= tableName)
+            Prelude.Just ("DatabaseName" Data..= databaseName),
+            Prelude.Just ("TableName" Data..= tableName)
           ]
       )

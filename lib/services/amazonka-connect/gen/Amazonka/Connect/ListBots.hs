@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.ListBots
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,7 +24,8 @@
 -- change.
 --
 -- For the specified version of Amazon Lex, returns a paginated list of all
--- the Amazon Lex bots currently associated with the instance.
+-- the Amazon Lex bots currently associated with the instance. Use this API
+-- to returns both Amazon Lex V1 and V2 bots.
 --
 -- This operation returns paginated results.
 module Amazonka.Connect.ListBots
@@ -33,8 +34,8 @@ module Amazonka.Connect.ListBots
     newListBots,
 
     -- * Request Lenses
-    listBots_nextToken,
     listBots_maxResults,
+    listBots_nextToken,
     listBots_instanceId,
     listBots_lexVersion,
 
@@ -43,27 +44,28 @@ module Amazonka.Connect.ListBots
     newListBotsResponse,
 
     -- * Response Lenses
-    listBotsResponse_nextToken,
     listBotsResponse_lexBots,
+    listBotsResponse_nextToken,
     listBotsResponse_httpStatus,
   )
 where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListBots' smart constructor.
 data ListBots = ListBots'
-  { -- | The token for the next set of results. Use the value returned in the
+  { -- | The maximum number of results to return per page.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results. Use the value returned in the
     -- previous response in the next request to retrieve the next set of
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return per page.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The identifier of the Amazon Connect instance. You can find the
     -- instanceId in the ARN of the instance.
     instanceId :: Prelude.Text,
@@ -80,11 +82,11 @@ data ListBots = ListBots'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listBots_maxResults' - The maximum number of results to return per page.
+--
 -- 'nextToken', 'listBots_nextToken' - The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
---
--- 'maxResults', 'listBots_maxResults' - The maximum number of results to return per page.
 --
 -- 'instanceId', 'listBots_instanceId' - The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -98,21 +100,21 @@ newListBots ::
   ListBots
 newListBots pInstanceId_ pLexVersion_ =
   ListBots'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       instanceId = pInstanceId_,
       lexVersion = pLexVersion_
     }
+
+-- | The maximum number of results to return per page.
+listBots_maxResults :: Lens.Lens' ListBots (Prelude.Maybe Prelude.Natural)
+listBots_maxResults = Lens.lens (\ListBots' {maxResults} -> maxResults) (\s@ListBots' {} a -> s {maxResults = a} :: ListBots)
 
 -- | The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
 listBots_nextToken :: Lens.Lens' ListBots (Prelude.Maybe Prelude.Text)
 listBots_nextToken = Lens.lens (\ListBots' {nextToken} -> nextToken) (\s@ListBots' {} a -> s {nextToken = a} :: ListBots)
-
--- | The maximum number of results to return per page.
-listBots_maxResults :: Lens.Lens' ListBots (Prelude.Maybe Prelude.Natural)
-listBots_maxResults = Lens.lens (\ListBots' {maxResults} -> maxResults) (\s@ListBots' {} a -> s {maxResults = a} :: ListBots)
 
 -- | The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -144,62 +146,63 @@ instance Core.AWSPager ListBots where
 
 instance Core.AWSRequest ListBots where
   type AWSResponse ListBots = ListBotsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListBotsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "LexBots" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "LexBots" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListBots where
   hashWithSalt _salt ListBots' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` instanceId
       `Prelude.hashWithSalt` lexVersion
 
 instance Prelude.NFData ListBots where
   rnf ListBots' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf lexVersion
 
-instance Core.ToHeaders ListBots where
+instance Data.ToHeaders ListBots where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListBots where
+instance Data.ToPath ListBots where
   toPath ListBots' {..} =
     Prelude.mconcat
-      ["/instance/", Core.toBS instanceId, "/bots"]
+      ["/instance/", Data.toBS instanceId, "/bots"]
 
-instance Core.ToQuery ListBots where
+instance Data.ToQuery ListBots where
   toQuery ListBots' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults,
-        "lexVersion" Core.=: lexVersion
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "lexVersion" Data.=: lexVersion
       ]
 
 -- | /See:/ 'newListBotsResponse' smart constructor.
 data ListBotsResponse = ListBotsResponse'
-  { -- | If there are additional results, this is the token for the next set of
+  { -- | The names and Amazon Web Services Regions of the Amazon Lex or Amazon
+    -- Lex V2 bots associated with the specified instance.
+    lexBots :: Prelude.Maybe [LexBotConfig],
+    -- | If there are additional results, this is the token for the next set of
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The names and Regions of the Amazon Lex or Amazon Lex V2 bots associated
-    -- with the specified instance.
-    lexBots :: Prelude.Maybe [LexBotConfig],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -213,11 +216,11 @@ data ListBotsResponse = ListBotsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'lexBots', 'listBotsResponse_lexBots' - The names and Amazon Web Services Regions of the Amazon Lex or Amazon
+-- Lex V2 bots associated with the specified instance.
+--
 -- 'nextToken', 'listBotsResponse_nextToken' - If there are additional results, this is the token for the next set of
 -- results.
---
--- 'lexBots', 'listBotsResponse_lexBots' - The names and Regions of the Amazon Lex or Amazon Lex V2 bots associated
--- with the specified instance.
 --
 -- 'httpStatus', 'listBotsResponse_httpStatus' - The response's http status code.
 newListBotsResponse ::
@@ -226,20 +229,20 @@ newListBotsResponse ::
   ListBotsResponse
 newListBotsResponse pHttpStatus_ =
   ListBotsResponse'
-    { nextToken = Prelude.Nothing,
-      lexBots = Prelude.Nothing,
+    { lexBots = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The names and Amazon Web Services Regions of the Amazon Lex or Amazon
+-- Lex V2 bots associated with the specified instance.
+listBotsResponse_lexBots :: Lens.Lens' ListBotsResponse (Prelude.Maybe [LexBotConfig])
+listBotsResponse_lexBots = Lens.lens (\ListBotsResponse' {lexBots} -> lexBots) (\s@ListBotsResponse' {} a -> s {lexBots = a} :: ListBotsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | If there are additional results, this is the token for the next set of
 -- results.
 listBotsResponse_nextToken :: Lens.Lens' ListBotsResponse (Prelude.Maybe Prelude.Text)
 listBotsResponse_nextToken = Lens.lens (\ListBotsResponse' {nextToken} -> nextToken) (\s@ListBotsResponse' {} a -> s {nextToken = a} :: ListBotsResponse)
-
--- | The names and Regions of the Amazon Lex or Amazon Lex V2 bots associated
--- with the specified instance.
-listBotsResponse_lexBots :: Lens.Lens' ListBotsResponse (Prelude.Maybe [LexBotConfig])
-listBotsResponse_lexBots = Lens.lens (\ListBotsResponse' {lexBots} -> lexBots) (\s@ListBotsResponse' {} a -> s {lexBots = a} :: ListBotsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listBotsResponse_httpStatus :: Lens.Lens' ListBotsResponse Prelude.Int
@@ -247,6 +250,6 @@ listBotsResponse_httpStatus = Lens.lens (\ListBotsResponse' {httpStatus} -> http
 
 instance Prelude.NFData ListBotsResponse where
   rnf ListBotsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf lexBots
+    Prelude.rnf lexBots
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

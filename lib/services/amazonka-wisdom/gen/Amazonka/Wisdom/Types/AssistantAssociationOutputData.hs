@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.Types.AssistantAssociationOutputData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Wisdom.Types.AssistantAssociationOutputData where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Wisdom.Types.KnowledgeBaseAssociationData
 
@@ -54,13 +55,13 @@ newAssistantAssociationOutputData =
 assistantAssociationOutputData_knowledgeBaseAssociation :: Lens.Lens' AssistantAssociationOutputData (Prelude.Maybe KnowledgeBaseAssociationData)
 assistantAssociationOutputData_knowledgeBaseAssociation = Lens.lens (\AssistantAssociationOutputData' {knowledgeBaseAssociation} -> knowledgeBaseAssociation) (\s@AssistantAssociationOutputData' {} a -> s {knowledgeBaseAssociation = a} :: AssistantAssociationOutputData)
 
-instance Core.FromJSON AssistantAssociationOutputData where
+instance Data.FromJSON AssistantAssociationOutputData where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AssistantAssociationOutputData"
       ( \x ->
           AssistantAssociationOutputData'
-            Prelude.<$> (x Core..:? "knowledgeBaseAssociation")
+            Prelude.<$> (x Data..:? "knowledgeBaseAssociation")
       )
 
 instance

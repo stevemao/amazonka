@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.UpdateColumnStatisticsForTable
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.Glue.UpdateColumnStatisticsForTable
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -123,12 +124,13 @@ instance
   type
     AWSResponse UpdateColumnStatisticsForTable =
       UpdateColumnStatisticsForTableResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateColumnStatisticsForTableResponse'
-            Prelude.<$> (x Core..?> "Errors" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Errors" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -155,41 +157,41 @@ instance
       `Prelude.seq` Prelude.rnf columnStatisticsList
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateColumnStatisticsForTable
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSGlue.UpdateColumnStatisticsForTable" ::
+              Data.=# ( "AWSGlue.UpdateColumnStatisticsForTable" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateColumnStatisticsForTable where
+instance Data.ToJSON UpdateColumnStatisticsForTable where
   toJSON UpdateColumnStatisticsForTable' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            Prelude.Just ("DatabaseName" Core..= databaseName),
-            Prelude.Just ("TableName" Core..= tableName),
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            Prelude.Just ("DatabaseName" Data..= databaseName),
+            Prelude.Just ("TableName" Data..= tableName),
             Prelude.Just
               ( "ColumnStatisticsList"
-                  Core..= columnStatisticsList
+                  Data..= columnStatisticsList
               )
           ]
       )
 
-instance Core.ToPath UpdateColumnStatisticsForTable where
+instance Data.ToPath UpdateColumnStatisticsForTable where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateColumnStatisticsForTable where
+instance Data.ToQuery UpdateColumnStatisticsForTable where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateColumnStatisticsForTableResponse' smart constructor.

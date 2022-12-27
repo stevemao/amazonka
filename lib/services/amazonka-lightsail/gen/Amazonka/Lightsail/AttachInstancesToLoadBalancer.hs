@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.AttachInstancesToLoadBalancer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ module Amazonka.Lightsail.AttachInstancesToLoadBalancer
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -125,12 +126,13 @@ instance
   type
     AWSResponse AttachInstancesToLoadBalancer =
       AttachInstancesToLoadBalancerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AttachInstancesToLoadBalancerResponse'
-            Prelude.<$> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -147,36 +149,36 @@ instance Prelude.NFData AttachInstancesToLoadBalancer where
     Prelude.rnf loadBalancerName
       `Prelude.seq` Prelude.rnf instanceNames
 
-instance Core.ToHeaders AttachInstancesToLoadBalancer where
+instance Data.ToHeaders AttachInstancesToLoadBalancer where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.AttachInstancesToLoadBalancer" ::
+              Data.=# ( "Lightsail_20161128.AttachInstancesToLoadBalancer" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AttachInstancesToLoadBalancer where
+instance Data.ToJSON AttachInstancesToLoadBalancer where
   toJSON AttachInstancesToLoadBalancer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("loadBalancerName" Core..= loadBalancerName),
+              ("loadBalancerName" Data..= loadBalancerName),
             Prelude.Just
-              ("instanceNames" Core..= instanceNames)
+              ("instanceNames" Data..= instanceNames)
           ]
       )
 
-instance Core.ToPath AttachInstancesToLoadBalancer where
+instance Data.ToPath AttachInstancesToLoadBalancer where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AttachInstancesToLoadBalancer where
+instance Data.ToQuery AttachInstancesToLoadBalancer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAttachInstancesToLoadBalancerResponse' smart constructor.

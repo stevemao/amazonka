@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.DeleteResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -47,9 +48,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDeleteResource' smart constructor.
 data DeleteResource = DeleteResource'
-  { -- | [Required] The string identifier of the associated RestApi.
+  { -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] The identifier of the Resource resource.
+    -- | The identifier of the Resource resource.
     resourceId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -62,9 +63,9 @@ data DeleteResource = DeleteResource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'restApiId', 'deleteResource_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'deleteResource_restApiId' - The string identifier of the associated RestApi.
 --
--- 'resourceId', 'deleteResource_resourceId' - [Required] The identifier of the Resource resource.
+-- 'resourceId', 'deleteResource_resourceId' - The identifier of the Resource resource.
 newDeleteResource ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -77,11 +78,11 @@ newDeleteResource pRestApiId_ pResourceId_ =
       resourceId = pResourceId_
     }
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 deleteResource_restApiId :: Lens.Lens' DeleteResource Prelude.Text
 deleteResource_restApiId = Lens.lens (\DeleteResource' {restApiId} -> restApiId) (\s@DeleteResource' {} a -> s {restApiId = a} :: DeleteResource)
 
--- | [Required] The identifier of the Resource resource.
+-- | The identifier of the Resource resource.
 deleteResource_resourceId :: Lens.Lens' DeleteResource Prelude.Text
 deleteResource_resourceId = Lens.lens (\DeleteResource' {resourceId} -> resourceId) (\s@DeleteResource' {} a -> s {resourceId = a} :: DeleteResource)
 
@@ -89,7 +90,8 @@ instance Core.AWSRequest DeleteResource where
   type
     AWSResponse DeleteResource =
       DeleteResourceResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteResourceResponse'
 
@@ -103,25 +105,25 @@ instance Prelude.NFData DeleteResource where
     Prelude.rnf restApiId
       `Prelude.seq` Prelude.rnf resourceId
 
-instance Core.ToHeaders DeleteResource where
+instance Data.ToHeaders DeleteResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath DeleteResource where
+instance Data.ToPath DeleteResource where
   toPath DeleteResource' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/resources/",
-        Core.toBS resourceId
+        Data.toBS resourceId
       ]
 
-instance Core.ToQuery DeleteResource where
+instance Data.ToQuery DeleteResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteResourceResponse' smart constructor.

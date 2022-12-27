@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.GetRetentionSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,15 +37,16 @@ module Amazonka.Chime.GetRetentionSettings
     newGetRetentionSettingsResponse,
 
     -- * Response Lenses
-    getRetentionSettingsResponse_retentionSettings,
     getRetentionSettingsResponse_initiateDeletionTimestamp,
+    getRetentionSettingsResponse_retentionSettings,
     getRetentionSettingsResponse_httpStatus,
   )
 where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,13 +82,14 @@ instance Core.AWSRequest GetRetentionSettings where
   type
     AWSResponse GetRetentionSettings =
       GetRetentionSettingsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetRetentionSettingsResponse'
-            Prelude.<$> (x Core..?> "RetentionSettings")
-            Prelude.<*> (x Core..?> "InitiateDeletionTimestamp")
+            Prelude.<$> (x Data..?> "InitiateDeletionTimestamp")
+            Prelude.<*> (x Data..?> "RetentionSettings")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -98,27 +100,27 @@ instance Prelude.Hashable GetRetentionSettings where
 instance Prelude.NFData GetRetentionSettings where
   rnf GetRetentionSettings' {..} = Prelude.rnf accountId
 
-instance Core.ToHeaders GetRetentionSettings where
+instance Data.ToHeaders GetRetentionSettings where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetRetentionSettings where
+instance Data.ToPath GetRetentionSettings where
   toPath GetRetentionSettings' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/retention-settings"
       ]
 
-instance Core.ToQuery GetRetentionSettings where
+instance Data.ToQuery GetRetentionSettings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetRetentionSettingsResponse' smart constructor.
 data GetRetentionSettingsResponse = GetRetentionSettingsResponse'
-  { -- | The retention settings.
-    retentionSettings :: Prelude.Maybe RetentionSettings,
-    -- | The timestamp representing the time at which the specified items are
+  { -- | The timestamp representing the time at which the specified items are
     -- permanently deleted, in ISO 8601 format.
-    initiateDeletionTimestamp :: Prelude.Maybe Core.POSIX,
+    initiateDeletionTimestamp :: Prelude.Maybe Data.POSIX,
+    -- | The retention settings.
+    retentionSettings :: Prelude.Maybe RetentionSettings,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -132,10 +134,10 @@ data GetRetentionSettingsResponse = GetRetentionSettingsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'retentionSettings', 'getRetentionSettingsResponse_retentionSettings' - The retention settings.
---
 -- 'initiateDeletionTimestamp', 'getRetentionSettingsResponse_initiateDeletionTimestamp' - The timestamp representing the time at which the specified items are
 -- permanently deleted, in ISO 8601 format.
+--
+-- 'retentionSettings', 'getRetentionSettingsResponse_retentionSettings' - The retention settings.
 --
 -- 'httpStatus', 'getRetentionSettingsResponse_httpStatus' - The response's http status code.
 newGetRetentionSettingsResponse ::
@@ -144,20 +146,20 @@ newGetRetentionSettingsResponse ::
   GetRetentionSettingsResponse
 newGetRetentionSettingsResponse pHttpStatus_ =
   GetRetentionSettingsResponse'
-    { retentionSettings =
+    { initiateDeletionTimestamp =
         Prelude.Nothing,
-      initiateDeletionTimestamp = Prelude.Nothing,
+      retentionSettings = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The retention settings.
-getRetentionSettingsResponse_retentionSettings :: Lens.Lens' GetRetentionSettingsResponse (Prelude.Maybe RetentionSettings)
-getRetentionSettingsResponse_retentionSettings = Lens.lens (\GetRetentionSettingsResponse' {retentionSettings} -> retentionSettings) (\s@GetRetentionSettingsResponse' {} a -> s {retentionSettings = a} :: GetRetentionSettingsResponse)
 
 -- | The timestamp representing the time at which the specified items are
 -- permanently deleted, in ISO 8601 format.
 getRetentionSettingsResponse_initiateDeletionTimestamp :: Lens.Lens' GetRetentionSettingsResponse (Prelude.Maybe Prelude.UTCTime)
-getRetentionSettingsResponse_initiateDeletionTimestamp = Lens.lens (\GetRetentionSettingsResponse' {initiateDeletionTimestamp} -> initiateDeletionTimestamp) (\s@GetRetentionSettingsResponse' {} a -> s {initiateDeletionTimestamp = a} :: GetRetentionSettingsResponse) Prelude.. Lens.mapping Core._Time
+getRetentionSettingsResponse_initiateDeletionTimestamp = Lens.lens (\GetRetentionSettingsResponse' {initiateDeletionTimestamp} -> initiateDeletionTimestamp) (\s@GetRetentionSettingsResponse' {} a -> s {initiateDeletionTimestamp = a} :: GetRetentionSettingsResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The retention settings.
+getRetentionSettingsResponse_retentionSettings :: Lens.Lens' GetRetentionSettingsResponse (Prelude.Maybe RetentionSettings)
+getRetentionSettingsResponse_retentionSettings = Lens.lens (\GetRetentionSettingsResponse' {retentionSettings} -> retentionSettings) (\s@GetRetentionSettingsResponse' {} a -> s {retentionSettings = a} :: GetRetentionSettingsResponse)
 
 -- | The response's http status code.
 getRetentionSettingsResponse_httpStatus :: Lens.Lens' GetRetentionSettingsResponse Prelude.Int
@@ -165,6 +167,6 @@ getRetentionSettingsResponse_httpStatus = Lens.lens (\GetRetentionSettingsRespon
 
 instance Prelude.NFData GetRetentionSettingsResponse where
   rnf GetRetentionSettingsResponse' {..} =
-    Prelude.rnf retentionSettings
-      `Prelude.seq` Prelude.rnf initiateDeletionTimestamp
+    Prelude.rnf initiateDeletionTimestamp
+      `Prelude.seq` Prelude.rnf retentionSettings
       `Prelude.seq` Prelude.rnf httpStatus

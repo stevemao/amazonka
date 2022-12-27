@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,49 +14,77 @@
 module Amazonka.LicenseManager.Lens
   ( -- * Operations
 
-    -- ** ListLicenseManagerReportGenerators
-    listLicenseManagerReportGenerators_filters,
-    listLicenseManagerReportGenerators_nextToken,
-    listLicenseManagerReportGenerators_maxResults,
-    listLicenseManagerReportGeneratorsResponse_nextToken,
-    listLicenseManagerReportGeneratorsResponse_reportGenerators,
-    listLicenseManagerReportGeneratorsResponse_httpStatus,
+    -- ** AcceptGrant
+    acceptGrant_grantArn,
+    acceptGrantResponse_grantArn,
+    acceptGrantResponse_status,
+    acceptGrantResponse_version,
+    acceptGrantResponse_httpStatus,
 
-    -- ** DeleteLicenseManagerReportGenerator
-    deleteLicenseManagerReportGenerator_licenseManagerReportGeneratorArn,
-    deleteLicenseManagerReportGeneratorResponse_httpStatus,
+    -- ** CheckInLicense
+    checkInLicense_beneficiary,
+    checkInLicense_licenseConsumptionToken,
+    checkInLicenseResponse_httpStatus,
 
-    -- ** UpdateLicenseManagerReportGenerator
-    updateLicenseManagerReportGenerator_description,
-    updateLicenseManagerReportGenerator_licenseManagerReportGeneratorArn,
-    updateLicenseManagerReportGenerator_reportGeneratorName,
-    updateLicenseManagerReportGenerator_type,
-    updateLicenseManagerReportGenerator_reportContext,
-    updateLicenseManagerReportGenerator_reportFrequency,
-    updateLicenseManagerReportGenerator_clientToken,
-    updateLicenseManagerReportGeneratorResponse_httpStatus,
+    -- ** CheckoutBorrowLicense
+    checkoutBorrowLicense_checkoutMetadata,
+    checkoutBorrowLicense_nodeId,
+    checkoutBorrowLicense_licenseArn,
+    checkoutBorrowLicense_entitlements,
+    checkoutBorrowLicense_digitalSignatureMethod,
+    checkoutBorrowLicense_clientToken,
+    checkoutBorrowLicenseResponse_checkoutMetadata,
+    checkoutBorrowLicenseResponse_entitlementsAllowed,
+    checkoutBorrowLicenseResponse_expiration,
+    checkoutBorrowLicenseResponse_issuedAt,
+    checkoutBorrowLicenseResponse_licenseArn,
+    checkoutBorrowLicenseResponse_licenseConsumptionToken,
+    checkoutBorrowLicenseResponse_nodeId,
+    checkoutBorrowLicenseResponse_signedToken,
+    checkoutBorrowLicenseResponse_httpStatus,
 
-    -- ** ListUsageForLicenseConfiguration
-    listUsageForLicenseConfiguration_filters,
-    listUsageForLicenseConfiguration_nextToken,
-    listUsageForLicenseConfiguration_maxResults,
-    listUsageForLicenseConfiguration_licenseConfigurationArn,
-    listUsageForLicenseConfigurationResponse_nextToken,
-    listUsageForLicenseConfigurationResponse_licenseConfigurationUsageList,
-    listUsageForLicenseConfigurationResponse_httpStatus,
+    -- ** CheckoutLicense
+    checkoutLicense_beneficiary,
+    checkoutLicense_nodeId,
+    checkoutLicense_productSKU,
+    checkoutLicense_checkoutType,
+    checkoutLicense_keyFingerprint,
+    checkoutLicense_entitlements,
+    checkoutLicense_clientToken,
+    checkoutLicenseResponse_checkoutType,
+    checkoutLicenseResponse_entitlementsAllowed,
+    checkoutLicenseResponse_expiration,
+    checkoutLicenseResponse_issuedAt,
+    checkoutLicenseResponse_licenseArn,
+    checkoutLicenseResponse_licenseConsumptionToken,
+    checkoutLicenseResponse_nodeId,
+    checkoutLicenseResponse_signedToken,
+    checkoutLicenseResponse_httpStatus,
 
-    -- ** CreateLicenseConfiguration
-    createLicenseConfiguration_licenseCount,
-    createLicenseConfiguration_licenseCountHardLimit,
-    createLicenseConfiguration_disassociateWhenNotFound,
-    createLicenseConfiguration_productInformationList,
-    createLicenseConfiguration_licenseRules,
-    createLicenseConfiguration_description,
-    createLicenseConfiguration_tags,
-    createLicenseConfiguration_name,
-    createLicenseConfiguration_licenseCountingType,
-    createLicenseConfigurationResponse_licenseConfigurationArn,
-    createLicenseConfigurationResponse_httpStatus,
+    -- ** CreateGrant
+    createGrant_clientToken,
+    createGrant_grantName,
+    createGrant_licenseArn,
+    createGrant_principals,
+    createGrant_homeRegion,
+    createGrant_allowedOperations,
+    createGrantResponse_grantArn,
+    createGrantResponse_status,
+    createGrantResponse_version,
+    createGrantResponse_httpStatus,
+
+    -- ** CreateGrantVersion
+    createGrantVersion_allowedOperations,
+    createGrantVersion_grantName,
+    createGrantVersion_sourceVersion,
+    createGrantVersion_status,
+    createGrantVersion_statusReason,
+    createGrantVersion_clientToken,
+    createGrantVersion_grantArn,
+    createGrantVersionResponse_grantArn,
+    createGrantVersionResponse_status,
+    createGrantVersionResponse_version,
+    createGrantVersionResponse_httpStatus,
 
     -- ** CreateLicense
     createLicense_licenseMetadata,
@@ -70,186 +98,23 @@ module Amazonka.LicenseManager.Lens
     createLicense_beneficiary,
     createLicense_consumptionConfiguration,
     createLicense_clientToken,
+    createLicenseResponse_licenseArn,
     createLicenseResponse_status,
     createLicenseResponse_version,
-    createLicenseResponse_licenseArn,
     createLicenseResponse_httpStatus,
 
-    -- ** ListLicenseConversionTasks
-    listLicenseConversionTasks_filters,
-    listLicenseConversionTasks_nextToken,
-    listLicenseConversionTasks_maxResults,
-    listLicenseConversionTasksResponse_licenseConversionTasks,
-    listLicenseConversionTasksResponse_nextToken,
-    listLicenseConversionTasksResponse_httpStatus,
-
-    -- ** ListResourceInventory
-    listResourceInventory_filters,
-    listResourceInventory_nextToken,
-    listResourceInventory_maxResults,
-    listResourceInventoryResponse_resourceInventoryList,
-    listResourceInventoryResponse_nextToken,
-    listResourceInventoryResponse_httpStatus,
-
-    -- ** DeleteToken
-    deleteToken_tokenId,
-    deleteTokenResponse_httpStatus,
-
-    -- ** DeleteLicenseConfiguration
-    deleteLicenseConfiguration_licenseConfigurationArn,
-    deleteLicenseConfigurationResponse_httpStatus,
-
-    -- ** UpdateLicenseConfiguration
-    updateLicenseConfiguration_licenseCount,
-    updateLicenseConfiguration_name,
-    updateLicenseConfiguration_licenseConfigurationStatus,
-    updateLicenseConfiguration_licenseCountHardLimit,
-    updateLicenseConfiguration_disassociateWhenNotFound,
-    updateLicenseConfiguration_productInformationList,
-    updateLicenseConfiguration_licenseRules,
-    updateLicenseConfiguration_description,
-    updateLicenseConfiguration_licenseConfigurationArn,
-    updateLicenseConfigurationResponse_httpStatus,
-
-    -- ** CheckInLicense
-    checkInLicense_beneficiary,
-    checkInLicense_licenseConsumptionToken,
-    checkInLicenseResponse_httpStatus,
-
-    -- ** ListTokens
-    listTokens_tokenIds,
-    listTokens_filters,
-    listTokens_nextToken,
-    listTokens_maxResults,
-    listTokensResponse_tokens,
-    listTokensResponse_nextToken,
-    listTokensResponse_httpStatus,
-
-    -- ** ListTagsForResource
-    listTagsForResource_resourceArn,
-    listTagsForResourceResponse_tags,
-    listTagsForResourceResponse_httpStatus,
-
-    -- ** CreateGrant
-    createGrant_clientToken,
-    createGrant_grantName,
-    createGrant_licenseArn,
-    createGrant_principals,
-    createGrant_homeRegion,
-    createGrant_allowedOperations,
-    createGrantResponse_status,
-    createGrantResponse_version,
-    createGrantResponse_grantArn,
-    createGrantResponse_httpStatus,
-
-    -- ** UpdateLicenseSpecificationsForResource
-    updateLicenseSpecificationsForResource_addLicenseSpecifications,
-    updateLicenseSpecificationsForResource_removeLicenseSpecifications,
-    updateLicenseSpecificationsForResource_resourceArn,
-    updateLicenseSpecificationsForResourceResponse_httpStatus,
-
-    -- ** CreateLicenseVersion
-    createLicenseVersion_sourceVersion,
-    createLicenseVersion_licenseMetadata,
-    createLicenseVersion_licenseArn,
-    createLicenseVersion_licenseName,
-    createLicenseVersion_productName,
-    createLicenseVersion_issuer,
-    createLicenseVersion_homeRegion,
-    createLicenseVersion_validity,
-    createLicenseVersion_entitlements,
-    createLicenseVersion_consumptionConfiguration,
-    createLicenseVersion_status,
-    createLicenseVersion_clientToken,
-    createLicenseVersionResponse_status,
-    createLicenseVersionResponse_version,
-    createLicenseVersionResponse_licenseArn,
-    createLicenseVersionResponse_httpStatus,
-
-    -- ** GetLicense
-    getLicense_version,
-    getLicense_licenseArn,
-    getLicenseResponse_license,
-    getLicenseResponse_httpStatus,
-
-    -- ** GetLicenseConfiguration
-    getLicenseConfiguration_licenseConfigurationArn,
-    getLicenseConfigurationResponse_status,
-    getLicenseConfigurationResponse_ownerAccountId,
-    getLicenseConfigurationResponse_consumedLicenseSummaryList,
-    getLicenseConfigurationResponse_licenseCount,
-    getLicenseConfigurationResponse_managedResourceSummaryList,
-    getLicenseConfigurationResponse_name,
-    getLicenseConfigurationResponse_licenseCountHardLimit,
-    getLicenseConfigurationResponse_disassociateWhenNotFound,
-    getLicenseConfigurationResponse_productInformationList,
-    getLicenseConfigurationResponse_licenseCountingType,
-    getLicenseConfigurationResponse_automatedDiscoveryInformation,
-    getLicenseConfigurationResponse_consumedLicenses,
-    getLicenseConfigurationResponse_licenseRules,
-    getLicenseConfigurationResponse_licenseConfigurationId,
-    getLicenseConfigurationResponse_description,
-    getLicenseConfigurationResponse_licenseConfigurationArn,
-    getLicenseConfigurationResponse_tags,
-    getLicenseConfigurationResponse_httpStatus,
-
-    -- ** ListReceivedGrants
-    listReceivedGrants_filters,
-    listReceivedGrants_nextToken,
-    listReceivedGrants_grantArns,
-    listReceivedGrants_maxResults,
-    listReceivedGrantsResponse_grants,
-    listReceivedGrantsResponse_nextToken,
-    listReceivedGrantsResponse_httpStatus,
-
-    -- ** GetLicenseConversionTask
-    getLicenseConversionTask_licenseConversionTaskId,
-    getLicenseConversionTaskResponse_status,
-    getLicenseConversionTaskResponse_startTime,
-    getLicenseConversionTaskResponse_destinationLicenseContext,
-    getLicenseConversionTaskResponse_licenseConversionTaskId,
-    getLicenseConversionTaskResponse_resourceArn,
-    getLicenseConversionTaskResponse_statusMessage,
-    getLicenseConversionTaskResponse_endTime,
-    getLicenseConversionTaskResponse_licenseConversionTime,
-    getLicenseConversionTaskResponse_sourceLicenseContext,
-    getLicenseConversionTaskResponse_httpStatus,
-
-    -- ** GetLicenseUsage
-    getLicenseUsage_licenseArn,
-    getLicenseUsageResponse_licenseUsage,
-    getLicenseUsageResponse_httpStatus,
-
-    -- ** ExtendLicenseConsumption
-    extendLicenseConsumption_dryRun,
-    extendLicenseConsumption_licenseConsumptionToken,
-    extendLicenseConsumptionResponse_expiration,
-    extendLicenseConsumptionResponse_licenseConsumptionToken,
-    extendLicenseConsumptionResponse_httpStatus,
-
-    -- ** GetGrant
-    getGrant_version,
-    getGrant_grantArn,
-    getGrantResponse_grant,
-    getGrantResponse_httpStatus,
-
-    -- ** CheckoutLicense
-    checkoutLicense_nodeId,
-    checkoutLicense_beneficiary,
-    checkoutLicense_productSKU,
-    checkoutLicense_checkoutType,
-    checkoutLicense_keyFingerprint,
-    checkoutLicense_entitlements,
-    checkoutLicense_clientToken,
-    checkoutLicenseResponse_entitlementsAllowed,
-    checkoutLicenseResponse_checkoutType,
-    checkoutLicenseResponse_expiration,
-    checkoutLicenseResponse_signedToken,
-    checkoutLicenseResponse_licenseConsumptionToken,
-    checkoutLicenseResponse_nodeId,
-    checkoutLicenseResponse_issuedAt,
-    checkoutLicenseResponse_licenseArn,
-    checkoutLicenseResponse_httpStatus,
+    -- ** CreateLicenseConfiguration
+    createLicenseConfiguration_description,
+    createLicenseConfiguration_disassociateWhenNotFound,
+    createLicenseConfiguration_licenseCount,
+    createLicenseConfiguration_licenseCountHardLimit,
+    createLicenseConfiguration_licenseRules,
+    createLicenseConfiguration_productInformationList,
+    createLicenseConfiguration_tags,
+    createLicenseConfiguration_name,
+    createLicenseConfiguration_licenseCountingType,
+    createLicenseConfigurationResponse_licenseConfigurationArn,
+    createLicenseConfigurationResponse_httpStatus,
 
     -- ** CreateLicenseConversionTaskForResource
     createLicenseConversionTaskForResource_resourceArn,
@@ -257,181 +122,6 @@ module Amazonka.LicenseManager.Lens
     createLicenseConversionTaskForResource_destinationLicenseContext,
     createLicenseConversionTaskForResourceResponse_licenseConversionTaskId,
     createLicenseConversionTaskForResourceResponse_httpStatus,
-
-    -- ** AcceptGrant
-    acceptGrant_grantArn,
-    acceptGrantResponse_status,
-    acceptGrantResponse_version,
-    acceptGrantResponse_grantArn,
-    acceptGrantResponse_httpStatus,
-
-    -- ** ListLicenseSpecificationsForResource
-    listLicenseSpecificationsForResource_nextToken,
-    listLicenseSpecificationsForResource_maxResults,
-    listLicenseSpecificationsForResource_resourceArn,
-    listLicenseSpecificationsForResourceResponse_licenseSpecifications,
-    listLicenseSpecificationsForResourceResponse_nextToken,
-    listLicenseSpecificationsForResourceResponse_httpStatus,
-
-    -- ** CheckoutBorrowLicense
-    checkoutBorrowLicense_checkoutMetadata,
-    checkoutBorrowLicense_nodeId,
-    checkoutBorrowLicense_licenseArn,
-    checkoutBorrowLicense_entitlements,
-    checkoutBorrowLicense_digitalSignatureMethod,
-    checkoutBorrowLicense_clientToken,
-    checkoutBorrowLicenseResponse_entitlementsAllowed,
-    checkoutBorrowLicenseResponse_checkoutMetadata,
-    checkoutBorrowLicenseResponse_expiration,
-    checkoutBorrowLicenseResponse_signedToken,
-    checkoutBorrowLicenseResponse_licenseConsumptionToken,
-    checkoutBorrowLicenseResponse_nodeId,
-    checkoutBorrowLicenseResponse_issuedAt,
-    checkoutBorrowLicenseResponse_licenseArn,
-    checkoutBorrowLicenseResponse_httpStatus,
-
-    -- ** GetServiceSettings
-    getServiceSettingsResponse_enableCrossAccountsDiscovery,
-    getServiceSettingsResponse_snsTopicArn,
-    getServiceSettingsResponse_licenseManagerResourceShareArn,
-    getServiceSettingsResponse_s3BucketArn,
-    getServiceSettingsResponse_organizationConfiguration,
-    getServiceSettingsResponse_httpStatus,
-
-    -- ** RejectGrant
-    rejectGrant_grantArn,
-    rejectGrantResponse_status,
-    rejectGrantResponse_version,
-    rejectGrantResponse_grantArn,
-    rejectGrantResponse_httpStatus,
-
-    -- ** UpdateServiceSettings
-    updateServiceSettings_enableCrossAccountsDiscovery,
-    updateServiceSettings_snsTopicArn,
-    updateServiceSettings_s3BucketArn,
-    updateServiceSettings_organizationConfiguration,
-    updateServiceSettingsResponse_httpStatus,
-
-    -- ** ListDistributedGrants
-    listDistributedGrants_filters,
-    listDistributedGrants_nextToken,
-    listDistributedGrants_grantArns,
-    listDistributedGrants_maxResults,
-    listDistributedGrantsResponse_grants,
-    listDistributedGrantsResponse_nextToken,
-    listDistributedGrantsResponse_httpStatus,
-
-    -- ** ListFailuresForLicenseConfigurationOperations
-    listFailuresForLicenseConfigurationOperations_nextToken,
-    listFailuresForLicenseConfigurationOperations_maxResults,
-    listFailuresForLicenseConfigurationOperations_licenseConfigurationArn,
-    listFailuresForLicenseConfigurationOperationsResponse_nextToken,
-    listFailuresForLicenseConfigurationOperationsResponse_licenseOperationFailureList,
-    listFailuresForLicenseConfigurationOperationsResponse_httpStatus,
-
-    -- ** DeleteGrant
-    deleteGrant_statusReason,
-    deleteGrant_grantArn,
-    deleteGrant_version,
-    deleteGrantResponse_status,
-    deleteGrantResponse_version,
-    deleteGrantResponse_grantArn,
-    deleteGrantResponse_httpStatus,
-
-    -- ** CreateToken
-    createToken_tokenProperties,
-    createToken_roleArns,
-    createToken_expirationInDays,
-    createToken_licenseArn,
-    createToken_clientToken,
-    createTokenResponse_token,
-    createTokenResponse_tokenId,
-    createTokenResponse_tokenType,
-    createTokenResponse_httpStatus,
-
-    -- ** DeleteLicense
-    deleteLicense_licenseArn,
-    deleteLicense_sourceVersion,
-    deleteLicenseResponse_status,
-    deleteLicenseResponse_deletionDate,
-    deleteLicenseResponse_httpStatus,
-
-    -- ** ListLicenses
-    listLicenses_filters,
-    listLicenses_nextToken,
-    listLicenses_licenseArns,
-    listLicenses_maxResults,
-    listLicensesResponse_nextToken,
-    listLicensesResponse_licenses,
-    listLicensesResponse_httpStatus,
-
-    -- ** ListLicenseConfigurations
-    listLicenseConfigurations_filters,
-    listLicenseConfigurations_nextToken,
-    listLicenseConfigurations_licenseConfigurationArns,
-    listLicenseConfigurations_maxResults,
-    listLicenseConfigurationsResponse_nextToken,
-    listLicenseConfigurationsResponse_licenseConfigurations,
-    listLicenseConfigurationsResponse_httpStatus,
-
-    -- ** ListReceivedLicenses
-    listReceivedLicenses_filters,
-    listReceivedLicenses_nextToken,
-    listReceivedLicenses_licenseArns,
-    listReceivedLicenses_maxResults,
-    listReceivedLicensesResponse_nextToken,
-    listReceivedLicensesResponse_licenses,
-    listReceivedLicensesResponse_httpStatus,
-
-    -- ** CreateGrantVersion
-    createGrantVersion_status,
-    createGrantVersion_allowedOperations,
-    createGrantVersion_grantName,
-    createGrantVersion_sourceVersion,
-    createGrantVersion_statusReason,
-    createGrantVersion_clientToken,
-    createGrantVersion_grantArn,
-    createGrantVersionResponse_status,
-    createGrantVersionResponse_version,
-    createGrantVersionResponse_grantArn,
-    createGrantVersionResponse_httpStatus,
-
-    -- ** ListAssociationsForLicenseConfiguration
-    listAssociationsForLicenseConfiguration_nextToken,
-    listAssociationsForLicenseConfiguration_maxResults,
-    listAssociationsForLicenseConfiguration_licenseConfigurationArn,
-    listAssociationsForLicenseConfigurationResponse_licenseConfigurationAssociations,
-    listAssociationsForLicenseConfigurationResponse_nextToken,
-    listAssociationsForLicenseConfigurationResponse_httpStatus,
-
-    -- ** TagResource
-    tagResource_resourceArn,
-    tagResource_tags,
-    tagResourceResponse_httpStatus,
-
-    -- ** ListLicenseVersions
-    listLicenseVersions_nextToken,
-    listLicenseVersions_maxResults,
-    listLicenseVersions_licenseArn,
-    listLicenseVersionsResponse_nextToken,
-    listLicenseVersionsResponse_licenses,
-    listLicenseVersionsResponse_httpStatus,
-
-    -- ** UntagResource
-    untagResource_resourceArn,
-    untagResource_tagKeys,
-    untagResourceResponse_httpStatus,
-
-    -- ** GetLicenseManagerReportGenerator
-    getLicenseManagerReportGenerator_licenseManagerReportGeneratorArn,
-    getLicenseManagerReportGeneratorResponse_reportGenerator,
-    getLicenseManagerReportGeneratorResponse_httpStatus,
-
-    -- ** GetAccessToken
-    getAccessToken_tokenProperties,
-    getAccessToken_token,
-    getAccessTokenResponse_accessToken,
-    getAccessTokenResponse_httpStatus,
 
     -- ** CreateLicenseManagerReportGenerator
     createLicenseManagerReportGenerator_description,
@@ -444,6 +134,333 @@ module Amazonka.LicenseManager.Lens
     createLicenseManagerReportGeneratorResponse_licenseManagerReportGeneratorArn,
     createLicenseManagerReportGeneratorResponse_httpStatus,
 
+    -- ** CreateLicenseVersion
+    createLicenseVersion_licenseMetadata,
+    createLicenseVersion_sourceVersion,
+    createLicenseVersion_licenseArn,
+    createLicenseVersion_licenseName,
+    createLicenseVersion_productName,
+    createLicenseVersion_issuer,
+    createLicenseVersion_homeRegion,
+    createLicenseVersion_validity,
+    createLicenseVersion_entitlements,
+    createLicenseVersion_consumptionConfiguration,
+    createLicenseVersion_status,
+    createLicenseVersion_clientToken,
+    createLicenseVersionResponse_licenseArn,
+    createLicenseVersionResponse_status,
+    createLicenseVersionResponse_version,
+    createLicenseVersionResponse_httpStatus,
+
+    -- ** CreateToken
+    createToken_expirationInDays,
+    createToken_roleArns,
+    createToken_tokenProperties,
+    createToken_licenseArn,
+    createToken_clientToken,
+    createTokenResponse_token,
+    createTokenResponse_tokenId,
+    createTokenResponse_tokenType,
+    createTokenResponse_httpStatus,
+
+    -- ** DeleteGrant
+    deleteGrant_statusReason,
+    deleteGrant_grantArn,
+    deleteGrant_version,
+    deleteGrantResponse_grantArn,
+    deleteGrantResponse_status,
+    deleteGrantResponse_version,
+    deleteGrantResponse_httpStatus,
+
+    -- ** DeleteLicense
+    deleteLicense_licenseArn,
+    deleteLicense_sourceVersion,
+    deleteLicenseResponse_deletionDate,
+    deleteLicenseResponse_status,
+    deleteLicenseResponse_httpStatus,
+
+    -- ** DeleteLicenseConfiguration
+    deleteLicenseConfiguration_licenseConfigurationArn,
+    deleteLicenseConfigurationResponse_httpStatus,
+
+    -- ** DeleteLicenseManagerReportGenerator
+    deleteLicenseManagerReportGenerator_licenseManagerReportGeneratorArn,
+    deleteLicenseManagerReportGeneratorResponse_httpStatus,
+
+    -- ** DeleteToken
+    deleteToken_tokenId,
+    deleteTokenResponse_httpStatus,
+
+    -- ** ExtendLicenseConsumption
+    extendLicenseConsumption_dryRun,
+    extendLicenseConsumption_licenseConsumptionToken,
+    extendLicenseConsumptionResponse_expiration,
+    extendLicenseConsumptionResponse_licenseConsumptionToken,
+    extendLicenseConsumptionResponse_httpStatus,
+
+    -- ** GetAccessToken
+    getAccessToken_tokenProperties,
+    getAccessToken_token,
+    getAccessTokenResponse_accessToken,
+    getAccessTokenResponse_httpStatus,
+
+    -- ** GetGrant
+    getGrant_version,
+    getGrant_grantArn,
+    getGrantResponse_grant,
+    getGrantResponse_httpStatus,
+
+    -- ** GetLicense
+    getLicense_version,
+    getLicense_licenseArn,
+    getLicenseResponse_license,
+    getLicenseResponse_httpStatus,
+
+    -- ** GetLicenseConfiguration
+    getLicenseConfiguration_licenseConfigurationArn,
+    getLicenseConfigurationResponse_automatedDiscoveryInformation,
+    getLicenseConfigurationResponse_consumedLicenseSummaryList,
+    getLicenseConfigurationResponse_consumedLicenses,
+    getLicenseConfigurationResponse_description,
+    getLicenseConfigurationResponse_disassociateWhenNotFound,
+    getLicenseConfigurationResponse_licenseConfigurationArn,
+    getLicenseConfigurationResponse_licenseConfigurationId,
+    getLicenseConfigurationResponse_licenseCount,
+    getLicenseConfigurationResponse_licenseCountHardLimit,
+    getLicenseConfigurationResponse_licenseCountingType,
+    getLicenseConfigurationResponse_licenseRules,
+    getLicenseConfigurationResponse_managedResourceSummaryList,
+    getLicenseConfigurationResponse_name,
+    getLicenseConfigurationResponse_ownerAccountId,
+    getLicenseConfigurationResponse_productInformationList,
+    getLicenseConfigurationResponse_status,
+    getLicenseConfigurationResponse_tags,
+    getLicenseConfigurationResponse_httpStatus,
+
+    -- ** GetLicenseConversionTask
+    getLicenseConversionTask_licenseConversionTaskId,
+    getLicenseConversionTaskResponse_destinationLicenseContext,
+    getLicenseConversionTaskResponse_endTime,
+    getLicenseConversionTaskResponse_licenseConversionTaskId,
+    getLicenseConversionTaskResponse_licenseConversionTime,
+    getLicenseConversionTaskResponse_resourceArn,
+    getLicenseConversionTaskResponse_sourceLicenseContext,
+    getLicenseConversionTaskResponse_startTime,
+    getLicenseConversionTaskResponse_status,
+    getLicenseConversionTaskResponse_statusMessage,
+    getLicenseConversionTaskResponse_httpStatus,
+
+    -- ** GetLicenseManagerReportGenerator
+    getLicenseManagerReportGenerator_licenseManagerReportGeneratorArn,
+    getLicenseManagerReportGeneratorResponse_reportGenerator,
+    getLicenseManagerReportGeneratorResponse_httpStatus,
+
+    -- ** GetLicenseUsage
+    getLicenseUsage_licenseArn,
+    getLicenseUsageResponse_licenseUsage,
+    getLicenseUsageResponse_httpStatus,
+
+    -- ** GetServiceSettings
+    getServiceSettingsResponse_enableCrossAccountsDiscovery,
+    getServiceSettingsResponse_licenseManagerResourceShareArn,
+    getServiceSettingsResponse_organizationConfiguration,
+    getServiceSettingsResponse_s3BucketArn,
+    getServiceSettingsResponse_snsTopicArn,
+    getServiceSettingsResponse_httpStatus,
+
+    -- ** ListAssociationsForLicenseConfiguration
+    listAssociationsForLicenseConfiguration_maxResults,
+    listAssociationsForLicenseConfiguration_nextToken,
+    listAssociationsForLicenseConfiguration_licenseConfigurationArn,
+    listAssociationsForLicenseConfigurationResponse_licenseConfigurationAssociations,
+    listAssociationsForLicenseConfigurationResponse_nextToken,
+    listAssociationsForLicenseConfigurationResponse_httpStatus,
+
+    -- ** ListDistributedGrants
+    listDistributedGrants_filters,
+    listDistributedGrants_grantArns,
+    listDistributedGrants_maxResults,
+    listDistributedGrants_nextToken,
+    listDistributedGrantsResponse_grants,
+    listDistributedGrantsResponse_nextToken,
+    listDistributedGrantsResponse_httpStatus,
+
+    -- ** ListFailuresForLicenseConfigurationOperations
+    listFailuresForLicenseConfigurationOperations_maxResults,
+    listFailuresForLicenseConfigurationOperations_nextToken,
+    listFailuresForLicenseConfigurationOperations_licenseConfigurationArn,
+    listFailuresForLicenseConfigurationOperationsResponse_licenseOperationFailureList,
+    listFailuresForLicenseConfigurationOperationsResponse_nextToken,
+    listFailuresForLicenseConfigurationOperationsResponse_httpStatus,
+
+    -- ** ListLicenseConfigurations
+    listLicenseConfigurations_filters,
+    listLicenseConfigurations_licenseConfigurationArns,
+    listLicenseConfigurations_maxResults,
+    listLicenseConfigurations_nextToken,
+    listLicenseConfigurationsResponse_licenseConfigurations,
+    listLicenseConfigurationsResponse_nextToken,
+    listLicenseConfigurationsResponse_httpStatus,
+
+    -- ** ListLicenseConversionTasks
+    listLicenseConversionTasks_filters,
+    listLicenseConversionTasks_maxResults,
+    listLicenseConversionTasks_nextToken,
+    listLicenseConversionTasksResponse_licenseConversionTasks,
+    listLicenseConversionTasksResponse_nextToken,
+    listLicenseConversionTasksResponse_httpStatus,
+
+    -- ** ListLicenseManagerReportGenerators
+    listLicenseManagerReportGenerators_filters,
+    listLicenseManagerReportGenerators_maxResults,
+    listLicenseManagerReportGenerators_nextToken,
+    listLicenseManagerReportGeneratorsResponse_nextToken,
+    listLicenseManagerReportGeneratorsResponse_reportGenerators,
+    listLicenseManagerReportGeneratorsResponse_httpStatus,
+
+    -- ** ListLicenseSpecificationsForResource
+    listLicenseSpecificationsForResource_maxResults,
+    listLicenseSpecificationsForResource_nextToken,
+    listLicenseSpecificationsForResource_resourceArn,
+    listLicenseSpecificationsForResourceResponse_licenseSpecifications,
+    listLicenseSpecificationsForResourceResponse_nextToken,
+    listLicenseSpecificationsForResourceResponse_httpStatus,
+
+    -- ** ListLicenseVersions
+    listLicenseVersions_maxResults,
+    listLicenseVersions_nextToken,
+    listLicenseVersions_licenseArn,
+    listLicenseVersionsResponse_licenses,
+    listLicenseVersionsResponse_nextToken,
+    listLicenseVersionsResponse_httpStatus,
+
+    -- ** ListLicenses
+    listLicenses_filters,
+    listLicenses_licenseArns,
+    listLicenses_maxResults,
+    listLicenses_nextToken,
+    listLicensesResponse_licenses,
+    listLicensesResponse_nextToken,
+    listLicensesResponse_httpStatus,
+
+    -- ** ListReceivedGrants
+    listReceivedGrants_filters,
+    listReceivedGrants_grantArns,
+    listReceivedGrants_maxResults,
+    listReceivedGrants_nextToken,
+    listReceivedGrantsResponse_grants,
+    listReceivedGrantsResponse_nextToken,
+    listReceivedGrantsResponse_httpStatus,
+
+    -- ** ListReceivedGrantsForOrganization
+    listReceivedGrantsForOrganization_filters,
+    listReceivedGrantsForOrganization_maxResults,
+    listReceivedGrantsForOrganization_nextToken,
+    listReceivedGrantsForOrganization_licenseArn,
+    listReceivedGrantsForOrganizationResponse_grants,
+    listReceivedGrantsForOrganizationResponse_nextToken,
+    listReceivedGrantsForOrganizationResponse_httpStatus,
+
+    -- ** ListReceivedLicenses
+    listReceivedLicenses_filters,
+    listReceivedLicenses_licenseArns,
+    listReceivedLicenses_maxResults,
+    listReceivedLicenses_nextToken,
+    listReceivedLicensesResponse_licenses,
+    listReceivedLicensesResponse_nextToken,
+    listReceivedLicensesResponse_httpStatus,
+
+    -- ** ListReceivedLicensesForOrganization
+    listReceivedLicensesForOrganization_filters,
+    listReceivedLicensesForOrganization_maxResults,
+    listReceivedLicensesForOrganization_nextToken,
+    listReceivedLicensesForOrganizationResponse_licenses,
+    listReceivedLicensesForOrganizationResponse_nextToken,
+    listReceivedLicensesForOrganizationResponse_httpStatus,
+
+    -- ** ListResourceInventory
+    listResourceInventory_filters,
+    listResourceInventory_maxResults,
+    listResourceInventory_nextToken,
+    listResourceInventoryResponse_nextToken,
+    listResourceInventoryResponse_resourceInventoryList,
+    listResourceInventoryResponse_httpStatus,
+
+    -- ** ListTagsForResource
+    listTagsForResource_resourceArn,
+    listTagsForResourceResponse_tags,
+    listTagsForResourceResponse_httpStatus,
+
+    -- ** ListTokens
+    listTokens_filters,
+    listTokens_maxResults,
+    listTokens_nextToken,
+    listTokens_tokenIds,
+    listTokensResponse_nextToken,
+    listTokensResponse_tokens,
+    listTokensResponse_httpStatus,
+
+    -- ** ListUsageForLicenseConfiguration
+    listUsageForLicenseConfiguration_filters,
+    listUsageForLicenseConfiguration_maxResults,
+    listUsageForLicenseConfiguration_nextToken,
+    listUsageForLicenseConfiguration_licenseConfigurationArn,
+    listUsageForLicenseConfigurationResponse_licenseConfigurationUsageList,
+    listUsageForLicenseConfigurationResponse_nextToken,
+    listUsageForLicenseConfigurationResponse_httpStatus,
+
+    -- ** RejectGrant
+    rejectGrant_grantArn,
+    rejectGrantResponse_grantArn,
+    rejectGrantResponse_status,
+    rejectGrantResponse_version,
+    rejectGrantResponse_httpStatus,
+
+    -- ** TagResource
+    tagResource_resourceArn,
+    tagResource_tags,
+    tagResourceResponse_httpStatus,
+
+    -- ** UntagResource
+    untagResource_resourceArn,
+    untagResource_tagKeys,
+    untagResourceResponse_httpStatus,
+
+    -- ** UpdateLicenseConfiguration
+    updateLicenseConfiguration_description,
+    updateLicenseConfiguration_disassociateWhenNotFound,
+    updateLicenseConfiguration_licenseConfigurationStatus,
+    updateLicenseConfiguration_licenseCount,
+    updateLicenseConfiguration_licenseCountHardLimit,
+    updateLicenseConfiguration_licenseRules,
+    updateLicenseConfiguration_name,
+    updateLicenseConfiguration_productInformationList,
+    updateLicenseConfiguration_licenseConfigurationArn,
+    updateLicenseConfigurationResponse_httpStatus,
+
+    -- ** UpdateLicenseManagerReportGenerator
+    updateLicenseManagerReportGenerator_description,
+    updateLicenseManagerReportGenerator_licenseManagerReportGeneratorArn,
+    updateLicenseManagerReportGenerator_reportGeneratorName,
+    updateLicenseManagerReportGenerator_type,
+    updateLicenseManagerReportGenerator_reportContext,
+    updateLicenseManagerReportGenerator_reportFrequency,
+    updateLicenseManagerReportGenerator_clientToken,
+    updateLicenseManagerReportGeneratorResponse_httpStatus,
+
+    -- ** UpdateLicenseSpecificationsForResource
+    updateLicenseSpecificationsForResource_addLicenseSpecifications,
+    updateLicenseSpecificationsForResource_removeLicenseSpecifications,
+    updateLicenseSpecificationsForResource_resourceArn,
+    updateLicenseSpecificationsForResourceResponse_httpStatus,
+
+    -- ** UpdateServiceSettings
+    updateServiceSettings_enableCrossAccountsDiscovery,
+    updateServiceSettings_organizationConfiguration,
+    updateServiceSettings_s3BucketArn,
+    updateServiceSettings_snsTopicArn,
+    updateServiceSettingsResponse_httpStatus,
+
     -- * Types
 
     -- ** AutomatedDiscoveryInformation
@@ -454,8 +471,8 @@ module Amazonka.LicenseManager.Lens
     borrowConfiguration_maxTimeToLiveInMinutes,
 
     -- ** ConsumedLicenseSummary
-    consumedLicenseSummary_resourceType,
     consumedLicenseSummary_consumedLicenses,
+    consumedLicenseSummary_resourceType,
 
     -- ** ConsumptionConfiguration
     consumptionConfiguration_borrowConfiguration,
@@ -467,10 +484,10 @@ module Amazonka.LicenseManager.Lens
     datetimeRange_begin,
 
     -- ** Entitlement
-    entitlement_maxCount,
-    entitlement_value,
-    entitlement_overage,
     entitlement_allowCheckIn,
+    entitlement_maxCount,
+    entitlement_overage,
+    entitlement_value,
     entitlement_name,
     entitlement_unit,
 
@@ -486,8 +503,8 @@ module Amazonka.LicenseManager.Lens
     entitlementUsage_unit,
 
     -- ** Filter
-    filter_values,
     filter_name,
+    filter_values,
 
     -- ** Grant
     grant_statusReason,
@@ -502,21 +519,21 @@ module Amazonka.LicenseManager.Lens
     grant_grantedOperations,
 
     -- ** GrantedLicense
-    grantedLicense_status,
-    grantedLicense_productName,
-    grantedLicense_licenseName,
-    grantedLicense_productSKU,
-    grantedLicense_homeRegion,
-    grantedLicense_receivedMetadata,
-    grantedLicense_version,
-    grantedLicense_entitlements,
-    grantedLicense_validity,
-    grantedLicense_consumptionConfiguration,
     grantedLicense_beneficiary,
+    grantedLicense_consumptionConfiguration,
+    grantedLicense_createTime,
+    grantedLicense_entitlements,
+    grantedLicense_homeRegion,
     grantedLicense_issuer,
     grantedLicense_licenseArn,
     grantedLicense_licenseMetadata,
-    grantedLicense_createTime,
+    grantedLicense_licenseName,
+    grantedLicense_productName,
+    grantedLicense_productSKU,
+    grantedLicense_receivedMetadata,
+    grantedLicense_status,
+    grantedLicense_validity,
+    grantedLicense_version,
 
     -- ** InventoryFilter
     inventoryFilter_value,
@@ -529,81 +546,81 @@ module Amazonka.LicenseManager.Lens
 
     -- ** IssuerDetails
     issuerDetails_keyFingerprint,
-    issuerDetails_signKey,
     issuerDetails_name,
+    issuerDetails_signKey,
 
     -- ** License
-    license_status,
-    license_productName,
-    license_licenseName,
-    license_productSKU,
-    license_homeRegion,
-    license_version,
-    license_entitlements,
-    license_validity,
-    license_consumptionConfiguration,
     license_beneficiary,
+    license_consumptionConfiguration,
+    license_createTime,
+    license_entitlements,
+    license_homeRegion,
     license_issuer,
     license_licenseArn,
     license_licenseMetadata,
-    license_createTime,
+    license_licenseName,
+    license_productName,
+    license_productSKU,
+    license_status,
+    license_validity,
+    license_version,
 
     -- ** LicenseConfiguration
-    licenseConfiguration_status,
-    licenseConfiguration_ownerAccountId,
+    licenseConfiguration_automatedDiscoveryInformation,
     licenseConfiguration_consumedLicenseSummaryList,
+    licenseConfiguration_consumedLicenses,
+    licenseConfiguration_description,
+    licenseConfiguration_disassociateWhenNotFound,
+    licenseConfiguration_licenseConfigurationArn,
+    licenseConfiguration_licenseConfigurationId,
     licenseConfiguration_licenseCount,
+    licenseConfiguration_licenseCountHardLimit,
+    licenseConfiguration_licenseCountingType,
+    licenseConfiguration_licenseRules,
     licenseConfiguration_managedResourceSummaryList,
     licenseConfiguration_name,
-    licenseConfiguration_licenseCountHardLimit,
-    licenseConfiguration_disassociateWhenNotFound,
+    licenseConfiguration_ownerAccountId,
     licenseConfiguration_productInformationList,
-    licenseConfiguration_licenseCountingType,
-    licenseConfiguration_automatedDiscoveryInformation,
-    licenseConfiguration_consumedLicenses,
-    licenseConfiguration_licenseRules,
-    licenseConfiguration_licenseConfigurationId,
-    licenseConfiguration_description,
-    licenseConfiguration_licenseConfigurationArn,
+    licenseConfiguration_status,
 
     -- ** LicenseConfigurationAssociation
-    licenseConfigurationAssociation_resourceType,
     licenseConfigurationAssociation_amiAssociationScope,
     licenseConfigurationAssociation_associationTime,
     licenseConfigurationAssociation_resourceArn,
     licenseConfigurationAssociation_resourceOwnerId,
+    licenseConfigurationAssociation_resourceType,
 
     -- ** LicenseConfigurationUsage
-    licenseConfigurationUsage_resourceType,
-    licenseConfigurationUsage_resourceStatus,
     licenseConfigurationUsage_associationTime,
-    licenseConfigurationUsage_resourceArn,
     licenseConfigurationUsage_consumedLicenses,
+    licenseConfigurationUsage_resourceArn,
     licenseConfigurationUsage_resourceOwnerId,
+    licenseConfigurationUsage_resourceStatus,
+    licenseConfigurationUsage_resourceType,
 
     -- ** LicenseConversionContext
     licenseConversionContext_usageOperation,
 
     -- ** LicenseConversionTask
-    licenseConversionTask_status,
-    licenseConversionTask_startTime,
     licenseConversionTask_destinationLicenseContext,
-    licenseConversionTask_licenseConversionTaskId,
-    licenseConversionTask_resourceArn,
-    licenseConversionTask_statusMessage,
     licenseConversionTask_endTime,
+    licenseConversionTask_licenseConversionTaskId,
     licenseConversionTask_licenseConversionTime,
+    licenseConversionTask_resourceArn,
     licenseConversionTask_sourceLicenseContext,
+    licenseConversionTask_startTime,
+    licenseConversionTask_status,
+    licenseConversionTask_statusMessage,
 
     -- ** LicenseOperationFailure
-    licenseOperationFailure_resourceType,
-    licenseOperationFailure_operationRequestedBy,
-    licenseOperationFailure_resourceArn,
+    licenseOperationFailure_errorMessage,
+    licenseOperationFailure_failureTime,
     licenseOperationFailure_metadataList,
     licenseOperationFailure_operationName,
-    licenseOperationFailure_failureTime,
-    licenseOperationFailure_errorMessage,
+    licenseOperationFailure_operationRequestedBy,
+    licenseOperationFailure_resourceArn,
     licenseOperationFailure_resourceOwnerId,
+    licenseOperationFailure_resourceType,
 
     -- ** LicenseSpecification
     licenseSpecification_amiAssociationScope,
@@ -617,8 +634,8 @@ module Amazonka.LicenseManager.Lens
     managedResourceSummary_resourceType,
 
     -- ** Metadata
-    metadata_value,
     metadata_name,
+    metadata_value,
 
     -- ** OrganizationConfiguration
     organizationConfiguration_enableIntegration,
@@ -636,8 +653,8 @@ module Amazonka.LicenseManager.Lens
     provisionalConfiguration_maxTimeToLiveInMinutes,
 
     -- ** ReceivedMetadata
-    receivedMetadata_receivedStatus,
     receivedMetadata_allowedOperations,
+    receivedMetadata_receivedStatus,
     receivedMetadata_receivedStatusReason,
 
     -- ** ReportContext
@@ -648,44 +665,44 @@ module Amazonka.LicenseManager.Lens
     reportFrequency_value,
 
     -- ** ReportGenerator
+    reportGenerator_createTime,
+    reportGenerator_description,
     reportGenerator_lastReportGenerationTime,
     reportGenerator_lastRunFailureReason,
     reportGenerator_lastRunStatus,
-    reportGenerator_reportGeneratorName,
-    reportGenerator_reportFrequency,
-    reportGenerator_s3Location,
     reportGenerator_licenseManagerReportGeneratorArn,
-    reportGenerator_reportCreatorAccount,
-    reportGenerator_description,
-    reportGenerator_reportType,
-    reportGenerator_createTime,
-    reportGenerator_tags,
     reportGenerator_reportContext,
+    reportGenerator_reportCreatorAccount,
+    reportGenerator_reportFrequency,
+    reportGenerator_reportGeneratorName,
+    reportGenerator_reportType,
+    reportGenerator_s3Location,
+    reportGenerator_tags,
 
     -- ** ResourceInventory
     resourceInventory_platform,
-    resourceInventory_resourceId,
-    resourceInventory_resourceType,
     resourceInventory_platformVersion,
     resourceInventory_resourceArn,
+    resourceInventory_resourceId,
     resourceInventory_resourceOwningAccountId,
+    resourceInventory_resourceType,
 
     -- ** S3Location
     s3Location_bucket,
     s3Location_keyPrefix,
 
     -- ** Tag
-    tag_value,
     tag_key,
+    tag_value,
 
     -- ** TokenData
+    tokenData_expirationTime,
+    tokenData_licenseArn,
+    tokenData_roleArns,
     tokenData_status,
     tokenData_tokenId,
     tokenData_tokenProperties,
-    tokenData_roleArns,
     tokenData_tokenType,
-    tokenData_expirationTime,
-    tokenData_licenseArn,
   )
 where
 
@@ -725,7 +742,9 @@ import Amazonka.LicenseManager.ListLicenseSpecificationsForResource
 import Amazonka.LicenseManager.ListLicenseVersions
 import Amazonka.LicenseManager.ListLicenses
 import Amazonka.LicenseManager.ListReceivedGrants
+import Amazonka.LicenseManager.ListReceivedGrantsForOrganization
 import Amazonka.LicenseManager.ListReceivedLicenses
+import Amazonka.LicenseManager.ListReceivedLicensesForOrganization
 import Amazonka.LicenseManager.ListResourceInventory
 import Amazonka.LicenseManager.ListTagsForResource
 import Amazonka.LicenseManager.ListTokens

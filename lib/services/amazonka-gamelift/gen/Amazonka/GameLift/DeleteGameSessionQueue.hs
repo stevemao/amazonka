@@ -14,25 +14,17 @@
 
 -- |
 -- Module      : Amazonka.GameLift.DeleteGameSessionQueue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Deletes a game session queue. Once a queue is successfully deleted,
--- unfulfilled StartGameSessionPlacement requests that reference the queue
--- will fail. To delete a queue, specify the queue name.
---
--- __Learn more__
---
--- <https://docs.aws.amazon.com/gamelift/latest/developerguide/queues-intro.html Using Multi-Region Queues>
---
--- __Related actions__
---
--- CreateGameSessionQueue | DescribeGameSessionQueues |
--- UpdateGameSessionQueue | DeleteGameSessionQueue |
--- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
+-- unfulfilled
+-- <https://docs.aws.amazon.com/gamelift/latest/apireference/API_StartGameSessionPlacement.html StartGameSessionPlacement>
+-- requests that reference the queue will fail. To delete a queue, specify
+-- the queue name.
 module Amazonka.GameLift.DeleteGameSessionQueue
   ( -- * Creating a Request
     DeleteGameSessionQueue (..),
@@ -51,15 +43,14 @@ module Amazonka.GameLift.DeleteGameSessionQueue
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newDeleteGameSessionQueue' smart constructor.
+-- | /See:/ 'newDeleteGameSessionQueue' smart constructor.
 data DeleteGameSessionQueue = DeleteGameSessionQueue'
   { -- | A descriptive label that is associated with game session queue. Queue
     -- names must be unique within each Region. You can use either the queue ID
@@ -96,7 +87,8 @@ instance Core.AWSRequest DeleteGameSessionQueue where
   type
     AWSResponse DeleteGameSessionQueue =
       DeleteGameSessionQueueResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -111,32 +103,32 @@ instance Prelude.Hashable DeleteGameSessionQueue where
 instance Prelude.NFData DeleteGameSessionQueue where
   rnf DeleteGameSessionQueue' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DeleteGameSessionQueue where
+instance Data.ToHeaders DeleteGameSessionQueue where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.DeleteGameSessionQueue" ::
+              Data.=# ( "GameLift.DeleteGameSessionQueue" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteGameSessionQueue where
+instance Data.ToJSON DeleteGameSessionQueue where
   toJSON DeleteGameSessionQueue' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Name" Core..= name)]
+          [Prelude.Just ("Name" Data..= name)]
       )
 
-instance Core.ToPath DeleteGameSessionQueue where
+instance Data.ToPath DeleteGameSessionQueue where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteGameSessionQueue where
+instance Data.ToQuery DeleteGameSessionQueue where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteGameSessionQueueResponse' smart constructor.

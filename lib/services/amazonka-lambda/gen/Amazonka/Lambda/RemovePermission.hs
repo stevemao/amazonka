@@ -14,15 +14,15 @@
 
 -- |
 -- Module      : Amazonka.Lambda.RemovePermission
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Revokes function-use permission from an Amazon Web Services service or
--- another account. You can get the ID of the statement from the output of
--- GetPolicy.
+-- Revokes function-use permission from an Amazon Web Service or another
+-- Amazon Web Services account. You can get the ID of the statement from
+-- the output of GetPolicy.
 module Amazonka.Lambda.RemovePermission
   ( -- * Creating a Request
     RemovePermission (..),
@@ -41,8 +41,9 @@ module Amazonka.Lambda.RemovePermission
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,7 +53,7 @@ data RemovePermission = RemovePermission'
   { -- | Specify a version or alias to remove permissions from a published
     -- version of the function.
     qualifier :: Prelude.Maybe Prelude.Text,
-    -- | Only update the policy if the revision ID matches the ID that\'s
+    -- | Update the policy only if the revision ID matches the ID that\'s
     -- specified. Use this option to avoid modifying a policy that has changed
     -- since you last read it.
     revisionId :: Prelude.Maybe Prelude.Text,
@@ -60,13 +61,13 @@ data RemovePermission = RemovePermission'
     --
     -- __Name formats__
     --
-    -- -   __Function name__ - @my-function@ (name-only), @my-function:v1@
+    -- -   __Function name__ – @my-function@ (name-only), @my-function:v1@
     --     (with alias).
     --
-    -- -   __Function ARN__ -
+    -- -   __Function ARN__ –
     --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
     --
-    -- -   __Partial ARN__ - @123456789012:function:my-function@.
+    -- -   __Partial ARN__ – @123456789012:function:my-function@.
     --
     -- You can append a version number or alias to any of the formats. The
     -- length constraint applies only to the full ARN. If you specify only the
@@ -88,7 +89,7 @@ data RemovePermission = RemovePermission'
 -- 'qualifier', 'removePermission_qualifier' - Specify a version or alias to remove permissions from a published
 -- version of the function.
 --
--- 'revisionId', 'removePermission_revisionId' - Only update the policy if the revision ID matches the ID that\'s
+-- 'revisionId', 'removePermission_revisionId' - Update the policy only if the revision ID matches the ID that\'s
 -- specified. Use this option to avoid modifying a policy that has changed
 -- since you last read it.
 --
@@ -96,13 +97,13 @@ data RemovePermission = RemovePermission'
 --
 -- __Name formats__
 --
--- -   __Function name__ - @my-function@ (name-only), @my-function:v1@
+-- -   __Function name__ – @my-function@ (name-only), @my-function:v1@
 --     (with alias).
 --
--- -   __Function ARN__ -
+-- -   __Function ARN__ –
 --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
 --
--- -   __Partial ARN__ - @123456789012:function:my-function@.
+-- -   __Partial ARN__ – @123456789012:function:my-function@.
 --
 -- You can append a version number or alias to any of the formats. The
 -- length constraint applies only to the full ARN. If you specify only the
@@ -128,7 +129,7 @@ newRemovePermission pFunctionName_ pStatementId_ =
 removePermission_qualifier :: Lens.Lens' RemovePermission (Prelude.Maybe Prelude.Text)
 removePermission_qualifier = Lens.lens (\RemovePermission' {qualifier} -> qualifier) (\s@RemovePermission' {} a -> s {qualifier = a} :: RemovePermission)
 
--- | Only update the policy if the revision ID matches the ID that\'s
+-- | Update the policy only if the revision ID matches the ID that\'s
 -- specified. Use this option to avoid modifying a policy that has changed
 -- since you last read it.
 removePermission_revisionId :: Lens.Lens' RemovePermission (Prelude.Maybe Prelude.Text)
@@ -138,13 +139,13 @@ removePermission_revisionId = Lens.lens (\RemovePermission' {revisionId} -> revi
 --
 -- __Name formats__
 --
--- -   __Function name__ - @my-function@ (name-only), @my-function:v1@
+-- -   __Function name__ – @my-function@ (name-only), @my-function:v1@
 --     (with alias).
 --
--- -   __Function ARN__ -
+-- -   __Function ARN__ –
 --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
 --
--- -   __Partial ARN__ - @123456789012:function:my-function@.
+-- -   __Partial ARN__ – @123456789012:function:my-function@.
 --
 -- You can append a version number or alias to any of the formats. The
 -- length constraint applies only to the full ARN. If you specify only the
@@ -160,7 +161,8 @@ instance Core.AWSRequest RemovePermission where
   type
     AWSResponse RemovePermission =
       RemovePermissionResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull RemovePermissionResponse'
 
@@ -178,23 +180,23 @@ instance Prelude.NFData RemovePermission where
       `Prelude.seq` Prelude.rnf functionName
       `Prelude.seq` Prelude.rnf statementId
 
-instance Core.ToHeaders RemovePermission where
+instance Data.ToHeaders RemovePermission where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath RemovePermission where
+instance Data.ToPath RemovePermission where
   toPath RemovePermission' {..} =
     Prelude.mconcat
       [ "/2015-03-31/functions/",
-        Core.toBS functionName,
+        Data.toBS functionName,
         "/policy/",
-        Core.toBS statementId
+        Data.toBS statementId
       ]
 
-instance Core.ToQuery RemovePermission where
+instance Data.ToQuery RemovePermission where
   toQuery RemovePermission' {..} =
     Prelude.mconcat
-      [ "Qualifier" Core.=: qualifier,
-        "RevisionId" Core.=: revisionId
+      [ "Qualifier" Data.=: qualifier,
+        "RevisionId" Data.=: revisionId
       ]
 
 -- | /See:/ 'newRemovePermissionResponse' smart constructor.

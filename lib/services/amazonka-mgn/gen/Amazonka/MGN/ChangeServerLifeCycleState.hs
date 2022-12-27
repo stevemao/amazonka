@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MGN.ChangeServerLifeCycleState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,19 +38,23 @@ module Amazonka.MGN.ChangeServerLifeCycleState
     newSourceServer,
 
     -- * Response Lenses
-    sourceServer_sourceProperties,
+    sourceServer_applicationID,
     sourceServer_arn,
+    sourceServer_dataReplicationInfo,
+    sourceServer_isArchived,
     sourceServer_launchedInstance,
     sourceServer_lifeCycle,
-    sourceServer_isArchived,
-    sourceServer_dataReplicationInfo,
+    sourceServer_replicationType,
+    sourceServer_sourceProperties,
     sourceServer_sourceServerID,
     sourceServer_tags,
+    sourceServer_vcenterClientID,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MGN.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -106,10 +110,11 @@ instance Core.AWSRequest ChangeServerLifeCycleState where
   type
     AWSResponse ChangeServerLifeCycleState =
       SourceServer
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable ChangeServerLifeCycleState where
   hashWithSalt _salt ChangeServerLifeCycleState' {..} =
@@ -121,29 +126,29 @@ instance Prelude.NFData ChangeServerLifeCycleState where
     Prelude.rnf lifeCycle
       `Prelude.seq` Prelude.rnf sourceServerID
 
-instance Core.ToHeaders ChangeServerLifeCycleState where
+instance Data.ToHeaders ChangeServerLifeCycleState where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ChangeServerLifeCycleState where
+instance Data.ToJSON ChangeServerLifeCycleState where
   toJSON ChangeServerLifeCycleState' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("lifeCycle" Core..= lifeCycle),
+          [ Prelude.Just ("lifeCycle" Data..= lifeCycle),
             Prelude.Just
-              ("sourceServerID" Core..= sourceServerID)
+              ("sourceServerID" Data..= sourceServerID)
           ]
       )
 
-instance Core.ToPath ChangeServerLifeCycleState where
+instance Data.ToPath ChangeServerLifeCycleState where
   toPath = Prelude.const "/ChangeServerLifeCycleState"
 
-instance Core.ToQuery ChangeServerLifeCycleState where
+instance Data.ToQuery ChangeServerLifeCycleState where
   toQuery = Prelude.const Prelude.mempty

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DescribeAccountAuditConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.IoT.DescribeAccountAuditConfiguration
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -73,18 +74,19 @@ instance
   type
     AWSResponse DescribeAccountAuditConfiguration =
       DescribeAccountAuditConfigurationResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAccountAuditConfigurationResponse'
-            Prelude.<$> ( x Core..?> "auditCheckConfigurations"
+            Prelude.<$> ( x Data..?> "auditCheckConfigurations"
                             Core..!@ Prelude.mempty
                         )
-              Prelude.<*> ( x Core..?> "auditNotificationTargetConfigurations"
+              Prelude.<*> ( x Data..?> "auditNotificationTargetConfigurations"
                               Core..!@ Prelude.mempty
                           )
-              Prelude.<*> (x Core..?> "roleArn")
+              Prelude.<*> (x Data..?> "roleArn")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -102,19 +104,19 @@ instance
   rnf _ = ()
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeAccountAuditConfiguration
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeAccountAuditConfiguration
   where
   toPath = Prelude.const "/audit/configuration"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeAccountAuditConfiguration
   where
   toQuery = Prelude.const Prelude.mempty

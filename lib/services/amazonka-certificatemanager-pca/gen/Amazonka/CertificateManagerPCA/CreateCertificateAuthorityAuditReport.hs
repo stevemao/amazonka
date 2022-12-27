@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.CreateCertificateAuthorityAuditReport
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,11 +32,13 @@
 -- bucket that you specify. If the IAM principal making the call does not
 -- have permission to write to the bucket, then an exception is thrown. For
 -- more information, see
--- <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaAuthAccess.html Configure Access to ACM Private CA>.
+-- <https://docs.aws.amazon.com/acm-pca/latest/userguide/crl-planning.html#s3-policies Access policies for CRLs in Amazon S3>.
 --
 -- ACM Private CA assets that are stored in Amazon S3 can be protected with
 -- encryption. For more information, see
 -- <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaAuditReport.html#audit-report-encryption Encrypting Your Audit Reports>.
+--
+-- You can generate a maximum of one report every 30 minutes.
 module Amazonka.CertificateManagerPCA.CreateCertificateAuthorityAuditReport
   ( -- * Creating a Request
     CreateCertificateAuthorityAuditReport (..),
@@ -52,15 +54,16 @@ module Amazonka.CertificateManagerPCA.CreateCertificateAuthorityAuditReport
     newCreateCertificateAuthorityAuditReportResponse,
 
     -- * Response Lenses
-    createCertificateAuthorityAuditReportResponse_s3Key,
     createCertificateAuthorityAuditReportResponse_auditReportId,
+    createCertificateAuthorityAuditReportResponse_s3Key,
     createCertificateAuthorityAuditReportResponse_httpStatus,
   )
 where
 
 import Amazonka.CertificateManagerPCA.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -141,13 +144,14 @@ instance
     AWSResponse
       CreateCertificateAuthorityAuditReport =
       CreateCertificateAuthorityAuditReportResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateCertificateAuthorityAuditReportResponse'
-            Prelude.<$> (x Core..?> "S3Key")
-              Prelude.<*> (x Core..?> "AuditReportId")
+            Prelude.<$> (x Data..?> "AuditReportId")
+              Prelude.<*> (x Data..?> "S3Key")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -173,60 +177,60 @@ instance
       `Prelude.seq` Prelude.rnf auditReportResponseFormat
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CreateCertificateAuthorityAuditReport
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ACMPrivateCA.CreateCertificateAuthorityAuditReport" ::
+              Data.=# ( "ACMPrivateCA.CreateCertificateAuthorityAuditReport" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     CreateCertificateAuthorityAuditReport
   where
   toJSON CreateCertificateAuthorityAuditReport' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "CertificateAuthorityArn"
-                  Core..= certificateAuthorityArn
+                  Data..= certificateAuthorityArn
               ),
-            Prelude.Just ("S3BucketName" Core..= s3BucketName),
+            Prelude.Just ("S3BucketName" Data..= s3BucketName),
             Prelude.Just
               ( "AuditReportResponseFormat"
-                  Core..= auditReportResponseFormat
+                  Data..= auditReportResponseFormat
               )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     CreateCertificateAuthorityAuditReport
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     CreateCertificateAuthorityAuditReport
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateCertificateAuthorityAuditReportResponse' smart constructor.
 data CreateCertificateAuthorityAuditReportResponse = CreateCertificateAuthorityAuditReportResponse'
-  { -- | The __key__ that uniquely identifies the report file in your S3 bucket.
-    s3Key :: Prelude.Maybe Prelude.Text,
-    -- | An alphanumeric string that contains a report identifier.
+  { -- | An alphanumeric string that contains a report identifier.
     auditReportId :: Prelude.Maybe Prelude.Text,
+    -- | The __key__ that uniquely identifies the report file in your S3 bucket.
+    s3Key :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -240,9 +244,9 @@ data CreateCertificateAuthorityAuditReportResponse = CreateCertificateAuthorityA
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 's3Key', 'createCertificateAuthorityAuditReportResponse_s3Key' - The __key__ that uniquely identifies the report file in your S3 bucket.
---
 -- 'auditReportId', 'createCertificateAuthorityAuditReportResponse_auditReportId' - An alphanumeric string that contains a report identifier.
+--
+-- 's3Key', 'createCertificateAuthorityAuditReportResponse_s3Key' - The __key__ that uniquely identifies the report file in your S3 bucket.
 --
 -- 'httpStatus', 'createCertificateAuthorityAuditReportResponse_httpStatus' - The response's http status code.
 newCreateCertificateAuthorityAuditReportResponse ::
@@ -252,20 +256,19 @@ newCreateCertificateAuthorityAuditReportResponse ::
 newCreateCertificateAuthorityAuditReportResponse
   pHttpStatus_ =
     CreateCertificateAuthorityAuditReportResponse'
-      { s3Key =
+      { auditReportId =
           Prelude.Nothing,
-        auditReportId =
-          Prelude.Nothing,
+        s3Key = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | The __key__ that uniquely identifies the report file in your S3 bucket.
-createCertificateAuthorityAuditReportResponse_s3Key :: Lens.Lens' CreateCertificateAuthorityAuditReportResponse (Prelude.Maybe Prelude.Text)
-createCertificateAuthorityAuditReportResponse_s3Key = Lens.lens (\CreateCertificateAuthorityAuditReportResponse' {s3Key} -> s3Key) (\s@CreateCertificateAuthorityAuditReportResponse' {} a -> s {s3Key = a} :: CreateCertificateAuthorityAuditReportResponse)
 
 -- | An alphanumeric string that contains a report identifier.
 createCertificateAuthorityAuditReportResponse_auditReportId :: Lens.Lens' CreateCertificateAuthorityAuditReportResponse (Prelude.Maybe Prelude.Text)
 createCertificateAuthorityAuditReportResponse_auditReportId = Lens.lens (\CreateCertificateAuthorityAuditReportResponse' {auditReportId} -> auditReportId) (\s@CreateCertificateAuthorityAuditReportResponse' {} a -> s {auditReportId = a} :: CreateCertificateAuthorityAuditReportResponse)
+
+-- | The __key__ that uniquely identifies the report file in your S3 bucket.
+createCertificateAuthorityAuditReportResponse_s3Key :: Lens.Lens' CreateCertificateAuthorityAuditReportResponse (Prelude.Maybe Prelude.Text)
+createCertificateAuthorityAuditReportResponse_s3Key = Lens.lens (\CreateCertificateAuthorityAuditReportResponse' {s3Key} -> s3Key) (\s@CreateCertificateAuthorityAuditReportResponse' {} a -> s {s3Key = a} :: CreateCertificateAuthorityAuditReportResponse)
 
 -- | The response's http status code.
 createCertificateAuthorityAuditReportResponse_httpStatus :: Lens.Lens' CreateCertificateAuthorityAuditReportResponse Prelude.Int
@@ -277,6 +280,6 @@ instance
   where
   rnf
     CreateCertificateAuthorityAuditReportResponse' {..} =
-      Prelude.rnf s3Key
-        `Prelude.seq` Prelude.rnf auditReportId
+      Prelude.rnf auditReportId
+        `Prelude.seq` Prelude.rnf s3Key
         `Prelude.seq` Prelude.rnf httpStatus

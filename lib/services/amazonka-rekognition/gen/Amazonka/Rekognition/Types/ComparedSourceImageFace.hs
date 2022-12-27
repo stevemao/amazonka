@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.ComparedSourceImageFace
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.ComparedSourceImageFace where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types.BoundingBox
 
@@ -67,14 +68,14 @@ comparedSourceImageFace_boundingBox = Lens.lens (\ComparedSourceImageFace' {boun
 comparedSourceImageFace_confidence :: Lens.Lens' ComparedSourceImageFace (Prelude.Maybe Prelude.Double)
 comparedSourceImageFace_confidence = Lens.lens (\ComparedSourceImageFace' {confidence} -> confidence) (\s@ComparedSourceImageFace' {} a -> s {confidence = a} :: ComparedSourceImageFace)
 
-instance Core.FromJSON ComparedSourceImageFace where
+instance Data.FromJSON ComparedSourceImageFace where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ComparedSourceImageFace"
       ( \x ->
           ComparedSourceImageFace'
-            Prelude.<$> (x Core..:? "BoundingBox")
-            Prelude.<*> (x Core..:? "Confidence")
+            Prelude.<$> (x Data..:? "BoundingBox")
+            Prelude.<*> (x Data..:? "Confidence")
       )
 
 instance Prelude.Hashable ComparedSourceImageFace where

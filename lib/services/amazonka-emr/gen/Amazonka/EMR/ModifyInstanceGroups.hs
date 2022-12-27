@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.ModifyInstanceGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.EMR.ModifyInstanceGroups
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,7 +89,8 @@ instance Core.AWSRequest ModifyInstanceGroups where
   type
     AWSResponse ModifyInstanceGroups =
       ModifyInstanceGroupsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull ModifyInstanceGroupsResponse'
 
@@ -102,35 +104,35 @@ instance Prelude.NFData ModifyInstanceGroups where
     Prelude.rnf clusterId
       `Prelude.seq` Prelude.rnf instanceGroups
 
-instance Core.ToHeaders ModifyInstanceGroups where
+instance Data.ToHeaders ModifyInstanceGroups where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ElasticMapReduce.ModifyInstanceGroups" ::
+              Data.=# ( "ElasticMapReduce.ModifyInstanceGroups" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ModifyInstanceGroups where
+instance Data.ToJSON ModifyInstanceGroups where
   toJSON ModifyInstanceGroups' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ClusterId" Core..=) Prelude.<$> clusterId,
-            ("InstanceGroups" Core..=)
+          [ ("ClusterId" Data..=) Prelude.<$> clusterId,
+            ("InstanceGroups" Data..=)
               Prelude.<$> instanceGroups
           ]
       )
 
-instance Core.ToPath ModifyInstanceGroups where
+instance Data.ToPath ModifyInstanceGroups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyInstanceGroups where
+instance Data.ToQuery ModifyInstanceGroups where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newModifyInstanceGroupsResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudSearch.Types.DomainEndpointOptionsStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CloudSearch.Types.DomainEndpointOptionsStatus where
 import Amazonka.CloudSearch.Types.DomainEndpointOptions
 import Amazonka.CloudSearch.Types.OptionStatus
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configuration and status of the domain\'s endpoint options.
@@ -67,11 +68,11 @@ domainEndpointOptionsStatus_options = Lens.lens (\DomainEndpointOptionsStatus' {
 domainEndpointOptionsStatus_status :: Lens.Lens' DomainEndpointOptionsStatus OptionStatus
 domainEndpointOptionsStatus_status = Lens.lens (\DomainEndpointOptionsStatus' {status} -> status) (\s@DomainEndpointOptionsStatus' {} a -> s {status = a} :: DomainEndpointOptionsStatus)
 
-instance Core.FromXML DomainEndpointOptionsStatus where
+instance Data.FromXML DomainEndpointOptionsStatus where
   parseXML x =
     DomainEndpointOptionsStatus'
-      Prelude.<$> (x Core..@ "Options")
-      Prelude.<*> (x Core..@ "Status")
+      Prelude.<$> (x Data..@ "Options")
+      Prelude.<*> (x Data..@ "Status")
 
 instance Prelude.Hashable DomainEndpointOptionsStatus where
   hashWithSalt _salt DomainEndpointOptionsStatus' {..} =

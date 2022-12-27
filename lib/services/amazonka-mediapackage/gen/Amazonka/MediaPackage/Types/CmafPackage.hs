@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaPackage.Types.CmafPackage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaPackage.Types.CmafPackage where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaPackage.Types.CmafEncryption
 import Amazonka.MediaPackage.Types.HlsManifest
 import Amazonka.MediaPackage.Types.StreamSelection
@@ -30,16 +31,16 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newCmafPackage' smart constructor.
 data CmafPackage = CmafPackage'
-  { -- | A list of HLS manifest configurations
+  { encryption :: Prelude.Maybe CmafEncryption,
+    -- | A list of HLS manifest configurations
     hlsManifests :: Prelude.Maybe [HlsManifest],
     -- | Duration (in seconds) of each segment. Actual segments will be rounded
     -- to the nearest multiple of the source segment duration.
     segmentDurationSeconds :: Prelude.Maybe Prelude.Int,
-    streamSelection :: Prelude.Maybe StreamSelection,
-    encryption :: Prelude.Maybe CmafEncryption,
     -- | An optional custom string that is prepended to the name of each segment.
     -- If not specified, it defaults to the ChannelId.
-    segmentPrefix :: Prelude.Maybe Prelude.Text
+    segmentPrefix :: Prelude.Maybe Prelude.Text,
+    streamSelection :: Prelude.Maybe StreamSelection
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -51,27 +52,31 @@ data CmafPackage = CmafPackage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'encryption', 'cmafPackage_encryption' - Undocumented member.
+--
 -- 'hlsManifests', 'cmafPackage_hlsManifests' - A list of HLS manifest configurations
 --
 -- 'segmentDurationSeconds', 'cmafPackage_segmentDurationSeconds' - Duration (in seconds) of each segment. Actual segments will be rounded
 -- to the nearest multiple of the source segment duration.
 --
--- 'streamSelection', 'cmafPackage_streamSelection' - Undocumented member.
---
--- 'encryption', 'cmafPackage_encryption' - Undocumented member.
---
 -- 'segmentPrefix', 'cmafPackage_segmentPrefix' - An optional custom string that is prepended to the name of each segment.
 -- If not specified, it defaults to the ChannelId.
+--
+-- 'streamSelection', 'cmafPackage_streamSelection' - Undocumented member.
 newCmafPackage ::
   CmafPackage
 newCmafPackage =
   CmafPackage'
-    { hlsManifests = Prelude.Nothing,
+    { encryption = Prelude.Nothing,
+      hlsManifests = Prelude.Nothing,
       segmentDurationSeconds = Prelude.Nothing,
-      streamSelection = Prelude.Nothing,
-      encryption = Prelude.Nothing,
-      segmentPrefix = Prelude.Nothing
+      segmentPrefix = Prelude.Nothing,
+      streamSelection = Prelude.Nothing
     }
+
+-- | Undocumented member.
+cmafPackage_encryption :: Lens.Lens' CmafPackage (Prelude.Maybe CmafEncryption)
+cmafPackage_encryption = Lens.lens (\CmafPackage' {encryption} -> encryption) (\s@CmafPackage' {} a -> s {encryption = a} :: CmafPackage)
 
 -- | A list of HLS manifest configurations
 cmafPackage_hlsManifests :: Lens.Lens' CmafPackage (Prelude.Maybe [HlsManifest])
@@ -82,44 +87,40 @@ cmafPackage_hlsManifests = Lens.lens (\CmafPackage' {hlsManifests} -> hlsManifes
 cmafPackage_segmentDurationSeconds :: Lens.Lens' CmafPackage (Prelude.Maybe Prelude.Int)
 cmafPackage_segmentDurationSeconds = Lens.lens (\CmafPackage' {segmentDurationSeconds} -> segmentDurationSeconds) (\s@CmafPackage' {} a -> s {segmentDurationSeconds = a} :: CmafPackage)
 
--- | Undocumented member.
-cmafPackage_streamSelection :: Lens.Lens' CmafPackage (Prelude.Maybe StreamSelection)
-cmafPackage_streamSelection = Lens.lens (\CmafPackage' {streamSelection} -> streamSelection) (\s@CmafPackage' {} a -> s {streamSelection = a} :: CmafPackage)
-
--- | Undocumented member.
-cmafPackage_encryption :: Lens.Lens' CmafPackage (Prelude.Maybe CmafEncryption)
-cmafPackage_encryption = Lens.lens (\CmafPackage' {encryption} -> encryption) (\s@CmafPackage' {} a -> s {encryption = a} :: CmafPackage)
-
 -- | An optional custom string that is prepended to the name of each segment.
 -- If not specified, it defaults to the ChannelId.
 cmafPackage_segmentPrefix :: Lens.Lens' CmafPackage (Prelude.Maybe Prelude.Text)
 cmafPackage_segmentPrefix = Lens.lens (\CmafPackage' {segmentPrefix} -> segmentPrefix) (\s@CmafPackage' {} a -> s {segmentPrefix = a} :: CmafPackage)
 
-instance Core.FromJSON CmafPackage where
+-- | Undocumented member.
+cmafPackage_streamSelection :: Lens.Lens' CmafPackage (Prelude.Maybe StreamSelection)
+cmafPackage_streamSelection = Lens.lens (\CmafPackage' {streamSelection} -> streamSelection) (\s@CmafPackage' {} a -> s {streamSelection = a} :: CmafPackage)
+
+instance Data.FromJSON CmafPackage where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CmafPackage"
       ( \x ->
           CmafPackage'
-            Prelude.<$> (x Core..:? "hlsManifests" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "segmentDurationSeconds")
-            Prelude.<*> (x Core..:? "streamSelection")
-            Prelude.<*> (x Core..:? "encryption")
-            Prelude.<*> (x Core..:? "segmentPrefix")
+            Prelude.<$> (x Data..:? "encryption")
+            Prelude.<*> (x Data..:? "hlsManifests" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "segmentDurationSeconds")
+            Prelude.<*> (x Data..:? "segmentPrefix")
+            Prelude.<*> (x Data..:? "streamSelection")
       )
 
 instance Prelude.Hashable CmafPackage where
   hashWithSalt _salt CmafPackage' {..} =
-    _salt `Prelude.hashWithSalt` hlsManifests
+    _salt `Prelude.hashWithSalt` encryption
+      `Prelude.hashWithSalt` hlsManifests
       `Prelude.hashWithSalt` segmentDurationSeconds
-      `Prelude.hashWithSalt` streamSelection
-      `Prelude.hashWithSalt` encryption
       `Prelude.hashWithSalt` segmentPrefix
+      `Prelude.hashWithSalt` streamSelection
 
 instance Prelude.NFData CmafPackage where
   rnf CmafPackage' {..} =
-    Prelude.rnf hlsManifests
+    Prelude.rnf encryption
+      `Prelude.seq` Prelude.rnf hlsManifests
       `Prelude.seq` Prelude.rnf segmentDurationSeconds
-      `Prelude.seq` Prelude.rnf streamSelection
-      `Prelude.seq` Prelude.rnf encryption
       `Prelude.seq` Prelude.rnf segmentPrefix
+      `Prelude.seq` Prelude.rnf streamSelection

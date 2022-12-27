@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.CostAndUsageReport.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,34 +14,34 @@
 module Amazonka.CostAndUsageReport.Lens
   ( -- * Operations
 
-    -- ** PutReportDefinition
-    putReportDefinition_reportDefinition,
-    putReportDefinitionResponse_httpStatus,
-
     -- ** DeleteReportDefinition
     deleteReportDefinition_reportName,
     deleteReportDefinitionResponse_responseMessage,
     deleteReportDefinitionResponse_httpStatus,
+
+    -- ** DescribeReportDefinitions
+    describeReportDefinitions_maxResults,
+    describeReportDefinitions_nextToken,
+    describeReportDefinitionsResponse_nextToken,
+    describeReportDefinitionsResponse_reportDefinitions,
+    describeReportDefinitionsResponse_httpStatus,
 
     -- ** ModifyReportDefinition
     modifyReportDefinition_reportName,
     modifyReportDefinition_reportDefinition,
     modifyReportDefinitionResponse_httpStatus,
 
-    -- ** DescribeReportDefinitions
-    describeReportDefinitions_nextToken,
-    describeReportDefinitions_maxResults,
-    describeReportDefinitionsResponse_nextToken,
-    describeReportDefinitionsResponse_reportDefinitions,
-    describeReportDefinitionsResponse_httpStatus,
+    -- ** PutReportDefinition
+    putReportDefinition_reportDefinition,
+    putReportDefinitionResponse_httpStatus,
 
     -- * Types
 
     -- ** ReportDefinition
-    reportDefinition_reportVersioning,
-    reportDefinition_billingViewArn,
     reportDefinition_additionalArtifacts,
+    reportDefinition_billingViewArn,
     reportDefinition_refreshClosedReports,
+    reportDefinition_reportVersioning,
     reportDefinition_reportName,
     reportDefinition_timeUnit,
     reportDefinition_format,

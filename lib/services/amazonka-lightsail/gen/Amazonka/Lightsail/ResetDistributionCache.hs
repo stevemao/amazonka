@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.ResetDistributionCache
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,15 +38,16 @@ module Amazonka.Lightsail.ResetDistributionCache
     newResetDistributionCacheResponse,
 
     -- * Response Lenses
-    resetDistributionCacheResponse_status,
-    resetDistributionCacheResponse_operation,
     resetDistributionCacheResponse_createTime,
+    resetDistributionCacheResponse_operation,
+    resetDistributionCacheResponse_status,
     resetDistributionCacheResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -93,14 +94,15 @@ instance Core.AWSRequest ResetDistributionCache where
   type
     AWSResponse ResetDistributionCache =
       ResetDistributionCacheResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ResetDistributionCacheResponse'
-            Prelude.<$> (x Core..?> "status")
-            Prelude.<*> (x Core..?> "operation")
-            Prelude.<*> (x Core..?> "createTime")
+            Prelude.<$> (x Data..?> "createTime")
+            Prelude.<*> (x Data..?> "operation")
+            Prelude.<*> (x Data..?> "status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -112,47 +114,47 @@ instance Prelude.NFData ResetDistributionCache where
   rnf ResetDistributionCache' {..} =
     Prelude.rnf distributionName
 
-instance Core.ToHeaders ResetDistributionCache where
+instance Data.ToHeaders ResetDistributionCache where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.ResetDistributionCache" ::
+              Data.=# ( "Lightsail_20161128.ResetDistributionCache" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ResetDistributionCache where
+instance Data.ToJSON ResetDistributionCache where
   toJSON ResetDistributionCache' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("distributionName" Core..=)
+          [ ("distributionName" Data..=)
               Prelude.<$> distributionName
           ]
       )
 
-instance Core.ToPath ResetDistributionCache where
+instance Data.ToPath ResetDistributionCache where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ResetDistributionCache where
+instance Data.ToQuery ResetDistributionCache where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newResetDistributionCacheResponse' smart constructor.
 data ResetDistributionCacheResponse = ResetDistributionCacheResponse'
-  { -- | The status of the reset cache request.
-    status :: Prelude.Maybe Prelude.Text,
+  { -- | The timestamp of the reset cache request (e.g., @1479734909.17@) in Unix
+    -- time format.
+    createTime :: Prelude.Maybe Data.POSIX,
     -- | An array of objects that describe the result of the action, such as the
     -- status of the request, the timestamp of the request, and the resources
     -- affected by the request.
     operation :: Prelude.Maybe Operation,
-    -- | The timestamp of the reset cache request (e.g., @1479734909.17@) in Unix
-    -- time format.
-    createTime :: Prelude.Maybe Core.POSIX,
+    -- | The status of the reset cache request.
+    status :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -166,14 +168,14 @@ data ResetDistributionCacheResponse = ResetDistributionCacheResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'resetDistributionCacheResponse_status' - The status of the reset cache request.
+-- 'createTime', 'resetDistributionCacheResponse_createTime' - The timestamp of the reset cache request (e.g., @1479734909.17@) in Unix
+-- time format.
 --
 -- 'operation', 'resetDistributionCacheResponse_operation' - An array of objects that describe the result of the action, such as the
 -- status of the request, the timestamp of the request, and the resources
 -- affected by the request.
 --
--- 'createTime', 'resetDistributionCacheResponse_createTime' - The timestamp of the reset cache request (e.g., @1479734909.17@) in Unix
--- time format.
+-- 'status', 'resetDistributionCacheResponse_status' - The status of the reset cache request.
 --
 -- 'httpStatus', 'resetDistributionCacheResponse_httpStatus' - The response's http status code.
 newResetDistributionCacheResponse ::
@@ -182,16 +184,17 @@ newResetDistributionCacheResponse ::
   ResetDistributionCacheResponse
 newResetDistributionCacheResponse pHttpStatus_ =
   ResetDistributionCacheResponse'
-    { status =
+    { createTime =
         Prelude.Nothing,
       operation = Prelude.Nothing,
-      createTime = Prelude.Nothing,
+      status = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The status of the reset cache request.
-resetDistributionCacheResponse_status :: Lens.Lens' ResetDistributionCacheResponse (Prelude.Maybe Prelude.Text)
-resetDistributionCacheResponse_status = Lens.lens (\ResetDistributionCacheResponse' {status} -> status) (\s@ResetDistributionCacheResponse' {} a -> s {status = a} :: ResetDistributionCacheResponse)
+-- | The timestamp of the reset cache request (e.g., @1479734909.17@) in Unix
+-- time format.
+resetDistributionCacheResponse_createTime :: Lens.Lens' ResetDistributionCacheResponse (Prelude.Maybe Prelude.UTCTime)
+resetDistributionCacheResponse_createTime = Lens.lens (\ResetDistributionCacheResponse' {createTime} -> createTime) (\s@ResetDistributionCacheResponse' {} a -> s {createTime = a} :: ResetDistributionCacheResponse) Prelude.. Lens.mapping Data._Time
 
 -- | An array of objects that describe the result of the action, such as the
 -- status of the request, the timestamp of the request, and the resources
@@ -199,10 +202,9 @@ resetDistributionCacheResponse_status = Lens.lens (\ResetDistributionCacheRespon
 resetDistributionCacheResponse_operation :: Lens.Lens' ResetDistributionCacheResponse (Prelude.Maybe Operation)
 resetDistributionCacheResponse_operation = Lens.lens (\ResetDistributionCacheResponse' {operation} -> operation) (\s@ResetDistributionCacheResponse' {} a -> s {operation = a} :: ResetDistributionCacheResponse)
 
--- | The timestamp of the reset cache request (e.g., @1479734909.17@) in Unix
--- time format.
-resetDistributionCacheResponse_createTime :: Lens.Lens' ResetDistributionCacheResponse (Prelude.Maybe Prelude.UTCTime)
-resetDistributionCacheResponse_createTime = Lens.lens (\ResetDistributionCacheResponse' {createTime} -> createTime) (\s@ResetDistributionCacheResponse' {} a -> s {createTime = a} :: ResetDistributionCacheResponse) Prelude.. Lens.mapping Core._Time
+-- | The status of the reset cache request.
+resetDistributionCacheResponse_status :: Lens.Lens' ResetDistributionCacheResponse (Prelude.Maybe Prelude.Text)
+resetDistributionCacheResponse_status = Lens.lens (\ResetDistributionCacheResponse' {status} -> status) (\s@ResetDistributionCacheResponse' {} a -> s {status = a} :: ResetDistributionCacheResponse)
 
 -- | The response's http status code.
 resetDistributionCacheResponse_httpStatus :: Lens.Lens' ResetDistributionCacheResponse Prelude.Int
@@ -213,7 +215,7 @@ instance
     ResetDistributionCacheResponse
   where
   rnf ResetDistributionCacheResponse' {..} =
-    Prelude.rnf status
+    Prelude.rnf createTime
       `Prelude.seq` Prelude.rnf operation
-      `Prelude.seq` Prelude.rnf createTime
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf httpStatus

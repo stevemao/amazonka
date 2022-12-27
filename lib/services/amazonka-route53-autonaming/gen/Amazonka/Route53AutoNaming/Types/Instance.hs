@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53AutoNaming.Types.Instance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53AutoNaming.Types.Instance where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A complex type that contains information about an instance that Cloud
@@ -28,15 +29,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newInstance' smart constructor.
 data Instance = Instance'
-  { -- | A unique string that identifies the request and that allows failed
-    -- @RegisterInstance@ requests to be retried without the risk of executing
-    -- the operation twice. You must use a unique @CreatorRequestId@ string
-    -- every time you submit a @RegisterInstance@ request if you\'re
-    -- registering additional instances for the same namespace and service.
-    -- @CreatorRequestId@ can be any unique string (for example, a date\/time
-    -- stamp).
-    creatorRequestId :: Prelude.Maybe Prelude.Text,
-    -- | A string map that contains the following information for the service
+  { -- | A string map that contains the following information for the service
     -- that you specify in @ServiceId@:
     --
     -- -   The attributes that apply to the records that are defined in the
@@ -44,15 +37,18 @@ data Instance = Instance'
     --
     -- -   For each attribute, the applicable value.
     --
+    -- Do not include sensitive information in the attributes if the namespace
+    -- is discoverable by public DNS queries.
+    --
     -- Supported attribute keys include the following:
     --
     -- [AWS_ALIAS_DNS_NAME]
-    --     If you want Cloud Map to create a Route 53 alias record that routes
+    --     If you want Cloud Map to create a Route 53 alias record that routes
     --     traffic to an Elastic Load Balancing load balancer, specify the DNS
     --     name that\'s associated with the load balancer. For information
     --     about how to get the DNS name, see
     --     <https://docs.aws.amazon.com/Route53/latest/APIReference/API_AliasTarget.html#Route53-Type-AliasTarget-DNSName AliasTarget->DNSName>
-    --     in the /Route 53 API Reference/.
+    --     in the /Route 53 API Reference/.
     --
     --     Note the following:
     --
@@ -89,7 +85,7 @@ data Instance = Instance'
     --
     -- [AWS_INSTANCE_CNAME]
     --     If the service configuration includes a @CNAME@ record, the domain
-    --     name that you want Route 53 to return in response to DNS queries
+    --     name that you want Route 53 to return in response to DNS queries
     --     (for example, @example.com@).
     --
     --     This value is required if the service specified by @ServiceId@
@@ -97,7 +93,7 @@ data Instance = Instance'
     --
     -- [AWS_INSTANCE_IPV4]
     --     If the service configuration includes an @A@ record, the IPv4
-    --     address that you want Route 53 to return in response to DNS queries
+    --     address that you want Route 53 to return in response to DNS queries
     --     (for example, @192.0.2.44@).
     --
     --     This value is required if the service specified by @ServiceId@
@@ -107,7 +103,7 @@ data Instance = Instance'
     --
     -- [AWS_INSTANCE_IPV6]
     --     If the service configuration includes an @AAAA@ record, the IPv6
-    --     address that you want Route 53 to return in response to DNS queries
+    --     address that you want Route 53 to return in response to DNS queries
     --     (for example, @2001:0db8:85a3:0000:0000:abcd:0001:2345@).
     --
     --     This value is required if the service specified by @ServiceId@
@@ -117,14 +113,22 @@ data Instance = Instance'
     --
     -- [AWS_INSTANCE_PORT]
     --     If the service includes an @SRV@ record, the value that you want
-    --     Route 53 to return for the port.
+    --     Route 53 to return for the port.
     --
     --     If the service includes @HealthCheckConfig@, the port on the
-    --     endpoint that you want Route 53 to send requests to.
+    --     endpoint that you want Route 53 to send requests to.
     --
     --     This value is required if you specified settings for an @SRV@ record
-    --     or a Route 53 health check when you created the service.
+    --     or a Route 53 health check when you created the service.
     attributes :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | A unique string that identifies the request and that allows failed
+    -- @RegisterInstance@ requests to be retried without the risk of executing
+    -- the operation twice. You must use a unique @CreatorRequestId@ string
+    -- every time you submit a @RegisterInstance@ request if you\'re
+    -- registering additional instances for the same namespace and service.
+    -- @CreatorRequestId@ can be any unique string (for example, a date\/time
+    -- stamp).
+    creatorRequestId :: Prelude.Maybe Prelude.Text,
     -- | An identifier that you want to associate with the instance. Note the
     -- following:
     --
@@ -158,14 +162,6 @@ data Instance = Instance'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'creatorRequestId', 'instance_creatorRequestId' - A unique string that identifies the request and that allows failed
--- @RegisterInstance@ requests to be retried without the risk of executing
--- the operation twice. You must use a unique @CreatorRequestId@ string
--- every time you submit a @RegisterInstance@ request if you\'re
--- registering additional instances for the same namespace and service.
--- @CreatorRequestId@ can be any unique string (for example, a date\/time
--- stamp).
---
 -- 'attributes', 'instance_attributes' - A string map that contains the following information for the service
 -- that you specify in @ServiceId@:
 --
@@ -174,15 +170,18 @@ data Instance = Instance'
 --
 -- -   For each attribute, the applicable value.
 --
+-- Do not include sensitive information in the attributes if the namespace
+-- is discoverable by public DNS queries.
+--
 -- Supported attribute keys include the following:
 --
 -- [AWS_ALIAS_DNS_NAME]
---     If you want Cloud Map to create a Route 53 alias record that routes
+--     If you want Cloud Map to create a Route 53 alias record that routes
 --     traffic to an Elastic Load Balancing load balancer, specify the DNS
 --     name that\'s associated with the load balancer. For information
 --     about how to get the DNS name, see
 --     <https://docs.aws.amazon.com/Route53/latest/APIReference/API_AliasTarget.html#Route53-Type-AliasTarget-DNSName AliasTarget->DNSName>
---     in the /Route 53 API Reference/.
+--     in the /Route 53 API Reference/.
 --
 --     Note the following:
 --
@@ -219,7 +218,7 @@ data Instance = Instance'
 --
 -- [AWS_INSTANCE_CNAME]
 --     If the service configuration includes a @CNAME@ record, the domain
---     name that you want Route 53 to return in response to DNS queries
+--     name that you want Route 53 to return in response to DNS queries
 --     (for example, @example.com@).
 --
 --     This value is required if the service specified by @ServiceId@
@@ -227,7 +226,7 @@ data Instance = Instance'
 --
 -- [AWS_INSTANCE_IPV4]
 --     If the service configuration includes an @A@ record, the IPv4
---     address that you want Route 53 to return in response to DNS queries
+--     address that you want Route 53 to return in response to DNS queries
 --     (for example, @192.0.2.44@).
 --
 --     This value is required if the service specified by @ServiceId@
@@ -237,7 +236,7 @@ data Instance = Instance'
 --
 -- [AWS_INSTANCE_IPV6]
 --     If the service configuration includes an @AAAA@ record, the IPv6
---     address that you want Route 53 to return in response to DNS queries
+--     address that you want Route 53 to return in response to DNS queries
 --     (for example, @2001:0db8:85a3:0000:0000:abcd:0001:2345@).
 --
 --     This value is required if the service specified by @ServiceId@
@@ -247,13 +246,21 @@ data Instance = Instance'
 --
 -- [AWS_INSTANCE_PORT]
 --     If the service includes an @SRV@ record, the value that you want
---     Route 53 to return for the port.
+--     Route 53 to return for the port.
 --
 --     If the service includes @HealthCheckConfig@, the port on the
---     endpoint that you want Route 53 to send requests to.
+--     endpoint that you want Route 53 to send requests to.
 --
 --     This value is required if you specified settings for an @SRV@ record
---     or a Route 53 health check when you created the service.
+--     or a Route 53 health check when you created the service.
+--
+-- 'creatorRequestId', 'instance_creatorRequestId' - A unique string that identifies the request and that allows failed
+-- @RegisterInstance@ requests to be retried without the risk of executing
+-- the operation twice. You must use a unique @CreatorRequestId@ string
+-- every time you submit a @RegisterInstance@ request if you\'re
+-- registering additional instances for the same namespace and service.
+-- @CreatorRequestId@ can be any unique string (for example, a date\/time
+-- stamp).
 --
 -- 'id', 'instance_id' - An identifier that you want to associate with the instance. Note the
 -- following:
@@ -282,20 +289,10 @@ newInstance ::
   Instance
 newInstance pId_ =
   Instance'
-    { creatorRequestId = Prelude.Nothing,
-      attributes = Prelude.Nothing,
+    { attributes = Prelude.Nothing,
+      creatorRequestId = Prelude.Nothing,
       id = pId_
     }
-
--- | A unique string that identifies the request and that allows failed
--- @RegisterInstance@ requests to be retried without the risk of executing
--- the operation twice. You must use a unique @CreatorRequestId@ string
--- every time you submit a @RegisterInstance@ request if you\'re
--- registering additional instances for the same namespace and service.
--- @CreatorRequestId@ can be any unique string (for example, a date\/time
--- stamp).
-instance_creatorRequestId :: Lens.Lens' Instance (Prelude.Maybe Prelude.Text)
-instance_creatorRequestId = Lens.lens (\Instance' {creatorRequestId} -> creatorRequestId) (\s@Instance' {} a -> s {creatorRequestId = a} :: Instance)
 
 -- | A string map that contains the following information for the service
 -- that you specify in @ServiceId@:
@@ -305,15 +302,18 @@ instance_creatorRequestId = Lens.lens (\Instance' {creatorRequestId} -> creatorR
 --
 -- -   For each attribute, the applicable value.
 --
+-- Do not include sensitive information in the attributes if the namespace
+-- is discoverable by public DNS queries.
+--
 -- Supported attribute keys include the following:
 --
 -- [AWS_ALIAS_DNS_NAME]
---     If you want Cloud Map to create a Route 53 alias record that routes
+--     If you want Cloud Map to create a Route 53 alias record that routes
 --     traffic to an Elastic Load Balancing load balancer, specify the DNS
 --     name that\'s associated with the load balancer. For information
 --     about how to get the DNS name, see
 --     <https://docs.aws.amazon.com/Route53/latest/APIReference/API_AliasTarget.html#Route53-Type-AliasTarget-DNSName AliasTarget->DNSName>
---     in the /Route 53 API Reference/.
+--     in the /Route 53 API Reference/.
 --
 --     Note the following:
 --
@@ -350,7 +350,7 @@ instance_creatorRequestId = Lens.lens (\Instance' {creatorRequestId} -> creatorR
 --
 -- [AWS_INSTANCE_CNAME]
 --     If the service configuration includes a @CNAME@ record, the domain
---     name that you want Route 53 to return in response to DNS queries
+--     name that you want Route 53 to return in response to DNS queries
 --     (for example, @example.com@).
 --
 --     This value is required if the service specified by @ServiceId@
@@ -358,7 +358,7 @@ instance_creatorRequestId = Lens.lens (\Instance' {creatorRequestId} -> creatorR
 --
 -- [AWS_INSTANCE_IPV4]
 --     If the service configuration includes an @A@ record, the IPv4
---     address that you want Route 53 to return in response to DNS queries
+--     address that you want Route 53 to return in response to DNS queries
 --     (for example, @192.0.2.44@).
 --
 --     This value is required if the service specified by @ServiceId@
@@ -368,7 +368,7 @@ instance_creatorRequestId = Lens.lens (\Instance' {creatorRequestId} -> creatorR
 --
 -- [AWS_INSTANCE_IPV6]
 --     If the service configuration includes an @AAAA@ record, the IPv6
---     address that you want Route 53 to return in response to DNS queries
+--     address that you want Route 53 to return in response to DNS queries
 --     (for example, @2001:0db8:85a3:0000:0000:abcd:0001:2345@).
 --
 --     This value is required if the service specified by @ServiceId@
@@ -378,15 +378,25 @@ instance_creatorRequestId = Lens.lens (\Instance' {creatorRequestId} -> creatorR
 --
 -- [AWS_INSTANCE_PORT]
 --     If the service includes an @SRV@ record, the value that you want
---     Route 53 to return for the port.
+--     Route 53 to return for the port.
 --
 --     If the service includes @HealthCheckConfig@, the port on the
---     endpoint that you want Route 53 to send requests to.
+--     endpoint that you want Route 53 to send requests to.
 --
 --     This value is required if you specified settings for an @SRV@ record
---     or a Route 53 health check when you created the service.
+--     or a Route 53 health check when you created the service.
 instance_attributes :: Lens.Lens' Instance (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 instance_attributes = Lens.lens (\Instance' {attributes} -> attributes) (\s@Instance' {} a -> s {attributes = a} :: Instance) Prelude.. Lens.mapping Lens.coerced
+
+-- | A unique string that identifies the request and that allows failed
+-- @RegisterInstance@ requests to be retried without the risk of executing
+-- the operation twice. You must use a unique @CreatorRequestId@ string
+-- every time you submit a @RegisterInstance@ request if you\'re
+-- registering additional instances for the same namespace and service.
+-- @CreatorRequestId@ can be any unique string (for example, a date\/time
+-- stamp).
+instance_creatorRequestId :: Lens.Lens' Instance (Prelude.Maybe Prelude.Text)
+instance_creatorRequestId = Lens.lens (\Instance' {creatorRequestId} -> creatorRequestId) (\s@Instance' {} a -> s {creatorRequestId = a} :: Instance)
 
 -- | An identifier that you want to associate with the instance. Note the
 -- following:
@@ -412,25 +422,25 @@ instance_attributes = Lens.lens (\Instance' {attributes} -> attributes) (\s@Inst
 instance_id :: Lens.Lens' Instance Prelude.Text
 instance_id = Lens.lens (\Instance' {id} -> id) (\s@Instance' {} a -> s {id = a} :: Instance)
 
-instance Core.FromJSON Instance where
+instance Data.FromJSON Instance where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Instance"
       ( \x ->
           Instance'
-            Prelude.<$> (x Core..:? "CreatorRequestId")
-            Prelude.<*> (x Core..:? "Attributes" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "Id")
+            Prelude.<$> (x Data..:? "Attributes" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "CreatorRequestId")
+            Prelude.<*> (x Data..: "Id")
       )
 
 instance Prelude.Hashable Instance where
   hashWithSalt _salt Instance' {..} =
-    _salt `Prelude.hashWithSalt` creatorRequestId
-      `Prelude.hashWithSalt` attributes
+    _salt `Prelude.hashWithSalt` attributes
+      `Prelude.hashWithSalt` creatorRequestId
       `Prelude.hashWithSalt` id
 
 instance Prelude.NFData Instance where
   rnf Instance' {..} =
-    Prelude.rnf creatorRequestId
-      `Prelude.seq` Prelude.rnf attributes
+    Prelude.rnf attributes
+      `Prelude.seq` Prelude.rnf creatorRequestId
       `Prelude.seq` Prelude.rnf id

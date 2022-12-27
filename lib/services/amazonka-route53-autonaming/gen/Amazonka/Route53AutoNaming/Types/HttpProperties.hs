@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53AutoNaming.Types.HttpProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53AutoNaming.Types.HttpProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A complex type that contains the name of an HTTP namespace.
@@ -50,12 +51,12 @@ newHttpProperties =
 httpProperties_httpName :: Lens.Lens' HttpProperties (Prelude.Maybe Prelude.Text)
 httpProperties_httpName = Lens.lens (\HttpProperties' {httpName} -> httpName) (\s@HttpProperties' {} a -> s {httpName = a} :: HttpProperties)
 
-instance Core.FromJSON HttpProperties where
+instance Data.FromJSON HttpProperties where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HttpProperties"
       ( \x ->
-          HttpProperties' Prelude.<$> (x Core..:? "HttpName")
+          HttpProperties' Prelude.<$> (x Data..:? "HttpName")
       )
 
 instance Prelude.Hashable HttpProperties where

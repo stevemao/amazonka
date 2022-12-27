@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.ContainsPiiEntities
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,18 +44,18 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newContainsPiiEntities' smart constructor.
 data ContainsPiiEntities = ContainsPiiEntities'
-  { -- | Creates a new document classification request to analyze a single
-    -- document in real-time, returning personally identifiable information
-    -- (PII) entity labels.
+  { -- | A UTF-8 text string. The maximum string size is 100 KB.
     text :: Prelude.Text,
-    -- | The language of the input documents.
+    -- | The language of the input documents. Currently, English is the only
+    -- valid language.
     languageCode :: LanguageCode
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -68,11 +68,10 @@ data ContainsPiiEntities = ContainsPiiEntities'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'text', 'containsPiiEntities_text' - Creates a new document classification request to analyze a single
--- document in real-time, returning personally identifiable information
--- (PII) entity labels.
+-- 'text', 'containsPiiEntities_text' - A UTF-8 text string. The maximum string size is 100 KB.
 --
--- 'languageCode', 'containsPiiEntities_languageCode' - The language of the input documents.
+-- 'languageCode', 'containsPiiEntities_languageCode' - The language of the input documents. Currently, English is the only
+-- valid language.
 newContainsPiiEntities ::
   -- | 'text'
   Prelude.Text ->
@@ -85,13 +84,12 @@ newContainsPiiEntities pText_ pLanguageCode_ =
       languageCode = pLanguageCode_
     }
 
--- | Creates a new document classification request to analyze a single
--- document in real-time, returning personally identifiable information
--- (PII) entity labels.
+-- | A UTF-8 text string. The maximum string size is 100 KB.
 containsPiiEntities_text :: Lens.Lens' ContainsPiiEntities Prelude.Text
 containsPiiEntities_text = Lens.lens (\ContainsPiiEntities' {text} -> text) (\s@ContainsPiiEntities' {} a -> s {text = a} :: ContainsPiiEntities)
 
--- | The language of the input documents.
+-- | The language of the input documents. Currently, English is the only
+-- valid language.
 containsPiiEntities_languageCode :: Lens.Lens' ContainsPiiEntities LanguageCode
 containsPiiEntities_languageCode = Lens.lens (\ContainsPiiEntities' {languageCode} -> languageCode) (\s@ContainsPiiEntities' {} a -> s {languageCode = a} :: ContainsPiiEntities)
 
@@ -99,12 +97,13 @@ instance Core.AWSRequest ContainsPiiEntities where
   type
     AWSResponse ContainsPiiEntities =
       ContainsPiiEntitiesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ContainsPiiEntitiesResponse'
-            Prelude.<$> (x Core..?> "Labels" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Labels" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -118,34 +117,34 @@ instance Prelude.NFData ContainsPiiEntities where
     Prelude.rnf text
       `Prelude.seq` Prelude.rnf languageCode
 
-instance Core.ToHeaders ContainsPiiEntities where
+instance Data.ToHeaders ContainsPiiEntities where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.ContainsPiiEntities" ::
+              Data.=# ( "Comprehend_20171127.ContainsPiiEntities" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ContainsPiiEntities where
+instance Data.ToJSON ContainsPiiEntities where
   toJSON ContainsPiiEntities' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Text" Core..= text),
-            Prelude.Just ("LanguageCode" Core..= languageCode)
+          [ Prelude.Just ("Text" Data..= text),
+            Prelude.Just ("LanguageCode" Data..= languageCode)
           ]
       )
 
-instance Core.ToPath ContainsPiiEntities where
+instance Data.ToPath ContainsPiiEntities where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ContainsPiiEntities where
+instance Data.ToQuery ContainsPiiEntities where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newContainsPiiEntitiesResponse' smart constructor.

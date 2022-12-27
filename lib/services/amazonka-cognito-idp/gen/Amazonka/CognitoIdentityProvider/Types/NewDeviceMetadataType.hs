@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.Types.NewDeviceMetadataType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CognitoIdentityProvider.Types.NewDeviceMetadataType where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The new device metadata type.
@@ -62,14 +63,14 @@ newDeviceMetadataType_deviceGroupKey = Lens.lens (\NewDeviceMetadataType' {devic
 newDeviceMetadataType_deviceKey :: Lens.Lens' NewDeviceMetadataType (Prelude.Maybe Prelude.Text)
 newDeviceMetadataType_deviceKey = Lens.lens (\NewDeviceMetadataType' {deviceKey} -> deviceKey) (\s@NewDeviceMetadataType' {} a -> s {deviceKey = a} :: NewDeviceMetadataType)
 
-instance Core.FromJSON NewDeviceMetadataType where
+instance Data.FromJSON NewDeviceMetadataType where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NewDeviceMetadataType"
       ( \x ->
           NewDeviceMetadataType'
-            Prelude.<$> (x Core..:? "DeviceGroupKey")
-            Prelude.<*> (x Core..:? "DeviceKey")
+            Prelude.<$> (x Data..:? "DeviceGroupKey")
+            Prelude.<*> (x Data..:? "DeviceKey")
       )
 
 instance Prelude.Hashable NewDeviceMetadataType where

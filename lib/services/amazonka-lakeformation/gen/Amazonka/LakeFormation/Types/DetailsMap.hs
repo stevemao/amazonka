@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LakeFormation.Types.DetailsMap
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,19 @@
 module Amazonka.LakeFormation.Types.DetailsMap where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A structure containing the additional details to be returned in the
 -- @AdditionalDetails@ attribute of @PrincipalResourcePermissions@.
 --
--- If a catalog resource is shared through AWS Resource Access Manager (AWS
--- RAM), then there will exist a corresponding RAM resource share ARN.
+-- If a catalog resource is shared through Resource Access Manager (RAM),
+-- then there will exist a corresponding RAM resource share ARN.
 --
 -- /See:/ 'newDetailsMap' smart constructor.
 data DetailsMap = DetailsMap'
-  { -- | A resource share ARN for a catalog resource shared through AWS Resource
-    -- Access Manager (AWS RAM).
+  { -- | A resource share ARN for a catalog resource shared through RAM.
     resourceShare :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -45,25 +45,23 @@ data DetailsMap = DetailsMap'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceShare', 'detailsMap_resourceShare' - A resource share ARN for a catalog resource shared through AWS Resource
--- Access Manager (AWS RAM).
+-- 'resourceShare', 'detailsMap_resourceShare' - A resource share ARN for a catalog resource shared through RAM.
 newDetailsMap ::
   DetailsMap
 newDetailsMap =
   DetailsMap' {resourceShare = Prelude.Nothing}
 
--- | A resource share ARN for a catalog resource shared through AWS Resource
--- Access Manager (AWS RAM).
+-- | A resource share ARN for a catalog resource shared through RAM.
 detailsMap_resourceShare :: Lens.Lens' DetailsMap (Prelude.Maybe [Prelude.Text])
 detailsMap_resourceShare = Lens.lens (\DetailsMap' {resourceShare} -> resourceShare) (\s@DetailsMap' {} a -> s {resourceShare = a} :: DetailsMap) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON DetailsMap where
+instance Data.FromJSON DetailsMap where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DetailsMap"
       ( \x ->
           DetailsMap'
-            Prelude.<$> (x Core..:? "ResourceShare" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "ResourceShare" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable DetailsMap where

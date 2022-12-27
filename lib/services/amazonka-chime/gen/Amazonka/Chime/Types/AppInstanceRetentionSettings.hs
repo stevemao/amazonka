@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.Types.AppInstanceRetentionSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Chime.Types.AppInstanceRetentionSettings where
 
 import Amazonka.Chime.Types.ChannelRetentionSettings
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The details of the data-retention settings for an @AppInstance@.
@@ -54,13 +55,13 @@ newAppInstanceRetentionSettings =
 appInstanceRetentionSettings_channelRetentionSettings :: Lens.Lens' AppInstanceRetentionSettings (Prelude.Maybe ChannelRetentionSettings)
 appInstanceRetentionSettings_channelRetentionSettings = Lens.lens (\AppInstanceRetentionSettings' {channelRetentionSettings} -> channelRetentionSettings) (\s@AppInstanceRetentionSettings' {} a -> s {channelRetentionSettings = a} :: AppInstanceRetentionSettings)
 
-instance Core.FromJSON AppInstanceRetentionSettings where
+instance Data.FromJSON AppInstanceRetentionSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AppInstanceRetentionSettings"
       ( \x ->
           AppInstanceRetentionSettings'
-            Prelude.<$> (x Core..:? "ChannelRetentionSettings")
+            Prelude.<$> (x Data..:? "ChannelRetentionSettings")
       )
 
 instance
@@ -75,11 +76,11 @@ instance Prelude.NFData AppInstanceRetentionSettings where
   rnf AppInstanceRetentionSettings' {..} =
     Prelude.rnf channelRetentionSettings
 
-instance Core.ToJSON AppInstanceRetentionSettings where
+instance Data.ToJSON AppInstanceRetentionSettings where
   toJSON AppInstanceRetentionSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ChannelRetentionSettings" Core..=)
+          [ ("ChannelRetentionSettings" Data..=)
               Prelude.<$> channelRetentionSettings
           ]
       )

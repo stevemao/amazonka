@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.Types.Variable
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.IoTAnalytics.Types.Variable where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types.DatasetContentVersionValue
 import Amazonka.IoTAnalytics.Types.OutputFileUriValue
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An instance of a variable to be passed to the @containerAction@
@@ -31,16 +32,16 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newVariable' smart constructor.
 data Variable = Variable'
-  { -- | The value of the variable as a structure that specifies an output file
-    -- URI.
-    outputFileUriValue :: Prelude.Maybe OutputFileUriValue,
-    -- | The value of the variable as a double (numeric).
-    doubleValue :: Prelude.Maybe Prelude.Double,
-    -- | The value of the variable as a string.
-    stringValue :: Prelude.Maybe Prelude.Text,
-    -- | The value of the variable as a structure that specifies a dataset
+  { -- | The value of the variable as a structure that specifies a dataset
     -- content version.
     datasetContentVersionValue :: Prelude.Maybe DatasetContentVersionValue,
+    -- | The value of the variable as a double (numeric).
+    doubleValue :: Prelude.Maybe Prelude.Double,
+    -- | The value of the variable as a structure that specifies an output file
+    -- URI.
+    outputFileUriValue :: Prelude.Maybe OutputFileUriValue,
+    -- | The value of the variable as a string.
+    stringValue :: Prelude.Maybe Prelude.Text,
     -- | The name of the variable.
     name :: Prelude.Text
   }
@@ -54,15 +55,15 @@ data Variable = Variable'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'outputFileUriValue', 'variable_outputFileUriValue' - The value of the variable as a structure that specifies an output file
--- URI.
+-- 'datasetContentVersionValue', 'variable_datasetContentVersionValue' - The value of the variable as a structure that specifies a dataset
+-- content version.
 --
 -- 'doubleValue', 'variable_doubleValue' - The value of the variable as a double (numeric).
 --
--- 'stringValue', 'variable_stringValue' - The value of the variable as a string.
+-- 'outputFileUriValue', 'variable_outputFileUriValue' - The value of the variable as a structure that specifies an output file
+-- URI.
 --
--- 'datasetContentVersionValue', 'variable_datasetContentVersionValue' - The value of the variable as a structure that specifies a dataset
--- content version.
+-- 'stringValue', 'variable_stringValue' - The value of the variable as a string.
 --
 -- 'name', 'variable_name' - The name of the variable.
 newVariable ::
@@ -71,74 +72,76 @@ newVariable ::
   Variable
 newVariable pName_ =
   Variable'
-    { outputFileUriValue = Prelude.Nothing,
+    { datasetContentVersionValue =
+        Prelude.Nothing,
       doubleValue = Prelude.Nothing,
+      outputFileUriValue = Prelude.Nothing,
       stringValue = Prelude.Nothing,
-      datasetContentVersionValue = Prelude.Nothing,
       name = pName_
     }
-
--- | The value of the variable as a structure that specifies an output file
--- URI.
-variable_outputFileUriValue :: Lens.Lens' Variable (Prelude.Maybe OutputFileUriValue)
-variable_outputFileUriValue = Lens.lens (\Variable' {outputFileUriValue} -> outputFileUriValue) (\s@Variable' {} a -> s {outputFileUriValue = a} :: Variable)
-
--- | The value of the variable as a double (numeric).
-variable_doubleValue :: Lens.Lens' Variable (Prelude.Maybe Prelude.Double)
-variable_doubleValue = Lens.lens (\Variable' {doubleValue} -> doubleValue) (\s@Variable' {} a -> s {doubleValue = a} :: Variable)
-
--- | The value of the variable as a string.
-variable_stringValue :: Lens.Lens' Variable (Prelude.Maybe Prelude.Text)
-variable_stringValue = Lens.lens (\Variable' {stringValue} -> stringValue) (\s@Variable' {} a -> s {stringValue = a} :: Variable)
 
 -- | The value of the variable as a structure that specifies a dataset
 -- content version.
 variable_datasetContentVersionValue :: Lens.Lens' Variable (Prelude.Maybe DatasetContentVersionValue)
 variable_datasetContentVersionValue = Lens.lens (\Variable' {datasetContentVersionValue} -> datasetContentVersionValue) (\s@Variable' {} a -> s {datasetContentVersionValue = a} :: Variable)
 
+-- | The value of the variable as a double (numeric).
+variable_doubleValue :: Lens.Lens' Variable (Prelude.Maybe Prelude.Double)
+variable_doubleValue = Lens.lens (\Variable' {doubleValue} -> doubleValue) (\s@Variable' {} a -> s {doubleValue = a} :: Variable)
+
+-- | The value of the variable as a structure that specifies an output file
+-- URI.
+variable_outputFileUriValue :: Lens.Lens' Variable (Prelude.Maybe OutputFileUriValue)
+variable_outputFileUriValue = Lens.lens (\Variable' {outputFileUriValue} -> outputFileUriValue) (\s@Variable' {} a -> s {outputFileUriValue = a} :: Variable)
+
+-- | The value of the variable as a string.
+variable_stringValue :: Lens.Lens' Variable (Prelude.Maybe Prelude.Text)
+variable_stringValue = Lens.lens (\Variable' {stringValue} -> stringValue) (\s@Variable' {} a -> s {stringValue = a} :: Variable)
+
 -- | The name of the variable.
 variable_name :: Lens.Lens' Variable Prelude.Text
 variable_name = Lens.lens (\Variable' {name} -> name) (\s@Variable' {} a -> s {name = a} :: Variable)
 
-instance Core.FromJSON Variable where
+instance Data.FromJSON Variable where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Variable"
       ( \x ->
           Variable'
-            Prelude.<$> (x Core..:? "outputFileUriValue")
-            Prelude.<*> (x Core..:? "doubleValue")
-            Prelude.<*> (x Core..:? "stringValue")
-            Prelude.<*> (x Core..:? "datasetContentVersionValue")
-            Prelude.<*> (x Core..: "name")
+            Prelude.<$> (x Data..:? "datasetContentVersionValue")
+            Prelude.<*> (x Data..:? "doubleValue")
+            Prelude.<*> (x Data..:? "outputFileUriValue")
+            Prelude.<*> (x Data..:? "stringValue")
+            Prelude.<*> (x Data..: "name")
       )
 
 instance Prelude.Hashable Variable where
   hashWithSalt _salt Variable' {..} =
-    _salt `Prelude.hashWithSalt` outputFileUriValue
-      `Prelude.hashWithSalt` doubleValue
-      `Prelude.hashWithSalt` stringValue
+    _salt
       `Prelude.hashWithSalt` datasetContentVersionValue
+      `Prelude.hashWithSalt` doubleValue
+      `Prelude.hashWithSalt` outputFileUriValue
+      `Prelude.hashWithSalt` stringValue
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData Variable where
   rnf Variable' {..} =
-    Prelude.rnf outputFileUriValue
+    Prelude.rnf datasetContentVersionValue
       `Prelude.seq` Prelude.rnf doubleValue
+      `Prelude.seq` Prelude.rnf outputFileUriValue
       `Prelude.seq` Prelude.rnf stringValue
-      `Prelude.seq` Prelude.rnf datasetContentVersionValue
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToJSON Variable where
+instance Data.ToJSON Variable where
   toJSON Variable' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("outputFileUriValue" Core..=)
-              Prelude.<$> outputFileUriValue,
-            ("doubleValue" Core..=) Prelude.<$> doubleValue,
-            ("stringValue" Core..=) Prelude.<$> stringValue,
-            ("datasetContentVersionValue" Core..=)
+          [ ("datasetContentVersionValue" Data..=)
               Prelude.<$> datasetContentVersionValue,
-            Prelude.Just ("name" Core..= name)
+            ("doubleValue" Data..=) Prelude.<$> doubleValue,
+            ("outputFileUriValue" Data..=)
+              Prelude.<$> outputFileUriValue,
+            ("stringValue" Data..=) Prelude.<$> stringValue,
+            Prelude.Just ("name" Data..= name)
           ]
       )

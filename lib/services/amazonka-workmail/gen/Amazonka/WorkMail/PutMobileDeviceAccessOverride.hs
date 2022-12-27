@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.PutMobileDeviceAccessOverride
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.WorkMail.PutMobileDeviceAccessOverride
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,8 +55,7 @@ import Amazonka.WorkMail.Types
 data PutMobileDeviceAccessOverride = PutMobileDeviceAccessOverride'
   { -- | A description of the override.
     description :: Prelude.Maybe Prelude.Text,
-    -- | Identifies the Amazon WorkMail organization for which you create the
-    -- override.
+    -- | Identifies the WorkMail organization for which you create the override.
     organizationId :: Prelude.Text,
     -- | The WorkMail user for which you create the override. Accepts the
     -- following types of user identities:
@@ -85,8 +85,7 @@ data PutMobileDeviceAccessOverride = PutMobileDeviceAccessOverride'
 --
 -- 'description', 'putMobileDeviceAccessOverride_description' - A description of the override.
 --
--- 'organizationId', 'putMobileDeviceAccessOverride_organizationId' - Identifies the Amazon WorkMail organization for which you create the
--- override.
+-- 'organizationId', 'putMobileDeviceAccessOverride_organizationId' - Identifies the WorkMail organization for which you create the override.
 --
 -- 'userId', 'putMobileDeviceAccessOverride_userId' - The WorkMail user for which you create the override. Accepts the
 -- following types of user identities:
@@ -130,8 +129,7 @@ newPutMobileDeviceAccessOverride
 putMobileDeviceAccessOverride_description :: Lens.Lens' PutMobileDeviceAccessOverride (Prelude.Maybe Prelude.Text)
 putMobileDeviceAccessOverride_description = Lens.lens (\PutMobileDeviceAccessOverride' {description} -> description) (\s@PutMobileDeviceAccessOverride' {} a -> s {description = a} :: PutMobileDeviceAccessOverride)
 
--- | Identifies the Amazon WorkMail organization for which you create the
--- override.
+-- | Identifies the WorkMail organization for which you create the override.
 putMobileDeviceAccessOverride_organizationId :: Lens.Lens' PutMobileDeviceAccessOverride Prelude.Text
 putMobileDeviceAccessOverride_organizationId = Lens.lens (\PutMobileDeviceAccessOverride' {organizationId} -> organizationId) (\s@PutMobileDeviceAccessOverride' {} a -> s {organizationId = a} :: PutMobileDeviceAccessOverride)
 
@@ -163,7 +161,8 @@ instance
   type
     AWSResponse PutMobileDeviceAccessOverride =
       PutMobileDeviceAccessOverrideResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -190,38 +189,38 @@ instance Prelude.NFData PutMobileDeviceAccessOverride where
       `Prelude.seq` Prelude.rnf deviceId
       `Prelude.seq` Prelude.rnf effect
 
-instance Core.ToHeaders PutMobileDeviceAccessOverride where
+instance Data.ToHeaders PutMobileDeviceAccessOverride where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkMailService.PutMobileDeviceAccessOverride" ::
+              Data.=# ( "WorkMailService.PutMobileDeviceAccessOverride" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutMobileDeviceAccessOverride where
+instance Data.ToJSON PutMobileDeviceAccessOverride where
   toJSON PutMobileDeviceAccessOverride' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Description" Core..=) Prelude.<$> description,
+          [ ("Description" Data..=) Prelude.<$> description,
             Prelude.Just
-              ("OrganizationId" Core..= organizationId),
-            Prelude.Just ("UserId" Core..= userId),
-            Prelude.Just ("DeviceId" Core..= deviceId),
-            Prelude.Just ("Effect" Core..= effect)
+              ("OrganizationId" Data..= organizationId),
+            Prelude.Just ("UserId" Data..= userId),
+            Prelude.Just ("DeviceId" Data..= deviceId),
+            Prelude.Just ("Effect" Data..= effect)
           ]
       )
 
-instance Core.ToPath PutMobileDeviceAccessOverride where
+instance Data.ToPath PutMobileDeviceAccessOverride where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutMobileDeviceAccessOverride where
+instance Data.ToQuery PutMobileDeviceAccessOverride where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutMobileDeviceAccessOverrideResponse' smart constructor.

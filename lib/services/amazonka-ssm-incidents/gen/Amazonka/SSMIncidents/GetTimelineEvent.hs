@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSMIncidents.GetTimelineEvent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.SSMIncidents.GetTimelineEvent
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,11 +50,11 @@ import Amazonka.SSMIncidents.Types
 
 -- | /See:/ 'newGetTimelineEvent' smart constructor.
 data GetTimelineEvent = GetTimelineEvent'
-  { -- | The ID of the event. You can get an event\'s ID when you create it or by
-    -- using @ListTimelineEvents@.
+  { -- | The ID of the event. You can get an event\'s ID when you create it, or
+    -- by using @ListTimelineEvents@.
     eventId :: Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the incident that the timeline event
-    -- is part of.
+    -- | The Amazon Resource Name (ARN) of the incident that includes the
+    -- timeline event.
     incidentRecordArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -66,11 +67,11 @@ data GetTimelineEvent = GetTimelineEvent'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'eventId', 'getTimelineEvent_eventId' - The ID of the event. You can get an event\'s ID when you create it or by
--- using @ListTimelineEvents@.
+-- 'eventId', 'getTimelineEvent_eventId' - The ID of the event. You can get an event\'s ID when you create it, or
+-- by using @ListTimelineEvents@.
 --
--- 'incidentRecordArn', 'getTimelineEvent_incidentRecordArn' - The Amazon Resource Name (ARN) of the incident that the timeline event
--- is part of.
+-- 'incidentRecordArn', 'getTimelineEvent_incidentRecordArn' - The Amazon Resource Name (ARN) of the incident that includes the
+-- timeline event.
 newGetTimelineEvent ::
   -- | 'eventId'
   Prelude.Text ->
@@ -83,13 +84,13 @@ newGetTimelineEvent pEventId_ pIncidentRecordArn_ =
       incidentRecordArn = pIncidentRecordArn_
     }
 
--- | The ID of the event. You can get an event\'s ID when you create it or by
--- using @ListTimelineEvents@.
+-- | The ID of the event. You can get an event\'s ID when you create it, or
+-- by using @ListTimelineEvents@.
 getTimelineEvent_eventId :: Lens.Lens' GetTimelineEvent Prelude.Text
 getTimelineEvent_eventId = Lens.lens (\GetTimelineEvent' {eventId} -> eventId) (\s@GetTimelineEvent' {} a -> s {eventId = a} :: GetTimelineEvent)
 
--- | The Amazon Resource Name (ARN) of the incident that the timeline event
--- is part of.
+-- | The Amazon Resource Name (ARN) of the incident that includes the
+-- timeline event.
 getTimelineEvent_incidentRecordArn :: Lens.Lens' GetTimelineEvent Prelude.Text
 getTimelineEvent_incidentRecordArn = Lens.lens (\GetTimelineEvent' {incidentRecordArn} -> incidentRecordArn) (\s@GetTimelineEvent' {} a -> s {incidentRecordArn = a} :: GetTimelineEvent)
 
@@ -97,13 +98,14 @@ instance Core.AWSRequest GetTimelineEvent where
   type
     AWSResponse GetTimelineEvent =
       GetTimelineEventResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetTimelineEventResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "event")
+            Prelude.<*> (x Data..:> "event")
       )
 
 instance Prelude.Hashable GetTimelineEvent where
@@ -116,25 +118,25 @@ instance Prelude.NFData GetTimelineEvent where
     Prelude.rnf eventId
       `Prelude.seq` Prelude.rnf incidentRecordArn
 
-instance Core.ToHeaders GetTimelineEvent where
+instance Data.ToHeaders GetTimelineEvent where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetTimelineEvent where
+instance Data.ToPath GetTimelineEvent where
   toPath = Prelude.const "/getTimelineEvent"
 
-instance Core.ToQuery GetTimelineEvent where
+instance Data.ToQuery GetTimelineEvent where
   toQuery GetTimelineEvent' {..} =
     Prelude.mconcat
-      [ "eventId" Core.=: eventId,
-        "incidentRecordArn" Core.=: incidentRecordArn
+      [ "eventId" Data.=: eventId,
+        "incidentRecordArn" Data.=: incidentRecordArn
       ]
 
 -- | /See:/ 'newGetTimelineEventResponse' smart constructor.

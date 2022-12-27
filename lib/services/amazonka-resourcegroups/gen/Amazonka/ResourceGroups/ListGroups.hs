@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ResourceGroups.ListGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,23 +36,24 @@ module Amazonka.ResourceGroups.ListGroups
 
     -- * Request Lenses
     listGroups_filters,
-    listGroups_nextToken,
     listGroups_maxResults,
+    listGroups_nextToken,
 
     -- * Destructuring the Response
     ListGroupsResponse (..),
     newListGroupsResponse,
 
     -- * Response Lenses
+    listGroupsResponse_groupIdentifiers,
     listGroupsResponse_groups,
     listGroupsResponse_nextToken,
-    listGroupsResponse_groupIdentifiers,
     listGroupsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import Amazonka.ResourceGroups.Types
@@ -76,12 +77,6 @@ data ListGroups = ListGroups'
     --
     --     -   @AWS:EC2::HostManagement@
     filters :: Prelude.Maybe [GroupFilter],
-    -- | The parameter for receiving additional results if you receive a
-    -- @NextToken@ response in a previous request. A @NextToken@ response
-    -- indicates that more output is available. Set this parameter to the value
-    -- provided by a previous call\'s @NextToken@ response to indicate where
-    -- the output should continue from.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The total number of results that you want included on each page of the
     -- response. If you do not include this parameter, it defaults to a value
     -- that is specific to the operation. If additional items exist beyond the
@@ -92,7 +87,13 @@ data ListGroups = ListGroups'
     -- maximum even when there are more results available. You should check
     -- @NextToken@ after every operation to ensure that you receive all of the
     -- results.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The parameter for receiving additional results if you receive a
+    -- @NextToken@ response in a previous request. A @NextToken@ response
+    -- indicates that more output is available. Set this parameter to the value
+    -- provided by a previous call\'s @NextToken@ response to indicate where
+    -- the output should continue from.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -120,12 +121,6 @@ data ListGroups = ListGroups'
 --
 --     -   @AWS:EC2::HostManagement@
 --
--- 'nextToken', 'listGroups_nextToken' - The parameter for receiving additional results if you receive a
--- @NextToken@ response in a previous request. A @NextToken@ response
--- indicates that more output is available. Set this parameter to the value
--- provided by a previous call\'s @NextToken@ response to indicate where
--- the output should continue from.
---
 -- 'maxResults', 'listGroups_maxResults' - The total number of results that you want included on each page of the
 -- response. If you do not include this parameter, it defaults to a value
 -- that is specific to the operation. If additional items exist beyond the
@@ -136,13 +131,19 @@ data ListGroups = ListGroups'
 -- maximum even when there are more results available. You should check
 -- @NextToken@ after every operation to ensure that you receive all of the
 -- results.
+--
+-- 'nextToken', 'listGroups_nextToken' - The parameter for receiving additional results if you receive a
+-- @NextToken@ response in a previous request. A @NextToken@ response
+-- indicates that more output is available. Set this parameter to the value
+-- provided by a previous call\'s @NextToken@ response to indicate where
+-- the output should continue from.
 newListGroups ::
   ListGroups
 newListGroups =
   ListGroups'
     { filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | Filters, formatted as GroupFilter objects, that you want to apply to a
@@ -163,14 +164,6 @@ newListGroups =
 listGroups_filters :: Lens.Lens' ListGroups (Prelude.Maybe [GroupFilter])
 listGroups_filters = Lens.lens (\ListGroups' {filters} -> filters) (\s@ListGroups' {} a -> s {filters = a} :: ListGroups) Prelude.. Lens.mapping Lens.coerced
 
--- | The parameter for receiving additional results if you receive a
--- @NextToken@ response in a previous request. A @NextToken@ response
--- indicates that more output is available. Set this parameter to the value
--- provided by a previous call\'s @NextToken@ response to indicate where
--- the output should continue from.
-listGroups_nextToken :: Lens.Lens' ListGroups (Prelude.Maybe Prelude.Text)
-listGroups_nextToken = Lens.lens (\ListGroups' {nextToken} -> nextToken) (\s@ListGroups' {} a -> s {nextToken = a} :: ListGroups)
-
 -- | The total number of results that you want included on each page of the
 -- response. If you do not include this parameter, it defaults to a value
 -- that is specific to the operation. If additional items exist beyond the
@@ -183,6 +176,14 @@ listGroups_nextToken = Lens.lens (\ListGroups' {nextToken} -> nextToken) (\s@Lis
 -- results.
 listGroups_maxResults :: Lens.Lens' ListGroups (Prelude.Maybe Prelude.Natural)
 listGroups_maxResults = Lens.lens (\ListGroups' {maxResults} -> maxResults) (\s@ListGroups' {} a -> s {maxResults = a} :: ListGroups)
+
+-- | The parameter for receiving additional results if you receive a
+-- @NextToken@ response in a previous request. A @NextToken@ response
+-- indicates that more output is available. Set this parameter to the value
+-- provided by a previous call\'s @NextToken@ response to indicate where
+-- the output should continue from.
+listGroups_nextToken :: Lens.Lens' ListGroups (Prelude.Maybe Prelude.Text)
+listGroups_nextToken = Lens.lens (\ListGroups' {nextToken} -> nextToken) (\s@ListGroups' {} a -> s {nextToken = a} :: ListGroups)
 
 instance Core.AWSPager ListGroups where
   page rq rs
@@ -211,54 +212,58 @@ instance Core.AWSPager ListGroups where
 
 instance Core.AWSRequest ListGroups where
   type AWSResponse ListGroups = ListGroupsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListGroupsResponse'
-            Prelude.<$> (x Core..?> "Groups" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "GroupIdentifiers"
+            Prelude.<$> ( x Data..?> "GroupIdentifiers"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "Groups" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListGroups where
   hashWithSalt _salt ListGroups' {..} =
     _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListGroups where
   rnf ListGroups' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListGroups where
+instance Data.ToHeaders ListGroups where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON ListGroups where
+instance Data.ToJSON ListGroups where
   toJSON ListGroups' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Filters" Core..=) Prelude.<$> filters]
+          [("Filters" Data..=) Prelude.<$> filters]
       )
 
-instance Core.ToPath ListGroups where
+instance Data.ToPath ListGroups where
   toPath = Prelude.const "/groups-list"
 
-instance Core.ToQuery ListGroups where
+instance Data.ToQuery ListGroups where
   toQuery ListGroups' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListGroupsResponse' smart constructor.
 data ListGroupsResponse = ListGroupsResponse'
-  { -- | /__Deprecated - don\'t use this field. Use the @GroupIdentifiers@
+  { -- | A list of GroupIdentifier objects. Each identifier is an object that
+    -- contains both the @Name@ and the @GroupArn@.
+    groupIdentifiers :: Prelude.Maybe [GroupIdentifier],
+    -- | /__Deprecated - don\'t use this field. Use the @GroupIdentifiers@
     -- response field instead.__/
     groups :: Prelude.Maybe [Group],
     -- | If present, indicates that more output is available than is included in
@@ -267,9 +272,6 @@ data ListGroupsResponse = ListGroupsResponse'
     -- the output. You should repeat this until the @NextToken@ response
     -- element comes back as @null@.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | A list of GroupIdentifier objects. Each identifier is an object that
-    -- contains both the @Name@ and the @GroupArn@.
-    groupIdentifiers :: Prelude.Maybe [GroupIdentifier],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -283,6 +285,9 @@ data ListGroupsResponse = ListGroupsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'groupIdentifiers', 'listGroupsResponse_groupIdentifiers' - A list of GroupIdentifier objects. Each identifier is an object that
+-- contains both the @Name@ and the @GroupArn@.
+--
 -- 'groups', 'listGroupsResponse_groups' - /__Deprecated - don\'t use this field. Use the @GroupIdentifiers@
 -- response field instead.__/
 --
@@ -292,9 +297,6 @@ data ListGroupsResponse = ListGroupsResponse'
 -- the output. You should repeat this until the @NextToken@ response
 -- element comes back as @null@.
 --
--- 'groupIdentifiers', 'listGroupsResponse_groupIdentifiers' - A list of GroupIdentifier objects. Each identifier is an object that
--- contains both the @Name@ and the @GroupArn@.
---
 -- 'httpStatus', 'listGroupsResponse_httpStatus' - The response's http status code.
 newListGroupsResponse ::
   -- | 'httpStatus'
@@ -302,11 +304,17 @@ newListGroupsResponse ::
   ListGroupsResponse
 newListGroupsResponse pHttpStatus_ =
   ListGroupsResponse'
-    { groups = Prelude.Nothing,
+    { groupIdentifiers =
+        Prelude.Nothing,
+      groups = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      groupIdentifiers = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | A list of GroupIdentifier objects. Each identifier is an object that
+-- contains both the @Name@ and the @GroupArn@.
+listGroupsResponse_groupIdentifiers :: Lens.Lens' ListGroupsResponse (Prelude.Maybe [GroupIdentifier])
+listGroupsResponse_groupIdentifiers = Lens.lens (\ListGroupsResponse' {groupIdentifiers} -> groupIdentifiers) (\s@ListGroupsResponse' {} a -> s {groupIdentifiers = a} :: ListGroupsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | /__Deprecated - don\'t use this field. Use the @GroupIdentifiers@
 -- response field instead.__/
@@ -321,18 +329,13 @@ listGroupsResponse_groups = Lens.lens (\ListGroupsResponse' {groups} -> groups) 
 listGroupsResponse_nextToken :: Lens.Lens' ListGroupsResponse (Prelude.Maybe Prelude.Text)
 listGroupsResponse_nextToken = Lens.lens (\ListGroupsResponse' {nextToken} -> nextToken) (\s@ListGroupsResponse' {} a -> s {nextToken = a} :: ListGroupsResponse)
 
--- | A list of GroupIdentifier objects. Each identifier is an object that
--- contains both the @Name@ and the @GroupArn@.
-listGroupsResponse_groupIdentifiers :: Lens.Lens' ListGroupsResponse (Prelude.Maybe [GroupIdentifier])
-listGroupsResponse_groupIdentifiers = Lens.lens (\ListGroupsResponse' {groupIdentifiers} -> groupIdentifiers) (\s@ListGroupsResponse' {} a -> s {groupIdentifiers = a} :: ListGroupsResponse) Prelude.. Lens.mapping Lens.coerced
-
 -- | The response's http status code.
 listGroupsResponse_httpStatus :: Lens.Lens' ListGroupsResponse Prelude.Int
 listGroupsResponse_httpStatus = Lens.lens (\ListGroupsResponse' {httpStatus} -> httpStatus) (\s@ListGroupsResponse' {} a -> s {httpStatus = a} :: ListGroupsResponse)
 
 instance Prelude.NFData ListGroupsResponse where
   rnf ListGroupsResponse' {..} =
-    Prelude.rnf groups
+    Prelude.rnf groupIdentifiers
+      `Prelude.seq` Prelude.rnf groups
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf groupIdentifiers
       `Prelude.seq` Prelude.rnf httpStatus

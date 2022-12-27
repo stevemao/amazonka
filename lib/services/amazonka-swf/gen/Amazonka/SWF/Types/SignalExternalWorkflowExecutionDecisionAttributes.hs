@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.Types.SignalExternalWorkflowExecutionDecisionAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SWF.Types.SignalExternalWorkflowExecutionDecisionAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides the details of the @SignalExternalWorkflowExecution@ decision.
@@ -152,17 +153,17 @@ instance
         `Prelude.seq` Prelude.rnf signalName
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     SignalExternalWorkflowExecutionDecisionAttributes
   where
   toJSON
     SignalExternalWorkflowExecutionDecisionAttributes' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("control" Core..=) Prelude.<$> control,
-              ("input" Core..=) Prelude.<$> input,
-              ("runId" Core..=) Prelude.<$> runId,
-              Prelude.Just ("workflowId" Core..= workflowId),
-              Prelude.Just ("signalName" Core..= signalName)
+            [ ("control" Data..=) Prelude.<$> control,
+              ("input" Data..=) Prelude.<$> input,
+              ("runId" Data..=) Prelude.<$> runId,
+              Prelude.Just ("workflowId" Data..= workflowId),
+              Prelude.Just ("signalName" Data..= signalName)
             ]
         )

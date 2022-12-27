@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.Types.Configuration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.Kafka.Types.Configuration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kafka.Types.ConfigurationRevision
 import Amazonka.Kafka.Types.ConfigurationState
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents an MSK Configuration.
@@ -34,7 +35,7 @@ data Configuration = Configuration'
     -- | Latest revision of the configuration.
     latestRevision :: ConfigurationRevision,
     -- | The time when the configuration was created.
-    creationTime :: Core.POSIX,
+    creationTime :: Data.POSIX,
     -- | An array of the versions of Apache Kafka with which you can use this MSK
     -- configuration. You can use this configuration for an MSK cluster only if
     -- the Apache Kafka version specified for the cluster appears in this
@@ -99,7 +100,7 @@ newConfiguration
     Configuration'
       { description = pDescription_,
         latestRevision = pLatestRevision_,
-        creationTime = Core._Time Lens.# pCreationTime_,
+        creationTime = Data._Time Lens.# pCreationTime_,
         kafkaVersions = Prelude.mempty,
         arn = pArn_,
         name = pName_,
@@ -116,7 +117,7 @@ configuration_latestRevision = Lens.lens (\Configuration' {latestRevision} -> la
 
 -- | The time when the configuration was created.
 configuration_creationTime :: Lens.Lens' Configuration Prelude.UTCTime
-configuration_creationTime = Lens.lens (\Configuration' {creationTime} -> creationTime) (\s@Configuration' {} a -> s {creationTime = a} :: Configuration) Prelude.. Core._Time
+configuration_creationTime = Lens.lens (\Configuration' {creationTime} -> creationTime) (\s@Configuration' {} a -> s {creationTime = a} :: Configuration) Prelude.. Data._Time
 
 -- | An array of the versions of Apache Kafka with which you can use this MSK
 -- configuration. You can use this configuration for an MSK cluster only if
@@ -138,19 +139,19 @@ configuration_name = Lens.lens (\Configuration' {name} -> name) (\s@Configuratio
 configuration_state :: Lens.Lens' Configuration ConfigurationState
 configuration_state = Lens.lens (\Configuration' {state} -> state) (\s@Configuration' {} a -> s {state = a} :: Configuration)
 
-instance Core.FromJSON Configuration where
+instance Data.FromJSON Configuration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Configuration"
       ( \x ->
           Configuration'
-            Prelude.<$> (x Core..: "description")
-            Prelude.<*> (x Core..: "latestRevision")
-            Prelude.<*> (x Core..: "creationTime")
-            Prelude.<*> (x Core..:? "kafkaVersions" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "arn")
-            Prelude.<*> (x Core..: "name")
-            Prelude.<*> (x Core..: "state")
+            Prelude.<$> (x Data..: "description")
+            Prelude.<*> (x Data..: "latestRevision")
+            Prelude.<*> (x Data..: "creationTime")
+            Prelude.<*> (x Data..:? "kafkaVersions" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "arn")
+            Prelude.<*> (x Data..: "name")
+            Prelude.<*> (x Data..: "state")
       )
 
 instance Prelude.Hashable Configuration where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConnect.Types.DestinationConfigurationRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConnect.Types.DestinationConfigurationRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConnect.Types.InterfaceRequest
 import qualified Amazonka.Prelude as Prelude
 
@@ -111,14 +112,14 @@ instance
       `Prelude.seq` Prelude.rnf destinationPort
       `Prelude.seq` Prelude.rnf interface
 
-instance Core.ToJSON DestinationConfigurationRequest where
+instance Data.ToJSON DestinationConfigurationRequest where
   toJSON DestinationConfigurationRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("destinationIp" Core..= destinationIp),
+              ("destinationIp" Data..= destinationIp),
             Prelude.Just
-              ("destinationPort" Core..= destinationPort),
-            Prelude.Just ("interface" Core..= interface)
+              ("destinationPort" Data..= destinationPort),
+            Prelude.Just ("interface" Data..= interface)
           ]
       )

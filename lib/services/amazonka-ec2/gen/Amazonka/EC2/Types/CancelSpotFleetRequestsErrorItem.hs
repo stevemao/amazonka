@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.CancelSpotFleetRequestsErrorItem
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.CancelSpotFleetRequestsErrorItem where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.CancelSpotFleetRequestsError
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a Spot Fleet request that was not successfully canceled.
@@ -65,13 +66,13 @@ cancelSpotFleetRequestsErrorItem_spotFleetRequestId :: Lens.Lens' CancelSpotFlee
 cancelSpotFleetRequestsErrorItem_spotFleetRequestId = Lens.lens (\CancelSpotFleetRequestsErrorItem' {spotFleetRequestId} -> spotFleetRequestId) (\s@CancelSpotFleetRequestsErrorItem' {} a -> s {spotFleetRequestId = a} :: CancelSpotFleetRequestsErrorItem)
 
 instance
-  Core.FromXML
+  Data.FromXML
     CancelSpotFleetRequestsErrorItem
   where
   parseXML x =
     CancelSpotFleetRequestsErrorItem'
-      Prelude.<$> (x Core..@? "error")
-      Prelude.<*> (x Core..@? "spotFleetRequestId")
+      Prelude.<$> (x Data..@? "error")
+      Prelude.<*> (x Data..@? "spotFleetRequestId")
 
 instance
   Prelude.Hashable

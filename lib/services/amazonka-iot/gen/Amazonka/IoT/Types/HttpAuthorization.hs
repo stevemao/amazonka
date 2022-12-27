@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.HttpAuthorization
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoT.Types.HttpAuthorization where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.SigV4Authorization
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The authorization method used to send messages.
@@ -54,12 +55,12 @@ newHttpAuthorization =
 httpAuthorization_sigv4 :: Lens.Lens' HttpAuthorization (Prelude.Maybe SigV4Authorization)
 httpAuthorization_sigv4 = Lens.lens (\HttpAuthorization' {sigv4} -> sigv4) (\s@HttpAuthorization' {} a -> s {sigv4 = a} :: HttpAuthorization)
 
-instance Core.FromJSON HttpAuthorization where
+instance Data.FromJSON HttpAuthorization where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HttpAuthorization"
       ( \x ->
-          HttpAuthorization' Prelude.<$> (x Core..:? "sigv4")
+          HttpAuthorization' Prelude.<$> (x Data..:? "sigv4")
       )
 
 instance Prelude.Hashable HttpAuthorization where
@@ -69,9 +70,9 @@ instance Prelude.Hashable HttpAuthorization where
 instance Prelude.NFData HttpAuthorization where
   rnf HttpAuthorization' {..} = Prelude.rnf sigv4
 
-instance Core.ToJSON HttpAuthorization where
+instance Data.ToJSON HttpAuthorization where
   toJSON HttpAuthorization' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("sigv4" Core..=) Prelude.<$> sigv4]
+          [("sigv4" Data..=) Prelude.<$> sigv4]
       )

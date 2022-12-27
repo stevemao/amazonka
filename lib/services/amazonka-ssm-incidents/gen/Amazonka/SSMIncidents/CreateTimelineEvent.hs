@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSMIncidents.CreateTimelineEvent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,6 +32,7 @@ module Amazonka.SSMIncidents.CreateTimelineEvent
 
     -- * Request Lenses
     createTimelineEvent_clientToken,
+    createTimelineEvent_eventReferences,
     createTimelineEvent_eventData,
     createTimelineEvent_eventTime,
     createTimelineEvent_eventType,
@@ -49,7 +50,8 @@ module Amazonka.SSMIncidents.CreateTimelineEvent
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,16 +62,24 @@ data CreateTimelineEvent = CreateTimelineEvent'
   { -- | A token ensuring that the action is called only once with the specified
     -- details.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | A valid JSON string. There is no other schema imposed. A short
-    -- description of the event.
+    -- | Adds one or more references to the @TimelineEvent@. A reference can be
+    -- an Amazon Web Services resource involved in the incident or in some way
+    -- associated with it. When you specify a reference, you enter the Amazon
+    -- Resource Name (ARN) of the resource. You can also specify a related
+    -- item. As an example, you could specify the ARN of an Amazon DynamoDB
+    -- (DynamoDB) table. The table for this example is the resource. You could
+    -- also specify a Amazon CloudWatch metric for that table. The metric is
+    -- the related item.
+    eventReferences :: Prelude.Maybe [EventReference],
+    -- | A short description of the event.
     eventData :: Prelude.Text,
     -- | The time that the event occurred.
-    eventTime :: Core.POSIX,
+    eventTime :: Data.POSIX,
     -- | The type of the event. You can create timeline events of type
     -- @Custom Event@.
     eventType :: Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the incident record you are adding the
-    -- event to.
+    -- | The Amazon Resource Name (ARN) of the incident record to which the event
+    -- will be added.
     incidentRecordArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -85,16 +95,24 @@ data CreateTimelineEvent = CreateTimelineEvent'
 -- 'clientToken', 'createTimelineEvent_clientToken' - A token ensuring that the action is called only once with the specified
 -- details.
 --
--- 'eventData', 'createTimelineEvent_eventData' - A valid JSON string. There is no other schema imposed. A short
--- description of the event.
+-- 'eventReferences', 'createTimelineEvent_eventReferences' - Adds one or more references to the @TimelineEvent@. A reference can be
+-- an Amazon Web Services resource involved in the incident or in some way
+-- associated with it. When you specify a reference, you enter the Amazon
+-- Resource Name (ARN) of the resource. You can also specify a related
+-- item. As an example, you could specify the ARN of an Amazon DynamoDB
+-- (DynamoDB) table. The table for this example is the resource. You could
+-- also specify a Amazon CloudWatch metric for that table. The metric is
+-- the related item.
+--
+-- 'eventData', 'createTimelineEvent_eventData' - A short description of the event.
 --
 -- 'eventTime', 'createTimelineEvent_eventTime' - The time that the event occurred.
 --
 -- 'eventType', 'createTimelineEvent_eventType' - The type of the event. You can create timeline events of type
 -- @Custom Event@.
 --
--- 'incidentRecordArn', 'createTimelineEvent_incidentRecordArn' - The Amazon Resource Name (ARN) of the incident record you are adding the
--- event to.
+-- 'incidentRecordArn', 'createTimelineEvent_incidentRecordArn' - The Amazon Resource Name (ARN) of the incident record to which the event
+-- will be added.
 newCreateTimelineEvent ::
   -- | 'eventData'
   Prelude.Text ->
@@ -112,8 +130,9 @@ newCreateTimelineEvent
   pIncidentRecordArn_ =
     CreateTimelineEvent'
       { clientToken = Prelude.Nothing,
+        eventReferences = Prelude.Nothing,
         eventData = pEventData_,
-        eventTime = Core._Time Lens.# pEventTime_,
+        eventTime = Data._Time Lens.# pEventTime_,
         eventType = pEventType_,
         incidentRecordArn = pIncidentRecordArn_
       }
@@ -123,22 +142,32 @@ newCreateTimelineEvent
 createTimelineEvent_clientToken :: Lens.Lens' CreateTimelineEvent (Prelude.Maybe Prelude.Text)
 createTimelineEvent_clientToken = Lens.lens (\CreateTimelineEvent' {clientToken} -> clientToken) (\s@CreateTimelineEvent' {} a -> s {clientToken = a} :: CreateTimelineEvent)
 
--- | A valid JSON string. There is no other schema imposed. A short
--- description of the event.
+-- | Adds one or more references to the @TimelineEvent@. A reference can be
+-- an Amazon Web Services resource involved in the incident or in some way
+-- associated with it. When you specify a reference, you enter the Amazon
+-- Resource Name (ARN) of the resource. You can also specify a related
+-- item. As an example, you could specify the ARN of an Amazon DynamoDB
+-- (DynamoDB) table. The table for this example is the resource. You could
+-- also specify a Amazon CloudWatch metric for that table. The metric is
+-- the related item.
+createTimelineEvent_eventReferences :: Lens.Lens' CreateTimelineEvent (Prelude.Maybe [EventReference])
+createTimelineEvent_eventReferences = Lens.lens (\CreateTimelineEvent' {eventReferences} -> eventReferences) (\s@CreateTimelineEvent' {} a -> s {eventReferences = a} :: CreateTimelineEvent) Prelude.. Lens.mapping Lens.coerced
+
+-- | A short description of the event.
 createTimelineEvent_eventData :: Lens.Lens' CreateTimelineEvent Prelude.Text
 createTimelineEvent_eventData = Lens.lens (\CreateTimelineEvent' {eventData} -> eventData) (\s@CreateTimelineEvent' {} a -> s {eventData = a} :: CreateTimelineEvent)
 
 -- | The time that the event occurred.
 createTimelineEvent_eventTime :: Lens.Lens' CreateTimelineEvent Prelude.UTCTime
-createTimelineEvent_eventTime = Lens.lens (\CreateTimelineEvent' {eventTime} -> eventTime) (\s@CreateTimelineEvent' {} a -> s {eventTime = a} :: CreateTimelineEvent) Prelude.. Core._Time
+createTimelineEvent_eventTime = Lens.lens (\CreateTimelineEvent' {eventTime} -> eventTime) (\s@CreateTimelineEvent' {} a -> s {eventTime = a} :: CreateTimelineEvent) Prelude.. Data._Time
 
 -- | The type of the event. You can create timeline events of type
 -- @Custom Event@.
 createTimelineEvent_eventType :: Lens.Lens' CreateTimelineEvent Prelude.Text
 createTimelineEvent_eventType = Lens.lens (\CreateTimelineEvent' {eventType} -> eventType) (\s@CreateTimelineEvent' {} a -> s {eventType = a} :: CreateTimelineEvent)
 
--- | The Amazon Resource Name (ARN) of the incident record you are adding the
--- event to.
+-- | The Amazon Resource Name (ARN) of the incident record to which the event
+-- will be added.
 createTimelineEvent_incidentRecordArn :: Lens.Lens' CreateTimelineEvent Prelude.Text
 createTimelineEvent_incidentRecordArn = Lens.lens (\CreateTimelineEvent' {incidentRecordArn} -> incidentRecordArn) (\s@CreateTimelineEvent' {} a -> s {incidentRecordArn = a} :: CreateTimelineEvent)
 
@@ -146,19 +175,21 @@ instance Core.AWSRequest CreateTimelineEvent where
   type
     AWSResponse CreateTimelineEvent =
       CreateTimelineEventResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateTimelineEventResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "eventId")
-            Prelude.<*> (x Core..:> "incidentRecordArn")
+            Prelude.<*> (x Data..:> "eventId")
+            Prelude.<*> (x Data..:> "incidentRecordArn")
       )
 
 instance Prelude.Hashable CreateTimelineEvent where
   hashWithSalt _salt CreateTimelineEvent' {..} =
     _salt `Prelude.hashWithSalt` clientToken
+      `Prelude.hashWithSalt` eventReferences
       `Prelude.hashWithSalt` eventData
       `Prelude.hashWithSalt` eventTime
       `Prelude.hashWithSalt` eventType
@@ -167,39 +198,42 @@ instance Prelude.Hashable CreateTimelineEvent where
 instance Prelude.NFData CreateTimelineEvent where
   rnf CreateTimelineEvent' {..} =
     Prelude.rnf clientToken
+      `Prelude.seq` Prelude.rnf eventReferences
       `Prelude.seq` Prelude.rnf eventData
       `Prelude.seq` Prelude.rnf eventTime
       `Prelude.seq` Prelude.rnf eventType
       `Prelude.seq` Prelude.rnf incidentRecordArn
 
-instance Core.ToHeaders CreateTimelineEvent where
+instance Data.ToHeaders CreateTimelineEvent where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateTimelineEvent where
+instance Data.ToJSON CreateTimelineEvent where
   toJSON CreateTimelineEvent' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            Prelude.Just ("eventData" Core..= eventData),
-            Prelude.Just ("eventTime" Core..= eventTime),
-            Prelude.Just ("eventType" Core..= eventType),
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("eventReferences" Data..=)
+              Prelude.<$> eventReferences,
+            Prelude.Just ("eventData" Data..= eventData),
+            Prelude.Just ("eventTime" Data..= eventTime),
+            Prelude.Just ("eventType" Data..= eventType),
             Prelude.Just
-              ("incidentRecordArn" Core..= incidentRecordArn)
+              ("incidentRecordArn" Data..= incidentRecordArn)
           ]
       )
 
-instance Core.ToPath CreateTimelineEvent where
+instance Data.ToPath CreateTimelineEvent where
   toPath = Prelude.const "/createTimelineEvent"
 
-instance Core.ToQuery CreateTimelineEvent where
+instance Data.ToQuery CreateTimelineEvent where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateTimelineEventResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatch.ListMetricStreams
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.CloudWatch.ListMetricStreams
     newListMetricStreams,
 
     -- * Request Lenses
-    listMetricStreams_nextToken,
     listMetricStreams_maxResults,
+    listMetricStreams_nextToken,
 
     -- * Destructuring the Response
     ListMetricStreamsResponse (..),
@@ -43,18 +43,19 @@ where
 
 import Amazonka.CloudWatch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListMetricStreams' smart constructor.
 data ListMetricStreams = ListMetricStreams'
-  { -- | Include this value, if it was returned by the previous call, to get the
+  { -- | The maximum number of results to return in one operation.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Include this value, if it was returned by the previous call, to get the
     -- next set of metric streams.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in one operation.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -66,69 +67,70 @@ data ListMetricStreams = ListMetricStreams'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listMetricStreams_maxResults' - The maximum number of results to return in one operation.
+--
 -- 'nextToken', 'listMetricStreams_nextToken' - Include this value, if it was returned by the previous call, to get the
 -- next set of metric streams.
---
--- 'maxResults', 'listMetricStreams_maxResults' - The maximum number of results to return in one operation.
 newListMetricStreams ::
   ListMetricStreams
 newListMetricStreams =
   ListMetricStreams'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of results to return in one operation.
+listMetricStreams_maxResults :: Lens.Lens' ListMetricStreams (Prelude.Maybe Prelude.Natural)
+listMetricStreams_maxResults = Lens.lens (\ListMetricStreams' {maxResults} -> maxResults) (\s@ListMetricStreams' {} a -> s {maxResults = a} :: ListMetricStreams)
 
 -- | Include this value, if it was returned by the previous call, to get the
 -- next set of metric streams.
 listMetricStreams_nextToken :: Lens.Lens' ListMetricStreams (Prelude.Maybe Prelude.Text)
 listMetricStreams_nextToken = Lens.lens (\ListMetricStreams' {nextToken} -> nextToken) (\s@ListMetricStreams' {} a -> s {nextToken = a} :: ListMetricStreams)
 
--- | The maximum number of results to return in one operation.
-listMetricStreams_maxResults :: Lens.Lens' ListMetricStreams (Prelude.Maybe Prelude.Natural)
-listMetricStreams_maxResults = Lens.lens (\ListMetricStreams' {maxResults} -> maxResults) (\s@ListMetricStreams' {} a -> s {maxResults = a} :: ListMetricStreams)
-
 instance Core.AWSRequest ListMetricStreams where
   type
     AWSResponse ListMetricStreams =
       ListMetricStreamsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListMetricStreamsResult"
       ( \s h x ->
           ListMetricStreamsResponse'
-            Prelude.<$> ( x Core..@? "Entries" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> ( x Data..@? "Entries" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> (x Core..@? "NextToken")
+            Prelude.<*> (x Data..@? "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListMetricStreams where
   hashWithSalt _salt ListMetricStreams' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListMetricStreams where
   rnf ListMetricStreams' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListMetricStreams where
+instance Data.ToHeaders ListMetricStreams where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListMetricStreams where
+instance Data.ToPath ListMetricStreams where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListMetricStreams where
+instance Data.ToQuery ListMetricStreams where
   toQuery ListMetricStreams' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ListMetricStreams" :: Prelude.ByteString),
+          Data.=: ("ListMetricStreams" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-08-01" :: Prelude.ByteString),
-        "NextToken" Core.=: nextToken,
-        "MaxResults" Core.=: maxResults
+          Data.=: ("2010-08-01" :: Prelude.ByteString),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListMetricStreamsResponse' smart constructor.

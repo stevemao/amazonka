@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaPackageVOD.Types.PackagingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaPackageVOD.Types.PackagingConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaPackageVOD.Types.CmafPackage
 import Amazonka.MediaPackageVOD.Types.DashPackage
 import Amazonka.MediaPackageVOD.Types.HlsPackage
@@ -31,16 +32,16 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newPackagingConfiguration' smart constructor.
 data PackagingConfiguration = PackagingConfiguration'
-  { hlsPackage :: Prelude.Maybe HlsPackage,
-    -- | The ARN of the PackagingConfiguration.
+  { -- | The ARN of the PackagingConfiguration.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | The ID of a PackagingGroup.
-    packagingGroupId :: Prelude.Maybe Prelude.Text,
+    cmafPackage :: Prelude.Maybe CmafPackage,
     dashPackage :: Prelude.Maybe DashPackage,
-    mssPackage :: Prelude.Maybe MssPackage,
+    hlsPackage :: Prelude.Maybe HlsPackage,
     -- | The ID of the PackagingConfiguration.
     id :: Prelude.Maybe Prelude.Text,
-    cmafPackage :: Prelude.Maybe CmafPackage,
+    mssPackage :: Prelude.Maybe MssPackage,
+    -- | The ID of a PackagingGroup.
+    packagingGroupId :: Prelude.Maybe Prelude.Text,
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -53,102 +54,101 @@ data PackagingConfiguration = PackagingConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'hlsPackage', 'packagingConfiguration_hlsPackage' - Undocumented member.
---
 -- 'arn', 'packagingConfiguration_arn' - The ARN of the PackagingConfiguration.
 --
--- 'packagingGroupId', 'packagingConfiguration_packagingGroupId' - The ID of a PackagingGroup.
+-- 'cmafPackage', 'packagingConfiguration_cmafPackage' - Undocumented member.
 --
 -- 'dashPackage', 'packagingConfiguration_dashPackage' - Undocumented member.
 --
--- 'mssPackage', 'packagingConfiguration_mssPackage' - Undocumented member.
+-- 'hlsPackage', 'packagingConfiguration_hlsPackage' - Undocumented member.
 --
 -- 'id', 'packagingConfiguration_id' - The ID of the PackagingConfiguration.
 --
--- 'cmafPackage', 'packagingConfiguration_cmafPackage' - Undocumented member.
+-- 'mssPackage', 'packagingConfiguration_mssPackage' - Undocumented member.
+--
+-- 'packagingGroupId', 'packagingConfiguration_packagingGroupId' - The ID of a PackagingGroup.
 --
 -- 'tags', 'packagingConfiguration_tags' - Undocumented member.
 newPackagingConfiguration ::
   PackagingConfiguration
 newPackagingConfiguration =
   PackagingConfiguration'
-    { hlsPackage =
-        Prelude.Nothing,
-      arn = Prelude.Nothing,
-      packagingGroupId = Prelude.Nothing,
-      dashPackage = Prelude.Nothing,
-      mssPackage = Prelude.Nothing,
-      id = Prelude.Nothing,
+    { arn = Prelude.Nothing,
       cmafPackage = Prelude.Nothing,
+      dashPackage = Prelude.Nothing,
+      hlsPackage = Prelude.Nothing,
+      id = Prelude.Nothing,
+      mssPackage = Prelude.Nothing,
+      packagingGroupId = Prelude.Nothing,
       tags = Prelude.Nothing
     }
-
--- | Undocumented member.
-packagingConfiguration_hlsPackage :: Lens.Lens' PackagingConfiguration (Prelude.Maybe HlsPackage)
-packagingConfiguration_hlsPackage = Lens.lens (\PackagingConfiguration' {hlsPackage} -> hlsPackage) (\s@PackagingConfiguration' {} a -> s {hlsPackage = a} :: PackagingConfiguration)
 
 -- | The ARN of the PackagingConfiguration.
 packagingConfiguration_arn :: Lens.Lens' PackagingConfiguration (Prelude.Maybe Prelude.Text)
 packagingConfiguration_arn = Lens.lens (\PackagingConfiguration' {arn} -> arn) (\s@PackagingConfiguration' {} a -> s {arn = a} :: PackagingConfiguration)
-
--- | The ID of a PackagingGroup.
-packagingConfiguration_packagingGroupId :: Lens.Lens' PackagingConfiguration (Prelude.Maybe Prelude.Text)
-packagingConfiguration_packagingGroupId = Lens.lens (\PackagingConfiguration' {packagingGroupId} -> packagingGroupId) (\s@PackagingConfiguration' {} a -> s {packagingGroupId = a} :: PackagingConfiguration)
-
--- | Undocumented member.
-packagingConfiguration_dashPackage :: Lens.Lens' PackagingConfiguration (Prelude.Maybe DashPackage)
-packagingConfiguration_dashPackage = Lens.lens (\PackagingConfiguration' {dashPackage} -> dashPackage) (\s@PackagingConfiguration' {} a -> s {dashPackage = a} :: PackagingConfiguration)
-
--- | Undocumented member.
-packagingConfiguration_mssPackage :: Lens.Lens' PackagingConfiguration (Prelude.Maybe MssPackage)
-packagingConfiguration_mssPackage = Lens.lens (\PackagingConfiguration' {mssPackage} -> mssPackage) (\s@PackagingConfiguration' {} a -> s {mssPackage = a} :: PackagingConfiguration)
-
--- | The ID of the PackagingConfiguration.
-packagingConfiguration_id :: Lens.Lens' PackagingConfiguration (Prelude.Maybe Prelude.Text)
-packagingConfiguration_id = Lens.lens (\PackagingConfiguration' {id} -> id) (\s@PackagingConfiguration' {} a -> s {id = a} :: PackagingConfiguration)
 
 -- | Undocumented member.
 packagingConfiguration_cmafPackage :: Lens.Lens' PackagingConfiguration (Prelude.Maybe CmafPackage)
 packagingConfiguration_cmafPackage = Lens.lens (\PackagingConfiguration' {cmafPackage} -> cmafPackage) (\s@PackagingConfiguration' {} a -> s {cmafPackage = a} :: PackagingConfiguration)
 
 -- | Undocumented member.
+packagingConfiguration_dashPackage :: Lens.Lens' PackagingConfiguration (Prelude.Maybe DashPackage)
+packagingConfiguration_dashPackage = Lens.lens (\PackagingConfiguration' {dashPackage} -> dashPackage) (\s@PackagingConfiguration' {} a -> s {dashPackage = a} :: PackagingConfiguration)
+
+-- | Undocumented member.
+packagingConfiguration_hlsPackage :: Lens.Lens' PackagingConfiguration (Prelude.Maybe HlsPackage)
+packagingConfiguration_hlsPackage = Lens.lens (\PackagingConfiguration' {hlsPackage} -> hlsPackage) (\s@PackagingConfiguration' {} a -> s {hlsPackage = a} :: PackagingConfiguration)
+
+-- | The ID of the PackagingConfiguration.
+packagingConfiguration_id :: Lens.Lens' PackagingConfiguration (Prelude.Maybe Prelude.Text)
+packagingConfiguration_id = Lens.lens (\PackagingConfiguration' {id} -> id) (\s@PackagingConfiguration' {} a -> s {id = a} :: PackagingConfiguration)
+
+-- | Undocumented member.
+packagingConfiguration_mssPackage :: Lens.Lens' PackagingConfiguration (Prelude.Maybe MssPackage)
+packagingConfiguration_mssPackage = Lens.lens (\PackagingConfiguration' {mssPackage} -> mssPackage) (\s@PackagingConfiguration' {} a -> s {mssPackage = a} :: PackagingConfiguration)
+
+-- | The ID of a PackagingGroup.
+packagingConfiguration_packagingGroupId :: Lens.Lens' PackagingConfiguration (Prelude.Maybe Prelude.Text)
+packagingConfiguration_packagingGroupId = Lens.lens (\PackagingConfiguration' {packagingGroupId} -> packagingGroupId) (\s@PackagingConfiguration' {} a -> s {packagingGroupId = a} :: PackagingConfiguration)
+
+-- | Undocumented member.
 packagingConfiguration_tags :: Lens.Lens' PackagingConfiguration (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 packagingConfiguration_tags = Lens.lens (\PackagingConfiguration' {tags} -> tags) (\s@PackagingConfiguration' {} a -> s {tags = a} :: PackagingConfiguration) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON PackagingConfiguration where
+instance Data.FromJSON PackagingConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PackagingConfiguration"
       ( \x ->
           PackagingConfiguration'
-            Prelude.<$> (x Core..:? "hlsPackage")
-            Prelude.<*> (x Core..:? "arn")
-            Prelude.<*> (x Core..:? "packagingGroupId")
-            Prelude.<*> (x Core..:? "dashPackage")
-            Prelude.<*> (x Core..:? "mssPackage")
-            Prelude.<*> (x Core..:? "id")
-            Prelude.<*> (x Core..:? "cmafPackage")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "arn")
+            Prelude.<*> (x Data..:? "cmafPackage")
+            Prelude.<*> (x Data..:? "dashPackage")
+            Prelude.<*> (x Data..:? "hlsPackage")
+            Prelude.<*> (x Data..:? "id")
+            Prelude.<*> (x Data..:? "mssPackage")
+            Prelude.<*> (x Data..:? "packagingGroupId")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable PackagingConfiguration where
   hashWithSalt _salt PackagingConfiguration' {..} =
-    _salt `Prelude.hashWithSalt` hlsPackage
-      `Prelude.hashWithSalt` arn
-      `Prelude.hashWithSalt` packagingGroupId
-      `Prelude.hashWithSalt` dashPackage
-      `Prelude.hashWithSalt` mssPackage
-      `Prelude.hashWithSalt` id
+    _salt `Prelude.hashWithSalt` arn
       `Prelude.hashWithSalt` cmafPackage
+      `Prelude.hashWithSalt` dashPackage
+      `Prelude.hashWithSalt` hlsPackage
+      `Prelude.hashWithSalt` id
+      `Prelude.hashWithSalt` mssPackage
+      `Prelude.hashWithSalt` packagingGroupId
       `Prelude.hashWithSalt` tags
 
 instance Prelude.NFData PackagingConfiguration where
   rnf PackagingConfiguration' {..} =
-    Prelude.rnf hlsPackage
-      `Prelude.seq` Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf packagingGroupId
-      `Prelude.seq` Prelude.rnf dashPackage
-      `Prelude.seq` Prelude.rnf mssPackage
-      `Prelude.seq` Prelude.rnf id
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf cmafPackage
+      `Prelude.seq` Prelude.rnf dashPackage
+      `Prelude.seq` Prelude.rnf hlsPackage
+      `Prelude.seq` Prelude.rnf id
+      `Prelude.seq` Prelude.rnf mssPackage
+      `Prelude.seq` Prelude.rnf packagingGroupId
       `Prelude.seq` Prelude.rnf tags

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RedshiftData.Types.TableMember
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.RedshiftData.Types.TableMember where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The properties of a table.
 --
 -- /See:/ 'newTableMember' smart constructor.
 data TableMember = TableMember'
-  { -- | The schema containing the table.
-    schema :: Prelude.Maybe Prelude.Text,
-    -- | The name of the table.
+  { -- | The name of the table.
     name :: Prelude.Maybe Prelude.Text,
+    -- | The schema containing the table.
+    schema :: Prelude.Maybe Prelude.Text,
     -- | The type of the table. Possible values include TABLE, VIEW, SYSTEM
     -- TABLE, GLOBAL TEMPORARY, LOCAL TEMPORARY, ALIAS, and SYNONYM.
     type' :: Prelude.Maybe Prelude.Text
@@ -45,9 +46,9 @@ data TableMember = TableMember'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'schema', 'tableMember_schema' - The schema containing the table.
---
 -- 'name', 'tableMember_name' - The name of the table.
+--
+-- 'schema', 'tableMember_schema' - The schema containing the table.
 --
 -- 'type'', 'tableMember_type' - The type of the table. Possible values include TABLE, VIEW, SYSTEM
 -- TABLE, GLOBAL TEMPORARY, LOCAL TEMPORARY, ALIAS, and SYNONYM.
@@ -55,43 +56,43 @@ newTableMember ::
   TableMember
 newTableMember =
   TableMember'
-    { schema = Prelude.Nothing,
-      name = Prelude.Nothing,
+    { name = Prelude.Nothing,
+      schema = Prelude.Nothing,
       type' = Prelude.Nothing
     }
-
--- | The schema containing the table.
-tableMember_schema :: Lens.Lens' TableMember (Prelude.Maybe Prelude.Text)
-tableMember_schema = Lens.lens (\TableMember' {schema} -> schema) (\s@TableMember' {} a -> s {schema = a} :: TableMember)
 
 -- | The name of the table.
 tableMember_name :: Lens.Lens' TableMember (Prelude.Maybe Prelude.Text)
 tableMember_name = Lens.lens (\TableMember' {name} -> name) (\s@TableMember' {} a -> s {name = a} :: TableMember)
+
+-- | The schema containing the table.
+tableMember_schema :: Lens.Lens' TableMember (Prelude.Maybe Prelude.Text)
+tableMember_schema = Lens.lens (\TableMember' {schema} -> schema) (\s@TableMember' {} a -> s {schema = a} :: TableMember)
 
 -- | The type of the table. Possible values include TABLE, VIEW, SYSTEM
 -- TABLE, GLOBAL TEMPORARY, LOCAL TEMPORARY, ALIAS, and SYNONYM.
 tableMember_type :: Lens.Lens' TableMember (Prelude.Maybe Prelude.Text)
 tableMember_type = Lens.lens (\TableMember' {type'} -> type') (\s@TableMember' {} a -> s {type' = a} :: TableMember)
 
-instance Core.FromJSON TableMember where
+instance Data.FromJSON TableMember where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TableMember"
       ( \x ->
           TableMember'
-            Prelude.<$> (x Core..:? "schema")
-            Prelude.<*> (x Core..:? "name")
-            Prelude.<*> (x Core..:? "type")
+            Prelude.<$> (x Data..:? "name")
+            Prelude.<*> (x Data..:? "schema")
+            Prelude.<*> (x Data..:? "type")
       )
 
 instance Prelude.Hashable TableMember where
   hashWithSalt _salt TableMember' {..} =
-    _salt `Prelude.hashWithSalt` schema
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` schema
       `Prelude.hashWithSalt` type'
 
 instance Prelude.NFData TableMember where
   rnf TableMember' {..} =
-    Prelude.rnf schema
-      `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name
+      `Prelude.seq` Prelude.rnf schema
       `Prelude.seq` Prelude.rnf type'

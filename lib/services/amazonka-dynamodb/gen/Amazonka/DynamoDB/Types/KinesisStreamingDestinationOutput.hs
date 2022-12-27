@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.KinesisStreamingDestinationOutput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,11 @@
 module Amazonka.DynamoDB.Types.KinesisStreamingDestinationOutput where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.DestinationStatus
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | /See:/ 'newKinesisStreamingDestinationOutput' smart constructor.
@@ -72,17 +74,17 @@ kinesisStreamingDestinationOutput_tableName :: Lens.Lens' KinesisStreamingDestin
 kinesisStreamingDestinationOutput_tableName = Lens.lens (\KinesisStreamingDestinationOutput' {tableName} -> tableName) (\s@KinesisStreamingDestinationOutput' {} a -> s {tableName = a} :: KinesisStreamingDestinationOutput)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     KinesisStreamingDestinationOutput
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "KinesisStreamingDestinationOutput"
       ( \x ->
           KinesisStreamingDestinationOutput'
-            Prelude.<$> (x Core..:? "DestinationStatus")
-            Prelude.<*> (x Core..:? "StreamArn")
-            Prelude.<*> (x Core..:? "TableName")
+            Prelude.<$> (x Data..:? "DestinationStatus")
+            Prelude.<*> (x Data..:? "StreamArn")
+            Prelude.<*> (x Data..:? "TableName")
       )
 
 instance

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Shield.DescribeAttackStatistics
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,7 +51,8 @@ module Amazonka.Shield.DescribeAttackStatistics
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,14 +77,15 @@ instance Core.AWSRequest DescribeAttackStatistics where
   type
     AWSResponse DescribeAttackStatistics =
       DescribeAttackStatisticsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAttackStatisticsResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "TimeRange")
-            Prelude.<*> (x Core..?> "DataItems" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..:> "TimeRange")
+            Prelude.<*> (x Data..?> "DataItems" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable DescribeAttackStatistics where
@@ -93,34 +95,35 @@ instance Prelude.Hashable DescribeAttackStatistics where
 instance Prelude.NFData DescribeAttackStatistics where
   rnf _ = ()
 
-instance Core.ToHeaders DescribeAttackStatistics where
+instance Data.ToHeaders DescribeAttackStatistics where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSShield_20160616.DescribeAttackStatistics" ::
+              Data.=# ( "AWSShield_20160616.DescribeAttackStatistics" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeAttackStatistics where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON DescribeAttackStatistics where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath DescribeAttackStatistics where
+instance Data.ToPath DescribeAttackStatistics where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeAttackStatistics where
+instance Data.ToQuery DescribeAttackStatistics where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeAttackStatisticsResponse' smart constructor.
 data DescribeAttackStatisticsResponse = DescribeAttackStatisticsResponse'
   { -- | The response's http status code.
     httpStatus :: Prelude.Int,
+    -- | The time range of the attack.
     timeRange :: TimeRange,
     -- | The data that describes the attacks detected during the time period.
     dataItems :: [AttackStatisticsDataItem]
@@ -137,7 +140,7 @@ data DescribeAttackStatisticsResponse = DescribeAttackStatisticsResponse'
 --
 -- 'httpStatus', 'describeAttackStatisticsResponse_httpStatus' - The response's http status code.
 --
--- 'timeRange', 'describeAttackStatisticsResponse_timeRange' - Undocumented member.
+-- 'timeRange', 'describeAttackStatisticsResponse_timeRange' - The time range of the attack.
 --
 -- 'dataItems', 'describeAttackStatisticsResponse_dataItems' - The data that describes the attacks detected during the time period.
 newDescribeAttackStatisticsResponse ::
@@ -160,7 +163,7 @@ newDescribeAttackStatisticsResponse
 describeAttackStatisticsResponse_httpStatus :: Lens.Lens' DescribeAttackStatisticsResponse Prelude.Int
 describeAttackStatisticsResponse_httpStatus = Lens.lens (\DescribeAttackStatisticsResponse' {httpStatus} -> httpStatus) (\s@DescribeAttackStatisticsResponse' {} a -> s {httpStatus = a} :: DescribeAttackStatisticsResponse)
 
--- | Undocumented member.
+-- | The time range of the attack.
 describeAttackStatisticsResponse_timeRange :: Lens.Lens' DescribeAttackStatisticsResponse TimeRange
 describeAttackStatisticsResponse_timeRange = Lens.lens (\DescribeAttackStatisticsResponse' {timeRange} -> timeRange) (\s@DescribeAttackStatisticsResponse' {} a -> s {timeRange = a} :: DescribeAttackStatisticsResponse)
 

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.ListConnectors
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,8 @@ module Amazonka.KafkaConnect.ListConnectors
 
     -- * Request Lenses
     listConnectors_connectorNamePrefix,
-    listConnectors_nextToken,
     listConnectors_maxResults,
+    listConnectors_nextToken,
 
     -- * Destructuring the Response
     ListConnectorsResponse (..),
@@ -48,8 +48,9 @@ module Amazonka.KafkaConnect.ListConnectors
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KafkaConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,12 +59,12 @@ import qualified Amazonka.Response as Response
 data ListConnectors = ListConnectors'
   { -- | The name prefix that you want to use to search for and list connectors.
     connectorNamePrefix :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of connectors to list in one response.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | If the response of a ListConnectors operation is truncated, it will
     -- include a NextToken. Send this NextToken in a subsequent request to
     -- continue listing from where the previous operation left off.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of connectors to list in one response.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -77,34 +78,34 @@ data ListConnectors = ListConnectors'
 --
 -- 'connectorNamePrefix', 'listConnectors_connectorNamePrefix' - The name prefix that you want to use to search for and list connectors.
 --
+-- 'maxResults', 'listConnectors_maxResults' - The maximum number of connectors to list in one response.
+--
 -- 'nextToken', 'listConnectors_nextToken' - If the response of a ListConnectors operation is truncated, it will
 -- include a NextToken. Send this NextToken in a subsequent request to
 -- continue listing from where the previous operation left off.
---
--- 'maxResults', 'listConnectors_maxResults' - The maximum number of connectors to list in one response.
 newListConnectors ::
   ListConnectors
 newListConnectors =
   ListConnectors'
     { connectorNamePrefix =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | The name prefix that you want to use to search for and list connectors.
 listConnectors_connectorNamePrefix :: Lens.Lens' ListConnectors (Prelude.Maybe Prelude.Text)
 listConnectors_connectorNamePrefix = Lens.lens (\ListConnectors' {connectorNamePrefix} -> connectorNamePrefix) (\s@ListConnectors' {} a -> s {connectorNamePrefix = a} :: ListConnectors)
 
+-- | The maximum number of connectors to list in one response.
+listConnectors_maxResults :: Lens.Lens' ListConnectors (Prelude.Maybe Prelude.Natural)
+listConnectors_maxResults = Lens.lens (\ListConnectors' {maxResults} -> maxResults) (\s@ListConnectors' {} a -> s {maxResults = a} :: ListConnectors)
+
 -- | If the response of a ListConnectors operation is truncated, it will
 -- include a NextToken. Send this NextToken in a subsequent request to
 -- continue listing from where the previous operation left off.
 listConnectors_nextToken :: Lens.Lens' ListConnectors (Prelude.Maybe Prelude.Text)
 listConnectors_nextToken = Lens.lens (\ListConnectors' {nextToken} -> nextToken) (\s@ListConnectors' {} a -> s {nextToken = a} :: ListConnectors)
-
--- | The maximum number of connectors to list in one response.
-listConnectors_maxResults :: Lens.Lens' ListConnectors (Prelude.Maybe Prelude.Natural)
-listConnectors_maxResults = Lens.lens (\ListConnectors' {maxResults} -> maxResults) (\s@ListConnectors' {} a -> s {maxResults = a} :: ListConnectors)
 
 instance Core.AWSPager ListConnectors where
   page rq rs
@@ -131,48 +132,49 @@ instance Core.AWSRequest ListConnectors where
   type
     AWSResponse ListConnectors =
       ListConnectorsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListConnectorsResponse'
-            Prelude.<$> (x Core..?> "connectors" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "connectors" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListConnectors where
   hashWithSalt _salt ListConnectors' {..} =
     _salt `Prelude.hashWithSalt` connectorNamePrefix
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListConnectors where
   rnf ListConnectors' {..} =
     Prelude.rnf connectorNamePrefix
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListConnectors where
+instance Data.ToHeaders ListConnectors where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListConnectors where
+instance Data.ToPath ListConnectors where
   toPath = Prelude.const "/v1/connectors"
 
-instance Core.ToQuery ListConnectors where
+instance Data.ToQuery ListConnectors where
   toQuery ListConnectors' {..} =
     Prelude.mconcat
-      [ "connectorNamePrefix" Core.=: connectorNamePrefix,
-        "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "connectorNamePrefix" Data.=: connectorNamePrefix,
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListConnectorsResponse' smart constructor.

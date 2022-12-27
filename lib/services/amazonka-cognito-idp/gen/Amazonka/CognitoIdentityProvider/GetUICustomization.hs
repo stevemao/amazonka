@@ -14,17 +14,17 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.GetUICustomization
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the UI Customization information for a particular app client\'s app
--- UI, if there is something set. If nothing is set for the particular
--- client, but there is an existing pool level customization (app
--- @clientId@ will be @ALL@), then that is returned. If nothing is present,
--- then an empty shape is returned.
+-- Gets the user interface (UI) Customization information for a particular
+-- app client\'s app UI, if any such information exists for the client. If
+-- nothing is set for the particular client, but there is an existing pool
+-- level customization (the app @clientId@ is @ALL@), then that information
+-- is returned. If nothing is present, then an empty shape is returned.
 module Amazonka.CognitoIdentityProvider.GetUICustomization
   ( -- * Creating a Request
     GetUICustomization (..),
@@ -46,7 +46,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,7 +55,7 @@ import qualified Amazonka.Response as Response
 -- | /See:/ 'newGetUICustomization' smart constructor.
 data GetUICustomization = GetUICustomization'
   { -- | The client ID for the client app.
-    clientId :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    clientId :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The user pool ID for the user pool.
     userPoolId :: Prelude.Text
   }
@@ -83,7 +84,7 @@ newGetUICustomization pUserPoolId_ =
 
 -- | The client ID for the client app.
 getUICustomization_clientId :: Lens.Lens' GetUICustomization (Prelude.Maybe Prelude.Text)
-getUICustomization_clientId = Lens.lens (\GetUICustomization' {clientId} -> clientId) (\s@GetUICustomization' {} a -> s {clientId = a} :: GetUICustomization) Prelude.. Lens.mapping Core._Sensitive
+getUICustomization_clientId = Lens.lens (\GetUICustomization' {clientId} -> clientId) (\s@GetUICustomization' {} a -> s {clientId = a} :: GetUICustomization) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The user pool ID for the user pool.
 getUICustomization_userPoolId :: Lens.Lens' GetUICustomization Prelude.Text
@@ -93,13 +94,14 @@ instance Core.AWSRequest GetUICustomization where
   type
     AWSResponse GetUICustomization =
       GetUICustomizationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetUICustomizationResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "UICustomization")
+            Prelude.<*> (x Data..:> "UICustomization")
       )
 
 instance Prelude.Hashable GetUICustomization where
@@ -112,34 +114,34 @@ instance Prelude.NFData GetUICustomization where
     Prelude.rnf clientId
       `Prelude.seq` Prelude.rnf userPoolId
 
-instance Core.ToHeaders GetUICustomization where
+instance Data.ToHeaders GetUICustomization where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.GetUICustomization" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.GetUICustomization" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetUICustomization where
+instance Data.ToJSON GetUICustomization where
   toJSON GetUICustomization' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ClientId" Core..=) Prelude.<$> clientId,
-            Prelude.Just ("UserPoolId" Core..= userPoolId)
+          [ ("ClientId" Data..=) Prelude.<$> clientId,
+            Prelude.Just ("UserPoolId" Data..= userPoolId)
           ]
       )
 
-instance Core.ToPath GetUICustomization where
+instance Data.ToPath GetUICustomization where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetUICustomization where
+instance Data.ToQuery GetUICustomization where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetUICustomizationResponse' smart constructor.

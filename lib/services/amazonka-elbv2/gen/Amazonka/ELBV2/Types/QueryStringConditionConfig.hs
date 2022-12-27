@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ELBV2.Types.QueryStringConditionConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ELBV2.Types.QueryStringConditionConfig where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELBV2.Types.QueryStringKeyValuePair
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a query string condition.
@@ -34,8 +35,8 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newQueryStringConditionConfig' smart constructor.
 data QueryStringConditionConfig = QueryStringConditionConfig'
-  { -- | One or more key\/value pairs or values to find in the query string. The
-    -- maximum size of each string is 128 characters. The comparison is case
+  { -- | The key\/value pairs or values to find in the query string. The maximum
+    -- size of each string is 128 characters. The comparison is case
     -- insensitive. The following wildcard characters are supported: * (matches
     -- 0 or more characters) and ? (matches exactly 1 character). To search for
     -- a literal \'*\' or \'?\' character in a query string, you must escape
@@ -55,8 +56,8 @@ data QueryStringConditionConfig = QueryStringConditionConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'values', 'queryStringConditionConfig_values' - One or more key\/value pairs or values to find in the query string. The
--- maximum size of each string is 128 characters. The comparison is case
+-- 'values', 'queryStringConditionConfig_values' - The key\/value pairs or values to find in the query string. The maximum
+-- size of each string is 128 characters. The comparison is case
 -- insensitive. The following wildcard characters are supported: * (matches
 -- 0 or more characters) and ? (matches exactly 1 character). To search for
 -- a literal \'*\' or \'?\' character in a query string, you must escape
@@ -72,8 +73,8 @@ newQueryStringConditionConfig =
         Prelude.Nothing
     }
 
--- | One or more key\/value pairs or values to find in the query string. The
--- maximum size of each string is 128 characters. The comparison is case
+-- | The key\/value pairs or values to find in the query string. The maximum
+-- size of each string is 128 characters. The comparison is case
 -- insensitive. The following wildcard characters are supported: * (matches
 -- 0 or more characters) and ? (matches exactly 1 character). To search for
 -- a literal \'*\' or \'?\' character in a query string, you must escape
@@ -84,11 +85,11 @@ newQueryStringConditionConfig =
 queryStringConditionConfig_values :: Lens.Lens' QueryStringConditionConfig (Prelude.Maybe [QueryStringKeyValuePair])
 queryStringConditionConfig_values = Lens.lens (\QueryStringConditionConfig' {values} -> values) (\s@QueryStringConditionConfig' {} a -> s {values = a} :: QueryStringConditionConfig) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML QueryStringConditionConfig where
+instance Data.FromXML QueryStringConditionConfig where
   parseXML x =
     QueryStringConditionConfig'
-      Prelude.<$> ( x Core..@? "Values" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "member")
+      Prelude.<$> ( x Data..@? "Values" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "member")
                   )
 
 instance Prelude.Hashable QueryStringConditionConfig where
@@ -99,10 +100,10 @@ instance Prelude.NFData QueryStringConditionConfig where
   rnf QueryStringConditionConfig' {..} =
     Prelude.rnf values
 
-instance Core.ToQuery QueryStringConditionConfig where
+instance Data.ToQuery QueryStringConditionConfig where
   toQuery QueryStringConditionConfig' {..} =
     Prelude.mconcat
       [ "Values"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> values)
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> values)
       ]

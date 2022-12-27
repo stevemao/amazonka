@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeReservedInstancesModifications
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,8 +37,8 @@ module Amazonka.EC2.DescribeReservedInstancesModifications
 
     -- * Request Lenses
     describeReservedInstancesModifications_filters,
-    describeReservedInstancesModifications_reservedInstancesModificationIds,
     describeReservedInstancesModifications_nextToken,
+    describeReservedInstancesModifications_reservedInstancesModificationIds,
 
     -- * Destructuring the Response
     DescribeReservedInstancesModificationsResponse (..),
@@ -52,8 +52,9 @@ module Amazonka.EC2.DescribeReservedInstancesModifications
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,10 +101,10 @@ data DescribeReservedInstancesModifications = DescribeReservedInstancesModificat
     -- -   @update-date@ - The time when the modification request was last
     --     updated.
     filters :: Prelude.Maybe [Filter],
-    -- | IDs for the submitted modification request.
-    reservedInstancesModificationIds :: Prelude.Maybe [Prelude.Text],
     -- | The token to retrieve the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | IDs for the submitted modification request.
+    reservedInstancesModificationIds :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -153,18 +154,18 @@ data DescribeReservedInstancesModifications = DescribeReservedInstancesModificat
 -- -   @update-date@ - The time when the modification request was last
 --     updated.
 --
--- 'reservedInstancesModificationIds', 'describeReservedInstancesModifications_reservedInstancesModificationIds' - IDs for the submitted modification request.
---
 -- 'nextToken', 'describeReservedInstancesModifications_nextToken' - The token to retrieve the next page of results.
+--
+-- 'reservedInstancesModificationIds', 'describeReservedInstancesModifications_reservedInstancesModificationIds' - IDs for the submitted modification request.
 newDescribeReservedInstancesModifications ::
   DescribeReservedInstancesModifications
 newDescribeReservedInstancesModifications =
   DescribeReservedInstancesModifications'
     { filters =
         Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       reservedInstancesModificationIds =
-        Prelude.Nothing,
-      nextToken = Prelude.Nothing
+        Prelude.Nothing
     }
 
 -- | One or more filters.
@@ -207,13 +208,13 @@ newDescribeReservedInstancesModifications =
 describeReservedInstancesModifications_filters :: Lens.Lens' DescribeReservedInstancesModifications (Prelude.Maybe [Filter])
 describeReservedInstancesModifications_filters = Lens.lens (\DescribeReservedInstancesModifications' {filters} -> filters) (\s@DescribeReservedInstancesModifications' {} a -> s {filters = a} :: DescribeReservedInstancesModifications) Prelude.. Lens.mapping Lens.coerced
 
--- | IDs for the submitted modification request.
-describeReservedInstancesModifications_reservedInstancesModificationIds :: Lens.Lens' DescribeReservedInstancesModifications (Prelude.Maybe [Prelude.Text])
-describeReservedInstancesModifications_reservedInstancesModificationIds = Lens.lens (\DescribeReservedInstancesModifications' {reservedInstancesModificationIds} -> reservedInstancesModificationIds) (\s@DescribeReservedInstancesModifications' {} a -> s {reservedInstancesModificationIds = a} :: DescribeReservedInstancesModifications) Prelude.. Lens.mapping Lens.coerced
-
 -- | The token to retrieve the next page of results.
 describeReservedInstancesModifications_nextToken :: Lens.Lens' DescribeReservedInstancesModifications (Prelude.Maybe Prelude.Text)
 describeReservedInstancesModifications_nextToken = Lens.lens (\DescribeReservedInstancesModifications' {nextToken} -> nextToken) (\s@DescribeReservedInstancesModifications' {} a -> s {nextToken = a} :: DescribeReservedInstancesModifications)
+
+-- | IDs for the submitted modification request.
+describeReservedInstancesModifications_reservedInstancesModificationIds :: Lens.Lens' DescribeReservedInstancesModifications (Prelude.Maybe [Prelude.Text])
+describeReservedInstancesModifications_reservedInstancesModificationIds = Lens.lens (\DescribeReservedInstancesModifications' {reservedInstancesModificationIds} -> reservedInstancesModificationIds) (\s@DescribeReservedInstancesModifications' {} a -> s {reservedInstancesModificationIds = a} :: DescribeReservedInstancesModifications) Prelude.. Lens.mapping Lens.coerced
 
 instance
   Core.AWSPager
@@ -248,15 +249,16 @@ instance
     AWSResponse
       DescribeReservedInstancesModifications =
       DescribeReservedInstancesModificationsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeReservedInstancesModificationsResponse'
-            Prelude.<$> (x Core..@? "nextToken")
-              Prelude.<*> ( x Core..@? "reservedInstancesModificationsSet"
+            Prelude.<$> (x Data..@? "nextToken")
+              Prelude.<*> ( x Data..@? "reservedInstancesModificationsSet"
                               Core..!@ Prelude.mempty
-                              Prelude.>>= Core.may (Core.parseXMLList "item")
+                              Prelude.>>= Core.may (Data.parseXMLList "item")
                           )
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -269,8 +271,8 @@ instance
     _salt
     DescribeReservedInstancesModifications' {..} =
       _salt `Prelude.hashWithSalt` filters
-        `Prelude.hashWithSalt` reservedInstancesModificationIds
         `Prelude.hashWithSalt` nextToken
+        `Prelude.hashWithSalt` reservedInstancesModificationIds
 
 instance
   Prelude.NFData
@@ -278,40 +280,40 @@ instance
   where
   rnf DescribeReservedInstancesModifications' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf reservedInstancesModificationIds
       `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf reservedInstancesModificationIds
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeReservedInstancesModifications
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeReservedInstancesModifications
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeReservedInstancesModifications
   where
   toQuery DescribeReservedInstancesModifications' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeReservedInstancesModifications" ::
+          Data.=: ( "DescribeReservedInstancesModifications" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        Core.toQuery
-          ( Core.toQueryList "ReservedInstancesModificationId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        "NextToken" Data.=: nextToken,
+        Data.toQuery
+          ( Data.toQueryList "ReservedInstancesModificationId"
               Prelude.<$> reservedInstancesModificationIds
-          ),
-        "NextToken" Core.=: nextToken
+          )
       ]
 
 -- | Contains the output of DescribeReservedInstancesModifications.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SMS.GetAppReplicationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.SMS.GetAppReplicationConfiguration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,12 +83,13 @@ instance
   type
     AWSResponse GetAppReplicationConfiguration =
       GetAppReplicationConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAppReplicationConfigurationResponse'
-            Prelude.<$> ( x Core..?> "serverGroupReplicationConfigurations"
+            Prelude.<$> ( x Data..?> "serverGroupReplicationConfigurations"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -110,34 +112,34 @@ instance
     Prelude.rnf appId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetAppReplicationConfiguration
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSServerMigrationService_V2016_10_24.GetAppReplicationConfiguration" ::
+              Data.=# ( "AWSServerMigrationService_V2016_10_24.GetAppReplicationConfiguration" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetAppReplicationConfiguration where
+instance Data.ToJSON GetAppReplicationConfiguration where
   toJSON GetAppReplicationConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("appId" Core..=) Prelude.<$> appId]
+          [("appId" Data..=) Prelude.<$> appId]
       )
 
-instance Core.ToPath GetAppReplicationConfiguration where
+instance Data.ToPath GetAppReplicationConfiguration where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetAppReplicationConfiguration where
+instance Data.ToQuery GetAppReplicationConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetAppReplicationConfigurationResponse' smart constructor.

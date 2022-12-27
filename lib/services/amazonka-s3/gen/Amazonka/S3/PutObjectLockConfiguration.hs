@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.PutObjectLockConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,11 +41,12 @@ module Amazonka.S3.PutObjectLockConfiguration
     newPutObjectLockConfiguration,
 
     -- * Request Lenses
-    putObjectLockConfiguration_token,
-    putObjectLockConfiguration_objectLockConfiguration,
-    putObjectLockConfiguration_requestPayer,
+    putObjectLockConfiguration_checksumAlgorithm,
     putObjectLockConfiguration_contentMD5,
     putObjectLockConfiguration_expectedBucketOwner,
+    putObjectLockConfiguration_objectLockConfiguration,
+    putObjectLockConfiguration_requestPayer,
+    putObjectLockConfiguration_token,
     putObjectLockConfiguration_bucket,
 
     -- * Destructuring the Response
@@ -59,7 +60,8 @@ module Amazonka.S3.PutObjectLockConfiguration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -67,12 +69,18 @@ import Amazonka.S3.Types
 
 -- | /See:/ 'newPutObjectLockConfiguration' smart constructor.
 data PutObjectLockConfiguration = PutObjectLockConfiguration'
-  { -- | A token to allow Object Lock to be enabled for an existing bucket.
-    token :: Prelude.Maybe Prelude.Text,
-    -- | The Object Lock configuration that you want to apply to the specified
-    -- bucket.
-    objectLockConfiguration :: Prelude.Maybe ObjectLockConfiguration,
-    requestPayer :: Prelude.Maybe RequestPayer,
+  { -- | Indicates the algorithm used to create the checksum for the object when
+    -- using the SDK. This header will not provide any additional functionality
+    -- if not using the SDK. When sending this header, there must be a
+    -- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+    -- Otherwise, Amazon S3 fails the request with the HTTP status code
+    -- @400 Bad Request@. For more information, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+    -- in the /Amazon S3 User Guide/.
+    --
+    -- If you provide an individual checksum, Amazon S3 ignores any provided
+    -- @ChecksumAlgorithm@ parameter.
+    checksumAlgorithm :: Prelude.Maybe ChecksumAlgorithm,
     -- | The MD5 hash for the request body.
     --
     -- For requests made using the Amazon Web Services Command Line Interface
@@ -80,9 +88,15 @@ data PutObjectLockConfiguration = PutObjectLockConfiguration'
     -- automatically.
     contentMD5 :: Prelude.Maybe Prelude.Text,
     -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
+    -- | The Object Lock configuration that you want to apply to the specified
+    -- bucket.
+    objectLockConfiguration :: Prelude.Maybe ObjectLockConfiguration,
+    requestPayer :: Prelude.Maybe RequestPayer,
+    -- | A token to allow Object Lock to be enabled for an existing bucket.
+    token :: Prelude.Maybe Prelude.Text,
     -- | The bucket whose Object Lock configuration you want to create or
     -- replace.
     bucket :: BucketName
@@ -97,12 +111,17 @@ data PutObjectLockConfiguration = PutObjectLockConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'token', 'putObjectLockConfiguration_token' - A token to allow Object Lock to be enabled for an existing bucket.
+-- 'checksumAlgorithm', 'putObjectLockConfiguration_checksumAlgorithm' - Indicates the algorithm used to create the checksum for the object when
+-- using the SDK. This header will not provide any additional functionality
+-- if not using the SDK. When sending this header, there must be a
+-- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+-- Otherwise, Amazon S3 fails the request with the HTTP status code
+-- @400 Bad Request@. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+-- in the /Amazon S3 User Guide/.
 --
--- 'objectLockConfiguration', 'putObjectLockConfiguration_objectLockConfiguration' - The Object Lock configuration that you want to apply to the specified
--- bucket.
---
--- 'requestPayer', 'putObjectLockConfiguration_requestPayer' - Undocumented member.
+-- If you provide an individual checksum, Amazon S3 ignores any provided
+-- @ChecksumAlgorithm@ parameter.
 --
 -- 'contentMD5', 'putObjectLockConfiguration_contentMD5' - The MD5 hash for the request body.
 --
@@ -111,8 +130,15 @@ data PutObjectLockConfiguration = PutObjectLockConfiguration'
 -- automatically.
 --
 -- 'expectedBucketOwner', 'putObjectLockConfiguration_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
+--
+-- 'objectLockConfiguration', 'putObjectLockConfiguration_objectLockConfiguration' - The Object Lock configuration that you want to apply to the specified
+-- bucket.
+--
+-- 'requestPayer', 'putObjectLockConfiguration_requestPayer' - Undocumented member.
+--
+-- 'token', 'putObjectLockConfiguration_token' - A token to allow Object Lock to be enabled for an existing bucket.
 --
 -- 'bucket', 'putObjectLockConfiguration_bucket' - The bucket whose Object Lock configuration you want to create or
 -- replace.
@@ -122,27 +148,29 @@ newPutObjectLockConfiguration ::
   PutObjectLockConfiguration
 newPutObjectLockConfiguration pBucket_ =
   PutObjectLockConfiguration'
-    { token =
+    { checksumAlgorithm =
         Prelude.Nothing,
-      objectLockConfiguration = Prelude.Nothing,
-      requestPayer = Prelude.Nothing,
       contentMD5 = Prelude.Nothing,
       expectedBucketOwner = Prelude.Nothing,
+      objectLockConfiguration = Prelude.Nothing,
+      requestPayer = Prelude.Nothing,
+      token = Prelude.Nothing,
       bucket = pBucket_
     }
 
--- | A token to allow Object Lock to be enabled for an existing bucket.
-putObjectLockConfiguration_token :: Lens.Lens' PutObjectLockConfiguration (Prelude.Maybe Prelude.Text)
-putObjectLockConfiguration_token = Lens.lens (\PutObjectLockConfiguration' {token} -> token) (\s@PutObjectLockConfiguration' {} a -> s {token = a} :: PutObjectLockConfiguration)
-
--- | The Object Lock configuration that you want to apply to the specified
--- bucket.
-putObjectLockConfiguration_objectLockConfiguration :: Lens.Lens' PutObjectLockConfiguration (Prelude.Maybe ObjectLockConfiguration)
-putObjectLockConfiguration_objectLockConfiguration = Lens.lens (\PutObjectLockConfiguration' {objectLockConfiguration} -> objectLockConfiguration) (\s@PutObjectLockConfiguration' {} a -> s {objectLockConfiguration = a} :: PutObjectLockConfiguration)
-
--- | Undocumented member.
-putObjectLockConfiguration_requestPayer :: Lens.Lens' PutObjectLockConfiguration (Prelude.Maybe RequestPayer)
-putObjectLockConfiguration_requestPayer = Lens.lens (\PutObjectLockConfiguration' {requestPayer} -> requestPayer) (\s@PutObjectLockConfiguration' {} a -> s {requestPayer = a} :: PutObjectLockConfiguration)
+-- | Indicates the algorithm used to create the checksum for the object when
+-- using the SDK. This header will not provide any additional functionality
+-- if not using the SDK. When sending this header, there must be a
+-- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+-- Otherwise, Amazon S3 fails the request with the HTTP status code
+-- @400 Bad Request@. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+-- in the /Amazon S3 User Guide/.
+--
+-- If you provide an individual checksum, Amazon S3 ignores any provided
+-- @ChecksumAlgorithm@ parameter.
+putObjectLockConfiguration_checksumAlgorithm :: Lens.Lens' PutObjectLockConfiguration (Prelude.Maybe ChecksumAlgorithm)
+putObjectLockConfiguration_checksumAlgorithm = Lens.lens (\PutObjectLockConfiguration' {checksumAlgorithm} -> checksumAlgorithm) (\s@PutObjectLockConfiguration' {} a -> s {checksumAlgorithm = a} :: PutObjectLockConfiguration)
 
 -- | The MD5 hash for the request body.
 --
@@ -153,10 +181,23 @@ putObjectLockConfiguration_contentMD5 :: Lens.Lens' PutObjectLockConfiguration (
 putObjectLockConfiguration_contentMD5 = Lens.lens (\PutObjectLockConfiguration' {contentMD5} -> contentMD5) (\s@PutObjectLockConfiguration' {} a -> s {contentMD5 = a} :: PutObjectLockConfiguration)
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 putObjectLockConfiguration_expectedBucketOwner :: Lens.Lens' PutObjectLockConfiguration (Prelude.Maybe Prelude.Text)
 putObjectLockConfiguration_expectedBucketOwner = Lens.lens (\PutObjectLockConfiguration' {expectedBucketOwner} -> expectedBucketOwner) (\s@PutObjectLockConfiguration' {} a -> s {expectedBucketOwner = a} :: PutObjectLockConfiguration)
+
+-- | The Object Lock configuration that you want to apply to the specified
+-- bucket.
+putObjectLockConfiguration_objectLockConfiguration :: Lens.Lens' PutObjectLockConfiguration (Prelude.Maybe ObjectLockConfiguration)
+putObjectLockConfiguration_objectLockConfiguration = Lens.lens (\PutObjectLockConfiguration' {objectLockConfiguration} -> objectLockConfiguration) (\s@PutObjectLockConfiguration' {} a -> s {objectLockConfiguration = a} :: PutObjectLockConfiguration)
+
+-- | Undocumented member.
+putObjectLockConfiguration_requestPayer :: Lens.Lens' PutObjectLockConfiguration (Prelude.Maybe RequestPayer)
+putObjectLockConfiguration_requestPayer = Lens.lens (\PutObjectLockConfiguration' {requestPayer} -> requestPayer) (\s@PutObjectLockConfiguration' {} a -> s {requestPayer = a} :: PutObjectLockConfiguration)
+
+-- | A token to allow Object Lock to be enabled for an existing bucket.
+putObjectLockConfiguration_token :: Lens.Lens' PutObjectLockConfiguration (Prelude.Maybe Prelude.Text)
+putObjectLockConfiguration_token = Lens.lens (\PutObjectLockConfiguration' {token} -> token) (\s@PutObjectLockConfiguration' {} a -> s {token = a} :: PutObjectLockConfiguration)
 
 -- | The bucket whose Object Lock configuration you want to create or
 -- replace.
@@ -167,56 +208,60 @@ instance Core.AWSRequest PutObjectLockConfiguration where
   type
     AWSResponse PutObjectLockConfiguration =
       PutObjectLockConfigurationResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.putXML defaultService
+      Prelude.. Request.putXML (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
           PutObjectLockConfigurationResponse'
-            Prelude.<$> (h Core..#? "x-amz-request-charged")
+            Prelude.<$> (h Data..#? "x-amz-request-charged")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable PutObjectLockConfiguration where
   hashWithSalt _salt PutObjectLockConfiguration' {..} =
-    _salt `Prelude.hashWithSalt` token
-      `Prelude.hashWithSalt` objectLockConfiguration
-      `Prelude.hashWithSalt` requestPayer
+    _salt `Prelude.hashWithSalt` checksumAlgorithm
       `Prelude.hashWithSalt` contentMD5
       `Prelude.hashWithSalt` expectedBucketOwner
+      `Prelude.hashWithSalt` objectLockConfiguration
+      `Prelude.hashWithSalt` requestPayer
+      `Prelude.hashWithSalt` token
       `Prelude.hashWithSalt` bucket
 
 instance Prelude.NFData PutObjectLockConfiguration where
   rnf PutObjectLockConfiguration' {..} =
-    Prelude.rnf token
-      `Prelude.seq` Prelude.rnf objectLockConfiguration
-      `Prelude.seq` Prelude.rnf requestPayer
+    Prelude.rnf checksumAlgorithm
       `Prelude.seq` Prelude.rnf contentMD5
       `Prelude.seq` Prelude.rnf expectedBucketOwner
+      `Prelude.seq` Prelude.rnf objectLockConfiguration
+      `Prelude.seq` Prelude.rnf requestPayer
+      `Prelude.seq` Prelude.rnf token
       `Prelude.seq` Prelude.rnf bucket
 
-instance Core.ToElement PutObjectLockConfiguration where
+instance Data.ToElement PutObjectLockConfiguration where
   toElement PutObjectLockConfiguration' {..} =
-    Core.mkElement
+    Data.mkElement
       "{http://s3.amazonaws.com/doc/2006-03-01/}ObjectLockConfiguration"
       objectLockConfiguration
 
-instance Core.ToHeaders PutObjectLockConfiguration where
+instance Data.ToHeaders PutObjectLockConfiguration where
   toHeaders PutObjectLockConfiguration' {..} =
     Prelude.mconcat
-      [ "x-amz-bucket-object-lock-token" Core.=# token,
-        "x-amz-request-payer" Core.=# requestPayer,
-        "Content-MD5" Core.=# contentMD5,
+      [ "x-amz-sdk-checksum-algorithm"
+          Data.=# checksumAlgorithm,
+        "Content-MD5" Data.=# contentMD5,
         "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner,
+        "x-amz-request-payer" Data.=# requestPayer,
+        "x-amz-bucket-object-lock-token" Data.=# token
       ]
 
-instance Core.ToPath PutObjectLockConfiguration where
+instance Data.ToPath PutObjectLockConfiguration where
   toPath PutObjectLockConfiguration' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery PutObjectLockConfiguration where
+instance Data.ToQuery PutObjectLockConfiguration where
   toQuery =
     Prelude.const (Prelude.mconcat ["object-lock"])
 

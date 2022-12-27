@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.UpdateAccountSendingEnabled
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.SES.UpdateAccountSendingEnabled
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,7 +87,8 @@ instance Core.AWSRequest UpdateAccountSendingEnabled where
   type
     AWSResponse UpdateAccountSendingEnabled =
       UpdateAccountSendingEnabledResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       UpdateAccountSendingEnabledResponse'
@@ -99,22 +101,22 @@ instance Prelude.NFData UpdateAccountSendingEnabled where
   rnf UpdateAccountSendingEnabled' {..} =
     Prelude.rnf enabled
 
-instance Core.ToHeaders UpdateAccountSendingEnabled where
+instance Data.ToHeaders UpdateAccountSendingEnabled where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath UpdateAccountSendingEnabled where
+instance Data.ToPath UpdateAccountSendingEnabled where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateAccountSendingEnabled where
+instance Data.ToQuery UpdateAccountSendingEnabled where
   toQuery UpdateAccountSendingEnabled' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "UpdateAccountSendingEnabled" ::
+          Data.=: ( "UpdateAccountSendingEnabled" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "Enabled" Core.=: enabled
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "Enabled" Data.=: enabled
       ]
 
 -- | /See:/ 'newUpdateAccountSendingEnabledResponse' smart constructor.

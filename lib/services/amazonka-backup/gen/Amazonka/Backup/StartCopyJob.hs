@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Backup.StartCopyJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,13 +43,15 @@ module Amazonka.Backup.StartCopyJob
     -- * Response Lenses
     startCopyJobResponse_copyJobId,
     startCopyJobResponse_creationDate,
+    startCopyJobResponse_isParent,
     startCopyJobResponse_httpStatus,
   )
 where
 
 import Amazonka.Backup.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -173,13 +175,15 @@ startCopyJob_iamRoleArn = Lens.lens (\StartCopyJob' {iamRoleArn} -> iamRoleArn) 
 
 instance Core.AWSRequest StartCopyJob where
   type AWSResponse StartCopyJob = StartCopyJobResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartCopyJobResponse'
-            Prelude.<$> (x Core..?> "CopyJobId")
-            Prelude.<*> (x Core..?> "CreationDate")
+            Prelude.<$> (x Data..?> "CopyJobId")
+            Prelude.<*> (x Data..?> "CreationDate")
+            Prelude.<*> (x Data..?> "IsParent")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -201,42 +205,42 @@ instance Prelude.NFData StartCopyJob where
       `Prelude.seq` Prelude.rnf destinationBackupVaultArn
       `Prelude.seq` Prelude.rnf iamRoleArn
 
-instance Core.ToHeaders StartCopyJob where
+instance Data.ToHeaders StartCopyJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartCopyJob where
+instance Data.ToJSON StartCopyJob where
   toJSON StartCopyJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("IdempotencyToken" Core..=)
+          [ ("IdempotencyToken" Data..=)
               Prelude.<$> idempotencyToken,
-            ("Lifecycle" Core..=) Prelude.<$> lifecycle,
+            ("Lifecycle" Data..=) Prelude.<$> lifecycle,
             Prelude.Just
-              ("RecoveryPointArn" Core..= recoveryPointArn),
+              ("RecoveryPointArn" Data..= recoveryPointArn),
             Prelude.Just
               ( "SourceBackupVaultName"
-                  Core..= sourceBackupVaultName
+                  Data..= sourceBackupVaultName
               ),
             Prelude.Just
               ( "DestinationBackupVaultArn"
-                  Core..= destinationBackupVaultArn
+                  Data..= destinationBackupVaultArn
               ),
-            Prelude.Just ("IamRoleArn" Core..= iamRoleArn)
+            Prelude.Just ("IamRoleArn" Data..= iamRoleArn)
           ]
       )
 
-instance Core.ToPath StartCopyJob where
+instance Data.ToPath StartCopyJob where
   toPath = Prelude.const "/copy-jobs"
 
-instance Core.ToQuery StartCopyJob where
+instance Data.ToQuery StartCopyJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartCopyJobResponse' smart constructor.
@@ -247,7 +251,10 @@ data StartCopyJobResponse = StartCopyJobResponse'
     -- Coordinated Universal Time (UTC). The value of @CreationDate@ is
     -- accurate to milliseconds. For example, the value 1516925490.087
     -- represents Friday, January 26, 2018 12:11:30.087 AM.
-    creationDate :: Prelude.Maybe Core.POSIX,
+    creationDate :: Prelude.Maybe Data.POSIX,
+    -- | This is a returned boolean value indicating this is a parent (composite)
+    -- copy job.
+    isParent :: Prelude.Maybe Prelude.Bool,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -268,6 +275,9 @@ data StartCopyJobResponse = StartCopyJobResponse'
 -- accurate to milliseconds. For example, the value 1516925490.087
 -- represents Friday, January 26, 2018 12:11:30.087 AM.
 --
+-- 'isParent', 'startCopyJobResponse_isParent' - This is a returned boolean value indicating this is a parent (composite)
+-- copy job.
+--
 -- 'httpStatus', 'startCopyJobResponse_httpStatus' - The response's http status code.
 newStartCopyJobResponse ::
   -- | 'httpStatus'
@@ -277,6 +287,7 @@ newStartCopyJobResponse pHttpStatus_ =
   StartCopyJobResponse'
     { copyJobId = Prelude.Nothing,
       creationDate = Prelude.Nothing,
+      isParent = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
@@ -289,7 +300,12 @@ startCopyJobResponse_copyJobId = Lens.lens (\StartCopyJobResponse' {copyJobId} -
 -- accurate to milliseconds. For example, the value 1516925490.087
 -- represents Friday, January 26, 2018 12:11:30.087 AM.
 startCopyJobResponse_creationDate :: Lens.Lens' StartCopyJobResponse (Prelude.Maybe Prelude.UTCTime)
-startCopyJobResponse_creationDate = Lens.lens (\StartCopyJobResponse' {creationDate} -> creationDate) (\s@StartCopyJobResponse' {} a -> s {creationDate = a} :: StartCopyJobResponse) Prelude.. Lens.mapping Core._Time
+startCopyJobResponse_creationDate = Lens.lens (\StartCopyJobResponse' {creationDate} -> creationDate) (\s@StartCopyJobResponse' {} a -> s {creationDate = a} :: StartCopyJobResponse) Prelude.. Lens.mapping Data._Time
+
+-- | This is a returned boolean value indicating this is a parent (composite)
+-- copy job.
+startCopyJobResponse_isParent :: Lens.Lens' StartCopyJobResponse (Prelude.Maybe Prelude.Bool)
+startCopyJobResponse_isParent = Lens.lens (\StartCopyJobResponse' {isParent} -> isParent) (\s@StartCopyJobResponse' {} a -> s {isParent = a} :: StartCopyJobResponse)
 
 -- | The response's http status code.
 startCopyJobResponse_httpStatus :: Lens.Lens' StartCopyJobResponse Prelude.Int
@@ -299,4 +315,5 @@ instance Prelude.NFData StartCopyJobResponse where
   rnf StartCopyJobResponse' {..} =
     Prelude.rnf copyJobId
       `Prelude.seq` Prelude.rnf creationDate
+      `Prelude.seq` Prelude.rnf isParent
       `Prelude.seq` Prelude.rnf httpStatus

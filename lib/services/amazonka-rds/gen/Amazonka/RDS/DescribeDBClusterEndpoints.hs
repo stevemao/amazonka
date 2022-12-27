@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.DescribeDBClusterEndpoints
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,9 +31,9 @@ module Amazonka.RDS.DescribeDBClusterEndpoints
     newDescribeDBClusterEndpoints,
 
     -- * Request Lenses
+    describeDBClusterEndpoints_dbClusterEndpointIdentifier,
     describeDBClusterEndpoints_dbClusterIdentifier,
     describeDBClusterEndpoints_filters,
-    describeDBClusterEndpoints_dbClusterEndpointIdentifier,
     describeDBClusterEndpoints_marker,
     describeDBClusterEndpoints_maxRecords,
 
@@ -49,7 +49,8 @@ module Amazonka.RDS.DescribeDBClusterEndpoints
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -57,7 +58,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeDBClusterEndpoints' smart constructor.
 data DescribeDBClusterEndpoints = DescribeDBClusterEndpoints'
-  { -- | The DB cluster identifier of the DB cluster associated with the
+  { -- | The identifier of the endpoint to describe. This parameter is stored as
+    -- a lowercase string.
+    dbClusterEndpointIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The DB cluster identifier of the DB cluster associated with the
     -- endpoint. This parameter is stored as a lowercase string.
     dbClusterIdentifier :: Prelude.Maybe Prelude.Text,
     -- | A set of name-value pairs that define which endpoints to include in the
@@ -72,9 +76,6 @@ data DescribeDBClusterEndpoints = DescribeDBClusterEndpoints'
     -- @db-cluster-endpoint-status@ filter can be one or more of: @available@,
     -- @creating@, @deleting@, @inactive@, @modifying@.
     filters :: Prelude.Maybe [Filter],
-    -- | The identifier of the endpoint to describe. This parameter is stored as
-    -- a lowercase string.
-    dbClusterEndpointIdentifier :: Prelude.Maybe Prelude.Text,
     -- | An optional pagination token provided by a previous
     -- @DescribeDBClusterEndpoints@ request. If this parameter is specified,
     -- the response includes only records beyond the marker, up to the value
@@ -100,6 +101,9 @@ data DescribeDBClusterEndpoints = DescribeDBClusterEndpoints'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'dbClusterEndpointIdentifier', 'describeDBClusterEndpoints_dbClusterEndpointIdentifier' - The identifier of the endpoint to describe. This parameter is stored as
+-- a lowercase string.
+--
 -- 'dbClusterIdentifier', 'describeDBClusterEndpoints_dbClusterIdentifier' - The DB cluster identifier of the DB cluster associated with the
 -- endpoint. This parameter is stored as a lowercase string.
 --
@@ -114,9 +118,6 @@ data DescribeDBClusterEndpoints = DescribeDBClusterEndpoints'
 -- filter can be one or more of: @reader@, @any@. @Values@ for the
 -- @db-cluster-endpoint-status@ filter can be one or more of: @available@,
 -- @creating@, @deleting@, @inactive@, @modifying@.
---
--- 'dbClusterEndpointIdentifier', 'describeDBClusterEndpoints_dbClusterEndpointIdentifier' - The identifier of the endpoint to describe. This parameter is stored as
--- a lowercase string.
 --
 -- 'marker', 'describeDBClusterEndpoints_marker' - An optional pagination token provided by a previous
 -- @DescribeDBClusterEndpoints@ request. If this parameter is specified,
@@ -135,13 +136,18 @@ newDescribeDBClusterEndpoints ::
   DescribeDBClusterEndpoints
 newDescribeDBClusterEndpoints =
   DescribeDBClusterEndpoints'
-    { dbClusterIdentifier =
+    { dbClusterEndpointIdentifier =
         Prelude.Nothing,
+      dbClusterIdentifier = Prelude.Nothing,
       filters = Prelude.Nothing,
-      dbClusterEndpointIdentifier = Prelude.Nothing,
       marker = Prelude.Nothing,
       maxRecords = Prelude.Nothing
     }
+
+-- | The identifier of the endpoint to describe. This parameter is stored as
+-- a lowercase string.
+describeDBClusterEndpoints_dbClusterEndpointIdentifier :: Lens.Lens' DescribeDBClusterEndpoints (Prelude.Maybe Prelude.Text)
+describeDBClusterEndpoints_dbClusterEndpointIdentifier = Lens.lens (\DescribeDBClusterEndpoints' {dbClusterEndpointIdentifier} -> dbClusterEndpointIdentifier) (\s@DescribeDBClusterEndpoints' {} a -> s {dbClusterEndpointIdentifier = a} :: DescribeDBClusterEndpoints)
 
 -- | The DB cluster identifier of the DB cluster associated with the
 -- endpoint. This parameter is stored as a lowercase string.
@@ -161,11 +167,6 @@ describeDBClusterEndpoints_dbClusterIdentifier = Lens.lens (\DescribeDBClusterEn
 -- @creating@, @deleting@, @inactive@, @modifying@.
 describeDBClusterEndpoints_filters :: Lens.Lens' DescribeDBClusterEndpoints (Prelude.Maybe [Filter])
 describeDBClusterEndpoints_filters = Lens.lens (\DescribeDBClusterEndpoints' {filters} -> filters) (\s@DescribeDBClusterEndpoints' {} a -> s {filters = a} :: DescribeDBClusterEndpoints) Prelude.. Lens.mapping Lens.coerced
-
--- | The identifier of the endpoint to describe. This parameter is stored as
--- a lowercase string.
-describeDBClusterEndpoints_dbClusterEndpointIdentifier :: Lens.Lens' DescribeDBClusterEndpoints (Prelude.Maybe Prelude.Text)
-describeDBClusterEndpoints_dbClusterEndpointIdentifier = Lens.lens (\DescribeDBClusterEndpoints' {dbClusterEndpointIdentifier} -> dbClusterEndpointIdentifier) (\s@DescribeDBClusterEndpoints' {} a -> s {dbClusterEndpointIdentifier = a} :: DescribeDBClusterEndpoints)
 
 -- | An optional pagination token provided by a previous
 -- @DescribeDBClusterEndpoints@ request. If this parameter is specified,
@@ -211,57 +212,59 @@ instance Core.AWSRequest DescribeDBClusterEndpoints where
   type
     AWSResponse DescribeDBClusterEndpoints =
       DescribeDBClusterEndpointsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeDBClusterEndpointsResult"
       ( \s h x ->
           DescribeDBClusterEndpointsResponse'
-            Prelude.<$> ( x Core..@? "DBClusterEndpoints"
+            Prelude.<$> ( x Data..@? "DBClusterEndpoints"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "DBClusterEndpointList")
+                            Prelude.>>= Core.may (Data.parseXMLList "DBClusterEndpointList")
                         )
-            Prelude.<*> (x Core..@? "Marker")
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeDBClusterEndpoints where
   hashWithSalt _salt DescribeDBClusterEndpoints' {..} =
-    _salt `Prelude.hashWithSalt` dbClusterIdentifier
-      `Prelude.hashWithSalt` filters
+    _salt
       `Prelude.hashWithSalt` dbClusterEndpointIdentifier
+      `Prelude.hashWithSalt` dbClusterIdentifier
+      `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
 
 instance Prelude.NFData DescribeDBClusterEndpoints where
   rnf DescribeDBClusterEndpoints' {..} =
-    Prelude.rnf dbClusterIdentifier
+    Prelude.rnf dbClusterEndpointIdentifier
+      `Prelude.seq` Prelude.rnf dbClusterIdentifier
       `Prelude.seq` Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf dbClusterEndpointIdentifier
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
 
-instance Core.ToHeaders DescribeDBClusterEndpoints where
+instance Data.ToHeaders DescribeDBClusterEndpoints where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeDBClusterEndpoints where
+instance Data.ToPath DescribeDBClusterEndpoints where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeDBClusterEndpoints where
+instance Data.ToQuery DescribeDBClusterEndpoints where
   toQuery DescribeDBClusterEndpoints' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeDBClusterEndpoints" :: Prelude.ByteString),
+          Data.=: ("DescribeDBClusterEndpoints" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "DBClusterIdentifier" Core.=: dbClusterIdentifier,
-        "Filters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Filter" Prelude.<$> filters),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "DBClusterEndpointIdentifier"
-          Core.=: dbClusterEndpointIdentifier,
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords
+          Data.=: dbClusterEndpointIdentifier,
+        "DBClusterIdentifier" Data.=: dbClusterIdentifier,
+        "Filters"
+          Data.=: Data.toQuery
+            (Data.toQueryList "Filter" Prelude.<$> filters),
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords
       ]
 
 -- | /See:/ 'newDescribeDBClusterEndpointsResponse' smart constructor.

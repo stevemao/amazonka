@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataExchange.Types.ImportAssetFromSignedUrlJobErrorDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,15 @@
 module Amazonka.DataExchange.Types.ImportAssetFromSignedUrlJobErrorDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Information about the job error.
+-- | Details about the job error.
 --
 -- /See:/ 'newImportAssetFromSignedUrlJobErrorDetails' smart constructor.
 data ImportAssetFromSignedUrlJobErrorDetails = ImportAssetFromSignedUrlJobErrorDetails'
-  { -- | Information about the job error.
+  { -- | Details about the job error.
     assetName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -40,7 +41,7 @@ data ImportAssetFromSignedUrlJobErrorDetails = ImportAssetFromSignedUrlJobErrorD
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'assetName', 'importAssetFromSignedUrlJobErrorDetails_assetName' - Information about the job error.
+-- 'assetName', 'importAssetFromSignedUrlJobErrorDetails_assetName' - Details about the job error.
 newImportAssetFromSignedUrlJobErrorDetails ::
   -- | 'assetName'
   Prelude.Text ->
@@ -52,20 +53,20 @@ newImportAssetFromSignedUrlJobErrorDetails
           pAssetName_
       }
 
--- | Information about the job error.
+-- | Details about the job error.
 importAssetFromSignedUrlJobErrorDetails_assetName :: Lens.Lens' ImportAssetFromSignedUrlJobErrorDetails Prelude.Text
 importAssetFromSignedUrlJobErrorDetails_assetName = Lens.lens (\ImportAssetFromSignedUrlJobErrorDetails' {assetName} -> assetName) (\s@ImportAssetFromSignedUrlJobErrorDetails' {} a -> s {assetName = a} :: ImportAssetFromSignedUrlJobErrorDetails)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ImportAssetFromSignedUrlJobErrorDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ImportAssetFromSignedUrlJobErrorDetails"
       ( \x ->
           ImportAssetFromSignedUrlJobErrorDetails'
-            Prelude.<$> (x Core..: "AssetName")
+            Prelude.<$> (x Data..: "AssetName")
       )
 
 instance

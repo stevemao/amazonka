@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.DeleteAccessPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.IoTSiteWise.DeleteAccessPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,7 +97,8 @@ instance Core.AWSRequest DeleteAccessPolicy where
   type
     AWSResponse DeleteAccessPolicy =
       DeleteAccessPolicyResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -114,25 +116,25 @@ instance Prelude.NFData DeleteAccessPolicy where
     Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf accessPolicyId
 
-instance Core.ToHeaders DeleteAccessPolicy where
+instance Data.ToHeaders DeleteAccessPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteAccessPolicy where
+instance Data.ToPath DeleteAccessPolicy where
   toPath DeleteAccessPolicy' {..} =
     Prelude.mconcat
-      ["/access-policies/", Core.toBS accessPolicyId]
+      ["/access-policies/", Data.toBS accessPolicyId]
 
-instance Core.ToQuery DeleteAccessPolicy where
+instance Data.ToQuery DeleteAccessPolicy where
   toQuery DeleteAccessPolicy' {..} =
-    Prelude.mconcat ["clientToken" Core.=: clientToken]
+    Prelude.mconcat ["clientToken" Data.=: clientToken]
 
 -- | /See:/ 'newDeleteAccessPolicyResponse' smart constructor.
 data DeleteAccessPolicyResponse = DeleteAccessPolicyResponse'

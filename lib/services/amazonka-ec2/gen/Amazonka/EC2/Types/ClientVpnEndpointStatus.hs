@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.ClientVpnEndpointStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.ClientVpnEndpointStatus where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.ClientVpnEndpointStatusCode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the state of a Client VPN endpoint.
@@ -105,11 +106,11 @@ clientVpnEndpointStatus_code = Lens.lens (\ClientVpnEndpointStatus' {code} -> co
 clientVpnEndpointStatus_message :: Lens.Lens' ClientVpnEndpointStatus (Prelude.Maybe Prelude.Text)
 clientVpnEndpointStatus_message = Lens.lens (\ClientVpnEndpointStatus' {message} -> message) (\s@ClientVpnEndpointStatus' {} a -> s {message = a} :: ClientVpnEndpointStatus)
 
-instance Core.FromXML ClientVpnEndpointStatus where
+instance Data.FromXML ClientVpnEndpointStatus where
   parseXML x =
     ClientVpnEndpointStatus'
-      Prelude.<$> (x Core..@? "code")
-      Prelude.<*> (x Core..@? "message")
+      Prelude.<$> (x Data..@? "code")
+      Prelude.<*> (x Data..@? "message")
 
 instance Prelude.Hashable ClientVpnEndpointStatus where
   hashWithSalt _salt ClientVpnEndpointStatus' {..} =

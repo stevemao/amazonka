@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.DescribeModelExplainabilityJobDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,9 +34,9 @@ module Amazonka.SageMaker.DescribeModelExplainabilityJobDefinition
     newDescribeModelExplainabilityJobDefinitionResponse,
 
     -- * Response Lenses
-    describeModelExplainabilityJobDefinitionResponse_stoppingCondition,
-    describeModelExplainabilityJobDefinitionResponse_networkConfig,
     describeModelExplainabilityJobDefinitionResponse_modelExplainabilityBaselineConfig,
+    describeModelExplainabilityJobDefinitionResponse_networkConfig,
+    describeModelExplainabilityJobDefinitionResponse_stoppingCondition,
     describeModelExplainabilityJobDefinitionResponse_httpStatus,
     describeModelExplainabilityJobDefinitionResponse_jobDefinitionArn,
     describeModelExplainabilityJobDefinitionResponse_jobDefinitionName,
@@ -50,7 +50,8 @@ module Amazonka.SageMaker.DescribeModelExplainabilityJobDefinition
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -101,23 +102,24 @@ instance
     AWSResponse
       DescribeModelExplainabilityJobDefinition =
       DescribeModelExplainabilityJobDefinitionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeModelExplainabilityJobDefinitionResponse'
-            Prelude.<$> (x Core..?> "StoppingCondition")
-              Prelude.<*> (x Core..?> "NetworkConfig")
-              Prelude.<*> (x Core..?> "ModelExplainabilityBaselineConfig")
+            Prelude.<$> (x Data..?> "ModelExplainabilityBaselineConfig")
+              Prelude.<*> (x Data..?> "NetworkConfig")
+              Prelude.<*> (x Data..?> "StoppingCondition")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-              Prelude.<*> (x Core..:> "JobDefinitionArn")
-              Prelude.<*> (x Core..:> "JobDefinitionName")
-              Prelude.<*> (x Core..:> "CreationTime")
-              Prelude.<*> (x Core..:> "ModelExplainabilityAppSpecification")
-              Prelude.<*> (x Core..:> "ModelExplainabilityJobInput")
-              Prelude.<*> (x Core..:> "ModelExplainabilityJobOutputConfig")
-              Prelude.<*> (x Core..:> "JobResources")
-              Prelude.<*> (x Core..:> "RoleArn")
+              Prelude.<*> (x Data..:> "JobDefinitionArn")
+              Prelude.<*> (x Data..:> "JobDefinitionName")
+              Prelude.<*> (x Data..:> "CreationTime")
+              Prelude.<*> (x Data..:> "ModelExplainabilityAppSpecification")
+              Prelude.<*> (x Data..:> "ModelExplainabilityJobInput")
+              Prelude.<*> (x Data..:> "ModelExplainabilityJobOutputConfig")
+              Prelude.<*> (x Data..:> "JobResources")
+              Prelude.<*> (x Data..:> "RoleArn")
       )
 
 instance
@@ -137,54 +139,54 @@ instance
     Prelude.rnf jobDefinitionName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeModelExplainabilityJobDefinition
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.DescribeModelExplainabilityJobDefinition" ::
+              Data.=# ( "SageMaker.DescribeModelExplainabilityJobDefinition" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DescribeModelExplainabilityJobDefinition
   where
   toJSON DescribeModelExplainabilityJobDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("JobDefinitionName" Core..= jobDefinitionName)
+              ("JobDefinitionName" Data..= jobDefinitionName)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeModelExplainabilityJobDefinition
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeModelExplainabilityJobDefinition
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeModelExplainabilityJobDefinitionResponse' smart constructor.
 data DescribeModelExplainabilityJobDefinitionResponse = DescribeModelExplainabilityJobDefinitionResponse'
-  { stoppingCondition :: Prelude.Maybe MonitoringStoppingCondition,
+  { -- | The baseline configuration for a model explainability job.
+    modelExplainabilityBaselineConfig :: Prelude.Maybe ModelExplainabilityBaselineConfig,
     -- | Networking options for a model explainability job.
     networkConfig :: Prelude.Maybe MonitoringNetworkConfig,
-    -- | The baseline configuration for a model explainability job.
-    modelExplainabilityBaselineConfig :: Prelude.Maybe ModelExplainabilityBaselineConfig,
+    stoppingCondition :: Prelude.Maybe MonitoringStoppingCondition,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | The Amazon Resource Name (ARN) of the model explainability job.
@@ -193,7 +195,7 @@ data DescribeModelExplainabilityJobDefinitionResponse = DescribeModelExplainabil
     -- within an Amazon Web Services Region in the Amazon Web Services account.
     jobDefinitionName :: Prelude.Text,
     -- | The time at which the model explainability job was created.
-    creationTime :: Core.POSIX,
+    creationTime :: Data.POSIX,
     -- | Configures the model explainability job to run a specified Docker
     -- container image.
     modelExplainabilityAppSpecification :: ModelExplainabilityAppSpecification,
@@ -216,11 +218,11 @@ data DescribeModelExplainabilityJobDefinitionResponse = DescribeModelExplainabil
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'stoppingCondition', 'describeModelExplainabilityJobDefinitionResponse_stoppingCondition' - Undocumented member.
+-- 'modelExplainabilityBaselineConfig', 'describeModelExplainabilityJobDefinitionResponse_modelExplainabilityBaselineConfig' - The baseline configuration for a model explainability job.
 --
 -- 'networkConfig', 'describeModelExplainabilityJobDefinitionResponse_networkConfig' - Networking options for a model explainability job.
 --
--- 'modelExplainabilityBaselineConfig', 'describeModelExplainabilityJobDefinitionResponse_modelExplainabilityBaselineConfig' - The baseline configuration for a model explainability job.
+-- 'stoppingCondition', 'describeModelExplainabilityJobDefinitionResponse_stoppingCondition' - Undocumented member.
 --
 -- 'httpStatus', 'describeModelExplainabilityJobDefinitionResponse_httpStatus' - The response's http status code.
 --
@@ -274,11 +276,11 @@ newDescribeModelExplainabilityJobDefinitionResponse
   pJobResources_
   pRoleArn_ =
     DescribeModelExplainabilityJobDefinitionResponse'
-      { stoppingCondition =
+      { modelExplainabilityBaselineConfig =
           Prelude.Nothing,
         networkConfig =
           Prelude.Nothing,
-        modelExplainabilityBaselineConfig =
+        stoppingCondition =
           Prelude.Nothing,
         httpStatus = pHttpStatus_,
         jobDefinitionArn =
@@ -286,7 +288,7 @@ newDescribeModelExplainabilityJobDefinitionResponse
         jobDefinitionName =
           pJobDefinitionName_,
         creationTime =
-          Core._Time
+          Data._Time
             Lens.# pCreationTime_,
         modelExplainabilityAppSpecification =
           pModelExplainabilityAppSpecification_,
@@ -299,17 +301,17 @@ newDescribeModelExplainabilityJobDefinitionResponse
         roleArn = pRoleArn_
       }
 
--- | Undocumented member.
-describeModelExplainabilityJobDefinitionResponse_stoppingCondition :: Lens.Lens' DescribeModelExplainabilityJobDefinitionResponse (Prelude.Maybe MonitoringStoppingCondition)
-describeModelExplainabilityJobDefinitionResponse_stoppingCondition = Lens.lens (\DescribeModelExplainabilityJobDefinitionResponse' {stoppingCondition} -> stoppingCondition) (\s@DescribeModelExplainabilityJobDefinitionResponse' {} a -> s {stoppingCondition = a} :: DescribeModelExplainabilityJobDefinitionResponse)
+-- | The baseline configuration for a model explainability job.
+describeModelExplainabilityJobDefinitionResponse_modelExplainabilityBaselineConfig :: Lens.Lens' DescribeModelExplainabilityJobDefinitionResponse (Prelude.Maybe ModelExplainabilityBaselineConfig)
+describeModelExplainabilityJobDefinitionResponse_modelExplainabilityBaselineConfig = Lens.lens (\DescribeModelExplainabilityJobDefinitionResponse' {modelExplainabilityBaselineConfig} -> modelExplainabilityBaselineConfig) (\s@DescribeModelExplainabilityJobDefinitionResponse' {} a -> s {modelExplainabilityBaselineConfig = a} :: DescribeModelExplainabilityJobDefinitionResponse)
 
 -- | Networking options for a model explainability job.
 describeModelExplainabilityJobDefinitionResponse_networkConfig :: Lens.Lens' DescribeModelExplainabilityJobDefinitionResponse (Prelude.Maybe MonitoringNetworkConfig)
 describeModelExplainabilityJobDefinitionResponse_networkConfig = Lens.lens (\DescribeModelExplainabilityJobDefinitionResponse' {networkConfig} -> networkConfig) (\s@DescribeModelExplainabilityJobDefinitionResponse' {} a -> s {networkConfig = a} :: DescribeModelExplainabilityJobDefinitionResponse)
 
--- | The baseline configuration for a model explainability job.
-describeModelExplainabilityJobDefinitionResponse_modelExplainabilityBaselineConfig :: Lens.Lens' DescribeModelExplainabilityJobDefinitionResponse (Prelude.Maybe ModelExplainabilityBaselineConfig)
-describeModelExplainabilityJobDefinitionResponse_modelExplainabilityBaselineConfig = Lens.lens (\DescribeModelExplainabilityJobDefinitionResponse' {modelExplainabilityBaselineConfig} -> modelExplainabilityBaselineConfig) (\s@DescribeModelExplainabilityJobDefinitionResponse' {} a -> s {modelExplainabilityBaselineConfig = a} :: DescribeModelExplainabilityJobDefinitionResponse)
+-- | Undocumented member.
+describeModelExplainabilityJobDefinitionResponse_stoppingCondition :: Lens.Lens' DescribeModelExplainabilityJobDefinitionResponse (Prelude.Maybe MonitoringStoppingCondition)
+describeModelExplainabilityJobDefinitionResponse_stoppingCondition = Lens.lens (\DescribeModelExplainabilityJobDefinitionResponse' {stoppingCondition} -> stoppingCondition) (\s@DescribeModelExplainabilityJobDefinitionResponse' {} a -> s {stoppingCondition = a} :: DescribeModelExplainabilityJobDefinitionResponse)
 
 -- | The response's http status code.
 describeModelExplainabilityJobDefinitionResponse_httpStatus :: Lens.Lens' DescribeModelExplainabilityJobDefinitionResponse Prelude.Int
@@ -326,7 +328,7 @@ describeModelExplainabilityJobDefinitionResponse_jobDefinitionName = Lens.lens (
 
 -- | The time at which the model explainability job was created.
 describeModelExplainabilityJobDefinitionResponse_creationTime :: Lens.Lens' DescribeModelExplainabilityJobDefinitionResponse Prelude.UTCTime
-describeModelExplainabilityJobDefinitionResponse_creationTime = Lens.lens (\DescribeModelExplainabilityJobDefinitionResponse' {creationTime} -> creationTime) (\s@DescribeModelExplainabilityJobDefinitionResponse' {} a -> s {creationTime = a} :: DescribeModelExplainabilityJobDefinitionResponse) Prelude.. Core._Time
+describeModelExplainabilityJobDefinitionResponse_creationTime = Lens.lens (\DescribeModelExplainabilityJobDefinitionResponse' {creationTime} -> creationTime) (\s@DescribeModelExplainabilityJobDefinitionResponse' {} a -> s {creationTime = a} :: DescribeModelExplainabilityJobDefinitionResponse) Prelude.. Data._Time
 
 -- | Configures the model explainability job to run a specified Docker
 -- container image.
@@ -357,9 +359,9 @@ instance
   where
   rnf
     DescribeModelExplainabilityJobDefinitionResponse' {..} =
-      Prelude.rnf stoppingCondition
+      Prelude.rnf modelExplainabilityBaselineConfig
         `Prelude.seq` Prelude.rnf networkConfig
-        `Prelude.seq` Prelude.rnf modelExplainabilityBaselineConfig
+        `Prelude.seq` Prelude.rnf stoppingCondition
         `Prelude.seq` Prelude.rnf httpStatus
         `Prelude.seq` Prelude.rnf jobDefinitionArn
         `Prelude.seq` Prelude.rnf jobDefinitionName

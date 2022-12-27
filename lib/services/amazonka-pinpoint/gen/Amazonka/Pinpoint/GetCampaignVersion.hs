@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.GetCampaignVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.Pinpoint.GetCampaignVersion
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -110,13 +111,14 @@ instance Core.AWSRequest GetCampaignVersion where
   type
     AWSResponse GetCampaignVersion =
       GetCampaignVersionResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetCampaignVersionResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable GetCampaignVersion where
@@ -131,29 +133,29 @@ instance Prelude.NFData GetCampaignVersion where
       `Prelude.seq` Prelude.rnf applicationId
       `Prelude.seq` Prelude.rnf campaignId
 
-instance Core.ToHeaders GetCampaignVersion where
+instance Data.ToHeaders GetCampaignVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetCampaignVersion where
+instance Data.ToPath GetCampaignVersion where
   toPath GetCampaignVersion' {..} =
     Prelude.mconcat
       [ "/v1/apps/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/campaigns/",
-        Core.toBS campaignId,
+        Data.toBS campaignId,
         "/versions/",
-        Core.toBS version
+        Data.toBS version
       ]
 
-instance Core.ToQuery GetCampaignVersion where
+instance Data.ToQuery GetCampaignVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetCampaignVersionResponse' smart constructor.

@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.LakeFormation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,187 +27,283 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestBatchRevokePermissions $
---             newBatchRevokePermissions
+--         [ requestAddLFTagsToResource $
+--             newAddLFTagsToResource
 --
---         , requestDescribeResource $
---             newDescribeResource
+--         , requestAssumeDecoratedRoleWithSAML $
+--             newAssumeDecoratedRoleWithSAML
 --
 --         , requestBatchGrantPermissions $
 --             newBatchGrantPermissions
 --
---         , requestGetEffectivePermissionsForPath $
---             newGetEffectivePermissionsForPath
+--         , requestBatchRevokePermissions $
+--             newBatchRevokePermissions
 --
---         , requestRevokePermissions $
---             newRevokePermissions
+--         , requestCancelTransaction $
+--             newCancelTransaction
 --
---         , requestUpdateResource $
---             newUpdateResource
+--         , requestCommitTransaction $
+--             newCommitTransaction
 --
---         , requestAddLFTagsToResource $
---             newAddLFTagsToResource
---
---         , requestSearchTablesByLFTags $
---             newSearchTablesByLFTags
---
---         , requestListResources $
---             newListResources
---
---         , requestGetLFTag $
---             newGetLFTag
---
---         , requestRemoveLFTagsFromResource $
---             newRemoveLFTagsFromResource
---
---         , requestUpdateLFTag $
---             newUpdateLFTag
---
---         , requestDeleteLFTag $
---             newDeleteLFTag
+--         , requestCreateDataCellsFilter $
+--             newCreateDataCellsFilter
 --
 --         , requestCreateLFTag $
 --             newCreateLFTag
 --
---         , requestGetResourceLFTags $
---             newGetResourceLFTags
+--         , requestDeleteDataCellsFilter $
+--             newDeleteDataCellsFilter
 --
---         , requestPutDataLakeSettings $
---             newPutDataLakeSettings
+--         , requestDeleteLFTag $
+--             newDeleteLFTag
 --
---         , requestListPermissions $
---             newListPermissions
+--         , requestDeleteObjectsOnCancel $
+--             newDeleteObjectsOnCancel
 --
 --         , requestDeregisterResource $
 --             newDeregisterResource
 --
+--         , requestDescribeResource $
+--             newDescribeResource
+--
+--         , requestDescribeTransaction $
+--             newDescribeTransaction
+--
+--         , requestExtendTransaction $
+--             newExtendTransaction
+--
 --         , requestGetDataLakeSettings $
 --             newGetDataLakeSettings
 --
---         , requestSearchDatabasesByLFTags $
---             newSearchDatabasesByLFTags
+--         , requestGetEffectivePermissionsForPath $
+--             newGetEffectivePermissionsForPath
 --
---         , requestRegisterResource $
---             newRegisterResource
+--         , requestGetLFTag $
+--             newGetLFTag
+--
+--         , requestGetQueryState $
+--             newGetQueryState
+--
+--         , requestGetQueryStatistics $
+--             newGetQueryStatistics
+--
+--         , requestGetResourceLFTags $
+--             newGetResourceLFTags
+--
+--         , requestGetTableObjects $
+--             newGetTableObjects
+--
+--         , requestGetTemporaryGluePartitionCredentials $
+--             newGetTemporaryGluePartitionCredentials
+--
+--         , requestGetTemporaryGlueTableCredentials $
+--             newGetTemporaryGlueTableCredentials
+--
+--         , requestGetWorkUnitResults $
+--             newGetWorkUnitResults
+--
+--         , requestGetWorkUnits $
+--             newGetWorkUnits
 --
 --         , requestGrantPermissions $
 --             newGrantPermissions
 --
+--         , requestListDataCellsFilter $
+--             newListDataCellsFilter
+--
 --         , requestListLFTags $
 --             newListLFTags
+--
+--         , requestListPermissions $
+--             newListPermissions
+--
+--         , requestListResources $
+--             newListResources
+--
+--         , requestListTableStorageOptimizers $
+--             newListTableStorageOptimizers
+--
+--         , requestListTransactions $
+--             newListTransactions
+--
+--         , requestPutDataLakeSettings $
+--             newPutDataLakeSettings
+--
+--         , requestRegisterResource $
+--             newRegisterResource
+--
+--         , requestRemoveLFTagsFromResource $
+--             newRemoveLFTagsFromResource
+--
+--         , requestRevokePermissions $
+--             newRevokePermissions
+--
+--         , requestSearchDatabasesByLFTags $
+--             newSearchDatabasesByLFTags
+--
+--         , requestSearchTablesByLFTags $
+--             newSearchTablesByLFTags
+--
+--         , requestStartQueryPlanning $
+--             newStartQueryPlanning
+--
+--         , requestStartTransaction $
+--             newStartTransaction
+--
+--         , requestUpdateLFTag $
+--             newUpdateLFTag
+--
+--         , requestUpdateResource $
+--             newUpdateResource
+--
+--         , requestUpdateTableObjects $
+--             newUpdateTableObjects
+--
+--         , requestUpdateTableStorageOptimizer $
+--             newUpdateTableStorageOptimizer
 --
 --           ]
 
 --     , testGroup "response"
---         [ responseBatchRevokePermissions $
---             newBatchRevokePermissionsResponse
+--         [ responseAddLFTagsToResource $
+--             newAddLFTagsToResourceResponse
 --
---         , responseDescribeResource $
---             newDescribeResourceResponse
+--         , responseAssumeDecoratedRoleWithSAML $
+--             newAssumeDecoratedRoleWithSAMLResponse
 --
 --         , responseBatchGrantPermissions $
 --             newBatchGrantPermissionsResponse
 --
---         , responseGetEffectivePermissionsForPath $
---             newGetEffectivePermissionsForPathResponse
+--         , responseBatchRevokePermissions $
+--             newBatchRevokePermissionsResponse
 --
---         , responseRevokePermissions $
---             newRevokePermissionsResponse
+--         , responseCancelTransaction $
+--             newCancelTransactionResponse
 --
---         , responseUpdateResource $
---             newUpdateResourceResponse
+--         , responseCommitTransaction $
+--             newCommitTransactionResponse
 --
---         , responseAddLFTagsToResource $
---             newAddLFTagsToResourceResponse
---
---         , responseSearchTablesByLFTags $
---             newSearchTablesByLFTagsResponse
---
---         , responseListResources $
---             newListResourcesResponse
---
---         , responseGetLFTag $
---             newGetLFTagResponse
---
---         , responseRemoveLFTagsFromResource $
---             newRemoveLFTagsFromResourceResponse
---
---         , responseUpdateLFTag $
---             newUpdateLFTagResponse
---
---         , responseDeleteLFTag $
---             newDeleteLFTagResponse
+--         , responseCreateDataCellsFilter $
+--             newCreateDataCellsFilterResponse
 --
 --         , responseCreateLFTag $
 --             newCreateLFTagResponse
 --
---         , responseGetResourceLFTags $
---             newGetResourceLFTagsResponse
+--         , responseDeleteDataCellsFilter $
+--             newDeleteDataCellsFilterResponse
 --
---         , responsePutDataLakeSettings $
---             newPutDataLakeSettingsResponse
+--         , responseDeleteLFTag $
+--             newDeleteLFTagResponse
 --
---         , responseListPermissions $
---             newListPermissionsResponse
+--         , responseDeleteObjectsOnCancel $
+--             newDeleteObjectsOnCancelResponse
 --
 --         , responseDeregisterResource $
 --             newDeregisterResourceResponse
 --
+--         , responseDescribeResource $
+--             newDescribeResourceResponse
+--
+--         , responseDescribeTransaction $
+--             newDescribeTransactionResponse
+--
+--         , responseExtendTransaction $
+--             newExtendTransactionResponse
+--
 --         , responseGetDataLakeSettings $
 --             newGetDataLakeSettingsResponse
 --
---         , responseSearchDatabasesByLFTags $
---             newSearchDatabasesByLFTagsResponse
+--         , responseGetEffectivePermissionsForPath $
+--             newGetEffectivePermissionsForPathResponse
 --
---         , responseRegisterResource $
---             newRegisterResourceResponse
+--         , responseGetLFTag $
+--             newGetLFTagResponse
+--
+--         , responseGetQueryState $
+--             newGetQueryStateResponse
+--
+--         , responseGetQueryStatistics $
+--             newGetQueryStatisticsResponse
+--
+--         , responseGetResourceLFTags $
+--             newGetResourceLFTagsResponse
+--
+--         , responseGetTableObjects $
+--             newGetTableObjectsResponse
+--
+--         , responseGetTemporaryGluePartitionCredentials $
+--             newGetTemporaryGluePartitionCredentialsResponse
+--
+--         , responseGetTemporaryGlueTableCredentials $
+--             newGetTemporaryGlueTableCredentialsResponse
+--
+--         , responseGetWorkUnitResults $
+--             newGetWorkUnitResultsResponse
+--
+--         , responseGetWorkUnits $
+--             newGetWorkUnitsResponse
 --
 --         , responseGrantPermissions $
 --             newGrantPermissionsResponse
 --
+--         , responseListDataCellsFilter $
+--             newListDataCellsFilterResponse
+--
 --         , responseListLFTags $
 --             newListLFTagsResponse
+--
+--         , responseListPermissions $
+--             newListPermissionsResponse
+--
+--         , responseListResources $
+--             newListResourcesResponse
+--
+--         , responseListTableStorageOptimizers $
+--             newListTableStorageOptimizersResponse
+--
+--         , responseListTransactions $
+--             newListTransactionsResponse
+--
+--         , responsePutDataLakeSettings $
+--             newPutDataLakeSettingsResponse
+--
+--         , responseRegisterResource $
+--             newRegisterResourceResponse
+--
+--         , responseRemoveLFTagsFromResource $
+--             newRemoveLFTagsFromResourceResponse
+--
+--         , responseRevokePermissions $
+--             newRevokePermissionsResponse
+--
+--         , responseSearchDatabasesByLFTags $
+--             newSearchDatabasesByLFTagsResponse
+--
+--         , responseSearchTablesByLFTags $
+--             newSearchTablesByLFTagsResponse
+--
+--         , responseStartQueryPlanning $
+--             newStartQueryPlanningResponse
+--
+--         , responseStartTransaction $
+--             newStartTransactionResponse
+--
+--         , responseUpdateLFTag $
+--             newUpdateLFTagResponse
+--
+--         , responseUpdateResource $
+--             newUpdateResourceResponse
+--
+--         , responseUpdateTableObjects $
+--             newUpdateTableObjectsResponse
+--
+--         , responseUpdateTableStorageOptimizer $
+--             newUpdateTableStorageOptimizerResponse
 --
 --           ]
 --     ]
 
 -- Requests
-
-requestBatchRevokePermissions :: BatchRevokePermissions -> TestTree
-requestBatchRevokePermissions =
-  req
-    "BatchRevokePermissions"
-    "fixture/BatchRevokePermissions.yaml"
-
-requestDescribeResource :: DescribeResource -> TestTree
-requestDescribeResource =
-  req
-    "DescribeResource"
-    "fixture/DescribeResource.yaml"
-
-requestBatchGrantPermissions :: BatchGrantPermissions -> TestTree
-requestBatchGrantPermissions =
-  req
-    "BatchGrantPermissions"
-    "fixture/BatchGrantPermissions.yaml"
-
-requestGetEffectivePermissionsForPath :: GetEffectivePermissionsForPath -> TestTree
-requestGetEffectivePermissionsForPath =
-  req
-    "GetEffectivePermissionsForPath"
-    "fixture/GetEffectivePermissionsForPath.yaml"
-
-requestRevokePermissions :: RevokePermissions -> TestTree
-requestRevokePermissions =
-  req
-    "RevokePermissions"
-    "fixture/RevokePermissions.yaml"
-
-requestUpdateResource :: UpdateResource -> TestTree
-requestUpdateResource =
-  req
-    "UpdateResource"
-    "fixture/UpdateResource.yaml"
 
 requestAddLFTagsToResource :: AddLFTagsToResource -> TestTree
 requestAddLFTagsToResource =
@@ -215,41 +311,41 @@ requestAddLFTagsToResource =
     "AddLFTagsToResource"
     "fixture/AddLFTagsToResource.yaml"
 
-requestSearchTablesByLFTags :: SearchTablesByLFTags -> TestTree
-requestSearchTablesByLFTags =
+requestAssumeDecoratedRoleWithSAML :: AssumeDecoratedRoleWithSAML -> TestTree
+requestAssumeDecoratedRoleWithSAML =
   req
-    "SearchTablesByLFTags"
-    "fixture/SearchTablesByLFTags.yaml"
+    "AssumeDecoratedRoleWithSAML"
+    "fixture/AssumeDecoratedRoleWithSAML.yaml"
 
-requestListResources :: ListResources -> TestTree
-requestListResources =
+requestBatchGrantPermissions :: BatchGrantPermissions -> TestTree
+requestBatchGrantPermissions =
   req
-    "ListResources"
-    "fixture/ListResources.yaml"
+    "BatchGrantPermissions"
+    "fixture/BatchGrantPermissions.yaml"
 
-requestGetLFTag :: GetLFTag -> TestTree
-requestGetLFTag =
+requestBatchRevokePermissions :: BatchRevokePermissions -> TestTree
+requestBatchRevokePermissions =
   req
-    "GetLFTag"
-    "fixture/GetLFTag.yaml"
+    "BatchRevokePermissions"
+    "fixture/BatchRevokePermissions.yaml"
 
-requestRemoveLFTagsFromResource :: RemoveLFTagsFromResource -> TestTree
-requestRemoveLFTagsFromResource =
+requestCancelTransaction :: CancelTransaction -> TestTree
+requestCancelTransaction =
   req
-    "RemoveLFTagsFromResource"
-    "fixture/RemoveLFTagsFromResource.yaml"
+    "CancelTransaction"
+    "fixture/CancelTransaction.yaml"
 
-requestUpdateLFTag :: UpdateLFTag -> TestTree
-requestUpdateLFTag =
+requestCommitTransaction :: CommitTransaction -> TestTree
+requestCommitTransaction =
   req
-    "UpdateLFTag"
-    "fixture/UpdateLFTag.yaml"
+    "CommitTransaction"
+    "fixture/CommitTransaction.yaml"
 
-requestDeleteLFTag :: DeleteLFTag -> TestTree
-requestDeleteLFTag =
+requestCreateDataCellsFilter :: CreateDataCellsFilter -> TestTree
+requestCreateDataCellsFilter =
   req
-    "DeleteLFTag"
-    "fixture/DeleteLFTag.yaml"
+    "CreateDataCellsFilter"
+    "fixture/CreateDataCellsFilter.yaml"
 
 requestCreateLFTag :: CreateLFTag -> TestTree
 requestCreateLFTag =
@@ -257,23 +353,23 @@ requestCreateLFTag =
     "CreateLFTag"
     "fixture/CreateLFTag.yaml"
 
-requestGetResourceLFTags :: GetResourceLFTags -> TestTree
-requestGetResourceLFTags =
+requestDeleteDataCellsFilter :: DeleteDataCellsFilter -> TestTree
+requestDeleteDataCellsFilter =
   req
-    "GetResourceLFTags"
-    "fixture/GetResourceLFTags.yaml"
+    "DeleteDataCellsFilter"
+    "fixture/DeleteDataCellsFilter.yaml"
 
-requestPutDataLakeSettings :: PutDataLakeSettings -> TestTree
-requestPutDataLakeSettings =
+requestDeleteLFTag :: DeleteLFTag -> TestTree
+requestDeleteLFTag =
   req
-    "PutDataLakeSettings"
-    "fixture/PutDataLakeSettings.yaml"
+    "DeleteLFTag"
+    "fixture/DeleteLFTag.yaml"
 
-requestListPermissions :: ListPermissions -> TestTree
-requestListPermissions =
+requestDeleteObjectsOnCancel :: DeleteObjectsOnCancel -> TestTree
+requestDeleteObjectsOnCancel =
   req
-    "ListPermissions"
-    "fixture/ListPermissions.yaml"
+    "DeleteObjectsOnCancel"
+    "fixture/DeleteObjectsOnCancel.yaml"
 
 requestDeregisterResource :: DeregisterResource -> TestTree
 requestDeregisterResource =
@@ -281,23 +377,89 @@ requestDeregisterResource =
     "DeregisterResource"
     "fixture/DeregisterResource.yaml"
 
+requestDescribeResource :: DescribeResource -> TestTree
+requestDescribeResource =
+  req
+    "DescribeResource"
+    "fixture/DescribeResource.yaml"
+
+requestDescribeTransaction :: DescribeTransaction -> TestTree
+requestDescribeTransaction =
+  req
+    "DescribeTransaction"
+    "fixture/DescribeTransaction.yaml"
+
+requestExtendTransaction :: ExtendTransaction -> TestTree
+requestExtendTransaction =
+  req
+    "ExtendTransaction"
+    "fixture/ExtendTransaction.yaml"
+
 requestGetDataLakeSettings :: GetDataLakeSettings -> TestTree
 requestGetDataLakeSettings =
   req
     "GetDataLakeSettings"
     "fixture/GetDataLakeSettings.yaml"
 
-requestSearchDatabasesByLFTags :: SearchDatabasesByLFTags -> TestTree
-requestSearchDatabasesByLFTags =
+requestGetEffectivePermissionsForPath :: GetEffectivePermissionsForPath -> TestTree
+requestGetEffectivePermissionsForPath =
   req
-    "SearchDatabasesByLFTags"
-    "fixture/SearchDatabasesByLFTags.yaml"
+    "GetEffectivePermissionsForPath"
+    "fixture/GetEffectivePermissionsForPath.yaml"
 
-requestRegisterResource :: RegisterResource -> TestTree
-requestRegisterResource =
+requestGetLFTag :: GetLFTag -> TestTree
+requestGetLFTag =
   req
-    "RegisterResource"
-    "fixture/RegisterResource.yaml"
+    "GetLFTag"
+    "fixture/GetLFTag.yaml"
+
+requestGetQueryState :: GetQueryState -> TestTree
+requestGetQueryState =
+  req
+    "GetQueryState"
+    "fixture/GetQueryState.yaml"
+
+requestGetQueryStatistics :: GetQueryStatistics -> TestTree
+requestGetQueryStatistics =
+  req
+    "GetQueryStatistics"
+    "fixture/GetQueryStatistics.yaml"
+
+requestGetResourceLFTags :: GetResourceLFTags -> TestTree
+requestGetResourceLFTags =
+  req
+    "GetResourceLFTags"
+    "fixture/GetResourceLFTags.yaml"
+
+requestGetTableObjects :: GetTableObjects -> TestTree
+requestGetTableObjects =
+  req
+    "GetTableObjects"
+    "fixture/GetTableObjects.yaml"
+
+requestGetTemporaryGluePartitionCredentials :: GetTemporaryGluePartitionCredentials -> TestTree
+requestGetTemporaryGluePartitionCredentials =
+  req
+    "GetTemporaryGluePartitionCredentials"
+    "fixture/GetTemporaryGluePartitionCredentials.yaml"
+
+requestGetTemporaryGlueTableCredentials :: GetTemporaryGlueTableCredentials -> TestTree
+requestGetTemporaryGlueTableCredentials =
+  req
+    "GetTemporaryGlueTableCredentials"
+    "fixture/GetTemporaryGlueTableCredentials.yaml"
+
+requestGetWorkUnitResults :: GetWorkUnitResults -> TestTree
+requestGetWorkUnitResults =
+  req
+    "GetWorkUnitResults"
+    "fixture/GetWorkUnitResults.yaml"
+
+requestGetWorkUnits :: GetWorkUnits -> TestTree
+requestGetWorkUnits =
+  req
+    "GetWorkUnits"
+    "fixture/GetWorkUnits.yaml"
 
 requestGrantPermissions :: GrantPermissions -> TestTree
 requestGrantPermissions =
@@ -305,61 +467,115 @@ requestGrantPermissions =
     "GrantPermissions"
     "fixture/GrantPermissions.yaml"
 
+requestListDataCellsFilter :: ListDataCellsFilter -> TestTree
+requestListDataCellsFilter =
+  req
+    "ListDataCellsFilter"
+    "fixture/ListDataCellsFilter.yaml"
+
 requestListLFTags :: ListLFTags -> TestTree
 requestListLFTags =
   req
     "ListLFTags"
     "fixture/ListLFTags.yaml"
 
+requestListPermissions :: ListPermissions -> TestTree
+requestListPermissions =
+  req
+    "ListPermissions"
+    "fixture/ListPermissions.yaml"
+
+requestListResources :: ListResources -> TestTree
+requestListResources =
+  req
+    "ListResources"
+    "fixture/ListResources.yaml"
+
+requestListTableStorageOptimizers :: ListTableStorageOptimizers -> TestTree
+requestListTableStorageOptimizers =
+  req
+    "ListTableStorageOptimizers"
+    "fixture/ListTableStorageOptimizers.yaml"
+
+requestListTransactions :: ListTransactions -> TestTree
+requestListTransactions =
+  req
+    "ListTransactions"
+    "fixture/ListTransactions.yaml"
+
+requestPutDataLakeSettings :: PutDataLakeSettings -> TestTree
+requestPutDataLakeSettings =
+  req
+    "PutDataLakeSettings"
+    "fixture/PutDataLakeSettings.yaml"
+
+requestRegisterResource :: RegisterResource -> TestTree
+requestRegisterResource =
+  req
+    "RegisterResource"
+    "fixture/RegisterResource.yaml"
+
+requestRemoveLFTagsFromResource :: RemoveLFTagsFromResource -> TestTree
+requestRemoveLFTagsFromResource =
+  req
+    "RemoveLFTagsFromResource"
+    "fixture/RemoveLFTagsFromResource.yaml"
+
+requestRevokePermissions :: RevokePermissions -> TestTree
+requestRevokePermissions =
+  req
+    "RevokePermissions"
+    "fixture/RevokePermissions.yaml"
+
+requestSearchDatabasesByLFTags :: SearchDatabasesByLFTags -> TestTree
+requestSearchDatabasesByLFTags =
+  req
+    "SearchDatabasesByLFTags"
+    "fixture/SearchDatabasesByLFTags.yaml"
+
+requestSearchTablesByLFTags :: SearchTablesByLFTags -> TestTree
+requestSearchTablesByLFTags =
+  req
+    "SearchTablesByLFTags"
+    "fixture/SearchTablesByLFTags.yaml"
+
+requestStartQueryPlanning :: StartQueryPlanning -> TestTree
+requestStartQueryPlanning =
+  req
+    "StartQueryPlanning"
+    "fixture/StartQueryPlanning.yaml"
+
+requestStartTransaction :: StartTransaction -> TestTree
+requestStartTransaction =
+  req
+    "StartTransaction"
+    "fixture/StartTransaction.yaml"
+
+requestUpdateLFTag :: UpdateLFTag -> TestTree
+requestUpdateLFTag =
+  req
+    "UpdateLFTag"
+    "fixture/UpdateLFTag.yaml"
+
+requestUpdateResource :: UpdateResource -> TestTree
+requestUpdateResource =
+  req
+    "UpdateResource"
+    "fixture/UpdateResource.yaml"
+
+requestUpdateTableObjects :: UpdateTableObjects -> TestTree
+requestUpdateTableObjects =
+  req
+    "UpdateTableObjects"
+    "fixture/UpdateTableObjects.yaml"
+
+requestUpdateTableStorageOptimizer :: UpdateTableStorageOptimizer -> TestTree
+requestUpdateTableStorageOptimizer =
+  req
+    "UpdateTableStorageOptimizer"
+    "fixture/UpdateTableStorageOptimizer.yaml"
+
 -- Responses
-
-responseBatchRevokePermissions :: BatchRevokePermissionsResponse -> TestTree
-responseBatchRevokePermissions =
-  res
-    "BatchRevokePermissionsResponse"
-    "fixture/BatchRevokePermissionsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy BatchRevokePermissions)
-
-responseDescribeResource :: DescribeResourceResponse -> TestTree
-responseDescribeResource =
-  res
-    "DescribeResourceResponse"
-    "fixture/DescribeResourceResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeResource)
-
-responseBatchGrantPermissions :: BatchGrantPermissionsResponse -> TestTree
-responseBatchGrantPermissions =
-  res
-    "BatchGrantPermissionsResponse"
-    "fixture/BatchGrantPermissionsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy BatchGrantPermissions)
-
-responseGetEffectivePermissionsForPath :: GetEffectivePermissionsForPathResponse -> TestTree
-responseGetEffectivePermissionsForPath =
-  res
-    "GetEffectivePermissionsForPathResponse"
-    "fixture/GetEffectivePermissionsForPathResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetEffectivePermissionsForPath)
-
-responseRevokePermissions :: RevokePermissionsResponse -> TestTree
-responseRevokePermissions =
-  res
-    "RevokePermissionsResponse"
-    "fixture/RevokePermissionsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy RevokePermissions)
-
-responseUpdateResource :: UpdateResourceResponse -> TestTree
-responseUpdateResource =
-  res
-    "UpdateResourceResponse"
-    "fixture/UpdateResourceResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateResource)
 
 responseAddLFTagsToResource :: AddLFTagsToResourceResponse -> TestTree
 responseAddLFTagsToResource =
@@ -369,53 +585,53 @@ responseAddLFTagsToResource =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy AddLFTagsToResource)
 
-responseSearchTablesByLFTags :: SearchTablesByLFTagsResponse -> TestTree
-responseSearchTablesByLFTags =
+responseAssumeDecoratedRoleWithSAML :: AssumeDecoratedRoleWithSAMLResponse -> TestTree
+responseAssumeDecoratedRoleWithSAML =
   res
-    "SearchTablesByLFTagsResponse"
-    "fixture/SearchTablesByLFTagsResponse.proto"
+    "AssumeDecoratedRoleWithSAMLResponse"
+    "fixture/AssumeDecoratedRoleWithSAMLResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy SearchTablesByLFTags)
+    (Proxy.Proxy :: Proxy.Proxy AssumeDecoratedRoleWithSAML)
 
-responseListResources :: ListResourcesResponse -> TestTree
-responseListResources =
+responseBatchGrantPermissions :: BatchGrantPermissionsResponse -> TestTree
+responseBatchGrantPermissions =
   res
-    "ListResourcesResponse"
-    "fixture/ListResourcesResponse.proto"
+    "BatchGrantPermissionsResponse"
+    "fixture/BatchGrantPermissionsResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListResources)
+    (Proxy.Proxy :: Proxy.Proxy BatchGrantPermissions)
 
-responseGetLFTag :: GetLFTagResponse -> TestTree
-responseGetLFTag =
+responseBatchRevokePermissions :: BatchRevokePermissionsResponse -> TestTree
+responseBatchRevokePermissions =
   res
-    "GetLFTagResponse"
-    "fixture/GetLFTagResponse.proto"
+    "BatchRevokePermissionsResponse"
+    "fixture/BatchRevokePermissionsResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetLFTag)
+    (Proxy.Proxy :: Proxy.Proxy BatchRevokePermissions)
 
-responseRemoveLFTagsFromResource :: RemoveLFTagsFromResourceResponse -> TestTree
-responseRemoveLFTagsFromResource =
+responseCancelTransaction :: CancelTransactionResponse -> TestTree
+responseCancelTransaction =
   res
-    "RemoveLFTagsFromResourceResponse"
-    "fixture/RemoveLFTagsFromResourceResponse.proto"
+    "CancelTransactionResponse"
+    "fixture/CancelTransactionResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy RemoveLFTagsFromResource)
+    (Proxy.Proxy :: Proxy.Proxy CancelTransaction)
 
-responseUpdateLFTag :: UpdateLFTagResponse -> TestTree
-responseUpdateLFTag =
+responseCommitTransaction :: CommitTransactionResponse -> TestTree
+responseCommitTransaction =
   res
-    "UpdateLFTagResponse"
-    "fixture/UpdateLFTagResponse.proto"
+    "CommitTransactionResponse"
+    "fixture/CommitTransactionResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateLFTag)
+    (Proxy.Proxy :: Proxy.Proxy CommitTransaction)
 
-responseDeleteLFTag :: DeleteLFTagResponse -> TestTree
-responseDeleteLFTag =
+responseCreateDataCellsFilter :: CreateDataCellsFilterResponse -> TestTree
+responseCreateDataCellsFilter =
   res
-    "DeleteLFTagResponse"
-    "fixture/DeleteLFTagResponse.proto"
+    "CreateDataCellsFilterResponse"
+    "fixture/CreateDataCellsFilterResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteLFTag)
+    (Proxy.Proxy :: Proxy.Proxy CreateDataCellsFilter)
 
 responseCreateLFTag :: CreateLFTagResponse -> TestTree
 responseCreateLFTag =
@@ -425,29 +641,29 @@ responseCreateLFTag =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CreateLFTag)
 
-responseGetResourceLFTags :: GetResourceLFTagsResponse -> TestTree
-responseGetResourceLFTags =
+responseDeleteDataCellsFilter :: DeleteDataCellsFilterResponse -> TestTree
+responseDeleteDataCellsFilter =
   res
-    "GetResourceLFTagsResponse"
-    "fixture/GetResourceLFTagsResponse.proto"
+    "DeleteDataCellsFilterResponse"
+    "fixture/DeleteDataCellsFilterResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetResourceLFTags)
+    (Proxy.Proxy :: Proxy.Proxy DeleteDataCellsFilter)
 
-responsePutDataLakeSettings :: PutDataLakeSettingsResponse -> TestTree
-responsePutDataLakeSettings =
+responseDeleteLFTag :: DeleteLFTagResponse -> TestTree
+responseDeleteLFTag =
   res
-    "PutDataLakeSettingsResponse"
-    "fixture/PutDataLakeSettingsResponse.proto"
+    "DeleteLFTagResponse"
+    "fixture/DeleteLFTagResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy PutDataLakeSettings)
+    (Proxy.Proxy :: Proxy.Proxy DeleteLFTag)
 
-responseListPermissions :: ListPermissionsResponse -> TestTree
-responseListPermissions =
+responseDeleteObjectsOnCancel :: DeleteObjectsOnCancelResponse -> TestTree
+responseDeleteObjectsOnCancel =
   res
-    "ListPermissionsResponse"
-    "fixture/ListPermissionsResponse.proto"
+    "DeleteObjectsOnCancelResponse"
+    "fixture/DeleteObjectsOnCancelResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListPermissions)
+    (Proxy.Proxy :: Proxy.Proxy DeleteObjectsOnCancel)
 
 responseDeregisterResource :: DeregisterResourceResponse -> TestTree
 responseDeregisterResource =
@@ -457,6 +673,30 @@ responseDeregisterResource =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy DeregisterResource)
 
+responseDescribeResource :: DescribeResourceResponse -> TestTree
+responseDescribeResource =
+  res
+    "DescribeResourceResponse"
+    "fixture/DescribeResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeResource)
+
+responseDescribeTransaction :: DescribeTransactionResponse -> TestTree
+responseDescribeTransaction =
+  res
+    "DescribeTransactionResponse"
+    "fixture/DescribeTransactionResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeTransaction)
+
+responseExtendTransaction :: ExtendTransactionResponse -> TestTree
+responseExtendTransaction =
+  res
+    "ExtendTransactionResponse"
+    "fixture/ExtendTransactionResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ExtendTransaction)
+
 responseGetDataLakeSettings :: GetDataLakeSettingsResponse -> TestTree
 responseGetDataLakeSettings =
   res
@@ -465,21 +705,77 @@ responseGetDataLakeSettings =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy GetDataLakeSettings)
 
-responseSearchDatabasesByLFTags :: SearchDatabasesByLFTagsResponse -> TestTree
-responseSearchDatabasesByLFTags =
+responseGetEffectivePermissionsForPath :: GetEffectivePermissionsForPathResponse -> TestTree
+responseGetEffectivePermissionsForPath =
   res
-    "SearchDatabasesByLFTagsResponse"
-    "fixture/SearchDatabasesByLFTagsResponse.proto"
+    "GetEffectivePermissionsForPathResponse"
+    "fixture/GetEffectivePermissionsForPathResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy SearchDatabasesByLFTags)
+    (Proxy.Proxy :: Proxy.Proxy GetEffectivePermissionsForPath)
 
-responseRegisterResource :: RegisterResourceResponse -> TestTree
-responseRegisterResource =
+responseGetLFTag :: GetLFTagResponse -> TestTree
+responseGetLFTag =
   res
-    "RegisterResourceResponse"
-    "fixture/RegisterResourceResponse.proto"
+    "GetLFTagResponse"
+    "fixture/GetLFTagResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy RegisterResource)
+    (Proxy.Proxy :: Proxy.Proxy GetLFTag)
+
+responseGetQueryState :: GetQueryStateResponse -> TestTree
+responseGetQueryState =
+  res
+    "GetQueryStateResponse"
+    "fixture/GetQueryStateResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetQueryState)
+
+responseGetQueryStatistics :: GetQueryStatisticsResponse -> TestTree
+responseGetQueryStatistics =
+  res
+    "GetQueryStatisticsResponse"
+    "fixture/GetQueryStatisticsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetQueryStatistics)
+
+responseGetResourceLFTags :: GetResourceLFTagsResponse -> TestTree
+responseGetResourceLFTags =
+  res
+    "GetResourceLFTagsResponse"
+    "fixture/GetResourceLFTagsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetResourceLFTags)
+
+responseGetTableObjects :: GetTableObjectsResponse -> TestTree
+responseGetTableObjects =
+  res
+    "GetTableObjectsResponse"
+    "fixture/GetTableObjectsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetTableObjects)
+
+responseGetTemporaryGluePartitionCredentials :: GetTemporaryGluePartitionCredentialsResponse -> TestTree
+responseGetTemporaryGluePartitionCredentials =
+  res
+    "GetTemporaryGluePartitionCredentialsResponse"
+    "fixture/GetTemporaryGluePartitionCredentialsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetTemporaryGluePartitionCredentials)
+
+responseGetTemporaryGlueTableCredentials :: GetTemporaryGlueTableCredentialsResponse -> TestTree
+responseGetTemporaryGlueTableCredentials =
+  res
+    "GetTemporaryGlueTableCredentialsResponse"
+    "fixture/GetTemporaryGlueTableCredentialsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetTemporaryGlueTableCredentials)
+
+responseGetWorkUnits :: GetWorkUnitsResponse -> TestTree
+responseGetWorkUnits =
+  res
+    "GetWorkUnitsResponse"
+    "fixture/GetWorkUnitsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetWorkUnits)
 
 responseGrantPermissions :: GrantPermissionsResponse -> TestTree
 responseGrantPermissions =
@@ -489,6 +785,14 @@ responseGrantPermissions =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy GrantPermissions)
 
+responseListDataCellsFilter :: ListDataCellsFilterResponse -> TestTree
+responseListDataCellsFilter =
+  res
+    "ListDataCellsFilterResponse"
+    "fixture/ListDataCellsFilterResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListDataCellsFilter)
+
 responseListLFTags :: ListLFTagsResponse -> TestTree
 responseListLFTags =
   res
@@ -496,3 +800,131 @@ responseListLFTags =
     "fixture/ListLFTagsResponse.proto"
     defaultService
     (Proxy.Proxy :: Proxy.Proxy ListLFTags)
+
+responseListPermissions :: ListPermissionsResponse -> TestTree
+responseListPermissions =
+  res
+    "ListPermissionsResponse"
+    "fixture/ListPermissionsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListPermissions)
+
+responseListResources :: ListResourcesResponse -> TestTree
+responseListResources =
+  res
+    "ListResourcesResponse"
+    "fixture/ListResourcesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListResources)
+
+responseListTableStorageOptimizers :: ListTableStorageOptimizersResponse -> TestTree
+responseListTableStorageOptimizers =
+  res
+    "ListTableStorageOptimizersResponse"
+    "fixture/ListTableStorageOptimizersResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTableStorageOptimizers)
+
+responseListTransactions :: ListTransactionsResponse -> TestTree
+responseListTransactions =
+  res
+    "ListTransactionsResponse"
+    "fixture/ListTransactionsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTransactions)
+
+responsePutDataLakeSettings :: PutDataLakeSettingsResponse -> TestTree
+responsePutDataLakeSettings =
+  res
+    "PutDataLakeSettingsResponse"
+    "fixture/PutDataLakeSettingsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy PutDataLakeSettings)
+
+responseRegisterResource :: RegisterResourceResponse -> TestTree
+responseRegisterResource =
+  res
+    "RegisterResourceResponse"
+    "fixture/RegisterResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy RegisterResource)
+
+responseRemoveLFTagsFromResource :: RemoveLFTagsFromResourceResponse -> TestTree
+responseRemoveLFTagsFromResource =
+  res
+    "RemoveLFTagsFromResourceResponse"
+    "fixture/RemoveLFTagsFromResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy RemoveLFTagsFromResource)
+
+responseRevokePermissions :: RevokePermissionsResponse -> TestTree
+responseRevokePermissions =
+  res
+    "RevokePermissionsResponse"
+    "fixture/RevokePermissionsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy RevokePermissions)
+
+responseSearchDatabasesByLFTags :: SearchDatabasesByLFTagsResponse -> TestTree
+responseSearchDatabasesByLFTags =
+  res
+    "SearchDatabasesByLFTagsResponse"
+    "fixture/SearchDatabasesByLFTagsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy SearchDatabasesByLFTags)
+
+responseSearchTablesByLFTags :: SearchTablesByLFTagsResponse -> TestTree
+responseSearchTablesByLFTags =
+  res
+    "SearchTablesByLFTagsResponse"
+    "fixture/SearchTablesByLFTagsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy SearchTablesByLFTags)
+
+responseStartQueryPlanning :: StartQueryPlanningResponse -> TestTree
+responseStartQueryPlanning =
+  res
+    "StartQueryPlanningResponse"
+    "fixture/StartQueryPlanningResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy StartQueryPlanning)
+
+responseStartTransaction :: StartTransactionResponse -> TestTree
+responseStartTransaction =
+  res
+    "StartTransactionResponse"
+    "fixture/StartTransactionResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy StartTransaction)
+
+responseUpdateLFTag :: UpdateLFTagResponse -> TestTree
+responseUpdateLFTag =
+  res
+    "UpdateLFTagResponse"
+    "fixture/UpdateLFTagResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateLFTag)
+
+responseUpdateResource :: UpdateResourceResponse -> TestTree
+responseUpdateResource =
+  res
+    "UpdateResourceResponse"
+    "fixture/UpdateResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateResource)
+
+responseUpdateTableObjects :: UpdateTableObjectsResponse -> TestTree
+responseUpdateTableObjects =
+  res
+    "UpdateTableObjectsResponse"
+    "fixture/UpdateTableObjectsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateTableObjects)
+
+responseUpdateTableStorageOptimizer :: UpdateTableStorageOptimizerResponse -> TestTree
+responseUpdateTableStorageOptimizer =
+  res
+    "UpdateTableStorageOptimizerResponse"
+    "fixture/UpdateTableStorageOptimizerResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateTableStorageOptimizer)

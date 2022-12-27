@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IVS.Types.RecordingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,11 @@
 module Amazonka.IVS.Types.RecordingConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IVS.Types.DestinationConfiguration
 import Amazonka.IVS.Types.RecordingConfigurationState
-import qualified Amazonka.Lens as Lens
+import Amazonka.IVS.Types.ThumbnailConfiguration
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object representing a configuration to record a channel stream.
@@ -31,8 +33,20 @@ import qualified Amazonka.Prelude as Prelude
 data RecordingConfiguration = RecordingConfiguration'
   { -- | Recording-configuration name. The value does not need to be unique.
     name :: Prelude.Maybe Prelude.Text,
-    -- | Array of 1-50 maps, each of the form @string:string (key:value)@.
+    -- | If a broadcast disconnects and then reconnects within the specified
+    -- interval, the multiple streams will be considered a single broadcast and
+    -- merged together. Default: 0.
+    recordingReconnectWindowSeconds :: Prelude.Maybe Prelude.Natural,
+    -- | Array of 1-50 maps, each of the form @string:string (key:value)@. See
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+    -- for more information, including restrictions that apply to tags and
+    -- \"Tag naming limits and requirements\"; Amazon IVS has no
+    -- service-specific constraints beyond what is documented there.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | A complex type that allows you to enable\/disable the recording of
+    -- thumbnails for a live session and modify the interval at which
+    -- thumbnails are generated for the live session.
+    thumbnailConfiguration :: Prelude.Maybe ThumbnailConfiguration,
     -- | Recording-configuration ARN.
     arn :: Prelude.Text,
     -- | A complex type that contains information about where recorded video will
@@ -55,7 +69,19 @@ data RecordingConfiguration = RecordingConfiguration'
 --
 -- 'name', 'recordingConfiguration_name' - Recording-configuration name. The value does not need to be unique.
 --
--- 'tags', 'recordingConfiguration_tags' - Array of 1-50 maps, each of the form @string:string (key:value)@.
+-- 'recordingReconnectWindowSeconds', 'recordingConfiguration_recordingReconnectWindowSeconds' - If a broadcast disconnects and then reconnects within the specified
+-- interval, the multiple streams will be considered a single broadcast and
+-- merged together. Default: 0.
+--
+-- 'tags', 'recordingConfiguration_tags' - Array of 1-50 maps, each of the form @string:string (key:value)@. See
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+-- for more information, including restrictions that apply to tags and
+-- \"Tag naming limits and requirements\"; Amazon IVS has no
+-- service-specific constraints beyond what is documented there.
+--
+-- 'thumbnailConfiguration', 'recordingConfiguration_thumbnailConfiguration' - A complex type that allows you to enable\/disable the recording of
+-- thumbnails for a live session and modify the interval at which
+-- thumbnails are generated for the live session.
 --
 -- 'arn', 'recordingConfiguration_arn' - Recording-configuration ARN.
 --
@@ -79,7 +105,9 @@ newRecordingConfiguration
   pState_ =
     RecordingConfiguration'
       { name = Prelude.Nothing,
+        recordingReconnectWindowSeconds = Prelude.Nothing,
         tags = Prelude.Nothing,
+        thumbnailConfiguration = Prelude.Nothing,
         arn = pArn_,
         destinationConfiguration =
           pDestinationConfiguration_,
@@ -90,9 +118,25 @@ newRecordingConfiguration
 recordingConfiguration_name :: Lens.Lens' RecordingConfiguration (Prelude.Maybe Prelude.Text)
 recordingConfiguration_name = Lens.lens (\RecordingConfiguration' {name} -> name) (\s@RecordingConfiguration' {} a -> s {name = a} :: RecordingConfiguration)
 
--- | Array of 1-50 maps, each of the form @string:string (key:value)@.
+-- | If a broadcast disconnects and then reconnects within the specified
+-- interval, the multiple streams will be considered a single broadcast and
+-- merged together. Default: 0.
+recordingConfiguration_recordingReconnectWindowSeconds :: Lens.Lens' RecordingConfiguration (Prelude.Maybe Prelude.Natural)
+recordingConfiguration_recordingReconnectWindowSeconds = Lens.lens (\RecordingConfiguration' {recordingReconnectWindowSeconds} -> recordingReconnectWindowSeconds) (\s@RecordingConfiguration' {} a -> s {recordingReconnectWindowSeconds = a} :: RecordingConfiguration)
+
+-- | Array of 1-50 maps, each of the form @string:string (key:value)@. See
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+-- for more information, including restrictions that apply to tags and
+-- \"Tag naming limits and requirements\"; Amazon IVS has no
+-- service-specific constraints beyond what is documented there.
 recordingConfiguration_tags :: Lens.Lens' RecordingConfiguration (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 recordingConfiguration_tags = Lens.lens (\RecordingConfiguration' {tags} -> tags) (\s@RecordingConfiguration' {} a -> s {tags = a} :: RecordingConfiguration) Prelude.. Lens.mapping Lens.coerced
+
+-- | A complex type that allows you to enable\/disable the recording of
+-- thumbnails for a live session and modify the interval at which
+-- thumbnails are generated for the live session.
+recordingConfiguration_thumbnailConfiguration :: Lens.Lens' RecordingConfiguration (Prelude.Maybe ThumbnailConfiguration)
+recordingConfiguration_thumbnailConfiguration = Lens.lens (\RecordingConfiguration' {thumbnailConfiguration} -> thumbnailConfiguration) (\s@RecordingConfiguration' {} a -> s {thumbnailConfiguration = a} :: RecordingConfiguration)
 
 -- | Recording-configuration ARN.
 recordingConfiguration_arn :: Lens.Lens' RecordingConfiguration Prelude.Text
@@ -109,23 +153,27 @@ recordingConfiguration_destinationConfiguration = Lens.lens (\RecordingConfigura
 recordingConfiguration_state :: Lens.Lens' RecordingConfiguration RecordingConfigurationState
 recordingConfiguration_state = Lens.lens (\RecordingConfiguration' {state} -> state) (\s@RecordingConfiguration' {} a -> s {state = a} :: RecordingConfiguration)
 
-instance Core.FromJSON RecordingConfiguration where
+instance Data.FromJSON RecordingConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RecordingConfiguration"
       ( \x ->
           RecordingConfiguration'
-            Prelude.<$> (x Core..:? "name")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "arn")
-            Prelude.<*> (x Core..: "destinationConfiguration")
-            Prelude.<*> (x Core..: "state")
+            Prelude.<$> (x Data..:? "name")
+            Prelude.<*> (x Data..:? "recordingReconnectWindowSeconds")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "thumbnailConfiguration")
+            Prelude.<*> (x Data..: "arn")
+            Prelude.<*> (x Data..: "destinationConfiguration")
+            Prelude.<*> (x Data..: "state")
       )
 
 instance Prelude.Hashable RecordingConfiguration where
   hashWithSalt _salt RecordingConfiguration' {..} =
     _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` recordingReconnectWindowSeconds
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` thumbnailConfiguration
       `Prelude.hashWithSalt` arn
       `Prelude.hashWithSalt` destinationConfiguration
       `Prelude.hashWithSalt` state
@@ -133,7 +181,9 @@ instance Prelude.Hashable RecordingConfiguration where
 instance Prelude.NFData RecordingConfiguration where
   rnf RecordingConfiguration' {..} =
     Prelude.rnf name
+      `Prelude.seq` Prelude.rnf recordingReconnectWindowSeconds
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf thumbnailConfiguration
       `Prelude.seq` Prelude.rnf arn
       `Prelude.seq` Prelude.rnf destinationConfiguration
       `Prelude.seq` Prelude.rnf state

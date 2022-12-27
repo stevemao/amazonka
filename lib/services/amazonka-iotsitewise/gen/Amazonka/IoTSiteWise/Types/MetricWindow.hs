@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.MetricWindow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTSiteWise.Types.MetricWindow where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types.TumblingWindow
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains a time interval window used for data aggregate computations
@@ -52,12 +53,12 @@ newMetricWindow =
 metricWindow_tumbling :: Lens.Lens' MetricWindow (Prelude.Maybe TumblingWindow)
 metricWindow_tumbling = Lens.lens (\MetricWindow' {tumbling} -> tumbling) (\s@MetricWindow' {} a -> s {tumbling = a} :: MetricWindow)
 
-instance Core.FromJSON MetricWindow where
+instance Data.FromJSON MetricWindow where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MetricWindow"
       ( \x ->
-          MetricWindow' Prelude.<$> (x Core..:? "tumbling")
+          MetricWindow' Prelude.<$> (x Data..:? "tumbling")
       )
 
 instance Prelude.Hashable MetricWindow where
@@ -67,9 +68,9 @@ instance Prelude.Hashable MetricWindow where
 instance Prelude.NFData MetricWindow where
   rnf MetricWindow' {..} = Prelude.rnf tumbling
 
-instance Core.ToJSON MetricWindow where
+instance Data.ToJSON MetricWindow where
   toJSON MetricWindow' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("tumbling" Core..=) Prelude.<$> tumbling]
+          [("tumbling" Data..=) Prelude.<$> tumbling]
       )

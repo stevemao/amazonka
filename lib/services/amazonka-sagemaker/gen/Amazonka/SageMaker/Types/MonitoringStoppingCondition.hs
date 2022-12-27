@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.MonitoringStoppingCondition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.MonitoringStoppingCondition where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A time limit for how long the monitoring job is allowed to run before
@@ -71,13 +72,13 @@ newMonitoringStoppingCondition pMaxRuntimeInSeconds_ =
 monitoringStoppingCondition_maxRuntimeInSeconds :: Lens.Lens' MonitoringStoppingCondition Prelude.Natural
 monitoringStoppingCondition_maxRuntimeInSeconds = Lens.lens (\MonitoringStoppingCondition' {maxRuntimeInSeconds} -> maxRuntimeInSeconds) (\s@MonitoringStoppingCondition' {} a -> s {maxRuntimeInSeconds = a} :: MonitoringStoppingCondition)
 
-instance Core.FromJSON MonitoringStoppingCondition where
+instance Data.FromJSON MonitoringStoppingCondition where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MonitoringStoppingCondition"
       ( \x ->
           MonitoringStoppingCondition'
-            Prelude.<$> (x Core..: "MaxRuntimeInSeconds")
+            Prelude.<$> (x Data..: "MaxRuntimeInSeconds")
       )
 
 instance Prelude.Hashable MonitoringStoppingCondition where
@@ -88,11 +89,11 @@ instance Prelude.NFData MonitoringStoppingCondition where
   rnf MonitoringStoppingCondition' {..} =
     Prelude.rnf maxRuntimeInSeconds
 
-instance Core.ToJSON MonitoringStoppingCondition where
+instance Data.ToJSON MonitoringStoppingCondition where
   toJSON MonitoringStoppingCondition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("MaxRuntimeInSeconds" Core..= maxRuntimeInSeconds)
+              ("MaxRuntimeInSeconds" Data..= maxRuntimeInSeconds)
           ]
       )

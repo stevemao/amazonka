@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.ComplianceItemEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.ComplianceItemEntry where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSM.Types.ComplianceSeverity
 import Amazonka.SSM.Types.ComplianceStatus
@@ -128,14 +129,14 @@ instance Prelude.NFData ComplianceItemEntry where
       `Prelude.seq` Prelude.rnf severity
       `Prelude.seq` Prelude.rnf status
 
-instance Core.ToJSON ComplianceItemEntry where
+instance Data.ToJSON ComplianceItemEntry where
   toJSON ComplianceItemEntry' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Details" Core..=) Prelude.<$> details,
-            ("Id" Core..=) Prelude.<$> id,
-            ("Title" Core..=) Prelude.<$> title,
-            Prelude.Just ("Severity" Core..= severity),
-            Prelude.Just ("Status" Core..= status)
+          [ ("Details" Data..=) Prelude.<$> details,
+            ("Id" Data..=) Prelude.<$> id,
+            ("Title" Data..=) Prelude.<$> title,
+            Prelude.Just ("Severity" Data..= severity),
+            Prelude.Just ("Status" Data..= status)
           ]
       )

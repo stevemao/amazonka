@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.DescribeInterconnects
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.DirectConnect.DescribeInterconnects
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,12 +80,13 @@ instance Core.AWSRequest DescribeInterconnects where
   type
     AWSResponse DescribeInterconnects =
       DescribeInterconnectsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeInterconnectsResponse'
-            Prelude.<$> (x Core..?> "interconnects" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "interconnects" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -96,34 +98,34 @@ instance Prelude.NFData DescribeInterconnects where
   rnf DescribeInterconnects' {..} =
     Prelude.rnf interconnectId
 
-instance Core.ToHeaders DescribeInterconnects where
+instance Data.ToHeaders DescribeInterconnects where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OvertureService.DescribeInterconnects" ::
+              Data.=# ( "OvertureService.DescribeInterconnects" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeInterconnects where
+instance Data.ToJSON DescribeInterconnects where
   toJSON DescribeInterconnects' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("interconnectId" Core..=)
+          [ ("interconnectId" Data..=)
               Prelude.<$> interconnectId
           ]
       )
 
-instance Core.ToPath DescribeInterconnects where
+instance Data.ToPath DescribeInterconnects where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeInterconnects where
+instance Data.ToQuery DescribeInterconnects where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeInterconnectsResponse' smart constructor.

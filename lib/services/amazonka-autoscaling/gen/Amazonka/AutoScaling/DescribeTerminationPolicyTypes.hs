@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.DescribeTerminationPolicyTypes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,7 @@
 -- Describes the termination policies supported by Amazon EC2 Auto Scaling.
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html Controlling which Auto Scaling instances terminate during scale in>
+-- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-termination-policies.html Work with Amazon EC2 Auto Scaling termination policies>
 -- in the /Amazon EC2 Auto Scaling User Guide/.
 module Amazonka.AutoScaling.DescribeTerminationPolicyTypes
   ( -- * Creating a Request
@@ -42,7 +42,8 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -69,15 +70,16 @@ instance
   type
     AWSResponse DescribeTerminationPolicyTypes =
       DescribeTerminationPolicyTypesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeTerminationPolicyTypesResult"
       ( \s h x ->
           DescribeTerminationPolicyTypesResponse'
-            Prelude.<$> ( x Core..@? "TerminationPolicyTypes"
+            Prelude.<$> ( x Data..@? "TerminationPolicyTypes"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -96,24 +98,24 @@ instance
   rnf _ = ()
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeTerminationPolicyTypes
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeTerminationPolicyTypes where
+instance Data.ToPath DescribeTerminationPolicyTypes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeTerminationPolicyTypes where
+instance Data.ToQuery DescribeTerminationPolicyTypes where
   toQuery =
     Prelude.const
       ( Prelude.mconcat
           [ "Action"
-              Core.=: ( "DescribeTerminationPolicyTypes" ::
+              Data.=: ( "DescribeTerminationPolicyTypes" ::
                           Prelude.ByteString
                       ),
             "Version"
-              Core.=: ("2011-01-01" :: Prelude.ByteString)
+              Data.=: ("2011-01-01" :: Prelude.ByteString)
           ]
       )
 

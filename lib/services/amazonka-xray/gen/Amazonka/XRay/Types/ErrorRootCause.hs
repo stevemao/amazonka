@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.XRay.Types.ErrorRootCause
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.XRay.Types.ErrorRootCause where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.XRay.Types.ErrorRootCauseService
 
@@ -65,14 +66,14 @@ errorRootCause_clientImpacting = Lens.lens (\ErrorRootCause' {clientImpacting} -
 errorRootCause_services :: Lens.Lens' ErrorRootCause (Prelude.Maybe [ErrorRootCauseService])
 errorRootCause_services = Lens.lens (\ErrorRootCause' {services} -> services) (\s@ErrorRootCause' {} a -> s {services = a} :: ErrorRootCause) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON ErrorRootCause where
+instance Data.FromJSON ErrorRootCause where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ErrorRootCause"
       ( \x ->
           ErrorRootCause'
-            Prelude.<$> (x Core..:? "ClientImpacting")
-            Prelude.<*> (x Core..:? "Services" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "ClientImpacting")
+            Prelude.<*> (x Data..:? "Services" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable ErrorRootCause where

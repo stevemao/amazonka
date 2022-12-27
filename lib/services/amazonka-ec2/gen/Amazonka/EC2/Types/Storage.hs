@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.Storage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.Storage where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.S3Storage
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the storage location for an instance store-backed AMI.
@@ -51,8 +52,8 @@ newStorage = Storage' {s3 = Prelude.Nothing}
 storage_s3 :: Lens.Lens' Storage (Prelude.Maybe S3Storage)
 storage_s3 = Lens.lens (\Storage' {s3} -> s3) (\s@Storage' {} a -> s {s3 = a} :: Storage)
 
-instance Core.FromXML Storage where
-  parseXML x = Storage' Prelude.<$> (x Core..@? "S3")
+instance Data.FromXML Storage where
+  parseXML x = Storage' Prelude.<$> (x Data..@? "S3")
 
 instance Prelude.Hashable Storage where
   hashWithSalt _salt Storage' {..} =
@@ -61,6 +62,6 @@ instance Prelude.Hashable Storage where
 instance Prelude.NFData Storage where
   rnf Storage' {..} = Prelude.rnf s3
 
-instance Core.ToQuery Storage where
+instance Data.ToQuery Storage where
   toQuery Storage' {..} =
-    Prelude.mconcat ["S3" Core.=: s3]
+    Prelude.mconcat ["S3" Data.=: s3]

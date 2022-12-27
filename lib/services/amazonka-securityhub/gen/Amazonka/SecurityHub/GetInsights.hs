@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.GetInsights
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.SecurityHub.GetInsights
     newGetInsights,
 
     -- * Request Lenses
-    getInsights_nextToken,
     getInsights_insightArns,
     getInsights_maxResults,
+    getInsights_nextToken,
 
     -- * Destructuring the Response
     GetInsightsResponse (..),
@@ -45,7 +45,8 @@ module Amazonka.SecurityHub.GetInsights
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,19 +54,19 @@ import Amazonka.SecurityHub.Types
 
 -- | /See:/ 'newGetInsights' smart constructor.
 data GetInsights = GetInsights'
-  { -- | The token that is required for pagination. On your first call to the
+  { -- | The ARNs of the insights to describe. If you do not provide any insight
+    -- ARNs, then @GetInsights@ returns all of your custom insights. It does
+    -- not return any managed insights.
+    insightArns :: Prelude.Maybe [Prelude.Text],
+    -- | The maximum number of items to return in the response.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token that is required for pagination. On your first call to the
     -- @GetInsights@ operation, set the value of this parameter to @NULL@.
     --
     -- For subsequent calls to the operation, to continue listing data, set the
     -- value of this parameter to the value returned from the previous
     -- response.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The ARNs of the insights to describe. If you do not provide any insight
-    -- ARNs, then @GetInsights@ returns all of your custom insights. It does
-    -- not return any managed insights.
-    insightArns :: Prelude.Maybe [Prelude.Text],
-    -- | The maximum number of items to return in the response.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -77,35 +78,26 @@ data GetInsights = GetInsights'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'insightArns', 'getInsights_insightArns' - The ARNs of the insights to describe. If you do not provide any insight
+-- ARNs, then @GetInsights@ returns all of your custom insights. It does
+-- not return any managed insights.
+--
+-- 'maxResults', 'getInsights_maxResults' - The maximum number of items to return in the response.
+--
 -- 'nextToken', 'getInsights_nextToken' - The token that is required for pagination. On your first call to the
 -- @GetInsights@ operation, set the value of this parameter to @NULL@.
 --
 -- For subsequent calls to the operation, to continue listing data, set the
 -- value of this parameter to the value returned from the previous
 -- response.
---
--- 'insightArns', 'getInsights_insightArns' - The ARNs of the insights to describe. If you do not provide any insight
--- ARNs, then @GetInsights@ returns all of your custom insights. It does
--- not return any managed insights.
---
--- 'maxResults', 'getInsights_maxResults' - The maximum number of items to return in the response.
 newGetInsights ::
   GetInsights
 newGetInsights =
   GetInsights'
-    { nextToken = Prelude.Nothing,
-      insightArns = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { insightArns = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The token that is required for pagination. On your first call to the
--- @GetInsights@ operation, set the value of this parameter to @NULL@.
---
--- For subsequent calls to the operation, to continue listing data, set the
--- value of this parameter to the value returned from the previous
--- response.
-getInsights_nextToken :: Lens.Lens' GetInsights (Prelude.Maybe Prelude.Text)
-getInsights_nextToken = Lens.lens (\GetInsights' {nextToken} -> nextToken) (\s@GetInsights' {} a -> s {nextToken = a} :: GetInsights)
 
 -- | The ARNs of the insights to describe. If you do not provide any insight
 -- ARNs, then @GetInsights@ returns all of your custom insights. It does
@@ -116,6 +108,15 @@ getInsights_insightArns = Lens.lens (\GetInsights' {insightArns} -> insightArns)
 -- | The maximum number of items to return in the response.
 getInsights_maxResults :: Lens.Lens' GetInsights (Prelude.Maybe Prelude.Natural)
 getInsights_maxResults = Lens.lens (\GetInsights' {maxResults} -> maxResults) (\s@GetInsights' {} a -> s {maxResults = a} :: GetInsights)
+
+-- | The token that is required for pagination. On your first call to the
+-- @GetInsights@ operation, set the value of this parameter to @NULL@.
+--
+-- For subsequent calls to the operation, to continue listing data, set the
+-- value of this parameter to the value returned from the previous
+-- response.
+getInsights_nextToken :: Lens.Lens' GetInsights (Prelude.Maybe Prelude.Text)
+getInsights_nextToken = Lens.lens (\GetInsights' {nextToken} -> nextToken) (\s@GetInsights' {} a -> s {nextToken = a} :: GetInsights)
 
 instance Core.AWSPager GetInsights where
   page rq rs
@@ -135,53 +136,54 @@ instance Core.AWSPager GetInsights where
 
 instance Core.AWSRequest GetInsights where
   type AWSResponse GetInsights = GetInsightsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetInsightsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Insights" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Insights" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable GetInsights where
   hashWithSalt _salt GetInsights' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` insightArns
+    _salt `Prelude.hashWithSalt` insightArns
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData GetInsights where
   rnf GetInsights' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf insightArns
+    Prelude.rnf insightArns
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders GetInsights where
+instance Data.ToHeaders GetInsights where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetInsights where
+instance Data.ToJSON GetInsights where
   toJSON GetInsights' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("InsightArns" Core..=) Prelude.<$> insightArns,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("InsightArns" Data..=) Prelude.<$> insightArns,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath GetInsights where
+instance Data.ToPath GetInsights where
   toPath = Prelude.const "/insights/get"
 
-instance Core.ToQuery GetInsights where
+instance Data.ToQuery GetInsights where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetInsightsResponse' smart constructor.

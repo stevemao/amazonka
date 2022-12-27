@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.Id3Insertion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.Id3Insertion where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | To insert ID3 tags in your output, specify two values. Use ID3 tag (Id3)
@@ -31,7 +32,8 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newId3Insertion' smart constructor.
 data Id3Insertion = Id3Insertion'
-  { -- | Use ID3 tag (Id3) to provide a tag value in base64-encode format.
+  { -- | Use ID3 tag (Id3) to provide a fully formed ID3 tag in base64-encode
+    -- format.
     id3 :: Prelude.Maybe Prelude.Text,
     -- | Provide a Timecode (TimeCode) in HH:MM:SS:FF or HH:MM:SS;FF format.
     timecode :: Prelude.Maybe Prelude.Text
@@ -46,7 +48,8 @@ data Id3Insertion = Id3Insertion'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'id3', 'id3Insertion_id3' - Use ID3 tag (Id3) to provide a tag value in base64-encode format.
+-- 'id3', 'id3Insertion_id3' - Use ID3 tag (Id3) to provide a fully formed ID3 tag in base64-encode
+-- format.
 --
 -- 'timecode', 'id3Insertion_timecode' - Provide a Timecode (TimeCode) in HH:MM:SS:FF or HH:MM:SS;FF format.
 newId3Insertion ::
@@ -57,7 +60,8 @@ newId3Insertion =
       timecode = Prelude.Nothing
     }
 
--- | Use ID3 tag (Id3) to provide a tag value in base64-encode format.
+-- | Use ID3 tag (Id3) to provide a fully formed ID3 tag in base64-encode
+-- format.
 id3Insertion_id3 :: Lens.Lens' Id3Insertion (Prelude.Maybe Prelude.Text)
 id3Insertion_id3 = Lens.lens (\Id3Insertion' {id3} -> id3) (\s@Id3Insertion' {} a -> s {id3 = a} :: Id3Insertion)
 
@@ -65,14 +69,14 @@ id3Insertion_id3 = Lens.lens (\Id3Insertion' {id3} -> id3) (\s@Id3Insertion' {} 
 id3Insertion_timecode :: Lens.Lens' Id3Insertion (Prelude.Maybe Prelude.Text)
 id3Insertion_timecode = Lens.lens (\Id3Insertion' {timecode} -> timecode) (\s@Id3Insertion' {} a -> s {timecode = a} :: Id3Insertion)
 
-instance Core.FromJSON Id3Insertion where
+instance Data.FromJSON Id3Insertion where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Id3Insertion"
       ( \x ->
           Id3Insertion'
-            Prelude.<$> (x Core..:? "id3")
-            Prelude.<*> (x Core..:? "timecode")
+            Prelude.<$> (x Data..:? "id3")
+            Prelude.<*> (x Data..:? "timecode")
       )
 
 instance Prelude.Hashable Id3Insertion where
@@ -84,11 +88,11 @@ instance Prelude.NFData Id3Insertion where
   rnf Id3Insertion' {..} =
     Prelude.rnf id3 `Prelude.seq` Prelude.rnf timecode
 
-instance Core.ToJSON Id3Insertion where
+instance Data.ToJSON Id3Insertion where
   toJSON Id3Insertion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("id3" Core..=) Prelude.<$> id3,
-            ("timecode" Core..=) Prelude.<$> timecode
+          [ ("id3" Data..=) Prelude.<$> id3,
+            ("timecode" Data..=) Prelude.<$> timecode
           ]
       )

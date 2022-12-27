@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.GetJobRun
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.Glue.GetJobRun
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,12 +100,13 @@ getJobRun_runId = Lens.lens (\GetJobRun' {runId} -> runId) (\s@GetJobRun' {} a -
 
 instance Core.AWSRequest GetJobRun where
   type AWSResponse GetJobRun = GetJobRunResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetJobRunResponse'
-            Prelude.<$> (x Core..?> "JobRun")
+            Prelude.<$> (x Data..?> "JobRun")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -120,34 +122,34 @@ instance Prelude.NFData GetJobRun where
       `Prelude.seq` Prelude.rnf jobName
       `Prelude.seq` Prelude.rnf runId
 
-instance Core.ToHeaders GetJobRun where
+instance Data.ToHeaders GetJobRun where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.GetJobRun" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.GetJobRun" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetJobRun where
+instance Data.ToJSON GetJobRun where
   toJSON GetJobRun' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PredecessorsIncluded" Core..=)
+          [ ("PredecessorsIncluded" Data..=)
               Prelude.<$> predecessorsIncluded,
-            Prelude.Just ("JobName" Core..= jobName),
-            Prelude.Just ("RunId" Core..= runId)
+            Prelude.Just ("JobName" Data..= jobName),
+            Prelude.Just ("RunId" Data..= runId)
           ]
       )
 
-instance Core.ToPath GetJobRun where
+instance Data.ToPath GetJobRun where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetJobRun where
+instance Data.ToQuery GetJobRun where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetJobRunResponse' smart constructor.

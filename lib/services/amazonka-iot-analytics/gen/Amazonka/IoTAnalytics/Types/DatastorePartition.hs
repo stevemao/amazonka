@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.Types.DatastorePartition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.IoTAnalytics.Types.DatastorePartition where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types.Partition
 import Amazonka.IoTAnalytics.Types.TimestampPartition
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A single dimension to partition a data store. The dimension must be an
@@ -65,14 +66,14 @@ datastorePartition_attributePartition = Lens.lens (\DatastorePartition' {attribu
 datastorePartition_timestampPartition :: Lens.Lens' DatastorePartition (Prelude.Maybe TimestampPartition)
 datastorePartition_timestampPartition = Lens.lens (\DatastorePartition' {timestampPartition} -> timestampPartition) (\s@DatastorePartition' {} a -> s {timestampPartition = a} :: DatastorePartition)
 
-instance Core.FromJSON DatastorePartition where
+instance Data.FromJSON DatastorePartition where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DatastorePartition"
       ( \x ->
           DatastorePartition'
-            Prelude.<$> (x Core..:? "attributePartition")
-            Prelude.<*> (x Core..:? "timestampPartition")
+            Prelude.<$> (x Data..:? "attributePartition")
+            Prelude.<*> (x Data..:? "timestampPartition")
       )
 
 instance Prelude.Hashable DatastorePartition where
@@ -85,13 +86,13 @@ instance Prelude.NFData DatastorePartition where
     Prelude.rnf attributePartition
       `Prelude.seq` Prelude.rnf timestampPartition
 
-instance Core.ToJSON DatastorePartition where
+instance Data.ToJSON DatastorePartition where
   toJSON DatastorePartition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("attributePartition" Core..=)
+          [ ("attributePartition" Data..=)
               Prelude.<$> attributePartition,
-            ("timestampPartition" Core..=)
+            ("timestampPartition" Data..=)
               Prelude.<$> timestampPartition
           ]
       )

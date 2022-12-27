@@ -1,6 +1,6 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_library", "haskell_test")
 
-# rule generated from amazonka-kinesis-video/amazonka-kinesis-video.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-kinesis-video/amazonka-kinesis-video.cabal by gazelle_cabal
 haskell_library(
     name = "amazonka-kinesis-video",
     srcs = [
@@ -9,6 +9,8 @@ haskell_library(
         "gen/Amazonka/KinesisVideo/CreateStream.hs",
         "gen/Amazonka/KinesisVideo/DeleteSignalingChannel.hs",
         "gen/Amazonka/KinesisVideo/DeleteStream.hs",
+        "gen/Amazonka/KinesisVideo/DescribeImageGenerationConfiguration.hs",
+        "gen/Amazonka/KinesisVideo/DescribeNotificationConfiguration.hs",
         "gen/Amazonka/KinesisVideo/DescribeSignalingChannel.hs",
         "gen/Amazonka/KinesisVideo/DescribeStream.hs",
         "gen/Amazonka/KinesisVideo/GetDataEndpoint.hs",
@@ -28,6 +30,14 @@ haskell_library(
         "gen/Amazonka/KinesisVideo/Types/ChannelRole.hs",
         "gen/Amazonka/KinesisVideo/Types/ChannelType.hs",
         "gen/Amazonka/KinesisVideo/Types/ComparisonOperator.hs",
+        "gen/Amazonka/KinesisVideo/Types/ConfigurationStatus.hs",
+        "gen/Amazonka/KinesisVideo/Types/Format.hs",
+        "gen/Amazonka/KinesisVideo/Types/FormatConfigKey.hs",
+        "gen/Amazonka/KinesisVideo/Types/ImageGenerationConfiguration.hs",
+        "gen/Amazonka/KinesisVideo/Types/ImageGenerationDestinationConfig.hs",
+        "gen/Amazonka/KinesisVideo/Types/ImageSelectorType.hs",
+        "gen/Amazonka/KinesisVideo/Types/NotificationConfiguration.hs",
+        "gen/Amazonka/KinesisVideo/Types/NotificationDestinationConfig.hs",
         "gen/Amazonka/KinesisVideo/Types/ResourceEndpointListItem.hs",
         "gen/Amazonka/KinesisVideo/Types/SingleMasterChannelEndpointConfiguration.hs",
         "gen/Amazonka/KinesisVideo/Types/SingleMasterConfiguration.hs",
@@ -39,18 +49,19 @@ haskell_library(
         "gen/Amazonka/KinesisVideo/UntagResource.hs",
         "gen/Amazonka/KinesisVideo/UntagStream.hs",
         "gen/Amazonka/KinesisVideo/UpdateDataRetention.hs",
+        "gen/Amazonka/KinesisVideo/UpdateImageGenerationConfiguration.hs",
+        "gen/Amazonka/KinesisVideo/UpdateNotificationConfiguration.hs",
         "gen/Amazonka/KinesisVideo/UpdateSignalingChannel.hs",
         "gen/Amazonka/KinesisVideo/UpdateStream.hs",
         "gen/Amazonka/KinesisVideo/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_kinesis_video=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
-        "-DVERSION_amazonka_kinesis_video=\"2.0\"",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -59,7 +70,7 @@ haskell_library(
     ],
 )
 
-# rule generated from amazonka-kinesis-video/amazonka-kinesis-video.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-kinesis-video/amazonka-kinesis-video.cabal by gazelle_cabal
 haskell_test(
     name = "amazonka-kinesis-video-test",
     srcs = [
@@ -68,11 +79,12 @@ haskell_test(
         "test/Test/Amazonka/KinesisVideo.hs",
         "test/Test/Amazonka/KinesisVideo/Internal.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_kinesis_video=\"2.0\"",
         "-Wall",
         "-threaded",
-        "-DVERSION_amazonka_kinesis_video=\"2.0\"",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

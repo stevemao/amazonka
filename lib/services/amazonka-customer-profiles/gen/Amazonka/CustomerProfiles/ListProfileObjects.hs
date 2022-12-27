@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CustomerProfiles.ListProfileObjects
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,9 +28,9 @@ module Amazonka.CustomerProfiles.ListProfileObjects
     newListProfileObjects,
 
     -- * Request Lenses
-    listProfileObjects_objectFilter,
-    listProfileObjects_nextToken,
     listProfileObjects_maxResults,
+    listProfileObjects_nextToken,
+    listProfileObjects_objectFilter,
     listProfileObjects_domainName,
     listProfileObjects_objectTypeName,
     listProfileObjects_profileId,
@@ -47,22 +47,23 @@ module Amazonka.CustomerProfiles.ListProfileObjects
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CustomerProfiles.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListProfileObjects' smart constructor.
 data ListProfileObjects = ListProfileObjects'
-  { -- | Applies a filter to the response to include profile objects with the
-    -- specified index values. This filter is only supported for ObjectTypeName
-    -- _asset and _case.
-    objectFilter :: Prelude.Maybe ObjectFilter,
+  { -- | The maximum number of objects returned per page.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The pagination token from the previous call to ListProfileObjects.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of objects returned per page.
-    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Applies a filter to the response to include profile objects with the
+    -- specified index values. This filter is only supported for ObjectTypeName
+    -- _asset, _case and _order.
+    objectFilter :: Prelude.Maybe ObjectFilter,
     -- | The unique name of the domain.
     domainName :: Prelude.Text,
     -- | The name of the profile object type.
@@ -80,13 +81,13 @@ data ListProfileObjects = ListProfileObjects'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'objectFilter', 'listProfileObjects_objectFilter' - Applies a filter to the response to include profile objects with the
--- specified index values. This filter is only supported for ObjectTypeName
--- _asset and _case.
+-- 'maxResults', 'listProfileObjects_maxResults' - The maximum number of objects returned per page.
 --
 -- 'nextToken', 'listProfileObjects_nextToken' - The pagination token from the previous call to ListProfileObjects.
 --
--- 'maxResults', 'listProfileObjects_maxResults' - The maximum number of objects returned per page.
+-- 'objectFilter', 'listProfileObjects_objectFilter' - Applies a filter to the response to include profile objects with the
+-- specified index values. This filter is only supported for ObjectTypeName
+-- _asset, _case and _order.
 --
 -- 'domainName', 'listProfileObjects_domainName' - The unique name of the domain.
 --
@@ -106,27 +107,27 @@ newListProfileObjects
   pObjectTypeName_
   pProfileId_ =
     ListProfileObjects'
-      { objectFilter = Prelude.Nothing,
+      { maxResults = Prelude.Nothing,
         nextToken = Prelude.Nothing,
-        maxResults = Prelude.Nothing,
+        objectFilter = Prelude.Nothing,
         domainName = pDomainName_,
         objectTypeName = pObjectTypeName_,
         profileId = pProfileId_
       }
 
--- | Applies a filter to the response to include profile objects with the
--- specified index values. This filter is only supported for ObjectTypeName
--- _asset and _case.
-listProfileObjects_objectFilter :: Lens.Lens' ListProfileObjects (Prelude.Maybe ObjectFilter)
-listProfileObjects_objectFilter = Lens.lens (\ListProfileObjects' {objectFilter} -> objectFilter) (\s@ListProfileObjects' {} a -> s {objectFilter = a} :: ListProfileObjects)
+-- | The maximum number of objects returned per page.
+listProfileObjects_maxResults :: Lens.Lens' ListProfileObjects (Prelude.Maybe Prelude.Natural)
+listProfileObjects_maxResults = Lens.lens (\ListProfileObjects' {maxResults} -> maxResults) (\s@ListProfileObjects' {} a -> s {maxResults = a} :: ListProfileObjects)
 
 -- | The pagination token from the previous call to ListProfileObjects.
 listProfileObjects_nextToken :: Lens.Lens' ListProfileObjects (Prelude.Maybe Prelude.Text)
 listProfileObjects_nextToken = Lens.lens (\ListProfileObjects' {nextToken} -> nextToken) (\s@ListProfileObjects' {} a -> s {nextToken = a} :: ListProfileObjects)
 
--- | The maximum number of objects returned per page.
-listProfileObjects_maxResults :: Lens.Lens' ListProfileObjects (Prelude.Maybe Prelude.Natural)
-listProfileObjects_maxResults = Lens.lens (\ListProfileObjects' {maxResults} -> maxResults) (\s@ListProfileObjects' {} a -> s {maxResults = a} :: ListProfileObjects)
+-- | Applies a filter to the response to include profile objects with the
+-- specified index values. This filter is only supported for ObjectTypeName
+-- _asset, _case and _order.
+listProfileObjects_objectFilter :: Lens.Lens' ListProfileObjects (Prelude.Maybe ObjectFilter)
+listProfileObjects_objectFilter = Lens.lens (\ListProfileObjects' {objectFilter} -> objectFilter) (\s@ListProfileObjects' {} a -> s {objectFilter = a} :: ListProfileObjects)
 
 -- | The unique name of the domain.
 listProfileObjects_domainName :: Lens.Lens' ListProfileObjects Prelude.Text
@@ -144,69 +145,70 @@ instance Core.AWSRequest ListProfileObjects where
   type
     AWSResponse ListProfileObjects =
       ListProfileObjectsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListProfileObjectsResponse'
-            Prelude.<$> (x Core..?> "Items" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Items" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListProfileObjects where
   hashWithSalt _salt ListProfileObjects' {..} =
-    _salt `Prelude.hashWithSalt` objectFilter
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` objectFilter
       `Prelude.hashWithSalt` domainName
       `Prelude.hashWithSalt` objectTypeName
       `Prelude.hashWithSalt` profileId
 
 instance Prelude.NFData ListProfileObjects where
   rnf ListProfileObjects' {..} =
-    Prelude.rnf objectFilter
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf objectFilter
       `Prelude.seq` Prelude.rnf domainName
       `Prelude.seq` Prelude.rnf objectTypeName
       `Prelude.seq` Prelude.rnf profileId
 
-instance Core.ToHeaders ListProfileObjects where
+instance Data.ToHeaders ListProfileObjects where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListProfileObjects where
+instance Data.ToJSON ListProfileObjects where
   toJSON ListProfileObjects' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ObjectFilter" Core..=) Prelude.<$> objectFilter,
+          [ ("ObjectFilter" Data..=) Prelude.<$> objectFilter,
             Prelude.Just
-              ("ObjectTypeName" Core..= objectTypeName),
-            Prelude.Just ("ProfileId" Core..= profileId)
+              ("ObjectTypeName" Data..= objectTypeName),
+            Prelude.Just ("ProfileId" Data..= profileId)
           ]
       )
 
-instance Core.ToPath ListProfileObjects where
+instance Data.ToPath ListProfileObjects where
   toPath ListProfileObjects' {..} =
     Prelude.mconcat
       [ "/domains/",
-        Core.toBS domainName,
+        Data.toBS domainName,
         "/profiles/objects"
       ]
 
-instance Core.ToQuery ListProfileObjects where
+instance Data.ToQuery ListProfileObjects where
   toQuery ListProfileObjects' {..} =
     Prelude.mconcat
-      [ "next-token" Core.=: nextToken,
-        "max-results" Core.=: maxResults
+      [ "max-results" Data.=: maxResults,
+        "next-token" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListProfileObjectsResponse' smart constructor.

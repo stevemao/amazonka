@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkDocs.GetCurrentUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.WorkDocs.GetCurrentUser
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,7 +58,7 @@ import Amazonka.WorkDocs.Types
 -- | /See:/ 'newGetCurrentUser' smart constructor.
 data GetCurrentUser = GetCurrentUser'
   { -- | Amazon WorkDocs authentication token.
-    authenticationToken :: Core.Sensitive Prelude.Text
+    authenticationToken :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -77,23 +78,24 @@ newGetCurrentUser ::
 newGetCurrentUser pAuthenticationToken_ =
   GetCurrentUser'
     { authenticationToken =
-        Core._Sensitive Lens.# pAuthenticationToken_
+        Data._Sensitive Lens.# pAuthenticationToken_
     }
 
 -- | Amazon WorkDocs authentication token.
 getCurrentUser_authenticationToken :: Lens.Lens' GetCurrentUser Prelude.Text
-getCurrentUser_authenticationToken = Lens.lens (\GetCurrentUser' {authenticationToken} -> authenticationToken) (\s@GetCurrentUser' {} a -> s {authenticationToken = a} :: GetCurrentUser) Prelude.. Core._Sensitive
+getCurrentUser_authenticationToken = Lens.lens (\GetCurrentUser' {authenticationToken} -> authenticationToken) (\s@GetCurrentUser' {} a -> s {authenticationToken = a} :: GetCurrentUser) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest GetCurrentUser where
   type
     AWSResponse GetCurrentUser =
       GetCurrentUserResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetCurrentUserResponse'
-            Prelude.<$> (x Core..?> "User")
+            Prelude.<$> (x Data..?> "User")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -105,18 +107,18 @@ instance Prelude.NFData GetCurrentUser where
   rnf GetCurrentUser' {..} =
     Prelude.rnf authenticationToken
 
-instance Core.ToHeaders GetCurrentUser where
+instance Data.ToHeaders GetCurrentUser where
   toHeaders GetCurrentUser' {..} =
     Prelude.mconcat
-      [ "Authentication" Core.=# authenticationToken,
+      [ "Authentication" Data.=# authenticationToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToPath GetCurrentUser where
+instance Data.ToPath GetCurrentUser where
   toPath = Prelude.const "/api/v1/me"
 
-instance Core.ToQuery GetCurrentUser where
+instance Data.ToQuery GetCurrentUser where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetCurrentUserResponse' smart constructor.
@@ -126,7 +128,7 @@ data GetCurrentUserResponse = GetCurrentUserResponse'
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'GetCurrentUserResponse' with all optional fields omitted.

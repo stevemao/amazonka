@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WellArchitected.Types.ChoiceAnswerSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WellArchitected.Types.ChoiceAnswerSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.WellArchitected.Types.ChoiceReason
 import Amazonka.WellArchitected.Types.ChoiceStatus
@@ -29,12 +30,12 @@ import Amazonka.WellArchitected.Types.ChoiceStatus
 --
 -- /See:/ 'newChoiceAnswerSummary' smart constructor.
 data ChoiceAnswerSummary = ChoiceAnswerSummary'
-  { -- | The status of a choice.
-    status :: Prelude.Maybe ChoiceStatus,
+  { choiceId :: Prelude.Maybe Prelude.Text,
     -- | The reason why a choice is non-applicable to a question in your
     -- workload.
     reason :: Prelude.Maybe ChoiceReason,
-    choiceId :: Prelude.Maybe Prelude.Text
+    -- | The status of a choice.
+    status :: Prelude.Maybe ChoiceStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,53 +47,53 @@ data ChoiceAnswerSummary = ChoiceAnswerSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'choiceAnswerSummary_status' - The status of a choice.
+-- 'choiceId', 'choiceAnswerSummary_choiceId' - Undocumented member.
 --
 -- 'reason', 'choiceAnswerSummary_reason' - The reason why a choice is non-applicable to a question in your
 -- workload.
 --
--- 'choiceId', 'choiceAnswerSummary_choiceId' - Undocumented member.
+-- 'status', 'choiceAnswerSummary_status' - The status of a choice.
 newChoiceAnswerSummary ::
   ChoiceAnswerSummary
 newChoiceAnswerSummary =
   ChoiceAnswerSummary'
-    { status = Prelude.Nothing,
+    { choiceId = Prelude.Nothing,
       reason = Prelude.Nothing,
-      choiceId = Prelude.Nothing
+      status = Prelude.Nothing
     }
 
--- | The status of a choice.
-choiceAnswerSummary_status :: Lens.Lens' ChoiceAnswerSummary (Prelude.Maybe ChoiceStatus)
-choiceAnswerSummary_status = Lens.lens (\ChoiceAnswerSummary' {status} -> status) (\s@ChoiceAnswerSummary' {} a -> s {status = a} :: ChoiceAnswerSummary)
+-- | Undocumented member.
+choiceAnswerSummary_choiceId :: Lens.Lens' ChoiceAnswerSummary (Prelude.Maybe Prelude.Text)
+choiceAnswerSummary_choiceId = Lens.lens (\ChoiceAnswerSummary' {choiceId} -> choiceId) (\s@ChoiceAnswerSummary' {} a -> s {choiceId = a} :: ChoiceAnswerSummary)
 
 -- | The reason why a choice is non-applicable to a question in your
 -- workload.
 choiceAnswerSummary_reason :: Lens.Lens' ChoiceAnswerSummary (Prelude.Maybe ChoiceReason)
 choiceAnswerSummary_reason = Lens.lens (\ChoiceAnswerSummary' {reason} -> reason) (\s@ChoiceAnswerSummary' {} a -> s {reason = a} :: ChoiceAnswerSummary)
 
--- | Undocumented member.
-choiceAnswerSummary_choiceId :: Lens.Lens' ChoiceAnswerSummary (Prelude.Maybe Prelude.Text)
-choiceAnswerSummary_choiceId = Lens.lens (\ChoiceAnswerSummary' {choiceId} -> choiceId) (\s@ChoiceAnswerSummary' {} a -> s {choiceId = a} :: ChoiceAnswerSummary)
+-- | The status of a choice.
+choiceAnswerSummary_status :: Lens.Lens' ChoiceAnswerSummary (Prelude.Maybe ChoiceStatus)
+choiceAnswerSummary_status = Lens.lens (\ChoiceAnswerSummary' {status} -> status) (\s@ChoiceAnswerSummary' {} a -> s {status = a} :: ChoiceAnswerSummary)
 
-instance Core.FromJSON ChoiceAnswerSummary where
+instance Data.FromJSON ChoiceAnswerSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ChoiceAnswerSummary"
       ( \x ->
           ChoiceAnswerSummary'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "Reason")
-            Prelude.<*> (x Core..:? "ChoiceId")
+            Prelude.<$> (x Data..:? "ChoiceId")
+            Prelude.<*> (x Data..:? "Reason")
+            Prelude.<*> (x Data..:? "Status")
       )
 
 instance Prelude.Hashable ChoiceAnswerSummary where
   hashWithSalt _salt ChoiceAnswerSummary' {..} =
-    _salt `Prelude.hashWithSalt` status
+    _salt `Prelude.hashWithSalt` choiceId
       `Prelude.hashWithSalt` reason
-      `Prelude.hashWithSalt` choiceId
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData ChoiceAnswerSummary where
   rnf ChoiceAnswerSummary' {..} =
-    Prelude.rnf status
+    Prelude.rnf choiceId
       `Prelude.seq` Prelude.rnf reason
-      `Prelude.seq` Prelude.rnf choiceId
+      `Prelude.seq` Prelude.rnf status

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeInstanceTypes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,11 +31,11 @@ module Amazonka.EC2.DescribeInstanceTypes
     newDescribeInstanceTypes,
 
     -- * Request Lenses
-    describeInstanceTypes_instanceTypes,
-    describeInstanceTypes_filters,
-    describeInstanceTypes_nextToken,
     describeInstanceTypes_dryRun,
+    describeInstanceTypes_filters,
+    describeInstanceTypes_instanceTypes,
     describeInstanceTypes_maxResults,
+    describeInstanceTypes_nextToken,
 
     -- * Destructuring the Response
     DescribeInstanceTypesResponse (..),
@@ -49,18 +49,20 @@ module Amazonka.EC2.DescribeInstanceTypes
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeInstanceTypes' smart constructor.
 data DescribeInstanceTypes = DescribeInstanceTypes'
-  { -- | The instance types. For more information, see
-    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html Instance types>
-    -- in the /Amazon EC2 User Guide/.
-    instanceTypes :: Prelude.Maybe [InstanceType],
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | One or more filters. Filter names and values are case-sensitive.
     --
     -- -   @auto-recovery-supported@ - Indicates whether auto recovery is
@@ -126,8 +128,8 @@ data DescribeInstanceTypes = DescribeInstanceTypes'
     -- -   @instance-storage-info.disk.type@ - The storage technology for the
     --     local instance storage disks (@hdd@ | @ssd@).
     --
-    -- -   @instance-storage-info.encryption-supported@ - Indicates whether
-    --     data is encrypted at rest (@required@ | @unsupported@).
+    -- -   @instance-storage-info.encryption-support@ - Indicates whether data
+    --     is encrypted at rest (@required@ | @supported@ | @unsupported@).
     --
     -- -   @instance-storage-info.nvme-support@ - Indicates whether
     --     non-volatile memory express (NVMe) is supported for instance store
@@ -167,6 +169,9 @@ data DescribeInstanceTypes = DescribeInstanceTypes'
     -- -   @network-info.ipv6-supported@ - Indicates whether the instance type
     --     supports IPv6 (@true@ | @false@).
     --
+    -- -   @network-info.maximum-network-cards@ - The maximum number of network
+    --     cards per instance.
+    --
     -- -   @network-info.maximum-network-interfaces@ - The maximum number of
     --     network interfaces per instance.
     --
@@ -205,17 +210,16 @@ data DescribeInstanceTypes = DescribeInstanceTypes'
     --     that can be configured for the instance type. For example, \"1\" or
     --     \"1,2\".
     filters :: Prelude.Maybe [Filter],
-    -- | The token to retrieve the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The instance types. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html Instance types>
+    -- in the /Amazon EC2 User Guide/.
+    instanceTypes :: Prelude.Maybe [InstanceType],
     -- | The maximum number of results to return for the request in a single
     -- page. The remaining results can be seen by sending another request with
     -- the next token value.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to retrieve the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -227,9 +231,10 @@ data DescribeInstanceTypes = DescribeInstanceTypes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'instanceTypes', 'describeInstanceTypes_instanceTypes' - The instance types. For more information, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html Instance types>
--- in the /Amazon EC2 User Guide/.
+-- 'dryRun', 'describeInstanceTypes_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'filters', 'describeInstanceTypes_filters' - One or more filters. Filter names and values are case-sensitive.
 --
@@ -296,8 +301,8 @@ data DescribeInstanceTypes = DescribeInstanceTypes'
 -- -   @instance-storage-info.disk.type@ - The storage technology for the
 --     local instance storage disks (@hdd@ | @ssd@).
 --
--- -   @instance-storage-info.encryption-supported@ - Indicates whether
---     data is encrypted at rest (@required@ | @unsupported@).
+-- -   @instance-storage-info.encryption-support@ - Indicates whether data
+--     is encrypted at rest (@required@ | @supported@ | @unsupported@).
 --
 -- -   @instance-storage-info.nvme-support@ - Indicates whether
 --     non-volatile memory express (NVMe) is supported for instance store
@@ -337,6 +342,9 @@ data DescribeInstanceTypes = DescribeInstanceTypes'
 -- -   @network-info.ipv6-supported@ - Indicates whether the instance type
 --     supports IPv6 (@true@ | @false@).
 --
+-- -   @network-info.maximum-network-cards@ - The maximum number of network
+--     cards per instance.
+--
 -- -   @network-info.maximum-network-interfaces@ - The maximum number of
 --     network interfaces per instance.
 --
@@ -375,33 +383,32 @@ data DescribeInstanceTypes = DescribeInstanceTypes'
 --     that can be configured for the instance type. For example, \"1\" or
 --     \"1,2\".
 --
--- 'nextToken', 'describeInstanceTypes_nextToken' - The token to retrieve the next page of results.
---
--- 'dryRun', 'describeInstanceTypes_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
+-- 'instanceTypes', 'describeInstanceTypes_instanceTypes' - The instance types. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html Instance types>
+-- in the /Amazon EC2 User Guide/.
 --
 -- 'maxResults', 'describeInstanceTypes_maxResults' - The maximum number of results to return for the request in a single
 -- page. The remaining results can be seen by sending another request with
 -- the next token value.
+--
+-- 'nextToken', 'describeInstanceTypes_nextToken' - The token to retrieve the next page of results.
 newDescribeInstanceTypes ::
   DescribeInstanceTypes
 newDescribeInstanceTypes =
   DescribeInstanceTypes'
-    { instanceTypes =
-        Prelude.Nothing,
+    { dryRun = Prelude.Nothing,
       filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      instanceTypes = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
--- | The instance types. For more information, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html Instance types>
--- in the /Amazon EC2 User Guide/.
-describeInstanceTypes_instanceTypes :: Lens.Lens' DescribeInstanceTypes (Prelude.Maybe [InstanceType])
-describeInstanceTypes_instanceTypes = Lens.lens (\DescribeInstanceTypes' {instanceTypes} -> instanceTypes) (\s@DescribeInstanceTypes' {} a -> s {instanceTypes = a} :: DescribeInstanceTypes) Prelude.. Lens.mapping Lens.coerced
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeInstanceTypes_dryRun :: Lens.Lens' DescribeInstanceTypes (Prelude.Maybe Prelude.Bool)
+describeInstanceTypes_dryRun = Lens.lens (\DescribeInstanceTypes' {dryRun} -> dryRun) (\s@DescribeInstanceTypes' {} a -> s {dryRun = a} :: DescribeInstanceTypes)
 
 -- | One or more filters. Filter names and values are case-sensitive.
 --
@@ -468,8 +475,8 @@ describeInstanceTypes_instanceTypes = Lens.lens (\DescribeInstanceTypes' {instan
 -- -   @instance-storage-info.disk.type@ - The storage technology for the
 --     local instance storage disks (@hdd@ | @ssd@).
 --
--- -   @instance-storage-info.encryption-supported@ - Indicates whether
---     data is encrypted at rest (@required@ | @unsupported@).
+-- -   @instance-storage-info.encryption-support@ - Indicates whether data
+--     is encrypted at rest (@required@ | @supported@ | @unsupported@).
 --
 -- -   @instance-storage-info.nvme-support@ - Indicates whether
 --     non-volatile memory express (NVMe) is supported for instance store
@@ -508,6 +515,9 @@ describeInstanceTypes_instanceTypes = Lens.lens (\DescribeInstanceTypes' {instan
 --
 -- -   @network-info.ipv6-supported@ - Indicates whether the instance type
 --     supports IPv6 (@true@ | @false@).
+--
+-- -   @network-info.maximum-network-cards@ - The maximum number of network
+--     cards per instance.
 --
 -- -   @network-info.maximum-network-interfaces@ - The maximum number of
 --     network interfaces per instance.
@@ -549,22 +559,21 @@ describeInstanceTypes_instanceTypes = Lens.lens (\DescribeInstanceTypes' {instan
 describeInstanceTypes_filters :: Lens.Lens' DescribeInstanceTypes (Prelude.Maybe [Filter])
 describeInstanceTypes_filters = Lens.lens (\DescribeInstanceTypes' {filters} -> filters) (\s@DescribeInstanceTypes' {} a -> s {filters = a} :: DescribeInstanceTypes) Prelude.. Lens.mapping Lens.coerced
 
--- | The token to retrieve the next page of results.
-describeInstanceTypes_nextToken :: Lens.Lens' DescribeInstanceTypes (Prelude.Maybe Prelude.Text)
-describeInstanceTypes_nextToken = Lens.lens (\DescribeInstanceTypes' {nextToken} -> nextToken) (\s@DescribeInstanceTypes' {} a -> s {nextToken = a} :: DescribeInstanceTypes)
-
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describeInstanceTypes_dryRun :: Lens.Lens' DescribeInstanceTypes (Prelude.Maybe Prelude.Bool)
-describeInstanceTypes_dryRun = Lens.lens (\DescribeInstanceTypes' {dryRun} -> dryRun) (\s@DescribeInstanceTypes' {} a -> s {dryRun = a} :: DescribeInstanceTypes)
+-- | The instance types. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html Instance types>
+-- in the /Amazon EC2 User Guide/.
+describeInstanceTypes_instanceTypes :: Lens.Lens' DescribeInstanceTypes (Prelude.Maybe [InstanceType])
+describeInstanceTypes_instanceTypes = Lens.lens (\DescribeInstanceTypes' {instanceTypes} -> instanceTypes) (\s@DescribeInstanceTypes' {} a -> s {instanceTypes = a} :: DescribeInstanceTypes) Prelude.. Lens.mapping Lens.coerced
 
 -- | The maximum number of results to return for the request in a single
 -- page. The remaining results can be seen by sending another request with
 -- the next token value.
 describeInstanceTypes_maxResults :: Lens.Lens' DescribeInstanceTypes (Prelude.Maybe Prelude.Natural)
 describeInstanceTypes_maxResults = Lens.lens (\DescribeInstanceTypes' {maxResults} -> maxResults) (\s@DescribeInstanceTypes' {} a -> s {maxResults = a} :: DescribeInstanceTypes)
+
+-- | The token to retrieve the next page of results.
+describeInstanceTypes_nextToken :: Lens.Lens' DescribeInstanceTypes (Prelude.Maybe Prelude.Text)
+describeInstanceTypes_nextToken = Lens.lens (\DescribeInstanceTypes' {nextToken} -> nextToken) (\s@DescribeInstanceTypes' {} a -> s {nextToken = a} :: DescribeInstanceTypes)
 
 instance Core.AWSPager DescribeInstanceTypes where
   page rq rs
@@ -592,56 +601,57 @@ instance Core.AWSRequest DescribeInstanceTypes where
   type
     AWSResponse DescribeInstanceTypes =
       DescribeInstanceTypesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeInstanceTypesResponse'
-            Prelude.<$> ( x Core..@? "instanceTypeSet" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> ( x Data..@? "instanceTypeSet" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
-            Prelude.<*> (x Core..@? "nextToken")
+            Prelude.<*> (x Data..@? "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeInstanceTypes where
   hashWithSalt _salt DescribeInstanceTypes' {..} =
-    _salt `Prelude.hashWithSalt` instanceTypes
+    _salt `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` instanceTypes
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeInstanceTypes where
   rnf DescribeInstanceTypes' {..} =
-    Prelude.rnf instanceTypes
+    Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf instanceTypes
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeInstanceTypes where
+instance Data.ToHeaders DescribeInstanceTypes where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeInstanceTypes where
+instance Data.ToPath DescribeInstanceTypes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeInstanceTypes where
+instance Data.ToQuery DescribeInstanceTypes where
   toQuery DescribeInstanceTypes' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeInstanceTypes" :: Prelude.ByteString),
+          Data.=: ("DescribeInstanceTypes" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          ( Core.toQueryList "InstanceType"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        Data.toQuery
+          ( Data.toQueryList "InstanceType"
               Prelude.<$> instanceTypes
           ),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newDescribeInstanceTypesResponse' smart constructor.

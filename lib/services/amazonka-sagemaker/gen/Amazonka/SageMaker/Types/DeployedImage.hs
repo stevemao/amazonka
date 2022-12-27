@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.DeployedImage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.DeployedImage where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Gets the Amazon EC2 Container Registry path of the docker image of the
@@ -37,14 +38,14 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newDeployedImage' smart constructor.
 data DeployedImage = DeployedImage'
-  { -- | The specific digest path of the image hosted in this
+  { -- | The date and time when the image path for the model resolved to the
+    -- @ResolvedImage@
+    resolutionTime :: Prelude.Maybe Data.POSIX,
+    -- | The specific digest path of the image hosted in this
     -- @ProductionVariant@.
     resolvedImage :: Prelude.Maybe Prelude.Text,
     -- | The image path you specified when you created the model.
-    specifiedImage :: Prelude.Maybe Prelude.Text,
-    -- | The date and time when the image path for the model resolved to the
-    -- @ResolvedImage@
-    resolutionTime :: Prelude.Maybe Core.POSIX
+    specifiedImage :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -56,21 +57,26 @@ data DeployedImage = DeployedImage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'resolutionTime', 'deployedImage_resolutionTime' - The date and time when the image path for the model resolved to the
+-- @ResolvedImage@
+--
 -- 'resolvedImage', 'deployedImage_resolvedImage' - The specific digest path of the image hosted in this
 -- @ProductionVariant@.
 --
 -- 'specifiedImage', 'deployedImage_specifiedImage' - The image path you specified when you created the model.
---
--- 'resolutionTime', 'deployedImage_resolutionTime' - The date and time when the image path for the model resolved to the
--- @ResolvedImage@
 newDeployedImage ::
   DeployedImage
 newDeployedImage =
   DeployedImage'
-    { resolvedImage = Prelude.Nothing,
-      specifiedImage = Prelude.Nothing,
-      resolutionTime = Prelude.Nothing
+    { resolutionTime = Prelude.Nothing,
+      resolvedImage = Prelude.Nothing,
+      specifiedImage = Prelude.Nothing
     }
+
+-- | The date and time when the image path for the model resolved to the
+-- @ResolvedImage@
+deployedImage_resolutionTime :: Lens.Lens' DeployedImage (Prelude.Maybe Prelude.UTCTime)
+deployedImage_resolutionTime = Lens.lens (\DeployedImage' {resolutionTime} -> resolutionTime) (\s@DeployedImage' {} a -> s {resolutionTime = a} :: DeployedImage) Prelude.. Lens.mapping Data._Time
 
 -- | The specific digest path of the image hosted in this
 -- @ProductionVariant@.
@@ -81,30 +87,25 @@ deployedImage_resolvedImage = Lens.lens (\DeployedImage' {resolvedImage} -> reso
 deployedImage_specifiedImage :: Lens.Lens' DeployedImage (Prelude.Maybe Prelude.Text)
 deployedImage_specifiedImage = Lens.lens (\DeployedImage' {specifiedImage} -> specifiedImage) (\s@DeployedImage' {} a -> s {specifiedImage = a} :: DeployedImage)
 
--- | The date and time when the image path for the model resolved to the
--- @ResolvedImage@
-deployedImage_resolutionTime :: Lens.Lens' DeployedImage (Prelude.Maybe Prelude.UTCTime)
-deployedImage_resolutionTime = Lens.lens (\DeployedImage' {resolutionTime} -> resolutionTime) (\s@DeployedImage' {} a -> s {resolutionTime = a} :: DeployedImage) Prelude.. Lens.mapping Core._Time
-
-instance Core.FromJSON DeployedImage where
+instance Data.FromJSON DeployedImage where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DeployedImage"
       ( \x ->
           DeployedImage'
-            Prelude.<$> (x Core..:? "ResolvedImage")
-            Prelude.<*> (x Core..:? "SpecifiedImage")
-            Prelude.<*> (x Core..:? "ResolutionTime")
+            Prelude.<$> (x Data..:? "ResolutionTime")
+            Prelude.<*> (x Data..:? "ResolvedImage")
+            Prelude.<*> (x Data..:? "SpecifiedImage")
       )
 
 instance Prelude.Hashable DeployedImage where
   hashWithSalt _salt DeployedImage' {..} =
-    _salt `Prelude.hashWithSalt` resolvedImage
+    _salt `Prelude.hashWithSalt` resolutionTime
+      `Prelude.hashWithSalt` resolvedImage
       `Prelude.hashWithSalt` specifiedImage
-      `Prelude.hashWithSalt` resolutionTime
 
 instance Prelude.NFData DeployedImage where
   rnf DeployedImage' {..} =
-    Prelude.rnf resolvedImage
+    Prelude.rnf resolutionTime
+      `Prelude.seq` Prelude.rnf resolvedImage
       `Prelude.seq` Prelude.rnf specifiedImage
-      `Prelude.seq` Prelude.rnf resolutionTime

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsApiCallAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsApiCallAction where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.ActionRemoteIpDetails
 import Amazonka.SecurityHub.Types.AwsApiCallActionDomainDetails
@@ -30,28 +31,28 @@ import Amazonka.SecurityHub.Types.AwsApiCallActionDomainDetails
 --
 -- /See:/ 'newAwsApiCallAction' smart constructor.
 data AwsApiCallAction = AwsApiCallAction'
-  { -- | Provided if @CallerType@ is @remoteIp@. Provides information about the
-    -- remote IP address that the API call originated from.
-    remoteIpDetails :: Prelude.Maybe ActionRemoteIpDetails,
-    -- | An ISO8601-formatted timestamp that indicates when the API call was
-    -- first observed.
-    firstSeen :: Prelude.Maybe Prelude.Text,
+  { -- | Identifies the resources that were affected by the API call.
+    affectedResources :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | The name of the API method that was issued.
+    api :: Prelude.Maybe Prelude.Text,
     -- | Indicates whether the API call originated from a remote IP address
     -- (@remoteip@) or from a DNS domain (@domain@).
     callerType :: Prelude.Maybe Prelude.Text,
-    -- | Identifies the resources that were affected by the API call.
-    affectedResources :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | An ISO8601-formatted timestamp that indicates when the API call was most
-    -- recently observed.
-    lastSeen :: Prelude.Maybe Prelude.Text,
     -- | Provided if @CallerType@ is @domain@. Provides information about the DNS
     -- domain that the API call originated from.
     domainDetails :: Prelude.Maybe AwsApiCallActionDomainDetails,
+    -- | An ISO8601-formatted timestamp that indicates when the API call was
+    -- first observed.
+    firstSeen :: Prelude.Maybe Prelude.Text,
+    -- | An ISO8601-formatted timestamp that indicates when the API call was most
+    -- recently observed.
+    lastSeen :: Prelude.Maybe Prelude.Text,
+    -- | Provided if @CallerType@ is @remoteIp@. Provides information about the
+    -- remote IP address that the API call originated from.
+    remoteIpDetails :: Prelude.Maybe ActionRemoteIpDetails,
     -- | The name of the Amazon Web Services service that the API method belongs
     -- to.
-    serviceName :: Prelude.Maybe Prelude.Text,
-    -- | The name of the API method that was issued.
-    api :: Prelude.Maybe Prelude.Text
+    serviceName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -63,133 +64,133 @@ data AwsApiCallAction = AwsApiCallAction'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'remoteIpDetails', 'awsApiCallAction_remoteIpDetails' - Provided if @CallerType@ is @remoteIp@. Provides information about the
--- remote IP address that the API call originated from.
+-- 'affectedResources', 'awsApiCallAction_affectedResources' - Identifies the resources that were affected by the API call.
 --
--- 'firstSeen', 'awsApiCallAction_firstSeen' - An ISO8601-formatted timestamp that indicates when the API call was
--- first observed.
+-- 'api', 'awsApiCallAction_api' - The name of the API method that was issued.
 --
 -- 'callerType', 'awsApiCallAction_callerType' - Indicates whether the API call originated from a remote IP address
 -- (@remoteip@) or from a DNS domain (@domain@).
 --
--- 'affectedResources', 'awsApiCallAction_affectedResources' - Identifies the resources that were affected by the API call.
+-- 'domainDetails', 'awsApiCallAction_domainDetails' - Provided if @CallerType@ is @domain@. Provides information about the DNS
+-- domain that the API call originated from.
+--
+-- 'firstSeen', 'awsApiCallAction_firstSeen' - An ISO8601-formatted timestamp that indicates when the API call was
+-- first observed.
 --
 -- 'lastSeen', 'awsApiCallAction_lastSeen' - An ISO8601-formatted timestamp that indicates when the API call was most
 -- recently observed.
 --
--- 'domainDetails', 'awsApiCallAction_domainDetails' - Provided if @CallerType@ is @domain@. Provides information about the DNS
--- domain that the API call originated from.
+-- 'remoteIpDetails', 'awsApiCallAction_remoteIpDetails' - Provided if @CallerType@ is @remoteIp@. Provides information about the
+-- remote IP address that the API call originated from.
 --
 -- 'serviceName', 'awsApiCallAction_serviceName' - The name of the Amazon Web Services service that the API method belongs
 -- to.
---
--- 'api', 'awsApiCallAction_api' - The name of the API method that was issued.
 newAwsApiCallAction ::
   AwsApiCallAction
 newAwsApiCallAction =
   AwsApiCallAction'
-    { remoteIpDetails =
+    { affectedResources =
         Prelude.Nothing,
-      firstSeen = Prelude.Nothing,
+      api = Prelude.Nothing,
       callerType = Prelude.Nothing,
-      affectedResources = Prelude.Nothing,
-      lastSeen = Prelude.Nothing,
       domainDetails = Prelude.Nothing,
-      serviceName = Prelude.Nothing,
-      api = Prelude.Nothing
+      firstSeen = Prelude.Nothing,
+      lastSeen = Prelude.Nothing,
+      remoteIpDetails = Prelude.Nothing,
+      serviceName = Prelude.Nothing
     }
 
--- | Provided if @CallerType@ is @remoteIp@. Provides information about the
--- remote IP address that the API call originated from.
-awsApiCallAction_remoteIpDetails :: Lens.Lens' AwsApiCallAction (Prelude.Maybe ActionRemoteIpDetails)
-awsApiCallAction_remoteIpDetails = Lens.lens (\AwsApiCallAction' {remoteIpDetails} -> remoteIpDetails) (\s@AwsApiCallAction' {} a -> s {remoteIpDetails = a} :: AwsApiCallAction)
+-- | Identifies the resources that were affected by the API call.
+awsApiCallAction_affectedResources :: Lens.Lens' AwsApiCallAction (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+awsApiCallAction_affectedResources = Lens.lens (\AwsApiCallAction' {affectedResources} -> affectedResources) (\s@AwsApiCallAction' {} a -> s {affectedResources = a} :: AwsApiCallAction) Prelude.. Lens.mapping Lens.coerced
 
--- | An ISO8601-formatted timestamp that indicates when the API call was
--- first observed.
-awsApiCallAction_firstSeen :: Lens.Lens' AwsApiCallAction (Prelude.Maybe Prelude.Text)
-awsApiCallAction_firstSeen = Lens.lens (\AwsApiCallAction' {firstSeen} -> firstSeen) (\s@AwsApiCallAction' {} a -> s {firstSeen = a} :: AwsApiCallAction)
+-- | The name of the API method that was issued.
+awsApiCallAction_api :: Lens.Lens' AwsApiCallAction (Prelude.Maybe Prelude.Text)
+awsApiCallAction_api = Lens.lens (\AwsApiCallAction' {api} -> api) (\s@AwsApiCallAction' {} a -> s {api = a} :: AwsApiCallAction)
 
 -- | Indicates whether the API call originated from a remote IP address
 -- (@remoteip@) or from a DNS domain (@domain@).
 awsApiCallAction_callerType :: Lens.Lens' AwsApiCallAction (Prelude.Maybe Prelude.Text)
 awsApiCallAction_callerType = Lens.lens (\AwsApiCallAction' {callerType} -> callerType) (\s@AwsApiCallAction' {} a -> s {callerType = a} :: AwsApiCallAction)
 
--- | Identifies the resources that were affected by the API call.
-awsApiCallAction_affectedResources :: Lens.Lens' AwsApiCallAction (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
-awsApiCallAction_affectedResources = Lens.lens (\AwsApiCallAction' {affectedResources} -> affectedResources) (\s@AwsApiCallAction' {} a -> s {affectedResources = a} :: AwsApiCallAction) Prelude.. Lens.mapping Lens.coerced
+-- | Provided if @CallerType@ is @domain@. Provides information about the DNS
+-- domain that the API call originated from.
+awsApiCallAction_domainDetails :: Lens.Lens' AwsApiCallAction (Prelude.Maybe AwsApiCallActionDomainDetails)
+awsApiCallAction_domainDetails = Lens.lens (\AwsApiCallAction' {domainDetails} -> domainDetails) (\s@AwsApiCallAction' {} a -> s {domainDetails = a} :: AwsApiCallAction)
+
+-- | An ISO8601-formatted timestamp that indicates when the API call was
+-- first observed.
+awsApiCallAction_firstSeen :: Lens.Lens' AwsApiCallAction (Prelude.Maybe Prelude.Text)
+awsApiCallAction_firstSeen = Lens.lens (\AwsApiCallAction' {firstSeen} -> firstSeen) (\s@AwsApiCallAction' {} a -> s {firstSeen = a} :: AwsApiCallAction)
 
 -- | An ISO8601-formatted timestamp that indicates when the API call was most
 -- recently observed.
 awsApiCallAction_lastSeen :: Lens.Lens' AwsApiCallAction (Prelude.Maybe Prelude.Text)
 awsApiCallAction_lastSeen = Lens.lens (\AwsApiCallAction' {lastSeen} -> lastSeen) (\s@AwsApiCallAction' {} a -> s {lastSeen = a} :: AwsApiCallAction)
 
--- | Provided if @CallerType@ is @domain@. Provides information about the DNS
--- domain that the API call originated from.
-awsApiCallAction_domainDetails :: Lens.Lens' AwsApiCallAction (Prelude.Maybe AwsApiCallActionDomainDetails)
-awsApiCallAction_domainDetails = Lens.lens (\AwsApiCallAction' {domainDetails} -> domainDetails) (\s@AwsApiCallAction' {} a -> s {domainDetails = a} :: AwsApiCallAction)
+-- | Provided if @CallerType@ is @remoteIp@. Provides information about the
+-- remote IP address that the API call originated from.
+awsApiCallAction_remoteIpDetails :: Lens.Lens' AwsApiCallAction (Prelude.Maybe ActionRemoteIpDetails)
+awsApiCallAction_remoteIpDetails = Lens.lens (\AwsApiCallAction' {remoteIpDetails} -> remoteIpDetails) (\s@AwsApiCallAction' {} a -> s {remoteIpDetails = a} :: AwsApiCallAction)
 
 -- | The name of the Amazon Web Services service that the API method belongs
 -- to.
 awsApiCallAction_serviceName :: Lens.Lens' AwsApiCallAction (Prelude.Maybe Prelude.Text)
 awsApiCallAction_serviceName = Lens.lens (\AwsApiCallAction' {serviceName} -> serviceName) (\s@AwsApiCallAction' {} a -> s {serviceName = a} :: AwsApiCallAction)
 
--- | The name of the API method that was issued.
-awsApiCallAction_api :: Lens.Lens' AwsApiCallAction (Prelude.Maybe Prelude.Text)
-awsApiCallAction_api = Lens.lens (\AwsApiCallAction' {api} -> api) (\s@AwsApiCallAction' {} a -> s {api = a} :: AwsApiCallAction)
-
-instance Core.FromJSON AwsApiCallAction where
+instance Data.FromJSON AwsApiCallAction where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsApiCallAction"
       ( \x ->
           AwsApiCallAction'
-            Prelude.<$> (x Core..:? "RemoteIpDetails")
-            Prelude.<*> (x Core..:? "FirstSeen")
-            Prelude.<*> (x Core..:? "CallerType")
-            Prelude.<*> ( x Core..:? "AffectedResources"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "AffectedResources"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "LastSeen")
-            Prelude.<*> (x Core..:? "DomainDetails")
-            Prelude.<*> (x Core..:? "ServiceName")
-            Prelude.<*> (x Core..:? "Api")
+            Prelude.<*> (x Data..:? "Api")
+            Prelude.<*> (x Data..:? "CallerType")
+            Prelude.<*> (x Data..:? "DomainDetails")
+            Prelude.<*> (x Data..:? "FirstSeen")
+            Prelude.<*> (x Data..:? "LastSeen")
+            Prelude.<*> (x Data..:? "RemoteIpDetails")
+            Prelude.<*> (x Data..:? "ServiceName")
       )
 
 instance Prelude.Hashable AwsApiCallAction where
   hashWithSalt _salt AwsApiCallAction' {..} =
-    _salt `Prelude.hashWithSalt` remoteIpDetails
-      `Prelude.hashWithSalt` firstSeen
-      `Prelude.hashWithSalt` callerType
-      `Prelude.hashWithSalt` affectedResources
-      `Prelude.hashWithSalt` lastSeen
-      `Prelude.hashWithSalt` domainDetails
-      `Prelude.hashWithSalt` serviceName
+    _salt `Prelude.hashWithSalt` affectedResources
       `Prelude.hashWithSalt` api
+      `Prelude.hashWithSalt` callerType
+      `Prelude.hashWithSalt` domainDetails
+      `Prelude.hashWithSalt` firstSeen
+      `Prelude.hashWithSalt` lastSeen
+      `Prelude.hashWithSalt` remoteIpDetails
+      `Prelude.hashWithSalt` serviceName
 
 instance Prelude.NFData AwsApiCallAction where
   rnf AwsApiCallAction' {..} =
-    Prelude.rnf remoteIpDetails
-      `Prelude.seq` Prelude.rnf firstSeen
-      `Prelude.seq` Prelude.rnf callerType
-      `Prelude.seq` Prelude.rnf affectedResources
-      `Prelude.seq` Prelude.rnf lastSeen
-      `Prelude.seq` Prelude.rnf domainDetails
-      `Prelude.seq` Prelude.rnf serviceName
+    Prelude.rnf affectedResources
       `Prelude.seq` Prelude.rnf api
+      `Prelude.seq` Prelude.rnf callerType
+      `Prelude.seq` Prelude.rnf domainDetails
+      `Prelude.seq` Prelude.rnf firstSeen
+      `Prelude.seq` Prelude.rnf lastSeen
+      `Prelude.seq` Prelude.rnf remoteIpDetails
+      `Prelude.seq` Prelude.rnf serviceName
 
-instance Core.ToJSON AwsApiCallAction where
+instance Data.ToJSON AwsApiCallAction where
   toJSON AwsApiCallAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RemoteIpDetails" Core..=)
-              Prelude.<$> remoteIpDetails,
-            ("FirstSeen" Core..=) Prelude.<$> firstSeen,
-            ("CallerType" Core..=) Prelude.<$> callerType,
-            ("AffectedResources" Core..=)
+          [ ("AffectedResources" Data..=)
               Prelude.<$> affectedResources,
-            ("LastSeen" Core..=) Prelude.<$> lastSeen,
-            ("DomainDetails" Core..=) Prelude.<$> domainDetails,
-            ("ServiceName" Core..=) Prelude.<$> serviceName,
-            ("Api" Core..=) Prelude.<$> api
+            ("Api" Data..=) Prelude.<$> api,
+            ("CallerType" Data..=) Prelude.<$> callerType,
+            ("DomainDetails" Data..=) Prelude.<$> domainDetails,
+            ("FirstSeen" Data..=) Prelude.<$> firstSeen,
+            ("LastSeen" Data..=) Prelude.<$> lastSeen,
+            ("RemoteIpDetails" Data..=)
+              Prelude.<$> remoteIpDetails,
+            ("ServiceName" Data..=) Prelude.<$> serviceName
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.BucketLoggingStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.BucketLoggingStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.LoggingEnabled
@@ -62,7 +63,7 @@ instance Prelude.NFData BucketLoggingStatus where
   rnf BucketLoggingStatus' {..} =
     Prelude.rnf loggingEnabled
 
-instance Core.ToXML BucketLoggingStatus where
+instance Data.ToXML BucketLoggingStatus where
   toXML BucketLoggingStatus' {..} =
     Prelude.mconcat
-      ["LoggingEnabled" Core.@= loggingEnabled]
+      ["LoggingEnabled" Data.@= loggingEnabled]

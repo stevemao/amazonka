@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.EnableImageDeprecation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.EC2.EnableImageDeprecation
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,8 +67,9 @@ data EnableImageDeprecation = EnableImageDeprecation'
     -- Amazon EC2 rounds the seconds to the nearest minute.
     --
     -- You can’t specify a date in the past. The upper limit for @DeprecateAt@
-    -- is 10 years from now.
-    deprecateAt :: Core.ISO8601
+    -- is 10 years from now, except for public AMIs, where the upper limit is 2
+    -- years from the creation date.
+    deprecateAt :: Data.ISO8601
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -91,7 +93,8 @@ data EnableImageDeprecation = EnableImageDeprecation'
 -- Amazon EC2 rounds the seconds to the nearest minute.
 --
 -- You can’t specify a date in the past. The upper limit for @DeprecateAt@
--- is 10 years from now.
+-- is 10 years from now, except for public AMIs, where the upper limit is 2
+-- years from the creation date.
 newEnableImageDeprecation ::
   -- | 'imageId'
   Prelude.Text ->
@@ -102,7 +105,7 @@ newEnableImageDeprecation pImageId_ pDeprecateAt_ =
   EnableImageDeprecation'
     { dryRun = Prelude.Nothing,
       imageId = pImageId_,
-      deprecateAt = Core._Time Lens.# pDeprecateAt_
+      deprecateAt = Data._Time Lens.# pDeprecateAt_
     }
 
 -- | Checks whether you have the required permissions for the action, without
@@ -121,20 +124,22 @@ enableImageDeprecation_imageId = Lens.lens (\EnableImageDeprecation' {imageId} -
 -- Amazon EC2 rounds the seconds to the nearest minute.
 --
 -- You can’t specify a date in the past. The upper limit for @DeprecateAt@
--- is 10 years from now.
+-- is 10 years from now, except for public AMIs, where the upper limit is 2
+-- years from the creation date.
 enableImageDeprecation_deprecateAt :: Lens.Lens' EnableImageDeprecation Prelude.UTCTime
-enableImageDeprecation_deprecateAt = Lens.lens (\EnableImageDeprecation' {deprecateAt} -> deprecateAt) (\s@EnableImageDeprecation' {} a -> s {deprecateAt = a} :: EnableImageDeprecation) Prelude.. Core._Time
+enableImageDeprecation_deprecateAt = Lens.lens (\EnableImageDeprecation' {deprecateAt} -> deprecateAt) (\s@EnableImageDeprecation' {} a -> s {deprecateAt = a} :: EnableImageDeprecation) Prelude.. Data._Time
 
 instance Core.AWSRequest EnableImageDeprecation where
   type
     AWSResponse EnableImageDeprecation =
       EnableImageDeprecationResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           EnableImageDeprecationResponse'
-            Prelude.<$> (x Core..@? "return")
+            Prelude.<$> (x Data..@? "return")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -150,22 +155,22 @@ instance Prelude.NFData EnableImageDeprecation where
       `Prelude.seq` Prelude.rnf imageId
       `Prelude.seq` Prelude.rnf deprecateAt
 
-instance Core.ToHeaders EnableImageDeprecation where
+instance Data.ToHeaders EnableImageDeprecation where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath EnableImageDeprecation where
+instance Data.ToPath EnableImageDeprecation where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery EnableImageDeprecation where
+instance Data.ToQuery EnableImageDeprecation where
   toQuery EnableImageDeprecation' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("EnableImageDeprecation" :: Prelude.ByteString),
+          Data.=: ("EnableImageDeprecation" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "ImageId" Core.=: imageId,
-        "DeprecateAt" Core.=: deprecateAt
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "ImageId" Data.=: imageId,
+        "DeprecateAt" Data.=: deprecateAt
       ]
 
 -- | /See:/ 'newEnableImageDeprecationResponse' smart constructor.

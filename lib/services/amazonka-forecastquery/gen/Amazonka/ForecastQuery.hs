@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.ForecastQuery
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -19,20 +19,20 @@ module Amazonka.ForecastQuery
     -- * Errors
     -- $errors
 
-    -- ** InvalidNextTokenException
-    _InvalidNextTokenException,
-
     -- ** InvalidInputException
     _InvalidInputException,
 
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
+    -- ** InvalidNextTokenException
+    _InvalidNextTokenException,
 
     -- ** LimitExceededException
     _LimitExceededException,
 
     -- ** ResourceInUseException
     _ResourceInUseException,
+
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
 
     -- * Waiters
     -- $waiters
@@ -45,6 +45,12 @@ module Amazonka.ForecastQuery
     newQueryForecast,
     QueryForecastResponse (QueryForecastResponse'),
     newQueryForecastResponse,
+
+    -- ** QueryWhatIfForecast
+    QueryWhatIfForecast (QueryWhatIfForecast'),
+    newQueryWhatIfForecast,
+    QueryWhatIfForecastResponse (QueryWhatIfForecastResponse'),
+    newQueryWhatIfForecastResponse,
 
     -- * Types
 
@@ -60,6 +66,7 @@ where
 
 import Amazonka.ForecastQuery.Lens
 import Amazonka.ForecastQuery.QueryForecast
+import Amazonka.ForecastQuery.QueryWhatIfForecast
 import Amazonka.ForecastQuery.Types
 import Amazonka.ForecastQuery.Waiters
 

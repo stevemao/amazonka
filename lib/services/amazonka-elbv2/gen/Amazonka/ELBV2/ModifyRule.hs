@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ELBV2.ModifyRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.ELBV2.ModifyRule
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELBV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,14 +103,15 @@ modifyRule_ruleArn = Lens.lens (\ModifyRule' {ruleArn} -> ruleArn) (\s@ModifyRul
 
 instance Core.AWSRequest ModifyRule where
   type AWSResponse ModifyRule = ModifyRuleResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ModifyRuleResult"
       ( \s h x ->
           ModifyRuleResponse'
-            Prelude.<$> ( x Core..@? "Rules" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> ( x Data..@? "Rules" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -126,26 +128,26 @@ instance Prelude.NFData ModifyRule where
       `Prelude.seq` Prelude.rnf conditions
       `Prelude.seq` Prelude.rnf ruleArn
 
-instance Core.ToHeaders ModifyRule where
+instance Data.ToHeaders ModifyRule where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyRule where
+instance Data.ToPath ModifyRule where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyRule where
+instance Data.ToQuery ModifyRule where
   toQuery ModifyRule' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyRule" :: Prelude.ByteString),
+          Data.=: ("ModifyRule" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-12-01" :: Prelude.ByteString),
+          Data.=: ("2015-12-01" :: Prelude.ByteString),
         "Actions"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> actions),
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> actions),
         "Conditions"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> conditions),
-        "RuleArn" Core.=: ruleArn
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> conditions),
+        "RuleArn" Data.=: ruleArn
       ]
 
 -- | /See:/ 'newModifyRuleResponse' smart constructor.

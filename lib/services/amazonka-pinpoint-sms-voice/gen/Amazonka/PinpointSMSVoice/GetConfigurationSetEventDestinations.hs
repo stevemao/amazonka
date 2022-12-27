@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.PinpointSMSVoice.GetConfigurationSetEventDestinations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.PinpointSMSVoice.GetConfigurationSetEventDestinations
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.PinpointSMSVoice.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -86,12 +87,13 @@ instance
   type
     AWSResponse GetConfigurationSetEventDestinations =
       GetConfigurationSetEventDestinationsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetConfigurationSetEventDestinationsResponse'
-            Prelude.<$> ( x Core..?> "EventDestinations"
+            Prelude.<$> ( x Data..?> "EventDestinations"
                             Core..!@ Prelude.mempty
                         )
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -114,32 +116,32 @@ instance
     Prelude.rnf configurationSetName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetConfigurationSetEventDestinations
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     GetConfigurationSetEventDestinations
   where
   toPath GetConfigurationSetEventDestinations' {..} =
     Prelude.mconcat
       [ "/v1/sms-voice/configuration-sets/",
-        Core.toBS configurationSetName,
+        Data.toBS configurationSetName,
         "/event-destinations"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetConfigurationSetEventDestinations
   where
   toQuery = Prelude.const Prelude.mempty

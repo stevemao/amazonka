@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -8,7 +9,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Waiters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -16,21 +17,22 @@
 module Amazonka.ECS.Waiters where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.DescribeServices
 import Amazonka.ECS.DescribeTasks
 import Amazonka.ECS.Lens
 import Amazonka.ECS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Polls 'Amazonka.ECS.DescribeServices' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
 newServicesInactive :: Core.Wait DescribeServices
 newServicesInactive =
   Core.Wait
-    { Core._waitName = "ServicesInactive",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
+    { Core.name = "ServicesInactive",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
         [ Core.matchAny
             "MISSING"
             Core.AcceptFailure
@@ -42,7 +44,7 @@ newServicesInactive =
                 )
                 Prelude.. failure_reason
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "INACTIVE"
@@ -55,7 +57,7 @@ newServicesInactive =
                 )
                 Prelude.. containerService_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }
@@ -64,10 +66,10 @@ newServicesInactive =
 newTasksRunning :: Core.Wait DescribeTasks
 newTasksRunning =
   Core.Wait
-    { Core._waitName = "TasksRunning",
-      Core._waitAttempts = 100,
-      Core._waitDelay = 6,
-      Core._waitAcceptors =
+    { Core.name = "TasksRunning",
+      Core.attempts = 100,
+      Core.delay = 6,
+      Core.acceptors =
         [ Core.matchAny
             "STOPPED"
             Core.AcceptFailure
@@ -77,7 +79,7 @@ newTasksRunning =
                 )
                 Prelude.. task_lastStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "MISSING"
@@ -90,7 +92,7 @@ newTasksRunning =
                 )
                 Prelude.. failure_reason
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAll
             "RUNNING"
@@ -101,7 +103,7 @@ newTasksRunning =
                 )
                 Prelude.. task_lastStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }
@@ -110,10 +112,10 @@ newTasksRunning =
 newTasksStopped :: Core.Wait DescribeTasks
 newTasksStopped =
   Core.Wait
-    { Core._waitName = "TasksStopped",
-      Core._waitAttempts = 100,
-      Core._waitDelay = 6,
-      Core._waitAcceptors =
+    { Core.name = "TasksStopped",
+      Core.attempts = 100,
+      Core.delay = 6,
+      Core.acceptors =
         [ Core.matchAll
             "STOPPED"
             Core.AcceptSuccess
@@ -123,7 +125,7 @@ newTasksStopped =
                 )
                 Prelude.. task_lastStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }

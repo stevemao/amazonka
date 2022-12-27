@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeClientVpnTargetNetworks
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,11 +30,11 @@ module Amazonka.EC2.DescribeClientVpnTargetNetworks
     newDescribeClientVpnTargetNetworks,
 
     -- * Request Lenses
-    describeClientVpnTargetNetworks_filters,
-    describeClientVpnTargetNetworks_nextToken,
     describeClientVpnTargetNetworks_associationIds,
     describeClientVpnTargetNetworks_dryRun,
+    describeClientVpnTargetNetworks_filters,
     describeClientVpnTargetNetworks_maxResults,
+    describeClientVpnTargetNetworks_nextToken,
     describeClientVpnTargetNetworks_clientVpnEndpointId,
 
     -- * Destructuring the Response
@@ -49,15 +49,23 @@ module Amazonka.EC2.DescribeClientVpnTargetNetworks
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeClientVpnTargetNetworks' smart constructor.
 data DescribeClientVpnTargetNetworks = DescribeClientVpnTargetNetworks'
-  { -- | One or more filters. Filter names and values are case-sensitive.
+  { -- | The IDs of the target network associations.
+    associationIds :: Prelude.Maybe [Prelude.Text],
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | One or more filters. Filter names and values are case-sensitive.
     --
     -- -   @association-id@ - The ID of the association.
     --
@@ -66,19 +74,12 @@ data DescribeClientVpnTargetNetworks = DescribeClientVpnTargetNetworks'
     --
     -- -   @vpc-id@ - The ID of the VPC in which the target network is located.
     filters :: Prelude.Maybe [Filter],
-    -- | The token to retrieve the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The IDs of the target network associations.
-    associationIds :: Prelude.Maybe [Prelude.Text],
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | The maximum number of results to return for the request in a single
     -- page. The remaining results can be seen by sending another request with
     -- the nextToken value.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to retrieve the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ID of the Client VPN endpoint.
     clientVpnEndpointId :: Prelude.Text
   }
@@ -92,6 +93,13 @@ data DescribeClientVpnTargetNetworks = DescribeClientVpnTargetNetworks'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'associationIds', 'describeClientVpnTargetNetworks_associationIds' - The IDs of the target network associations.
+--
+-- 'dryRun', 'describeClientVpnTargetNetworks_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
 -- 'filters', 'describeClientVpnTargetNetworks_filters' - One or more filters. Filter names and values are case-sensitive.
 --
 -- -   @association-id@ - The ID of the association.
@@ -101,18 +109,11 @@ data DescribeClientVpnTargetNetworks = DescribeClientVpnTargetNetworks'
 --
 -- -   @vpc-id@ - The ID of the VPC in which the target network is located.
 --
--- 'nextToken', 'describeClientVpnTargetNetworks_nextToken' - The token to retrieve the next page of results.
---
--- 'associationIds', 'describeClientVpnTargetNetworks_associationIds' - The IDs of the target network associations.
---
--- 'dryRun', 'describeClientVpnTargetNetworks_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
---
 -- 'maxResults', 'describeClientVpnTargetNetworks_maxResults' - The maximum number of results to return for the request in a single
 -- page. The remaining results can be seen by sending another request with
 -- the nextToken value.
+--
+-- 'nextToken', 'describeClientVpnTargetNetworks_nextToken' - The token to retrieve the next page of results.
 --
 -- 'clientVpnEndpointId', 'describeClientVpnTargetNetworks_clientVpnEndpointId' - The ID of the Client VPN endpoint.
 newDescribeClientVpnTargetNetworks ::
@@ -122,30 +123,15 @@ newDescribeClientVpnTargetNetworks ::
 newDescribeClientVpnTargetNetworks
   pClientVpnEndpointId_ =
     DescribeClientVpnTargetNetworks'
-      { filters =
+      { associationIds =
           Prelude.Nothing,
-        nextToken = Prelude.Nothing,
-        associationIds = Prelude.Nothing,
         dryRun = Prelude.Nothing,
+        filters = Prelude.Nothing,
         maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         clientVpnEndpointId =
           pClientVpnEndpointId_
       }
-
--- | One or more filters. Filter names and values are case-sensitive.
---
--- -   @association-id@ - The ID of the association.
---
--- -   @target-network-id@ - The ID of the subnet specified as the target
---     network.
---
--- -   @vpc-id@ - The ID of the VPC in which the target network is located.
-describeClientVpnTargetNetworks_filters :: Lens.Lens' DescribeClientVpnTargetNetworks (Prelude.Maybe [Filter])
-describeClientVpnTargetNetworks_filters = Lens.lens (\DescribeClientVpnTargetNetworks' {filters} -> filters) (\s@DescribeClientVpnTargetNetworks' {} a -> s {filters = a} :: DescribeClientVpnTargetNetworks) Prelude.. Lens.mapping Lens.coerced
-
--- | The token to retrieve the next page of results.
-describeClientVpnTargetNetworks_nextToken :: Lens.Lens' DescribeClientVpnTargetNetworks (Prelude.Maybe Prelude.Text)
-describeClientVpnTargetNetworks_nextToken = Lens.lens (\DescribeClientVpnTargetNetworks' {nextToken} -> nextToken) (\s@DescribeClientVpnTargetNetworks' {} a -> s {nextToken = a} :: DescribeClientVpnTargetNetworks)
 
 -- | The IDs of the target network associations.
 describeClientVpnTargetNetworks_associationIds :: Lens.Lens' DescribeClientVpnTargetNetworks (Prelude.Maybe [Prelude.Text])
@@ -158,11 +144,26 @@ describeClientVpnTargetNetworks_associationIds = Lens.lens (\DescribeClientVpnTa
 describeClientVpnTargetNetworks_dryRun :: Lens.Lens' DescribeClientVpnTargetNetworks (Prelude.Maybe Prelude.Bool)
 describeClientVpnTargetNetworks_dryRun = Lens.lens (\DescribeClientVpnTargetNetworks' {dryRun} -> dryRun) (\s@DescribeClientVpnTargetNetworks' {} a -> s {dryRun = a} :: DescribeClientVpnTargetNetworks)
 
+-- | One or more filters. Filter names and values are case-sensitive.
+--
+-- -   @association-id@ - The ID of the association.
+--
+-- -   @target-network-id@ - The ID of the subnet specified as the target
+--     network.
+--
+-- -   @vpc-id@ - The ID of the VPC in which the target network is located.
+describeClientVpnTargetNetworks_filters :: Lens.Lens' DescribeClientVpnTargetNetworks (Prelude.Maybe [Filter])
+describeClientVpnTargetNetworks_filters = Lens.lens (\DescribeClientVpnTargetNetworks' {filters} -> filters) (\s@DescribeClientVpnTargetNetworks' {} a -> s {filters = a} :: DescribeClientVpnTargetNetworks) Prelude.. Lens.mapping Lens.coerced
+
 -- | The maximum number of results to return for the request in a single
 -- page. The remaining results can be seen by sending another request with
 -- the nextToken value.
 describeClientVpnTargetNetworks_maxResults :: Lens.Lens' DescribeClientVpnTargetNetworks (Prelude.Maybe Prelude.Natural)
 describeClientVpnTargetNetworks_maxResults = Lens.lens (\DescribeClientVpnTargetNetworks' {maxResults} -> maxResults) (\s@DescribeClientVpnTargetNetworks' {} a -> s {maxResults = a} :: DescribeClientVpnTargetNetworks)
+
+-- | The token to retrieve the next page of results.
+describeClientVpnTargetNetworks_nextToken :: Lens.Lens' DescribeClientVpnTargetNetworks (Prelude.Maybe Prelude.Text)
+describeClientVpnTargetNetworks_nextToken = Lens.lens (\DescribeClientVpnTargetNetworks' {nextToken} -> nextToken) (\s@DescribeClientVpnTargetNetworks' {} a -> s {nextToken = a} :: DescribeClientVpnTargetNetworks)
 
 -- | The ID of the Client VPN endpoint.
 describeClientVpnTargetNetworks_clientVpnEndpointId :: Lens.Lens' DescribeClientVpnTargetNetworks Prelude.Text
@@ -200,16 +201,17 @@ instance
   type
     AWSResponse DescribeClientVpnTargetNetworks =
       DescribeClientVpnTargetNetworksResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeClientVpnTargetNetworksResponse'
-            Prelude.<$> ( x Core..@? "clientVpnTargetNetworks"
+            Prelude.<$> ( x Data..@? "clientVpnTargetNetworks"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
-            Prelude.<*> (x Core..@? "nextToken")
+            Prelude.<*> (x Data..@? "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -220,11 +222,11 @@ instance
   hashWithSalt
     _salt
     DescribeClientVpnTargetNetworks' {..} =
-      _salt `Prelude.hashWithSalt` filters
-        `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` associationIds
+      _salt `Prelude.hashWithSalt` associationIds
         `Prelude.hashWithSalt` dryRun
+        `Prelude.hashWithSalt` filters
         `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` clientVpnEndpointId
 
 instance
@@ -232,41 +234,41 @@ instance
     DescribeClientVpnTargetNetworks
   where
   rnf DescribeClientVpnTargetNetworks' {..} =
-    Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf associationIds
+    Prelude.rnf associationIds
       `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf clientVpnEndpointId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeClientVpnTargetNetworks
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeClientVpnTargetNetworks where
+instance Data.ToPath DescribeClientVpnTargetNetworks where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeClientVpnTargetNetworks where
+instance Data.ToQuery DescribeClientVpnTargetNetworks where
   toQuery DescribeClientVpnTargetNetworks' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeClientVpnTargetNetworks" ::
+          Data.=: ( "DescribeClientVpnTargetNetworks" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        Core.toQuery
-          ( Core.toQueryList "AssociationIds"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        Data.toQuery
+          ( Data.toQueryList "AssociationIds"
               Prelude.<$> associationIds
           ),
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults,
-        "ClientVpnEndpointId" Core.=: clientVpnEndpointId
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
+        "ClientVpnEndpointId" Data.=: clientVpnEndpointId
       ]
 
 -- | /See:/ 'newDescribeClientVpnTargetNetworksResponse' smart constructor.

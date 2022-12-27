@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.DeleteScript
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,6 @@
 --
 -- __Related actions__
 --
--- CreateScript | ListScripts | DescribeScript | UpdateScript |
--- DeleteScript |
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.DeleteScript
   ( -- * Creating a Request
@@ -54,8 +52,9 @@ module Amazonka.GameLift.DeleteScript
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,7 +91,8 @@ deleteScript_scriptId = Lens.lens (\DeleteScript' {scriptId} -> scriptId) (\s@De
 
 instance Core.AWSRequest DeleteScript where
   type AWSResponse DeleteScript = DeleteScriptResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull DeleteScriptResponse'
 
 instance Prelude.Hashable DeleteScript where
@@ -102,30 +102,30 @@ instance Prelude.Hashable DeleteScript where
 instance Prelude.NFData DeleteScript where
   rnf DeleteScript' {..} = Prelude.rnf scriptId
 
-instance Core.ToHeaders DeleteScript where
+instance Data.ToHeaders DeleteScript where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("GameLift.DeleteScript" :: Prelude.ByteString),
+              Data.=# ("GameLift.DeleteScript" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteScript where
+instance Data.ToJSON DeleteScript where
   toJSON DeleteScript' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ScriptId" Core..= scriptId)]
+          [Prelude.Just ("ScriptId" Data..= scriptId)]
       )
 
-instance Core.ToPath DeleteScript where
+instance Data.ToPath DeleteScript where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteScript where
+instance Data.ToQuery DeleteScript where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteScriptResponse' smart constructor.

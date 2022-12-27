@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.DeleteGlobalCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.RDS.DeleteGlobalCluster
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -83,13 +84,14 @@ instance Core.AWSRequest DeleteGlobalCluster where
   type
     AWSResponse DeleteGlobalCluster =
       DeleteGlobalClusterResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeleteGlobalClusterResult"
       ( \s h x ->
           DeleteGlobalClusterResponse'
-            Prelude.<$> (x Core..@? "GlobalCluster")
+            Prelude.<$> (x Data..@? "GlobalCluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -102,21 +104,21 @@ instance Prelude.NFData DeleteGlobalCluster where
   rnf DeleteGlobalCluster' {..} =
     Prelude.rnf globalClusterIdentifier
 
-instance Core.ToHeaders DeleteGlobalCluster where
+instance Data.ToHeaders DeleteGlobalCluster where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteGlobalCluster where
+instance Data.ToPath DeleteGlobalCluster where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteGlobalCluster where
+instance Data.ToQuery DeleteGlobalCluster where
   toQuery DeleteGlobalCluster' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteGlobalCluster" :: Prelude.ByteString),
+          Data.=: ("DeleteGlobalCluster" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "GlobalClusterIdentifier"
-          Core.=: globalClusterIdentifier
+          Data.=: globalClusterIdentifier
       ]
 
 -- | /See:/ 'newDeleteGlobalClusterResponse' smart constructor.

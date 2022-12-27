@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudSearch.Types.DomainEndpointOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudSearch.Types.DomainEndpointOptions where
 
 import Amazonka.CloudSearch.Types.TLSSecurityPolicy
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The domain\'s endpoint options.
@@ -63,11 +64,11 @@ domainEndpointOptions_enforceHTTPS = Lens.lens (\DomainEndpointOptions' {enforce
 domainEndpointOptions_tLSSecurityPolicy :: Lens.Lens' DomainEndpointOptions (Prelude.Maybe TLSSecurityPolicy)
 domainEndpointOptions_tLSSecurityPolicy = Lens.lens (\DomainEndpointOptions' {tLSSecurityPolicy} -> tLSSecurityPolicy) (\s@DomainEndpointOptions' {} a -> s {tLSSecurityPolicy = a} :: DomainEndpointOptions)
 
-instance Core.FromXML DomainEndpointOptions where
+instance Data.FromXML DomainEndpointOptions where
   parseXML x =
     DomainEndpointOptions'
-      Prelude.<$> (x Core..@? "EnforceHTTPS")
-      Prelude.<*> (x Core..@? "TLSSecurityPolicy")
+      Prelude.<$> (x Data..@? "EnforceHTTPS")
+      Prelude.<*> (x Data..@? "TLSSecurityPolicy")
 
 instance Prelude.Hashable DomainEndpointOptions where
   hashWithSalt _salt DomainEndpointOptions' {..} =
@@ -79,9 +80,9 @@ instance Prelude.NFData DomainEndpointOptions where
     Prelude.rnf enforceHTTPS
       `Prelude.seq` Prelude.rnf tLSSecurityPolicy
 
-instance Core.ToQuery DomainEndpointOptions where
+instance Data.ToQuery DomainEndpointOptions where
   toQuery DomainEndpointOptions' {..} =
     Prelude.mconcat
-      [ "EnforceHTTPS" Core.=: enforceHTTPS,
-        "TLSSecurityPolicy" Core.=: tLSSecurityPolicy
+      [ "EnforceHTTPS" Data.=: enforceHTTPS,
+        "TLSSecurityPolicy" Data.=: tLSSecurityPolicy
       ]

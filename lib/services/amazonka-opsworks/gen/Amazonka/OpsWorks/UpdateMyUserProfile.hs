@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.UpdateMyUserProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.OpsWorks.UpdateMyUserProfile
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -79,7 +80,8 @@ instance Core.AWSRequest UpdateMyUserProfile where
   type
     AWSResponse UpdateMyUserProfile =
       UpdateMyUserProfileResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull UpdateMyUserProfileResponse'
 
@@ -91,32 +93,32 @@ instance Prelude.NFData UpdateMyUserProfile where
   rnf UpdateMyUserProfile' {..} =
     Prelude.rnf sshPublicKey
 
-instance Core.ToHeaders UpdateMyUserProfile where
+instance Data.ToHeaders UpdateMyUserProfile where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.UpdateMyUserProfile" ::
+              Data.=# ( "OpsWorks_20130218.UpdateMyUserProfile" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateMyUserProfile where
+instance Data.ToJSON UpdateMyUserProfile where
   toJSON UpdateMyUserProfile' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("SshPublicKey" Core..=) Prelude.<$> sshPublicKey]
+          [("SshPublicKey" Data..=) Prelude.<$> sshPublicKey]
       )
 
-instance Core.ToPath UpdateMyUserProfile where
+instance Data.ToPath UpdateMyUserProfile where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateMyUserProfile where
+instance Data.ToQuery UpdateMyUserProfile where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateMyUserProfileResponse' smart constructor.

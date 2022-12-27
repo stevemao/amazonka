@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.DisableAddOn
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.Lightsail.DisableAddOn
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -91,12 +92,13 @@ disableAddOn_resourceName = Lens.lens (\DisableAddOn' {resourceName} -> resource
 
 instance Core.AWSRequest DisableAddOn where
   type AWSResponse DisableAddOn = DisableAddOnResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DisableAddOnResponse'
-            Prelude.<$> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -110,34 +112,34 @@ instance Prelude.NFData DisableAddOn where
     Prelude.rnf addOnType
       `Prelude.seq` Prelude.rnf resourceName
 
-instance Core.ToHeaders DisableAddOn where
+instance Data.ToHeaders DisableAddOn where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.DisableAddOn" ::
+              Data.=# ( "Lightsail_20161128.DisableAddOn" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisableAddOn where
+instance Data.ToJSON DisableAddOn where
   toJSON DisableAddOn' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("addOnType" Core..= addOnType),
-            Prelude.Just ("resourceName" Core..= resourceName)
+          [ Prelude.Just ("addOnType" Data..= addOnType),
+            Prelude.Just ("resourceName" Data..= resourceName)
           ]
       )
 
-instance Core.ToPath DisableAddOn where
+instance Data.ToPath DisableAddOn where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisableAddOn where
+instance Data.ToQuery DisableAddOn where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisableAddOnResponse' smart constructor.

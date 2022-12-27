@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.RebootInstances
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,7 +29,7 @@
 -- EC2 performs a hard reboot.
 --
 -- For more information about troubleshooting, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-console.html Getting console output and rebooting instances>
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-console.html Troubleshoot an unreachable instance>
 -- in the /Amazon EC2 User Guide/.
 module Amazonka.EC2.RebootInstances
   ( -- * Creating a Request
@@ -47,8 +47,9 @@ module Amazonka.EC2.RebootInstances
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,7 +103,8 @@ instance Core.AWSRequest RebootInstances where
   type
     AWSResponse RebootInstances =
       RebootInstancesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull RebootInstancesResponse'
 
@@ -116,21 +118,21 @@ instance Prelude.NFData RebootInstances where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf instanceIds
 
-instance Core.ToHeaders RebootInstances where
+instance Data.ToHeaders RebootInstances where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath RebootInstances where
+instance Data.ToPath RebootInstances where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RebootInstances where
+instance Data.ToQuery RebootInstances where
   toQuery RebootInstances' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("RebootInstances" :: Prelude.ByteString),
+          Data.=: ("RebootInstances" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        Core.toQueryList "InstanceId" instanceIds
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQueryList "InstanceId" instanceIds
       ]
 
 -- | /See:/ 'newRebootInstancesResponse' smart constructor.

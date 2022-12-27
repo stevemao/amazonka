@@ -6,13 +6,27 @@
 
 -- |
 -- Module      : Amazonka.DynamoDBStreams.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 module Amazonka.DynamoDBStreams.Lens
   ( -- * Operations
+
+    -- ** DescribeStream
+    describeStream_exclusiveStartShardId,
+    describeStream_limit,
+    describeStream_streamArn,
+    describeStreamResponse_streamDescription,
+    describeStreamResponse_httpStatus,
+
+    -- ** GetRecords
+    getRecords_limit,
+    getRecords_shardIterator,
+    getRecordsResponse_nextShardIterator,
+    getRecordsResponse_records,
+    getRecordsResponse_httpStatus,
 
     -- ** GetShardIterator
     getShardIterator_sequenceNumber,
@@ -22,13 +36,6 @@ module Amazonka.DynamoDBStreams.Lens
     getShardIteratorResponse_shardIterator,
     getShardIteratorResponse_httpStatus,
 
-    -- ** GetRecords
-    getRecords_limit,
-    getRecords_shardIterator,
-    getRecordsResponse_records,
-    getRecordsResponse_nextShardIterator,
-    getRecordsResponse_httpStatus,
-
     -- ** ListStreams
     listStreams_exclusiveStartStreamArn,
     listStreams_limit,
@@ -36,13 +43,6 @@ module Amazonka.DynamoDBStreams.Lens
     listStreamsResponse_lastEvaluatedStreamArn,
     listStreamsResponse_streams,
     listStreamsResponse_httpStatus,
-
-    -- ** DescribeStream
-    describeStream_exclusiveStartShardId,
-    describeStream_limit,
-    describeStream_streamArn,
-    describeStreamResponse_streamDescription,
-    describeStreamResponse_httpStatus,
 
     -- * Types
 
@@ -55,17 +55,17 @@ module Amazonka.DynamoDBStreams.Lens
     keySchemaElement_keyType,
 
     -- ** Record
-    record_userIdentity,
-    record_eventVersion,
-    record_dynamodb,
     record_awsRegion,
+    record_dynamodb,
+    record_eventID,
     record_eventName,
     record_eventSource,
-    record_eventID,
+    record_eventVersion,
+    record_userIdentity,
 
     -- ** SequenceNumberRange
-    sequenceNumberRange_startingSequenceNumber,
     sequenceNumberRange_endingSequenceNumber,
+    sequenceNumberRange_startingSequenceNumber,
 
     -- ** Shard
     shard_parentShardId,
@@ -73,29 +73,29 @@ module Amazonka.DynamoDBStreams.Lens
     shard_shardId,
 
     -- ** Stream
-    stream_streamLabel,
     stream_streamArn,
+    stream_streamLabel,
     stream_tableName,
 
     -- ** StreamDescription
+    streamDescription_creationRequestDateTime,
+    streamDescription_keySchema,
     streamDescription_lastEvaluatedShardId,
+    streamDescription_shards,
+    streamDescription_streamArn,
     streamDescription_streamLabel,
     streamDescription_streamStatus,
-    streamDescription_keySchema,
     streamDescription_streamViewType,
-    streamDescription_streamArn,
-    streamDescription_shards,
     streamDescription_tableName,
-    streamDescription_creationRequestDateTime,
 
     -- ** StreamRecord
-    streamRecord_sizeBytes,
-    streamRecord_sequenceNumber,
     streamRecord_approximateCreationDateTime,
-    streamRecord_streamViewType,
     streamRecord_keys,
-    streamRecord_oldImage,
     streamRecord_newImage,
+    streamRecord_oldImage,
+    streamRecord_sequenceNumber,
+    streamRecord_sizeBytes,
+    streamRecord_streamViewType,
   )
 where
 

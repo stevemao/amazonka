@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DeleteSubnetCidrReservation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.EC2.DeleteSubnetCidrReservation
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -101,12 +102,13 @@ instance Core.AWSRequest DeleteSubnetCidrReservation where
   type
     AWSResponse DeleteSubnetCidrReservation =
       DeleteSubnetCidrReservationResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DeleteSubnetCidrReservationResponse'
-            Prelude.<$> (x Core..@? "deletedSubnetCidrReservation")
+            Prelude.<$> (x Data..@? "deletedSubnetCidrReservation")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -120,24 +122,24 @@ instance Prelude.NFData DeleteSubnetCidrReservation where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf subnetCidrReservationId
 
-instance Core.ToHeaders DeleteSubnetCidrReservation where
+instance Data.ToHeaders DeleteSubnetCidrReservation where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteSubnetCidrReservation where
+instance Data.ToPath DeleteSubnetCidrReservation where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteSubnetCidrReservation where
+instance Data.ToQuery DeleteSubnetCidrReservation where
   toQuery DeleteSubnetCidrReservation' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DeleteSubnetCidrReservation" ::
+          Data.=: ( "DeleteSubnetCidrReservation" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
         "SubnetCidrReservationId"
-          Core.=: subnetCidrReservationId
+          Data.=: subnetCidrReservationId
       ]
 
 -- | /See:/ 'newDeleteSubnetCidrReservationResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.Types.SchemaDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTAnalytics.Types.SchemaDefinition where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types.Column
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information needed to define a schema.
@@ -60,13 +61,13 @@ newSchemaDefinition =
 schemaDefinition_columns :: Lens.Lens' SchemaDefinition (Prelude.Maybe [Column])
 schemaDefinition_columns = Lens.lens (\SchemaDefinition' {columns} -> columns) (\s@SchemaDefinition' {} a -> s {columns = a} :: SchemaDefinition) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON SchemaDefinition where
+instance Data.FromJSON SchemaDefinition where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SchemaDefinition"
       ( \x ->
           SchemaDefinition'
-            Prelude.<$> (x Core..:? "columns" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "columns" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable SchemaDefinition where
@@ -76,9 +77,9 @@ instance Prelude.Hashable SchemaDefinition where
 instance Prelude.NFData SchemaDefinition where
   rnf SchemaDefinition' {..} = Prelude.rnf columns
 
-instance Core.ToJSON SchemaDefinition where
+instance Data.ToJSON SchemaDefinition where
   toJSON SchemaDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("columns" Core..=) Prelude.<$> columns]
+          [("columns" Data..=) Prelude.<$> columns]
       )

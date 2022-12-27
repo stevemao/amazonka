@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.Types.RecommendationRelatedAnomalySourceDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.DevOpsGuru.Types.RecommendationRelatedAnomalySourceDetail where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DevOpsGuru.Types.RecommendationRelatedCloudWatchMetricsSourceDetail
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains an array of
@@ -60,16 +61,16 @@ recommendationRelatedAnomalySourceDetail_cloudWatchMetrics :: Lens.Lens' Recomme
 recommendationRelatedAnomalySourceDetail_cloudWatchMetrics = Lens.lens (\RecommendationRelatedAnomalySourceDetail' {cloudWatchMetrics} -> cloudWatchMetrics) (\s@RecommendationRelatedAnomalySourceDetail' {} a -> s {cloudWatchMetrics = a} :: RecommendationRelatedAnomalySourceDetail) Prelude.. Lens.mapping Lens.coerced
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     RecommendationRelatedAnomalySourceDetail
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RecommendationRelatedAnomalySourceDetail"
       ( \x ->
           RecommendationRelatedAnomalySourceDetail'
-            Prelude.<$> ( x Core..:? "CloudWatchMetrics"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "CloudWatchMetrics"
+                            Data..!= Prelude.mempty
                         )
       )
 

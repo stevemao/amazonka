@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConnect.Types.Protocol
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,9 +21,11 @@ module Amazonka.MediaConnect.Types.Protocol
   ( Protocol
       ( ..,
         Protocol_Cdi,
+        Protocol_Fujitsu_qos,
         Protocol_Rist,
         Protocol_Rtp,
         Protocol_Rtp_fec,
+        Protocol_Srt_caller,
         Protocol_Srt_listener,
         Protocol_St2110_jpegxs,
         Protocol_Zixi_pull,
@@ -33,11 +35,12 @@ module Amazonka.MediaConnect.Types.Protocol
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype Protocol = Protocol'
   { fromProtocol ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -49,22 +52,25 @@ newtype Protocol = Protocol'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern Protocol_Cdi :: Protocol
 pattern Protocol_Cdi = Protocol' "cdi"
+
+pattern Protocol_Fujitsu_qos :: Protocol
+pattern Protocol_Fujitsu_qos = Protocol' "fujitsu-qos"
 
 pattern Protocol_Rist :: Protocol
 pattern Protocol_Rist = Protocol' "rist"
@@ -74,6 +80,9 @@ pattern Protocol_Rtp = Protocol' "rtp"
 
 pattern Protocol_Rtp_fec :: Protocol
 pattern Protocol_Rtp_fec = Protocol' "rtp-fec"
+
+pattern Protocol_Srt_caller :: Protocol
+pattern Protocol_Srt_caller = Protocol' "srt-caller"
 
 pattern Protocol_Srt_listener :: Protocol
 pattern Protocol_Srt_listener = Protocol' "srt-listener"
@@ -89,9 +98,11 @@ pattern Protocol_Zixi_push = Protocol' "zixi-push"
 
 {-# COMPLETE
   Protocol_Cdi,
+  Protocol_Fujitsu_qos,
   Protocol_Rist,
   Protocol_Rtp,
   Protocol_Rtp_fec,
+  Protocol_Srt_caller,
   Protocol_Srt_listener,
   Protocol_St2110_jpegxs,
   Protocol_Zixi_pull,

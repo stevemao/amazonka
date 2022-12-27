@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.Types.DynamoDBAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTEvents.Types.DynamoDBAction where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types.Payload
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Defines an action to write to the Amazon DynamoDB table that you
@@ -104,16 +105,6 @@ data DynamoDBAction = DynamoDBAction'
     -- If you don\'t specify this parameter, AWS IoT Events triggers the
     -- @\'INSERT\'@ operation.
     operation :: Prelude.Maybe Prelude.Text,
-    -- | The data type for the range key (also called the sort key), You can
-    -- specify the following values:
-    --
-    -- -   @\'STRING\'@ - The range key is a string.
-    --
-    -- -   @\'NUMBER\'@ - The range key is number.
-    --
-    -- If you don\'t specify @rangeKeyField@, the default value is
-    -- @\'STRING\'@.
-    rangeKeyType :: Prelude.Maybe Prelude.Text,
     payload :: Prelude.Maybe Payload,
     -- | The name of the DynamoDB column that receives the action payload.
     --
@@ -124,6 +115,16 @@ data DynamoDBAction = DynamoDBAction'
     -- @rangeKeyField@ value must match the sort key of the target DynamoDB
     -- table.
     rangeKeyField :: Prelude.Maybe Prelude.Text,
+    -- | The data type for the range key (also called the sort key), You can
+    -- specify the following values:
+    --
+    -- -   @\'STRING\'@ - The range key is a string.
+    --
+    -- -   @\'NUMBER\'@ - The range key is number.
+    --
+    -- If you don\'t specify @rangeKeyField@, the default value is
+    -- @\'STRING\'@.
+    rangeKeyType :: Prelude.Maybe Prelude.Text,
     -- | The value of the range key (also called the sort key).
     rangeKeyValue :: Prelude.Maybe Prelude.Text,
     -- | The name of the hash key (also called the partition key). The
@@ -174,16 +175,6 @@ data DynamoDBAction = DynamoDBAction'
 -- If you don\'t specify this parameter, AWS IoT Events triggers the
 -- @\'INSERT\'@ operation.
 --
--- 'rangeKeyType', 'dynamoDBAction_rangeKeyType' - The data type for the range key (also called the sort key), You can
--- specify the following values:
---
--- -   @\'STRING\'@ - The range key is a string.
---
--- -   @\'NUMBER\'@ - The range key is number.
---
--- If you don\'t specify @rangeKeyField@, the default value is
--- @\'STRING\'@.
---
 -- 'payload', 'dynamoDBAction_payload' - Undocumented member.
 --
 -- 'payloadField', 'dynamoDBAction_payloadField' - The name of the DynamoDB column that receives the action payload.
@@ -194,6 +185,16 @@ data DynamoDBAction = DynamoDBAction'
 -- 'rangeKeyField', 'dynamoDBAction_rangeKeyField' - The name of the range key (also called the sort key). The
 -- @rangeKeyField@ value must match the sort key of the target DynamoDB
 -- table.
+--
+-- 'rangeKeyType', 'dynamoDBAction_rangeKeyType' - The data type for the range key (also called the sort key), You can
+-- specify the following values:
+--
+-- -   @\'STRING\'@ - The range key is a string.
+--
+-- -   @\'NUMBER\'@ - The range key is number.
+--
+-- If you don\'t specify @rangeKeyField@, the default value is
+-- @\'STRING\'@.
 --
 -- 'rangeKeyValue', 'dynamoDBAction_rangeKeyValue' - The value of the range key (also called the sort key).
 --
@@ -220,10 +221,10 @@ newDynamoDBAction
     DynamoDBAction'
       { hashKeyType = Prelude.Nothing,
         operation = Prelude.Nothing,
-        rangeKeyType = Prelude.Nothing,
         payload = Prelude.Nothing,
         payloadField = Prelude.Nothing,
         rangeKeyField = Prelude.Nothing,
+        rangeKeyType = Prelude.Nothing,
         rangeKeyValue = Prelude.Nothing,
         hashKeyField = pHashKeyField_,
         hashKeyValue = pHashKeyValue_,
@@ -262,18 +263,6 @@ dynamoDBAction_hashKeyType = Lens.lens (\DynamoDBAction' {hashKeyType} -> hashKe
 dynamoDBAction_operation :: Lens.Lens' DynamoDBAction (Prelude.Maybe Prelude.Text)
 dynamoDBAction_operation = Lens.lens (\DynamoDBAction' {operation} -> operation) (\s@DynamoDBAction' {} a -> s {operation = a} :: DynamoDBAction)
 
--- | The data type for the range key (also called the sort key), You can
--- specify the following values:
---
--- -   @\'STRING\'@ - The range key is a string.
---
--- -   @\'NUMBER\'@ - The range key is number.
---
--- If you don\'t specify @rangeKeyField@, the default value is
--- @\'STRING\'@.
-dynamoDBAction_rangeKeyType :: Lens.Lens' DynamoDBAction (Prelude.Maybe Prelude.Text)
-dynamoDBAction_rangeKeyType = Lens.lens (\DynamoDBAction' {rangeKeyType} -> rangeKeyType) (\s@DynamoDBAction' {} a -> s {rangeKeyType = a} :: DynamoDBAction)
-
 -- | Undocumented member.
 dynamoDBAction_payload :: Lens.Lens' DynamoDBAction (Prelude.Maybe Payload)
 dynamoDBAction_payload = Lens.lens (\DynamoDBAction' {payload} -> payload) (\s@DynamoDBAction' {} a -> s {payload = a} :: DynamoDBAction)
@@ -290,6 +279,18 @@ dynamoDBAction_payloadField = Lens.lens (\DynamoDBAction' {payloadField} -> payl
 -- table.
 dynamoDBAction_rangeKeyField :: Lens.Lens' DynamoDBAction (Prelude.Maybe Prelude.Text)
 dynamoDBAction_rangeKeyField = Lens.lens (\DynamoDBAction' {rangeKeyField} -> rangeKeyField) (\s@DynamoDBAction' {} a -> s {rangeKeyField = a} :: DynamoDBAction)
+
+-- | The data type for the range key (also called the sort key), You can
+-- specify the following values:
+--
+-- -   @\'STRING\'@ - The range key is a string.
+--
+-- -   @\'NUMBER\'@ - The range key is number.
+--
+-- If you don\'t specify @rangeKeyField@, the default value is
+-- @\'STRING\'@.
+dynamoDBAction_rangeKeyType :: Lens.Lens' DynamoDBAction (Prelude.Maybe Prelude.Text)
+dynamoDBAction_rangeKeyType = Lens.lens (\DynamoDBAction' {rangeKeyType} -> rangeKeyType) (\s@DynamoDBAction' {} a -> s {rangeKeyType = a} :: DynamoDBAction)
 
 -- | The value of the range key (also called the sort key).
 dynamoDBAction_rangeKeyValue :: Lens.Lens' DynamoDBAction (Prelude.Maybe Prelude.Text)
@@ -310,32 +311,32 @@ dynamoDBAction_hashKeyValue = Lens.lens (\DynamoDBAction' {hashKeyValue} -> hash
 dynamoDBAction_tableName :: Lens.Lens' DynamoDBAction Prelude.Text
 dynamoDBAction_tableName = Lens.lens (\DynamoDBAction' {tableName} -> tableName) (\s@DynamoDBAction' {} a -> s {tableName = a} :: DynamoDBAction)
 
-instance Core.FromJSON DynamoDBAction where
+instance Data.FromJSON DynamoDBAction where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DynamoDBAction"
       ( \x ->
           DynamoDBAction'
-            Prelude.<$> (x Core..:? "hashKeyType")
-            Prelude.<*> (x Core..:? "operation")
-            Prelude.<*> (x Core..:? "rangeKeyType")
-            Prelude.<*> (x Core..:? "payload")
-            Prelude.<*> (x Core..:? "payloadField")
-            Prelude.<*> (x Core..:? "rangeKeyField")
-            Prelude.<*> (x Core..:? "rangeKeyValue")
-            Prelude.<*> (x Core..: "hashKeyField")
-            Prelude.<*> (x Core..: "hashKeyValue")
-            Prelude.<*> (x Core..: "tableName")
+            Prelude.<$> (x Data..:? "hashKeyType")
+            Prelude.<*> (x Data..:? "operation")
+            Prelude.<*> (x Data..:? "payload")
+            Prelude.<*> (x Data..:? "payloadField")
+            Prelude.<*> (x Data..:? "rangeKeyField")
+            Prelude.<*> (x Data..:? "rangeKeyType")
+            Prelude.<*> (x Data..:? "rangeKeyValue")
+            Prelude.<*> (x Data..: "hashKeyField")
+            Prelude.<*> (x Data..: "hashKeyValue")
+            Prelude.<*> (x Data..: "tableName")
       )
 
 instance Prelude.Hashable DynamoDBAction where
   hashWithSalt _salt DynamoDBAction' {..} =
     _salt `Prelude.hashWithSalt` hashKeyType
       `Prelude.hashWithSalt` operation
-      `Prelude.hashWithSalt` rangeKeyType
       `Prelude.hashWithSalt` payload
       `Prelude.hashWithSalt` payloadField
       `Prelude.hashWithSalt` rangeKeyField
+      `Prelude.hashWithSalt` rangeKeyType
       `Prelude.hashWithSalt` rangeKeyValue
       `Prelude.hashWithSalt` hashKeyField
       `Prelude.hashWithSalt` hashKeyValue
@@ -345,28 +346,28 @@ instance Prelude.NFData DynamoDBAction where
   rnf DynamoDBAction' {..} =
     Prelude.rnf hashKeyType
       `Prelude.seq` Prelude.rnf operation
-      `Prelude.seq` Prelude.rnf rangeKeyType
       `Prelude.seq` Prelude.rnf payload
       `Prelude.seq` Prelude.rnf payloadField
       `Prelude.seq` Prelude.rnf rangeKeyField
+      `Prelude.seq` Prelude.rnf rangeKeyType
       `Prelude.seq` Prelude.rnf rangeKeyValue
       `Prelude.seq` Prelude.rnf hashKeyField
       `Prelude.seq` Prelude.rnf hashKeyValue
       `Prelude.seq` Prelude.rnf tableName
 
-instance Core.ToJSON DynamoDBAction where
+instance Data.ToJSON DynamoDBAction where
   toJSON DynamoDBAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("hashKeyType" Core..=) Prelude.<$> hashKeyType,
-            ("operation" Core..=) Prelude.<$> operation,
-            ("rangeKeyType" Core..=) Prelude.<$> rangeKeyType,
-            ("payload" Core..=) Prelude.<$> payload,
-            ("payloadField" Core..=) Prelude.<$> payloadField,
-            ("rangeKeyField" Core..=) Prelude.<$> rangeKeyField,
-            ("rangeKeyValue" Core..=) Prelude.<$> rangeKeyValue,
-            Prelude.Just ("hashKeyField" Core..= hashKeyField),
-            Prelude.Just ("hashKeyValue" Core..= hashKeyValue),
-            Prelude.Just ("tableName" Core..= tableName)
+          [ ("hashKeyType" Data..=) Prelude.<$> hashKeyType,
+            ("operation" Data..=) Prelude.<$> operation,
+            ("payload" Data..=) Prelude.<$> payload,
+            ("payloadField" Data..=) Prelude.<$> payloadField,
+            ("rangeKeyField" Data..=) Prelude.<$> rangeKeyField,
+            ("rangeKeyType" Data..=) Prelude.<$> rangeKeyType,
+            ("rangeKeyValue" Data..=) Prelude.<$> rangeKeyValue,
+            Prelude.Just ("hashKeyField" Data..= hashKeyField),
+            Prelude.Just ("hashKeyValue" Data..= hashKeyValue),
+            Prelude.Just ("tableName" Data..= tableName)
           ]
       )

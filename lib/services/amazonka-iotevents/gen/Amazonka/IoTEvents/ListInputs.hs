@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.ListInputs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.IoTEvents.ListInputs
     newListInputs,
 
     -- * Request Lenses
-    listInputs_nextToken,
     listInputs_maxResults,
+    listInputs_nextToken,
 
     -- * Destructuring the Response
     ListInputsResponse (..),
@@ -42,18 +42,19 @@ module Amazonka.IoTEvents.ListInputs
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListInputs' smart constructor.
 data ListInputs = ListInputs'
-  { -- | The token that you can use to return the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to be returned per request.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | The maximum number of results to be returned per request.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token that you can use to return the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -65,58 +66,59 @@ data ListInputs = ListInputs'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listInputs_nextToken' - The token that you can use to return the next set of results.
---
 -- 'maxResults', 'listInputs_maxResults' - The maximum number of results to be returned per request.
+--
+-- 'nextToken', 'listInputs_nextToken' - The token that you can use to return the next set of results.
 newListInputs ::
   ListInputs
 newListInputs =
   ListInputs'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The token that you can use to return the next set of results.
-listInputs_nextToken :: Lens.Lens' ListInputs (Prelude.Maybe Prelude.Text)
-listInputs_nextToken = Lens.lens (\ListInputs' {nextToken} -> nextToken) (\s@ListInputs' {} a -> s {nextToken = a} :: ListInputs)
 
 -- | The maximum number of results to be returned per request.
 listInputs_maxResults :: Lens.Lens' ListInputs (Prelude.Maybe Prelude.Natural)
 listInputs_maxResults = Lens.lens (\ListInputs' {maxResults} -> maxResults) (\s@ListInputs' {} a -> s {maxResults = a} :: ListInputs)
 
+-- | The token that you can use to return the next set of results.
+listInputs_nextToken :: Lens.Lens' ListInputs (Prelude.Maybe Prelude.Text)
+listInputs_nextToken = Lens.lens (\ListInputs' {nextToken} -> nextToken) (\s@ListInputs' {} a -> s {nextToken = a} :: ListInputs)
+
 instance Core.AWSRequest ListInputs where
   type AWSResponse ListInputs = ListInputsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListInputsResponse'
-            Prelude.<$> (x Core..?> "inputSummaries" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "inputSummaries" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListInputs where
   hashWithSalt _salt ListInputs' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListInputs where
   rnf ListInputs' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListInputs where
+instance Data.ToHeaders ListInputs where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListInputs where
+instance Data.ToPath ListInputs where
   toPath = Prelude.const "/inputs"
 
-instance Core.ToQuery ListInputs where
+instance Data.ToQuery ListInputs where
   toQuery ListInputs' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListInputsResponse' smart constructor.

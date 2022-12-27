@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.Types.KnowledgeBaseSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Wisdom.Types.KnowledgeBaseSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Wisdom.Types.KnowledgeBaseStatus
 import Amazonka.Wisdom.Types.KnowledgeBaseType
@@ -32,19 +33,19 @@ import Amazonka.Wisdom.Types.SourceConfiguration
 --
 -- /See:/ 'newKnowledgeBaseSummary' smart constructor.
 data KnowledgeBaseSummary = KnowledgeBaseSummary'
-  { -- | Information about how to render the content.
-    renderingConfiguration :: Prelude.Maybe RenderingConfiguration,
-    -- | [KEVIN]
-    sourceConfiguration :: Prelude.Maybe SourceConfiguration,
-    -- | The description of the knowledge base.
+  { -- | The description of the knowledge base.
     description :: Prelude.Maybe Prelude.Text,
+    -- | Information about how to render the content.
+    renderingConfiguration :: Prelude.Maybe RenderingConfiguration,
     -- | The KMS key used for encryption.
     serverSideEncryptionConfiguration :: Prelude.Maybe ServerSideEncryptionConfiguration,
+    -- | Configuration information about the external data source.
+    sourceConfiguration :: Prelude.Maybe SourceConfiguration,
     -- | The tags used to organize, track, or control access for this resource.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The Amazon Resource Name (ARN) of the knowledge base.
     knowledgeBaseArn :: Prelude.Text,
-    -- | The the identifier of the knowledge base.
+    -- | The identifier of the knowledge base.
     knowledgeBaseId :: Prelude.Text,
     -- | The type of knowledge base.
     knowledgeBaseType :: KnowledgeBaseType,
@@ -63,19 +64,19 @@ data KnowledgeBaseSummary = KnowledgeBaseSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'renderingConfiguration', 'knowledgeBaseSummary_renderingConfiguration' - Information about how to render the content.
---
--- 'sourceConfiguration', 'knowledgeBaseSummary_sourceConfiguration' - [KEVIN]
---
 -- 'description', 'knowledgeBaseSummary_description' - The description of the knowledge base.
 --
+-- 'renderingConfiguration', 'knowledgeBaseSummary_renderingConfiguration' - Information about how to render the content.
+--
 -- 'serverSideEncryptionConfiguration', 'knowledgeBaseSummary_serverSideEncryptionConfiguration' - The KMS key used for encryption.
+--
+-- 'sourceConfiguration', 'knowledgeBaseSummary_sourceConfiguration' - Configuration information about the external data source.
 --
 -- 'tags', 'knowledgeBaseSummary_tags' - The tags used to organize, track, or control access for this resource.
 --
 -- 'knowledgeBaseArn', 'knowledgeBaseSummary_knowledgeBaseArn' - The Amazon Resource Name (ARN) of the knowledge base.
 --
--- 'knowledgeBaseId', 'knowledgeBaseSummary_knowledgeBaseId' - The the identifier of the knowledge base.
+-- 'knowledgeBaseId', 'knowledgeBaseSummary_knowledgeBaseId' - The identifier of the knowledge base.
 --
 -- 'knowledgeBaseType', 'knowledgeBaseSummary_knowledgeBaseType' - The type of knowledge base.
 --
@@ -101,11 +102,11 @@ newKnowledgeBaseSummary
   pName_
   pStatus_ =
     KnowledgeBaseSummary'
-      { renderingConfiguration =
+      { description =
           Prelude.Nothing,
-        sourceConfiguration = Prelude.Nothing,
-        description = Prelude.Nothing,
+        renderingConfiguration = Prelude.Nothing,
         serverSideEncryptionConfiguration = Prelude.Nothing,
+        sourceConfiguration = Prelude.Nothing,
         tags = Prelude.Nothing,
         knowledgeBaseArn = pKnowledgeBaseArn_,
         knowledgeBaseId = pKnowledgeBaseId_,
@@ -114,21 +115,21 @@ newKnowledgeBaseSummary
         status = pStatus_
       }
 
--- | Information about how to render the content.
-knowledgeBaseSummary_renderingConfiguration :: Lens.Lens' KnowledgeBaseSummary (Prelude.Maybe RenderingConfiguration)
-knowledgeBaseSummary_renderingConfiguration = Lens.lens (\KnowledgeBaseSummary' {renderingConfiguration} -> renderingConfiguration) (\s@KnowledgeBaseSummary' {} a -> s {renderingConfiguration = a} :: KnowledgeBaseSummary)
-
--- | [KEVIN]
-knowledgeBaseSummary_sourceConfiguration :: Lens.Lens' KnowledgeBaseSummary (Prelude.Maybe SourceConfiguration)
-knowledgeBaseSummary_sourceConfiguration = Lens.lens (\KnowledgeBaseSummary' {sourceConfiguration} -> sourceConfiguration) (\s@KnowledgeBaseSummary' {} a -> s {sourceConfiguration = a} :: KnowledgeBaseSummary)
-
 -- | The description of the knowledge base.
 knowledgeBaseSummary_description :: Lens.Lens' KnowledgeBaseSummary (Prelude.Maybe Prelude.Text)
 knowledgeBaseSummary_description = Lens.lens (\KnowledgeBaseSummary' {description} -> description) (\s@KnowledgeBaseSummary' {} a -> s {description = a} :: KnowledgeBaseSummary)
 
+-- | Information about how to render the content.
+knowledgeBaseSummary_renderingConfiguration :: Lens.Lens' KnowledgeBaseSummary (Prelude.Maybe RenderingConfiguration)
+knowledgeBaseSummary_renderingConfiguration = Lens.lens (\KnowledgeBaseSummary' {renderingConfiguration} -> renderingConfiguration) (\s@KnowledgeBaseSummary' {} a -> s {renderingConfiguration = a} :: KnowledgeBaseSummary)
+
 -- | The KMS key used for encryption.
 knowledgeBaseSummary_serverSideEncryptionConfiguration :: Lens.Lens' KnowledgeBaseSummary (Prelude.Maybe ServerSideEncryptionConfiguration)
 knowledgeBaseSummary_serverSideEncryptionConfiguration = Lens.lens (\KnowledgeBaseSummary' {serverSideEncryptionConfiguration} -> serverSideEncryptionConfiguration) (\s@KnowledgeBaseSummary' {} a -> s {serverSideEncryptionConfiguration = a} :: KnowledgeBaseSummary)
+
+-- | Configuration information about the external data source.
+knowledgeBaseSummary_sourceConfiguration :: Lens.Lens' KnowledgeBaseSummary (Prelude.Maybe SourceConfiguration)
+knowledgeBaseSummary_sourceConfiguration = Lens.lens (\KnowledgeBaseSummary' {sourceConfiguration} -> sourceConfiguration) (\s@KnowledgeBaseSummary' {} a -> s {sourceConfiguration = a} :: KnowledgeBaseSummary)
 
 -- | The tags used to organize, track, or control access for this resource.
 knowledgeBaseSummary_tags :: Lens.Lens' KnowledgeBaseSummary (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -138,7 +139,7 @@ knowledgeBaseSummary_tags = Lens.lens (\KnowledgeBaseSummary' {tags} -> tags) (\
 knowledgeBaseSummary_knowledgeBaseArn :: Lens.Lens' KnowledgeBaseSummary Prelude.Text
 knowledgeBaseSummary_knowledgeBaseArn = Lens.lens (\KnowledgeBaseSummary' {knowledgeBaseArn} -> knowledgeBaseArn) (\s@KnowledgeBaseSummary' {} a -> s {knowledgeBaseArn = a} :: KnowledgeBaseSummary)
 
--- | The the identifier of the knowledge base.
+-- | The identifier of the knowledge base.
 knowledgeBaseSummary_knowledgeBaseId :: Lens.Lens' KnowledgeBaseSummary Prelude.Text
 knowledgeBaseSummary_knowledgeBaseId = Lens.lens (\KnowledgeBaseSummary' {knowledgeBaseId} -> knowledgeBaseId) (\s@KnowledgeBaseSummary' {} a -> s {knowledgeBaseId = a} :: KnowledgeBaseSummary)
 
@@ -154,30 +155,30 @@ knowledgeBaseSummary_name = Lens.lens (\KnowledgeBaseSummary' {name} -> name) (\
 knowledgeBaseSummary_status :: Lens.Lens' KnowledgeBaseSummary KnowledgeBaseStatus
 knowledgeBaseSummary_status = Lens.lens (\KnowledgeBaseSummary' {status} -> status) (\s@KnowledgeBaseSummary' {} a -> s {status = a} :: KnowledgeBaseSummary)
 
-instance Core.FromJSON KnowledgeBaseSummary where
+instance Data.FromJSON KnowledgeBaseSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "KnowledgeBaseSummary"
       ( \x ->
           KnowledgeBaseSummary'
-            Prelude.<$> (x Core..:? "renderingConfiguration")
-            Prelude.<*> (x Core..:? "sourceConfiguration")
-            Prelude.<*> (x Core..:? "description")
-            Prelude.<*> (x Core..:? "serverSideEncryptionConfiguration")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "knowledgeBaseArn")
-            Prelude.<*> (x Core..: "knowledgeBaseId")
-            Prelude.<*> (x Core..: "knowledgeBaseType")
-            Prelude.<*> (x Core..: "name")
-            Prelude.<*> (x Core..: "status")
+            Prelude.<$> (x Data..:? "description")
+            Prelude.<*> (x Data..:? "renderingConfiguration")
+            Prelude.<*> (x Data..:? "serverSideEncryptionConfiguration")
+            Prelude.<*> (x Data..:? "sourceConfiguration")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "knowledgeBaseArn")
+            Prelude.<*> (x Data..: "knowledgeBaseId")
+            Prelude.<*> (x Data..: "knowledgeBaseType")
+            Prelude.<*> (x Data..: "name")
+            Prelude.<*> (x Data..: "status")
       )
 
 instance Prelude.Hashable KnowledgeBaseSummary where
   hashWithSalt _salt KnowledgeBaseSummary' {..} =
-    _salt `Prelude.hashWithSalt` renderingConfiguration
-      `Prelude.hashWithSalt` sourceConfiguration
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` renderingConfiguration
       `Prelude.hashWithSalt` serverSideEncryptionConfiguration
+      `Prelude.hashWithSalt` sourceConfiguration
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` knowledgeBaseArn
       `Prelude.hashWithSalt` knowledgeBaseId
@@ -187,10 +188,10 @@ instance Prelude.Hashable KnowledgeBaseSummary where
 
 instance Prelude.NFData KnowledgeBaseSummary where
   rnf KnowledgeBaseSummary' {..} =
-    Prelude.rnf renderingConfiguration
-      `Prelude.seq` Prelude.rnf sourceConfiguration
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf renderingConfiguration
       `Prelude.seq` Prelude.rnf serverSideEncryptionConfiguration
+      `Prelude.seq` Prelude.rnf sourceConfiguration
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf knowledgeBaseArn
       `Prelude.seq` Prelude.rnf knowledgeBaseId

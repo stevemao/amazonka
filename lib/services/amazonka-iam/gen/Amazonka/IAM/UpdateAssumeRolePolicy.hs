@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.UpdateAssumeRolePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.IAM.UpdateAssumeRolePolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -156,7 +157,8 @@ instance Core.AWSRequest UpdateAssumeRolePolicy where
   type
     AWSResponse UpdateAssumeRolePolicy =
       UpdateAssumeRolePolicyResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       UpdateAssumeRolePolicyResponse'
@@ -171,21 +173,21 @@ instance Prelude.NFData UpdateAssumeRolePolicy where
     Prelude.rnf roleName
       `Prelude.seq` Prelude.rnf policyDocument
 
-instance Core.ToHeaders UpdateAssumeRolePolicy where
+instance Data.ToHeaders UpdateAssumeRolePolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath UpdateAssumeRolePolicy where
+instance Data.ToPath UpdateAssumeRolePolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateAssumeRolePolicy where
+instance Data.ToQuery UpdateAssumeRolePolicy where
   toQuery UpdateAssumeRolePolicy' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("UpdateAssumeRolePolicy" :: Prelude.ByteString),
+          Data.=: ("UpdateAssumeRolePolicy" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "RoleName" Core.=: roleName,
-        "PolicyDocument" Core.=: policyDocument
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "RoleName" Data.=: roleName,
+        "PolicyDocument" Data.=: policyDocument
       ]
 
 -- | /See:/ 'newUpdateAssumeRolePolicyResponse' smart constructor.

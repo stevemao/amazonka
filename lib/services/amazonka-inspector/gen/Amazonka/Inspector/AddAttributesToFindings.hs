@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Inspector.AddAttributesToFindings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.Inspector.AddAttributesToFindings
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Inspector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,13 +95,14 @@ instance Core.AWSRequest AddAttributesToFindings where
   type
     AWSResponse AddAttributesToFindings =
       AddAttributesToFindingsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AddAttributesToFindingsResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "failedItems" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "failedItems" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable AddAttributesToFindings where
@@ -113,34 +115,34 @@ instance Prelude.NFData AddAttributesToFindings where
     Prelude.rnf findingArns
       `Prelude.seq` Prelude.rnf attributes
 
-instance Core.ToHeaders AddAttributesToFindings where
+instance Data.ToHeaders AddAttributesToFindings where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "InspectorService.AddAttributesToFindings" ::
+              Data.=# ( "InspectorService.AddAttributesToFindings" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AddAttributesToFindings where
+instance Data.ToJSON AddAttributesToFindings where
   toJSON AddAttributesToFindings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("findingArns" Core..= findingArns),
-            Prelude.Just ("attributes" Core..= attributes)
+          [ Prelude.Just ("findingArns" Data..= findingArns),
+            Prelude.Just ("attributes" Data..= attributes)
           ]
       )
 
-instance Core.ToPath AddAttributesToFindings where
+instance Data.ToPath AddAttributesToFindings where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AddAttributesToFindings where
+instance Data.ToQuery AddAttributesToFindings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAddAttributesToFindingsResponse' smart constructor.

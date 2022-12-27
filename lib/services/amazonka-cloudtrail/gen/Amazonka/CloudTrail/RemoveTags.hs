@@ -14,21 +14,21 @@
 
 -- |
 -- Module      : Amazonka.CloudTrail.RemoveTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes the specified tags from a trail.
+-- Removes the specified tags from a trail or event data store.
 module Amazonka.CloudTrail.RemoveTags
   ( -- * Creating a Request
     RemoveTags (..),
     newRemoveTags,
 
     -- * Request Lenses
-    removeTags_tagsList,
     removeTags_resourceId,
+    removeTags_tagsList,
 
     -- * Destructuring the Response
     RemoveTagsResponse (..),
@@ -41,22 +41,27 @@ where
 
 import Amazonka.CloudTrail.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Specifies the tags to remove from a trail.
+-- | Specifies the tags to remove from a trail or event data store.
 --
 -- /See:/ 'newRemoveTags' smart constructor.
 data RemoveTags = RemoveTags'
-  { -- | Specifies a list of tags to be removed.
-    tagsList :: Prelude.Maybe [Tag],
-    -- | Specifies the ARN of the trail from which tags should be removed. The
-    -- format of a trail ARN is:
+  { -- | Specifies the ARN of the trail or event data store from which tags
+    -- should be removed.
     --
+    -- Example trail ARN format:
     -- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
-    resourceId :: Prelude.Text
+    --
+    -- Example event data store ARN format:
+    -- @arn:aws:cloudtrail:us-east-2:12345678910:eventdatastore\/EXAMPLE-f852-4e8f-8bd1-bcf6cEXAMPLE@
+    resourceId :: Prelude.Text,
+    -- | Specifies a list of tags to be removed.
+    tagsList :: [Tag]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -68,36 +73,45 @@ data RemoveTags = RemoveTags'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tagsList', 'removeTags_tagsList' - Specifies a list of tags to be removed.
+-- 'resourceId', 'removeTags_resourceId' - Specifies the ARN of the trail or event data store from which tags
+-- should be removed.
 --
--- 'resourceId', 'removeTags_resourceId' - Specifies the ARN of the trail from which tags should be removed. The
--- format of a trail ARN is:
---
+-- Example trail ARN format:
 -- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+--
+-- Example event data store ARN format:
+-- @arn:aws:cloudtrail:us-east-2:12345678910:eventdatastore\/EXAMPLE-f852-4e8f-8bd1-bcf6cEXAMPLE@
+--
+-- 'tagsList', 'removeTags_tagsList' - Specifies a list of tags to be removed.
 newRemoveTags ::
   -- | 'resourceId'
   Prelude.Text ->
   RemoveTags
 newRemoveTags pResourceId_ =
   RemoveTags'
-    { tagsList = Prelude.Nothing,
-      resourceId = pResourceId_
+    { resourceId = pResourceId_,
+      tagsList = Prelude.mempty
     }
 
--- | Specifies a list of tags to be removed.
-removeTags_tagsList :: Lens.Lens' RemoveTags (Prelude.Maybe [Tag])
-removeTags_tagsList = Lens.lens (\RemoveTags' {tagsList} -> tagsList) (\s@RemoveTags' {} a -> s {tagsList = a} :: RemoveTags) Prelude.. Lens.mapping Lens.coerced
-
--- | Specifies the ARN of the trail from which tags should be removed. The
--- format of a trail ARN is:
+-- | Specifies the ARN of the trail or event data store from which tags
+-- should be removed.
 --
+-- Example trail ARN format:
 -- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+--
+-- Example event data store ARN format:
+-- @arn:aws:cloudtrail:us-east-2:12345678910:eventdatastore\/EXAMPLE-f852-4e8f-8bd1-bcf6cEXAMPLE@
 removeTags_resourceId :: Lens.Lens' RemoveTags Prelude.Text
 removeTags_resourceId = Lens.lens (\RemoveTags' {resourceId} -> resourceId) (\s@RemoveTags' {} a -> s {resourceId = a} :: RemoveTags)
 
+-- | Specifies a list of tags to be removed.
+removeTags_tagsList :: Lens.Lens' RemoveTags [Tag]
+removeTags_tagsList = Lens.lens (\RemoveTags' {tagsList} -> tagsList) (\s@RemoveTags' {} a -> s {tagsList = a} :: RemoveTags) Prelude.. Lens.coerced
+
 instance Core.AWSRequest RemoveTags where
   type AWSResponse RemoveTags = RemoveTagsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -107,42 +121,42 @@ instance Core.AWSRequest RemoveTags where
 
 instance Prelude.Hashable RemoveTags where
   hashWithSalt _salt RemoveTags' {..} =
-    _salt `Prelude.hashWithSalt` tagsList
-      `Prelude.hashWithSalt` resourceId
+    _salt `Prelude.hashWithSalt` resourceId
+      `Prelude.hashWithSalt` tagsList
 
 instance Prelude.NFData RemoveTags where
   rnf RemoveTags' {..} =
-    Prelude.rnf tagsList
-      `Prelude.seq` Prelude.rnf resourceId
+    Prelude.rnf resourceId
+      `Prelude.seq` Prelude.rnf tagsList
 
-instance Core.ToHeaders RemoveTags where
+instance Data.ToHeaders RemoveTags where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.RemoveTags" ::
+              Data.=# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.RemoveTags" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RemoveTags where
+instance Data.ToJSON RemoveTags where
   toJSON RemoveTags' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TagsList" Core..=) Prelude.<$> tagsList,
-            Prelude.Just ("ResourceId" Core..= resourceId)
+          [ Prelude.Just ("ResourceId" Data..= resourceId),
+            Prelude.Just ("TagsList" Data..= tagsList)
           ]
       )
 
-instance Core.ToPath RemoveTags where
+instance Data.ToPath RemoveTags where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RemoveTags where
+instance Data.ToQuery RemoveTags where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Returns the objects or data listed below if successful. Otherwise,

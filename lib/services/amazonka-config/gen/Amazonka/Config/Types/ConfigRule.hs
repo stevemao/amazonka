@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Config.Types.ConfigRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,68 +20,51 @@
 module Amazonka.Config.Types.ConfigRule where
 
 import Amazonka.Config.Types.ConfigRuleState
+import Amazonka.Config.Types.EvaluationModeConfiguration
 import Amazonka.Config.Types.MaximumExecutionFrequency
 import Amazonka.Config.Types.Scope
 import Amazonka.Config.Types.Source
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | An Config rule represents an Lambda function that you create for a
--- custom rule or a predefined function for an Config managed rule. The
--- function evaluates configuration items to assess whether your Amazon Web
--- Services resources comply with your desired configurations. This
--- function can run when Config detects a configuration change to an Amazon
--- Web Services resource and at a periodic frequency that you choose (for
--- example, every 24 hours).
+-- | Config rules evaluate the configuration settings of your Amazon Web
+-- Services resources. A rule can run when Config detects a configuration
+-- change to an Amazon Web Services resource or at a periodic frequency
+-- that you choose (for example, every 24 hours). There are two types of
+-- rules: Config Managed Rules and Config Custom Rules. Managed rules are
+-- predefined, customizable rules created by Config. For a list of managed
+-- rules, see
+-- <https://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html List of Config Managed Rules>.
+--
+-- Custom rules are rules that you can create using either Guard or Lambda
+-- functions. Guard
+-- (<https://github.com/aws-cloudformation/cloudformation-guard Guard GitHub Repository>)
+-- is a policy-as-code language that allows you to write policies that are
+-- enforced by Config Custom Policy rules. Lambda uses custom code that you
+-- upload to evaluate a custom rule. It is invoked by events that are
+-- published to it by an event source, which Config invokes when the custom
+-- rule is initiated.
+--
+-- For more information about developing and using Config rules, see
+-- <https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config.html Evaluating Amazon Web Services resource Configurations with Config>
+-- in the /Config Developer Guide/.
 --
 -- You can use the Amazon Web Services CLI and Amazon Web Services SDKs if
 -- you want to create a rule that triggers evaluations for your resources
 -- when Config delivers the configuration snapshot. For more information,
 -- see ConfigSnapshotDeliveryProperties.
 --
--- For more information about developing and using Config rules, see
--- <https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config.html Evaluating Amazon Web Services resource Configurations with Config>
--- in the /Config Developer Guide/.
---
 -- /See:/ 'newConfigRule' smart constructor.
 data ConfigRule = ConfigRule'
-  { -- | A string, in JSON format, that is passed to the Config rule Lambda
-    -- function.
-    inputParameters :: Prelude.Maybe Prelude.Text,
+  { -- | The Amazon Resource Name (ARN) of the Config rule.
+    configRuleArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Config rule.
+    configRuleId :: Prelude.Maybe Prelude.Text,
     -- | The name that you assign to the Config rule. The name is required if you
     -- are adding a new rule.
     configRuleName :: Prelude.Maybe Prelude.Text,
-    -- | Service principal name of the service that created the rule.
-    --
-    -- The field is populated only if the service linked rule is created by a
-    -- service. The field is empty if you create your own rule.
-    createdBy :: Prelude.Maybe Prelude.Text,
-    -- | The maximum frequency with which Config runs evaluations for a rule. You
-    -- can specify a value for @MaximumExecutionFrequency@ when:
-    --
-    -- -   You are using an Config managed rule that is triggered at a periodic
-    --     frequency.
-    --
-    -- -   Your custom rule is triggered when Config delivers the configuration
-    --     snapshot. For more information, see
-    --     ConfigSnapshotDeliveryProperties.
-    --
-    -- By default, rules with a periodic trigger are evaluated every 24 hours.
-    -- To change the frequency, specify a valid value for the
-    -- @MaximumExecutionFrequency@ parameter.
-    maximumExecutionFrequency :: Prelude.Maybe MaximumExecutionFrequency,
-    -- | The ID of the Config rule.
-    configRuleId :: Prelude.Maybe Prelude.Text,
-    -- | Defines which resources can trigger an evaluation for the rule. The
-    -- scope can include one or more resource types, a combination of one
-    -- resource type and one resource ID, or a combination of a tag key and
-    -- value. Specify a scope to constrain the resources that can trigger an
-    -- evaluation for the rule. If you do not specify a scope, evaluations are
-    -- triggered when any resource in the recording group changes.
-    --
-    -- The scope can be empty.
-    scope :: Prelude.Maybe Scope,
     -- | Indicates whether the Config rule is active or is currently being
     -- deleted by Config. It can also indicate the evaluation status for the
     -- Config rule.
@@ -99,13 +82,47 @@ data ConfigRule = ConfigRule'
     -- the rule, the rule and all of its evaluations are erased and are no
     -- longer available.
     configRuleState :: Prelude.Maybe ConfigRuleState,
+    -- | Service principal name of the service that created the rule.
+    --
+    -- The field is populated only if the service-linked rule is created by a
+    -- service. The field is empty if you create your own rule.
+    createdBy :: Prelude.Maybe Prelude.Text,
     -- | The description that you provide for the Config rule.
     description :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the Config rule.
-    configRuleArn :: Prelude.Maybe Prelude.Text,
-    -- | Provides the rule owner (Amazon Web Services or customer), the rule
-    -- identifier, and the notifications that cause the function to evaluate
-    -- your Amazon Web Services resources.
+    -- | The modes the Config rule can be evaluated in. The valid values are
+    -- distinct objects. By default, the value is Detective evaluation mode
+    -- only.
+    evaluationModes :: Prelude.Maybe [EvaluationModeConfiguration],
+    -- | A string, in JSON format, that is passed to the Config rule Lambda
+    -- function.
+    inputParameters :: Prelude.Maybe Prelude.Text,
+    -- | The maximum frequency with which Config runs evaluations for a rule. You
+    -- can specify a value for @MaximumExecutionFrequency@ when:
+    --
+    -- -   This is for an Config managed rule that is triggered at a periodic
+    --     frequency.
+    --
+    -- -   Your custom rule is triggered when Config delivers the configuration
+    --     snapshot. For more information, see
+    --     ConfigSnapshotDeliveryProperties.
+    --
+    -- By default, rules with a periodic trigger are evaluated every 24 hours.
+    -- To change the frequency, specify a valid value for the
+    -- @MaximumExecutionFrequency@ parameter.
+    maximumExecutionFrequency :: Prelude.Maybe MaximumExecutionFrequency,
+    -- | Defines which resources can trigger an evaluation for the rule. The
+    -- scope can include one or more resource types, a combination of one
+    -- resource type and one resource ID, or a combination of a tag key and
+    -- value. Specify a scope to constrain the resources that can trigger an
+    -- evaluation for the rule. If you do not specify a scope, evaluations are
+    -- triggered when any resource in the recording group changes.
+    --
+    -- The scope can be empty.
+    scope :: Prelude.Maybe Scope,
+    -- | Provides the rule owner (@Amazon Web Services@ for managed rules,
+    -- @CUSTOM_POLICY@ for Custom Policy rules, and @CUSTOM_LAMBDA@ for Custom
+    -- Lambda rules), the rule identifier, and the notifications that cause the
+    -- function to evaluate your Amazon Web Services resources.
     source :: Source
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -118,41 +135,12 @@ data ConfigRule = ConfigRule'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'inputParameters', 'configRule_inputParameters' - A string, in JSON format, that is passed to the Config rule Lambda
--- function.
---
--- 'configRuleName', 'configRule_configRuleName' - The name that you assign to the Config rule. The name is required if you
--- are adding a new rule.
---
--- 'createdBy', 'configRule_createdBy' - Service principal name of the service that created the rule.
---
--- The field is populated only if the service linked rule is created by a
--- service. The field is empty if you create your own rule.
---
--- 'maximumExecutionFrequency', 'configRule_maximumExecutionFrequency' - The maximum frequency with which Config runs evaluations for a rule. You
--- can specify a value for @MaximumExecutionFrequency@ when:
---
--- -   You are using an Config managed rule that is triggered at a periodic
---     frequency.
---
--- -   Your custom rule is triggered when Config delivers the configuration
---     snapshot. For more information, see
---     ConfigSnapshotDeliveryProperties.
---
--- By default, rules with a periodic trigger are evaluated every 24 hours.
--- To change the frequency, specify a valid value for the
--- @MaximumExecutionFrequency@ parameter.
+-- 'configRuleArn', 'configRule_configRuleArn' - The Amazon Resource Name (ARN) of the Config rule.
 --
 -- 'configRuleId', 'configRule_configRuleId' - The ID of the Config rule.
 --
--- 'scope', 'configRule_scope' - Defines which resources can trigger an evaluation for the rule. The
--- scope can include one or more resource types, a combination of one
--- resource type and one resource ID, or a combination of a tag key and
--- value. Specify a scope to constrain the resources that can trigger an
--- evaluation for the rule. If you do not specify a scope, evaluations are
--- triggered when any resource in the recording group changes.
---
--- The scope can be empty.
+-- 'configRuleName', 'configRule_configRuleName' - The name that you assign to the Config rule. The name is required if you
+-- are adding a new rule.
 --
 -- 'configRuleState', 'configRule_configRuleState' - Indicates whether the Config rule is active or is currently being
 -- deleted by Config. It can also indicate the evaluation status for the
@@ -171,52 +159,24 @@ data ConfigRule = ConfigRule'
 -- the rule, the rule and all of its evaluations are erased and are no
 -- longer available.
 --
+-- 'createdBy', 'configRule_createdBy' - Service principal name of the service that created the rule.
+--
+-- The field is populated only if the service-linked rule is created by a
+-- service. The field is empty if you create your own rule.
+--
 -- 'description', 'configRule_description' - The description that you provide for the Config rule.
 --
--- 'configRuleArn', 'configRule_configRuleArn' - The Amazon Resource Name (ARN) of the Config rule.
+-- 'evaluationModes', 'configRule_evaluationModes' - The modes the Config rule can be evaluated in. The valid values are
+-- distinct objects. By default, the value is Detective evaluation mode
+-- only.
 --
--- 'source', 'configRule_source' - Provides the rule owner (Amazon Web Services or customer), the rule
--- identifier, and the notifications that cause the function to evaluate
--- your Amazon Web Services resources.
-newConfigRule ::
-  -- | 'source'
-  Source ->
-  ConfigRule
-newConfigRule pSource_ =
-  ConfigRule'
-    { inputParameters = Prelude.Nothing,
-      configRuleName = Prelude.Nothing,
-      createdBy = Prelude.Nothing,
-      maximumExecutionFrequency = Prelude.Nothing,
-      configRuleId = Prelude.Nothing,
-      scope = Prelude.Nothing,
-      configRuleState = Prelude.Nothing,
-      description = Prelude.Nothing,
-      configRuleArn = Prelude.Nothing,
-      source = pSource_
-    }
-
--- | A string, in JSON format, that is passed to the Config rule Lambda
+-- 'inputParameters', 'configRule_inputParameters' - A string, in JSON format, that is passed to the Config rule Lambda
 -- function.
-configRule_inputParameters :: Lens.Lens' ConfigRule (Prelude.Maybe Prelude.Text)
-configRule_inputParameters = Lens.lens (\ConfigRule' {inputParameters} -> inputParameters) (\s@ConfigRule' {} a -> s {inputParameters = a} :: ConfigRule)
-
--- | The name that you assign to the Config rule. The name is required if you
--- are adding a new rule.
-configRule_configRuleName :: Lens.Lens' ConfigRule (Prelude.Maybe Prelude.Text)
-configRule_configRuleName = Lens.lens (\ConfigRule' {configRuleName} -> configRuleName) (\s@ConfigRule' {} a -> s {configRuleName = a} :: ConfigRule)
-
--- | Service principal name of the service that created the rule.
 --
--- The field is populated only if the service linked rule is created by a
--- service. The field is empty if you create your own rule.
-configRule_createdBy :: Lens.Lens' ConfigRule (Prelude.Maybe Prelude.Text)
-configRule_createdBy = Lens.lens (\ConfigRule' {createdBy} -> createdBy) (\s@ConfigRule' {} a -> s {createdBy = a} :: ConfigRule)
-
--- | The maximum frequency with which Config runs evaluations for a rule. You
+-- 'maximumExecutionFrequency', 'configRule_maximumExecutionFrequency' - The maximum frequency with which Config runs evaluations for a rule. You
 -- can specify a value for @MaximumExecutionFrequency@ when:
 --
--- -   You are using an Config managed rule that is triggered at a periodic
+-- -   This is for an Config managed rule that is triggered at a periodic
 --     frequency.
 --
 -- -   Your custom rule is triggered when Config delivers the configuration
@@ -226,14 +186,8 @@ configRule_createdBy = Lens.lens (\ConfigRule' {createdBy} -> createdBy) (\s@Con
 -- By default, rules with a periodic trigger are evaluated every 24 hours.
 -- To change the frequency, specify a valid value for the
 -- @MaximumExecutionFrequency@ parameter.
-configRule_maximumExecutionFrequency :: Lens.Lens' ConfigRule (Prelude.Maybe MaximumExecutionFrequency)
-configRule_maximumExecutionFrequency = Lens.lens (\ConfigRule' {maximumExecutionFrequency} -> maximumExecutionFrequency) (\s@ConfigRule' {} a -> s {maximumExecutionFrequency = a} :: ConfigRule)
-
--- | The ID of the Config rule.
-configRule_configRuleId :: Lens.Lens' ConfigRule (Prelude.Maybe Prelude.Text)
-configRule_configRuleId = Lens.lens (\ConfigRule' {configRuleId} -> configRuleId) (\s@ConfigRule' {} a -> s {configRuleId = a} :: ConfigRule)
-
--- | Defines which resources can trigger an evaluation for the rule. The
+--
+-- 'scope', 'configRule_scope' - Defines which resources can trigger an evaluation for the rule. The
 -- scope can include one or more resource types, a combination of one
 -- resource type and one resource ID, or a combination of a tag key and
 -- value. Specify a scope to constrain the resources that can trigger an
@@ -241,8 +195,42 @@ configRule_configRuleId = Lens.lens (\ConfigRule' {configRuleId} -> configRuleId
 -- triggered when any resource in the recording group changes.
 --
 -- The scope can be empty.
-configRule_scope :: Lens.Lens' ConfigRule (Prelude.Maybe Scope)
-configRule_scope = Lens.lens (\ConfigRule' {scope} -> scope) (\s@ConfigRule' {} a -> s {scope = a} :: ConfigRule)
+--
+-- 'source', 'configRule_source' - Provides the rule owner (@Amazon Web Services@ for managed rules,
+-- @CUSTOM_POLICY@ for Custom Policy rules, and @CUSTOM_LAMBDA@ for Custom
+-- Lambda rules), the rule identifier, and the notifications that cause the
+-- function to evaluate your Amazon Web Services resources.
+newConfigRule ::
+  -- | 'source'
+  Source ->
+  ConfigRule
+newConfigRule pSource_ =
+  ConfigRule'
+    { configRuleArn = Prelude.Nothing,
+      configRuleId = Prelude.Nothing,
+      configRuleName = Prelude.Nothing,
+      configRuleState = Prelude.Nothing,
+      createdBy = Prelude.Nothing,
+      description = Prelude.Nothing,
+      evaluationModes = Prelude.Nothing,
+      inputParameters = Prelude.Nothing,
+      maximumExecutionFrequency = Prelude.Nothing,
+      scope = Prelude.Nothing,
+      source = pSource_
+    }
+
+-- | The Amazon Resource Name (ARN) of the Config rule.
+configRule_configRuleArn :: Lens.Lens' ConfigRule (Prelude.Maybe Prelude.Text)
+configRule_configRuleArn = Lens.lens (\ConfigRule' {configRuleArn} -> configRuleArn) (\s@ConfigRule' {} a -> s {configRuleArn = a} :: ConfigRule)
+
+-- | The ID of the Config rule.
+configRule_configRuleId :: Lens.Lens' ConfigRule (Prelude.Maybe Prelude.Text)
+configRule_configRuleId = Lens.lens (\ConfigRule' {configRuleId} -> configRuleId) (\s@ConfigRule' {} a -> s {configRuleId = a} :: ConfigRule)
+
+-- | The name that you assign to the Config rule. The name is required if you
+-- are adding a new rule.
+configRule_configRuleName :: Lens.Lens' ConfigRule (Prelude.Maybe Prelude.Text)
+configRule_configRuleName = Lens.lens (\ConfigRule' {configRuleName} -> configRuleName) (\s@ConfigRule' {} a -> s {configRuleName = a} :: ConfigRule)
 
 -- | Indicates whether the Config rule is active or is currently being
 -- deleted by Config. It can also indicate the evaluation status for the
@@ -263,81 +251,130 @@ configRule_scope = Lens.lens (\ConfigRule' {scope} -> scope) (\s@ConfigRule' {} 
 configRule_configRuleState :: Lens.Lens' ConfigRule (Prelude.Maybe ConfigRuleState)
 configRule_configRuleState = Lens.lens (\ConfigRule' {configRuleState} -> configRuleState) (\s@ConfigRule' {} a -> s {configRuleState = a} :: ConfigRule)
 
+-- | Service principal name of the service that created the rule.
+--
+-- The field is populated only if the service-linked rule is created by a
+-- service. The field is empty if you create your own rule.
+configRule_createdBy :: Lens.Lens' ConfigRule (Prelude.Maybe Prelude.Text)
+configRule_createdBy = Lens.lens (\ConfigRule' {createdBy} -> createdBy) (\s@ConfigRule' {} a -> s {createdBy = a} :: ConfigRule)
+
 -- | The description that you provide for the Config rule.
 configRule_description :: Lens.Lens' ConfigRule (Prelude.Maybe Prelude.Text)
 configRule_description = Lens.lens (\ConfigRule' {description} -> description) (\s@ConfigRule' {} a -> s {description = a} :: ConfigRule)
 
--- | The Amazon Resource Name (ARN) of the Config rule.
-configRule_configRuleArn :: Lens.Lens' ConfigRule (Prelude.Maybe Prelude.Text)
-configRule_configRuleArn = Lens.lens (\ConfigRule' {configRuleArn} -> configRuleArn) (\s@ConfigRule' {} a -> s {configRuleArn = a} :: ConfigRule)
+-- | The modes the Config rule can be evaluated in. The valid values are
+-- distinct objects. By default, the value is Detective evaluation mode
+-- only.
+configRule_evaluationModes :: Lens.Lens' ConfigRule (Prelude.Maybe [EvaluationModeConfiguration])
+configRule_evaluationModes = Lens.lens (\ConfigRule' {evaluationModes} -> evaluationModes) (\s@ConfigRule' {} a -> s {evaluationModes = a} :: ConfigRule) Prelude.. Lens.mapping Lens.coerced
 
--- | Provides the rule owner (Amazon Web Services or customer), the rule
--- identifier, and the notifications that cause the function to evaluate
--- your Amazon Web Services resources.
+-- | A string, in JSON format, that is passed to the Config rule Lambda
+-- function.
+configRule_inputParameters :: Lens.Lens' ConfigRule (Prelude.Maybe Prelude.Text)
+configRule_inputParameters = Lens.lens (\ConfigRule' {inputParameters} -> inputParameters) (\s@ConfigRule' {} a -> s {inputParameters = a} :: ConfigRule)
+
+-- | The maximum frequency with which Config runs evaluations for a rule. You
+-- can specify a value for @MaximumExecutionFrequency@ when:
+--
+-- -   This is for an Config managed rule that is triggered at a periodic
+--     frequency.
+--
+-- -   Your custom rule is triggered when Config delivers the configuration
+--     snapshot. For more information, see
+--     ConfigSnapshotDeliveryProperties.
+--
+-- By default, rules with a periodic trigger are evaluated every 24 hours.
+-- To change the frequency, specify a valid value for the
+-- @MaximumExecutionFrequency@ parameter.
+configRule_maximumExecutionFrequency :: Lens.Lens' ConfigRule (Prelude.Maybe MaximumExecutionFrequency)
+configRule_maximumExecutionFrequency = Lens.lens (\ConfigRule' {maximumExecutionFrequency} -> maximumExecutionFrequency) (\s@ConfigRule' {} a -> s {maximumExecutionFrequency = a} :: ConfigRule)
+
+-- | Defines which resources can trigger an evaluation for the rule. The
+-- scope can include one or more resource types, a combination of one
+-- resource type and one resource ID, or a combination of a tag key and
+-- value. Specify a scope to constrain the resources that can trigger an
+-- evaluation for the rule. If you do not specify a scope, evaluations are
+-- triggered when any resource in the recording group changes.
+--
+-- The scope can be empty.
+configRule_scope :: Lens.Lens' ConfigRule (Prelude.Maybe Scope)
+configRule_scope = Lens.lens (\ConfigRule' {scope} -> scope) (\s@ConfigRule' {} a -> s {scope = a} :: ConfigRule)
+
+-- | Provides the rule owner (@Amazon Web Services@ for managed rules,
+-- @CUSTOM_POLICY@ for Custom Policy rules, and @CUSTOM_LAMBDA@ for Custom
+-- Lambda rules), the rule identifier, and the notifications that cause the
+-- function to evaluate your Amazon Web Services resources.
 configRule_source :: Lens.Lens' ConfigRule Source
 configRule_source = Lens.lens (\ConfigRule' {source} -> source) (\s@ConfigRule' {} a -> s {source = a} :: ConfigRule)
 
-instance Core.FromJSON ConfigRule where
+instance Data.FromJSON ConfigRule where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ConfigRule"
       ( \x ->
           ConfigRule'
-            Prelude.<$> (x Core..:? "InputParameters")
-            Prelude.<*> (x Core..:? "ConfigRuleName")
-            Prelude.<*> (x Core..:? "CreatedBy")
-            Prelude.<*> (x Core..:? "MaximumExecutionFrequency")
-            Prelude.<*> (x Core..:? "ConfigRuleId")
-            Prelude.<*> (x Core..:? "Scope")
-            Prelude.<*> (x Core..:? "ConfigRuleState")
-            Prelude.<*> (x Core..:? "Description")
-            Prelude.<*> (x Core..:? "ConfigRuleArn")
-            Prelude.<*> (x Core..: "Source")
+            Prelude.<$> (x Data..:? "ConfigRuleArn")
+            Prelude.<*> (x Data..:? "ConfigRuleId")
+            Prelude.<*> (x Data..:? "ConfigRuleName")
+            Prelude.<*> (x Data..:? "ConfigRuleState")
+            Prelude.<*> (x Data..:? "CreatedBy")
+            Prelude.<*> (x Data..:? "Description")
+            Prelude.<*> ( x Data..:? "EvaluationModes"
+                            Data..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Data..:? "InputParameters")
+            Prelude.<*> (x Data..:? "MaximumExecutionFrequency")
+            Prelude.<*> (x Data..:? "Scope")
+            Prelude.<*> (x Data..: "Source")
       )
 
 instance Prelude.Hashable ConfigRule where
   hashWithSalt _salt ConfigRule' {..} =
-    _salt `Prelude.hashWithSalt` inputParameters
-      `Prelude.hashWithSalt` configRuleName
-      `Prelude.hashWithSalt` createdBy
-      `Prelude.hashWithSalt` maximumExecutionFrequency
+    _salt `Prelude.hashWithSalt` configRuleArn
       `Prelude.hashWithSalt` configRuleId
-      `Prelude.hashWithSalt` scope
+      `Prelude.hashWithSalt` configRuleName
       `Prelude.hashWithSalt` configRuleState
+      `Prelude.hashWithSalt` createdBy
       `Prelude.hashWithSalt` description
-      `Prelude.hashWithSalt` configRuleArn
+      `Prelude.hashWithSalt` evaluationModes
+      `Prelude.hashWithSalt` inputParameters
+      `Prelude.hashWithSalt` maximumExecutionFrequency
+      `Prelude.hashWithSalt` scope
       `Prelude.hashWithSalt` source
 
 instance Prelude.NFData ConfigRule where
   rnf ConfigRule' {..} =
-    Prelude.rnf inputParameters
-      `Prelude.seq` Prelude.rnf configRuleName
-      `Prelude.seq` Prelude.rnf createdBy
-      `Prelude.seq` Prelude.rnf maximumExecutionFrequency
+    Prelude.rnf configRuleArn
       `Prelude.seq` Prelude.rnf configRuleId
-      `Prelude.seq` Prelude.rnf scope
+      `Prelude.seq` Prelude.rnf configRuleName
       `Prelude.seq` Prelude.rnf configRuleState
+      `Prelude.seq` Prelude.rnf createdBy
       `Prelude.seq` Prelude.rnf description
-      `Prelude.seq` Prelude.rnf configRuleArn
+      `Prelude.seq` Prelude.rnf evaluationModes
+      `Prelude.seq` Prelude.rnf inputParameters
+      `Prelude.seq` Prelude.rnf maximumExecutionFrequency
+      `Prelude.seq` Prelude.rnf scope
       `Prelude.seq` Prelude.rnf source
 
-instance Core.ToJSON ConfigRule where
+instance Data.ToJSON ConfigRule where
   toJSON ConfigRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("InputParameters" Core..=)
-              Prelude.<$> inputParameters,
-            ("ConfigRuleName" Core..=)
+          [ ("ConfigRuleArn" Data..=) Prelude.<$> configRuleArn,
+            ("ConfigRuleId" Data..=) Prelude.<$> configRuleId,
+            ("ConfigRuleName" Data..=)
               Prelude.<$> configRuleName,
-            ("CreatedBy" Core..=) Prelude.<$> createdBy,
-            ("MaximumExecutionFrequency" Core..=)
-              Prelude.<$> maximumExecutionFrequency,
-            ("ConfigRuleId" Core..=) Prelude.<$> configRuleId,
-            ("Scope" Core..=) Prelude.<$> scope,
-            ("ConfigRuleState" Core..=)
+            ("ConfigRuleState" Data..=)
               Prelude.<$> configRuleState,
-            ("Description" Core..=) Prelude.<$> description,
-            ("ConfigRuleArn" Core..=) Prelude.<$> configRuleArn,
-            Prelude.Just ("Source" Core..= source)
+            ("CreatedBy" Data..=) Prelude.<$> createdBy,
+            ("Description" Data..=) Prelude.<$> description,
+            ("EvaluationModes" Data..=)
+              Prelude.<$> evaluationModes,
+            ("InputParameters" Data..=)
+              Prelude.<$> inputParameters,
+            ("MaximumExecutionFrequency" Data..=)
+              Prelude.<$> maximumExecutionFrequency,
+            ("Scope" Data..=) Prelude.<$> scope,
+            Prelude.Just ("Source" Data..= source)
           ]
       )

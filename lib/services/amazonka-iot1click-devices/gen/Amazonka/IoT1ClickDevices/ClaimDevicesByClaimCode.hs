@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT1ClickDevices.ClaimDevicesByClaimCode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.IoT1ClickDevices.ClaimDevicesByClaimCode
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT1ClickDevices.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,13 +83,14 @@ instance Core.AWSRequest ClaimDevicesByClaimCode where
   type
     AWSResponse ClaimDevicesByClaimCode =
       ClaimDevicesByClaimCodeResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ClaimDevicesByClaimCodeResponse'
-            Prelude.<$> (x Core..?> "claimCode")
-            Prelude.<*> (x Core..?> "total")
+            Prelude.<$> (x Data..?> "claimCode")
+            Prelude.<*> (x Data..?> "total")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -100,25 +102,25 @@ instance Prelude.NFData ClaimDevicesByClaimCode where
   rnf ClaimDevicesByClaimCode' {..} =
     Prelude.rnf claimCode
 
-instance Core.ToHeaders ClaimDevicesByClaimCode where
+instance Data.ToHeaders ClaimDevicesByClaimCode where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ClaimDevicesByClaimCode where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON ClaimDevicesByClaimCode where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath ClaimDevicesByClaimCode where
+instance Data.ToPath ClaimDevicesByClaimCode where
   toPath ClaimDevicesByClaimCode' {..} =
-    Prelude.mconcat ["/claims/", Core.toBS claimCode]
+    Prelude.mconcat ["/claims/", Data.toBS claimCode]
 
-instance Core.ToQuery ClaimDevicesByClaimCode where
+instance Data.ToQuery ClaimDevicesByClaimCode where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newClaimDevicesByClaimCodeResponse' smart constructor.

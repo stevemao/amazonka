@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.DeleteDeployment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -48,9 +49,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDeleteDeployment' smart constructor.
 data DeleteDeployment = DeleteDeployment'
-  { -- | [Required] The string identifier of the associated RestApi.
+  { -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] The identifier of the Deployment resource to delete.
+    -- | The identifier of the Deployment resource to delete.
     deploymentId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -63,9 +64,9 @@ data DeleteDeployment = DeleteDeployment'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'restApiId', 'deleteDeployment_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'deleteDeployment_restApiId' - The string identifier of the associated RestApi.
 --
--- 'deploymentId', 'deleteDeployment_deploymentId' - [Required] The identifier of the Deployment resource to delete.
+-- 'deploymentId', 'deleteDeployment_deploymentId' - The identifier of the Deployment resource to delete.
 newDeleteDeployment ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -78,11 +79,11 @@ newDeleteDeployment pRestApiId_ pDeploymentId_ =
       deploymentId = pDeploymentId_
     }
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 deleteDeployment_restApiId :: Lens.Lens' DeleteDeployment Prelude.Text
 deleteDeployment_restApiId = Lens.lens (\DeleteDeployment' {restApiId} -> restApiId) (\s@DeleteDeployment' {} a -> s {restApiId = a} :: DeleteDeployment)
 
--- | [Required] The identifier of the Deployment resource to delete.
+-- | The identifier of the Deployment resource to delete.
 deleteDeployment_deploymentId :: Lens.Lens' DeleteDeployment Prelude.Text
 deleteDeployment_deploymentId = Lens.lens (\DeleteDeployment' {deploymentId} -> deploymentId) (\s@DeleteDeployment' {} a -> s {deploymentId = a} :: DeleteDeployment)
 
@@ -90,7 +91,8 @@ instance Core.AWSRequest DeleteDeployment where
   type
     AWSResponse DeleteDeployment =
       DeleteDeploymentResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteDeploymentResponse'
 
@@ -104,25 +106,25 @@ instance Prelude.NFData DeleteDeployment where
     Prelude.rnf restApiId
       `Prelude.seq` Prelude.rnf deploymentId
 
-instance Core.ToHeaders DeleteDeployment where
+instance Data.ToHeaders DeleteDeployment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath DeleteDeployment where
+instance Data.ToPath DeleteDeployment where
   toPath DeleteDeployment' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/deployments/",
-        Core.toBS deploymentId
+        Data.toBS deploymentId
       ]
 
-instance Core.ToQuery DeleteDeployment where
+instance Data.ToQuery DeleteDeployment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteDeploymentResponse' smart constructor.

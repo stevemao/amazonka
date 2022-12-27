@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.UpdateConfigurationTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,9 +36,9 @@ module Amazonka.ElasticBeanstalk.UpdateConfigurationTemplate
     newUpdateConfigurationTemplate,
 
     -- * Request Lenses
-    updateConfigurationTemplate_optionsToRemove,
-    updateConfigurationTemplate_optionSettings,
     updateConfigurationTemplate_description,
+    updateConfigurationTemplate_optionSettings,
+    updateConfigurationTemplate_optionsToRemove,
     updateConfigurationTemplate_applicationName,
     updateConfigurationTemplate_templateName,
 
@@ -47,22 +47,23 @@ module Amazonka.ElasticBeanstalk.UpdateConfigurationTemplate
     newConfigurationSettingsDescription,
 
     -- * Response Lenses
-    configurationSettingsDescription_templateName,
-    configurationSettingsDescription_optionSettings,
-    configurationSettingsDescription_dateUpdated,
-    configurationSettingsDescription_dateCreated,
-    configurationSettingsDescription_platformArn,
-    configurationSettingsDescription_environmentName,
     configurationSettingsDescription_applicationName,
+    configurationSettingsDescription_dateCreated,
+    configurationSettingsDescription_dateUpdated,
     configurationSettingsDescription_deploymentStatus,
-    configurationSettingsDescription_solutionStackName,
     configurationSettingsDescription_description,
+    configurationSettingsDescription_environmentName,
+    configurationSettingsDescription_optionSettings,
+    configurationSettingsDescription_platformArn,
+    configurationSettingsDescription_solutionStackName,
+    configurationSettingsDescription_templateName,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticBeanstalk.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -72,15 +73,15 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newUpdateConfigurationTemplate' smart constructor.
 data UpdateConfigurationTemplate = UpdateConfigurationTemplate'
-  { -- | A list of configuration options to remove from the configuration set.
-    --
-    -- Constraint: You can remove only @UserDefined@ configuration options.
-    optionsToRemove :: Prelude.Maybe [OptionSpecification],
+  { -- | A new description for the configuration.
+    description :: Prelude.Maybe Prelude.Text,
     -- | A list of configuration option settings to update with the new specified
     -- option value.
     optionSettings :: Prelude.Maybe [ConfigurationOptionSetting],
-    -- | A new description for the configuration.
-    description :: Prelude.Maybe Prelude.Text,
+    -- | A list of configuration options to remove from the configuration set.
+    --
+    -- Constraint: You can remove only @UserDefined@ configuration options.
+    optionsToRemove :: Prelude.Maybe [OptionSpecification],
     -- | The name of the application associated with the configuration template
     -- to update.
     --
@@ -103,14 +104,14 @@ data UpdateConfigurationTemplate = UpdateConfigurationTemplate'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'optionsToRemove', 'updateConfigurationTemplate_optionsToRemove' - A list of configuration options to remove from the configuration set.
---
--- Constraint: You can remove only @UserDefined@ configuration options.
+-- 'description', 'updateConfigurationTemplate_description' - A new description for the configuration.
 --
 -- 'optionSettings', 'updateConfigurationTemplate_optionSettings' - A list of configuration option settings to update with the new specified
 -- option value.
 --
--- 'description', 'updateConfigurationTemplate_description' - A new description for the configuration.
+-- 'optionsToRemove', 'updateConfigurationTemplate_optionsToRemove' - A list of configuration options to remove from the configuration set.
+--
+-- Constraint: You can remove only @UserDefined@ configuration options.
 --
 -- 'applicationName', 'updateConfigurationTemplate_applicationName' - The name of the application associated with the configuration template
 -- to update.
@@ -132,28 +133,28 @@ newUpdateConfigurationTemplate
   pApplicationName_
   pTemplateName_ =
     UpdateConfigurationTemplate'
-      { optionsToRemove =
+      { description =
           Prelude.Nothing,
         optionSettings = Prelude.Nothing,
-        description = Prelude.Nothing,
+        optionsToRemove = Prelude.Nothing,
         applicationName = pApplicationName_,
         templateName = pTemplateName_
       }
 
--- | A list of configuration options to remove from the configuration set.
---
--- Constraint: You can remove only @UserDefined@ configuration options.
-updateConfigurationTemplate_optionsToRemove :: Lens.Lens' UpdateConfigurationTemplate (Prelude.Maybe [OptionSpecification])
-updateConfigurationTemplate_optionsToRemove = Lens.lens (\UpdateConfigurationTemplate' {optionsToRemove} -> optionsToRemove) (\s@UpdateConfigurationTemplate' {} a -> s {optionsToRemove = a} :: UpdateConfigurationTemplate) Prelude.. Lens.mapping Lens.coerced
+-- | A new description for the configuration.
+updateConfigurationTemplate_description :: Lens.Lens' UpdateConfigurationTemplate (Prelude.Maybe Prelude.Text)
+updateConfigurationTemplate_description = Lens.lens (\UpdateConfigurationTemplate' {description} -> description) (\s@UpdateConfigurationTemplate' {} a -> s {description = a} :: UpdateConfigurationTemplate)
 
 -- | A list of configuration option settings to update with the new specified
 -- option value.
 updateConfigurationTemplate_optionSettings :: Lens.Lens' UpdateConfigurationTemplate (Prelude.Maybe [ConfigurationOptionSetting])
 updateConfigurationTemplate_optionSettings = Lens.lens (\UpdateConfigurationTemplate' {optionSettings} -> optionSettings) (\s@UpdateConfigurationTemplate' {} a -> s {optionSettings = a} :: UpdateConfigurationTemplate) Prelude.. Lens.mapping Lens.coerced
 
--- | A new description for the configuration.
-updateConfigurationTemplate_description :: Lens.Lens' UpdateConfigurationTemplate (Prelude.Maybe Prelude.Text)
-updateConfigurationTemplate_description = Lens.lens (\UpdateConfigurationTemplate' {description} -> description) (\s@UpdateConfigurationTemplate' {} a -> s {description = a} :: UpdateConfigurationTemplate)
+-- | A list of configuration options to remove from the configuration set.
+--
+-- Constraint: You can remove only @UserDefined@ configuration options.
+updateConfigurationTemplate_optionsToRemove :: Lens.Lens' UpdateConfigurationTemplate (Prelude.Maybe [OptionSpecification])
+updateConfigurationTemplate_optionsToRemove = Lens.lens (\UpdateConfigurationTemplate' {optionsToRemove} -> optionsToRemove) (\s@UpdateConfigurationTemplate' {} a -> s {optionsToRemove = a} :: UpdateConfigurationTemplate) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the application associated with the configuration template
 -- to update.
@@ -174,54 +175,55 @@ instance Core.AWSRequest UpdateConfigurationTemplate where
   type
     AWSResponse UpdateConfigurationTemplate =
       ConfigurationSettingsDescription
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "UpdateConfigurationTemplateResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance Prelude.Hashable UpdateConfigurationTemplate where
   hashWithSalt _salt UpdateConfigurationTemplate' {..} =
-    _salt `Prelude.hashWithSalt` optionsToRemove
+    _salt `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` optionSettings
-      `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` optionsToRemove
       `Prelude.hashWithSalt` applicationName
       `Prelude.hashWithSalt` templateName
 
 instance Prelude.NFData UpdateConfigurationTemplate where
   rnf UpdateConfigurationTemplate' {..} =
-    Prelude.rnf optionsToRemove
+    Prelude.rnf description
       `Prelude.seq` Prelude.rnf optionSettings
-      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf optionsToRemove
       `Prelude.seq` Prelude.rnf applicationName
       `Prelude.seq` Prelude.rnf templateName
 
-instance Core.ToHeaders UpdateConfigurationTemplate where
+instance Data.ToHeaders UpdateConfigurationTemplate where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath UpdateConfigurationTemplate where
+instance Data.ToPath UpdateConfigurationTemplate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateConfigurationTemplate where
+instance Data.ToQuery UpdateConfigurationTemplate where
   toQuery UpdateConfigurationTemplate' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "UpdateConfigurationTemplate" ::
+          Data.=: ( "UpdateConfigurationTemplate" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "OptionsToRemove"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
-                Prelude.<$> optionsToRemove
-            ),
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "Description" Data.=: description,
         "OptionSettings"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> optionSettings
             ),
-        "Description" Core.=: description,
-        "ApplicationName" Core.=: applicationName,
-        "TemplateName" Core.=: templateName
+        "OptionsToRemove"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
+                Prelude.<$> optionsToRemove
+            ),
+        "ApplicationName" Data.=: applicationName,
+        "TemplateName" Data.=: templateName
       ]

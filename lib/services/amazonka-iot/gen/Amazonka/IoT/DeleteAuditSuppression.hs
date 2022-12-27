@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DeleteAuditSuppression
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.IoT.DeleteAuditSuppression
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,7 +95,8 @@ instance Core.AWSRequest DeleteAuditSuppression where
   type
     AWSResponse DeleteAuditSuppression =
       DeleteAuditSuppressionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -112,23 +114,23 @@ instance Prelude.NFData DeleteAuditSuppression where
     Prelude.rnf checkName
       `Prelude.seq` Prelude.rnf resourceIdentifier
 
-instance Core.ToHeaders DeleteAuditSuppression where
+instance Data.ToHeaders DeleteAuditSuppression where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON DeleteAuditSuppression where
+instance Data.ToJSON DeleteAuditSuppression where
   toJSON DeleteAuditSuppression' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("checkName" Core..= checkName),
+          [ Prelude.Just ("checkName" Data..= checkName),
             Prelude.Just
-              ("resourceIdentifier" Core..= resourceIdentifier)
+              ("resourceIdentifier" Data..= resourceIdentifier)
           ]
       )
 
-instance Core.ToPath DeleteAuditSuppression where
+instance Data.ToPath DeleteAuditSuppression where
   toPath = Prelude.const "/audit/suppressions/delete"
 
-instance Core.ToQuery DeleteAuditSuppression where
+instance Data.ToQuery DeleteAuditSuppression where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAuditSuppressionResponse' smart constructor.

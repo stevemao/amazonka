@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.DeleteMatchmakingRuleSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,14 +27,6 @@
 -- __Learn more__
 --
 -- -   <https://docs.aws.amazon.com/gamelift/latest/flexmatchguide/match-rulesets.html Build a rule set>
---
--- __Related actions__
---
--- CreateMatchmakingConfiguration | DescribeMatchmakingConfigurations |
--- UpdateMatchmakingConfiguration | DeleteMatchmakingConfiguration |
--- CreateMatchmakingRuleSet | DescribeMatchmakingRuleSets |
--- ValidateMatchmakingRuleSet | DeleteMatchmakingRuleSet |
--- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.DeleteMatchmakingRuleSet
   ( -- * Creating a Request
     DeleteMatchmakingRuleSet (..),
@@ -53,15 +45,14 @@ module Amazonka.GameLift.DeleteMatchmakingRuleSet
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newDeleteMatchmakingRuleSet' smart constructor.
+-- | /See:/ 'newDeleteMatchmakingRuleSet' smart constructor.
 data DeleteMatchmakingRuleSet = DeleteMatchmakingRuleSet'
   { -- | A unique identifier for the matchmaking rule set to be deleted. (Note:
     -- The rule set name is different from the optional \"name\" field in the
@@ -98,7 +89,8 @@ instance Core.AWSRequest DeleteMatchmakingRuleSet where
   type
     AWSResponse DeleteMatchmakingRuleSet =
       DeleteMatchmakingRuleSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -113,37 +105,35 @@ instance Prelude.Hashable DeleteMatchmakingRuleSet where
 instance Prelude.NFData DeleteMatchmakingRuleSet where
   rnf DeleteMatchmakingRuleSet' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DeleteMatchmakingRuleSet where
+instance Data.ToHeaders DeleteMatchmakingRuleSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.DeleteMatchmakingRuleSet" ::
+              Data.=# ( "GameLift.DeleteMatchmakingRuleSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteMatchmakingRuleSet where
+instance Data.ToJSON DeleteMatchmakingRuleSet where
   toJSON DeleteMatchmakingRuleSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Name" Core..= name)]
+          [Prelude.Just ("Name" Data..= name)]
       )
 
-instance Core.ToPath DeleteMatchmakingRuleSet where
+instance Data.ToPath DeleteMatchmakingRuleSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteMatchmakingRuleSet where
+instance Data.ToQuery DeleteMatchmakingRuleSet where
   toQuery = Prelude.const Prelude.mempty
 
--- | Represents the returned data in response to a request operation.
---
--- /See:/ 'newDeleteMatchmakingRuleSetResponse' smart constructor.
+-- | /See:/ 'newDeleteMatchmakingRuleSetResponse' smart constructor.
 data DeleteMatchmakingRuleSetResponse = DeleteMatchmakingRuleSetResponse'
   { -- | The response's http status code.
     httpStatus :: Prelude.Int

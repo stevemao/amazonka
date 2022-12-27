@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.Scte35TimeSignalScheduleActionSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.Scte35TimeSignalScheduleActionSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.Scte35Descriptor
 import qualified Amazonka.Prelude as Prelude
 
@@ -55,16 +56,16 @@ scte35TimeSignalScheduleActionSettings_scte35Descriptors :: Lens.Lens' Scte35Tim
 scte35TimeSignalScheduleActionSettings_scte35Descriptors = Lens.lens (\Scte35TimeSignalScheduleActionSettings' {scte35Descriptors} -> scte35Descriptors) (\s@Scte35TimeSignalScheduleActionSettings' {} a -> s {scte35Descriptors = a} :: Scte35TimeSignalScheduleActionSettings) Prelude.. Lens.coerced
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     Scte35TimeSignalScheduleActionSettings
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Scte35TimeSignalScheduleActionSettings"
       ( \x ->
           Scte35TimeSignalScheduleActionSettings'
-            Prelude.<$> ( x Core..:? "scte35Descriptors"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "scte35Descriptors"
+                            Data..!= Prelude.mempty
                         )
       )
 
@@ -85,13 +86,13 @@ instance
     Prelude.rnf scte35Descriptors
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     Scte35TimeSignalScheduleActionSettings
   where
   toJSON Scte35TimeSignalScheduleActionSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("scte35Descriptors" Core..= scte35Descriptors)
+              ("scte35Descriptors" Data..= scte35Descriptors)
           ]
       )

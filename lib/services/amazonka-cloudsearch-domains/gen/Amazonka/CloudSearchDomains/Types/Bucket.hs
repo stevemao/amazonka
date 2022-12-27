@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudSearchDomains.Types.Bucket
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.CloudSearchDomains.Types.Bucket where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A container for facet information.
 --
 -- /See:/ 'newBucket' smart constructor.
 data Bucket = Bucket'
-  { -- | The facet value being counted.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The number of hits that contain the facet value in the specified facet
+  { -- | The number of hits that contain the facet value in the specified facet
     -- field.
-    count :: Prelude.Maybe Prelude.Integer
+    count :: Prelude.Maybe Prelude.Integer,
+    -- | The facet value being counted.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,42 +44,42 @@ data Bucket = Bucket'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'bucket_value' - The facet value being counted.
---
 -- 'count', 'bucket_count' - The number of hits that contain the facet value in the specified facet
 -- field.
+--
+-- 'value', 'bucket_value' - The facet value being counted.
 newBucket ::
   Bucket
 newBucket =
   Bucket'
-    { value = Prelude.Nothing,
-      count = Prelude.Nothing
+    { count = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The facet value being counted.
-bucket_value :: Lens.Lens' Bucket (Prelude.Maybe Prelude.Text)
-bucket_value = Lens.lens (\Bucket' {value} -> value) (\s@Bucket' {} a -> s {value = a} :: Bucket)
 
 -- | The number of hits that contain the facet value in the specified facet
 -- field.
 bucket_count :: Lens.Lens' Bucket (Prelude.Maybe Prelude.Integer)
 bucket_count = Lens.lens (\Bucket' {count} -> count) (\s@Bucket' {} a -> s {count = a} :: Bucket)
 
-instance Core.FromJSON Bucket where
+-- | The facet value being counted.
+bucket_value :: Lens.Lens' Bucket (Prelude.Maybe Prelude.Text)
+bucket_value = Lens.lens (\Bucket' {value} -> value) (\s@Bucket' {} a -> s {value = a} :: Bucket)
+
+instance Data.FromJSON Bucket where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Bucket"
       ( \x ->
           Bucket'
-            Prelude.<$> (x Core..:? "value")
-            Prelude.<*> (x Core..:? "count")
+            Prelude.<$> (x Data..:? "count")
+            Prelude.<*> (x Data..:? "value")
       )
 
 instance Prelude.Hashable Bucket where
   hashWithSalt _salt Bucket' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` count
+    _salt `Prelude.hashWithSalt` count
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData Bucket where
   rnf Bucket' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf count
+    Prelude.rnf count `Prelude.seq` Prelude.rnf value

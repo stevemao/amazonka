@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Neptune.ModifyDBClusterSnapshotAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -61,7 +61,8 @@ module Amazonka.Neptune.ModifyDBClusterSnapshotAttribute
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Neptune.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -77,7 +78,7 @@ data ModifyDBClusterSnapshotAttribute = ModifyDBClusterSnapshotAttribute'
     -- IDs, or @all@ to make the manual DB cluster snapshot restorable by any
     -- Amazon account. Do not add the @all@ value for any manual DB cluster
     -- snapshots that contain private information that you don\'t want
-    -- available to all AWS accounts.
+    -- available to all Amazon accounts.
     valuesToAdd :: Prelude.Maybe [Prelude.Text],
     -- | A list of DB cluster snapshot attributes to remove from the attribute
     -- specified by @AttributeName@.
@@ -116,7 +117,7 @@ data ModifyDBClusterSnapshotAttribute = ModifyDBClusterSnapshotAttribute'
 -- IDs, or @all@ to make the manual DB cluster snapshot restorable by any
 -- Amazon account. Do not add the @all@ value for any manual DB cluster
 -- snapshots that contain private information that you don\'t want
--- available to all AWS accounts.
+-- available to all Amazon accounts.
 --
 -- 'valuesToRemove', 'modifyDBClusterSnapshotAttribute_valuesToRemove' - A list of DB cluster snapshot attributes to remove from the attribute
 -- specified by @AttributeName@.
@@ -161,7 +162,7 @@ newModifyDBClusterSnapshotAttribute
 -- IDs, or @all@ to make the manual DB cluster snapshot restorable by any
 -- Amazon account. Do not add the @all@ value for any manual DB cluster
 -- snapshots that contain private information that you don\'t want
--- available to all AWS accounts.
+-- available to all Amazon accounts.
 modifyDBClusterSnapshotAttribute_valuesToAdd :: Lens.Lens' ModifyDBClusterSnapshotAttribute (Prelude.Maybe [Prelude.Text])
 modifyDBClusterSnapshotAttribute_valuesToAdd = Lens.lens (\ModifyDBClusterSnapshotAttribute' {valuesToAdd} -> valuesToAdd) (\s@ModifyDBClusterSnapshotAttribute' {} a -> s {valuesToAdd = a} :: ModifyDBClusterSnapshotAttribute) Prelude.. Lens.mapping Lens.coerced
 
@@ -196,13 +197,14 @@ instance
   type
     AWSResponse ModifyDBClusterSnapshotAttribute =
       ModifyDBClusterSnapshotAttributeResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ModifyDBClusterSnapshotAttributeResult"
       ( \s h x ->
           ModifyDBClusterSnapshotAttributeResponse'
-            Prelude.<$> (x Core..@? "DBClusterSnapshotAttributesResult")
+            Prelude.<$> (x Data..@? "DBClusterSnapshotAttributesResult")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -229,39 +231,39 @@ instance
       `Prelude.seq` Prelude.rnf attributeName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ModifyDBClusterSnapshotAttribute
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyDBClusterSnapshotAttribute where
+instance Data.ToPath ModifyDBClusterSnapshotAttribute where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ModifyDBClusterSnapshotAttribute
   where
   toQuery ModifyDBClusterSnapshotAttribute' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "ModifyDBClusterSnapshotAttribute" ::
+          Data.=: ( "ModifyDBClusterSnapshotAttribute" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "ValuesToAdd"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "AttributeValue"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "AttributeValue"
                 Prelude.<$> valuesToAdd
             ),
         "ValuesToRemove"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "AttributeValue"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "AttributeValue"
                 Prelude.<$> valuesToRemove
             ),
         "DBClusterSnapshotIdentifier"
-          Core.=: dbClusterSnapshotIdentifier,
-        "AttributeName" Core.=: attributeName
+          Data.=: dbClusterSnapshotIdentifier,
+        "AttributeName" Data.=: attributeName
       ]
 
 -- | /See:/ 'newModifyDBClusterSnapshotAttributeResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.ExitStandby
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,14 +95,15 @@ exitStandby_autoScalingGroupName = Lens.lens (\ExitStandby' {autoScalingGroupNam
 
 instance Core.AWSRequest ExitStandby where
   type AWSResponse ExitStandby = ExitStandbyResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ExitStandbyResult"
       ( \s h x ->
           ExitStandbyResponse'
-            Prelude.<$> ( x Core..@? "Activities" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> ( x Data..@? "Activities" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -116,23 +118,23 @@ instance Prelude.NFData ExitStandby where
     Prelude.rnf instanceIds
       `Prelude.seq` Prelude.rnf autoScalingGroupName
 
-instance Core.ToHeaders ExitStandby where
+instance Data.ToHeaders ExitStandby where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ExitStandby where
+instance Data.ToPath ExitStandby where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ExitStandby where
+instance Data.ToQuery ExitStandby where
   toQuery ExitStandby' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ExitStandby" :: Prelude.ByteString),
+          Data.=: ("ExitStandby" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
         "InstanceIds"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> instanceIds),
-        "AutoScalingGroupName" Core.=: autoScalingGroupName
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> instanceIds),
+        "AutoScalingGroupName" Data.=: autoScalingGroupName
       ]
 
 -- | /See:/ 'newExitStandbyResponse' smart constructor.

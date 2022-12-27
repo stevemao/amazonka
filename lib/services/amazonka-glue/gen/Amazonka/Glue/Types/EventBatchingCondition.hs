@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.EventBatchingCondition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Glue.Types.EventBatchingCondition where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Batch condition that must be met (specified number of events received or
@@ -71,14 +72,14 @@ eventBatchingCondition_batchWindow = Lens.lens (\EventBatchingCondition' {batchW
 eventBatchingCondition_batchSize :: Lens.Lens' EventBatchingCondition Prelude.Natural
 eventBatchingCondition_batchSize = Lens.lens (\EventBatchingCondition' {batchSize} -> batchSize) (\s@EventBatchingCondition' {} a -> s {batchSize = a} :: EventBatchingCondition)
 
-instance Core.FromJSON EventBatchingCondition where
+instance Data.FromJSON EventBatchingCondition where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EventBatchingCondition"
       ( \x ->
           EventBatchingCondition'
-            Prelude.<$> (x Core..:? "BatchWindow")
-            Prelude.<*> (x Core..: "BatchSize")
+            Prelude.<$> (x Data..:? "BatchWindow")
+            Prelude.<*> (x Data..: "BatchSize")
       )
 
 instance Prelude.Hashable EventBatchingCondition where
@@ -91,11 +92,11 @@ instance Prelude.NFData EventBatchingCondition where
     Prelude.rnf batchWindow
       `Prelude.seq` Prelude.rnf batchSize
 
-instance Core.ToJSON EventBatchingCondition where
+instance Data.ToJSON EventBatchingCondition where
   toJSON EventBatchingCondition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("BatchWindow" Core..=) Prelude.<$> batchWindow,
-            Prelude.Just ("BatchSize" Core..= batchSize)
+          [ ("BatchWindow" Data..=) Prelude.<$> batchWindow,
+            Prelude.Just ("BatchSize" Data..= batchSize)
           ]
       )

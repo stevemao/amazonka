@@ -14,15 +14,15 @@
 
 -- |
 -- Module      : Amazonka.Chime.UpdateSipMediaApplicationCall
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Allows you to trigger a Lambda function at any time while a call is
--- active, and replace the current actions with new actions returned by the
--- invocation.
+-- Invokes the AWS Lambda function associated with the SIP media
+-- application and transaction ID in an update request. The Lambda function
+-- can then return a new set of actions.
 module Amazonka.Chime.UpdateSipMediaApplicationCall
   ( -- * Creating a Request
     UpdateSipMediaApplicationCall (..),
@@ -45,7 +45,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,7 +59,7 @@ data UpdateSipMediaApplicationCall = UpdateSipMediaApplicationCall'
     transactionId :: Prelude.Text,
     -- | Arguments made available to the Lambda function as part of the
     -- @CALL_UPDATE_REQUESTED@ event. Can contain 0-20 key-value pairs.
-    arguments :: Prelude.HashMap Prelude.Text (Core.Sensitive Prelude.Text)
+    arguments :: Prelude.HashMap Prelude.Text (Data.Sensitive Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -112,12 +113,13 @@ instance
   type
     AWSResponse UpdateSipMediaApplicationCall =
       UpdateSipMediaApplicationCallResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateSipMediaApplicationCallResponse'
-            Prelude.<$> (x Core..?> "SipMediaApplicationCall")
+            Prelude.<$> (x Data..?> "SipMediaApplicationCall")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -136,26 +138,26 @@ instance Prelude.NFData UpdateSipMediaApplicationCall where
       `Prelude.seq` Prelude.rnf transactionId
       `Prelude.seq` Prelude.rnf arguments
 
-instance Core.ToHeaders UpdateSipMediaApplicationCall where
+instance Data.ToHeaders UpdateSipMediaApplicationCall where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateSipMediaApplicationCall where
+instance Data.ToJSON UpdateSipMediaApplicationCall where
   toJSON UpdateSipMediaApplicationCall' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Arguments" Core..= arguments)]
+          [Prelude.Just ("Arguments" Data..= arguments)]
       )
 
-instance Core.ToPath UpdateSipMediaApplicationCall where
+instance Data.ToPath UpdateSipMediaApplicationCall where
   toPath UpdateSipMediaApplicationCall' {..} =
     Prelude.mconcat
       [ "/sip-media-applications/",
-        Core.toBS sipMediaApplicationId,
+        Data.toBS sipMediaApplicationId,
         "/calls/",
-        Core.toBS transactionId
+        Data.toBS transactionId
       ]
 
-instance Core.ToQuery UpdateSipMediaApplicationCall where
+instance Data.ToQuery UpdateSipMediaApplicationCall where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateSipMediaApplicationCallResponse' smart constructor.

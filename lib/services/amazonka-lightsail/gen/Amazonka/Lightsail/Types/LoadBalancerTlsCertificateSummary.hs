@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.LoadBalancerTlsCertificateSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.LoadBalancerTlsCertificateSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides a summary of SSL\/TLS certificate metadata.
@@ -66,16 +67,16 @@ loadBalancerTlsCertificateSummary_name :: Lens.Lens' LoadBalancerTlsCertificateS
 loadBalancerTlsCertificateSummary_name = Lens.lens (\LoadBalancerTlsCertificateSummary' {name} -> name) (\s@LoadBalancerTlsCertificateSummary' {} a -> s {name = a} :: LoadBalancerTlsCertificateSummary)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     LoadBalancerTlsCertificateSummary
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LoadBalancerTlsCertificateSummary"
       ( \x ->
           LoadBalancerTlsCertificateSummary'
-            Prelude.<$> (x Core..:? "isAttached")
-            Prelude.<*> (x Core..:? "name")
+            Prelude.<$> (x Data..:? "isAttached")
+            Prelude.<*> (x Data..:? "name")
       )
 
 instance

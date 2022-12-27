@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApiGatewayV2.UpdateDomainName
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,10 +36,10 @@ module Amazonka.ApiGatewayV2.UpdateDomainName
     newUpdateDomainNameResponse,
 
     -- * Response Lenses
-    updateDomainNameResponse_domainNameConfigurations,
-    updateDomainNameResponse_domainName,
-    updateDomainNameResponse_mutualTlsAuthentication,
     updateDomainNameResponse_apiMappingSelectionExpression,
+    updateDomainNameResponse_domainName,
+    updateDomainNameResponse_domainNameConfigurations,
+    updateDomainNameResponse_mutualTlsAuthentication,
     updateDomainNameResponse_tags,
     updateDomainNameResponse_httpStatus,
   )
@@ -47,7 +47,8 @@ where
 
 import Amazonka.ApiGatewayV2.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,18 +107,19 @@ instance Core.AWSRequest UpdateDomainName where
   type
     AWSResponse UpdateDomainName =
       UpdateDomainNameResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateDomainNameResponse'
-            Prelude.<$> ( x Core..?> "domainNameConfigurations"
+            Prelude.<$> (x Data..?> "apiMappingSelectionExpression")
+            Prelude.<*> (x Data..?> "domainName")
+            Prelude.<*> ( x Data..?> "domainNameConfigurations"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "domainName")
-            Prelude.<*> (x Core..?> "mutualTlsAuthentication")
-            Prelude.<*> (x Core..?> "apiMappingSelectionExpression")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "mutualTlsAuthentication")
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -134,46 +136,46 @@ instance Prelude.NFData UpdateDomainName where
       `Prelude.seq` Prelude.rnf mutualTlsAuthentication
       `Prelude.seq` Prelude.rnf domainName
 
-instance Core.ToHeaders UpdateDomainName where
+instance Data.ToHeaders UpdateDomainName where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateDomainName where
+instance Data.ToJSON UpdateDomainName where
   toJSON UpdateDomainName' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("domainNameConfigurations" Core..=)
+          [ ("domainNameConfigurations" Data..=)
               Prelude.<$> domainNameConfigurations,
-            ("mutualTlsAuthentication" Core..=)
+            ("mutualTlsAuthentication" Data..=)
               Prelude.<$> mutualTlsAuthentication
           ]
       )
 
-instance Core.ToPath UpdateDomainName where
+instance Data.ToPath UpdateDomainName where
   toPath UpdateDomainName' {..} =
     Prelude.mconcat
-      ["/v2/domainnames/", Core.toBS domainName]
+      ["/v2/domainnames/", Data.toBS domainName]
 
-instance Core.ToQuery UpdateDomainName where
+instance Data.ToQuery UpdateDomainName where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateDomainNameResponse' smart constructor.
 data UpdateDomainNameResponse = UpdateDomainNameResponse'
-  { -- | The domain name configurations.
-    domainNameConfigurations :: Prelude.Maybe [DomainNameConfiguration],
+  { -- | The API mapping selection expression.
+    apiMappingSelectionExpression :: Prelude.Maybe Prelude.Text,
     -- | The name of the DomainName resource.
     domainName :: Prelude.Maybe Prelude.Text,
+    -- | The domain name configurations.
+    domainNameConfigurations :: Prelude.Maybe [DomainNameConfiguration],
     -- | The mutual TLS authentication configuration for a custom domain name.
     mutualTlsAuthentication :: Prelude.Maybe MutualTlsAuthentication,
-    -- | The API mapping selection expression.
-    apiMappingSelectionExpression :: Prelude.Maybe Prelude.Text,
     -- | The collection of tags associated with a domain name.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The response's http status code.
@@ -189,13 +191,13 @@ data UpdateDomainNameResponse = UpdateDomainNameResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'domainNameConfigurations', 'updateDomainNameResponse_domainNameConfigurations' - The domain name configurations.
+-- 'apiMappingSelectionExpression', 'updateDomainNameResponse_apiMappingSelectionExpression' - The API mapping selection expression.
 --
 -- 'domainName', 'updateDomainNameResponse_domainName' - The name of the DomainName resource.
 --
--- 'mutualTlsAuthentication', 'updateDomainNameResponse_mutualTlsAuthentication' - The mutual TLS authentication configuration for a custom domain name.
+-- 'domainNameConfigurations', 'updateDomainNameResponse_domainNameConfigurations' - The domain name configurations.
 --
--- 'apiMappingSelectionExpression', 'updateDomainNameResponse_apiMappingSelectionExpression' - The API mapping selection expression.
+-- 'mutualTlsAuthentication', 'updateDomainNameResponse_mutualTlsAuthentication' - The mutual TLS authentication configuration for a custom domain name.
 --
 -- 'tags', 'updateDomainNameResponse_tags' - The collection of tags associated with a domain name.
 --
@@ -206,30 +208,30 @@ newUpdateDomainNameResponse ::
   UpdateDomainNameResponse
 newUpdateDomainNameResponse pHttpStatus_ =
   UpdateDomainNameResponse'
-    { domainNameConfigurations =
+    { apiMappingSelectionExpression =
         Prelude.Nothing,
       domainName = Prelude.Nothing,
+      domainNameConfigurations = Prelude.Nothing,
       mutualTlsAuthentication = Prelude.Nothing,
-      apiMappingSelectionExpression = Prelude.Nothing,
       tags = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The domain name configurations.
-updateDomainNameResponse_domainNameConfigurations :: Lens.Lens' UpdateDomainNameResponse (Prelude.Maybe [DomainNameConfiguration])
-updateDomainNameResponse_domainNameConfigurations = Lens.lens (\UpdateDomainNameResponse' {domainNameConfigurations} -> domainNameConfigurations) (\s@UpdateDomainNameResponse' {} a -> s {domainNameConfigurations = a} :: UpdateDomainNameResponse) Prelude.. Lens.mapping Lens.coerced
+-- | The API mapping selection expression.
+updateDomainNameResponse_apiMappingSelectionExpression :: Lens.Lens' UpdateDomainNameResponse (Prelude.Maybe Prelude.Text)
+updateDomainNameResponse_apiMappingSelectionExpression = Lens.lens (\UpdateDomainNameResponse' {apiMappingSelectionExpression} -> apiMappingSelectionExpression) (\s@UpdateDomainNameResponse' {} a -> s {apiMappingSelectionExpression = a} :: UpdateDomainNameResponse)
 
 -- | The name of the DomainName resource.
 updateDomainNameResponse_domainName :: Lens.Lens' UpdateDomainNameResponse (Prelude.Maybe Prelude.Text)
 updateDomainNameResponse_domainName = Lens.lens (\UpdateDomainNameResponse' {domainName} -> domainName) (\s@UpdateDomainNameResponse' {} a -> s {domainName = a} :: UpdateDomainNameResponse)
 
+-- | The domain name configurations.
+updateDomainNameResponse_domainNameConfigurations :: Lens.Lens' UpdateDomainNameResponse (Prelude.Maybe [DomainNameConfiguration])
+updateDomainNameResponse_domainNameConfigurations = Lens.lens (\UpdateDomainNameResponse' {domainNameConfigurations} -> domainNameConfigurations) (\s@UpdateDomainNameResponse' {} a -> s {domainNameConfigurations = a} :: UpdateDomainNameResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The mutual TLS authentication configuration for a custom domain name.
 updateDomainNameResponse_mutualTlsAuthentication :: Lens.Lens' UpdateDomainNameResponse (Prelude.Maybe MutualTlsAuthentication)
 updateDomainNameResponse_mutualTlsAuthentication = Lens.lens (\UpdateDomainNameResponse' {mutualTlsAuthentication} -> mutualTlsAuthentication) (\s@UpdateDomainNameResponse' {} a -> s {mutualTlsAuthentication = a} :: UpdateDomainNameResponse)
-
--- | The API mapping selection expression.
-updateDomainNameResponse_apiMappingSelectionExpression :: Lens.Lens' UpdateDomainNameResponse (Prelude.Maybe Prelude.Text)
-updateDomainNameResponse_apiMappingSelectionExpression = Lens.lens (\UpdateDomainNameResponse' {apiMappingSelectionExpression} -> apiMappingSelectionExpression) (\s@UpdateDomainNameResponse' {} a -> s {apiMappingSelectionExpression = a} :: UpdateDomainNameResponse)
 
 -- | The collection of tags associated with a domain name.
 updateDomainNameResponse_tags :: Lens.Lens' UpdateDomainNameResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -241,9 +243,9 @@ updateDomainNameResponse_httpStatus = Lens.lens (\UpdateDomainNameResponse' {htt
 
 instance Prelude.NFData UpdateDomainNameResponse where
   rnf UpdateDomainNameResponse' {..} =
-    Prelude.rnf domainNameConfigurations
+    Prelude.rnf apiMappingSelectionExpression
       `Prelude.seq` Prelude.rnf domainName
+      `Prelude.seq` Prelude.rnf domainNameConfigurations
       `Prelude.seq` Prelude.rnf mutualTlsAuthentication
-      `Prelude.seq` Prelude.rnf apiMappingSelectionExpression
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus

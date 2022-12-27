@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DMS.DeleteReplicationInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.DMS.DeleteReplicationInstance
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DMS.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,12 +89,13 @@ instance Core.AWSRequest DeleteReplicationInstance where
   type
     AWSResponse DeleteReplicationInstance =
       DeleteReplicationInstanceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteReplicationInstanceResponse'
-            Prelude.<$> (x Core..?> "ReplicationInstance")
+            Prelude.<$> (x Data..?> "ReplicationInstance")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -105,36 +107,36 @@ instance Prelude.NFData DeleteReplicationInstance where
   rnf DeleteReplicationInstance' {..} =
     Prelude.rnf replicationInstanceArn
 
-instance Core.ToHeaders DeleteReplicationInstance where
+instance Data.ToHeaders DeleteReplicationInstance where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonDMSv20160101.DeleteReplicationInstance" ::
+              Data.=# ( "AmazonDMSv20160101.DeleteReplicationInstance" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteReplicationInstance where
+instance Data.ToJSON DeleteReplicationInstance where
   toJSON DeleteReplicationInstance' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "ReplicationInstanceArn"
-                  Core..= replicationInstanceArn
+                  Data..= replicationInstanceArn
               )
           ]
       )
 
-instance Core.ToPath DeleteReplicationInstance where
+instance Data.ToPath DeleteReplicationInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteReplicationInstance where
+instance Data.ToQuery DeleteReplicationInstance where
   toQuery = Prelude.const Prelude.mempty
 
 -- |

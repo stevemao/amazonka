@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.TaskRunSortCriteria
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.Glue.Types.TaskRunSortCriteria where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types.SortDirectionType
 import Amazonka.Glue.Types.TaskRunSortColumnType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The sorting criteria that are used to sort the list of task runs for the
@@ -84,12 +85,12 @@ instance Prelude.NFData TaskRunSortCriteria where
     Prelude.rnf column
       `Prelude.seq` Prelude.rnf sortDirection
 
-instance Core.ToJSON TaskRunSortCriteria where
+instance Data.ToJSON TaskRunSortCriteria where
   toJSON TaskRunSortCriteria' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Column" Core..= column),
+          [ Prelude.Just ("Column" Data..= column),
             Prelude.Just
-              ("SortDirection" Core..= sortDirection)
+              ("SortDirection" Data..= sortDirection)
           ]
       )

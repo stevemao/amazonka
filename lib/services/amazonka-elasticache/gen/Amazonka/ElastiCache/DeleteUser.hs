@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.DeleteUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- For Redis engine version 6.x onwards: Deletes a user. The user will be
+-- For Redis engine version 6.0 onwards: Deletes a user. The user will be
 -- removed from all user groups and in turn removed from all replication
 -- groups. For more information, see
 -- <http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html Using Role Based Access Control (RBAC)>.
@@ -37,20 +37,22 @@ module Amazonka.ElastiCache.DeleteUser
     newUser,
 
     -- * Response Lenses
-    user_status,
     user_arn,
-    user_userGroupIds,
+    user_accessString,
     user_authentication,
     user_engine,
-    user_userName,
-    user_accessString,
+    user_minimumEngineVersion,
+    user_status,
+    user_userGroupIds,
     user_userId,
+    user_userName,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,11 +86,12 @@ deleteUser_userId = Lens.lens (\DeleteUser' {userId} -> userId) (\s@DeleteUser' 
 
 instance Core.AWSRequest DeleteUser where
   type AWSResponse DeleteUser = User
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeleteUserResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance Prelude.Hashable DeleteUser where
   hashWithSalt _salt DeleteUser' {..} =
@@ -97,18 +100,18 @@ instance Prelude.Hashable DeleteUser where
 instance Prelude.NFData DeleteUser where
   rnf DeleteUser' {..} = Prelude.rnf userId
 
-instance Core.ToHeaders DeleteUser where
+instance Data.ToHeaders DeleteUser where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteUser where
+instance Data.ToPath DeleteUser where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteUser where
+instance Data.ToQuery DeleteUser where
   toQuery DeleteUser' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteUser" :: Prelude.ByteString),
+          Data.=: ("DeleteUser" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
-        "UserId" Core.=: userId
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
+        "UserId" Data.=: userId
       ]

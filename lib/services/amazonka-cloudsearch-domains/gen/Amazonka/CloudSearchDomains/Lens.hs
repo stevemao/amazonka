@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.CloudSearchDomains.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,49 +14,49 @@
 module Amazonka.CloudSearchDomains.Lens
   ( -- * Operations
 
+    -- ** Search
+    search_cursor,
+    search_expr,
+    search_facet,
+    search_filterQuery,
+    search_highlight,
+    search_partial,
+    search_queryOptions,
+    search_queryParser,
+    search_return,
+    search_size,
+    search_sort,
+    search_start,
+    search_stats,
+    search_query,
+    searchResponse_facets,
+    searchResponse_hits,
+    searchResponse_stats,
+    searchResponse_status,
+    searchResponse_httpStatus,
+
     -- ** Suggest
     suggest_size,
     suggest_query,
     suggest_suggester,
-    suggestResponse_suggest,
     suggestResponse_status,
+    suggestResponse_suggest,
     suggestResponse_httpStatus,
 
     -- ** UploadDocuments
     uploadDocuments_contentType,
     uploadDocuments_documents,
-    uploadDocumentsResponse_status,
     uploadDocumentsResponse_adds,
-    uploadDocumentsResponse_warnings,
     uploadDocumentsResponse_deletes,
+    uploadDocumentsResponse_status,
+    uploadDocumentsResponse_warnings,
     uploadDocumentsResponse_httpStatus,
-
-    -- ** Search
-    search_expr,
-    search_cursor,
-    search_return,
-    search_queryOptions,
-    search_filterQuery,
-    search_size,
-    search_queryParser,
-    search_start,
-    search_highlight,
-    search_stats,
-    search_sort,
-    search_facet,
-    search_partial,
-    search_query,
-    searchResponse_status,
-    searchResponse_facets,
-    searchResponse_stats,
-    searchResponse_hits,
-    searchResponse_httpStatus,
 
     -- * Types
 
     -- ** Bucket
-    bucket_value,
     bucket_count,
+    bucket_value,
 
     -- ** BucketInfo
     bucketInfo_buckets,
@@ -65,26 +65,26 @@ module Amazonka.CloudSearchDomains.Lens
     documentServiceWarning_message,
 
     -- ** FieldStats
+    fieldStats_count,
     fieldStats_max,
     fieldStats_mean,
-    fieldStats_count,
+    fieldStats_min,
     fieldStats_missing,
     fieldStats_stddev,
-    fieldStats_min,
-    fieldStats_sumOfSquares,
     fieldStats_sum,
+    fieldStats_sumOfSquares,
 
     -- ** Hit
     hit_exprs,
-    hit_id,
-    hit_highlights,
     hit_fields,
+    hit_highlights,
+    hit_id,
 
     -- ** Hits
     hits_cursor,
+    hits_found,
     hits_hit,
     hits_start,
-    hits_found,
 
     -- ** SearchStatus
     searchStatus_rid,
@@ -92,17 +92,17 @@ module Amazonka.CloudSearchDomains.Lens
 
     -- ** SuggestModel
     suggestModel_found,
-    suggestModel_suggestions,
     suggestModel_query,
+    suggestModel_suggestions,
 
     -- ** SuggestStatus
     suggestStatus_rid,
     suggestStatus_timems,
 
     -- ** SuggestionMatch
-    suggestionMatch_suggestion,
-    suggestionMatch_score,
     suggestionMatch_id,
+    suggestionMatch_score,
+    suggestionMatch_suggestion,
   )
 where
 

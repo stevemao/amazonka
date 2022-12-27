@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.Emotion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.Emotion where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types.EmotionName
 
@@ -67,14 +68,14 @@ emotion_confidence = Lens.lens (\Emotion' {confidence} -> confidence) (\s@Emotio
 emotion_type :: Lens.Lens' Emotion (Prelude.Maybe EmotionName)
 emotion_type = Lens.lens (\Emotion' {type'} -> type') (\s@Emotion' {} a -> s {type' = a} :: Emotion)
 
-instance Core.FromJSON Emotion where
+instance Data.FromJSON Emotion where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Emotion"
       ( \x ->
           Emotion'
-            Prelude.<$> (x Core..:? "Confidence")
-            Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "Confidence")
+            Prelude.<*> (x Data..:? "Type")
       )
 
 instance Prelude.Hashable Emotion where

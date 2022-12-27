@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ComprehendMedical.Types.UnmappedAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,18 +22,20 @@ module Amazonka.ComprehendMedical.Types.UnmappedAttribute where
 import Amazonka.ComprehendMedical.Types.Attribute
 import Amazonka.ComprehendMedical.Types.EntityType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | An attribute that we extracted, but were unable to relate to an entity.
+-- | An attribute that was extracted, but Comprehend Medical; was unable to
+-- relate to an entity.
 --
 -- /See:/ 'newUnmappedAttribute' smart constructor.
 data UnmappedAttribute = UnmappedAttribute'
   { -- | The specific attribute that has been extracted but not mapped to an
     -- entity.
     attribute :: Prelude.Maybe Attribute,
-    -- | The type of the attribute, could be one of the following values:
-    -- \"MEDICATION\", \"MEDICAL_CONDITION\", \"ANATOMY\",
+    -- | The type of the unmapped attribute, could be one of the following
+    -- values: \"MEDICATION\", \"MEDICAL_CONDITION\", \"ANATOMY\",
     -- \"TEST_AND_TREATMENT_PROCEDURE\" or \"PROTECTED_HEALTH_INFORMATION\".
     type' :: Prelude.Maybe EntityType
   }
@@ -50,8 +52,8 @@ data UnmappedAttribute = UnmappedAttribute'
 -- 'attribute', 'unmappedAttribute_attribute' - The specific attribute that has been extracted but not mapped to an
 -- entity.
 --
--- 'type'', 'unmappedAttribute_type' - The type of the attribute, could be one of the following values:
--- \"MEDICATION\", \"MEDICAL_CONDITION\", \"ANATOMY\",
+-- 'type'', 'unmappedAttribute_type' - The type of the unmapped attribute, could be one of the following
+-- values: \"MEDICATION\", \"MEDICAL_CONDITION\", \"ANATOMY\",
 -- \"TEST_AND_TREATMENT_PROCEDURE\" or \"PROTECTED_HEALTH_INFORMATION\".
 newUnmappedAttribute ::
   UnmappedAttribute
@@ -66,20 +68,20 @@ newUnmappedAttribute =
 unmappedAttribute_attribute :: Lens.Lens' UnmappedAttribute (Prelude.Maybe Attribute)
 unmappedAttribute_attribute = Lens.lens (\UnmappedAttribute' {attribute} -> attribute) (\s@UnmappedAttribute' {} a -> s {attribute = a} :: UnmappedAttribute)
 
--- | The type of the attribute, could be one of the following values:
--- \"MEDICATION\", \"MEDICAL_CONDITION\", \"ANATOMY\",
+-- | The type of the unmapped attribute, could be one of the following
+-- values: \"MEDICATION\", \"MEDICAL_CONDITION\", \"ANATOMY\",
 -- \"TEST_AND_TREATMENT_PROCEDURE\" or \"PROTECTED_HEALTH_INFORMATION\".
 unmappedAttribute_type :: Lens.Lens' UnmappedAttribute (Prelude.Maybe EntityType)
 unmappedAttribute_type = Lens.lens (\UnmappedAttribute' {type'} -> type') (\s@UnmappedAttribute' {} a -> s {type' = a} :: UnmappedAttribute)
 
-instance Core.FromJSON UnmappedAttribute where
+instance Data.FromJSON UnmappedAttribute where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UnmappedAttribute"
       ( \x ->
           UnmappedAttribute'
-            Prelude.<$> (x Core..:? "Attribute")
-            Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "Attribute")
+            Prelude.<*> (x Data..:? "Type")
       )
 
 instance Prelude.Hashable UnmappedAttribute where

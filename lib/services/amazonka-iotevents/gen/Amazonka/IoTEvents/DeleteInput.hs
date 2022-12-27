@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.DeleteInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.IoTEvents.DeleteInput
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -74,7 +75,8 @@ deleteInput_inputName = Lens.lens (\DeleteInput' {inputName} -> inputName) (\s@D
 
 instance Core.AWSRequest DeleteInput where
   type AWSResponse DeleteInput = DeleteInputResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -89,14 +91,14 @@ instance Prelude.Hashable DeleteInput where
 instance Prelude.NFData DeleteInput where
   rnf DeleteInput' {..} = Prelude.rnf inputName
 
-instance Core.ToHeaders DeleteInput where
+instance Data.ToHeaders DeleteInput where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteInput where
+instance Data.ToPath DeleteInput where
   toPath DeleteInput' {..} =
-    Prelude.mconcat ["/inputs/", Core.toBS inputName]
+    Prelude.mconcat ["/inputs/", Data.toBS inputName]
 
-instance Core.ToQuery DeleteInput where
+instance Data.ToQuery DeleteInput where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteInputResponse' smart constructor.

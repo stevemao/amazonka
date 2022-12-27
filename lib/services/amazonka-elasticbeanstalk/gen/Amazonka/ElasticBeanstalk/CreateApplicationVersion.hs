@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.CreateApplicationVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,12 +46,12 @@ module Amazonka.ElasticBeanstalk.CreateApplicationVersion
     newCreateApplicationVersion,
 
     -- * Request Lenses
-    createApplicationVersion_process,
-    createApplicationVersion_sourceBundle,
     createApplicationVersion_autoCreateApplication,
-    createApplicationVersion_sourceBuildInformation,
-    createApplicationVersion_description,
     createApplicationVersion_buildConfiguration,
+    createApplicationVersion_description,
+    createApplicationVersion_process,
+    createApplicationVersion_sourceBuildInformation,
+    createApplicationVersion_sourceBundle,
     createApplicationVersion_tags,
     createApplicationVersion_applicationName,
     createApplicationVersion_versionLabel,
@@ -66,8 +66,9 @@ module Amazonka.ElasticBeanstalk.CreateApplicationVersion
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticBeanstalk.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,14 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCreateApplicationVersion' smart constructor.
 data CreateApplicationVersion = CreateApplicationVersion'
-  { -- | Pre-processes and validates the environment manifest (@env.yaml@) and
+  { -- | Set to @true@ to create an application with the specified name if it
+    -- doesn\'t already exist.
+    autoCreateApplication :: Prelude.Maybe Prelude.Bool,
+    -- | Settings for an AWS CodeBuild build.
+    buildConfiguration :: Prelude.Maybe BuildConfiguration,
+    -- | A description of this application version.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Pre-processes and validates the environment manifest (@env.yaml@) and
     -- configuration files (@*.config@ files in the @.ebextensions@ folder) in
     -- the source bundle. Validating configuration files can identify issues
     -- prior to deploying the application version to an environment.
@@ -89,6 +97,9 @@ data CreateApplicationVersion = CreateApplicationVersion'
     -- doesn\'t validate your application\'s configuration files, like proxy
     -- server or Docker configuration.
     process :: Prelude.Maybe Prelude.Bool,
+    -- | Specify a commit in an AWS CodeCommit Git repository to use as the
+    -- source code for the application version.
+    sourceBuildInformation :: Prelude.Maybe SourceBuildInformation,
     -- | The Amazon S3 bucket and key that identify the location of the source
     -- bundle for this version.
     --
@@ -99,16 +110,6 @@ data CreateApplicationVersion = CreateApplicationVersion'
     -- @SourceBundle@ nor @SourceBuildInformation@ are provided, Elastic
     -- Beanstalk uses a sample application.
     sourceBundle :: Prelude.Maybe S3Location,
-    -- | Set to @true@ to create an application with the specified name if it
-    -- doesn\'t already exist.
-    autoCreateApplication :: Prelude.Maybe Prelude.Bool,
-    -- | Specify a commit in an AWS CodeCommit Git repository to use as the
-    -- source code for the application version.
-    sourceBuildInformation :: Prelude.Maybe SourceBuildInformation,
-    -- | A description of this application version.
-    description :: Prelude.Maybe Prelude.Text,
-    -- | Settings for an AWS CodeBuild build.
-    buildConfiguration :: Prelude.Maybe BuildConfiguration,
     -- | Specifies the tags applied to the application version.
     --
     -- Elastic Beanstalk applies these tags only to the application version.
@@ -135,6 +136,13 @@ data CreateApplicationVersion = CreateApplicationVersion'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'autoCreateApplication', 'createApplicationVersion_autoCreateApplication' - Set to @true@ to create an application with the specified name if it
+-- doesn\'t already exist.
+--
+-- 'buildConfiguration', 'createApplicationVersion_buildConfiguration' - Settings for an AWS CodeBuild build.
+--
+-- 'description', 'createApplicationVersion_description' - A description of this application version.
+--
 -- 'process', 'createApplicationVersion_process' - Pre-processes and validates the environment manifest (@env.yaml@) and
 -- configuration files (@*.config@ files in the @.ebextensions@ folder) in
 -- the source bundle. Validating configuration files can identify issues
@@ -148,6 +156,9 @@ data CreateApplicationVersion = CreateApplicationVersion'
 -- doesn\'t validate your application\'s configuration files, like proxy
 -- server or Docker configuration.
 --
+-- 'sourceBuildInformation', 'createApplicationVersion_sourceBuildInformation' - Specify a commit in an AWS CodeCommit Git repository to use as the
+-- source code for the application version.
+--
 -- 'sourceBundle', 'createApplicationVersion_sourceBundle' - The Amazon S3 bucket and key that identify the location of the source
 -- bundle for this version.
 --
@@ -157,16 +168,6 @@ data CreateApplicationVersion = CreateApplicationVersion'
 -- repository (with @SourceBuildInformation@), but not both. If neither
 -- @SourceBundle@ nor @SourceBuildInformation@ are provided, Elastic
 -- Beanstalk uses a sample application.
---
--- 'autoCreateApplication', 'createApplicationVersion_autoCreateApplication' - Set to @true@ to create an application with the specified name if it
--- doesn\'t already exist.
---
--- 'sourceBuildInformation', 'createApplicationVersion_sourceBuildInformation' - Specify a commit in an AWS CodeCommit Git repository to use as the
--- source code for the application version.
---
--- 'description', 'createApplicationVersion_description' - A description of this application version.
---
--- 'buildConfiguration', 'createApplicationVersion_buildConfiguration' - Settings for an AWS CodeBuild build.
 --
 -- 'tags', 'createApplicationVersion_tags' - Specifies the tags applied to the application version.
 --
@@ -192,17 +193,30 @@ newCreateApplicationVersion
   pApplicationName_
   pVersionLabel_ =
     CreateApplicationVersion'
-      { process =
+      { autoCreateApplication =
           Prelude.Nothing,
-        sourceBundle = Prelude.Nothing,
-        autoCreateApplication = Prelude.Nothing,
-        sourceBuildInformation = Prelude.Nothing,
-        description = Prelude.Nothing,
         buildConfiguration = Prelude.Nothing,
+        description = Prelude.Nothing,
+        process = Prelude.Nothing,
+        sourceBuildInformation = Prelude.Nothing,
+        sourceBundle = Prelude.Nothing,
         tags = Prelude.Nothing,
         applicationName = pApplicationName_,
         versionLabel = pVersionLabel_
       }
+
+-- | Set to @true@ to create an application with the specified name if it
+-- doesn\'t already exist.
+createApplicationVersion_autoCreateApplication :: Lens.Lens' CreateApplicationVersion (Prelude.Maybe Prelude.Bool)
+createApplicationVersion_autoCreateApplication = Lens.lens (\CreateApplicationVersion' {autoCreateApplication} -> autoCreateApplication) (\s@CreateApplicationVersion' {} a -> s {autoCreateApplication = a} :: CreateApplicationVersion)
+
+-- | Settings for an AWS CodeBuild build.
+createApplicationVersion_buildConfiguration :: Lens.Lens' CreateApplicationVersion (Prelude.Maybe BuildConfiguration)
+createApplicationVersion_buildConfiguration = Lens.lens (\CreateApplicationVersion' {buildConfiguration} -> buildConfiguration) (\s@CreateApplicationVersion' {} a -> s {buildConfiguration = a} :: CreateApplicationVersion)
+
+-- | A description of this application version.
+createApplicationVersion_description :: Lens.Lens' CreateApplicationVersion (Prelude.Maybe Prelude.Text)
+createApplicationVersion_description = Lens.lens (\CreateApplicationVersion' {description} -> description) (\s@CreateApplicationVersion' {} a -> s {description = a} :: CreateApplicationVersion)
 
 -- | Pre-processes and validates the environment manifest (@env.yaml@) and
 -- configuration files (@*.config@ files in the @.ebextensions@ folder) in
@@ -219,6 +233,11 @@ newCreateApplicationVersion
 createApplicationVersion_process :: Lens.Lens' CreateApplicationVersion (Prelude.Maybe Prelude.Bool)
 createApplicationVersion_process = Lens.lens (\CreateApplicationVersion' {process} -> process) (\s@CreateApplicationVersion' {} a -> s {process = a} :: CreateApplicationVersion)
 
+-- | Specify a commit in an AWS CodeCommit Git repository to use as the
+-- source code for the application version.
+createApplicationVersion_sourceBuildInformation :: Lens.Lens' CreateApplicationVersion (Prelude.Maybe SourceBuildInformation)
+createApplicationVersion_sourceBuildInformation = Lens.lens (\CreateApplicationVersion' {sourceBuildInformation} -> sourceBuildInformation) (\s@CreateApplicationVersion' {} a -> s {sourceBuildInformation = a} :: CreateApplicationVersion)
+
 -- | The Amazon S3 bucket and key that identify the location of the source
 -- bundle for this version.
 --
@@ -230,24 +249,6 @@ createApplicationVersion_process = Lens.lens (\CreateApplicationVersion' {proces
 -- Beanstalk uses a sample application.
 createApplicationVersion_sourceBundle :: Lens.Lens' CreateApplicationVersion (Prelude.Maybe S3Location)
 createApplicationVersion_sourceBundle = Lens.lens (\CreateApplicationVersion' {sourceBundle} -> sourceBundle) (\s@CreateApplicationVersion' {} a -> s {sourceBundle = a} :: CreateApplicationVersion)
-
--- | Set to @true@ to create an application with the specified name if it
--- doesn\'t already exist.
-createApplicationVersion_autoCreateApplication :: Lens.Lens' CreateApplicationVersion (Prelude.Maybe Prelude.Bool)
-createApplicationVersion_autoCreateApplication = Lens.lens (\CreateApplicationVersion' {autoCreateApplication} -> autoCreateApplication) (\s@CreateApplicationVersion' {} a -> s {autoCreateApplication = a} :: CreateApplicationVersion)
-
--- | Specify a commit in an AWS CodeCommit Git repository to use as the
--- source code for the application version.
-createApplicationVersion_sourceBuildInformation :: Lens.Lens' CreateApplicationVersion (Prelude.Maybe SourceBuildInformation)
-createApplicationVersion_sourceBuildInformation = Lens.lens (\CreateApplicationVersion' {sourceBuildInformation} -> sourceBuildInformation) (\s@CreateApplicationVersion' {} a -> s {sourceBuildInformation = a} :: CreateApplicationVersion)
-
--- | A description of this application version.
-createApplicationVersion_description :: Lens.Lens' CreateApplicationVersion (Prelude.Maybe Prelude.Text)
-createApplicationVersion_description = Lens.lens (\CreateApplicationVersion' {description} -> description) (\s@CreateApplicationVersion' {} a -> s {description = a} :: CreateApplicationVersion)
-
--- | Settings for an AWS CodeBuild build.
-createApplicationVersion_buildConfiguration :: Lens.Lens' CreateApplicationVersion (Prelude.Maybe BuildConfiguration)
-createApplicationVersion_buildConfiguration = Lens.lens (\CreateApplicationVersion' {buildConfiguration} -> buildConfiguration) (\s@CreateApplicationVersion' {} a -> s {buildConfiguration = a} :: CreateApplicationVersion)
 
 -- | Specifies the tags applied to the application version.
 --
@@ -274,60 +275,61 @@ instance Core.AWSRequest CreateApplicationVersion where
   type
     AWSResponse CreateApplicationVersion =
       ApplicationVersionDescriptionMessage
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateApplicationVersionResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance Prelude.Hashable CreateApplicationVersion where
   hashWithSalt _salt CreateApplicationVersion' {..} =
-    _salt `Prelude.hashWithSalt` process
-      `Prelude.hashWithSalt` sourceBundle
-      `Prelude.hashWithSalt` autoCreateApplication
-      `Prelude.hashWithSalt` sourceBuildInformation
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` autoCreateApplication
       `Prelude.hashWithSalt` buildConfiguration
+      `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` process
+      `Prelude.hashWithSalt` sourceBuildInformation
+      `Prelude.hashWithSalt` sourceBundle
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` applicationName
       `Prelude.hashWithSalt` versionLabel
 
 instance Prelude.NFData CreateApplicationVersion where
   rnf CreateApplicationVersion' {..} =
-    Prelude.rnf process
-      `Prelude.seq` Prelude.rnf sourceBundle
-      `Prelude.seq` Prelude.rnf autoCreateApplication
-      `Prelude.seq` Prelude.rnf sourceBuildInformation
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf autoCreateApplication
       `Prelude.seq` Prelude.rnf buildConfiguration
+      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf process
+      `Prelude.seq` Prelude.rnf sourceBuildInformation
+      `Prelude.seq` Prelude.rnf sourceBundle
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf applicationName
       `Prelude.seq` Prelude.rnf versionLabel
 
-instance Core.ToHeaders CreateApplicationVersion where
+instance Data.ToHeaders CreateApplicationVersion where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateApplicationVersion where
+instance Data.ToPath CreateApplicationVersion where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateApplicationVersion where
+instance Data.ToQuery CreateApplicationVersion where
   toQuery CreateApplicationVersion' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateApplicationVersion" :: Prelude.ByteString),
+          Data.=: ("CreateApplicationVersion" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "Process" Core.=: process,
-        "SourceBundle" Core.=: sourceBundle,
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
         "AutoCreateApplication"
-          Core.=: autoCreateApplication,
+          Data.=: autoCreateApplication,
+        "BuildConfiguration" Data.=: buildConfiguration,
+        "Description" Data.=: description,
+        "Process" Data.=: process,
         "SourceBuildInformation"
-          Core.=: sourceBuildInformation,
-        "Description" Core.=: description,
-        "BuildConfiguration" Core.=: buildConfiguration,
+          Data.=: sourceBuildInformation,
+        "SourceBundle" Data.=: sourceBundle,
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> tags),
-        "ApplicationName" Core.=: applicationName,
-        "VersionLabel" Core.=: versionLabel
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> tags),
+        "ApplicationName" Data.=: applicationName,
+        "VersionLabel" Data.=: versionLabel
       ]

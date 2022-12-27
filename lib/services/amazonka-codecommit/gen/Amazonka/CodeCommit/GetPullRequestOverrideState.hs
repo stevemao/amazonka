@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.GetPullRequestOverrideState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -104,13 +105,14 @@ instance Core.AWSRequest GetPullRequestOverrideState where
   type
     AWSResponse GetPullRequestOverrideState =
       GetPullRequestOverrideStateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetPullRequestOverrideStateResponse'
-            Prelude.<$> (x Core..?> "overridden")
-            Prelude.<*> (x Core..?> "overrider")
+            Prelude.<$> (x Data..?> "overridden")
+            Prelude.<*> (x Data..?> "overrider")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -124,35 +126,35 @@ instance Prelude.NFData GetPullRequestOverrideState where
     Prelude.rnf pullRequestId
       `Prelude.seq` Prelude.rnf revisionId
 
-instance Core.ToHeaders GetPullRequestOverrideState where
+instance Data.ToHeaders GetPullRequestOverrideState where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.GetPullRequestOverrideState" ::
+              Data.=# ( "CodeCommit_20150413.GetPullRequestOverrideState" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetPullRequestOverrideState where
+instance Data.ToJSON GetPullRequestOverrideState where
   toJSON GetPullRequestOverrideState' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("pullRequestId" Core..= pullRequestId),
-            Prelude.Just ("revisionId" Core..= revisionId)
+              ("pullRequestId" Data..= pullRequestId),
+            Prelude.Just ("revisionId" Data..= revisionId)
           ]
       )
 
-instance Core.ToPath GetPullRequestOverrideState where
+instance Data.ToPath GetPullRequestOverrideState where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetPullRequestOverrideState where
+instance Data.ToQuery GetPullRequestOverrideState where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetPullRequestOverrideStateResponse' smart constructor.

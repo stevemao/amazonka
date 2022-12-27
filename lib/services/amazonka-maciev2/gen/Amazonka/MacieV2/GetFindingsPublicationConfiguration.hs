@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.GetFindingsPublicationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ module Amazonka.MacieV2.GetFindingsPublicationConfiguration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -66,12 +67,13 @@ instance
   type
     AWSResponse GetFindingsPublicationConfiguration =
       GetFindingsPublicationConfigurationResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetFindingsPublicationConfigurationResponse'
-            Prelude.<$> (x Core..?> "securityHubConfiguration")
+            Prelude.<$> (x Data..?> "securityHubConfiguration")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -89,28 +91,28 @@ instance
   rnf _ = ()
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetFindingsPublicationConfiguration
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     GetFindingsPublicationConfiguration
   where
   toPath =
     Prelude.const "/findings-publication-configuration"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetFindingsPublicationConfiguration
   where
   toQuery = Prelude.const Prelude.mempty

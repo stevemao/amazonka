@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.IncreaseReplicaCount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.ElastiCache.IncreaseReplicaCount
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -141,13 +142,14 @@ instance Core.AWSRequest IncreaseReplicaCount where
   type
     AWSResponse IncreaseReplicaCount =
       IncreaseReplicaCountResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "IncreaseReplicaCountResult"
       ( \s h x ->
           IncreaseReplicaCountResponse'
-            Prelude.<$> (x Core..@? "ReplicationGroup")
+            Prelude.<$> (x Data..@? "ReplicationGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -165,27 +167,27 @@ instance Prelude.NFData IncreaseReplicaCount where
       `Prelude.seq` Prelude.rnf replicationGroupId
       `Prelude.seq` Prelude.rnf applyImmediately
 
-instance Core.ToHeaders IncreaseReplicaCount where
+instance Data.ToHeaders IncreaseReplicaCount where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath IncreaseReplicaCount where
+instance Data.ToPath IncreaseReplicaCount where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery IncreaseReplicaCount where
+instance Data.ToQuery IncreaseReplicaCount where
   toQuery IncreaseReplicaCount' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("IncreaseReplicaCount" :: Prelude.ByteString),
+          Data.=: ("IncreaseReplicaCount" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
-        "NewReplicaCount" Core.=: newReplicaCount',
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
+        "NewReplicaCount" Data.=: newReplicaCount',
         "ReplicaConfiguration"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "ConfigureShard"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "ConfigureShard"
                 Prelude.<$> replicaConfiguration
             ),
-        "ReplicationGroupId" Core.=: replicationGroupId,
-        "ApplyImmediately" Core.=: applyImmediately
+        "ReplicationGroupId" Data.=: replicationGroupId,
+        "ApplyImmediately" Data.=: applyImmediately
       ]
 
 -- | /See:/ 'newIncreaseReplicaCountResponse' smart constructor.

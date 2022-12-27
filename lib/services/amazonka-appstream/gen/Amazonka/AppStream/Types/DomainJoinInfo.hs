@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppStream.Types.DomainJoinInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppStream.Types.DomainJoinInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the configuration information required to join fleets and
@@ -28,11 +29,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newDomainJoinInfo' smart constructor.
 data DomainJoinInfo = DomainJoinInfo'
-  { -- | The distinguished name of the organizational unit for computer accounts.
-    organizationalUnitDistinguishedName :: Prelude.Maybe Prelude.Text,
-    -- | The fully qualified name of the directory (for example,
+  { -- | The fully qualified name of the directory (for example,
     -- corp.example.com).
-    directoryName :: Prelude.Maybe Prelude.Text
+    directoryName :: Prelude.Maybe Prelude.Text,
+    -- | The distinguished name of the organizational unit for computer accounts.
+    organizationalUnitDistinguishedName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,55 +45,54 @@ data DomainJoinInfo = DomainJoinInfo'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'organizationalUnitDistinguishedName', 'domainJoinInfo_organizationalUnitDistinguishedName' - The distinguished name of the organizational unit for computer accounts.
---
 -- 'directoryName', 'domainJoinInfo_directoryName' - The fully qualified name of the directory (for example,
 -- corp.example.com).
+--
+-- 'organizationalUnitDistinguishedName', 'domainJoinInfo_organizationalUnitDistinguishedName' - The distinguished name of the organizational unit for computer accounts.
 newDomainJoinInfo ::
   DomainJoinInfo
 newDomainJoinInfo =
   DomainJoinInfo'
-    { organizationalUnitDistinguishedName =
-        Prelude.Nothing,
-      directoryName = Prelude.Nothing
+    { directoryName = Prelude.Nothing,
+      organizationalUnitDistinguishedName =
+        Prelude.Nothing
     }
-
--- | The distinguished name of the organizational unit for computer accounts.
-domainJoinInfo_organizationalUnitDistinguishedName :: Lens.Lens' DomainJoinInfo (Prelude.Maybe Prelude.Text)
-domainJoinInfo_organizationalUnitDistinguishedName = Lens.lens (\DomainJoinInfo' {organizationalUnitDistinguishedName} -> organizationalUnitDistinguishedName) (\s@DomainJoinInfo' {} a -> s {organizationalUnitDistinguishedName = a} :: DomainJoinInfo)
 
 -- | The fully qualified name of the directory (for example,
 -- corp.example.com).
 domainJoinInfo_directoryName :: Lens.Lens' DomainJoinInfo (Prelude.Maybe Prelude.Text)
 domainJoinInfo_directoryName = Lens.lens (\DomainJoinInfo' {directoryName} -> directoryName) (\s@DomainJoinInfo' {} a -> s {directoryName = a} :: DomainJoinInfo)
 
-instance Core.FromJSON DomainJoinInfo where
+-- | The distinguished name of the organizational unit for computer accounts.
+domainJoinInfo_organizationalUnitDistinguishedName :: Lens.Lens' DomainJoinInfo (Prelude.Maybe Prelude.Text)
+domainJoinInfo_organizationalUnitDistinguishedName = Lens.lens (\DomainJoinInfo' {organizationalUnitDistinguishedName} -> organizationalUnitDistinguishedName) (\s@DomainJoinInfo' {} a -> s {organizationalUnitDistinguishedName = a} :: DomainJoinInfo)
+
+instance Data.FromJSON DomainJoinInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DomainJoinInfo"
       ( \x ->
           DomainJoinInfo'
-            Prelude.<$> (x Core..:? "OrganizationalUnitDistinguishedName")
-            Prelude.<*> (x Core..:? "DirectoryName")
+            Prelude.<$> (x Data..:? "DirectoryName")
+            Prelude.<*> (x Data..:? "OrganizationalUnitDistinguishedName")
       )
 
 instance Prelude.Hashable DomainJoinInfo where
   hashWithSalt _salt DomainJoinInfo' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` directoryName
       `Prelude.hashWithSalt` organizationalUnitDistinguishedName
-      `Prelude.hashWithSalt` directoryName
 
 instance Prelude.NFData DomainJoinInfo where
   rnf DomainJoinInfo' {..} =
-    Prelude.rnf organizationalUnitDistinguishedName
-      `Prelude.seq` Prelude.rnf directoryName
+    Prelude.rnf directoryName
+      `Prelude.seq` Prelude.rnf organizationalUnitDistinguishedName
 
-instance Core.ToJSON DomainJoinInfo where
+instance Data.ToJSON DomainJoinInfo where
   toJSON DomainJoinInfo' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("OrganizationalUnitDistinguishedName" Core..=)
-              Prelude.<$> organizationalUnitDistinguishedName,
-            ("DirectoryName" Core..=) Prelude.<$> directoryName
+          [ ("DirectoryName" Data..=) Prelude.<$> directoryName,
+            ("OrganizationalUnitDistinguishedName" Data..=)
+              Prelude.<$> organizationalUnitDistinguishedName
           ]
       )

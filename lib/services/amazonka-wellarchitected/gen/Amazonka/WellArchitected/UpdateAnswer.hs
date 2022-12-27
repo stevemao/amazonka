@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WellArchitected.UpdateAnswer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,11 +27,11 @@ module Amazonka.WellArchitected.UpdateAnswer
     newUpdateAnswer,
 
     -- * Request Lenses
-    updateAnswer_isApplicable,
-    updateAnswer_selectedChoices,
-    updateAnswer_reason,
-    updateAnswer_notes,
     updateAnswer_choiceUpdates,
+    updateAnswer_isApplicable,
+    updateAnswer_notes,
+    updateAnswer_reason,
+    updateAnswer_selectedChoices,
     updateAnswer_workloadId,
     updateAnswer_lensAlias,
     updateAnswer_questionId,
@@ -41,15 +41,17 @@ module Amazonka.WellArchitected.UpdateAnswer
     newUpdateAnswerResponse,
 
     -- * Response Lenses
-    updateAnswerResponse_lensAlias,
     updateAnswerResponse_answer,
+    updateAnswerResponse_lensAlias,
+    updateAnswerResponse_lensArn,
     updateAnswerResponse_workloadId,
     updateAnswerResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,14 +61,14 @@ import Amazonka.WellArchitected.Types
 --
 -- /See:/ 'newUpdateAnswer' smart constructor.
 data UpdateAnswer = UpdateAnswer'
-  { isApplicable :: Prelude.Maybe Prelude.Bool,
-    selectedChoices :: Prelude.Maybe [Prelude.Text],
-    -- | The reason why a question is not applicable to your workload.
-    reason :: Prelude.Maybe AnswerReason,
-    notes :: Prelude.Maybe Prelude.Text,
-    -- | A list of choices to update on a question in your workload. The String
+  { -- | A list of choices to update on a question in your workload. The String
     -- key corresponds to the choice ID to be updated.
     choiceUpdates :: Prelude.Maybe (Prelude.HashMap Prelude.Text ChoiceUpdate),
+    isApplicable :: Prelude.Maybe Prelude.Bool,
+    notes :: Prelude.Maybe Prelude.Text,
+    -- | The reason why a question is not applicable to your workload.
+    reason :: Prelude.Maybe AnswerReason,
+    selectedChoices :: Prelude.Maybe [Prelude.Text],
     workloadId :: Prelude.Text,
     lensAlias :: Prelude.Text,
     questionId :: Prelude.Text
@@ -81,16 +83,16 @@ data UpdateAnswer = UpdateAnswer'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'choiceUpdates', 'updateAnswer_choiceUpdates' - A list of choices to update on a question in your workload. The String
+-- key corresponds to the choice ID to be updated.
+--
 -- 'isApplicable', 'updateAnswer_isApplicable' - Undocumented member.
---
--- 'selectedChoices', 'updateAnswer_selectedChoices' - Undocumented member.
---
--- 'reason', 'updateAnswer_reason' - The reason why a question is not applicable to your workload.
 --
 -- 'notes', 'updateAnswer_notes' - Undocumented member.
 --
--- 'choiceUpdates', 'updateAnswer_choiceUpdates' - A list of choices to update on a question in your workload. The String
--- key corresponds to the choice ID to be updated.
+-- 'reason', 'updateAnswer_reason' - The reason why a question is not applicable to your workload.
+--
+-- 'selectedChoices', 'updateAnswer_selectedChoices' - Undocumented member.
 --
 -- 'workloadId', 'updateAnswer_workloadId' - Undocumented member.
 --
@@ -107,36 +109,36 @@ newUpdateAnswer ::
   UpdateAnswer
 newUpdateAnswer pWorkloadId_ pLensAlias_ pQuestionId_ =
   UpdateAnswer'
-    { isApplicable = Prelude.Nothing,
-      selectedChoices = Prelude.Nothing,
-      reason = Prelude.Nothing,
+    { choiceUpdates = Prelude.Nothing,
+      isApplicable = Prelude.Nothing,
       notes = Prelude.Nothing,
-      choiceUpdates = Prelude.Nothing,
+      reason = Prelude.Nothing,
+      selectedChoices = Prelude.Nothing,
       workloadId = pWorkloadId_,
       lensAlias = pLensAlias_,
       questionId = pQuestionId_
     }
+
+-- | A list of choices to update on a question in your workload. The String
+-- key corresponds to the choice ID to be updated.
+updateAnswer_choiceUpdates :: Lens.Lens' UpdateAnswer (Prelude.Maybe (Prelude.HashMap Prelude.Text ChoiceUpdate))
+updateAnswer_choiceUpdates = Lens.lens (\UpdateAnswer' {choiceUpdates} -> choiceUpdates) (\s@UpdateAnswer' {} a -> s {choiceUpdates = a} :: UpdateAnswer) Prelude.. Lens.mapping Lens.coerced
 
 -- | Undocumented member.
 updateAnswer_isApplicable :: Lens.Lens' UpdateAnswer (Prelude.Maybe Prelude.Bool)
 updateAnswer_isApplicable = Lens.lens (\UpdateAnswer' {isApplicable} -> isApplicable) (\s@UpdateAnswer' {} a -> s {isApplicable = a} :: UpdateAnswer)
 
 -- | Undocumented member.
-updateAnswer_selectedChoices :: Lens.Lens' UpdateAnswer (Prelude.Maybe [Prelude.Text])
-updateAnswer_selectedChoices = Lens.lens (\UpdateAnswer' {selectedChoices} -> selectedChoices) (\s@UpdateAnswer' {} a -> s {selectedChoices = a} :: UpdateAnswer) Prelude.. Lens.mapping Lens.coerced
+updateAnswer_notes :: Lens.Lens' UpdateAnswer (Prelude.Maybe Prelude.Text)
+updateAnswer_notes = Lens.lens (\UpdateAnswer' {notes} -> notes) (\s@UpdateAnswer' {} a -> s {notes = a} :: UpdateAnswer)
 
 -- | The reason why a question is not applicable to your workload.
 updateAnswer_reason :: Lens.Lens' UpdateAnswer (Prelude.Maybe AnswerReason)
 updateAnswer_reason = Lens.lens (\UpdateAnswer' {reason} -> reason) (\s@UpdateAnswer' {} a -> s {reason = a} :: UpdateAnswer)
 
 -- | Undocumented member.
-updateAnswer_notes :: Lens.Lens' UpdateAnswer (Prelude.Maybe Prelude.Text)
-updateAnswer_notes = Lens.lens (\UpdateAnswer' {notes} -> notes) (\s@UpdateAnswer' {} a -> s {notes = a} :: UpdateAnswer)
-
--- | A list of choices to update on a question in your workload. The String
--- key corresponds to the choice ID to be updated.
-updateAnswer_choiceUpdates :: Lens.Lens' UpdateAnswer (Prelude.Maybe (Prelude.HashMap Prelude.Text ChoiceUpdate))
-updateAnswer_choiceUpdates = Lens.lens (\UpdateAnswer' {choiceUpdates} -> choiceUpdates) (\s@UpdateAnswer' {} a -> s {choiceUpdates = a} :: UpdateAnswer) Prelude.. Lens.mapping Lens.coerced
+updateAnswer_selectedChoices :: Lens.Lens' UpdateAnswer (Prelude.Maybe [Prelude.Text])
+updateAnswer_selectedChoices = Lens.lens (\UpdateAnswer' {selectedChoices} -> selectedChoices) (\s@UpdateAnswer' {} a -> s {selectedChoices = a} :: UpdateAnswer) Prelude.. Lens.mapping Lens.coerced
 
 -- | Undocumented member.
 updateAnswer_workloadId :: Lens.Lens' UpdateAnswer Prelude.Text
@@ -152,83 +154,87 @@ updateAnswer_questionId = Lens.lens (\UpdateAnswer' {questionId} -> questionId) 
 
 instance Core.AWSRequest UpdateAnswer where
   type AWSResponse UpdateAnswer = UpdateAnswerResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateAnswerResponse'
-            Prelude.<$> (x Core..?> "LensAlias")
-            Prelude.<*> (x Core..?> "Answer")
-            Prelude.<*> (x Core..?> "WorkloadId")
+            Prelude.<$> (x Data..?> "Answer")
+            Prelude.<*> (x Data..?> "LensAlias")
+            Prelude.<*> (x Data..?> "LensArn")
+            Prelude.<*> (x Data..?> "WorkloadId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateAnswer where
   hashWithSalt _salt UpdateAnswer' {..} =
-    _salt `Prelude.hashWithSalt` isApplicable
-      `Prelude.hashWithSalt` selectedChoices
-      `Prelude.hashWithSalt` reason
+    _salt `Prelude.hashWithSalt` choiceUpdates
+      `Prelude.hashWithSalt` isApplicable
       `Prelude.hashWithSalt` notes
-      `Prelude.hashWithSalt` choiceUpdates
+      `Prelude.hashWithSalt` reason
+      `Prelude.hashWithSalt` selectedChoices
       `Prelude.hashWithSalt` workloadId
       `Prelude.hashWithSalt` lensAlias
       `Prelude.hashWithSalt` questionId
 
 instance Prelude.NFData UpdateAnswer where
   rnf UpdateAnswer' {..} =
-    Prelude.rnf isApplicable
-      `Prelude.seq` Prelude.rnf selectedChoices
-      `Prelude.seq` Prelude.rnf reason
+    Prelude.rnf choiceUpdates
+      `Prelude.seq` Prelude.rnf isApplicable
       `Prelude.seq` Prelude.rnf notes
-      `Prelude.seq` Prelude.rnf choiceUpdates
+      `Prelude.seq` Prelude.rnf reason
+      `Prelude.seq` Prelude.rnf selectedChoices
       `Prelude.seq` Prelude.rnf workloadId
       `Prelude.seq` Prelude.rnf lensAlias
       `Prelude.seq` Prelude.rnf questionId
 
-instance Core.ToHeaders UpdateAnswer where
+instance Data.ToHeaders UpdateAnswer where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateAnswer where
+instance Data.ToJSON UpdateAnswer where
   toJSON UpdateAnswer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("IsApplicable" Core..=) Prelude.<$> isApplicable,
-            ("SelectedChoices" Core..=)
-              Prelude.<$> selectedChoices,
-            ("Reason" Core..=) Prelude.<$> reason,
-            ("Notes" Core..=) Prelude.<$> notes,
-            ("ChoiceUpdates" Core..=) Prelude.<$> choiceUpdates
+          [ ("ChoiceUpdates" Data..=) Prelude.<$> choiceUpdates,
+            ("IsApplicable" Data..=) Prelude.<$> isApplicable,
+            ("Notes" Data..=) Prelude.<$> notes,
+            ("Reason" Data..=) Prelude.<$> reason,
+            ("SelectedChoices" Data..=)
+              Prelude.<$> selectedChoices
           ]
       )
 
-instance Core.ToPath UpdateAnswer where
+instance Data.ToPath UpdateAnswer where
   toPath UpdateAnswer' {..} =
     Prelude.mconcat
       [ "/workloads/",
-        Core.toBS workloadId,
+        Data.toBS workloadId,
         "/lensReviews/",
-        Core.toBS lensAlias,
+        Data.toBS lensAlias,
         "/answers/",
-        Core.toBS questionId
+        Data.toBS questionId
       ]
 
-instance Core.ToQuery UpdateAnswer where
+instance Data.ToQuery UpdateAnswer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Output of a update answer call.
 --
 -- /See:/ 'newUpdateAnswerResponse' smart constructor.
 data UpdateAnswerResponse = UpdateAnswerResponse'
-  { lensAlias :: Prelude.Maybe Prelude.Text,
-    answer :: Prelude.Maybe Answer,
+  { answer :: Prelude.Maybe Answer,
+    lensAlias :: Prelude.Maybe Prelude.Text,
+    -- | The ARN for the lens.
+    lensArn :: Prelude.Maybe Prelude.Text,
     workloadId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -243,9 +249,11 @@ data UpdateAnswerResponse = UpdateAnswerResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'answer', 'updateAnswerResponse_answer' - Undocumented member.
+--
 -- 'lensAlias', 'updateAnswerResponse_lensAlias' - Undocumented member.
 --
--- 'answer', 'updateAnswerResponse_answer' - Undocumented member.
+-- 'lensArn', 'updateAnswerResponse_lensArn' - The ARN for the lens.
 --
 -- 'workloadId', 'updateAnswerResponse_workloadId' - Undocumented member.
 --
@@ -256,19 +264,24 @@ newUpdateAnswerResponse ::
   UpdateAnswerResponse
 newUpdateAnswerResponse pHttpStatus_ =
   UpdateAnswerResponse'
-    { lensAlias = Prelude.Nothing,
-      answer = Prelude.Nothing,
+    { answer = Prelude.Nothing,
+      lensAlias = Prelude.Nothing,
+      lensArn = Prelude.Nothing,
       workloadId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
+updateAnswerResponse_answer :: Lens.Lens' UpdateAnswerResponse (Prelude.Maybe Answer)
+updateAnswerResponse_answer = Lens.lens (\UpdateAnswerResponse' {answer} -> answer) (\s@UpdateAnswerResponse' {} a -> s {answer = a} :: UpdateAnswerResponse)
+
+-- | Undocumented member.
 updateAnswerResponse_lensAlias :: Lens.Lens' UpdateAnswerResponse (Prelude.Maybe Prelude.Text)
 updateAnswerResponse_lensAlias = Lens.lens (\UpdateAnswerResponse' {lensAlias} -> lensAlias) (\s@UpdateAnswerResponse' {} a -> s {lensAlias = a} :: UpdateAnswerResponse)
 
--- | Undocumented member.
-updateAnswerResponse_answer :: Lens.Lens' UpdateAnswerResponse (Prelude.Maybe Answer)
-updateAnswerResponse_answer = Lens.lens (\UpdateAnswerResponse' {answer} -> answer) (\s@UpdateAnswerResponse' {} a -> s {answer = a} :: UpdateAnswerResponse)
+-- | The ARN for the lens.
+updateAnswerResponse_lensArn :: Lens.Lens' UpdateAnswerResponse (Prelude.Maybe Prelude.Text)
+updateAnswerResponse_lensArn = Lens.lens (\UpdateAnswerResponse' {lensArn} -> lensArn) (\s@UpdateAnswerResponse' {} a -> s {lensArn = a} :: UpdateAnswerResponse)
 
 -- | Undocumented member.
 updateAnswerResponse_workloadId :: Lens.Lens' UpdateAnswerResponse (Prelude.Maybe Prelude.Text)
@@ -280,7 +293,8 @@ updateAnswerResponse_httpStatus = Lens.lens (\UpdateAnswerResponse' {httpStatus}
 
 instance Prelude.NFData UpdateAnswerResponse where
   rnf UpdateAnswerResponse' {..} =
-    Prelude.rnf lensAlias
-      `Prelude.seq` Prelude.rnf answer
+    Prelude.rnf answer
+      `Prelude.seq` Prelude.rnf lensAlias
+      `Prelude.seq` Prelude.rnf lensArn
       `Prelude.seq` Prelude.rnf workloadId
       `Prelude.seq` Prelude.rnf httpStatus

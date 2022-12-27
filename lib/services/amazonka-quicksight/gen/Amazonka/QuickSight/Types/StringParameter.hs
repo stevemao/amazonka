@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.StringParameter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.StringParameter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A string parameter.
@@ -30,9 +31,9 @@ data StringParameter = StringParameter'
   { -- | A display name for a string parameter.
     name :: Prelude.Text,
     -- | The values of a string parameter.
-    values :: [Prelude.Text]
+    values :: [Data.Sensitive Prelude.Text]
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'StringParameter' with all optional fields omitted.
@@ -72,11 +73,11 @@ instance Prelude.NFData StringParameter where
   rnf StringParameter' {..} =
     Prelude.rnf name `Prelude.seq` Prelude.rnf values
 
-instance Core.ToJSON StringParameter where
+instance Data.ToJSON StringParameter where
   toJSON StringParameter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Values" Core..= values)
+          [ Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Values" Data..= values)
           ]
       )

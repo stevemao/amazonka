@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.EventDimensions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.EventDimensions where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types.AttributeDimension
 import Amazonka.Pinpoint.Types.MetricDimension
 import Amazonka.Pinpoint.Types.SetDimension
@@ -31,10 +32,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newEventDimensions' smart constructor.
 data EventDimensions = EventDimensions'
-  { -- | One or more custom metrics that your application reports to Amazon
-    -- Pinpoint. You can use these metrics as selection criteria when you
+  { -- | One or more custom attributes that your application reports to Amazon
+    -- Pinpoint. You can use these attributes as selection criteria when you
     -- create an event filter.
-    metrics :: Prelude.Maybe (Prelude.HashMap Prelude.Text MetricDimension),
+    attributes :: Prelude.Maybe (Prelude.HashMap Prelude.Text AttributeDimension),
     -- | The name of the event that causes the campaign to be sent or the journey
     -- activity to be performed. This can be a standard event that Amazon
     -- Pinpoint generates, such as _email.delivered. For campaigns, this can
@@ -43,10 +44,10 @@ data EventDimensions = EventDimensions'
     -- <https://docs.aws.amazon.com/pinpoint/latest/developerguide/event-streams.html Streaming Amazon Pinpoint Events>
     -- in the /Amazon Pinpoint Developer Guide/.
     eventType :: Prelude.Maybe SetDimension,
-    -- | One or more custom attributes that your application reports to Amazon
-    -- Pinpoint. You can use these attributes as selection criteria when you
+    -- | One or more custom metrics that your application reports to Amazon
+    -- Pinpoint. You can use these metrics as selection criteria when you
     -- create an event filter.
-    attributes :: Prelude.Maybe (Prelude.HashMap Prelude.Text AttributeDimension)
+    metrics :: Prelude.Maybe (Prelude.HashMap Prelude.Text MetricDimension)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -58,8 +59,8 @@ data EventDimensions = EventDimensions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'metrics', 'eventDimensions_metrics' - One or more custom metrics that your application reports to Amazon
--- Pinpoint. You can use these metrics as selection criteria when you
+-- 'attributes', 'eventDimensions_attributes' - One or more custom attributes that your application reports to Amazon
+-- Pinpoint. You can use these attributes as selection criteria when you
 -- create an event filter.
 --
 -- 'eventType', 'eventDimensions_eventType' - The name of the event that causes the campaign to be sent or the journey
@@ -70,23 +71,23 @@ data EventDimensions = EventDimensions'
 -- <https://docs.aws.amazon.com/pinpoint/latest/developerguide/event-streams.html Streaming Amazon Pinpoint Events>
 -- in the /Amazon Pinpoint Developer Guide/.
 --
--- 'attributes', 'eventDimensions_attributes' - One or more custom attributes that your application reports to Amazon
--- Pinpoint. You can use these attributes as selection criteria when you
+-- 'metrics', 'eventDimensions_metrics' - One or more custom metrics that your application reports to Amazon
+-- Pinpoint. You can use these metrics as selection criteria when you
 -- create an event filter.
 newEventDimensions ::
   EventDimensions
 newEventDimensions =
   EventDimensions'
-    { metrics = Prelude.Nothing,
+    { attributes = Prelude.Nothing,
       eventType = Prelude.Nothing,
-      attributes = Prelude.Nothing
+      metrics = Prelude.Nothing
     }
 
--- | One or more custom metrics that your application reports to Amazon
--- Pinpoint. You can use these metrics as selection criteria when you
+-- | One or more custom attributes that your application reports to Amazon
+-- Pinpoint. You can use these attributes as selection criteria when you
 -- create an event filter.
-eventDimensions_metrics :: Lens.Lens' EventDimensions (Prelude.Maybe (Prelude.HashMap Prelude.Text MetricDimension))
-eventDimensions_metrics = Lens.lens (\EventDimensions' {metrics} -> metrics) (\s@EventDimensions' {} a -> s {metrics = a} :: EventDimensions) Prelude.. Lens.mapping Lens.coerced
+eventDimensions_attributes :: Lens.Lens' EventDimensions (Prelude.Maybe (Prelude.HashMap Prelude.Text AttributeDimension))
+eventDimensions_attributes = Lens.lens (\EventDimensions' {attributes} -> attributes) (\s@EventDimensions' {} a -> s {attributes = a} :: EventDimensions) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the event that causes the campaign to be sent or the journey
 -- activity to be performed. This can be a standard event that Amazon
@@ -98,41 +99,41 @@ eventDimensions_metrics = Lens.lens (\EventDimensions' {metrics} -> metrics) (\s
 eventDimensions_eventType :: Lens.Lens' EventDimensions (Prelude.Maybe SetDimension)
 eventDimensions_eventType = Lens.lens (\EventDimensions' {eventType} -> eventType) (\s@EventDimensions' {} a -> s {eventType = a} :: EventDimensions)
 
--- | One or more custom attributes that your application reports to Amazon
--- Pinpoint. You can use these attributes as selection criteria when you
+-- | One or more custom metrics that your application reports to Amazon
+-- Pinpoint. You can use these metrics as selection criteria when you
 -- create an event filter.
-eventDimensions_attributes :: Lens.Lens' EventDimensions (Prelude.Maybe (Prelude.HashMap Prelude.Text AttributeDimension))
-eventDimensions_attributes = Lens.lens (\EventDimensions' {attributes} -> attributes) (\s@EventDimensions' {} a -> s {attributes = a} :: EventDimensions) Prelude.. Lens.mapping Lens.coerced
+eventDimensions_metrics :: Lens.Lens' EventDimensions (Prelude.Maybe (Prelude.HashMap Prelude.Text MetricDimension))
+eventDimensions_metrics = Lens.lens (\EventDimensions' {metrics} -> metrics) (\s@EventDimensions' {} a -> s {metrics = a} :: EventDimensions) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON EventDimensions where
+instance Data.FromJSON EventDimensions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EventDimensions"
       ( \x ->
           EventDimensions'
-            Prelude.<$> (x Core..:? "Metrics" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "EventType")
-            Prelude.<*> (x Core..:? "Attributes" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Attributes" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "EventType")
+            Prelude.<*> (x Data..:? "Metrics" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable EventDimensions where
   hashWithSalt _salt EventDimensions' {..} =
-    _salt `Prelude.hashWithSalt` metrics
+    _salt `Prelude.hashWithSalt` attributes
       `Prelude.hashWithSalt` eventType
-      `Prelude.hashWithSalt` attributes
+      `Prelude.hashWithSalt` metrics
 
 instance Prelude.NFData EventDimensions where
   rnf EventDimensions' {..} =
-    Prelude.rnf metrics
+    Prelude.rnf attributes
       `Prelude.seq` Prelude.rnf eventType
-      `Prelude.seq` Prelude.rnf attributes
+      `Prelude.seq` Prelude.rnf metrics
 
-instance Core.ToJSON EventDimensions where
+instance Data.ToJSON EventDimensions where
   toJSON EventDimensions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Metrics" Core..=) Prelude.<$> metrics,
-            ("EventType" Core..=) Prelude.<$> eventType,
-            ("Attributes" Core..=) Prelude.<$> attributes
+          [ ("Attributes" Data..=) Prelude.<$> attributes,
+            ("EventType" Data..=) Prelude.<$> eventType,
+            ("Metrics" Data..=) Prelude.<$> metrics
           ]
       )

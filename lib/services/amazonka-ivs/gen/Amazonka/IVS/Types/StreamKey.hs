@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IVS.Types.StreamKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IVS.Types.StreamKey where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Object specifying a stream key.
@@ -29,12 +30,16 @@ import qualified Amazonka.Prelude as Prelude
 data StreamKey = StreamKey'
   { -- | Stream-key ARN.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | Stream-key value.
-    value :: Prelude.Maybe (Core.Sensitive Prelude.Text),
     -- | Channel ARN for the stream.
     channelArn :: Prelude.Maybe Prelude.Text,
-    -- | Array of 1-50 maps, each of the form @string:string (key:value)@.
-    tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text)
+    -- | Array of 1-50 maps, each of the form @string:string (key:value)@. See
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+    -- for more information, including restrictions that apply to tags and
+    -- \"Tag naming limits and requirements\"; Amazon IVS has no
+    -- service-specific constraints beyond what is documented there.
+    tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | Stream-key value.
+    value :: Prelude.Maybe (Data.Sensitive Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -48,59 +53,67 @@ data StreamKey = StreamKey'
 --
 -- 'arn', 'streamKey_arn' - Stream-key ARN.
 --
--- 'value', 'streamKey_value' - Stream-key value.
---
 -- 'channelArn', 'streamKey_channelArn' - Channel ARN for the stream.
 --
--- 'tags', 'streamKey_tags' - Array of 1-50 maps, each of the form @string:string (key:value)@.
+-- 'tags', 'streamKey_tags' - Array of 1-50 maps, each of the form @string:string (key:value)@. See
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+-- for more information, including restrictions that apply to tags and
+-- \"Tag naming limits and requirements\"; Amazon IVS has no
+-- service-specific constraints beyond what is documented there.
+--
+-- 'value', 'streamKey_value' - Stream-key value.
 newStreamKey ::
   StreamKey
 newStreamKey =
   StreamKey'
     { arn = Prelude.Nothing,
-      value = Prelude.Nothing,
       channelArn = Prelude.Nothing,
-      tags = Prelude.Nothing
+      tags = Prelude.Nothing,
+      value = Prelude.Nothing
     }
 
 -- | Stream-key ARN.
 streamKey_arn :: Lens.Lens' StreamKey (Prelude.Maybe Prelude.Text)
 streamKey_arn = Lens.lens (\StreamKey' {arn} -> arn) (\s@StreamKey' {} a -> s {arn = a} :: StreamKey)
 
--- | Stream-key value.
-streamKey_value :: Lens.Lens' StreamKey (Prelude.Maybe Prelude.Text)
-streamKey_value = Lens.lens (\StreamKey' {value} -> value) (\s@StreamKey' {} a -> s {value = a} :: StreamKey) Prelude.. Lens.mapping Core._Sensitive
-
 -- | Channel ARN for the stream.
 streamKey_channelArn :: Lens.Lens' StreamKey (Prelude.Maybe Prelude.Text)
 streamKey_channelArn = Lens.lens (\StreamKey' {channelArn} -> channelArn) (\s@StreamKey' {} a -> s {channelArn = a} :: StreamKey)
 
--- | Array of 1-50 maps, each of the form @string:string (key:value)@.
+-- | Array of 1-50 maps, each of the form @string:string (key:value)@. See
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+-- for more information, including restrictions that apply to tags and
+-- \"Tag naming limits and requirements\"; Amazon IVS has no
+-- service-specific constraints beyond what is documented there.
 streamKey_tags :: Lens.Lens' StreamKey (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 streamKey_tags = Lens.lens (\StreamKey' {tags} -> tags) (\s@StreamKey' {} a -> s {tags = a} :: StreamKey) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON StreamKey where
+-- | Stream-key value.
+streamKey_value :: Lens.Lens' StreamKey (Prelude.Maybe Prelude.Text)
+streamKey_value = Lens.lens (\StreamKey' {value} -> value) (\s@StreamKey' {} a -> s {value = a} :: StreamKey) Prelude.. Lens.mapping Data._Sensitive
+
+instance Data.FromJSON StreamKey where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StreamKey"
       ( \x ->
           StreamKey'
-            Prelude.<$> (x Core..:? "arn")
-            Prelude.<*> (x Core..:? "value")
-            Prelude.<*> (x Core..:? "channelArn")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "arn")
+            Prelude.<*> (x Data..:? "channelArn")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "value")
       )
 
 instance Prelude.Hashable StreamKey where
   hashWithSalt _salt StreamKey' {..} =
     _salt `Prelude.hashWithSalt` arn
-      `Prelude.hashWithSalt` value
       `Prelude.hashWithSalt` channelArn
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData StreamKey where
   rnf StreamKey' {..} =
     Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf value
       `Prelude.seq` Prelude.rnf channelArn
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf value

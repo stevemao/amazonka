@@ -14,11 +14,16 @@
 
 -- |
 -- Module      : Amazonka.EC2.DetachClassicLinkVpc
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
+--
+-- We are retiring EC2-Classic. We recommend that you migrate from
+-- EC2-Classic to a VPC. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html Migrate from EC2-Classic to a VPC>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
 --
 -- Unlinks (detaches) a linked EC2-Classic instance from a VPC. After the
 -- instance has been unlinked, the VPC security groups are no longer
@@ -45,8 +50,9 @@ module Amazonka.EC2.DetachClassicLinkVpc
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -113,12 +119,13 @@ instance Core.AWSRequest DetachClassicLinkVpc where
   type
     AWSResponse DetachClassicLinkVpc =
       DetachClassicLinkVpcResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DetachClassicLinkVpcResponse'
-            Prelude.<$> (x Core..@? "return")
+            Prelude.<$> (x Data..@? "return")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -134,22 +141,22 @@ instance Prelude.NFData DetachClassicLinkVpc where
       `Prelude.seq` Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf vpcId
 
-instance Core.ToHeaders DetachClassicLinkVpc where
+instance Data.ToHeaders DetachClassicLinkVpc where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DetachClassicLinkVpc where
+instance Data.ToPath DetachClassicLinkVpc where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DetachClassicLinkVpc where
+instance Data.ToQuery DetachClassicLinkVpc where
   toQuery DetachClassicLinkVpc' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DetachClassicLinkVpc" :: Prelude.ByteString),
+          Data.=: ("DetachClassicLinkVpc" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "InstanceId" Core.=: instanceId,
-        "VpcId" Core.=: vpcId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "InstanceId" Data.=: instanceId,
+        "VpcId" Data.=: vpcId
       ]
 
 -- | /See:/ 'newDetachClassicLinkVpcResponse' smart constructor.

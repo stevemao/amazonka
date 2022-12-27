@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Support.Types.Attachment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Support.Types.Attachment where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An attachment to a case communication. The attachment consists of the
@@ -29,7 +30,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newAttachment' smart constructor.
 data Attachment = Attachment'
   { -- | The content of the attachment file.
-    data' :: Prelude.Maybe Core.Base64,
+    data' :: Prelude.Maybe Data.Base64,
     -- | The name of the attachment file.
     fileName :: Prelude.Maybe Prelude.Text
   }
@@ -64,20 +65,20 @@ newAttachment =
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 attachment_data :: Lens.Lens' Attachment (Prelude.Maybe Prelude.ByteString)
-attachment_data = Lens.lens (\Attachment' {data'} -> data') (\s@Attachment' {} a -> s {data' = a} :: Attachment) Prelude.. Lens.mapping Core._Base64
+attachment_data = Lens.lens (\Attachment' {data'} -> data') (\s@Attachment' {} a -> s {data' = a} :: Attachment) Prelude.. Lens.mapping Data._Base64
 
 -- | The name of the attachment file.
 attachment_fileName :: Lens.Lens' Attachment (Prelude.Maybe Prelude.Text)
 attachment_fileName = Lens.lens (\Attachment' {fileName} -> fileName) (\s@Attachment' {} a -> s {fileName = a} :: Attachment)
 
-instance Core.FromJSON Attachment where
+instance Data.FromJSON Attachment where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Attachment"
       ( \x ->
           Attachment'
-            Prelude.<$> (x Core..:? "data")
-            Prelude.<*> (x Core..:? "fileName")
+            Prelude.<$> (x Data..:? "data")
+            Prelude.<*> (x Data..:? "fileName")
       )
 
 instance Prelude.Hashable Attachment where
@@ -90,11 +91,11 @@ instance Prelude.NFData Attachment where
     Prelude.rnf data'
       `Prelude.seq` Prelude.rnf fileName
 
-instance Core.ToJSON Attachment where
+instance Data.ToJSON Attachment where
   toJSON Attachment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("data" Core..=) Prelude.<$> data',
-            ("fileName" Core..=) Prelude.<$> fileName
+          [ ("data" Data..=) Prelude.<$> data',
+            ("fileName" Data..=) Prelude.<$> fileName
           ]
       )

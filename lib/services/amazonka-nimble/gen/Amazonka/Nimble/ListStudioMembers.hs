@@ -14,13 +14,15 @@
 
 -- |
 -- Module      : Amazonka.Nimble.ListStudioMembers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Get all users in a given studio membership.
+--
+-- @ListStudioMembers@ only returns admin members.
 --
 -- This operation returns paginated results.
 module Amazonka.Nimble.ListStudioMembers
@@ -29,8 +31,8 @@ module Amazonka.Nimble.ListStudioMembers
     newListStudioMembers,
 
     -- * Request Lenses
-    listStudioMembers_nextToken,
     listStudioMembers_maxResults,
+    listStudioMembers_nextToken,
     listStudioMembers_studioId,
 
     -- * Destructuring the Response
@@ -45,7 +47,8 @@ module Amazonka.Nimble.ListStudioMembers
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -53,11 +56,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListStudioMembers' smart constructor.
 data ListStudioMembers = ListStudioMembers'
-  { -- | The token for the next set of results, or null if there are no more
-    -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to be returned per request.
+  { -- | The max number of results to return in the response.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to request the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The studio ID.
     studioId :: Prelude.Text
   }
@@ -71,10 +73,9 @@ data ListStudioMembers = ListStudioMembers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listStudioMembers_nextToken' - The token for the next set of results, or null if there are no more
--- results.
+-- 'maxResults', 'listStudioMembers_maxResults' - The max number of results to return in the response.
 --
--- 'maxResults', 'listStudioMembers_maxResults' - The maximum number of results to be returned per request.
+-- 'nextToken', 'listStudioMembers_nextToken' - The token to request the next page of results.
 --
 -- 'studioId', 'listStudioMembers_studioId' - The studio ID.
 newListStudioMembers ::
@@ -83,19 +84,18 @@ newListStudioMembers ::
   ListStudioMembers
 newListStudioMembers pStudioId_ =
   ListStudioMembers'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       studioId = pStudioId_
     }
 
--- | The token for the next set of results, or null if there are no more
--- results.
-listStudioMembers_nextToken :: Lens.Lens' ListStudioMembers (Prelude.Maybe Prelude.Text)
-listStudioMembers_nextToken = Lens.lens (\ListStudioMembers' {nextToken} -> nextToken) (\s@ListStudioMembers' {} a -> s {nextToken = a} :: ListStudioMembers)
-
--- | The maximum number of results to be returned per request.
+-- | The max number of results to return in the response.
 listStudioMembers_maxResults :: Lens.Lens' ListStudioMembers (Prelude.Maybe Prelude.Natural)
 listStudioMembers_maxResults = Lens.lens (\ListStudioMembers' {maxResults} -> maxResults) (\s@ListStudioMembers' {} a -> s {maxResults = a} :: ListStudioMembers)
+
+-- | The token to request the next page of results.
+listStudioMembers_nextToken :: Lens.Lens' ListStudioMembers (Prelude.Maybe Prelude.Text)
+listStudioMembers_nextToken = Lens.lens (\ListStudioMembers' {nextToken} -> nextToken) (\s@ListStudioMembers' {} a -> s {nextToken = a} :: ListStudioMembers)
 
 -- | The studio ID.
 listStudioMembers_studioId :: Lens.Lens' ListStudioMembers Prelude.Text
@@ -127,57 +127,58 @@ instance Core.AWSRequest ListStudioMembers where
   type
     AWSResponse ListStudioMembers =
       ListStudioMembersResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListStudioMembersResponse'
-            Prelude.<$> (x Core..?> "members" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "members" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListStudioMembers where
   hashWithSalt _salt ListStudioMembers' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` studioId
 
 instance Prelude.NFData ListStudioMembers where
   rnf ListStudioMembers' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf studioId
 
-instance Core.ToHeaders ListStudioMembers where
+instance Data.ToHeaders ListStudioMembers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListStudioMembers where
+instance Data.ToPath ListStudioMembers where
   toPath ListStudioMembers' {..} =
     Prelude.mconcat
       [ "/2020-08-01/studios/",
-        Core.toBS studioId,
+        Data.toBS studioId,
         "/membership"
       ]
 
-instance Core.ToQuery ListStudioMembers where
+instance Data.ToQuery ListStudioMembers where
   toQuery ListStudioMembers' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListStudioMembersResponse' smart constructor.
 data ListStudioMembersResponse = ListStudioMembersResponse'
-  { -- | A list of members.
+  { -- | A list of admin members.
     members :: Prelude.Maybe [StudioMembership],
     -- | The token for the next set of results, or null if there are no more
     -- results.
@@ -195,7 +196,7 @@ data ListStudioMembersResponse = ListStudioMembersResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'members', 'listStudioMembersResponse_members' - A list of members.
+-- 'members', 'listStudioMembersResponse_members' - A list of admin members.
 --
 -- 'nextToken', 'listStudioMembersResponse_nextToken' - The token for the next set of results, or null if there are no more
 -- results.
@@ -213,7 +214,7 @@ newListStudioMembersResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | A list of members.
+-- | A list of admin members.
 listStudioMembersResponse_members :: Lens.Lens' ListStudioMembersResponse (Prelude.Maybe [StudioMembership])
 listStudioMembersResponse_members = Lens.lens (\ListStudioMembersResponse' {members} -> members) (\s@ListStudioMembersResponse' {} a -> s {members = a} :: ListStudioMembersResponse) Prelude.. Lens.mapping Lens.coerced
 

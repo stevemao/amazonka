@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.DeleteWorkforce
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.SageMaker.DeleteWorkforce
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,7 +86,8 @@ instance Core.AWSRequest DeleteWorkforce where
   type
     AWSResponse DeleteWorkforce =
       DeleteWorkforceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -100,32 +102,32 @@ instance Prelude.Hashable DeleteWorkforce where
 instance Prelude.NFData DeleteWorkforce where
   rnf DeleteWorkforce' {..} = Prelude.rnf workforceName
 
-instance Core.ToHeaders DeleteWorkforce where
+instance Data.ToHeaders DeleteWorkforce where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.DeleteWorkforce" :: Prelude.ByteString),
+              Data.=# ("SageMaker.DeleteWorkforce" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteWorkforce where
+instance Data.ToJSON DeleteWorkforce where
   toJSON DeleteWorkforce' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("WorkforceName" Core..= workforceName)
+              ("WorkforceName" Data..= workforceName)
           ]
       )
 
-instance Core.ToPath DeleteWorkforce where
+instance Data.ToPath DeleteWorkforce where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteWorkforce where
+instance Data.ToQuery DeleteWorkforce where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteWorkforceResponse' smart constructor.

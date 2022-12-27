@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.CancelExportTask
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.EC2.CancelExportTask
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,7 +80,8 @@ instance Core.AWSRequest CancelExportTask where
   type
     AWSResponse CancelExportTask =
       CancelExportTaskResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull CancelExportTaskResponse'
 
@@ -90,20 +92,20 @@ instance Prelude.Hashable CancelExportTask where
 instance Prelude.NFData CancelExportTask where
   rnf CancelExportTask' {..} = Prelude.rnf exportTaskId
 
-instance Core.ToHeaders CancelExportTask where
+instance Data.ToHeaders CancelExportTask where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CancelExportTask where
+instance Data.ToPath CancelExportTask where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CancelExportTask where
+instance Data.ToQuery CancelExportTask where
   toQuery CancelExportTask' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CancelExportTask" :: Prelude.ByteString),
+          Data.=: ("CancelExportTask" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "ExportTaskId" Core.=: exportTaskId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "ExportTaskId" Data.=: exportTaskId
       ]
 
 -- | /See:/ 'newCancelExportTaskResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.Types.StackInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,13 +20,14 @@
 module Amazonka.ServiceCatalog.Types.StackInstance where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.ServiceCatalog.Types.StackInstanceStatus
 
--- | An AWS CloudFormation stack, in a specific account and region, that\'s
--- part of a stack set operation. A stack instance is a reference to an
--- attempted or actual stack in a given account within a given region. A
+-- | An CloudFormation stack, in a specific account and Region, that\'s part
+-- of a stack set operation. A stack instance is a reference to an
+-- attempted or actual stack in a given account within a given Region. A
 -- stack instance can exist without a stack—for example, if the stack
 -- couldn\'t be created for some reason. A stack instance is associated
 -- with only one stack set. Each stack instance contains the ID of its
@@ -35,9 +36,11 @@ import Amazonka.ServiceCatalog.Types.StackInstanceStatus
 --
 -- /See:/ 'newStackInstance' smart constructor.
 data StackInstance = StackInstance'
-  { -- | The name of the AWS account that the stack instance is associated with.
+  { -- | The name of the Amazon Web Services account that the stack instance is
+    -- associated with.
     account :: Prelude.Maybe Prelude.Text,
-    -- | The name of the AWS region that the stack instance is associated with.
+    -- | The name of the Amazon Web Services Region that the stack instance is
+    -- associated with.
     region :: Prelude.Maybe Prelude.Text,
     -- | The status of the stack instance, in terms of its synchronization with
     -- its associated stack set.
@@ -67,9 +70,11 @@ data StackInstance = StackInstance'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'account', 'stackInstance_account' - The name of the AWS account that the stack instance is associated with.
+-- 'account', 'stackInstance_account' - The name of the Amazon Web Services account that the stack instance is
+-- associated with.
 --
--- 'region', 'stackInstance_region' - The name of the AWS region that the stack instance is associated with.
+-- 'region', 'stackInstance_region' - The name of the Amazon Web Services Region that the stack instance is
+-- associated with.
 --
 -- 'stackInstanceStatus', 'stackInstance_stackInstanceStatus' - The status of the stack instance, in terms of its synchronization with
 -- its associated stack set.
@@ -96,11 +101,13 @@ newStackInstance =
       stackInstanceStatus = Prelude.Nothing
     }
 
--- | The name of the AWS account that the stack instance is associated with.
+-- | The name of the Amazon Web Services account that the stack instance is
+-- associated with.
 stackInstance_account :: Lens.Lens' StackInstance (Prelude.Maybe Prelude.Text)
 stackInstance_account = Lens.lens (\StackInstance' {account} -> account) (\s@StackInstance' {} a -> s {account = a} :: StackInstance)
 
--- | The name of the AWS region that the stack instance is associated with.
+-- | The name of the Amazon Web Services Region that the stack instance is
+-- associated with.
 stackInstance_region :: Lens.Lens' StackInstance (Prelude.Maybe Prelude.Text)
 stackInstance_region = Lens.lens (\StackInstance' {region} -> region) (\s@StackInstance' {} a -> s {region = a} :: StackInstance)
 
@@ -123,15 +130,15 @@ stackInstance_region = Lens.lens (\StackInstance' {region} -> region) (\s@StackI
 stackInstance_stackInstanceStatus :: Lens.Lens' StackInstance (Prelude.Maybe StackInstanceStatus)
 stackInstance_stackInstanceStatus = Lens.lens (\StackInstance' {stackInstanceStatus} -> stackInstanceStatus) (\s@StackInstance' {} a -> s {stackInstanceStatus = a} :: StackInstance)
 
-instance Core.FromJSON StackInstance where
+instance Data.FromJSON StackInstance where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StackInstance"
       ( \x ->
           StackInstance'
-            Prelude.<$> (x Core..:? "Account")
-            Prelude.<*> (x Core..:? "Region")
-            Prelude.<*> (x Core..:? "StackInstanceStatus")
+            Prelude.<$> (x Data..:? "Account")
+            Prelude.<*> (x Data..:? "Region")
+            Prelude.<*> (x Data..:? "StackInstanceStatus")
       )
 
 instance Prelude.Hashable StackInstance where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.Types.LogType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,20 +29,26 @@ module Amazonka.OpenSearch.Types.LogType
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Type of log file. Can be one of the following:
+-- | The type of log file. Can be one of the following:
 --
--- -   INDEX_SLOW_LOGS: Index slow logs contain insert requests that took
---     more time than configured index query log threshold to execute.
--- -   SEARCH_SLOW_LOGS: Search slow logs contain search queries that took
---     more time than configured search query log threshold to execute.
--- -   ES_APPLICATION_LOGS: OpenSearch application logs contain information
---     about errors and warnings raised during the operation of the service
---     and can be useful for troubleshooting.
--- -   AUDIT_LOGS: Audit logs contain records of user requests for access
---     from the domain.
-newtype LogType = LogType' {fromLogType :: Core.Text}
+-- -   __INDEX_SLOW_LOGS__ - Index slow logs contain insert requests that
+--     took more time than the configured index query log threshold to
+--     execute.
+--
+-- -   __SEARCH_SLOW_LOGS__ - Search slow logs contain search queries that
+--     took more time than the configured search query log threshold to
+--     execute.
+--
+-- -   __ES_APPLICATION_LOGS__ - OpenSearch application logs contain
+--     information about errors and warnings raised during the operation of
+--     the service and can be useful for troubleshooting.
+--
+-- -   __AUDIT_LOGS__ - Audit logs contain records of user requests for
+--     access to the domain.
+newtype LogType = LogType' {fromLogType :: Data.Text}
   deriving stock
     ( Prelude.Show,
       Prelude.Read,
@@ -53,18 +59,18 @@ newtype LogType = LogType' {fromLogType :: Core.Text}
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern LogType_AUDIT_LOGS :: LogType

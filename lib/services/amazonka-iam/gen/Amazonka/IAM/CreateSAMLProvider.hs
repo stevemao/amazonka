@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.CreateSAMLProvider
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -67,8 +67,9 @@ module Amazonka.IAM.CreateSAMLProvider
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -192,15 +193,16 @@ instance Core.AWSRequest CreateSAMLProvider where
   type
     AWSResponse CreateSAMLProvider =
       CreateSAMLProviderResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateSAMLProviderResult"
       ( \s h x ->
           CreateSAMLProviderResponse'
-            Prelude.<$> (x Core..@? "SAMLProviderArn")
-            Prelude.<*> ( x Core..@? "Tags" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> (x Data..@? "SAMLProviderArn")
+            Prelude.<*> ( x Data..@? "Tags" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -217,24 +219,24 @@ instance Prelude.NFData CreateSAMLProvider where
       `Prelude.seq` Prelude.rnf sAMLMetadataDocument
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreateSAMLProvider where
+instance Data.ToHeaders CreateSAMLProvider where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateSAMLProvider where
+instance Data.ToPath CreateSAMLProvider where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateSAMLProvider where
+instance Data.ToQuery CreateSAMLProvider where
   toQuery CreateSAMLProvider' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateSAMLProvider" :: Prelude.ByteString),
+          Data.=: ("CreateSAMLProvider" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> tags),
-        "SAMLMetadataDocument" Core.=: sAMLMetadataDocument,
-        "Name" Core.=: name
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> tags),
+        "SAMLMetadataDocument" Data.=: sAMLMetadataDocument,
+        "Name" Data.=: name
       ]
 
 -- | Contains the response to a successful CreateSAMLProvider request.

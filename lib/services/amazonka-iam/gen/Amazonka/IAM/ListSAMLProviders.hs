@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.ListSAMLProviders
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.IAM.ListSAMLProviders
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -68,15 +69,16 @@ instance Core.AWSRequest ListSAMLProviders where
   type
     AWSResponse ListSAMLProviders =
       ListSAMLProvidersResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListSAMLProvidersResult"
       ( \s h x ->
           ListSAMLProvidersResponse'
-            Prelude.<$> ( x Core..@? "SAMLProviderList"
+            Prelude.<$> ( x Data..@? "SAMLProviderList"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -88,20 +90,20 @@ instance Prelude.Hashable ListSAMLProviders where
 instance Prelude.NFData ListSAMLProviders where
   rnf _ = ()
 
-instance Core.ToHeaders ListSAMLProviders where
+instance Data.ToHeaders ListSAMLProviders where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListSAMLProviders where
+instance Data.ToPath ListSAMLProviders where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListSAMLProviders where
+instance Data.ToQuery ListSAMLProviders where
   toQuery =
     Prelude.const
       ( Prelude.mconcat
           [ "Action"
-              Core.=: ("ListSAMLProviders" :: Prelude.ByteString),
+              Data.=: ("ListSAMLProviders" :: Prelude.ByteString),
             "Version"
-              Core.=: ("2010-05-08" :: Prelude.ByteString)
+              Data.=: ("2010-05-08" :: Prelude.ByteString)
           ]
       )
 

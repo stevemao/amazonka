@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.ScheduledInstancesPrivateIpAddressConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.ScheduledInstancesPrivateIpAddressConfig where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a private IPv4 address for a Scheduled Instance.
@@ -86,11 +87,11 @@ instance
       `Prelude.seq` Prelude.rnf privateIpAddress
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ScheduledInstancesPrivateIpAddressConfig
   where
   toQuery ScheduledInstancesPrivateIpAddressConfig' {..} =
     Prelude.mconcat
-      [ "Primary" Core.=: primary,
-        "PrivateIpAddress" Core.=: privateIpAddress
+      [ "Primary" Data.=: primary,
+        "PrivateIpAddress" Data.=: privateIpAddress
       ]

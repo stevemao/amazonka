@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.IKEVersionsListValue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.IKEVersionsListValue where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The internet key exchange (IKE) version permitted for the VPN tunnel.
@@ -51,10 +52,10 @@ newIKEVersionsListValue =
 iKEVersionsListValue_value :: Lens.Lens' IKEVersionsListValue (Prelude.Maybe Prelude.Text)
 iKEVersionsListValue_value = Lens.lens (\IKEVersionsListValue' {value} -> value) (\s@IKEVersionsListValue' {} a -> s {value = a} :: IKEVersionsListValue)
 
-instance Core.FromXML IKEVersionsListValue where
+instance Data.FromXML IKEVersionsListValue where
   parseXML x =
     IKEVersionsListValue'
-      Prelude.<$> (x Core..@? "value")
+      Prelude.<$> (x Data..@? "value")
 
 instance Prelude.Hashable IKEVersionsListValue where
   hashWithSalt _salt IKEVersionsListValue' {..} =

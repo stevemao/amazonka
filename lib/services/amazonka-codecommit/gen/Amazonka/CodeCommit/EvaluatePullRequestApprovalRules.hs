@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.EvaluatePullRequestApprovalRules
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -101,13 +102,14 @@ instance
   type
     AWSResponse EvaluatePullRequestApprovalRules =
       EvaluatePullRequestApprovalRulesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           EvaluatePullRequestApprovalRulesResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "evaluation")
+            Prelude.<*> (x Data..:> "evaluation")
       )
 
 instance
@@ -129,38 +131,38 @@ instance
       `Prelude.seq` Prelude.rnf revisionId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     EvaluatePullRequestApprovalRules
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.EvaluatePullRequestApprovalRules" ::
+              Data.=# ( "CodeCommit_20150413.EvaluatePullRequestApprovalRules" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON EvaluatePullRequestApprovalRules where
+instance Data.ToJSON EvaluatePullRequestApprovalRules where
   toJSON EvaluatePullRequestApprovalRules' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("pullRequestId" Core..= pullRequestId),
-            Prelude.Just ("revisionId" Core..= revisionId)
+              ("pullRequestId" Data..= pullRequestId),
+            Prelude.Just ("revisionId" Data..= revisionId)
           ]
       )
 
-instance Core.ToPath EvaluatePullRequestApprovalRules where
+instance Data.ToPath EvaluatePullRequestApprovalRules where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     EvaluatePullRequestApprovalRules
   where
   toQuery = Prelude.const Prelude.mempty

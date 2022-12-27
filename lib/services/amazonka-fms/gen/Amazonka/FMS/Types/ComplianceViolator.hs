@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.Types.ComplianceViolator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,18 @@
 module Amazonka.FMS.Types.ComplianceViolator where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FMS.Types.ViolationReason
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details of the resource that is not protected by the policy.
 --
 -- /See:/ 'newComplianceViolator' smart constructor.
 data ComplianceViolator = ComplianceViolator'
-  { -- | The resource ID.
+  { -- | Metadata about the resource that doesn\'t comply with the policy scope.
+    metadata :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | The resource ID.
     resourceId :: Prelude.Maybe Prelude.Text,
     -- | The resource type. This is in the format shown in the
     -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html Amazon Web Services Resource Types Reference>.
@@ -49,6 +52,8 @@ data ComplianceViolator = ComplianceViolator'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'metadata', 'complianceViolator_metadata' - Metadata about the resource that doesn\'t comply with the policy scope.
+--
 -- 'resourceId', 'complianceViolator_resourceId' - The resource ID.
 --
 -- 'resourceType', 'complianceViolator_resourceType' - The resource type. This is in the format shown in the
@@ -62,10 +67,15 @@ newComplianceViolator ::
   ComplianceViolator
 newComplianceViolator =
   ComplianceViolator'
-    { resourceId = Prelude.Nothing,
+    { metadata = Prelude.Nothing,
+      resourceId = Prelude.Nothing,
       resourceType = Prelude.Nothing,
       violationReason = Prelude.Nothing
     }
+
+-- | Metadata about the resource that doesn\'t comply with the policy scope.
+complianceViolator_metadata :: Lens.Lens' ComplianceViolator (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+complianceViolator_metadata = Lens.lens (\ComplianceViolator' {metadata} -> metadata) (\s@ComplianceViolator' {} a -> s {metadata = a} :: ComplianceViolator) Prelude.. Lens.mapping Lens.coerced
 
 -- | The resource ID.
 complianceViolator_resourceId :: Lens.Lens' ComplianceViolator (Prelude.Maybe Prelude.Text)
@@ -83,25 +93,28 @@ complianceViolator_resourceType = Lens.lens (\ComplianceViolator' {resourceType}
 complianceViolator_violationReason :: Lens.Lens' ComplianceViolator (Prelude.Maybe ViolationReason)
 complianceViolator_violationReason = Lens.lens (\ComplianceViolator' {violationReason} -> violationReason) (\s@ComplianceViolator' {} a -> s {violationReason = a} :: ComplianceViolator)
 
-instance Core.FromJSON ComplianceViolator where
+instance Data.FromJSON ComplianceViolator where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ComplianceViolator"
       ( \x ->
           ComplianceViolator'
-            Prelude.<$> (x Core..:? "ResourceId")
-            Prelude.<*> (x Core..:? "ResourceType")
-            Prelude.<*> (x Core..:? "ViolationReason")
+            Prelude.<$> (x Data..:? "Metadata" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "ResourceId")
+            Prelude.<*> (x Data..:? "ResourceType")
+            Prelude.<*> (x Data..:? "ViolationReason")
       )
 
 instance Prelude.Hashable ComplianceViolator where
   hashWithSalt _salt ComplianceViolator' {..} =
-    _salt `Prelude.hashWithSalt` resourceId
+    _salt `Prelude.hashWithSalt` metadata
+      `Prelude.hashWithSalt` resourceId
       `Prelude.hashWithSalt` resourceType
       `Prelude.hashWithSalt` violationReason
 
 instance Prelude.NFData ComplianceViolator where
   rnf ComplianceViolator' {..} =
-    Prelude.rnf resourceId
+    Prelude.rnf metadata
+      `Prelude.seq` Prelude.rnf resourceId
       `Prelude.seq` Prelude.rnf resourceType
       `Prelude.seq` Prelude.rnf violationReason

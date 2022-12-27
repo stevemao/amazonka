@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Snowball.DescribeAddresses
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.Snowball.DescribeAddresses
     newDescribeAddresses,
 
     -- * Request Lenses
-    describeAddresses_nextToken,
     describeAddresses_maxResults,
+    describeAddresses_nextToken,
 
     -- * Destructuring the Response
     DescribeAddressesResponse (..),
@@ -46,7 +46,8 @@ module Amazonka.Snowball.DescribeAddresses
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,13 +55,13 @@ import Amazonka.Snowball.Types
 
 -- | /See:/ 'newDescribeAddresses' smart constructor.
 data DescribeAddresses = DescribeAddresses'
-  { -- | HTTP requests are stateless. To identify what object comes \"next\" in
+  { -- | The number of @ADDRESS@ objects to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | HTTP requests are stateless. To identify what object comes \"next\" in
     -- the list of @ADDRESS@ objects, you have the option of specifying a value
     -- for @NextToken@ as the starting point for your list of returned
     -- addresses.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The number of @ADDRESS@ objects to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -72,19 +73,23 @@ data DescribeAddresses = DescribeAddresses'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'describeAddresses_maxResults' - The number of @ADDRESS@ objects to return.
+--
 -- 'nextToken', 'describeAddresses_nextToken' - HTTP requests are stateless. To identify what object comes \"next\" in
 -- the list of @ADDRESS@ objects, you have the option of specifying a value
 -- for @NextToken@ as the starting point for your list of returned
 -- addresses.
---
--- 'maxResults', 'describeAddresses_maxResults' - The number of @ADDRESS@ objects to return.
 newDescribeAddresses ::
   DescribeAddresses
 newDescribeAddresses =
   DescribeAddresses'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The number of @ADDRESS@ objects to return.
+describeAddresses_maxResults :: Lens.Lens' DescribeAddresses (Prelude.Maybe Prelude.Natural)
+describeAddresses_maxResults = Lens.lens (\DescribeAddresses' {maxResults} -> maxResults) (\s@DescribeAddresses' {} a -> s {maxResults = a} :: DescribeAddresses)
 
 -- | HTTP requests are stateless. To identify what object comes \"next\" in
 -- the list of @ADDRESS@ objects, you have the option of specifying a value
@@ -92,10 +97,6 @@ newDescribeAddresses =
 -- addresses.
 describeAddresses_nextToken :: Lens.Lens' DescribeAddresses (Prelude.Maybe Prelude.Text)
 describeAddresses_nextToken = Lens.lens (\DescribeAddresses' {nextToken} -> nextToken) (\s@DescribeAddresses' {} a -> s {nextToken = a} :: DescribeAddresses)
-
--- | The number of @ADDRESS@ objects to return.
-describeAddresses_maxResults :: Lens.Lens' DescribeAddresses (Prelude.Maybe Prelude.Natural)
-describeAddresses_maxResults = Lens.lens (\DescribeAddresses' {maxResults} -> maxResults) (\s@DescribeAddresses' {} a -> s {maxResults = a} :: DescribeAddresses)
 
 instance Core.AWSPager DescribeAddresses where
   page rq rs
@@ -123,54 +124,55 @@ instance Core.AWSRequest DescribeAddresses where
   type
     AWSResponse DescribeAddresses =
       DescribeAddressesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAddressesResponse'
-            Prelude.<$> (x Core..?> "Addresses" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Addresses" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeAddresses where
   hashWithSalt _salt DescribeAddresses' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeAddresses where
   rnf DescribeAddresses' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeAddresses where
+instance Data.ToHeaders DescribeAddresses where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSIESnowballJobManagementService.DescribeAddresses" ::
+              Data.=# ( "AWSIESnowballJobManagementService.DescribeAddresses" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeAddresses where
+instance Data.ToJSON DescribeAddresses where
   toJSON DescribeAddresses' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath DescribeAddresses where
+instance Data.ToPath DescribeAddresses where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeAddresses where
+instance Data.ToQuery DescribeAddresses where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeAddressesResponse' smart constructor.

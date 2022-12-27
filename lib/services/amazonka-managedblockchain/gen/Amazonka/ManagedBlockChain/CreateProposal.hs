@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ManagedBlockChain.CreateProposal
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ module Amazonka.ManagedBlockChain.CreateProposal
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ManagedBlockChain.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -78,13 +79,14 @@ data CreateProposal = CreateProposal'
     -- idempotency of the operation. An idempotent operation completes no more
     -- than one time. This identifier is required only if you make a service
     -- request directly using an HTTP client. It is generated automatically if
-    -- you use an AWS SDK or the AWS CLI.
+    -- you use an Amazon Web Services SDK or the CLI.
     clientRequestToken :: Prelude.Text,
     -- | The unique identifier of the network for which the proposal is made.
     networkId :: Prelude.Text,
     -- | The unique identifier of the member that is creating the proposal. This
     -- identifier is especially useful for identifying the member making the
-    -- proposal when multiple members exist in a single AWS account.
+    -- proposal when multiple members exist in a single Amazon Web Services
+    -- account.
     memberId :: Prelude.Text,
     -- | The type of actions proposed, such as inviting a member or removing a
     -- member. The types of @Actions@ in a proposal are mutually exclusive. For
@@ -123,13 +125,14 @@ data CreateProposal = CreateProposal'
 -- idempotency of the operation. An idempotent operation completes no more
 -- than one time. This identifier is required only if you make a service
 -- request directly using an HTTP client. It is generated automatically if
--- you use an AWS SDK or the AWS CLI.
+-- you use an Amazon Web Services SDK or the CLI.
 --
 -- 'networkId', 'createProposal_networkId' - The unique identifier of the network for which the proposal is made.
 --
 -- 'memberId', 'createProposal_memberId' - The unique identifier of the member that is creating the proposal. This
 -- identifier is especially useful for identifying the member making the
--- proposal when multiple members exist in a single AWS account.
+-- proposal when multiple members exist in a single Amazon Web Services
+-- account.
 --
 -- 'actions', 'createProposal_actions' - The type of actions proposed, such as inviting a member or removing a
 -- member. The types of @Actions@ in a proposal are mutually exclusive. For
@@ -184,7 +187,7 @@ createProposal_tags = Lens.lens (\CreateProposal' {tags} -> tags) (\s@CreateProp
 -- idempotency of the operation. An idempotent operation completes no more
 -- than one time. This identifier is required only if you make a service
 -- request directly using an HTTP client. It is generated automatically if
--- you use an AWS SDK or the AWS CLI.
+-- you use an Amazon Web Services SDK or the CLI.
 createProposal_clientRequestToken :: Lens.Lens' CreateProposal Prelude.Text
 createProposal_clientRequestToken = Lens.lens (\CreateProposal' {clientRequestToken} -> clientRequestToken) (\s@CreateProposal' {} a -> s {clientRequestToken = a} :: CreateProposal)
 
@@ -194,7 +197,8 @@ createProposal_networkId = Lens.lens (\CreateProposal' {networkId} -> networkId)
 
 -- | The unique identifier of the member that is creating the proposal. This
 -- identifier is especially useful for identifying the member making the
--- proposal when multiple members exist in a single AWS account.
+-- proposal when multiple members exist in a single Amazon Web Services
+-- account.
 createProposal_memberId :: Lens.Lens' CreateProposal Prelude.Text
 createProposal_memberId = Lens.lens (\CreateProposal' {memberId} -> memberId) (\s@CreateProposal' {} a -> s {memberId = a} :: CreateProposal)
 
@@ -209,12 +213,13 @@ instance Core.AWSRequest CreateProposal where
   type
     AWSResponse CreateProposal =
       CreateProposalResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateProposalResponse'
-            Prelude.<$> (x Core..?> "ProposalId")
+            Prelude.<$> (x Data..?> "ProposalId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -236,36 +241,36 @@ instance Prelude.NFData CreateProposal where
       `Prelude.seq` Prelude.rnf memberId
       `Prelude.seq` Prelude.rnf actions
 
-instance Core.ToHeaders CreateProposal where
+instance Data.ToHeaders CreateProposal where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateProposal where
+instance Data.ToJSON CreateProposal where
   toJSON CreateProposal' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("ClientRequestToken" Core..= clientRequestToken),
-            Prelude.Just ("MemberId" Core..= memberId),
-            Prelude.Just ("Actions" Core..= actions)
+              ("ClientRequestToken" Data..= clientRequestToken),
+            Prelude.Just ("MemberId" Data..= memberId),
+            Prelude.Just ("Actions" Data..= actions)
           ]
       )
 
-instance Core.ToPath CreateProposal where
+instance Data.ToPath CreateProposal where
   toPath CreateProposal' {..} =
     Prelude.mconcat
-      ["/networks/", Core.toBS networkId, "/proposals"]
+      ["/networks/", Data.toBS networkId, "/proposals"]
 
-instance Core.ToQuery CreateProposal where
+instance Data.ToQuery CreateProposal where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateProposalResponse' smart constructor.

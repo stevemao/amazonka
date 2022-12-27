@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.CreateDistribution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,8 @@ module Amazonka.Lightsail.CreateDistribution
 
     -- * Request Lenses
     createDistribution_cacheBehaviorSettings,
-    createDistribution_ipAddressType,
     createDistribution_cacheBehaviors,
+    createDistribution_ipAddressType,
     createDistribution_tags,
     createDistribution_distributionName,
     createDistribution_origin,
@@ -53,7 +53,8 @@ module Amazonka.Lightsail.CreateDistribution
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -64,6 +65,9 @@ data CreateDistribution = CreateDistribution'
   { -- | An object that describes the cache behavior settings for the
     -- distribution.
     cacheBehaviorSettings :: Prelude.Maybe CacheSettings,
+    -- | An array of objects that describe the per-path cache behavior for the
+    -- distribution.
+    cacheBehaviors :: Prelude.Maybe [CacheBehaviorPerPath],
     -- | The IP address type for the distribution.
     --
     -- The possible values are @ipv4@ for IPv4 only, and @dualstack@ for IPv4
@@ -71,9 +75,6 @@ data CreateDistribution = CreateDistribution'
     --
     -- The default value is @dualstack@.
     ipAddressType :: Prelude.Maybe IpAddressType,
-    -- | An array of objects that describe the per-path cache behavior for the
-    -- distribution.
-    cacheBehaviors :: Prelude.Maybe [CacheBehaviorPerPath],
     -- | The tag keys and optional values to add to the distribution during
     -- create.
     --
@@ -82,7 +83,7 @@ data CreateDistribution = CreateDistribution'
     -- | The name for the distribution.
     distributionName :: Prelude.Text,
     -- | An object that describes the origin resource for the distribution, such
-    -- as a Lightsail instance or load balancer.
+    -- as a Lightsail instance, bucket, or load balancer.
     --
     -- The distribution pulls, caches, and serves content from the origin.
     origin :: InputOrigin,
@@ -111,15 +112,15 @@ data CreateDistribution = CreateDistribution'
 -- 'cacheBehaviorSettings', 'createDistribution_cacheBehaviorSettings' - An object that describes the cache behavior settings for the
 -- distribution.
 --
+-- 'cacheBehaviors', 'createDistribution_cacheBehaviors' - An array of objects that describe the per-path cache behavior for the
+-- distribution.
+--
 -- 'ipAddressType', 'createDistribution_ipAddressType' - The IP address type for the distribution.
 --
 -- The possible values are @ipv4@ for IPv4 only, and @dualstack@ for IPv4
 -- and IPv6.
 --
 -- The default value is @dualstack@.
---
--- 'cacheBehaviors', 'createDistribution_cacheBehaviors' - An array of objects that describe the per-path cache behavior for the
--- distribution.
 --
 -- 'tags', 'createDistribution_tags' - The tag keys and optional values to add to the distribution during
 -- create.
@@ -129,7 +130,7 @@ data CreateDistribution = CreateDistribution'
 -- 'distributionName', 'createDistribution_distributionName' - The name for the distribution.
 --
 -- 'origin', 'createDistribution_origin' - An object that describes the origin resource for the distribution, such
--- as a Lightsail instance or load balancer.
+-- as a Lightsail instance, bucket, or load balancer.
 --
 -- The distribution pulls, caches, and serves content from the origin.
 --
@@ -161,8 +162,8 @@ newCreateDistribution
     CreateDistribution'
       { cacheBehaviorSettings =
           Prelude.Nothing,
-        ipAddressType = Prelude.Nothing,
         cacheBehaviors = Prelude.Nothing,
+        ipAddressType = Prelude.Nothing,
         tags = Prelude.Nothing,
         distributionName = pDistributionName_,
         origin = pOrigin_,
@@ -175,6 +176,11 @@ newCreateDistribution
 createDistribution_cacheBehaviorSettings :: Lens.Lens' CreateDistribution (Prelude.Maybe CacheSettings)
 createDistribution_cacheBehaviorSettings = Lens.lens (\CreateDistribution' {cacheBehaviorSettings} -> cacheBehaviorSettings) (\s@CreateDistribution' {} a -> s {cacheBehaviorSettings = a} :: CreateDistribution)
 
+-- | An array of objects that describe the per-path cache behavior for the
+-- distribution.
+createDistribution_cacheBehaviors :: Lens.Lens' CreateDistribution (Prelude.Maybe [CacheBehaviorPerPath])
+createDistribution_cacheBehaviors = Lens.lens (\CreateDistribution' {cacheBehaviors} -> cacheBehaviors) (\s@CreateDistribution' {} a -> s {cacheBehaviors = a} :: CreateDistribution) Prelude.. Lens.mapping Lens.coerced
+
 -- | The IP address type for the distribution.
 --
 -- The possible values are @ipv4@ for IPv4 only, and @dualstack@ for IPv4
@@ -183,11 +189,6 @@ createDistribution_cacheBehaviorSettings = Lens.lens (\CreateDistribution' {cach
 -- The default value is @dualstack@.
 createDistribution_ipAddressType :: Lens.Lens' CreateDistribution (Prelude.Maybe IpAddressType)
 createDistribution_ipAddressType = Lens.lens (\CreateDistribution' {ipAddressType} -> ipAddressType) (\s@CreateDistribution' {} a -> s {ipAddressType = a} :: CreateDistribution)
-
--- | An array of objects that describe the per-path cache behavior for the
--- distribution.
-createDistribution_cacheBehaviors :: Lens.Lens' CreateDistribution (Prelude.Maybe [CacheBehaviorPerPath])
-createDistribution_cacheBehaviors = Lens.lens (\CreateDistribution' {cacheBehaviors} -> cacheBehaviors) (\s@CreateDistribution' {} a -> s {cacheBehaviors = a} :: CreateDistribution) Prelude.. Lens.mapping Lens.coerced
 
 -- | The tag keys and optional values to add to the distribution during
 -- create.
@@ -201,7 +202,7 @@ createDistribution_distributionName :: Lens.Lens' CreateDistribution Prelude.Tex
 createDistribution_distributionName = Lens.lens (\CreateDistribution' {distributionName} -> distributionName) (\s@CreateDistribution' {} a -> s {distributionName = a} :: CreateDistribution)
 
 -- | An object that describes the origin resource for the distribution, such
--- as a Lightsail instance or load balancer.
+-- as a Lightsail instance, bucket, or load balancer.
 --
 -- The distribution pulls, caches, and serves content from the origin.
 createDistribution_origin :: Lens.Lens' CreateDistribution InputOrigin
@@ -226,21 +227,22 @@ instance Core.AWSRequest CreateDistribution where
   type
     AWSResponse CreateDistribution =
       CreateDistributionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateDistributionResponse'
-            Prelude.<$> (x Core..?> "distribution")
-            Prelude.<*> (x Core..?> "operation")
+            Prelude.<$> (x Data..?> "distribution")
+            Prelude.<*> (x Data..?> "operation")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateDistribution where
   hashWithSalt _salt CreateDistribution' {..} =
     _salt `Prelude.hashWithSalt` cacheBehaviorSettings
-      `Prelude.hashWithSalt` ipAddressType
       `Prelude.hashWithSalt` cacheBehaviors
+      `Prelude.hashWithSalt` ipAddressType
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` distributionName
       `Prelude.hashWithSalt` origin
@@ -250,54 +252,54 @@ instance Prelude.Hashable CreateDistribution where
 instance Prelude.NFData CreateDistribution where
   rnf CreateDistribution' {..} =
     Prelude.rnf cacheBehaviorSettings
-      `Prelude.seq` Prelude.rnf ipAddressType
       `Prelude.seq` Prelude.rnf cacheBehaviors
+      `Prelude.seq` Prelude.rnf ipAddressType
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf distributionName
       `Prelude.seq` Prelude.rnf origin
       `Prelude.seq` Prelude.rnf defaultCacheBehavior
       `Prelude.seq` Prelude.rnf bundleId
 
-instance Core.ToHeaders CreateDistribution where
+instance Data.ToHeaders CreateDistribution where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.CreateDistribution" ::
+              Data.=# ( "Lightsail_20161128.CreateDistribution" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateDistribution where
+instance Data.ToJSON CreateDistribution where
   toJSON CreateDistribution' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("cacheBehaviorSettings" Core..=)
+          [ ("cacheBehaviorSettings" Data..=)
               Prelude.<$> cacheBehaviorSettings,
-            ("ipAddressType" Core..=) Prelude.<$> ipAddressType,
-            ("cacheBehaviors" Core..=)
+            ("cacheBehaviors" Data..=)
               Prelude.<$> cacheBehaviors,
-            ("tags" Core..=) Prelude.<$> tags,
+            ("ipAddressType" Data..=) Prelude.<$> ipAddressType,
+            ("tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("distributionName" Core..= distributionName),
-            Prelude.Just ("origin" Core..= origin),
+              ("distributionName" Data..= distributionName),
+            Prelude.Just ("origin" Data..= origin),
             Prelude.Just
               ( "defaultCacheBehavior"
-                  Core..= defaultCacheBehavior
+                  Data..= defaultCacheBehavior
               ),
-            Prelude.Just ("bundleId" Core..= bundleId)
+            Prelude.Just ("bundleId" Data..= bundleId)
           ]
       )
 
-instance Core.ToPath CreateDistribution where
+instance Data.ToPath CreateDistribution where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateDistribution where
+instance Data.ToQuery CreateDistribution where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateDistributionResponse' smart constructor.

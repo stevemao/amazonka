@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.Types.VersioningConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.IoTAnalytics.Types.VersioningConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the versioning of dataset contents.
 --
 -- /See:/ 'newVersioningConfiguration' smart constructor.
 data VersioningConfiguration = VersioningConfiguration'
-  { -- | If true, unlimited versions of dataset contents are kept.
-    unlimited :: Prelude.Maybe Prelude.Bool,
-    -- | How many versions of dataset contents are kept. The @unlimited@
+  { -- | How many versions of dataset contents are kept. The @unlimited@
     -- parameter must be @false@.
-    maxVersions :: Prelude.Maybe Prelude.Natural
+    maxVersions :: Prelude.Maybe Prelude.Natural,
+    -- | If true, unlimited versions of dataset contents are kept.
+    unlimited :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,53 +44,53 @@ data VersioningConfiguration = VersioningConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'unlimited', 'versioningConfiguration_unlimited' - If true, unlimited versions of dataset contents are kept.
---
 -- 'maxVersions', 'versioningConfiguration_maxVersions' - How many versions of dataset contents are kept. The @unlimited@
 -- parameter must be @false@.
+--
+-- 'unlimited', 'versioningConfiguration_unlimited' - If true, unlimited versions of dataset contents are kept.
 newVersioningConfiguration ::
   VersioningConfiguration
 newVersioningConfiguration =
   VersioningConfiguration'
-    { unlimited =
+    { maxVersions =
         Prelude.Nothing,
-      maxVersions = Prelude.Nothing
+      unlimited = Prelude.Nothing
     }
-
--- | If true, unlimited versions of dataset contents are kept.
-versioningConfiguration_unlimited :: Lens.Lens' VersioningConfiguration (Prelude.Maybe Prelude.Bool)
-versioningConfiguration_unlimited = Lens.lens (\VersioningConfiguration' {unlimited} -> unlimited) (\s@VersioningConfiguration' {} a -> s {unlimited = a} :: VersioningConfiguration)
 
 -- | How many versions of dataset contents are kept. The @unlimited@
 -- parameter must be @false@.
 versioningConfiguration_maxVersions :: Lens.Lens' VersioningConfiguration (Prelude.Maybe Prelude.Natural)
 versioningConfiguration_maxVersions = Lens.lens (\VersioningConfiguration' {maxVersions} -> maxVersions) (\s@VersioningConfiguration' {} a -> s {maxVersions = a} :: VersioningConfiguration)
 
-instance Core.FromJSON VersioningConfiguration where
+-- | If true, unlimited versions of dataset contents are kept.
+versioningConfiguration_unlimited :: Lens.Lens' VersioningConfiguration (Prelude.Maybe Prelude.Bool)
+versioningConfiguration_unlimited = Lens.lens (\VersioningConfiguration' {unlimited} -> unlimited) (\s@VersioningConfiguration' {} a -> s {unlimited = a} :: VersioningConfiguration)
+
+instance Data.FromJSON VersioningConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VersioningConfiguration"
       ( \x ->
           VersioningConfiguration'
-            Prelude.<$> (x Core..:? "unlimited")
-            Prelude.<*> (x Core..:? "maxVersions")
+            Prelude.<$> (x Data..:? "maxVersions")
+            Prelude.<*> (x Data..:? "unlimited")
       )
 
 instance Prelude.Hashable VersioningConfiguration where
   hashWithSalt _salt VersioningConfiguration' {..} =
-    _salt `Prelude.hashWithSalt` unlimited
-      `Prelude.hashWithSalt` maxVersions
+    _salt `Prelude.hashWithSalt` maxVersions
+      `Prelude.hashWithSalt` unlimited
 
 instance Prelude.NFData VersioningConfiguration where
   rnf VersioningConfiguration' {..} =
-    Prelude.rnf unlimited
-      `Prelude.seq` Prelude.rnf maxVersions
+    Prelude.rnf maxVersions
+      `Prelude.seq` Prelude.rnf unlimited
 
-instance Core.ToJSON VersioningConfiguration where
+instance Data.ToJSON VersioningConfiguration where
   toJSON VersioningConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("unlimited" Core..=) Prelude.<$> unlimited,
-            ("maxVersions" Core..=) Prelude.<$> maxVersions
+          [ ("maxVersions" Data..=) Prelude.<$> maxVersions,
+            ("unlimited" Data..=) Prelude.<$> unlimited
           ]
       )

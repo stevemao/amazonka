@@ -14,25 +14,26 @@
 
 -- |
 -- Module      : Amazonka.SSM.CreateActivation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Generates an activation code and activation ID you can use to register
--- your on-premises server or virtual machine (VM) with Amazon Web Services
--- Systems Manager. Registering these machines with Systems Manager makes
--- it possible to manage them using Systems Manager capabilities. You use
--- the activation code and ID when installing SSM Agent on machines in your
--- hybrid environment. For more information about requirements for managing
--- on-premises instances and VMs using Systems Manager, see
+-- your on-premises servers, edge devices, or virtual machine (VM) with
+-- Amazon Web Services Systems Manager. Registering these machines with
+-- Systems Manager makes it possible to manage them using Systems Manager
+-- capabilities. You use the activation code and ID when installing SSM
+-- Agent on machines in your hybrid environment. For more information about
+-- requirements for managing on-premises machines using Systems Manager,
+-- see
 -- <https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-managedinstances.html Setting up Amazon Web Services Systems Manager for hybrid environments>
 -- in the /Amazon Web Services Systems Manager User Guide/.
 --
--- On-premises servers or VMs that are registered with Systems Manager and
--- Amazon Elastic Compute Cloud (Amazon EC2) instances that you manage with
--- Systems Manager are all called /managed instances/.
+-- Amazon Elastic Compute Cloud (Amazon EC2) instances, edge devices, and
+-- on-premises servers and VMs that are configured for Systems Manager are
+-- all called /managed nodes/.
 module Amazonka.SSM.CreateActivation
   ( -- * Creating a Request
     CreateActivation (..),
@@ -40,9 +41,10 @@ module Amazonka.SSM.CreateActivation
 
     -- * Request Lenses
     createActivation_defaultInstanceName,
-    createActivation_registrationLimit,
-    createActivation_expirationDate,
     createActivation_description,
+    createActivation_expirationDate,
+    createActivation_registrationLimit,
+    createActivation_registrationMetadata,
     createActivation_tags,
     createActivation_iamRole,
 
@@ -51,14 +53,15 @@ module Amazonka.SSM.CreateActivation
     newCreateActivationResponse,
 
     -- * Response Lenses
-    createActivationResponse_activationId,
     createActivationResponse_activationCode,
+    createActivationResponse_activationId,
     createActivationResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,25 +69,27 @@ import Amazonka.SSM.Types
 
 -- | /See:/ 'newCreateActivation' smart constructor.
 data CreateActivation = CreateActivation'
-  { -- | The name of the registered, managed instance as it will appear in the
-    -- Amazon Web Services Systems Manager console or when you use the Amazon
-    -- Web Services command line tools to list Systems Manager resources.
+  { -- | The name of the registered, managed node as it will appear in the Amazon
+    -- Web Services Systems Manager console or when you use the Amazon Web
+    -- Services command line tools to list Systems Manager resources.
     --
     -- Don\'t enter personally identifiable information in this field.
     defaultInstanceName :: Prelude.Maybe Prelude.Text,
-    -- | Specify the maximum number of managed instances you want to register.
-    -- The default value is @1@.
-    registrationLimit :: Prelude.Maybe Prelude.Natural,
-    -- | The date by which this activation request should expire, in timestamp
-    -- format, such as \"2021-07-07T00:00:00\". You can specify a date up to 30
-    -- days in advance. If you don\'t provide an expiration date, the
-    -- activation code expires in 24 hours.
-    expirationDate :: Prelude.Maybe Core.POSIX,
     -- | A user-defined description of the resource that you want to register
     -- with Systems Manager.
     --
     -- Don\'t enter personally identifiable information in this field.
     description :: Prelude.Maybe Prelude.Text,
+    -- | The date by which this activation request should expire, in timestamp
+    -- format, such as \"2021-07-07T00:00:00\". You can specify a date up to 30
+    -- days in advance. If you don\'t provide an expiration date, the
+    -- activation code expires in 24 hours.
+    expirationDate :: Prelude.Maybe Data.POSIX,
+    -- | Specify the maximum number of managed nodes you want to register. The
+    -- default value is @1@.
+    registrationLimit :: Prelude.Maybe Prelude.Natural,
+    -- | Reserved for internal use.
+    registrationMetadata :: Prelude.Maybe [RegistrationMetadataItem],
     -- | Optional metadata that you assign to a resource. Tags enable you to
     -- categorize a resource in different ways, such as by purpose, owner, or
     -- environment. For example, you might want to tag an activation to
@@ -102,20 +107,23 @@ data CreateActivation = CreateActivation'
     -- the on-premises servers or VMs.
     --
     -- You can\'t add tags to or delete tags from an existing activation. You
-    -- can tag your on-premises servers and VMs after they connect to Systems
-    -- Manager for the first time and are assigned a managed instance ID. This
-    -- means they are listed in the Amazon Web Services Systems Manager console
-    -- with an ID that is prefixed with \"mi-\". For information about how to
-    -- add tags to your managed instances, see AddTagsToResource. For
-    -- information about how to remove tags from your managed instances, see
-    -- RemoveTagsFromResource.
+    -- can tag your on-premises servers, edge devices, and VMs after they
+    -- connect to Systems Manager for the first time and are assigned a managed
+    -- node ID. This means they are listed in the Amazon Web Services Systems
+    -- Manager console with an ID that is prefixed with \"mi-\". For
+    -- information about how to add tags to your managed nodes, see
+    -- AddTagsToResource. For information about how to remove tags from your
+    -- managed nodes, see RemoveTagsFromResource.
     tags :: Prelude.Maybe [Tag],
     -- | The name of the Identity and Access Management (IAM) role that you want
-    -- to assign to the managed instance. This IAM role must provide AssumeRole
+    -- to assign to the managed node. This IAM role must provide AssumeRole
     -- permissions for the Amazon Web Services Systems Manager service
     -- principal @ssm.amazonaws.com@. For more information, see
     -- <https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-service-role.html Create an IAM service role for a hybrid environment>
     -- in the /Amazon Web Services Systems Manager User Guide/.
+    --
+    -- You can\'t specify an IAM service-linked role for this parameter. You
+    -- must create a unique role.
     iamRole :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -128,24 +136,26 @@ data CreateActivation = CreateActivation'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'defaultInstanceName', 'createActivation_defaultInstanceName' - The name of the registered, managed instance as it will appear in the
--- Amazon Web Services Systems Manager console or when you use the Amazon
--- Web Services command line tools to list Systems Manager resources.
+-- 'defaultInstanceName', 'createActivation_defaultInstanceName' - The name of the registered, managed node as it will appear in the Amazon
+-- Web Services Systems Manager console or when you use the Amazon Web
+-- Services command line tools to list Systems Manager resources.
 --
 -- Don\'t enter personally identifiable information in this field.
 --
--- 'registrationLimit', 'createActivation_registrationLimit' - Specify the maximum number of managed instances you want to register.
--- The default value is @1@.
+-- 'description', 'createActivation_description' - A user-defined description of the resource that you want to register
+-- with Systems Manager.
+--
+-- Don\'t enter personally identifiable information in this field.
 --
 -- 'expirationDate', 'createActivation_expirationDate' - The date by which this activation request should expire, in timestamp
 -- format, such as \"2021-07-07T00:00:00\". You can specify a date up to 30
 -- days in advance. If you don\'t provide an expiration date, the
 -- activation code expires in 24 hours.
 --
--- 'description', 'createActivation_description' - A user-defined description of the resource that you want to register
--- with Systems Manager.
+-- 'registrationLimit', 'createActivation_registrationLimit' - Specify the maximum number of managed nodes you want to register. The
+-- default value is @1@.
 --
--- Don\'t enter personally identifiable information in this field.
+-- 'registrationMetadata', 'createActivation_registrationMetadata' - Reserved for internal use.
 --
 -- 'tags', 'createActivation_tags' - Optional metadata that you assign to a resource. Tags enable you to
 -- categorize a resource in different ways, such as by purpose, owner, or
@@ -164,20 +174,23 @@ data CreateActivation = CreateActivation'
 -- the on-premises servers or VMs.
 --
 -- You can\'t add tags to or delete tags from an existing activation. You
--- can tag your on-premises servers and VMs after they connect to Systems
--- Manager for the first time and are assigned a managed instance ID. This
--- means they are listed in the Amazon Web Services Systems Manager console
--- with an ID that is prefixed with \"mi-\". For information about how to
--- add tags to your managed instances, see AddTagsToResource. For
--- information about how to remove tags from your managed instances, see
--- RemoveTagsFromResource.
+-- can tag your on-premises servers, edge devices, and VMs after they
+-- connect to Systems Manager for the first time and are assigned a managed
+-- node ID. This means they are listed in the Amazon Web Services Systems
+-- Manager console with an ID that is prefixed with \"mi-\". For
+-- information about how to add tags to your managed nodes, see
+-- AddTagsToResource. For information about how to remove tags from your
+-- managed nodes, see RemoveTagsFromResource.
 --
 -- 'iamRole', 'createActivation_iamRole' - The name of the Identity and Access Management (IAM) role that you want
--- to assign to the managed instance. This IAM role must provide AssumeRole
+-- to assign to the managed node. This IAM role must provide AssumeRole
 -- permissions for the Amazon Web Services Systems Manager service
 -- principal @ssm.amazonaws.com@. For more information, see
 -- <https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-service-role.html Create an IAM service role for a hybrid environment>
 -- in the /Amazon Web Services Systems Manager User Guide/.
+--
+-- You can\'t specify an IAM service-linked role for this parameter. You
+-- must create a unique role.
 newCreateActivation ::
   -- | 'iamRole'
   Prelude.Text ->
@@ -186,32 +199,21 @@ newCreateActivation pIamRole_ =
   CreateActivation'
     { defaultInstanceName =
         Prelude.Nothing,
-      registrationLimit = Prelude.Nothing,
-      expirationDate = Prelude.Nothing,
       description = Prelude.Nothing,
+      expirationDate = Prelude.Nothing,
+      registrationLimit = Prelude.Nothing,
+      registrationMetadata = Prelude.Nothing,
       tags = Prelude.Nothing,
       iamRole = pIamRole_
     }
 
--- | The name of the registered, managed instance as it will appear in the
--- Amazon Web Services Systems Manager console or when you use the Amazon
--- Web Services command line tools to list Systems Manager resources.
+-- | The name of the registered, managed node as it will appear in the Amazon
+-- Web Services Systems Manager console or when you use the Amazon Web
+-- Services command line tools to list Systems Manager resources.
 --
 -- Don\'t enter personally identifiable information in this field.
 createActivation_defaultInstanceName :: Lens.Lens' CreateActivation (Prelude.Maybe Prelude.Text)
 createActivation_defaultInstanceName = Lens.lens (\CreateActivation' {defaultInstanceName} -> defaultInstanceName) (\s@CreateActivation' {} a -> s {defaultInstanceName = a} :: CreateActivation)
-
--- | Specify the maximum number of managed instances you want to register.
--- The default value is @1@.
-createActivation_registrationLimit :: Lens.Lens' CreateActivation (Prelude.Maybe Prelude.Natural)
-createActivation_registrationLimit = Lens.lens (\CreateActivation' {registrationLimit} -> registrationLimit) (\s@CreateActivation' {} a -> s {registrationLimit = a} :: CreateActivation)
-
--- | The date by which this activation request should expire, in timestamp
--- format, such as \"2021-07-07T00:00:00\". You can specify a date up to 30
--- days in advance. If you don\'t provide an expiration date, the
--- activation code expires in 24 hours.
-createActivation_expirationDate :: Lens.Lens' CreateActivation (Prelude.Maybe Prelude.UTCTime)
-createActivation_expirationDate = Lens.lens (\CreateActivation' {expirationDate} -> expirationDate) (\s@CreateActivation' {} a -> s {expirationDate = a} :: CreateActivation) Prelude.. Lens.mapping Core._Time
 
 -- | A user-defined description of the resource that you want to register
 -- with Systems Manager.
@@ -219,6 +221,22 @@ createActivation_expirationDate = Lens.lens (\CreateActivation' {expirationDate}
 -- Don\'t enter personally identifiable information in this field.
 createActivation_description :: Lens.Lens' CreateActivation (Prelude.Maybe Prelude.Text)
 createActivation_description = Lens.lens (\CreateActivation' {description} -> description) (\s@CreateActivation' {} a -> s {description = a} :: CreateActivation)
+
+-- | The date by which this activation request should expire, in timestamp
+-- format, such as \"2021-07-07T00:00:00\". You can specify a date up to 30
+-- days in advance. If you don\'t provide an expiration date, the
+-- activation code expires in 24 hours.
+createActivation_expirationDate :: Lens.Lens' CreateActivation (Prelude.Maybe Prelude.UTCTime)
+createActivation_expirationDate = Lens.lens (\CreateActivation' {expirationDate} -> expirationDate) (\s@CreateActivation' {} a -> s {expirationDate = a} :: CreateActivation) Prelude.. Lens.mapping Data._Time
+
+-- | Specify the maximum number of managed nodes you want to register. The
+-- default value is @1@.
+createActivation_registrationLimit :: Lens.Lens' CreateActivation (Prelude.Maybe Prelude.Natural)
+createActivation_registrationLimit = Lens.lens (\CreateActivation' {registrationLimit} -> registrationLimit) (\s@CreateActivation' {} a -> s {registrationLimit = a} :: CreateActivation)
+
+-- | Reserved for internal use.
+createActivation_registrationMetadata :: Lens.Lens' CreateActivation (Prelude.Maybe [RegistrationMetadataItem])
+createActivation_registrationMetadata = Lens.lens (\CreateActivation' {registrationMetadata} -> registrationMetadata) (\s@CreateActivation' {} a -> s {registrationMetadata = a} :: CreateActivation) Prelude.. Lens.mapping Lens.coerced
 
 -- | Optional metadata that you assign to a resource. Tags enable you to
 -- categorize a resource in different ways, such as by purpose, owner, or
@@ -237,22 +255,25 @@ createActivation_description = Lens.lens (\CreateActivation' {description} -> de
 -- the on-premises servers or VMs.
 --
 -- You can\'t add tags to or delete tags from an existing activation. You
--- can tag your on-premises servers and VMs after they connect to Systems
--- Manager for the first time and are assigned a managed instance ID. This
--- means they are listed in the Amazon Web Services Systems Manager console
--- with an ID that is prefixed with \"mi-\". For information about how to
--- add tags to your managed instances, see AddTagsToResource. For
--- information about how to remove tags from your managed instances, see
--- RemoveTagsFromResource.
+-- can tag your on-premises servers, edge devices, and VMs after they
+-- connect to Systems Manager for the first time and are assigned a managed
+-- node ID. This means they are listed in the Amazon Web Services Systems
+-- Manager console with an ID that is prefixed with \"mi-\". For
+-- information about how to add tags to your managed nodes, see
+-- AddTagsToResource. For information about how to remove tags from your
+-- managed nodes, see RemoveTagsFromResource.
 createActivation_tags :: Lens.Lens' CreateActivation (Prelude.Maybe [Tag])
 createActivation_tags = Lens.lens (\CreateActivation' {tags} -> tags) (\s@CreateActivation' {} a -> s {tags = a} :: CreateActivation) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the Identity and Access Management (IAM) role that you want
--- to assign to the managed instance. This IAM role must provide AssumeRole
+-- to assign to the managed node. This IAM role must provide AssumeRole
 -- permissions for the Amazon Web Services Systems Manager service
 -- principal @ssm.amazonaws.com@. For more information, see
 -- <https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-service-role.html Create an IAM service role for a hybrid environment>
 -- in the /Amazon Web Services Systems Manager User Guide/.
+--
+-- You can\'t specify an IAM service-linked role for this parameter. You
+-- must create a unique role.
 createActivation_iamRole :: Lens.Lens' CreateActivation Prelude.Text
 createActivation_iamRole = Lens.lens (\CreateActivation' {iamRole} -> iamRole) (\s@CreateActivation' {} a -> s {iamRole = a} :: CreateActivation)
 
@@ -260,77 +281,82 @@ instance Core.AWSRequest CreateActivation where
   type
     AWSResponse CreateActivation =
       CreateActivationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateActivationResponse'
-            Prelude.<$> (x Core..?> "ActivationId")
-            Prelude.<*> (x Core..?> "ActivationCode")
+            Prelude.<$> (x Data..?> "ActivationCode")
+            Prelude.<*> (x Data..?> "ActivationId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateActivation where
   hashWithSalt _salt CreateActivation' {..} =
     _salt `Prelude.hashWithSalt` defaultInstanceName
-      `Prelude.hashWithSalt` registrationLimit
-      `Prelude.hashWithSalt` expirationDate
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` expirationDate
+      `Prelude.hashWithSalt` registrationLimit
+      `Prelude.hashWithSalt` registrationMetadata
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` iamRole
 
 instance Prelude.NFData CreateActivation where
   rnf CreateActivation' {..} =
     Prelude.rnf defaultInstanceName
-      `Prelude.seq` Prelude.rnf registrationLimit
-      `Prelude.seq` Prelude.rnf expirationDate
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf expirationDate
+      `Prelude.seq` Prelude.rnf registrationLimit
+      `Prelude.seq` Prelude.rnf registrationMetadata
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf iamRole
 
-instance Core.ToHeaders CreateActivation where
+instance Data.ToHeaders CreateActivation where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AmazonSSM.CreateActivation" :: Prelude.ByteString),
+              Data.=# ("AmazonSSM.CreateActivation" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateActivation where
+instance Data.ToJSON CreateActivation where
   toJSON CreateActivation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DefaultInstanceName" Core..=)
+          [ ("DefaultInstanceName" Data..=)
               Prelude.<$> defaultInstanceName,
-            ("RegistrationLimit" Core..=)
-              Prelude.<$> registrationLimit,
-            ("ExpirationDate" Core..=)
+            ("Description" Data..=) Prelude.<$> description,
+            ("ExpirationDate" Data..=)
               Prelude.<$> expirationDate,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("IamRole" Core..= iamRole)
+            ("RegistrationLimit" Data..=)
+              Prelude.<$> registrationLimit,
+            ("RegistrationMetadata" Data..=)
+              Prelude.<$> registrationMetadata,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("IamRole" Data..= iamRole)
           ]
       )
 
-instance Core.ToPath CreateActivation where
+instance Data.ToPath CreateActivation where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateActivation where
+instance Data.ToQuery CreateActivation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateActivationResponse' smart constructor.
 data CreateActivationResponse = CreateActivationResponse'
-  { -- | The ID number generated by the system when it processed the activation.
-    -- The activation ID functions like a user name.
-    activationId :: Prelude.Maybe Prelude.Text,
-    -- | The code the system generates when it processes the activation. The
+  { -- | The code the system generates when it processes the activation. The
     -- activation code functions like a password to validate the activation ID.
     activationCode :: Prelude.Maybe Prelude.Text,
+    -- | The ID number generated by the system when it processed the activation.
+    -- The activation ID functions like a user name.
+    activationId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -344,11 +370,11 @@ data CreateActivationResponse = CreateActivationResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'activationId', 'createActivationResponse_activationId' - The ID number generated by the system when it processed the activation.
--- The activation ID functions like a user name.
---
 -- 'activationCode', 'createActivationResponse_activationCode' - The code the system generates when it processes the activation. The
 -- activation code functions like a password to validate the activation ID.
+--
+-- 'activationId', 'createActivationResponse_activationId' - The ID number generated by the system when it processed the activation.
+-- The activation ID functions like a user name.
 --
 -- 'httpStatus', 'createActivationResponse_httpStatus' - The response's http status code.
 newCreateActivationResponse ::
@@ -357,21 +383,21 @@ newCreateActivationResponse ::
   CreateActivationResponse
 newCreateActivationResponse pHttpStatus_ =
   CreateActivationResponse'
-    { activationId =
+    { activationCode =
         Prelude.Nothing,
-      activationCode = Prelude.Nothing,
+      activationId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The ID number generated by the system when it processed the activation.
--- The activation ID functions like a user name.
-createActivationResponse_activationId :: Lens.Lens' CreateActivationResponse (Prelude.Maybe Prelude.Text)
-createActivationResponse_activationId = Lens.lens (\CreateActivationResponse' {activationId} -> activationId) (\s@CreateActivationResponse' {} a -> s {activationId = a} :: CreateActivationResponse)
 
 -- | The code the system generates when it processes the activation. The
 -- activation code functions like a password to validate the activation ID.
 createActivationResponse_activationCode :: Lens.Lens' CreateActivationResponse (Prelude.Maybe Prelude.Text)
 createActivationResponse_activationCode = Lens.lens (\CreateActivationResponse' {activationCode} -> activationCode) (\s@CreateActivationResponse' {} a -> s {activationCode = a} :: CreateActivationResponse)
+
+-- | The ID number generated by the system when it processed the activation.
+-- The activation ID functions like a user name.
+createActivationResponse_activationId :: Lens.Lens' CreateActivationResponse (Prelude.Maybe Prelude.Text)
+createActivationResponse_activationId = Lens.lens (\CreateActivationResponse' {activationId} -> activationId) (\s@CreateActivationResponse' {} a -> s {activationId = a} :: CreateActivationResponse)
 
 -- | The response's http status code.
 createActivationResponse_httpStatus :: Lens.Lens' CreateActivationResponse Prelude.Int
@@ -379,6 +405,6 @@ createActivationResponse_httpStatus = Lens.lens (\CreateActivationResponse' {htt
 
 instance Prelude.NFData CreateActivationResponse where
   rnf CreateActivationResponse' {..} =
-    Prelude.rnf activationId
-      `Prelude.seq` Prelude.rnf activationCode
+    Prelude.rnf activationCode
+      `Prelude.seq` Prelude.rnf activationId
       `Prelude.seq` Prelude.rnf httpStatus

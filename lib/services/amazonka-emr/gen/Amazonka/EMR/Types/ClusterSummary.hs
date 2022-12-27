@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.ClusterSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,21 +20,21 @@
 module Amazonka.EMR.Types.ClusterSummary where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types.ClusterStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The summary description of the cluster.
 --
 -- /See:/ 'newClusterSummary' smart constructor.
 data ClusterSummary = ClusterSummary'
-  { -- | The details about the current status of the cluster.
-    status :: Prelude.Maybe ClusterStatus,
-    -- | The Amazon Resource Name of the cluster.
+  { -- | The Amazon Resource Name of the cluster.
     clusterArn :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the Outpost where the cluster is
-    -- launched.
-    outpostArn :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the cluster.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the cluster.
+    name :: Prelude.Maybe Prelude.Text,
     -- | An approximation of the cost of the cluster, represented in
     -- m1.small\/hours. This value is incremented one time for every hour an
     -- m1.small instance runs. Larger instances are weighted more, so an EC2
@@ -42,10 +42,11 @@ data ClusterSummary = ClusterSummary'
     -- normalized instance hours being incremented by four. This result is only
     -- an approximation and does not reflect the actual billing rate.
     normalizedInstanceHours :: Prelude.Maybe Prelude.Int,
-    -- | The name of the cluster.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The unique identifier for the cluster.
-    id :: Prelude.Maybe Prelude.Text
+    -- | The Amazon Resource Name (ARN) of the Outpost where the cluster is
+    -- launched.
+    outpostArn :: Prelude.Maybe Prelude.Text,
+    -- | The details about the current status of the cluster.
+    status :: Prelude.Maybe ClusterStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -57,12 +58,11 @@ data ClusterSummary = ClusterSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'clusterSummary_status' - The details about the current status of the cluster.
---
 -- 'clusterArn', 'clusterSummary_clusterArn' - The Amazon Resource Name of the cluster.
 --
--- 'outpostArn', 'clusterSummary_outpostArn' - The Amazon Resource Name (ARN) of the Outpost where the cluster is
--- launched.
+-- 'id', 'clusterSummary_id' - The unique identifier for the cluster.
+--
+-- 'name', 'clusterSummary_name' - The name of the cluster.
 --
 -- 'normalizedInstanceHours', 'clusterSummary_normalizedInstanceHours' - An approximation of the cost of the cluster, represented in
 -- m1.small\/hours. This value is incremented one time for every hour an
@@ -71,33 +71,33 @@ data ClusterSummary = ClusterSummary'
 -- normalized instance hours being incremented by four. This result is only
 -- an approximation and does not reflect the actual billing rate.
 --
--- 'name', 'clusterSummary_name' - The name of the cluster.
+-- 'outpostArn', 'clusterSummary_outpostArn' - The Amazon Resource Name (ARN) of the Outpost where the cluster is
+-- launched.
 --
--- 'id', 'clusterSummary_id' - The unique identifier for the cluster.
+-- 'status', 'clusterSummary_status' - The details about the current status of the cluster.
 newClusterSummary ::
   ClusterSummary
 newClusterSummary =
   ClusterSummary'
-    { status = Prelude.Nothing,
-      clusterArn = Prelude.Nothing,
-      outpostArn = Prelude.Nothing,
-      normalizedInstanceHours = Prelude.Nothing,
+    { clusterArn = Prelude.Nothing,
+      id = Prelude.Nothing,
       name = Prelude.Nothing,
-      id = Prelude.Nothing
+      normalizedInstanceHours = Prelude.Nothing,
+      outpostArn = Prelude.Nothing,
+      status = Prelude.Nothing
     }
-
--- | The details about the current status of the cluster.
-clusterSummary_status :: Lens.Lens' ClusterSummary (Prelude.Maybe ClusterStatus)
-clusterSummary_status = Lens.lens (\ClusterSummary' {status} -> status) (\s@ClusterSummary' {} a -> s {status = a} :: ClusterSummary)
 
 -- | The Amazon Resource Name of the cluster.
 clusterSummary_clusterArn :: Lens.Lens' ClusterSummary (Prelude.Maybe Prelude.Text)
 clusterSummary_clusterArn = Lens.lens (\ClusterSummary' {clusterArn} -> clusterArn) (\s@ClusterSummary' {} a -> s {clusterArn = a} :: ClusterSummary)
 
--- | The Amazon Resource Name (ARN) of the Outpost where the cluster is
--- launched.
-clusterSummary_outpostArn :: Lens.Lens' ClusterSummary (Prelude.Maybe Prelude.Text)
-clusterSummary_outpostArn = Lens.lens (\ClusterSummary' {outpostArn} -> outpostArn) (\s@ClusterSummary' {} a -> s {outpostArn = a} :: ClusterSummary)
+-- | The unique identifier for the cluster.
+clusterSummary_id :: Lens.Lens' ClusterSummary (Prelude.Maybe Prelude.Text)
+clusterSummary_id = Lens.lens (\ClusterSummary' {id} -> id) (\s@ClusterSummary' {} a -> s {id = a} :: ClusterSummary)
+
+-- | The name of the cluster.
+clusterSummary_name :: Lens.Lens' ClusterSummary (Prelude.Maybe Prelude.Text)
+clusterSummary_name = Lens.lens (\ClusterSummary' {name} -> name) (\s@ClusterSummary' {} a -> s {name = a} :: ClusterSummary)
 
 -- | An approximation of the cost of the cluster, represented in
 -- m1.small\/hours. This value is incremented one time for every hour an
@@ -108,42 +108,43 @@ clusterSummary_outpostArn = Lens.lens (\ClusterSummary' {outpostArn} -> outpostA
 clusterSummary_normalizedInstanceHours :: Lens.Lens' ClusterSummary (Prelude.Maybe Prelude.Int)
 clusterSummary_normalizedInstanceHours = Lens.lens (\ClusterSummary' {normalizedInstanceHours} -> normalizedInstanceHours) (\s@ClusterSummary' {} a -> s {normalizedInstanceHours = a} :: ClusterSummary)
 
--- | The name of the cluster.
-clusterSummary_name :: Lens.Lens' ClusterSummary (Prelude.Maybe Prelude.Text)
-clusterSummary_name = Lens.lens (\ClusterSummary' {name} -> name) (\s@ClusterSummary' {} a -> s {name = a} :: ClusterSummary)
+-- | The Amazon Resource Name (ARN) of the Outpost where the cluster is
+-- launched.
+clusterSummary_outpostArn :: Lens.Lens' ClusterSummary (Prelude.Maybe Prelude.Text)
+clusterSummary_outpostArn = Lens.lens (\ClusterSummary' {outpostArn} -> outpostArn) (\s@ClusterSummary' {} a -> s {outpostArn = a} :: ClusterSummary)
 
--- | The unique identifier for the cluster.
-clusterSummary_id :: Lens.Lens' ClusterSummary (Prelude.Maybe Prelude.Text)
-clusterSummary_id = Lens.lens (\ClusterSummary' {id} -> id) (\s@ClusterSummary' {} a -> s {id = a} :: ClusterSummary)
+-- | The details about the current status of the cluster.
+clusterSummary_status :: Lens.Lens' ClusterSummary (Prelude.Maybe ClusterStatus)
+clusterSummary_status = Lens.lens (\ClusterSummary' {status} -> status) (\s@ClusterSummary' {} a -> s {status = a} :: ClusterSummary)
 
-instance Core.FromJSON ClusterSummary where
+instance Data.FromJSON ClusterSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ClusterSummary"
       ( \x ->
           ClusterSummary'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "ClusterArn")
-            Prelude.<*> (x Core..:? "OutpostArn")
-            Prelude.<*> (x Core..:? "NormalizedInstanceHours")
-            Prelude.<*> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "Id")
+            Prelude.<$> (x Data..:? "ClusterArn")
+            Prelude.<*> (x Data..:? "Id")
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "NormalizedInstanceHours")
+            Prelude.<*> (x Data..:? "OutpostArn")
+            Prelude.<*> (x Data..:? "Status")
       )
 
 instance Prelude.Hashable ClusterSummary where
   hashWithSalt _salt ClusterSummary' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` clusterArn
-      `Prelude.hashWithSalt` outpostArn
-      `Prelude.hashWithSalt` normalizedInstanceHours
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` clusterArn
       `Prelude.hashWithSalt` id
+      `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` normalizedInstanceHours
+      `Prelude.hashWithSalt` outpostArn
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData ClusterSummary where
   rnf ClusterSummary' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf clusterArn
-      `Prelude.seq` Prelude.rnf outpostArn
-      `Prelude.seq` Prelude.rnf normalizedInstanceHours
-      `Prelude.seq` Prelude.rnf name
+    Prelude.rnf clusterArn
       `Prelude.seq` Prelude.rnf id
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf normalizedInstanceHours
+      `Prelude.seq` Prelude.rnf outpostArn
+      `Prelude.seq` Prelude.rnf status

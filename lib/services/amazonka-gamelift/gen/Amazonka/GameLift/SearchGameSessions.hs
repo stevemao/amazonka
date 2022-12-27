@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.SearchGameSessions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,6 +22,14 @@
 --
 -- Retrieves all active game sessions that match a set of search criteria
 -- and sorts them into a specified order.
+--
+-- This operation is not designed to be continually called to track game
+-- session status. This practice can cause you to exceed your API limit,
+-- which results in errors. Instead, you must configure configure an Amazon
+-- Simple Notification Service (SNS) topic to receive notifications from
+-- FlexMatch or queues. Continuously polling game session status with
+-- @DescribeGameSessions@ should only be used for games in development with
+-- low game session usage.
 --
 -- When searching for game sessions, you specify exactly where you want to
 -- search and provide a search filter expression, a sort expression, or
@@ -46,17 +54,17 @@
 -- If successful, a @GameSession@ object is returned for each game session
 -- that matches the request. Search finds game sessions that are in
 -- @ACTIVE@ status only. To retrieve information on game sessions in other
--- statuses, use DescribeGameSessions.
+-- statuses, use
+-- <https://docs.aws.amazon.com/gamelift/latest/apireference/API_DescribeGameSessions.html DescribeGameSessions>
+-- .
 --
 -- You can search or sort by the following game session attributes:
 --
 -- -   __gameSessionId__ -- A unique identifier for the game session. You
 --     can use either a @GameSessionId@ or @GameSessionArn@ value.
 --
--- -   __gameSessionName__ -- Name assigned to a game session. This value
---     is set when requesting a new game session with CreateGameSession or
---     updating with UpdateGameSession. Game session names do not need to
---     be unique to a game session.
+-- -   __gameSessionName__ -- Name assigned to a game session. Game session
+--     names do not need to be unique to a game session.
 --
 -- -   __gameSessionProperties__ -- Custom data defined in a game
 --     session\'s @GameProperty@ parameter. @GameProperty@ values are
@@ -68,8 +76,7 @@
 --     are searched as strings.
 --
 -- -   __maximumSessions__ -- Maximum number of player sessions allowed for
---     a game session. This value is set when requesting a new game session
---     with CreateGameSession or updating with UpdateGameSession.
+--     a game session.
 --
 -- -   __creationTimeMillis__ -- Value indicating when a game session was
 --     created. It is expressed in Unix time as milliseconds.
@@ -90,12 +97,6 @@
 -- sure to refresh search results often, and handle sessions that fill up
 -- before a player can join.
 --
--- __Related actions__
---
--- CreateGameSession | DescribeGameSessions | DescribeGameSessionDetails |
--- SearchGameSessions | UpdateGameSession | GetGameSessionLogUrl |
--- StartGameSessionPlacement | DescribeGameSessionPlacement |
--- StopGameSessionPlacement |
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 --
 -- This operation returns paginated results.
@@ -105,13 +106,13 @@ module Amazonka.GameLift.SearchGameSessions
     newSearchGameSessions,
 
     -- * Request Lenses
-    searchGameSessions_filterExpression,
-    searchGameSessions_location,
-    searchGameSessions_sortExpression,
     searchGameSessions_aliasId,
-    searchGameSessions_nextToken,
-    searchGameSessions_limit,
+    searchGameSessions_filterExpression,
     searchGameSessions_fleetId,
+    searchGameSessions_limit,
+    searchGameSessions_location,
+    searchGameSessions_nextToken,
+    searchGameSessions_sortExpression,
 
     -- * Destructuring the Response
     SearchGameSessionsResponse (..),
@@ -125,17 +126,20 @@ module Amazonka.GameLift.SearchGameSessions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newSearchGameSessions' smart constructor.
+-- | /See:/ 'newSearchGameSessions' smart constructor.
 data SearchGameSessions = SearchGameSessions'
-  { -- | String containing the search criteria for the session search. If no
+  { -- | A unique identifier for the alias associated with the fleet to search
+    -- for active game sessions. You can use either the alias ID or ARN value.
+    -- Each request must reference either a fleet ID or alias ID, but not both.
+    aliasId :: Prelude.Maybe Prelude.Text,
+    -- | String containing the search criteria for the session search. If no
     -- filter expression is included, the request returns results for all game
     -- sessions in the fleet that are in @ACTIVE@ status.
     --
@@ -180,10 +184,23 @@ data SearchGameSessions = SearchGameSessions'
     -- least ten players that have an open player slot:
     -- @\"maximumSessions>=10 AND hasAvailablePlayerSessions=true\"@.
     filterExpression :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for the fleet to search for active game sessions.
+    -- You can use either the fleet ID or ARN value. Each request must
+    -- reference either a fleet ID or alias ID, but not both.
+    fleetId :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return. Use this parameter with
+    -- @NextToken@ to get results as a set of sequential pages. The maximum
+    -- number of results returned is 20, even if this value is not set or is
+    -- set higher than 20.
+    limit :: Prelude.Maybe Prelude.Natural,
     -- | A fleet location to search for game sessions. You can specify a fleet\'s
-    -- home Region or a remote location. Use the AWS Region code format, such
-    -- as @us-west-2@.
+    -- home Region or a remote location. Use the Amazon Web Services Region
+    -- code format, such as @us-west-2@.
     location :: Prelude.Maybe Prelude.Text,
+    -- | A token that indicates the start of the next sequential page of results.
+    -- Use the token that is returned with a previous call to this operation.
+    -- To start at the beginning of the result set, do not specify a value.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | Instructions on how to sort the search results. If no sort expression is
     -- included, the request returns results in random order. A sort expression
     -- consists of the following elements:
@@ -199,24 +216,7 @@ data SearchGameSessions = SearchGameSessions'
     -- For example, this sort expression returns the oldest active sessions
     -- first: @\"SortExpression\": \"creationTimeMillis ASC\"@. Results with a
     -- null value for the sort operand are returned at the end of the list.
-    sortExpression :: Prelude.Maybe Prelude.Text,
-    -- | A unique identifier for the alias associated with the fleet to search
-    -- for active game sessions. You can use either the alias ID or ARN value.
-    -- Each request must reference either a fleet ID or alias ID, but not both.
-    aliasId :: Prelude.Maybe Prelude.Text,
-    -- | A token that indicates the start of the next sequential page of results.
-    -- Use the token that is returned with a previous call to this operation.
-    -- To start at the beginning of the result set, do not specify a value.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return. Use this parameter with
-    -- @NextToken@ to get results as a set of sequential pages. The maximum
-    -- number of results returned is 20, even if this value is not set or is
-    -- set higher than 20.
-    limit :: Prelude.Maybe Prelude.Natural,
-    -- | A unique identifier for the fleet to search for active game sessions.
-    -- You can use either the fleet ID or ARN value. Each request must
-    -- reference either a fleet ID or alias ID, but not both.
-    fleetId :: Prelude.Maybe Prelude.Text
+    sortExpression :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -227,6 +227,10 @@ data SearchGameSessions = SearchGameSessions'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'aliasId', 'searchGameSessions_aliasId' - A unique identifier for the alias associated with the fleet to search
+-- for active game sessions. You can use either the alias ID or ARN value.
+-- Each request must reference either a fleet ID or alias ID, but not both.
 --
 -- 'filterExpression', 'searchGameSessions_filterExpression' - String containing the search criteria for the session search. If no
 -- filter expression is included, the request returns results for all game
@@ -273,9 +277,22 @@ data SearchGameSessions = SearchGameSessions'
 -- least ten players that have an open player slot:
 -- @\"maximumSessions>=10 AND hasAvailablePlayerSessions=true\"@.
 --
+-- 'fleetId', 'searchGameSessions_fleetId' - A unique identifier for the fleet to search for active game sessions.
+-- You can use either the fleet ID or ARN value. Each request must
+-- reference either a fleet ID or alias ID, but not both.
+--
+-- 'limit', 'searchGameSessions_limit' - The maximum number of results to return. Use this parameter with
+-- @NextToken@ to get results as a set of sequential pages. The maximum
+-- number of results returned is 20, even if this value is not set or is
+-- set higher than 20.
+--
 -- 'location', 'searchGameSessions_location' - A fleet location to search for game sessions. You can specify a fleet\'s
--- home Region or a remote location. Use the AWS Region code format, such
--- as @us-west-2@.
+-- home Region or a remote location. Use the Amazon Web Services Region
+-- code format, such as @us-west-2@.
+--
+-- 'nextToken', 'searchGameSessions_nextToken' - A token that indicates the start of the next sequential page of results.
+-- Use the token that is returned with a previous call to this operation.
+-- To start at the beginning of the result set, do not specify a value.
 --
 -- 'sortExpression', 'searchGameSessions_sortExpression' - Instructions on how to sort the search results. If no sort expression is
 -- included, the request returns results in random order. A sort expression
@@ -292,36 +309,24 @@ data SearchGameSessions = SearchGameSessions'
 -- For example, this sort expression returns the oldest active sessions
 -- first: @\"SortExpression\": \"creationTimeMillis ASC\"@. Results with a
 -- null value for the sort operand are returned at the end of the list.
---
--- 'aliasId', 'searchGameSessions_aliasId' - A unique identifier for the alias associated with the fleet to search
--- for active game sessions. You can use either the alias ID or ARN value.
--- Each request must reference either a fleet ID or alias ID, but not both.
---
--- 'nextToken', 'searchGameSessions_nextToken' - A token that indicates the start of the next sequential page of results.
--- Use the token that is returned with a previous call to this operation.
--- To start at the beginning of the result set, do not specify a value.
---
--- 'limit', 'searchGameSessions_limit' - The maximum number of results to return. Use this parameter with
--- @NextToken@ to get results as a set of sequential pages. The maximum
--- number of results returned is 20, even if this value is not set or is
--- set higher than 20.
---
--- 'fleetId', 'searchGameSessions_fleetId' - A unique identifier for the fleet to search for active game sessions.
--- You can use either the fleet ID or ARN value. Each request must
--- reference either a fleet ID or alias ID, but not both.
 newSearchGameSessions ::
   SearchGameSessions
 newSearchGameSessions =
   SearchGameSessions'
-    { filterExpression =
-        Prelude.Nothing,
-      location = Prelude.Nothing,
-      sortExpression = Prelude.Nothing,
-      aliasId = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { aliasId = Prelude.Nothing,
+      filterExpression = Prelude.Nothing,
+      fleetId = Prelude.Nothing,
       limit = Prelude.Nothing,
-      fleetId = Prelude.Nothing
+      location = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      sortExpression = Prelude.Nothing
     }
+
+-- | A unique identifier for the alias associated with the fleet to search
+-- for active game sessions. You can use either the alias ID or ARN value.
+-- Each request must reference either a fleet ID or alias ID, but not both.
+searchGameSessions_aliasId :: Lens.Lens' SearchGameSessions (Prelude.Maybe Prelude.Text)
+searchGameSessions_aliasId = Lens.lens (\SearchGameSessions' {aliasId} -> aliasId) (\s@SearchGameSessions' {} a -> s {aliasId = a} :: SearchGameSessions)
 
 -- | String containing the search criteria for the session search. If no
 -- filter expression is included, the request returns results for all game
@@ -370,11 +375,30 @@ newSearchGameSessions =
 searchGameSessions_filterExpression :: Lens.Lens' SearchGameSessions (Prelude.Maybe Prelude.Text)
 searchGameSessions_filterExpression = Lens.lens (\SearchGameSessions' {filterExpression} -> filterExpression) (\s@SearchGameSessions' {} a -> s {filterExpression = a} :: SearchGameSessions)
 
+-- | A unique identifier for the fleet to search for active game sessions.
+-- You can use either the fleet ID or ARN value. Each request must
+-- reference either a fleet ID or alias ID, but not both.
+searchGameSessions_fleetId :: Lens.Lens' SearchGameSessions (Prelude.Maybe Prelude.Text)
+searchGameSessions_fleetId = Lens.lens (\SearchGameSessions' {fleetId} -> fleetId) (\s@SearchGameSessions' {} a -> s {fleetId = a} :: SearchGameSessions)
+
+-- | The maximum number of results to return. Use this parameter with
+-- @NextToken@ to get results as a set of sequential pages. The maximum
+-- number of results returned is 20, even if this value is not set or is
+-- set higher than 20.
+searchGameSessions_limit :: Lens.Lens' SearchGameSessions (Prelude.Maybe Prelude.Natural)
+searchGameSessions_limit = Lens.lens (\SearchGameSessions' {limit} -> limit) (\s@SearchGameSessions' {} a -> s {limit = a} :: SearchGameSessions)
+
 -- | A fleet location to search for game sessions. You can specify a fleet\'s
--- home Region or a remote location. Use the AWS Region code format, such
--- as @us-west-2@.
+-- home Region or a remote location. Use the Amazon Web Services Region
+-- code format, such as @us-west-2@.
 searchGameSessions_location :: Lens.Lens' SearchGameSessions (Prelude.Maybe Prelude.Text)
 searchGameSessions_location = Lens.lens (\SearchGameSessions' {location} -> location) (\s@SearchGameSessions' {} a -> s {location = a} :: SearchGameSessions)
+
+-- | A token that indicates the start of the next sequential page of results.
+-- Use the token that is returned with a previous call to this operation.
+-- To start at the beginning of the result set, do not specify a value.
+searchGameSessions_nextToken :: Lens.Lens' SearchGameSessions (Prelude.Maybe Prelude.Text)
+searchGameSessions_nextToken = Lens.lens (\SearchGameSessions' {nextToken} -> nextToken) (\s@SearchGameSessions' {} a -> s {nextToken = a} :: SearchGameSessions)
 
 -- | Instructions on how to sort the search results. If no sort expression is
 -- included, the request returns results in random order. A sort expression
@@ -393,31 +417,6 @@ searchGameSessions_location = Lens.lens (\SearchGameSessions' {location} -> loca
 -- null value for the sort operand are returned at the end of the list.
 searchGameSessions_sortExpression :: Lens.Lens' SearchGameSessions (Prelude.Maybe Prelude.Text)
 searchGameSessions_sortExpression = Lens.lens (\SearchGameSessions' {sortExpression} -> sortExpression) (\s@SearchGameSessions' {} a -> s {sortExpression = a} :: SearchGameSessions)
-
--- | A unique identifier for the alias associated with the fleet to search
--- for active game sessions. You can use either the alias ID or ARN value.
--- Each request must reference either a fleet ID or alias ID, but not both.
-searchGameSessions_aliasId :: Lens.Lens' SearchGameSessions (Prelude.Maybe Prelude.Text)
-searchGameSessions_aliasId = Lens.lens (\SearchGameSessions' {aliasId} -> aliasId) (\s@SearchGameSessions' {} a -> s {aliasId = a} :: SearchGameSessions)
-
--- | A token that indicates the start of the next sequential page of results.
--- Use the token that is returned with a previous call to this operation.
--- To start at the beginning of the result set, do not specify a value.
-searchGameSessions_nextToken :: Lens.Lens' SearchGameSessions (Prelude.Maybe Prelude.Text)
-searchGameSessions_nextToken = Lens.lens (\SearchGameSessions' {nextToken} -> nextToken) (\s@SearchGameSessions' {} a -> s {nextToken = a} :: SearchGameSessions)
-
--- | The maximum number of results to return. Use this parameter with
--- @NextToken@ to get results as a set of sequential pages. The maximum
--- number of results returned is 20, even if this value is not set or is
--- set higher than 20.
-searchGameSessions_limit :: Lens.Lens' SearchGameSessions (Prelude.Maybe Prelude.Natural)
-searchGameSessions_limit = Lens.lens (\SearchGameSessions' {limit} -> limit) (\s@SearchGameSessions' {} a -> s {limit = a} :: SearchGameSessions)
-
--- | A unique identifier for the fleet to search for active game sessions.
--- You can use either the fleet ID or ARN value. Each request must
--- reference either a fleet ID or alias ID, but not both.
-searchGameSessions_fleetId :: Lens.Lens' SearchGameSessions (Prelude.Maybe Prelude.Text)
-searchGameSessions_fleetId = Lens.lens (\SearchGameSessions' {fleetId} -> fleetId) (\s@SearchGameSessions' {} a -> s {fleetId = a} :: SearchGameSessions)
 
 instance Core.AWSPager SearchGameSessions where
   page rq rs
@@ -445,76 +444,75 @@ instance Core.AWSRequest SearchGameSessions where
   type
     AWSResponse SearchGameSessions =
       SearchGameSessionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SearchGameSessionsResponse'
-            Prelude.<$> (x Core..?> "GameSessions" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "GameSessions" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable SearchGameSessions where
   hashWithSalt _salt SearchGameSessions' {..} =
-    _salt `Prelude.hashWithSalt` filterExpression
-      `Prelude.hashWithSalt` location
-      `Prelude.hashWithSalt` sortExpression
-      `Prelude.hashWithSalt` aliasId
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` limit
+    _salt `Prelude.hashWithSalt` aliasId
+      `Prelude.hashWithSalt` filterExpression
       `Prelude.hashWithSalt` fleetId
+      `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` location
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` sortExpression
 
 instance Prelude.NFData SearchGameSessions where
   rnf SearchGameSessions' {..} =
-    Prelude.rnf filterExpression
-      `Prelude.seq` Prelude.rnf location
-      `Prelude.seq` Prelude.rnf sortExpression
-      `Prelude.seq` Prelude.rnf aliasId
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf limit
+    Prelude.rnf aliasId
+      `Prelude.seq` Prelude.rnf filterExpression
       `Prelude.seq` Prelude.rnf fleetId
+      `Prelude.seq` Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf location
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf sortExpression
 
-instance Core.ToHeaders SearchGameSessions where
+instance Data.ToHeaders SearchGameSessions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.SearchGameSessions" ::
+              Data.=# ( "GameLift.SearchGameSessions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SearchGameSessions where
+instance Data.ToJSON SearchGameSessions where
   toJSON SearchGameSessions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("FilterExpression" Core..=)
+          [ ("AliasId" Data..=) Prelude.<$> aliasId,
+            ("FilterExpression" Data..=)
               Prelude.<$> filterExpression,
-            ("Location" Core..=) Prelude.<$> location,
-            ("SortExpression" Core..=)
-              Prelude.<$> sortExpression,
-            ("AliasId" Core..=) Prelude.<$> aliasId,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Limit" Core..=) Prelude.<$> limit,
-            ("FleetId" Core..=) Prelude.<$> fleetId
+            ("FleetId" Data..=) Prelude.<$> fleetId,
+            ("Limit" Data..=) Prelude.<$> limit,
+            ("Location" Data..=) Prelude.<$> location,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("SortExpression" Data..=)
+              Prelude.<$> sortExpression
           ]
       )
 
-instance Core.ToPath SearchGameSessions where
+instance Data.ToPath SearchGameSessions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SearchGameSessions where
+instance Data.ToQuery SearchGameSessions where
   toQuery = Prelude.const Prelude.mempty
 
--- | Represents the returned data in response to a request operation.
---
--- /See:/ 'newSearchGameSessionsResponse' smart constructor.
+-- | /See:/ 'newSearchGameSessionsResponse' smart constructor.
 data SearchGameSessionsResponse = SearchGameSessionsResponse'
   { -- | A collection of objects containing game session properties for each
     -- session that matches the request.

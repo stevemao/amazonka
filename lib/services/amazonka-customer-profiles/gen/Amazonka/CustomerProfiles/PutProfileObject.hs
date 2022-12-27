@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CustomerProfiles.PutProfileObject
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,10 +22,10 @@
 --
 -- Adds additional objects to customer profiles of a given ObjectType.
 --
--- When adding a specific profile object, like a Contact Trace Record
--- (CTR), an inferred profile can get created if it is not mapped to an
--- existing profile. The resulting profile will only have a phone number
--- populated in the standard ProfileObject. Any additional CTRs with the
+-- When adding a specific profile object, like a Contact Record, an
+-- inferred profile can get created if it is not mapped to an existing
+-- profile. The resulting profile will only have a phone number populated
+-- in the standard ProfileObject. Any additional Contact Records with the
 -- same phone number will be mapped to the same inferred profile.
 --
 -- When a ProfileObject is created and if a ProfileObjectType already
@@ -55,8 +55,9 @@ module Amazonka.CustomerProfiles.PutProfileObject
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CustomerProfiles.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -120,12 +121,13 @@ instance Core.AWSRequest PutProfileObject where
   type
     AWSResponse PutProfileObject =
       PutProfileObjectResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutProfileObjectResponse'
-            Prelude.<$> (x Core..?> "ProfileObjectUniqueKey")
+            Prelude.<$> (x Data..?> "ProfileObjectUniqueKey")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -141,36 +143,36 @@ instance Prelude.NFData PutProfileObject where
       `Prelude.seq` Prelude.rnf object'
       `Prelude.seq` Prelude.rnf domainName
 
-instance Core.ToHeaders PutProfileObject where
+instance Data.ToHeaders PutProfileObject where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutProfileObject where
+instance Data.ToJSON PutProfileObject where
   toJSON PutProfileObject' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ObjectTypeName" Core..= objectTypeName),
-            Prelude.Just ("Object" Core..= object')
+              ("ObjectTypeName" Data..= objectTypeName),
+            Prelude.Just ("Object" Data..= object')
           ]
       )
 
-instance Core.ToPath PutProfileObject where
+instance Data.ToPath PutProfileObject where
   toPath PutProfileObject' {..} =
     Prelude.mconcat
       [ "/domains/",
-        Core.toBS domainName,
+        Data.toBS domainName,
         "/profiles/objects"
       ]
 
-instance Core.ToQuery PutProfileObject where
+instance Data.ToQuery PutProfileObject where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutProfileObjectResponse' smart constructor.

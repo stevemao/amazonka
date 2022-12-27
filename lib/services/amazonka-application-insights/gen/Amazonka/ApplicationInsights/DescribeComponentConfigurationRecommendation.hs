@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApplicationInsights.DescribeComponentConfigurationRecommendation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.ApplicationInsights.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,9 +55,7 @@ data DescribeComponentConfigurationRecommendation = DescribeComponentConfigurati
     resourceGroupName :: Prelude.Text,
     -- | The name of the component.
     componentName :: Prelude.Text,
-    -- | The tier of the application component. Supported tiers include
-    -- @DOT_NET_CORE@, @DOT_NET_WORKER@, @DOT_NET_WEB@, @SQL_SERVER@, and
-    -- @DEFAULT@.
+    -- | The tier of the application component.
     tier :: Tier
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -73,9 +72,7 @@ data DescribeComponentConfigurationRecommendation = DescribeComponentConfigurati
 --
 -- 'componentName', 'describeComponentConfigurationRecommendation_componentName' - The name of the component.
 --
--- 'tier', 'describeComponentConfigurationRecommendation_tier' - The tier of the application component. Supported tiers include
--- @DOT_NET_CORE@, @DOT_NET_WORKER@, @DOT_NET_WEB@, @SQL_SERVER@, and
--- @DEFAULT@.
+-- 'tier', 'describeComponentConfigurationRecommendation_tier' - The tier of the application component.
 newDescribeComponentConfigurationRecommendation ::
   -- | 'resourceGroupName'
   Prelude.Text ->
@@ -104,9 +101,7 @@ describeComponentConfigurationRecommendation_resourceGroupName = Lens.lens (\Des
 describeComponentConfigurationRecommendation_componentName :: Lens.Lens' DescribeComponentConfigurationRecommendation Prelude.Text
 describeComponentConfigurationRecommendation_componentName = Lens.lens (\DescribeComponentConfigurationRecommendation' {componentName} -> componentName) (\s@DescribeComponentConfigurationRecommendation' {} a -> s {componentName = a} :: DescribeComponentConfigurationRecommendation)
 
--- | The tier of the application component. Supported tiers include
--- @DOT_NET_CORE@, @DOT_NET_WORKER@, @DOT_NET_WEB@, @SQL_SERVER@, and
--- @DEFAULT@.
+-- | The tier of the application component.
 describeComponentConfigurationRecommendation_tier :: Lens.Lens' DescribeComponentConfigurationRecommendation Tier
 describeComponentConfigurationRecommendation_tier = Lens.lens (\DescribeComponentConfigurationRecommendation' {tier} -> tier) (\s@DescribeComponentConfigurationRecommendation' {} a -> s {tier = a} :: DescribeComponentConfigurationRecommendation)
 
@@ -118,12 +113,13 @@ instance
     AWSResponse
       DescribeComponentConfigurationRecommendation =
       DescribeComponentConfigurationRecommendationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeComponentConfigurationRecommendationResponse'
-            Prelude.<$> (x Core..?> "ComponentConfiguration")
+            Prelude.<$> (x Data..?> "ComponentConfiguration")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -148,46 +144,46 @@ instance
       `Prelude.seq` Prelude.rnf tier
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeComponentConfigurationRecommendation
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "EC2WindowsBarleyService.DescribeComponentConfigurationRecommendation" ::
+              Data.=# ( "EC2WindowsBarleyService.DescribeComponentConfigurationRecommendation" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DescribeComponentConfigurationRecommendation
   where
   toJSON
     DescribeComponentConfigurationRecommendation' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
             [ Prelude.Just
-                ("ResourceGroupName" Core..= resourceGroupName),
-              Prelude.Just ("ComponentName" Core..= componentName),
-              Prelude.Just ("Tier" Core..= tier)
+                ("ResourceGroupName" Data..= resourceGroupName),
+              Prelude.Just ("ComponentName" Data..= componentName),
+              Prelude.Just ("Tier" Data..= tier)
             ]
         )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeComponentConfigurationRecommendation
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeComponentConfigurationRecommendation
   where
   toQuery = Prelude.const Prelude.mempty

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.Types.AutoTuneOptionsOutput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.OpenSearch.Types.AutoTuneOptionsOutput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpenSearch.Types.AutoTuneState
 import qualified Amazonka.Prelude as Prelude
 
--- | The Auto-Tune options: the Auto-Tune desired state for the domain and
--- list of maintenance schedules.
+-- | The Auto-Tune settings for a domain, displayed when enabling or
+-- disabling Auto-Tune.
 --
 -- /See:/ 'newAutoTuneOptionsOutput' smart constructor.
 data AutoTuneOptionsOutput = AutoTuneOptionsOutput'
-  { -- | The @AutoTuneState@ for the domain.
-    state :: Prelude.Maybe AutoTuneState,
-    -- | The error message while enabling or disabling Auto-Tune.
-    errorMessage :: Prelude.Maybe Prelude.Text
+  { -- | Any errors that occurred while enabling or disabling Auto-Tune.
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The current state of Auto-Tune on the domain.
+    state :: Prelude.Maybe AutoTuneState
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,41 +45,42 @@ data AutoTuneOptionsOutput = AutoTuneOptionsOutput'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'state', 'autoTuneOptionsOutput_state' - The @AutoTuneState@ for the domain.
+-- 'errorMessage', 'autoTuneOptionsOutput_errorMessage' - Any errors that occurred while enabling or disabling Auto-Tune.
 --
--- 'errorMessage', 'autoTuneOptionsOutput_errorMessage' - The error message while enabling or disabling Auto-Tune.
+-- 'state', 'autoTuneOptionsOutput_state' - The current state of Auto-Tune on the domain.
 newAutoTuneOptionsOutput ::
   AutoTuneOptionsOutput
 newAutoTuneOptionsOutput =
   AutoTuneOptionsOutput'
-    { state = Prelude.Nothing,
-      errorMessage = Prelude.Nothing
+    { errorMessage =
+        Prelude.Nothing,
+      state = Prelude.Nothing
     }
 
--- | The @AutoTuneState@ for the domain.
-autoTuneOptionsOutput_state :: Lens.Lens' AutoTuneOptionsOutput (Prelude.Maybe AutoTuneState)
-autoTuneOptionsOutput_state = Lens.lens (\AutoTuneOptionsOutput' {state} -> state) (\s@AutoTuneOptionsOutput' {} a -> s {state = a} :: AutoTuneOptionsOutput)
-
--- | The error message while enabling or disabling Auto-Tune.
+-- | Any errors that occurred while enabling or disabling Auto-Tune.
 autoTuneOptionsOutput_errorMessage :: Lens.Lens' AutoTuneOptionsOutput (Prelude.Maybe Prelude.Text)
 autoTuneOptionsOutput_errorMessage = Lens.lens (\AutoTuneOptionsOutput' {errorMessage} -> errorMessage) (\s@AutoTuneOptionsOutput' {} a -> s {errorMessage = a} :: AutoTuneOptionsOutput)
 
-instance Core.FromJSON AutoTuneOptionsOutput where
+-- | The current state of Auto-Tune on the domain.
+autoTuneOptionsOutput_state :: Lens.Lens' AutoTuneOptionsOutput (Prelude.Maybe AutoTuneState)
+autoTuneOptionsOutput_state = Lens.lens (\AutoTuneOptionsOutput' {state} -> state) (\s@AutoTuneOptionsOutput' {} a -> s {state = a} :: AutoTuneOptionsOutput)
+
+instance Data.FromJSON AutoTuneOptionsOutput where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AutoTuneOptionsOutput"
       ( \x ->
           AutoTuneOptionsOutput'
-            Prelude.<$> (x Core..:? "State")
-            Prelude.<*> (x Core..:? "ErrorMessage")
+            Prelude.<$> (x Data..:? "ErrorMessage")
+            Prelude.<*> (x Data..:? "State")
       )
 
 instance Prelude.Hashable AutoTuneOptionsOutput where
   hashWithSalt _salt AutoTuneOptionsOutput' {..} =
-    _salt `Prelude.hashWithSalt` state
-      `Prelude.hashWithSalt` errorMessage
+    _salt `Prelude.hashWithSalt` errorMessage
+      `Prelude.hashWithSalt` state
 
 instance Prelude.NFData AutoTuneOptionsOutput where
   rnf AutoTuneOptionsOutput' {..} =
-    Prelude.rnf state
-      `Prelude.seq` Prelude.rnf errorMessage
+    Prelude.rnf errorMessage
+      `Prelude.seq` Prelude.rnf state

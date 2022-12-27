@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.GetBuiltinSlotTypes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,9 +37,9 @@ module Amazonka.LexModels.GetBuiltinSlotTypes
 
     -- * Request Lenses
     getBuiltinSlotTypes_locale,
+    getBuiltinSlotTypes_maxResults,
     getBuiltinSlotTypes_nextToken,
     getBuiltinSlotTypes_signatureContains,
-    getBuiltinSlotTypes_maxResults,
 
     -- * Destructuring the Response
     GetBuiltinSlotTypesResponse (..),
@@ -53,7 +53,8 @@ module Amazonka.LexModels.GetBuiltinSlotTypes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LexModels.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -63,6 +64,9 @@ import qualified Amazonka.Response as Response
 data GetBuiltinSlotTypes = GetBuiltinSlotTypes'
   { -- | A list of locales that the slot type supports.
     locale :: Prelude.Maybe Locale,
+    -- | The maximum number of slot types to return in the response. The default
+    -- is 10.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | A pagination token that fetches the next page of slot types. If the
     -- response to this API call is truncated, Amazon Lex returns a pagination
     -- token in the response. To fetch the next page of slot types, specify the
@@ -71,10 +75,7 @@ data GetBuiltinSlotTypes = GetBuiltinSlotTypes'
     -- | Substring to match in built-in slot type signatures. A slot type will be
     -- returned if any part of its signature matches the substring. For
     -- example, \"xyz\" matches both \"xyzabc\" and \"abcxyz.\"
-    signatureContains :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of slot types to return in the response. The default
-    -- is 10.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    signatureContains :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -88,6 +89,9 @@ data GetBuiltinSlotTypes = GetBuiltinSlotTypes'
 --
 -- 'locale', 'getBuiltinSlotTypes_locale' - A list of locales that the slot type supports.
 --
+-- 'maxResults', 'getBuiltinSlotTypes_maxResults' - The maximum number of slot types to return in the response. The default
+-- is 10.
+--
 -- 'nextToken', 'getBuiltinSlotTypes_nextToken' - A pagination token that fetches the next page of slot types. If the
 -- response to this API call is truncated, Amazon Lex returns a pagination
 -- token in the response. To fetch the next page of slot types, specify the
@@ -96,22 +100,24 @@ data GetBuiltinSlotTypes = GetBuiltinSlotTypes'
 -- 'signatureContains', 'getBuiltinSlotTypes_signatureContains' - Substring to match in built-in slot type signatures. A slot type will be
 -- returned if any part of its signature matches the substring. For
 -- example, \"xyz\" matches both \"xyzabc\" and \"abcxyz.\"
---
--- 'maxResults', 'getBuiltinSlotTypes_maxResults' - The maximum number of slot types to return in the response. The default
--- is 10.
 newGetBuiltinSlotTypes ::
   GetBuiltinSlotTypes
 newGetBuiltinSlotTypes =
   GetBuiltinSlotTypes'
     { locale = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      signatureContains = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      signatureContains = Prelude.Nothing
     }
 
 -- | A list of locales that the slot type supports.
 getBuiltinSlotTypes_locale :: Lens.Lens' GetBuiltinSlotTypes (Prelude.Maybe Locale)
 getBuiltinSlotTypes_locale = Lens.lens (\GetBuiltinSlotTypes' {locale} -> locale) (\s@GetBuiltinSlotTypes' {} a -> s {locale = a} :: GetBuiltinSlotTypes)
+
+-- | The maximum number of slot types to return in the response. The default
+-- is 10.
+getBuiltinSlotTypes_maxResults :: Lens.Lens' GetBuiltinSlotTypes (Prelude.Maybe Prelude.Natural)
+getBuiltinSlotTypes_maxResults = Lens.lens (\GetBuiltinSlotTypes' {maxResults} -> maxResults) (\s@GetBuiltinSlotTypes' {} a -> s {maxResults = a} :: GetBuiltinSlotTypes)
 
 -- | A pagination token that fetches the next page of slot types. If the
 -- response to this API call is truncated, Amazon Lex returns a pagination
@@ -125,11 +131,6 @@ getBuiltinSlotTypes_nextToken = Lens.lens (\GetBuiltinSlotTypes' {nextToken} -> 
 -- example, \"xyz\" matches both \"xyzabc\" and \"abcxyz.\"
 getBuiltinSlotTypes_signatureContains :: Lens.Lens' GetBuiltinSlotTypes (Prelude.Maybe Prelude.Text)
 getBuiltinSlotTypes_signatureContains = Lens.lens (\GetBuiltinSlotTypes' {signatureContains} -> signatureContains) (\s@GetBuiltinSlotTypes' {} a -> s {signatureContains = a} :: GetBuiltinSlotTypes)
-
--- | The maximum number of slot types to return in the response. The default
--- is 10.
-getBuiltinSlotTypes_maxResults :: Lens.Lens' GetBuiltinSlotTypes (Prelude.Maybe Prelude.Natural)
-getBuiltinSlotTypes_maxResults = Lens.lens (\GetBuiltinSlotTypes' {maxResults} -> maxResults) (\s@GetBuiltinSlotTypes' {} a -> s {maxResults = a} :: GetBuiltinSlotTypes)
 
 instance Core.AWSPager GetBuiltinSlotTypes where
   page rq rs
@@ -157,51 +158,52 @@ instance Core.AWSRequest GetBuiltinSlotTypes where
   type
     AWSResponse GetBuiltinSlotTypes =
       GetBuiltinSlotTypesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetBuiltinSlotTypesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "slotTypes" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "slotTypes" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetBuiltinSlotTypes where
   hashWithSalt _salt GetBuiltinSlotTypes' {..} =
     _salt `Prelude.hashWithSalt` locale
+      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` signatureContains
-      `Prelude.hashWithSalt` maxResults
 
 instance Prelude.NFData GetBuiltinSlotTypes where
   rnf GetBuiltinSlotTypes' {..} =
     Prelude.rnf locale
+      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf signatureContains
-      `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders GetBuiltinSlotTypes where
+instance Data.ToHeaders GetBuiltinSlotTypes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetBuiltinSlotTypes where
+instance Data.ToPath GetBuiltinSlotTypes where
   toPath = Prelude.const "/builtins/slottypes/"
 
-instance Core.ToQuery GetBuiltinSlotTypes where
+instance Data.ToQuery GetBuiltinSlotTypes where
   toQuery GetBuiltinSlotTypes' {..} =
     Prelude.mconcat
-      [ "locale" Core.=: locale,
-        "nextToken" Core.=: nextToken,
-        "signatureContains" Core.=: signatureContains,
-        "maxResults" Core.=: maxResults
+      [ "locale" Data.=: locale,
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "signatureContains" Data.=: signatureContains
       ]
 
 -- | /See:/ 'newGetBuiltinSlotTypesResponse' smart constructor.

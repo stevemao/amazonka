@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.Types.CloudWatchLogs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Kafka.Types.CloudWatchLogs where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | /See:/ 'newCloudWatchLogs' smart constructor.
@@ -59,14 +60,14 @@ cloudWatchLogs_logGroup = Lens.lens (\CloudWatchLogs' {logGroup} -> logGroup) (\
 cloudWatchLogs_enabled :: Lens.Lens' CloudWatchLogs Prelude.Bool
 cloudWatchLogs_enabled = Lens.lens (\CloudWatchLogs' {enabled} -> enabled) (\s@CloudWatchLogs' {} a -> s {enabled = a} :: CloudWatchLogs)
 
-instance Core.FromJSON CloudWatchLogs where
+instance Data.FromJSON CloudWatchLogs where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CloudWatchLogs"
       ( \x ->
           CloudWatchLogs'
-            Prelude.<$> (x Core..:? "logGroup")
-            Prelude.<*> (x Core..: "enabled")
+            Prelude.<$> (x Data..:? "logGroup")
+            Prelude.<*> (x Data..: "enabled")
       )
 
 instance Prelude.Hashable CloudWatchLogs where
@@ -79,11 +80,11 @@ instance Prelude.NFData CloudWatchLogs where
     Prelude.rnf logGroup
       `Prelude.seq` Prelude.rnf enabled
 
-instance Core.ToJSON CloudWatchLogs where
+instance Data.ToJSON CloudWatchLogs where
   toJSON CloudWatchLogs' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("logGroup" Core..=) Prelude.<$> logGroup,
-            Prelude.Just ("enabled" Core..= enabled)
+          [ ("logGroup" Data..=) Prelude.<$> logGroup,
+            Prelude.Just ("enabled" Data..= enabled)
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.FrameCaptureS3Settings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.FrameCaptureS3Settings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.S3CannedAcl
 import qualified Amazonka.Prelude as Prelude
 
@@ -54,13 +55,13 @@ newFrameCaptureS3Settings =
 frameCaptureS3Settings_cannedAcl :: Lens.Lens' FrameCaptureS3Settings (Prelude.Maybe S3CannedAcl)
 frameCaptureS3Settings_cannedAcl = Lens.lens (\FrameCaptureS3Settings' {cannedAcl} -> cannedAcl) (\s@FrameCaptureS3Settings' {} a -> s {cannedAcl = a} :: FrameCaptureS3Settings)
 
-instance Core.FromJSON FrameCaptureS3Settings where
+instance Data.FromJSON FrameCaptureS3Settings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FrameCaptureS3Settings"
       ( \x ->
           FrameCaptureS3Settings'
-            Prelude.<$> (x Core..:? "cannedAcl")
+            Prelude.<$> (x Data..:? "cannedAcl")
       )
 
 instance Prelude.Hashable FrameCaptureS3Settings where
@@ -71,9 +72,9 @@ instance Prelude.NFData FrameCaptureS3Settings where
   rnf FrameCaptureS3Settings' {..} =
     Prelude.rnf cannedAcl
 
-instance Core.ToJSON FrameCaptureS3Settings where
+instance Data.ToJSON FrameCaptureS3Settings where
   toJSON FrameCaptureS3Settings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("cannedAcl" Core..=) Prelude.<$> cannedAcl]
+          [("cannedAcl" Data..=) Prelude.<$> cannedAcl]
       )

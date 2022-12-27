@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.CustomDataIdentifiers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.CustomDataIdentifiers where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types.CustomDetection
 import qualified Amazonka.Prelude as Prelude
 
@@ -71,14 +72,14 @@ customDataIdentifiers_detections = Lens.lens (\CustomDataIdentifiers' {detection
 customDataIdentifiers_totalCount :: Lens.Lens' CustomDataIdentifiers (Prelude.Maybe Prelude.Integer)
 customDataIdentifiers_totalCount = Lens.lens (\CustomDataIdentifiers' {totalCount} -> totalCount) (\s@CustomDataIdentifiers' {} a -> s {totalCount = a} :: CustomDataIdentifiers)
 
-instance Core.FromJSON CustomDataIdentifiers where
+instance Data.FromJSON CustomDataIdentifiers where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CustomDataIdentifiers"
       ( \x ->
           CustomDataIdentifiers'
-            Prelude.<$> (x Core..:? "detections" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "totalCount")
+            Prelude.<$> (x Data..:? "detections" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "totalCount")
       )
 
 instance Prelude.Hashable CustomDataIdentifiers where

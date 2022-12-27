@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.DescribeEndpoints
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,8 +37,9 @@ module Amazonka.DynamoDB.DescribeEndpoints
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DynamoDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,13 +62,14 @@ instance Core.AWSRequest DescribeEndpoints where
   type
     AWSResponse DescribeEndpoints =
       DescribeEndpointsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeEndpointsResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Endpoints" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Endpoints" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable DescribeEndpoints where
@@ -77,28 +79,28 @@ instance Prelude.Hashable DescribeEndpoints where
 instance Prelude.NFData DescribeEndpoints where
   rnf _ = ()
 
-instance Core.ToHeaders DescribeEndpoints where
+instance Data.ToHeaders DescribeEndpoints where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DynamoDB_20120810.DescribeEndpoints" ::
+              Data.=# ( "DynamoDB_20120810.DescribeEndpoints" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeEndpoints where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON DescribeEndpoints where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath DescribeEndpoints where
+instance Data.ToPath DescribeEndpoints where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeEndpoints where
+instance Data.ToQuery DescribeEndpoints where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeEndpointsResponse' smart constructor.

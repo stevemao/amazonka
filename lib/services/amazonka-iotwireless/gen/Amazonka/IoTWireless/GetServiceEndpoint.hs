@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.GetServiceEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,16 +35,17 @@ module Amazonka.IoTWireless.GetServiceEndpoint
     newGetServiceEndpointResponse,
 
     -- * Response Lenses
-    getServiceEndpointResponse_serviceEndpoint,
     getServiceEndpointResponse_serverTrust,
+    getServiceEndpointResponse_serviceEndpoint,
     getServiceEndpointResponse_serviceType,
     getServiceEndpointResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,7 +54,7 @@ import qualified Amazonka.Response as Response
 data GetServiceEndpoint = GetServiceEndpoint'
   { -- | The service type for which to get endpoint information about. Can be
     -- @CUPS@ for the Configuration and Update Server endpoint, or @LNS@ for
-    -- the LoRaWAN Network Server endpoint.
+    -- the LoRaWAN Network Server endpoint or @CLAIM@ for the global endpoint.
     serviceType :: Prelude.Maybe WirelessGatewayServiceType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -68,7 +69,7 @@ data GetServiceEndpoint = GetServiceEndpoint'
 --
 -- 'serviceType', 'getServiceEndpoint_serviceType' - The service type for which to get endpoint information about. Can be
 -- @CUPS@ for the Configuration and Update Server endpoint, or @LNS@ for
--- the LoRaWAN Network Server endpoint.
+-- the LoRaWAN Network Server endpoint or @CLAIM@ for the global endpoint.
 newGetServiceEndpoint ::
   GetServiceEndpoint
 newGetServiceEndpoint =
@@ -76,7 +77,7 @@ newGetServiceEndpoint =
 
 -- | The service type for which to get endpoint information about. Can be
 -- @CUPS@ for the Configuration and Update Server endpoint, or @LNS@ for
--- the LoRaWAN Network Server endpoint.
+-- the LoRaWAN Network Server endpoint or @CLAIM@ for the global endpoint.
 getServiceEndpoint_serviceType :: Lens.Lens' GetServiceEndpoint (Prelude.Maybe WirelessGatewayServiceType)
 getServiceEndpoint_serviceType = Lens.lens (\GetServiceEndpoint' {serviceType} -> serviceType) (\s@GetServiceEndpoint' {} a -> s {serviceType = a} :: GetServiceEndpoint)
 
@@ -84,14 +85,15 @@ instance Core.AWSRequest GetServiceEndpoint where
   type
     AWSResponse GetServiceEndpoint =
       GetServiceEndpointResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetServiceEndpointResponse'
-            Prelude.<$> (x Core..?> "ServiceEndpoint")
-            Prelude.<*> (x Core..?> "ServerTrust")
-            Prelude.<*> (x Core..?> "ServiceType")
+            Prelude.<$> (x Data..?> "ServerTrust")
+            Prelude.<*> (x Data..?> "ServiceEndpoint")
+            Prelude.<*> (x Data..?> "ServiceType")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -102,22 +104,22 @@ instance Prelude.Hashable GetServiceEndpoint where
 instance Prelude.NFData GetServiceEndpoint where
   rnf GetServiceEndpoint' {..} = Prelude.rnf serviceType
 
-instance Core.ToHeaders GetServiceEndpoint where
+instance Data.ToHeaders GetServiceEndpoint where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetServiceEndpoint where
+instance Data.ToPath GetServiceEndpoint where
   toPath = Prelude.const "/service-endpoint"
 
-instance Core.ToQuery GetServiceEndpoint where
+instance Data.ToQuery GetServiceEndpoint where
   toQuery GetServiceEndpoint' {..} =
-    Prelude.mconcat ["serviceType" Core.=: serviceType]
+    Prelude.mconcat ["serviceType" Data.=: serviceType]
 
 -- | /See:/ 'newGetServiceEndpointResponse' smart constructor.
 data GetServiceEndpointResponse = GetServiceEndpointResponse'
-  { -- | The service endpoint value.
-    serviceEndpoint :: Prelude.Maybe Prelude.Text,
-    -- | The Root CA of the server trust certificate.
+  { -- | The Root CA of the server trust certificate.
     serverTrust :: Prelude.Maybe Prelude.Text,
+    -- | The service endpoint value.
+    serviceEndpoint :: Prelude.Maybe Prelude.Text,
     -- | The endpoint\'s service type.
     serviceType :: Prelude.Maybe WirelessGatewayServiceType,
     -- | The response's http status code.
@@ -133,9 +135,9 @@ data GetServiceEndpointResponse = GetServiceEndpointResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'serviceEndpoint', 'getServiceEndpointResponse_serviceEndpoint' - The service endpoint value.
---
 -- 'serverTrust', 'getServiceEndpointResponse_serverTrust' - The Root CA of the server trust certificate.
+--
+-- 'serviceEndpoint', 'getServiceEndpointResponse_serviceEndpoint' - The service endpoint value.
 --
 -- 'serviceType', 'getServiceEndpointResponse_serviceType' - The endpoint\'s service type.
 --
@@ -146,20 +148,20 @@ newGetServiceEndpointResponse ::
   GetServiceEndpointResponse
 newGetServiceEndpointResponse pHttpStatus_ =
   GetServiceEndpointResponse'
-    { serviceEndpoint =
+    { serverTrust =
         Prelude.Nothing,
-      serverTrust = Prelude.Nothing,
+      serviceEndpoint = Prelude.Nothing,
       serviceType = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The service endpoint value.
-getServiceEndpointResponse_serviceEndpoint :: Lens.Lens' GetServiceEndpointResponse (Prelude.Maybe Prelude.Text)
-getServiceEndpointResponse_serviceEndpoint = Lens.lens (\GetServiceEndpointResponse' {serviceEndpoint} -> serviceEndpoint) (\s@GetServiceEndpointResponse' {} a -> s {serviceEndpoint = a} :: GetServiceEndpointResponse)
-
 -- | The Root CA of the server trust certificate.
 getServiceEndpointResponse_serverTrust :: Lens.Lens' GetServiceEndpointResponse (Prelude.Maybe Prelude.Text)
 getServiceEndpointResponse_serverTrust = Lens.lens (\GetServiceEndpointResponse' {serverTrust} -> serverTrust) (\s@GetServiceEndpointResponse' {} a -> s {serverTrust = a} :: GetServiceEndpointResponse)
+
+-- | The service endpoint value.
+getServiceEndpointResponse_serviceEndpoint :: Lens.Lens' GetServiceEndpointResponse (Prelude.Maybe Prelude.Text)
+getServiceEndpointResponse_serviceEndpoint = Lens.lens (\GetServiceEndpointResponse' {serviceEndpoint} -> serviceEndpoint) (\s@GetServiceEndpointResponse' {} a -> s {serviceEndpoint = a} :: GetServiceEndpointResponse)
 
 -- | The endpoint\'s service type.
 getServiceEndpointResponse_serviceType :: Lens.Lens' GetServiceEndpointResponse (Prelude.Maybe WirelessGatewayServiceType)
@@ -171,7 +173,7 @@ getServiceEndpointResponse_httpStatus = Lens.lens (\GetServiceEndpointResponse' 
 
 instance Prelude.NFData GetServiceEndpointResponse where
   rnf GetServiceEndpointResponse' {..} =
-    Prelude.rnf serviceEndpoint
-      `Prelude.seq` Prelude.rnf serverTrust
+    Prelude.rnf serverTrust
+      `Prelude.seq` Prelude.rnf serviceEndpoint
       `Prelude.seq` Prelude.rnf serviceType
       `Prelude.seq` Prelude.rnf httpStatus

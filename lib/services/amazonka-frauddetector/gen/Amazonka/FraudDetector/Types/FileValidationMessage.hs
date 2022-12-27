@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.Types.FileValidationMessage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.FraudDetector.Types.FileValidationMessage where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The message details.
@@ -70,15 +71,15 @@ fileValidationMessage_title = Lens.lens (\FileValidationMessage' {title} -> titl
 fileValidationMessage_type :: Lens.Lens' FileValidationMessage (Prelude.Maybe Prelude.Text)
 fileValidationMessage_type = Lens.lens (\FileValidationMessage' {type'} -> type') (\s@FileValidationMessage' {} a -> s {type' = a} :: FileValidationMessage)
 
-instance Core.FromJSON FileValidationMessage where
+instance Data.FromJSON FileValidationMessage where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FileValidationMessage"
       ( \x ->
           FileValidationMessage'
-            Prelude.<$> (x Core..:? "content")
-            Prelude.<*> (x Core..:? "title")
-            Prelude.<*> (x Core..:? "type")
+            Prelude.<$> (x Data..:? "content")
+            Prelude.<*> (x Data..:? "title")
+            Prelude.<*> (x Data..:? "type")
       )
 
 instance Prelude.Hashable FileValidationMessage where

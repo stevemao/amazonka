@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DMS.DescribeTableStatistics
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,16 +44,17 @@ module Amazonka.DMS.DescribeTableStatistics
     newDescribeTableStatisticsResponse,
 
     -- * Response Lenses
-    describeTableStatisticsResponse_replicationTaskArn,
     describeTableStatisticsResponse_marker,
+    describeTableStatisticsResponse_replicationTaskArn,
     describeTableStatisticsResponse_tableStatistics,
     describeTableStatisticsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DMS.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -184,14 +185,15 @@ instance Core.AWSRequest DescribeTableStatistics where
   type
     AWSResponse DescribeTableStatistics =
       DescribeTableStatisticsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeTableStatisticsResponse'
-            Prelude.<$> (x Core..?> "ReplicationTaskArn")
-            Prelude.<*> (x Core..?> "Marker")
-            Prelude.<*> ( x Core..?> "TableStatistics"
+            Prelude.<$> (x Data..?> "Marker")
+            Prelude.<*> (x Data..?> "ReplicationTaskArn")
+            Prelude.<*> ( x Data..?> "TableStatistics"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -211,49 +213,49 @@ instance Prelude.NFData DescribeTableStatistics where
       `Prelude.seq` Prelude.rnf maxRecords
       `Prelude.seq` Prelude.rnf replicationTaskArn
 
-instance Core.ToHeaders DescribeTableStatistics where
+instance Data.ToHeaders DescribeTableStatistics where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonDMSv20160101.DescribeTableStatistics" ::
+              Data.=# ( "AmazonDMSv20160101.DescribeTableStatistics" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeTableStatistics where
+instance Data.ToJSON DescribeTableStatistics where
   toJSON DescribeTableStatistics' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("Marker" Core..=) Prelude.<$> marker,
-            ("MaxRecords" Core..=) Prelude.<$> maxRecords,
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("Marker" Data..=) Prelude.<$> marker,
+            ("MaxRecords" Data..=) Prelude.<$> maxRecords,
             Prelude.Just
-              ("ReplicationTaskArn" Core..= replicationTaskArn)
+              ("ReplicationTaskArn" Data..= replicationTaskArn)
           ]
       )
 
-instance Core.ToPath DescribeTableStatistics where
+instance Data.ToPath DescribeTableStatistics where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeTableStatistics where
+instance Data.ToQuery DescribeTableStatistics where
   toQuery = Prelude.const Prelude.mempty
 
 -- |
 --
 -- /See:/ 'newDescribeTableStatisticsResponse' smart constructor.
 data DescribeTableStatisticsResponse = DescribeTableStatisticsResponse'
-  { -- | The Amazon Resource Name (ARN) of the replication task.
-    replicationTaskArn :: Prelude.Maybe Prelude.Text,
-    -- | An optional pagination token provided by a previous request. If this
+  { -- | An optional pagination token provided by a previous request. If this
     -- parameter is specified, the response includes only records beyond the
     -- marker, up to the value specified by @MaxRecords@.
     marker :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the replication task.
+    replicationTaskArn :: Prelude.Maybe Prelude.Text,
     -- | The table statistics.
     tableStatistics :: Prelude.Maybe [TableStatistics],
     -- | The response's http status code.
@@ -269,11 +271,11 @@ data DescribeTableStatisticsResponse = DescribeTableStatisticsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'replicationTaskArn', 'describeTableStatisticsResponse_replicationTaskArn' - The Amazon Resource Name (ARN) of the replication task.
---
 -- 'marker', 'describeTableStatisticsResponse_marker' - An optional pagination token provided by a previous request. If this
 -- parameter is specified, the response includes only records beyond the
 -- marker, up to the value specified by @MaxRecords@.
+--
+-- 'replicationTaskArn', 'describeTableStatisticsResponse_replicationTaskArn' - The Amazon Resource Name (ARN) of the replication task.
 --
 -- 'tableStatistics', 'describeTableStatisticsResponse_tableStatistics' - The table statistics.
 --
@@ -284,22 +286,22 @@ newDescribeTableStatisticsResponse ::
   DescribeTableStatisticsResponse
 newDescribeTableStatisticsResponse pHttpStatus_ =
   DescribeTableStatisticsResponse'
-    { replicationTaskArn =
+    { marker =
         Prelude.Nothing,
-      marker = Prelude.Nothing,
+      replicationTaskArn = Prelude.Nothing,
       tableStatistics = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The Amazon Resource Name (ARN) of the replication task.
-describeTableStatisticsResponse_replicationTaskArn :: Lens.Lens' DescribeTableStatisticsResponse (Prelude.Maybe Prelude.Text)
-describeTableStatisticsResponse_replicationTaskArn = Lens.lens (\DescribeTableStatisticsResponse' {replicationTaskArn} -> replicationTaskArn) (\s@DescribeTableStatisticsResponse' {} a -> s {replicationTaskArn = a} :: DescribeTableStatisticsResponse)
 
 -- | An optional pagination token provided by a previous request. If this
 -- parameter is specified, the response includes only records beyond the
 -- marker, up to the value specified by @MaxRecords@.
 describeTableStatisticsResponse_marker :: Lens.Lens' DescribeTableStatisticsResponse (Prelude.Maybe Prelude.Text)
 describeTableStatisticsResponse_marker = Lens.lens (\DescribeTableStatisticsResponse' {marker} -> marker) (\s@DescribeTableStatisticsResponse' {} a -> s {marker = a} :: DescribeTableStatisticsResponse)
+
+-- | The Amazon Resource Name (ARN) of the replication task.
+describeTableStatisticsResponse_replicationTaskArn :: Lens.Lens' DescribeTableStatisticsResponse (Prelude.Maybe Prelude.Text)
+describeTableStatisticsResponse_replicationTaskArn = Lens.lens (\DescribeTableStatisticsResponse' {replicationTaskArn} -> replicationTaskArn) (\s@DescribeTableStatisticsResponse' {} a -> s {replicationTaskArn = a} :: DescribeTableStatisticsResponse)
 
 -- | The table statistics.
 describeTableStatisticsResponse_tableStatistics :: Lens.Lens' DescribeTableStatisticsResponse (Prelude.Maybe [TableStatistics])
@@ -314,7 +316,7 @@ instance
     DescribeTableStatisticsResponse
   where
   rnf DescribeTableStatisticsResponse' {..} =
-    Prelude.rnf replicationTaskArn
-      `Prelude.seq` Prelude.rnf marker
+    Prelude.rnf marker
+      `Prelude.seq` Prelude.rnf replicationTaskArn
       `Prelude.seq` Prelude.rnf tableStatistics
       `Prelude.seq` Prelude.rnf httpStatus

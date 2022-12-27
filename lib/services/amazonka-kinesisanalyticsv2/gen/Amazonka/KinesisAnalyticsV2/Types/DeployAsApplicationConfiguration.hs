@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.DeployAsApplicationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KinesisAnalyticsV2.Types.DeployAsApplicationConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.S3ContentBaseLocation
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The information required to deploy a Kinesis Data Analytics Studio
@@ -83,11 +84,11 @@ instance
   rnf DeployAsApplicationConfiguration' {..} =
     Prelude.rnf s3ContentLocation
 
-instance Core.ToJSON DeployAsApplicationConfiguration where
+instance Data.ToJSON DeployAsApplicationConfiguration where
   toJSON DeployAsApplicationConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("S3ContentLocation" Core..= s3ContentLocation)
+              ("S3ContentLocation" Data..= s3ContentLocation)
           ]
       )

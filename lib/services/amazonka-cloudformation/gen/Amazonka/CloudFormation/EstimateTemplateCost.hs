@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.EstimateTemplateCost
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -65,7 +66,7 @@ data EstimateTemplateCost = EstimateTemplateCost'
     -- passed, only @TemplateBody@ is used.
     templateBody :: Prelude.Maybe Prelude.Text,
     -- | Location of file containing the template body. The URL must point to a
-    -- template that is located in an Amazon S3 bucket or a Systems Manager
+    -- template that\'s located in an Amazon S3 bucket or a Systems Manager
     -- document. For more information, go to
     -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html Template Anatomy>
     -- in the CloudFormation User Guide.
@@ -95,7 +96,7 @@ data EstimateTemplateCost = EstimateTemplateCost'
 -- passed, only @TemplateBody@ is used.
 --
 -- 'templateURL', 'estimateTemplateCost_templateURL' - Location of file containing the template body. The URL must point to a
--- template that is located in an Amazon S3 bucket or a Systems Manager
+-- template that\'s located in an Amazon S3 bucket or a Systems Manager
 -- document. For more information, go to
 -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html Template Anatomy>
 -- in the CloudFormation User Guide.
@@ -126,7 +127,7 @@ estimateTemplateCost_templateBody :: Lens.Lens' EstimateTemplateCost (Prelude.Ma
 estimateTemplateCost_templateBody = Lens.lens (\EstimateTemplateCost' {templateBody} -> templateBody) (\s@EstimateTemplateCost' {} a -> s {templateBody = a} :: EstimateTemplateCost)
 
 -- | Location of file containing the template body. The URL must point to a
--- template that is located in an Amazon S3 bucket or a Systems Manager
+-- template that\'s located in an Amazon S3 bucket or a Systems Manager
 -- document. For more information, go to
 -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html Template Anatomy>
 -- in the CloudFormation User Guide.
@@ -140,13 +141,14 @@ instance Core.AWSRequest EstimateTemplateCost where
   type
     AWSResponse EstimateTemplateCost =
       EstimateTemplateCostResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "EstimateTemplateCostResult"
       ( \s h x ->
           EstimateTemplateCostResponse'
-            Prelude.<$> (x Core..@? "Url")
+            Prelude.<$> (x Data..@? "Url")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -162,24 +164,24 @@ instance Prelude.NFData EstimateTemplateCost where
       `Prelude.seq` Prelude.rnf templateBody
       `Prelude.seq` Prelude.rnf templateURL
 
-instance Core.ToHeaders EstimateTemplateCost where
+instance Data.ToHeaders EstimateTemplateCost where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath EstimateTemplateCost where
+instance Data.ToPath EstimateTemplateCost where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery EstimateTemplateCost where
+instance Data.ToQuery EstimateTemplateCost where
   toQuery EstimateTemplateCost' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("EstimateTemplateCost" :: Prelude.ByteString),
+          Data.=: ("EstimateTemplateCost" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
         "Parameters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> parameters),
-        "TemplateBody" Core.=: templateBody,
-        "TemplateURL" Core.=: templateURL
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> parameters),
+        "TemplateBody" Data.=: templateBody,
+        "TemplateURL" Data.=: templateURL
       ]
 
 -- | The output for a EstimateTemplateCost action.

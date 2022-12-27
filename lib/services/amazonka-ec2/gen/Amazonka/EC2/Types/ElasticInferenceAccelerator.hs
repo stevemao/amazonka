@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.ElasticInferenceAccelerator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.ElasticInferenceAccelerator where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an elastic inference accelerator.
@@ -86,7 +87,7 @@ instance Prelude.NFData ElasticInferenceAccelerator where
   rnf ElasticInferenceAccelerator' {..} =
     Prelude.rnf count `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToQuery ElasticInferenceAccelerator where
+instance Data.ToQuery ElasticInferenceAccelerator where
   toQuery ElasticInferenceAccelerator' {..} =
     Prelude.mconcat
-      ["Count" Core.=: count, "Type" Core.=: type']
+      ["Count" Data.=: count, "Type" Data.=: type']

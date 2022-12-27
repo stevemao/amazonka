@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.DailySchedule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.DailySchedule where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies that a classification job runs once a day, every day. This is
@@ -40,9 +41,9 @@ newDailySchedule ::
   DailySchedule
 newDailySchedule = DailySchedule'
 
-instance Core.FromJSON DailySchedule where
+instance Data.FromJSON DailySchedule where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DailySchedule"
       (\x -> Prelude.pure DailySchedule')
 
@@ -53,5 +54,5 @@ instance Prelude.Hashable DailySchedule where
 instance Prelude.NFData DailySchedule where
   rnf _ = ()
 
-instance Core.ToJSON DailySchedule where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON DailySchedule where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)

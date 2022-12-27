@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.ColumnDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.ColumnDescription where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Metadata that contains a description for a column.
@@ -50,12 +51,12 @@ newColumnDescription =
 columnDescription_text :: Lens.Lens' ColumnDescription (Prelude.Maybe Prelude.Text)
 columnDescription_text = Lens.lens (\ColumnDescription' {text} -> text) (\s@ColumnDescription' {} a -> s {text = a} :: ColumnDescription)
 
-instance Core.FromJSON ColumnDescription where
+instance Data.FromJSON ColumnDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ColumnDescription"
       ( \x ->
-          ColumnDescription' Prelude.<$> (x Core..:? "Text")
+          ColumnDescription' Prelude.<$> (x Data..:? "Text")
       )
 
 instance Prelude.Hashable ColumnDescription where
@@ -65,9 +66,9 @@ instance Prelude.Hashable ColumnDescription where
 instance Prelude.NFData ColumnDescription where
   rnf ColumnDescription' {..} = Prelude.rnf text
 
-instance Core.ToJSON ColumnDescription where
+instance Data.ToJSON ColumnDescription where
   toJSON ColumnDescription' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Text" Core..=) Prelude.<$> text]
+          [("Text" Data..=) Prelude.<$> text]
       )

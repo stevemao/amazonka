@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Config.Types.ConfigRuleComplianceFilters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Config.Types.ConfigRuleComplianceFilters where
 
 import Amazonka.Config.Types.ComplianceType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Filters the compliance results based on account ID, region, compliance
@@ -29,18 +30,18 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newConfigRuleComplianceFilters' smart constructor.
 data ConfigRuleComplianceFilters = ConfigRuleComplianceFilters'
-  { -- | The name of the Config rule.
-    configRuleName :: Prelude.Maybe Prelude.Text,
-    -- | The 12-digit account ID of the source account.
+  { -- | The 12-digit account ID of the source account.
     accountId :: Prelude.Maybe Prelude.Text,
+    -- | The source region where the data is aggregated.
+    awsRegion :: Prelude.Maybe Prelude.Text,
     -- | The rule compliance status.
     --
     -- For the @ConfigRuleComplianceFilters@ data type, Config supports only
     -- @COMPLIANT@ and @NON_COMPLIANT@. Config does not support the
     -- @NOT_APPLICABLE@ and the @INSUFFICIENT_DATA@ values.
     complianceType :: Prelude.Maybe ComplianceType,
-    -- | The source region where the data is aggregated.
-    awsRegion :: Prelude.Maybe Prelude.Text
+    -- | The name of the Config rule.
+    configRuleName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -52,9 +53,9 @@ data ConfigRuleComplianceFilters = ConfigRuleComplianceFilters'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'configRuleName', 'configRuleComplianceFilters_configRuleName' - The name of the Config rule.
---
 -- 'accountId', 'configRuleComplianceFilters_accountId' - The 12-digit account ID of the source account.
+--
+-- 'awsRegion', 'configRuleComplianceFilters_awsRegion' - The source region where the data is aggregated.
 --
 -- 'complianceType', 'configRuleComplianceFilters_complianceType' - The rule compliance status.
 --
@@ -62,25 +63,25 @@ data ConfigRuleComplianceFilters = ConfigRuleComplianceFilters'
 -- @COMPLIANT@ and @NON_COMPLIANT@. Config does not support the
 -- @NOT_APPLICABLE@ and the @INSUFFICIENT_DATA@ values.
 --
--- 'awsRegion', 'configRuleComplianceFilters_awsRegion' - The source region where the data is aggregated.
+-- 'configRuleName', 'configRuleComplianceFilters_configRuleName' - The name of the Config rule.
 newConfigRuleComplianceFilters ::
   ConfigRuleComplianceFilters
 newConfigRuleComplianceFilters =
   ConfigRuleComplianceFilters'
-    { configRuleName =
+    { accountId =
         Prelude.Nothing,
-      accountId = Prelude.Nothing,
+      awsRegion = Prelude.Nothing,
       complianceType = Prelude.Nothing,
-      awsRegion = Prelude.Nothing
+      configRuleName = Prelude.Nothing
     }
-
--- | The name of the Config rule.
-configRuleComplianceFilters_configRuleName :: Lens.Lens' ConfigRuleComplianceFilters (Prelude.Maybe Prelude.Text)
-configRuleComplianceFilters_configRuleName = Lens.lens (\ConfigRuleComplianceFilters' {configRuleName} -> configRuleName) (\s@ConfigRuleComplianceFilters' {} a -> s {configRuleName = a} :: ConfigRuleComplianceFilters)
 
 -- | The 12-digit account ID of the source account.
 configRuleComplianceFilters_accountId :: Lens.Lens' ConfigRuleComplianceFilters (Prelude.Maybe Prelude.Text)
 configRuleComplianceFilters_accountId = Lens.lens (\ConfigRuleComplianceFilters' {accountId} -> accountId) (\s@ConfigRuleComplianceFilters' {} a -> s {accountId = a} :: ConfigRuleComplianceFilters)
+
+-- | The source region where the data is aggregated.
+configRuleComplianceFilters_awsRegion :: Lens.Lens' ConfigRuleComplianceFilters (Prelude.Maybe Prelude.Text)
+configRuleComplianceFilters_awsRegion = Lens.lens (\ConfigRuleComplianceFilters' {awsRegion} -> awsRegion) (\s@ConfigRuleComplianceFilters' {} a -> s {awsRegion = a} :: ConfigRuleComplianceFilters)
 
 -- | The rule compliance status.
 --
@@ -90,33 +91,33 @@ configRuleComplianceFilters_accountId = Lens.lens (\ConfigRuleComplianceFilters'
 configRuleComplianceFilters_complianceType :: Lens.Lens' ConfigRuleComplianceFilters (Prelude.Maybe ComplianceType)
 configRuleComplianceFilters_complianceType = Lens.lens (\ConfigRuleComplianceFilters' {complianceType} -> complianceType) (\s@ConfigRuleComplianceFilters' {} a -> s {complianceType = a} :: ConfigRuleComplianceFilters)
 
--- | The source region where the data is aggregated.
-configRuleComplianceFilters_awsRegion :: Lens.Lens' ConfigRuleComplianceFilters (Prelude.Maybe Prelude.Text)
-configRuleComplianceFilters_awsRegion = Lens.lens (\ConfigRuleComplianceFilters' {awsRegion} -> awsRegion) (\s@ConfigRuleComplianceFilters' {} a -> s {awsRegion = a} :: ConfigRuleComplianceFilters)
+-- | The name of the Config rule.
+configRuleComplianceFilters_configRuleName :: Lens.Lens' ConfigRuleComplianceFilters (Prelude.Maybe Prelude.Text)
+configRuleComplianceFilters_configRuleName = Lens.lens (\ConfigRuleComplianceFilters' {configRuleName} -> configRuleName) (\s@ConfigRuleComplianceFilters' {} a -> s {configRuleName = a} :: ConfigRuleComplianceFilters)
 
 instance Prelude.Hashable ConfigRuleComplianceFilters where
   hashWithSalt _salt ConfigRuleComplianceFilters' {..} =
-    _salt `Prelude.hashWithSalt` configRuleName
-      `Prelude.hashWithSalt` accountId
-      `Prelude.hashWithSalt` complianceType
+    _salt `Prelude.hashWithSalt` accountId
       `Prelude.hashWithSalt` awsRegion
+      `Prelude.hashWithSalt` complianceType
+      `Prelude.hashWithSalt` configRuleName
 
 instance Prelude.NFData ConfigRuleComplianceFilters where
   rnf ConfigRuleComplianceFilters' {..} =
-    Prelude.rnf configRuleName
-      `Prelude.seq` Prelude.rnf accountId
-      `Prelude.seq` Prelude.rnf complianceType
+    Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf awsRegion
+      `Prelude.seq` Prelude.rnf complianceType
+      `Prelude.seq` Prelude.rnf configRuleName
 
-instance Core.ToJSON ConfigRuleComplianceFilters where
+instance Data.ToJSON ConfigRuleComplianceFilters where
   toJSON ConfigRuleComplianceFilters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ConfigRuleName" Core..=)
-              Prelude.<$> configRuleName,
-            ("AccountId" Core..=) Prelude.<$> accountId,
-            ("ComplianceType" Core..=)
+          [ ("AccountId" Data..=) Prelude.<$> accountId,
+            ("AwsRegion" Data..=) Prelude.<$> awsRegion,
+            ("ComplianceType" Data..=)
               Prelude.<$> complianceType,
-            ("AwsRegion" Core..=) Prelude.<$> awsRegion
+            ("ConfigRuleName" Data..=)
+              Prelude.<$> configRuleName
           ]
       )

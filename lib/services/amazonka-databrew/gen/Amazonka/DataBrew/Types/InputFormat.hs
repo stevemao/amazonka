@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataBrew.Types.InputFormat
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,17 +23,19 @@ module Amazonka.DataBrew.Types.InputFormat
         InputFormat_CSV,
         InputFormat_EXCEL,
         InputFormat_JSON,
+        InputFormat_ORC,
         InputFormat_PARQUET
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype InputFormat = InputFormat'
   { fromInputFormat ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -45,18 +47,18 @@ newtype InputFormat = InputFormat'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern InputFormat_CSV :: InputFormat
@@ -68,6 +70,9 @@ pattern InputFormat_EXCEL = InputFormat' "EXCEL"
 pattern InputFormat_JSON :: InputFormat
 pattern InputFormat_JSON = InputFormat' "JSON"
 
+pattern InputFormat_ORC :: InputFormat
+pattern InputFormat_ORC = InputFormat' "ORC"
+
 pattern InputFormat_PARQUET :: InputFormat
 pattern InputFormat_PARQUET = InputFormat' "PARQUET"
 
@@ -75,6 +80,7 @@ pattern InputFormat_PARQUET = InputFormat' "PARQUET"
   InputFormat_CSV,
   InputFormat_EXCEL,
   InputFormat_JSON,
+  InputFormat_ORC,
   InputFormat_PARQUET,
   InputFormat'
   #-}

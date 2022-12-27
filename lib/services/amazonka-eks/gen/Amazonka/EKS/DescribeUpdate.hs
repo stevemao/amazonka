@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.EKS.DescribeUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Returns descriptive information about an update against your Amazon EKS
--- cluster or associated managed node group.
+-- cluster or associated managed node group or Amazon EKS add-on.
 --
 -- When the status of the update is @Succeeded@, the update is complete. If
 -- an update fails, the status is @Failed@, and an error detail explains
@@ -48,8 +48,9 @@ module Amazonka.EKS.DescribeUpdate
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EKS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,9 +59,10 @@ import qualified Amazonka.Response as Response
 data DescribeUpdate = DescribeUpdate'
   { -- | The name of the add-on. The name must match one of the names returned by
     -- <https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html ListAddons>
-    -- .
+    -- . This parameter is required if the update is an add-on update.
     addonName :: Prelude.Maybe Prelude.Text,
-    -- | The name of the Amazon EKS node group associated with the update.
+    -- | The name of the Amazon EKS node group associated with the update. This
+    -- parameter is required if the update is a node group update.
     nodegroupName :: Prelude.Maybe Prelude.Text,
     -- | The name of the Amazon EKS cluster associated with the update.
     name :: Prelude.Text,
@@ -79,9 +81,10 @@ data DescribeUpdate = DescribeUpdate'
 --
 -- 'addonName', 'describeUpdate_addonName' - The name of the add-on. The name must match one of the names returned by
 -- <https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html ListAddons>
--- .
+-- . This parameter is required if the update is an add-on update.
 --
--- 'nodegroupName', 'describeUpdate_nodegroupName' - The name of the Amazon EKS node group associated with the update.
+-- 'nodegroupName', 'describeUpdate_nodegroupName' - The name of the Amazon EKS node group associated with the update. This
+-- parameter is required if the update is a node group update.
 --
 -- 'name', 'describeUpdate_name' - The name of the Amazon EKS cluster associated with the update.
 --
@@ -102,11 +105,12 @@ newDescribeUpdate pName_ pUpdateId_ =
 
 -- | The name of the add-on. The name must match one of the names returned by
 -- <https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html ListAddons>
--- .
+-- . This parameter is required if the update is an add-on update.
 describeUpdate_addonName :: Lens.Lens' DescribeUpdate (Prelude.Maybe Prelude.Text)
 describeUpdate_addonName = Lens.lens (\DescribeUpdate' {addonName} -> addonName) (\s@DescribeUpdate' {} a -> s {addonName = a} :: DescribeUpdate)
 
--- | The name of the Amazon EKS node group associated with the update.
+-- | The name of the Amazon EKS node group associated with the update. This
+-- parameter is required if the update is a node group update.
 describeUpdate_nodegroupName :: Lens.Lens' DescribeUpdate (Prelude.Maybe Prelude.Text)
 describeUpdate_nodegroupName = Lens.lens (\DescribeUpdate' {nodegroupName} -> nodegroupName) (\s@DescribeUpdate' {} a -> s {nodegroupName = a} :: DescribeUpdate)
 
@@ -122,12 +126,13 @@ instance Core.AWSRequest DescribeUpdate where
   type
     AWSResponse DescribeUpdate =
       DescribeUpdateResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeUpdateResponse'
-            Prelude.<$> (x Core..?> "update")
+            Prelude.<$> (x Data..?> "update")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -145,31 +150,31 @@ instance Prelude.NFData DescribeUpdate where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf updateId
 
-instance Core.ToHeaders DescribeUpdate where
+instance Data.ToHeaders DescribeUpdate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeUpdate where
+instance Data.ToPath DescribeUpdate where
   toPath DescribeUpdate' {..} =
     Prelude.mconcat
       [ "/clusters/",
-        Core.toBS name,
+        Data.toBS name,
         "/updates/",
-        Core.toBS updateId
+        Data.toBS updateId
       ]
 
-instance Core.ToQuery DescribeUpdate where
+instance Data.ToQuery DescribeUpdate where
   toQuery DescribeUpdate' {..} =
     Prelude.mconcat
-      [ "addonName" Core.=: addonName,
-        "nodegroupName" Core.=: nodegroupName
+      [ "addonName" Data.=: addonName,
+        "nodegroupName" Data.=: nodegroupName
       ]
 
 -- | /See:/ 'newDescribeUpdateResponse' smart constructor.

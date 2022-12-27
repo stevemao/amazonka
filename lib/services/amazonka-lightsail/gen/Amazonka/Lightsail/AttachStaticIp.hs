@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.AttachStaticIp
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Lightsail.AttachStaticIp
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -91,12 +92,13 @@ instance Core.AWSRequest AttachStaticIp where
   type
     AWSResponse AttachStaticIp =
       AttachStaticIpResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AttachStaticIpResponse'
-            Prelude.<$> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -110,34 +112,34 @@ instance Prelude.NFData AttachStaticIp where
     Prelude.rnf staticIpName
       `Prelude.seq` Prelude.rnf instanceName
 
-instance Core.ToHeaders AttachStaticIp where
+instance Data.ToHeaders AttachStaticIp where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.AttachStaticIp" ::
+              Data.=# ( "Lightsail_20161128.AttachStaticIp" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AttachStaticIp where
+instance Data.ToJSON AttachStaticIp where
   toJSON AttachStaticIp' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("staticIpName" Core..= staticIpName),
-            Prelude.Just ("instanceName" Core..= instanceName)
+          [ Prelude.Just ("staticIpName" Data..= staticIpName),
+            Prelude.Just ("instanceName" Data..= instanceName)
           ]
       )
 
-instance Core.ToPath AttachStaticIp where
+instance Data.ToPath AttachStaticIp where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AttachStaticIp where
+instance Data.ToQuery AttachStaticIp where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAttachStaticIpResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.Types.MigrationAlert
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LexModels.Types.MigrationAlert where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LexModels.Types.MigrationAlertType
 import qualified Amazonka.Prelude as Prelude
 
@@ -30,11 +31,13 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newMigrationAlert' smart constructor.
 data MigrationAlert = MigrationAlert'
-  { -- | A link to the Amazon Lex documentation that describes how to resolve the
+  { -- | Additional details about the alert.
+    details :: Prelude.Maybe [Prelude.Text],
+    -- | A message that describes why the alert was issued.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | A link to the Amazon Lex documentation that describes how to resolve the
     -- alert.
     referenceURLs :: Prelude.Maybe [Prelude.Text],
-    -- | Additional details about the alert.
-    details :: Prelude.Maybe [Prelude.Text],
     -- | The type of alert. There are two kinds of alerts:
     --
     -- -   @ERROR@ - There was an issue with the migration that can\'t be
@@ -42,9 +45,7 @@ data MigrationAlert = MigrationAlert'
     --
     -- -   @WARN@ - There was an issue with the migration that requires manual
     --     changes to the new Amazon Lex V2 bot. The migration continues.
-    type' :: Prelude.Maybe MigrationAlertType,
-    -- | A message that describes why the alert was issued.
-    message :: Prelude.Maybe Prelude.Text
+    type' :: Prelude.Maybe MigrationAlertType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -56,10 +57,12 @@ data MigrationAlert = MigrationAlert'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'details', 'migrationAlert_details' - Additional details about the alert.
+--
+-- 'message', 'migrationAlert_message' - A message that describes why the alert was issued.
+--
 -- 'referenceURLs', 'migrationAlert_referenceURLs' - A link to the Amazon Lex documentation that describes how to resolve the
 -- alert.
---
--- 'details', 'migrationAlert_details' - Additional details about the alert.
 --
 -- 'type'', 'migrationAlert_type' - The type of alert. There are two kinds of alerts:
 --
@@ -68,26 +71,28 @@ data MigrationAlert = MigrationAlert'
 --
 -- -   @WARN@ - There was an issue with the migration that requires manual
 --     changes to the new Amazon Lex V2 bot. The migration continues.
---
--- 'message', 'migrationAlert_message' - A message that describes why the alert was issued.
 newMigrationAlert ::
   MigrationAlert
 newMigrationAlert =
   MigrationAlert'
-    { referenceURLs = Prelude.Nothing,
-      details = Prelude.Nothing,
-      type' = Prelude.Nothing,
-      message = Prelude.Nothing
+    { details = Prelude.Nothing,
+      message = Prelude.Nothing,
+      referenceURLs = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
+
+-- | Additional details about the alert.
+migrationAlert_details :: Lens.Lens' MigrationAlert (Prelude.Maybe [Prelude.Text])
+migrationAlert_details = Lens.lens (\MigrationAlert' {details} -> details) (\s@MigrationAlert' {} a -> s {details = a} :: MigrationAlert) Prelude.. Lens.mapping Lens.coerced
+
+-- | A message that describes why the alert was issued.
+migrationAlert_message :: Lens.Lens' MigrationAlert (Prelude.Maybe Prelude.Text)
+migrationAlert_message = Lens.lens (\MigrationAlert' {message} -> message) (\s@MigrationAlert' {} a -> s {message = a} :: MigrationAlert)
 
 -- | A link to the Amazon Lex documentation that describes how to resolve the
 -- alert.
 migrationAlert_referenceURLs :: Lens.Lens' MigrationAlert (Prelude.Maybe [Prelude.Text])
 migrationAlert_referenceURLs = Lens.lens (\MigrationAlert' {referenceURLs} -> referenceURLs) (\s@MigrationAlert' {} a -> s {referenceURLs = a} :: MigrationAlert) Prelude.. Lens.mapping Lens.coerced
-
--- | Additional details about the alert.
-migrationAlert_details :: Lens.Lens' MigrationAlert (Prelude.Maybe [Prelude.Text])
-migrationAlert_details = Lens.lens (\MigrationAlert' {details} -> details) (\s@MigrationAlert' {} a -> s {details = a} :: MigrationAlert) Prelude.. Lens.mapping Lens.coerced
 
 -- | The type of alert. There are two kinds of alerts:
 --
@@ -99,32 +104,28 @@ migrationAlert_details = Lens.lens (\MigrationAlert' {details} -> details) (\s@M
 migrationAlert_type :: Lens.Lens' MigrationAlert (Prelude.Maybe MigrationAlertType)
 migrationAlert_type = Lens.lens (\MigrationAlert' {type'} -> type') (\s@MigrationAlert' {} a -> s {type' = a} :: MigrationAlert)
 
--- | A message that describes why the alert was issued.
-migrationAlert_message :: Lens.Lens' MigrationAlert (Prelude.Maybe Prelude.Text)
-migrationAlert_message = Lens.lens (\MigrationAlert' {message} -> message) (\s@MigrationAlert' {} a -> s {message = a} :: MigrationAlert)
-
-instance Core.FromJSON MigrationAlert where
+instance Data.FromJSON MigrationAlert where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MigrationAlert"
       ( \x ->
           MigrationAlert'
-            Prelude.<$> (x Core..:? "referenceURLs" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "details" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "type")
-            Prelude.<*> (x Core..:? "message")
+            Prelude.<$> (x Data..:? "details" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "message")
+            Prelude.<*> (x Data..:? "referenceURLs" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "type")
       )
 
 instance Prelude.Hashable MigrationAlert where
   hashWithSalt _salt MigrationAlert' {..} =
-    _salt `Prelude.hashWithSalt` referenceURLs
-      `Prelude.hashWithSalt` details
-      `Prelude.hashWithSalt` type'
+    _salt `Prelude.hashWithSalt` details
       `Prelude.hashWithSalt` message
+      `Prelude.hashWithSalt` referenceURLs
+      `Prelude.hashWithSalt` type'
 
 instance Prelude.NFData MigrationAlert where
   rnf MigrationAlert' {..} =
-    Prelude.rnf referenceURLs
-      `Prelude.seq` Prelude.rnf details
-      `Prelude.seq` Prelude.rnf type'
+    Prelude.rnf details
       `Prelude.seq` Prelude.rnf message
+      `Prelude.seq` Prelude.rnf referenceURLs
+      `Prelude.seq` Prelude.rnf type'

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.DeleteGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.Greengrass.DeleteGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -74,7 +75,8 @@ deleteGroup_groupId = Lens.lens (\DeleteGroup' {groupId} -> groupId) (\s@DeleteG
 
 instance Core.AWSRequest DeleteGroup where
   type AWSResponse DeleteGroup = DeleteGroupResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -89,23 +91,23 @@ instance Prelude.Hashable DeleteGroup where
 instance Prelude.NFData DeleteGroup where
   rnf DeleteGroup' {..} = Prelude.rnf groupId
 
-instance Core.ToHeaders DeleteGroup where
+instance Data.ToHeaders DeleteGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteGroup where
+instance Data.ToPath DeleteGroup where
   toPath DeleteGroup' {..} =
     Prelude.mconcat
-      ["/greengrass/groups/", Core.toBS groupId]
+      ["/greengrass/groups/", Data.toBS groupId]
 
-instance Core.ToQuery DeleteGroup where
+instance Data.ToQuery DeleteGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteGroupResponse' smart constructor.

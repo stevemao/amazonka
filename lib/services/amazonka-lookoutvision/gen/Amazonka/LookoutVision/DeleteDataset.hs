@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutVision.DeleteDataset
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -58,7 +58,8 @@ module Amazonka.LookoutVision.DeleteDataset
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LookoutVision.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -68,9 +69,15 @@ import qualified Amazonka.Response as Response
 data DeleteDataset = DeleteDataset'
   { -- | ClientToken is an idempotency token that ensures a call to
     -- @DeleteDataset@ completes only once. You choose the value to pass. For
-    -- example, An issue, such as an network outage, might prevent you from
-    -- getting a response from @DeleteDataset@. In this case, safely retry your
-    -- call to @DeleteDataset@ by using the same @ClientToken@ parameter value.
+    -- example, An issue might prevent you from getting a response from
+    -- @DeleteDataset@. In this case, safely retry your call to @DeleteDataset@
+    -- by using the same @ClientToken@ parameter value.
+    --
+    -- If you don\'t supply a value for @ClientToken@, the AWS SDK you are
+    -- using inserts a value for you. This prevents retries after a network
+    -- error from making multiple deletetion requests. You\'ll need to provide
+    -- your own value for other use cases.
+    --
     -- An error occurs if the other input parameters are not the same as in the
     -- first request. Using a different value for @ClientToken@ is considered a
     -- new call to @DeleteDataset@. An idempotency token is active for 8 hours.
@@ -95,9 +102,15 @@ data DeleteDataset = DeleteDataset'
 --
 -- 'clientToken', 'deleteDataset_clientToken' - ClientToken is an idempotency token that ensures a call to
 -- @DeleteDataset@ completes only once. You choose the value to pass. For
--- example, An issue, such as an network outage, might prevent you from
--- getting a response from @DeleteDataset@. In this case, safely retry your
--- call to @DeleteDataset@ by using the same @ClientToken@ parameter value.
+-- example, An issue might prevent you from getting a response from
+-- @DeleteDataset@. In this case, safely retry your call to @DeleteDataset@
+-- by using the same @ClientToken@ parameter value.
+--
+-- If you don\'t supply a value for @ClientToken@, the AWS SDK you are
+-- using inserts a value for you. This prevents retries after a network
+-- error from making multiple deletetion requests. You\'ll need to provide
+-- your own value for other use cases.
+--
 -- An error occurs if the other input parameters are not the same as in the
 -- first request. Using a different value for @ClientToken@ is considered a
 -- new call to @DeleteDataset@. An idempotency token is active for 8 hours.
@@ -123,9 +136,15 @@ newDeleteDataset pProjectName_ pDatasetType_ =
 
 -- | ClientToken is an idempotency token that ensures a call to
 -- @DeleteDataset@ completes only once. You choose the value to pass. For
--- example, An issue, such as an network outage, might prevent you from
--- getting a response from @DeleteDataset@. In this case, safely retry your
--- call to @DeleteDataset@ by using the same @ClientToken@ parameter value.
+-- example, An issue might prevent you from getting a response from
+-- @DeleteDataset@. In this case, safely retry your call to @DeleteDataset@
+-- by using the same @ClientToken@ parameter value.
+--
+-- If you don\'t supply a value for @ClientToken@, the AWS SDK you are
+-- using inserts a value for you. This prevents retries after a network
+-- error from making multiple deletetion requests. You\'ll need to provide
+-- your own value for other use cases.
+--
 -- An error occurs if the other input parameters are not the same as in the
 -- first request. Using a different value for @ClientToken@ is considered a
 -- new call to @DeleteDataset@. An idempotency token is active for 8 hours.
@@ -147,7 +166,8 @@ instance Core.AWSRequest DeleteDataset where
   type
     AWSResponse DeleteDataset =
       DeleteDatasetResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -167,24 +187,24 @@ instance Prelude.NFData DeleteDataset where
       `Prelude.seq` Prelude.rnf projectName
       `Prelude.seq` Prelude.rnf datasetType
 
-instance Core.ToHeaders DeleteDataset where
+instance Data.ToHeaders DeleteDataset where
   toHeaders DeleteDataset' {..} =
     Prelude.mconcat
-      [ "X-Amzn-Client-Token" Core.=# clientToken,
+      [ "X-Amzn-Client-Token" Data.=# clientToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToPath DeleteDataset where
+instance Data.ToPath DeleteDataset where
   toPath DeleteDataset' {..} =
     Prelude.mconcat
       [ "/2020-11-20/projects/",
-        Core.toBS projectName,
+        Data.toBS projectName,
         "/datasets/",
-        Core.toBS datasetType
+        Data.toBS datasetType
       ]
 
-instance Core.ToQuery DeleteDataset where
+instance Data.ToQuery DeleteDataset where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteDatasetResponse' smart constructor.

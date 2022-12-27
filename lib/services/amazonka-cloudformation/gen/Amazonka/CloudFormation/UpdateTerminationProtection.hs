@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.UpdateTerminationProtection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,7 +29,7 @@
 --
 -- For
 -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html nested stacks>,
--- termination protection is set on the root stack and cannot be changed
+-- termination protection is set on the root stack and can\'t be changed
 -- directly on the nested stack.
 module Amazonka.CloudFormation.UpdateTerminationProtection
   ( -- * Creating a Request
@@ -52,7 +52,8 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,13 +108,14 @@ instance Core.AWSRequest UpdateTerminationProtection where
   type
     AWSResponse UpdateTerminationProtection =
       UpdateTerminationProtectionResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "UpdateTerminationProtectionResult"
       ( \s h x ->
           UpdateTerminationProtectionResponse'
-            Prelude.<$> (x Core..@? "StackId")
+            Prelude.<$> (x Data..@? "StackId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -128,24 +130,24 @@ instance Prelude.NFData UpdateTerminationProtection where
     Prelude.rnf enableTerminationProtection
       `Prelude.seq` Prelude.rnf stackName
 
-instance Core.ToHeaders UpdateTerminationProtection where
+instance Data.ToHeaders UpdateTerminationProtection where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath UpdateTerminationProtection where
+instance Data.ToPath UpdateTerminationProtection where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateTerminationProtection where
+instance Data.ToQuery UpdateTerminationProtection where
   toQuery UpdateTerminationProtection' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "UpdateTerminationProtection" ::
+          Data.=: ( "UpdateTerminationProtection" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
         "EnableTerminationProtection"
-          Core.=: enableTerminationProtection,
-        "StackName" Core.=: stackName
+          Data.=: enableTerminationProtection,
+        "StackName" Data.=: stackName
       ]
 
 -- | /See:/ 'newUpdateTerminationProtectionResponse' smart constructor.

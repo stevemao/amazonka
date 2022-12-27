@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.Types.ActionConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodePipeline.Types.ActionConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents information about an action configuration.
@@ -53,13 +54,13 @@ newActionConfiguration =
 actionConfiguration_configuration :: Lens.Lens' ActionConfiguration (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 actionConfiguration_configuration = Lens.lens (\ActionConfiguration' {configuration} -> configuration) (\s@ActionConfiguration' {} a -> s {configuration = a} :: ActionConfiguration) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON ActionConfiguration where
+instance Data.FromJSON ActionConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ActionConfiguration"
       ( \x ->
           ActionConfiguration'
-            Prelude.<$> (x Core..:? "configuration" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "configuration" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable ActionConfiguration where

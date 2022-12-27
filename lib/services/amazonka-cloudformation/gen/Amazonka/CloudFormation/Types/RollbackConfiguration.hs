@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.Types.RollbackConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudFormation.Types.RollbackConfiguration where
 
 import Amazonka.CloudFormation.Types.RollbackTrigger
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Structure containing the rollback triggers for CloudFormation to monitor
@@ -36,7 +37,26 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newRollbackConfiguration' smart constructor.
 data RollbackConfiguration = RollbackConfiguration'
-  { -- | The triggers to monitor during stack creation or update actions.
+  { -- | The amount of time, in minutes, during which CloudFormation should
+    -- monitor all the rollback triggers after the stack creation or update
+    -- operation deploys all necessary resources.
+    --
+    -- The default is 0 minutes.
+    --
+    -- If you specify a monitoring period but don\'t specify any rollback
+    -- triggers, CloudFormation still waits the specified period of time before
+    -- cleaning up old resources after update operations. You can use this
+    -- monitoring period to perform any manual stack validation desired, and
+    -- manually cancel the stack creation or update (using
+    -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CancelUpdateStack.html CancelUpdateStack>,
+    -- for example) as necessary.
+    --
+    -- If you specify 0 for this parameter, CloudFormation still monitors the
+    -- specified rollback triggers during stack creation and update operations.
+    -- Then, for update operations, it begins disposing of old resources
+    -- immediately once the operation completes.
+    monitoringTimeInMinutes :: Prelude.Maybe Prelude.Natural,
+    -- | The triggers to monitor during stack creation or update actions.
     --
     -- By default, CloudFormation saves the rollback triggers specified for a
     -- stack and applies them to any subsequent update operations for the
@@ -49,7 +69,7 @@ data RollbackConfiguration = RollbackConfiguration'
     --
     -- -   To specify new or updated rollback triggers, you must specify /all/
     --     the triggers that you want used for this stack, even triggers
-    --     you\'ve specifed before (for example, when creating the stack or
+    --     you\'ve specified before (for example, when creating the stack or
     --     during a previous stack update). Any triggers that you don\'t
     --     include in the updated list of triggers are no longer applied to the
     --     stack.
@@ -59,26 +79,7 @@ data RollbackConfiguration = RollbackConfiguration'
     --
     -- If a specified trigger is missing, the entire stack operation fails and
     -- is rolled back.
-    rollbackTriggers :: Prelude.Maybe [RollbackTrigger],
-    -- | The amount of time, in minutes, during which CloudFormation should
-    -- monitor all the rollback triggers after the stack creation or update
-    -- operation deploys all necessary resources.
-    --
-    -- The default is 0 minutes.
-    --
-    -- If you specify a monitoring period but do not specify any rollback
-    -- triggers, CloudFormation still waits the specified period of time before
-    -- cleaning up old resources after update operations. You can use this
-    -- monitoring period to perform any manual stack validation desired, and
-    -- manually cancel the stack creation or update (using
-    -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CancelUpdateStack.html CancelUpdateStack>,
-    -- for example) as necessary.
-    --
-    -- If you specify 0 for this parameter, CloudFormation still monitors the
-    -- specified rollback triggers during stack creation and update operations.
-    -- Then, for update operations, it begins disposing of old resources
-    -- immediately once the operation completes.
-    monitoringTimeInMinutes :: Prelude.Maybe Prelude.Natural
+    rollbackTriggers :: Prelude.Maybe [RollbackTrigger]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -89,6 +90,25 @@ data RollbackConfiguration = RollbackConfiguration'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'monitoringTimeInMinutes', 'rollbackConfiguration_monitoringTimeInMinutes' - The amount of time, in minutes, during which CloudFormation should
+-- monitor all the rollback triggers after the stack creation or update
+-- operation deploys all necessary resources.
+--
+-- The default is 0 minutes.
+--
+-- If you specify a monitoring period but don\'t specify any rollback
+-- triggers, CloudFormation still waits the specified period of time before
+-- cleaning up old resources after update operations. You can use this
+-- monitoring period to perform any manual stack validation desired, and
+-- manually cancel the stack creation or update (using
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CancelUpdateStack.html CancelUpdateStack>,
+-- for example) as necessary.
+--
+-- If you specify 0 for this parameter, CloudFormation still monitors the
+-- specified rollback triggers during stack creation and update operations.
+-- Then, for update operations, it begins disposing of old resources
+-- immediately once the operation completes.
 --
 -- 'rollbackTriggers', 'rollbackConfiguration_rollbackTriggers' - The triggers to monitor during stack creation or update actions.
 --
@@ -103,7 +123,7 @@ data RollbackConfiguration = RollbackConfiguration'
 --
 -- -   To specify new or updated rollback triggers, you must specify /all/
 --     the triggers that you want used for this stack, even triggers
---     you\'ve specifed before (for example, when creating the stack or
+--     you\'ve specified before (for example, when creating the stack or
 --     during a previous stack update). Any triggers that you don\'t
 --     include in the updated list of triggers are no longer applied to the
 --     stack.
@@ -113,59 +133,14 @@ data RollbackConfiguration = RollbackConfiguration'
 --
 -- If a specified trigger is missing, the entire stack operation fails and
 -- is rolled back.
---
--- 'monitoringTimeInMinutes', 'rollbackConfiguration_monitoringTimeInMinutes' - The amount of time, in minutes, during which CloudFormation should
--- monitor all the rollback triggers after the stack creation or update
--- operation deploys all necessary resources.
---
--- The default is 0 minutes.
---
--- If you specify a monitoring period but do not specify any rollback
--- triggers, CloudFormation still waits the specified period of time before
--- cleaning up old resources after update operations. You can use this
--- monitoring period to perform any manual stack validation desired, and
--- manually cancel the stack creation or update (using
--- <https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CancelUpdateStack.html CancelUpdateStack>,
--- for example) as necessary.
---
--- If you specify 0 for this parameter, CloudFormation still monitors the
--- specified rollback triggers during stack creation and update operations.
--- Then, for update operations, it begins disposing of old resources
--- immediately once the operation completes.
 newRollbackConfiguration ::
   RollbackConfiguration
 newRollbackConfiguration =
   RollbackConfiguration'
-    { rollbackTriggers =
+    { monitoringTimeInMinutes =
         Prelude.Nothing,
-      monitoringTimeInMinutes = Prelude.Nothing
+      rollbackTriggers = Prelude.Nothing
     }
-
--- | The triggers to monitor during stack creation or update actions.
---
--- By default, CloudFormation saves the rollback triggers specified for a
--- stack and applies them to any subsequent update operations for the
--- stack, unless you specify otherwise. If you do specify rollback triggers
--- for this parameter, those triggers replace any list of triggers
--- previously specified for the stack. This means:
---
--- -   To use the rollback triggers previously specified for this stack, if
---     any, don\'t specify this parameter.
---
--- -   To specify new or updated rollback triggers, you must specify /all/
---     the triggers that you want used for this stack, even triggers
---     you\'ve specifed before (for example, when creating the stack or
---     during a previous stack update). Any triggers that you don\'t
---     include in the updated list of triggers are no longer applied to the
---     stack.
---
--- -   To remove all currently specified triggers, specify an empty list
---     for this parameter.
---
--- If a specified trigger is missing, the entire stack operation fails and
--- is rolled back.
-rollbackConfiguration_rollbackTriggers :: Lens.Lens' RollbackConfiguration (Prelude.Maybe [RollbackTrigger])
-rollbackConfiguration_rollbackTriggers = Lens.lens (\RollbackConfiguration' {rollbackTriggers} -> rollbackTriggers) (\s@RollbackConfiguration' {} a -> s {rollbackTriggers = a} :: RollbackConfiguration) Prelude.. Lens.mapping Lens.coerced
 
 -- | The amount of time, in minutes, during which CloudFormation should
 -- monitor all the rollback triggers after the stack creation or update
@@ -173,7 +148,7 @@ rollbackConfiguration_rollbackTriggers = Lens.lens (\RollbackConfiguration' {rol
 --
 -- The default is 0 minutes.
 --
--- If you specify a monitoring period but do not specify any rollback
+-- If you specify a monitoring period but don\'t specify any rollback
 -- triggers, CloudFormation still waits the specified period of time before
 -- cleaning up old resources after update operations. You can use this
 -- monitoring period to perform any manual stack validation desired, and
@@ -188,33 +163,60 @@ rollbackConfiguration_rollbackTriggers = Lens.lens (\RollbackConfiguration' {rol
 rollbackConfiguration_monitoringTimeInMinutes :: Lens.Lens' RollbackConfiguration (Prelude.Maybe Prelude.Natural)
 rollbackConfiguration_monitoringTimeInMinutes = Lens.lens (\RollbackConfiguration' {monitoringTimeInMinutes} -> monitoringTimeInMinutes) (\s@RollbackConfiguration' {} a -> s {monitoringTimeInMinutes = a} :: RollbackConfiguration)
 
-instance Core.FromXML RollbackConfiguration where
+-- | The triggers to monitor during stack creation or update actions.
+--
+-- By default, CloudFormation saves the rollback triggers specified for a
+-- stack and applies them to any subsequent update operations for the
+-- stack, unless you specify otherwise. If you do specify rollback triggers
+-- for this parameter, those triggers replace any list of triggers
+-- previously specified for the stack. This means:
+--
+-- -   To use the rollback triggers previously specified for this stack, if
+--     any, don\'t specify this parameter.
+--
+-- -   To specify new or updated rollback triggers, you must specify /all/
+--     the triggers that you want used for this stack, even triggers
+--     you\'ve specified before (for example, when creating the stack or
+--     during a previous stack update). Any triggers that you don\'t
+--     include in the updated list of triggers are no longer applied to the
+--     stack.
+--
+-- -   To remove all currently specified triggers, specify an empty list
+--     for this parameter.
+--
+-- If a specified trigger is missing, the entire stack operation fails and
+-- is rolled back.
+rollbackConfiguration_rollbackTriggers :: Lens.Lens' RollbackConfiguration (Prelude.Maybe [RollbackTrigger])
+rollbackConfiguration_rollbackTriggers = Lens.lens (\RollbackConfiguration' {rollbackTriggers} -> rollbackTriggers) (\s@RollbackConfiguration' {} a -> s {rollbackTriggers = a} :: RollbackConfiguration) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromXML RollbackConfiguration where
   parseXML x =
     RollbackConfiguration'
-      Prelude.<$> ( x Core..@? "RollbackTriggers"
+      Prelude.<$> (x Data..@? "MonitoringTimeInMinutes")
+      Prelude.<*> ( x Data..@? "RollbackTriggers"
                       Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "member")
+                      Prelude.>>= Core.may (Data.parseXMLList "member")
                   )
-      Prelude.<*> (x Core..@? "MonitoringTimeInMinutes")
 
 instance Prelude.Hashable RollbackConfiguration where
   hashWithSalt _salt RollbackConfiguration' {..} =
-    _salt `Prelude.hashWithSalt` rollbackTriggers
+    _salt
       `Prelude.hashWithSalt` monitoringTimeInMinutes
+      `Prelude.hashWithSalt` rollbackTriggers
 
 instance Prelude.NFData RollbackConfiguration where
   rnf RollbackConfiguration' {..} =
-    Prelude.rnf rollbackTriggers
-      `Prelude.seq` Prelude.rnf monitoringTimeInMinutes
+    Prelude.rnf monitoringTimeInMinutes
+      `Prelude.seq` Prelude.rnf rollbackTriggers
 
-instance Core.ToQuery RollbackConfiguration where
+instance Data.ToQuery RollbackConfiguration where
   toQuery RollbackConfiguration' {..} =
     Prelude.mconcat
-      [ "RollbackTriggers"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+      [ "MonitoringTimeInMinutes"
+          Data.=: monitoringTimeInMinutes,
+        "RollbackTriggers"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> rollbackTriggers
-            ),
-        "MonitoringTimeInMinutes"
-          Core.=: monitoringTimeInMinutes
+            )
       ]

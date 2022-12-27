@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.DescribeInsight
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,6 +27,7 @@ module Amazonka.DevOpsGuru.DescribeInsight
     newDescribeInsight,
 
     -- * Request Lenses
+    describeInsight_accountId,
     describeInsight_id,
 
     -- * Destructuring the Response
@@ -41,15 +42,18 @@ module Amazonka.DevOpsGuru.DescribeInsight
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DevOpsGuru.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeInsight' smart constructor.
 data DescribeInsight = DescribeInsight'
-  { -- | The ID of the insight.
+  { -- | The ID of the member account in the organization.
+    accountId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the insight.
     id :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -62,12 +66,22 @@ data DescribeInsight = DescribeInsight'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'accountId', 'describeInsight_accountId' - The ID of the member account in the organization.
+--
 -- 'id', 'describeInsight_id' - The ID of the insight.
 newDescribeInsight ::
   -- | 'id'
   Prelude.Text ->
   DescribeInsight
-newDescribeInsight pId_ = DescribeInsight' {id = pId_}
+newDescribeInsight pId_ =
+  DescribeInsight'
+    { accountId = Prelude.Nothing,
+      id = pId_
+    }
+
+-- | The ID of the member account in the organization.
+describeInsight_accountId :: Lens.Lens' DescribeInsight (Prelude.Maybe Prelude.Text)
+describeInsight_accountId = Lens.lens (\DescribeInsight' {accountId} -> accountId) (\s@DescribeInsight' {} a -> s {accountId = a} :: DescribeInsight)
 
 -- | The ID of the insight.
 describeInsight_id :: Lens.Lens' DescribeInsight Prelude.Text
@@ -77,40 +91,44 @@ instance Core.AWSRequest DescribeInsight where
   type
     AWSResponse DescribeInsight =
       DescribeInsightResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeInsightResponse'
-            Prelude.<$> (x Core..?> "ProactiveInsight")
-            Prelude.<*> (x Core..?> "ReactiveInsight")
+            Prelude.<$> (x Data..?> "ProactiveInsight")
+            Prelude.<*> (x Data..?> "ReactiveInsight")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeInsight where
   hashWithSalt _salt DescribeInsight' {..} =
-    _salt `Prelude.hashWithSalt` id
+    _salt `Prelude.hashWithSalt` accountId
+      `Prelude.hashWithSalt` id
 
 instance Prelude.NFData DescribeInsight where
-  rnf DescribeInsight' {..} = Prelude.rnf id
+  rnf DescribeInsight' {..} =
+    Prelude.rnf accountId `Prelude.seq` Prelude.rnf id
 
-instance Core.ToHeaders DescribeInsight where
+instance Data.ToHeaders DescribeInsight where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeInsight where
+instance Data.ToPath DescribeInsight where
   toPath DescribeInsight' {..} =
-    Prelude.mconcat ["/insights/", Core.toBS id]
+    Prelude.mconcat ["/insights/", Data.toBS id]
 
-instance Core.ToQuery DescribeInsight where
-  toQuery = Prelude.const Prelude.mempty
+instance Data.ToQuery DescribeInsight where
+  toQuery DescribeInsight' {..} =
+    Prelude.mconcat ["AccountId" Data.=: accountId]
 
 -- | /See:/ 'newDescribeInsightResponse' smart constructor.
 data DescribeInsightResponse = DescribeInsightResponse'

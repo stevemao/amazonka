@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.DescribePolicies
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,10 +29,10 @@ module Amazonka.AutoScaling.DescribePolicies
     newDescribePolicies,
 
     -- * Request Lenses
-    describePolicies_policyNames,
-    describePolicies_nextToken,
     describePolicies_autoScalingGroupName,
     describePolicies_maxRecords,
+    describePolicies_nextToken,
+    describePolicies_policyNames,
     describePolicies_policyTypes,
 
     -- * Destructuring the Response
@@ -48,28 +48,29 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribePolicies' smart constructor.
 data DescribePolicies = DescribePolicies'
-  { -- | The names of one or more policies. If you omit this parameter, all
+  { -- | The name of the Auto Scaling group.
+    autoScalingGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to be returned with each call. The default
+    -- value is @50@ and the maximum value is @100@.
+    maxRecords :: Prelude.Maybe Prelude.Int,
+    -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The names of one or more policies. If you omit this property, all
     -- policies are described. If a group name is provided, the results are
     -- limited to that group. If you specify an unknown policy name, it is
     -- ignored with no error.
     --
     -- Array Members: Maximum number of 50 items.
     policyNames :: Prelude.Maybe [Prelude.Text],
-    -- | The token for the next set of items to return. (You received this token
-    -- from a previous call.)
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The name of the Auto Scaling group.
-    autoScalingGroupName :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to be returned with each call. The default
-    -- value is @50@ and the maximum value is @100@.
-    maxRecords :: Prelude.Maybe Prelude.Int,
     -- | One or more policy types. The valid values are @SimpleScaling@,
     -- @StepScaling@, @TargetTrackingScaling@, and @PredictiveScaling@.
     policyTypes :: Prelude.Maybe [Prelude.Text]
@@ -84,20 +85,20 @@ data DescribePolicies = DescribePolicies'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'policyNames', 'describePolicies_policyNames' - The names of one or more policies. If you omit this parameter, all
+-- 'autoScalingGroupName', 'describePolicies_autoScalingGroupName' - The name of the Auto Scaling group.
+--
+-- 'maxRecords', 'describePolicies_maxRecords' - The maximum number of items to be returned with each call. The default
+-- value is @50@ and the maximum value is @100@.
+--
+-- 'nextToken', 'describePolicies_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
+--
+-- 'policyNames', 'describePolicies_policyNames' - The names of one or more policies. If you omit this property, all
 -- policies are described. If a group name is provided, the results are
 -- limited to that group. If you specify an unknown policy name, it is
 -- ignored with no error.
 --
 -- Array Members: Maximum number of 50 items.
---
--- 'nextToken', 'describePolicies_nextToken' - The token for the next set of items to return. (You received this token
--- from a previous call.)
---
--- 'autoScalingGroupName', 'describePolicies_autoScalingGroupName' - The name of the Auto Scaling group.
---
--- 'maxRecords', 'describePolicies_maxRecords' - The maximum number of items to be returned with each call. The default
--- value is @50@ and the maximum value is @100@.
 --
 -- 'policyTypes', 'describePolicies_policyTypes' - One or more policy types. The valid values are @SimpleScaling@,
 -- @StepScaling@, @TargetTrackingScaling@, and @PredictiveScaling@.
@@ -105,26 +106,13 @@ newDescribePolicies ::
   DescribePolicies
 newDescribePolicies =
   DescribePolicies'
-    { policyNames = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      autoScalingGroupName = Prelude.Nothing,
+    { autoScalingGroupName =
+        Prelude.Nothing,
       maxRecords = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      policyNames = Prelude.Nothing,
       policyTypes = Prelude.Nothing
     }
-
--- | The names of one or more policies. If you omit this parameter, all
--- policies are described. If a group name is provided, the results are
--- limited to that group. If you specify an unknown policy name, it is
--- ignored with no error.
---
--- Array Members: Maximum number of 50 items.
-describePolicies_policyNames :: Lens.Lens' DescribePolicies (Prelude.Maybe [Prelude.Text])
-describePolicies_policyNames = Lens.lens (\DescribePolicies' {policyNames} -> policyNames) (\s@DescribePolicies' {} a -> s {policyNames = a} :: DescribePolicies) Prelude.. Lens.mapping Lens.coerced
-
--- | The token for the next set of items to return. (You received this token
--- from a previous call.)
-describePolicies_nextToken :: Lens.Lens' DescribePolicies (Prelude.Maybe Prelude.Text)
-describePolicies_nextToken = Lens.lens (\DescribePolicies' {nextToken} -> nextToken) (\s@DescribePolicies' {} a -> s {nextToken = a} :: DescribePolicies)
 
 -- | The name of the Auto Scaling group.
 describePolicies_autoScalingGroupName :: Lens.Lens' DescribePolicies (Prelude.Maybe Prelude.Text)
@@ -134,6 +122,20 @@ describePolicies_autoScalingGroupName = Lens.lens (\DescribePolicies' {autoScali
 -- value is @50@ and the maximum value is @100@.
 describePolicies_maxRecords :: Lens.Lens' DescribePolicies (Prelude.Maybe Prelude.Int)
 describePolicies_maxRecords = Lens.lens (\DescribePolicies' {maxRecords} -> maxRecords) (\s@DescribePolicies' {} a -> s {maxRecords = a} :: DescribePolicies)
+
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+describePolicies_nextToken :: Lens.Lens' DescribePolicies (Prelude.Maybe Prelude.Text)
+describePolicies_nextToken = Lens.lens (\DescribePolicies' {nextToken} -> nextToken) (\s@DescribePolicies' {} a -> s {nextToken = a} :: DescribePolicies)
+
+-- | The names of one or more policies. If you omit this property, all
+-- policies are described. If a group name is provided, the results are
+-- limited to that group. If you specify an unknown policy name, it is
+-- ignored with no error.
+--
+-- Array Members: Maximum number of 50 items.
+describePolicies_policyNames :: Lens.Lens' DescribePolicies (Prelude.Maybe [Prelude.Text])
+describePolicies_policyNames = Lens.lens (\DescribePolicies' {policyNames} -> policyNames) (\s@DescribePolicies' {} a -> s {policyNames = a} :: DescribePolicies) Prelude.. Lens.mapping Lens.coerced
 
 -- | One or more policy types. The valid values are @SimpleScaling@,
 -- @StepScaling@, @TargetTrackingScaling@, and @PredictiveScaling@.
@@ -166,57 +168,58 @@ instance Core.AWSRequest DescribePolicies where
   type
     AWSResponse DescribePolicies =
       DescribePoliciesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribePoliciesResult"
       ( \s h x ->
           DescribePoliciesResponse'
-            Prelude.<$> (x Core..@? "NextToken")
-            Prelude.<*> ( x Core..@? "ScalingPolicies" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> (x Data..@? "NextToken")
+            Prelude.<*> ( x Data..@? "ScalingPolicies" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribePolicies where
   hashWithSalt _salt DescribePolicies' {..} =
-    _salt `Prelude.hashWithSalt` policyNames
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` autoScalingGroupName
+    _salt `Prelude.hashWithSalt` autoScalingGroupName
       `Prelude.hashWithSalt` maxRecords
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` policyNames
       `Prelude.hashWithSalt` policyTypes
 
 instance Prelude.NFData DescribePolicies where
   rnf DescribePolicies' {..} =
-    Prelude.rnf policyNames
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf autoScalingGroupName
+    Prelude.rnf autoScalingGroupName
       `Prelude.seq` Prelude.rnf maxRecords
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf policyNames
       `Prelude.seq` Prelude.rnf policyTypes
 
-instance Core.ToHeaders DescribePolicies where
+instance Data.ToHeaders DescribePolicies where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribePolicies where
+instance Data.ToPath DescribePolicies where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribePolicies where
+instance Data.ToQuery DescribePolicies where
   toQuery DescribePolicies' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribePolicies" :: Prelude.ByteString),
+          Data.=: ("DescribePolicies" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
+        "AutoScalingGroupName" Data.=: autoScalingGroupName,
+        "MaxRecords" Data.=: maxRecords,
+        "NextToken" Data.=: nextToken,
         "PolicyNames"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> policyNames),
-        "NextToken" Core.=: nextToken,
-        "AutoScalingGroupName" Core.=: autoScalingGroupName,
-        "MaxRecords" Core.=: maxRecords,
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> policyNames),
         "PolicyTypes"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> policyTypes)
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> policyTypes)
       ]
 
 -- | /See:/ 'newDescribePoliciesResponse' smart constructor.

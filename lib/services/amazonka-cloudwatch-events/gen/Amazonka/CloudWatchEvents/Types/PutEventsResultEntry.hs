@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.Types.PutEventsResultEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,13 @@
 module Amazonka.CloudWatchEvents.Types.PutEventsResultEntry where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Represents an event that failed to be submitted.
+-- | Represents an event that failed to be submitted. For information about
+-- the errors that are common to all actions, see
+-- <https://docs.aws.amazon.com/eventbridge/latest/APIReference/CommonErrors.html Common Errors>.
 --
 -- /See:/ 'newPutEventsResultEntry' smart constructor.
 data PutEventsResultEntry = PutEventsResultEntry'
@@ -70,15 +73,15 @@ putEventsResultEntry_errorMessage = Lens.lens (\PutEventsResultEntry' {errorMess
 putEventsResultEntry_eventId :: Lens.Lens' PutEventsResultEntry (Prelude.Maybe Prelude.Text)
 putEventsResultEntry_eventId = Lens.lens (\PutEventsResultEntry' {eventId} -> eventId) (\s@PutEventsResultEntry' {} a -> s {eventId = a} :: PutEventsResultEntry)
 
-instance Core.FromJSON PutEventsResultEntry where
+instance Data.FromJSON PutEventsResultEntry where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PutEventsResultEntry"
       ( \x ->
           PutEventsResultEntry'
-            Prelude.<$> (x Core..:? "ErrorCode")
-            Prelude.<*> (x Core..:? "ErrorMessage")
-            Prelude.<*> (x Core..:? "EventId")
+            Prelude.<$> (x Data..:? "ErrorCode")
+            Prelude.<*> (x Data..:? "ErrorMessage")
+            Prelude.<*> (x Data..:? "EventId")
       )
 
 instance Prelude.Hashable PutEventsResultEntry where

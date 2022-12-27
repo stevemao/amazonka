@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Proton.UpdateEnvironmentTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.Proton.UpdateEnvironmentTemplate
     newUpdateEnvironmentTemplate,
 
     -- * Request Lenses
-    updateEnvironmentTemplate_displayName,
     updateEnvironmentTemplate_description,
+    updateEnvironmentTemplate_displayName,
     updateEnvironmentTemplate_name,
 
     -- * Destructuring the Response
@@ -42,7 +42,8 @@ module Amazonka.Proton.UpdateEnvironmentTemplate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types
 import qualified Amazonka.Request as Request
@@ -50,11 +51,11 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateEnvironmentTemplate' smart constructor.
 data UpdateEnvironmentTemplate = UpdateEnvironmentTemplate'
-  { -- | The name of the environment template to update as displayed in the
+  { -- | A description of the environment template update.
+    description :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | The name of the environment template to update as displayed in the
     -- developer interface.
-    displayName :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | A description of the environment template update.
-    description :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    displayName :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The name of the environment template to update.
     name :: Prelude.Text
   }
@@ -68,10 +69,10 @@ data UpdateEnvironmentTemplate = UpdateEnvironmentTemplate'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'updateEnvironmentTemplate_description' - A description of the environment template update.
+--
 -- 'displayName', 'updateEnvironmentTemplate_displayName' - The name of the environment template to update as displayed in the
 -- developer interface.
---
--- 'description', 'updateEnvironmentTemplate_description' - A description of the environment template update.
 --
 -- 'name', 'updateEnvironmentTemplate_name' - The name of the environment template to update.
 newUpdateEnvironmentTemplate ::
@@ -80,20 +81,20 @@ newUpdateEnvironmentTemplate ::
   UpdateEnvironmentTemplate
 newUpdateEnvironmentTemplate pName_ =
   UpdateEnvironmentTemplate'
-    { displayName =
+    { description =
         Prelude.Nothing,
-      description = Prelude.Nothing,
+      displayName = Prelude.Nothing,
       name = pName_
     }
+
+-- | A description of the environment template update.
+updateEnvironmentTemplate_description :: Lens.Lens' UpdateEnvironmentTemplate (Prelude.Maybe Prelude.Text)
+updateEnvironmentTemplate_description = Lens.lens (\UpdateEnvironmentTemplate' {description} -> description) (\s@UpdateEnvironmentTemplate' {} a -> s {description = a} :: UpdateEnvironmentTemplate) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The name of the environment template to update as displayed in the
 -- developer interface.
 updateEnvironmentTemplate_displayName :: Lens.Lens' UpdateEnvironmentTemplate (Prelude.Maybe Prelude.Text)
-updateEnvironmentTemplate_displayName = Lens.lens (\UpdateEnvironmentTemplate' {displayName} -> displayName) (\s@UpdateEnvironmentTemplate' {} a -> s {displayName = a} :: UpdateEnvironmentTemplate) Prelude.. Lens.mapping Core._Sensitive
-
--- | A description of the environment template update.
-updateEnvironmentTemplate_description :: Lens.Lens' UpdateEnvironmentTemplate (Prelude.Maybe Prelude.Text)
-updateEnvironmentTemplate_description = Lens.lens (\UpdateEnvironmentTemplate' {description} -> description) (\s@UpdateEnvironmentTemplate' {} a -> s {description = a} :: UpdateEnvironmentTemplate) Prelude.. Lens.mapping Core._Sensitive
+updateEnvironmentTemplate_displayName = Lens.lens (\UpdateEnvironmentTemplate' {displayName} -> displayName) (\s@UpdateEnvironmentTemplate' {} a -> s {displayName = a} :: UpdateEnvironmentTemplate) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The name of the environment template to update.
 updateEnvironmentTemplate_name :: Lens.Lens' UpdateEnvironmentTemplate Prelude.Text
@@ -103,63 +104,64 @@ instance Core.AWSRequest UpdateEnvironmentTemplate where
   type
     AWSResponse UpdateEnvironmentTemplate =
       UpdateEnvironmentTemplateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateEnvironmentTemplateResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "environmentTemplate")
+            Prelude.<*> (x Data..:> "environmentTemplate")
       )
 
 instance Prelude.Hashable UpdateEnvironmentTemplate where
   hashWithSalt _salt UpdateEnvironmentTemplate' {..} =
-    _salt `Prelude.hashWithSalt` displayName
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` displayName
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData UpdateEnvironmentTemplate where
   rnf UpdateEnvironmentTemplate' {..} =
-    Prelude.rnf displayName
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf displayName
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders UpdateEnvironmentTemplate where
+instance Data.ToHeaders UpdateEnvironmentTemplate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AwsProton20200720.UpdateEnvironmentTemplate" ::
+              Data.=# ( "AwsProton20200720.UpdateEnvironmentTemplate" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateEnvironmentTemplate where
+instance Data.ToJSON UpdateEnvironmentTemplate where
   toJSON UpdateEnvironmentTemplate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("displayName" Core..=) Prelude.<$> displayName,
-            ("description" Core..=) Prelude.<$> description,
-            Prelude.Just ("name" Core..= name)
+          [ ("description" Data..=) Prelude.<$> description,
+            ("displayName" Data..=) Prelude.<$> displayName,
+            Prelude.Just ("name" Data..= name)
           ]
       )
 
-instance Core.ToPath UpdateEnvironmentTemplate where
+instance Data.ToPath UpdateEnvironmentTemplate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateEnvironmentTemplate where
+instance Data.ToQuery UpdateEnvironmentTemplate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateEnvironmentTemplateResponse' smart constructor.
 data UpdateEnvironmentTemplateResponse = UpdateEnvironmentTemplateResponse'
   { -- | The response's http status code.
     httpStatus :: Prelude.Int,
-    -- | The environment template detail data that\'s returned by AWS Proton.
+    -- | The environment template detail data that\'s returned by Proton.
     environmentTemplate :: EnvironmentTemplate
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
@@ -174,7 +176,7 @@ data UpdateEnvironmentTemplateResponse = UpdateEnvironmentTemplateResponse'
 --
 -- 'httpStatus', 'updateEnvironmentTemplateResponse_httpStatus' - The response's http status code.
 --
--- 'environmentTemplate', 'updateEnvironmentTemplateResponse_environmentTemplate' - The environment template detail data that\'s returned by AWS Proton.
+-- 'environmentTemplate', 'updateEnvironmentTemplateResponse_environmentTemplate' - The environment template detail data that\'s returned by Proton.
 newUpdateEnvironmentTemplateResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
@@ -195,7 +197,7 @@ newUpdateEnvironmentTemplateResponse
 updateEnvironmentTemplateResponse_httpStatus :: Lens.Lens' UpdateEnvironmentTemplateResponse Prelude.Int
 updateEnvironmentTemplateResponse_httpStatus = Lens.lens (\UpdateEnvironmentTemplateResponse' {httpStatus} -> httpStatus) (\s@UpdateEnvironmentTemplateResponse' {} a -> s {httpStatus = a} :: UpdateEnvironmentTemplateResponse)
 
--- | The environment template detail data that\'s returned by AWS Proton.
+-- | The environment template detail data that\'s returned by Proton.
 updateEnvironmentTemplateResponse_environmentTemplate :: Lens.Lens' UpdateEnvironmentTemplateResponse EnvironmentTemplate
 updateEnvironmentTemplateResponse_environmentTemplate = Lens.lens (\UpdateEnvironmentTemplateResponse' {environmentTemplate} -> environmentTemplate) (\s@UpdateEnvironmentTemplateResponse' {} a -> s {environmentTemplate = a} :: UpdateEnvironmentTemplateResponse)
 

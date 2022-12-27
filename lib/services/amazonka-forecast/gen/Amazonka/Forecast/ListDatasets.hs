@@ -14,16 +14,19 @@
 
 -- |
 -- Module      : Amazonka.Forecast.ListDatasets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of datasets created using the CreateDataset operation.
--- For each dataset, a summary of its properties, including its Amazon
--- Resource Name (ARN), is returned. To retrieve the complete set of
--- properties, use the ARN with the DescribeDataset operation.
+-- Returns a list of datasets created using the
+-- <https://docs.aws.amazon.com/forecast/latest/dg/API_CreateDataset.html CreateDataset>
+-- operation. For each dataset, a summary of its properties, including its
+-- Amazon Resource Name (ARN), is returned. To retrieve the complete set of
+-- properties, use the ARN with the
+-- <https://docs.aws.amazon.com/forecast/latest/dg/API_DescribeDataset.html DescribeDataset>
+-- operation.
 --
 -- This operation returns paginated results.
 module Amazonka.Forecast.ListDatasets
@@ -32,35 +35,36 @@ module Amazonka.Forecast.ListDatasets
     newListDatasets,
 
     -- * Request Lenses
-    listDatasets_nextToken,
     listDatasets_maxResults,
+    listDatasets_nextToken,
 
     -- * Destructuring the Response
     ListDatasetsResponse (..),
     newListDatasetsResponse,
 
     -- * Response Lenses
-    listDatasetsResponse_nextToken,
     listDatasetsResponse_datasets,
+    listDatasetsResponse_nextToken,
     listDatasetsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Forecast.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListDatasets' smart constructor.
 data ListDatasets = ListDatasets'
-  { -- | If the result of the previous request was truncated, the response
+  { -- | The number of items to return in the response.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | If the result of the previous request was truncated, the response
     -- includes a @NextToken@. To retrieve the next set of results, use the
     -- token in the next request. Tokens expire after 24 hours.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The number of items to return in the response.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -72,28 +76,28 @@ data ListDatasets = ListDatasets'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listDatasets_maxResults' - The number of items to return in the response.
+--
 -- 'nextToken', 'listDatasets_nextToken' - If the result of the previous request was truncated, the response
 -- includes a @NextToken@. To retrieve the next set of results, use the
 -- token in the next request. Tokens expire after 24 hours.
---
--- 'maxResults', 'listDatasets_maxResults' - The number of items to return in the response.
 newListDatasets ::
   ListDatasets
 newListDatasets =
   ListDatasets'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The number of items to return in the response.
+listDatasets_maxResults :: Lens.Lens' ListDatasets (Prelude.Maybe Prelude.Natural)
+listDatasets_maxResults = Lens.lens (\ListDatasets' {maxResults} -> maxResults) (\s@ListDatasets' {} a -> s {maxResults = a} :: ListDatasets)
 
 -- | If the result of the previous request was truncated, the response
 -- includes a @NextToken@. To retrieve the next set of results, use the
 -- token in the next request. Tokens expire after 24 hours.
 listDatasets_nextToken :: Lens.Lens' ListDatasets (Prelude.Maybe Prelude.Text)
 listDatasets_nextToken = Lens.lens (\ListDatasets' {nextToken} -> nextToken) (\s@ListDatasets' {} a -> s {nextToken = a} :: ListDatasets)
-
--- | The number of items to return in the response.
-listDatasets_maxResults :: Lens.Lens' ListDatasets (Prelude.Maybe Prelude.Natural)
-listDatasets_maxResults = Lens.lens (\ListDatasets' {maxResults} -> maxResults) (\s@ListDatasets' {} a -> s {maxResults = a} :: ListDatasets)
 
 instance Core.AWSPager ListDatasets where
   page rq rs
@@ -116,63 +120,64 @@ instance Core.AWSPager ListDatasets where
 
 instance Core.AWSRequest ListDatasets where
   type AWSResponse ListDatasets = ListDatasetsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDatasetsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Datasets" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Datasets" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListDatasets where
   hashWithSalt _salt ListDatasets' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListDatasets where
   rnf ListDatasets' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListDatasets where
+instance Data.ToHeaders ListDatasets where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonForecast.ListDatasets" ::
+              Data.=# ( "AmazonForecast.ListDatasets" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListDatasets where
+instance Data.ToJSON ListDatasets where
   toJSON ListDatasets' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListDatasets where
+instance Data.ToPath ListDatasets where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListDatasets where
+instance Data.ToQuery ListDatasets where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListDatasetsResponse' smart constructor.
 data ListDatasetsResponse = ListDatasetsResponse'
-  { -- | If the response is truncated, Amazon Forecast returns this token. To
+  { -- | An array of objects that summarize each dataset\'s properties.
+    datasets :: Prelude.Maybe [DatasetSummary],
+    -- | If the response is truncated, Amazon Forecast returns this token. To
     -- retrieve the next set of results, use the token in the next request.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | An array of objects that summarize each dataset\'s properties.
-    datasets :: Prelude.Maybe [DatasetSummary],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -186,10 +191,10 @@ data ListDatasetsResponse = ListDatasetsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'datasets', 'listDatasetsResponse_datasets' - An array of objects that summarize each dataset\'s properties.
+--
 -- 'nextToken', 'listDatasetsResponse_nextToken' - If the response is truncated, Amazon Forecast returns this token. To
 -- retrieve the next set of results, use the token in the next request.
---
--- 'datasets', 'listDatasetsResponse_datasets' - An array of objects that summarize each dataset\'s properties.
 --
 -- 'httpStatus', 'listDatasetsResponse_httpStatus' - The response's http status code.
 newListDatasetsResponse ::
@@ -198,19 +203,19 @@ newListDatasetsResponse ::
   ListDatasetsResponse
 newListDatasetsResponse pHttpStatus_ =
   ListDatasetsResponse'
-    { nextToken = Prelude.Nothing,
-      datasets = Prelude.Nothing,
+    { datasets = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | An array of objects that summarize each dataset\'s properties.
+listDatasetsResponse_datasets :: Lens.Lens' ListDatasetsResponse (Prelude.Maybe [DatasetSummary])
+listDatasetsResponse_datasets = Lens.lens (\ListDatasetsResponse' {datasets} -> datasets) (\s@ListDatasetsResponse' {} a -> s {datasets = a} :: ListDatasetsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | If the response is truncated, Amazon Forecast returns this token. To
 -- retrieve the next set of results, use the token in the next request.
 listDatasetsResponse_nextToken :: Lens.Lens' ListDatasetsResponse (Prelude.Maybe Prelude.Text)
 listDatasetsResponse_nextToken = Lens.lens (\ListDatasetsResponse' {nextToken} -> nextToken) (\s@ListDatasetsResponse' {} a -> s {nextToken = a} :: ListDatasetsResponse)
-
--- | An array of objects that summarize each dataset\'s properties.
-listDatasetsResponse_datasets :: Lens.Lens' ListDatasetsResponse (Prelude.Maybe [DatasetSummary])
-listDatasetsResponse_datasets = Lens.lens (\ListDatasetsResponse' {datasets} -> datasets) (\s@ListDatasetsResponse' {} a -> s {datasets = a} :: ListDatasetsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listDatasetsResponse_httpStatus :: Lens.Lens' ListDatasetsResponse Prelude.Int
@@ -218,6 +223,6 @@ listDatasetsResponse_httpStatus = Lens.lens (\ListDatasetsResponse' {httpStatus}
 
 instance Prelude.NFData ListDatasetsResponse where
   rnf ListDatasetsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf datasets
+    Prelude.rnf datasets
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

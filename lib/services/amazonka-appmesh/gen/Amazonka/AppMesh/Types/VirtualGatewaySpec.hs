@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.VirtualGatewaySpec
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,8 @@ import Amazonka.AppMesh.Types.VirtualGatewayBackendDefaults
 import Amazonka.AppMesh.Types.VirtualGatewayListener
 import Amazonka.AppMesh.Types.VirtualGatewayLogging
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents the specification of a service mesh resource.
@@ -76,15 +77,15 @@ virtualGatewaySpec_logging = Lens.lens (\VirtualGatewaySpec' {logging} -> loggin
 virtualGatewaySpec_listeners :: Lens.Lens' VirtualGatewaySpec [VirtualGatewayListener]
 virtualGatewaySpec_listeners = Lens.lens (\VirtualGatewaySpec' {listeners} -> listeners) (\s@VirtualGatewaySpec' {} a -> s {listeners = a} :: VirtualGatewaySpec) Prelude.. Lens.coerced
 
-instance Core.FromJSON VirtualGatewaySpec where
+instance Data.FromJSON VirtualGatewaySpec where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VirtualGatewaySpec"
       ( \x ->
           VirtualGatewaySpec'
-            Prelude.<$> (x Core..:? "backendDefaults")
-            Prelude.<*> (x Core..:? "logging")
-            Prelude.<*> (x Core..:? "listeners" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "backendDefaults")
+            Prelude.<*> (x Data..:? "logging")
+            Prelude.<*> (x Data..:? "listeners" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable VirtualGatewaySpec where
@@ -99,13 +100,13 @@ instance Prelude.NFData VirtualGatewaySpec where
       `Prelude.seq` Prelude.rnf logging
       `Prelude.seq` Prelude.rnf listeners
 
-instance Core.ToJSON VirtualGatewaySpec where
+instance Data.ToJSON VirtualGatewaySpec where
   toJSON VirtualGatewaySpec' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("backendDefaults" Core..=)
+          [ ("backendDefaults" Data..=)
               Prelude.<$> backendDefaults,
-            ("logging" Core..=) Prelude.<$> logging,
-            Prelude.Just ("listeners" Core..= listeners)
+            ("logging" Data..=) Prelude.<$> logging,
+            Prelude.Just ("listeners" Data..= listeners)
           ]
       )

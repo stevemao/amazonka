@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsElasticsearchDomainNodeToNodeEncryptionOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsElasticsearchDomainNodeToNodeEncryptionOptions where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details about the configuration for node-to-node encryption.
@@ -54,15 +55,15 @@ awsElasticsearchDomainNodeToNodeEncryptionOptions_enabled :: Lens.Lens' AwsElast
 awsElasticsearchDomainNodeToNodeEncryptionOptions_enabled = Lens.lens (\AwsElasticsearchDomainNodeToNodeEncryptionOptions' {enabled} -> enabled) (\s@AwsElasticsearchDomainNodeToNodeEncryptionOptions' {} a -> s {enabled = a} :: AwsElasticsearchDomainNodeToNodeEncryptionOptions)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsElasticsearchDomainNodeToNodeEncryptionOptions
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsElasticsearchDomainNodeToNodeEncryptionOptions"
       ( \x ->
           AwsElasticsearchDomainNodeToNodeEncryptionOptions'
-            Prelude.<$> (x Core..:? "Enabled")
+            Prelude.<$> (x Data..:? "Enabled")
       )
 
 instance
@@ -83,12 +84,12 @@ instance
       Prelude.rnf enabled
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsElasticsearchDomainNodeToNodeEncryptionOptions
   where
   toJSON
     AwsElasticsearchDomainNodeToNodeEncryptionOptions' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [("Enabled" Core..=) Prelude.<$> enabled]
+            [("Enabled" Data..=) Prelude.<$> enabled]
         )

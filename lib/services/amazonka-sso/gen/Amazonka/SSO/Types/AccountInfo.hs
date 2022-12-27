@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSO.Types.AccountInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.SSO.Types.AccountInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides information about your AWS account.
 --
 -- /See:/ 'newAccountInfo' smart constructor.
 data AccountInfo = AccountInfo'
-  { -- | The display name of the AWS account that is assigned to the user.
-    accountName :: Prelude.Maybe Prelude.Text,
-    -- | The identifier of the AWS account that is assigned to the user.
+  { -- | The identifier of the AWS account that is assigned to the user.
     accountId :: Prelude.Maybe Prelude.Text,
+    -- | The display name of the AWS account that is assigned to the user.
+    accountName :: Prelude.Maybe Prelude.Text,
     -- | The email address of the AWS account that is assigned to the user.
     emailAddress :: Prelude.Maybe Prelude.Text
   }
@@ -44,51 +45,51 @@ data AccountInfo = AccountInfo'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'accountName', 'accountInfo_accountName' - The display name of the AWS account that is assigned to the user.
---
 -- 'accountId', 'accountInfo_accountId' - The identifier of the AWS account that is assigned to the user.
+--
+-- 'accountName', 'accountInfo_accountName' - The display name of the AWS account that is assigned to the user.
 --
 -- 'emailAddress', 'accountInfo_emailAddress' - The email address of the AWS account that is assigned to the user.
 newAccountInfo ::
   AccountInfo
 newAccountInfo =
   AccountInfo'
-    { accountName = Prelude.Nothing,
-      accountId = Prelude.Nothing,
+    { accountId = Prelude.Nothing,
+      accountName = Prelude.Nothing,
       emailAddress = Prelude.Nothing
     }
-
--- | The display name of the AWS account that is assigned to the user.
-accountInfo_accountName :: Lens.Lens' AccountInfo (Prelude.Maybe Prelude.Text)
-accountInfo_accountName = Lens.lens (\AccountInfo' {accountName} -> accountName) (\s@AccountInfo' {} a -> s {accountName = a} :: AccountInfo)
 
 -- | The identifier of the AWS account that is assigned to the user.
 accountInfo_accountId :: Lens.Lens' AccountInfo (Prelude.Maybe Prelude.Text)
 accountInfo_accountId = Lens.lens (\AccountInfo' {accountId} -> accountId) (\s@AccountInfo' {} a -> s {accountId = a} :: AccountInfo)
 
+-- | The display name of the AWS account that is assigned to the user.
+accountInfo_accountName :: Lens.Lens' AccountInfo (Prelude.Maybe Prelude.Text)
+accountInfo_accountName = Lens.lens (\AccountInfo' {accountName} -> accountName) (\s@AccountInfo' {} a -> s {accountName = a} :: AccountInfo)
+
 -- | The email address of the AWS account that is assigned to the user.
 accountInfo_emailAddress :: Lens.Lens' AccountInfo (Prelude.Maybe Prelude.Text)
 accountInfo_emailAddress = Lens.lens (\AccountInfo' {emailAddress} -> emailAddress) (\s@AccountInfo' {} a -> s {emailAddress = a} :: AccountInfo)
 
-instance Core.FromJSON AccountInfo where
+instance Data.FromJSON AccountInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AccountInfo"
       ( \x ->
           AccountInfo'
-            Prelude.<$> (x Core..:? "accountName")
-            Prelude.<*> (x Core..:? "accountId")
-            Prelude.<*> (x Core..:? "emailAddress")
+            Prelude.<$> (x Data..:? "accountId")
+            Prelude.<*> (x Data..:? "accountName")
+            Prelude.<*> (x Data..:? "emailAddress")
       )
 
 instance Prelude.Hashable AccountInfo where
   hashWithSalt _salt AccountInfo' {..} =
-    _salt `Prelude.hashWithSalt` accountName
-      `Prelude.hashWithSalt` accountId
+    _salt `Prelude.hashWithSalt` accountId
+      `Prelude.hashWithSalt` accountName
       `Prelude.hashWithSalt` emailAddress
 
 instance Prelude.NFData AccountInfo where
   rnf AccountInfo' {..} =
-    Prelude.rnf accountName
-      `Prelude.seq` Prelude.rnf accountId
+    Prelude.rnf accountId
+      `Prelude.seq` Prelude.rnf accountName
       `Prelude.seq` Prelude.rnf emailAddress

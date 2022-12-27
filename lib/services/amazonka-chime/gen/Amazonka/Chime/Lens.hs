@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,12 +14,86 @@
 module Amazonka.Chime.Lens
   ( -- * Operations
 
-    -- ** DescribeChannelMembership
-    describeChannelMembership_chimeBearer,
-    describeChannelMembership_channelArn,
-    describeChannelMembership_memberArn,
-    describeChannelMembershipResponse_channelMembership,
-    describeChannelMembershipResponse_httpStatus,
+    -- ** AssociatePhoneNumberWithUser
+    associatePhoneNumberWithUser_accountId,
+    associatePhoneNumberWithUser_userId,
+    associatePhoneNumberWithUser_e164PhoneNumber,
+    associatePhoneNumberWithUserResponse_httpStatus,
+
+    -- ** AssociatePhoneNumbersWithVoiceConnector
+    associatePhoneNumbersWithVoiceConnector_forceAssociate,
+    associatePhoneNumbersWithVoiceConnector_voiceConnectorId,
+    associatePhoneNumbersWithVoiceConnector_e164PhoneNumbers,
+    associatePhoneNumbersWithVoiceConnectorResponse_phoneNumberErrors,
+    associatePhoneNumbersWithVoiceConnectorResponse_httpStatus,
+
+    -- ** AssociatePhoneNumbersWithVoiceConnectorGroup
+    associatePhoneNumbersWithVoiceConnectorGroup_forceAssociate,
+    associatePhoneNumbersWithVoiceConnectorGroup_voiceConnectorGroupId,
+    associatePhoneNumbersWithVoiceConnectorGroup_e164PhoneNumbers,
+    associatePhoneNumbersWithVoiceConnectorGroupResponse_phoneNumberErrors,
+    associatePhoneNumbersWithVoiceConnectorGroupResponse_httpStatus,
+
+    -- ** AssociateSigninDelegateGroupsWithAccount
+    associateSigninDelegateGroupsWithAccount_accountId,
+    associateSigninDelegateGroupsWithAccount_signinDelegateGroups,
+    associateSigninDelegateGroupsWithAccountResponse_httpStatus,
+
+    -- ** BatchCreateAttendee
+    batchCreateAttendee_meetingId,
+    batchCreateAttendee_attendees,
+    batchCreateAttendeeResponse_attendees,
+    batchCreateAttendeeResponse_errors,
+    batchCreateAttendeeResponse_httpStatus,
+
+    -- ** BatchCreateChannelMembership
+    batchCreateChannelMembership_chimeBearer,
+    batchCreateChannelMembership_type,
+    batchCreateChannelMembership_channelArn,
+    batchCreateChannelMembership_memberArns,
+    batchCreateChannelMembershipResponse_batchChannelMemberships,
+    batchCreateChannelMembershipResponse_errors,
+    batchCreateChannelMembershipResponse_httpStatus,
+
+    -- ** BatchCreateRoomMembership
+    batchCreateRoomMembership_accountId,
+    batchCreateRoomMembership_roomId,
+    batchCreateRoomMembership_membershipItemList,
+    batchCreateRoomMembershipResponse_errors,
+    batchCreateRoomMembershipResponse_httpStatus,
+
+    -- ** BatchDeletePhoneNumber
+    batchDeletePhoneNumber_phoneNumberIds,
+    batchDeletePhoneNumberResponse_phoneNumberErrors,
+    batchDeletePhoneNumberResponse_httpStatus,
+
+    -- ** BatchSuspendUser
+    batchSuspendUser_accountId,
+    batchSuspendUser_userIdList,
+    batchSuspendUserResponse_userErrors,
+    batchSuspendUserResponse_httpStatus,
+
+    -- ** BatchUnsuspendUser
+    batchUnsuspendUser_accountId,
+    batchUnsuspendUser_userIdList,
+    batchUnsuspendUserResponse_userErrors,
+    batchUnsuspendUserResponse_httpStatus,
+
+    -- ** BatchUpdatePhoneNumber
+    batchUpdatePhoneNumber_updatePhoneNumberRequestItems,
+    batchUpdatePhoneNumberResponse_phoneNumberErrors,
+    batchUpdatePhoneNumberResponse_httpStatus,
+
+    -- ** BatchUpdateUser
+    batchUpdateUser_accountId,
+    batchUpdateUser_updateUserRequestItems,
+    batchUpdateUserResponse_userErrors,
+    batchUpdateUserResponse_httpStatus,
+
+    -- ** CreateAccount
+    createAccount_name,
+    createAccountResponse_account,
+    createAccountResponse_httpStatus,
 
     -- ** CreateAppInstance
     createAppInstance_metadata,
@@ -29,214 +103,12 @@ module Amazonka.Chime.Lens
     createAppInstanceResponse_appInstanceArn,
     createAppInstanceResponse_httpStatus,
 
-    -- ** GetVoiceConnectorGroup
-    getVoiceConnectorGroup_voiceConnectorGroupId,
-    getVoiceConnectorGroupResponse_voiceConnectorGroup,
-    getVoiceConnectorGroupResponse_httpStatus,
-
-    -- ** ListVoiceConnectors
-    listVoiceConnectors_nextToken,
-    listVoiceConnectors_maxResults,
-    listVoiceConnectorsResponse_nextToken,
-    listVoiceConnectorsResponse_voiceConnectors,
-    listVoiceConnectorsResponse_httpStatus,
-
-    -- ** ListRoomMemberships
-    listRoomMemberships_nextToken,
-    listRoomMemberships_maxResults,
-    listRoomMemberships_accountId,
-    listRoomMemberships_roomId,
-    listRoomMembershipsResponse_nextToken,
-    listRoomMembershipsResponse_roomMemberships,
-    listRoomMembershipsResponse_httpStatus,
-
-    -- ** GetPhoneNumberSettings
-    getPhoneNumberSettingsResponse_callingNameUpdatedTimestamp,
-    getPhoneNumberSettingsResponse_callingName,
-    getPhoneNumberSettingsResponse_httpStatus,
-
-    -- ** UpdateGlobalSettings
-    updateGlobalSettings_businessCalling,
-    updateGlobalSettings_voiceConnector,
-
-    -- ** ListAttendees
-    listAttendees_nextToken,
-    listAttendees_maxResults,
-    listAttendees_meetingId,
-    listAttendeesResponse_attendees,
-    listAttendeesResponse_nextToken,
-    listAttendeesResponse_httpStatus,
-
-    -- ** PutVoiceConnectorLoggingConfiguration
-    putVoiceConnectorLoggingConfiguration_voiceConnectorId,
-    putVoiceConnectorLoggingConfiguration_loggingConfiguration,
-    putVoiceConnectorLoggingConfigurationResponse_loggingConfiguration,
-    putVoiceConnectorLoggingConfigurationResponse_httpStatus,
-
-    -- ** GetVoiceConnectorTermination
-    getVoiceConnectorTermination_voiceConnectorId,
-    getVoiceConnectorTerminationResponse_termination,
-    getVoiceConnectorTerminationResponse_httpStatus,
-
-    -- ** DeleteAttendee
-    deleteAttendee_meetingId,
-    deleteAttendee_attendeeId,
-
-    -- ** GetVoiceConnectorProxy
-    getVoiceConnectorProxy_voiceConnectorId,
-    getVoiceConnectorProxyResponse_proxy,
-    getVoiceConnectorProxyResponse_httpStatus,
-
-    -- ** DeleteVoiceConnectorEmergencyCallingConfiguration
-    deleteVoiceConnectorEmergencyCallingConfiguration_voiceConnectorId,
-
-    -- ** GetVoiceConnectorStreamingConfiguration
-    getVoiceConnectorStreamingConfiguration_voiceConnectorId,
-    getVoiceConnectorStreamingConfigurationResponse_streamingConfiguration,
-    getVoiceConnectorStreamingConfigurationResponse_httpStatus,
-
-    -- ** UpdateSipMediaApplicationCall
-    updateSipMediaApplicationCall_sipMediaApplicationId,
-    updateSipMediaApplicationCall_transactionId,
-    updateSipMediaApplicationCall_arguments,
-    updateSipMediaApplicationCallResponse_sipMediaApplicationCall,
-    updateSipMediaApplicationCallResponse_httpStatus,
-
-    -- ** StopMeetingTranscription
-    stopMeetingTranscription_meetingId,
-    stopMeetingTranscriptionResponse_httpStatus,
-
-    -- ** GetAppInstanceRetentionSettings
-    getAppInstanceRetentionSettings_appInstanceArn,
-    getAppInstanceRetentionSettingsResponse_appInstanceRetentionSettings,
-    getAppInstanceRetentionSettingsResponse_initiateDeletionTimestamp,
-    getAppInstanceRetentionSettingsResponse_httpStatus,
-
-    -- ** PutVoiceConnectorEmergencyCallingConfiguration
-    putVoiceConnectorEmergencyCallingConfiguration_voiceConnectorId,
-    putVoiceConnectorEmergencyCallingConfiguration_emergencyCallingConfiguration,
-    putVoiceConnectorEmergencyCallingConfigurationResponse_emergencyCallingConfiguration,
-    putVoiceConnectorEmergencyCallingConfigurationResponse_httpStatus,
-
-    -- ** CreateMeetingWithAttendees
-    createMeetingWithAttendees_mediaRegion,
-    createMeetingWithAttendees_meetingHostId,
-    createMeetingWithAttendees_attendees,
-    createMeetingWithAttendees_notificationsConfiguration,
-    createMeetingWithAttendees_externalMeetingId,
-    createMeetingWithAttendees_tags,
-    createMeetingWithAttendees_clientRequestToken,
-    createMeetingWithAttendeesResponse_attendees,
-    createMeetingWithAttendeesResponse_meeting,
-    createMeetingWithAttendeesResponse_errors,
-    createMeetingWithAttendeesResponse_httpStatus,
-
-    -- ** ListChannels
-    listChannels_privacy,
-    listChannels_chimeBearer,
-    listChannels_nextToken,
-    listChannels_maxResults,
-    listChannels_appInstanceArn,
-    listChannelsResponse_channels,
-    listChannelsResponse_nextToken,
-    listChannelsResponse_httpStatus,
-
-    -- ** DisassociatePhoneNumberFromUser
-    disassociatePhoneNumberFromUser_accountId,
-    disassociatePhoneNumberFromUser_userId,
-    disassociatePhoneNumberFromUserResponse_httpStatus,
-
-    -- ** DisassociateSigninDelegateGroupsFromAccount
-    disassociateSigninDelegateGroupsFromAccount_accountId,
-    disassociateSigninDelegateGroupsFromAccount_groupNames,
-    disassociateSigninDelegateGroupsFromAccountResponse_httpStatus,
-
-    -- ** ResetPersonalPIN
-    resetPersonalPIN_accountId,
-    resetPersonalPIN_userId,
-    resetPersonalPINResponse_user,
-    resetPersonalPINResponse_httpStatus,
-
-    -- ** ListTagsForResource
-    listTagsForResource_resourceARN,
-    listTagsForResourceResponse_tags,
-    listTagsForResourceResponse_httpStatus,
-
-    -- ** DeleteChannel
-    deleteChannel_chimeBearer,
-    deleteChannel_channelArn,
-
-    -- ** UpdateChannel
-    updateChannel_chimeBearer,
-    updateChannel_metadata,
-    updateChannel_channelArn,
-    updateChannel_name,
-    updateChannel_mode,
-    updateChannelResponse_channelArn,
-    updateChannelResponse_httpStatus,
-
-    -- ** DescribeAppInstanceAdmin
-    describeAppInstanceAdmin_appInstanceAdminArn,
-    describeAppInstanceAdmin_appInstanceArn,
-    describeAppInstanceAdminResponse_appInstanceAdmin,
-    describeAppInstanceAdminResponse_httpStatus,
-
-    -- ** CreateAttendee
-    createAttendee_tags,
-    createAttendee_meetingId,
-    createAttendee_externalUserId,
-    createAttendeeResponse_attendee,
-    createAttendeeResponse_httpStatus,
-
-    -- ** ListSupportedPhoneNumberCountries
-    listSupportedPhoneNumberCountries_productType,
-    listSupportedPhoneNumberCountriesResponse_phoneNumberCountries,
-    listSupportedPhoneNumberCountriesResponse_httpStatus,
-
-    -- ** DeleteSipRule
-    deleteSipRule_sipRuleId,
-
-    -- ** UpdateSipRule
-    updateSipRule_disabled,
-    updateSipRule_targetApplications,
-    updateSipRule_sipRuleId,
-    updateSipRule_name,
-    updateSipRuleResponse_sipRule,
-    updateSipRuleResponse_httpStatus,
-
-    -- ** UpdateAccountSettings
-    updateAccountSettings_accountId,
-    updateAccountSettings_accountSettings,
-    updateAccountSettingsResponse_httpStatus,
-
-    -- ** DeleteVoiceConnectorOrigination
-    deleteVoiceConnectorOrigination_voiceConnectorId,
-
-    -- ** DeleteSipMediaApplication
-    deleteSipMediaApplication_sipMediaApplicationId,
-
-    -- ** UpdateSipMediaApplication
-    updateSipMediaApplication_name,
-    updateSipMediaApplication_endpoints,
-    updateSipMediaApplication_sipMediaApplicationId,
-    updateSipMediaApplicationResponse_sipMediaApplication,
-    updateSipMediaApplicationResponse_httpStatus,
-
-    -- ** DisassociatePhoneNumbersFromVoiceConnector
-    disassociatePhoneNumbersFromVoiceConnector_voiceConnectorId,
-    disassociatePhoneNumbersFromVoiceConnector_e164PhoneNumbers,
-    disassociatePhoneNumbersFromVoiceConnectorResponse_phoneNumberErrors,
-    disassociatePhoneNumbersFromVoiceConnectorResponse_httpStatus,
-
-    -- ** GetMessagingSessionEndpoint
-    getMessagingSessionEndpointResponse_endpoint,
-    getMessagingSessionEndpointResponse_httpStatus,
-
-    -- ** PutVoiceConnectorOrigination
-    putVoiceConnectorOrigination_voiceConnectorId,
-    putVoiceConnectorOrigination_origination,
-    putVoiceConnectorOriginationResponse_origination,
-    putVoiceConnectorOriginationResponse_httpStatus,
+    -- ** CreateAppInstanceAdmin
+    createAppInstanceAdmin_appInstanceAdminArn,
+    createAppInstanceAdmin_appInstanceArn,
+    createAppInstanceAdminResponse_appInstanceAdmin,
+    createAppInstanceAdminResponse_appInstanceArn,
+    createAppInstanceAdminResponse_httpStatus,
 
     -- ** CreateAppInstanceUser
     createAppInstanceUser_metadata,
@@ -248,193 +120,56 @@ module Amazonka.Chime.Lens
     createAppInstanceUserResponse_appInstanceUserArn,
     createAppInstanceUserResponse_httpStatus,
 
-    -- ** ListAttendeeTags
-    listAttendeeTags_meetingId,
-    listAttendeeTags_attendeeId,
-    listAttendeeTagsResponse_tags,
-    listAttendeeTagsResponse_httpStatus,
+    -- ** CreateAttendee
+    createAttendee_tags,
+    createAttendee_meetingId,
+    createAttendee_externalUserId,
+    createAttendeeResponse_attendee,
+    createAttendeeResponse_httpStatus,
 
-    -- ** ListChannelsModeratedByAppInstanceUser
-    listChannelsModeratedByAppInstanceUser_appInstanceUserArn,
-    listChannelsModeratedByAppInstanceUser_chimeBearer,
-    listChannelsModeratedByAppInstanceUser_nextToken,
-    listChannelsModeratedByAppInstanceUser_maxResults,
-    listChannelsModeratedByAppInstanceUserResponse_channels,
-    listChannelsModeratedByAppInstanceUserResponse_nextToken,
-    listChannelsModeratedByAppInstanceUserResponse_httpStatus,
+    -- ** CreateBot
+    createBot_domain,
+    createBot_displayName,
+    createBot_accountId,
+    createBotResponse_bot,
+    createBotResponse_httpStatus,
 
-    -- ** RedactChannelMessage
-    redactChannelMessage_chimeBearer,
-    redactChannelMessage_channelArn,
-    redactChannelMessage_messageId,
-    redactChannelMessageResponse_channelArn,
-    redactChannelMessageResponse_messageId,
-    redactChannelMessageResponse_httpStatus,
+    -- ** CreateChannel
+    createChannel_chimeBearer,
+    createChannel_metadata,
+    createChannel_mode,
+    createChannel_privacy,
+    createChannel_tags,
+    createChannel_appInstanceArn,
+    createChannel_name,
+    createChannel_clientRequestToken,
+    createChannelResponse_channelArn,
+    createChannelResponse_httpStatus,
 
-    -- ** PutRetentionSettings
-    putRetentionSettings_accountId,
-    putRetentionSettings_retentionSettings,
-    putRetentionSettingsResponse_retentionSettings,
-    putRetentionSettingsResponse_initiateDeletionTimestamp,
-    putRetentionSettingsResponse_httpStatus,
+    -- ** CreateChannelBan
+    createChannelBan_chimeBearer,
+    createChannelBan_channelArn,
+    createChannelBan_memberArn,
+    createChannelBanResponse_channelArn,
+    createChannelBanResponse_member,
+    createChannelBanResponse_httpStatus,
 
-    -- ** ListUsers
-    listUsers_nextToken,
-    listUsers_userEmail,
-    listUsers_maxResults,
-    listUsers_userType,
-    listUsers_accountId,
-    listUsersResponse_users,
-    listUsersResponse_nextToken,
-    listUsersResponse_httpStatus,
+    -- ** CreateChannelMembership
+    createChannelMembership_chimeBearer,
+    createChannelMembership_channelArn,
+    createChannelMembership_memberArn,
+    createChannelMembership_type,
+    createChannelMembershipResponse_channelArn,
+    createChannelMembershipResponse_member,
+    createChannelMembershipResponse_httpStatus,
 
-    -- ** DeleteVoiceConnectorStreamingConfiguration
-    deleteVoiceConnectorStreamingConfiguration_voiceConnectorId,
-
-    -- ** AssociatePhoneNumbersWithVoiceConnectorGroup
-    associatePhoneNumbersWithVoiceConnectorGroup_forceAssociate,
-    associatePhoneNumbersWithVoiceConnectorGroup_voiceConnectorGroupId,
-    associatePhoneNumbersWithVoiceConnectorGroup_e164PhoneNumbers,
-    associatePhoneNumbersWithVoiceConnectorGroupResponse_phoneNumberErrors,
-    associatePhoneNumbersWithVoiceConnectorGroupResponse_httpStatus,
-
-    -- ** PutAppInstanceRetentionSettings
-    putAppInstanceRetentionSettings_appInstanceArn,
-    putAppInstanceRetentionSettings_appInstanceRetentionSettings,
-    putAppInstanceRetentionSettingsResponse_appInstanceRetentionSettings,
-    putAppInstanceRetentionSettingsResponse_initiateDeletionTimestamp,
-    putAppInstanceRetentionSettingsResponse_httpStatus,
-
-    -- ** GetVoiceConnectorLoggingConfiguration
-    getVoiceConnectorLoggingConfiguration_voiceConnectorId,
-    getVoiceConnectorLoggingConfigurationResponse_loggingConfiguration,
-    getVoiceConnectorLoggingConfigurationResponse_httpStatus,
-
-    -- ** ListBots
-    listBots_nextToken,
-    listBots_maxResults,
-    listBots_accountId,
-    listBotsResponse_bots,
-    listBotsResponse_nextToken,
-    listBotsResponse_httpStatus,
-
-    -- ** DeleteChannelMembership
-    deleteChannelMembership_chimeBearer,
-    deleteChannelMembership_channelArn,
-    deleteChannelMembership_memberArn,
-
-    -- ** PutVoiceConnectorStreamingConfiguration
-    putVoiceConnectorStreamingConfiguration_voiceConnectorId,
-    putVoiceConnectorStreamingConfiguration_streamingConfiguration,
-    putVoiceConnectorStreamingConfigurationResponse_streamingConfiguration,
-    putVoiceConnectorStreamingConfigurationResponse_httpStatus,
-
-    -- ** ListChannelMemberships
-    listChannelMemberships_chimeBearer,
-    listChannelMemberships_nextToken,
-    listChannelMemberships_type,
-    listChannelMemberships_maxResults,
-    listChannelMemberships_channelArn,
-    listChannelMembershipsResponse_channelMemberships,
-    listChannelMembershipsResponse_channelArn,
-    listChannelMembershipsResponse_nextToken,
-    listChannelMembershipsResponse_httpStatus,
-
-    -- ** GetGlobalSettings
-    getGlobalSettingsResponse_businessCalling,
-    getGlobalSettingsResponse_voiceConnector,
-    getGlobalSettingsResponse_httpStatus,
-
-    -- ** DeleteMeeting
-    deleteMeeting_meetingId,
-
-    -- ** ListMeetings
-    listMeetings_nextToken,
-    listMeetings_maxResults,
-    listMeetingsResponse_meetings,
-    listMeetingsResponse_nextToken,
-    listMeetingsResponse_httpStatus,
-
-    -- ** GetAttendee
-    getAttendee_meetingId,
-    getAttendee_attendeeId,
-    getAttendeeResponse_attendee,
-    getAttendeeResponse_httpStatus,
-
-    -- ** DeleteAccount
-    deleteAccount_accountId,
-    deleteAccountResponse_httpStatus,
-
-    -- ** UpdateAccount
-    updateAccount_defaultLicense,
-    updateAccount_name,
-    updateAccount_accountId,
-    updateAccountResponse_account,
-    updateAccountResponse_httpStatus,
-
-    -- ** ListAccounts
-    listAccounts_nextToken,
-    listAccounts_name,
-    listAccounts_userEmail,
-    listAccounts_maxResults,
-    listAccountsResponse_accounts,
-    listAccountsResponse_nextToken,
-    listAccountsResponse_httpStatus,
-
-    -- ** UpdateBot
-    updateBot_disabled,
-    updateBot_accountId,
-    updateBot_botId,
-    updateBotResponse_bot,
-    updateBotResponse_httpStatus,
-
-    -- ** ListPhoneNumberOrders
-    listPhoneNumberOrders_nextToken,
-    listPhoneNumberOrders_maxResults,
-    listPhoneNumberOrdersResponse_phoneNumberOrders,
-    listPhoneNumberOrdersResponse_nextToken,
-    listPhoneNumberOrdersResponse_httpStatus,
-
-    -- ** SearchAvailablePhoneNumbers
-    searchAvailablePhoneNumbers_phoneNumberType,
-    searchAvailablePhoneNumbers_state,
-    searchAvailablePhoneNumbers_tollFreePrefix,
-    searchAvailablePhoneNumbers_country,
-    searchAvailablePhoneNumbers_nextToken,
-    searchAvailablePhoneNumbers_city,
-    searchAvailablePhoneNumbers_areaCode,
-    searchAvailablePhoneNumbers_maxResults,
-    searchAvailablePhoneNumbersResponse_e164PhoneNumbers,
-    searchAvailablePhoneNumbersResponse_nextToken,
-    searchAvailablePhoneNumbersResponse_httpStatus,
-
-    -- ** CreateAppInstanceAdmin
-    createAppInstanceAdmin_appInstanceAdminArn,
-    createAppInstanceAdmin_appInstanceArn,
-    createAppInstanceAdminResponse_appInstanceAdmin,
-    createAppInstanceAdminResponse_appInstanceArn,
-    createAppInstanceAdminResponse_httpStatus,
-
-    -- ** TagMeeting
-    tagMeeting_meetingId,
-    tagMeeting_tags,
-
-    -- ** ListVoiceConnectorGroups
-    listVoiceConnectorGroups_nextToken,
-    listVoiceConnectorGroups_maxResults,
-    listVoiceConnectorGroupsResponse_voiceConnectorGroups,
-    listVoiceConnectorGroupsResponse_nextToken,
-    listVoiceConnectorGroupsResponse_httpStatus,
-
-    -- ** LogoutUser
-    logoutUser_accountId,
-    logoutUser_userId,
-    logoutUserResponse_httpStatus,
-
-    -- ** ListVoiceConnectorTerminationCredentials
-    listVoiceConnectorTerminationCredentials_voiceConnectorId,
-    listVoiceConnectorTerminationCredentialsResponse_usernames,
-    listVoiceConnectorTerminationCredentialsResponse_httpStatus,
+    -- ** CreateChannelModerator
+    createChannelModerator_chimeBearer,
+    createChannelModerator_channelArn,
+    createChannelModerator_channelModeratorArn,
+    createChannelModeratorResponse_channelArn,
+    createChannelModeratorResponse_channelModerator,
+    createChannelModeratorResponse_httpStatus,
 
     -- ** CreateMediaCapturePipeline
     createMediaCapturePipeline_chimeSdkMeetingConfiguration,
@@ -446,21 +181,736 @@ module Amazonka.Chime.Lens
     createMediaCapturePipelineResponse_mediaCapturePipeline,
     createMediaCapturePipelineResponse_httpStatus,
 
+    -- ** CreateMeeting
+    createMeeting_externalMeetingId,
+    createMeeting_mediaRegion,
+    createMeeting_meetingHostId,
+    createMeeting_notificationsConfiguration,
+    createMeeting_tags,
+    createMeeting_clientRequestToken,
+    createMeetingResponse_meeting,
+    createMeetingResponse_httpStatus,
+
+    -- ** CreateMeetingDialOut
+    createMeetingDialOut_meetingId,
+    createMeetingDialOut_fromPhoneNumber,
+    createMeetingDialOut_toPhoneNumber,
+    createMeetingDialOut_joinToken,
+    createMeetingDialOutResponse_transactionId,
+    createMeetingDialOutResponse_httpStatus,
+
+    -- ** CreateMeetingWithAttendees
+    createMeetingWithAttendees_attendees,
+    createMeetingWithAttendees_externalMeetingId,
+    createMeetingWithAttendees_mediaRegion,
+    createMeetingWithAttendees_meetingHostId,
+    createMeetingWithAttendees_notificationsConfiguration,
+    createMeetingWithAttendees_tags,
+    createMeetingWithAttendees_clientRequestToken,
+    createMeetingWithAttendeesResponse_attendees,
+    createMeetingWithAttendeesResponse_errors,
+    createMeetingWithAttendeesResponse_meeting,
+    createMeetingWithAttendeesResponse_httpStatus,
+
+    -- ** CreatePhoneNumberOrder
+    createPhoneNumberOrder_productType,
+    createPhoneNumberOrder_e164PhoneNumbers,
+    createPhoneNumberOrderResponse_phoneNumberOrder,
+    createPhoneNumberOrderResponse_httpStatus,
+
     -- ** CreateProxySession
-    createProxySession_numberSelectionBehavior,
-    createProxySession_geoMatchParams,
     createProxySession_expiryMinutes,
-    createProxySession_name,
     createProxySession_geoMatchLevel,
+    createProxySession_geoMatchParams,
+    createProxySession_name,
+    createProxySession_numberSelectionBehavior,
     createProxySession_participantPhoneNumbers,
     createProxySession_capabilities,
     createProxySession_voiceConnectorId,
     createProxySessionResponse_proxySession,
     createProxySessionResponse_httpStatus,
 
+    -- ** CreateRoom
+    createRoom_clientRequestToken,
+    createRoom_accountId,
+    createRoom_name,
+    createRoomResponse_room,
+    createRoomResponse_httpStatus,
+
+    -- ** CreateRoomMembership
+    createRoomMembership_role,
+    createRoomMembership_accountId,
+    createRoomMembership_roomId,
+    createRoomMembership_memberId,
+    createRoomMembershipResponse_roomMembership,
+    createRoomMembershipResponse_httpStatus,
+
+    -- ** CreateSipMediaApplication
+    createSipMediaApplication_awsRegion,
+    createSipMediaApplication_name,
+    createSipMediaApplication_endpoints,
+    createSipMediaApplicationResponse_sipMediaApplication,
+    createSipMediaApplicationResponse_httpStatus,
+
+    -- ** CreateSipMediaApplicationCall
+    createSipMediaApplicationCall_sipHeaders,
+    createSipMediaApplicationCall_fromPhoneNumber,
+    createSipMediaApplicationCall_toPhoneNumber,
+    createSipMediaApplicationCall_sipMediaApplicationId,
+    createSipMediaApplicationCallResponse_sipMediaApplicationCall,
+    createSipMediaApplicationCallResponse_httpStatus,
+
+    -- ** CreateSipRule
+    createSipRule_disabled,
+    createSipRule_name,
+    createSipRule_triggerType,
+    createSipRule_triggerValue,
+    createSipRule_targetApplications,
+    createSipRuleResponse_sipRule,
+    createSipRuleResponse_httpStatus,
+
+    -- ** CreateUser
+    createUser_email,
+    createUser_userType,
+    createUser_username,
+    createUser_accountId,
+    createUserResponse_user,
+    createUserResponse_httpStatus,
+
+    -- ** CreateVoiceConnector
+    createVoiceConnector_awsRegion,
+    createVoiceConnector_name,
+    createVoiceConnector_requireEncryption,
+    createVoiceConnectorResponse_voiceConnector,
+    createVoiceConnectorResponse_httpStatus,
+
+    -- ** CreateVoiceConnectorGroup
+    createVoiceConnectorGroup_voiceConnectorItems,
+    createVoiceConnectorGroup_name,
+    createVoiceConnectorGroupResponse_voiceConnectorGroup,
+    createVoiceConnectorGroupResponse_httpStatus,
+
+    -- ** DeleteAccount
+    deleteAccount_accountId,
+    deleteAccountResponse_httpStatus,
+
+    -- ** DeleteAppInstance
+    deleteAppInstance_appInstanceArn,
+
+    -- ** DeleteAppInstanceAdmin
+    deleteAppInstanceAdmin_appInstanceAdminArn,
+    deleteAppInstanceAdmin_appInstanceArn,
+
+    -- ** DeleteAppInstanceStreamingConfigurations
+    deleteAppInstanceStreamingConfigurations_appInstanceArn,
+
+    -- ** DeleteAppInstanceUser
+    deleteAppInstanceUser_appInstanceUserArn,
+
+    -- ** DeleteAttendee
+    deleteAttendee_meetingId,
+    deleteAttendee_attendeeId,
+
+    -- ** DeleteChannel
+    deleteChannel_chimeBearer,
+    deleteChannel_channelArn,
+
+    -- ** DeleteChannelBan
+    deleteChannelBan_chimeBearer,
+    deleteChannelBan_channelArn,
+    deleteChannelBan_memberArn,
+
+    -- ** DeleteChannelMembership
+    deleteChannelMembership_chimeBearer,
+    deleteChannelMembership_channelArn,
+    deleteChannelMembership_memberArn,
+
+    -- ** DeleteChannelMessage
+    deleteChannelMessage_chimeBearer,
+    deleteChannelMessage_channelArn,
+    deleteChannelMessage_messageId,
+
+    -- ** DeleteChannelModerator
+    deleteChannelModerator_chimeBearer,
+    deleteChannelModerator_channelArn,
+    deleteChannelModerator_channelModeratorArn,
+
     -- ** DeleteEventsConfiguration
     deleteEventsConfiguration_accountId,
     deleteEventsConfiguration_botId,
+
+    -- ** DeleteMediaCapturePipeline
+    deleteMediaCapturePipeline_mediaPipelineId,
+
+    -- ** DeleteMeeting
+    deleteMeeting_meetingId,
+
+    -- ** DeletePhoneNumber
+    deletePhoneNumber_phoneNumberId,
+
+    -- ** DeleteProxySession
+    deleteProxySession_voiceConnectorId,
+    deleteProxySession_proxySessionId,
+
+    -- ** DeleteRoom
+    deleteRoom_accountId,
+    deleteRoom_roomId,
+
+    -- ** DeleteRoomMembership
+    deleteRoomMembership_accountId,
+    deleteRoomMembership_roomId,
+    deleteRoomMembership_memberId,
+
+    -- ** DeleteSipMediaApplication
+    deleteSipMediaApplication_sipMediaApplicationId,
+
+    -- ** DeleteSipRule
+    deleteSipRule_sipRuleId,
+
+    -- ** DeleteVoiceConnector
+    deleteVoiceConnector_voiceConnectorId,
+
+    -- ** DeleteVoiceConnectorEmergencyCallingConfiguration
+    deleteVoiceConnectorEmergencyCallingConfiguration_voiceConnectorId,
+
+    -- ** DeleteVoiceConnectorGroup
+    deleteVoiceConnectorGroup_voiceConnectorGroupId,
+
+    -- ** DeleteVoiceConnectorOrigination
+    deleteVoiceConnectorOrigination_voiceConnectorId,
+
+    -- ** DeleteVoiceConnectorProxy
+    deleteVoiceConnectorProxy_voiceConnectorId,
+
+    -- ** DeleteVoiceConnectorStreamingConfiguration
+    deleteVoiceConnectorStreamingConfiguration_voiceConnectorId,
+
+    -- ** DeleteVoiceConnectorTermination
+    deleteVoiceConnectorTermination_voiceConnectorId,
+
+    -- ** DeleteVoiceConnectorTerminationCredentials
+    deleteVoiceConnectorTerminationCredentials_usernames,
+    deleteVoiceConnectorTerminationCredentials_voiceConnectorId,
+
+    -- ** DescribeAppInstance
+    describeAppInstance_appInstanceArn,
+    describeAppInstanceResponse_appInstance,
+    describeAppInstanceResponse_httpStatus,
+
+    -- ** DescribeAppInstanceAdmin
+    describeAppInstanceAdmin_appInstanceAdminArn,
+    describeAppInstanceAdmin_appInstanceArn,
+    describeAppInstanceAdminResponse_appInstanceAdmin,
+    describeAppInstanceAdminResponse_httpStatus,
+
+    -- ** DescribeAppInstanceUser
+    describeAppInstanceUser_appInstanceUserArn,
+    describeAppInstanceUserResponse_appInstanceUser,
+    describeAppInstanceUserResponse_httpStatus,
+
+    -- ** DescribeChannel
+    describeChannel_chimeBearer,
+    describeChannel_channelArn,
+    describeChannelResponse_channel,
+    describeChannelResponse_httpStatus,
+
+    -- ** DescribeChannelBan
+    describeChannelBan_chimeBearer,
+    describeChannelBan_channelArn,
+    describeChannelBan_memberArn,
+    describeChannelBanResponse_channelBan,
+    describeChannelBanResponse_httpStatus,
+
+    -- ** DescribeChannelMembership
+    describeChannelMembership_chimeBearer,
+    describeChannelMembership_channelArn,
+    describeChannelMembership_memberArn,
+    describeChannelMembershipResponse_channelMembership,
+    describeChannelMembershipResponse_httpStatus,
+
+    -- ** DescribeChannelMembershipForAppInstanceUser
+    describeChannelMembershipForAppInstanceUser_chimeBearer,
+    describeChannelMembershipForAppInstanceUser_channelArn,
+    describeChannelMembershipForAppInstanceUser_appInstanceUserArn,
+    describeChannelMembershipForAppInstanceUserResponse_channelMembership,
+    describeChannelMembershipForAppInstanceUserResponse_httpStatus,
+
+    -- ** DescribeChannelModeratedByAppInstanceUser
+    describeChannelModeratedByAppInstanceUser_chimeBearer,
+    describeChannelModeratedByAppInstanceUser_channelArn,
+    describeChannelModeratedByAppInstanceUser_appInstanceUserArn,
+    describeChannelModeratedByAppInstanceUserResponse_channel,
+    describeChannelModeratedByAppInstanceUserResponse_httpStatus,
+
+    -- ** DescribeChannelModerator
+    describeChannelModerator_chimeBearer,
+    describeChannelModerator_channelArn,
+    describeChannelModerator_channelModeratorArn,
+    describeChannelModeratorResponse_channelModerator,
+    describeChannelModeratorResponse_httpStatus,
+
+    -- ** DisassociatePhoneNumberFromUser
+    disassociatePhoneNumberFromUser_accountId,
+    disassociatePhoneNumberFromUser_userId,
+    disassociatePhoneNumberFromUserResponse_httpStatus,
+
+    -- ** DisassociatePhoneNumbersFromVoiceConnector
+    disassociatePhoneNumbersFromVoiceConnector_voiceConnectorId,
+    disassociatePhoneNumbersFromVoiceConnector_e164PhoneNumbers,
+    disassociatePhoneNumbersFromVoiceConnectorResponse_phoneNumberErrors,
+    disassociatePhoneNumbersFromVoiceConnectorResponse_httpStatus,
+
+    -- ** DisassociatePhoneNumbersFromVoiceConnectorGroup
+    disassociatePhoneNumbersFromVoiceConnectorGroup_voiceConnectorGroupId,
+    disassociatePhoneNumbersFromVoiceConnectorGroup_e164PhoneNumbers,
+    disassociatePhoneNumbersFromVoiceConnectorGroupResponse_phoneNumberErrors,
+    disassociatePhoneNumbersFromVoiceConnectorGroupResponse_httpStatus,
+
+    -- ** DisassociateSigninDelegateGroupsFromAccount
+    disassociateSigninDelegateGroupsFromAccount_accountId,
+    disassociateSigninDelegateGroupsFromAccount_groupNames,
+    disassociateSigninDelegateGroupsFromAccountResponse_httpStatus,
+
+    -- ** GetAccount
+    getAccount_accountId,
+    getAccountResponse_account,
+    getAccountResponse_httpStatus,
+
+    -- ** GetAccountSettings
+    getAccountSettings_accountId,
+    getAccountSettingsResponse_accountSettings,
+    getAccountSettingsResponse_httpStatus,
+
+    -- ** GetAppInstanceRetentionSettings
+    getAppInstanceRetentionSettings_appInstanceArn,
+    getAppInstanceRetentionSettingsResponse_appInstanceRetentionSettings,
+    getAppInstanceRetentionSettingsResponse_initiateDeletionTimestamp,
+    getAppInstanceRetentionSettingsResponse_httpStatus,
+
+    -- ** GetAppInstanceStreamingConfigurations
+    getAppInstanceStreamingConfigurations_appInstanceArn,
+    getAppInstanceStreamingConfigurationsResponse_appInstanceStreamingConfigurations,
+    getAppInstanceStreamingConfigurationsResponse_httpStatus,
+
+    -- ** GetAttendee
+    getAttendee_meetingId,
+    getAttendee_attendeeId,
+    getAttendeeResponse_attendee,
+    getAttendeeResponse_httpStatus,
+
+    -- ** GetBot
+    getBot_accountId,
+    getBot_botId,
+    getBotResponse_bot,
+    getBotResponse_httpStatus,
+
+    -- ** GetChannelMessage
+    getChannelMessage_chimeBearer,
+    getChannelMessage_channelArn,
+    getChannelMessage_messageId,
+    getChannelMessageResponse_channelMessage,
+    getChannelMessageResponse_httpStatus,
+
+    -- ** GetEventsConfiguration
+    getEventsConfiguration_accountId,
+    getEventsConfiguration_botId,
+    getEventsConfigurationResponse_eventsConfiguration,
+    getEventsConfigurationResponse_httpStatus,
+
+    -- ** GetGlobalSettings
+    getGlobalSettingsResponse_businessCalling,
+    getGlobalSettingsResponse_voiceConnector,
+    getGlobalSettingsResponse_httpStatus,
+
+    -- ** GetMediaCapturePipeline
+    getMediaCapturePipeline_mediaPipelineId,
+    getMediaCapturePipelineResponse_mediaCapturePipeline,
+    getMediaCapturePipelineResponse_httpStatus,
+
+    -- ** GetMeeting
+    getMeeting_meetingId,
+    getMeetingResponse_meeting,
+    getMeetingResponse_httpStatus,
+
+    -- ** GetMessagingSessionEndpoint
+    getMessagingSessionEndpointResponse_endpoint,
+    getMessagingSessionEndpointResponse_httpStatus,
+
+    -- ** GetPhoneNumber
+    getPhoneNumber_phoneNumberId,
+    getPhoneNumberResponse_phoneNumber,
+    getPhoneNumberResponse_httpStatus,
+
+    -- ** GetPhoneNumberOrder
+    getPhoneNumberOrder_phoneNumberOrderId,
+    getPhoneNumberOrderResponse_phoneNumberOrder,
+    getPhoneNumberOrderResponse_httpStatus,
+
+    -- ** GetPhoneNumberSettings
+    getPhoneNumberSettingsResponse_callingName,
+    getPhoneNumberSettingsResponse_callingNameUpdatedTimestamp,
+    getPhoneNumberSettingsResponse_httpStatus,
+
+    -- ** GetProxySession
+    getProxySession_voiceConnectorId,
+    getProxySession_proxySessionId,
+    getProxySessionResponse_proxySession,
+    getProxySessionResponse_httpStatus,
+
+    -- ** GetRetentionSettings
+    getRetentionSettings_accountId,
+    getRetentionSettingsResponse_initiateDeletionTimestamp,
+    getRetentionSettingsResponse_retentionSettings,
+    getRetentionSettingsResponse_httpStatus,
+
+    -- ** GetRoom
+    getRoom_accountId,
+    getRoom_roomId,
+    getRoomResponse_room,
+    getRoomResponse_httpStatus,
+
+    -- ** GetSipMediaApplication
+    getSipMediaApplication_sipMediaApplicationId,
+    getSipMediaApplicationResponse_sipMediaApplication,
+    getSipMediaApplicationResponse_httpStatus,
+
+    -- ** GetSipMediaApplicationLoggingConfiguration
+    getSipMediaApplicationLoggingConfiguration_sipMediaApplicationId,
+    getSipMediaApplicationLoggingConfigurationResponse_sipMediaApplicationLoggingConfiguration,
+    getSipMediaApplicationLoggingConfigurationResponse_httpStatus,
+
+    -- ** GetSipRule
+    getSipRule_sipRuleId,
+    getSipRuleResponse_sipRule,
+    getSipRuleResponse_httpStatus,
+
+    -- ** GetUser
+    getUser_accountId,
+    getUser_userId,
+    getUserResponse_user,
+    getUserResponse_httpStatus,
+
+    -- ** GetUserSettings
+    getUserSettings_accountId,
+    getUserSettings_userId,
+    getUserSettingsResponse_userSettings,
+    getUserSettingsResponse_httpStatus,
+
+    -- ** GetVoiceConnector
+    getVoiceConnector_voiceConnectorId,
+    getVoiceConnectorResponse_voiceConnector,
+    getVoiceConnectorResponse_httpStatus,
+
+    -- ** GetVoiceConnectorEmergencyCallingConfiguration
+    getVoiceConnectorEmergencyCallingConfiguration_voiceConnectorId,
+    getVoiceConnectorEmergencyCallingConfigurationResponse_emergencyCallingConfiguration,
+    getVoiceConnectorEmergencyCallingConfigurationResponse_httpStatus,
+
+    -- ** GetVoiceConnectorGroup
+    getVoiceConnectorGroup_voiceConnectorGroupId,
+    getVoiceConnectorGroupResponse_voiceConnectorGroup,
+    getVoiceConnectorGroupResponse_httpStatus,
+
+    -- ** GetVoiceConnectorLoggingConfiguration
+    getVoiceConnectorLoggingConfiguration_voiceConnectorId,
+    getVoiceConnectorLoggingConfigurationResponse_loggingConfiguration,
+    getVoiceConnectorLoggingConfigurationResponse_httpStatus,
+
+    -- ** GetVoiceConnectorOrigination
+    getVoiceConnectorOrigination_voiceConnectorId,
+    getVoiceConnectorOriginationResponse_origination,
+    getVoiceConnectorOriginationResponse_httpStatus,
+
+    -- ** GetVoiceConnectorProxy
+    getVoiceConnectorProxy_voiceConnectorId,
+    getVoiceConnectorProxyResponse_proxy,
+    getVoiceConnectorProxyResponse_httpStatus,
+
+    -- ** GetVoiceConnectorStreamingConfiguration
+    getVoiceConnectorStreamingConfiguration_voiceConnectorId,
+    getVoiceConnectorStreamingConfigurationResponse_streamingConfiguration,
+    getVoiceConnectorStreamingConfigurationResponse_httpStatus,
+
+    -- ** GetVoiceConnectorTermination
+    getVoiceConnectorTermination_voiceConnectorId,
+    getVoiceConnectorTerminationResponse_termination,
+    getVoiceConnectorTerminationResponse_httpStatus,
+
+    -- ** GetVoiceConnectorTerminationHealth
+    getVoiceConnectorTerminationHealth_voiceConnectorId,
+    getVoiceConnectorTerminationHealthResponse_terminationHealth,
+    getVoiceConnectorTerminationHealthResponse_httpStatus,
+
+    -- ** InviteUsers
+    inviteUsers_userType,
+    inviteUsers_accountId,
+    inviteUsers_userEmailList,
+    inviteUsersResponse_invites,
+    inviteUsersResponse_httpStatus,
+
+    -- ** ListAccounts
+    listAccounts_maxResults,
+    listAccounts_name,
+    listAccounts_nextToken,
+    listAccounts_userEmail,
+    listAccountsResponse_accounts,
+    listAccountsResponse_nextToken,
+    listAccountsResponse_httpStatus,
+
+    -- ** ListAppInstanceAdmins
+    listAppInstanceAdmins_maxResults,
+    listAppInstanceAdmins_nextToken,
+    listAppInstanceAdmins_appInstanceArn,
+    listAppInstanceAdminsResponse_appInstanceAdmins,
+    listAppInstanceAdminsResponse_appInstanceArn,
+    listAppInstanceAdminsResponse_nextToken,
+    listAppInstanceAdminsResponse_httpStatus,
+
+    -- ** ListAppInstanceUsers
+    listAppInstanceUsers_maxResults,
+    listAppInstanceUsers_nextToken,
+    listAppInstanceUsers_appInstanceArn,
+    listAppInstanceUsersResponse_appInstanceArn,
+    listAppInstanceUsersResponse_appInstanceUsers,
+    listAppInstanceUsersResponse_nextToken,
+    listAppInstanceUsersResponse_httpStatus,
+
+    -- ** ListAppInstances
+    listAppInstances_maxResults,
+    listAppInstances_nextToken,
+    listAppInstancesResponse_appInstances,
+    listAppInstancesResponse_nextToken,
+    listAppInstancesResponse_httpStatus,
+
+    -- ** ListAttendeeTags
+    listAttendeeTags_meetingId,
+    listAttendeeTags_attendeeId,
+    listAttendeeTagsResponse_tags,
+    listAttendeeTagsResponse_httpStatus,
+
+    -- ** ListAttendees
+    listAttendees_maxResults,
+    listAttendees_nextToken,
+    listAttendees_meetingId,
+    listAttendeesResponse_attendees,
+    listAttendeesResponse_nextToken,
+    listAttendeesResponse_httpStatus,
+
+    -- ** ListBots
+    listBots_maxResults,
+    listBots_nextToken,
+    listBots_accountId,
+    listBotsResponse_bots,
+    listBotsResponse_nextToken,
+    listBotsResponse_httpStatus,
+
+    -- ** ListChannelBans
+    listChannelBans_chimeBearer,
+    listChannelBans_maxResults,
+    listChannelBans_nextToken,
+    listChannelBans_channelArn,
+    listChannelBansResponse_channelArn,
+    listChannelBansResponse_channelBans,
+    listChannelBansResponse_nextToken,
+    listChannelBansResponse_httpStatus,
+
+    -- ** ListChannelMemberships
+    listChannelMemberships_chimeBearer,
+    listChannelMemberships_maxResults,
+    listChannelMemberships_nextToken,
+    listChannelMemberships_type,
+    listChannelMemberships_channelArn,
+    listChannelMembershipsResponse_channelArn,
+    listChannelMembershipsResponse_channelMemberships,
+    listChannelMembershipsResponse_nextToken,
+    listChannelMembershipsResponse_httpStatus,
+
+    -- ** ListChannelMembershipsForAppInstanceUser
+    listChannelMembershipsForAppInstanceUser_appInstanceUserArn,
+    listChannelMembershipsForAppInstanceUser_chimeBearer,
+    listChannelMembershipsForAppInstanceUser_maxResults,
+    listChannelMembershipsForAppInstanceUser_nextToken,
+    listChannelMembershipsForAppInstanceUserResponse_channelMemberships,
+    listChannelMembershipsForAppInstanceUserResponse_nextToken,
+    listChannelMembershipsForAppInstanceUserResponse_httpStatus,
+
+    -- ** ListChannelMessages
+    listChannelMessages_chimeBearer,
+    listChannelMessages_maxResults,
+    listChannelMessages_nextToken,
+    listChannelMessages_notAfter,
+    listChannelMessages_notBefore,
+    listChannelMessages_sortOrder,
+    listChannelMessages_channelArn,
+    listChannelMessagesResponse_channelArn,
+    listChannelMessagesResponse_channelMessages,
+    listChannelMessagesResponse_nextToken,
+    listChannelMessagesResponse_httpStatus,
+
+    -- ** ListChannelModerators
+    listChannelModerators_chimeBearer,
+    listChannelModerators_maxResults,
+    listChannelModerators_nextToken,
+    listChannelModerators_channelArn,
+    listChannelModeratorsResponse_channelArn,
+    listChannelModeratorsResponse_channelModerators,
+    listChannelModeratorsResponse_nextToken,
+    listChannelModeratorsResponse_httpStatus,
+
+    -- ** ListChannels
+    listChannels_chimeBearer,
+    listChannels_maxResults,
+    listChannels_nextToken,
+    listChannels_privacy,
+    listChannels_appInstanceArn,
+    listChannelsResponse_channels,
+    listChannelsResponse_nextToken,
+    listChannelsResponse_httpStatus,
+
+    -- ** ListChannelsModeratedByAppInstanceUser
+    listChannelsModeratedByAppInstanceUser_appInstanceUserArn,
+    listChannelsModeratedByAppInstanceUser_chimeBearer,
+    listChannelsModeratedByAppInstanceUser_maxResults,
+    listChannelsModeratedByAppInstanceUser_nextToken,
+    listChannelsModeratedByAppInstanceUserResponse_channels,
+    listChannelsModeratedByAppInstanceUserResponse_nextToken,
+    listChannelsModeratedByAppInstanceUserResponse_httpStatus,
+
+    -- ** ListMediaCapturePipelines
+    listMediaCapturePipelines_maxResults,
+    listMediaCapturePipelines_nextToken,
+    listMediaCapturePipelinesResponse_mediaCapturePipelines,
+    listMediaCapturePipelinesResponse_nextToken,
+    listMediaCapturePipelinesResponse_httpStatus,
+
+    -- ** ListMeetingTags
+    listMeetingTags_meetingId,
+    listMeetingTagsResponse_tags,
+    listMeetingTagsResponse_httpStatus,
+
+    -- ** ListMeetings
+    listMeetings_maxResults,
+    listMeetings_nextToken,
+    listMeetingsResponse_meetings,
+    listMeetingsResponse_nextToken,
+    listMeetingsResponse_httpStatus,
+
+    -- ** ListPhoneNumberOrders
+    listPhoneNumberOrders_maxResults,
+    listPhoneNumberOrders_nextToken,
+    listPhoneNumberOrdersResponse_nextToken,
+    listPhoneNumberOrdersResponse_phoneNumberOrders,
+    listPhoneNumberOrdersResponse_httpStatus,
+
+    -- ** ListPhoneNumbers
+    listPhoneNumbers_filterName,
+    listPhoneNumbers_filterValue,
+    listPhoneNumbers_maxResults,
+    listPhoneNumbers_nextToken,
+    listPhoneNumbers_productType,
+    listPhoneNumbers_status,
+    listPhoneNumbersResponse_nextToken,
+    listPhoneNumbersResponse_phoneNumbers,
+    listPhoneNumbersResponse_httpStatus,
+
+    -- ** ListProxySessions
+    listProxySessions_maxResults,
+    listProxySessions_nextToken,
+    listProxySessions_status,
+    listProxySessions_voiceConnectorId,
+    listProxySessionsResponse_nextToken,
+    listProxySessionsResponse_proxySessions,
+    listProxySessionsResponse_httpStatus,
+
+    -- ** ListRoomMemberships
+    listRoomMemberships_maxResults,
+    listRoomMemberships_nextToken,
+    listRoomMemberships_accountId,
+    listRoomMemberships_roomId,
+    listRoomMembershipsResponse_nextToken,
+    listRoomMembershipsResponse_roomMemberships,
+    listRoomMembershipsResponse_httpStatus,
+
+    -- ** ListRooms
+    listRooms_maxResults,
+    listRooms_memberId,
+    listRooms_nextToken,
+    listRooms_accountId,
+    listRoomsResponse_nextToken,
+    listRoomsResponse_rooms,
+    listRoomsResponse_httpStatus,
+
+    -- ** ListSipMediaApplications
+    listSipMediaApplications_maxResults,
+    listSipMediaApplications_nextToken,
+    listSipMediaApplicationsResponse_nextToken,
+    listSipMediaApplicationsResponse_sipMediaApplications,
+    listSipMediaApplicationsResponse_httpStatus,
+
+    -- ** ListSipRules
+    listSipRules_maxResults,
+    listSipRules_nextToken,
+    listSipRules_sipMediaApplicationId,
+    listSipRulesResponse_nextToken,
+    listSipRulesResponse_sipRules,
+    listSipRulesResponse_httpStatus,
+
+    -- ** ListSupportedPhoneNumberCountries
+    listSupportedPhoneNumberCountries_productType,
+    listSupportedPhoneNumberCountriesResponse_phoneNumberCountries,
+    listSupportedPhoneNumberCountriesResponse_httpStatus,
+
+    -- ** ListTagsForResource
+    listTagsForResource_resourceARN,
+    listTagsForResourceResponse_tags,
+    listTagsForResourceResponse_httpStatus,
+
+    -- ** ListUsers
+    listUsers_maxResults,
+    listUsers_nextToken,
+    listUsers_userEmail,
+    listUsers_userType,
+    listUsers_accountId,
+    listUsersResponse_nextToken,
+    listUsersResponse_users,
+    listUsersResponse_httpStatus,
+
+    -- ** ListVoiceConnectorGroups
+    listVoiceConnectorGroups_maxResults,
+    listVoiceConnectorGroups_nextToken,
+    listVoiceConnectorGroupsResponse_nextToken,
+    listVoiceConnectorGroupsResponse_voiceConnectorGroups,
+    listVoiceConnectorGroupsResponse_httpStatus,
+
+    -- ** ListVoiceConnectorTerminationCredentials
+    listVoiceConnectorTerminationCredentials_voiceConnectorId,
+    listVoiceConnectorTerminationCredentialsResponse_usernames,
+    listVoiceConnectorTerminationCredentialsResponse_httpStatus,
+
+    -- ** ListVoiceConnectors
+    listVoiceConnectors_maxResults,
+    listVoiceConnectors_nextToken,
+    listVoiceConnectorsResponse_nextToken,
+    listVoiceConnectorsResponse_voiceConnectors,
+    listVoiceConnectorsResponse_httpStatus,
+
+    -- ** LogoutUser
+    logoutUser_accountId,
+    logoutUser_userId,
+    logoutUserResponse_httpStatus,
+
+    -- ** PutAppInstanceRetentionSettings
+    putAppInstanceRetentionSettings_appInstanceArn,
+    putAppInstanceRetentionSettings_appInstanceRetentionSettings,
+    putAppInstanceRetentionSettingsResponse_appInstanceRetentionSettings,
+    putAppInstanceRetentionSettingsResponse_initiateDeletionTimestamp,
+    putAppInstanceRetentionSettingsResponse_httpStatus,
+
+    -- ** PutAppInstanceStreamingConfigurations
+    putAppInstanceStreamingConfigurations_appInstanceArn,
+    putAppInstanceStreamingConfigurations_appInstanceStreamingConfigurations,
+    putAppInstanceStreamingConfigurationsResponse_appInstanceStreamingConfigurations,
+    putAppInstanceStreamingConfigurationsResponse_httpStatus,
 
     -- ** PutEventsConfiguration
     putEventsConfiguration_lambdaFunctionArn,
@@ -470,23 +920,12 @@ module Amazonka.Chime.Lens
     putEventsConfigurationResponse_eventsConfiguration,
     putEventsConfigurationResponse_httpStatus,
 
-    -- ** GetChannelMessage
-    getChannelMessage_chimeBearer,
-    getChannelMessage_channelArn,
-    getChannelMessage_messageId,
-    getChannelMessageResponse_channelMessage,
-    getChannelMessageResponse_httpStatus,
-
-    -- ** UpdateRoom
-    updateRoom_name,
-    updateRoom_accountId,
-    updateRoom_roomId,
-    updateRoomResponse_room,
-    updateRoomResponse_httpStatus,
-
-    -- ** DeleteRoom
-    deleteRoom_accountId,
-    deleteRoom_roomId,
+    -- ** PutRetentionSettings
+    putRetentionSettings_accountId,
+    putRetentionSettings_retentionSettings,
+    putRetentionSettingsResponse_initiateDeletionTimestamp,
+    putRetentionSettingsResponse_retentionSettings,
+    putRetentionSettingsResponse_httpStatus,
 
     -- ** PutSipMediaApplicationLoggingConfiguration
     putSipMediaApplicationLoggingConfiguration_sipMediaApplicationLoggingConfiguration,
@@ -494,91 +933,98 @@ module Amazonka.Chime.Lens
     putSipMediaApplicationLoggingConfigurationResponse_sipMediaApplicationLoggingConfiguration,
     putSipMediaApplicationLoggingConfigurationResponse_httpStatus,
 
-    -- ** DescribeChannelMembershipForAppInstanceUser
-    describeChannelMembershipForAppInstanceUser_chimeBearer,
-    describeChannelMembershipForAppInstanceUser_channelArn,
-    describeChannelMembershipForAppInstanceUser_appInstanceUserArn,
-    describeChannelMembershipForAppInstanceUserResponse_channelMembership,
-    describeChannelMembershipForAppInstanceUserResponse_httpStatus,
+    -- ** PutVoiceConnectorEmergencyCallingConfiguration
+    putVoiceConnectorEmergencyCallingConfiguration_voiceConnectorId,
+    putVoiceConnectorEmergencyCallingConfiguration_emergencyCallingConfiguration,
+    putVoiceConnectorEmergencyCallingConfigurationResponse_emergencyCallingConfiguration,
+    putVoiceConnectorEmergencyCallingConfigurationResponse_httpStatus,
 
-    -- ** ListAppInstanceAdmins
-    listAppInstanceAdmins_nextToken,
-    listAppInstanceAdmins_maxResults,
-    listAppInstanceAdmins_appInstanceArn,
-    listAppInstanceAdminsResponse_nextToken,
-    listAppInstanceAdminsResponse_appInstanceAdmins,
-    listAppInstanceAdminsResponse_appInstanceArn,
-    listAppInstanceAdminsResponse_httpStatus,
+    -- ** PutVoiceConnectorLoggingConfiguration
+    putVoiceConnectorLoggingConfiguration_voiceConnectorId,
+    putVoiceConnectorLoggingConfiguration_loggingConfiguration,
+    putVoiceConnectorLoggingConfigurationResponse_loggingConfiguration,
+    putVoiceConnectorLoggingConfigurationResponse_httpStatus,
 
-    -- ** DeletePhoneNumber
-    deletePhoneNumber_phoneNumberId,
+    -- ** PutVoiceConnectorOrigination
+    putVoiceConnectorOrigination_voiceConnectorId,
+    putVoiceConnectorOrigination_origination,
+    putVoiceConnectorOriginationResponse_origination,
+    putVoiceConnectorOriginationResponse_httpStatus,
 
-    -- ** UpdatePhoneNumber
-    updatePhoneNumber_productType,
-    updatePhoneNumber_callingName,
-    updatePhoneNumber_phoneNumberId,
-    updatePhoneNumberResponse_phoneNumber,
-    updatePhoneNumberResponse_httpStatus,
+    -- ** PutVoiceConnectorProxy
+    putVoiceConnectorProxy_disabled,
+    putVoiceConnectorProxy_fallBackPhoneNumber,
+    putVoiceConnectorProxy_defaultSessionExpiryMinutes,
+    putVoiceConnectorProxy_phoneNumberPoolCountries,
+    putVoiceConnectorProxy_voiceConnectorId,
+    putVoiceConnectorProxyResponse_proxy,
+    putVoiceConnectorProxyResponse_httpStatus,
 
-    -- ** ListPhoneNumbers
-    listPhoneNumbers_status,
-    listPhoneNumbers_filterName,
-    listPhoneNumbers_productType,
-    listPhoneNumbers_nextToken,
-    listPhoneNumbers_filterValue,
-    listPhoneNumbers_maxResults,
-    listPhoneNumbersResponse_nextToken,
-    listPhoneNumbersResponse_phoneNumbers,
-    listPhoneNumbersResponse_httpStatus,
+    -- ** PutVoiceConnectorStreamingConfiguration
+    putVoiceConnectorStreamingConfiguration_voiceConnectorId,
+    putVoiceConnectorStreamingConfiguration_streamingConfiguration,
+    putVoiceConnectorStreamingConfigurationResponse_streamingConfiguration,
+    putVoiceConnectorStreamingConfigurationResponse_httpStatus,
 
-    -- ** CreateChannelModerator
-    createChannelModerator_chimeBearer,
-    createChannelModerator_channelArn,
-    createChannelModerator_channelModeratorArn,
-    createChannelModeratorResponse_channelModerator,
-    createChannelModeratorResponse_channelArn,
-    createChannelModeratorResponse_httpStatus,
+    -- ** PutVoiceConnectorTermination
+    putVoiceConnectorTermination_voiceConnectorId,
+    putVoiceConnectorTermination_termination,
+    putVoiceConnectorTerminationResponse_termination,
+    putVoiceConnectorTerminationResponse_httpStatus,
 
-    -- ** GetAppInstanceStreamingConfigurations
-    getAppInstanceStreamingConfigurations_appInstanceArn,
-    getAppInstanceStreamingConfigurationsResponse_appInstanceStreamingConfigurations,
-    getAppInstanceStreamingConfigurationsResponse_httpStatus,
+    -- ** PutVoiceConnectorTerminationCredentials
+    putVoiceConnectorTerminationCredentials_credentials,
+    putVoiceConnectorTerminationCredentials_voiceConnectorId,
 
-    -- ** ListAppInstances
-    listAppInstances_nextToken,
-    listAppInstances_maxResults,
-    listAppInstancesResponse_appInstances,
-    listAppInstancesResponse_nextToken,
-    listAppInstancesResponse_httpStatus,
+    -- ** RedactChannelMessage
+    redactChannelMessage_chimeBearer,
+    redactChannelMessage_channelArn,
+    redactChannelMessage_messageId,
+    redactChannelMessageResponse_channelArn,
+    redactChannelMessageResponse_messageId,
+    redactChannelMessageResponse_httpStatus,
 
-    -- ** DescribeChannelModeratedByAppInstanceUser
-    describeChannelModeratedByAppInstanceUser_chimeBearer,
-    describeChannelModeratedByAppInstanceUser_channelArn,
-    describeChannelModeratedByAppInstanceUser_appInstanceUserArn,
-    describeChannelModeratedByAppInstanceUserResponse_channel,
-    describeChannelModeratedByAppInstanceUserResponse_httpStatus,
+    -- ** RedactConversationMessage
+    redactConversationMessage_accountId,
+    redactConversationMessage_conversationId,
+    redactConversationMessage_messageId,
+    redactConversationMessageResponse_httpStatus,
 
-    -- ** GetPhoneNumber
-    getPhoneNumber_phoneNumberId,
-    getPhoneNumberResponse_phoneNumber,
-    getPhoneNumberResponse_httpStatus,
+    -- ** RedactRoomMessage
+    redactRoomMessage_accountId,
+    redactRoomMessage_roomId,
+    redactRoomMessage_messageId,
+    redactRoomMessageResponse_httpStatus,
 
-    -- ** GetEventsConfiguration
-    getEventsConfiguration_accountId,
-    getEventsConfiguration_botId,
-    getEventsConfigurationResponse_eventsConfiguration,
-    getEventsConfigurationResponse_httpStatus,
+    -- ** RegenerateSecurityToken
+    regenerateSecurityToken_accountId,
+    regenerateSecurityToken_botId,
+    regenerateSecurityTokenResponse_bot,
+    regenerateSecurityTokenResponse_httpStatus,
 
-    -- ** GetSipMediaApplicationLoggingConfiguration
-    getSipMediaApplicationLoggingConfiguration_sipMediaApplicationId,
-    getSipMediaApplicationLoggingConfigurationResponse_sipMediaApplicationLoggingConfiguration,
-    getSipMediaApplicationLoggingConfigurationResponse_httpStatus,
+    -- ** ResetPersonalPIN
+    resetPersonalPIN_accountId,
+    resetPersonalPIN_userId,
+    resetPersonalPINResponse_user,
+    resetPersonalPINResponse_httpStatus,
 
-    -- ** BatchUpdateUser
-    batchUpdateUser_accountId,
-    batchUpdateUser_updateUserRequestItems,
-    batchUpdateUserResponse_userErrors,
-    batchUpdateUserResponse_httpStatus,
+    -- ** RestorePhoneNumber
+    restorePhoneNumber_phoneNumberId,
+    restorePhoneNumberResponse_phoneNumber,
+    restorePhoneNumberResponse_httpStatus,
+
+    -- ** SearchAvailablePhoneNumbers
+    searchAvailablePhoneNumbers_areaCode,
+    searchAvailablePhoneNumbers_city,
+    searchAvailablePhoneNumbers_country,
+    searchAvailablePhoneNumbers_maxResults,
+    searchAvailablePhoneNumbers_nextToken,
+    searchAvailablePhoneNumbers_phoneNumberType,
+    searchAvailablePhoneNumbers_state,
+    searchAvailablePhoneNumbers_tollFreePrefix,
+    searchAvailablePhoneNumbersResponse_e164PhoneNumbers,
+    searchAvailablePhoneNumbersResponse_nextToken,
+    searchAvailablePhoneNumbersResponse_httpStatus,
 
     -- ** SendChannelMessage
     sendChannelMessage_chimeBearer,
@@ -592,391 +1038,59 @@ module Amazonka.Chime.Lens
     sendChannelMessageResponse_messageId,
     sendChannelMessageResponse_httpStatus,
 
+    -- ** StartMeetingTranscription
+    startMeetingTranscription_meetingId,
+    startMeetingTranscription_transcriptionConfiguration,
+    startMeetingTranscriptionResponse_httpStatus,
+
+    -- ** StopMeetingTranscription
+    stopMeetingTranscription_meetingId,
+    stopMeetingTranscriptionResponse_httpStatus,
+
     -- ** TagAttendee
     tagAttendee_meetingId,
     tagAttendee_attendeeId,
     tagAttendee_tags,
 
-    -- ** UpdateVoiceConnector
-    updateVoiceConnector_voiceConnectorId,
-    updateVoiceConnector_name,
-    updateVoiceConnector_requireEncryption,
-    updateVoiceConnectorResponse_voiceConnector,
-    updateVoiceConnectorResponse_httpStatus,
+    -- ** TagMeeting
+    tagMeeting_meetingId,
+    tagMeeting_tags,
 
-    -- ** DeleteVoiceConnector
-    deleteVoiceConnector_voiceConnectorId,
-
-    -- ** GetMediaCapturePipeline
-    getMediaCapturePipeline_mediaPipelineId,
-    getMediaCapturePipelineResponse_mediaCapturePipeline,
-    getMediaCapturePipelineResponse_httpStatus,
-
-    -- ** UpdateRoomMembership
-    updateRoomMembership_role,
-    updateRoomMembership_accountId,
-    updateRoomMembership_roomId,
-    updateRoomMembership_memberId,
-    updateRoomMembershipResponse_roomMembership,
-    updateRoomMembershipResponse_httpStatus,
-
-    -- ** GetProxySession
-    getProxySession_voiceConnectorId,
-    getProxySession_proxySessionId,
-    getProxySessionResponse_proxySession,
-    getProxySessionResponse_httpStatus,
-
-    -- ** DeleteRoomMembership
-    deleteRoomMembership_accountId,
-    deleteRoomMembership_roomId,
-    deleteRoomMembership_memberId,
-
-    -- ** DescribeAppInstanceUser
-    describeAppInstanceUser_appInstanceUserArn,
-    describeAppInstanceUserResponse_appInstanceUser,
-    describeAppInstanceUserResponse_httpStatus,
-
-    -- ** BatchUnsuspendUser
-    batchUnsuspendUser_accountId,
-    batchUnsuspendUser_userIdList,
-    batchUnsuspendUserResponse_userErrors,
-    batchUnsuspendUserResponse_httpStatus,
-
-    -- ** DeleteChannelBan
-    deleteChannelBan_chimeBearer,
-    deleteChannelBan_channelArn,
-    deleteChannelBan_memberArn,
-
-    -- ** GetMeeting
-    getMeeting_meetingId,
-    getMeetingResponse_meeting,
-    getMeetingResponse_httpStatus,
-
-    -- ** RestorePhoneNumber
-    restorePhoneNumber_phoneNumberId,
-    restorePhoneNumberResponse_phoneNumber,
-    restorePhoneNumberResponse_httpStatus,
-
-    -- ** GetRetentionSettings
-    getRetentionSettings_accountId,
-    getRetentionSettingsResponse_retentionSettings,
-    getRetentionSettingsResponse_initiateDeletionTimestamp,
-    getRetentionSettingsResponse_httpStatus,
-
-    -- ** GetBot
-    getBot_accountId,
-    getBot_botId,
-    getBotResponse_bot,
-    getBotResponse_httpStatus,
-
-    -- ** GetUser
-    getUser_accountId,
-    getUser_userId,
-    getUserResponse_user,
-    getUserResponse_httpStatus,
+    -- ** TagResource
+    tagResource_resourceARN,
+    tagResource_tags,
 
     -- ** UntagAttendee
     untagAttendee_meetingId,
     untagAttendee_tagKeys,
     untagAttendee_attendeeId,
 
-    -- ** StartMeetingTranscription
-    startMeetingTranscription_meetingId,
-    startMeetingTranscription_transcriptionConfiguration,
-    startMeetingTranscriptionResponse_httpStatus,
+    -- ** UntagMeeting
+    untagMeeting_meetingId,
+    untagMeeting_tagKeys,
 
-    -- ** ListChannelBans
-    listChannelBans_chimeBearer,
-    listChannelBans_nextToken,
-    listChannelBans_maxResults,
-    listChannelBans_channelArn,
-    listChannelBansResponse_channelArn,
-    listChannelBansResponse_nextToken,
-    listChannelBansResponse_channelBans,
-    listChannelBansResponse_httpStatus,
+    -- ** UntagResource
+    untagResource_resourceARN,
+    untagResource_tagKeys,
 
-    -- ** CreateChannel
-    createChannel_mode,
-    createChannel_privacy,
-    createChannel_chimeBearer,
-    createChannel_metadata,
-    createChannel_tags,
-    createChannel_appInstanceArn,
-    createChannel_name,
-    createChannel_clientRequestToken,
-    createChannelResponse_channelArn,
-    createChannelResponse_httpStatus,
+    -- ** UpdateAccount
+    updateAccount_defaultLicense,
+    updateAccount_name,
+    updateAccount_accountId,
+    updateAccountResponse_account,
+    updateAccountResponse_httpStatus,
 
-    -- ** BatchSuspendUser
-    batchSuspendUser_accountId,
-    batchSuspendUser_userIdList,
-    batchSuspendUserResponse_userErrors,
-    batchSuspendUserResponse_httpStatus,
+    -- ** UpdateAccountSettings
+    updateAccountSettings_accountId,
+    updateAccountSettings_accountSettings,
+    updateAccountSettingsResponse_httpStatus,
 
-    -- ** GetAccount
-    getAccount_accountId,
-    getAccountResponse_account,
-    getAccountResponse_httpStatus,
-
-    -- ** DescribeChannelModerator
-    describeChannelModerator_chimeBearer,
-    describeChannelModerator_channelArn,
-    describeChannelModerator_channelModeratorArn,
-    describeChannelModeratorResponse_channelModerator,
-    describeChannelModeratorResponse_httpStatus,
-
-    -- ** AssociatePhoneNumbersWithVoiceConnector
-    associatePhoneNumbersWithVoiceConnector_forceAssociate,
-    associatePhoneNumbersWithVoiceConnector_voiceConnectorId,
-    associatePhoneNumbersWithVoiceConnector_e164PhoneNumbers,
-    associatePhoneNumbersWithVoiceConnectorResponse_phoneNumberErrors,
-    associatePhoneNumbersWithVoiceConnectorResponse_httpStatus,
-
-    -- ** GetPhoneNumberOrder
-    getPhoneNumberOrder_phoneNumberOrderId,
-    getPhoneNumberOrderResponse_phoneNumberOrder,
-    getPhoneNumberOrderResponse_httpStatus,
-
-    -- ** GetSipRule
-    getSipRule_sipRuleId,
-    getSipRuleResponse_sipRule,
-    getSipRuleResponse_httpStatus,
-
-    -- ** GetUserSettings
-    getUserSettings_accountId,
-    getUserSettings_userId,
-    getUserSettingsResponse_userSettings,
-    getUserSettingsResponse_httpStatus,
-
-    -- ** GetSipMediaApplication
-    getSipMediaApplication_sipMediaApplicationId,
-    getSipMediaApplicationResponse_sipMediaApplication,
-    getSipMediaApplicationResponse_httpStatus,
-
-    -- ** GetAccountSettings
-    getAccountSettings_accountId,
-    getAccountSettingsResponse_accountSettings,
-    getAccountSettingsResponse_httpStatus,
-
-    -- ** CreateChannelBan
-    createChannelBan_chimeBearer,
-    createChannelBan_channelArn,
-    createChannelBan_memberArn,
-    createChannelBanResponse_channelArn,
-    createChannelBanResponse_member,
-    createChannelBanResponse_httpStatus,
-
-    -- ** ListMeetingTags
-    listMeetingTags_meetingId,
-    listMeetingTagsResponse_tags,
-    listMeetingTagsResponse_httpStatus,
-
-    -- ** ListChannelMembershipsForAppInstanceUser
-    listChannelMembershipsForAppInstanceUser_appInstanceUserArn,
-    listChannelMembershipsForAppInstanceUser_chimeBearer,
-    listChannelMembershipsForAppInstanceUser_nextToken,
-    listChannelMembershipsForAppInstanceUser_maxResults,
-    listChannelMembershipsForAppInstanceUserResponse_channelMemberships,
-    listChannelMembershipsForAppInstanceUserResponse_nextToken,
-    listChannelMembershipsForAppInstanceUserResponse_httpStatus,
-
-    -- ** GetVoiceConnectorOrigination
-    getVoiceConnectorOrigination_voiceConnectorId,
-    getVoiceConnectorOriginationResponse_origination,
-    getVoiceConnectorOriginationResponse_httpStatus,
-
-    -- ** BatchUpdatePhoneNumber
-    batchUpdatePhoneNumber_updatePhoneNumberRequestItems,
-    batchUpdatePhoneNumberResponse_phoneNumberErrors,
-    batchUpdatePhoneNumberResponse_httpStatus,
-
-    -- ** DisassociatePhoneNumbersFromVoiceConnectorGroup
-    disassociatePhoneNumbersFromVoiceConnectorGroup_voiceConnectorGroupId,
-    disassociatePhoneNumbersFromVoiceConnectorGroup_e164PhoneNumbers,
-    disassociatePhoneNumbersFromVoiceConnectorGroupResponse_phoneNumberErrors,
-    disassociatePhoneNumbersFromVoiceConnectorGroupResponse_httpStatus,
-
-    -- ** UpdateChannelReadMarker
-    updateChannelReadMarker_chimeBearer,
-    updateChannelReadMarker_channelArn,
-    updateChannelReadMarkerResponse_channelArn,
-    updateChannelReadMarkerResponse_httpStatus,
-
-    -- ** CreateSipMediaApplicationCall
-    createSipMediaApplicationCall_sipHeaders,
-    createSipMediaApplicationCall_fromPhoneNumber,
-    createSipMediaApplicationCall_toPhoneNumber,
-    createSipMediaApplicationCall_sipMediaApplicationId,
-    createSipMediaApplicationCallResponse_sipMediaApplicationCall,
-    createSipMediaApplicationCallResponse_httpStatus,
-
-    -- ** BatchDeletePhoneNumber
-    batchDeletePhoneNumber_phoneNumberIds,
-    batchDeletePhoneNumberResponse_phoneNumberErrors,
-    batchDeletePhoneNumberResponse_httpStatus,
-
-    -- ** ListSipMediaApplications
-    listSipMediaApplications_nextToken,
-    listSipMediaApplications_maxResults,
-    listSipMediaApplicationsResponse_nextToken,
-    listSipMediaApplicationsResponse_sipMediaApplications,
-    listSipMediaApplicationsResponse_httpStatus,
-
-    -- ** CreateMeeting
-    createMeeting_mediaRegion,
-    createMeeting_meetingHostId,
-    createMeeting_notificationsConfiguration,
-    createMeeting_externalMeetingId,
-    createMeeting_tags,
-    createMeeting_clientRequestToken,
-    createMeetingResponse_meeting,
-    createMeetingResponse_httpStatus,
-
-    -- ** CreatePhoneNumberOrder
-    createPhoneNumberOrder_productType,
-    createPhoneNumberOrder_e164PhoneNumbers,
-    createPhoneNumberOrderResponse_phoneNumberOrder,
-    createPhoneNumberOrderResponse_httpStatus,
-
-    -- ** ListSipRules
-    listSipRules_nextToken,
-    listSipRules_maxResults,
-    listSipRules_sipMediaApplicationId,
-    listSipRulesResponse_nextToken,
-    listSipRulesResponse_sipRules,
-    listSipRulesResponse_httpStatus,
-
-    -- ** CreateBot
-    createBot_domain,
-    createBot_displayName,
-    createBot_accountId,
-    createBotResponse_bot,
-    createBotResponse_httpStatus,
-
-    -- ** UpdateUserSettings
-    updateUserSettings_accountId,
-    updateUserSettings_userId,
-    updateUserSettings_userSettings,
-
-    -- ** CreateUser
-    createUser_email,
-    createUser_username,
-    createUser_userType,
-    createUser_accountId,
-    createUserResponse_user,
-    createUserResponse_httpStatus,
-
-    -- ** BatchCreateRoomMembership
-    batchCreateRoomMembership_accountId,
-    batchCreateRoomMembership_roomId,
-    batchCreateRoomMembership_membershipItemList,
-    batchCreateRoomMembershipResponse_errors,
-    batchCreateRoomMembershipResponse_httpStatus,
-
-    -- ** DescribeAppInstance
-    describeAppInstance_appInstanceArn,
-    describeAppInstanceResponse_appInstance,
-    describeAppInstanceResponse_httpStatus,
-
-    -- ** CreateAccount
-    createAccount_name,
-    createAccountResponse_account,
-    createAccountResponse_httpStatus,
-
-    -- ** CreateChannelMembership
-    createChannelMembership_chimeBearer,
-    createChannelMembership_channelArn,
-    createChannelMembership_memberArn,
-    createChannelMembership_type,
-    createChannelMembershipResponse_channelArn,
-    createChannelMembershipResponse_member,
-    createChannelMembershipResponse_httpStatus,
-
-    -- ** DeleteVoiceConnectorTermination
-    deleteVoiceConnectorTermination_voiceConnectorId,
-
-    -- ** AssociatePhoneNumberWithUser
-    associatePhoneNumberWithUser_accountId,
-    associatePhoneNumberWithUser_userId,
-    associatePhoneNumberWithUser_e164PhoneNumber,
-    associatePhoneNumberWithUserResponse_httpStatus,
-
-    -- ** DeleteVoiceConnectorProxy
-    deleteVoiceConnectorProxy_voiceConnectorId,
-
-    -- ** CreateSipMediaApplication
-    createSipMediaApplication_awsRegion,
-    createSipMediaApplication_name,
-    createSipMediaApplication_endpoints,
-    createSipMediaApplicationResponse_sipMediaApplication,
-    createSipMediaApplicationResponse_httpStatus,
-
-    -- ** PutVoiceConnectorProxy
-    putVoiceConnectorProxy_disabled,
-    putVoiceConnectorProxy_fallBackPhoneNumber,
-    putVoiceConnectorProxy_defaultSessionExpiryMinutes,
-    putVoiceConnectorProxy_phoneNumberPoolCountries,
-    putVoiceConnectorProxy_voiceConnectorId,
-    putVoiceConnectorProxyResponse_proxy,
-    putVoiceConnectorProxyResponse_httpStatus,
-
-    -- ** UpdateUser
-    updateUser_licenseType,
-    updateUser_userType,
-    updateUser_alexaForBusinessMetadata,
-    updateUser_accountId,
-    updateUser_userId,
-    updateUserResponse_user,
-    updateUserResponse_httpStatus,
-
-    -- ** PutVoiceConnectorTermination
-    putVoiceConnectorTermination_voiceConnectorId,
-    putVoiceConnectorTermination_termination,
-    putVoiceConnectorTerminationResponse_termination,
-    putVoiceConnectorTerminationResponse_httpStatus,
-
-    -- ** GetVoiceConnectorEmergencyCallingConfiguration
-    getVoiceConnectorEmergencyCallingConfiguration_voiceConnectorId,
-    getVoiceConnectorEmergencyCallingConfigurationResponse_emergencyCallingConfiguration,
-    getVoiceConnectorEmergencyCallingConfigurationResponse_httpStatus,
-
-    -- ** PutVoiceConnectorTerminationCredentials
-    putVoiceConnectorTerminationCredentials_credentials,
-    putVoiceConnectorTerminationCredentials_voiceConnectorId,
-
-    -- ** ListAppInstanceUsers
-    listAppInstanceUsers_nextToken,
-    listAppInstanceUsers_maxResults,
-    listAppInstanceUsers_appInstanceArn,
-    listAppInstanceUsersResponse_nextToken,
-    listAppInstanceUsersResponse_appInstanceUsers,
-    listAppInstanceUsersResponse_appInstanceArn,
-    listAppInstanceUsersResponse_httpStatus,
-
-    -- ** AssociateSigninDelegateGroupsWithAccount
-    associateSigninDelegateGroupsWithAccount_accountId,
-    associateSigninDelegateGroupsWithAccount_signinDelegateGroups,
-    associateSigninDelegateGroupsWithAccountResponse_httpStatus,
-
-    -- ** CreateSipRule
-    createSipRule_disabled,
-    createSipRule_name,
-    createSipRule_triggerType,
-    createSipRule_triggerValue,
-    createSipRule_targetApplications,
-    createSipRuleResponse_sipRule,
-    createSipRuleResponse_httpStatus,
-
-    -- ** DeleteVoiceConnectorTerminationCredentials
-    deleteVoiceConnectorTerminationCredentials_usernames,
-    deleteVoiceConnectorTerminationCredentials_voiceConnectorId,
-
-    -- ** TagResource
-    tagResource_resourceARN,
-    tagResource_tags,
-
-    -- ** DeleteAppInstanceUser
-    deleteAppInstanceUser_appInstanceUserArn,
+    -- ** UpdateAppInstance
+    updateAppInstance_metadata,
+    updateAppInstance_appInstanceArn,
+    updateAppInstance_name,
+    updateAppInstanceResponse_appInstanceArn,
+    updateAppInstanceResponse_httpStatus,
 
     -- ** UpdateAppInstanceUser
     updateAppInstanceUser_metadata,
@@ -985,169 +1099,21 @@ module Amazonka.Chime.Lens
     updateAppInstanceUserResponse_appInstanceUserArn,
     updateAppInstanceUserResponse_httpStatus,
 
-    -- ** UntagMeeting
-    untagMeeting_meetingId,
-    untagMeeting_tagKeys,
+    -- ** UpdateBot
+    updateBot_disabled,
+    updateBot_accountId,
+    updateBot_botId,
+    updateBotResponse_bot,
+    updateBotResponse_httpStatus,
 
-    -- ** UpdateVoiceConnectorGroup
-    updateVoiceConnectorGroup_voiceConnectorGroupId,
-    updateVoiceConnectorGroup_name,
-    updateVoiceConnectorGroup_voiceConnectorItems,
-    updateVoiceConnectorGroupResponse_voiceConnectorGroup,
-    updateVoiceConnectorGroupResponse_httpStatus,
-
-    -- ** RedactConversationMessage
-    redactConversationMessage_accountId,
-    redactConversationMessage_conversationId,
-    redactConversationMessage_messageId,
-    redactConversationMessageResponse_httpStatus,
-
-    -- ** DeleteChannelModerator
-    deleteChannelModerator_chimeBearer,
-    deleteChannelModerator_channelArn,
-    deleteChannelModerator_channelModeratorArn,
-
-    -- ** DeleteVoiceConnectorGroup
-    deleteVoiceConnectorGroup_voiceConnectorGroupId,
-
-    -- ** DescribeChannelBan
-    describeChannelBan_chimeBearer,
-    describeChannelBan_channelArn,
-    describeChannelBan_memberArn,
-    describeChannelBanResponse_channelBan,
-    describeChannelBanResponse_httpStatus,
-
-    -- ** DeleteMediaCapturePipeline
-    deleteMediaCapturePipeline_mediaPipelineId,
-
-    -- ** UpdateProxySession
-    updateProxySession_expiryMinutes,
-    updateProxySession_capabilities,
-    updateProxySession_voiceConnectorId,
-    updateProxySession_proxySessionId,
-    updateProxySessionResponse_proxySession,
-    updateProxySessionResponse_httpStatus,
-
-    -- ** DeleteProxySession
-    deleteProxySession_voiceConnectorId,
-    deleteProxySession_proxySessionId,
-
-    -- ** GetVoiceConnectorTerminationHealth
-    getVoiceConnectorTerminationHealth_voiceConnectorId,
-    getVoiceConnectorTerminationHealthResponse_terminationHealth,
-    getVoiceConnectorTerminationHealthResponse_httpStatus,
-
-    -- ** CreateMeetingDialOut
-    createMeetingDialOut_meetingId,
-    createMeetingDialOut_fromPhoneNumber,
-    createMeetingDialOut_toPhoneNumber,
-    createMeetingDialOut_joinToken,
-    createMeetingDialOutResponse_transactionId,
-    createMeetingDialOutResponse_httpStatus,
-
-    -- ** UntagResource
-    untagResource_resourceARN,
-    untagResource_tagKeys,
-
-    -- ** ListProxySessions
-    listProxySessions_status,
-    listProxySessions_nextToken,
-    listProxySessions_maxResults,
-    listProxySessions_voiceConnectorId,
-    listProxySessionsResponse_nextToken,
-    listProxySessionsResponse_proxySessions,
-    listProxySessionsResponse_httpStatus,
-
-    -- ** ListMediaCapturePipelines
-    listMediaCapturePipelines_nextToken,
-    listMediaCapturePipelines_maxResults,
-    listMediaCapturePipelinesResponse_nextToken,
-    listMediaCapturePipelinesResponse_mediaCapturePipelines,
-    listMediaCapturePipelinesResponse_httpStatus,
-
-    -- ** UpdatePhoneNumberSettings
-    updatePhoneNumberSettings_callingName,
-
-    -- ** InviteUsers
-    inviteUsers_userType,
-    inviteUsers_accountId,
-    inviteUsers_userEmailList,
-    inviteUsersResponse_invites,
-    inviteUsersResponse_httpStatus,
-
-    -- ** CreateRoom
-    createRoom_clientRequestToken,
-    createRoom_accountId,
-    createRoom_name,
-    createRoomResponse_room,
-    createRoomResponse_httpStatus,
-
-    -- ** ListChannelModerators
-    listChannelModerators_chimeBearer,
-    listChannelModerators_nextToken,
-    listChannelModerators_maxResults,
-    listChannelModerators_channelArn,
-    listChannelModeratorsResponse_channelArn,
-    listChannelModeratorsResponse_nextToken,
-    listChannelModeratorsResponse_channelModerators,
-    listChannelModeratorsResponse_httpStatus,
-
-    -- ** GetVoiceConnector
-    getVoiceConnector_voiceConnectorId,
-    getVoiceConnectorResponse_voiceConnector,
-    getVoiceConnectorResponse_httpStatus,
-
-    -- ** DescribeChannel
-    describeChannel_chimeBearer,
-    describeChannel_channelArn,
-    describeChannelResponse_channel,
-    describeChannelResponse_httpStatus,
-
-    -- ** CreateVoiceConnectorGroup
-    createVoiceConnectorGroup_voiceConnectorItems,
-    createVoiceConnectorGroup_name,
-    createVoiceConnectorGroupResponse_voiceConnectorGroup,
-    createVoiceConnectorGroupResponse_httpStatus,
-
-    -- ** DeleteAppInstanceStreamingConfigurations
-    deleteAppInstanceStreamingConfigurations_appInstanceArn,
-
-    -- ** ListRooms
-    listRooms_memberId,
-    listRooms_nextToken,
-    listRooms_maxResults,
-    listRooms_accountId,
-    listRoomsResponse_rooms,
-    listRoomsResponse_nextToken,
-    listRoomsResponse_httpStatus,
-
-    -- ** BatchCreateAttendee
-    batchCreateAttendee_meetingId,
-    batchCreateAttendee_attendees,
-    batchCreateAttendeeResponse_attendees,
-    batchCreateAttendeeResponse_errors,
-    batchCreateAttendeeResponse_httpStatus,
-
-    -- ** DeleteAppInstanceAdmin
-    deleteAppInstanceAdmin_appInstanceAdminArn,
-    deleteAppInstanceAdmin_appInstanceArn,
-
-    -- ** PutAppInstanceStreamingConfigurations
-    putAppInstanceStreamingConfigurations_appInstanceArn,
-    putAppInstanceStreamingConfigurations_appInstanceStreamingConfigurations,
-    putAppInstanceStreamingConfigurationsResponse_appInstanceStreamingConfigurations,
-    putAppInstanceStreamingConfigurationsResponse_httpStatus,
-
-    -- ** RegenerateSecurityToken
-    regenerateSecurityToken_accountId,
-    regenerateSecurityToken_botId,
-    regenerateSecurityTokenResponse_bot,
-    regenerateSecurityTokenResponse_httpStatus,
-
-    -- ** DeleteChannelMessage
-    deleteChannelMessage_chimeBearer,
-    deleteChannelMessage_channelArn,
-    deleteChannelMessage_messageId,
+    -- ** UpdateChannel
+    updateChannel_chimeBearer,
+    updateChannel_metadata,
+    updateChannel_channelArn,
+    updateChannel_name,
+    updateChannel_mode,
+    updateChannelResponse_channelArn,
+    updateChannelResponse_httpStatus,
 
     -- ** UpdateChannelMessage
     updateChannelMessage_chimeBearer,
@@ -1159,92 +1125,152 @@ module Amazonka.Chime.Lens
     updateChannelMessageResponse_messageId,
     updateChannelMessageResponse_httpStatus,
 
-    -- ** DeleteAppInstance
-    deleteAppInstance_appInstanceArn,
+    -- ** UpdateChannelReadMarker
+    updateChannelReadMarker_chimeBearer,
+    updateChannelReadMarker_channelArn,
+    updateChannelReadMarkerResponse_channelArn,
+    updateChannelReadMarkerResponse_httpStatus,
 
-    -- ** UpdateAppInstance
-    updateAppInstance_metadata,
-    updateAppInstance_appInstanceArn,
-    updateAppInstance_name,
-    updateAppInstanceResponse_appInstanceArn,
-    updateAppInstanceResponse_httpStatus,
+    -- ** UpdateGlobalSettings
+    updateGlobalSettings_businessCalling,
+    updateGlobalSettings_voiceConnector,
 
-    -- ** CreateVoiceConnector
-    createVoiceConnector_awsRegion,
-    createVoiceConnector_name,
-    createVoiceConnector_requireEncryption,
-    createVoiceConnectorResponse_voiceConnector,
-    createVoiceConnectorResponse_httpStatus,
+    -- ** UpdatePhoneNumber
+    updatePhoneNumber_callingName,
+    updatePhoneNumber_productType,
+    updatePhoneNumber_phoneNumberId,
+    updatePhoneNumberResponse_phoneNumber,
+    updatePhoneNumberResponse_httpStatus,
 
-    -- ** ListChannelMessages
-    listChannelMessages_chimeBearer,
-    listChannelMessages_nextToken,
-    listChannelMessages_notBefore,
-    listChannelMessages_sortOrder,
-    listChannelMessages_maxResults,
-    listChannelMessages_notAfter,
-    listChannelMessages_channelArn,
-    listChannelMessagesResponse_channelArn,
-    listChannelMessagesResponse_nextToken,
-    listChannelMessagesResponse_channelMessages,
-    listChannelMessagesResponse_httpStatus,
+    -- ** UpdatePhoneNumberSettings
+    updatePhoneNumberSettings_callingName,
 
-    -- ** RedactRoomMessage
-    redactRoomMessage_accountId,
-    redactRoomMessage_roomId,
-    redactRoomMessage_messageId,
-    redactRoomMessageResponse_httpStatus,
+    -- ** UpdateProxySession
+    updateProxySession_expiryMinutes,
+    updateProxySession_capabilities,
+    updateProxySession_voiceConnectorId,
+    updateProxySession_proxySessionId,
+    updateProxySessionResponse_proxySession,
+    updateProxySessionResponse_httpStatus,
 
-    -- ** GetRoom
-    getRoom_accountId,
-    getRoom_roomId,
-    getRoomResponse_room,
-    getRoomResponse_httpStatus,
+    -- ** UpdateRoom
+    updateRoom_name,
+    updateRoom_accountId,
+    updateRoom_roomId,
+    updateRoomResponse_room,
+    updateRoomResponse_httpStatus,
 
-    -- ** CreateRoomMembership
-    createRoomMembership_role,
-    createRoomMembership_accountId,
-    createRoomMembership_roomId,
-    createRoomMembership_memberId,
-    createRoomMembershipResponse_roomMembership,
-    createRoomMembershipResponse_httpStatus,
+    -- ** UpdateRoomMembership
+    updateRoomMembership_role,
+    updateRoomMembership_accountId,
+    updateRoomMembership_roomId,
+    updateRoomMembership_memberId,
+    updateRoomMembershipResponse_roomMembership,
+    updateRoomMembershipResponse_httpStatus,
 
-    -- ** BatchCreateChannelMembership
-    batchCreateChannelMembership_chimeBearer,
-    batchCreateChannelMembership_type,
-    batchCreateChannelMembership_channelArn,
-    batchCreateChannelMembership_memberArns,
-    batchCreateChannelMembershipResponse_errors,
-    batchCreateChannelMembershipResponse_batchChannelMemberships,
-    batchCreateChannelMembershipResponse_httpStatus,
+    -- ** UpdateSipMediaApplication
+    updateSipMediaApplication_endpoints,
+    updateSipMediaApplication_name,
+    updateSipMediaApplication_sipMediaApplicationId,
+    updateSipMediaApplicationResponse_sipMediaApplication,
+    updateSipMediaApplicationResponse_httpStatus,
+
+    -- ** UpdateSipMediaApplicationCall
+    updateSipMediaApplicationCall_sipMediaApplicationId,
+    updateSipMediaApplicationCall_transactionId,
+    updateSipMediaApplicationCall_arguments,
+    updateSipMediaApplicationCallResponse_sipMediaApplicationCall,
+    updateSipMediaApplicationCallResponse_httpStatus,
+
+    -- ** UpdateSipRule
+    updateSipRule_disabled,
+    updateSipRule_targetApplications,
+    updateSipRule_sipRuleId,
+    updateSipRule_name,
+    updateSipRuleResponse_sipRule,
+    updateSipRuleResponse_httpStatus,
+
+    -- ** UpdateUser
+    updateUser_alexaForBusinessMetadata,
+    updateUser_licenseType,
+    updateUser_userType,
+    updateUser_accountId,
+    updateUser_userId,
+    updateUserResponse_user,
+    updateUserResponse_httpStatus,
+
+    -- ** UpdateUserSettings
+    updateUserSettings_accountId,
+    updateUserSettings_userId,
+    updateUserSettings_userSettings,
+
+    -- ** UpdateVoiceConnector
+    updateVoiceConnector_voiceConnectorId,
+    updateVoiceConnector_name,
+    updateVoiceConnector_requireEncryption,
+    updateVoiceConnectorResponse_voiceConnector,
+    updateVoiceConnectorResponse_httpStatus,
+
+    -- ** UpdateVoiceConnectorGroup
+    updateVoiceConnectorGroup_voiceConnectorGroupId,
+    updateVoiceConnectorGroup_name,
+    updateVoiceConnectorGroup_voiceConnectorItems,
+    updateVoiceConnectorGroupResponse_voiceConnectorGroup,
+    updateVoiceConnectorGroupResponse_httpStatus,
+
+    -- ** ValidateE911Address
+    validateE911Address_awsAccountId,
+    validateE911Address_streetNumber,
+    validateE911Address_streetInfo,
+    validateE911Address_city,
+    validateE911Address_state,
+    validateE911Address_country,
+    validateE911Address_postalCode,
+    validateE911AddressResponse_address,
+    validateE911AddressResponse_addressExternalId,
+    validateE911AddressResponse_candidateAddressList,
+    validateE911AddressResponse_validationResult,
+    validateE911AddressResponse_httpStatus,
 
     -- * Types
 
     -- ** Account
-    account_signinDelegateGroups,
     account_accountStatus,
-    account_defaultLicense,
-    account_supportedLicenses,
-    account_createdTimestamp,
     account_accountType,
+    account_createdTimestamp,
+    account_defaultLicense,
+    account_signinDelegateGroups,
+    account_supportedLicenses,
     account_awsAccountId,
     account_accountId,
     account_name,
 
     -- ** AccountSettings
-    accountSettings_enableDialOut,
     accountSettings_disableRemoteControl,
+    accountSettings_enableDialOut,
+
+    -- ** Address
+    address_city,
+    address_country,
+    address_postDirectional,
+    address_postalCode,
+    address_postalCodePlus4,
+    address_preDirectional,
+    address_state,
+    address_streetName,
+    address_streetNumber,
+    address_streetSuffix,
 
     -- ** AlexaForBusinessMetadata
     alexaForBusinessMetadata_alexaForBusinessRoomArn,
     alexaForBusinessMetadata_isAlexaForBusinessEnabled,
 
     -- ** AppInstance
-    appInstance_name,
-    appInstance_metadata,
     appInstance_appInstanceArn,
     appInstance_createdTimestamp,
     appInstance_lastUpdatedTimestamp,
+    appInstance_metadata,
+    appInstance_name,
 
     -- ** AppInstanceAdmin
     appInstanceAdmin_admin,
@@ -1262,16 +1288,16 @@ module Amazonka.Chime.Lens
     appInstanceStreamingConfiguration_resourceArn,
 
     -- ** AppInstanceSummary
-    appInstanceSummary_name,
-    appInstanceSummary_metadata,
     appInstanceSummary_appInstanceArn,
+    appInstanceSummary_metadata,
+    appInstanceSummary_name,
 
     -- ** AppInstanceUser
     appInstanceUser_appInstanceUserArn,
-    appInstanceUser_name,
-    appInstanceUser_metadata,
     appInstanceUser_createdTimestamp,
     appInstanceUser_lastUpdatedTimestamp,
+    appInstanceUser_metadata,
+    appInstanceUser_name,
 
     -- ** AppInstanceUserMembershipSummary
     appInstanceUserMembershipSummary_readMarkerTimestamp,
@@ -1279,8 +1305,8 @@ module Amazonka.Chime.Lens
 
     -- ** AppInstanceUserSummary
     appInstanceUserSummary_appInstanceUserArn,
-    appInstanceUserSummary_name,
     appInstanceUserSummary_metadata,
+    appInstanceUserSummary_name,
 
     -- ** ArtifactsConfiguration
     artifactsConfiguration_audio,
@@ -1289,64 +1315,73 @@ module Amazonka.Chime.Lens
 
     -- ** Attendee
     attendee_attendeeId,
-    attendee_joinToken,
     attendee_externalUserId,
+    attendee_joinToken,
 
     -- ** AudioArtifactsConfiguration
     audioArtifactsConfiguration_muxType,
 
     -- ** BatchChannelMemberships
-    batchChannelMemberships_members,
     batchChannelMemberships_channelArn,
-    batchChannelMemberships_type,
     batchChannelMemberships_invitedBy,
+    batchChannelMemberships_members,
+    batchChannelMemberships_type,
 
     -- ** BatchCreateChannelMembershipError
     batchCreateChannelMembershipError_errorCode,
-    batchCreateChannelMembershipError_memberArn,
     batchCreateChannelMembershipError_errorMessage,
+    batchCreateChannelMembershipError_memberArn,
 
     -- ** Bot
-    bot_securityToken,
+    bot_botEmail,
+    bot_botId,
+    bot_botType,
+    bot_createdTimestamp,
     bot_disabled,
+    bot_displayName,
+    bot_securityToken,
     bot_updatedTimestamp,
     bot_userId,
-    bot_botId,
-    bot_displayName,
-    bot_botEmail,
-    bot_createdTimestamp,
-    bot_botType,
 
     -- ** BusinessCallingSettings
     businessCallingSettings_cdrBucket,
 
+    -- ** CandidateAddress
+    candidateAddress_city,
+    candidateAddress_country,
+    candidateAddress_postalCode,
+    candidateAddress_postalCodePlus4,
+    candidateAddress_state,
+    candidateAddress_streetInfo,
+    candidateAddress_streetNumber,
+
     -- ** Channel
-    channel_mode,
-    channel_createdBy,
     channel_channelArn,
-    channel_privacy,
-    channel_lastMessageTimestamp,
-    channel_name,
-    channel_metadata,
+    channel_createdBy,
     channel_createdTimestamp,
+    channel_lastMessageTimestamp,
     channel_lastUpdatedTimestamp,
+    channel_metadata,
+    channel_mode,
+    channel_name,
+    channel_privacy,
 
     -- ** ChannelBan
-    channelBan_createdBy,
     channelBan_channelArn,
-    channelBan_member,
+    channelBan_createdBy,
     channelBan_createdTimestamp,
+    channelBan_member,
 
     -- ** ChannelBanSummary
     channelBanSummary_member,
 
     -- ** ChannelMembership
     channelMembership_channelArn,
+    channelMembership_createdTimestamp,
+    channelMembership_invitedBy,
+    channelMembership_lastUpdatedTimestamp,
     channelMembership_member,
     channelMembership_type,
-    channelMembership_invitedBy,
-    channelMembership_createdTimestamp,
-    channelMembership_lastUpdatedTimestamp,
 
     -- ** ChannelMembershipForAppInstanceUserSummary
     channelMembershipForAppInstanceUserSummary_appInstanceUserMembershipSummary,
@@ -1356,35 +1391,35 @@ module Amazonka.Chime.Lens
     channelMembershipSummary_member,
 
     -- ** ChannelMessage
-    channelMessage_sender,
     channelMessage_channelArn,
     channelMessage_content,
-    channelMessage_redacted,
-    channelMessage_persistence,
-    channelMessage_metadata,
-    channelMessage_type,
     channelMessage_createdTimestamp,
-    channelMessage_messageId,
-    channelMessage_lastUpdatedTimestamp,
     channelMessage_lastEditedTimestamp,
+    channelMessage_lastUpdatedTimestamp,
+    channelMessage_messageId,
+    channelMessage_metadata,
+    channelMessage_persistence,
+    channelMessage_redacted,
+    channelMessage_sender,
+    channelMessage_type,
 
     -- ** ChannelMessageSummary
-    channelMessageSummary_sender,
     channelMessageSummary_content,
-    channelMessageSummary_redacted,
-    channelMessageSummary_metadata,
-    channelMessageSummary_type,
     channelMessageSummary_createdTimestamp,
-    channelMessageSummary_messageId,
-    channelMessageSummary_lastUpdatedTimestamp,
     channelMessageSummary_lastEditedTimestamp,
+    channelMessageSummary_lastUpdatedTimestamp,
+    channelMessageSummary_messageId,
+    channelMessageSummary_metadata,
+    channelMessageSummary_redacted,
+    channelMessageSummary_sender,
+    channelMessageSummary_type,
 
     -- ** ChannelModeratedByAppInstanceUserSummary
     channelModeratedByAppInstanceUserSummary_channelSummary,
 
     -- ** ChannelModerator
-    channelModerator_createdBy,
     channelModerator_channelArn,
+    channelModerator_createdBy,
     channelModerator_createdTimestamp,
     channelModerator_moderator,
 
@@ -1395,12 +1430,12 @@ module Amazonka.Chime.Lens
     channelRetentionSettings_retentionDays,
 
     -- ** ChannelSummary
-    channelSummary_mode,
     channelSummary_channelArn,
-    channelSummary_privacy,
     channelSummary_lastMessageTimestamp,
-    channelSummary_name,
     channelSummary_metadata,
+    channelSummary_mode,
+    channelSummary_name,
+    channelSummary_privacy,
 
     -- ** ChimeSdkMeetingConfiguration
     chimeSdkMeetingConfiguration_artifactsConfiguration,
@@ -1423,8 +1458,8 @@ module Amazonka.Chime.Lens
     createAttendeeRequestItem_externalUserId,
 
     -- ** Credential
-    credential_username,
     credential_password,
+    credential_username,
 
     -- ** DNISEmergencyCallingConfiguration
     dNISEmergencyCallingConfiguration_testPhoneNumber,
@@ -1435,22 +1470,29 @@ module Amazonka.Chime.Lens
     emergencyCallingConfiguration_dnis,
 
     -- ** EngineTranscribeMedicalSettings
-    engineTranscribeMedicalSettings_vocabularyName,
+    engineTranscribeMedicalSettings_contentIdentificationType,
     engineTranscribeMedicalSettings_region,
+    engineTranscribeMedicalSettings_vocabularyName,
     engineTranscribeMedicalSettings_languageCode,
     engineTranscribeMedicalSettings_specialty,
     engineTranscribeMedicalSettings_type,
 
     -- ** EngineTranscribeSettings
-    engineTranscribeSettings_vocabularyName,
-    engineTranscribeSettings_vocabularyFilterName,
-    engineTranscribeSettings_vocabularyFilterMethod,
+    engineTranscribeSettings_contentIdentificationType,
+    engineTranscribeSettings_contentRedactionType,
+    engineTranscribeSettings_enablePartialResultsStabilization,
+    engineTranscribeSettings_languageModelName,
+    engineTranscribeSettings_partialResultsStability,
+    engineTranscribeSettings_piiEntityTypes,
     engineTranscribeSettings_region,
+    engineTranscribeSettings_vocabularyFilterMethod,
+    engineTranscribeSettings_vocabularyFilterName,
+    engineTranscribeSettings_vocabularyName,
     engineTranscribeSettings_languageCode,
 
     -- ** EventsConfiguration
-    eventsConfiguration_lambdaFunctionArn,
     eventsConfiguration_botId,
+    eventsConfiguration_lambdaFunctionArn,
     eventsConfiguration_outboundEventsHTTPSEndpoint,
 
     -- ** GeoMatchParams
@@ -1462,39 +1504,40 @@ module Amazonka.Chime.Lens
     identity_name,
 
     -- ** Invite
-    invite_status,
+    invite_emailAddress,
     invite_emailStatus,
     invite_inviteId,
-    invite_emailAddress,
+    invite_status,
 
     -- ** LoggingConfiguration
+    loggingConfiguration_enableMediaMetricLogs,
     loggingConfiguration_enableSIPLogs,
 
     -- ** MediaCapturePipeline
-    mediaCapturePipeline_status,
-    mediaCapturePipeline_sourceType,
-    mediaCapturePipeline_sourceArn,
-    mediaCapturePipeline_updatedTimestamp,
-    mediaCapturePipeline_sinkType,
     mediaCapturePipeline_chimeSdkMeetingConfiguration,
-    mediaCapturePipeline_sinkArn,
-    mediaCapturePipeline_mediaPipelineId,
     mediaCapturePipeline_createdTimestamp,
+    mediaCapturePipeline_mediaPipelineId,
+    mediaCapturePipeline_sinkArn,
+    mediaCapturePipeline_sinkType,
+    mediaCapturePipeline_sourceArn,
+    mediaCapturePipeline_sourceType,
+    mediaCapturePipeline_status,
+    mediaCapturePipeline_updatedTimestamp,
 
     -- ** MediaPlacement
-    mediaPlacement_screenDataUrl,
+    mediaPlacement_audioFallbackUrl,
+    mediaPlacement_audioHostUrl,
     mediaPlacement_eventIngestionUrl,
-    mediaPlacement_signalingUrl,
+    mediaPlacement_screenDataUrl,
     mediaPlacement_screenSharingUrl,
     mediaPlacement_screenViewingUrl,
-    mediaPlacement_audioHostUrl,
-    mediaPlacement_audioFallbackUrl,
+    mediaPlacement_signalingUrl,
     mediaPlacement_turnControlUrl,
 
     -- ** Meeting
-    meeting_mediaRegion,
-    meeting_mediaPlacement,
     meeting_externalMeetingId,
+    meeting_mediaPlacement,
+    meeting_mediaRegion,
     meeting_meetingId,
 
     -- ** MeetingNotificationConfiguration
@@ -1502,16 +1545,16 @@ module Amazonka.Chime.Lens
     meetingNotificationConfiguration_sqsQueueArn,
 
     -- ** Member
-    member_fullName,
+    member_accountId,
     member_email,
+    member_fullName,
     member_memberId,
     member_memberType,
-    member_accountId,
 
     -- ** MemberError
-    memberError_memberId,
     memberError_errorCode,
     memberError_errorMessage,
+    memberError_memberId,
 
     -- ** MembershipItem
     membershipItem_memberId,
@@ -1521,68 +1564,68 @@ module Amazonka.Chime.Lens
     messagingSessionEndpoint_url,
 
     -- ** OrderedPhoneNumber
-    orderedPhoneNumber_status,
     orderedPhoneNumber_e164PhoneNumber,
+    orderedPhoneNumber_status,
 
     -- ** Origination
-    origination_routes,
     origination_disabled,
+    origination_routes,
 
     -- ** OriginationRoute
-    originationRoute_priority,
-    originationRoute_weight,
-    originationRoute_protocol,
     originationRoute_host,
     originationRoute_port,
+    originationRoute_priority,
+    originationRoute_protocol,
+    originationRoute_weight,
 
     -- ** Participant
     participant_phoneNumber,
     participant_proxyPhoneNumber,
 
     -- ** PhoneNumber
-    phoneNumber_status,
-    phoneNumber_deletionTimestamp,
-    phoneNumber_phoneNumberId,
-    phoneNumber_country,
-    phoneNumber_updatedTimestamp,
-    phoneNumber_productType,
-    phoneNumber_e164PhoneNumber,
     phoneNumber_associations,
     phoneNumber_callingName,
-    phoneNumber_type,
-    phoneNumber_createdTimestamp,
-    phoneNumber_capabilities,
     phoneNumber_callingNameStatus,
+    phoneNumber_capabilities,
+    phoneNumber_country,
+    phoneNumber_createdTimestamp,
+    phoneNumber_deletionTimestamp,
+    phoneNumber_e164PhoneNumber,
+    phoneNumber_phoneNumberId,
+    phoneNumber_productType,
+    phoneNumber_status,
+    phoneNumber_type,
+    phoneNumber_updatedTimestamp,
 
     -- ** PhoneNumberAssociation
-    phoneNumberAssociation_value,
     phoneNumberAssociation_associatedTimestamp,
     phoneNumberAssociation_name,
+    phoneNumberAssociation_value,
 
     -- ** PhoneNumberCapabilities
-    phoneNumberCapabilities_outboundMMS,
     phoneNumberCapabilities_inboundCall,
-    phoneNumberCapabilities_inboundSMS,
     phoneNumberCapabilities_inboundMMS,
+    phoneNumberCapabilities_inboundSMS,
     phoneNumberCapabilities_outboundCall,
+    phoneNumberCapabilities_outboundMMS,
     phoneNumberCapabilities_outboundSMS,
 
     -- ** PhoneNumberCountry
-    phoneNumberCountry_supportedPhoneNumberTypes,
     phoneNumberCountry_countryCode,
+    phoneNumberCountry_supportedPhoneNumberTypes,
 
     -- ** PhoneNumberError
-    phoneNumberError_phoneNumberId,
     phoneNumberError_errorCode,
     phoneNumberError_errorMessage,
+    phoneNumberError_phoneNumberId,
 
     -- ** PhoneNumberOrder
-    phoneNumberOrder_status,
-    phoneNumberOrder_orderedPhoneNumbers,
-    phoneNumberOrder_updatedTimestamp,
-    phoneNumberOrder_productType,
-    phoneNumberOrder_phoneNumberOrderId,
     phoneNumberOrder_createdTimestamp,
+    phoneNumberOrder_orderedPhoneNumbers,
+    phoneNumberOrder_phoneNumberOrderId,
+    phoneNumberOrder_productType,
+    phoneNumberOrder_status,
+    phoneNumberOrder_updatedTimestamp,
 
     -- ** Proxy
     proxy_defaultSessionExpiryMinutes,
@@ -1591,38 +1634,38 @@ module Amazonka.Chime.Lens
     proxy_phoneNumberCountries,
 
     -- ** ProxySession
-    proxySession_status,
-    proxySession_numberSelectionBehavior,
-    proxySession_geoMatchParams,
-    proxySession_expiryMinutes,
-    proxySession_endedTimestamp,
-    proxySession_updatedTimestamp,
-    proxySession_participants,
-    proxySession_name,
-    proxySession_proxySessionId,
-    proxySession_geoMatchLevel,
-    proxySession_voiceConnectorId,
-    proxySession_createdTimestamp,
     proxySession_capabilities,
+    proxySession_createdTimestamp,
+    proxySession_endedTimestamp,
+    proxySession_expiryMinutes,
+    proxySession_geoMatchLevel,
+    proxySession_geoMatchParams,
+    proxySession_name,
+    proxySession_numberSelectionBehavior,
+    proxySession_participants,
+    proxySession_proxySessionId,
+    proxySession_status,
+    proxySession_updatedTimestamp,
+    proxySession_voiceConnectorId,
 
     -- ** RetentionSettings
-    retentionSettings_roomRetentionSettings,
     retentionSettings_conversationRetentionSettings,
+    retentionSettings_roomRetentionSettings,
 
     -- ** Room
-    room_updatedTimestamp,
-    room_createdBy,
     room_accountId,
+    room_createdBy,
+    room_createdTimestamp,
     room_name,
     room_roomId,
-    room_createdTimestamp,
+    room_updatedTimestamp,
 
     -- ** RoomMembership
-    roomMembership_updatedTimestamp,
+    roomMembership_invitedBy,
+    roomMembership_member,
     roomMembership_role,
     roomMembership_roomId,
-    roomMembership_member,
-    roomMembership_invitedBy,
+    roomMembership_updatedTimestamp,
 
     -- ** RoomRetentionSettings
     roomRetentionSettings_retentionDays,
@@ -1635,12 +1678,12 @@ module Amazonka.Chime.Lens
     signinDelegateGroup_groupName,
 
     -- ** SipMediaApplication
-    sipMediaApplication_updatedTimestamp,
-    sipMediaApplication_name,
     sipMediaApplication_awsRegion,
-    sipMediaApplication_endpoints,
     sipMediaApplication_createdTimestamp,
+    sipMediaApplication_endpoints,
+    sipMediaApplication_name,
     sipMediaApplication_sipMediaApplicationId,
+    sipMediaApplication_updatedTimestamp,
 
     -- ** SipMediaApplicationCall
     sipMediaApplicationCall_transactionId,
@@ -1652,18 +1695,18 @@ module Amazonka.Chime.Lens
     sipMediaApplicationLoggingConfiguration_enableSipMediaApplicationMessageLogs,
 
     -- ** SipRule
+    sipRule_createdTimestamp,
     sipRule_disabled,
+    sipRule_name,
+    sipRule_sipRuleId,
     sipRule_targetApplications,
     sipRule_triggerType,
-    sipRule_updatedTimestamp,
-    sipRule_name,
     sipRule_triggerValue,
-    sipRule_createdTimestamp,
-    sipRule_sipRuleId,
+    sipRule_updatedTimestamp,
 
     -- ** SipRuleTargetApplication
-    sipRuleTargetApplication_priority,
     sipRuleTargetApplication_awsRegion,
+    sipRuleTargetApplication_priority,
     sipRuleTargetApplication_sipMediaApplicationId,
 
     -- ** SourceConfiguration
@@ -1687,11 +1730,11 @@ module Amazonka.Chime.Lens
     telephonySettings_sms,
 
     -- ** Termination
+    termination_callingRegions,
+    termination_cidrAllowedList,
+    termination_cpsLimit,
     termination_defaultPhoneNumber,
     termination_disabled,
-    termination_callingRegions,
-    termination_cpsLimit,
-    termination_cidrAllowedList,
 
     -- ** TerminationHealth
     terminationHealth_source,
@@ -1702,35 +1745,35 @@ module Amazonka.Chime.Lens
     transcriptionConfiguration_engineTranscribeSettings,
 
     -- ** UpdatePhoneNumberRequestItem
-    updatePhoneNumberRequestItem_productType,
     updatePhoneNumberRequestItem_callingName,
+    updatePhoneNumberRequestItem_productType,
     updatePhoneNumberRequestItem_phoneNumberId,
 
     -- ** UpdateUserRequestItem
+    updateUserRequestItem_alexaForBusinessMetadata,
     updateUserRequestItem_licenseType,
     updateUserRequestItem_userType,
-    updateUserRequestItem_alexaForBusinessMetadata,
     updateUserRequestItem_userId,
 
     -- ** User
-    user_userInvitationStatus,
-    user_personalPIN,
-    user_primaryProvisionedNumber,
-    user_licenseType,
-    user_registeredOn,
     user_accountId,
-    user_userRegistrationStatus,
-    user_invitedOn,
-    user_displayName,
-    user_primaryEmail,
-    user_userType,
     user_alexaForBusinessMetadata,
+    user_displayName,
+    user_invitedOn,
+    user_licenseType,
+    user_personalPIN,
+    user_primaryEmail,
+    user_primaryProvisionedNumber,
+    user_registeredOn,
+    user_userInvitationStatus,
+    user_userRegistrationStatus,
+    user_userType,
     user_userId,
 
     -- ** UserError
-    userError_userId,
     userError_errorCode,
     userError_errorMessage,
+    userError_userId,
 
     -- ** UserSettings
     userSettings_telephony,
@@ -1740,22 +1783,22 @@ module Amazonka.Chime.Lens
     videoArtifactsConfiguration_state,
 
     -- ** VoiceConnector
-    voiceConnector_updatedTimestamp,
-    voiceConnector_outboundHostName,
-    voiceConnector_name,
-    voiceConnector_requireEncryption,
     voiceConnector_awsRegion,
-    voiceConnector_voiceConnectorId,
-    voiceConnector_voiceConnectorArn,
     voiceConnector_createdTimestamp,
+    voiceConnector_name,
+    voiceConnector_outboundHostName,
+    voiceConnector_requireEncryption,
+    voiceConnector_updatedTimestamp,
+    voiceConnector_voiceConnectorArn,
+    voiceConnector_voiceConnectorId,
 
     -- ** VoiceConnectorGroup
-    voiceConnectorGroup_voiceConnectorGroupId,
-    voiceConnectorGroup_updatedTimestamp,
-    voiceConnectorGroup_voiceConnectorItems,
-    voiceConnectorGroup_voiceConnectorGroupArn,
-    voiceConnectorGroup_name,
     voiceConnectorGroup_createdTimestamp,
+    voiceConnectorGroup_name,
+    voiceConnectorGroup_updatedTimestamp,
+    voiceConnectorGroup_voiceConnectorGroupArn,
+    voiceConnectorGroup_voiceConnectorGroupId,
+    voiceConnectorGroup_voiceConnectorItems,
 
     -- ** VoiceConnectorItem
     voiceConnectorItem_voiceConnectorId,
@@ -1934,6 +1977,7 @@ import Amazonka.Chime.TagMeeting
 import Amazonka.Chime.TagResource
 import Amazonka.Chime.Types.Account
 import Amazonka.Chime.Types.AccountSettings
+import Amazonka.Chime.Types.Address
 import Amazonka.Chime.Types.AlexaForBusinessMetadata
 import Amazonka.Chime.Types.AppInstance
 import Amazonka.Chime.Types.AppInstanceAdmin
@@ -1951,6 +1995,7 @@ import Amazonka.Chime.Types.BatchChannelMemberships
 import Amazonka.Chime.Types.BatchCreateChannelMembershipError
 import Amazonka.Chime.Types.Bot
 import Amazonka.Chime.Types.BusinessCallingSettings
+import Amazonka.Chime.Types.CandidateAddress
 import Amazonka.Chime.Types.Channel
 import Amazonka.Chime.Types.ChannelBan
 import Amazonka.Chime.Types.ChannelBanSummary
@@ -2053,3 +2098,4 @@ import Amazonka.Chime.UpdateUser
 import Amazonka.Chime.UpdateUserSettings
 import Amazonka.Chime.UpdateVoiceConnector
 import Amazonka.Chime.UpdateVoiceConnectorGroup
+import Amazonka.Chime.ValidateE911Address

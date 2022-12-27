@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ServerlessApplicationRepository.Types.ParameterValue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ServerlessApplicationRepository.Types.ParameterValue where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Parameter value of the application.
@@ -77,11 +78,11 @@ instance Prelude.NFData ParameterValue where
   rnf ParameterValue' {..} =
     Prelude.rnf value `Prelude.seq` Prelude.rnf name
 
-instance Core.ToJSON ParameterValue where
+instance Data.ToJSON ParameterValue where
   toJSON ParameterValue' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("value" Core..= value),
-            Prelude.Just ("name" Core..= name)
+          [ Prelude.Just ("value" Data..= value),
+            Prelude.Just ("name" Data..= name)
           ]
       )

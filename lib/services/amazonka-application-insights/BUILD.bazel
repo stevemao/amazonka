@@ -35,8 +35,10 @@ haskell_library(
         "gen/Amazonka/ApplicationInsights/Types/ConfigurationEvent.hs",
         "gen/Amazonka/ApplicationInsights/Types/ConfigurationEventResourceType.hs",
         "gen/Amazonka/ApplicationInsights/Types/ConfigurationEventStatus.hs",
+        "gen/Amazonka/ApplicationInsights/Types/DiscoveryType.hs",
         "gen/Amazonka/ApplicationInsights/Types/FeedbackKey.hs",
         "gen/Amazonka/ApplicationInsights/Types/FeedbackValue.hs",
+        "gen/Amazonka/ApplicationInsights/Types/GroupingType.hs",
         "gen/Amazonka/ApplicationInsights/Types/LogFilter.hs",
         "gen/Amazonka/ApplicationInsights/Types/LogPattern.hs",
         "gen/Amazonka/ApplicationInsights/Types/Observation.hs",
@@ -54,14 +56,13 @@ haskell_library(
         "gen/Amazonka/ApplicationInsights/UpdateLogPattern.hs",
         "gen/Amazonka/ApplicationInsights/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
         "-DVERSION_amazonka_application_insights=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -79,11 +80,12 @@ haskell_test(
         "test/Test/Amazonka/ApplicationInsights/Internal.hs",
         "test/Test/Amazonka/Gen/ApplicationInsights.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
         "-DVERSION_amazonka_application_insights=\"2.0\"",
         "-Wall",
         "-threaded",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Budgets.Types.ActionHistoryDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,10 +21,11 @@ module Amazonka.Budgets.Types.ActionHistoryDetails where
 
 import Amazonka.Budgets.Types.Action
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The description of details of the event.
+-- | The description of the details for the event.
 --
 -- /See:/ 'newActionHistoryDetails' smart constructor.
 data ActionHistoryDetails = ActionHistoryDetails'
@@ -65,14 +66,14 @@ actionHistoryDetails_message = Lens.lens (\ActionHistoryDetails' {message} -> me
 actionHistoryDetails_action :: Lens.Lens' ActionHistoryDetails Action
 actionHistoryDetails_action = Lens.lens (\ActionHistoryDetails' {action} -> action) (\s@ActionHistoryDetails' {} a -> s {action = a} :: ActionHistoryDetails)
 
-instance Core.FromJSON ActionHistoryDetails where
+instance Data.FromJSON ActionHistoryDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ActionHistoryDetails"
       ( \x ->
           ActionHistoryDetails'
-            Prelude.<$> (x Core..: "Message")
-            Prelude.<*> (x Core..: "Action")
+            Prelude.<$> (x Data..: "Message")
+            Prelude.<*> (x Data..: "Action")
       )
 
 instance Prelude.Hashable ActionHistoryDetails where

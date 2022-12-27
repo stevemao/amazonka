@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Batch.Types.NodeDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,21 @@
 module Amazonka.Batch.Types.NodeDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | An object representing the details of a multi-node parallel job node.
+-- | An object that represents the details of a multi-node parallel job node.
 --
 -- /See:/ 'newNodeDetails' smart constructor.
 data NodeDetails = NodeDetails'
-  { -- | The node index for the node. Node index numbering begins at zero. This
+  { -- | Specifies whether the current node is the main node for a multi-node
+    -- parallel job.
+    isMainNode :: Prelude.Maybe Prelude.Bool,
+    -- | The node index for the node. Node index numbering starts at zero. This
     -- index is also available on the node with the @AWS_BATCH_JOB_NODE_INDEX@
     -- environment variable.
-    nodeIndex :: Prelude.Maybe Prelude.Int,
-    -- | Specifies whether the current node is the main node for a multi-node
-    -- parallel job.
-    isMainNode :: Prelude.Maybe Prelude.Bool
+    nodeIndex :: Prelude.Maybe Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,47 +46,47 @@ data NodeDetails = NodeDetails'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nodeIndex', 'nodeDetails_nodeIndex' - The node index for the node. Node index numbering begins at zero. This
--- index is also available on the node with the @AWS_BATCH_JOB_NODE_INDEX@
--- environment variable.
---
 -- 'isMainNode', 'nodeDetails_isMainNode' - Specifies whether the current node is the main node for a multi-node
 -- parallel job.
+--
+-- 'nodeIndex', 'nodeDetails_nodeIndex' - The node index for the node. Node index numbering starts at zero. This
+-- index is also available on the node with the @AWS_BATCH_JOB_NODE_INDEX@
+-- environment variable.
 newNodeDetails ::
   NodeDetails
 newNodeDetails =
   NodeDetails'
-    { nodeIndex = Prelude.Nothing,
-      isMainNode = Prelude.Nothing
+    { isMainNode = Prelude.Nothing,
+      nodeIndex = Prelude.Nothing
     }
-
--- | The node index for the node. Node index numbering begins at zero. This
--- index is also available on the node with the @AWS_BATCH_JOB_NODE_INDEX@
--- environment variable.
-nodeDetails_nodeIndex :: Lens.Lens' NodeDetails (Prelude.Maybe Prelude.Int)
-nodeDetails_nodeIndex = Lens.lens (\NodeDetails' {nodeIndex} -> nodeIndex) (\s@NodeDetails' {} a -> s {nodeIndex = a} :: NodeDetails)
 
 -- | Specifies whether the current node is the main node for a multi-node
 -- parallel job.
 nodeDetails_isMainNode :: Lens.Lens' NodeDetails (Prelude.Maybe Prelude.Bool)
 nodeDetails_isMainNode = Lens.lens (\NodeDetails' {isMainNode} -> isMainNode) (\s@NodeDetails' {} a -> s {isMainNode = a} :: NodeDetails)
 
-instance Core.FromJSON NodeDetails where
+-- | The node index for the node. Node index numbering starts at zero. This
+-- index is also available on the node with the @AWS_BATCH_JOB_NODE_INDEX@
+-- environment variable.
+nodeDetails_nodeIndex :: Lens.Lens' NodeDetails (Prelude.Maybe Prelude.Int)
+nodeDetails_nodeIndex = Lens.lens (\NodeDetails' {nodeIndex} -> nodeIndex) (\s@NodeDetails' {} a -> s {nodeIndex = a} :: NodeDetails)
+
+instance Data.FromJSON NodeDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NodeDetails"
       ( \x ->
           NodeDetails'
-            Prelude.<$> (x Core..:? "nodeIndex")
-            Prelude.<*> (x Core..:? "isMainNode")
+            Prelude.<$> (x Data..:? "isMainNode")
+            Prelude.<*> (x Data..:? "nodeIndex")
       )
 
 instance Prelude.Hashable NodeDetails where
   hashWithSalt _salt NodeDetails' {..} =
-    _salt `Prelude.hashWithSalt` nodeIndex
-      `Prelude.hashWithSalt` isMainNode
+    _salt `Prelude.hashWithSalt` isMainNode
+      `Prelude.hashWithSalt` nodeIndex
 
 instance Prelude.NFData NodeDetails where
   rnf NodeDetails' {..} =
-    Prelude.rnf nodeIndex
-      `Prelude.seq` Prelude.rnf isMainNode
+    Prelude.rnf isMainNode
+      `Prelude.seq` Prelude.rnf nodeIndex

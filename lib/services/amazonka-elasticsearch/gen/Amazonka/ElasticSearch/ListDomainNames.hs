@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.ListDomainNames
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.ElasticSearch.ListDomainNames
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,12 +82,13 @@ instance Core.AWSRequest ListDomainNames where
   type
     AWSResponse ListDomainNames =
       ListDomainNamesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDomainNamesResponse'
-            Prelude.<$> (x Core..?> "DomainNames" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "DomainNames" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,15 +99,15 @@ instance Prelude.Hashable ListDomainNames where
 instance Prelude.NFData ListDomainNames where
   rnf ListDomainNames' {..} = Prelude.rnf engineType
 
-instance Core.ToHeaders ListDomainNames where
+instance Data.ToHeaders ListDomainNames where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListDomainNames where
+instance Data.ToPath ListDomainNames where
   toPath = Prelude.const "/2015-01-01/domain"
 
-instance Core.ToQuery ListDomainNames where
+instance Data.ToQuery ListDomainNames where
   toQuery ListDomainNames' {..} =
-    Prelude.mconcat ["engineType" Core.=: engineType]
+    Prelude.mconcat ["engineType" Data.=: engineType]
 
 -- | The result of a @ListDomainNames@ operation. Contains the names of all
 -- domains owned by this account and their respective engine types.

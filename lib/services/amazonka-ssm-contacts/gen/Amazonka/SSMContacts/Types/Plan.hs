@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSMContacts.Types.Plan
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSMContacts.Types.Plan where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSMContacts.Types.Stage
 
@@ -54,13 +55,13 @@ newPlan = Plan' {stages = Prelude.mempty}
 plan_stages :: Lens.Lens' Plan [Stage]
 plan_stages = Lens.lens (\Plan' {stages} -> stages) (\s@Plan' {} a -> s {stages = a} :: Plan) Prelude.. Lens.coerced
 
-instance Core.FromJSON Plan where
+instance Data.FromJSON Plan where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Plan"
       ( \x ->
           Plan'
-            Prelude.<$> (x Core..:? "Stages" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Stages" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable Plan where
@@ -70,9 +71,9 @@ instance Prelude.Hashable Plan where
 instance Prelude.NFData Plan where
   rnf Plan' {..} = Prelude.rnf stages
 
-instance Core.ToJSON Plan where
+instance Data.ToJSON Plan where
   toJSON Plan' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Stages" Core..= stages)]
+          [Prelude.Just ("Stages" Data..= stages)]
       )

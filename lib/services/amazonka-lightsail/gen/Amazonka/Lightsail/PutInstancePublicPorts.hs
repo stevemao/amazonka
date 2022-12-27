@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.PutInstancePublicPorts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,7 +52,8 @@ module Amazonka.Lightsail.PutInstancePublicPorts
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -103,12 +104,13 @@ instance Core.AWSRequest PutInstancePublicPorts where
   type
     AWSResponse PutInstancePublicPorts =
       PutInstancePublicPortsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutInstancePublicPortsResponse'
-            Prelude.<$> (x Core..?> "operation")
+            Prelude.<$> (x Data..?> "operation")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -122,34 +124,34 @@ instance Prelude.NFData PutInstancePublicPorts where
     Prelude.rnf portInfos
       `Prelude.seq` Prelude.rnf instanceName
 
-instance Core.ToHeaders PutInstancePublicPorts where
+instance Data.ToHeaders PutInstancePublicPorts where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.PutInstancePublicPorts" ::
+              Data.=# ( "Lightsail_20161128.PutInstancePublicPorts" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutInstancePublicPorts where
+instance Data.ToJSON PutInstancePublicPorts where
   toJSON PutInstancePublicPorts' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("portInfos" Core..= portInfos),
-            Prelude.Just ("instanceName" Core..= instanceName)
+          [ Prelude.Just ("portInfos" Data..= portInfos),
+            Prelude.Just ("instanceName" Data..= instanceName)
           ]
       )
 
-instance Core.ToPath PutInstancePublicPorts where
+instance Data.ToPath PutInstancePublicPorts where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutInstancePublicPorts where
+instance Data.ToQuery PutInstancePublicPorts where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutInstancePublicPortsResponse' smart constructor.

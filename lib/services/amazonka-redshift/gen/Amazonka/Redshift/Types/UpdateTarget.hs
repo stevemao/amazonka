@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.Types.UpdateTarget
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Redshift.Types.UpdateTarget where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Internal
 import Amazonka.Redshift.Types.SupportedOperation
@@ -72,14 +73,14 @@ updateTarget_maintenanceTrackName = Lens.lens (\UpdateTarget' {maintenanceTrackN
 updateTarget_supportedOperations :: Lens.Lens' UpdateTarget (Prelude.Maybe [SupportedOperation])
 updateTarget_supportedOperations = Lens.lens (\UpdateTarget' {supportedOperations} -> supportedOperations) (\s@UpdateTarget' {} a -> s {supportedOperations = a} :: UpdateTarget) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML UpdateTarget where
+instance Data.FromXML UpdateTarget where
   parseXML x =
     UpdateTarget'
-      Prelude.<$> (x Core..@? "DatabaseVersion")
-      Prelude.<*> (x Core..@? "MaintenanceTrackName")
-      Prelude.<*> ( x Core..@? "SupportedOperations"
+      Prelude.<$> (x Data..@? "DatabaseVersion")
+      Prelude.<*> (x Data..@? "MaintenanceTrackName")
+      Prelude.<*> ( x Data..@? "SupportedOperations"
                       Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "SupportedOperation")
+                      Prelude.>>= Core.may (Data.parseXMLList "SupportedOperation")
                   )
 
 instance Prelude.Hashable UpdateTarget where

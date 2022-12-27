@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.DescribeEffectivePatchesForPatchBaseline
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.SSM.DescribeEffectivePatchesForPatchBaseline
     newDescribeEffectivePatchesForPatchBaseline,
 
     -- * Request Lenses
-    describeEffectivePatchesForPatchBaseline_nextToken,
     describeEffectivePatchesForPatchBaseline_maxResults,
+    describeEffectivePatchesForPatchBaseline_nextToken,
     describeEffectivePatchesForPatchBaseline_baselineId,
 
     -- * Destructuring the Response
@@ -47,7 +47,8 @@ module Amazonka.SSM.DescribeEffectivePatchesForPatchBaseline
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,11 +56,11 @@ import Amazonka.SSM.Types
 
 -- | /See:/ 'newDescribeEffectivePatchesForPatchBaseline' smart constructor.
 data DescribeEffectivePatchesForPatchBaseline = DescribeEffectivePatchesForPatchBaseline'
-  { -- | The token for the next set of items to return. (You received this token
+  { -- | The maximum number of patches to return (per page).
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of items to return. (You received this token
     -- from a previous call.)
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of patches to return (per page).
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The ID of the patch baseline to retrieve the effective patches for.
     baselineId :: Prelude.Text
   }
@@ -73,10 +74,10 @@ data DescribeEffectivePatchesForPatchBaseline = DescribeEffectivePatchesForPatch
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'describeEffectivePatchesForPatchBaseline_maxResults' - The maximum number of patches to return (per page).
+--
 -- 'nextToken', 'describeEffectivePatchesForPatchBaseline_nextToken' - The token for the next set of items to return. (You received this token
 -- from a previous call.)
---
--- 'maxResults', 'describeEffectivePatchesForPatchBaseline_maxResults' - The maximum number of patches to return (per page).
 --
 -- 'baselineId', 'describeEffectivePatchesForPatchBaseline_baselineId' - The ID of the patch baseline to retrieve the effective patches for.
 newDescribeEffectivePatchesForPatchBaseline ::
@@ -86,20 +87,20 @@ newDescribeEffectivePatchesForPatchBaseline ::
 newDescribeEffectivePatchesForPatchBaseline
   pBaselineId_ =
     DescribeEffectivePatchesForPatchBaseline'
-      { nextToken =
+      { maxResults =
           Prelude.Nothing,
-        maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         baselineId = pBaselineId_
       }
+
+-- | The maximum number of patches to return (per page).
+describeEffectivePatchesForPatchBaseline_maxResults :: Lens.Lens' DescribeEffectivePatchesForPatchBaseline (Prelude.Maybe Prelude.Natural)
+describeEffectivePatchesForPatchBaseline_maxResults = Lens.lens (\DescribeEffectivePatchesForPatchBaseline' {maxResults} -> maxResults) (\s@DescribeEffectivePatchesForPatchBaseline' {} a -> s {maxResults = a} :: DescribeEffectivePatchesForPatchBaseline)
 
 -- | The token for the next set of items to return. (You received this token
 -- from a previous call.)
 describeEffectivePatchesForPatchBaseline_nextToken :: Lens.Lens' DescribeEffectivePatchesForPatchBaseline (Prelude.Maybe Prelude.Text)
 describeEffectivePatchesForPatchBaseline_nextToken = Lens.lens (\DescribeEffectivePatchesForPatchBaseline' {nextToken} -> nextToken) (\s@DescribeEffectivePatchesForPatchBaseline' {} a -> s {nextToken = a} :: DescribeEffectivePatchesForPatchBaseline)
-
--- | The maximum number of patches to return (per page).
-describeEffectivePatchesForPatchBaseline_maxResults :: Lens.Lens' DescribeEffectivePatchesForPatchBaseline (Prelude.Maybe Prelude.Natural)
-describeEffectivePatchesForPatchBaseline_maxResults = Lens.lens (\DescribeEffectivePatchesForPatchBaseline' {maxResults} -> maxResults) (\s@DescribeEffectivePatchesForPatchBaseline' {} a -> s {maxResults = a} :: DescribeEffectivePatchesForPatchBaseline)
 
 -- | The ID of the patch baseline to retrieve the effective patches for.
 describeEffectivePatchesForPatchBaseline_baselineId :: Lens.Lens' DescribeEffectivePatchesForPatchBaseline Prelude.Text
@@ -138,15 +139,16 @@ instance
     AWSResponse
       DescribeEffectivePatchesForPatchBaseline =
       DescribeEffectivePatchesForPatchBaselineResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeEffectivePatchesForPatchBaselineResponse'
-            Prelude.<$> ( x Core..?> "EffectivePatches"
+            Prelude.<$> ( x Data..?> "EffectivePatches"
                             Core..!@ Prelude.mempty
                         )
-              Prelude.<*> (x Core..?> "NextToken")
+              Prelude.<*> (x Data..?> "NextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -157,8 +159,8 @@ instance
   hashWithSalt
     _salt
     DescribeEffectivePatchesForPatchBaseline' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` baselineId
 
 instance
@@ -166,49 +168,49 @@ instance
     DescribeEffectivePatchesForPatchBaseline
   where
   rnf DescribeEffectivePatchesForPatchBaseline' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf baselineId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeEffectivePatchesForPatchBaseline
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.DescribeEffectivePatchesForPatchBaseline" ::
+              Data.=# ( "AmazonSSM.DescribeEffectivePatchesForPatchBaseline" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DescribeEffectivePatchesForPatchBaseline
   where
   toJSON DescribeEffectivePatchesForPatchBaseline' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("BaselineId" Core..= baselineId)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("BaselineId" Data..= baselineId)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeEffectivePatchesForPatchBaseline
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeEffectivePatchesForPatchBaseline
   where
   toQuery = Prelude.const Prelude.mempty

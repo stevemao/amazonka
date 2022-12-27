@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStar.ListTagsForProject
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.CodeStar.ListTagsForProject
     newListTagsForProject,
 
     -- * Request Lenses
-    listTagsForProject_nextToken,
     listTagsForProject_maxResults,
+    listTagsForProject_nextToken,
     listTagsForProject_id,
 
     -- * Destructuring the Response
@@ -44,7 +44,8 @@ where
 
 import Amazonka.CodeStar.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,9 +53,9 @@ import qualified Amazonka.Response as Response
 -- | /See:/ 'newListTagsForProject' smart constructor.
 data ListTagsForProject = ListTagsForProject'
   { -- | Reserved for future use.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Reserved for future use.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Reserved for future use.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ID of the project to get tags for.
     id :: Prelude.Text
   }
@@ -68,9 +69,9 @@ data ListTagsForProject = ListTagsForProject'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listTagsForProject_nextToken' - Reserved for future use.
---
 -- 'maxResults', 'listTagsForProject_maxResults' - Reserved for future use.
+--
+-- 'nextToken', 'listTagsForProject_nextToken' - Reserved for future use.
 --
 -- 'id', 'listTagsForProject_id' - The ID of the project to get tags for.
 newListTagsForProject ::
@@ -79,18 +80,18 @@ newListTagsForProject ::
   ListTagsForProject
 newListTagsForProject pId_ =
   ListTagsForProject'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       id = pId_
     }
 
 -- | Reserved for future use.
-listTagsForProject_nextToken :: Lens.Lens' ListTagsForProject (Prelude.Maybe Prelude.Text)
-listTagsForProject_nextToken = Lens.lens (\ListTagsForProject' {nextToken} -> nextToken) (\s@ListTagsForProject' {} a -> s {nextToken = a} :: ListTagsForProject)
-
--- | Reserved for future use.
 listTagsForProject_maxResults :: Lens.Lens' ListTagsForProject (Prelude.Maybe Prelude.Natural)
 listTagsForProject_maxResults = Lens.lens (\ListTagsForProject' {maxResults} -> maxResults) (\s@ListTagsForProject' {} a -> s {maxResults = a} :: ListTagsForProject)
+
+-- | Reserved for future use.
+listTagsForProject_nextToken :: Lens.Lens' ListTagsForProject (Prelude.Maybe Prelude.Text)
+listTagsForProject_nextToken = Lens.lens (\ListTagsForProject' {nextToken} -> nextToken) (\s@ListTagsForProject' {} a -> s {nextToken = a} :: ListTagsForProject)
 
 -- | The ID of the project to get tags for.
 listTagsForProject_id :: Lens.Lens' ListTagsForProject Prelude.Text
@@ -100,57 +101,58 @@ instance Core.AWSRequest ListTagsForProject where
   type
     AWSResponse ListTagsForProject =
       ListTagsForProjectResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTagsForProjectResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListTagsForProject where
   hashWithSalt _salt ListTagsForProject' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` id
 
 instance Prelude.NFData ListTagsForProject where
   rnf ListTagsForProject' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf id
 
-instance Core.ToHeaders ListTagsForProject where
+instance Data.ToHeaders ListTagsForProject where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeStar_20170419.ListTagsForProject" ::
+              Data.=# ( "CodeStar_20170419.ListTagsForProject" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTagsForProject where
+instance Data.ToJSON ListTagsForProject where
   toJSON ListTagsForProject' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("id" Core..= id)
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("id" Data..= id)
           ]
       )
 
-instance Core.ToPath ListTagsForProject where
+instance Data.ToPath ListTagsForProject where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTagsForProject where
+instance Data.ToQuery ListTagsForProject where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTagsForProjectResponse' smart constructor.

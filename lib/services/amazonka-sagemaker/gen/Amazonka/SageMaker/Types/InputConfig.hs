@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.InputConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.InputConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.Framework
 
@@ -30,11 +31,14 @@ import Amazonka.SageMaker.Types.Framework
 --
 -- /See:/ 'newInputConfig' smart constructor.
 data InputConfig = InputConfig'
-  { -- | Specifies the framework version to use.
+  { -- | Specifies the framework version to use. This API field is only supported
+    -- for the MXNet, PyTorch, TensorFlow and TensorFlow Lite frameworks.
     --
-    -- This API field is only supported for PyTorch framework versions @1.4@,
-    -- @1.5@, and @1.6@ for cloud instance target devices: @ml_c4@, @ml_c5@,
-    -- @ml_m4@, @ml_m5@, @ml_p2@, @ml_p3@, and @ml_g4dn@.
+    -- For information about framework versions supported for cloud targets and
+    -- edge devices, see
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/neo-supported-cloud.html Cloud Supported Instance Types and Frameworks>
+    -- and
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/neo-supported-devices-edge-frameworks.html Edge Supported Frameworks>.
     frameworkVersion :: Prelude.Maybe Prelude.Text,
     -- | The S3 path where the model artifacts, which result from model training,
     -- are stored. This path must point to a single gzip compressed tar archive
@@ -227,11 +231,14 @@ data InputConfig = InputConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'frameworkVersion', 'inputConfig_frameworkVersion' - Specifies the framework version to use.
+-- 'frameworkVersion', 'inputConfig_frameworkVersion' - Specifies the framework version to use. This API field is only supported
+-- for the MXNet, PyTorch, TensorFlow and TensorFlow Lite frameworks.
 --
--- This API field is only supported for PyTorch framework versions @1.4@,
--- @1.5@, and @1.6@ for cloud instance target devices: @ml_c4@, @ml_c5@,
--- @ml_m4@, @ml_m5@, @ml_p2@, @ml_p3@, and @ml_g4dn@.
+-- For information about framework versions supported for cloud targets and
+-- edge devices, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/neo-supported-cloud.html Cloud Supported Instance Types and Frameworks>
+-- and
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/neo-supported-devices-edge-frameworks.html Edge Supported Frameworks>.
 --
 -- 's3Uri', 'inputConfig_s3Uri' - The S3 path where the model artifacts, which result from model training,
 -- are stored. This path must point to a single gzip compressed tar archive
@@ -428,11 +435,14 @@ newInputConfig pS3Uri_ pDataInputConfig_ pFramework_ =
       framework = pFramework_
     }
 
--- | Specifies the framework version to use.
+-- | Specifies the framework version to use. This API field is only supported
+-- for the MXNet, PyTorch, TensorFlow and TensorFlow Lite frameworks.
 --
--- This API field is only supported for PyTorch framework versions @1.4@,
--- @1.5@, and @1.6@ for cloud instance target devices: @ml_c4@, @ml_c5@,
--- @ml_m4@, @ml_m5@, @ml_p2@, @ml_p3@, and @ml_g4dn@.
+-- For information about framework versions supported for cloud targets and
+-- edge devices, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/neo-supported-cloud.html Cloud Supported Instance Types and Frameworks>
+-- and
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/neo-supported-devices-edge-frameworks.html Edge Supported Frameworks>.
 inputConfig_frameworkVersion :: Lens.Lens' InputConfig (Prelude.Maybe Prelude.Text)
 inputConfig_frameworkVersion = Lens.lens (\InputConfig' {frameworkVersion} -> frameworkVersion) (\s@InputConfig' {} a -> s {frameworkVersion = a} :: InputConfig)
 
@@ -622,16 +632,16 @@ inputConfig_dataInputConfig = Lens.lens (\InputConfig' {dataInputConfig} -> data
 inputConfig_framework :: Lens.Lens' InputConfig Framework
 inputConfig_framework = Lens.lens (\InputConfig' {framework} -> framework) (\s@InputConfig' {} a -> s {framework = a} :: InputConfig)
 
-instance Core.FromJSON InputConfig where
+instance Data.FromJSON InputConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InputConfig"
       ( \x ->
           InputConfig'
-            Prelude.<$> (x Core..:? "FrameworkVersion")
-            Prelude.<*> (x Core..: "S3Uri")
-            Prelude.<*> (x Core..: "DataInputConfig")
-            Prelude.<*> (x Core..: "Framework")
+            Prelude.<$> (x Data..:? "FrameworkVersion")
+            Prelude.<*> (x Data..: "S3Uri")
+            Prelude.<*> (x Data..: "DataInputConfig")
+            Prelude.<*> (x Data..: "Framework")
       )
 
 instance Prelude.Hashable InputConfig where
@@ -648,15 +658,15 @@ instance Prelude.NFData InputConfig where
       `Prelude.seq` Prelude.rnf dataInputConfig
       `Prelude.seq` Prelude.rnf framework
 
-instance Core.ToJSON InputConfig where
+instance Data.ToJSON InputConfig where
   toJSON InputConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("FrameworkVersion" Core..=)
+          [ ("FrameworkVersion" Data..=)
               Prelude.<$> frameworkVersion,
-            Prelude.Just ("S3Uri" Core..= s3Uri),
+            Prelude.Just ("S3Uri" Data..= s3Uri),
             Prelude.Just
-              ("DataInputConfig" Core..= dataInputConfig),
-            Prelude.Just ("Framework" Core..= framework)
+              ("DataInputConfig" Data..= dataInputConfig),
+            Prelude.Just ("Framework" Data..= framework)
           ]
       )

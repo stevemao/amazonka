@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Inspector.ListAssessmentRunAgents
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,9 +30,9 @@ module Amazonka.Inspector.ListAssessmentRunAgents
     newListAssessmentRunAgents,
 
     -- * Request Lenses
-    listAssessmentRunAgents_nextToken,
     listAssessmentRunAgents_filter,
     listAssessmentRunAgents_maxResults,
+    listAssessmentRunAgents_nextToken,
     listAssessmentRunAgents_assessmentRunArn,
 
     -- * Destructuring the Response
@@ -47,21 +47,16 @@ module Amazonka.Inspector.ListAssessmentRunAgents
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Inspector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListAssessmentRunAgents' smart constructor.
 data ListAssessmentRunAgents = ListAssessmentRunAgents'
-  { -- | You can use this parameter when paginating results. Set the value of
-    -- this parameter to null on your first call to the
-    -- __ListAssessmentRunAgents__ action. Subsequent calls to the action fill
-    -- __nextToken__ in the request with the value of __NextToken__ from the
-    -- previous response to continue listing data.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | You can use this parameter to specify a subset of data to be included in
+  { -- | You can use this parameter to specify a subset of data to be included in
     -- the action\'s response.
     --
     -- For a record to match a filter, all specified filter attributes must
@@ -72,6 +67,12 @@ data ListAssessmentRunAgents = ListAssessmentRunAgents'
     -- you want in the response. The default value is 10. The maximum value is
     -- 500.
     maxResults :: Prelude.Maybe Prelude.Int,
+    -- | You can use this parameter when paginating results. Set the value of
+    -- this parameter to null on your first call to the
+    -- __ListAssessmentRunAgents__ action. Subsequent calls to the action fill
+    -- __nextToken__ in the request with the value of __NextToken__ from the
+    -- previous response to continue listing data.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ARN that specifies the assessment run whose agents you want to list.
     assessmentRunArn :: Prelude.Text
   }
@@ -85,12 +86,6 @@ data ListAssessmentRunAgents = ListAssessmentRunAgents'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listAssessmentRunAgents_nextToken' - You can use this parameter when paginating results. Set the value of
--- this parameter to null on your first call to the
--- __ListAssessmentRunAgents__ action. Subsequent calls to the action fill
--- __nextToken__ in the request with the value of __NextToken__ from the
--- previous response to continue listing data.
---
 -- 'filter'', 'listAssessmentRunAgents_filter' - You can use this parameter to specify a subset of data to be included in
 -- the action\'s response.
 --
@@ -102,6 +97,12 @@ data ListAssessmentRunAgents = ListAssessmentRunAgents'
 -- you want in the response. The default value is 10. The maximum value is
 -- 500.
 --
+-- 'nextToken', 'listAssessmentRunAgents_nextToken' - You can use this parameter when paginating results. Set the value of
+-- this parameter to null on your first call to the
+-- __ListAssessmentRunAgents__ action. Subsequent calls to the action fill
+-- __nextToken__ in the request with the value of __NextToken__ from the
+-- previous response to continue listing data.
+--
 -- 'assessmentRunArn', 'listAssessmentRunAgents_assessmentRunArn' - The ARN that specifies the assessment run whose agents you want to list.
 newListAssessmentRunAgents ::
   -- | 'assessmentRunArn'
@@ -109,20 +110,11 @@ newListAssessmentRunAgents ::
   ListAssessmentRunAgents
 newListAssessmentRunAgents pAssessmentRunArn_ =
   ListAssessmentRunAgents'
-    { nextToken =
-        Prelude.Nothing,
-      filter' = Prelude.Nothing,
+    { filter' = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       assessmentRunArn = pAssessmentRunArn_
     }
-
--- | You can use this parameter when paginating results. Set the value of
--- this parameter to null on your first call to the
--- __ListAssessmentRunAgents__ action. Subsequent calls to the action fill
--- __nextToken__ in the request with the value of __NextToken__ from the
--- previous response to continue listing data.
-listAssessmentRunAgents_nextToken :: Lens.Lens' ListAssessmentRunAgents (Prelude.Maybe Prelude.Text)
-listAssessmentRunAgents_nextToken = Lens.lens (\ListAssessmentRunAgents' {nextToken} -> nextToken) (\s@ListAssessmentRunAgents' {} a -> s {nextToken = a} :: ListAssessmentRunAgents)
 
 -- | You can use this parameter to specify a subset of data to be included in
 -- the action\'s response.
@@ -138,6 +130,14 @@ listAssessmentRunAgents_filter = Lens.lens (\ListAssessmentRunAgents' {filter'} 
 -- 500.
 listAssessmentRunAgents_maxResults :: Lens.Lens' ListAssessmentRunAgents (Prelude.Maybe Prelude.Int)
 listAssessmentRunAgents_maxResults = Lens.lens (\ListAssessmentRunAgents' {maxResults} -> maxResults) (\s@ListAssessmentRunAgents' {} a -> s {maxResults = a} :: ListAssessmentRunAgents)
+
+-- | You can use this parameter when paginating results. Set the value of
+-- this parameter to null on your first call to the
+-- __ListAssessmentRunAgents__ action. Subsequent calls to the action fill
+-- __nextToken__ in the request with the value of __NextToken__ from the
+-- previous response to continue listing data.
+listAssessmentRunAgents_nextToken :: Lens.Lens' ListAssessmentRunAgents (Prelude.Maybe Prelude.Text)
+listAssessmentRunAgents_nextToken = Lens.lens (\ListAssessmentRunAgents' {nextToken} -> nextToken) (\s@ListAssessmentRunAgents' {} a -> s {nextToken = a} :: ListAssessmentRunAgents)
 
 -- | The ARN that specifies the assessment run whose agents you want to list.
 listAssessmentRunAgents_assessmentRunArn :: Lens.Lens' ListAssessmentRunAgents Prelude.Text
@@ -168,63 +168,64 @@ instance Core.AWSRequest ListAssessmentRunAgents where
   type
     AWSResponse ListAssessmentRunAgents =
       ListAssessmentRunAgentsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAssessmentRunAgentsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "assessmentRunAgents"
+            Prelude.<*> ( x Data..?> "assessmentRunAgents"
                             Core..!@ Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable ListAssessmentRunAgents where
   hashWithSalt _salt ListAssessmentRunAgents' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` filter'
+    _salt `Prelude.hashWithSalt` filter'
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` assessmentRunArn
 
 instance Prelude.NFData ListAssessmentRunAgents where
   rnf ListAssessmentRunAgents' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf filter'
+    Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf assessmentRunArn
 
-instance Core.ToHeaders ListAssessmentRunAgents where
+instance Data.ToHeaders ListAssessmentRunAgents where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "InspectorService.ListAssessmentRunAgents" ::
+              Data.=# ( "InspectorService.ListAssessmentRunAgents" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListAssessmentRunAgents where
+instance Data.ToJSON ListAssessmentRunAgents where
   toJSON ListAssessmentRunAgents' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("filter" Core..=) Prelude.<$> filter',
-            ("maxResults" Core..=) Prelude.<$> maxResults,
+          [ ("filter" Data..=) Prelude.<$> filter',
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("assessmentRunArn" Core..= assessmentRunArn)
+              ("assessmentRunArn" Data..= assessmentRunArn)
           ]
       )
 
-instance Core.ToPath ListAssessmentRunAgents where
+instance Data.ToPath ListAssessmentRunAgents where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListAssessmentRunAgents where
+instance Data.ToQuery ListAssessmentRunAgents where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListAssessmentRunAgentsResponse' smart constructor.

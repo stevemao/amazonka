@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.MapFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.MapFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.MapFilterComparison
 
@@ -29,12 +30,7 @@ import Amazonka.SecurityHub.Types.MapFilterComparison
 --
 -- /See:/ 'newMapFilter' smart constructor.
 data MapFilter = MapFilter'
-  { -- | The value for the key in the map filter. Filter values are case
-    -- sensitive. For example, one of the values for a tag called @Department@
-    -- might be @Security@. If you provide @security@ as the filter value, then
-    -- there is no match.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The condition to apply to the key value when querying for findings with
+  { -- | The condition to apply to the key value when querying for findings with
     -- a map filter.
     --
     -- To search for values that exactly match the filter value, use @EQUALS@.
@@ -59,7 +55,12 @@ data MapFilter = MapFilter'
     -- | The key of the map filter. For example, for @ResourceTags@, @Key@
     -- identifies the name of the tag. For @UserDefinedFields@, @Key@ is the
     -- name of the field.
-    key :: Prelude.Maybe Prelude.Text
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The value for the key in the map filter. Filter values are case
+    -- sensitive. For example, one of the values for a tag called @Department@
+    -- might be @Security@. If you provide @security@ as the filter value, then
+    -- there is no match.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -70,11 +71,6 @@ data MapFilter = MapFilter'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'value', 'mapFilter_value' - The value for the key in the map filter. Filter values are case
--- sensitive. For example, one of the values for a tag called @Department@
--- might be @Security@. If you provide @security@ as the filter value, then
--- there is no match.
 --
 -- 'comparison', 'mapFilter_comparison' - The condition to apply to the key value when querying for findings with
 -- a map filter.
@@ -101,21 +97,19 @@ data MapFilter = MapFilter'
 -- 'key', 'mapFilter_key' - The key of the map filter. For example, for @ResourceTags@, @Key@
 -- identifies the name of the tag. For @UserDefinedFields@, @Key@ is the
 -- name of the field.
+--
+-- 'value', 'mapFilter_value' - The value for the key in the map filter. Filter values are case
+-- sensitive. For example, one of the values for a tag called @Department@
+-- might be @Security@. If you provide @security@ as the filter value, then
+-- there is no match.
 newMapFilter ::
   MapFilter
 newMapFilter =
   MapFilter'
-    { value = Prelude.Nothing,
-      comparison = Prelude.Nothing,
-      key = Prelude.Nothing
+    { comparison = Prelude.Nothing,
+      key = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The value for the key in the map filter. Filter values are case
--- sensitive. For example, one of the values for a tag called @Department@
--- might be @Security@. If you provide @security@ as the filter value, then
--- there is no match.
-mapFilter_value :: Lens.Lens' MapFilter (Prelude.Maybe Prelude.Text)
-mapFilter_value = Lens.lens (\MapFilter' {value} -> value) (\s@MapFilter' {} a -> s {value = a} :: MapFilter)
 
 -- | The condition to apply to the key value when querying for findings with
 -- a map filter.
@@ -147,35 +141,42 @@ mapFilter_comparison = Lens.lens (\MapFilter' {comparison} -> comparison) (\s@Ma
 mapFilter_key :: Lens.Lens' MapFilter (Prelude.Maybe Prelude.Text)
 mapFilter_key = Lens.lens (\MapFilter' {key} -> key) (\s@MapFilter' {} a -> s {key = a} :: MapFilter)
 
-instance Core.FromJSON MapFilter where
+-- | The value for the key in the map filter. Filter values are case
+-- sensitive. For example, one of the values for a tag called @Department@
+-- might be @Security@. If you provide @security@ as the filter value, then
+-- there is no match.
+mapFilter_value :: Lens.Lens' MapFilter (Prelude.Maybe Prelude.Text)
+mapFilter_value = Lens.lens (\MapFilter' {value} -> value) (\s@MapFilter' {} a -> s {value = a} :: MapFilter)
+
+instance Data.FromJSON MapFilter where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MapFilter"
       ( \x ->
           MapFilter'
-            Prelude.<$> (x Core..:? "Value")
-            Prelude.<*> (x Core..:? "Comparison")
-            Prelude.<*> (x Core..:? "Key")
+            Prelude.<$> (x Data..:? "Comparison")
+            Prelude.<*> (x Data..:? "Key")
+            Prelude.<*> (x Data..:? "Value")
       )
 
 instance Prelude.Hashable MapFilter where
   hashWithSalt _salt MapFilter' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` comparison
+    _salt `Prelude.hashWithSalt` comparison
       `Prelude.hashWithSalt` key
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData MapFilter where
   rnf MapFilter' {..} =
-    Prelude.rnf value
-      `Prelude.seq` Prelude.rnf comparison
+    Prelude.rnf comparison
       `Prelude.seq` Prelude.rnf key
+      `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON MapFilter where
+instance Data.ToJSON MapFilter where
   toJSON MapFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Value" Core..=) Prelude.<$> value,
-            ("Comparison" Core..=) Prelude.<$> comparison,
-            ("Key" Core..=) Prelude.<$> key
+          [ ("Comparison" Data..=) Prelude.<$> comparison,
+            ("Key" Data..=) Prelude.<$> key,
+            ("Value" Data..=) Prelude.<$> value
           ]
       )

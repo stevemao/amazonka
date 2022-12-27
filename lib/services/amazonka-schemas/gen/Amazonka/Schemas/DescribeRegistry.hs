@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Schemas.DescribeRegistry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,16 +34,17 @@ module Amazonka.Schemas.DescribeRegistry
     newDescribeRegistryResponse,
 
     -- * Response Lenses
-    describeRegistryResponse_registryName,
-    describeRegistryResponse_registryArn,
     describeRegistryResponse_description,
+    describeRegistryResponse_registryArn,
+    describeRegistryResponse_registryName,
     describeRegistryResponse_tags,
     describeRegistryResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,15 +81,16 @@ instance Core.AWSRequest DescribeRegistry where
   type
     AWSResponse DescribeRegistry =
       DescribeRegistryResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeRegistryResponse'
-            Prelude.<$> (x Core..?> "RegistryName")
-            Prelude.<*> (x Core..?> "RegistryArn")
-            Prelude.<*> (x Core..?> "Description")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Description")
+            Prelude.<*> (x Data..?> "RegistryArn")
+            Prelude.<*> (x Data..?> "RegistryName")
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -99,33 +101,33 @@ instance Prelude.Hashable DescribeRegistry where
 instance Prelude.NFData DescribeRegistry where
   rnf DescribeRegistry' {..} = Prelude.rnf registryName
 
-instance Core.ToHeaders DescribeRegistry where
+instance Data.ToHeaders DescribeRegistry where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeRegistry where
+instance Data.ToPath DescribeRegistry where
   toPath DescribeRegistry' {..} =
     Prelude.mconcat
-      ["/v1/registries/name/", Core.toBS registryName]
+      ["/v1/registries/name/", Data.toBS registryName]
 
-instance Core.ToQuery DescribeRegistry where
+instance Data.ToQuery DescribeRegistry where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeRegistryResponse' smart constructor.
 data DescribeRegistryResponse = DescribeRegistryResponse'
-  { -- | The name of the registry.
-    registryName :: Prelude.Maybe Prelude.Text,
+  { -- | The description of the registry.
+    description :: Prelude.Maybe Prelude.Text,
     -- | The ARN of the registry.
     registryArn :: Prelude.Maybe Prelude.Text,
-    -- | The description of the registry.
-    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the registry.
+    registryName :: Prelude.Maybe Prelude.Text,
     -- | Tags associated with the registry.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The response's http status code.
@@ -141,11 +143,11 @@ data DescribeRegistryResponse = DescribeRegistryResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'registryName', 'describeRegistryResponse_registryName' - The name of the registry.
+-- 'description', 'describeRegistryResponse_description' - The description of the registry.
 --
 -- 'registryArn', 'describeRegistryResponse_registryArn' - The ARN of the registry.
 --
--- 'description', 'describeRegistryResponse_description' - The description of the registry.
+-- 'registryName', 'describeRegistryResponse_registryName' - The name of the registry.
 --
 -- 'tags', 'describeRegistryResponse_tags' - Tags associated with the registry.
 --
@@ -156,25 +158,25 @@ newDescribeRegistryResponse ::
   DescribeRegistryResponse
 newDescribeRegistryResponse pHttpStatus_ =
   DescribeRegistryResponse'
-    { registryName =
+    { description =
         Prelude.Nothing,
       registryArn = Prelude.Nothing,
-      description = Prelude.Nothing,
+      registryName = Prelude.Nothing,
       tags = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The name of the registry.
-describeRegistryResponse_registryName :: Lens.Lens' DescribeRegistryResponse (Prelude.Maybe Prelude.Text)
-describeRegistryResponse_registryName = Lens.lens (\DescribeRegistryResponse' {registryName} -> registryName) (\s@DescribeRegistryResponse' {} a -> s {registryName = a} :: DescribeRegistryResponse)
+-- | The description of the registry.
+describeRegistryResponse_description :: Lens.Lens' DescribeRegistryResponse (Prelude.Maybe Prelude.Text)
+describeRegistryResponse_description = Lens.lens (\DescribeRegistryResponse' {description} -> description) (\s@DescribeRegistryResponse' {} a -> s {description = a} :: DescribeRegistryResponse)
 
 -- | The ARN of the registry.
 describeRegistryResponse_registryArn :: Lens.Lens' DescribeRegistryResponse (Prelude.Maybe Prelude.Text)
 describeRegistryResponse_registryArn = Lens.lens (\DescribeRegistryResponse' {registryArn} -> registryArn) (\s@DescribeRegistryResponse' {} a -> s {registryArn = a} :: DescribeRegistryResponse)
 
--- | The description of the registry.
-describeRegistryResponse_description :: Lens.Lens' DescribeRegistryResponse (Prelude.Maybe Prelude.Text)
-describeRegistryResponse_description = Lens.lens (\DescribeRegistryResponse' {description} -> description) (\s@DescribeRegistryResponse' {} a -> s {description = a} :: DescribeRegistryResponse)
+-- | The name of the registry.
+describeRegistryResponse_registryName :: Lens.Lens' DescribeRegistryResponse (Prelude.Maybe Prelude.Text)
+describeRegistryResponse_registryName = Lens.lens (\DescribeRegistryResponse' {registryName} -> registryName) (\s@DescribeRegistryResponse' {} a -> s {registryName = a} :: DescribeRegistryResponse)
 
 -- | Tags associated with the registry.
 describeRegistryResponse_tags :: Lens.Lens' DescribeRegistryResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -186,8 +188,8 @@ describeRegistryResponse_httpStatus = Lens.lens (\DescribeRegistryResponse' {htt
 
 instance Prelude.NFData DescribeRegistryResponse where
   rnf DescribeRegistryResponse' {..} =
-    Prelude.rnf registryName
+    Prelude.rnf description
       `Prelude.seq` Prelude.rnf registryArn
-      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf registryName
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.UpdateFleetCapacity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,12 +32,13 @@
 --     whether the capacity is changed manually or through automatic
 --     scaling.
 --
--- -   Desired capacity: Manually set the number of EC2 instances to be
---     maintained in a fleet location. Before changing a fleet\'s desired
---     capacity, you may want to call DescribeEC2InstanceLimits to get the
---     maximum capacity of the fleet\'s EC2 instance type. Alternatively,
---     consider using automatic scaling to adjust capacity based on player
---     demand.
+-- -   Desired capacity: Manually set the number of Amazon EC2 instances to
+--     be maintained in a fleet location. Before changing a fleet\'s
+--     desired capacity, you may want to call
+--     <https://docs.aws.amazon.com/gamelift/latest/apireference/API_DescribeEC2InstanceLimits.html DescribeEC2InstanceLimits>
+--     to get the maximum capacity of the fleet\'s Amazon EC2 instance
+--     type. Alternatively, consider using automatic scaling to adjust
+--     capacity based on player demand.
 --
 -- This operation can be used in the following ways:
 --
@@ -54,32 +55,26 @@
 -- instances or terminate existing instances in the requested fleet
 -- location. This continues until the location\'s active instance count
 -- matches the new desired instance count. You can track a fleet\'s current
--- capacity by calling DescribeFleetCapacity or
--- DescribeFleetLocationCapacity. If the requested desired instance count
--- is higher than the instance type\'s limit, the @LimitExceeded@ exception
--- occurs.
+-- capacity by calling
+-- <https://docs.aws.amazon.com/gamelift/latest/apireference/API_DescribeFleetCapacity.html DescribeFleetCapacity>
+-- or
+-- <https://docs.aws.amazon.com/gamelift/latest/apireference/API_DescribeFleetLocationCapacity.html DescribeFleetLocationCapacity>.
+-- If the requested desired instance count is higher than the instance
+-- type\'s limit, the @LimitExceeded@ exception occurs.
 --
 -- __Learn more__
 --
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-manage-capacity.html Scaling fleet capacity>
---
--- __Related actions__
---
--- CreateFleetLocations | UpdateFleetAttributes | UpdateFleetCapacity |
--- UpdateFleetPortSettings | UpdateRuntimeConfiguration | StopFleetActions
--- | StartFleetActions | PutScalingPolicy | DeleteFleet |
--- DeleteFleetLocations | DeleteScalingPolicy |
--- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.UpdateFleetCapacity
   ( -- * Creating a Request
     UpdateFleetCapacity (..),
     newUpdateFleetCapacity,
 
     -- * Request Lenses
+    updateFleetCapacity_desiredInstances,
     updateFleetCapacity_location,
     updateFleetCapacity_maxSize,
     updateFleetCapacity_minSize,
-    updateFleetCapacity_desiredInstances,
     updateFleetCapacity_fleetId,
 
     -- * Destructuring the Response
@@ -87,26 +82,29 @@ module Amazonka.GameLift.UpdateFleetCapacity
     newUpdateFleetCapacityResponse,
 
     -- * Response Lenses
-    updateFleetCapacityResponse_location,
     updateFleetCapacityResponse_fleetArn,
     updateFleetCapacityResponse_fleetId,
+    updateFleetCapacityResponse_location,
     updateFleetCapacityResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newUpdateFleetCapacity' smart constructor.
+-- | /See:/ 'newUpdateFleetCapacity' smart constructor.
 data UpdateFleetCapacity = UpdateFleetCapacity'
-  { -- | The name of a remote location to update fleet capacity settings for, in
-    -- the form of an AWS Region code such as @us-west-2@.
+  { -- | The number of Amazon EC2 instances you want to maintain in the specified
+    -- fleet location. This value must fall between the minimum and maximum
+    -- size limits.
+    desiredInstances :: Prelude.Maybe Prelude.Natural,
+    -- | The name of a remote location to update fleet capacity settings for, in
+    -- the form of an Amazon Web Services Region code such as @us-west-2@.
     location :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of instances that are allowed in the specified fleet
     -- location. If this parameter is not set, the default is 1.
@@ -114,10 +112,6 @@ data UpdateFleetCapacity = UpdateFleetCapacity'
     -- | The minimum number of instances that are allowed in the specified fleet
     -- location. If this parameter is not set, the default is 0.
     minSize :: Prelude.Maybe Prelude.Natural,
-    -- | The number of EC2 instances you want to maintain in the specified fleet
-    -- location. This value must fall between the minimum and maximum size
-    -- limits.
-    desiredInstances :: Prelude.Maybe Prelude.Natural,
     -- | A unique identifier for the fleet to update capacity settings for. You
     -- can use either the fleet ID or ARN value.
     fleetId :: Prelude.Text
@@ -132,18 +126,18 @@ data UpdateFleetCapacity = UpdateFleetCapacity'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'desiredInstances', 'updateFleetCapacity_desiredInstances' - The number of Amazon EC2 instances you want to maintain in the specified
+-- fleet location. This value must fall between the minimum and maximum
+-- size limits.
+--
 -- 'location', 'updateFleetCapacity_location' - The name of a remote location to update fleet capacity settings for, in
--- the form of an AWS Region code such as @us-west-2@.
+-- the form of an Amazon Web Services Region code such as @us-west-2@.
 --
 -- 'maxSize', 'updateFleetCapacity_maxSize' - The maximum number of instances that are allowed in the specified fleet
 -- location. If this parameter is not set, the default is 1.
 --
 -- 'minSize', 'updateFleetCapacity_minSize' - The minimum number of instances that are allowed in the specified fleet
 -- location. If this parameter is not set, the default is 0.
---
--- 'desiredInstances', 'updateFleetCapacity_desiredInstances' - The number of EC2 instances you want to maintain in the specified fleet
--- location. This value must fall between the minimum and maximum size
--- limits.
 --
 -- 'fleetId', 'updateFleetCapacity_fleetId' - A unique identifier for the fleet to update capacity settings for. You
 -- can use either the fleet ID or ARN value.
@@ -153,15 +147,22 @@ newUpdateFleetCapacity ::
   UpdateFleetCapacity
 newUpdateFleetCapacity pFleetId_ =
   UpdateFleetCapacity'
-    { location = Prelude.Nothing,
+    { desiredInstances =
+        Prelude.Nothing,
+      location = Prelude.Nothing,
       maxSize = Prelude.Nothing,
       minSize = Prelude.Nothing,
-      desiredInstances = Prelude.Nothing,
       fleetId = pFleetId_
     }
 
+-- | The number of Amazon EC2 instances you want to maintain in the specified
+-- fleet location. This value must fall between the minimum and maximum
+-- size limits.
+updateFleetCapacity_desiredInstances :: Lens.Lens' UpdateFleetCapacity (Prelude.Maybe Prelude.Natural)
+updateFleetCapacity_desiredInstances = Lens.lens (\UpdateFleetCapacity' {desiredInstances} -> desiredInstances) (\s@UpdateFleetCapacity' {} a -> s {desiredInstances = a} :: UpdateFleetCapacity)
+
 -- | The name of a remote location to update fleet capacity settings for, in
--- the form of an AWS Region code such as @us-west-2@.
+-- the form of an Amazon Web Services Region code such as @us-west-2@.
 updateFleetCapacity_location :: Lens.Lens' UpdateFleetCapacity (Prelude.Maybe Prelude.Text)
 updateFleetCapacity_location = Lens.lens (\UpdateFleetCapacity' {location} -> location) (\s@UpdateFleetCapacity' {} a -> s {location = a} :: UpdateFleetCapacity)
 
@@ -175,12 +176,6 @@ updateFleetCapacity_maxSize = Lens.lens (\UpdateFleetCapacity' {maxSize} -> maxS
 updateFleetCapacity_minSize :: Lens.Lens' UpdateFleetCapacity (Prelude.Maybe Prelude.Natural)
 updateFleetCapacity_minSize = Lens.lens (\UpdateFleetCapacity' {minSize} -> minSize) (\s@UpdateFleetCapacity' {} a -> s {minSize = a} :: UpdateFleetCapacity)
 
--- | The number of EC2 instances you want to maintain in the specified fleet
--- location. This value must fall between the minimum and maximum size
--- limits.
-updateFleetCapacity_desiredInstances :: Lens.Lens' UpdateFleetCapacity (Prelude.Maybe Prelude.Natural)
-updateFleetCapacity_desiredInstances = Lens.lens (\UpdateFleetCapacity' {desiredInstances} -> desiredInstances) (\s@UpdateFleetCapacity' {} a -> s {desiredInstances = a} :: UpdateFleetCapacity)
-
 -- | A unique identifier for the fleet to update capacity settings for. You
 -- can use either the fleet ID or ARN value.
 updateFleetCapacity_fleetId :: Lens.Lens' UpdateFleetCapacity Prelude.Text
@@ -190,75 +185,71 @@ instance Core.AWSRequest UpdateFleetCapacity where
   type
     AWSResponse UpdateFleetCapacity =
       UpdateFleetCapacityResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateFleetCapacityResponse'
-            Prelude.<$> (x Core..?> "Location")
-            Prelude.<*> (x Core..?> "FleetArn")
-            Prelude.<*> (x Core..?> "FleetId")
+            Prelude.<$> (x Data..?> "FleetArn")
+            Prelude.<*> (x Data..?> "FleetId")
+            Prelude.<*> (x Data..?> "Location")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateFleetCapacity where
   hashWithSalt _salt UpdateFleetCapacity' {..} =
-    _salt `Prelude.hashWithSalt` location
+    _salt `Prelude.hashWithSalt` desiredInstances
+      `Prelude.hashWithSalt` location
       `Prelude.hashWithSalt` maxSize
       `Prelude.hashWithSalt` minSize
-      `Prelude.hashWithSalt` desiredInstances
       `Prelude.hashWithSalt` fleetId
 
 instance Prelude.NFData UpdateFleetCapacity where
   rnf UpdateFleetCapacity' {..} =
-    Prelude.rnf location
+    Prelude.rnf desiredInstances
+      `Prelude.seq` Prelude.rnf location
       `Prelude.seq` Prelude.rnf maxSize
       `Prelude.seq` Prelude.rnf minSize
-      `Prelude.seq` Prelude.rnf desiredInstances
       `Prelude.seq` Prelude.rnf fleetId
 
-instance Core.ToHeaders UpdateFleetCapacity where
+instance Data.ToHeaders UpdateFleetCapacity where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.UpdateFleetCapacity" ::
+              Data.=# ( "GameLift.UpdateFleetCapacity" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateFleetCapacity where
+instance Data.ToJSON UpdateFleetCapacity where
   toJSON UpdateFleetCapacity' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Location" Core..=) Prelude.<$> location,
-            ("MaxSize" Core..=) Prelude.<$> maxSize,
-            ("MinSize" Core..=) Prelude.<$> minSize,
-            ("DesiredInstances" Core..=)
+          [ ("DesiredInstances" Data..=)
               Prelude.<$> desiredInstances,
-            Prelude.Just ("FleetId" Core..= fleetId)
+            ("Location" Data..=) Prelude.<$> location,
+            ("MaxSize" Data..=) Prelude.<$> maxSize,
+            ("MinSize" Data..=) Prelude.<$> minSize,
+            Prelude.Just ("FleetId" Data..= fleetId)
           ]
       )
 
-instance Core.ToPath UpdateFleetCapacity where
+instance Data.ToPath UpdateFleetCapacity where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateFleetCapacity where
+instance Data.ToQuery UpdateFleetCapacity where
   toQuery = Prelude.const Prelude.mempty
 
--- | Represents the returned data in response to a request operation.
---
--- /See:/ 'newUpdateFleetCapacityResponse' smart constructor.
+-- | /See:/ 'newUpdateFleetCapacityResponse' smart constructor.
 data UpdateFleetCapacityResponse = UpdateFleetCapacityResponse'
-  { -- | The remote location being updated, expressed as an AWS Region code, such
-    -- as @us-west-2@.
-    location :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name
+  { -- | The Amazon Resource Name
     -- (<https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html ARN>)
     -- that is assigned to a GameLift fleet resource and uniquely identifies
     -- it. ARNs are unique across all Regions. Format is
@@ -266,6 +257,9 @@ data UpdateFleetCapacityResponse = UpdateFleetCapacityResponse'
     fleetArn :: Prelude.Maybe Prelude.Text,
     -- | A unique identifier for the fleet that was updated.
     fleetId :: Prelude.Maybe Prelude.Text,
+    -- | The remote location being updated, expressed as an Amazon Web Services
+    -- Region code, such as @us-west-2@.
+    location :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -279,9 +273,6 @@ data UpdateFleetCapacityResponse = UpdateFleetCapacityResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'location', 'updateFleetCapacityResponse_location' - The remote location being updated, expressed as an AWS Region code, such
--- as @us-west-2@.
---
 -- 'fleetArn', 'updateFleetCapacityResponse_fleetArn' - The Amazon Resource Name
 -- (<https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html ARN>)
 -- that is assigned to a GameLift fleet resource and uniquely identifies
@@ -290,6 +281,9 @@ data UpdateFleetCapacityResponse = UpdateFleetCapacityResponse'
 --
 -- 'fleetId', 'updateFleetCapacityResponse_fleetId' - A unique identifier for the fleet that was updated.
 --
+-- 'location', 'updateFleetCapacityResponse_location' - The remote location being updated, expressed as an Amazon Web Services
+-- Region code, such as @us-west-2@.
+--
 -- 'httpStatus', 'updateFleetCapacityResponse_httpStatus' - The response's http status code.
 newUpdateFleetCapacityResponse ::
   -- | 'httpStatus'
@@ -297,17 +291,12 @@ newUpdateFleetCapacityResponse ::
   UpdateFleetCapacityResponse
 newUpdateFleetCapacityResponse pHttpStatus_ =
   UpdateFleetCapacityResponse'
-    { location =
+    { fleetArn =
         Prelude.Nothing,
-      fleetArn = Prelude.Nothing,
       fleetId = Prelude.Nothing,
+      location = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The remote location being updated, expressed as an AWS Region code, such
--- as @us-west-2@.
-updateFleetCapacityResponse_location :: Lens.Lens' UpdateFleetCapacityResponse (Prelude.Maybe Prelude.Text)
-updateFleetCapacityResponse_location = Lens.lens (\UpdateFleetCapacityResponse' {location} -> location) (\s@UpdateFleetCapacityResponse' {} a -> s {location = a} :: UpdateFleetCapacityResponse)
 
 -- | The Amazon Resource Name
 -- (<https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html ARN>)
@@ -321,13 +310,18 @@ updateFleetCapacityResponse_fleetArn = Lens.lens (\UpdateFleetCapacityResponse' 
 updateFleetCapacityResponse_fleetId :: Lens.Lens' UpdateFleetCapacityResponse (Prelude.Maybe Prelude.Text)
 updateFleetCapacityResponse_fleetId = Lens.lens (\UpdateFleetCapacityResponse' {fleetId} -> fleetId) (\s@UpdateFleetCapacityResponse' {} a -> s {fleetId = a} :: UpdateFleetCapacityResponse)
 
+-- | The remote location being updated, expressed as an Amazon Web Services
+-- Region code, such as @us-west-2@.
+updateFleetCapacityResponse_location :: Lens.Lens' UpdateFleetCapacityResponse (Prelude.Maybe Prelude.Text)
+updateFleetCapacityResponse_location = Lens.lens (\UpdateFleetCapacityResponse' {location} -> location) (\s@UpdateFleetCapacityResponse' {} a -> s {location = a} :: UpdateFleetCapacityResponse)
+
 -- | The response's http status code.
 updateFleetCapacityResponse_httpStatus :: Lens.Lens' UpdateFleetCapacityResponse Prelude.Int
 updateFleetCapacityResponse_httpStatus = Lens.lens (\UpdateFleetCapacityResponse' {httpStatus} -> httpStatus) (\s@UpdateFleetCapacityResponse' {} a -> s {httpStatus = a} :: UpdateFleetCapacityResponse)
 
 instance Prelude.NFData UpdateFleetCapacityResponse where
   rnf UpdateFleetCapacityResponse' {..} =
-    Prelude.rnf location
-      `Prelude.seq` Prelude.rnf fleetArn
+    Prelude.rnf fleetArn
       `Prelude.seq` Prelude.rnf fleetId
+      `Prelude.seq` Prelude.rnf location
       `Prelude.seq` Prelude.rnf httpStatus

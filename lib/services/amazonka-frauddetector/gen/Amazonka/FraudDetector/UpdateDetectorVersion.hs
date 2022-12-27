@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.UpdateDetectorVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.FraudDetector.UpdateDetectorVersion
     newUpdateDetectorVersion,
 
     -- * Request Lenses
-    updateDetectorVersion_ruleExecutionMode,
-    updateDetectorVersion_modelVersions,
     updateDetectorVersion_description,
+    updateDetectorVersion_modelVersions,
+    updateDetectorVersion_ruleExecutionMode,
     updateDetectorVersion_detectorId,
     updateDetectorVersion_detectorVersionId,
     updateDetectorVersion_externalModelEndpoints,
@@ -47,15 +47,20 @@ module Amazonka.FraudDetector.UpdateDetectorVersion
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateDetectorVersion' smart constructor.
 data UpdateDetectorVersion = UpdateDetectorVersion'
-  { -- | The rule execution mode to add to the detector.
+  { -- | The detector version description.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The model versions to include in the detector version.
+    modelVersions :: Prelude.Maybe [ModelVersion],
+    -- | The rule execution mode to add to the detector.
     --
     -- If you specify @FIRST_MATCHED@, Amazon Fraud Detector evaluates rules
     -- sequentially, first to last, stopping at the first matched rule. Amazon
@@ -67,10 +72,6 @@ data UpdateDetectorVersion = UpdateDetectorVersion'
     --
     -- The default behavior is @FIRST_MATCHED@.
     ruleExecutionMode :: Prelude.Maybe RuleExecutionMode,
-    -- | The model versions to include in the detector version.
-    modelVersions :: Prelude.Maybe [ModelVersion],
-    -- | The detector version description.
-    description :: Prelude.Maybe Prelude.Text,
     -- | The parent detector ID for the detector version you want to update.
     detectorId :: Prelude.Text,
     -- | The detector version ID.
@@ -90,6 +91,10 @@ data UpdateDetectorVersion = UpdateDetectorVersion'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'updateDetectorVersion_description' - The detector version description.
+--
+-- 'modelVersions', 'updateDetectorVersion_modelVersions' - The model versions to include in the detector version.
+--
 -- 'ruleExecutionMode', 'updateDetectorVersion_ruleExecutionMode' - The rule execution mode to add to the detector.
 --
 -- If you specify @FIRST_MATCHED@, Amazon Fraud Detector evaluates rules
@@ -101,10 +106,6 @@ data UpdateDetectorVersion = UpdateDetectorVersion'
 -- the rule mode at the detector version level, when it is in draft status.
 --
 -- The default behavior is @FIRST_MATCHED@.
---
--- 'modelVersions', 'updateDetectorVersion_modelVersions' - The model versions to include in the detector version.
---
--- 'description', 'updateDetectorVersion_description' - The detector version description.
 --
 -- 'detectorId', 'updateDetectorVersion_detectorId' - The parent detector ID for the detector version you want to update.
 --
@@ -123,15 +124,23 @@ newUpdateDetectorVersion
   pDetectorId_
   pDetectorVersionId_ =
     UpdateDetectorVersion'
-      { ruleExecutionMode =
+      { description =
           Prelude.Nothing,
         modelVersions = Prelude.Nothing,
-        description = Prelude.Nothing,
+        ruleExecutionMode = Prelude.Nothing,
         detectorId = pDetectorId_,
         detectorVersionId = pDetectorVersionId_,
         externalModelEndpoints = Prelude.mempty,
         rules = Prelude.mempty
       }
+
+-- | The detector version description.
+updateDetectorVersion_description :: Lens.Lens' UpdateDetectorVersion (Prelude.Maybe Prelude.Text)
+updateDetectorVersion_description = Lens.lens (\UpdateDetectorVersion' {description} -> description) (\s@UpdateDetectorVersion' {} a -> s {description = a} :: UpdateDetectorVersion)
+
+-- | The model versions to include in the detector version.
+updateDetectorVersion_modelVersions :: Lens.Lens' UpdateDetectorVersion (Prelude.Maybe [ModelVersion])
+updateDetectorVersion_modelVersions = Lens.lens (\UpdateDetectorVersion' {modelVersions} -> modelVersions) (\s@UpdateDetectorVersion' {} a -> s {modelVersions = a} :: UpdateDetectorVersion) Prelude.. Lens.mapping Lens.coerced
 
 -- | The rule execution mode to add to the detector.
 --
@@ -146,14 +155,6 @@ newUpdateDetectorVersion
 -- The default behavior is @FIRST_MATCHED@.
 updateDetectorVersion_ruleExecutionMode :: Lens.Lens' UpdateDetectorVersion (Prelude.Maybe RuleExecutionMode)
 updateDetectorVersion_ruleExecutionMode = Lens.lens (\UpdateDetectorVersion' {ruleExecutionMode} -> ruleExecutionMode) (\s@UpdateDetectorVersion' {} a -> s {ruleExecutionMode = a} :: UpdateDetectorVersion)
-
--- | The model versions to include in the detector version.
-updateDetectorVersion_modelVersions :: Lens.Lens' UpdateDetectorVersion (Prelude.Maybe [ModelVersion])
-updateDetectorVersion_modelVersions = Lens.lens (\UpdateDetectorVersion' {modelVersions} -> modelVersions) (\s@UpdateDetectorVersion' {} a -> s {modelVersions = a} :: UpdateDetectorVersion) Prelude.. Lens.mapping Lens.coerced
-
--- | The detector version description.
-updateDetectorVersion_description :: Lens.Lens' UpdateDetectorVersion (Prelude.Maybe Prelude.Text)
-updateDetectorVersion_description = Lens.lens (\UpdateDetectorVersion' {description} -> description) (\s@UpdateDetectorVersion' {} a -> s {description = a} :: UpdateDetectorVersion)
 
 -- | The parent detector ID for the detector version you want to update.
 updateDetectorVersion_detectorId :: Lens.Lens' UpdateDetectorVersion Prelude.Text
@@ -175,7 +176,8 @@ instance Core.AWSRequest UpdateDetectorVersion where
   type
     AWSResponse UpdateDetectorVersion =
       UpdateDetectorVersionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -185,9 +187,9 @@ instance Core.AWSRequest UpdateDetectorVersion where
 
 instance Prelude.Hashable UpdateDetectorVersion where
   hashWithSalt _salt UpdateDetectorVersion' {..} =
-    _salt `Prelude.hashWithSalt` ruleExecutionMode
+    _salt `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` modelVersions
-      `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` ruleExecutionMode
       `Prelude.hashWithSalt` detectorId
       `Prelude.hashWithSalt` detectorVersionId
       `Prelude.hashWithSalt` externalModelEndpoints
@@ -195,52 +197,52 @@ instance Prelude.Hashable UpdateDetectorVersion where
 
 instance Prelude.NFData UpdateDetectorVersion where
   rnf UpdateDetectorVersion' {..} =
-    Prelude.rnf ruleExecutionMode
+    Prelude.rnf description
       `Prelude.seq` Prelude.rnf modelVersions
-      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf ruleExecutionMode
       `Prelude.seq` Prelude.rnf detectorId
       `Prelude.seq` Prelude.rnf detectorVersionId
       `Prelude.seq` Prelude.rnf externalModelEndpoints
       `Prelude.seq` Prelude.rnf rules
 
-instance Core.ToHeaders UpdateDetectorVersion where
+instance Data.ToHeaders UpdateDetectorVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.UpdateDetectorVersion" ::
+              Data.=# ( "AWSHawksNestServiceFacade.UpdateDetectorVersion" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateDetectorVersion where
+instance Data.ToJSON UpdateDetectorVersion where
   toJSON UpdateDetectorVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ruleExecutionMode" Core..=)
+          [ ("description" Data..=) Prelude.<$> description,
+            ("modelVersions" Data..=) Prelude.<$> modelVersions,
+            ("ruleExecutionMode" Data..=)
               Prelude.<$> ruleExecutionMode,
-            ("modelVersions" Core..=) Prelude.<$> modelVersions,
-            ("description" Core..=) Prelude.<$> description,
-            Prelude.Just ("detectorId" Core..= detectorId),
+            Prelude.Just ("detectorId" Data..= detectorId),
             Prelude.Just
-              ("detectorVersionId" Core..= detectorVersionId),
+              ("detectorVersionId" Data..= detectorVersionId),
             Prelude.Just
               ( "externalModelEndpoints"
-                  Core..= externalModelEndpoints
+                  Data..= externalModelEndpoints
               ),
-            Prelude.Just ("rules" Core..= rules)
+            Prelude.Just ("rules" Data..= rules)
           ]
       )
 
-instance Core.ToPath UpdateDetectorVersion where
+instance Data.ToPath UpdateDetectorVersion where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateDetectorVersion where
+instance Data.ToQuery UpdateDetectorVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateDetectorVersionResponse' smart constructor.

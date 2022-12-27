@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.DeleteRuleGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -66,7 +66,8 @@ module Amazonka.WAFRegional.DeleteRuleGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -119,12 +120,13 @@ instance Core.AWSRequest DeleteRuleGroup where
   type
     AWSResponse DeleteRuleGroup =
       DeleteRuleGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteRuleGroupResponse'
-            Prelude.<$> (x Core..?> "ChangeToken")
+            Prelude.<$> (x Data..?> "ChangeToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -138,34 +140,34 @@ instance Prelude.NFData DeleteRuleGroup where
     Prelude.rnf ruleGroupId
       `Prelude.seq` Prelude.rnf changeToken
 
-instance Core.ToHeaders DeleteRuleGroup where
+instance Data.ToHeaders DeleteRuleGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_Regional_20161128.DeleteRuleGroup" ::
+              Data.=# ( "AWSWAF_Regional_20161128.DeleteRuleGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteRuleGroup where
+instance Data.ToJSON DeleteRuleGroup where
   toJSON DeleteRuleGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("RuleGroupId" Core..= ruleGroupId),
-            Prelude.Just ("ChangeToken" Core..= changeToken)
+          [ Prelude.Just ("RuleGroupId" Data..= ruleGroupId),
+            Prelude.Just ("ChangeToken" Data..= changeToken)
           ]
       )
 
-instance Core.ToPath DeleteRuleGroup where
+instance Data.ToPath DeleteRuleGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteRuleGroup where
+instance Data.ToQuery DeleteRuleGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteRuleGroupResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Firehose.Types.HiveJsonSerDe
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Firehose.Types.HiveJsonSerDe where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The native Hive \/ HCatalog JsonSerDe. Used by Kinesis Data Firehose for
@@ -75,14 +76,14 @@ newHiveJsonSerDe =
 hiveJsonSerDe_timestampFormats :: Lens.Lens' HiveJsonSerDe (Prelude.Maybe [Prelude.Text])
 hiveJsonSerDe_timestampFormats = Lens.lens (\HiveJsonSerDe' {timestampFormats} -> timestampFormats) (\s@HiveJsonSerDe' {} a -> s {timestampFormats = a} :: HiveJsonSerDe) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON HiveJsonSerDe where
+instance Data.FromJSON HiveJsonSerDe where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HiveJsonSerDe"
       ( \x ->
           HiveJsonSerDe'
-            Prelude.<$> ( x Core..:? "TimestampFormats"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "TimestampFormats"
+                            Data..!= Prelude.mempty
                         )
       )
 
@@ -93,11 +94,11 @@ instance Prelude.Hashable HiveJsonSerDe where
 instance Prelude.NFData HiveJsonSerDe where
   rnf HiveJsonSerDe' {..} = Prelude.rnf timestampFormats
 
-instance Core.ToJSON HiveJsonSerDe where
+instance Data.ToJSON HiveJsonSerDe where
   toJSON HiveJsonSerDe' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TimestampFormats" Core..=)
+          [ ("TimestampFormats" Data..=)
               Prelude.<$> timestampFormats
           ]
       )

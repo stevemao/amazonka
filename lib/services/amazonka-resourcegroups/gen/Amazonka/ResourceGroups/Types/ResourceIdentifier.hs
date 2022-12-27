@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ResourceGroups.Types.ResourceIdentifier
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.ResourceGroups.Types.ResourceIdentifier where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A structure that contains the ARN of a resource and its resource type.
 --
 -- /See:/ 'newResourceIdentifier' smart constructor.
 data ResourceIdentifier = ResourceIdentifier'
-  { -- | The resource type of a resource, such as @AWS::EC2::Instance@.
-    resourceType :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of a resource.
-    resourceArn :: Prelude.Maybe Prelude.Text
+  { -- | The ARN of a resource.
+    resourceArn :: Prelude.Maybe Prelude.Text,
+    -- | The resource type of a resource, such as @AWS::EC2::Instance@.
+    resourceType :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,41 +43,41 @@ data ResourceIdentifier = ResourceIdentifier'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceType', 'resourceIdentifier_resourceType' - The resource type of a resource, such as @AWS::EC2::Instance@.
---
 -- 'resourceArn', 'resourceIdentifier_resourceArn' - The ARN of a resource.
+--
+-- 'resourceType', 'resourceIdentifier_resourceType' - The resource type of a resource, such as @AWS::EC2::Instance@.
 newResourceIdentifier ::
   ResourceIdentifier
 newResourceIdentifier =
   ResourceIdentifier'
-    { resourceType = Prelude.Nothing,
-      resourceArn = Prelude.Nothing
+    { resourceArn = Prelude.Nothing,
+      resourceType = Prelude.Nothing
     }
-
--- | The resource type of a resource, such as @AWS::EC2::Instance@.
-resourceIdentifier_resourceType :: Lens.Lens' ResourceIdentifier (Prelude.Maybe Prelude.Text)
-resourceIdentifier_resourceType = Lens.lens (\ResourceIdentifier' {resourceType} -> resourceType) (\s@ResourceIdentifier' {} a -> s {resourceType = a} :: ResourceIdentifier)
 
 -- | The ARN of a resource.
 resourceIdentifier_resourceArn :: Lens.Lens' ResourceIdentifier (Prelude.Maybe Prelude.Text)
 resourceIdentifier_resourceArn = Lens.lens (\ResourceIdentifier' {resourceArn} -> resourceArn) (\s@ResourceIdentifier' {} a -> s {resourceArn = a} :: ResourceIdentifier)
 
-instance Core.FromJSON ResourceIdentifier where
+-- | The resource type of a resource, such as @AWS::EC2::Instance@.
+resourceIdentifier_resourceType :: Lens.Lens' ResourceIdentifier (Prelude.Maybe Prelude.Text)
+resourceIdentifier_resourceType = Lens.lens (\ResourceIdentifier' {resourceType} -> resourceType) (\s@ResourceIdentifier' {} a -> s {resourceType = a} :: ResourceIdentifier)
+
+instance Data.FromJSON ResourceIdentifier where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResourceIdentifier"
       ( \x ->
           ResourceIdentifier'
-            Prelude.<$> (x Core..:? "ResourceType")
-            Prelude.<*> (x Core..:? "ResourceArn")
+            Prelude.<$> (x Data..:? "ResourceArn")
+            Prelude.<*> (x Data..:? "ResourceType")
       )
 
 instance Prelude.Hashable ResourceIdentifier where
   hashWithSalt _salt ResourceIdentifier' {..} =
-    _salt `Prelude.hashWithSalt` resourceType
-      `Prelude.hashWithSalt` resourceArn
+    _salt `Prelude.hashWithSalt` resourceArn
+      `Prelude.hashWithSalt` resourceType
 
 instance Prelude.NFData ResourceIdentifier where
   rnf ResourceIdentifier' {..} =
-    Prelude.rnf resourceType
-      `Prelude.seq` Prelude.rnf resourceArn
+    Prelude.rnf resourceArn
+      `Prelude.seq` Prelude.rnf resourceType

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.CatalogConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KinesisAnalyticsV2.Types.CatalogConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.GlueDataCatalogConfiguration
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configuration parameters for the default Amazon Glue database. You
@@ -74,13 +75,13 @@ instance Prelude.NFData CatalogConfiguration where
   rnf CatalogConfiguration' {..} =
     Prelude.rnf glueDataCatalogConfiguration
 
-instance Core.ToJSON CatalogConfiguration where
+instance Data.ToJSON CatalogConfiguration where
   toJSON CatalogConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "GlueDataCatalogConfiguration"
-                  Core..= glueDataCatalogConfiguration
+                  Data..= glueDataCatalogConfiguration
               )
           ]
       )

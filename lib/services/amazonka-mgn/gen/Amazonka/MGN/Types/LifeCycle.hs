@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MGN.Types.LifeCycle
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MGN.Types.LifeCycle where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MGN.Types.LifeCycleLastCutover
 import Amazonka.MGN.Types.LifeCycleLastTest
 import Amazonka.MGN.Types.LifeCycleState
@@ -30,20 +31,20 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newLifeCycle' smart constructor.
 data LifeCycle = LifeCycle'
-  { -- | Lifecycle last Test.
-    lastTest :: Prelude.Maybe LifeCycleLastTest,
-    -- | Lifecycle state.
-    state :: Prelude.Maybe LifeCycleState,
+  { -- | Lifecycle added to service data and time.
+    addedToServiceDateTime :: Prelude.Maybe Prelude.Text,
     -- | Lifecycle elapsed time and duration.
     elapsedReplicationDuration :: Prelude.Maybe Prelude.Text,
-    -- | Lifecycle last seen date and time.
-    lastSeenByServiceDateTime :: Prelude.Maybe Prelude.Text,
-    -- | Lifecycle added to service data and time.
-    addedToServiceDateTime :: Prelude.Maybe Prelude.Text,
+    -- | Lifecycle replication initiation date and time.
+    firstByteDateTime :: Prelude.Maybe Prelude.Text,
     -- | Lifecycle last Cutover.
     lastCutover :: Prelude.Maybe LifeCycleLastCutover,
-    -- | Lifecycle replication initiation date and time.
-    firstByteDateTime :: Prelude.Maybe Prelude.Text
+    -- | Lifecycle last seen date and time.
+    lastSeenByServiceDateTime :: Prelude.Maybe Prelude.Text,
+    -- | Lifecycle last Test.
+    lastTest :: Prelude.Maybe LifeCycleLastTest,
+    -- | Lifecycle state.
+    state :: Prelude.Maybe LifeCycleState
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -55,31 +56,52 @@ data LifeCycle = LifeCycle'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'lastTest', 'lifeCycle_lastTest' - Lifecycle last Test.
---
--- 'state', 'lifeCycle_state' - Lifecycle state.
+-- 'addedToServiceDateTime', 'lifeCycle_addedToServiceDateTime' - Lifecycle added to service data and time.
 --
 -- 'elapsedReplicationDuration', 'lifeCycle_elapsedReplicationDuration' - Lifecycle elapsed time and duration.
 --
--- 'lastSeenByServiceDateTime', 'lifeCycle_lastSeenByServiceDateTime' - Lifecycle last seen date and time.
---
--- 'addedToServiceDateTime', 'lifeCycle_addedToServiceDateTime' - Lifecycle added to service data and time.
+-- 'firstByteDateTime', 'lifeCycle_firstByteDateTime' - Lifecycle replication initiation date and time.
 --
 -- 'lastCutover', 'lifeCycle_lastCutover' - Lifecycle last Cutover.
 --
--- 'firstByteDateTime', 'lifeCycle_firstByteDateTime' - Lifecycle replication initiation date and time.
+-- 'lastSeenByServiceDateTime', 'lifeCycle_lastSeenByServiceDateTime' - Lifecycle last seen date and time.
+--
+-- 'lastTest', 'lifeCycle_lastTest' - Lifecycle last Test.
+--
+-- 'state', 'lifeCycle_state' - Lifecycle state.
 newLifeCycle ::
   LifeCycle
 newLifeCycle =
   LifeCycle'
-    { lastTest = Prelude.Nothing,
-      state = Prelude.Nothing,
+    { addedToServiceDateTime =
+        Prelude.Nothing,
       elapsedReplicationDuration = Prelude.Nothing,
-      lastSeenByServiceDateTime = Prelude.Nothing,
-      addedToServiceDateTime = Prelude.Nothing,
+      firstByteDateTime = Prelude.Nothing,
       lastCutover = Prelude.Nothing,
-      firstByteDateTime = Prelude.Nothing
+      lastSeenByServiceDateTime = Prelude.Nothing,
+      lastTest = Prelude.Nothing,
+      state = Prelude.Nothing
     }
+
+-- | Lifecycle added to service data and time.
+lifeCycle_addedToServiceDateTime :: Lens.Lens' LifeCycle (Prelude.Maybe Prelude.Text)
+lifeCycle_addedToServiceDateTime = Lens.lens (\LifeCycle' {addedToServiceDateTime} -> addedToServiceDateTime) (\s@LifeCycle' {} a -> s {addedToServiceDateTime = a} :: LifeCycle)
+
+-- | Lifecycle elapsed time and duration.
+lifeCycle_elapsedReplicationDuration :: Lens.Lens' LifeCycle (Prelude.Maybe Prelude.Text)
+lifeCycle_elapsedReplicationDuration = Lens.lens (\LifeCycle' {elapsedReplicationDuration} -> elapsedReplicationDuration) (\s@LifeCycle' {} a -> s {elapsedReplicationDuration = a} :: LifeCycle)
+
+-- | Lifecycle replication initiation date and time.
+lifeCycle_firstByteDateTime :: Lens.Lens' LifeCycle (Prelude.Maybe Prelude.Text)
+lifeCycle_firstByteDateTime = Lens.lens (\LifeCycle' {firstByteDateTime} -> firstByteDateTime) (\s@LifeCycle' {} a -> s {firstByteDateTime = a} :: LifeCycle)
+
+-- | Lifecycle last Cutover.
+lifeCycle_lastCutover :: Lens.Lens' LifeCycle (Prelude.Maybe LifeCycleLastCutover)
+lifeCycle_lastCutover = Lens.lens (\LifeCycle' {lastCutover} -> lastCutover) (\s@LifeCycle' {} a -> s {lastCutover = a} :: LifeCycle)
+
+-- | Lifecycle last seen date and time.
+lifeCycle_lastSeenByServiceDateTime :: Lens.Lens' LifeCycle (Prelude.Maybe Prelude.Text)
+lifeCycle_lastSeenByServiceDateTime = Lens.lens (\LifeCycle' {lastSeenByServiceDateTime} -> lastSeenByServiceDateTime) (\s@LifeCycle' {} a -> s {lastSeenByServiceDateTime = a} :: LifeCycle)
 
 -- | Lifecycle last Test.
 lifeCycle_lastTest :: Lens.Lens' LifeCycle (Prelude.Maybe LifeCycleLastTest)
@@ -89,57 +111,37 @@ lifeCycle_lastTest = Lens.lens (\LifeCycle' {lastTest} -> lastTest) (\s@LifeCycl
 lifeCycle_state :: Lens.Lens' LifeCycle (Prelude.Maybe LifeCycleState)
 lifeCycle_state = Lens.lens (\LifeCycle' {state} -> state) (\s@LifeCycle' {} a -> s {state = a} :: LifeCycle)
 
--- | Lifecycle elapsed time and duration.
-lifeCycle_elapsedReplicationDuration :: Lens.Lens' LifeCycle (Prelude.Maybe Prelude.Text)
-lifeCycle_elapsedReplicationDuration = Lens.lens (\LifeCycle' {elapsedReplicationDuration} -> elapsedReplicationDuration) (\s@LifeCycle' {} a -> s {elapsedReplicationDuration = a} :: LifeCycle)
-
--- | Lifecycle last seen date and time.
-lifeCycle_lastSeenByServiceDateTime :: Lens.Lens' LifeCycle (Prelude.Maybe Prelude.Text)
-lifeCycle_lastSeenByServiceDateTime = Lens.lens (\LifeCycle' {lastSeenByServiceDateTime} -> lastSeenByServiceDateTime) (\s@LifeCycle' {} a -> s {lastSeenByServiceDateTime = a} :: LifeCycle)
-
--- | Lifecycle added to service data and time.
-lifeCycle_addedToServiceDateTime :: Lens.Lens' LifeCycle (Prelude.Maybe Prelude.Text)
-lifeCycle_addedToServiceDateTime = Lens.lens (\LifeCycle' {addedToServiceDateTime} -> addedToServiceDateTime) (\s@LifeCycle' {} a -> s {addedToServiceDateTime = a} :: LifeCycle)
-
--- | Lifecycle last Cutover.
-lifeCycle_lastCutover :: Lens.Lens' LifeCycle (Prelude.Maybe LifeCycleLastCutover)
-lifeCycle_lastCutover = Lens.lens (\LifeCycle' {lastCutover} -> lastCutover) (\s@LifeCycle' {} a -> s {lastCutover = a} :: LifeCycle)
-
--- | Lifecycle replication initiation date and time.
-lifeCycle_firstByteDateTime :: Lens.Lens' LifeCycle (Prelude.Maybe Prelude.Text)
-lifeCycle_firstByteDateTime = Lens.lens (\LifeCycle' {firstByteDateTime} -> firstByteDateTime) (\s@LifeCycle' {} a -> s {firstByteDateTime = a} :: LifeCycle)
-
-instance Core.FromJSON LifeCycle where
+instance Data.FromJSON LifeCycle where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LifeCycle"
       ( \x ->
           LifeCycle'
-            Prelude.<$> (x Core..:? "lastTest")
-            Prelude.<*> (x Core..:? "state")
-            Prelude.<*> (x Core..:? "elapsedReplicationDuration")
-            Prelude.<*> (x Core..:? "lastSeenByServiceDateTime")
-            Prelude.<*> (x Core..:? "addedToServiceDateTime")
-            Prelude.<*> (x Core..:? "lastCutover")
-            Prelude.<*> (x Core..:? "firstByteDateTime")
+            Prelude.<$> (x Data..:? "addedToServiceDateTime")
+            Prelude.<*> (x Data..:? "elapsedReplicationDuration")
+            Prelude.<*> (x Data..:? "firstByteDateTime")
+            Prelude.<*> (x Data..:? "lastCutover")
+            Prelude.<*> (x Data..:? "lastSeenByServiceDateTime")
+            Prelude.<*> (x Data..:? "lastTest")
+            Prelude.<*> (x Data..:? "state")
       )
 
 instance Prelude.Hashable LifeCycle where
   hashWithSalt _salt LifeCycle' {..} =
-    _salt `Prelude.hashWithSalt` lastTest
-      `Prelude.hashWithSalt` state
+    _salt `Prelude.hashWithSalt` addedToServiceDateTime
       `Prelude.hashWithSalt` elapsedReplicationDuration
-      `Prelude.hashWithSalt` lastSeenByServiceDateTime
-      `Prelude.hashWithSalt` addedToServiceDateTime
-      `Prelude.hashWithSalt` lastCutover
       `Prelude.hashWithSalt` firstByteDateTime
+      `Prelude.hashWithSalt` lastCutover
+      `Prelude.hashWithSalt` lastSeenByServiceDateTime
+      `Prelude.hashWithSalt` lastTest
+      `Prelude.hashWithSalt` state
 
 instance Prelude.NFData LifeCycle where
   rnf LifeCycle' {..} =
-    Prelude.rnf lastTest
-      `Prelude.seq` Prelude.rnf state
+    Prelude.rnf addedToServiceDateTime
       `Prelude.seq` Prelude.rnf elapsedReplicationDuration
-      `Prelude.seq` Prelude.rnf lastSeenByServiceDateTime
-      `Prelude.seq` Prelude.rnf addedToServiceDateTime
-      `Prelude.seq` Prelude.rnf lastCutover
       `Prelude.seq` Prelude.rnf firstByteDateTime
+      `Prelude.seq` Prelude.rnf lastCutover
+      `Prelude.seq` Prelude.rnf lastSeenByServiceDateTime
+      `Prelude.seq` Prelude.rnf lastTest
+      `Prelude.seq` Prelude.rnf state

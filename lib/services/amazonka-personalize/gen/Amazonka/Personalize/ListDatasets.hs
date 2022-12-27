@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.ListDatasets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,7 @@
 -- Returns the list of datasets contained in the given dataset group. The
 -- response provides the properties for each dataset, including the Amazon
 -- Resource Name (ARN). For more information on datasets, see
--- CreateDataset.
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDataset.html CreateDataset>.
 --
 -- This operation returns paginated results.
 module Amazonka.Personalize.ListDatasets
@@ -32,23 +32,24 @@ module Amazonka.Personalize.ListDatasets
     newListDatasets,
 
     -- * Request Lenses
-    listDatasets_nextToken,
     listDatasets_datasetGroupArn,
     listDatasets_maxResults,
+    listDatasets_nextToken,
 
     -- * Destructuring the Response
     ListDatasetsResponse (..),
     newListDatasetsResponse,
 
     -- * Response Lenses
-    listDatasetsResponse_nextToken,
     listDatasetsResponse_datasets,
+    listDatasetsResponse_nextToken,
     listDatasetsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -56,14 +57,14 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListDatasets' smart constructor.
 data ListDatasets = ListDatasets'
-  { -- | A token returned from the previous call to @ListDatasetImportJobs@ for
-    -- getting the next set of dataset import jobs (if they exist).
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the dataset group that contains the
+  { -- | The Amazon Resource Name (ARN) of the dataset group that contains the
     -- datasets to list.
     datasetGroupArn :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of datasets to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token returned from the previous call to @ListDatasetImportJobs@ for
+    -- getting the next set of dataset import jobs (if they exist).
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -75,26 +76,21 @@ data ListDatasets = ListDatasets'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listDatasets_nextToken' - A token returned from the previous call to @ListDatasetImportJobs@ for
--- getting the next set of dataset import jobs (if they exist).
---
 -- 'datasetGroupArn', 'listDatasets_datasetGroupArn' - The Amazon Resource Name (ARN) of the dataset group that contains the
 -- datasets to list.
 --
 -- 'maxResults', 'listDatasets_maxResults' - The maximum number of datasets to return.
+--
+-- 'nextToken', 'listDatasets_nextToken' - A token returned from the previous call to @ListDatasetImportJobs@ for
+-- getting the next set of dataset import jobs (if they exist).
 newListDatasets ::
   ListDatasets
 newListDatasets =
   ListDatasets'
-    { nextToken = Prelude.Nothing,
-      datasetGroupArn = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { datasetGroupArn = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | A token returned from the previous call to @ListDatasetImportJobs@ for
--- getting the next set of dataset import jobs (if they exist).
-listDatasets_nextToken :: Lens.Lens' ListDatasets (Prelude.Maybe Prelude.Text)
-listDatasets_nextToken = Lens.lens (\ListDatasets' {nextToken} -> nextToken) (\s@ListDatasets' {} a -> s {nextToken = a} :: ListDatasets)
 
 -- | The Amazon Resource Name (ARN) of the dataset group that contains the
 -- datasets to list.
@@ -104,6 +100,11 @@ listDatasets_datasetGroupArn = Lens.lens (\ListDatasets' {datasetGroupArn} -> da
 -- | The maximum number of datasets to return.
 listDatasets_maxResults :: Lens.Lens' ListDatasets (Prelude.Maybe Prelude.Natural)
 listDatasets_maxResults = Lens.lens (\ListDatasets' {maxResults} -> maxResults) (\s@ListDatasets' {} a -> s {maxResults = a} :: ListDatasets)
+
+-- | A token returned from the previous call to @ListDatasetImportJobs@ for
+-- getting the next set of dataset import jobs (if they exist).
+listDatasets_nextToken :: Lens.Lens' ListDatasets (Prelude.Maybe Prelude.Text)
+listDatasets_nextToken = Lens.lens (\ListDatasets' {nextToken} -> nextToken) (\s@ListDatasets' {} a -> s {nextToken = a} :: ListDatasets)
 
 instance Core.AWSPager ListDatasets where
   page rq rs
@@ -126,67 +127,68 @@ instance Core.AWSPager ListDatasets where
 
 instance Core.AWSRequest ListDatasets where
   type AWSResponse ListDatasets = ListDatasetsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDatasetsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "datasets" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "datasets" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListDatasets where
   hashWithSalt _salt ListDatasets' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` datasetGroupArn
+    _salt `Prelude.hashWithSalt` datasetGroupArn
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListDatasets where
   rnf ListDatasets' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf datasetGroupArn
+    Prelude.rnf datasetGroupArn
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListDatasets where
+instance Data.ToHeaders ListDatasets where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.ListDatasets" ::
+              Data.=# ( "AmazonPersonalize.ListDatasets" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListDatasets where
+instance Data.ToJSON ListDatasets where
   toJSON ListDatasets' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("datasetGroupArn" Core..=)
+          [ ("datasetGroupArn" Data..=)
               Prelude.<$> datasetGroupArn,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListDatasets where
+instance Data.ToPath ListDatasets where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListDatasets where
+instance Data.ToQuery ListDatasets where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListDatasetsResponse' smart constructor.
 data ListDatasetsResponse = ListDatasetsResponse'
-  { -- | A token for getting the next set of datasets (if they exist).
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | An array of @Dataset@ objects. Each object provides metadata
+  { -- | An array of @Dataset@ objects. Each object provides metadata
     -- information.
     datasets :: Prelude.Maybe [DatasetSummary],
+    -- | A token for getting the next set of datasets (if they exist).
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -200,10 +202,10 @@ data ListDatasetsResponse = ListDatasetsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listDatasetsResponse_nextToken' - A token for getting the next set of datasets (if they exist).
---
 -- 'datasets', 'listDatasetsResponse_datasets' - An array of @Dataset@ objects. Each object provides metadata
 -- information.
+--
+-- 'nextToken', 'listDatasetsResponse_nextToken' - A token for getting the next set of datasets (if they exist).
 --
 -- 'httpStatus', 'listDatasetsResponse_httpStatus' - The response's http status code.
 newListDatasetsResponse ::
@@ -212,19 +214,19 @@ newListDatasetsResponse ::
   ListDatasetsResponse
 newListDatasetsResponse pHttpStatus_ =
   ListDatasetsResponse'
-    { nextToken = Prelude.Nothing,
-      datasets = Prelude.Nothing,
+    { datasets = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A token for getting the next set of datasets (if they exist).
-listDatasetsResponse_nextToken :: Lens.Lens' ListDatasetsResponse (Prelude.Maybe Prelude.Text)
-listDatasetsResponse_nextToken = Lens.lens (\ListDatasetsResponse' {nextToken} -> nextToken) (\s@ListDatasetsResponse' {} a -> s {nextToken = a} :: ListDatasetsResponse)
 
 -- | An array of @Dataset@ objects. Each object provides metadata
 -- information.
 listDatasetsResponse_datasets :: Lens.Lens' ListDatasetsResponse (Prelude.Maybe [DatasetSummary])
 listDatasetsResponse_datasets = Lens.lens (\ListDatasetsResponse' {datasets} -> datasets) (\s@ListDatasetsResponse' {} a -> s {datasets = a} :: ListDatasetsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | A token for getting the next set of datasets (if they exist).
+listDatasetsResponse_nextToken :: Lens.Lens' ListDatasetsResponse (Prelude.Maybe Prelude.Text)
+listDatasetsResponse_nextToken = Lens.lens (\ListDatasetsResponse' {nextToken} -> nextToken) (\s@ListDatasetsResponse' {} a -> s {nextToken = a} :: ListDatasetsResponse)
 
 -- | The response's http status code.
 listDatasetsResponse_httpStatus :: Lens.Lens' ListDatasetsResponse Prelude.Int
@@ -232,6 +234,6 @@ listDatasetsResponse_httpStatus = Lens.lens (\ListDatasetsResponse' {httpStatus}
 
 instance Prelude.NFData ListDatasetsResponse where
   rnf ListDatasetsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf datasets
+    Prelude.rnf datasets
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

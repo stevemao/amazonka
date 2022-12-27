@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.DiskImageVolumeDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.EC2.Types.DiskImageVolumeDescription where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a disk image volume.
 --
 -- /See:/ 'newDiskImageVolumeDescription' smart constructor.
 data DiskImageVolumeDescription = DiskImageVolumeDescription'
-  { -- | The size of the volume, in GiB.
-    size :: Prelude.Maybe Prelude.Integer,
-    -- | The volume identifier.
-    id :: Prelude.Maybe Prelude.Text
+  { -- | The volume identifier.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The size of the volume, in GiB.
+    size :: Prelude.Maybe Prelude.Integer
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,35 +44,35 @@ data DiskImageVolumeDescription = DiskImageVolumeDescription'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'size', 'diskImageVolumeDescription_size' - The size of the volume, in GiB.
---
 -- 'id', 'diskImageVolumeDescription_id' - The volume identifier.
+--
+-- 'size', 'diskImageVolumeDescription_size' - The size of the volume, in GiB.
 newDiskImageVolumeDescription ::
   DiskImageVolumeDescription
 newDiskImageVolumeDescription =
   DiskImageVolumeDescription'
-    { size = Prelude.Nothing,
-      id = Prelude.Nothing
+    { id = Prelude.Nothing,
+      size = Prelude.Nothing
     }
-
--- | The size of the volume, in GiB.
-diskImageVolumeDescription_size :: Lens.Lens' DiskImageVolumeDescription (Prelude.Maybe Prelude.Integer)
-diskImageVolumeDescription_size = Lens.lens (\DiskImageVolumeDescription' {size} -> size) (\s@DiskImageVolumeDescription' {} a -> s {size = a} :: DiskImageVolumeDescription)
 
 -- | The volume identifier.
 diskImageVolumeDescription_id :: Lens.Lens' DiskImageVolumeDescription (Prelude.Maybe Prelude.Text)
 diskImageVolumeDescription_id = Lens.lens (\DiskImageVolumeDescription' {id} -> id) (\s@DiskImageVolumeDescription' {} a -> s {id = a} :: DiskImageVolumeDescription)
 
-instance Core.FromXML DiskImageVolumeDescription where
+-- | The size of the volume, in GiB.
+diskImageVolumeDescription_size :: Lens.Lens' DiskImageVolumeDescription (Prelude.Maybe Prelude.Integer)
+diskImageVolumeDescription_size = Lens.lens (\DiskImageVolumeDescription' {size} -> size) (\s@DiskImageVolumeDescription' {} a -> s {size = a} :: DiskImageVolumeDescription)
+
+instance Data.FromXML DiskImageVolumeDescription where
   parseXML x =
     DiskImageVolumeDescription'
-      Prelude.<$> (x Core..@? "size") Prelude.<*> (x Core..@? "id")
+      Prelude.<$> (x Data..@? "id") Prelude.<*> (x Data..@? "size")
 
 instance Prelude.Hashable DiskImageVolumeDescription where
   hashWithSalt _salt DiskImageVolumeDescription' {..} =
-    _salt `Prelude.hashWithSalt` size
-      `Prelude.hashWithSalt` id
+    _salt `Prelude.hashWithSalt` id
+      `Prelude.hashWithSalt` size
 
 instance Prelude.NFData DiskImageVolumeDescription where
   rnf DiskImageVolumeDescription' {..} =
-    Prelude.rnf size `Prelude.seq` Prelude.rnf id
+    Prelude.rnf id `Prelude.seq` Prelude.rnf size

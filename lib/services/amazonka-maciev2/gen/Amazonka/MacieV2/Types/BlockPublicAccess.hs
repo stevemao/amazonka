@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.BlockPublicAccess
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,29 +20,30 @@
 module Amazonka.MacieV2.Types.BlockPublicAccess where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides information about the block public access settings for an S3
--- bucket. These settings can apply to a bucket at the account level or
--- bucket level. For detailed information about each setting, see
+-- bucket. These settings can apply to a bucket at the account or bucket
+-- level. For detailed information about each setting, see
 -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html Blocking public access to your Amazon S3 storage>
 -- in the /Amazon Simple Storage Service User Guide/.
 --
 -- /See:/ 'newBlockPublicAccess' smart constructor.
 data BlockPublicAccess = BlockPublicAccess'
-  { -- | Specifies whether Amazon S3 ignores public ACLs for the bucket and
-    -- objects in the bucket.
-    ignorePublicAcls :: Prelude.Maybe Prelude.Bool,
-    -- | Specifies whether Amazon S3 blocks public access control lists (ACLs)
+  { -- | Specifies whether Amazon S3 blocks public access control lists (ACLs)
     -- for the bucket and objects in the bucket.
     blockPublicAcls :: Prelude.Maybe Prelude.Bool,
-    -- | Specifies whether Amazon S3 restricts public bucket policies for the
-    -- bucket.
-    restrictPublicBuckets :: Prelude.Maybe Prelude.Bool,
     -- | Specifies whether Amazon S3 blocks public bucket policies for the
     -- bucket.
-    blockPublicPolicy :: Prelude.Maybe Prelude.Bool
+    blockPublicPolicy :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether Amazon S3 ignores public ACLs for the bucket and
+    -- objects in the bucket.
+    ignorePublicAcls :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether Amazon S3 restricts public bucket policies for the
+    -- bucket.
+    restrictPublicBuckets :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -54,70 +55,70 @@ data BlockPublicAccess = BlockPublicAccess'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'ignorePublicAcls', 'blockPublicAccess_ignorePublicAcls' - Specifies whether Amazon S3 ignores public ACLs for the bucket and
--- objects in the bucket.
---
 -- 'blockPublicAcls', 'blockPublicAccess_blockPublicAcls' - Specifies whether Amazon S3 blocks public access control lists (ACLs)
 -- for the bucket and objects in the bucket.
 --
--- 'restrictPublicBuckets', 'blockPublicAccess_restrictPublicBuckets' - Specifies whether Amazon S3 restricts public bucket policies for the
+-- 'blockPublicPolicy', 'blockPublicAccess_blockPublicPolicy' - Specifies whether Amazon S3 blocks public bucket policies for the
 -- bucket.
 --
--- 'blockPublicPolicy', 'blockPublicAccess_blockPublicPolicy' - Specifies whether Amazon S3 blocks public bucket policies for the
+-- 'ignorePublicAcls', 'blockPublicAccess_ignorePublicAcls' - Specifies whether Amazon S3 ignores public ACLs for the bucket and
+-- objects in the bucket.
+--
+-- 'restrictPublicBuckets', 'blockPublicAccess_restrictPublicBuckets' - Specifies whether Amazon S3 restricts public bucket policies for the
 -- bucket.
 newBlockPublicAccess ::
   BlockPublicAccess
 newBlockPublicAccess =
   BlockPublicAccess'
-    { ignorePublicAcls =
+    { blockPublicAcls =
         Prelude.Nothing,
-      blockPublicAcls = Prelude.Nothing,
-      restrictPublicBuckets = Prelude.Nothing,
-      blockPublicPolicy = Prelude.Nothing
+      blockPublicPolicy = Prelude.Nothing,
+      ignorePublicAcls = Prelude.Nothing,
+      restrictPublicBuckets = Prelude.Nothing
     }
-
--- | Specifies whether Amazon S3 ignores public ACLs for the bucket and
--- objects in the bucket.
-blockPublicAccess_ignorePublicAcls :: Lens.Lens' BlockPublicAccess (Prelude.Maybe Prelude.Bool)
-blockPublicAccess_ignorePublicAcls = Lens.lens (\BlockPublicAccess' {ignorePublicAcls} -> ignorePublicAcls) (\s@BlockPublicAccess' {} a -> s {ignorePublicAcls = a} :: BlockPublicAccess)
 
 -- | Specifies whether Amazon S3 blocks public access control lists (ACLs)
 -- for the bucket and objects in the bucket.
 blockPublicAccess_blockPublicAcls :: Lens.Lens' BlockPublicAccess (Prelude.Maybe Prelude.Bool)
 blockPublicAccess_blockPublicAcls = Lens.lens (\BlockPublicAccess' {blockPublicAcls} -> blockPublicAcls) (\s@BlockPublicAccess' {} a -> s {blockPublicAcls = a} :: BlockPublicAccess)
 
--- | Specifies whether Amazon S3 restricts public bucket policies for the
--- bucket.
-blockPublicAccess_restrictPublicBuckets :: Lens.Lens' BlockPublicAccess (Prelude.Maybe Prelude.Bool)
-blockPublicAccess_restrictPublicBuckets = Lens.lens (\BlockPublicAccess' {restrictPublicBuckets} -> restrictPublicBuckets) (\s@BlockPublicAccess' {} a -> s {restrictPublicBuckets = a} :: BlockPublicAccess)
-
 -- | Specifies whether Amazon S3 blocks public bucket policies for the
 -- bucket.
 blockPublicAccess_blockPublicPolicy :: Lens.Lens' BlockPublicAccess (Prelude.Maybe Prelude.Bool)
 blockPublicAccess_blockPublicPolicy = Lens.lens (\BlockPublicAccess' {blockPublicPolicy} -> blockPublicPolicy) (\s@BlockPublicAccess' {} a -> s {blockPublicPolicy = a} :: BlockPublicAccess)
 
-instance Core.FromJSON BlockPublicAccess where
+-- | Specifies whether Amazon S3 ignores public ACLs for the bucket and
+-- objects in the bucket.
+blockPublicAccess_ignorePublicAcls :: Lens.Lens' BlockPublicAccess (Prelude.Maybe Prelude.Bool)
+blockPublicAccess_ignorePublicAcls = Lens.lens (\BlockPublicAccess' {ignorePublicAcls} -> ignorePublicAcls) (\s@BlockPublicAccess' {} a -> s {ignorePublicAcls = a} :: BlockPublicAccess)
+
+-- | Specifies whether Amazon S3 restricts public bucket policies for the
+-- bucket.
+blockPublicAccess_restrictPublicBuckets :: Lens.Lens' BlockPublicAccess (Prelude.Maybe Prelude.Bool)
+blockPublicAccess_restrictPublicBuckets = Lens.lens (\BlockPublicAccess' {restrictPublicBuckets} -> restrictPublicBuckets) (\s@BlockPublicAccess' {} a -> s {restrictPublicBuckets = a} :: BlockPublicAccess)
+
+instance Data.FromJSON BlockPublicAccess where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BlockPublicAccess"
       ( \x ->
           BlockPublicAccess'
-            Prelude.<$> (x Core..:? "ignorePublicAcls")
-            Prelude.<*> (x Core..:? "blockPublicAcls")
-            Prelude.<*> (x Core..:? "restrictPublicBuckets")
-            Prelude.<*> (x Core..:? "blockPublicPolicy")
+            Prelude.<$> (x Data..:? "blockPublicAcls")
+            Prelude.<*> (x Data..:? "blockPublicPolicy")
+            Prelude.<*> (x Data..:? "ignorePublicAcls")
+            Prelude.<*> (x Data..:? "restrictPublicBuckets")
       )
 
 instance Prelude.Hashable BlockPublicAccess where
   hashWithSalt _salt BlockPublicAccess' {..} =
-    _salt `Prelude.hashWithSalt` ignorePublicAcls
-      `Prelude.hashWithSalt` blockPublicAcls
-      `Prelude.hashWithSalt` restrictPublicBuckets
+    _salt `Prelude.hashWithSalt` blockPublicAcls
       `Prelude.hashWithSalt` blockPublicPolicy
+      `Prelude.hashWithSalt` ignorePublicAcls
+      `Prelude.hashWithSalt` restrictPublicBuckets
 
 instance Prelude.NFData BlockPublicAccess where
   rnf BlockPublicAccess' {..} =
-    Prelude.rnf ignorePublicAcls
-      `Prelude.seq` Prelude.rnf blockPublicAcls
-      `Prelude.seq` Prelude.rnf restrictPublicBuckets
+    Prelude.rnf blockPublicAcls
       `Prelude.seq` Prelude.rnf blockPublicPolicy
+      `Prelude.seq` Prelude.rnf ignorePublicAcls
+      `Prelude.seq` Prelude.rnf restrictPublicBuckets

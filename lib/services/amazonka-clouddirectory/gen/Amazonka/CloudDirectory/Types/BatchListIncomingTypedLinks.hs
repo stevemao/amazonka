@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.BatchListIncomingTypedLinks
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,8 @@ import Amazonka.CloudDirectory.Types.ObjectReference
 import Amazonka.CloudDirectory.Types.TypedLinkAttributeRange
 import Amazonka.CloudDirectory.Types.TypedLinkSchemaAndFacetName
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Returns a paginated list of all the incoming TypedLinkSpecifier
@@ -37,13 +38,13 @@ data BatchListIncomingTypedLinks = BatchListIncomingTypedLinks'
     -- Any attributes that do not have a range specified are presumed to match
     -- the entire range.
     filterAttributeRanges :: Prelude.Maybe [TypedLinkAttributeRange],
-    -- | The pagination token.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | Filters are interpreted in the order of the attributes on the typed link
     -- facet, not the order in which they are supplied to any API calls.
     filterTypedLink :: Prelude.Maybe TypedLinkSchemaAndFacetName,
     -- | The maximum number of results to retrieve.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The reference that identifies the object whose attributes will be
     -- listed.
     objectReference :: ObjectReference
@@ -63,12 +64,12 @@ data BatchListIncomingTypedLinks = BatchListIncomingTypedLinks'
 -- Any attributes that do not have a range specified are presumed to match
 -- the entire range.
 --
--- 'nextToken', 'batchListIncomingTypedLinks_nextToken' - The pagination token.
---
 -- 'filterTypedLink', 'batchListIncomingTypedLinks_filterTypedLink' - Filters are interpreted in the order of the attributes on the typed link
 -- facet, not the order in which they are supplied to any API calls.
 --
 -- 'maxResults', 'batchListIncomingTypedLinks_maxResults' - The maximum number of results to retrieve.
+--
+-- 'nextToken', 'batchListIncomingTypedLinks_nextToken' - The pagination token.
 --
 -- 'objectReference', 'batchListIncomingTypedLinks_objectReference' - The reference that identifies the object whose attributes will be
 -- listed.
@@ -80,9 +81,9 @@ newBatchListIncomingTypedLinks pObjectReference_ =
   BatchListIncomingTypedLinks'
     { filterAttributeRanges =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       filterTypedLink = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       objectReference = pObjectReference_
     }
 
@@ -93,10 +94,6 @@ newBatchListIncomingTypedLinks pObjectReference_ =
 batchListIncomingTypedLinks_filterAttributeRanges :: Lens.Lens' BatchListIncomingTypedLinks (Prelude.Maybe [TypedLinkAttributeRange])
 batchListIncomingTypedLinks_filterAttributeRanges = Lens.lens (\BatchListIncomingTypedLinks' {filterAttributeRanges} -> filterAttributeRanges) (\s@BatchListIncomingTypedLinks' {} a -> s {filterAttributeRanges = a} :: BatchListIncomingTypedLinks) Prelude.. Lens.mapping Lens.coerced
 
--- | The pagination token.
-batchListIncomingTypedLinks_nextToken :: Lens.Lens' BatchListIncomingTypedLinks (Prelude.Maybe Prelude.Text)
-batchListIncomingTypedLinks_nextToken = Lens.lens (\BatchListIncomingTypedLinks' {nextToken} -> nextToken) (\s@BatchListIncomingTypedLinks' {} a -> s {nextToken = a} :: BatchListIncomingTypedLinks)
-
 -- | Filters are interpreted in the order of the attributes on the typed link
 -- facet, not the order in which they are supplied to any API calls.
 batchListIncomingTypedLinks_filterTypedLink :: Lens.Lens' BatchListIncomingTypedLinks (Prelude.Maybe TypedLinkSchemaAndFacetName)
@@ -106,6 +103,10 @@ batchListIncomingTypedLinks_filterTypedLink = Lens.lens (\BatchListIncomingTyped
 batchListIncomingTypedLinks_maxResults :: Lens.Lens' BatchListIncomingTypedLinks (Prelude.Maybe Prelude.Natural)
 batchListIncomingTypedLinks_maxResults = Lens.lens (\BatchListIncomingTypedLinks' {maxResults} -> maxResults) (\s@BatchListIncomingTypedLinks' {} a -> s {maxResults = a} :: BatchListIncomingTypedLinks)
 
+-- | The pagination token.
+batchListIncomingTypedLinks_nextToken :: Lens.Lens' BatchListIncomingTypedLinks (Prelude.Maybe Prelude.Text)
+batchListIncomingTypedLinks_nextToken = Lens.lens (\BatchListIncomingTypedLinks' {nextToken} -> nextToken) (\s@BatchListIncomingTypedLinks' {} a -> s {nextToken = a} :: BatchListIncomingTypedLinks)
+
 -- | The reference that identifies the object whose attributes will be
 -- listed.
 batchListIncomingTypedLinks_objectReference :: Lens.Lens' BatchListIncomingTypedLinks ObjectReference
@@ -114,30 +115,30 @@ batchListIncomingTypedLinks_objectReference = Lens.lens (\BatchListIncomingTyped
 instance Prelude.Hashable BatchListIncomingTypedLinks where
   hashWithSalt _salt BatchListIncomingTypedLinks' {..} =
     _salt `Prelude.hashWithSalt` filterAttributeRanges
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` filterTypedLink
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` objectReference
 
 instance Prelude.NFData BatchListIncomingTypedLinks where
   rnf BatchListIncomingTypedLinks' {..} =
     Prelude.rnf filterAttributeRanges
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf filterTypedLink
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf objectReference
 
-instance Core.ToJSON BatchListIncomingTypedLinks where
+instance Data.ToJSON BatchListIncomingTypedLinks where
   toJSON BatchListIncomingTypedLinks' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("FilterAttributeRanges" Core..=)
+          [ ("FilterAttributeRanges" Data..=)
               Prelude.<$> filterAttributeRanges,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("FilterTypedLink" Core..=)
+            ("FilterTypedLink" Data..=)
               Prelude.<$> filterTypedLink,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("ObjectReference" Core..= objectReference)
+              ("ObjectReference" Data..= objectReference)
           ]
       )

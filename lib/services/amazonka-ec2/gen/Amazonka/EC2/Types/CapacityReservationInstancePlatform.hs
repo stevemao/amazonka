@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.CapacityReservationInstancePlatform
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,6 +24,12 @@ module Amazonka.EC2.Types.CapacityReservationInstancePlatform
         CapacityReservationInstancePlatform_Linux_with_SQL_Server_Enterprise,
         CapacityReservationInstancePlatform_Linux_with_SQL_Server_Standard,
         CapacityReservationInstancePlatform_Linux_with_SQL_Server_Web,
+        CapacityReservationInstancePlatform_RHEL_with_HA,
+        CapacityReservationInstancePlatform_RHEL_with_HA_and_SQL_Server_Enterprise,
+        CapacityReservationInstancePlatform_RHEL_with_HA_and_SQL_Server_Standard,
+        CapacityReservationInstancePlatform_RHEL_with_SQL_Server_Enterprise,
+        CapacityReservationInstancePlatform_RHEL_with_SQL_Server_Standard,
+        CapacityReservationInstancePlatform_RHEL_with_SQL_Server_Web,
         CapacityReservationInstancePlatform_Red_Hat_Enterprise_Linux,
         CapacityReservationInstancePlatform_SUSE_Linux,
         CapacityReservationInstancePlatform_Windows,
@@ -36,12 +42,13 @@ module Amazonka.EC2.Types.CapacityReservationInstancePlatform
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import qualified Amazonka.Prelude as Prelude
 
 newtype CapacityReservationInstancePlatform = CapacityReservationInstancePlatform'
   { fromCapacityReservationInstancePlatform ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -53,18 +60,18 @@ newtype CapacityReservationInstancePlatform = CapacityReservationInstancePlatfor
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern CapacityReservationInstancePlatform_Linux_UNIX :: CapacityReservationInstancePlatform
@@ -78,6 +85,24 @@ pattern CapacityReservationInstancePlatform_Linux_with_SQL_Server_Standard = Cap
 
 pattern CapacityReservationInstancePlatform_Linux_with_SQL_Server_Web :: CapacityReservationInstancePlatform
 pattern CapacityReservationInstancePlatform_Linux_with_SQL_Server_Web = CapacityReservationInstancePlatform' "Linux with SQL Server Web"
+
+pattern CapacityReservationInstancePlatform_RHEL_with_HA :: CapacityReservationInstancePlatform
+pattern CapacityReservationInstancePlatform_RHEL_with_HA = CapacityReservationInstancePlatform' "RHEL with HA"
+
+pattern CapacityReservationInstancePlatform_RHEL_with_HA_and_SQL_Server_Enterprise :: CapacityReservationInstancePlatform
+pattern CapacityReservationInstancePlatform_RHEL_with_HA_and_SQL_Server_Enterprise = CapacityReservationInstancePlatform' "RHEL with HA and SQL Server Enterprise"
+
+pattern CapacityReservationInstancePlatform_RHEL_with_HA_and_SQL_Server_Standard :: CapacityReservationInstancePlatform
+pattern CapacityReservationInstancePlatform_RHEL_with_HA_and_SQL_Server_Standard = CapacityReservationInstancePlatform' "RHEL with HA and SQL Server Standard"
+
+pattern CapacityReservationInstancePlatform_RHEL_with_SQL_Server_Enterprise :: CapacityReservationInstancePlatform
+pattern CapacityReservationInstancePlatform_RHEL_with_SQL_Server_Enterprise = CapacityReservationInstancePlatform' "RHEL with SQL Server Enterprise"
+
+pattern CapacityReservationInstancePlatform_RHEL_with_SQL_Server_Standard :: CapacityReservationInstancePlatform
+pattern CapacityReservationInstancePlatform_RHEL_with_SQL_Server_Standard = CapacityReservationInstancePlatform' "RHEL with SQL Server Standard"
+
+pattern CapacityReservationInstancePlatform_RHEL_with_SQL_Server_Web :: CapacityReservationInstancePlatform
+pattern CapacityReservationInstancePlatform_RHEL_with_SQL_Server_Web = CapacityReservationInstancePlatform' "RHEL with SQL Server Web"
 
 pattern CapacityReservationInstancePlatform_Red_Hat_Enterprise_Linux :: CapacityReservationInstancePlatform
 pattern CapacityReservationInstancePlatform_Red_Hat_Enterprise_Linux = CapacityReservationInstancePlatform' "Red Hat Enterprise Linux"
@@ -105,6 +130,12 @@ pattern CapacityReservationInstancePlatform_Windows_with_SQL_Server_Web = Capaci
   CapacityReservationInstancePlatform_Linux_with_SQL_Server_Enterprise,
   CapacityReservationInstancePlatform_Linux_with_SQL_Server_Standard,
   CapacityReservationInstancePlatform_Linux_with_SQL_Server_Web,
+  CapacityReservationInstancePlatform_RHEL_with_HA,
+  CapacityReservationInstancePlatform_RHEL_with_HA_and_SQL_Server_Enterprise,
+  CapacityReservationInstancePlatform_RHEL_with_HA_and_SQL_Server_Standard,
+  CapacityReservationInstancePlatform_RHEL_with_SQL_Server_Enterprise,
+  CapacityReservationInstancePlatform_RHEL_with_SQL_Server_Standard,
+  CapacityReservationInstancePlatform_RHEL_with_SQL_Server_Web,
   CapacityReservationInstancePlatform_Red_Hat_Enterprise_Linux,
   CapacityReservationInstancePlatform_SUSE_Linux,
   CapacityReservationInstancePlatform_Windows,

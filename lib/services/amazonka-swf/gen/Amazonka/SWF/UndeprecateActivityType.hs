@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.UndeprecateActivityType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -69,7 +69,8 @@ module Amazonka.SWF.UndeprecateActivityType
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -119,7 +120,8 @@ instance Core.AWSRequest UndeprecateActivityType where
   type
     AWSResponse UndeprecateActivityType =
       UndeprecateActivityTypeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       UndeprecateActivityTypeResponse'
@@ -134,34 +136,34 @@ instance Prelude.NFData UndeprecateActivityType where
     Prelude.rnf domain
       `Prelude.seq` Prelude.rnf activityType
 
-instance Core.ToHeaders UndeprecateActivityType where
+instance Data.ToHeaders UndeprecateActivityType where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SimpleWorkflowService.UndeprecateActivityType" ::
+              Data.=# ( "SimpleWorkflowService.UndeprecateActivityType" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UndeprecateActivityType where
+instance Data.ToJSON UndeprecateActivityType where
   toJSON UndeprecateActivityType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("domain" Core..= domain),
-            Prelude.Just ("activityType" Core..= activityType)
+          [ Prelude.Just ("domain" Data..= domain),
+            Prelude.Just ("activityType" Data..= activityType)
           ]
       )
 
-instance Core.ToPath UndeprecateActivityType where
+instance Data.ToPath UndeprecateActivityType where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UndeprecateActivityType where
+instance Data.ToQuery UndeprecateActivityType where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUndeprecateActivityTypeResponse' smart constructor.

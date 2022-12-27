@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeCoipPools
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,11 +30,11 @@ module Amazonka.EC2.DescribeCoipPools
     newDescribeCoipPools,
 
     -- * Request Lenses
-    describeCoipPools_poolIds,
-    describeCoipPools_filters,
-    describeCoipPools_nextToken,
     describeCoipPools_dryRun,
+    describeCoipPools_filters,
     describeCoipPools_maxResults,
+    describeCoipPools_nextToken,
+    describeCoipPools_poolIds,
 
     -- * Destructuring the Response
     DescribeCoipPoolsResponse (..),
@@ -48,33 +48,35 @@ module Amazonka.EC2.DescribeCoipPools
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeCoipPools' smart constructor.
 data DescribeCoipPools = DescribeCoipPools'
-  { -- | The IDs of the address pools.
-    poolIds :: Prelude.Maybe [Prelude.Text],
-    -- | The filters. The following are the possible values:
-    --
-    -- -   @coip-pool.pool-id@
-    --
-    -- -   @coip-pool.local-gateway-route-table-id@
-    filters :: Prelude.Maybe [Filter],
-    -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Checks whether you have the required permissions for the action, without
+  { -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | One or more filters.
+    --
+    -- -   @coip-pool.local-gateway-route-table-id@ - The ID of the local
+    --     gateway route table.
+    --
+    -- -   @coip-pool.pool-id@ - The ID of the address pool.
+    filters :: Prelude.Maybe [Filter],
     -- | The maximum number of results to return with a single call. To retrieve
     -- the remaining results, make another call with the returned @nextToken@
     -- value.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The IDs of the address pools.
+    poolIds :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -86,50 +88,35 @@ data DescribeCoipPools = DescribeCoipPools'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'poolIds', 'describeCoipPools_poolIds' - The IDs of the address pools.
---
--- 'filters', 'describeCoipPools_filters' - The filters. The following are the possible values:
---
--- -   @coip-pool.pool-id@
---
--- -   @coip-pool.local-gateway-route-table-id@
---
--- 'nextToken', 'describeCoipPools_nextToken' - The token for the next page of results.
---
 -- 'dryRun', 'describeCoipPools_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
 --
+-- 'filters', 'describeCoipPools_filters' - One or more filters.
+--
+-- -   @coip-pool.local-gateway-route-table-id@ - The ID of the local
+--     gateway route table.
+--
+-- -   @coip-pool.pool-id@ - The ID of the address pool.
+--
 -- 'maxResults', 'describeCoipPools_maxResults' - The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
+--
+-- 'nextToken', 'describeCoipPools_nextToken' - The token for the next page of results.
+--
+-- 'poolIds', 'describeCoipPools_poolIds' - The IDs of the address pools.
 newDescribeCoipPools ::
   DescribeCoipPools
 newDescribeCoipPools =
   DescribeCoipPools'
-    { poolIds = Prelude.Nothing,
+    { dryRun = Prelude.Nothing,
       filters = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      poolIds = Prelude.Nothing
     }
-
--- | The IDs of the address pools.
-describeCoipPools_poolIds :: Lens.Lens' DescribeCoipPools (Prelude.Maybe [Prelude.Text])
-describeCoipPools_poolIds = Lens.lens (\DescribeCoipPools' {poolIds} -> poolIds) (\s@DescribeCoipPools' {} a -> s {poolIds = a} :: DescribeCoipPools) Prelude.. Lens.mapping Lens.coerced
-
--- | The filters. The following are the possible values:
---
--- -   @coip-pool.pool-id@
---
--- -   @coip-pool.local-gateway-route-table-id@
-describeCoipPools_filters :: Lens.Lens' DescribeCoipPools (Prelude.Maybe [Filter])
-describeCoipPools_filters = Lens.lens (\DescribeCoipPools' {filters} -> filters) (\s@DescribeCoipPools' {} a -> s {filters = a} :: DescribeCoipPools) Prelude.. Lens.mapping Lens.coerced
-
--- | The token for the next page of results.
-describeCoipPools_nextToken :: Lens.Lens' DescribeCoipPools (Prelude.Maybe Prelude.Text)
-describeCoipPools_nextToken = Lens.lens (\DescribeCoipPools' {nextToken} -> nextToken) (\s@DescribeCoipPools' {} a -> s {nextToken = a} :: DescribeCoipPools)
 
 -- | Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
@@ -138,11 +125,28 @@ describeCoipPools_nextToken = Lens.lens (\DescribeCoipPools' {nextToken} -> next
 describeCoipPools_dryRun :: Lens.Lens' DescribeCoipPools (Prelude.Maybe Prelude.Bool)
 describeCoipPools_dryRun = Lens.lens (\DescribeCoipPools' {dryRun} -> dryRun) (\s@DescribeCoipPools' {} a -> s {dryRun = a} :: DescribeCoipPools)
 
+-- | One or more filters.
+--
+-- -   @coip-pool.local-gateway-route-table-id@ - The ID of the local
+--     gateway route table.
+--
+-- -   @coip-pool.pool-id@ - The ID of the address pool.
+describeCoipPools_filters :: Lens.Lens' DescribeCoipPools (Prelude.Maybe [Filter])
+describeCoipPools_filters = Lens.lens (\DescribeCoipPools' {filters} -> filters) (\s@DescribeCoipPools' {} a -> s {filters = a} :: DescribeCoipPools) Prelude.. Lens.mapping Lens.coerced
+
 -- | The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
 describeCoipPools_maxResults :: Lens.Lens' DescribeCoipPools (Prelude.Maybe Prelude.Natural)
 describeCoipPools_maxResults = Lens.lens (\DescribeCoipPools' {maxResults} -> maxResults) (\s@DescribeCoipPools' {} a -> s {maxResults = a} :: DescribeCoipPools)
+
+-- | The token for the next page of results.
+describeCoipPools_nextToken :: Lens.Lens' DescribeCoipPools (Prelude.Maybe Prelude.Text)
+describeCoipPools_nextToken = Lens.lens (\DescribeCoipPools' {nextToken} -> nextToken) (\s@DescribeCoipPools' {} a -> s {nextToken = a} :: DescribeCoipPools)
+
+-- | The IDs of the address pools.
+describeCoipPools_poolIds :: Lens.Lens' DescribeCoipPools (Prelude.Maybe [Prelude.Text])
+describeCoipPools_poolIds = Lens.lens (\DescribeCoipPools' {poolIds} -> poolIds) (\s@DescribeCoipPools' {} a -> s {poolIds = a} :: DescribeCoipPools) Prelude.. Lens.mapping Lens.coerced
 
 instance Core.AWSPager DescribeCoipPools where
   page rq rs
@@ -170,54 +174,55 @@ instance Core.AWSRequest DescribeCoipPools where
   type
     AWSResponse DescribeCoipPools =
       DescribeCoipPoolsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeCoipPoolsResponse'
-            Prelude.<$> ( x Core..@? "coipPoolSet" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> ( x Data..@? "coipPoolSet" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
-            Prelude.<*> (x Core..@? "nextToken")
+            Prelude.<*> (x Data..@? "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeCoipPools where
   hashWithSalt _salt DescribeCoipPools' {..} =
-    _salt `Prelude.hashWithSalt` poolIds
+    _salt `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` poolIds
 
 instance Prelude.NFData DescribeCoipPools where
   rnf DescribeCoipPools' {..} =
-    Prelude.rnf poolIds
+    Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf poolIds
 
-instance Core.ToHeaders DescribeCoipPools where
+instance Data.ToHeaders DescribeCoipPools where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeCoipPools where
+instance Data.ToPath DescribeCoipPools where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeCoipPools where
+instance Data.ToQuery DescribeCoipPools where
   toQuery DescribeCoipPools' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeCoipPools" :: Prelude.ByteString),
+          Data.=: ("DescribeCoipPools" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "PoolId" Prelude.<$> poolIds),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
+        Data.toQuery
+          (Data.toQueryList "PoolId" Prelude.<$> poolIds)
       ]
 
 -- | /See:/ 'newDescribeCoipPoolsResponse' smart constructor.

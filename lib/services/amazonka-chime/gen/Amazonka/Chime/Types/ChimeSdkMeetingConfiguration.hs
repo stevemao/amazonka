@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.Types.ChimeSdkMeetingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.Chime.Types.ChimeSdkMeetingConfiguration where
 import Amazonka.Chime.Types.ArtifactsConfiguration
 import Amazonka.Chime.Types.SourceConfiguration
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configuration object of the Amazon Chime SDK meeting for a specified
@@ -65,14 +66,14 @@ chimeSdkMeetingConfiguration_artifactsConfiguration = Lens.lens (\ChimeSdkMeetin
 chimeSdkMeetingConfiguration_sourceConfiguration :: Lens.Lens' ChimeSdkMeetingConfiguration (Prelude.Maybe SourceConfiguration)
 chimeSdkMeetingConfiguration_sourceConfiguration = Lens.lens (\ChimeSdkMeetingConfiguration' {sourceConfiguration} -> sourceConfiguration) (\s@ChimeSdkMeetingConfiguration' {} a -> s {sourceConfiguration = a} :: ChimeSdkMeetingConfiguration)
 
-instance Core.FromJSON ChimeSdkMeetingConfiguration where
+instance Data.FromJSON ChimeSdkMeetingConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ChimeSdkMeetingConfiguration"
       ( \x ->
           ChimeSdkMeetingConfiguration'
-            Prelude.<$> (x Core..:? "ArtifactsConfiguration")
-            Prelude.<*> (x Core..:? "SourceConfiguration")
+            Prelude.<$> (x Data..:? "ArtifactsConfiguration")
+            Prelude.<*> (x Data..:? "SourceConfiguration")
       )
 
 instance
@@ -88,13 +89,13 @@ instance Prelude.NFData ChimeSdkMeetingConfiguration where
     Prelude.rnf artifactsConfiguration
       `Prelude.seq` Prelude.rnf sourceConfiguration
 
-instance Core.ToJSON ChimeSdkMeetingConfiguration where
+instance Data.ToJSON ChimeSdkMeetingConfiguration where
   toJSON ChimeSdkMeetingConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ArtifactsConfiguration" Core..=)
+          [ ("ArtifactsConfiguration" Data..=)
               Prelude.<$> artifactsConfiguration,
-            ("SourceConfiguration" Core..=)
+            ("SourceConfiguration" Data..=)
               Prelude.<$> sourceConfiguration
           ]
       )

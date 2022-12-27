@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.UpdateProjectVisibility
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -69,16 +69,17 @@ module Amazonka.CodeBuild.UpdateProjectVisibility
     newUpdateProjectVisibilityResponse,
 
     -- * Response Lenses
-    updateProjectVisibilityResponse_publicProjectAlias,
     updateProjectVisibilityResponse_projectArn,
     updateProjectVisibilityResponse_projectVisibility,
+    updateProjectVisibilityResponse_publicProjectAlias,
     updateProjectVisibilityResponse_httpStatus,
   )
 where
 
 import Amazonka.CodeBuild.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -141,14 +142,15 @@ instance Core.AWSRequest UpdateProjectVisibility where
   type
     AWSResponse UpdateProjectVisibility =
       UpdateProjectVisibilityResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateProjectVisibilityResponse'
-            Prelude.<$> (x Core..?> "publicProjectAlias")
-            Prelude.<*> (x Core..?> "projectArn")
-            Prelude.<*> (x Core..?> "projectVisibility")
+            Prelude.<$> (x Data..?> "projectArn")
+            Prelude.<*> (x Data..?> "projectVisibility")
+            Prelude.<*> (x Data..?> "publicProjectAlias")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -164,46 +166,46 @@ instance Prelude.NFData UpdateProjectVisibility where
       `Prelude.seq` Prelude.rnf projectArn
       `Prelude.seq` Prelude.rnf projectVisibility
 
-instance Core.ToHeaders UpdateProjectVisibility where
+instance Data.ToHeaders UpdateProjectVisibility where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeBuild_20161006.UpdateProjectVisibility" ::
+              Data.=# ( "CodeBuild_20161006.UpdateProjectVisibility" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateProjectVisibility where
+instance Data.ToJSON UpdateProjectVisibility where
   toJSON UpdateProjectVisibility' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("resourceAccessRole" Core..=)
+          [ ("resourceAccessRole" Data..=)
               Prelude.<$> resourceAccessRole,
-            Prelude.Just ("projectArn" Core..= projectArn),
+            Prelude.Just ("projectArn" Data..= projectArn),
             Prelude.Just
-              ("projectVisibility" Core..= projectVisibility)
+              ("projectVisibility" Data..= projectVisibility)
           ]
       )
 
-instance Core.ToPath UpdateProjectVisibility where
+instance Data.ToPath UpdateProjectVisibility where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateProjectVisibility where
+instance Data.ToQuery UpdateProjectVisibility where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateProjectVisibilityResponse' smart constructor.
 data UpdateProjectVisibilityResponse = UpdateProjectVisibilityResponse'
-  { -- | Contains the project identifier used with the public build APIs.
-    publicProjectAlias :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the build project.
+  { -- | The Amazon Resource Name (ARN) of the build project.
     projectArn :: Prelude.Maybe Prelude.Text,
     projectVisibility :: Prelude.Maybe ProjectVisibilityType,
+    -- | Contains the project identifier used with the public build APIs.
+    publicProjectAlias :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -217,11 +219,11 @@ data UpdateProjectVisibilityResponse = UpdateProjectVisibilityResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'publicProjectAlias', 'updateProjectVisibilityResponse_publicProjectAlias' - Contains the project identifier used with the public build APIs.
---
 -- 'projectArn', 'updateProjectVisibilityResponse_projectArn' - The Amazon Resource Name (ARN) of the build project.
 --
 -- 'projectVisibility', 'updateProjectVisibilityResponse_projectVisibility' - Undocumented member.
+--
+-- 'publicProjectAlias', 'updateProjectVisibilityResponse_publicProjectAlias' - Contains the project identifier used with the public build APIs.
 --
 -- 'httpStatus', 'updateProjectVisibilityResponse_httpStatus' - The response's http status code.
 newUpdateProjectVisibilityResponse ::
@@ -230,16 +232,12 @@ newUpdateProjectVisibilityResponse ::
   UpdateProjectVisibilityResponse
 newUpdateProjectVisibilityResponse pHttpStatus_ =
   UpdateProjectVisibilityResponse'
-    { publicProjectAlias =
+    { projectArn =
         Prelude.Nothing,
-      projectArn = Prelude.Nothing,
       projectVisibility = Prelude.Nothing,
+      publicProjectAlias = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Contains the project identifier used with the public build APIs.
-updateProjectVisibilityResponse_publicProjectAlias :: Lens.Lens' UpdateProjectVisibilityResponse (Prelude.Maybe Prelude.Text)
-updateProjectVisibilityResponse_publicProjectAlias = Lens.lens (\UpdateProjectVisibilityResponse' {publicProjectAlias} -> publicProjectAlias) (\s@UpdateProjectVisibilityResponse' {} a -> s {publicProjectAlias = a} :: UpdateProjectVisibilityResponse)
 
 -- | The Amazon Resource Name (ARN) of the build project.
 updateProjectVisibilityResponse_projectArn :: Lens.Lens' UpdateProjectVisibilityResponse (Prelude.Maybe Prelude.Text)
@@ -248,6 +246,10 @@ updateProjectVisibilityResponse_projectArn = Lens.lens (\UpdateProjectVisibility
 -- | Undocumented member.
 updateProjectVisibilityResponse_projectVisibility :: Lens.Lens' UpdateProjectVisibilityResponse (Prelude.Maybe ProjectVisibilityType)
 updateProjectVisibilityResponse_projectVisibility = Lens.lens (\UpdateProjectVisibilityResponse' {projectVisibility} -> projectVisibility) (\s@UpdateProjectVisibilityResponse' {} a -> s {projectVisibility = a} :: UpdateProjectVisibilityResponse)
+
+-- | Contains the project identifier used with the public build APIs.
+updateProjectVisibilityResponse_publicProjectAlias :: Lens.Lens' UpdateProjectVisibilityResponse (Prelude.Maybe Prelude.Text)
+updateProjectVisibilityResponse_publicProjectAlias = Lens.lens (\UpdateProjectVisibilityResponse' {publicProjectAlias} -> publicProjectAlias) (\s@UpdateProjectVisibilityResponse' {} a -> s {publicProjectAlias = a} :: UpdateProjectVisibilityResponse)
 
 -- | The response's http status code.
 updateProjectVisibilityResponse_httpStatus :: Lens.Lens' UpdateProjectVisibilityResponse Prelude.Int
@@ -258,7 +260,7 @@ instance
     UpdateProjectVisibilityResponse
   where
   rnf UpdateProjectVisibilityResponse' {..} =
-    Prelude.rnf publicProjectAlias
-      `Prelude.seq` Prelude.rnf projectArn
+    Prelude.rnf projectArn
       `Prelude.seq` Prelude.rnf projectVisibility
+      `Prelude.seq` Prelude.rnf publicProjectAlias
       `Prelude.seq` Prelude.rnf httpStatus

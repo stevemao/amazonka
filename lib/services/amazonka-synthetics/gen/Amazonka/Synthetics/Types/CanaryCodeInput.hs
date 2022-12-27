@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Synthetics.Types.CanaryCodeInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Synthetics.Types.CanaryCodeInput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Use this structure to input your script code for the canary. This
@@ -32,7 +33,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newCanaryCodeInput' smart constructor.
 data CanaryCodeInput = CanaryCodeInput'
-  { -- | The S3 key of your script. For more information, see
+  { -- | If your canary script is located in S3, specify the bucket name here. Do
+    -- not include @s3:\/\/@ as the start of the bucket name.
+    s3Bucket :: Prelude.Maybe Prelude.Text,
+    -- | The S3 key of your script. For more information, see
     -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingObjects.html Working with Amazon S3 Objects>.
     s3Key :: Prelude.Maybe Prelude.Text,
     -- | The S3 version ID of your script.
@@ -40,14 +44,19 @@ data CanaryCodeInput = CanaryCodeInput'
     -- | If you input your canary script directly into the canary instead of
     -- referring to an S3 location, the value of this parameter is the
     -- base64-encoded contents of the .zip file that contains the script. It
-    -- must be smaller than 256 Kb.
-    zipFile :: Prelude.Maybe Core.Base64,
-    -- | If your canary script is located in S3, specify the bucket name here. Do
-    -- not include @s3:\/\/@ as the start of the bucket name.
-    s3Bucket :: Prelude.Maybe Prelude.Text,
-    -- | The entry point to use for the source code when running the canary. This
-    -- value must end with the string @.handler@. The string is limited to 29
-    -- characters or fewer.
+    -- must be smaller than 225 Kb.
+    --
+    -- For large canary scripts, we recommend that you use an S3 location
+    -- instead of inputting it directly with this parameter.
+    zipFile :: Prelude.Maybe Data.Base64,
+    -- | The entry point to use for the source code when running the canary. For
+    -- canaries that use the @syn-python-selenium-1.0@ runtime or a
+    -- @syn-nodejs.puppeteer@ runtime earlier than @syn-nodejs.puppeteer-3.4@,
+    -- the handler must be specified as @ fileName.handler@. For
+    -- @syn-python-selenium-1.1@, @syn-nodejs.puppeteer-3.4@, and later
+    -- runtimes, the handler can be specified as @ fileName.functionName @, or
+    -- you can specify a folder where canary scripts reside as
+    -- @ folder\/fileName.functionName @.
     handler :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -60,6 +69,9 @@ data CanaryCodeInput = CanaryCodeInput'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 's3Bucket', 'canaryCodeInput_s3Bucket' - If your canary script is located in S3, specify the bucket name here. Do
+-- not include @s3:\/\/@ as the start of the bucket name.
+--
 -- 's3Key', 'canaryCodeInput_s3Key' - The S3 key of your script. For more information, see
 -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingObjects.html Working with Amazon S3 Objects>.
 --
@@ -68,30 +80,40 @@ data CanaryCodeInput = CanaryCodeInput'
 -- 'zipFile', 'canaryCodeInput_zipFile' - If you input your canary script directly into the canary instead of
 -- referring to an S3 location, the value of this parameter is the
 -- base64-encoded contents of the .zip file that contains the script. It
--- must be smaller than 256 Kb.--
+-- must be smaller than 225 Kb.
+--
+-- For large canary scripts, we recommend that you use an S3 location
+-- instead of inputting it directly with this parameter.--
 -- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
 -- -- The underlying isomorphism will encode to Base64 representation during
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 --
--- 's3Bucket', 'canaryCodeInput_s3Bucket' - If your canary script is located in S3, specify the bucket name here. Do
--- not include @s3:\/\/@ as the start of the bucket name.
---
--- 'handler', 'canaryCodeInput_handler' - The entry point to use for the source code when running the canary. This
--- value must end with the string @.handler@. The string is limited to 29
--- characters or fewer.
+-- 'handler', 'canaryCodeInput_handler' - The entry point to use for the source code when running the canary. For
+-- canaries that use the @syn-python-selenium-1.0@ runtime or a
+-- @syn-nodejs.puppeteer@ runtime earlier than @syn-nodejs.puppeteer-3.4@,
+-- the handler must be specified as @ fileName.handler@. For
+-- @syn-python-selenium-1.1@, @syn-nodejs.puppeteer-3.4@, and later
+-- runtimes, the handler can be specified as @ fileName.functionName @, or
+-- you can specify a folder where canary scripts reside as
+-- @ folder\/fileName.functionName @.
 newCanaryCodeInput ::
   -- | 'handler'
   Prelude.Text ->
   CanaryCodeInput
 newCanaryCodeInput pHandler_ =
   CanaryCodeInput'
-    { s3Key = Prelude.Nothing,
+    { s3Bucket = Prelude.Nothing,
+      s3Key = Prelude.Nothing,
       s3Version = Prelude.Nothing,
       zipFile = Prelude.Nothing,
-      s3Bucket = Prelude.Nothing,
       handler = pHandler_
     }
+
+-- | If your canary script is located in S3, specify the bucket name here. Do
+-- not include @s3:\/\/@ as the start of the bucket name.
+canaryCodeInput_s3Bucket :: Lens.Lens' CanaryCodeInput (Prelude.Maybe Prelude.Text)
+canaryCodeInput_s3Bucket = Lens.lens (\CanaryCodeInput' {s3Bucket} -> s3Bucket) (\s@CanaryCodeInput' {} a -> s {s3Bucket = a} :: CanaryCodeInput)
 
 -- | The S3 key of your script. For more information, see
 -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingObjects.html Working with Amazon S3 Objects>.
@@ -105,49 +127,52 @@ canaryCodeInput_s3Version = Lens.lens (\CanaryCodeInput' {s3Version} -> s3Versio
 -- | If you input your canary script directly into the canary instead of
 -- referring to an S3 location, the value of this parameter is the
 -- base64-encoded contents of the .zip file that contains the script. It
--- must be smaller than 256 Kb.--
+-- must be smaller than 225 Kb.
+--
+-- For large canary scripts, we recommend that you use an S3 location
+-- instead of inputting it directly with this parameter.--
 -- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
 -- -- The underlying isomorphism will encode to Base64 representation during
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 canaryCodeInput_zipFile :: Lens.Lens' CanaryCodeInput (Prelude.Maybe Prelude.ByteString)
-canaryCodeInput_zipFile = Lens.lens (\CanaryCodeInput' {zipFile} -> zipFile) (\s@CanaryCodeInput' {} a -> s {zipFile = a} :: CanaryCodeInput) Prelude.. Lens.mapping Core._Base64
+canaryCodeInput_zipFile = Lens.lens (\CanaryCodeInput' {zipFile} -> zipFile) (\s@CanaryCodeInput' {} a -> s {zipFile = a} :: CanaryCodeInput) Prelude.. Lens.mapping Data._Base64
 
--- | If your canary script is located in S3, specify the bucket name here. Do
--- not include @s3:\/\/@ as the start of the bucket name.
-canaryCodeInput_s3Bucket :: Lens.Lens' CanaryCodeInput (Prelude.Maybe Prelude.Text)
-canaryCodeInput_s3Bucket = Lens.lens (\CanaryCodeInput' {s3Bucket} -> s3Bucket) (\s@CanaryCodeInput' {} a -> s {s3Bucket = a} :: CanaryCodeInput)
-
--- | The entry point to use for the source code when running the canary. This
--- value must end with the string @.handler@. The string is limited to 29
--- characters or fewer.
+-- | The entry point to use for the source code when running the canary. For
+-- canaries that use the @syn-python-selenium-1.0@ runtime or a
+-- @syn-nodejs.puppeteer@ runtime earlier than @syn-nodejs.puppeteer-3.4@,
+-- the handler must be specified as @ fileName.handler@. For
+-- @syn-python-selenium-1.1@, @syn-nodejs.puppeteer-3.4@, and later
+-- runtimes, the handler can be specified as @ fileName.functionName @, or
+-- you can specify a folder where canary scripts reside as
+-- @ folder\/fileName.functionName @.
 canaryCodeInput_handler :: Lens.Lens' CanaryCodeInput Prelude.Text
 canaryCodeInput_handler = Lens.lens (\CanaryCodeInput' {handler} -> handler) (\s@CanaryCodeInput' {} a -> s {handler = a} :: CanaryCodeInput)
 
 instance Prelude.Hashable CanaryCodeInput where
   hashWithSalt _salt CanaryCodeInput' {..} =
-    _salt `Prelude.hashWithSalt` s3Key
+    _salt `Prelude.hashWithSalt` s3Bucket
+      `Prelude.hashWithSalt` s3Key
       `Prelude.hashWithSalt` s3Version
       `Prelude.hashWithSalt` zipFile
-      `Prelude.hashWithSalt` s3Bucket
       `Prelude.hashWithSalt` handler
 
 instance Prelude.NFData CanaryCodeInput where
   rnf CanaryCodeInput' {..} =
-    Prelude.rnf s3Key
+    Prelude.rnf s3Bucket
+      `Prelude.seq` Prelude.rnf s3Key
       `Prelude.seq` Prelude.rnf s3Version
       `Prelude.seq` Prelude.rnf zipFile
-      `Prelude.seq` Prelude.rnf s3Bucket
       `Prelude.seq` Prelude.rnf handler
 
-instance Core.ToJSON CanaryCodeInput where
+instance Data.ToJSON CanaryCodeInput where
   toJSON CanaryCodeInput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("S3Key" Core..=) Prelude.<$> s3Key,
-            ("S3Version" Core..=) Prelude.<$> s3Version,
-            ("ZipFile" Core..=) Prelude.<$> zipFile,
-            ("S3Bucket" Core..=) Prelude.<$> s3Bucket,
-            Prelude.Just ("Handler" Core..= handler)
+          [ ("S3Bucket" Data..=) Prelude.<$> s3Bucket,
+            ("S3Key" Data..=) Prelude.<$> s3Key,
+            ("S3Version" Data..=) Prelude.<$> s3Version,
+            ("ZipFile" Data..=) Prelude.<$> zipFile,
+            Prelude.Just ("Handler" Data..= handler)
           ]
       )

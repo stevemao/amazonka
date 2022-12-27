@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.DeleteContactMethod
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,9 +24,10 @@
 --
 -- A contact method is used to send you notifications about your Amazon
 -- Lightsail resources. You can add one email address and one mobile phone
--- number contact method in each AWS Region. However, SMS text messaging is
--- not supported in some AWS Regions, and SMS text messages cannot be sent
--- to some countries\/regions. For more information, see
+-- number contact method in each Amazon Web Services Region. However, SMS
+-- text messaging is not supported in some Amazon Web Services Regions, and
+-- SMS text messages cannot be sent to some countries\/regions. For more
+-- information, see
 -- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-notifications Notifications in Amazon Lightsail>.
 module Amazonka.Lightsail.DeleteContactMethod
   ( -- * Creating a Request
@@ -47,7 +48,8 @@ module Amazonka.Lightsail.DeleteContactMethod
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -96,12 +98,13 @@ instance Core.AWSRequest DeleteContactMethod where
   type
     AWSResponse DeleteContactMethod =
       DeleteContactMethodResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteContactMethodResponse'
-            Prelude.<$> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -112,32 +115,32 @@ instance Prelude.Hashable DeleteContactMethod where
 instance Prelude.NFData DeleteContactMethod where
   rnf DeleteContactMethod' {..} = Prelude.rnf protocol
 
-instance Core.ToHeaders DeleteContactMethod where
+instance Data.ToHeaders DeleteContactMethod where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.DeleteContactMethod" ::
+              Data.=# ( "Lightsail_20161128.DeleteContactMethod" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteContactMethod where
+instance Data.ToJSON DeleteContactMethod where
   toJSON DeleteContactMethod' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("protocol" Core..= protocol)]
+          [Prelude.Just ("protocol" Data..= protocol)]
       )
 
-instance Core.ToPath DeleteContactMethod where
+instance Data.ToPath DeleteContactMethod where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteContactMethod where
+instance Data.ToQuery DeleteContactMethod where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteContactMethodResponse' smart constructor.

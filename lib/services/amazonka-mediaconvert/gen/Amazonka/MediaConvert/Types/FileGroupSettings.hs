@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.FileGroupSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.FileGroupSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types.DestinationSettings
 import qualified Amazonka.Prelude as Prelude
 
@@ -81,14 +82,14 @@ fileGroupSettings_destination = Lens.lens (\FileGroupSettings' {destination} -> 
 fileGroupSettings_destinationSettings :: Lens.Lens' FileGroupSettings (Prelude.Maybe DestinationSettings)
 fileGroupSettings_destinationSettings = Lens.lens (\FileGroupSettings' {destinationSettings} -> destinationSettings) (\s@FileGroupSettings' {} a -> s {destinationSettings = a} :: FileGroupSettings)
 
-instance Core.FromJSON FileGroupSettings where
+instance Data.FromJSON FileGroupSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FileGroupSettings"
       ( \x ->
           FileGroupSettings'
-            Prelude.<$> (x Core..:? "destination")
-            Prelude.<*> (x Core..:? "destinationSettings")
+            Prelude.<$> (x Data..:? "destination")
+            Prelude.<*> (x Data..:? "destinationSettings")
       )
 
 instance Prelude.Hashable FileGroupSettings where
@@ -101,12 +102,12 @@ instance Prelude.NFData FileGroupSettings where
     Prelude.rnf destination
       `Prelude.seq` Prelude.rnf destinationSettings
 
-instance Core.ToJSON FileGroupSettings where
+instance Data.ToJSON FileGroupSettings where
   toJSON FileGroupSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("destination" Core..=) Prelude.<$> destination,
-            ("destinationSettings" Core..=)
+          [ ("destination" Data..=) Prelude.<$> destination,
+            ("destinationSettings" Data..=)
               Prelude.<$> destinationSettings
           ]
       )

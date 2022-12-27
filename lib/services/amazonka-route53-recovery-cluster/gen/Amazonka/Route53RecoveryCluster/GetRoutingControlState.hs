@@ -14,26 +14,39 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryCluster.GetRoutingControlState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Get the state for a routing control. A routing control is a simple
--- on\/off switch that you can use to route traffic to cells. When the
--- state is On, traffic flows to a cell. When it\'s off, traffic does not
--- flow.
+-- on\/off switch that you can use to route traffic to cells. When a
+-- routing control state is On, traffic flows to a cell. When the state is
+-- Off, traffic does not flow.
 --
--- Before you can create a routing control, you first must create a cluster
--- to host the control. For more information, see
--- <https://docs.aws.amazon.com/recovery-cluster/latest/api/cluster.html CreateCluster>.
--- Access one of the endpoints for the cluster to get or update the routing
--- control state to redirect traffic.
+-- Before you can create a routing control, you must first create a
+-- cluster, and then host the control in a control panel on the cluster.
+-- For more information, see
+-- <https://docs.aws.amazon.com/r53recovery/latest/dg/routing-control.create.html Create routing control structures>
+-- in the Amazon Route 53 Application Recovery Controller Developer Guide.
+-- You access one of the endpoints for the cluster to get or update the
+-- routing control state to redirect traffic for your application.
 --
--- For more information about working with routing controls, see
--- <https://docs.aws.amazon.com/r53recovery/latest/dg/routing-control.html Routing control>
--- in the Route 53 Application Recovery Controller Developer Guide.
+-- /You must specify Regional endpoints when you work with API cluster
+-- operations to get or update routing control states in Route 53 ARC./
+--
+-- To see a code example for getting a routing control state, including
+-- accessing Regional cluster endpoints in sequence, see
+-- <https://docs.aws.amazon.com/r53recovery/latest/dg/service_code_examples_actions.html API examples>
+-- in the Amazon Route 53 Application Recovery Controller Developer Guide.
+--
+-- Learn more about working with routing controls in the following topics
+-- in the Amazon Route 53 Application Recovery Controller Developer Guide:
+--
+-- -   <https://docs.aws.amazon.com/r53recovery/latest/dg/routing-control.update.html Viewing and updating routing control states>
+--
+-- -   <https://docs.aws.amazon.com/r53recovery/latest/dg/routing-control.html Working with routing controls in Route 53 ARC>
 module Amazonka.Route53RecoveryCluster.GetRoutingControlState
   ( -- * Creating a Request
     GetRoutingControlState (..),
@@ -47,6 +60,7 @@ module Amazonka.Route53RecoveryCluster.GetRoutingControlState
     newGetRoutingControlStateResponse,
 
     -- * Response Lenses
+    getRoutingControlStateResponse_routingControlName,
     getRoutingControlStateResponse_httpStatus,
     getRoutingControlStateResponse_routingControlArn,
     getRoutingControlStateResponse_routingControlState,
@@ -54,7 +68,8 @@ module Amazonka.Route53RecoveryCluster.GetRoutingControlState
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,8 +77,8 @@ import Amazonka.Route53RecoveryCluster.Types
 
 -- | /See:/ 'newGetRoutingControlState' smart constructor.
 data GetRoutingControlState = GetRoutingControlState'
-  { -- | The Amazon Resource Number (ARN) for the routing control that you want
-    -- to get the state for.
+  { -- | The Amazon Resource Name (ARN) for the routing control that you want to
+    -- get the state for.
     routingControlArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -76,8 +91,8 @@ data GetRoutingControlState = GetRoutingControlState'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'routingControlArn', 'getRoutingControlState_routingControlArn' - The Amazon Resource Number (ARN) for the routing control that you want
--- to get the state for.
+-- 'routingControlArn', 'getRoutingControlState_routingControlArn' - The Amazon Resource Name (ARN) for the routing control that you want to
+-- get the state for.
 newGetRoutingControlState ::
   -- | 'routingControlArn'
   Prelude.Text ->
@@ -88,8 +103,8 @@ newGetRoutingControlState pRoutingControlArn_ =
         pRoutingControlArn_
     }
 
--- | The Amazon Resource Number (ARN) for the routing control that you want
--- to get the state for.
+-- | The Amazon Resource Name (ARN) for the routing control that you want to
+-- get the state for.
 getRoutingControlState_routingControlArn :: Lens.Lens' GetRoutingControlState Prelude.Text
 getRoutingControlState_routingControlArn = Lens.lens (\GetRoutingControlState' {routingControlArn} -> routingControlArn) (\s@GetRoutingControlState' {} a -> s {routingControlArn = a} :: GetRoutingControlState)
 
@@ -97,14 +112,16 @@ instance Core.AWSRequest GetRoutingControlState where
   type
     AWSResponse GetRoutingControlState =
       GetRoutingControlStateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetRoutingControlStateResponse'
-            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "RoutingControlArn")
-            Prelude.<*> (x Core..:> "RoutingControlState")
+            Prelude.<$> (x Data..?> "RoutingControlName")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Data..:> "RoutingControlArn")
+            Prelude.<*> (x Data..:> "RoutingControlState")
       )
 
 instance Prelude.Hashable GetRoutingControlState where
@@ -115,41 +132,43 @@ instance Prelude.NFData GetRoutingControlState where
   rnf GetRoutingControlState' {..} =
     Prelude.rnf routingControlArn
 
-instance Core.ToHeaders GetRoutingControlState where
+instance Data.ToHeaders GetRoutingControlState where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ToggleCustomerAPI.GetRoutingControlState" ::
+              Data.=# ( "ToggleCustomerAPI.GetRoutingControlState" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetRoutingControlState where
+instance Data.ToJSON GetRoutingControlState where
   toJSON GetRoutingControlState' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("RoutingControlArn" Core..= routingControlArn)
+              ("RoutingControlArn" Data..= routingControlArn)
           ]
       )
 
-instance Core.ToPath GetRoutingControlState where
+instance Data.ToPath GetRoutingControlState where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetRoutingControlState where
+instance Data.ToQuery GetRoutingControlState where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetRoutingControlStateResponse' smart constructor.
 data GetRoutingControlStateResponse = GetRoutingControlStateResponse'
-  { -- | The response's http status code.
+  { -- | The routing control name.
+    routingControlName :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
     httpStatus :: Prelude.Int,
-    -- | The Amazon Resource Number (ARN) of the response.
+    -- | The Amazon Resource Name (ARN) of the response.
     routingControlArn :: Prelude.Text,
     -- | The state of the routing control.
     routingControlState :: RoutingControlState
@@ -164,9 +183,11 @@ data GetRoutingControlStateResponse = GetRoutingControlStateResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'routingControlName', 'getRoutingControlStateResponse_routingControlName' - The routing control name.
+--
 -- 'httpStatus', 'getRoutingControlStateResponse_httpStatus' - The response's http status code.
 --
--- 'routingControlArn', 'getRoutingControlStateResponse_routingControlArn' - The Amazon Resource Number (ARN) of the response.
+-- 'routingControlArn', 'getRoutingControlStateResponse_routingControlArn' - The Amazon Resource Name (ARN) of the response.
 --
 -- 'routingControlState', 'getRoutingControlStateResponse_routingControlState' - The state of the routing control.
 newGetRoutingControlStateResponse ::
@@ -182,17 +203,22 @@ newGetRoutingControlStateResponse
   pRoutingControlArn_
   pRoutingControlState_ =
     GetRoutingControlStateResponse'
-      { httpStatus =
-          pHttpStatus_,
+      { routingControlName =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_,
         routingControlArn = pRoutingControlArn_,
         routingControlState = pRoutingControlState_
       }
+
+-- | The routing control name.
+getRoutingControlStateResponse_routingControlName :: Lens.Lens' GetRoutingControlStateResponse (Prelude.Maybe Prelude.Text)
+getRoutingControlStateResponse_routingControlName = Lens.lens (\GetRoutingControlStateResponse' {routingControlName} -> routingControlName) (\s@GetRoutingControlStateResponse' {} a -> s {routingControlName = a} :: GetRoutingControlStateResponse)
 
 -- | The response's http status code.
 getRoutingControlStateResponse_httpStatus :: Lens.Lens' GetRoutingControlStateResponse Prelude.Int
 getRoutingControlStateResponse_httpStatus = Lens.lens (\GetRoutingControlStateResponse' {httpStatus} -> httpStatus) (\s@GetRoutingControlStateResponse' {} a -> s {httpStatus = a} :: GetRoutingControlStateResponse)
 
--- | The Amazon Resource Number (ARN) of the response.
+-- | The Amazon Resource Name (ARN) of the response.
 getRoutingControlStateResponse_routingControlArn :: Lens.Lens' GetRoutingControlStateResponse Prelude.Text
 getRoutingControlStateResponse_routingControlArn = Lens.lens (\GetRoutingControlStateResponse' {routingControlArn} -> routingControlArn) (\s@GetRoutingControlStateResponse' {} a -> s {routingControlArn = a} :: GetRoutingControlStateResponse)
 
@@ -205,6 +231,7 @@ instance
     GetRoutingControlStateResponse
   where
   rnf GetRoutingControlStateResponse' {..} =
-    Prelude.rnf httpStatus
+    Prelude.rnf routingControlName
+      `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf routingControlArn
       `Prelude.seq` Prelude.rnf routingControlState

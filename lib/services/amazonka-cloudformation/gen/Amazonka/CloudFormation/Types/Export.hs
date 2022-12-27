@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.Types.Export
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,24 +20,25 @@
 module Amazonka.CloudFormation.Types.Export where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The @Export@ structure describes the exported output values for a stack.
 --
 -- /See:/ 'newExport' smart constructor.
 data Export = Export'
-  { -- | The value of the exported output, such as a resource physical ID. This
-    -- value is defined in the @Export@ field in the associated stack\'s
-    -- @Outputs@ section.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The stack that contains the exported output name and value.
+  { -- | The stack that contains the exported output name and value.
     exportingStackId :: Prelude.Maybe Prelude.Text,
     -- | The name of exported output value. Use this name and the
     -- @Fn::ImportValue@ function to import the associated value into other
     -- stacks. The name is defined in the @Export@ field in the associated
     -- stack\'s @Outputs@ section.
-    name :: Prelude.Maybe Prelude.Text
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The value of the exported output, such as a resource physical ID. This
+    -- value is defined in the @Export@ field in the associated stack\'s
+    -- @Outputs@ section.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -49,30 +50,24 @@ data Export = Export'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'export_value' - The value of the exported output, such as a resource physical ID. This
--- value is defined in the @Export@ field in the associated stack\'s
--- @Outputs@ section.
---
 -- 'exportingStackId', 'export_exportingStackId' - The stack that contains the exported output name and value.
 --
 -- 'name', 'export_name' - The name of exported output value. Use this name and the
 -- @Fn::ImportValue@ function to import the associated value into other
 -- stacks. The name is defined in the @Export@ field in the associated
 -- stack\'s @Outputs@ section.
+--
+-- 'value', 'export_value' - The value of the exported output, such as a resource physical ID. This
+-- value is defined in the @Export@ field in the associated stack\'s
+-- @Outputs@ section.
 newExport ::
   Export
 newExport =
   Export'
-    { value = Prelude.Nothing,
-      exportingStackId = Prelude.Nothing,
-      name = Prelude.Nothing
+    { exportingStackId = Prelude.Nothing,
+      name = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The value of the exported output, such as a resource physical ID. This
--- value is defined in the @Export@ field in the associated stack\'s
--- @Outputs@ section.
-export_value :: Lens.Lens' Export (Prelude.Maybe Prelude.Text)
-export_value = Lens.lens (\Export' {value} -> value) (\s@Export' {} a -> s {value = a} :: Export)
 
 -- | The stack that contains the exported output name and value.
 export_exportingStackId :: Lens.Lens' Export (Prelude.Maybe Prelude.Text)
@@ -85,21 +80,27 @@ export_exportingStackId = Lens.lens (\Export' {exportingStackId} -> exportingSta
 export_name :: Lens.Lens' Export (Prelude.Maybe Prelude.Text)
 export_name = Lens.lens (\Export' {name} -> name) (\s@Export' {} a -> s {name = a} :: Export)
 
-instance Core.FromXML Export where
+-- | The value of the exported output, such as a resource physical ID. This
+-- value is defined in the @Export@ field in the associated stack\'s
+-- @Outputs@ section.
+export_value :: Lens.Lens' Export (Prelude.Maybe Prelude.Text)
+export_value = Lens.lens (\Export' {value} -> value) (\s@Export' {} a -> s {value = a} :: Export)
+
+instance Data.FromXML Export where
   parseXML x =
     Export'
-      Prelude.<$> (x Core..@? "Value")
-      Prelude.<*> (x Core..@? "ExportingStackId")
-      Prelude.<*> (x Core..@? "Name")
+      Prelude.<$> (x Data..@? "ExportingStackId")
+      Prelude.<*> (x Data..@? "Name")
+      Prelude.<*> (x Data..@? "Value")
 
 instance Prelude.Hashable Export where
   hashWithSalt _salt Export' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` exportingStackId
+    _salt `Prelude.hashWithSalt` exportingStackId
       `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData Export where
   rnf Export' {..} =
-    Prelude.rnf value
-      `Prelude.seq` Prelude.rnf exportingStackId
+    Prelude.rnf exportingStackId
       `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf value

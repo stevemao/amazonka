@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.ListSamples
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.DeviceFarm.ListSamples
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -117,13 +118,14 @@ instance Core.AWSPager ListSamples where
 
 instance Core.AWSRequest ListSamples where
   type AWSResponse ListSamples = ListSamplesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListSamplesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "samples" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "samples" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -136,34 +138,34 @@ instance Prelude.NFData ListSamples where
   rnf ListSamples' {..} =
     Prelude.rnf nextToken `Prelude.seq` Prelude.rnf arn
 
-instance Core.ToHeaders ListSamples where
+instance Data.ToHeaders ListSamples where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.ListSamples" ::
+              Data.=# ( "DeviceFarm_20150623.ListSamples" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListSamples where
+instance Data.ToJSON ListSamples where
   toJSON ListSamples' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            Prelude.Just ("arn" Core..= arn)
+          [ ("nextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("arn" Data..= arn)
           ]
       )
 
-instance Core.ToPath ListSamples where
+instance Data.ToPath ListSamples where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListSamples where
+instance Data.ToQuery ListSamples where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a list samples request.

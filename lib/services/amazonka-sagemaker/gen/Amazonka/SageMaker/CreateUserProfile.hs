@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.CreateUserProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,20 +24,21 @@
 -- domain, and is the main way to reference a \"person\" for the purposes
 -- of sharing, reporting, and other user-oriented features. This entity is
 -- created when a user onboards to Amazon SageMaker Studio. If an
--- administrator invites a person by email or imports them from SSO, a user
--- profile is automatically created. A user profile is the primary holder
--- of settings for an individual user and has a reference to the user\'s
--- private Amazon Elastic File System (EFS) home directory.
+-- administrator invites a person by email or imports them from IAM
+-- Identity Center, a user profile is automatically created. A user profile
+-- is the primary holder of settings for an individual user and has a
+-- reference to the user\'s private Amazon Elastic File System (EFS) home
+-- directory.
 module Amazonka.SageMaker.CreateUserProfile
   ( -- * Creating a Request
     CreateUserProfile (..),
     newCreateUserProfile,
 
     -- * Request Lenses
-    createUserProfile_userSettings,
-    createUserProfile_singleSignOnUserValue,
     createUserProfile_singleSignOnUserIdentifier,
+    createUserProfile_singleSignOnUserValue,
     createUserProfile_tags,
+    createUserProfile_userSettings,
     createUserProfile_domainId,
     createUserProfile_userProfileName,
 
@@ -52,7 +53,8 @@ module Amazonka.SageMaker.CreateUserProfile
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,24 +62,26 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newCreateUserProfile' smart constructor.
 data CreateUserProfile = CreateUserProfile'
-  { -- | A collection of settings.
-    userSettings :: Prelude.Maybe UserSettings,
-    -- | The username of the associated Amazon Web Services Single Sign-On User
-    -- for this UserProfile. If the Domain\'s AuthMode is SSO, this field is
-    -- required, and must match a valid username of a user in your directory.
-    -- If the Domain\'s AuthMode is not SSO, this field cannot be specified.
-    singleSignOnUserValue :: Prelude.Maybe Prelude.Text,
-    -- | A specifier for the type of value specified in SingleSignOnUserValue.
+  { -- | A specifier for the type of value specified in SingleSignOnUserValue.
     -- Currently, the only supported value is \"UserName\". If the Domain\'s
-    -- AuthMode is SSO, this field is required. If the Domain\'s AuthMode is
-    -- not SSO, this field cannot be specified.
+    -- AuthMode is IAM Identity Center, this field is required. If the
+    -- Domain\'s AuthMode is not IAM Identity Center, this field cannot be
+    -- specified.
     singleSignOnUserIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The username of the associated Amazon Web Services Single Sign-On User
+    -- for this UserProfile. If the Domain\'s AuthMode is IAM Identity Center,
+    -- this field is required, and must match a valid username of a user in
+    -- your directory. If the Domain\'s AuthMode is not IAM Identity Center,
+    -- this field cannot be specified.
+    singleSignOnUserValue :: Prelude.Maybe Prelude.Text,
     -- | Each tag consists of a key and an optional value. Tag keys must be
     -- unique per resource.
     --
     -- Tags that you specify for the User Profile are also added to all Apps
     -- that the User Profile launches.
     tags :: Prelude.Maybe [Tag],
+    -- | A collection of settings.
+    userSettings :: Prelude.Maybe UserSettings,
     -- | The ID of the associated Domain.
     domainId :: Prelude.Text,
     -- | A name for the UserProfile. This value is not case sensitive.
@@ -93,23 +97,25 @@ data CreateUserProfile = CreateUserProfile'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'userSettings', 'createUserProfile_userSettings' - A collection of settings.
---
--- 'singleSignOnUserValue', 'createUserProfile_singleSignOnUserValue' - The username of the associated Amazon Web Services Single Sign-On User
--- for this UserProfile. If the Domain\'s AuthMode is SSO, this field is
--- required, and must match a valid username of a user in your directory.
--- If the Domain\'s AuthMode is not SSO, this field cannot be specified.
---
 -- 'singleSignOnUserIdentifier', 'createUserProfile_singleSignOnUserIdentifier' - A specifier for the type of value specified in SingleSignOnUserValue.
 -- Currently, the only supported value is \"UserName\". If the Domain\'s
--- AuthMode is SSO, this field is required. If the Domain\'s AuthMode is
--- not SSO, this field cannot be specified.
+-- AuthMode is IAM Identity Center, this field is required. If the
+-- Domain\'s AuthMode is not IAM Identity Center, this field cannot be
+-- specified.
+--
+-- 'singleSignOnUserValue', 'createUserProfile_singleSignOnUserValue' - The username of the associated Amazon Web Services Single Sign-On User
+-- for this UserProfile. If the Domain\'s AuthMode is IAM Identity Center,
+-- this field is required, and must match a valid username of a user in
+-- your directory. If the Domain\'s AuthMode is not IAM Identity Center,
+-- this field cannot be specified.
 --
 -- 'tags', 'createUserProfile_tags' - Each tag consists of a key and an optional value. Tag keys must be
 -- unique per resource.
 --
 -- Tags that you specify for the User Profile are also added to all Apps
 -- that the User Profile launches.
+--
+-- 'userSettings', 'createUserProfile_userSettings' - A collection of settings.
 --
 -- 'domainId', 'createUserProfile_domainId' - The ID of the associated Domain.
 --
@@ -122,31 +128,30 @@ newCreateUserProfile ::
   CreateUserProfile
 newCreateUserProfile pDomainId_ pUserProfileName_ =
   CreateUserProfile'
-    { userSettings = Prelude.Nothing,
+    { singleSignOnUserIdentifier =
+        Prelude.Nothing,
       singleSignOnUserValue = Prelude.Nothing,
-      singleSignOnUserIdentifier = Prelude.Nothing,
       tags = Prelude.Nothing,
+      userSettings = Prelude.Nothing,
       domainId = pDomainId_,
       userProfileName = pUserProfileName_
     }
 
--- | A collection of settings.
-createUserProfile_userSettings :: Lens.Lens' CreateUserProfile (Prelude.Maybe UserSettings)
-createUserProfile_userSettings = Lens.lens (\CreateUserProfile' {userSettings} -> userSettings) (\s@CreateUserProfile' {} a -> s {userSettings = a} :: CreateUserProfile)
-
--- | The username of the associated Amazon Web Services Single Sign-On User
--- for this UserProfile. If the Domain\'s AuthMode is SSO, this field is
--- required, and must match a valid username of a user in your directory.
--- If the Domain\'s AuthMode is not SSO, this field cannot be specified.
-createUserProfile_singleSignOnUserValue :: Lens.Lens' CreateUserProfile (Prelude.Maybe Prelude.Text)
-createUserProfile_singleSignOnUserValue = Lens.lens (\CreateUserProfile' {singleSignOnUserValue} -> singleSignOnUserValue) (\s@CreateUserProfile' {} a -> s {singleSignOnUserValue = a} :: CreateUserProfile)
-
 -- | A specifier for the type of value specified in SingleSignOnUserValue.
 -- Currently, the only supported value is \"UserName\". If the Domain\'s
--- AuthMode is SSO, this field is required. If the Domain\'s AuthMode is
--- not SSO, this field cannot be specified.
+-- AuthMode is IAM Identity Center, this field is required. If the
+-- Domain\'s AuthMode is not IAM Identity Center, this field cannot be
+-- specified.
 createUserProfile_singleSignOnUserIdentifier :: Lens.Lens' CreateUserProfile (Prelude.Maybe Prelude.Text)
 createUserProfile_singleSignOnUserIdentifier = Lens.lens (\CreateUserProfile' {singleSignOnUserIdentifier} -> singleSignOnUserIdentifier) (\s@CreateUserProfile' {} a -> s {singleSignOnUserIdentifier = a} :: CreateUserProfile)
+
+-- | The username of the associated Amazon Web Services Single Sign-On User
+-- for this UserProfile. If the Domain\'s AuthMode is IAM Identity Center,
+-- this field is required, and must match a valid username of a user in
+-- your directory. If the Domain\'s AuthMode is not IAM Identity Center,
+-- this field cannot be specified.
+createUserProfile_singleSignOnUserValue :: Lens.Lens' CreateUserProfile (Prelude.Maybe Prelude.Text)
+createUserProfile_singleSignOnUserValue = Lens.lens (\CreateUserProfile' {singleSignOnUserValue} -> singleSignOnUserValue) (\s@CreateUserProfile' {} a -> s {singleSignOnUserValue = a} :: CreateUserProfile)
 
 -- | Each tag consists of a key and an optional value. Tag keys must be
 -- unique per resource.
@@ -155,6 +160,10 @@ createUserProfile_singleSignOnUserIdentifier = Lens.lens (\CreateUserProfile' {s
 -- that the User Profile launches.
 createUserProfile_tags :: Lens.Lens' CreateUserProfile (Prelude.Maybe [Tag])
 createUserProfile_tags = Lens.lens (\CreateUserProfile' {tags} -> tags) (\s@CreateUserProfile' {} a -> s {tags = a} :: CreateUserProfile) Prelude.. Lens.mapping Lens.coerced
+
+-- | A collection of settings.
+createUserProfile_userSettings :: Lens.Lens' CreateUserProfile (Prelude.Maybe UserSettings)
+createUserProfile_userSettings = Lens.lens (\CreateUserProfile' {userSettings} -> userSettings) (\s@CreateUserProfile' {} a -> s {userSettings = a} :: CreateUserProfile)
 
 -- | The ID of the associated Domain.
 createUserProfile_domainId :: Lens.Lens' CreateUserProfile Prelude.Text
@@ -168,68 +177,70 @@ instance Core.AWSRequest CreateUserProfile where
   type
     AWSResponse CreateUserProfile =
       CreateUserProfileResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateUserProfileResponse'
-            Prelude.<$> (x Core..?> "UserProfileArn")
+            Prelude.<$> (x Data..?> "UserProfileArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateUserProfile where
   hashWithSalt _salt CreateUserProfile' {..} =
-    _salt `Prelude.hashWithSalt` userSettings
-      `Prelude.hashWithSalt` singleSignOnUserValue
+    _salt
       `Prelude.hashWithSalt` singleSignOnUserIdentifier
+      `Prelude.hashWithSalt` singleSignOnUserValue
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` userSettings
       `Prelude.hashWithSalt` domainId
       `Prelude.hashWithSalt` userProfileName
 
 instance Prelude.NFData CreateUserProfile where
   rnf CreateUserProfile' {..} =
-    Prelude.rnf userSettings
+    Prelude.rnf singleSignOnUserIdentifier
       `Prelude.seq` Prelude.rnf singleSignOnUserValue
-      `Prelude.seq` Prelude.rnf singleSignOnUserIdentifier
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf userSettings
       `Prelude.seq` Prelude.rnf domainId
       `Prelude.seq` Prelude.rnf userProfileName
 
-instance Core.ToHeaders CreateUserProfile where
+instance Data.ToHeaders CreateUserProfile where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.CreateUserProfile" ::
+              Data.=# ( "SageMaker.CreateUserProfile" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateUserProfile where
+instance Data.ToJSON CreateUserProfile where
   toJSON CreateUserProfile' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("UserSettings" Core..=) Prelude.<$> userSettings,
-            ("SingleSignOnUserValue" Core..=)
-              Prelude.<$> singleSignOnUserValue,
-            ("SingleSignOnUserIdentifier" Core..=)
+          [ ("SingleSignOnUserIdentifier" Data..=)
               Prelude.<$> singleSignOnUserIdentifier,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("DomainId" Core..= domainId),
+            ("SingleSignOnUserValue" Data..=)
+              Prelude.<$> singleSignOnUserValue,
+            ("Tags" Data..=) Prelude.<$> tags,
+            ("UserSettings" Data..=) Prelude.<$> userSettings,
+            Prelude.Just ("DomainId" Data..= domainId),
             Prelude.Just
-              ("UserProfileName" Core..= userProfileName)
+              ("UserProfileName" Data..= userProfileName)
           ]
       )
 
-instance Core.ToPath CreateUserProfile where
+instance Data.ToPath CreateUserProfile where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateUserProfile where
+instance Data.ToQuery CreateUserProfile where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateUserProfileResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.Types.AutoScalingGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeDeploy.Types.AutoScalingGroup where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about an Auto Scaling group.
@@ -61,13 +62,13 @@ autoScalingGroup_hook = Lens.lens (\AutoScalingGroup' {hook} -> hook) (\s@AutoSc
 autoScalingGroup_name :: Lens.Lens' AutoScalingGroup (Prelude.Maybe Prelude.Text)
 autoScalingGroup_name = Lens.lens (\AutoScalingGroup' {name} -> name) (\s@AutoScalingGroup' {} a -> s {name = a} :: AutoScalingGroup)
 
-instance Core.FromJSON AutoScalingGroup where
+instance Data.FromJSON AutoScalingGroup where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AutoScalingGroup"
       ( \x ->
           AutoScalingGroup'
-            Prelude.<$> (x Core..:? "hook") Prelude.<*> (x Core..:? "name")
+            Prelude.<$> (x Data..:? "hook") Prelude.<*> (x Data..:? "name")
       )
 
 instance Prelude.Hashable AutoScalingGroup where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.ResourceReceivingAccess
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.ResourceReceivingAccess where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an Amazon Lightsail instance that has access to a Lightsail
@@ -28,10 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newResourceReceivingAccess' smart constructor.
 data ResourceReceivingAccess = ResourceReceivingAccess'
-  { -- | The Lightsail resource type (for example, @Instance@).
-    resourceType :: Prelude.Maybe Prelude.Text,
-    -- | The name of the Lightsail instance.
-    name :: Prelude.Maybe Prelude.Text
+  { -- | The name of the Lightsail instance.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The Lightsail resource type (for example, @Instance@).
+    resourceType :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,42 +44,41 @@ data ResourceReceivingAccess = ResourceReceivingAccess'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceType', 'resourceReceivingAccess_resourceType' - The Lightsail resource type (for example, @Instance@).
---
 -- 'name', 'resourceReceivingAccess_name' - The name of the Lightsail instance.
+--
+-- 'resourceType', 'resourceReceivingAccess_resourceType' - The Lightsail resource type (for example, @Instance@).
 newResourceReceivingAccess ::
   ResourceReceivingAccess
 newResourceReceivingAccess =
   ResourceReceivingAccess'
-    { resourceType =
-        Prelude.Nothing,
-      name = Prelude.Nothing
+    { name = Prelude.Nothing,
+      resourceType = Prelude.Nothing
     }
-
--- | The Lightsail resource type (for example, @Instance@).
-resourceReceivingAccess_resourceType :: Lens.Lens' ResourceReceivingAccess (Prelude.Maybe Prelude.Text)
-resourceReceivingAccess_resourceType = Lens.lens (\ResourceReceivingAccess' {resourceType} -> resourceType) (\s@ResourceReceivingAccess' {} a -> s {resourceType = a} :: ResourceReceivingAccess)
 
 -- | The name of the Lightsail instance.
 resourceReceivingAccess_name :: Lens.Lens' ResourceReceivingAccess (Prelude.Maybe Prelude.Text)
 resourceReceivingAccess_name = Lens.lens (\ResourceReceivingAccess' {name} -> name) (\s@ResourceReceivingAccess' {} a -> s {name = a} :: ResourceReceivingAccess)
 
-instance Core.FromJSON ResourceReceivingAccess where
+-- | The Lightsail resource type (for example, @Instance@).
+resourceReceivingAccess_resourceType :: Lens.Lens' ResourceReceivingAccess (Prelude.Maybe Prelude.Text)
+resourceReceivingAccess_resourceType = Lens.lens (\ResourceReceivingAccess' {resourceType} -> resourceType) (\s@ResourceReceivingAccess' {} a -> s {resourceType = a} :: ResourceReceivingAccess)
+
+instance Data.FromJSON ResourceReceivingAccess where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResourceReceivingAccess"
       ( \x ->
           ResourceReceivingAccess'
-            Prelude.<$> (x Core..:? "resourceType")
-            Prelude.<*> (x Core..:? "name")
+            Prelude.<$> (x Data..:? "name")
+            Prelude.<*> (x Data..:? "resourceType")
       )
 
 instance Prelude.Hashable ResourceReceivingAccess where
   hashWithSalt _salt ResourceReceivingAccess' {..} =
-    _salt `Prelude.hashWithSalt` resourceType
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` resourceType
 
 instance Prelude.NFData ResourceReceivingAccess where
   rnf ResourceReceivingAccess' {..} =
-    Prelude.rnf resourceType
-      `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name
+      `Prelude.seq` Prelude.rnf resourceType

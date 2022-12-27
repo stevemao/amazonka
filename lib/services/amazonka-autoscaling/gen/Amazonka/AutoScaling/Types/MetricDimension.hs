@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.Types.MetricDimension
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AutoScaling.Types.MetricDimension where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the dimension of a metric.
@@ -62,10 +63,10 @@ metricDimension_name = Lens.lens (\MetricDimension' {name} -> name) (\s@MetricDi
 metricDimension_value :: Lens.Lens' MetricDimension Prelude.Text
 metricDimension_value = Lens.lens (\MetricDimension' {value} -> value) (\s@MetricDimension' {} a -> s {value = a} :: MetricDimension)
 
-instance Core.FromXML MetricDimension where
+instance Data.FromXML MetricDimension where
   parseXML x =
     MetricDimension'
-      Prelude.<$> (x Core..@ "Name") Prelude.<*> (x Core..@ "Value")
+      Prelude.<$> (x Data..@ "Name") Prelude.<*> (x Data..@ "Value")
 
 instance Prelude.Hashable MetricDimension where
   hashWithSalt _salt MetricDimension' {..} =
@@ -76,7 +77,7 @@ instance Prelude.NFData MetricDimension where
   rnf MetricDimension' {..} =
     Prelude.rnf name `Prelude.seq` Prelude.rnf value
 
-instance Core.ToQuery MetricDimension where
+instance Data.ToQuery MetricDimension where
   toQuery MetricDimension' {..} =
     Prelude.mconcat
-      ["Name" Core.=: name, "Value" Core.=: value]
+      ["Name" Data.=: name, "Value" Data.=: value]

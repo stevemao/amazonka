@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.ListAgentStatuses
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,8 @@ module Amazonka.Connect.ListAgentStatuses
 
     -- * Request Lenses
     listAgentStatuses_agentStatusTypes,
-    listAgentStatuses_nextToken,
     listAgentStatuses_maxResults,
+    listAgentStatuses_nextToken,
     listAgentStatuses_instanceId,
 
     -- * Destructuring the Response
@@ -42,15 +42,16 @@ module Amazonka.Connect.ListAgentStatuses
     newListAgentStatusesResponse,
 
     -- * Response Lenses
-    listAgentStatusesResponse_nextToken,
     listAgentStatusesResponse_agentStatusSummaryList,
+    listAgentStatusesResponse_nextToken,
     listAgentStatusesResponse_httpStatus,
   )
 where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,12 +60,12 @@ import qualified Amazonka.Response as Response
 data ListAgentStatuses = ListAgentStatuses'
   { -- | Available agent status types.
     agentStatusTypes :: Prelude.Maybe [AgentStatusType],
+    -- | The maximum number of results to return per page.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The token for the next set of results. Use the value returned in the
     -- previous response in the next request to retrieve the next set of
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return per page.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The identifier of the Amazon Connect instance. You can find the
     -- instanceId in the ARN of the instance.
     instanceId :: Prelude.Text
@@ -81,11 +82,11 @@ data ListAgentStatuses = ListAgentStatuses'
 --
 -- 'agentStatusTypes', 'listAgentStatuses_agentStatusTypes' - Available agent status types.
 --
+-- 'maxResults', 'listAgentStatuses_maxResults' - The maximum number of results to return per page.
+--
 -- 'nextToken', 'listAgentStatuses_nextToken' - The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
---
--- 'maxResults', 'listAgentStatuses_maxResults' - The maximum number of results to return per page.
 --
 -- 'instanceId', 'listAgentStatuses_instanceId' - The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -97,8 +98,8 @@ newListAgentStatuses pInstanceId_ =
   ListAgentStatuses'
     { agentStatusTypes =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       instanceId = pInstanceId_
     }
 
@@ -106,15 +107,15 @@ newListAgentStatuses pInstanceId_ =
 listAgentStatuses_agentStatusTypes :: Lens.Lens' ListAgentStatuses (Prelude.Maybe [AgentStatusType])
 listAgentStatuses_agentStatusTypes = Lens.lens (\ListAgentStatuses' {agentStatusTypes} -> agentStatusTypes) (\s@ListAgentStatuses' {} a -> s {agentStatusTypes = a} :: ListAgentStatuses) Prelude.. Lens.mapping Lens.coerced
 
+-- | The maximum number of results to return per page.
+listAgentStatuses_maxResults :: Lens.Lens' ListAgentStatuses (Prelude.Maybe Prelude.Natural)
+listAgentStatuses_maxResults = Lens.lens (\ListAgentStatuses' {maxResults} -> maxResults) (\s@ListAgentStatuses' {} a -> s {maxResults = a} :: ListAgentStatuses)
+
 -- | The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
 listAgentStatuses_nextToken :: Lens.Lens' ListAgentStatuses (Prelude.Maybe Prelude.Text)
 listAgentStatuses_nextToken = Lens.lens (\ListAgentStatuses' {nextToken} -> nextToken) (\s@ListAgentStatuses' {} a -> s {nextToken = a} :: ListAgentStatuses)
-
--- | The maximum number of results to return per page.
-listAgentStatuses_maxResults :: Lens.Lens' ListAgentStatuses (Prelude.Maybe Prelude.Natural)
-listAgentStatuses_maxResults = Lens.lens (\ListAgentStatuses' {maxResults} -> maxResults) (\s@ListAgentStatuses' {} a -> s {maxResults = a} :: ListAgentStatuses)
 
 -- | The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -147,67 +148,68 @@ instance Core.AWSRequest ListAgentStatuses where
   type
     AWSResponse ListAgentStatuses =
       ListAgentStatusesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAgentStatusesResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "AgentStatusSummaryList"
+            Prelude.<$> ( x Data..?> "AgentStatusSummaryList"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListAgentStatuses where
   hashWithSalt _salt ListAgentStatuses' {..} =
     _salt `Prelude.hashWithSalt` agentStatusTypes
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` instanceId
 
 instance Prelude.NFData ListAgentStatuses where
   rnf ListAgentStatuses' {..} =
     Prelude.rnf agentStatusTypes
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf instanceId
 
-instance Core.ToHeaders ListAgentStatuses where
+instance Data.ToHeaders ListAgentStatuses where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListAgentStatuses where
+instance Data.ToPath ListAgentStatuses where
   toPath ListAgentStatuses' {..} =
     Prelude.mconcat
-      ["/agent-status/", Core.toBS instanceId]
+      ["/agent-status/", Data.toBS instanceId]
 
-instance Core.ToQuery ListAgentStatuses where
+instance Data.ToQuery ListAgentStatuses where
   toQuery ListAgentStatuses' {..} =
     Prelude.mconcat
       [ "AgentStatusTypes"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> agentStatusTypes
             ),
-        "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListAgentStatusesResponse' smart constructor.
 data ListAgentStatusesResponse = ListAgentStatusesResponse'
-  { -- | If there are additional results, this is the token for the next set of
+  { -- | A summary of agent statuses.
+    agentStatusSummaryList :: Prelude.Maybe [AgentStatusSummary],
+    -- | If there are additional results, this is the token for the next set of
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | A summary of agent statuses.
-    agentStatusSummaryList :: Prelude.Maybe [AgentStatusSummary],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -221,10 +223,10 @@ data ListAgentStatusesResponse = ListAgentStatusesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'agentStatusSummaryList', 'listAgentStatusesResponse_agentStatusSummaryList' - A summary of agent statuses.
+--
 -- 'nextToken', 'listAgentStatusesResponse_nextToken' - If there are additional results, this is the token for the next set of
 -- results.
---
--- 'agentStatusSummaryList', 'listAgentStatusesResponse_agentStatusSummaryList' - A summary of agent statuses.
 --
 -- 'httpStatus', 'listAgentStatusesResponse_httpStatus' - The response's http status code.
 newListAgentStatusesResponse ::
@@ -233,20 +235,20 @@ newListAgentStatusesResponse ::
   ListAgentStatusesResponse
 newListAgentStatusesResponse pHttpStatus_ =
   ListAgentStatusesResponse'
-    { nextToken =
+    { agentStatusSummaryList =
         Prelude.Nothing,
-      agentStatusSummaryList = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | A summary of agent statuses.
+listAgentStatusesResponse_agentStatusSummaryList :: Lens.Lens' ListAgentStatusesResponse (Prelude.Maybe [AgentStatusSummary])
+listAgentStatusesResponse_agentStatusSummaryList = Lens.lens (\ListAgentStatusesResponse' {agentStatusSummaryList} -> agentStatusSummaryList) (\s@ListAgentStatusesResponse' {} a -> s {agentStatusSummaryList = a} :: ListAgentStatusesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | If there are additional results, this is the token for the next set of
 -- results.
 listAgentStatusesResponse_nextToken :: Lens.Lens' ListAgentStatusesResponse (Prelude.Maybe Prelude.Text)
 listAgentStatusesResponse_nextToken = Lens.lens (\ListAgentStatusesResponse' {nextToken} -> nextToken) (\s@ListAgentStatusesResponse' {} a -> s {nextToken = a} :: ListAgentStatusesResponse)
-
--- | A summary of agent statuses.
-listAgentStatusesResponse_agentStatusSummaryList :: Lens.Lens' ListAgentStatusesResponse (Prelude.Maybe [AgentStatusSummary])
-listAgentStatusesResponse_agentStatusSummaryList = Lens.lens (\ListAgentStatusesResponse' {agentStatusSummaryList} -> agentStatusSummaryList) (\s@ListAgentStatusesResponse' {} a -> s {agentStatusSummaryList = a} :: ListAgentStatusesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listAgentStatusesResponse_httpStatus :: Lens.Lens' ListAgentStatusesResponse Prelude.Int
@@ -254,6 +256,6 @@ listAgentStatusesResponse_httpStatus = Lens.lens (\ListAgentStatusesResponse' {h
 
 instance Prelude.NFData ListAgentStatusesResponse where
   rnf ListAgentStatusesResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf agentStatusSummaryList
+    Prelude.rnf agentStatusSummaryList
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

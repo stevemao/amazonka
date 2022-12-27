@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ImageBuilder.DeleteImage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,7 +34,7 @@
 --     in the //Amazon EC2 Windows Guide// .
 --
 -- -   To delete a container image from Amazon ECR, see
---     <https://docs.aws.amazon.com/https:/docs.aws.amazon.comAmazonECR/latest/userguide/delete_image.html Deleting an image>
+--     <https://docs.aws.amazon.com/AmazonECR/latest/userguide/delete_image.html Deleting an image>
 --     in the /Amazon ECR User Guide/.
 module Amazonka.ImageBuilder.DeleteImage
   ( -- * Creating a Request
@@ -49,15 +49,16 @@ module Amazonka.ImageBuilder.DeleteImage
     newDeleteImageResponse,
 
     -- * Response Lenses
-    deleteImageResponse_requestId,
     deleteImageResponse_imageBuildVersionArn,
+    deleteImageResponse_requestId,
     deleteImageResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ImageBuilder.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,13 +98,14 @@ deleteImage_imageBuildVersionArn = Lens.lens (\DeleteImage' {imageBuildVersionAr
 
 instance Core.AWSRequest DeleteImage where
   type AWSResponse DeleteImage = DeleteImageResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteImageResponse'
-            Prelude.<$> (x Core..?> "requestId")
-            Prelude.<*> (x Core..?> "imageBuildVersionArn")
+            Prelude.<$> (x Data..?> "imageBuildVersionArn")
+            Prelude.<*> (x Data..?> "requestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -115,32 +117,32 @@ instance Prelude.NFData DeleteImage where
   rnf DeleteImage' {..} =
     Prelude.rnf imageBuildVersionArn
 
-instance Core.ToHeaders DeleteImage where
+instance Data.ToHeaders DeleteImage where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteImage where
+instance Data.ToPath DeleteImage where
   toPath = Prelude.const "/DeleteImage"
 
-instance Core.ToQuery DeleteImage where
+instance Data.ToQuery DeleteImage where
   toQuery DeleteImage' {..} =
     Prelude.mconcat
-      ["imageBuildVersionArn" Core.=: imageBuildVersionArn]
+      ["imageBuildVersionArn" Data.=: imageBuildVersionArn]
 
 -- | /See:/ 'newDeleteImageResponse' smart constructor.
 data DeleteImageResponse = DeleteImageResponse'
-  { -- | The request ID that uniquely identifies this request.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the Image Builder image resource that
+  { -- | The Amazon Resource Name (ARN) of the Image Builder image resource that
     -- was deleted.
     imageBuildVersionArn :: Prelude.Maybe Prelude.Text,
+    -- | The request ID that uniquely identifies this request.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -154,10 +156,10 @@ data DeleteImageResponse = DeleteImageResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'deleteImageResponse_requestId' - The request ID that uniquely identifies this request.
---
 -- 'imageBuildVersionArn', 'deleteImageResponse_imageBuildVersionArn' - The Amazon Resource Name (ARN) of the Image Builder image resource that
 -- was deleted.
+--
+-- 'requestId', 'deleteImageResponse_requestId' - The request ID that uniquely identifies this request.
 --
 -- 'httpStatus', 'deleteImageResponse_httpStatus' - The response's http status code.
 newDeleteImageResponse ::
@@ -166,19 +168,20 @@ newDeleteImageResponse ::
   DeleteImageResponse
 newDeleteImageResponse pHttpStatus_ =
   DeleteImageResponse'
-    { requestId = Prelude.Nothing,
-      imageBuildVersionArn = Prelude.Nothing,
+    { imageBuildVersionArn =
+        Prelude.Nothing,
+      requestId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The request ID that uniquely identifies this request.
-deleteImageResponse_requestId :: Lens.Lens' DeleteImageResponse (Prelude.Maybe Prelude.Text)
-deleteImageResponse_requestId = Lens.lens (\DeleteImageResponse' {requestId} -> requestId) (\s@DeleteImageResponse' {} a -> s {requestId = a} :: DeleteImageResponse)
 
 -- | The Amazon Resource Name (ARN) of the Image Builder image resource that
 -- was deleted.
 deleteImageResponse_imageBuildVersionArn :: Lens.Lens' DeleteImageResponse (Prelude.Maybe Prelude.Text)
 deleteImageResponse_imageBuildVersionArn = Lens.lens (\DeleteImageResponse' {imageBuildVersionArn} -> imageBuildVersionArn) (\s@DeleteImageResponse' {} a -> s {imageBuildVersionArn = a} :: DeleteImageResponse)
+
+-- | The request ID that uniquely identifies this request.
+deleteImageResponse_requestId :: Lens.Lens' DeleteImageResponse (Prelude.Maybe Prelude.Text)
+deleteImageResponse_requestId = Lens.lens (\DeleteImageResponse' {requestId} -> requestId) (\s@DeleteImageResponse' {} a -> s {requestId = a} :: DeleteImageResponse)
 
 -- | The response's http status code.
 deleteImageResponse_httpStatus :: Lens.Lens' DeleteImageResponse Prelude.Int
@@ -186,6 +189,6 @@ deleteImageResponse_httpStatus = Lens.lens (\DeleteImageResponse' {httpStatus} -
 
 instance Prelude.NFData DeleteImageResponse where
   rnf DeleteImageResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf imageBuildVersionArn
+    Prelude.rnf imageBuildVersionArn
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf httpStatus

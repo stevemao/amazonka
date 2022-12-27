@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.DeleteBucketAnalyticsConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -59,7 +59,8 @@ module Amazonka.S3.DeleteBucketAnalyticsConfiguration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -68,8 +69,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newDeleteBucketAnalyticsConfiguration' smart constructor.
 data DeleteBucketAnalyticsConfiguration = DeleteBucketAnalyticsConfiguration'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the bucket from which an analytics configuration is deleted.
     bucket :: BucketName,
@@ -87,8 +88,8 @@ data DeleteBucketAnalyticsConfiguration = DeleteBucketAnalyticsConfiguration'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'deleteBucketAnalyticsConfiguration_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'deleteBucketAnalyticsConfiguration_bucket' - The name of the bucket from which an analytics configuration is deleted.
 --
@@ -108,8 +109,8 @@ newDeleteBucketAnalyticsConfiguration pBucket_ pId_ =
     }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 deleteBucketAnalyticsConfiguration_expectedBucketOwner :: Lens.Lens' DeleteBucketAnalyticsConfiguration (Prelude.Maybe Prelude.Text)
 deleteBucketAnalyticsConfiguration_expectedBucketOwner = Lens.lens (\DeleteBucketAnalyticsConfiguration' {expectedBucketOwner} -> expectedBucketOwner) (\s@DeleteBucketAnalyticsConfiguration' {} a -> s {expectedBucketOwner = a} :: DeleteBucketAnalyticsConfiguration)
 
@@ -128,9 +129,9 @@ instance
   type
     AWSResponse DeleteBucketAnalyticsConfiguration =
       DeleteBucketAnalyticsConfigurationResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.delete defaultService
+      Prelude.. Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteBucketAnalyticsConfigurationResponse'
@@ -156,28 +157,28 @@ instance
       `Prelude.seq` Prelude.rnf id
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteBucketAnalyticsConfiguration
   where
   toHeaders DeleteBucketAnalyticsConfiguration' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
 instance
-  Core.ToPath
+  Data.ToPath
     DeleteBucketAnalyticsConfiguration
   where
   toPath DeleteBucketAnalyticsConfiguration' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DeleteBucketAnalyticsConfiguration
   where
   toQuery DeleteBucketAnalyticsConfiguration' {..} =
-    Prelude.mconcat ["id" Core.=: id, "analytics"]
+    Prelude.mconcat ["id" Data.=: id, "analytics"]
 
 -- | /See:/ 'newDeleteBucketAnalyticsConfigurationResponse' smart constructor.
 data DeleteBucketAnalyticsConfigurationResponse = DeleteBucketAnalyticsConfigurationResponse'

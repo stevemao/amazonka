@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppRunner.Types.CodeRepository
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.AppRunner.Types.CodeRepository where
 import Amazonka.AppRunner.Types.CodeConfiguration
 import Amazonka.AppRunner.Types.SourceCodeVersion
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a source code repository.
@@ -31,6 +32,8 @@ import qualified Amazonka.Prelude as Prelude
 data CodeRepository = CodeRepository'
   { -- | Configuration for building and running the service from a source code
     -- repository.
+    --
+    -- @CodeConfiguration@ is required only for @CreateService@ request.
     codeConfiguration :: Prelude.Maybe CodeConfiguration,
     -- | The location of the repository that contains the source code.
     repositoryUrl :: Prelude.Text,
@@ -49,6 +52,8 @@ data CodeRepository = CodeRepository'
 --
 -- 'codeConfiguration', 'codeRepository_codeConfiguration' - Configuration for building and running the service from a source code
 -- repository.
+--
+-- @CodeConfiguration@ is required only for @CreateService@ request.
 --
 -- 'repositoryUrl', 'codeRepository_repositoryUrl' - The location of the repository that contains the source code.
 --
@@ -69,6 +74,8 @@ newCodeRepository pRepositoryUrl_ pSourceCodeVersion_ =
 
 -- | Configuration for building and running the service from a source code
 -- repository.
+--
+-- @CodeConfiguration@ is required only for @CreateService@ request.
 codeRepository_codeConfiguration :: Lens.Lens' CodeRepository (Prelude.Maybe CodeConfiguration)
 codeRepository_codeConfiguration = Lens.lens (\CodeRepository' {codeConfiguration} -> codeConfiguration) (\s@CodeRepository' {} a -> s {codeConfiguration = a} :: CodeRepository)
 
@@ -80,15 +87,15 @@ codeRepository_repositoryUrl = Lens.lens (\CodeRepository' {repositoryUrl} -> re
 codeRepository_sourceCodeVersion :: Lens.Lens' CodeRepository SourceCodeVersion
 codeRepository_sourceCodeVersion = Lens.lens (\CodeRepository' {sourceCodeVersion} -> sourceCodeVersion) (\s@CodeRepository' {} a -> s {sourceCodeVersion = a} :: CodeRepository)
 
-instance Core.FromJSON CodeRepository where
+instance Data.FromJSON CodeRepository where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CodeRepository"
       ( \x ->
           CodeRepository'
-            Prelude.<$> (x Core..:? "CodeConfiguration")
-            Prelude.<*> (x Core..: "RepositoryUrl")
-            Prelude.<*> (x Core..: "SourceCodeVersion")
+            Prelude.<$> (x Data..:? "CodeConfiguration")
+            Prelude.<*> (x Data..: "RepositoryUrl")
+            Prelude.<*> (x Data..: "SourceCodeVersion")
       )
 
 instance Prelude.Hashable CodeRepository where
@@ -103,14 +110,14 @@ instance Prelude.NFData CodeRepository where
       `Prelude.seq` Prelude.rnf repositoryUrl
       `Prelude.seq` Prelude.rnf sourceCodeVersion
 
-instance Core.ToJSON CodeRepository where
+instance Data.ToJSON CodeRepository where
   toJSON CodeRepository' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CodeConfiguration" Core..=)
+          [ ("CodeConfiguration" Data..=)
               Prelude.<$> codeConfiguration,
-            Prelude.Just ("RepositoryUrl" Core..= repositoryUrl),
+            Prelude.Just ("RepositoryUrl" Data..= repositoryUrl),
             Prelude.Just
-              ("SourceCodeVersion" Core..= sourceCodeVersion)
+              ("SourceCodeVersion" Data..= sourceCodeVersion)
           ]
       )

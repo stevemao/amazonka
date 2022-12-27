@@ -14,15 +14,15 @@
 
 -- |
 -- Module      : Amazonka.CodeStarNotifications.Subscribe
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an association between a notification rule and an SNS topic so
--- that the associated target can receive notifications when the events
--- described in the rule are triggered.
+-- Creates an association between a notification rule and an Chatbot topic
+-- or Chatbot client so that the associated target can receive
+-- notifications when the events described in the rule are triggered.
 module Amazonka.CodeStarNotifications.Subscribe
   ( -- * Creating a Request
     Subscribe (..),
@@ -45,7 +45,8 @@ where
 
 import Amazonka.CodeStarNotifications.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,12 +107,13 @@ subscribe_target = Lens.lens (\Subscribe' {target} -> target) (\s@Subscribe' {} 
 
 instance Core.AWSRequest Subscribe where
   type AWSResponse Subscribe = SubscribeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SubscribeResponse'
-            Prelude.<$> (x Core..?> "Arn")
+            Prelude.<$> (x Data..?> "Arn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -127,32 +129,32 @@ instance Prelude.NFData Subscribe where
       `Prelude.seq` Prelude.rnf arn
       `Prelude.seq` Prelude.rnf target
 
-instance Core.ToHeaders Subscribe where
+instance Data.ToHeaders Subscribe where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON Subscribe where
+instance Data.ToJSON Subscribe where
   toJSON Subscribe' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ClientRequestToken" Core..=)
+          [ ("ClientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
-            Prelude.Just ("Arn" Core..= arn),
-            Prelude.Just ("Target" Core..= target)
+            Prelude.Just ("Arn" Data..= arn),
+            Prelude.Just ("Target" Data..= target)
           ]
       )
 
-instance Core.ToPath Subscribe where
+instance Data.ToPath Subscribe where
   toPath = Prelude.const "/subscribe"
 
-instance Core.ToQuery Subscribe where
+instance Data.ToQuery Subscribe where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSubscribeResponse' smart constructor.

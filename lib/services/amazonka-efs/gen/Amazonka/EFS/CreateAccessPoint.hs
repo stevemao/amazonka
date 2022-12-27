@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EFS.CreateAccessPoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,9 +26,15 @@
 -- the access point. The operating system user and group override any
 -- identity information provided by the NFS client. The file system path is
 -- exposed as the access point\'s root directory. Applications using the
--- access point can only access data in its own directory and below. To
--- learn more, see
+-- access point can only access data in the application\'s own directory
+-- and any subdirectories. To learn more, see
 -- <https://docs.aws.amazon.com/efs/latest/ug/efs-access-points.html Mounting a file system using EFS access points>.
+--
+-- If multiple requests to create access points on the same file system are
+-- sent in quick succession, and the file system is near the limit of 120
+-- access points, you may experience a throttling response for these
+-- requests. This is to ensure that the file system does not exceed the
+-- stated access point limit.
 --
 -- This operation requires permissions for the
 -- @elasticfilesystem:CreateAccessPoint@ action.
@@ -49,22 +55,23 @@ module Amazonka.EFS.CreateAccessPoint
     newAccessPointDescription,
 
     -- * Response Lenses
+    accessPointDescription_accessPointArn,
+    accessPointDescription_accessPointId,
+    accessPointDescription_clientToken,
+    accessPointDescription_fileSystemId,
+    accessPointDescription_lifeCycleState,
+    accessPointDescription_name,
+    accessPointDescription_ownerId,
     accessPointDescription_posixUser,
     accessPointDescription_rootDirectory,
-    accessPointDescription_clientToken,
-    accessPointDescription_accessPointId,
-    accessPointDescription_fileSystemId,
-    accessPointDescription_ownerId,
-    accessPointDescription_name,
-    accessPointDescription_accessPointArn,
-    accessPointDescription_lifeCycleState,
     accessPointDescription_tags,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EFS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,7 +87,7 @@ data CreateAccessPoint = CreateAccessPoint'
     -- access the root directory and below. If the @RootDirectory@ > @Path@
     -- specified does not exist, EFS creates it and applies the @CreationInfo@
     -- settings when a client connects to an access point. When specifying a
-    -- @RootDirectory@, you need to provide the @Path@, and the @CreationInfo@.
+    -- @RootDirectory@, you must provide the @Path@, and the @CreationInfo@.
     --
     -- Amazon EFS creates a root directory only if you have provided the
     -- CreationInfo: OwnUid, OwnGID, and permissions for the directory. If you
@@ -118,7 +125,7 @@ data CreateAccessPoint = CreateAccessPoint'
 -- access the root directory and below. If the @RootDirectory@ > @Path@
 -- specified does not exist, EFS creates it and applies the @CreationInfo@
 -- settings when a client connects to an access point. When specifying a
--- @RootDirectory@, you need to provide the @Path@, and the @CreationInfo@.
+-- @RootDirectory@, you must provide the @Path@, and the @CreationInfo@.
 --
 -- Amazon EFS creates a root directory only if you have provided the
 -- CreationInfo: OwnUid, OwnGID, and permissions for the directory. If you
@@ -161,7 +168,7 @@ createAccessPoint_posixUser = Lens.lens (\CreateAccessPoint' {posixUser} -> posi
 -- access the root directory and below. If the @RootDirectory@ > @Path@
 -- specified does not exist, EFS creates it and applies the @CreationInfo@
 -- settings when a client connects to an access point. When specifying a
--- @RootDirectory@, you need to provide the @Path@, and the @CreationInfo@.
+-- @RootDirectory@, you must provide the @Path@, and the @CreationInfo@.
 --
 -- Amazon EFS creates a root directory only if you have provided the
 -- CreationInfo: OwnUid, OwnGID, and permissions for the directory. If you
@@ -191,10 +198,11 @@ instance Core.AWSRequest CreateAccessPoint where
   type
     AWSResponse CreateAccessPoint =
       AccessPointDescription
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable CreateAccessPoint where
   hashWithSalt _salt CreateAccessPoint' {..} =
@@ -212,23 +220,23 @@ instance Prelude.NFData CreateAccessPoint where
       `Prelude.seq` Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf fileSystemId
 
-instance Core.ToHeaders CreateAccessPoint where
+instance Data.ToHeaders CreateAccessPoint where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateAccessPoint where
+instance Data.ToJSON CreateAccessPoint where
   toJSON CreateAccessPoint' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PosixUser" Core..=) Prelude.<$> posixUser,
-            ("RootDirectory" Core..=) Prelude.<$> rootDirectory,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("ClientToken" Core..= clientToken),
-            Prelude.Just ("FileSystemId" Core..= fileSystemId)
+          [ ("PosixUser" Data..=) Prelude.<$> posixUser,
+            ("RootDirectory" Data..=) Prelude.<$> rootDirectory,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("ClientToken" Data..= clientToken),
+            Prelude.Just ("FileSystemId" Data..= fileSystemId)
           ]
       )
 
-instance Core.ToPath CreateAccessPoint where
+instance Data.ToPath CreateAccessPoint where
   toPath = Prelude.const "/2015-02-01/access-points"
 
-instance Core.ToQuery CreateAccessPoint where
+instance Data.ToQuery CreateAccessPoint where
   toQuery = Prelude.const Prelude.mempty

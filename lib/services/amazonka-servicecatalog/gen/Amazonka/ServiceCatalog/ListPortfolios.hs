@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.ListPortfolios
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.ServiceCatalog.ListPortfolios
 
     -- * Request Lenses
     listPortfolios_acceptLanguage,
-    listPortfolios_pageToken,
     listPortfolios_pageSize,
+    listPortfolios_pageToken,
 
     -- * Destructuring the Response
     ListPortfoliosResponse (..),
@@ -45,7 +45,8 @@ module Amazonka.ServiceCatalog.ListPortfolios
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,11 +62,11 @@ data ListPortfolios = ListPortfolios'
     --
     -- -   @zh@ - Chinese
     acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return with this call.
+    pageSize :: Prelude.Maybe Prelude.Natural,
     -- | The page token for the next set of results. To retrieve the first set of
     -- results, use null.
-    pageToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return with this call.
-    pageSize :: Prelude.Maybe Prelude.Natural
+    pageToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -85,17 +86,17 @@ data ListPortfolios = ListPortfolios'
 --
 -- -   @zh@ - Chinese
 --
+-- 'pageSize', 'listPortfolios_pageSize' - The maximum number of items to return with this call.
+--
 -- 'pageToken', 'listPortfolios_pageToken' - The page token for the next set of results. To retrieve the first set of
 -- results, use null.
---
--- 'pageSize', 'listPortfolios_pageSize' - The maximum number of items to return with this call.
 newListPortfolios ::
   ListPortfolios
 newListPortfolios =
   ListPortfolios'
     { acceptLanguage = Prelude.Nothing,
-      pageToken = Prelude.Nothing,
-      pageSize = Prelude.Nothing
+      pageSize = Prelude.Nothing,
+      pageToken = Prelude.Nothing
     }
 
 -- | The language code.
@@ -108,14 +109,14 @@ newListPortfolios =
 listPortfolios_acceptLanguage :: Lens.Lens' ListPortfolios (Prelude.Maybe Prelude.Text)
 listPortfolios_acceptLanguage = Lens.lens (\ListPortfolios' {acceptLanguage} -> acceptLanguage) (\s@ListPortfolios' {} a -> s {acceptLanguage = a} :: ListPortfolios)
 
+-- | The maximum number of items to return with this call.
+listPortfolios_pageSize :: Lens.Lens' ListPortfolios (Prelude.Maybe Prelude.Natural)
+listPortfolios_pageSize = Lens.lens (\ListPortfolios' {pageSize} -> pageSize) (\s@ListPortfolios' {} a -> s {pageSize = a} :: ListPortfolios)
+
 -- | The page token for the next set of results. To retrieve the first set of
 -- results, use null.
 listPortfolios_pageToken :: Lens.Lens' ListPortfolios (Prelude.Maybe Prelude.Text)
 listPortfolios_pageToken = Lens.lens (\ListPortfolios' {pageToken} -> pageToken) (\s@ListPortfolios' {} a -> s {pageToken = a} :: ListPortfolios)
-
--- | The maximum number of items to return with this call.
-listPortfolios_pageSize :: Lens.Lens' ListPortfolios (Prelude.Maybe Prelude.Natural)
-listPortfolios_pageSize = Lens.lens (\ListPortfolios' {pageSize} -> pageSize) (\s@ListPortfolios' {} a -> s {pageSize = a} :: ListPortfolios)
 
 instance Core.AWSPager ListPortfolios where
   page rq rs
@@ -143,13 +144,14 @@ instance Core.AWSRequest ListPortfolios where
   type
     AWSResponse ListPortfolios =
       ListPortfoliosResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPortfoliosResponse'
-            Prelude.<$> (x Core..?> "NextPageToken")
-            Prelude.<*> ( x Core..?> "PortfolioDetails"
+            Prelude.<$> (x Data..?> "NextPageToken")
+            Prelude.<*> ( x Data..?> "PortfolioDetails"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -158,45 +160,45 @@ instance Core.AWSRequest ListPortfolios where
 instance Prelude.Hashable ListPortfolios where
   hashWithSalt _salt ListPortfolios' {..} =
     _salt `Prelude.hashWithSalt` acceptLanguage
-      `Prelude.hashWithSalt` pageToken
       `Prelude.hashWithSalt` pageSize
+      `Prelude.hashWithSalt` pageToken
 
 instance Prelude.NFData ListPortfolios where
   rnf ListPortfolios' {..} =
     Prelude.rnf acceptLanguage
-      `Prelude.seq` Prelude.rnf pageToken
       `Prelude.seq` Prelude.rnf pageSize
+      `Prelude.seq` Prelude.rnf pageToken
 
-instance Core.ToHeaders ListPortfolios where
+instance Data.ToHeaders ListPortfolios where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.ListPortfolios" ::
+              Data.=# ( "AWS242ServiceCatalogService.ListPortfolios" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListPortfolios where
+instance Data.ToJSON ListPortfolios where
   toJSON ListPortfolios' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            ("PageToken" Core..=) Prelude.<$> pageToken,
-            ("PageSize" Core..=) Prelude.<$> pageSize
+            ("PageSize" Data..=) Prelude.<$> pageSize,
+            ("PageToken" Data..=) Prelude.<$> pageToken
           ]
       )
 
-instance Core.ToPath ListPortfolios where
+instance Data.ToPath ListPortfolios where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListPortfolios where
+instance Data.ToQuery ListPortfolios where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListPortfoliosResponse' smart constructor.

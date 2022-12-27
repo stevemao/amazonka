@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.GetColumnStatisticsForTable
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,15 +40,16 @@ module Amazonka.Glue.GetColumnStatisticsForTable
     newGetColumnStatisticsForTableResponse,
 
     -- * Response Lenses
-    getColumnStatisticsForTableResponse_errors,
     getColumnStatisticsForTableResponse_columnStatisticsList,
+    getColumnStatisticsForTableResponse_errors,
     getColumnStatisticsForTableResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -121,15 +122,16 @@ instance Core.AWSRequest GetColumnStatisticsForTable where
   type
     AWSResponse GetColumnStatisticsForTable =
       GetColumnStatisticsForTableResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetColumnStatisticsForTableResponse'
-            Prelude.<$> (x Core..?> "Errors" Core..!@ Prelude.mempty)
-            Prelude.<*> ( x Core..?> "ColumnStatisticsList"
+            Prelude.<$> ( x Data..?> "ColumnStatisticsList"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "Errors" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -147,44 +149,44 @@ instance Prelude.NFData GetColumnStatisticsForTable where
       `Prelude.seq` Prelude.rnf tableName
       `Prelude.seq` Prelude.rnf columnNames
 
-instance Core.ToHeaders GetColumnStatisticsForTable where
+instance Data.ToHeaders GetColumnStatisticsForTable where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSGlue.GetColumnStatisticsForTable" ::
+              Data.=# ( "AWSGlue.GetColumnStatisticsForTable" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetColumnStatisticsForTable where
+instance Data.ToJSON GetColumnStatisticsForTable where
   toJSON GetColumnStatisticsForTable' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            Prelude.Just ("DatabaseName" Core..= databaseName),
-            Prelude.Just ("TableName" Core..= tableName),
-            Prelude.Just ("ColumnNames" Core..= columnNames)
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            Prelude.Just ("DatabaseName" Data..= databaseName),
+            Prelude.Just ("TableName" Data..= tableName),
+            Prelude.Just ("ColumnNames" Data..= columnNames)
           ]
       )
 
-instance Core.ToPath GetColumnStatisticsForTable where
+instance Data.ToPath GetColumnStatisticsForTable where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetColumnStatisticsForTable where
+instance Data.ToQuery GetColumnStatisticsForTable where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetColumnStatisticsForTableResponse' smart constructor.
 data GetColumnStatisticsForTableResponse = GetColumnStatisticsForTableResponse'
   { -- | List of ColumnStatistics that failed to be retrieved.
-    errors :: Prelude.Maybe [ColumnError],
-    -- | List of ColumnStatistics that failed to be retrieved.
     columnStatisticsList :: Prelude.Maybe [ColumnStatistics],
+    -- | List of ColumnStatistics that failed to be retrieved.
+    errors :: Prelude.Maybe [ColumnError],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -198,9 +200,9 @@ data GetColumnStatisticsForTableResponse = GetColumnStatisticsForTableResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'errors', 'getColumnStatisticsForTableResponse_errors' - List of ColumnStatistics that failed to be retrieved.
---
 -- 'columnStatisticsList', 'getColumnStatisticsForTableResponse_columnStatisticsList' - List of ColumnStatistics that failed to be retrieved.
+--
+-- 'errors', 'getColumnStatisticsForTableResponse_errors' - List of ColumnStatistics that failed to be retrieved.
 --
 -- 'httpStatus', 'getColumnStatisticsForTableResponse_httpStatus' - The response's http status code.
 newGetColumnStatisticsForTableResponse ::
@@ -209,19 +211,19 @@ newGetColumnStatisticsForTableResponse ::
   GetColumnStatisticsForTableResponse
 newGetColumnStatisticsForTableResponse pHttpStatus_ =
   GetColumnStatisticsForTableResponse'
-    { errors =
+    { columnStatisticsList =
         Prelude.Nothing,
-      columnStatisticsList = Prelude.Nothing,
+      errors = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
 -- | List of ColumnStatistics that failed to be retrieved.
-getColumnStatisticsForTableResponse_errors :: Lens.Lens' GetColumnStatisticsForTableResponse (Prelude.Maybe [ColumnError])
-getColumnStatisticsForTableResponse_errors = Lens.lens (\GetColumnStatisticsForTableResponse' {errors} -> errors) (\s@GetColumnStatisticsForTableResponse' {} a -> s {errors = a} :: GetColumnStatisticsForTableResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | List of ColumnStatistics that failed to be retrieved.
 getColumnStatisticsForTableResponse_columnStatisticsList :: Lens.Lens' GetColumnStatisticsForTableResponse (Prelude.Maybe [ColumnStatistics])
 getColumnStatisticsForTableResponse_columnStatisticsList = Lens.lens (\GetColumnStatisticsForTableResponse' {columnStatisticsList} -> columnStatisticsList) (\s@GetColumnStatisticsForTableResponse' {} a -> s {columnStatisticsList = a} :: GetColumnStatisticsForTableResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | List of ColumnStatistics that failed to be retrieved.
+getColumnStatisticsForTableResponse_errors :: Lens.Lens' GetColumnStatisticsForTableResponse (Prelude.Maybe [ColumnError])
+getColumnStatisticsForTableResponse_errors = Lens.lens (\GetColumnStatisticsForTableResponse' {errors} -> errors) (\s@GetColumnStatisticsForTableResponse' {} a -> s {errors = a} :: GetColumnStatisticsForTableResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 getColumnStatisticsForTableResponse_httpStatus :: Lens.Lens' GetColumnStatisticsForTableResponse Prelude.Int
@@ -232,6 +234,6 @@ instance
     GetColumnStatisticsForTableResponse
   where
   rnf GetColumnStatisticsForTableResponse' {..} =
-    Prelude.rnf errors
-      `Prelude.seq` Prelude.rnf columnStatisticsList
+    Prelude.rnf columnStatisticsList
+      `Prelude.seq` Prelude.rnf errors
       `Prelude.seq` Prelude.rnf httpStatus

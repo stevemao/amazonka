@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Discovery.Types.AgentConfigurationStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Discovery.Types.AgentConfigurationStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about agents or connectors that were instructed to start
@@ -32,13 +33,13 @@ import qualified Amazonka.Prelude as Prelude
 data AgentConfigurationStatus = AgentConfigurationStatus'
   { -- | The agent\/connector ID.
     agentId :: Prelude.Maybe Prelude.Text,
+    -- | A description of the operation performed.
+    description :: Prelude.Maybe Prelude.Text,
     -- | Information about the status of the @StartDataCollection@ and
     -- @StopDataCollection@ operations. The system has recorded the data
     -- collection operation. The agent\/connector receives this command the
     -- next time it polls for a new command.
-    operationSucceeded :: Prelude.Maybe Prelude.Bool,
-    -- | A description of the operation performed.
-    description :: Prelude.Maybe Prelude.Text
+    operationSucceeded :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -52,25 +53,29 @@ data AgentConfigurationStatus = AgentConfigurationStatus'
 --
 -- 'agentId', 'agentConfigurationStatus_agentId' - The agent\/connector ID.
 --
+-- 'description', 'agentConfigurationStatus_description' - A description of the operation performed.
+--
 -- 'operationSucceeded', 'agentConfigurationStatus_operationSucceeded' - Information about the status of the @StartDataCollection@ and
 -- @StopDataCollection@ operations. The system has recorded the data
 -- collection operation. The agent\/connector receives this command the
 -- next time it polls for a new command.
---
--- 'description', 'agentConfigurationStatus_description' - A description of the operation performed.
 newAgentConfigurationStatus ::
   AgentConfigurationStatus
 newAgentConfigurationStatus =
   AgentConfigurationStatus'
     { agentId =
         Prelude.Nothing,
-      operationSucceeded = Prelude.Nothing,
-      description = Prelude.Nothing
+      description = Prelude.Nothing,
+      operationSucceeded = Prelude.Nothing
     }
 
 -- | The agent\/connector ID.
 agentConfigurationStatus_agentId :: Lens.Lens' AgentConfigurationStatus (Prelude.Maybe Prelude.Text)
 agentConfigurationStatus_agentId = Lens.lens (\AgentConfigurationStatus' {agentId} -> agentId) (\s@AgentConfigurationStatus' {} a -> s {agentId = a} :: AgentConfigurationStatus)
+
+-- | A description of the operation performed.
+agentConfigurationStatus_description :: Lens.Lens' AgentConfigurationStatus (Prelude.Maybe Prelude.Text)
+agentConfigurationStatus_description = Lens.lens (\AgentConfigurationStatus' {description} -> description) (\s@AgentConfigurationStatus' {} a -> s {description = a} :: AgentConfigurationStatus)
 
 -- | Information about the status of the @StartDataCollection@ and
 -- @StopDataCollection@ operations. The system has recorded the data
@@ -79,29 +84,25 @@ agentConfigurationStatus_agentId = Lens.lens (\AgentConfigurationStatus' {agentI
 agentConfigurationStatus_operationSucceeded :: Lens.Lens' AgentConfigurationStatus (Prelude.Maybe Prelude.Bool)
 agentConfigurationStatus_operationSucceeded = Lens.lens (\AgentConfigurationStatus' {operationSucceeded} -> operationSucceeded) (\s@AgentConfigurationStatus' {} a -> s {operationSucceeded = a} :: AgentConfigurationStatus)
 
--- | A description of the operation performed.
-agentConfigurationStatus_description :: Lens.Lens' AgentConfigurationStatus (Prelude.Maybe Prelude.Text)
-agentConfigurationStatus_description = Lens.lens (\AgentConfigurationStatus' {description} -> description) (\s@AgentConfigurationStatus' {} a -> s {description = a} :: AgentConfigurationStatus)
-
-instance Core.FromJSON AgentConfigurationStatus where
+instance Data.FromJSON AgentConfigurationStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AgentConfigurationStatus"
       ( \x ->
           AgentConfigurationStatus'
-            Prelude.<$> (x Core..:? "agentId")
-            Prelude.<*> (x Core..:? "operationSucceeded")
-            Prelude.<*> (x Core..:? "description")
+            Prelude.<$> (x Data..:? "agentId")
+            Prelude.<*> (x Data..:? "description")
+            Prelude.<*> (x Data..:? "operationSucceeded")
       )
 
 instance Prelude.Hashable AgentConfigurationStatus where
   hashWithSalt _salt AgentConfigurationStatus' {..} =
     _salt `Prelude.hashWithSalt` agentId
-      `Prelude.hashWithSalt` operationSucceeded
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` operationSucceeded
 
 instance Prelude.NFData AgentConfigurationStatus where
   rnf AgentConfigurationStatus' {..} =
     Prelude.rnf agentId
-      `Prelude.seq` Prelude.rnf operationSucceeded
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf operationSucceeded

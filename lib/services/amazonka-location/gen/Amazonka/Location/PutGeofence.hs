@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Location.PutGeofence
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.Location.PutGeofence
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -58,7 +59,9 @@ data PutGeofence = PutGeofence'
     collectionName :: Prelude.Text,
     -- | An identifier for the geofence. For example, @ExampleGeofence-1@.
     geofenceId :: Prelude.Text,
-    -- | Contains the polygon details to specify the position of the geofence.
+    -- | Contains the details to specify the position of the geofence. Can be
+    -- either a polygon or a circle. Including both will return a validation
+    -- error.
     --
     -- Each
     -- <https://docs.aws.amazon.com/location-geofences/latest/APIReference/API_GeofenceGeometry.html geofence polygon>
@@ -79,7 +82,9 @@ data PutGeofence = PutGeofence'
 --
 -- 'geofenceId', 'putGeofence_geofenceId' - An identifier for the geofence. For example, @ExampleGeofence-1@.
 --
--- 'geometry', 'putGeofence_geometry' - Contains the polygon details to specify the position of the geofence.
+-- 'geometry', 'putGeofence_geometry' - Contains the details to specify the position of the geofence. Can be
+-- either a polygon or a circle. Including both will return a validation
+-- error.
 --
 -- Each
 -- <https://docs.aws.amazon.com/location-geofences/latest/APIReference/API_GeofenceGeometry.html geofence polygon>
@@ -110,7 +115,9 @@ putGeofence_collectionName = Lens.lens (\PutGeofence' {collectionName} -> collec
 putGeofence_geofenceId :: Lens.Lens' PutGeofence Prelude.Text
 putGeofence_geofenceId = Lens.lens (\PutGeofence' {geofenceId} -> geofenceId) (\s@PutGeofence' {} a -> s {geofenceId = a} :: PutGeofence)
 
--- | Contains the polygon details to specify the position of the geofence.
+-- | Contains the details to specify the position of the geofence. Can be
+-- either a polygon or a circle. Including both will return a validation
+-- error.
 --
 -- Each
 -- <https://docs.aws.amazon.com/location-geofences/latest/APIReference/API_GeofenceGeometry.html geofence polygon>
@@ -120,15 +127,16 @@ putGeofence_geometry = Lens.lens (\PutGeofence' {geometry} -> geometry) (\s@PutG
 
 instance Core.AWSRequest PutGeofence where
   type AWSResponse PutGeofence = PutGeofenceResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutGeofenceResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "CreateTime")
-            Prelude.<*> (x Core..:> "GeofenceId")
-            Prelude.<*> (x Core..:> "UpdateTime")
+            Prelude.<*> (x Data..:> "CreateTime")
+            Prelude.<*> (x Data..:> "GeofenceId")
+            Prelude.<*> (x Data..:> "UpdateTime")
       )
 
 instance Prelude.Hashable PutGeofence where
@@ -143,34 +151,34 @@ instance Prelude.NFData PutGeofence where
       `Prelude.seq` Prelude.rnf geofenceId
       `Prelude.seq` Prelude.rnf geometry
 
-instance Core.ToHeaders PutGeofence where
+instance Data.ToHeaders PutGeofence where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutGeofence where
+instance Data.ToJSON PutGeofence where
   toJSON PutGeofence' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Geometry" Core..= geometry)]
+          [Prelude.Just ("Geometry" Data..= geometry)]
       )
 
-instance Core.ToPath PutGeofence where
+instance Data.ToPath PutGeofence where
   toPath PutGeofence' {..} =
     Prelude.mconcat
       [ "/geofencing/v0/collections/",
-        Core.toBS collectionName,
+        Data.toBS collectionName,
         "/geofences/",
-        Core.toBS geofenceId
+        Data.toBS geofenceId
       ]
 
-instance Core.ToQuery PutGeofence where
+instance Data.ToQuery PutGeofence where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutGeofenceResponse' smart constructor.
@@ -180,13 +188,13 @@ data PutGeofenceResponse = PutGeofenceResponse'
     -- | The timestamp for when the geofence was created in
     -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
     -- format: @YYYY-MM-DDThh:mm:ss.sssZ@
-    createTime :: Core.POSIX,
+    createTime :: Data.POSIX,
     -- | The geofence identifier entered in the request.
     geofenceId :: Prelude.Text,
     -- | The timestamp for when the geofence was last updated in
     -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
     -- format: @YYYY-MM-DDThh:mm:ss.sssZ@
-    updateTime :: Core.POSIX
+    updateTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -226,9 +234,9 @@ newPutGeofenceResponse
   pUpdateTime_ =
     PutGeofenceResponse'
       { httpStatus = pHttpStatus_,
-        createTime = Core._Time Lens.# pCreateTime_,
+        createTime = Data._Time Lens.# pCreateTime_,
         geofenceId = pGeofenceId_,
-        updateTime = Core._Time Lens.# pUpdateTime_
+        updateTime = Data._Time Lens.# pUpdateTime_
       }
 
 -- | The response's http status code.
@@ -239,7 +247,7 @@ putGeofenceResponse_httpStatus = Lens.lens (\PutGeofenceResponse' {httpStatus} -
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@
 putGeofenceResponse_createTime :: Lens.Lens' PutGeofenceResponse Prelude.UTCTime
-putGeofenceResponse_createTime = Lens.lens (\PutGeofenceResponse' {createTime} -> createTime) (\s@PutGeofenceResponse' {} a -> s {createTime = a} :: PutGeofenceResponse) Prelude.. Core._Time
+putGeofenceResponse_createTime = Lens.lens (\PutGeofenceResponse' {createTime} -> createTime) (\s@PutGeofenceResponse' {} a -> s {createTime = a} :: PutGeofenceResponse) Prelude.. Data._Time
 
 -- | The geofence identifier entered in the request.
 putGeofenceResponse_geofenceId :: Lens.Lens' PutGeofenceResponse Prelude.Text
@@ -249,7 +257,7 @@ putGeofenceResponse_geofenceId = Lens.lens (\PutGeofenceResponse' {geofenceId} -
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@
 putGeofenceResponse_updateTime :: Lens.Lens' PutGeofenceResponse Prelude.UTCTime
-putGeofenceResponse_updateTime = Lens.lens (\PutGeofenceResponse' {updateTime} -> updateTime) (\s@PutGeofenceResponse' {} a -> s {updateTime = a} :: PutGeofenceResponse) Prelude.. Core._Time
+putGeofenceResponse_updateTime = Lens.lens (\PutGeofenceResponse' {updateTime} -> updateTime) (\s@PutGeofenceResponse' {} a -> s {updateTime = a} :: PutGeofenceResponse) Prelude.. Data._Time
 
 instance Prelude.NFData PutGeofenceResponse where
   rnf PutGeofenceResponse' {..} =

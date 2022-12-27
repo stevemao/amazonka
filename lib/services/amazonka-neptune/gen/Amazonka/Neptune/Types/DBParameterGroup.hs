@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Neptune.Types.DBParameterGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Neptune.Types.DBParameterGroup where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the details of an Amazon Neptune DB parameter group.
@@ -86,13 +87,13 @@ dbParameterGroup_dbParameterGroupName = Lens.lens (\DBParameterGroup' {dbParamet
 dbParameterGroup_description :: Lens.Lens' DBParameterGroup (Prelude.Maybe Prelude.Text)
 dbParameterGroup_description = Lens.lens (\DBParameterGroup' {description} -> description) (\s@DBParameterGroup' {} a -> s {description = a} :: DBParameterGroup)
 
-instance Core.FromXML DBParameterGroup where
+instance Data.FromXML DBParameterGroup where
   parseXML x =
     DBParameterGroup'
-      Prelude.<$> (x Core..@? "DBParameterGroupArn")
-      Prelude.<*> (x Core..@? "DBParameterGroupFamily")
-      Prelude.<*> (x Core..@? "DBParameterGroupName")
-      Prelude.<*> (x Core..@? "Description")
+      Prelude.<$> (x Data..@? "DBParameterGroupArn")
+      Prelude.<*> (x Data..@? "DBParameterGroupFamily")
+      Prelude.<*> (x Data..@? "DBParameterGroupName")
+      Prelude.<*> (x Data..@? "Description")
 
 instance Prelude.Hashable DBParameterGroup where
   hashWithSalt _salt DBParameterGroup' {..} =

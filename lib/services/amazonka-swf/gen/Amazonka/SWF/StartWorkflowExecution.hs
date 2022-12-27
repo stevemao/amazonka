@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.StartWorkflowExecution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -69,14 +69,14 @@ module Amazonka.SWF.StartWorkflowExecution
     newStartWorkflowExecution,
 
     -- * Request Lenses
-    startWorkflowExecution_tagList,
-    startWorkflowExecution_taskStartToCloseTimeout,
-    startWorkflowExecution_lambdaRole,
-    startWorkflowExecution_input,
+    startWorkflowExecution_childPolicy,
     startWorkflowExecution_executionStartToCloseTimeout,
+    startWorkflowExecution_input,
+    startWorkflowExecution_lambdaRole,
+    startWorkflowExecution_tagList,
     startWorkflowExecution_taskList,
     startWorkflowExecution_taskPriority,
-    startWorkflowExecution_childPolicy,
+    startWorkflowExecution_taskStartToCloseTimeout,
     startWorkflowExecution_domain,
     startWorkflowExecution_workflowId,
     startWorkflowExecution_workflowType,
@@ -92,7 +92,8 @@ module Amazonka.SWF.StartWorkflowExecution
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,38 +101,29 @@ import Amazonka.SWF.Types
 
 -- | /See:/ 'newStartWorkflowExecution' smart constructor.
 data StartWorkflowExecution = StartWorkflowExecution'
-  { -- | The list of tags to associate with the workflow execution. You can
-    -- specify a maximum of 5 tags. You can list workflow executions with a
-    -- specific tag by calling ListOpenWorkflowExecutions or
-    -- ListClosedWorkflowExecutions and specifying a TagFilter.
-    tagList :: Prelude.Maybe [Prelude.Text],
-    -- | Specifies the maximum duration of decision tasks for this workflow
-    -- execution. This parameter overrides the @defaultTaskStartToCloseTimout@
-    -- specified when registering the workflow type using RegisterWorkflowType.
+  { -- | If set, specifies the policy to use for the child workflow executions of
+    -- this workflow execution if it is terminated, by calling the
+    -- TerminateWorkflowExecution action explicitly or due to an expired
+    -- timeout. This policy overrides the default child policy specified when
+    -- registering the workflow type using RegisterWorkflowType.
     --
-    -- The duration is specified in seconds, an integer greater than or equal
-    -- to @0@. You can use @NONE@ to specify unlimited duration.
+    -- The supported child policies are:
     --
-    -- A task start-to-close timeout for this workflow execution must be
-    -- specified either as a default for the workflow type or through this
-    -- parameter. If neither this parameter is set nor a default task
-    -- start-to-close timeout was specified at registration time then a fault
-    -- is returned.
-    taskStartToCloseTimeout :: Prelude.Maybe Prelude.Text,
-    -- | The IAM role to attach to this workflow execution.
+    -- -   @TERMINATE@ – The child executions are terminated.
     --
-    -- Executions of this workflow type need IAM roles to invoke Lambda
-    -- functions. If you don\'t attach an IAM role, any attempt to schedule a
-    -- Lambda task fails. This results in a @ScheduleLambdaFunctionFailed@
-    -- history event. For more information, see
-    -- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/lambda-task.html>
-    -- in the /Amazon SWF Developer Guide/.
-    lambdaRole :: Prelude.Maybe Prelude.Text,
-    -- | The input for the workflow execution. This is a free form string which
-    -- should be meaningful to the workflow you are starting. This @input@ is
-    -- made available to the new workflow execution in the
-    -- @WorkflowExecutionStarted@ history event.
-    input :: Prelude.Maybe Prelude.Text,
+    -- -   @REQUEST_CANCEL@ – A request to cancel is attempted for each child
+    --     execution by recording a @WorkflowExecutionCancelRequested@ event in
+    --     its history. It is up to the decider to take appropriate actions
+    --     when it receives an execution history with this event.
+    --
+    -- -   @ABANDON@ – No action is taken. The child executions continue to
+    --     run.
+    --
+    -- A child policy for this workflow execution must be specified either as a
+    -- default for the workflow type or through this parameter. If neither this
+    -- parameter is set nor a default child policy was specified at
+    -- registration time then a fault is returned.
+    childPolicy :: Prelude.Maybe ChildPolicy,
     -- | The total duration for this workflow execution. This overrides the
     -- defaultExecutionStartToCloseTimeout specified when registering the
     -- workflow type.
@@ -147,6 +139,25 @@ data StartWorkflowExecution = StartWorkflowExecution'
     -- neither this parameter nor a default execution start-to-close timeout is
     -- specified, a fault is returned.
     executionStartToCloseTimeout :: Prelude.Maybe Prelude.Text,
+    -- | The input for the workflow execution. This is a free form string which
+    -- should be meaningful to the workflow you are starting. This @input@ is
+    -- made available to the new workflow execution in the
+    -- @WorkflowExecutionStarted@ history event.
+    input :: Prelude.Maybe Prelude.Text,
+    -- | The IAM role to attach to this workflow execution.
+    --
+    -- Executions of this workflow type need IAM roles to invoke Lambda
+    -- functions. If you don\'t attach an IAM role, any attempt to schedule a
+    -- Lambda task fails. This results in a @ScheduleLambdaFunctionFailed@
+    -- history event. For more information, see
+    -- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/lambda-task.html>
+    -- in the /Amazon SWF Developer Guide/.
+    lambdaRole :: Prelude.Maybe Prelude.Text,
+    -- | The list of tags to associate with the workflow execution. You can
+    -- specify a maximum of 5 tags. You can list workflow executions with a
+    -- specific tag by calling ListOpenWorkflowExecutions or
+    -- ListClosedWorkflowExecutions and specifying a TagFilter.
+    tagList :: Prelude.Maybe [Prelude.Text],
     -- | The task list to use for the decision tasks generated for this workflow
     -- execution. This overrides the @defaultTaskList@ specified when
     -- registering the workflow type.
@@ -172,29 +183,19 @@ data StartWorkflowExecution = StartWorkflowExecution'
     -- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority>
     -- in the /Amazon SWF Developer Guide/.
     taskPriority :: Prelude.Maybe Prelude.Text,
-    -- | If set, specifies the policy to use for the child workflow executions of
-    -- this workflow execution if it is terminated, by calling the
-    -- TerminateWorkflowExecution action explicitly or due to an expired
-    -- timeout. This policy overrides the default child policy specified when
-    -- registering the workflow type using RegisterWorkflowType.
+    -- | Specifies the maximum duration of decision tasks for this workflow
+    -- execution. This parameter overrides the @defaultTaskStartToCloseTimout@
+    -- specified when registering the workflow type using RegisterWorkflowType.
     --
-    -- The supported child policies are:
+    -- The duration is specified in seconds, an integer greater than or equal
+    -- to @0@. You can use @NONE@ to specify unlimited duration.
     --
-    -- -   @TERMINATE@ – The child executions are terminated.
-    --
-    -- -   @REQUEST_CANCEL@ – A request to cancel is attempted for each child
-    --     execution by recording a @WorkflowExecutionCancelRequested@ event in
-    --     its history. It is up to the decider to take appropriate actions
-    --     when it receives an execution history with this event.
-    --
-    -- -   @ABANDON@ – No action is taken. The child executions continue to
-    --     run.
-    --
-    -- A child policy for this workflow execution must be specified either as a
-    -- default for the workflow type or through this parameter. If neither this
-    -- parameter is set nor a default child policy was specified at
-    -- registration time then a fault is returned.
-    childPolicy :: Prelude.Maybe ChildPolicy,
+    -- A task start-to-close timeout for this workflow execution must be
+    -- specified either as a default for the workflow type or through this
+    -- parameter. If neither this parameter is set nor a default task
+    -- start-to-close timeout was specified at registration time then a fault
+    -- is returned.
+    taskStartToCloseTimeout :: Prelude.Maybe Prelude.Text,
     -- | The name of the domain in which the workflow execution is created.
     domain :: Prelude.Text,
     -- | The user defined identifier associated with the workflow execution. You
@@ -222,37 +223,28 @@ data StartWorkflowExecution = StartWorkflowExecution'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tagList', 'startWorkflowExecution_tagList' - The list of tags to associate with the workflow execution. You can
--- specify a maximum of 5 tags. You can list workflow executions with a
--- specific tag by calling ListOpenWorkflowExecutions or
--- ListClosedWorkflowExecutions and specifying a TagFilter.
+-- 'childPolicy', 'startWorkflowExecution_childPolicy' - If set, specifies the policy to use for the child workflow executions of
+-- this workflow execution if it is terminated, by calling the
+-- TerminateWorkflowExecution action explicitly or due to an expired
+-- timeout. This policy overrides the default child policy specified when
+-- registering the workflow type using RegisterWorkflowType.
 --
--- 'taskStartToCloseTimeout', 'startWorkflowExecution_taskStartToCloseTimeout' - Specifies the maximum duration of decision tasks for this workflow
--- execution. This parameter overrides the @defaultTaskStartToCloseTimout@
--- specified when registering the workflow type using RegisterWorkflowType.
+-- The supported child policies are:
 --
--- The duration is specified in seconds, an integer greater than or equal
--- to @0@. You can use @NONE@ to specify unlimited duration.
+-- -   @TERMINATE@ – The child executions are terminated.
 --
--- A task start-to-close timeout for this workflow execution must be
--- specified either as a default for the workflow type or through this
--- parameter. If neither this parameter is set nor a default task
--- start-to-close timeout was specified at registration time then a fault
--- is returned.
+-- -   @REQUEST_CANCEL@ – A request to cancel is attempted for each child
+--     execution by recording a @WorkflowExecutionCancelRequested@ event in
+--     its history. It is up to the decider to take appropriate actions
+--     when it receives an execution history with this event.
 --
--- 'lambdaRole', 'startWorkflowExecution_lambdaRole' - The IAM role to attach to this workflow execution.
+-- -   @ABANDON@ – No action is taken. The child executions continue to
+--     run.
 --
--- Executions of this workflow type need IAM roles to invoke Lambda
--- functions. If you don\'t attach an IAM role, any attempt to schedule a
--- Lambda task fails. This results in a @ScheduleLambdaFunctionFailed@
--- history event. For more information, see
--- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/lambda-task.html>
--- in the /Amazon SWF Developer Guide/.
---
--- 'input', 'startWorkflowExecution_input' - The input for the workflow execution. This is a free form string which
--- should be meaningful to the workflow you are starting. This @input@ is
--- made available to the new workflow execution in the
--- @WorkflowExecutionStarted@ history event.
+-- A child policy for this workflow execution must be specified either as a
+-- default for the workflow type or through this parameter. If neither this
+-- parameter is set nor a default child policy was specified at
+-- registration time then a fault is returned.
 --
 -- 'executionStartToCloseTimeout', 'startWorkflowExecution_executionStartToCloseTimeout' - The total duration for this workflow execution. This overrides the
 -- defaultExecutionStartToCloseTimeout specified when registering the
@@ -268,6 +260,25 @@ data StartWorkflowExecution = StartWorkflowExecution'
 -- this parameter or as a default when the workflow type is registered. If
 -- neither this parameter nor a default execution start-to-close timeout is
 -- specified, a fault is returned.
+--
+-- 'input', 'startWorkflowExecution_input' - The input for the workflow execution. This is a free form string which
+-- should be meaningful to the workflow you are starting. This @input@ is
+-- made available to the new workflow execution in the
+-- @WorkflowExecutionStarted@ history event.
+--
+-- 'lambdaRole', 'startWorkflowExecution_lambdaRole' - The IAM role to attach to this workflow execution.
+--
+-- Executions of this workflow type need IAM roles to invoke Lambda
+-- functions. If you don\'t attach an IAM role, any attempt to schedule a
+-- Lambda task fails. This results in a @ScheduleLambdaFunctionFailed@
+-- history event. For more information, see
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/lambda-task.html>
+-- in the /Amazon SWF Developer Guide/.
+--
+-- 'tagList', 'startWorkflowExecution_tagList' - The list of tags to associate with the workflow execution. You can
+-- specify a maximum of 5 tags. You can list workflow executions with a
+-- specific tag by calling ListOpenWorkflowExecutions or
+-- ListClosedWorkflowExecutions and specifying a TagFilter.
 --
 -- 'taskList', 'startWorkflowExecution_taskList' - The task list to use for the decision tasks generated for this workflow
 -- execution. This overrides the @defaultTaskList@ specified when
@@ -294,28 +305,18 @@ data StartWorkflowExecution = StartWorkflowExecution'
 -- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority>
 -- in the /Amazon SWF Developer Guide/.
 --
--- 'childPolicy', 'startWorkflowExecution_childPolicy' - If set, specifies the policy to use for the child workflow executions of
--- this workflow execution if it is terminated, by calling the
--- TerminateWorkflowExecution action explicitly or due to an expired
--- timeout. This policy overrides the default child policy specified when
--- registering the workflow type using RegisterWorkflowType.
+-- 'taskStartToCloseTimeout', 'startWorkflowExecution_taskStartToCloseTimeout' - Specifies the maximum duration of decision tasks for this workflow
+-- execution. This parameter overrides the @defaultTaskStartToCloseTimout@
+-- specified when registering the workflow type using RegisterWorkflowType.
 --
--- The supported child policies are:
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
 --
--- -   @TERMINATE@ – The child executions are terminated.
---
--- -   @REQUEST_CANCEL@ – A request to cancel is attempted for each child
---     execution by recording a @WorkflowExecutionCancelRequested@ event in
---     its history. It is up to the decider to take appropriate actions
---     when it receives an execution history with this event.
---
--- -   @ABANDON@ – No action is taken. The child executions continue to
---     run.
---
--- A child policy for this workflow execution must be specified either as a
--- default for the workflow type or through this parameter. If neither this
--- parameter is set nor a default child policy was specified at
--- registration time then a fault is returned.
+-- A task start-to-close timeout for this workflow execution must be
+-- specified either as a default for the workflow type or through this
+-- parameter. If neither this parameter is set nor a default task
+-- start-to-close timeout was specified at registration time then a fault
+-- is returned.
 --
 -- 'domain', 'startWorkflowExecution_domain' - The name of the domain in which the workflow execution is created.
 --
@@ -345,58 +346,44 @@ newStartWorkflowExecution
   pWorkflowId_
   pWorkflowType_ =
     StartWorkflowExecution'
-      { tagList = Prelude.Nothing,
-        taskStartToCloseTimeout = Prelude.Nothing,
-        lambdaRole = Prelude.Nothing,
-        input = Prelude.Nothing,
+      { childPolicy =
+          Prelude.Nothing,
         executionStartToCloseTimeout = Prelude.Nothing,
+        input = Prelude.Nothing,
+        lambdaRole = Prelude.Nothing,
+        tagList = Prelude.Nothing,
         taskList = Prelude.Nothing,
         taskPriority = Prelude.Nothing,
-        childPolicy = Prelude.Nothing,
+        taskStartToCloseTimeout = Prelude.Nothing,
         domain = pDomain_,
         workflowId = pWorkflowId_,
         workflowType = pWorkflowType_
       }
 
--- | The list of tags to associate with the workflow execution. You can
--- specify a maximum of 5 tags. You can list workflow executions with a
--- specific tag by calling ListOpenWorkflowExecutions or
--- ListClosedWorkflowExecutions and specifying a TagFilter.
-startWorkflowExecution_tagList :: Lens.Lens' StartWorkflowExecution (Prelude.Maybe [Prelude.Text])
-startWorkflowExecution_tagList = Lens.lens (\StartWorkflowExecution' {tagList} -> tagList) (\s@StartWorkflowExecution' {} a -> s {tagList = a} :: StartWorkflowExecution) Prelude.. Lens.mapping Lens.coerced
-
--- | Specifies the maximum duration of decision tasks for this workflow
--- execution. This parameter overrides the @defaultTaskStartToCloseTimout@
--- specified when registering the workflow type using RegisterWorkflowType.
+-- | If set, specifies the policy to use for the child workflow executions of
+-- this workflow execution if it is terminated, by calling the
+-- TerminateWorkflowExecution action explicitly or due to an expired
+-- timeout. This policy overrides the default child policy specified when
+-- registering the workflow type using RegisterWorkflowType.
 --
--- The duration is specified in seconds, an integer greater than or equal
--- to @0@. You can use @NONE@ to specify unlimited duration.
+-- The supported child policies are:
 --
--- A task start-to-close timeout for this workflow execution must be
--- specified either as a default for the workflow type or through this
--- parameter. If neither this parameter is set nor a default task
--- start-to-close timeout was specified at registration time then a fault
--- is returned.
-startWorkflowExecution_taskStartToCloseTimeout :: Lens.Lens' StartWorkflowExecution (Prelude.Maybe Prelude.Text)
-startWorkflowExecution_taskStartToCloseTimeout = Lens.lens (\StartWorkflowExecution' {taskStartToCloseTimeout} -> taskStartToCloseTimeout) (\s@StartWorkflowExecution' {} a -> s {taskStartToCloseTimeout = a} :: StartWorkflowExecution)
-
--- | The IAM role to attach to this workflow execution.
+-- -   @TERMINATE@ – The child executions are terminated.
 --
--- Executions of this workflow type need IAM roles to invoke Lambda
--- functions. If you don\'t attach an IAM role, any attempt to schedule a
--- Lambda task fails. This results in a @ScheduleLambdaFunctionFailed@
--- history event. For more information, see
--- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/lambda-task.html>
--- in the /Amazon SWF Developer Guide/.
-startWorkflowExecution_lambdaRole :: Lens.Lens' StartWorkflowExecution (Prelude.Maybe Prelude.Text)
-startWorkflowExecution_lambdaRole = Lens.lens (\StartWorkflowExecution' {lambdaRole} -> lambdaRole) (\s@StartWorkflowExecution' {} a -> s {lambdaRole = a} :: StartWorkflowExecution)
-
--- | The input for the workflow execution. This is a free form string which
--- should be meaningful to the workflow you are starting. This @input@ is
--- made available to the new workflow execution in the
--- @WorkflowExecutionStarted@ history event.
-startWorkflowExecution_input :: Lens.Lens' StartWorkflowExecution (Prelude.Maybe Prelude.Text)
-startWorkflowExecution_input = Lens.lens (\StartWorkflowExecution' {input} -> input) (\s@StartWorkflowExecution' {} a -> s {input = a} :: StartWorkflowExecution)
+-- -   @REQUEST_CANCEL@ – A request to cancel is attempted for each child
+--     execution by recording a @WorkflowExecutionCancelRequested@ event in
+--     its history. It is up to the decider to take appropriate actions
+--     when it receives an execution history with this event.
+--
+-- -   @ABANDON@ – No action is taken. The child executions continue to
+--     run.
+--
+-- A child policy for this workflow execution must be specified either as a
+-- default for the workflow type or through this parameter. If neither this
+-- parameter is set nor a default child policy was specified at
+-- registration time then a fault is returned.
+startWorkflowExecution_childPolicy :: Lens.Lens' StartWorkflowExecution (Prelude.Maybe ChildPolicy)
+startWorkflowExecution_childPolicy = Lens.lens (\StartWorkflowExecution' {childPolicy} -> childPolicy) (\s@StartWorkflowExecution' {} a -> s {childPolicy = a} :: StartWorkflowExecution)
 
 -- | The total duration for this workflow execution. This overrides the
 -- defaultExecutionStartToCloseTimeout specified when registering the
@@ -414,6 +401,31 @@ startWorkflowExecution_input = Lens.lens (\StartWorkflowExecution' {input} -> in
 -- specified, a fault is returned.
 startWorkflowExecution_executionStartToCloseTimeout :: Lens.Lens' StartWorkflowExecution (Prelude.Maybe Prelude.Text)
 startWorkflowExecution_executionStartToCloseTimeout = Lens.lens (\StartWorkflowExecution' {executionStartToCloseTimeout} -> executionStartToCloseTimeout) (\s@StartWorkflowExecution' {} a -> s {executionStartToCloseTimeout = a} :: StartWorkflowExecution)
+
+-- | The input for the workflow execution. This is a free form string which
+-- should be meaningful to the workflow you are starting. This @input@ is
+-- made available to the new workflow execution in the
+-- @WorkflowExecutionStarted@ history event.
+startWorkflowExecution_input :: Lens.Lens' StartWorkflowExecution (Prelude.Maybe Prelude.Text)
+startWorkflowExecution_input = Lens.lens (\StartWorkflowExecution' {input} -> input) (\s@StartWorkflowExecution' {} a -> s {input = a} :: StartWorkflowExecution)
+
+-- | The IAM role to attach to this workflow execution.
+--
+-- Executions of this workflow type need IAM roles to invoke Lambda
+-- functions. If you don\'t attach an IAM role, any attempt to schedule a
+-- Lambda task fails. This results in a @ScheduleLambdaFunctionFailed@
+-- history event. For more information, see
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/lambda-task.html>
+-- in the /Amazon SWF Developer Guide/.
+startWorkflowExecution_lambdaRole :: Lens.Lens' StartWorkflowExecution (Prelude.Maybe Prelude.Text)
+startWorkflowExecution_lambdaRole = Lens.lens (\StartWorkflowExecution' {lambdaRole} -> lambdaRole) (\s@StartWorkflowExecution' {} a -> s {lambdaRole = a} :: StartWorkflowExecution)
+
+-- | The list of tags to associate with the workflow execution. You can
+-- specify a maximum of 5 tags. You can list workflow executions with a
+-- specific tag by calling ListOpenWorkflowExecutions or
+-- ListClosedWorkflowExecutions and specifying a TagFilter.
+startWorkflowExecution_tagList :: Lens.Lens' StartWorkflowExecution (Prelude.Maybe [Prelude.Text])
+startWorkflowExecution_tagList = Lens.lens (\StartWorkflowExecution' {tagList} -> tagList) (\s@StartWorkflowExecution' {} a -> s {tagList = a} :: StartWorkflowExecution) Prelude.. Lens.mapping Lens.coerced
 
 -- | The task list to use for the decision tasks generated for this workflow
 -- execution. This overrides the @defaultTaskList@ specified when
@@ -444,30 +456,20 @@ startWorkflowExecution_taskList = Lens.lens (\StartWorkflowExecution' {taskList}
 startWorkflowExecution_taskPriority :: Lens.Lens' StartWorkflowExecution (Prelude.Maybe Prelude.Text)
 startWorkflowExecution_taskPriority = Lens.lens (\StartWorkflowExecution' {taskPriority} -> taskPriority) (\s@StartWorkflowExecution' {} a -> s {taskPriority = a} :: StartWorkflowExecution)
 
--- | If set, specifies the policy to use for the child workflow executions of
--- this workflow execution if it is terminated, by calling the
--- TerminateWorkflowExecution action explicitly or due to an expired
--- timeout. This policy overrides the default child policy specified when
--- registering the workflow type using RegisterWorkflowType.
+-- | Specifies the maximum duration of decision tasks for this workflow
+-- execution. This parameter overrides the @defaultTaskStartToCloseTimout@
+-- specified when registering the workflow type using RegisterWorkflowType.
 --
--- The supported child policies are:
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
 --
--- -   @TERMINATE@ – The child executions are terminated.
---
--- -   @REQUEST_CANCEL@ – A request to cancel is attempted for each child
---     execution by recording a @WorkflowExecutionCancelRequested@ event in
---     its history. It is up to the decider to take appropriate actions
---     when it receives an execution history with this event.
---
--- -   @ABANDON@ – No action is taken. The child executions continue to
---     run.
---
--- A child policy for this workflow execution must be specified either as a
--- default for the workflow type or through this parameter. If neither this
--- parameter is set nor a default child policy was specified at
--- registration time then a fault is returned.
-startWorkflowExecution_childPolicy :: Lens.Lens' StartWorkflowExecution (Prelude.Maybe ChildPolicy)
-startWorkflowExecution_childPolicy = Lens.lens (\StartWorkflowExecution' {childPolicy} -> childPolicy) (\s@StartWorkflowExecution' {} a -> s {childPolicy = a} :: StartWorkflowExecution)
+-- A task start-to-close timeout for this workflow execution must be
+-- specified either as a default for the workflow type or through this
+-- parameter. If neither this parameter is set nor a default task
+-- start-to-close timeout was specified at registration time then a fault
+-- is returned.
+startWorkflowExecution_taskStartToCloseTimeout :: Lens.Lens' StartWorkflowExecution (Prelude.Maybe Prelude.Text)
+startWorkflowExecution_taskStartToCloseTimeout = Lens.lens (\StartWorkflowExecution' {taskStartToCloseTimeout} -> taskStartToCloseTimeout) (\s@StartWorkflowExecution' {} a -> s {taskStartToCloseTimeout = a} :: StartWorkflowExecution)
 
 -- | The name of the domain in which the workflow execution is created.
 startWorkflowExecution_domain :: Lens.Lens' StartWorkflowExecution Prelude.Text
@@ -495,82 +497,83 @@ instance Core.AWSRequest StartWorkflowExecution where
   type
     AWSResponse StartWorkflowExecution =
       StartWorkflowExecutionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartWorkflowExecutionResponse'
-            Prelude.<$> (x Core..?> "runId")
+            Prelude.<$> (x Data..?> "runId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable StartWorkflowExecution where
   hashWithSalt _salt StartWorkflowExecution' {..} =
-    _salt `Prelude.hashWithSalt` tagList
-      `Prelude.hashWithSalt` taskStartToCloseTimeout
-      `Prelude.hashWithSalt` lambdaRole
-      `Prelude.hashWithSalt` input
+    _salt `Prelude.hashWithSalt` childPolicy
       `Prelude.hashWithSalt` executionStartToCloseTimeout
+      `Prelude.hashWithSalt` input
+      `Prelude.hashWithSalt` lambdaRole
+      `Prelude.hashWithSalt` tagList
       `Prelude.hashWithSalt` taskList
       `Prelude.hashWithSalt` taskPriority
-      `Prelude.hashWithSalt` childPolicy
+      `Prelude.hashWithSalt` taskStartToCloseTimeout
       `Prelude.hashWithSalt` domain
       `Prelude.hashWithSalt` workflowId
       `Prelude.hashWithSalt` workflowType
 
 instance Prelude.NFData StartWorkflowExecution where
   rnf StartWorkflowExecution' {..} =
-    Prelude.rnf tagList
-      `Prelude.seq` Prelude.rnf taskStartToCloseTimeout
-      `Prelude.seq` Prelude.rnf lambdaRole
-      `Prelude.seq` Prelude.rnf input
+    Prelude.rnf childPolicy
       `Prelude.seq` Prelude.rnf executionStartToCloseTimeout
+      `Prelude.seq` Prelude.rnf input
+      `Prelude.seq` Prelude.rnf lambdaRole
+      `Prelude.seq` Prelude.rnf tagList
       `Prelude.seq` Prelude.rnf taskList
       `Prelude.seq` Prelude.rnf taskPriority
-      `Prelude.seq` Prelude.rnf childPolicy
+      `Prelude.seq` Prelude.rnf taskStartToCloseTimeout
       `Prelude.seq` Prelude.rnf domain
       `Prelude.seq` Prelude.rnf workflowId
       `Prelude.seq` Prelude.rnf workflowType
 
-instance Core.ToHeaders StartWorkflowExecution where
+instance Data.ToHeaders StartWorkflowExecution where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SimpleWorkflowService.StartWorkflowExecution" ::
+              Data.=# ( "SimpleWorkflowService.StartWorkflowExecution" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartWorkflowExecution where
+instance Data.ToJSON StartWorkflowExecution where
   toJSON StartWorkflowExecution' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("tagList" Core..=) Prelude.<$> tagList,
-            ("taskStartToCloseTimeout" Core..=)
-              Prelude.<$> taskStartToCloseTimeout,
-            ("lambdaRole" Core..=) Prelude.<$> lambdaRole,
-            ("input" Core..=) Prelude.<$> input,
-            ("executionStartToCloseTimeout" Core..=)
+          [ ("childPolicy" Data..=) Prelude.<$> childPolicy,
+            ("executionStartToCloseTimeout" Data..=)
               Prelude.<$> executionStartToCloseTimeout,
-            ("taskList" Core..=) Prelude.<$> taskList,
-            ("taskPriority" Core..=) Prelude.<$> taskPriority,
-            ("childPolicy" Core..=) Prelude.<$> childPolicy,
-            Prelude.Just ("domain" Core..= domain),
-            Prelude.Just ("workflowId" Core..= workflowId),
-            Prelude.Just ("workflowType" Core..= workflowType)
+            ("input" Data..=) Prelude.<$> input,
+            ("lambdaRole" Data..=) Prelude.<$> lambdaRole,
+            ("tagList" Data..=) Prelude.<$> tagList,
+            ("taskList" Data..=) Prelude.<$> taskList,
+            ("taskPriority" Data..=) Prelude.<$> taskPriority,
+            ("taskStartToCloseTimeout" Data..=)
+              Prelude.<$> taskStartToCloseTimeout,
+            Prelude.Just ("domain" Data..= domain),
+            Prelude.Just ("workflowId" Data..= workflowId),
+            Prelude.Just ("workflowType" Data..= workflowType)
           ]
       )
 
-instance Core.ToPath StartWorkflowExecution where
+instance Data.ToPath StartWorkflowExecution where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartWorkflowExecution where
+instance Data.ToQuery StartWorkflowExecution where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Specifies the @runId@ of a workflow execution.

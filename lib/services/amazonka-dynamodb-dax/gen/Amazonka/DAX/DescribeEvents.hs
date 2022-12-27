@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DAX.DescribeEvents
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,59 +35,60 @@ module Amazonka.DAX.DescribeEvents
     newDescribeEvents,
 
     -- * Request Lenses
-    describeEvents_sourceName,
-    describeEvents_startTime,
-    describeEvents_sourceType,
-    describeEvents_nextToken,
-    describeEvents_endTime,
     describeEvents_duration,
+    describeEvents_endTime,
     describeEvents_maxResults,
+    describeEvents_nextToken,
+    describeEvents_sourceName,
+    describeEvents_sourceType,
+    describeEvents_startTime,
 
     -- * Destructuring the Response
     DescribeEventsResponse (..),
     newDescribeEventsResponse,
 
     -- * Response Lenses
-    describeEventsResponse_nextToken,
     describeEventsResponse_events,
+    describeEventsResponse_nextToken,
     describeEventsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DAX.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeEvents' smart constructor.
 data DescribeEvents = DescribeEvents'
-  { -- | The identifier of the event source for which events will be returned. If
-    -- not specified, then all sources are included in the response.
-    sourceName :: Prelude.Maybe Prelude.Text,
-    -- | The beginning of the time interval to retrieve events for, specified in
-    -- ISO 8601 format.
-    startTime :: Prelude.Maybe Core.POSIX,
-    -- | The event source to retrieve events for. If no value is specified, all
-    -- events are returned.
-    sourceType :: Prelude.Maybe SourceType,
-    -- | An optional token returned from a prior request. Use this token for
-    -- pagination of results from this action. If this parameter is specified,
-    -- the response includes only results beyond the token, up to the value
-    -- specified by @MaxResults@.
-    nextToken :: Prelude.Maybe Prelude.Text,
+  { -- | The number of minutes\' worth of events to retrieve.
+    duration :: Prelude.Maybe Prelude.Int,
     -- | The end of the time interval for which to retrieve events, specified in
     -- ISO 8601 format.
-    endTime :: Prelude.Maybe Core.POSIX,
-    -- | The number of minutes\' worth of events to retrieve.
-    duration :: Prelude.Maybe Prelude.Int,
+    endTime :: Prelude.Maybe Data.POSIX,
     -- | The maximum number of results to include in the response. If more
     -- results exist than the specified @MaxResults@ value, a token is included
     -- in the response so that the remaining results can be retrieved.
     --
     -- The value for @MaxResults@ must be between 20 and 100.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | An optional token returned from a prior request. Use this token for
+    -- pagination of results from this action. If this parameter is specified,
+    -- the response includes only results beyond the token, up to the value
+    -- specified by @MaxResults@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the event source for which events will be returned. If
+    -- not specified, then all sources are included in the response.
+    sourceName :: Prelude.Maybe Prelude.Text,
+    -- | The event source to retrieve events for. If no value is specified, all
+    -- events are returned.
+    sourceType :: Prelude.Maybe SourceType,
+    -- | The beginning of the time interval to retrieve events for, specified in
+    -- ISO 8601 format.
+    startTime :: Prelude.Maybe Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -99,73 +100,51 @@ data DescribeEvents = DescribeEvents'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sourceName', 'describeEvents_sourceName' - The identifier of the event source for which events will be returned. If
--- not specified, then all sources are included in the response.
---
--- 'startTime', 'describeEvents_startTime' - The beginning of the time interval to retrieve events for, specified in
--- ISO 8601 format.
---
--- 'sourceType', 'describeEvents_sourceType' - The event source to retrieve events for. If no value is specified, all
--- events are returned.
---
--- 'nextToken', 'describeEvents_nextToken' - An optional token returned from a prior request. Use this token for
--- pagination of results from this action. If this parameter is specified,
--- the response includes only results beyond the token, up to the value
--- specified by @MaxResults@.
+-- 'duration', 'describeEvents_duration' - The number of minutes\' worth of events to retrieve.
 --
 -- 'endTime', 'describeEvents_endTime' - The end of the time interval for which to retrieve events, specified in
 -- ISO 8601 format.
---
--- 'duration', 'describeEvents_duration' - The number of minutes\' worth of events to retrieve.
 --
 -- 'maxResults', 'describeEvents_maxResults' - The maximum number of results to include in the response. If more
 -- results exist than the specified @MaxResults@ value, a token is included
 -- in the response so that the remaining results can be retrieved.
 --
 -- The value for @MaxResults@ must be between 20 and 100.
+--
+-- 'nextToken', 'describeEvents_nextToken' - An optional token returned from a prior request. Use this token for
+-- pagination of results from this action. If this parameter is specified,
+-- the response includes only results beyond the token, up to the value
+-- specified by @MaxResults@.
+--
+-- 'sourceName', 'describeEvents_sourceName' - The identifier of the event source for which events will be returned. If
+-- not specified, then all sources are included in the response.
+--
+-- 'sourceType', 'describeEvents_sourceType' - The event source to retrieve events for. If no value is specified, all
+-- events are returned.
+--
+-- 'startTime', 'describeEvents_startTime' - The beginning of the time interval to retrieve events for, specified in
+-- ISO 8601 format.
 newDescribeEvents ::
   DescribeEvents
 newDescribeEvents =
   DescribeEvents'
-    { sourceName = Prelude.Nothing,
-      startTime = Prelude.Nothing,
-      sourceType = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { duration = Prelude.Nothing,
       endTime = Prelude.Nothing,
-      duration = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      sourceName = Prelude.Nothing,
+      sourceType = Prelude.Nothing,
+      startTime = Prelude.Nothing
     }
-
--- | The identifier of the event source for which events will be returned. If
--- not specified, then all sources are included in the response.
-describeEvents_sourceName :: Lens.Lens' DescribeEvents (Prelude.Maybe Prelude.Text)
-describeEvents_sourceName = Lens.lens (\DescribeEvents' {sourceName} -> sourceName) (\s@DescribeEvents' {} a -> s {sourceName = a} :: DescribeEvents)
-
--- | The beginning of the time interval to retrieve events for, specified in
--- ISO 8601 format.
-describeEvents_startTime :: Lens.Lens' DescribeEvents (Prelude.Maybe Prelude.UTCTime)
-describeEvents_startTime = Lens.lens (\DescribeEvents' {startTime} -> startTime) (\s@DescribeEvents' {} a -> s {startTime = a} :: DescribeEvents) Prelude.. Lens.mapping Core._Time
-
--- | The event source to retrieve events for. If no value is specified, all
--- events are returned.
-describeEvents_sourceType :: Lens.Lens' DescribeEvents (Prelude.Maybe SourceType)
-describeEvents_sourceType = Lens.lens (\DescribeEvents' {sourceType} -> sourceType) (\s@DescribeEvents' {} a -> s {sourceType = a} :: DescribeEvents)
-
--- | An optional token returned from a prior request. Use this token for
--- pagination of results from this action. If this parameter is specified,
--- the response includes only results beyond the token, up to the value
--- specified by @MaxResults@.
-describeEvents_nextToken :: Lens.Lens' DescribeEvents (Prelude.Maybe Prelude.Text)
-describeEvents_nextToken = Lens.lens (\DescribeEvents' {nextToken} -> nextToken) (\s@DescribeEvents' {} a -> s {nextToken = a} :: DescribeEvents)
-
--- | The end of the time interval for which to retrieve events, specified in
--- ISO 8601 format.
-describeEvents_endTime :: Lens.Lens' DescribeEvents (Prelude.Maybe Prelude.UTCTime)
-describeEvents_endTime = Lens.lens (\DescribeEvents' {endTime} -> endTime) (\s@DescribeEvents' {} a -> s {endTime = a} :: DescribeEvents) Prelude.. Lens.mapping Core._Time
 
 -- | The number of minutes\' worth of events to retrieve.
 describeEvents_duration :: Lens.Lens' DescribeEvents (Prelude.Maybe Prelude.Int)
 describeEvents_duration = Lens.lens (\DescribeEvents' {duration} -> duration) (\s@DescribeEvents' {} a -> s {duration = a} :: DescribeEvents)
+
+-- | The end of the time interval for which to retrieve events, specified in
+-- ISO 8601 format.
+describeEvents_endTime :: Lens.Lens' DescribeEvents (Prelude.Maybe Prelude.UTCTime)
+describeEvents_endTime = Lens.lens (\DescribeEvents' {endTime} -> endTime) (\s@DescribeEvents' {} a -> s {endTime = a} :: DescribeEvents) Prelude.. Lens.mapping Data._Time
 
 -- | The maximum number of results to include in the response. If more
 -- results exist than the specified @MaxResults@ value, a token is included
@@ -174,6 +153,28 @@ describeEvents_duration = Lens.lens (\DescribeEvents' {duration} -> duration) (\
 -- The value for @MaxResults@ must be between 20 and 100.
 describeEvents_maxResults :: Lens.Lens' DescribeEvents (Prelude.Maybe Prelude.Int)
 describeEvents_maxResults = Lens.lens (\DescribeEvents' {maxResults} -> maxResults) (\s@DescribeEvents' {} a -> s {maxResults = a} :: DescribeEvents)
+
+-- | An optional token returned from a prior request. Use this token for
+-- pagination of results from this action. If this parameter is specified,
+-- the response includes only results beyond the token, up to the value
+-- specified by @MaxResults@.
+describeEvents_nextToken :: Lens.Lens' DescribeEvents (Prelude.Maybe Prelude.Text)
+describeEvents_nextToken = Lens.lens (\DescribeEvents' {nextToken} -> nextToken) (\s@DescribeEvents' {} a -> s {nextToken = a} :: DescribeEvents)
+
+-- | The identifier of the event source for which events will be returned. If
+-- not specified, then all sources are included in the response.
+describeEvents_sourceName :: Lens.Lens' DescribeEvents (Prelude.Maybe Prelude.Text)
+describeEvents_sourceName = Lens.lens (\DescribeEvents' {sourceName} -> sourceName) (\s@DescribeEvents' {} a -> s {sourceName = a} :: DescribeEvents)
+
+-- | The event source to retrieve events for. If no value is specified, all
+-- events are returned.
+describeEvents_sourceType :: Lens.Lens' DescribeEvents (Prelude.Maybe SourceType)
+describeEvents_sourceType = Lens.lens (\DescribeEvents' {sourceType} -> sourceType) (\s@DescribeEvents' {} a -> s {sourceType = a} :: DescribeEvents)
+
+-- | The beginning of the time interval to retrieve events for, specified in
+-- ISO 8601 format.
+describeEvents_startTime :: Lens.Lens' DescribeEvents (Prelude.Maybe Prelude.UTCTime)
+describeEvents_startTime = Lens.lens (\DescribeEvents' {startTime} -> startTime) (\s@DescribeEvents' {} a -> s {startTime = a} :: DescribeEvents) Prelude.. Lens.mapping Data._Time
 
 instance Core.AWSPager DescribeEvents where
   page rq rs
@@ -199,75 +200,76 @@ instance Core.AWSRequest DescribeEvents where
   type
     AWSResponse DescribeEvents =
       DescribeEventsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeEventsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Events" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Events" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeEvents where
   hashWithSalt _salt DescribeEvents' {..} =
-    _salt `Prelude.hashWithSalt` sourceName
-      `Prelude.hashWithSalt` startTime
-      `Prelude.hashWithSalt` sourceType
-      `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` duration
       `Prelude.hashWithSalt` endTime
-      `Prelude.hashWithSalt` duration
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` sourceName
+      `Prelude.hashWithSalt` sourceType
+      `Prelude.hashWithSalt` startTime
 
 instance Prelude.NFData DescribeEvents where
   rnf DescribeEvents' {..} =
-    Prelude.rnf sourceName
-      `Prelude.seq` Prelude.rnf startTime
-      `Prelude.seq` Prelude.rnf sourceType
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf duration
       `Prelude.seq` Prelude.rnf endTime
-      `Prelude.seq` Prelude.rnf duration
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf sourceName
+      `Prelude.seq` Prelude.rnf sourceType
+      `Prelude.seq` Prelude.rnf startTime
 
-instance Core.ToHeaders DescribeEvents where
+instance Data.ToHeaders DescribeEvents where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AmazonDAXV3.DescribeEvents" :: Prelude.ByteString),
+              Data.=# ("AmazonDAXV3.DescribeEvents" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeEvents where
+instance Data.ToJSON DescribeEvents where
   toJSON DescribeEvents' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SourceName" Core..=) Prelude.<$> sourceName,
-            ("StartTime" Core..=) Prelude.<$> startTime,
-            ("SourceType" Core..=) Prelude.<$> sourceType,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("EndTime" Core..=) Prelude.<$> endTime,
-            ("Duration" Core..=) Prelude.<$> duration,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Duration" Data..=) Prelude.<$> duration,
+            ("EndTime" Data..=) Prelude.<$> endTime,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("SourceName" Data..=) Prelude.<$> sourceName,
+            ("SourceType" Data..=) Prelude.<$> sourceType,
+            ("StartTime" Data..=) Prelude.<$> startTime
           ]
       )
 
-instance Core.ToPath DescribeEvents where
+instance Data.ToPath DescribeEvents where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeEvents where
+instance Data.ToQuery DescribeEvents where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeEventsResponse' smart constructor.
 data DescribeEventsResponse = DescribeEventsResponse'
-  { -- | Provides an identifier to allow retrieval of paginated results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | An array of events. Each element in the array represents one event.
+  { -- | An array of events. Each element in the array represents one event.
     events :: Prelude.Maybe [Event],
+    -- | Provides an identifier to allow retrieval of paginated results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -281,9 +283,9 @@ data DescribeEventsResponse = DescribeEventsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeEventsResponse_nextToken' - Provides an identifier to allow retrieval of paginated results.
---
 -- 'events', 'describeEventsResponse_events' - An array of events. Each element in the array represents one event.
+--
+-- 'nextToken', 'describeEventsResponse_nextToken' - Provides an identifier to allow retrieval of paginated results.
 --
 -- 'httpStatus', 'describeEventsResponse_httpStatus' - The response's http status code.
 newDescribeEventsResponse ::
@@ -292,19 +294,18 @@ newDescribeEventsResponse ::
   DescribeEventsResponse
 newDescribeEventsResponse pHttpStatus_ =
   DescribeEventsResponse'
-    { nextToken =
-        Prelude.Nothing,
-      events = Prelude.Nothing,
+    { events = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Provides an identifier to allow retrieval of paginated results.
-describeEventsResponse_nextToken :: Lens.Lens' DescribeEventsResponse (Prelude.Maybe Prelude.Text)
-describeEventsResponse_nextToken = Lens.lens (\DescribeEventsResponse' {nextToken} -> nextToken) (\s@DescribeEventsResponse' {} a -> s {nextToken = a} :: DescribeEventsResponse)
 
 -- | An array of events. Each element in the array represents one event.
 describeEventsResponse_events :: Lens.Lens' DescribeEventsResponse (Prelude.Maybe [Event])
 describeEventsResponse_events = Lens.lens (\DescribeEventsResponse' {events} -> events) (\s@DescribeEventsResponse' {} a -> s {events = a} :: DescribeEventsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | Provides an identifier to allow retrieval of paginated results.
+describeEventsResponse_nextToken :: Lens.Lens' DescribeEventsResponse (Prelude.Maybe Prelude.Text)
+describeEventsResponse_nextToken = Lens.lens (\DescribeEventsResponse' {nextToken} -> nextToken) (\s@DescribeEventsResponse' {} a -> s {nextToken = a} :: DescribeEventsResponse)
 
 -- | The response's http status code.
 describeEventsResponse_httpStatus :: Lens.Lens' DescribeEventsResponse Prelude.Int
@@ -312,6 +313,6 @@ describeEventsResponse_httpStatus = Lens.lens (\DescribeEventsResponse' {httpSta
 
 instance Prelude.NFData DescribeEventsResponse where
   rnf DescribeEventsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf events
+    Prelude.rnf events
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

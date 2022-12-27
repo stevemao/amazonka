@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.StopEntitiesDetectionJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,7 +54,8 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,13 +91,14 @@ instance Core.AWSRequest StopEntitiesDetectionJob where
   type
     AWSResponse StopEntitiesDetectionJob =
       StopEntitiesDetectionJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StopEntitiesDetectionJobResponse'
-            Prelude.<$> (x Core..?> "JobId")
-            Prelude.<*> (x Core..?> "JobStatus")
+            Prelude.<$> (x Data..?> "JobId")
+            Prelude.<*> (x Data..?> "JobStatus")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -107,32 +109,32 @@ instance Prelude.Hashable StopEntitiesDetectionJob where
 instance Prelude.NFData StopEntitiesDetectionJob where
   rnf StopEntitiesDetectionJob' {..} = Prelude.rnf jobId
 
-instance Core.ToHeaders StopEntitiesDetectionJob where
+instance Data.ToHeaders StopEntitiesDetectionJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.StopEntitiesDetectionJob" ::
+              Data.=# ( "Comprehend_20171127.StopEntitiesDetectionJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopEntitiesDetectionJob where
+instance Data.ToJSON StopEntitiesDetectionJob where
   toJSON StopEntitiesDetectionJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("JobId" Core..= jobId)]
+          [Prelude.Just ("JobId" Data..= jobId)]
       )
 
-instance Core.ToPath StopEntitiesDetectionJob where
+instance Data.ToPath StopEntitiesDetectionJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopEntitiesDetectionJob where
+instance Data.ToQuery StopEntitiesDetectionJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopEntitiesDetectionJobResponse' smart constructor.

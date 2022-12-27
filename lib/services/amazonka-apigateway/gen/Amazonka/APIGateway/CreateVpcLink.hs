@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.CreateVpcLink
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,19 +40,20 @@ module Amazonka.APIGateway.CreateVpcLink
     newVpcLink,
 
     -- * Response Lenses
-    vpcLink_status,
-    vpcLink_targetArns,
-    vpcLink_name,
-    vpcLink_statusMessage,
-    vpcLink_id,
     vpcLink_description,
+    vpcLink_id,
+    vpcLink_name,
+    vpcLink_status,
+    vpcLink_statusMessage,
     vpcLink_tags,
+    vpcLink_targetArns,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -70,11 +71,11 @@ data CreateVpcLink = CreateVpcLink'
     -- [a-zA-Z+-=._:\/]. The tag key can be up to 128 characters and must not
     -- start with @aws:@. The tag value can be up to 256 characters.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | [Required] The name used to label and identify the VPC link.
+    -- | The name used to label and identify the VPC link.
     name :: Prelude.Text,
-    -- | [Required] The ARN of the network load balancer of the VPC targeted by
-    -- the VPC link. The network load balancer must be owned by the same AWS
-    -- account of the API owner.
+    -- | The ARN of the network load balancer of the VPC targeted by the VPC
+    -- link. The network load balancer must be owned by the same AWS account of
+    -- the API owner.
     targetArns :: [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -93,11 +94,11 @@ data CreateVpcLink = CreateVpcLink'
 -- [a-zA-Z+-=._:\/]. The tag key can be up to 128 characters and must not
 -- start with @aws:@. The tag value can be up to 256 characters.
 --
--- 'name', 'createVpcLink_name' - [Required] The name used to label and identify the VPC link.
+-- 'name', 'createVpcLink_name' - The name used to label and identify the VPC link.
 --
--- 'targetArns', 'createVpcLink_targetArns' - [Required] The ARN of the network load balancer of the VPC targeted by
--- the VPC link. The network load balancer must be owned by the same AWS
--- account of the API owner.
+-- 'targetArns', 'createVpcLink_targetArns' - The ARN of the network load balancer of the VPC targeted by the VPC
+-- link. The network load balancer must be owned by the same AWS account of
+-- the API owner.
 newCreateVpcLink ::
   -- | 'name'
   Prelude.Text ->
@@ -120,22 +121,23 @@ createVpcLink_description = Lens.lens (\CreateVpcLink' {description} -> descript
 createVpcLink_tags :: Lens.Lens' CreateVpcLink (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createVpcLink_tags = Lens.lens (\CreateVpcLink' {tags} -> tags) (\s@CreateVpcLink' {} a -> s {tags = a} :: CreateVpcLink) Prelude.. Lens.mapping Lens.coerced
 
--- | [Required] The name used to label and identify the VPC link.
+-- | The name used to label and identify the VPC link.
 createVpcLink_name :: Lens.Lens' CreateVpcLink Prelude.Text
 createVpcLink_name = Lens.lens (\CreateVpcLink' {name} -> name) (\s@CreateVpcLink' {} a -> s {name = a} :: CreateVpcLink)
 
--- | [Required] The ARN of the network load balancer of the VPC targeted by
--- the VPC link. The network load balancer must be owned by the same AWS
--- account of the API owner.
+-- | The ARN of the network load balancer of the VPC targeted by the VPC
+-- link. The network load balancer must be owned by the same AWS account of
+-- the API owner.
 createVpcLink_targetArns :: Lens.Lens' CreateVpcLink [Prelude.Text]
 createVpcLink_targetArns = Lens.lens (\CreateVpcLink' {targetArns} -> targetArns) (\s@CreateVpcLink' {} a -> s {targetArns = a} :: CreateVpcLink) Prelude.. Lens.coerced
 
 instance Core.AWSRequest CreateVpcLink where
   type AWSResponse CreateVpcLink = VpcLink
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable CreateVpcLink where
   hashWithSalt _salt CreateVpcLink' {..} =
@@ -151,28 +153,28 @@ instance Prelude.NFData CreateVpcLink where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf targetArns
 
-instance Core.ToHeaders CreateVpcLink where
+instance Data.ToHeaders CreateVpcLink where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToJSON CreateVpcLink where
+instance Data.ToJSON CreateVpcLink where
   toJSON CreateVpcLink' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("description" Core..=) Prelude.<$> description,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("name" Core..= name),
-            Prelude.Just ("targetArns" Core..= targetArns)
+          [ ("description" Data..=) Prelude.<$> description,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("name" Data..= name),
+            Prelude.Just ("targetArns" Data..= targetArns)
           ]
       )
 
-instance Core.ToPath CreateVpcLink where
+instance Data.ToPath CreateVpcLink where
   toPath = Prelude.const "/vpclinks"
 
-instance Core.ToQuery CreateVpcLink where
+instance Data.ToQuery CreateVpcLink where
   toQuery = Prelude.const Prelude.mempty

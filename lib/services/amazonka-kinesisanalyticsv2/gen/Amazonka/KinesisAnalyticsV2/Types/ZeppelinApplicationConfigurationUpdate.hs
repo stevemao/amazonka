@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.ZeppelinApplicationConfigurationUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,23 +20,24 @@
 module Amazonka.KinesisAnalyticsV2.Types.ZeppelinApplicationConfigurationUpdate where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.CatalogConfigurationUpdate
 import Amazonka.KinesisAnalyticsV2.Types.CustomArtifactConfiguration
 import Amazonka.KinesisAnalyticsV2.Types.DeployAsApplicationConfigurationUpdate
 import Amazonka.KinesisAnalyticsV2.Types.ZeppelinMonitoringConfigurationUpdate
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Updates to the configuration of Kinesis Data Analytics Studio notebook.
 --
 -- /See:/ 'newZeppelinApplicationConfigurationUpdate' smart constructor.
 data ZeppelinApplicationConfigurationUpdate = ZeppelinApplicationConfigurationUpdate'
-  { -- | Updates to the customer artifacts. Custom artifacts are dependency JAR
-    -- files and user-defined functions (UDF).
-    customArtifactsConfigurationUpdate :: Prelude.Maybe [CustomArtifactConfiguration],
-    -- | Updates to the configuration of the Amazon Glue Data Catalog that is
+  { -- | Updates to the configuration of the Amazon Glue Data Catalog that is
     -- associated with the Kinesis Data Analytics Studio notebook.
     catalogConfigurationUpdate :: Prelude.Maybe CatalogConfigurationUpdate,
+    -- | Updates to the customer artifacts. Custom artifacts are dependency JAR
+    -- files and user-defined functions (UDF).
+    customArtifactsConfigurationUpdate :: Prelude.Maybe [CustomArtifactConfiguration],
     deployAsApplicationConfigurationUpdate :: Prelude.Maybe DeployAsApplicationConfigurationUpdate,
     -- | Updates to the monitoring configuration of a Kinesis Data Analytics
     -- Studio notebook.
@@ -52,11 +53,11 @@ data ZeppelinApplicationConfigurationUpdate = ZeppelinApplicationConfigurationUp
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'customArtifactsConfigurationUpdate', 'zeppelinApplicationConfigurationUpdate_customArtifactsConfigurationUpdate' - Updates to the customer artifacts. Custom artifacts are dependency JAR
--- files and user-defined functions (UDF).
---
 -- 'catalogConfigurationUpdate', 'zeppelinApplicationConfigurationUpdate_catalogConfigurationUpdate' - Updates to the configuration of the Amazon Glue Data Catalog that is
 -- associated with the Kinesis Data Analytics Studio notebook.
+--
+-- 'customArtifactsConfigurationUpdate', 'zeppelinApplicationConfigurationUpdate_customArtifactsConfigurationUpdate' - Updates to the customer artifacts. Custom artifacts are dependency JAR
+-- files and user-defined functions (UDF).
 --
 -- 'deployAsApplicationConfigurationUpdate', 'zeppelinApplicationConfigurationUpdate_deployAsApplicationConfigurationUpdate' - Undocumented member.
 --
@@ -66,9 +67,9 @@ newZeppelinApplicationConfigurationUpdate ::
   ZeppelinApplicationConfigurationUpdate
 newZeppelinApplicationConfigurationUpdate =
   ZeppelinApplicationConfigurationUpdate'
-    { customArtifactsConfigurationUpdate =
+    { catalogConfigurationUpdate =
         Prelude.Nothing,
-      catalogConfigurationUpdate =
+      customArtifactsConfigurationUpdate =
         Prelude.Nothing,
       deployAsApplicationConfigurationUpdate =
         Prelude.Nothing,
@@ -76,15 +77,15 @@ newZeppelinApplicationConfigurationUpdate =
         Prelude.Nothing
     }
 
--- | Updates to the customer artifacts. Custom artifacts are dependency JAR
--- files and user-defined functions (UDF).
-zeppelinApplicationConfigurationUpdate_customArtifactsConfigurationUpdate :: Lens.Lens' ZeppelinApplicationConfigurationUpdate (Prelude.Maybe [CustomArtifactConfiguration])
-zeppelinApplicationConfigurationUpdate_customArtifactsConfigurationUpdate = Lens.lens (\ZeppelinApplicationConfigurationUpdate' {customArtifactsConfigurationUpdate} -> customArtifactsConfigurationUpdate) (\s@ZeppelinApplicationConfigurationUpdate' {} a -> s {customArtifactsConfigurationUpdate = a} :: ZeppelinApplicationConfigurationUpdate) Prelude.. Lens.mapping Lens.coerced
-
 -- | Updates to the configuration of the Amazon Glue Data Catalog that is
 -- associated with the Kinesis Data Analytics Studio notebook.
 zeppelinApplicationConfigurationUpdate_catalogConfigurationUpdate :: Lens.Lens' ZeppelinApplicationConfigurationUpdate (Prelude.Maybe CatalogConfigurationUpdate)
 zeppelinApplicationConfigurationUpdate_catalogConfigurationUpdate = Lens.lens (\ZeppelinApplicationConfigurationUpdate' {catalogConfigurationUpdate} -> catalogConfigurationUpdate) (\s@ZeppelinApplicationConfigurationUpdate' {} a -> s {catalogConfigurationUpdate = a} :: ZeppelinApplicationConfigurationUpdate)
+
+-- | Updates to the customer artifacts. Custom artifacts are dependency JAR
+-- files and user-defined functions (UDF).
+zeppelinApplicationConfigurationUpdate_customArtifactsConfigurationUpdate :: Lens.Lens' ZeppelinApplicationConfigurationUpdate (Prelude.Maybe [CustomArtifactConfiguration])
+zeppelinApplicationConfigurationUpdate_customArtifactsConfigurationUpdate = Lens.lens (\ZeppelinApplicationConfigurationUpdate' {customArtifactsConfigurationUpdate} -> customArtifactsConfigurationUpdate) (\s@ZeppelinApplicationConfigurationUpdate' {} a -> s {customArtifactsConfigurationUpdate = a} :: ZeppelinApplicationConfigurationUpdate) Prelude.. Lens.mapping Lens.coerced
 
 -- | Undocumented member.
 zeppelinApplicationConfigurationUpdate_deployAsApplicationConfigurationUpdate :: Lens.Lens' ZeppelinApplicationConfigurationUpdate (Prelude.Maybe DeployAsApplicationConfigurationUpdate)
@@ -103,8 +104,8 @@ instance
     _salt
     ZeppelinApplicationConfigurationUpdate' {..} =
       _salt
-        `Prelude.hashWithSalt` customArtifactsConfigurationUpdate
         `Prelude.hashWithSalt` catalogConfigurationUpdate
+        `Prelude.hashWithSalt` customArtifactsConfigurationUpdate
         `Prelude.hashWithSalt` deployAsApplicationConfigurationUpdate
         `Prelude.hashWithSalt` monitoringConfigurationUpdate
 
@@ -113,25 +114,25 @@ instance
     ZeppelinApplicationConfigurationUpdate
   where
   rnf ZeppelinApplicationConfigurationUpdate' {..} =
-    Prelude.rnf customArtifactsConfigurationUpdate
-      `Prelude.seq` Prelude.rnf catalogConfigurationUpdate
+    Prelude.rnf catalogConfigurationUpdate
+      `Prelude.seq` Prelude.rnf customArtifactsConfigurationUpdate
       `Prelude.seq` Prelude.rnf deployAsApplicationConfigurationUpdate
       `Prelude.seq` Prelude.rnf monitoringConfigurationUpdate
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ZeppelinApplicationConfigurationUpdate
   where
   toJSON ZeppelinApplicationConfigurationUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CustomArtifactsConfigurationUpdate" Core..=)
-              Prelude.<$> customArtifactsConfigurationUpdate,
-            ("CatalogConfigurationUpdate" Core..=)
+          [ ("CatalogConfigurationUpdate" Data..=)
               Prelude.<$> catalogConfigurationUpdate,
-            ("DeployAsApplicationConfigurationUpdate" Core..=)
+            ("CustomArtifactsConfigurationUpdate" Data..=)
+              Prelude.<$> customArtifactsConfigurationUpdate,
+            ("DeployAsApplicationConfigurationUpdate" Data..=)
               Prelude.<$> deployAsApplicationConfigurationUpdate,
-            ("MonitoringConfigurationUpdate" Core..=)
+            ("MonitoringConfigurationUpdate" Data..=)
               Prelude.<$> monitoringConfigurationUpdate
           ]
       )

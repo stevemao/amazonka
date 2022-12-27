@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.GetOriginRequestPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -53,7 +53,8 @@ where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -104,13 +105,14 @@ instance Core.AWSRequest GetOriginRequestPolicy where
   type
     AWSResponse GetOriginRequestPolicy =
       GetOriginRequestPolicyResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetOriginRequestPolicyResponse'
-            Prelude.<$> (h Core..#? "ETag")
-            Prelude.<*> (Core.parseXML x)
+            Prelude.<$> (h Data..#? "ETag")
+            Prelude.<*> (Data.parseXML x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -121,15 +123,15 @@ instance Prelude.Hashable GetOriginRequestPolicy where
 instance Prelude.NFData GetOriginRequestPolicy where
   rnf GetOriginRequestPolicy' {..} = Prelude.rnf id
 
-instance Core.ToHeaders GetOriginRequestPolicy where
+instance Data.ToHeaders GetOriginRequestPolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetOriginRequestPolicy where
+instance Data.ToPath GetOriginRequestPolicy where
   toPath GetOriginRequestPolicy' {..} =
     Prelude.mconcat
-      ["/2020-05-31/origin-request-policy/", Core.toBS id]
+      ["/2020-05-31/origin-request-policy/", Data.toBS id]
 
-instance Core.ToQuery GetOriginRequestPolicy where
+instance Data.ToQuery GetOriginRequestPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetOriginRequestPolicyResponse' smart constructor.

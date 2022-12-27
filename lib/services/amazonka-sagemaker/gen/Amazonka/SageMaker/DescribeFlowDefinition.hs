@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.DescribeFlowDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,8 +35,8 @@ module Amazonka.SageMaker.DescribeFlowDefinition
 
     -- * Response Lenses
     describeFlowDefinitionResponse_failureReason,
-    describeFlowDefinitionResponse_humanLoopRequestSource,
     describeFlowDefinitionResponse_humanLoopActivationConfig,
+    describeFlowDefinitionResponse_humanLoopRequestSource,
     describeFlowDefinitionResponse_httpStatus,
     describeFlowDefinitionResponse_flowDefinitionArn,
     describeFlowDefinitionResponse_flowDefinitionName,
@@ -49,7 +49,8 @@ module Amazonka.SageMaker.DescribeFlowDefinition
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,22 +90,23 @@ instance Core.AWSRequest DescribeFlowDefinition where
   type
     AWSResponse DescribeFlowDefinition =
       DescribeFlowDefinitionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeFlowDefinitionResponse'
-            Prelude.<$> (x Core..?> "FailureReason")
-            Prelude.<*> (x Core..?> "HumanLoopRequestSource")
-            Prelude.<*> (x Core..?> "HumanLoopActivationConfig")
+            Prelude.<$> (x Data..?> "FailureReason")
+            Prelude.<*> (x Data..?> "HumanLoopActivationConfig")
+            Prelude.<*> (x Data..?> "HumanLoopRequestSource")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "FlowDefinitionArn")
-            Prelude.<*> (x Core..:> "FlowDefinitionName")
-            Prelude.<*> (x Core..:> "FlowDefinitionStatus")
-            Prelude.<*> (x Core..:> "CreationTime")
-            Prelude.<*> (x Core..:> "HumanLoopConfig")
-            Prelude.<*> (x Core..:> "OutputConfig")
-            Prelude.<*> (x Core..:> "RoleArn")
+            Prelude.<*> (x Data..:> "FlowDefinitionArn")
+            Prelude.<*> (x Data..:> "FlowDefinitionName")
+            Prelude.<*> (x Data..:> "FlowDefinitionStatus")
+            Prelude.<*> (x Data..:> "CreationTime")
+            Prelude.<*> (x Data..:> "HumanLoopConfig")
+            Prelude.<*> (x Data..:> "OutputConfig")
+            Prelude.<*> (x Data..:> "RoleArn")
       )
 
 instance Prelude.Hashable DescribeFlowDefinition where
@@ -115,47 +117,47 @@ instance Prelude.NFData DescribeFlowDefinition where
   rnf DescribeFlowDefinition' {..} =
     Prelude.rnf flowDefinitionName
 
-instance Core.ToHeaders DescribeFlowDefinition where
+instance Data.ToHeaders DescribeFlowDefinition where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.DescribeFlowDefinition" ::
+              Data.=# ( "SageMaker.DescribeFlowDefinition" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeFlowDefinition where
+instance Data.ToJSON DescribeFlowDefinition where
   toJSON DescribeFlowDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("FlowDefinitionName" Core..= flowDefinitionName)
+              ("FlowDefinitionName" Data..= flowDefinitionName)
           ]
       )
 
-instance Core.ToPath DescribeFlowDefinition where
+instance Data.ToPath DescribeFlowDefinition where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeFlowDefinition where
+instance Data.ToQuery DescribeFlowDefinition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeFlowDefinitionResponse' smart constructor.
 data DescribeFlowDefinitionResponse = DescribeFlowDefinitionResponse'
   { -- | The reason your flow definition failed.
     failureReason :: Prelude.Maybe Prelude.Text,
+    -- | An object containing information about what triggers a human review
+    -- workflow.
+    humanLoopActivationConfig :: Prelude.Maybe HumanLoopActivationConfig,
     -- | Container for configuring the source of human task requests. Used to
     -- specify if Amazon Rekognition or Amazon Textract is used as an
     -- integration source.
     humanLoopRequestSource :: Prelude.Maybe HumanLoopRequestSource,
-    -- | An object containing information about what triggers a human review
-    -- workflow.
-    humanLoopActivationConfig :: Prelude.Maybe HumanLoopActivationConfig,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | The Amazon Resource Name (ARN) of the flow defintion.
@@ -165,7 +167,7 @@ data DescribeFlowDefinitionResponse = DescribeFlowDefinitionResponse'
     -- | The status of the flow definition. Valid values are listed below.
     flowDefinitionStatus :: FlowDefinitionStatus,
     -- | The timestamp when the flow definition was created.
-    creationTime :: Core.POSIX,
+    creationTime :: Data.POSIX,
     -- | An object containing information about who works on the task, the
     -- workforce task price, and other task details.
     humanLoopConfig :: HumanLoopConfig,
@@ -187,12 +189,12 @@ data DescribeFlowDefinitionResponse = DescribeFlowDefinitionResponse'
 --
 -- 'failureReason', 'describeFlowDefinitionResponse_failureReason' - The reason your flow definition failed.
 --
+-- 'humanLoopActivationConfig', 'describeFlowDefinitionResponse_humanLoopActivationConfig' - An object containing information about what triggers a human review
+-- workflow.
+--
 -- 'humanLoopRequestSource', 'describeFlowDefinitionResponse_humanLoopRequestSource' - Container for configuring the source of human task requests. Used to
 -- specify if Amazon Rekognition or Amazon Textract is used as an
 -- integration source.
---
--- 'humanLoopActivationConfig', 'describeFlowDefinitionResponse_humanLoopActivationConfig' - An object containing information about what triggers a human review
--- workflow.
 --
 -- 'httpStatus', 'describeFlowDefinitionResponse_httpStatus' - The response's http status code.
 --
@@ -241,15 +243,15 @@ newDescribeFlowDefinitionResponse
     DescribeFlowDefinitionResponse'
       { failureReason =
           Prelude.Nothing,
-        humanLoopRequestSource = Prelude.Nothing,
         humanLoopActivationConfig = Prelude.Nothing,
+        humanLoopRequestSource = Prelude.Nothing,
         httpStatus = pHttpStatus_,
         flowDefinitionArn = pFlowDefinitionArn_,
         flowDefinitionName = pFlowDefinitionName_,
         flowDefinitionStatus =
           pFlowDefinitionStatus_,
         creationTime =
-          Core._Time Lens.# pCreationTime_,
+          Data._Time Lens.# pCreationTime_,
         humanLoopConfig = pHumanLoopConfig_,
         outputConfig = pOutputConfig_,
         roleArn = pRoleArn_
@@ -259,16 +261,16 @@ newDescribeFlowDefinitionResponse
 describeFlowDefinitionResponse_failureReason :: Lens.Lens' DescribeFlowDefinitionResponse (Prelude.Maybe Prelude.Text)
 describeFlowDefinitionResponse_failureReason = Lens.lens (\DescribeFlowDefinitionResponse' {failureReason} -> failureReason) (\s@DescribeFlowDefinitionResponse' {} a -> s {failureReason = a} :: DescribeFlowDefinitionResponse)
 
+-- | An object containing information about what triggers a human review
+-- workflow.
+describeFlowDefinitionResponse_humanLoopActivationConfig :: Lens.Lens' DescribeFlowDefinitionResponse (Prelude.Maybe HumanLoopActivationConfig)
+describeFlowDefinitionResponse_humanLoopActivationConfig = Lens.lens (\DescribeFlowDefinitionResponse' {humanLoopActivationConfig} -> humanLoopActivationConfig) (\s@DescribeFlowDefinitionResponse' {} a -> s {humanLoopActivationConfig = a} :: DescribeFlowDefinitionResponse)
+
 -- | Container for configuring the source of human task requests. Used to
 -- specify if Amazon Rekognition or Amazon Textract is used as an
 -- integration source.
 describeFlowDefinitionResponse_humanLoopRequestSource :: Lens.Lens' DescribeFlowDefinitionResponse (Prelude.Maybe HumanLoopRequestSource)
 describeFlowDefinitionResponse_humanLoopRequestSource = Lens.lens (\DescribeFlowDefinitionResponse' {humanLoopRequestSource} -> humanLoopRequestSource) (\s@DescribeFlowDefinitionResponse' {} a -> s {humanLoopRequestSource = a} :: DescribeFlowDefinitionResponse)
-
--- | An object containing information about what triggers a human review
--- workflow.
-describeFlowDefinitionResponse_humanLoopActivationConfig :: Lens.Lens' DescribeFlowDefinitionResponse (Prelude.Maybe HumanLoopActivationConfig)
-describeFlowDefinitionResponse_humanLoopActivationConfig = Lens.lens (\DescribeFlowDefinitionResponse' {humanLoopActivationConfig} -> humanLoopActivationConfig) (\s@DescribeFlowDefinitionResponse' {} a -> s {humanLoopActivationConfig = a} :: DescribeFlowDefinitionResponse)
 
 -- | The response's http status code.
 describeFlowDefinitionResponse_httpStatus :: Lens.Lens' DescribeFlowDefinitionResponse Prelude.Int
@@ -288,7 +290,7 @@ describeFlowDefinitionResponse_flowDefinitionStatus = Lens.lens (\DescribeFlowDe
 
 -- | The timestamp when the flow definition was created.
 describeFlowDefinitionResponse_creationTime :: Lens.Lens' DescribeFlowDefinitionResponse Prelude.UTCTime
-describeFlowDefinitionResponse_creationTime = Lens.lens (\DescribeFlowDefinitionResponse' {creationTime} -> creationTime) (\s@DescribeFlowDefinitionResponse' {} a -> s {creationTime = a} :: DescribeFlowDefinitionResponse) Prelude.. Core._Time
+describeFlowDefinitionResponse_creationTime = Lens.lens (\DescribeFlowDefinitionResponse' {creationTime} -> creationTime) (\s@DescribeFlowDefinitionResponse' {} a -> s {creationTime = a} :: DescribeFlowDefinitionResponse) Prelude.. Data._Time
 
 -- | An object containing information about who works on the task, the
 -- workforce task price, and other task details.
@@ -310,8 +312,8 @@ instance
   where
   rnf DescribeFlowDefinitionResponse' {..} =
     Prelude.rnf failureReason
-      `Prelude.seq` Prelude.rnf humanLoopRequestSource
       `Prelude.seq` Prelude.rnf humanLoopActivationConfig
+      `Prelude.seq` Prelude.rnf humanLoopRequestSource
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf flowDefinitionArn
       `Prelude.seq` Prelude.rnf flowDefinitionName

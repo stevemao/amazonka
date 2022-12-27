@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticInference.DescribeAcceleratorOfferings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.ElasticInference.DescribeAcceleratorOfferings
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticInference.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,12 +107,13 @@ instance Core.AWSRequest DescribeAcceleratorOfferings where
   type
     AWSResponse DescribeAcceleratorOfferings =
       DescribeAcceleratorOfferingsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAcceleratorOfferingsResponse'
-            Prelude.<$> ( x Core..?> "acceleratorTypeOfferings"
+            Prelude.<$> ( x Data..?> "acceleratorTypeOfferings"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -130,32 +132,32 @@ instance Prelude.NFData DescribeAcceleratorOfferings where
     Prelude.rnf acceleratorTypes
       `Prelude.seq` Prelude.rnf locationType
 
-instance Core.ToHeaders DescribeAcceleratorOfferings where
+instance Data.ToHeaders DescribeAcceleratorOfferings where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeAcceleratorOfferings where
+instance Data.ToJSON DescribeAcceleratorOfferings where
   toJSON DescribeAcceleratorOfferings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("acceleratorTypes" Core..=)
+          [ ("acceleratorTypes" Data..=)
               Prelude.<$> acceleratorTypes,
-            Prelude.Just ("locationType" Core..= locationType)
+            Prelude.Just ("locationType" Data..= locationType)
           ]
       )
 
-instance Core.ToPath DescribeAcceleratorOfferings where
+instance Data.ToPath DescribeAcceleratorOfferings where
   toPath =
     Prelude.const "/describe-accelerator-offerings"
 
-instance Core.ToQuery DescribeAcceleratorOfferings where
+instance Data.ToQuery DescribeAcceleratorOfferings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeAcceleratorOfferingsResponse' smart constructor.

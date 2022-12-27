@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.Textract.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,20 +18,20 @@ module Amazonka.Textract.Types
     defaultService,
 
     -- * Errors
-    _InvalidJobIdException,
     _AccessDeniedException,
     _BadDocumentException,
-    _InvalidParameterException,
-    _UnsupportedDocumentException,
-    _InvalidS3ObjectException,
-    _ProvisionedThroughputExceededException,
-    _InvalidKMSKeyException,
-    _ThrottlingException,
-    _InternalServerError,
-    _IdempotentParameterMismatchException,
-    _HumanLoopQuotaExceededException,
     _DocumentTooLargeException,
+    _HumanLoopQuotaExceededException,
+    _IdempotentParameterMismatchException,
+    _InternalServerError,
+    _InvalidJobIdException,
+    _InvalidKMSKeyException,
+    _InvalidParameterException,
+    _InvalidS3ObjectException,
     _LimitExceededException,
+    _ProvisionedThroughputExceededException,
+    _ThrottlingException,
+    _UnsupportedDocumentException,
 
     -- * BlockType
     BlockType (..),
@@ -56,37 +57,61 @@ module Amazonka.Textract.Types
     -- * TextType
     TextType (..),
 
+    -- * ValueType
+    ValueType (..),
+
+    -- * AnalyzeIDDetections
+    AnalyzeIDDetections (..),
+    newAnalyzeIDDetections,
+    analyzeIDDetections_confidence,
+    analyzeIDDetections_normalizedValue,
+    analyzeIDDetections_text,
+
     -- * Block
     Block (..),
     newBlock,
-    block_columnSpan,
-    block_text,
-    block_entityTypes,
+    block_blockType,
     block_columnIndex,
+    block_columnSpan,
+    block_confidence,
+    block_entityTypes,
+    block_geometry,
+    block_id,
     block_page,
+    block_query,
+    block_relationships,
+    block_rowIndex,
     block_rowSpan,
     block_selectionStatus,
-    block_rowIndex,
-    block_confidence,
-    block_relationships,
-    block_geometry,
+    block_text,
     block_textType,
-    block_id,
-    block_blockType,
 
     -- * BoundingBox
     BoundingBox (..),
     newBoundingBox,
     boundingBox_height,
     boundingBox_left,
-    boundingBox_width,
     boundingBox_top,
+    boundingBox_width,
+
+    -- * DetectedSignature
+    DetectedSignature (..),
+    newDetectedSignature,
+    detectedSignature_page,
 
     -- * Document
     Document (..),
     newDocument,
-    document_s3Object,
     document_bytes,
+    document_s3Object,
+
+    -- * DocumentGroup
+    DocumentGroup (..),
+    newDocumentGroup,
+    documentGroup_detectedSignatures,
+    documentGroup_splitDocuments,
+    documentGroup_type,
+    documentGroup_undetectedSignatures,
 
     -- * DocumentLocation
     DocumentLocation (..),
@@ -98,33 +123,55 @@ module Amazonka.Textract.Types
     newDocumentMetadata,
     documentMetadata_pages,
 
+    -- * ExpenseCurrency
+    ExpenseCurrency (..),
+    newExpenseCurrency,
+    expenseCurrency_code,
+    expenseCurrency_confidence,
+
     -- * ExpenseDetection
     ExpenseDetection (..),
     newExpenseDetection,
-    expenseDetection_text,
     expenseDetection_confidence,
     expenseDetection_geometry,
+    expenseDetection_text,
 
     -- * ExpenseDocument
     ExpenseDocument (..),
     newExpenseDocument,
+    expenseDocument_blocks,
+    expenseDocument_expenseIndex,
     expenseDocument_lineItemGroups,
     expenseDocument_summaryFields,
-    expenseDocument_expenseIndex,
 
     -- * ExpenseField
     ExpenseField (..),
     newExpenseField,
+    expenseField_currency,
+    expenseField_groupProperties,
     expenseField_labelDetection,
-    expenseField_valueDetection,
-    expenseField_type,
     expenseField_pageNumber,
+    expenseField_type,
+    expenseField_valueDetection,
+
+    -- * ExpenseGroupProperty
+    ExpenseGroupProperty (..),
+    newExpenseGroupProperty,
+    expenseGroupProperty_id,
+    expenseGroupProperty_types,
 
     -- * ExpenseType
     ExpenseType (..),
     newExpenseType,
-    expenseType_text,
     expenseType_confidence,
+    expenseType_text,
+
+    -- * Extraction
+    Extraction (..),
+    newExtraction,
+    extraction_expenseDocument,
+    extraction_identityDocument,
+    extraction_lendingDocument,
 
     -- * Geometry
     Geometry (..),
@@ -135,9 +182,9 @@ module Amazonka.Textract.Types
     -- * HumanLoopActivationOutput
     HumanLoopActivationOutput (..),
     newHumanLoopActivationOutput,
+    humanLoopActivationOutput_humanLoopActivationConditionsEvaluationResults,
     humanLoopActivationOutput_humanLoopActivationReasons,
     humanLoopActivationOutput_humanLoopArn,
-    humanLoopActivationOutput_humanLoopActivationConditionsEvaluationResults,
 
     -- * HumanLoopConfig
     HumanLoopConfig (..),
@@ -151,6 +198,53 @@ module Amazonka.Textract.Types
     newHumanLoopDataAttributes,
     humanLoopDataAttributes_contentClassifiers,
 
+    -- * IdentityDocument
+    IdentityDocument (..),
+    newIdentityDocument,
+    identityDocument_blocks,
+    identityDocument_documentIndex,
+    identityDocument_identityDocumentFields,
+
+    -- * IdentityDocumentField
+    IdentityDocumentField (..),
+    newIdentityDocumentField,
+    identityDocumentField_type,
+    identityDocumentField_valueDetection,
+
+    -- * LendingDetection
+    LendingDetection (..),
+    newLendingDetection,
+    lendingDetection_confidence,
+    lendingDetection_geometry,
+    lendingDetection_selectionStatus,
+    lendingDetection_text,
+
+    -- * LendingDocument
+    LendingDocument (..),
+    newLendingDocument,
+    lendingDocument_lendingFields,
+    lendingDocument_signatureDetections,
+
+    -- * LendingField
+    LendingField (..),
+    newLendingField,
+    lendingField_keyDetection,
+    lendingField_type,
+    lendingField_valueDetections,
+
+    -- * LendingResult
+    LendingResult (..),
+    newLendingResult,
+    lendingResult_extractions,
+    lendingResult_page,
+    lendingResult_pageClassification,
+
+    -- * LendingSummary
+    LendingSummary (..),
+    newLendingSummary,
+    lendingSummary_documentGroups,
+    lendingSummary_undetectedDocumentTypes,
+
     -- * LineItemFields
     LineItemFields (..),
     newLineItemFields,
@@ -159,8 +253,14 @@ module Amazonka.Textract.Types
     -- * LineItemGroup
     LineItemGroup (..),
     newLineItemGroup,
-    lineItemGroup_lineItems,
     lineItemGroup_lineItemGroupIndex,
+    lineItemGroup_lineItems,
+
+    -- * NormalizedValue
+    NormalizedValue (..),
+    newNormalizedValue,
+    normalizedValue_value,
+    normalizedValue_valueType,
 
     -- * NotificationChannel
     NotificationChannel (..),
@@ -174,11 +274,35 @@ module Amazonka.Textract.Types
     outputConfig_s3Prefix,
     outputConfig_s3Bucket,
 
+    -- * PageClassification
+    PageClassification (..),
+    newPageClassification,
+    pageClassification_pageType,
+    pageClassification_pageNumber,
+
     -- * Point
     Point (..),
     newPoint,
     point_x,
     point_y,
+
+    -- * Prediction
+    Prediction (..),
+    newPrediction,
+    prediction_confidence,
+    prediction_value,
+
+    -- * QueriesConfig
+    QueriesConfig (..),
+    newQueriesConfig,
+    queriesConfig_queries,
+
+    -- * Query
+    Query (..),
+    newQuery,
+    query_alias,
+    query_pages,
+    query_text,
 
     -- * Relationship
     Relationship (..),
@@ -193,87 +317,134 @@ module Amazonka.Textract.Types
     s3Object_name,
     s3Object_version,
 
+    -- * SignatureDetection
+    SignatureDetection (..),
+    newSignatureDetection,
+    signatureDetection_confidence,
+    signatureDetection_geometry,
+
+    -- * SplitDocument
+    SplitDocument (..),
+    newSplitDocument,
+    splitDocument_index,
+    splitDocument_pages,
+
+    -- * UndetectedSignature
+    UndetectedSignature (..),
+    newUndetectedSignature,
+    undetectedSignature_page,
+
     -- * Warning
     Warning (..),
     newWarning,
-    warning_pages,
     warning_errorCode,
+    warning_pages,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
+import Amazonka.Textract.Types.AnalyzeIDDetections
 import Amazonka.Textract.Types.Block
 import Amazonka.Textract.Types.BlockType
 import Amazonka.Textract.Types.BoundingBox
 import Amazonka.Textract.Types.ContentClassifier
+import Amazonka.Textract.Types.DetectedSignature
 import Amazonka.Textract.Types.Document
+import Amazonka.Textract.Types.DocumentGroup
 import Amazonka.Textract.Types.DocumentLocation
 import Amazonka.Textract.Types.DocumentMetadata
 import Amazonka.Textract.Types.EntityType
+import Amazonka.Textract.Types.ExpenseCurrency
 import Amazonka.Textract.Types.ExpenseDetection
 import Amazonka.Textract.Types.ExpenseDocument
 import Amazonka.Textract.Types.ExpenseField
+import Amazonka.Textract.Types.ExpenseGroupProperty
 import Amazonka.Textract.Types.ExpenseType
+import Amazonka.Textract.Types.Extraction
 import Amazonka.Textract.Types.FeatureType
 import Amazonka.Textract.Types.Geometry
 import Amazonka.Textract.Types.HumanLoopActivationOutput
 import Amazonka.Textract.Types.HumanLoopConfig
 import Amazonka.Textract.Types.HumanLoopDataAttributes
+import Amazonka.Textract.Types.IdentityDocument
+import Amazonka.Textract.Types.IdentityDocumentField
 import Amazonka.Textract.Types.JobStatus
+import Amazonka.Textract.Types.LendingDetection
+import Amazonka.Textract.Types.LendingDocument
+import Amazonka.Textract.Types.LendingField
+import Amazonka.Textract.Types.LendingResult
+import Amazonka.Textract.Types.LendingSummary
 import Amazonka.Textract.Types.LineItemFields
 import Amazonka.Textract.Types.LineItemGroup
+import Amazonka.Textract.Types.NormalizedValue
 import Amazonka.Textract.Types.NotificationChannel
 import Amazonka.Textract.Types.OutputConfig
+import Amazonka.Textract.Types.PageClassification
 import Amazonka.Textract.Types.Point
+import Amazonka.Textract.Types.Prediction
+import Amazonka.Textract.Types.QueriesConfig
+import Amazonka.Textract.Types.Query
 import Amazonka.Textract.Types.Relationship
 import Amazonka.Textract.Types.RelationshipType
 import Amazonka.Textract.Types.S3Object
 import Amazonka.Textract.Types.SelectionStatus
+import Amazonka.Textract.Types.SignatureDetection
+import Amazonka.Textract.Types.SplitDocument
 import Amazonka.Textract.Types.TextType
+import Amazonka.Textract.Types.UndetectedSignature
+import Amazonka.Textract.Types.ValueType
 import Amazonka.Textract.Types.Warning
 
 -- | API version @2018-06-27@ of the Amazon Textract SDK configuration.
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "Textract",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "textract",
-      Core._serviceSigningName = "textract",
-      Core._serviceVersion = "2018-06-27",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError = Core.parseJSONError "Textract",
-      Core._serviceRetry = retry
+    { Core.abbrev = "Textract",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "textract",
+      Core.signingName = "textract",
+      Core.version = "2018-06-27",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "Textract",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -281,37 +452,21 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
-
--- | An invalid job identifier was passed to GetDocumentAnalysis or to
--- GetDocumentAnalysis.
-_InvalidJobIdException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidJobIdException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidJobIdException"
 
 -- | You aren\'t authorized to perform the action. Use the Amazon Resource
 -- Name (ARN) of an authorized user or IAM role to perform the operation.
@@ -329,6 +484,55 @@ _BadDocumentException =
     defaultService
     "BadDocumentException"
 
+-- | The document can\'t be processed because it\'s too large. The maximum
+-- document size for synchronous operations 10 MB. The maximum document
+-- size for asynchronous operations is 500 MB for PDF files.
+_DocumentTooLargeException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DocumentTooLargeException =
+  Core._MatchServiceError
+    defaultService
+    "DocumentTooLargeException"
+
+-- | Indicates you have exceeded the maximum number of active human in the
+-- loop workflows available
+_HumanLoopQuotaExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_HumanLoopQuotaExceededException =
+  Core._MatchServiceError
+    defaultService
+    "HumanLoopQuotaExceededException"
+
+-- | A @ClientRequestToken@ input parameter was reused with an operation, but
+-- at least one of the other input parameters is different from the
+-- previous call to the operation.
+_IdempotentParameterMismatchException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_IdempotentParameterMismatchException =
+  Core._MatchServiceError
+    defaultService
+    "IdempotentParameterMismatchException"
+
+-- | Amazon Textract experienced a service issue. Try your call again.
+_InternalServerError :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InternalServerError =
+  Core._MatchServiceError
+    defaultService
+    "InternalServerError"
+
+-- | An invalid job identifier was passed to an asynchronous analysis
+-- operation.
+_InvalidJobIdException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidJobIdException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidJobIdException"
+
+-- | Indicates you do not have decrypt permissions with the KMS key entered,
+-- or the KMS key was entered incorrectly.
+_InvalidKMSKeyException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidKMSKeyException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidKMSKeyException"
+
 -- | An input parameter violated a constraint. For example, in synchronous
 -- operations, an @InvalidParameterException@ exception occurs when neither
 -- of the @S3Object@ or @Bytes@ values are supplied in the @Document@
@@ -339,15 +543,6 @@ _InvalidParameterException =
   Core._MatchServiceError
     defaultService
     "InvalidParameterException"
-
--- | The format of the input document isn\'t supported. Documents for
--- synchronous operations can be in PNG or JPEG format. Documents for
--- asynchronous operations can also be in PDF format.
-_UnsupportedDocumentException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_UnsupportedDocumentException =
-  Core._MatchServiceError
-    defaultService
-    "UnsupportedDocumentException"
 
 -- | Amazon Textract is unable to access the S3 object that\'s specified in
 -- the request. for more information,
@@ -360,63 +555,6 @@ _InvalidS3ObjectException =
     defaultService
     "InvalidS3ObjectException"
 
--- | The number of requests exceeded your throughput limit. If you want to
--- increase this limit, contact Amazon Textract.
-_ProvisionedThroughputExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ProvisionedThroughputExceededException =
-  Core._MatchServiceError
-    defaultService
-    "ProvisionedThroughputExceededException"
-
--- | Indicates you do not have decrypt permissions with the KMS key entered,
--- or the KMS key was entered incorrectly.
-_InvalidKMSKeyException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidKMSKeyException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidKMSKeyException"
-
--- | Amazon Textract is temporarily unable to process the request. Try your
--- call again.
-_ThrottlingException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ThrottlingException =
-  Core._MatchServiceError
-    defaultService
-    "ThrottlingException"
-
--- | Amazon Textract experienced a service issue. Try your call again.
-_InternalServerError :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InternalServerError =
-  Core._MatchServiceError
-    defaultService
-    "InternalServerError"
-
--- | A @ClientRequestToken@ input parameter was reused with an operation, but
--- at least one of the other input parameters is different from the
--- previous call to the operation.
-_IdempotentParameterMismatchException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_IdempotentParameterMismatchException =
-  Core._MatchServiceError
-    defaultService
-    "IdempotentParameterMismatchException"
-
--- | Indicates you have exceeded the maximum number of active human in the
--- loop workflows available
-_HumanLoopQuotaExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_HumanLoopQuotaExceededException =
-  Core._MatchServiceError
-    defaultService
-    "HumanLoopQuotaExceededException"
-
--- | The document can\'t be processed because it\'s too large. The maximum
--- document size for synchronous operations 10 MB. The maximum document
--- size for asynchronous operations is 500 MB for PDF files.
-_DocumentTooLargeException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DocumentTooLargeException =
-  Core._MatchServiceError
-    defaultService
-    "DocumentTooLargeException"
-
 -- | An Amazon Textract service limit was exceeded. For example, if you start
 -- too many asynchronous jobs concurrently, calls to start operations
 -- (@StartDocumentTextDetection@, for example) raise a
@@ -428,3 +566,27 @@ _LimitExceededException =
   Core._MatchServiceError
     defaultService
     "LimitExceededException"
+
+-- | The number of requests exceeded your throughput limit. If you want to
+-- increase this limit, contact Amazon Textract.
+_ProvisionedThroughputExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ProvisionedThroughputExceededException =
+  Core._MatchServiceError
+    defaultService
+    "ProvisionedThroughputExceededException"
+
+-- | Amazon Textract is temporarily unable to process the request. Try your
+-- call again.
+_ThrottlingException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ThrottlingException =
+  Core._MatchServiceError
+    defaultService
+    "ThrottlingException"
+
+-- | The format of the input document isn\'t supported. Documents for
+-- operations can be in PNG, JPEG, PDF, or TIFF format.
+_UnsupportedDocumentException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_UnsupportedDocumentException =
+  Core._MatchServiceError
+    defaultService
+    "UnsupportedDocumentException"

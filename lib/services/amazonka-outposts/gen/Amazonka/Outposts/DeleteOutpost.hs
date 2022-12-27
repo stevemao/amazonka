@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.Outposts.DeleteOutpost
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the Outpost.
+-- Deletes the specified Outpost.
 module Amazonka.Outposts.DeleteOutpost
   ( -- * Creating a Request
     DeleteOutpost (..),
@@ -39,7 +39,8 @@ module Amazonka.Outposts.DeleteOutpost
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Outposts.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -47,7 +48,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteOutpost' smart constructor.
 data DeleteOutpost = DeleteOutpost'
-  { -- | The ID of the Outpost.
+  { -- | The ID or the Amazon Resource Name (ARN) of the Outpost.
     outpostId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -60,7 +61,7 @@ data DeleteOutpost = DeleteOutpost'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'outpostId', 'deleteOutpost_outpostId' - The ID of the Outpost.
+-- 'outpostId', 'deleteOutpost_outpostId' - The ID or the Amazon Resource Name (ARN) of the Outpost.
 newDeleteOutpost ::
   -- | 'outpostId'
   Prelude.Text ->
@@ -68,7 +69,7 @@ newDeleteOutpost ::
 newDeleteOutpost pOutpostId_ =
   DeleteOutpost' {outpostId = pOutpostId_}
 
--- | The ID of the Outpost.
+-- | The ID or the Amazon Resource Name (ARN) of the Outpost.
 deleteOutpost_outpostId :: Lens.Lens' DeleteOutpost Prelude.Text
 deleteOutpost_outpostId = Lens.lens (\DeleteOutpost' {outpostId} -> outpostId) (\s@DeleteOutpost' {} a -> s {outpostId = a} :: DeleteOutpost)
 
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteOutpost where
   type
     AWSResponse DeleteOutpost =
       DeleteOutpostResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -91,22 +93,22 @@ instance Prelude.Hashable DeleteOutpost where
 instance Prelude.NFData DeleteOutpost where
   rnf DeleteOutpost' {..} = Prelude.rnf outpostId
 
-instance Core.ToHeaders DeleteOutpost where
+instance Data.ToHeaders DeleteOutpost where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteOutpost where
+instance Data.ToPath DeleteOutpost where
   toPath DeleteOutpost' {..} =
-    Prelude.mconcat ["/outposts/", Core.toBS outpostId]
+    Prelude.mconcat ["/outposts/", Data.toBS outpostId]
 
-instance Core.ToQuery DeleteOutpost where
+instance Data.ToQuery DeleteOutpost where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteOutpostResponse' smart constructor.

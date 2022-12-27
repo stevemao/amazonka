@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.DescribeAlias
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,6 @@
 --
 -- __Related actions__
 --
--- CreateAlias | ListAliases | DescribeAlias | UpdateAlias | DeleteAlias |
--- ResolveAlias |
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.DescribeAlias
   ( -- * Creating a Request
@@ -51,15 +49,14 @@ module Amazonka.GameLift.DescribeAlias
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newDescribeAlias' smart constructor.
+-- | /See:/ 'newDescribeAlias' smart constructor.
 data DescribeAlias = DescribeAlias'
   { -- | The unique identifier for the fleet alias that you want to retrieve. You
     -- can use either the alias ID or ARN value.
@@ -93,12 +90,13 @@ instance Core.AWSRequest DescribeAlias where
   type
     AWSResponse DescribeAlias =
       DescribeAliasResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAliasResponse'
-            Prelude.<$> (x Core..?> "Alias")
+            Prelude.<$> (x Data..?> "Alias")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -109,35 +107,33 @@ instance Prelude.Hashable DescribeAlias where
 instance Prelude.NFData DescribeAlias where
   rnf DescribeAlias' {..} = Prelude.rnf aliasId
 
-instance Core.ToHeaders DescribeAlias where
+instance Data.ToHeaders DescribeAlias where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("GameLift.DescribeAlias" :: Prelude.ByteString),
+              Data.=# ("GameLift.DescribeAlias" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeAlias where
+instance Data.ToJSON DescribeAlias where
   toJSON DescribeAlias' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("AliasId" Core..= aliasId)]
+          [Prelude.Just ("AliasId" Data..= aliasId)]
       )
 
-instance Core.ToPath DescribeAlias where
+instance Data.ToPath DescribeAlias where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeAlias where
+instance Data.ToQuery DescribeAlias where
   toQuery = Prelude.const Prelude.mempty
 
--- | Represents the returned data in response to a request operation.
---
--- /See:/ 'newDescribeAliasResponse' smart constructor.
+-- | /See:/ 'newDescribeAliasResponse' smart constructor.
 data DescribeAliasResponse = DescribeAliasResponse'
   { -- | The requested alias resource.
     alias :: Prelude.Maybe Alias,

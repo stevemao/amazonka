@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.UpdateThemePermissions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -69,8 +69,8 @@ module Amazonka.QuickSight.UpdateThemePermissions
     newUpdateThemePermissions,
 
     -- * Request Lenses
-    updateThemePermissions_revokePermissions,
     updateThemePermissions_grantPermissions,
+    updateThemePermissions_revokePermissions,
     updateThemePermissions_awsAccountId,
     updateThemePermissions_themeId,
 
@@ -79,16 +79,17 @@ module Amazonka.QuickSight.UpdateThemePermissions
     newUpdateThemePermissionsResponse,
 
     -- * Response Lenses
+    updateThemePermissionsResponse_permissions,
     updateThemePermissionsResponse_requestId,
     updateThemePermissionsResponse_themeArn,
     updateThemePermissionsResponse_themeId,
-    updateThemePermissionsResponse_permissions,
     updateThemePermissionsResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -96,10 +97,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateThemePermissions' smart constructor.
 data UpdateThemePermissions = UpdateThemePermissions'
-  { -- | A list of resource permissions to be revoked from the theme.
-    revokePermissions :: Prelude.Maybe [ResourcePermission],
-    -- | A list of resource permissions to be granted for the theme.
+  { -- | A list of resource permissions to be granted for the theme.
     grantPermissions :: Prelude.Maybe [ResourcePermission],
+    -- | A list of resource permissions to be revoked from the theme.
+    revokePermissions :: Prelude.Maybe [ResourcePermission],
     -- | The ID of the Amazon Web Services account that contains the theme.
     awsAccountId :: Prelude.Text,
     -- | The ID for the theme.
@@ -115,9 +116,9 @@ data UpdateThemePermissions = UpdateThemePermissions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'revokePermissions', 'updateThemePermissions_revokePermissions' - A list of resource permissions to be revoked from the theme.
---
 -- 'grantPermissions', 'updateThemePermissions_grantPermissions' - A list of resource permissions to be granted for the theme.
+--
+-- 'revokePermissions', 'updateThemePermissions_revokePermissions' - A list of resource permissions to be revoked from the theme.
 --
 -- 'awsAccountId', 'updateThemePermissions_awsAccountId' - The ID of the Amazon Web Services account that contains the theme.
 --
@@ -130,20 +131,20 @@ newUpdateThemePermissions ::
   UpdateThemePermissions
 newUpdateThemePermissions pAwsAccountId_ pThemeId_ =
   UpdateThemePermissions'
-    { revokePermissions =
+    { grantPermissions =
         Prelude.Nothing,
-      grantPermissions = Prelude.Nothing,
+      revokePermissions = Prelude.Nothing,
       awsAccountId = pAwsAccountId_,
       themeId = pThemeId_
     }
 
--- | A list of resource permissions to be revoked from the theme.
-updateThemePermissions_revokePermissions :: Lens.Lens' UpdateThemePermissions (Prelude.Maybe [ResourcePermission])
-updateThemePermissions_revokePermissions = Lens.lens (\UpdateThemePermissions' {revokePermissions} -> revokePermissions) (\s@UpdateThemePermissions' {} a -> s {revokePermissions = a} :: UpdateThemePermissions) Prelude.. Lens.mapping Lens.coerced
-
 -- | A list of resource permissions to be granted for the theme.
 updateThemePermissions_grantPermissions :: Lens.Lens' UpdateThemePermissions (Prelude.Maybe [ResourcePermission])
 updateThemePermissions_grantPermissions = Lens.lens (\UpdateThemePermissions' {grantPermissions} -> grantPermissions) (\s@UpdateThemePermissions' {} a -> s {grantPermissions = a} :: UpdateThemePermissions) Prelude.. Lens.mapping Lens.coerced
+
+-- | A list of resource permissions to be revoked from the theme.
+updateThemePermissions_revokePermissions :: Lens.Lens' UpdateThemePermissions (Prelude.Maybe [ResourcePermission])
+updateThemePermissions_revokePermissions = Lens.lens (\UpdateThemePermissions' {revokePermissions} -> revokePermissions) (\s@UpdateThemePermissions' {} a -> s {revokePermissions = a} :: UpdateThemePermissions) Prelude.. Lens.mapping Lens.coerced
 
 -- | The ID of the Amazon Web Services account that contains the theme.
 updateThemePermissions_awsAccountId :: Lens.Lens' UpdateThemePermissions Prelude.Text
@@ -157,77 +158,78 @@ instance Core.AWSRequest UpdateThemePermissions where
   type
     AWSResponse UpdateThemePermissions =
       UpdateThemePermissionsResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateThemePermissionsResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "ThemeArn")
-            Prelude.<*> (x Core..?> "ThemeId")
-            Prelude.<*> (x Core..?> "Permissions")
+            Prelude.<$> (x Data..?> "Permissions")
+            Prelude.<*> (x Data..?> "RequestId")
+            Prelude.<*> (x Data..?> "ThemeArn")
+            Prelude.<*> (x Data..?> "ThemeId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateThemePermissions where
   hashWithSalt _salt UpdateThemePermissions' {..} =
-    _salt `Prelude.hashWithSalt` revokePermissions
-      `Prelude.hashWithSalt` grantPermissions
+    _salt `Prelude.hashWithSalt` grantPermissions
+      `Prelude.hashWithSalt` revokePermissions
       `Prelude.hashWithSalt` awsAccountId
       `Prelude.hashWithSalt` themeId
 
 instance Prelude.NFData UpdateThemePermissions where
   rnf UpdateThemePermissions' {..} =
-    Prelude.rnf revokePermissions
-      `Prelude.seq` Prelude.rnf grantPermissions
+    Prelude.rnf grantPermissions
+      `Prelude.seq` Prelude.rnf revokePermissions
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf themeId
 
-instance Core.ToHeaders UpdateThemePermissions where
+instance Data.ToHeaders UpdateThemePermissions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateThemePermissions where
+instance Data.ToJSON UpdateThemePermissions where
   toJSON UpdateThemePermissions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RevokePermissions" Core..=)
-              Prelude.<$> revokePermissions,
-            ("GrantPermissions" Core..=)
-              Prelude.<$> grantPermissions
+          [ ("GrantPermissions" Data..=)
+              Prelude.<$> grantPermissions,
+            ("RevokePermissions" Data..=)
+              Prelude.<$> revokePermissions
           ]
       )
 
-instance Core.ToPath UpdateThemePermissions where
+instance Data.ToPath UpdateThemePermissions where
   toPath UpdateThemePermissions' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/themes/",
-        Core.toBS themeId,
+        Data.toBS themeId,
         "/permissions"
       ]
 
-instance Core.ToQuery UpdateThemePermissions where
+instance Data.ToQuery UpdateThemePermissions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateThemePermissionsResponse' smart constructor.
 data UpdateThemePermissionsResponse = UpdateThemePermissionsResponse'
-  { -- | The Amazon Web Services request ID for this operation.
+  { -- | The resulting list of resource permissions for the theme.
+    permissions :: Prelude.Maybe (Prelude.NonEmpty ResourcePermission),
+    -- | The Amazon Web Services request ID for this operation.
     requestId :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the theme.
     themeArn :: Prelude.Maybe Prelude.Text,
     -- | The ID for the theme.
     themeId :: Prelude.Maybe Prelude.Text,
-    -- | The resulting list of resource permissions for the theme.
-    permissions :: Prelude.Maybe (Prelude.NonEmpty ResourcePermission),
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -241,13 +243,13 @@ data UpdateThemePermissionsResponse = UpdateThemePermissionsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'permissions', 'updateThemePermissionsResponse_permissions' - The resulting list of resource permissions for the theme.
+--
 -- 'requestId', 'updateThemePermissionsResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'themeArn', 'updateThemePermissionsResponse_themeArn' - The Amazon Resource Name (ARN) of the theme.
 --
 -- 'themeId', 'updateThemePermissionsResponse_themeId' - The ID for the theme.
---
--- 'permissions', 'updateThemePermissionsResponse_permissions' - The resulting list of resource permissions for the theme.
 --
 -- 'status', 'updateThemePermissionsResponse_status' - The HTTP status of the request.
 newUpdateThemePermissionsResponse ::
@@ -256,13 +258,17 @@ newUpdateThemePermissionsResponse ::
   UpdateThemePermissionsResponse
 newUpdateThemePermissionsResponse pStatus_ =
   UpdateThemePermissionsResponse'
-    { requestId =
+    { permissions =
         Prelude.Nothing,
+      requestId = Prelude.Nothing,
       themeArn = Prelude.Nothing,
       themeId = Prelude.Nothing,
-      permissions = Prelude.Nothing,
       status = pStatus_
     }
+
+-- | The resulting list of resource permissions for the theme.
+updateThemePermissionsResponse_permissions :: Lens.Lens' UpdateThemePermissionsResponse (Prelude.Maybe (Prelude.NonEmpty ResourcePermission))
+updateThemePermissionsResponse_permissions = Lens.lens (\UpdateThemePermissionsResponse' {permissions} -> permissions) (\s@UpdateThemePermissionsResponse' {} a -> s {permissions = a} :: UpdateThemePermissionsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The Amazon Web Services request ID for this operation.
 updateThemePermissionsResponse_requestId :: Lens.Lens' UpdateThemePermissionsResponse (Prelude.Maybe Prelude.Text)
@@ -276,10 +282,6 @@ updateThemePermissionsResponse_themeArn = Lens.lens (\UpdateThemePermissionsResp
 updateThemePermissionsResponse_themeId :: Lens.Lens' UpdateThemePermissionsResponse (Prelude.Maybe Prelude.Text)
 updateThemePermissionsResponse_themeId = Lens.lens (\UpdateThemePermissionsResponse' {themeId} -> themeId) (\s@UpdateThemePermissionsResponse' {} a -> s {themeId = a} :: UpdateThemePermissionsResponse)
 
--- | The resulting list of resource permissions for the theme.
-updateThemePermissionsResponse_permissions :: Lens.Lens' UpdateThemePermissionsResponse (Prelude.Maybe (Prelude.NonEmpty ResourcePermission))
-updateThemePermissionsResponse_permissions = Lens.lens (\UpdateThemePermissionsResponse' {permissions} -> permissions) (\s@UpdateThemePermissionsResponse' {} a -> s {permissions = a} :: UpdateThemePermissionsResponse) Prelude.. Lens.mapping Lens.coerced
-
 -- | The HTTP status of the request.
 updateThemePermissionsResponse_status :: Lens.Lens' UpdateThemePermissionsResponse Prelude.Int
 updateThemePermissionsResponse_status = Lens.lens (\UpdateThemePermissionsResponse' {status} -> status) (\s@UpdateThemePermissionsResponse' {} a -> s {status = a} :: UpdateThemePermissionsResponse)
@@ -289,8 +291,8 @@ instance
     UpdateThemePermissionsResponse
   where
   rnf UpdateThemePermissionsResponse' {..} =
-    Prelude.rnf requestId
+    Prelude.rnf permissions
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf themeArn
       `Prelude.seq` Prelude.rnf themeId
-      `Prelude.seq` Prelude.rnf permissions
       `Prelude.seq` Prelude.rnf status

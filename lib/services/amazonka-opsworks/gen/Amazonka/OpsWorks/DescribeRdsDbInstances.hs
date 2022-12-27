@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.DescribeRdsDbInstances
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ module Amazonka.OpsWorks.DescribeRdsDbInstances
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -101,12 +102,13 @@ instance Core.AWSRequest DescribeRdsDbInstances where
   type
     AWSResponse DescribeRdsDbInstances =
       DescribeRdsDbInstancesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeRdsDbInstancesResponse'
-            Prelude.<$> (x Core..?> "RdsDbInstances" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "RdsDbInstances" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -120,35 +122,35 @@ instance Prelude.NFData DescribeRdsDbInstances where
     Prelude.rnf rdsDbInstanceArns
       `Prelude.seq` Prelude.rnf stackId
 
-instance Core.ToHeaders DescribeRdsDbInstances where
+instance Data.ToHeaders DescribeRdsDbInstances where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.DescribeRdsDbInstances" ::
+              Data.=# ( "OpsWorks_20130218.DescribeRdsDbInstances" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeRdsDbInstances where
+instance Data.ToJSON DescribeRdsDbInstances where
   toJSON DescribeRdsDbInstances' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RdsDbInstanceArns" Core..=)
+          [ ("RdsDbInstanceArns" Data..=)
               Prelude.<$> rdsDbInstanceArns,
-            Prelude.Just ("StackId" Core..= stackId)
+            Prelude.Just ("StackId" Data..= stackId)
           ]
       )
 
-instance Core.ToPath DescribeRdsDbInstances where
+instance Data.ToPath DescribeRdsDbInstances where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeRdsDbInstances where
+instance Data.ToQuery DescribeRdsDbInstances where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the response to a @DescribeRdsDbInstances@ request.

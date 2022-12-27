@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.GetManagedPrefixListAssociations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,9 +30,9 @@ module Amazonka.EC2.GetManagedPrefixListAssociations
     newGetManagedPrefixListAssociations,
 
     -- * Request Lenses
-    getManagedPrefixListAssociations_nextToken,
     getManagedPrefixListAssociations_dryRun,
     getManagedPrefixListAssociations_maxResults,
+    getManagedPrefixListAssociations_nextToken,
     getManagedPrefixListAssociations_prefixListId,
 
     -- * Destructuring the Response
@@ -47,17 +47,16 @@ module Amazonka.EC2.GetManagedPrefixListAssociations
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetManagedPrefixListAssociations' smart constructor.
 data GetManagedPrefixListAssociations = GetManagedPrefixListAssociations'
-  { -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Checks whether you have the required permissions for the action, without
+  { -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
@@ -66,6 +65,8 @@ data GetManagedPrefixListAssociations = GetManagedPrefixListAssociations'
     -- the remaining results, make another call with the returned @nextToken@
     -- value.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ID of the prefix list.
     prefixListId :: Prelude.Text
   }
@@ -79,8 +80,6 @@ data GetManagedPrefixListAssociations = GetManagedPrefixListAssociations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'getManagedPrefixListAssociations_nextToken' - The token for the next page of results.
---
 -- 'dryRun', 'getManagedPrefixListAssociations_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
@@ -90,6 +89,8 @@ data GetManagedPrefixListAssociations = GetManagedPrefixListAssociations'
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
 --
+-- 'nextToken', 'getManagedPrefixListAssociations_nextToken' - The token for the next page of results.
+--
 -- 'prefixListId', 'getManagedPrefixListAssociations_prefixListId' - The ID of the prefix list.
 newGetManagedPrefixListAssociations ::
   -- | 'prefixListId'
@@ -97,16 +98,12 @@ newGetManagedPrefixListAssociations ::
   GetManagedPrefixListAssociations
 newGetManagedPrefixListAssociations pPrefixListId_ =
   GetManagedPrefixListAssociations'
-    { nextToken =
+    { dryRun =
         Prelude.Nothing,
-      dryRun = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       prefixListId = pPrefixListId_
     }
-
--- | The token for the next page of results.
-getManagedPrefixListAssociations_nextToken :: Lens.Lens' GetManagedPrefixListAssociations (Prelude.Maybe Prelude.Text)
-getManagedPrefixListAssociations_nextToken = Lens.lens (\GetManagedPrefixListAssociations' {nextToken} -> nextToken) (\s@GetManagedPrefixListAssociations' {} a -> s {nextToken = a} :: GetManagedPrefixListAssociations)
 
 -- | Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
@@ -120,6 +117,10 @@ getManagedPrefixListAssociations_dryRun = Lens.lens (\GetManagedPrefixListAssoci
 -- value.
 getManagedPrefixListAssociations_maxResults :: Lens.Lens' GetManagedPrefixListAssociations (Prelude.Maybe Prelude.Natural)
 getManagedPrefixListAssociations_maxResults = Lens.lens (\GetManagedPrefixListAssociations' {maxResults} -> maxResults) (\s@GetManagedPrefixListAssociations' {} a -> s {maxResults = a} :: GetManagedPrefixListAssociations)
+
+-- | The token for the next page of results.
+getManagedPrefixListAssociations_nextToken :: Lens.Lens' GetManagedPrefixListAssociations (Prelude.Maybe Prelude.Text)
+getManagedPrefixListAssociations_nextToken = Lens.lens (\GetManagedPrefixListAssociations' {nextToken} -> nextToken) (\s@GetManagedPrefixListAssociations' {} a -> s {nextToken = a} :: GetManagedPrefixListAssociations)
 
 -- | The ID of the prefix list.
 getManagedPrefixListAssociations_prefixListId :: Lens.Lens' GetManagedPrefixListAssociations Prelude.Text
@@ -157,15 +158,16 @@ instance
   type
     AWSResponse GetManagedPrefixListAssociations =
       GetManagedPrefixListAssociationsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetManagedPrefixListAssociationsResponse'
-            Prelude.<$> (x Core..@? "nextToken")
-            Prelude.<*> ( x Core..@? "prefixListAssociationSet"
+            Prelude.<$> (x Data..@? "nextToken")
+            Prelude.<*> ( x Data..@? "prefixListAssociationSet"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -177,9 +179,9 @@ instance
   hashWithSalt
     _salt
     GetManagedPrefixListAssociations' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` dryRun
+      _salt `Prelude.hashWithSalt` dryRun
         `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` prefixListId
 
 instance
@@ -187,36 +189,36 @@ instance
     GetManagedPrefixListAssociations
   where
   rnf GetManagedPrefixListAssociations' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf dryRun
+    Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf prefixListId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetManagedPrefixListAssociations
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetManagedPrefixListAssociations where
+instance Data.ToPath GetManagedPrefixListAssociations where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetManagedPrefixListAssociations
   where
   toQuery GetManagedPrefixListAssociations' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "GetManagedPrefixListAssociations" ::
+          Data.=: ( "GetManagedPrefixListAssociations" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "NextToken" Core.=: nextToken,
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults,
-        "PrefixListId" Core.=: prefixListId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
+        "PrefixListId" Data.=: prefixListId
       ]
 
 -- | /See:/ 'newGetManagedPrefixListAssociationsResponse' smart constructor.

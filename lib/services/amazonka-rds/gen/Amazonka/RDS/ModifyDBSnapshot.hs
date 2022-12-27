@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.ModifyDBSnapshot
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,8 +23,8 @@
 -- Updates a manual DB snapshot with a new engine version. The snapshot can
 -- be encrypted or unencrypted, but not shared or public.
 --
--- Amazon RDS supports upgrading DB snapshots for MySQL, Oracle, and
--- PostgreSQL.
+-- Amazon RDS supports upgrading DB snapshots for MySQL, PostgreSQL, and
+-- Oracle. This command doesn\'t apply to RDS Custom.
 module Amazonka.RDS.ModifyDBSnapshot
   ( -- * Creating a Request
     ModifyDBSnapshot (..),
@@ -46,7 +46,8 @@ module Amazonka.RDS.ModifyDBSnapshot
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -184,13 +185,14 @@ instance Core.AWSRequest ModifyDBSnapshot where
   type
     AWSResponse ModifyDBSnapshot =
       ModifyDBSnapshotResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ModifyDBSnapshotResult"
       ( \s h x ->
           ModifyDBSnapshotResponse'
-            Prelude.<$> (x Core..@? "DBSnapshot")
+            Prelude.<$> (x Data..@? "DBSnapshot")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -206,22 +208,22 @@ instance Prelude.NFData ModifyDBSnapshot where
       `Prelude.seq` Prelude.rnf optionGroupName
       `Prelude.seq` Prelude.rnf dbSnapshotIdentifier
 
-instance Core.ToHeaders ModifyDBSnapshot where
+instance Data.ToHeaders ModifyDBSnapshot where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyDBSnapshot where
+instance Data.ToPath ModifyDBSnapshot where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyDBSnapshot where
+instance Data.ToQuery ModifyDBSnapshot where
   toQuery ModifyDBSnapshot' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyDBSnapshot" :: Prelude.ByteString),
+          Data.=: ("ModifyDBSnapshot" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "EngineVersion" Core.=: engineVersion,
-        "OptionGroupName" Core.=: optionGroupName,
-        "DBSnapshotIdentifier" Core.=: dbSnapshotIdentifier
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "EngineVersion" Data.=: engineVersion,
+        "OptionGroupName" Data.=: optionGroupName,
+        "DBSnapshotIdentifier" Data.=: dbSnapshotIdentifier
       ]
 
 -- | /See:/ 'newModifyDBSnapshotResponse' smart constructor.

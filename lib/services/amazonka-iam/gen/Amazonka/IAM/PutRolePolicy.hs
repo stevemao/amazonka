@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.PutRolePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -63,8 +63,9 @@ module Amazonka.IAM.PutRolePolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -208,7 +209,8 @@ instance Core.AWSRequest PutRolePolicy where
   type
     AWSResponse PutRolePolicy =
       PutRolePolicyResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull PutRolePolicyResponse'
 
@@ -224,22 +226,22 @@ instance Prelude.NFData PutRolePolicy where
       `Prelude.seq` Prelude.rnf policyName
       `Prelude.seq` Prelude.rnf policyDocument
 
-instance Core.ToHeaders PutRolePolicy where
+instance Data.ToHeaders PutRolePolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath PutRolePolicy where
+instance Data.ToPath PutRolePolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutRolePolicy where
+instance Data.ToQuery PutRolePolicy where
   toQuery PutRolePolicy' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("PutRolePolicy" :: Prelude.ByteString),
+          Data.=: ("PutRolePolicy" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "RoleName" Core.=: roleName,
-        "PolicyName" Core.=: policyName,
-        "PolicyDocument" Core.=: policyDocument
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "RoleName" Data.=: roleName,
+        "PolicyName" Data.=: policyName,
+        "PolicyDocument" Data.=: policyDocument
       ]
 
 -- | /See:/ 'newPutRolePolicyResponse' smart constructor.

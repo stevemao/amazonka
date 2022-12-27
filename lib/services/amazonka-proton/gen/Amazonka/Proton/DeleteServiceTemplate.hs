@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Proton.DeleteServiceTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Proton.DeleteServiceTemplate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types
 import qualified Amazonka.Request as Request
@@ -78,12 +79,13 @@ instance Core.AWSRequest DeleteServiceTemplate where
   type
     AWSResponse DeleteServiceTemplate =
       DeleteServiceTemplateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteServiceTemplateResponse'
-            Prelude.<$> (x Core..?> "serviceTemplate")
+            Prelude.<$> (x Data..?> "serviceTemplate")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -94,37 +96,37 @@ instance Prelude.Hashable DeleteServiceTemplate where
 instance Prelude.NFData DeleteServiceTemplate where
   rnf DeleteServiceTemplate' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DeleteServiceTemplate where
+instance Data.ToHeaders DeleteServiceTemplate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AwsProton20200720.DeleteServiceTemplate" ::
+              Data.=# ( "AwsProton20200720.DeleteServiceTemplate" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteServiceTemplate where
+instance Data.ToJSON DeleteServiceTemplate where
   toJSON DeleteServiceTemplate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("name" Core..= name)]
+          [Prelude.Just ("name" Data..= name)]
       )
 
-instance Core.ToPath DeleteServiceTemplate where
+instance Data.ToPath DeleteServiceTemplate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteServiceTemplate where
+instance Data.ToQuery DeleteServiceTemplate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteServiceTemplateResponse' smart constructor.
 data DeleteServiceTemplateResponse = DeleteServiceTemplateResponse'
-  { -- | The service template detail data that\'s returned by AWS Proton.
+  { -- | The detailed data of the service template being deleted.
     serviceTemplate :: Prelude.Maybe ServiceTemplate,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -139,7 +141,7 @@ data DeleteServiceTemplateResponse = DeleteServiceTemplateResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'serviceTemplate', 'deleteServiceTemplateResponse_serviceTemplate' - The service template detail data that\'s returned by AWS Proton.
+-- 'serviceTemplate', 'deleteServiceTemplateResponse_serviceTemplate' - The detailed data of the service template being deleted.
 --
 -- 'httpStatus', 'deleteServiceTemplateResponse_httpStatus' - The response's http status code.
 newDeleteServiceTemplateResponse ::
@@ -153,7 +155,7 @@ newDeleteServiceTemplateResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The service template detail data that\'s returned by AWS Proton.
+-- | The detailed data of the service template being deleted.
 deleteServiceTemplateResponse_serviceTemplate :: Lens.Lens' DeleteServiceTemplateResponse (Prelude.Maybe ServiceTemplate)
 deleteServiceTemplateResponse_serviceTemplate = Lens.lens (\DeleteServiceTemplateResponse' {serviceTemplate} -> serviceTemplate) (\s@DeleteServiceTemplateResponse' {} a -> s {serviceTemplate = a} :: DeleteServiceTemplateResponse)
 

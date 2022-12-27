@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.DisableDirectory
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,13 +80,14 @@ instance Core.AWSRequest DisableDirectory where
   type
     AWSResponse DisableDirectory =
       DisableDirectoryResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DisableDirectoryResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "DirectoryArn")
+            Prelude.<*> (x Data..:> "DirectoryArn")
       )
 
 instance Prelude.Hashable DisableDirectory where
@@ -95,20 +97,20 @@ instance Prelude.Hashable DisableDirectory where
 instance Prelude.NFData DisableDirectory where
   rnf DisableDirectory' {..} = Prelude.rnf directoryArn
 
-instance Core.ToHeaders DisableDirectory where
+instance Data.ToHeaders DisableDirectory where
   toHeaders DisableDirectory' {..} =
     Prelude.mconcat
-      ["x-amz-data-partition" Core.=# directoryArn]
+      ["x-amz-data-partition" Data.=# directoryArn]
 
-instance Core.ToJSON DisableDirectory where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON DisableDirectory where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath DisableDirectory where
+instance Data.ToPath DisableDirectory where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/directory/disable"
 
-instance Core.ToQuery DisableDirectory where
+instance Data.ToQuery DisableDirectory where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisableDirectoryResponse' smart constructor.

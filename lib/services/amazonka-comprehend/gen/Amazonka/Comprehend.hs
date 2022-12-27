@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,20 +22,8 @@ module Amazonka.Comprehend
     -- * Errors
     -- $errors
 
-    -- ** ResourceUnavailableException
-    _ResourceUnavailableException,
-
-    -- ** InvalidRequestException
-    _InvalidRequestException,
-
-    -- ** ResourceLimitExceededException
-    _ResourceLimitExceededException,
-
-    -- ** TooManyTagsException
-    _TooManyTagsException,
-
-    -- ** TooManyRequestsException
-    _TooManyRequestsException,
+    -- ** BatchSizeLimitExceededException
+    _BatchSizeLimitExceededException,
 
     -- ** ConcurrentModificationException
     _ConcurrentModificationException,
@@ -43,32 +31,44 @@ module Amazonka.Comprehend
     -- ** InternalServerException
     _InternalServerException,
 
-    -- ** BatchSizeLimitExceededException
-    _BatchSizeLimitExceededException,
+    -- ** InvalidFilterException
+    _InvalidFilterException,
 
-    -- ** UnsupportedLanguageException
-    _UnsupportedLanguageException,
+    -- ** InvalidRequestException
+    _InvalidRequestException,
 
     -- ** JobNotFoundException
     _JobNotFoundException,
 
-    -- ** TooManyTagKeysException
-    _TooManyTagKeysException,
-
-    -- ** InvalidFilterException
-    _InvalidFilterException,
-
     -- ** KmsKeyValidationException
     _KmsKeyValidationException,
+
+    -- ** ResourceInUseException
+    _ResourceInUseException,
+
+    -- ** ResourceLimitExceededException
+    _ResourceLimitExceededException,
 
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
 
+    -- ** ResourceUnavailableException
+    _ResourceUnavailableException,
+
     -- ** TextSizeLimitExceededException
     _TextSizeLimitExceededException,
 
-    -- ** ResourceInUseException
-    _ResourceInUseException,
+    -- ** TooManyRequestsException
+    _TooManyRequestsException,
+
+    -- ** TooManyTagKeysException
+    _TooManyTagKeysException,
+
+    -- ** TooManyTagsException
+    _TooManyTagsException,
+
+    -- ** UnsupportedLanguageException
+    _UnsupportedLanguageException,
 
     -- * Waiters
     -- $waiters
@@ -76,149 +76,11 @@ module Amazonka.Comprehend
     -- * Operations
     -- $operations
 
-    -- ** BatchDetectSentiment
-    BatchDetectSentiment (BatchDetectSentiment'),
-    newBatchDetectSentiment,
-    BatchDetectSentimentResponse (BatchDetectSentimentResponse'),
-    newBatchDetectSentimentResponse,
-
-    -- ** DeleteEntityRecognizer
-    DeleteEntityRecognizer (DeleteEntityRecognizer'),
-    newDeleteEntityRecognizer,
-    DeleteEntityRecognizerResponse (DeleteEntityRecognizerResponse'),
-    newDeleteEntityRecognizerResponse,
-
-    -- ** DescribeKeyPhrasesDetectionJob
-    DescribeKeyPhrasesDetectionJob (DescribeKeyPhrasesDetectionJob'),
-    newDescribeKeyPhrasesDetectionJob,
-    DescribeKeyPhrasesDetectionJobResponse (DescribeKeyPhrasesDetectionJobResponse'),
-    newDescribeKeyPhrasesDetectionJobResponse,
-
-    -- ** ListEntitiesDetectionJobs (Paginated)
-    ListEntitiesDetectionJobs (ListEntitiesDetectionJobs'),
-    newListEntitiesDetectionJobs,
-    ListEntitiesDetectionJobsResponse (ListEntitiesDetectionJobsResponse'),
-    newListEntitiesDetectionJobsResponse,
-
-    -- ** CreateEndpoint
-    CreateEndpoint (CreateEndpoint'),
-    newCreateEndpoint,
-    CreateEndpointResponse (CreateEndpointResponse'),
-    newCreateEndpointResponse,
-
-    -- ** StopEventsDetectionJob
-    StopEventsDetectionJob (StopEventsDetectionJob'),
-    newStopEventsDetectionJob,
-    StopEventsDetectionJobResponse (StopEventsDetectionJobResponse'),
-    newStopEventsDetectionJobResponse,
-
-    -- ** StartSentimentDetectionJob
-    StartSentimentDetectionJob (StartSentimentDetectionJob'),
-    newStartSentimentDetectionJob,
-    StartSentimentDetectionJobResponse (StartSentimentDetectionJobResponse'),
-    newStartSentimentDetectionJobResponse,
-
-    -- ** BatchDetectSyntax
-    BatchDetectSyntax (BatchDetectSyntax'),
-    newBatchDetectSyntax,
-    BatchDetectSyntaxResponse (BatchDetectSyntaxResponse'),
-    newBatchDetectSyntaxResponse,
-
-    -- ** StartTopicsDetectionJob
-    StartTopicsDetectionJob (StartTopicsDetectionJob'),
-    newStartTopicsDetectionJob,
-    StartTopicsDetectionJobResponse (StartTopicsDetectionJobResponse'),
-    newStartTopicsDetectionJobResponse,
-
-    -- ** DescribeEventsDetectionJob
-    DescribeEventsDetectionJob (DescribeEventsDetectionJob'),
-    newDescribeEventsDetectionJob,
-    DescribeEventsDetectionJobResponse (DescribeEventsDetectionJobResponse'),
-    newDescribeEventsDetectionJobResponse,
-
-    -- ** DeleteEndpoint
-    DeleteEndpoint (DeleteEndpoint'),
-    newDeleteEndpoint,
-    DeleteEndpointResponse (DeleteEndpointResponse'),
-    newDeleteEndpointResponse,
-
-    -- ** UpdateEndpoint
-    UpdateEndpoint (UpdateEndpoint'),
-    newUpdateEndpoint,
-    UpdateEndpointResponse (UpdateEndpointResponse'),
-    newUpdateEndpointResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** BatchDetectKeyPhrases
-    BatchDetectKeyPhrases (BatchDetectKeyPhrases'),
-    newBatchDetectKeyPhrases,
-    BatchDetectKeyPhrasesResponse (BatchDetectKeyPhrasesResponse'),
-    newBatchDetectKeyPhrasesResponse,
-
-    -- ** DescribeSentimentDetectionJob
-    DescribeSentimentDetectionJob (DescribeSentimentDetectionJob'),
-    newDescribeSentimentDetectionJob,
-    DescribeSentimentDetectionJobResponse (DescribeSentimentDetectionJobResponse'),
-    newDescribeSentimentDetectionJobResponse,
-
-    -- ** StartEntitiesDetectionJob
-    StartEntitiesDetectionJob (StartEntitiesDetectionJob'),
-    newStartEntitiesDetectionJob,
-    StartEntitiesDetectionJobResponse (StartEntitiesDetectionJobResponse'),
-    newStartEntitiesDetectionJobResponse,
-
-    -- ** StopPiiEntitiesDetectionJob
-    StopPiiEntitiesDetectionJob (StopPiiEntitiesDetectionJob'),
-    newStopPiiEntitiesDetectionJob,
-    StopPiiEntitiesDetectionJobResponse (StopPiiEntitiesDetectionJobResponse'),
-    newStopPiiEntitiesDetectionJobResponse,
-
-    -- ** DescribeEntityRecognizer
-    DescribeEntityRecognizer (DescribeEntityRecognizer'),
-    newDescribeEntityRecognizer,
-    DescribeEntityRecognizerResponse (DescribeEntityRecognizerResponse'),
-    newDescribeEntityRecognizerResponse,
-
-    -- ** DetectSentiment
-    DetectSentiment (DetectSentiment'),
-    newDetectSentiment,
-    DetectSentimentResponse (DetectSentimentResponse'),
-    newDetectSentimentResponse,
-
-    -- ** StartDominantLanguageDetectionJob
-    StartDominantLanguageDetectionJob (StartDominantLanguageDetectionJob'),
-    newStartDominantLanguageDetectionJob,
-    StartDominantLanguageDetectionJobResponse (StartDominantLanguageDetectionJobResponse'),
-    newStartDominantLanguageDetectionJobResponse,
-
-    -- ** StopTrainingDocumentClassifier
-    StopTrainingDocumentClassifier (StopTrainingDocumentClassifier'),
-    newStopTrainingDocumentClassifier,
-    StopTrainingDocumentClassifierResponse (StopTrainingDocumentClassifierResponse'),
-    newStopTrainingDocumentClassifierResponse,
-
-    -- ** DescribeDocumentClassificationJob
-    DescribeDocumentClassificationJob (DescribeDocumentClassificationJob'),
-    newDescribeDocumentClassificationJob,
-    DescribeDocumentClassificationJobResponse (DescribeDocumentClassificationJobResponse'),
-    newDescribeDocumentClassificationJobResponse,
-
-    -- ** ContainsPiiEntities
-    ContainsPiiEntities (ContainsPiiEntities'),
-    newContainsPiiEntities,
-    ContainsPiiEntitiesResponse (ContainsPiiEntitiesResponse'),
-    newContainsPiiEntitiesResponse,
-
-    -- ** ListEventsDetectionJobs
-    ListEventsDetectionJobs (ListEventsDetectionJobs'),
-    newListEventsDetectionJobs,
-    ListEventsDetectionJobsResponse (ListEventsDetectionJobsResponse'),
-    newListEventsDetectionJobsResponse,
+    -- ** BatchDetectDominantLanguage
+    BatchDetectDominantLanguage (BatchDetectDominantLanguage'),
+    newBatchDetectDominantLanguage,
+    BatchDetectDominantLanguageResponse (BatchDetectDominantLanguageResponse'),
+    newBatchDetectDominantLanguageResponse,
 
     -- ** BatchDetectEntities
     BatchDetectEntities (BatchDetectEntities'),
@@ -226,47 +88,29 @@ module Amazonka.Comprehend
     BatchDetectEntitiesResponse (BatchDetectEntitiesResponse'),
     newBatchDetectEntitiesResponse,
 
-    -- ** CreateEntityRecognizer
-    CreateEntityRecognizer (CreateEntityRecognizer'),
-    newCreateEntityRecognizer,
-    CreateEntityRecognizerResponse (CreateEntityRecognizerResponse'),
-    newCreateEntityRecognizerResponse,
+    -- ** BatchDetectKeyPhrases
+    BatchDetectKeyPhrases (BatchDetectKeyPhrases'),
+    newBatchDetectKeyPhrases,
+    BatchDetectKeyPhrasesResponse (BatchDetectKeyPhrasesResponse'),
+    newBatchDetectKeyPhrasesResponse,
 
-    -- ** StopKeyPhrasesDetectionJob
-    StopKeyPhrasesDetectionJob (StopKeyPhrasesDetectionJob'),
-    newStopKeyPhrasesDetectionJob,
-    StopKeyPhrasesDetectionJobResponse (StopKeyPhrasesDetectionJobResponse'),
-    newStopKeyPhrasesDetectionJobResponse,
+    -- ** BatchDetectSentiment
+    BatchDetectSentiment (BatchDetectSentiment'),
+    newBatchDetectSentiment,
+    BatchDetectSentimentResponse (BatchDetectSentimentResponse'),
+    newBatchDetectSentimentResponse,
 
-    -- ** CreateDocumentClassifier
-    CreateDocumentClassifier (CreateDocumentClassifier'),
-    newCreateDocumentClassifier,
-    CreateDocumentClassifierResponse (CreateDocumentClassifierResponse'),
-    newCreateDocumentClassifierResponse,
+    -- ** BatchDetectSyntax
+    BatchDetectSyntax (BatchDetectSyntax'),
+    newBatchDetectSyntax,
+    BatchDetectSyntaxResponse (BatchDetectSyntaxResponse'),
+    newBatchDetectSyntaxResponse,
 
-    -- ** ListPiiEntitiesDetectionJobs
-    ListPiiEntitiesDetectionJobs (ListPiiEntitiesDetectionJobs'),
-    newListPiiEntitiesDetectionJobs,
-    ListPiiEntitiesDetectionJobsResponse (ListPiiEntitiesDetectionJobsResponse'),
-    newListPiiEntitiesDetectionJobsResponse,
-
-    -- ** ListEntityRecognizers (Paginated)
-    ListEntityRecognizers (ListEntityRecognizers'),
-    newListEntityRecognizers,
-    ListEntityRecognizersResponse (ListEntityRecognizersResponse'),
-    newListEntityRecognizersResponse,
-
-    -- ** StopSentimentDetectionJob
-    StopSentimentDetectionJob (StopSentimentDetectionJob'),
-    newStopSentimentDetectionJob,
-    StopSentimentDetectionJobResponse (StopSentimentDetectionJobResponse'),
-    newStopSentimentDetectionJobResponse,
-
-    -- ** DetectDominantLanguage
-    DetectDominantLanguage (DetectDominantLanguage'),
-    newDetectDominantLanguage,
-    DetectDominantLanguageResponse (DetectDominantLanguageResponse'),
-    newDetectDominantLanguageResponse,
+    -- ** BatchDetectTargetedSentiment
+    BatchDetectTargetedSentiment (BatchDetectTargetedSentiment'),
+    newBatchDetectTargetedSentiment,
+    BatchDetectTargetedSentimentResponse (BatchDetectTargetedSentimentResponse'),
+    newBatchDetectTargetedSentimentResponse,
 
     -- ** ClassifyDocument
     ClassifyDocument (ClassifyDocument'),
@@ -274,41 +118,59 @@ module Amazonka.Comprehend
     ClassifyDocumentResponse (ClassifyDocumentResponse'),
     newClassifyDocumentResponse,
 
-    -- ** StartEventsDetectionJob
-    StartEventsDetectionJob (StartEventsDetectionJob'),
-    newStartEventsDetectionJob,
-    StartEventsDetectionJobResponse (StartEventsDetectionJobResponse'),
-    newStartEventsDetectionJobResponse,
+    -- ** ContainsPiiEntities
+    ContainsPiiEntities (ContainsPiiEntities'),
+    newContainsPiiEntities,
+    ContainsPiiEntitiesResponse (ContainsPiiEntitiesResponse'),
+    newContainsPiiEntitiesResponse,
 
-    -- ** DescribeTopicsDetectionJob
-    DescribeTopicsDetectionJob (DescribeTopicsDetectionJob'),
-    newDescribeTopicsDetectionJob,
-    DescribeTopicsDetectionJobResponse (DescribeTopicsDetectionJobResponse'),
-    newDescribeTopicsDetectionJobResponse,
+    -- ** CreateDocumentClassifier
+    CreateDocumentClassifier (CreateDocumentClassifier'),
+    newCreateDocumentClassifier,
+    CreateDocumentClassifierResponse (CreateDocumentClassifierResponse'),
+    newCreateDocumentClassifierResponse,
 
-    -- ** ListDocumentClassificationJobs (Paginated)
-    ListDocumentClassificationJobs (ListDocumentClassificationJobs'),
-    newListDocumentClassificationJobs,
-    ListDocumentClassificationJobsResponse (ListDocumentClassificationJobsResponse'),
-    newListDocumentClassificationJobsResponse,
+    -- ** CreateEndpoint
+    CreateEndpoint (CreateEndpoint'),
+    newCreateEndpoint,
+    CreateEndpointResponse (CreateEndpointResponse'),
+    newCreateEndpointResponse,
 
-    -- ** DetectPiiEntities
-    DetectPiiEntities (DetectPiiEntities'),
-    newDetectPiiEntities,
-    DetectPiiEntitiesResponse (DetectPiiEntitiesResponse'),
-    newDetectPiiEntitiesResponse,
+    -- ** CreateEntityRecognizer
+    CreateEntityRecognizer (CreateEntityRecognizer'),
+    newCreateEntityRecognizer,
+    CreateEntityRecognizerResponse (CreateEntityRecognizerResponse'),
+    newCreateEntityRecognizerResponse,
 
-    -- ** ListEndpoints
-    ListEndpoints (ListEndpoints'),
-    newListEndpoints,
-    ListEndpointsResponse (ListEndpointsResponse'),
-    newListEndpointsResponse,
+    -- ** DeleteDocumentClassifier
+    DeleteDocumentClassifier (DeleteDocumentClassifier'),
+    newDeleteDocumentClassifier,
+    DeleteDocumentClassifierResponse (DeleteDocumentClassifierResponse'),
+    newDeleteDocumentClassifierResponse,
 
-    -- ** DetectEntities
-    DetectEntities (DetectEntities'),
-    newDetectEntities,
-    DetectEntitiesResponse (DetectEntitiesResponse'),
-    newDetectEntitiesResponse,
+    -- ** DeleteEndpoint
+    DeleteEndpoint (DeleteEndpoint'),
+    newDeleteEndpoint,
+    DeleteEndpointResponse (DeleteEndpointResponse'),
+    newDeleteEndpointResponse,
+
+    -- ** DeleteEntityRecognizer
+    DeleteEntityRecognizer (DeleteEntityRecognizer'),
+    newDeleteEntityRecognizer,
+    DeleteEntityRecognizerResponse (DeleteEntityRecognizerResponse'),
+    newDeleteEntityRecognizerResponse,
+
+    -- ** DeleteResourcePolicy
+    DeleteResourcePolicy (DeleteResourcePolicy'),
+    newDeleteResourcePolicy,
+    DeleteResourcePolicyResponse (DeleteResourcePolicyResponse'),
+    newDeleteResourcePolicyResponse,
+
+    -- ** DescribeDocumentClassificationJob
+    DescribeDocumentClassificationJob (DescribeDocumentClassificationJob'),
+    newDescribeDocumentClassificationJob,
+    DescribeDocumentClassificationJobResponse (DescribeDocumentClassificationJobResponse'),
+    newDescribeDocumentClassificationJobResponse,
 
     -- ** DescribeDocumentClassifier
     DescribeDocumentClassifier (DescribeDocumentClassifier'),
@@ -322,35 +184,11 @@ module Amazonka.Comprehend
     DescribeDominantLanguageDetectionJobResponse (DescribeDominantLanguageDetectionJobResponse'),
     newDescribeDominantLanguageDetectionJobResponse,
 
-    -- ** ListEntityRecognizerSummaries
-    ListEntityRecognizerSummaries (ListEntityRecognizerSummaries'),
-    newListEntityRecognizerSummaries,
-    ListEntityRecognizerSummariesResponse (ListEntityRecognizerSummariesResponse'),
-    newListEntityRecognizerSummariesResponse,
-
-    -- ** StopEntitiesDetectionJob
-    StopEntitiesDetectionJob (StopEntitiesDetectionJob'),
-    newStopEntitiesDetectionJob,
-    StopEntitiesDetectionJobResponse (StopEntitiesDetectionJobResponse'),
-    newStopEntitiesDetectionJobResponse,
-
-    -- ** StopTrainingEntityRecognizer
-    StopTrainingEntityRecognizer (StopTrainingEntityRecognizer'),
-    newStopTrainingEntityRecognizer,
-    StopTrainingEntityRecognizerResponse (StopTrainingEntityRecognizerResponse'),
-    newStopTrainingEntityRecognizerResponse,
-
-    -- ** StartPiiEntitiesDetectionJob
-    StartPiiEntitiesDetectionJob (StartPiiEntitiesDetectionJob'),
-    newStartPiiEntitiesDetectionJob,
-    StartPiiEntitiesDetectionJobResponse (StartPiiEntitiesDetectionJobResponse'),
-    newStartPiiEntitiesDetectionJobResponse,
-
-    -- ** ListKeyPhrasesDetectionJobs (Paginated)
-    ListKeyPhrasesDetectionJobs (ListKeyPhrasesDetectionJobs'),
-    newListKeyPhrasesDetectionJobs,
-    ListKeyPhrasesDetectionJobsResponse (ListKeyPhrasesDetectionJobsResponse'),
-    newListKeyPhrasesDetectionJobsResponse,
+    -- ** DescribeEndpoint
+    DescribeEndpoint (DescribeEndpoint'),
+    newDescribeEndpoint,
+    DescribeEndpointResponse (DescribeEndpointResponse'),
+    newDescribeEndpointResponse,
 
     -- ** DescribeEntitiesDetectionJob
     DescribeEntitiesDetectionJob (DescribeEntitiesDetectionJob'),
@@ -358,23 +196,23 @@ module Amazonka.Comprehend
     DescribeEntitiesDetectionJobResponse (DescribeEntitiesDetectionJobResponse'),
     newDescribeEntitiesDetectionJobResponse,
 
-    -- ** ListDocumentClassifierSummaries
-    ListDocumentClassifierSummaries (ListDocumentClassifierSummaries'),
-    newListDocumentClassifierSummaries,
-    ListDocumentClassifierSummariesResponse (ListDocumentClassifierSummariesResponse'),
-    newListDocumentClassifierSummariesResponse,
+    -- ** DescribeEntityRecognizer
+    DescribeEntityRecognizer (DescribeEntityRecognizer'),
+    newDescribeEntityRecognizer,
+    DescribeEntityRecognizerResponse (DescribeEntityRecognizerResponse'),
+    newDescribeEntityRecognizerResponse,
 
-    -- ** StopDominantLanguageDetectionJob
-    StopDominantLanguageDetectionJob (StopDominantLanguageDetectionJob'),
-    newStopDominantLanguageDetectionJob,
-    StopDominantLanguageDetectionJobResponse (StopDominantLanguageDetectionJobResponse'),
-    newStopDominantLanguageDetectionJobResponse,
+    -- ** DescribeEventsDetectionJob
+    DescribeEventsDetectionJob (DescribeEventsDetectionJob'),
+    newDescribeEventsDetectionJob,
+    DescribeEventsDetectionJobResponse (DescribeEventsDetectionJobResponse'),
+    newDescribeEventsDetectionJobResponse,
 
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
+    -- ** DescribeKeyPhrasesDetectionJob
+    DescribeKeyPhrasesDetectionJob (DescribeKeyPhrasesDetectionJob'),
+    newDescribeKeyPhrasesDetectionJob,
+    DescribeKeyPhrasesDetectionJobResponse (DescribeKeyPhrasesDetectionJobResponse'),
+    newDescribeKeyPhrasesDetectionJobResponse,
 
     -- ** DescribePiiEntitiesDetectionJob
     DescribePiiEntitiesDetectionJob (DescribePiiEntitiesDetectionJob'),
@@ -382,29 +220,41 @@ module Amazonka.Comprehend
     DescribePiiEntitiesDetectionJobResponse (DescribePiiEntitiesDetectionJobResponse'),
     newDescribePiiEntitiesDetectionJobResponse,
 
-    -- ** ListTopicsDetectionJobs (Paginated)
-    ListTopicsDetectionJobs (ListTopicsDetectionJobs'),
-    newListTopicsDetectionJobs,
-    ListTopicsDetectionJobsResponse (ListTopicsDetectionJobsResponse'),
-    newListTopicsDetectionJobsResponse,
+    -- ** DescribeResourcePolicy
+    DescribeResourcePolicy (DescribeResourcePolicy'),
+    newDescribeResourcePolicy,
+    DescribeResourcePolicyResponse (DescribeResourcePolicyResponse'),
+    newDescribeResourcePolicyResponse,
 
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
+    -- ** DescribeSentimentDetectionJob
+    DescribeSentimentDetectionJob (DescribeSentimentDetectionJob'),
+    newDescribeSentimentDetectionJob,
+    DescribeSentimentDetectionJobResponse (DescribeSentimentDetectionJobResponse'),
+    newDescribeSentimentDetectionJobResponse,
 
-    -- ** BatchDetectDominantLanguage
-    BatchDetectDominantLanguage (BatchDetectDominantLanguage'),
-    newBatchDetectDominantLanguage,
-    BatchDetectDominantLanguageResponse (BatchDetectDominantLanguageResponse'),
-    newBatchDetectDominantLanguageResponse,
+    -- ** DescribeTargetedSentimentDetectionJob
+    DescribeTargetedSentimentDetectionJob (DescribeTargetedSentimentDetectionJob'),
+    newDescribeTargetedSentimentDetectionJob,
+    DescribeTargetedSentimentDetectionJobResponse (DescribeTargetedSentimentDetectionJobResponse'),
+    newDescribeTargetedSentimentDetectionJobResponse,
 
-    -- ** StartDocumentClassificationJob
-    StartDocumentClassificationJob (StartDocumentClassificationJob'),
-    newStartDocumentClassificationJob,
-    StartDocumentClassificationJobResponse (StartDocumentClassificationJobResponse'),
-    newStartDocumentClassificationJobResponse,
+    -- ** DescribeTopicsDetectionJob
+    DescribeTopicsDetectionJob (DescribeTopicsDetectionJob'),
+    newDescribeTopicsDetectionJob,
+    DescribeTopicsDetectionJobResponse (DescribeTopicsDetectionJobResponse'),
+    newDescribeTopicsDetectionJobResponse,
+
+    -- ** DetectDominantLanguage
+    DetectDominantLanguage (DetectDominantLanguage'),
+    newDetectDominantLanguage,
+    DetectDominantLanguageResponse (DetectDominantLanguageResponse'),
+    newDetectDominantLanguageResponse,
+
+    -- ** DetectEntities
+    DetectEntities (DetectEntities'),
+    newDetectEntities,
+    DetectEntitiesResponse (DetectEntitiesResponse'),
+    newDetectEntitiesResponse,
 
     -- ** DetectKeyPhrases
     DetectKeyPhrases (DetectKeyPhrases'),
@@ -412,41 +262,47 @@ module Amazonka.Comprehend
     DetectKeyPhrasesResponse (DetectKeyPhrasesResponse'),
     newDetectKeyPhrasesResponse,
 
+    -- ** DetectPiiEntities
+    DetectPiiEntities (DetectPiiEntities'),
+    newDetectPiiEntities,
+    DetectPiiEntitiesResponse (DetectPiiEntitiesResponse'),
+    newDetectPiiEntitiesResponse,
+
+    -- ** DetectSentiment
+    DetectSentiment (DetectSentiment'),
+    newDetectSentiment,
+    DetectSentimentResponse (DetectSentimentResponse'),
+    newDetectSentimentResponse,
+
     -- ** DetectSyntax
     DetectSyntax (DetectSyntax'),
     newDetectSyntax,
     DetectSyntaxResponse (DetectSyntaxResponse'),
     newDetectSyntaxResponse,
 
-    -- ** DescribeEndpoint
-    DescribeEndpoint (DescribeEndpoint'),
-    newDescribeEndpoint,
-    DescribeEndpointResponse (DescribeEndpointResponse'),
-    newDescribeEndpointResponse,
+    -- ** DetectTargetedSentiment
+    DetectTargetedSentiment (DetectTargetedSentiment'),
+    newDetectTargetedSentiment,
+    DetectTargetedSentimentResponse (DetectTargetedSentimentResponse'),
+    newDetectTargetedSentimentResponse,
 
-    -- ** ListSentimentDetectionJobs (Paginated)
-    ListSentimentDetectionJobs (ListSentimentDetectionJobs'),
-    newListSentimentDetectionJobs,
-    ListSentimentDetectionJobsResponse (ListSentimentDetectionJobsResponse'),
-    newListSentimentDetectionJobsResponse,
+    -- ** ImportModel
+    ImportModel (ImportModel'),
+    newImportModel,
+    ImportModelResponse (ImportModelResponse'),
+    newImportModelResponse,
 
-    -- ** DeleteDocumentClassifier
-    DeleteDocumentClassifier (DeleteDocumentClassifier'),
-    newDeleteDocumentClassifier,
-    DeleteDocumentClassifierResponse (DeleteDocumentClassifierResponse'),
-    newDeleteDocumentClassifierResponse,
+    -- ** ListDocumentClassificationJobs (Paginated)
+    ListDocumentClassificationJobs (ListDocumentClassificationJobs'),
+    newListDocumentClassificationJobs,
+    ListDocumentClassificationJobsResponse (ListDocumentClassificationJobsResponse'),
+    newListDocumentClassificationJobsResponse,
 
-    -- ** ListDominantLanguageDetectionJobs (Paginated)
-    ListDominantLanguageDetectionJobs (ListDominantLanguageDetectionJobs'),
-    newListDominantLanguageDetectionJobs,
-    ListDominantLanguageDetectionJobsResponse (ListDominantLanguageDetectionJobsResponse'),
-    newListDominantLanguageDetectionJobsResponse,
-
-    -- ** StartKeyPhrasesDetectionJob
-    StartKeyPhrasesDetectionJob (StartKeyPhrasesDetectionJob'),
-    newStartKeyPhrasesDetectionJob,
-    StartKeyPhrasesDetectionJobResponse (StartKeyPhrasesDetectionJobResponse'),
-    newStartKeyPhrasesDetectionJobResponse,
+    -- ** ListDocumentClassifierSummaries
+    ListDocumentClassifierSummaries (ListDocumentClassifierSummaries'),
+    newListDocumentClassifierSummaries,
+    ListDocumentClassifierSummariesResponse (ListDocumentClassifierSummariesResponse'),
+    newListDocumentClassifierSummariesResponse,
 
     -- ** ListDocumentClassifiers (Paginated)
     ListDocumentClassifiers (ListDocumentClassifiers'),
@@ -454,10 +310,217 @@ module Amazonka.Comprehend
     ListDocumentClassifiersResponse (ListDocumentClassifiersResponse'),
     newListDocumentClassifiersResponse,
 
+    -- ** ListDominantLanguageDetectionJobs (Paginated)
+    ListDominantLanguageDetectionJobs (ListDominantLanguageDetectionJobs'),
+    newListDominantLanguageDetectionJobs,
+    ListDominantLanguageDetectionJobsResponse (ListDominantLanguageDetectionJobsResponse'),
+    newListDominantLanguageDetectionJobsResponse,
+
+    -- ** ListEndpoints (Paginated)
+    ListEndpoints (ListEndpoints'),
+    newListEndpoints,
+    ListEndpointsResponse (ListEndpointsResponse'),
+    newListEndpointsResponse,
+
+    -- ** ListEntitiesDetectionJobs (Paginated)
+    ListEntitiesDetectionJobs (ListEntitiesDetectionJobs'),
+    newListEntitiesDetectionJobs,
+    ListEntitiesDetectionJobsResponse (ListEntitiesDetectionJobsResponse'),
+    newListEntitiesDetectionJobsResponse,
+
+    -- ** ListEntityRecognizerSummaries
+    ListEntityRecognizerSummaries (ListEntityRecognizerSummaries'),
+    newListEntityRecognizerSummaries,
+    ListEntityRecognizerSummariesResponse (ListEntityRecognizerSummariesResponse'),
+    newListEntityRecognizerSummariesResponse,
+
+    -- ** ListEntityRecognizers (Paginated)
+    ListEntityRecognizers (ListEntityRecognizers'),
+    newListEntityRecognizers,
+    ListEntityRecognizersResponse (ListEntityRecognizersResponse'),
+    newListEntityRecognizersResponse,
+
+    -- ** ListEventsDetectionJobs
+    ListEventsDetectionJobs (ListEventsDetectionJobs'),
+    newListEventsDetectionJobs,
+    ListEventsDetectionJobsResponse (ListEventsDetectionJobsResponse'),
+    newListEventsDetectionJobsResponse,
+
+    -- ** ListKeyPhrasesDetectionJobs (Paginated)
+    ListKeyPhrasesDetectionJobs (ListKeyPhrasesDetectionJobs'),
+    newListKeyPhrasesDetectionJobs,
+    ListKeyPhrasesDetectionJobsResponse (ListKeyPhrasesDetectionJobsResponse'),
+    newListKeyPhrasesDetectionJobsResponse,
+
+    -- ** ListPiiEntitiesDetectionJobs (Paginated)
+    ListPiiEntitiesDetectionJobs (ListPiiEntitiesDetectionJobs'),
+    newListPiiEntitiesDetectionJobs,
+    ListPiiEntitiesDetectionJobsResponse (ListPiiEntitiesDetectionJobsResponse'),
+    newListPiiEntitiesDetectionJobsResponse,
+
+    -- ** ListSentimentDetectionJobs (Paginated)
+    ListSentimentDetectionJobs (ListSentimentDetectionJobs'),
+    newListSentimentDetectionJobs,
+    ListSentimentDetectionJobsResponse (ListSentimentDetectionJobsResponse'),
+    newListSentimentDetectionJobsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** ListTargetedSentimentDetectionJobs
+    ListTargetedSentimentDetectionJobs (ListTargetedSentimentDetectionJobs'),
+    newListTargetedSentimentDetectionJobs,
+    ListTargetedSentimentDetectionJobsResponse (ListTargetedSentimentDetectionJobsResponse'),
+    newListTargetedSentimentDetectionJobsResponse,
+
+    -- ** ListTopicsDetectionJobs (Paginated)
+    ListTopicsDetectionJobs (ListTopicsDetectionJobs'),
+    newListTopicsDetectionJobs,
+    ListTopicsDetectionJobsResponse (ListTopicsDetectionJobsResponse'),
+    newListTopicsDetectionJobsResponse,
+
+    -- ** PutResourcePolicy
+    PutResourcePolicy (PutResourcePolicy'),
+    newPutResourcePolicy,
+    PutResourcePolicyResponse (PutResourcePolicyResponse'),
+    newPutResourcePolicyResponse,
+
+    -- ** StartDocumentClassificationJob
+    StartDocumentClassificationJob (StartDocumentClassificationJob'),
+    newStartDocumentClassificationJob,
+    StartDocumentClassificationJobResponse (StartDocumentClassificationJobResponse'),
+    newStartDocumentClassificationJobResponse,
+
+    -- ** StartDominantLanguageDetectionJob
+    StartDominantLanguageDetectionJob (StartDominantLanguageDetectionJob'),
+    newStartDominantLanguageDetectionJob,
+    StartDominantLanguageDetectionJobResponse (StartDominantLanguageDetectionJobResponse'),
+    newStartDominantLanguageDetectionJobResponse,
+
+    -- ** StartEntitiesDetectionJob
+    StartEntitiesDetectionJob (StartEntitiesDetectionJob'),
+    newStartEntitiesDetectionJob,
+    StartEntitiesDetectionJobResponse (StartEntitiesDetectionJobResponse'),
+    newStartEntitiesDetectionJobResponse,
+
+    -- ** StartEventsDetectionJob
+    StartEventsDetectionJob (StartEventsDetectionJob'),
+    newStartEventsDetectionJob,
+    StartEventsDetectionJobResponse (StartEventsDetectionJobResponse'),
+    newStartEventsDetectionJobResponse,
+
+    -- ** StartKeyPhrasesDetectionJob
+    StartKeyPhrasesDetectionJob (StartKeyPhrasesDetectionJob'),
+    newStartKeyPhrasesDetectionJob,
+    StartKeyPhrasesDetectionJobResponse (StartKeyPhrasesDetectionJobResponse'),
+    newStartKeyPhrasesDetectionJobResponse,
+
+    -- ** StartPiiEntitiesDetectionJob
+    StartPiiEntitiesDetectionJob (StartPiiEntitiesDetectionJob'),
+    newStartPiiEntitiesDetectionJob,
+    StartPiiEntitiesDetectionJobResponse (StartPiiEntitiesDetectionJobResponse'),
+    newStartPiiEntitiesDetectionJobResponse,
+
+    -- ** StartSentimentDetectionJob
+    StartSentimentDetectionJob (StartSentimentDetectionJob'),
+    newStartSentimentDetectionJob,
+    StartSentimentDetectionJobResponse (StartSentimentDetectionJobResponse'),
+    newStartSentimentDetectionJobResponse,
+
+    -- ** StartTargetedSentimentDetectionJob
+    StartTargetedSentimentDetectionJob (StartTargetedSentimentDetectionJob'),
+    newStartTargetedSentimentDetectionJob,
+    StartTargetedSentimentDetectionJobResponse (StartTargetedSentimentDetectionJobResponse'),
+    newStartTargetedSentimentDetectionJobResponse,
+
+    -- ** StartTopicsDetectionJob
+    StartTopicsDetectionJob (StartTopicsDetectionJob'),
+    newStartTopicsDetectionJob,
+    StartTopicsDetectionJobResponse (StartTopicsDetectionJobResponse'),
+    newStartTopicsDetectionJobResponse,
+
+    -- ** StopDominantLanguageDetectionJob
+    StopDominantLanguageDetectionJob (StopDominantLanguageDetectionJob'),
+    newStopDominantLanguageDetectionJob,
+    StopDominantLanguageDetectionJobResponse (StopDominantLanguageDetectionJobResponse'),
+    newStopDominantLanguageDetectionJobResponse,
+
+    -- ** StopEntitiesDetectionJob
+    StopEntitiesDetectionJob (StopEntitiesDetectionJob'),
+    newStopEntitiesDetectionJob,
+    StopEntitiesDetectionJobResponse (StopEntitiesDetectionJobResponse'),
+    newStopEntitiesDetectionJobResponse,
+
+    -- ** StopEventsDetectionJob
+    StopEventsDetectionJob (StopEventsDetectionJob'),
+    newStopEventsDetectionJob,
+    StopEventsDetectionJobResponse (StopEventsDetectionJobResponse'),
+    newStopEventsDetectionJobResponse,
+
+    -- ** StopKeyPhrasesDetectionJob
+    StopKeyPhrasesDetectionJob (StopKeyPhrasesDetectionJob'),
+    newStopKeyPhrasesDetectionJob,
+    StopKeyPhrasesDetectionJobResponse (StopKeyPhrasesDetectionJobResponse'),
+    newStopKeyPhrasesDetectionJobResponse,
+
+    -- ** StopPiiEntitiesDetectionJob
+    StopPiiEntitiesDetectionJob (StopPiiEntitiesDetectionJob'),
+    newStopPiiEntitiesDetectionJob,
+    StopPiiEntitiesDetectionJobResponse (StopPiiEntitiesDetectionJobResponse'),
+    newStopPiiEntitiesDetectionJobResponse,
+
+    -- ** StopSentimentDetectionJob
+    StopSentimentDetectionJob (StopSentimentDetectionJob'),
+    newStopSentimentDetectionJob,
+    StopSentimentDetectionJobResponse (StopSentimentDetectionJobResponse'),
+    newStopSentimentDetectionJobResponse,
+
+    -- ** StopTargetedSentimentDetectionJob
+    StopTargetedSentimentDetectionJob (StopTargetedSentimentDetectionJob'),
+    newStopTargetedSentimentDetectionJob,
+    StopTargetedSentimentDetectionJobResponse (StopTargetedSentimentDetectionJobResponse'),
+    newStopTargetedSentimentDetectionJobResponse,
+
+    -- ** StopTrainingDocumentClassifier
+    StopTrainingDocumentClassifier (StopTrainingDocumentClassifier'),
+    newStopTrainingDocumentClassifier,
+    StopTrainingDocumentClassifierResponse (StopTrainingDocumentClassifierResponse'),
+    newStopTrainingDocumentClassifierResponse,
+
+    -- ** StopTrainingEntityRecognizer
+    StopTrainingEntityRecognizer (StopTrainingEntityRecognizer'),
+    newStopTrainingEntityRecognizer,
+    StopTrainingEntityRecognizerResponse (StopTrainingEntityRecognizerResponse'),
+    newStopTrainingEntityRecognizerResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UpdateEndpoint
+    UpdateEndpoint (UpdateEndpoint'),
+    newUpdateEndpoint,
+    UpdateEndpointResponse (UpdateEndpointResponse'),
+    newUpdateEndpointResponse,
+
     -- * Types
 
     -- ** AugmentedManifestsDocumentTypeFormat
     AugmentedManifestsDocumentTypeFormat (..),
+
+    -- ** BlockType
+    BlockType (..),
 
     -- ** DocumentClassifierDataFormat
     DocumentClassifierDataFormat (..),
@@ -473,6 +536,9 @@ module Amazonka.Comprehend
 
     -- ** DocumentReadMode
     DocumentReadMode (..),
+
+    -- ** DocumentType
+    DocumentType (..),
 
     -- ** EndpointStatus
     EndpointStatus (..),
@@ -495,6 +561,9 @@ module Amazonka.Comprehend
     -- ** ModelStatus
     ModelStatus (..),
 
+    -- ** PageBasedErrorCode
+    PageBasedErrorCode (..),
+
     -- ** PartOfSpeechTagType
     PartOfSpeechTagType (..),
 
@@ -507,6 +576,9 @@ module Amazonka.Comprehend
     -- ** PiiEntityType
     PiiEntityType (..),
 
+    -- ** RelationshipType
+    RelationshipType (..),
+
     -- ** SentimentType
     SentimentType (..),
 
@@ -515,6 +587,9 @@ module Amazonka.Comprehend
 
     -- ** SyntaxLanguageCode
     SyntaxLanguageCode (..),
+
+    -- ** TargetedSentimentEntityType
+    TargetedSentimentEntityType (..),
 
     -- ** AugmentedManifestsListItem
     AugmentedManifestsListItem (AugmentedManifestsListItem'),
@@ -540,9 +615,29 @@ module Amazonka.Comprehend
     BatchDetectSyntaxItemResult (BatchDetectSyntaxItemResult'),
     newBatchDetectSyntaxItemResult,
 
+    -- ** BatchDetectTargetedSentimentItemResult
+    BatchDetectTargetedSentimentItemResult (BatchDetectTargetedSentimentItemResult'),
+    newBatchDetectTargetedSentimentItemResult,
+
     -- ** BatchItemError
     BatchItemError (BatchItemError'),
     newBatchItemError,
+
+    -- ** Block
+    Block (Block'),
+    newBlock,
+
+    -- ** BlockReference
+    BlockReference (BlockReference'),
+    newBlockReference,
+
+    -- ** BoundingBox
+    BoundingBox (BoundingBox'),
+    newBoundingBox,
+
+    -- ** ChildBlock
+    ChildBlock (ChildBlock'),
+    newChildBlock,
 
     -- ** ClassifierEvaluationMetrics
     ClassifierEvaluationMetrics (ClassifierEvaluationMetrics'),
@@ -588,9 +683,17 @@ module Amazonka.Comprehend
     DocumentLabel (DocumentLabel'),
     newDocumentLabel,
 
+    -- ** DocumentMetadata
+    DocumentMetadata (DocumentMetadata'),
+    newDocumentMetadata,
+
     -- ** DocumentReaderConfig
     DocumentReaderConfig (DocumentReaderConfig'),
     newDocumentReaderConfig,
+
+    -- ** DocumentTypeListItem
+    DocumentTypeListItem (DocumentTypeListItem'),
+    newDocumentTypeListItem,
 
     -- ** DominantLanguage
     DominantLanguage (DominantLanguage'),
@@ -676,6 +779,10 @@ module Amazonka.Comprehend
     EntityTypesListItem (EntityTypesListItem'),
     newEntityTypesListItem,
 
+    -- ** ErrorsListItem
+    ErrorsListItem (ErrorsListItem'),
+    newErrorsListItem,
+
     -- ** EventsDetectionJobFilter
     EventsDetectionJobFilter (EventsDetectionJobFilter'),
     newEventsDetectionJobFilter,
@@ -683,6 +790,14 @@ module Amazonka.Comprehend
     -- ** EventsDetectionJobProperties
     EventsDetectionJobProperties (EventsDetectionJobProperties'),
     newEventsDetectionJobProperties,
+
+    -- ** ExtractedCharactersListItem
+    ExtractedCharactersListItem (ExtractedCharactersListItem'),
+    newExtractedCharactersListItem,
+
+    -- ** Geometry
+    Geometry (Geometry'),
+    newGeometry,
 
     -- ** InputDataConfig
     InputDataConfig (InputDataConfig'),
@@ -699,6 +814,10 @@ module Amazonka.Comprehend
     -- ** KeyPhrasesDetectionJobProperties
     KeyPhrasesDetectionJobProperties (KeyPhrasesDetectionJobProperties'),
     newKeyPhrasesDetectionJobProperties,
+
+    -- ** MentionSentiment
+    MentionSentiment (MentionSentiment'),
+    newMentionSentiment,
 
     -- ** OutputDataConfig
     OutputDataConfig (OutputDataConfig'),
@@ -724,9 +843,17 @@ module Amazonka.Comprehend
     PiiOutputDataConfig (PiiOutputDataConfig'),
     newPiiOutputDataConfig,
 
+    -- ** Point
+    Point (Point'),
+    newPoint,
+
     -- ** RedactionConfig
     RedactionConfig (RedactionConfig'),
     newRedactionConfig,
+
+    -- ** RelationshipsListItem
+    RelationshipsListItem (RelationshipsListItem'),
+    newRelationshipsListItem,
 
     -- ** SentimentDetectionJobFilter
     SentimentDetectionJobFilter (SentimentDetectionJobFilter'),
@@ -748,6 +875,22 @@ module Amazonka.Comprehend
     Tag (Tag'),
     newTag,
 
+    -- ** TargetedSentimentDetectionJobFilter
+    TargetedSentimentDetectionJobFilter (TargetedSentimentDetectionJobFilter'),
+    newTargetedSentimentDetectionJobFilter,
+
+    -- ** TargetedSentimentDetectionJobProperties
+    TargetedSentimentDetectionJobProperties (TargetedSentimentDetectionJobProperties'),
+    newTargetedSentimentDetectionJobProperties,
+
+    -- ** TargetedSentimentEntity
+    TargetedSentimentEntity (TargetedSentimentEntity'),
+    newTargetedSentimentEntity,
+
+    -- ** TargetedSentimentMention
+    TargetedSentimentMention (TargetedSentimentMention'),
+    newTargetedSentimentMention,
+
     -- ** TopicsDetectionJobFilter
     TopicsDetectionJobFilter (TopicsDetectionJobFilter'),
     newTopicsDetectionJobFilter,
@@ -767,6 +910,7 @@ import Amazonka.Comprehend.BatchDetectEntities
 import Amazonka.Comprehend.BatchDetectKeyPhrases
 import Amazonka.Comprehend.BatchDetectSentiment
 import Amazonka.Comprehend.BatchDetectSyntax
+import Amazonka.Comprehend.BatchDetectTargetedSentiment
 import Amazonka.Comprehend.ClassifyDocument
 import Amazonka.Comprehend.ContainsPiiEntities
 import Amazonka.Comprehend.CreateDocumentClassifier
@@ -775,6 +919,7 @@ import Amazonka.Comprehend.CreateEntityRecognizer
 import Amazonka.Comprehend.DeleteDocumentClassifier
 import Amazonka.Comprehend.DeleteEndpoint
 import Amazonka.Comprehend.DeleteEntityRecognizer
+import Amazonka.Comprehend.DeleteResourcePolicy
 import Amazonka.Comprehend.DescribeDocumentClassificationJob
 import Amazonka.Comprehend.DescribeDocumentClassifier
 import Amazonka.Comprehend.DescribeDominantLanguageDetectionJob
@@ -784,7 +929,9 @@ import Amazonka.Comprehend.DescribeEntityRecognizer
 import Amazonka.Comprehend.DescribeEventsDetectionJob
 import Amazonka.Comprehend.DescribeKeyPhrasesDetectionJob
 import Amazonka.Comprehend.DescribePiiEntitiesDetectionJob
+import Amazonka.Comprehend.DescribeResourcePolicy
 import Amazonka.Comprehend.DescribeSentimentDetectionJob
+import Amazonka.Comprehend.DescribeTargetedSentimentDetectionJob
 import Amazonka.Comprehend.DescribeTopicsDetectionJob
 import Amazonka.Comprehend.DetectDominantLanguage
 import Amazonka.Comprehend.DetectEntities
@@ -792,6 +939,8 @@ import Amazonka.Comprehend.DetectKeyPhrases
 import Amazonka.Comprehend.DetectPiiEntities
 import Amazonka.Comprehend.DetectSentiment
 import Amazonka.Comprehend.DetectSyntax
+import Amazonka.Comprehend.DetectTargetedSentiment
+import Amazonka.Comprehend.ImportModel
 import Amazonka.Comprehend.Lens
 import Amazonka.Comprehend.ListDocumentClassificationJobs
 import Amazonka.Comprehend.ListDocumentClassifierSummaries
@@ -806,7 +955,9 @@ import Amazonka.Comprehend.ListKeyPhrasesDetectionJobs
 import Amazonka.Comprehend.ListPiiEntitiesDetectionJobs
 import Amazonka.Comprehend.ListSentimentDetectionJobs
 import Amazonka.Comprehend.ListTagsForResource
+import Amazonka.Comprehend.ListTargetedSentimentDetectionJobs
 import Amazonka.Comprehend.ListTopicsDetectionJobs
+import Amazonka.Comprehend.PutResourcePolicy
 import Amazonka.Comprehend.StartDocumentClassificationJob
 import Amazonka.Comprehend.StartDominantLanguageDetectionJob
 import Amazonka.Comprehend.StartEntitiesDetectionJob
@@ -814,6 +965,7 @@ import Amazonka.Comprehend.StartEventsDetectionJob
 import Amazonka.Comprehend.StartKeyPhrasesDetectionJob
 import Amazonka.Comprehend.StartPiiEntitiesDetectionJob
 import Amazonka.Comprehend.StartSentimentDetectionJob
+import Amazonka.Comprehend.StartTargetedSentimentDetectionJob
 import Amazonka.Comprehend.StartTopicsDetectionJob
 import Amazonka.Comprehend.StopDominantLanguageDetectionJob
 import Amazonka.Comprehend.StopEntitiesDetectionJob
@@ -821,6 +973,7 @@ import Amazonka.Comprehend.StopEventsDetectionJob
 import Amazonka.Comprehend.StopKeyPhrasesDetectionJob
 import Amazonka.Comprehend.StopPiiEntitiesDetectionJob
 import Amazonka.Comprehend.StopSentimentDetectionJob
+import Amazonka.Comprehend.StopTargetedSentimentDetectionJob
 import Amazonka.Comprehend.StopTrainingDocumentClassifier
 import Amazonka.Comprehend.StopTrainingEntityRecognizer
 import Amazonka.Comprehend.TagResource

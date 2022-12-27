@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribePrefixLists
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,11 +33,11 @@ module Amazonka.EC2.DescribePrefixLists
     newDescribePrefixLists,
 
     -- * Request Lenses
-    describePrefixLists_filters,
-    describePrefixLists_prefixListIds,
-    describePrefixLists_nextToken,
     describePrefixLists_dryRun,
+    describePrefixLists_filters,
     describePrefixLists_maxResults,
+    describePrefixLists_nextToken,
+    describePrefixLists_prefixListIds,
 
     -- * Destructuring the Response
     DescribePrefixListsResponse (..),
@@ -51,33 +51,34 @@ module Amazonka.EC2.DescribePrefixLists
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribePrefixLists' smart constructor.
 data DescribePrefixLists = DescribePrefixLists'
-  { -- | One or more filters.
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | One or more filters.
     --
     -- -   @prefix-list-id@: The ID of a prefix list.
     --
     -- -   @prefix-list-name@: The name of a prefix list.
     filters :: Prelude.Maybe [Filter],
-    -- | One or more prefix list IDs.
-    prefixListIds :: Prelude.Maybe [Prelude.Text],
-    -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | The maximum number of results to return with a single call. To retrieve
     -- the remaining results, make another call with the returned @nextToken@
     -- value.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | One or more prefix list IDs.
+    prefixListIds :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -89,34 +90,41 @@ data DescribePrefixLists = DescribePrefixLists'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'dryRun', 'describePrefixLists_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
 -- 'filters', 'describePrefixLists_filters' - One or more filters.
 --
 -- -   @prefix-list-id@: The ID of a prefix list.
 --
 -- -   @prefix-list-name@: The name of a prefix list.
 --
--- 'prefixListIds', 'describePrefixLists_prefixListIds' - One or more prefix list IDs.
---
--- 'nextToken', 'describePrefixLists_nextToken' - The token for the next page of results.
---
--- 'dryRun', 'describePrefixLists_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
---
 -- 'maxResults', 'describePrefixLists_maxResults' - The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
+--
+-- 'nextToken', 'describePrefixLists_nextToken' - The token for the next page of results.
+--
+-- 'prefixListIds', 'describePrefixLists_prefixListIds' - One or more prefix list IDs.
 newDescribePrefixLists ::
   DescribePrefixLists
 newDescribePrefixLists =
   DescribePrefixLists'
-    { filters = Prelude.Nothing,
-      prefixListIds = Prelude.Nothing,
+    { dryRun = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      prefixListIds = Prelude.Nothing
     }
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describePrefixLists_dryRun :: Lens.Lens' DescribePrefixLists (Prelude.Maybe Prelude.Bool)
+describePrefixLists_dryRun = Lens.lens (\DescribePrefixLists' {dryRun} -> dryRun) (\s@DescribePrefixLists' {} a -> s {dryRun = a} :: DescribePrefixLists)
 
 -- | One or more filters.
 --
@@ -126,26 +134,19 @@ newDescribePrefixLists =
 describePrefixLists_filters :: Lens.Lens' DescribePrefixLists (Prelude.Maybe [Filter])
 describePrefixLists_filters = Lens.lens (\DescribePrefixLists' {filters} -> filters) (\s@DescribePrefixLists' {} a -> s {filters = a} :: DescribePrefixLists) Prelude.. Lens.mapping Lens.coerced
 
--- | One or more prefix list IDs.
-describePrefixLists_prefixListIds :: Lens.Lens' DescribePrefixLists (Prelude.Maybe [Prelude.Text])
-describePrefixLists_prefixListIds = Lens.lens (\DescribePrefixLists' {prefixListIds} -> prefixListIds) (\s@DescribePrefixLists' {} a -> s {prefixListIds = a} :: DescribePrefixLists) Prelude.. Lens.mapping Lens.coerced
-
--- | The token for the next page of results.
-describePrefixLists_nextToken :: Lens.Lens' DescribePrefixLists (Prelude.Maybe Prelude.Text)
-describePrefixLists_nextToken = Lens.lens (\DescribePrefixLists' {nextToken} -> nextToken) (\s@DescribePrefixLists' {} a -> s {nextToken = a} :: DescribePrefixLists)
-
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describePrefixLists_dryRun :: Lens.Lens' DescribePrefixLists (Prelude.Maybe Prelude.Bool)
-describePrefixLists_dryRun = Lens.lens (\DescribePrefixLists' {dryRun} -> dryRun) (\s@DescribePrefixLists' {} a -> s {dryRun = a} :: DescribePrefixLists)
-
 -- | The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
 describePrefixLists_maxResults :: Lens.Lens' DescribePrefixLists (Prelude.Maybe Prelude.Int)
 describePrefixLists_maxResults = Lens.lens (\DescribePrefixLists' {maxResults} -> maxResults) (\s@DescribePrefixLists' {} a -> s {maxResults = a} :: DescribePrefixLists)
+
+-- | The token for the next page of results.
+describePrefixLists_nextToken :: Lens.Lens' DescribePrefixLists (Prelude.Maybe Prelude.Text)
+describePrefixLists_nextToken = Lens.lens (\DescribePrefixLists' {nextToken} -> nextToken) (\s@DescribePrefixLists' {} a -> s {nextToken = a} :: DescribePrefixLists)
+
+-- | One or more prefix list IDs.
+describePrefixLists_prefixListIds :: Lens.Lens' DescribePrefixLists (Prelude.Maybe [Prelude.Text])
+describePrefixLists_prefixListIds = Lens.lens (\DescribePrefixLists' {prefixListIds} -> prefixListIds) (\s@DescribePrefixLists' {} a -> s {prefixListIds = a} :: DescribePrefixLists) Prelude.. Lens.mapping Lens.coerced
 
 instance Core.AWSPager DescribePrefixLists where
   page rq rs
@@ -173,56 +174,57 @@ instance Core.AWSRequest DescribePrefixLists where
   type
     AWSResponse DescribePrefixLists =
       DescribePrefixListsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribePrefixListsResponse'
-            Prelude.<$> (x Core..@? "nextToken")
-            Prelude.<*> ( x Core..@? "prefixListSet" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> (x Data..@? "nextToken")
+            Prelude.<*> ( x Data..@? "prefixListSet" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribePrefixLists where
   hashWithSalt _salt DescribePrefixLists' {..} =
-    _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` prefixListIds
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` dryRun
+    _salt `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` prefixListIds
 
 instance Prelude.NFData DescribePrefixLists where
   rnf DescribePrefixLists' {..} =
-    Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf prefixListIds
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf dryRun
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf prefixListIds
 
-instance Core.ToHeaders DescribePrefixLists where
+instance Data.ToHeaders DescribePrefixLists where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribePrefixLists where
+instance Data.ToPath DescribePrefixLists where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribePrefixLists where
+instance Data.ToQuery DescribePrefixLists where
   toQuery DescribePrefixLists' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribePrefixLists" :: Prelude.ByteString),
+          Data.=: ("DescribePrefixLists" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        Core.toQuery
-          ( Core.toQueryList "PrefixListId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
+        Data.toQuery
+          ( Data.toQueryList "PrefixListId"
               Prelude.<$> prefixListIds
-          ),
-        "NextToken" Core.=: nextToken,
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults
+          )
       ]
 
 -- | /See:/ 'newDescribePrefixListsResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DAX.RebootNode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.DAX.RebootNode
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DAX.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,12 +95,13 @@ rebootNode_nodeId = Lens.lens (\RebootNode' {nodeId} -> nodeId) (\s@RebootNode' 
 
 instance Core.AWSRequest RebootNode where
   type AWSResponse RebootNode = RebootNodeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RebootNodeResponse'
-            Prelude.<$> (x Core..?> "Cluster")
+            Prelude.<$> (x Data..?> "Cluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -113,32 +115,32 @@ instance Prelude.NFData RebootNode where
     Prelude.rnf clusterName
       `Prelude.seq` Prelude.rnf nodeId
 
-instance Core.ToHeaders RebootNode where
+instance Data.ToHeaders RebootNode where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AmazonDAXV3.RebootNode" :: Prelude.ByteString),
+              Data.=# ("AmazonDAXV3.RebootNode" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RebootNode where
+instance Data.ToJSON RebootNode where
   toJSON RebootNode' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ClusterName" Core..= clusterName),
-            Prelude.Just ("NodeId" Core..= nodeId)
+          [ Prelude.Just ("ClusterName" Data..= clusterName),
+            Prelude.Just ("NodeId" Data..= nodeId)
           ]
       )
 
-instance Core.ToPath RebootNode where
+instance Data.ToPath RebootNode where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RebootNode where
+instance Data.ToQuery RebootNode where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRebootNodeResponse' smart constructor.

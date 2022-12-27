@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AccountDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AccountDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The details of an Amazon Web Services account.
@@ -73,11 +74,11 @@ instance Prelude.NFData AccountDetails where
     Prelude.rnf email
       `Prelude.seq` Prelude.rnf accountId
 
-instance Core.ToJSON AccountDetails where
+instance Data.ToJSON AccountDetails where
   toJSON AccountDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Email" Core..=) Prelude.<$> email,
-            Prelude.Just ("AccountId" Core..= accountId)
+          [ ("Email" Data..=) Prelude.<$> email,
+            Prelude.Just ("AccountId" Data..= accountId)
           ]
       )

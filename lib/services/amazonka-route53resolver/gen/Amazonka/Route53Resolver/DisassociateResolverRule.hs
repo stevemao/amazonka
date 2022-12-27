@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Resolver.DisassociateResolverRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.Route53Resolver.DisassociateResolverRule
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,12 +100,13 @@ instance Core.AWSRequest DisassociateResolverRule where
   type
     AWSResponse DisassociateResolverRule =
       DisassociateResolverRuleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DisassociateResolverRuleResponse'
-            Prelude.<$> (x Core..?> "ResolverRuleAssociation")
+            Prelude.<$> (x Data..?> "ResolverRuleAssociation")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -118,35 +120,35 @@ instance Prelude.NFData DisassociateResolverRule where
     Prelude.rnf vPCId
       `Prelude.seq` Prelude.rnf resolverRuleId
 
-instance Core.ToHeaders DisassociateResolverRule where
+instance Data.ToHeaders DisassociateResolverRule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53Resolver.DisassociateResolverRule" ::
+              Data.=# ( "Route53Resolver.DisassociateResolverRule" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisassociateResolverRule where
+instance Data.ToJSON DisassociateResolverRule where
   toJSON DisassociateResolverRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("VPCId" Core..= vPCId),
+          [ Prelude.Just ("VPCId" Data..= vPCId),
             Prelude.Just
-              ("ResolverRuleId" Core..= resolverRuleId)
+              ("ResolverRuleId" Data..= resolverRuleId)
           ]
       )
 
-instance Core.ToPath DisassociateResolverRule where
+instance Data.ToPath DisassociateResolverRule where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisassociateResolverRule where
+instance Data.ToQuery DisassociateResolverRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateResolverRuleResponse' smart constructor.

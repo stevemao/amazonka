@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.Secret
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ECS.Types.Secret where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object representing the secret to expose to your container. Secrets
@@ -33,7 +34,7 @@ import qualified Amazonka.Prelude as Prelude
 --     container, use the @secretOptions@ container definition parameter.
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data.html Specifying Sensitive Data>
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data.html Specifying sensitive data>
 -- in the /Amazon Elastic Container Service Developer Guide/.
 --
 -- /See:/ 'newSecret' smart constructor.
@@ -44,8 +45,16 @@ data Secret = Secret'
     -- the full ARN of the Secrets Manager secret or the full ARN of the
     -- parameter in the SSM Parameter Store.
     --
+    -- For information about the require Identity and Access Management
+    -- permissions, see
+    -- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data-secrets.html#secrets-iam Required IAM permissions for Amazon ECS secrets>
+    -- (for Secrets Manager) or
+    -- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data-parameters.html Required IAM permissions for Amazon ECS secrets>
+    -- (for Systems Manager Parameter store) in the /Amazon Elastic Container
+    -- Service Developer Guide/.
+    --
     -- If the SSM Parameter Store parameter exists in the same Region as the
-    -- task you are launching, then you can use either the full ARN or name of
+    -- task you\'re launching, then you can use either the full ARN or name of
     -- the parameter. If the parameter exists in a different Region, then the
     -- full ARN must be specified.
     valueFrom :: Prelude.Text
@@ -66,8 +75,16 @@ data Secret = Secret'
 -- the full ARN of the Secrets Manager secret or the full ARN of the
 -- parameter in the SSM Parameter Store.
 --
+-- For information about the require Identity and Access Management
+-- permissions, see
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data-secrets.html#secrets-iam Required IAM permissions for Amazon ECS secrets>
+-- (for Secrets Manager) or
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data-parameters.html Required IAM permissions for Amazon ECS secrets>
+-- (for Systems Manager Parameter store) in the /Amazon Elastic Container
+-- Service Developer Guide/.
+--
 -- If the SSM Parameter Store parameter exists in the same Region as the
--- task you are launching, then you can use either the full ARN or name of
+-- task you\'re launching, then you can use either the full ARN or name of
 -- the parameter. If the parameter exists in a different Region, then the
 -- full ARN must be specified.
 newSecret ::
@@ -87,21 +104,29 @@ secret_name = Lens.lens (\Secret' {name} -> name) (\s@Secret' {} a -> s {name = 
 -- the full ARN of the Secrets Manager secret or the full ARN of the
 -- parameter in the SSM Parameter Store.
 --
+-- For information about the require Identity and Access Management
+-- permissions, see
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data-secrets.html#secrets-iam Required IAM permissions for Amazon ECS secrets>
+-- (for Secrets Manager) or
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data-parameters.html Required IAM permissions for Amazon ECS secrets>
+-- (for Systems Manager Parameter store) in the /Amazon Elastic Container
+-- Service Developer Guide/.
+--
 -- If the SSM Parameter Store parameter exists in the same Region as the
--- task you are launching, then you can use either the full ARN or name of
+-- task you\'re launching, then you can use either the full ARN or name of
 -- the parameter. If the parameter exists in a different Region, then the
 -- full ARN must be specified.
 secret_valueFrom :: Lens.Lens' Secret Prelude.Text
 secret_valueFrom = Lens.lens (\Secret' {valueFrom} -> valueFrom) (\s@Secret' {} a -> s {valueFrom = a} :: Secret)
 
-instance Core.FromJSON Secret where
+instance Data.FromJSON Secret where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Secret"
       ( \x ->
           Secret'
-            Prelude.<$> (x Core..: "name")
-            Prelude.<*> (x Core..: "valueFrom")
+            Prelude.<$> (x Data..: "name")
+            Prelude.<*> (x Data..: "valueFrom")
       )
 
 instance Prelude.Hashable Secret where
@@ -114,11 +139,11 @@ instance Prelude.NFData Secret where
     Prelude.rnf name
       `Prelude.seq` Prelude.rnf valueFrom
 
-instance Core.ToJSON Secret where
+instance Data.ToJSON Secret where
   toJSON Secret' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("name" Core..= name),
-            Prelude.Just ("valueFrom" Core..= valueFrom)
+          [ Prelude.Just ("name" Data..= name),
+            Prelude.Just ("valueFrom" Data..= valueFrom)
           ]
       )

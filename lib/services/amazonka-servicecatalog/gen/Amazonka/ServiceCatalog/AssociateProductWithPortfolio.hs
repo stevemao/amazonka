@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.AssociateProductWithPortfolio
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.ServiceCatalog.AssociateProductWithPortfolio
     newAssociateProductWithPortfolio,
 
     -- * Request Lenses
-    associateProductWithPortfolio_sourcePortfolioId,
     associateProductWithPortfolio_acceptLanguage,
+    associateProductWithPortfolio_sourcePortfolioId,
     associateProductWithPortfolio_productId,
     associateProductWithPortfolio_portfolioId,
 
@@ -44,7 +44,8 @@ module Amazonka.ServiceCatalog.AssociateProductWithPortfolio
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,9 +53,7 @@ import Amazonka.ServiceCatalog.Types
 
 -- | /See:/ 'newAssociateProductWithPortfolio' smart constructor.
 data AssociateProductWithPortfolio = AssociateProductWithPortfolio'
-  { -- | The identifier of the source portfolio.
-    sourcePortfolioId :: Prelude.Maybe Prelude.Text,
-    -- | The language code.
+  { -- | The language code.
     --
     -- -   @en@ - English (default)
     --
@@ -62,6 +61,8 @@ data AssociateProductWithPortfolio = AssociateProductWithPortfolio'
     --
     -- -   @zh@ - Chinese
     acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the source portfolio.
+    sourcePortfolioId :: Prelude.Maybe Prelude.Text,
     -- | The product identifier.
     productId :: Prelude.Text,
     -- | The portfolio identifier.
@@ -77,8 +78,6 @@ data AssociateProductWithPortfolio = AssociateProductWithPortfolio'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sourcePortfolioId', 'associateProductWithPortfolio_sourcePortfolioId' - The identifier of the source portfolio.
---
 -- 'acceptLanguage', 'associateProductWithPortfolio_acceptLanguage' - The language code.
 --
 -- -   @en@ - English (default)
@@ -86,6 +85,8 @@ data AssociateProductWithPortfolio = AssociateProductWithPortfolio'
 -- -   @jp@ - Japanese
 --
 -- -   @zh@ - Chinese
+--
+-- 'sourcePortfolioId', 'associateProductWithPortfolio_sourcePortfolioId' - The identifier of the source portfolio.
 --
 -- 'productId', 'associateProductWithPortfolio_productId' - The product identifier.
 --
@@ -100,16 +101,12 @@ newAssociateProductWithPortfolio
   pProductId_
   pPortfolioId_ =
     AssociateProductWithPortfolio'
-      { sourcePortfolioId =
+      { acceptLanguage =
           Prelude.Nothing,
-        acceptLanguage = Prelude.Nothing,
+        sourcePortfolioId = Prelude.Nothing,
         productId = pProductId_,
         portfolioId = pPortfolioId_
       }
-
--- | The identifier of the source portfolio.
-associateProductWithPortfolio_sourcePortfolioId :: Lens.Lens' AssociateProductWithPortfolio (Prelude.Maybe Prelude.Text)
-associateProductWithPortfolio_sourcePortfolioId = Lens.lens (\AssociateProductWithPortfolio' {sourcePortfolioId} -> sourcePortfolioId) (\s@AssociateProductWithPortfolio' {} a -> s {sourcePortfolioId = a} :: AssociateProductWithPortfolio)
 
 -- | The language code.
 --
@@ -120,6 +117,10 @@ associateProductWithPortfolio_sourcePortfolioId = Lens.lens (\AssociateProductWi
 -- -   @zh@ - Chinese
 associateProductWithPortfolio_acceptLanguage :: Lens.Lens' AssociateProductWithPortfolio (Prelude.Maybe Prelude.Text)
 associateProductWithPortfolio_acceptLanguage = Lens.lens (\AssociateProductWithPortfolio' {acceptLanguage} -> acceptLanguage) (\s@AssociateProductWithPortfolio' {} a -> s {acceptLanguage = a} :: AssociateProductWithPortfolio)
+
+-- | The identifier of the source portfolio.
+associateProductWithPortfolio_sourcePortfolioId :: Lens.Lens' AssociateProductWithPortfolio (Prelude.Maybe Prelude.Text)
+associateProductWithPortfolio_sourcePortfolioId = Lens.lens (\AssociateProductWithPortfolio' {sourcePortfolioId} -> sourcePortfolioId) (\s@AssociateProductWithPortfolio' {} a -> s {sourcePortfolioId = a} :: AssociateProductWithPortfolio)
 
 -- | The product identifier.
 associateProductWithPortfolio_productId :: Lens.Lens' AssociateProductWithPortfolio Prelude.Text
@@ -136,7 +137,8 @@ instance
   type
     AWSResponse AssociateProductWithPortfolio =
       AssociateProductWithPortfolioResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -149,50 +151,50 @@ instance
     AssociateProductWithPortfolio
   where
   hashWithSalt _salt AssociateProductWithPortfolio' {..} =
-    _salt `Prelude.hashWithSalt` sourcePortfolioId
-      `Prelude.hashWithSalt` acceptLanguage
+    _salt `Prelude.hashWithSalt` acceptLanguage
+      `Prelude.hashWithSalt` sourcePortfolioId
       `Prelude.hashWithSalt` productId
       `Prelude.hashWithSalt` portfolioId
 
 instance Prelude.NFData AssociateProductWithPortfolio where
   rnf AssociateProductWithPortfolio' {..} =
-    Prelude.rnf sourcePortfolioId
-      `Prelude.seq` Prelude.rnf acceptLanguage
+    Prelude.rnf acceptLanguage
+      `Prelude.seq` Prelude.rnf sourcePortfolioId
       `Prelude.seq` Prelude.rnf productId
       `Prelude.seq` Prelude.rnf portfolioId
 
-instance Core.ToHeaders AssociateProductWithPortfolio where
+instance Data.ToHeaders AssociateProductWithPortfolio where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.AssociateProductWithPortfolio" ::
+              Data.=# ( "AWS242ServiceCatalogService.AssociateProductWithPortfolio" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateProductWithPortfolio where
+instance Data.ToJSON AssociateProductWithPortfolio where
   toJSON AssociateProductWithPortfolio' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SourcePortfolioId" Core..=)
-              Prelude.<$> sourcePortfolioId,
-            ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            Prelude.Just ("ProductId" Core..= productId),
-            Prelude.Just ("PortfolioId" Core..= portfolioId)
+            ("SourcePortfolioId" Data..=)
+              Prelude.<$> sourcePortfolioId,
+            Prelude.Just ("ProductId" Data..= productId),
+            Prelude.Just ("PortfolioId" Data..= portfolioId)
           ]
       )
 
-instance Core.ToPath AssociateProductWithPortfolio where
+instance Data.ToPath AssociateProductWithPortfolio where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AssociateProductWithPortfolio where
+instance Data.ToQuery AssociateProductWithPortfolio where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateProductWithPortfolioResponse' smart constructor.

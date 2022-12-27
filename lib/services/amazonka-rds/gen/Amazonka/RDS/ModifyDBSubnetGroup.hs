@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.ModifyDBSubnetGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.RDS.ModifyDBSubnetGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -61,7 +62,7 @@ data ModifyDBSubnetGroup = ModifyDBSubnetGroup'
     -- Constraints: Must match the name of an existing DBSubnetGroup. Must not
     -- be default.
     --
-    -- Example: @mySubnetgroup@
+    -- Example: @mydbsubnetgroup@
     dbSubnetGroupName :: Prelude.Text,
     -- | The EC2 subnet IDs for the DB subnet group.
     subnetIds :: [Prelude.Text]
@@ -84,7 +85,7 @@ data ModifyDBSubnetGroup = ModifyDBSubnetGroup'
 -- Constraints: Must match the name of an existing DBSubnetGroup. Must not
 -- be default.
 --
--- Example: @mySubnetgroup@
+-- Example: @mydbsubnetgroup@
 --
 -- 'subnetIds', 'modifyDBSubnetGroup_subnetIds' - The EC2 subnet IDs for the DB subnet group.
 newModifyDBSubnetGroup ::
@@ -109,7 +110,7 @@ modifyDBSubnetGroup_dbSubnetGroupDescription = Lens.lens (\ModifyDBSubnetGroup' 
 -- Constraints: Must match the name of an existing DBSubnetGroup. Must not
 -- be default.
 --
--- Example: @mySubnetgroup@
+-- Example: @mydbsubnetgroup@
 modifyDBSubnetGroup_dbSubnetGroupName :: Lens.Lens' ModifyDBSubnetGroup Prelude.Text
 modifyDBSubnetGroup_dbSubnetGroupName = Lens.lens (\ModifyDBSubnetGroup' {dbSubnetGroupName} -> dbSubnetGroupName) (\s@ModifyDBSubnetGroup' {} a -> s {dbSubnetGroupName = a} :: ModifyDBSubnetGroup)
 
@@ -121,13 +122,14 @@ instance Core.AWSRequest ModifyDBSubnetGroup where
   type
     AWSResponse ModifyDBSubnetGroup =
       ModifyDBSubnetGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ModifyDBSubnetGroupResult"
       ( \s h x ->
           ModifyDBSubnetGroupResponse'
-            Prelude.<$> (x Core..@? "DBSubnetGroup")
+            Prelude.<$> (x Data..@? "DBSubnetGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -144,24 +146,24 @@ instance Prelude.NFData ModifyDBSubnetGroup where
       `Prelude.seq` Prelude.rnf dbSubnetGroupName
       `Prelude.seq` Prelude.rnf subnetIds
 
-instance Core.ToHeaders ModifyDBSubnetGroup where
+instance Data.ToHeaders ModifyDBSubnetGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyDBSubnetGroup where
+instance Data.ToPath ModifyDBSubnetGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyDBSubnetGroup where
+instance Data.ToQuery ModifyDBSubnetGroup where
   toQuery ModifyDBSubnetGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyDBSubnetGroup" :: Prelude.ByteString),
+          Data.=: ("ModifyDBSubnetGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "DBSubnetGroupDescription"
-          Core.=: dbSubnetGroupDescription,
-        "DBSubnetGroupName" Core.=: dbSubnetGroupName,
+          Data.=: dbSubnetGroupDescription,
+        "DBSubnetGroupName" Data.=: dbSubnetGroupName,
         "SubnetIds"
-          Core.=: Core.toQueryList "SubnetIdentifier" subnetIds
+          Data.=: Data.toQueryList "SubnetIdentifier" subnetIds
       ]
 
 -- | /See:/ 'newModifyDBSubnetGroupResponse' smart constructor.

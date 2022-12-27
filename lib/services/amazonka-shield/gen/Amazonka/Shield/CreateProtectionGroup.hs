@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Shield.CreateProtectionGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Shield.CreateProtectionGroup
     newCreateProtectionGroup,
 
     -- * Request Lenses
-    createProtectionGroup_resourceType,
     createProtectionGroup_members,
+    createProtectionGroup_resourceType,
     createProtectionGroup_tags,
     createProtectionGroup_protectionGroupId,
     createProtectionGroup_aggregation,
@@ -46,7 +46,8 @@ module Amazonka.Shield.CreateProtectionGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,16 +55,16 @@ import Amazonka.Shield.Types
 
 -- | /See:/ 'newCreateProtectionGroup' smart constructor.
 data CreateProtectionGroup = CreateProtectionGroup'
-  { -- | The resource type to include in the protection group. All protected
+  { -- | The Amazon Resource Names (ARNs) of the resources to include in the
+    -- protection group. You must set this when you set @Pattern@ to
+    -- @ARBITRARY@ and you must not set it for any other @Pattern@ setting.
+    members :: Prelude.Maybe [Prelude.Text],
+    -- | The resource type to include in the protection group. All protected
     -- resources of this type are included in the protection group. Newly
     -- protected resources of this type are automatically added to the group.
     -- You must set this when you set @Pattern@ to @BY_RESOURCE_TYPE@ and you
     -- must not set it for any other @Pattern@ setting.
     resourceType :: Prelude.Maybe ProtectedResourceType,
-    -- | The Amazon Resource Names (ARNs) of the resources to include in the
-    -- protection group. You must set this when you set @Pattern@ to
-    -- @ARBITRARY@ and you must not set it for any other @Pattern@ setting.
-    members :: Prelude.Maybe [Prelude.Text],
     -- | One or more tag key-value pairs for the protection group.
     tags :: Prelude.Maybe [Tag],
     -- | The name of the protection group. You use this to identify the
@@ -102,15 +103,15 @@ data CreateProtectionGroup = CreateProtectionGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'members', 'createProtectionGroup_members' - The Amazon Resource Names (ARNs) of the resources to include in the
+-- protection group. You must set this when you set @Pattern@ to
+-- @ARBITRARY@ and you must not set it for any other @Pattern@ setting.
+--
 -- 'resourceType', 'createProtectionGroup_resourceType' - The resource type to include in the protection group. All protected
 -- resources of this type are included in the protection group. Newly
 -- protected resources of this type are automatically added to the group.
 -- You must set this when you set @Pattern@ to @BY_RESOURCE_TYPE@ and you
 -- must not set it for any other @Pattern@ setting.
---
--- 'members', 'createProtectionGroup_members' - The Amazon Resource Names (ARNs) of the resources to include in the
--- protection group. You must set this when you set @Pattern@ to
--- @ARBITRARY@ and you must not set it for any other @Pattern@ setting.
 --
 -- 'tags', 'createProtectionGroup_tags' - One or more tag key-value pairs for the protection group.
 --
@@ -151,14 +152,19 @@ newCreateProtectionGroup
   pAggregation_
   pPattern_ =
     CreateProtectionGroup'
-      { resourceType =
-          Prelude.Nothing,
-        members = Prelude.Nothing,
+      { members = Prelude.Nothing,
+        resourceType = Prelude.Nothing,
         tags = Prelude.Nothing,
         protectionGroupId = pProtectionGroupId_,
         aggregation = pAggregation_,
         pattern' = pPattern_
       }
+
+-- | The Amazon Resource Names (ARNs) of the resources to include in the
+-- protection group. You must set this when you set @Pattern@ to
+-- @ARBITRARY@ and you must not set it for any other @Pattern@ setting.
+createProtectionGroup_members :: Lens.Lens' CreateProtectionGroup (Prelude.Maybe [Prelude.Text])
+createProtectionGroup_members = Lens.lens (\CreateProtectionGroup' {members} -> members) (\s@CreateProtectionGroup' {} a -> s {members = a} :: CreateProtectionGroup) Prelude.. Lens.mapping Lens.coerced
 
 -- | The resource type to include in the protection group. All protected
 -- resources of this type are included in the protection group. Newly
@@ -167,12 +173,6 @@ newCreateProtectionGroup
 -- must not set it for any other @Pattern@ setting.
 createProtectionGroup_resourceType :: Lens.Lens' CreateProtectionGroup (Prelude.Maybe ProtectedResourceType)
 createProtectionGroup_resourceType = Lens.lens (\CreateProtectionGroup' {resourceType} -> resourceType) (\s@CreateProtectionGroup' {} a -> s {resourceType = a} :: CreateProtectionGroup)
-
--- | The Amazon Resource Names (ARNs) of the resources to include in the
--- protection group. You must set this when you set @Pattern@ to
--- @ARBITRARY@ and you must not set it for any other @Pattern@ setting.
-createProtectionGroup_members :: Lens.Lens' CreateProtectionGroup (Prelude.Maybe [Prelude.Text])
-createProtectionGroup_members = Lens.lens (\CreateProtectionGroup' {members} -> members) (\s@CreateProtectionGroup' {} a -> s {members = a} :: CreateProtectionGroup) Prelude.. Lens.mapping Lens.coerced
 
 -- | One or more tag key-value pairs for the protection group.
 createProtectionGroup_tags :: Lens.Lens' CreateProtectionGroup (Prelude.Maybe [Tag])
@@ -213,7 +213,8 @@ instance Core.AWSRequest CreateProtectionGroup where
   type
     AWSResponse CreateProtectionGroup =
       CreateProtectionGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -223,8 +224,8 @@ instance Core.AWSRequest CreateProtectionGroup where
 
 instance Prelude.Hashable CreateProtectionGroup where
   hashWithSalt _salt CreateProtectionGroup' {..} =
-    _salt `Prelude.hashWithSalt` resourceType
-      `Prelude.hashWithSalt` members
+    _salt `Prelude.hashWithSalt` members
+      `Prelude.hashWithSalt` resourceType
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` protectionGroupId
       `Prelude.hashWithSalt` aggregation
@@ -232,46 +233,46 @@ instance Prelude.Hashable CreateProtectionGroup where
 
 instance Prelude.NFData CreateProtectionGroup where
   rnf CreateProtectionGroup' {..} =
-    Prelude.rnf resourceType
-      `Prelude.seq` Prelude.rnf members
+    Prelude.rnf members
+      `Prelude.seq` Prelude.rnf resourceType
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf protectionGroupId
       `Prelude.seq` Prelude.rnf aggregation
       `Prelude.seq` Prelude.rnf pattern'
 
-instance Core.ToHeaders CreateProtectionGroup where
+instance Data.ToHeaders CreateProtectionGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSShield_20160616.CreateProtectionGroup" ::
+              Data.=# ( "AWSShield_20160616.CreateProtectionGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateProtectionGroup where
+instance Data.ToJSON CreateProtectionGroup where
   toJSON CreateProtectionGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ResourceType" Core..=) Prelude.<$> resourceType,
-            ("Members" Core..=) Prelude.<$> members,
-            ("Tags" Core..=) Prelude.<$> tags,
+          [ ("Members" Data..=) Prelude.<$> members,
+            ("ResourceType" Data..=) Prelude.<$> resourceType,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("ProtectionGroupId" Core..= protectionGroupId),
-            Prelude.Just ("Aggregation" Core..= aggregation),
-            Prelude.Just ("Pattern" Core..= pattern')
+              ("ProtectionGroupId" Data..= protectionGroupId),
+            Prelude.Just ("Aggregation" Data..= aggregation),
+            Prelude.Just ("Pattern" Data..= pattern')
           ]
       )
 
-instance Core.ToPath CreateProtectionGroup where
+instance Data.ToPath CreateProtectionGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateProtectionGroup where
+instance Data.ToQuery CreateProtectionGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateProtectionGroupResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppSync.CreateResolver
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,20 +23,23 @@
 -- Creates a @Resolver@ object.
 --
 -- A resolver converts incoming requests into a format that a data source
--- can understand and converts the data source\'s responses into GraphQL.
+-- can understand, and converts the data source\'s responses into GraphQL.
 module Amazonka.AppSync.CreateResolver
   ( -- * Creating a Request
     CreateResolver (..),
     newCreateResolver,
 
     -- * Request Lenses
-    createResolver_dataSourceName,
-    createResolver_requestMappingTemplate,
-    createResolver_kind,
     createResolver_cachingConfig,
-    createResolver_responseMappingTemplate,
-    createResolver_syncConfig,
+    createResolver_code,
+    createResolver_dataSourceName,
+    createResolver_kind,
+    createResolver_maxBatchSize,
     createResolver_pipelineConfig,
+    createResolver_requestMappingTemplate,
+    createResolver_responseMappingTemplate,
+    createResolver_runtime,
+    createResolver_syncConfig,
     createResolver_apiId,
     createResolver_typeName,
     createResolver_fieldName,
@@ -53,44 +56,52 @@ where
 
 import Amazonka.AppSync.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateResolver' smart constructor.
 data CreateResolver = CreateResolver'
-  { -- | The name of the data source for which the resolver is being created.
+  { -- | The caching configuration for the resolver.
+    cachingConfig :: Prelude.Maybe CachingConfig,
+    -- | The @resolver@ code that contains the request and response functions.
+    -- When code is used, the @runtime@ is required. The @runtime@ value must
+    -- be @APPSYNC_JS@.
+    code :: Prelude.Maybe Prelude.Text,
+    -- | The name of the data source for which the resolver is being created.
     dataSourceName :: Prelude.Maybe Prelude.Text,
-    -- | The mapping template to be used for requests.
+    -- | The resolver type.
+    --
+    -- -   __UNIT__: A UNIT resolver type. A UNIT resolver is the default
+    --     resolver type. You can use a UNIT resolver to run a GraphQL query
+    --     against a single data source.
+    --
+    -- -   __PIPELINE__: A PIPELINE resolver type. You can use a PIPELINE
+    --     resolver to invoke a series of @Function@ objects in a serial
+    --     manner. You can use a pipeline resolver to run a GraphQL query
+    --     against multiple data sources.
+    kind :: Prelude.Maybe ResolverKind,
+    -- | The maximum batching size for a resolver.
+    maxBatchSize :: Prelude.Maybe Prelude.Natural,
+    -- | The @PipelineConfig@.
+    pipelineConfig :: Prelude.Maybe PipelineConfig,
+    -- | The mapping template to use for requests.
     --
     -- A resolver uses a request mapping template to convert a GraphQL
     -- expression into a format that a data source can understand. Mapping
     -- templates are written in Apache Velocity Template Language (VTL).
     --
-    -- VTL request mapping templates are optional when using a Lambda data
+    -- VTL request mapping templates are optional when using an Lambda data
     -- source. For all other data sources, VTL request and response mapping
     -- templates are required.
     requestMappingTemplate :: Prelude.Maybe Prelude.Text,
-    -- | The resolver type.
-    --
-    -- -   __UNIT__: A UNIT resolver type. A UNIT resolver is the default
-    --     resolver type. A UNIT resolver enables you to execute a GraphQL
-    --     query against a single data source.
-    --
-    -- -   __PIPELINE__: A PIPELINE resolver type. A PIPELINE resolver enables
-    --     you to execute a series of @Function@ in a serial manner. You can
-    --     use a pipeline resolver to execute a GraphQL query against multiple
-    --     data sources.
-    kind :: Prelude.Maybe ResolverKind,
-    -- | The caching configuration for the resolver.
-    cachingConfig :: Prelude.Maybe CachingConfig,
-    -- | The mapping template to be used for responses from the data source.
+    -- | The mapping template to use for responses from the data source.
     responseMappingTemplate :: Prelude.Maybe Prelude.Text,
-    -- | The @SyncConfig@ for a resolver attached to a versioned datasource.
+    runtime :: Prelude.Maybe AppSyncRuntime,
+    -- | The @SyncConfig@ for a resolver attached to a versioned data source.
     syncConfig :: Prelude.Maybe SyncConfig,
-    -- | The @PipelineConfig@.
-    pipelineConfig :: Prelude.Maybe PipelineConfig,
     -- | The ID for the GraphQL API for which the resolver is being created.
     apiId :: Prelude.Text,
     -- | The name of the @Type@.
@@ -108,36 +119,44 @@ data CreateResolver = CreateResolver'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'cachingConfig', 'createResolver_cachingConfig' - The caching configuration for the resolver.
+--
+-- 'code', 'createResolver_code' - The @resolver@ code that contains the request and response functions.
+-- When code is used, the @runtime@ is required. The @runtime@ value must
+-- be @APPSYNC_JS@.
+--
 -- 'dataSourceName', 'createResolver_dataSourceName' - The name of the data source for which the resolver is being created.
 --
--- 'requestMappingTemplate', 'createResolver_requestMappingTemplate' - The mapping template to be used for requests.
+-- 'kind', 'createResolver_kind' - The resolver type.
+--
+-- -   __UNIT__: A UNIT resolver type. A UNIT resolver is the default
+--     resolver type. You can use a UNIT resolver to run a GraphQL query
+--     against a single data source.
+--
+-- -   __PIPELINE__: A PIPELINE resolver type. You can use a PIPELINE
+--     resolver to invoke a series of @Function@ objects in a serial
+--     manner. You can use a pipeline resolver to run a GraphQL query
+--     against multiple data sources.
+--
+-- 'maxBatchSize', 'createResolver_maxBatchSize' - The maximum batching size for a resolver.
+--
+-- 'pipelineConfig', 'createResolver_pipelineConfig' - The @PipelineConfig@.
+--
+-- 'requestMappingTemplate', 'createResolver_requestMappingTemplate' - The mapping template to use for requests.
 --
 -- A resolver uses a request mapping template to convert a GraphQL
 -- expression into a format that a data source can understand. Mapping
 -- templates are written in Apache Velocity Template Language (VTL).
 --
--- VTL request mapping templates are optional when using a Lambda data
+-- VTL request mapping templates are optional when using an Lambda data
 -- source. For all other data sources, VTL request and response mapping
 -- templates are required.
 --
--- 'kind', 'createResolver_kind' - The resolver type.
+-- 'responseMappingTemplate', 'createResolver_responseMappingTemplate' - The mapping template to use for responses from the data source.
 --
--- -   __UNIT__: A UNIT resolver type. A UNIT resolver is the default
---     resolver type. A UNIT resolver enables you to execute a GraphQL
---     query against a single data source.
+-- 'runtime', 'createResolver_runtime' - Undocumented member.
 --
--- -   __PIPELINE__: A PIPELINE resolver type. A PIPELINE resolver enables
---     you to execute a series of @Function@ in a serial manner. You can
---     use a pipeline resolver to execute a GraphQL query against multiple
---     data sources.
---
--- 'cachingConfig', 'createResolver_cachingConfig' - The caching configuration for the resolver.
---
--- 'responseMappingTemplate', 'createResolver_responseMappingTemplate' - The mapping template to be used for responses from the data source.
---
--- 'syncConfig', 'createResolver_syncConfig' - The @SyncConfig@ for a resolver attached to a versioned datasource.
---
--- 'pipelineConfig', 'createResolver_pipelineConfig' - The @PipelineConfig@.
+-- 'syncConfig', 'createResolver_syncConfig' - The @SyncConfig@ for a resolver attached to a versioned data source.
 --
 -- 'apiId', 'createResolver_apiId' - The ID for the GraphQL API for which the resolver is being created.
 --
@@ -154,62 +173,79 @@ newCreateResolver ::
   CreateResolver
 newCreateResolver pApiId_ pTypeName_ pFieldName_ =
   CreateResolver'
-    { dataSourceName = Prelude.Nothing,
-      requestMappingTemplate = Prelude.Nothing,
+    { cachingConfig = Prelude.Nothing,
+      code = Prelude.Nothing,
+      dataSourceName = Prelude.Nothing,
       kind = Prelude.Nothing,
-      cachingConfig = Prelude.Nothing,
-      responseMappingTemplate = Prelude.Nothing,
-      syncConfig = Prelude.Nothing,
+      maxBatchSize = Prelude.Nothing,
       pipelineConfig = Prelude.Nothing,
+      requestMappingTemplate = Prelude.Nothing,
+      responseMappingTemplate = Prelude.Nothing,
+      runtime = Prelude.Nothing,
+      syncConfig = Prelude.Nothing,
       apiId = pApiId_,
       typeName = pTypeName_,
       fieldName = pFieldName_
     }
 
+-- | The caching configuration for the resolver.
+createResolver_cachingConfig :: Lens.Lens' CreateResolver (Prelude.Maybe CachingConfig)
+createResolver_cachingConfig = Lens.lens (\CreateResolver' {cachingConfig} -> cachingConfig) (\s@CreateResolver' {} a -> s {cachingConfig = a} :: CreateResolver)
+
+-- | The @resolver@ code that contains the request and response functions.
+-- When code is used, the @runtime@ is required. The @runtime@ value must
+-- be @APPSYNC_JS@.
+createResolver_code :: Lens.Lens' CreateResolver (Prelude.Maybe Prelude.Text)
+createResolver_code = Lens.lens (\CreateResolver' {code} -> code) (\s@CreateResolver' {} a -> s {code = a} :: CreateResolver)
+
 -- | The name of the data source for which the resolver is being created.
 createResolver_dataSourceName :: Lens.Lens' CreateResolver (Prelude.Maybe Prelude.Text)
 createResolver_dataSourceName = Lens.lens (\CreateResolver' {dataSourceName} -> dataSourceName) (\s@CreateResolver' {} a -> s {dataSourceName = a} :: CreateResolver)
 
--- | The mapping template to be used for requests.
+-- | The resolver type.
+--
+-- -   __UNIT__: A UNIT resolver type. A UNIT resolver is the default
+--     resolver type. You can use a UNIT resolver to run a GraphQL query
+--     against a single data source.
+--
+-- -   __PIPELINE__: A PIPELINE resolver type. You can use a PIPELINE
+--     resolver to invoke a series of @Function@ objects in a serial
+--     manner. You can use a pipeline resolver to run a GraphQL query
+--     against multiple data sources.
+createResolver_kind :: Lens.Lens' CreateResolver (Prelude.Maybe ResolverKind)
+createResolver_kind = Lens.lens (\CreateResolver' {kind} -> kind) (\s@CreateResolver' {} a -> s {kind = a} :: CreateResolver)
+
+-- | The maximum batching size for a resolver.
+createResolver_maxBatchSize :: Lens.Lens' CreateResolver (Prelude.Maybe Prelude.Natural)
+createResolver_maxBatchSize = Lens.lens (\CreateResolver' {maxBatchSize} -> maxBatchSize) (\s@CreateResolver' {} a -> s {maxBatchSize = a} :: CreateResolver)
+
+-- | The @PipelineConfig@.
+createResolver_pipelineConfig :: Lens.Lens' CreateResolver (Prelude.Maybe PipelineConfig)
+createResolver_pipelineConfig = Lens.lens (\CreateResolver' {pipelineConfig} -> pipelineConfig) (\s@CreateResolver' {} a -> s {pipelineConfig = a} :: CreateResolver)
+
+-- | The mapping template to use for requests.
 --
 -- A resolver uses a request mapping template to convert a GraphQL
 -- expression into a format that a data source can understand. Mapping
 -- templates are written in Apache Velocity Template Language (VTL).
 --
--- VTL request mapping templates are optional when using a Lambda data
+-- VTL request mapping templates are optional when using an Lambda data
 -- source. For all other data sources, VTL request and response mapping
 -- templates are required.
 createResolver_requestMappingTemplate :: Lens.Lens' CreateResolver (Prelude.Maybe Prelude.Text)
 createResolver_requestMappingTemplate = Lens.lens (\CreateResolver' {requestMappingTemplate} -> requestMappingTemplate) (\s@CreateResolver' {} a -> s {requestMappingTemplate = a} :: CreateResolver)
 
--- | The resolver type.
---
--- -   __UNIT__: A UNIT resolver type. A UNIT resolver is the default
---     resolver type. A UNIT resolver enables you to execute a GraphQL
---     query against a single data source.
---
--- -   __PIPELINE__: A PIPELINE resolver type. A PIPELINE resolver enables
---     you to execute a series of @Function@ in a serial manner. You can
---     use a pipeline resolver to execute a GraphQL query against multiple
---     data sources.
-createResolver_kind :: Lens.Lens' CreateResolver (Prelude.Maybe ResolverKind)
-createResolver_kind = Lens.lens (\CreateResolver' {kind} -> kind) (\s@CreateResolver' {} a -> s {kind = a} :: CreateResolver)
-
--- | The caching configuration for the resolver.
-createResolver_cachingConfig :: Lens.Lens' CreateResolver (Prelude.Maybe CachingConfig)
-createResolver_cachingConfig = Lens.lens (\CreateResolver' {cachingConfig} -> cachingConfig) (\s@CreateResolver' {} a -> s {cachingConfig = a} :: CreateResolver)
-
--- | The mapping template to be used for responses from the data source.
+-- | The mapping template to use for responses from the data source.
 createResolver_responseMappingTemplate :: Lens.Lens' CreateResolver (Prelude.Maybe Prelude.Text)
 createResolver_responseMappingTemplate = Lens.lens (\CreateResolver' {responseMappingTemplate} -> responseMappingTemplate) (\s@CreateResolver' {} a -> s {responseMappingTemplate = a} :: CreateResolver)
 
--- | The @SyncConfig@ for a resolver attached to a versioned datasource.
+-- | Undocumented member.
+createResolver_runtime :: Lens.Lens' CreateResolver (Prelude.Maybe AppSyncRuntime)
+createResolver_runtime = Lens.lens (\CreateResolver' {runtime} -> runtime) (\s@CreateResolver' {} a -> s {runtime = a} :: CreateResolver)
+
+-- | The @SyncConfig@ for a resolver attached to a versioned data source.
 createResolver_syncConfig :: Lens.Lens' CreateResolver (Prelude.Maybe SyncConfig)
 createResolver_syncConfig = Lens.lens (\CreateResolver' {syncConfig} -> syncConfig) (\s@CreateResolver' {} a -> s {syncConfig = a} :: CreateResolver)
-
--- | The @PipelineConfig@.
-createResolver_pipelineConfig :: Lens.Lens' CreateResolver (Prelude.Maybe PipelineConfig)
-createResolver_pipelineConfig = Lens.lens (\CreateResolver' {pipelineConfig} -> pipelineConfig) (\s@CreateResolver' {} a -> s {pipelineConfig = a} :: CreateResolver)
 
 -- | The ID for the GraphQL API for which the resolver is being created.
 createResolver_apiId :: Lens.Lens' CreateResolver Prelude.Text
@@ -227,82 +263,92 @@ instance Core.AWSRequest CreateResolver where
   type
     AWSResponse CreateResolver =
       CreateResolverResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateResolverResponse'
-            Prelude.<$> (x Core..?> "resolver")
+            Prelude.<$> (x Data..?> "resolver")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateResolver where
   hashWithSalt _salt CreateResolver' {..} =
-    _salt `Prelude.hashWithSalt` dataSourceName
-      `Prelude.hashWithSalt` requestMappingTemplate
+    _salt `Prelude.hashWithSalt` cachingConfig
+      `Prelude.hashWithSalt` code
+      `Prelude.hashWithSalt` dataSourceName
       `Prelude.hashWithSalt` kind
-      `Prelude.hashWithSalt` cachingConfig
-      `Prelude.hashWithSalt` responseMappingTemplate
-      `Prelude.hashWithSalt` syncConfig
+      `Prelude.hashWithSalt` maxBatchSize
       `Prelude.hashWithSalt` pipelineConfig
+      `Prelude.hashWithSalt` requestMappingTemplate
+      `Prelude.hashWithSalt` responseMappingTemplate
+      `Prelude.hashWithSalt` runtime
+      `Prelude.hashWithSalt` syncConfig
       `Prelude.hashWithSalt` apiId
       `Prelude.hashWithSalt` typeName
       `Prelude.hashWithSalt` fieldName
 
 instance Prelude.NFData CreateResolver where
   rnf CreateResolver' {..} =
-    Prelude.rnf dataSourceName
-      `Prelude.seq` Prelude.rnf requestMappingTemplate
+    Prelude.rnf cachingConfig
+      `Prelude.seq` Prelude.rnf code
+      `Prelude.seq` Prelude.rnf dataSourceName
       `Prelude.seq` Prelude.rnf kind
-      `Prelude.seq` Prelude.rnf cachingConfig
-      `Prelude.seq` Prelude.rnf responseMappingTemplate
-      `Prelude.seq` Prelude.rnf syncConfig
+      `Prelude.seq` Prelude.rnf maxBatchSize
       `Prelude.seq` Prelude.rnf pipelineConfig
+      `Prelude.seq` Prelude.rnf requestMappingTemplate
+      `Prelude.seq` Prelude.rnf responseMappingTemplate
+      `Prelude.seq` Prelude.rnf runtime
+      `Prelude.seq` Prelude.rnf syncConfig
       `Prelude.seq` Prelude.rnf apiId
       `Prelude.seq` Prelude.rnf typeName
       `Prelude.seq` Prelude.rnf fieldName
 
-instance Core.ToHeaders CreateResolver where
+instance Data.ToHeaders CreateResolver where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateResolver where
+instance Data.ToJSON CreateResolver where
   toJSON CreateResolver' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("dataSourceName" Core..=)
+          [ ("cachingConfig" Data..=) Prelude.<$> cachingConfig,
+            ("code" Data..=) Prelude.<$> code,
+            ("dataSourceName" Data..=)
               Prelude.<$> dataSourceName,
-            ("requestMappingTemplate" Core..=)
-              Prelude.<$> requestMappingTemplate,
-            ("kind" Core..=) Prelude.<$> kind,
-            ("cachingConfig" Core..=) Prelude.<$> cachingConfig,
-            ("responseMappingTemplate" Core..=)
-              Prelude.<$> responseMappingTemplate,
-            ("syncConfig" Core..=) Prelude.<$> syncConfig,
-            ("pipelineConfig" Core..=)
+            ("kind" Data..=) Prelude.<$> kind,
+            ("maxBatchSize" Data..=) Prelude.<$> maxBatchSize,
+            ("pipelineConfig" Data..=)
               Prelude.<$> pipelineConfig,
-            Prelude.Just ("fieldName" Core..= fieldName)
+            ("requestMappingTemplate" Data..=)
+              Prelude.<$> requestMappingTemplate,
+            ("responseMappingTemplate" Data..=)
+              Prelude.<$> responseMappingTemplate,
+            ("runtime" Data..=) Prelude.<$> runtime,
+            ("syncConfig" Data..=) Prelude.<$> syncConfig,
+            Prelude.Just ("fieldName" Data..= fieldName)
           ]
       )
 
-instance Core.ToPath CreateResolver where
+instance Data.ToPath CreateResolver where
   toPath CreateResolver' {..} =
     Prelude.mconcat
       [ "/v1/apis/",
-        Core.toBS apiId,
+        Data.toBS apiId,
         "/types/",
-        Core.toBS typeName,
+        Data.toBS typeName,
         "/resolvers"
       ]
 
-instance Core.ToQuery CreateResolver where
+instance Data.ToQuery CreateResolver where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateResolverResponse' smart constructor.

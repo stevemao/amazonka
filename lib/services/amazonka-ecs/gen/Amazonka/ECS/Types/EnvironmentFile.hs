@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.EnvironmentFile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ECS.Types.EnvironmentFile where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types.EnvironmentFileType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A list of files containing the environment variables to pass to a
@@ -29,20 +30,24 @@ import qualified Amazonka.Prelude as Prelude
 -- have a @.env@ file extension. Each line in an environment file should
 -- contain an environment variable in @VARIABLE=VALUE@ format. Lines
 -- beginning with @#@ are treated as comments and are ignored. For more
--- information on the environment variable file syntax, see
+-- information about the environment variable file syntax, see
 -- <https://docs.docker.com/compose/env-file/ Declare default environment variables in file>.
 --
 -- If there are environment variables specified using the @environment@
 -- parameter in a container definition, they take precedence over the
 -- variables contained within an environment file. If multiple environment
--- files are specified that contain the same variable, they are processed
--- from the top down. It is recommended to use unique variable names. For
+-- files are specified that contain the same variable, they\'re processed
+-- from the top down. We recommend that you use unique variable names. For
 -- more information, see
 -- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/taskdef-envfiles.html Specifying environment variables>
 -- in the /Amazon Elastic Container Service Developer Guide/.
 --
--- This field is only valid for containers in Fargate tasks that use
--- platform version @1.4.0@ or later.
+-- This parameter is only supported for tasks hosted on Fargate using the
+-- following platform versions:
+--
+-- -   Linux platform version @1.4.0@ or later.
+--
+-- -   Windows platform version @1.0.0@ or later.
 --
 -- /See:/ 'newEnvironmentFile' smart constructor.
 data EnvironmentFile = EnvironmentFile'
@@ -84,13 +89,13 @@ environmentFile_value = Lens.lens (\EnvironmentFile' {value} -> value) (\s@Envir
 environmentFile_type :: Lens.Lens' EnvironmentFile EnvironmentFileType
 environmentFile_type = Lens.lens (\EnvironmentFile' {type'} -> type') (\s@EnvironmentFile' {} a -> s {type' = a} :: EnvironmentFile)
 
-instance Core.FromJSON EnvironmentFile where
+instance Data.FromJSON EnvironmentFile where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EnvironmentFile"
       ( \x ->
           EnvironmentFile'
-            Prelude.<$> (x Core..: "value") Prelude.<*> (x Core..: "type")
+            Prelude.<$> (x Data..: "value") Prelude.<*> (x Data..: "type")
       )
 
 instance Prelude.Hashable EnvironmentFile where
@@ -102,11 +107,11 @@ instance Prelude.NFData EnvironmentFile where
   rnf EnvironmentFile' {..} =
     Prelude.rnf value `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON EnvironmentFile where
+instance Data.ToJSON EnvironmentFile where
   toJSON EnvironmentFile' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("value" Core..= value),
-            Prelude.Just ("type" Core..= type')
+          [ Prelude.Just ("value" Data..= value),
+            Prelude.Just ("type" Data..= type')
           ]
       )

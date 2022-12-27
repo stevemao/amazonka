@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.AttachLoadBalancers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,11 +29,14 @@
 -- with these Classic Load Balancers.
 --
 -- To describe the load balancers for an Auto Scaling group, call the
--- DescribeLoadBalancers API. To detach the load balancer from the Auto
+-- DescribeLoadBalancers API. To detach a load balancer from the Auto
 -- Scaling group, call the DetachLoadBalancers API.
 --
+-- This operation is additive and does not detach existing Classic Load
+-- Balancers or target groups from the Auto Scaling group.
+--
 -- For more information, see
--- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-load-balancer.html Elastic Load Balancing and Amazon EC2 Auto Scaling>
+-- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-load-balancer.html Use Elastic Load Balancing to distribute traffic across the instances in your Auto Scaling group>
 -- in the /Amazon EC2 Auto Scaling User Guide/.
 module Amazonka.AutoScaling.AttachLoadBalancers
   ( -- * Creating a Request
@@ -55,7 +58,8 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,7 +110,8 @@ instance Core.AWSRequest AttachLoadBalancers where
   type
     AWSResponse AttachLoadBalancers =
       AttachLoadBalancersResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "AttachLoadBalancersResult"
@@ -125,22 +130,22 @@ instance Prelude.NFData AttachLoadBalancers where
     Prelude.rnf autoScalingGroupName
       `Prelude.seq` Prelude.rnf loadBalancerNames
 
-instance Core.ToHeaders AttachLoadBalancers where
+instance Data.ToHeaders AttachLoadBalancers where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath AttachLoadBalancers where
+instance Data.ToPath AttachLoadBalancers where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AttachLoadBalancers where
+instance Data.ToQuery AttachLoadBalancers where
   toQuery AttachLoadBalancers' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("AttachLoadBalancers" :: Prelude.ByteString),
+          Data.=: ("AttachLoadBalancers" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
-        "AutoScalingGroupName" Core.=: autoScalingGroupName,
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
+        "AutoScalingGroupName" Data.=: autoScalingGroupName,
         "LoadBalancerNames"
-          Core.=: Core.toQueryList "member" loadBalancerNames
+          Data.=: Data.toQueryList "member" loadBalancerNames
       ]
 
 -- | /See:/ 'newAttachLoadBalancersResponse' smart constructor.

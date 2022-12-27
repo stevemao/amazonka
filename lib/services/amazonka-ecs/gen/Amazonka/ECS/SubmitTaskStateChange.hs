@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.SubmitTaskStateChange
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,16 +30,16 @@ module Amazonka.ECS.SubmitTaskStateChange
     newSubmitTaskStateChange,
 
     -- * Request Lenses
-    submitTaskStateChange_status,
-    submitTaskStateChange_managedAgents,
-    submitTaskStateChange_cluster,
     submitTaskStateChange_attachments,
-    submitTaskStateChange_executionStoppedAt,
-    submitTaskStateChange_pullStoppedAt,
+    submitTaskStateChange_cluster,
     submitTaskStateChange_containers,
-    submitTaskStateChange_reason,
-    submitTaskStateChange_task,
+    submitTaskStateChange_executionStoppedAt,
+    submitTaskStateChange_managedAgents,
     submitTaskStateChange_pullStartedAt,
+    submitTaskStateChange_pullStoppedAt,
+    submitTaskStateChange_reason,
+    submitTaskStateChange_status,
+    submitTaskStateChange_task,
 
     -- * Destructuring the Response
     SubmitTaskStateChangeResponse (..),
@@ -52,35 +52,36 @@ module Amazonka.ECS.SubmitTaskStateChange
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newSubmitTaskStateChange' smart constructor.
 data SubmitTaskStateChange = SubmitTaskStateChange'
-  { -- | The status of the state change request.
-    status :: Prelude.Maybe Prelude.Text,
-    -- | The details for the managed agent associated with the task.
-    managedAgents :: Prelude.Maybe [ManagedAgentStateChange],
+  { -- | Any attachments associated with the state change request.
+    attachments :: Prelude.Maybe [AttachmentStateChange],
     -- | The short name or full Amazon Resource Name (ARN) of the cluster that
     -- hosts the task.
     cluster :: Prelude.Maybe Prelude.Text,
-    -- | Any attachments associated with the state change request.
-    attachments :: Prelude.Maybe [AttachmentStateChange],
-    -- | The Unix timestamp for when the task execution stopped.
-    executionStoppedAt :: Prelude.Maybe Core.POSIX,
-    -- | The Unix timestamp for when the container image pull completed.
-    pullStoppedAt :: Prelude.Maybe Core.POSIX,
-    -- | Any containers associated with the state change request.
+    -- | Any containers that\'s associated with the state change request.
     containers :: Prelude.Maybe [ContainerStateChange],
+    -- | The Unix timestamp for the time when the task execution stopped.
+    executionStoppedAt :: Prelude.Maybe Data.POSIX,
+    -- | The details for the managed agent that\'s associated with the task.
+    managedAgents :: Prelude.Maybe [ManagedAgentStateChange],
+    -- | The Unix timestamp for the time when the container image pull started.
+    pullStartedAt :: Prelude.Maybe Data.POSIX,
+    -- | The Unix timestamp for the time when the container image pull completed.
+    pullStoppedAt :: Prelude.Maybe Data.POSIX,
     -- | The reason for the state change request.
     reason :: Prelude.Maybe Prelude.Text,
+    -- | The status of the state change request.
+    status :: Prelude.Maybe Prelude.Text,
     -- | The task ID or full ARN of the task in the state change request.
-    task :: Prelude.Maybe Prelude.Text,
-    -- | The Unix timestamp for when the container image pull began.
-    pullStartedAt :: Prelude.Maybe Core.POSIX
+    task :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -92,159 +93,161 @@ data SubmitTaskStateChange = SubmitTaskStateChange'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'submitTaskStateChange_status' - The status of the state change request.
---
--- 'managedAgents', 'submitTaskStateChange_managedAgents' - The details for the managed agent associated with the task.
+-- 'attachments', 'submitTaskStateChange_attachments' - Any attachments associated with the state change request.
 --
 -- 'cluster', 'submitTaskStateChange_cluster' - The short name or full Amazon Resource Name (ARN) of the cluster that
 -- hosts the task.
 --
--- 'attachments', 'submitTaskStateChange_attachments' - Any attachments associated with the state change request.
+-- 'containers', 'submitTaskStateChange_containers' - Any containers that\'s associated with the state change request.
 --
--- 'executionStoppedAt', 'submitTaskStateChange_executionStoppedAt' - The Unix timestamp for when the task execution stopped.
+-- 'executionStoppedAt', 'submitTaskStateChange_executionStoppedAt' - The Unix timestamp for the time when the task execution stopped.
 --
--- 'pullStoppedAt', 'submitTaskStateChange_pullStoppedAt' - The Unix timestamp for when the container image pull completed.
+-- 'managedAgents', 'submitTaskStateChange_managedAgents' - The details for the managed agent that\'s associated with the task.
 --
--- 'containers', 'submitTaskStateChange_containers' - Any containers associated with the state change request.
+-- 'pullStartedAt', 'submitTaskStateChange_pullStartedAt' - The Unix timestamp for the time when the container image pull started.
+--
+-- 'pullStoppedAt', 'submitTaskStateChange_pullStoppedAt' - The Unix timestamp for the time when the container image pull completed.
 --
 -- 'reason', 'submitTaskStateChange_reason' - The reason for the state change request.
 --
--- 'task', 'submitTaskStateChange_task' - The task ID or full ARN of the task in the state change request.
+-- 'status', 'submitTaskStateChange_status' - The status of the state change request.
 --
--- 'pullStartedAt', 'submitTaskStateChange_pullStartedAt' - The Unix timestamp for when the container image pull began.
+-- 'task', 'submitTaskStateChange_task' - The task ID or full ARN of the task in the state change request.
 newSubmitTaskStateChange ::
   SubmitTaskStateChange
 newSubmitTaskStateChange =
   SubmitTaskStateChange'
-    { status = Prelude.Nothing,
-      managedAgents = Prelude.Nothing,
+    { attachments =
+        Prelude.Nothing,
       cluster = Prelude.Nothing,
-      attachments = Prelude.Nothing,
-      executionStoppedAt = Prelude.Nothing,
-      pullStoppedAt = Prelude.Nothing,
       containers = Prelude.Nothing,
+      executionStoppedAt = Prelude.Nothing,
+      managedAgents = Prelude.Nothing,
+      pullStartedAt = Prelude.Nothing,
+      pullStoppedAt = Prelude.Nothing,
       reason = Prelude.Nothing,
-      task = Prelude.Nothing,
-      pullStartedAt = Prelude.Nothing
+      status = Prelude.Nothing,
+      task = Prelude.Nothing
     }
 
--- | The status of the state change request.
-submitTaskStateChange_status :: Lens.Lens' SubmitTaskStateChange (Prelude.Maybe Prelude.Text)
-submitTaskStateChange_status = Lens.lens (\SubmitTaskStateChange' {status} -> status) (\s@SubmitTaskStateChange' {} a -> s {status = a} :: SubmitTaskStateChange)
-
--- | The details for the managed agent associated with the task.
-submitTaskStateChange_managedAgents :: Lens.Lens' SubmitTaskStateChange (Prelude.Maybe [ManagedAgentStateChange])
-submitTaskStateChange_managedAgents = Lens.lens (\SubmitTaskStateChange' {managedAgents} -> managedAgents) (\s@SubmitTaskStateChange' {} a -> s {managedAgents = a} :: SubmitTaskStateChange) Prelude.. Lens.mapping Lens.coerced
+-- | Any attachments associated with the state change request.
+submitTaskStateChange_attachments :: Lens.Lens' SubmitTaskStateChange (Prelude.Maybe [AttachmentStateChange])
+submitTaskStateChange_attachments = Lens.lens (\SubmitTaskStateChange' {attachments} -> attachments) (\s@SubmitTaskStateChange' {} a -> s {attachments = a} :: SubmitTaskStateChange) Prelude.. Lens.mapping Lens.coerced
 
 -- | The short name or full Amazon Resource Name (ARN) of the cluster that
 -- hosts the task.
 submitTaskStateChange_cluster :: Lens.Lens' SubmitTaskStateChange (Prelude.Maybe Prelude.Text)
 submitTaskStateChange_cluster = Lens.lens (\SubmitTaskStateChange' {cluster} -> cluster) (\s@SubmitTaskStateChange' {} a -> s {cluster = a} :: SubmitTaskStateChange)
 
--- | Any attachments associated with the state change request.
-submitTaskStateChange_attachments :: Lens.Lens' SubmitTaskStateChange (Prelude.Maybe [AttachmentStateChange])
-submitTaskStateChange_attachments = Lens.lens (\SubmitTaskStateChange' {attachments} -> attachments) (\s@SubmitTaskStateChange' {} a -> s {attachments = a} :: SubmitTaskStateChange) Prelude.. Lens.mapping Lens.coerced
-
--- | The Unix timestamp for when the task execution stopped.
-submitTaskStateChange_executionStoppedAt :: Lens.Lens' SubmitTaskStateChange (Prelude.Maybe Prelude.UTCTime)
-submitTaskStateChange_executionStoppedAt = Lens.lens (\SubmitTaskStateChange' {executionStoppedAt} -> executionStoppedAt) (\s@SubmitTaskStateChange' {} a -> s {executionStoppedAt = a} :: SubmitTaskStateChange) Prelude.. Lens.mapping Core._Time
-
--- | The Unix timestamp for when the container image pull completed.
-submitTaskStateChange_pullStoppedAt :: Lens.Lens' SubmitTaskStateChange (Prelude.Maybe Prelude.UTCTime)
-submitTaskStateChange_pullStoppedAt = Lens.lens (\SubmitTaskStateChange' {pullStoppedAt} -> pullStoppedAt) (\s@SubmitTaskStateChange' {} a -> s {pullStoppedAt = a} :: SubmitTaskStateChange) Prelude.. Lens.mapping Core._Time
-
--- | Any containers associated with the state change request.
+-- | Any containers that\'s associated with the state change request.
 submitTaskStateChange_containers :: Lens.Lens' SubmitTaskStateChange (Prelude.Maybe [ContainerStateChange])
 submitTaskStateChange_containers = Lens.lens (\SubmitTaskStateChange' {containers} -> containers) (\s@SubmitTaskStateChange' {} a -> s {containers = a} :: SubmitTaskStateChange) Prelude.. Lens.mapping Lens.coerced
+
+-- | The Unix timestamp for the time when the task execution stopped.
+submitTaskStateChange_executionStoppedAt :: Lens.Lens' SubmitTaskStateChange (Prelude.Maybe Prelude.UTCTime)
+submitTaskStateChange_executionStoppedAt = Lens.lens (\SubmitTaskStateChange' {executionStoppedAt} -> executionStoppedAt) (\s@SubmitTaskStateChange' {} a -> s {executionStoppedAt = a} :: SubmitTaskStateChange) Prelude.. Lens.mapping Data._Time
+
+-- | The details for the managed agent that\'s associated with the task.
+submitTaskStateChange_managedAgents :: Lens.Lens' SubmitTaskStateChange (Prelude.Maybe [ManagedAgentStateChange])
+submitTaskStateChange_managedAgents = Lens.lens (\SubmitTaskStateChange' {managedAgents} -> managedAgents) (\s@SubmitTaskStateChange' {} a -> s {managedAgents = a} :: SubmitTaskStateChange) Prelude.. Lens.mapping Lens.coerced
+
+-- | The Unix timestamp for the time when the container image pull started.
+submitTaskStateChange_pullStartedAt :: Lens.Lens' SubmitTaskStateChange (Prelude.Maybe Prelude.UTCTime)
+submitTaskStateChange_pullStartedAt = Lens.lens (\SubmitTaskStateChange' {pullStartedAt} -> pullStartedAt) (\s@SubmitTaskStateChange' {} a -> s {pullStartedAt = a} :: SubmitTaskStateChange) Prelude.. Lens.mapping Data._Time
+
+-- | The Unix timestamp for the time when the container image pull completed.
+submitTaskStateChange_pullStoppedAt :: Lens.Lens' SubmitTaskStateChange (Prelude.Maybe Prelude.UTCTime)
+submitTaskStateChange_pullStoppedAt = Lens.lens (\SubmitTaskStateChange' {pullStoppedAt} -> pullStoppedAt) (\s@SubmitTaskStateChange' {} a -> s {pullStoppedAt = a} :: SubmitTaskStateChange) Prelude.. Lens.mapping Data._Time
 
 -- | The reason for the state change request.
 submitTaskStateChange_reason :: Lens.Lens' SubmitTaskStateChange (Prelude.Maybe Prelude.Text)
 submitTaskStateChange_reason = Lens.lens (\SubmitTaskStateChange' {reason} -> reason) (\s@SubmitTaskStateChange' {} a -> s {reason = a} :: SubmitTaskStateChange)
 
+-- | The status of the state change request.
+submitTaskStateChange_status :: Lens.Lens' SubmitTaskStateChange (Prelude.Maybe Prelude.Text)
+submitTaskStateChange_status = Lens.lens (\SubmitTaskStateChange' {status} -> status) (\s@SubmitTaskStateChange' {} a -> s {status = a} :: SubmitTaskStateChange)
+
 -- | The task ID or full ARN of the task in the state change request.
 submitTaskStateChange_task :: Lens.Lens' SubmitTaskStateChange (Prelude.Maybe Prelude.Text)
 submitTaskStateChange_task = Lens.lens (\SubmitTaskStateChange' {task} -> task) (\s@SubmitTaskStateChange' {} a -> s {task = a} :: SubmitTaskStateChange)
-
--- | The Unix timestamp for when the container image pull began.
-submitTaskStateChange_pullStartedAt :: Lens.Lens' SubmitTaskStateChange (Prelude.Maybe Prelude.UTCTime)
-submitTaskStateChange_pullStartedAt = Lens.lens (\SubmitTaskStateChange' {pullStartedAt} -> pullStartedAt) (\s@SubmitTaskStateChange' {} a -> s {pullStartedAt = a} :: SubmitTaskStateChange) Prelude.. Lens.mapping Core._Time
 
 instance Core.AWSRequest SubmitTaskStateChange where
   type
     AWSResponse SubmitTaskStateChange =
       SubmitTaskStateChangeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SubmitTaskStateChangeResponse'
-            Prelude.<$> (x Core..?> "acknowledgment")
+            Prelude.<$> (x Data..?> "acknowledgment")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable SubmitTaskStateChange where
   hashWithSalt _salt SubmitTaskStateChange' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` managedAgents
+    _salt `Prelude.hashWithSalt` attachments
       `Prelude.hashWithSalt` cluster
-      `Prelude.hashWithSalt` attachments
-      `Prelude.hashWithSalt` executionStoppedAt
-      `Prelude.hashWithSalt` pullStoppedAt
       `Prelude.hashWithSalt` containers
-      `Prelude.hashWithSalt` reason
-      `Prelude.hashWithSalt` task
+      `Prelude.hashWithSalt` executionStoppedAt
+      `Prelude.hashWithSalt` managedAgents
       `Prelude.hashWithSalt` pullStartedAt
+      `Prelude.hashWithSalt` pullStoppedAt
+      `Prelude.hashWithSalt` reason
+      `Prelude.hashWithSalt` status
+      `Prelude.hashWithSalt` task
 
 instance Prelude.NFData SubmitTaskStateChange where
   rnf SubmitTaskStateChange' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf managedAgents
+    Prelude.rnf attachments
       `Prelude.seq` Prelude.rnf cluster
-      `Prelude.seq` Prelude.rnf attachments
-      `Prelude.seq` Prelude.rnf executionStoppedAt
-      `Prelude.seq` Prelude.rnf pullStoppedAt
       `Prelude.seq` Prelude.rnf containers
-      `Prelude.seq` Prelude.rnf reason
-      `Prelude.seq` Prelude.rnf task
+      `Prelude.seq` Prelude.rnf executionStoppedAt
+      `Prelude.seq` Prelude.rnf managedAgents
       `Prelude.seq` Prelude.rnf pullStartedAt
+      `Prelude.seq` Prelude.rnf pullStoppedAt
+      `Prelude.seq` Prelude.rnf reason
+      `Prelude.seq` Prelude.rnf status
+      `Prelude.seq` Prelude.rnf task
 
-instance Core.ToHeaders SubmitTaskStateChange where
+instance Data.ToHeaders SubmitTaskStateChange where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerServiceV20141113.SubmitTaskStateChange" ::
+              Data.=# ( "AmazonEC2ContainerServiceV20141113.SubmitTaskStateChange" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SubmitTaskStateChange where
+instance Data.ToJSON SubmitTaskStateChange where
   toJSON SubmitTaskStateChange' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("status" Core..=) Prelude.<$> status,
-            ("managedAgents" Core..=) Prelude.<$> managedAgents,
-            ("cluster" Core..=) Prelude.<$> cluster,
-            ("attachments" Core..=) Prelude.<$> attachments,
-            ("executionStoppedAt" Core..=)
+          [ ("attachments" Data..=) Prelude.<$> attachments,
+            ("cluster" Data..=) Prelude.<$> cluster,
+            ("containers" Data..=) Prelude.<$> containers,
+            ("executionStoppedAt" Data..=)
               Prelude.<$> executionStoppedAt,
-            ("pullStoppedAt" Core..=) Prelude.<$> pullStoppedAt,
-            ("containers" Core..=) Prelude.<$> containers,
-            ("reason" Core..=) Prelude.<$> reason,
-            ("task" Core..=) Prelude.<$> task,
-            ("pullStartedAt" Core..=) Prelude.<$> pullStartedAt
+            ("managedAgents" Data..=) Prelude.<$> managedAgents,
+            ("pullStartedAt" Data..=) Prelude.<$> pullStartedAt,
+            ("pullStoppedAt" Data..=) Prelude.<$> pullStoppedAt,
+            ("reason" Data..=) Prelude.<$> reason,
+            ("status" Data..=) Prelude.<$> status,
+            ("task" Data..=) Prelude.<$> task
           ]
       )
 
-instance Core.ToPath SubmitTaskStateChange where
+instance Data.ToPath SubmitTaskStateChange where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SubmitTaskStateChange where
+instance Data.ToQuery SubmitTaskStateChange where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSubmitTaskStateChangeResponse' smart constructor.

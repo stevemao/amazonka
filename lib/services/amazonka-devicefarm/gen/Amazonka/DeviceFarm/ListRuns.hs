@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.ListRuns
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,15 +37,16 @@ module Amazonka.DeviceFarm.ListRuns
     newListRunsResponse,
 
     -- * Response Lenses
-    listRunsResponse_runs,
     listRunsResponse_nextToken,
+    listRunsResponse_runs,
     listRunsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -117,13 +118,14 @@ instance Core.AWSPager ListRuns where
 
 instance Core.AWSRequest ListRuns where
   type AWSResponse ListRuns = ListRunsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListRunsResponse'
-            Prelude.<$> (x Core..?> "runs" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "runs" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -136,46 +138,46 @@ instance Prelude.NFData ListRuns where
   rnf ListRuns' {..} =
     Prelude.rnf nextToken `Prelude.seq` Prelude.rnf arn
 
-instance Core.ToHeaders ListRuns where
+instance Data.ToHeaders ListRuns where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.ListRuns" ::
+              Data.=# ( "DeviceFarm_20150623.ListRuns" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListRuns where
+instance Data.ToJSON ListRuns where
   toJSON ListRuns' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            Prelude.Just ("arn" Core..= arn)
+          [ ("nextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("arn" Data..= arn)
           ]
       )
 
-instance Core.ToPath ListRuns where
+instance Data.ToPath ListRuns where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListRuns where
+instance Data.ToQuery ListRuns where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a list runs request.
 --
 -- /See:/ 'newListRunsResponse' smart constructor.
 data ListRunsResponse = ListRunsResponse'
-  { -- | Information about the runs.
-    runs :: Prelude.Maybe [Run],
-    -- | If the number of items that are returned is significantly large, this is
+  { -- | If the number of items that are returned is significantly large, this is
     -- an identifier that is also returned. It can be used in a subsequent call
     -- to this operation to return the next set of items in the list.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the runs.
+    runs :: Prelude.Maybe [Run],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -189,11 +191,11 @@ data ListRunsResponse = ListRunsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'runs', 'listRunsResponse_runs' - Information about the runs.
---
 -- 'nextToken', 'listRunsResponse_nextToken' - If the number of items that are returned is significantly large, this is
 -- an identifier that is also returned. It can be used in a subsequent call
 -- to this operation to return the next set of items in the list.
+--
+-- 'runs', 'listRunsResponse_runs' - Information about the runs.
 --
 -- 'httpStatus', 'listRunsResponse_httpStatus' - The response's http status code.
 newListRunsResponse ::
@@ -202,14 +204,10 @@ newListRunsResponse ::
   ListRunsResponse
 newListRunsResponse pHttpStatus_ =
   ListRunsResponse'
-    { runs = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { nextToken = Prelude.Nothing,
+      runs = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Information about the runs.
-listRunsResponse_runs :: Lens.Lens' ListRunsResponse (Prelude.Maybe [Run])
-listRunsResponse_runs = Lens.lens (\ListRunsResponse' {runs} -> runs) (\s@ListRunsResponse' {} a -> s {runs = a} :: ListRunsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | If the number of items that are returned is significantly large, this is
 -- an identifier that is also returned. It can be used in a subsequent call
@@ -217,12 +215,16 @@ listRunsResponse_runs = Lens.lens (\ListRunsResponse' {runs} -> runs) (\s@ListRu
 listRunsResponse_nextToken :: Lens.Lens' ListRunsResponse (Prelude.Maybe Prelude.Text)
 listRunsResponse_nextToken = Lens.lens (\ListRunsResponse' {nextToken} -> nextToken) (\s@ListRunsResponse' {} a -> s {nextToken = a} :: ListRunsResponse)
 
+-- | Information about the runs.
+listRunsResponse_runs :: Lens.Lens' ListRunsResponse (Prelude.Maybe [Run])
+listRunsResponse_runs = Lens.lens (\ListRunsResponse' {runs} -> runs) (\s@ListRunsResponse' {} a -> s {runs = a} :: ListRunsResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The response's http status code.
 listRunsResponse_httpStatus :: Lens.Lens' ListRunsResponse Prelude.Int
 listRunsResponse_httpStatus = Lens.lens (\ListRunsResponse' {httpStatus} -> httpStatus) (\s@ListRunsResponse' {} a -> s {httpStatus = a} :: ListRunsResponse)
 
 instance Prelude.NFData ListRunsResponse where
   rnf ListRunsResponse' {..} =
-    Prelude.rnf runs
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf runs
       `Prelude.seq` Prelude.rnf httpStatus

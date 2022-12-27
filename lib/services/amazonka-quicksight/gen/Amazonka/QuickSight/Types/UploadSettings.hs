@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.UploadSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.UploadSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types.FileFormat
 import Amazonka.QuickSight.Types.TextQualifier
@@ -29,16 +30,16 @@ import Amazonka.QuickSight.Types.TextQualifier
 --
 -- /See:/ 'newUploadSettings' smart constructor.
 data UploadSettings = UploadSettings'
-  { -- | A row number to start reading data from.
-    startFromRow :: Prelude.Maybe Prelude.Natural,
-    -- | Whether the file has a header row, or the files each have a header row.
+  { -- | Whether the file has a header row, or the files each have a header row.
     containsHeader :: Prelude.Maybe Prelude.Bool,
-    -- | Text qualifier.
-    textQualifier :: Prelude.Maybe TextQualifier,
+    -- | The delimiter between values in the file.
+    delimiter :: Prelude.Maybe Prelude.Text,
     -- | File format.
     format :: Prelude.Maybe FileFormat,
-    -- | The delimiter between values in the file.
-    delimiter :: Prelude.Maybe Prelude.Text
+    -- | A row number to start reading data from.
+    startFromRow :: Prelude.Maybe Prelude.Natural,
+    -- | Text qualifier.
+    textQualifier :: Prelude.Maybe TextQualifier
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -50,84 +51,84 @@ data UploadSettings = UploadSettings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'startFromRow', 'uploadSettings_startFromRow' - A row number to start reading data from.
---
 -- 'containsHeader', 'uploadSettings_containsHeader' - Whether the file has a header row, or the files each have a header row.
 --
--- 'textQualifier', 'uploadSettings_textQualifier' - Text qualifier.
+-- 'delimiter', 'uploadSettings_delimiter' - The delimiter between values in the file.
 --
 -- 'format', 'uploadSettings_format' - File format.
 --
--- 'delimiter', 'uploadSettings_delimiter' - The delimiter between values in the file.
+-- 'startFromRow', 'uploadSettings_startFromRow' - A row number to start reading data from.
+--
+-- 'textQualifier', 'uploadSettings_textQualifier' - Text qualifier.
 newUploadSettings ::
   UploadSettings
 newUploadSettings =
   UploadSettings'
-    { startFromRow = Prelude.Nothing,
-      containsHeader = Prelude.Nothing,
-      textQualifier = Prelude.Nothing,
+    { containsHeader = Prelude.Nothing,
+      delimiter = Prelude.Nothing,
       format = Prelude.Nothing,
-      delimiter = Prelude.Nothing
+      startFromRow = Prelude.Nothing,
+      textQualifier = Prelude.Nothing
     }
-
--- | A row number to start reading data from.
-uploadSettings_startFromRow :: Lens.Lens' UploadSettings (Prelude.Maybe Prelude.Natural)
-uploadSettings_startFromRow = Lens.lens (\UploadSettings' {startFromRow} -> startFromRow) (\s@UploadSettings' {} a -> s {startFromRow = a} :: UploadSettings)
 
 -- | Whether the file has a header row, or the files each have a header row.
 uploadSettings_containsHeader :: Lens.Lens' UploadSettings (Prelude.Maybe Prelude.Bool)
 uploadSettings_containsHeader = Lens.lens (\UploadSettings' {containsHeader} -> containsHeader) (\s@UploadSettings' {} a -> s {containsHeader = a} :: UploadSettings)
 
--- | Text qualifier.
-uploadSettings_textQualifier :: Lens.Lens' UploadSettings (Prelude.Maybe TextQualifier)
-uploadSettings_textQualifier = Lens.lens (\UploadSettings' {textQualifier} -> textQualifier) (\s@UploadSettings' {} a -> s {textQualifier = a} :: UploadSettings)
+-- | The delimiter between values in the file.
+uploadSettings_delimiter :: Lens.Lens' UploadSettings (Prelude.Maybe Prelude.Text)
+uploadSettings_delimiter = Lens.lens (\UploadSettings' {delimiter} -> delimiter) (\s@UploadSettings' {} a -> s {delimiter = a} :: UploadSettings)
 
 -- | File format.
 uploadSettings_format :: Lens.Lens' UploadSettings (Prelude.Maybe FileFormat)
 uploadSettings_format = Lens.lens (\UploadSettings' {format} -> format) (\s@UploadSettings' {} a -> s {format = a} :: UploadSettings)
 
--- | The delimiter between values in the file.
-uploadSettings_delimiter :: Lens.Lens' UploadSettings (Prelude.Maybe Prelude.Text)
-uploadSettings_delimiter = Lens.lens (\UploadSettings' {delimiter} -> delimiter) (\s@UploadSettings' {} a -> s {delimiter = a} :: UploadSettings)
+-- | A row number to start reading data from.
+uploadSettings_startFromRow :: Lens.Lens' UploadSettings (Prelude.Maybe Prelude.Natural)
+uploadSettings_startFromRow = Lens.lens (\UploadSettings' {startFromRow} -> startFromRow) (\s@UploadSettings' {} a -> s {startFromRow = a} :: UploadSettings)
 
-instance Core.FromJSON UploadSettings where
+-- | Text qualifier.
+uploadSettings_textQualifier :: Lens.Lens' UploadSettings (Prelude.Maybe TextQualifier)
+uploadSettings_textQualifier = Lens.lens (\UploadSettings' {textQualifier} -> textQualifier) (\s@UploadSettings' {} a -> s {textQualifier = a} :: UploadSettings)
+
+instance Data.FromJSON UploadSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UploadSettings"
       ( \x ->
           UploadSettings'
-            Prelude.<$> (x Core..:? "StartFromRow")
-            Prelude.<*> (x Core..:? "ContainsHeader")
-            Prelude.<*> (x Core..:? "TextQualifier")
-            Prelude.<*> (x Core..:? "Format")
-            Prelude.<*> (x Core..:? "Delimiter")
+            Prelude.<$> (x Data..:? "ContainsHeader")
+            Prelude.<*> (x Data..:? "Delimiter")
+            Prelude.<*> (x Data..:? "Format")
+            Prelude.<*> (x Data..:? "StartFromRow")
+            Prelude.<*> (x Data..:? "TextQualifier")
       )
 
 instance Prelude.Hashable UploadSettings where
   hashWithSalt _salt UploadSettings' {..} =
-    _salt `Prelude.hashWithSalt` startFromRow
-      `Prelude.hashWithSalt` containsHeader
-      `Prelude.hashWithSalt` textQualifier
-      `Prelude.hashWithSalt` format
+    _salt `Prelude.hashWithSalt` containsHeader
       `Prelude.hashWithSalt` delimiter
+      `Prelude.hashWithSalt` format
+      `Prelude.hashWithSalt` startFromRow
+      `Prelude.hashWithSalt` textQualifier
 
 instance Prelude.NFData UploadSettings where
   rnf UploadSettings' {..} =
-    Prelude.rnf startFromRow
-      `Prelude.seq` Prelude.rnf containsHeader
-      `Prelude.seq` Prelude.rnf textQualifier
-      `Prelude.seq` Prelude.rnf format
+    Prelude.rnf containsHeader
       `Prelude.seq` Prelude.rnf delimiter
+      `Prelude.seq` Prelude.rnf format
+      `Prelude.seq` Prelude.rnf startFromRow
+      `Prelude.seq` Prelude.rnf textQualifier
 
-instance Core.ToJSON UploadSettings where
+instance Data.ToJSON UploadSettings where
   toJSON UploadSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("StartFromRow" Core..=) Prelude.<$> startFromRow,
-            ("ContainsHeader" Core..=)
+          [ ("ContainsHeader" Data..=)
               Prelude.<$> containsHeader,
-            ("TextQualifier" Core..=) Prelude.<$> textQualifier,
-            ("Format" Core..=) Prelude.<$> format,
-            ("Delimiter" Core..=) Prelude.<$> delimiter
+            ("Delimiter" Data..=) Prelude.<$> delimiter,
+            ("Format" Data..=) Prelude.<$> format,
+            ("StartFromRow" Data..=) Prelude.<$> startFromRow,
+            ("TextQualifier" Data..=) Prelude.<$> textQualifier
           ]
       )

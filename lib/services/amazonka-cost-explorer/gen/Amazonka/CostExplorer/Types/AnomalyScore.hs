@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.Types.AnomalyScore
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CostExplorer.Types.AnomalyScore where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Quantifies the anomaly. The higher score means that it\'s more
@@ -66,14 +67,14 @@ anomalyScore_maxScore = Lens.lens (\AnomalyScore' {maxScore} -> maxScore) (\s@An
 anomalyScore_currentScore :: Lens.Lens' AnomalyScore Prelude.Double
 anomalyScore_currentScore = Lens.lens (\AnomalyScore' {currentScore} -> currentScore) (\s@AnomalyScore' {} a -> s {currentScore = a} :: AnomalyScore)
 
-instance Core.FromJSON AnomalyScore where
+instance Data.FromJSON AnomalyScore where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AnomalyScore"
       ( \x ->
           AnomalyScore'
-            Prelude.<$> (x Core..: "MaxScore")
-            Prelude.<*> (x Core..: "CurrentScore")
+            Prelude.<$> (x Data..: "MaxScore")
+            Prelude.<*> (x Data..: "CurrentScore")
       )
 
 instance Prelude.Hashable AnomalyScore where

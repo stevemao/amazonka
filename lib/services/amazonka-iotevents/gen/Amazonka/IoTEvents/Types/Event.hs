@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.Types.Event
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTEvents.Types.Event where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types.Action
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the @actions@ to be performed when the @condition@ evaluates
@@ -83,15 +84,15 @@ event_condition = Lens.lens (\Event' {condition} -> condition) (\s@Event' {} a -
 event_eventName :: Lens.Lens' Event Prelude.Text
 event_eventName = Lens.lens (\Event' {eventName} -> eventName) (\s@Event' {} a -> s {eventName = a} :: Event)
 
-instance Core.FromJSON Event where
+instance Data.FromJSON Event where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Event"
       ( \x ->
           Event'
-            Prelude.<$> (x Core..:? "actions" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "condition")
-            Prelude.<*> (x Core..: "eventName")
+            Prelude.<$> (x Data..:? "actions" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "condition")
+            Prelude.<*> (x Data..: "eventName")
       )
 
 instance Prelude.Hashable Event where
@@ -106,12 +107,12 @@ instance Prelude.NFData Event where
       `Prelude.seq` Prelude.rnf condition
       `Prelude.seq` Prelude.rnf eventName
 
-instance Core.ToJSON Event where
+instance Data.ToJSON Event where
   toJSON Event' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("actions" Core..=) Prelude.<$> actions,
-            ("condition" Core..=) Prelude.<$> condition,
-            Prelude.Just ("eventName" Core..= eventName)
+          [ ("actions" Data..=) Prelude.<$> actions,
+            ("condition" Data..=) Prelude.<$> condition,
+            Prelude.Just ("eventName" Data..= eventName)
           ]
       )

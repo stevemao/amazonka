@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.Types.Metadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.LicenseManager.Types.Metadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes key\/value pairs.
 --
 -- /See:/ 'newMetadata' smart constructor.
 data Metadata = Metadata'
-  { -- | The value.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The key name.
-    name :: Prelude.Maybe Prelude.Text
+  { -- | The key name.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The value.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,48 +43,48 @@ data Metadata = Metadata'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'metadata_value' - The value.
---
 -- 'name', 'metadata_name' - The key name.
+--
+-- 'value', 'metadata_value' - The value.
 newMetadata ::
   Metadata
 newMetadata =
   Metadata'
-    { value = Prelude.Nothing,
-      name = Prelude.Nothing
+    { name = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The value.
-metadata_value :: Lens.Lens' Metadata (Prelude.Maybe Prelude.Text)
-metadata_value = Lens.lens (\Metadata' {value} -> value) (\s@Metadata' {} a -> s {value = a} :: Metadata)
 
 -- | The key name.
 metadata_name :: Lens.Lens' Metadata (Prelude.Maybe Prelude.Text)
 metadata_name = Lens.lens (\Metadata' {name} -> name) (\s@Metadata' {} a -> s {name = a} :: Metadata)
 
-instance Core.FromJSON Metadata where
+-- | The value.
+metadata_value :: Lens.Lens' Metadata (Prelude.Maybe Prelude.Text)
+metadata_value = Lens.lens (\Metadata' {value} -> value) (\s@Metadata' {} a -> s {value = a} :: Metadata)
+
+instance Data.FromJSON Metadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Metadata"
       ( \x ->
           Metadata'
-            Prelude.<$> (x Core..:? "Value") Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Name") Prelude.<*> (x Data..:? "Value")
       )
 
 instance Prelude.Hashable Metadata where
   hashWithSalt _salt Metadata' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData Metadata where
   rnf Metadata' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON Metadata where
+instance Data.ToJSON Metadata where
   toJSON Metadata' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Value" Core..=) Prelude.<$> value,
-            ("Name" Core..=) Prelude.<$> name
+          [ ("Name" Data..=) Prelude.<$> name,
+            ("Value" Data..=) Prelude.<$> value
           ]
       )

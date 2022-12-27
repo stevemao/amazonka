@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSMIncidents.Types.TriggerDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSMIncidents.Types.TriggerDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details about what caused the incident to be created in Incident
@@ -28,18 +29,19 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newTriggerDetails' smart constructor.
 data TriggerDetails = TriggerDetails'
-  { -- | Raw data passed from either EventBridge, CloudWatch, or Incident Manager
-    -- when an incident is created.
+  { -- | Raw data passed from either Amazon EventBridge, Amazon CloudWatch, or
+    -- Incident Manager when an incident is created.
     rawData :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the source that detected the incident.
+    -- | The Amazon Resource Name (ARN) of the source that detected the incident.
     triggerArn :: Prelude.Maybe Prelude.Text,
     -- | Identifies the service that sourced the event. All events sourced from
-    -- within AWS begin with \"aws.\" Customer-generated events can have any
-    -- value here, as long as it doesn\'t begin with \"aws.\" We recommend the
-    -- use of Java package-name style reverse domain-name strings.
+    -- within Amazon Web Services begin with \"@aws.@\" Customer-generated
+    -- events can have any value here, as long as it doesn\'t begin with
+    -- \"@aws.@\" We recommend the use of Java package-name style reverse
+    -- domain-name strings.
     source :: Prelude.Text,
     -- | The time that the incident was detected.
-    timestamp :: Core.POSIX
+    timestamp :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -51,15 +53,16 @@ data TriggerDetails = TriggerDetails'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'rawData', 'triggerDetails_rawData' - Raw data passed from either EventBridge, CloudWatch, or Incident Manager
--- when an incident is created.
+-- 'rawData', 'triggerDetails_rawData' - Raw data passed from either Amazon EventBridge, Amazon CloudWatch, or
+-- Incident Manager when an incident is created.
 --
--- 'triggerArn', 'triggerDetails_triggerArn' - The ARN of the source that detected the incident.
+-- 'triggerArn', 'triggerDetails_triggerArn' - The Amazon Resource Name (ARN) of the source that detected the incident.
 --
 -- 'source', 'triggerDetails_source' - Identifies the service that sourced the event. All events sourced from
--- within AWS begin with \"aws.\" Customer-generated events can have any
--- value here, as long as it doesn\'t begin with \"aws.\" We recommend the
--- use of Java package-name style reverse domain-name strings.
+-- within Amazon Web Services begin with \"@aws.@\" Customer-generated
+-- events can have any value here, as long as it doesn\'t begin with
+-- \"@aws.@\" We recommend the use of Java package-name style reverse
+-- domain-name strings.
 --
 -- 'timestamp', 'triggerDetails_timestamp' - The time that the incident was detected.
 newTriggerDetails ::
@@ -73,28 +76,29 @@ newTriggerDetails pSource_ pTimestamp_ =
     { rawData = Prelude.Nothing,
       triggerArn = Prelude.Nothing,
       source = pSource_,
-      timestamp = Core._Time Lens.# pTimestamp_
+      timestamp = Data._Time Lens.# pTimestamp_
     }
 
--- | Raw data passed from either EventBridge, CloudWatch, or Incident Manager
--- when an incident is created.
+-- | Raw data passed from either Amazon EventBridge, Amazon CloudWatch, or
+-- Incident Manager when an incident is created.
 triggerDetails_rawData :: Lens.Lens' TriggerDetails (Prelude.Maybe Prelude.Text)
 triggerDetails_rawData = Lens.lens (\TriggerDetails' {rawData} -> rawData) (\s@TriggerDetails' {} a -> s {rawData = a} :: TriggerDetails)
 
--- | The ARN of the source that detected the incident.
+-- | The Amazon Resource Name (ARN) of the source that detected the incident.
 triggerDetails_triggerArn :: Lens.Lens' TriggerDetails (Prelude.Maybe Prelude.Text)
 triggerDetails_triggerArn = Lens.lens (\TriggerDetails' {triggerArn} -> triggerArn) (\s@TriggerDetails' {} a -> s {triggerArn = a} :: TriggerDetails)
 
 -- | Identifies the service that sourced the event. All events sourced from
--- within AWS begin with \"aws.\" Customer-generated events can have any
--- value here, as long as it doesn\'t begin with \"aws.\" We recommend the
--- use of Java package-name style reverse domain-name strings.
+-- within Amazon Web Services begin with \"@aws.@\" Customer-generated
+-- events can have any value here, as long as it doesn\'t begin with
+-- \"@aws.@\" We recommend the use of Java package-name style reverse
+-- domain-name strings.
 triggerDetails_source :: Lens.Lens' TriggerDetails Prelude.Text
 triggerDetails_source = Lens.lens (\TriggerDetails' {source} -> source) (\s@TriggerDetails' {} a -> s {source = a} :: TriggerDetails)
 
 -- | The time that the incident was detected.
 triggerDetails_timestamp :: Lens.Lens' TriggerDetails Prelude.UTCTime
-triggerDetails_timestamp = Lens.lens (\TriggerDetails' {timestamp} -> timestamp) (\s@TriggerDetails' {} a -> s {timestamp = a} :: TriggerDetails) Prelude.. Core._Time
+triggerDetails_timestamp = Lens.lens (\TriggerDetails' {timestamp} -> timestamp) (\s@TriggerDetails' {} a -> s {timestamp = a} :: TriggerDetails) Prelude.. Data._Time
 
 instance Prelude.Hashable TriggerDetails where
   hashWithSalt _salt TriggerDetails' {..} =
@@ -110,13 +114,13 @@ instance Prelude.NFData TriggerDetails where
       `Prelude.seq` Prelude.rnf source
       `Prelude.seq` Prelude.rnf timestamp
 
-instance Core.ToJSON TriggerDetails where
+instance Data.ToJSON TriggerDetails where
   toJSON TriggerDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("rawData" Core..=) Prelude.<$> rawData,
-            ("triggerArn" Core..=) Prelude.<$> triggerArn,
-            Prelude.Just ("source" Core..= source),
-            Prelude.Just ("timestamp" Core..= timestamp)
+          [ ("rawData" Data..=) Prelude.<$> rawData,
+            ("triggerArn" Data..=) Prelude.<$> triggerArn,
+            Prelude.Just ("source" Data..= source),
+            Prelude.Just ("timestamp" Data..= timestamp)
           ]
       )

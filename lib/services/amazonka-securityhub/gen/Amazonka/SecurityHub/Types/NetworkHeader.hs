@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.NetworkHeader
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.NetworkHeader where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.NetworkPathComponentDetails
 
@@ -72,15 +73,15 @@ networkHeader_protocol = Lens.lens (\NetworkHeader' {protocol} -> protocol) (\s@
 networkHeader_source :: Lens.Lens' NetworkHeader (Prelude.Maybe NetworkPathComponentDetails)
 networkHeader_source = Lens.lens (\NetworkHeader' {source} -> source) (\s@NetworkHeader' {} a -> s {source = a} :: NetworkHeader)
 
-instance Core.FromJSON NetworkHeader where
+instance Data.FromJSON NetworkHeader where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NetworkHeader"
       ( \x ->
           NetworkHeader'
-            Prelude.<$> (x Core..:? "Destination")
-            Prelude.<*> (x Core..:? "Protocol")
-            Prelude.<*> (x Core..:? "Source")
+            Prelude.<$> (x Data..:? "Destination")
+            Prelude.<*> (x Data..:? "Protocol")
+            Prelude.<*> (x Data..:? "Source")
       )
 
 instance Prelude.Hashable NetworkHeader where
@@ -95,12 +96,12 @@ instance Prelude.NFData NetworkHeader where
       `Prelude.seq` Prelude.rnf protocol
       `Prelude.seq` Prelude.rnf source
 
-instance Core.ToJSON NetworkHeader where
+instance Data.ToJSON NetworkHeader where
   toJSON NetworkHeader' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Destination" Core..=) Prelude.<$> destination,
-            ("Protocol" Core..=) Prelude.<$> protocol,
-            ("Source" Core..=) Prelude.<$> source
+          [ ("Destination" Data..=) Prelude.<$> destination,
+            ("Protocol" Data..=) Prelude.<$> protocol,
+            ("Source" Data..=) Prelude.<$> source
           ]
       )

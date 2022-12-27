@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.PersonalizeRuntime.GetPersonalizedRanking
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,7 +51,8 @@ module Amazonka.PersonalizeRuntime.GetPersonalizedRanking
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.PersonalizeRuntime.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -63,7 +64,7 @@ data GetPersonalizedRanking = GetPersonalizedRanking'
     -- metadata includes any interaction information that might be relevant
     -- when getting a user\'s recommendations, such as the user\'s current
     -- location or device type.
-    context :: Prelude.Maybe (Prelude.HashMap Prelude.Text (Core.Sensitive Prelude.Text)),
+    context :: Prelude.Maybe (Prelude.HashMap Prelude.Text (Data.Sensitive Prelude.Text)),
     -- | The Amazon Resource Name (ARN) of a filter you created to include items
     -- or exclude items from recommendations for a given user. For more
     -- information, see
@@ -83,7 +84,7 @@ data GetPersonalizedRanking = GetPersonalizedRanking'
     --
     -- For more information, see
     -- <https://docs.aws.amazon.com/personalize/latest/dg/filter.html Filtering Recommendations>.
-    filterValues :: Prelude.Maybe (Prelude.HashMap Prelude.Text (Core.Sensitive Prelude.Text)),
+    filterValues :: Prelude.Maybe (Prelude.HashMap Prelude.Text (Data.Sensitive Prelude.Text)),
     -- | The Amazon Resource Name (ARN) of the campaign to use for generating the
     -- personalized ranking.
     campaignArn :: Prelude.Text,
@@ -206,15 +207,16 @@ instance Core.AWSRequest GetPersonalizedRanking where
   type
     AWSResponse GetPersonalizedRanking =
       GetPersonalizedRankingResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetPersonalizedRankingResponse'
-            Prelude.<$> ( x Core..?> "personalizedRanking"
+            Prelude.<$> ( x Data..?> "personalizedRanking"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "recommendationId")
+            Prelude.<*> (x Data..?> "recommendationId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -236,34 +238,34 @@ instance Prelude.NFData GetPersonalizedRanking where
       `Prelude.seq` Prelude.rnf inputList
       `Prelude.seq` Prelude.rnf userId
 
-instance Core.ToHeaders GetPersonalizedRanking where
+instance Data.ToHeaders GetPersonalizedRanking where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetPersonalizedRanking where
+instance Data.ToJSON GetPersonalizedRanking where
   toJSON GetPersonalizedRanking' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("context" Core..=) Prelude.<$> context,
-            ("filterArn" Core..=) Prelude.<$> filterArn,
-            ("filterValues" Core..=) Prelude.<$> filterValues,
-            Prelude.Just ("campaignArn" Core..= campaignArn),
-            Prelude.Just ("inputList" Core..= inputList),
-            Prelude.Just ("userId" Core..= userId)
+          [ ("context" Data..=) Prelude.<$> context,
+            ("filterArn" Data..=) Prelude.<$> filterArn,
+            ("filterValues" Data..=) Prelude.<$> filterValues,
+            Prelude.Just ("campaignArn" Data..= campaignArn),
+            Prelude.Just ("inputList" Data..= inputList),
+            Prelude.Just ("userId" Data..= userId)
           ]
       )
 
-instance Core.ToPath GetPersonalizedRanking where
+instance Data.ToPath GetPersonalizedRanking where
   toPath = Prelude.const "/personalize-ranking"
 
-instance Core.ToQuery GetPersonalizedRanking where
+instance Data.ToQuery GetPersonalizedRanking where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetPersonalizedRankingResponse' smart constructor.

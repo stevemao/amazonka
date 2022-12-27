@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.FederatedAuthentication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.FederatedAuthentication where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the IAM SAML identity providers used for federated
@@ -67,11 +68,11 @@ federatedAuthentication_samlProviderArn = Lens.lens (\FederatedAuthentication' {
 federatedAuthentication_selfServiceSamlProviderArn :: Lens.Lens' FederatedAuthentication (Prelude.Maybe Prelude.Text)
 federatedAuthentication_selfServiceSamlProviderArn = Lens.lens (\FederatedAuthentication' {selfServiceSamlProviderArn} -> selfServiceSamlProviderArn) (\s@FederatedAuthentication' {} a -> s {selfServiceSamlProviderArn = a} :: FederatedAuthentication)
 
-instance Core.FromXML FederatedAuthentication where
+instance Data.FromXML FederatedAuthentication where
   parseXML x =
     FederatedAuthentication'
-      Prelude.<$> (x Core..@? "samlProviderArn")
-      Prelude.<*> (x Core..@? "selfServiceSamlProviderArn")
+      Prelude.<$> (x Data..@? "samlProviderArn")
+      Prelude.<*> (x Data..@? "selfServiceSamlProviderArn")
 
 instance Prelude.Hashable FederatedAuthentication where
   hashWithSalt _salt FederatedAuthentication' {..} =

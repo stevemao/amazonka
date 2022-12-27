@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.Types.CloudWatchLogsLogDelivery
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KafkaConnect.Types.CloudWatchLogsLogDelivery where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The settings for delivering connector logs to Amazon CloudWatch Logs.
@@ -77,11 +78,11 @@ instance Prelude.NFData CloudWatchLogsLogDelivery where
     Prelude.rnf logGroup
       `Prelude.seq` Prelude.rnf enabled
 
-instance Core.ToJSON CloudWatchLogsLogDelivery where
+instance Data.ToJSON CloudWatchLogsLogDelivery where
   toJSON CloudWatchLogsLogDelivery' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("logGroup" Core..=) Prelude.<$> logGroup,
-            Prelude.Just ("enabled" Core..= enabled)
+          [ ("logGroup" Data..=) Prelude.<$> logGroup,
+            Prelude.Just ("enabled" Data..= enabled)
           ]
       )

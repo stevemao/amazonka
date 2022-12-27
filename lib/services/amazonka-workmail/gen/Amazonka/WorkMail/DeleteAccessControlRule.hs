@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.DeleteAccessControlRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.WorkMail.DeleteAccessControlRule
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,7 +96,8 @@ instance Core.AWSRequest DeleteAccessControlRule where
   type
     AWSResponse DeleteAccessControlRule =
       DeleteAccessControlRuleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -113,35 +115,35 @@ instance Prelude.NFData DeleteAccessControlRule where
     Prelude.rnf organizationId
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders DeleteAccessControlRule where
+instance Data.ToHeaders DeleteAccessControlRule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkMailService.DeleteAccessControlRule" ::
+              Data.=# ( "WorkMailService.DeleteAccessControlRule" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteAccessControlRule where
+instance Data.ToJSON DeleteAccessControlRule where
   toJSON DeleteAccessControlRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("OrganizationId" Core..= organizationId),
-            Prelude.Just ("Name" Core..= name)
+              ("OrganizationId" Data..= organizationId),
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath DeleteAccessControlRule where
+instance Data.ToPath DeleteAccessControlRule where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteAccessControlRule where
+instance Data.ToQuery DeleteAccessControlRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAccessControlRuleResponse' smart constructor.

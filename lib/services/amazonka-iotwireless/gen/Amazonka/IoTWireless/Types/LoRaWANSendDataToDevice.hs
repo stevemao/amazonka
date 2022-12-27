@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.Types.LoRaWANSendDataToDevice
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,19 @@
 module Amazonka.IoTWireless.Types.LoRaWANSendDataToDevice where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.IoTWireless.Types.ParticipatingGateways
 import qualified Amazonka.Prelude as Prelude
 
 -- | LoRaWAN router info.
 --
 -- /See:/ 'newLoRaWANSendDataToDevice' smart constructor.
 data LoRaWANSendDataToDevice = LoRaWANSendDataToDevice'
-  { -- | The Fport value.
-    fPort :: Prelude.Maybe Prelude.Natural
+  { fPort :: Prelude.Maybe Prelude.Natural,
+    -- | Choose the gateways that you want to use for the downlink data traffic
+    -- when the wireless device is running in class B or class C mode.
+    participatingGateways :: Prelude.Maybe ParticipatingGateways
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -40,26 +44,53 @@ data LoRaWANSendDataToDevice = LoRaWANSendDataToDevice'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'fPort', 'loRaWANSendDataToDevice_fPort' - The Fport value.
+-- 'fPort', 'loRaWANSendDataToDevice_fPort' - Undocumented member.
+--
+-- 'participatingGateways', 'loRaWANSendDataToDevice_participatingGateways' - Choose the gateways that you want to use for the downlink data traffic
+-- when the wireless device is running in class B or class C mode.
 newLoRaWANSendDataToDevice ::
   LoRaWANSendDataToDevice
 newLoRaWANSendDataToDevice =
-  LoRaWANSendDataToDevice' {fPort = Prelude.Nothing}
+  LoRaWANSendDataToDevice'
+    { fPort = Prelude.Nothing,
+      participatingGateways = Prelude.Nothing
+    }
 
--- | The Fport value.
+-- | Undocumented member.
 loRaWANSendDataToDevice_fPort :: Lens.Lens' LoRaWANSendDataToDevice (Prelude.Maybe Prelude.Natural)
 loRaWANSendDataToDevice_fPort = Lens.lens (\LoRaWANSendDataToDevice' {fPort} -> fPort) (\s@LoRaWANSendDataToDevice' {} a -> s {fPort = a} :: LoRaWANSendDataToDevice)
+
+-- | Choose the gateways that you want to use for the downlink data traffic
+-- when the wireless device is running in class B or class C mode.
+loRaWANSendDataToDevice_participatingGateways :: Lens.Lens' LoRaWANSendDataToDevice (Prelude.Maybe ParticipatingGateways)
+loRaWANSendDataToDevice_participatingGateways = Lens.lens (\LoRaWANSendDataToDevice' {participatingGateways} -> participatingGateways) (\s@LoRaWANSendDataToDevice' {} a -> s {participatingGateways = a} :: LoRaWANSendDataToDevice)
+
+instance Data.FromJSON LoRaWANSendDataToDevice where
+  parseJSON =
+    Data.withObject
+      "LoRaWANSendDataToDevice"
+      ( \x ->
+          LoRaWANSendDataToDevice'
+            Prelude.<$> (x Data..:? "FPort")
+            Prelude.<*> (x Data..:? "ParticipatingGateways")
+      )
 
 instance Prelude.Hashable LoRaWANSendDataToDevice where
   hashWithSalt _salt LoRaWANSendDataToDevice' {..} =
     _salt `Prelude.hashWithSalt` fPort
+      `Prelude.hashWithSalt` participatingGateways
 
 instance Prelude.NFData LoRaWANSendDataToDevice where
-  rnf LoRaWANSendDataToDevice' {..} = Prelude.rnf fPort
+  rnf LoRaWANSendDataToDevice' {..} =
+    Prelude.rnf fPort
+      `Prelude.seq` Prelude.rnf participatingGateways
 
-instance Core.ToJSON LoRaWANSendDataToDevice where
+instance Data.ToJSON LoRaWANSendDataToDevice where
   toJSON LoRaWANSendDataToDevice' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("FPort" Core..=) Prelude.<$> fPort]
+          [ ("FPort" Data..=) Prelude.<$> fPort,
+            ("ParticipatingGateways" Data..=)
+              Prelude.<$> participatingGateways
+          ]
       )

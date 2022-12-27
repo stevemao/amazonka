@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.DeleteDBParameterGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,7 +37,8 @@ module Amazonka.RDS.DeleteDBParameterGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -103,7 +104,8 @@ instance Core.AWSRequest DeleteDBParameterGroup where
   type
     AWSResponse DeleteDBParameterGroup =
       DeleteDBParameterGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       DeleteDBParameterGroupResponse'
@@ -116,20 +118,20 @@ instance Prelude.NFData DeleteDBParameterGroup where
   rnf DeleteDBParameterGroup' {..} =
     Prelude.rnf dbParameterGroupName
 
-instance Core.ToHeaders DeleteDBParameterGroup where
+instance Data.ToHeaders DeleteDBParameterGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteDBParameterGroup where
+instance Data.ToPath DeleteDBParameterGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDBParameterGroup where
+instance Data.ToQuery DeleteDBParameterGroup where
   toQuery DeleteDBParameterGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteDBParameterGroup" :: Prelude.ByteString),
+          Data.=: ("DeleteDBParameterGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "DBParameterGroupName" Core.=: dbParameterGroupName
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBParameterGroupName" Data.=: dbParameterGroupName
       ]
 
 -- | /See:/ 'newDeleteDBParameterGroupResponse' smart constructor.

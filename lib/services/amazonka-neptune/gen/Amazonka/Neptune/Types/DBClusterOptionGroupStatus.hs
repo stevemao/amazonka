@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Neptune.Types.DBClusterOptionGroupStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Neptune.Types.DBClusterOptionGroupStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Not supported by Neptune.
@@ -28,9 +29,9 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newDBClusterOptionGroupStatus' smart constructor.
 data DBClusterOptionGroupStatus = DBClusterOptionGroupStatus'
   { -- | Not supported by Neptune.
-    status :: Prelude.Maybe Prelude.Text,
+    dbClusterOptionGroupName :: Prelude.Maybe Prelude.Text,
     -- | Not supported by Neptune.
-    dbClusterOptionGroupName :: Prelude.Maybe Prelude.Text
+    status :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,38 +43,39 @@ data DBClusterOptionGroupStatus = DBClusterOptionGroupStatus'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'dbClusterOptionGroupStatus_status' - Not supported by Neptune.
---
 -- 'dbClusterOptionGroupName', 'dbClusterOptionGroupStatus_dbClusterOptionGroupName' - Not supported by Neptune.
+--
+-- 'status', 'dbClusterOptionGroupStatus_status' - Not supported by Neptune.
 newDBClusterOptionGroupStatus ::
   DBClusterOptionGroupStatus
 newDBClusterOptionGroupStatus =
   DBClusterOptionGroupStatus'
-    { status =
+    { dbClusterOptionGroupName =
         Prelude.Nothing,
-      dbClusterOptionGroupName = Prelude.Nothing
+      status = Prelude.Nothing
     }
-
--- | Not supported by Neptune.
-dbClusterOptionGroupStatus_status :: Lens.Lens' DBClusterOptionGroupStatus (Prelude.Maybe Prelude.Text)
-dbClusterOptionGroupStatus_status = Lens.lens (\DBClusterOptionGroupStatus' {status} -> status) (\s@DBClusterOptionGroupStatus' {} a -> s {status = a} :: DBClusterOptionGroupStatus)
 
 -- | Not supported by Neptune.
 dbClusterOptionGroupStatus_dbClusterOptionGroupName :: Lens.Lens' DBClusterOptionGroupStatus (Prelude.Maybe Prelude.Text)
 dbClusterOptionGroupStatus_dbClusterOptionGroupName = Lens.lens (\DBClusterOptionGroupStatus' {dbClusterOptionGroupName} -> dbClusterOptionGroupName) (\s@DBClusterOptionGroupStatus' {} a -> s {dbClusterOptionGroupName = a} :: DBClusterOptionGroupStatus)
 
-instance Core.FromXML DBClusterOptionGroupStatus where
+-- | Not supported by Neptune.
+dbClusterOptionGroupStatus_status :: Lens.Lens' DBClusterOptionGroupStatus (Prelude.Maybe Prelude.Text)
+dbClusterOptionGroupStatus_status = Lens.lens (\DBClusterOptionGroupStatus' {status} -> status) (\s@DBClusterOptionGroupStatus' {} a -> s {status = a} :: DBClusterOptionGroupStatus)
+
+instance Data.FromXML DBClusterOptionGroupStatus where
   parseXML x =
     DBClusterOptionGroupStatus'
-      Prelude.<$> (x Core..@? "Status")
-      Prelude.<*> (x Core..@? "DBClusterOptionGroupName")
+      Prelude.<$> (x Data..@? "DBClusterOptionGroupName")
+      Prelude.<*> (x Data..@? "Status")
 
 instance Prelude.Hashable DBClusterOptionGroupStatus where
   hashWithSalt _salt DBClusterOptionGroupStatus' {..} =
-    _salt `Prelude.hashWithSalt` status
+    _salt
       `Prelude.hashWithSalt` dbClusterOptionGroupName
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData DBClusterOptionGroupStatus where
   rnf DBClusterOptionGroupStatus' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf dbClusterOptionGroupName
+    Prelude.rnf dbClusterOptionGroupName
+      `Prelude.seq` Prelude.rnf status

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ELB.SetLoadBalancerPoliciesOfListener
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,8 +52,9 @@ module Amazonka.ELB.SetLoadBalancerPoliciesOfListener
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -125,7 +126,8 @@ instance
   type
     AWSResponse SetLoadBalancerPoliciesOfListener =
       SetLoadBalancerPoliciesOfListenerResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "SetLoadBalancerPoliciesOfListenerResult"
@@ -155,33 +157,33 @@ instance
       `Prelude.seq` Prelude.rnf policyNames
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     SetLoadBalancerPoliciesOfListener
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     SetLoadBalancerPoliciesOfListener
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     SetLoadBalancerPoliciesOfListener
   where
   toQuery SetLoadBalancerPoliciesOfListener' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "SetLoadBalancerPoliciesOfListener" ::
+          Data.=: ( "SetLoadBalancerPoliciesOfListener" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2012-06-01" :: Prelude.ByteString),
-        "LoadBalancerName" Core.=: loadBalancerName,
-        "LoadBalancerPort" Core.=: loadBalancerPort,
+          Data.=: ("2012-06-01" :: Prelude.ByteString),
+        "LoadBalancerName" Data.=: loadBalancerName,
+        "LoadBalancerPort" Data.=: loadBalancerPort,
         "PolicyNames"
-          Core.=: Core.toQueryList "member" policyNames
+          Data.=: Data.toQueryList "member" policyNames
       ]
 
 -- | Contains the output of SetLoadBalancePoliciesOfListener.

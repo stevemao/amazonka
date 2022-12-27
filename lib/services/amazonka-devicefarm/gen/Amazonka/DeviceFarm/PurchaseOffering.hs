@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.PurchaseOffering
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.DeviceFarm.PurchaseOffering
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -109,12 +110,13 @@ instance Core.AWSRequest PurchaseOffering where
   type
     AWSResponse PurchaseOffering =
       PurchaseOfferingResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PurchaseOfferingResponse'
-            Prelude.<$> (x Core..?> "offeringTransaction")
+            Prelude.<$> (x Data..?> "offeringTransaction")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -130,36 +132,36 @@ instance Prelude.NFData PurchaseOffering where
       `Prelude.seq` Prelude.rnf offeringId
       `Prelude.seq` Prelude.rnf quantity
 
-instance Core.ToHeaders PurchaseOffering where
+instance Data.ToHeaders PurchaseOffering where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.PurchaseOffering" ::
+              Data.=# ( "DeviceFarm_20150623.PurchaseOffering" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PurchaseOffering where
+instance Data.ToJSON PurchaseOffering where
   toJSON PurchaseOffering' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("offeringPromotionId" Core..=)
+          [ ("offeringPromotionId" Data..=)
               Prelude.<$> offeringPromotionId,
-            Prelude.Just ("offeringId" Core..= offeringId),
-            Prelude.Just ("quantity" Core..= quantity)
+            Prelude.Just ("offeringId" Data..= offeringId),
+            Prelude.Just ("quantity" Data..= quantity)
           ]
       )
 
-instance Core.ToPath PurchaseOffering where
+instance Data.ToPath PurchaseOffering where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PurchaseOffering where
+instance Data.ToQuery PurchaseOffering where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The result of the purchase offering (for example, success or failure).

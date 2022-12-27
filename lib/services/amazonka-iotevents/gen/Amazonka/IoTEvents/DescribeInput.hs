@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.DescribeInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.IoTEvents.DescribeInput
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,12 +78,13 @@ instance Core.AWSRequest DescribeInput where
   type
     AWSResponse DescribeInput =
       DescribeInputResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeInputResponse'
-            Prelude.<$> (x Core..?> "input")
+            Prelude.<$> (x Data..?> "input")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -93,14 +95,14 @@ instance Prelude.Hashable DescribeInput where
 instance Prelude.NFData DescribeInput where
   rnf DescribeInput' {..} = Prelude.rnf inputName
 
-instance Core.ToHeaders DescribeInput where
+instance Data.ToHeaders DescribeInput where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeInput where
+instance Data.ToPath DescribeInput where
   toPath DescribeInput' {..} =
-    Prelude.mconcat ["/inputs/", Core.toBS inputName]
+    Prelude.mconcat ["/inputs/", Data.toBS inputName]
 
-instance Core.ToQuery DescribeInput where
+instance Data.ToQuery DescribeInput where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeInputResponse' smart constructor.

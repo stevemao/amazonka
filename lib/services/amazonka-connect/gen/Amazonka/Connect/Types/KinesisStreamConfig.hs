@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.Types.KinesisStreamConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Connect.Types.KinesisStreamConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration information of a Kinesis data stream.
@@ -52,13 +53,13 @@ newKinesisStreamConfig pStreamArn_ =
 kinesisStreamConfig_streamArn :: Lens.Lens' KinesisStreamConfig Prelude.Text
 kinesisStreamConfig_streamArn = Lens.lens (\KinesisStreamConfig' {streamArn} -> streamArn) (\s@KinesisStreamConfig' {} a -> s {streamArn = a} :: KinesisStreamConfig)
 
-instance Core.FromJSON KinesisStreamConfig where
+instance Data.FromJSON KinesisStreamConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "KinesisStreamConfig"
       ( \x ->
           KinesisStreamConfig'
-            Prelude.<$> (x Core..: "StreamArn")
+            Prelude.<$> (x Data..: "StreamArn")
       )
 
 instance Prelude.Hashable KinesisStreamConfig where
@@ -68,9 +69,9 @@ instance Prelude.Hashable KinesisStreamConfig where
 instance Prelude.NFData KinesisStreamConfig where
   rnf KinesisStreamConfig' {..} = Prelude.rnf streamArn
 
-instance Core.ToJSON KinesisStreamConfig where
+instance Data.ToJSON KinesisStreamConfig where
   toJSON KinesisStreamConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("StreamArn" Core..= streamArn)]
+          [Prelude.Just ("StreamArn" Data..= streamArn)]
       )

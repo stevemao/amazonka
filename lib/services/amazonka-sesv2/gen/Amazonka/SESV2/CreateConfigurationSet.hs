@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.CreateConfigurationSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,12 +32,13 @@ module Amazonka.SESV2.CreateConfigurationSet
     newCreateConfigurationSet,
 
     -- * Request Lenses
-    createConfigurationSet_sendingOptions,
     createConfigurationSet_deliveryOptions,
-    createConfigurationSet_trackingOptions,
     createConfigurationSet_reputationOptions,
-    createConfigurationSet_tags,
+    createConfigurationSet_sendingOptions,
     createConfigurationSet_suppressionOptions,
+    createConfigurationSet_tags,
+    createConfigurationSet_trackingOptions,
+    createConfigurationSet_vdmOptions,
     createConfigurationSet_configurationSetName,
 
     -- * Destructuring the Response
@@ -50,7 +51,8 @@ module Amazonka.SESV2.CreateConfigurationSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,22 +62,25 @@ import Amazonka.SESV2.Types
 --
 -- /See:/ 'newCreateConfigurationSet' smart constructor.
 data CreateConfigurationSet = CreateConfigurationSet'
-  { -- | An object that defines whether or not Amazon SES can send email that you
-    -- send using the configuration set.
-    sendingOptions :: Prelude.Maybe SendingOptions,
-    -- | An object that defines the dedicated IP pool that is used to send emails
+  { -- | An object that defines the dedicated IP pool that is used to send emails
     -- that you send using the configuration set.
     deliveryOptions :: Prelude.Maybe DeliveryOptions,
-    -- | An object that defines the open and click tracking options for emails
-    -- that you send using the configuration set.
-    trackingOptions :: Prelude.Maybe TrackingOptions,
     -- | An object that defines whether or not Amazon SES collects reputation
     -- metrics for the emails that you send that use the configuration set.
     reputationOptions :: Prelude.Maybe ReputationOptions,
+    -- | An object that defines whether or not Amazon SES can send email that you
+    -- send using the configuration set.
+    sendingOptions :: Prelude.Maybe SendingOptions,
+    suppressionOptions :: Prelude.Maybe SuppressionOptions,
     -- | An array of objects that define the tags (keys and values) to associate
     -- with the configuration set.
     tags :: Prelude.Maybe [Tag],
-    suppressionOptions :: Prelude.Maybe SuppressionOptions,
+    -- | An object that defines the open and click tracking options for emails
+    -- that you send using the configuration set.
+    trackingOptions :: Prelude.Maybe TrackingOptions,
+    -- | An object that defines the VDM options for emails that you send using
+    -- the configuration set.
+    vdmOptions :: Prelude.Maybe VdmOptions,
     -- | The name of the configuration set. The name can contain up to 64
     -- alphanumeric characters, including letters, numbers, hyphens (-) and
     -- underscores (_) only.
@@ -91,22 +96,25 @@ data CreateConfigurationSet = CreateConfigurationSet'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sendingOptions', 'createConfigurationSet_sendingOptions' - An object that defines whether or not Amazon SES can send email that you
--- send using the configuration set.
---
 -- 'deliveryOptions', 'createConfigurationSet_deliveryOptions' - An object that defines the dedicated IP pool that is used to send emails
--- that you send using the configuration set.
---
--- 'trackingOptions', 'createConfigurationSet_trackingOptions' - An object that defines the open and click tracking options for emails
 -- that you send using the configuration set.
 --
 -- 'reputationOptions', 'createConfigurationSet_reputationOptions' - An object that defines whether or not Amazon SES collects reputation
 -- metrics for the emails that you send that use the configuration set.
 --
+-- 'sendingOptions', 'createConfigurationSet_sendingOptions' - An object that defines whether or not Amazon SES can send email that you
+-- send using the configuration set.
+--
+-- 'suppressionOptions', 'createConfigurationSet_suppressionOptions' - Undocumented member.
+--
 -- 'tags', 'createConfigurationSet_tags' - An array of objects that define the tags (keys and values) to associate
 -- with the configuration set.
 --
--- 'suppressionOptions', 'createConfigurationSet_suppressionOptions' - Undocumented member.
+-- 'trackingOptions', 'createConfigurationSet_trackingOptions' - An object that defines the open and click tracking options for emails
+-- that you send using the configuration set.
+--
+-- 'vdmOptions', 'createConfigurationSet_vdmOptions' - An object that defines the VDM options for emails that you send using
+-- the configuration set.
 --
 -- 'configurationSetName', 'createConfigurationSet_configurationSetName' - The name of the configuration set. The name can contain up to 64
 -- alphanumeric characters, including letters, numbers, hyphens (-) and
@@ -117,44 +125,50 @@ newCreateConfigurationSet ::
   CreateConfigurationSet
 newCreateConfigurationSet pConfigurationSetName_ =
   CreateConfigurationSet'
-    { sendingOptions =
+    { deliveryOptions =
         Prelude.Nothing,
-      deliveryOptions = Prelude.Nothing,
-      trackingOptions = Prelude.Nothing,
       reputationOptions = Prelude.Nothing,
-      tags = Prelude.Nothing,
+      sendingOptions = Prelude.Nothing,
       suppressionOptions = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      trackingOptions = Prelude.Nothing,
+      vdmOptions = Prelude.Nothing,
       configurationSetName = pConfigurationSetName_
     }
-
--- | An object that defines whether or not Amazon SES can send email that you
--- send using the configuration set.
-createConfigurationSet_sendingOptions :: Lens.Lens' CreateConfigurationSet (Prelude.Maybe SendingOptions)
-createConfigurationSet_sendingOptions = Lens.lens (\CreateConfigurationSet' {sendingOptions} -> sendingOptions) (\s@CreateConfigurationSet' {} a -> s {sendingOptions = a} :: CreateConfigurationSet)
 
 -- | An object that defines the dedicated IP pool that is used to send emails
 -- that you send using the configuration set.
 createConfigurationSet_deliveryOptions :: Lens.Lens' CreateConfigurationSet (Prelude.Maybe DeliveryOptions)
 createConfigurationSet_deliveryOptions = Lens.lens (\CreateConfigurationSet' {deliveryOptions} -> deliveryOptions) (\s@CreateConfigurationSet' {} a -> s {deliveryOptions = a} :: CreateConfigurationSet)
 
--- | An object that defines the open and click tracking options for emails
--- that you send using the configuration set.
-createConfigurationSet_trackingOptions :: Lens.Lens' CreateConfigurationSet (Prelude.Maybe TrackingOptions)
-createConfigurationSet_trackingOptions = Lens.lens (\CreateConfigurationSet' {trackingOptions} -> trackingOptions) (\s@CreateConfigurationSet' {} a -> s {trackingOptions = a} :: CreateConfigurationSet)
-
 -- | An object that defines whether or not Amazon SES collects reputation
 -- metrics for the emails that you send that use the configuration set.
 createConfigurationSet_reputationOptions :: Lens.Lens' CreateConfigurationSet (Prelude.Maybe ReputationOptions)
 createConfigurationSet_reputationOptions = Lens.lens (\CreateConfigurationSet' {reputationOptions} -> reputationOptions) (\s@CreateConfigurationSet' {} a -> s {reputationOptions = a} :: CreateConfigurationSet)
+
+-- | An object that defines whether or not Amazon SES can send email that you
+-- send using the configuration set.
+createConfigurationSet_sendingOptions :: Lens.Lens' CreateConfigurationSet (Prelude.Maybe SendingOptions)
+createConfigurationSet_sendingOptions = Lens.lens (\CreateConfigurationSet' {sendingOptions} -> sendingOptions) (\s@CreateConfigurationSet' {} a -> s {sendingOptions = a} :: CreateConfigurationSet)
+
+-- | Undocumented member.
+createConfigurationSet_suppressionOptions :: Lens.Lens' CreateConfigurationSet (Prelude.Maybe SuppressionOptions)
+createConfigurationSet_suppressionOptions = Lens.lens (\CreateConfigurationSet' {suppressionOptions} -> suppressionOptions) (\s@CreateConfigurationSet' {} a -> s {suppressionOptions = a} :: CreateConfigurationSet)
 
 -- | An array of objects that define the tags (keys and values) to associate
 -- with the configuration set.
 createConfigurationSet_tags :: Lens.Lens' CreateConfigurationSet (Prelude.Maybe [Tag])
 createConfigurationSet_tags = Lens.lens (\CreateConfigurationSet' {tags} -> tags) (\s@CreateConfigurationSet' {} a -> s {tags = a} :: CreateConfigurationSet) Prelude.. Lens.mapping Lens.coerced
 
--- | Undocumented member.
-createConfigurationSet_suppressionOptions :: Lens.Lens' CreateConfigurationSet (Prelude.Maybe SuppressionOptions)
-createConfigurationSet_suppressionOptions = Lens.lens (\CreateConfigurationSet' {suppressionOptions} -> suppressionOptions) (\s@CreateConfigurationSet' {} a -> s {suppressionOptions = a} :: CreateConfigurationSet)
+-- | An object that defines the open and click tracking options for emails
+-- that you send using the configuration set.
+createConfigurationSet_trackingOptions :: Lens.Lens' CreateConfigurationSet (Prelude.Maybe TrackingOptions)
+createConfigurationSet_trackingOptions = Lens.lens (\CreateConfigurationSet' {trackingOptions} -> trackingOptions) (\s@CreateConfigurationSet' {} a -> s {trackingOptions = a} :: CreateConfigurationSet)
+
+-- | An object that defines the VDM options for emails that you send using
+-- the configuration set.
+createConfigurationSet_vdmOptions :: Lens.Lens' CreateConfigurationSet (Prelude.Maybe VdmOptions)
+createConfigurationSet_vdmOptions = Lens.lens (\CreateConfigurationSet' {vdmOptions} -> vdmOptions) (\s@CreateConfigurationSet' {} a -> s {vdmOptions = a} :: CreateConfigurationSet)
 
 -- | The name of the configuration set. The name can contain up to 64
 -- alphanumeric characters, including letters, numbers, hyphens (-) and
@@ -166,7 +180,8 @@ instance Core.AWSRequest CreateConfigurationSet where
   type
     AWSResponse CreateConfigurationSet =
       CreateConfigurationSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -176,61 +191,64 @@ instance Core.AWSRequest CreateConfigurationSet where
 
 instance Prelude.Hashable CreateConfigurationSet where
   hashWithSalt _salt CreateConfigurationSet' {..} =
-    _salt `Prelude.hashWithSalt` sendingOptions
-      `Prelude.hashWithSalt` deliveryOptions
-      `Prelude.hashWithSalt` trackingOptions
+    _salt `Prelude.hashWithSalt` deliveryOptions
       `Prelude.hashWithSalt` reputationOptions
-      `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` sendingOptions
       `Prelude.hashWithSalt` suppressionOptions
+      `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` trackingOptions
+      `Prelude.hashWithSalt` vdmOptions
       `Prelude.hashWithSalt` configurationSetName
 
 instance Prelude.NFData CreateConfigurationSet where
   rnf CreateConfigurationSet' {..} =
-    Prelude.rnf sendingOptions
-      `Prelude.seq` Prelude.rnf deliveryOptions
-      `Prelude.seq` Prelude.rnf trackingOptions
+    Prelude.rnf deliveryOptions
       `Prelude.seq` Prelude.rnf reputationOptions
-      `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf sendingOptions
       `Prelude.seq` Prelude.rnf suppressionOptions
+      `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf trackingOptions
+      `Prelude.seq` Prelude.rnf vdmOptions
       `Prelude.seq` Prelude.rnf configurationSetName
 
-instance Core.ToHeaders CreateConfigurationSet where
+instance Data.ToHeaders CreateConfigurationSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateConfigurationSet where
+instance Data.ToJSON CreateConfigurationSet where
   toJSON CreateConfigurationSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SendingOptions" Core..=)
-              Prelude.<$> sendingOptions,
-            ("DeliveryOptions" Core..=)
+          [ ("DeliveryOptions" Data..=)
               Prelude.<$> deliveryOptions,
-            ("TrackingOptions" Core..=)
-              Prelude.<$> trackingOptions,
-            ("ReputationOptions" Core..=)
+            ("ReputationOptions" Data..=)
               Prelude.<$> reputationOptions,
-            ("Tags" Core..=) Prelude.<$> tags,
-            ("SuppressionOptions" Core..=)
+            ("SendingOptions" Data..=)
+              Prelude.<$> sendingOptions,
+            ("SuppressionOptions" Data..=)
               Prelude.<$> suppressionOptions,
+            ("Tags" Data..=) Prelude.<$> tags,
+            ("TrackingOptions" Data..=)
+              Prelude.<$> trackingOptions,
+            ("VdmOptions" Data..=) Prelude.<$> vdmOptions,
             Prelude.Just
               ( "ConfigurationSetName"
-                  Core..= configurationSetName
+                  Data..= configurationSetName
               )
           ]
       )
 
-instance Core.ToPath CreateConfigurationSet where
+instance Data.ToPath CreateConfigurationSet where
   toPath = Prelude.const "/v2/email/configuration-sets"
 
-instance Core.ToQuery CreateConfigurationSet where
+instance Data.ToQuery CreateConfigurationSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | An HTTP 200 response if the request succeeds, or an error message if the

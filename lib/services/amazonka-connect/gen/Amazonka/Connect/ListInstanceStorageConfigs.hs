@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.ListInstanceStorageConfigs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,8 @@ module Amazonka.Connect.ListInstanceStorageConfigs
     newListInstanceStorageConfigs,
 
     -- * Request Lenses
-    listInstanceStorageConfigs_nextToken,
     listInstanceStorageConfigs_maxResults,
+    listInstanceStorageConfigs_nextToken,
     listInstanceStorageConfigs_instanceId,
     listInstanceStorageConfigs_resourceType,
 
@@ -43,27 +43,28 @@ module Amazonka.Connect.ListInstanceStorageConfigs
     newListInstanceStorageConfigsResponse,
 
     -- * Response Lenses
-    listInstanceStorageConfigsResponse_storageConfigs,
     listInstanceStorageConfigsResponse_nextToken,
+    listInstanceStorageConfigsResponse_storageConfigs,
     listInstanceStorageConfigsResponse_httpStatus,
   )
 where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListInstanceStorageConfigs' smart constructor.
 data ListInstanceStorageConfigs = ListInstanceStorageConfigs'
-  { -- | The token for the next set of results. Use the value returned in the
+  { -- | The maximum number of results to return per page.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results. Use the value returned in the
     -- previous response in the next request to retrieve the next set of
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return per page.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The identifier of the Amazon Connect instance. You can find the
     -- instanceId in the ARN of the instance.
     instanceId :: Prelude.Text,
@@ -80,11 +81,11 @@ data ListInstanceStorageConfigs = ListInstanceStorageConfigs'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listInstanceStorageConfigs_maxResults' - The maximum number of results to return per page.
+--
 -- 'nextToken', 'listInstanceStorageConfigs_nextToken' - The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
---
--- 'maxResults', 'listInstanceStorageConfigs_maxResults' - The maximum number of results to return per page.
 --
 -- 'instanceId', 'listInstanceStorageConfigs_instanceId' - The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -100,22 +101,22 @@ newListInstanceStorageConfigs
   pInstanceId_
   pResourceType_ =
     ListInstanceStorageConfigs'
-      { nextToken =
+      { maxResults =
           Prelude.Nothing,
-        maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         instanceId = pInstanceId_,
         resourceType = pResourceType_
       }
+
+-- | The maximum number of results to return per page.
+listInstanceStorageConfigs_maxResults :: Lens.Lens' ListInstanceStorageConfigs (Prelude.Maybe Prelude.Natural)
+listInstanceStorageConfigs_maxResults = Lens.lens (\ListInstanceStorageConfigs' {maxResults} -> maxResults) (\s@ListInstanceStorageConfigs' {} a -> s {maxResults = a} :: ListInstanceStorageConfigs)
 
 -- | The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
 listInstanceStorageConfigs_nextToken :: Lens.Lens' ListInstanceStorageConfigs (Prelude.Maybe Prelude.Text)
 listInstanceStorageConfigs_nextToken = Lens.lens (\ListInstanceStorageConfigs' {nextToken} -> nextToken) (\s@ListInstanceStorageConfigs' {} a -> s {nextToken = a} :: ListInstanceStorageConfigs)
-
--- | The maximum number of results to return per page.
-listInstanceStorageConfigs_maxResults :: Lens.Lens' ListInstanceStorageConfigs (Prelude.Maybe Prelude.Natural)
-listInstanceStorageConfigs_maxResults = Lens.lens (\ListInstanceStorageConfigs' {maxResults} -> maxResults) (\s@ListInstanceStorageConfigs' {} a -> s {maxResults = a} :: ListInstanceStorageConfigs)
 
 -- | The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -152,64 +153,65 @@ instance Core.AWSRequest ListInstanceStorageConfigs where
   type
     AWSResponse ListInstanceStorageConfigs =
       ListInstanceStorageConfigsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListInstanceStorageConfigsResponse'
-            Prelude.<$> (x Core..?> "StorageConfigs" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "StorageConfigs" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListInstanceStorageConfigs where
   hashWithSalt _salt ListInstanceStorageConfigs' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` instanceId
       `Prelude.hashWithSalt` resourceType
 
 instance Prelude.NFData ListInstanceStorageConfigs where
   rnf ListInstanceStorageConfigs' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf resourceType
 
-instance Core.ToHeaders ListInstanceStorageConfigs where
+instance Data.ToHeaders ListInstanceStorageConfigs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListInstanceStorageConfigs where
+instance Data.ToPath ListInstanceStorageConfigs where
   toPath ListInstanceStorageConfigs' {..} =
     Prelude.mconcat
       [ "/instance/",
-        Core.toBS instanceId,
+        Data.toBS instanceId,
         "/storage-configs"
       ]
 
-instance Core.ToQuery ListInstanceStorageConfigs where
+instance Data.ToQuery ListInstanceStorageConfigs where
   toQuery ListInstanceStorageConfigs' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults,
-        "resourceType" Core.=: resourceType
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "resourceType" Data.=: resourceType
       ]
 
 -- | /See:/ 'newListInstanceStorageConfigsResponse' smart constructor.
 data ListInstanceStorageConfigsResponse = ListInstanceStorageConfigsResponse'
-  { -- | A valid storage type.
-    storageConfigs :: Prelude.Maybe [InstanceStorageConfig],
-    -- | If there are additional results, this is the token for the next set of
+  { -- | If there are additional results, this is the token for the next set of
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A valid storage type.
+    storageConfigs :: Prelude.Maybe [InstanceStorageConfig],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -223,10 +225,10 @@ data ListInstanceStorageConfigsResponse = ListInstanceStorageConfigsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'storageConfigs', 'listInstanceStorageConfigsResponse_storageConfigs' - A valid storage type.
---
 -- 'nextToken', 'listInstanceStorageConfigsResponse_nextToken' - If there are additional results, this is the token for the next set of
 -- results.
+--
+-- 'storageConfigs', 'listInstanceStorageConfigsResponse_storageConfigs' - A valid storage type.
 --
 -- 'httpStatus', 'listInstanceStorageConfigsResponse_httpStatus' - The response's http status code.
 newListInstanceStorageConfigsResponse ::
@@ -235,20 +237,20 @@ newListInstanceStorageConfigsResponse ::
   ListInstanceStorageConfigsResponse
 newListInstanceStorageConfigsResponse pHttpStatus_ =
   ListInstanceStorageConfigsResponse'
-    { storageConfigs =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      storageConfigs = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A valid storage type.
-listInstanceStorageConfigsResponse_storageConfigs :: Lens.Lens' ListInstanceStorageConfigsResponse (Prelude.Maybe [InstanceStorageConfig])
-listInstanceStorageConfigsResponse_storageConfigs = Lens.lens (\ListInstanceStorageConfigsResponse' {storageConfigs} -> storageConfigs) (\s@ListInstanceStorageConfigsResponse' {} a -> s {storageConfigs = a} :: ListInstanceStorageConfigsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | If there are additional results, this is the token for the next set of
 -- results.
 listInstanceStorageConfigsResponse_nextToken :: Lens.Lens' ListInstanceStorageConfigsResponse (Prelude.Maybe Prelude.Text)
 listInstanceStorageConfigsResponse_nextToken = Lens.lens (\ListInstanceStorageConfigsResponse' {nextToken} -> nextToken) (\s@ListInstanceStorageConfigsResponse' {} a -> s {nextToken = a} :: ListInstanceStorageConfigsResponse)
+
+-- | A valid storage type.
+listInstanceStorageConfigsResponse_storageConfigs :: Lens.Lens' ListInstanceStorageConfigsResponse (Prelude.Maybe [InstanceStorageConfig])
+listInstanceStorageConfigsResponse_storageConfigs = Lens.lens (\ListInstanceStorageConfigsResponse' {storageConfigs} -> storageConfigs) (\s@ListInstanceStorageConfigsResponse' {} a -> s {storageConfigs = a} :: ListInstanceStorageConfigsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listInstanceStorageConfigsResponse_httpStatus :: Lens.Lens' ListInstanceStorageConfigsResponse Prelude.Int
@@ -259,6 +261,6 @@ instance
     ListInstanceStorageConfigsResponse
   where
   rnf ListInstanceStorageConfigsResponse' {..} =
-    Prelude.rnf storageConfigs
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf storageConfigs
       `Prelude.seq` Prelude.rnf httpStatus

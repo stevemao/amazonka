@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ImageBuilder.ListDistributionConfigurations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,24 +28,25 @@ module Amazonka.ImageBuilder.ListDistributionConfigurations
 
     -- * Request Lenses
     listDistributionConfigurations_filters,
-    listDistributionConfigurations_nextToken,
     listDistributionConfigurations_maxResults,
+    listDistributionConfigurations_nextToken,
 
     -- * Destructuring the Response
     ListDistributionConfigurationsResponse (..),
     newListDistributionConfigurationsResponse,
 
     -- * Response Lenses
-    listDistributionConfigurationsResponse_requestId,
     listDistributionConfigurationsResponse_distributionConfigurationSummaryList,
     listDistributionConfigurationsResponse_nextToken,
+    listDistributionConfigurationsResponse_requestId,
     listDistributionConfigurationsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ImageBuilder.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,11 +55,11 @@ import qualified Amazonka.Response as Response
 data ListDistributionConfigurations = ListDistributionConfigurations'
   { -- | You can filter on @name@ to streamline results.
     filters :: Prelude.Maybe (Prelude.NonEmpty Filter),
+    -- | The maximum items to return in a request.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | A token to specify where to start paginating. This is the NextToken from
     -- a previously truncated response.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum items to return in a request.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -72,32 +73,32 @@ data ListDistributionConfigurations = ListDistributionConfigurations'
 --
 -- 'filters', 'listDistributionConfigurations_filters' - You can filter on @name@ to streamline results.
 --
+-- 'maxResults', 'listDistributionConfigurations_maxResults' - The maximum items to return in a request.
+--
 -- 'nextToken', 'listDistributionConfigurations_nextToken' - A token to specify where to start paginating. This is the NextToken from
 -- a previously truncated response.
---
--- 'maxResults', 'listDistributionConfigurations_maxResults' - The maximum items to return in a request.
 newListDistributionConfigurations ::
   ListDistributionConfigurations
 newListDistributionConfigurations =
   ListDistributionConfigurations'
     { filters =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | You can filter on @name@ to streamline results.
 listDistributionConfigurations_filters :: Lens.Lens' ListDistributionConfigurations (Prelude.Maybe (Prelude.NonEmpty Filter))
 listDistributionConfigurations_filters = Lens.lens (\ListDistributionConfigurations' {filters} -> filters) (\s@ListDistributionConfigurations' {} a -> s {filters = a} :: ListDistributionConfigurations) Prelude.. Lens.mapping Lens.coerced
 
+-- | The maximum items to return in a request.
+listDistributionConfigurations_maxResults :: Lens.Lens' ListDistributionConfigurations (Prelude.Maybe Prelude.Natural)
+listDistributionConfigurations_maxResults = Lens.lens (\ListDistributionConfigurations' {maxResults} -> maxResults) (\s@ListDistributionConfigurations' {} a -> s {maxResults = a} :: ListDistributionConfigurations)
+
 -- | A token to specify where to start paginating. This is the NextToken from
 -- a previously truncated response.
 listDistributionConfigurations_nextToken :: Lens.Lens' ListDistributionConfigurations (Prelude.Maybe Prelude.Text)
 listDistributionConfigurations_nextToken = Lens.lens (\ListDistributionConfigurations' {nextToken} -> nextToken) (\s@ListDistributionConfigurations' {} a -> s {nextToken = a} :: ListDistributionConfigurations)
-
--- | The maximum items to return in a request.
-listDistributionConfigurations_maxResults :: Lens.Lens' ListDistributionConfigurations (Prelude.Maybe Prelude.Natural)
-listDistributionConfigurations_maxResults = Lens.lens (\ListDistributionConfigurations' {maxResults} -> maxResults) (\s@ListDistributionConfigurations' {} a -> s {maxResults = a} :: ListDistributionConfigurations)
 
 instance
   Core.AWSRequest
@@ -106,16 +107,17 @@ instance
   type
     AWSResponse ListDistributionConfigurations =
       ListDistributionConfigurationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDistributionConfigurationsResponse'
-            Prelude.<$> (x Core..?> "requestId")
-            Prelude.<*> ( x Core..?> "distributionConfigurationSummaryList"
+            Prelude.<$> ( x Data..?> "distributionConfigurationSummaryList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<*> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "requestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -127,8 +129,8 @@ instance
     _salt
     ListDistributionConfigurations' {..} =
       _salt `Prelude.hashWithSalt` filters
-        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
 
 instance
   Prelude.NFData
@@ -136,51 +138,51 @@ instance
   where
   rnf ListDistributionConfigurations' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListDistributionConfigurations
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListDistributionConfigurations where
+instance Data.ToJSON ListDistributionConfigurations where
   toJSON ListDistributionConfigurations' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("filters" Core..=) Prelude.<$> filters,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("filters" Data..=) Prelude.<$> filters,
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListDistributionConfigurations where
+instance Data.ToPath ListDistributionConfigurations where
   toPath =
     Prelude.const "/ListDistributionConfigurations"
 
-instance Core.ToQuery ListDistributionConfigurations where
+instance Data.ToQuery ListDistributionConfigurations where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListDistributionConfigurationsResponse' smart constructor.
 data ListDistributionConfigurationsResponse = ListDistributionConfigurationsResponse'
-  { -- | The request ID that uniquely identifies this request.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The list of distributions.
+  { -- | The list of distributions.
     distributionConfigurationSummaryList :: Prelude.Maybe [DistributionConfigurationSummary],
     -- | The next token used for paginated responses. When this is not empty,
     -- there are additional elements that the service has not included in this
     -- request. Use this token with the next request to retrieve additional
     -- objects.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The request ID that uniquely identifies this request.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -194,14 +196,14 @@ data ListDistributionConfigurationsResponse = ListDistributionConfigurationsResp
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'listDistributionConfigurationsResponse_requestId' - The request ID that uniquely identifies this request.
---
 -- 'distributionConfigurationSummaryList', 'listDistributionConfigurationsResponse_distributionConfigurationSummaryList' - The list of distributions.
 --
 -- 'nextToken', 'listDistributionConfigurationsResponse_nextToken' - The next token used for paginated responses. When this is not empty,
 -- there are additional elements that the service has not included in this
 -- request. Use this token with the next request to retrieve additional
 -- objects.
+--
+-- 'requestId', 'listDistributionConfigurationsResponse_requestId' - The request ID that uniquely identifies this request.
 --
 -- 'httpStatus', 'listDistributionConfigurationsResponse_httpStatus' - The response's http status code.
 newListDistributionConfigurationsResponse ::
@@ -211,17 +213,12 @@ newListDistributionConfigurationsResponse ::
 newListDistributionConfigurationsResponse
   pHttpStatus_ =
     ListDistributionConfigurationsResponse'
-      { requestId =
-          Prelude.Nothing,
-        distributionConfigurationSummaryList =
+      { distributionConfigurationSummaryList =
           Prelude.Nothing,
         nextToken = Prelude.Nothing,
+        requestId = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | The request ID that uniquely identifies this request.
-listDistributionConfigurationsResponse_requestId :: Lens.Lens' ListDistributionConfigurationsResponse (Prelude.Maybe Prelude.Text)
-listDistributionConfigurationsResponse_requestId = Lens.lens (\ListDistributionConfigurationsResponse' {requestId} -> requestId) (\s@ListDistributionConfigurationsResponse' {} a -> s {requestId = a} :: ListDistributionConfigurationsResponse)
 
 -- | The list of distributions.
 listDistributionConfigurationsResponse_distributionConfigurationSummaryList :: Lens.Lens' ListDistributionConfigurationsResponse (Prelude.Maybe [DistributionConfigurationSummary])
@@ -234,6 +231,10 @@ listDistributionConfigurationsResponse_distributionConfigurationSummaryList = Le
 listDistributionConfigurationsResponse_nextToken :: Lens.Lens' ListDistributionConfigurationsResponse (Prelude.Maybe Prelude.Text)
 listDistributionConfigurationsResponse_nextToken = Lens.lens (\ListDistributionConfigurationsResponse' {nextToken} -> nextToken) (\s@ListDistributionConfigurationsResponse' {} a -> s {nextToken = a} :: ListDistributionConfigurationsResponse)
 
+-- | The request ID that uniquely identifies this request.
+listDistributionConfigurationsResponse_requestId :: Lens.Lens' ListDistributionConfigurationsResponse (Prelude.Maybe Prelude.Text)
+listDistributionConfigurationsResponse_requestId = Lens.lens (\ListDistributionConfigurationsResponse' {requestId} -> requestId) (\s@ListDistributionConfigurationsResponse' {} a -> s {requestId = a} :: ListDistributionConfigurationsResponse)
+
 -- | The response's http status code.
 listDistributionConfigurationsResponse_httpStatus :: Lens.Lens' ListDistributionConfigurationsResponse Prelude.Int
 listDistributionConfigurationsResponse_httpStatus = Lens.lens (\ListDistributionConfigurationsResponse' {httpStatus} -> httpStatus) (\s@ListDistributionConfigurationsResponse' {} a -> s {httpStatus = a} :: ListDistributionConfigurationsResponse)
@@ -243,7 +244,7 @@ instance
     ListDistributionConfigurationsResponse
   where
   rnf ListDistributionConfigurationsResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf distributionConfigurationSummaryList
+    Prelude.rnf distributionConfigurationSummaryList
       `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf httpStatus

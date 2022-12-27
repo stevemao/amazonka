@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataBrew.CreateSchedule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.DataBrew.CreateSchedule
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataBrew.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -124,13 +125,14 @@ instance Core.AWSRequest CreateSchedule where
   type
     AWSResponse CreateSchedule =
       CreateScheduleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateScheduleResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Name")
+            Prelude.<*> (x Data..:> "Name")
       )
 
 instance Prelude.Hashable CreateSchedule where
@@ -147,33 +149,33 @@ instance Prelude.NFData CreateSchedule where
       `Prelude.seq` Prelude.rnf cronExpression
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreateSchedule where
+instance Data.ToHeaders CreateSchedule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateSchedule where
+instance Data.ToJSON CreateSchedule where
   toJSON CreateSchedule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("JobNames" Core..=) Prelude.<$> jobNames,
-            ("Tags" Core..=) Prelude.<$> tags,
+          [ ("JobNames" Data..=) Prelude.<$> jobNames,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("CronExpression" Core..= cronExpression),
-            Prelude.Just ("Name" Core..= name)
+              ("CronExpression" Data..= cronExpression),
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateSchedule where
+instance Data.ToPath CreateSchedule where
   toPath = Prelude.const "/schedules"
 
-instance Core.ToQuery CreateSchedule where
+instance Data.ToQuery CreateSchedule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateScheduleResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.Scale
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ECS.Types.Scale where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types.ScaleUnit
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A floating-point percentage of the desired number of tasks to place and
@@ -29,11 +30,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newScale' smart constructor.
 data Scale = Scale'
-  { -- | The value, specified as a percent total of a service\'s @desiredCount@,
+  { -- | The unit of measure for the scale value.
+    unit :: Prelude.Maybe ScaleUnit,
+    -- | The value, specified as a percent total of a service\'s @desiredCount@,
     -- to scale the task set. Accepted values are numbers between 0 and 100.
-    value :: Prelude.Maybe Prelude.Double,
-    -- | The unit of measure for the scale value.
-    unit :: Prelude.Maybe ScaleUnit
+    value :: Prelude.Maybe Prelude.Double
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,50 +46,50 @@ data Scale = Scale'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'unit', 'scale_unit' - The unit of measure for the scale value.
+--
 -- 'value', 'scale_value' - The value, specified as a percent total of a service\'s @desiredCount@,
 -- to scale the task set. Accepted values are numbers between 0 and 100.
---
--- 'unit', 'scale_unit' - The unit of measure for the scale value.
 newScale ::
   Scale
 newScale =
   Scale'
-    { value = Prelude.Nothing,
-      unit = Prelude.Nothing
+    { unit = Prelude.Nothing,
+      value = Prelude.Nothing
     }
+
+-- | The unit of measure for the scale value.
+scale_unit :: Lens.Lens' Scale (Prelude.Maybe ScaleUnit)
+scale_unit = Lens.lens (\Scale' {unit} -> unit) (\s@Scale' {} a -> s {unit = a} :: Scale)
 
 -- | The value, specified as a percent total of a service\'s @desiredCount@,
 -- to scale the task set. Accepted values are numbers between 0 and 100.
 scale_value :: Lens.Lens' Scale (Prelude.Maybe Prelude.Double)
 scale_value = Lens.lens (\Scale' {value} -> value) (\s@Scale' {} a -> s {value = a} :: Scale)
 
--- | The unit of measure for the scale value.
-scale_unit :: Lens.Lens' Scale (Prelude.Maybe ScaleUnit)
-scale_unit = Lens.lens (\Scale' {unit} -> unit) (\s@Scale' {} a -> s {unit = a} :: Scale)
-
-instance Core.FromJSON Scale where
+instance Data.FromJSON Scale where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Scale"
       ( \x ->
           Scale'
-            Prelude.<$> (x Core..:? "value") Prelude.<*> (x Core..:? "unit")
+            Prelude.<$> (x Data..:? "unit") Prelude.<*> (x Data..:? "value")
       )
 
 instance Prelude.Hashable Scale where
   hashWithSalt _salt Scale' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` unit
+    _salt `Prelude.hashWithSalt` unit
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData Scale where
   rnf Scale' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf unit
+    Prelude.rnf unit `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON Scale where
+instance Data.ToJSON Scale where
   toJSON Scale' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("value" Core..=) Prelude.<$> value,
-            ("unit" Core..=) Prelude.<$> unit
+          [ ("unit" Data..=) Prelude.<$> unit,
+            ("value" Data..=) Prelude.<$> value
           ]
       )

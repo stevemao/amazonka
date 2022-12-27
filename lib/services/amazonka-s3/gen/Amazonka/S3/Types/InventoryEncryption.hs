@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.InventoryEncryption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.InventoryEncryption where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.SSEKMS
@@ -31,10 +32,10 @@ import Amazonka.S3.Types.SSES3
 --
 -- /See:/ 'newInventoryEncryption' smart constructor.
 data InventoryEncryption = InventoryEncryption'
-  { -- | Specifies the use of SSE-S3 to encrypt delivered inventory reports.
-    sses3 :: Prelude.Maybe SSES3,
-    -- | Specifies the use of SSE-KMS to encrypt delivered inventory reports.
-    ssekms :: Prelude.Maybe SSEKMS
+  { -- | Specifies the use of SSE-KMS to encrypt delivered inventory reports.
+    ssekms :: Prelude.Maybe SSEKMS,
+    -- | Specifies the use of SSE-S3 to encrypt delivered inventory reports.
+    sses3 :: Prelude.Maybe SSES3
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -46,41 +47,41 @@ data InventoryEncryption = InventoryEncryption'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sses3', 'inventoryEncryption_sses3' - Specifies the use of SSE-S3 to encrypt delivered inventory reports.
---
 -- 'ssekms', 'inventoryEncryption_ssekms' - Specifies the use of SSE-KMS to encrypt delivered inventory reports.
+--
+-- 'sses3', 'inventoryEncryption_sses3' - Specifies the use of SSE-S3 to encrypt delivered inventory reports.
 newInventoryEncryption ::
   InventoryEncryption
 newInventoryEncryption =
   InventoryEncryption'
-    { sses3 = Prelude.Nothing,
-      ssekms = Prelude.Nothing
+    { ssekms = Prelude.Nothing,
+      sses3 = Prelude.Nothing
     }
-
--- | Specifies the use of SSE-S3 to encrypt delivered inventory reports.
-inventoryEncryption_sses3 :: Lens.Lens' InventoryEncryption (Prelude.Maybe SSES3)
-inventoryEncryption_sses3 = Lens.lens (\InventoryEncryption' {sses3} -> sses3) (\s@InventoryEncryption' {} a -> s {sses3 = a} :: InventoryEncryption)
 
 -- | Specifies the use of SSE-KMS to encrypt delivered inventory reports.
 inventoryEncryption_ssekms :: Lens.Lens' InventoryEncryption (Prelude.Maybe SSEKMS)
 inventoryEncryption_ssekms = Lens.lens (\InventoryEncryption' {ssekms} -> ssekms) (\s@InventoryEncryption' {} a -> s {ssekms = a} :: InventoryEncryption)
 
-instance Core.FromXML InventoryEncryption where
+-- | Specifies the use of SSE-S3 to encrypt delivered inventory reports.
+inventoryEncryption_sses3 :: Lens.Lens' InventoryEncryption (Prelude.Maybe SSES3)
+inventoryEncryption_sses3 = Lens.lens (\InventoryEncryption' {sses3} -> sses3) (\s@InventoryEncryption' {} a -> s {sses3 = a} :: InventoryEncryption)
+
+instance Data.FromXML InventoryEncryption where
   parseXML x =
     InventoryEncryption'
-      Prelude.<$> (x Core..@? "SSE-S3")
-      Prelude.<*> (x Core..@? "SSE-KMS")
+      Prelude.<$> (x Data..@? "SSE-KMS")
+      Prelude.<*> (x Data..@? "SSE-S3")
 
 instance Prelude.Hashable InventoryEncryption where
   hashWithSalt _salt InventoryEncryption' {..} =
-    _salt `Prelude.hashWithSalt` sses3
-      `Prelude.hashWithSalt` ssekms
+    _salt `Prelude.hashWithSalt` ssekms
+      `Prelude.hashWithSalt` sses3
 
 instance Prelude.NFData InventoryEncryption where
   rnf InventoryEncryption' {..} =
-    Prelude.rnf sses3 `Prelude.seq` Prelude.rnf ssekms
+    Prelude.rnf ssekms `Prelude.seq` Prelude.rnf sses3
 
-instance Core.ToXML InventoryEncryption where
+instance Data.ToXML InventoryEncryption where
   toXML InventoryEncryption' {..} =
     Prelude.mconcat
-      ["SSE-S3" Core.@= sses3, "SSE-KMS" Core.@= ssekms]
+      ["SSE-KMS" Data.@= ssekms, "SSE-S3" Data.@= sses3]

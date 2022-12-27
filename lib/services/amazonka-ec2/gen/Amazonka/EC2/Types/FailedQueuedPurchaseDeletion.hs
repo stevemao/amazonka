@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.FailedQueuedPurchaseDeletion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.FailedQueuedPurchaseDeletion where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.DeleteQueuedReservedInstancesError
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a Reserved Instance whose queued purchase was not deleted.
@@ -64,11 +65,11 @@ failedQueuedPurchaseDeletion_error = Lens.lens (\FailedQueuedPurchaseDeletion' {
 failedQueuedPurchaseDeletion_reservedInstancesId :: Lens.Lens' FailedQueuedPurchaseDeletion (Prelude.Maybe Prelude.Text)
 failedQueuedPurchaseDeletion_reservedInstancesId = Lens.lens (\FailedQueuedPurchaseDeletion' {reservedInstancesId} -> reservedInstancesId) (\s@FailedQueuedPurchaseDeletion' {} a -> s {reservedInstancesId = a} :: FailedQueuedPurchaseDeletion)
 
-instance Core.FromXML FailedQueuedPurchaseDeletion where
+instance Data.FromXML FailedQueuedPurchaseDeletion where
   parseXML x =
     FailedQueuedPurchaseDeletion'
-      Prelude.<$> (x Core..@? "error")
-      Prelude.<*> (x Core..@? "reservedInstancesId")
+      Prelude.<$> (x Data..@? "error")
+      Prelude.<*> (x Data..@? "reservedInstancesId")
 
 instance
   Prelude.Hashable

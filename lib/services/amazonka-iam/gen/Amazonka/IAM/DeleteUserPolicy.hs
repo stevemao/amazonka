@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.DeleteUserPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.IAM.DeleteUserPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -127,7 +128,8 @@ instance Core.AWSRequest DeleteUserPolicy where
   type
     AWSResponse DeleteUserPolicy =
       DeleteUserPolicyResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull DeleteUserPolicyResponse'
 
@@ -141,21 +143,21 @@ instance Prelude.NFData DeleteUserPolicy where
     Prelude.rnf userName
       `Prelude.seq` Prelude.rnf policyName
 
-instance Core.ToHeaders DeleteUserPolicy where
+instance Data.ToHeaders DeleteUserPolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteUserPolicy where
+instance Data.ToPath DeleteUserPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteUserPolicy where
+instance Data.ToQuery DeleteUserPolicy where
   toQuery DeleteUserPolicy' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteUserPolicy" :: Prelude.ByteString),
+          Data.=: ("DeleteUserPolicy" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "UserName" Core.=: userName,
-        "PolicyName" Core.=: policyName
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "UserName" Data.=: userName,
+        "PolicyName" Data.=: policyName
       ]
 
 -- | /See:/ 'newDeleteUserPolicyResponse' smart constructor.

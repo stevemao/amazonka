@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECR.DescribeImageReplicationStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,15 +37,16 @@ module Amazonka.ECR.DescribeImageReplicationStatus
 
     -- * Response Lenses
     describeImageReplicationStatusResponse_imageId,
-    describeImageReplicationStatusResponse_repositoryName,
     describeImageReplicationStatusResponse_replicationStatuses,
+    describeImageReplicationStatusResponse_repositoryName,
     describeImageReplicationStatusResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -111,16 +112,17 @@ instance
   type
     AWSResponse DescribeImageReplicationStatus =
       DescribeImageReplicationStatusResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeImageReplicationStatusResponse'
-            Prelude.<$> (x Core..?> "imageId")
-            Prelude.<*> (x Core..?> "repositoryName")
-            Prelude.<*> ( x Core..?> "replicationStatuses"
+            Prelude.<$> (x Data..?> "imageId")
+            Prelude.<*> ( x Data..?> "replicationStatuses"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "repositoryName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -145,48 +147,48 @@ instance
       `Prelude.seq` Prelude.rnf imageId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeImageReplicationStatus
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerRegistry_V20150921.DescribeImageReplicationStatus" ::
+              Data.=# ( "AmazonEC2ContainerRegistry_V20150921.DescribeImageReplicationStatus" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeImageReplicationStatus where
+instance Data.ToJSON DescribeImageReplicationStatus where
   toJSON DescribeImageReplicationStatus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("registryId" Core..=) Prelude.<$> registryId,
+          [ ("registryId" Data..=) Prelude.<$> registryId,
             Prelude.Just
-              ("repositoryName" Core..= repositoryName),
-            Prelude.Just ("imageId" Core..= imageId)
+              ("repositoryName" Data..= repositoryName),
+            Prelude.Just ("imageId" Data..= imageId)
           ]
       )
 
-instance Core.ToPath DescribeImageReplicationStatus where
+instance Data.ToPath DescribeImageReplicationStatus where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeImageReplicationStatus where
+instance Data.ToQuery DescribeImageReplicationStatus where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeImageReplicationStatusResponse' smart constructor.
 data DescribeImageReplicationStatusResponse = DescribeImageReplicationStatusResponse'
   { imageId :: Prelude.Maybe ImageIdentifier,
-    -- | The repository name associated with the request.
-    repositoryName :: Prelude.Maybe Prelude.Text,
     -- | The replication status details for the images in the specified
     -- repository.
     replicationStatuses :: Prelude.Maybe [ImageReplicationStatus],
+    -- | The repository name associated with the request.
+    repositoryName :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -202,10 +204,10 @@ data DescribeImageReplicationStatusResponse = DescribeImageReplicationStatusResp
 --
 -- 'imageId', 'describeImageReplicationStatusResponse_imageId' - Undocumented member.
 --
--- 'repositoryName', 'describeImageReplicationStatusResponse_repositoryName' - The repository name associated with the request.
---
 -- 'replicationStatuses', 'describeImageReplicationStatusResponse_replicationStatuses' - The replication status details for the images in the specified
 -- repository.
+--
+-- 'repositoryName', 'describeImageReplicationStatusResponse_repositoryName' - The repository name associated with the request.
 --
 -- 'httpStatus', 'describeImageReplicationStatusResponse_httpStatus' - The response's http status code.
 newDescribeImageReplicationStatusResponse ::
@@ -217,9 +219,9 @@ newDescribeImageReplicationStatusResponse
     DescribeImageReplicationStatusResponse'
       { imageId =
           Prelude.Nothing,
-        repositoryName = Prelude.Nothing,
         replicationStatuses =
           Prelude.Nothing,
+        repositoryName = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
 
@@ -227,14 +229,14 @@ newDescribeImageReplicationStatusResponse
 describeImageReplicationStatusResponse_imageId :: Lens.Lens' DescribeImageReplicationStatusResponse (Prelude.Maybe ImageIdentifier)
 describeImageReplicationStatusResponse_imageId = Lens.lens (\DescribeImageReplicationStatusResponse' {imageId} -> imageId) (\s@DescribeImageReplicationStatusResponse' {} a -> s {imageId = a} :: DescribeImageReplicationStatusResponse)
 
--- | The repository name associated with the request.
-describeImageReplicationStatusResponse_repositoryName :: Lens.Lens' DescribeImageReplicationStatusResponse (Prelude.Maybe Prelude.Text)
-describeImageReplicationStatusResponse_repositoryName = Lens.lens (\DescribeImageReplicationStatusResponse' {repositoryName} -> repositoryName) (\s@DescribeImageReplicationStatusResponse' {} a -> s {repositoryName = a} :: DescribeImageReplicationStatusResponse)
-
 -- | The replication status details for the images in the specified
 -- repository.
 describeImageReplicationStatusResponse_replicationStatuses :: Lens.Lens' DescribeImageReplicationStatusResponse (Prelude.Maybe [ImageReplicationStatus])
 describeImageReplicationStatusResponse_replicationStatuses = Lens.lens (\DescribeImageReplicationStatusResponse' {replicationStatuses} -> replicationStatuses) (\s@DescribeImageReplicationStatusResponse' {} a -> s {replicationStatuses = a} :: DescribeImageReplicationStatusResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The repository name associated with the request.
+describeImageReplicationStatusResponse_repositoryName :: Lens.Lens' DescribeImageReplicationStatusResponse (Prelude.Maybe Prelude.Text)
+describeImageReplicationStatusResponse_repositoryName = Lens.lens (\DescribeImageReplicationStatusResponse' {repositoryName} -> repositoryName) (\s@DescribeImageReplicationStatusResponse' {} a -> s {repositoryName = a} :: DescribeImageReplicationStatusResponse)
 
 -- | The response's http status code.
 describeImageReplicationStatusResponse_httpStatus :: Lens.Lens' DescribeImageReplicationStatusResponse Prelude.Int
@@ -246,6 +248,6 @@ instance
   where
   rnf DescribeImageReplicationStatusResponse' {..} =
     Prelude.rnf imageId
-      `Prelude.seq` Prelude.rnf repositoryName
       `Prelude.seq` Prelude.rnf replicationStatuses
+      `Prelude.seq` Prelude.rnf repositoryName
       `Prelude.seq` Prelude.rnf httpStatus

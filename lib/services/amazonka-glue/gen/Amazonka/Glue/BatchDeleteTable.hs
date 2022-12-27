@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.BatchDeleteTable
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,6 +39,7 @@ module Amazonka.Glue.BatchDeleteTable
 
     -- * Request Lenses
     batchDeleteTable_catalogId,
+    batchDeleteTable_transactionId,
     batchDeleteTable_databaseName,
     batchDeleteTable_tablesToDelete,
 
@@ -53,8 +54,9 @@ module Amazonka.Glue.BatchDeleteTable
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -64,6 +66,8 @@ data BatchDeleteTable = BatchDeleteTable'
   { -- | The ID of the Data Catalog where the table resides. If none is provided,
     -- the Amazon Web Services account ID is used by default.
     catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The transaction ID at which to delete the table contents.
+    transactionId :: Prelude.Maybe Prelude.Text,
     -- | The name of the catalog database in which the tables to delete reside.
     -- For Hive compatibility, this name is entirely lowercase.
     databaseName :: Prelude.Text,
@@ -83,6 +87,8 @@ data BatchDeleteTable = BatchDeleteTable'
 -- 'catalogId', 'batchDeleteTable_catalogId' - The ID of the Data Catalog where the table resides. If none is provided,
 -- the Amazon Web Services account ID is used by default.
 --
+-- 'transactionId', 'batchDeleteTable_transactionId' - The transaction ID at which to delete the table contents.
+--
 -- 'databaseName', 'batchDeleteTable_databaseName' - The name of the catalog database in which the tables to delete reside.
 -- For Hive compatibility, this name is entirely lowercase.
 --
@@ -94,6 +100,7 @@ newBatchDeleteTable ::
 newBatchDeleteTable pDatabaseName_ =
   BatchDeleteTable'
     { catalogId = Prelude.Nothing,
+      transactionId = Prelude.Nothing,
       databaseName = pDatabaseName_,
       tablesToDelete = Prelude.mempty
     }
@@ -102,6 +109,10 @@ newBatchDeleteTable pDatabaseName_ =
 -- the Amazon Web Services account ID is used by default.
 batchDeleteTable_catalogId :: Lens.Lens' BatchDeleteTable (Prelude.Maybe Prelude.Text)
 batchDeleteTable_catalogId = Lens.lens (\BatchDeleteTable' {catalogId} -> catalogId) (\s@BatchDeleteTable' {} a -> s {catalogId = a} :: BatchDeleteTable)
+
+-- | The transaction ID at which to delete the table contents.
+batchDeleteTable_transactionId :: Lens.Lens' BatchDeleteTable (Prelude.Maybe Prelude.Text)
+batchDeleteTable_transactionId = Lens.lens (\BatchDeleteTable' {transactionId} -> transactionId) (\s@BatchDeleteTable' {} a -> s {transactionId = a} :: BatchDeleteTable)
 
 -- | The name of the catalog database in which the tables to delete reside.
 -- For Hive compatibility, this name is entirely lowercase.
@@ -116,55 +127,59 @@ instance Core.AWSRequest BatchDeleteTable where
   type
     AWSResponse BatchDeleteTable =
       BatchDeleteTableResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchDeleteTableResponse'
-            Prelude.<$> (x Core..?> "Errors" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Errors" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable BatchDeleteTable where
   hashWithSalt _salt BatchDeleteTable' {..} =
     _salt `Prelude.hashWithSalt` catalogId
+      `Prelude.hashWithSalt` transactionId
       `Prelude.hashWithSalt` databaseName
       `Prelude.hashWithSalt` tablesToDelete
 
 instance Prelude.NFData BatchDeleteTable where
   rnf BatchDeleteTable' {..} =
     Prelude.rnf catalogId
+      `Prelude.seq` Prelude.rnf transactionId
       `Prelude.seq` Prelude.rnf databaseName
       `Prelude.seq` Prelude.rnf tablesToDelete
 
-instance Core.ToHeaders BatchDeleteTable where
+instance Data.ToHeaders BatchDeleteTable where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.BatchDeleteTable" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.BatchDeleteTable" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchDeleteTable where
+instance Data.ToJSON BatchDeleteTable where
   toJSON BatchDeleteTable' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            Prelude.Just ("DatabaseName" Core..= databaseName),
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            ("TransactionId" Data..=) Prelude.<$> transactionId,
+            Prelude.Just ("DatabaseName" Data..= databaseName),
             Prelude.Just
-              ("TablesToDelete" Core..= tablesToDelete)
+              ("TablesToDelete" Data..= tablesToDelete)
           ]
       )
 
-instance Core.ToPath BatchDeleteTable where
+instance Data.ToPath BatchDeleteTable where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery BatchDeleteTable where
+instance Data.ToQuery BatchDeleteTable where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchDeleteTableResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeArtifact.AssociateExternalConnection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,15 +48,16 @@ where
 
 import Amazonka.CodeArtifact.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newAssociateExternalConnection' smart constructor.
 data AssociateExternalConnection = AssociateExternalConnection'
-  { -- | The 12-digit account number of the AWS account that owns the domain. It
-    -- does not include dashes or spaces.
+  { -- | The 12-digit account number of the Amazon Web Services account that owns
+    -- the domain. It does not include dashes or spaces.
     domainOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the domain that contains the repository.
     domain :: Prelude.Text,
@@ -88,8 +89,8 @@ data AssociateExternalConnection = AssociateExternalConnection'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'domainOwner', 'associateExternalConnection_domainOwner' - The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
+-- 'domainOwner', 'associateExternalConnection_domainOwner' - The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
 --
 -- 'domain', 'associateExternalConnection_domain' - The name of the domain that contains the repository.
 --
@@ -129,8 +130,8 @@ newAssociateExternalConnection
         externalConnection = pExternalConnection_
       }
 
--- | The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
+-- | The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
 associateExternalConnection_domainOwner :: Lens.Lens' AssociateExternalConnection (Prelude.Maybe Prelude.Text)
 associateExternalConnection_domainOwner = Lens.lens (\AssociateExternalConnection' {domainOwner} -> domainOwner) (\s@AssociateExternalConnection' {} a -> s {domainOwner = a} :: AssociateExternalConnection)
 
@@ -163,12 +164,13 @@ instance Core.AWSRequest AssociateExternalConnection where
   type
     AWSResponse AssociateExternalConnection =
       AssociateExternalConnectionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AssociateExternalConnectionResponse'
-            Prelude.<$> (x Core..?> "repository")
+            Prelude.<$> (x Data..?> "repository")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -186,31 +188,31 @@ instance Prelude.NFData AssociateExternalConnection where
       `Prelude.seq` Prelude.rnf repository
       `Prelude.seq` Prelude.rnf externalConnection
 
-instance Core.ToHeaders AssociateExternalConnection where
+instance Data.ToHeaders AssociateExternalConnection where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateExternalConnection where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON AssociateExternalConnection where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath AssociateExternalConnection where
+instance Data.ToPath AssociateExternalConnection where
   toPath =
     Prelude.const "/v1/repository/external-connection"
 
-instance Core.ToQuery AssociateExternalConnection where
+instance Data.ToQuery AssociateExternalConnection where
   toQuery AssociateExternalConnection' {..} =
     Prelude.mconcat
-      [ "domain-owner" Core.=: domainOwner,
-        "domain" Core.=: domain,
-        "repository" Core.=: repository,
-        "external-connection" Core.=: externalConnection
+      [ "domain-owner" Data.=: domainOwner,
+        "domain" Data.=: domain,
+        "repository" Data.=: repository,
+        "external-connection" Data.=: externalConnection
       ]
 
 -- | /See:/ 'newAssociateExternalConnectionResponse' smart constructor.

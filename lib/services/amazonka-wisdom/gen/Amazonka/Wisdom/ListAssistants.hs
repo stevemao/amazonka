@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.ListAssistants
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Wisdom.ListAssistants
     newListAssistants,
 
     -- * Request Lenses
-    listAssistants_nextToken,
     listAssistants_maxResults,
+    listAssistants_nextToken,
 
     -- * Destructuring the Response
     ListAssistantsResponse (..),
@@ -44,7 +44,8 @@ module Amazonka.Wisdom.ListAssistants
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,12 +53,12 @@ import Amazonka.Wisdom.Types
 
 -- | /See:/ 'newListAssistants' smart constructor.
 data ListAssistants = ListAssistants'
-  { -- | The token for the next set of results. Use the value returned in the
+  { -- | The maximum number of results to return per page.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results. Use the value returned in the
     -- previous response in the next request to retrieve the next set of
     -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return per page.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -69,28 +70,28 @@ data ListAssistants = ListAssistants'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listAssistants_maxResults' - The maximum number of results to return per page.
+--
 -- 'nextToken', 'listAssistants_nextToken' - The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
---
--- 'maxResults', 'listAssistants_maxResults' - The maximum number of results to return per page.
 newListAssistants ::
   ListAssistants
 newListAssistants =
   ListAssistants'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of results to return per page.
+listAssistants_maxResults :: Lens.Lens' ListAssistants (Prelude.Maybe Prelude.Natural)
+listAssistants_maxResults = Lens.lens (\ListAssistants' {maxResults} -> maxResults) (\s@ListAssistants' {} a -> s {maxResults = a} :: ListAssistants)
 
 -- | The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
 listAssistants_nextToken :: Lens.Lens' ListAssistants (Prelude.Maybe Prelude.Text)
 listAssistants_nextToken = Lens.lens (\ListAssistants' {nextToken} -> nextToken) (\s@ListAssistants' {} a -> s {nextToken = a} :: ListAssistants)
-
--- | The maximum number of results to return per page.
-listAssistants_maxResults :: Lens.Lens' ListAssistants (Prelude.Maybe Prelude.Natural)
-listAssistants_maxResults = Lens.lens (\ListAssistants' {maxResults} -> maxResults) (\s@ListAssistants' {} a -> s {maxResults = a} :: ListAssistants)
 
 instance Core.AWSPager ListAssistants where
   page rq rs
@@ -116,47 +117,48 @@ instance Core.AWSRequest ListAssistants where
   type
     AWSResponse ListAssistants =
       ListAssistantsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAssistantsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "assistantSummaries"
+            Prelude.<*> ( x Data..?> "assistantSummaries"
                             Core..!@ Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable ListAssistants where
   hashWithSalt _salt ListAssistants' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListAssistants where
   rnf ListAssistants' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListAssistants where
+instance Data.ToHeaders ListAssistants where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListAssistants where
+instance Data.ToPath ListAssistants where
   toPath = Prelude.const "/assistants"
 
-instance Core.ToQuery ListAssistants where
+instance Data.ToQuery ListAssistants where
   toQuery ListAssistants' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListAssistantsResponse' smart constructor.

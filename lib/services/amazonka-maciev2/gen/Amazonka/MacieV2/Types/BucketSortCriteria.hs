@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.BucketSortCriteria
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.BucketSortCriteria where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types.OrderBy
 import qualified Amazonka.Prelude as Prelude
 
@@ -29,15 +30,15 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newBucketSortCriteria' smart constructor.
 data BucketSortCriteria = BucketSortCriteria'
-  { -- | The sort order to apply to the results, based on the value specified by
-    -- the attributeName property. Valid values are: ASC, sort the results in
-    -- ascending order; and, DESC, sort the results in descending order.
-    orderBy :: Prelude.Maybe OrderBy,
-    -- | The name of the bucket property to sort the results by. This value can
+  { -- | The name of the bucket property to sort the results by. This value can
     -- be one of the following properties that Amazon Macie defines as bucket
     -- metadata: accountId, bucketName, classifiableObjectCount,
-    -- classifiableSizeInBytes, objectCount, or sizeInBytes.
-    attributeName :: Prelude.Maybe Prelude.Text
+    -- classifiableSizeInBytes, objectCount, sensitivityScore, or sizeInBytes.
+    attributeName :: Prelude.Maybe Prelude.Text,
+    -- | The sort order to apply to the results, based on the value specified by
+    -- the attributeName property. Valid values are: ASC, sort the results in
+    -- ascending order; and, DESC, sort the results in descending order.
+    orderBy :: Prelude.Maybe OrderBy
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -49,21 +50,29 @@ data BucketSortCriteria = BucketSortCriteria'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'orderBy', 'bucketSortCriteria_orderBy' - The sort order to apply to the results, based on the value specified by
--- the attributeName property. Valid values are: ASC, sort the results in
--- ascending order; and, DESC, sort the results in descending order.
---
 -- 'attributeName', 'bucketSortCriteria_attributeName' - The name of the bucket property to sort the results by. This value can
 -- be one of the following properties that Amazon Macie defines as bucket
 -- metadata: accountId, bucketName, classifiableObjectCount,
--- classifiableSizeInBytes, objectCount, or sizeInBytes.
+-- classifiableSizeInBytes, objectCount, sensitivityScore, or sizeInBytes.
+--
+-- 'orderBy', 'bucketSortCriteria_orderBy' - The sort order to apply to the results, based on the value specified by
+-- the attributeName property. Valid values are: ASC, sort the results in
+-- ascending order; and, DESC, sort the results in descending order.
 newBucketSortCriteria ::
   BucketSortCriteria
 newBucketSortCriteria =
   BucketSortCriteria'
-    { orderBy = Prelude.Nothing,
-      attributeName = Prelude.Nothing
+    { attributeName =
+        Prelude.Nothing,
+      orderBy = Prelude.Nothing
     }
+
+-- | The name of the bucket property to sort the results by. This value can
+-- be one of the following properties that Amazon Macie defines as bucket
+-- metadata: accountId, bucketName, classifiableObjectCount,
+-- classifiableSizeInBytes, objectCount, sensitivityScore, or sizeInBytes.
+bucketSortCriteria_attributeName :: Lens.Lens' BucketSortCriteria (Prelude.Maybe Prelude.Text)
+bucketSortCriteria_attributeName = Lens.lens (\BucketSortCriteria' {attributeName} -> attributeName) (\s@BucketSortCriteria' {} a -> s {attributeName = a} :: BucketSortCriteria)
 
 -- | The sort order to apply to the results, based on the value specified by
 -- the attributeName property. Valid values are: ASC, sort the results in
@@ -71,28 +80,21 @@ newBucketSortCriteria =
 bucketSortCriteria_orderBy :: Lens.Lens' BucketSortCriteria (Prelude.Maybe OrderBy)
 bucketSortCriteria_orderBy = Lens.lens (\BucketSortCriteria' {orderBy} -> orderBy) (\s@BucketSortCriteria' {} a -> s {orderBy = a} :: BucketSortCriteria)
 
--- | The name of the bucket property to sort the results by. This value can
--- be one of the following properties that Amazon Macie defines as bucket
--- metadata: accountId, bucketName, classifiableObjectCount,
--- classifiableSizeInBytes, objectCount, or sizeInBytes.
-bucketSortCriteria_attributeName :: Lens.Lens' BucketSortCriteria (Prelude.Maybe Prelude.Text)
-bucketSortCriteria_attributeName = Lens.lens (\BucketSortCriteria' {attributeName} -> attributeName) (\s@BucketSortCriteria' {} a -> s {attributeName = a} :: BucketSortCriteria)
-
 instance Prelude.Hashable BucketSortCriteria where
   hashWithSalt _salt BucketSortCriteria' {..} =
-    _salt `Prelude.hashWithSalt` orderBy
-      `Prelude.hashWithSalt` attributeName
+    _salt `Prelude.hashWithSalt` attributeName
+      `Prelude.hashWithSalt` orderBy
 
 instance Prelude.NFData BucketSortCriteria where
   rnf BucketSortCriteria' {..} =
-    Prelude.rnf orderBy
-      `Prelude.seq` Prelude.rnf attributeName
+    Prelude.rnf attributeName
+      `Prelude.seq` Prelude.rnf orderBy
 
-instance Core.ToJSON BucketSortCriteria where
+instance Data.ToJSON BucketSortCriteria where
   toJSON BucketSortCriteria' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("orderBy" Core..=) Prelude.<$> orderBy,
-            ("attributeName" Core..=) Prelude.<$> attributeName
+          [ ("attributeName" Data..=) Prelude.<$> attributeName,
+            ("orderBy" Data..=) Prelude.<$> orderBy
           ]
       )

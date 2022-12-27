@@ -14,20 +14,20 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.TagCertificateAuthority
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Adds one or more tags to your private CA. Tags are labels that you can
--- use to identify and organize your AWS resources. Each tag consists of a
--- key and an optional value. You specify the private CA on input by its
--- Amazon Resource Name (ARN). You specify the tag by using a key-value
--- pair. You can apply a tag to just one private CA if you want to identify
--- a specific characteristic of that CA, or you can apply the same tag to
--- multiple private CAs if you want to filter for a common relationship
--- among those CAs. To remove one or more tags, use the
+-- use to identify and organize your Amazon Web Services resources. Each
+-- tag consists of a key and an optional value. You specify the private CA
+-- on input by its Amazon Resource Name (ARN). You specify the tag by using
+-- a key-value pair. You can apply a tag to just one private CA if you want
+-- to identify a specific characteristic of that CA, or you can apply the
+-- same tag to multiple private CAs if you want to filter for a common
+-- relationship among those CAs. To remove one or more tags, use the
 -- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_UntagCertificateAuthority.html UntagCertificateAuthority>
 -- action. Call the
 -- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_ListTags.html ListTags>
@@ -49,7 +49,8 @@ where
 
 import Amazonka.CertificateManagerPCA.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -113,7 +114,8 @@ instance Core.AWSRequest TagCertificateAuthority where
   type
     AWSResponse TagCertificateAuthority =
       TagCertificateAuthorityResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       TagCertificateAuthorityResponse'
@@ -129,37 +131,37 @@ instance Prelude.NFData TagCertificateAuthority where
     Prelude.rnf certificateAuthorityArn
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders TagCertificateAuthority where
+instance Data.ToHeaders TagCertificateAuthority where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ACMPrivateCA.TagCertificateAuthority" ::
+              Data.=# ( "ACMPrivateCA.TagCertificateAuthority" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON TagCertificateAuthority where
+instance Data.ToJSON TagCertificateAuthority where
   toJSON TagCertificateAuthority' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "CertificateAuthorityArn"
-                  Core..= certificateAuthorityArn
+                  Data..= certificateAuthorityArn
               ),
-            Prelude.Just ("Tags" Core..= tags)
+            Prelude.Just ("Tags" Data..= tags)
           ]
       )
 
-instance Core.ToPath TagCertificateAuthority where
+instance Data.ToPath TagCertificateAuthority where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery TagCertificateAuthority where
+instance Data.ToQuery TagCertificateAuthority where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newTagCertificateAuthorityResponse' smart constructor.

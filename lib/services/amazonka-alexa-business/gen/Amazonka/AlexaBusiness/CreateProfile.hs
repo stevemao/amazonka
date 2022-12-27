@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.CreateProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,13 +27,13 @@ module Amazonka.AlexaBusiness.CreateProfile
     newCreateProfile,
 
     -- * Request Lenses
-    createProfile_setupModeDisabled,
-    createProfile_pSTNEnabled,
-    createProfile_locale,
-    createProfile_meetingRoomConfiguration,
-    createProfile_dataRetentionOptIn,
     createProfile_clientRequestToken,
+    createProfile_dataRetentionOptIn,
+    createProfile_locale,
     createProfile_maxVolumeLimit,
+    createProfile_meetingRoomConfiguration,
+    createProfile_pSTNEnabled,
+    createProfile_setupModeDisabled,
     createProfile_tags,
     createProfile_profileName,
     createProfile_timezone,
@@ -54,28 +54,29 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateProfile' smart constructor.
 data CreateProfile = CreateProfile'
-  { -- | Whether room profile setup is enabled.
-    setupModeDisabled :: Prelude.Maybe Prelude.Bool,
-    -- | Whether PSTN calling is enabled.
-    pSTNEnabled :: Prelude.Maybe Prelude.Bool,
+  { -- | The user-specified token that is used during the creation of a profile.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | Whether data retention of the profile is enabled.
+    dataRetentionOptIn :: Prelude.Maybe Prelude.Bool,
     -- | The locale of the room profile. (This is currently only available to a
     -- limited preview audience.)
     locale :: Prelude.Maybe Prelude.Text,
-    -- | The meeting room settings of a room profile.
-    meetingRoomConfiguration :: Prelude.Maybe CreateMeetingRoomConfiguration,
-    -- | Whether data retention of the profile is enabled.
-    dataRetentionOptIn :: Prelude.Maybe Prelude.Bool,
-    -- | The user-specified token that is used during the creation of a profile.
-    clientRequestToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum volume limit for a room profile.
     maxVolumeLimit :: Prelude.Maybe Prelude.Int,
+    -- | The meeting room settings of a room profile.
+    meetingRoomConfiguration :: Prelude.Maybe CreateMeetingRoomConfiguration,
+    -- | Whether PSTN calling is enabled.
+    pSTNEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | Whether room profile setup is enabled.
+    setupModeDisabled :: Prelude.Maybe Prelude.Bool,
     -- | The tags for the profile.
     tags :: Prelude.Maybe [Tag],
     -- | The name of a room profile.
@@ -101,20 +102,20 @@ data CreateProfile = CreateProfile'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'setupModeDisabled', 'createProfile_setupModeDisabled' - Whether room profile setup is enabled.
+-- 'clientRequestToken', 'createProfile_clientRequestToken' - The user-specified token that is used during the creation of a profile.
 --
--- 'pSTNEnabled', 'createProfile_pSTNEnabled' - Whether PSTN calling is enabled.
+-- 'dataRetentionOptIn', 'createProfile_dataRetentionOptIn' - Whether data retention of the profile is enabled.
 --
 -- 'locale', 'createProfile_locale' - The locale of the room profile. (This is currently only available to a
 -- limited preview audience.)
 --
+-- 'maxVolumeLimit', 'createProfile_maxVolumeLimit' - The maximum volume limit for a room profile.
+--
 -- 'meetingRoomConfiguration', 'createProfile_meetingRoomConfiguration' - The meeting room settings of a room profile.
 --
--- 'dataRetentionOptIn', 'createProfile_dataRetentionOptIn' - Whether data retention of the profile is enabled.
+-- 'pSTNEnabled', 'createProfile_pSTNEnabled' - Whether PSTN calling is enabled.
 --
--- 'clientRequestToken', 'createProfile_clientRequestToken' - The user-specified token that is used during the creation of a profile.
---
--- 'maxVolumeLimit', 'createProfile_maxVolumeLimit' - The maximum volume limit for a room profile.
+-- 'setupModeDisabled', 'createProfile_setupModeDisabled' - Whether room profile setup is enabled.
 --
 -- 'tags', 'createProfile_tags' - The tags for the profile.
 --
@@ -151,13 +152,14 @@ newCreateProfile
   pTemperatureUnit_
   pWakeWord_ =
     CreateProfile'
-      { setupModeDisabled = Prelude.Nothing,
-        pSTNEnabled = Prelude.Nothing,
-        locale = Prelude.Nothing,
-        meetingRoomConfiguration = Prelude.Nothing,
+      { clientRequestToken =
+          Prelude.Nothing,
         dataRetentionOptIn = Prelude.Nothing,
-        clientRequestToken = Prelude.Nothing,
+        locale = Prelude.Nothing,
         maxVolumeLimit = Prelude.Nothing,
+        meetingRoomConfiguration = Prelude.Nothing,
+        pSTNEnabled = Prelude.Nothing,
+        setupModeDisabled = Prelude.Nothing,
         tags = Prelude.Nothing,
         profileName = pProfileName_,
         timezone = pTimezone_,
@@ -167,34 +169,34 @@ newCreateProfile
         wakeWord = pWakeWord_
       }
 
--- | Whether room profile setup is enabled.
-createProfile_setupModeDisabled :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Bool)
-createProfile_setupModeDisabled = Lens.lens (\CreateProfile' {setupModeDisabled} -> setupModeDisabled) (\s@CreateProfile' {} a -> s {setupModeDisabled = a} :: CreateProfile)
+-- | The user-specified token that is used during the creation of a profile.
+createProfile_clientRequestToken :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Text)
+createProfile_clientRequestToken = Lens.lens (\CreateProfile' {clientRequestToken} -> clientRequestToken) (\s@CreateProfile' {} a -> s {clientRequestToken = a} :: CreateProfile)
 
--- | Whether PSTN calling is enabled.
-createProfile_pSTNEnabled :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Bool)
-createProfile_pSTNEnabled = Lens.lens (\CreateProfile' {pSTNEnabled} -> pSTNEnabled) (\s@CreateProfile' {} a -> s {pSTNEnabled = a} :: CreateProfile)
+-- | Whether data retention of the profile is enabled.
+createProfile_dataRetentionOptIn :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Bool)
+createProfile_dataRetentionOptIn = Lens.lens (\CreateProfile' {dataRetentionOptIn} -> dataRetentionOptIn) (\s@CreateProfile' {} a -> s {dataRetentionOptIn = a} :: CreateProfile)
 
 -- | The locale of the room profile. (This is currently only available to a
 -- limited preview audience.)
 createProfile_locale :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Text)
 createProfile_locale = Lens.lens (\CreateProfile' {locale} -> locale) (\s@CreateProfile' {} a -> s {locale = a} :: CreateProfile)
 
+-- | The maximum volume limit for a room profile.
+createProfile_maxVolumeLimit :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Int)
+createProfile_maxVolumeLimit = Lens.lens (\CreateProfile' {maxVolumeLimit} -> maxVolumeLimit) (\s@CreateProfile' {} a -> s {maxVolumeLimit = a} :: CreateProfile)
+
 -- | The meeting room settings of a room profile.
 createProfile_meetingRoomConfiguration :: Lens.Lens' CreateProfile (Prelude.Maybe CreateMeetingRoomConfiguration)
 createProfile_meetingRoomConfiguration = Lens.lens (\CreateProfile' {meetingRoomConfiguration} -> meetingRoomConfiguration) (\s@CreateProfile' {} a -> s {meetingRoomConfiguration = a} :: CreateProfile)
 
--- | Whether data retention of the profile is enabled.
-createProfile_dataRetentionOptIn :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Bool)
-createProfile_dataRetentionOptIn = Lens.lens (\CreateProfile' {dataRetentionOptIn} -> dataRetentionOptIn) (\s@CreateProfile' {} a -> s {dataRetentionOptIn = a} :: CreateProfile)
+-- | Whether PSTN calling is enabled.
+createProfile_pSTNEnabled :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Bool)
+createProfile_pSTNEnabled = Lens.lens (\CreateProfile' {pSTNEnabled} -> pSTNEnabled) (\s@CreateProfile' {} a -> s {pSTNEnabled = a} :: CreateProfile)
 
--- | The user-specified token that is used during the creation of a profile.
-createProfile_clientRequestToken :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Text)
-createProfile_clientRequestToken = Lens.lens (\CreateProfile' {clientRequestToken} -> clientRequestToken) (\s@CreateProfile' {} a -> s {clientRequestToken = a} :: CreateProfile)
-
--- | The maximum volume limit for a room profile.
-createProfile_maxVolumeLimit :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Int)
-createProfile_maxVolumeLimit = Lens.lens (\CreateProfile' {maxVolumeLimit} -> maxVolumeLimit) (\s@CreateProfile' {} a -> s {maxVolumeLimit = a} :: CreateProfile)
+-- | Whether room profile setup is enabled.
+createProfile_setupModeDisabled :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Bool)
+createProfile_setupModeDisabled = Lens.lens (\CreateProfile' {setupModeDisabled} -> setupModeDisabled) (\s@CreateProfile' {} a -> s {setupModeDisabled = a} :: CreateProfile)
 
 -- | The tags for the profile.
 createProfile_tags :: Lens.Lens' CreateProfile (Prelude.Maybe [Tag])
@@ -228,24 +230,25 @@ instance Core.AWSRequest CreateProfile where
   type
     AWSResponse CreateProfile =
       CreateProfileResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateProfileResponse'
-            Prelude.<$> (x Core..?> "ProfileArn")
+            Prelude.<$> (x Data..?> "ProfileArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateProfile where
   hashWithSalt _salt CreateProfile' {..} =
-    _salt `Prelude.hashWithSalt` setupModeDisabled
-      `Prelude.hashWithSalt` pSTNEnabled
-      `Prelude.hashWithSalt` locale
-      `Prelude.hashWithSalt` meetingRoomConfiguration
+    _salt `Prelude.hashWithSalt` clientRequestToken
       `Prelude.hashWithSalt` dataRetentionOptIn
-      `Prelude.hashWithSalt` clientRequestToken
+      `Prelude.hashWithSalt` locale
       `Prelude.hashWithSalt` maxVolumeLimit
+      `Prelude.hashWithSalt` meetingRoomConfiguration
+      `Prelude.hashWithSalt` pSTNEnabled
+      `Prelude.hashWithSalt` setupModeDisabled
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` profileName
       `Prelude.hashWithSalt` timezone
@@ -256,13 +259,13 @@ instance Prelude.Hashable CreateProfile where
 
 instance Prelude.NFData CreateProfile where
   rnf CreateProfile' {..} =
-    Prelude.rnf setupModeDisabled
-      `Prelude.seq` Prelude.rnf pSTNEnabled
-      `Prelude.seq` Prelude.rnf locale
-      `Prelude.seq` Prelude.rnf meetingRoomConfiguration
+    Prelude.rnf clientRequestToken
       `Prelude.seq` Prelude.rnf dataRetentionOptIn
-      `Prelude.seq` Prelude.rnf clientRequestToken
+      `Prelude.seq` Prelude.rnf locale
       `Prelude.seq` Prelude.rnf maxVolumeLimit
+      `Prelude.seq` Prelude.rnf meetingRoomConfiguration
+      `Prelude.seq` Prelude.rnf pSTNEnabled
+      `Prelude.seq` Prelude.rnf setupModeDisabled
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf profileName
       `Prelude.seq` Prelude.rnf timezone
@@ -271,52 +274,52 @@ instance Prelude.NFData CreateProfile where
       `Prelude.seq` Prelude.rnf temperatureUnit
       `Prelude.seq` Prelude.rnf wakeWord
 
-instance Core.ToHeaders CreateProfile where
+instance Data.ToHeaders CreateProfile where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.CreateProfile" ::
+              Data.=# ( "AlexaForBusiness.CreateProfile" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateProfile where
+instance Data.ToJSON CreateProfile where
   toJSON CreateProfile' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SetupModeDisabled" Core..=)
-              Prelude.<$> setupModeDisabled,
-            ("PSTNEnabled" Core..=) Prelude.<$> pSTNEnabled,
-            ("Locale" Core..=) Prelude.<$> locale,
-            ("MeetingRoomConfiguration" Core..=)
-              Prelude.<$> meetingRoomConfiguration,
-            ("DataRetentionOptIn" Core..=)
-              Prelude.<$> dataRetentionOptIn,
-            ("ClientRequestToken" Core..=)
+          [ ("ClientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
-            ("MaxVolumeLimit" Core..=)
+            ("DataRetentionOptIn" Data..=)
+              Prelude.<$> dataRetentionOptIn,
+            ("Locale" Data..=) Prelude.<$> locale,
+            ("MaxVolumeLimit" Data..=)
               Prelude.<$> maxVolumeLimit,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("ProfileName" Core..= profileName),
-            Prelude.Just ("Timezone" Core..= timezone),
-            Prelude.Just ("Address" Core..= address),
-            Prelude.Just ("DistanceUnit" Core..= distanceUnit),
+            ("MeetingRoomConfiguration" Data..=)
+              Prelude.<$> meetingRoomConfiguration,
+            ("PSTNEnabled" Data..=) Prelude.<$> pSTNEnabled,
+            ("SetupModeDisabled" Data..=)
+              Prelude.<$> setupModeDisabled,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("ProfileName" Data..= profileName),
+            Prelude.Just ("Timezone" Data..= timezone),
+            Prelude.Just ("Address" Data..= address),
+            Prelude.Just ("DistanceUnit" Data..= distanceUnit),
             Prelude.Just
-              ("TemperatureUnit" Core..= temperatureUnit),
-            Prelude.Just ("WakeWord" Core..= wakeWord)
+              ("TemperatureUnit" Data..= temperatureUnit),
+            Prelude.Just ("WakeWord" Data..= wakeWord)
           ]
       )
 
-instance Core.ToPath CreateProfile where
+instance Data.ToPath CreateProfile where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateProfile where
+instance Data.ToQuery CreateProfile where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateProfileResponse' smart constructor.

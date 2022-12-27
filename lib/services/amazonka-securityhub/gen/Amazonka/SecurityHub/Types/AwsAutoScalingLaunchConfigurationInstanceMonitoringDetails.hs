@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsAutoScalingLaunchConfigurationInstanceMonitoringDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsAutoScalingLaunchConfigurationInstanceMonitoringDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the type of monitoring for instances in the group.
@@ -66,15 +67,15 @@ awsAutoScalingLaunchConfigurationInstanceMonitoringDetails_enabled :: Lens.Lens'
 awsAutoScalingLaunchConfigurationInstanceMonitoringDetails_enabled = Lens.lens (\AwsAutoScalingLaunchConfigurationInstanceMonitoringDetails' {enabled} -> enabled) (\s@AwsAutoScalingLaunchConfigurationInstanceMonitoringDetails' {} a -> s {enabled = a} :: AwsAutoScalingLaunchConfigurationInstanceMonitoringDetails)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsAutoScalingLaunchConfigurationInstanceMonitoringDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsAutoScalingLaunchConfigurationInstanceMonitoringDetails"
       ( \x ->
           AwsAutoScalingLaunchConfigurationInstanceMonitoringDetails'
-            Prelude.<$> (x Core..:? "Enabled")
+            Prelude.<$> (x Data..:? "Enabled")
       )
 
 instance
@@ -95,12 +96,12 @@ instance
       Prelude.rnf enabled
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsAutoScalingLaunchConfigurationInstanceMonitoringDetails
   where
   toJSON
     AwsAutoScalingLaunchConfigurationInstanceMonitoringDetails' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [("Enabled" Core..=) Prelude.<$> enabled]
+            [("Enabled" Data..=) Prelude.<$> enabled]
         )

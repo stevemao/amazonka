@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RobOMaker.BatchDescribeSimulationJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,14 +34,15 @@ module Amazonka.RobOMaker.BatchDescribeSimulationJob
     newBatchDescribeSimulationJobResponse,
 
     -- * Response Lenses
-    batchDescribeSimulationJobResponse_unprocessedJobs,
     batchDescribeSimulationJobResponse_jobs,
+    batchDescribeSimulationJobResponse_unprocessedJobs,
     batchDescribeSimulationJobResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,13 +82,14 @@ instance Core.AWSRequest BatchDescribeSimulationJob where
   type
     AWSResponse BatchDescribeSimulationJob =
       BatchDescribeSimulationJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchDescribeSimulationJobResponse'
-            Prelude.<$> (x Core..?> "unprocessedJobs")
-            Prelude.<*> (x Core..?> "jobs" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "jobs" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "unprocessedJobs")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -99,36 +101,36 @@ instance Prelude.NFData BatchDescribeSimulationJob where
   rnf BatchDescribeSimulationJob' {..} =
     Prelude.rnf jobs
 
-instance Core.ToHeaders BatchDescribeSimulationJob where
+instance Data.ToHeaders BatchDescribeSimulationJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchDescribeSimulationJob where
+instance Data.ToJSON BatchDescribeSimulationJob where
   toJSON BatchDescribeSimulationJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("jobs" Core..= jobs)]
+          [Prelude.Just ("jobs" Data..= jobs)]
       )
 
-instance Core.ToPath BatchDescribeSimulationJob where
+instance Data.ToPath BatchDescribeSimulationJob where
   toPath = Prelude.const "/batchDescribeSimulationJob"
 
-instance Core.ToQuery BatchDescribeSimulationJob where
+instance Data.ToQuery BatchDescribeSimulationJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchDescribeSimulationJobResponse' smart constructor.
 data BatchDescribeSimulationJobResponse = BatchDescribeSimulationJobResponse'
-  { -- | A list of unprocessed simulation job Amazon Resource Names (ARNs).
-    unprocessedJobs :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
-    -- | A list of simulation jobs.
+  { -- | A list of simulation jobs.
     jobs :: Prelude.Maybe [SimulationJob],
+    -- | A list of unprocessed simulation job Amazon Resource Names (ARNs).
+    unprocessedJobs :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -142,9 +144,9 @@ data BatchDescribeSimulationJobResponse = BatchDescribeSimulationJobResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'unprocessedJobs', 'batchDescribeSimulationJobResponse_unprocessedJobs' - A list of unprocessed simulation job Amazon Resource Names (ARNs).
---
 -- 'jobs', 'batchDescribeSimulationJobResponse_jobs' - A list of simulation jobs.
+--
+-- 'unprocessedJobs', 'batchDescribeSimulationJobResponse_unprocessedJobs' - A list of unprocessed simulation job Amazon Resource Names (ARNs).
 --
 -- 'httpStatus', 'batchDescribeSimulationJobResponse_httpStatus' - The response's http status code.
 newBatchDescribeSimulationJobResponse ::
@@ -153,19 +155,19 @@ newBatchDescribeSimulationJobResponse ::
   BatchDescribeSimulationJobResponse
 newBatchDescribeSimulationJobResponse pHttpStatus_ =
   BatchDescribeSimulationJobResponse'
-    { unprocessedJobs =
+    { jobs =
         Prelude.Nothing,
-      jobs = Prelude.Nothing,
+      unprocessedJobs = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A list of unprocessed simulation job Amazon Resource Names (ARNs).
-batchDescribeSimulationJobResponse_unprocessedJobs :: Lens.Lens' BatchDescribeSimulationJobResponse (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
-batchDescribeSimulationJobResponse_unprocessedJobs = Lens.lens (\BatchDescribeSimulationJobResponse' {unprocessedJobs} -> unprocessedJobs) (\s@BatchDescribeSimulationJobResponse' {} a -> s {unprocessedJobs = a} :: BatchDescribeSimulationJobResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A list of simulation jobs.
 batchDescribeSimulationJobResponse_jobs :: Lens.Lens' BatchDescribeSimulationJobResponse (Prelude.Maybe [SimulationJob])
 batchDescribeSimulationJobResponse_jobs = Lens.lens (\BatchDescribeSimulationJobResponse' {jobs} -> jobs) (\s@BatchDescribeSimulationJobResponse' {} a -> s {jobs = a} :: BatchDescribeSimulationJobResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | A list of unprocessed simulation job Amazon Resource Names (ARNs).
+batchDescribeSimulationJobResponse_unprocessedJobs :: Lens.Lens' BatchDescribeSimulationJobResponse (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+batchDescribeSimulationJobResponse_unprocessedJobs = Lens.lens (\BatchDescribeSimulationJobResponse' {unprocessedJobs} -> unprocessedJobs) (\s@BatchDescribeSimulationJobResponse' {} a -> s {unprocessedJobs = a} :: BatchDescribeSimulationJobResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 batchDescribeSimulationJobResponse_httpStatus :: Lens.Lens' BatchDescribeSimulationJobResponse Prelude.Int
@@ -176,6 +178,6 @@ instance
     BatchDescribeSimulationJobResponse
   where
   rnf BatchDescribeSimulationJobResponse' {..} =
-    Prelude.rnf unprocessedJobs
-      `Prelude.seq` Prelude.rnf jobs
+    Prelude.rnf jobs
+      `Prelude.seq` Prelude.rnf unprocessedJobs
       `Prelude.seq` Prelude.rnf httpStatus

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSMContacts.CreateContactChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.SSMContacts.CreateContactChannel
     newCreateContactChannel,
 
     -- * Request Lenses
-    createContactChannel_idempotencyToken,
     createContactChannel_deferActivation,
+    createContactChannel_idempotencyToken,
     createContactChannel_contactId,
     createContactChannel_name,
     createContactChannel_type,
@@ -46,7 +46,8 @@ module Amazonka.SSMContacts.CreateContactChannel
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,13 +55,13 @@ import Amazonka.SSMContacts.Types
 
 -- | /See:/ 'newCreateContactChannel' smart constructor.
 data CreateContactChannel = CreateContactChannel'
-  { -- | A token ensuring that the operation is called only once with the
-    -- specified details.
-    idempotencyToken :: Prelude.Maybe Prelude.Text,
-    -- | If you want to activate the channel at a later time, you can choose to
+  { -- | If you want to activate the channel at a later time, you can choose to
     -- defer activation. Incident Manager can\'t engage your contact channel
     -- until it has been activated.
     deferActivation :: Prelude.Maybe Prelude.Bool,
+    -- | A token ensuring that the operation is called only once with the
+    -- specified details.
+    idempotencyToken :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the contact you are adding the contact
     -- channel to.
     contactId :: Prelude.Text,
@@ -95,12 +96,12 @@ data CreateContactChannel = CreateContactChannel'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'idempotencyToken', 'createContactChannel_idempotencyToken' - A token ensuring that the operation is called only once with the
--- specified details.
---
 -- 'deferActivation', 'createContactChannel_deferActivation' - If you want to activate the channel at a later time, you can choose to
 -- defer activation. Incident Manager can\'t engage your contact channel
 -- until it has been activated.
+--
+-- 'idempotencyToken', 'createContactChannel_idempotencyToken' - A token ensuring that the operation is called only once with the
+-- specified details.
 --
 -- 'contactId', 'createContactChannel_contactId' - The Amazon Resource Name (ARN) of the contact you are adding the contact
 -- channel to.
@@ -140,25 +141,25 @@ newCreateContactChannel
   pType_
   pDeliveryAddress_ =
     CreateContactChannel'
-      { idempotencyToken =
+      { deferActivation =
           Prelude.Nothing,
-        deferActivation = Prelude.Nothing,
+        idempotencyToken = Prelude.Nothing,
         contactId = pContactId_,
         name = pName_,
         type' = pType_,
         deliveryAddress = pDeliveryAddress_
       }
 
--- | A token ensuring that the operation is called only once with the
--- specified details.
-createContactChannel_idempotencyToken :: Lens.Lens' CreateContactChannel (Prelude.Maybe Prelude.Text)
-createContactChannel_idempotencyToken = Lens.lens (\CreateContactChannel' {idempotencyToken} -> idempotencyToken) (\s@CreateContactChannel' {} a -> s {idempotencyToken = a} :: CreateContactChannel)
-
 -- | If you want to activate the channel at a later time, you can choose to
 -- defer activation. Incident Manager can\'t engage your contact channel
 -- until it has been activated.
 createContactChannel_deferActivation :: Lens.Lens' CreateContactChannel (Prelude.Maybe Prelude.Bool)
 createContactChannel_deferActivation = Lens.lens (\CreateContactChannel' {deferActivation} -> deferActivation) (\s@CreateContactChannel' {} a -> s {deferActivation = a} :: CreateContactChannel)
+
+-- | A token ensuring that the operation is called only once with the
+-- specified details.
+createContactChannel_idempotencyToken :: Lens.Lens' CreateContactChannel (Prelude.Maybe Prelude.Text)
+createContactChannel_idempotencyToken = Lens.lens (\CreateContactChannel' {idempotencyToken} -> idempotencyToken) (\s@CreateContactChannel' {} a -> s {idempotencyToken = a} :: CreateContactChannel)
 
 -- | The Amazon Resource Name (ARN) of the contact you are adding the contact
 -- channel to.
@@ -195,19 +196,20 @@ instance Core.AWSRequest CreateContactChannel where
   type
     AWSResponse CreateContactChannel =
       CreateContactChannelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateContactChannelResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "ContactChannelArn")
+            Prelude.<*> (x Data..:> "ContactChannelArn")
       )
 
 instance Prelude.Hashable CreateContactChannel where
   hashWithSalt _salt CreateContactChannel' {..} =
-    _salt `Prelude.hashWithSalt` idempotencyToken
-      `Prelude.hashWithSalt` deferActivation
+    _salt `Prelude.hashWithSalt` deferActivation
+      `Prelude.hashWithSalt` idempotencyToken
       `Prelude.hashWithSalt` contactId
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` type'
@@ -215,48 +217,48 @@ instance Prelude.Hashable CreateContactChannel where
 
 instance Prelude.NFData CreateContactChannel where
   rnf CreateContactChannel' {..} =
-    Prelude.rnf idempotencyToken
-      `Prelude.seq` Prelude.rnf deferActivation
+    Prelude.rnf deferActivation
+      `Prelude.seq` Prelude.rnf idempotencyToken
       `Prelude.seq` Prelude.rnf contactId
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf deliveryAddress
 
-instance Core.ToHeaders CreateContactChannel where
+instance Data.ToHeaders CreateContactChannel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SSMContacts.CreateContactChannel" ::
+              Data.=# ( "SSMContacts.CreateContactChannel" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateContactChannel where
+instance Data.ToJSON CreateContactChannel where
   toJSON CreateContactChannel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("IdempotencyToken" Core..=)
-              Prelude.<$> idempotencyToken,
-            ("DeferActivation" Core..=)
+          [ ("DeferActivation" Data..=)
               Prelude.<$> deferActivation,
-            Prelude.Just ("ContactId" Core..= contactId),
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Type" Core..= type'),
+            ("IdempotencyToken" Data..=)
+              Prelude.<$> idempotencyToken,
+            Prelude.Just ("ContactId" Data..= contactId),
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Type" Data..= type'),
             Prelude.Just
-              ("DeliveryAddress" Core..= deliveryAddress)
+              ("DeliveryAddress" Data..= deliveryAddress)
           ]
       )
 
-instance Core.ToPath CreateContactChannel where
+instance Data.ToPath CreateContactChannel where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateContactChannel where
+instance Data.ToQuery CreateContactChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateContactChannelResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.BatchListObjectParentPaths
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudDirectory.Types.BatchListObjectParentPaths where
 
 import Amazonka.CloudDirectory.Types.ObjectReference
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Retrieves all available parent paths for any object type such as node,
@@ -31,10 +32,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newBatchListObjectParentPaths' smart constructor.
 data BatchListObjectParentPaths = BatchListObjectParentPaths'
-  { -- | The pagination token.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to retrieve.
+  { -- | The maximum number of results to retrieve.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The reference that identifies the object whose attributes will be
     -- listed.
     objectReference :: ObjectReference
@@ -49,9 +50,9 @@ data BatchListObjectParentPaths = BatchListObjectParentPaths'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'batchListObjectParentPaths_nextToken' - The pagination token.
---
 -- 'maxResults', 'batchListObjectParentPaths_maxResults' - The maximum number of results to retrieve.
+--
+-- 'nextToken', 'batchListObjectParentPaths_nextToken' - The pagination token.
 --
 -- 'objectReference', 'batchListObjectParentPaths_objectReference' - The reference that identifies the object whose attributes will be
 -- listed.
@@ -61,19 +62,19 @@ newBatchListObjectParentPaths ::
   BatchListObjectParentPaths
 newBatchListObjectParentPaths pObjectReference_ =
   BatchListObjectParentPaths'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       objectReference = pObjectReference_
     }
-
--- | The pagination token.
-batchListObjectParentPaths_nextToken :: Lens.Lens' BatchListObjectParentPaths (Prelude.Maybe Prelude.Text)
-batchListObjectParentPaths_nextToken = Lens.lens (\BatchListObjectParentPaths' {nextToken} -> nextToken) (\s@BatchListObjectParentPaths' {} a -> s {nextToken = a} :: BatchListObjectParentPaths)
 
 -- | The maximum number of results to retrieve.
 batchListObjectParentPaths_maxResults :: Lens.Lens' BatchListObjectParentPaths (Prelude.Maybe Prelude.Natural)
 batchListObjectParentPaths_maxResults = Lens.lens (\BatchListObjectParentPaths' {maxResults} -> maxResults) (\s@BatchListObjectParentPaths' {} a -> s {maxResults = a} :: BatchListObjectParentPaths)
+
+-- | The pagination token.
+batchListObjectParentPaths_nextToken :: Lens.Lens' BatchListObjectParentPaths (Prelude.Maybe Prelude.Text)
+batchListObjectParentPaths_nextToken = Lens.lens (\BatchListObjectParentPaths' {nextToken} -> nextToken) (\s@BatchListObjectParentPaths' {} a -> s {nextToken = a} :: BatchListObjectParentPaths)
 
 -- | The reference that identifies the object whose attributes will be
 -- listed.
@@ -82,23 +83,23 @@ batchListObjectParentPaths_objectReference = Lens.lens (\BatchListObjectParentPa
 
 instance Prelude.Hashable BatchListObjectParentPaths where
   hashWithSalt _salt BatchListObjectParentPaths' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` objectReference
 
 instance Prelude.NFData BatchListObjectParentPaths where
   rnf BatchListObjectParentPaths' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf objectReference
 
-instance Core.ToJSON BatchListObjectParentPaths where
+instance Data.ToJSON BatchListObjectParentPaths where
   toJSON BatchListObjectParentPaths' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("ObjectReference" Core..= objectReference)
+              ("ObjectReference" Data..= objectReference)
           ]
       )

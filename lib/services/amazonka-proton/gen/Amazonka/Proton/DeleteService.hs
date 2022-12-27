@@ -14,13 +14,20 @@
 
 -- |
 -- Module      : Amazonka.Proton.DeleteService
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Delete a service.
+-- Delete a service, with its instances and pipeline.
+--
+-- You can\'t delete a service if it has any service instances that have
+-- components attached to them.
+--
+-- For more information about components, see
+-- <https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html Proton components>
+-- in the /Proton User Guide/.
 module Amazonka.Proton.DeleteService
   ( -- * Creating a Request
     DeleteService (..),
@@ -40,7 +47,8 @@ module Amazonka.Proton.DeleteService
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types
 import qualified Amazonka.Request as Request
@@ -77,12 +85,13 @@ instance Core.AWSRequest DeleteService where
   type
     AWSResponse DeleteService =
       DeleteServiceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteServiceResponse'
-            Prelude.<$> (x Core..?> "service")
+            Prelude.<$> (x Data..?> "service")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -93,37 +102,37 @@ instance Prelude.Hashable DeleteService where
 instance Prelude.NFData DeleteService where
   rnf DeleteService' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DeleteService where
+instance Data.ToHeaders DeleteService where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AwsProton20200720.DeleteService" ::
+              Data.=# ( "AwsProton20200720.DeleteService" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteService where
+instance Data.ToJSON DeleteService where
   toJSON DeleteService' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("name" Core..= name)]
+          [Prelude.Just ("name" Data..= name)]
       )
 
-instance Core.ToPath DeleteService where
+instance Data.ToPath DeleteService where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteService where
+instance Data.ToQuery DeleteService where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteServiceResponse' smart constructor.
 data DeleteServiceResponse = DeleteServiceResponse'
-  { -- | The service detail data that\'s returned by AWS Proton.
+  { -- | The detailed data of the service being deleted.
     service :: Prelude.Maybe Service,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -138,7 +147,7 @@ data DeleteServiceResponse = DeleteServiceResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'service', 'deleteServiceResponse_service' - The service detail data that\'s returned by AWS Proton.
+-- 'service', 'deleteServiceResponse_service' - The detailed data of the service being deleted.
 --
 -- 'httpStatus', 'deleteServiceResponse_httpStatus' - The response's http status code.
 newDeleteServiceResponse ::
@@ -151,7 +160,7 @@ newDeleteServiceResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The service detail data that\'s returned by AWS Proton.
+-- | The detailed data of the service being deleted.
 deleteServiceResponse_service :: Lens.Lens' DeleteServiceResponse (Prelude.Maybe Service)
 deleteServiceResponse_service = Lens.lens (\DeleteServiceResponse' {service} -> service) (\s@DeleteServiceResponse' {} a -> s {service = a} :: DeleteServiceResponse)
 

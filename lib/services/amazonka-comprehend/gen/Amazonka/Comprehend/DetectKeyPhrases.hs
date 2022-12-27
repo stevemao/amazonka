@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.DetectKeyPhrases
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,16 +42,17 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDetectKeyPhrases' smart constructor.
 data DetectKeyPhrases = DetectKeyPhrases'
-  { -- | A UTF-8 text string. Each string must contain fewer that 5,000 bytes of
-    -- UTF-8 encoded characters.
-    text :: Core.Sensitive Prelude.Text,
+  { -- | A UTF-8 text string. The string must contain less than 100 KB of UTF-8
+    -- encoded characters.
+    text :: Data.Sensitive Prelude.Text,
     -- | The language of the input documents. You can specify any of the primary
     -- languages supported by Amazon Comprehend. All documents must be in the
     -- same language.
@@ -67,8 +68,8 @@ data DetectKeyPhrases = DetectKeyPhrases'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'text', 'detectKeyPhrases_text' - A UTF-8 text string. Each string must contain fewer that 5,000 bytes of
--- UTF-8 encoded characters.
+-- 'text', 'detectKeyPhrases_text' - A UTF-8 text string. The string must contain less than 100 KB of UTF-8
+-- encoded characters.
 --
 -- 'languageCode', 'detectKeyPhrases_languageCode' - The language of the input documents. You can specify any of the primary
 -- languages supported by Amazon Comprehend. All documents must be in the
@@ -82,14 +83,14 @@ newDetectKeyPhrases ::
 newDetectKeyPhrases pText_ pLanguageCode_ =
   DetectKeyPhrases'
     { text =
-        Core._Sensitive Lens.# pText_,
+        Data._Sensitive Lens.# pText_,
       languageCode = pLanguageCode_
     }
 
--- | A UTF-8 text string. Each string must contain fewer that 5,000 bytes of
--- UTF-8 encoded characters.
+-- | A UTF-8 text string. The string must contain less than 100 KB of UTF-8
+-- encoded characters.
 detectKeyPhrases_text :: Lens.Lens' DetectKeyPhrases Prelude.Text
-detectKeyPhrases_text = Lens.lens (\DetectKeyPhrases' {text} -> text) (\s@DetectKeyPhrases' {} a -> s {text = a} :: DetectKeyPhrases) Prelude.. Core._Sensitive
+detectKeyPhrases_text = Lens.lens (\DetectKeyPhrases' {text} -> text) (\s@DetectKeyPhrases' {} a -> s {text = a} :: DetectKeyPhrases) Prelude.. Data._Sensitive
 
 -- | The language of the input documents. You can specify any of the primary
 -- languages supported by Amazon Comprehend. All documents must be in the
@@ -101,12 +102,13 @@ instance Core.AWSRequest DetectKeyPhrases where
   type
     AWSResponse DetectKeyPhrases =
       DetectKeyPhrasesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DetectKeyPhrasesResponse'
-            Prelude.<$> (x Core..?> "KeyPhrases" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "KeyPhrases" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -120,34 +122,34 @@ instance Prelude.NFData DetectKeyPhrases where
     Prelude.rnf text
       `Prelude.seq` Prelude.rnf languageCode
 
-instance Core.ToHeaders DetectKeyPhrases where
+instance Data.ToHeaders DetectKeyPhrases where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.DetectKeyPhrases" ::
+              Data.=# ( "Comprehend_20171127.DetectKeyPhrases" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DetectKeyPhrases where
+instance Data.ToJSON DetectKeyPhrases where
   toJSON DetectKeyPhrases' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Text" Core..= text),
-            Prelude.Just ("LanguageCode" Core..= languageCode)
+          [ Prelude.Just ("Text" Data..= text),
+            Prelude.Just ("LanguageCode" Data..= languageCode)
           ]
       )
 
-instance Core.ToPath DetectKeyPhrases where
+instance Data.ToPath DetectKeyPhrases where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DetectKeyPhrases where
+instance Data.ToQuery DetectKeyPhrases where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDetectKeyPhrasesResponse' smart constructor.

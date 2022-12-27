@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideoSignaling.GetIceServerConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -60,8 +60,9 @@ module Amazonka.KinesisVideoSignaling.GetIceServerConfig
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisVideoSignaling.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -135,12 +136,13 @@ instance Core.AWSRequest GetIceServerConfig where
   type
     AWSResponse GetIceServerConfig =
       GetIceServerConfigResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetIceServerConfigResponse'
-            Prelude.<$> (x Core..?> "IceServerList" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "IceServerList" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -158,24 +160,24 @@ instance Prelude.NFData GetIceServerConfig where
       `Prelude.seq` Prelude.rnf username
       `Prelude.seq` Prelude.rnf channelARN
 
-instance Core.ToHeaders GetIceServerConfig where
+instance Data.ToHeaders GetIceServerConfig where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON GetIceServerConfig where
+instance Data.ToJSON GetIceServerConfig where
   toJSON GetIceServerConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ClientId" Core..=) Prelude.<$> clientId,
-            ("Service" Core..=) Prelude.<$> service,
-            ("Username" Core..=) Prelude.<$> username,
-            Prelude.Just ("ChannelARN" Core..= channelARN)
+          [ ("ClientId" Data..=) Prelude.<$> clientId,
+            ("Service" Data..=) Prelude.<$> service,
+            ("Username" Data..=) Prelude.<$> username,
+            Prelude.Just ("ChannelARN" Data..= channelARN)
           ]
       )
 
-instance Core.ToPath GetIceServerConfig where
+instance Data.ToPath GetIceServerConfig where
   toPath = Prelude.const "/v1/get-ice-server-config"
 
-instance Core.ToQuery GetIceServerConfig where
+instance Data.ToQuery GetIceServerConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetIceServerConfigResponse' smart constructor.

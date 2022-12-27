@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.PutItemInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoT.Types.PutItemInput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The input for the DynamoActionVS action that specifies the DynamoDB
@@ -53,12 +54,12 @@ newPutItemInput pTableName_ =
 putItemInput_tableName :: Lens.Lens' PutItemInput Prelude.Text
 putItemInput_tableName = Lens.lens (\PutItemInput' {tableName} -> tableName) (\s@PutItemInput' {} a -> s {tableName = a} :: PutItemInput)
 
-instance Core.FromJSON PutItemInput where
+instance Data.FromJSON PutItemInput where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PutItemInput"
       ( \x ->
-          PutItemInput' Prelude.<$> (x Core..: "tableName")
+          PutItemInput' Prelude.<$> (x Data..: "tableName")
       )
 
 instance Prelude.Hashable PutItemInput where
@@ -68,9 +69,9 @@ instance Prelude.Hashable PutItemInput where
 instance Prelude.NFData PutItemInput where
   rnf PutItemInput' {..} = Prelude.rnf tableName
 
-instance Core.ToJSON PutItemInput where
+instance Data.ToJSON PutItemInput where
   toJSON PutItemInput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("tableName" Core..= tableName)]
+          [Prelude.Just ("tableName" Data..= tableName)]
       )

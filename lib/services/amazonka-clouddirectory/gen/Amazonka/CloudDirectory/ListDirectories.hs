@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.ListDirectories
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.CloudDirectory.ListDirectories
     newListDirectories,
 
     -- * Request Lenses
-    listDirectories_state,
-    listDirectories_nextToken,
     listDirectories_maxResults,
+    listDirectories_nextToken,
+    listDirectories_state,
 
     -- * Destructuring the Response
     ListDirectoriesResponse (..),
@@ -46,20 +46,21 @@ where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListDirectories' smart constructor.
 data ListDirectories = ListDirectories'
-  { -- | The state of the directories in the list. Can be either Enabled,
-    -- Disabled, or Deleted.
-    state :: Prelude.Maybe DirectoryState,
+  { -- | The maximum number of results to retrieve.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The pagination token.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to retrieve.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    -- | The state of the directories in the list. Can be either Enabled,
+    -- Disabled, or Deleted.
+    state :: Prelude.Maybe DirectoryState
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -71,33 +72,33 @@ data ListDirectories = ListDirectories'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'state', 'listDirectories_state' - The state of the directories in the list. Can be either Enabled,
--- Disabled, or Deleted.
+-- 'maxResults', 'listDirectories_maxResults' - The maximum number of results to retrieve.
 --
 -- 'nextToken', 'listDirectories_nextToken' - The pagination token.
 --
--- 'maxResults', 'listDirectories_maxResults' - The maximum number of results to retrieve.
+-- 'state', 'listDirectories_state' - The state of the directories in the list. Can be either Enabled,
+-- Disabled, or Deleted.
 newListDirectories ::
   ListDirectories
 newListDirectories =
   ListDirectories'
-    { state = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      state = Prelude.Nothing
     }
 
--- | The state of the directories in the list. Can be either Enabled,
--- Disabled, or Deleted.
-listDirectories_state :: Lens.Lens' ListDirectories (Prelude.Maybe DirectoryState)
-listDirectories_state = Lens.lens (\ListDirectories' {state} -> state) (\s@ListDirectories' {} a -> s {state = a} :: ListDirectories)
+-- | The maximum number of results to retrieve.
+listDirectories_maxResults :: Lens.Lens' ListDirectories (Prelude.Maybe Prelude.Natural)
+listDirectories_maxResults = Lens.lens (\ListDirectories' {maxResults} -> maxResults) (\s@ListDirectories' {} a -> s {maxResults = a} :: ListDirectories)
 
 -- | The pagination token.
 listDirectories_nextToken :: Lens.Lens' ListDirectories (Prelude.Maybe Prelude.Text)
 listDirectories_nextToken = Lens.lens (\ListDirectories' {nextToken} -> nextToken) (\s@ListDirectories' {} a -> s {nextToken = a} :: ListDirectories)
 
--- | The maximum number of results to retrieve.
-listDirectories_maxResults :: Lens.Lens' ListDirectories (Prelude.Maybe Prelude.Natural)
-listDirectories_maxResults = Lens.lens (\ListDirectories' {maxResults} -> maxResults) (\s@ListDirectories' {} a -> s {maxResults = a} :: ListDirectories)
+-- | The state of the directories in the list. Can be either Enabled,
+-- Disabled, or Deleted.
+listDirectories_state :: Lens.Lens' ListDirectories (Prelude.Maybe DirectoryState)
+listDirectories_state = Lens.lens (\ListDirectories' {state} -> state) (\s@ListDirectories' {} a -> s {state = a} :: ListDirectories)
 
 instance Core.AWSPager ListDirectories where
   page rq rs
@@ -122,47 +123,48 @@ instance Core.AWSRequest ListDirectories where
   type
     AWSResponse ListDirectories =
       ListDirectoriesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDirectoriesResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Directories" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Directories" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListDirectories where
   hashWithSalt _salt ListDirectories' {..} =
-    _salt `Prelude.hashWithSalt` state
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` state
 
 instance Prelude.NFData ListDirectories where
   rnf ListDirectories' {..} =
-    Prelude.rnf state
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf state
 
-instance Core.ToHeaders ListDirectories where
+instance Data.ToHeaders ListDirectories where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON ListDirectories where
+instance Data.ToJSON ListDirectories where
   toJSON ListDirectories' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("state" Core..=) Prelude.<$> state,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("state" Data..=) Prelude.<$> state
           ]
       )
 
-instance Core.ToPath ListDirectories where
+instance Data.ToPath ListDirectories where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/directory/list"
 
-instance Core.ToQuery ListDirectories where
+instance Data.ToQuery ListDirectories where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListDirectoriesResponse' smart constructor.

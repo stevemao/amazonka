@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkManager.GetConnections
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,9 +31,9 @@ module Amazonka.NetworkManager.GetConnections
 
     -- * Request Lenses
     getConnections_connectionIds,
-    getConnections_nextToken,
     getConnections_deviceId,
     getConnections_maxResults,
+    getConnections_nextToken,
     getConnections_globalNetworkId,
 
     -- * Destructuring the Response
@@ -48,7 +48,8 @@ module Amazonka.NetworkManager.GetConnections
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -58,12 +59,12 @@ import qualified Amazonka.Response as Response
 data GetConnections = GetConnections'
   { -- | One or more connection IDs.
     connectionIds :: Prelude.Maybe [Prelude.Text],
-    -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ID of the device.
     deviceId :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of results to return.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ID of the global network.
     globalNetworkId :: Prelude.Text
   }
@@ -79,11 +80,11 @@ data GetConnections = GetConnections'
 --
 -- 'connectionIds', 'getConnections_connectionIds' - One or more connection IDs.
 --
--- 'nextToken', 'getConnections_nextToken' - The token for the next page of results.
---
 -- 'deviceId', 'getConnections_deviceId' - The ID of the device.
 --
 -- 'maxResults', 'getConnections_maxResults' - The maximum number of results to return.
+--
+-- 'nextToken', 'getConnections_nextToken' - The token for the next page of results.
 --
 -- 'globalNetworkId', 'getConnections_globalNetworkId' - The ID of the global network.
 newGetConnections ::
@@ -93,19 +94,15 @@ newGetConnections ::
 newGetConnections pGlobalNetworkId_ =
   GetConnections'
     { connectionIds = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       deviceId = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       globalNetworkId = pGlobalNetworkId_
     }
 
 -- | One or more connection IDs.
 getConnections_connectionIds :: Lens.Lens' GetConnections (Prelude.Maybe [Prelude.Text])
 getConnections_connectionIds = Lens.lens (\GetConnections' {connectionIds} -> connectionIds) (\s@GetConnections' {} a -> s {connectionIds = a} :: GetConnections) Prelude.. Lens.mapping Lens.coerced
-
--- | The token for the next page of results.
-getConnections_nextToken :: Lens.Lens' GetConnections (Prelude.Maybe Prelude.Text)
-getConnections_nextToken = Lens.lens (\GetConnections' {nextToken} -> nextToken) (\s@GetConnections' {} a -> s {nextToken = a} :: GetConnections)
 
 -- | The ID of the device.
 getConnections_deviceId :: Lens.Lens' GetConnections (Prelude.Maybe Prelude.Text)
@@ -114,6 +111,10 @@ getConnections_deviceId = Lens.lens (\GetConnections' {deviceId} -> deviceId) (\
 -- | The maximum number of results to return.
 getConnections_maxResults :: Lens.Lens' GetConnections (Prelude.Maybe Prelude.Natural)
 getConnections_maxResults = Lens.lens (\GetConnections' {maxResults} -> maxResults) (\s@GetConnections' {} a -> s {maxResults = a} :: GetConnections)
+
+-- | The token for the next page of results.
+getConnections_nextToken :: Lens.Lens' GetConnections (Prelude.Maybe Prelude.Text)
+getConnections_nextToken = Lens.lens (\GetConnections' {nextToken} -> nextToken) (\s@GetConnections' {} a -> s {nextToken = a} :: GetConnections)
 
 -- | The ID of the global network.
 getConnections_globalNetworkId :: Lens.Lens' GetConnections Prelude.Text
@@ -144,62 +145,63 @@ instance Core.AWSRequest GetConnections where
   type
     AWSResponse GetConnections =
       GetConnectionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetConnectionsResponse'
-            Prelude.<$> (x Core..?> "Connections" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Connections" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetConnections where
   hashWithSalt _salt GetConnections' {..} =
     _salt `Prelude.hashWithSalt` connectionIds
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` deviceId
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` globalNetworkId
 
 instance Prelude.NFData GetConnections where
   rnf GetConnections' {..} =
     Prelude.rnf connectionIds
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf deviceId
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf globalNetworkId
 
-instance Core.ToHeaders GetConnections where
+instance Data.ToHeaders GetConnections where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetConnections where
+instance Data.ToPath GetConnections where
   toPath GetConnections' {..} =
     Prelude.mconcat
       [ "/global-networks/",
-        Core.toBS globalNetworkId,
+        Data.toBS globalNetworkId,
         "/connections"
       ]
 
-instance Core.ToQuery GetConnections where
+instance Data.ToQuery GetConnections where
   toQuery GetConnections' {..} =
     Prelude.mconcat
       [ "connectionIds"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> connectionIds
             ),
-        "nextToken" Core.=: nextToken,
-        "deviceId" Core.=: deviceId,
-        "maxResults" Core.=: maxResults
+        "deviceId" Data.=: deviceId,
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newGetConnectionsResponse' smart constructor.

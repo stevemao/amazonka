@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataExchange.Types.ExportAssetsToS3RequestDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.DataExchange.Types.ExportAssetsToS3RequestDetails where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataExchange.Types.AssetDestinationEntry
 import Amazonka.DataExchange.Types.ExportServerSideEncryption
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details of the operation to be performed by the job.
@@ -113,14 +114,14 @@ instance
       `Prelude.seq` Prelude.rnf dataSetId
       `Prelude.seq` Prelude.rnf revisionId
 
-instance Core.ToJSON ExportAssetsToS3RequestDetails where
+instance Data.ToJSON ExportAssetsToS3RequestDetails where
   toJSON ExportAssetsToS3RequestDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Encryption" Core..=) Prelude.<$> encryption,
+          [ ("Encryption" Data..=) Prelude.<$> encryption,
             Prelude.Just
-              ("AssetDestinations" Core..= assetDestinations),
-            Prelude.Just ("DataSetId" Core..= dataSetId),
-            Prelude.Just ("RevisionId" Core..= revisionId)
+              ("AssetDestinations" Data..= assetDestinations),
+            Prelude.Just ("DataSetId" Data..= dataSetId),
+            Prelude.Just ("RevisionId" Data..= revisionId)
           ]
       )

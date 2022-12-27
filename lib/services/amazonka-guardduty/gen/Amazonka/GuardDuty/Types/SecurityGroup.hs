@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.Types.SecurityGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.GuardDuty.Types.SecurityGroup where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the security groups associated with the EC2
@@ -62,14 +63,14 @@ securityGroup_groupId = Lens.lens (\SecurityGroup' {groupId} -> groupId) (\s@Sec
 securityGroup_groupName :: Lens.Lens' SecurityGroup (Prelude.Maybe Prelude.Text)
 securityGroup_groupName = Lens.lens (\SecurityGroup' {groupName} -> groupName) (\s@SecurityGroup' {} a -> s {groupName = a} :: SecurityGroup)
 
-instance Core.FromJSON SecurityGroup where
+instance Data.FromJSON SecurityGroup where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SecurityGroup"
       ( \x ->
           SecurityGroup'
-            Prelude.<$> (x Core..:? "groupId")
-            Prelude.<*> (x Core..:? "groupName")
+            Prelude.<$> (x Data..:? "groupId")
+            Prelude.<*> (x Data..:? "groupName")
       )
 
 instance Prelude.Hashable SecurityGroup where

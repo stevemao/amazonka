@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.TrialComponentSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.TrialComponentSource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The Amazon Resource Name (ARN) and job type of the source of a trial
@@ -30,7 +31,7 @@ import qualified Amazonka.Prelude as Prelude
 data TrialComponentSource = TrialComponentSource'
   { -- | The source job type.
     sourceType :: Prelude.Maybe Prelude.Text,
-    -- | The source ARN.
+    -- | The source Amazon Resource Name (ARN).
     sourceArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -45,7 +46,7 @@ data TrialComponentSource = TrialComponentSource'
 --
 -- 'sourceType', 'trialComponentSource_sourceType' - The source job type.
 --
--- 'sourceArn', 'trialComponentSource_sourceArn' - The source ARN.
+-- 'sourceArn', 'trialComponentSource_sourceArn' - The source Amazon Resource Name (ARN).
 newTrialComponentSource ::
   -- | 'sourceArn'
   Prelude.Text ->
@@ -60,18 +61,18 @@ newTrialComponentSource pSourceArn_ =
 trialComponentSource_sourceType :: Lens.Lens' TrialComponentSource (Prelude.Maybe Prelude.Text)
 trialComponentSource_sourceType = Lens.lens (\TrialComponentSource' {sourceType} -> sourceType) (\s@TrialComponentSource' {} a -> s {sourceType = a} :: TrialComponentSource)
 
--- | The source ARN.
+-- | The source Amazon Resource Name (ARN).
 trialComponentSource_sourceArn :: Lens.Lens' TrialComponentSource Prelude.Text
 trialComponentSource_sourceArn = Lens.lens (\TrialComponentSource' {sourceArn} -> sourceArn) (\s@TrialComponentSource' {} a -> s {sourceArn = a} :: TrialComponentSource)
 
-instance Core.FromJSON TrialComponentSource where
+instance Data.FromJSON TrialComponentSource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TrialComponentSource"
       ( \x ->
           TrialComponentSource'
-            Prelude.<$> (x Core..:? "SourceType")
-            Prelude.<*> (x Core..: "SourceArn")
+            Prelude.<$> (x Data..:? "SourceType")
+            Prelude.<*> (x Data..: "SourceArn")
       )
 
 instance Prelude.Hashable TrialComponentSource where

@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.DeleteIdentityProvider
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an identity provider for a user pool.
+-- Deletes an IdP for a user pool.
 module Amazonka.CognitoIdentityProvider.DeleteIdentityProvider
   ( -- * Creating a Request
     DeleteIdentityProvider (..),
@@ -38,7 +38,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -47,7 +48,7 @@ import qualified Amazonka.Response as Response
 data DeleteIdentityProvider = DeleteIdentityProvider'
   { -- | The user pool ID.
     userPoolId :: Prelude.Text,
-    -- | The identity provider name.
+    -- | The IdP name.
     providerName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -62,7 +63,7 @@ data DeleteIdentityProvider = DeleteIdentityProvider'
 --
 -- 'userPoolId', 'deleteIdentityProvider_userPoolId' - The user pool ID.
 --
--- 'providerName', 'deleteIdentityProvider_providerName' - The identity provider name.
+-- 'providerName', 'deleteIdentityProvider_providerName' - The IdP name.
 newDeleteIdentityProvider ::
   -- | 'userPoolId'
   Prelude.Text ->
@@ -79,7 +80,7 @@ newDeleteIdentityProvider pUserPoolId_ pProviderName_ =
 deleteIdentityProvider_userPoolId :: Lens.Lens' DeleteIdentityProvider Prelude.Text
 deleteIdentityProvider_userPoolId = Lens.lens (\DeleteIdentityProvider' {userPoolId} -> userPoolId) (\s@DeleteIdentityProvider' {} a -> s {userPoolId = a} :: DeleteIdentityProvider)
 
--- | The identity provider name.
+-- | The IdP name.
 deleteIdentityProvider_providerName :: Lens.Lens' DeleteIdentityProvider Prelude.Text
 deleteIdentityProvider_providerName = Lens.lens (\DeleteIdentityProvider' {providerName} -> providerName) (\s@DeleteIdentityProvider' {} a -> s {providerName = a} :: DeleteIdentityProvider)
 
@@ -87,7 +88,8 @@ instance Core.AWSRequest DeleteIdentityProvider where
   type
     AWSResponse DeleteIdentityProvider =
       DeleteIdentityProviderResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       DeleteIdentityProviderResponse'
@@ -102,34 +104,34 @@ instance Prelude.NFData DeleteIdentityProvider where
     Prelude.rnf userPoolId
       `Prelude.seq` Prelude.rnf providerName
 
-instance Core.ToHeaders DeleteIdentityProvider where
+instance Data.ToHeaders DeleteIdentityProvider where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.DeleteIdentityProvider" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.DeleteIdentityProvider" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteIdentityProvider where
+instance Data.ToJSON DeleteIdentityProvider where
   toJSON DeleteIdentityProvider' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("UserPoolId" Core..= userPoolId),
-            Prelude.Just ("ProviderName" Core..= providerName)
+          [ Prelude.Just ("UserPoolId" Data..= userPoolId),
+            Prelude.Just ("ProviderName" Data..= providerName)
           ]
       )
 
-instance Core.ToPath DeleteIdentityProvider where
+instance Data.ToPath DeleteIdentityProvider where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteIdentityProvider where
+instance Data.ToQuery DeleteIdentityProvider where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteIdentityProviderResponse' smart constructor.

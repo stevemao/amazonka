@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.LakeFormation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -11,9 +11,9 @@
 --
 -- Derived from API version @2017-03-31@ of the AWS service descriptions, licensed under Apache 2.0.
 --
--- AWS Lake Formation
+-- Lake Formation
 --
--- Defines the public endpoint for the AWS Lake Formation service.
+-- Defines the public endpoint for the Lake Formation service.
 module Amazonka.LakeFormation
   ( -- * Service Configuration
     defaultService,
@@ -24,14 +24,20 @@ module Amazonka.LakeFormation
     -- ** AccessDeniedException
     _AccessDeniedException,
 
-    -- ** OperationTimeoutException
-    _OperationTimeoutException,
+    -- ** AlreadyExistsException
+    _AlreadyExistsException,
+
+    -- ** ConcurrentModificationException
+    _ConcurrentModificationException,
 
     -- ** EntityNotFoundException
     _EntityNotFoundException,
 
-    -- ** ConcurrentModificationException
-    _ConcurrentModificationException,
+    -- ** ExpiredException
+    _ExpiredException,
+
+    -- ** GlueEncryptionException
+    _GlueEncryptionException,
 
     -- ** InternalServiceException
     _InternalServiceException,
@@ -39,14 +45,35 @@ module Amazonka.LakeFormation
     -- ** InvalidInputException
     _InvalidInputException,
 
+    -- ** OperationTimeoutException
+    _OperationTimeoutException,
+
+    -- ** PermissionTypeMismatchException
+    _PermissionTypeMismatchException,
+
+    -- ** ResourceNotReadyException
+    _ResourceNotReadyException,
+
     -- ** ResourceNumberLimitExceededException
     _ResourceNumberLimitExceededException,
 
-    -- ** GlueEncryptionException
-    _GlueEncryptionException,
+    -- ** StatisticsNotReadyYetException
+    _StatisticsNotReadyYetException,
 
-    -- ** AlreadyExistsException
-    _AlreadyExistsException,
+    -- ** ThrottledException
+    _ThrottledException,
+
+    -- ** TransactionCanceledException
+    _TransactionCanceledException,
+
+    -- ** TransactionCommitInProgressException
+    _TransactionCommitInProgressException,
+
+    -- ** TransactionCommittedException
+    _TransactionCommittedException,
+
+    -- ** WorkUnitsNotReadyYetException
+    _WorkUnitsNotReadyYetException,
 
     -- * Waiters
     -- $waiters
@@ -54,17 +81,17 @@ module Amazonka.LakeFormation
     -- * Operations
     -- $operations
 
-    -- ** BatchRevokePermissions
-    BatchRevokePermissions (BatchRevokePermissions'),
-    newBatchRevokePermissions,
-    BatchRevokePermissionsResponse (BatchRevokePermissionsResponse'),
-    newBatchRevokePermissionsResponse,
+    -- ** AddLFTagsToResource
+    AddLFTagsToResource (AddLFTagsToResource'),
+    newAddLFTagsToResource,
+    AddLFTagsToResourceResponse (AddLFTagsToResourceResponse'),
+    newAddLFTagsToResourceResponse,
 
-    -- ** DescribeResource
-    DescribeResource (DescribeResource'),
-    newDescribeResource,
-    DescribeResourceResponse (DescribeResourceResponse'),
-    newDescribeResourceResponse,
+    -- ** AssumeDecoratedRoleWithSAML
+    AssumeDecoratedRoleWithSAML (AssumeDecoratedRoleWithSAML'),
+    newAssumeDecoratedRoleWithSAML,
+    AssumeDecoratedRoleWithSAMLResponse (AssumeDecoratedRoleWithSAMLResponse'),
+    newAssumeDecoratedRoleWithSAMLResponse,
 
     -- ** BatchGrantPermissions
     BatchGrantPermissions (BatchGrantPermissions'),
@@ -72,65 +99,29 @@ module Amazonka.LakeFormation
     BatchGrantPermissionsResponse (BatchGrantPermissionsResponse'),
     newBatchGrantPermissionsResponse,
 
-    -- ** GetEffectivePermissionsForPath
-    GetEffectivePermissionsForPath (GetEffectivePermissionsForPath'),
-    newGetEffectivePermissionsForPath,
-    GetEffectivePermissionsForPathResponse (GetEffectivePermissionsForPathResponse'),
-    newGetEffectivePermissionsForPathResponse,
+    -- ** BatchRevokePermissions
+    BatchRevokePermissions (BatchRevokePermissions'),
+    newBatchRevokePermissions,
+    BatchRevokePermissionsResponse (BatchRevokePermissionsResponse'),
+    newBatchRevokePermissionsResponse,
 
-    -- ** RevokePermissions
-    RevokePermissions (RevokePermissions'),
-    newRevokePermissions,
-    RevokePermissionsResponse (RevokePermissionsResponse'),
-    newRevokePermissionsResponse,
+    -- ** CancelTransaction
+    CancelTransaction (CancelTransaction'),
+    newCancelTransaction,
+    CancelTransactionResponse (CancelTransactionResponse'),
+    newCancelTransactionResponse,
 
-    -- ** UpdateResource
-    UpdateResource (UpdateResource'),
-    newUpdateResource,
-    UpdateResourceResponse (UpdateResourceResponse'),
-    newUpdateResourceResponse,
+    -- ** CommitTransaction
+    CommitTransaction (CommitTransaction'),
+    newCommitTransaction,
+    CommitTransactionResponse (CommitTransactionResponse'),
+    newCommitTransactionResponse,
 
-    -- ** AddLFTagsToResource
-    AddLFTagsToResource (AddLFTagsToResource'),
-    newAddLFTagsToResource,
-    AddLFTagsToResourceResponse (AddLFTagsToResourceResponse'),
-    newAddLFTagsToResourceResponse,
-
-    -- ** SearchTablesByLFTags
-    SearchTablesByLFTags (SearchTablesByLFTags'),
-    newSearchTablesByLFTags,
-    SearchTablesByLFTagsResponse (SearchTablesByLFTagsResponse'),
-    newSearchTablesByLFTagsResponse,
-
-    -- ** ListResources
-    ListResources (ListResources'),
-    newListResources,
-    ListResourcesResponse (ListResourcesResponse'),
-    newListResourcesResponse,
-
-    -- ** GetLFTag
-    GetLFTag (GetLFTag'),
-    newGetLFTag,
-    GetLFTagResponse (GetLFTagResponse'),
-    newGetLFTagResponse,
-
-    -- ** RemoveLFTagsFromResource
-    RemoveLFTagsFromResource (RemoveLFTagsFromResource'),
-    newRemoveLFTagsFromResource,
-    RemoveLFTagsFromResourceResponse (RemoveLFTagsFromResourceResponse'),
-    newRemoveLFTagsFromResourceResponse,
-
-    -- ** UpdateLFTag
-    UpdateLFTag (UpdateLFTag'),
-    newUpdateLFTag,
-    UpdateLFTagResponse (UpdateLFTagResponse'),
-    newUpdateLFTagResponse,
-
-    -- ** DeleteLFTag
-    DeleteLFTag (DeleteLFTag'),
-    newDeleteLFTag,
-    DeleteLFTagResponse (DeleteLFTagResponse'),
-    newDeleteLFTagResponse,
+    -- ** CreateDataCellsFilter
+    CreateDataCellsFilter (CreateDataCellsFilter'),
+    newCreateDataCellsFilter,
+    CreateDataCellsFilterResponse (CreateDataCellsFilterResponse'),
+    newCreateDataCellsFilterResponse,
 
     -- ** CreateLFTag
     CreateLFTag (CreateLFTag'),
@@ -138,23 +129,23 @@ module Amazonka.LakeFormation
     CreateLFTagResponse (CreateLFTagResponse'),
     newCreateLFTagResponse,
 
-    -- ** GetResourceLFTags
-    GetResourceLFTags (GetResourceLFTags'),
-    newGetResourceLFTags,
-    GetResourceLFTagsResponse (GetResourceLFTagsResponse'),
-    newGetResourceLFTagsResponse,
+    -- ** DeleteDataCellsFilter
+    DeleteDataCellsFilter (DeleteDataCellsFilter'),
+    newDeleteDataCellsFilter,
+    DeleteDataCellsFilterResponse (DeleteDataCellsFilterResponse'),
+    newDeleteDataCellsFilterResponse,
 
-    -- ** PutDataLakeSettings
-    PutDataLakeSettings (PutDataLakeSettings'),
-    newPutDataLakeSettings,
-    PutDataLakeSettingsResponse (PutDataLakeSettingsResponse'),
-    newPutDataLakeSettingsResponse,
+    -- ** DeleteLFTag
+    DeleteLFTag (DeleteLFTag'),
+    newDeleteLFTag,
+    DeleteLFTagResponse (DeleteLFTagResponse'),
+    newDeleteLFTagResponse,
 
-    -- ** ListPermissions
-    ListPermissions (ListPermissions'),
-    newListPermissions,
-    ListPermissionsResponse (ListPermissionsResponse'),
-    newListPermissionsResponse,
+    -- ** DeleteObjectsOnCancel
+    DeleteObjectsOnCancel (DeleteObjectsOnCancel'),
+    newDeleteObjectsOnCancel,
+    DeleteObjectsOnCancelResponse (DeleteObjectsOnCancelResponse'),
+    newDeleteObjectsOnCancelResponse,
 
     -- ** DeregisterResource
     DeregisterResource (DeregisterResource'),
@@ -162,23 +153,89 @@ module Amazonka.LakeFormation
     DeregisterResourceResponse (DeregisterResourceResponse'),
     newDeregisterResourceResponse,
 
+    -- ** DescribeResource
+    DescribeResource (DescribeResource'),
+    newDescribeResource,
+    DescribeResourceResponse (DescribeResourceResponse'),
+    newDescribeResourceResponse,
+
+    -- ** DescribeTransaction
+    DescribeTransaction (DescribeTransaction'),
+    newDescribeTransaction,
+    DescribeTransactionResponse (DescribeTransactionResponse'),
+    newDescribeTransactionResponse,
+
+    -- ** ExtendTransaction
+    ExtendTransaction (ExtendTransaction'),
+    newExtendTransaction,
+    ExtendTransactionResponse (ExtendTransactionResponse'),
+    newExtendTransactionResponse,
+
     -- ** GetDataLakeSettings
     GetDataLakeSettings (GetDataLakeSettings'),
     newGetDataLakeSettings,
     GetDataLakeSettingsResponse (GetDataLakeSettingsResponse'),
     newGetDataLakeSettingsResponse,
 
-    -- ** SearchDatabasesByLFTags
-    SearchDatabasesByLFTags (SearchDatabasesByLFTags'),
-    newSearchDatabasesByLFTags,
-    SearchDatabasesByLFTagsResponse (SearchDatabasesByLFTagsResponse'),
-    newSearchDatabasesByLFTagsResponse,
+    -- ** GetEffectivePermissionsForPath
+    GetEffectivePermissionsForPath (GetEffectivePermissionsForPath'),
+    newGetEffectivePermissionsForPath,
+    GetEffectivePermissionsForPathResponse (GetEffectivePermissionsForPathResponse'),
+    newGetEffectivePermissionsForPathResponse,
 
-    -- ** RegisterResource
-    RegisterResource (RegisterResource'),
-    newRegisterResource,
-    RegisterResourceResponse (RegisterResourceResponse'),
-    newRegisterResourceResponse,
+    -- ** GetLFTag
+    GetLFTag (GetLFTag'),
+    newGetLFTag,
+    GetLFTagResponse (GetLFTagResponse'),
+    newGetLFTagResponse,
+
+    -- ** GetQueryState
+    GetQueryState (GetQueryState'),
+    newGetQueryState,
+    GetQueryStateResponse (GetQueryStateResponse'),
+    newGetQueryStateResponse,
+
+    -- ** GetQueryStatistics
+    GetQueryStatistics (GetQueryStatistics'),
+    newGetQueryStatistics,
+    GetQueryStatisticsResponse (GetQueryStatisticsResponse'),
+    newGetQueryStatisticsResponse,
+
+    -- ** GetResourceLFTags
+    GetResourceLFTags (GetResourceLFTags'),
+    newGetResourceLFTags,
+    GetResourceLFTagsResponse (GetResourceLFTagsResponse'),
+    newGetResourceLFTagsResponse,
+
+    -- ** GetTableObjects
+    GetTableObjects (GetTableObjects'),
+    newGetTableObjects,
+    GetTableObjectsResponse (GetTableObjectsResponse'),
+    newGetTableObjectsResponse,
+
+    -- ** GetTemporaryGluePartitionCredentials
+    GetTemporaryGluePartitionCredentials (GetTemporaryGluePartitionCredentials'),
+    newGetTemporaryGluePartitionCredentials,
+    GetTemporaryGluePartitionCredentialsResponse (GetTemporaryGluePartitionCredentialsResponse'),
+    newGetTemporaryGluePartitionCredentialsResponse,
+
+    -- ** GetTemporaryGlueTableCredentials
+    GetTemporaryGlueTableCredentials (GetTemporaryGlueTableCredentials'),
+    newGetTemporaryGlueTableCredentials,
+    GetTemporaryGlueTableCredentialsResponse (GetTemporaryGlueTableCredentialsResponse'),
+    newGetTemporaryGlueTableCredentialsResponse,
+
+    -- ** GetWorkUnitResults
+    GetWorkUnitResults (GetWorkUnitResults'),
+    newGetWorkUnitResults,
+    GetWorkUnitResultsResponse (GetWorkUnitResultsResponse'),
+    newGetWorkUnitResultsResponse,
+
+    -- ** GetWorkUnits (Paginated)
+    GetWorkUnits (GetWorkUnits'),
+    newGetWorkUnits,
+    GetWorkUnitsResponse (GetWorkUnitsResponse'),
+    newGetWorkUnitsResponse,
 
     -- ** GrantPermissions
     GrantPermissions (GrantPermissions'),
@@ -186,11 +243,113 @@ module Amazonka.LakeFormation
     GrantPermissionsResponse (GrantPermissionsResponse'),
     newGrantPermissionsResponse,
 
-    -- ** ListLFTags
+    -- ** ListDataCellsFilter (Paginated)
+    ListDataCellsFilter (ListDataCellsFilter'),
+    newListDataCellsFilter,
+    ListDataCellsFilterResponse (ListDataCellsFilterResponse'),
+    newListDataCellsFilterResponse,
+
+    -- ** ListLFTags (Paginated)
     ListLFTags (ListLFTags'),
     newListLFTags,
     ListLFTagsResponse (ListLFTagsResponse'),
     newListLFTagsResponse,
+
+    -- ** ListPermissions
+    ListPermissions (ListPermissions'),
+    newListPermissions,
+    ListPermissionsResponse (ListPermissionsResponse'),
+    newListPermissionsResponse,
+
+    -- ** ListResources
+    ListResources (ListResources'),
+    newListResources,
+    ListResourcesResponse (ListResourcesResponse'),
+    newListResourcesResponse,
+
+    -- ** ListTableStorageOptimizers
+    ListTableStorageOptimizers (ListTableStorageOptimizers'),
+    newListTableStorageOptimizers,
+    ListTableStorageOptimizersResponse (ListTableStorageOptimizersResponse'),
+    newListTableStorageOptimizersResponse,
+
+    -- ** ListTransactions
+    ListTransactions (ListTransactions'),
+    newListTransactions,
+    ListTransactionsResponse (ListTransactionsResponse'),
+    newListTransactionsResponse,
+
+    -- ** PutDataLakeSettings
+    PutDataLakeSettings (PutDataLakeSettings'),
+    newPutDataLakeSettings,
+    PutDataLakeSettingsResponse (PutDataLakeSettingsResponse'),
+    newPutDataLakeSettingsResponse,
+
+    -- ** RegisterResource
+    RegisterResource (RegisterResource'),
+    newRegisterResource,
+    RegisterResourceResponse (RegisterResourceResponse'),
+    newRegisterResourceResponse,
+
+    -- ** RemoveLFTagsFromResource
+    RemoveLFTagsFromResource (RemoveLFTagsFromResource'),
+    newRemoveLFTagsFromResource,
+    RemoveLFTagsFromResourceResponse (RemoveLFTagsFromResourceResponse'),
+    newRemoveLFTagsFromResourceResponse,
+
+    -- ** RevokePermissions
+    RevokePermissions (RevokePermissions'),
+    newRevokePermissions,
+    RevokePermissionsResponse (RevokePermissionsResponse'),
+    newRevokePermissionsResponse,
+
+    -- ** SearchDatabasesByLFTags (Paginated)
+    SearchDatabasesByLFTags (SearchDatabasesByLFTags'),
+    newSearchDatabasesByLFTags,
+    SearchDatabasesByLFTagsResponse (SearchDatabasesByLFTagsResponse'),
+    newSearchDatabasesByLFTagsResponse,
+
+    -- ** SearchTablesByLFTags (Paginated)
+    SearchTablesByLFTags (SearchTablesByLFTags'),
+    newSearchTablesByLFTags,
+    SearchTablesByLFTagsResponse (SearchTablesByLFTagsResponse'),
+    newSearchTablesByLFTagsResponse,
+
+    -- ** StartQueryPlanning
+    StartQueryPlanning (StartQueryPlanning'),
+    newStartQueryPlanning,
+    StartQueryPlanningResponse (StartQueryPlanningResponse'),
+    newStartQueryPlanningResponse,
+
+    -- ** StartTransaction
+    StartTransaction (StartTransaction'),
+    newStartTransaction,
+    StartTransactionResponse (StartTransactionResponse'),
+    newStartTransactionResponse,
+
+    -- ** UpdateLFTag
+    UpdateLFTag (UpdateLFTag'),
+    newUpdateLFTag,
+    UpdateLFTagResponse (UpdateLFTagResponse'),
+    newUpdateLFTagResponse,
+
+    -- ** UpdateResource
+    UpdateResource (UpdateResource'),
+    newUpdateResource,
+    UpdateResourceResponse (UpdateResourceResponse'),
+    newUpdateResourceResponse,
+
+    -- ** UpdateTableObjects
+    UpdateTableObjects (UpdateTableObjects'),
+    newUpdateTableObjects,
+    UpdateTableObjectsResponse (UpdateTableObjectsResponse'),
+    newUpdateTableObjectsResponse,
+
+    -- ** UpdateTableStorageOptimizer
+    UpdateTableStorageOptimizer (UpdateTableStorageOptimizer'),
+    newUpdateTableStorageOptimizer,
+    UpdateTableStorageOptimizerResponse (UpdateTableStorageOptimizerResponse'),
+    newUpdateTableStorageOptimizerResponse,
 
     -- * Types
 
@@ -203,14 +362,44 @@ module Amazonka.LakeFormation
     -- ** FieldNameString
     FieldNameString (..),
 
+    -- ** OptimizerType
+    OptimizerType (..),
+
     -- ** Permission
     Permission (..),
+
+    -- ** PermissionType
+    PermissionType (..),
+
+    -- ** QueryStateString
+    QueryStateString (..),
 
     -- ** ResourceShareType
     ResourceShareType (..),
 
     -- ** ResourceType
     ResourceType (..),
+
+    -- ** TransactionStatus
+    TransactionStatus (..),
+
+    -- ** TransactionStatusFilter
+    TransactionStatusFilter (..),
+
+    -- ** TransactionType
+    TransactionType (..),
+
+    -- ** AddObjectInput
+    AddObjectInput (AddObjectInput'),
+    newAddObjectInput,
+
+    -- ** AllRowsWildcard
+    AllRowsWildcard (AllRowsWildcard'),
+    newAllRowsWildcard,
+
+    -- ** AuditContext
+    AuditContext (AuditContext'),
+    newAuditContext,
 
     -- ** BatchPermissionsFailureEntry
     BatchPermissionsFailureEntry (BatchPermissionsFailureEntry'),
@@ -232,6 +421,14 @@ module Amazonka.LakeFormation
     ColumnWildcard (ColumnWildcard'),
     newColumnWildcard,
 
+    -- ** DataCellsFilter
+    DataCellsFilter (DataCellsFilter'),
+    newDataCellsFilter,
+
+    -- ** DataCellsFilterResource
+    DataCellsFilterResource (DataCellsFilterResource'),
+    newDataCellsFilterResource,
+
     -- ** DataLakePrincipal
     DataLakePrincipal (DataLakePrincipal'),
     newDataLakePrincipal,
@@ -248,6 +445,10 @@ module Amazonka.LakeFormation
     DatabaseResource (DatabaseResource'),
     newDatabaseResource,
 
+    -- ** DeleteObjectInput
+    DeleteObjectInput (DeleteObjectInput'),
+    newDeleteObjectInput,
+
     -- ** DetailsMap
     DetailsMap (DetailsMap'),
     newDetailsMap,
@@ -255,6 +456,10 @@ module Amazonka.LakeFormation
     -- ** ErrorDetail
     ErrorDetail (ErrorDetail'),
     newErrorDetail,
+
+    -- ** ExecutionStatistics
+    ExecutionStatistics (ExecutionStatistics'),
+    newExecutionStatistics,
 
     -- ** FilterCondition
     FilterCondition (FilterCondition'),
@@ -280,6 +485,18 @@ module Amazonka.LakeFormation
     LFTagPolicyResource (LFTagPolicyResource'),
     newLFTagPolicyResource,
 
+    -- ** PartitionObjects
+    PartitionObjects (PartitionObjects'),
+    newPartitionObjects,
+
+    -- ** PartitionValueList
+    PartitionValueList (PartitionValueList'),
+    newPartitionValueList,
+
+    -- ** PlanningStatistics
+    PlanningStatistics (PlanningStatistics'),
+    newPlanningStatistics,
+
     -- ** PrincipalPermissions
     PrincipalPermissions (PrincipalPermissions'),
     newPrincipalPermissions,
@@ -288,6 +505,10 @@ module Amazonka.LakeFormation
     PrincipalResourcePermissions (PrincipalResourcePermissions'),
     newPrincipalResourcePermissions,
 
+    -- ** QueryPlanningContext
+    QueryPlanningContext (QueryPlanningContext'),
+    newQueryPlanningContext,
+
     -- ** Resource
     Resource (Resource'),
     newResource,
@@ -295,6 +516,18 @@ module Amazonka.LakeFormation
     -- ** ResourceInfo
     ResourceInfo (ResourceInfo'),
     newResourceInfo,
+
+    -- ** RowFilter
+    RowFilter (RowFilter'),
+    newRowFilter,
+
+    -- ** StorageOptimizer
+    StorageOptimizer (StorageOptimizer'),
+    newStorageOptimizer,
+
+    -- ** TableObject
+    TableObject (TableObject'),
+    newTableObject,
 
     -- ** TableResource
     TableResource (TableResource'),
@@ -315,34 +548,72 @@ module Amazonka.LakeFormation
     -- ** TaggedTable
     TaggedTable (TaggedTable'),
     newTaggedTable,
+
+    -- ** TransactionDescription
+    TransactionDescription (TransactionDescription'),
+    newTransactionDescription,
+
+    -- ** VirtualObject
+    VirtualObject (VirtualObject'),
+    newVirtualObject,
+
+    -- ** WorkUnitRange
+    WorkUnitRange (WorkUnitRange'),
+    newWorkUnitRange,
+
+    -- ** WriteOperation
+    WriteOperation (WriteOperation'),
+    newWriteOperation,
   )
 where
 
 import Amazonka.LakeFormation.AddLFTagsToResource
+import Amazonka.LakeFormation.AssumeDecoratedRoleWithSAML
 import Amazonka.LakeFormation.BatchGrantPermissions
 import Amazonka.LakeFormation.BatchRevokePermissions
+import Amazonka.LakeFormation.CancelTransaction
+import Amazonka.LakeFormation.CommitTransaction
+import Amazonka.LakeFormation.CreateDataCellsFilter
 import Amazonka.LakeFormation.CreateLFTag
+import Amazonka.LakeFormation.DeleteDataCellsFilter
 import Amazonka.LakeFormation.DeleteLFTag
+import Amazonka.LakeFormation.DeleteObjectsOnCancel
 import Amazonka.LakeFormation.DeregisterResource
 import Amazonka.LakeFormation.DescribeResource
+import Amazonka.LakeFormation.DescribeTransaction
+import Amazonka.LakeFormation.ExtendTransaction
 import Amazonka.LakeFormation.GetDataLakeSettings
 import Amazonka.LakeFormation.GetEffectivePermissionsForPath
 import Amazonka.LakeFormation.GetLFTag
+import Amazonka.LakeFormation.GetQueryState
+import Amazonka.LakeFormation.GetQueryStatistics
 import Amazonka.LakeFormation.GetResourceLFTags
+import Amazonka.LakeFormation.GetTableObjects
+import Amazonka.LakeFormation.GetTemporaryGluePartitionCredentials
+import Amazonka.LakeFormation.GetTemporaryGlueTableCredentials
+import Amazonka.LakeFormation.GetWorkUnitResults
+import Amazonka.LakeFormation.GetWorkUnits
 import Amazonka.LakeFormation.GrantPermissions
 import Amazonka.LakeFormation.Lens
+import Amazonka.LakeFormation.ListDataCellsFilter
 import Amazonka.LakeFormation.ListLFTags
 import Amazonka.LakeFormation.ListPermissions
 import Amazonka.LakeFormation.ListResources
+import Amazonka.LakeFormation.ListTableStorageOptimizers
+import Amazonka.LakeFormation.ListTransactions
 import Amazonka.LakeFormation.PutDataLakeSettings
 import Amazonka.LakeFormation.RegisterResource
 import Amazonka.LakeFormation.RemoveLFTagsFromResource
 import Amazonka.LakeFormation.RevokePermissions
 import Amazonka.LakeFormation.SearchDatabasesByLFTags
 import Amazonka.LakeFormation.SearchTablesByLFTags
+import Amazonka.LakeFormation.StartQueryPlanning
+import Amazonka.LakeFormation.StartTransaction
 import Amazonka.LakeFormation.Types
 import Amazonka.LakeFormation.UpdateLFTag
 import Amazonka.LakeFormation.UpdateResource
+import Amazonka.LakeFormation.UpdateTableObjects
+import Amazonka.LakeFormation.UpdateTableStorageOptimizer
 import Amazonka.LakeFormation.Waiters
 
 -- $errors

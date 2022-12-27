@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WAF.Types.SubscribedRuleGroupSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WAF.Types.SubscribedRuleGroupSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | This is __AWS WAF Classic__ documentation. For more information, see
@@ -107,15 +108,15 @@ subscribedRuleGroupSummary_name = Lens.lens (\SubscribedRuleGroupSummary' {name}
 subscribedRuleGroupSummary_metricName :: Lens.Lens' SubscribedRuleGroupSummary Prelude.Text
 subscribedRuleGroupSummary_metricName = Lens.lens (\SubscribedRuleGroupSummary' {metricName} -> metricName) (\s@SubscribedRuleGroupSummary' {} a -> s {metricName = a} :: SubscribedRuleGroupSummary)
 
-instance Core.FromJSON SubscribedRuleGroupSummary where
+instance Data.FromJSON SubscribedRuleGroupSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SubscribedRuleGroupSummary"
       ( \x ->
           SubscribedRuleGroupSummary'
-            Prelude.<$> (x Core..: "RuleGroupId")
-            Prelude.<*> (x Core..: "Name")
-            Prelude.<*> (x Core..: "MetricName")
+            Prelude.<$> (x Data..: "RuleGroupId")
+            Prelude.<*> (x Data..: "Name")
+            Prelude.<*> (x Data..: "MetricName")
       )
 
 instance Prelude.Hashable SubscribedRuleGroupSummary where

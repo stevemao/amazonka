@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.StopCompilationJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.SageMaker.StopCompilationJob
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,7 +86,8 @@ instance Core.AWSRequest StopCompilationJob where
   type
     AWSResponse StopCompilationJob =
       StopCompilationJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull StopCompilationJobResponse'
 
@@ -97,34 +99,34 @@ instance Prelude.NFData StopCompilationJob where
   rnf StopCompilationJob' {..} =
     Prelude.rnf compilationJobName
 
-instance Core.ToHeaders StopCompilationJob where
+instance Data.ToHeaders StopCompilationJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.StopCompilationJob" ::
+              Data.=# ( "SageMaker.StopCompilationJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopCompilationJob where
+instance Data.ToJSON StopCompilationJob where
   toJSON StopCompilationJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("CompilationJobName" Core..= compilationJobName)
+              ("CompilationJobName" Data..= compilationJobName)
           ]
       )
 
-instance Core.ToPath StopCompilationJob where
+instance Data.ToPath StopCompilationJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopCompilationJob where
+instance Data.ToQuery StopCompilationJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopCompilationJobResponse' smart constructor.

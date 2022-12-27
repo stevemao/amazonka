@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.ListNotifications
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.AuditManager.ListNotifications
     newListNotifications,
 
     -- * Request Lenses
-    listNotifications_nextToken,
     listNotifications_maxResults,
+    listNotifications_nextToken,
 
     -- * Destructuring the Response
     ListNotificationsResponse (..),
@@ -43,18 +43,19 @@ where
 
 import Amazonka.AuditManager.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListNotifications' smart constructor.
 data ListNotifications = ListNotifications'
-  { -- | The pagination token used to fetch the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Represents the maximum number of results per page, or per API request
+  { -- | Represents the maximum number of results on a page or for an API request
     -- call.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token that\'s used to fetch the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -66,75 +67,76 @@ data ListNotifications = ListNotifications'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listNotifications_nextToken' - The pagination token used to fetch the next set of results.
---
--- 'maxResults', 'listNotifications_maxResults' - Represents the maximum number of results per page, or per API request
+-- 'maxResults', 'listNotifications_maxResults' - Represents the maximum number of results on a page or for an API request
 -- call.
+--
+-- 'nextToken', 'listNotifications_nextToken' - The pagination token that\'s used to fetch the next set of results.
 newListNotifications ::
   ListNotifications
 newListNotifications =
   ListNotifications'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
--- | The pagination token used to fetch the next set of results.
-listNotifications_nextToken :: Lens.Lens' ListNotifications (Prelude.Maybe Prelude.Text)
-listNotifications_nextToken = Lens.lens (\ListNotifications' {nextToken} -> nextToken) (\s@ListNotifications' {} a -> s {nextToken = a} :: ListNotifications)
-
--- | Represents the maximum number of results per page, or per API request
+-- | Represents the maximum number of results on a page or for an API request
 -- call.
 listNotifications_maxResults :: Lens.Lens' ListNotifications (Prelude.Maybe Prelude.Natural)
 listNotifications_maxResults = Lens.lens (\ListNotifications' {maxResults} -> maxResults) (\s@ListNotifications' {} a -> s {maxResults = a} :: ListNotifications)
+
+-- | The pagination token that\'s used to fetch the next set of results.
+listNotifications_nextToken :: Lens.Lens' ListNotifications (Prelude.Maybe Prelude.Text)
+listNotifications_nextToken = Lens.lens (\ListNotifications' {nextToken} -> nextToken) (\s@ListNotifications' {} a -> s {nextToken = a} :: ListNotifications)
 
 instance Core.AWSRequest ListNotifications where
   type
     AWSResponse ListNotifications =
       ListNotificationsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListNotificationsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "notifications" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "notifications" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListNotifications where
   hashWithSalt _salt ListNotifications' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListNotifications where
   rnf ListNotifications' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListNotifications where
+instance Data.ToHeaders ListNotifications where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListNotifications where
+instance Data.ToPath ListNotifications where
   toPath = Prelude.const "/notifications"
 
-instance Core.ToQuery ListNotifications where
+instance Data.ToQuery ListNotifications where
   toQuery ListNotifications' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListNotificationsResponse' smart constructor.
 data ListNotificationsResponse = ListNotificationsResponse'
-  { -- | The pagination token used to fetch the next set of results.
+  { -- | The pagination token that\'s used to fetch the next set of results.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The returned list of notifications.
     notifications :: Prelude.Maybe [Notification],
@@ -151,7 +153,7 @@ data ListNotificationsResponse = ListNotificationsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listNotificationsResponse_nextToken' - The pagination token used to fetch the next set of results.
+-- 'nextToken', 'listNotificationsResponse_nextToken' - The pagination token that\'s used to fetch the next set of results.
 --
 -- 'notifications', 'listNotificationsResponse_notifications' - The returned list of notifications.
 --
@@ -168,7 +170,7 @@ newListNotificationsResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The pagination token used to fetch the next set of results.
+-- | The pagination token that\'s used to fetch the next set of results.
 listNotificationsResponse_nextToken :: Lens.Lens' ListNotificationsResponse (Prelude.Maybe Prelude.Text)
 listNotificationsResponse_nextToken = Lens.lens (\ListNotificationsResponse' {nextToken} -> nextToken) (\s@ListNotificationsResponse' {} a -> s {nextToken = a} :: ListNotificationsResponse)
 

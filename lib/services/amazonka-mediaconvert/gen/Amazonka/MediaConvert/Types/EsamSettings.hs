@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.EsamSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.EsamSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types.EsamManifestConfirmConditionNotification
 import Amazonka.MediaConvert.Types.EsamSignalProcessingNotification
 import qualified Amazonka.Prelude as Prelude
@@ -98,15 +99,15 @@ esamSettings_responseSignalPreroll = Lens.lens (\EsamSettings' {responseSignalPr
 esamSettings_signalProcessingNotification :: Lens.Lens' EsamSettings (Prelude.Maybe EsamSignalProcessingNotification)
 esamSettings_signalProcessingNotification = Lens.lens (\EsamSettings' {signalProcessingNotification} -> signalProcessingNotification) (\s@EsamSettings' {} a -> s {signalProcessingNotification = a} :: EsamSettings)
 
-instance Core.FromJSON EsamSettings where
+instance Data.FromJSON EsamSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EsamSettings"
       ( \x ->
           EsamSettings'
-            Prelude.<$> (x Core..:? "manifestConfirmConditionNotification")
-            Prelude.<*> (x Core..:? "responseSignalPreroll")
-            Prelude.<*> (x Core..:? "signalProcessingNotification")
+            Prelude.<$> (x Data..:? "manifestConfirmConditionNotification")
+            Prelude.<*> (x Data..:? "responseSignalPreroll")
+            Prelude.<*> (x Data..:? "signalProcessingNotification")
       )
 
 instance Prelude.Hashable EsamSettings where
@@ -122,15 +123,15 @@ instance Prelude.NFData EsamSettings where
       `Prelude.seq` Prelude.rnf responseSignalPreroll
       `Prelude.seq` Prelude.rnf signalProcessingNotification
 
-instance Core.ToJSON EsamSettings where
+instance Data.ToJSON EsamSettings where
   toJSON EsamSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("manifestConfirmConditionNotification" Core..=)
+          [ ("manifestConfirmConditionNotification" Data..=)
               Prelude.<$> manifestConfirmConditionNotification,
-            ("responseSignalPreroll" Core..=)
+            ("responseSignalPreroll" Data..=)
               Prelude.<$> responseSignalPreroll,
-            ("signalProcessingNotification" Core..=)
+            ("signalProcessingNotification" Data..=)
               Prelude.<$> signalProcessingNotification
           ]
       )

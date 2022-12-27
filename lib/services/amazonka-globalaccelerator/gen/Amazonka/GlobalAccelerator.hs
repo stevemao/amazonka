@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.GlobalAccelerator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -11,23 +11,23 @@
 --
 -- Derived from API version @2018-08-08@ of the AWS service descriptions, licensed under Apache 2.0.
 --
--- AWS Global Accelerator
+-- Global Accelerator
 --
--- This is the /AWS Global Accelerator API Reference/. This guide is for
--- developers who need detailed information about AWS Global Accelerator
--- API actions, data types, and errors. For more information about Global
+-- This is the /Global Accelerator API Reference/. This guide is for
+-- developers who need detailed information about Global Accelerator API
+-- actions, data types, and errors. For more information about Global
 -- Accelerator features, see the
--- <https://docs.aws.amazon.com/global-accelerator/latest/dg/Welcome.html AWS Global Accelerator Developer Guide>.
+-- <https://docs.aws.amazon.com/global-accelerator/latest/dg/what-is-global-accelerator.html Global Accelerator Developer Guide>.
 --
--- AWS Global Accelerator is a service in which you create /accelerators/
--- to improve the performance of your applications for local and global
--- users. Depending on the type of accelerator you choose, you can gain
--- additional benefits.
+-- Global Accelerator is a service in which you create /accelerators/ to
+-- improve the performance of your applications for local and global users.
+-- Depending on the type of accelerator you choose, you can gain additional
+-- benefits.
 --
 -- -   By using a standard accelerator, you can improve availability of
 --     your internet applications that are used by a global audience. With
 --     a standard accelerator, Global Accelerator directs traffic to
---     optimal endpoints over the AWS global network.
+--     optimal endpoints over the Amazon Web Services global network.
 --
 -- -   For other scenarios, you might choose a custom routing accelerator.
 --     With a custom routing accelerator, you can use application logic to
@@ -35,23 +35,29 @@
 --     endpoints.
 --
 -- Global Accelerator is a global service that supports endpoints in
--- multiple AWS Regions but you must specify the US West (Oregon) Region to
--- create or update accelerators.
+-- multiple Amazon Web Services Regions but you must specify the US West
+-- (Oregon) Region to create, update, or otherwise work with accelerators.
+-- That is, for example, specify @--region us-west-2@ on AWS CLI commands.
 --
--- By default, Global Accelerator provides you with two static IP addresses
--- that you associate with your accelerator. With a standard accelerator,
--- instead of using the IP addresses that Global Accelerator provides, you
--- can configure these entry points to be IPv4 addresses from your own IP
--- address ranges that you bring to Global Accelerator. The static IP
--- addresses are anycast from the AWS edge network. For a standard
--- accelerator, they distribute incoming application traffic across
--- multiple endpoint resources in multiple AWS Regions, which increases the
--- availability of your applications. Endpoints for standard accelerators
--- can be Network Load Balancers, Application Load Balancers, Amazon EC2
--- instances, or Elastic IP addresses that are located in one AWS Region or
--- multiple Regions. For custom routing accelerators, you map traffic that
--- arrives to the static IP addresses to specific Amazon EC2 servers in
--- endpoints that are virtual private cloud (VPC) subnets.
+-- By default, Global Accelerator provides you with static IP addresses
+-- that you associate with your accelerator. The static IP addresses are
+-- anycast from the Amazon Web Services edge network. For IPv4, Global
+-- Accelerator provides two static IPv4 addresses. For dual-stack, Global
+-- Accelerator provides a total of four addresses: two static IPv4
+-- addresses and two static IPv6 addresses. With a standard accelerator for
+-- IPv4, instead of using the addresses that Global Accelerator provides,
+-- you can configure these entry points to be IPv4 addresses from your own
+-- IP address ranges that you bring toGlobal Accelerator (BYOIP).
+--
+-- For a standard accelerator, they distribute incoming application traffic
+-- across multiple endpoint resources in multiple Amazon Web Services
+-- Regions , which increases the availability of your applications.
+-- Endpoints for standard accelerators can be Network Load Balancers,
+-- Application Load Balancers, Amazon EC2 instances, or Elastic IP
+-- addresses that are located in one Amazon Web Services Region or multiple
+-- Amazon Web Services Regions. For custom routing accelerators, you map
+-- traffic that arrives to the static IP addresses to specific Amazon EC2
+-- servers in endpoints that are virtual private cloud (VPC) subnets.
 --
 -- The static IP addresses remain assigned to your accelerator for as long
 -- as it exists, even if you disable the accelerator and it no longer
@@ -62,130 +68,16 @@
 -- have permissions to delete an accelerator. For more information, see
 -- <https://docs.aws.amazon.com/global-accelerator/latest/dg/access-control-manage-access-tag-policies.html Tag-based policies>.
 --
--- For standard accelerators, Global Accelerator uses the AWS global
--- network to route traffic to the optimal regional endpoint based on
--- health, client location, and policies that you configure. The service
--- reacts instantly to changes in health or configuration to ensure that
--- internet traffic from clients is always directed to healthy endpoints.
+-- For standard accelerators, Global Accelerator uses the Amazon Web
+-- Services global network to route traffic to the optimal regional
+-- endpoint based on health, client location, and policies that you
+-- configure. The service reacts instantly to changes in health or
+-- configuration to ensure that internet traffic from clients is always
+-- directed to healthy endpoints.
 --
--- For a list of the AWS Regions where Global Accelerator and other
--- services are currently supported, see the
--- <https://docs.aws.amazon.com/about-aws/global-infrastructure/regional-product-services/ AWS Region Table>.
---
--- AWS Global Accelerator includes the following components:
---
--- [Static IP addresses]
---     Global Accelerator provides you with a set of two static IP
---     addresses that are anycast from the AWS edge network. If you bring
---     your own IP address range to AWS (BYOIP) to use with a standard
---     accelerator, you can instead assign IP addresses from your own pool
---     to use with your accelerator. For more information, see
---     <https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html Bring your own IP addresses (BYOIP) in AWS Global Accelerator>.
---
---     The IP addresses serve as single fixed entry points for your
---     clients. If you already have Elastic Load Balancing load balancers,
---     Amazon EC2 instances, or Elastic IP address resources set up for
---     your applications, you can easily add those to a standard
---     accelerator in Global Accelerator. This allows Global Accelerator to
---     use static IP addresses to access the resources.
---
---     The static IP addresses remain assigned to your accelerator for as
---     long as it exists, even if you disable the accelerator and it no
---     longer accepts or routes traffic. However, when you /delete/ an
---     accelerator, you lose the static IP addresses that are assigned to
---     it, so you can no longer route traffic by using them. You can use
---     IAM policies like tag-based permissions with Global Accelerator to
---     delete an accelerator. For more information, see
---     <https://docs.aws.amazon.com/global-accelerator/latest/dg/access-control-manage-access-tag-policies.html Tag-based policies>.
---
--- [Accelerator]
---     An accelerator directs traffic to endpoints over the AWS global
---     network to improve the performance of your internet applications.
---     Each accelerator includes one or more listeners.
---
---     There are two types of accelerators:
---
---     -   A /standard/ accelerator directs traffic to the optimal AWS
---         endpoint based on several factors, including the user’s
---         location, the health of the endpoint, and the endpoint weights
---         that you configure. This improves the availability and
---         performance of your applications. Endpoints can be Network Load
---         Balancers, Application Load Balancers, Amazon EC2 instances, or
---         Elastic IP addresses.
---
---     -   A /custom routing/ accelerator directs traffic to one of
---         possibly thousands of Amazon EC2 instances running in a single
---         or multiple virtual private clouds (VPCs). With custom routing,
---         listener ports are mapped to statically associate port ranges
---         with VPC subnets, which allows Global Accelerator to determine
---         an EC2 instance IP address at the time of connection. By
---         default, all port mapping destinations in a VPC subnet can\'t
---         receive traffic. You can choose to configure all destinations in
---         the subnet to receive traffic, or to specify individual port
---         mappings that can receive traffic.
---
---     For more information, see
---     <https://docs.aws.amazon.com/global-accelerator/latest/dg/introduction-accelerator-types.html Types of accelerators>.
---
--- [DNS name]
---     Global Accelerator assigns each accelerator a default Domain Name
---     System (DNS) name, similar to
---     @a1234567890abcdef.awsglobalaccelerator.com@, that points to the
---     static IP addresses that Global Accelerator assigns to you or that
---     you choose from your own IP address range. Depending on the use
---     case, you can use your accelerator\'s static IP addresses or DNS
---     name to route traffic to your accelerator, or set up DNS records to
---     route traffic using your own custom domain name.
---
--- [Network zone]
---     A network zone services the static IP addresses for your accelerator
---     from a unique IP subnet. Similar to an AWS Availability Zone, a
---     network zone is an isolated unit with its own set of physical
---     infrastructure. When you configure an accelerator, by default,
---     Global Accelerator allocates two IPv4 addresses for it. If one IP
---     address from a network zone becomes unavailable due to IP address
---     blocking by certain client networks, or network disruptions, then
---     client applications can retry on the healthy static IP address from
---     the other isolated network zone.
---
--- [Listener]
---     A listener processes inbound connections from clients to Global
---     Accelerator, based on the port (or port range) and protocol (or
---     protocols) that you configure. A listener can be configured for TCP,
---     UDP, or both TCP and UDP protocols. Each listener has one or more
---     endpoint groups associated with it, and traffic is forwarded to
---     endpoints in one of the groups. You associate endpoint groups with
---     listeners by specifying the Regions that you want to distribute
---     traffic to. With a standard accelerator, traffic is distributed to
---     optimal endpoints within the endpoint groups associated with a
---     listener.
---
--- [Endpoint group]
---     Each endpoint group is associated with a specific AWS Region.
---     Endpoint groups include one or more endpoints in the Region. With a
---     standard accelerator, you can increase or reduce the percentage of
---     traffic that would be otherwise directed to an endpoint group by
---     adjusting a setting called a /traffic dial/. The traffic dial lets
---     you easily do performance testing or blue\/green deployment testing,
---     for example, for new releases across different AWS Regions.
---
--- [Endpoint]
---     An endpoint is a resource that Global Accelerator directs traffic
---     to.
---
---     Endpoints for standard accelerators can be Network Load Balancers,
---     Application Load Balancers, Amazon EC2 instances, or Elastic IP
---     addresses. An Application Load Balancer endpoint can be
---     internet-facing or internal. Traffic for standard accelerators is
---     routed to endpoints based on the health of the endpoint along with
---     configuration options that you choose, such as endpoint weights. For
---     each endpoint, you can configure weights, which are numbers that you
---     can use to specify the proportion of traffic to route to each one.
---     This can be useful, for example, to do performance testing within a
---     Region.
---
---     Endpoints for custom routing accelerators are virtual private cloud
---     (VPC) subnets with one or many EC2 instances.
+-- For more information about understanding and using Global Accelerator,
+-- see the
+-- <https://docs.aws.amazon.com/global-accelerator/latest/dg/what-is-global-accelerator.html Global Accelerator Developer Guide>.
 module Amazonka.GlobalAccelerator
   ( -- * Service Configuration
     defaultService,
@@ -193,59 +85,62 @@ module Amazonka.GlobalAccelerator
     -- * Errors
     -- $errors
 
-    -- ** AccessDeniedException
-    _AccessDeniedException,
-
-    -- ** AssociatedListenerFoundException
-    _AssociatedListenerFoundException,
-
-    -- ** EndpointAlreadyExistsException
-    _EndpointAlreadyExistsException,
-
-    -- ** InvalidArgumentException
-    _InvalidArgumentException,
-
-    -- ** AssociatedEndpointGroupFoundException
-    _AssociatedEndpointGroupFoundException,
-
     -- ** AcceleratorNotDisabledException
     _AcceleratorNotDisabledException,
-
-    -- ** ConflictException
-    _ConflictException,
-
-    -- ** EndpointNotFoundException
-    _EndpointNotFoundException,
-
-    -- ** ListenerNotFoundException
-    _ListenerNotFoundException,
-
-    -- ** InvalidNextTokenException
-    _InvalidNextTokenException,
-
-    -- ** InternalServiceErrorException
-    _InternalServiceErrorException,
-
-    -- ** EndpointGroupAlreadyExistsException
-    _EndpointGroupAlreadyExistsException,
-
-    -- ** ByoipCidrNotFoundException
-    _ByoipCidrNotFoundException,
-
-    -- ** IncorrectCidrStateException
-    _IncorrectCidrStateException,
-
-    -- ** InvalidPortRangeException
-    _InvalidPortRangeException,
-
-    -- ** EndpointGroupNotFoundException
-    _EndpointGroupNotFoundException,
 
     -- ** AcceleratorNotFoundException
     _AcceleratorNotFoundException,
 
+    -- ** AccessDeniedException
+    _AccessDeniedException,
+
+    -- ** AssociatedEndpointGroupFoundException
+    _AssociatedEndpointGroupFoundException,
+
+    -- ** AssociatedListenerFoundException
+    _AssociatedListenerFoundException,
+
+    -- ** ByoipCidrNotFoundException
+    _ByoipCidrNotFoundException,
+
+    -- ** ConflictException
+    _ConflictException,
+
+    -- ** EndpointAlreadyExistsException
+    _EndpointAlreadyExistsException,
+
+    -- ** EndpointGroupAlreadyExistsException
+    _EndpointGroupAlreadyExistsException,
+
+    -- ** EndpointGroupNotFoundException
+    _EndpointGroupNotFoundException,
+
+    -- ** EndpointNotFoundException
+    _EndpointNotFoundException,
+
+    -- ** IncorrectCidrStateException
+    _IncorrectCidrStateException,
+
+    -- ** InternalServiceErrorException
+    _InternalServiceErrorException,
+
+    -- ** InvalidArgumentException
+    _InvalidArgumentException,
+
+    -- ** InvalidNextTokenException
+    _InvalidNextTokenException,
+
+    -- ** InvalidPortRangeException
+    _InvalidPortRangeException,
+
     -- ** LimitExceededException
     _LimitExceededException,
+
+    -- ** ListenerNotFoundException
+    _ListenerNotFoundException,
+
+    -- ** TransactionInProgressException
+    _TransactionInProgressException,
 
     -- * Waiters
     -- $waiters
@@ -253,95 +148,17 @@ module Amazonka.GlobalAccelerator
     -- * Operations
     -- $operations
 
-    -- ** DenyCustomRoutingTraffic
-    DenyCustomRoutingTraffic (DenyCustomRoutingTraffic'),
-    newDenyCustomRoutingTraffic,
-    DenyCustomRoutingTrafficResponse (DenyCustomRoutingTrafficResponse'),
-    newDenyCustomRoutingTrafficResponse,
+    -- ** AddCustomRoutingEndpoints
+    AddCustomRoutingEndpoints (AddCustomRoutingEndpoints'),
+    newAddCustomRoutingEndpoints,
+    AddCustomRoutingEndpointsResponse (AddCustomRoutingEndpointsResponse'),
+    newAddCustomRoutingEndpointsResponse,
 
-    -- ** DescribeCustomRoutingListener
-    DescribeCustomRoutingListener (DescribeCustomRoutingListener'),
-    newDescribeCustomRoutingListener,
-    DescribeCustomRoutingListenerResponse (DescribeCustomRoutingListenerResponse'),
-    newDescribeCustomRoutingListenerResponse,
-
-    -- ** CreateCustomRoutingEndpointGroup
-    CreateCustomRoutingEndpointGroup (CreateCustomRoutingEndpointGroup'),
-    newCreateCustomRoutingEndpointGroup,
-    CreateCustomRoutingEndpointGroupResponse (CreateCustomRoutingEndpointGroupResponse'),
-    newCreateCustomRoutingEndpointGroupResponse,
-
-    -- ** DescribeCustomRoutingAcceleratorAttributes
-    DescribeCustomRoutingAcceleratorAttributes (DescribeCustomRoutingAcceleratorAttributes'),
-    newDescribeCustomRoutingAcceleratorAttributes,
-    DescribeCustomRoutingAcceleratorAttributesResponse (DescribeCustomRoutingAcceleratorAttributesResponse'),
-    newDescribeCustomRoutingAcceleratorAttributesResponse,
-
-    -- ** DeleteCustomRoutingEndpointGroup
-    DeleteCustomRoutingEndpointGroup (DeleteCustomRoutingEndpointGroup'),
-    newDeleteCustomRoutingEndpointGroup,
-    DeleteCustomRoutingEndpointGroupResponse (DeleteCustomRoutingEndpointGroupResponse'),
-    newDeleteCustomRoutingEndpointGroupResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** DescribeAcceleratorAttributes
-    DescribeAcceleratorAttributes (DescribeAcceleratorAttributes'),
-    newDescribeAcceleratorAttributes,
-    DescribeAcceleratorAttributesResponse (DescribeAcceleratorAttributesResponse'),
-    newDescribeAcceleratorAttributesResponse,
-
-    -- ** DeleteEndpointGroup
-    DeleteEndpointGroup (DeleteEndpointGroup'),
-    newDeleteEndpointGroup,
-    DeleteEndpointGroupResponse (DeleteEndpointGroupResponse'),
-    newDeleteEndpointGroupResponse,
-
-    -- ** UpdateEndpointGroup
-    UpdateEndpointGroup (UpdateEndpointGroup'),
-    newUpdateEndpointGroup,
-    UpdateEndpointGroupResponse (UpdateEndpointGroupResponse'),
-    newUpdateEndpointGroupResponse,
-
-    -- ** ListCustomRoutingListeners (Paginated)
-    ListCustomRoutingListeners (ListCustomRoutingListeners'),
-    newListCustomRoutingListeners,
-    ListCustomRoutingListenersResponse (ListCustomRoutingListenersResponse'),
-    newListCustomRoutingListenersResponse,
-
-    -- ** DeleteCustomRoutingListener
-    DeleteCustomRoutingListener (DeleteCustomRoutingListener'),
-    newDeleteCustomRoutingListener,
-    DeleteCustomRoutingListenerResponse (DeleteCustomRoutingListenerResponse'),
-    newDeleteCustomRoutingListenerResponse,
-
-    -- ** UpdateCustomRoutingListener
-    UpdateCustomRoutingListener (UpdateCustomRoutingListener'),
-    newUpdateCustomRoutingListener,
-    UpdateCustomRoutingListenerResponse (UpdateCustomRoutingListenerResponse'),
-    newUpdateCustomRoutingListenerResponse,
-
-    -- ** CreateAccelerator
-    CreateAccelerator (CreateAccelerator'),
-    newCreateAccelerator,
-    CreateAcceleratorResponse (CreateAcceleratorResponse'),
-    newCreateAcceleratorResponse,
-
-    -- ** AllowCustomRoutingTraffic
-    AllowCustomRoutingTraffic (AllowCustomRoutingTraffic'),
-    newAllowCustomRoutingTraffic,
-    AllowCustomRoutingTrafficResponse (AllowCustomRoutingTrafficResponse'),
-    newAllowCustomRoutingTrafficResponse,
-
-    -- ** WithdrawByoipCidr
-    WithdrawByoipCidr (WithdrawByoipCidr'),
-    newWithdrawByoipCidr,
-    WithdrawByoipCidrResponse (WithdrawByoipCidrResponse'),
-    newWithdrawByoipCidrResponse,
+    -- ** AddEndpoints
+    AddEndpoints (AddEndpoints'),
+    newAddEndpoints,
+    AddEndpointsResponse (AddEndpointsResponse'),
+    newAddEndpointsResponse,
 
     -- ** AdvertiseByoipCidr
     AdvertiseByoipCidr (AdvertiseByoipCidr'),
@@ -349,35 +166,17 @@ module Amazonka.GlobalAccelerator
     AdvertiseByoipCidrResponse (AdvertiseByoipCidrResponse'),
     newAdvertiseByoipCidrResponse,
 
-    -- ** DeleteAccelerator
-    DeleteAccelerator (DeleteAccelerator'),
-    newDeleteAccelerator,
-    DeleteAcceleratorResponse (DeleteAcceleratorResponse'),
-    newDeleteAcceleratorResponse,
+    -- ** AllowCustomRoutingTraffic
+    AllowCustomRoutingTraffic (AllowCustomRoutingTraffic'),
+    newAllowCustomRoutingTraffic,
+    AllowCustomRoutingTrafficResponse (AllowCustomRoutingTrafficResponse'),
+    newAllowCustomRoutingTrafficResponse,
 
-    -- ** UpdateAccelerator
-    UpdateAccelerator (UpdateAccelerator'),
-    newUpdateAccelerator,
-    UpdateAcceleratorResponse (UpdateAcceleratorResponse'),
-    newUpdateAcceleratorResponse,
-
-    -- ** ListAccelerators (Paginated)
-    ListAccelerators (ListAccelerators'),
-    newListAccelerators,
-    ListAcceleratorsResponse (ListAcceleratorsResponse'),
-    newListAcceleratorsResponse,
-
-    -- ** DescribeEndpointGroup
-    DescribeEndpointGroup (DescribeEndpointGroup'),
-    newDescribeEndpointGroup,
-    DescribeEndpointGroupResponse (DescribeEndpointGroupResponse'),
-    newDescribeEndpointGroupResponse,
-
-    -- ** UpdateAcceleratorAttributes
-    UpdateAcceleratorAttributes (UpdateAcceleratorAttributes'),
-    newUpdateAcceleratorAttributes,
-    UpdateAcceleratorAttributesResponse (UpdateAcceleratorAttributesResponse'),
-    newUpdateAcceleratorAttributesResponse,
+    -- ** CreateAccelerator
+    CreateAccelerator (CreateAccelerator'),
+    newCreateAccelerator,
+    CreateAcceleratorResponse (CreateAcceleratorResponse'),
+    newCreateAcceleratorResponse,
 
     -- ** CreateCustomRoutingAccelerator
     CreateCustomRoutingAccelerator (CreateCustomRoutingAccelerator'),
@@ -385,47 +184,11 @@ module Amazonka.GlobalAccelerator
     CreateCustomRoutingAcceleratorResponse (CreateCustomRoutingAcceleratorResponse'),
     newCreateCustomRoutingAcceleratorResponse,
 
-    -- ** ListCustomRoutingPortMappingsByDestination (Paginated)
-    ListCustomRoutingPortMappingsByDestination (ListCustomRoutingPortMappingsByDestination'),
-    newListCustomRoutingPortMappingsByDestination,
-    ListCustomRoutingPortMappingsByDestinationResponse (ListCustomRoutingPortMappingsByDestinationResponse'),
-    newListCustomRoutingPortMappingsByDestinationResponse,
-
-    -- ** DeleteListener
-    DeleteListener (DeleteListener'),
-    newDeleteListener,
-    DeleteListenerResponse (DeleteListenerResponse'),
-    newDeleteListenerResponse,
-
-    -- ** UpdateListener
-    UpdateListener (UpdateListener'),
-    newUpdateListener,
-    UpdateListenerResponse (UpdateListenerResponse'),
-    newUpdateListenerResponse,
-
-    -- ** ListListeners (Paginated)
-    ListListeners (ListListeners'),
-    newListListeners,
-    ListListenersResponse (ListListenersResponse'),
-    newListListenersResponse,
-
-    -- ** ListCustomRoutingEndpointGroups
-    ListCustomRoutingEndpointGroups (ListCustomRoutingEndpointGroups'),
-    newListCustomRoutingEndpointGroups,
-    ListCustomRoutingEndpointGroupsResponse (ListCustomRoutingEndpointGroupsResponse'),
-    newListCustomRoutingEndpointGroupsResponse,
-
-    -- ** CreateListener
-    CreateListener (CreateListener'),
-    newCreateListener,
-    CreateListenerResponse (CreateListenerResponse'),
-    newCreateListenerResponse,
-
-    -- ** DescribeAccelerator
-    DescribeAccelerator (DescribeAccelerator'),
-    newDescribeAccelerator,
-    DescribeAcceleratorResponse (DescribeAcceleratorResponse'),
-    newDescribeAcceleratorResponse,
+    -- ** CreateCustomRoutingEndpointGroup
+    CreateCustomRoutingEndpointGroup (CreateCustomRoutingEndpointGroup'),
+    newCreateCustomRoutingEndpointGroup,
+    CreateCustomRoutingEndpointGroupResponse (CreateCustomRoutingEndpointGroupResponse'),
+    newCreateCustomRoutingEndpointGroupResponse,
 
     -- ** CreateCustomRoutingListener
     CreateCustomRoutingListener (CreateCustomRoutingListener'),
@@ -433,11 +196,155 @@ module Amazonka.GlobalAccelerator
     CreateCustomRoutingListenerResponse (CreateCustomRoutingListenerResponse'),
     newCreateCustomRoutingListenerResponse,
 
+    -- ** CreateEndpointGroup
+    CreateEndpointGroup (CreateEndpointGroup'),
+    newCreateEndpointGroup,
+    CreateEndpointGroupResponse (CreateEndpointGroupResponse'),
+    newCreateEndpointGroupResponse,
+
+    -- ** CreateListener
+    CreateListener (CreateListener'),
+    newCreateListener,
+    CreateListenerResponse (CreateListenerResponse'),
+    newCreateListenerResponse,
+
+    -- ** DeleteAccelerator
+    DeleteAccelerator (DeleteAccelerator'),
+    newDeleteAccelerator,
+    DeleteAcceleratorResponse (DeleteAcceleratorResponse'),
+    newDeleteAcceleratorResponse,
+
+    -- ** DeleteCustomRoutingAccelerator
+    DeleteCustomRoutingAccelerator (DeleteCustomRoutingAccelerator'),
+    newDeleteCustomRoutingAccelerator,
+    DeleteCustomRoutingAcceleratorResponse (DeleteCustomRoutingAcceleratorResponse'),
+    newDeleteCustomRoutingAcceleratorResponse,
+
+    -- ** DeleteCustomRoutingEndpointGroup
+    DeleteCustomRoutingEndpointGroup (DeleteCustomRoutingEndpointGroup'),
+    newDeleteCustomRoutingEndpointGroup,
+    DeleteCustomRoutingEndpointGroupResponse (DeleteCustomRoutingEndpointGroupResponse'),
+    newDeleteCustomRoutingEndpointGroupResponse,
+
+    -- ** DeleteCustomRoutingListener
+    DeleteCustomRoutingListener (DeleteCustomRoutingListener'),
+    newDeleteCustomRoutingListener,
+    DeleteCustomRoutingListenerResponse (DeleteCustomRoutingListenerResponse'),
+    newDeleteCustomRoutingListenerResponse,
+
+    -- ** DeleteEndpointGroup
+    DeleteEndpointGroup (DeleteEndpointGroup'),
+    newDeleteEndpointGroup,
+    DeleteEndpointGroupResponse (DeleteEndpointGroupResponse'),
+    newDeleteEndpointGroupResponse,
+
+    -- ** DeleteListener
+    DeleteListener (DeleteListener'),
+    newDeleteListener,
+    DeleteListenerResponse (DeleteListenerResponse'),
+    newDeleteListenerResponse,
+
+    -- ** DenyCustomRoutingTraffic
+    DenyCustomRoutingTraffic (DenyCustomRoutingTraffic'),
+    newDenyCustomRoutingTraffic,
+    DenyCustomRoutingTrafficResponse (DenyCustomRoutingTrafficResponse'),
+    newDenyCustomRoutingTrafficResponse,
+
+    -- ** DeprovisionByoipCidr
+    DeprovisionByoipCidr (DeprovisionByoipCidr'),
+    newDeprovisionByoipCidr,
+    DeprovisionByoipCidrResponse (DeprovisionByoipCidrResponse'),
+    newDeprovisionByoipCidrResponse,
+
+    -- ** DescribeAccelerator
+    DescribeAccelerator (DescribeAccelerator'),
+    newDescribeAccelerator,
+    DescribeAcceleratorResponse (DescribeAcceleratorResponse'),
+    newDescribeAcceleratorResponse,
+
+    -- ** DescribeAcceleratorAttributes
+    DescribeAcceleratorAttributes (DescribeAcceleratorAttributes'),
+    newDescribeAcceleratorAttributes,
+    DescribeAcceleratorAttributesResponse (DescribeAcceleratorAttributesResponse'),
+    newDescribeAcceleratorAttributesResponse,
+
     -- ** DescribeCustomRoutingAccelerator
     DescribeCustomRoutingAccelerator (DescribeCustomRoutingAccelerator'),
     newDescribeCustomRoutingAccelerator,
     DescribeCustomRoutingAcceleratorResponse (DescribeCustomRoutingAcceleratorResponse'),
     newDescribeCustomRoutingAcceleratorResponse,
+
+    -- ** DescribeCustomRoutingAcceleratorAttributes
+    DescribeCustomRoutingAcceleratorAttributes (DescribeCustomRoutingAcceleratorAttributes'),
+    newDescribeCustomRoutingAcceleratorAttributes,
+    DescribeCustomRoutingAcceleratorAttributesResponse (DescribeCustomRoutingAcceleratorAttributesResponse'),
+    newDescribeCustomRoutingAcceleratorAttributesResponse,
+
+    -- ** DescribeCustomRoutingEndpointGroup
+    DescribeCustomRoutingEndpointGroup (DescribeCustomRoutingEndpointGroup'),
+    newDescribeCustomRoutingEndpointGroup,
+    DescribeCustomRoutingEndpointGroupResponse (DescribeCustomRoutingEndpointGroupResponse'),
+    newDescribeCustomRoutingEndpointGroupResponse,
+
+    -- ** DescribeCustomRoutingListener
+    DescribeCustomRoutingListener (DescribeCustomRoutingListener'),
+    newDescribeCustomRoutingListener,
+    DescribeCustomRoutingListenerResponse (DescribeCustomRoutingListenerResponse'),
+    newDescribeCustomRoutingListenerResponse,
+
+    -- ** DescribeEndpointGroup
+    DescribeEndpointGroup (DescribeEndpointGroup'),
+    newDescribeEndpointGroup,
+    DescribeEndpointGroupResponse (DescribeEndpointGroupResponse'),
+    newDescribeEndpointGroupResponse,
+
+    -- ** DescribeListener
+    DescribeListener (DescribeListener'),
+    newDescribeListener,
+    DescribeListenerResponse (DescribeListenerResponse'),
+    newDescribeListenerResponse,
+
+    -- ** ListAccelerators (Paginated)
+    ListAccelerators (ListAccelerators'),
+    newListAccelerators,
+    ListAcceleratorsResponse (ListAcceleratorsResponse'),
+    newListAcceleratorsResponse,
+
+    -- ** ListByoipCidrs (Paginated)
+    ListByoipCidrs (ListByoipCidrs'),
+    newListByoipCidrs,
+    ListByoipCidrsResponse (ListByoipCidrsResponse'),
+    newListByoipCidrsResponse,
+
+    -- ** ListCustomRoutingAccelerators (Paginated)
+    ListCustomRoutingAccelerators (ListCustomRoutingAccelerators'),
+    newListCustomRoutingAccelerators,
+    ListCustomRoutingAcceleratorsResponse (ListCustomRoutingAcceleratorsResponse'),
+    newListCustomRoutingAcceleratorsResponse,
+
+    -- ** ListCustomRoutingEndpointGroups
+    ListCustomRoutingEndpointGroups (ListCustomRoutingEndpointGroups'),
+    newListCustomRoutingEndpointGroups,
+    ListCustomRoutingEndpointGroupsResponse (ListCustomRoutingEndpointGroupsResponse'),
+    newListCustomRoutingEndpointGroupsResponse,
+
+    -- ** ListCustomRoutingListeners (Paginated)
+    ListCustomRoutingListeners (ListCustomRoutingListeners'),
+    newListCustomRoutingListeners,
+    ListCustomRoutingListenersResponse (ListCustomRoutingListenersResponse'),
+    newListCustomRoutingListenersResponse,
+
+    -- ** ListCustomRoutingPortMappings (Paginated)
+    ListCustomRoutingPortMappings (ListCustomRoutingPortMappings'),
+    newListCustomRoutingPortMappings,
+    ListCustomRoutingPortMappingsResponse (ListCustomRoutingPortMappingsResponse'),
+    newListCustomRoutingPortMappingsResponse,
+
+    -- ** ListCustomRoutingPortMappingsByDestination (Paginated)
+    ListCustomRoutingPortMappingsByDestination (ListCustomRoutingPortMappingsByDestination'),
+    newListCustomRoutingPortMappingsByDestination,
+    ListCustomRoutingPortMappingsByDestinationResponse (ListCustomRoutingPortMappingsByDestinationResponse'),
+    newListCustomRoutingPortMappingsByDestinationResponse,
 
     -- ** ListEndpointGroups (Paginated)
     ListEndpointGroups (ListEndpointGroups'),
@@ -445,23 +352,35 @@ module Amazonka.GlobalAccelerator
     ListEndpointGroupsResponse (ListEndpointGroupsResponse'),
     newListEndpointGroupsResponse,
 
+    -- ** ListListeners (Paginated)
+    ListListeners (ListListeners'),
+    newListListeners,
+    ListListenersResponse (ListListenersResponse'),
+    newListListenersResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
     -- ** ProvisionByoipCidr
     ProvisionByoipCidr (ProvisionByoipCidr'),
     newProvisionByoipCidr,
     ProvisionByoipCidrResponse (ProvisionByoipCidrResponse'),
     newProvisionByoipCidrResponse,
 
-    -- ** CreateEndpointGroup
-    CreateEndpointGroup (CreateEndpointGroup'),
-    newCreateEndpointGroup,
-    CreateEndpointGroupResponse (CreateEndpointGroupResponse'),
-    newCreateEndpointGroupResponse,
+    -- ** RemoveCustomRoutingEndpoints
+    RemoveCustomRoutingEndpoints (RemoveCustomRoutingEndpoints'),
+    newRemoveCustomRoutingEndpoints,
+    RemoveCustomRoutingEndpointsResponse (RemoveCustomRoutingEndpointsResponse'),
+    newRemoveCustomRoutingEndpointsResponse,
 
-    -- ** ListByoipCidrs (Paginated)
-    ListByoipCidrs (ListByoipCidrs'),
-    newListByoipCidrs,
-    ListByoipCidrsResponse (ListByoipCidrsResponse'),
-    newListByoipCidrsResponse,
+    -- ** RemoveEndpoints
+    RemoveEndpoints (RemoveEndpoints'),
+    newRemoveEndpoints,
+    RemoveEndpointsResponse (RemoveEndpointsResponse'),
+    newRemoveEndpointsResponse,
 
     -- ** TagResource
     TagResource (TagResource'),
@@ -475,41 +394,17 @@ module Amazonka.GlobalAccelerator
     UntagResourceResponse (UntagResourceResponse'),
     newUntagResourceResponse,
 
-    -- ** DescribeListener
-    DescribeListener (DescribeListener'),
-    newDescribeListener,
-    DescribeListenerResponse (DescribeListenerResponse'),
-    newDescribeListenerResponse,
+    -- ** UpdateAccelerator
+    UpdateAccelerator (UpdateAccelerator'),
+    newUpdateAccelerator,
+    UpdateAcceleratorResponse (UpdateAcceleratorResponse'),
+    newUpdateAcceleratorResponse,
 
-    -- ** ListCustomRoutingPortMappings (Paginated)
-    ListCustomRoutingPortMappings (ListCustomRoutingPortMappings'),
-    newListCustomRoutingPortMappings,
-    ListCustomRoutingPortMappingsResponse (ListCustomRoutingPortMappingsResponse'),
-    newListCustomRoutingPortMappingsResponse,
-
-    -- ** AddCustomRoutingEndpoints
-    AddCustomRoutingEndpoints (AddCustomRoutingEndpoints'),
-    newAddCustomRoutingEndpoints,
-    AddCustomRoutingEndpointsResponse (AddCustomRoutingEndpointsResponse'),
-    newAddCustomRoutingEndpointsResponse,
-
-    -- ** DescribeCustomRoutingEndpointGroup
-    DescribeCustomRoutingEndpointGroup (DescribeCustomRoutingEndpointGroup'),
-    newDescribeCustomRoutingEndpointGroup,
-    DescribeCustomRoutingEndpointGroupResponse (DescribeCustomRoutingEndpointGroupResponse'),
-    newDescribeCustomRoutingEndpointGroupResponse,
-
-    -- ** UpdateCustomRoutingAcceleratorAttributes
-    UpdateCustomRoutingAcceleratorAttributes (UpdateCustomRoutingAcceleratorAttributes'),
-    newUpdateCustomRoutingAcceleratorAttributes,
-    UpdateCustomRoutingAcceleratorAttributesResponse (UpdateCustomRoutingAcceleratorAttributesResponse'),
-    newUpdateCustomRoutingAcceleratorAttributesResponse,
-
-    -- ** RemoveCustomRoutingEndpoints
-    RemoveCustomRoutingEndpoints (RemoveCustomRoutingEndpoints'),
-    newRemoveCustomRoutingEndpoints,
-    RemoveCustomRoutingEndpointsResponse (RemoveCustomRoutingEndpointsResponse'),
-    newRemoveCustomRoutingEndpointsResponse,
+    -- ** UpdateAcceleratorAttributes
+    UpdateAcceleratorAttributes (UpdateAcceleratorAttributes'),
+    newUpdateAcceleratorAttributes,
+    UpdateAcceleratorAttributesResponse (UpdateAcceleratorAttributesResponse'),
+    newUpdateAcceleratorAttributesResponse,
 
     -- ** UpdateCustomRoutingAccelerator
     UpdateCustomRoutingAccelerator (UpdateCustomRoutingAccelerator'),
@@ -517,23 +412,35 @@ module Amazonka.GlobalAccelerator
     UpdateCustomRoutingAcceleratorResponse (UpdateCustomRoutingAcceleratorResponse'),
     newUpdateCustomRoutingAcceleratorResponse,
 
-    -- ** DeleteCustomRoutingAccelerator
-    DeleteCustomRoutingAccelerator (DeleteCustomRoutingAccelerator'),
-    newDeleteCustomRoutingAccelerator,
-    DeleteCustomRoutingAcceleratorResponse (DeleteCustomRoutingAcceleratorResponse'),
-    newDeleteCustomRoutingAcceleratorResponse,
+    -- ** UpdateCustomRoutingAcceleratorAttributes
+    UpdateCustomRoutingAcceleratorAttributes (UpdateCustomRoutingAcceleratorAttributes'),
+    newUpdateCustomRoutingAcceleratorAttributes,
+    UpdateCustomRoutingAcceleratorAttributesResponse (UpdateCustomRoutingAcceleratorAttributesResponse'),
+    newUpdateCustomRoutingAcceleratorAttributesResponse,
 
-    -- ** ListCustomRoutingAccelerators (Paginated)
-    ListCustomRoutingAccelerators (ListCustomRoutingAccelerators'),
-    newListCustomRoutingAccelerators,
-    ListCustomRoutingAcceleratorsResponse (ListCustomRoutingAcceleratorsResponse'),
-    newListCustomRoutingAcceleratorsResponse,
+    -- ** UpdateCustomRoutingListener
+    UpdateCustomRoutingListener (UpdateCustomRoutingListener'),
+    newUpdateCustomRoutingListener,
+    UpdateCustomRoutingListenerResponse (UpdateCustomRoutingListenerResponse'),
+    newUpdateCustomRoutingListenerResponse,
 
-    -- ** DeprovisionByoipCidr
-    DeprovisionByoipCidr (DeprovisionByoipCidr'),
-    newDeprovisionByoipCidr,
-    DeprovisionByoipCidrResponse (DeprovisionByoipCidrResponse'),
-    newDeprovisionByoipCidrResponse,
+    -- ** UpdateEndpointGroup
+    UpdateEndpointGroup (UpdateEndpointGroup'),
+    newUpdateEndpointGroup,
+    UpdateEndpointGroupResponse (UpdateEndpointGroupResponse'),
+    newUpdateEndpointGroupResponse,
+
+    -- ** UpdateListener
+    UpdateListener (UpdateListener'),
+    newUpdateListener,
+    UpdateListenerResponse (UpdateListenerResponse'),
+    newUpdateListenerResponse,
+
+    -- ** WithdrawByoipCidr
+    WithdrawByoipCidr (WithdrawByoipCidr'),
+    newWithdrawByoipCidr,
+    WithdrawByoipCidrResponse (WithdrawByoipCidrResponse'),
+    newWithdrawByoipCidrResponse,
 
     -- * Types
 
@@ -561,6 +468,9 @@ module Amazonka.GlobalAccelerator
     -- ** HealthState
     HealthState (..),
 
+    -- ** IpAddressFamily
+    IpAddressFamily (..),
+
     -- ** IpAddressType
     IpAddressType (..),
 
@@ -574,6 +484,10 @@ module Amazonka.GlobalAccelerator
     -- ** AcceleratorAttributes
     AcceleratorAttributes (AcceleratorAttributes'),
     newAcceleratorAttributes,
+
+    -- ** AcceleratorEvent
+    AcceleratorEvent (AcceleratorEvent'),
+    newAcceleratorEvent,
 
     -- ** ByoipCidr
     ByoipCidr (ByoipCidr'),
@@ -635,6 +549,10 @@ module Amazonka.GlobalAccelerator
     EndpointGroup (EndpointGroup'),
     newEndpointGroup,
 
+    -- ** EndpointIdentifier
+    EndpointIdentifier (EndpointIdentifier'),
+    newEndpointIdentifier,
+
     -- ** IpSet
     IpSet (IpSet'),
     newIpSet,
@@ -666,6 +584,7 @@ module Amazonka.GlobalAccelerator
 where
 
 import Amazonka.GlobalAccelerator.AddCustomRoutingEndpoints
+import Amazonka.GlobalAccelerator.AddEndpoints
 import Amazonka.GlobalAccelerator.AdvertiseByoipCidr
 import Amazonka.GlobalAccelerator.AllowCustomRoutingTraffic
 import Amazonka.GlobalAccelerator.CreateAccelerator
@@ -703,6 +622,7 @@ import Amazonka.GlobalAccelerator.ListListeners
 import Amazonka.GlobalAccelerator.ListTagsForResource
 import Amazonka.GlobalAccelerator.ProvisionByoipCidr
 import Amazonka.GlobalAccelerator.RemoveCustomRoutingEndpoints
+import Amazonka.GlobalAccelerator.RemoveEndpoints
 import Amazonka.GlobalAccelerator.TagResource
 import Amazonka.GlobalAccelerator.Types
 import Amazonka.GlobalAccelerator.UntagResource

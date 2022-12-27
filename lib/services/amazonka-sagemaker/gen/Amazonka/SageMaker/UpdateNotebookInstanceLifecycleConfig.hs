@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.UpdateNotebookInstanceLifecycleConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.SageMaker.UpdateNotebookInstanceLifecycleConfig
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -115,7 +116,8 @@ instance
     AWSResponse
       UpdateNotebookInstanceLifecycleConfig =
       UpdateNotebookInstanceLifecycleConfigResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -144,47 +146,47 @@ instance
       `Prelude.seq` Prelude.rnf notebookInstanceLifecycleConfigName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateNotebookInstanceLifecycleConfig
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.UpdateNotebookInstanceLifecycleConfig" ::
+              Data.=# ( "SageMaker.UpdateNotebookInstanceLifecycleConfig" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     UpdateNotebookInstanceLifecycleConfig
   where
   toJSON UpdateNotebookInstanceLifecycleConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("OnCreate" Core..=) Prelude.<$> onCreate,
-            ("OnStart" Core..=) Prelude.<$> onStart,
+          [ ("OnCreate" Data..=) Prelude.<$> onCreate,
+            ("OnStart" Data..=) Prelude.<$> onStart,
             Prelude.Just
               ( "NotebookInstanceLifecycleConfigName"
-                  Core..= notebookInstanceLifecycleConfigName
+                  Data..= notebookInstanceLifecycleConfigName
               )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     UpdateNotebookInstanceLifecycleConfig
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     UpdateNotebookInstanceLifecycleConfig
   where
   toQuery = Prelude.const Prelude.mempty

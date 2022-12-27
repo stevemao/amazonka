@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.DeleteSchema
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,7 @@
 --
 -- Deletes a schema. Before deleting a schema, you must delete all datasets
 -- referencing the schema. For more information on schemas, see
--- CreateSchema.
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSchema.html CreateSchema>.
 module Amazonka.Personalize.DeleteSchema
   ( -- * Creating a Request
     DeleteSchema (..),
@@ -38,7 +38,8 @@ module Amazonka.Personalize.DeleteSchema
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -73,7 +74,8 @@ deleteSchema_schemaArn = Lens.lens (\DeleteSchema' {schemaArn} -> schemaArn) (\s
 
 instance Core.AWSRequest DeleteSchema where
   type AWSResponse DeleteSchema = DeleteSchemaResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull DeleteSchemaResponse'
 
 instance Prelude.Hashable DeleteSchema where
@@ -83,32 +85,32 @@ instance Prelude.Hashable DeleteSchema where
 instance Prelude.NFData DeleteSchema where
   rnf DeleteSchema' {..} = Prelude.rnf schemaArn
 
-instance Core.ToHeaders DeleteSchema where
+instance Data.ToHeaders DeleteSchema where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.DeleteSchema" ::
+              Data.=# ( "AmazonPersonalize.DeleteSchema" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteSchema where
+instance Data.ToJSON DeleteSchema where
   toJSON DeleteSchema' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("schemaArn" Core..= schemaArn)]
+          [Prelude.Just ("schemaArn" Data..= schemaArn)]
       )
 
-instance Core.ToPath DeleteSchema where
+instance Data.ToPath DeleteSchema where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteSchema where
+instance Data.ToQuery DeleteSchema where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteSchemaResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.UpdateInputSecurityGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.MediaLive.UpdateInputSecurityGroup
     newUpdateInputSecurityGroup,
 
     -- * Request Lenses
-    updateInputSecurityGroup_whitelistRules,
     updateInputSecurityGroup_tags,
+    updateInputSecurityGroup_whitelistRules,
     updateInputSecurityGroup_inputSecurityGroupId,
 
     -- * Destructuring the Response
@@ -42,7 +42,8 @@ module Amazonka.MediaLive.UpdateInputSecurityGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -53,10 +54,10 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newUpdateInputSecurityGroup' smart constructor.
 data UpdateInputSecurityGroup = UpdateInputSecurityGroup'
-  { -- | List of IPv4 CIDR addresses to whitelist
-    whitelistRules :: Prelude.Maybe [InputWhitelistRuleCidr],
-    -- | A collection of key-value pairs.
+  { -- | A collection of key-value pairs.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | List of IPv4 CIDR addresses to whitelist
+    whitelistRules :: Prelude.Maybe [InputWhitelistRuleCidr],
     -- | The id of the Input Security Group to update.
     inputSecurityGroupId :: Prelude.Text
   }
@@ -70,9 +71,9 @@ data UpdateInputSecurityGroup = UpdateInputSecurityGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'whitelistRules', 'updateInputSecurityGroup_whitelistRules' - List of IPv4 CIDR addresses to whitelist
---
 -- 'tags', 'updateInputSecurityGroup_tags' - A collection of key-value pairs.
+--
+-- 'whitelistRules', 'updateInputSecurityGroup_whitelistRules' - List of IPv4 CIDR addresses to whitelist
 --
 -- 'inputSecurityGroupId', 'updateInputSecurityGroup_inputSecurityGroupId' - The id of the Input Security Group to update.
 newUpdateInputSecurityGroup ::
@@ -81,19 +82,18 @@ newUpdateInputSecurityGroup ::
   UpdateInputSecurityGroup
 newUpdateInputSecurityGroup pInputSecurityGroupId_ =
   UpdateInputSecurityGroup'
-    { whitelistRules =
-        Prelude.Nothing,
-      tags = Prelude.Nothing,
+    { tags = Prelude.Nothing,
+      whitelistRules = Prelude.Nothing,
       inputSecurityGroupId = pInputSecurityGroupId_
     }
-
--- | List of IPv4 CIDR addresses to whitelist
-updateInputSecurityGroup_whitelistRules :: Lens.Lens' UpdateInputSecurityGroup (Prelude.Maybe [InputWhitelistRuleCidr])
-updateInputSecurityGroup_whitelistRules = Lens.lens (\UpdateInputSecurityGroup' {whitelistRules} -> whitelistRules) (\s@UpdateInputSecurityGroup' {} a -> s {whitelistRules = a} :: UpdateInputSecurityGroup) Prelude.. Lens.mapping Lens.coerced
 
 -- | A collection of key-value pairs.
 updateInputSecurityGroup_tags :: Lens.Lens' UpdateInputSecurityGroup (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 updateInputSecurityGroup_tags = Lens.lens (\UpdateInputSecurityGroup' {tags} -> tags) (\s@UpdateInputSecurityGroup' {} a -> s {tags = a} :: UpdateInputSecurityGroup) Prelude.. Lens.mapping Lens.coerced
+
+-- | List of IPv4 CIDR addresses to whitelist
+updateInputSecurityGroup_whitelistRules :: Lens.Lens' UpdateInputSecurityGroup (Prelude.Maybe [InputWhitelistRuleCidr])
+updateInputSecurityGroup_whitelistRules = Lens.lens (\UpdateInputSecurityGroup' {whitelistRules} -> whitelistRules) (\s@UpdateInputSecurityGroup' {} a -> s {whitelistRules = a} :: UpdateInputSecurityGroup) Prelude.. Lens.mapping Lens.coerced
 
 -- | The id of the Input Security Group to update.
 updateInputSecurityGroup_inputSecurityGroupId :: Lens.Lens' UpdateInputSecurityGroup Prelude.Text
@@ -103,56 +103,57 @@ instance Core.AWSRequest UpdateInputSecurityGroup where
   type
     AWSResponse UpdateInputSecurityGroup =
       UpdateInputSecurityGroupResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateInputSecurityGroupResponse'
-            Prelude.<$> (x Core..?> "securityGroup")
+            Prelude.<$> (x Data..?> "securityGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateInputSecurityGroup where
   hashWithSalt _salt UpdateInputSecurityGroup' {..} =
-    _salt `Prelude.hashWithSalt` whitelistRules
-      `Prelude.hashWithSalt` tags
+    _salt `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` whitelistRules
       `Prelude.hashWithSalt` inputSecurityGroupId
 
 instance Prelude.NFData UpdateInputSecurityGroup where
   rnf UpdateInputSecurityGroup' {..} =
-    Prelude.rnf whitelistRules
-      `Prelude.seq` Prelude.rnf tags
+    Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf whitelistRules
       `Prelude.seq` Prelude.rnf inputSecurityGroupId
 
-instance Core.ToHeaders UpdateInputSecurityGroup where
+instance Data.ToHeaders UpdateInputSecurityGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateInputSecurityGroup where
+instance Data.ToJSON UpdateInputSecurityGroup where
   toJSON UpdateInputSecurityGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("whitelistRules" Core..=)
-              Prelude.<$> whitelistRules,
-            ("tags" Core..=) Prelude.<$> tags
+          [ ("tags" Data..=) Prelude.<$> tags,
+            ("whitelistRules" Data..=)
+              Prelude.<$> whitelistRules
           ]
       )
 
-instance Core.ToPath UpdateInputSecurityGroup where
+instance Data.ToPath UpdateInputSecurityGroup where
   toPath UpdateInputSecurityGroup' {..} =
     Prelude.mconcat
       [ "/prod/inputSecurityGroups/",
-        Core.toBS inputSecurityGroupId
+        Data.toBS inputSecurityGroupId
       ]
 
-instance Core.ToQuery UpdateInputSecurityGroup where
+instance Data.ToQuery UpdateInputSecurityGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for UpdateInputSecurityGroupResponse

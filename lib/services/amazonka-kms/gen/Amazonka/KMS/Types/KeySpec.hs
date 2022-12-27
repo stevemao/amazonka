@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KMS.Types.KeySpec
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,18 +24,24 @@ module Amazonka.KMS.Types.KeySpec
         KeySpec_ECC_NIST_P384,
         KeySpec_ECC_NIST_P521,
         KeySpec_ECC_SECG_P256K1,
+        KeySpec_HMAC_224,
+        KeySpec_HMAC_256,
+        KeySpec_HMAC_384,
+        KeySpec_HMAC_512,
         KeySpec_RSA_2048,
         KeySpec_RSA_3072,
         KeySpec_RSA_4096,
+        KeySpec_SM2,
         KeySpec_SYMMETRIC_DEFAULT
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
-newtype KeySpec = KeySpec' {fromKeySpec :: Core.Text}
+newtype KeySpec = KeySpec' {fromKeySpec :: Data.Text}
   deriving stock
     ( Prelude.Show,
       Prelude.Read,
@@ -46,18 +52,18 @@ newtype KeySpec = KeySpec' {fromKeySpec :: Core.Text}
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern KeySpec_ECC_NIST_P256 :: KeySpec
@@ -72,6 +78,18 @@ pattern KeySpec_ECC_NIST_P521 = KeySpec' "ECC_NIST_P521"
 pattern KeySpec_ECC_SECG_P256K1 :: KeySpec
 pattern KeySpec_ECC_SECG_P256K1 = KeySpec' "ECC_SECG_P256K1"
 
+pattern KeySpec_HMAC_224 :: KeySpec
+pattern KeySpec_HMAC_224 = KeySpec' "HMAC_224"
+
+pattern KeySpec_HMAC_256 :: KeySpec
+pattern KeySpec_HMAC_256 = KeySpec' "HMAC_256"
+
+pattern KeySpec_HMAC_384 :: KeySpec
+pattern KeySpec_HMAC_384 = KeySpec' "HMAC_384"
+
+pattern KeySpec_HMAC_512 :: KeySpec
+pattern KeySpec_HMAC_512 = KeySpec' "HMAC_512"
+
 pattern KeySpec_RSA_2048 :: KeySpec
 pattern KeySpec_RSA_2048 = KeySpec' "RSA_2048"
 
@@ -81,6 +99,9 @@ pattern KeySpec_RSA_3072 = KeySpec' "RSA_3072"
 pattern KeySpec_RSA_4096 :: KeySpec
 pattern KeySpec_RSA_4096 = KeySpec' "RSA_4096"
 
+pattern KeySpec_SM2 :: KeySpec
+pattern KeySpec_SM2 = KeySpec' "SM2"
+
 pattern KeySpec_SYMMETRIC_DEFAULT :: KeySpec
 pattern KeySpec_SYMMETRIC_DEFAULT = KeySpec' "SYMMETRIC_DEFAULT"
 
@@ -89,9 +110,14 @@ pattern KeySpec_SYMMETRIC_DEFAULT = KeySpec' "SYMMETRIC_DEFAULT"
   KeySpec_ECC_NIST_P384,
   KeySpec_ECC_NIST_P521,
   KeySpec_ECC_SECG_P256K1,
+  KeySpec_HMAC_224,
+  KeySpec_HMAC_256,
+  KeySpec_HMAC_384,
+  KeySpec_HMAC_512,
   KeySpec_RSA_2048,
   KeySpec_RSA_3072,
   KeySpec_RSA_4096,
+  KeySpec_SM2,
   KeySpec_SYMMETRIC_DEFAULT,
   KeySpec'
   #-}

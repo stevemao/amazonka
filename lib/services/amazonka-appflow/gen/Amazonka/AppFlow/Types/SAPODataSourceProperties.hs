@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.SAPODataSourceProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppFlow.Types.SAPODataSourceProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The properties that are applied when using SAPOData as a flow source.
@@ -53,13 +54,13 @@ newSAPODataSourceProperties =
 sAPODataSourceProperties_objectPath :: Lens.Lens' SAPODataSourceProperties (Prelude.Maybe Prelude.Text)
 sAPODataSourceProperties_objectPath = Lens.lens (\SAPODataSourceProperties' {objectPath} -> objectPath) (\s@SAPODataSourceProperties' {} a -> s {objectPath = a} :: SAPODataSourceProperties)
 
-instance Core.FromJSON SAPODataSourceProperties where
+instance Data.FromJSON SAPODataSourceProperties where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SAPODataSourceProperties"
       ( \x ->
           SAPODataSourceProperties'
-            Prelude.<$> (x Core..:? "objectPath")
+            Prelude.<$> (x Data..:? "objectPath")
       )
 
 instance Prelude.Hashable SAPODataSourceProperties where
@@ -70,9 +71,9 @@ instance Prelude.NFData SAPODataSourceProperties where
   rnf SAPODataSourceProperties' {..} =
     Prelude.rnf objectPath
 
-instance Core.ToJSON SAPODataSourceProperties where
+instance Data.ToJSON SAPODataSourceProperties where
   toJSON SAPODataSourceProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("objectPath" Core..=) Prelude.<$> objectPath]
+          [("objectPath" Data..=) Prelude.<$> objectPath]
       )

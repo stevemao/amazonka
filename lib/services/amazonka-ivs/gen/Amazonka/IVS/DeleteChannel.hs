@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IVS.DeleteChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.IVS.DeleteChannel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IVS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,7 +80,8 @@ instance Core.AWSRequest DeleteChannel where
   type
     AWSResponse DeleteChannel =
       DeleteChannelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteChannelResponse'
 
@@ -90,28 +92,28 @@ instance Prelude.Hashable DeleteChannel where
 instance Prelude.NFData DeleteChannel where
   rnf DeleteChannel' {..} = Prelude.rnf arn
 
-instance Core.ToHeaders DeleteChannel where
+instance Data.ToHeaders DeleteChannel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteChannel where
+instance Data.ToJSON DeleteChannel where
   toJSON DeleteChannel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("arn" Core..= arn)]
+          [Prelude.Just ("arn" Data..= arn)]
       )
 
-instance Core.ToPath DeleteChannel where
+instance Data.ToPath DeleteChannel where
   toPath = Prelude.const "/DeleteChannel"
 
-instance Core.ToQuery DeleteChannel where
+instance Data.ToQuery DeleteChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteChannelResponse' smart constructor.

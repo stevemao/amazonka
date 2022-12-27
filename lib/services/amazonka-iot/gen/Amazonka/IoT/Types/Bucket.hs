@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.Bucket
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.IoT.Types.Bucket where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A count of documents that meets a specific aggregation criteria.
 --
 -- /See:/ 'newBucket' smart constructor.
 data Bucket = Bucket'
-  { -- | The value counted for the particular bucket.
-    keyValue :: Prelude.Maybe Prelude.Text,
-    -- | The number of documents that have the value counted for the particular
+  { -- | The number of documents that have the value counted for the particular
     -- bucket.
-    count :: Prelude.Maybe Prelude.Int
+    count :: Prelude.Maybe Prelude.Int,
+    -- | The value counted for the particular bucket.
+    keyValue :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,43 +44,43 @@ data Bucket = Bucket'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'keyValue', 'bucket_keyValue' - The value counted for the particular bucket.
---
 -- 'count', 'bucket_count' - The number of documents that have the value counted for the particular
 -- bucket.
+--
+-- 'keyValue', 'bucket_keyValue' - The value counted for the particular bucket.
 newBucket ::
   Bucket
 newBucket =
   Bucket'
-    { keyValue = Prelude.Nothing,
-      count = Prelude.Nothing
+    { count = Prelude.Nothing,
+      keyValue = Prelude.Nothing
     }
-
--- | The value counted for the particular bucket.
-bucket_keyValue :: Lens.Lens' Bucket (Prelude.Maybe Prelude.Text)
-bucket_keyValue = Lens.lens (\Bucket' {keyValue} -> keyValue) (\s@Bucket' {} a -> s {keyValue = a} :: Bucket)
 
 -- | The number of documents that have the value counted for the particular
 -- bucket.
 bucket_count :: Lens.Lens' Bucket (Prelude.Maybe Prelude.Int)
 bucket_count = Lens.lens (\Bucket' {count} -> count) (\s@Bucket' {} a -> s {count = a} :: Bucket)
 
-instance Core.FromJSON Bucket where
+-- | The value counted for the particular bucket.
+bucket_keyValue :: Lens.Lens' Bucket (Prelude.Maybe Prelude.Text)
+bucket_keyValue = Lens.lens (\Bucket' {keyValue} -> keyValue) (\s@Bucket' {} a -> s {keyValue = a} :: Bucket)
+
+instance Data.FromJSON Bucket where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Bucket"
       ( \x ->
           Bucket'
-            Prelude.<$> (x Core..:? "keyValue")
-            Prelude.<*> (x Core..:? "count")
+            Prelude.<$> (x Data..:? "count")
+            Prelude.<*> (x Data..:? "keyValue")
       )
 
 instance Prelude.Hashable Bucket where
   hashWithSalt _salt Bucket' {..} =
-    _salt `Prelude.hashWithSalt` keyValue
-      `Prelude.hashWithSalt` count
+    _salt `Prelude.hashWithSalt` count
+      `Prelude.hashWithSalt` keyValue
 
 instance Prelude.NFData Bucket where
   rnf Bucket' {..} =
-    Prelude.rnf keyValue
-      `Prelude.seq` Prelude.rnf count
+    Prelude.rnf count
+      `Prelude.seq` Prelude.rnf keyValue

@@ -14,13 +14,14 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.DeleteBatchImportJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes data that was batch imported to Amazon Fraud Detector.
+-- Deletes the specified batch import job ID record. This action does not
+-- delete the data that was batch imported.
 module Amazonka.FraudDetector.DeleteBatchImportJob
   ( -- * Creating a Request
     DeleteBatchImportJob (..),
@@ -39,8 +40,9 @@ module Amazonka.FraudDetector.DeleteBatchImportJob
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +78,8 @@ instance Core.AWSRequest DeleteBatchImportJob where
   type
     AWSResponse DeleteBatchImportJob =
       DeleteBatchImportJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -91,32 +94,32 @@ instance Prelude.Hashable DeleteBatchImportJob where
 instance Prelude.NFData DeleteBatchImportJob where
   rnf DeleteBatchImportJob' {..} = Prelude.rnf jobId
 
-instance Core.ToHeaders DeleteBatchImportJob where
+instance Data.ToHeaders DeleteBatchImportJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.DeleteBatchImportJob" ::
+              Data.=# ( "AWSHawksNestServiceFacade.DeleteBatchImportJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteBatchImportJob where
+instance Data.ToJSON DeleteBatchImportJob where
   toJSON DeleteBatchImportJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("jobId" Core..= jobId)]
+          [Prelude.Just ("jobId" Data..= jobId)]
       )
 
-instance Core.ToPath DeleteBatchImportJob where
+instance Data.ToPath DeleteBatchImportJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteBatchImportJob where
+instance Data.ToQuery DeleteBatchImportJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteBatchImportJobResponse' smart constructor.

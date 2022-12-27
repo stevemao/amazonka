@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.UpdateCACertificateParams
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoT.Types.UpdateCACertificateParams where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.CACertificateUpdateAction
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Parameters to define a mitigation action that changes the state of the
@@ -57,13 +58,13 @@ newUpdateCACertificateParams pAction_ =
 updateCACertificateParams_action :: Lens.Lens' UpdateCACertificateParams CACertificateUpdateAction
 updateCACertificateParams_action = Lens.lens (\UpdateCACertificateParams' {action} -> action) (\s@UpdateCACertificateParams' {} a -> s {action = a} :: UpdateCACertificateParams)
 
-instance Core.FromJSON UpdateCACertificateParams where
+instance Data.FromJSON UpdateCACertificateParams where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UpdateCACertificateParams"
       ( \x ->
           UpdateCACertificateParams'
-            Prelude.<$> (x Core..: "action")
+            Prelude.<$> (x Data..: "action")
       )
 
 instance Prelude.Hashable UpdateCACertificateParams where
@@ -74,9 +75,9 @@ instance Prelude.NFData UpdateCACertificateParams where
   rnf UpdateCACertificateParams' {..} =
     Prelude.rnf action
 
-instance Core.ToJSON UpdateCACertificateParams where
+instance Data.ToJSON UpdateCACertificateParams where
   toJSON UpdateCACertificateParams' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("action" Core..= action)]
+          [Prelude.Just ("action" Data..= action)]
       )

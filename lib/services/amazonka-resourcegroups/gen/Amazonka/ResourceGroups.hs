@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.ResourceGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -55,14 +55,11 @@ module Amazonka.ResourceGroups
     -- * Errors
     -- $errors
 
+    -- ** BadRequestException
+    _BadRequestException,
+
     -- ** ForbiddenException
     _ForbiddenException,
-
-    -- ** NotFoundException
-    _NotFoundException,
-
-    -- ** TooManyRequestsException
-    _TooManyRequestsException,
 
     -- ** InternalServerErrorException
     _InternalServerErrorException,
@@ -70,77 +67,20 @@ module Amazonka.ResourceGroups
     -- ** MethodNotAllowedException
     _MethodNotAllowedException,
 
+    -- ** NotFoundException
+    _NotFoundException,
+
+    -- ** TooManyRequestsException
+    _TooManyRequestsException,
+
     -- ** UnauthorizedException
     _UnauthorizedException,
-
-    -- ** BadRequestException
-    _BadRequestException,
 
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
-
-    -- ** SearchResources (Paginated)
-    SearchResources (SearchResources'),
-    newSearchResources,
-    SearchResourcesResponse (SearchResourcesResponse'),
-    newSearchResourcesResponse,
-
-    -- ** GetTags
-    GetTags (GetTags'),
-    newGetTags,
-    GetTagsResponse (GetTagsResponse'),
-    newGetTagsResponse,
-
-    -- ** Tag
-    Tag (Tag'),
-    newTag,
-    TagResponse (TagResponse'),
-    newTagResponse,
-
-    -- ** UngroupResources
-    UngroupResources (UngroupResources'),
-    newUngroupResources,
-    UngroupResourcesResponse (UngroupResourcesResponse'),
-    newUngroupResourcesResponse,
-
-    -- ** GroupResources
-    GroupResources (GroupResources'),
-    newGroupResources,
-    GroupResourcesResponse (GroupResourcesResponse'),
-    newGroupResourcesResponse,
-
-    -- ** PutGroupConfiguration
-    PutGroupConfiguration (PutGroupConfiguration'),
-    newPutGroupConfiguration,
-    PutGroupConfigurationResponse (PutGroupConfigurationResponse'),
-    newPutGroupConfigurationResponse,
-
-    -- ** Untag
-    Untag (Untag'),
-    newUntag,
-    UntagResponse (UntagResponse'),
-    newUntagResponse,
-
-    -- ** UpdateGroupQuery
-    UpdateGroupQuery (UpdateGroupQuery'),
-    newUpdateGroupQuery,
-    UpdateGroupQueryResponse (UpdateGroupQueryResponse'),
-    newUpdateGroupQueryResponse,
-
-    -- ** ListGroupResources (Paginated)
-    ListGroupResources (ListGroupResources'),
-    newListGroupResources,
-    ListGroupResourcesResponse (ListGroupResourcesResponse'),
-    newListGroupResourcesResponse,
-
-    -- ** GetGroupQuery
-    GetGroupQuery (GetGroupQuery'),
-    newGetGroupQuery,
-    GetGroupQueryResponse (GetGroupQueryResponse'),
-    newGetGroupQueryResponse,
 
     -- ** CreateGroup
     CreateGroup (CreateGroup'),
@@ -154,18 +94,6 @@ module Amazonka.ResourceGroups
     DeleteGroupResponse (DeleteGroupResponse'),
     newDeleteGroupResponse,
 
-    -- ** UpdateGroup
-    UpdateGroup (UpdateGroup'),
-    newUpdateGroup,
-    UpdateGroupResponse (UpdateGroupResponse'),
-    newUpdateGroupResponse,
-
-    -- ** ListGroups (Paginated)
-    ListGroups (ListGroups'),
-    newListGroups,
-    ListGroupsResponse (ListGroupsResponse'),
-    newListGroupsResponse,
-
     -- ** GetGroup
     GetGroup (GetGroup'),
     newGetGroup,
@@ -177,6 +105,78 @@ module Amazonka.ResourceGroups
     newGetGroupConfiguration,
     GetGroupConfigurationResponse (GetGroupConfigurationResponse'),
     newGetGroupConfigurationResponse,
+
+    -- ** GetGroupQuery
+    GetGroupQuery (GetGroupQuery'),
+    newGetGroupQuery,
+    GetGroupQueryResponse (GetGroupQueryResponse'),
+    newGetGroupQueryResponse,
+
+    -- ** GetTags
+    GetTags (GetTags'),
+    newGetTags,
+    GetTagsResponse (GetTagsResponse'),
+    newGetTagsResponse,
+
+    -- ** GroupResources
+    GroupResources (GroupResources'),
+    newGroupResources,
+    GroupResourcesResponse (GroupResourcesResponse'),
+    newGroupResourcesResponse,
+
+    -- ** ListGroupResources (Paginated)
+    ListGroupResources (ListGroupResources'),
+    newListGroupResources,
+    ListGroupResourcesResponse (ListGroupResourcesResponse'),
+    newListGroupResourcesResponse,
+
+    -- ** ListGroups (Paginated)
+    ListGroups (ListGroups'),
+    newListGroups,
+    ListGroupsResponse (ListGroupsResponse'),
+    newListGroupsResponse,
+
+    -- ** PutGroupConfiguration
+    PutGroupConfiguration (PutGroupConfiguration'),
+    newPutGroupConfiguration,
+    PutGroupConfigurationResponse (PutGroupConfigurationResponse'),
+    newPutGroupConfigurationResponse,
+
+    -- ** SearchResources (Paginated)
+    SearchResources (SearchResources'),
+    newSearchResources,
+    SearchResourcesResponse (SearchResourcesResponse'),
+    newSearchResourcesResponse,
+
+    -- ** Tag
+    Tag (Tag'),
+    newTag,
+    TagResponse (TagResponse'),
+    newTagResponse,
+
+    -- ** UngroupResources
+    UngroupResources (UngroupResources'),
+    newUngroupResources,
+    UngroupResourcesResponse (UngroupResourcesResponse'),
+    newUngroupResourcesResponse,
+
+    -- ** Untag
+    Untag (Untag'),
+    newUntag,
+    UntagResponse (UntagResponse'),
+    newUntagResponse,
+
+    -- ** UpdateGroup
+    UpdateGroup (UpdateGroup'),
+    newUpdateGroup,
+    UpdateGroupResponse (UpdateGroupResponse'),
+    newUpdateGroupResponse,
+
+    -- ** UpdateGroupQuery
+    UpdateGroupQuery (UpdateGroupQuery'),
+    newUpdateGroupQuery,
+    UpdateGroupQueryResponse (UpdateGroupQueryResponse'),
+    newUpdateGroupQueryResponse,
 
     -- * Types
 

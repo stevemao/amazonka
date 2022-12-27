@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Proton.ListEnvironments
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.Proton.ListEnvironments
 
     -- * Request Lenses
     listEnvironments_environmentTemplates,
-    listEnvironments_nextToken,
     listEnvironments_maxResults,
+    listEnvironments_nextToken,
 
     -- * Destructuring the Response
     ListEnvironmentsResponse (..),
@@ -45,7 +45,8 @@ module Amazonka.Proton.ListEnvironments
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types
 import qualified Amazonka.Request as Request
@@ -55,12 +56,12 @@ import qualified Amazonka.Response as Response
 data ListEnvironments = ListEnvironments'
   { -- | An array of the versions of the environment template.
     environmentTemplates :: Prelude.Maybe [EnvironmentTemplateFilter],
-    -- | A token to indicate the location of the next environment in the array of
-    -- environments, after the list of environments that was previously
-    -- requested.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of environments to list.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token that indicates the location of the next environment in the array
+    -- of environments, after the list of environments that was previously
+    -- requested.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -74,34 +75,34 @@ data ListEnvironments = ListEnvironments'
 --
 -- 'environmentTemplates', 'listEnvironments_environmentTemplates' - An array of the versions of the environment template.
 --
--- 'nextToken', 'listEnvironments_nextToken' - A token to indicate the location of the next environment in the array of
--- environments, after the list of environments that was previously
--- requested.
---
 -- 'maxResults', 'listEnvironments_maxResults' - The maximum number of environments to list.
+--
+-- 'nextToken', 'listEnvironments_nextToken' - A token that indicates the location of the next environment in the array
+-- of environments, after the list of environments that was previously
+-- requested.
 newListEnvironments ::
   ListEnvironments
 newListEnvironments =
   ListEnvironments'
     { environmentTemplates =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | An array of the versions of the environment template.
 listEnvironments_environmentTemplates :: Lens.Lens' ListEnvironments (Prelude.Maybe [EnvironmentTemplateFilter])
 listEnvironments_environmentTemplates = Lens.lens (\ListEnvironments' {environmentTemplates} -> environmentTemplates) (\s@ListEnvironments' {} a -> s {environmentTemplates = a} :: ListEnvironments) Prelude.. Lens.mapping Lens.coerced
 
--- | A token to indicate the location of the next environment in the array of
--- environments, after the list of environments that was previously
--- requested.
-listEnvironments_nextToken :: Lens.Lens' ListEnvironments (Prelude.Maybe Prelude.Text)
-listEnvironments_nextToken = Lens.lens (\ListEnvironments' {nextToken} -> nextToken) (\s@ListEnvironments' {} a -> s {nextToken = a} :: ListEnvironments)
-
 -- | The maximum number of environments to list.
 listEnvironments_maxResults :: Lens.Lens' ListEnvironments (Prelude.Maybe Prelude.Natural)
 listEnvironments_maxResults = Lens.lens (\ListEnvironments' {maxResults} -> maxResults) (\s@ListEnvironments' {} a -> s {maxResults = a} :: ListEnvironments)
+
+-- | A token that indicates the location of the next environment in the array
+-- of environments, after the list of environments that was previously
+-- requested.
+listEnvironments_nextToken :: Lens.Lens' ListEnvironments (Prelude.Maybe Prelude.Text)
+listEnvironments_nextToken = Lens.lens (\ListEnvironments' {nextToken} -> nextToken) (\s@ListEnvironments' {} a -> s {nextToken = a} :: ListEnvironments)
 
 instance Core.AWSPager ListEnvironments where
   page rq rs
@@ -126,64 +127,65 @@ instance Core.AWSRequest ListEnvironments where
   type
     AWSResponse ListEnvironments =
       ListEnvironmentsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListEnvironmentsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "environments" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "environments" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListEnvironments where
   hashWithSalt _salt ListEnvironments' {..} =
     _salt `Prelude.hashWithSalt` environmentTemplates
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListEnvironments where
   rnf ListEnvironments' {..} =
     Prelude.rnf environmentTemplates
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListEnvironments where
+instance Data.ToHeaders ListEnvironments where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AwsProton20200720.ListEnvironments" ::
+              Data.=# ( "AwsProton20200720.ListEnvironments" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListEnvironments where
+instance Data.ToJSON ListEnvironments where
   toJSON ListEnvironments' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("environmentTemplates" Core..=)
+          [ ("environmentTemplates" Data..=)
               Prelude.<$> environmentTemplates,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListEnvironments where
+instance Data.ToPath ListEnvironments where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListEnvironments where
+instance Data.ToQuery ListEnvironments where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListEnvironmentsResponse' smart constructor.
 data ListEnvironmentsResponse = ListEnvironmentsResponse'
-  { -- | A token to indicate the location of the next environment in the array of
-    -- environments, after the current requested list of environments.
+  { -- | A token that indicates the location of the next environment in the array
+    -- of environments, after the current requested list of environments.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
@@ -200,8 +202,8 @@ data ListEnvironmentsResponse = ListEnvironmentsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listEnvironmentsResponse_nextToken' - A token to indicate the location of the next environment in the array of
--- environments, after the current requested list of environments.
+-- 'nextToken', 'listEnvironmentsResponse_nextToken' - A token that indicates the location of the next environment in the array
+-- of environments, after the current requested list of environments.
 --
 -- 'httpStatus', 'listEnvironmentsResponse_httpStatus' - The response's http status code.
 --
@@ -218,8 +220,8 @@ newListEnvironmentsResponse pHttpStatus_ =
       environments = Prelude.mempty
     }
 
--- | A token to indicate the location of the next environment in the array of
--- environments, after the current requested list of environments.
+-- | A token that indicates the location of the next environment in the array
+-- of environments, after the current requested list of environments.
 listEnvironmentsResponse_nextToken :: Lens.Lens' ListEnvironmentsResponse (Prelude.Maybe Prelude.Text)
 listEnvironmentsResponse_nextToken = Lens.lens (\ListEnvironmentsResponse' {nextToken} -> nextToken) (\s@ListEnvironmentsResponse' {} a -> s {nextToken = a} :: ListEnvironmentsResponse)
 

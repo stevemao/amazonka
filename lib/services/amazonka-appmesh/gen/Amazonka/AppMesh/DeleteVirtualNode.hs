@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.DeleteVirtualNode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.AppMesh.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,9 +56,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDeleteVirtualNode' smart constructor.
 data DeleteVirtualNode = DeleteVirtualNode'
-  { -- | The AWS IAM account ID of the service mesh owner. If the account ID is
-    -- not your own, then it\'s the ID of the account that shared the mesh with
-    -- your account. For more information about mesh sharing, see
+  { -- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+    -- account ID is not your own, then it\'s the ID of the account that shared
+    -- the mesh with your account. For more information about mesh sharing, see
     -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
     meshOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the service mesh to delete the virtual node in.
@@ -75,9 +76,9 @@ data DeleteVirtualNode = DeleteVirtualNode'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'meshOwner', 'deleteVirtualNode_meshOwner' - The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
+-- 'meshOwner', 'deleteVirtualNode_meshOwner' - The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 --
 -- 'meshName', 'deleteVirtualNode_meshName' - The name of the service mesh to delete the virtual node in.
@@ -96,9 +97,9 @@ newDeleteVirtualNode pMeshName_ pVirtualNodeName_ =
       virtualNodeName = pVirtualNodeName_
     }
 
--- | The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
+-- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 deleteVirtualNode_meshOwner :: Lens.Lens' DeleteVirtualNode (Prelude.Maybe Prelude.Text)
 deleteVirtualNode_meshOwner = Lens.lens (\DeleteVirtualNode' {meshOwner} -> meshOwner) (\s@DeleteVirtualNode' {} a -> s {meshOwner = a} :: DeleteVirtualNode)
@@ -115,13 +116,14 @@ instance Core.AWSRequest DeleteVirtualNode where
   type
     AWSResponse DeleteVirtualNode =
       DeleteVirtualNodeResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteVirtualNodeResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable DeleteVirtualNode where
@@ -136,29 +138,29 @@ instance Prelude.NFData DeleteVirtualNode where
       `Prelude.seq` Prelude.rnf meshName
       `Prelude.seq` Prelude.rnf virtualNodeName
 
-instance Core.ToHeaders DeleteVirtualNode where
+instance Data.ToHeaders DeleteVirtualNode where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteVirtualNode where
+instance Data.ToPath DeleteVirtualNode where
   toPath DeleteVirtualNode' {..} =
     Prelude.mconcat
       [ "/v20190125/meshes/",
-        Core.toBS meshName,
+        Data.toBS meshName,
         "/virtualNodes/",
-        Core.toBS virtualNodeName
+        Data.toBS virtualNodeName
       ]
 
-instance Core.ToQuery DeleteVirtualNode where
+instance Data.ToQuery DeleteVirtualNode where
   toQuery DeleteVirtualNode' {..} =
-    Prelude.mconcat ["meshOwner" Core.=: meshOwner]
+    Prelude.mconcat ["meshOwner" Data.=: meshOwner]
 
 -- |
 --

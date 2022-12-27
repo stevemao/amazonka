@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.RequestSpotFleet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,13 @@
 --
 -- For more information, see
 -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-requests.html Spot Fleet requests>
--- in the /Amazon EC2 User Guide for Linux Instances/.
+-- in the /Amazon EC2 User Guide/.
+--
+-- We strongly discourage using the RequestSpotFleet API because it is a
+-- legacy API with no planned investment. For options for requesting Spot
+-- Instances, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-best-practices.html#which-spot-request-method-to-use Which is the best Spot request method to use?>
+-- in the /Amazon EC2 User Guide/.
 module Amazonka.EC2.RequestSpotFleet
   ( -- * Creating a Request
     RequestSpotFleet (..),
@@ -69,8 +75,9 @@ module Amazonka.EC2.RequestSpotFleet
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -128,12 +135,13 @@ instance Core.AWSRequest RequestSpotFleet where
   type
     AWSResponse RequestSpotFleet =
       RequestSpotFleetResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           RequestSpotFleetResponse'
-            Prelude.<$> (x Core..@? "spotFleetRequestId")
+            Prelude.<$> (x Data..@? "spotFleetRequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -147,22 +155,22 @@ instance Prelude.NFData RequestSpotFleet where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf spotFleetRequestConfig
 
-instance Core.ToHeaders RequestSpotFleet where
+instance Data.ToHeaders RequestSpotFleet where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath RequestSpotFleet where
+instance Data.ToPath RequestSpotFleet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RequestSpotFleet where
+instance Data.ToQuery RequestSpotFleet where
   toQuery RequestSpotFleet' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("RequestSpotFleet" :: Prelude.ByteString),
+          Data.=: ("RequestSpotFleet" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
         "SpotFleetRequestConfig"
-          Core.=: spotFleetRequestConfig
+          Data.=: spotFleetRequestConfig
       ]
 
 -- | Contains the output of RequestSpotFleet.

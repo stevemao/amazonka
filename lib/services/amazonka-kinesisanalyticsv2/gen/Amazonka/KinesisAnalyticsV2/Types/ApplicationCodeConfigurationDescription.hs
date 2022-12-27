@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.ApplicationCodeConfigurationDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.KinesisAnalyticsV2.Types.ApplicationCodeConfigurationDescription where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.CodeContentDescription
 import Amazonka.KinesisAnalyticsV2.Types.CodeContentType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes code configuration for an application.
@@ -69,16 +70,16 @@ applicationCodeConfigurationDescription_codeContentType :: Lens.Lens' Applicatio
 applicationCodeConfigurationDescription_codeContentType = Lens.lens (\ApplicationCodeConfigurationDescription' {codeContentType} -> codeContentType) (\s@ApplicationCodeConfigurationDescription' {} a -> s {codeContentType = a} :: ApplicationCodeConfigurationDescription)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ApplicationCodeConfigurationDescription
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ApplicationCodeConfigurationDescription"
       ( \x ->
           ApplicationCodeConfigurationDescription'
-            Prelude.<$> (x Core..:? "CodeContentDescription")
-            Prelude.<*> (x Core..: "CodeContentType")
+            Prelude.<$> (x Data..:? "CodeContentDescription")
+            Prelude.<*> (x Data..: "CodeContentType")
       )
 
 instance

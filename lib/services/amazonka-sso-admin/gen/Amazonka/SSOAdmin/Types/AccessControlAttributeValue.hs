@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSOAdmin.Types.AccessControlAttributeValue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,19 @@
 module Amazonka.SSOAdmin.Types.AccessControlAttributeValue where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The value used for mapping a specified attribute to an identity source.
+-- For more information, see
+-- <https://docs.aws.amazon.com/singlesignon/latest/userguide/attributemappingsconcept.html Attribute mappings>
+-- in the /IAM Identity Center User Guide/.
 --
 -- /See:/ 'newAccessControlAttributeValue' smart constructor.
 data AccessControlAttributeValue = AccessControlAttributeValue'
-  { -- | The identity source to use when mapping a specified attribute to Amazon
-    -- Web Services SSO.
+  { -- | The identity source to use when mapping a specified attribute to IAM
+    -- Identity Center.
     source :: Prelude.NonEmpty Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -41,8 +45,8 @@ data AccessControlAttributeValue = AccessControlAttributeValue'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'source', 'accessControlAttributeValue_source' - The identity source to use when mapping a specified attribute to Amazon
--- Web Services SSO.
+-- 'source', 'accessControlAttributeValue_source' - The identity source to use when mapping a specified attribute to IAM
+-- Identity Center.
 newAccessControlAttributeValue ::
   -- | 'source'
   Prelude.NonEmpty Prelude.Text ->
@@ -53,18 +57,18 @@ newAccessControlAttributeValue pSource_ =
         Lens.coerced Lens.# pSource_
     }
 
--- | The identity source to use when mapping a specified attribute to Amazon
--- Web Services SSO.
+-- | The identity source to use when mapping a specified attribute to IAM
+-- Identity Center.
 accessControlAttributeValue_source :: Lens.Lens' AccessControlAttributeValue (Prelude.NonEmpty Prelude.Text)
 accessControlAttributeValue_source = Lens.lens (\AccessControlAttributeValue' {source} -> source) (\s@AccessControlAttributeValue' {} a -> s {source = a} :: AccessControlAttributeValue) Prelude.. Lens.coerced
 
-instance Core.FromJSON AccessControlAttributeValue where
+instance Data.FromJSON AccessControlAttributeValue where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AccessControlAttributeValue"
       ( \x ->
           AccessControlAttributeValue'
-            Prelude.<$> (x Core..: "Source")
+            Prelude.<$> (x Data..: "Source")
       )
 
 instance Prelude.Hashable AccessControlAttributeValue where
@@ -75,9 +79,9 @@ instance Prelude.NFData AccessControlAttributeValue where
   rnf AccessControlAttributeValue' {..} =
     Prelude.rnf source
 
-instance Core.ToJSON AccessControlAttributeValue where
+instance Data.ToJSON AccessControlAttributeValue where
   toJSON AccessControlAttributeValue' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Source" Core..= source)]
+          [Prelude.Just ("Source" Data..= source)]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.ListTemplateAliases
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.QuickSight.ListTemplateAliases
     newListTemplateAliases,
 
     -- * Request Lenses
-    listTemplateAliases_nextToken,
     listTemplateAliases_maxResults,
+    listTemplateAliases_nextToken,
     listTemplateAliases_awsAccountId,
     listTemplateAliases_templateId,
 
@@ -39,15 +39,16 @@ module Amazonka.QuickSight.ListTemplateAliases
     newListTemplateAliasesResponse,
 
     -- * Response Lenses
+    listTemplateAliasesResponse_nextToken,
     listTemplateAliasesResponse_requestId,
     listTemplateAliasesResponse_templateAliasList,
-    listTemplateAliasesResponse_nextToken,
     listTemplateAliasesResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -55,11 +56,11 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListTemplateAliases' smart constructor.
 data ListTemplateAliases = ListTemplateAliases'
-  { -- | The token for the next set of results, or null if there are no more
+  { -- | The maximum number of results to be returned per request.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results, or null if there are no more
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to be returned per request.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The ID of the Amazon Web Services account that contains the template
     -- aliases that you\'re listing.
     awsAccountId :: Prelude.Text,
@@ -76,10 +77,10 @@ data ListTemplateAliases = ListTemplateAliases'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listTemplateAliases_maxResults' - The maximum number of results to be returned per request.
+--
 -- 'nextToken', 'listTemplateAliases_nextToken' - The token for the next set of results, or null if there are no more
 -- results.
---
--- 'maxResults', 'listTemplateAliases_maxResults' - The maximum number of results to be returned per request.
 --
 -- 'awsAccountId', 'listTemplateAliases_awsAccountId' - The ID of the Amazon Web Services account that contains the template
 -- aliases that you\'re listing.
@@ -93,20 +94,20 @@ newListTemplateAliases ::
   ListTemplateAliases
 newListTemplateAliases pAwsAccountId_ pTemplateId_ =
   ListTemplateAliases'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       awsAccountId = pAwsAccountId_,
       templateId = pTemplateId_
     }
+
+-- | The maximum number of results to be returned per request.
+listTemplateAliases_maxResults :: Lens.Lens' ListTemplateAliases (Prelude.Maybe Prelude.Natural)
+listTemplateAliases_maxResults = Lens.lens (\ListTemplateAliases' {maxResults} -> maxResults) (\s@ListTemplateAliases' {} a -> s {maxResults = a} :: ListTemplateAliases)
 
 -- | The token for the next set of results, or null if there are no more
 -- results.
 listTemplateAliases_nextToken :: Lens.Lens' ListTemplateAliases (Prelude.Maybe Prelude.Text)
 listTemplateAliases_nextToken = Lens.lens (\ListTemplateAliases' {nextToken} -> nextToken) (\s@ListTemplateAliases' {} a -> s {nextToken = a} :: ListTemplateAliases)
-
--- | The maximum number of results to be returned per request.
-listTemplateAliases_maxResults :: Lens.Lens' ListTemplateAliases (Prelude.Maybe Prelude.Natural)
-listTemplateAliases_maxResults = Lens.lens (\ListTemplateAliases' {maxResults} -> maxResults) (\s@ListTemplateAliases' {} a -> s {maxResults = a} :: ListTemplateAliases)
 
 -- | The ID of the Amazon Web Services account that contains the template
 -- aliases that you\'re listing.
@@ -143,70 +144,71 @@ instance Core.AWSRequest ListTemplateAliases where
   type
     AWSResponse ListTemplateAliases =
       ListTemplateAliasesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTemplateAliasesResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> ( x Core..?> "TemplateAliasList"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "RequestId")
+            Prelude.<*> ( x Data..?> "TemplateAliasList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListTemplateAliases where
   hashWithSalt _salt ListTemplateAliases' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` awsAccountId
       `Prelude.hashWithSalt` templateId
 
 instance Prelude.NFData ListTemplateAliases where
   rnf ListTemplateAliases' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf templateId
 
-instance Core.ToHeaders ListTemplateAliases where
+instance Data.ToHeaders ListTemplateAliases where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListTemplateAliases where
+instance Data.ToPath ListTemplateAliases where
   toPath ListTemplateAliases' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/templates/",
-        Core.toBS templateId,
+        Data.toBS templateId,
         "/aliases"
       ]
 
-instance Core.ToQuery ListTemplateAliases where
+instance Data.ToQuery ListTemplateAliases where
   toQuery ListTemplateAliases' {..} =
     Prelude.mconcat
-      [ "next-token" Core.=: nextToken,
-        "max-result" Core.=: maxResults
+      [ "max-result" Data.=: maxResults,
+        "next-token" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListTemplateAliasesResponse' smart constructor.
 data ListTemplateAliasesResponse = ListTemplateAliasesResponse'
-  { -- | The Amazon Web Services request ID for this operation.
+  { -- | The token for the next set of results, or null if there are no more
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Web Services request ID for this operation.
     requestId :: Prelude.Maybe Prelude.Text,
     -- | A structure containing the list of the template\'s aliases.
     templateAliasList :: Prelude.Maybe [TemplateAlias],
-    -- | The token for the next set of results, or null if there are no more
-    -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -220,12 +222,12 @@ data ListTemplateAliasesResponse = ListTemplateAliasesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'nextToken', 'listTemplateAliasesResponse_nextToken' - The token for the next set of results, or null if there are no more
+-- results.
+--
 -- 'requestId', 'listTemplateAliasesResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'templateAliasList', 'listTemplateAliasesResponse_templateAliasList' - A structure containing the list of the template\'s aliases.
---
--- 'nextToken', 'listTemplateAliasesResponse_nextToken' - The token for the next set of results, or null if there are no more
--- results.
 --
 -- 'status', 'listTemplateAliasesResponse_status' - The HTTP status of the request.
 newListTemplateAliasesResponse ::
@@ -234,12 +236,17 @@ newListTemplateAliasesResponse ::
   ListTemplateAliasesResponse
 newListTemplateAliasesResponse pStatus_ =
   ListTemplateAliasesResponse'
-    { requestId =
+    { nextToken =
         Prelude.Nothing,
+      requestId = Prelude.Nothing,
       templateAliasList = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       status = pStatus_
     }
+
+-- | The token for the next set of results, or null if there are no more
+-- results.
+listTemplateAliasesResponse_nextToken :: Lens.Lens' ListTemplateAliasesResponse (Prelude.Maybe Prelude.Text)
+listTemplateAliasesResponse_nextToken = Lens.lens (\ListTemplateAliasesResponse' {nextToken} -> nextToken) (\s@ListTemplateAliasesResponse' {} a -> s {nextToken = a} :: ListTemplateAliasesResponse)
 
 -- | The Amazon Web Services request ID for this operation.
 listTemplateAliasesResponse_requestId :: Lens.Lens' ListTemplateAliasesResponse (Prelude.Maybe Prelude.Text)
@@ -249,18 +256,13 @@ listTemplateAliasesResponse_requestId = Lens.lens (\ListTemplateAliasesResponse'
 listTemplateAliasesResponse_templateAliasList :: Lens.Lens' ListTemplateAliasesResponse (Prelude.Maybe [TemplateAlias])
 listTemplateAliasesResponse_templateAliasList = Lens.lens (\ListTemplateAliasesResponse' {templateAliasList} -> templateAliasList) (\s@ListTemplateAliasesResponse' {} a -> s {templateAliasList = a} :: ListTemplateAliasesResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | The token for the next set of results, or null if there are no more
--- results.
-listTemplateAliasesResponse_nextToken :: Lens.Lens' ListTemplateAliasesResponse (Prelude.Maybe Prelude.Text)
-listTemplateAliasesResponse_nextToken = Lens.lens (\ListTemplateAliasesResponse' {nextToken} -> nextToken) (\s@ListTemplateAliasesResponse' {} a -> s {nextToken = a} :: ListTemplateAliasesResponse)
-
 -- | The HTTP status of the request.
 listTemplateAliasesResponse_status :: Lens.Lens' ListTemplateAliasesResponse Prelude.Int
 listTemplateAliasesResponse_status = Lens.lens (\ListTemplateAliasesResponse' {status} -> status) (\s@ListTemplateAliasesResponse' {} a -> s {status = a} :: ListTemplateAliasesResponse)
 
 instance Prelude.NFData ListTemplateAliasesResponse where
   rnf ListTemplateAliasesResponse' {..} =
-    Prelude.rnf requestId
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf templateAliasList
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf status

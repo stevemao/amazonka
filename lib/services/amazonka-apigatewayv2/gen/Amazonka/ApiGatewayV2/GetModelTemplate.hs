@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApiGatewayV2.GetModelTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.ApiGatewayV2.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,12 +92,13 @@ instance Core.AWSRequest GetModelTemplate where
   type
     AWSResponse GetModelTemplate =
       GetModelTemplateResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetModelTemplateResponse'
-            Prelude.<$> (x Core..?> "value")
+            Prelude.<$> (x Data..?> "value")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -109,28 +111,28 @@ instance Prelude.NFData GetModelTemplate where
   rnf GetModelTemplate' {..} =
     Prelude.rnf modelId `Prelude.seq` Prelude.rnf apiId
 
-instance Core.ToHeaders GetModelTemplate where
+instance Data.ToHeaders GetModelTemplate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetModelTemplate where
+instance Data.ToPath GetModelTemplate where
   toPath GetModelTemplate' {..} =
     Prelude.mconcat
       [ "/v2/apis/",
-        Core.toBS apiId,
+        Data.toBS apiId,
         "/models/",
-        Core.toBS modelId,
+        Data.toBS modelId,
         "/template"
       ]
 
-instance Core.ToQuery GetModelTemplate where
+instance Data.ToQuery GetModelTemplate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetModelTemplateResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.DeregisterInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.OpsWorks.DeregisterInstance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -82,7 +83,8 @@ instance Core.AWSRequest DeregisterInstance where
   type
     AWSResponse DeregisterInstance =
       DeregisterInstanceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeregisterInstanceResponse'
 
@@ -93,32 +95,32 @@ instance Prelude.Hashable DeregisterInstance where
 instance Prelude.NFData DeregisterInstance where
   rnf DeregisterInstance' {..} = Prelude.rnf instanceId
 
-instance Core.ToHeaders DeregisterInstance where
+instance Data.ToHeaders DeregisterInstance where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.DeregisterInstance" ::
+              Data.=# ( "OpsWorks_20130218.DeregisterInstance" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeregisterInstance where
+instance Data.ToJSON DeregisterInstance where
   toJSON DeregisterInstance' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("InstanceId" Core..= instanceId)]
+          [Prelude.Just ("InstanceId" Data..= instanceId)]
       )
 
-instance Core.ToPath DeregisterInstance where
+instance Data.ToPath DeregisterInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeregisterInstance where
+instance Data.ToQuery DeregisterInstance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeregisterInstanceResponse' smart constructor.

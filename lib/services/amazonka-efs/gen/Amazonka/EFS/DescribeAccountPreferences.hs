@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EFS.DescribeAccountPreferences
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,37 +30,38 @@ module Amazonka.EFS.DescribeAccountPreferences
     newDescribeAccountPreferences,
 
     -- * Request Lenses
-    describeAccountPreferences_nextToken,
     describeAccountPreferences_maxResults,
+    describeAccountPreferences_nextToken,
 
     -- * Destructuring the Response
     DescribeAccountPreferencesResponse (..),
     newDescribeAccountPreferencesResponse,
 
     -- * Response Lenses
-    describeAccountPreferencesResponse_resourceIdPreference,
     describeAccountPreferencesResponse_nextToken,
+    describeAccountPreferencesResponse_resourceIdPreference,
     describeAccountPreferencesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EFS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeAccountPreferences' smart constructor.
 data DescribeAccountPreferences = DescribeAccountPreferences'
-  { -- | (Optional) You can use @NextToken@ in a subsequent request to fetch the
-    -- next page of Amazon Web Services account preferences if the response
-    -- payload was paginated.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | (Optional) When retrieving account preferences, you can optionally
+  { -- | (Optional) When retrieving account preferences, you can optionally
     -- specify the @MaxItems@ parameter to limit the number of objects returned
     -- in a response. The default value is 100.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | (Optional) You can use @NextToken@ in a subsequent request to fetch the
+    -- next page of Amazon Web Services account preferences if the response
+    -- payload was paginated.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -72,27 +73,21 @@ data DescribeAccountPreferences = DescribeAccountPreferences'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeAccountPreferences_nextToken' - (Optional) You can use @NextToken@ in a subsequent request to fetch the
--- next page of Amazon Web Services account preferences if the response
--- payload was paginated.
---
 -- 'maxResults', 'describeAccountPreferences_maxResults' - (Optional) When retrieving account preferences, you can optionally
 -- specify the @MaxItems@ parameter to limit the number of objects returned
 -- in a response. The default value is 100.
+--
+-- 'nextToken', 'describeAccountPreferences_nextToken' - (Optional) You can use @NextToken@ in a subsequent request to fetch the
+-- next page of Amazon Web Services account preferences if the response
+-- payload was paginated.
 newDescribeAccountPreferences ::
   DescribeAccountPreferences
 newDescribeAccountPreferences =
   DescribeAccountPreferences'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
-
--- | (Optional) You can use @NextToken@ in a subsequent request to fetch the
--- next page of Amazon Web Services account preferences if the response
--- payload was paginated.
-describeAccountPreferences_nextToken :: Lens.Lens' DescribeAccountPreferences (Prelude.Maybe Prelude.Text)
-describeAccountPreferences_nextToken = Lens.lens (\DescribeAccountPreferences' {nextToken} -> nextToken) (\s@DescribeAccountPreferences' {} a -> s {nextToken = a} :: DescribeAccountPreferences)
 
 -- | (Optional) When retrieving account preferences, you can optionally
 -- specify the @MaxItems@ parameter to limit the number of objects returned
@@ -100,50 +95,57 @@ describeAccountPreferences_nextToken = Lens.lens (\DescribeAccountPreferences' {
 describeAccountPreferences_maxResults :: Lens.Lens' DescribeAccountPreferences (Prelude.Maybe Prelude.Natural)
 describeAccountPreferences_maxResults = Lens.lens (\DescribeAccountPreferences' {maxResults} -> maxResults) (\s@DescribeAccountPreferences' {} a -> s {maxResults = a} :: DescribeAccountPreferences)
 
+-- | (Optional) You can use @NextToken@ in a subsequent request to fetch the
+-- next page of Amazon Web Services account preferences if the response
+-- payload was paginated.
+describeAccountPreferences_nextToken :: Lens.Lens' DescribeAccountPreferences (Prelude.Maybe Prelude.Text)
+describeAccountPreferences_nextToken = Lens.lens (\DescribeAccountPreferences' {nextToken} -> nextToken) (\s@DescribeAccountPreferences' {} a -> s {nextToken = a} :: DescribeAccountPreferences)
+
 instance Core.AWSRequest DescribeAccountPreferences where
   type
     AWSResponse DescribeAccountPreferences =
       DescribeAccountPreferencesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAccountPreferencesResponse'
-            Prelude.<$> (x Core..?> "ResourceIdPreference")
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "ResourceIdPreference")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeAccountPreferences where
   hashWithSalt _salt DescribeAccountPreferences' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeAccountPreferences where
   rnf DescribeAccountPreferences' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeAccountPreferences where
+instance Data.ToHeaders DescribeAccountPreferences where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeAccountPreferences where
+instance Data.ToPath DescribeAccountPreferences where
   toPath =
     Prelude.const "/2015-02-01/account-preferences"
 
-instance Core.ToQuery DescribeAccountPreferences where
+instance Data.ToQuery DescribeAccountPreferences where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeAccountPreferencesResponse' smart constructor.
 data DescribeAccountPreferencesResponse = DescribeAccountPreferencesResponse'
-  { -- | Describes the resource ID preference setting for the Amazon Web Services
-    -- account associated with the user making the request, in the current
-    -- Amazon Web Services Region.
-    resourceIdPreference :: Prelude.Maybe ResourceIdPreference,
-    -- | Present if there are more records than returned in the response. You can
+  { -- | Present if there are more records than returned in the response. You can
     -- use the @NextToken@ in the subsequent request to fetch the additional
     -- descriptions.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Describes the resource ID preference setting for the Amazon Web Services
+    -- account associated with the user making the request, in the current
+    -- Amazon Web Services Region.
+    resourceIdPreference :: Prelude.Maybe ResourceIdPreference,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -157,13 +159,13 @@ data DescribeAccountPreferencesResponse = DescribeAccountPreferencesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceIdPreference', 'describeAccountPreferencesResponse_resourceIdPreference' - Describes the resource ID preference setting for the Amazon Web Services
--- account associated with the user making the request, in the current
--- Amazon Web Services Region.
---
 -- 'nextToken', 'describeAccountPreferencesResponse_nextToken' - Present if there are more records than returned in the response. You can
 -- use the @NextToken@ in the subsequent request to fetch the additional
 -- descriptions.
+--
+-- 'resourceIdPreference', 'describeAccountPreferencesResponse_resourceIdPreference' - Describes the resource ID preference setting for the Amazon Web Services
+-- account associated with the user making the request, in the current
+-- Amazon Web Services Region.
 --
 -- 'httpStatus', 'describeAccountPreferencesResponse_httpStatus' - The response's http status code.
 newDescribeAccountPreferencesResponse ::
@@ -172,23 +174,23 @@ newDescribeAccountPreferencesResponse ::
   DescribeAccountPreferencesResponse
 newDescribeAccountPreferencesResponse pHttpStatus_ =
   DescribeAccountPreferencesResponse'
-    { resourceIdPreference =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      resourceIdPreference = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Describes the resource ID preference setting for the Amazon Web Services
--- account associated with the user making the request, in the current
--- Amazon Web Services Region.
-describeAccountPreferencesResponse_resourceIdPreference :: Lens.Lens' DescribeAccountPreferencesResponse (Prelude.Maybe ResourceIdPreference)
-describeAccountPreferencesResponse_resourceIdPreference = Lens.lens (\DescribeAccountPreferencesResponse' {resourceIdPreference} -> resourceIdPreference) (\s@DescribeAccountPreferencesResponse' {} a -> s {resourceIdPreference = a} :: DescribeAccountPreferencesResponse)
 
 -- | Present if there are more records than returned in the response. You can
 -- use the @NextToken@ in the subsequent request to fetch the additional
 -- descriptions.
 describeAccountPreferencesResponse_nextToken :: Lens.Lens' DescribeAccountPreferencesResponse (Prelude.Maybe Prelude.Text)
 describeAccountPreferencesResponse_nextToken = Lens.lens (\DescribeAccountPreferencesResponse' {nextToken} -> nextToken) (\s@DescribeAccountPreferencesResponse' {} a -> s {nextToken = a} :: DescribeAccountPreferencesResponse)
+
+-- | Describes the resource ID preference setting for the Amazon Web Services
+-- account associated with the user making the request, in the current
+-- Amazon Web Services Region.
+describeAccountPreferencesResponse_resourceIdPreference :: Lens.Lens' DescribeAccountPreferencesResponse (Prelude.Maybe ResourceIdPreference)
+describeAccountPreferencesResponse_resourceIdPreference = Lens.lens (\DescribeAccountPreferencesResponse' {resourceIdPreference} -> resourceIdPreference) (\s@DescribeAccountPreferencesResponse' {} a -> s {resourceIdPreference = a} :: DescribeAccountPreferencesResponse)
 
 -- | The response's http status code.
 describeAccountPreferencesResponse_httpStatus :: Lens.Lens' DescribeAccountPreferencesResponse Prelude.Int
@@ -199,6 +201,6 @@ instance
     DescribeAccountPreferencesResponse
   where
   rnf DescribeAccountPreferencesResponse' {..} =
-    Prelude.rnf resourceIdPreference
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf resourceIdPreference
       `Prelude.seq` Prelude.rnf httpStatus

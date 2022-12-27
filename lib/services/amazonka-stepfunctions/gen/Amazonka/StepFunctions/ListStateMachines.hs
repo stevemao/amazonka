@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StepFunctions.ListStateMachines
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,8 @@ module Amazonka.StepFunctions.ListStateMachines
     newListStateMachines,
 
     -- * Request Lenses
-    listStateMachines_nextToken,
     listStateMachines_maxResults,
+    listStateMachines_nextToken,
 
     -- * Destructuring the Response
     ListStateMachinesResponse (..),
@@ -54,7 +54,8 @@ module Amazonka.StepFunctions.ListStateMachines
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,20 +63,20 @@ import Amazonka.StepFunctions.Types
 
 -- | /See:/ 'newListStateMachines' smart constructor.
 data ListStateMachines = ListStateMachines'
-  { -- | If @nextToken@ is returned, there are more results available. The value
-    -- of @nextToken@ is a unique pagination token for each page. Make the call
-    -- again using the returned token to retrieve the next page. Keep all other
-    -- arguments unchanged. Each pagination token expires after 24 hours. Using
-    -- an expired pagination token will return an /HTTP 400 InvalidToken/
-    -- error.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results that are returned per call. You can use
+  { -- | The maximum number of results that are returned per call. You can use
     -- @nextToken@ to obtain further pages of results. The default is 100 and
     -- the maximum allowed page size is 1000. A value of 0 uses the default.
     --
     -- This is only an upper limit. The actual number of results returned per
     -- call might be fewer than the specified maximum.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | If @nextToken@ is returned, there are more results available. The value
+    -- of @nextToken@ is a unique pagination token for each page. Make the call
+    -- again using the returned token to retrieve the next page. Keep all other
+    -- arguments unchanged. Each pagination token expires after 24 hours. Using
+    -- an expired pagination token will return an /HTTP 400 InvalidToken/
+    -- error.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -87,35 +88,26 @@ data ListStateMachines = ListStateMachines'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listStateMachines_nextToken' - If @nextToken@ is returned, there are more results available. The value
--- of @nextToken@ is a unique pagination token for each page. Make the call
--- again using the returned token to retrieve the next page. Keep all other
--- arguments unchanged. Each pagination token expires after 24 hours. Using
--- an expired pagination token will return an /HTTP 400 InvalidToken/
--- error.
---
 -- 'maxResults', 'listStateMachines_maxResults' - The maximum number of results that are returned per call. You can use
 -- @nextToken@ to obtain further pages of results. The default is 100 and
 -- the maximum allowed page size is 1000. A value of 0 uses the default.
 --
 -- This is only an upper limit. The actual number of results returned per
 -- call might be fewer than the specified maximum.
-newListStateMachines ::
-  ListStateMachines
-newListStateMachines =
-  ListStateMachines'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
-    }
-
--- | If @nextToken@ is returned, there are more results available. The value
+--
+-- 'nextToken', 'listStateMachines_nextToken' - If @nextToken@ is returned, there are more results available. The value
 -- of @nextToken@ is a unique pagination token for each page. Make the call
 -- again using the returned token to retrieve the next page. Keep all other
 -- arguments unchanged. Each pagination token expires after 24 hours. Using
 -- an expired pagination token will return an /HTTP 400 InvalidToken/
 -- error.
-listStateMachines_nextToken :: Lens.Lens' ListStateMachines (Prelude.Maybe Prelude.Text)
-listStateMachines_nextToken = Lens.lens (\ListStateMachines' {nextToken} -> nextToken) (\s@ListStateMachines' {} a -> s {nextToken = a} :: ListStateMachines)
+newListStateMachines ::
+  ListStateMachines
+newListStateMachines =
+  ListStateMachines'
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
+    }
 
 -- | The maximum number of results that are returned per call. You can use
 -- @nextToken@ to obtain further pages of results. The default is 100 and
@@ -125,6 +117,15 @@ listStateMachines_nextToken = Lens.lens (\ListStateMachines' {nextToken} -> next
 -- call might be fewer than the specified maximum.
 listStateMachines_maxResults :: Lens.Lens' ListStateMachines (Prelude.Maybe Prelude.Natural)
 listStateMachines_maxResults = Lens.lens (\ListStateMachines' {maxResults} -> maxResults) (\s@ListStateMachines' {} a -> s {maxResults = a} :: ListStateMachines)
+
+-- | If @nextToken@ is returned, there are more results available. The value
+-- of @nextToken@ is a unique pagination token for each page. Make the call
+-- again using the returned token to retrieve the next page. Keep all other
+-- arguments unchanged. Each pagination token expires after 24 hours. Using
+-- an expired pagination token will return an /HTTP 400 InvalidToken/
+-- error.
+listStateMachines_nextToken :: Lens.Lens' ListStateMachines (Prelude.Maybe Prelude.Text)
+listStateMachines_nextToken = Lens.lens (\ListStateMachines' {nextToken} -> nextToken) (\s@ListStateMachines' {} a -> s {nextToken = a} :: ListStateMachines)
 
 instance Core.AWSPager ListStateMachines where
   page rq rs
@@ -149,54 +150,55 @@ instance Core.AWSRequest ListStateMachines where
   type
     AWSResponse ListStateMachines =
       ListStateMachinesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListStateMachinesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "stateMachines" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "stateMachines" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListStateMachines where
   hashWithSalt _salt ListStateMachines' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListStateMachines where
   rnf ListStateMachines' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListStateMachines where
+instance Data.ToHeaders ListStateMachines where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSStepFunctions.ListStateMachines" ::
+              Data.=# ( "AWSStepFunctions.ListStateMachines" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListStateMachines where
+instance Data.ToJSON ListStateMachines where
   toJSON ListStateMachines' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListStateMachines where
+instance Data.ToPath ListStateMachines where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListStateMachines where
+instance Data.ToQuery ListStateMachines where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListStateMachinesResponse' smart constructor.

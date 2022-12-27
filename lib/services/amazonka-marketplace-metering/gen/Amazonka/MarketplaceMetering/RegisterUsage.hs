@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MarketplaceMetering.RegisterUsage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,26 +22,26 @@
 --
 -- Paid container software products sold through AWS Marketplace must
 -- integrate with the AWS Marketplace Metering Service and call the
--- RegisterUsage operation for software entitlement and metering. Free and
--- BYOL products for Amazon ECS or Amazon EKS aren\'t required to call
--- RegisterUsage, but you may choose to do so if you would like to receive
--- usage data in your seller reports. The sections below explain the
--- behavior of RegisterUsage. RegisterUsage performs two primary functions:
--- metering and entitlement.
+-- @RegisterUsage@ operation for software entitlement and metering. Free
+-- and BYOL products for Amazon ECS or Amazon EKS aren\'t required to call
+-- @RegisterUsage@, but you may choose to do so if you would like to
+-- receive usage data in your seller reports. The sections below explain
+-- the behavior of @RegisterUsage@. @RegisterUsage@ performs two primary
+-- functions: metering and entitlement.
 --
--- -   /Entitlement/: RegisterUsage allows you to verify that the customer
---     running your paid software is subscribed to your product on AWS
---     Marketplace, enabling you to guard against unauthorized use. Your
---     container image that integrates with RegisterUsage is only required
---     to guard against unauthorized use at container startup, as such a
---     CustomerNotSubscribedException\/PlatformNotSupportedException will
---     only be thrown on the initial call to RegisterUsage. Subsequent
---     calls from the same Amazon ECS task instance (e.g. task-id) or
---     Amazon EKS pod will not throw a CustomerNotSubscribedException, even
---     if the customer unsubscribes while the Amazon ECS task or Amazon EKS
---     pod is still running.
+-- -   /Entitlement/: @RegisterUsage@ allows you to verify that the
+--     customer running your paid software is subscribed to your product on
+--     AWS Marketplace, enabling you to guard against unauthorized use.
+--     Your container image that integrates with @RegisterUsage@ is only
+--     required to guard against unauthorized use at container startup, as
+--     such a @CustomerNotSubscribedException@ or
+--     @PlatformNotSupportedException@ will only be thrown on the initial
+--     call to @RegisterUsage@. Subsequent calls from the same Amazon ECS
+--     task instance (e.g. task-id) or Amazon EKS pod will not throw a
+--     @CustomerNotSubscribedException@, even if the customer unsubscribes
+--     while the Amazon ECS task or Amazon EKS pod is still running.
 --
--- -   /Metering/: RegisterUsage meters software use per ECS task, per
+-- -   /Metering/: @RegisterUsage@ meters software use per ECS task, per
 --     hour, or per pod for Amazon EKS with usage prorated to the second. A
 --     minimum of 1 minute of usage applies to tasks that are short lived.
 --     For example, if a customer has a 10 node Amazon ECS or Amazon EKS
@@ -50,9 +50,9 @@
 --     customer will be charged: (10 * hourly_rate). Metering for software
 --     use is automatically handled by the AWS Marketplace Metering Control
 --     Plane -- your software is not required to perform any metering
---     specific actions, other than call RegisterUsage once for metering of
---     software use to commence. The AWS Marketplace Metering Control Plane
---     will also continue to bill customers for running ECS tasks and
+--     specific actions, other than call @RegisterUsage@ once for metering
+--     of software use to commence. The AWS Marketplace Metering Control
+--     Plane will also continue to bill customers for running ECS tasks and
 --     Amazon EKS pods, regardless of the customers subscription state,
 --     removing the need for your software to perform entitlement checks at
 --     runtime.
@@ -71,14 +71,15 @@ module Amazonka.MarketplaceMetering.RegisterUsage
     newRegisterUsageResponse,
 
     -- * Response Lenses
-    registerUsageResponse_signature,
     registerUsageResponse_publicKeyRotationTimestamp,
+    registerUsageResponse_signature,
     registerUsageResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MarketplaceMetering.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -146,13 +147,14 @@ instance Core.AWSRequest RegisterUsage where
   type
     AWSResponse RegisterUsage =
       RegisterUsageResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RegisterUsageResponse'
-            Prelude.<$> (x Core..?> "Signature")
-            Prelude.<*> (x Core..?> "PublicKeyRotationTimestamp")
+            Prelude.<$> (x Data..?> "PublicKeyRotationTimestamp")
+            Prelude.<*> (x Data..?> "Signature")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -168,44 +170,44 @@ instance Prelude.NFData RegisterUsage where
       `Prelude.seq` Prelude.rnf productCode
       `Prelude.seq` Prelude.rnf publicKeyVersion
 
-instance Core.ToHeaders RegisterUsage where
+instance Data.ToHeaders RegisterUsage where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSMPMeteringService.RegisterUsage" ::
+              Data.=# ( "AWSMPMeteringService.RegisterUsage" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RegisterUsage where
+instance Data.ToJSON RegisterUsage where
   toJSON RegisterUsage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Nonce" Core..=) Prelude.<$> nonce,
-            Prelude.Just ("ProductCode" Core..= productCode),
+          [ ("Nonce" Data..=) Prelude.<$> nonce,
+            Prelude.Just ("ProductCode" Data..= productCode),
             Prelude.Just
-              ("PublicKeyVersion" Core..= publicKeyVersion)
+              ("PublicKeyVersion" Data..= publicKeyVersion)
           ]
       )
 
-instance Core.ToPath RegisterUsage where
+instance Data.ToPath RegisterUsage where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RegisterUsage where
+instance Data.ToQuery RegisterUsage where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRegisterUsageResponse' smart constructor.
 data RegisterUsageResponse = RegisterUsageResponse'
-  { -- | JWT Token
+  { -- | (Optional) Only included when public key version has expired
+    publicKeyRotationTimestamp :: Prelude.Maybe Data.POSIX,
+    -- | JWT Token
     signature :: Prelude.Maybe Prelude.Text,
-    -- | (Optional) Only included when public key version has expired
-    publicKeyRotationTimestamp :: Prelude.Maybe Core.POSIX,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -219,9 +221,9 @@ data RegisterUsageResponse = RegisterUsageResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'signature', 'registerUsageResponse_signature' - JWT Token
---
 -- 'publicKeyRotationTimestamp', 'registerUsageResponse_publicKeyRotationTimestamp' - (Optional) Only included when public key version has expired
+--
+-- 'signature', 'registerUsageResponse_signature' - JWT Token
 --
 -- 'httpStatus', 'registerUsageResponse_httpStatus' - The response's http status code.
 newRegisterUsageResponse ::
@@ -230,18 +232,19 @@ newRegisterUsageResponse ::
   RegisterUsageResponse
 newRegisterUsageResponse pHttpStatus_ =
   RegisterUsageResponse'
-    { signature = Prelude.Nothing,
-      publicKeyRotationTimestamp = Prelude.Nothing,
+    { publicKeyRotationTimestamp =
+        Prelude.Nothing,
+      signature = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | (Optional) Only included when public key version has expired
+registerUsageResponse_publicKeyRotationTimestamp :: Lens.Lens' RegisterUsageResponse (Prelude.Maybe Prelude.UTCTime)
+registerUsageResponse_publicKeyRotationTimestamp = Lens.lens (\RegisterUsageResponse' {publicKeyRotationTimestamp} -> publicKeyRotationTimestamp) (\s@RegisterUsageResponse' {} a -> s {publicKeyRotationTimestamp = a} :: RegisterUsageResponse) Prelude.. Lens.mapping Data._Time
 
 -- | JWT Token
 registerUsageResponse_signature :: Lens.Lens' RegisterUsageResponse (Prelude.Maybe Prelude.Text)
 registerUsageResponse_signature = Lens.lens (\RegisterUsageResponse' {signature} -> signature) (\s@RegisterUsageResponse' {} a -> s {signature = a} :: RegisterUsageResponse)
-
--- | (Optional) Only included when public key version has expired
-registerUsageResponse_publicKeyRotationTimestamp :: Lens.Lens' RegisterUsageResponse (Prelude.Maybe Prelude.UTCTime)
-registerUsageResponse_publicKeyRotationTimestamp = Lens.lens (\RegisterUsageResponse' {publicKeyRotationTimestamp} -> publicKeyRotationTimestamp) (\s@RegisterUsageResponse' {} a -> s {publicKeyRotationTimestamp = a} :: RegisterUsageResponse) Prelude.. Lens.mapping Core._Time
 
 -- | The response's http status code.
 registerUsageResponse_httpStatus :: Lens.Lens' RegisterUsageResponse Prelude.Int
@@ -249,6 +252,6 @@ registerUsageResponse_httpStatus = Lens.lens (\RegisterUsageResponse' {httpStatu
 
 instance Prelude.NFData RegisterUsageResponse where
   rnf RegisterUsageResponse' {..} =
-    Prelude.rnf signature
-      `Prelude.seq` Prelude.rnf publicKeyRotationTimestamp
+    Prelude.rnf publicKeyRotationTimestamp
+      `Prelude.seq` Prelude.rnf signature
       `Prelude.seq` Prelude.rnf httpStatus

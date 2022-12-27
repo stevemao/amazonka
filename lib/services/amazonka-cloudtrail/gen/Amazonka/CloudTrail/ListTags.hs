@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.CloudTrail.ListTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the tags for the trail in the current region.
+-- Lists the tags for the trail or event data store in the current region.
 --
 -- This operation returns paginated results.
 module Amazonka.CloudTrail.ListTags
@@ -45,21 +45,20 @@ where
 
 import Amazonka.CloudTrail.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Specifies a list of trail tags to return.
+-- | Specifies a list of tags to return.
 --
 -- /See:/ 'newListTags' smart constructor.
 data ListTags = ListTags'
   { -- | Reserved for future use.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Specifies a list of trail ARNs whose tags will be listed. The list has a
-    -- limit of 20 ARNs. The following is the format of a trail ARN.
-    --
-    -- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+    -- | Specifies a list of trail and event data store ARNs whose tags will be
+    -- listed. The list has a limit of 20 ARNs.
     resourceIdList :: [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -74,10 +73,8 @@ data ListTags = ListTags'
 --
 -- 'nextToken', 'listTags_nextToken' - Reserved for future use.
 --
--- 'resourceIdList', 'listTags_resourceIdList' - Specifies a list of trail ARNs whose tags will be listed. The list has a
--- limit of 20 ARNs. The following is the format of a trail ARN.
---
--- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+-- 'resourceIdList', 'listTags_resourceIdList' - Specifies a list of trail and event data store ARNs whose tags will be
+-- listed. The list has a limit of 20 ARNs.
 newListTags ::
   ListTags
 newListTags =
@@ -90,10 +87,8 @@ newListTags =
 listTags_nextToken :: Lens.Lens' ListTags (Prelude.Maybe Prelude.Text)
 listTags_nextToken = Lens.lens (\ListTags' {nextToken} -> nextToken) (\s@ListTags' {} a -> s {nextToken = a} :: ListTags)
 
--- | Specifies a list of trail ARNs whose tags will be listed. The list has a
--- limit of 20 ARNs. The following is the format of a trail ARN.
---
--- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+-- | Specifies a list of trail and event data store ARNs whose tags will be
+-- listed. The list has a limit of 20 ARNs.
 listTags_resourceIdList :: Lens.Lens' ListTags [Prelude.Text]
 listTags_resourceIdList = Lens.lens (\ListTags' {resourceIdList} -> resourceIdList) (\s@ListTags' {} a -> s {resourceIdList = a} :: ListTags) Prelude.. Lens.coerced
 
@@ -119,13 +114,14 @@ instance Core.AWSPager ListTags where
 
 instance Core.AWSRequest ListTags where
   type AWSResponse ListTags = ListTagsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTagsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "ResourceTagList"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "ResourceTagList"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -141,35 +137,35 @@ instance Prelude.NFData ListTags where
     Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf resourceIdList
 
-instance Core.ToHeaders ListTags where
+instance Data.ToHeaders ListTags where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.ListTags" ::
+              Data.=# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.ListTags" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTags where
+instance Data.ToJSON ListTags where
   toJSON ListTags' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
+          [ ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("ResourceIdList" Core..= resourceIdList)
+              ("ResourceIdList" Data..= resourceIdList)
           ]
       )
 
-instance Core.ToPath ListTags where
+instance Data.ToPath ListTags where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTags where
+instance Data.ToQuery ListTags where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Returns the objects or data listed below if successful. Otherwise,

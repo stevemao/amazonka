@@ -6,310 +6,13 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 module Amazonka.ElastiCache.Lens
   ( -- * Operations
-
-    -- ** StartMigration
-    startMigration_replicationGroupId,
-    startMigration_customerNodeEndpointList,
-    startMigrationResponse_replicationGroup,
-    startMigrationResponse_httpStatus,
-
-    -- ** DeleteCacheSecurityGroup
-    deleteCacheSecurityGroup_cacheSecurityGroupName,
-
-    -- ** CreateReplicationGroup
-    createReplicationGroup_automaticFailoverEnabled,
-    createReplicationGroup_engineVersion,
-    createReplicationGroup_cacheNodeType,
-    createReplicationGroup_nodeGroupConfiguration,
-    createReplicationGroup_atRestEncryptionEnabled,
-    createReplicationGroup_securityGroupIds,
-    createReplicationGroup_snapshotArns,
-    createReplicationGroup_autoMinorVersionUpgrade,
-    createReplicationGroup_cacheParameterGroupName,
-    createReplicationGroup_transitEncryptionEnabled,
-    createReplicationGroup_userGroupIds,
-    createReplicationGroup_snapshotWindow,
-    createReplicationGroup_logDeliveryConfigurations,
-    createReplicationGroup_authToken,
-    createReplicationGroup_primaryClusterId,
-    createReplicationGroup_engine,
-    createReplicationGroup_preferredMaintenanceWindow,
-    createReplicationGroup_kmsKeyId,
-    createReplicationGroup_multiAZEnabled,
-    createReplicationGroup_cacheSubnetGroupName,
-    createReplicationGroup_numNodeGroups,
-    createReplicationGroup_snapshotRetentionLimit,
-    createReplicationGroup_globalReplicationGroupId,
-    createReplicationGroup_replicasPerNodeGroup,
-    createReplicationGroup_numCacheClusters,
-    createReplicationGroup_preferredCacheClusterAZs,
-    createReplicationGroup_snapshotName,
-    createReplicationGroup_notificationTopicArn,
-    createReplicationGroup_tags,
-    createReplicationGroup_port,
-    createReplicationGroup_cacheSecurityGroupNames,
-    createReplicationGroup_replicationGroupId,
-    createReplicationGroup_replicationGroupDescription,
-    createReplicationGroupResponse_replicationGroup,
-    createReplicationGroupResponse_httpStatus,
-
-    -- ** DeleteCacheCluster
-    deleteCacheCluster_finalSnapshotIdentifier,
-    deleteCacheCluster_cacheClusterId,
-    deleteCacheClusterResponse_cacheCluster,
-    deleteCacheClusterResponse_httpStatus,
-
-    -- ** IncreaseNodeGroupsInGlobalReplicationGroup
-    increaseNodeGroupsInGlobalReplicationGroup_regionalConfigurations,
-    increaseNodeGroupsInGlobalReplicationGroup_globalReplicationGroupId,
-    increaseNodeGroupsInGlobalReplicationGroup_nodeGroupCount,
-    increaseNodeGroupsInGlobalReplicationGroup_applyImmediately,
-    increaseNodeGroupsInGlobalReplicationGroupResponse_globalReplicationGroup,
-    increaseNodeGroupsInGlobalReplicationGroupResponse_httpStatus,
-
-    -- ** DescribeUsers
-    describeUsers_filters,
-    describeUsers_engine,
-    describeUsers_userId,
-    describeUsers_marker,
-    describeUsers_maxRecords,
-    describeUsersResponse_users,
-    describeUsersResponse_marker,
-    describeUsersResponse_httpStatus,
-
-    -- ** RebootCacheCluster
-    rebootCacheCluster_cacheClusterId,
-    rebootCacheCluster_cacheNodeIdsToReboot,
-    rebootCacheClusterResponse_cacheCluster,
-    rebootCacheClusterResponse_httpStatus,
-
-    -- ** CreateUserGroup
-    createUserGroup_userIds,
-    createUserGroup_tags,
-    createUserGroup_userGroupId,
-    createUserGroup_engine,
-    userGroup_status,
-    userGroup_userIds,
-    userGroup_arn,
-    userGroup_userGroupId,
-    userGroup_engine,
-    userGroup_pendingChanges,
-    userGroup_replicationGroups,
-
-    -- ** RevokeCacheSecurityGroupIngress
-    revokeCacheSecurityGroupIngress_cacheSecurityGroupName,
-    revokeCacheSecurityGroupIngress_eC2SecurityGroupName,
-    revokeCacheSecurityGroupIngress_eC2SecurityGroupOwnerId,
-    revokeCacheSecurityGroupIngressResponse_cacheSecurityGroup,
-    revokeCacheSecurityGroupIngressResponse_httpStatus,
-
-    -- ** CreateCacheCluster
-    createCacheCluster_engineVersion,
-    createCacheCluster_cacheNodeType,
-    createCacheCluster_securityGroupIds,
-    createCacheCluster_snapshotArns,
-    createCacheCluster_autoMinorVersionUpgrade,
-    createCacheCluster_outpostMode,
-    createCacheCluster_cacheParameterGroupName,
-    createCacheCluster_snapshotWindow,
-    createCacheCluster_logDeliveryConfigurations,
-    createCacheCluster_authToken,
-    createCacheCluster_engine,
-    createCacheCluster_preferredAvailabilityZones,
-    createCacheCluster_preferredMaintenanceWindow,
-    createCacheCluster_cacheSubnetGroupName,
-    createCacheCluster_preferredAvailabilityZone,
-    createCacheCluster_snapshotRetentionLimit,
-    createCacheCluster_preferredOutpostArns,
-    createCacheCluster_aZMode,
-    createCacheCluster_snapshotName,
-    createCacheCluster_preferredOutpostArn,
-    createCacheCluster_replicationGroupId,
-    createCacheCluster_notificationTopicArn,
-    createCacheCluster_numCacheNodes,
-    createCacheCluster_tags,
-    createCacheCluster_port,
-    createCacheCluster_cacheSecurityGroupNames,
-    createCacheCluster_cacheClusterId,
-    createCacheClusterResponse_cacheCluster,
-    createCacheClusterResponse_httpStatus,
-
-    -- ** DescribeEvents
-    describeEvents_startTime,
-    describeEvents_sourceType,
-    describeEvents_sourceIdentifier,
-    describeEvents_marker,
-    describeEvents_maxRecords,
-    describeEvents_endTime,
-    describeEvents_duration,
-    describeEventsResponse_events,
-    describeEventsResponse_marker,
-    describeEventsResponse_httpStatus,
-
-    -- ** DescribeEngineDefaultParameters
-    describeEngineDefaultParameters_marker,
-    describeEngineDefaultParameters_maxRecords,
-    describeEngineDefaultParameters_cacheParameterGroupFamily,
-    describeEngineDefaultParametersResponse_httpStatus,
-    describeEngineDefaultParametersResponse_engineDefaults,
-
-    -- ** DisassociateGlobalReplicationGroup
-    disassociateGlobalReplicationGroup_globalReplicationGroupId,
-    disassociateGlobalReplicationGroup_replicationGroupId,
-    disassociateGlobalReplicationGroup_replicationGroupRegion,
-    disassociateGlobalReplicationGroupResponse_globalReplicationGroup,
-    disassociateGlobalReplicationGroupResponse_httpStatus,
-
-    -- ** ModifyCacheParameterGroup
-    modifyCacheParameterGroup_cacheParameterGroupName,
-    modifyCacheParameterGroup_parameterNameValues,
-    cacheParameterGroupNameMessage_cacheParameterGroupName,
-
-    -- ** TestFailover
-    testFailover_replicationGroupId,
-    testFailover_nodeGroupId,
-    testFailoverResponse_replicationGroup,
-    testFailoverResponse_httpStatus,
-
-    -- ** DeleteReplicationGroup
-    deleteReplicationGroup_finalSnapshotIdentifier,
-    deleteReplicationGroup_retainPrimaryCluster,
-    deleteReplicationGroup_replicationGroupId,
-    deleteReplicationGroupResponse_replicationGroup,
-    deleteReplicationGroupResponse_httpStatus,
-
-    -- ** ListTagsForResource
-    listTagsForResource_resourceName,
-    tagListMessage_tagList,
-
-    -- ** CompleteMigration
-    completeMigration_force,
-    completeMigration_replicationGroupId,
-    completeMigrationResponse_replicationGroup,
-    completeMigrationResponse_httpStatus,
-
-    -- ** DescribeCacheClusters
-    describeCacheClusters_showCacheClustersNotInReplicationGroups,
-    describeCacheClusters_cacheClusterId,
-    describeCacheClusters_marker,
-    describeCacheClusters_maxRecords,
-    describeCacheClusters_showCacheNodeInfo,
-    describeCacheClustersResponse_cacheClusters,
-    describeCacheClustersResponse_marker,
-    describeCacheClustersResponse_httpStatus,
-
-    -- ** PurchaseReservedCacheNodesOffering
-    purchaseReservedCacheNodesOffering_cacheNodeCount,
-    purchaseReservedCacheNodesOffering_reservedCacheNodeId,
-    purchaseReservedCacheNodesOffering_tags,
-    purchaseReservedCacheNodesOffering_reservedCacheNodesOfferingId,
-    purchaseReservedCacheNodesOfferingResponse_reservedCacheNode,
-    purchaseReservedCacheNodesOfferingResponse_httpStatus,
-
-    -- ** RemoveTagsFromResource
-    removeTagsFromResource_resourceName,
-    removeTagsFromResource_tagKeys,
-    tagListMessage_tagList,
-
-    -- ** ModifyReplicationGroup
-    modifyReplicationGroup_automaticFailoverEnabled,
-    modifyReplicationGroup_engineVersion,
-    modifyReplicationGroup_cacheNodeType,
-    modifyReplicationGroup_snapshottingClusterId,
-    modifyReplicationGroup_securityGroupIds,
-    modifyReplicationGroup_autoMinorVersionUpgrade,
-    modifyReplicationGroup_cacheParameterGroupName,
-    modifyReplicationGroup_replicationGroupDescription,
-    modifyReplicationGroup_snapshotWindow,
-    modifyReplicationGroup_logDeliveryConfigurations,
-    modifyReplicationGroup_authToken,
-    modifyReplicationGroup_primaryClusterId,
-    modifyReplicationGroup_preferredMaintenanceWindow,
-    modifyReplicationGroup_multiAZEnabled,
-    modifyReplicationGroup_userGroupIdsToAdd,
-    modifyReplicationGroup_nodeGroupId,
-    modifyReplicationGroup_snapshotRetentionLimit,
-    modifyReplicationGroup_userGroupIdsToRemove,
-    modifyReplicationGroup_notificationTopicStatus,
-    modifyReplicationGroup_applyImmediately,
-    modifyReplicationGroup_removeUserGroups,
-    modifyReplicationGroup_authTokenUpdateStrategy,
-    modifyReplicationGroup_notificationTopicArn,
-    modifyReplicationGroup_cacheSecurityGroupNames,
-    modifyReplicationGroup_replicationGroupId,
-    modifyReplicationGroupResponse_replicationGroup,
-    modifyReplicationGroupResponse_httpStatus,
-
-    -- ** DescribeCacheParameters
-    describeCacheParameters_marker,
-    describeCacheParameters_maxRecords,
-    describeCacheParameters_source,
-    describeCacheParameters_cacheParameterGroupName,
-    describeCacheParametersResponse_cacheNodeTypeSpecificParameters,
-    describeCacheParametersResponse_marker,
-    describeCacheParametersResponse_parameters,
-    describeCacheParametersResponse_httpStatus,
-
-    -- ** DescribeGlobalReplicationGroups
-    describeGlobalReplicationGroups_showMemberInfo,
-    describeGlobalReplicationGroups_marker,
-    describeGlobalReplicationGroups_maxRecords,
-    describeGlobalReplicationGroups_globalReplicationGroupId,
-    describeGlobalReplicationGroupsResponse_marker,
-    describeGlobalReplicationGroupsResponse_globalReplicationGroups,
-    describeGlobalReplicationGroupsResponse_httpStatus,
-
-    -- ** DescribeCacheSubnetGroups
-    describeCacheSubnetGroups_cacheSubnetGroupName,
-    describeCacheSubnetGroups_marker,
-    describeCacheSubnetGroups_maxRecords,
-    describeCacheSubnetGroupsResponse_marker,
-    describeCacheSubnetGroupsResponse_cacheSubnetGroups,
-    describeCacheSubnetGroupsResponse_httpStatus,
-
-    -- ** DescribeUpdateActions
-    describeUpdateActions_cacheClusterIds,
-    describeUpdateActions_serviceUpdateName,
-    describeUpdateActions_updateActionStatus,
-    describeUpdateActions_engine,
-    describeUpdateActions_serviceUpdateTimeRange,
-    describeUpdateActions_marker,
-    describeUpdateActions_maxRecords,
-    describeUpdateActions_replicationGroupIds,
-    describeUpdateActions_showNodeLevelUpdateStatus,
-    describeUpdateActions_serviceUpdateStatus,
-    describeUpdateActionsResponse_updateActions,
-    describeUpdateActionsResponse_marker,
-    describeUpdateActionsResponse_httpStatus,
-
-    -- ** RebalanceSlotsInGlobalReplicationGroup
-    rebalanceSlotsInGlobalReplicationGroup_globalReplicationGroupId,
-    rebalanceSlotsInGlobalReplicationGroup_applyImmediately,
-    rebalanceSlotsInGlobalReplicationGroupResponse_globalReplicationGroup,
-    rebalanceSlotsInGlobalReplicationGroupResponse_httpStatus,
-
-    -- ** CreateCacheSecurityGroup
-    createCacheSecurityGroup_tags,
-    createCacheSecurityGroup_cacheSecurityGroupName,
-    createCacheSecurityGroup_description,
-    createCacheSecurityGroupResponse_cacheSecurityGroup,
-    createCacheSecurityGroupResponse_httpStatus,
-
-    -- ** DecreaseReplicaCount
-    decreaseReplicaCount_newReplicaCount,
-    decreaseReplicaCount_replicaConfiguration,
-    decreaseReplicaCount_replicasToRemove,
-    decreaseReplicaCount_replicationGroupId,
-    decreaseReplicaCount_applyImmediately,
-    decreaseReplicaCountResponse_replicationGroup,
-    decreaseReplicaCountResponse_httpStatus,
 
     -- ** AddTagsToResource
     addTagsToResource_resourceName,
@@ -323,21 +26,83 @@ module Amazonka.ElastiCache.Lens
     authorizeCacheSecurityGroupIngressResponse_cacheSecurityGroup,
     authorizeCacheSecurityGroupIngressResponse_httpStatus,
 
+    -- ** BatchApplyUpdateAction
+    batchApplyUpdateAction_cacheClusterIds,
+    batchApplyUpdateAction_replicationGroupIds,
+    batchApplyUpdateAction_serviceUpdateName,
+    updateActionResultsMessage_processedUpdateActions,
+    updateActionResultsMessage_unprocessedUpdateActions,
+
+    -- ** BatchStopUpdateAction
+    batchStopUpdateAction_cacheClusterIds,
+    batchStopUpdateAction_replicationGroupIds,
+    batchStopUpdateAction_serviceUpdateName,
+    updateActionResultsMessage_processedUpdateActions,
+    updateActionResultsMessage_unprocessedUpdateActions,
+
+    -- ** CompleteMigration
+    completeMigration_force,
+    completeMigration_replicationGroupId,
+    completeMigrationResponse_replicationGroup,
+    completeMigrationResponse_httpStatus,
+
     -- ** CopySnapshot
-    copySnapshot_targetBucket,
     copySnapshot_kmsKeyId,
     copySnapshot_tags,
+    copySnapshot_targetBucket,
     copySnapshot_sourceSnapshotName,
     copySnapshot_targetSnapshotName,
     copySnapshotResponse_snapshot,
     copySnapshotResponse_httpStatus,
 
-    -- ** FailoverGlobalReplicationGroup
-    failoverGlobalReplicationGroup_globalReplicationGroupId,
-    failoverGlobalReplicationGroup_primaryRegion,
-    failoverGlobalReplicationGroup_primaryReplicationGroupId,
-    failoverGlobalReplicationGroupResponse_globalReplicationGroup,
-    failoverGlobalReplicationGroupResponse_httpStatus,
+    -- ** CreateCacheCluster
+    createCacheCluster_aZMode,
+    createCacheCluster_authToken,
+    createCacheCluster_autoMinorVersionUpgrade,
+    createCacheCluster_cacheNodeType,
+    createCacheCluster_cacheParameterGroupName,
+    createCacheCluster_cacheSecurityGroupNames,
+    createCacheCluster_cacheSubnetGroupName,
+    createCacheCluster_engine,
+    createCacheCluster_engineVersion,
+    createCacheCluster_ipDiscovery,
+    createCacheCluster_logDeliveryConfigurations,
+    createCacheCluster_networkType,
+    createCacheCluster_notificationTopicArn,
+    createCacheCluster_numCacheNodes,
+    createCacheCluster_outpostMode,
+    createCacheCluster_port,
+    createCacheCluster_preferredAvailabilityZone,
+    createCacheCluster_preferredAvailabilityZones,
+    createCacheCluster_preferredMaintenanceWindow,
+    createCacheCluster_preferredOutpostArn,
+    createCacheCluster_preferredOutpostArns,
+    createCacheCluster_replicationGroupId,
+    createCacheCluster_securityGroupIds,
+    createCacheCluster_snapshotArns,
+    createCacheCluster_snapshotName,
+    createCacheCluster_snapshotRetentionLimit,
+    createCacheCluster_snapshotWindow,
+    createCacheCluster_tags,
+    createCacheCluster_transitEncryptionEnabled,
+    createCacheCluster_cacheClusterId,
+    createCacheClusterResponse_cacheCluster,
+    createCacheClusterResponse_httpStatus,
+
+    -- ** CreateCacheParameterGroup
+    createCacheParameterGroup_tags,
+    createCacheParameterGroup_cacheParameterGroupName,
+    createCacheParameterGroup_cacheParameterGroupFamily,
+    createCacheParameterGroup_description,
+    createCacheParameterGroupResponse_cacheParameterGroup,
+    createCacheParameterGroupResponse_httpStatus,
+
+    -- ** CreateCacheSecurityGroup
+    createCacheSecurityGroup_tags,
+    createCacheSecurityGroup_cacheSecurityGroupName,
+    createCacheSecurityGroup_description,
+    createCacheSecurityGroupResponse_cacheSecurityGroup,
+    createCacheSecurityGroupResponse_httpStatus,
 
     -- ** CreateCacheSubnetGroup
     createCacheSubnetGroup_tags,
@@ -354,142 +119,45 @@ module Amazonka.ElastiCache.Lens
     createGlobalReplicationGroupResponse_globalReplicationGroup,
     createGlobalReplicationGroupResponse_httpStatus,
 
-    -- ** DescribeCacheParameterGroups
-    describeCacheParameterGroups_cacheParameterGroupName,
-    describeCacheParameterGroups_marker,
-    describeCacheParameterGroups_maxRecords,
-    describeCacheParameterGroupsResponse_cacheParameterGroups,
-    describeCacheParameterGroupsResponse_marker,
-    describeCacheParameterGroupsResponse_httpStatus,
-
-    -- ** ResetCacheParameterGroup
-    resetCacheParameterGroup_resetAllParameters,
-    resetCacheParameterGroup_parameterNameValues,
-    resetCacheParameterGroup_cacheParameterGroupName,
-    cacheParameterGroupNameMessage_cacheParameterGroupName,
-
-    -- ** ListAllowedNodeTypeModifications
-    listAllowedNodeTypeModifications_cacheClusterId,
-    listAllowedNodeTypeModifications_replicationGroupId,
-    listAllowedNodeTypeModificationsResponse_scaleUpModifications,
-    listAllowedNodeTypeModificationsResponse_scaleDownModifications,
-    listAllowedNodeTypeModificationsResponse_httpStatus,
-
-    -- ** IncreaseReplicaCount
-    increaseReplicaCount_newReplicaCount,
-    increaseReplicaCount_replicaConfiguration,
-    increaseReplicaCount_replicationGroupId,
-    increaseReplicaCount_applyImmediately,
-    increaseReplicaCountResponse_replicationGroup,
-    increaseReplicaCountResponse_httpStatus,
-
-    -- ** ModifyReplicationGroupShardConfiguration
-    modifyReplicationGroupShardConfiguration_nodeGroupsToRetain,
-    modifyReplicationGroupShardConfiguration_reshardingConfiguration,
-    modifyReplicationGroupShardConfiguration_nodeGroupsToRemove,
-    modifyReplicationGroupShardConfiguration_replicationGroupId,
-    modifyReplicationGroupShardConfiguration_nodeGroupCount,
-    modifyReplicationGroupShardConfiguration_applyImmediately,
-    modifyReplicationGroupShardConfigurationResponse_replicationGroup,
-    modifyReplicationGroupShardConfigurationResponse_httpStatus,
-
-    -- ** BatchApplyUpdateAction
-    batchApplyUpdateAction_cacheClusterIds,
-    batchApplyUpdateAction_replicationGroupIds,
-    batchApplyUpdateAction_serviceUpdateName,
-    updateActionResultsMessage_unprocessedUpdateActions,
-    updateActionResultsMessage_processedUpdateActions,
-
-    -- ** DeleteUserGroup
-    deleteUserGroup_userGroupId,
-    userGroup_status,
-    userGroup_userIds,
-    userGroup_arn,
-    userGroup_userGroupId,
-    userGroup_engine,
-    userGroup_pendingChanges,
-    userGroup_replicationGroups,
-
-    -- ** DescribeServiceUpdates
-    describeServiceUpdates_serviceUpdateName,
-    describeServiceUpdates_marker,
-    describeServiceUpdates_maxRecords,
-    describeServiceUpdates_serviceUpdateStatus,
-    describeServiceUpdatesResponse_serviceUpdates,
-    describeServiceUpdatesResponse_marker,
-    describeServiceUpdatesResponse_httpStatus,
-
-    -- ** DescribeSnapshots
-    describeSnapshots_cacheClusterId,
-    describeSnapshots_marker,
-    describeSnapshots_maxRecords,
-    describeSnapshots_snapshotName,
-    describeSnapshots_showNodeGroupConfig,
-    describeSnapshots_replicationGroupId,
-    describeSnapshots_snapshotSource,
-    describeSnapshotsResponse_snapshots,
-    describeSnapshotsResponse_marker,
-    describeSnapshotsResponse_httpStatus,
-
-    -- ** DescribeReplicationGroups
-    describeReplicationGroups_marker,
-    describeReplicationGroups_maxRecords,
-    describeReplicationGroups_replicationGroupId,
-    describeReplicationGroupsResponse_marker,
-    describeReplicationGroupsResponse_replicationGroups,
-    describeReplicationGroupsResponse_httpStatus,
-
-    -- ** CreateUser
-    createUser_passwords,
-    createUser_noPasswordRequired,
-    createUser_tags,
-    createUser_userId,
-    createUser_userName,
-    createUser_engine,
-    createUser_accessString,
-    user_status,
-    user_arn,
-    user_userGroupIds,
-    user_authentication,
-    user_engine,
-    user_userName,
-    user_accessString,
-    user_userId,
-
-    -- ** DeleteSnapshot
-    deleteSnapshot_snapshotName,
-    deleteSnapshotResponse_snapshot,
-    deleteSnapshotResponse_httpStatus,
-
-    -- ** DescribeReservedCacheNodesOfferings
-    describeReservedCacheNodesOfferings_cacheNodeType,
-    describeReservedCacheNodesOfferings_productDescription,
-    describeReservedCacheNodesOfferings_marker,
-    describeReservedCacheNodesOfferings_maxRecords,
-    describeReservedCacheNodesOfferings_offeringType,
-    describeReservedCacheNodesOfferings_duration,
-    describeReservedCacheNodesOfferings_reservedCacheNodesOfferingId,
-    describeReservedCacheNodesOfferingsResponse_marker,
-    describeReservedCacheNodesOfferingsResponse_reservedCacheNodesOfferings,
-    describeReservedCacheNodesOfferingsResponse_httpStatus,
-
-    -- ** ModifyCacheSubnetGroup
-    modifyCacheSubnetGroup_subnetIds,
-    modifyCacheSubnetGroup_cacheSubnetGroupDescription,
-    modifyCacheSubnetGroup_cacheSubnetGroupName,
-    modifyCacheSubnetGroupResponse_cacheSubnetGroup,
-    modifyCacheSubnetGroupResponse_httpStatus,
-
-    -- ** DeleteUser
-    deleteUser_userId,
-    user_status,
-    user_arn,
-    user_userGroupIds,
-    user_authentication,
-    user_engine,
-    user_userName,
-    user_accessString,
-    user_userId,
+    -- ** CreateReplicationGroup
+    createReplicationGroup_atRestEncryptionEnabled,
+    createReplicationGroup_authToken,
+    createReplicationGroup_autoMinorVersionUpgrade,
+    createReplicationGroup_automaticFailoverEnabled,
+    createReplicationGroup_cacheNodeType,
+    createReplicationGroup_cacheParameterGroupName,
+    createReplicationGroup_cacheSecurityGroupNames,
+    createReplicationGroup_cacheSubnetGroupName,
+    createReplicationGroup_dataTieringEnabled,
+    createReplicationGroup_engine,
+    createReplicationGroup_engineVersion,
+    createReplicationGroup_globalReplicationGroupId,
+    createReplicationGroup_ipDiscovery,
+    createReplicationGroup_kmsKeyId,
+    createReplicationGroup_logDeliveryConfigurations,
+    createReplicationGroup_multiAZEnabled,
+    createReplicationGroup_networkType,
+    createReplicationGroup_nodeGroupConfiguration,
+    createReplicationGroup_notificationTopicArn,
+    createReplicationGroup_numCacheClusters,
+    createReplicationGroup_numNodeGroups,
+    createReplicationGroup_port,
+    createReplicationGroup_preferredCacheClusterAZs,
+    createReplicationGroup_preferredMaintenanceWindow,
+    createReplicationGroup_primaryClusterId,
+    createReplicationGroup_replicasPerNodeGroup,
+    createReplicationGroup_securityGroupIds,
+    createReplicationGroup_snapshotArns,
+    createReplicationGroup_snapshotName,
+    createReplicationGroup_snapshotRetentionLimit,
+    createReplicationGroup_snapshotWindow,
+    createReplicationGroup_tags,
+    createReplicationGroup_transitEncryptionEnabled,
+    createReplicationGroup_userGroupIds,
+    createReplicationGroup_replicationGroupId,
+    createReplicationGroup_replicationGroupDescription,
+    createReplicationGroupResponse_replicationGroup,
+    createReplicationGroupResponse_httpStatus,
 
     -- ** CreateSnapshot
     createSnapshot_cacheClusterId,
@@ -500,116 +168,38 @@ module Amazonka.ElastiCache.Lens
     createSnapshotResponse_snapshot,
     createSnapshotResponse_httpStatus,
 
-    -- ** ModifyGlobalReplicationGroup
-    modifyGlobalReplicationGroup_automaticFailoverEnabled,
-    modifyGlobalReplicationGroup_engineVersion,
-    modifyGlobalReplicationGroup_cacheNodeType,
-    modifyGlobalReplicationGroup_cacheParameterGroupName,
-    modifyGlobalReplicationGroup_globalReplicationGroupDescription,
-    modifyGlobalReplicationGroup_globalReplicationGroupId,
-    modifyGlobalReplicationGroup_applyImmediately,
-    modifyGlobalReplicationGroupResponse_globalReplicationGroup,
-    modifyGlobalReplicationGroupResponse_httpStatus,
+    -- ** CreateUser
+    createUser_authenticationMode,
+    createUser_noPasswordRequired,
+    createUser_passwords,
+    createUser_tags,
+    createUser_userId,
+    createUser_userName,
+    createUser_engine,
+    createUser_accessString,
+    user_arn,
+    user_accessString,
+    user_authentication,
+    user_engine,
+    user_minimumEngineVersion,
+    user_status,
+    user_userGroupIds,
+    user_userId,
+    user_userName,
 
-    -- ** DescribeUserGroups
-    describeUserGroups_userGroupId,
-    describeUserGroups_marker,
-    describeUserGroups_maxRecords,
-    describeUserGroupsResponse_userGroups,
-    describeUserGroupsResponse_marker,
-    describeUserGroupsResponse_httpStatus,
-
-    -- ** DeleteCacheParameterGroup
-    deleteCacheParameterGroup_cacheParameterGroupName,
-
-    -- ** DescribeCacheSecurityGroups
-    describeCacheSecurityGroups_cacheSecurityGroupName,
-    describeCacheSecurityGroups_marker,
-    describeCacheSecurityGroups_maxRecords,
-    describeCacheSecurityGroupsResponse_cacheSecurityGroups,
-    describeCacheSecurityGroupsResponse_marker,
-    describeCacheSecurityGroupsResponse_httpStatus,
-
-    -- ** BatchStopUpdateAction
-    batchStopUpdateAction_cacheClusterIds,
-    batchStopUpdateAction_replicationGroupIds,
-    batchStopUpdateAction_serviceUpdateName,
-    updateActionResultsMessage_unprocessedUpdateActions,
-    updateActionResultsMessage_processedUpdateActions,
-
-    -- ** ModifyCacheCluster
-    modifyCacheCluster_engineVersion,
-    modifyCacheCluster_cacheNodeType,
-    modifyCacheCluster_securityGroupIds,
-    modifyCacheCluster_autoMinorVersionUpgrade,
-    modifyCacheCluster_cacheParameterGroupName,
-    modifyCacheCluster_snapshotWindow,
-    modifyCacheCluster_newAvailabilityZones,
-    modifyCacheCluster_logDeliveryConfigurations,
-    modifyCacheCluster_authToken,
-    modifyCacheCluster_preferredMaintenanceWindow,
-    modifyCacheCluster_cacheNodeIdsToRemove,
-    modifyCacheCluster_snapshotRetentionLimit,
-    modifyCacheCluster_notificationTopicStatus,
-    modifyCacheCluster_aZMode,
-    modifyCacheCluster_applyImmediately,
-    modifyCacheCluster_authTokenUpdateStrategy,
-    modifyCacheCluster_notificationTopicArn,
-    modifyCacheCluster_numCacheNodes,
-    modifyCacheCluster_cacheSecurityGroupNames,
-    modifyCacheCluster_cacheClusterId,
-    modifyCacheClusterResponse_cacheCluster,
-    modifyCacheClusterResponse_httpStatus,
-
-    -- ** DescribeCacheEngineVersions
-    describeCacheEngineVersions_engineVersion,
-    describeCacheEngineVersions_cacheParameterGroupFamily,
-    describeCacheEngineVersions_defaultOnly,
-    describeCacheEngineVersions_engine,
-    describeCacheEngineVersions_marker,
-    describeCacheEngineVersions_maxRecords,
-    describeCacheEngineVersionsResponse_cacheEngineVersions,
-    describeCacheEngineVersionsResponse_marker,
-    describeCacheEngineVersionsResponse_httpStatus,
-
-    -- ** ModifyUserGroup
-    modifyUserGroup_userIdsToAdd,
-    modifyUserGroup_userIdsToRemove,
-    modifyUserGroup_userGroupId,
-    userGroup_status,
-    userGroup_userIds,
+    -- ** CreateUserGroup
+    createUserGroup_tags,
+    createUserGroup_userIds,
+    createUserGroup_userGroupId,
+    createUserGroup_engine,
     userGroup_arn,
-    userGroup_userGroupId,
     userGroup_engine,
+    userGroup_minimumEngineVersion,
     userGroup_pendingChanges,
     userGroup_replicationGroups,
-
-    -- ** CreateCacheParameterGroup
-    createCacheParameterGroup_tags,
-    createCacheParameterGroup_cacheParameterGroupName,
-    createCacheParameterGroup_cacheParameterGroupFamily,
-    createCacheParameterGroup_description,
-    createCacheParameterGroupResponse_cacheParameterGroup,
-    createCacheParameterGroupResponse_httpStatus,
-
-    -- ** DescribeReservedCacheNodes
-    describeReservedCacheNodes_cacheNodeType,
-    describeReservedCacheNodes_productDescription,
-    describeReservedCacheNodes_marker,
-    describeReservedCacheNodes_maxRecords,
-    describeReservedCacheNodes_reservedCacheNodeId,
-    describeReservedCacheNodes_offeringType,
-    describeReservedCacheNodes_duration,
-    describeReservedCacheNodes_reservedCacheNodesOfferingId,
-    describeReservedCacheNodesResponse_marker,
-    describeReservedCacheNodesResponse_reservedCacheNodes,
-    describeReservedCacheNodesResponse_httpStatus,
-
-    -- ** DeleteGlobalReplicationGroup
-    deleteGlobalReplicationGroup_globalReplicationGroupId,
-    deleteGlobalReplicationGroup_retainPrimaryReplicationGroup,
-    deleteGlobalReplicationGroupResponse_globalReplicationGroup,
-    deleteGlobalReplicationGroupResponse_httpStatus,
+    userGroup_status,
+    userGroup_userGroupId,
+    userGroup_userIds,
 
     -- ** DecreaseNodeGroupsInGlobalReplicationGroup
     decreaseNodeGroupsInGlobalReplicationGroup_globalNodeGroupsToRemove,
@@ -620,23 +210,449 @@ module Amazonka.ElastiCache.Lens
     decreaseNodeGroupsInGlobalReplicationGroupResponse_globalReplicationGroup,
     decreaseNodeGroupsInGlobalReplicationGroupResponse_httpStatus,
 
-    -- ** ModifyUser
-    modifyUser_appendAccessString,
-    modifyUser_accessString,
-    modifyUser_passwords,
-    modifyUser_noPasswordRequired,
-    modifyUser_userId,
-    user_status,
-    user_arn,
-    user_userGroupIds,
-    user_authentication,
-    user_engine,
-    user_userName,
-    user_accessString,
-    user_userId,
+    -- ** DecreaseReplicaCount
+    decreaseReplicaCount_newReplicaCount,
+    decreaseReplicaCount_replicaConfiguration,
+    decreaseReplicaCount_replicasToRemove,
+    decreaseReplicaCount_replicationGroupId,
+    decreaseReplicaCount_applyImmediately,
+    decreaseReplicaCountResponse_replicationGroup,
+    decreaseReplicaCountResponse_httpStatus,
+
+    -- ** DeleteCacheCluster
+    deleteCacheCluster_finalSnapshotIdentifier,
+    deleteCacheCluster_cacheClusterId,
+    deleteCacheClusterResponse_cacheCluster,
+    deleteCacheClusterResponse_httpStatus,
+
+    -- ** DeleteCacheParameterGroup
+    deleteCacheParameterGroup_cacheParameterGroupName,
+
+    -- ** DeleteCacheSecurityGroup
+    deleteCacheSecurityGroup_cacheSecurityGroupName,
 
     -- ** DeleteCacheSubnetGroup
     deleteCacheSubnetGroup_cacheSubnetGroupName,
+
+    -- ** DeleteGlobalReplicationGroup
+    deleteGlobalReplicationGroup_globalReplicationGroupId,
+    deleteGlobalReplicationGroup_retainPrimaryReplicationGroup,
+    deleteGlobalReplicationGroupResponse_globalReplicationGroup,
+    deleteGlobalReplicationGroupResponse_httpStatus,
+
+    -- ** DeleteReplicationGroup
+    deleteReplicationGroup_finalSnapshotIdentifier,
+    deleteReplicationGroup_retainPrimaryCluster,
+    deleteReplicationGroup_replicationGroupId,
+    deleteReplicationGroupResponse_replicationGroup,
+    deleteReplicationGroupResponse_httpStatus,
+
+    -- ** DeleteSnapshot
+    deleteSnapshot_snapshotName,
+    deleteSnapshotResponse_snapshot,
+    deleteSnapshotResponse_httpStatus,
+
+    -- ** DeleteUser
+    deleteUser_userId,
+    user_arn,
+    user_accessString,
+    user_authentication,
+    user_engine,
+    user_minimumEngineVersion,
+    user_status,
+    user_userGroupIds,
+    user_userId,
+    user_userName,
+
+    -- ** DeleteUserGroup
+    deleteUserGroup_userGroupId,
+    userGroup_arn,
+    userGroup_engine,
+    userGroup_minimumEngineVersion,
+    userGroup_pendingChanges,
+    userGroup_replicationGroups,
+    userGroup_status,
+    userGroup_userGroupId,
+    userGroup_userIds,
+
+    -- ** DescribeCacheClusters
+    describeCacheClusters_cacheClusterId,
+    describeCacheClusters_marker,
+    describeCacheClusters_maxRecords,
+    describeCacheClusters_showCacheClustersNotInReplicationGroups,
+    describeCacheClusters_showCacheNodeInfo,
+    describeCacheClustersResponse_cacheClusters,
+    describeCacheClustersResponse_marker,
+    describeCacheClustersResponse_httpStatus,
+
+    -- ** DescribeCacheEngineVersions
+    describeCacheEngineVersions_cacheParameterGroupFamily,
+    describeCacheEngineVersions_defaultOnly,
+    describeCacheEngineVersions_engine,
+    describeCacheEngineVersions_engineVersion,
+    describeCacheEngineVersions_marker,
+    describeCacheEngineVersions_maxRecords,
+    describeCacheEngineVersionsResponse_cacheEngineVersions,
+    describeCacheEngineVersionsResponse_marker,
+    describeCacheEngineVersionsResponse_httpStatus,
+
+    -- ** DescribeCacheParameterGroups
+    describeCacheParameterGroups_cacheParameterGroupName,
+    describeCacheParameterGroups_marker,
+    describeCacheParameterGroups_maxRecords,
+    describeCacheParameterGroupsResponse_cacheParameterGroups,
+    describeCacheParameterGroupsResponse_marker,
+    describeCacheParameterGroupsResponse_httpStatus,
+
+    -- ** DescribeCacheParameters
+    describeCacheParameters_marker,
+    describeCacheParameters_maxRecords,
+    describeCacheParameters_source,
+    describeCacheParameters_cacheParameterGroupName,
+    describeCacheParametersResponse_cacheNodeTypeSpecificParameters,
+    describeCacheParametersResponse_marker,
+    describeCacheParametersResponse_parameters,
+    describeCacheParametersResponse_httpStatus,
+
+    -- ** DescribeCacheSecurityGroups
+    describeCacheSecurityGroups_cacheSecurityGroupName,
+    describeCacheSecurityGroups_marker,
+    describeCacheSecurityGroups_maxRecords,
+    describeCacheSecurityGroupsResponse_cacheSecurityGroups,
+    describeCacheSecurityGroupsResponse_marker,
+    describeCacheSecurityGroupsResponse_httpStatus,
+
+    -- ** DescribeCacheSubnetGroups
+    describeCacheSubnetGroups_cacheSubnetGroupName,
+    describeCacheSubnetGroups_marker,
+    describeCacheSubnetGroups_maxRecords,
+    describeCacheSubnetGroupsResponse_cacheSubnetGroups,
+    describeCacheSubnetGroupsResponse_marker,
+    describeCacheSubnetGroupsResponse_httpStatus,
+
+    -- ** DescribeEngineDefaultParameters
+    describeEngineDefaultParameters_marker,
+    describeEngineDefaultParameters_maxRecords,
+    describeEngineDefaultParameters_cacheParameterGroupFamily,
+    describeEngineDefaultParametersResponse_httpStatus,
+    describeEngineDefaultParametersResponse_engineDefaults,
+
+    -- ** DescribeEvents
+    describeEvents_duration,
+    describeEvents_endTime,
+    describeEvents_marker,
+    describeEvents_maxRecords,
+    describeEvents_sourceIdentifier,
+    describeEvents_sourceType,
+    describeEvents_startTime,
+    describeEventsResponse_events,
+    describeEventsResponse_marker,
+    describeEventsResponse_httpStatus,
+
+    -- ** DescribeGlobalReplicationGroups
+    describeGlobalReplicationGroups_globalReplicationGroupId,
+    describeGlobalReplicationGroups_marker,
+    describeGlobalReplicationGroups_maxRecords,
+    describeGlobalReplicationGroups_showMemberInfo,
+    describeGlobalReplicationGroupsResponse_globalReplicationGroups,
+    describeGlobalReplicationGroupsResponse_marker,
+    describeGlobalReplicationGroupsResponse_httpStatus,
+
+    -- ** DescribeReplicationGroups
+    describeReplicationGroups_marker,
+    describeReplicationGroups_maxRecords,
+    describeReplicationGroups_replicationGroupId,
+    describeReplicationGroupsResponse_marker,
+    describeReplicationGroupsResponse_replicationGroups,
+    describeReplicationGroupsResponse_httpStatus,
+
+    -- ** DescribeReservedCacheNodes
+    describeReservedCacheNodes_cacheNodeType,
+    describeReservedCacheNodes_duration,
+    describeReservedCacheNodes_marker,
+    describeReservedCacheNodes_maxRecords,
+    describeReservedCacheNodes_offeringType,
+    describeReservedCacheNodes_productDescription,
+    describeReservedCacheNodes_reservedCacheNodeId,
+    describeReservedCacheNodes_reservedCacheNodesOfferingId,
+    describeReservedCacheNodesResponse_marker,
+    describeReservedCacheNodesResponse_reservedCacheNodes,
+    describeReservedCacheNodesResponse_httpStatus,
+
+    -- ** DescribeReservedCacheNodesOfferings
+    describeReservedCacheNodesOfferings_cacheNodeType,
+    describeReservedCacheNodesOfferings_duration,
+    describeReservedCacheNodesOfferings_marker,
+    describeReservedCacheNodesOfferings_maxRecords,
+    describeReservedCacheNodesOfferings_offeringType,
+    describeReservedCacheNodesOfferings_productDescription,
+    describeReservedCacheNodesOfferings_reservedCacheNodesOfferingId,
+    describeReservedCacheNodesOfferingsResponse_marker,
+    describeReservedCacheNodesOfferingsResponse_reservedCacheNodesOfferings,
+    describeReservedCacheNodesOfferingsResponse_httpStatus,
+
+    -- ** DescribeServiceUpdates
+    describeServiceUpdates_marker,
+    describeServiceUpdates_maxRecords,
+    describeServiceUpdates_serviceUpdateName,
+    describeServiceUpdates_serviceUpdateStatus,
+    describeServiceUpdatesResponse_marker,
+    describeServiceUpdatesResponse_serviceUpdates,
+    describeServiceUpdatesResponse_httpStatus,
+
+    -- ** DescribeSnapshots
+    describeSnapshots_cacheClusterId,
+    describeSnapshots_marker,
+    describeSnapshots_maxRecords,
+    describeSnapshots_replicationGroupId,
+    describeSnapshots_showNodeGroupConfig,
+    describeSnapshots_snapshotName,
+    describeSnapshots_snapshotSource,
+    describeSnapshotsResponse_marker,
+    describeSnapshotsResponse_snapshots,
+    describeSnapshotsResponse_httpStatus,
+
+    -- ** DescribeUpdateActions
+    describeUpdateActions_cacheClusterIds,
+    describeUpdateActions_engine,
+    describeUpdateActions_marker,
+    describeUpdateActions_maxRecords,
+    describeUpdateActions_replicationGroupIds,
+    describeUpdateActions_serviceUpdateName,
+    describeUpdateActions_serviceUpdateStatus,
+    describeUpdateActions_serviceUpdateTimeRange,
+    describeUpdateActions_showNodeLevelUpdateStatus,
+    describeUpdateActions_updateActionStatus,
+    describeUpdateActionsResponse_marker,
+    describeUpdateActionsResponse_updateActions,
+    describeUpdateActionsResponse_httpStatus,
+
+    -- ** DescribeUserGroups
+    describeUserGroups_marker,
+    describeUserGroups_maxRecords,
+    describeUserGroups_userGroupId,
+    describeUserGroupsResponse_marker,
+    describeUserGroupsResponse_userGroups,
+    describeUserGroupsResponse_httpStatus,
+
+    -- ** DescribeUsers
+    describeUsers_engine,
+    describeUsers_filters,
+    describeUsers_marker,
+    describeUsers_maxRecords,
+    describeUsers_userId,
+    describeUsersResponse_marker,
+    describeUsersResponse_users,
+    describeUsersResponse_httpStatus,
+
+    -- ** DisassociateGlobalReplicationGroup
+    disassociateGlobalReplicationGroup_globalReplicationGroupId,
+    disassociateGlobalReplicationGroup_replicationGroupId,
+    disassociateGlobalReplicationGroup_replicationGroupRegion,
+    disassociateGlobalReplicationGroupResponse_globalReplicationGroup,
+    disassociateGlobalReplicationGroupResponse_httpStatus,
+
+    -- ** FailoverGlobalReplicationGroup
+    failoverGlobalReplicationGroup_globalReplicationGroupId,
+    failoverGlobalReplicationGroup_primaryRegion,
+    failoverGlobalReplicationGroup_primaryReplicationGroupId,
+    failoverGlobalReplicationGroupResponse_globalReplicationGroup,
+    failoverGlobalReplicationGroupResponse_httpStatus,
+
+    -- ** IncreaseNodeGroupsInGlobalReplicationGroup
+    increaseNodeGroupsInGlobalReplicationGroup_regionalConfigurations,
+    increaseNodeGroupsInGlobalReplicationGroup_globalReplicationGroupId,
+    increaseNodeGroupsInGlobalReplicationGroup_nodeGroupCount,
+    increaseNodeGroupsInGlobalReplicationGroup_applyImmediately,
+    increaseNodeGroupsInGlobalReplicationGroupResponse_globalReplicationGroup,
+    increaseNodeGroupsInGlobalReplicationGroupResponse_httpStatus,
+
+    -- ** IncreaseReplicaCount
+    increaseReplicaCount_newReplicaCount,
+    increaseReplicaCount_replicaConfiguration,
+    increaseReplicaCount_replicationGroupId,
+    increaseReplicaCount_applyImmediately,
+    increaseReplicaCountResponse_replicationGroup,
+    increaseReplicaCountResponse_httpStatus,
+
+    -- ** ListAllowedNodeTypeModifications
+    listAllowedNodeTypeModifications_cacheClusterId,
+    listAllowedNodeTypeModifications_replicationGroupId,
+    listAllowedNodeTypeModificationsResponse_scaleDownModifications,
+    listAllowedNodeTypeModificationsResponse_scaleUpModifications,
+    listAllowedNodeTypeModificationsResponse_httpStatus,
+
+    -- ** ListTagsForResource
+    listTagsForResource_resourceName,
+    tagListMessage_tagList,
+
+    -- ** ModifyCacheCluster
+    modifyCacheCluster_aZMode,
+    modifyCacheCluster_applyImmediately,
+    modifyCacheCluster_authToken,
+    modifyCacheCluster_authTokenUpdateStrategy,
+    modifyCacheCluster_autoMinorVersionUpgrade,
+    modifyCacheCluster_cacheNodeIdsToRemove,
+    modifyCacheCluster_cacheNodeType,
+    modifyCacheCluster_cacheParameterGroupName,
+    modifyCacheCluster_cacheSecurityGroupNames,
+    modifyCacheCluster_engineVersion,
+    modifyCacheCluster_ipDiscovery,
+    modifyCacheCluster_logDeliveryConfigurations,
+    modifyCacheCluster_newAvailabilityZones,
+    modifyCacheCluster_notificationTopicArn,
+    modifyCacheCluster_notificationTopicStatus,
+    modifyCacheCluster_numCacheNodes,
+    modifyCacheCluster_preferredMaintenanceWindow,
+    modifyCacheCluster_securityGroupIds,
+    modifyCacheCluster_snapshotRetentionLimit,
+    modifyCacheCluster_snapshotWindow,
+    modifyCacheCluster_cacheClusterId,
+    modifyCacheClusterResponse_cacheCluster,
+    modifyCacheClusterResponse_httpStatus,
+
+    -- ** ModifyCacheParameterGroup
+    modifyCacheParameterGroup_cacheParameterGroupName,
+    modifyCacheParameterGroup_parameterNameValues,
+    cacheParameterGroupNameMessage_cacheParameterGroupName,
+
+    -- ** ModifyCacheSubnetGroup
+    modifyCacheSubnetGroup_cacheSubnetGroupDescription,
+    modifyCacheSubnetGroup_subnetIds,
+    modifyCacheSubnetGroup_cacheSubnetGroupName,
+    modifyCacheSubnetGroupResponse_cacheSubnetGroup,
+    modifyCacheSubnetGroupResponse_httpStatus,
+
+    -- ** ModifyGlobalReplicationGroup
+    modifyGlobalReplicationGroup_automaticFailoverEnabled,
+    modifyGlobalReplicationGroup_cacheNodeType,
+    modifyGlobalReplicationGroup_cacheParameterGroupName,
+    modifyGlobalReplicationGroup_engineVersion,
+    modifyGlobalReplicationGroup_globalReplicationGroupDescription,
+    modifyGlobalReplicationGroup_globalReplicationGroupId,
+    modifyGlobalReplicationGroup_applyImmediately,
+    modifyGlobalReplicationGroupResponse_globalReplicationGroup,
+    modifyGlobalReplicationGroupResponse_httpStatus,
+
+    -- ** ModifyReplicationGroup
+    modifyReplicationGroup_applyImmediately,
+    modifyReplicationGroup_authToken,
+    modifyReplicationGroup_authTokenUpdateStrategy,
+    modifyReplicationGroup_autoMinorVersionUpgrade,
+    modifyReplicationGroup_automaticFailoverEnabled,
+    modifyReplicationGroup_cacheNodeType,
+    modifyReplicationGroup_cacheParameterGroupName,
+    modifyReplicationGroup_cacheSecurityGroupNames,
+    modifyReplicationGroup_engineVersion,
+    modifyReplicationGroup_ipDiscovery,
+    modifyReplicationGroup_logDeliveryConfigurations,
+    modifyReplicationGroup_multiAZEnabled,
+    modifyReplicationGroup_nodeGroupId,
+    modifyReplicationGroup_notificationTopicArn,
+    modifyReplicationGroup_notificationTopicStatus,
+    modifyReplicationGroup_preferredMaintenanceWindow,
+    modifyReplicationGroup_primaryClusterId,
+    modifyReplicationGroup_removeUserGroups,
+    modifyReplicationGroup_replicationGroupDescription,
+    modifyReplicationGroup_securityGroupIds,
+    modifyReplicationGroup_snapshotRetentionLimit,
+    modifyReplicationGroup_snapshotWindow,
+    modifyReplicationGroup_snapshottingClusterId,
+    modifyReplicationGroup_userGroupIdsToAdd,
+    modifyReplicationGroup_userGroupIdsToRemove,
+    modifyReplicationGroup_replicationGroupId,
+    modifyReplicationGroupResponse_replicationGroup,
+    modifyReplicationGroupResponse_httpStatus,
+
+    -- ** ModifyReplicationGroupShardConfiguration
+    modifyReplicationGroupShardConfiguration_nodeGroupsToRemove,
+    modifyReplicationGroupShardConfiguration_nodeGroupsToRetain,
+    modifyReplicationGroupShardConfiguration_reshardingConfiguration,
+    modifyReplicationGroupShardConfiguration_replicationGroupId,
+    modifyReplicationGroupShardConfiguration_nodeGroupCount,
+    modifyReplicationGroupShardConfiguration_applyImmediately,
+    modifyReplicationGroupShardConfigurationResponse_replicationGroup,
+    modifyReplicationGroupShardConfigurationResponse_httpStatus,
+
+    -- ** ModifyUser
+    modifyUser_accessString,
+    modifyUser_appendAccessString,
+    modifyUser_authenticationMode,
+    modifyUser_noPasswordRequired,
+    modifyUser_passwords,
+    modifyUser_userId,
+    user_arn,
+    user_accessString,
+    user_authentication,
+    user_engine,
+    user_minimumEngineVersion,
+    user_status,
+    user_userGroupIds,
+    user_userId,
+    user_userName,
+
+    -- ** ModifyUserGroup
+    modifyUserGroup_userIdsToAdd,
+    modifyUserGroup_userIdsToRemove,
+    modifyUserGroup_userGroupId,
+    userGroup_arn,
+    userGroup_engine,
+    userGroup_minimumEngineVersion,
+    userGroup_pendingChanges,
+    userGroup_replicationGroups,
+    userGroup_status,
+    userGroup_userGroupId,
+    userGroup_userIds,
+
+    -- ** PurchaseReservedCacheNodesOffering
+    purchaseReservedCacheNodesOffering_cacheNodeCount,
+    purchaseReservedCacheNodesOffering_reservedCacheNodeId,
+    purchaseReservedCacheNodesOffering_tags,
+    purchaseReservedCacheNodesOffering_reservedCacheNodesOfferingId,
+    purchaseReservedCacheNodesOfferingResponse_reservedCacheNode,
+    purchaseReservedCacheNodesOfferingResponse_httpStatus,
+
+    -- ** RebalanceSlotsInGlobalReplicationGroup
+    rebalanceSlotsInGlobalReplicationGroup_globalReplicationGroupId,
+    rebalanceSlotsInGlobalReplicationGroup_applyImmediately,
+    rebalanceSlotsInGlobalReplicationGroupResponse_globalReplicationGroup,
+    rebalanceSlotsInGlobalReplicationGroupResponse_httpStatus,
+
+    -- ** RebootCacheCluster
+    rebootCacheCluster_cacheClusterId,
+    rebootCacheCluster_cacheNodeIdsToReboot,
+    rebootCacheClusterResponse_cacheCluster,
+    rebootCacheClusterResponse_httpStatus,
+
+    -- ** RemoveTagsFromResource
+    removeTagsFromResource_resourceName,
+    removeTagsFromResource_tagKeys,
+    tagListMessage_tagList,
+
+    -- ** ResetCacheParameterGroup
+    resetCacheParameterGroup_parameterNameValues,
+    resetCacheParameterGroup_resetAllParameters,
+    resetCacheParameterGroup_cacheParameterGroupName,
+    cacheParameterGroupNameMessage_cacheParameterGroupName,
+
+    -- ** RevokeCacheSecurityGroupIngress
+    revokeCacheSecurityGroupIngress_cacheSecurityGroupName,
+    revokeCacheSecurityGroupIngress_eC2SecurityGroupName,
+    revokeCacheSecurityGroupIngress_eC2SecurityGroupOwnerId,
+    revokeCacheSecurityGroupIngressResponse_cacheSecurityGroup,
+    revokeCacheSecurityGroupIngressResponse_httpStatus,
+
+    -- ** StartMigration
+    startMigration_replicationGroupId,
+    startMigration_customerNodeEndpointList,
+    startMigrationResponse_replicationGroup,
+    startMigrationResponse_httpStatus,
+
+    -- ** TestFailover
+    testFailover_replicationGroupId,
+    testFailover_nodeGroupId,
+    testFailoverResponse_replicationGroup,
+    testFailoverResponse_httpStatus,
 
     -- * Types
 
@@ -644,115 +660,122 @@ module Amazonka.ElastiCache.Lens
     authentication_passwordCount,
     authentication_type,
 
+    -- ** AuthenticationMode
+    authenticationMode_passwords,
+    authenticationMode_type,
+
     -- ** AvailabilityZone
     availabilityZone_name,
 
     -- ** CacheCluster
+    cacheCluster_arn,
+    cacheCluster_atRestEncryptionEnabled,
+    cacheCluster_authTokenEnabled,
     cacheCluster_authTokenLastModifiedDate,
-    cacheCluster_engineVersion,
+    cacheCluster_autoMinorVersionUpgrade,
+    cacheCluster_cacheClusterCreateTime,
+    cacheCluster_cacheClusterId,
+    cacheCluster_cacheClusterStatus,
     cacheCluster_cacheNodeType,
     cacheCluster_cacheNodes,
-    cacheCluster_cacheClusterCreateTime,
-    cacheCluster_atRestEncryptionEnabled,
-    cacheCluster_autoMinorVersionUpgrade,
-    cacheCluster_securityGroups,
-    cacheCluster_notificationConfiguration,
-    cacheCluster_arn,
-    cacheCluster_transitEncryptionEnabled,
-    cacheCluster_snapshotWindow,
-    cacheCluster_cacheClusterId,
-    cacheCluster_logDeliveryConfigurations,
+    cacheCluster_cacheParameterGroup,
+    cacheCluster_cacheSecurityGroups,
+    cacheCluster_cacheSubnetGroupName,
+    cacheCluster_clientDownloadLandingPage,
     cacheCluster_configurationEndpoint,
     cacheCluster_engine,
-    cacheCluster_cacheSecurityGroups,
-    cacheCluster_replicationGroupLogDeliveryEnabled,
-    cacheCluster_authTokenEnabled,
-    cacheCluster_clientDownloadLandingPage,
-    cacheCluster_preferredMaintenanceWindow,
-    cacheCluster_cacheSubnetGroupName,
+    cacheCluster_engineVersion,
+    cacheCluster_ipDiscovery,
+    cacheCluster_logDeliveryConfigurations,
+    cacheCluster_networkType,
+    cacheCluster_notificationConfiguration,
+    cacheCluster_numCacheNodes,
+    cacheCluster_pendingModifiedValues,
     cacheCluster_preferredAvailabilityZone,
-    cacheCluster_cacheParameterGroup,
-    cacheCluster_cacheClusterStatus,
-    cacheCluster_snapshotRetentionLimit,
+    cacheCluster_preferredMaintenanceWindow,
     cacheCluster_preferredOutpostArn,
     cacheCluster_replicationGroupId,
-    cacheCluster_pendingModifiedValues,
-    cacheCluster_numCacheNodes,
+    cacheCluster_replicationGroupLogDeliveryEnabled,
+    cacheCluster_securityGroups,
+    cacheCluster_snapshotRetentionLimit,
+    cacheCluster_snapshotWindow,
+    cacheCluster_transitEncryptionEnabled,
 
     -- ** CacheEngineVersion
-    cacheEngineVersion_engineVersion,
-    cacheEngineVersion_cacheParameterGroupFamily,
     cacheEngineVersion_cacheEngineDescription,
-    cacheEngineVersion_engine,
     cacheEngineVersion_cacheEngineVersionDescription,
+    cacheEngineVersion_cacheParameterGroupFamily,
+    cacheEngineVersion_engine,
+    cacheEngineVersion_engineVersion,
 
     -- ** CacheNode
-    cacheNode_sourceCacheNodeId,
-    cacheNode_parameterGroupStatus,
     cacheNode_cacheNodeCreateTime,
-    cacheNode_customerAvailabilityZone,
     cacheNode_cacheNodeId,
-    cacheNode_customerOutpostArn,
     cacheNode_cacheNodeStatus,
+    cacheNode_customerAvailabilityZone,
+    cacheNode_customerOutpostArn,
     cacheNode_endpoint,
+    cacheNode_parameterGroupStatus,
+    cacheNode_sourceCacheNodeId,
 
     -- ** CacheNodeTypeSpecificParameter
-    cacheNodeTypeSpecificParameter_cacheNodeTypeSpecificValues,
-    cacheNodeTypeSpecificParameter_minimumEngineVersion,
-    cacheNodeTypeSpecificParameter_source,
-    cacheNodeTypeSpecificParameter_isModifiable,
-    cacheNodeTypeSpecificParameter_dataType,
     cacheNodeTypeSpecificParameter_allowedValues,
-    cacheNodeTypeSpecificParameter_parameterName,
-    cacheNodeTypeSpecificParameter_description,
+    cacheNodeTypeSpecificParameter_cacheNodeTypeSpecificValues,
     cacheNodeTypeSpecificParameter_changeType,
+    cacheNodeTypeSpecificParameter_dataType,
+    cacheNodeTypeSpecificParameter_description,
+    cacheNodeTypeSpecificParameter_isModifiable,
+    cacheNodeTypeSpecificParameter_minimumEngineVersion,
+    cacheNodeTypeSpecificParameter_parameterName,
+    cacheNodeTypeSpecificParameter_source,
 
     -- ** CacheNodeTypeSpecificValue
     cacheNodeTypeSpecificValue_cacheNodeType,
     cacheNodeTypeSpecificValue_value,
 
     -- ** CacheNodeUpdateStatus
+    cacheNodeUpdateStatus_cacheNodeId,
+    cacheNodeUpdateStatus_nodeDeletionDate,
     cacheNodeUpdateStatus_nodeUpdateEndDate,
     cacheNodeUpdateStatus_nodeUpdateInitiatedBy,
-    cacheNodeUpdateStatus_nodeUpdateStatusModifiedDate,
-    cacheNodeUpdateStatus_cacheNodeId,
     cacheNodeUpdateStatus_nodeUpdateInitiatedDate,
     cacheNodeUpdateStatus_nodeUpdateStartDate,
     cacheNodeUpdateStatus_nodeUpdateStatus,
-    cacheNodeUpdateStatus_nodeDeletionDate,
+    cacheNodeUpdateStatus_nodeUpdateStatusModifiedDate,
 
     -- ** CacheParameterGroup
-    cacheParameterGroup_cacheParameterGroupFamily,
     cacheParameterGroup_arn,
+    cacheParameterGroup_cacheParameterGroupFamily,
     cacheParameterGroup_cacheParameterGroupName,
-    cacheParameterGroup_isGlobal,
     cacheParameterGroup_description,
+    cacheParameterGroup_isGlobal,
 
     -- ** CacheParameterGroupNameMessage
     cacheParameterGroupNameMessage_cacheParameterGroupName,
 
     -- ** CacheParameterGroupStatus
-    cacheParameterGroupStatus_cacheParameterGroupName,
     cacheParameterGroupStatus_cacheNodeIdsToReboot,
+    cacheParameterGroupStatus_cacheParameterGroupName,
     cacheParameterGroupStatus_parameterApplyStatus,
 
     -- ** CacheSecurityGroup
-    cacheSecurityGroup_cacheSecurityGroupName,
     cacheSecurityGroup_arn,
-    cacheSecurityGroup_ownerId,
-    cacheSecurityGroup_eC2SecurityGroups,
+    cacheSecurityGroup_cacheSecurityGroupName,
     cacheSecurityGroup_description,
+    cacheSecurityGroup_eC2SecurityGroups,
+    cacheSecurityGroup_ownerId,
 
     -- ** CacheSecurityGroupMembership
-    cacheSecurityGroupMembership_status,
     cacheSecurityGroupMembership_cacheSecurityGroupName,
+    cacheSecurityGroupMembership_status,
 
     -- ** CacheSubnetGroup
     cacheSubnetGroup_arn,
-    cacheSubnetGroup_vpcId,
-    cacheSubnetGroup_subnets,
-    cacheSubnetGroup_cacheSubnetGroupName,
     cacheSubnetGroup_cacheSubnetGroupDescription,
+    cacheSubnetGroup_cacheSubnetGroupName,
+    cacheSubnetGroup_subnets,
+    cacheSubnetGroup_supportedNetworkTypes,
+    cacheSubnetGroup_vpcId,
 
     -- ** CloudWatchLogsDestinationDetails
     cloudWatchLogsDestinationDetails_logGroup,
@@ -772,169 +795,169 @@ module Amazonka.ElastiCache.Lens
     destinationDetails_kinesisFirehoseDetails,
 
     -- ** EC2SecurityGroup
-    eC2SecurityGroup_status,
-    eC2SecurityGroup_eC2SecurityGroupOwnerId,
     eC2SecurityGroup_eC2SecurityGroupName,
+    eC2SecurityGroup_eC2SecurityGroupOwnerId,
+    eC2SecurityGroup_status,
 
     -- ** Endpoint
     endpoint_address,
     endpoint_port,
 
     -- ** EngineDefaults
-    engineDefaults_cacheParameterGroupFamily,
     engineDefaults_cacheNodeTypeSpecificParameters,
+    engineDefaults_cacheParameterGroupFamily,
     engineDefaults_marker,
     engineDefaults_parameters,
 
     -- ** Event
-    event_sourceType,
-    event_sourceIdentifier,
     event_date,
     event_message,
+    event_sourceIdentifier,
+    event_sourceType,
 
     -- ** Filter
     filter_name,
     filter_values,
 
     -- ** GlobalNodeGroup
-    globalNodeGroup_slots,
     globalNodeGroup_globalNodeGroupId,
+    globalNodeGroup_slots,
 
     -- ** GlobalReplicationGroup
-    globalReplicationGroup_engineVersion,
-    globalReplicationGroup_status,
+    globalReplicationGroup_arn,
+    globalReplicationGroup_atRestEncryptionEnabled,
+    globalReplicationGroup_authTokenEnabled,
     globalReplicationGroup_cacheNodeType,
     globalReplicationGroup_clusterEnabled,
-    globalReplicationGroup_atRestEncryptionEnabled,
-    globalReplicationGroup_arn,
-    globalReplicationGroup_transitEncryptionEnabled,
-    globalReplicationGroup_members,
     globalReplicationGroup_engine,
-    globalReplicationGroup_authTokenEnabled,
+    globalReplicationGroup_engineVersion,
     globalReplicationGroup_globalNodeGroups,
-    globalReplicationGroup_globalReplicationGroupId,
     globalReplicationGroup_globalReplicationGroupDescription,
+    globalReplicationGroup_globalReplicationGroupId,
+    globalReplicationGroup_members,
+    globalReplicationGroup_status,
+    globalReplicationGroup_transitEncryptionEnabled,
 
     -- ** GlobalReplicationGroupInfo
-    globalReplicationGroupInfo_globalReplicationGroupMemberRole,
     globalReplicationGroupInfo_globalReplicationGroupId,
+    globalReplicationGroupInfo_globalReplicationGroupMemberRole,
 
     -- ** GlobalReplicationGroupMember
-    globalReplicationGroupMember_status,
+    globalReplicationGroupMember_automaticFailover,
+    globalReplicationGroupMember_replicationGroupId,
     globalReplicationGroupMember_replicationGroupRegion,
     globalReplicationGroupMember_role,
-    globalReplicationGroupMember_replicationGroupId,
-    globalReplicationGroupMember_automaticFailover,
+    globalReplicationGroupMember_status,
 
     -- ** KinesisFirehoseDestinationDetails
     kinesisFirehoseDestinationDetails_deliveryStream,
 
     -- ** LogDeliveryConfiguration
-    logDeliveryConfiguration_status,
-    logDeliveryConfiguration_logFormat,
     logDeliveryConfiguration_destinationDetails,
-    logDeliveryConfiguration_logType,
     logDeliveryConfiguration_destinationType,
+    logDeliveryConfiguration_logFormat,
+    logDeliveryConfiguration_logType,
     logDeliveryConfiguration_message,
+    logDeliveryConfiguration_status,
 
     -- ** LogDeliveryConfigurationRequest
-    logDeliveryConfigurationRequest_logFormat,
-    logDeliveryConfigurationRequest_enabled,
     logDeliveryConfigurationRequest_destinationDetails,
-    logDeliveryConfigurationRequest_logType,
     logDeliveryConfigurationRequest_destinationType,
+    logDeliveryConfigurationRequest_enabled,
+    logDeliveryConfigurationRequest_logFormat,
+    logDeliveryConfigurationRequest_logType,
 
     -- ** NodeGroup
-    nodeGroup_status,
-    nodeGroup_primaryEndpoint,
-    nodeGroup_slots,
-    nodeGroup_nodeGroupMembers,
     nodeGroup_nodeGroupId,
+    nodeGroup_nodeGroupMembers,
+    nodeGroup_primaryEndpoint,
     nodeGroup_readerEndpoint,
+    nodeGroup_slots,
+    nodeGroup_status,
 
     -- ** NodeGroupConfiguration
-    nodeGroupConfiguration_slots,
-    nodeGroupConfiguration_replicaOutpostArns,
-    nodeGroupConfiguration_replicaCount,
-    nodeGroupConfiguration_primaryAvailabilityZone,
-    nodeGroupConfiguration_replicaAvailabilityZones,
-    nodeGroupConfiguration_primaryOutpostArn,
     nodeGroupConfiguration_nodeGroupId,
+    nodeGroupConfiguration_primaryAvailabilityZone,
+    nodeGroupConfiguration_primaryOutpostArn,
+    nodeGroupConfiguration_replicaAvailabilityZones,
+    nodeGroupConfiguration_replicaCount,
+    nodeGroupConfiguration_replicaOutpostArns,
+    nodeGroupConfiguration_slots,
 
     -- ** NodeGroupMember
     nodeGroupMember_cacheClusterId,
     nodeGroupMember_cacheNodeId,
-    nodeGroupMember_preferredAvailabilityZone,
     nodeGroupMember_currentRole,
+    nodeGroupMember_preferredAvailabilityZone,
     nodeGroupMember_preferredOutpostArn,
     nodeGroupMember_readEndpoint,
 
     -- ** NodeGroupMemberUpdateStatus
-    nodeGroupMemberUpdateStatus_nodeUpdateEndDate,
-    nodeGroupMemberUpdateStatus_nodeUpdateInitiatedBy,
-    nodeGroupMemberUpdateStatus_nodeUpdateStatusModifiedDate,
     nodeGroupMemberUpdateStatus_cacheClusterId,
     nodeGroupMemberUpdateStatus_cacheNodeId,
+    nodeGroupMemberUpdateStatus_nodeDeletionDate,
+    nodeGroupMemberUpdateStatus_nodeUpdateEndDate,
+    nodeGroupMemberUpdateStatus_nodeUpdateInitiatedBy,
     nodeGroupMemberUpdateStatus_nodeUpdateInitiatedDate,
     nodeGroupMemberUpdateStatus_nodeUpdateStartDate,
     nodeGroupMemberUpdateStatus_nodeUpdateStatus,
-    nodeGroupMemberUpdateStatus_nodeDeletionDate,
+    nodeGroupMemberUpdateStatus_nodeUpdateStatusModifiedDate,
 
     -- ** NodeGroupUpdateStatus
-    nodeGroupUpdateStatus_nodeGroupMemberUpdateStatus,
     nodeGroupUpdateStatus_nodeGroupId,
+    nodeGroupUpdateStatus_nodeGroupMemberUpdateStatus,
 
     -- ** NodeSnapshot
-    nodeSnapshot_nodeGroupConfiguration,
-    nodeSnapshot_cacheNodeCreateTime,
     nodeSnapshot_cacheClusterId,
+    nodeSnapshot_cacheNodeCreateTime,
     nodeSnapshot_cacheNodeId,
+    nodeSnapshot_cacheSize,
+    nodeSnapshot_nodeGroupConfiguration,
     nodeSnapshot_nodeGroupId,
     nodeSnapshot_snapshotCreateTime,
-    nodeSnapshot_cacheSize,
 
     -- ** NotificationConfiguration
-    notificationConfiguration_topicStatus,
     notificationConfiguration_topicArn,
+    notificationConfiguration_topicStatus,
 
     -- ** Parameter
-    parameter_parameterValue,
-    parameter_minimumEngineVersion,
-    parameter_source,
-    parameter_isModifiable,
-    parameter_dataType,
     parameter_allowedValues,
-    parameter_parameterName,
-    parameter_description,
     parameter_changeType,
+    parameter_dataType,
+    parameter_description,
+    parameter_isModifiable,
+    parameter_minimumEngineVersion,
+    parameter_parameterName,
+    parameter_parameterValue,
+    parameter_source,
 
     -- ** ParameterNameValue
-    parameterNameValue_parameterValue,
     parameterNameValue_parameterName,
+    parameterNameValue_parameterValue,
 
     -- ** PendingLogDeliveryConfiguration
-    pendingLogDeliveryConfiguration_logFormat,
     pendingLogDeliveryConfiguration_destinationDetails,
-    pendingLogDeliveryConfiguration_logType,
     pendingLogDeliveryConfiguration_destinationType,
+    pendingLogDeliveryConfiguration_logFormat,
+    pendingLogDeliveryConfiguration_logType,
 
     -- ** PendingModifiedValues
-    pendingModifiedValues_engineVersion,
-    pendingModifiedValues_cacheNodeType,
     pendingModifiedValues_authTokenStatus,
-    pendingModifiedValues_logDeliveryConfigurations,
     pendingModifiedValues_cacheNodeIdsToRemove,
+    pendingModifiedValues_cacheNodeType,
+    pendingModifiedValues_engineVersion,
+    pendingModifiedValues_logDeliveryConfigurations,
     pendingModifiedValues_numCacheNodes,
 
     -- ** ProcessedUpdateAction
     processedUpdateAction_cacheClusterId,
+    processedUpdateAction_replicationGroupId,
     processedUpdateAction_serviceUpdateName,
     processedUpdateAction_updateActionStatus,
-    processedUpdateAction_replicationGroupId,
 
     -- ** RecurringCharge
-    recurringCharge_recurringChargeFrequency,
     recurringCharge_recurringChargeAmount,
+    recurringCharge_recurringChargeFrequency,
 
     -- ** RegionalConfiguration
     regionalConfiguration_replicationGroupId,
@@ -942,189 +965,197 @@ module Amazonka.ElastiCache.Lens
     regionalConfiguration_reshardingConfiguration,
 
     -- ** ReplicationGroup
-    replicationGroup_authTokenLastModifiedDate,
-    replicationGroup_status,
-    replicationGroup_cacheNodeType,
-    replicationGroup_nodeGroups,
-    replicationGroup_snapshottingClusterId,
-    replicationGroup_clusterEnabled,
-    replicationGroup_atRestEncryptionEnabled,
-    replicationGroup_replicationGroupCreateTime,
     replicationGroup_arn,
+    replicationGroup_atRestEncryptionEnabled,
+    replicationGroup_authTokenEnabled,
+    replicationGroup_authTokenLastModifiedDate,
+    replicationGroup_autoMinorVersionUpgrade,
+    replicationGroup_automaticFailover,
+    replicationGroup_cacheNodeType,
+    replicationGroup_clusterEnabled,
+    replicationGroup_configurationEndpoint,
+    replicationGroup_dataTiering,
+    replicationGroup_description,
+    replicationGroup_globalReplicationGroupInfo,
+    replicationGroup_ipDiscovery,
+    replicationGroup_kmsKeyId,
+    replicationGroup_logDeliveryConfigurations,
+    replicationGroup_memberClusters,
+    replicationGroup_memberClustersOutpostArns,
+    replicationGroup_multiAZ,
+    replicationGroup_networkType,
+    replicationGroup_nodeGroups,
+    replicationGroup_pendingModifiedValues,
+    replicationGroup_replicationGroupCreateTime,
+    replicationGroup_replicationGroupId,
+    replicationGroup_snapshotRetentionLimit,
+    replicationGroup_snapshotWindow,
+    replicationGroup_snapshottingClusterId,
+    replicationGroup_status,
     replicationGroup_transitEncryptionEnabled,
     replicationGroup_userGroupIds,
-    replicationGroup_snapshotWindow,
-    replicationGroup_logDeliveryConfigurations,
-    replicationGroup_configurationEndpoint,
-    replicationGroup_authTokenEnabled,
-    replicationGroup_memberClusters,
-    replicationGroup_kmsKeyId,
-    replicationGroup_multiAZ,
-    replicationGroup_snapshotRetentionLimit,
-    replicationGroup_description,
-    replicationGroup_replicationGroupId,
-    replicationGroup_pendingModifiedValues,
-    replicationGroup_globalReplicationGroupInfo,
-    replicationGroup_memberClustersOutpostArns,
-    replicationGroup_automaticFailover,
 
     -- ** ReplicationGroupPendingModifiedValues
     replicationGroupPendingModifiedValues_authTokenStatus,
-    replicationGroupPendingModifiedValues_userGroups,
-    replicationGroupPendingModifiedValues_logDeliveryConfigurations,
-    replicationGroupPendingModifiedValues_resharding,
-    replicationGroupPendingModifiedValues_primaryClusterId,
     replicationGroupPendingModifiedValues_automaticFailoverStatus,
+    replicationGroupPendingModifiedValues_logDeliveryConfigurations,
+    replicationGroupPendingModifiedValues_primaryClusterId,
+    replicationGroupPendingModifiedValues_resharding,
+    replicationGroupPendingModifiedValues_userGroups,
 
     -- ** ReservedCacheNode
-    reservedCacheNode_cacheNodeType,
-    reservedCacheNode_state,
-    reservedCacheNode_startTime,
-    reservedCacheNode_productDescription,
-    reservedCacheNode_reservationARN,
     reservedCacheNode_cacheNodeCount,
-    reservedCacheNode_reservedCacheNodeId,
-    reservedCacheNode_recurringCharges,
-    reservedCacheNode_offeringType,
-    reservedCacheNode_usagePrice,
-    reservedCacheNode_fixedPrice,
+    reservedCacheNode_cacheNodeType,
     reservedCacheNode_duration,
+    reservedCacheNode_fixedPrice,
+    reservedCacheNode_offeringType,
+    reservedCacheNode_productDescription,
+    reservedCacheNode_recurringCharges,
+    reservedCacheNode_reservationARN,
+    reservedCacheNode_reservedCacheNodeId,
     reservedCacheNode_reservedCacheNodesOfferingId,
+    reservedCacheNode_startTime,
+    reservedCacheNode_state,
+    reservedCacheNode_usagePrice,
 
     -- ** ReservedCacheNodesOffering
     reservedCacheNodesOffering_cacheNodeType,
+    reservedCacheNodesOffering_duration,
+    reservedCacheNodesOffering_fixedPrice,
+    reservedCacheNodesOffering_offeringType,
     reservedCacheNodesOffering_productDescription,
     reservedCacheNodesOffering_recurringCharges,
-    reservedCacheNodesOffering_offeringType,
-    reservedCacheNodesOffering_usagePrice,
-    reservedCacheNodesOffering_fixedPrice,
-    reservedCacheNodesOffering_duration,
     reservedCacheNodesOffering_reservedCacheNodesOfferingId,
+    reservedCacheNodesOffering_usagePrice,
 
     -- ** ReshardingConfiguration
-    reshardingConfiguration_preferredAvailabilityZones,
     reshardingConfiguration_nodeGroupId,
+    reshardingConfiguration_preferredAvailabilityZones,
 
     -- ** ReshardingStatus
     reshardingStatus_slotMigration,
 
     -- ** SecurityGroupMembership
-    securityGroupMembership_status,
     securityGroupMembership_securityGroupId,
+    securityGroupMembership_status,
 
     -- ** ServiceUpdate
-    serviceUpdate_engineVersion,
-    serviceUpdate_serviceUpdateType,
-    serviceUpdate_serviceUpdateName,
-    serviceUpdate_engine,
-    serviceUpdate_serviceUpdateReleaseDate,
     serviceUpdate_autoUpdateAfterRecommendedApplyByDate,
-    serviceUpdate_serviceUpdateSeverity,
-    serviceUpdate_serviceUpdateEndDate,
-    serviceUpdate_serviceUpdateDescription,
-    serviceUpdate_serviceUpdateRecommendedApplyByDate,
-    serviceUpdate_serviceUpdateStatus,
+    serviceUpdate_engine,
+    serviceUpdate_engineVersion,
     serviceUpdate_estimatedUpdateTime,
+    serviceUpdate_serviceUpdateDescription,
+    serviceUpdate_serviceUpdateEndDate,
+    serviceUpdate_serviceUpdateName,
+    serviceUpdate_serviceUpdateRecommendedApplyByDate,
+    serviceUpdate_serviceUpdateReleaseDate,
+    serviceUpdate_serviceUpdateSeverity,
+    serviceUpdate_serviceUpdateStatus,
+    serviceUpdate_serviceUpdateType,
 
     -- ** SlotMigration
     slotMigration_progressPercentage,
 
     -- ** Snapshot
-    snapshot_engineVersion,
-    snapshot_cacheNodeType,
-    snapshot_cacheClusterCreateTime,
-    snapshot_autoMinorVersionUpgrade,
     snapshot_arn,
-    snapshot_cacheParameterGroupName,
-    snapshot_replicationGroupDescription,
-    snapshot_vpcId,
-    snapshot_snapshotStatus,
-    snapshot_snapshotWindow,
+    snapshot_autoMinorVersionUpgrade,
+    snapshot_automaticFailover,
+    snapshot_cacheClusterCreateTime,
     snapshot_cacheClusterId,
+    snapshot_cacheNodeType,
+    snapshot_cacheParameterGroupName,
+    snapshot_cacheSubnetGroupName,
+    snapshot_dataTiering,
     snapshot_engine,
-    snapshot_preferredMaintenanceWindow,
-    snapshot_topicArn,
+    snapshot_engineVersion,
     snapshot_kmsKeyId,
     snapshot_nodeSnapshots,
-    snapshot_cacheSubnetGroupName,
-    snapshot_preferredAvailabilityZone,
-    snapshot_numNodeGroups,
-    snapshot_snapshotRetentionLimit,
-    snapshot_snapshotName,
-    snapshot_preferredOutpostArn,
-    snapshot_replicationGroupId,
     snapshot_numCacheNodes,
+    snapshot_numNodeGroups,
     snapshot_port,
-    snapshot_automaticFailover,
+    snapshot_preferredAvailabilityZone,
+    snapshot_preferredMaintenanceWindow,
+    snapshot_preferredOutpostArn,
+    snapshot_replicationGroupDescription,
+    snapshot_replicationGroupId,
+    snapshot_snapshotName,
+    snapshot_snapshotRetentionLimit,
     snapshot_snapshotSource,
+    snapshot_snapshotStatus,
+    snapshot_snapshotWindow,
+    snapshot_topicArn,
+    snapshot_vpcId,
 
     -- ** Subnet
-    subnet_subnetIdentifier,
     subnet_subnetAvailabilityZone,
+    subnet_subnetIdentifier,
     subnet_subnetOutpost,
+    subnet_supportedNetworkTypes,
 
     -- ** SubnetOutpost
     subnetOutpost_subnetOutpostArn,
 
     -- ** Tag
-    tag_value,
     tag_key,
+    tag_value,
 
     -- ** TagListMessage
     tagListMessage_tagList,
 
     -- ** TimeRangeFilter
-    timeRangeFilter_startTime,
     timeRangeFilter_endTime,
+    timeRangeFilter_startTime,
 
     -- ** UnprocessedUpdateAction
     unprocessedUpdateAction_cacheClusterId,
-    unprocessedUpdateAction_serviceUpdateName,
-    unprocessedUpdateAction_errorType,
     unprocessedUpdateAction_errorMessage,
+    unprocessedUpdateAction_errorType,
     unprocessedUpdateAction_replicationGroupId,
+    unprocessedUpdateAction_serviceUpdateName,
 
     -- ** UpdateAction
+    updateAction_cacheClusterId,
+    updateAction_cacheNodeUpdateStatus,
+    updateAction_engine,
+    updateAction_estimatedUpdateTime,
+    updateAction_nodeGroupUpdateStatus,
+    updateAction_nodesUpdated,
+    updateAction_replicationGroupId,
+    updateAction_serviceUpdateName,
+    updateAction_serviceUpdateRecommendedApplyByDate,
+    updateAction_serviceUpdateReleaseDate,
+    updateAction_serviceUpdateSeverity,
+    updateAction_serviceUpdateStatus,
     updateAction_serviceUpdateType,
     updateAction_slaMet,
-    updateAction_cacheClusterId,
-    updateAction_serviceUpdateName,
-    updateAction_updateActionStatus,
-    updateAction_engine,
-    updateAction_nodesUpdated,
-    updateAction_updateActionStatusModifiedDate,
-    updateAction_serviceUpdateReleaseDate,
-    updateAction_cacheNodeUpdateStatus,
-    updateAction_serviceUpdateSeverity,
-    updateAction_nodeGroupUpdateStatus,
-    updateAction_serviceUpdateRecommendedApplyByDate,
     updateAction_updateActionAvailableDate,
-    updateAction_serviceUpdateStatus,
-    updateAction_estimatedUpdateTime,
-    updateAction_replicationGroupId,
+    updateAction_updateActionStatus,
+    updateAction_updateActionStatusModifiedDate,
 
     -- ** UpdateActionResultsMessage
-    updateActionResultsMessage_unprocessedUpdateActions,
     updateActionResultsMessage_processedUpdateActions,
+    updateActionResultsMessage_unprocessedUpdateActions,
 
     -- ** User
-    user_status,
     user_arn,
-    user_userGroupIds,
+    user_accessString,
     user_authentication,
     user_engine,
-    user_userName,
-    user_accessString,
+    user_minimumEngineVersion,
+    user_status,
+    user_userGroupIds,
     user_userId,
+    user_userName,
 
     -- ** UserGroup
-    userGroup_status,
-    userGroup_userIds,
     userGroup_arn,
-    userGroup_userGroupId,
     userGroup_engine,
+    userGroup_minimumEngineVersion,
     userGroup_pendingChanges,
     userGroup_replicationGroups,
+    userGroup_status,
+    userGroup_userGroupId,
+    userGroup_userIds,
 
     -- ** UserGroupPendingChanges
     userGroupPendingChanges_userIdsToAdd,
@@ -1202,6 +1233,7 @@ import Amazonka.ElastiCache.RevokeCacheSecurityGroupIngress
 import Amazonka.ElastiCache.StartMigration
 import Amazonka.ElastiCache.TestFailover
 import Amazonka.ElastiCache.Types.Authentication
+import Amazonka.ElastiCache.Types.AuthenticationMode
 import Amazonka.ElastiCache.Types.AvailabilityZone
 import Amazonka.ElastiCache.Types.CacheCluster
 import Amazonka.ElastiCache.Types.CacheEngineVersion

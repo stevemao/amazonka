@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConnect.Types.MediaStreamAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConnect.Types.MediaStreamAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConnect.Types.Fmtp
 import qualified Amazonka.Prelude as Prelude
 
@@ -64,13 +65,13 @@ mediaStreamAttributes_lang = Lens.lens (\MediaStreamAttributes' {lang} -> lang) 
 mediaStreamAttributes_fmtp :: Lens.Lens' MediaStreamAttributes Fmtp
 mediaStreamAttributes_fmtp = Lens.lens (\MediaStreamAttributes' {fmtp} -> fmtp) (\s@MediaStreamAttributes' {} a -> s {fmtp = a} :: MediaStreamAttributes)
 
-instance Core.FromJSON MediaStreamAttributes where
+instance Data.FromJSON MediaStreamAttributes where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MediaStreamAttributes"
       ( \x ->
           MediaStreamAttributes'
-            Prelude.<$> (x Core..:? "lang") Prelude.<*> (x Core..: "fmtp")
+            Prelude.<$> (x Data..:? "lang") Prelude.<*> (x Data..: "fmtp")
       )
 
 instance Prelude.Hashable MediaStreamAttributes where

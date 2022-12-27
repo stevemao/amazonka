@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DLM.Types.DeprecateRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,16 @@
 module Amazonka.DLM.Types.DeprecateRule where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DLM.Types.RetentionIntervalUnitValues
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Specifies an AMI deprecation rule for a schedule.
+-- | __[AMI policies only]__ Specifies an AMI deprecation rule for AMIs
+-- created by an AMI lifecycle policy.
+--
+-- For age-based schedules, you must specify __Interval__ and
+-- __IntervalUnit__. For count-based schedules, you must specify __Count__.
 --
 -- /See:/ 'newDeprecateRule' smart constructor.
 data DeprecateRule = DeprecateRule'
@@ -92,15 +97,15 @@ deprecateRule_interval = Lens.lens (\DeprecateRule' {interval} -> interval) (\s@
 deprecateRule_intervalUnit :: Lens.Lens' DeprecateRule (Prelude.Maybe RetentionIntervalUnitValues)
 deprecateRule_intervalUnit = Lens.lens (\DeprecateRule' {intervalUnit} -> intervalUnit) (\s@DeprecateRule' {} a -> s {intervalUnit = a} :: DeprecateRule)
 
-instance Core.FromJSON DeprecateRule where
+instance Data.FromJSON DeprecateRule where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DeprecateRule"
       ( \x ->
           DeprecateRule'
-            Prelude.<$> (x Core..:? "Count")
-            Prelude.<*> (x Core..:? "Interval")
-            Prelude.<*> (x Core..:? "IntervalUnit")
+            Prelude.<$> (x Data..:? "Count")
+            Prelude.<*> (x Data..:? "Interval")
+            Prelude.<*> (x Data..:? "IntervalUnit")
       )
 
 instance Prelude.Hashable DeprecateRule where
@@ -115,12 +120,12 @@ instance Prelude.NFData DeprecateRule where
       `Prelude.seq` Prelude.rnf interval
       `Prelude.seq` Prelude.rnf intervalUnit
 
-instance Core.ToJSON DeprecateRule where
+instance Data.ToJSON DeprecateRule where
   toJSON DeprecateRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Count" Core..=) Prelude.<$> count,
-            ("Interval" Core..=) Prelude.<$> interval,
-            ("IntervalUnit" Core..=) Prelude.<$> intervalUnit
+          [ ("Count" Data..=) Prelude.<$> count,
+            ("Interval" Data..=) Prelude.<$> interval,
+            ("IntervalUnit" Data..=) Prelude.<$> intervalUnit
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeReservedInstancesOfferings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,21 +41,21 @@ module Amazonka.EC2.DescribeReservedInstancesOfferings
     newDescribeReservedInstancesOfferings,
 
     -- * Request Lenses
-    describeReservedInstancesOfferings_maxDuration,
-    describeReservedInstancesOfferings_productDescription,
+    describeReservedInstancesOfferings_availabilityZone,
+    describeReservedInstancesOfferings_dryRun,
     describeReservedInstancesOfferings_filters,
     describeReservedInstancesOfferings_includeMarketplace,
-    describeReservedInstancesOfferings_instanceType,
-    describeReservedInstancesOfferings_nextToken,
-    describeReservedInstancesOfferings_minDuration,
-    describeReservedInstancesOfferings_availabilityZone,
-    describeReservedInstancesOfferings_offeringType,
-    describeReservedInstancesOfferings_reservedInstancesOfferingIds,
     describeReservedInstancesOfferings_instanceTenancy,
-    describeReservedInstancesOfferings_offeringClass,
+    describeReservedInstancesOfferings_instanceType,
+    describeReservedInstancesOfferings_maxDuration,
     describeReservedInstancesOfferings_maxInstanceCount,
-    describeReservedInstancesOfferings_dryRun,
     describeReservedInstancesOfferings_maxResults,
+    describeReservedInstancesOfferings_minDuration,
+    describeReservedInstancesOfferings_nextToken,
+    describeReservedInstancesOfferings_offeringClass,
+    describeReservedInstancesOfferings_offeringType,
+    describeReservedInstancesOfferings_productDescription,
+    describeReservedInstancesOfferings_reservedInstancesOfferingIds,
 
     -- * Destructuring the Response
     DescribeReservedInstancesOfferingsResponse (..),
@@ -69,8 +69,9 @@ module Amazonka.EC2.DescribeReservedInstancesOfferings
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,14 +80,13 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeReservedInstancesOfferings' smart constructor.
 data DescribeReservedInstancesOfferings = DescribeReservedInstancesOfferings'
-  { -- | The maximum duration (in seconds) to filter when searching for
-    -- offerings.
-    --
-    -- Default: 94608000 (3 years)
-    maxDuration :: Prelude.Maybe Prelude.Integer,
-    -- | The Reserved Instance product platform description. Instances that
-    -- include @(Amazon VPC)@ in the description are for use with Amazon VPC.
-    productDescription :: Prelude.Maybe RIProductDescription,
+  { -- | The Availability Zone in which the Reserved Instance can be used.
+    availabilityZone :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | One or more filters.
     --
     -- -   @availability-zone@ - The Availability Zone where the Reserved
@@ -132,26 +132,6 @@ data DescribeReservedInstancesOfferings = DescribeReservedInstancesOfferings'
     filters :: Prelude.Maybe [Filter],
     -- | Include Reserved Instance Marketplace offerings in the response.
     includeMarketplace :: Prelude.Maybe Prelude.Bool,
-    -- | The instance type that the reservation will cover (for example,
-    -- @m1.small@). For more information, see
-    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html Instance types>
-    -- in the /Amazon EC2 User Guide/.
-    instanceType :: Prelude.Maybe InstanceType,
-    -- | The token to retrieve the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The minimum duration (in seconds) to filter when searching for
-    -- offerings.
-    --
-    -- Default: 2592000 (1 month)
-    minDuration :: Prelude.Maybe Prelude.Integer,
-    -- | The Availability Zone in which the Reserved Instance can be used.
-    availabilityZone :: Prelude.Maybe Prelude.Text,
-    -- | The Reserved Instance offering type. If you are using tools that predate
-    -- the 2011-11-01 API version, you only have access to the
-    -- @Medium Utilization@ Reserved Instance offering type.
-    offeringType :: Prelude.Maybe OfferingTypeValues,
-    -- | One or more Reserved Instances offering IDs.
-    reservedInstancesOfferingIds :: Prelude.Maybe [Prelude.Text],
     -- | The tenancy of the instances covered by the reservation. A Reserved
     -- Instance with a tenancy of @dedicated@ is applied to instances that run
     -- in a VPC on single-tenant hardware (i.e., Dedicated Instances).
@@ -161,25 +141,46 @@ data DescribeReservedInstancesOfferings = DescribeReservedInstancesOfferings'
     --
     -- Default: @default@
     instanceTenancy :: Prelude.Maybe Tenancy,
-    -- | The offering class of the Reserved Instance. Can be @standard@ or
-    -- @convertible@.
-    offeringClass :: Prelude.Maybe OfferingClassType,
+    -- | The instance type that the reservation will cover (for example,
+    -- @m1.small@). For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html Instance types>
+    -- in the /Amazon EC2 User Guide/.
+    instanceType :: Prelude.Maybe InstanceType,
+    -- | The maximum duration (in seconds) to filter when searching for
+    -- offerings.
+    --
+    -- Default: 94608000 (3 years)
+    maxDuration :: Prelude.Maybe Prelude.Integer,
     -- | The maximum number of instances to filter when searching for offerings.
     --
     -- Default: 20
     maxInstanceCount :: Prelude.Maybe Prelude.Int,
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | The maximum number of results to return for the request in a single
     -- page. The remaining results of the initial request can be seen by
     -- sending another request with the returned @NextToken@ value. The maximum
     -- is 100.
     --
     -- Default: 100
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The minimum duration (in seconds) to filter when searching for
+    -- offerings.
+    --
+    -- Default: 2592000 (1 month)
+    minDuration :: Prelude.Maybe Prelude.Integer,
+    -- | The token to retrieve the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The offering class of the Reserved Instance. Can be @standard@ or
+    -- @convertible@.
+    offeringClass :: Prelude.Maybe OfferingClassType,
+    -- | The Reserved Instance offering type. If you are using tools that predate
+    -- the 2011-11-01 API version, you only have access to the
+    -- @Medium Utilization@ Reserved Instance offering type.
+    offeringType :: Prelude.Maybe OfferingTypeValues,
+    -- | The Reserved Instance product platform description. Instances that
+    -- include @(Amazon VPC)@ in the description are for use with Amazon VPC.
+    productDescription :: Prelude.Maybe RIProductDescription,
+    -- | One or more Reserved Instances offering IDs.
+    reservedInstancesOfferingIds :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -191,13 +192,12 @@ data DescribeReservedInstancesOfferings = DescribeReservedInstancesOfferings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'maxDuration', 'describeReservedInstancesOfferings_maxDuration' - The maximum duration (in seconds) to filter when searching for
--- offerings.
+-- 'availabilityZone', 'describeReservedInstancesOfferings_availabilityZone' - The Availability Zone in which the Reserved Instance can be used.
 --
--- Default: 94608000 (3 years)
---
--- 'productDescription', 'describeReservedInstancesOfferings_productDescription' - The Reserved Instance product platform description. Instances that
--- include @(Amazon VPC)@ in the description are for use with Amazon VPC.
+-- 'dryRun', 'describeReservedInstancesOfferings_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'filters', 'describeReservedInstancesOfferings_filters' - One or more filters.
 --
@@ -244,26 +244,6 @@ data DescribeReservedInstancesOfferings = DescribeReservedInstancesOfferings'
 --
 -- 'includeMarketplace', 'describeReservedInstancesOfferings_includeMarketplace' - Include Reserved Instance Marketplace offerings in the response.
 --
--- 'instanceType', 'describeReservedInstancesOfferings_instanceType' - The instance type that the reservation will cover (for example,
--- @m1.small@). For more information, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html Instance types>
--- in the /Amazon EC2 User Guide/.
---
--- 'nextToken', 'describeReservedInstancesOfferings_nextToken' - The token to retrieve the next page of results.
---
--- 'minDuration', 'describeReservedInstancesOfferings_minDuration' - The minimum duration (in seconds) to filter when searching for
--- offerings.
---
--- Default: 2592000 (1 month)
---
--- 'availabilityZone', 'describeReservedInstancesOfferings_availabilityZone' - The Availability Zone in which the Reserved Instance can be used.
---
--- 'offeringType', 'describeReservedInstancesOfferings_offeringType' - The Reserved Instance offering type. If you are using tools that predate
--- the 2011-11-01 API version, you only have access to the
--- @Medium Utilization@ Reserved Instance offering type.
---
--- 'reservedInstancesOfferingIds', 'describeReservedInstancesOfferings_reservedInstancesOfferingIds' - One or more Reserved Instances offering IDs.
---
 -- 'instanceTenancy', 'describeReservedInstancesOfferings_instanceTenancy' - The tenancy of the instances covered by the reservation. A Reserved
 -- Instance with a tenancy of @dedicated@ is applied to instances that run
 -- in a VPC on single-tenant hardware (i.e., Dedicated Instances).
@@ -273,17 +253,19 @@ data DescribeReservedInstancesOfferings = DescribeReservedInstancesOfferings'
 --
 -- Default: @default@
 --
--- 'offeringClass', 'describeReservedInstancesOfferings_offeringClass' - The offering class of the Reserved Instance. Can be @standard@ or
--- @convertible@.
+-- 'instanceType', 'describeReservedInstancesOfferings_instanceType' - The instance type that the reservation will cover (for example,
+-- @m1.small@). For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html Instance types>
+-- in the /Amazon EC2 User Guide/.
+--
+-- 'maxDuration', 'describeReservedInstancesOfferings_maxDuration' - The maximum duration (in seconds) to filter when searching for
+-- offerings.
+--
+-- Default: 94608000 (3 years)
 --
 -- 'maxInstanceCount', 'describeReservedInstancesOfferings_maxInstanceCount' - The maximum number of instances to filter when searching for offerings.
 --
 -- Default: 20
---
--- 'dryRun', 'describeReservedInstancesOfferings_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'maxResults', 'describeReservedInstancesOfferings_maxResults' - The maximum number of results to return for the request in a single
 -- page. The remaining results of the initial request can be seen by
@@ -291,40 +273,58 @@ data DescribeReservedInstancesOfferings = DescribeReservedInstancesOfferings'
 -- is 100.
 --
 -- Default: 100
+--
+-- 'minDuration', 'describeReservedInstancesOfferings_minDuration' - The minimum duration (in seconds) to filter when searching for
+-- offerings.
+--
+-- Default: 2592000 (1 month)
+--
+-- 'nextToken', 'describeReservedInstancesOfferings_nextToken' - The token to retrieve the next page of results.
+--
+-- 'offeringClass', 'describeReservedInstancesOfferings_offeringClass' - The offering class of the Reserved Instance. Can be @standard@ or
+-- @convertible@.
+--
+-- 'offeringType', 'describeReservedInstancesOfferings_offeringType' - The Reserved Instance offering type. If you are using tools that predate
+-- the 2011-11-01 API version, you only have access to the
+-- @Medium Utilization@ Reserved Instance offering type.
+--
+-- 'productDescription', 'describeReservedInstancesOfferings_productDescription' - The Reserved Instance product platform description. Instances that
+-- include @(Amazon VPC)@ in the description are for use with Amazon VPC.
+--
+-- 'reservedInstancesOfferingIds', 'describeReservedInstancesOfferings_reservedInstancesOfferingIds' - One or more Reserved Instances offering IDs.
 newDescribeReservedInstancesOfferings ::
   DescribeReservedInstancesOfferings
 newDescribeReservedInstancesOfferings =
   DescribeReservedInstancesOfferings'
-    { maxDuration =
+    { availabilityZone =
         Prelude.Nothing,
-      productDescription = Prelude.Nothing,
+      dryRun = Prelude.Nothing,
       filters = Prelude.Nothing,
       includeMarketplace = Prelude.Nothing,
-      instanceType = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      minDuration = Prelude.Nothing,
-      availabilityZone = Prelude.Nothing,
-      offeringType = Prelude.Nothing,
-      reservedInstancesOfferingIds =
-        Prelude.Nothing,
       instanceTenancy = Prelude.Nothing,
-      offeringClass = Prelude.Nothing,
+      instanceType = Prelude.Nothing,
+      maxDuration = Prelude.Nothing,
       maxInstanceCount = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      minDuration = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      offeringClass = Prelude.Nothing,
+      offeringType = Prelude.Nothing,
+      productDescription = Prelude.Nothing,
+      reservedInstancesOfferingIds =
+        Prelude.Nothing
     }
 
--- | The maximum duration (in seconds) to filter when searching for
--- offerings.
---
--- Default: 94608000 (3 years)
-describeReservedInstancesOfferings_maxDuration :: Lens.Lens' DescribeReservedInstancesOfferings (Prelude.Maybe Prelude.Integer)
-describeReservedInstancesOfferings_maxDuration = Lens.lens (\DescribeReservedInstancesOfferings' {maxDuration} -> maxDuration) (\s@DescribeReservedInstancesOfferings' {} a -> s {maxDuration = a} :: DescribeReservedInstancesOfferings)
+-- | The Availability Zone in which the Reserved Instance can be used.
+describeReservedInstancesOfferings_availabilityZone :: Lens.Lens' DescribeReservedInstancesOfferings (Prelude.Maybe Prelude.Text)
+describeReservedInstancesOfferings_availabilityZone = Lens.lens (\DescribeReservedInstancesOfferings' {availabilityZone} -> availabilityZone) (\s@DescribeReservedInstancesOfferings' {} a -> s {availabilityZone = a} :: DescribeReservedInstancesOfferings)
 
--- | The Reserved Instance product platform description. Instances that
--- include @(Amazon VPC)@ in the description are for use with Amazon VPC.
-describeReservedInstancesOfferings_productDescription :: Lens.Lens' DescribeReservedInstancesOfferings (Prelude.Maybe RIProductDescription)
-describeReservedInstancesOfferings_productDescription = Lens.lens (\DescribeReservedInstancesOfferings' {productDescription} -> productDescription) (\s@DescribeReservedInstancesOfferings' {} a -> s {productDescription = a} :: DescribeReservedInstancesOfferings)
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeReservedInstancesOfferings_dryRun :: Lens.Lens' DescribeReservedInstancesOfferings (Prelude.Maybe Prelude.Bool)
+describeReservedInstancesOfferings_dryRun = Lens.lens (\DescribeReservedInstancesOfferings' {dryRun} -> dryRun) (\s@DescribeReservedInstancesOfferings' {} a -> s {dryRun = a} :: DescribeReservedInstancesOfferings)
 
 -- | One or more filters.
 --
@@ -375,38 +375,6 @@ describeReservedInstancesOfferings_filters = Lens.lens (\DescribeReservedInstanc
 describeReservedInstancesOfferings_includeMarketplace :: Lens.Lens' DescribeReservedInstancesOfferings (Prelude.Maybe Prelude.Bool)
 describeReservedInstancesOfferings_includeMarketplace = Lens.lens (\DescribeReservedInstancesOfferings' {includeMarketplace} -> includeMarketplace) (\s@DescribeReservedInstancesOfferings' {} a -> s {includeMarketplace = a} :: DescribeReservedInstancesOfferings)
 
--- | The instance type that the reservation will cover (for example,
--- @m1.small@). For more information, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html Instance types>
--- in the /Amazon EC2 User Guide/.
-describeReservedInstancesOfferings_instanceType :: Lens.Lens' DescribeReservedInstancesOfferings (Prelude.Maybe InstanceType)
-describeReservedInstancesOfferings_instanceType = Lens.lens (\DescribeReservedInstancesOfferings' {instanceType} -> instanceType) (\s@DescribeReservedInstancesOfferings' {} a -> s {instanceType = a} :: DescribeReservedInstancesOfferings)
-
--- | The token to retrieve the next page of results.
-describeReservedInstancesOfferings_nextToken :: Lens.Lens' DescribeReservedInstancesOfferings (Prelude.Maybe Prelude.Text)
-describeReservedInstancesOfferings_nextToken = Lens.lens (\DescribeReservedInstancesOfferings' {nextToken} -> nextToken) (\s@DescribeReservedInstancesOfferings' {} a -> s {nextToken = a} :: DescribeReservedInstancesOfferings)
-
--- | The minimum duration (in seconds) to filter when searching for
--- offerings.
---
--- Default: 2592000 (1 month)
-describeReservedInstancesOfferings_minDuration :: Lens.Lens' DescribeReservedInstancesOfferings (Prelude.Maybe Prelude.Integer)
-describeReservedInstancesOfferings_minDuration = Lens.lens (\DescribeReservedInstancesOfferings' {minDuration} -> minDuration) (\s@DescribeReservedInstancesOfferings' {} a -> s {minDuration = a} :: DescribeReservedInstancesOfferings)
-
--- | The Availability Zone in which the Reserved Instance can be used.
-describeReservedInstancesOfferings_availabilityZone :: Lens.Lens' DescribeReservedInstancesOfferings (Prelude.Maybe Prelude.Text)
-describeReservedInstancesOfferings_availabilityZone = Lens.lens (\DescribeReservedInstancesOfferings' {availabilityZone} -> availabilityZone) (\s@DescribeReservedInstancesOfferings' {} a -> s {availabilityZone = a} :: DescribeReservedInstancesOfferings)
-
--- | The Reserved Instance offering type. If you are using tools that predate
--- the 2011-11-01 API version, you only have access to the
--- @Medium Utilization@ Reserved Instance offering type.
-describeReservedInstancesOfferings_offeringType :: Lens.Lens' DescribeReservedInstancesOfferings (Prelude.Maybe OfferingTypeValues)
-describeReservedInstancesOfferings_offeringType = Lens.lens (\DescribeReservedInstancesOfferings' {offeringType} -> offeringType) (\s@DescribeReservedInstancesOfferings' {} a -> s {offeringType = a} :: DescribeReservedInstancesOfferings)
-
--- | One or more Reserved Instances offering IDs.
-describeReservedInstancesOfferings_reservedInstancesOfferingIds :: Lens.Lens' DescribeReservedInstancesOfferings (Prelude.Maybe [Prelude.Text])
-describeReservedInstancesOfferings_reservedInstancesOfferingIds = Lens.lens (\DescribeReservedInstancesOfferings' {reservedInstancesOfferingIds} -> reservedInstancesOfferingIds) (\s@DescribeReservedInstancesOfferings' {} a -> s {reservedInstancesOfferingIds = a} :: DescribeReservedInstancesOfferings) Prelude.. Lens.mapping Lens.coerced
-
 -- | The tenancy of the instances covered by the reservation. A Reserved
 -- Instance with a tenancy of @dedicated@ is applied to instances that run
 -- in a VPC on single-tenant hardware (i.e., Dedicated Instances).
@@ -418,23 +386,25 @@ describeReservedInstancesOfferings_reservedInstancesOfferingIds = Lens.lens (\De
 describeReservedInstancesOfferings_instanceTenancy :: Lens.Lens' DescribeReservedInstancesOfferings (Prelude.Maybe Tenancy)
 describeReservedInstancesOfferings_instanceTenancy = Lens.lens (\DescribeReservedInstancesOfferings' {instanceTenancy} -> instanceTenancy) (\s@DescribeReservedInstancesOfferings' {} a -> s {instanceTenancy = a} :: DescribeReservedInstancesOfferings)
 
--- | The offering class of the Reserved Instance. Can be @standard@ or
--- @convertible@.
-describeReservedInstancesOfferings_offeringClass :: Lens.Lens' DescribeReservedInstancesOfferings (Prelude.Maybe OfferingClassType)
-describeReservedInstancesOfferings_offeringClass = Lens.lens (\DescribeReservedInstancesOfferings' {offeringClass} -> offeringClass) (\s@DescribeReservedInstancesOfferings' {} a -> s {offeringClass = a} :: DescribeReservedInstancesOfferings)
+-- | The instance type that the reservation will cover (for example,
+-- @m1.small@). For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html Instance types>
+-- in the /Amazon EC2 User Guide/.
+describeReservedInstancesOfferings_instanceType :: Lens.Lens' DescribeReservedInstancesOfferings (Prelude.Maybe InstanceType)
+describeReservedInstancesOfferings_instanceType = Lens.lens (\DescribeReservedInstancesOfferings' {instanceType} -> instanceType) (\s@DescribeReservedInstancesOfferings' {} a -> s {instanceType = a} :: DescribeReservedInstancesOfferings)
+
+-- | The maximum duration (in seconds) to filter when searching for
+-- offerings.
+--
+-- Default: 94608000 (3 years)
+describeReservedInstancesOfferings_maxDuration :: Lens.Lens' DescribeReservedInstancesOfferings (Prelude.Maybe Prelude.Integer)
+describeReservedInstancesOfferings_maxDuration = Lens.lens (\DescribeReservedInstancesOfferings' {maxDuration} -> maxDuration) (\s@DescribeReservedInstancesOfferings' {} a -> s {maxDuration = a} :: DescribeReservedInstancesOfferings)
 
 -- | The maximum number of instances to filter when searching for offerings.
 --
 -- Default: 20
 describeReservedInstancesOfferings_maxInstanceCount :: Lens.Lens' DescribeReservedInstancesOfferings (Prelude.Maybe Prelude.Int)
 describeReservedInstancesOfferings_maxInstanceCount = Lens.lens (\DescribeReservedInstancesOfferings' {maxInstanceCount} -> maxInstanceCount) (\s@DescribeReservedInstancesOfferings' {} a -> s {maxInstanceCount = a} :: DescribeReservedInstancesOfferings)
-
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describeReservedInstancesOfferings_dryRun :: Lens.Lens' DescribeReservedInstancesOfferings (Prelude.Maybe Prelude.Bool)
-describeReservedInstancesOfferings_dryRun = Lens.lens (\DescribeReservedInstancesOfferings' {dryRun} -> dryRun) (\s@DescribeReservedInstancesOfferings' {} a -> s {dryRun = a} :: DescribeReservedInstancesOfferings)
 
 -- | The maximum number of results to return for the request in a single
 -- page. The remaining results of the initial request can be seen by
@@ -444,6 +414,37 @@ describeReservedInstancesOfferings_dryRun = Lens.lens (\DescribeReservedInstance
 -- Default: 100
 describeReservedInstancesOfferings_maxResults :: Lens.Lens' DescribeReservedInstancesOfferings (Prelude.Maybe Prelude.Int)
 describeReservedInstancesOfferings_maxResults = Lens.lens (\DescribeReservedInstancesOfferings' {maxResults} -> maxResults) (\s@DescribeReservedInstancesOfferings' {} a -> s {maxResults = a} :: DescribeReservedInstancesOfferings)
+
+-- | The minimum duration (in seconds) to filter when searching for
+-- offerings.
+--
+-- Default: 2592000 (1 month)
+describeReservedInstancesOfferings_minDuration :: Lens.Lens' DescribeReservedInstancesOfferings (Prelude.Maybe Prelude.Integer)
+describeReservedInstancesOfferings_minDuration = Lens.lens (\DescribeReservedInstancesOfferings' {minDuration} -> minDuration) (\s@DescribeReservedInstancesOfferings' {} a -> s {minDuration = a} :: DescribeReservedInstancesOfferings)
+
+-- | The token to retrieve the next page of results.
+describeReservedInstancesOfferings_nextToken :: Lens.Lens' DescribeReservedInstancesOfferings (Prelude.Maybe Prelude.Text)
+describeReservedInstancesOfferings_nextToken = Lens.lens (\DescribeReservedInstancesOfferings' {nextToken} -> nextToken) (\s@DescribeReservedInstancesOfferings' {} a -> s {nextToken = a} :: DescribeReservedInstancesOfferings)
+
+-- | The offering class of the Reserved Instance. Can be @standard@ or
+-- @convertible@.
+describeReservedInstancesOfferings_offeringClass :: Lens.Lens' DescribeReservedInstancesOfferings (Prelude.Maybe OfferingClassType)
+describeReservedInstancesOfferings_offeringClass = Lens.lens (\DescribeReservedInstancesOfferings' {offeringClass} -> offeringClass) (\s@DescribeReservedInstancesOfferings' {} a -> s {offeringClass = a} :: DescribeReservedInstancesOfferings)
+
+-- | The Reserved Instance offering type. If you are using tools that predate
+-- the 2011-11-01 API version, you only have access to the
+-- @Medium Utilization@ Reserved Instance offering type.
+describeReservedInstancesOfferings_offeringType :: Lens.Lens' DescribeReservedInstancesOfferings (Prelude.Maybe OfferingTypeValues)
+describeReservedInstancesOfferings_offeringType = Lens.lens (\DescribeReservedInstancesOfferings' {offeringType} -> offeringType) (\s@DescribeReservedInstancesOfferings' {} a -> s {offeringType = a} :: DescribeReservedInstancesOfferings)
+
+-- | The Reserved Instance product platform description. Instances that
+-- include @(Amazon VPC)@ in the description are for use with Amazon VPC.
+describeReservedInstancesOfferings_productDescription :: Lens.Lens' DescribeReservedInstancesOfferings (Prelude.Maybe RIProductDescription)
+describeReservedInstancesOfferings_productDescription = Lens.lens (\DescribeReservedInstancesOfferings' {productDescription} -> productDescription) (\s@DescribeReservedInstancesOfferings' {} a -> s {productDescription = a} :: DescribeReservedInstancesOfferings)
+
+-- | One or more Reserved Instances offering IDs.
+describeReservedInstancesOfferings_reservedInstancesOfferingIds :: Lens.Lens' DescribeReservedInstancesOfferings (Prelude.Maybe [Prelude.Text])
+describeReservedInstancesOfferings_reservedInstancesOfferingIds = Lens.lens (\DescribeReservedInstancesOfferings' {reservedInstancesOfferingIds} -> reservedInstancesOfferingIds) (\s@DescribeReservedInstancesOfferings' {} a -> s {reservedInstancesOfferingIds = a} :: DescribeReservedInstancesOfferings) Prelude.. Lens.mapping Lens.coerced
 
 instance
   Core.AWSPager
@@ -477,15 +478,16 @@ instance
   type
     AWSResponse DescribeReservedInstancesOfferings =
       DescribeReservedInstancesOfferingsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeReservedInstancesOfferingsResponse'
-            Prelude.<$> (x Core..@? "nextToken")
-              Prelude.<*> ( x Core..@? "reservedInstancesOfferingsSet"
+            Prelude.<$> (x Data..@? "nextToken")
+              Prelude.<*> ( x Data..@? "reservedInstancesOfferingsSet"
                               Core..!@ Prelude.mempty
-                              Prelude.>>= Core.may (Core.parseXMLList "item")
+                              Prelude.>>= Core.may (Data.parseXMLList "item")
                           )
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -497,86 +499,86 @@ instance
   hashWithSalt
     _salt
     DescribeReservedInstancesOfferings' {..} =
-      _salt `Prelude.hashWithSalt` maxDuration
-        `Prelude.hashWithSalt` productDescription
+      _salt `Prelude.hashWithSalt` availabilityZone
+        `Prelude.hashWithSalt` dryRun
         `Prelude.hashWithSalt` filters
         `Prelude.hashWithSalt` includeMarketplace
-        `Prelude.hashWithSalt` instanceType
-        `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` minDuration
-        `Prelude.hashWithSalt` availabilityZone
-        `Prelude.hashWithSalt` offeringType
-        `Prelude.hashWithSalt` reservedInstancesOfferingIds
         `Prelude.hashWithSalt` instanceTenancy
-        `Prelude.hashWithSalt` offeringClass
+        `Prelude.hashWithSalt` instanceType
+        `Prelude.hashWithSalt` maxDuration
         `Prelude.hashWithSalt` maxInstanceCount
-        `Prelude.hashWithSalt` dryRun
         `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` minDuration
+        `Prelude.hashWithSalt` nextToken
+        `Prelude.hashWithSalt` offeringClass
+        `Prelude.hashWithSalt` offeringType
+        `Prelude.hashWithSalt` productDescription
+        `Prelude.hashWithSalt` reservedInstancesOfferingIds
 
 instance
   Prelude.NFData
     DescribeReservedInstancesOfferings
   where
   rnf DescribeReservedInstancesOfferings' {..} =
-    Prelude.rnf maxDuration
-      `Prelude.seq` Prelude.rnf productDescription
+    Prelude.rnf availabilityZone
+      `Prelude.seq` Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf includeMarketplace
-      `Prelude.seq` Prelude.rnf instanceType
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf minDuration
-      `Prelude.seq` Prelude.rnf availabilityZone
-      `Prelude.seq` Prelude.rnf offeringType
-      `Prelude.seq` Prelude.rnf reservedInstancesOfferingIds
       `Prelude.seq` Prelude.rnf instanceTenancy
-      `Prelude.seq` Prelude.rnf offeringClass
+      `Prelude.seq` Prelude.rnf instanceType
+      `Prelude.seq` Prelude.rnf maxDuration
       `Prelude.seq` Prelude.rnf maxInstanceCount
-      `Prelude.seq` Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf minDuration
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf offeringClass
+      `Prelude.seq` Prelude.rnf offeringType
+      `Prelude.seq` Prelude.rnf productDescription
+      `Prelude.seq` Prelude.rnf reservedInstancesOfferingIds
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeReservedInstancesOfferings
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeReservedInstancesOfferings
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeReservedInstancesOfferings
   where
   toQuery DescribeReservedInstancesOfferings' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeReservedInstancesOfferings" ::
+          Data.=: ( "DescribeReservedInstancesOfferings" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "MaxDuration" Core.=: maxDuration,
-        "ProductDescription" Core.=: productDescription,
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "IncludeMarketplace" Core.=: includeMarketplace,
-        "InstanceType" Core.=: instanceType,
-        "NextToken" Core.=: nextToken,
-        "MinDuration" Core.=: minDuration,
-        "AvailabilityZone" Core.=: availabilityZone,
-        "OfferingType" Core.=: offeringType,
-        Core.toQuery
-          ( Core.toQueryList "ReservedInstancesOfferingId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "AvailabilityZone" Data.=: availabilityZone,
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        "IncludeMarketplace" Data.=: includeMarketplace,
+        "InstanceTenancy" Data.=: instanceTenancy,
+        "InstanceType" Data.=: instanceType,
+        "MaxDuration" Data.=: maxDuration,
+        "MaxInstanceCount" Data.=: maxInstanceCount,
+        "MaxResults" Data.=: maxResults,
+        "MinDuration" Data.=: minDuration,
+        "NextToken" Data.=: nextToken,
+        "OfferingClass" Data.=: offeringClass,
+        "OfferingType" Data.=: offeringType,
+        "ProductDescription" Data.=: productDescription,
+        Data.toQuery
+          ( Data.toQueryList "ReservedInstancesOfferingId"
               Prelude.<$> reservedInstancesOfferingIds
-          ),
-        "InstanceTenancy" Core.=: instanceTenancy,
-        "OfferingClass" Core.=: offeringClass,
-        "MaxInstanceCount" Core.=: maxInstanceCount,
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults
+          )
       ]
 
 -- | Contains the output of DescribeReservedInstancesOfferings.

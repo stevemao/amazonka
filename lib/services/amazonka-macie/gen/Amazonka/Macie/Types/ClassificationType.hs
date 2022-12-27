@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Macie.Types.ClassificationType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,23 +20,24 @@
 module Amazonka.Macie.Types.ClassificationType where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Macie.Types.S3ContinuousClassificationType
 import Amazonka.Macie.Types.S3OneTimeClassificationType
 import qualified Amazonka.Prelude as Prelude
 
--- | The classification type that Amazon Macie Classic applies to the
--- associated S3 resources.
+-- | (Discontinued) The classification type that Amazon Macie Classic applies
+-- to the associated S3 resources.
 --
 -- /See:/ 'newClassificationType' smart constructor.
 data ClassificationType = ClassificationType'
-  { -- | A one-time classification of all of the existing objects in a specified
-    -- S3 bucket.
+  { -- | (Discontinued) A one-time classification of all of the existing objects
+    -- in a specified S3 bucket.
     oneTime :: S3OneTimeClassificationType,
-    -- | A continuous classification of the objects that are added to a specified
-    -- S3 bucket. Amazon Macie Classic begins performing continuous
-    -- classification after a bucket is successfully associated with Macie
-    -- Classic.
+    -- | (Discontinued) A continuous classification of the objects that are added
+    -- to a specified S3 bucket. Amazon Macie Classic begins performing
+    -- continuous classification after a bucket is successfully associated with
+    -- Macie Classic.
     continuous :: S3ContinuousClassificationType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -49,13 +50,13 @@ data ClassificationType = ClassificationType'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'oneTime', 'classificationType_oneTime' - A one-time classification of all of the existing objects in a specified
--- S3 bucket.
+-- 'oneTime', 'classificationType_oneTime' - (Discontinued) A one-time classification of all of the existing objects
+-- in a specified S3 bucket.
 --
--- 'continuous', 'classificationType_continuous' - A continuous classification of the objects that are added to a specified
--- S3 bucket. Amazon Macie Classic begins performing continuous
--- classification after a bucket is successfully associated with Macie
--- Classic.
+-- 'continuous', 'classificationType_continuous' - (Discontinued) A continuous classification of the objects that are added
+-- to a specified S3 bucket. Amazon Macie Classic begins performing
+-- continuous classification after a bucket is successfully associated with
+-- Macie Classic.
 newClassificationType ::
   -- | 'oneTime'
   S3OneTimeClassificationType ->
@@ -68,26 +69,26 @@ newClassificationType pOneTime_ pContinuous_ =
       continuous = pContinuous_
     }
 
--- | A one-time classification of all of the existing objects in a specified
--- S3 bucket.
+-- | (Discontinued) A one-time classification of all of the existing objects
+-- in a specified S3 bucket.
 classificationType_oneTime :: Lens.Lens' ClassificationType S3OneTimeClassificationType
 classificationType_oneTime = Lens.lens (\ClassificationType' {oneTime} -> oneTime) (\s@ClassificationType' {} a -> s {oneTime = a} :: ClassificationType)
 
--- | A continuous classification of the objects that are added to a specified
--- S3 bucket. Amazon Macie Classic begins performing continuous
--- classification after a bucket is successfully associated with Macie
--- Classic.
+-- | (Discontinued) A continuous classification of the objects that are added
+-- to a specified S3 bucket. Amazon Macie Classic begins performing
+-- continuous classification after a bucket is successfully associated with
+-- Macie Classic.
 classificationType_continuous :: Lens.Lens' ClassificationType S3ContinuousClassificationType
 classificationType_continuous = Lens.lens (\ClassificationType' {continuous} -> continuous) (\s@ClassificationType' {} a -> s {continuous = a} :: ClassificationType)
 
-instance Core.FromJSON ClassificationType where
+instance Data.FromJSON ClassificationType where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ClassificationType"
       ( \x ->
           ClassificationType'
-            Prelude.<$> (x Core..: "oneTime")
-            Prelude.<*> (x Core..: "continuous")
+            Prelude.<$> (x Data..: "oneTime")
+            Prelude.<*> (x Data..: "continuous")
       )
 
 instance Prelude.Hashable ClassificationType where
@@ -100,11 +101,11 @@ instance Prelude.NFData ClassificationType where
     Prelude.rnf oneTime
       `Prelude.seq` Prelude.rnf continuous
 
-instance Core.ToJSON ClassificationType where
+instance Data.ToJSON ClassificationType where
   toJSON ClassificationType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("oneTime" Core..= oneTime),
-            Prelude.Just ("continuous" Core..= continuous)
+          [ Prelude.Just ("oneTime" Data..= oneTime),
+            Prelude.Just ("continuous" Data..= continuous)
           ]
       )

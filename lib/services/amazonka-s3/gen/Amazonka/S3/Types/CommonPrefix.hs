@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.CommonPrefix
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.CommonPrefix where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 
@@ -55,9 +56,9 @@ newCommonPrefix =
 commonPrefix_prefix :: Lens.Lens' CommonPrefix (Prelude.Maybe Prelude.Text)
 commonPrefix_prefix = Lens.lens (\CommonPrefix' {prefix} -> prefix) (\s@CommonPrefix' {} a -> s {prefix = a} :: CommonPrefix)
 
-instance Core.FromXML CommonPrefix where
+instance Data.FromXML CommonPrefix where
   parseXML x =
-    CommonPrefix' Prelude.<$> (x Core..@? "Prefix")
+    CommonPrefix' Prelude.<$> (x Data..@? "Prefix")
 
 instance Prelude.Hashable CommonPrefix where
   hashWithSalt _salt CommonPrefix' {..} =

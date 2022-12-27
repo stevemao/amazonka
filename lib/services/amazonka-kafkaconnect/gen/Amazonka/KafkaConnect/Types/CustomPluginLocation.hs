@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.Types.CustomPluginLocation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KafkaConnect.Types.CustomPluginLocation where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KafkaConnect.Types.S3Location
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the location of a custom plugin.
@@ -64,9 +65,9 @@ instance Prelude.NFData CustomPluginLocation where
   rnf CustomPluginLocation' {..} =
     Prelude.rnf s3Location
 
-instance Core.ToJSON CustomPluginLocation where
+instance Data.ToJSON CustomPluginLocation where
   toJSON CustomPluginLocation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("s3Location" Core..= s3Location)]
+          [Prelude.Just ("s3Location" Data..= s3Location)]
       )

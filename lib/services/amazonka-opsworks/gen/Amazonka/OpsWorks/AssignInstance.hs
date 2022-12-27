@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.AssignInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,7 +51,8 @@ module Amazonka.OpsWorks.AssignInstance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -102,7 +103,8 @@ instance Core.AWSRequest AssignInstance where
   type
     AWSResponse AssignInstance =
       AssignInstanceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull AssignInstanceResponse'
 
@@ -116,34 +118,34 @@ instance Prelude.NFData AssignInstance where
     Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf layerIds
 
-instance Core.ToHeaders AssignInstance where
+instance Data.ToHeaders AssignInstance where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.AssignInstance" ::
+              Data.=# ( "OpsWorks_20130218.AssignInstance" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssignInstance where
+instance Data.ToJSON AssignInstance where
   toJSON AssignInstance' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("InstanceId" Core..= instanceId),
-            Prelude.Just ("LayerIds" Core..= layerIds)
+          [ Prelude.Just ("InstanceId" Data..= instanceId),
+            Prelude.Just ("LayerIds" Data..= layerIds)
           ]
       )
 
-instance Core.ToPath AssignInstance where
+instance Data.ToPath AssignInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AssignInstance where
+instance Data.ToQuery AssignInstance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssignInstanceResponse' smart constructor.

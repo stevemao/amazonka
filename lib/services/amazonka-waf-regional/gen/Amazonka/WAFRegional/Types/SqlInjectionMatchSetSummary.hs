@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.Types.SqlInjectionMatchSetSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WAFRegional.Types.SqlInjectionMatchSetSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | This is __AWS WAF Classic__ documentation. For more information, see
@@ -104,14 +105,14 @@ sqlInjectionMatchSetSummary_sqlInjectionMatchSetId = Lens.lens (\SqlInjectionMat
 sqlInjectionMatchSetSummary_name :: Lens.Lens' SqlInjectionMatchSetSummary Prelude.Text
 sqlInjectionMatchSetSummary_name = Lens.lens (\SqlInjectionMatchSetSummary' {name} -> name) (\s@SqlInjectionMatchSetSummary' {} a -> s {name = a} :: SqlInjectionMatchSetSummary)
 
-instance Core.FromJSON SqlInjectionMatchSetSummary where
+instance Data.FromJSON SqlInjectionMatchSetSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SqlInjectionMatchSetSummary"
       ( \x ->
           SqlInjectionMatchSetSummary'
-            Prelude.<$> (x Core..: "SqlInjectionMatchSetId")
-            Prelude.<*> (x Core..: "Name")
+            Prelude.<$> (x Data..: "SqlInjectionMatchSetId")
+            Prelude.<*> (x Data..: "Name")
       )
 
 instance Prelude.Hashable SqlInjectionMatchSetSummary where

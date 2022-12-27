@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.UpdateEmailChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.Pinpoint.UpdateEmailChannel
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -97,13 +98,14 @@ instance Core.AWSRequest UpdateEmailChannel where
   type
     AWSResponse UpdateEmailChannel =
       UpdateEmailChannelResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateEmailChannelResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable UpdateEmailChannel where
@@ -116,35 +118,30 @@ instance Prelude.NFData UpdateEmailChannel where
     Prelude.rnf applicationId
       `Prelude.seq` Prelude.rnf emailChannelRequest
 
-instance Core.ToHeaders UpdateEmailChannel where
+instance Data.ToHeaders UpdateEmailChannel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateEmailChannel where
+instance Data.ToJSON UpdateEmailChannel where
   toJSON UpdateEmailChannel' {..} =
-    Core.object
-      ( Prelude.catMaybes
-          [ Prelude.Just
-              ("EmailChannelRequest" Core..= emailChannelRequest)
-          ]
-      )
+    Data.toJSON emailChannelRequest
 
-instance Core.ToPath UpdateEmailChannel where
+instance Data.ToPath UpdateEmailChannel where
   toPath UpdateEmailChannel' {..} =
     Prelude.mconcat
       [ "/v1/apps/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/channels/email"
       ]
 
-instance Core.ToQuery UpdateEmailChannel where
+instance Data.ToQuery UpdateEmailChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateEmailChannelResponse' smart constructor.

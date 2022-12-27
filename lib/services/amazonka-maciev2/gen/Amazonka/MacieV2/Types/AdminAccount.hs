@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.AdminAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,21 @@
 module Amazonka.MacieV2.Types.AdminAccount where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types.AdminStatus
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides information about the delegated Amazon Macie administrator
--- account for an Amazon Web Services organization.
+-- account for an organization in Organizations.
 --
 -- /See:/ 'newAdminAccount' smart constructor.
 data AdminAccount = AdminAccount'
-  { -- | The current status of the account as the delegated administrator of
-    -- Amazon Macie for the organization.
-    status :: Prelude.Maybe AdminStatus,
-    -- | The Amazon Web Services account ID for the account.
-    accountId :: Prelude.Maybe Prelude.Text
+  { -- | The Amazon Web Services account ID for the account.
+    accountId :: Prelude.Maybe Prelude.Text,
+    -- | The current status of the account as the delegated Amazon Macie
+    -- administrator account for the organization.
+    status :: Prelude.Maybe AdminStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,43 +46,43 @@ data AdminAccount = AdminAccount'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'adminAccount_status' - The current status of the account as the delegated administrator of
--- Amazon Macie for the organization.
---
 -- 'accountId', 'adminAccount_accountId' - The Amazon Web Services account ID for the account.
+--
+-- 'status', 'adminAccount_status' - The current status of the account as the delegated Amazon Macie
+-- administrator account for the organization.
 newAdminAccount ::
   AdminAccount
 newAdminAccount =
   AdminAccount'
-    { status = Prelude.Nothing,
-      accountId = Prelude.Nothing
+    { accountId = Prelude.Nothing,
+      status = Prelude.Nothing
     }
-
--- | The current status of the account as the delegated administrator of
--- Amazon Macie for the organization.
-adminAccount_status :: Lens.Lens' AdminAccount (Prelude.Maybe AdminStatus)
-adminAccount_status = Lens.lens (\AdminAccount' {status} -> status) (\s@AdminAccount' {} a -> s {status = a} :: AdminAccount)
 
 -- | The Amazon Web Services account ID for the account.
 adminAccount_accountId :: Lens.Lens' AdminAccount (Prelude.Maybe Prelude.Text)
 adminAccount_accountId = Lens.lens (\AdminAccount' {accountId} -> accountId) (\s@AdminAccount' {} a -> s {accountId = a} :: AdminAccount)
 
-instance Core.FromJSON AdminAccount where
+-- | The current status of the account as the delegated Amazon Macie
+-- administrator account for the organization.
+adminAccount_status :: Lens.Lens' AdminAccount (Prelude.Maybe AdminStatus)
+adminAccount_status = Lens.lens (\AdminAccount' {status} -> status) (\s@AdminAccount' {} a -> s {status = a} :: AdminAccount)
+
+instance Data.FromJSON AdminAccount where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AdminAccount"
       ( \x ->
           AdminAccount'
-            Prelude.<$> (x Core..:? "status")
-            Prelude.<*> (x Core..:? "accountId")
+            Prelude.<$> (x Data..:? "accountId")
+            Prelude.<*> (x Data..:? "status")
       )
 
 instance Prelude.Hashable AdminAccount where
   hashWithSalt _salt AdminAccount' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` accountId
+    _salt `Prelude.hashWithSalt` accountId
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData AdminAccount where
   rnf AdminAccount' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf accountId
+    Prelude.rnf accountId
+      `Prelude.seq` Prelude.rnf status

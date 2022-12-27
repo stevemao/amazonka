@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruProfiler.GetPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CodeGuruProfiler.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,14 +82,15 @@ getPolicy_profilingGroupName = Lens.lens (\GetPolicy' {profilingGroupName} -> pr
 
 instance Core.AWSRequest GetPolicy where
   type AWSResponse GetPolicy = GetPolicyResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetPolicyResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "policy")
-            Prelude.<*> (x Core..:> "revisionId")
+            Prelude.<*> (x Data..:> "policy")
+            Prelude.<*> (x Data..:> "revisionId")
       )
 
 instance Prelude.Hashable GetPolicy where
@@ -98,26 +100,26 @@ instance Prelude.Hashable GetPolicy where
 instance Prelude.NFData GetPolicy where
   rnf GetPolicy' {..} = Prelude.rnf profilingGroupName
 
-instance Core.ToHeaders GetPolicy where
+instance Data.ToHeaders GetPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetPolicy where
+instance Data.ToPath GetPolicy where
   toPath GetPolicy' {..} =
     Prelude.mconcat
       [ "/profilingGroups/",
-        Core.toBS profilingGroupName,
+        Data.toBS profilingGroupName,
         "/policy"
       ]
 
-instance Core.ToQuery GetPolicy where
+instance Data.ToQuery GetPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The structure representing the @getPolicyResponse@.

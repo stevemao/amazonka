@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.EnableImportFindingsForProduct
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.SecurityHub.EnableImportFindingsForProduct
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -87,12 +88,13 @@ instance
   type
     AWSResponse EnableImportFindingsForProduct =
       EnableImportFindingsForProductResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           EnableImportFindingsForProductResponse'
-            Prelude.<$> (x Core..?> "ProductSubscriptionArn")
+            Prelude.<$> (x Data..?> "ProductSubscriptionArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -113,30 +115,30 @@ instance
     Prelude.rnf productArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     EnableImportFindingsForProduct
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON EnableImportFindingsForProduct where
+instance Data.ToJSON EnableImportFindingsForProduct where
   toJSON EnableImportFindingsForProduct' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ProductArn" Core..= productArn)]
+          [Prelude.Just ("ProductArn" Data..= productArn)]
       )
 
-instance Core.ToPath EnableImportFindingsForProduct where
+instance Data.ToPath EnableImportFindingsForProduct where
   toPath = Prelude.const "/productSubscriptions"
 
-instance Core.ToQuery EnableImportFindingsForProduct where
+instance Data.ToQuery EnableImportFindingsForProduct where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newEnableImportFindingsForProductResponse' smart constructor.

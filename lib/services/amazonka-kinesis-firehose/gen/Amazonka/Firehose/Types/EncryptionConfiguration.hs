@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Firehose.Types.EncryptionConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,21 @@
 module Amazonka.Firehose.Types.EncryptionConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Firehose.Types.KMSEncryptionConfig
 import Amazonka.Firehose.Types.NoEncryptionConfig
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the encryption for a destination in Amazon S3.
 --
 -- /See:/ 'newEncryptionConfiguration' smart constructor.
 data EncryptionConfiguration = EncryptionConfiguration'
-  { -- | Specifically override existing encryption information to ensure that no
+  { -- | The encryption key.
+    kmsEncryptionConfig :: Prelude.Maybe KMSEncryptionConfig,
+    -- | Specifically override existing encryption information to ensure that no
     -- encryption is used.
-    noEncryptionConfig :: Prelude.Maybe NoEncryptionConfig,
-    -- | The encryption key.
-    kmsEncryptionConfig :: Prelude.Maybe KMSEncryptionConfig
+    noEncryptionConfig :: Prelude.Maybe NoEncryptionConfig
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,55 +46,55 @@ data EncryptionConfiguration = EncryptionConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'kmsEncryptionConfig', 'encryptionConfiguration_kmsEncryptionConfig' - The encryption key.
+--
 -- 'noEncryptionConfig', 'encryptionConfiguration_noEncryptionConfig' - Specifically override existing encryption information to ensure that no
 -- encryption is used.
---
--- 'kmsEncryptionConfig', 'encryptionConfiguration_kmsEncryptionConfig' - The encryption key.
 newEncryptionConfiguration ::
   EncryptionConfiguration
 newEncryptionConfiguration =
   EncryptionConfiguration'
-    { noEncryptionConfig =
+    { kmsEncryptionConfig =
         Prelude.Nothing,
-      kmsEncryptionConfig = Prelude.Nothing
+      noEncryptionConfig = Prelude.Nothing
     }
+
+-- | The encryption key.
+encryptionConfiguration_kmsEncryptionConfig :: Lens.Lens' EncryptionConfiguration (Prelude.Maybe KMSEncryptionConfig)
+encryptionConfiguration_kmsEncryptionConfig = Lens.lens (\EncryptionConfiguration' {kmsEncryptionConfig} -> kmsEncryptionConfig) (\s@EncryptionConfiguration' {} a -> s {kmsEncryptionConfig = a} :: EncryptionConfiguration)
 
 -- | Specifically override existing encryption information to ensure that no
 -- encryption is used.
 encryptionConfiguration_noEncryptionConfig :: Lens.Lens' EncryptionConfiguration (Prelude.Maybe NoEncryptionConfig)
 encryptionConfiguration_noEncryptionConfig = Lens.lens (\EncryptionConfiguration' {noEncryptionConfig} -> noEncryptionConfig) (\s@EncryptionConfiguration' {} a -> s {noEncryptionConfig = a} :: EncryptionConfiguration)
 
--- | The encryption key.
-encryptionConfiguration_kmsEncryptionConfig :: Lens.Lens' EncryptionConfiguration (Prelude.Maybe KMSEncryptionConfig)
-encryptionConfiguration_kmsEncryptionConfig = Lens.lens (\EncryptionConfiguration' {kmsEncryptionConfig} -> kmsEncryptionConfig) (\s@EncryptionConfiguration' {} a -> s {kmsEncryptionConfig = a} :: EncryptionConfiguration)
-
-instance Core.FromJSON EncryptionConfiguration where
+instance Data.FromJSON EncryptionConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EncryptionConfiguration"
       ( \x ->
           EncryptionConfiguration'
-            Prelude.<$> (x Core..:? "NoEncryptionConfig")
-            Prelude.<*> (x Core..:? "KMSEncryptionConfig")
+            Prelude.<$> (x Data..:? "KMSEncryptionConfig")
+            Prelude.<*> (x Data..:? "NoEncryptionConfig")
       )
 
 instance Prelude.Hashable EncryptionConfiguration where
   hashWithSalt _salt EncryptionConfiguration' {..} =
-    _salt `Prelude.hashWithSalt` noEncryptionConfig
-      `Prelude.hashWithSalt` kmsEncryptionConfig
+    _salt `Prelude.hashWithSalt` kmsEncryptionConfig
+      `Prelude.hashWithSalt` noEncryptionConfig
 
 instance Prelude.NFData EncryptionConfiguration where
   rnf EncryptionConfiguration' {..} =
-    Prelude.rnf noEncryptionConfig
-      `Prelude.seq` Prelude.rnf kmsEncryptionConfig
+    Prelude.rnf kmsEncryptionConfig
+      `Prelude.seq` Prelude.rnf noEncryptionConfig
 
-instance Core.ToJSON EncryptionConfiguration where
+instance Data.ToJSON EncryptionConfiguration where
   toJSON EncryptionConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NoEncryptionConfig" Core..=)
-              Prelude.<$> noEncryptionConfig,
-            ("KMSEncryptionConfig" Core..=)
-              Prelude.<$> kmsEncryptionConfig
+          [ ("KMSEncryptionConfig" Data..=)
+              Prelude.<$> kmsEncryptionConfig,
+            ("NoEncryptionConfig" Data..=)
+              Prelude.<$> noEncryptionConfig
           ]
       )

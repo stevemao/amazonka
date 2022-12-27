@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.DeleteApnsVoipSandboxChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Pinpoint.DeleteApnsVoipSandboxChannel
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -84,13 +85,14 @@ instance Core.AWSRequest DeleteApnsVoipSandboxChannel where
   type
     AWSResponse DeleteApnsVoipSandboxChannel =
       DeleteApnsVoipSandboxChannelResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteApnsVoipSandboxChannelResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance
@@ -104,26 +106,26 @@ instance Prelude.NFData DeleteApnsVoipSandboxChannel where
   rnf DeleteApnsVoipSandboxChannel' {..} =
     Prelude.rnf applicationId
 
-instance Core.ToHeaders DeleteApnsVoipSandboxChannel where
+instance Data.ToHeaders DeleteApnsVoipSandboxChannel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteApnsVoipSandboxChannel where
+instance Data.ToPath DeleteApnsVoipSandboxChannel where
   toPath DeleteApnsVoipSandboxChannel' {..} =
     Prelude.mconcat
       [ "/v1/apps/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/channels/apns_voip_sandbox"
       ]
 
-instance Core.ToQuery DeleteApnsVoipSandboxChannel where
+instance Data.ToQuery DeleteApnsVoipSandboxChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteApnsVoipSandboxChannelResponse' smart constructor.

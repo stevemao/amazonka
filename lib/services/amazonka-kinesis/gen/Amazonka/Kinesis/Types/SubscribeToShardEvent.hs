@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kinesis.Types.SubscribeToShardEvent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.Kinesis.Types.SubscribeToShardEvent where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kinesis.Types.ChildShard
 import Amazonka.Kinesis.Types.Record
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | After you call SubscribeToShard, Kinesis Data Streams sends events of
@@ -30,7 +31,9 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSubscribeToShardEvent' smart constructor.
 data SubscribeToShardEvent = SubscribeToShardEvent'
-  { childShards :: Prelude.Maybe [ChildShard],
+  { -- | The list of the child shards of the current shard, returned only at the
+    -- end of the current shard.
+    childShards :: Prelude.Maybe [ChildShard],
     records :: [Record],
     -- | Use this as @SequenceNumber@ in the next call to SubscribeToShard, with
     -- @StartingPosition@ set to @AT_SEQUENCE_NUMBER@ or
@@ -54,7 +57,8 @@ data SubscribeToShardEvent = SubscribeToShardEvent'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'childShards', 'subscribeToShardEvent_childShards' - Undocumented member.
+-- 'childShards', 'subscribeToShardEvent_childShards' - The list of the child shards of the current shard, returned only at the
+-- end of the current shard.
 --
 -- 'records', 'subscribeToShardEvent_records' -
 --
@@ -86,7 +90,8 @@ newSubscribeToShardEvent
         millisBehindLatest = pMillisBehindLatest_
       }
 
--- | Undocumented member.
+-- | The list of the child shards of the current shard, returned only at the
+-- end of the current shard.
 subscribeToShardEvent_childShards :: Lens.Lens' SubscribeToShardEvent (Prelude.Maybe [ChildShard])
 subscribeToShardEvent_childShards = Lens.lens (\SubscribeToShardEvent' {childShards} -> childShards) (\s@SubscribeToShardEvent' {} a -> s {childShards = a} :: SubscribeToShardEvent) Prelude.. Lens.mapping Lens.coerced
 
@@ -109,16 +114,16 @@ subscribeToShardEvent_continuationSequenceNumber = Lens.lens (\SubscribeToShardE
 subscribeToShardEvent_millisBehindLatest :: Lens.Lens' SubscribeToShardEvent Prelude.Natural
 subscribeToShardEvent_millisBehindLatest = Lens.lens (\SubscribeToShardEvent' {millisBehindLatest} -> millisBehindLatest) (\s@SubscribeToShardEvent' {} a -> s {millisBehindLatest = a} :: SubscribeToShardEvent)
 
-instance Core.FromJSON SubscribeToShardEvent where
+instance Data.FromJSON SubscribeToShardEvent where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SubscribeToShardEvent"
       ( \x ->
           SubscribeToShardEvent'
-            Prelude.<$> (x Core..:? "ChildShards" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Records" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "ContinuationSequenceNumber")
-            Prelude.<*> (x Core..: "MillisBehindLatest")
+            Prelude.<$> (x Data..:? "ChildShards" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Records" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "ContinuationSequenceNumber")
+            Prelude.<*> (x Data..: "MillisBehindLatest")
       )
 
 instance Prelude.Hashable SubscribeToShardEvent where

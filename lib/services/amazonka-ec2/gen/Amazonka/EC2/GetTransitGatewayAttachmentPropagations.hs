@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.GetTransitGatewayAttachmentPropagations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,10 +30,10 @@ module Amazonka.EC2.GetTransitGatewayAttachmentPropagations
     newGetTransitGatewayAttachmentPropagations,
 
     -- * Request Lenses
-    getTransitGatewayAttachmentPropagations_filters,
-    getTransitGatewayAttachmentPropagations_nextToken,
     getTransitGatewayAttachmentPropagations_dryRun,
+    getTransitGatewayAttachmentPropagations_filters,
     getTransitGatewayAttachmentPropagations_maxResults,
+    getTransitGatewayAttachmentPropagations_nextToken,
     getTransitGatewayAttachmentPropagations_transitGatewayAttachmentId,
 
     -- * Destructuring the Response
@@ -48,30 +48,31 @@ module Amazonka.EC2.GetTransitGatewayAttachmentPropagations
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetTransitGatewayAttachmentPropagations' smart constructor.
 data GetTransitGatewayAttachmentPropagations = GetTransitGatewayAttachmentPropagations'
-  { -- | One or more filters. The possible values are:
-    --
-    -- -   @transit-gateway-route-table-id@ - The ID of the transit gateway
-    --     route table.
-    filters :: Prelude.Maybe [Filter],
-    -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Checks whether you have the required permissions for the action, without
+  { -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | One or more filters. The possible values are:
+    --
+    -- -   @transit-gateway-route-table-id@ - The ID of the transit gateway
+    --     route table.
+    filters :: Prelude.Maybe [Filter],
     -- | The maximum number of results to return with a single call. To retrieve
     -- the remaining results, make another call with the returned @nextToken@
     -- value.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ID of the attachment.
     transitGatewayAttachmentId :: Prelude.Text
   }
@@ -85,21 +86,21 @@ data GetTransitGatewayAttachmentPropagations = GetTransitGatewayAttachmentPropag
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'filters', 'getTransitGatewayAttachmentPropagations_filters' - One or more filters. The possible values are:
---
--- -   @transit-gateway-route-table-id@ - The ID of the transit gateway
---     route table.
---
--- 'nextToken', 'getTransitGatewayAttachmentPropagations_nextToken' - The token for the next page of results.
---
 -- 'dryRun', 'getTransitGatewayAttachmentPropagations_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
 --
+-- 'filters', 'getTransitGatewayAttachmentPropagations_filters' - One or more filters. The possible values are:
+--
+-- -   @transit-gateway-route-table-id@ - The ID of the transit gateway
+--     route table.
+--
 -- 'maxResults', 'getTransitGatewayAttachmentPropagations_maxResults' - The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
+--
+-- 'nextToken', 'getTransitGatewayAttachmentPropagations_nextToken' - The token for the next page of results.
 --
 -- 'transitGatewayAttachmentId', 'getTransitGatewayAttachmentPropagations_transitGatewayAttachmentId' - The ID of the attachment.
 newGetTransitGatewayAttachmentPropagations ::
@@ -109,25 +110,14 @@ newGetTransitGatewayAttachmentPropagations ::
 newGetTransitGatewayAttachmentPropagations
   pTransitGatewayAttachmentId_ =
     GetTransitGatewayAttachmentPropagations'
-      { filters =
+      { dryRun =
           Prelude.Nothing,
-        nextToken = Prelude.Nothing,
-        dryRun = Prelude.Nothing,
+        filters = Prelude.Nothing,
         maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         transitGatewayAttachmentId =
           pTransitGatewayAttachmentId_
       }
-
--- | One or more filters. The possible values are:
---
--- -   @transit-gateway-route-table-id@ - The ID of the transit gateway
---     route table.
-getTransitGatewayAttachmentPropagations_filters :: Lens.Lens' GetTransitGatewayAttachmentPropagations (Prelude.Maybe [Filter])
-getTransitGatewayAttachmentPropagations_filters = Lens.lens (\GetTransitGatewayAttachmentPropagations' {filters} -> filters) (\s@GetTransitGatewayAttachmentPropagations' {} a -> s {filters = a} :: GetTransitGatewayAttachmentPropagations) Prelude.. Lens.mapping Lens.coerced
-
--- | The token for the next page of results.
-getTransitGatewayAttachmentPropagations_nextToken :: Lens.Lens' GetTransitGatewayAttachmentPropagations (Prelude.Maybe Prelude.Text)
-getTransitGatewayAttachmentPropagations_nextToken = Lens.lens (\GetTransitGatewayAttachmentPropagations' {nextToken} -> nextToken) (\s@GetTransitGatewayAttachmentPropagations' {} a -> s {nextToken = a} :: GetTransitGatewayAttachmentPropagations)
 
 -- | Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
@@ -136,11 +126,22 @@ getTransitGatewayAttachmentPropagations_nextToken = Lens.lens (\GetTransitGatewa
 getTransitGatewayAttachmentPropagations_dryRun :: Lens.Lens' GetTransitGatewayAttachmentPropagations (Prelude.Maybe Prelude.Bool)
 getTransitGatewayAttachmentPropagations_dryRun = Lens.lens (\GetTransitGatewayAttachmentPropagations' {dryRun} -> dryRun) (\s@GetTransitGatewayAttachmentPropagations' {} a -> s {dryRun = a} :: GetTransitGatewayAttachmentPropagations)
 
+-- | One or more filters. The possible values are:
+--
+-- -   @transit-gateway-route-table-id@ - The ID of the transit gateway
+--     route table.
+getTransitGatewayAttachmentPropagations_filters :: Lens.Lens' GetTransitGatewayAttachmentPropagations (Prelude.Maybe [Filter])
+getTransitGatewayAttachmentPropagations_filters = Lens.lens (\GetTransitGatewayAttachmentPropagations' {filters} -> filters) (\s@GetTransitGatewayAttachmentPropagations' {} a -> s {filters = a} :: GetTransitGatewayAttachmentPropagations) Prelude.. Lens.mapping Lens.coerced
+
 -- | The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
 getTransitGatewayAttachmentPropagations_maxResults :: Lens.Lens' GetTransitGatewayAttachmentPropagations (Prelude.Maybe Prelude.Natural)
 getTransitGatewayAttachmentPropagations_maxResults = Lens.lens (\GetTransitGatewayAttachmentPropagations' {maxResults} -> maxResults) (\s@GetTransitGatewayAttachmentPropagations' {} a -> s {maxResults = a} :: GetTransitGatewayAttachmentPropagations)
+
+-- | The token for the next page of results.
+getTransitGatewayAttachmentPropagations_nextToken :: Lens.Lens' GetTransitGatewayAttachmentPropagations (Prelude.Maybe Prelude.Text)
+getTransitGatewayAttachmentPropagations_nextToken = Lens.lens (\GetTransitGatewayAttachmentPropagations' {nextToken} -> nextToken) (\s@GetTransitGatewayAttachmentPropagations' {} a -> s {nextToken = a} :: GetTransitGatewayAttachmentPropagations)
 
 -- | The ID of the attachment.
 getTransitGatewayAttachmentPropagations_transitGatewayAttachmentId :: Lens.Lens' GetTransitGatewayAttachmentPropagations Prelude.Text
@@ -179,15 +180,16 @@ instance
     AWSResponse
       GetTransitGatewayAttachmentPropagations =
       GetTransitGatewayAttachmentPropagationsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetTransitGatewayAttachmentPropagationsResponse'
-            Prelude.<$> (x Core..@? "nextToken")
-              Prelude.<*> ( x Core..@? "transitGatewayAttachmentPropagations"
+            Prelude.<$> (x Data..@? "nextToken")
+              Prelude.<*> ( x Data..@? "transitGatewayAttachmentPropagations"
                               Core..!@ Prelude.mempty
-                              Prelude.>>= Core.may (Core.parseXMLList "item")
+                              Prelude.>>= Core.may (Data.parseXMLList "item")
                           )
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -199,10 +201,10 @@ instance
   hashWithSalt
     _salt
     GetTransitGatewayAttachmentPropagations' {..} =
-      _salt `Prelude.hashWithSalt` filters
-        `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` dryRun
+      _salt `Prelude.hashWithSalt` dryRun
+        `Prelude.hashWithSalt` filters
         `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` transitGatewayAttachmentId
 
 instance
@@ -210,43 +212,43 @@ instance
     GetTransitGatewayAttachmentPropagations
   where
   rnf GetTransitGatewayAttachmentPropagations' {..} =
-    Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf dryRun
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf transitGatewayAttachmentId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetTransitGatewayAttachmentPropagations
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     GetTransitGatewayAttachmentPropagations
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetTransitGatewayAttachmentPropagations
   where
   toQuery GetTransitGatewayAttachmentPropagations' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "GetTransitGatewayAttachmentPropagations" ::
+          Data.=: ( "GetTransitGatewayAttachmentPropagations" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults,
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
         "TransitGatewayAttachmentId"
-          Core.=: transitGatewayAttachmentId
+          Data.=: transitGatewayAttachmentId
       ]
 
 -- | /See:/ 'newGetTransitGatewayAttachmentPropagationsResponse' smart constructor.

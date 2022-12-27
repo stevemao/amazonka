@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ELBV2.DescribeLoadBalancerAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,8 +52,9 @@ module Amazonka.ELBV2.DescribeLoadBalancerAttributes
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELBV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,14 +96,15 @@ instance
   type
     AWSResponse DescribeLoadBalancerAttributes =
       DescribeLoadBalancerAttributesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeLoadBalancerAttributesResult"
       ( \s h x ->
           DescribeLoadBalancerAttributesResponse'
-            Prelude.<$> ( x Core..@? "Attributes" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> ( x Data..@? "Attributes" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -124,24 +126,24 @@ instance
     Prelude.rnf loadBalancerArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeLoadBalancerAttributes
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeLoadBalancerAttributes where
+instance Data.ToPath DescribeLoadBalancerAttributes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeLoadBalancerAttributes where
+instance Data.ToQuery DescribeLoadBalancerAttributes where
   toQuery DescribeLoadBalancerAttributes' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeLoadBalancerAttributes" ::
+          Data.=: ( "DescribeLoadBalancerAttributes" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2015-12-01" :: Prelude.ByteString),
-        "LoadBalancerArn" Core.=: loadBalancerArn
+          Data.=: ("2015-12-01" :: Prelude.ByteString),
+        "LoadBalancerArn" Data.=: loadBalancerArn
       ]
 
 -- | /See:/ 'newDescribeLoadBalancerAttributesResponse' smart constructor.

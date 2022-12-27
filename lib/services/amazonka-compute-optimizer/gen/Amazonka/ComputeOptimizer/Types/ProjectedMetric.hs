@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ComputeOptimizer.Types.ProjectedMetric
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.ComputeOptimizer.Types.ProjectedMetric where
 
 import Amazonka.ComputeOptimizer.Types.MetricName
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a projected utilization metric of a recommendation option,
@@ -42,9 +43,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newProjectedMetric' smart constructor.
 data ProjectedMetric = ProjectedMetric'
-  { -- | The values of the projected utilization metrics.
-    values :: Prelude.Maybe [Prelude.Double],
-    -- | The name of the projected utilization metric.
+  { -- | The name of the projected utilization metric.
     --
     -- The following projected utilization metrics are returned:
     --
@@ -73,7 +72,9 @@ data ProjectedMetric = ProjectedMetric'
     --     <https://docs.aws.amazon.com/compute-optimizer/latest/ug/metrics.html#cw-agent Enabling Memory Utilization with the CloudWatch Agent>.
     name :: Prelude.Maybe MetricName,
     -- | The timestamps of the projected utilization metric.
-    timestamps :: Prelude.Maybe [Core.POSIX]
+    timestamps :: Prelude.Maybe [Data.POSIX],
+    -- | The values of the projected utilization metrics.
+    values :: Prelude.Maybe [Prelude.Double]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -84,8 +85,6 @@ data ProjectedMetric = ProjectedMetric'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'values', 'projectedMetric_values' - The values of the projected utilization metrics.
 --
 -- 'name', 'projectedMetric_name' - The name of the projected utilization metric.
 --
@@ -116,18 +115,16 @@ data ProjectedMetric = ProjectedMetric'
 --     <https://docs.aws.amazon.com/compute-optimizer/latest/ug/metrics.html#cw-agent Enabling Memory Utilization with the CloudWatch Agent>.
 --
 -- 'timestamps', 'projectedMetric_timestamps' - The timestamps of the projected utilization metric.
+--
+-- 'values', 'projectedMetric_values' - The values of the projected utilization metrics.
 newProjectedMetric ::
   ProjectedMetric
 newProjectedMetric =
   ProjectedMetric'
-    { values = Prelude.Nothing,
-      name = Prelude.Nothing,
-      timestamps = Prelude.Nothing
+    { name = Prelude.Nothing,
+      timestamps = Prelude.Nothing,
+      values = Prelude.Nothing
     }
-
--- | The values of the projected utilization metrics.
-projectedMetric_values :: Lens.Lens' ProjectedMetric (Prelude.Maybe [Prelude.Double])
-projectedMetric_values = Lens.lens (\ProjectedMetric' {values} -> values) (\s@ProjectedMetric' {} a -> s {values = a} :: ProjectedMetric) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the projected utilization metric.
 --
@@ -163,25 +160,29 @@ projectedMetric_name = Lens.lens (\ProjectedMetric' {name} -> name) (\s@Projecte
 projectedMetric_timestamps :: Lens.Lens' ProjectedMetric (Prelude.Maybe [Prelude.UTCTime])
 projectedMetric_timestamps = Lens.lens (\ProjectedMetric' {timestamps} -> timestamps) (\s@ProjectedMetric' {} a -> s {timestamps = a} :: ProjectedMetric) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON ProjectedMetric where
+-- | The values of the projected utilization metrics.
+projectedMetric_values :: Lens.Lens' ProjectedMetric (Prelude.Maybe [Prelude.Double])
+projectedMetric_values = Lens.lens (\ProjectedMetric' {values} -> values) (\s@ProjectedMetric' {} a -> s {values = a} :: ProjectedMetric) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON ProjectedMetric where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ProjectedMetric"
       ( \x ->
           ProjectedMetric'
-            Prelude.<$> (x Core..:? "values" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "name")
-            Prelude.<*> (x Core..:? "timestamps" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "name")
+            Prelude.<*> (x Data..:? "timestamps" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "values" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable ProjectedMetric where
   hashWithSalt _salt ProjectedMetric' {..} =
-    _salt `Prelude.hashWithSalt` values
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` timestamps
+      `Prelude.hashWithSalt` values
 
 instance Prelude.NFData ProjectedMetric where
   rnf ProjectedMetric' {..} =
-    Prelude.rnf values
-      `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name
       `Prelude.seq` Prelude.rnf timestamps
+      `Prelude.seq` Prelude.rnf values

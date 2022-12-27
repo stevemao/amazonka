@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataBrew.Types.Input
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,12 @@
 module Amazonka.DataBrew.Types.Input where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataBrew.Types.DataCatalogInputDefinition
 import Amazonka.DataBrew.Types.DatabaseInputDefinition
+import Amazonka.DataBrew.Types.Metadata
 import Amazonka.DataBrew.Types.S3Location
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents information on how DataBrew can find data, in either the Glue
@@ -33,10 +35,12 @@ import qualified Amazonka.Prelude as Prelude
 data Input = Input'
   { -- | The Glue Data Catalog parameters for the data.
     dataCatalogInputDefinition :: Prelude.Maybe DataCatalogInputDefinition,
-    -- | The Amazon S3 location where the data is stored.
-    s3InputDefinition :: Prelude.Maybe S3Location,
     -- | Connection information for dataset input files stored in a database.
-    databaseInputDefinition :: Prelude.Maybe DatabaseInputDefinition
+    databaseInputDefinition :: Prelude.Maybe DatabaseInputDefinition,
+    -- | Contains additional resource information needed for specific datasets.
+    metadata :: Prelude.Maybe Metadata,
+    -- | The Amazon S3 location where the data is stored.
+    s3InputDefinition :: Prelude.Maybe S3Location
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -50,64 +54,75 @@ data Input = Input'
 --
 -- 'dataCatalogInputDefinition', 'input_dataCatalogInputDefinition' - The Glue Data Catalog parameters for the data.
 --
--- 's3InputDefinition', 'input_s3InputDefinition' - The Amazon S3 location where the data is stored.
---
 -- 'databaseInputDefinition', 'input_databaseInputDefinition' - Connection information for dataset input files stored in a database.
+--
+-- 'metadata', 'input_metadata' - Contains additional resource information needed for specific datasets.
+--
+-- 's3InputDefinition', 'input_s3InputDefinition' - The Amazon S3 location where the data is stored.
 newInput ::
   Input
 newInput =
   Input'
     { dataCatalogInputDefinition =
         Prelude.Nothing,
-      s3InputDefinition = Prelude.Nothing,
-      databaseInputDefinition = Prelude.Nothing
+      databaseInputDefinition = Prelude.Nothing,
+      metadata = Prelude.Nothing,
+      s3InputDefinition = Prelude.Nothing
     }
 
 -- | The Glue Data Catalog parameters for the data.
 input_dataCatalogInputDefinition :: Lens.Lens' Input (Prelude.Maybe DataCatalogInputDefinition)
 input_dataCatalogInputDefinition = Lens.lens (\Input' {dataCatalogInputDefinition} -> dataCatalogInputDefinition) (\s@Input' {} a -> s {dataCatalogInputDefinition = a} :: Input)
 
--- | The Amazon S3 location where the data is stored.
-input_s3InputDefinition :: Lens.Lens' Input (Prelude.Maybe S3Location)
-input_s3InputDefinition = Lens.lens (\Input' {s3InputDefinition} -> s3InputDefinition) (\s@Input' {} a -> s {s3InputDefinition = a} :: Input)
-
 -- | Connection information for dataset input files stored in a database.
 input_databaseInputDefinition :: Lens.Lens' Input (Prelude.Maybe DatabaseInputDefinition)
 input_databaseInputDefinition = Lens.lens (\Input' {databaseInputDefinition} -> databaseInputDefinition) (\s@Input' {} a -> s {databaseInputDefinition = a} :: Input)
 
-instance Core.FromJSON Input where
+-- | Contains additional resource information needed for specific datasets.
+input_metadata :: Lens.Lens' Input (Prelude.Maybe Metadata)
+input_metadata = Lens.lens (\Input' {metadata} -> metadata) (\s@Input' {} a -> s {metadata = a} :: Input)
+
+-- | The Amazon S3 location where the data is stored.
+input_s3InputDefinition :: Lens.Lens' Input (Prelude.Maybe S3Location)
+input_s3InputDefinition = Lens.lens (\Input' {s3InputDefinition} -> s3InputDefinition) (\s@Input' {} a -> s {s3InputDefinition = a} :: Input)
+
+instance Data.FromJSON Input where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Input"
       ( \x ->
           Input'
-            Prelude.<$> (x Core..:? "DataCatalogInputDefinition")
-            Prelude.<*> (x Core..:? "S3InputDefinition")
-            Prelude.<*> (x Core..:? "DatabaseInputDefinition")
+            Prelude.<$> (x Data..:? "DataCatalogInputDefinition")
+            Prelude.<*> (x Data..:? "DatabaseInputDefinition")
+            Prelude.<*> (x Data..:? "Metadata")
+            Prelude.<*> (x Data..:? "S3InputDefinition")
       )
 
 instance Prelude.Hashable Input where
   hashWithSalt _salt Input' {..} =
     _salt
       `Prelude.hashWithSalt` dataCatalogInputDefinition
-      `Prelude.hashWithSalt` s3InputDefinition
       `Prelude.hashWithSalt` databaseInputDefinition
+      `Prelude.hashWithSalt` metadata
+      `Prelude.hashWithSalt` s3InputDefinition
 
 instance Prelude.NFData Input where
   rnf Input' {..} =
     Prelude.rnf dataCatalogInputDefinition
-      `Prelude.seq` Prelude.rnf s3InputDefinition
       `Prelude.seq` Prelude.rnf databaseInputDefinition
+      `Prelude.seq` Prelude.rnf metadata
+      `Prelude.seq` Prelude.rnf s3InputDefinition
 
-instance Core.ToJSON Input where
+instance Data.ToJSON Input where
   toJSON Input' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DataCatalogInputDefinition" Core..=)
+          [ ("DataCatalogInputDefinition" Data..=)
               Prelude.<$> dataCatalogInputDefinition,
-            ("S3InputDefinition" Core..=)
-              Prelude.<$> s3InputDefinition,
-            ("DatabaseInputDefinition" Core..=)
-              Prelude.<$> databaseInputDefinition
+            ("DatabaseInputDefinition" Data..=)
+              Prelude.<$> databaseInputDefinition,
+            ("Metadata" Data..=) Prelude.<$> metadata,
+            ("S3InputDefinition" Data..=)
+              Prelude.<$> s3InputDefinition
           ]
       )

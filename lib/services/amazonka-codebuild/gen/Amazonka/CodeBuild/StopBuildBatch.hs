@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.StopBuildBatch
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.CodeBuild.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,12 +77,13 @@ instance Core.AWSRequest StopBuildBatch where
   type
     AWSResponse StopBuildBatch =
       StopBuildBatchResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StopBuildBatchResponse'
-            Prelude.<$> (x Core..?> "buildBatch")
+            Prelude.<$> (x Data..?> "buildBatch")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -92,30 +94,30 @@ instance Prelude.Hashable StopBuildBatch where
 instance Prelude.NFData StopBuildBatch where
   rnf StopBuildBatch' {..} = Prelude.rnf id
 
-instance Core.ToHeaders StopBuildBatch where
+instance Data.ToHeaders StopBuildBatch where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeBuild_20161006.StopBuildBatch" ::
+              Data.=# ( "CodeBuild_20161006.StopBuildBatch" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopBuildBatch where
+instance Data.ToJSON StopBuildBatch where
   toJSON StopBuildBatch' {..} =
-    Core.object
-      (Prelude.catMaybes [Prelude.Just ("id" Core..= id)])
+    Data.object
+      (Prelude.catMaybes [Prelude.Just ("id" Data..= id)])
 
-instance Core.ToPath StopBuildBatch where
+instance Data.ToPath StopBuildBatch where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopBuildBatch where
+instance Data.ToQuery StopBuildBatch where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopBuildBatchResponse' smart constructor.

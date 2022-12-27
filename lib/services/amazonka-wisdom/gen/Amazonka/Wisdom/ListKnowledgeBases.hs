@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.ListKnowledgeBases
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Wisdom.ListKnowledgeBases
     newListKnowledgeBases,
 
     -- * Request Lenses
-    listKnowledgeBases_nextToken,
     listKnowledgeBases_maxResults,
+    listKnowledgeBases_nextToken,
 
     -- * Destructuring the Response
     ListKnowledgeBasesResponse (..),
@@ -44,7 +44,8 @@ module Amazonka.Wisdom.ListKnowledgeBases
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,12 +53,12 @@ import Amazonka.Wisdom.Types
 
 -- | /See:/ 'newListKnowledgeBases' smart constructor.
 data ListKnowledgeBases = ListKnowledgeBases'
-  { -- | The token for the next set of results. Use the value returned in the
+  { -- | The maximum number of results to return per page.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results. Use the value returned in the
     -- previous response in the next request to retrieve the next set of
     -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return per page.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -69,28 +70,28 @@ data ListKnowledgeBases = ListKnowledgeBases'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listKnowledgeBases_maxResults' - The maximum number of results to return per page.
+--
 -- 'nextToken', 'listKnowledgeBases_nextToken' - The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
---
--- 'maxResults', 'listKnowledgeBases_maxResults' - The maximum number of results to return per page.
 newListKnowledgeBases ::
   ListKnowledgeBases
 newListKnowledgeBases =
   ListKnowledgeBases'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of results to return per page.
+listKnowledgeBases_maxResults :: Lens.Lens' ListKnowledgeBases (Prelude.Maybe Prelude.Natural)
+listKnowledgeBases_maxResults = Lens.lens (\ListKnowledgeBases' {maxResults} -> maxResults) (\s@ListKnowledgeBases' {} a -> s {maxResults = a} :: ListKnowledgeBases)
 
 -- | The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
 listKnowledgeBases_nextToken :: Lens.Lens' ListKnowledgeBases (Prelude.Maybe Prelude.Text)
 listKnowledgeBases_nextToken = Lens.lens (\ListKnowledgeBases' {nextToken} -> nextToken) (\s@ListKnowledgeBases' {} a -> s {nextToken = a} :: ListKnowledgeBases)
-
--- | The maximum number of results to return per page.
-listKnowledgeBases_maxResults :: Lens.Lens' ListKnowledgeBases (Prelude.Maybe Prelude.Natural)
-listKnowledgeBases_maxResults = Lens.lens (\ListKnowledgeBases' {maxResults} -> maxResults) (\s@ListKnowledgeBases' {} a -> s {maxResults = a} :: ListKnowledgeBases)
 
 instance Core.AWSPager ListKnowledgeBases where
   page rq rs
@@ -117,47 +118,48 @@ instance Core.AWSRequest ListKnowledgeBases where
   type
     AWSResponse ListKnowledgeBases =
       ListKnowledgeBasesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListKnowledgeBasesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "knowledgeBaseSummaries"
+            Prelude.<*> ( x Data..?> "knowledgeBaseSummaries"
                             Core..!@ Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable ListKnowledgeBases where
   hashWithSalt _salt ListKnowledgeBases' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListKnowledgeBases where
   rnf ListKnowledgeBases' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListKnowledgeBases where
+instance Data.ToHeaders ListKnowledgeBases where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListKnowledgeBases where
+instance Data.ToPath ListKnowledgeBases where
   toPath = Prelude.const "/knowledgeBases"
 
-instance Core.ToQuery ListKnowledgeBases where
+instance Data.ToQuery ListKnowledgeBases where
   toQuery ListKnowledgeBases' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListKnowledgeBasesResponse' smart constructor.

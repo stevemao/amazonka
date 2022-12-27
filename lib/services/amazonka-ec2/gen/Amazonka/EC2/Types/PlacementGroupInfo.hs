@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.PlacementGroupInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.PlacementGroupInfo where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.PlacementGroupStrategy
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the placement group support of the instance type.
@@ -55,12 +56,12 @@ newPlacementGroupInfo =
 placementGroupInfo_supportedStrategies :: Lens.Lens' PlacementGroupInfo (Prelude.Maybe [PlacementGroupStrategy])
 placementGroupInfo_supportedStrategies = Lens.lens (\PlacementGroupInfo' {supportedStrategies} -> supportedStrategies) (\s@PlacementGroupInfo' {} a -> s {supportedStrategies = a} :: PlacementGroupInfo) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML PlacementGroupInfo where
+instance Data.FromXML PlacementGroupInfo where
   parseXML x =
     PlacementGroupInfo'
-      Prelude.<$> ( x Core..@? "supportedStrategies"
+      Prelude.<$> ( x Data..@? "supportedStrategies"
                       Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
 
 instance Prelude.Hashable PlacementGroupInfo where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.CreateContact
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,9 +28,9 @@ module Amazonka.SESV2.CreateContact
     newCreateContact,
 
     -- * Request Lenses
-    createContact_unsubscribeAll,
     createContact_attributesData,
     createContact_topicPreferences,
+    createContact_unsubscribeAll,
     createContact_contactListName,
     createContact_emailAddress,
 
@@ -44,7 +44,8 @@ module Amazonka.SESV2.CreateContact
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,13 +53,13 @@ import Amazonka.SESV2.Types
 
 -- | /See:/ 'newCreateContact' smart constructor.
 data CreateContact = CreateContact'
-  { -- | A boolean value status noting if the contact is unsubscribed from all
-    -- contact list topics.
-    unsubscribeAll :: Prelude.Maybe Prelude.Bool,
-    -- | The attribute data attached to a contact.
+  { -- | The attribute data attached to a contact.
     attributesData :: Prelude.Maybe Prelude.Text,
     -- | The contact\'s preferences for being opted-in to or opted-out of topics.
     topicPreferences :: Prelude.Maybe [TopicPreference],
+    -- | A boolean value status noting if the contact is unsubscribed from all
+    -- contact list topics.
+    unsubscribeAll :: Prelude.Maybe Prelude.Bool,
     -- | The name of the contact list to which the contact should be added.
     contactListName :: Prelude.Text,
     -- | The contact\'s email address.
@@ -74,12 +75,12 @@ data CreateContact = CreateContact'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'unsubscribeAll', 'createContact_unsubscribeAll' - A boolean value status noting if the contact is unsubscribed from all
--- contact list topics.
---
 -- 'attributesData', 'createContact_attributesData' - The attribute data attached to a contact.
 --
 -- 'topicPreferences', 'createContact_topicPreferences' - The contact\'s preferences for being opted-in to or opted-out of topics.
+--
+-- 'unsubscribeAll', 'createContact_unsubscribeAll' - A boolean value status noting if the contact is unsubscribed from all
+-- contact list topics.
 --
 -- 'contactListName', 'createContact_contactListName' - The name of the contact list to which the contact should be added.
 --
@@ -92,17 +93,12 @@ newCreateContact ::
   CreateContact
 newCreateContact pContactListName_ pEmailAddress_ =
   CreateContact'
-    { unsubscribeAll = Prelude.Nothing,
-      attributesData = Prelude.Nothing,
+    { attributesData = Prelude.Nothing,
       topicPreferences = Prelude.Nothing,
+      unsubscribeAll = Prelude.Nothing,
       contactListName = pContactListName_,
       emailAddress = pEmailAddress_
     }
-
--- | A boolean value status noting if the contact is unsubscribed from all
--- contact list topics.
-createContact_unsubscribeAll :: Lens.Lens' CreateContact (Prelude.Maybe Prelude.Bool)
-createContact_unsubscribeAll = Lens.lens (\CreateContact' {unsubscribeAll} -> unsubscribeAll) (\s@CreateContact' {} a -> s {unsubscribeAll = a} :: CreateContact)
 
 -- | The attribute data attached to a contact.
 createContact_attributesData :: Lens.Lens' CreateContact (Prelude.Maybe Prelude.Text)
@@ -111,6 +107,11 @@ createContact_attributesData = Lens.lens (\CreateContact' {attributesData} -> at
 -- | The contact\'s preferences for being opted-in to or opted-out of topics.
 createContact_topicPreferences :: Lens.Lens' CreateContact (Prelude.Maybe [TopicPreference])
 createContact_topicPreferences = Lens.lens (\CreateContact' {topicPreferences} -> topicPreferences) (\s@CreateContact' {} a -> s {topicPreferences = a} :: CreateContact) Prelude.. Lens.mapping Lens.coerced
+
+-- | A boolean value status noting if the contact is unsubscribed from all
+-- contact list topics.
+createContact_unsubscribeAll :: Lens.Lens' CreateContact (Prelude.Maybe Prelude.Bool)
+createContact_unsubscribeAll = Lens.lens (\CreateContact' {unsubscribeAll} -> unsubscribeAll) (\s@CreateContact' {} a -> s {unsubscribeAll = a} :: CreateContact)
 
 -- | The name of the contact list to which the contact should be added.
 createContact_contactListName :: Lens.Lens' CreateContact Prelude.Text
@@ -124,7 +125,8 @@ instance Core.AWSRequest CreateContact where
   type
     AWSResponse CreateContact =
       CreateContactResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -134,54 +136,54 @@ instance Core.AWSRequest CreateContact where
 
 instance Prelude.Hashable CreateContact where
   hashWithSalt _salt CreateContact' {..} =
-    _salt `Prelude.hashWithSalt` unsubscribeAll
-      `Prelude.hashWithSalt` attributesData
+    _salt `Prelude.hashWithSalt` attributesData
       `Prelude.hashWithSalt` topicPreferences
+      `Prelude.hashWithSalt` unsubscribeAll
       `Prelude.hashWithSalt` contactListName
       `Prelude.hashWithSalt` emailAddress
 
 instance Prelude.NFData CreateContact where
   rnf CreateContact' {..} =
-    Prelude.rnf unsubscribeAll
-      `Prelude.seq` Prelude.rnf attributesData
+    Prelude.rnf attributesData
       `Prelude.seq` Prelude.rnf topicPreferences
+      `Prelude.seq` Prelude.rnf unsubscribeAll
       `Prelude.seq` Prelude.rnf contactListName
       `Prelude.seq` Prelude.rnf emailAddress
 
-instance Core.ToHeaders CreateContact where
+instance Data.ToHeaders CreateContact where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateContact where
+instance Data.ToJSON CreateContact where
   toJSON CreateContact' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("UnsubscribeAll" Core..=)
-              Prelude.<$> unsubscribeAll,
-            ("AttributesData" Core..=)
+          [ ("AttributesData" Data..=)
               Prelude.<$> attributesData,
-            ("TopicPreferences" Core..=)
+            ("TopicPreferences" Data..=)
               Prelude.<$> topicPreferences,
-            Prelude.Just ("EmailAddress" Core..= emailAddress)
+            ("UnsubscribeAll" Data..=)
+              Prelude.<$> unsubscribeAll,
+            Prelude.Just ("EmailAddress" Data..= emailAddress)
           ]
       )
 
-instance Core.ToPath CreateContact where
+instance Data.ToPath CreateContact where
   toPath CreateContact' {..} =
     Prelude.mconcat
       [ "/v2/email/contact-lists/",
-        Core.toBS contactListName,
+        Data.toBS contactListName,
         "/contacts"
       ]
 
-instance Core.ToQuery CreateContact where
+instance Data.ToQuery CreateContact where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateContactResponse' smart constructor.

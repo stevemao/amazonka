@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.GetAssessmentReportUrl
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the URL of a specified assessment report in Audit Manager.
+-- Returns the URL of an assessment report in Audit Manager.
 module Amazonka.AuditManager.GetAssessmentReportUrl
   ( -- * Creating a Request
     GetAssessmentReportUrl (..),
@@ -42,16 +42,17 @@ where
 
 import Amazonka.AuditManager.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetAssessmentReportUrl' smart constructor.
 data GetAssessmentReportUrl = GetAssessmentReportUrl'
-  { -- | The identifier for the assessment report.
+  { -- | The unique identifier for the assessment report.
     assessmentReportId :: Prelude.Text,
-    -- | The identifier for the specified assessment.
+    -- | The unique identifier for the assessment.
     assessmentId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -64,9 +65,9 @@ data GetAssessmentReportUrl = GetAssessmentReportUrl'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'assessmentReportId', 'getAssessmentReportUrl_assessmentReportId' - The identifier for the assessment report.
+-- 'assessmentReportId', 'getAssessmentReportUrl_assessmentReportId' - The unique identifier for the assessment report.
 --
--- 'assessmentId', 'getAssessmentReportUrl_assessmentId' - The identifier for the specified assessment.
+-- 'assessmentId', 'getAssessmentReportUrl_assessmentId' - The unique identifier for the assessment.
 newGetAssessmentReportUrl ::
   -- | 'assessmentReportId'
   Prelude.Text ->
@@ -82,11 +83,11 @@ newGetAssessmentReportUrl
         assessmentId = pAssessmentId_
       }
 
--- | The identifier for the assessment report.
+-- | The unique identifier for the assessment report.
 getAssessmentReportUrl_assessmentReportId :: Lens.Lens' GetAssessmentReportUrl Prelude.Text
 getAssessmentReportUrl_assessmentReportId = Lens.lens (\GetAssessmentReportUrl' {assessmentReportId} -> assessmentReportId) (\s@GetAssessmentReportUrl' {} a -> s {assessmentReportId = a} :: GetAssessmentReportUrl)
 
--- | The identifier for the specified assessment.
+-- | The unique identifier for the assessment.
 getAssessmentReportUrl_assessmentId :: Lens.Lens' GetAssessmentReportUrl Prelude.Text
 getAssessmentReportUrl_assessmentId = Lens.lens (\GetAssessmentReportUrl' {assessmentId} -> assessmentId) (\s@GetAssessmentReportUrl' {} a -> s {assessmentId = a} :: GetAssessmentReportUrl)
 
@@ -94,12 +95,13 @@ instance Core.AWSRequest GetAssessmentReportUrl where
   type
     AWSResponse GetAssessmentReportUrl =
       GetAssessmentReportUrlResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAssessmentReportUrlResponse'
-            Prelude.<$> (x Core..?> "preSignedUrl")
+            Prelude.<$> (x Data..?> "preSignedUrl")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -113,28 +115,28 @@ instance Prelude.NFData GetAssessmentReportUrl where
     Prelude.rnf assessmentReportId
       `Prelude.seq` Prelude.rnf assessmentId
 
-instance Core.ToHeaders GetAssessmentReportUrl where
+instance Data.ToHeaders GetAssessmentReportUrl where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetAssessmentReportUrl where
+instance Data.ToPath GetAssessmentReportUrl where
   toPath GetAssessmentReportUrl' {..} =
     Prelude.mconcat
       [ "/assessments/",
-        Core.toBS assessmentId,
+        Data.toBS assessmentId,
         "/reports/",
-        Core.toBS assessmentReportId,
+        Data.toBS assessmentReportId,
         "/url"
       ]
 
-instance Core.ToQuery GetAssessmentReportUrl where
+instance Data.ToQuery GetAssessmentReportUrl where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetAssessmentReportUrlResponse' smart constructor.

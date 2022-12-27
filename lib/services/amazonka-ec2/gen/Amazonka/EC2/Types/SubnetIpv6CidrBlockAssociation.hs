@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.SubnetIpv6CidrBlockAssociation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,21 @@
 module Amazonka.EC2.Types.SubnetIpv6CidrBlockAssociation where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.SubnetCidrBlockState
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
--- | Describes an IPv6 CIDR block associated with a subnet.
+-- | Describes an association between a subnet and an IPv6 CIDR block.
 --
 -- /See:/ 'newSubnetIpv6CidrBlockAssociation' smart constructor.
 data SubnetIpv6CidrBlockAssociation = SubnetIpv6CidrBlockAssociation'
-  { -- | The association ID for the CIDR block.
+  { -- | The ID of the association.
     associationId :: Prelude.Maybe Prelude.Text,
     -- | The IPv6 CIDR block.
     ipv6CidrBlock :: Prelude.Maybe Prelude.Text,
-    -- | Information about the state of the CIDR block.
+    -- | The state of the CIDR block.
     ipv6CidrBlockState :: Prelude.Maybe SubnetCidrBlockState
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -46,11 +47,11 @@ data SubnetIpv6CidrBlockAssociation = SubnetIpv6CidrBlockAssociation'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'associationId', 'subnetIpv6CidrBlockAssociation_associationId' - The association ID for the CIDR block.
+-- 'associationId', 'subnetIpv6CidrBlockAssociation_associationId' - The ID of the association.
 --
 -- 'ipv6CidrBlock', 'subnetIpv6CidrBlockAssociation_ipv6CidrBlock' - The IPv6 CIDR block.
 --
--- 'ipv6CidrBlockState', 'subnetIpv6CidrBlockAssociation_ipv6CidrBlockState' - Information about the state of the CIDR block.
+-- 'ipv6CidrBlockState', 'subnetIpv6CidrBlockAssociation_ipv6CidrBlockState' - The state of the CIDR block.
 newSubnetIpv6CidrBlockAssociation ::
   SubnetIpv6CidrBlockAssociation
 newSubnetIpv6CidrBlockAssociation =
@@ -61,7 +62,7 @@ newSubnetIpv6CidrBlockAssociation =
       ipv6CidrBlockState = Prelude.Nothing
     }
 
--- | The association ID for the CIDR block.
+-- | The ID of the association.
 subnetIpv6CidrBlockAssociation_associationId :: Lens.Lens' SubnetIpv6CidrBlockAssociation (Prelude.Maybe Prelude.Text)
 subnetIpv6CidrBlockAssociation_associationId = Lens.lens (\SubnetIpv6CidrBlockAssociation' {associationId} -> associationId) (\s@SubnetIpv6CidrBlockAssociation' {} a -> s {associationId = a} :: SubnetIpv6CidrBlockAssociation)
 
@@ -69,16 +70,16 @@ subnetIpv6CidrBlockAssociation_associationId = Lens.lens (\SubnetIpv6CidrBlockAs
 subnetIpv6CidrBlockAssociation_ipv6CidrBlock :: Lens.Lens' SubnetIpv6CidrBlockAssociation (Prelude.Maybe Prelude.Text)
 subnetIpv6CidrBlockAssociation_ipv6CidrBlock = Lens.lens (\SubnetIpv6CidrBlockAssociation' {ipv6CidrBlock} -> ipv6CidrBlock) (\s@SubnetIpv6CidrBlockAssociation' {} a -> s {ipv6CidrBlock = a} :: SubnetIpv6CidrBlockAssociation)
 
--- | Information about the state of the CIDR block.
+-- | The state of the CIDR block.
 subnetIpv6CidrBlockAssociation_ipv6CidrBlockState :: Lens.Lens' SubnetIpv6CidrBlockAssociation (Prelude.Maybe SubnetCidrBlockState)
 subnetIpv6CidrBlockAssociation_ipv6CidrBlockState = Lens.lens (\SubnetIpv6CidrBlockAssociation' {ipv6CidrBlockState} -> ipv6CidrBlockState) (\s@SubnetIpv6CidrBlockAssociation' {} a -> s {ipv6CidrBlockState = a} :: SubnetIpv6CidrBlockAssociation)
 
-instance Core.FromXML SubnetIpv6CidrBlockAssociation where
+instance Data.FromXML SubnetIpv6CidrBlockAssociation where
   parseXML x =
     SubnetIpv6CidrBlockAssociation'
-      Prelude.<$> (x Core..@? "associationId")
-      Prelude.<*> (x Core..@? "ipv6CidrBlock")
-      Prelude.<*> (x Core..@? "ipv6CidrBlockState")
+      Prelude.<$> (x Data..@? "associationId")
+      Prelude.<*> (x Data..@? "ipv6CidrBlock")
+      Prelude.<*> (x Data..@? "ipv6CidrBlockState")
 
 instance
   Prelude.Hashable

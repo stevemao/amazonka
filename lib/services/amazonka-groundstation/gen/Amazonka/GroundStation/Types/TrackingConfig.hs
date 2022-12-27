@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GroundStation.Types.TrackingConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.GroundStation.Types.TrackingConfig where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GroundStation.Types.Criticality
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Object that determines whether tracking should be used during a contact
@@ -54,12 +55,12 @@ newTrackingConfig pAutotrack_ =
 trackingConfig_autotrack :: Lens.Lens' TrackingConfig Criticality
 trackingConfig_autotrack = Lens.lens (\TrackingConfig' {autotrack} -> autotrack) (\s@TrackingConfig' {} a -> s {autotrack = a} :: TrackingConfig)
 
-instance Core.FromJSON TrackingConfig where
+instance Data.FromJSON TrackingConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TrackingConfig"
       ( \x ->
-          TrackingConfig' Prelude.<$> (x Core..: "autotrack")
+          TrackingConfig' Prelude.<$> (x Data..: "autotrack")
       )
 
 instance Prelude.Hashable TrackingConfig where
@@ -69,9 +70,9 @@ instance Prelude.Hashable TrackingConfig where
 instance Prelude.NFData TrackingConfig where
   rnf TrackingConfig' {..} = Prelude.rnf autotrack
 
-instance Core.ToJSON TrackingConfig where
+instance Data.ToJSON TrackingConfig where
   toJSON TrackingConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("autotrack" Core..= autotrack)]
+          [Prelude.Just ("autotrack" Data..= autotrack)]
       )

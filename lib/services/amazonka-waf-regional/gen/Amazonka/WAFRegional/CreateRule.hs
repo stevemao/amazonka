@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.CreateRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -83,14 +83,15 @@ module Amazonka.WAFRegional.CreateRule
     newCreateRuleResponse,
 
     -- * Response Lenses
-    createRuleResponse_rule,
     createRuleResponse_changeToken,
+    createRuleResponse_rule,
     createRuleResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -175,13 +176,14 @@ createRule_changeToken = Lens.lens (\CreateRule' {changeToken} -> changeToken) (
 
 instance Core.AWSRequest CreateRule where
   type AWSResponse CreateRule = CreateRuleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateRuleResponse'
-            Prelude.<$> (x Core..?> "Rule")
-            Prelude.<*> (x Core..?> "ChangeToken")
+            Prelude.<$> (x Data..?> "ChangeToken")
+            Prelude.<*> (x Data..?> "Rule")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -199,46 +201,46 @@ instance Prelude.NFData CreateRule where
       `Prelude.seq` Prelude.rnf metricName
       `Prelude.seq` Prelude.rnf changeToken
 
-instance Core.ToHeaders CreateRule where
+instance Data.ToHeaders CreateRule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_Regional_20161128.CreateRule" ::
+              Data.=# ( "AWSWAF_Regional_20161128.CreateRule" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateRule where
+instance Data.ToJSON CreateRule where
   toJSON CreateRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("MetricName" Core..= metricName),
-            Prelude.Just ("ChangeToken" Core..= changeToken)
+          [ ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("MetricName" Data..= metricName),
+            Prelude.Just ("ChangeToken" Data..= changeToken)
           ]
       )
 
-instance Core.ToPath CreateRule where
+instance Data.ToPath CreateRule where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateRule where
+instance Data.ToQuery CreateRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateRuleResponse' smart constructor.
 data CreateRuleResponse = CreateRuleResponse'
-  { -- | The Rule returned in the @CreateRule@ response.
-    rule :: Prelude.Maybe Rule,
-    -- | The @ChangeToken@ that you used to submit the @CreateRule@ request. You
+  { -- | The @ChangeToken@ that you used to submit the @CreateRule@ request. You
     -- can also use this value to query the status of the request. For more
     -- information, see GetChangeTokenStatus.
     changeToken :: Prelude.Maybe Prelude.Text,
+    -- | The Rule returned in the @CreateRule@ response.
+    rule :: Prelude.Maybe Rule,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -252,11 +254,11 @@ data CreateRuleResponse = CreateRuleResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'rule', 'createRuleResponse_rule' - The Rule returned in the @CreateRule@ response.
---
 -- 'changeToken', 'createRuleResponse_changeToken' - The @ChangeToken@ that you used to submit the @CreateRule@ request. You
 -- can also use this value to query the status of the request. For more
 -- information, see GetChangeTokenStatus.
+--
+-- 'rule', 'createRuleResponse_rule' - The Rule returned in the @CreateRule@ response.
 --
 -- 'httpStatus', 'createRuleResponse_httpStatus' - The response's http status code.
 newCreateRuleResponse ::
@@ -265,14 +267,10 @@ newCreateRuleResponse ::
   CreateRuleResponse
 newCreateRuleResponse pHttpStatus_ =
   CreateRuleResponse'
-    { rule = Prelude.Nothing,
-      changeToken = Prelude.Nothing,
+    { changeToken = Prelude.Nothing,
+      rule = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The Rule returned in the @CreateRule@ response.
-createRuleResponse_rule :: Lens.Lens' CreateRuleResponse (Prelude.Maybe Rule)
-createRuleResponse_rule = Lens.lens (\CreateRuleResponse' {rule} -> rule) (\s@CreateRuleResponse' {} a -> s {rule = a} :: CreateRuleResponse)
 
 -- | The @ChangeToken@ that you used to submit the @CreateRule@ request. You
 -- can also use this value to query the status of the request. For more
@@ -280,12 +278,16 @@ createRuleResponse_rule = Lens.lens (\CreateRuleResponse' {rule} -> rule) (\s@Cr
 createRuleResponse_changeToken :: Lens.Lens' CreateRuleResponse (Prelude.Maybe Prelude.Text)
 createRuleResponse_changeToken = Lens.lens (\CreateRuleResponse' {changeToken} -> changeToken) (\s@CreateRuleResponse' {} a -> s {changeToken = a} :: CreateRuleResponse)
 
+-- | The Rule returned in the @CreateRule@ response.
+createRuleResponse_rule :: Lens.Lens' CreateRuleResponse (Prelude.Maybe Rule)
+createRuleResponse_rule = Lens.lens (\CreateRuleResponse' {rule} -> rule) (\s@CreateRuleResponse' {} a -> s {rule = a} :: CreateRuleResponse)
+
 -- | The response's http status code.
 createRuleResponse_httpStatus :: Lens.Lens' CreateRuleResponse Prelude.Int
 createRuleResponse_httpStatus = Lens.lens (\CreateRuleResponse' {httpStatus} -> httpStatus) (\s@CreateRuleResponse' {} a -> s {httpStatus = a} :: CreateRuleResponse)
 
 instance Prelude.NFData CreateRuleResponse where
   rnf CreateRuleResponse' {..} =
-    Prelude.rnf rule
-      `Prelude.seq` Prelude.rnf changeToken
+    Prelude.rnf changeToken
+      `Prelude.seq` Prelude.rnf rule
       `Prelude.seq` Prelude.rnf httpStatus

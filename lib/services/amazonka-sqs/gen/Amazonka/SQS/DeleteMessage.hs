@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SQS.DeleteMessage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -58,7 +58,8 @@ module Amazonka.SQS.DeleteMessage
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -116,7 +117,8 @@ instance Core.AWSRequest DeleteMessage where
   type
     AWSResponse DeleteMessage =
       DeleteMessageResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull DeleteMessageResponse'
 
@@ -130,21 +132,21 @@ instance Prelude.NFData DeleteMessage where
     Prelude.rnf queueUrl
       `Prelude.seq` Prelude.rnf receiptHandle
 
-instance Core.ToHeaders DeleteMessage where
+instance Data.ToHeaders DeleteMessage where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteMessage where
+instance Data.ToPath DeleteMessage where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteMessage where
+instance Data.ToQuery DeleteMessage where
   toQuery DeleteMessage' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteMessage" :: Prelude.ByteString),
+          Data.=: ("DeleteMessage" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-11-05" :: Prelude.ByteString),
-        "QueueUrl" Core.=: queueUrl,
-        "ReceiptHandle" Core.=: receiptHandle
+          Data.=: ("2012-11-05" :: Prelude.ByteString),
+        "QueueUrl" Data.=: queueUrl,
+        "ReceiptHandle" Data.=: receiptHandle
       ]
 
 -- | /See:/ 'newDeleteMessageResponse' smart constructor.

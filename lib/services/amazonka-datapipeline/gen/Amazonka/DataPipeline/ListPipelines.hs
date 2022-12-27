@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataPipeline.ListPipelines
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.DataPipeline.ListPipelines
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataPipeline.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -111,15 +112,16 @@ instance Core.AWSRequest ListPipelines where
   type
     AWSResponse ListPipelines =
       ListPipelinesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPipelinesResponse'
-            Prelude.<$> (x Core..?> "hasMoreResults")
-            Prelude.<*> (x Core..?> "marker")
+            Prelude.<$> (x Data..?> "hasMoreResults")
+            Prelude.<*> (x Data..?> "marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "pipelineIdList"
+            Prelude.<*> ( x Data..?> "pipelineIdList"
                             Core..!@ Prelude.mempty
                         )
       )
@@ -131,30 +133,30 @@ instance Prelude.Hashable ListPipelines where
 instance Prelude.NFData ListPipelines where
   rnf ListPipelines' {..} = Prelude.rnf marker
 
-instance Core.ToHeaders ListPipelines where
+instance Data.ToHeaders ListPipelines where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("DataPipeline.ListPipelines" :: Prelude.ByteString),
+              Data.=# ("DataPipeline.ListPipelines" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListPipelines where
+instance Data.ToJSON ListPipelines where
   toJSON ListPipelines' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("marker" Core..=) Prelude.<$> marker]
+          [("marker" Data..=) Prelude.<$> marker]
       )
 
-instance Core.ToPath ListPipelines where
+instance Data.ToPath ListPipelines where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListPipelines where
+instance Data.ToQuery ListPipelines where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the output of ListPipelines.

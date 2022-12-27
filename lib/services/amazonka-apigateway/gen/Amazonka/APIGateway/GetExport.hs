@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetExport
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.APIGateway.GetExport
     newGetExport,
 
     -- * Request Lenses
-    getExport_parameters,
     getExport_accepts,
+    getExport_parameters,
     getExport_restApiId,
     getExport_stageName,
     getExport_exportType,
@@ -47,7 +47,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,7 +57,12 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newGetExport' smart constructor.
 data GetExport = GetExport'
-  { -- | A key-value map of query string parameters that specify properties of
+  { -- | The content-type of the export, for example @application\/json@.
+    -- Currently @application\/json@ and @application\/yaml@ are supported for
+    -- @exportType@ of@oas30@ and @swagger@. This should be specified in the
+    -- @Accept@ header for direct API requests.
+    accepts :: Prelude.Maybe Prelude.Text,
+    -- | A key-value map of query string parameters that specify properties of
     -- the export, depending on the requested @exportType@. For @exportType@
     -- @oas30@ and @swagger@, any combination of the following parameters are
     -- supported: @extensions=\'integrations\'@ or @extensions=\'apigateway\'@
@@ -65,17 +71,12 @@ data GetExport = GetExport'
     -- x-amazon-apigateway-authorizer extensions. @postman@ will export the API
     -- with Postman extensions, allowing for import to the Postman tool
     parameters :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | The content-type of the export, for example @application\/json@.
-    -- Currently @application\/json@ and @application\/yaml@ are supported for
-    -- @exportType@ of@oas30@ and @swagger@. This should be specified in the
-    -- @Accept@ header for direct API requests.
-    accepts :: Prelude.Maybe Prelude.Text,
-    -- | [Required] The string identifier of the associated RestApi.
+    -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] The name of the Stage that will be exported.
+    -- | The name of the Stage that will be exported.
     stageName :: Prelude.Text,
-    -- | [Required] The type of export. Acceptable values are \'oas30\' for
-    -- OpenAPI 3.0.x and \'swagger\' for Swagger\/OpenAPI 2.0.
+    -- | The type of export. Acceptable values are \'oas30\' for OpenAPI 3.0.x
+    -- and \'swagger\' for Swagger\/OpenAPI 2.0.
     exportType :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -88,6 +89,11 @@ data GetExport = GetExport'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'accepts', 'getExport_accepts' - The content-type of the export, for example @application\/json@.
+-- Currently @application\/json@ and @application\/yaml@ are supported for
+-- @exportType@ of@oas30@ and @swagger@. This should be specified in the
+-- @Accept@ header for direct API requests.
+--
 -- 'parameters', 'getExport_parameters' - A key-value map of query string parameters that specify properties of
 -- the export, depending on the requested @exportType@. For @exportType@
 -- @oas30@ and @swagger@, any combination of the following parameters are
@@ -97,17 +103,12 @@ data GetExport = GetExport'
 -- x-amazon-apigateway-authorizer extensions. @postman@ will export the API
 -- with Postman extensions, allowing for import to the Postman tool
 --
--- 'accepts', 'getExport_accepts' - The content-type of the export, for example @application\/json@.
--- Currently @application\/json@ and @application\/yaml@ are supported for
--- @exportType@ of@oas30@ and @swagger@. This should be specified in the
--- @Accept@ header for direct API requests.
+-- 'restApiId', 'getExport_restApiId' - The string identifier of the associated RestApi.
 --
--- 'restApiId', 'getExport_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'stageName', 'getExport_stageName' - The name of the Stage that will be exported.
 --
--- 'stageName', 'getExport_stageName' - [Required] The name of the Stage that will be exported.
---
--- 'exportType', 'getExport_exportType' - [Required] The type of export. Acceptable values are \'oas30\' for
--- OpenAPI 3.0.x and \'swagger\' for Swagger\/OpenAPI 2.0.
+-- 'exportType', 'getExport_exportType' - The type of export. Acceptable values are \'oas30\' for OpenAPI 3.0.x
+-- and \'swagger\' for Swagger\/OpenAPI 2.0.
 newGetExport ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -118,12 +119,19 @@ newGetExport ::
   GetExport
 newGetExport pRestApiId_ pStageName_ pExportType_ =
   GetExport'
-    { parameters = Prelude.Nothing,
-      accepts = Prelude.Nothing,
+    { accepts = Prelude.Nothing,
+      parameters = Prelude.Nothing,
       restApiId = pRestApiId_,
       stageName = pStageName_,
       exportType = pExportType_
     }
+
+-- | The content-type of the export, for example @application\/json@.
+-- Currently @application\/json@ and @application\/yaml@ are supported for
+-- @exportType@ of@oas30@ and @swagger@. This should be specified in the
+-- @Accept@ header for direct API requests.
+getExport_accepts :: Lens.Lens' GetExport (Prelude.Maybe Prelude.Text)
+getExport_accepts = Lens.lens (\GetExport' {accepts} -> accepts) (\s@GetExport' {} a -> s {accepts = a} :: GetExport)
 
 -- | A key-value map of query string parameters that specify properties of
 -- the export, depending on the requested @exportType@. For @exportType@
@@ -136,80 +144,74 @@ newGetExport pRestApiId_ pStageName_ pExportType_ =
 getExport_parameters :: Lens.Lens' GetExport (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 getExport_parameters = Lens.lens (\GetExport' {parameters} -> parameters) (\s@GetExport' {} a -> s {parameters = a} :: GetExport) Prelude.. Lens.mapping Lens.coerced
 
--- | The content-type of the export, for example @application\/json@.
--- Currently @application\/json@ and @application\/yaml@ are supported for
--- @exportType@ of@oas30@ and @swagger@. This should be specified in the
--- @Accept@ header for direct API requests.
-getExport_accepts :: Lens.Lens' GetExport (Prelude.Maybe Prelude.Text)
-getExport_accepts = Lens.lens (\GetExport' {accepts} -> accepts) (\s@GetExport' {} a -> s {accepts = a} :: GetExport)
-
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 getExport_restApiId :: Lens.Lens' GetExport Prelude.Text
 getExport_restApiId = Lens.lens (\GetExport' {restApiId} -> restApiId) (\s@GetExport' {} a -> s {restApiId = a} :: GetExport)
 
--- | [Required] The name of the Stage that will be exported.
+-- | The name of the Stage that will be exported.
 getExport_stageName :: Lens.Lens' GetExport Prelude.Text
 getExport_stageName = Lens.lens (\GetExport' {stageName} -> stageName) (\s@GetExport' {} a -> s {stageName = a} :: GetExport)
 
--- | [Required] The type of export. Acceptable values are \'oas30\' for
--- OpenAPI 3.0.x and \'swagger\' for Swagger\/OpenAPI 2.0.
+-- | The type of export. Acceptable values are \'oas30\' for OpenAPI 3.0.x
+-- and \'swagger\' for Swagger\/OpenAPI 2.0.
 getExport_exportType :: Lens.Lens' GetExport Prelude.Text
 getExport_exportType = Lens.lens (\GetExport' {exportType} -> exportType) (\s@GetExport' {} a -> s {exportType = a} :: GetExport)
 
 instance Core.AWSRequest GetExport where
   type AWSResponse GetExport = GetExportResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveBytes
       ( \s h x ->
           GetExportResponse'
             Prelude.<$> (Prelude.pure (Prelude.Just (Prelude.coerce x)))
-            Prelude.<*> (h Core..#? "Content-Disposition")
-            Prelude.<*> (h Core..#? "Content-Type")
+            Prelude.<*> (h Data..#? "Content-Disposition")
+            Prelude.<*> (h Data..#? "Content-Type")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetExport where
   hashWithSalt _salt GetExport' {..} =
-    _salt `Prelude.hashWithSalt` parameters
-      `Prelude.hashWithSalt` accepts
+    _salt `Prelude.hashWithSalt` accepts
+      `Prelude.hashWithSalt` parameters
       `Prelude.hashWithSalt` restApiId
       `Prelude.hashWithSalt` stageName
       `Prelude.hashWithSalt` exportType
 
 instance Prelude.NFData GetExport where
   rnf GetExport' {..} =
-    Prelude.rnf parameters
-      `Prelude.seq` Prelude.rnf accepts
+    Prelude.rnf accepts
+      `Prelude.seq` Prelude.rnf parameters
       `Prelude.seq` Prelude.rnf restApiId
       `Prelude.seq` Prelude.rnf stageName
       `Prelude.seq` Prelude.rnf exportType
 
-instance Core.ToHeaders GetExport where
+instance Data.ToHeaders GetExport where
   toHeaders GetExport' {..} =
     Prelude.mconcat
-      [ "Accept" Core.=# accepts,
+      [ "Accept" Data.=# accepts,
         "Accept"
-          Core.=# ("application/json" :: Prelude.ByteString)
+          Data.=# ("application/json" :: Prelude.ByteString)
       ]
 
-instance Core.ToPath GetExport where
+instance Data.ToPath GetExport where
   toPath GetExport' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/stages/",
-        Core.toBS stageName,
+        Data.toBS stageName,
         "/exports/",
-        Core.toBS exportType
+        Data.toBS exportType
       ]
 
-instance Core.ToQuery GetExport where
+instance Data.ToQuery GetExport where
   toQuery GetExport' {..} =
     Prelude.mconcat
       [ "parameters"
-          Core.=: Core.toQuery
-            ( Core.toQueryMap "entry" "key" "value"
+          Data.=: Data.toQuery
+            ( Data.toQueryMap "entry" "key" "value"
                 Prelude.<$> parameters
             )
       ]

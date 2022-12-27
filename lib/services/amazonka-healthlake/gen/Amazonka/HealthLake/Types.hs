@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.HealthLake.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,12 +18,12 @@ module Amazonka.HealthLake.Types
     defaultService,
 
     -- * Errors
-    _ValidationException,
     _AccessDeniedException,
     _ConflictException,
-    _ThrottlingException,
     _InternalServerException,
     _ResourceNotFoundException,
+    _ThrottlingException,
+    _ValidationException,
 
     -- * CmkType
     CmkType (..),
@@ -43,17 +44,17 @@ module Amazonka.HealthLake.Types
     DatastoreFilter (..),
     newDatastoreFilter,
     datastoreFilter_createdAfter,
+    datastoreFilter_createdBefore,
     datastoreFilter_datastoreName,
     datastoreFilter_datastoreStatus,
-    datastoreFilter_createdBefore,
 
     -- * DatastoreProperties
     DatastoreProperties (..),
     newDatastoreProperties,
-    datastoreProperties_sseConfiguration,
     datastoreProperties_createdAt,
     datastoreProperties_datastoreName,
     datastoreProperties_preloadDataConfig,
+    datastoreProperties_sseConfiguration,
     datastoreProperties_datastoreId,
     datastoreProperties_datastoreArn,
     datastoreProperties_datastoreStatus,
@@ -63,9 +64,9 @@ module Amazonka.HealthLake.Types
     -- * ExportJobProperties
     ExportJobProperties (..),
     newExportJobProperties,
-    exportJobProperties_jobName,
-    exportJobProperties_endTime,
     exportJobProperties_dataAccessRoleArn,
+    exportJobProperties_endTime,
+    exportJobProperties_jobName,
     exportJobProperties_message,
     exportJobProperties_jobId,
     exportJobProperties_jobStatus,
@@ -76,10 +77,10 @@ module Amazonka.HealthLake.Types
     -- * ImportJobProperties
     ImportJobProperties (..),
     newImportJobProperties,
-    importJobProperties_jobOutputDataConfig,
-    importJobProperties_jobName,
-    importJobProperties_endTime,
     importJobProperties_dataAccessRoleArn,
+    importJobProperties_endTime,
+    importJobProperties_jobName,
+    importJobProperties_jobOutputDataConfig,
     importJobProperties_message,
     importJobProperties_jobId,
     importJobProperties_jobStatus,
@@ -128,6 +129,7 @@ module Amazonka.HealthLake.Types
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.HealthLake.Types.CmkType
 import Amazonka.HealthLake.Types.DatastoreFilter
 import Amazonka.HealthLake.Types.DatastoreProperties
@@ -144,7 +146,6 @@ import Amazonka.HealthLake.Types.PreloadDataType
 import Amazonka.HealthLake.Types.S3Configuration
 import Amazonka.HealthLake.Types.SseConfiguration
 import Amazonka.HealthLake.Types.Tag
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 
@@ -152,42 +153,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "HealthLake",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "healthlake",
-      Core._serviceSigningName = "healthlake",
-      Core._serviceVersion = "2017-07-01",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
-        Core.parseJSONError "HealthLake",
-      Core._serviceRetry = retry
+    { Core.abbrev = "HealthLake",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "healthlake",
+      Core.signingName = "healthlake",
+      Core.version = "2017-07-01",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "HealthLake",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -195,36 +203,21 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
-
--- | The user input parameter was invalid.
-_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ValidationException =
-  Core._MatchServiceError
-    defaultService
-    "ValidationException"
 
 -- | Access is denied. Your account is not authorized to perform this
 -- operation.
@@ -242,14 +235,6 @@ _ConflictException =
     defaultService
     "ConflictException"
 
--- | The user has exceeded their maximum number of allowed calls to the given
--- API.
-_ThrottlingException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ThrottlingException =
-  Core._MatchServiceError
-    defaultService
-    "ThrottlingException"
-
 -- | Unknown error occurs in the service.
 _InternalServerException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
 _InternalServerException =
@@ -263,3 +248,18 @@ _ResourceNotFoundException =
   Core._MatchServiceError
     defaultService
     "ResourceNotFoundException"
+
+-- | The user has exceeded their maximum number of allowed calls to the given
+-- API.
+_ThrottlingException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ThrottlingException =
+  Core._MatchServiceError
+    defaultService
+    "ThrottlingException"
+
+-- | The user input parameter was invalid.
+_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ValidationException =
+  Core._MatchServiceError
+    defaultService
+    "ValidationException"

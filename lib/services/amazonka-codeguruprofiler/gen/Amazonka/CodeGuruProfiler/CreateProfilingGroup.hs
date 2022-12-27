@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruProfiler.CreateProfilingGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.CodeGuruProfiler.CreateProfilingGroup
     newCreateProfilingGroup,
 
     -- * Request Lenses
-    createProfilingGroup_computePlatform,
     createProfilingGroup_agentOrchestrationConfig,
+    createProfilingGroup_computePlatform,
     createProfilingGroup_tags,
     createProfilingGroup_clientToken,
     createProfilingGroup_profilingGroupName,
@@ -45,7 +45,8 @@ where
 
 import Amazonka.CodeGuruProfiler.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,15 +55,15 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCreateProfilingGroup' smart constructor.
 data CreateProfilingGroup = CreateProfilingGroup'
-  { -- | The compute platform of the profiling group. Use @AWSLambda@ if your
+  { -- | Specifies whether profiling is enabled or disabled for the created
+    -- profiling group.
+    agentOrchestrationConfig :: Prelude.Maybe AgentOrchestrationConfig,
+    -- | The compute platform of the profiling group. Use @AWSLambda@ if your
     -- application runs on AWS Lambda. Use @Default@ if your application runs
     -- on a compute platform that is not AWS Lambda, such an Amazon EC2
     -- instance, an on-premises server, or a different platform. If not
     -- specified, @Default@ is used.
     computePlatform :: Prelude.Maybe ComputePlatform,
-    -- | Specifies whether profiling is enabled or disabled for the created
-    -- profiling group.
-    agentOrchestrationConfig :: Prelude.Maybe AgentOrchestrationConfig,
     -- | A list of tags to add to the created profiling group.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | Amazon CodeGuru Profiler uses this universally unique identifier (UUID)
@@ -82,14 +83,14 @@ data CreateProfilingGroup = CreateProfilingGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'agentOrchestrationConfig', 'createProfilingGroup_agentOrchestrationConfig' - Specifies whether profiling is enabled or disabled for the created
+-- profiling group.
+--
 -- 'computePlatform', 'createProfilingGroup_computePlatform' - The compute platform of the profiling group. Use @AWSLambda@ if your
 -- application runs on AWS Lambda. Use @Default@ if your application runs
 -- on a compute platform that is not AWS Lambda, such an Amazon EC2
 -- instance, an on-premises server, or a different platform. If not
 -- specified, @Default@ is used.
---
--- 'agentOrchestrationConfig', 'createProfilingGroup_agentOrchestrationConfig' - Specifies whether profiling is enabled or disabled for the created
--- profiling group.
 --
 -- 'tags', 'createProfilingGroup_tags' - A list of tags to add to the created profiling group.
 --
@@ -108,13 +109,18 @@ newCreateProfilingGroup
   pClientToken_
   pProfilingGroupName_ =
     CreateProfilingGroup'
-      { computePlatform =
+      { agentOrchestrationConfig =
           Prelude.Nothing,
-        agentOrchestrationConfig = Prelude.Nothing,
+        computePlatform = Prelude.Nothing,
         tags = Prelude.Nothing,
         clientToken = pClientToken_,
         profilingGroupName = pProfilingGroupName_
       }
+
+-- | Specifies whether profiling is enabled or disabled for the created
+-- profiling group.
+createProfilingGroup_agentOrchestrationConfig :: Lens.Lens' CreateProfilingGroup (Prelude.Maybe AgentOrchestrationConfig)
+createProfilingGroup_agentOrchestrationConfig = Lens.lens (\CreateProfilingGroup' {agentOrchestrationConfig} -> agentOrchestrationConfig) (\s@CreateProfilingGroup' {} a -> s {agentOrchestrationConfig = a} :: CreateProfilingGroup)
 
 -- | The compute platform of the profiling group. Use @AWSLambda@ if your
 -- application runs on AWS Lambda. Use @Default@ if your application runs
@@ -123,11 +129,6 @@ newCreateProfilingGroup
 -- specified, @Default@ is used.
 createProfilingGroup_computePlatform :: Lens.Lens' CreateProfilingGroup (Prelude.Maybe ComputePlatform)
 createProfilingGroup_computePlatform = Lens.lens (\CreateProfilingGroup' {computePlatform} -> computePlatform) (\s@CreateProfilingGroup' {} a -> s {computePlatform = a} :: CreateProfilingGroup)
-
--- | Specifies whether profiling is enabled or disabled for the created
--- profiling group.
-createProfilingGroup_agentOrchestrationConfig :: Lens.Lens' CreateProfilingGroup (Prelude.Maybe AgentOrchestrationConfig)
-createProfilingGroup_agentOrchestrationConfig = Lens.lens (\CreateProfilingGroup' {agentOrchestrationConfig} -> agentOrchestrationConfig) (\s@CreateProfilingGroup' {} a -> s {agentOrchestrationConfig = a} :: CreateProfilingGroup)
 
 -- | A list of tags to add to the created profiling group.
 createProfilingGroup_tags :: Lens.Lens' CreateProfilingGroup (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -147,62 +148,64 @@ instance Core.AWSRequest CreateProfilingGroup where
   type
     AWSResponse CreateProfilingGroup =
       CreateProfilingGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateProfilingGroupResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable CreateProfilingGroup where
   hashWithSalt _salt CreateProfilingGroup' {..} =
-    _salt `Prelude.hashWithSalt` computePlatform
+    _salt
       `Prelude.hashWithSalt` agentOrchestrationConfig
+      `Prelude.hashWithSalt` computePlatform
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` clientToken
       `Prelude.hashWithSalt` profilingGroupName
 
 instance Prelude.NFData CreateProfilingGroup where
   rnf CreateProfilingGroup' {..} =
-    Prelude.rnf computePlatform
-      `Prelude.seq` Prelude.rnf agentOrchestrationConfig
+    Prelude.rnf agentOrchestrationConfig
+      `Prelude.seq` Prelude.rnf computePlatform
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf profilingGroupName
 
-instance Core.ToHeaders CreateProfilingGroup where
+instance Data.ToHeaders CreateProfilingGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateProfilingGroup where
+instance Data.ToJSON CreateProfilingGroup where
   toJSON CreateProfilingGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("computePlatform" Core..=)
-              Prelude.<$> computePlatform,
-            ("agentOrchestrationConfig" Core..=)
+          [ ("agentOrchestrationConfig" Data..=)
               Prelude.<$> agentOrchestrationConfig,
-            ("tags" Core..=) Prelude.<$> tags,
+            ("computePlatform" Data..=)
+              Prelude.<$> computePlatform,
+            ("tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("profilingGroupName" Core..= profilingGroupName)
+              ("profilingGroupName" Data..= profilingGroupName)
           ]
       )
 
-instance Core.ToPath CreateProfilingGroup where
+instance Data.ToPath CreateProfilingGroup where
   toPath = Prelude.const "/profilingGroups"
 
-instance Core.ToQuery CreateProfilingGroup where
+instance Data.ToQuery CreateProfilingGroup where
   toQuery CreateProfilingGroup' {..} =
-    Prelude.mconcat ["clientToken" Core.=: clientToken]
+    Prelude.mconcat ["clientToken" Data.=: clientToken]
 
 -- | The structure representing the createProfilingGroupResponse.
 --

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.CaptionSelector
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.CaptionSelector where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.CaptionSelectorSettings
 import qualified Amazonka.Prelude as Prelude
 
@@ -83,15 +84,15 @@ captionSelector_selectorSettings = Lens.lens (\CaptionSelector' {selectorSetting
 captionSelector_name :: Lens.Lens' CaptionSelector Prelude.Text
 captionSelector_name = Lens.lens (\CaptionSelector' {name} -> name) (\s@CaptionSelector' {} a -> s {name = a} :: CaptionSelector)
 
-instance Core.FromJSON CaptionSelector where
+instance Data.FromJSON CaptionSelector where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CaptionSelector"
       ( \x ->
           CaptionSelector'
-            Prelude.<$> (x Core..:? "languageCode")
-            Prelude.<*> (x Core..:? "selectorSettings")
-            Prelude.<*> (x Core..: "name")
+            Prelude.<$> (x Data..:? "languageCode")
+            Prelude.<*> (x Data..:? "selectorSettings")
+            Prelude.<*> (x Data..: "name")
       )
 
 instance Prelude.Hashable CaptionSelector where
@@ -106,13 +107,13 @@ instance Prelude.NFData CaptionSelector where
       `Prelude.seq` Prelude.rnf selectorSettings
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToJSON CaptionSelector where
+instance Data.ToJSON CaptionSelector where
   toJSON CaptionSelector' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("languageCode" Core..=) Prelude.<$> languageCode,
-            ("selectorSettings" Core..=)
+          [ ("languageCode" Data..=) Prelude.<$> languageCode,
+            ("selectorSettings" Data..=)
               Prelude.<$> selectorSettings,
-            Prelude.Just ("name" Core..= name)
+            Prelude.Just ("name" Data..= name)
           ]
       )

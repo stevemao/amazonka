@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AccessAnalyzer.Types.FindingSourceDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AccessAnalyzer.Types.FindingSourceDetail where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Includes details about how the access that generated the finding is
@@ -28,7 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newFindingSourceDetail' smart constructor.
 data FindingSourceDetail = FindingSourceDetail'
-  { -- | The ARN of the access point that generated the finding. The ARN format
+  { -- | The account of the cross-account access point that generated the
+    -- finding.
+    accessPointAccount :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the access point that generated the finding. The ARN format
     -- depends on whether the ARN represents an access point or a multi-region
     -- access point.
     accessPointArn :: Prelude.Maybe Prelude.Text
@@ -43,6 +47,9 @@ data FindingSourceDetail = FindingSourceDetail'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'accessPointAccount', 'findingSourceDetail_accessPointAccount' - The account of the cross-account access point that generated the
+-- finding.
+--
 -- 'accessPointArn', 'findingSourceDetail_accessPointArn' - The ARN of the access point that generated the finding. The ARN format
 -- depends on whether the ARN represents an access point or a multi-region
 -- access point.
@@ -50,9 +57,15 @@ newFindingSourceDetail ::
   FindingSourceDetail
 newFindingSourceDetail =
   FindingSourceDetail'
-    { accessPointArn =
-        Prelude.Nothing
+    { accessPointAccount =
+        Prelude.Nothing,
+      accessPointArn = Prelude.Nothing
     }
+
+-- | The account of the cross-account access point that generated the
+-- finding.
+findingSourceDetail_accessPointAccount :: Lens.Lens' FindingSourceDetail (Prelude.Maybe Prelude.Text)
+findingSourceDetail_accessPointAccount = Lens.lens (\FindingSourceDetail' {accessPointAccount} -> accessPointAccount) (\s@FindingSourceDetail' {} a -> s {accessPointAccount = a} :: FindingSourceDetail)
 
 -- | The ARN of the access point that generated the finding. The ARN format
 -- depends on whether the ARN represents an access point or a multi-region
@@ -60,19 +73,22 @@ newFindingSourceDetail =
 findingSourceDetail_accessPointArn :: Lens.Lens' FindingSourceDetail (Prelude.Maybe Prelude.Text)
 findingSourceDetail_accessPointArn = Lens.lens (\FindingSourceDetail' {accessPointArn} -> accessPointArn) (\s@FindingSourceDetail' {} a -> s {accessPointArn = a} :: FindingSourceDetail)
 
-instance Core.FromJSON FindingSourceDetail where
+instance Data.FromJSON FindingSourceDetail where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FindingSourceDetail"
       ( \x ->
           FindingSourceDetail'
-            Prelude.<$> (x Core..:? "accessPointArn")
+            Prelude.<$> (x Data..:? "accessPointAccount")
+            Prelude.<*> (x Data..:? "accessPointArn")
       )
 
 instance Prelude.Hashable FindingSourceDetail where
   hashWithSalt _salt FindingSourceDetail' {..} =
-    _salt `Prelude.hashWithSalt` accessPointArn
+    _salt `Prelude.hashWithSalt` accessPointAccount
+      `Prelude.hashWithSalt` accessPointArn
 
 instance Prelude.NFData FindingSourceDetail where
   rnf FindingSourceDetail' {..} =
-    Prelude.rnf accessPointArn
+    Prelude.rnf accessPointAccount
+      `Prelude.seq` Prelude.rnf accessPointArn

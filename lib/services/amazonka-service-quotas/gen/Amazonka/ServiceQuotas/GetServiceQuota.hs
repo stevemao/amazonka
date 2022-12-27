@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceQuotas.GetServiceQuota
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.ServiceQuotas.GetServiceQuota
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,12 +94,13 @@ instance Core.AWSRequest GetServiceQuota where
   type
     AWSResponse GetServiceQuota =
       GetServiceQuotaResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetServiceQuotaResponse'
-            Prelude.<$> (x Core..?> "Quota")
+            Prelude.<$> (x Data..?> "Quota")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -112,34 +114,34 @@ instance Prelude.NFData GetServiceQuota where
     Prelude.rnf serviceCode
       `Prelude.seq` Prelude.rnf quotaCode
 
-instance Core.ToHeaders GetServiceQuota where
+instance Data.ToHeaders GetServiceQuota where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ServiceQuotasV20190624.GetServiceQuota" ::
+              Data.=# ( "ServiceQuotasV20190624.GetServiceQuota" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetServiceQuota where
+instance Data.ToJSON GetServiceQuota where
   toJSON GetServiceQuota' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ServiceCode" Core..= serviceCode),
-            Prelude.Just ("QuotaCode" Core..= quotaCode)
+          [ Prelude.Just ("ServiceCode" Data..= serviceCode),
+            Prelude.Just ("QuotaCode" Data..= quotaCode)
           ]
       )
 
-instance Core.ToPath GetServiceQuota where
+instance Data.ToPath GetServiceQuota where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetServiceQuota where
+instance Data.ToQuery GetServiceQuota where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetServiceQuotaResponse' smart constructor.

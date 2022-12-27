@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AWSHealth.Types.OrganizationEvent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,8 @@ import Amazonka.AWSHealth.Types.EventScopeCode
 import Amazonka.AWSHealth.Types.EventStatusCode
 import Amazonka.AWSHealth.Types.EventTypeCategory
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Summary information about an event, returned by the
@@ -32,9 +33,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newOrganizationEvent' smart constructor.
 data OrganizationEvent = OrganizationEvent'
-  { -- | The most recent date and time that the event was updated.
-    lastUpdatedTime :: Prelude.Maybe Core.POSIX,
-    -- | The unique identifier for the event. The event ARN has the
+  { -- | The unique identifier for the event. The event ARN has the
     -- @arn:aws:health:event-region::event\/SERVICE\/EVENT_TYPE_CODE\/EVENT_TYPE_PLUS_ID @
     -- format.
     --
@@ -42,35 +41,41 @@ data OrganizationEvent = OrganizationEvent'
     --
     -- @arn:aws:health:us-east-1::event\/EC2\/EC2_INSTANCE_RETIREMENT_SCHEDULED\/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456@
     arn :: Prelude.Maybe Prelude.Text,
-    -- | The AWS service that is affected by the event, such as EC2 and RDS.
-    service :: Prelude.Maybe Prelude.Text,
-    -- | The date and time that the event began.
-    startTime :: Prelude.Maybe Core.POSIX,
-    -- | This parameter specifies if the AWS Health event is a public AWS service
-    -- event or an account-specific event.
+    -- | The date and time that the event ended.
+    endTime :: Prelude.Maybe Data.POSIX,
+    -- | This parameter specifies if the Health event is a public Amazon Web
+    -- Services service event or an account-specific event.
     --
     -- -   If the @eventScopeCode@ value is @PUBLIC@, then the
     --     @affectedAccounts@ value is always empty.
     --
     -- -   If the @eventScopeCode@ value is @ACCOUNT_SPECIFIC@, then the
-    --     @affectedAccounts@ value lists the affected AWS accounts in your
-    --     organization. For example, if an event affects a service such as
-    --     Amazon Elastic Compute Cloud and you have AWS accounts that use that
-    --     service, those account IDs appear in the response.
+    --     @affectedAccounts@ value lists the affected Amazon Web Services
+    --     accounts in your organization. For example, if an event affects a
+    --     service such as Amazon Elastic Compute Cloud and you have Amazon Web
+    --     Services accounts that use that service, those account IDs appear in
+    --     the response.
     --
     -- -   If the @eventScopeCode@ value is @NONE@, then the @eventArn@ that
     --     you specified in the request is invalid or doesn\'t exist.
     eventScopeCode :: Prelude.Maybe EventScopeCode,
+    -- | A list of event type category codes. Possible values are @issue@,
+    -- @accountNotification@, or @scheduledChange@. Currently, the
+    -- @investigation@ value isn\'t supported at this time.
+    eventTypeCategory :: Prelude.Maybe EventTypeCategory,
     -- | The unique identifier for the event type. The format is
     -- @AWS_SERVICE_DESCRIPTION@. For example,
     -- @AWS_EC2_SYSTEM_MAINTENANCE_EVENT@.
     eventTypeCode :: Prelude.Maybe Prelude.Text,
-    -- | The category of the event type.
-    eventTypeCategory :: Prelude.Maybe EventTypeCategory,
-    -- | The date and time that the event ended.
-    endTime :: Prelude.Maybe Core.POSIX,
-    -- | The AWS Region name of the event.
+    -- | The most recent date and time that the event was updated.
+    lastUpdatedTime :: Prelude.Maybe Data.POSIX,
+    -- | The Amazon Web Services Region name of the event.
     region :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Web Services service that is affected by the event, such as
+    -- EC2 and RDS.
+    service :: Prelude.Maybe Prelude.Text,
+    -- | The date and time that the event began.
+    startTime :: Prelude.Maybe Data.POSIX,
     -- | The most recent status of the event. Possible values are @open@,
     -- @closed@, and @upcoming@.
     statusCode :: Prelude.Maybe EventStatusCode
@@ -85,8 +90,6 @@ data OrganizationEvent = OrganizationEvent'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'lastUpdatedTime', 'organizationEvent_lastUpdatedTime' - The most recent date and time that the event was updated.
---
 -- 'arn', 'organizationEvent_arn' - The unique identifier for the event. The event ARN has the
 -- @arn:aws:health:event-region::event\/SERVICE\/EVENT_TYPE_CODE\/EVENT_TYPE_PLUS_ID @
 -- format.
@@ -95,34 +98,40 @@ data OrganizationEvent = OrganizationEvent'
 --
 -- @arn:aws:health:us-east-1::event\/EC2\/EC2_INSTANCE_RETIREMENT_SCHEDULED\/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456@
 --
--- 'service', 'organizationEvent_service' - The AWS service that is affected by the event, such as EC2 and RDS.
+-- 'endTime', 'organizationEvent_endTime' - The date and time that the event ended.
 --
--- 'startTime', 'organizationEvent_startTime' - The date and time that the event began.
---
--- 'eventScopeCode', 'organizationEvent_eventScopeCode' - This parameter specifies if the AWS Health event is a public AWS service
--- event or an account-specific event.
+-- 'eventScopeCode', 'organizationEvent_eventScopeCode' - This parameter specifies if the Health event is a public Amazon Web
+-- Services service event or an account-specific event.
 --
 -- -   If the @eventScopeCode@ value is @PUBLIC@, then the
 --     @affectedAccounts@ value is always empty.
 --
 -- -   If the @eventScopeCode@ value is @ACCOUNT_SPECIFIC@, then the
---     @affectedAccounts@ value lists the affected AWS accounts in your
---     organization. For example, if an event affects a service such as
---     Amazon Elastic Compute Cloud and you have AWS accounts that use that
---     service, those account IDs appear in the response.
+--     @affectedAccounts@ value lists the affected Amazon Web Services
+--     accounts in your organization. For example, if an event affects a
+--     service such as Amazon Elastic Compute Cloud and you have Amazon Web
+--     Services accounts that use that service, those account IDs appear in
+--     the response.
 --
 -- -   If the @eventScopeCode@ value is @NONE@, then the @eventArn@ that
 --     you specified in the request is invalid or doesn\'t exist.
+--
+-- 'eventTypeCategory', 'organizationEvent_eventTypeCategory' - A list of event type category codes. Possible values are @issue@,
+-- @accountNotification@, or @scheduledChange@. Currently, the
+-- @investigation@ value isn\'t supported at this time.
 --
 -- 'eventTypeCode', 'organizationEvent_eventTypeCode' - The unique identifier for the event type. The format is
 -- @AWS_SERVICE_DESCRIPTION@. For example,
 -- @AWS_EC2_SYSTEM_MAINTENANCE_EVENT@.
 --
--- 'eventTypeCategory', 'organizationEvent_eventTypeCategory' - The category of the event type.
+-- 'lastUpdatedTime', 'organizationEvent_lastUpdatedTime' - The most recent date and time that the event was updated.
 --
--- 'endTime', 'organizationEvent_endTime' - The date and time that the event ended.
+-- 'region', 'organizationEvent_region' - The Amazon Web Services Region name of the event.
 --
--- 'region', 'organizationEvent_region' - The AWS Region name of the event.
+-- 'service', 'organizationEvent_service' - The Amazon Web Services service that is affected by the event, such as
+-- EC2 and RDS.
+--
+-- 'startTime', 'organizationEvent_startTime' - The date and time that the event began.
 --
 -- 'statusCode', 'organizationEvent_statusCode' - The most recent status of the event. Possible values are @open@,
 -- @closed@, and @upcoming@.
@@ -130,22 +139,17 @@ newOrganizationEvent ::
   OrganizationEvent
 newOrganizationEvent =
   OrganizationEvent'
-    { lastUpdatedTime =
-        Prelude.Nothing,
-      arn = Prelude.Nothing,
+    { arn = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      eventScopeCode = Prelude.Nothing,
+      eventTypeCategory = Prelude.Nothing,
+      eventTypeCode = Prelude.Nothing,
+      lastUpdatedTime = Prelude.Nothing,
+      region = Prelude.Nothing,
       service = Prelude.Nothing,
       startTime = Prelude.Nothing,
-      eventScopeCode = Prelude.Nothing,
-      eventTypeCode = Prelude.Nothing,
-      eventTypeCategory = Prelude.Nothing,
-      endTime = Prelude.Nothing,
-      region = Prelude.Nothing,
       statusCode = Prelude.Nothing
     }
-
--- | The most recent date and time that the event was updated.
-organizationEvent_lastUpdatedTime :: Lens.Lens' OrganizationEvent (Prelude.Maybe Prelude.UTCTime)
-organizationEvent_lastUpdatedTime = Lens.lens (\OrganizationEvent' {lastUpdatedTime} -> lastUpdatedTime) (\s@OrganizationEvent' {} a -> s {lastUpdatedTime = a} :: OrganizationEvent) Prelude.. Lens.mapping Core._Time
 
 -- | The unique identifier for the event. The event ARN has the
 -- @arn:aws:health:event-region::event\/SERVICE\/EVENT_TYPE_CODE\/EVENT_TYPE_PLUS_ID @
@@ -157,30 +161,33 @@ organizationEvent_lastUpdatedTime = Lens.lens (\OrganizationEvent' {lastUpdatedT
 organizationEvent_arn :: Lens.Lens' OrganizationEvent (Prelude.Maybe Prelude.Text)
 organizationEvent_arn = Lens.lens (\OrganizationEvent' {arn} -> arn) (\s@OrganizationEvent' {} a -> s {arn = a} :: OrganizationEvent)
 
--- | The AWS service that is affected by the event, such as EC2 and RDS.
-organizationEvent_service :: Lens.Lens' OrganizationEvent (Prelude.Maybe Prelude.Text)
-organizationEvent_service = Lens.lens (\OrganizationEvent' {service} -> service) (\s@OrganizationEvent' {} a -> s {service = a} :: OrganizationEvent)
+-- | The date and time that the event ended.
+organizationEvent_endTime :: Lens.Lens' OrganizationEvent (Prelude.Maybe Prelude.UTCTime)
+organizationEvent_endTime = Lens.lens (\OrganizationEvent' {endTime} -> endTime) (\s@OrganizationEvent' {} a -> s {endTime = a} :: OrganizationEvent) Prelude.. Lens.mapping Data._Time
 
--- | The date and time that the event began.
-organizationEvent_startTime :: Lens.Lens' OrganizationEvent (Prelude.Maybe Prelude.UTCTime)
-organizationEvent_startTime = Lens.lens (\OrganizationEvent' {startTime} -> startTime) (\s@OrganizationEvent' {} a -> s {startTime = a} :: OrganizationEvent) Prelude.. Lens.mapping Core._Time
-
--- | This parameter specifies if the AWS Health event is a public AWS service
--- event or an account-specific event.
+-- | This parameter specifies if the Health event is a public Amazon Web
+-- Services service event or an account-specific event.
 --
 -- -   If the @eventScopeCode@ value is @PUBLIC@, then the
 --     @affectedAccounts@ value is always empty.
 --
 -- -   If the @eventScopeCode@ value is @ACCOUNT_SPECIFIC@, then the
---     @affectedAccounts@ value lists the affected AWS accounts in your
---     organization. For example, if an event affects a service such as
---     Amazon Elastic Compute Cloud and you have AWS accounts that use that
---     service, those account IDs appear in the response.
+--     @affectedAccounts@ value lists the affected Amazon Web Services
+--     accounts in your organization. For example, if an event affects a
+--     service such as Amazon Elastic Compute Cloud and you have Amazon Web
+--     Services accounts that use that service, those account IDs appear in
+--     the response.
 --
 -- -   If the @eventScopeCode@ value is @NONE@, then the @eventArn@ that
 --     you specified in the request is invalid or doesn\'t exist.
 organizationEvent_eventScopeCode :: Lens.Lens' OrganizationEvent (Prelude.Maybe EventScopeCode)
 organizationEvent_eventScopeCode = Lens.lens (\OrganizationEvent' {eventScopeCode} -> eventScopeCode) (\s@OrganizationEvent' {} a -> s {eventScopeCode = a} :: OrganizationEvent)
+
+-- | A list of event type category codes. Possible values are @issue@,
+-- @accountNotification@, or @scheduledChange@. Currently, the
+-- @investigation@ value isn\'t supported at this time.
+organizationEvent_eventTypeCategory :: Lens.Lens' OrganizationEvent (Prelude.Maybe EventTypeCategory)
+organizationEvent_eventTypeCategory = Lens.lens (\OrganizationEvent' {eventTypeCategory} -> eventTypeCategory) (\s@OrganizationEvent' {} a -> s {eventTypeCategory = a} :: OrganizationEvent)
 
 -- | The unique identifier for the event type. The format is
 -- @AWS_SERVICE_DESCRIPTION@. For example,
@@ -188,63 +195,68 @@ organizationEvent_eventScopeCode = Lens.lens (\OrganizationEvent' {eventScopeCod
 organizationEvent_eventTypeCode :: Lens.Lens' OrganizationEvent (Prelude.Maybe Prelude.Text)
 organizationEvent_eventTypeCode = Lens.lens (\OrganizationEvent' {eventTypeCode} -> eventTypeCode) (\s@OrganizationEvent' {} a -> s {eventTypeCode = a} :: OrganizationEvent)
 
--- | The category of the event type.
-organizationEvent_eventTypeCategory :: Lens.Lens' OrganizationEvent (Prelude.Maybe EventTypeCategory)
-organizationEvent_eventTypeCategory = Lens.lens (\OrganizationEvent' {eventTypeCategory} -> eventTypeCategory) (\s@OrganizationEvent' {} a -> s {eventTypeCategory = a} :: OrganizationEvent)
+-- | The most recent date and time that the event was updated.
+organizationEvent_lastUpdatedTime :: Lens.Lens' OrganizationEvent (Prelude.Maybe Prelude.UTCTime)
+organizationEvent_lastUpdatedTime = Lens.lens (\OrganizationEvent' {lastUpdatedTime} -> lastUpdatedTime) (\s@OrganizationEvent' {} a -> s {lastUpdatedTime = a} :: OrganizationEvent) Prelude.. Lens.mapping Data._Time
 
--- | The date and time that the event ended.
-organizationEvent_endTime :: Lens.Lens' OrganizationEvent (Prelude.Maybe Prelude.UTCTime)
-organizationEvent_endTime = Lens.lens (\OrganizationEvent' {endTime} -> endTime) (\s@OrganizationEvent' {} a -> s {endTime = a} :: OrganizationEvent) Prelude.. Lens.mapping Core._Time
-
--- | The AWS Region name of the event.
+-- | The Amazon Web Services Region name of the event.
 organizationEvent_region :: Lens.Lens' OrganizationEvent (Prelude.Maybe Prelude.Text)
 organizationEvent_region = Lens.lens (\OrganizationEvent' {region} -> region) (\s@OrganizationEvent' {} a -> s {region = a} :: OrganizationEvent)
+
+-- | The Amazon Web Services service that is affected by the event, such as
+-- EC2 and RDS.
+organizationEvent_service :: Lens.Lens' OrganizationEvent (Prelude.Maybe Prelude.Text)
+organizationEvent_service = Lens.lens (\OrganizationEvent' {service} -> service) (\s@OrganizationEvent' {} a -> s {service = a} :: OrganizationEvent)
+
+-- | The date and time that the event began.
+organizationEvent_startTime :: Lens.Lens' OrganizationEvent (Prelude.Maybe Prelude.UTCTime)
+organizationEvent_startTime = Lens.lens (\OrganizationEvent' {startTime} -> startTime) (\s@OrganizationEvent' {} a -> s {startTime = a} :: OrganizationEvent) Prelude.. Lens.mapping Data._Time
 
 -- | The most recent status of the event. Possible values are @open@,
 -- @closed@, and @upcoming@.
 organizationEvent_statusCode :: Lens.Lens' OrganizationEvent (Prelude.Maybe EventStatusCode)
 organizationEvent_statusCode = Lens.lens (\OrganizationEvent' {statusCode} -> statusCode) (\s@OrganizationEvent' {} a -> s {statusCode = a} :: OrganizationEvent)
 
-instance Core.FromJSON OrganizationEvent where
+instance Data.FromJSON OrganizationEvent where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OrganizationEvent"
       ( \x ->
           OrganizationEvent'
-            Prelude.<$> (x Core..:? "lastUpdatedTime")
-            Prelude.<*> (x Core..:? "arn")
-            Prelude.<*> (x Core..:? "service")
-            Prelude.<*> (x Core..:? "startTime")
-            Prelude.<*> (x Core..:? "eventScopeCode")
-            Prelude.<*> (x Core..:? "eventTypeCode")
-            Prelude.<*> (x Core..:? "eventTypeCategory")
-            Prelude.<*> (x Core..:? "endTime")
-            Prelude.<*> (x Core..:? "region")
-            Prelude.<*> (x Core..:? "statusCode")
+            Prelude.<$> (x Data..:? "arn")
+            Prelude.<*> (x Data..:? "endTime")
+            Prelude.<*> (x Data..:? "eventScopeCode")
+            Prelude.<*> (x Data..:? "eventTypeCategory")
+            Prelude.<*> (x Data..:? "eventTypeCode")
+            Prelude.<*> (x Data..:? "lastUpdatedTime")
+            Prelude.<*> (x Data..:? "region")
+            Prelude.<*> (x Data..:? "service")
+            Prelude.<*> (x Data..:? "startTime")
+            Prelude.<*> (x Data..:? "statusCode")
       )
 
 instance Prelude.Hashable OrganizationEvent where
   hashWithSalt _salt OrganizationEvent' {..} =
-    _salt `Prelude.hashWithSalt` lastUpdatedTime
-      `Prelude.hashWithSalt` arn
+    _salt `Prelude.hashWithSalt` arn
+      `Prelude.hashWithSalt` endTime
+      `Prelude.hashWithSalt` eventScopeCode
+      `Prelude.hashWithSalt` eventTypeCategory
+      `Prelude.hashWithSalt` eventTypeCode
+      `Prelude.hashWithSalt` lastUpdatedTime
+      `Prelude.hashWithSalt` region
       `Prelude.hashWithSalt` service
       `Prelude.hashWithSalt` startTime
-      `Prelude.hashWithSalt` eventScopeCode
-      `Prelude.hashWithSalt` eventTypeCode
-      `Prelude.hashWithSalt` eventTypeCategory
-      `Prelude.hashWithSalt` endTime
-      `Prelude.hashWithSalt` region
       `Prelude.hashWithSalt` statusCode
 
 instance Prelude.NFData OrganizationEvent where
   rnf OrganizationEvent' {..} =
-    Prelude.rnf lastUpdatedTime
-      `Prelude.seq` Prelude.rnf arn
+    Prelude.rnf arn
+      `Prelude.seq` Prelude.rnf endTime
+      `Prelude.seq` Prelude.rnf eventScopeCode
+      `Prelude.seq` Prelude.rnf eventTypeCategory
+      `Prelude.seq` Prelude.rnf eventTypeCode
+      `Prelude.seq` Prelude.rnf lastUpdatedTime
+      `Prelude.seq` Prelude.rnf region
       `Prelude.seq` Prelude.rnf service
       `Prelude.seq` Prelude.rnf startTime
-      `Prelude.seq` Prelude.rnf eventScopeCode
-      `Prelude.seq` Prelude.rnf eventTypeCode
-      `Prelude.seq` Prelude.rnf eventTypeCategory
-      `Prelude.seq` Prelude.rnf endTime
-      `Prelude.seq` Prelude.rnf region
       `Prelude.seq` Prelude.rnf statusCode

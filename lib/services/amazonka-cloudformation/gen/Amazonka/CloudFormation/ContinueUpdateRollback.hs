@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.ContinueUpdateRollback
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- For a specified stack that is in the @UPDATE_ROLLBACK_FAILED@ state,
+-- For a specified stack that\'s in the @UPDATE_ROLLBACK_FAILED@ state,
 -- continues rolling it back to the @UPDATE_ROLLBACK_COMPLETE@ state.
 -- Depending on the cause of the failure, you can manually
 -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html#troubleshooting-errors-update-rollback-failed fix the error>
@@ -29,8 +29,8 @@
 -- and then try to update the stack again.
 --
 -- A stack goes into the @UPDATE_ROLLBACK_FAILED@ state when CloudFormation
--- cannot roll back all changes after a failed stack update. For example,
--- you might have a stack that is rolling back to an old database instance
+-- can\'t roll back all changes after a failed stack update. For example,
+-- you might have a stack that\'s rolling back to an old database instance
 -- that was deleted outside of CloudFormation. Because CloudFormation
 -- doesn\'t know the database was deleted, it assumes that the database
 -- instance still exists and attempts to roll back to it, causing the
@@ -41,8 +41,8 @@ module Amazonka.CloudFormation.ContinueUpdateRollback
     newContinueUpdateRollback,
 
     -- * Request Lenses
-    continueUpdateRollback_resourcesToSkip,
     continueUpdateRollback_clientRequestToken,
+    continueUpdateRollback_resourcesToSkip,
     continueUpdateRollback_roleARN,
     continueUpdateRollback_stackName,
 
@@ -57,7 +57,8 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,12 +67,18 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newContinueUpdateRollback' smart constructor.
 data ContinueUpdateRollback = ContinueUpdateRollback'
-  { -- | A list of the logical IDs of the resources that CloudFormation skips
+  { -- | A unique identifier for this @ContinueUpdateRollback@ request. Specify
+    -- this token if you plan to retry requests so that CloudFormationknows
+    -- that you\'re not attempting to continue the rollback to a stack with the
+    -- same name. You might retry @ContinueUpdateRollback@ requests to ensure
+    -- that CloudFormation successfully received them.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of the logical IDs of the resources that CloudFormation skips
     -- during the continue update rollback operation. You can specify only
     -- resources that are in the @UPDATE_FAILED@ state because a rollback
     -- failed. You can\'t specify resources that are in the @UPDATE_FAILED@
-    -- state for other reasons, for example, because an update was cancelled.
-    -- To check why a resource update failed, use the DescribeStackResources
+    -- state for other reasons, for example, because an update was canceled. To
+    -- check why a resource update failed, use the DescribeStackResources
     -- action, and view the resource status reason.
     --
     -- Specify this property to skip rolling back resources that CloudFormation
@@ -103,23 +110,17 @@ data ContinueUpdateRollback = ContinueUpdateRollback'
     -- rollback operation with nested stacks, see
     -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-continueupdaterollback.html#nested-stacks Using ResourcesToSkip to recover a nested stacks hierarchy>.
     resourcesToSkip :: Prelude.Maybe [Prelude.Text],
-    -- | A unique identifier for this @ContinueUpdateRollback@ request. Specify
-    -- this token if you plan to retry requests so that CloudFormationknows
-    -- that you\'re not attempting to continue the rollback to a stack with the
-    -- same name. You might retry @ContinueUpdateRollback@ requests to ensure
-    -- that CloudFormation successfully received them.
-    clientRequestToken :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of an Identity and Access Management
     -- (IAM) role that CloudFormation assumes to roll back the stack.
     -- CloudFormation uses the role\'s credentials to make calls on your
     -- behalf. CloudFormation always uses this role for all future operations
-    -- on the stack. As long as users have permission to operate on the stack,
-    -- CloudFormation uses this role even if the users don\'t have permission
-    -- to pass it. Ensure that the role grants least privilege.
+    -- on the stack. Provided that users have permission to operate on the
+    -- stack, CloudFormation uses this role even if the users don\'t have
+    -- permission to pass it. Ensure that the role grants least permission.
     --
     -- If you don\'t specify a value, CloudFormation uses the role that was
     -- previously associated with the stack. If no role is available,
-    -- CloudFormation uses a temporary session that is generated from your user
+    -- CloudFormation uses a temporary session that\'s generated from your user
     -- credentials.
     roleARN :: Prelude.Maybe Prelude.Text,
     -- | The name or the unique ID of the stack that you want to continue rolling
@@ -141,12 +142,18 @@ data ContinueUpdateRollback = ContinueUpdateRollback'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'clientRequestToken', 'continueUpdateRollback_clientRequestToken' - A unique identifier for this @ContinueUpdateRollback@ request. Specify
+-- this token if you plan to retry requests so that CloudFormationknows
+-- that you\'re not attempting to continue the rollback to a stack with the
+-- same name. You might retry @ContinueUpdateRollback@ requests to ensure
+-- that CloudFormation successfully received them.
+--
 -- 'resourcesToSkip', 'continueUpdateRollback_resourcesToSkip' - A list of the logical IDs of the resources that CloudFormation skips
 -- during the continue update rollback operation. You can specify only
 -- resources that are in the @UPDATE_FAILED@ state because a rollback
 -- failed. You can\'t specify resources that are in the @UPDATE_FAILED@
--- state for other reasons, for example, because an update was cancelled.
--- To check why a resource update failed, use the DescribeStackResources
+-- state for other reasons, for example, because an update was canceled. To
+-- check why a resource update failed, use the DescribeStackResources
 -- action, and view the resource status reason.
 --
 -- Specify this property to skip rolling back resources that CloudFormation
@@ -178,23 +185,17 @@ data ContinueUpdateRollback = ContinueUpdateRollback'
 -- rollback operation with nested stacks, see
 -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-continueupdaterollback.html#nested-stacks Using ResourcesToSkip to recover a nested stacks hierarchy>.
 --
--- 'clientRequestToken', 'continueUpdateRollback_clientRequestToken' - A unique identifier for this @ContinueUpdateRollback@ request. Specify
--- this token if you plan to retry requests so that CloudFormationknows
--- that you\'re not attempting to continue the rollback to a stack with the
--- same name. You might retry @ContinueUpdateRollback@ requests to ensure
--- that CloudFormation successfully received them.
---
 -- 'roleARN', 'continueUpdateRollback_roleARN' - The Amazon Resource Name (ARN) of an Identity and Access Management
 -- (IAM) role that CloudFormation assumes to roll back the stack.
 -- CloudFormation uses the role\'s credentials to make calls on your
 -- behalf. CloudFormation always uses this role for all future operations
--- on the stack. As long as users have permission to operate on the stack,
--- CloudFormation uses this role even if the users don\'t have permission
--- to pass it. Ensure that the role grants least privilege.
+-- on the stack. Provided that users have permission to operate on the
+-- stack, CloudFormation uses this role even if the users don\'t have
+-- permission to pass it. Ensure that the role grants least permission.
 --
 -- If you don\'t specify a value, CloudFormation uses the role that was
 -- previously associated with the stack. If no role is available,
--- CloudFormation uses a temporary session that is generated from your user
+-- CloudFormation uses a temporary session that\'s generated from your user
 -- credentials.
 --
 -- 'stackName', 'continueUpdateRollback_stackName' - The name or the unique ID of the stack that you want to continue rolling
@@ -210,19 +211,27 @@ newContinueUpdateRollback ::
   ContinueUpdateRollback
 newContinueUpdateRollback pStackName_ =
   ContinueUpdateRollback'
-    { resourcesToSkip =
+    { clientRequestToken =
         Prelude.Nothing,
-      clientRequestToken = Prelude.Nothing,
+      resourcesToSkip = Prelude.Nothing,
       roleARN = Prelude.Nothing,
       stackName = pStackName_
     }
+
+-- | A unique identifier for this @ContinueUpdateRollback@ request. Specify
+-- this token if you plan to retry requests so that CloudFormationknows
+-- that you\'re not attempting to continue the rollback to a stack with the
+-- same name. You might retry @ContinueUpdateRollback@ requests to ensure
+-- that CloudFormation successfully received them.
+continueUpdateRollback_clientRequestToken :: Lens.Lens' ContinueUpdateRollback (Prelude.Maybe Prelude.Text)
+continueUpdateRollback_clientRequestToken = Lens.lens (\ContinueUpdateRollback' {clientRequestToken} -> clientRequestToken) (\s@ContinueUpdateRollback' {} a -> s {clientRequestToken = a} :: ContinueUpdateRollback)
 
 -- | A list of the logical IDs of the resources that CloudFormation skips
 -- during the continue update rollback operation. You can specify only
 -- resources that are in the @UPDATE_FAILED@ state because a rollback
 -- failed. You can\'t specify resources that are in the @UPDATE_FAILED@
--- state for other reasons, for example, because an update was cancelled.
--- To check why a resource update failed, use the DescribeStackResources
+-- state for other reasons, for example, because an update was canceled. To
+-- check why a resource update failed, use the DescribeStackResources
 -- action, and view the resource status reason.
 --
 -- Specify this property to skip rolling back resources that CloudFormation
@@ -256,25 +265,17 @@ newContinueUpdateRollback pStackName_ =
 continueUpdateRollback_resourcesToSkip :: Lens.Lens' ContinueUpdateRollback (Prelude.Maybe [Prelude.Text])
 continueUpdateRollback_resourcesToSkip = Lens.lens (\ContinueUpdateRollback' {resourcesToSkip} -> resourcesToSkip) (\s@ContinueUpdateRollback' {} a -> s {resourcesToSkip = a} :: ContinueUpdateRollback) Prelude.. Lens.mapping Lens.coerced
 
--- | A unique identifier for this @ContinueUpdateRollback@ request. Specify
--- this token if you plan to retry requests so that CloudFormationknows
--- that you\'re not attempting to continue the rollback to a stack with the
--- same name. You might retry @ContinueUpdateRollback@ requests to ensure
--- that CloudFormation successfully received them.
-continueUpdateRollback_clientRequestToken :: Lens.Lens' ContinueUpdateRollback (Prelude.Maybe Prelude.Text)
-continueUpdateRollback_clientRequestToken = Lens.lens (\ContinueUpdateRollback' {clientRequestToken} -> clientRequestToken) (\s@ContinueUpdateRollback' {} a -> s {clientRequestToken = a} :: ContinueUpdateRollback)
-
 -- | The Amazon Resource Name (ARN) of an Identity and Access Management
 -- (IAM) role that CloudFormation assumes to roll back the stack.
 -- CloudFormation uses the role\'s credentials to make calls on your
 -- behalf. CloudFormation always uses this role for all future operations
--- on the stack. As long as users have permission to operate on the stack,
--- CloudFormation uses this role even if the users don\'t have permission
--- to pass it. Ensure that the role grants least privilege.
+-- on the stack. Provided that users have permission to operate on the
+-- stack, CloudFormation uses this role even if the users don\'t have
+-- permission to pass it. Ensure that the role grants least permission.
 --
 -- If you don\'t specify a value, CloudFormation uses the role that was
 -- previously associated with the stack. If no role is available,
--- CloudFormation uses a temporary session that is generated from your user
+-- CloudFormation uses a temporary session that\'s generated from your user
 -- credentials.
 continueUpdateRollback_roleARN :: Lens.Lens' ContinueUpdateRollback (Prelude.Maybe Prelude.Text)
 continueUpdateRollback_roleARN = Lens.lens (\ContinueUpdateRollback' {roleARN} -> roleARN) (\s@ContinueUpdateRollback' {} a -> s {roleARN = a} :: ContinueUpdateRollback)
@@ -293,7 +294,8 @@ instance Core.AWSRequest ContinueUpdateRollback where
   type
     AWSResponse ContinueUpdateRollback =
       ContinueUpdateRollbackResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ContinueUpdateRollbackResult"
@@ -304,42 +306,42 @@ instance Core.AWSRequest ContinueUpdateRollback where
 
 instance Prelude.Hashable ContinueUpdateRollback where
   hashWithSalt _salt ContinueUpdateRollback' {..} =
-    _salt `Prelude.hashWithSalt` resourcesToSkip
-      `Prelude.hashWithSalt` clientRequestToken
+    _salt `Prelude.hashWithSalt` clientRequestToken
+      `Prelude.hashWithSalt` resourcesToSkip
       `Prelude.hashWithSalt` roleARN
       `Prelude.hashWithSalt` stackName
 
 instance Prelude.NFData ContinueUpdateRollback where
   rnf ContinueUpdateRollback' {..} =
-    Prelude.rnf resourcesToSkip
-      `Prelude.seq` Prelude.rnf clientRequestToken
+    Prelude.rnf clientRequestToken
+      `Prelude.seq` Prelude.rnf resourcesToSkip
       `Prelude.seq` Prelude.rnf roleARN
       `Prelude.seq` Prelude.rnf stackName
 
-instance Core.ToHeaders ContinueUpdateRollback where
+instance Data.ToHeaders ContinueUpdateRollback where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ContinueUpdateRollback where
+instance Data.ToPath ContinueUpdateRollback where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ContinueUpdateRollback where
+instance Data.ToQuery ContinueUpdateRollback where
   toQuery ContinueUpdateRollback' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ContinueUpdateRollback" :: Prelude.ByteString),
+          Data.=: ("ContinueUpdateRollback" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "ClientRequestToken" Data.=: clientRequestToken,
         "ResourcesToSkip"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> resourcesToSkip
             ),
-        "ClientRequestToken" Core.=: clientRequestToken,
-        "RoleARN" Core.=: roleARN,
-        "StackName" Core.=: stackName
+        "RoleARN" Data.=: roleARN,
+        "StackName" Data.=: stackName
       ]
 
--- | The output for a ContinueUpdateRollback action.
+-- | The output for a ContinueUpdateRollback operation.
 --
 -- /See:/ 'newContinueUpdateRollbackResponse' smart constructor.
 data ContinueUpdateRollbackResponse = ContinueUpdateRollbackResponse'

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.DescribeDatastore
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.IoTAnalytics.DescribeDatastore
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,13 +98,14 @@ instance Core.AWSRequest DescribeDatastore where
   type
     AWSResponse DescribeDatastore =
       DescribeDatastoreResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeDatastoreResponse'
-            Prelude.<$> (x Core..?> "datastore")
-            Prelude.<*> (x Core..?> "statistics")
+            Prelude.<$> (x Data..?> "datastore")
+            Prelude.<*> (x Data..?> "statistics")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,18 +119,18 @@ instance Prelude.NFData DescribeDatastore where
     Prelude.rnf includeStatistics
       `Prelude.seq` Prelude.rnf datastoreName
 
-instance Core.ToHeaders DescribeDatastore where
+instance Data.ToHeaders DescribeDatastore where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeDatastore where
+instance Data.ToPath DescribeDatastore where
   toPath DescribeDatastore' {..} =
     Prelude.mconcat
-      ["/datastores/", Core.toBS datastoreName]
+      ["/datastores/", Data.toBS datastoreName]
 
-instance Core.ToQuery DescribeDatastore where
+instance Data.ToQuery DescribeDatastore where
   toQuery DescribeDatastore' {..} =
     Prelude.mconcat
-      ["includeStatistics" Core.=: includeStatistics]
+      ["includeStatistics" Data.=: includeStatistics]
 
 -- | /See:/ 'newDescribeDatastoreResponse' smart constructor.
 data DescribeDatastoreResponse = DescribeDatastoreResponse'

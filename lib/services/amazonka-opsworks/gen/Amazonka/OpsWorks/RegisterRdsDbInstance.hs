@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.RegisterRdsDbInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.OpsWorks.RegisterRdsDbInstance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -121,7 +122,8 @@ instance Core.AWSRequest RegisterRdsDbInstance where
   type
     AWSResponse RegisterRdsDbInstance =
       RegisterRdsDbInstanceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull RegisterRdsDbInstanceResponse'
 
@@ -139,37 +141,37 @@ instance Prelude.NFData RegisterRdsDbInstance where
       `Prelude.seq` Prelude.rnf dbUser
       `Prelude.seq` Prelude.rnf dbPassword
 
-instance Core.ToHeaders RegisterRdsDbInstance where
+instance Data.ToHeaders RegisterRdsDbInstance where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.RegisterRdsDbInstance" ::
+              Data.=# ( "OpsWorks_20130218.RegisterRdsDbInstance" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RegisterRdsDbInstance where
+instance Data.ToJSON RegisterRdsDbInstance where
   toJSON RegisterRdsDbInstance' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("StackId" Core..= stackId),
+          [ Prelude.Just ("StackId" Data..= stackId),
             Prelude.Just
-              ("RdsDbInstanceArn" Core..= rdsDbInstanceArn),
-            Prelude.Just ("DbUser" Core..= dbUser),
-            Prelude.Just ("DbPassword" Core..= dbPassword)
+              ("RdsDbInstanceArn" Data..= rdsDbInstanceArn),
+            Prelude.Just ("DbUser" Data..= dbUser),
+            Prelude.Just ("DbPassword" Data..= dbPassword)
           ]
       )
 
-instance Core.ToPath RegisterRdsDbInstance where
+instance Data.ToPath RegisterRdsDbInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RegisterRdsDbInstance where
+instance Data.ToQuery RegisterRdsDbInstance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRegisterRdsDbInstanceResponse' smart constructor.

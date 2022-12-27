@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Polly.GetSpeechSynthesisTask
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.Polly.GetSpeechSynthesisTask
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Polly.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -80,12 +81,13 @@ instance Core.AWSRequest GetSpeechSynthesisTask where
   type
     AWSResponse GetSpeechSynthesisTask =
       GetSpeechSynthesisTaskResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSpeechSynthesisTaskResponse'
-            Prelude.<$> (x Core..?> "SynthesisTask")
+            Prelude.<$> (x Data..?> "SynthesisTask")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -96,15 +98,15 @@ instance Prelude.Hashable GetSpeechSynthesisTask where
 instance Prelude.NFData GetSpeechSynthesisTask where
   rnf GetSpeechSynthesisTask' {..} = Prelude.rnf taskId
 
-instance Core.ToHeaders GetSpeechSynthesisTask where
+instance Data.ToHeaders GetSpeechSynthesisTask where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetSpeechSynthesisTask where
+instance Data.ToPath GetSpeechSynthesisTask where
   toPath GetSpeechSynthesisTask' {..} =
     Prelude.mconcat
-      ["/v1/synthesisTasks/", Core.toBS taskId]
+      ["/v1/synthesisTasks/", Data.toBS taskId]
 
-instance Core.ToQuery GetSpeechSynthesisTask where
+instance Data.ToQuery GetSpeechSynthesisTask where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetSpeechSynthesisTaskResponse' smart constructor.

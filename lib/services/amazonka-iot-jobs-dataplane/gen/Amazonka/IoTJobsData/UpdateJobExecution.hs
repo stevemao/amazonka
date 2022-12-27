@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTJobsData.UpdateJobExecution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,12 +27,12 @@ module Amazonka.IoTJobsData.UpdateJobExecution
     newUpdateJobExecution,
 
     -- * Request Lenses
-    updateJobExecution_includeJobDocument,
-    updateJobExecution_stepTimeoutInMinutes,
-    updateJobExecution_statusDetails,
     updateJobExecution_executionNumber,
     updateJobExecution_expectedVersion,
+    updateJobExecution_includeJobDocument,
     updateJobExecution_includeJobExecutionState,
+    updateJobExecution_statusDetails,
+    updateJobExecution_stepTimeoutInMinutes,
     updateJobExecution_jobId,
     updateJobExecution_thingName,
     updateJobExecution_status,
@@ -42,38 +42,23 @@ module Amazonka.IoTJobsData.UpdateJobExecution
     newUpdateJobExecutionResponse,
 
     -- * Response Lenses
-    updateJobExecutionResponse_jobDocument,
     updateJobExecutionResponse_executionState,
+    updateJobExecutionResponse_jobDocument,
     updateJobExecutionResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTJobsData.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateJobExecution' smart constructor.
 data UpdateJobExecution = UpdateJobExecution'
-  { -- | Optional. When set to true, the response contains the job document. The
-    -- default is false.
-    includeJobDocument :: Prelude.Maybe Prelude.Bool,
-    -- | Specifies the amount of time this device has to finish execution of this
-    -- job. If the job execution status is not set to a terminal state before
-    -- this timer expires, or before the timer is reset (by again calling
-    -- @UpdateJobExecution@, setting the status to @IN_PROGRESS@ and specifying
-    -- a new timeout value in this field) the job execution status will be
-    -- automatically set to @TIMED_OUT@. Note that setting or resetting this
-    -- timeout has no effect on that job execution timeout which may have been
-    -- specified when the job was created (@CreateJob@ using field
-    -- @timeoutConfig@).
-    stepTimeoutInMinutes :: Prelude.Maybe Prelude.Integer,
-    -- | Optional. A collection of name\/value pairs that describe the status of
-    -- the job execution. If not specified, the statusDetails are unchanged.
-    statusDetails :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | Optional. A number that identifies a particular job execution on a
+  { -- | Optional. A number that identifies a particular job execution on a
     -- particular device.
     executionNumber :: Prelude.Maybe Prelude.Integer,
     -- | Optional. The expected current version of the job execution. Each time
@@ -84,9 +69,25 @@ data UpdateJobExecution = UpdateJobExecution'
     -- it unnecessary to perform a separate DescribeJobExecution request in
     -- order to obtain the job execution status data.)
     expectedVersion :: Prelude.Maybe Prelude.Integer,
+    -- | Optional. When set to true, the response contains the job document. The
+    -- default is false.
+    includeJobDocument :: Prelude.Maybe Prelude.Bool,
     -- | Optional. When included and set to true, the response contains the
     -- JobExecutionState data. The default is false.
     includeJobExecutionState :: Prelude.Maybe Prelude.Bool,
+    -- | Optional. A collection of name\/value pairs that describe the status of
+    -- the job execution. If not specified, the statusDetails are unchanged.
+    statusDetails :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | Specifies the amount of time this device has to finish execution of this
+    -- job. If the job execution status is not set to a terminal state before
+    -- this timer expires, or before the timer is reset (by again calling
+    -- @UpdateJobExecution@, setting the status to @IN_PROGRESS@ and specifying
+    -- a new timeout value in this field) the job execution status will be
+    -- automatically set to @TIMED_OUT@. Note that setting or resetting this
+    -- timeout has no effect on that job execution timeout which may have been
+    -- specified when the job was created (@CreateJob@ using field
+    -- @timeoutConfig@).
+    stepTimeoutInMinutes :: Prelude.Maybe Prelude.Integer,
     -- | The unique identifier assigned to this job when it was created.
     jobId :: Prelude.Text,
     -- | The name of the thing associated with the device.
@@ -105,22 +106,6 @@ data UpdateJobExecution = UpdateJobExecution'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'includeJobDocument', 'updateJobExecution_includeJobDocument' - Optional. When set to true, the response contains the job document. The
--- default is false.
---
--- 'stepTimeoutInMinutes', 'updateJobExecution_stepTimeoutInMinutes' - Specifies the amount of time this device has to finish execution of this
--- job. If the job execution status is not set to a terminal state before
--- this timer expires, or before the timer is reset (by again calling
--- @UpdateJobExecution@, setting the status to @IN_PROGRESS@ and specifying
--- a new timeout value in this field) the job execution status will be
--- automatically set to @TIMED_OUT@. Note that setting or resetting this
--- timeout has no effect on that job execution timeout which may have been
--- specified when the job was created (@CreateJob@ using field
--- @timeoutConfig@).
---
--- 'statusDetails', 'updateJobExecution_statusDetails' - Optional. A collection of name\/value pairs that describe the status of
--- the job execution. If not specified, the statusDetails are unchanged.
---
 -- 'executionNumber', 'updateJobExecution_executionNumber' - Optional. A number that identifies a particular job execution on a
 -- particular device.
 --
@@ -132,8 +117,24 @@ data UpdateJobExecution = UpdateJobExecution'
 -- it unnecessary to perform a separate DescribeJobExecution request in
 -- order to obtain the job execution status data.)
 --
+-- 'includeJobDocument', 'updateJobExecution_includeJobDocument' - Optional. When set to true, the response contains the job document. The
+-- default is false.
+--
 -- 'includeJobExecutionState', 'updateJobExecution_includeJobExecutionState' - Optional. When included and set to true, the response contains the
 -- JobExecutionState data. The default is false.
+--
+-- 'statusDetails', 'updateJobExecution_statusDetails' - Optional. A collection of name\/value pairs that describe the status of
+-- the job execution. If not specified, the statusDetails are unchanged.
+--
+-- 'stepTimeoutInMinutes', 'updateJobExecution_stepTimeoutInMinutes' - Specifies the amount of time this device has to finish execution of this
+-- job. If the job execution status is not set to a terminal state before
+-- this timer expires, or before the timer is reset (by again calling
+-- @UpdateJobExecution@, setting the status to @IN_PROGRESS@ and specifying
+-- a new timeout value in this field) the job execution status will be
+-- automatically set to @TIMED_OUT@. Note that setting or resetting this
+-- timeout has no effect on that job execution timeout which may have been
+-- specified when the job was created (@CreateJob@ using field
+-- @timeoutConfig@).
 --
 -- 'jobId', 'updateJobExecution_jobId' - The unique identifier assigned to this job when it was created.
 --
@@ -151,39 +152,17 @@ newUpdateJobExecution ::
   UpdateJobExecution
 newUpdateJobExecution pJobId_ pThingName_ pStatus_ =
   UpdateJobExecution'
-    { includeJobDocument =
+    { executionNumber =
         Prelude.Nothing,
-      stepTimeoutInMinutes = Prelude.Nothing,
-      statusDetails = Prelude.Nothing,
-      executionNumber = Prelude.Nothing,
       expectedVersion = Prelude.Nothing,
+      includeJobDocument = Prelude.Nothing,
       includeJobExecutionState = Prelude.Nothing,
+      statusDetails = Prelude.Nothing,
+      stepTimeoutInMinutes = Prelude.Nothing,
       jobId = pJobId_,
       thingName = pThingName_,
       status = pStatus_
     }
-
--- | Optional. When set to true, the response contains the job document. The
--- default is false.
-updateJobExecution_includeJobDocument :: Lens.Lens' UpdateJobExecution (Prelude.Maybe Prelude.Bool)
-updateJobExecution_includeJobDocument = Lens.lens (\UpdateJobExecution' {includeJobDocument} -> includeJobDocument) (\s@UpdateJobExecution' {} a -> s {includeJobDocument = a} :: UpdateJobExecution)
-
--- | Specifies the amount of time this device has to finish execution of this
--- job. If the job execution status is not set to a terminal state before
--- this timer expires, or before the timer is reset (by again calling
--- @UpdateJobExecution@, setting the status to @IN_PROGRESS@ and specifying
--- a new timeout value in this field) the job execution status will be
--- automatically set to @TIMED_OUT@. Note that setting or resetting this
--- timeout has no effect on that job execution timeout which may have been
--- specified when the job was created (@CreateJob@ using field
--- @timeoutConfig@).
-updateJobExecution_stepTimeoutInMinutes :: Lens.Lens' UpdateJobExecution (Prelude.Maybe Prelude.Integer)
-updateJobExecution_stepTimeoutInMinutes = Lens.lens (\UpdateJobExecution' {stepTimeoutInMinutes} -> stepTimeoutInMinutes) (\s@UpdateJobExecution' {} a -> s {stepTimeoutInMinutes = a} :: UpdateJobExecution)
-
--- | Optional. A collection of name\/value pairs that describe the status of
--- the job execution. If not specified, the statusDetails are unchanged.
-updateJobExecution_statusDetails :: Lens.Lens' UpdateJobExecution (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
-updateJobExecution_statusDetails = Lens.lens (\UpdateJobExecution' {statusDetails} -> statusDetails) (\s@UpdateJobExecution' {} a -> s {statusDetails = a} :: UpdateJobExecution) Prelude.. Lens.mapping Lens.coerced
 
 -- | Optional. A number that identifies a particular job execution on a
 -- particular device.
@@ -200,10 +179,32 @@ updateJobExecution_executionNumber = Lens.lens (\UpdateJobExecution' {executionN
 updateJobExecution_expectedVersion :: Lens.Lens' UpdateJobExecution (Prelude.Maybe Prelude.Integer)
 updateJobExecution_expectedVersion = Lens.lens (\UpdateJobExecution' {expectedVersion} -> expectedVersion) (\s@UpdateJobExecution' {} a -> s {expectedVersion = a} :: UpdateJobExecution)
 
+-- | Optional. When set to true, the response contains the job document. The
+-- default is false.
+updateJobExecution_includeJobDocument :: Lens.Lens' UpdateJobExecution (Prelude.Maybe Prelude.Bool)
+updateJobExecution_includeJobDocument = Lens.lens (\UpdateJobExecution' {includeJobDocument} -> includeJobDocument) (\s@UpdateJobExecution' {} a -> s {includeJobDocument = a} :: UpdateJobExecution)
+
 -- | Optional. When included and set to true, the response contains the
 -- JobExecutionState data. The default is false.
 updateJobExecution_includeJobExecutionState :: Lens.Lens' UpdateJobExecution (Prelude.Maybe Prelude.Bool)
 updateJobExecution_includeJobExecutionState = Lens.lens (\UpdateJobExecution' {includeJobExecutionState} -> includeJobExecutionState) (\s@UpdateJobExecution' {} a -> s {includeJobExecutionState = a} :: UpdateJobExecution)
+
+-- | Optional. A collection of name\/value pairs that describe the status of
+-- the job execution. If not specified, the statusDetails are unchanged.
+updateJobExecution_statusDetails :: Lens.Lens' UpdateJobExecution (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+updateJobExecution_statusDetails = Lens.lens (\UpdateJobExecution' {statusDetails} -> statusDetails) (\s@UpdateJobExecution' {} a -> s {statusDetails = a} :: UpdateJobExecution) Prelude.. Lens.mapping Lens.coerced
+
+-- | Specifies the amount of time this device has to finish execution of this
+-- job. If the job execution status is not set to a terminal state before
+-- this timer expires, or before the timer is reset (by again calling
+-- @UpdateJobExecution@, setting the status to @IN_PROGRESS@ and specifying
+-- a new timeout value in this field) the job execution status will be
+-- automatically set to @TIMED_OUT@. Note that setting or resetting this
+-- timeout has no effect on that job execution timeout which may have been
+-- specified when the job was created (@CreateJob@ using field
+-- @timeoutConfig@).
+updateJobExecution_stepTimeoutInMinutes :: Lens.Lens' UpdateJobExecution (Prelude.Maybe Prelude.Integer)
+updateJobExecution_stepTimeoutInMinutes = Lens.lens (\UpdateJobExecution' {stepTimeoutInMinutes} -> stepTimeoutInMinutes) (\s@UpdateJobExecution' {} a -> s {stepTimeoutInMinutes = a} :: UpdateJobExecution)
 
 -- | The unique identifier assigned to this job when it was created.
 updateJobExecution_jobId :: Lens.Lens' UpdateJobExecution Prelude.Text
@@ -222,80 +223,81 @@ instance Core.AWSRequest UpdateJobExecution where
   type
     AWSResponse UpdateJobExecution =
       UpdateJobExecutionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateJobExecutionResponse'
-            Prelude.<$> (x Core..?> "jobDocument")
-            Prelude.<*> (x Core..?> "executionState")
+            Prelude.<$> (x Data..?> "executionState")
+            Prelude.<*> (x Data..?> "jobDocument")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateJobExecution where
   hashWithSalt _salt UpdateJobExecution' {..} =
-    _salt `Prelude.hashWithSalt` includeJobDocument
-      `Prelude.hashWithSalt` stepTimeoutInMinutes
-      `Prelude.hashWithSalt` statusDetails
-      `Prelude.hashWithSalt` executionNumber
+    _salt `Prelude.hashWithSalt` executionNumber
       `Prelude.hashWithSalt` expectedVersion
+      `Prelude.hashWithSalt` includeJobDocument
       `Prelude.hashWithSalt` includeJobExecutionState
+      `Prelude.hashWithSalt` statusDetails
+      `Prelude.hashWithSalt` stepTimeoutInMinutes
       `Prelude.hashWithSalt` jobId
       `Prelude.hashWithSalt` thingName
       `Prelude.hashWithSalt` status
 
 instance Prelude.NFData UpdateJobExecution where
   rnf UpdateJobExecution' {..} =
-    Prelude.rnf includeJobDocument
-      `Prelude.seq` Prelude.rnf stepTimeoutInMinutes
-      `Prelude.seq` Prelude.rnf statusDetails
-      `Prelude.seq` Prelude.rnf executionNumber
+    Prelude.rnf executionNumber
       `Prelude.seq` Prelude.rnf expectedVersion
+      `Prelude.seq` Prelude.rnf includeJobDocument
       `Prelude.seq` Prelude.rnf includeJobExecutionState
+      `Prelude.seq` Prelude.rnf statusDetails
+      `Prelude.seq` Prelude.rnf stepTimeoutInMinutes
       `Prelude.seq` Prelude.rnf jobId
       `Prelude.seq` Prelude.rnf thingName
       `Prelude.seq` Prelude.rnf status
 
-instance Core.ToHeaders UpdateJobExecution where
+instance Data.ToHeaders UpdateJobExecution where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateJobExecution where
+instance Data.ToJSON UpdateJobExecution where
   toJSON UpdateJobExecution' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("includeJobDocument" Core..=)
-              Prelude.<$> includeJobDocument,
-            ("stepTimeoutInMinutes" Core..=)
-              Prelude.<$> stepTimeoutInMinutes,
-            ("statusDetails" Core..=) Prelude.<$> statusDetails,
-            ("executionNumber" Core..=)
+          [ ("executionNumber" Data..=)
               Prelude.<$> executionNumber,
-            ("expectedVersion" Core..=)
+            ("expectedVersion" Data..=)
               Prelude.<$> expectedVersion,
-            ("includeJobExecutionState" Core..=)
+            ("includeJobDocument" Data..=)
+              Prelude.<$> includeJobDocument,
+            ("includeJobExecutionState" Data..=)
               Prelude.<$> includeJobExecutionState,
-            Prelude.Just ("status" Core..= status)
+            ("statusDetails" Data..=) Prelude.<$> statusDetails,
+            ("stepTimeoutInMinutes" Data..=)
+              Prelude.<$> stepTimeoutInMinutes,
+            Prelude.Just ("status" Data..= status)
           ]
       )
 
-instance Core.ToPath UpdateJobExecution where
+instance Data.ToPath UpdateJobExecution where
   toPath UpdateJobExecution' {..} =
     Prelude.mconcat
       [ "/things/",
-        Core.toBS thingName,
+        Data.toBS thingName,
         "/jobs/",
-        Core.toBS jobId
+        Data.toBS jobId
       ]
 
-instance Core.ToQuery UpdateJobExecution where
+instance Data.ToQuery UpdateJobExecution where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateJobExecutionResponse' smart constructor.
 data UpdateJobExecutionResponse = UpdateJobExecutionResponse'
-  { -- | The contents of the Job Documents.
-    jobDocument :: Prelude.Maybe Prelude.Text,
-    -- | A JobExecutionState object.
+  { -- | A JobExecutionState object.
     executionState :: Prelude.Maybe JobExecutionState,
+    -- | The contents of the Job Documents.
+    jobDocument :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -309,9 +311,9 @@ data UpdateJobExecutionResponse = UpdateJobExecutionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'jobDocument', 'updateJobExecutionResponse_jobDocument' - The contents of the Job Documents.
---
 -- 'executionState', 'updateJobExecutionResponse_executionState' - A JobExecutionState object.
+--
+-- 'jobDocument', 'updateJobExecutionResponse_jobDocument' - The contents of the Job Documents.
 --
 -- 'httpStatus', 'updateJobExecutionResponse_httpStatus' - The response's http status code.
 newUpdateJobExecutionResponse ::
@@ -320,19 +322,19 @@ newUpdateJobExecutionResponse ::
   UpdateJobExecutionResponse
 newUpdateJobExecutionResponse pHttpStatus_ =
   UpdateJobExecutionResponse'
-    { jobDocument =
+    { executionState =
         Prelude.Nothing,
-      executionState = Prelude.Nothing,
+      jobDocument = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The contents of the Job Documents.
-updateJobExecutionResponse_jobDocument :: Lens.Lens' UpdateJobExecutionResponse (Prelude.Maybe Prelude.Text)
-updateJobExecutionResponse_jobDocument = Lens.lens (\UpdateJobExecutionResponse' {jobDocument} -> jobDocument) (\s@UpdateJobExecutionResponse' {} a -> s {jobDocument = a} :: UpdateJobExecutionResponse)
 
 -- | A JobExecutionState object.
 updateJobExecutionResponse_executionState :: Lens.Lens' UpdateJobExecutionResponse (Prelude.Maybe JobExecutionState)
 updateJobExecutionResponse_executionState = Lens.lens (\UpdateJobExecutionResponse' {executionState} -> executionState) (\s@UpdateJobExecutionResponse' {} a -> s {executionState = a} :: UpdateJobExecutionResponse)
+
+-- | The contents of the Job Documents.
+updateJobExecutionResponse_jobDocument :: Lens.Lens' UpdateJobExecutionResponse (Prelude.Maybe Prelude.Text)
+updateJobExecutionResponse_jobDocument = Lens.lens (\UpdateJobExecutionResponse' {jobDocument} -> jobDocument) (\s@UpdateJobExecutionResponse' {} a -> s {jobDocument = a} :: UpdateJobExecutionResponse)
 
 -- | The response's http status code.
 updateJobExecutionResponse_httpStatus :: Lens.Lens' UpdateJobExecutionResponse Prelude.Int
@@ -340,6 +342,6 @@ updateJobExecutionResponse_httpStatus = Lens.lens (\UpdateJobExecutionResponse' 
 
 instance Prelude.NFData UpdateJobExecutionResponse where
   rnf UpdateJobExecutionResponse' {..} =
-    Prelude.rnf jobDocument
-      `Prelude.seq` Prelude.rnf executionState
+    Prelude.rnf executionState
+      `Prelude.seq` Prelude.rnf jobDocument
       `Prelude.seq` Prelude.rnf httpStatus

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.Tag
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.Tag where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a tag.
@@ -35,7 +36,7 @@ data Tag = Tag'
     key :: Prelude.Text,
     -- | The value of the tag.
     --
-    -- Constraints: Tag values are case-sensitive and accept a maximum of 255
+    -- Constraints: Tag values are case-sensitive and accept a maximum of 256
     -- Unicode characters.
     value :: Prelude.Text
   }
@@ -56,7 +57,7 @@ data Tag = Tag'
 --
 -- 'value', 'tag_value' - The value of the tag.
 --
--- Constraints: Tag values are case-sensitive and accept a maximum of 255
+-- Constraints: Tag values are case-sensitive and accept a maximum of 256
 -- Unicode characters.
 newTag ::
   -- | 'key'
@@ -76,15 +77,15 @@ tag_key = Lens.lens (\Tag' {key} -> key) (\s@Tag' {} a -> s {key = a} :: Tag)
 
 -- | The value of the tag.
 --
--- Constraints: Tag values are case-sensitive and accept a maximum of 255
+-- Constraints: Tag values are case-sensitive and accept a maximum of 256
 -- Unicode characters.
 tag_value :: Lens.Lens' Tag Prelude.Text
 tag_value = Lens.lens (\Tag' {value} -> value) (\s@Tag' {} a -> s {value = a} :: Tag)
 
-instance Core.FromXML Tag where
+instance Data.FromXML Tag where
   parseXML x =
     Tag'
-      Prelude.<$> (x Core..@ "key") Prelude.<*> (x Core..@ "value")
+      Prelude.<$> (x Data..@ "key") Prelude.<*> (x Data..@ "value")
 
 instance Prelude.Hashable Tag where
   hashWithSalt _salt Tag' {..} =
@@ -95,7 +96,7 @@ instance Prelude.NFData Tag where
   rnf Tag' {..} =
     Prelude.rnf key `Prelude.seq` Prelude.rnf value
 
-instance Core.ToQuery Tag where
+instance Data.ToQuery Tag where
   toQuery Tag' {..} =
     Prelude.mconcat
-      ["Key" Core.=: key, "Value" Core.=: value]
+      ["Key" Data.=: key, "Value" Data.=: value]

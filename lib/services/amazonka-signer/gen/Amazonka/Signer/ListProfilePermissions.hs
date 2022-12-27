@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Signer.ListProfilePermissions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,16 +35,17 @@ module Amazonka.Signer.ListProfilePermissions
     newListProfilePermissionsResponse,
 
     -- * Response Lenses
-    listProfilePermissionsResponse_policySizeBytes,
     listProfilePermissionsResponse_nextToken,
     listProfilePermissionsResponse_permissions,
+    listProfilePermissionsResponse_policySizeBytes,
     listProfilePermissionsResponse_revisionId,
     listProfilePermissionsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,15 +94,16 @@ instance Core.AWSRequest ListProfilePermissions where
   type
     AWSResponse ListProfilePermissions =
       ListProfilePermissionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListProfilePermissionsResponse'
-            Prelude.<$> (x Core..?> "policySizeBytes")
-            Prelude.<*> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "permissions" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "revisionId")
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "permissions" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "policySizeBytes")
+            Prelude.<*> (x Data..?> "revisionId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -115,37 +117,37 @@ instance Prelude.NFData ListProfilePermissions where
     Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf profileName
 
-instance Core.ToHeaders ListProfilePermissions where
+instance Data.ToHeaders ListProfilePermissions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListProfilePermissions where
+instance Data.ToPath ListProfilePermissions where
   toPath ListProfilePermissions' {..} =
     Prelude.mconcat
       [ "/signing-profiles/",
-        Core.toBS profileName,
+        Data.toBS profileName,
         "/permissions"
       ]
 
-instance Core.ToQuery ListProfilePermissions where
+instance Data.ToQuery ListProfilePermissions where
   toQuery ListProfilePermissions' {..} =
-    Prelude.mconcat ["nextToken" Core.=: nextToken]
+    Prelude.mconcat ["nextToken" Data.=: nextToken]
 
 -- | /See:/ 'newListProfilePermissionsResponse' smart constructor.
 data ListProfilePermissionsResponse = ListProfilePermissionsResponse'
-  { -- | Total size of the policy associated with the Signing Profile in bytes.
-    policySizeBytes :: Prelude.Maybe Prelude.Int,
-    -- | String for specifying the next set of paginated results.
+  { -- | String for specifying the next set of paginated results.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | List of permissions associated with the Signing Profile.
     permissions :: Prelude.Maybe [Permission],
+    -- | Total size of the policy associated with the Signing Profile in bytes.
+    policySizeBytes :: Prelude.Maybe Prelude.Int,
     -- | The identifier for the current revision of profile permissions.
     revisionId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
@@ -161,11 +163,11 @@ data ListProfilePermissionsResponse = ListProfilePermissionsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'policySizeBytes', 'listProfilePermissionsResponse_policySizeBytes' - Total size of the policy associated with the Signing Profile in bytes.
---
 -- 'nextToken', 'listProfilePermissionsResponse_nextToken' - String for specifying the next set of paginated results.
 --
 -- 'permissions', 'listProfilePermissionsResponse_permissions' - List of permissions associated with the Signing Profile.
+--
+-- 'policySizeBytes', 'listProfilePermissionsResponse_policySizeBytes' - Total size of the policy associated with the Signing Profile in bytes.
 --
 -- 'revisionId', 'listProfilePermissionsResponse_revisionId' - The identifier for the current revision of profile permissions.
 --
@@ -176,17 +178,13 @@ newListProfilePermissionsResponse ::
   ListProfilePermissionsResponse
 newListProfilePermissionsResponse pHttpStatus_ =
   ListProfilePermissionsResponse'
-    { policySizeBytes =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       permissions = Prelude.Nothing,
+      policySizeBytes = Prelude.Nothing,
       revisionId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Total size of the policy associated with the Signing Profile in bytes.
-listProfilePermissionsResponse_policySizeBytes :: Lens.Lens' ListProfilePermissionsResponse (Prelude.Maybe Prelude.Int)
-listProfilePermissionsResponse_policySizeBytes = Lens.lens (\ListProfilePermissionsResponse' {policySizeBytes} -> policySizeBytes) (\s@ListProfilePermissionsResponse' {} a -> s {policySizeBytes = a} :: ListProfilePermissionsResponse)
 
 -- | String for specifying the next set of paginated results.
 listProfilePermissionsResponse_nextToken :: Lens.Lens' ListProfilePermissionsResponse (Prelude.Maybe Prelude.Text)
@@ -195,6 +193,10 @@ listProfilePermissionsResponse_nextToken = Lens.lens (\ListProfilePermissionsRes
 -- | List of permissions associated with the Signing Profile.
 listProfilePermissionsResponse_permissions :: Lens.Lens' ListProfilePermissionsResponse (Prelude.Maybe [Permission])
 listProfilePermissionsResponse_permissions = Lens.lens (\ListProfilePermissionsResponse' {permissions} -> permissions) (\s@ListProfilePermissionsResponse' {} a -> s {permissions = a} :: ListProfilePermissionsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | Total size of the policy associated with the Signing Profile in bytes.
+listProfilePermissionsResponse_policySizeBytes :: Lens.Lens' ListProfilePermissionsResponse (Prelude.Maybe Prelude.Int)
+listProfilePermissionsResponse_policySizeBytes = Lens.lens (\ListProfilePermissionsResponse' {policySizeBytes} -> policySizeBytes) (\s@ListProfilePermissionsResponse' {} a -> s {policySizeBytes = a} :: ListProfilePermissionsResponse)
 
 -- | The identifier for the current revision of profile permissions.
 listProfilePermissionsResponse_revisionId :: Lens.Lens' ListProfilePermissionsResponse (Prelude.Maybe Prelude.Text)
@@ -209,8 +211,8 @@ instance
     ListProfilePermissionsResponse
   where
   rnf ListProfilePermissionsResponse' {..} =
-    Prelude.rnf policySizeBytes
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf permissions
+      `Prelude.seq` Prelude.rnf policySizeBytes
       `Prelude.seq` Prelude.rnf revisionId
       `Prelude.seq` Prelude.rnf httpStatus

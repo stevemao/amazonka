@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaStore.DeleteCorsPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.MediaStore.DeleteCorsPolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaStore.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -81,7 +82,8 @@ instance Core.AWSRequest DeleteCorsPolicy where
   type
     AWSResponse DeleteCorsPolicy =
       DeleteCorsPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -96,34 +98,34 @@ instance Prelude.Hashable DeleteCorsPolicy where
 instance Prelude.NFData DeleteCorsPolicy where
   rnf DeleteCorsPolicy' {..} = Prelude.rnf containerName
 
-instance Core.ToHeaders DeleteCorsPolicy where
+instance Data.ToHeaders DeleteCorsPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "MediaStore_20170901.DeleteCorsPolicy" ::
+              Data.=# ( "MediaStore_20170901.DeleteCorsPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteCorsPolicy where
+instance Data.ToJSON DeleteCorsPolicy where
   toJSON DeleteCorsPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ContainerName" Core..= containerName)
+              ("ContainerName" Data..= containerName)
           ]
       )
 
-instance Core.ToPath DeleteCorsPolicy where
+instance Data.ToPath DeleteCorsPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteCorsPolicy where
+instance Data.ToQuery DeleteCorsPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteCorsPolicyResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.ListTagsForResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.AppMesh.ListTagsForResource
     newListTagsForResource,
 
     -- * Request Lenses
-    listTagsForResource_nextToken,
     listTagsForResource_limit,
+    listTagsForResource_nextToken,
     listTagsForResource_resourceArn,
 
     -- * Destructuring the Response
@@ -46,7 +46,8 @@ where
 
 import Amazonka.AppMesh.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,12 +56,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListTagsForResource' smart constructor.
 data ListTagsForResource = ListTagsForResource'
-  { -- | The @nextToken@ value returned from a previous paginated
-    -- @ListTagsForResource@ request where @limit@ was used and the results
-    -- exceeded the value of that parameter. Pagination continues from the end
-    -- of the previous results that returned the @nextToken@ value.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of tag results returned by @ListTagsForResource@ in
+  { -- | The maximum number of tag results returned by @ListTagsForResource@ in
     -- paginated output. When this parameter is used, @ListTagsForResource@
     -- returns only @limit@ results in a single page along with a @nextToken@
     -- response element. You can see the remaining results of the initial
@@ -69,6 +65,11 @@ data ListTagsForResource = ListTagsForResource'
     -- don\'t use this parameter, @ListTagsForResource@ returns up to 100
     -- results and a @nextToken@ value if applicable.
     limit :: Prelude.Maybe Prelude.Natural,
+    -- | The @nextToken@ value returned from a previous paginated
+    -- @ListTagsForResource@ request where @limit@ was used and the results
+    -- exceeded the value of that parameter. Pagination continues from the end
+    -- of the previous results that returned the @nextToken@ value.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) that identifies the resource to list the
     -- tags for.
     resourceArn :: Prelude.Text
@@ -83,11 +84,6 @@ data ListTagsForResource = ListTagsForResource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listTagsForResource_nextToken' - The @nextToken@ value returned from a previous paginated
--- @ListTagsForResource@ request where @limit@ was used and the results
--- exceeded the value of that parameter. Pagination continues from the end
--- of the previous results that returned the @nextToken@ value.
---
 -- 'limit', 'listTagsForResource_limit' - The maximum number of tag results returned by @ListTagsForResource@ in
 -- paginated output. When this parameter is used, @ListTagsForResource@
 -- returns only @limit@ results in a single page along with a @nextToken@
@@ -97,6 +93,11 @@ data ListTagsForResource = ListTagsForResource'
 -- don\'t use this parameter, @ListTagsForResource@ returns up to 100
 -- results and a @nextToken@ value if applicable.
 --
+-- 'nextToken', 'listTagsForResource_nextToken' - The @nextToken@ value returned from a previous paginated
+-- @ListTagsForResource@ request where @limit@ was used and the results
+-- exceeded the value of that parameter. Pagination continues from the end
+-- of the previous results that returned the @nextToken@ value.
+--
 -- 'resourceArn', 'listTagsForResource_resourceArn' - The Amazon Resource Name (ARN) that identifies the resource to list the
 -- tags for.
 newListTagsForResource ::
@@ -105,17 +106,10 @@ newListTagsForResource ::
   ListTagsForResource
 newListTagsForResource pResourceArn_ =
   ListTagsForResource'
-    { nextToken = Prelude.Nothing,
-      limit = Prelude.Nothing,
+    { limit = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       resourceArn = pResourceArn_
     }
-
--- | The @nextToken@ value returned from a previous paginated
--- @ListTagsForResource@ request where @limit@ was used and the results
--- exceeded the value of that parameter. Pagination continues from the end
--- of the previous results that returned the @nextToken@ value.
-listTagsForResource_nextToken :: Lens.Lens' ListTagsForResource (Prelude.Maybe Prelude.Text)
-listTagsForResource_nextToken = Lens.lens (\ListTagsForResource' {nextToken} -> nextToken) (\s@ListTagsForResource' {} a -> s {nextToken = a} :: ListTagsForResource)
 
 -- | The maximum number of tag results returned by @ListTagsForResource@ in
 -- paginated output. When this parameter is used, @ListTagsForResource@
@@ -127,6 +121,13 @@ listTagsForResource_nextToken = Lens.lens (\ListTagsForResource' {nextToken} -> 
 -- results and a @nextToken@ value if applicable.
 listTagsForResource_limit :: Lens.Lens' ListTagsForResource (Prelude.Maybe Prelude.Natural)
 listTagsForResource_limit = Lens.lens (\ListTagsForResource' {limit} -> limit) (\s@ListTagsForResource' {} a -> s {limit = a} :: ListTagsForResource)
+
+-- | The @nextToken@ value returned from a previous paginated
+-- @ListTagsForResource@ request where @limit@ was used and the results
+-- exceeded the value of that parameter. Pagination continues from the end
+-- of the previous results that returned the @nextToken@ value.
+listTagsForResource_nextToken :: Lens.Lens' ListTagsForResource (Prelude.Maybe Prelude.Text)
+listTagsForResource_nextToken = Lens.lens (\ListTagsForResource' {nextToken} -> nextToken) (\s@ListTagsForResource' {} a -> s {nextToken = a} :: ListTagsForResource)
 
 -- | The Amazon Resource Name (ARN) that identifies the resource to list the
 -- tags for.
@@ -156,48 +157,49 @@ instance Core.AWSRequest ListTagsForResource where
   type
     AWSResponse ListTagsForResource =
       ListTagsForResourceResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTagsForResourceResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListTagsForResource where
   hashWithSalt _salt ListTagsForResource' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` limit
+    _salt `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` resourceArn
 
 instance Prelude.NFData ListTagsForResource where
   rnf ListTagsForResource' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf limit
+    Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf resourceArn
 
-instance Core.ToHeaders ListTagsForResource where
+instance Data.ToHeaders ListTagsForResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListTagsForResource where
+instance Data.ToPath ListTagsForResource where
   toPath = Prelude.const "/v20190125/tags"
 
-instance Core.ToQuery ListTagsForResource where
+instance Data.ToQuery ListTagsForResource where
   toQuery ListTagsForResource' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "limit" Core.=: limit,
-        "resourceArn" Core.=: resourceArn
+      [ "limit" Data.=: limit,
+        "nextToken" Data.=: nextToken,
+        "resourceArn" Data.=: resourceArn
       ]
 
 -- |

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.Recommendation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.Recommendation where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A recommendation on how to remediate the issue identified in a finding.
@@ -67,13 +68,13 @@ recommendation_text = Lens.lens (\Recommendation' {text} -> text) (\s@Recommenda
 recommendation_url :: Lens.Lens' Recommendation (Prelude.Maybe Prelude.Text)
 recommendation_url = Lens.lens (\Recommendation' {url} -> url) (\s@Recommendation' {} a -> s {url = a} :: Recommendation)
 
-instance Core.FromJSON Recommendation where
+instance Data.FromJSON Recommendation where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Recommendation"
       ( \x ->
           Recommendation'
-            Prelude.<$> (x Core..:? "Text") Prelude.<*> (x Core..:? "Url")
+            Prelude.<$> (x Data..:? "Text") Prelude.<*> (x Data..:? "Url")
       )
 
 instance Prelude.Hashable Recommendation where
@@ -85,11 +86,11 @@ instance Prelude.NFData Recommendation where
   rnf Recommendation' {..} =
     Prelude.rnf text `Prelude.seq` Prelude.rnf url
 
-instance Core.ToJSON Recommendation where
+instance Data.ToJSON Recommendation where
   toJSON Recommendation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Text" Core..=) Prelude.<$> text,
-            ("Url" Core..=) Prelude.<$> url
+          [ ("Text" Data..=) Prelude.<$> text,
+            ("Url" Data..=) Prelude.<$> url
           ]
       )

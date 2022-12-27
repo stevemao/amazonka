@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryReadiness.Types.ResourceResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,23 +20,25 @@
 module Amazonka.Route53RecoveryReadiness.Types.ResourceResult where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53RecoveryReadiness.Types.Readiness
 
--- | Result with status for an individual resource.
+-- | The result of a successful Resource request, with status for an
+-- individual resource.
 --
 -- /See:/ 'newResourceResult' smart constructor.
 data ResourceResult = ResourceResult'
-  { -- | The ARN of the resource
-    resourceArn :: Prelude.Maybe Prelude.Text,
-    -- | The component id of the resource
+  { -- | The component id of the resource.
     componentId :: Prelude.Maybe Prelude.Text,
-    -- | The readiness of the resource.
+    -- | The Amazon Resource Name (ARN) of the resource.
+    resourceArn :: Prelude.Maybe Prelude.Text,
+    -- | The readiness of a resource.
     readiness :: Readiness,
-    -- | The time the resource was last checked for readiness, in ISO-8601
-    -- format, UTC.
-    lastCheckedTimestamp :: Core.POSIX
+    -- | The time (UTC) that the resource was last checked for readiness, in
+    -- ISO-8601 format.
+    lastCheckedTimestamp :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,14 +50,14 @@ data ResourceResult = ResourceResult'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceArn', 'resourceResult_resourceArn' - The ARN of the resource
+-- 'componentId', 'resourceResult_componentId' - The component id of the resource.
 --
--- 'componentId', 'resourceResult_componentId' - The component id of the resource
+-- 'resourceArn', 'resourceResult_resourceArn' - The Amazon Resource Name (ARN) of the resource.
 --
--- 'readiness', 'resourceResult_readiness' - The readiness of the resource.
+-- 'readiness', 'resourceResult_readiness' - The readiness of a resource.
 --
--- 'lastCheckedTimestamp', 'resourceResult_lastCheckedTimestamp' - The time the resource was last checked for readiness, in ISO-8601
--- format, UTC.
+-- 'lastCheckedTimestamp', 'resourceResult_lastCheckedTimestamp' - The time (UTC) that the resource was last checked for readiness, in
+-- ISO-8601 format.
 newResourceResult ::
   -- | 'readiness'
   Readiness ->
@@ -64,52 +66,52 @@ newResourceResult ::
   ResourceResult
 newResourceResult pReadiness_ pLastCheckedTimestamp_ =
   ResourceResult'
-    { resourceArn = Prelude.Nothing,
-      componentId = Prelude.Nothing,
+    { componentId = Prelude.Nothing,
+      resourceArn = Prelude.Nothing,
       readiness = pReadiness_,
       lastCheckedTimestamp =
-        Core._Time Lens.# pLastCheckedTimestamp_
+        Data._Time Lens.# pLastCheckedTimestamp_
     }
 
--- | The ARN of the resource
-resourceResult_resourceArn :: Lens.Lens' ResourceResult (Prelude.Maybe Prelude.Text)
-resourceResult_resourceArn = Lens.lens (\ResourceResult' {resourceArn} -> resourceArn) (\s@ResourceResult' {} a -> s {resourceArn = a} :: ResourceResult)
-
--- | The component id of the resource
+-- | The component id of the resource.
 resourceResult_componentId :: Lens.Lens' ResourceResult (Prelude.Maybe Prelude.Text)
 resourceResult_componentId = Lens.lens (\ResourceResult' {componentId} -> componentId) (\s@ResourceResult' {} a -> s {componentId = a} :: ResourceResult)
 
--- | The readiness of the resource.
+-- | The Amazon Resource Name (ARN) of the resource.
+resourceResult_resourceArn :: Lens.Lens' ResourceResult (Prelude.Maybe Prelude.Text)
+resourceResult_resourceArn = Lens.lens (\ResourceResult' {resourceArn} -> resourceArn) (\s@ResourceResult' {} a -> s {resourceArn = a} :: ResourceResult)
+
+-- | The readiness of a resource.
 resourceResult_readiness :: Lens.Lens' ResourceResult Readiness
 resourceResult_readiness = Lens.lens (\ResourceResult' {readiness} -> readiness) (\s@ResourceResult' {} a -> s {readiness = a} :: ResourceResult)
 
--- | The time the resource was last checked for readiness, in ISO-8601
--- format, UTC.
+-- | The time (UTC) that the resource was last checked for readiness, in
+-- ISO-8601 format.
 resourceResult_lastCheckedTimestamp :: Lens.Lens' ResourceResult Prelude.UTCTime
-resourceResult_lastCheckedTimestamp = Lens.lens (\ResourceResult' {lastCheckedTimestamp} -> lastCheckedTimestamp) (\s@ResourceResult' {} a -> s {lastCheckedTimestamp = a} :: ResourceResult) Prelude.. Core._Time
+resourceResult_lastCheckedTimestamp = Lens.lens (\ResourceResult' {lastCheckedTimestamp} -> lastCheckedTimestamp) (\s@ResourceResult' {} a -> s {lastCheckedTimestamp = a} :: ResourceResult) Prelude.. Data._Time
 
-instance Core.FromJSON ResourceResult where
+instance Data.FromJSON ResourceResult where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResourceResult"
       ( \x ->
           ResourceResult'
-            Prelude.<$> (x Core..:? "resourceArn")
-            Prelude.<*> (x Core..:? "componentId")
-            Prelude.<*> (x Core..: "readiness")
-            Prelude.<*> (x Core..: "lastCheckedTimestamp")
+            Prelude.<$> (x Data..:? "componentId")
+            Prelude.<*> (x Data..:? "resourceArn")
+            Prelude.<*> (x Data..: "readiness")
+            Prelude.<*> (x Data..: "lastCheckedTimestamp")
       )
 
 instance Prelude.Hashable ResourceResult where
   hashWithSalt _salt ResourceResult' {..} =
-    _salt `Prelude.hashWithSalt` resourceArn
-      `Prelude.hashWithSalt` componentId
+    _salt `Prelude.hashWithSalt` componentId
+      `Prelude.hashWithSalt` resourceArn
       `Prelude.hashWithSalt` readiness
       `Prelude.hashWithSalt` lastCheckedTimestamp
 
 instance Prelude.NFData ResourceResult where
   rnf ResourceResult' {..} =
-    Prelude.rnf resourceArn
-      `Prelude.seq` Prelude.rnf componentId
+    Prelude.rnf componentId
+      `Prelude.seq` Prelude.rnf resourceArn
       `Prelude.seq` Prelude.rnf readiness
       `Prelude.seq` Prelude.rnf lastCheckedTimestamp

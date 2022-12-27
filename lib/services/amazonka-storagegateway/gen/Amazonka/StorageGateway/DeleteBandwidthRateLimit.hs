@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.DeleteBandwidthRateLimit
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,8 +24,8 @@
 -- the upload and download bandwidth rate limit, or you can delete both. If
 -- you delete only one of the limits, the other limit remains unchanged. To
 -- specify which gateway to work with, use the Amazon Resource Name (ARN)
--- of the gateway in your request. This operation is supported for the
--- stored volume, cached volume and tape gateway types.
+-- of the gateway in your request. This operation is supported only for the
+-- stored volume, cached volume, and tape gateway types.
 module Amazonka.StorageGateway.DeleteBandwidthRateLimit
   ( -- * Creating a Request
     DeleteBandwidthRateLimit (..),
@@ -46,7 +46,8 @@ module Amazonka.StorageGateway.DeleteBandwidthRateLimit
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -111,12 +112,13 @@ instance Core.AWSRequest DeleteBandwidthRateLimit where
   type
     AWSResponse DeleteBandwidthRateLimit =
       DeleteBandwidthRateLimitResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteBandwidthRateLimitResponse'
-            Prelude.<$> (x Core..?> "GatewayARN")
+            Prelude.<$> (x Data..?> "GatewayARN")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -130,35 +132,35 @@ instance Prelude.NFData DeleteBandwidthRateLimit where
     Prelude.rnf gatewayARN
       `Prelude.seq` Prelude.rnf bandwidthType
 
-instance Core.ToHeaders DeleteBandwidthRateLimit where
+instance Data.ToHeaders DeleteBandwidthRateLimit where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.DeleteBandwidthRateLimit" ::
+              Data.=# ( "StorageGateway_20130630.DeleteBandwidthRateLimit" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteBandwidthRateLimit where
+instance Data.ToJSON DeleteBandwidthRateLimit where
   toJSON DeleteBandwidthRateLimit' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("GatewayARN" Core..= gatewayARN),
+          [ Prelude.Just ("GatewayARN" Data..= gatewayARN),
             Prelude.Just
-              ("BandwidthType" Core..= bandwidthType)
+              ("BandwidthType" Data..= bandwidthType)
           ]
       )
 
-instance Core.ToPath DeleteBandwidthRateLimit where
+instance Data.ToPath DeleteBandwidthRateLimit where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteBandwidthRateLimit where
+instance Data.ToQuery DeleteBandwidthRateLimit where
   toQuery = Prelude.const Prelude.mempty
 
 -- | A JSON object containing the Amazon Resource Name (ARN) of the gateway

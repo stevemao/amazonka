@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.UpdateGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,14 +37,15 @@ module Amazonka.QuickSight.UpdateGroup
     newUpdateGroupResponse,
 
     -- * Response Lenses
-    updateGroupResponse_requestId,
     updateGroupResponse_group,
+    updateGroupResponse_requestId,
     updateGroupResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -60,7 +61,7 @@ data UpdateGroup = UpdateGroup'
     -- Currently, you use the ID for the Amazon Web Services account that
     -- contains your Amazon QuickSight account.
     awsAccountId :: Prelude.Text,
-    -- | The namespace. Currently, you should set this to @default@.
+    -- | The namespace of the group that you want to update.
     namespace :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -81,7 +82,7 @@ data UpdateGroup = UpdateGroup'
 -- Currently, you use the ID for the Amazon Web Services account that
 -- contains your Amazon QuickSight account.
 --
--- 'namespace', 'updateGroup_namespace' - The namespace. Currently, you should set this to @default@.
+-- 'namespace', 'updateGroup_namespace' - The namespace of the group that you want to update.
 newUpdateGroup ::
   -- | 'groupName'
   Prelude.Text ->
@@ -112,19 +113,20 @@ updateGroup_groupName = Lens.lens (\UpdateGroup' {groupName} -> groupName) (\s@U
 updateGroup_awsAccountId :: Lens.Lens' UpdateGroup Prelude.Text
 updateGroup_awsAccountId = Lens.lens (\UpdateGroup' {awsAccountId} -> awsAccountId) (\s@UpdateGroup' {} a -> s {awsAccountId = a} :: UpdateGroup)
 
--- | The namespace. Currently, you should set this to @default@.
+-- | The namespace of the group that you want to update.
 updateGroup_namespace :: Lens.Lens' UpdateGroup Prelude.Text
 updateGroup_namespace = Lens.lens (\UpdateGroup' {namespace} -> namespace) (\s@UpdateGroup' {} a -> s {namespace = a} :: UpdateGroup)
 
 instance Core.AWSRequest UpdateGroup where
   type AWSResponse UpdateGroup = UpdateGroupResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateGroupResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "Group")
+            Prelude.<$> (x Data..?> "Group")
+            Prelude.<*> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -142,44 +144,44 @@ instance Prelude.NFData UpdateGroup where
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf namespace
 
-instance Core.ToHeaders UpdateGroup where
+instance Data.ToHeaders UpdateGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateGroup where
+instance Data.ToJSON UpdateGroup where
   toJSON UpdateGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Description" Core..=) Prelude.<$> description]
+          [("Description" Data..=) Prelude.<$> description]
       )
 
-instance Core.ToPath UpdateGroup where
+instance Data.ToPath UpdateGroup where
   toPath UpdateGroup' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/namespaces/",
-        Core.toBS namespace,
+        Data.toBS namespace,
         "/groups/",
-        Core.toBS groupName
+        Data.toBS groupName
       ]
 
-instance Core.ToQuery UpdateGroup where
+instance Data.ToQuery UpdateGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateGroupResponse' smart constructor.
 data UpdateGroupResponse = UpdateGroupResponse'
-  { -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The name of the group.
+  { -- | The name of the group.
     group' :: Prelude.Maybe Group,
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -193,9 +195,9 @@ data UpdateGroupResponse = UpdateGroupResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'updateGroupResponse_requestId' - The Amazon Web Services request ID for this operation.
---
 -- 'group'', 'updateGroupResponse_group' - The name of the group.
+--
+-- 'requestId', 'updateGroupResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'status', 'updateGroupResponse_status' - The HTTP status of the request.
 newUpdateGroupResponse ::
@@ -204,18 +206,18 @@ newUpdateGroupResponse ::
   UpdateGroupResponse
 newUpdateGroupResponse pStatus_ =
   UpdateGroupResponse'
-    { requestId = Prelude.Nothing,
-      group' = Prelude.Nothing,
+    { group' = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       status = pStatus_
     }
-
--- | The Amazon Web Services request ID for this operation.
-updateGroupResponse_requestId :: Lens.Lens' UpdateGroupResponse (Prelude.Maybe Prelude.Text)
-updateGroupResponse_requestId = Lens.lens (\UpdateGroupResponse' {requestId} -> requestId) (\s@UpdateGroupResponse' {} a -> s {requestId = a} :: UpdateGroupResponse)
 
 -- | The name of the group.
 updateGroupResponse_group :: Lens.Lens' UpdateGroupResponse (Prelude.Maybe Group)
 updateGroupResponse_group = Lens.lens (\UpdateGroupResponse' {group'} -> group') (\s@UpdateGroupResponse' {} a -> s {group' = a} :: UpdateGroupResponse)
+
+-- | The Amazon Web Services request ID for this operation.
+updateGroupResponse_requestId :: Lens.Lens' UpdateGroupResponse (Prelude.Maybe Prelude.Text)
+updateGroupResponse_requestId = Lens.lens (\UpdateGroupResponse' {requestId} -> requestId) (\s@UpdateGroupResponse' {} a -> s {requestId = a} :: UpdateGroupResponse)
 
 -- | The HTTP status of the request.
 updateGroupResponse_status :: Lens.Lens' UpdateGroupResponse Prelude.Int
@@ -223,6 +225,6 @@ updateGroupResponse_status = Lens.lens (\UpdateGroupResponse' {status} -> status
 
 instance Prelude.NFData UpdateGroupResponse where
   rnf UpdateGroupResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf group'
+    Prelude.rnf group'
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf status

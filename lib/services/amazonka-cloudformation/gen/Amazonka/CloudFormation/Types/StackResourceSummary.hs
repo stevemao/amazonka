@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.Types.StackResourceSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,19 +23,15 @@ import Amazonka.CloudFormation.Types.ModuleInfo
 import Amazonka.CloudFormation.Types.ResourceStatus
 import Amazonka.CloudFormation.Types.StackResourceDriftInformationSummary
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains high-level information about the specified stack resource.
 --
 -- /See:/ 'newStackResourceSummary' smart constructor.
 data StackResourceSummary = StackResourceSummary'
-  { -- | The name or unique identifier that corresponds to a physical instance ID
-    -- of the resource.
-    physicalResourceId :: Prelude.Maybe Prelude.Text,
-    -- | Success\/failure message associated with the resource.
-    resourceStatusReason :: Prelude.Maybe Prelude.Text,
-    -- | Information about whether the resource\'s actual configuration differs,
+  { -- | Information about whether the resource\'s actual configuration differs,
     -- or has /drifted/, from its expected configuration, as defined in the
     -- stack template and any values specified as template parameters. For more
     -- information, see
@@ -45,6 +41,11 @@ data StackResourceSummary = StackResourceSummary'
     -- created, if the resource was created from a module included in the stack
     -- template.
     moduleInfo :: Prelude.Maybe ModuleInfo,
+    -- | The name or unique identifier that corresponds to a physical instance ID
+    -- of the resource.
+    physicalResourceId :: Prelude.Maybe Prelude.Text,
+    -- | Success\/failure message associated with the resource.
+    resourceStatusReason :: Prelude.Maybe Prelude.Text,
     -- | The logical name of the resource specified in the template.
     logicalResourceId :: Prelude.Text,
     -- | Type of resource. (For more information, go to
@@ -52,7 +53,7 @@ data StackResourceSummary = StackResourceSummary'
     -- in the CloudFormation User Guide.)
     resourceType :: Prelude.Text,
     -- | Time the status was updated.
-    lastUpdatedTimestamp :: Core.ISO8601,
+    lastUpdatedTimestamp :: Data.ISO8601,
     -- | Current status of the resource.
     resourceStatus :: ResourceStatus
   }
@@ -66,11 +67,6 @@ data StackResourceSummary = StackResourceSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'physicalResourceId', 'stackResourceSummary_physicalResourceId' - The name or unique identifier that corresponds to a physical instance ID
--- of the resource.
---
--- 'resourceStatusReason', 'stackResourceSummary_resourceStatusReason' - Success\/failure message associated with the resource.
---
 -- 'driftInformation', 'stackResourceSummary_driftInformation' - Information about whether the resource\'s actual configuration differs,
 -- or has /drifted/, from its expected configuration, as defined in the
 -- stack template and any values specified as template parameters. For more
@@ -80,6 +76,11 @@ data StackResourceSummary = StackResourceSummary'
 -- 'moduleInfo', 'stackResourceSummary_moduleInfo' - Contains information about the module from which the resource was
 -- created, if the resource was created from a module included in the stack
 -- template.
+--
+-- 'physicalResourceId', 'stackResourceSummary_physicalResourceId' - The name or unique identifier that corresponds to a physical instance ID
+-- of the resource.
+--
+-- 'resourceStatusReason', 'stackResourceSummary_resourceStatusReason' - Success\/failure message associated with the resource.
 --
 -- 'logicalResourceId', 'stackResourceSummary_logicalResourceId' - The logical name of the resource specified in the template.
 --
@@ -106,26 +107,17 @@ newStackResourceSummary
   pLastUpdatedTimestamp_
   pResourceStatus_ =
     StackResourceSummary'
-      { physicalResourceId =
+      { driftInformation =
           Prelude.Nothing,
-        resourceStatusReason = Prelude.Nothing,
-        driftInformation = Prelude.Nothing,
         moduleInfo = Prelude.Nothing,
+        physicalResourceId = Prelude.Nothing,
+        resourceStatusReason = Prelude.Nothing,
         logicalResourceId = pLogicalResourceId_,
         resourceType = pResourceType_,
         lastUpdatedTimestamp =
-          Core._Time Lens.# pLastUpdatedTimestamp_,
+          Data._Time Lens.# pLastUpdatedTimestamp_,
         resourceStatus = pResourceStatus_
       }
-
--- | The name or unique identifier that corresponds to a physical instance ID
--- of the resource.
-stackResourceSummary_physicalResourceId :: Lens.Lens' StackResourceSummary (Prelude.Maybe Prelude.Text)
-stackResourceSummary_physicalResourceId = Lens.lens (\StackResourceSummary' {physicalResourceId} -> physicalResourceId) (\s@StackResourceSummary' {} a -> s {physicalResourceId = a} :: StackResourceSummary)
-
--- | Success\/failure message associated with the resource.
-stackResourceSummary_resourceStatusReason :: Lens.Lens' StackResourceSummary (Prelude.Maybe Prelude.Text)
-stackResourceSummary_resourceStatusReason = Lens.lens (\StackResourceSummary' {resourceStatusReason} -> resourceStatusReason) (\s@StackResourceSummary' {} a -> s {resourceStatusReason = a} :: StackResourceSummary)
 
 -- | Information about whether the resource\'s actual configuration differs,
 -- or has /drifted/, from its expected configuration, as defined in the
@@ -141,6 +133,15 @@ stackResourceSummary_driftInformation = Lens.lens (\StackResourceSummary' {drift
 stackResourceSummary_moduleInfo :: Lens.Lens' StackResourceSummary (Prelude.Maybe ModuleInfo)
 stackResourceSummary_moduleInfo = Lens.lens (\StackResourceSummary' {moduleInfo} -> moduleInfo) (\s@StackResourceSummary' {} a -> s {moduleInfo = a} :: StackResourceSummary)
 
+-- | The name or unique identifier that corresponds to a physical instance ID
+-- of the resource.
+stackResourceSummary_physicalResourceId :: Lens.Lens' StackResourceSummary (Prelude.Maybe Prelude.Text)
+stackResourceSummary_physicalResourceId = Lens.lens (\StackResourceSummary' {physicalResourceId} -> physicalResourceId) (\s@StackResourceSummary' {} a -> s {physicalResourceId = a} :: StackResourceSummary)
+
+-- | Success\/failure message associated with the resource.
+stackResourceSummary_resourceStatusReason :: Lens.Lens' StackResourceSummary (Prelude.Maybe Prelude.Text)
+stackResourceSummary_resourceStatusReason = Lens.lens (\StackResourceSummary' {resourceStatusReason} -> resourceStatusReason) (\s@StackResourceSummary' {} a -> s {resourceStatusReason = a} :: StackResourceSummary)
+
 -- | The logical name of the resource specified in the template.
 stackResourceSummary_logicalResourceId :: Lens.Lens' StackResourceSummary Prelude.Text
 stackResourceSummary_logicalResourceId = Lens.lens (\StackResourceSummary' {logicalResourceId} -> logicalResourceId) (\s@StackResourceSummary' {} a -> s {logicalResourceId = a} :: StackResourceSummary)
@@ -153,30 +154,30 @@ stackResourceSummary_resourceType = Lens.lens (\StackResourceSummary' {resourceT
 
 -- | Time the status was updated.
 stackResourceSummary_lastUpdatedTimestamp :: Lens.Lens' StackResourceSummary Prelude.UTCTime
-stackResourceSummary_lastUpdatedTimestamp = Lens.lens (\StackResourceSummary' {lastUpdatedTimestamp} -> lastUpdatedTimestamp) (\s@StackResourceSummary' {} a -> s {lastUpdatedTimestamp = a} :: StackResourceSummary) Prelude.. Core._Time
+stackResourceSummary_lastUpdatedTimestamp = Lens.lens (\StackResourceSummary' {lastUpdatedTimestamp} -> lastUpdatedTimestamp) (\s@StackResourceSummary' {} a -> s {lastUpdatedTimestamp = a} :: StackResourceSummary) Prelude.. Data._Time
 
 -- | Current status of the resource.
 stackResourceSummary_resourceStatus :: Lens.Lens' StackResourceSummary ResourceStatus
 stackResourceSummary_resourceStatus = Lens.lens (\StackResourceSummary' {resourceStatus} -> resourceStatus) (\s@StackResourceSummary' {} a -> s {resourceStatus = a} :: StackResourceSummary)
 
-instance Core.FromXML StackResourceSummary where
+instance Data.FromXML StackResourceSummary where
   parseXML x =
     StackResourceSummary'
-      Prelude.<$> (x Core..@? "PhysicalResourceId")
-      Prelude.<*> (x Core..@? "ResourceStatusReason")
-      Prelude.<*> (x Core..@? "DriftInformation")
-      Prelude.<*> (x Core..@? "ModuleInfo")
-      Prelude.<*> (x Core..@ "LogicalResourceId")
-      Prelude.<*> (x Core..@ "ResourceType")
-      Prelude.<*> (x Core..@ "LastUpdatedTimestamp")
-      Prelude.<*> (x Core..@ "ResourceStatus")
+      Prelude.<$> (x Data..@? "DriftInformation")
+      Prelude.<*> (x Data..@? "ModuleInfo")
+      Prelude.<*> (x Data..@? "PhysicalResourceId")
+      Prelude.<*> (x Data..@? "ResourceStatusReason")
+      Prelude.<*> (x Data..@ "LogicalResourceId")
+      Prelude.<*> (x Data..@ "ResourceType")
+      Prelude.<*> (x Data..@ "LastUpdatedTimestamp")
+      Prelude.<*> (x Data..@ "ResourceStatus")
 
 instance Prelude.Hashable StackResourceSummary where
   hashWithSalt _salt StackResourceSummary' {..} =
-    _salt `Prelude.hashWithSalt` physicalResourceId
-      `Prelude.hashWithSalt` resourceStatusReason
-      `Prelude.hashWithSalt` driftInformation
+    _salt `Prelude.hashWithSalt` driftInformation
       `Prelude.hashWithSalt` moduleInfo
+      `Prelude.hashWithSalt` physicalResourceId
+      `Prelude.hashWithSalt` resourceStatusReason
       `Prelude.hashWithSalt` logicalResourceId
       `Prelude.hashWithSalt` resourceType
       `Prelude.hashWithSalt` lastUpdatedTimestamp
@@ -184,10 +185,10 @@ instance Prelude.Hashable StackResourceSummary where
 
 instance Prelude.NFData StackResourceSummary where
   rnf StackResourceSummary' {..} =
-    Prelude.rnf physicalResourceId
-      `Prelude.seq` Prelude.rnf resourceStatusReason
-      `Prelude.seq` Prelude.rnf driftInformation
+    Prelude.rnf driftInformation
       `Prelude.seq` Prelude.rnf moduleInfo
+      `Prelude.seq` Prelude.rnf physicalResourceId
+      `Prelude.seq` Prelude.rnf resourceStatusReason
       `Prelude.seq` Prelude.rnf logicalResourceId
       `Prelude.seq` Prelude.rnf resourceType
       `Prelude.seq` Prelude.rnf lastUpdatedTimestamp

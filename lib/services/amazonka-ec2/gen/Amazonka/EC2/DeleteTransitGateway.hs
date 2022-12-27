@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DeleteTransitGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.EC2.DeleteTransitGateway
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,12 +99,13 @@ instance Core.AWSRequest DeleteTransitGateway where
   type
     AWSResponse DeleteTransitGateway =
       DeleteTransitGatewayResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DeleteTransitGatewayResponse'
-            Prelude.<$> (x Core..@? "transitGateway")
+            Prelude.<$> (x Data..@? "transitGateway")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,21 +119,21 @@ instance Prelude.NFData DeleteTransitGateway where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf transitGatewayId
 
-instance Core.ToHeaders DeleteTransitGateway where
+instance Data.ToHeaders DeleteTransitGateway where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteTransitGateway where
+instance Data.ToPath DeleteTransitGateway where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteTransitGateway where
+instance Data.ToQuery DeleteTransitGateway where
   toQuery DeleteTransitGateway' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteTransitGateway" :: Prelude.ByteString),
+          Data.=: ("DeleteTransitGateway" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "TransitGatewayId" Core.=: transitGatewayId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "TransitGatewayId" Data.=: transitGatewayId
       ]
 
 -- | /See:/ 'newDeleteTransitGatewayResponse' smart constructor.

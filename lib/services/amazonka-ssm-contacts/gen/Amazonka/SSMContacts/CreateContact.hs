@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSMContacts.CreateContact
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.SSMContacts.CreateContact
     newCreateContact,
 
     -- * Request Lenses
-    createContact_idempotencyToken,
     createContact_displayName,
+    createContact_idempotencyToken,
     createContact_tags,
     createContact_alias,
     createContact_type,
@@ -47,7 +47,8 @@ module Amazonka.SSMContacts.CreateContact
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,11 +56,11 @@ import Amazonka.SSMContacts.Types
 
 -- | /See:/ 'newCreateContact' smart constructor.
 data CreateContact = CreateContact'
-  { -- | A token ensuring that the operation is called only once with the
+  { -- | The full name of the contact or escalation plan.
+    displayName :: Prelude.Maybe Prelude.Text,
+    -- | A token ensuring that the operation is called only once with the
     -- specified details.
     idempotencyToken :: Prelude.Maybe Prelude.Text,
-    -- | The full name of the contact or escalation plan.
-    displayName :: Prelude.Maybe Prelude.Text,
     -- | Adds a tag to the target. You can only tag resources created in the
     -- first Region of your replication set.
     tags :: Prelude.Maybe [Tag],
@@ -84,10 +85,10 @@ data CreateContact = CreateContact'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'displayName', 'createContact_displayName' - The full name of the contact or escalation plan.
+--
 -- 'idempotencyToken', 'createContact_idempotencyToken' - A token ensuring that the operation is called only once with the
 -- specified details.
---
--- 'displayName', 'createContact_displayName' - The full name of the contact or escalation plan.
 --
 -- 'tags', 'createContact_tags' - Adds a tag to the target. You can only tag resources created in the
 -- first Region of your replication set.
@@ -111,22 +112,22 @@ newCreateContact ::
   CreateContact
 newCreateContact pAlias_ pType_ pPlan_ =
   CreateContact'
-    { idempotencyToken = Prelude.Nothing,
-      displayName = Prelude.Nothing,
+    { displayName = Prelude.Nothing,
+      idempotencyToken = Prelude.Nothing,
       tags = Prelude.Nothing,
       alias = pAlias_,
       type' = pType_,
       plan = pPlan_
     }
 
+-- | The full name of the contact or escalation plan.
+createContact_displayName :: Lens.Lens' CreateContact (Prelude.Maybe Prelude.Text)
+createContact_displayName = Lens.lens (\CreateContact' {displayName} -> displayName) (\s@CreateContact' {} a -> s {displayName = a} :: CreateContact)
+
 -- | A token ensuring that the operation is called only once with the
 -- specified details.
 createContact_idempotencyToken :: Lens.Lens' CreateContact (Prelude.Maybe Prelude.Text)
 createContact_idempotencyToken = Lens.lens (\CreateContact' {idempotencyToken} -> idempotencyToken) (\s@CreateContact' {} a -> s {idempotencyToken = a} :: CreateContact)
-
--- | The full name of the contact or escalation plan.
-createContact_displayName :: Lens.Lens' CreateContact (Prelude.Maybe Prelude.Text)
-createContact_displayName = Lens.lens (\CreateContact' {displayName} -> displayName) (\s@CreateContact' {} a -> s {displayName = a} :: CreateContact)
 
 -- | Adds a tag to the target. You can only tag resources created in the
 -- first Region of your replication set.
@@ -153,19 +154,20 @@ instance Core.AWSRequest CreateContact where
   type
     AWSResponse CreateContact =
       CreateContactResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateContactResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "ContactArn")
+            Prelude.<*> (x Data..:> "ContactArn")
       )
 
 instance Prelude.Hashable CreateContact where
   hashWithSalt _salt CreateContact' {..} =
-    _salt `Prelude.hashWithSalt` idempotencyToken
-      `Prelude.hashWithSalt` displayName
+    _salt `Prelude.hashWithSalt` displayName
+      `Prelude.hashWithSalt` idempotencyToken
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` alias
       `Prelude.hashWithSalt` type'
@@ -173,44 +175,44 @@ instance Prelude.Hashable CreateContact where
 
 instance Prelude.NFData CreateContact where
   rnf CreateContact' {..} =
-    Prelude.rnf idempotencyToken
-      `Prelude.seq` Prelude.rnf displayName
+    Prelude.rnf displayName
+      `Prelude.seq` Prelude.rnf idempotencyToken
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf alias
       `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf plan
 
-instance Core.ToHeaders CreateContact where
+instance Data.ToHeaders CreateContact where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SSMContacts.CreateContact" :: Prelude.ByteString),
+              Data.=# ("SSMContacts.CreateContact" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateContact where
+instance Data.ToJSON CreateContact where
   toJSON CreateContact' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("IdempotencyToken" Core..=)
+          [ ("DisplayName" Data..=) Prelude.<$> displayName,
+            ("IdempotencyToken" Data..=)
               Prelude.<$> idempotencyToken,
-            ("DisplayName" Core..=) Prelude.<$> displayName,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Alias" Core..= alias),
-            Prelude.Just ("Type" Core..= type'),
-            Prelude.Just ("Plan" Core..= plan)
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Alias" Data..= alias),
+            Prelude.Just ("Type" Data..= type'),
+            Prelude.Just ("Plan" Data..= plan)
           ]
       )
 
-instance Core.ToPath CreateContact where
+instance Data.ToPath CreateContact where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateContact where
+instance Data.ToQuery CreateContact where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateContactResponse' smart constructor.

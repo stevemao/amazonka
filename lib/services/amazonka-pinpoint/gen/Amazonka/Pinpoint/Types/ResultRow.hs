@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.ResultRow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.ResultRow where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types.ResultRowValue
 import qualified Amazonka.Prelude as Prelude
 
@@ -72,14 +73,14 @@ resultRow_groupedBys = Lens.lens (\ResultRow' {groupedBys} -> groupedBys) (\s@Re
 resultRow_values :: Lens.Lens' ResultRow [ResultRowValue]
 resultRow_values = Lens.lens (\ResultRow' {values} -> values) (\s@ResultRow' {} a -> s {values = a} :: ResultRow) Prelude.. Lens.coerced
 
-instance Core.FromJSON ResultRow where
+instance Data.FromJSON ResultRow where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResultRow"
       ( \x ->
           ResultRow'
-            Prelude.<$> (x Core..:? "GroupedBys" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Values" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "GroupedBys" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Values" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable ResultRow where

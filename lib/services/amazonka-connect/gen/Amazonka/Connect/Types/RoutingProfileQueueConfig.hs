@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.Types.RoutingProfileQueueConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Connect.Types.RoutingProfileQueueConfig where
 
 import Amazonka.Connect.Types.RoutingProfileQueueReference
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the queue and channel for which priority and
@@ -109,13 +110,13 @@ instance Prelude.NFData RoutingProfileQueueConfig where
       `Prelude.seq` Prelude.rnf priority
       `Prelude.seq` Prelude.rnf delay
 
-instance Core.ToJSON RoutingProfileQueueConfig where
+instance Data.ToJSON RoutingProfileQueueConfig where
   toJSON RoutingProfileQueueConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("QueueReference" Core..= queueReference),
-            Prelude.Just ("Priority" Core..= priority),
-            Prelude.Just ("Delay" Core..= delay)
+              ("QueueReference" Data..= queueReference),
+            Prelude.Just ("Priority" Data..= priority),
+            Prelude.Just ("Delay" Data..= delay)
           ]
       )

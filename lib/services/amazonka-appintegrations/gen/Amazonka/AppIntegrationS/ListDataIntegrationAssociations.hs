@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppIntegrationS.ListDataIntegrationAssociations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,8 @@ module Amazonka.AppIntegrationS.ListDataIntegrationAssociations
     newListDataIntegrationAssociations,
 
     -- * Request Lenses
-    listDataIntegrationAssociations_nextToken,
     listDataIntegrationAssociations_maxResults,
+    listDataIntegrationAssociations_nextToken,
     listDataIntegrationAssociations_dataIntegrationIdentifier,
 
     -- * Destructuring the Response
@@ -50,19 +50,20 @@ where
 
 import Amazonka.AppIntegrationS.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListDataIntegrationAssociations' smart constructor.
 data ListDataIntegrationAssociations = ListDataIntegrationAssociations'
-  { -- | The token for the next set of results. Use the value returned in the
+  { -- | The maximum number of results to return per page.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results. Use the value returned in the
     -- previous response in the next request to retrieve the next set of
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return per page.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | A unique identifier for the DataIntegration.
     dataIntegrationIdentifier :: Prelude.Text
   }
@@ -76,11 +77,11 @@ data ListDataIntegrationAssociations = ListDataIntegrationAssociations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listDataIntegrationAssociations_maxResults' - The maximum number of results to return per page.
+--
 -- 'nextToken', 'listDataIntegrationAssociations_nextToken' - The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
---
--- 'maxResults', 'listDataIntegrationAssociations_maxResults' - The maximum number of results to return per page.
 --
 -- 'dataIntegrationIdentifier', 'listDataIntegrationAssociations_dataIntegrationIdentifier' - A unique identifier for the DataIntegration.
 newListDataIntegrationAssociations ::
@@ -90,22 +91,22 @@ newListDataIntegrationAssociations ::
 newListDataIntegrationAssociations
   pDataIntegrationIdentifier_ =
     ListDataIntegrationAssociations'
-      { nextToken =
+      { maxResults =
           Prelude.Nothing,
-        maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         dataIntegrationIdentifier =
           pDataIntegrationIdentifier_
       }
+
+-- | The maximum number of results to return per page.
+listDataIntegrationAssociations_maxResults :: Lens.Lens' ListDataIntegrationAssociations (Prelude.Maybe Prelude.Natural)
+listDataIntegrationAssociations_maxResults = Lens.lens (\ListDataIntegrationAssociations' {maxResults} -> maxResults) (\s@ListDataIntegrationAssociations' {} a -> s {maxResults = a} :: ListDataIntegrationAssociations)
 
 -- | The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
 listDataIntegrationAssociations_nextToken :: Lens.Lens' ListDataIntegrationAssociations (Prelude.Maybe Prelude.Text)
 listDataIntegrationAssociations_nextToken = Lens.lens (\ListDataIntegrationAssociations' {nextToken} -> nextToken) (\s@ListDataIntegrationAssociations' {} a -> s {nextToken = a} :: ListDataIntegrationAssociations)
-
--- | The maximum number of results to return per page.
-listDataIntegrationAssociations_maxResults :: Lens.Lens' ListDataIntegrationAssociations (Prelude.Maybe Prelude.Natural)
-listDataIntegrationAssociations_maxResults = Lens.lens (\ListDataIntegrationAssociations' {maxResults} -> maxResults) (\s@ListDataIntegrationAssociations' {} a -> s {maxResults = a} :: ListDataIntegrationAssociations)
 
 -- | A unique identifier for the DataIntegration.
 listDataIntegrationAssociations_dataIntegrationIdentifier :: Lens.Lens' ListDataIntegrationAssociations Prelude.Text
@@ -118,13 +119,14 @@ instance
   type
     AWSResponse ListDataIntegrationAssociations =
       ListDataIntegrationAssociationsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDataIntegrationAssociationsResponse'
-            Prelude.<$> (x Core..?> "DataIntegrationAssociations")
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "DataIntegrationAssociations")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -135,8 +137,8 @@ instance
   hashWithSalt
     _salt
     ListDataIntegrationAssociations' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` dataIntegrationIdentifier
 
 instance
@@ -144,37 +146,37 @@ instance
     ListDataIntegrationAssociations
   where
   rnf ListDataIntegrationAssociations' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf dataIntegrationIdentifier
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListDataIntegrationAssociations
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListDataIntegrationAssociations where
+instance Data.ToPath ListDataIntegrationAssociations where
   toPath ListDataIntegrationAssociations' {..} =
     Prelude.mconcat
       [ "/dataIntegrations/",
-        Core.toBS dataIntegrationIdentifier,
+        Data.toBS dataIntegrationIdentifier,
         "/associations"
       ]
 
-instance Core.ToQuery ListDataIntegrationAssociations where
+instance Data.ToQuery ListDataIntegrationAssociations where
   toQuery ListDataIntegrationAssociations' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListDataIntegrationAssociationsResponse' smart constructor.

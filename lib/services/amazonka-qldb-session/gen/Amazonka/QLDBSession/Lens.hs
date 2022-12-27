@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.QLDBSession.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -15,21 +15,21 @@ module Amazonka.QLDBSession.Lens
   ( -- * Operations
 
     -- ** SendCommand
+    sendCommand_abortTransaction,
+    sendCommand_commitTransaction,
+    sendCommand_endSession,
+    sendCommand_executeStatement,
     sendCommand_fetchPage,
     sendCommand_sessionToken,
-    sendCommand_abortTransaction,
-    sendCommand_endSession,
-    sendCommand_startTransaction,
-    sendCommand_executeStatement,
-    sendCommand_commitTransaction,
     sendCommand_startSession,
-    sendCommandResponse_fetchPage,
+    sendCommand_startTransaction,
     sendCommandResponse_abortTransaction,
-    sendCommandResponse_endSession,
-    sendCommandResponse_startTransaction,
-    sendCommandResponse_executeStatement,
     sendCommandResponse_commitTransaction,
+    sendCommandResponse_endSession,
+    sendCommandResponse_executeStatement,
+    sendCommandResponse_fetchPage,
     sendCommandResponse_startSession,
+    sendCommandResponse_startTransaction,
     sendCommandResponse_httpStatus,
 
     -- * Types
@@ -44,9 +44,9 @@ module Amazonka.QLDBSession.Lens
     commitTransactionRequest_commitDigest,
 
     -- ** CommitTransactionResult
-    commitTransactionResult_timingInformation,
-    commitTransactionResult_consumedIOs,
     commitTransactionResult_commitDigest,
+    commitTransactionResult_consumedIOs,
+    commitTransactionResult_timingInformation,
     commitTransactionResult_transactionId,
 
     -- ** EndSessionRequest
@@ -60,18 +60,18 @@ module Amazonka.QLDBSession.Lens
     executeStatementRequest_statement,
 
     -- ** ExecuteStatementResult
-    executeStatementResult_timingInformation,
     executeStatementResult_consumedIOs,
     executeStatementResult_firstPage,
+    executeStatementResult_timingInformation,
 
     -- ** FetchPageRequest
     fetchPageRequest_transactionId,
     fetchPageRequest_nextPageToken,
 
     -- ** FetchPageResult
-    fetchPageResult_timingInformation,
     fetchPageResult_consumedIOs,
     fetchPageResult_page,
+    fetchPageResult_timingInformation,
 
     -- ** IOUsage
     iOUsage_readIOs,
@@ -85,8 +85,8 @@ module Amazonka.QLDBSession.Lens
     startSessionRequest_ledgerName,
 
     -- ** StartSessionResult
-    startSessionResult_timingInformation,
     startSessionResult_sessionToken,
+    startSessionResult_timingInformation,
 
     -- ** StartTransactionRequest
 
@@ -98,8 +98,8 @@ module Amazonka.QLDBSession.Lens
     timingInformation_processingTimeMilliseconds,
 
     -- ** ValueHolder
-    valueHolder_ionText,
     valueHolder_ionBinary,
+    valueHolder_ionText,
   )
 where
 

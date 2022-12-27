@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.GetResourcePolicies
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,8 +35,8 @@ module Amazonka.Glue.GetResourcePolicies
     newGetResourcePolicies,
 
     -- * Request Lenses
-    getResourcePolicies_nextToken,
     getResourcePolicies_maxResults,
+    getResourcePolicies_nextToken,
 
     -- * Destructuring the Response
     GetResourcePoliciesResponse (..),
@@ -50,18 +50,19 @@ module Amazonka.Glue.GetResourcePolicies
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetResourcePolicies' smart constructor.
 data GetResourcePolicies = GetResourcePolicies'
-  { -- | A continuation token, if this is a continuation request.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum size of a list to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | The maximum size of a list to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A continuation token, if this is a continuation request.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,24 +74,24 @@ data GetResourcePolicies = GetResourcePolicies'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'getResourcePolicies_nextToken' - A continuation token, if this is a continuation request.
---
 -- 'maxResults', 'getResourcePolicies_maxResults' - The maximum size of a list to return.
+--
+-- 'nextToken', 'getResourcePolicies_nextToken' - A continuation token, if this is a continuation request.
 newGetResourcePolicies ::
   GetResourcePolicies
 newGetResourcePolicies =
   GetResourcePolicies'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | A continuation token, if this is a continuation request.
-getResourcePolicies_nextToken :: Lens.Lens' GetResourcePolicies (Prelude.Maybe Prelude.Text)
-getResourcePolicies_nextToken = Lens.lens (\GetResourcePolicies' {nextToken} -> nextToken) (\s@GetResourcePolicies' {} a -> s {nextToken = a} :: GetResourcePolicies)
 
 -- | The maximum size of a list to return.
 getResourcePolicies_maxResults :: Lens.Lens' GetResourcePolicies (Prelude.Maybe Prelude.Natural)
 getResourcePolicies_maxResults = Lens.lens (\GetResourcePolicies' {maxResults} -> maxResults) (\s@GetResourcePolicies' {} a -> s {maxResults = a} :: GetResourcePolicies)
+
+-- | A continuation token, if this is a continuation request.
+getResourcePolicies_nextToken :: Lens.Lens' GetResourcePolicies (Prelude.Maybe Prelude.Text)
+getResourcePolicies_nextToken = Lens.lens (\GetResourcePolicies' {nextToken} -> nextToken) (\s@GetResourcePolicies' {} a -> s {nextToken = a} :: GetResourcePolicies)
 
 instance Core.AWSPager GetResourcePolicies where
   page rq rs
@@ -118,56 +119,57 @@ instance Core.AWSRequest GetResourcePolicies where
   type
     AWSResponse GetResourcePolicies =
       GetResourcePoliciesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetResourcePoliciesResponse'
-            Prelude.<$> ( x Core..?> "GetResourcePoliciesResponseList"
+            Prelude.<$> ( x Data..?> "GetResourcePoliciesResponseList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetResourcePolicies where
   hashWithSalt _salt GetResourcePolicies' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData GetResourcePolicies where
   rnf GetResourcePolicies' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders GetResourcePolicies where
+instance Data.ToHeaders GetResourcePolicies where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSGlue.GetResourcePolicies" ::
+              Data.=# ( "AWSGlue.GetResourcePolicies" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetResourcePolicies where
+instance Data.ToJSON GetResourcePolicies where
   toJSON GetResourcePolicies' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath GetResourcePolicies where
+instance Data.ToPath GetResourcePolicies where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetResourcePolicies where
+instance Data.ToQuery GetResourcePolicies where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetResourcePoliciesResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.GetBucketMetricData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,14 +45,15 @@ module Amazonka.Lightsail.GetBucketMetricData
     newGetBucketMetricDataResponse,
 
     -- * Response Lenses
-    getBucketMetricDataResponse_metricName,
     getBucketMetricDataResponse_metricData,
+    getBucketMetricDataResponse_metricName,
     getBucketMetricDataResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -88,9 +89,9 @@ data GetBucketMetricData = GetBucketMetricData'
     --     Unit: The published unit is @Count@.
     metricName :: BucketMetricName,
     -- | The timestamp indicating the earliest data to be returned.
-    startTime :: Core.POSIX,
+    startTime :: Data.POSIX,
     -- | The timestamp indicating the latest data to be returned.
-    endTime :: Core.POSIX,
+    endTime :: Data.POSIX,
     -- | The granularity, in seconds, of the returned data points.
     --
     -- Bucket storage metrics are reported once per day. Therefore, you should
@@ -228,8 +229,8 @@ newGetBucketMetricData
     GetBucketMetricData'
       { bucketName = pBucketName_,
         metricName = pMetricName_,
-        startTime = Core._Time Lens.# pStartTime_,
-        endTime = Core._Time Lens.# pEndTime_,
+        startTime = Data._Time Lens.# pStartTime_,
+        endTime = Data._Time Lens.# pEndTime_,
         period = pPeriod_,
         statistics = Prelude.mempty,
         unit = pUnit_
@@ -268,11 +269,11 @@ getBucketMetricData_metricName = Lens.lens (\GetBucketMetricData' {metricName} -
 
 -- | The timestamp indicating the earliest data to be returned.
 getBucketMetricData_startTime :: Lens.Lens' GetBucketMetricData Prelude.UTCTime
-getBucketMetricData_startTime = Lens.lens (\GetBucketMetricData' {startTime} -> startTime) (\s@GetBucketMetricData' {} a -> s {startTime = a} :: GetBucketMetricData) Prelude.. Core._Time
+getBucketMetricData_startTime = Lens.lens (\GetBucketMetricData' {startTime} -> startTime) (\s@GetBucketMetricData' {} a -> s {startTime = a} :: GetBucketMetricData) Prelude.. Data._Time
 
 -- | The timestamp indicating the latest data to be returned.
 getBucketMetricData_endTime :: Lens.Lens' GetBucketMetricData Prelude.UTCTime
-getBucketMetricData_endTime = Lens.lens (\GetBucketMetricData' {endTime} -> endTime) (\s@GetBucketMetricData' {} a -> s {endTime = a} :: GetBucketMetricData) Prelude.. Core._Time
+getBucketMetricData_endTime = Lens.lens (\GetBucketMetricData' {endTime} -> endTime) (\s@GetBucketMetricData' {} a -> s {endTime = a} :: GetBucketMetricData) Prelude.. Data._Time
 
 -- | The granularity, in seconds, of the returned data points.
 --
@@ -320,13 +321,14 @@ instance Core.AWSRequest GetBucketMetricData where
   type
     AWSResponse GetBucketMetricData =
       GetBucketMetricDataResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetBucketMetricDataResponse'
-            Prelude.<$> (x Core..?> "metricName")
-            Prelude.<*> (x Core..?> "metricData" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "metricData" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "metricName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -350,47 +352,47 @@ instance Prelude.NFData GetBucketMetricData where
       `Prelude.seq` Prelude.rnf statistics
       `Prelude.seq` Prelude.rnf unit
 
-instance Core.ToHeaders GetBucketMetricData where
+instance Data.ToHeaders GetBucketMetricData where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.GetBucketMetricData" ::
+              Data.=# ( "Lightsail_20161128.GetBucketMetricData" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetBucketMetricData where
+instance Data.ToJSON GetBucketMetricData where
   toJSON GetBucketMetricData' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("bucketName" Core..= bucketName),
-            Prelude.Just ("metricName" Core..= metricName),
-            Prelude.Just ("startTime" Core..= startTime),
-            Prelude.Just ("endTime" Core..= endTime),
-            Prelude.Just ("period" Core..= period),
-            Prelude.Just ("statistics" Core..= statistics),
-            Prelude.Just ("unit" Core..= unit)
+          [ Prelude.Just ("bucketName" Data..= bucketName),
+            Prelude.Just ("metricName" Data..= metricName),
+            Prelude.Just ("startTime" Data..= startTime),
+            Prelude.Just ("endTime" Data..= endTime),
+            Prelude.Just ("period" Data..= period),
+            Prelude.Just ("statistics" Data..= statistics),
+            Prelude.Just ("unit" Data..= unit)
           ]
       )
 
-instance Core.ToPath GetBucketMetricData where
+instance Data.ToPath GetBucketMetricData where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetBucketMetricData where
+instance Data.ToQuery GetBucketMetricData where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetBucketMetricDataResponse' smart constructor.
 data GetBucketMetricDataResponse = GetBucketMetricDataResponse'
-  { -- | The name of the metric returned.
-    metricName :: Prelude.Maybe BucketMetricName,
-    -- | An array of objects that describe the metric data returned.
+  { -- | An array of objects that describe the metric data returned.
     metricData :: Prelude.Maybe [MetricDatapoint],
+    -- | The name of the metric returned.
+    metricName :: Prelude.Maybe BucketMetricName,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -404,9 +406,9 @@ data GetBucketMetricDataResponse = GetBucketMetricDataResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'metricName', 'getBucketMetricDataResponse_metricName' - The name of the metric returned.
---
 -- 'metricData', 'getBucketMetricDataResponse_metricData' - An array of objects that describe the metric data returned.
+--
+-- 'metricName', 'getBucketMetricDataResponse_metricName' - The name of the metric returned.
 --
 -- 'httpStatus', 'getBucketMetricDataResponse_httpStatus' - The response's http status code.
 newGetBucketMetricDataResponse ::
@@ -415,19 +417,19 @@ newGetBucketMetricDataResponse ::
   GetBucketMetricDataResponse
 newGetBucketMetricDataResponse pHttpStatus_ =
   GetBucketMetricDataResponse'
-    { metricName =
+    { metricData =
         Prelude.Nothing,
-      metricData = Prelude.Nothing,
+      metricName = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The name of the metric returned.
-getBucketMetricDataResponse_metricName :: Lens.Lens' GetBucketMetricDataResponse (Prelude.Maybe BucketMetricName)
-getBucketMetricDataResponse_metricName = Lens.lens (\GetBucketMetricDataResponse' {metricName} -> metricName) (\s@GetBucketMetricDataResponse' {} a -> s {metricName = a} :: GetBucketMetricDataResponse)
 
 -- | An array of objects that describe the metric data returned.
 getBucketMetricDataResponse_metricData :: Lens.Lens' GetBucketMetricDataResponse (Prelude.Maybe [MetricDatapoint])
 getBucketMetricDataResponse_metricData = Lens.lens (\GetBucketMetricDataResponse' {metricData} -> metricData) (\s@GetBucketMetricDataResponse' {} a -> s {metricData = a} :: GetBucketMetricDataResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The name of the metric returned.
+getBucketMetricDataResponse_metricName :: Lens.Lens' GetBucketMetricDataResponse (Prelude.Maybe BucketMetricName)
+getBucketMetricDataResponse_metricName = Lens.lens (\GetBucketMetricDataResponse' {metricName} -> metricName) (\s@GetBucketMetricDataResponse' {} a -> s {metricName = a} :: GetBucketMetricDataResponse)
 
 -- | The response's http status code.
 getBucketMetricDataResponse_httpStatus :: Lens.Lens' GetBucketMetricDataResponse Prelude.Int
@@ -435,6 +437,6 @@ getBucketMetricDataResponse_httpStatus = Lens.lens (\GetBucketMetricDataResponse
 
 instance Prelude.NFData GetBucketMetricDataResponse where
   rnf GetBucketMetricDataResponse' {..} =
-    Prelude.rnf metricName
-      `Prelude.seq` Prelude.rnf metricData
+    Prelude.rnf metricData
+      `Prelude.seq` Prelude.rnf metricName
       `Prelude.seq` Prelude.rnf httpStatus

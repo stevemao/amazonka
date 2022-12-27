@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.PinpointEmail.Types.Message
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.PinpointEmail.Types.Message where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.PinpointEmail.Types.Body
 import Amazonka.PinpointEmail.Types.Content
 import qualified Amazonka.Prelude as Prelude
@@ -86,11 +87,11 @@ instance Prelude.NFData Message where
   rnf Message' {..} =
     Prelude.rnf subject `Prelude.seq` Prelude.rnf body
 
-instance Core.ToJSON Message where
+instance Data.ToJSON Message where
   toJSON Message' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Subject" Core..= subject),
-            Prelude.Just ("Body" Core..= body)
+          [ Prelude.Just ("Subject" Data..= subject),
+            Prelude.Just ("Body" Data..= body)
           ]
       )

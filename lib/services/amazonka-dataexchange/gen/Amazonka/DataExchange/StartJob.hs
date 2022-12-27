@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataExchange.StartJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.DataExchange.StartJob
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataExchange.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -73,7 +74,8 @@ startJob_jobId = Lens.lens (\StartJob' {jobId} -> jobId) (\s@StartJob' {} a -> s
 
 instance Core.AWSRequest StartJob where
   type AWSResponse StartJob = StartJobResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -88,25 +90,25 @@ instance Prelude.Hashable StartJob where
 instance Prelude.NFData StartJob where
   rnf StartJob' {..} = Prelude.rnf jobId
 
-instance Core.ToHeaders StartJob where
+instance Data.ToHeaders StartJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartJob where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON StartJob where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath StartJob where
+instance Data.ToPath StartJob where
   toPath StartJob' {..} =
-    Prelude.mconcat ["/v1/jobs/", Core.toBS jobId]
+    Prelude.mconcat ["/v1/jobs/", Data.toBS jobId]
 
-instance Core.ToQuery StartJob where
+instance Data.ToQuery StartJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartJobResponse' smart constructor.

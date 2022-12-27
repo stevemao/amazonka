@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.VoiceId.Types.JobProgress
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.VoiceId.Types.JobProgress where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Indicates the completion progress for a batch job.
@@ -53,13 +54,13 @@ newJobProgress =
 jobProgress_percentComplete :: Lens.Lens' JobProgress (Prelude.Maybe Prelude.Natural)
 jobProgress_percentComplete = Lens.lens (\JobProgress' {percentComplete} -> percentComplete) (\s@JobProgress' {} a -> s {percentComplete = a} :: JobProgress)
 
-instance Core.FromJSON JobProgress where
+instance Data.FromJSON JobProgress where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "JobProgress"
       ( \x ->
           JobProgress'
-            Prelude.<$> (x Core..:? "PercentComplete")
+            Prelude.<$> (x Data..:? "PercentComplete")
       )
 
 instance Prelude.Hashable JobProgress where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ChimeSDKMessaging.DeleteChannelModerator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.ChimeSDKMessaging.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,7 +53,7 @@ import qualified Amazonka.Response as Response
 data DeleteChannelModerator = DeleteChannelModerator'
   { -- | The ARN of the channel.
     channelArn :: Prelude.Text,
-    -- | The ARN of the moderator being deleted.
+    -- | The @AppInstanceUserArn@ of the moderator being deleted.
     channelModeratorArn :: Prelude.Text,
     -- | The @AppInstanceUserArn@ of the user that makes the API call.
     chimeBearer :: Prelude.Text
@@ -69,7 +70,7 @@ data DeleteChannelModerator = DeleteChannelModerator'
 --
 -- 'channelArn', 'deleteChannelModerator_channelArn' - The ARN of the channel.
 --
--- 'channelModeratorArn', 'deleteChannelModerator_channelModeratorArn' - The ARN of the moderator being deleted.
+-- 'channelModeratorArn', 'deleteChannelModerator_channelModeratorArn' - The @AppInstanceUserArn@ of the moderator being deleted.
 --
 -- 'chimeBearer', 'deleteChannelModerator_chimeBearer' - The @AppInstanceUserArn@ of the user that makes the API call.
 newDeleteChannelModerator ::
@@ -94,7 +95,7 @@ newDeleteChannelModerator
 deleteChannelModerator_channelArn :: Lens.Lens' DeleteChannelModerator Prelude.Text
 deleteChannelModerator_channelArn = Lens.lens (\DeleteChannelModerator' {channelArn} -> channelArn) (\s@DeleteChannelModerator' {} a -> s {channelArn = a} :: DeleteChannelModerator)
 
--- | The ARN of the moderator being deleted.
+-- | The @AppInstanceUserArn@ of the moderator being deleted.
 deleteChannelModerator_channelModeratorArn :: Lens.Lens' DeleteChannelModerator Prelude.Text
 deleteChannelModerator_channelModeratorArn = Lens.lens (\DeleteChannelModerator' {channelModeratorArn} -> channelModeratorArn) (\s@DeleteChannelModerator' {} a -> s {channelModeratorArn = a} :: DeleteChannelModerator)
 
@@ -106,7 +107,8 @@ instance Core.AWSRequest DeleteChannelModerator where
   type
     AWSResponse DeleteChannelModerator =
       DeleteChannelModeratorResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteChannelModeratorResponse'
@@ -123,21 +125,21 @@ instance Prelude.NFData DeleteChannelModerator where
       `Prelude.seq` Prelude.rnf channelModeratorArn
       `Prelude.seq` Prelude.rnf chimeBearer
 
-instance Core.ToHeaders DeleteChannelModerator where
+instance Data.ToHeaders DeleteChannelModerator where
   toHeaders DeleteChannelModerator' {..} =
     Prelude.mconcat
-      ["x-amz-chime-bearer" Core.=# chimeBearer]
+      ["x-amz-chime-bearer" Data.=# chimeBearer]
 
-instance Core.ToPath DeleteChannelModerator where
+instance Data.ToPath DeleteChannelModerator where
   toPath DeleteChannelModerator' {..} =
     Prelude.mconcat
       [ "/channels/",
-        Core.toBS channelArn,
+        Data.toBS channelArn,
         "/moderators/",
-        Core.toBS channelModeratorArn
+        Data.toBS channelModeratorArn
       ]
 
-instance Core.ToQuery DeleteChannelModerator where
+instance Data.ToQuery DeleteChannelModerator where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteChannelModeratorResponse' smart constructor.

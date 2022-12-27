@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MwAA.Types.UpdateError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.MwAA.Types.UpdateError where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | An object containing the error encountered with the last update:
--- @ErrorCode@, @ErrorMessage@.
+-- | Describes the error(s) encountered with the last update of the
+-- environment.
 --
 -- /See:/ 'newUpdateError' smart constructor.
 data UpdateError = UpdateError'
@@ -62,14 +63,14 @@ updateError_errorCode = Lens.lens (\UpdateError' {errorCode} -> errorCode) (\s@U
 updateError_errorMessage :: Lens.Lens' UpdateError (Prelude.Maybe Prelude.Text)
 updateError_errorMessage = Lens.lens (\UpdateError' {errorMessage} -> errorMessage) (\s@UpdateError' {} a -> s {errorMessage = a} :: UpdateError)
 
-instance Core.FromJSON UpdateError where
+instance Data.FromJSON UpdateError where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UpdateError"
       ( \x ->
           UpdateError'
-            Prelude.<$> (x Core..:? "ErrorCode")
-            Prelude.<*> (x Core..:? "ErrorMessage")
+            Prelude.<$> (x Data..:? "ErrorCode")
+            Prelude.<*> (x Data..:? "ErrorMessage")
       )
 
 instance Prelude.Hashable UpdateError where

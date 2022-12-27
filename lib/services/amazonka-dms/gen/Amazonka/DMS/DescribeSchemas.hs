@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DMS.DescribeSchemas
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,15 +38,16 @@ module Amazonka.DMS.DescribeSchemas
     newDescribeSchemasResponse,
 
     -- * Response Lenses
-    describeSchemasResponse_schemas,
     describeSchemasResponse_marker,
+    describeSchemasResponse_schemas,
     describeSchemasResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DMS.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -153,13 +154,14 @@ instance Core.AWSRequest DescribeSchemas where
   type
     AWSResponse DescribeSchemas =
       DescribeSchemasResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeSchemasResponse'
-            Prelude.<$> (x Core..?> "Schemas" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "Marker")
+            Prelude.<$> (x Data..?> "Marker")
+            Prelude.<*> (x Data..?> "Schemas" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -175,47 +177,47 @@ instance Prelude.NFData DescribeSchemas where
       `Prelude.seq` Prelude.rnf maxRecords
       `Prelude.seq` Prelude.rnf endpointArn
 
-instance Core.ToHeaders DescribeSchemas where
+instance Data.ToHeaders DescribeSchemas where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonDMSv20160101.DescribeSchemas" ::
+              Data.=# ( "AmazonDMSv20160101.DescribeSchemas" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeSchemas where
+instance Data.ToJSON DescribeSchemas where
   toJSON DescribeSchemas' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Marker" Core..=) Prelude.<$> marker,
-            ("MaxRecords" Core..=) Prelude.<$> maxRecords,
-            Prelude.Just ("EndpointArn" Core..= endpointArn)
+          [ ("Marker" Data..=) Prelude.<$> marker,
+            ("MaxRecords" Data..=) Prelude.<$> maxRecords,
+            Prelude.Just ("EndpointArn" Data..= endpointArn)
           ]
       )
 
-instance Core.ToPath DescribeSchemas where
+instance Data.ToPath DescribeSchemas where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeSchemas where
+instance Data.ToQuery DescribeSchemas where
   toQuery = Prelude.const Prelude.mempty
 
 -- |
 --
 -- /See:/ 'newDescribeSchemasResponse' smart constructor.
 data DescribeSchemasResponse = DescribeSchemasResponse'
-  { -- | The described schema.
-    schemas :: Prelude.Maybe [Prelude.Text],
-    -- | An optional pagination token provided by a previous request. If this
+  { -- | An optional pagination token provided by a previous request. If this
     -- parameter is specified, the response includes only records beyond the
     -- marker, up to the value specified by @MaxRecords@.
     marker :: Prelude.Maybe Prelude.Text,
+    -- | The described schema.
+    schemas :: Prelude.Maybe [Prelude.Text],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -229,11 +231,11 @@ data DescribeSchemasResponse = DescribeSchemasResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'schemas', 'describeSchemasResponse_schemas' - The described schema.
---
 -- 'marker', 'describeSchemasResponse_marker' - An optional pagination token provided by a previous request. If this
 -- parameter is specified, the response includes only records beyond the
 -- marker, up to the value specified by @MaxRecords@.
+--
+-- 'schemas', 'describeSchemasResponse_schemas' - The described schema.
 --
 -- 'httpStatus', 'describeSchemasResponse_httpStatus' - The response's http status code.
 newDescribeSchemasResponse ::
@@ -242,14 +244,10 @@ newDescribeSchemasResponse ::
   DescribeSchemasResponse
 newDescribeSchemasResponse pHttpStatus_ =
   DescribeSchemasResponse'
-    { schemas = Prelude.Nothing,
-      marker = Prelude.Nothing,
+    { marker = Prelude.Nothing,
+      schemas = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The described schema.
-describeSchemasResponse_schemas :: Lens.Lens' DescribeSchemasResponse (Prelude.Maybe [Prelude.Text])
-describeSchemasResponse_schemas = Lens.lens (\DescribeSchemasResponse' {schemas} -> schemas) (\s@DescribeSchemasResponse' {} a -> s {schemas = a} :: DescribeSchemasResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | An optional pagination token provided by a previous request. If this
 -- parameter is specified, the response includes only records beyond the
@@ -257,12 +255,16 @@ describeSchemasResponse_schemas = Lens.lens (\DescribeSchemasResponse' {schemas}
 describeSchemasResponse_marker :: Lens.Lens' DescribeSchemasResponse (Prelude.Maybe Prelude.Text)
 describeSchemasResponse_marker = Lens.lens (\DescribeSchemasResponse' {marker} -> marker) (\s@DescribeSchemasResponse' {} a -> s {marker = a} :: DescribeSchemasResponse)
 
+-- | The described schema.
+describeSchemasResponse_schemas :: Lens.Lens' DescribeSchemasResponse (Prelude.Maybe [Prelude.Text])
+describeSchemasResponse_schemas = Lens.lens (\DescribeSchemasResponse' {schemas} -> schemas) (\s@DescribeSchemasResponse' {} a -> s {schemas = a} :: DescribeSchemasResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The response's http status code.
 describeSchemasResponse_httpStatus :: Lens.Lens' DescribeSchemasResponse Prelude.Int
 describeSchemasResponse_httpStatus = Lens.lens (\DescribeSchemasResponse' {httpStatus} -> httpStatus) (\s@DescribeSchemasResponse' {} a -> s {httpStatus = a} :: DescribeSchemasResponse)
 
 instance Prelude.NFData DescribeSchemasResponse where
   rnf DescribeSchemasResponse' {..} =
-    Prelude.rnf schemas
-      `Prelude.seq` Prelude.rnf marker
+    Prelude.rnf marker
+      `Prelude.seq` Prelude.rnf schemas
       `Prelude.seq` Prelude.rnf httpStatus

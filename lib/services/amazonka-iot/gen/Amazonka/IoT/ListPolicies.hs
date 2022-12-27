@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.ListPolicies
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,8 @@ module Amazonka.IoT.ListPolicies
     newListPolicies,
 
     -- * Request Lenses
-    listPolicies_marker,
     listPolicies_ascendingOrder,
+    listPolicies_marker,
     listPolicies_pageSize,
 
     -- * Destructuring the Response
@@ -49,8 +49,9 @@ module Amazonka.IoT.ListPolicies
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,11 +60,11 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListPolicies' smart constructor.
 data ListPolicies = ListPolicies'
-  { -- | The marker for the next set of results.
-    marker :: Prelude.Maybe Prelude.Text,
-    -- | Specifies the order for results. If true, the results are returned in
+  { -- | Specifies the order for results. If true, the results are returned in
     -- ascending creation order.
     ascendingOrder :: Prelude.Maybe Prelude.Bool,
+    -- | The marker for the next set of results.
+    marker :: Prelude.Maybe Prelude.Text,
     -- | The result page size.
     pageSize :: Prelude.Maybe Prelude.Natural
   }
@@ -77,29 +78,29 @@ data ListPolicies = ListPolicies'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'marker', 'listPolicies_marker' - The marker for the next set of results.
---
 -- 'ascendingOrder', 'listPolicies_ascendingOrder' - Specifies the order for results. If true, the results are returned in
 -- ascending creation order.
+--
+-- 'marker', 'listPolicies_marker' - The marker for the next set of results.
 --
 -- 'pageSize', 'listPolicies_pageSize' - The result page size.
 newListPolicies ::
   ListPolicies
 newListPolicies =
   ListPolicies'
-    { marker = Prelude.Nothing,
-      ascendingOrder = Prelude.Nothing,
+    { ascendingOrder = Prelude.Nothing,
+      marker = Prelude.Nothing,
       pageSize = Prelude.Nothing
     }
-
--- | The marker for the next set of results.
-listPolicies_marker :: Lens.Lens' ListPolicies (Prelude.Maybe Prelude.Text)
-listPolicies_marker = Lens.lens (\ListPolicies' {marker} -> marker) (\s@ListPolicies' {} a -> s {marker = a} :: ListPolicies)
 
 -- | Specifies the order for results. If true, the results are returned in
 -- ascending creation order.
 listPolicies_ascendingOrder :: Lens.Lens' ListPolicies (Prelude.Maybe Prelude.Bool)
 listPolicies_ascendingOrder = Lens.lens (\ListPolicies' {ascendingOrder} -> ascendingOrder) (\s@ListPolicies' {} a -> s {ascendingOrder = a} :: ListPolicies)
+
+-- | The marker for the next set of results.
+listPolicies_marker :: Lens.Lens' ListPolicies (Prelude.Maybe Prelude.Text)
+listPolicies_marker = Lens.lens (\ListPolicies' {marker} -> marker) (\s@ListPolicies' {} a -> s {marker = a} :: ListPolicies)
 
 -- | The result page size.
 listPolicies_pageSize :: Lens.Lens' ListPolicies (Prelude.Maybe Prelude.Natural)
@@ -126,40 +127,41 @@ instance Core.AWSPager ListPolicies where
 
 instance Core.AWSRequest ListPolicies where
   type AWSResponse ListPolicies = ListPoliciesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPoliciesResponse'
-            Prelude.<$> (x Core..?> "nextMarker")
-            Prelude.<*> (x Core..?> "policies" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "nextMarker")
+            Prelude.<*> (x Data..?> "policies" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListPolicies where
   hashWithSalt _salt ListPolicies' {..} =
-    _salt `Prelude.hashWithSalt` marker
-      `Prelude.hashWithSalt` ascendingOrder
+    _salt `Prelude.hashWithSalt` ascendingOrder
+      `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` pageSize
 
 instance Prelude.NFData ListPolicies where
   rnf ListPolicies' {..} =
-    Prelude.rnf marker
-      `Prelude.seq` Prelude.rnf ascendingOrder
+    Prelude.rnf ascendingOrder
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf pageSize
 
-instance Core.ToHeaders ListPolicies where
+instance Data.ToHeaders ListPolicies where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListPolicies where
+instance Data.ToPath ListPolicies where
   toPath = Prelude.const "/policies"
 
-instance Core.ToQuery ListPolicies where
+instance Data.ToQuery ListPolicies where
   toQuery ListPolicies' {..} =
     Prelude.mconcat
-      [ "marker" Core.=: marker,
-        "isAscendingOrder" Core.=: ascendingOrder,
-        "pageSize" Core.=: pageSize
+      [ "isAscendingOrder" Data.=: ascendingOrder,
+        "marker" Data.=: marker,
+        "pageSize" Data.=: pageSize
       ]
 
 -- | The output from the ListPolicies operation.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Domains.TransferDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,8 +34,8 @@
 --     <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-transfer-to-route-53.html Transferring Registration for a Domain to Amazon Route 53>
 --     in the /Amazon Route 53 Developer Guide/.
 --
--- -   For information about how to transfer a domain from one AWS account
---     to another, see
+-- -   For information about how to transfer a domain from one Amazon Web
+--     Services account to another, see
 --     <https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_TransferDomainToAnotherAwsAccount.html TransferDomainToAnotherAwsAccount>.
 --
 -- -   For information about how to transfer a domain to another domain
@@ -66,13 +66,13 @@ module Amazonka.Route53Domains.TransferDomain
     newTransferDomain,
 
     -- * Request Lenses
-    transferDomain_privacyProtectTechContact,
-    transferDomain_privacyProtectRegistrantContact,
-    transferDomain_autoRenew,
-    transferDomain_privacyProtectAdminContact,
-    transferDomain_idnLangCode,
     transferDomain_authCode,
+    transferDomain_autoRenew,
+    transferDomain_idnLangCode,
     transferDomain_nameservers,
+    transferDomain_privacyProtectAdminContact,
+    transferDomain_privacyProtectRegistrantContact,
+    transferDomain_privacyProtectTechContact,
     transferDomain_domainName,
     transferDomain_durationInYears,
     transferDomain_adminContact,
@@ -90,7 +90,8 @@ module Amazonka.Route53Domains.TransferDomain
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,29 +101,18 @@ import Amazonka.Route53Domains.Types
 --
 -- /See:/ 'newTransferDomain' smart constructor.
 data TransferDomain = TransferDomain'
-  { -- | Whether you want to conceal contact information from WHOIS queries. If
-    -- you specify @true@, WHOIS (\"who is\") queries return contact
-    -- information either for Amazon Registrar (for .com, .net, and .org
-    -- domains) or for our registrar associate, Gandi (for all other TLDs). If
-    -- you specify @false@, WHOIS queries return the information that you
-    -- entered for the technical contact.
-    --
-    -- Default: @true@
-    privacyProtectTechContact :: Prelude.Maybe Prelude.Bool,
-    -- | Whether you want to conceal contact information from WHOIS queries. If
-    -- you specify @true@, WHOIS (\"who is\") queries return contact
-    -- information either for Amazon Registrar (for .com, .net, and .org
-    -- domains) or for our registrar associate, Gandi (for all other TLDs). If
-    -- you specify @false@, WHOIS queries return the information that you
-    -- entered for the registrant contact (domain owner).
-    --
-    -- Default: @true@
-    privacyProtectRegistrantContact :: Prelude.Maybe Prelude.Bool,
+  { -- | The authorization code for the domain. You get this value from the
+    -- current registrar.
+    authCode :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | Indicates whether the domain will be automatically renewed (true) or not
     -- (false). Autorenewal only takes effect after the account is charged.
     --
     -- Default: true
     autoRenew :: Prelude.Maybe Prelude.Bool,
+    -- | Reserved for future use.
+    idnLangCode :: Prelude.Maybe Prelude.Text,
+    -- | Contains details for the host and glue IP addresses.
+    nameservers :: Prelude.Maybe [Nameserver],
     -- | Whether you want to conceal contact information from WHOIS queries. If
     -- you specify @true@, WHOIS (\"who is\") queries return contact
     -- information either for Amazon Registrar (for .com, .net, and .org
@@ -130,15 +120,35 @@ data TransferDomain = TransferDomain'
     -- you specify @false@, WHOIS queries return the information that you
     -- entered for the admin contact.
     --
+    -- You must specify the same privacy setting for the administrative,
+    -- registrant, and technical contacts.
+    --
     -- Default: @true@
     privacyProtectAdminContact :: Prelude.Maybe Prelude.Bool,
-    -- | Reserved for future use.
-    idnLangCode :: Prelude.Maybe Prelude.Text,
-    -- | The authorization code for the domain. You get this value from the
-    -- current registrar.
-    authCode :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | Contains details for the host and glue IP addresses.
-    nameservers :: Prelude.Maybe [Nameserver],
+    -- | Whether you want to conceal contact information from WHOIS queries. If
+    -- you specify @true@, WHOIS (\"who is\") queries return contact
+    -- information either for Amazon Registrar (for .com, .net, and .org
+    -- domains) or for our registrar associate, Gandi (for all other TLDs). If
+    -- you specify @false@, WHOIS queries return the information that you
+    -- entered for the registrant contact (domain owner).
+    --
+    -- You must specify the same privacy setting for the administrative,
+    -- registrant, and technical contacts.
+    --
+    -- Default: @true@
+    privacyProtectRegistrantContact :: Prelude.Maybe Prelude.Bool,
+    -- | Whether you want to conceal contact information from WHOIS queries. If
+    -- you specify @true@, WHOIS (\"who is\") queries return contact
+    -- information either for Amazon Registrar (for .com, .net, and .org
+    -- domains) or for our registrar associate, Gandi (for all other TLDs). If
+    -- you specify @false@, WHOIS queries return the information that you
+    -- entered for the technical contact.
+    --
+    -- You must specify the same privacy setting for the administrative,
+    -- registrant, and technical contacts.
+    --
+    -- Default: @true@
+    privacyProtectTechContact :: Prelude.Maybe Prelude.Bool,
     -- | The name of the domain that you want to transfer to Route 53. The
     -- top-level domain (TLD), such as .com, must be a TLD that Route 53
     -- supports. For a list of supported TLDs, see
@@ -164,11 +174,11 @@ data TransferDomain = TransferDomain'
     -- Default: 1
     durationInYears :: Prelude.Natural,
     -- | Provides detailed contact information.
-    adminContact :: Core.Sensitive ContactDetail,
+    adminContact :: Data.Sensitive ContactDetail,
     -- | Provides detailed contact information.
-    registrantContact :: Core.Sensitive ContactDetail,
+    registrantContact :: Data.Sensitive ContactDetail,
     -- | Provides detailed contact information.
-    techContact :: Core.Sensitive ContactDetail
+    techContact :: Data.Sensitive ContactDetail
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -180,12 +190,27 @@ data TransferDomain = TransferDomain'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'privacyProtectTechContact', 'transferDomain_privacyProtectTechContact' - Whether you want to conceal contact information from WHOIS queries. If
+-- 'authCode', 'transferDomain_authCode' - The authorization code for the domain. You get this value from the
+-- current registrar.
+--
+-- 'autoRenew', 'transferDomain_autoRenew' - Indicates whether the domain will be automatically renewed (true) or not
+-- (false). Autorenewal only takes effect after the account is charged.
+--
+-- Default: true
+--
+-- 'idnLangCode', 'transferDomain_idnLangCode' - Reserved for future use.
+--
+-- 'nameservers', 'transferDomain_nameservers' - Contains details for the host and glue IP addresses.
+--
+-- 'privacyProtectAdminContact', 'transferDomain_privacyProtectAdminContact' - Whether you want to conceal contact information from WHOIS queries. If
 -- you specify @true@, WHOIS (\"who is\") queries return contact
 -- information either for Amazon Registrar (for .com, .net, and .org
 -- domains) or for our registrar associate, Gandi (for all other TLDs). If
 -- you specify @false@, WHOIS queries return the information that you
--- entered for the technical contact.
+-- entered for the admin contact.
+--
+-- You must specify the same privacy setting for the administrative,
+-- registrant, and technical contacts.
 --
 -- Default: @true@
 --
@@ -196,28 +221,22 @@ data TransferDomain = TransferDomain'
 -- you specify @false@, WHOIS queries return the information that you
 -- entered for the registrant contact (domain owner).
 --
+-- You must specify the same privacy setting for the administrative,
+-- registrant, and technical contacts.
+--
 -- Default: @true@
 --
--- 'autoRenew', 'transferDomain_autoRenew' - Indicates whether the domain will be automatically renewed (true) or not
--- (false). Autorenewal only takes effect after the account is charged.
---
--- Default: true
---
--- 'privacyProtectAdminContact', 'transferDomain_privacyProtectAdminContact' - Whether you want to conceal contact information from WHOIS queries. If
+-- 'privacyProtectTechContact', 'transferDomain_privacyProtectTechContact' - Whether you want to conceal contact information from WHOIS queries. If
 -- you specify @true@, WHOIS (\"who is\") queries return contact
 -- information either for Amazon Registrar (for .com, .net, and .org
 -- domains) or for our registrar associate, Gandi (for all other TLDs). If
 -- you specify @false@, WHOIS queries return the information that you
--- entered for the admin contact.
+-- entered for the technical contact.
+--
+-- You must specify the same privacy setting for the administrative,
+-- registrant, and technical contacts.
 --
 -- Default: @true@
---
--- 'idnLangCode', 'transferDomain_idnLangCode' - Reserved for future use.
---
--- 'authCode', 'transferDomain_authCode' - The authorization code for the domain. You get this value from the
--- current registrar.
---
--- 'nameservers', 'transferDomain_nameservers' - Contains details for the host and glue IP addresses.
 --
 -- 'domainName', 'transferDomain_domainName' - The name of the domain that you want to transfer to Route 53. The
 -- top-level domain (TLD), such as .com, must be a TLD that Route 53
@@ -267,43 +286,25 @@ newTransferDomain
   pRegistrantContact_
   pTechContact_ =
     TransferDomain'
-      { privacyProtectTechContact =
-          Prelude.Nothing,
-        privacyProtectRegistrantContact = Prelude.Nothing,
+      { authCode = Prelude.Nothing,
         autoRenew = Prelude.Nothing,
-        privacyProtectAdminContact = Prelude.Nothing,
         idnLangCode = Prelude.Nothing,
-        authCode = Prelude.Nothing,
         nameservers = Prelude.Nothing,
+        privacyProtectAdminContact = Prelude.Nothing,
+        privacyProtectRegistrantContact = Prelude.Nothing,
+        privacyProtectTechContact = Prelude.Nothing,
         domainName = pDomainName_,
         durationInYears = pDurationInYears_,
-        adminContact = Core._Sensitive Lens.# pAdminContact_,
+        adminContact = Data._Sensitive Lens.# pAdminContact_,
         registrantContact =
-          Core._Sensitive Lens.# pRegistrantContact_,
-        techContact = Core._Sensitive Lens.# pTechContact_
+          Data._Sensitive Lens.# pRegistrantContact_,
+        techContact = Data._Sensitive Lens.# pTechContact_
       }
 
--- | Whether you want to conceal contact information from WHOIS queries. If
--- you specify @true@, WHOIS (\"who is\") queries return contact
--- information either for Amazon Registrar (for .com, .net, and .org
--- domains) or for our registrar associate, Gandi (for all other TLDs). If
--- you specify @false@, WHOIS queries return the information that you
--- entered for the technical contact.
---
--- Default: @true@
-transferDomain_privacyProtectTechContact :: Lens.Lens' TransferDomain (Prelude.Maybe Prelude.Bool)
-transferDomain_privacyProtectTechContact = Lens.lens (\TransferDomain' {privacyProtectTechContact} -> privacyProtectTechContact) (\s@TransferDomain' {} a -> s {privacyProtectTechContact = a} :: TransferDomain)
-
--- | Whether you want to conceal contact information from WHOIS queries. If
--- you specify @true@, WHOIS (\"who is\") queries return contact
--- information either for Amazon Registrar (for .com, .net, and .org
--- domains) or for our registrar associate, Gandi (for all other TLDs). If
--- you specify @false@, WHOIS queries return the information that you
--- entered for the registrant contact (domain owner).
---
--- Default: @true@
-transferDomain_privacyProtectRegistrantContact :: Lens.Lens' TransferDomain (Prelude.Maybe Prelude.Bool)
-transferDomain_privacyProtectRegistrantContact = Lens.lens (\TransferDomain' {privacyProtectRegistrantContact} -> privacyProtectRegistrantContact) (\s@TransferDomain' {} a -> s {privacyProtectRegistrantContact = a} :: TransferDomain)
+-- | The authorization code for the domain. You get this value from the
+-- current registrar.
+transferDomain_authCode :: Lens.Lens' TransferDomain (Prelude.Maybe Prelude.Text)
+transferDomain_authCode = Lens.lens (\TransferDomain' {authCode} -> authCode) (\s@TransferDomain' {} a -> s {authCode = a} :: TransferDomain) Prelude.. Lens.mapping Data._Sensitive
 
 -- | Indicates whether the domain will be automatically renewed (true) or not
 -- (false). Autorenewal only takes effect after the account is charged.
@@ -312,6 +313,14 @@ transferDomain_privacyProtectRegistrantContact = Lens.lens (\TransferDomain' {pr
 transferDomain_autoRenew :: Lens.Lens' TransferDomain (Prelude.Maybe Prelude.Bool)
 transferDomain_autoRenew = Lens.lens (\TransferDomain' {autoRenew} -> autoRenew) (\s@TransferDomain' {} a -> s {autoRenew = a} :: TransferDomain)
 
+-- | Reserved for future use.
+transferDomain_idnLangCode :: Lens.Lens' TransferDomain (Prelude.Maybe Prelude.Text)
+transferDomain_idnLangCode = Lens.lens (\TransferDomain' {idnLangCode} -> idnLangCode) (\s@TransferDomain' {} a -> s {idnLangCode = a} :: TransferDomain)
+
+-- | Contains details for the host and glue IP addresses.
+transferDomain_nameservers :: Lens.Lens' TransferDomain (Prelude.Maybe [Nameserver])
+transferDomain_nameservers = Lens.lens (\TransferDomain' {nameservers} -> nameservers) (\s@TransferDomain' {} a -> s {nameservers = a} :: TransferDomain) Prelude.. Lens.mapping Lens.coerced
+
 -- | Whether you want to conceal contact information from WHOIS queries. If
 -- you specify @true@, WHOIS (\"who is\") queries return contact
 -- information either for Amazon Registrar (for .com, .net, and .org
@@ -319,22 +328,40 @@ transferDomain_autoRenew = Lens.lens (\TransferDomain' {autoRenew} -> autoRenew)
 -- you specify @false@, WHOIS queries return the information that you
 -- entered for the admin contact.
 --
+-- You must specify the same privacy setting for the administrative,
+-- registrant, and technical contacts.
+--
 -- Default: @true@
 transferDomain_privacyProtectAdminContact :: Lens.Lens' TransferDomain (Prelude.Maybe Prelude.Bool)
 transferDomain_privacyProtectAdminContact = Lens.lens (\TransferDomain' {privacyProtectAdminContact} -> privacyProtectAdminContact) (\s@TransferDomain' {} a -> s {privacyProtectAdminContact = a} :: TransferDomain)
 
--- | Reserved for future use.
-transferDomain_idnLangCode :: Lens.Lens' TransferDomain (Prelude.Maybe Prelude.Text)
-transferDomain_idnLangCode = Lens.lens (\TransferDomain' {idnLangCode} -> idnLangCode) (\s@TransferDomain' {} a -> s {idnLangCode = a} :: TransferDomain)
+-- | Whether you want to conceal contact information from WHOIS queries. If
+-- you specify @true@, WHOIS (\"who is\") queries return contact
+-- information either for Amazon Registrar (for .com, .net, and .org
+-- domains) or for our registrar associate, Gandi (for all other TLDs). If
+-- you specify @false@, WHOIS queries return the information that you
+-- entered for the registrant contact (domain owner).
+--
+-- You must specify the same privacy setting for the administrative,
+-- registrant, and technical contacts.
+--
+-- Default: @true@
+transferDomain_privacyProtectRegistrantContact :: Lens.Lens' TransferDomain (Prelude.Maybe Prelude.Bool)
+transferDomain_privacyProtectRegistrantContact = Lens.lens (\TransferDomain' {privacyProtectRegistrantContact} -> privacyProtectRegistrantContact) (\s@TransferDomain' {} a -> s {privacyProtectRegistrantContact = a} :: TransferDomain)
 
--- | The authorization code for the domain. You get this value from the
--- current registrar.
-transferDomain_authCode :: Lens.Lens' TransferDomain (Prelude.Maybe Prelude.Text)
-transferDomain_authCode = Lens.lens (\TransferDomain' {authCode} -> authCode) (\s@TransferDomain' {} a -> s {authCode = a} :: TransferDomain) Prelude.. Lens.mapping Core._Sensitive
-
--- | Contains details for the host and glue IP addresses.
-transferDomain_nameservers :: Lens.Lens' TransferDomain (Prelude.Maybe [Nameserver])
-transferDomain_nameservers = Lens.lens (\TransferDomain' {nameservers} -> nameservers) (\s@TransferDomain' {} a -> s {nameservers = a} :: TransferDomain) Prelude.. Lens.mapping Lens.coerced
+-- | Whether you want to conceal contact information from WHOIS queries. If
+-- you specify @true@, WHOIS (\"who is\") queries return contact
+-- information either for Amazon Registrar (for .com, .net, and .org
+-- domains) or for our registrar associate, Gandi (for all other TLDs). If
+-- you specify @false@, WHOIS queries return the information that you
+-- entered for the technical contact.
+--
+-- You must specify the same privacy setting for the administrative,
+-- registrant, and technical contacts.
+--
+-- Default: @true@
+transferDomain_privacyProtectTechContact :: Lens.Lens' TransferDomain (Prelude.Maybe Prelude.Bool)
+transferDomain_privacyProtectTechContact = Lens.lens (\TransferDomain' {privacyProtectTechContact} -> privacyProtectTechContact) (\s@TransferDomain' {} a -> s {privacyProtectTechContact = a} :: TransferDomain)
 
 -- | The name of the domain that you want to transfer to Route 53. The
 -- top-level domain (TLD), such as .com, must be a TLD that Route 53
@@ -366,39 +393,39 @@ transferDomain_durationInYears = Lens.lens (\TransferDomain' {durationInYears} -
 
 -- | Provides detailed contact information.
 transferDomain_adminContact :: Lens.Lens' TransferDomain ContactDetail
-transferDomain_adminContact = Lens.lens (\TransferDomain' {adminContact} -> adminContact) (\s@TransferDomain' {} a -> s {adminContact = a} :: TransferDomain) Prelude.. Core._Sensitive
+transferDomain_adminContact = Lens.lens (\TransferDomain' {adminContact} -> adminContact) (\s@TransferDomain' {} a -> s {adminContact = a} :: TransferDomain) Prelude.. Data._Sensitive
 
 -- | Provides detailed contact information.
 transferDomain_registrantContact :: Lens.Lens' TransferDomain ContactDetail
-transferDomain_registrantContact = Lens.lens (\TransferDomain' {registrantContact} -> registrantContact) (\s@TransferDomain' {} a -> s {registrantContact = a} :: TransferDomain) Prelude.. Core._Sensitive
+transferDomain_registrantContact = Lens.lens (\TransferDomain' {registrantContact} -> registrantContact) (\s@TransferDomain' {} a -> s {registrantContact = a} :: TransferDomain) Prelude.. Data._Sensitive
 
 -- | Provides detailed contact information.
 transferDomain_techContact :: Lens.Lens' TransferDomain ContactDetail
-transferDomain_techContact = Lens.lens (\TransferDomain' {techContact} -> techContact) (\s@TransferDomain' {} a -> s {techContact = a} :: TransferDomain) Prelude.. Core._Sensitive
+transferDomain_techContact = Lens.lens (\TransferDomain' {techContact} -> techContact) (\s@TransferDomain' {} a -> s {techContact = a} :: TransferDomain) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest TransferDomain where
   type
     AWSResponse TransferDomain =
       TransferDomainResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           TransferDomainResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "OperationId")
+            Prelude.<*> (x Data..:> "OperationId")
       )
 
 instance Prelude.Hashable TransferDomain where
   hashWithSalt _salt TransferDomain' {..} =
-    _salt
-      `Prelude.hashWithSalt` privacyProtectTechContact
-      `Prelude.hashWithSalt` privacyProtectRegistrantContact
+    _salt `Prelude.hashWithSalt` authCode
       `Prelude.hashWithSalt` autoRenew
-      `Prelude.hashWithSalt` privacyProtectAdminContact
       `Prelude.hashWithSalt` idnLangCode
-      `Prelude.hashWithSalt` authCode
       `Prelude.hashWithSalt` nameservers
+      `Prelude.hashWithSalt` privacyProtectAdminContact
+      `Prelude.hashWithSalt` privacyProtectRegistrantContact
+      `Prelude.hashWithSalt` privacyProtectTechContact
       `Prelude.hashWithSalt` domainName
       `Prelude.hashWithSalt` durationInYears
       `Prelude.hashWithSalt` adminContact
@@ -407,62 +434,62 @@ instance Prelude.Hashable TransferDomain where
 
 instance Prelude.NFData TransferDomain where
   rnf TransferDomain' {..} =
-    Prelude.rnf privacyProtectTechContact
-      `Prelude.seq` Prelude.rnf privacyProtectRegistrantContact
+    Prelude.rnf authCode
       `Prelude.seq` Prelude.rnf autoRenew
-      `Prelude.seq` Prelude.rnf privacyProtectAdminContact
       `Prelude.seq` Prelude.rnf idnLangCode
-      `Prelude.seq` Prelude.rnf authCode
       `Prelude.seq` Prelude.rnf nameservers
+      `Prelude.seq` Prelude.rnf privacyProtectAdminContact
+      `Prelude.seq` Prelude.rnf privacyProtectRegistrantContact
+      `Prelude.seq` Prelude.rnf privacyProtectTechContact
       `Prelude.seq` Prelude.rnf domainName
       `Prelude.seq` Prelude.rnf durationInYears
       `Prelude.seq` Prelude.rnf adminContact
       `Prelude.seq` Prelude.rnf registrantContact
       `Prelude.seq` Prelude.rnf techContact
 
-instance Core.ToHeaders TransferDomain where
+instance Data.ToHeaders TransferDomain where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53Domains_v20140515.TransferDomain" ::
+              Data.=# ( "Route53Domains_v20140515.TransferDomain" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON TransferDomain where
+instance Data.ToJSON TransferDomain where
   toJSON TransferDomain' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PrivacyProtectTechContact" Core..=)
-              Prelude.<$> privacyProtectTechContact,
-            ("PrivacyProtectRegistrantContact" Core..=)
-              Prelude.<$> privacyProtectRegistrantContact,
-            ("AutoRenew" Core..=) Prelude.<$> autoRenew,
-            ("PrivacyProtectAdminContact" Core..=)
+          [ ("AuthCode" Data..=) Prelude.<$> authCode,
+            ("AutoRenew" Data..=) Prelude.<$> autoRenew,
+            ("IdnLangCode" Data..=) Prelude.<$> idnLangCode,
+            ("Nameservers" Data..=) Prelude.<$> nameservers,
+            ("PrivacyProtectAdminContact" Data..=)
               Prelude.<$> privacyProtectAdminContact,
-            ("IdnLangCode" Core..=) Prelude.<$> idnLangCode,
-            ("AuthCode" Core..=) Prelude.<$> authCode,
-            ("Nameservers" Core..=) Prelude.<$> nameservers,
-            Prelude.Just ("DomainName" Core..= domainName),
+            ("PrivacyProtectRegistrantContact" Data..=)
+              Prelude.<$> privacyProtectRegistrantContact,
+            ("PrivacyProtectTechContact" Data..=)
+              Prelude.<$> privacyProtectTechContact,
+            Prelude.Just ("DomainName" Data..= domainName),
             Prelude.Just
-              ("DurationInYears" Core..= durationInYears),
-            Prelude.Just ("AdminContact" Core..= adminContact),
+              ("DurationInYears" Data..= durationInYears),
+            Prelude.Just ("AdminContact" Data..= adminContact),
             Prelude.Just
-              ("RegistrantContact" Core..= registrantContact),
-            Prelude.Just ("TechContact" Core..= techContact)
+              ("RegistrantContact" Data..= registrantContact),
+            Prelude.Just ("TechContact" Data..= techContact)
           ]
       )
 
-instance Core.ToPath TransferDomain where
+instance Data.ToPath TransferDomain where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery TransferDomain where
+instance Data.ToQuery TransferDomain where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The TransferDomain response includes the following element.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.Types.Concurrency
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,15 @@
 module Amazonka.Lambda.Types.Concurrency where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | /See:/ 'newConcurrency' smart constructor.
 data Concurrency = Concurrency'
   { -- | The number of concurrent executions that are reserved for this function.
     -- For more information, see
-    -- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-concurrency.html Managing Concurrency>.
+    -- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-concurrency.html Managing Lambda reserved concurrency>.
     reservedConcurrentExecutions :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -42,7 +43,7 @@ data Concurrency = Concurrency'
 --
 -- 'reservedConcurrentExecutions', 'concurrency_reservedConcurrentExecutions' - The number of concurrent executions that are reserved for this function.
 -- For more information, see
--- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-concurrency.html Managing Concurrency>.
+-- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-concurrency.html Managing Lambda reserved concurrency>.
 newConcurrency ::
   Concurrency
 newConcurrency =
@@ -53,17 +54,17 @@ newConcurrency =
 
 -- | The number of concurrent executions that are reserved for this function.
 -- For more information, see
--- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-concurrency.html Managing Concurrency>.
+-- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-concurrency.html Managing Lambda reserved concurrency>.
 concurrency_reservedConcurrentExecutions :: Lens.Lens' Concurrency (Prelude.Maybe Prelude.Natural)
 concurrency_reservedConcurrentExecutions = Lens.lens (\Concurrency' {reservedConcurrentExecutions} -> reservedConcurrentExecutions) (\s@Concurrency' {} a -> s {reservedConcurrentExecutions = a} :: Concurrency)
 
-instance Core.FromJSON Concurrency where
+instance Data.FromJSON Concurrency where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Concurrency"
       ( \x ->
           Concurrency'
-            Prelude.<$> (x Core..:? "ReservedConcurrentExecutions")
+            Prelude.<$> (x Data..:? "ReservedConcurrentExecutions")
       )
 
 instance Prelude.Hashable Concurrency where

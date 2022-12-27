@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.GetEventSourceMapping
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,34 +35,38 @@ module Amazonka.Lambda.GetEventSourceMapping
     newEventSourceMappingConfiguration,
 
     -- * Response Lenses
-    eventSourceMappingConfiguration_eventSourceArn,
-    eventSourceMappingConfiguration_state,
-    eventSourceMappingConfiguration_startingPositionTimestamp,
-    eventSourceMappingConfiguration_functionArn,
-    eventSourceMappingConfiguration_topics,
-    eventSourceMappingConfiguration_queues,
-    eventSourceMappingConfiguration_bisectBatchOnFunctionError,
-    eventSourceMappingConfiguration_uuid,
-    eventSourceMappingConfiguration_parallelizationFactor,
-    eventSourceMappingConfiguration_lastProcessingResult,
-    eventSourceMappingConfiguration_maximumRetryAttempts,
+    eventSourceMappingConfiguration_amazonManagedKafkaEventSourceConfig,
     eventSourceMappingConfiguration_batchSize,
-    eventSourceMappingConfiguration_stateTransitionReason,
-    eventSourceMappingConfiguration_maximumBatchingWindowInSeconds,
-    eventSourceMappingConfiguration_sourceAccessConfigurations,
-    eventSourceMappingConfiguration_maximumRecordAgeInSeconds,
-    eventSourceMappingConfiguration_functionResponseTypes,
-    eventSourceMappingConfiguration_tumblingWindowInSeconds,
-    eventSourceMappingConfiguration_selfManagedEventSource,
-    eventSourceMappingConfiguration_lastModified,
+    eventSourceMappingConfiguration_bisectBatchOnFunctionError,
     eventSourceMappingConfiguration_destinationConfig,
+    eventSourceMappingConfiguration_eventSourceArn,
+    eventSourceMappingConfiguration_filterCriteria,
+    eventSourceMappingConfiguration_functionArn,
+    eventSourceMappingConfiguration_functionResponseTypes,
+    eventSourceMappingConfiguration_lastModified,
+    eventSourceMappingConfiguration_lastProcessingResult,
+    eventSourceMappingConfiguration_maximumBatchingWindowInSeconds,
+    eventSourceMappingConfiguration_maximumRecordAgeInSeconds,
+    eventSourceMappingConfiguration_maximumRetryAttempts,
+    eventSourceMappingConfiguration_parallelizationFactor,
+    eventSourceMappingConfiguration_queues,
+    eventSourceMappingConfiguration_selfManagedEventSource,
+    eventSourceMappingConfiguration_selfManagedKafkaEventSourceConfig,
+    eventSourceMappingConfiguration_sourceAccessConfigurations,
     eventSourceMappingConfiguration_startingPosition,
+    eventSourceMappingConfiguration_startingPositionTimestamp,
+    eventSourceMappingConfiguration_state,
+    eventSourceMappingConfiguration_stateTransitionReason,
+    eventSourceMappingConfiguration_topics,
+    eventSourceMappingConfiguration_tumblingWindowInSeconds,
+    eventSourceMappingConfiguration_uuid,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,10 +102,11 @@ instance Core.AWSRequest GetEventSourceMapping where
   type
     AWSResponse GetEventSourceMapping =
       EventSourceMappingConfiguration
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetEventSourceMapping where
   hashWithSalt _salt GetEventSourceMapping' {..} =
@@ -110,15 +115,15 @@ instance Prelude.Hashable GetEventSourceMapping where
 instance Prelude.NFData GetEventSourceMapping where
   rnf GetEventSourceMapping' {..} = Prelude.rnf uuid
 
-instance Core.ToHeaders GetEventSourceMapping where
+instance Data.ToHeaders GetEventSourceMapping where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetEventSourceMapping where
+instance Data.ToPath GetEventSourceMapping where
   toPath GetEventSourceMapping' {..} =
     Prelude.mconcat
       [ "/2015-03-31/event-source-mappings/",
-        Core.toBS uuid
+        Data.toBS uuid
       ]
 
-instance Core.ToQuery GetEventSourceMapping where
+instance Data.ToQuery GetEventSourceMapping where
   toQuery = Prelude.const Prelude.mempty

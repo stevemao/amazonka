@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EFS.ListTagsForResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.EFS.ListTagsForResource
     newListTagsForResource,
 
     -- * Request Lenses
-    listTagsForResource_nextToken,
     listTagsForResource_maxResults,
+    listTagsForResource_nextToken,
     listTagsForResource_resourceId,
 
     -- * Destructuring the Response
@@ -47,21 +47,22 @@ module Amazonka.EFS.ListTagsForResource
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EFS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListTagsForResource' smart constructor.
 data ListTagsForResource = ListTagsForResource'
-  { -- | (Optional) You can use @NextToken@ in a subsequent request to fetch the
+  { -- | (Optional) Specifies the maximum number of tag objects to return in the
+    -- response. The default value is 100.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | (Optional) You can use @NextToken@ in a subsequent request to fetch the
     -- next page of access point descriptions if the response payload was
     -- paginated.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | (Optional) Specifies the maximum number of tag objects to return in the
-    -- response. The default value is 100.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | Specifies the EFS resource you want to retrieve tags for. You can
     -- retrieve tags for EFS file systems and access points using this API
     -- endpoint.
@@ -77,12 +78,12 @@ data ListTagsForResource = ListTagsForResource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listTagsForResource_maxResults' - (Optional) Specifies the maximum number of tag objects to return in the
+-- response. The default value is 100.
+--
 -- 'nextToken', 'listTagsForResource_nextToken' - (Optional) You can use @NextToken@ in a subsequent request to fetch the
 -- next page of access point descriptions if the response payload was
 -- paginated.
---
--- 'maxResults', 'listTagsForResource_maxResults' - (Optional) Specifies the maximum number of tag objects to return in the
--- response. The default value is 100.
 --
 -- 'resourceId', 'listTagsForResource_resourceId' - Specifies the EFS resource you want to retrieve tags for. You can
 -- retrieve tags for EFS file systems and access points using this API
@@ -93,21 +94,21 @@ newListTagsForResource ::
   ListTagsForResource
 newListTagsForResource pResourceId_ =
   ListTagsForResource'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       resourceId = pResourceId_
     }
+
+-- | (Optional) Specifies the maximum number of tag objects to return in the
+-- response. The default value is 100.
+listTagsForResource_maxResults :: Lens.Lens' ListTagsForResource (Prelude.Maybe Prelude.Natural)
+listTagsForResource_maxResults = Lens.lens (\ListTagsForResource' {maxResults} -> maxResults) (\s@ListTagsForResource' {} a -> s {maxResults = a} :: ListTagsForResource)
 
 -- | (Optional) You can use @NextToken@ in a subsequent request to fetch the
 -- next page of access point descriptions if the response payload was
 -- paginated.
 listTagsForResource_nextToken :: Lens.Lens' ListTagsForResource (Prelude.Maybe Prelude.Text)
 listTagsForResource_nextToken = Lens.lens (\ListTagsForResource' {nextToken} -> nextToken) (\s@ListTagsForResource' {} a -> s {nextToken = a} :: ListTagsForResource)
-
--- | (Optional) Specifies the maximum number of tag objects to return in the
--- response. The default value is 100.
-listTagsForResource_maxResults :: Lens.Lens' ListTagsForResource (Prelude.Maybe Prelude.Natural)
-listTagsForResource_maxResults = Lens.lens (\ListTagsForResource' {maxResults} -> maxResults) (\s@ListTagsForResource' {} a -> s {maxResults = a} :: ListTagsForResource)
 
 -- | Specifies the EFS resource you want to retrieve tags for. You can
 -- retrieve tags for EFS file systems and access points using this API
@@ -119,41 +120,42 @@ instance Core.AWSRequest ListTagsForResource where
   type
     AWSResponse ListTagsForResource =
       ListTagsForResourceResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTagsForResourceResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListTagsForResource where
   hashWithSalt _salt ListTagsForResource' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` resourceId
 
 instance Prelude.NFData ListTagsForResource where
   rnf ListTagsForResource' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf resourceId
 
-instance Core.ToHeaders ListTagsForResource where
+instance Data.ToHeaders ListTagsForResource where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListTagsForResource where
+instance Data.ToPath ListTagsForResource where
   toPath ListTagsForResource' {..} =
     Prelude.mconcat
-      ["/2015-02-01/resource-tags/", Core.toBS resourceId]
+      ["/2015-02-01/resource-tags/", Data.toBS resourceId]
 
-instance Core.ToQuery ListTagsForResource where
+instance Data.ToQuery ListTagsForResource where
   toQuery ListTagsForResource' {..} =
     Prelude.mconcat
-      [ "NextToken" Core.=: nextToken,
-        "MaxResults" Core.=: maxResults
+      [ "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListTagsForResourceResponse' smart constructor.

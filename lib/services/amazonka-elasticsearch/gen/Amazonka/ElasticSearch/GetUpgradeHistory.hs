@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.GetUpgradeHistory
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.ElasticSearch.GetUpgradeHistory
     newGetUpgradeHistory,
 
     -- * Request Lenses
-    getUpgradeHistory_nextToken,
     getUpgradeHistory_maxResults,
+    getUpgradeHistory_nextToken,
     getUpgradeHistory_domainName,
 
     -- * Destructuring the Response
@@ -46,8 +46,9 @@ module Amazonka.ElasticSearch.GetUpgradeHistory
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,8 +57,8 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newGetUpgradeHistory' smart constructor.
 data GetUpgradeHistory = GetUpgradeHistory'
-  { nextToken :: Prelude.Maybe Prelude.Text,
-    maxResults :: Prelude.Maybe Prelude.Int,
+  { maxResults :: Prelude.Maybe Prelude.Int,
+    nextToken :: Prelude.Maybe Prelude.Text,
     domainName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -70,9 +71,9 @@ data GetUpgradeHistory = GetUpgradeHistory'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'getUpgradeHistory_nextToken' - Undocumented member.
---
 -- 'maxResults', 'getUpgradeHistory_maxResults' - Undocumented member.
+--
+-- 'nextToken', 'getUpgradeHistory_nextToken' - Undocumented member.
 --
 -- 'domainName', 'getUpgradeHistory_domainName' - Undocumented member.
 newGetUpgradeHistory ::
@@ -81,18 +82,18 @@ newGetUpgradeHistory ::
   GetUpgradeHistory
 newGetUpgradeHistory pDomainName_ =
   GetUpgradeHistory'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       domainName = pDomainName_
     }
 
 -- | Undocumented member.
-getUpgradeHistory_nextToken :: Lens.Lens' GetUpgradeHistory (Prelude.Maybe Prelude.Text)
-getUpgradeHistory_nextToken = Lens.lens (\GetUpgradeHistory' {nextToken} -> nextToken) (\s@GetUpgradeHistory' {} a -> s {nextToken = a} :: GetUpgradeHistory)
-
--- | Undocumented member.
 getUpgradeHistory_maxResults :: Lens.Lens' GetUpgradeHistory (Prelude.Maybe Prelude.Int)
 getUpgradeHistory_maxResults = Lens.lens (\GetUpgradeHistory' {maxResults} -> maxResults) (\s@GetUpgradeHistory' {} a -> s {maxResults = a} :: GetUpgradeHistory)
+
+-- | Undocumented member.
+getUpgradeHistory_nextToken :: Lens.Lens' GetUpgradeHistory (Prelude.Maybe Prelude.Text)
+getUpgradeHistory_nextToken = Lens.lens (\GetUpgradeHistory' {nextToken} -> nextToken) (\s@GetUpgradeHistory' {} a -> s {nextToken = a} :: GetUpgradeHistory)
 
 -- | Undocumented member.
 getUpgradeHistory_domainName :: Lens.Lens' GetUpgradeHistory Prelude.Text
@@ -124,13 +125,14 @@ instance Core.AWSRequest GetUpgradeHistory where
   type
     AWSResponse GetUpgradeHistory =
       GetUpgradeHistoryResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetUpgradeHistoryResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "UpgradeHistories"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "UpgradeHistories"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -138,32 +140,32 @@ instance Core.AWSRequest GetUpgradeHistory where
 
 instance Prelude.Hashable GetUpgradeHistory where
   hashWithSalt _salt GetUpgradeHistory' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` domainName
 
 instance Prelude.NFData GetUpgradeHistory where
   rnf GetUpgradeHistory' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf domainName
 
-instance Core.ToHeaders GetUpgradeHistory where
+instance Data.ToHeaders GetUpgradeHistory where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetUpgradeHistory where
+instance Data.ToPath GetUpgradeHistory where
   toPath GetUpgradeHistory' {..} =
     Prelude.mconcat
       [ "/2015-01-01/es/upgradeDomain/",
-        Core.toBS domainName,
+        Data.toBS domainName,
         "/history"
       ]
 
-instance Core.ToQuery GetUpgradeHistory where
+instance Data.ToQuery GetUpgradeHistory where
   toQuery GetUpgradeHistory' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | Container for response returned by @ GetUpgradeHistory @ operation.

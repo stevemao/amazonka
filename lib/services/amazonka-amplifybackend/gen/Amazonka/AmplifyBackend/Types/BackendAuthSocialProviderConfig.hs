@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AmplifyBackend.Types.BackendAuthSocialProviderConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AmplifyBackend.Types.BackendAuthSocialProviderConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes third-party social federation configurations for allowing your
@@ -70,16 +71,16 @@ backendAuthSocialProviderConfig_clientSecret :: Lens.Lens' BackendAuthSocialProv
 backendAuthSocialProviderConfig_clientSecret = Lens.lens (\BackendAuthSocialProviderConfig' {clientSecret} -> clientSecret) (\s@BackendAuthSocialProviderConfig' {} a -> s {clientSecret = a} :: BackendAuthSocialProviderConfig)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     BackendAuthSocialProviderConfig
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BackendAuthSocialProviderConfig"
       ( \x ->
           BackendAuthSocialProviderConfig'
-            Prelude.<$> (x Core..:? "client_id")
-            Prelude.<*> (x Core..:? "client_secret")
+            Prelude.<$> (x Data..:? "client_id")
+            Prelude.<*> (x Data..:? "client_secret")
       )
 
 instance
@@ -100,11 +101,11 @@ instance
     Prelude.rnf clientId
       `Prelude.seq` Prelude.rnf clientSecret
 
-instance Core.ToJSON BackendAuthSocialProviderConfig where
+instance Data.ToJSON BackendAuthSocialProviderConfig where
   toJSON BackendAuthSocialProviderConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("client_id" Core..=) Prelude.<$> clientId,
-            ("client_secret" Core..=) Prelude.<$> clientSecret
+          [ ("client_id" Data..=) Prelude.<$> clientId,
+            ("client_secret" Data..=) Prelude.<$> clientSecret
           ]
       )

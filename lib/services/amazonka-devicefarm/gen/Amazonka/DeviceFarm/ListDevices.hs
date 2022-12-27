@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.ListDevices
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,15 +38,16 @@ module Amazonka.DeviceFarm.ListDevices
     newListDevicesResponse,
 
     -- * Response Lenses
-    listDevicesResponse_nextToken,
     listDevicesResponse_devices,
+    listDevicesResponse_nextToken,
     listDevicesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -323,13 +324,14 @@ instance Core.AWSPager ListDevices where
 
 instance Core.AWSRequest ListDevices where
   type AWSResponse ListDevices = ListDevicesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDevicesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "devices" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "devices" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -345,47 +347,47 @@ instance Prelude.NFData ListDevices where
       `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListDevices where
+instance Data.ToHeaders ListDevices where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.ListDevices" ::
+              Data.=# ( "DeviceFarm_20150623.ListDevices" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListDevices where
+instance Data.ToJSON ListDevices where
   toJSON ListDevices' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("arn" Core..=) Prelude.<$> arn,
-            ("filters" Core..=) Prelude.<$> filters,
-            ("nextToken" Core..=) Prelude.<$> nextToken
+          [ ("arn" Data..=) Prelude.<$> arn,
+            ("filters" Data..=) Prelude.<$> filters,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListDevices where
+instance Data.ToPath ListDevices where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListDevices where
+instance Data.ToQuery ListDevices where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a list devices operation.
 --
 -- /See:/ 'newListDevicesResponse' smart constructor.
 data ListDevicesResponse = ListDevicesResponse'
-  { -- | If the number of items that are returned is significantly large, this is
+  { -- | Information about the devices.
+    devices :: Prelude.Maybe [Device],
+    -- | If the number of items that are returned is significantly large, this is
     -- an identifier that is also returned. It can be used in a subsequent call
     -- to this operation to return the next set of items in the list.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Information about the devices.
-    devices :: Prelude.Maybe [Device],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -399,11 +401,11 @@ data ListDevicesResponse = ListDevicesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'devices', 'listDevicesResponse_devices' - Information about the devices.
+--
 -- 'nextToken', 'listDevicesResponse_nextToken' - If the number of items that are returned is significantly large, this is
 -- an identifier that is also returned. It can be used in a subsequent call
 -- to this operation to return the next set of items in the list.
---
--- 'devices', 'listDevicesResponse_devices' - Information about the devices.
 --
 -- 'httpStatus', 'listDevicesResponse_httpStatus' - The response's http status code.
 newListDevicesResponse ::
@@ -412,10 +414,14 @@ newListDevicesResponse ::
   ListDevicesResponse
 newListDevicesResponse pHttpStatus_ =
   ListDevicesResponse'
-    { nextToken = Prelude.Nothing,
-      devices = Prelude.Nothing,
+    { devices = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | Information about the devices.
+listDevicesResponse_devices :: Lens.Lens' ListDevicesResponse (Prelude.Maybe [Device])
+listDevicesResponse_devices = Lens.lens (\ListDevicesResponse' {devices} -> devices) (\s@ListDevicesResponse' {} a -> s {devices = a} :: ListDevicesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | If the number of items that are returned is significantly large, this is
 -- an identifier that is also returned. It can be used in a subsequent call
@@ -423,16 +429,12 @@ newListDevicesResponse pHttpStatus_ =
 listDevicesResponse_nextToken :: Lens.Lens' ListDevicesResponse (Prelude.Maybe Prelude.Text)
 listDevicesResponse_nextToken = Lens.lens (\ListDevicesResponse' {nextToken} -> nextToken) (\s@ListDevicesResponse' {} a -> s {nextToken = a} :: ListDevicesResponse)
 
--- | Information about the devices.
-listDevicesResponse_devices :: Lens.Lens' ListDevicesResponse (Prelude.Maybe [Device])
-listDevicesResponse_devices = Lens.lens (\ListDevicesResponse' {devices} -> devices) (\s@ListDevicesResponse' {} a -> s {devices = a} :: ListDevicesResponse) Prelude.. Lens.mapping Lens.coerced
-
 -- | The response's http status code.
 listDevicesResponse_httpStatus :: Lens.Lens' ListDevicesResponse Prelude.Int
 listDevicesResponse_httpStatus = Lens.lens (\ListDevicesResponse' {httpStatus} -> httpStatus) (\s@ListDevicesResponse' {} a -> s {httpStatus = a} :: ListDevicesResponse)
 
 instance Prelude.NFData ListDevicesResponse where
   rnf ListDevicesResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf devices
+    Prelude.rnf devices
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

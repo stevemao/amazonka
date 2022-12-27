@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.EnableOrganizationAdminAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables an AWS account within the organization as the GuardDuty
--- delegated administrator.
+-- Enables an Amazon Web Services account within the organization as the
+-- GuardDuty delegated administrator.
 module Amazonka.GuardDuty.EnableOrganizationAdminAccount
   ( -- * Creating a Request
     EnableOrganizationAdminAccount (..),
@@ -40,16 +40,17 @@ module Amazonka.GuardDuty.EnableOrganizationAdminAccount
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newEnableOrganizationAdminAccount' smart constructor.
 data EnableOrganizationAdminAccount = EnableOrganizationAdminAccount'
-  { -- | The AWS Account ID for the organization account to be enabled as a
-    -- GuardDuty delegated administrator.
+  { -- | The Amazon Web Services Account ID for the organization account to be
+    -- enabled as a GuardDuty delegated administrator.
     adminAccountId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -62,8 +63,8 @@ data EnableOrganizationAdminAccount = EnableOrganizationAdminAccount'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'adminAccountId', 'enableOrganizationAdminAccount_adminAccountId' - The AWS Account ID for the organization account to be enabled as a
--- GuardDuty delegated administrator.
+-- 'adminAccountId', 'enableOrganizationAdminAccount_adminAccountId' - The Amazon Web Services Account ID for the organization account to be
+-- enabled as a GuardDuty delegated administrator.
 newEnableOrganizationAdminAccount ::
   -- | 'adminAccountId'
   Prelude.Text ->
@@ -74,8 +75,8 @@ newEnableOrganizationAdminAccount pAdminAccountId_ =
         pAdminAccountId_
     }
 
--- | The AWS Account ID for the organization account to be enabled as a
--- GuardDuty delegated administrator.
+-- | The Amazon Web Services Account ID for the organization account to be
+-- enabled as a GuardDuty delegated administrator.
 enableOrganizationAdminAccount_adminAccountId :: Lens.Lens' EnableOrganizationAdminAccount Prelude.Text
 enableOrganizationAdminAccount_adminAccountId = Lens.lens (\EnableOrganizationAdminAccount' {adminAccountId} -> adminAccountId) (\s@EnableOrganizationAdminAccount' {} a -> s {adminAccountId = a} :: EnableOrganizationAdminAccount)
 
@@ -86,7 +87,8 @@ instance
   type
     AWSResponse EnableOrganizationAdminAccount =
       EnableOrganizationAdminAccountResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -111,32 +113,32 @@ instance
     Prelude.rnf adminAccountId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     EnableOrganizationAdminAccount
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON EnableOrganizationAdminAccount where
+instance Data.ToJSON EnableOrganizationAdminAccount where
   toJSON EnableOrganizationAdminAccount' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("adminAccountId" Core..= adminAccountId)
+              ("adminAccountId" Data..= adminAccountId)
           ]
       )
 
-instance Core.ToPath EnableOrganizationAdminAccount where
+instance Data.ToPath EnableOrganizationAdminAccount where
   toPath = Prelude.const "/admin/enable"
 
-instance Core.ToQuery EnableOrganizationAdminAccount where
+instance Data.ToQuery EnableOrganizationAdminAccount where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newEnableOrganizationAdminAccountResponse' smart constructor.

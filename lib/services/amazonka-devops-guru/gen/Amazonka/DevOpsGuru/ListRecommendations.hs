@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.ListRecommendations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,6 +31,7 @@ module Amazonka.DevOpsGuru.ListRecommendations
     newListRecommendations,
 
     -- * Request Lenses
+    listRecommendations_accountId,
     listRecommendations_locale,
     listRecommendations_nextToken,
     listRecommendations_insightId,
@@ -47,15 +48,18 @@ module Amazonka.DevOpsGuru.ListRecommendations
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DevOpsGuru.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListRecommendations' smart constructor.
 data ListRecommendations = ListRecommendations'
-  { -- | A locale that specifies the language to use for recommendations.
+  { -- | The ID of the Amazon Web Services account.
+    accountId :: Prelude.Maybe Prelude.Text,
+    -- | A locale that specifies the language to use for recommendations.
     locale :: Prelude.Maybe Locale,
     -- | The pagination token to use to retrieve the next page of results for
     -- this operation. If this value is null, it retrieves the first page.
@@ -73,6 +77,8 @@ data ListRecommendations = ListRecommendations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'accountId', 'listRecommendations_accountId' - The ID of the Amazon Web Services account.
+--
 -- 'locale', 'listRecommendations_locale' - A locale that specifies the language to use for recommendations.
 --
 -- 'nextToken', 'listRecommendations_nextToken' - The pagination token to use to retrieve the next page of results for
@@ -85,10 +91,15 @@ newListRecommendations ::
   ListRecommendations
 newListRecommendations pInsightId_ =
   ListRecommendations'
-    { locale = Prelude.Nothing,
+    { accountId = Prelude.Nothing,
+      locale = Prelude.Nothing,
       nextToken = Prelude.Nothing,
       insightId = pInsightId_
     }
+
+-- | The ID of the Amazon Web Services account.
+listRecommendations_accountId :: Lens.Lens' ListRecommendations (Prelude.Maybe Prelude.Text)
+listRecommendations_accountId = Lens.lens (\ListRecommendations' {accountId} -> accountId) (\s@ListRecommendations' {} a -> s {accountId = a} :: ListRecommendations)
 
 -- | A locale that specifies the language to use for recommendations.
 listRecommendations_locale :: Lens.Lens' ListRecommendations (Prelude.Maybe Locale)
@@ -129,13 +140,14 @@ instance Core.AWSRequest ListRecommendations where
   type
     AWSResponse ListRecommendations =
       ListRecommendationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListRecommendationsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "Recommendations"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "Recommendations"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -143,41 +155,44 @@ instance Core.AWSRequest ListRecommendations where
 
 instance Prelude.Hashable ListRecommendations where
   hashWithSalt _salt ListRecommendations' {..} =
-    _salt `Prelude.hashWithSalt` locale
+    _salt `Prelude.hashWithSalt` accountId
+      `Prelude.hashWithSalt` locale
       `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` insightId
 
 instance Prelude.NFData ListRecommendations where
   rnf ListRecommendations' {..} =
-    Prelude.rnf locale
+    Prelude.rnf accountId
+      `Prelude.seq` Prelude.rnf locale
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf insightId
 
-instance Core.ToHeaders ListRecommendations where
+instance Data.ToHeaders ListRecommendations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListRecommendations where
+instance Data.ToJSON ListRecommendations where
   toJSON ListRecommendations' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Locale" Core..=) Prelude.<$> locale,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            Prelude.Just ("InsightId" Core..= insightId)
+          [ ("AccountId" Data..=) Prelude.<$> accountId,
+            ("Locale" Data..=) Prelude.<$> locale,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("InsightId" Data..= insightId)
           ]
       )
 
-instance Core.ToPath ListRecommendations where
+instance Data.ToPath ListRecommendations where
   toPath = Prelude.const "/recommendations"
 
-instance Core.ToQuery ListRecommendations where
+instance Data.ToQuery ListRecommendations where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListRecommendationsResponse' smart constructor.

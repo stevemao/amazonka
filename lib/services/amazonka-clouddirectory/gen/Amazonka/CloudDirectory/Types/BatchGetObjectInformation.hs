@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.BatchGetObjectInformation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudDirectory.Types.BatchGetObjectInformation where
 
 import Amazonka.CloudDirectory.Types.ObjectReference
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Retrieves metadata about an object inside a BatchRead operation. For
@@ -66,11 +67,11 @@ instance Prelude.NFData BatchGetObjectInformation where
   rnf BatchGetObjectInformation' {..} =
     Prelude.rnf objectReference
 
-instance Core.ToJSON BatchGetObjectInformation where
+instance Data.ToJSON BatchGetObjectInformation where
   toJSON BatchGetObjectInformation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ObjectReference" Core..= objectReference)
+              ("ObjectReference" Data..= objectReference)
           ]
       )

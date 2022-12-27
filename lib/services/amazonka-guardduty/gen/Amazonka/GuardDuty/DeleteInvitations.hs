@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.DeleteInvitations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes invitations sent to the current member account by AWS accounts
--- specified by their account IDs.
+-- Deletes invitations sent to the current member account by Amazon Web
+-- Services accounts specified by their account IDs.
 module Amazonka.GuardDuty.DeleteInvitations
   ( -- * Creating a Request
     DeleteInvitations (..),
@@ -41,16 +41,18 @@ module Amazonka.GuardDuty.DeleteInvitations
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteInvitations' smart constructor.
 data DeleteInvitations = DeleteInvitations'
-  { -- | A list of account IDs of the AWS accounts that sent invitations to the
-    -- current member account that you want to delete invitations from.
+  { -- | A list of account IDs of the Amazon Web Services accounts that sent
+    -- invitations to the current member account that you want to delete
+    -- invitations from.
     accountIds :: Prelude.NonEmpty Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -63,8 +65,9 @@ data DeleteInvitations = DeleteInvitations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'accountIds', 'deleteInvitations_accountIds' - A list of account IDs of the AWS accounts that sent invitations to the
--- current member account that you want to delete invitations from.
+-- 'accountIds', 'deleteInvitations_accountIds' - A list of account IDs of the Amazon Web Services accounts that sent
+-- invitations to the current member account that you want to delete
+-- invitations from.
 newDeleteInvitations ::
   -- | 'accountIds'
   Prelude.NonEmpty Prelude.Text ->
@@ -75,8 +78,9 @@ newDeleteInvitations pAccountIds_ =
         Lens.coerced Lens.# pAccountIds_
     }
 
--- | A list of account IDs of the AWS accounts that sent invitations to the
--- current member account that you want to delete invitations from.
+-- | A list of account IDs of the Amazon Web Services accounts that sent
+-- invitations to the current member account that you want to delete
+-- invitations from.
 deleteInvitations_accountIds :: Lens.Lens' DeleteInvitations (Prelude.NonEmpty Prelude.Text)
 deleteInvitations_accountIds = Lens.lens (\DeleteInvitations' {accountIds} -> accountIds) (\s@DeleteInvitations' {} a -> s {accountIds = a} :: DeleteInvitations) Prelude.. Lens.coerced
 
@@ -84,13 +88,14 @@ instance Core.AWSRequest DeleteInvitations where
   type
     AWSResponse DeleteInvitations =
       DeleteInvitationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteInvitationsResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "unprocessedAccounts"
+            Prelude.<*> ( x Data..?> "unprocessedAccounts"
                             Core..!@ Prelude.mempty
                         )
       )
@@ -102,28 +107,28 @@ instance Prelude.Hashable DeleteInvitations where
 instance Prelude.NFData DeleteInvitations where
   rnf DeleteInvitations' {..} = Prelude.rnf accountIds
 
-instance Core.ToHeaders DeleteInvitations where
+instance Data.ToHeaders DeleteInvitations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteInvitations where
+instance Data.ToJSON DeleteInvitations where
   toJSON DeleteInvitations' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("accountIds" Core..= accountIds)]
+          [Prelude.Just ("accountIds" Data..= accountIds)]
       )
 
-instance Core.ToPath DeleteInvitations where
+instance Data.ToPath DeleteInvitations where
   toPath = Prelude.const "/invitation/delete"
 
-instance Core.ToQuery DeleteInvitations where
+instance Data.ToQuery DeleteInvitations where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteInvitationsResponse' smart constructor.

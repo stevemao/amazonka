@@ -14,13 +14,15 @@
 
 -- |
 -- Module      : Amazonka.EC2.StopInstances
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Stops an Amazon EBS-backed instance.
+-- Stops an Amazon EBS-backed instance. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Stop_Start.html Stop and start your instance>
+-- in the /Amazon EC2 User Guide/.
 --
 -- You can use the Stop action to hibernate an instance if the instance is
 -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#enabling-hibernation enabled for hibernation>
@@ -65,7 +67,7 @@
 -- short while. If your instance appears stuck in the stopping state after
 -- a period of time, there may be an issue with the underlying host
 -- computer. For more information, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/TroubleshootingInstancesStopping.html Troubleshooting stopping your instance>
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/TroubleshootingInstancesStopping.html Troubleshoot stopping your instance>
 -- in the /Amazon EC2 User Guide/.
 module Amazonka.EC2.StopInstances
   ( -- * Creating a Request
@@ -73,9 +75,9 @@ module Amazonka.EC2.StopInstances
     newStopInstances,
 
     -- * Request Lenses
-    stopInstances_hibernate,
-    stopInstances_force,
     stopInstances_dryRun,
+    stopInstances_force,
+    stopInstances_hibernate,
     stopInstances_instanceIds,
 
     -- * Destructuring the Response
@@ -89,22 +91,20 @@ module Amazonka.EC2.StopInstances
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newStopInstances' smart constructor.
 data StopInstances = StopInstances'
-  { -- | Hibernates the instance if the instance was enabled for hibernation at
-    -- launch. If the instance cannot hibernate successfully, a normal shutdown
-    -- occurs. For more information, see
-    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html Hibernate your instance>
-    -- in the /Amazon EC2 User Guide/.
-    --
-    -- Default: @false@
-    hibernate :: Prelude.Maybe Prelude.Bool,
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | Forces the instances to stop. The instances do not have an opportunity
     -- to flush file system caches or file system metadata. If you use this
     -- option, you must perform file system check and repair procedures. This
@@ -112,11 +112,14 @@ data StopInstances = StopInstances'
     --
     -- Default: @false@
     force :: Prelude.Maybe Prelude.Bool,
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | Hibernates the instance if the instance was enabled for hibernation at
+    -- launch. If the instance cannot hibernate successfully, a normal shutdown
+    -- occurs. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html Hibernate your instance>
+    -- in the /Amazon EC2 User Guide/.
+    --
+    -- Default: @false@
+    hibernate :: Prelude.Maybe Prelude.Bool,
     -- | The IDs of the instances.
     instanceIds :: [Prelude.Text]
   }
@@ -130,13 +133,10 @@ data StopInstances = StopInstances'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'hibernate', 'stopInstances_hibernate' - Hibernates the instance if the instance was enabled for hibernation at
--- launch. If the instance cannot hibernate successfully, a normal shutdown
--- occurs. For more information, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html Hibernate your instance>
--- in the /Amazon EC2 User Guide/.
---
--- Default: @false@
+-- 'dryRun', 'stopInstances_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'force', 'stopInstances_force' - Forces the instances to stop. The instances do not have an opportunity
 -- to flush file system caches or file system metadata. If you use this
@@ -145,21 +145,40 @@ data StopInstances = StopInstances'
 --
 -- Default: @false@
 --
--- 'dryRun', 'stopInstances_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
+-- 'hibernate', 'stopInstances_hibernate' - Hibernates the instance if the instance was enabled for hibernation at
+-- launch. If the instance cannot hibernate successfully, a normal shutdown
+-- occurs. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html Hibernate your instance>
+-- in the /Amazon EC2 User Guide/.
+--
+-- Default: @false@
 --
 -- 'instanceIds', 'stopInstances_instanceIds' - The IDs of the instances.
 newStopInstances ::
   StopInstances
 newStopInstances =
   StopInstances'
-    { hibernate = Prelude.Nothing,
+    { dryRun = Prelude.Nothing,
       force = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
+      hibernate = Prelude.Nothing,
       instanceIds = Prelude.mempty
     }
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+stopInstances_dryRun :: Lens.Lens' StopInstances (Prelude.Maybe Prelude.Bool)
+stopInstances_dryRun = Lens.lens (\StopInstances' {dryRun} -> dryRun) (\s@StopInstances' {} a -> s {dryRun = a} :: StopInstances)
+
+-- | Forces the instances to stop. The instances do not have an opportunity
+-- to flush file system caches or file system metadata. If you use this
+-- option, you must perform file system check and repair procedures. This
+-- option is not recommended for Windows instances.
+--
+-- Default: @false@
+stopInstances_force :: Lens.Lens' StopInstances (Prelude.Maybe Prelude.Bool)
+stopInstances_force = Lens.lens (\StopInstances' {force} -> force) (\s@StopInstances' {} a -> s {force = a} :: StopInstances)
 
 -- | Hibernates the instance if the instance was enabled for hibernation at
 -- launch. If the instance cannot hibernate successfully, a normal shutdown
@@ -171,22 +190,6 @@ newStopInstances =
 stopInstances_hibernate :: Lens.Lens' StopInstances (Prelude.Maybe Prelude.Bool)
 stopInstances_hibernate = Lens.lens (\StopInstances' {hibernate} -> hibernate) (\s@StopInstances' {} a -> s {hibernate = a} :: StopInstances)
 
--- | Forces the instances to stop. The instances do not have an opportunity
--- to flush file system caches or file system metadata. If you use this
--- option, you must perform file system check and repair procedures. This
--- option is not recommended for Windows instances.
---
--- Default: @false@
-stopInstances_force :: Lens.Lens' StopInstances (Prelude.Maybe Prelude.Bool)
-stopInstances_force = Lens.lens (\StopInstances' {force} -> force) (\s@StopInstances' {} a -> s {force = a} :: StopInstances)
-
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-stopInstances_dryRun :: Lens.Lens' StopInstances (Prelude.Maybe Prelude.Bool)
-stopInstances_dryRun = Lens.lens (\StopInstances' {dryRun} -> dryRun) (\s@StopInstances' {} a -> s {dryRun = a} :: StopInstances)
-
 -- | The IDs of the instances.
 stopInstances_instanceIds :: Lens.Lens' StopInstances [Prelude.Text]
 stopInstances_instanceIds = Lens.lens (\StopInstances' {instanceIds} -> instanceIds) (\s@StopInstances' {} a -> s {instanceIds = a} :: StopInstances) Prelude.. Lens.coerced
@@ -195,48 +198,49 @@ instance Core.AWSRequest StopInstances where
   type
     AWSResponse StopInstances =
       StopInstancesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           StopInstancesResponse'
-            Prelude.<$> ( x Core..@? "instancesSet" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> ( x Data..@? "instancesSet" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable StopInstances where
   hashWithSalt _salt StopInstances' {..} =
-    _salt `Prelude.hashWithSalt` hibernate
+    _salt `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` force
-      `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` hibernate
       `Prelude.hashWithSalt` instanceIds
 
 instance Prelude.NFData StopInstances where
   rnf StopInstances' {..} =
-    Prelude.rnf hibernate
+    Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf force
-      `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf hibernate
       `Prelude.seq` Prelude.rnf instanceIds
 
-instance Core.ToHeaders StopInstances where
+instance Data.ToHeaders StopInstances where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath StopInstances where
+instance Data.ToPath StopInstances where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopInstances where
+instance Data.ToQuery StopInstances where
   toQuery StopInstances' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("StopInstances" :: Prelude.ByteString),
+          Data.=: ("StopInstances" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "Hibernate" Core.=: hibernate,
-        "Force" Core.=: force,
-        "DryRun" Core.=: dryRun,
-        Core.toQueryList "InstanceId" instanceIds
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "Force" Data.=: force,
+        "Hibernate" Data.=: hibernate,
+        Data.toQueryList "InstanceId" instanceIds
       ]
 
 -- | /See:/ 'newStopInstancesResponse' smart constructor.

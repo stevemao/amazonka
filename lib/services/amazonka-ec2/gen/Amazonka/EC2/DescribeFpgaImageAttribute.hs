@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeFpgaImageAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.EC2.DescribeFpgaImageAttribute
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -114,12 +115,13 @@ instance Core.AWSRequest DescribeFpgaImageAttribute where
   type
     AWSResponse DescribeFpgaImageAttribute =
       DescribeFpgaImageAttributeResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeFpgaImageAttributeResponse'
-            Prelude.<$> (x Core..@? "fpgaImageAttribute")
+            Prelude.<$> (x Data..@? "fpgaImageAttribute")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -135,22 +137,22 @@ instance Prelude.NFData DescribeFpgaImageAttribute where
       `Prelude.seq` Prelude.rnf fpgaImageId
       `Prelude.seq` Prelude.rnf attribute
 
-instance Core.ToHeaders DescribeFpgaImageAttribute where
+instance Data.ToHeaders DescribeFpgaImageAttribute where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeFpgaImageAttribute where
+instance Data.ToPath DescribeFpgaImageAttribute where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeFpgaImageAttribute where
+instance Data.ToQuery DescribeFpgaImageAttribute where
   toQuery DescribeFpgaImageAttribute' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeFpgaImageAttribute" :: Prelude.ByteString),
+          Data.=: ("DescribeFpgaImageAttribute" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "FpgaImageId" Core.=: fpgaImageId,
-        "Attribute" Core.=: attribute
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "FpgaImageId" Data.=: fpgaImageId,
+        "Attribute" Data.=: attribute
       ]
 
 -- | /See:/ 'newDescribeFpgaImageAttributeResponse' smart constructor.

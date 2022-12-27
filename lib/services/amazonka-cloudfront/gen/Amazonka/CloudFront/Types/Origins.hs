@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.Origins
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudFront.Types.Origins where
 
 import Amazonka.CloudFront.Types.Origin
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the origins for this distribution.
@@ -33,7 +34,7 @@ data Origins = Origins'
     -- | A list of origins.
     items :: Prelude.NonEmpty Origin
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'Origins' with all optional fields omitted.
@@ -66,12 +67,12 @@ origins_quantity = Lens.lens (\Origins' {quantity} -> quantity) (\s@Origins' {} 
 origins_items :: Lens.Lens' Origins (Prelude.NonEmpty Origin)
 origins_items = Lens.lens (\Origins' {items} -> items) (\s@Origins' {} a -> s {items = a} :: Origins) Prelude.. Lens.coerced
 
-instance Core.FromXML Origins where
+instance Data.FromXML Origins where
   parseXML x =
     Origins'
-      Prelude.<$> (x Core..@ "Quantity")
-      Prelude.<*> ( x Core..@? "Items" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.parseXMLList1 "Origin"
+      Prelude.<$> (x Data..@ "Quantity")
+      Prelude.<*> ( x Data..@? "Items" Core..!@ Prelude.mempty
+                      Prelude.>>= Data.parseXMLList1 "Origin"
                   )
 
 instance Prelude.Hashable Origins where
@@ -84,9 +85,9 @@ instance Prelude.NFData Origins where
     Prelude.rnf quantity
       `Prelude.seq` Prelude.rnf items
 
-instance Core.ToXML Origins where
+instance Data.ToXML Origins where
   toXML Origins' {..} =
     Prelude.mconcat
-      [ "Quantity" Core.@= quantity,
-        "Items" Core.@= Core.toXMLList "Origin" items
+      [ "Quantity" Data.@= quantity,
+        "Items" Data.@= Data.toXMLList "Origin" items
       ]

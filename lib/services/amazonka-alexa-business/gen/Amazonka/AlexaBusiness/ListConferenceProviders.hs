@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.ListConferenceProviders
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.AlexaBusiness.ListConferenceProviders
     newListConferenceProviders,
 
     -- * Request Lenses
-    listConferenceProviders_nextToken,
     listConferenceProviders_maxResults,
+    listConferenceProviders_nextToken,
 
     -- * Destructuring the Response
     ListConferenceProvidersResponse (..),
@@ -45,18 +45,19 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListConferenceProviders' smart constructor.
 data ListConferenceProviders = ListConferenceProviders'
-  { -- | The tokens used for pagination.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of conference providers to be returned, per paginated
+  { -- | The maximum number of conference providers to be returned, per paginated
     -- calls.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The tokens used for pagination.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -68,27 +69,27 @@ data ListConferenceProviders = ListConferenceProviders'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listConferenceProviders_nextToken' - The tokens used for pagination.
---
 -- 'maxResults', 'listConferenceProviders_maxResults' - The maximum number of conference providers to be returned, per paginated
 -- calls.
+--
+-- 'nextToken', 'listConferenceProviders_nextToken' - The tokens used for pagination.
 newListConferenceProviders ::
   ListConferenceProviders
 newListConferenceProviders =
   ListConferenceProviders'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
-
--- | The tokens used for pagination.
-listConferenceProviders_nextToken :: Lens.Lens' ListConferenceProviders (Prelude.Maybe Prelude.Text)
-listConferenceProviders_nextToken = Lens.lens (\ListConferenceProviders' {nextToken} -> nextToken) (\s@ListConferenceProviders' {} a -> s {nextToken = a} :: ListConferenceProviders)
 
 -- | The maximum number of conference providers to be returned, per paginated
 -- calls.
 listConferenceProviders_maxResults :: Lens.Lens' ListConferenceProviders (Prelude.Maybe Prelude.Natural)
 listConferenceProviders_maxResults = Lens.lens (\ListConferenceProviders' {maxResults} -> maxResults) (\s@ListConferenceProviders' {} a -> s {maxResults = a} :: ListConferenceProviders)
+
+-- | The tokens used for pagination.
+listConferenceProviders_nextToken :: Lens.Lens' ListConferenceProviders (Prelude.Maybe Prelude.Text)
+listConferenceProviders_nextToken = Lens.lens (\ListConferenceProviders' {nextToken} -> nextToken) (\s@ListConferenceProviders' {} a -> s {nextToken = a} :: ListConferenceProviders)
 
 instance Core.AWSPager ListConferenceProviders where
   page rq rs
@@ -116,56 +117,57 @@ instance Core.AWSRequest ListConferenceProviders where
   type
     AWSResponse ListConferenceProviders =
       ListConferenceProvidersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListConferenceProvidersResponse'
-            Prelude.<$> ( x Core..?> "ConferenceProviders"
+            Prelude.<$> ( x Data..?> "ConferenceProviders"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListConferenceProviders where
   hashWithSalt _salt ListConferenceProviders' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListConferenceProviders where
   rnf ListConferenceProviders' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListConferenceProviders where
+instance Data.ToHeaders ListConferenceProviders where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.ListConferenceProviders" ::
+              Data.=# ( "AlexaForBusiness.ListConferenceProviders" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListConferenceProviders where
+instance Data.ToJSON ListConferenceProviders where
   toJSON ListConferenceProviders' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListConferenceProviders where
+instance Data.ToPath ListConferenceProviders where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListConferenceProviders where
+instance Data.ToQuery ListConferenceProviders where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListConferenceProvidersResponse' smart constructor.

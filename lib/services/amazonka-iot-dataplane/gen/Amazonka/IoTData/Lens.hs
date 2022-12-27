@@ -6,13 +6,27 @@
 
 -- |
 -- Module      : Amazonka.IoTData.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 module Amazonka.IoTData.Lens
   ( -- * Operations
+
+    -- ** DeleteThingShadow
+    deleteThingShadow_shadowName,
+    deleteThingShadow_thingName,
+    deleteThingShadowResponse_httpStatus,
+    deleteThingShadowResponse_payload,
+
+    -- ** GetRetainedMessage
+    getRetainedMessage_topic,
+    getRetainedMessageResponse_lastModifiedTime,
+    getRetainedMessageResponse_payload,
+    getRetainedMessageResponse_qos,
+    getRetainedMessageResponse_topic,
+    getRetainedMessageResponse_httpStatus,
 
     -- ** GetThingShadow
     getThingShadow_shadowName,
@@ -24,16 +38,29 @@ module Amazonka.IoTData.Lens
     listNamedShadowsForThing_nextToken,
     listNamedShadowsForThing_pageSize,
     listNamedShadowsForThing_thingName,
-    listNamedShadowsForThingResponse_results,
     listNamedShadowsForThingResponse_nextToken,
+    listNamedShadowsForThingResponse_results,
     listNamedShadowsForThingResponse_timestamp,
     listNamedShadowsForThingResponse_httpStatus,
 
-    -- ** DeleteThingShadow
-    deleteThingShadow_shadowName,
-    deleteThingShadow_thingName,
-    deleteThingShadowResponse_httpStatus,
-    deleteThingShadowResponse_payload,
+    -- ** ListRetainedMessages
+    listRetainedMessages_maxResults,
+    listRetainedMessages_nextToken,
+    listRetainedMessagesResponse_nextToken,
+    listRetainedMessagesResponse_retainedTopics,
+    listRetainedMessagesResponse_httpStatus,
+
+    -- ** Publish
+    publish_contentType,
+    publish_correlationData,
+    publish_messageExpiry,
+    publish_payload,
+    publish_payloadFormatIndicator,
+    publish_qos,
+    publish_responseTopic,
+    publish_retain,
+    publish_userProperties,
+    publish_topic,
 
     -- ** UpdateThingShadow
     updateThingShadow_shadowName,
@@ -42,34 +69,13 @@ module Amazonka.IoTData.Lens
     updateThingShadowResponse_payload,
     updateThingShadowResponse_httpStatus,
 
-    -- ** ListRetainedMessages
-    listRetainedMessages_nextToken,
-    listRetainedMessages_maxResults,
-    listRetainedMessagesResponse_retainedTopics,
-    listRetainedMessagesResponse_nextToken,
-    listRetainedMessagesResponse_httpStatus,
-
-    -- ** GetRetainedMessage
-    getRetainedMessage_topic,
-    getRetainedMessageResponse_lastModifiedTime,
-    getRetainedMessageResponse_payload,
-    getRetainedMessageResponse_topic,
-    getRetainedMessageResponse_qos,
-    getRetainedMessageResponse_httpStatus,
-
-    -- ** Publish
-    publish_retain,
-    publish_payload,
-    publish_qos,
-    publish_topic,
-
     -- * Types
 
     -- ** RetainedMessageSummary
     retainedMessageSummary_lastModifiedTime,
-    retainedMessageSummary_topic,
-    retainedMessageSummary_qos,
     retainedMessageSummary_payloadSize,
+    retainedMessageSummary_qos,
+    retainedMessageSummary_topic,
   )
 where
 

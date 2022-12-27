@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.AccessLog
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppMesh.Types.AccessLog where
 
 import Amazonka.AppMesh.Types.FileAccessLog
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents the access logging information for a virtual
@@ -51,11 +52,11 @@ newAccessLog = AccessLog' {file = Prelude.Nothing}
 accessLog_file :: Lens.Lens' AccessLog (Prelude.Maybe FileAccessLog)
 accessLog_file = Lens.lens (\AccessLog' {file} -> file) (\s@AccessLog' {} a -> s {file = a} :: AccessLog)
 
-instance Core.FromJSON AccessLog where
+instance Data.FromJSON AccessLog where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AccessLog"
-      (\x -> AccessLog' Prelude.<$> (x Core..:? "file"))
+      (\x -> AccessLog' Prelude.<$> (x Data..:? "file"))
 
 instance Prelude.Hashable AccessLog where
   hashWithSalt _salt AccessLog' {..} =
@@ -64,9 +65,9 @@ instance Prelude.Hashable AccessLog where
 instance Prelude.NFData AccessLog where
   rnf AccessLog' {..} = Prelude.rnf file
 
-instance Core.ToJSON AccessLog where
+instance Data.ToJSON AccessLog where
   toJSON AccessLog' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("file" Core..=) Prelude.<$> file]
+          [("file" Data..=) Prelude.<$> file]
       )

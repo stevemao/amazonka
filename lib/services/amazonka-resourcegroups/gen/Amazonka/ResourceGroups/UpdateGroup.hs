@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ResourceGroups.UpdateGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,9 +34,9 @@ module Amazonka.ResourceGroups.UpdateGroup
     newUpdateGroup,
 
     -- * Request Lenses
+    updateGroup_description,
     updateGroup_group,
     updateGroup_groupName,
-    updateGroup_description,
 
     -- * Destructuring the Response
     UpdateGroupResponse (..),
@@ -49,7 +49,8 @@ module Amazonka.ResourceGroups.UpdateGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import Amazonka.ResourceGroups.Types
@@ -57,14 +58,14 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateGroup' smart constructor.
 data UpdateGroup = UpdateGroup'
-  { -- | The name or the ARN of the resource group to modify.
-    group' :: Prelude.Maybe Prelude.Text,
-    -- | Don\'t use this parameter. Use @Group@ instead.
-    groupName :: Prelude.Maybe Prelude.Text,
-    -- | The new description that you want to update the resource group with.
+  { -- | The new description that you want to update the resource group with.
     -- Descriptions can contain letters, numbers, hyphens, underscores,
     -- periods, and spaces.
-    description :: Prelude.Maybe Prelude.Text
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name or the ARN of the resource group to modify.
+    group' :: Prelude.Maybe Prelude.Text,
+    -- | Don\'t use this parameter. Use @Group@ instead.
+    groupName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -76,21 +77,27 @@ data UpdateGroup = UpdateGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'group'', 'updateGroup_group' - The name or the ARN of the resource group to modify.
---
--- 'groupName', 'updateGroup_groupName' - Don\'t use this parameter. Use @Group@ instead.
---
 -- 'description', 'updateGroup_description' - The new description that you want to update the resource group with.
 -- Descriptions can contain letters, numbers, hyphens, underscores,
 -- periods, and spaces.
+--
+-- 'group'', 'updateGroup_group' - The name or the ARN of the resource group to modify.
+--
+-- 'groupName', 'updateGroup_groupName' - Don\'t use this parameter. Use @Group@ instead.
 newUpdateGroup ::
   UpdateGroup
 newUpdateGroup =
   UpdateGroup'
-    { group' = Prelude.Nothing,
-      groupName = Prelude.Nothing,
-      description = Prelude.Nothing
+    { description = Prelude.Nothing,
+      group' = Prelude.Nothing,
+      groupName = Prelude.Nothing
     }
+
+-- | The new description that you want to update the resource group with.
+-- Descriptions can contain letters, numbers, hyphens, underscores,
+-- periods, and spaces.
+updateGroup_description :: Lens.Lens' UpdateGroup (Prelude.Maybe Prelude.Text)
+updateGroup_description = Lens.lens (\UpdateGroup' {description} -> description) (\s@UpdateGroup' {} a -> s {description = a} :: UpdateGroup)
 
 -- | The name or the ARN of the resource group to modify.
 updateGroup_group :: Lens.Lens' UpdateGroup (Prelude.Maybe Prelude.Text)
@@ -100,52 +107,47 @@ updateGroup_group = Lens.lens (\UpdateGroup' {group'} -> group') (\s@UpdateGroup
 updateGroup_groupName :: Lens.Lens' UpdateGroup (Prelude.Maybe Prelude.Text)
 updateGroup_groupName = Lens.lens (\UpdateGroup' {groupName} -> groupName) (\s@UpdateGroup' {} a -> s {groupName = a} :: UpdateGroup)
 
--- | The new description that you want to update the resource group with.
--- Descriptions can contain letters, numbers, hyphens, underscores,
--- periods, and spaces.
-updateGroup_description :: Lens.Lens' UpdateGroup (Prelude.Maybe Prelude.Text)
-updateGroup_description = Lens.lens (\UpdateGroup' {description} -> description) (\s@UpdateGroup' {} a -> s {description = a} :: UpdateGroup)
-
 instance Core.AWSRequest UpdateGroup where
   type AWSResponse UpdateGroup = UpdateGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateGroupResponse'
-            Prelude.<$> (x Core..?> "Group")
+            Prelude.<$> (x Data..?> "Group")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateGroup where
   hashWithSalt _salt UpdateGroup' {..} =
-    _salt `Prelude.hashWithSalt` group'
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` group'
       `Prelude.hashWithSalt` groupName
-      `Prelude.hashWithSalt` description
 
 instance Prelude.NFData UpdateGroup where
   rnf UpdateGroup' {..} =
-    Prelude.rnf group'
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf group'
       `Prelude.seq` Prelude.rnf groupName
-      `Prelude.seq` Prelude.rnf description
 
-instance Core.ToHeaders UpdateGroup where
+instance Data.ToHeaders UpdateGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateGroup where
+instance Data.ToJSON UpdateGroup where
   toJSON UpdateGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Group" Core..=) Prelude.<$> group',
-            ("GroupName" Core..=) Prelude.<$> groupName,
-            ("Description" Core..=) Prelude.<$> description
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Group" Data..=) Prelude.<$> group',
+            ("GroupName" Data..=) Prelude.<$> groupName
           ]
       )
 
-instance Core.ToPath UpdateGroup where
+instance Data.ToPath UpdateGroup where
   toPath = Prelude.const "/update-group"
 
-instance Core.ToQuery UpdateGroup where
+instance Data.ToQuery UpdateGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateGroupResponse' smart constructor.

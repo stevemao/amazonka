@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.DataSync.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,14 +18,17 @@ module Amazonka.DataSync.Types
     defaultService,
 
     -- * Errors
-    _InvalidRequestException,
     _InternalException,
+    _InvalidRequestException,
 
     -- * AgentStatus
     AgentStatus (..),
 
     -- * Atime
     Atime (..),
+
+    -- * EfsInTransitEncryption
+    EfsInTransitEncryption (..),
 
     -- * EndpointType
     EndpointType (..),
@@ -34,6 +38,15 @@ module Amazonka.DataSync.Types
 
     -- * Gid
     Gid (..),
+
+    -- * HdfsAuthenticationType
+    HdfsAuthenticationType (..),
+
+    -- * HdfsDataTransferProtection
+    HdfsDataTransferProtection (..),
+
+    -- * HdfsRpcProtection
+    HdfsRpcProtection (..),
 
     -- * LocationFilterName
     LocationFilterName (..),
@@ -49,6 +62,9 @@ module Amazonka.DataSync.Types
 
     -- * ObjectStorageServerProtocol
     ObjectStorageServerProtocol (..),
+
+    -- * ObjectTags
+    ObjectTags (..),
 
     -- * Operator
     Operator (..),
@@ -101,9 +117,9 @@ module Amazonka.DataSync.Types
     -- * AgentListEntry
     AgentListEntry (..),
     newAgentListEntry,
-    agentListEntry_status,
     agentListEntry_agentArn,
     agentListEntry_name,
+    agentListEntry_status,
 
     -- * Ec2Config
     Ec2Config (..),
@@ -117,6 +133,31 @@ module Amazonka.DataSync.Types
     filterRule_filterType,
     filterRule_value,
 
+    -- * FsxProtocol
+    FsxProtocol (..),
+    newFsxProtocol,
+    fsxProtocol_nfs,
+    fsxProtocol_smb,
+
+    -- * FsxProtocolNfs
+    FsxProtocolNfs (..),
+    newFsxProtocolNfs,
+    fsxProtocolNfs_mountOptions,
+
+    -- * FsxProtocolSmb
+    FsxProtocolSmb (..),
+    newFsxProtocolSmb,
+    fsxProtocolSmb_domain,
+    fsxProtocolSmb_mountOptions,
+    fsxProtocolSmb_password,
+    fsxProtocolSmb_user,
+
+    -- * HdfsNameNode
+    HdfsNameNode (..),
+    newHdfsNameNode,
+    hdfsNameNode_hostname,
+    hdfsNameNode_port,
+
     -- * LocationFilter
     LocationFilter (..),
     newLocationFilter,
@@ -127,8 +168,8 @@ module Amazonka.DataSync.Types
     -- * LocationListEntry
     LocationListEntry (..),
     newLocationListEntry,
-    locationListEntry_locationUri,
     locationListEntry_locationArn,
+    locationListEntry_locationUri,
 
     -- * NfsMountOptions
     NfsMountOptions (..),
@@ -144,27 +185,34 @@ module Amazonka.DataSync.Types
     Options (..),
     newOptions,
     options_atime,
-    options_verifyMode,
-    options_taskQueueing,
-    options_logLevel,
-    options_posixPermissions,
-    options_mtime,
-    options_uid,
     options_bytesPerSecond,
-    options_securityDescriptorCopyFlags,
     options_gid,
+    options_logLevel,
+    options_mtime,
+    options_objectTags,
     options_overwriteMode,
-    options_transferMode,
+    options_posixPermissions,
     options_preserveDeletedFiles,
     options_preserveDevices,
+    options_securityDescriptorCopyFlags,
+    options_taskQueueing,
+    options_transferMode,
+    options_uid,
+    options_verifyMode,
 
     -- * PrivateLinkConfig
     PrivateLinkConfig (..),
     newPrivateLinkConfig,
+    privateLinkConfig_privateLinkEndpoint,
     privateLinkConfig_securityGroupArns,
     privateLinkConfig_subnetArns,
-    privateLinkConfig_privateLinkEndpoint,
     privateLinkConfig_vpcEndpointId,
+
+    -- * QopConfiguration
+    QopConfiguration (..),
+    newQopConfiguration,
+    qopConfiguration_dataTransferProtection,
+    qopConfiguration_rpcProtection,
 
     -- * S3Config
     S3Config (..),
@@ -191,15 +239,15 @@ module Amazonka.DataSync.Types
     -- * TaskExecutionResultDetail
     TaskExecutionResultDetail (..),
     newTaskExecutionResultDetail,
+    taskExecutionResultDetail_errorCode,
+    taskExecutionResultDetail_errorDetail,
     taskExecutionResultDetail_prepareDuration,
     taskExecutionResultDetail_prepareStatus,
-    taskExecutionResultDetail_verifyStatus,
-    taskExecutionResultDetail_verifyDuration,
     taskExecutionResultDetail_totalDuration,
-    taskExecutionResultDetail_transferStatus,
-    taskExecutionResultDetail_errorCode,
     taskExecutionResultDetail_transferDuration,
-    taskExecutionResultDetail_errorDetail,
+    taskExecutionResultDetail_transferStatus,
+    taskExecutionResultDetail_verifyDuration,
+    taskExecutionResultDetail_verifyStatus,
 
     -- * TaskFilter
     TaskFilter (..),
@@ -211,9 +259,9 @@ module Amazonka.DataSync.Types
     -- * TaskListEntry
     TaskListEntry (..),
     newTaskListEntry,
+    taskListEntry_name,
     taskListEntry_status,
     taskListEntry_taskArn,
-    taskListEntry_name,
 
     -- * TaskSchedule
     TaskSchedule (..),
@@ -223,14 +271,23 @@ module Amazonka.DataSync.Types
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DataSync.Types.AgentListEntry
 import Amazonka.DataSync.Types.AgentStatus
 import Amazonka.DataSync.Types.Atime
 import Amazonka.DataSync.Types.Ec2Config
+import Amazonka.DataSync.Types.EfsInTransitEncryption
 import Amazonka.DataSync.Types.EndpointType
 import Amazonka.DataSync.Types.FilterRule
 import Amazonka.DataSync.Types.FilterType
+import Amazonka.DataSync.Types.FsxProtocol
+import Amazonka.DataSync.Types.FsxProtocolNfs
+import Amazonka.DataSync.Types.FsxProtocolSmb
 import Amazonka.DataSync.Types.Gid
+import Amazonka.DataSync.Types.HdfsAuthenticationType
+import Amazonka.DataSync.Types.HdfsDataTransferProtection
+import Amazonka.DataSync.Types.HdfsNameNode
+import Amazonka.DataSync.Types.HdfsRpcProtection
 import Amazonka.DataSync.Types.LocationFilter
 import Amazonka.DataSync.Types.LocationFilterName
 import Amazonka.DataSync.Types.LocationListEntry
@@ -239,6 +296,7 @@ import Amazonka.DataSync.Types.Mtime
 import Amazonka.DataSync.Types.NfsMountOptions
 import Amazonka.DataSync.Types.NfsVersion
 import Amazonka.DataSync.Types.ObjectStorageServerProtocol
+import Amazonka.DataSync.Types.ObjectTags
 import Amazonka.DataSync.Types.OnPremConfig
 import Amazonka.DataSync.Types.Operator
 import Amazonka.DataSync.Types.Options
@@ -248,6 +306,7 @@ import Amazonka.DataSync.Types.PosixPermissions
 import Amazonka.DataSync.Types.PreserveDeletedFiles
 import Amazonka.DataSync.Types.PreserveDevices
 import Amazonka.DataSync.Types.PrivateLinkConfig
+import Amazonka.DataSync.Types.QopConfiguration
 import Amazonka.DataSync.Types.S3Config
 import Amazonka.DataSync.Types.S3StorageClass
 import Amazonka.DataSync.Types.SmbMountOptions
@@ -266,7 +325,6 @@ import Amazonka.DataSync.Types.TaskStatus
 import Amazonka.DataSync.Types.TransferMode
 import Amazonka.DataSync.Types.Uid
 import Amazonka.DataSync.Types.VerifyMode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 
@@ -274,41 +332,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "DataSync",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "datasync",
-      Core._serviceSigningName = "datasync",
-      Core._serviceVersion = "2018-11-09",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError = Core.parseJSONError "DataSync",
-      Core._serviceRetry = retry
+    { Core.abbrev = "DataSync",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "datasync",
+      Core.signingName = "datasync",
+      Core.version = "2018-11-09",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "DataSync",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -316,36 +382,21 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
-
--- | This exception is thrown when the client submits a malformed request.
-_InvalidRequestException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidRequestException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidRequestException"
 
 -- | This exception is thrown when an error occurs in the DataSync service.
 _InternalException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -353,3 +404,10 @@ _InternalException =
   Core._MatchServiceError
     defaultService
     "InternalException"
+
+-- | This exception is thrown when the client submits a malformed request.
+_InvalidRequestException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidRequestException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidRequestException"

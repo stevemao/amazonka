@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsEcsServiceDeploymentControllerDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsEcsServiceDeploymentControllerDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the deployment controller type that the service uses.
@@ -90,15 +91,15 @@ awsEcsServiceDeploymentControllerDetails_type :: Lens.Lens' AwsEcsServiceDeploym
 awsEcsServiceDeploymentControllerDetails_type = Lens.lens (\AwsEcsServiceDeploymentControllerDetails' {type'} -> type') (\s@AwsEcsServiceDeploymentControllerDetails' {} a -> s {type' = a} :: AwsEcsServiceDeploymentControllerDetails)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsEcsServiceDeploymentControllerDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsEcsServiceDeploymentControllerDetails"
       ( \x ->
           AwsEcsServiceDeploymentControllerDetails'
-            Prelude.<$> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "Type")
       )
 
 instance
@@ -118,11 +119,11 @@ instance
     Prelude.rnf type'
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsEcsServiceDeploymentControllerDetails
   where
   toJSON AwsEcsServiceDeploymentControllerDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Type" Core..=) Prelude.<$> type']
+          [("Type" Data..=) Prelude.<$> type']
       )

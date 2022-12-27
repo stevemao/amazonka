@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.Types.EventCode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,6 +46,7 @@ module Amazonka.GameLift.Types.EventCode
         EventCode_GAME_SESSION_ACTIVATION_TIMEOUT,
         EventCode_GENERIC_EVENT,
         EventCode_INSTANCE_INTERRUPTED,
+        EventCode_INSTANCE_RECYCLED,
         EventCode_SERVER_PROCESS_CRASHED,
         EventCode_SERVER_PROCESS_FORCE_TERMINATED,
         EventCode_SERVER_PROCESS_INVALID_PATH,
@@ -58,11 +59,12 @@ module Amazonka.GameLift.Types.EventCode
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype EventCode = EventCode'
   { fromEventCode ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -74,18 +76,18 @@ newtype EventCode = EventCode'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern EventCode_FLEET_ACTIVATION_FAILED :: EventCode
@@ -166,6 +168,9 @@ pattern EventCode_GENERIC_EVENT = EventCode' "GENERIC_EVENT"
 pattern EventCode_INSTANCE_INTERRUPTED :: EventCode
 pattern EventCode_INSTANCE_INTERRUPTED = EventCode' "INSTANCE_INTERRUPTED"
 
+pattern EventCode_INSTANCE_RECYCLED :: EventCode
+pattern EventCode_INSTANCE_RECYCLED = EventCode' "INSTANCE_RECYCLED"
+
 pattern EventCode_SERVER_PROCESS_CRASHED :: EventCode
 pattern EventCode_SERVER_PROCESS_CRASHED = EventCode' "SERVER_PROCESS_CRASHED"
 
@@ -214,6 +219,7 @@ pattern EventCode_SERVER_PROCESS_TERMINATED_UNHEALTHY = EventCode' "SERVER_PROCE
   EventCode_GAME_SESSION_ACTIVATION_TIMEOUT,
   EventCode_GENERIC_EVENT,
   EventCode_INSTANCE_INTERRUPTED,
+  EventCode_INSTANCE_RECYCLED,
   EventCode_SERVER_PROCESS_CRASHED,
   EventCode_SERVER_PROCESS_FORCE_TERMINATED,
   EventCode_SERVER_PROCESS_INVALID_PATH,

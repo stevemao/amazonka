@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.CreateGatewayGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -117,12 +118,13 @@ instance Core.AWSRequest CreateGatewayGroup where
   type
     AWSResponse CreateGatewayGroup =
       CreateGatewayGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateGatewayGroupResponse'
-            Prelude.<$> (x Core..?> "GatewayGroupArn")
+            Prelude.<$> (x Data..?> "GatewayGroupArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -140,37 +142,37 @@ instance Prelude.NFData CreateGatewayGroup where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf clientRequestToken
 
-instance Core.ToHeaders CreateGatewayGroup where
+instance Data.ToHeaders CreateGatewayGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.CreateGatewayGroup" ::
+              Data.=# ( "AlexaForBusiness.CreateGatewayGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateGatewayGroup where
+instance Data.ToJSON CreateGatewayGroup where
   toJSON CreateGatewayGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name),
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name),
             Prelude.Just
-              ("ClientRequestToken" Core..= clientRequestToken)
+              ("ClientRequestToken" Data..= clientRequestToken)
           ]
       )
 
-instance Core.ToPath CreateGatewayGroup where
+instance Data.ToPath CreateGatewayGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateGatewayGroup where
+instance Data.ToQuery CreateGatewayGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateGatewayGroupResponse' smart constructor.

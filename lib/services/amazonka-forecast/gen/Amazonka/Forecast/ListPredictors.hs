@@ -14,18 +14,19 @@
 
 -- |
 -- Module      : Amazonka.Forecast.ListPredictors
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of predictors created using the CreatePredictor
--- operation. For each predictor, this operation returns a summary of its
--- properties, including its Amazon Resource Name (ARN). You can retrieve
--- the complete set of properties by using the ARN with the
--- DescribePredictor operation. You can filter the list using an array of
--- Filter objects.
+-- Returns a list of predictors created using the CreateAutoPredictor or
+-- CreatePredictor operations. For each predictor, this operation returns a
+-- summary of its properties, including its Amazon Resource Name (ARN).
+--
+-- You can retrieve the complete set of properties by using the ARN with
+-- the DescribeAutoPredictor and DescribePredictor operations. You can
+-- filter the list using an array of Filter objects.
 --
 -- This operation returns paginated results.
 module Amazonka.Forecast.ListPredictors
@@ -35,8 +36,8 @@ module Amazonka.Forecast.ListPredictors
 
     -- * Request Lenses
     listPredictors_filters,
-    listPredictors_nextToken,
     listPredictors_maxResults,
+    listPredictors_nextToken,
 
     -- * Destructuring the Response
     ListPredictorsResponse (..),
@@ -50,8 +51,9 @@ module Amazonka.Forecast.ListPredictors
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Forecast.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,12 +82,12 @@ data ListPredictors = ListPredictors'
     --
     -- @\"Filters\": [ { \"Condition\": \"IS\", \"Key\": \"Status\", \"Value\": \"ACTIVE\" } ]@
     filters :: Prelude.Maybe [Filter],
+    -- | The number of items to return in the response.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | If the result of the previous request was truncated, the response
     -- includes a @NextToken@. To retrieve the next set of results, use the
     -- token in the next request. Tokens expire after 24 hours.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The number of items to return in the response.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -119,18 +121,18 @@ data ListPredictors = ListPredictors'
 --
 -- @\"Filters\": [ { \"Condition\": \"IS\", \"Key\": \"Status\", \"Value\": \"ACTIVE\" } ]@
 --
+-- 'maxResults', 'listPredictors_maxResults' - The number of items to return in the response.
+--
 -- 'nextToken', 'listPredictors_nextToken' - If the result of the previous request was truncated, the response
 -- includes a @NextToken@. To retrieve the next set of results, use the
 -- token in the next request. Tokens expire after 24 hours.
---
--- 'maxResults', 'listPredictors_maxResults' - The number of items to return in the response.
 newListPredictors ::
   ListPredictors
 newListPredictors =
   ListPredictors'
     { filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | An array of filters. For each filter, you provide a condition and a
@@ -157,15 +159,15 @@ newListPredictors =
 listPredictors_filters :: Lens.Lens' ListPredictors (Prelude.Maybe [Filter])
 listPredictors_filters = Lens.lens (\ListPredictors' {filters} -> filters) (\s@ListPredictors' {} a -> s {filters = a} :: ListPredictors) Prelude.. Lens.mapping Lens.coerced
 
+-- | The number of items to return in the response.
+listPredictors_maxResults :: Lens.Lens' ListPredictors (Prelude.Maybe Prelude.Natural)
+listPredictors_maxResults = Lens.lens (\ListPredictors' {maxResults} -> maxResults) (\s@ListPredictors' {} a -> s {maxResults = a} :: ListPredictors)
+
 -- | If the result of the previous request was truncated, the response
 -- includes a @NextToken@. To retrieve the next set of results, use the
 -- token in the next request. Tokens expire after 24 hours.
 listPredictors_nextToken :: Lens.Lens' ListPredictors (Prelude.Maybe Prelude.Text)
 listPredictors_nextToken = Lens.lens (\ListPredictors' {nextToken} -> nextToken) (\s@ListPredictors' {} a -> s {nextToken = a} :: ListPredictors)
-
--- | The number of items to return in the response.
-listPredictors_maxResults :: Lens.Lens' ListPredictors (Prelude.Maybe Prelude.Natural)
-listPredictors_maxResults = Lens.lens (\ListPredictors' {maxResults} -> maxResults) (\s@ListPredictors' {} a -> s {maxResults = a} :: ListPredictors)
 
 instance Core.AWSPager ListPredictors where
   page rq rs
@@ -192,57 +194,58 @@ instance Core.AWSRequest ListPredictors where
   type
     AWSResponse ListPredictors =
       ListPredictorsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPredictorsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Predictors" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Predictors" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListPredictors where
   hashWithSalt _salt ListPredictors' {..} =
     _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListPredictors where
   rnf ListPredictors' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListPredictors where
+instance Data.ToHeaders ListPredictors where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonForecast.ListPredictors" ::
+              Data.=# ( "AmazonForecast.ListPredictors" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListPredictors where
+instance Data.ToJSON ListPredictors where
   toJSON ListPredictors' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListPredictors where
+instance Data.ToPath ListPredictors where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListPredictors where
+instance Data.ToQuery ListPredictors where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListPredictorsResponse' smart constructor.

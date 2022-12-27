@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.TrialComponentSourceDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.TrialComponentSourceDetail where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.ProcessingJob
 import Amazonka.SageMaker.Types.TrainingJob
@@ -31,14 +32,14 @@ import Amazonka.SageMaker.Types.TransformJob
 --
 -- /See:/ 'newTrialComponentSourceDetail' smart constructor.
 data TrialComponentSourceDetail = TrialComponentSourceDetail'
-  { -- | Information about a training job that\'s the source of a trial
-    -- component.
-    trainingJob :: Prelude.Maybe TrainingJob,
-    -- | The Amazon Resource Name (ARN) of the source.
-    sourceArn :: Prelude.Maybe Prelude.Text,
-    -- | Information about a processing job that\'s the source of a trial
+  { -- | Information about a processing job that\'s the source of a trial
     -- component.
     processingJob :: Prelude.Maybe ProcessingJob,
+    -- | The Amazon Resource Name (ARN) of the source.
+    sourceArn :: Prelude.Maybe Prelude.Text,
+    -- | Information about a training job that\'s the source of a trial
+    -- component.
+    trainingJob :: Prelude.Maybe TrainingJob,
     -- | Information about a transform job that\'s the source of a trial
     -- component.
     transformJob :: Prelude.Maybe TransformJob
@@ -53,12 +54,12 @@ data TrialComponentSourceDetail = TrialComponentSourceDetail'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'trainingJob', 'trialComponentSourceDetail_trainingJob' - Information about a training job that\'s the source of a trial
+-- 'processingJob', 'trialComponentSourceDetail_processingJob' - Information about a processing job that\'s the source of a trial
 -- component.
 --
 -- 'sourceArn', 'trialComponentSourceDetail_sourceArn' - The Amazon Resource Name (ARN) of the source.
 --
--- 'processingJob', 'trialComponentSourceDetail_processingJob' - Information about a processing job that\'s the source of a trial
+-- 'trainingJob', 'trialComponentSourceDetail_trainingJob' - Information about a training job that\'s the source of a trial
 -- component.
 --
 -- 'transformJob', 'trialComponentSourceDetail_transformJob' - Information about a transform job that\'s the source of a trial
@@ -67,54 +68,54 @@ newTrialComponentSourceDetail ::
   TrialComponentSourceDetail
 newTrialComponentSourceDetail =
   TrialComponentSourceDetail'
-    { trainingJob =
+    { processingJob =
         Prelude.Nothing,
       sourceArn = Prelude.Nothing,
-      processingJob = Prelude.Nothing,
+      trainingJob = Prelude.Nothing,
       transformJob = Prelude.Nothing
     }
-
--- | Information about a training job that\'s the source of a trial
--- component.
-trialComponentSourceDetail_trainingJob :: Lens.Lens' TrialComponentSourceDetail (Prelude.Maybe TrainingJob)
-trialComponentSourceDetail_trainingJob = Lens.lens (\TrialComponentSourceDetail' {trainingJob} -> trainingJob) (\s@TrialComponentSourceDetail' {} a -> s {trainingJob = a} :: TrialComponentSourceDetail)
-
--- | The Amazon Resource Name (ARN) of the source.
-trialComponentSourceDetail_sourceArn :: Lens.Lens' TrialComponentSourceDetail (Prelude.Maybe Prelude.Text)
-trialComponentSourceDetail_sourceArn = Lens.lens (\TrialComponentSourceDetail' {sourceArn} -> sourceArn) (\s@TrialComponentSourceDetail' {} a -> s {sourceArn = a} :: TrialComponentSourceDetail)
 
 -- | Information about a processing job that\'s the source of a trial
 -- component.
 trialComponentSourceDetail_processingJob :: Lens.Lens' TrialComponentSourceDetail (Prelude.Maybe ProcessingJob)
 trialComponentSourceDetail_processingJob = Lens.lens (\TrialComponentSourceDetail' {processingJob} -> processingJob) (\s@TrialComponentSourceDetail' {} a -> s {processingJob = a} :: TrialComponentSourceDetail)
 
+-- | The Amazon Resource Name (ARN) of the source.
+trialComponentSourceDetail_sourceArn :: Lens.Lens' TrialComponentSourceDetail (Prelude.Maybe Prelude.Text)
+trialComponentSourceDetail_sourceArn = Lens.lens (\TrialComponentSourceDetail' {sourceArn} -> sourceArn) (\s@TrialComponentSourceDetail' {} a -> s {sourceArn = a} :: TrialComponentSourceDetail)
+
+-- | Information about a training job that\'s the source of a trial
+-- component.
+trialComponentSourceDetail_trainingJob :: Lens.Lens' TrialComponentSourceDetail (Prelude.Maybe TrainingJob)
+trialComponentSourceDetail_trainingJob = Lens.lens (\TrialComponentSourceDetail' {trainingJob} -> trainingJob) (\s@TrialComponentSourceDetail' {} a -> s {trainingJob = a} :: TrialComponentSourceDetail)
+
 -- | Information about a transform job that\'s the source of a trial
 -- component.
 trialComponentSourceDetail_transformJob :: Lens.Lens' TrialComponentSourceDetail (Prelude.Maybe TransformJob)
 trialComponentSourceDetail_transformJob = Lens.lens (\TrialComponentSourceDetail' {transformJob} -> transformJob) (\s@TrialComponentSourceDetail' {} a -> s {transformJob = a} :: TrialComponentSourceDetail)
 
-instance Core.FromJSON TrialComponentSourceDetail where
+instance Data.FromJSON TrialComponentSourceDetail where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TrialComponentSourceDetail"
       ( \x ->
           TrialComponentSourceDetail'
-            Prelude.<$> (x Core..:? "TrainingJob")
-            Prelude.<*> (x Core..:? "SourceArn")
-            Prelude.<*> (x Core..:? "ProcessingJob")
-            Prelude.<*> (x Core..:? "TransformJob")
+            Prelude.<$> (x Data..:? "ProcessingJob")
+            Prelude.<*> (x Data..:? "SourceArn")
+            Prelude.<*> (x Data..:? "TrainingJob")
+            Prelude.<*> (x Data..:? "TransformJob")
       )
 
 instance Prelude.Hashable TrialComponentSourceDetail where
   hashWithSalt _salt TrialComponentSourceDetail' {..} =
-    _salt `Prelude.hashWithSalt` trainingJob
+    _salt `Prelude.hashWithSalt` processingJob
       `Prelude.hashWithSalt` sourceArn
-      `Prelude.hashWithSalt` processingJob
+      `Prelude.hashWithSalt` trainingJob
       `Prelude.hashWithSalt` transformJob
 
 instance Prelude.NFData TrialComponentSourceDetail where
   rnf TrialComponentSourceDetail' {..} =
-    Prelude.rnf trainingJob
+    Prelude.rnf processingJob
       `Prelude.seq` Prelude.rnf sourceArn
-      `Prelude.seq` Prelude.rnf processingJob
+      `Prelude.seq` Prelude.rnf trainingJob
       `Prelude.seq` Prelude.rnf transformJob

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.Types.HostedZoneOwner
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53.Types.HostedZoneOwner where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53.Internal
 
@@ -95,11 +96,11 @@ hostedZoneOwner_owningAccount = Lens.lens (\HostedZoneOwner' {owningAccount} -> 
 hostedZoneOwner_owningService :: Lens.Lens' HostedZoneOwner (Prelude.Maybe Prelude.Text)
 hostedZoneOwner_owningService = Lens.lens (\HostedZoneOwner' {owningService} -> owningService) (\s@HostedZoneOwner' {} a -> s {owningService = a} :: HostedZoneOwner)
 
-instance Core.FromXML HostedZoneOwner where
+instance Data.FromXML HostedZoneOwner where
   parseXML x =
     HostedZoneOwner'
-      Prelude.<$> (x Core..@? "OwningAccount")
-      Prelude.<*> (x Core..@? "OwningService")
+      Prelude.<$> (x Data..@? "OwningAccount")
+      Prelude.<*> (x Data..@? "OwningService")
 
 instance Prelude.Hashable HostedZoneOwner where
   hashWithSalt _salt HostedZoneOwner' {..} =

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.ReservedInstancesId
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.ReservedInstancesId where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the ID of a Reserved Instance.
@@ -54,10 +55,10 @@ newReservedInstancesId =
 reservedInstancesId_reservedInstancesId :: Lens.Lens' ReservedInstancesId (Prelude.Maybe Prelude.Text)
 reservedInstancesId_reservedInstancesId = Lens.lens (\ReservedInstancesId' {reservedInstancesId} -> reservedInstancesId) (\s@ReservedInstancesId' {} a -> s {reservedInstancesId = a} :: ReservedInstancesId)
 
-instance Core.FromXML ReservedInstancesId where
+instance Data.FromXML ReservedInstancesId where
   parseXML x =
     ReservedInstancesId'
-      Prelude.<$> (x Core..@? "reservedInstancesId")
+      Prelude.<$> (x Data..@? "reservedInstancesId")
 
 instance Prelude.Hashable ReservedInstancesId where
   hashWithSalt _salt ReservedInstancesId' {..} =

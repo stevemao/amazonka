@@ -14,16 +14,18 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.CreateGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an Amazon QuickSight group.
+-- Use the @CreateGroup@ operation to create a group in Amazon QuickSight.
+-- You can create up to 10,000 groups in a namespace. If you want to create
+-- more than 10,000 groups in a namespace, contact AWS Support.
 --
 -- The permissions resource is
--- @arn:aws:quicksight:us-east-1:\<relevant-aws-account-id>:group\/default\/\<group-name> @.
+-- @arn:aws:quicksight:\<your-region>:\<relevant-aws-account-id>:group\/default\/\<group-name> @.
 --
 -- The response is a group object.
 module Amazonka.QuickSight.CreateGroup
@@ -42,14 +44,15 @@ module Amazonka.QuickSight.CreateGroup
     newCreateGroupResponse,
 
     -- * Response Lenses
-    createGroupResponse_requestId,
     createGroupResponse_group,
+    createGroupResponse_requestId,
     createGroupResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -67,7 +70,7 @@ data CreateGroup = CreateGroup'
     -- Currently, you use the ID for the Amazon Web Services account that
     -- contains your Amazon QuickSight account.
     awsAccountId :: Prelude.Text,
-    -- | The namespace. Currently, you should set this to @default@.
+    -- | The namespace that you want the group to be a part of.
     namespace :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -88,7 +91,7 @@ data CreateGroup = CreateGroup'
 -- Currently, you use the ID for the Amazon Web Services account that
 -- contains your Amazon QuickSight account.
 --
--- 'namespace', 'createGroup_namespace' - The namespace. Currently, you should set this to @default@.
+-- 'namespace', 'createGroup_namespace' - The namespace that you want the group to be a part of.
 newCreateGroup ::
   -- | 'groupName'
   Prelude.Text ->
@@ -119,19 +122,20 @@ createGroup_groupName = Lens.lens (\CreateGroup' {groupName} -> groupName) (\s@C
 createGroup_awsAccountId :: Lens.Lens' CreateGroup Prelude.Text
 createGroup_awsAccountId = Lens.lens (\CreateGroup' {awsAccountId} -> awsAccountId) (\s@CreateGroup' {} a -> s {awsAccountId = a} :: CreateGroup)
 
--- | The namespace. Currently, you should set this to @default@.
+-- | The namespace that you want the group to be a part of.
 createGroup_namespace :: Lens.Lens' CreateGroup Prelude.Text
 createGroup_namespace = Lens.lens (\CreateGroup' {namespace} -> namespace) (\s@CreateGroup' {} a -> s {namespace = a} :: CreateGroup)
 
 instance Core.AWSRequest CreateGroup where
   type AWSResponse CreateGroup = CreateGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateGroupResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "Group")
+            Prelude.<$> (x Data..?> "Group")
+            Prelude.<*> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -149,47 +153,47 @@ instance Prelude.NFData CreateGroup where
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf namespace
 
-instance Core.ToHeaders CreateGroup where
+instance Data.ToHeaders CreateGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateGroup where
+instance Data.ToJSON CreateGroup where
   toJSON CreateGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Description" Core..=) Prelude.<$> description,
-            Prelude.Just ("GroupName" Core..= groupName)
+          [ ("Description" Data..=) Prelude.<$> description,
+            Prelude.Just ("GroupName" Data..= groupName)
           ]
       )
 
-instance Core.ToPath CreateGroup where
+instance Data.ToPath CreateGroup where
   toPath CreateGroup' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/namespaces/",
-        Core.toBS namespace,
+        Data.toBS namespace,
         "/groups"
       ]
 
-instance Core.ToQuery CreateGroup where
+instance Data.ToQuery CreateGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The response object for this operation.
 --
 -- /See:/ 'newCreateGroupResponse' smart constructor.
 data CreateGroupResponse = CreateGroupResponse'
-  { -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The name of the group.
+  { -- | The name of the group.
     group' :: Prelude.Maybe Group,
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -203,9 +207,9 @@ data CreateGroupResponse = CreateGroupResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'createGroupResponse_requestId' - The Amazon Web Services request ID for this operation.
---
 -- 'group'', 'createGroupResponse_group' - The name of the group.
+--
+-- 'requestId', 'createGroupResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'status', 'createGroupResponse_status' - The HTTP status of the request.
 newCreateGroupResponse ::
@@ -214,18 +218,18 @@ newCreateGroupResponse ::
   CreateGroupResponse
 newCreateGroupResponse pStatus_ =
   CreateGroupResponse'
-    { requestId = Prelude.Nothing,
-      group' = Prelude.Nothing,
+    { group' = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       status = pStatus_
     }
-
--- | The Amazon Web Services request ID for this operation.
-createGroupResponse_requestId :: Lens.Lens' CreateGroupResponse (Prelude.Maybe Prelude.Text)
-createGroupResponse_requestId = Lens.lens (\CreateGroupResponse' {requestId} -> requestId) (\s@CreateGroupResponse' {} a -> s {requestId = a} :: CreateGroupResponse)
 
 -- | The name of the group.
 createGroupResponse_group :: Lens.Lens' CreateGroupResponse (Prelude.Maybe Group)
 createGroupResponse_group = Lens.lens (\CreateGroupResponse' {group'} -> group') (\s@CreateGroupResponse' {} a -> s {group' = a} :: CreateGroupResponse)
+
+-- | The Amazon Web Services request ID for this operation.
+createGroupResponse_requestId :: Lens.Lens' CreateGroupResponse (Prelude.Maybe Prelude.Text)
+createGroupResponse_requestId = Lens.lens (\CreateGroupResponse' {requestId} -> requestId) (\s@CreateGroupResponse' {} a -> s {requestId = a} :: CreateGroupResponse)
 
 -- | The HTTP status of the request.
 createGroupResponse_status :: Lens.Lens' CreateGroupResponse Prelude.Int
@@ -233,6 +237,6 @@ createGroupResponse_status = Lens.lens (\CreateGroupResponse' {status} -> status
 
 instance Prelude.NFData CreateGroupResponse where
   rnf CreateGroupResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf group'
+    Prelude.rnf group'
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf status

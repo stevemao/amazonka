@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ManagedBlockChain.ListProposals
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.ManagedBlockChain.ListProposals
     newListProposals,
 
     -- * Request Lenses
-    listProposals_nextToken,
     listProposals_maxResults,
+    listProposals_nextToken,
     listProposals_networkId,
 
     -- * Destructuring the Response
@@ -38,14 +38,15 @@ module Amazonka.ManagedBlockChain.ListProposals
     newListProposalsResponse,
 
     -- * Response Lenses
-    listProposalsResponse_proposals,
     listProposalsResponse_nextToken,
+    listProposalsResponse_proposals,
     listProposalsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ManagedBlockChain.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -53,10 +54,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListProposals' smart constructor.
 data ListProposals = ListProposals'
-  { -- | The pagination token that indicates the next set of results to retrieve.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of proposals to return.
+  { -- | The maximum number of proposals to return.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token that indicates the next set of results to retrieve.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The unique identifier of the network.
     networkId :: Prelude.Text
   }
@@ -70,9 +71,9 @@ data ListProposals = ListProposals'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listProposals_nextToken' - The pagination token that indicates the next set of results to retrieve.
---
 -- 'maxResults', 'listProposals_maxResults' - The maximum number of proposals to return.
+--
+-- 'nextToken', 'listProposals_nextToken' - The pagination token that indicates the next set of results to retrieve.
 --
 -- 'networkId', 'listProposals_networkId' - The unique identifier of the network.
 newListProposals ::
@@ -81,18 +82,18 @@ newListProposals ::
   ListProposals
 newListProposals pNetworkId_ =
   ListProposals'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       networkId = pNetworkId_
     }
-
--- | The pagination token that indicates the next set of results to retrieve.
-listProposals_nextToken :: Lens.Lens' ListProposals (Prelude.Maybe Prelude.Text)
-listProposals_nextToken = Lens.lens (\ListProposals' {nextToken} -> nextToken) (\s@ListProposals' {} a -> s {nextToken = a} :: ListProposals)
 
 -- | The maximum number of proposals to return.
 listProposals_maxResults :: Lens.Lens' ListProposals (Prelude.Maybe Prelude.Natural)
 listProposals_maxResults = Lens.lens (\ListProposals' {maxResults} -> maxResults) (\s@ListProposals' {} a -> s {maxResults = a} :: ListProposals)
+
+-- | The pagination token that indicates the next set of results to retrieve.
+listProposals_nextToken :: Lens.Lens' ListProposals (Prelude.Maybe Prelude.Text)
+listProposals_nextToken = Lens.lens (\ListProposals' {nextToken} -> nextToken) (\s@ListProposals' {} a -> s {nextToken = a} :: ListProposals)
 
 -- | The unique identifier of the network.
 listProposals_networkId :: Lens.Lens' ListProposals Prelude.Text
@@ -102,57 +103,58 @@ instance Core.AWSRequest ListProposals where
   type
     AWSResponse ListProposals =
       ListProposalsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListProposalsResponse'
-            Prelude.<$> (x Core..?> "Proposals" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Proposals" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListProposals where
   hashWithSalt _salt ListProposals' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` networkId
 
 instance Prelude.NFData ListProposals where
   rnf ListProposals' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf networkId
 
-instance Core.ToHeaders ListProposals where
+instance Data.ToHeaders ListProposals where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListProposals where
+instance Data.ToPath ListProposals where
   toPath ListProposals' {..} =
     Prelude.mconcat
-      ["/networks/", Core.toBS networkId, "/proposals"]
+      ["/networks/", Data.toBS networkId, "/proposals"]
 
-instance Core.ToQuery ListProposals where
+instance Data.ToQuery ListProposals where
   toQuery ListProposals' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListProposalsResponse' smart constructor.
 data ListProposalsResponse = ListProposalsResponse'
-  { -- | The summary of each proposal made on the network.
-    proposals :: Prelude.Maybe [ProposalSummary],
-    -- | The pagination token that indicates the next set of results to retrieve.
+  { -- | The pagination token that indicates the next set of results to retrieve.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The summary of each proposal made on the network.
+    proposals :: Prelude.Maybe [ProposalSummary],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -166,9 +168,9 @@ data ListProposalsResponse = ListProposalsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'proposals', 'listProposalsResponse_proposals' - The summary of each proposal made on the network.
---
 -- 'nextToken', 'listProposalsResponse_nextToken' - The pagination token that indicates the next set of results to retrieve.
+--
+-- 'proposals', 'listProposalsResponse_proposals' - The summary of each proposal made on the network.
 --
 -- 'httpStatus', 'listProposalsResponse_httpStatus' - The response's http status code.
 newListProposalsResponse ::
@@ -177,18 +179,18 @@ newListProposalsResponse ::
   ListProposalsResponse
 newListProposalsResponse pHttpStatus_ =
   ListProposalsResponse'
-    { proposals = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { nextToken = Prelude.Nothing,
+      proposals = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The summary of each proposal made on the network.
-listProposalsResponse_proposals :: Lens.Lens' ListProposalsResponse (Prelude.Maybe [ProposalSummary])
-listProposalsResponse_proposals = Lens.lens (\ListProposalsResponse' {proposals} -> proposals) (\s@ListProposalsResponse' {} a -> s {proposals = a} :: ListProposalsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The pagination token that indicates the next set of results to retrieve.
 listProposalsResponse_nextToken :: Lens.Lens' ListProposalsResponse (Prelude.Maybe Prelude.Text)
 listProposalsResponse_nextToken = Lens.lens (\ListProposalsResponse' {nextToken} -> nextToken) (\s@ListProposalsResponse' {} a -> s {nextToken = a} :: ListProposalsResponse)
+
+-- | The summary of each proposal made on the network.
+listProposalsResponse_proposals :: Lens.Lens' ListProposalsResponse (Prelude.Maybe [ProposalSummary])
+listProposalsResponse_proposals = Lens.lens (\ListProposalsResponse' {proposals} -> proposals) (\s@ListProposalsResponse' {} a -> s {proposals = a} :: ListProposalsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listProposalsResponse_httpStatus :: Lens.Lens' ListProposalsResponse Prelude.Int
@@ -196,6 +198,6 @@ listProposalsResponse_httpStatus = Lens.lens (\ListProposalsResponse' {httpStatu
 
 instance Prelude.NFData ListProposalsResponse where
   rnf ListProposalsResponse' {..} =
-    Prelude.rnf proposals
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf proposals
       `Prelude.seq` Prelude.rnf httpStatus

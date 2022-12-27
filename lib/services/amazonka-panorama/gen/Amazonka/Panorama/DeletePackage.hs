@@ -14,13 +14,16 @@
 
 -- |
 -- Module      : Amazonka.Panorama.DeletePackage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Deletes a package.
+--
+-- To delete a package, you need permission to call @s3:DeleteObject@ in
+-- addition to permissions for the AWS Panorama API.
 module Amazonka.Panorama.DeletePackage
   ( -- * Creating a Request
     DeletePackage (..),
@@ -40,7 +43,8 @@ module Amazonka.Panorama.DeletePackage
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Panorama.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -91,7 +95,8 @@ instance Core.AWSRequest DeletePackage where
   type
     AWSResponse DeletePackage =
       DeletePackageResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -109,24 +114,24 @@ instance Prelude.NFData DeletePackage where
     Prelude.rnf forceDelete
       `Prelude.seq` Prelude.rnf packageId
 
-instance Core.ToHeaders DeletePackage where
+instance Data.ToHeaders DeletePackage where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeletePackage where
+instance Data.ToPath DeletePackage where
   toPath DeletePackage' {..} =
-    Prelude.mconcat ["/packages/", Core.toBS packageId]
+    Prelude.mconcat ["/packages/", Data.toBS packageId]
 
-instance Core.ToQuery DeletePackage where
+instance Data.ToQuery DeletePackage where
   toQuery DeletePackage' {..} =
-    Prelude.mconcat ["ForceDelete" Core.=: forceDelete]
+    Prelude.mconcat ["ForceDelete" Data.=: forceDelete]
 
 -- | /See:/ 'newDeletePackageResponse' smart constructor.
 data DeletePackageResponse = DeletePackageResponse'

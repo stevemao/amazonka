@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.IntegerParameterRangeSpecification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.IntegerParameterRangeSpecification where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Defines the possible values for an integer hyperparameter.
@@ -69,16 +70,16 @@ integerParameterRangeSpecification_maxValue :: Lens.Lens' IntegerParameterRangeS
 integerParameterRangeSpecification_maxValue = Lens.lens (\IntegerParameterRangeSpecification' {maxValue} -> maxValue) (\s@IntegerParameterRangeSpecification' {} a -> s {maxValue = a} :: IntegerParameterRangeSpecification)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     IntegerParameterRangeSpecification
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IntegerParameterRangeSpecification"
       ( \x ->
           IntegerParameterRangeSpecification'
-            Prelude.<$> (x Core..: "MinValue")
-            Prelude.<*> (x Core..: "MaxValue")
+            Prelude.<$> (x Data..: "MinValue")
+            Prelude.<*> (x Data..: "MaxValue")
       )
 
 instance
@@ -100,13 +101,13 @@ instance
       `Prelude.seq` Prelude.rnf maxValue
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     IntegerParameterRangeSpecification
   where
   toJSON IntegerParameterRangeSpecification' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("MinValue" Core..= minValue),
-            Prelude.Just ("MaxValue" Core..= maxValue)
+          [ Prelude.Just ("MinValue" Data..= minValue),
+            Prelude.Just ("MaxValue" Data..= maxValue)
           ]
       )

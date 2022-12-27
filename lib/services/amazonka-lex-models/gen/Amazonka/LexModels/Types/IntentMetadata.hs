@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.Types.IntentMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LexModels.Types.IntentMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides information about an intent.
@@ -28,16 +29,16 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newIntentMetadata' smart constructor.
 data IntentMetadata = IntentMetadata'
   { -- | The date that the intent was created.
-    createdDate :: Prelude.Maybe Core.POSIX,
+    createdDate :: Prelude.Maybe Data.POSIX,
+    -- | A description of the intent.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The date that the intent was updated. When you create an intent, the
+    -- creation date and last updated date are the same.
+    lastUpdatedDate :: Prelude.Maybe Data.POSIX,
     -- | The name of the intent.
     name :: Prelude.Maybe Prelude.Text,
     -- | The version of the intent.
-    version :: Prelude.Maybe Prelude.Text,
-    -- | The date that the intent was updated. When you create an intent, the
-    -- creation date and last updated date are the same.
-    lastUpdatedDate :: Prelude.Maybe Core.POSIX,
-    -- | A description of the intent.
-    description :: Prelude.Maybe Prelude.Text
+    version :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -51,28 +52,37 @@ data IntentMetadata = IntentMetadata'
 --
 -- 'createdDate', 'intentMetadata_createdDate' - The date that the intent was created.
 --
--- 'name', 'intentMetadata_name' - The name of the intent.
---
--- 'version', 'intentMetadata_version' - The version of the intent.
+-- 'description', 'intentMetadata_description' - A description of the intent.
 --
 -- 'lastUpdatedDate', 'intentMetadata_lastUpdatedDate' - The date that the intent was updated. When you create an intent, the
 -- creation date and last updated date are the same.
 --
--- 'description', 'intentMetadata_description' - A description of the intent.
+-- 'name', 'intentMetadata_name' - The name of the intent.
+--
+-- 'version', 'intentMetadata_version' - The version of the intent.
 newIntentMetadata ::
   IntentMetadata
 newIntentMetadata =
   IntentMetadata'
     { createdDate = Prelude.Nothing,
-      name = Prelude.Nothing,
-      version = Prelude.Nothing,
+      description = Prelude.Nothing,
       lastUpdatedDate = Prelude.Nothing,
-      description = Prelude.Nothing
+      name = Prelude.Nothing,
+      version = Prelude.Nothing
     }
 
 -- | The date that the intent was created.
 intentMetadata_createdDate :: Lens.Lens' IntentMetadata (Prelude.Maybe Prelude.UTCTime)
-intentMetadata_createdDate = Lens.lens (\IntentMetadata' {createdDate} -> createdDate) (\s@IntentMetadata' {} a -> s {createdDate = a} :: IntentMetadata) Prelude.. Lens.mapping Core._Time
+intentMetadata_createdDate = Lens.lens (\IntentMetadata' {createdDate} -> createdDate) (\s@IntentMetadata' {} a -> s {createdDate = a} :: IntentMetadata) Prelude.. Lens.mapping Data._Time
+
+-- | A description of the intent.
+intentMetadata_description :: Lens.Lens' IntentMetadata (Prelude.Maybe Prelude.Text)
+intentMetadata_description = Lens.lens (\IntentMetadata' {description} -> description) (\s@IntentMetadata' {} a -> s {description = a} :: IntentMetadata)
+
+-- | The date that the intent was updated. When you create an intent, the
+-- creation date and last updated date are the same.
+intentMetadata_lastUpdatedDate :: Lens.Lens' IntentMetadata (Prelude.Maybe Prelude.UTCTime)
+intentMetadata_lastUpdatedDate = Lens.lens (\IntentMetadata' {lastUpdatedDate} -> lastUpdatedDate) (\s@IntentMetadata' {} a -> s {lastUpdatedDate = a} :: IntentMetadata) Prelude.. Lens.mapping Data._Time
 
 -- | The name of the intent.
 intentMetadata_name :: Lens.Lens' IntentMetadata (Prelude.Maybe Prelude.Text)
@@ -82,40 +92,31 @@ intentMetadata_name = Lens.lens (\IntentMetadata' {name} -> name) (\s@IntentMeta
 intentMetadata_version :: Lens.Lens' IntentMetadata (Prelude.Maybe Prelude.Text)
 intentMetadata_version = Lens.lens (\IntentMetadata' {version} -> version) (\s@IntentMetadata' {} a -> s {version = a} :: IntentMetadata)
 
--- | The date that the intent was updated. When you create an intent, the
--- creation date and last updated date are the same.
-intentMetadata_lastUpdatedDate :: Lens.Lens' IntentMetadata (Prelude.Maybe Prelude.UTCTime)
-intentMetadata_lastUpdatedDate = Lens.lens (\IntentMetadata' {lastUpdatedDate} -> lastUpdatedDate) (\s@IntentMetadata' {} a -> s {lastUpdatedDate = a} :: IntentMetadata) Prelude.. Lens.mapping Core._Time
-
--- | A description of the intent.
-intentMetadata_description :: Lens.Lens' IntentMetadata (Prelude.Maybe Prelude.Text)
-intentMetadata_description = Lens.lens (\IntentMetadata' {description} -> description) (\s@IntentMetadata' {} a -> s {description = a} :: IntentMetadata)
-
-instance Core.FromJSON IntentMetadata where
+instance Data.FromJSON IntentMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IntentMetadata"
       ( \x ->
           IntentMetadata'
-            Prelude.<$> (x Core..:? "createdDate")
-            Prelude.<*> (x Core..:? "name")
-            Prelude.<*> (x Core..:? "version")
-            Prelude.<*> (x Core..:? "lastUpdatedDate")
-            Prelude.<*> (x Core..:? "description")
+            Prelude.<$> (x Data..:? "createdDate")
+            Prelude.<*> (x Data..:? "description")
+            Prelude.<*> (x Data..:? "lastUpdatedDate")
+            Prelude.<*> (x Data..:? "name")
+            Prelude.<*> (x Data..:? "version")
       )
 
 instance Prelude.Hashable IntentMetadata where
   hashWithSalt _salt IntentMetadata' {..} =
     _salt `Prelude.hashWithSalt` createdDate
+      `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` lastUpdatedDate
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` version
-      `Prelude.hashWithSalt` lastUpdatedDate
-      `Prelude.hashWithSalt` description
 
 instance Prelude.NFData IntentMetadata where
   rnf IntentMetadata' {..} =
     Prelude.rnf createdDate
+      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf lastUpdatedDate
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf version
-      `Prelude.seq` Prelude.rnf lastUpdatedDate
-      `Prelude.seq` Prelude.rnf description

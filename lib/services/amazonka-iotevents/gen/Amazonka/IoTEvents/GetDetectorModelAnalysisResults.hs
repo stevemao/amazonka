@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.GetDetectorModelAnalysisResults
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.IoTEvents.GetDetectorModelAnalysisResults
     newGetDetectorModelAnalysisResults,
 
     -- * Request Lenses
-    getDetectorModelAnalysisResults_nextToken,
     getDetectorModelAnalysisResults_maxResults,
+    getDetectorModelAnalysisResults_nextToken,
     getDetectorModelAnalysisResults_analysisId,
 
     -- * Destructuring the Response
@@ -39,25 +39,26 @@ module Amazonka.IoTEvents.GetDetectorModelAnalysisResults
     newGetDetectorModelAnalysisResultsResponse,
 
     -- * Response Lenses
-    getDetectorModelAnalysisResultsResponse_nextToken,
     getDetectorModelAnalysisResultsResponse_analysisResults,
+    getDetectorModelAnalysisResultsResponse_nextToken,
     getDetectorModelAnalysisResultsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetDetectorModelAnalysisResults' smart constructor.
 data GetDetectorModelAnalysisResults = GetDetectorModelAnalysisResults'
-  { -- | The token that you can use to return the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to be returned per request.
+  { -- | The maximum number of results to be returned per request.
     maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The token that you can use to return the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ID of the analysis result that you want to retrieve.
     analysisId :: Prelude.Text
   }
@@ -71,9 +72,9 @@ data GetDetectorModelAnalysisResults = GetDetectorModelAnalysisResults'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'getDetectorModelAnalysisResults_nextToken' - The token that you can use to return the next set of results.
---
 -- 'maxResults', 'getDetectorModelAnalysisResults_maxResults' - The maximum number of results to be returned per request.
+--
+-- 'nextToken', 'getDetectorModelAnalysisResults_nextToken' - The token that you can use to return the next set of results.
 --
 -- 'analysisId', 'getDetectorModelAnalysisResults_analysisId' - The ID of the analysis result that you want to retrieve.
 newGetDetectorModelAnalysisResults ::
@@ -82,19 +83,19 @@ newGetDetectorModelAnalysisResults ::
   GetDetectorModelAnalysisResults
 newGetDetectorModelAnalysisResults pAnalysisId_ =
   GetDetectorModelAnalysisResults'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       analysisId = pAnalysisId_
     }
-
--- | The token that you can use to return the next set of results.
-getDetectorModelAnalysisResults_nextToken :: Lens.Lens' GetDetectorModelAnalysisResults (Prelude.Maybe Prelude.Text)
-getDetectorModelAnalysisResults_nextToken = Lens.lens (\GetDetectorModelAnalysisResults' {nextToken} -> nextToken) (\s@GetDetectorModelAnalysisResults' {} a -> s {nextToken = a} :: GetDetectorModelAnalysisResults)
 
 -- | The maximum number of results to be returned per request.
 getDetectorModelAnalysisResults_maxResults :: Lens.Lens' GetDetectorModelAnalysisResults (Prelude.Maybe Prelude.Int)
 getDetectorModelAnalysisResults_maxResults = Lens.lens (\GetDetectorModelAnalysisResults' {maxResults} -> maxResults) (\s@GetDetectorModelAnalysisResults' {} a -> s {maxResults = a} :: GetDetectorModelAnalysisResults)
+
+-- | The token that you can use to return the next set of results.
+getDetectorModelAnalysisResults_nextToken :: Lens.Lens' GetDetectorModelAnalysisResults (Prelude.Maybe Prelude.Text)
+getDetectorModelAnalysisResults_nextToken = Lens.lens (\GetDetectorModelAnalysisResults' {nextToken} -> nextToken) (\s@GetDetectorModelAnalysisResults' {} a -> s {nextToken = a} :: GetDetectorModelAnalysisResults)
 
 -- | The ID of the analysis result that you want to retrieve.
 getDetectorModelAnalysisResults_analysisId :: Lens.Lens' GetDetectorModelAnalysisResults Prelude.Text
@@ -107,15 +108,16 @@ instance
   type
     AWSResponse GetDetectorModelAnalysisResults =
       GetDetectorModelAnalysisResultsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDetectorModelAnalysisResultsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> ( x Core..?> "analysisResults"
+            Prelude.<$> ( x Data..?> "analysisResults"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -126,8 +128,8 @@ instance
   hashWithSalt
     _salt
     GetDetectorModelAnalysisResults' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` analysisId
 
 instance
@@ -135,38 +137,38 @@ instance
     GetDetectorModelAnalysisResults
   where
   rnf GetDetectorModelAnalysisResults' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf analysisId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetDetectorModelAnalysisResults
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetDetectorModelAnalysisResults where
+instance Data.ToPath GetDetectorModelAnalysisResults where
   toPath GetDetectorModelAnalysisResults' {..} =
     Prelude.mconcat
       [ "/analysis/detector-models/",
-        Core.toBS analysisId,
+        Data.toBS analysisId,
         "/results"
       ]
 
-instance Core.ToQuery GetDetectorModelAnalysisResults where
+instance Data.ToQuery GetDetectorModelAnalysisResults where
   toQuery GetDetectorModelAnalysisResults' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newGetDetectorModelAnalysisResultsResponse' smart constructor.
 data GetDetectorModelAnalysisResultsResponse = GetDetectorModelAnalysisResultsResponse'
-  { -- | The token that you can use to return the next set of results, or @null@
+  { -- | Contains information about one or more analysis results.
+    analysisResults :: Prelude.Maybe [AnalysisResult],
+    -- | The token that you can use to return the next set of results, or @null@
     -- if there are no more results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Contains information about one or more analysis results.
-    analysisResults :: Prelude.Maybe [AnalysisResult],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -180,10 +182,10 @@ data GetDetectorModelAnalysisResultsResponse = GetDetectorModelAnalysisResultsRe
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'analysisResults', 'getDetectorModelAnalysisResultsResponse_analysisResults' - Contains information about one or more analysis results.
+--
 -- 'nextToken', 'getDetectorModelAnalysisResultsResponse_nextToken' - The token that you can use to return the next set of results, or @null@
 -- if there are no more results.
---
--- 'analysisResults', 'getDetectorModelAnalysisResultsResponse_analysisResults' - Contains information about one or more analysis results.
 --
 -- 'httpStatus', 'getDetectorModelAnalysisResultsResponse_httpStatus' - The response's http status code.
 newGetDetectorModelAnalysisResultsResponse ::
@@ -193,20 +195,20 @@ newGetDetectorModelAnalysisResultsResponse ::
 newGetDetectorModelAnalysisResultsResponse
   pHttpStatus_ =
     GetDetectorModelAnalysisResultsResponse'
-      { nextToken =
+      { analysisResults =
           Prelude.Nothing,
-        analysisResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
+
+-- | Contains information about one or more analysis results.
+getDetectorModelAnalysisResultsResponse_analysisResults :: Lens.Lens' GetDetectorModelAnalysisResultsResponse (Prelude.Maybe [AnalysisResult])
+getDetectorModelAnalysisResultsResponse_analysisResults = Lens.lens (\GetDetectorModelAnalysisResultsResponse' {analysisResults} -> analysisResults) (\s@GetDetectorModelAnalysisResultsResponse' {} a -> s {analysisResults = a} :: GetDetectorModelAnalysisResultsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token that you can use to return the next set of results, or @null@
 -- if there are no more results.
 getDetectorModelAnalysisResultsResponse_nextToken :: Lens.Lens' GetDetectorModelAnalysisResultsResponse (Prelude.Maybe Prelude.Text)
 getDetectorModelAnalysisResultsResponse_nextToken = Lens.lens (\GetDetectorModelAnalysisResultsResponse' {nextToken} -> nextToken) (\s@GetDetectorModelAnalysisResultsResponse' {} a -> s {nextToken = a} :: GetDetectorModelAnalysisResultsResponse)
-
--- | Contains information about one or more analysis results.
-getDetectorModelAnalysisResultsResponse_analysisResults :: Lens.Lens' GetDetectorModelAnalysisResultsResponse (Prelude.Maybe [AnalysisResult])
-getDetectorModelAnalysisResultsResponse_analysisResults = Lens.lens (\GetDetectorModelAnalysisResultsResponse' {analysisResults} -> analysisResults) (\s@GetDetectorModelAnalysisResultsResponse' {} a -> s {analysisResults = a} :: GetDetectorModelAnalysisResultsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 getDetectorModelAnalysisResultsResponse_httpStatus :: Lens.Lens' GetDetectorModelAnalysisResultsResponse Prelude.Int
@@ -217,6 +219,6 @@ instance
     GetDetectorModelAnalysisResultsResponse
   where
   rnf GetDetectorModelAnalysisResultsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf analysisResults
+    Prelude.rnf analysisResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.DeleteUserPoolClient
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -50,7 +51,7 @@ data DeleteUserPoolClient = DeleteUserPoolClient'
   { -- | The user pool ID for the user pool where you want to delete the client.
     userPoolId :: Prelude.Text,
     -- | The app client ID of the app associated with the user pool.
-    clientId :: Core.Sensitive Prelude.Text
+    clientId :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -74,7 +75,7 @@ newDeleteUserPoolClient ::
 newDeleteUserPoolClient pUserPoolId_ pClientId_ =
   DeleteUserPoolClient'
     { userPoolId = pUserPoolId_,
-      clientId = Core._Sensitive Lens.# pClientId_
+      clientId = Data._Sensitive Lens.# pClientId_
     }
 
 -- | The user pool ID for the user pool where you want to delete the client.
@@ -83,13 +84,14 @@ deleteUserPoolClient_userPoolId = Lens.lens (\DeleteUserPoolClient' {userPoolId}
 
 -- | The app client ID of the app associated with the user pool.
 deleteUserPoolClient_clientId :: Lens.Lens' DeleteUserPoolClient Prelude.Text
-deleteUserPoolClient_clientId = Lens.lens (\DeleteUserPoolClient' {clientId} -> clientId) (\s@DeleteUserPoolClient' {} a -> s {clientId = a} :: DeleteUserPoolClient) Prelude.. Core._Sensitive
+deleteUserPoolClient_clientId = Lens.lens (\DeleteUserPoolClient' {clientId} -> clientId) (\s@DeleteUserPoolClient' {} a -> s {clientId = a} :: DeleteUserPoolClient) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest DeleteUserPoolClient where
   type
     AWSResponse DeleteUserPoolClient =
       DeleteUserPoolClientResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteUserPoolClientResponse'
 
@@ -103,34 +105,34 @@ instance Prelude.NFData DeleteUserPoolClient where
     Prelude.rnf userPoolId
       `Prelude.seq` Prelude.rnf clientId
 
-instance Core.ToHeaders DeleteUserPoolClient where
+instance Data.ToHeaders DeleteUserPoolClient where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.DeleteUserPoolClient" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.DeleteUserPoolClient" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteUserPoolClient where
+instance Data.ToJSON DeleteUserPoolClient where
   toJSON DeleteUserPoolClient' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("UserPoolId" Core..= userPoolId),
-            Prelude.Just ("ClientId" Core..= clientId)
+          [ Prelude.Just ("UserPoolId" Data..= userPoolId),
+            Prelude.Just ("ClientId" Data..= clientId)
           ]
       )
 
-instance Core.ToPath DeleteUserPoolClient where
+instance Data.ToPath DeleteUserPoolClient where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteUserPoolClient where
+instance Data.ToQuery DeleteUserPoolClient where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteUserPoolClientResponse' smart constructor.

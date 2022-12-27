@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.OpsItemFilterKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,6 +20,7 @@
 module Amazonka.SSM.Types.OpsItemFilterKey
   ( OpsItemFilterKey
       ( ..,
+        OpsItemFilterKey_AccountId,
         OpsItemFilterKey_ActualEndTime,
         OpsItemFilterKey_ActualStartTime,
         OpsItemFilterKey_AutomationId,
@@ -52,11 +53,12 @@ module Amazonka.SSM.Types.OpsItemFilterKey
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype OpsItemFilterKey = OpsItemFilterKey'
   { fromOpsItemFilterKey ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -68,19 +70,22 @@ newtype OpsItemFilterKey = OpsItemFilterKey'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
+
+pattern OpsItemFilterKey_AccountId :: OpsItemFilterKey
+pattern OpsItemFilterKey_AccountId = OpsItemFilterKey' "AccountId"
 
 pattern OpsItemFilterKey_ActualEndTime :: OpsItemFilterKey
 pattern OpsItemFilterKey_ActualEndTime = OpsItemFilterKey' "ActualEndTime"
@@ -164,6 +169,7 @@ pattern OpsItemFilterKey_Title :: OpsItemFilterKey
 pattern OpsItemFilterKey_Title = OpsItemFilterKey' "Title"
 
 {-# COMPLETE
+  OpsItemFilterKey_AccountId,
   OpsItemFilterKey_ActualEndTime,
   OpsItemFilterKey_ActualStartTime,
   OpsItemFilterKey_AutomationId,

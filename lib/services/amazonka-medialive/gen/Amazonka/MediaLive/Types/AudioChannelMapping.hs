@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.AudioChannelMapping
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.AudioChannelMapping where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.InputChannelLevel
 import qualified Amazonka.Prelude as Prelude
 
@@ -68,15 +69,15 @@ audioChannelMapping_outputChannel = Lens.lens (\AudioChannelMapping' {outputChan
 audioChannelMapping_inputChannelLevels :: Lens.Lens' AudioChannelMapping [InputChannelLevel]
 audioChannelMapping_inputChannelLevels = Lens.lens (\AudioChannelMapping' {inputChannelLevels} -> inputChannelLevels) (\s@AudioChannelMapping' {} a -> s {inputChannelLevels = a} :: AudioChannelMapping) Prelude.. Lens.coerced
 
-instance Core.FromJSON AudioChannelMapping where
+instance Data.FromJSON AudioChannelMapping where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AudioChannelMapping"
       ( \x ->
           AudioChannelMapping'
-            Prelude.<$> (x Core..: "outputChannel")
-            Prelude.<*> ( x Core..:? "inputChannelLevels"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..: "outputChannel")
+            Prelude.<*> ( x Data..:? "inputChannelLevels"
+                            Data..!= Prelude.mempty
                         )
       )
 
@@ -90,13 +91,13 @@ instance Prelude.NFData AudioChannelMapping where
     Prelude.rnf outputChannel
       `Prelude.seq` Prelude.rnf inputChannelLevels
 
-instance Core.ToJSON AudioChannelMapping where
+instance Data.ToJSON AudioChannelMapping where
   toJSON AudioChannelMapping' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("outputChannel" Core..= outputChannel),
+              ("outputChannel" Data..= outputChannel),
             Prelude.Just
-              ("inputChannelLevels" Core..= inputChannelLevels)
+              ("inputChannelLevels" Data..= inputChannelLevels)
           ]
       )

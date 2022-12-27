@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeArtifact.DeleteDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,15 +44,16 @@ where
 
 import Amazonka.CodeArtifact.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteDomain' smart constructor.
 data DeleteDomain = DeleteDomain'
-  { -- | The 12-digit account number of the AWS account that owns the domain. It
-    -- does not include dashes or spaces.
+  { -- | The 12-digit account number of the Amazon Web Services account that owns
+    -- the domain. It does not include dashes or spaces.
     domainOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the domain to delete.
     domain :: Prelude.Text
@@ -67,8 +68,8 @@ data DeleteDomain = DeleteDomain'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'domainOwner', 'deleteDomain_domainOwner' - The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
+-- 'domainOwner', 'deleteDomain_domainOwner' - The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
 --
 -- 'domain', 'deleteDomain_domain' - The name of the domain to delete.
 newDeleteDomain ::
@@ -81,8 +82,8 @@ newDeleteDomain pDomain_ =
       domain = pDomain_
     }
 
--- | The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
+-- | The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
 deleteDomain_domainOwner :: Lens.Lens' DeleteDomain (Prelude.Maybe Prelude.Text)
 deleteDomain_domainOwner = Lens.lens (\DeleteDomain' {domainOwner} -> domainOwner) (\s@DeleteDomain' {} a -> s {domainOwner = a} :: DeleteDomain)
 
@@ -92,12 +93,13 @@ deleteDomain_domain = Lens.lens (\DeleteDomain' {domain} -> domain) (\s@DeleteDo
 
 instance Core.AWSRequest DeleteDomain where
   type AWSResponse DeleteDomain = DeleteDomainResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteDomainResponse'
-            Prelude.<$> (x Core..?> "domain")
+            Prelude.<$> (x Data..?> "domain")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -111,25 +113,25 @@ instance Prelude.NFData DeleteDomain where
     Prelude.rnf domainOwner
       `Prelude.seq` Prelude.rnf domain
 
-instance Core.ToHeaders DeleteDomain where
+instance Data.ToHeaders DeleteDomain where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteDomain where
+instance Data.ToPath DeleteDomain where
   toPath = Prelude.const "/v1/domain"
 
-instance Core.ToQuery DeleteDomain where
+instance Data.ToQuery DeleteDomain where
   toQuery DeleteDomain' {..} =
     Prelude.mconcat
-      [ "domain-owner" Core.=: domainOwner,
-        "domain" Core.=: domain
+      [ "domain-owner" Data.=: domainOwner,
+        "domain" Data.=: domain
       ]
 
 -- | /See:/ 'newDeleteDomainResponse' smart constructor.

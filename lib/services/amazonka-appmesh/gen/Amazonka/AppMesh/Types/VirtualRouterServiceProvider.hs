@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.VirtualRouterServiceProvider
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppMesh.Types.VirtualRouterServiceProvider where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents a virtual node service provider.
@@ -55,13 +56,13 @@ newVirtualRouterServiceProvider pVirtualRouterName_ =
 virtualRouterServiceProvider_virtualRouterName :: Lens.Lens' VirtualRouterServiceProvider Prelude.Text
 virtualRouterServiceProvider_virtualRouterName = Lens.lens (\VirtualRouterServiceProvider' {virtualRouterName} -> virtualRouterName) (\s@VirtualRouterServiceProvider' {} a -> s {virtualRouterName = a} :: VirtualRouterServiceProvider)
 
-instance Core.FromJSON VirtualRouterServiceProvider where
+instance Data.FromJSON VirtualRouterServiceProvider where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VirtualRouterServiceProvider"
       ( \x ->
           VirtualRouterServiceProvider'
-            Prelude.<$> (x Core..: "virtualRouterName")
+            Prelude.<$> (x Data..: "virtualRouterName")
       )
 
 instance
@@ -75,11 +76,11 @@ instance Prelude.NFData VirtualRouterServiceProvider where
   rnf VirtualRouterServiceProvider' {..} =
     Prelude.rnf virtualRouterName
 
-instance Core.ToJSON VirtualRouterServiceProvider where
+instance Data.ToJSON VirtualRouterServiceProvider where
   toJSON VirtualRouterServiceProvider' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("virtualRouterName" Core..= virtualRouterName)
+              ("virtualRouterName" Data..= virtualRouterName)
           ]
       )

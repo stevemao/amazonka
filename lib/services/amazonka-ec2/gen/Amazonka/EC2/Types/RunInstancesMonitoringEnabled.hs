@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.RunInstancesMonitoringEnabled
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.RunInstancesMonitoringEnabled where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the monitoring of an instance.
@@ -56,10 +57,10 @@ newRunInstancesMonitoringEnabled pEnabled_ =
 runInstancesMonitoringEnabled_enabled :: Lens.Lens' RunInstancesMonitoringEnabled Prelude.Bool
 runInstancesMonitoringEnabled_enabled = Lens.lens (\RunInstancesMonitoringEnabled' {enabled} -> enabled) (\s@RunInstancesMonitoringEnabled' {} a -> s {enabled = a} :: RunInstancesMonitoringEnabled)
 
-instance Core.FromXML RunInstancesMonitoringEnabled where
+instance Data.FromXML RunInstancesMonitoringEnabled where
   parseXML x =
     RunInstancesMonitoringEnabled'
-      Prelude.<$> (x Core..@ "enabled")
+      Prelude.<$> (x Data..@ "enabled")
 
 instance
   Prelude.Hashable
@@ -72,6 +73,6 @@ instance Prelude.NFData RunInstancesMonitoringEnabled where
   rnf RunInstancesMonitoringEnabled' {..} =
     Prelude.rnf enabled
 
-instance Core.ToQuery RunInstancesMonitoringEnabled where
+instance Data.ToQuery RunInstancesMonitoringEnabled where
   toQuery RunInstancesMonitoringEnabled' {..} =
-    Prelude.mconcat ["Enabled" Core.=: enabled]
+    Prelude.mconcat ["Enabled" Data.=: enabled]

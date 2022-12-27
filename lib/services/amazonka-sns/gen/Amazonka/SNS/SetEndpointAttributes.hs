@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SNS.SetEndpointAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.SNS.SetEndpointAttributes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -135,7 +136,8 @@ instance Core.AWSRequest SetEndpointAttributes where
   type
     AWSResponse SetEndpointAttributes =
       SetEndpointAttributesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull SetEndpointAttributesResponse'
 
@@ -149,22 +151,22 @@ instance Prelude.NFData SetEndpointAttributes where
     Prelude.rnf endpointArn
       `Prelude.seq` Prelude.rnf attributes
 
-instance Core.ToHeaders SetEndpointAttributes where
+instance Data.ToHeaders SetEndpointAttributes where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath SetEndpointAttributes where
+instance Data.ToPath SetEndpointAttributes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SetEndpointAttributes where
+instance Data.ToQuery SetEndpointAttributes where
   toQuery SetEndpointAttributes' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("SetEndpointAttributes" :: Prelude.ByteString),
+          Data.=: ("SetEndpointAttributes" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-03-31" :: Prelude.ByteString),
-        "EndpointArn" Core.=: endpointArn,
+          Data.=: ("2010-03-31" :: Prelude.ByteString),
+        "EndpointArn" Data.=: endpointArn,
         "Attributes"
-          Core.=: Core.toQueryMap "entry" "key" "value" attributes
+          Data.=: Data.toQueryMap "entry" "key" "value" attributes
       ]
 
 -- | /See:/ 'newSetEndpointAttributesResponse' smart constructor.

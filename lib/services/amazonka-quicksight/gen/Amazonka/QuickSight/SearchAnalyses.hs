@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.SearchAnalyses
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,8 +32,8 @@ module Amazonka.QuickSight.SearchAnalyses
     newSearchAnalyses,
 
     -- * Request Lenses
-    searchAnalyses_nextToken,
     searchAnalyses_maxResults,
+    searchAnalyses_nextToken,
     searchAnalyses_awsAccountId,
     searchAnalyses_filters,
 
@@ -42,15 +42,16 @@ module Amazonka.QuickSight.SearchAnalyses
     newSearchAnalysesResponse,
 
     -- * Response Lenses
-    searchAnalysesResponse_requestId,
-    searchAnalysesResponse_nextToken,
     searchAnalysesResponse_analysisSummaryList,
+    searchAnalysesResponse_nextToken,
+    searchAnalysesResponse_requestId,
     searchAnalysesResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -58,10 +59,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newSearchAnalyses' smart constructor.
 data SearchAnalyses = SearchAnalyses'
-  { -- | A pagination token that can be used in a subsequent request.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return.
+  { -- | The maximum number of results to return.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A pagination token that can be used in a subsequent request.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ID of the Amazon Web Services account that contains the analyses
     -- that you\'re searching for.
     awsAccountId :: Prelude.Text,
@@ -79,9 +80,9 @@ data SearchAnalyses = SearchAnalyses'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'searchAnalyses_nextToken' - A pagination token that can be used in a subsequent request.
---
 -- 'maxResults', 'searchAnalyses_maxResults' - The maximum number of results to return.
+--
+-- 'nextToken', 'searchAnalyses_nextToken' - A pagination token that can be used in a subsequent request.
 --
 -- 'awsAccountId', 'searchAnalyses_awsAccountId' - The ID of the Amazon Web Services account that contains the analyses
 -- that you\'re searching for.
@@ -96,19 +97,19 @@ newSearchAnalyses ::
   SearchAnalyses
 newSearchAnalyses pAwsAccountId_ pFilters_ =
   SearchAnalyses'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       awsAccountId = pAwsAccountId_,
       filters = Lens.coerced Lens.# pFilters_
     }
 
--- | A pagination token that can be used in a subsequent request.
-searchAnalyses_nextToken :: Lens.Lens' SearchAnalyses (Prelude.Maybe Prelude.Text)
-searchAnalyses_nextToken = Lens.lens (\SearchAnalyses' {nextToken} -> nextToken) (\s@SearchAnalyses' {} a -> s {nextToken = a} :: SearchAnalyses)
-
 -- | The maximum number of results to return.
 searchAnalyses_maxResults :: Lens.Lens' SearchAnalyses (Prelude.Maybe Prelude.Natural)
 searchAnalyses_maxResults = Lens.lens (\SearchAnalyses' {maxResults} -> maxResults) (\s@SearchAnalyses' {} a -> s {maxResults = a} :: SearchAnalyses)
+
+-- | A pagination token that can be used in a subsequent request.
+searchAnalyses_nextToken :: Lens.Lens' SearchAnalyses (Prelude.Maybe Prelude.Text)
+searchAnalyses_nextToken = Lens.lens (\SearchAnalyses' {nextToken} -> nextToken) (\s@SearchAnalyses' {} a -> s {nextToken = a} :: SearchAnalyses)
 
 -- | The ID of the Amazon Web Services account that contains the analyses
 -- that you\'re searching for.
@@ -145,73 +146,74 @@ instance Core.AWSRequest SearchAnalyses where
   type
     AWSResponse SearchAnalyses =
       SearchAnalysesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SearchAnalysesResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "AnalysisSummaryList"
+            Prelude.<$> ( x Data..?> "AnalysisSummaryList"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable SearchAnalyses where
   hashWithSalt _salt SearchAnalyses' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` awsAccountId
       `Prelude.hashWithSalt` filters
 
 instance Prelude.NFData SearchAnalyses where
   rnf SearchAnalyses' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf filters
 
-instance Core.ToHeaders SearchAnalyses where
+instance Data.ToHeaders SearchAnalyses where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SearchAnalyses where
+instance Data.ToJSON SearchAnalyses where
   toJSON SearchAnalyses' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("Filters" Core..= filters)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("Filters" Data..= filters)
           ]
       )
 
-instance Core.ToPath SearchAnalyses where
+instance Data.ToPath SearchAnalyses where
   toPath SearchAnalyses' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/search/analyses"
       ]
 
-instance Core.ToQuery SearchAnalyses where
+instance Data.ToQuery SearchAnalyses where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSearchAnalysesResponse' smart constructor.
 data SearchAnalysesResponse = SearchAnalysesResponse'
-  { -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Maybe Prelude.Text,
+  { -- | Metadata describing the analyses that you searched for.
+    analysisSummaryList :: Prelude.Maybe [AnalysisSummary],
     -- | A pagination token that can be used in a subsequent request.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Metadata describing the analyses that you searched for.
-    analysisSummaryList :: Prelude.Maybe [AnalysisSummary],
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -225,11 +227,11 @@ data SearchAnalysesResponse = SearchAnalysesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'searchAnalysesResponse_requestId' - The Amazon Web Services request ID for this operation.
+-- 'analysisSummaryList', 'searchAnalysesResponse_analysisSummaryList' - Metadata describing the analyses that you searched for.
 --
 -- 'nextToken', 'searchAnalysesResponse_nextToken' - A pagination token that can be used in a subsequent request.
 --
--- 'analysisSummaryList', 'searchAnalysesResponse_analysisSummaryList' - Metadata describing the analyses that you searched for.
+-- 'requestId', 'searchAnalysesResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'status', 'searchAnalysesResponse_status' - The HTTP status of the request.
 newSearchAnalysesResponse ::
@@ -238,24 +240,24 @@ newSearchAnalysesResponse ::
   SearchAnalysesResponse
 newSearchAnalysesResponse pStatus_ =
   SearchAnalysesResponse'
-    { requestId =
+    { analysisSummaryList =
         Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      analysisSummaryList = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       status = pStatus_
     }
 
--- | The Amazon Web Services request ID for this operation.
-searchAnalysesResponse_requestId :: Lens.Lens' SearchAnalysesResponse (Prelude.Maybe Prelude.Text)
-searchAnalysesResponse_requestId = Lens.lens (\SearchAnalysesResponse' {requestId} -> requestId) (\s@SearchAnalysesResponse' {} a -> s {requestId = a} :: SearchAnalysesResponse)
+-- | Metadata describing the analyses that you searched for.
+searchAnalysesResponse_analysisSummaryList :: Lens.Lens' SearchAnalysesResponse (Prelude.Maybe [AnalysisSummary])
+searchAnalysesResponse_analysisSummaryList = Lens.lens (\SearchAnalysesResponse' {analysisSummaryList} -> analysisSummaryList) (\s@SearchAnalysesResponse' {} a -> s {analysisSummaryList = a} :: SearchAnalysesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A pagination token that can be used in a subsequent request.
 searchAnalysesResponse_nextToken :: Lens.Lens' SearchAnalysesResponse (Prelude.Maybe Prelude.Text)
 searchAnalysesResponse_nextToken = Lens.lens (\SearchAnalysesResponse' {nextToken} -> nextToken) (\s@SearchAnalysesResponse' {} a -> s {nextToken = a} :: SearchAnalysesResponse)
 
--- | Metadata describing the analyses that you searched for.
-searchAnalysesResponse_analysisSummaryList :: Lens.Lens' SearchAnalysesResponse (Prelude.Maybe [AnalysisSummary])
-searchAnalysesResponse_analysisSummaryList = Lens.lens (\SearchAnalysesResponse' {analysisSummaryList} -> analysisSummaryList) (\s@SearchAnalysesResponse' {} a -> s {analysisSummaryList = a} :: SearchAnalysesResponse) Prelude.. Lens.mapping Lens.coerced
+-- | The Amazon Web Services request ID for this operation.
+searchAnalysesResponse_requestId :: Lens.Lens' SearchAnalysesResponse (Prelude.Maybe Prelude.Text)
+searchAnalysesResponse_requestId = Lens.lens (\SearchAnalysesResponse' {requestId} -> requestId) (\s@SearchAnalysesResponse' {} a -> s {requestId = a} :: SearchAnalysesResponse)
 
 -- | The HTTP status of the request.
 searchAnalysesResponse_status :: Lens.Lens' SearchAnalysesResponse Prelude.Int
@@ -263,7 +265,7 @@ searchAnalysesResponse_status = Lens.lens (\SearchAnalysesResponse' {status} -> 
 
 instance Prelude.NFData SearchAnalysesResponse where
   rnf SearchAnalysesResponse' {..} =
-    Prelude.rnf requestId
+    Prelude.rnf analysisSummaryList
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf analysisSummaryList
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf status

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glacier.AddTagsToVault
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.Glacier.AddTagsToVault
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glacier.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -120,9 +121,9 @@ instance Core.AWSRequest AddTagsToVault where
   type
     AWSResponse AddTagsToVault =
       AddTagsToVaultResponse
-  request =
-    Request.glacierVersionHeader (Core._serviceVersion defaultService)
-      Prelude.. Request.postJSON defaultService
+  request overrides =
+    Request.glacierVersionHeader (Core.version defaultService)
+      Prelude.. Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull AddTagsToVaultResponse'
 
@@ -138,27 +139,27 @@ instance Prelude.NFData AddTagsToVault where
       `Prelude.seq` Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf vaultName
 
-instance Core.ToHeaders AddTagsToVault where
+instance Data.ToHeaders AddTagsToVault where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON AddTagsToVault where
+instance Data.ToJSON AddTagsToVault where
   toJSON AddTagsToVault' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Tags" Core..=) Prelude.<$> tags]
+          [("Tags" Data..=) Prelude.<$> tags]
       )
 
-instance Core.ToPath AddTagsToVault where
+instance Data.ToPath AddTagsToVault where
   toPath AddTagsToVault' {..} =
     Prelude.mconcat
       [ "/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/vaults/",
-        Core.toBS vaultName,
+        Data.toBS vaultName,
         "/tags"
       ]
 
-instance Core.ToQuery AddTagsToVault where
+instance Data.ToQuery AddTagsToVault where
   toQuery =
     Prelude.const (Prelude.mconcat ["operation=add"])
 

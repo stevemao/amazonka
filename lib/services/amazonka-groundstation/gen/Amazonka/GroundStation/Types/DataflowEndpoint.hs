@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GroundStation.Types.DataflowEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,23 +20,24 @@
 module Amazonka.GroundStation.Types.DataflowEndpoint where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GroundStation.Types.EndpointStatus
 import Amazonka.GroundStation.Types.SocketAddress
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a dataflow endpoint.
 --
 -- /See:/ 'newDataflowEndpoint' smart constructor.
 data DataflowEndpoint = DataflowEndpoint'
-  { -- | Maximum transmission unit (MTU) size in bytes of a dataflow endpoint.
-    mtu :: Prelude.Maybe Prelude.Natural,
-    -- | Status of a dataflow endpoint.
-    status :: Prelude.Maybe EndpointStatus,
-    -- | Socket address of a dataflow endpoint.
+  { -- | Socket address of a dataflow endpoint.
     address :: Prelude.Maybe SocketAddress,
+    -- | Maximum transmission unit (MTU) size in bytes of a dataflow endpoint.
+    mtu :: Prelude.Maybe Prelude.Natural,
     -- | Name of a dataflow endpoint.
-    name :: Prelude.Maybe Prelude.Text
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Status of a dataflow endpoint.
+    status :: Prelude.Maybe EndpointStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,72 +49,72 @@ data DataflowEndpoint = DataflowEndpoint'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'mtu', 'dataflowEndpoint_mtu' - Maximum transmission unit (MTU) size in bytes of a dataflow endpoint.
---
--- 'status', 'dataflowEndpoint_status' - Status of a dataflow endpoint.
---
 -- 'address', 'dataflowEndpoint_address' - Socket address of a dataflow endpoint.
 --
+-- 'mtu', 'dataflowEndpoint_mtu' - Maximum transmission unit (MTU) size in bytes of a dataflow endpoint.
+--
 -- 'name', 'dataflowEndpoint_name' - Name of a dataflow endpoint.
+--
+-- 'status', 'dataflowEndpoint_status' - Status of a dataflow endpoint.
 newDataflowEndpoint ::
   DataflowEndpoint
 newDataflowEndpoint =
   DataflowEndpoint'
-    { mtu = Prelude.Nothing,
-      status = Prelude.Nothing,
-      address = Prelude.Nothing,
-      name = Prelude.Nothing
+    { address = Prelude.Nothing,
+      mtu = Prelude.Nothing,
+      name = Prelude.Nothing,
+      status = Prelude.Nothing
     }
-
--- | Maximum transmission unit (MTU) size in bytes of a dataflow endpoint.
-dataflowEndpoint_mtu :: Lens.Lens' DataflowEndpoint (Prelude.Maybe Prelude.Natural)
-dataflowEndpoint_mtu = Lens.lens (\DataflowEndpoint' {mtu} -> mtu) (\s@DataflowEndpoint' {} a -> s {mtu = a} :: DataflowEndpoint)
-
--- | Status of a dataflow endpoint.
-dataflowEndpoint_status :: Lens.Lens' DataflowEndpoint (Prelude.Maybe EndpointStatus)
-dataflowEndpoint_status = Lens.lens (\DataflowEndpoint' {status} -> status) (\s@DataflowEndpoint' {} a -> s {status = a} :: DataflowEndpoint)
 
 -- | Socket address of a dataflow endpoint.
 dataflowEndpoint_address :: Lens.Lens' DataflowEndpoint (Prelude.Maybe SocketAddress)
 dataflowEndpoint_address = Lens.lens (\DataflowEndpoint' {address} -> address) (\s@DataflowEndpoint' {} a -> s {address = a} :: DataflowEndpoint)
 
+-- | Maximum transmission unit (MTU) size in bytes of a dataflow endpoint.
+dataflowEndpoint_mtu :: Lens.Lens' DataflowEndpoint (Prelude.Maybe Prelude.Natural)
+dataflowEndpoint_mtu = Lens.lens (\DataflowEndpoint' {mtu} -> mtu) (\s@DataflowEndpoint' {} a -> s {mtu = a} :: DataflowEndpoint)
+
 -- | Name of a dataflow endpoint.
 dataflowEndpoint_name :: Lens.Lens' DataflowEndpoint (Prelude.Maybe Prelude.Text)
 dataflowEndpoint_name = Lens.lens (\DataflowEndpoint' {name} -> name) (\s@DataflowEndpoint' {} a -> s {name = a} :: DataflowEndpoint)
 
-instance Core.FromJSON DataflowEndpoint where
+-- | Status of a dataflow endpoint.
+dataflowEndpoint_status :: Lens.Lens' DataflowEndpoint (Prelude.Maybe EndpointStatus)
+dataflowEndpoint_status = Lens.lens (\DataflowEndpoint' {status} -> status) (\s@DataflowEndpoint' {} a -> s {status = a} :: DataflowEndpoint)
+
+instance Data.FromJSON DataflowEndpoint where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DataflowEndpoint"
       ( \x ->
           DataflowEndpoint'
-            Prelude.<$> (x Core..:? "mtu")
-            Prelude.<*> (x Core..:? "status")
-            Prelude.<*> (x Core..:? "address")
-            Prelude.<*> (x Core..:? "name")
+            Prelude.<$> (x Data..:? "address")
+            Prelude.<*> (x Data..:? "mtu")
+            Prelude.<*> (x Data..:? "name")
+            Prelude.<*> (x Data..:? "status")
       )
 
 instance Prelude.Hashable DataflowEndpoint where
   hashWithSalt _salt DataflowEndpoint' {..} =
-    _salt `Prelude.hashWithSalt` mtu
-      `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` address
+    _salt `Prelude.hashWithSalt` address
+      `Prelude.hashWithSalt` mtu
       `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData DataflowEndpoint where
   rnf DataflowEndpoint' {..} =
-    Prelude.rnf mtu
-      `Prelude.seq` Prelude.rnf status
-      `Prelude.seq` Prelude.rnf address
+    Prelude.rnf address
+      `Prelude.seq` Prelude.rnf mtu
       `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf status
 
-instance Core.ToJSON DataflowEndpoint where
+instance Data.ToJSON DataflowEndpoint where
   toJSON DataflowEndpoint' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("mtu" Core..=) Prelude.<$> mtu,
-            ("status" Core..=) Prelude.<$> status,
-            ("address" Core..=) Prelude.<$> address,
-            ("name" Core..=) Prelude.<$> name
+          [ ("address" Data..=) Prelude.<$> address,
+            ("mtu" Data..=) Prelude.<$> mtu,
+            ("name" Data..=) Prelude.<$> name,
+            ("status" Data..=) Prelude.<$> status
           ]
       )

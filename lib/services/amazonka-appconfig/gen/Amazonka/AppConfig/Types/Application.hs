@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppConfig.Types.Application
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.AppConfig.Types.Application where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | /See:/ 'newApplication' smart constructor.
 data Application = Application'
-  { -- | The application name.
-    name :: Prelude.Maybe Prelude.Text,
+  { -- | The description of the application.
+    description :: Prelude.Maybe Prelude.Text,
     -- | The application ID.
     id :: Prelude.Maybe Prelude.Text,
-    -- | The description of the application.
-    description :: Prelude.Maybe Prelude.Text
+    -- | The application name.
+    name :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,51 +43,51 @@ data Application = Application'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'application_name' - The application name.
+-- 'description', 'application_description' - The description of the application.
 --
 -- 'id', 'application_id' - The application ID.
 --
--- 'description', 'application_description' - The description of the application.
+-- 'name', 'application_name' - The application name.
 newApplication ::
   Application
 newApplication =
   Application'
-    { name = Prelude.Nothing,
+    { description = Prelude.Nothing,
       id = Prelude.Nothing,
-      description = Prelude.Nothing
+      name = Prelude.Nothing
     }
-
--- | The application name.
-application_name :: Lens.Lens' Application (Prelude.Maybe Prelude.Text)
-application_name = Lens.lens (\Application' {name} -> name) (\s@Application' {} a -> s {name = a} :: Application)
-
--- | The application ID.
-application_id :: Lens.Lens' Application (Prelude.Maybe Prelude.Text)
-application_id = Lens.lens (\Application' {id} -> id) (\s@Application' {} a -> s {id = a} :: Application)
 
 -- | The description of the application.
 application_description :: Lens.Lens' Application (Prelude.Maybe Prelude.Text)
 application_description = Lens.lens (\Application' {description} -> description) (\s@Application' {} a -> s {description = a} :: Application)
 
-instance Core.FromJSON Application where
+-- | The application ID.
+application_id :: Lens.Lens' Application (Prelude.Maybe Prelude.Text)
+application_id = Lens.lens (\Application' {id} -> id) (\s@Application' {} a -> s {id = a} :: Application)
+
+-- | The application name.
+application_name :: Lens.Lens' Application (Prelude.Maybe Prelude.Text)
+application_name = Lens.lens (\Application' {name} -> name) (\s@Application' {} a -> s {name = a} :: Application)
+
+instance Data.FromJSON Application where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Application"
       ( \x ->
           Application'
-            Prelude.<$> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "Id")
-            Prelude.<*> (x Core..:? "Description")
+            Prelude.<$> (x Data..:? "Description")
+            Prelude.<*> (x Data..:? "Id")
+            Prelude.<*> (x Data..:? "Name")
       )
 
 instance Prelude.Hashable Application where
   hashWithSalt _salt Application' {..} =
-    _salt `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` id
-      `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` name
 
 instance Prelude.NFData Application where
   rnf Application' {..} =
-    Prelude.rnf name
+    Prelude.rnf description
       `Prelude.seq` Prelude.rnf id
-      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf name

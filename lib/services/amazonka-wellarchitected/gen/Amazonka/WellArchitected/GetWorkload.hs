@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WellArchitected.GetWorkload
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.WellArchitected.GetWorkload
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,12 +77,13 @@ getWorkload_workloadId = Lens.lens (\GetWorkload' {workloadId} -> workloadId) (\
 
 instance Core.AWSRequest GetWorkload where
   type AWSResponse GetWorkload = GetWorkloadResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetWorkloadResponse'
-            Prelude.<$> (x Core..?> "Workload")
+            Prelude.<$> (x Data..?> "Workload")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -92,23 +94,23 @@ instance Prelude.Hashable GetWorkload where
 instance Prelude.NFData GetWorkload where
   rnf GetWorkload' {..} = Prelude.rnf workloadId
 
-instance Core.ToHeaders GetWorkload where
+instance Data.ToHeaders GetWorkload where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetWorkload where
+instance Data.ToPath GetWorkload where
   toPath GetWorkload' {..} =
     Prelude.mconcat
-      ["/workloads/", Core.toBS workloadId]
+      ["/workloads/", Data.toBS workloadId]
 
-instance Core.ToQuery GetWorkload where
+instance Data.ToQuery GetWorkload where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Output of a get workload call.

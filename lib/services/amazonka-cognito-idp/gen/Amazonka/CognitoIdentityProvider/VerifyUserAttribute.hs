@@ -14,13 +14,18 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.VerifyUserAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Verifies the specified user attributes in the user pool.
+--
+-- If your user pool requires verification before Amazon Cognito updates
+-- the attribute value, VerifyUserAttribute updates the affected attribute
+-- to its pending value. For more information, see
+-- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_UserAttributeUpdateSettingsType.html UserAttributeUpdateSettingsType>.
 module Amazonka.CognitoIdentityProvider.VerifyUserAttribute
   ( -- * Creating a Request
     VerifyUserAttribute (..),
@@ -42,7 +47,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -51,8 +57,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newVerifyUserAttribute' smart constructor.
 data VerifyUserAttribute = VerifyUserAttribute'
-  { -- | Represents the access token of the request to verify user attributes.
-    accessToken :: Core.Sensitive Prelude.Text,
+  { -- | A valid access token that Amazon Cognito issued to the user whose user
+    -- attributes you want to verify.
+    accessToken :: Data.Sensitive Prelude.Text,
     -- | The attribute name in the request to verify user attributes.
     attributeName :: Prelude.Text,
     -- | The verification code in the request to verify user attributes.
@@ -68,7 +75,8 @@ data VerifyUserAttribute = VerifyUserAttribute'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'accessToken', 'verifyUserAttribute_accessToken' - Represents the access token of the request to verify user attributes.
+-- 'accessToken', 'verifyUserAttribute_accessToken' - A valid access token that Amazon Cognito issued to the user whose user
+-- attributes you want to verify.
 --
 -- 'attributeName', 'verifyUserAttribute_attributeName' - The attribute name in the request to verify user attributes.
 --
@@ -87,14 +95,15 @@ newVerifyUserAttribute
   pCode_ =
     VerifyUserAttribute'
       { accessToken =
-          Core._Sensitive Lens.# pAccessToken_,
+          Data._Sensitive Lens.# pAccessToken_,
         attributeName = pAttributeName_,
         code = pCode_
       }
 
--- | Represents the access token of the request to verify user attributes.
+-- | A valid access token that Amazon Cognito issued to the user whose user
+-- attributes you want to verify.
 verifyUserAttribute_accessToken :: Lens.Lens' VerifyUserAttribute Prelude.Text
-verifyUserAttribute_accessToken = Lens.lens (\VerifyUserAttribute' {accessToken} -> accessToken) (\s@VerifyUserAttribute' {} a -> s {accessToken = a} :: VerifyUserAttribute) Prelude.. Core._Sensitive
+verifyUserAttribute_accessToken = Lens.lens (\VerifyUserAttribute' {accessToken} -> accessToken) (\s@VerifyUserAttribute' {} a -> s {accessToken = a} :: VerifyUserAttribute) Prelude.. Data._Sensitive
 
 -- | The attribute name in the request to verify user attributes.
 verifyUserAttribute_attributeName :: Lens.Lens' VerifyUserAttribute Prelude.Text
@@ -108,7 +117,8 @@ instance Core.AWSRequest VerifyUserAttribute where
   type
     AWSResponse VerifyUserAttribute =
       VerifyUserAttributeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -128,35 +138,35 @@ instance Prelude.NFData VerifyUserAttribute where
       `Prelude.seq` Prelude.rnf attributeName
       `Prelude.seq` Prelude.rnf code
 
-instance Core.ToHeaders VerifyUserAttribute where
+instance Data.ToHeaders VerifyUserAttribute where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.VerifyUserAttribute" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.VerifyUserAttribute" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON VerifyUserAttribute where
+instance Data.ToJSON VerifyUserAttribute where
   toJSON VerifyUserAttribute' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("AccessToken" Core..= accessToken),
-            Prelude.Just ("AttributeName" Core..= attributeName),
-            Prelude.Just ("Code" Core..= code)
+          [ Prelude.Just ("AccessToken" Data..= accessToken),
+            Prelude.Just ("AttributeName" Data..= attributeName),
+            Prelude.Just ("Code" Data..= code)
           ]
       )
 
-instance Core.ToPath VerifyUserAttribute where
+instance Data.ToPath VerifyUserAttribute where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery VerifyUserAttribute where
+instance Data.ToQuery VerifyUserAttribute where
   toQuery = Prelude.const Prelude.mempty
 
 -- | A container representing the response from the server from the request

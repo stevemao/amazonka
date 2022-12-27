@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.ListElasticsearchInstanceTypes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,9 +30,9 @@ module Amazonka.ElasticSearch.ListElasticsearchInstanceTypes
     newListElasticsearchInstanceTypes,
 
     -- * Request Lenses
-    listElasticsearchInstanceTypes_nextToken,
     listElasticsearchInstanceTypes_domainName,
     listElasticsearchInstanceTypes_maxResults,
+    listElasticsearchInstanceTypes_nextToken,
     listElasticsearchInstanceTypes_elasticsearchVersion,
 
     -- * Destructuring the Response
@@ -47,8 +47,9 @@ module Amazonka.ElasticSearch.ListElasticsearchInstanceTypes
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,16 +59,16 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListElasticsearchInstanceTypes' smart constructor.
 data ListElasticsearchInstanceTypes = ListElasticsearchInstanceTypes'
-  { -- | NextToken should be sent in case if earlier API call produced result
-    -- containing NextToken. It is used for pagination.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | DomainName represents the name of the Domain that we are trying to
+  { -- | DomainName represents the name of the Domain that we are trying to
     -- modify. This should be present only if we are querying for list of
     -- available Elasticsearch instance types when modifying existing domain.
     domainName :: Prelude.Maybe Prelude.Text,
     -- | Set this value to limit the number of results returned. Value provided
     -- must be greater than 30 else it wont be honored.
     maxResults :: Prelude.Maybe Prelude.Int,
+    -- | NextToken should be sent in case if earlier API call produced result
+    -- containing NextToken. It is used for pagination.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | Version of Elasticsearch for which list of supported elasticsearch
     -- instance types are needed.
     elasticsearchVersion :: Prelude.Text
@@ -82,15 +83,15 @@ data ListElasticsearchInstanceTypes = ListElasticsearchInstanceTypes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listElasticsearchInstanceTypes_nextToken' - NextToken should be sent in case if earlier API call produced result
--- containing NextToken. It is used for pagination.
---
 -- 'domainName', 'listElasticsearchInstanceTypes_domainName' - DomainName represents the name of the Domain that we are trying to
 -- modify. This should be present only if we are querying for list of
 -- available Elasticsearch instance types when modifying existing domain.
 --
 -- 'maxResults', 'listElasticsearchInstanceTypes_maxResults' - Set this value to limit the number of results returned. Value provided
 -- must be greater than 30 else it wont be honored.
+--
+-- 'nextToken', 'listElasticsearchInstanceTypes_nextToken' - NextToken should be sent in case if earlier API call produced result
+-- containing NextToken. It is used for pagination.
 --
 -- 'elasticsearchVersion', 'listElasticsearchInstanceTypes_elasticsearchVersion' - Version of Elasticsearch for which list of supported elasticsearch
 -- instance types are needed.
@@ -101,18 +102,13 @@ newListElasticsearchInstanceTypes ::
 newListElasticsearchInstanceTypes
   pElasticsearchVersion_ =
     ListElasticsearchInstanceTypes'
-      { nextToken =
+      { domainName =
           Prelude.Nothing,
-        domainName = Prelude.Nothing,
         maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         elasticsearchVersion =
           pElasticsearchVersion_
       }
-
--- | NextToken should be sent in case if earlier API call produced result
--- containing NextToken. It is used for pagination.
-listElasticsearchInstanceTypes_nextToken :: Lens.Lens' ListElasticsearchInstanceTypes (Prelude.Maybe Prelude.Text)
-listElasticsearchInstanceTypes_nextToken = Lens.lens (\ListElasticsearchInstanceTypes' {nextToken} -> nextToken) (\s@ListElasticsearchInstanceTypes' {} a -> s {nextToken = a} :: ListElasticsearchInstanceTypes)
 
 -- | DomainName represents the name of the Domain that we are trying to
 -- modify. This should be present only if we are querying for list of
@@ -124,6 +120,11 @@ listElasticsearchInstanceTypes_domainName = Lens.lens (\ListElasticsearchInstanc
 -- must be greater than 30 else it wont be honored.
 listElasticsearchInstanceTypes_maxResults :: Lens.Lens' ListElasticsearchInstanceTypes (Prelude.Maybe Prelude.Int)
 listElasticsearchInstanceTypes_maxResults = Lens.lens (\ListElasticsearchInstanceTypes' {maxResults} -> maxResults) (\s@ListElasticsearchInstanceTypes' {} a -> s {maxResults = a} :: ListElasticsearchInstanceTypes)
+
+-- | NextToken should be sent in case if earlier API call produced result
+-- containing NextToken. It is used for pagination.
+listElasticsearchInstanceTypes_nextToken :: Lens.Lens' ListElasticsearchInstanceTypes (Prelude.Maybe Prelude.Text)
+listElasticsearchInstanceTypes_nextToken = Lens.lens (\ListElasticsearchInstanceTypes' {nextToken} -> nextToken) (\s@ListElasticsearchInstanceTypes' {} a -> s {nextToken = a} :: ListElasticsearchInstanceTypes)
 
 -- | Version of Elasticsearch for which list of supported elasticsearch
 -- instance types are needed.
@@ -159,15 +160,16 @@ instance
   type
     AWSResponse ListElasticsearchInstanceTypes =
       ListElasticsearchInstanceTypesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListElasticsearchInstanceTypesResponse'
-            Prelude.<$> ( x Core..?> "ElasticsearchInstanceTypes"
+            Prelude.<$> ( x Data..?> "ElasticsearchInstanceTypes"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -178,9 +180,9 @@ instance
   hashWithSalt
     _salt
     ListElasticsearchInstanceTypes' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` domainName
+      _salt `Prelude.hashWithSalt` domainName
         `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` elasticsearchVersion
 
 instance
@@ -188,30 +190,30 @@ instance
     ListElasticsearchInstanceTypes
   where
   rnf ListElasticsearchInstanceTypes' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf domainName
+    Prelude.rnf domainName
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf elasticsearchVersion
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListElasticsearchInstanceTypes
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListElasticsearchInstanceTypes where
+instance Data.ToPath ListElasticsearchInstanceTypes where
   toPath ListElasticsearchInstanceTypes' {..} =
     Prelude.mconcat
       [ "/2015-01-01/es/instanceTypes/",
-        Core.toBS elasticsearchVersion
+        Data.toBS elasticsearchVersion
       ]
 
-instance Core.ToQuery ListElasticsearchInstanceTypes where
+instance Data.ToQuery ListElasticsearchInstanceTypes where
   toQuery ListElasticsearchInstanceTypes' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "domainName" Core.=: domainName,
-        "maxResults" Core.=: maxResults
+      [ "domainName" Data.=: domainName,
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | Container for the parameters returned by

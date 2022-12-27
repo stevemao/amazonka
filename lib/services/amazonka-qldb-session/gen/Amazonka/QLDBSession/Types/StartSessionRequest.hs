@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QLDBSession.Types.StartSessionRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QLDBSession.Types.StartSessionRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies a request to start a new session.
@@ -59,9 +60,9 @@ instance Prelude.Hashable StartSessionRequest where
 instance Prelude.NFData StartSessionRequest where
   rnf StartSessionRequest' {..} = Prelude.rnf ledgerName
 
-instance Core.ToJSON StartSessionRequest where
+instance Data.ToJSON StartSessionRequest where
   toJSON StartSessionRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("LedgerName" Core..= ledgerName)]
+          [Prelude.Just ("LedgerName" Data..= ledgerName)]
       )

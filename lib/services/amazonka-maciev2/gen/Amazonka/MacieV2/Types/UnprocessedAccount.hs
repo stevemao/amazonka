@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.UnprocessedAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.UnprocessedAccount where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types.ErrorCode
 import qualified Amazonka.Prelude as Prelude
 
@@ -75,15 +76,15 @@ unprocessedAccount_errorCode = Lens.lens (\UnprocessedAccount' {errorCode} -> er
 unprocessedAccount_errorMessage :: Lens.Lens' UnprocessedAccount (Prelude.Maybe Prelude.Text)
 unprocessedAccount_errorMessage = Lens.lens (\UnprocessedAccount' {errorMessage} -> errorMessage) (\s@UnprocessedAccount' {} a -> s {errorMessage = a} :: UnprocessedAccount)
 
-instance Core.FromJSON UnprocessedAccount where
+instance Data.FromJSON UnprocessedAccount where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UnprocessedAccount"
       ( \x ->
           UnprocessedAccount'
-            Prelude.<$> (x Core..:? "accountId")
-            Prelude.<*> (x Core..:? "errorCode")
-            Prelude.<*> (x Core..:? "errorMessage")
+            Prelude.<$> (x Data..:? "accountId")
+            Prelude.<*> (x Data..:? "errorCode")
+            Prelude.<*> (x Data..:? "errorMessage")
       )
 
 instance Prelude.Hashable UnprocessedAccount where

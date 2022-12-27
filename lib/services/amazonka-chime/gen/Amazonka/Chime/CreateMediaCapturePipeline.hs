@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.CreateMediaCapturePipeline
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,17 +58,17 @@ data CreateMediaCapturePipeline = CreateMediaCapturePipeline'
     -- must be @ChimeSdkMeeting@.
     chimeSdkMeetingConfiguration :: Prelude.Maybe ChimeSdkMeetingConfiguration,
     -- | The token assigned to the client making the pipeline request.
-    clientRequestToken :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    clientRequestToken :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | Source type from which the media artifacts will be captured. A Chime SDK
     -- Meeting is the only supported source.
     sourceType :: MediaPipelineSourceType,
     -- | ARN of the source from which the media artifacts are captured.
-    sourceArn :: Core.Sensitive Prelude.Text,
+    sourceArn :: Data.Sensitive Prelude.Text,
     -- | Destination type to which the media artifacts are saved. You must use an
     -- S3 bucket.
     sinkType :: MediaPipelineSinkType,
     -- | The ARN of the sink type.
-    sinkArn :: Core.Sensitive Prelude.Text
+    sinkArn :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -113,9 +114,9 @@ newCreateMediaCapturePipeline
           Prelude.Nothing,
         clientRequestToken = Prelude.Nothing,
         sourceType = pSourceType_,
-        sourceArn = Core._Sensitive Lens.# pSourceArn_,
+        sourceArn = Data._Sensitive Lens.# pSourceArn_,
         sinkType = pSinkType_,
-        sinkArn = Core._Sensitive Lens.# pSinkArn_
+        sinkArn = Data._Sensitive Lens.# pSinkArn_
       }
 
 -- | The configuration for a specified media capture pipeline. @SourceType@
@@ -125,7 +126,7 @@ createMediaCapturePipeline_chimeSdkMeetingConfiguration = Lens.lens (\CreateMedi
 
 -- | The token assigned to the client making the pipeline request.
 createMediaCapturePipeline_clientRequestToken :: Lens.Lens' CreateMediaCapturePipeline (Prelude.Maybe Prelude.Text)
-createMediaCapturePipeline_clientRequestToken = Lens.lens (\CreateMediaCapturePipeline' {clientRequestToken} -> clientRequestToken) (\s@CreateMediaCapturePipeline' {} a -> s {clientRequestToken = a} :: CreateMediaCapturePipeline) Prelude.. Lens.mapping Core._Sensitive
+createMediaCapturePipeline_clientRequestToken = Lens.lens (\CreateMediaCapturePipeline' {clientRequestToken} -> clientRequestToken) (\s@CreateMediaCapturePipeline' {} a -> s {clientRequestToken = a} :: CreateMediaCapturePipeline) Prelude.. Lens.mapping Data._Sensitive
 
 -- | Source type from which the media artifacts will be captured. A Chime SDK
 -- Meeting is the only supported source.
@@ -134,7 +135,7 @@ createMediaCapturePipeline_sourceType = Lens.lens (\CreateMediaCapturePipeline' 
 
 -- | ARN of the source from which the media artifacts are captured.
 createMediaCapturePipeline_sourceArn :: Lens.Lens' CreateMediaCapturePipeline Prelude.Text
-createMediaCapturePipeline_sourceArn = Lens.lens (\CreateMediaCapturePipeline' {sourceArn} -> sourceArn) (\s@CreateMediaCapturePipeline' {} a -> s {sourceArn = a} :: CreateMediaCapturePipeline) Prelude.. Core._Sensitive
+createMediaCapturePipeline_sourceArn = Lens.lens (\CreateMediaCapturePipeline' {sourceArn} -> sourceArn) (\s@CreateMediaCapturePipeline' {} a -> s {sourceArn = a} :: CreateMediaCapturePipeline) Prelude.. Data._Sensitive
 
 -- | Destination type to which the media artifacts are saved. You must use an
 -- S3 bucket.
@@ -143,18 +144,19 @@ createMediaCapturePipeline_sinkType = Lens.lens (\CreateMediaCapturePipeline' {s
 
 -- | The ARN of the sink type.
 createMediaCapturePipeline_sinkArn :: Lens.Lens' CreateMediaCapturePipeline Prelude.Text
-createMediaCapturePipeline_sinkArn = Lens.lens (\CreateMediaCapturePipeline' {sinkArn} -> sinkArn) (\s@CreateMediaCapturePipeline' {} a -> s {sinkArn = a} :: CreateMediaCapturePipeline) Prelude.. Core._Sensitive
+createMediaCapturePipeline_sinkArn = Lens.lens (\CreateMediaCapturePipeline' {sinkArn} -> sinkArn) (\s@CreateMediaCapturePipeline' {} a -> s {sinkArn = a} :: CreateMediaCapturePipeline) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest CreateMediaCapturePipeline where
   type
     AWSResponse CreateMediaCapturePipeline =
       CreateMediaCapturePipelineResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateMediaCapturePipelineResponse'
-            Prelude.<$> (x Core..?> "MediaCapturePipeline")
+            Prelude.<$> (x Data..?> "MediaCapturePipeline")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -177,28 +179,28 @@ instance Prelude.NFData CreateMediaCapturePipeline where
       `Prelude.seq` Prelude.rnf sinkType
       `Prelude.seq` Prelude.rnf sinkArn
 
-instance Core.ToHeaders CreateMediaCapturePipeline where
+instance Data.ToHeaders CreateMediaCapturePipeline where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateMediaCapturePipeline where
+instance Data.ToJSON CreateMediaCapturePipeline where
   toJSON CreateMediaCapturePipeline' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ChimeSdkMeetingConfiguration" Core..=)
+          [ ("ChimeSdkMeetingConfiguration" Data..=)
               Prelude.<$> chimeSdkMeetingConfiguration,
-            ("ClientRequestToken" Core..=)
+            ("ClientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
-            Prelude.Just ("SourceType" Core..= sourceType),
-            Prelude.Just ("SourceArn" Core..= sourceArn),
-            Prelude.Just ("SinkType" Core..= sinkType),
-            Prelude.Just ("SinkArn" Core..= sinkArn)
+            Prelude.Just ("SourceType" Data..= sourceType),
+            Prelude.Just ("SourceArn" Data..= sourceArn),
+            Prelude.Just ("SinkType" Data..= sinkType),
+            Prelude.Just ("SinkArn" Data..= sinkArn)
           ]
       )
 
-instance Core.ToPath CreateMediaCapturePipeline where
+instance Data.ToPath CreateMediaCapturePipeline where
   toPath = Prelude.const "/media-capture-pipelines"
 
-instance Core.ToQuery CreateMediaCapturePipeline where
+instance Data.ToQuery CreateMediaCapturePipeline where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateMediaCapturePipelineResponse' smart constructor.

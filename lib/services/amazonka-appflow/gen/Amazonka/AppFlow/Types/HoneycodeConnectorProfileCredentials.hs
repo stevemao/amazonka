@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.HoneycodeConnectorProfileCredentials
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppFlow.Types.HoneycodeConnectorProfileCredentials where
 
 import Amazonka.AppFlow.Types.ConnectorOAuthRequest
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The connector-specific credentials required when using Amazon Honeycode.
@@ -29,10 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newHoneycodeConnectorProfileCredentials' smart constructor.
 data HoneycodeConnectorProfileCredentials = HoneycodeConnectorProfileCredentials'
   { -- | The credentials used to access protected Amazon Honeycode resources.
-    accessToken :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    accessToken :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    oAuthRequest :: Prelude.Maybe ConnectorOAuthRequest,
     -- | The credentials used to acquire new access tokens.
-    refreshToken :: Prelude.Maybe Prelude.Text,
-    oAuthRequest :: Prelude.Maybe ConnectorOAuthRequest
+    refreshToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -46,30 +47,30 @@ data HoneycodeConnectorProfileCredentials = HoneycodeConnectorProfileCredentials
 --
 -- 'accessToken', 'honeycodeConnectorProfileCredentials_accessToken' - The credentials used to access protected Amazon Honeycode resources.
 --
--- 'refreshToken', 'honeycodeConnectorProfileCredentials_refreshToken' - The credentials used to acquire new access tokens.
---
 -- 'oAuthRequest', 'honeycodeConnectorProfileCredentials_oAuthRequest' - Undocumented member.
+--
+-- 'refreshToken', 'honeycodeConnectorProfileCredentials_refreshToken' - The credentials used to acquire new access tokens.
 newHoneycodeConnectorProfileCredentials ::
   HoneycodeConnectorProfileCredentials
 newHoneycodeConnectorProfileCredentials =
   HoneycodeConnectorProfileCredentials'
     { accessToken =
         Prelude.Nothing,
-      refreshToken = Prelude.Nothing,
-      oAuthRequest = Prelude.Nothing
+      oAuthRequest = Prelude.Nothing,
+      refreshToken = Prelude.Nothing
     }
 
 -- | The credentials used to access protected Amazon Honeycode resources.
 honeycodeConnectorProfileCredentials_accessToken :: Lens.Lens' HoneycodeConnectorProfileCredentials (Prelude.Maybe Prelude.Text)
-honeycodeConnectorProfileCredentials_accessToken = Lens.lens (\HoneycodeConnectorProfileCredentials' {accessToken} -> accessToken) (\s@HoneycodeConnectorProfileCredentials' {} a -> s {accessToken = a} :: HoneycodeConnectorProfileCredentials) Prelude.. Lens.mapping Core._Sensitive
-
--- | The credentials used to acquire new access tokens.
-honeycodeConnectorProfileCredentials_refreshToken :: Lens.Lens' HoneycodeConnectorProfileCredentials (Prelude.Maybe Prelude.Text)
-honeycodeConnectorProfileCredentials_refreshToken = Lens.lens (\HoneycodeConnectorProfileCredentials' {refreshToken} -> refreshToken) (\s@HoneycodeConnectorProfileCredentials' {} a -> s {refreshToken = a} :: HoneycodeConnectorProfileCredentials)
+honeycodeConnectorProfileCredentials_accessToken = Lens.lens (\HoneycodeConnectorProfileCredentials' {accessToken} -> accessToken) (\s@HoneycodeConnectorProfileCredentials' {} a -> s {accessToken = a} :: HoneycodeConnectorProfileCredentials) Prelude.. Lens.mapping Data._Sensitive
 
 -- | Undocumented member.
 honeycodeConnectorProfileCredentials_oAuthRequest :: Lens.Lens' HoneycodeConnectorProfileCredentials (Prelude.Maybe ConnectorOAuthRequest)
 honeycodeConnectorProfileCredentials_oAuthRequest = Lens.lens (\HoneycodeConnectorProfileCredentials' {oAuthRequest} -> oAuthRequest) (\s@HoneycodeConnectorProfileCredentials' {} a -> s {oAuthRequest = a} :: HoneycodeConnectorProfileCredentials)
+
+-- | The credentials used to acquire new access tokens.
+honeycodeConnectorProfileCredentials_refreshToken :: Lens.Lens' HoneycodeConnectorProfileCredentials (Prelude.Maybe Prelude.Text)
+honeycodeConnectorProfileCredentials_refreshToken = Lens.lens (\HoneycodeConnectorProfileCredentials' {refreshToken} -> refreshToken) (\s@HoneycodeConnectorProfileCredentials' {} a -> s {refreshToken = a} :: HoneycodeConnectorProfileCredentials)
 
 instance
   Prelude.Hashable
@@ -79,8 +80,8 @@ instance
     _salt
     HoneycodeConnectorProfileCredentials' {..} =
       _salt `Prelude.hashWithSalt` accessToken
-        `Prelude.hashWithSalt` refreshToken
         `Prelude.hashWithSalt` oAuthRequest
+        `Prelude.hashWithSalt` refreshToken
 
 instance
   Prelude.NFData
@@ -88,18 +89,18 @@ instance
   where
   rnf HoneycodeConnectorProfileCredentials' {..} =
     Prelude.rnf accessToken
-      `Prelude.seq` Prelude.rnf refreshToken
       `Prelude.seq` Prelude.rnf oAuthRequest
+      `Prelude.seq` Prelude.rnf refreshToken
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     HoneycodeConnectorProfileCredentials
   where
   toJSON HoneycodeConnectorProfileCredentials' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("accessToken" Core..=) Prelude.<$> accessToken,
-            ("refreshToken" Core..=) Prelude.<$> refreshToken,
-            ("oAuthRequest" Core..=) Prelude.<$> oAuthRequest
+          [ ("accessToken" Data..=) Prelude.<$> accessToken,
+            ("oAuthRequest" Data..=) Prelude.<$> oAuthRequest,
+            ("refreshToken" Data..=) Prelude.<$> refreshToken
           ]
       )

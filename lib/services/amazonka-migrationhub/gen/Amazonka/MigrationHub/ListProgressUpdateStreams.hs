@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MigrationHub.ListProgressUpdateStreams
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,22 +30,23 @@ module Amazonka.MigrationHub.ListProgressUpdateStreams
     newListProgressUpdateStreams,
 
     -- * Request Lenses
-    listProgressUpdateStreams_nextToken,
     listProgressUpdateStreams_maxResults,
+    listProgressUpdateStreams_nextToken,
 
     -- * Destructuring the Response
     ListProgressUpdateStreamsResponse (..),
     newListProgressUpdateStreamsResponse,
 
     -- * Response Lenses
-    listProgressUpdateStreamsResponse_progressUpdateStreamSummaryList,
     listProgressUpdateStreamsResponse_nextToken,
+    listProgressUpdateStreamsResponse_progressUpdateStreamSummaryList,
     listProgressUpdateStreamsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MigrationHub.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -53,12 +54,12 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListProgressUpdateStreams' smart constructor.
 data ListProgressUpdateStreams = ListProgressUpdateStreams'
-  { -- | If a @NextToken@ was returned by a previous call, there are more results
+  { -- | Filter to limit the maximum number of results to list per page.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | If a @NextToken@ was returned by a previous call, there are more results
     -- available. To retrieve the next page of results, make the call again
     -- using the returned token in @NextToken@.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Filter to limit the maximum number of results to list per page.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -70,29 +71,29 @@ data ListProgressUpdateStreams = ListProgressUpdateStreams'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listProgressUpdateStreams_maxResults' - Filter to limit the maximum number of results to list per page.
+--
 -- 'nextToken', 'listProgressUpdateStreams_nextToken' - If a @NextToken@ was returned by a previous call, there are more results
 -- available. To retrieve the next page of results, make the call again
 -- using the returned token in @NextToken@.
---
--- 'maxResults', 'listProgressUpdateStreams_maxResults' - Filter to limit the maximum number of results to list per page.
 newListProgressUpdateStreams ::
   ListProgressUpdateStreams
 newListProgressUpdateStreams =
   ListProgressUpdateStreams'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
+
+-- | Filter to limit the maximum number of results to list per page.
+listProgressUpdateStreams_maxResults :: Lens.Lens' ListProgressUpdateStreams (Prelude.Maybe Prelude.Natural)
+listProgressUpdateStreams_maxResults = Lens.lens (\ListProgressUpdateStreams' {maxResults} -> maxResults) (\s@ListProgressUpdateStreams' {} a -> s {maxResults = a} :: ListProgressUpdateStreams)
 
 -- | If a @NextToken@ was returned by a previous call, there are more results
 -- available. To retrieve the next page of results, make the call again
 -- using the returned token in @NextToken@.
 listProgressUpdateStreams_nextToken :: Lens.Lens' ListProgressUpdateStreams (Prelude.Maybe Prelude.Text)
 listProgressUpdateStreams_nextToken = Lens.lens (\ListProgressUpdateStreams' {nextToken} -> nextToken) (\s@ListProgressUpdateStreams' {} a -> s {nextToken = a} :: ListProgressUpdateStreams)
-
--- | Filter to limit the maximum number of results to list per page.
-listProgressUpdateStreams_maxResults :: Lens.Lens' ListProgressUpdateStreams (Prelude.Maybe Prelude.Natural)
-listProgressUpdateStreams_maxResults = Lens.lens (\ListProgressUpdateStreams' {maxResults} -> maxResults) (\s@ListProgressUpdateStreams' {} a -> s {maxResults = a} :: ListProgressUpdateStreams)
 
 instance Core.AWSPager ListProgressUpdateStreams where
   page rq rs
@@ -120,67 +121,68 @@ instance Core.AWSRequest ListProgressUpdateStreams where
   type
     AWSResponse ListProgressUpdateStreams =
       ListProgressUpdateStreamsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListProgressUpdateStreamsResponse'
-            Prelude.<$> ( x Core..?> "ProgressUpdateStreamSummaryList"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "ProgressUpdateStreamSummaryList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListProgressUpdateStreams where
   hashWithSalt _salt ListProgressUpdateStreams' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListProgressUpdateStreams where
   rnf ListProgressUpdateStreams' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListProgressUpdateStreams where
+instance Data.ToHeaders ListProgressUpdateStreams where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSMigrationHub.ListProgressUpdateStreams" ::
+              Data.=# ( "AWSMigrationHub.ListProgressUpdateStreams" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListProgressUpdateStreams where
+instance Data.ToJSON ListProgressUpdateStreams where
   toJSON ListProgressUpdateStreams' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListProgressUpdateStreams where
+instance Data.ToPath ListProgressUpdateStreams where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListProgressUpdateStreams where
+instance Data.ToQuery ListProgressUpdateStreams where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListProgressUpdateStreamsResponse' smart constructor.
 data ListProgressUpdateStreamsResponse = ListProgressUpdateStreamsResponse'
-  { -- | List of progress update streams up to the max number of results passed
-    -- in the input.
-    progressUpdateStreamSummaryList :: Prelude.Maybe [ProgressUpdateStreamSummary],
-    -- | If there are more streams created than the max result, return the next
+  { -- | If there are more streams created than the max result, return the next
     -- token to be passed to the next call as a bookmark of where to start
     -- from.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | List of progress update streams up to the max number of results passed
+    -- in the input.
+    progressUpdateStreamSummaryList :: Prelude.Maybe [ProgressUpdateStreamSummary],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -194,12 +196,12 @@ data ListProgressUpdateStreamsResponse = ListProgressUpdateStreamsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'progressUpdateStreamSummaryList', 'listProgressUpdateStreamsResponse_progressUpdateStreamSummaryList' - List of progress update streams up to the max number of results passed
--- in the input.
---
 -- 'nextToken', 'listProgressUpdateStreamsResponse_nextToken' - If there are more streams created than the max result, return the next
 -- token to be passed to the next call as a bookmark of where to start
 -- from.
+--
+-- 'progressUpdateStreamSummaryList', 'listProgressUpdateStreamsResponse_progressUpdateStreamSummaryList' - List of progress update streams up to the max number of results passed
+-- in the input.
 --
 -- 'httpStatus', 'listProgressUpdateStreamsResponse_httpStatus' - The response's http status code.
 newListProgressUpdateStreamsResponse ::
@@ -208,22 +210,23 @@ newListProgressUpdateStreamsResponse ::
   ListProgressUpdateStreamsResponse
 newListProgressUpdateStreamsResponse pHttpStatus_ =
   ListProgressUpdateStreamsResponse'
-    { progressUpdateStreamSummaryList =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      progressUpdateStreamSummaryList =
+        Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | List of progress update streams up to the max number of results passed
--- in the input.
-listProgressUpdateStreamsResponse_progressUpdateStreamSummaryList :: Lens.Lens' ListProgressUpdateStreamsResponse (Prelude.Maybe [ProgressUpdateStreamSummary])
-listProgressUpdateStreamsResponse_progressUpdateStreamSummaryList = Lens.lens (\ListProgressUpdateStreamsResponse' {progressUpdateStreamSummaryList} -> progressUpdateStreamSummaryList) (\s@ListProgressUpdateStreamsResponse' {} a -> s {progressUpdateStreamSummaryList = a} :: ListProgressUpdateStreamsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | If there are more streams created than the max result, return the next
 -- token to be passed to the next call as a bookmark of where to start
 -- from.
 listProgressUpdateStreamsResponse_nextToken :: Lens.Lens' ListProgressUpdateStreamsResponse (Prelude.Maybe Prelude.Text)
 listProgressUpdateStreamsResponse_nextToken = Lens.lens (\ListProgressUpdateStreamsResponse' {nextToken} -> nextToken) (\s@ListProgressUpdateStreamsResponse' {} a -> s {nextToken = a} :: ListProgressUpdateStreamsResponse)
+
+-- | List of progress update streams up to the max number of results passed
+-- in the input.
+listProgressUpdateStreamsResponse_progressUpdateStreamSummaryList :: Lens.Lens' ListProgressUpdateStreamsResponse (Prelude.Maybe [ProgressUpdateStreamSummary])
+listProgressUpdateStreamsResponse_progressUpdateStreamSummaryList = Lens.lens (\ListProgressUpdateStreamsResponse' {progressUpdateStreamSummaryList} -> progressUpdateStreamSummaryList) (\s@ListProgressUpdateStreamsResponse' {} a -> s {progressUpdateStreamSummaryList = a} :: ListProgressUpdateStreamsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listProgressUpdateStreamsResponse_httpStatus :: Lens.Lens' ListProgressUpdateStreamsResponse Prelude.Int
@@ -234,6 +237,6 @@ instance
     ListProgressUpdateStreamsResponse
   where
   rnf ListProgressUpdateStreamsResponse' {..} =
-    Prelude.rnf progressUpdateStreamSummaryList
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf progressUpdateStreamSummaryList
       `Prelude.seq` Prelude.rnf httpStatus

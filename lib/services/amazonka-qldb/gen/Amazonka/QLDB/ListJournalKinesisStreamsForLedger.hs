@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QLDB.ListJournalKinesisStreamsForLedger
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,8 +38,8 @@ module Amazonka.QLDB.ListJournalKinesisStreamsForLedger
     newListJournalKinesisStreamsForLedger,
 
     -- * Request Lenses
-    listJournalKinesisStreamsForLedger_nextToken,
     listJournalKinesisStreamsForLedger_maxResults,
+    listJournalKinesisStreamsForLedger_nextToken,
     listJournalKinesisStreamsForLedger_ledgerName,
 
     -- * Destructuring the Response
@@ -54,7 +54,8 @@ module Amazonka.QLDB.ListJournalKinesisStreamsForLedger
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QLDB.Types
 import qualified Amazonka.Request as Request
@@ -62,15 +63,15 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListJournalKinesisStreamsForLedger' smart constructor.
 data ListJournalKinesisStreamsForLedger = ListJournalKinesisStreamsForLedger'
-  { -- | A pagination token, indicating that you want to retrieve the next page
+  { -- | The maximum number of results to return in a single
+    -- @ListJournalKinesisStreamsForLedger@ request. (The actual number of
+    -- results returned might be fewer.)
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A pagination token, indicating that you want to retrieve the next page
     -- of results. If you received a value for @NextToken@ in the response from
     -- a previous @ListJournalKinesisStreamsForLedger@ call, you should use
     -- that value as input here.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in a single
-    -- @ListJournalKinesisStreamsForLedger@ request. (The actual number of
-    -- results returned might be fewer.)
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The name of the ledger.
     ledgerName :: Prelude.Text
   }
@@ -84,14 +85,14 @@ data ListJournalKinesisStreamsForLedger = ListJournalKinesisStreamsForLedger'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listJournalKinesisStreamsForLedger_maxResults' - The maximum number of results to return in a single
+-- @ListJournalKinesisStreamsForLedger@ request. (The actual number of
+-- results returned might be fewer.)
+--
 -- 'nextToken', 'listJournalKinesisStreamsForLedger_nextToken' - A pagination token, indicating that you want to retrieve the next page
 -- of results. If you received a value for @NextToken@ in the response from
 -- a previous @ListJournalKinesisStreamsForLedger@ call, you should use
 -- that value as input here.
---
--- 'maxResults', 'listJournalKinesisStreamsForLedger_maxResults' - The maximum number of results to return in a single
--- @ListJournalKinesisStreamsForLedger@ request. (The actual number of
--- results returned might be fewer.)
 --
 -- 'ledgerName', 'listJournalKinesisStreamsForLedger_ledgerName' - The name of the ledger.
 newListJournalKinesisStreamsForLedger ::
@@ -100,11 +101,17 @@ newListJournalKinesisStreamsForLedger ::
   ListJournalKinesisStreamsForLedger
 newListJournalKinesisStreamsForLedger pLedgerName_ =
   ListJournalKinesisStreamsForLedger'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       ledgerName = pLedgerName_
     }
+
+-- | The maximum number of results to return in a single
+-- @ListJournalKinesisStreamsForLedger@ request. (The actual number of
+-- results returned might be fewer.)
+listJournalKinesisStreamsForLedger_maxResults :: Lens.Lens' ListJournalKinesisStreamsForLedger (Prelude.Maybe Prelude.Natural)
+listJournalKinesisStreamsForLedger_maxResults = Lens.lens (\ListJournalKinesisStreamsForLedger' {maxResults} -> maxResults) (\s@ListJournalKinesisStreamsForLedger' {} a -> s {maxResults = a} :: ListJournalKinesisStreamsForLedger)
 
 -- | A pagination token, indicating that you want to retrieve the next page
 -- of results. If you received a value for @NextToken@ in the response from
@@ -112,12 +119,6 @@ newListJournalKinesisStreamsForLedger pLedgerName_ =
 -- that value as input here.
 listJournalKinesisStreamsForLedger_nextToken :: Lens.Lens' ListJournalKinesisStreamsForLedger (Prelude.Maybe Prelude.Text)
 listJournalKinesisStreamsForLedger_nextToken = Lens.lens (\ListJournalKinesisStreamsForLedger' {nextToken} -> nextToken) (\s@ListJournalKinesisStreamsForLedger' {} a -> s {nextToken = a} :: ListJournalKinesisStreamsForLedger)
-
--- | The maximum number of results to return in a single
--- @ListJournalKinesisStreamsForLedger@ request. (The actual number of
--- results returned might be fewer.)
-listJournalKinesisStreamsForLedger_maxResults :: Lens.Lens' ListJournalKinesisStreamsForLedger (Prelude.Maybe Prelude.Natural)
-listJournalKinesisStreamsForLedger_maxResults = Lens.lens (\ListJournalKinesisStreamsForLedger' {maxResults} -> maxResults) (\s@ListJournalKinesisStreamsForLedger' {} a -> s {maxResults = a} :: ListJournalKinesisStreamsForLedger)
 
 -- | The name of the ledger.
 listJournalKinesisStreamsForLedger_ledgerName :: Lens.Lens' ListJournalKinesisStreamsForLedger Prelude.Text
@@ -130,13 +131,14 @@ instance
   type
     AWSResponse ListJournalKinesisStreamsForLedger =
       ListJournalKinesisStreamsForLedgerResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListJournalKinesisStreamsForLedgerResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-              Prelude.<*> (x Core..?> "Streams" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+              Prelude.<*> (x Data..?> "Streams" Core..!@ Prelude.mempty)
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -147,8 +149,8 @@ instance
   hashWithSalt
     _salt
     ListJournalKinesisStreamsForLedger' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` ledgerName
 
 instance
@@ -156,43 +158,43 @@ instance
     ListJournalKinesisStreamsForLedger
   where
   rnf ListJournalKinesisStreamsForLedger' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf ledgerName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListJournalKinesisStreamsForLedger
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     ListJournalKinesisStreamsForLedger
   where
   toPath ListJournalKinesisStreamsForLedger' {..} =
     Prelude.mconcat
       [ "/ledgers/",
-        Core.toBS ledgerName,
+        Data.toBS ledgerName,
         "/journal-kinesis-streams"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ListJournalKinesisStreamsForLedger
   where
   toQuery ListJournalKinesisStreamsForLedger' {..} =
     Prelude.mconcat
-      [ "next_token" Core.=: nextToken,
-        "max_results" Core.=: maxResults
+      [ "max_results" Data.=: maxResults,
+        "next_token" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListJournalKinesisStreamsForLedgerResponse' smart constructor.

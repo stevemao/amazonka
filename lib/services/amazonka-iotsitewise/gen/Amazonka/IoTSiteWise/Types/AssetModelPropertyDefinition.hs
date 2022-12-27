@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.AssetModelPropertyDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.IoTSiteWise.Types.AssetModelPropertyDefinition where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types.PropertyDataType
 import Amazonka.IoTSiteWise.Types.PropertyType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains an asset model property definition. This property definition is
@@ -147,14 +148,14 @@ instance Prelude.NFData AssetModelPropertyDefinition where
       `Prelude.seq` Prelude.rnf dataType
       `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON AssetModelPropertyDefinition where
+instance Data.ToJSON AssetModelPropertyDefinition where
   toJSON AssetModelPropertyDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("dataTypeSpec" Core..=) Prelude.<$> dataTypeSpec,
-            ("unit" Core..=) Prelude.<$> unit,
-            Prelude.Just ("name" Core..= name),
-            Prelude.Just ("dataType" Core..= dataType),
-            Prelude.Just ("type" Core..= type')
+          [ ("dataTypeSpec" Data..=) Prelude.<$> dataTypeSpec,
+            ("unit" Data..=) Prelude.<$> unit,
+            Prelude.Just ("name" Data..= name),
+            Prelude.Just ("dataType" Data..= dataType),
+            Prelude.Just ("type" Data..= type')
           ]
       )

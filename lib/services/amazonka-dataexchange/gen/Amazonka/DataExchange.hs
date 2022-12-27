@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.DataExchange
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -16,22 +16,25 @@
 -- create, update, manage, and access file-based data set in the AWS Cloud.
 --
 -- As a subscriber, you can view and access the data sets that you have an
--- entitlement to through a subscription. You can use the APIS to download
--- or copy your entitled data sets to Amazon S3 for use across a variety of
--- AWS analytics and machine learning services.
+-- entitlement to through a subscription. You can use the APIs to download
+-- or copy your entitled data sets to Amazon Simple Storage Service (Amazon
+-- S3) for use across a variety of AWS analytics and machine learning
+-- services.
 --
 -- As a provider, you can create and manage your data sets that you would
 -- like to publish to a product. Being able to package and provide your
 -- data sets into products requires a few steps to determine eligibility.
--- For more information, visit the AWS Data Exchange User Guide.
+-- For more information, visit the /AWS Data Exchange User Guide/.
 --
 -- A data set is a collection of data that can be changed or updated over
 -- time. Data sets can be updated using revisions, which represent a new
 -- version or incremental change to a data set. A revision contains one or
 -- more assets. An asset in AWS Data Exchange is a piece of data that can
--- be stored as an Amazon S3 object. The asset can be a structured data
--- file, an image file, or some other data file. Jobs are asynchronous
--- import or export operations used to create or copy assets.
+-- be stored as an Amazon S3 object, Redshift datashare, API Gateway API,
+-- AWS Lake Formation data permission, or Amazon S3 data access. The asset
+-- can be a structured data file, an image file, or some other data file.
+-- Jobs are asynchronous import or export operations used to create or copy
+-- assets.
 module Amazonka.DataExchange
   ( -- * Service Configuration
     defaultService,
@@ -39,20 +42,11 @@ module Amazonka.DataExchange
     -- * Errors
     -- $errors
 
-    -- ** ValidationException
-    _ValidationException,
-
     -- ** AccessDeniedException
     _AccessDeniedException,
 
     -- ** ConflictException
     _ConflictException,
-
-    -- ** ServiceLimitExceededException
-    _ServiceLimitExceededException,
-
-    -- ** ThrottlingException
-    _ThrottlingException,
 
     -- ** InternalServerException
     _InternalServerException,
@@ -60,89 +54,26 @@ module Amazonka.DataExchange
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
 
+    -- ** ServiceLimitExceededException
+    _ServiceLimitExceededException,
+
+    -- ** ThrottlingException
+    _ThrottlingException,
+
+    -- ** ValidationException
+    _ValidationException,
+
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
 
-    -- ** GetEventAction
-    GetEventAction (GetEventAction'),
-    newGetEventAction,
-    GetEventActionResponse (GetEventActionResponse'),
-    newGetEventActionResponse,
-
-    -- ** CreateRevision
-    CreateRevision (CreateRevision'),
-    newCreateRevision,
-    CreateRevisionResponse (CreateRevisionResponse'),
-    newCreateRevisionResponse,
-
-    -- ** ListRevisionAssets (Paginated)
-    ListRevisionAssets (ListRevisionAssets'),
-    newListRevisionAssets,
-    ListRevisionAssetsResponse (ListRevisionAssetsResponse'),
-    newListRevisionAssetsResponse,
-
-    -- ** DeleteRevision
-    DeleteRevision (DeleteRevision'),
-    newDeleteRevision,
-    DeleteRevisionResponse (DeleteRevisionResponse'),
-    newDeleteRevisionResponse,
-
-    -- ** UpdateRevision
-    UpdateRevision (UpdateRevision'),
-    newUpdateRevision,
-    UpdateRevisionResponse (UpdateRevisionResponse'),
-    newUpdateRevisionResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** GetRevision
-    GetRevision (GetRevision'),
-    newGetRevision,
-    GetRevisionResponse (GetRevisionResponse'),
-    newGetRevisionResponse,
-
-    -- ** DeleteDataSet
-    DeleteDataSet (DeleteDataSet'),
-    newDeleteDataSet,
-    DeleteDataSetResponse (DeleteDataSetResponse'),
-    newDeleteDataSetResponse,
-
-    -- ** UpdateDataSet
-    UpdateDataSet (UpdateDataSet'),
-    newUpdateDataSet,
-    UpdateDataSetResponse (UpdateDataSetResponse'),
-    newUpdateDataSetResponse,
-
-    -- ** CreateJob
-    CreateJob (CreateJob'),
-    newCreateJob,
-    CreateJobResponse (CreateJobResponse'),
-    newCreateJobResponse,
-
-    -- ** ListEventActions (Paginated)
-    ListEventActions (ListEventActions'),
-    newListEventActions,
-    ListEventActionsResponse (ListEventActionsResponse'),
-    newListEventActionsResponse,
-
-    -- ** GetAsset
-    GetAsset (GetAsset'),
-    newGetAsset,
-    GetAssetResponse (GetAssetResponse'),
-    newGetAssetResponse,
-
-    -- ** ListJobs (Paginated)
-    ListJobs (ListJobs'),
-    newListJobs,
-    ListJobsResponse (ListJobsResponse'),
-    newListJobsResponse,
+    -- ** CancelJob
+    CancelJob (CancelJob'),
+    newCancelJob,
+    CancelJobResponse (CancelJobResponse'),
+    newCancelJobResponse,
 
     -- ** CreateDataSet
     CreateDataSet (CreateDataSet'),
@@ -150,17 +81,65 @@ module Amazonka.DataExchange
     CreateDataSetResponse (CreateDataSetResponse'),
     newCreateDataSetResponse,
 
+    -- ** CreateEventAction
+    CreateEventAction (CreateEventAction'),
+    newCreateEventAction,
+    CreateEventActionResponse (CreateEventActionResponse'),
+    newCreateEventActionResponse,
+
+    -- ** CreateJob
+    CreateJob (CreateJob'),
+    newCreateJob,
+    CreateJobResponse (CreateJobResponse'),
+    newCreateJobResponse,
+
+    -- ** CreateRevision
+    CreateRevision (CreateRevision'),
+    newCreateRevision,
+    CreateRevisionResponse (CreateRevisionResponse'),
+    newCreateRevisionResponse,
+
     -- ** DeleteAsset
     DeleteAsset (DeleteAsset'),
     newDeleteAsset,
     DeleteAssetResponse (DeleteAssetResponse'),
     newDeleteAssetResponse,
 
-    -- ** UpdateAsset
-    UpdateAsset (UpdateAsset'),
-    newUpdateAsset,
-    UpdateAssetResponse (UpdateAssetResponse'),
-    newUpdateAssetResponse,
+    -- ** DeleteDataSet
+    DeleteDataSet (DeleteDataSet'),
+    newDeleteDataSet,
+    DeleteDataSetResponse (DeleteDataSetResponse'),
+    newDeleteDataSetResponse,
+
+    -- ** DeleteEventAction
+    DeleteEventAction (DeleteEventAction'),
+    newDeleteEventAction,
+    DeleteEventActionResponse (DeleteEventActionResponse'),
+    newDeleteEventActionResponse,
+
+    -- ** DeleteRevision
+    DeleteRevision (DeleteRevision'),
+    newDeleteRevision,
+    DeleteRevisionResponse (DeleteRevisionResponse'),
+    newDeleteRevisionResponse,
+
+    -- ** GetAsset
+    GetAsset (GetAsset'),
+    newGetAsset,
+    GetAssetResponse (GetAssetResponse'),
+    newGetAssetResponse,
+
+    -- ** GetDataSet
+    GetDataSet (GetDataSet'),
+    newGetDataSet,
+    GetDataSetResponse (GetDataSetResponse'),
+    newGetDataSetResponse,
+
+    -- ** GetEventAction
+    GetEventAction (GetEventAction'),
+    newGetEventAction,
+    GetEventActionResponse (GetEventActionResponse'),
+    newGetEventActionResponse,
 
     -- ** GetJob
     GetJob (GetJob'),
@@ -168,11 +147,59 @@ module Amazonka.DataExchange
     GetJobResponse (GetJobResponse'),
     newGetJobResponse,
 
-    -- ** GetDataSet
-    GetDataSet (GetDataSet'),
-    newGetDataSet,
-    GetDataSetResponse (GetDataSetResponse'),
-    newGetDataSetResponse,
+    -- ** GetRevision
+    GetRevision (GetRevision'),
+    newGetRevision,
+    GetRevisionResponse (GetRevisionResponse'),
+    newGetRevisionResponse,
+
+    -- ** ListDataSetRevisions (Paginated)
+    ListDataSetRevisions (ListDataSetRevisions'),
+    newListDataSetRevisions,
+    ListDataSetRevisionsResponse (ListDataSetRevisionsResponse'),
+    newListDataSetRevisionsResponse,
+
+    -- ** ListDataSets (Paginated)
+    ListDataSets (ListDataSets'),
+    newListDataSets,
+    ListDataSetsResponse (ListDataSetsResponse'),
+    newListDataSetsResponse,
+
+    -- ** ListEventActions (Paginated)
+    ListEventActions (ListEventActions'),
+    newListEventActions,
+    ListEventActionsResponse (ListEventActionsResponse'),
+    newListEventActionsResponse,
+
+    -- ** ListJobs (Paginated)
+    ListJobs (ListJobs'),
+    newListJobs,
+    ListJobsResponse (ListJobsResponse'),
+    newListJobsResponse,
+
+    -- ** ListRevisionAssets (Paginated)
+    ListRevisionAssets (ListRevisionAssets'),
+    newListRevisionAssets,
+    ListRevisionAssetsResponse (ListRevisionAssetsResponse'),
+    newListRevisionAssetsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** RevokeRevision
+    RevokeRevision (RevokeRevision'),
+    newRevokeRevision,
+    RevokeRevisionResponse (RevokeRevisionResponse'),
+    newRevokeRevisionResponse,
+
+    -- ** SendApiAsset
+    SendApiAsset (SendApiAsset'),
+    newSendApiAsset,
+    SendApiAssetResponse (SendApiAssetResponse'),
+    newSendApiAssetResponse,
 
     -- ** StartJob
     StartJob (StartJob'),
@@ -186,17 +213,23 @@ module Amazonka.DataExchange
     TagResourceResponse (TagResourceResponse'),
     newTagResourceResponse,
 
-    -- ** ListDataSetRevisions (Paginated)
-    ListDataSetRevisions (ListDataSetRevisions'),
-    newListDataSetRevisions,
-    ListDataSetRevisionsResponse (ListDataSetRevisionsResponse'),
-    newListDataSetRevisionsResponse,
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
-    -- ** DeleteEventAction
-    DeleteEventAction (DeleteEventAction'),
-    newDeleteEventAction,
-    DeleteEventActionResponse (DeleteEventActionResponse'),
-    newDeleteEventActionResponse,
+    -- ** UpdateAsset
+    UpdateAsset (UpdateAsset'),
+    newUpdateAsset,
+    UpdateAssetResponse (UpdateAssetResponse'),
+    newUpdateAssetResponse,
+
+    -- ** UpdateDataSet
+    UpdateDataSet (UpdateDataSet'),
+    newUpdateDataSet,
+    UpdateDataSetResponse (UpdateDataSetResponse'),
+    newUpdateDataSetResponse,
 
     -- ** UpdateEventAction
     UpdateEventAction (UpdateEventAction'),
@@ -204,29 +237,11 @@ module Amazonka.DataExchange
     UpdateEventActionResponse (UpdateEventActionResponse'),
     newUpdateEventActionResponse,
 
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
-
-    -- ** ListDataSets (Paginated)
-    ListDataSets (ListDataSets'),
-    newListDataSets,
-    ListDataSetsResponse (ListDataSetsResponse'),
-    newListDataSetsResponse,
-
-    -- ** CreateEventAction
-    CreateEventAction (CreateEventAction'),
-    newCreateEventAction,
-    CreateEventActionResponse (CreateEventActionResponse'),
-    newCreateEventActionResponse,
-
-    -- ** CancelJob
-    CancelJob (CancelJob'),
-    newCancelJob,
-    CancelJobResponse (CancelJobResponse'),
-    newCancelJobResponse,
+    -- ** UpdateRevision
+    UpdateRevision (UpdateRevision'),
+    newUpdateRevision,
+    UpdateRevisionResponse (UpdateRevisionResponse'),
+    newUpdateRevisionResponse,
 
     -- * Types
 
@@ -236,14 +251,29 @@ module Amazonka.DataExchange
     -- ** Code
     Code (..),
 
+    -- ** DatabaseLFTagPolicyPermission
+    DatabaseLFTagPolicyPermission (..),
+
     -- ** JobErrorLimitName
     JobErrorLimitName (..),
 
     -- ** JobErrorResourceTypes
     JobErrorResourceTypes (..),
 
+    -- ** LFPermission
+    LFPermission (..),
+
+    -- ** LFResourceType
+    LFResourceType (..),
+
+    -- ** LakeFormationDataPermissionType
+    LakeFormationDataPermissionType (..),
+
     -- ** Origin
     Origin (..),
+
+    -- ** ProtocolType
+    ProtocolType (..),
 
     -- ** ServerSideEncryptionTypes
     ServerSideEncryptionTypes (..),
@@ -251,12 +281,19 @@ module Amazonka.DataExchange
     -- ** State
     State (..),
 
+    -- ** TableTagPolicyLFPermission
+    TableTagPolicyLFPermission (..),
+
     -- ** Type
     Type (..),
 
     -- ** Action
     Action (Action'),
     newAction,
+
+    -- ** ApiGatewayApiAsset
+    ApiGatewayApiAsset (ApiGatewayApiAsset'),
+    newApiGatewayApiAsset,
 
     -- ** AssetDestinationEntry
     AssetDestinationEntry (AssetDestinationEntry'),
@@ -282,9 +319,25 @@ module Amazonka.DataExchange
     AutoExportRevisionToS3RequestDetails (AutoExportRevisionToS3RequestDetails'),
     newAutoExportRevisionToS3RequestDetails,
 
+    -- ** CreateS3DataAccessFromS3BucketRequestDetails
+    CreateS3DataAccessFromS3BucketRequestDetails (CreateS3DataAccessFromS3BucketRequestDetails'),
+    newCreateS3DataAccessFromS3BucketRequestDetails,
+
+    -- ** CreateS3DataAccessFromS3BucketResponseDetails
+    CreateS3DataAccessFromS3BucketResponseDetails (CreateS3DataAccessFromS3BucketResponseDetails'),
+    newCreateS3DataAccessFromS3BucketResponseDetails,
+
     -- ** DataSetEntry
     DataSetEntry (DataSetEntry'),
     newDataSetEntry,
+
+    -- ** DatabaseLFTagPolicy
+    DatabaseLFTagPolicy (DatabaseLFTagPolicy'),
+    newDatabaseLFTagPolicy,
+
+    -- ** DatabaseLFTagPolicyAndPermissions
+    DatabaseLFTagPolicyAndPermissions (DatabaseLFTagPolicyAndPermissions'),
+    newDatabaseLFTagPolicyAndPermissions,
 
     -- ** Details
     Details (Details'),
@@ -326,6 +379,14 @@ module Amazonka.DataExchange
     ExportServerSideEncryption (ExportServerSideEncryption'),
     newExportServerSideEncryption,
 
+    -- ** ImportAssetFromApiGatewayApiRequestDetails
+    ImportAssetFromApiGatewayApiRequestDetails (ImportAssetFromApiGatewayApiRequestDetails'),
+    newImportAssetFromApiGatewayApiRequestDetails,
+
+    -- ** ImportAssetFromApiGatewayApiResponseDetails
+    ImportAssetFromApiGatewayApiResponseDetails (ImportAssetFromApiGatewayApiResponseDetails'),
+    newImportAssetFromApiGatewayApiResponseDetails,
+
     -- ** ImportAssetFromSignedUrlJobErrorDetails
     ImportAssetFromSignedUrlJobErrorDetails (ImportAssetFromSignedUrlJobErrorDetails'),
     newImportAssetFromSignedUrlJobErrorDetails,
@@ -337,6 +398,14 @@ module Amazonka.DataExchange
     -- ** ImportAssetFromSignedUrlResponseDetails
     ImportAssetFromSignedUrlResponseDetails (ImportAssetFromSignedUrlResponseDetails'),
     newImportAssetFromSignedUrlResponseDetails,
+
+    -- ** ImportAssetsFromLakeFormationTagPolicyRequestDetails
+    ImportAssetsFromLakeFormationTagPolicyRequestDetails (ImportAssetsFromLakeFormationTagPolicyRequestDetails'),
+    newImportAssetsFromLakeFormationTagPolicyRequestDetails,
+
+    -- ** ImportAssetsFromLakeFormationTagPolicyResponseDetails
+    ImportAssetsFromLakeFormationTagPolicyResponseDetails (ImportAssetsFromLakeFormationTagPolicyResponseDetails'),
+    newImportAssetsFromLakeFormationTagPolicyResponseDetails,
 
     -- ** ImportAssetsFromRedshiftDataSharesRequestDetails
     ImportAssetsFromRedshiftDataSharesRequestDetails (ImportAssetsFromRedshiftDataSharesRequestDetails'),
@@ -361,6 +430,26 @@ module Amazonka.DataExchange
     -- ** JobError
     JobError (JobError'),
     newJobError,
+
+    -- ** LFResourceDetails
+    LFResourceDetails (LFResourceDetails'),
+    newLFResourceDetails,
+
+    -- ** LFTag
+    LFTag (LFTag'),
+    newLFTag,
+
+    -- ** LFTagPolicyDetails
+    LFTagPolicyDetails (LFTagPolicyDetails'),
+    newLFTagPolicyDetails,
+
+    -- ** LakeFormationDataPermissionAsset
+    LakeFormationDataPermissionAsset (LakeFormationDataPermissionAsset'),
+    newLakeFormationDataPermissionAsset,
+
+    -- ** LakeFormationDataPermissionDetails
+    LakeFormationDataPermissionDetails (LakeFormationDataPermissionDetails'),
+    newLakeFormationDataPermissionDetails,
 
     -- ** OriginDetails
     OriginDetails (OriginDetails'),
@@ -394,9 +483,25 @@ module Amazonka.DataExchange
     RevisionPublished (RevisionPublished'),
     newRevisionPublished,
 
+    -- ** S3DataAccessAsset
+    S3DataAccessAsset (S3DataAccessAsset'),
+    newS3DataAccessAsset,
+
+    -- ** S3DataAccessAssetSourceEntry
+    S3DataAccessAssetSourceEntry (S3DataAccessAssetSourceEntry'),
+    newS3DataAccessAssetSourceEntry,
+
     -- ** S3SnapshotAsset
     S3SnapshotAsset (S3SnapshotAsset'),
     newS3SnapshotAsset,
+
+    -- ** TableLFTagPolicy
+    TableLFTagPolicy (TableLFTagPolicy'),
+    newTableLFTagPolicy,
+
+    -- ** TableLFTagPolicyAndPermissions
+    TableLFTagPolicyAndPermissions (TableLFTagPolicyAndPermissions'),
+    newTableLFTagPolicyAndPermissions,
   )
 where
 
@@ -421,6 +526,8 @@ import Amazonka.DataExchange.ListEventActions
 import Amazonka.DataExchange.ListJobs
 import Amazonka.DataExchange.ListRevisionAssets
 import Amazonka.DataExchange.ListTagsForResource
+import Amazonka.DataExchange.RevokeRevision
+import Amazonka.DataExchange.SendApiAsset
 import Amazonka.DataExchange.StartJob
 import Amazonka.DataExchange.TagResource
 import Amazonka.DataExchange.Types

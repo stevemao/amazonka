@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.UpdateGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.Greengrass.UpdateGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,7 +87,8 @@ updateGroup_groupId = Lens.lens (\UpdateGroup' {groupId} -> groupId) (\s@UpdateG
 
 instance Core.AWSRequest UpdateGroup where
   type AWSResponse UpdateGroup = UpdateGroupResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -103,30 +105,30 @@ instance Prelude.NFData UpdateGroup where
   rnf UpdateGroup' {..} =
     Prelude.rnf name `Prelude.seq` Prelude.rnf groupId
 
-instance Core.ToHeaders UpdateGroup where
+instance Data.ToHeaders UpdateGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateGroup where
+instance Data.ToJSON UpdateGroup where
   toJSON UpdateGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Name" Core..=) Prelude.<$> name]
+          [("Name" Data..=) Prelude.<$> name]
       )
 
-instance Core.ToPath UpdateGroup where
+instance Data.ToPath UpdateGroup where
   toPath UpdateGroup' {..} =
     Prelude.mconcat
-      ["/greengrass/groups/", Core.toBS groupId]
+      ["/greengrass/groups/", Data.toBS groupId]
 
-instance Core.ToQuery UpdateGroup where
+instance Data.ToQuery UpdateGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateGroupResponse' smart constructor.

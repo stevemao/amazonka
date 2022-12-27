@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.XRay.Types.Segment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.XRay.Types.Segment where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A segment from a trace that has been ingested by the X-Ray service. The
@@ -69,14 +70,14 @@ segment_document = Lens.lens (\Segment' {document} -> document) (\s@Segment' {} 
 segment_id :: Lens.Lens' Segment (Prelude.Maybe Prelude.Text)
 segment_id = Lens.lens (\Segment' {id} -> id) (\s@Segment' {} a -> s {id = a} :: Segment)
 
-instance Core.FromJSON Segment where
+instance Data.FromJSON Segment where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Segment"
       ( \x ->
           Segment'
-            Prelude.<$> (x Core..:? "Document")
-            Prelude.<*> (x Core..:? "Id")
+            Prelude.<$> (x Data..:? "Document")
+            Prelude.<*> (x Data..:? "Id")
       )
 
 instance Prelude.Hashable Segment where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.DescribeTimeToLive
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.DynamoDB.DescribeTimeToLive
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DynamoDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,12 +79,13 @@ instance Core.AWSRequest DescribeTimeToLive where
   type
     AWSResponse DescribeTimeToLive =
       DescribeTimeToLiveResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeTimeToLiveResponse'
-            Prelude.<$> (x Core..?> "TimeToLiveDescription")
+            Prelude.<$> (x Data..?> "TimeToLiveDescription")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -94,32 +96,32 @@ instance Prelude.Hashable DescribeTimeToLive where
 instance Prelude.NFData DescribeTimeToLive where
   rnf DescribeTimeToLive' {..} = Prelude.rnf tableName
 
-instance Core.ToHeaders DescribeTimeToLive where
+instance Data.ToHeaders DescribeTimeToLive where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DynamoDB_20120810.DescribeTimeToLive" ::
+              Data.=# ( "DynamoDB_20120810.DescribeTimeToLive" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeTimeToLive where
+instance Data.ToJSON DescribeTimeToLive where
   toJSON DescribeTimeToLive' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("TableName" Core..= tableName)]
+          [Prelude.Just ("TableName" Data..= tableName)]
       )
 
-instance Core.ToPath DescribeTimeToLive where
+instance Data.ToPath DescribeTimeToLive where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeTimeToLive where
+instance Data.ToQuery DescribeTimeToLive where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeTimeToLiveResponse' smart constructor.

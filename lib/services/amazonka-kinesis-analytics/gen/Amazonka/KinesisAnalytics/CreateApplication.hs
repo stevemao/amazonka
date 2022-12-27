@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalytics.CreateApplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -60,11 +60,11 @@ module Amazonka.KinesisAnalytics.CreateApplication
     newCreateApplication,
 
     -- * Request Lenses
-    createApplication_applicationDescription,
-    createApplication_inputs,
-    createApplication_cloudWatchLoggingOptions,
-    createApplication_outputs,
     createApplication_applicationCode,
+    createApplication_applicationDescription,
+    createApplication_cloudWatchLoggingOptions,
+    createApplication_inputs,
+    createApplication_outputs,
     createApplication_tags,
     createApplication_applicationName,
 
@@ -79,8 +79,9 @@ module Amazonka.KinesisAnalytics.CreateApplication
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalytics.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,8 +90,29 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCreateApplication' smart constructor.
 data CreateApplication = CreateApplication'
-  { -- | Summary description of the application.
+  { -- | One or more SQL statements that read input data, transform it, and
+    -- generate output. For example, you can write a SQL statement that reads
+    -- data from one in-application stream, generates a running average of the
+    -- number of advertisement clicks by vendor, and insert resulting rows in
+    -- another in-application stream using pumps. For more information about
+    -- the typical pattern, see
+    -- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-app-code.html Application Code>.
+    --
+    -- You can provide such series of SQL statements, where output of one
+    -- statement can be used as the input for the next statement. You store
+    -- intermediate results by creating in-application streams and pumps.
+    --
+    -- Note that the application code must create the streams with names
+    -- specified in the @Outputs@. For example, if your @Outputs@ defines
+    -- output streams named @ExampleOutputStream1@ and @ExampleOutputStream2@,
+    -- then your application code must create these streams.
+    applicationCode :: Prelude.Maybe Prelude.Text,
+    -- | Summary description of the application.
     applicationDescription :: Prelude.Maybe Prelude.Text,
+    -- | Use this parameter to configure a CloudWatch log stream to monitor
+    -- application configuration errors. For more information, see
+    -- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html Working with Amazon CloudWatch Logs>.
+    cloudWatchLoggingOptions :: Prelude.Maybe [CloudWatchLoggingOption],
     -- | Use this parameter to configure the application input.
     --
     -- You can configure your application to receive input from a single
@@ -109,10 +131,6 @@ data CreateApplication = CreateApplication'
     -- schema, you provide the necessary mapping of the data elements in the
     -- streaming source to record columns in the in-app stream.
     inputs :: Prelude.Maybe [Input],
-    -- | Use this parameter to configure a CloudWatch log stream to monitor
-    -- application configuration errors. For more information, see
-    -- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html Working with Amazon CloudWatch Logs>.
-    cloudWatchLoggingOptions :: Prelude.Maybe [CloudWatchLoggingOption],
     -- | You can configure application output to write data from any of the
     -- in-application streams to up to three destinations.
     --
@@ -132,23 +150,6 @@ data CreateApplication = CreateApplication'
     -- IAM role that Amazon Kinesis Analytics can assume to write to the stream
     -- or Lambda function on your behalf.
     outputs :: Prelude.Maybe [Output],
-    -- | One or more SQL statements that read input data, transform it, and
-    -- generate output. For example, you can write a SQL statement that reads
-    -- data from one in-application stream, generates a running average of the
-    -- number of advertisement clicks by vendor, and insert resulting rows in
-    -- another in-application stream using pumps. For more information about
-    -- the typical pattern, see
-    -- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-app-code.html Application Code>.
-    --
-    -- You can provide such series of SQL statements, where output of one
-    -- statement can be used as the input for the next statement. You store
-    -- intermediate results by creating in-application streams and pumps.
-    --
-    -- Note that the application code must create the streams with names
-    -- specified in the @Outputs@. For example, if your @Outputs@ defines
-    -- output streams named @ExampleOutputStream1@ and @ExampleOutputStream2@,
-    -- then your application code must create these streams.
-    applicationCode :: Prelude.Maybe Prelude.Text,
     -- | A list of one or more tags to assign to the application. A tag is a
     -- key-value pair that identifies an application. Note that the maximum
     -- number of application tags includes system tags. The maximum number of
@@ -169,7 +170,28 @@ data CreateApplication = CreateApplication'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'applicationCode', 'createApplication_applicationCode' - One or more SQL statements that read input data, transform it, and
+-- generate output. For example, you can write a SQL statement that reads
+-- data from one in-application stream, generates a running average of the
+-- number of advertisement clicks by vendor, and insert resulting rows in
+-- another in-application stream using pumps. For more information about
+-- the typical pattern, see
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-app-code.html Application Code>.
+--
+-- You can provide such series of SQL statements, where output of one
+-- statement can be used as the input for the next statement. You store
+-- intermediate results by creating in-application streams and pumps.
+--
+-- Note that the application code must create the streams with names
+-- specified in the @Outputs@. For example, if your @Outputs@ defines
+-- output streams named @ExampleOutputStream1@ and @ExampleOutputStream2@,
+-- then your application code must create these streams.
+--
 -- 'applicationDescription', 'createApplication_applicationDescription' - Summary description of the application.
+--
+-- 'cloudWatchLoggingOptions', 'createApplication_cloudWatchLoggingOptions' - Use this parameter to configure a CloudWatch log stream to monitor
+-- application configuration errors. For more information, see
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html Working with Amazon CloudWatch Logs>.
 --
 -- 'inputs', 'createApplication_inputs' - Use this parameter to configure the application input.
 --
@@ -188,10 +210,6 @@ data CreateApplication = CreateApplication'
 -- transform your data into a schematized version used in SQL. In the
 -- schema, you provide the necessary mapping of the data elements in the
 -- streaming source to record columns in the in-app stream.
---
--- 'cloudWatchLoggingOptions', 'createApplication_cloudWatchLoggingOptions' - Use this parameter to configure a CloudWatch log stream to monitor
--- application configuration errors. For more information, see
--- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html Working with Amazon CloudWatch Logs>.
 --
 -- 'outputs', 'createApplication_outputs' - You can configure application output to write data from any of the
 -- in-application streams to up to three destinations.
@@ -212,7 +230,31 @@ data CreateApplication = CreateApplication'
 -- IAM role that Amazon Kinesis Analytics can assume to write to the stream
 -- or Lambda function on your behalf.
 --
--- 'applicationCode', 'createApplication_applicationCode' - One or more SQL statements that read input data, transform it, and
+-- 'tags', 'createApplication_tags' - A list of one or more tags to assign to the application. A tag is a
+-- key-value pair that identifies an application. Note that the maximum
+-- number of application tags includes system tags. The maximum number of
+-- user-defined application tags is 50. For more information, see
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-tagging.html Using Tagging>.
+--
+-- 'applicationName', 'createApplication_applicationName' - Name of your Amazon Kinesis Analytics application (for example,
+-- @sample-app@).
+newCreateApplication ::
+  -- | 'applicationName'
+  Prelude.Text ->
+  CreateApplication
+newCreateApplication pApplicationName_ =
+  CreateApplication'
+    { applicationCode =
+        Prelude.Nothing,
+      applicationDescription = Prelude.Nothing,
+      cloudWatchLoggingOptions = Prelude.Nothing,
+      inputs = Prelude.Nothing,
+      outputs = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      applicationName = pApplicationName_
+    }
+
+-- | One or more SQL statements that read input data, transform it, and
 -- generate output. For example, you can write a SQL statement that reads
 -- data from one in-application stream, generates a running average of the
 -- number of advertisement clicks by vendor, and insert resulting rows in
@@ -228,34 +270,18 @@ data CreateApplication = CreateApplication'
 -- specified in the @Outputs@. For example, if your @Outputs@ defines
 -- output streams named @ExampleOutputStream1@ and @ExampleOutputStream2@,
 -- then your application code must create these streams.
---
--- 'tags', 'createApplication_tags' - A list of one or more tags to assign to the application. A tag is a
--- key-value pair that identifies an application. Note that the maximum
--- number of application tags includes system tags. The maximum number of
--- user-defined application tags is 50. For more information, see
--- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-tagging.html Using Tagging>.
---
--- 'applicationName', 'createApplication_applicationName' - Name of your Amazon Kinesis Analytics application (for example,
--- @sample-app@).
-newCreateApplication ::
-  -- | 'applicationName'
-  Prelude.Text ->
-  CreateApplication
-newCreateApplication pApplicationName_ =
-  CreateApplication'
-    { applicationDescription =
-        Prelude.Nothing,
-      inputs = Prelude.Nothing,
-      cloudWatchLoggingOptions = Prelude.Nothing,
-      outputs = Prelude.Nothing,
-      applicationCode = Prelude.Nothing,
-      tags = Prelude.Nothing,
-      applicationName = pApplicationName_
-    }
+createApplication_applicationCode :: Lens.Lens' CreateApplication (Prelude.Maybe Prelude.Text)
+createApplication_applicationCode = Lens.lens (\CreateApplication' {applicationCode} -> applicationCode) (\s@CreateApplication' {} a -> s {applicationCode = a} :: CreateApplication)
 
 -- | Summary description of the application.
 createApplication_applicationDescription :: Lens.Lens' CreateApplication (Prelude.Maybe Prelude.Text)
 createApplication_applicationDescription = Lens.lens (\CreateApplication' {applicationDescription} -> applicationDescription) (\s@CreateApplication' {} a -> s {applicationDescription = a} :: CreateApplication)
+
+-- | Use this parameter to configure a CloudWatch log stream to monitor
+-- application configuration errors. For more information, see
+-- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html Working with Amazon CloudWatch Logs>.
+createApplication_cloudWatchLoggingOptions :: Lens.Lens' CreateApplication (Prelude.Maybe [CloudWatchLoggingOption])
+createApplication_cloudWatchLoggingOptions = Lens.lens (\CreateApplication' {cloudWatchLoggingOptions} -> cloudWatchLoggingOptions) (\s@CreateApplication' {} a -> s {cloudWatchLoggingOptions = a} :: CreateApplication) Prelude.. Lens.mapping Lens.coerced
 
 -- | Use this parameter to configure the application input.
 --
@@ -276,12 +302,6 @@ createApplication_applicationDescription = Lens.lens (\CreateApplication' {appli
 -- streaming source to record columns in the in-app stream.
 createApplication_inputs :: Lens.Lens' CreateApplication (Prelude.Maybe [Input])
 createApplication_inputs = Lens.lens (\CreateApplication' {inputs} -> inputs) (\s@CreateApplication' {} a -> s {inputs = a} :: CreateApplication) Prelude.. Lens.mapping Lens.coerced
-
--- | Use this parameter to configure a CloudWatch log stream to monitor
--- application configuration errors. For more information, see
--- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html Working with Amazon CloudWatch Logs>.
-createApplication_cloudWatchLoggingOptions :: Lens.Lens' CreateApplication (Prelude.Maybe [CloudWatchLoggingOption])
-createApplication_cloudWatchLoggingOptions = Lens.lens (\CreateApplication' {cloudWatchLoggingOptions} -> cloudWatchLoggingOptions) (\s@CreateApplication' {} a -> s {cloudWatchLoggingOptions = a} :: CreateApplication) Prelude.. Lens.mapping Lens.coerced
 
 -- | You can configure application output to write data from any of the
 -- in-application streams to up to three destinations.
@@ -304,25 +324,6 @@ createApplication_cloudWatchLoggingOptions = Lens.lens (\CreateApplication' {clo
 createApplication_outputs :: Lens.Lens' CreateApplication (Prelude.Maybe [Output])
 createApplication_outputs = Lens.lens (\CreateApplication' {outputs} -> outputs) (\s@CreateApplication' {} a -> s {outputs = a} :: CreateApplication) Prelude.. Lens.mapping Lens.coerced
 
--- | One or more SQL statements that read input data, transform it, and
--- generate output. For example, you can write a SQL statement that reads
--- data from one in-application stream, generates a running average of the
--- number of advertisement clicks by vendor, and insert resulting rows in
--- another in-application stream using pumps. For more information about
--- the typical pattern, see
--- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-app-code.html Application Code>.
---
--- You can provide such series of SQL statements, where output of one
--- statement can be used as the input for the next statement. You store
--- intermediate results by creating in-application streams and pumps.
---
--- Note that the application code must create the streams with names
--- specified in the @Outputs@. For example, if your @Outputs@ defines
--- output streams named @ExampleOutputStream1@ and @ExampleOutputStream2@,
--- then your application code must create these streams.
-createApplication_applicationCode :: Lens.Lens' CreateApplication (Prelude.Maybe Prelude.Text)
-createApplication_applicationCode = Lens.lens (\CreateApplication' {applicationCode} -> applicationCode) (\s@CreateApplication' {} a -> s {applicationCode = a} :: CreateApplication)
-
 -- | A list of one or more tags to assign to the application. A tag is a
 -- key-value pair that identifies an application. Note that the maximum
 -- number of application tags includes system tags. The maximum number of
@@ -340,72 +341,73 @@ instance Core.AWSRequest CreateApplication where
   type
     AWSResponse CreateApplication =
       CreateApplicationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateApplicationResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "ApplicationSummary")
+            Prelude.<*> (x Data..:> "ApplicationSummary")
       )
 
 instance Prelude.Hashable CreateApplication where
   hashWithSalt _salt CreateApplication' {..} =
-    _salt `Prelude.hashWithSalt` applicationDescription
-      `Prelude.hashWithSalt` inputs
+    _salt `Prelude.hashWithSalt` applicationCode
+      `Prelude.hashWithSalt` applicationDescription
       `Prelude.hashWithSalt` cloudWatchLoggingOptions
+      `Prelude.hashWithSalt` inputs
       `Prelude.hashWithSalt` outputs
-      `Prelude.hashWithSalt` applicationCode
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` applicationName
 
 instance Prelude.NFData CreateApplication where
   rnf CreateApplication' {..} =
-    Prelude.rnf applicationDescription
-      `Prelude.seq` Prelude.rnf inputs
+    Prelude.rnf applicationCode
+      `Prelude.seq` Prelude.rnf applicationDescription
       `Prelude.seq` Prelude.rnf cloudWatchLoggingOptions
+      `Prelude.seq` Prelude.rnf inputs
       `Prelude.seq` Prelude.rnf outputs
-      `Prelude.seq` Prelude.rnf applicationCode
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf applicationName
 
-instance Core.ToHeaders CreateApplication where
+instance Data.ToHeaders CreateApplication where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "KinesisAnalytics_20150814.CreateApplication" ::
+              Data.=# ( "KinesisAnalytics_20150814.CreateApplication" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateApplication where
+instance Data.ToJSON CreateApplication where
   toJSON CreateApplication' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ApplicationDescription" Core..=)
-              Prelude.<$> applicationDescription,
-            ("Inputs" Core..=) Prelude.<$> inputs,
-            ("CloudWatchLoggingOptions" Core..=)
-              Prelude.<$> cloudWatchLoggingOptions,
-            ("Outputs" Core..=) Prelude.<$> outputs,
-            ("ApplicationCode" Core..=)
+          [ ("ApplicationCode" Data..=)
               Prelude.<$> applicationCode,
-            ("Tags" Core..=) Prelude.<$> tags,
+            ("ApplicationDescription" Data..=)
+              Prelude.<$> applicationDescription,
+            ("CloudWatchLoggingOptions" Data..=)
+              Prelude.<$> cloudWatchLoggingOptions,
+            ("Inputs" Data..=) Prelude.<$> inputs,
+            ("Outputs" Data..=) Prelude.<$> outputs,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("ApplicationName" Core..= applicationName)
+              ("ApplicationName" Data..= applicationName)
           ]
       )
 
-instance Core.ToPath CreateApplication where
+instance Data.ToPath CreateApplication where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateApplication where
+instance Data.ToQuery CreateApplication where
   toQuery = Prelude.const Prelude.mempty
 
 -- | TBD

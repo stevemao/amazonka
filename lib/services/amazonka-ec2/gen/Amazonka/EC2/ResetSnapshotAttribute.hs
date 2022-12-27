@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ResetSnapshotAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.EC2.ResetSnapshotAttribute
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -113,7 +114,8 @@ instance Core.AWSRequest ResetSnapshotAttribute where
   type
     AWSResponse ResetSnapshotAttribute =
       ResetSnapshotAttributeResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       ResetSnapshotAttributeResponse'
@@ -130,22 +132,22 @@ instance Prelude.NFData ResetSnapshotAttribute where
       `Prelude.seq` Prelude.rnf attribute
       `Prelude.seq` Prelude.rnf snapshotId
 
-instance Core.ToHeaders ResetSnapshotAttribute where
+instance Data.ToHeaders ResetSnapshotAttribute where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ResetSnapshotAttribute where
+instance Data.ToPath ResetSnapshotAttribute where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ResetSnapshotAttribute where
+instance Data.ToQuery ResetSnapshotAttribute where
   toQuery ResetSnapshotAttribute' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ResetSnapshotAttribute" :: Prelude.ByteString),
+          Data.=: ("ResetSnapshotAttribute" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "Attribute" Core.=: attribute,
-        "SnapshotId" Core.=: snapshotId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "Attribute" Data.=: attribute,
+        "SnapshotId" Data.=: snapshotId
       ]
 
 -- | /See:/ 'newResetSnapshotAttributeResponse' smart constructor.

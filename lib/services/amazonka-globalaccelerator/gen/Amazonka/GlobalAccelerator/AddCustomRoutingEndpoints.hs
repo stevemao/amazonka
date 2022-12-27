@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GlobalAccelerator.AddCustomRoutingEndpoints
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,15 +51,16 @@ module Amazonka.GlobalAccelerator.AddCustomRoutingEndpoints
     newAddCustomRoutingEndpointsResponse,
 
     -- * Response Lenses
-    addCustomRoutingEndpointsResponse_endpointGroupArn,
     addCustomRoutingEndpointsResponse_endpointDescriptions,
+    addCustomRoutingEndpointsResponse_endpointGroupArn,
     addCustomRoutingEndpointsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GlobalAccelerator.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -114,15 +115,16 @@ instance Core.AWSRequest AddCustomRoutingEndpoints where
   type
     AWSResponse AddCustomRoutingEndpoints =
       AddCustomRoutingEndpointsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AddCustomRoutingEndpointsResponse'
-            Prelude.<$> (x Core..?> "EndpointGroupArn")
-            Prelude.<*> ( x Core..?> "EndpointDescriptions"
+            Prelude.<$> ( x Data..?> "EndpointDescriptions"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "EndpointGroupArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -136,47 +138,47 @@ instance Prelude.NFData AddCustomRoutingEndpoints where
     Prelude.rnf endpointConfigurations
       `Prelude.seq` Prelude.rnf endpointGroupArn
 
-instance Core.ToHeaders AddCustomRoutingEndpoints where
+instance Data.ToHeaders AddCustomRoutingEndpoints where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GlobalAccelerator_V20180706.AddCustomRoutingEndpoints" ::
+              Data.=# ( "GlobalAccelerator_V20180706.AddCustomRoutingEndpoints" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AddCustomRoutingEndpoints where
+instance Data.ToJSON AddCustomRoutingEndpoints where
   toJSON AddCustomRoutingEndpoints' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "EndpointConfigurations"
-                  Core..= endpointConfigurations
+                  Data..= endpointConfigurations
               ),
             Prelude.Just
-              ("EndpointGroupArn" Core..= endpointGroupArn)
+              ("EndpointGroupArn" Data..= endpointGroupArn)
           ]
       )
 
-instance Core.ToPath AddCustomRoutingEndpoints where
+instance Data.ToPath AddCustomRoutingEndpoints where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AddCustomRoutingEndpoints where
+instance Data.ToQuery AddCustomRoutingEndpoints where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAddCustomRoutingEndpointsResponse' smart constructor.
 data AddCustomRoutingEndpointsResponse = AddCustomRoutingEndpointsResponse'
-  { -- | The Amazon Resource Name (ARN) of the endpoint group for the custom
+  { -- | The endpoint objects added to the custom routing accelerator.
+    endpointDescriptions :: Prelude.Maybe [CustomRoutingEndpointDescription],
+    -- | The Amazon Resource Name (ARN) of the endpoint group for the custom
     -- routing endpoint.
     endpointGroupArn :: Prelude.Maybe Prelude.Text,
-    -- | The endpoint objects added to the custom routing accelerator.
-    endpointDescriptions :: Prelude.Maybe [CustomRoutingEndpointDescription],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -190,10 +192,10 @@ data AddCustomRoutingEndpointsResponse = AddCustomRoutingEndpointsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'endpointDescriptions', 'addCustomRoutingEndpointsResponse_endpointDescriptions' - The endpoint objects added to the custom routing accelerator.
+--
 -- 'endpointGroupArn', 'addCustomRoutingEndpointsResponse_endpointGroupArn' - The Amazon Resource Name (ARN) of the endpoint group for the custom
 -- routing endpoint.
---
--- 'endpointDescriptions', 'addCustomRoutingEndpointsResponse_endpointDescriptions' - The endpoint objects added to the custom routing accelerator.
 --
 -- 'httpStatus', 'addCustomRoutingEndpointsResponse_httpStatus' - The response's http status code.
 newAddCustomRoutingEndpointsResponse ::
@@ -202,20 +204,20 @@ newAddCustomRoutingEndpointsResponse ::
   AddCustomRoutingEndpointsResponse
 newAddCustomRoutingEndpointsResponse pHttpStatus_ =
   AddCustomRoutingEndpointsResponse'
-    { endpointGroupArn =
+    { endpointDescriptions =
         Prelude.Nothing,
-      endpointDescriptions = Prelude.Nothing,
+      endpointGroupArn = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The endpoint objects added to the custom routing accelerator.
+addCustomRoutingEndpointsResponse_endpointDescriptions :: Lens.Lens' AddCustomRoutingEndpointsResponse (Prelude.Maybe [CustomRoutingEndpointDescription])
+addCustomRoutingEndpointsResponse_endpointDescriptions = Lens.lens (\AddCustomRoutingEndpointsResponse' {endpointDescriptions} -> endpointDescriptions) (\s@AddCustomRoutingEndpointsResponse' {} a -> s {endpointDescriptions = a} :: AddCustomRoutingEndpointsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The Amazon Resource Name (ARN) of the endpoint group for the custom
 -- routing endpoint.
 addCustomRoutingEndpointsResponse_endpointGroupArn :: Lens.Lens' AddCustomRoutingEndpointsResponse (Prelude.Maybe Prelude.Text)
 addCustomRoutingEndpointsResponse_endpointGroupArn = Lens.lens (\AddCustomRoutingEndpointsResponse' {endpointGroupArn} -> endpointGroupArn) (\s@AddCustomRoutingEndpointsResponse' {} a -> s {endpointGroupArn = a} :: AddCustomRoutingEndpointsResponse)
-
--- | The endpoint objects added to the custom routing accelerator.
-addCustomRoutingEndpointsResponse_endpointDescriptions :: Lens.Lens' AddCustomRoutingEndpointsResponse (Prelude.Maybe [CustomRoutingEndpointDescription])
-addCustomRoutingEndpointsResponse_endpointDescriptions = Lens.lens (\AddCustomRoutingEndpointsResponse' {endpointDescriptions} -> endpointDescriptions) (\s@AddCustomRoutingEndpointsResponse' {} a -> s {endpointDescriptions = a} :: AddCustomRoutingEndpointsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 addCustomRoutingEndpointsResponse_httpStatus :: Lens.Lens' AddCustomRoutingEndpointsResponse Prelude.Int
@@ -226,6 +228,6 @@ instance
     AddCustomRoutingEndpointsResponse
   where
   rnf AddCustomRoutingEndpointsResponse' {..} =
-    Prelude.rnf endpointGroupArn
-      `Prelude.seq` Prelude.rnf endpointDescriptions
+    Prelude.rnf endpointDescriptions
+      `Prelude.seq` Prelude.rnf endpointGroupArn
       `Prelude.seq` Prelude.rnf httpStatus

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.RegisterOnPremisesInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.CodeDeploy.RegisterOnPremisesInstance
     newRegisterOnPremisesInstance,
 
     -- * Request Lenses
-    registerOnPremisesInstance_iamUserArn,
     registerOnPremisesInstance_iamSessionArn,
+    registerOnPremisesInstance_iamUserArn,
     registerOnPremisesInstance_instanceName,
 
     -- * Destructuring the Response
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CodeDeploy.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -51,10 +52,10 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newRegisterOnPremisesInstance' smart constructor.
 data RegisterOnPremisesInstance = RegisterOnPremisesInstance'
-  { -- | The ARN of the IAM user to associate with the on-premises instance.
-    iamUserArn :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the IAM session to associate with the on-premises instance.
+  { -- | The ARN of the IAM session to associate with the on-premises instance.
     iamSessionArn :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the IAM user to associate with the on-premises instance.
+    iamUserArn :: Prelude.Maybe Prelude.Text,
     -- | The name of the on-premises instance to register.
     instanceName :: Prelude.Text
   }
@@ -68,9 +69,9 @@ data RegisterOnPremisesInstance = RegisterOnPremisesInstance'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'iamUserArn', 'registerOnPremisesInstance_iamUserArn' - The ARN of the IAM user to associate with the on-premises instance.
---
 -- 'iamSessionArn', 'registerOnPremisesInstance_iamSessionArn' - The ARN of the IAM session to associate with the on-premises instance.
+--
+-- 'iamUserArn', 'registerOnPremisesInstance_iamUserArn' - The ARN of the IAM user to associate with the on-premises instance.
 --
 -- 'instanceName', 'registerOnPremisesInstance_instanceName' - The name of the on-premises instance to register.
 newRegisterOnPremisesInstance ::
@@ -79,19 +80,19 @@ newRegisterOnPremisesInstance ::
   RegisterOnPremisesInstance
 newRegisterOnPremisesInstance pInstanceName_ =
   RegisterOnPremisesInstance'
-    { iamUserArn =
+    { iamSessionArn =
         Prelude.Nothing,
-      iamSessionArn = Prelude.Nothing,
+      iamUserArn = Prelude.Nothing,
       instanceName = pInstanceName_
     }
-
--- | The ARN of the IAM user to associate with the on-premises instance.
-registerOnPremisesInstance_iamUserArn :: Lens.Lens' RegisterOnPremisesInstance (Prelude.Maybe Prelude.Text)
-registerOnPremisesInstance_iamUserArn = Lens.lens (\RegisterOnPremisesInstance' {iamUserArn} -> iamUserArn) (\s@RegisterOnPremisesInstance' {} a -> s {iamUserArn = a} :: RegisterOnPremisesInstance)
 
 -- | The ARN of the IAM session to associate with the on-premises instance.
 registerOnPremisesInstance_iamSessionArn :: Lens.Lens' RegisterOnPremisesInstance (Prelude.Maybe Prelude.Text)
 registerOnPremisesInstance_iamSessionArn = Lens.lens (\RegisterOnPremisesInstance' {iamSessionArn} -> iamSessionArn) (\s@RegisterOnPremisesInstance' {} a -> s {iamSessionArn = a} :: RegisterOnPremisesInstance)
+
+-- | The ARN of the IAM user to associate with the on-premises instance.
+registerOnPremisesInstance_iamUserArn :: Lens.Lens' RegisterOnPremisesInstance (Prelude.Maybe Prelude.Text)
+registerOnPremisesInstance_iamUserArn = Lens.lens (\RegisterOnPremisesInstance' {iamUserArn} -> iamUserArn) (\s@RegisterOnPremisesInstance' {} a -> s {iamUserArn = a} :: RegisterOnPremisesInstance)
 
 -- | The name of the on-premises instance to register.
 registerOnPremisesInstance_instanceName :: Lens.Lens' RegisterOnPremisesInstance Prelude.Text
@@ -101,52 +102,53 @@ instance Core.AWSRequest RegisterOnPremisesInstance where
   type
     AWSResponse RegisterOnPremisesInstance =
       RegisterOnPremisesInstanceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       RegisterOnPremisesInstanceResponse'
 
 instance Prelude.Hashable RegisterOnPremisesInstance where
   hashWithSalt _salt RegisterOnPremisesInstance' {..} =
-    _salt `Prelude.hashWithSalt` iamUserArn
-      `Prelude.hashWithSalt` iamSessionArn
+    _salt `Prelude.hashWithSalt` iamSessionArn
+      `Prelude.hashWithSalt` iamUserArn
       `Prelude.hashWithSalt` instanceName
 
 instance Prelude.NFData RegisterOnPremisesInstance where
   rnf RegisterOnPremisesInstance' {..} =
-    Prelude.rnf iamUserArn
-      `Prelude.seq` Prelude.rnf iamSessionArn
+    Prelude.rnf iamSessionArn
+      `Prelude.seq` Prelude.rnf iamUserArn
       `Prelude.seq` Prelude.rnf instanceName
 
-instance Core.ToHeaders RegisterOnPremisesInstance where
+instance Data.ToHeaders RegisterOnPremisesInstance where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeDeploy_20141006.RegisterOnPremisesInstance" ::
+              Data.=# ( "CodeDeploy_20141006.RegisterOnPremisesInstance" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RegisterOnPremisesInstance where
+instance Data.ToJSON RegisterOnPremisesInstance where
   toJSON RegisterOnPremisesInstance' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("iamUserArn" Core..=) Prelude.<$> iamUserArn,
-            ("iamSessionArn" Core..=) Prelude.<$> iamSessionArn,
-            Prelude.Just ("instanceName" Core..= instanceName)
+          [ ("iamSessionArn" Data..=) Prelude.<$> iamSessionArn,
+            ("iamUserArn" Data..=) Prelude.<$> iamUserArn,
+            Prelude.Just ("instanceName" Data..= instanceName)
           ]
       )
 
-instance Core.ToPath RegisterOnPremisesInstance where
+instance Data.ToPath RegisterOnPremisesInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RegisterOnPremisesInstance where
+instance Data.ToQuery RegisterOnPremisesInstance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRegisterOnPremisesInstanceResponse' smart constructor.

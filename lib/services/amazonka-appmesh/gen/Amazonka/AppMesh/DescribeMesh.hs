@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.DescribeMesh
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.AppMesh.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -51,9 +52,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeMesh' smart constructor.
 data DescribeMesh = DescribeMesh'
-  { -- | The AWS IAM account ID of the service mesh owner. If the account ID is
-    -- not your own, then it\'s the ID of the account that shared the mesh with
-    -- your account. For more information about mesh sharing, see
+  { -- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+    -- account ID is not your own, then it\'s the ID of the account that shared
+    -- the mesh with your account. For more information about mesh sharing, see
     -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
     meshOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the service mesh to describe.
@@ -69,9 +70,9 @@ data DescribeMesh = DescribeMesh'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'meshOwner', 'describeMesh_meshOwner' - The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
+-- 'meshOwner', 'describeMesh_meshOwner' - The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 --
 -- 'meshName', 'describeMesh_meshName' - The name of the service mesh to describe.
@@ -85,9 +86,9 @@ newDescribeMesh pMeshName_ =
       meshName = pMeshName_
     }
 
--- | The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
+-- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 describeMesh_meshOwner :: Lens.Lens' DescribeMesh (Prelude.Maybe Prelude.Text)
 describeMesh_meshOwner = Lens.lens (\DescribeMesh' {meshOwner} -> meshOwner) (\s@DescribeMesh' {} a -> s {meshOwner = a} :: DescribeMesh)
@@ -98,13 +99,14 @@ describeMesh_meshName = Lens.lens (\DescribeMesh' {meshName} -> meshName) (\s@De
 
 instance Core.AWSRequest DescribeMesh where
   type AWSResponse DescribeMesh = DescribeMeshResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeMeshResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable DescribeMesh where
@@ -117,25 +119,25 @@ instance Prelude.NFData DescribeMesh where
     Prelude.rnf meshOwner
       `Prelude.seq` Prelude.rnf meshName
 
-instance Core.ToHeaders DescribeMesh where
+instance Data.ToHeaders DescribeMesh where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeMesh where
+instance Data.ToPath DescribeMesh where
   toPath DescribeMesh' {..} =
     Prelude.mconcat
-      ["/v20190125/meshes/", Core.toBS meshName]
+      ["/v20190125/meshes/", Data.toBS meshName]
 
-instance Core.ToQuery DescribeMesh where
+instance Data.ToQuery DescribeMesh where
   toQuery DescribeMesh' {..} =
-    Prelude.mconcat ["meshOwner" Core.=: meshOwner]
+    Prelude.mconcat ["meshOwner" Data.=: meshOwner]
 
 -- |
 --

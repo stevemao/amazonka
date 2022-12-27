@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.ConnectionLogOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.ConnectionLogOptions where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the client connection logging options for the Client VPN
@@ -29,14 +30,14 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newConnectionLogOptions' smart constructor.
 data ConnectionLogOptions = ConnectionLogOptions'
-  { -- | Indicates whether connection logging is enabled.
-    enabled :: Prelude.Maybe Prelude.Bool,
+  { -- | The name of the CloudWatch Logs log group. Required if connection
+    -- logging is enabled.
+    cloudwatchLogGroup :: Prelude.Maybe Prelude.Text,
     -- | The name of the CloudWatch Logs log stream to which the connection data
     -- is published.
     cloudwatchLogStream :: Prelude.Maybe Prelude.Text,
-    -- | The name of the CloudWatch Logs log group. Required if connection
-    -- logging is enabled.
-    cloudwatchLogGroup :: Prelude.Maybe Prelude.Text
+    -- | Indicates whether connection logging is enabled.
+    enabled :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,52 +49,53 @@ data ConnectionLogOptions = ConnectionLogOptions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'enabled', 'connectionLogOptions_enabled' - Indicates whether connection logging is enabled.
+-- 'cloudwatchLogGroup', 'connectionLogOptions_cloudwatchLogGroup' - The name of the CloudWatch Logs log group. Required if connection
+-- logging is enabled.
 --
 -- 'cloudwatchLogStream', 'connectionLogOptions_cloudwatchLogStream' - The name of the CloudWatch Logs log stream to which the connection data
 -- is published.
 --
--- 'cloudwatchLogGroup', 'connectionLogOptions_cloudwatchLogGroup' - The name of the CloudWatch Logs log group. Required if connection
--- logging is enabled.
+-- 'enabled', 'connectionLogOptions_enabled' - Indicates whether connection logging is enabled.
 newConnectionLogOptions ::
   ConnectionLogOptions
 newConnectionLogOptions =
   ConnectionLogOptions'
-    { enabled = Prelude.Nothing,
+    { cloudwatchLogGroup =
+        Prelude.Nothing,
       cloudwatchLogStream = Prelude.Nothing,
-      cloudwatchLogGroup = Prelude.Nothing
+      enabled = Prelude.Nothing
     }
-
--- | Indicates whether connection logging is enabled.
-connectionLogOptions_enabled :: Lens.Lens' ConnectionLogOptions (Prelude.Maybe Prelude.Bool)
-connectionLogOptions_enabled = Lens.lens (\ConnectionLogOptions' {enabled} -> enabled) (\s@ConnectionLogOptions' {} a -> s {enabled = a} :: ConnectionLogOptions)
-
--- | The name of the CloudWatch Logs log stream to which the connection data
--- is published.
-connectionLogOptions_cloudwatchLogStream :: Lens.Lens' ConnectionLogOptions (Prelude.Maybe Prelude.Text)
-connectionLogOptions_cloudwatchLogStream = Lens.lens (\ConnectionLogOptions' {cloudwatchLogStream} -> cloudwatchLogStream) (\s@ConnectionLogOptions' {} a -> s {cloudwatchLogStream = a} :: ConnectionLogOptions)
 
 -- | The name of the CloudWatch Logs log group. Required if connection
 -- logging is enabled.
 connectionLogOptions_cloudwatchLogGroup :: Lens.Lens' ConnectionLogOptions (Prelude.Maybe Prelude.Text)
 connectionLogOptions_cloudwatchLogGroup = Lens.lens (\ConnectionLogOptions' {cloudwatchLogGroup} -> cloudwatchLogGroup) (\s@ConnectionLogOptions' {} a -> s {cloudwatchLogGroup = a} :: ConnectionLogOptions)
 
+-- | The name of the CloudWatch Logs log stream to which the connection data
+-- is published.
+connectionLogOptions_cloudwatchLogStream :: Lens.Lens' ConnectionLogOptions (Prelude.Maybe Prelude.Text)
+connectionLogOptions_cloudwatchLogStream = Lens.lens (\ConnectionLogOptions' {cloudwatchLogStream} -> cloudwatchLogStream) (\s@ConnectionLogOptions' {} a -> s {cloudwatchLogStream = a} :: ConnectionLogOptions)
+
+-- | Indicates whether connection logging is enabled.
+connectionLogOptions_enabled :: Lens.Lens' ConnectionLogOptions (Prelude.Maybe Prelude.Bool)
+connectionLogOptions_enabled = Lens.lens (\ConnectionLogOptions' {enabled} -> enabled) (\s@ConnectionLogOptions' {} a -> s {enabled = a} :: ConnectionLogOptions)
+
 instance Prelude.Hashable ConnectionLogOptions where
   hashWithSalt _salt ConnectionLogOptions' {..} =
-    _salt `Prelude.hashWithSalt` enabled
+    _salt `Prelude.hashWithSalt` cloudwatchLogGroup
       `Prelude.hashWithSalt` cloudwatchLogStream
-      `Prelude.hashWithSalt` cloudwatchLogGroup
+      `Prelude.hashWithSalt` enabled
 
 instance Prelude.NFData ConnectionLogOptions where
   rnf ConnectionLogOptions' {..} =
-    Prelude.rnf enabled
+    Prelude.rnf cloudwatchLogGroup
       `Prelude.seq` Prelude.rnf cloudwatchLogStream
-      `Prelude.seq` Prelude.rnf cloudwatchLogGroup
+      `Prelude.seq` Prelude.rnf enabled
 
-instance Core.ToQuery ConnectionLogOptions where
+instance Data.ToQuery ConnectionLogOptions where
   toQuery ConnectionLogOptions' {..} =
     Prelude.mconcat
-      [ "Enabled" Core.=: enabled,
-        "CloudwatchLogStream" Core.=: cloudwatchLogStream,
-        "CloudwatchLogGroup" Core.=: cloudwatchLogGroup
+      [ "CloudwatchLogGroup" Data.=: cloudwatchLogGroup,
+        "CloudwatchLogStream" Data.=: cloudwatchLogStream,
+        "Enabled" Data.=: enabled
       ]

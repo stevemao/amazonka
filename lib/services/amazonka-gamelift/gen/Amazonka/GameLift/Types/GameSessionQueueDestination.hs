@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.Types.GameSessionQueueDestination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,13 @@
 module Amazonka.GameLift.Types.GameSessionQueueDestination where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A fleet or alias designated in a game session queue. Queues fulfill
 -- requests for new game sessions by placing a new game session on any of
 -- the queue\'s destinations.
---
--- Destinations are part of a GameSessionQueue.
 --
 -- /See:/ 'newGameSessionQueueDestination' smart constructor.
 data GameSessionQueueDestination = GameSessionQueueDestination'
@@ -63,13 +62,13 @@ newGameSessionQueueDestination =
 gameSessionQueueDestination_destinationArn :: Lens.Lens' GameSessionQueueDestination (Prelude.Maybe Prelude.Text)
 gameSessionQueueDestination_destinationArn = Lens.lens (\GameSessionQueueDestination' {destinationArn} -> destinationArn) (\s@GameSessionQueueDestination' {} a -> s {destinationArn = a} :: GameSessionQueueDestination)
 
-instance Core.FromJSON GameSessionQueueDestination where
+instance Data.FromJSON GameSessionQueueDestination where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GameSessionQueueDestination"
       ( \x ->
           GameSessionQueueDestination'
-            Prelude.<$> (x Core..:? "DestinationArn")
+            Prelude.<$> (x Data..:? "DestinationArn")
       )
 
 instance Prelude.Hashable GameSessionQueueDestination where
@@ -80,11 +79,11 @@ instance Prelude.NFData GameSessionQueueDestination where
   rnf GameSessionQueueDestination' {..} =
     Prelude.rnf destinationArn
 
-instance Core.ToJSON GameSessionQueueDestination where
+instance Data.ToJSON GameSessionQueueDestination where
   toJSON GameSessionQueueDestination' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DestinationArn" Core..=)
+          [ ("DestinationArn" Data..=)
               Prelude.<$> destinationArn
           ]
       )

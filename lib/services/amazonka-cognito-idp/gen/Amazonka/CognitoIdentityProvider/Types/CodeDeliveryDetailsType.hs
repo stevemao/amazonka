@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.Types.CodeDeliveryDetailsType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,19 +21,22 @@ module Amazonka.CognitoIdentityProvider.Types.CodeDeliveryDetailsType where
 
 import Amazonka.CognitoIdentityProvider.Types.DeliveryMediumType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The code delivery details being returned from the server.
+-- | The delivery details for an email or SMS message that Amazon Cognito
+-- sent for authentication or verification.
 --
 -- /See:/ 'newCodeDeliveryDetailsType' smart constructor.
 data CodeDeliveryDetailsType = CodeDeliveryDetailsType'
-  { -- | The destination for the code delivery details.
-    destination :: Prelude.Maybe Prelude.Text,
-    -- | The delivery medium (email message or phone number).
+  { -- | The name of the attribute that Amazon Cognito verifies with the code.
+    attributeName :: Prelude.Maybe Prelude.Text,
+    -- | The method that Amazon Cognito used to send the code.
     deliveryMedium :: Prelude.Maybe DeliveryMediumType,
-    -- | The attribute name.
-    attributeName :: Prelude.Maybe Prelude.Text
+    -- | The email address or phone number destination where Amazon Cognito sent
+    -- the code.
+    destination :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,52 +48,54 @@ data CodeDeliveryDetailsType = CodeDeliveryDetailsType'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'destination', 'codeDeliveryDetailsType_destination' - The destination for the code delivery details.
+-- 'attributeName', 'codeDeliveryDetailsType_attributeName' - The name of the attribute that Amazon Cognito verifies with the code.
 --
--- 'deliveryMedium', 'codeDeliveryDetailsType_deliveryMedium' - The delivery medium (email message or phone number).
+-- 'deliveryMedium', 'codeDeliveryDetailsType_deliveryMedium' - The method that Amazon Cognito used to send the code.
 --
--- 'attributeName', 'codeDeliveryDetailsType_attributeName' - The attribute name.
+-- 'destination', 'codeDeliveryDetailsType_destination' - The email address or phone number destination where Amazon Cognito sent
+-- the code.
 newCodeDeliveryDetailsType ::
   CodeDeliveryDetailsType
 newCodeDeliveryDetailsType =
   CodeDeliveryDetailsType'
-    { destination =
+    { attributeName =
         Prelude.Nothing,
       deliveryMedium = Prelude.Nothing,
-      attributeName = Prelude.Nothing
+      destination = Prelude.Nothing
     }
 
--- | The destination for the code delivery details.
-codeDeliveryDetailsType_destination :: Lens.Lens' CodeDeliveryDetailsType (Prelude.Maybe Prelude.Text)
-codeDeliveryDetailsType_destination = Lens.lens (\CodeDeliveryDetailsType' {destination} -> destination) (\s@CodeDeliveryDetailsType' {} a -> s {destination = a} :: CodeDeliveryDetailsType)
-
--- | The delivery medium (email message or phone number).
-codeDeliveryDetailsType_deliveryMedium :: Lens.Lens' CodeDeliveryDetailsType (Prelude.Maybe DeliveryMediumType)
-codeDeliveryDetailsType_deliveryMedium = Lens.lens (\CodeDeliveryDetailsType' {deliveryMedium} -> deliveryMedium) (\s@CodeDeliveryDetailsType' {} a -> s {deliveryMedium = a} :: CodeDeliveryDetailsType)
-
--- | The attribute name.
+-- | The name of the attribute that Amazon Cognito verifies with the code.
 codeDeliveryDetailsType_attributeName :: Lens.Lens' CodeDeliveryDetailsType (Prelude.Maybe Prelude.Text)
 codeDeliveryDetailsType_attributeName = Lens.lens (\CodeDeliveryDetailsType' {attributeName} -> attributeName) (\s@CodeDeliveryDetailsType' {} a -> s {attributeName = a} :: CodeDeliveryDetailsType)
 
-instance Core.FromJSON CodeDeliveryDetailsType where
+-- | The method that Amazon Cognito used to send the code.
+codeDeliveryDetailsType_deliveryMedium :: Lens.Lens' CodeDeliveryDetailsType (Prelude.Maybe DeliveryMediumType)
+codeDeliveryDetailsType_deliveryMedium = Lens.lens (\CodeDeliveryDetailsType' {deliveryMedium} -> deliveryMedium) (\s@CodeDeliveryDetailsType' {} a -> s {deliveryMedium = a} :: CodeDeliveryDetailsType)
+
+-- | The email address or phone number destination where Amazon Cognito sent
+-- the code.
+codeDeliveryDetailsType_destination :: Lens.Lens' CodeDeliveryDetailsType (Prelude.Maybe Prelude.Text)
+codeDeliveryDetailsType_destination = Lens.lens (\CodeDeliveryDetailsType' {destination} -> destination) (\s@CodeDeliveryDetailsType' {} a -> s {destination = a} :: CodeDeliveryDetailsType)
+
+instance Data.FromJSON CodeDeliveryDetailsType where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CodeDeliveryDetailsType"
       ( \x ->
           CodeDeliveryDetailsType'
-            Prelude.<$> (x Core..:? "Destination")
-            Prelude.<*> (x Core..:? "DeliveryMedium")
-            Prelude.<*> (x Core..:? "AttributeName")
+            Prelude.<$> (x Data..:? "AttributeName")
+            Prelude.<*> (x Data..:? "DeliveryMedium")
+            Prelude.<*> (x Data..:? "Destination")
       )
 
 instance Prelude.Hashable CodeDeliveryDetailsType where
   hashWithSalt _salt CodeDeliveryDetailsType' {..} =
-    _salt `Prelude.hashWithSalt` destination
+    _salt `Prelude.hashWithSalt` attributeName
       `Prelude.hashWithSalt` deliveryMedium
-      `Prelude.hashWithSalt` attributeName
+      `Prelude.hashWithSalt` destination
 
 instance Prelude.NFData CodeDeliveryDetailsType where
   rnf CodeDeliveryDetailsType' {..} =
-    Prelude.rnf destination
+    Prelude.rnf attributeName
       `Prelude.seq` Prelude.rnf deliveryMedium
-      `Prelude.seq` Prelude.rnf attributeName
+      `Prelude.seq` Prelude.rnf destination

@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.DeclineInvitations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Declines invitations sent to the current member account by AWS accounts
--- specified by their account IDs.
+-- Declines invitations sent to the current member account by Amazon Web
+-- Services accounts specified by their account IDs.
 module Amazonka.GuardDuty.DeclineInvitations
   ( -- * Creating a Request
     DeclineInvitations (..),
@@ -41,16 +41,18 @@ module Amazonka.GuardDuty.DeclineInvitations
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeclineInvitations' smart constructor.
 data DeclineInvitations = DeclineInvitations'
-  { -- | A list of account IDs of the AWS accounts that sent invitations to the
-    -- current member account that you want to decline invitations from.
+  { -- | A list of account IDs of the Amazon Web Services accounts that sent
+    -- invitations to the current member account that you want to decline
+    -- invitations from.
     accountIds :: Prelude.NonEmpty Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -63,8 +65,9 @@ data DeclineInvitations = DeclineInvitations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'accountIds', 'declineInvitations_accountIds' - A list of account IDs of the AWS accounts that sent invitations to the
--- current member account that you want to decline invitations from.
+-- 'accountIds', 'declineInvitations_accountIds' - A list of account IDs of the Amazon Web Services accounts that sent
+-- invitations to the current member account that you want to decline
+-- invitations from.
 newDeclineInvitations ::
   -- | 'accountIds'
   Prelude.NonEmpty Prelude.Text ->
@@ -75,8 +78,9 @@ newDeclineInvitations pAccountIds_ =
         Lens.coerced Lens.# pAccountIds_
     }
 
--- | A list of account IDs of the AWS accounts that sent invitations to the
--- current member account that you want to decline invitations from.
+-- | A list of account IDs of the Amazon Web Services accounts that sent
+-- invitations to the current member account that you want to decline
+-- invitations from.
 declineInvitations_accountIds :: Lens.Lens' DeclineInvitations (Prelude.NonEmpty Prelude.Text)
 declineInvitations_accountIds = Lens.lens (\DeclineInvitations' {accountIds} -> accountIds) (\s@DeclineInvitations' {} a -> s {accountIds = a} :: DeclineInvitations) Prelude.. Lens.coerced
 
@@ -84,13 +88,14 @@ instance Core.AWSRequest DeclineInvitations where
   type
     AWSResponse DeclineInvitations =
       DeclineInvitationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeclineInvitationsResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "unprocessedAccounts"
+            Prelude.<*> ( x Data..?> "unprocessedAccounts"
                             Core..!@ Prelude.mempty
                         )
       )
@@ -102,28 +107,28 @@ instance Prelude.Hashable DeclineInvitations where
 instance Prelude.NFData DeclineInvitations where
   rnf DeclineInvitations' {..} = Prelude.rnf accountIds
 
-instance Core.ToHeaders DeclineInvitations where
+instance Data.ToHeaders DeclineInvitations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeclineInvitations where
+instance Data.ToJSON DeclineInvitations where
   toJSON DeclineInvitations' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("accountIds" Core..= accountIds)]
+          [Prelude.Just ("accountIds" Data..= accountIds)]
       )
 
-instance Core.ToPath DeclineInvitations where
+instance Data.ToPath DeclineInvitations where
   toPath = Prelude.const "/invitation/decline"
 
-instance Core.ToQuery DeclineInvitations where
+instance Data.ToQuery DeclineInvitations where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeclineInvitationsResponse' smart constructor.

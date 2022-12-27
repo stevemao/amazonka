@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.TestRenderTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.SES.TestRenderTemplate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,13 +101,14 @@ instance Core.AWSRequest TestRenderTemplate where
   type
     AWSResponse TestRenderTemplate =
       TestRenderTemplateResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "TestRenderTemplateResult"
       ( \s h x ->
           TestRenderTemplateResponse'
-            Prelude.<$> (x Core..@? "RenderedTemplate")
+            Prelude.<$> (x Data..@? "RenderedTemplate")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -120,21 +122,21 @@ instance Prelude.NFData TestRenderTemplate where
     Prelude.rnf templateName
       `Prelude.seq` Prelude.rnf templateData
 
-instance Core.ToHeaders TestRenderTemplate where
+instance Data.ToHeaders TestRenderTemplate where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath TestRenderTemplate where
+instance Data.ToPath TestRenderTemplate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery TestRenderTemplate where
+instance Data.ToQuery TestRenderTemplate where
   toQuery TestRenderTemplate' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("TestRenderTemplate" :: Prelude.ByteString),
+          Data.=: ("TestRenderTemplate" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "TemplateName" Core.=: templateName,
-        "TemplateData" Core.=: templateData
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "TemplateName" Data.=: templateName,
+        "TemplateData" Data.=: templateData
       ]
 
 -- | /See:/ 'newTestRenderTemplateResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Snowball.DescribeAddress
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Snowball.DescribeAddress
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,12 +79,13 @@ instance Core.AWSRequest DescribeAddress where
   type
     AWSResponse DescribeAddress =
       DescribeAddressResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAddressResponse'
-            Prelude.<$> (x Core..?> "Address")
+            Prelude.<$> (x Data..?> "Address")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -94,32 +96,32 @@ instance Prelude.Hashable DescribeAddress where
 instance Prelude.NFData DescribeAddress where
   rnf DescribeAddress' {..} = Prelude.rnf addressId
 
-instance Core.ToHeaders DescribeAddress where
+instance Data.ToHeaders DescribeAddress where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSIESnowballJobManagementService.DescribeAddress" ::
+              Data.=# ( "AWSIESnowballJobManagementService.DescribeAddress" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeAddress where
+instance Data.ToJSON DescribeAddress where
   toJSON DescribeAddress' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("AddressId" Core..= addressId)]
+          [Prelude.Just ("AddressId" Data..= addressId)]
       )
 
-instance Core.ToPath DescribeAddress where
+instance Data.ToPath DescribeAddress where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeAddress where
+instance Data.ToQuery DescribeAddress where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeAddressResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.DeleteTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.SES.DeleteTemplate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,7 +83,8 @@ instance Core.AWSRequest DeleteTemplate where
   type
     AWSResponse DeleteTemplate =
       DeleteTemplateResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeleteTemplateResult"
@@ -98,20 +100,20 @@ instance Prelude.Hashable DeleteTemplate where
 instance Prelude.NFData DeleteTemplate where
   rnf DeleteTemplate' {..} = Prelude.rnf templateName
 
-instance Core.ToHeaders DeleteTemplate where
+instance Data.ToHeaders DeleteTemplate where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteTemplate where
+instance Data.ToPath DeleteTemplate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteTemplate where
+instance Data.ToQuery DeleteTemplate where
   toQuery DeleteTemplate' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteTemplate" :: Prelude.ByteString),
+          Data.=: ("DeleteTemplate" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "TemplateName" Core.=: templateName
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "TemplateName" Data.=: templateName
       ]
 
 -- | /See:/ 'newDeleteTemplateResponse' smart constructor.

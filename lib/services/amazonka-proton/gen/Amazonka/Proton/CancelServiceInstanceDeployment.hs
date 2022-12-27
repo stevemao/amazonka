@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Proton.CancelServiceInstanceDeployment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,10 +22,9 @@
 --
 -- Attempts to cancel a service instance deployment on an
 -- UpdateServiceInstance action, if the deployment is @IN_PROGRESS@. For
--- more information, see /Update a service instance/ in the
--- <https://docs.aws.amazon.com/proton/latest/adminguide/ag-svc-instance-update.html AWS Proton Administrator guide>
--- or the
--- <https://docs.aws.amazon.com/proton/latest/userguide/ug-svc-instance-update.html AWS Proton User guide>.
+-- more information, see
+-- <https://docs.aws.amazon.com/proton/latest/userguide/ag-svc-instance-update.html Update a service instance>
+-- in the /Proton User guide/.
 --
 -- The following list includes potential cancellation scenarios.
 --
@@ -58,7 +57,8 @@ module Amazonka.Proton.CancelServiceInstanceDeployment
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types
 import qualified Amazonka.Request as Request
@@ -114,13 +114,14 @@ instance
   type
     AWSResponse CancelServiceInstanceDeployment =
       CancelServiceInstanceDeploymentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CancelServiceInstanceDeploymentResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "serviceInstance")
+            Prelude.<*> (x Data..:> "serviceInstance")
       )
 
 instance
@@ -142,44 +143,44 @@ instance
       `Prelude.seq` Prelude.rnf serviceName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CancelServiceInstanceDeployment
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AwsProton20200720.CancelServiceInstanceDeployment" ::
+              Data.=# ( "AwsProton20200720.CancelServiceInstanceDeployment" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CancelServiceInstanceDeployment where
+instance Data.ToJSON CancelServiceInstanceDeployment where
   toJSON CancelServiceInstanceDeployment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("serviceInstanceName" Core..= serviceInstanceName),
-            Prelude.Just ("serviceName" Core..= serviceName)
+              ("serviceInstanceName" Data..= serviceInstanceName),
+            Prelude.Just ("serviceName" Data..= serviceName)
           ]
       )
 
-instance Core.ToPath CancelServiceInstanceDeployment where
+instance Data.ToPath CancelServiceInstanceDeployment where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CancelServiceInstanceDeployment where
+instance Data.ToQuery CancelServiceInstanceDeployment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCancelServiceInstanceDeploymentResponse' smart constructor.
 data CancelServiceInstanceDeploymentResponse = CancelServiceInstanceDeploymentResponse'
   { -- | The response's http status code.
     httpStatus :: Prelude.Int,
-    -- | The service instance summary data that\'s returned by AWS Proton.
+    -- | The service instance summary data that\'s returned by Proton.
     serviceInstance :: ServiceInstance
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
@@ -194,7 +195,7 @@ data CancelServiceInstanceDeploymentResponse = CancelServiceInstanceDeploymentRe
 --
 -- 'httpStatus', 'cancelServiceInstanceDeploymentResponse_httpStatus' - The response's http status code.
 --
--- 'serviceInstance', 'cancelServiceInstanceDeploymentResponse_serviceInstance' - The service instance summary data that\'s returned by AWS Proton.
+-- 'serviceInstance', 'cancelServiceInstanceDeploymentResponse_serviceInstance' - The service instance summary data that\'s returned by Proton.
 newCancelServiceInstanceDeploymentResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
@@ -215,7 +216,7 @@ newCancelServiceInstanceDeploymentResponse
 cancelServiceInstanceDeploymentResponse_httpStatus :: Lens.Lens' CancelServiceInstanceDeploymentResponse Prelude.Int
 cancelServiceInstanceDeploymentResponse_httpStatus = Lens.lens (\CancelServiceInstanceDeploymentResponse' {httpStatus} -> httpStatus) (\s@CancelServiceInstanceDeploymentResponse' {} a -> s {httpStatus = a} :: CancelServiceInstanceDeploymentResponse)
 
--- | The service instance summary data that\'s returned by AWS Proton.
+-- | The service instance summary data that\'s returned by Proton.
 cancelServiceInstanceDeploymentResponse_serviceInstance :: Lens.Lens' CancelServiceInstanceDeploymentResponse ServiceInstance
 cancelServiceInstanceDeploymentResponse_serviceInstance = Lens.lens (\CancelServiceInstanceDeploymentResponse' {serviceInstance} -> serviceInstance) (\s@CancelServiceInstanceDeploymentResponse' {} a -> s {serviceInstance = a} :: CancelServiceInstanceDeploymentResponse)
 

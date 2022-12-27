@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticTranscoder.UpdatePipelineStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,8 +48,9 @@ module Amazonka.ElasticTranscoder.UpdatePipelineStatus
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticTranscoder.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -109,12 +110,13 @@ instance Core.AWSRequest UpdatePipelineStatus where
   type
     AWSResponse UpdatePipelineStatus =
       UpdatePipelineStatusResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdatePipelineStatusResponse'
-            Prelude.<$> (x Core..?> "Pipeline")
+            Prelude.<$> (x Data..?> "Pipeline")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -127,22 +129,22 @@ instance Prelude.NFData UpdatePipelineStatus where
   rnf UpdatePipelineStatus' {..} =
     Prelude.rnf id `Prelude.seq` Prelude.rnf status
 
-instance Core.ToHeaders UpdatePipelineStatus where
+instance Data.ToHeaders UpdatePipelineStatus where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdatePipelineStatus where
+instance Data.ToJSON UpdatePipelineStatus where
   toJSON UpdatePipelineStatus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Status" Core..= status)]
+          [Prelude.Just ("Status" Data..= status)]
       )
 
-instance Core.ToPath UpdatePipelineStatus where
+instance Data.ToPath UpdatePipelineStatus where
   toPath UpdatePipelineStatus' {..} =
     Prelude.mconcat
-      ["/2012-09-25/pipelines/", Core.toBS id, "/status"]
+      ["/2012-09-25/pipelines/", Data.toBS id, "/status"]
 
-instance Core.ToQuery UpdatePipelineStatus where
+instance Data.ToQuery UpdatePipelineStatus where
   toQuery = Prelude.const Prelude.mempty
 
 -- | When you update status for a pipeline, Elastic Transcoder returns the

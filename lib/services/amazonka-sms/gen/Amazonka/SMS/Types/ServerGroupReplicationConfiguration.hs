@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SMS.Types.ServerGroupReplicationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SMS.Types.ServerGroupReplicationConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SMS.Types.ServerReplicationConfiguration
 
@@ -68,17 +69,17 @@ serverGroupReplicationConfiguration_serverReplicationConfigurations :: Lens.Lens
 serverGroupReplicationConfiguration_serverReplicationConfigurations = Lens.lens (\ServerGroupReplicationConfiguration' {serverReplicationConfigurations} -> serverReplicationConfigurations) (\s@ServerGroupReplicationConfiguration' {} a -> s {serverReplicationConfigurations = a} :: ServerGroupReplicationConfiguration) Prelude.. Lens.mapping Lens.coerced
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ServerGroupReplicationConfiguration
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ServerGroupReplicationConfiguration"
       ( \x ->
           ServerGroupReplicationConfiguration'
-            Prelude.<$> (x Core..:? "serverGroupId")
-            Prelude.<*> ( x Core..:? "serverReplicationConfigurations"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "serverGroupId")
+            Prelude.<*> ( x Data..:? "serverReplicationConfigurations"
+                            Data..!= Prelude.mempty
                         )
       )
 
@@ -101,14 +102,14 @@ instance
       `Prelude.seq` Prelude.rnf serverReplicationConfigurations
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ServerGroupReplicationConfiguration
   where
   toJSON ServerGroupReplicationConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("serverGroupId" Core..=) Prelude.<$> serverGroupId,
-            ("serverReplicationConfigurations" Core..=)
+          [ ("serverGroupId" Data..=) Prelude.<$> serverGroupId,
+            ("serverReplicationConfigurations" Data..=)
               Prelude.<$> serverReplicationConfigurations
           ]
       )

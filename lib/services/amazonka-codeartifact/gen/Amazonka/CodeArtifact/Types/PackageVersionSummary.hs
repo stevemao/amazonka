@@ -12,16 +12,18 @@
 
 -- |
 -- Module      : Amazonka.CodeArtifact.Types.PackageVersionSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 module Amazonka.CodeArtifact.Types.PackageVersionSummary where
 
+import Amazonka.CodeArtifact.Types.PackageVersionOrigin
 import Amazonka.CodeArtifact.Types.PackageVersionStatus
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details about a package version, including its status, version, and
@@ -31,22 +33,17 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newPackageVersionSummary' smart constructor.
 data PackageVersionSummary = PackageVersionSummary'
-  { -- | The revision associated with a package version.
+  { -- | A
+    -- <https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_PackageVersionOrigin.html PackageVersionOrigin>
+    -- object that contains information about how the package version was added
+    -- to the repository.
+    origin :: Prelude.Maybe PackageVersionOrigin,
+    -- | The revision associated with a package version.
     revision :: Prelude.Maybe Prelude.Text,
     -- | Information about a package version.
     version :: Prelude.Text,
     -- | A string that contains the status of the package version. It can be one
     -- of the following:
-    --
-    -- -   @Published@
-    --
-    -- -   @Unfinished@
-    --
-    -- -   @Unlisted@
-    --
-    -- -   @Archived@
-    --
-    -- -   @Disposed@
     status :: PackageVersionStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -59,22 +56,17 @@ data PackageVersionSummary = PackageVersionSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'origin', 'packageVersionSummary_origin' - A
+-- <https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_PackageVersionOrigin.html PackageVersionOrigin>
+-- object that contains information about how the package version was added
+-- to the repository.
+--
 -- 'revision', 'packageVersionSummary_revision' - The revision associated with a package version.
 --
 -- 'version', 'packageVersionSummary_version' - Information about a package version.
 --
 -- 'status', 'packageVersionSummary_status' - A string that contains the status of the package version. It can be one
 -- of the following:
---
--- -   @Published@
---
--- -   @Unfinished@
---
--- -   @Unlisted@
---
--- -   @Archived@
---
--- -   @Disposed@
 newPackageVersionSummary ::
   -- | 'version'
   Prelude.Text ->
@@ -83,10 +75,18 @@ newPackageVersionSummary ::
   PackageVersionSummary
 newPackageVersionSummary pVersion_ pStatus_ =
   PackageVersionSummary'
-    { revision = Prelude.Nothing,
+    { origin = Prelude.Nothing,
+      revision = Prelude.Nothing,
       version = pVersion_,
       status = pStatus_
     }
+
+-- | A
+-- <https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_PackageVersionOrigin.html PackageVersionOrigin>
+-- object that contains information about how the package version was added
+-- to the repository.
+packageVersionSummary_origin :: Lens.Lens' PackageVersionSummary (Prelude.Maybe PackageVersionOrigin)
+packageVersionSummary_origin = Lens.lens (\PackageVersionSummary' {origin} -> origin) (\s@PackageVersionSummary' {} a -> s {origin = a} :: PackageVersionSummary)
 
 -- | The revision associated with a package version.
 packageVersionSummary_revision :: Lens.Lens' PackageVersionSummary (Prelude.Maybe Prelude.Text)
@@ -98,38 +98,31 @@ packageVersionSummary_version = Lens.lens (\PackageVersionSummary' {version} -> 
 
 -- | A string that contains the status of the package version. It can be one
 -- of the following:
---
--- -   @Published@
---
--- -   @Unfinished@
---
--- -   @Unlisted@
---
--- -   @Archived@
---
--- -   @Disposed@
 packageVersionSummary_status :: Lens.Lens' PackageVersionSummary PackageVersionStatus
 packageVersionSummary_status = Lens.lens (\PackageVersionSummary' {status} -> status) (\s@PackageVersionSummary' {} a -> s {status = a} :: PackageVersionSummary)
 
-instance Core.FromJSON PackageVersionSummary where
+instance Data.FromJSON PackageVersionSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PackageVersionSummary"
       ( \x ->
           PackageVersionSummary'
-            Prelude.<$> (x Core..:? "revision")
-            Prelude.<*> (x Core..: "version")
-            Prelude.<*> (x Core..: "status")
+            Prelude.<$> (x Data..:? "origin")
+            Prelude.<*> (x Data..:? "revision")
+            Prelude.<*> (x Data..: "version")
+            Prelude.<*> (x Data..: "status")
       )
 
 instance Prelude.Hashable PackageVersionSummary where
   hashWithSalt _salt PackageVersionSummary' {..} =
-    _salt `Prelude.hashWithSalt` revision
+    _salt `Prelude.hashWithSalt` origin
+      `Prelude.hashWithSalt` revision
       `Prelude.hashWithSalt` version
       `Prelude.hashWithSalt` status
 
 instance Prelude.NFData PackageVersionSummary where
   rnf PackageVersionSummary' {..} =
-    Prelude.rnf revision
+    Prelude.rnf origin
+      `Prelude.seq` Prelude.rnf revision
       `Prelude.seq` Prelude.rnf version
       `Prelude.seq` Prelude.rnf status

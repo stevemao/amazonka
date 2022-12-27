@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.DeleteKeySigningKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,6 +23,14 @@
 -- Deletes a key-signing key (KSK). Before you can delete a KSK, you must
 -- deactivate it. The KSK must be deactivated before you can delete it
 -- regardless of whether the hosted zone is enabled for DNSSEC signing.
+--
+-- You can use
+-- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_DeactivateKeySigningKey.html DeactivateKeySigningKey>
+-- to deactivate the key before you delete it.
+--
+-- Use
+-- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetDNSSEC.html GetDNSSEC>
+-- to verify that the KSK is in an @INACTIVE@ status.
 module Amazonka.Route53.DeleteKeySigningKey
   ( -- * Creating a Request
     DeleteKeySigningKey (..),
@@ -43,7 +51,8 @@ module Amazonka.Route53.DeleteKeySigningKey
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,13 +102,14 @@ instance Core.AWSRequest DeleteKeySigningKey where
   type
     AWSResponse DeleteKeySigningKey =
       DeleteKeySigningKeyResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DeleteKeySigningKeyResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "ChangeInfo")
+            Prelude.<*> (x Data..@ "ChangeInfo")
       )
 
 instance Prelude.Hashable DeleteKeySigningKey where
@@ -112,19 +122,19 @@ instance Prelude.NFData DeleteKeySigningKey where
     Prelude.rnf hostedZoneId
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders DeleteKeySigningKey where
+instance Data.ToHeaders DeleteKeySigningKey where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteKeySigningKey where
+instance Data.ToPath DeleteKeySigningKey where
   toPath DeleteKeySigningKey' {..} =
     Prelude.mconcat
       [ "/2013-04-01/keysigningkey/",
-        Core.toBS hostedZoneId,
+        Data.toBS hostedZoneId,
         "/",
-        Core.toBS name
+        Data.toBS name
       ]
 
-instance Core.ToQuery DeleteKeySigningKey where
+instance Data.ToQuery DeleteKeySigningKey where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteKeySigningKeyResponse' smart constructor.

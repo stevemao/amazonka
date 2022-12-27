@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudTrail.ListTrails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.CloudTrail.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,7 +54,7 @@ import qualified Amazonka.Response as Response
 data ListTrails = ListTrails'
   { -- | The token to use to get the next page of results after a previous API
     -- call. This token must be passed in with the same parameters that were
-    -- specified in the the original call. For example, if the original call
+    -- specified in the original call. For example, if the original call
     -- specified an AttributeKey of \'Username\' with a value of \'root\', the
     -- call with NextToken should include those same parameters.
     nextToken :: Prelude.Maybe Prelude.Text
@@ -70,7 +71,7 @@ data ListTrails = ListTrails'
 --
 -- 'nextToken', 'listTrails_nextToken' - The token to use to get the next page of results after a previous API
 -- call. This token must be passed in with the same parameters that were
--- specified in the the original call. For example, if the original call
+-- specified in the original call. For example, if the original call
 -- specified an AttributeKey of \'Username\' with a value of \'root\', the
 -- call with NextToken should include those same parameters.
 newListTrails ::
@@ -80,7 +81,7 @@ newListTrails =
 
 -- | The token to use to get the next page of results after a previous API
 -- call. This token must be passed in with the same parameters that were
--- specified in the the original call. For example, if the original call
+-- specified in the original call. For example, if the original call
 -- specified an AttributeKey of \'Username\' with a value of \'root\', the
 -- call with NextToken should include those same parameters.
 listTrails_nextToken :: Lens.Lens' ListTrails (Prelude.Maybe Prelude.Text)
@@ -107,13 +108,14 @@ instance Core.AWSPager ListTrails where
 
 instance Core.AWSRequest ListTrails where
   type AWSResponse ListTrails = ListTrailsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTrailsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Trails" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Trails" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -124,32 +126,32 @@ instance Prelude.Hashable ListTrails where
 instance Prelude.NFData ListTrails where
   rnf ListTrails' {..} = Prelude.rnf nextToken
 
-instance Core.ToHeaders ListTrails where
+instance Data.ToHeaders ListTrails where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.ListTrails" ::
+              Data.=# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.ListTrails" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTrails where
+instance Data.ToJSON ListTrails where
   toJSON ListTrails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("NextToken" Core..=) Prelude.<$> nextToken]
+          [("NextToken" Data..=) Prelude.<$> nextToken]
       )
 
-instance Core.ToPath ListTrails where
+instance Data.ToPath ListTrails where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTrails where
+instance Data.ToQuery ListTrails where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTrailsResponse' smart constructor.

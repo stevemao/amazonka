@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ModifyCapacityReservationFleet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,10 +34,10 @@ module Amazonka.EC2.ModifyCapacityReservationFleet
     newModifyCapacityReservationFleet,
 
     -- * Request Lenses
-    modifyCapacityReservationFleet_endDate,
-    modifyCapacityReservationFleet_totalTargetCapacity,
-    modifyCapacityReservationFleet_removeEndDate,
     modifyCapacityReservationFleet_dryRun,
+    modifyCapacityReservationFleet_endDate,
+    modifyCapacityReservationFleet_removeEndDate,
+    modifyCapacityReservationFleet_totalTargetCapacity,
     modifyCapacityReservationFleet_capacityReservationFleetId,
 
     -- * Destructuring the Response
@@ -51,15 +51,21 @@ module Amazonka.EC2.ModifyCapacityReservationFleet
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newModifyCapacityReservationFleet' smart constructor.
 data ModifyCapacityReservationFleet = ModifyCapacityReservationFleet'
-  { -- | The date and time at which the Capacity Reservation Fleet expires. When
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The date and time at which the Capacity Reservation Fleet expires. When
     -- the Capacity Reservation Fleet expires, its state changes to @expired@
     -- and all of the Capacity Reservations in the Fleet expire.
     --
@@ -70,7 +76,15 @@ data ModifyCapacityReservationFleet = ModifyCapacityReservationFleet'
     --
     -- You can\'t specify __EndDate__ and __RemoveEndDate__ in the same
     -- request.
-    endDate :: Prelude.Maybe Core.ISO8601,
+    endDate :: Prelude.Maybe Data.ISO8601,
+    -- | Indicates whether to remove the end date from the Capacity Reservation
+    -- Fleet. If you remove the end date, the Capacity Reservation Fleet does
+    -- not expire and it remains active until you explicitly cancel it using
+    -- the __CancelCapacityReservationFleet__ action.
+    --
+    -- You can\'t specify __RemoveEndDate__ and __EndDate__ in the same
+    -- request.
+    removeEndDate :: Prelude.Maybe Prelude.Bool,
     -- | The total number of capacity units to be reserved by the Capacity
     -- Reservation Fleet. This value, together with the instance type weights
     -- that you assign to each instance type used by the Fleet determine the
@@ -80,19 +94,6 @@ data ModifyCapacityReservationFleet = ModifyCapacityReservationFleet'
     -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#target-capacity Total target capacity>
     -- in the Amazon EC2 User Guide.
     totalTargetCapacity :: Prelude.Maybe Prelude.Int,
-    -- | Indicates whether to remove the end date from the Capacity Reservation
-    -- Fleet. If you remove the end date, the Capacity Reservation Fleet does
-    -- not expire and it remains active until you explicitly cancel it using
-    -- the __CancelCapacityReservationFleet__ action.
-    --
-    -- You can\'t specify __RemoveEndDate__ and __EndDate__ in the same
-    -- request.
-    removeEndDate :: Prelude.Maybe Prelude.Bool,
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | The ID of the Capacity Reservation Fleet to modify.
     capacityReservationFleetId :: Prelude.Text
   }
@@ -106,6 +107,11 @@ data ModifyCapacityReservationFleet = ModifyCapacityReservationFleet'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'dryRun', 'modifyCapacityReservationFleet_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
 -- 'endDate', 'modifyCapacityReservationFleet_endDate' - The date and time at which the Capacity Reservation Fleet expires. When
 -- the Capacity Reservation Fleet expires, its state changes to @expired@
 -- and all of the Capacity Reservations in the Fleet expire.
@@ -118,6 +124,14 @@ data ModifyCapacityReservationFleet = ModifyCapacityReservationFleet'
 -- You can\'t specify __EndDate__ and __RemoveEndDate__ in the same
 -- request.
 --
+-- 'removeEndDate', 'modifyCapacityReservationFleet_removeEndDate' - Indicates whether to remove the end date from the Capacity Reservation
+-- Fleet. If you remove the end date, the Capacity Reservation Fleet does
+-- not expire and it remains active until you explicitly cancel it using
+-- the __CancelCapacityReservationFleet__ action.
+--
+-- You can\'t specify __RemoveEndDate__ and __EndDate__ in the same
+-- request.
+--
 -- 'totalTargetCapacity', 'modifyCapacityReservationFleet_totalTargetCapacity' - The total number of capacity units to be reserved by the Capacity
 -- Reservation Fleet. This value, together with the instance type weights
 -- that you assign to each instance type used by the Fleet determine the
@@ -127,19 +141,6 @@ data ModifyCapacityReservationFleet = ModifyCapacityReservationFleet'
 -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#target-capacity Total target capacity>
 -- in the Amazon EC2 User Guide.
 --
--- 'removeEndDate', 'modifyCapacityReservationFleet_removeEndDate' - Indicates whether to remove the end date from the Capacity Reservation
--- Fleet. If you remove the end date, the Capacity Reservation Fleet does
--- not expire and it remains active until you explicitly cancel it using
--- the __CancelCapacityReservationFleet__ action.
---
--- You can\'t specify __RemoveEndDate__ and __EndDate__ in the same
--- request.
---
--- 'dryRun', 'modifyCapacityReservationFleet_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
---
 -- 'capacityReservationFleetId', 'modifyCapacityReservationFleet_capacityReservationFleetId' - The ID of the Capacity Reservation Fleet to modify.
 newModifyCapacityReservationFleet ::
   -- | 'capacityReservationFleetId'
@@ -148,14 +149,21 @@ newModifyCapacityReservationFleet ::
 newModifyCapacityReservationFleet
   pCapacityReservationFleetId_ =
     ModifyCapacityReservationFleet'
-      { endDate =
+      { dryRun =
           Prelude.Nothing,
-        totalTargetCapacity = Prelude.Nothing,
+        endDate = Prelude.Nothing,
         removeEndDate = Prelude.Nothing,
-        dryRun = Prelude.Nothing,
+        totalTargetCapacity = Prelude.Nothing,
         capacityReservationFleetId =
           pCapacityReservationFleetId_
       }
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+modifyCapacityReservationFleet_dryRun :: Lens.Lens' ModifyCapacityReservationFleet (Prelude.Maybe Prelude.Bool)
+modifyCapacityReservationFleet_dryRun = Lens.lens (\ModifyCapacityReservationFleet' {dryRun} -> dryRun) (\s@ModifyCapacityReservationFleet' {} a -> s {dryRun = a} :: ModifyCapacityReservationFleet)
 
 -- | The date and time at which the Capacity Reservation Fleet expires. When
 -- the Capacity Reservation Fleet expires, its state changes to @expired@
@@ -169,7 +177,17 @@ newModifyCapacityReservationFleet
 -- You can\'t specify __EndDate__ and __RemoveEndDate__ in the same
 -- request.
 modifyCapacityReservationFleet_endDate :: Lens.Lens' ModifyCapacityReservationFleet (Prelude.Maybe Prelude.UTCTime)
-modifyCapacityReservationFleet_endDate = Lens.lens (\ModifyCapacityReservationFleet' {endDate} -> endDate) (\s@ModifyCapacityReservationFleet' {} a -> s {endDate = a} :: ModifyCapacityReservationFleet) Prelude.. Lens.mapping Core._Time
+modifyCapacityReservationFleet_endDate = Lens.lens (\ModifyCapacityReservationFleet' {endDate} -> endDate) (\s@ModifyCapacityReservationFleet' {} a -> s {endDate = a} :: ModifyCapacityReservationFleet) Prelude.. Lens.mapping Data._Time
+
+-- | Indicates whether to remove the end date from the Capacity Reservation
+-- Fleet. If you remove the end date, the Capacity Reservation Fleet does
+-- not expire and it remains active until you explicitly cancel it using
+-- the __CancelCapacityReservationFleet__ action.
+--
+-- You can\'t specify __RemoveEndDate__ and __EndDate__ in the same
+-- request.
+modifyCapacityReservationFleet_removeEndDate :: Lens.Lens' ModifyCapacityReservationFleet (Prelude.Maybe Prelude.Bool)
+modifyCapacityReservationFleet_removeEndDate = Lens.lens (\ModifyCapacityReservationFleet' {removeEndDate} -> removeEndDate) (\s@ModifyCapacityReservationFleet' {} a -> s {removeEndDate = a} :: ModifyCapacityReservationFleet)
 
 -- | The total number of capacity units to be reserved by the Capacity
 -- Reservation Fleet. This value, together with the instance type weights
@@ -182,23 +200,6 @@ modifyCapacityReservationFleet_endDate = Lens.lens (\ModifyCapacityReservationFl
 modifyCapacityReservationFleet_totalTargetCapacity :: Lens.Lens' ModifyCapacityReservationFleet (Prelude.Maybe Prelude.Int)
 modifyCapacityReservationFleet_totalTargetCapacity = Lens.lens (\ModifyCapacityReservationFleet' {totalTargetCapacity} -> totalTargetCapacity) (\s@ModifyCapacityReservationFleet' {} a -> s {totalTargetCapacity = a} :: ModifyCapacityReservationFleet)
 
--- | Indicates whether to remove the end date from the Capacity Reservation
--- Fleet. If you remove the end date, the Capacity Reservation Fleet does
--- not expire and it remains active until you explicitly cancel it using
--- the __CancelCapacityReservationFleet__ action.
---
--- You can\'t specify __RemoveEndDate__ and __EndDate__ in the same
--- request.
-modifyCapacityReservationFleet_removeEndDate :: Lens.Lens' ModifyCapacityReservationFleet (Prelude.Maybe Prelude.Bool)
-modifyCapacityReservationFleet_removeEndDate = Lens.lens (\ModifyCapacityReservationFleet' {removeEndDate} -> removeEndDate) (\s@ModifyCapacityReservationFleet' {} a -> s {removeEndDate = a} :: ModifyCapacityReservationFleet)
-
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-modifyCapacityReservationFleet_dryRun :: Lens.Lens' ModifyCapacityReservationFleet (Prelude.Maybe Prelude.Bool)
-modifyCapacityReservationFleet_dryRun = Lens.lens (\ModifyCapacityReservationFleet' {dryRun} -> dryRun) (\s@ModifyCapacityReservationFleet' {} a -> s {dryRun = a} :: ModifyCapacityReservationFleet)
-
 -- | The ID of the Capacity Reservation Fleet to modify.
 modifyCapacityReservationFleet_capacityReservationFleetId :: Lens.Lens' ModifyCapacityReservationFleet Prelude.Text
 modifyCapacityReservationFleet_capacityReservationFleetId = Lens.lens (\ModifyCapacityReservationFleet' {capacityReservationFleetId} -> capacityReservationFleetId) (\s@ModifyCapacityReservationFleet' {} a -> s {capacityReservationFleetId = a} :: ModifyCapacityReservationFleet)
@@ -210,12 +211,13 @@ instance
   type
     AWSResponse ModifyCapacityReservationFleet =
       ModifyCapacityReservationFleetResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ModifyCapacityReservationFleetResponse'
-            Prelude.<$> (x Core..@? "return")
+            Prelude.<$> (x Data..@? "return")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -226,10 +228,10 @@ instance
   hashWithSalt
     _salt
     ModifyCapacityReservationFleet' {..} =
-      _salt `Prelude.hashWithSalt` endDate
-        `Prelude.hashWithSalt` totalTargetCapacity
+      _salt `Prelude.hashWithSalt` dryRun
+        `Prelude.hashWithSalt` endDate
         `Prelude.hashWithSalt` removeEndDate
-        `Prelude.hashWithSalt` dryRun
+        `Prelude.hashWithSalt` totalTargetCapacity
         `Prelude.hashWithSalt` capacityReservationFleetId
 
 instance
@@ -237,36 +239,36 @@ instance
     ModifyCapacityReservationFleet
   where
   rnf ModifyCapacityReservationFleet' {..} =
-    Prelude.rnf endDate
-      `Prelude.seq` Prelude.rnf totalTargetCapacity
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf endDate
       `Prelude.seq` Prelude.rnf removeEndDate
-      `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf totalTargetCapacity
       `Prelude.seq` Prelude.rnf capacityReservationFleetId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ModifyCapacityReservationFleet
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyCapacityReservationFleet where
+instance Data.ToPath ModifyCapacityReservationFleet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyCapacityReservationFleet where
+instance Data.ToQuery ModifyCapacityReservationFleet where
   toQuery ModifyCapacityReservationFleet' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "ModifyCapacityReservationFleet" ::
+          Data.=: ( "ModifyCapacityReservationFleet" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "EndDate" Core.=: endDate,
-        "TotalTargetCapacity" Core.=: totalTargetCapacity,
-        "RemoveEndDate" Core.=: removeEndDate,
-        "DryRun" Core.=: dryRun,
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "EndDate" Data.=: endDate,
+        "RemoveEndDate" Data.=: removeEndDate,
+        "TotalTargetCapacity" Data.=: totalTargetCapacity,
         "CapacityReservationFleetId"
-          Core.=: capacityReservationFleetId
+          Data.=: capacityReservationFleetId
       ]
 
 -- | /See:/ 'newModifyCapacityReservationFleetResponse' smart constructor.

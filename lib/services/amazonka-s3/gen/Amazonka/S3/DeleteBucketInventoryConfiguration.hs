@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.DeleteBucketInventoryConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -58,7 +58,8 @@ module Amazonka.S3.DeleteBucketInventoryConfiguration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -67,8 +68,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newDeleteBucketInventoryConfiguration' smart constructor.
 data DeleteBucketInventoryConfiguration = DeleteBucketInventoryConfiguration'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the bucket containing the inventory configuration to delete.
     bucket :: BucketName,
@@ -86,8 +87,8 @@ data DeleteBucketInventoryConfiguration = DeleteBucketInventoryConfiguration'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'deleteBucketInventoryConfiguration_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'deleteBucketInventoryConfiguration_bucket' - The name of the bucket containing the inventory configuration to delete.
 --
@@ -107,8 +108,8 @@ newDeleteBucketInventoryConfiguration pBucket_ pId_ =
     }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 deleteBucketInventoryConfiguration_expectedBucketOwner :: Lens.Lens' DeleteBucketInventoryConfiguration (Prelude.Maybe Prelude.Text)
 deleteBucketInventoryConfiguration_expectedBucketOwner = Lens.lens (\DeleteBucketInventoryConfiguration' {expectedBucketOwner} -> expectedBucketOwner) (\s@DeleteBucketInventoryConfiguration' {} a -> s {expectedBucketOwner = a} :: DeleteBucketInventoryConfiguration)
 
@@ -127,9 +128,9 @@ instance
   type
     AWSResponse DeleteBucketInventoryConfiguration =
       DeleteBucketInventoryConfigurationResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.delete defaultService
+      Prelude.. Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteBucketInventoryConfigurationResponse'
@@ -155,28 +156,28 @@ instance
       `Prelude.seq` Prelude.rnf id
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteBucketInventoryConfiguration
   where
   toHeaders DeleteBucketInventoryConfiguration' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
 instance
-  Core.ToPath
+  Data.ToPath
     DeleteBucketInventoryConfiguration
   where
   toPath DeleteBucketInventoryConfiguration' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DeleteBucketInventoryConfiguration
   where
   toQuery DeleteBucketInventoryConfiguration' {..} =
-    Prelude.mconcat ["id" Core.=: id, "inventory"]
+    Prelude.mconcat ["id" Data.=: id, "inventory"]
 
 -- | /See:/ 'newDeleteBucketInventoryConfigurationResponse' smart constructor.
 data DeleteBucketInventoryConfigurationResponse = DeleteBucketInventoryConfigurationResponse'

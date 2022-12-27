@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.UpdateSmsChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.Pinpoint.UpdateSmsChannel
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -96,13 +97,14 @@ instance Core.AWSRequest UpdateSmsChannel where
   type
     AWSResponse UpdateSmsChannel =
       UpdateSmsChannelResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateSmsChannelResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable UpdateSmsChannel where
@@ -115,35 +117,30 @@ instance Prelude.NFData UpdateSmsChannel where
     Prelude.rnf applicationId
       `Prelude.seq` Prelude.rnf sMSChannelRequest
 
-instance Core.ToHeaders UpdateSmsChannel where
+instance Data.ToHeaders UpdateSmsChannel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateSmsChannel where
+instance Data.ToJSON UpdateSmsChannel where
   toJSON UpdateSmsChannel' {..} =
-    Core.object
-      ( Prelude.catMaybes
-          [ Prelude.Just
-              ("SMSChannelRequest" Core..= sMSChannelRequest)
-          ]
-      )
+    Data.toJSON sMSChannelRequest
 
-instance Core.ToPath UpdateSmsChannel where
+instance Data.ToPath UpdateSmsChannel where
   toPath UpdateSmsChannel' {..} =
     Prelude.mconcat
       [ "/v1/apps/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/channels/sms"
       ]
 
-instance Core.ToQuery UpdateSmsChannel where
+instance Data.ToQuery UpdateSmsChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateSmsChannelResponse' smart constructor.

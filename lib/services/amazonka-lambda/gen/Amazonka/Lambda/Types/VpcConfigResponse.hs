@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.Types.VpcConfigResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lambda.Types.VpcConfigResponse where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The VPC security groups and subnets that are attached to a Lambda
@@ -28,7 +29,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newVpcConfigResponse' smart constructor.
 data VpcConfigResponse = VpcConfigResponse'
-  { -- | A list of VPC security groups IDs.
+  { -- | A list of VPC security group IDs.
     securityGroupIds :: Prelude.Maybe [Prelude.Text],
     -- | A list of VPC subnet IDs.
     subnetIds :: Prelude.Maybe [Prelude.Text],
@@ -45,7 +46,7 @@ data VpcConfigResponse = VpcConfigResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'securityGroupIds', 'vpcConfigResponse_securityGroupIds' - A list of VPC security groups IDs.
+-- 'securityGroupIds', 'vpcConfigResponse_securityGroupIds' - A list of VPC security group IDs.
 --
 -- 'subnetIds', 'vpcConfigResponse_subnetIds' - A list of VPC subnet IDs.
 --
@@ -60,7 +61,7 @@ newVpcConfigResponse =
       vpcId = Prelude.Nothing
     }
 
--- | A list of VPC security groups IDs.
+-- | A list of VPC security group IDs.
 vpcConfigResponse_securityGroupIds :: Lens.Lens' VpcConfigResponse (Prelude.Maybe [Prelude.Text])
 vpcConfigResponse_securityGroupIds = Lens.lens (\VpcConfigResponse' {securityGroupIds} -> securityGroupIds) (\s@VpcConfigResponse' {} a -> s {securityGroupIds = a} :: VpcConfigResponse) Prelude.. Lens.mapping Lens.coerced
 
@@ -72,17 +73,17 @@ vpcConfigResponse_subnetIds = Lens.lens (\VpcConfigResponse' {subnetIds} -> subn
 vpcConfigResponse_vpcId :: Lens.Lens' VpcConfigResponse (Prelude.Maybe Prelude.Text)
 vpcConfigResponse_vpcId = Lens.lens (\VpcConfigResponse' {vpcId} -> vpcId) (\s@VpcConfigResponse' {} a -> s {vpcId = a} :: VpcConfigResponse)
 
-instance Core.FromJSON VpcConfigResponse where
+instance Data.FromJSON VpcConfigResponse where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VpcConfigResponse"
       ( \x ->
           VpcConfigResponse'
-            Prelude.<$> ( x Core..:? "SecurityGroupIds"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "SecurityGroupIds"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "SubnetIds" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "VpcId")
+            Prelude.<*> (x Data..:? "SubnetIds" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "VpcId")
       )
 
 instance Prelude.Hashable VpcConfigResponse where

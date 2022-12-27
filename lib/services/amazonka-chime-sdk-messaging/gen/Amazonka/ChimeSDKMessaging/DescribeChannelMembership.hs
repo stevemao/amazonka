@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ChimeSDKMessaging.DescribeChannelMembership
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,6 +31,7 @@ module Amazonka.ChimeSDKMessaging.DescribeChannelMembership
     newDescribeChannelMembership,
 
     -- * Request Lenses
+    describeChannelMembership_subChannelId,
     describeChannelMembership_channelArn,
     describeChannelMembership_memberArn,
     describeChannelMembership_chimeBearer,
@@ -47,16 +48,22 @@ where
 
 import Amazonka.ChimeSDKMessaging.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeChannelMembership' smart constructor.
 data DescribeChannelMembership = DescribeChannelMembership'
-  { -- | The ARN of the channel.
+  { -- | The ID of the SubChannel in the request. The response contains an
+    -- @ElasticChannelConfiguration@ object.
+    --
+    -- Only required to get a user’s SubChannel membership details.
+    subChannelId :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the channel.
     channelArn :: Prelude.Text,
-    -- | The ARN of the member.
+    -- | The @AppInstanceUserArn@ of the member.
     memberArn :: Prelude.Text,
     -- | The @AppInstanceUserArn@ of the user that makes the API call.
     chimeBearer :: Prelude.Text
@@ -71,9 +78,14 @@ data DescribeChannelMembership = DescribeChannelMembership'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'subChannelId', 'describeChannelMembership_subChannelId' - The ID of the SubChannel in the request. The response contains an
+-- @ElasticChannelConfiguration@ object.
+--
+-- Only required to get a user’s SubChannel membership details.
+--
 -- 'channelArn', 'describeChannelMembership_channelArn' - The ARN of the channel.
 --
--- 'memberArn', 'describeChannelMembership_memberArn' - The ARN of the member.
+-- 'memberArn', 'describeChannelMembership_memberArn' - The @AppInstanceUserArn@ of the member.
 --
 -- 'chimeBearer', 'describeChannelMembership_chimeBearer' - The @AppInstanceUserArn@ of the user that makes the API call.
 newDescribeChannelMembership ::
@@ -89,17 +101,25 @@ newDescribeChannelMembership
   pMemberArn_
   pChimeBearer_ =
     DescribeChannelMembership'
-      { channelArn =
-          pChannelArn_,
+      { subChannelId =
+          Prelude.Nothing,
+        channelArn = pChannelArn_,
         memberArn = pMemberArn_,
         chimeBearer = pChimeBearer_
       }
+
+-- | The ID of the SubChannel in the request. The response contains an
+-- @ElasticChannelConfiguration@ object.
+--
+-- Only required to get a user’s SubChannel membership details.
+describeChannelMembership_subChannelId :: Lens.Lens' DescribeChannelMembership (Prelude.Maybe Prelude.Text)
+describeChannelMembership_subChannelId = Lens.lens (\DescribeChannelMembership' {subChannelId} -> subChannelId) (\s@DescribeChannelMembership' {} a -> s {subChannelId = a} :: DescribeChannelMembership)
 
 -- | The ARN of the channel.
 describeChannelMembership_channelArn :: Lens.Lens' DescribeChannelMembership Prelude.Text
 describeChannelMembership_channelArn = Lens.lens (\DescribeChannelMembership' {channelArn} -> channelArn) (\s@DescribeChannelMembership' {} a -> s {channelArn = a} :: DescribeChannelMembership)
 
--- | The ARN of the member.
+-- | The @AppInstanceUserArn@ of the member.
 describeChannelMembership_memberArn :: Lens.Lens' DescribeChannelMembership Prelude.Text
 describeChannelMembership_memberArn = Lens.lens (\DescribeChannelMembership' {memberArn} -> memberArn) (\s@DescribeChannelMembership' {} a -> s {memberArn = a} :: DescribeChannelMembership)
 
@@ -111,43 +131,48 @@ instance Core.AWSRequest DescribeChannelMembership where
   type
     AWSResponse DescribeChannelMembership =
       DescribeChannelMembershipResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeChannelMembershipResponse'
-            Prelude.<$> (x Core..?> "ChannelMembership")
+            Prelude.<$> (x Data..?> "ChannelMembership")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeChannelMembership where
   hashWithSalt _salt DescribeChannelMembership' {..} =
-    _salt `Prelude.hashWithSalt` channelArn
+    _salt `Prelude.hashWithSalt` subChannelId
+      `Prelude.hashWithSalt` channelArn
       `Prelude.hashWithSalt` memberArn
       `Prelude.hashWithSalt` chimeBearer
 
 instance Prelude.NFData DescribeChannelMembership where
   rnf DescribeChannelMembership' {..} =
-    Prelude.rnf channelArn
+    Prelude.rnf subChannelId
+      `Prelude.seq` Prelude.rnf channelArn
       `Prelude.seq` Prelude.rnf memberArn
       `Prelude.seq` Prelude.rnf chimeBearer
 
-instance Core.ToHeaders DescribeChannelMembership where
+instance Data.ToHeaders DescribeChannelMembership where
   toHeaders DescribeChannelMembership' {..} =
     Prelude.mconcat
-      ["x-amz-chime-bearer" Core.=# chimeBearer]
+      ["x-amz-chime-bearer" Data.=# chimeBearer]
 
-instance Core.ToPath DescribeChannelMembership where
+instance Data.ToPath DescribeChannelMembership where
   toPath DescribeChannelMembership' {..} =
     Prelude.mconcat
       [ "/channels/",
-        Core.toBS channelArn,
+        Data.toBS channelArn,
         "/memberships/",
-        Core.toBS memberArn
+        Data.toBS memberArn
       ]
 
-instance Core.ToQuery DescribeChannelMembership where
-  toQuery = Prelude.const Prelude.mempty
+instance Data.ToQuery DescribeChannelMembership where
+  toQuery DescribeChannelMembership' {..} =
+    Prelude.mconcat
+      ["sub-channel-id" Data.=: subChannelId]
 
 -- | /See:/ 'newDescribeChannelMembershipResponse' smart constructor.
 data DescribeChannelMembershipResponse = DescribeChannelMembershipResponse'

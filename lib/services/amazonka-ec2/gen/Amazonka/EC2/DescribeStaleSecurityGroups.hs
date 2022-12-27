@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeStaleSecurityGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,8 +22,9 @@
 --
 -- [VPC only] Describes the stale security group rules for security groups
 -- in a specified VPC. Rules are stale when they reference a deleted
--- security group in a peer VPC, or a security group in a peer VPC for
--- which the VPC peering connection has been deleted.
+-- security group in the same VPC or in a peer VPC, or if they reference a
+-- security group in a peer VPC for which the VPC peering connection has
+-- been deleted.
 --
 -- This operation returns paginated results.
 module Amazonka.EC2.DescribeStaleSecurityGroups
@@ -32,9 +33,9 @@ module Amazonka.EC2.DescribeStaleSecurityGroups
     newDescribeStaleSecurityGroups,
 
     -- * Request Lenses
-    describeStaleSecurityGroups_nextToken,
     describeStaleSecurityGroups_dryRun,
     describeStaleSecurityGroups_maxResults,
+    describeStaleSecurityGroups_nextToken,
     describeStaleSecurityGroups_vpcId,
 
     -- * Destructuring the Response
@@ -42,25 +43,23 @@ module Amazonka.EC2.DescribeStaleSecurityGroups
     newDescribeStaleSecurityGroupsResponse,
 
     -- * Response Lenses
-    describeStaleSecurityGroupsResponse_staleSecurityGroupSet,
     describeStaleSecurityGroupsResponse_nextToken,
+    describeStaleSecurityGroupsResponse_staleSecurityGroupSet,
     describeStaleSecurityGroupsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeStaleSecurityGroups' smart constructor.
 data DescribeStaleSecurityGroups = DescribeStaleSecurityGroups'
-  { -- | The token for the next set of items to return. (You received this token
-    -- from a prior call.)
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Checks whether you have the required permissions for the action, without
+  { -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
@@ -69,6 +68,9 @@ data DescribeStaleSecurityGroups = DescribeStaleSecurityGroups'
     -- returns a token that you can specify in a subsequent call to get the
     -- next set of results.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of items to return. (You received this token
+    -- from a prior call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ID of the VPC.
     vpcId :: Prelude.Text
   }
@@ -82,9 +84,6 @@ data DescribeStaleSecurityGroups = DescribeStaleSecurityGroups'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeStaleSecurityGroups_nextToken' - The token for the next set of items to return. (You received this token
--- from a prior call.)
---
 -- 'dryRun', 'describeStaleSecurityGroups_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
@@ -94,6 +93,9 @@ data DescribeStaleSecurityGroups = DescribeStaleSecurityGroups'
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results.
 --
+-- 'nextToken', 'describeStaleSecurityGroups_nextToken' - The token for the next set of items to return. (You received this token
+-- from a prior call.)
+--
 -- 'vpcId', 'describeStaleSecurityGroups_vpcId' - The ID of the VPC.
 newDescribeStaleSecurityGroups ::
   -- | 'vpcId'
@@ -101,17 +103,12 @@ newDescribeStaleSecurityGroups ::
   DescribeStaleSecurityGroups
 newDescribeStaleSecurityGroups pVpcId_ =
   DescribeStaleSecurityGroups'
-    { nextToken =
+    { dryRun =
         Prelude.Nothing,
-      dryRun = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       vpcId = pVpcId_
     }
-
--- | The token for the next set of items to return. (You received this token
--- from a prior call.)
-describeStaleSecurityGroups_nextToken :: Lens.Lens' DescribeStaleSecurityGroups (Prelude.Maybe Prelude.Text)
-describeStaleSecurityGroups_nextToken = Lens.lens (\DescribeStaleSecurityGroups' {nextToken} -> nextToken) (\s@DescribeStaleSecurityGroups' {} a -> s {nextToken = a} :: DescribeStaleSecurityGroups)
 
 -- | Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
@@ -125,6 +122,11 @@ describeStaleSecurityGroups_dryRun = Lens.lens (\DescribeStaleSecurityGroups' {d
 -- next set of results.
 describeStaleSecurityGroups_maxResults :: Lens.Lens' DescribeStaleSecurityGroups (Prelude.Maybe Prelude.Natural)
 describeStaleSecurityGroups_maxResults = Lens.lens (\DescribeStaleSecurityGroups' {maxResults} -> maxResults) (\s@DescribeStaleSecurityGroups' {} a -> s {maxResults = a} :: DescribeStaleSecurityGroups)
+
+-- | The token for the next set of items to return. (You received this token
+-- from a prior call.)
+describeStaleSecurityGroups_nextToken :: Lens.Lens' DescribeStaleSecurityGroups (Prelude.Maybe Prelude.Text)
+describeStaleSecurityGroups_nextToken = Lens.lens (\DescribeStaleSecurityGroups' {nextToken} -> nextToken) (\s@DescribeStaleSecurityGroups' {} a -> s {nextToken = a} :: DescribeStaleSecurityGroups)
 
 -- | The ID of the VPC.
 describeStaleSecurityGroups_vpcId :: Lens.Lens' DescribeStaleSecurityGroups Prelude.Text
@@ -156,61 +158,62 @@ instance Core.AWSRequest DescribeStaleSecurityGroups where
   type
     AWSResponse DescribeStaleSecurityGroups =
       DescribeStaleSecurityGroupsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeStaleSecurityGroupsResponse'
-            Prelude.<$> ( x Core..@? "staleSecurityGroupSet"
+            Prelude.<$> (x Data..@? "nextToken")
+            Prelude.<*> ( x Data..@? "staleSecurityGroupSet"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
-            Prelude.<*> (x Core..@? "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeStaleSecurityGroups where
   hashWithSalt _salt DescribeStaleSecurityGroups' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` dryRun
+    _salt `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` vpcId
 
 instance Prelude.NFData DescribeStaleSecurityGroups where
   rnf DescribeStaleSecurityGroups' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf dryRun
+    Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf vpcId
 
-instance Core.ToHeaders DescribeStaleSecurityGroups where
+instance Data.ToHeaders DescribeStaleSecurityGroups where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeStaleSecurityGroups where
+instance Data.ToPath DescribeStaleSecurityGroups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeStaleSecurityGroups where
+instance Data.ToQuery DescribeStaleSecurityGroups where
   toQuery DescribeStaleSecurityGroups' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeStaleSecurityGroups" ::
+          Data.=: ( "DescribeStaleSecurityGroups" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "NextToken" Core.=: nextToken,
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults,
-        "VpcId" Core.=: vpcId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
+        "VpcId" Data.=: vpcId
       ]
 
 -- | /See:/ 'newDescribeStaleSecurityGroupsResponse' smart constructor.
 data DescribeStaleSecurityGroupsResponse = DescribeStaleSecurityGroupsResponse'
-  { -- | Information about the stale security groups.
-    staleSecurityGroupSet :: Prelude.Maybe [StaleSecurityGroup],
-    -- | The token to use when requesting the next set of items. If there are no
+  { -- | The token to use when requesting the next set of items. If there are no
     -- additional items to return, the string is empty.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the stale security groups.
+    staleSecurityGroupSet :: Prelude.Maybe [StaleSecurityGroup],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -224,10 +227,10 @@ data DescribeStaleSecurityGroupsResponse = DescribeStaleSecurityGroupsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'staleSecurityGroupSet', 'describeStaleSecurityGroupsResponse_staleSecurityGroupSet' - Information about the stale security groups.
---
 -- 'nextToken', 'describeStaleSecurityGroupsResponse_nextToken' - The token to use when requesting the next set of items. If there are no
 -- additional items to return, the string is empty.
+--
+-- 'staleSecurityGroupSet', 'describeStaleSecurityGroupsResponse_staleSecurityGroupSet' - Information about the stale security groups.
 --
 -- 'httpStatus', 'describeStaleSecurityGroupsResponse_httpStatus' - The response's http status code.
 newDescribeStaleSecurityGroupsResponse ::
@@ -236,20 +239,21 @@ newDescribeStaleSecurityGroupsResponse ::
   DescribeStaleSecurityGroupsResponse
 newDescribeStaleSecurityGroupsResponse pHttpStatus_ =
   DescribeStaleSecurityGroupsResponse'
-    { staleSecurityGroupSet =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      staleSecurityGroupSet =
+        Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Information about the stale security groups.
-describeStaleSecurityGroupsResponse_staleSecurityGroupSet :: Lens.Lens' DescribeStaleSecurityGroupsResponse (Prelude.Maybe [StaleSecurityGroup])
-describeStaleSecurityGroupsResponse_staleSecurityGroupSet = Lens.lens (\DescribeStaleSecurityGroupsResponse' {staleSecurityGroupSet} -> staleSecurityGroupSet) (\s@DescribeStaleSecurityGroupsResponse' {} a -> s {staleSecurityGroupSet = a} :: DescribeStaleSecurityGroupsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token to use when requesting the next set of items. If there are no
 -- additional items to return, the string is empty.
 describeStaleSecurityGroupsResponse_nextToken :: Lens.Lens' DescribeStaleSecurityGroupsResponse (Prelude.Maybe Prelude.Text)
 describeStaleSecurityGroupsResponse_nextToken = Lens.lens (\DescribeStaleSecurityGroupsResponse' {nextToken} -> nextToken) (\s@DescribeStaleSecurityGroupsResponse' {} a -> s {nextToken = a} :: DescribeStaleSecurityGroupsResponse)
+
+-- | Information about the stale security groups.
+describeStaleSecurityGroupsResponse_staleSecurityGroupSet :: Lens.Lens' DescribeStaleSecurityGroupsResponse (Prelude.Maybe [StaleSecurityGroup])
+describeStaleSecurityGroupsResponse_staleSecurityGroupSet = Lens.lens (\DescribeStaleSecurityGroupsResponse' {staleSecurityGroupSet} -> staleSecurityGroupSet) (\s@DescribeStaleSecurityGroupsResponse' {} a -> s {staleSecurityGroupSet = a} :: DescribeStaleSecurityGroupsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeStaleSecurityGroupsResponse_httpStatus :: Lens.Lens' DescribeStaleSecurityGroupsResponse Prelude.Int
@@ -260,6 +264,6 @@ instance
     DescribeStaleSecurityGroupsResponse
   where
   rnf DescribeStaleSecurityGroupsResponse' {..} =
-    Prelude.rnf staleSecurityGroupSet
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf staleSecurityGroupSet
       `Prelude.seq` Prelude.rnf httpStatus

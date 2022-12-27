@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.Types.SidewalkListDevice
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,22 +20,23 @@
 module Amazonka.IoTWireless.Types.SidewalkListDevice where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types.CertificateList
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Sidewalk object used by list functions.
 --
 -- /See:/ 'newSidewalkListDevice' smart constructor.
 data SidewalkListDevice = SidewalkListDevice'
-  { -- | The Sidewalk manufacturing series number.
-    sidewalkManufacturingSn :: Prelude.Maybe Prelude.Text,
-    -- | The Sidewalk Amazon ID.
+  { -- | The Sidewalk Amazon ID.
     amazonId :: Prelude.Maybe Prelude.Text,
     -- | The sidewalk device certificates for Ed25519 and P256r1.
     deviceCertificates :: Prelude.Maybe [CertificateList],
     -- | The sidewalk device identification.
-    sidewalkId :: Prelude.Maybe Prelude.Text
+    sidewalkId :: Prelude.Maybe Prelude.Text,
+    -- | The Sidewalk manufacturing series number.
+    sidewalkManufacturingSn :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,27 +48,22 @@ data SidewalkListDevice = SidewalkListDevice'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sidewalkManufacturingSn', 'sidewalkListDevice_sidewalkManufacturingSn' - The Sidewalk manufacturing series number.
---
 -- 'amazonId', 'sidewalkListDevice_amazonId' - The Sidewalk Amazon ID.
 --
 -- 'deviceCertificates', 'sidewalkListDevice_deviceCertificates' - The sidewalk device certificates for Ed25519 and P256r1.
 --
 -- 'sidewalkId', 'sidewalkListDevice_sidewalkId' - The sidewalk device identification.
+--
+-- 'sidewalkManufacturingSn', 'sidewalkListDevice_sidewalkManufacturingSn' - The Sidewalk manufacturing series number.
 newSidewalkListDevice ::
   SidewalkListDevice
 newSidewalkListDevice =
   SidewalkListDevice'
-    { sidewalkManufacturingSn =
-        Prelude.Nothing,
-      amazonId = Prelude.Nothing,
+    { amazonId = Prelude.Nothing,
       deviceCertificates = Prelude.Nothing,
-      sidewalkId = Prelude.Nothing
+      sidewalkId = Prelude.Nothing,
+      sidewalkManufacturingSn = Prelude.Nothing
     }
-
--- | The Sidewalk manufacturing series number.
-sidewalkListDevice_sidewalkManufacturingSn :: Lens.Lens' SidewalkListDevice (Prelude.Maybe Prelude.Text)
-sidewalkListDevice_sidewalkManufacturingSn = Lens.lens (\SidewalkListDevice' {sidewalkManufacturingSn} -> sidewalkManufacturingSn) (\s@SidewalkListDevice' {} a -> s {sidewalkManufacturingSn = a} :: SidewalkListDevice)
 
 -- | The Sidewalk Amazon ID.
 sidewalkListDevice_amazonId :: Lens.Lens' SidewalkListDevice (Prelude.Maybe Prelude.Text)
@@ -81,31 +77,34 @@ sidewalkListDevice_deviceCertificates = Lens.lens (\SidewalkListDevice' {deviceC
 sidewalkListDevice_sidewalkId :: Lens.Lens' SidewalkListDevice (Prelude.Maybe Prelude.Text)
 sidewalkListDevice_sidewalkId = Lens.lens (\SidewalkListDevice' {sidewalkId} -> sidewalkId) (\s@SidewalkListDevice' {} a -> s {sidewalkId = a} :: SidewalkListDevice)
 
-instance Core.FromJSON SidewalkListDevice where
+-- | The Sidewalk manufacturing series number.
+sidewalkListDevice_sidewalkManufacturingSn :: Lens.Lens' SidewalkListDevice (Prelude.Maybe Prelude.Text)
+sidewalkListDevice_sidewalkManufacturingSn = Lens.lens (\SidewalkListDevice' {sidewalkManufacturingSn} -> sidewalkManufacturingSn) (\s@SidewalkListDevice' {} a -> s {sidewalkManufacturingSn = a} :: SidewalkListDevice)
+
+instance Data.FromJSON SidewalkListDevice where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SidewalkListDevice"
       ( \x ->
           SidewalkListDevice'
-            Prelude.<$> (x Core..:? "SidewalkManufacturingSn")
-            Prelude.<*> (x Core..:? "AmazonId")
-            Prelude.<*> ( x Core..:? "DeviceCertificates"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "AmazonId")
+            Prelude.<*> ( x Data..:? "DeviceCertificates"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "SidewalkId")
+            Prelude.<*> (x Data..:? "SidewalkId")
+            Prelude.<*> (x Data..:? "SidewalkManufacturingSn")
       )
 
 instance Prelude.Hashable SidewalkListDevice where
   hashWithSalt _salt SidewalkListDevice' {..} =
-    _salt
-      `Prelude.hashWithSalt` sidewalkManufacturingSn
-      `Prelude.hashWithSalt` amazonId
+    _salt `Prelude.hashWithSalt` amazonId
       `Prelude.hashWithSalt` deviceCertificates
       `Prelude.hashWithSalt` sidewalkId
+      `Prelude.hashWithSalt` sidewalkManufacturingSn
 
 instance Prelude.NFData SidewalkListDevice where
   rnf SidewalkListDevice' {..} =
-    Prelude.rnf sidewalkManufacturingSn
-      `Prelude.seq` Prelude.rnf amazonId
+    Prelude.rnf amazonId
       `Prelude.seq` Prelude.rnf deviceCertificates
       `Prelude.seq` Prelude.rnf sidewalkId
+      `Prelude.seq` Prelude.rnf sidewalkManufacturingSn

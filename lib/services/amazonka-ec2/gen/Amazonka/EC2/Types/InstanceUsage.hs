@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.InstanceUsage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.InstanceUsage where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the Capacity Reservation usage.
@@ -68,11 +69,11 @@ instanceUsage_accountId = Lens.lens (\InstanceUsage' {accountId} -> accountId) (
 instanceUsage_usedInstanceCount :: Lens.Lens' InstanceUsage (Prelude.Maybe Prelude.Int)
 instanceUsage_usedInstanceCount = Lens.lens (\InstanceUsage' {usedInstanceCount} -> usedInstanceCount) (\s@InstanceUsage' {} a -> s {usedInstanceCount = a} :: InstanceUsage)
 
-instance Core.FromXML InstanceUsage where
+instance Data.FromXML InstanceUsage where
   parseXML x =
     InstanceUsage'
-      Prelude.<$> (x Core..@? "accountId")
-      Prelude.<*> (x Core..@? "usedInstanceCount")
+      Prelude.<$> (x Data..@? "accountId")
+      Prelude.<*> (x Data..@? "usedInstanceCount")
 
 instance Prelude.Hashable InstanceUsage where
   hashWithSalt _salt InstanceUsage' {..} =

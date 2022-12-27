@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.UpdateOpenIDConnectProviderThumbprint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -61,8 +61,9 @@ module Amazonka.IAM.UpdateOpenIDConnectProviderThumbprint
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -139,7 +140,8 @@ instance
     AWSResponse
       UpdateOpenIDConnectProviderThumbprint =
       UpdateOpenIDConnectProviderThumbprintResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       UpdateOpenIDConnectProviderThumbprintResponse'
@@ -164,33 +166,33 @@ instance
       `Prelude.seq` Prelude.rnf thumbprintList
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateOpenIDConnectProviderThumbprint
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     UpdateOpenIDConnectProviderThumbprint
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     UpdateOpenIDConnectProviderThumbprint
   where
   toQuery UpdateOpenIDConnectProviderThumbprint' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "UpdateOpenIDConnectProviderThumbprint" ::
+          Data.=: ( "UpdateOpenIDConnectProviderThumbprint" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
         "OpenIDConnectProviderArn"
-          Core.=: openIDConnectProviderArn,
+          Data.=: openIDConnectProviderArn,
         "ThumbprintList"
-          Core.=: Core.toQueryList "member" thumbprintList
+          Data.=: Data.toQueryList "member" thumbprintList
       ]
 
 -- | /See:/ 'newUpdateOpenIDConnectProviderThumbprintResponse' smart constructor.

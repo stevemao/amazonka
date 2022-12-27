@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.CancelJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.MediaConvert.CancelJob
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -74,7 +75,8 @@ cancelJob_id = Lens.lens (\CancelJob' {id} -> id) (\s@CancelJob' {} a -> s {id =
 
 instance Core.AWSRequest CancelJob where
   type AWSResponse CancelJob = CancelJobResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -89,22 +91,22 @@ instance Prelude.Hashable CancelJob where
 instance Prelude.NFData CancelJob where
   rnf CancelJob' {..} = Prelude.rnf id
 
-instance Core.ToHeaders CancelJob where
+instance Data.ToHeaders CancelJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath CancelJob where
+instance Data.ToPath CancelJob where
   toPath CancelJob' {..} =
-    Prelude.mconcat ["/2017-08-29/jobs/", Core.toBS id]
+    Prelude.mconcat ["/2017-08-29/jobs/", Data.toBS id]
 
-instance Core.ToQuery CancelJob where
+instance Data.ToQuery CancelJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCancelJobResponse' smart constructor.

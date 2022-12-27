@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.InventoryItemSchema
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.InventoryItemSchema where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSM.Types.InventoryItemAttribute
 
@@ -29,11 +30,11 @@ import Amazonka.SSM.Types.InventoryItemAttribute
 --
 -- /See:/ 'newInventoryItemSchema' smart constructor.
 data InventoryItemSchema = InventoryItemSchema'
-  { -- | The schema version for the inventory item.
-    version :: Prelude.Maybe Prelude.Text,
-    -- | The alias name of the inventory type. The alias name is used for display
+  { -- | The alias name of the inventory type. The alias name is used for display
     -- purposes.
     displayName :: Prelude.Maybe Prelude.Text,
+    -- | The schema version for the inventory item.
+    version :: Prelude.Maybe Prelude.Text,
     -- | The name of the inventory type. Default inventory item type names start
     -- with Amazon Web Services. Custom inventory type names will start with
     -- Custom. Default inventory item types include the following:
@@ -54,10 +55,10 @@ data InventoryItemSchema = InventoryItemSchema'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'version', 'inventoryItemSchema_version' - The schema version for the inventory item.
---
 -- 'displayName', 'inventoryItemSchema_displayName' - The alias name of the inventory type. The alias name is used for display
 -- purposes.
+--
+-- 'version', 'inventoryItemSchema_version' - The schema version for the inventory item.
 --
 -- 'typeName', 'inventoryItemSchema_typeName' - The name of the inventory type. Default inventory item type names start
 -- with Amazon Web Services. Custom inventory type names will start with
@@ -75,20 +76,20 @@ newInventoryItemSchema ::
   InventoryItemSchema
 newInventoryItemSchema pTypeName_ pAttributes_ =
   InventoryItemSchema'
-    { version = Prelude.Nothing,
-      displayName = Prelude.Nothing,
+    { displayName = Prelude.Nothing,
+      version = Prelude.Nothing,
       typeName = pTypeName_,
       attributes = Lens.coerced Lens.# pAttributes_
     }
-
--- | The schema version for the inventory item.
-inventoryItemSchema_version :: Lens.Lens' InventoryItemSchema (Prelude.Maybe Prelude.Text)
-inventoryItemSchema_version = Lens.lens (\InventoryItemSchema' {version} -> version) (\s@InventoryItemSchema' {} a -> s {version = a} :: InventoryItemSchema)
 
 -- | The alias name of the inventory type. The alias name is used for display
 -- purposes.
 inventoryItemSchema_displayName :: Lens.Lens' InventoryItemSchema (Prelude.Maybe Prelude.Text)
 inventoryItemSchema_displayName = Lens.lens (\InventoryItemSchema' {displayName} -> displayName) (\s@InventoryItemSchema' {} a -> s {displayName = a} :: InventoryItemSchema)
+
+-- | The schema version for the inventory item.
+inventoryItemSchema_version :: Lens.Lens' InventoryItemSchema (Prelude.Maybe Prelude.Text)
+inventoryItemSchema_version = Lens.lens (\InventoryItemSchema' {version} -> version) (\s@InventoryItemSchema' {} a -> s {version = a} :: InventoryItemSchema)
 
 -- | The name of the inventory type. Default inventory item type names start
 -- with Amazon Web Services. Custom inventory type names will start with
@@ -103,28 +104,28 @@ inventoryItemSchema_typeName = Lens.lens (\InventoryItemSchema' {typeName} -> ty
 inventoryItemSchema_attributes :: Lens.Lens' InventoryItemSchema (Prelude.NonEmpty InventoryItemAttribute)
 inventoryItemSchema_attributes = Lens.lens (\InventoryItemSchema' {attributes} -> attributes) (\s@InventoryItemSchema' {} a -> s {attributes = a} :: InventoryItemSchema) Prelude.. Lens.coerced
 
-instance Core.FromJSON InventoryItemSchema where
+instance Data.FromJSON InventoryItemSchema where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InventoryItemSchema"
       ( \x ->
           InventoryItemSchema'
-            Prelude.<$> (x Core..:? "Version")
-            Prelude.<*> (x Core..:? "DisplayName")
-            Prelude.<*> (x Core..: "TypeName")
-            Prelude.<*> (x Core..: "Attributes")
+            Prelude.<$> (x Data..:? "DisplayName")
+            Prelude.<*> (x Data..:? "Version")
+            Prelude.<*> (x Data..: "TypeName")
+            Prelude.<*> (x Data..: "Attributes")
       )
 
 instance Prelude.Hashable InventoryItemSchema where
   hashWithSalt _salt InventoryItemSchema' {..} =
-    _salt `Prelude.hashWithSalt` version
-      `Prelude.hashWithSalt` displayName
+    _salt `Prelude.hashWithSalt` displayName
+      `Prelude.hashWithSalt` version
       `Prelude.hashWithSalt` typeName
       `Prelude.hashWithSalt` attributes
 
 instance Prelude.NFData InventoryItemSchema where
   rnf InventoryItemSchema' {..} =
-    Prelude.rnf version
-      `Prelude.seq` Prelude.rnf displayName
+    Prelude.rnf displayName
+      `Prelude.seq` Prelude.rnf version
       `Prelude.seq` Prelude.rnf typeName
       `Prelude.seq` Prelude.rnf attributes

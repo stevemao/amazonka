@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EFS.Types.BackupPolicyDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,15 @@
 module Amazonka.EFS.Types.BackupPolicyDescription where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EFS.Types.BackupPolicy
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | /See:/ 'newBackupPolicyDescription' smart constructor.
 data BackupPolicyDescription = BackupPolicyDescription'
   { -- | Describes the file system\'s backup policy, indicating whether automatic
-    -- backups are turned on or off..
+    -- backups are turned on or off.
     backupPolicy :: Prelude.Maybe BackupPolicy
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -41,7 +42,7 @@ data BackupPolicyDescription = BackupPolicyDescription'
 -- for backwards compatibility:
 --
 -- 'backupPolicy', 'backupPolicyDescription_backupPolicy' - Describes the file system\'s backup policy, indicating whether automatic
--- backups are turned on or off..
+-- backups are turned on or off.
 newBackupPolicyDescription ::
   BackupPolicyDescription
 newBackupPolicyDescription =
@@ -51,17 +52,17 @@ newBackupPolicyDescription =
     }
 
 -- | Describes the file system\'s backup policy, indicating whether automatic
--- backups are turned on or off..
+-- backups are turned on or off.
 backupPolicyDescription_backupPolicy :: Lens.Lens' BackupPolicyDescription (Prelude.Maybe BackupPolicy)
 backupPolicyDescription_backupPolicy = Lens.lens (\BackupPolicyDescription' {backupPolicy} -> backupPolicy) (\s@BackupPolicyDescription' {} a -> s {backupPolicy = a} :: BackupPolicyDescription)
 
-instance Core.FromJSON BackupPolicyDescription where
+instance Data.FromJSON BackupPolicyDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BackupPolicyDescription"
       ( \x ->
           BackupPolicyDescription'
-            Prelude.<$> (x Core..:? "BackupPolicy")
+            Prelude.<$> (x Data..:? "BackupPolicy")
       )
 
 instance Prelude.Hashable BackupPolicyDescription where

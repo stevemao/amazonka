@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Athena.Types.Row
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,10 +21,11 @@ module Amazonka.Athena.Types.Row where
 
 import Amazonka.Athena.Types.Datum
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The rows that comprise a query result table.
+-- | The rows that make up a query result table.
 --
 -- /See:/ 'newRow' smart constructor.
 data Row = Row'
@@ -50,13 +51,13 @@ newRow = Row' {data' = Prelude.Nothing}
 row_data :: Lens.Lens' Row (Prelude.Maybe [Datum])
 row_data = Lens.lens (\Row' {data'} -> data') (\s@Row' {} a -> s {data' = a} :: Row) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON Row where
+instance Data.FromJSON Row where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Row"
       ( \x ->
           Row'
-            Prelude.<$> (x Core..:? "Data" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Data" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable Row where

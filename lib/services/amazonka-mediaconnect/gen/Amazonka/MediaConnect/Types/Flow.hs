@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConnect.Types.Flow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,11 @@
 module Amazonka.MediaConnect.Types.Flow where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConnect.Types.Entitlement
 import Amazonka.MediaConnect.Types.FailoverConfig
+import Amazonka.MediaConnect.Types.Maintenance
 import Amazonka.MediaConnect.Types.MediaStream
 import Amazonka.MediaConnect.Types.Output
 import Amazonka.MediaConnect.Types.Source
@@ -35,19 +37,20 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newFlow' smart constructor.
 data Flow = Flow'
-  { -- | The media streams that are associated with the flow. After you associate
+  { -- | A description of the flow. This value is not used or seen outside of the
+    -- current AWS Elemental MediaConnect account.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The IP address from which video will be sent to output destinations.
+    egressIp :: Prelude.Maybe Prelude.Text,
+    maintenance :: Prelude.Maybe Maintenance,
+    -- | The media streams that are associated with the flow. After you associate
     -- a media stream with a source, you can also associate it with outputs on
     -- the flow.
     mediaStreams :: Prelude.Maybe [MediaStream],
     sourceFailoverConfig :: Prelude.Maybe FailoverConfig,
+    sources :: Prelude.Maybe [Source],
     -- | The VPC Interfaces for this flow.
     vpcInterfaces :: Prelude.Maybe [VpcInterface],
-    sources :: Prelude.Maybe [Source],
-    -- | The IP address from which video will be sent to output destinations.
-    egressIp :: Prelude.Maybe Prelude.Text,
-    -- | A description of the flow. This value is not used or seen outside of the
-    -- current AWS Elemental MediaConnect account.
-    description :: Prelude.Maybe Prelude.Text,
     -- | The current status of the flow.
     status :: Status,
     -- | The entitlements in this flow.
@@ -74,20 +77,22 @@ data Flow = Flow'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'flow_description' - A description of the flow. This value is not used or seen outside of the
+-- current AWS Elemental MediaConnect account.
+--
+-- 'egressIp', 'flow_egressIp' - The IP address from which video will be sent to output destinations.
+--
+-- 'maintenance', 'flow_maintenance' - Undocumented member.
+--
 -- 'mediaStreams', 'flow_mediaStreams' - The media streams that are associated with the flow. After you associate
 -- a media stream with a source, you can also associate it with outputs on
 -- the flow.
 --
 -- 'sourceFailoverConfig', 'flow_sourceFailoverConfig' - Undocumented member.
 --
--- 'vpcInterfaces', 'flow_vpcInterfaces' - The VPC Interfaces for this flow.
---
 -- 'sources', 'flow_sources' - Undocumented member.
 --
--- 'egressIp', 'flow_egressIp' - The IP address from which video will be sent to output destinations.
---
--- 'description', 'flow_description' - A description of the flow. This value is not used or seen outside of the
--- current AWS Elemental MediaConnect account.
+-- 'vpcInterfaces', 'flow_vpcInterfaces' - The VPC Interfaces for this flow.
 --
 -- 'status', 'flow_status' - The current status of the flow.
 --
@@ -123,12 +128,13 @@ newFlow
   pSource_
   pName_ =
     Flow'
-      { mediaStreams = Prelude.Nothing,
-        sourceFailoverConfig = Prelude.Nothing,
-        vpcInterfaces = Prelude.Nothing,
-        sources = Prelude.Nothing,
+      { description = Prelude.Nothing,
         egressIp = Prelude.Nothing,
-        description = Prelude.Nothing,
+        maintenance = Prelude.Nothing,
+        mediaStreams = Prelude.Nothing,
+        sourceFailoverConfig = Prelude.Nothing,
+        sources = Prelude.Nothing,
+        vpcInterfaces = Prelude.Nothing,
         status = pStatus_,
         entitlements = Prelude.mempty,
         outputs = Prelude.mempty,
@@ -137,6 +143,19 @@ newFlow
         source = pSource_,
         name = pName_
       }
+
+-- | A description of the flow. This value is not used or seen outside of the
+-- current AWS Elemental MediaConnect account.
+flow_description :: Lens.Lens' Flow (Prelude.Maybe Prelude.Text)
+flow_description = Lens.lens (\Flow' {description} -> description) (\s@Flow' {} a -> s {description = a} :: Flow)
+
+-- | The IP address from which video will be sent to output destinations.
+flow_egressIp :: Lens.Lens' Flow (Prelude.Maybe Prelude.Text)
+flow_egressIp = Lens.lens (\Flow' {egressIp} -> egressIp) (\s@Flow' {} a -> s {egressIp = a} :: Flow)
+
+-- | Undocumented member.
+flow_maintenance :: Lens.Lens' Flow (Prelude.Maybe Maintenance)
+flow_maintenance = Lens.lens (\Flow' {maintenance} -> maintenance) (\s@Flow' {} a -> s {maintenance = a} :: Flow)
 
 -- | The media streams that are associated with the flow. After you associate
 -- a media stream with a source, you can also associate it with outputs on
@@ -148,22 +167,13 @@ flow_mediaStreams = Lens.lens (\Flow' {mediaStreams} -> mediaStreams) (\s@Flow' 
 flow_sourceFailoverConfig :: Lens.Lens' Flow (Prelude.Maybe FailoverConfig)
 flow_sourceFailoverConfig = Lens.lens (\Flow' {sourceFailoverConfig} -> sourceFailoverConfig) (\s@Flow' {} a -> s {sourceFailoverConfig = a} :: Flow)
 
--- | The VPC Interfaces for this flow.
-flow_vpcInterfaces :: Lens.Lens' Flow (Prelude.Maybe [VpcInterface])
-flow_vpcInterfaces = Lens.lens (\Flow' {vpcInterfaces} -> vpcInterfaces) (\s@Flow' {} a -> s {vpcInterfaces = a} :: Flow) Prelude.. Lens.mapping Lens.coerced
-
 -- | Undocumented member.
 flow_sources :: Lens.Lens' Flow (Prelude.Maybe [Source])
 flow_sources = Lens.lens (\Flow' {sources} -> sources) (\s@Flow' {} a -> s {sources = a} :: Flow) Prelude.. Lens.mapping Lens.coerced
 
--- | The IP address from which video will be sent to output destinations.
-flow_egressIp :: Lens.Lens' Flow (Prelude.Maybe Prelude.Text)
-flow_egressIp = Lens.lens (\Flow' {egressIp} -> egressIp) (\s@Flow' {} a -> s {egressIp = a} :: Flow)
-
--- | A description of the flow. This value is not used or seen outside of the
--- current AWS Elemental MediaConnect account.
-flow_description :: Lens.Lens' Flow (Prelude.Maybe Prelude.Text)
-flow_description = Lens.lens (\Flow' {description} -> description) (\s@Flow' {} a -> s {description = a} :: Flow)
+-- | The VPC Interfaces for this flow.
+flow_vpcInterfaces :: Lens.Lens' Flow (Prelude.Maybe [VpcInterface])
+flow_vpcInterfaces = Lens.lens (\Flow' {vpcInterfaces} -> vpcInterfaces) (\s@Flow' {} a -> s {vpcInterfaces = a} :: Flow) Prelude.. Lens.mapping Lens.coerced
 
 -- | The current status of the flow.
 flow_status :: Lens.Lens' Flow Status
@@ -195,35 +205,37 @@ flow_source = Lens.lens (\Flow' {source} -> source) (\s@Flow' {} a -> s {source 
 flow_name :: Lens.Lens' Flow Prelude.Text
 flow_name = Lens.lens (\Flow' {name} -> name) (\s@Flow' {} a -> s {name = a} :: Flow)
 
-instance Core.FromJSON Flow where
+instance Data.FromJSON Flow where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Flow"
       ( \x ->
           Flow'
-            Prelude.<$> (x Core..:? "mediaStreams" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "sourceFailoverConfig")
-            Prelude.<*> (x Core..:? "vpcInterfaces" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "sources" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "egressIp")
-            Prelude.<*> (x Core..:? "description")
-            Prelude.<*> (x Core..: "status")
-            Prelude.<*> (x Core..:? "entitlements" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "outputs" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "availabilityZone")
-            Prelude.<*> (x Core..: "flowArn")
-            Prelude.<*> (x Core..: "source")
-            Prelude.<*> (x Core..: "name")
+            Prelude.<$> (x Data..:? "description")
+            Prelude.<*> (x Data..:? "egressIp")
+            Prelude.<*> (x Data..:? "maintenance")
+            Prelude.<*> (x Data..:? "mediaStreams" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "sourceFailoverConfig")
+            Prelude.<*> (x Data..:? "sources" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "vpcInterfaces" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "status")
+            Prelude.<*> (x Data..:? "entitlements" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "outputs" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "availabilityZone")
+            Prelude.<*> (x Data..: "flowArn")
+            Prelude.<*> (x Data..: "source")
+            Prelude.<*> (x Data..: "name")
       )
 
 instance Prelude.Hashable Flow where
   hashWithSalt _salt Flow' {..} =
-    _salt `Prelude.hashWithSalt` mediaStreams
-      `Prelude.hashWithSalt` sourceFailoverConfig
-      `Prelude.hashWithSalt` vpcInterfaces
-      `Prelude.hashWithSalt` sources
+    _salt `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` egressIp
-      `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` maintenance
+      `Prelude.hashWithSalt` mediaStreams
+      `Prelude.hashWithSalt` sourceFailoverConfig
+      `Prelude.hashWithSalt` sources
+      `Prelude.hashWithSalt` vpcInterfaces
       `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` entitlements
       `Prelude.hashWithSalt` outputs
@@ -234,12 +246,13 @@ instance Prelude.Hashable Flow where
 
 instance Prelude.NFData Flow where
   rnf Flow' {..} =
-    Prelude.rnf mediaStreams
-      `Prelude.seq` Prelude.rnf sourceFailoverConfig
-      `Prelude.seq` Prelude.rnf vpcInterfaces
-      `Prelude.seq` Prelude.rnf sources
+    Prelude.rnf description
       `Prelude.seq` Prelude.rnf egressIp
-      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf maintenance
+      `Prelude.seq` Prelude.rnf mediaStreams
+      `Prelude.seq` Prelude.rnf sourceFailoverConfig
+      `Prelude.seq` Prelude.rnf sources
+      `Prelude.seq` Prelude.rnf vpcInterfaces
       `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf entitlements
       `Prelude.seq` Prelude.rnf outputs

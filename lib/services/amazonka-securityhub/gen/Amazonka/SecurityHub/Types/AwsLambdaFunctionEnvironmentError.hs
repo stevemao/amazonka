@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsLambdaFunctionEnvironmentError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsLambdaFunctionEnvironmentError where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Error messages for environment variables that could not be applied.
@@ -63,16 +64,16 @@ awsLambdaFunctionEnvironmentError_message :: Lens.Lens' AwsLambdaFunctionEnviron
 awsLambdaFunctionEnvironmentError_message = Lens.lens (\AwsLambdaFunctionEnvironmentError' {message} -> message) (\s@AwsLambdaFunctionEnvironmentError' {} a -> s {message = a} :: AwsLambdaFunctionEnvironmentError)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsLambdaFunctionEnvironmentError
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsLambdaFunctionEnvironmentError"
       ( \x ->
           AwsLambdaFunctionEnvironmentError'
-            Prelude.<$> (x Core..:? "ErrorCode")
-            Prelude.<*> (x Core..:? "Message")
+            Prelude.<$> (x Data..:? "ErrorCode")
+            Prelude.<*> (x Data..:? "Message")
       )
 
 instance
@@ -94,13 +95,13 @@ instance
       `Prelude.seq` Prelude.rnf message
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsLambdaFunctionEnvironmentError
   where
   toJSON AwsLambdaFunctionEnvironmentError' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ErrorCode" Core..=) Prelude.<$> errorCode,
-            ("Message" Core..=) Prelude.<$> message
+          [ ("ErrorCode" Data..=) Prelude.<$> errorCode,
+            ("Message" Data..=) Prelude.<$> message
           ]
       )

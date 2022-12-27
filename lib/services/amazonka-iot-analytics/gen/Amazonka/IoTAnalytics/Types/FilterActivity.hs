@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.Types.FilterActivity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTAnalytics.Types.FilterActivity where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An activity that filters a message based on its attributes.
@@ -80,15 +81,15 @@ filterActivity_name = Lens.lens (\FilterActivity' {name} -> name) (\s@FilterActi
 filterActivity_filter :: Lens.Lens' FilterActivity Prelude.Text
 filterActivity_filter = Lens.lens (\FilterActivity' {filter'} -> filter') (\s@FilterActivity' {} a -> s {filter' = a} :: FilterActivity)
 
-instance Core.FromJSON FilterActivity where
+instance Data.FromJSON FilterActivity where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FilterActivity"
       ( \x ->
           FilterActivity'
-            Prelude.<$> (x Core..:? "next")
-            Prelude.<*> (x Core..: "name")
-            Prelude.<*> (x Core..: "filter")
+            Prelude.<$> (x Data..:? "next")
+            Prelude.<*> (x Data..: "name")
+            Prelude.<*> (x Data..: "filter")
       )
 
 instance Prelude.Hashable FilterActivity where
@@ -103,12 +104,12 @@ instance Prelude.NFData FilterActivity where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf filter'
 
-instance Core.ToJSON FilterActivity where
+instance Data.ToJSON FilterActivity where
   toJSON FilterActivity' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("next" Core..=) Prelude.<$> next,
-            Prelude.Just ("name" Core..= name),
-            Prelude.Just ("filter" Core..= filter')
+          [ ("next" Data..=) Prelude.<$> next,
+            Prelude.Just ("name" Data..= name),
+            Prelude.Just ("filter" Data..= filter')
           ]
       )

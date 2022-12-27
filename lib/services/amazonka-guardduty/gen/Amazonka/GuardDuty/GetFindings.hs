@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.GetFindings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.GuardDuty.GetFindings
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,13 +101,14 @@ getFindings_findingIds = Lens.lens (\GetFindings' {findingIds} -> findingIds) (\
 
 instance Core.AWSRequest GetFindings where
   type AWSResponse GetFindings = GetFindingsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetFindingsResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "findings" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "findings" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable GetFindings where
@@ -121,32 +123,32 @@ instance Prelude.NFData GetFindings where
       `Prelude.seq` Prelude.rnf detectorId
       `Prelude.seq` Prelude.rnf findingIds
 
-instance Core.ToHeaders GetFindings where
+instance Data.ToHeaders GetFindings where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetFindings where
+instance Data.ToJSON GetFindings where
   toJSON GetFindings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("sortCriteria" Core..=) Prelude.<$> sortCriteria,
-            Prelude.Just ("findingIds" Core..= findingIds)
+          [ ("sortCriteria" Data..=) Prelude.<$> sortCriteria,
+            Prelude.Just ("findingIds" Data..= findingIds)
           ]
       )
 
-instance Core.ToPath GetFindings where
+instance Data.ToPath GetFindings where
   toPath GetFindings' {..} =
     Prelude.mconcat
-      ["/detector/", Core.toBS detectorId, "/findings/get"]
+      ["/detector/", Data.toBS detectorId, "/findings/get"]
 
-instance Core.ToQuery GetFindings where
+instance Data.ToQuery GetFindings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetFindingsResponse' smart constructor.

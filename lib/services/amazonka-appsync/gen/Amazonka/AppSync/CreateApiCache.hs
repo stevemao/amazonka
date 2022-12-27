@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppSync.CreateApiCache
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.AppSync.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,17 +56,17 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCreateApiCache' smart constructor.
 data CreateApiCache = CreateApiCache'
-  { -- | At rest encryption flag for cache. This setting cannot be updated after
+  { -- | At-rest encryption flag for cache. You cannot update this setting after
     -- creation.
     atRestEncryptionEnabled :: Prelude.Maybe Prelude.Bool,
-    -- | Transit encryption flag when connecting to cache. This setting cannot be
-    -- updated after creation.
+    -- | Transit encryption flag when connecting to cache. You cannot update this
+    -- setting after creation.
     transitEncryptionEnabled :: Prelude.Maybe Prelude.Bool,
-    -- | The GraphQL API Id.
+    -- | The GraphQL API ID.
     apiId :: Prelude.Text,
     -- | TTL in seconds for cache entries.
     --
-    -- Valid values are between 1 and 3600 seconds.
+    -- Valid values are 1–3,600 seconds.
     ttl :: Prelude.Integer,
     -- | Caching behavior.
     --
@@ -124,17 +125,17 @@ data CreateApiCache = CreateApiCache'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'atRestEncryptionEnabled', 'createApiCache_atRestEncryptionEnabled' - At rest encryption flag for cache. This setting cannot be updated after
+-- 'atRestEncryptionEnabled', 'createApiCache_atRestEncryptionEnabled' - At-rest encryption flag for cache. You cannot update this setting after
 -- creation.
 --
--- 'transitEncryptionEnabled', 'createApiCache_transitEncryptionEnabled' - Transit encryption flag when connecting to cache. This setting cannot be
--- updated after creation.
+-- 'transitEncryptionEnabled', 'createApiCache_transitEncryptionEnabled' - Transit encryption flag when connecting to cache. You cannot update this
+-- setting after creation.
 --
--- 'apiId', 'createApiCache_apiId' - The GraphQL API Id.
+-- 'apiId', 'createApiCache_apiId' - The GraphQL API ID.
 --
 -- 'ttl', 'createApiCache_ttl' - TTL in seconds for cache entries.
 --
--- Valid values are between 1 and 3600 seconds.
+-- Valid values are 1–3,600 seconds.
 --
 -- 'apiCachingBehavior', 'createApiCache_apiCachingBehavior' - Caching behavior.
 --
@@ -206,23 +207,23 @@ newCreateApiCache
         type' = pType_
       }
 
--- | At rest encryption flag for cache. This setting cannot be updated after
+-- | At-rest encryption flag for cache. You cannot update this setting after
 -- creation.
 createApiCache_atRestEncryptionEnabled :: Lens.Lens' CreateApiCache (Prelude.Maybe Prelude.Bool)
 createApiCache_atRestEncryptionEnabled = Lens.lens (\CreateApiCache' {atRestEncryptionEnabled} -> atRestEncryptionEnabled) (\s@CreateApiCache' {} a -> s {atRestEncryptionEnabled = a} :: CreateApiCache)
 
--- | Transit encryption flag when connecting to cache. This setting cannot be
--- updated after creation.
+-- | Transit encryption flag when connecting to cache. You cannot update this
+-- setting after creation.
 createApiCache_transitEncryptionEnabled :: Lens.Lens' CreateApiCache (Prelude.Maybe Prelude.Bool)
 createApiCache_transitEncryptionEnabled = Lens.lens (\CreateApiCache' {transitEncryptionEnabled} -> transitEncryptionEnabled) (\s@CreateApiCache' {} a -> s {transitEncryptionEnabled = a} :: CreateApiCache)
 
--- | The GraphQL API Id.
+-- | The GraphQL API ID.
 createApiCache_apiId :: Lens.Lens' CreateApiCache Prelude.Text
 createApiCache_apiId = Lens.lens (\CreateApiCache' {apiId} -> apiId) (\s@CreateApiCache' {} a -> s {apiId = a} :: CreateApiCache)
 
 -- | TTL in seconds for cache entries.
 --
--- Valid values are between 1 and 3600 seconds.
+-- Valid values are 1–3,600 seconds.
 createApiCache_ttl :: Lens.Lens' CreateApiCache Prelude.Integer
 createApiCache_ttl = Lens.lens (\CreateApiCache' {ttl} -> ttl) (\s@CreateApiCache' {} a -> s {ttl = a} :: CreateApiCache)
 
@@ -280,12 +281,13 @@ instance Core.AWSRequest CreateApiCache where
   type
     AWSResponse CreateApiCache =
       CreateApiCacheResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateApiCacheResponse'
-            Prelude.<$> (x Core..?> "apiCache")
+            Prelude.<$> (x Data..?> "apiCache")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -308,38 +310,38 @@ instance Prelude.NFData CreateApiCache where
       `Prelude.seq` Prelude.rnf apiCachingBehavior
       `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToHeaders CreateApiCache where
+instance Data.ToHeaders CreateApiCache where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateApiCache where
+instance Data.ToJSON CreateApiCache where
   toJSON CreateApiCache' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("atRestEncryptionEnabled" Core..=)
+          [ ("atRestEncryptionEnabled" Data..=)
               Prelude.<$> atRestEncryptionEnabled,
-            ("transitEncryptionEnabled" Core..=)
+            ("transitEncryptionEnabled" Data..=)
               Prelude.<$> transitEncryptionEnabled,
-            Prelude.Just ("ttl" Core..= ttl),
+            Prelude.Just ("ttl" Data..= ttl),
             Prelude.Just
-              ("apiCachingBehavior" Core..= apiCachingBehavior),
-            Prelude.Just ("type" Core..= type')
+              ("apiCachingBehavior" Data..= apiCachingBehavior),
+            Prelude.Just ("type" Data..= type')
           ]
       )
 
-instance Core.ToPath CreateApiCache where
+instance Data.ToPath CreateApiCache where
   toPath CreateApiCache' {..} =
     Prelude.mconcat
-      ["/v1/apis/", Core.toBS apiId, "/ApiCaches"]
+      ["/v1/apis/", Data.toBS apiId, "/ApiCaches"]
 
-instance Core.ToQuery CreateApiCache where
+instance Data.ToQuery CreateApiCache where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @CreateApiCache@ operation.

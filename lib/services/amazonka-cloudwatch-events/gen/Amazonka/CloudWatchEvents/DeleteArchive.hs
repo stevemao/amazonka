@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.DeleteArchive
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ where
 
 import Amazonka.CloudWatchEvents.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteArchive where
   type
     AWSResponse DeleteArchive =
       DeleteArchiveResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -91,30 +93,30 @@ instance Prelude.Hashable DeleteArchive where
 instance Prelude.NFData DeleteArchive where
   rnf DeleteArchive' {..} = Prelude.rnf archiveName
 
-instance Core.ToHeaders DeleteArchive where
+instance Data.ToHeaders DeleteArchive where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSEvents.DeleteArchive" :: Prelude.ByteString),
+              Data.=# ("AWSEvents.DeleteArchive" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteArchive where
+instance Data.ToJSON DeleteArchive where
   toJSON DeleteArchive' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ArchiveName" Core..= archiveName)]
+          [Prelude.Just ("ArchiveName" Data..= archiveName)]
       )
 
-instance Core.ToPath DeleteArchive where
+instance Data.ToPath DeleteArchive where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteArchive where
+instance Data.ToQuery DeleteArchive where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteArchiveResponse' smart constructor.

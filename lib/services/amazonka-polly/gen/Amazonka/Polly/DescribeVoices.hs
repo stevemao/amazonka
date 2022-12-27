@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Polly.DescribeVoices
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,10 +48,10 @@ module Amazonka.Polly.DescribeVoices
     newDescribeVoices,
 
     -- * Request Lenses
-    describeVoices_languageCode,
     describeVoices_engine,
-    describeVoices_nextToken,
     describeVoices_includeAdditionalLanguageCodes,
+    describeVoices_languageCode,
+    describeVoices_nextToken,
 
     -- * Destructuring the Response
     DescribeVoicesResponse (..),
@@ -65,7 +65,8 @@ module Amazonka.Polly.DescribeVoices
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Polly.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -73,23 +74,23 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeVoices' smart constructor.
 data DescribeVoices = DescribeVoices'
-  { -- | The language identification tag (ISO 639 code for the language name-ISO
-    -- 3166 country code) for filtering the list of voices returned. If you
-    -- don\'t specify this optional parameter, all available voices are
-    -- returned.
-    languageCode :: Prelude.Maybe LanguageCode,
-    -- | Specifies the engine (@standard@ or @neural@) used by Amazon Polly when
+  { -- | Specifies the engine (@standard@ or @neural@) used by Amazon Polly when
     -- processing input text for speech synthesis.
     engine :: Prelude.Maybe Engine,
-    -- | An opaque pagination token returned from the previous @DescribeVoices@
-    -- operation. If present, this indicates where to continue the listing.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | Boolean value indicating whether to return any bilingual voices that use
     -- the specified language as an additional language. For instance, if you
     -- request all languages that use US English (es-US), and there is an
     -- Italian voice that speaks both Italian (it-IT) and US English, that
     -- voice will be included if you specify @yes@ but not if you specify @no@.
-    includeAdditionalLanguageCodes :: Prelude.Maybe Prelude.Bool
+    includeAdditionalLanguageCodes :: Prelude.Maybe Prelude.Bool,
+    -- | The language identification tag (ISO 639 code for the language name-ISO
+    -- 3166 country code) for filtering the list of voices returned. If you
+    -- don\'t specify this optional parameter, all available voices are
+    -- returned.
+    languageCode :: Prelude.Maybe LanguageCode,
+    -- | An opaque pagination token returned from the previous @DescribeVoices@
+    -- operation. If present, this indicates where to continue the listing.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -101,48 +102,36 @@ data DescribeVoices = DescribeVoices'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'languageCode', 'describeVoices_languageCode' - The language identification tag (ISO 639 code for the language name-ISO
--- 3166 country code) for filtering the list of voices returned. If you
--- don\'t specify this optional parameter, all available voices are
--- returned.
---
 -- 'engine', 'describeVoices_engine' - Specifies the engine (@standard@ or @neural@) used by Amazon Polly when
 -- processing input text for speech synthesis.
---
--- 'nextToken', 'describeVoices_nextToken' - An opaque pagination token returned from the previous @DescribeVoices@
--- operation. If present, this indicates where to continue the listing.
 --
 -- 'includeAdditionalLanguageCodes', 'describeVoices_includeAdditionalLanguageCodes' - Boolean value indicating whether to return any bilingual voices that use
 -- the specified language as an additional language. For instance, if you
 -- request all languages that use US English (es-US), and there is an
 -- Italian voice that speaks both Italian (it-IT) and US English, that
 -- voice will be included if you specify @yes@ but not if you specify @no@.
+--
+-- 'languageCode', 'describeVoices_languageCode' - The language identification tag (ISO 639 code for the language name-ISO
+-- 3166 country code) for filtering the list of voices returned. If you
+-- don\'t specify this optional parameter, all available voices are
+-- returned.
+--
+-- 'nextToken', 'describeVoices_nextToken' - An opaque pagination token returned from the previous @DescribeVoices@
+-- operation. If present, this indicates where to continue the listing.
 newDescribeVoices ::
   DescribeVoices
 newDescribeVoices =
   DescribeVoices'
-    { languageCode = Prelude.Nothing,
-      engine = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      includeAdditionalLanguageCodes = Prelude.Nothing
+    { engine = Prelude.Nothing,
+      includeAdditionalLanguageCodes = Prelude.Nothing,
+      languageCode = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The language identification tag (ISO 639 code for the language name-ISO
--- 3166 country code) for filtering the list of voices returned. If you
--- don\'t specify this optional parameter, all available voices are
--- returned.
-describeVoices_languageCode :: Lens.Lens' DescribeVoices (Prelude.Maybe LanguageCode)
-describeVoices_languageCode = Lens.lens (\DescribeVoices' {languageCode} -> languageCode) (\s@DescribeVoices' {} a -> s {languageCode = a} :: DescribeVoices)
 
 -- | Specifies the engine (@standard@ or @neural@) used by Amazon Polly when
 -- processing input text for speech synthesis.
 describeVoices_engine :: Lens.Lens' DescribeVoices (Prelude.Maybe Engine)
 describeVoices_engine = Lens.lens (\DescribeVoices' {engine} -> engine) (\s@DescribeVoices' {} a -> s {engine = a} :: DescribeVoices)
-
--- | An opaque pagination token returned from the previous @DescribeVoices@
--- operation. If present, this indicates where to continue the listing.
-describeVoices_nextToken :: Lens.Lens' DescribeVoices (Prelude.Maybe Prelude.Text)
-describeVoices_nextToken = Lens.lens (\DescribeVoices' {nextToken} -> nextToken) (\s@DescribeVoices' {} a -> s {nextToken = a} :: DescribeVoices)
 
 -- | Boolean value indicating whether to return any bilingual voices that use
 -- the specified language as an additional language. For instance, if you
@@ -151,6 +140,18 @@ describeVoices_nextToken = Lens.lens (\DescribeVoices' {nextToken} -> nextToken)
 -- voice will be included if you specify @yes@ but not if you specify @no@.
 describeVoices_includeAdditionalLanguageCodes :: Lens.Lens' DescribeVoices (Prelude.Maybe Prelude.Bool)
 describeVoices_includeAdditionalLanguageCodes = Lens.lens (\DescribeVoices' {includeAdditionalLanguageCodes} -> includeAdditionalLanguageCodes) (\s@DescribeVoices' {} a -> s {includeAdditionalLanguageCodes = a} :: DescribeVoices)
+
+-- | The language identification tag (ISO 639 code for the language name-ISO
+-- 3166 country code) for filtering the list of voices returned. If you
+-- don\'t specify this optional parameter, all available voices are
+-- returned.
+describeVoices_languageCode :: Lens.Lens' DescribeVoices (Prelude.Maybe LanguageCode)
+describeVoices_languageCode = Lens.lens (\DescribeVoices' {languageCode} -> languageCode) (\s@DescribeVoices' {} a -> s {languageCode = a} :: DescribeVoices)
+
+-- | An opaque pagination token returned from the previous @DescribeVoices@
+-- operation. If present, this indicates where to continue the listing.
+describeVoices_nextToken :: Lens.Lens' DescribeVoices (Prelude.Maybe Prelude.Text)
+describeVoices_nextToken = Lens.lens (\DescribeVoices' {nextToken} -> nextToken) (\s@DescribeVoices' {} a -> s {nextToken = a} :: DescribeVoices)
 
 instance Core.AWSPager DescribeVoices where
   page rq rs
@@ -176,44 +177,45 @@ instance Core.AWSRequest DescribeVoices where
   type
     AWSResponse DescribeVoices =
       DescribeVoicesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeVoicesResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Voices" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Voices" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeVoices where
   hashWithSalt _salt DescribeVoices' {..} =
-    _salt `Prelude.hashWithSalt` languageCode
-      `Prelude.hashWithSalt` engine
-      `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` engine
       `Prelude.hashWithSalt` includeAdditionalLanguageCodes
+      `Prelude.hashWithSalt` languageCode
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeVoices where
   rnf DescribeVoices' {..} =
-    Prelude.rnf languageCode
-      `Prelude.seq` Prelude.rnf engine
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf engine
       `Prelude.seq` Prelude.rnf includeAdditionalLanguageCodes
+      `Prelude.seq` Prelude.rnf languageCode
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeVoices where
+instance Data.ToHeaders DescribeVoices where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeVoices where
+instance Data.ToPath DescribeVoices where
   toPath = Prelude.const "/v1/voices"
 
-instance Core.ToQuery DescribeVoices where
+instance Data.ToQuery DescribeVoices where
   toQuery DescribeVoices' {..} =
     Prelude.mconcat
-      [ "LanguageCode" Core.=: languageCode,
-        "Engine" Core.=: engine,
-        "NextToken" Core.=: nextToken,
+      [ "Engine" Data.=: engine,
         "IncludeAdditionalLanguageCodes"
-          Core.=: includeAdditionalLanguageCodes
+          Data.=: includeAdditionalLanguageCodes,
+        "LanguageCode" Data.=: languageCode,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newDescribeVoicesResponse' smart constructor.

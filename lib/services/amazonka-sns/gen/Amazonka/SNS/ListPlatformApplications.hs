@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SNS.ListPlatformApplications
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,14 +47,15 @@ module Amazonka.SNS.ListPlatformApplications
     newListPlatformApplicationsResponse,
 
     -- * Response Lenses
-    listPlatformApplicationsResponse_platformApplications,
     listPlatformApplicationsResponse_nextToken,
+    listPlatformApplicationsResponse_platformApplications,
     listPlatformApplicationsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -122,17 +123,18 @@ instance Core.AWSRequest ListPlatformApplications where
   type
     AWSResponse ListPlatformApplications =
       ListPlatformApplicationsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListPlatformApplicationsResult"
       ( \s h x ->
           ListPlatformApplicationsResponse'
-            Prelude.<$> ( x Core..@? "PlatformApplications"
+            Prelude.<$> (x Data..@? "NextToken")
+            Prelude.<*> ( x Data..@? "PlatformApplications"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> (x Core..@? "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -144,32 +146,32 @@ instance Prelude.NFData ListPlatformApplications where
   rnf ListPlatformApplications' {..} =
     Prelude.rnf nextToken
 
-instance Core.ToHeaders ListPlatformApplications where
+instance Data.ToHeaders ListPlatformApplications where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListPlatformApplications where
+instance Data.ToPath ListPlatformApplications where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListPlatformApplications where
+instance Data.ToQuery ListPlatformApplications where
   toQuery ListPlatformApplications' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ListPlatformApplications" :: Prelude.ByteString),
+          Data.=: ("ListPlatformApplications" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-03-31" :: Prelude.ByteString),
-        "NextToken" Core.=: nextToken
+          Data.=: ("2010-03-31" :: Prelude.ByteString),
+        "NextToken" Data.=: nextToken
       ]
 
 -- | Response for ListPlatformApplications action.
 --
 -- /See:/ 'newListPlatformApplicationsResponse' smart constructor.
 data ListPlatformApplicationsResponse = ListPlatformApplicationsResponse'
-  { -- | Platform applications returned when calling ListPlatformApplications
-    -- action.
-    platformApplications :: Prelude.Maybe [PlatformApplication],
-    -- | NextToken string is returned when calling ListPlatformApplications
+  { -- | NextToken string is returned when calling ListPlatformApplications
     -- action if additional records are available after the first page results.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Platform applications returned when calling ListPlatformApplications
+    -- action.
+    platformApplications :: Prelude.Maybe [PlatformApplication],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -183,11 +185,11 @@ data ListPlatformApplicationsResponse = ListPlatformApplicationsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'platformApplications', 'listPlatformApplicationsResponse_platformApplications' - Platform applications returned when calling ListPlatformApplications
--- action.
---
 -- 'nextToken', 'listPlatformApplicationsResponse_nextToken' - NextToken string is returned when calling ListPlatformApplications
 -- action if additional records are available after the first page results.
+--
+-- 'platformApplications', 'listPlatformApplicationsResponse_platformApplications' - Platform applications returned when calling ListPlatformApplications
+-- action.
 --
 -- 'httpStatus', 'listPlatformApplicationsResponse_httpStatus' - The response's http status code.
 newListPlatformApplicationsResponse ::
@@ -196,21 +198,21 @@ newListPlatformApplicationsResponse ::
   ListPlatformApplicationsResponse
 newListPlatformApplicationsResponse pHttpStatus_ =
   ListPlatformApplicationsResponse'
-    { platformApplications =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      platformApplications = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Platform applications returned when calling ListPlatformApplications
--- action.
-listPlatformApplicationsResponse_platformApplications :: Lens.Lens' ListPlatformApplicationsResponse (Prelude.Maybe [PlatformApplication])
-listPlatformApplicationsResponse_platformApplications = Lens.lens (\ListPlatformApplicationsResponse' {platformApplications} -> platformApplications) (\s@ListPlatformApplicationsResponse' {} a -> s {platformApplications = a} :: ListPlatformApplicationsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | NextToken string is returned when calling ListPlatformApplications
 -- action if additional records are available after the first page results.
 listPlatformApplicationsResponse_nextToken :: Lens.Lens' ListPlatformApplicationsResponse (Prelude.Maybe Prelude.Text)
 listPlatformApplicationsResponse_nextToken = Lens.lens (\ListPlatformApplicationsResponse' {nextToken} -> nextToken) (\s@ListPlatformApplicationsResponse' {} a -> s {nextToken = a} :: ListPlatformApplicationsResponse)
+
+-- | Platform applications returned when calling ListPlatformApplications
+-- action.
+listPlatformApplicationsResponse_platformApplications :: Lens.Lens' ListPlatformApplicationsResponse (Prelude.Maybe [PlatformApplication])
+listPlatformApplicationsResponse_platformApplications = Lens.lens (\ListPlatformApplicationsResponse' {platformApplications} -> platformApplications) (\s@ListPlatformApplicationsResponse' {} a -> s {platformApplications = a} :: ListPlatformApplicationsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listPlatformApplicationsResponse_httpStatus :: Lens.Lens' ListPlatformApplicationsResponse Prelude.Int
@@ -221,6 +223,6 @@ instance
     ListPlatformApplicationsResponse
   where
   rnf ListPlatformApplicationsResponse' {..} =
-    Prelude.rnf platformApplications
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf platformApplications
       `Prelude.seq` Prelude.rnf httpStatus

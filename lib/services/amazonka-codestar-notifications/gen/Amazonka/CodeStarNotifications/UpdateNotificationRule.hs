@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStarNotifications.UpdateNotificationRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,10 +32,10 @@ module Amazonka.CodeStarNotifications.UpdateNotificationRule
     newUpdateNotificationRule,
 
     -- * Request Lenses
-    updateNotificationRule_status,
-    updateNotificationRule_eventTypeIds,
     updateNotificationRule_detailType,
+    updateNotificationRule_eventTypeIds,
     updateNotificationRule_name,
+    updateNotificationRule_status,
     updateNotificationRule_targets,
     updateNotificationRule_arn,
 
@@ -50,26 +50,30 @@ where
 
 import Amazonka.CodeStarNotifications.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateNotificationRule' smart constructor.
 data UpdateNotificationRule = UpdateNotificationRule'
-  { -- | The status of the notification rule. Valid statuses include enabled
+  { -- | The level of detail to include in the notifications for this resource.
+    -- BASIC will include only the contents of the event as it would appear in
+    -- Amazon CloudWatch. FULL will include any supplemental information
+    -- provided by AWS CodeStar Notifications and\/or the service for the
+    -- resource for which the notification is created.
+    detailType :: Prelude.Maybe DetailType,
+    -- | A list of event types associated with this notification rule. For a
+    -- complete list of event types and IDs, see
+    -- <https://docs.aws.amazon.com/codestar-notifications/latest/userguide/concepts.html#concepts-api Notification concepts>
+    -- in the /Developer Tools Console User Guide/.
+    eventTypeIds :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the notification rule.
+    name :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | The status of the notification rule. Valid statuses include enabled
     -- (sending notifications) or disabled (not sending notifications).
     status :: Prelude.Maybe NotificationRuleStatus,
-    -- | A list of event types associated with this notification rule.
-    eventTypeIds :: Prelude.Maybe [Prelude.Text],
-    -- | The level of detail to include in the notifications for this resource.
-    -- BASIC will include only the contents of the event as it would appear in
-    -- AWS CloudWatch. FULL will include any supplemental information provided
-    -- by AWS CodeStar Notifications and\/or the service for the resource for
-    -- which the notification is created.
-    detailType :: Prelude.Maybe DetailType,
-    -- | The name of the notification rule.
-    name :: Prelude.Maybe (Core.Sensitive Prelude.Text),
     -- | The address and type of the targets to receive notifications from this
     -- notification rule.
     targets :: Prelude.Maybe [Target],
@@ -86,18 +90,21 @@ data UpdateNotificationRule = UpdateNotificationRule'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'updateNotificationRule_status' - The status of the notification rule. Valid statuses include enabled
--- (sending notifications) or disabled (not sending notifications).
---
--- 'eventTypeIds', 'updateNotificationRule_eventTypeIds' - A list of event types associated with this notification rule.
---
 -- 'detailType', 'updateNotificationRule_detailType' - The level of detail to include in the notifications for this resource.
 -- BASIC will include only the contents of the event as it would appear in
--- AWS CloudWatch. FULL will include any supplemental information provided
--- by AWS CodeStar Notifications and\/or the service for the resource for
--- which the notification is created.
+-- Amazon CloudWatch. FULL will include any supplemental information
+-- provided by AWS CodeStar Notifications and\/or the service for the
+-- resource for which the notification is created.
+--
+-- 'eventTypeIds', 'updateNotificationRule_eventTypeIds' - A list of event types associated with this notification rule. For a
+-- complete list of event types and IDs, see
+-- <https://docs.aws.amazon.com/codestar-notifications/latest/userguide/concepts.html#concepts-api Notification concepts>
+-- in the /Developer Tools Console User Guide/.
 --
 -- 'name', 'updateNotificationRule_name' - The name of the notification rule.
+--
+-- 'status', 'updateNotificationRule_status' - The status of the notification rule. Valid statuses include enabled
+-- (sending notifications) or disabled (not sending notifications).
 --
 -- 'targets', 'updateNotificationRule_targets' - The address and type of the targets to receive notifications from this
 -- notification rule.
@@ -109,34 +116,38 @@ newUpdateNotificationRule ::
   UpdateNotificationRule
 newUpdateNotificationRule pArn_ =
   UpdateNotificationRule'
-    { status = Prelude.Nothing,
+    { detailType =
+        Prelude.Nothing,
       eventTypeIds = Prelude.Nothing,
-      detailType = Prelude.Nothing,
       name = Prelude.Nothing,
+      status = Prelude.Nothing,
       targets = Prelude.Nothing,
       arn = pArn_
     }
+
+-- | The level of detail to include in the notifications for this resource.
+-- BASIC will include only the contents of the event as it would appear in
+-- Amazon CloudWatch. FULL will include any supplemental information
+-- provided by AWS CodeStar Notifications and\/or the service for the
+-- resource for which the notification is created.
+updateNotificationRule_detailType :: Lens.Lens' UpdateNotificationRule (Prelude.Maybe DetailType)
+updateNotificationRule_detailType = Lens.lens (\UpdateNotificationRule' {detailType} -> detailType) (\s@UpdateNotificationRule' {} a -> s {detailType = a} :: UpdateNotificationRule)
+
+-- | A list of event types associated with this notification rule. For a
+-- complete list of event types and IDs, see
+-- <https://docs.aws.amazon.com/codestar-notifications/latest/userguide/concepts.html#concepts-api Notification concepts>
+-- in the /Developer Tools Console User Guide/.
+updateNotificationRule_eventTypeIds :: Lens.Lens' UpdateNotificationRule (Prelude.Maybe [Prelude.Text])
+updateNotificationRule_eventTypeIds = Lens.lens (\UpdateNotificationRule' {eventTypeIds} -> eventTypeIds) (\s@UpdateNotificationRule' {} a -> s {eventTypeIds = a} :: UpdateNotificationRule) Prelude.. Lens.mapping Lens.coerced
+
+-- | The name of the notification rule.
+updateNotificationRule_name :: Lens.Lens' UpdateNotificationRule (Prelude.Maybe Prelude.Text)
+updateNotificationRule_name = Lens.lens (\UpdateNotificationRule' {name} -> name) (\s@UpdateNotificationRule' {} a -> s {name = a} :: UpdateNotificationRule) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The status of the notification rule. Valid statuses include enabled
 -- (sending notifications) or disabled (not sending notifications).
 updateNotificationRule_status :: Lens.Lens' UpdateNotificationRule (Prelude.Maybe NotificationRuleStatus)
 updateNotificationRule_status = Lens.lens (\UpdateNotificationRule' {status} -> status) (\s@UpdateNotificationRule' {} a -> s {status = a} :: UpdateNotificationRule)
-
--- | A list of event types associated with this notification rule.
-updateNotificationRule_eventTypeIds :: Lens.Lens' UpdateNotificationRule (Prelude.Maybe [Prelude.Text])
-updateNotificationRule_eventTypeIds = Lens.lens (\UpdateNotificationRule' {eventTypeIds} -> eventTypeIds) (\s@UpdateNotificationRule' {} a -> s {eventTypeIds = a} :: UpdateNotificationRule) Prelude.. Lens.mapping Lens.coerced
-
--- | The level of detail to include in the notifications for this resource.
--- BASIC will include only the contents of the event as it would appear in
--- AWS CloudWatch. FULL will include any supplemental information provided
--- by AWS CodeStar Notifications and\/or the service for the resource for
--- which the notification is created.
-updateNotificationRule_detailType :: Lens.Lens' UpdateNotificationRule (Prelude.Maybe DetailType)
-updateNotificationRule_detailType = Lens.lens (\UpdateNotificationRule' {detailType} -> detailType) (\s@UpdateNotificationRule' {} a -> s {detailType = a} :: UpdateNotificationRule)
-
--- | The name of the notification rule.
-updateNotificationRule_name :: Lens.Lens' UpdateNotificationRule (Prelude.Maybe Prelude.Text)
-updateNotificationRule_name = Lens.lens (\UpdateNotificationRule' {name} -> name) (\s@UpdateNotificationRule' {} a -> s {name = a} :: UpdateNotificationRule) Prelude.. Lens.mapping Core._Sensitive
 
 -- | The address and type of the targets to receive notifications from this
 -- notification rule.
@@ -151,7 +162,8 @@ instance Core.AWSRequest UpdateNotificationRule where
   type
     AWSResponse UpdateNotificationRule =
       UpdateNotificationRuleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -161,50 +173,50 @@ instance Core.AWSRequest UpdateNotificationRule where
 
 instance Prelude.Hashable UpdateNotificationRule where
   hashWithSalt _salt UpdateNotificationRule' {..} =
-    _salt `Prelude.hashWithSalt` status
+    _salt `Prelude.hashWithSalt` detailType
       `Prelude.hashWithSalt` eventTypeIds
-      `Prelude.hashWithSalt` detailType
       `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` targets
       `Prelude.hashWithSalt` arn
 
 instance Prelude.NFData UpdateNotificationRule where
   rnf UpdateNotificationRule' {..} =
-    Prelude.rnf status
+    Prelude.rnf detailType
       `Prelude.seq` Prelude.rnf eventTypeIds
-      `Prelude.seq` Prelude.rnf detailType
       `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf targets
       `Prelude.seq` Prelude.rnf arn
 
-instance Core.ToHeaders UpdateNotificationRule where
+instance Data.ToHeaders UpdateNotificationRule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateNotificationRule where
+instance Data.ToJSON UpdateNotificationRule where
   toJSON UpdateNotificationRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Status" Core..=) Prelude.<$> status,
-            ("EventTypeIds" Core..=) Prelude.<$> eventTypeIds,
-            ("DetailType" Core..=) Prelude.<$> detailType,
-            ("Name" Core..=) Prelude.<$> name,
-            ("Targets" Core..=) Prelude.<$> targets,
-            Prelude.Just ("Arn" Core..= arn)
+          [ ("DetailType" Data..=) Prelude.<$> detailType,
+            ("EventTypeIds" Data..=) Prelude.<$> eventTypeIds,
+            ("Name" Data..=) Prelude.<$> name,
+            ("Status" Data..=) Prelude.<$> status,
+            ("Targets" Data..=) Prelude.<$> targets,
+            Prelude.Just ("Arn" Data..= arn)
           ]
       )
 
-instance Core.ToPath UpdateNotificationRule where
+instance Data.ToPath UpdateNotificationRule where
   toPath = Prelude.const "/updateNotificationRule"
 
-instance Core.ToQuery UpdateNotificationRule where
+instance Data.ToQuery UpdateNotificationRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateNotificationRuleResponse' smart constructor.

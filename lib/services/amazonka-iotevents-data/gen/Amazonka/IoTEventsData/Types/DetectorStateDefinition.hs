@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEventsData.Types.DetectorStateDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.IoTEventsData.Types.DetectorStateDefinition where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEventsData.Types.TimerDefinition
 import Amazonka.IoTEventsData.Types.VariableDefinition
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The new state, variable values, and timer settings of the detector
@@ -93,12 +94,12 @@ instance Prelude.NFData DetectorStateDefinition where
       `Prelude.seq` Prelude.rnf variables
       `Prelude.seq` Prelude.rnf timers
 
-instance Core.ToJSON DetectorStateDefinition where
+instance Data.ToJSON DetectorStateDefinition where
   toJSON DetectorStateDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("stateName" Core..= stateName),
-            Prelude.Just ("variables" Core..= variables),
-            Prelude.Just ("timers" Core..= timers)
+          [ Prelude.Just ("stateName" Data..= stateName),
+            Prelude.Just ("variables" Data..= variables),
+            Prelude.Just ("timers" Data..= timers)
           ]
       )

@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -112,6 +112,7 @@ library
     Amazonka.ElastiCache.TestFailover
     Amazonka.ElastiCache.Types
     Amazonka.ElastiCache.Types.Authentication
+    Amazonka.ElastiCache.Types.AuthenticationMode
     Amazonka.ElastiCache.Types.AuthenticationType
     Amazonka.ElastiCache.Types.AuthTokenUpdateStatus
     Amazonka.ElastiCache.Types.AuthTokenUpdateStrategyType
@@ -134,6 +135,7 @@ library
     Amazonka.ElastiCache.Types.CloudWatchLogsDestinationDetails
     Amazonka.ElastiCache.Types.ConfigureShard
     Amazonka.ElastiCache.Types.CustomerNodeEndpoint
+    Amazonka.ElastiCache.Types.DataTieringStatus
     Amazonka.ElastiCache.Types.DestinationDetails
     Amazonka.ElastiCache.Types.DestinationType
     Amazonka.ElastiCache.Types.EC2SecurityGroup
@@ -145,6 +147,8 @@ library
     Amazonka.ElastiCache.Types.GlobalReplicationGroup
     Amazonka.ElastiCache.Types.GlobalReplicationGroupInfo
     Amazonka.ElastiCache.Types.GlobalReplicationGroupMember
+    Amazonka.ElastiCache.Types.InputAuthenticationType
+    Amazonka.ElastiCache.Types.IpDiscovery
     Amazonka.ElastiCache.Types.KinesisFirehoseDestinationDetails
     Amazonka.ElastiCache.Types.LogDeliveryConfiguration
     Amazonka.ElastiCache.Types.LogDeliveryConfigurationRequest
@@ -152,6 +156,7 @@ library
     Amazonka.ElastiCache.Types.LogFormat
     Amazonka.ElastiCache.Types.LogType
     Amazonka.ElastiCache.Types.MultiAZStatus
+    Amazonka.ElastiCache.Types.NetworkType
     Amazonka.ElastiCache.Types.NodeGroup
     Amazonka.ElastiCache.Types.NodeGroupConfiguration
     Amazonka.ElastiCache.Types.NodeGroupMember
@@ -201,7 +206,7 @@ library
     Amazonka.ElastiCache.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-elasticache-test
@@ -220,9 +225,9 @@ test-suite amazonka-elasticache-test
     Test.Amazonka.Gen.ElastiCache
 
   build-depends:
-    , amazonka-core         ^>=2.0
+    , amazonka-core         >=2.0 && <2.1
     , amazonka-elasticache
-    , amazonka-test         ^>=2.0
+    , amazonka-test         >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

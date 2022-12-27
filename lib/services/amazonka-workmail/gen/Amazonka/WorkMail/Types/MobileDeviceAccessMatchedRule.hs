@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.Types.MobileDeviceAccessMatchedRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WorkMail.Types.MobileDeviceAccessMatchedRule where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The rule that a simulated user matches.
@@ -62,14 +63,14 @@ mobileDeviceAccessMatchedRule_mobileDeviceAccessRuleId = Lens.lens (\MobileDevic
 mobileDeviceAccessMatchedRule_name :: Lens.Lens' MobileDeviceAccessMatchedRule (Prelude.Maybe Prelude.Text)
 mobileDeviceAccessMatchedRule_name = Lens.lens (\MobileDeviceAccessMatchedRule' {name} -> name) (\s@MobileDeviceAccessMatchedRule' {} a -> s {name = a} :: MobileDeviceAccessMatchedRule)
 
-instance Core.FromJSON MobileDeviceAccessMatchedRule where
+instance Data.FromJSON MobileDeviceAccessMatchedRule where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MobileDeviceAccessMatchedRule"
       ( \x ->
           MobileDeviceAccessMatchedRule'
-            Prelude.<$> (x Core..:? "MobileDeviceAccessRuleId")
-            Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "MobileDeviceAccessRuleId")
+            Prelude.<*> (x Data..:? "Name")
       )
 
 instance

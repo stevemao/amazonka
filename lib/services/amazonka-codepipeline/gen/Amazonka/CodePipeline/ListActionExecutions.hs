@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.ListActionExecutions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.CodePipeline.ListActionExecutions
     newListActionExecutions,
 
     -- * Request Lenses
-    listActionExecutions_nextToken,
     listActionExecutions_filter,
     listActionExecutions_maxResults,
+    listActionExecutions_nextToken,
     listActionExecutions_pipelineName,
 
     -- * Destructuring the Response
@@ -47,18 +47,15 @@ where
 
 import Amazonka.CodePipeline.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListActionExecutions' smart constructor.
 data ListActionExecutions = ListActionExecutions'
-  { -- | The token that was returned from the previous @ListActionExecutions@
-    -- call, which can be used to return the next set of action executions in
-    -- the list.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Input information used to filter action execution history.
+  { -- | Input information used to filter action execution history.
     filter' :: Prelude.Maybe ActionExecutionFilter,
     -- | The maximum number of results to return in a single call. To retrieve
     -- the remaining results, make another call with the returned nextToken
@@ -68,6 +65,10 @@ data ListActionExecutions = ListActionExecutions'
     -- Detailed execution history is available for executions run on or after
     -- February 21, 2019.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token that was returned from the previous @ListActionExecutions@
+    -- call, which can be used to return the next set of action executions in
+    -- the list.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the pipeline for which you want to list action execution
     -- history.
     pipelineName :: Prelude.Text
@@ -82,10 +83,6 @@ data ListActionExecutions = ListActionExecutions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listActionExecutions_nextToken' - The token that was returned from the previous @ListActionExecutions@
--- call, which can be used to return the next set of action executions in
--- the list.
---
 -- 'filter'', 'listActionExecutions_filter' - Input information used to filter action execution history.
 --
 -- 'maxResults', 'listActionExecutions_maxResults' - The maximum number of results to return in a single call. To retrieve
@@ -96,6 +93,10 @@ data ListActionExecutions = ListActionExecutions'
 -- Detailed execution history is available for executions run on or after
 -- February 21, 2019.
 --
+-- 'nextToken', 'listActionExecutions_nextToken' - The token that was returned from the previous @ListActionExecutions@
+-- call, which can be used to return the next set of action executions in
+-- the list.
+--
 -- 'pipelineName', 'listActionExecutions_pipelineName' - The name of the pipeline for which you want to list action execution
 -- history.
 newListActionExecutions ::
@@ -104,17 +105,11 @@ newListActionExecutions ::
   ListActionExecutions
 newListActionExecutions pPipelineName_ =
   ListActionExecutions'
-    { nextToken = Prelude.Nothing,
-      filter' = Prelude.Nothing,
+    { filter' = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       pipelineName = pPipelineName_
     }
-
--- | The token that was returned from the previous @ListActionExecutions@
--- call, which can be used to return the next set of action executions in
--- the list.
-listActionExecutions_nextToken :: Lens.Lens' ListActionExecutions (Prelude.Maybe Prelude.Text)
-listActionExecutions_nextToken = Lens.lens (\ListActionExecutions' {nextToken} -> nextToken) (\s@ListActionExecutions' {} a -> s {nextToken = a} :: ListActionExecutions)
 
 -- | Input information used to filter action execution history.
 listActionExecutions_filter :: Lens.Lens' ListActionExecutions (Prelude.Maybe ActionExecutionFilter)
@@ -129,6 +124,12 @@ listActionExecutions_filter = Lens.lens (\ListActionExecutions' {filter'} -> fil
 -- February 21, 2019.
 listActionExecutions_maxResults :: Lens.Lens' ListActionExecutions (Prelude.Maybe Prelude.Natural)
 listActionExecutions_maxResults = Lens.lens (\ListActionExecutions' {maxResults} -> maxResults) (\s@ListActionExecutions' {} a -> s {maxResults = a} :: ListActionExecutions)
+
+-- | The token that was returned from the previous @ListActionExecutions@
+-- call, which can be used to return the next set of action executions in
+-- the list.
+listActionExecutions_nextToken :: Lens.Lens' ListActionExecutions (Prelude.Maybe Prelude.Text)
+listActionExecutions_nextToken = Lens.lens (\ListActionExecutions' {nextToken} -> nextToken) (\s@ListActionExecutions' {} a -> s {nextToken = a} :: ListActionExecutions)
 
 -- | The name of the pipeline for which you want to list action execution
 -- history.
@@ -161,62 +162,63 @@ instance Core.AWSRequest ListActionExecutions where
   type
     AWSResponse ListActionExecutions =
       ListActionExecutionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListActionExecutionsResponse'
-            Prelude.<$> ( x Core..?> "actionExecutionDetails"
+            Prelude.<$> ( x Data..?> "actionExecutionDetails"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListActionExecutions where
   hashWithSalt _salt ListActionExecutions' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` filter'
+    _salt `Prelude.hashWithSalt` filter'
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` pipelineName
 
 instance Prelude.NFData ListActionExecutions where
   rnf ListActionExecutions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf filter'
+    Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf pipelineName
 
-instance Core.ToHeaders ListActionExecutions where
+instance Data.ToHeaders ListActionExecutions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodePipeline_20150709.ListActionExecutions" ::
+              Data.=# ( "CodePipeline_20150709.ListActionExecutions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListActionExecutions where
+instance Data.ToJSON ListActionExecutions where
   toJSON ListActionExecutions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("filter" Core..=) Prelude.<$> filter',
-            ("maxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("pipelineName" Core..= pipelineName)
+          [ ("filter" Data..=) Prelude.<$> filter',
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("pipelineName" Data..= pipelineName)
           ]
       )
 
-instance Core.ToPath ListActionExecutions where
+instance Data.ToPath ListActionExecutions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListActionExecutions where
+instance Data.ToQuery ListActionExecutions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListActionExecutionsResponse' smart constructor.

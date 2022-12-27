@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.SetIdentityNotificationTopic
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,7 +52,8 @@ module Amazonka.SES.SetIdentityNotificationTopic
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -153,7 +154,8 @@ instance Core.AWSRequest SetIdentityNotificationTopic where
   type
     AWSResponse SetIdentityNotificationTopic =
       SetIdentityNotificationTopicResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "SetIdentityNotificationTopicResult"
@@ -177,24 +179,24 @@ instance Prelude.NFData SetIdentityNotificationTopic where
       `Prelude.seq` Prelude.rnf identity
       `Prelude.seq` Prelude.rnf notificationType
 
-instance Core.ToHeaders SetIdentityNotificationTopic where
+instance Data.ToHeaders SetIdentityNotificationTopic where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath SetIdentityNotificationTopic where
+instance Data.ToPath SetIdentityNotificationTopic where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SetIdentityNotificationTopic where
+instance Data.ToQuery SetIdentityNotificationTopic where
   toQuery SetIdentityNotificationTopic' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "SetIdentityNotificationTopic" ::
+          Data.=: ( "SetIdentityNotificationTopic" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "SnsTopic" Core.=: snsTopic,
-        "Identity" Core.=: identity,
-        "NotificationType" Core.=: notificationType
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "SnsTopic" Data.=: snsTopic,
+        "Identity" Data.=: identity,
+        "NotificationType" Data.=: notificationType
       ]
 
 -- | An empty element returned on a successful request.

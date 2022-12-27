@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GreengrassV2.Types.LambdaLinuxProcessParams
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.GreengrassV2.Types.LambdaLinuxProcessParams where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GreengrassV2.Types.LambdaContainerParams
 import Amazonka.GreengrassV2.Types.LambdaIsolationMode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains parameters for a Linux process that contains an Lambda
@@ -87,12 +88,12 @@ instance Prelude.NFData LambdaLinuxProcessParams where
     Prelude.rnf containerParams
       `Prelude.seq` Prelude.rnf isolationMode
 
-instance Core.ToJSON LambdaLinuxProcessParams where
+instance Data.ToJSON LambdaLinuxProcessParams where
   toJSON LambdaLinuxProcessParams' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("containerParams" Core..=)
+          [ ("containerParams" Data..=)
               Prelude.<$> containerParams,
-            ("isolationMode" Core..=) Prelude.<$> isolationMode
+            ("isolationMode" Data..=) Prelude.<$> isolationMode
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DeprecateThingType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.IoT.DeprecateThingType
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,7 +103,8 @@ instance Core.AWSRequest DeprecateThingType where
   type
     AWSResponse DeprecateThingType =
       DeprecateThingTypeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -120,27 +122,27 @@ instance Prelude.NFData DeprecateThingType where
     Prelude.rnf undoDeprecate
       `Prelude.seq` Prelude.rnf thingTypeName
 
-instance Core.ToHeaders DeprecateThingType where
+instance Data.ToHeaders DeprecateThingType where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON DeprecateThingType where
+instance Data.ToJSON DeprecateThingType where
   toJSON DeprecateThingType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("undoDeprecate" Core..=)
+          [ ("undoDeprecate" Data..=)
               Prelude.<$> undoDeprecate
           ]
       )
 
-instance Core.ToPath DeprecateThingType where
+instance Data.ToPath DeprecateThingType where
   toPath DeprecateThingType' {..} =
     Prelude.mconcat
       [ "/thing-types/",
-        Core.toBS thingTypeName,
+        Data.toBS thingTypeName,
         "/deprecate"
       ]
 
-instance Core.ToQuery DeprecateThingType where
+instance Data.ToQuery DeprecateThingType where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The output for the DeprecateThingType operation.

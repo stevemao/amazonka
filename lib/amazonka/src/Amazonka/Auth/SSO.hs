@@ -9,11 +9,11 @@ module Amazonka.Auth.SSO where
 
 import Amazonka.Auth.Background (fetchAuthInBackground)
 import Amazonka.Auth.Exception
+import Amazonka.Core.Lens.Internal ((^.))
 import qualified Amazonka.Crypto as Crypto
 import Amazonka.Data.Sensitive
 import Amazonka.Data.Time (Time (..))
 import Amazonka.Env (Env, Env' (..))
-import Amazonka.Lens ((^.))
 import Amazonka.Prelude
 import Amazonka.SSO.GetRoleCredentials as SSO
 import qualified Amazonka.SSO.Types as SSO (RoleCredentials (..))
@@ -36,6 +36,22 @@ data CachedAccessToken = CachedAccessToken
   deriving stock (Show, Eq, Generic)
   deriving anyclass (FromJSON)
 
+{-# INLINE cachedAccessToken_startUrl #-}
+cachedAccessToken_startUrl :: Lens' CachedAccessToken Text
+cachedAccessToken_startUrl f c@CachedAccessToken {startUrl} = f startUrl <&> \startUrl' -> c {startUrl = startUrl'}
+
+{-# INLINE cachedAccessToken_region #-}
+cachedAccessToken_region :: Lens' CachedAccessToken Region
+cachedAccessToken_region f c@CachedAccessToken {region} = f region <&> \region' -> (c :: CachedAccessToken) {region = region'}
+
+{-# INLINE cachedAccessToken_accessToken #-}
+cachedAccessToken_accessToken :: Lens' CachedAccessToken (Sensitive Text)
+cachedAccessToken_accessToken f c@CachedAccessToken {accessToken} = f accessToken <&> \accessToken' -> (c :: CachedAccessToken) {accessToken = accessToken'}
+
+{-# INLINE cachedAccessToken_expiresAt #-}
+cachedAccessToken_expiresAt :: Lens' CachedAccessToken UTCTime
+cachedAccessToken_expiresAt f c@CachedAccessToken {expiresAt} = f expiresAt <&> \expiresAt' -> c {expiresAt = expiresAt'}
+
 -- | Assume a role using an SSO Token.
 --
 -- The user must have previously called @aws sso login@, and pass in the path to
@@ -48,6 +64,7 @@ data CachedAccessToken = CachedAccessToken
 --
 -- <https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sso.html>
 fromSSO ::
+  forall m withAuth.
   MonadIO m =>
   FilePath ->
   Region ->
@@ -58,8 +75,8 @@ fromSSO ::
   Env' withAuth ->
   m Env
 fromSSO cachedTokenFile ssoRegion accountId roleName env = do
-  auth <- liftIO $ fetchAuthInBackground getCredentials
-  pure $ env {envAuth = Identity auth}
+  keys <- liftIO $ fetchAuthInBackground getCredentials
+  pure $ env {auth = Identity keys}
   where
     getCredentials = do
       CachedAccessToken {..} <- readCachedAccessToken cachedTokenFile
@@ -67,7 +84,8 @@ fromSSO cachedTokenFile ssoRegion accountId roleName env = do
       -- The Region you SSO through may differ from the Region you intend to
       -- interact with after. The former is handled here, the latter is taken
       -- care of later, in ConfigFile.
-      let ssoEnv = env {envRegion = ssoRegion}
+      let ssoEnv :: Env' withAuth
+          ssoEnv = env {region = ssoRegion}
           getRoleCredentials =
             SSO.newGetRoleCredentials
               roleName
@@ -75,12 +93,8 @@ fromSSO cachedTokenFile ssoRegion accountId roleName env = do
               (fromSensitive accessToken)
 
       resp <- runResourceT $ sendUnsigned ssoEnv getRoleCredentials
-      let mCreds = do
-            rc <- resp ^. SSO.getRoleCredentialsResponse_roleCredentials
-            roleCredentialsToAuthEnv rc
-      case mCreds of
-        Nothing -> fail "sso:GetRoleWithCredentials returned no credentials."
-        Just c -> pure c
+      pure . roleCredentialsToAuthEnv $
+        resp ^. SSO.getRoleCredentialsResponse_roleCredentials
 
 -- | Return the cached token file for a given @sso_start_url@
 --
@@ -107,12 +121,10 @@ readCachedAccessToken p = liftIO $
               " is missing or invalid."
             ]
 
-roleCredentialsToAuthEnv :: SSO.RoleCredentials -> Maybe AuthEnv
+roleCredentialsToAuthEnv :: SSO.RoleCredentials -> AuthEnv
 roleCredentialsToAuthEnv rc =
   AuthEnv
-    <$> (AccessKey . Text.encodeUtf8 <$> SSO.accessKeyId rc)
-    <*> (fmap (SecretKey . Text.encodeUtf8) <$> SSO.secretAccessKey rc)
-    <*> pure (fmap (SessionToken . Text.encodeUtf8) <$> SSO.sessionToken rc)
-    <*> pure (expirationToExpires <$> SSO.expiration rc)
-  where
-    expirationToExpires = Time . posixSecondsToUTCTime . fromInteger
+    (SSO.accessKeyId rc)
+    (SSO.secretAccessKey rc)
+    (SSO.sessionToken rc)
+    (Time . posixSecondsToUTCTime . fromInteger <$> SSO.expiration rc)

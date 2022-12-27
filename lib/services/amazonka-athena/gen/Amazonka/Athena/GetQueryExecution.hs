@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Athena.GetQueryExecution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.Athena.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,12 +84,13 @@ instance Core.AWSRequest GetQueryExecution where
   type
     AWSResponse GetQueryExecution =
       GetQueryExecutionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetQueryExecutionResponse'
-            Prelude.<$> (x Core..?> "QueryExecution")
+            Prelude.<$> (x Data..?> "QueryExecution")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -100,34 +102,34 @@ instance Prelude.NFData GetQueryExecution where
   rnf GetQueryExecution' {..} =
     Prelude.rnf queryExecutionId
 
-instance Core.ToHeaders GetQueryExecution where
+instance Data.ToHeaders GetQueryExecution where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonAthena.GetQueryExecution" ::
+              Data.=# ( "AmazonAthena.GetQueryExecution" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetQueryExecution where
+instance Data.ToJSON GetQueryExecution where
   toJSON GetQueryExecution' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("QueryExecutionId" Core..= queryExecutionId)
+              ("QueryExecutionId" Data..= queryExecutionId)
           ]
       )
 
-instance Core.ToPath GetQueryExecution where
+instance Data.ToPath GetQueryExecution where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetQueryExecution where
+instance Data.ToQuery GetQueryExecution where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetQueryExecutionResponse' smart constructor.

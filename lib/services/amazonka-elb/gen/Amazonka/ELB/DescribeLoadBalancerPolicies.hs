@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ELB.DescribeLoadBalancerPolicies
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,8 +35,8 @@ module Amazonka.ELB.DescribeLoadBalancerPolicies
     newDescribeLoadBalancerPolicies,
 
     -- * Request Lenses
-    describeLoadBalancerPolicies_policyNames,
     describeLoadBalancerPolicies_loadBalancerName,
+    describeLoadBalancerPolicies_policyNames,
 
     -- * Destructuring the Response
     DescribeLoadBalancerPoliciesResponse (..),
@@ -49,8 +49,9 @@ module Amazonka.ELB.DescribeLoadBalancerPolicies
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,10 +60,10 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeLoadBalancerPolicies' smart constructor.
 data DescribeLoadBalancerPolicies = DescribeLoadBalancerPolicies'
-  { -- | The names of the policies.
-    policyNames :: Prelude.Maybe [Prelude.Text],
-    -- | The name of the load balancer.
-    loadBalancerName :: Prelude.Maybe Prelude.Text
+  { -- | The name of the load balancer.
+    loadBalancerName :: Prelude.Maybe Prelude.Text,
+    -- | The names of the policies.
+    policyNames :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -74,39 +75,40 @@ data DescribeLoadBalancerPolicies = DescribeLoadBalancerPolicies'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'policyNames', 'describeLoadBalancerPolicies_policyNames' - The names of the policies.
---
 -- 'loadBalancerName', 'describeLoadBalancerPolicies_loadBalancerName' - The name of the load balancer.
+--
+-- 'policyNames', 'describeLoadBalancerPolicies_policyNames' - The names of the policies.
 newDescribeLoadBalancerPolicies ::
   DescribeLoadBalancerPolicies
 newDescribeLoadBalancerPolicies =
   DescribeLoadBalancerPolicies'
-    { policyNames =
+    { loadBalancerName =
         Prelude.Nothing,
-      loadBalancerName = Prelude.Nothing
+      policyNames = Prelude.Nothing
     }
-
--- | The names of the policies.
-describeLoadBalancerPolicies_policyNames :: Lens.Lens' DescribeLoadBalancerPolicies (Prelude.Maybe [Prelude.Text])
-describeLoadBalancerPolicies_policyNames = Lens.lens (\DescribeLoadBalancerPolicies' {policyNames} -> policyNames) (\s@DescribeLoadBalancerPolicies' {} a -> s {policyNames = a} :: DescribeLoadBalancerPolicies) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the load balancer.
 describeLoadBalancerPolicies_loadBalancerName :: Lens.Lens' DescribeLoadBalancerPolicies (Prelude.Maybe Prelude.Text)
 describeLoadBalancerPolicies_loadBalancerName = Lens.lens (\DescribeLoadBalancerPolicies' {loadBalancerName} -> loadBalancerName) (\s@DescribeLoadBalancerPolicies' {} a -> s {loadBalancerName = a} :: DescribeLoadBalancerPolicies)
 
+-- | The names of the policies.
+describeLoadBalancerPolicies_policyNames :: Lens.Lens' DescribeLoadBalancerPolicies (Prelude.Maybe [Prelude.Text])
+describeLoadBalancerPolicies_policyNames = Lens.lens (\DescribeLoadBalancerPolicies' {policyNames} -> policyNames) (\s@DescribeLoadBalancerPolicies' {} a -> s {policyNames = a} :: DescribeLoadBalancerPolicies) Prelude.. Lens.mapping Lens.coerced
+
 instance Core.AWSRequest DescribeLoadBalancerPolicies where
   type
     AWSResponse DescribeLoadBalancerPolicies =
       DescribeLoadBalancerPoliciesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeLoadBalancerPoliciesResult"
       ( \s h x ->
           DescribeLoadBalancerPoliciesResponse'
-            Prelude.<$> ( x Core..@? "PolicyDescriptions"
+            Prelude.<$> ( x Data..@? "PolicyDescriptions"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -116,33 +118,33 @@ instance
     DescribeLoadBalancerPolicies
   where
   hashWithSalt _salt DescribeLoadBalancerPolicies' {..} =
-    _salt `Prelude.hashWithSalt` policyNames
-      `Prelude.hashWithSalt` loadBalancerName
+    _salt `Prelude.hashWithSalt` loadBalancerName
+      `Prelude.hashWithSalt` policyNames
 
 instance Prelude.NFData DescribeLoadBalancerPolicies where
   rnf DescribeLoadBalancerPolicies' {..} =
-    Prelude.rnf policyNames
-      `Prelude.seq` Prelude.rnf loadBalancerName
+    Prelude.rnf loadBalancerName
+      `Prelude.seq` Prelude.rnf policyNames
 
-instance Core.ToHeaders DescribeLoadBalancerPolicies where
+instance Data.ToHeaders DescribeLoadBalancerPolicies where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeLoadBalancerPolicies where
+instance Data.ToPath DescribeLoadBalancerPolicies where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeLoadBalancerPolicies where
+instance Data.ToQuery DescribeLoadBalancerPolicies where
   toQuery DescribeLoadBalancerPolicies' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeLoadBalancerPolicies" ::
+          Data.=: ( "DescribeLoadBalancerPolicies" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2012-06-01" :: Prelude.ByteString),
+          Data.=: ("2012-06-01" :: Prelude.ByteString),
+        "LoadBalancerName" Data.=: loadBalancerName,
         "PolicyNames"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> policyNames),
-        "LoadBalancerName" Core.=: loadBalancerName
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> policyNames)
       ]
 
 -- | Contains the output of DescribeLoadBalancerPolicies.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MachineLearning.CreateBatchPrediction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -58,7 +58,8 @@ module Amazonka.MachineLearning.CreateBatchPrediction
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MachineLearning.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -175,12 +176,13 @@ instance Core.AWSRequest CreateBatchPrediction where
   type
     AWSResponse CreateBatchPrediction =
       CreateBatchPredictionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateBatchPredictionResponse'
-            Prelude.<$> (x Core..?> "BatchPredictionId")
+            Prelude.<$> (x Data..?> "BatchPredictionId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -200,42 +202,42 @@ instance Prelude.NFData CreateBatchPrediction where
       `Prelude.seq` Prelude.rnf batchPredictionDataSourceId
       `Prelude.seq` Prelude.rnf outputUri
 
-instance Core.ToHeaders CreateBatchPrediction where
+instance Data.ToHeaders CreateBatchPrediction where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonML_20141212.CreateBatchPrediction" ::
+              Data.=# ( "AmazonML_20141212.CreateBatchPrediction" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateBatchPrediction where
+instance Data.ToJSON CreateBatchPrediction where
   toJSON CreateBatchPrediction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("BatchPredictionName" Core..=)
+          [ ("BatchPredictionName" Data..=)
               Prelude.<$> batchPredictionName,
             Prelude.Just
-              ("BatchPredictionId" Core..= batchPredictionId),
-            Prelude.Just ("MLModelId" Core..= mLModelId),
+              ("BatchPredictionId" Data..= batchPredictionId),
+            Prelude.Just ("MLModelId" Data..= mLModelId),
             Prelude.Just
               ( "BatchPredictionDataSourceId"
-                  Core..= batchPredictionDataSourceId
+                  Data..= batchPredictionDataSourceId
               ),
-            Prelude.Just ("OutputUri" Core..= outputUri)
+            Prelude.Just ("OutputUri" Data..= outputUri)
           ]
       )
 
-instance Core.ToPath CreateBatchPrediction where
+instance Data.ToPath CreateBatchPrediction where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateBatchPrediction where
+instance Data.ToQuery CreateBatchPrediction where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @CreateBatchPrediction@ operation, and is an

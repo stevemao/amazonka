@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.AddTagsToOnPremisesInstances
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ where
 
 import Amazonka.CodeDeploy.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,7 +97,8 @@ instance Core.AWSRequest AddTagsToOnPremisesInstances where
   type
     AWSResponse AddTagsToOnPremisesInstances =
       AddTagsToOnPremisesInstancesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       AddTagsToOnPremisesInstancesResponse'
@@ -114,35 +116,35 @@ instance Prelude.NFData AddTagsToOnPremisesInstances where
     Prelude.rnf tags
       `Prelude.seq` Prelude.rnf instanceNames
 
-instance Core.ToHeaders AddTagsToOnPremisesInstances where
+instance Data.ToHeaders AddTagsToOnPremisesInstances where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeDeploy_20141006.AddTagsToOnPremisesInstances" ::
+              Data.=# ( "CodeDeploy_20141006.AddTagsToOnPremisesInstances" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AddTagsToOnPremisesInstances where
+instance Data.ToJSON AddTagsToOnPremisesInstances where
   toJSON AddTagsToOnPremisesInstances' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("tags" Core..= tags),
+          [ Prelude.Just ("tags" Data..= tags),
             Prelude.Just
-              ("instanceNames" Core..= instanceNames)
+              ("instanceNames" Data..= instanceNames)
           ]
       )
 
-instance Core.ToPath AddTagsToOnPremisesInstances where
+instance Data.ToPath AddTagsToOnPremisesInstances where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AddTagsToOnPremisesInstances where
+instance Data.ToQuery AddTagsToOnPremisesInstances where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAddTagsToOnPremisesInstancesResponse' smart constructor.

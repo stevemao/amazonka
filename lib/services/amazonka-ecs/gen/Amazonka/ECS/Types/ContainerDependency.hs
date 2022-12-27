@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.ContainerDependency
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ECS.Types.ContainerDependency where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types.ContainerCondition
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The dependencies defined for container startup and shutdown. A container
@@ -29,12 +30,11 @@ import qualified Amazonka.Prelude as Prelude
 -- container startup, for container shutdown it is reversed.
 --
 -- Your Amazon ECS container instances require at least version 1.26.0 of
--- the container agent to enable container dependencies. However, we
--- recommend using the latest container agent version. For information
--- about checking your agent version and updating to the latest version,
--- see
+-- the container agent to use container dependencies. However, we recommend
+-- using the latest container agent version. For information about checking
+-- your agent version and updating to the latest version, see
 -- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html Updating the Amazon ECS Container Agent>
--- in the /Amazon Elastic Container Service Developer Guide/. If you are
+-- in the /Amazon Elastic Container Service Developer Guide/. If you\'re
 -- using an Amazon ECS-optimized Linux AMI, your instance needs at least
 -- version 1.26.0-1 of the @ecs-init@ package. If your container instances
 -- are launched from version @20190301@ or later, then they contain the
@@ -43,8 +43,12 @@ import qualified Amazonka.Prelude as Prelude
 -- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html Amazon ECS-optimized Linux AMI>
 -- in the /Amazon Elastic Container Service Developer Guide/.
 --
--- For tasks using the Fargate launch type, this parameter requires that
--- the task or service uses platform version 1.3.0 or later.
+-- For tasks that use the Fargate launch type, the task or service requires
+-- the following platforms:
+--
+-- -   Linux platform version @1.3.0@ or later.
+--
+-- -   Windows platform version @1.0.0@ or later.
 --
 -- /See:/ 'newContainerDependency' smart constructor.
 data ContainerDependency = ContainerDependency'
@@ -60,12 +64,12 @@ data ContainerDependency = ContainerDependency'
     -- -   @COMPLETE@ - This condition validates that a dependent container
     --     runs to completion (exits) before permitting other containers to
     --     start. This can be useful for nonessential containers that run a
-    --     script and then exit. This condition cannot be set on an essential
+    --     script and then exit. This condition can\'t be set on an essential
     --     container.
     --
     -- -   @SUCCESS@ - This condition is the same as @COMPLETE@, but it also
     --     requires that the container exits with a @zero@ status. This
-    --     condition cannot be set on an essential container.
+    --     condition can\'t be set on an essential container.
     --
     -- -   @HEALTHY@ - This condition validates that the dependent container
     --     passes its Docker health check before permitting other containers to
@@ -95,12 +99,12 @@ data ContainerDependency = ContainerDependency'
 -- -   @COMPLETE@ - This condition validates that a dependent container
 --     runs to completion (exits) before permitting other containers to
 --     start. This can be useful for nonessential containers that run a
---     script and then exit. This condition cannot be set on an essential
+--     script and then exit. This condition can\'t be set on an essential
 --     container.
 --
 -- -   @SUCCESS@ - This condition is the same as @COMPLETE@, but it also
 --     requires that the container exits with a @zero@ status. This
---     condition cannot be set on an essential container.
+--     condition can\'t be set on an essential container.
 --
 -- -   @HEALTHY@ - This condition validates that the dependent container
 --     passes its Docker health check before permitting other containers to
@@ -133,12 +137,12 @@ containerDependency_containerName = Lens.lens (\ContainerDependency' {containerN
 -- -   @COMPLETE@ - This condition validates that a dependent container
 --     runs to completion (exits) before permitting other containers to
 --     start. This can be useful for nonessential containers that run a
---     script and then exit. This condition cannot be set on an essential
+--     script and then exit. This condition can\'t be set on an essential
 --     container.
 --
 -- -   @SUCCESS@ - This condition is the same as @COMPLETE@, but it also
 --     requires that the container exits with a @zero@ status. This
---     condition cannot be set on an essential container.
+--     condition can\'t be set on an essential container.
 --
 -- -   @HEALTHY@ - This condition validates that the dependent container
 --     passes its Docker health check before permitting other containers to
@@ -147,14 +151,14 @@ containerDependency_containerName = Lens.lens (\ContainerDependency' {containerN
 containerDependency_condition :: Lens.Lens' ContainerDependency ContainerCondition
 containerDependency_condition = Lens.lens (\ContainerDependency' {condition} -> condition) (\s@ContainerDependency' {} a -> s {condition = a} :: ContainerDependency)
 
-instance Core.FromJSON ContainerDependency where
+instance Data.FromJSON ContainerDependency where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ContainerDependency"
       ( \x ->
           ContainerDependency'
-            Prelude.<$> (x Core..: "containerName")
-            Prelude.<*> (x Core..: "condition")
+            Prelude.<$> (x Data..: "containerName")
+            Prelude.<*> (x Data..: "condition")
       )
 
 instance Prelude.Hashable ContainerDependency where
@@ -167,12 +171,12 @@ instance Prelude.NFData ContainerDependency where
     Prelude.rnf containerName
       `Prelude.seq` Prelude.rnf condition
 
-instance Core.ToJSON ContainerDependency where
+instance Data.ToJSON ContainerDependency where
   toJSON ContainerDependency' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("containerName" Core..= containerName),
-            Prelude.Just ("condition" Core..= condition)
+              ("containerName" Data..= containerName),
+            Prelude.Just ("condition" Data..= condition)
           ]
       )

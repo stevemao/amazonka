@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Budgets.Types.Subscriber
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,13 +21,14 @@ module Amazonka.Budgets.Types.Subscriber where
 
 import Amazonka.Budgets.Types.SubscriptionType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The subscriber to a budget notification. The subscriber consists of a
 -- subscription type and either an Amazon SNS topic or an email address.
 --
--- For example, an email subscriber would have the following parameters:
+-- For example, an email subscriber has the following parameters:
 --
 -- -   A @subscriptionType@ of @EMAIL@
 --
@@ -35,14 +36,14 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSubscriber' smart constructor.
 data Subscriber = Subscriber'
-  { -- | The type of notification that AWS sends to a subscriber.
+  { -- | The type of notification that Amazon Web Services sends to a subscriber.
     subscriptionType :: SubscriptionType,
-    -- | The address that AWS sends budget notifications to, either an SNS topic
-    -- or an email.
+    -- | The address that Amazon Web Services sends budget notifications to,
+    -- either an SNS topic or an email.
     --
     -- When you create a subscriber, the value of @Address@ can\'t contain line
     -- breaks.
-    address :: Core.Sensitive Prelude.Text
+    address :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -54,10 +55,10 @@ data Subscriber = Subscriber'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'subscriptionType', 'subscriber_subscriptionType' - The type of notification that AWS sends to a subscriber.
+-- 'subscriptionType', 'subscriber_subscriptionType' - The type of notification that Amazon Web Services sends to a subscriber.
 --
--- 'address', 'subscriber_address' - The address that AWS sends budget notifications to, either an SNS topic
--- or an email.
+-- 'address', 'subscriber_address' - The address that Amazon Web Services sends budget notifications to,
+-- either an SNS topic or an email.
 --
 -- When you create a subscriber, the value of @Address@ can\'t contain line
 -- breaks.
@@ -70,29 +71,29 @@ newSubscriber ::
 newSubscriber pSubscriptionType_ pAddress_ =
   Subscriber'
     { subscriptionType = pSubscriptionType_,
-      address = Core._Sensitive Lens.# pAddress_
+      address = Data._Sensitive Lens.# pAddress_
     }
 
--- | The type of notification that AWS sends to a subscriber.
+-- | The type of notification that Amazon Web Services sends to a subscriber.
 subscriber_subscriptionType :: Lens.Lens' Subscriber SubscriptionType
 subscriber_subscriptionType = Lens.lens (\Subscriber' {subscriptionType} -> subscriptionType) (\s@Subscriber' {} a -> s {subscriptionType = a} :: Subscriber)
 
--- | The address that AWS sends budget notifications to, either an SNS topic
--- or an email.
+-- | The address that Amazon Web Services sends budget notifications to,
+-- either an SNS topic or an email.
 --
 -- When you create a subscriber, the value of @Address@ can\'t contain line
 -- breaks.
 subscriber_address :: Lens.Lens' Subscriber Prelude.Text
-subscriber_address = Lens.lens (\Subscriber' {address} -> address) (\s@Subscriber' {} a -> s {address = a} :: Subscriber) Prelude.. Core._Sensitive
+subscriber_address = Lens.lens (\Subscriber' {address} -> address) (\s@Subscriber' {} a -> s {address = a} :: Subscriber) Prelude.. Data._Sensitive
 
-instance Core.FromJSON Subscriber where
+instance Data.FromJSON Subscriber where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Subscriber"
       ( \x ->
           Subscriber'
-            Prelude.<$> (x Core..: "SubscriptionType")
-            Prelude.<*> (x Core..: "Address")
+            Prelude.<$> (x Data..: "SubscriptionType")
+            Prelude.<*> (x Data..: "Address")
       )
 
 instance Prelude.Hashable Subscriber where
@@ -105,12 +106,12 @@ instance Prelude.NFData Subscriber where
     Prelude.rnf subscriptionType
       `Prelude.seq` Prelude.rnf address
 
-instance Core.ToJSON Subscriber where
+instance Data.ToJSON Subscriber where
   toJSON Subscriber' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("SubscriptionType" Core..= subscriptionType),
-            Prelude.Just ("Address" Core..= address)
+              ("SubscriptionType" Data..= subscriptionType),
+            Prelude.Just ("Address" Data..= address)
           ]
       )

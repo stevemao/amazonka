@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DescribeAuthorizer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.IoT.DescribeAuthorizer
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,12 +85,13 @@ instance Core.AWSRequest DescribeAuthorizer where
   type
     AWSResponse DescribeAuthorizer =
       DescribeAuthorizerResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAuthorizerResponse'
-            Prelude.<$> (x Core..?> "authorizerDescription")
+            Prelude.<$> (x Data..?> "authorizerDescription")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -101,15 +103,15 @@ instance Prelude.NFData DescribeAuthorizer where
   rnf DescribeAuthorizer' {..} =
     Prelude.rnf authorizerName
 
-instance Core.ToHeaders DescribeAuthorizer where
+instance Data.ToHeaders DescribeAuthorizer where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeAuthorizer where
+instance Data.ToPath DescribeAuthorizer where
   toPath DescribeAuthorizer' {..} =
     Prelude.mconcat
-      ["/authorizer/", Core.toBS authorizerName]
+      ["/authorizer/", Data.toBS authorizerName]
 
-instance Core.ToQuery DescribeAuthorizer where
+instance Data.ToQuery DescribeAuthorizer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeAuthorizerResponse' smart constructor.

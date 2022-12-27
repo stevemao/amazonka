@@ -6,64 +6,13 @@
 
 -- |
 -- Module      : Amazonka.IoT1ClickProjects.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 module Amazonka.IoT1ClickProjects.Lens
   ( -- * Operations
-
-    -- ** ListProjects
-    listProjects_nextToken,
-    listProjects_maxResults,
-    listProjectsResponse_nextToken,
-    listProjectsResponse_httpStatus,
-    listProjectsResponse_projects,
-
-    -- ** DeleteProject
-    deleteProject_projectName,
-    deleteProjectResponse_httpStatus,
-
-    -- ** UpdateProject
-    updateProject_placementTemplate,
-    updateProject_description,
-    updateProject_projectName,
-    updateProjectResponse_httpStatus,
-
-    -- ** ListTagsForResource
-    listTagsForResource_resourceArn,
-    listTagsForResourceResponse_tags,
-    listTagsForResourceResponse_httpStatus,
-
-    -- ** DisassociateDeviceFromPlacement
-    disassociateDeviceFromPlacement_projectName,
-    disassociateDeviceFromPlacement_placementName,
-    disassociateDeviceFromPlacement_deviceTemplateName,
-    disassociateDeviceFromPlacementResponse_httpStatus,
-
-    -- ** CreatePlacement
-    createPlacement_attributes,
-    createPlacement_placementName,
-    createPlacement_projectName,
-    createPlacementResponse_httpStatus,
-
-    -- ** DescribeProject
-    describeProject_projectName,
-    describeProjectResponse_httpStatus,
-    describeProjectResponse_project,
-
-    -- ** GetDevicesInPlacement
-    getDevicesInPlacement_projectName,
-    getDevicesInPlacement_placementName,
-    getDevicesInPlacementResponse_httpStatus,
-    getDevicesInPlacementResponse_devices,
-
-    -- ** DescribePlacement
-    describePlacement_placementName,
-    describePlacement_projectName,
-    describePlacementResponse_httpStatus,
-    describePlacementResponse_placement,
 
     -- ** AssociateDeviceWithPlacement
     associateDeviceWithPlacement_projectName,
@@ -72,10 +21,80 @@ module Amazonka.IoT1ClickProjects.Lens
     associateDeviceWithPlacement_deviceTemplateName,
     associateDeviceWithPlacementResponse_httpStatus,
 
+    -- ** CreatePlacement
+    createPlacement_attributes,
+    createPlacement_placementName,
+    createPlacement_projectName,
+    createPlacementResponse_httpStatus,
+
+    -- ** CreateProject
+    createProject_description,
+    createProject_placementTemplate,
+    createProject_tags,
+    createProject_projectName,
+    createProjectResponse_httpStatus,
+
     -- ** DeletePlacement
     deletePlacement_placementName,
     deletePlacement_projectName,
     deletePlacementResponse_httpStatus,
+
+    -- ** DeleteProject
+    deleteProject_projectName,
+    deleteProjectResponse_httpStatus,
+
+    -- ** DescribePlacement
+    describePlacement_placementName,
+    describePlacement_projectName,
+    describePlacementResponse_httpStatus,
+    describePlacementResponse_placement,
+
+    -- ** DescribeProject
+    describeProject_projectName,
+    describeProjectResponse_httpStatus,
+    describeProjectResponse_project,
+
+    -- ** DisassociateDeviceFromPlacement
+    disassociateDeviceFromPlacement_projectName,
+    disassociateDeviceFromPlacement_placementName,
+    disassociateDeviceFromPlacement_deviceTemplateName,
+    disassociateDeviceFromPlacementResponse_httpStatus,
+
+    -- ** GetDevicesInPlacement
+    getDevicesInPlacement_projectName,
+    getDevicesInPlacement_placementName,
+    getDevicesInPlacementResponse_httpStatus,
+    getDevicesInPlacementResponse_devices,
+
+    -- ** ListPlacements
+    listPlacements_maxResults,
+    listPlacements_nextToken,
+    listPlacements_projectName,
+    listPlacementsResponse_nextToken,
+    listPlacementsResponse_httpStatus,
+    listPlacementsResponse_placements,
+
+    -- ** ListProjects
+    listProjects_maxResults,
+    listProjects_nextToken,
+    listProjectsResponse_nextToken,
+    listProjectsResponse_httpStatus,
+    listProjectsResponse_projects,
+
+    -- ** ListTagsForResource
+    listTagsForResource_resourceArn,
+    listTagsForResourceResponse_tags,
+    listTagsForResourceResponse_httpStatus,
+
+    -- ** TagResource
+    tagResource_resourceArn,
+    tagResource_tags,
+    tagResourceResponse_httpStatus,
+
+    -- ** UntagResource
+    untagResource_resourceArn,
+    untagResource_tagKeys,
+    untagResourceResponse_httpStatus,
 
     -- ** UpdatePlacement
     updatePlacement_attributes,
@@ -83,36 +102,17 @@ module Amazonka.IoT1ClickProjects.Lens
     updatePlacement_projectName,
     updatePlacementResponse_httpStatus,
 
-    -- ** TagResource
-    tagResource_resourceArn,
-    tagResource_tags,
-    tagResourceResponse_httpStatus,
-
-    -- ** ListPlacements
-    listPlacements_nextToken,
-    listPlacements_maxResults,
-    listPlacements_projectName,
-    listPlacementsResponse_nextToken,
-    listPlacementsResponse_httpStatus,
-    listPlacementsResponse_placements,
-
-    -- ** UntagResource
-    untagResource_resourceArn,
-    untagResource_tagKeys,
-    untagResourceResponse_httpStatus,
-
-    -- ** CreateProject
-    createProject_placementTemplate,
-    createProject_description,
-    createProject_tags,
-    createProject_projectName,
-    createProjectResponse_httpStatus,
+    -- ** UpdateProject
+    updateProject_description,
+    updateProject_placementTemplate,
+    updateProject_projectName,
+    updateProjectResponse_httpStatus,
 
     -- * Types
 
     -- ** DeviceTemplate
-    deviceTemplate_deviceType,
     deviceTemplate_callbackOverrides,
+    deviceTemplate_deviceType,
 
     -- ** PlacementDescription
     placementDescription_projectName,
@@ -128,13 +128,13 @@ module Amazonka.IoT1ClickProjects.Lens
     placementSummary_updatedDate,
 
     -- ** PlacementTemplate
-    placementTemplate_deviceTemplates,
     placementTemplate_defaultAttributes,
+    placementTemplate_deviceTemplates,
 
     -- ** ProjectDescription
     projectDescription_arn,
-    projectDescription_placementTemplate,
     projectDescription_description,
+    projectDescription_placementTemplate,
     projectDescription_tags,
     projectDescription_projectName,
     projectDescription_createdDate,

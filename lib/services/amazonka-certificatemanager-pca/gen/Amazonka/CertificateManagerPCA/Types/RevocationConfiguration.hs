@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.Types.RevocationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CertificateManagerPCA.Types.RevocationConfiguration where
 import Amazonka.CertificateManagerPCA.Types.CrlConfiguration
 import Amazonka.CertificateManagerPCA.Types.OcspConfiguration
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Certificate revocation information used by the
@@ -38,8 +39,7 @@ import qualified Amazonka.Prelude as Prelude
 -- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_RevokeCertificate.html RevokeCertificate>
 -- and
 -- <https://docs.aws.amazon.com/acm-pca/latest/userguide/revocation-setup.html Setting up a certificate revocation method>
--- in the /AWS Certificate Manager Private Certificate Authority (PCA) User
--- Guide/.
+-- in the /Private Certificate Authority (PCA) User Guide/.
 --
 -- /See:/ 'newRevocationConfiguration' smart constructor.
 data RevocationConfiguration = RevocationConfiguration'
@@ -93,14 +93,14 @@ revocationConfiguration_crlConfiguration = Lens.lens (\RevocationConfiguration' 
 revocationConfiguration_ocspConfiguration :: Lens.Lens' RevocationConfiguration (Prelude.Maybe OcspConfiguration)
 revocationConfiguration_ocspConfiguration = Lens.lens (\RevocationConfiguration' {ocspConfiguration} -> ocspConfiguration) (\s@RevocationConfiguration' {} a -> s {ocspConfiguration = a} :: RevocationConfiguration)
 
-instance Core.FromJSON RevocationConfiguration where
+instance Data.FromJSON RevocationConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RevocationConfiguration"
       ( \x ->
           RevocationConfiguration'
-            Prelude.<$> (x Core..:? "CrlConfiguration")
-            Prelude.<*> (x Core..:? "OcspConfiguration")
+            Prelude.<$> (x Data..:? "CrlConfiguration")
+            Prelude.<*> (x Data..:? "OcspConfiguration")
       )
 
 instance Prelude.Hashable RevocationConfiguration where
@@ -113,13 +113,13 @@ instance Prelude.NFData RevocationConfiguration where
     Prelude.rnf crlConfiguration
       `Prelude.seq` Prelude.rnf ocspConfiguration
 
-instance Core.ToJSON RevocationConfiguration where
+instance Data.ToJSON RevocationConfiguration where
   toJSON RevocationConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CrlConfiguration" Core..=)
+          [ ("CrlConfiguration" Data..=)
               Prelude.<$> crlConfiguration,
-            ("OcspConfiguration" Core..=)
+            ("OcspConfiguration" Data..=)
               Prelude.<$> ocspConfiguration
           ]
       )

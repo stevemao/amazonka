@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.GetMLTransforms
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,10 +32,10 @@ module Amazonka.Glue.GetMLTransforms
     newGetMLTransforms,
 
     -- * Request Lenses
-    getMLTransforms_nextToken,
-    getMLTransforms_sort,
     getMLTransforms_filter,
     getMLTransforms_maxResults,
+    getMLTransforms_nextToken,
+    getMLTransforms_sort,
 
     -- * Destructuring the Response
     GetMLTransformsResponse (..),
@@ -49,22 +49,23 @@ module Amazonka.Glue.GetMLTransforms
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetMLTransforms' smart constructor.
 data GetMLTransforms = GetMLTransforms'
-  { -- | A paginated token to offset the results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The sorting criteria.
-    sort :: Prelude.Maybe TransformSortCriteria,
-    -- | The filter transformation criteria.
+  { -- | The filter transformation criteria.
     filter' :: Prelude.Maybe TransformFilterCriteria,
     -- | The maximum number of results to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A paginated token to offset the results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The sorting criteria.
+    sort :: Prelude.Maybe TransformSortCriteria
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -76,30 +77,22 @@ data GetMLTransforms = GetMLTransforms'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'getMLTransforms_nextToken' - A paginated token to offset the results.
---
--- 'sort', 'getMLTransforms_sort' - The sorting criteria.
---
 -- 'filter'', 'getMLTransforms_filter' - The filter transformation criteria.
 --
 -- 'maxResults', 'getMLTransforms_maxResults' - The maximum number of results to return.
+--
+-- 'nextToken', 'getMLTransforms_nextToken' - A paginated token to offset the results.
+--
+-- 'sort', 'getMLTransforms_sort' - The sorting criteria.
 newGetMLTransforms ::
   GetMLTransforms
 newGetMLTransforms =
   GetMLTransforms'
-    { nextToken = Prelude.Nothing,
-      sort = Prelude.Nothing,
-      filter' = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { filter' = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      sort = Prelude.Nothing
     }
-
--- | A paginated token to offset the results.
-getMLTransforms_nextToken :: Lens.Lens' GetMLTransforms (Prelude.Maybe Prelude.Text)
-getMLTransforms_nextToken = Lens.lens (\GetMLTransforms' {nextToken} -> nextToken) (\s@GetMLTransforms' {} a -> s {nextToken = a} :: GetMLTransforms)
-
--- | The sorting criteria.
-getMLTransforms_sort :: Lens.Lens' GetMLTransforms (Prelude.Maybe TransformSortCriteria)
-getMLTransforms_sort = Lens.lens (\GetMLTransforms' {sort} -> sort) (\s@GetMLTransforms' {} a -> s {sort = a} :: GetMLTransforms)
 
 -- | The filter transformation criteria.
 getMLTransforms_filter :: Lens.Lens' GetMLTransforms (Prelude.Maybe TransformFilterCriteria)
@@ -109,62 +102,71 @@ getMLTransforms_filter = Lens.lens (\GetMLTransforms' {filter'} -> filter') (\s@
 getMLTransforms_maxResults :: Lens.Lens' GetMLTransforms (Prelude.Maybe Prelude.Natural)
 getMLTransforms_maxResults = Lens.lens (\GetMLTransforms' {maxResults} -> maxResults) (\s@GetMLTransforms' {} a -> s {maxResults = a} :: GetMLTransforms)
 
+-- | A paginated token to offset the results.
+getMLTransforms_nextToken :: Lens.Lens' GetMLTransforms (Prelude.Maybe Prelude.Text)
+getMLTransforms_nextToken = Lens.lens (\GetMLTransforms' {nextToken} -> nextToken) (\s@GetMLTransforms' {} a -> s {nextToken = a} :: GetMLTransforms)
+
+-- | The sorting criteria.
+getMLTransforms_sort :: Lens.Lens' GetMLTransforms (Prelude.Maybe TransformSortCriteria)
+getMLTransforms_sort = Lens.lens (\GetMLTransforms' {sort} -> sort) (\s@GetMLTransforms' {} a -> s {sort = a} :: GetMLTransforms)
+
 instance Core.AWSRequest GetMLTransforms where
   type
     AWSResponse GetMLTransforms =
       GetMLTransformsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetMLTransformsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Transforms" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Transforms" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable GetMLTransforms where
   hashWithSalt _salt GetMLTransforms' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` sort
-      `Prelude.hashWithSalt` filter'
+    _salt `Prelude.hashWithSalt` filter'
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` sort
 
 instance Prelude.NFData GetMLTransforms where
   rnf GetMLTransforms' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf sort
-      `Prelude.seq` Prelude.rnf filter'
+    Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf sort
 
-instance Core.ToHeaders GetMLTransforms where
+instance Data.ToHeaders GetMLTransforms where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.GetMLTransforms" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.GetMLTransforms" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetMLTransforms where
+instance Data.ToJSON GetMLTransforms where
   toJSON GetMLTransforms' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Sort" Core..=) Prelude.<$> sort,
-            ("Filter" Core..=) Prelude.<$> filter',
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filter" Data..=) Prelude.<$> filter',
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("Sort" Data..=) Prelude.<$> sort
           ]
       )
 
-instance Core.ToPath GetMLTransforms where
+instance Data.ToPath GetMLTransforms where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetMLTransforms where
+instance Data.ToQuery GetMLTransforms where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetMLTransformsResponse' smart constructor.

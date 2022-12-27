@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.Types.DomainDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,15 @@
 module Amazonka.GuardDuty.Types.DomainDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the domain.
 --
 -- /See:/ 'newDomainDetails' smart constructor.
 data DomainDetails = DomainDetails'
-  { -- | The domain information for the AWS API call.
+  { -- | The domain information for the Amazon Web Services API call.
     domain :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -40,22 +41,22 @@ data DomainDetails = DomainDetails'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'domain', 'domainDetails_domain' - The domain information for the AWS API call.
+-- 'domain', 'domainDetails_domain' - The domain information for the Amazon Web Services API call.
 newDomainDetails ::
   DomainDetails
 newDomainDetails =
   DomainDetails' {domain = Prelude.Nothing}
 
--- | The domain information for the AWS API call.
+-- | The domain information for the Amazon Web Services API call.
 domainDetails_domain :: Lens.Lens' DomainDetails (Prelude.Maybe Prelude.Text)
 domainDetails_domain = Lens.lens (\DomainDetails' {domain} -> domain) (\s@DomainDetails' {} a -> s {domain = a} :: DomainDetails)
 
-instance Core.FromJSON DomainDetails where
+instance Data.FromJSON DomainDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DomainDetails"
       ( \x ->
-          DomainDetails' Prelude.<$> (x Core..:? "domain")
+          DomainDetails' Prelude.<$> (x Data..:? "domain")
       )
 
 instance Prelude.Hashable DomainDetails where

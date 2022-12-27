@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AMP.DescribeWorkspace
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.AMP.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,13 +80,14 @@ instance Core.AWSRequest DescribeWorkspace where
   type
     AWSResponse DescribeWorkspace =
       DescribeWorkspaceResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeWorkspaceResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "workspace")
+            Prelude.<*> (x Data..:> "workspace")
       )
 
 instance Prelude.Hashable DescribeWorkspace where
@@ -95,23 +97,23 @@ instance Prelude.Hashable DescribeWorkspace where
 instance Prelude.NFData DescribeWorkspace where
   rnf DescribeWorkspace' {..} = Prelude.rnf workspaceId
 
-instance Core.ToHeaders DescribeWorkspace where
+instance Data.ToHeaders DescribeWorkspace where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeWorkspace where
+instance Data.ToPath DescribeWorkspace where
   toPath DescribeWorkspace' {..} =
     Prelude.mconcat
-      ["/workspaces/", Core.toBS workspaceId]
+      ["/workspaces/", Data.toBS workspaceId]
 
-instance Core.ToQuery DescribeWorkspace where
+instance Data.ToQuery DescribeWorkspace where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a DescribeWorkspace operation.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.EnableSso
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.DirectoryService.EnableSso
     newEnableSso,
 
     -- * Request Lenses
-    enableSso_userName,
     enableSso_password,
+    enableSso_userName,
     enableSso_directoryId,
 
     -- * Destructuring the Response
@@ -44,8 +44,9 @@ module Amazonka.DirectoryService.EnableSso
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,7 +55,11 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newEnableSso' smart constructor.
 data EnableSso = EnableSso'
-  { -- | The username of an alternate account to use to enable single-sign on.
+  { -- | The password of an alternate account to use to enable single-sign on.
+    -- This is only used for AD Connector directories. For more information,
+    -- see the /UserName/ parameter.
+    password :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | The username of an alternate account to use to enable single-sign on.
     -- This is only used for AD Connector directories. This account must have
     -- privileges to add a service principal name.
     --
@@ -64,10 +69,6 @@ data EnableSso = EnableSso'
     -- enable single sign-on and are not stored by the service. The AD
     -- Connector service account is not changed.
     userName :: Prelude.Maybe Prelude.Text,
-    -- | The password of an alternate account to use to enable single-sign on.
-    -- This is only used for AD Connector directories. For more information,
-    -- see the /UserName/ parameter.
-    password :: Prelude.Maybe (Core.Sensitive Prelude.Text),
     -- | The identifier of the directory for which to enable single-sign on.
     directoryId :: Prelude.Text
   }
@@ -81,6 +82,10 @@ data EnableSso = EnableSso'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'password', 'enableSso_password' - The password of an alternate account to use to enable single-sign on.
+-- This is only used for AD Connector directories. For more information,
+-- see the /UserName/ parameter.
+--
 -- 'userName', 'enableSso_userName' - The username of an alternate account to use to enable single-sign on.
 -- This is only used for AD Connector directories. This account must have
 -- privileges to add a service principal name.
@@ -91,10 +96,6 @@ data EnableSso = EnableSso'
 -- enable single sign-on and are not stored by the service. The AD
 -- Connector service account is not changed.
 --
--- 'password', 'enableSso_password' - The password of an alternate account to use to enable single-sign on.
--- This is only used for AD Connector directories. For more information,
--- see the /UserName/ parameter.
---
 -- 'directoryId', 'enableSso_directoryId' - The identifier of the directory for which to enable single-sign on.
 newEnableSso ::
   -- | 'directoryId'
@@ -102,10 +103,16 @@ newEnableSso ::
   EnableSso
 newEnableSso pDirectoryId_ =
   EnableSso'
-    { userName = Prelude.Nothing,
-      password = Prelude.Nothing,
+    { password = Prelude.Nothing,
+      userName = Prelude.Nothing,
       directoryId = pDirectoryId_
     }
+
+-- | The password of an alternate account to use to enable single-sign on.
+-- This is only used for AD Connector directories. For more information,
+-- see the /UserName/ parameter.
+enableSso_password :: Lens.Lens' EnableSso (Prelude.Maybe Prelude.Text)
+enableSso_password = Lens.lens (\EnableSso' {password} -> password) (\s@EnableSso' {} a -> s {password = a} :: EnableSso) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The username of an alternate account to use to enable single-sign on.
 -- This is only used for AD Connector directories. This account must have
@@ -119,19 +126,14 @@ newEnableSso pDirectoryId_ =
 enableSso_userName :: Lens.Lens' EnableSso (Prelude.Maybe Prelude.Text)
 enableSso_userName = Lens.lens (\EnableSso' {userName} -> userName) (\s@EnableSso' {} a -> s {userName = a} :: EnableSso)
 
--- | The password of an alternate account to use to enable single-sign on.
--- This is only used for AD Connector directories. For more information,
--- see the /UserName/ parameter.
-enableSso_password :: Lens.Lens' EnableSso (Prelude.Maybe Prelude.Text)
-enableSso_password = Lens.lens (\EnableSso' {password} -> password) (\s@EnableSso' {} a -> s {password = a} :: EnableSso) Prelude.. Lens.mapping Core._Sensitive
-
 -- | The identifier of the directory for which to enable single-sign on.
 enableSso_directoryId :: Lens.Lens' EnableSso Prelude.Text
 enableSso_directoryId = Lens.lens (\EnableSso' {directoryId} -> directoryId) (\s@EnableSso' {} a -> s {directoryId = a} :: EnableSso)
 
 instance Core.AWSRequest EnableSso where
   type AWSResponse EnableSso = EnableSsoResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -141,45 +143,45 @@ instance Core.AWSRequest EnableSso where
 
 instance Prelude.Hashable EnableSso where
   hashWithSalt _salt EnableSso' {..} =
-    _salt `Prelude.hashWithSalt` userName
-      `Prelude.hashWithSalt` password
+    _salt `Prelude.hashWithSalt` password
+      `Prelude.hashWithSalt` userName
       `Prelude.hashWithSalt` directoryId
 
 instance Prelude.NFData EnableSso where
   rnf EnableSso' {..} =
-    Prelude.rnf userName
-      `Prelude.seq` Prelude.rnf password
+    Prelude.rnf password
+      `Prelude.seq` Prelude.rnf userName
       `Prelude.seq` Prelude.rnf directoryId
 
-instance Core.ToHeaders EnableSso where
+instance Data.ToHeaders EnableSso where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.EnableSso" ::
+              Data.=# ( "DirectoryService_20150416.EnableSso" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON EnableSso where
+instance Data.ToJSON EnableSso where
   toJSON EnableSso' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("UserName" Core..=) Prelude.<$> userName,
-            ("Password" Core..=) Prelude.<$> password,
-            Prelude.Just ("DirectoryId" Core..= directoryId)
+          [ ("Password" Data..=) Prelude.<$> password,
+            ("UserName" Data..=) Prelude.<$> userName,
+            Prelude.Just ("DirectoryId" Data..= directoryId)
           ]
       )
 
-instance Core.ToPath EnableSso where
+instance Data.ToPath EnableSso where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery EnableSso where
+instance Data.ToQuery EnableSso where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the results of the EnableSso operation.

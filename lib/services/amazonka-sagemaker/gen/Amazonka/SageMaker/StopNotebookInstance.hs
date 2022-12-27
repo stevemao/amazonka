@@ -14,17 +14,16 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.StopNotebookInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Terminates the ML compute instance. Before terminating the instance,
--- Amazon SageMaker disconnects the ML storage volume from it. Amazon
--- SageMaker preserves the ML storage volume. Amazon SageMaker stops
--- charging you for the ML compute instance when you call
--- @StopNotebookInstance@.
+-- SageMaker disconnects the ML storage volume from it. SageMaker preserves
+-- the ML storage volume. SageMaker stops charging you for the ML compute
+-- instance when you call @StopNotebookInstance@.
 --
 -- To access data on the ML storage volume for a notebook instance that has
 -- been terminated, call the @StartNotebookInstance@ API.
@@ -46,7 +45,8 @@ module Amazonka.SageMaker.StopNotebookInstance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,7 +86,8 @@ instance Core.AWSRequest StopNotebookInstance where
   type
     AWSResponse StopNotebookInstance =
       StopNotebookInstanceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull StopNotebookInstanceResponse'
 
@@ -98,36 +99,36 @@ instance Prelude.NFData StopNotebookInstance where
   rnf StopNotebookInstance' {..} =
     Prelude.rnf notebookInstanceName
 
-instance Core.ToHeaders StopNotebookInstance where
+instance Data.ToHeaders StopNotebookInstance where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.StopNotebookInstance" ::
+              Data.=# ( "SageMaker.StopNotebookInstance" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopNotebookInstance where
+instance Data.ToJSON StopNotebookInstance where
   toJSON StopNotebookInstance' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "NotebookInstanceName"
-                  Core..= notebookInstanceName
+                  Data..= notebookInstanceName
               )
           ]
       )
 
-instance Core.ToPath StopNotebookInstance where
+instance Data.ToPath StopNotebookInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopNotebookInstance where
+instance Data.ToQuery StopNotebookInstance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopNotebookInstanceResponse' smart constructor.

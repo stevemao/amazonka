@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppStream.Types.ResourceError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppStream.Types.ResourceError where
 
 import Amazonka.AppStream.Types.FleetErrorCode
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a resource error.
@@ -33,7 +34,7 @@ data ResourceError = ResourceError'
     -- | The error message.
     errorMessage :: Prelude.Maybe Prelude.Text,
     -- | The time the error occurred.
-    errorTimestamp :: Prelude.Maybe Core.POSIX
+    errorTimestamp :: Prelude.Maybe Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -69,17 +70,17 @@ resourceError_errorMessage = Lens.lens (\ResourceError' {errorMessage} -> errorM
 
 -- | The time the error occurred.
 resourceError_errorTimestamp :: Lens.Lens' ResourceError (Prelude.Maybe Prelude.UTCTime)
-resourceError_errorTimestamp = Lens.lens (\ResourceError' {errorTimestamp} -> errorTimestamp) (\s@ResourceError' {} a -> s {errorTimestamp = a} :: ResourceError) Prelude.. Lens.mapping Core._Time
+resourceError_errorTimestamp = Lens.lens (\ResourceError' {errorTimestamp} -> errorTimestamp) (\s@ResourceError' {} a -> s {errorTimestamp = a} :: ResourceError) Prelude.. Lens.mapping Data._Time
 
-instance Core.FromJSON ResourceError where
+instance Data.FromJSON ResourceError where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResourceError"
       ( \x ->
           ResourceError'
-            Prelude.<$> (x Core..:? "ErrorCode")
-            Prelude.<*> (x Core..:? "ErrorMessage")
-            Prelude.<*> (x Core..:? "ErrorTimestamp")
+            Prelude.<$> (x Data..:? "ErrorCode")
+            Prelude.<*> (x Data..:? "ErrorMessage")
+            Prelude.<*> (x Data..:? "ErrorTimestamp")
       )
 
 instance Prelude.Hashable ResourceError where

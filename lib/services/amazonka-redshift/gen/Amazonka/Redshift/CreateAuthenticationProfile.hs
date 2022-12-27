@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.CreateAuthenticationProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,14 +35,15 @@ module Amazonka.Redshift.CreateAuthenticationProfile
     newCreateAuthenticationProfileResponse,
 
     -- * Response Lenses
-    createAuthenticationProfileResponse_authenticationProfileName,
     createAuthenticationProfileResponse_authenticationProfileContent,
+    createAuthenticationProfileResponse_authenticationProfileName,
     createAuthenticationProfileResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -99,14 +100,15 @@ instance Core.AWSRequest CreateAuthenticationProfile where
   type
     AWSResponse CreateAuthenticationProfile =
       CreateAuthenticationProfileResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateAuthenticationProfileResult"
       ( \s h x ->
           CreateAuthenticationProfileResponse'
-            Prelude.<$> (x Core..@? "AuthenticationProfileName")
-            Prelude.<*> (x Core..@? "AuthenticationProfileContent")
+            Prelude.<$> (x Data..@? "AuthenticationProfileContent")
+            Prelude.<*> (x Data..@? "AuthenticationProfileName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -121,33 +123,33 @@ instance Prelude.NFData CreateAuthenticationProfile where
     Prelude.rnf authenticationProfileName
       `Prelude.seq` Prelude.rnf authenticationProfileContent
 
-instance Core.ToHeaders CreateAuthenticationProfile where
+instance Data.ToHeaders CreateAuthenticationProfile where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateAuthenticationProfile where
+instance Data.ToPath CreateAuthenticationProfile where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateAuthenticationProfile where
+instance Data.ToQuery CreateAuthenticationProfile where
   toQuery CreateAuthenticationProfile' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "CreateAuthenticationProfile" ::
+          Data.=: ( "CreateAuthenticationProfile" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
         "AuthenticationProfileName"
-          Core.=: authenticationProfileName,
+          Data.=: authenticationProfileName,
         "AuthenticationProfileContent"
-          Core.=: authenticationProfileContent
+          Data.=: authenticationProfileContent
       ]
 
 -- | /See:/ 'newCreateAuthenticationProfileResponse' smart constructor.
 data CreateAuthenticationProfileResponse = CreateAuthenticationProfileResponse'
-  { -- | The name of the authentication profile that was created.
-    authenticationProfileName :: Prelude.Maybe Prelude.Text,
-    -- | The content of the authentication profile in JSON format.
+  { -- | The content of the authentication profile in JSON format.
     authenticationProfileContent :: Prelude.Maybe Prelude.Text,
+    -- | The name of the authentication profile that was created.
+    authenticationProfileName :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -161,9 +163,9 @@ data CreateAuthenticationProfileResponse = CreateAuthenticationProfileResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'authenticationProfileName', 'createAuthenticationProfileResponse_authenticationProfileName' - The name of the authentication profile that was created.
---
 -- 'authenticationProfileContent', 'createAuthenticationProfileResponse_authenticationProfileContent' - The content of the authentication profile in JSON format.
+--
+-- 'authenticationProfileName', 'createAuthenticationProfileResponse_authenticationProfileName' - The name of the authentication profile that was created.
 --
 -- 'httpStatus', 'createAuthenticationProfileResponse_httpStatus' - The response's http status code.
 newCreateAuthenticationProfileResponse ::
@@ -172,20 +174,20 @@ newCreateAuthenticationProfileResponse ::
   CreateAuthenticationProfileResponse
 newCreateAuthenticationProfileResponse pHttpStatus_ =
   CreateAuthenticationProfileResponse'
-    { authenticationProfileName =
+    { authenticationProfileContent =
         Prelude.Nothing,
-      authenticationProfileContent =
+      authenticationProfileName =
         Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The name of the authentication profile that was created.
-createAuthenticationProfileResponse_authenticationProfileName :: Lens.Lens' CreateAuthenticationProfileResponse (Prelude.Maybe Prelude.Text)
-createAuthenticationProfileResponse_authenticationProfileName = Lens.lens (\CreateAuthenticationProfileResponse' {authenticationProfileName} -> authenticationProfileName) (\s@CreateAuthenticationProfileResponse' {} a -> s {authenticationProfileName = a} :: CreateAuthenticationProfileResponse)
-
 -- | The content of the authentication profile in JSON format.
 createAuthenticationProfileResponse_authenticationProfileContent :: Lens.Lens' CreateAuthenticationProfileResponse (Prelude.Maybe Prelude.Text)
 createAuthenticationProfileResponse_authenticationProfileContent = Lens.lens (\CreateAuthenticationProfileResponse' {authenticationProfileContent} -> authenticationProfileContent) (\s@CreateAuthenticationProfileResponse' {} a -> s {authenticationProfileContent = a} :: CreateAuthenticationProfileResponse)
+
+-- | The name of the authentication profile that was created.
+createAuthenticationProfileResponse_authenticationProfileName :: Lens.Lens' CreateAuthenticationProfileResponse (Prelude.Maybe Prelude.Text)
+createAuthenticationProfileResponse_authenticationProfileName = Lens.lens (\CreateAuthenticationProfileResponse' {authenticationProfileName} -> authenticationProfileName) (\s@CreateAuthenticationProfileResponse' {} a -> s {authenticationProfileName = a} :: CreateAuthenticationProfileResponse)
 
 -- | The response's http status code.
 createAuthenticationProfileResponse_httpStatus :: Lens.Lens' CreateAuthenticationProfileResponse Prelude.Int
@@ -196,6 +198,6 @@ instance
     CreateAuthenticationProfileResponse
   where
   rnf CreateAuthenticationProfileResponse' {..} =
-    Prelude.rnf authenticationProfileName
-      `Prelude.seq` Prelude.rnf authenticationProfileContent
+    Prelude.rnf authenticationProfileContent
+      `Prelude.seq` Prelude.rnf authenticationProfileName
       `Prelude.seq` Prelude.rnf httpStatus

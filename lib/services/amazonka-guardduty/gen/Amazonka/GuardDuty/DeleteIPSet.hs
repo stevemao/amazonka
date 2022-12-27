@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.DeleteIPSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.GuardDuty.DeleteIPSet
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,7 +90,8 @@ deleteIPSet_ipSetId = Lens.lens (\DeleteIPSet' {ipSetId} -> ipSetId) (\s@DeleteI
 
 instance Core.AWSRequest DeleteIPSet where
   type AWSResponse DeleteIPSet = DeleteIPSetResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -107,27 +109,27 @@ instance Prelude.NFData DeleteIPSet where
     Prelude.rnf detectorId
       `Prelude.seq` Prelude.rnf ipSetId
 
-instance Core.ToHeaders DeleteIPSet where
+instance Data.ToHeaders DeleteIPSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteIPSet where
+instance Data.ToPath DeleteIPSet where
   toPath DeleteIPSet' {..} =
     Prelude.mconcat
       [ "/detector/",
-        Core.toBS detectorId,
+        Data.toBS detectorId,
         "/ipset/",
-        Core.toBS ipSetId
+        Data.toBS ipSetId
       ]
 
-instance Core.ToQuery DeleteIPSet where
+instance Data.ToQuery DeleteIPSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteIPSetResponse' smart constructor.

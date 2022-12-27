@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Panorama.ListApplicationInstanceNodeInstances
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.Panorama.ListApplicationInstanceNodeInstances
     newListApplicationInstanceNodeInstances,
 
     -- * Request Lenses
-    listApplicationInstanceNodeInstances_nextToken,
     listApplicationInstanceNodeInstances_maxResults,
+    listApplicationInstanceNodeInstances_nextToken,
     listApplicationInstanceNodeInstances_applicationInstanceId,
 
     -- * Destructuring the Response
@@ -43,7 +43,8 @@ module Amazonka.Panorama.ListApplicationInstanceNodeInstances
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Panorama.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -51,11 +52,11 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListApplicationInstanceNodeInstances' smart constructor.
 data ListApplicationInstanceNodeInstances = ListApplicationInstanceNodeInstances'
-  { -- | Specify the pagination token from a previous request to retrieve the
+  { -- | The maximum number of node instances to return in one page of results.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Specify the pagination token from a previous request to retrieve the
     -- next page of results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of node instances to return in one page of results.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The node instances\' application instance ID.
     applicationInstanceId :: Prelude.Text
   }
@@ -69,10 +70,10 @@ data ListApplicationInstanceNodeInstances = ListApplicationInstanceNodeInstances
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listApplicationInstanceNodeInstances_maxResults' - The maximum number of node instances to return in one page of results.
+--
 -- 'nextToken', 'listApplicationInstanceNodeInstances_nextToken' - Specify the pagination token from a previous request to retrieve the
 -- next page of results.
---
--- 'maxResults', 'listApplicationInstanceNodeInstances_maxResults' - The maximum number of node instances to return in one page of results.
 --
 -- 'applicationInstanceId', 'listApplicationInstanceNodeInstances_applicationInstanceId' - The node instances\' application instance ID.
 newListApplicationInstanceNodeInstances ::
@@ -82,21 +83,21 @@ newListApplicationInstanceNodeInstances ::
 newListApplicationInstanceNodeInstances
   pApplicationInstanceId_ =
     ListApplicationInstanceNodeInstances'
-      { nextToken =
+      { maxResults =
           Prelude.Nothing,
-        maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         applicationInstanceId =
           pApplicationInstanceId_
       }
+
+-- | The maximum number of node instances to return in one page of results.
+listApplicationInstanceNodeInstances_maxResults :: Lens.Lens' ListApplicationInstanceNodeInstances (Prelude.Maybe Prelude.Natural)
+listApplicationInstanceNodeInstances_maxResults = Lens.lens (\ListApplicationInstanceNodeInstances' {maxResults} -> maxResults) (\s@ListApplicationInstanceNodeInstances' {} a -> s {maxResults = a} :: ListApplicationInstanceNodeInstances)
 
 -- | Specify the pagination token from a previous request to retrieve the
 -- next page of results.
 listApplicationInstanceNodeInstances_nextToken :: Lens.Lens' ListApplicationInstanceNodeInstances (Prelude.Maybe Prelude.Text)
 listApplicationInstanceNodeInstances_nextToken = Lens.lens (\ListApplicationInstanceNodeInstances' {nextToken} -> nextToken) (\s@ListApplicationInstanceNodeInstances' {} a -> s {nextToken = a} :: ListApplicationInstanceNodeInstances)
-
--- | The maximum number of node instances to return in one page of results.
-listApplicationInstanceNodeInstances_maxResults :: Lens.Lens' ListApplicationInstanceNodeInstances (Prelude.Maybe Prelude.Natural)
-listApplicationInstanceNodeInstances_maxResults = Lens.lens (\ListApplicationInstanceNodeInstances' {maxResults} -> maxResults) (\s@ListApplicationInstanceNodeInstances' {} a -> s {maxResults = a} :: ListApplicationInstanceNodeInstances)
 
 -- | The node instances\' application instance ID.
 listApplicationInstanceNodeInstances_applicationInstanceId :: Lens.Lens' ListApplicationInstanceNodeInstances Prelude.Text
@@ -109,13 +110,14 @@ instance
   type
     AWSResponse ListApplicationInstanceNodeInstances =
       ListApplicationInstanceNodeInstancesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListApplicationInstanceNodeInstancesResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-              Prelude.<*> (x Core..?> "NodeInstances" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+              Prelude.<*> (x Data..?> "NodeInstances" Core..!@ Prelude.mempty)
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -126,8 +128,8 @@ instance
   hashWithSalt
     _salt
     ListApplicationInstanceNodeInstances' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` applicationInstanceId
 
 instance
@@ -135,43 +137,43 @@ instance
     ListApplicationInstanceNodeInstances
   where
   rnf ListApplicationInstanceNodeInstances' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf applicationInstanceId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListApplicationInstanceNodeInstances
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     ListApplicationInstanceNodeInstances
   where
   toPath ListApplicationInstanceNodeInstances' {..} =
     Prelude.mconcat
       [ "/application-instances/",
-        Core.toBS applicationInstanceId,
+        Data.toBS applicationInstanceId,
         "/node-instances"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ListApplicationInstanceNodeInstances
   where
   toQuery ListApplicationInstanceNodeInstances' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListApplicationInstanceNodeInstancesResponse' smart constructor.

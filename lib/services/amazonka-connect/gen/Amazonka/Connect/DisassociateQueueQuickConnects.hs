@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.DisassociateQueueQuickConnects
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -113,7 +114,8 @@ instance
   type
     AWSResponse DisassociateQueueQuickConnects =
       DisassociateQueueQuickConnectsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       DisassociateQueueQuickConnectsResponse'
@@ -139,39 +141,39 @@ instance
       `Prelude.seq` Prelude.rnf quickConnectIds
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DisassociateQueueQuickConnects
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisassociateQueueQuickConnects where
+instance Data.ToJSON DisassociateQueueQuickConnects where
   toJSON DisassociateQueueQuickConnects' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("QuickConnectIds" Core..= quickConnectIds)
+              ("QuickConnectIds" Data..= quickConnectIds)
           ]
       )
 
-instance Core.ToPath DisassociateQueueQuickConnects where
+instance Data.ToPath DisassociateQueueQuickConnects where
   toPath DisassociateQueueQuickConnects' {..} =
     Prelude.mconcat
       [ "/queues/",
-        Core.toBS instanceId,
+        Data.toBS instanceId,
         "/",
-        Core.toBS queueId,
+        Data.toBS queueId,
         "/disassociate-quick-connects"
       ]
 
-instance Core.ToQuery DisassociateQueueQuickConnects where
+instance Data.ToQuery DisassociateQueueQuickConnects where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateQueueQuickConnectsResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.UpdateContinuousBackups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -53,8 +53,9 @@ module Amazonka.DynamoDB.UpdateContinuousBackups
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DynamoDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,12 +107,13 @@ instance Core.AWSRequest UpdateContinuousBackups where
   type
     AWSResponse UpdateContinuousBackups =
       UpdateContinuousBackupsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateContinuousBackupsResponse'
-            Prelude.<$> (x Core..?> "ContinuousBackupsDescription")
+            Prelude.<$> (x Data..?> "ContinuousBackupsDescription")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -125,37 +127,37 @@ instance Prelude.NFData UpdateContinuousBackups where
     Prelude.rnf tableName
       `Prelude.seq` Prelude.rnf pointInTimeRecoverySpecification
 
-instance Core.ToHeaders UpdateContinuousBackups where
+instance Data.ToHeaders UpdateContinuousBackups where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DynamoDB_20120810.UpdateContinuousBackups" ::
+              Data.=# ( "DynamoDB_20120810.UpdateContinuousBackups" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateContinuousBackups where
+instance Data.ToJSON UpdateContinuousBackups where
   toJSON UpdateContinuousBackups' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("TableName" Core..= tableName),
+          [ Prelude.Just ("TableName" Data..= tableName),
             Prelude.Just
               ( "PointInTimeRecoverySpecification"
-                  Core..= pointInTimeRecoverySpecification
+                  Data..= pointInTimeRecoverySpecification
               )
           ]
       )
 
-instance Core.ToPath UpdateContinuousBackups where
+instance Data.ToPath UpdateContinuousBackups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateContinuousBackups where
+instance Data.ToQuery UpdateContinuousBackups where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateContinuousBackupsResponse' smart constructor.

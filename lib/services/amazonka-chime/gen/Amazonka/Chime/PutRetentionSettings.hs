@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.PutRetentionSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,15 +45,16 @@ module Amazonka.Chime.PutRetentionSettings
     newPutRetentionSettingsResponse,
 
     -- * Response Lenses
-    putRetentionSettingsResponse_retentionSettings,
     putRetentionSettingsResponse_initiateDeletionTimestamp,
+    putRetentionSettingsResponse_retentionSettings,
     putRetentionSettingsResponse_httpStatus,
   )
 where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -104,13 +105,14 @@ instance Core.AWSRequest PutRetentionSettings where
   type
     AWSResponse PutRetentionSettings =
       PutRetentionSettingsResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutRetentionSettingsResponse'
-            Prelude.<$> (x Core..?> "RetentionSettings")
-            Prelude.<*> (x Core..?> "InitiateDeletionTimestamp")
+            Prelude.<$> (x Data..?> "InitiateDeletionTimestamp")
+            Prelude.<*> (x Data..?> "RetentionSettings")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -124,36 +126,36 @@ instance Prelude.NFData PutRetentionSettings where
     Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf retentionSettings
 
-instance Core.ToHeaders PutRetentionSettings where
+instance Data.ToHeaders PutRetentionSettings where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON PutRetentionSettings where
+instance Data.ToJSON PutRetentionSettings where
   toJSON PutRetentionSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("RetentionSettings" Core..= retentionSettings)
+              ("RetentionSettings" Data..= retentionSettings)
           ]
       )
 
-instance Core.ToPath PutRetentionSettings where
+instance Data.ToPath PutRetentionSettings where
   toPath PutRetentionSettings' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/retention-settings"
       ]
 
-instance Core.ToQuery PutRetentionSettings where
+instance Data.ToQuery PutRetentionSettings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutRetentionSettingsResponse' smart constructor.
 data PutRetentionSettingsResponse = PutRetentionSettingsResponse'
-  { -- | The retention settings.
-    retentionSettings :: Prelude.Maybe RetentionSettings,
-    -- | The timestamp representing the time at which the specified items are
+  { -- | The timestamp representing the time at which the specified items are
     -- permanently deleted, in ISO 8601 format.
-    initiateDeletionTimestamp :: Prelude.Maybe Core.POSIX,
+    initiateDeletionTimestamp :: Prelude.Maybe Data.POSIX,
+    -- | The retention settings.
+    retentionSettings :: Prelude.Maybe RetentionSettings,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -167,10 +169,10 @@ data PutRetentionSettingsResponse = PutRetentionSettingsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'retentionSettings', 'putRetentionSettingsResponse_retentionSettings' - The retention settings.
---
 -- 'initiateDeletionTimestamp', 'putRetentionSettingsResponse_initiateDeletionTimestamp' - The timestamp representing the time at which the specified items are
 -- permanently deleted, in ISO 8601 format.
+--
+-- 'retentionSettings', 'putRetentionSettingsResponse_retentionSettings' - The retention settings.
 --
 -- 'httpStatus', 'putRetentionSettingsResponse_httpStatus' - The response's http status code.
 newPutRetentionSettingsResponse ::
@@ -179,20 +181,20 @@ newPutRetentionSettingsResponse ::
   PutRetentionSettingsResponse
 newPutRetentionSettingsResponse pHttpStatus_ =
   PutRetentionSettingsResponse'
-    { retentionSettings =
+    { initiateDeletionTimestamp =
         Prelude.Nothing,
-      initiateDeletionTimestamp = Prelude.Nothing,
+      retentionSettings = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The retention settings.
-putRetentionSettingsResponse_retentionSettings :: Lens.Lens' PutRetentionSettingsResponse (Prelude.Maybe RetentionSettings)
-putRetentionSettingsResponse_retentionSettings = Lens.lens (\PutRetentionSettingsResponse' {retentionSettings} -> retentionSettings) (\s@PutRetentionSettingsResponse' {} a -> s {retentionSettings = a} :: PutRetentionSettingsResponse)
 
 -- | The timestamp representing the time at which the specified items are
 -- permanently deleted, in ISO 8601 format.
 putRetentionSettingsResponse_initiateDeletionTimestamp :: Lens.Lens' PutRetentionSettingsResponse (Prelude.Maybe Prelude.UTCTime)
-putRetentionSettingsResponse_initiateDeletionTimestamp = Lens.lens (\PutRetentionSettingsResponse' {initiateDeletionTimestamp} -> initiateDeletionTimestamp) (\s@PutRetentionSettingsResponse' {} a -> s {initiateDeletionTimestamp = a} :: PutRetentionSettingsResponse) Prelude.. Lens.mapping Core._Time
+putRetentionSettingsResponse_initiateDeletionTimestamp = Lens.lens (\PutRetentionSettingsResponse' {initiateDeletionTimestamp} -> initiateDeletionTimestamp) (\s@PutRetentionSettingsResponse' {} a -> s {initiateDeletionTimestamp = a} :: PutRetentionSettingsResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The retention settings.
+putRetentionSettingsResponse_retentionSettings :: Lens.Lens' PutRetentionSettingsResponse (Prelude.Maybe RetentionSettings)
+putRetentionSettingsResponse_retentionSettings = Lens.lens (\PutRetentionSettingsResponse' {retentionSettings} -> retentionSettings) (\s@PutRetentionSettingsResponse' {} a -> s {retentionSettings = a} :: PutRetentionSettingsResponse)
 
 -- | The response's http status code.
 putRetentionSettingsResponse_httpStatus :: Lens.Lens' PutRetentionSettingsResponse Prelude.Int
@@ -200,6 +202,6 @@ putRetentionSettingsResponse_httpStatus = Lens.lens (\PutRetentionSettingsRespon
 
 instance Prelude.NFData PutRetentionSettingsResponse where
   rnf PutRetentionSettingsResponse' {..} =
-    Prelude.rnf retentionSettings
-      `Prelude.seq` Prelude.rnf initiateDeletionTimestamp
+    Prelude.rnf initiateDeletionTimestamp
+      `Prelude.seq` Prelude.rnf retentionSettings
       `Prelude.seq` Prelude.rnf httpStatus

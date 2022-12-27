@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.DisassociateVPCFromHostedZone
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,6 +44,22 @@
 --     if the hosted zone has a value for @OwningAccount@, you can use
 --     @DisassociateVPCFromHostedZone@. If the hosted zone has a value for
 --     @OwningService@, you can\'t use @DisassociateVPCFromHostedZone@.
+--
+-- When revoking access, the hosted zone and the Amazon VPC must belong to
+-- the same partition. A partition is a group of Amazon Web Services
+-- Regions. Each Amazon Web Services account is scoped to one partition.
+--
+-- The following are the supported partitions:
+--
+-- -   @aws@ - Amazon Web Services Regions
+--
+-- -   @aws-cn@ - China Regions
+--
+-- -   @aws-us-gov@ - Amazon Web Services GovCloud (US) Region
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Access Management>
+-- in the /Amazon Web Services General Reference/.
 module Amazonka.Route53.DisassociateVPCFromHostedZone
   ( -- * Creating a Request
     DisassociateVPCFromHostedZone (..),
@@ -65,7 +81,8 @@ module Amazonka.Route53.DisassociateVPCFromHostedZone
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -137,13 +154,14 @@ instance
   type
     AWSResponse DisassociateVPCFromHostedZone =
       DisassociateVPCFromHostedZoneResponse
-  request = Request.postXML defaultService
+  request overrides =
+    Request.postXML (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DisassociateVPCFromHostedZoneResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "ChangeInfo")
+            Prelude.<*> (x Data..@ "ChangeInfo")
       )
 
 instance
@@ -161,29 +179,29 @@ instance Prelude.NFData DisassociateVPCFromHostedZone where
       `Prelude.seq` Prelude.rnf hostedZoneId
       `Prelude.seq` Prelude.rnf vpc
 
-instance Core.ToElement DisassociateVPCFromHostedZone where
+instance Data.ToElement DisassociateVPCFromHostedZone where
   toElement =
-    Core.mkElement
+    Data.mkElement
       "{https://route53.amazonaws.com/doc/2013-04-01/}DisassociateVPCFromHostedZoneRequest"
 
-instance Core.ToHeaders DisassociateVPCFromHostedZone where
+instance Data.ToHeaders DisassociateVPCFromHostedZone where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DisassociateVPCFromHostedZone where
+instance Data.ToPath DisassociateVPCFromHostedZone where
   toPath DisassociateVPCFromHostedZone' {..} =
     Prelude.mconcat
       [ "/2013-04-01/hostedzone/",
-        Core.toBS hostedZoneId,
+        Data.toBS hostedZoneId,
         "/disassociatevpc"
       ]
 
-instance Core.ToQuery DisassociateVPCFromHostedZone where
+instance Data.ToQuery DisassociateVPCFromHostedZone where
   toQuery = Prelude.const Prelude.mempty
 
-instance Core.ToXML DisassociateVPCFromHostedZone where
+instance Data.ToXML DisassociateVPCFromHostedZone where
   toXML DisassociateVPCFromHostedZone' {..} =
     Prelude.mconcat
-      ["Comment" Core.@= comment, "VPC" Core.@= vpc]
+      ["Comment" Data.@= comment, "VPC" Data.@= vpc]
 
 -- | A complex type that contains the response information for the
 -- disassociate request.

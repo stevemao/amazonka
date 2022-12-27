@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeArtifact.Types.UpstreamRepository
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeArtifact.Types.UpstreamRepository where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about an upstream repository. A list of @UpstreamRepository@
@@ -67,11 +68,11 @@ instance Prelude.NFData UpstreamRepository where
   rnf UpstreamRepository' {..} =
     Prelude.rnf repositoryName
 
-instance Core.ToJSON UpstreamRepository where
+instance Data.ToJSON UpstreamRepository where
   toJSON UpstreamRepository' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("repositoryName" Core..= repositoryName)
+              ("repositoryName" Data..= repositoryName)
           ]
       )

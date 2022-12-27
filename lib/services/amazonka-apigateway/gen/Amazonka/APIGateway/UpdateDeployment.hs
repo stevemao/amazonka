@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.UpdateDeployment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,14 +38,15 @@ module Amazonka.APIGateway.UpdateDeployment
     -- * Response Lenses
     deployment_apiSummary,
     deployment_createdDate,
-    deployment_id,
     deployment_description,
+    deployment_id,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,10 +55,10 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newUpdateDeployment' smart constructor.
 data UpdateDeployment = UpdateDeployment'
-  { -- | A list of update operations to be applied to the specified resource and
-    -- in the order specified in this list.
+  { -- | For more information about supported patch operations, see
+    -- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
     patchOperations :: Prelude.Maybe [PatchOperation],
-    -- | [Required] The string identifier of the associated RestApi.
+    -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
     -- | The replacement identifier for the Deployment resource to change
     -- information about.
@@ -73,10 +74,10 @@ data UpdateDeployment = UpdateDeployment'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'patchOperations', 'updateDeployment_patchOperations' - A list of update operations to be applied to the specified resource and
--- in the order specified in this list.
+-- 'patchOperations', 'updateDeployment_patchOperations' - For more information about supported patch operations, see
+-- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
 --
--- 'restApiId', 'updateDeployment_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'updateDeployment_restApiId' - The string identifier of the associated RestApi.
 --
 -- 'deploymentId', 'updateDeployment_deploymentId' - The replacement identifier for the Deployment resource to change
 -- information about.
@@ -94,12 +95,12 @@ newUpdateDeployment pRestApiId_ pDeploymentId_ =
       deploymentId = pDeploymentId_
     }
 
--- | A list of update operations to be applied to the specified resource and
--- in the order specified in this list.
+-- | For more information about supported patch operations, see
+-- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
 updateDeployment_patchOperations :: Lens.Lens' UpdateDeployment (Prelude.Maybe [PatchOperation])
 updateDeployment_patchOperations = Lens.lens (\UpdateDeployment' {patchOperations} -> patchOperations) (\s@UpdateDeployment' {} a -> s {patchOperations = a} :: UpdateDeployment) Prelude.. Lens.mapping Lens.coerced
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 updateDeployment_restApiId :: Lens.Lens' UpdateDeployment Prelude.Text
 updateDeployment_restApiId = Lens.lens (\UpdateDeployment' {restApiId} -> restApiId) (\s@UpdateDeployment' {} a -> s {restApiId = a} :: UpdateDeployment)
 
@@ -110,10 +111,11 @@ updateDeployment_deploymentId = Lens.lens (\UpdateDeployment' {deploymentId} -> 
 
 instance Core.AWSRequest UpdateDeployment where
   type AWSResponse UpdateDeployment = Deployment
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable UpdateDeployment where
   hashWithSalt _salt UpdateDeployment' {..} =
@@ -127,32 +129,32 @@ instance Prelude.NFData UpdateDeployment where
       `Prelude.seq` Prelude.rnf restApiId
       `Prelude.seq` Prelude.rnf deploymentId
 
-instance Core.ToHeaders UpdateDeployment where
+instance Data.ToHeaders UpdateDeployment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToJSON UpdateDeployment where
+instance Data.ToJSON UpdateDeployment where
   toJSON UpdateDeployment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("patchOperations" Core..=)
+          [ ("patchOperations" Data..=)
               Prelude.<$> patchOperations
           ]
       )
 
-instance Core.ToPath UpdateDeployment where
+instance Data.ToPath UpdateDeployment where
   toPath UpdateDeployment' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/deployments/",
-        Core.toBS deploymentId
+        Data.toBS deploymentId
       ]
 
-instance Core.ToQuery UpdateDeployment where
+instance Data.ToQuery UpdateDeployment where
   toQuery = Prelude.const Prelude.mempty

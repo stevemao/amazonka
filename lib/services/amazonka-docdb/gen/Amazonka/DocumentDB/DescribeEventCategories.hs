@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DocumentDB.DescribeEventCategories
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.DocumentDB.DescribeEventCategories
     newDescribeEventCategories,
 
     -- * Request Lenses
-    describeEventCategories_sourceType,
     describeEventCategories_filters,
+    describeEventCategories_sourceType,
 
     -- * Destructuring the Response
     DescribeEventCategoriesResponse (..),
@@ -42,8 +42,9 @@ module Amazonka.DocumentDB.DescribeEventCategories
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DocumentDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,12 +53,12 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeEventCategories' smart constructor.
 data DescribeEventCategories = DescribeEventCategories'
-  { -- | The type of source that is generating the events.
+  { -- | This parameter is not currently supported.
+    filters :: Prelude.Maybe [Filter],
+    -- | The type of source that is generating the events.
     --
     -- Valid values: @db-instance@, @db-parameter-group@, @db-security-group@
-    sourceType :: Prelude.Maybe Prelude.Text,
-    -- | This parameter is not currently supported.
-    filters :: Prelude.Maybe [Filter]
+    sourceType :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -69,19 +70,22 @@ data DescribeEventCategories = DescribeEventCategories'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'filters', 'describeEventCategories_filters' - This parameter is not currently supported.
+--
 -- 'sourceType', 'describeEventCategories_sourceType' - The type of source that is generating the events.
 --
 -- Valid values: @db-instance@, @db-parameter-group@, @db-security-group@
---
--- 'filters', 'describeEventCategories_filters' - This parameter is not currently supported.
 newDescribeEventCategories ::
   DescribeEventCategories
 newDescribeEventCategories =
   DescribeEventCategories'
-    { sourceType =
-        Prelude.Nothing,
-      filters = Prelude.Nothing
+    { filters = Prelude.Nothing,
+      sourceType = Prelude.Nothing
     }
+
+-- | This parameter is not currently supported.
+describeEventCategories_filters :: Lens.Lens' DescribeEventCategories (Prelude.Maybe [Filter])
+describeEventCategories_filters = Lens.lens (\DescribeEventCategories' {filters} -> filters) (\s@DescribeEventCategories' {} a -> s {filters = a} :: DescribeEventCategories) Prelude.. Lens.mapping Lens.coerced
 
 -- | The type of source that is generating the events.
 --
@@ -89,54 +93,51 @@ newDescribeEventCategories =
 describeEventCategories_sourceType :: Lens.Lens' DescribeEventCategories (Prelude.Maybe Prelude.Text)
 describeEventCategories_sourceType = Lens.lens (\DescribeEventCategories' {sourceType} -> sourceType) (\s@DescribeEventCategories' {} a -> s {sourceType = a} :: DescribeEventCategories)
 
--- | This parameter is not currently supported.
-describeEventCategories_filters :: Lens.Lens' DescribeEventCategories (Prelude.Maybe [Filter])
-describeEventCategories_filters = Lens.lens (\DescribeEventCategories' {filters} -> filters) (\s@DescribeEventCategories' {} a -> s {filters = a} :: DescribeEventCategories) Prelude.. Lens.mapping Lens.coerced
-
 instance Core.AWSRequest DescribeEventCategories where
   type
     AWSResponse DescribeEventCategories =
       DescribeEventCategoriesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeEventCategoriesResult"
       ( \s h x ->
           DescribeEventCategoriesResponse'
-            Prelude.<$> ( x Core..@? "EventCategoriesMapList"
+            Prelude.<$> ( x Data..@? "EventCategoriesMapList"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "EventCategoriesMap")
+                            Prelude.>>= Core.may (Data.parseXMLList "EventCategoriesMap")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeEventCategories where
   hashWithSalt _salt DescribeEventCategories' {..} =
-    _salt `Prelude.hashWithSalt` sourceType
-      `Prelude.hashWithSalt` filters
+    _salt `Prelude.hashWithSalt` filters
+      `Prelude.hashWithSalt` sourceType
 
 instance Prelude.NFData DescribeEventCategories where
   rnf DescribeEventCategories' {..} =
-    Prelude.rnf sourceType
-      `Prelude.seq` Prelude.rnf filters
+    Prelude.rnf filters
+      `Prelude.seq` Prelude.rnf sourceType
 
-instance Core.ToHeaders DescribeEventCategories where
+instance Data.ToHeaders DescribeEventCategories where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeEventCategories where
+instance Data.ToPath DescribeEventCategories where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeEventCategories where
+instance Data.ToQuery DescribeEventCategories where
   toQuery DescribeEventCategories' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeEventCategories" :: Prelude.ByteString),
+          Data.=: ("DescribeEventCategories" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "SourceType" Core.=: sourceType,
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "Filters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Filter" Prelude.<$> filters)
+          Data.=: Data.toQuery
+            (Data.toQueryList "Filter" Prelude.<$> filters),
+        "SourceType" Data.=: sourceType
       ]
 
 -- | Represents the output of DescribeEventCategories.

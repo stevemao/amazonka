@@ -14,15 +14,15 @@
 
 -- |
 -- Module      : Amazonka.SSM.TerminateSession
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Permanently ends a session and closes the data connection between the
--- Session Manager client and SSM Agent on the instance. A terminated
--- session isn\'t be resumed.
+-- Session Manager client and SSM Agent on the managed node. A terminated
+-- session can\'t be resumed.
 module Amazonka.SSM.TerminateSession
   ( -- * Creating a Request
     TerminateSession (..),
@@ -42,7 +42,8 @@ module Amazonka.SSM.TerminateSession
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,12 +80,13 @@ instance Core.AWSRequest TerminateSession where
   type
     AWSResponse TerminateSession =
       TerminateSessionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           TerminateSessionResponse'
-            Prelude.<$> (x Core..?> "SessionId")
+            Prelude.<$> (x Data..?> "SessionId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -95,30 +97,30 @@ instance Prelude.Hashable TerminateSession where
 instance Prelude.NFData TerminateSession where
   rnf TerminateSession' {..} = Prelude.rnf sessionId
 
-instance Core.ToHeaders TerminateSession where
+instance Data.ToHeaders TerminateSession where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AmazonSSM.TerminateSession" :: Prelude.ByteString),
+              Data.=# ("AmazonSSM.TerminateSession" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON TerminateSession where
+instance Data.ToJSON TerminateSession where
   toJSON TerminateSession' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("SessionId" Core..= sessionId)]
+          [Prelude.Just ("SessionId" Data..= sessionId)]
       )
 
-instance Core.ToPath TerminateSession where
+instance Data.ToPath TerminateSession where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery TerminateSession where
+instance Data.ToQuery TerminateSession where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newTerminateSessionResponse' smart constructor.

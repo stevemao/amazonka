@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudControl.CreateResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,8 @@ module Amazonka.CloudControl.CreateResource
 
     -- * Request Lenses
     createResource_clientToken,
-    createResource_typeVersionId,
     createResource_roleArn,
+    createResource_typeVersionId,
     createResource_typeName,
     createResource_desiredState,
 
@@ -53,7 +53,8 @@ where
 
 import Amazonka.CloudControl.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,12 +77,8 @@ data CreateResource = CreateResource'
     -- <https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/resource-operations.html#resource-operations-idempotency Ensuring resource operation requests are unique>
     -- in the /Amazon Web Services Cloud Control API User Guide/.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | For private resource types, the type version to use in this resource
-    -- operation. If you do not specify a resource version, CloudFormation uses
-    -- the default version.
-    typeVersionId :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the Identity and Access Management
-    -- (IAM) for Cloud Control API to use when performing this resource
+    -- (IAM) role for Cloud Control API to use when performing this resource
     -- operation. The role specified must have the permissions required for
     -- this operation. The necessary permissions for each event handler are
     -- defined in the @ handlers @ section of the
@@ -94,6 +91,10 @@ data CreateResource = CreateResource'
     -- <https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/resource-operations.html#resource-operations-permissions Specifying credentials>
     -- in the /Amazon Web Services Cloud Control API User Guide/.
     roleArn :: Prelude.Maybe Prelude.Text,
+    -- | For private resource types, the type version to use in this resource
+    -- operation. If you do not specify a resource version, CloudFormation uses
+    -- the default version.
+    typeVersionId :: Prelude.Maybe Prelude.Text,
     -- | The name of the resource type.
     typeName :: Prelude.Text,
     -- | Structured data format representing the desired state of the resource,
@@ -101,21 +102,8 @@ data CreateResource = CreateResource'
     --
     -- Cloud Control API currently supports JSON as a structured data format.
     --
-    -- Specify the desired state as one of the following:
-    --
-    -- -   A JSON blob
-    --
-    -- -   A local path containing the desired state in JSON data format
-    --
-    -- For more information, see
-    -- <https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/resource-operations-create.html#resource-operations-create-desiredstate Composing the desired state of the resource>
-    -- in the /Amazon Web Services Cloud Control API User Guide/.
-    --
-    -- For more information about the properties of a specific resource, refer
-    -- to the related topic for the resource in the
-    -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html Resource and property types reference>
-    -- in the /Amazon Web Services CloudFormation Users Guide/.
-    desiredState :: Core.Sensitive Prelude.Text
+    -- >  <p>Specify the desired state as one of the following:</p> <ul> <li> <p>A JSON blob</p> </li> <li> <p>A local path containing the desired state in JSON data format</p> </li> </ul> <p>For more information, see <a href="https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/resource-operations-create.html#resource-operations-create-desiredstate">Composing the desired state of the resource</a> in the <i>Amazon Web Services Cloud Control API User Guide</i>.</p> <p>For more information about the properties of a specific resource, refer to the related topic for the resource in the <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Resource and property types reference</a> in the <i>CloudFormation Users Guide</i>.</p>
+    desiredState :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -143,12 +131,8 @@ data CreateResource = CreateResource'
 -- <https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/resource-operations.html#resource-operations-idempotency Ensuring resource operation requests are unique>
 -- in the /Amazon Web Services Cloud Control API User Guide/.
 --
--- 'typeVersionId', 'createResource_typeVersionId' - For private resource types, the type version to use in this resource
--- operation. If you do not specify a resource version, CloudFormation uses
--- the default version.
---
 -- 'roleArn', 'createResource_roleArn' - The Amazon Resource Name (ARN) of the Identity and Access Management
--- (IAM) for Cloud Control API to use when performing this resource
+-- (IAM) role for Cloud Control API to use when performing this resource
 -- operation. The role specified must have the permissions required for
 -- this operation. The necessary permissions for each event handler are
 -- defined in the @ handlers @ section of the
@@ -161,6 +145,10 @@ data CreateResource = CreateResource'
 -- <https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/resource-operations.html#resource-operations-permissions Specifying credentials>
 -- in the /Amazon Web Services Cloud Control API User Guide/.
 --
+-- 'typeVersionId', 'createResource_typeVersionId' - For private resource types, the type version to use in this resource
+-- operation. If you do not specify a resource version, CloudFormation uses
+-- the default version.
+--
 -- 'typeName', 'createResource_typeName' - The name of the resource type.
 --
 -- 'desiredState', 'createResource_desiredState' - Structured data format representing the desired state of the resource,
@@ -168,20 +156,7 @@ data CreateResource = CreateResource'
 --
 -- Cloud Control API currently supports JSON as a structured data format.
 --
--- Specify the desired state as one of the following:
---
--- -   A JSON blob
---
--- -   A local path containing the desired state in JSON data format
---
--- For more information, see
--- <https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/resource-operations-create.html#resource-operations-create-desiredstate Composing the desired state of the resource>
--- in the /Amazon Web Services Cloud Control API User Guide/.
---
--- For more information about the properties of a specific resource, refer
--- to the related topic for the resource in the
--- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html Resource and property types reference>
--- in the /Amazon Web Services CloudFormation Users Guide/.
+-- >  <p>Specify the desired state as one of the following:</p> <ul> <li> <p>A JSON blob</p> </li> <li> <p>A local path containing the desired state in JSON data format</p> </li> </ul> <p>For more information, see <a href="https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/resource-operations-create.html#resource-operations-create-desiredstate">Composing the desired state of the resource</a> in the <i>Amazon Web Services Cloud Control API User Guide</i>.</p> <p>For more information about the properties of a specific resource, refer to the related topic for the resource in the <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Resource and property types reference</a> in the <i>CloudFormation Users Guide</i>.</p>
 newCreateResource ::
   -- | 'typeName'
   Prelude.Text ->
@@ -191,10 +166,10 @@ newCreateResource ::
 newCreateResource pTypeName_ pDesiredState_ =
   CreateResource'
     { clientToken = Prelude.Nothing,
-      typeVersionId = Prelude.Nothing,
       roleArn = Prelude.Nothing,
+      typeVersionId = Prelude.Nothing,
       typeName = pTypeName_,
-      desiredState = Core._Sensitive Lens.# pDesiredState_
+      desiredState = Data._Sensitive Lens.# pDesiredState_
     }
 
 -- | A unique identifier to ensure the idempotency of the resource request.
@@ -215,14 +190,8 @@ newCreateResource pTypeName_ pDesiredState_ =
 createResource_clientToken :: Lens.Lens' CreateResource (Prelude.Maybe Prelude.Text)
 createResource_clientToken = Lens.lens (\CreateResource' {clientToken} -> clientToken) (\s@CreateResource' {} a -> s {clientToken = a} :: CreateResource)
 
--- | For private resource types, the type version to use in this resource
--- operation. If you do not specify a resource version, CloudFormation uses
--- the default version.
-createResource_typeVersionId :: Lens.Lens' CreateResource (Prelude.Maybe Prelude.Text)
-createResource_typeVersionId = Lens.lens (\CreateResource' {typeVersionId} -> typeVersionId) (\s@CreateResource' {} a -> s {typeVersionId = a} :: CreateResource)
-
 -- | The Amazon Resource Name (ARN) of the Identity and Access Management
--- (IAM) for Cloud Control API to use when performing this resource
+-- (IAM) role for Cloud Control API to use when performing this resource
 -- operation. The role specified must have the permissions required for
 -- this operation. The necessary permissions for each event handler are
 -- defined in the @ handlers @ section of the
@@ -237,6 +206,12 @@ createResource_typeVersionId = Lens.lens (\CreateResource' {typeVersionId} -> ty
 createResource_roleArn :: Lens.Lens' CreateResource (Prelude.Maybe Prelude.Text)
 createResource_roleArn = Lens.lens (\CreateResource' {roleArn} -> roleArn) (\s@CreateResource' {} a -> s {roleArn = a} :: CreateResource)
 
+-- | For private resource types, the type version to use in this resource
+-- operation. If you do not specify a resource version, CloudFormation uses
+-- the default version.
+createResource_typeVersionId :: Lens.Lens' CreateResource (Prelude.Maybe Prelude.Text)
+createResource_typeVersionId = Lens.lens (\CreateResource' {typeVersionId} -> typeVersionId) (\s@CreateResource' {} a -> s {typeVersionId = a} :: CreateResource)
+
 -- | The name of the resource type.
 createResource_typeName :: Lens.Lens' CreateResource Prelude.Text
 createResource_typeName = Lens.lens (\CreateResource' {typeName} -> typeName) (\s@CreateResource' {} a -> s {typeName = a} :: CreateResource)
@@ -246,83 +221,71 @@ createResource_typeName = Lens.lens (\CreateResource' {typeName} -> typeName) (\
 --
 -- Cloud Control API currently supports JSON as a structured data format.
 --
--- Specify the desired state as one of the following:
---
--- -   A JSON blob
---
--- -   A local path containing the desired state in JSON data format
---
--- For more information, see
--- <https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/resource-operations-create.html#resource-operations-create-desiredstate Composing the desired state of the resource>
--- in the /Amazon Web Services Cloud Control API User Guide/.
---
--- For more information about the properties of a specific resource, refer
--- to the related topic for the resource in the
--- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html Resource and property types reference>
--- in the /Amazon Web Services CloudFormation Users Guide/.
+-- >  <p>Specify the desired state as one of the following:</p> <ul> <li> <p>A JSON blob</p> </li> <li> <p>A local path containing the desired state in JSON data format</p> </li> </ul> <p>For more information, see <a href="https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/resource-operations-create.html#resource-operations-create-desiredstate">Composing the desired state of the resource</a> in the <i>Amazon Web Services Cloud Control API User Guide</i>.</p> <p>For more information about the properties of a specific resource, refer to the related topic for the resource in the <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Resource and property types reference</a> in the <i>CloudFormation Users Guide</i>.</p>
 createResource_desiredState :: Lens.Lens' CreateResource Prelude.Text
-createResource_desiredState = Lens.lens (\CreateResource' {desiredState} -> desiredState) (\s@CreateResource' {} a -> s {desiredState = a} :: CreateResource) Prelude.. Core._Sensitive
+createResource_desiredState = Lens.lens (\CreateResource' {desiredState} -> desiredState) (\s@CreateResource' {} a -> s {desiredState = a} :: CreateResource) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest CreateResource where
   type
     AWSResponse CreateResource =
       CreateResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateResourceResponse'
-            Prelude.<$> (x Core..?> "ProgressEvent")
+            Prelude.<$> (x Data..?> "ProgressEvent")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateResource where
   hashWithSalt _salt CreateResource' {..} =
     _salt `Prelude.hashWithSalt` clientToken
-      `Prelude.hashWithSalt` typeVersionId
       `Prelude.hashWithSalt` roleArn
+      `Prelude.hashWithSalt` typeVersionId
       `Prelude.hashWithSalt` typeName
       `Prelude.hashWithSalt` desiredState
 
 instance Prelude.NFData CreateResource where
   rnf CreateResource' {..} =
     Prelude.rnf clientToken
-      `Prelude.seq` Prelude.rnf typeVersionId
       `Prelude.seq` Prelude.rnf roleArn
+      `Prelude.seq` Prelude.rnf typeVersionId
       `Prelude.seq` Prelude.rnf typeName
       `Prelude.seq` Prelude.rnf desiredState
 
-instance Core.ToHeaders CreateResource where
+instance Data.ToHeaders CreateResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CloudApiService.CreateResource" ::
+              Data.=# ( "CloudApiService.CreateResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateResource where
+instance Data.ToJSON CreateResource where
   toJSON CreateResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ClientToken" Core..=) Prelude.<$> clientToken,
-            ("TypeVersionId" Core..=) Prelude.<$> typeVersionId,
-            ("RoleArn" Core..=) Prelude.<$> roleArn,
-            Prelude.Just ("TypeName" Core..= typeName),
-            Prelude.Just ("DesiredState" Core..= desiredState)
+          [ ("ClientToken" Data..=) Prelude.<$> clientToken,
+            ("RoleArn" Data..=) Prelude.<$> roleArn,
+            ("TypeVersionId" Data..=) Prelude.<$> typeVersionId,
+            Prelude.Just ("TypeName" Data..= typeName),
+            Prelude.Just ("DesiredState" Data..= desiredState)
           ]
       )
 
-instance Core.ToPath CreateResource where
+instance Data.ToPath CreateResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateResource where
+instance Data.ToQuery CreateResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateResourceResponse' smart constructor.

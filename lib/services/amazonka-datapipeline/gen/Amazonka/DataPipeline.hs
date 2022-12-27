@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.DataPipeline
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,11 +41,11 @@ module Amazonka.DataPipeline
     -- * Errors
     -- $errors
 
-    -- ** InvalidRequestException
-    _InvalidRequestException,
-
     -- ** InternalServiceError
     _InternalServiceError,
+
+    -- ** InvalidRequestException
+    _InvalidRequestException,
 
     -- ** PipelineDeletedException
     _PipelineDeletedException,
@@ -62,23 +62,29 @@ module Amazonka.DataPipeline
     -- * Operations
     -- $operations
 
-    -- ** DescribePipelines
-    DescribePipelines (DescribePipelines'),
-    newDescribePipelines,
-    DescribePipelinesResponse (DescribePipelinesResponse'),
-    newDescribePipelinesResponse,
+    -- ** ActivatePipeline
+    ActivatePipeline (ActivatePipeline'),
+    newActivatePipeline,
+    ActivatePipelineResponse (ActivatePipelineResponse'),
+    newActivatePipelineResponse,
 
-    -- ** QueryObjects (Paginated)
-    QueryObjects (QueryObjects'),
-    newQueryObjects,
-    QueryObjectsResponse (QueryObjectsResponse'),
-    newQueryObjectsResponse,
+    -- ** AddTags
+    AddTags (AddTags'),
+    newAddTags,
+    AddTagsResponse (AddTagsResponse'),
+    newAddTagsResponse,
 
-    -- ** RemoveTags
-    RemoveTags (RemoveTags'),
-    newRemoveTags,
-    RemoveTagsResponse (RemoveTagsResponse'),
-    newRemoveTagsResponse,
+    -- ** CreatePipeline
+    CreatePipeline (CreatePipeline'),
+    newCreatePipeline,
+    CreatePipelineResponse (CreatePipelineResponse'),
+    newCreatePipelineResponse,
+
+    -- ** DeactivatePipeline
+    DeactivatePipeline (DeactivatePipeline'),
+    newDeactivatePipeline,
+    DeactivatePipelineResponse (DeactivatePipelineResponse'),
+    newDeactivatePipelineResponse,
 
     -- ** DeletePipeline
     DeletePipeline (DeletePipeline'),
@@ -86,11 +92,17 @@ module Amazonka.DataPipeline
     DeletePipelineResponse (DeletePipelineResponse'),
     newDeletePipelineResponse,
 
-    -- ** ListPipelines (Paginated)
-    ListPipelines (ListPipelines'),
-    newListPipelines,
-    ListPipelinesResponse (ListPipelinesResponse'),
-    newListPipelinesResponse,
+    -- ** DescribeObjects (Paginated)
+    DescribeObjects (DescribeObjects'),
+    newDescribeObjects,
+    DescribeObjectsResponse (DescribeObjectsResponse'),
+    newDescribeObjectsResponse,
+
+    -- ** DescribePipelines
+    DescribePipelines (DescribePipelines'),
+    newDescribePipelines,
+    DescribePipelinesResponse (DescribePipelinesResponse'),
+    newDescribePipelinesResponse,
 
     -- ** EvaluateExpression
     EvaluateExpression (EvaluateExpression'),
@@ -104,53 +116,35 @@ module Amazonka.DataPipeline
     GetPipelineDefinitionResponse (GetPipelineDefinitionResponse'),
     newGetPipelineDefinitionResponse,
 
+    -- ** ListPipelines (Paginated)
+    ListPipelines (ListPipelines'),
+    newListPipelines,
+    ListPipelinesResponse (ListPipelinesResponse'),
+    newListPipelinesResponse,
+
     -- ** PollForTask
     PollForTask (PollForTask'),
     newPollForTask,
     PollForTaskResponse (PollForTaskResponse'),
     newPollForTaskResponse,
 
-    -- ** DeactivatePipeline
-    DeactivatePipeline (DeactivatePipeline'),
-    newDeactivatePipeline,
-    DeactivatePipelineResponse (DeactivatePipelineResponse'),
-    newDeactivatePipelineResponse,
+    -- ** PutPipelineDefinition
+    PutPipelineDefinition (PutPipelineDefinition'),
+    newPutPipelineDefinition,
+    PutPipelineDefinitionResponse (PutPipelineDefinitionResponse'),
+    newPutPipelineDefinitionResponse,
 
-    -- ** AddTags
-    AddTags (AddTags'),
-    newAddTags,
-    AddTagsResponse (AddTagsResponse'),
-    newAddTagsResponse,
+    -- ** QueryObjects (Paginated)
+    QueryObjects (QueryObjects'),
+    newQueryObjects,
+    QueryObjectsResponse (QueryObjectsResponse'),
+    newQueryObjectsResponse,
 
-    -- ** DescribeObjects (Paginated)
-    DescribeObjects (DescribeObjects'),
-    newDescribeObjects,
-    DescribeObjectsResponse (DescribeObjectsResponse'),
-    newDescribeObjectsResponse,
-
-    -- ** ReportTaskRunnerHeartbeat
-    ReportTaskRunnerHeartbeat (ReportTaskRunnerHeartbeat'),
-    newReportTaskRunnerHeartbeat,
-    ReportTaskRunnerHeartbeatResponse (ReportTaskRunnerHeartbeatResponse'),
-    newReportTaskRunnerHeartbeatResponse,
-
-    -- ** ActivatePipeline
-    ActivatePipeline (ActivatePipeline'),
-    newActivatePipeline,
-    ActivatePipelineResponse (ActivatePipelineResponse'),
-    newActivatePipelineResponse,
-
-    -- ** SetTaskStatus
-    SetTaskStatus (SetTaskStatus'),
-    newSetTaskStatus,
-    SetTaskStatusResponse (SetTaskStatusResponse'),
-    newSetTaskStatusResponse,
-
-    -- ** SetStatus
-    SetStatus (SetStatus'),
-    newSetStatus,
-    SetStatusResponse (SetStatusResponse'),
-    newSetStatusResponse,
+    -- ** RemoveTags
+    RemoveTags (RemoveTags'),
+    newRemoveTags,
+    RemoveTagsResponse (RemoveTagsResponse'),
+    newRemoveTagsResponse,
 
     -- ** ReportTaskProgress
     ReportTaskProgress (ReportTaskProgress'),
@@ -158,17 +152,23 @@ module Amazonka.DataPipeline
     ReportTaskProgressResponse (ReportTaskProgressResponse'),
     newReportTaskProgressResponse,
 
-    -- ** CreatePipeline
-    CreatePipeline (CreatePipeline'),
-    newCreatePipeline,
-    CreatePipelineResponse (CreatePipelineResponse'),
-    newCreatePipelineResponse,
+    -- ** ReportTaskRunnerHeartbeat
+    ReportTaskRunnerHeartbeat (ReportTaskRunnerHeartbeat'),
+    newReportTaskRunnerHeartbeat,
+    ReportTaskRunnerHeartbeatResponse (ReportTaskRunnerHeartbeatResponse'),
+    newReportTaskRunnerHeartbeatResponse,
 
-    -- ** PutPipelineDefinition
-    PutPipelineDefinition (PutPipelineDefinition'),
-    newPutPipelineDefinition,
-    PutPipelineDefinitionResponse (PutPipelineDefinitionResponse'),
-    newPutPipelineDefinitionResponse,
+    -- ** SetStatus
+    SetStatus (SetStatus'),
+    newSetStatus,
+    SetStatusResponse (SetStatusResponse'),
+    newSetStatusResponse,
+
+    -- ** SetTaskStatus
+    SetTaskStatus (SetTaskStatus'),
+    newSetTaskStatus,
+    SetTaskStatusResponse (SetTaskStatusResponse'),
+    newSetTaskStatusResponse,
 
     -- ** ValidatePipelineDefinition
     ValidatePipelineDefinition (ValidatePipelineDefinition'),

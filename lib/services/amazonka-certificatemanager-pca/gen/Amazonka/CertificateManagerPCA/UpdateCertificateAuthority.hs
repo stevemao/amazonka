@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.UpdateCertificateAuthority
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,15 +29,15 @@
 -- bucket that you specify. If the IAM principal making the call does not
 -- have permission to write to the bucket, then an exception is thrown. For
 -- more information, see
--- <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaAuthAccess.html Configure Access to ACM Private CA>.
+-- <https://docs.aws.amazon.com/acm-pca/latest/userguide/crl-planning.html#s3-policies Access policies for CRLs in Amazon S3>.
 module Amazonka.CertificateManagerPCA.UpdateCertificateAuthority
   ( -- * Creating a Request
     UpdateCertificateAuthority (..),
     newUpdateCertificateAuthority,
 
     -- * Request Lenses
-    updateCertificateAuthority_status,
     updateCertificateAuthority_revocationConfiguration,
+    updateCertificateAuthority_status,
     updateCertificateAuthority_certificateAuthorityArn,
 
     -- * Destructuring the Response
@@ -48,16 +48,15 @@ where
 
 import Amazonka.CertificateManagerPCA.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateCertificateAuthority' smart constructor.
 data UpdateCertificateAuthority = UpdateCertificateAuthority'
-  { -- | Status of your private CA.
-    status :: Prelude.Maybe CertificateAuthorityStatus,
-    -- | Contains information to enable Online Certificate Status Protocol (OCSP)
+  { -- | Contains information to enable Online Certificate Status Protocol (OCSP)
     -- support, to enable a certificate revocation list (CRL), to enable both,
     -- or to enable neither. If this parameter is not supplied, existing
     -- capibilites remain unchanged. For more information, see the
@@ -66,6 +65,8 @@ data UpdateCertificateAuthority = UpdateCertificateAuthority'
     -- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CrlConfiguration.html CrlConfiguration>
     -- types.
     revocationConfiguration :: Prelude.Maybe RevocationConfiguration,
+    -- | Status of your private CA.
+    status :: Prelude.Maybe CertificateAuthorityStatus,
     -- | Amazon Resource Name (ARN) of the private CA that issued the certificate
     -- to be revoked. This must be of the form:
     --
@@ -82,8 +83,6 @@ data UpdateCertificateAuthority = UpdateCertificateAuthority'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'updateCertificateAuthority_status' - Status of your private CA.
---
 -- 'revocationConfiguration', 'updateCertificateAuthority_revocationConfiguration' - Contains information to enable Online Certificate Status Protocol (OCSP)
 -- support, to enable a certificate revocation list (CRL), to enable both,
 -- or to enable neither. If this parameter is not supplied, existing
@@ -92,6 +91,8 @@ data UpdateCertificateAuthority = UpdateCertificateAuthority'
 -- and
 -- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CrlConfiguration.html CrlConfiguration>
 -- types.
+--
+-- 'status', 'updateCertificateAuthority_status' - Status of your private CA.
 --
 -- 'certificateAuthorityArn', 'updateCertificateAuthority_certificateAuthorityArn' - Amazon Resource Name (ARN) of the private CA that issued the certificate
 -- to be revoked. This must be of the form:
@@ -104,16 +105,12 @@ newUpdateCertificateAuthority ::
 newUpdateCertificateAuthority
   pCertificateAuthorityArn_ =
     UpdateCertificateAuthority'
-      { status =
+      { revocationConfiguration =
           Prelude.Nothing,
-        revocationConfiguration = Prelude.Nothing,
+        status = Prelude.Nothing,
         certificateAuthorityArn =
           pCertificateAuthorityArn_
       }
-
--- | Status of your private CA.
-updateCertificateAuthority_status :: Lens.Lens' UpdateCertificateAuthority (Prelude.Maybe CertificateAuthorityStatus)
-updateCertificateAuthority_status = Lens.lens (\UpdateCertificateAuthority' {status} -> status) (\s@UpdateCertificateAuthority' {} a -> s {status = a} :: UpdateCertificateAuthority)
 
 -- | Contains information to enable Online Certificate Status Protocol (OCSP)
 -- support, to enable a certificate revocation list (CRL), to enable both,
@@ -126,6 +123,10 @@ updateCertificateAuthority_status = Lens.lens (\UpdateCertificateAuthority' {sta
 updateCertificateAuthority_revocationConfiguration :: Lens.Lens' UpdateCertificateAuthority (Prelude.Maybe RevocationConfiguration)
 updateCertificateAuthority_revocationConfiguration = Lens.lens (\UpdateCertificateAuthority' {revocationConfiguration} -> revocationConfiguration) (\s@UpdateCertificateAuthority' {} a -> s {revocationConfiguration = a} :: UpdateCertificateAuthority)
 
+-- | Status of your private CA.
+updateCertificateAuthority_status :: Lens.Lens' UpdateCertificateAuthority (Prelude.Maybe CertificateAuthorityStatus)
+updateCertificateAuthority_status = Lens.lens (\UpdateCertificateAuthority' {status} -> status) (\s@UpdateCertificateAuthority' {} a -> s {status = a} :: UpdateCertificateAuthority)
+
 -- | Amazon Resource Name (ARN) of the private CA that issued the certificate
 -- to be revoked. This must be of the form:
 --
@@ -137,56 +138,58 @@ instance Core.AWSRequest UpdateCertificateAuthority where
   type
     AWSResponse UpdateCertificateAuthority =
       UpdateCertificateAuthorityResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       UpdateCertificateAuthorityResponse'
 
 instance Prelude.Hashable UpdateCertificateAuthority where
   hashWithSalt _salt UpdateCertificateAuthority' {..} =
-    _salt `Prelude.hashWithSalt` status
+    _salt
       `Prelude.hashWithSalt` revocationConfiguration
+      `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` certificateAuthorityArn
 
 instance Prelude.NFData UpdateCertificateAuthority where
   rnf UpdateCertificateAuthority' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf revocationConfiguration
+    Prelude.rnf revocationConfiguration
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf certificateAuthorityArn
 
-instance Core.ToHeaders UpdateCertificateAuthority where
+instance Data.ToHeaders UpdateCertificateAuthority where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ACMPrivateCA.UpdateCertificateAuthority" ::
+              Data.=# ( "ACMPrivateCA.UpdateCertificateAuthority" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateCertificateAuthority where
+instance Data.ToJSON UpdateCertificateAuthority where
   toJSON UpdateCertificateAuthority' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Status" Core..=) Prelude.<$> status,
-            ("RevocationConfiguration" Core..=)
+          [ ("RevocationConfiguration" Data..=)
               Prelude.<$> revocationConfiguration,
+            ("Status" Data..=) Prelude.<$> status,
             Prelude.Just
               ( "CertificateAuthorityArn"
-                  Core..= certificateAuthorityArn
+                  Data..= certificateAuthorityArn
               )
           ]
       )
 
-instance Core.ToPath UpdateCertificateAuthority where
+instance Data.ToPath UpdateCertificateAuthority where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateCertificateAuthority where
+instance Data.ToQuery UpdateCertificateAuthority where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateCertificateAuthorityResponse' smart constructor.

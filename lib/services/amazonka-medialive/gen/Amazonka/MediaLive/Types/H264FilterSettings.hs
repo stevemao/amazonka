@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.H264FilterSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.H264FilterSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.TemporalFilterSettings
 import qualified Amazonka.Prelude as Prelude
 
@@ -53,13 +54,13 @@ newH264FilterSettings =
 h264FilterSettings_temporalFilterSettings :: Lens.Lens' H264FilterSettings (Prelude.Maybe TemporalFilterSettings)
 h264FilterSettings_temporalFilterSettings = Lens.lens (\H264FilterSettings' {temporalFilterSettings} -> temporalFilterSettings) (\s@H264FilterSettings' {} a -> s {temporalFilterSettings = a} :: H264FilterSettings)
 
-instance Core.FromJSON H264FilterSettings where
+instance Data.FromJSON H264FilterSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "H264FilterSettings"
       ( \x ->
           H264FilterSettings'
-            Prelude.<$> (x Core..:? "temporalFilterSettings")
+            Prelude.<$> (x Data..:? "temporalFilterSettings")
       )
 
 instance Prelude.Hashable H264FilterSettings where
@@ -70,11 +71,11 @@ instance Prelude.NFData H264FilterSettings where
   rnf H264FilterSettings' {..} =
     Prelude.rnf temporalFilterSettings
 
-instance Core.ToJSON H264FilterSettings where
+instance Data.ToJSON H264FilterSettings where
   toJSON H264FilterSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("temporalFilterSettings" Core..=)
+          [ ("temporalFilterSettings" Data..=)
               Prelude.<$> temporalFilterSettings
           ]
       )

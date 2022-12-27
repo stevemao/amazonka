@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.GetViolationDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.FMS.GetViolationDetails
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -135,12 +136,13 @@ instance Core.AWSRequest GetViolationDetails where
   type
     AWSResponse GetViolationDetails =
       GetViolationDetailsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetViolationDetailsResponse'
-            Prelude.<$> (x Core..?> "ViolationDetail")
+            Prelude.<$> (x Data..?> "ViolationDetail")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -158,36 +160,36 @@ instance Prelude.NFData GetViolationDetails where
       `Prelude.seq` Prelude.rnf resourceId
       `Prelude.seq` Prelude.rnf resourceType
 
-instance Core.ToHeaders GetViolationDetails where
+instance Data.ToHeaders GetViolationDetails where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSFMS_20180101.GetViolationDetails" ::
+              Data.=# ( "AWSFMS_20180101.GetViolationDetails" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetViolationDetails where
+instance Data.ToJSON GetViolationDetails where
   toJSON GetViolationDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("PolicyId" Core..= policyId),
-            Prelude.Just ("MemberAccount" Core..= memberAccount),
-            Prelude.Just ("ResourceId" Core..= resourceId),
-            Prelude.Just ("ResourceType" Core..= resourceType)
+          [ Prelude.Just ("PolicyId" Data..= policyId),
+            Prelude.Just ("MemberAccount" Data..= memberAccount),
+            Prelude.Just ("ResourceId" Data..= resourceId),
+            Prelude.Just ("ResourceType" Data..= resourceType)
           ]
       )
 
-instance Core.ToPath GetViolationDetails where
+instance Data.ToPath GetViolationDetails where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetViolationDetails where
+instance Data.ToQuery GetViolationDetails where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetViolationDetailsResponse' smart constructor.

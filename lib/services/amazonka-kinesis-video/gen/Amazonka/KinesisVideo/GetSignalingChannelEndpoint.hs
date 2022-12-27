@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideo.GetSignalingChannelEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -55,8 +55,9 @@ module Amazonka.KinesisVideo.GetSignalingChannelEndpoint
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisVideo.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -110,12 +111,13 @@ instance Core.AWSRequest GetSignalingChannelEndpoint where
   type
     AWSResponse GetSignalingChannelEndpoint =
       GetSignalingChannelEndpointResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSignalingChannelEndpointResponse'
-            Prelude.<$> ( x Core..?> "ResourceEndpointList"
+            Prelude.<$> ( x Data..?> "ResourceEndpointList"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -133,23 +135,23 @@ instance Prelude.NFData GetSignalingChannelEndpoint where
       singleMasterChannelEndpointConfiguration
       `Prelude.seq` Prelude.rnf channelARN
 
-instance Core.ToHeaders GetSignalingChannelEndpoint where
+instance Data.ToHeaders GetSignalingChannelEndpoint where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON GetSignalingChannelEndpoint where
+instance Data.ToJSON GetSignalingChannelEndpoint where
   toJSON GetSignalingChannelEndpoint' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SingleMasterChannelEndpointConfiguration" Core..=)
+          [ ("SingleMasterChannelEndpointConfiguration" Data..=)
               Prelude.<$> singleMasterChannelEndpointConfiguration,
-            Prelude.Just ("ChannelARN" Core..= channelARN)
+            Prelude.Just ("ChannelARN" Data..= channelARN)
           ]
       )
 
-instance Core.ToPath GetSignalingChannelEndpoint where
+instance Data.ToPath GetSignalingChannelEndpoint where
   toPath = Prelude.const "/getSignalingChannelEndpoint"
 
-instance Core.ToQuery GetSignalingChannelEndpoint where
+instance Data.ToQuery GetSignalingChannelEndpoint where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetSignalingChannelEndpointResponse' smart constructor.

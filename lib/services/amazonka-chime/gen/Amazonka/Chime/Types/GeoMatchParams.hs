@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.Types.GeoMatchParams
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Chime.Types.GeoMatchParams where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The country and area code for a proxy phone number in a proxy phone
@@ -66,14 +67,14 @@ geoMatchParams_country = Lens.lens (\GeoMatchParams' {country} -> country) (\s@G
 geoMatchParams_areaCode :: Lens.Lens' GeoMatchParams Prelude.Text
 geoMatchParams_areaCode = Lens.lens (\GeoMatchParams' {areaCode} -> areaCode) (\s@GeoMatchParams' {} a -> s {areaCode = a} :: GeoMatchParams)
 
-instance Core.FromJSON GeoMatchParams where
+instance Data.FromJSON GeoMatchParams where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GeoMatchParams"
       ( \x ->
           GeoMatchParams'
-            Prelude.<$> (x Core..: "Country")
-            Prelude.<*> (x Core..: "AreaCode")
+            Prelude.<$> (x Data..: "Country")
+            Prelude.<*> (x Data..: "AreaCode")
       )
 
 instance Prelude.Hashable GeoMatchParams where
@@ -86,11 +87,11 @@ instance Prelude.NFData GeoMatchParams where
     Prelude.rnf country
       `Prelude.seq` Prelude.rnf areaCode
 
-instance Core.ToJSON GeoMatchParams where
+instance Data.ToJSON GeoMatchParams where
   toJSON GeoMatchParams' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Country" Core..= country),
-            Prelude.Just ("AreaCode" Core..= areaCode)
+          [ Prelude.Just ("Country" Data..= country),
+            Prelude.Just ("AreaCode" Data..= areaCode)
           ]
       )

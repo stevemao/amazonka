@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.DeleteTapeArchive
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.StorageGateway.DeleteTapeArchive
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -105,12 +106,13 @@ instance Core.AWSRequest DeleteTapeArchive where
   type
     AWSResponse DeleteTapeArchive =
       DeleteTapeArchiveResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteTapeArchiveResponse'
-            Prelude.<$> (x Core..?> "TapeARN")
+            Prelude.<$> (x Data..?> "TapeARN")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -125,35 +127,35 @@ instance Prelude.NFData DeleteTapeArchive where
     Prelude.rnf bypassGovernanceRetention
       `Prelude.seq` Prelude.rnf tapeARN
 
-instance Core.ToHeaders DeleteTapeArchive where
+instance Data.ToHeaders DeleteTapeArchive where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.DeleteTapeArchive" ::
+              Data.=# ( "StorageGateway_20130630.DeleteTapeArchive" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteTapeArchive where
+instance Data.ToJSON DeleteTapeArchive where
   toJSON DeleteTapeArchive' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("BypassGovernanceRetention" Core..=)
+          [ ("BypassGovernanceRetention" Data..=)
               Prelude.<$> bypassGovernanceRetention,
-            Prelude.Just ("TapeARN" Core..= tapeARN)
+            Prelude.Just ("TapeARN" Data..= tapeARN)
           ]
       )
 
-instance Core.ToPath DeleteTapeArchive where
+instance Data.ToPath DeleteTapeArchive where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteTapeArchive where
+instance Data.ToQuery DeleteTapeArchive where
   toQuery = Prelude.const Prelude.mempty
 
 -- | DeleteTapeArchiveOutput

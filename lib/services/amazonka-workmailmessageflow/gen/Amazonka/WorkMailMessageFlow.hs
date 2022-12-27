@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.WorkMailMessageFlow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,17 @@ module Amazonka.WorkMailMessageFlow
     -- * Errors
     -- $errors
 
-    -- ** MessageRejected
-    _MessageRejected,
-
     -- ** InvalidContentLocation
     _InvalidContentLocation,
 
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
-
     -- ** MessageFrozen
     _MessageFrozen,
+
+    -- ** MessageRejected
+    _MessageRejected,
+
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
 
     -- * Waiters
     -- $waiters
@@ -38,17 +38,17 @@ module Amazonka.WorkMailMessageFlow
     -- * Operations
     -- $operations
 
-    -- ** PutRawMessageContent
-    PutRawMessageContent (PutRawMessageContent'),
-    newPutRawMessageContent,
-    PutRawMessageContentResponse (PutRawMessageContentResponse'),
-    newPutRawMessageContentResponse,
-
     -- ** GetRawMessageContent
     GetRawMessageContent (GetRawMessageContent'),
     newGetRawMessageContent,
     GetRawMessageContentResponse (GetRawMessageContentResponse'),
     newGetRawMessageContentResponse,
+
+    -- ** PutRawMessageContent
+    PutRawMessageContent (PutRawMessageContent'),
+    newPutRawMessageContent,
+    PutRawMessageContentResponse (PutRawMessageContentResponse'),
+    newPutRawMessageContentResponse,
 
     -- * Types
 

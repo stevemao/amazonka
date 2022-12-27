@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AmplifyBackend.DeleteToken
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.AmplifyBackend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,12 +90,13 @@ deleteToken_appId = Lens.lens (\DeleteToken' {appId} -> appId) (\s@DeleteToken' 
 
 instance Core.AWSRequest DeleteToken where
   type AWSResponse DeleteToken = DeleteTokenResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteTokenResponse'
-            Prelude.<$> (x Core..?> "isSuccess")
+            Prelude.<$> (x Data..?> "isSuccess")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -108,31 +110,31 @@ instance Prelude.NFData DeleteToken where
     Prelude.rnf sessionId
       `Prelude.seq` Prelude.rnf appId
 
-instance Core.ToHeaders DeleteToken where
+instance Data.ToHeaders DeleteToken where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteToken where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON DeleteToken where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath DeleteToken where
+instance Data.ToPath DeleteToken where
   toPath DeleteToken' {..} =
     Prelude.mconcat
       [ "/backend/",
-        Core.toBS appId,
+        Data.toBS appId,
         "/challenge/",
-        Core.toBS sessionId,
+        Data.toBS sessionId,
         "/remove"
       ]
 
-instance Core.ToQuery DeleteToken where
+instance Data.ToQuery DeleteToken where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteTokenResponse' smart constructor.

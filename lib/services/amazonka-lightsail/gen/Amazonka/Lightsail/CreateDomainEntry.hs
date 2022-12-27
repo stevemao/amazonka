@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.CreateDomainEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ module Amazonka.Lightsail.CreateDomainEntry
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -105,12 +106,13 @@ instance Core.AWSRequest CreateDomainEntry where
   type
     AWSResponse CreateDomainEntry =
       CreateDomainEntryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateDomainEntryResponse'
-            Prelude.<$> (x Core..?> "operation")
+            Prelude.<$> (x Data..?> "operation")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -124,34 +126,34 @@ instance Prelude.NFData CreateDomainEntry where
     Prelude.rnf domainName
       `Prelude.seq` Prelude.rnf domainEntry
 
-instance Core.ToHeaders CreateDomainEntry where
+instance Data.ToHeaders CreateDomainEntry where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.CreateDomainEntry" ::
+              Data.=# ( "Lightsail_20161128.CreateDomainEntry" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateDomainEntry where
+instance Data.ToJSON CreateDomainEntry where
   toJSON CreateDomainEntry' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("domainName" Core..= domainName),
-            Prelude.Just ("domainEntry" Core..= domainEntry)
+          [ Prelude.Just ("domainName" Data..= domainName),
+            Prelude.Just ("domainEntry" Data..= domainEntry)
           ]
       )
 
-instance Core.ToPath CreateDomainEntry where
+instance Data.ToPath CreateDomainEntry where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateDomainEntry where
+instance Data.ToQuery CreateDomainEntry where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateDomainEntryResponse' smart constructor.

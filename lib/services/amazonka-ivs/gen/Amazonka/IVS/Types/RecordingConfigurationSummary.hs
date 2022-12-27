@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IVS.Types.RecordingConfigurationSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.IVS.Types.RecordingConfigurationSummary where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IVS.Types.DestinationConfiguration
 import Amazonka.IVS.Types.RecordingConfigurationState
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Summary information about a RecordingConfiguration.
@@ -31,7 +32,11 @@ import qualified Amazonka.Prelude as Prelude
 data RecordingConfigurationSummary = RecordingConfigurationSummary'
   { -- | Recording-configuration name. The value does not need to be unique.
     name :: Prelude.Maybe Prelude.Text,
-    -- | Array of 1-50 maps, each of the form @string:string (key:value)@.
+    -- | Array of 1-50 maps, each of the form @string:string (key:value)@. See
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+    -- for more information, including restrictions that apply to tags and
+    -- \"Tag naming limits and requirements\"; Amazon IVS has no
+    -- service-specific constraints beyond what is documented there.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | Recording-configuration ARN.
     arn :: Prelude.Text,
@@ -55,7 +60,11 @@ data RecordingConfigurationSummary = RecordingConfigurationSummary'
 --
 -- 'name', 'recordingConfigurationSummary_name' - Recording-configuration name. The value does not need to be unique.
 --
--- 'tags', 'recordingConfigurationSummary_tags' - Array of 1-50 maps, each of the form @string:string (key:value)@.
+-- 'tags', 'recordingConfigurationSummary_tags' - Array of 1-50 maps, each of the form @string:string (key:value)@. See
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+-- for more information, including restrictions that apply to tags and
+-- \"Tag naming limits and requirements\"; Amazon IVS has no
+-- service-specific constraints beyond what is documented there.
 --
 -- 'arn', 'recordingConfigurationSummary_arn' - Recording-configuration ARN.
 --
@@ -91,7 +100,11 @@ newRecordingConfigurationSummary
 recordingConfigurationSummary_name :: Lens.Lens' RecordingConfigurationSummary (Prelude.Maybe Prelude.Text)
 recordingConfigurationSummary_name = Lens.lens (\RecordingConfigurationSummary' {name} -> name) (\s@RecordingConfigurationSummary' {} a -> s {name = a} :: RecordingConfigurationSummary)
 
--- | Array of 1-50 maps, each of the form @string:string (key:value)@.
+-- | Array of 1-50 maps, each of the form @string:string (key:value)@. See
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+-- for more information, including restrictions that apply to tags and
+-- \"Tag naming limits and requirements\"; Amazon IVS has no
+-- service-specific constraints beyond what is documented there.
 recordingConfigurationSummary_tags :: Lens.Lens' RecordingConfigurationSummary (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 recordingConfigurationSummary_tags = Lens.lens (\RecordingConfigurationSummary' {tags} -> tags) (\s@RecordingConfigurationSummary' {} a -> s {tags = a} :: RecordingConfigurationSummary) Prelude.. Lens.mapping Lens.coerced
 
@@ -110,17 +123,17 @@ recordingConfigurationSummary_destinationConfiguration = Lens.lens (\RecordingCo
 recordingConfigurationSummary_state :: Lens.Lens' RecordingConfigurationSummary RecordingConfigurationState
 recordingConfigurationSummary_state = Lens.lens (\RecordingConfigurationSummary' {state} -> state) (\s@RecordingConfigurationSummary' {} a -> s {state = a} :: RecordingConfigurationSummary)
 
-instance Core.FromJSON RecordingConfigurationSummary where
+instance Data.FromJSON RecordingConfigurationSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RecordingConfigurationSummary"
       ( \x ->
           RecordingConfigurationSummary'
-            Prelude.<$> (x Core..:? "name")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "arn")
-            Prelude.<*> (x Core..: "destinationConfiguration")
-            Prelude.<*> (x Core..: "state")
+            Prelude.<$> (x Data..:? "name")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "arn")
+            Prelude.<*> (x Data..: "destinationConfiguration")
+            Prelude.<*> (x Data..: "state")
       )
 
 instance

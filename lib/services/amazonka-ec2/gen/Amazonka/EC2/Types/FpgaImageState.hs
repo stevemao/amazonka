@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.FpgaImageState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.FpgaImageState where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.FpgaImageStateCode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the state of the bitstream generation process for an Amazon
@@ -88,11 +89,11 @@ fpgaImageState_code = Lens.lens (\FpgaImageState' {code} -> code) (\s@FpgaImageS
 fpgaImageState_message :: Lens.Lens' FpgaImageState (Prelude.Maybe Prelude.Text)
 fpgaImageState_message = Lens.lens (\FpgaImageState' {message} -> message) (\s@FpgaImageState' {} a -> s {message = a} :: FpgaImageState)
 
-instance Core.FromXML FpgaImageState where
+instance Data.FromXML FpgaImageState where
   parseXML x =
     FpgaImageState'
-      Prelude.<$> (x Core..@? "code")
-      Prelude.<*> (x Core..@? "message")
+      Prelude.<$> (x Data..@? "code")
+      Prelude.<*> (x Data..@? "message")
 
 instance Prelude.Hashable FpgaImageState where
   hashWithSalt _salt FpgaImageState' {..} =

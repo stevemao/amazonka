@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SES.Types.Template
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SES.Types.Template where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The content of the email, composed of a subject line, an HTML part, and
@@ -28,13 +29,13 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newTemplate' smart constructor.
 data Template = Template'
-  { -- | The email body that will be visible to recipients whose email clients do
-    -- not display HTML.
-    textPart :: Prelude.Maybe Prelude.Text,
+  { -- | The HTML body of the email.
+    htmlPart :: Prelude.Maybe Prelude.Text,
     -- | The subject line of the email.
     subjectPart :: Prelude.Maybe Prelude.Text,
-    -- | The HTML body of the email.
-    htmlPart :: Prelude.Maybe Prelude.Text,
+    -- | The email body that will be visible to recipients whose email clients do
+    -- not display HTML.
+    textPart :: Prelude.Maybe Prelude.Text,
     -- | The name of the template. You will refer to this name when you send
     -- email using the @SendTemplatedEmail@ or @SendBulkTemplatedEmail@
     -- operations.
@@ -50,12 +51,12 @@ data Template = Template'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'textPart', 'template_textPart' - The email body that will be visible to recipients whose email clients do
--- not display HTML.
+-- 'htmlPart', 'template_htmlPart' - The HTML body of the email.
 --
 -- 'subjectPart', 'template_subjectPart' - The subject line of the email.
 --
--- 'htmlPart', 'template_htmlPart' - The HTML body of the email.
+-- 'textPart', 'template_textPart' - The email body that will be visible to recipients whose email clients do
+-- not display HTML.
 --
 -- 'templateName', 'template_templateName' - The name of the template. You will refer to this name when you send
 -- email using the @SendTemplatedEmail@ or @SendBulkTemplatedEmail@
@@ -66,24 +67,24 @@ newTemplate ::
   Template
 newTemplate pTemplateName_ =
   Template'
-    { textPart = Prelude.Nothing,
+    { htmlPart = Prelude.Nothing,
       subjectPart = Prelude.Nothing,
-      htmlPart = Prelude.Nothing,
+      textPart = Prelude.Nothing,
       templateName = pTemplateName_
     }
 
--- | The email body that will be visible to recipients whose email clients do
--- not display HTML.
-template_textPart :: Lens.Lens' Template (Prelude.Maybe Prelude.Text)
-template_textPart = Lens.lens (\Template' {textPart} -> textPart) (\s@Template' {} a -> s {textPart = a} :: Template)
+-- | The HTML body of the email.
+template_htmlPart :: Lens.Lens' Template (Prelude.Maybe Prelude.Text)
+template_htmlPart = Lens.lens (\Template' {htmlPart} -> htmlPart) (\s@Template' {} a -> s {htmlPart = a} :: Template)
 
 -- | The subject line of the email.
 template_subjectPart :: Lens.Lens' Template (Prelude.Maybe Prelude.Text)
 template_subjectPart = Lens.lens (\Template' {subjectPart} -> subjectPart) (\s@Template' {} a -> s {subjectPart = a} :: Template)
 
--- | The HTML body of the email.
-template_htmlPart :: Lens.Lens' Template (Prelude.Maybe Prelude.Text)
-template_htmlPart = Lens.lens (\Template' {htmlPart} -> htmlPart) (\s@Template' {} a -> s {htmlPart = a} :: Template)
+-- | The email body that will be visible to recipients whose email clients do
+-- not display HTML.
+template_textPart :: Lens.Lens' Template (Prelude.Maybe Prelude.Text)
+template_textPart = Lens.lens (\Template' {textPart} -> textPart) (\s@Template' {} a -> s {textPart = a} :: Template)
 
 -- | The name of the template. You will refer to this name when you send
 -- email using the @SendTemplatedEmail@ or @SendBulkTemplatedEmail@
@@ -91,33 +92,33 @@ template_htmlPart = Lens.lens (\Template' {htmlPart} -> htmlPart) (\s@Template' 
 template_templateName :: Lens.Lens' Template Prelude.Text
 template_templateName = Lens.lens (\Template' {templateName} -> templateName) (\s@Template' {} a -> s {templateName = a} :: Template)
 
-instance Core.FromXML Template where
+instance Data.FromXML Template where
   parseXML x =
     Template'
-      Prelude.<$> (x Core..@? "TextPart")
-      Prelude.<*> (x Core..@? "SubjectPart")
-      Prelude.<*> (x Core..@? "HtmlPart")
-      Prelude.<*> (x Core..@ "TemplateName")
+      Prelude.<$> (x Data..@? "HtmlPart")
+      Prelude.<*> (x Data..@? "SubjectPart")
+      Prelude.<*> (x Data..@? "TextPart")
+      Prelude.<*> (x Data..@ "TemplateName")
 
 instance Prelude.Hashable Template where
   hashWithSalt _salt Template' {..} =
-    _salt `Prelude.hashWithSalt` textPart
+    _salt `Prelude.hashWithSalt` htmlPart
       `Prelude.hashWithSalt` subjectPart
-      `Prelude.hashWithSalt` htmlPart
+      `Prelude.hashWithSalt` textPart
       `Prelude.hashWithSalt` templateName
 
 instance Prelude.NFData Template where
   rnf Template' {..} =
-    Prelude.rnf textPart
+    Prelude.rnf htmlPart
       `Prelude.seq` Prelude.rnf subjectPart
-      `Prelude.seq` Prelude.rnf htmlPart
+      `Prelude.seq` Prelude.rnf textPart
       `Prelude.seq` Prelude.rnf templateName
 
-instance Core.ToQuery Template where
+instance Data.ToQuery Template where
   toQuery Template' {..} =
     Prelude.mconcat
-      [ "TextPart" Core.=: textPart,
-        "SubjectPart" Core.=: subjectPart,
-        "HtmlPart" Core.=: htmlPart,
-        "TemplateName" Core.=: templateName
+      [ "HtmlPart" Data.=: htmlPart,
+        "SubjectPart" Data.=: subjectPart,
+        "TextPart" Data.=: textPart,
+        "TemplateName" Data.=: templateName
       ]

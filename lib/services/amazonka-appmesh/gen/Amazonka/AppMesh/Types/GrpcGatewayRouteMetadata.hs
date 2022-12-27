@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.GrpcGatewayRouteMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppMesh.Types.GrpcGatewayRouteMetadata where
 
 import Amazonka.AppMesh.Types.GrpcMetadataMatchMethod
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object representing the metadata of the gateway route.
@@ -76,15 +77,15 @@ grpcGatewayRouteMetadata_match = Lens.lens (\GrpcGatewayRouteMetadata' {match} -
 grpcGatewayRouteMetadata_name :: Lens.Lens' GrpcGatewayRouteMetadata Prelude.Text
 grpcGatewayRouteMetadata_name = Lens.lens (\GrpcGatewayRouteMetadata' {name} -> name) (\s@GrpcGatewayRouteMetadata' {} a -> s {name = a} :: GrpcGatewayRouteMetadata)
 
-instance Core.FromJSON GrpcGatewayRouteMetadata where
+instance Data.FromJSON GrpcGatewayRouteMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GrpcGatewayRouteMetadata"
       ( \x ->
           GrpcGatewayRouteMetadata'
-            Prelude.<$> (x Core..:? "invert")
-            Prelude.<*> (x Core..:? "match")
-            Prelude.<*> (x Core..: "name")
+            Prelude.<$> (x Data..:? "invert")
+            Prelude.<*> (x Data..:? "match")
+            Prelude.<*> (x Data..: "name")
       )
 
 instance Prelude.Hashable GrpcGatewayRouteMetadata where
@@ -99,12 +100,12 @@ instance Prelude.NFData GrpcGatewayRouteMetadata where
       `Prelude.seq` Prelude.rnf match
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToJSON GrpcGatewayRouteMetadata where
+instance Data.ToJSON GrpcGatewayRouteMetadata where
   toJSON GrpcGatewayRouteMetadata' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("invert" Core..=) Prelude.<$> invert,
-            ("match" Core..=) Prelude.<$> match,
-            Prelude.Just ("name" Core..= name)
+          [ ("invert" Data..=) Prelude.<$> invert,
+            ("match" Data..=) Prelude.<$> match,
+            Prelude.Just ("name" Data..= name)
           ]
       )

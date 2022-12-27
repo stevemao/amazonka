@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DLM.GetLifecyclePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.DLM.GetLifecyclePolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DLM.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,12 +78,13 @@ instance Core.AWSRequest GetLifecyclePolicy where
   type
     AWSResponse GetLifecyclePolicy =
       GetLifecyclePolicyResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetLifecyclePolicyResponse'
-            Prelude.<$> (x Core..?> "Policy")
+            Prelude.<$> (x Data..?> "Policy")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -93,23 +95,23 @@ instance Prelude.Hashable GetLifecyclePolicy where
 instance Prelude.NFData GetLifecyclePolicy where
   rnf GetLifecyclePolicy' {..} = Prelude.rnf policyId
 
-instance Core.ToHeaders GetLifecyclePolicy where
+instance Data.ToHeaders GetLifecyclePolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetLifecyclePolicy where
+instance Data.ToPath GetLifecyclePolicy where
   toPath GetLifecyclePolicy' {..} =
     Prelude.mconcat
-      ["/policies/", Core.toBS policyId, "/"]
+      ["/policies/", Data.toBS policyId, "/"]
 
-instance Core.ToQuery GetLifecyclePolicy where
+instance Data.ToQuery GetLifecyclePolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetLifecyclePolicyResponse' smart constructor.

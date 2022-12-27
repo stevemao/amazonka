@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECR.PutRegistryPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,15 +40,16 @@ module Amazonka.ECR.PutRegistryPolicy
     newPutRegistryPolicyResponse,
 
     -- * Response Lenses
-    putRegistryPolicyResponse_registryId,
     putRegistryPolicyResponse_policyText,
+    putRegistryPolicyResponse_registryId,
     putRegistryPolicyResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,13 +94,14 @@ instance Core.AWSRequest PutRegistryPolicy where
   type
     AWSResponse PutRegistryPolicy =
       PutRegistryPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutRegistryPolicyResponse'
-            Prelude.<$> (x Core..?> "registryId")
-            Prelude.<*> (x Core..?> "policyText")
+            Prelude.<$> (x Data..?> "policyText")
+            Prelude.<*> (x Data..?> "registryId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -110,40 +112,40 @@ instance Prelude.Hashable PutRegistryPolicy where
 instance Prelude.NFData PutRegistryPolicy where
   rnf PutRegistryPolicy' {..} = Prelude.rnf policyText
 
-instance Core.ToHeaders PutRegistryPolicy where
+instance Data.ToHeaders PutRegistryPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerRegistry_V20150921.PutRegistryPolicy" ::
+              Data.=# ( "AmazonEC2ContainerRegistry_V20150921.PutRegistryPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutRegistryPolicy where
+instance Data.ToJSON PutRegistryPolicy where
   toJSON PutRegistryPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("policyText" Core..= policyText)]
+          [Prelude.Just ("policyText" Data..= policyText)]
       )
 
-instance Core.ToPath PutRegistryPolicy where
+instance Data.ToPath PutRegistryPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutRegistryPolicy where
+instance Data.ToQuery PutRegistryPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutRegistryPolicyResponse' smart constructor.
 data PutRegistryPolicyResponse = PutRegistryPolicyResponse'
-  { -- | The registry ID.
-    registryId :: Prelude.Maybe Prelude.Text,
-    -- | The JSON policy text for your registry.
+  { -- | The JSON policy text for your registry.
     policyText :: Prelude.Maybe Prelude.Text,
+    -- | The registry ID.
+    registryId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -157,9 +159,9 @@ data PutRegistryPolicyResponse = PutRegistryPolicyResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'registryId', 'putRegistryPolicyResponse_registryId' - The registry ID.
---
 -- 'policyText', 'putRegistryPolicyResponse_policyText' - The JSON policy text for your registry.
+--
+-- 'registryId', 'putRegistryPolicyResponse_registryId' - The registry ID.
 --
 -- 'httpStatus', 'putRegistryPolicyResponse_httpStatus' - The response's http status code.
 newPutRegistryPolicyResponse ::
@@ -168,19 +170,19 @@ newPutRegistryPolicyResponse ::
   PutRegistryPolicyResponse
 newPutRegistryPolicyResponse pHttpStatus_ =
   PutRegistryPolicyResponse'
-    { registryId =
+    { policyText =
         Prelude.Nothing,
-      policyText = Prelude.Nothing,
+      registryId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The registry ID.
-putRegistryPolicyResponse_registryId :: Lens.Lens' PutRegistryPolicyResponse (Prelude.Maybe Prelude.Text)
-putRegistryPolicyResponse_registryId = Lens.lens (\PutRegistryPolicyResponse' {registryId} -> registryId) (\s@PutRegistryPolicyResponse' {} a -> s {registryId = a} :: PutRegistryPolicyResponse)
 
 -- | The JSON policy text for your registry.
 putRegistryPolicyResponse_policyText :: Lens.Lens' PutRegistryPolicyResponse (Prelude.Maybe Prelude.Text)
 putRegistryPolicyResponse_policyText = Lens.lens (\PutRegistryPolicyResponse' {policyText} -> policyText) (\s@PutRegistryPolicyResponse' {} a -> s {policyText = a} :: PutRegistryPolicyResponse)
+
+-- | The registry ID.
+putRegistryPolicyResponse_registryId :: Lens.Lens' PutRegistryPolicyResponse (Prelude.Maybe Prelude.Text)
+putRegistryPolicyResponse_registryId = Lens.lens (\PutRegistryPolicyResponse' {registryId} -> registryId) (\s@PutRegistryPolicyResponse' {} a -> s {registryId = a} :: PutRegistryPolicyResponse)
 
 -- | The response's http status code.
 putRegistryPolicyResponse_httpStatus :: Lens.Lens' PutRegistryPolicyResponse Prelude.Int
@@ -188,6 +190,6 @@ putRegistryPolicyResponse_httpStatus = Lens.lens (\PutRegistryPolicyResponse' {h
 
 instance Prelude.NFData PutRegistryPolicyResponse where
   rnf PutRegistryPolicyResponse' {..} =
-    Prelude.rnf registryId
-      `Prelude.seq` Prelude.rnf policyText
+    Prelude.rnf policyText
+      `Prelude.seq` Prelude.rnf registryId
       `Prelude.seq` Prelude.rnf httpStatus

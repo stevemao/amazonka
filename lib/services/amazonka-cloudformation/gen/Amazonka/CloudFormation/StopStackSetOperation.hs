@@ -14,14 +14,15 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.StopStackSetOperation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Stops an in-progress operation on a stack set and its associated stack
--- instances.
+-- instances. StackSets will cancel all the unstarted stack instance
+-- deployments and wait for those are in-progress to complete.
 module Amazonka.CloudFormation.StopStackSetOperation
   ( -- * Creating a Request
     StopStackSetOperation (..),
@@ -43,7 +44,8 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -149,7 +151,8 @@ instance Core.AWSRequest StopStackSetOperation where
   type
     AWSResponse StopStackSetOperation =
       StopStackSetOperationResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "StopStackSetOperationResult"
@@ -170,22 +173,22 @@ instance Prelude.NFData StopStackSetOperation where
       `Prelude.seq` Prelude.rnf stackSetName
       `Prelude.seq` Prelude.rnf operationId
 
-instance Core.ToHeaders StopStackSetOperation where
+instance Data.ToHeaders StopStackSetOperation where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath StopStackSetOperation where
+instance Data.ToPath StopStackSetOperation where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopStackSetOperation where
+instance Data.ToQuery StopStackSetOperation where
   toQuery StopStackSetOperation' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("StopStackSetOperation" :: Prelude.ByteString),
+          Data.=: ("StopStackSetOperation" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
-        "CallAs" Core.=: callAs,
-        "StackSetName" Core.=: stackSetName,
-        "OperationId" Core.=: operationId
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "CallAs" Data.=: callAs,
+        "StackSetName" Data.=: stackSetName,
+        "OperationId" Data.=: operationId
       ]
 
 -- | /See:/ 'newStopStackSetOperationResponse' smart constructor.

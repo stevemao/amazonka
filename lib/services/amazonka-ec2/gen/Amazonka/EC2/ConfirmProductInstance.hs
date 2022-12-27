@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ConfirmProductInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,15 +39,16 @@ module Amazonka.EC2.ConfirmProductInstance
     newConfirmProductInstanceResponse,
 
     -- * Response Lenses
-    confirmProductInstanceResponse_return,
     confirmProductInstanceResponse_ownerId,
+    confirmProductInstanceResponse_return,
     confirmProductInstanceResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -114,13 +115,14 @@ instance Core.AWSRequest ConfirmProductInstance where
   type
     AWSResponse ConfirmProductInstance =
       ConfirmProductInstanceResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ConfirmProductInstanceResponse'
-            Prelude.<$> (x Core..@? "return")
-            Prelude.<*> (x Core..@? "ownerId")
+            Prelude.<$> (x Data..@? "ownerId")
+            Prelude.<*> (x Data..@? "return")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -136,33 +138,33 @@ instance Prelude.NFData ConfirmProductInstance where
       `Prelude.seq` Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf productCode
 
-instance Core.ToHeaders ConfirmProductInstance where
+instance Data.ToHeaders ConfirmProductInstance where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ConfirmProductInstance where
+instance Data.ToPath ConfirmProductInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ConfirmProductInstance where
+instance Data.ToQuery ConfirmProductInstance where
   toQuery ConfirmProductInstance' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ConfirmProductInstance" :: Prelude.ByteString),
+          Data.=: ("ConfirmProductInstance" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "InstanceId" Core.=: instanceId,
-        "ProductCode" Core.=: productCode
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "InstanceId" Data.=: instanceId,
+        "ProductCode" Data.=: productCode
       ]
 
 -- | /See:/ 'newConfirmProductInstanceResponse' smart constructor.
 data ConfirmProductInstanceResponse = ConfirmProductInstanceResponse'
-  { -- | The return value of the request. Returns @true@ if the specified product
+  { -- | The Amazon Web Services account ID of the instance owner. This is only
+    -- present if the product code is attached to the instance.
+    ownerId :: Prelude.Maybe Prelude.Text,
+    -- | The return value of the request. Returns @true@ if the specified product
     -- code is owned by the requester and associated with the specified
     -- instance.
     return' :: Prelude.Maybe Prelude.Bool,
-    -- | The Amazon Web Services account ID of the instance owner. This is only
-    -- present if the product code is attached to the instance.
-    ownerId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -176,12 +178,12 @@ data ConfirmProductInstanceResponse = ConfirmProductInstanceResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'ownerId', 'confirmProductInstanceResponse_ownerId' - The Amazon Web Services account ID of the instance owner. This is only
+-- present if the product code is attached to the instance.
+--
 -- 'return'', 'confirmProductInstanceResponse_return' - The return value of the request. Returns @true@ if the specified product
 -- code is owned by the requester and associated with the specified
 -- instance.
---
--- 'ownerId', 'confirmProductInstanceResponse_ownerId' - The Amazon Web Services account ID of the instance owner. This is only
--- present if the product code is attached to the instance.
 --
 -- 'httpStatus', 'confirmProductInstanceResponse_httpStatus' - The response's http status code.
 newConfirmProductInstanceResponse ::
@@ -190,22 +192,22 @@ newConfirmProductInstanceResponse ::
   ConfirmProductInstanceResponse
 newConfirmProductInstanceResponse pHttpStatus_ =
   ConfirmProductInstanceResponse'
-    { return' =
+    { ownerId =
         Prelude.Nothing,
-      ownerId = Prelude.Nothing,
+      return' = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The Amazon Web Services account ID of the instance owner. This is only
+-- present if the product code is attached to the instance.
+confirmProductInstanceResponse_ownerId :: Lens.Lens' ConfirmProductInstanceResponse (Prelude.Maybe Prelude.Text)
+confirmProductInstanceResponse_ownerId = Lens.lens (\ConfirmProductInstanceResponse' {ownerId} -> ownerId) (\s@ConfirmProductInstanceResponse' {} a -> s {ownerId = a} :: ConfirmProductInstanceResponse)
 
 -- | The return value of the request. Returns @true@ if the specified product
 -- code is owned by the requester and associated with the specified
 -- instance.
 confirmProductInstanceResponse_return :: Lens.Lens' ConfirmProductInstanceResponse (Prelude.Maybe Prelude.Bool)
 confirmProductInstanceResponse_return = Lens.lens (\ConfirmProductInstanceResponse' {return'} -> return') (\s@ConfirmProductInstanceResponse' {} a -> s {return' = a} :: ConfirmProductInstanceResponse)
-
--- | The Amazon Web Services account ID of the instance owner. This is only
--- present if the product code is attached to the instance.
-confirmProductInstanceResponse_ownerId :: Lens.Lens' ConfirmProductInstanceResponse (Prelude.Maybe Prelude.Text)
-confirmProductInstanceResponse_ownerId = Lens.lens (\ConfirmProductInstanceResponse' {ownerId} -> ownerId) (\s@ConfirmProductInstanceResponse' {} a -> s {ownerId = a} :: ConfirmProductInstanceResponse)
 
 -- | The response's http status code.
 confirmProductInstanceResponse_httpStatus :: Lens.Lens' ConfirmProductInstanceResponse Prelude.Int
@@ -216,6 +218,6 @@ instance
     ConfirmProductInstanceResponse
   where
   rnf ConfirmProductInstanceResponse' {..} =
-    Prelude.rnf return'
-      `Prelude.seq` Prelude.rnf ownerId
+    Prelude.rnf ownerId
+      `Prelude.seq` Prelude.rnf return'
       `Prelude.seq` Prelude.rnf httpStatus

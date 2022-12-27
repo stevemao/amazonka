@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.AnalyticsAndOperator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.AnalyticsAndOperator where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.Tag
@@ -69,12 +70,12 @@ analyticsAndOperator_prefix = Lens.lens (\AnalyticsAndOperator' {prefix} -> pref
 analyticsAndOperator_tags :: Lens.Lens' AnalyticsAndOperator (Prelude.Maybe [Tag])
 analyticsAndOperator_tags = Lens.lens (\AnalyticsAndOperator' {tags} -> tags) (\s@AnalyticsAndOperator' {} a -> s {tags = a} :: AnalyticsAndOperator) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML AnalyticsAndOperator where
+instance Data.FromXML AnalyticsAndOperator where
   parseXML x =
     AnalyticsAndOperator'
-      Prelude.<$> (x Core..@? "Prefix")
-      Prelude.<*> ( x Core..@? "Tag" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "Tag")
+      Prelude.<$> (x Data..@? "Prefix")
+      Prelude.<*> ( x Data..@? "Tag" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "Tag")
                   )
 
 instance Prelude.Hashable AnalyticsAndOperator where
@@ -86,10 +87,10 @@ instance Prelude.NFData AnalyticsAndOperator where
   rnf AnalyticsAndOperator' {..} =
     Prelude.rnf prefix `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToXML AnalyticsAndOperator where
+instance Data.ToXML AnalyticsAndOperator where
   toXML AnalyticsAndOperator' {..} =
     Prelude.mconcat
-      [ "Prefix" Core.@= prefix,
+      [ "Prefix" Data.@= prefix,
         "Tag"
-          Core.@= Core.toXML (Core.toXMLList "Tag" Prelude.<$> tags)
+          Data.@= Data.toXML (Data.toXMLList "Tag" Prelude.<$> tags)
       ]

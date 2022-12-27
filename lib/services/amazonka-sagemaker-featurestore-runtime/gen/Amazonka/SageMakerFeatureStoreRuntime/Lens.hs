@@ -6,22 +6,13 @@
 
 -- |
 -- Module      : Amazonka.SageMakerFeatureStoreRuntime.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 module Amazonka.SageMakerFeatureStoreRuntime.Lens
   ( -- * Operations
-
-    -- ** PutRecord
-    putRecord_featureGroupName,
-    putRecord_record,
-
-    -- ** DeleteRecord
-    deleteRecord_featureGroupName,
-    deleteRecord_recordIdentifierValueAsString,
-    deleteRecord_eventTime,
 
     -- ** BatchGetRecord
     batchGetRecord_identifiers,
@@ -30,12 +21,23 @@ module Amazonka.SageMakerFeatureStoreRuntime.Lens
     batchGetRecordResponse_errors,
     batchGetRecordResponse_unprocessedIdentifiers,
 
+    -- ** DeleteRecord
+    deleteRecord_targetStores,
+    deleteRecord_featureGroupName,
+    deleteRecord_recordIdentifierValueAsString,
+    deleteRecord_eventTime,
+
     -- ** GetRecord
     getRecord_featureNames,
     getRecord_featureGroupName,
     getRecord_recordIdentifierValueAsString,
     getRecordResponse_record,
     getRecordResponse_httpStatus,
+
+    -- ** PutRecord
+    putRecord_targetStores,
+    putRecord_featureGroupName,
+    putRecord_record,
 
     -- * Types
 

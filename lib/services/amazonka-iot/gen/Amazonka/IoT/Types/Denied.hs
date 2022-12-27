@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.Denied
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,21 +20,22 @@
 module Amazonka.IoT.Types.Denied where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.ExplicitDeny
 import Amazonka.IoT.Types.ImplicitDeny
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information that denied the authorization.
 --
 -- /See:/ 'newDenied' smart constructor.
 data Denied = Denied'
-  { -- | Information that implicitly denies the authorization. When a policy
+  { -- | Information that explicitly denies the authorization.
+    explicitDeny :: Prelude.Maybe ExplicitDeny,
+    -- | Information that implicitly denies the authorization. When a policy
     -- doesn\'t explicitly deny or allow an action on a resource it is
     -- considered an implicit deny.
-    implicitDeny :: Prelude.Maybe ImplicitDeny,
-    -- | Information that explicitly denies the authorization.
-    explicitDeny :: Prelude.Maybe ExplicitDeny
+    implicitDeny :: Prelude.Maybe ImplicitDeny
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,18 +47,22 @@ data Denied = Denied'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'explicitDeny', 'denied_explicitDeny' - Information that explicitly denies the authorization.
+--
 -- 'implicitDeny', 'denied_implicitDeny' - Information that implicitly denies the authorization. When a policy
 -- doesn\'t explicitly deny or allow an action on a resource it is
 -- considered an implicit deny.
---
--- 'explicitDeny', 'denied_explicitDeny' - Information that explicitly denies the authorization.
 newDenied ::
   Denied
 newDenied =
   Denied'
-    { implicitDeny = Prelude.Nothing,
-      explicitDeny = Prelude.Nothing
+    { explicitDeny = Prelude.Nothing,
+      implicitDeny = Prelude.Nothing
     }
+
+-- | Information that explicitly denies the authorization.
+denied_explicitDeny :: Lens.Lens' Denied (Prelude.Maybe ExplicitDeny)
+denied_explicitDeny = Lens.lens (\Denied' {explicitDeny} -> explicitDeny) (\s@Denied' {} a -> s {explicitDeny = a} :: Denied)
 
 -- | Information that implicitly denies the authorization. When a policy
 -- doesn\'t explicitly deny or allow an action on a resource it is
@@ -65,26 +70,22 @@ newDenied =
 denied_implicitDeny :: Lens.Lens' Denied (Prelude.Maybe ImplicitDeny)
 denied_implicitDeny = Lens.lens (\Denied' {implicitDeny} -> implicitDeny) (\s@Denied' {} a -> s {implicitDeny = a} :: Denied)
 
--- | Information that explicitly denies the authorization.
-denied_explicitDeny :: Lens.Lens' Denied (Prelude.Maybe ExplicitDeny)
-denied_explicitDeny = Lens.lens (\Denied' {explicitDeny} -> explicitDeny) (\s@Denied' {} a -> s {explicitDeny = a} :: Denied)
-
-instance Core.FromJSON Denied where
+instance Data.FromJSON Denied where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Denied"
       ( \x ->
           Denied'
-            Prelude.<$> (x Core..:? "implicitDeny")
-            Prelude.<*> (x Core..:? "explicitDeny")
+            Prelude.<$> (x Data..:? "explicitDeny")
+            Prelude.<*> (x Data..:? "implicitDeny")
       )
 
 instance Prelude.Hashable Denied where
   hashWithSalt _salt Denied' {..} =
-    _salt `Prelude.hashWithSalt` implicitDeny
-      `Prelude.hashWithSalt` explicitDeny
+    _salt `Prelude.hashWithSalt` explicitDeny
+      `Prelude.hashWithSalt` implicitDeny
 
 instance Prelude.NFData Denied where
   rnf Denied' {..} =
-    Prelude.rnf implicitDeny
-      `Prelude.seq` Prelude.rnf explicitDeny
+    Prelude.rnf explicitDeny
+      `Prelude.seq` Prelude.rnf implicitDeny

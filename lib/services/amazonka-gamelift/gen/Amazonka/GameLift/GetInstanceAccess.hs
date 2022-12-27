@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.GetInstanceAccess
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,15 +30,14 @@
 -- Remote Desktop client. For a Linux instance, GameLift returns a user
 -- name and RSA private key, also as strings, for use with an SSH client.
 -- The private key must be saved in the proper format to a @.pem@ file
--- before using. If you\'re making this request using the AWS CLI, saving
--- the secret can be handled as part of the @GetInstanceAccess@ request, as
+-- before using. If you\'re making this request using the CLI, saving the
+-- secret can be handled as part of the @GetInstanceAccess@ request, as
 -- shown in one of the examples for this operation.
 --
 -- To request access to a specific instance, specify the IDs of both the
 -- instance and the fleet it belongs to. You can retrieve a fleet\'s
--- instance IDs by calling DescribeInstances. If successful, an
--- InstanceAccess object is returned that contains the instance\'s IP
--- address and a set of credentials.
+-- instance IDs by calling
+-- <https://docs.aws.amazon.com/gamelift/latest/apireference/API_DescribeInstances.html DescribeInstances>.
 --
 -- __Learn more__
 --
@@ -48,7 +47,6 @@
 --
 -- __Related actions__
 --
--- DescribeInstances | GetInstanceAccess | DescribeEC2InstanceLimits |
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.GetInstanceAccess
   ( -- * Creating a Request
@@ -70,15 +68,14 @@ module Amazonka.GameLift.GetInstanceAccess
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newGetInstanceAccess' smart constructor.
+-- | /See:/ 'newGetInstanceAccess' smart constructor.
 data GetInstanceAccess = GetInstanceAccess'
   { -- | A unique identifier for the fleet that contains the instance you want
     -- access to. You can use either the fleet ID or ARN value. The fleet can
@@ -137,12 +134,13 @@ instance Core.AWSRequest GetInstanceAccess where
   type
     AWSResponse GetInstanceAccess =
       GetInstanceAccessResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetInstanceAccessResponse'
-            Prelude.<$> (x Core..?> "InstanceAccess")
+            Prelude.<$> (x Data..?> "InstanceAccess")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -156,37 +154,35 @@ instance Prelude.NFData GetInstanceAccess where
     Prelude.rnf fleetId
       `Prelude.seq` Prelude.rnf instanceId
 
-instance Core.ToHeaders GetInstanceAccess where
+instance Data.ToHeaders GetInstanceAccess where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("GameLift.GetInstanceAccess" :: Prelude.ByteString),
+              Data.=# ("GameLift.GetInstanceAccess" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetInstanceAccess where
+instance Data.ToJSON GetInstanceAccess where
   toJSON GetInstanceAccess' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("FleetId" Core..= fleetId),
-            Prelude.Just ("InstanceId" Core..= instanceId)
+          [ Prelude.Just ("FleetId" Data..= fleetId),
+            Prelude.Just ("InstanceId" Data..= instanceId)
           ]
       )
 
-instance Core.ToPath GetInstanceAccess where
+instance Data.ToPath GetInstanceAccess where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetInstanceAccess where
+instance Data.ToQuery GetInstanceAccess where
   toQuery = Prelude.const Prelude.mempty
 
--- | Represents the returned data in response to a request operation.
---
--- /See:/ 'newGetInstanceAccessResponse' smart constructor.
+-- | /See:/ 'newGetInstanceAccessResponse' smart constructor.
 data GetInstanceAccessResponse = GetInstanceAccessResponse'
   { -- | The connection information for a fleet instance, including IP address
     -- and access credentials.

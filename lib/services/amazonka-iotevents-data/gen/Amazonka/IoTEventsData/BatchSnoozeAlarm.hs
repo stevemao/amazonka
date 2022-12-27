@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEventsData.BatchSnoozeAlarm
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.IoTEventsData.BatchSnoozeAlarm
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEventsData.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,12 +85,13 @@ instance Core.AWSRequest BatchSnoozeAlarm where
   type
     AWSResponse BatchSnoozeAlarm =
       BatchSnoozeAlarmResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchSnoozeAlarmResponse'
-            Prelude.<$> (x Core..?> "errorEntries" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "errorEntries" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -101,24 +103,24 @@ instance Prelude.NFData BatchSnoozeAlarm where
   rnf BatchSnoozeAlarm' {..} =
     Prelude.rnf snoozeActionRequests
 
-instance Core.ToHeaders BatchSnoozeAlarm where
+instance Data.ToHeaders BatchSnoozeAlarm where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON BatchSnoozeAlarm where
+instance Data.ToJSON BatchSnoozeAlarm where
   toJSON BatchSnoozeAlarm' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "snoozeActionRequests"
-                  Core..= snoozeActionRequests
+                  Data..= snoozeActionRequests
               )
           ]
       )
 
-instance Core.ToPath BatchSnoozeAlarm where
+instance Data.ToPath BatchSnoozeAlarm where
   toPath = Prelude.const "/alarms/snooze"
 
-instance Core.ToQuery BatchSnoozeAlarm where
+instance Data.ToQuery BatchSnoozeAlarm where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchSnoozeAlarmResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsOpenSearchServiceDomainClusterConfigZoneAwarenessConfigDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsOpenSearchServiceDomainClusterConfigZoneAwarenessConfigDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration options for zone awareness.
@@ -28,7 +29,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newAwsOpenSearchServiceDomainClusterConfigZoneAwarenessConfigDetails' smart constructor.
 data AwsOpenSearchServiceDomainClusterConfigZoneAwarenessConfigDetails = AwsOpenSearchServiceDomainClusterConfigZoneAwarenessConfigDetails'
   { -- | The number of Availability Zones that the domain uses. Valid values are
-    -- 2 and 3. The default is 2.
+    -- @2@ or @3@. The default is @2@.
     availabilityZoneCount :: Prelude.Maybe Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -42,7 +43,7 @@ data AwsOpenSearchServiceDomainClusterConfigZoneAwarenessConfigDetails = AwsOpen
 -- for backwards compatibility:
 --
 -- 'availabilityZoneCount', 'awsOpenSearchServiceDomainClusterConfigZoneAwarenessConfigDetails_availabilityZoneCount' - The number of Availability Zones that the domain uses. Valid values are
--- 2 and 3. The default is 2.
+-- @2@ or @3@. The default is @2@.
 newAwsOpenSearchServiceDomainClusterConfigZoneAwarenessConfigDetails ::
   AwsOpenSearchServiceDomainClusterConfigZoneAwarenessConfigDetails
 newAwsOpenSearchServiceDomainClusterConfigZoneAwarenessConfigDetails =
@@ -52,20 +53,20 @@ newAwsOpenSearchServiceDomainClusterConfigZoneAwarenessConfigDetails =
     }
 
 -- | The number of Availability Zones that the domain uses. Valid values are
--- 2 and 3. The default is 2.
+-- @2@ or @3@. The default is @2@.
 awsOpenSearchServiceDomainClusterConfigZoneAwarenessConfigDetails_availabilityZoneCount :: Lens.Lens' AwsOpenSearchServiceDomainClusterConfigZoneAwarenessConfigDetails (Prelude.Maybe Prelude.Int)
 awsOpenSearchServiceDomainClusterConfigZoneAwarenessConfigDetails_availabilityZoneCount = Lens.lens (\AwsOpenSearchServiceDomainClusterConfigZoneAwarenessConfigDetails' {availabilityZoneCount} -> availabilityZoneCount) (\s@AwsOpenSearchServiceDomainClusterConfigZoneAwarenessConfigDetails' {} a -> s {availabilityZoneCount = a} :: AwsOpenSearchServiceDomainClusterConfigZoneAwarenessConfigDetails)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsOpenSearchServiceDomainClusterConfigZoneAwarenessConfigDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsOpenSearchServiceDomainClusterConfigZoneAwarenessConfigDetails"
       ( \x ->
           AwsOpenSearchServiceDomainClusterConfigZoneAwarenessConfigDetails'
-            Prelude.<$> (x Core..:? "AvailabilityZoneCount")
+            Prelude.<$> (x Data..:? "AvailabilityZoneCount")
       )
 
 instance
@@ -86,14 +87,14 @@ instance
       Prelude.rnf availabilityZoneCount
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsOpenSearchServiceDomainClusterConfigZoneAwarenessConfigDetails
   where
   toJSON
     AwsOpenSearchServiceDomainClusterConfigZoneAwarenessConfigDetails' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("AvailabilityZoneCount" Core..=)
+            [ ("AvailabilityZoneCount" Data..=)
                 Prelude.<$> availabilityZoneCount
             ]
         )

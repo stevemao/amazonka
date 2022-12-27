@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.AddCustomAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,7 +99,8 @@ instance Core.AWSRequest AddCustomAttributes where
   type
     AWSResponse AddCustomAttributes =
       AddCustomAttributesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -116,35 +118,35 @@ instance Prelude.NFData AddCustomAttributes where
     Prelude.rnf userPoolId
       `Prelude.seq` Prelude.rnf customAttributes
 
-instance Core.ToHeaders AddCustomAttributes where
+instance Data.ToHeaders AddCustomAttributes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.AddCustomAttributes" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.AddCustomAttributes" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AddCustomAttributes where
+instance Data.ToJSON AddCustomAttributes where
   toJSON AddCustomAttributes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("UserPoolId" Core..= userPoolId),
+          [ Prelude.Just ("UserPoolId" Data..= userPoolId),
             Prelude.Just
-              ("CustomAttributes" Core..= customAttributes)
+              ("CustomAttributes" Data..= customAttributes)
           ]
       )
 
-instance Core.ToPath AddCustomAttributes where
+instance Data.ToPath AddCustomAttributes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AddCustomAttributes where
+instance Data.ToQuery AddCustomAttributes where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the response from the server for the request to add custom

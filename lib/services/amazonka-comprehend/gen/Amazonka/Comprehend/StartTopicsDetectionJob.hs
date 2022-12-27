@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.StartTopicsDetectionJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,12 +28,12 @@ module Amazonka.Comprehend.StartTopicsDetectionJob
     newStartTopicsDetectionJob,
 
     -- * Request Lenses
-    startTopicsDetectionJob_jobName,
-    startTopicsDetectionJob_vpcConfig,
-    startTopicsDetectionJob_volumeKmsKeyId,
-    startTopicsDetectionJob_numberOfTopics,
     startTopicsDetectionJob_clientRequestToken,
+    startTopicsDetectionJob_jobName,
+    startTopicsDetectionJob_numberOfTopics,
     startTopicsDetectionJob_tags,
+    startTopicsDetectionJob_volumeKmsKeyId,
+    startTopicsDetectionJob_vpcConfig,
     startTopicsDetectionJob_inputDataConfig,
     startTopicsDetectionJob_outputDataConfig,
     startTopicsDetectionJob_dataAccessRoleArn,
@@ -43,8 +43,8 @@ module Amazonka.Comprehend.StartTopicsDetectionJob
     newStartTopicsDetectionJobResponse,
 
     -- * Response Lenses
-    startTopicsDetectionJobResponse_jobId,
     startTopicsDetectionJobResponse_jobArn,
+    startTopicsDetectionJobResponse_jobId,
     startTopicsDetectionJobResponse_jobStatus,
     startTopicsDetectionJobResponse_httpStatus,
   )
@@ -52,20 +52,26 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newStartTopicsDetectionJob' smart constructor.
 data StartTopicsDetectionJob = StartTopicsDetectionJob'
-  { -- | The identifier of the job.
+  { -- | A unique identifier for the request. If you do not set the client
+    -- request token, Amazon Comprehend generates one.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the job.
     jobName :: Prelude.Maybe Prelude.Text,
-    -- | Configuration parameters for an optional private Virtual Private Cloud
-    -- (VPC) containing the resources you are using for your topic detection
-    -- job. For more information, see
-    -- <https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html Amazon VPC>.
-    vpcConfig :: Prelude.Maybe VpcConfig,
+    -- | The number of topics to detect.
+    numberOfTopics :: Prelude.Maybe Prelude.Natural,
+    -- | Tags to be associated with the topics detection job. A tag is a
+    -- key-value pair that adds metadata to a resource used by Amazon
+    -- Comprehend. For example, a tag with \"Sales\" as the key might be added
+    -- to a resource to indicate its use by the sales department.
+    tags :: Prelude.Maybe [Tag],
     -- | ID for the AWS Key Management Service (KMS) key that Amazon Comprehend
     -- uses to encrypt data on the storage volume attached to the ML compute
     -- instance(s) that process the analysis job. The VolumeKmsKeyId can be
@@ -76,16 +82,11 @@ data StartTopicsDetectionJob = StartTopicsDetectionJob'
     -- -   Amazon Resource Name (ARN) of a KMS Key:
     --     @\"arn:aws:kms:us-west-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab\"@
     volumeKmsKeyId :: Prelude.Maybe Prelude.Text,
-    -- | The number of topics to detect.
-    numberOfTopics :: Prelude.Maybe Prelude.Natural,
-    -- | A unique identifier for the request. If you do not set the client
-    -- request token, Amazon Comprehend generates one.
-    clientRequestToken :: Prelude.Maybe Prelude.Text,
-    -- | Tags to be associated with the topics detection job. A tag is a
-    -- key-value pair that adds metadata to a resource used by Amazon
-    -- Comprehend. For example, a tag with \"Sales\" as the key might be added
-    -- to a resource to indicate its use by the sales department.
-    tags :: Prelude.Maybe [Tag],
+    -- | Configuration parameters for an optional private Virtual Private Cloud
+    -- (VPC) containing the resources you are using for your topic detection
+    -- job. For more information, see
+    -- <https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html Amazon VPC>.
+    vpcConfig :: Prelude.Maybe VpcConfig,
     -- | Specifies the format and location of the input data for the job.
     inputDataConfig :: InputDataConfig,
     -- | Specifies where to send the output files. The output is a compressed
@@ -109,12 +110,17 @@ data StartTopicsDetectionJob = StartTopicsDetectionJob'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'clientRequestToken', 'startTopicsDetectionJob_clientRequestToken' - A unique identifier for the request. If you do not set the client
+-- request token, Amazon Comprehend generates one.
+--
 -- 'jobName', 'startTopicsDetectionJob_jobName' - The identifier of the job.
 --
--- 'vpcConfig', 'startTopicsDetectionJob_vpcConfig' - Configuration parameters for an optional private Virtual Private Cloud
--- (VPC) containing the resources you are using for your topic detection
--- job. For more information, see
--- <https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html Amazon VPC>.
+-- 'numberOfTopics', 'startTopicsDetectionJob_numberOfTopics' - The number of topics to detect.
+--
+-- 'tags', 'startTopicsDetectionJob_tags' - Tags to be associated with the topics detection job. A tag is a
+-- key-value pair that adds metadata to a resource used by Amazon
+-- Comprehend. For example, a tag with \"Sales\" as the key might be added
+-- to a resource to indicate its use by the sales department.
 --
 -- 'volumeKmsKeyId', 'startTopicsDetectionJob_volumeKmsKeyId' - ID for the AWS Key Management Service (KMS) key that Amazon Comprehend
 -- uses to encrypt data on the storage volume attached to the ML compute
@@ -126,15 +132,10 @@ data StartTopicsDetectionJob = StartTopicsDetectionJob'
 -- -   Amazon Resource Name (ARN) of a KMS Key:
 --     @\"arn:aws:kms:us-west-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab\"@
 --
--- 'numberOfTopics', 'startTopicsDetectionJob_numberOfTopics' - The number of topics to detect.
---
--- 'clientRequestToken', 'startTopicsDetectionJob_clientRequestToken' - A unique identifier for the request. If you do not set the client
--- request token, Amazon Comprehend generates one.
---
--- 'tags', 'startTopicsDetectionJob_tags' - Tags to be associated with the topics detection job. A tag is a
--- key-value pair that adds metadata to a resource used by Amazon
--- Comprehend. For example, a tag with \"Sales\" as the key might be added
--- to a resource to indicate its use by the sales department.
+-- 'vpcConfig', 'startTopicsDetectionJob_vpcConfig' - Configuration parameters for an optional private Virtual Private Cloud
+-- (VPC) containing the resources you are using for your topic detection
+-- job. For more information, see
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html Amazon VPC>.
 --
 -- 'inputDataConfig', 'startTopicsDetectionJob_inputDataConfig' - Specifies the format and location of the input data for the job.
 --
@@ -160,27 +161,37 @@ newStartTopicsDetectionJob
   pOutputDataConfig_
   pDataAccessRoleArn_ =
     StartTopicsDetectionJob'
-      { jobName = Prelude.Nothing,
-        vpcConfig = Prelude.Nothing,
-        volumeKmsKeyId = Prelude.Nothing,
+      { clientRequestToken =
+          Prelude.Nothing,
+        jobName = Prelude.Nothing,
         numberOfTopics = Prelude.Nothing,
-        clientRequestToken = Prelude.Nothing,
         tags = Prelude.Nothing,
+        volumeKmsKeyId = Prelude.Nothing,
+        vpcConfig = Prelude.Nothing,
         inputDataConfig = pInputDataConfig_,
         outputDataConfig = pOutputDataConfig_,
         dataAccessRoleArn = pDataAccessRoleArn_
       }
 
+-- | A unique identifier for the request. If you do not set the client
+-- request token, Amazon Comprehend generates one.
+startTopicsDetectionJob_clientRequestToken :: Lens.Lens' StartTopicsDetectionJob (Prelude.Maybe Prelude.Text)
+startTopicsDetectionJob_clientRequestToken = Lens.lens (\StartTopicsDetectionJob' {clientRequestToken} -> clientRequestToken) (\s@StartTopicsDetectionJob' {} a -> s {clientRequestToken = a} :: StartTopicsDetectionJob)
+
 -- | The identifier of the job.
 startTopicsDetectionJob_jobName :: Lens.Lens' StartTopicsDetectionJob (Prelude.Maybe Prelude.Text)
 startTopicsDetectionJob_jobName = Lens.lens (\StartTopicsDetectionJob' {jobName} -> jobName) (\s@StartTopicsDetectionJob' {} a -> s {jobName = a} :: StartTopicsDetectionJob)
 
--- | Configuration parameters for an optional private Virtual Private Cloud
--- (VPC) containing the resources you are using for your topic detection
--- job. For more information, see
--- <https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html Amazon VPC>.
-startTopicsDetectionJob_vpcConfig :: Lens.Lens' StartTopicsDetectionJob (Prelude.Maybe VpcConfig)
-startTopicsDetectionJob_vpcConfig = Lens.lens (\StartTopicsDetectionJob' {vpcConfig} -> vpcConfig) (\s@StartTopicsDetectionJob' {} a -> s {vpcConfig = a} :: StartTopicsDetectionJob)
+-- | The number of topics to detect.
+startTopicsDetectionJob_numberOfTopics :: Lens.Lens' StartTopicsDetectionJob (Prelude.Maybe Prelude.Natural)
+startTopicsDetectionJob_numberOfTopics = Lens.lens (\StartTopicsDetectionJob' {numberOfTopics} -> numberOfTopics) (\s@StartTopicsDetectionJob' {} a -> s {numberOfTopics = a} :: StartTopicsDetectionJob)
+
+-- | Tags to be associated with the topics detection job. A tag is a
+-- key-value pair that adds metadata to a resource used by Amazon
+-- Comprehend. For example, a tag with \"Sales\" as the key might be added
+-- to a resource to indicate its use by the sales department.
+startTopicsDetectionJob_tags :: Lens.Lens' StartTopicsDetectionJob (Prelude.Maybe [Tag])
+startTopicsDetectionJob_tags = Lens.lens (\StartTopicsDetectionJob' {tags} -> tags) (\s@StartTopicsDetectionJob' {} a -> s {tags = a} :: StartTopicsDetectionJob) Prelude.. Lens.mapping Lens.coerced
 
 -- | ID for the AWS Key Management Service (KMS) key that Amazon Comprehend
 -- uses to encrypt data on the storage volume attached to the ML compute
@@ -194,21 +205,12 @@ startTopicsDetectionJob_vpcConfig = Lens.lens (\StartTopicsDetectionJob' {vpcCon
 startTopicsDetectionJob_volumeKmsKeyId :: Lens.Lens' StartTopicsDetectionJob (Prelude.Maybe Prelude.Text)
 startTopicsDetectionJob_volumeKmsKeyId = Lens.lens (\StartTopicsDetectionJob' {volumeKmsKeyId} -> volumeKmsKeyId) (\s@StartTopicsDetectionJob' {} a -> s {volumeKmsKeyId = a} :: StartTopicsDetectionJob)
 
--- | The number of topics to detect.
-startTopicsDetectionJob_numberOfTopics :: Lens.Lens' StartTopicsDetectionJob (Prelude.Maybe Prelude.Natural)
-startTopicsDetectionJob_numberOfTopics = Lens.lens (\StartTopicsDetectionJob' {numberOfTopics} -> numberOfTopics) (\s@StartTopicsDetectionJob' {} a -> s {numberOfTopics = a} :: StartTopicsDetectionJob)
-
--- | A unique identifier for the request. If you do not set the client
--- request token, Amazon Comprehend generates one.
-startTopicsDetectionJob_clientRequestToken :: Lens.Lens' StartTopicsDetectionJob (Prelude.Maybe Prelude.Text)
-startTopicsDetectionJob_clientRequestToken = Lens.lens (\StartTopicsDetectionJob' {clientRequestToken} -> clientRequestToken) (\s@StartTopicsDetectionJob' {} a -> s {clientRequestToken = a} :: StartTopicsDetectionJob)
-
--- | Tags to be associated with the topics detection job. A tag is a
--- key-value pair that adds metadata to a resource used by Amazon
--- Comprehend. For example, a tag with \"Sales\" as the key might be added
--- to a resource to indicate its use by the sales department.
-startTopicsDetectionJob_tags :: Lens.Lens' StartTopicsDetectionJob (Prelude.Maybe [Tag])
-startTopicsDetectionJob_tags = Lens.lens (\StartTopicsDetectionJob' {tags} -> tags) (\s@StartTopicsDetectionJob' {} a -> s {tags = a} :: StartTopicsDetectionJob) Prelude.. Lens.mapping Lens.coerced
+-- | Configuration parameters for an optional private Virtual Private Cloud
+-- (VPC) containing the resources you are using for your topic detection
+-- job. For more information, see
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html Amazon VPC>.
+startTopicsDetectionJob_vpcConfig :: Lens.Lens' StartTopicsDetectionJob (Prelude.Maybe VpcConfig)
+startTopicsDetectionJob_vpcConfig = Lens.lens (\StartTopicsDetectionJob' {vpcConfig} -> vpcConfig) (\s@StartTopicsDetectionJob' {} a -> s {vpcConfig = a} :: StartTopicsDetectionJob)
 
 -- | Specifies the format and location of the input data for the job.
 startTopicsDetectionJob_inputDataConfig :: Lens.Lens' StartTopicsDetectionJob InputDataConfig
@@ -232,90 +234,88 @@ instance Core.AWSRequest StartTopicsDetectionJob where
   type
     AWSResponse StartTopicsDetectionJob =
       StartTopicsDetectionJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartTopicsDetectionJobResponse'
-            Prelude.<$> (x Core..?> "JobId")
-            Prelude.<*> (x Core..?> "JobArn")
-            Prelude.<*> (x Core..?> "JobStatus")
+            Prelude.<$> (x Data..?> "JobArn")
+            Prelude.<*> (x Data..?> "JobId")
+            Prelude.<*> (x Data..?> "JobStatus")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable StartTopicsDetectionJob where
   hashWithSalt _salt StartTopicsDetectionJob' {..} =
-    _salt `Prelude.hashWithSalt` jobName
-      `Prelude.hashWithSalt` vpcConfig
-      `Prelude.hashWithSalt` volumeKmsKeyId
+    _salt `Prelude.hashWithSalt` clientRequestToken
+      `Prelude.hashWithSalt` jobName
       `Prelude.hashWithSalt` numberOfTopics
-      `Prelude.hashWithSalt` clientRequestToken
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` volumeKmsKeyId
+      `Prelude.hashWithSalt` vpcConfig
       `Prelude.hashWithSalt` inputDataConfig
       `Prelude.hashWithSalt` outputDataConfig
       `Prelude.hashWithSalt` dataAccessRoleArn
 
 instance Prelude.NFData StartTopicsDetectionJob where
   rnf StartTopicsDetectionJob' {..} =
-    Prelude.rnf jobName
-      `Prelude.seq` Prelude.rnf vpcConfig
-      `Prelude.seq` Prelude.rnf volumeKmsKeyId
+    Prelude.rnf clientRequestToken
+      `Prelude.seq` Prelude.rnf jobName
       `Prelude.seq` Prelude.rnf numberOfTopics
-      `Prelude.seq` Prelude.rnf clientRequestToken
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf volumeKmsKeyId
+      `Prelude.seq` Prelude.rnf vpcConfig
       `Prelude.seq` Prelude.rnf inputDataConfig
       `Prelude.seq` Prelude.rnf outputDataConfig
       `Prelude.seq` Prelude.rnf dataAccessRoleArn
 
-instance Core.ToHeaders StartTopicsDetectionJob where
+instance Data.ToHeaders StartTopicsDetectionJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.StartTopicsDetectionJob" ::
+              Data.=# ( "Comprehend_20171127.StartTopicsDetectionJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartTopicsDetectionJob where
+instance Data.ToJSON StartTopicsDetectionJob where
   toJSON StartTopicsDetectionJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("JobName" Core..=) Prelude.<$> jobName,
-            ("VpcConfig" Core..=) Prelude.<$> vpcConfig,
-            ("VolumeKmsKeyId" Core..=)
-              Prelude.<$> volumeKmsKeyId,
-            ("NumberOfTopics" Core..=)
-              Prelude.<$> numberOfTopics,
-            ("ClientRequestToken" Core..=)
+          [ ("ClientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
-            ("Tags" Core..=) Prelude.<$> tags,
+            ("JobName" Data..=) Prelude.<$> jobName,
+            ("NumberOfTopics" Data..=)
+              Prelude.<$> numberOfTopics,
+            ("Tags" Data..=) Prelude.<$> tags,
+            ("VolumeKmsKeyId" Data..=)
+              Prelude.<$> volumeKmsKeyId,
+            ("VpcConfig" Data..=) Prelude.<$> vpcConfig,
             Prelude.Just
-              ("InputDataConfig" Core..= inputDataConfig),
+              ("InputDataConfig" Data..= inputDataConfig),
             Prelude.Just
-              ("OutputDataConfig" Core..= outputDataConfig),
+              ("OutputDataConfig" Data..= outputDataConfig),
             Prelude.Just
-              ("DataAccessRoleArn" Core..= dataAccessRoleArn)
+              ("DataAccessRoleArn" Data..= dataAccessRoleArn)
           ]
       )
 
-instance Core.ToPath StartTopicsDetectionJob where
+instance Data.ToPath StartTopicsDetectionJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartTopicsDetectionJob where
+instance Data.ToQuery StartTopicsDetectionJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartTopicsDetectionJobResponse' smart constructor.
 data StartTopicsDetectionJobResponse = StartTopicsDetectionJobResponse'
-  { -- | The identifier generated for the job. To get the status of the job, use
-    -- this identifier with the @DescribeTopicDetectionJob@ operation.
-    jobId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the topics detection job. It is a
+  { -- | The Amazon Resource Name (ARN) of the topics detection job. It is a
     -- unique, fully qualified identifier for the job. It includes the AWS
     -- account, Region, and the job ID. The format of the ARN is as follows:
     --
@@ -325,6 +325,9 @@ data StartTopicsDetectionJobResponse = StartTopicsDetectionJobResponse'
     --
     -- @arn:aws:comprehend:us-west-2:111122223333:document-classification-job\/1234abcd12ab34cd56ef1234567890ab@
     jobArn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier generated for the job. To get the status of the job, use
+    -- this identifier with the @DescribeTopicDetectionJob@ operation.
+    jobId :: Prelude.Maybe Prelude.Text,
     -- | The status of the job:
     --
     -- -   SUBMITTED - The job has been received and is queued for processing.
@@ -350,9 +353,6 @@ data StartTopicsDetectionJobResponse = StartTopicsDetectionJobResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'jobId', 'startTopicsDetectionJobResponse_jobId' - The identifier generated for the job. To get the status of the job, use
--- this identifier with the @DescribeTopicDetectionJob@ operation.
---
 -- 'jobArn', 'startTopicsDetectionJobResponse_jobArn' - The Amazon Resource Name (ARN) of the topics detection job. It is a
 -- unique, fully qualified identifier for the job. It includes the AWS
 -- account, Region, and the job ID. The format of the ARN is as follows:
@@ -362,6 +362,9 @@ data StartTopicsDetectionJobResponse = StartTopicsDetectionJobResponse'
 -- The following is an example job ARN:
 --
 -- @arn:aws:comprehend:us-west-2:111122223333:document-classification-job\/1234abcd12ab34cd56ef1234567890ab@
+--
+-- 'jobId', 'startTopicsDetectionJobResponse_jobId' - The identifier generated for the job. To get the status of the job, use
+-- this identifier with the @DescribeTopicDetectionJob@ operation.
 --
 -- 'jobStatus', 'startTopicsDetectionJobResponse_jobStatus' - The status of the job:
 --
@@ -382,17 +385,12 @@ newStartTopicsDetectionJobResponse ::
   StartTopicsDetectionJobResponse
 newStartTopicsDetectionJobResponse pHttpStatus_ =
   StartTopicsDetectionJobResponse'
-    { jobId =
+    { jobArn =
         Prelude.Nothing,
-      jobArn = Prelude.Nothing,
+      jobId = Prelude.Nothing,
       jobStatus = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The identifier generated for the job. To get the status of the job, use
--- this identifier with the @DescribeTopicDetectionJob@ operation.
-startTopicsDetectionJobResponse_jobId :: Lens.Lens' StartTopicsDetectionJobResponse (Prelude.Maybe Prelude.Text)
-startTopicsDetectionJobResponse_jobId = Lens.lens (\StartTopicsDetectionJobResponse' {jobId} -> jobId) (\s@StartTopicsDetectionJobResponse' {} a -> s {jobId = a} :: StartTopicsDetectionJobResponse)
 
 -- | The Amazon Resource Name (ARN) of the topics detection job. It is a
 -- unique, fully qualified identifier for the job. It includes the AWS
@@ -405,6 +403,11 @@ startTopicsDetectionJobResponse_jobId = Lens.lens (\StartTopicsDetectionJobRespo
 -- @arn:aws:comprehend:us-west-2:111122223333:document-classification-job\/1234abcd12ab34cd56ef1234567890ab@
 startTopicsDetectionJobResponse_jobArn :: Lens.Lens' StartTopicsDetectionJobResponse (Prelude.Maybe Prelude.Text)
 startTopicsDetectionJobResponse_jobArn = Lens.lens (\StartTopicsDetectionJobResponse' {jobArn} -> jobArn) (\s@StartTopicsDetectionJobResponse' {} a -> s {jobArn = a} :: StartTopicsDetectionJobResponse)
+
+-- | The identifier generated for the job. To get the status of the job, use
+-- this identifier with the @DescribeTopicDetectionJob@ operation.
+startTopicsDetectionJobResponse_jobId :: Lens.Lens' StartTopicsDetectionJobResponse (Prelude.Maybe Prelude.Text)
+startTopicsDetectionJobResponse_jobId = Lens.lens (\StartTopicsDetectionJobResponse' {jobId} -> jobId) (\s@StartTopicsDetectionJobResponse' {} a -> s {jobId = a} :: StartTopicsDetectionJobResponse)
 
 -- | The status of the job:
 --
@@ -429,7 +432,7 @@ instance
     StartTopicsDetectionJobResponse
   where
   rnf StartTopicsDetectionJobResponse' {..} =
-    Prelude.rnf jobId
-      `Prelude.seq` Prelude.rnf jobArn
+    Prelude.rnf jobArn
+      `Prelude.seq` Prelude.rnf jobId
       `Prelude.seq` Prelude.rnf jobStatus
       `Prelude.seq` Prelude.rnf httpStatus

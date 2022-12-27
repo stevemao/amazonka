@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.CreateRateBasedRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -113,14 +113,15 @@ module Amazonka.WAFRegional.CreateRateBasedRule
     newCreateRateBasedRuleResponse,
 
     -- * Response Lenses
-    createRateBasedRuleResponse_rule,
     createRateBasedRuleResponse_changeToken,
+    createRateBasedRuleResponse_rule,
     createRateBasedRuleResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -264,13 +265,14 @@ instance Core.AWSRequest CreateRateBasedRule where
   type
     AWSResponse CreateRateBasedRule =
       CreateRateBasedRuleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateRateBasedRuleResponse'
-            Prelude.<$> (x Core..?> "Rule")
-            Prelude.<*> (x Core..?> "ChangeToken")
+            Prelude.<$> (x Data..?> "ChangeToken")
+            Prelude.<*> (x Data..?> "Rule")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -292,49 +294,49 @@ instance Prelude.NFData CreateRateBasedRule where
       `Prelude.seq` Prelude.rnf rateLimit
       `Prelude.seq` Prelude.rnf changeToken
 
-instance Core.ToHeaders CreateRateBasedRule where
+instance Data.ToHeaders CreateRateBasedRule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_Regional_20161128.CreateRateBasedRule" ::
+              Data.=# ( "AWSWAF_Regional_20161128.CreateRateBasedRule" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateRateBasedRule where
+instance Data.ToJSON CreateRateBasedRule where
   toJSON CreateRateBasedRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("MetricName" Core..= metricName),
-            Prelude.Just ("RateKey" Core..= rateKey),
-            Prelude.Just ("RateLimit" Core..= rateLimit),
-            Prelude.Just ("ChangeToken" Core..= changeToken)
+          [ ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("MetricName" Data..= metricName),
+            Prelude.Just ("RateKey" Data..= rateKey),
+            Prelude.Just ("RateLimit" Data..= rateLimit),
+            Prelude.Just ("ChangeToken" Data..= changeToken)
           ]
       )
 
-instance Core.ToPath CreateRateBasedRule where
+instance Data.ToPath CreateRateBasedRule where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateRateBasedRule where
+instance Data.ToQuery CreateRateBasedRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateRateBasedRuleResponse' smart constructor.
 data CreateRateBasedRuleResponse = CreateRateBasedRuleResponse'
-  { -- | The RateBasedRule that is returned in the @CreateRateBasedRule@
-    -- response.
-    rule :: Prelude.Maybe RateBasedRule,
-    -- | The @ChangeToken@ that you used to submit the @CreateRateBasedRule@
+  { -- | The @ChangeToken@ that you used to submit the @CreateRateBasedRule@
     -- request. You can also use this value to query the status of the request.
     -- For more information, see GetChangeTokenStatus.
     changeToken :: Prelude.Maybe Prelude.Text,
+    -- | The RateBasedRule that is returned in the @CreateRateBasedRule@
+    -- response.
+    rule :: Prelude.Maybe RateBasedRule,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -348,12 +350,12 @@ data CreateRateBasedRuleResponse = CreateRateBasedRuleResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'rule', 'createRateBasedRuleResponse_rule' - The RateBasedRule that is returned in the @CreateRateBasedRule@
--- response.
---
 -- 'changeToken', 'createRateBasedRuleResponse_changeToken' - The @ChangeToken@ that you used to submit the @CreateRateBasedRule@
 -- request. You can also use this value to query the status of the request.
 -- For more information, see GetChangeTokenStatus.
+--
+-- 'rule', 'createRateBasedRuleResponse_rule' - The RateBasedRule that is returned in the @CreateRateBasedRule@
+-- response.
 --
 -- 'httpStatus', 'createRateBasedRuleResponse_httpStatus' - The response's http status code.
 newCreateRateBasedRuleResponse ::
@@ -362,16 +364,11 @@ newCreateRateBasedRuleResponse ::
   CreateRateBasedRuleResponse
 newCreateRateBasedRuleResponse pHttpStatus_ =
   CreateRateBasedRuleResponse'
-    { rule =
+    { changeToken =
         Prelude.Nothing,
-      changeToken = Prelude.Nothing,
+      rule = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The RateBasedRule that is returned in the @CreateRateBasedRule@
--- response.
-createRateBasedRuleResponse_rule :: Lens.Lens' CreateRateBasedRuleResponse (Prelude.Maybe RateBasedRule)
-createRateBasedRuleResponse_rule = Lens.lens (\CreateRateBasedRuleResponse' {rule} -> rule) (\s@CreateRateBasedRuleResponse' {} a -> s {rule = a} :: CreateRateBasedRuleResponse)
 
 -- | The @ChangeToken@ that you used to submit the @CreateRateBasedRule@
 -- request. You can also use this value to query the status of the request.
@@ -379,12 +376,17 @@ createRateBasedRuleResponse_rule = Lens.lens (\CreateRateBasedRuleResponse' {rul
 createRateBasedRuleResponse_changeToken :: Lens.Lens' CreateRateBasedRuleResponse (Prelude.Maybe Prelude.Text)
 createRateBasedRuleResponse_changeToken = Lens.lens (\CreateRateBasedRuleResponse' {changeToken} -> changeToken) (\s@CreateRateBasedRuleResponse' {} a -> s {changeToken = a} :: CreateRateBasedRuleResponse)
 
+-- | The RateBasedRule that is returned in the @CreateRateBasedRule@
+-- response.
+createRateBasedRuleResponse_rule :: Lens.Lens' CreateRateBasedRuleResponse (Prelude.Maybe RateBasedRule)
+createRateBasedRuleResponse_rule = Lens.lens (\CreateRateBasedRuleResponse' {rule} -> rule) (\s@CreateRateBasedRuleResponse' {} a -> s {rule = a} :: CreateRateBasedRuleResponse)
+
 -- | The response's http status code.
 createRateBasedRuleResponse_httpStatus :: Lens.Lens' CreateRateBasedRuleResponse Prelude.Int
 createRateBasedRuleResponse_httpStatus = Lens.lens (\CreateRateBasedRuleResponse' {httpStatus} -> httpStatus) (\s@CreateRateBasedRuleResponse' {} a -> s {httpStatus = a} :: CreateRateBasedRuleResponse)
 
 instance Prelude.NFData CreateRateBasedRuleResponse where
   rnf CreateRateBasedRuleResponse' {..} =
-    Prelude.rnf rule
-      `Prelude.seq` Prelude.rnf changeToken
+    Prelude.rnf changeToken
+      `Prelude.seq` Prelude.rnf rule
       `Prelude.seq` Prelude.rnf httpStatus

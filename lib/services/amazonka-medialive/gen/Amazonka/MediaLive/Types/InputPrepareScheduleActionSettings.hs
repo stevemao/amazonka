@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.InputPrepareScheduleActionSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.InputPrepareScheduleActionSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.InputClippingSettings
 import qualified Amazonka.Prelude as Prelude
 
@@ -91,17 +92,17 @@ inputPrepareScheduleActionSettings_urlPath :: Lens.Lens' InputPrepareScheduleAct
 inputPrepareScheduleActionSettings_urlPath = Lens.lens (\InputPrepareScheduleActionSettings' {urlPath} -> urlPath) (\s@InputPrepareScheduleActionSettings' {} a -> s {urlPath = a} :: InputPrepareScheduleActionSettings) Prelude.. Lens.mapping Lens.coerced
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     InputPrepareScheduleActionSettings
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InputPrepareScheduleActionSettings"
       ( \x ->
           InputPrepareScheduleActionSettings'
-            Prelude.<$> (x Core..:? "inputAttachmentNameReference")
-            Prelude.<*> (x Core..:? "inputClippingSettings")
-            Prelude.<*> (x Core..:? "urlPath" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "inputAttachmentNameReference")
+            Prelude.<*> (x Data..:? "inputClippingSettings")
+            Prelude.<*> (x Data..:? "urlPath" Data..!= Prelude.mempty)
       )
 
 instance
@@ -126,16 +127,16 @@ instance
       `Prelude.seq` Prelude.rnf urlPath
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     InputPrepareScheduleActionSettings
   where
   toJSON InputPrepareScheduleActionSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("inputAttachmentNameReference" Core..=)
+          [ ("inputAttachmentNameReference" Data..=)
               Prelude.<$> inputAttachmentNameReference,
-            ("inputClippingSettings" Core..=)
+            ("inputClippingSettings" Data..=)
               Prelude.<$> inputClippingSettings,
-            ("urlPath" Core..=) Prelude.<$> urlPath
+            ("urlPath" Data..=) Prelude.<$> urlPath
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RedshiftData.ListTables
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,14 +26,18 @@
 -- on the authorization method, use one of the following combinations of
 -- request parameters:
 --
--- -   Secrets Manager - specify the Amazon Resource Name (ARN) of the
---     secret, the database name, and the cluster identifier that matches
---     the cluster in the secret.
+-- -   Secrets Manager - when connecting to a cluster, specify the Amazon
+--     Resource Name (ARN) of the secret, the database name, and the
+--     cluster identifier that matches the cluster in the secret. When
+--     connecting to a serverless workgroup, specify the Amazon Resource
+--     Name (ARN) of the secret and the database name.
 --
--- -   Temporary credentials - specify the cluster identifier, the database
---     name, and the database user name. Permission to call the
---     @redshift:GetClusterCredentials@ operation is required to use this
---     method.
+-- -   Temporary credentials - when connecting to a cluster, specify the
+--     cluster identifier, the database name, and the database user name.
+--     Also, permission to call the @redshift:GetClusterCredentials@
+--     operation is required. When connecting to a serverless workgroup,
+--     specify the workgroup name and database name. Also, permission to
+--     call the @redshift-serverless:GetCredentials@ operation is required.
 --
 -- This operation returns paginated results.
 module Amazonka.RedshiftData.ListTables
@@ -42,14 +46,15 @@ module Amazonka.RedshiftData.ListTables
     newListTables,
 
     -- * Request Lenses
-    listTables_dbUser,
+    listTables_clusterIdentifier,
     listTables_connectedDatabase,
+    listTables_dbUser,
+    listTables_maxResults,
     listTables_nextToken,
+    listTables_schemaPattern,
     listTables_secretArn,
     listTables_tablePattern,
-    listTables_maxResults,
-    listTables_schemaPattern,
-    listTables_clusterIdentifier,
+    listTables_workgroupName,
     listTables_database,
 
     -- * Destructuring the Response
@@ -64,7 +69,8 @@ module Amazonka.RedshiftData.ListTables
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RedshiftData.Types
 import qualified Amazonka.Request as Request
@@ -72,12 +78,20 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListTables' smart constructor.
 data ListTables = ListTables'
-  { -- | The database user name. This parameter is required when authenticating
-    -- using temporary credentials.
-    dbUser :: Prelude.Maybe Prelude.Text,
+  { -- | The cluster identifier. This parameter is required when connecting to a
+    -- cluster and authenticating using either Secrets Manager or temporary
+    -- credentials.
+    clusterIdentifier :: Prelude.Maybe Prelude.Text,
     -- | A database name. The connected database is specified when you connect
     -- with your authentication credentials.
     connectedDatabase :: Prelude.Maybe Prelude.Text,
+    -- | The database user name. This parameter is required when connecting to a
+    -- cluster and authenticating using temporary credentials.
+    dbUser :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of tables to return in the response. If more tables
+    -- exist than fit in one response, then @NextToken@ is returned to page
+    -- through the results.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | A value that indicates the starting point for the next set of response
     -- records in a subsequent request. If a value is returned in a response,
     -- you can retrieve the next set of records by providing this returned
@@ -85,6 +99,14 @@ data ListTables = ListTables'
     -- command. If the NextToken field is empty, all response records have been
     -- retrieved for the request.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A pattern to filter results by schema name. Within a schema pattern,
+    -- \"%\" means match any substring of 0 or more characters and \"_\" means
+    -- match any one character. Only schema name entries matching the search
+    -- pattern are returned. If @SchemaPattern@ is not specified, then all
+    -- tables that match @TablePattern@ are returned. If neither
+    -- @SchemaPattern@ or @TablePattern@ are specified, then all tables are
+    -- returned.
+    schemaPattern :: Prelude.Maybe Prelude.Text,
     -- | The name or ARN of the secret that enables access to the database. This
     -- parameter is required when authenticating using Secrets Manager.
     secretArn :: Prelude.Maybe Prelude.Text,
@@ -95,21 +117,10 @@ data ListTables = ListTables'
     -- match @SchemaPattern@are returned. If neither @SchemaPattern@ or
     -- @TablePattern@ are specified, then all tables are returned.
     tablePattern :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of tables to return in the response. If more tables
-    -- exist than fit in one response, then @NextToken@ is returned to page
-    -- through the results.
-    maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | A pattern to filter results by schema name. Within a schema pattern,
-    -- \"%\" means match any substring of 0 or more characters and \"_\" means
-    -- match any one character. Only schema name entries matching the search
-    -- pattern are returned. If @SchemaPattern@ is not specified, then all
-    -- tables that match @TablePattern@ are returned. If neither
-    -- @SchemaPattern@ or @TablePattern@ are specified, then all tables are
-    -- returned.
-    schemaPattern :: Prelude.Maybe Prelude.Text,
-    -- | The cluster identifier. This parameter is required when authenticating
-    -- using either Secrets Manager or temporary credentials.
-    clusterIdentifier :: Prelude.Text,
+    -- | The serverless workgroup name. This parameter is required when
+    -- connecting to a serverless workgroup and authenticating using either
+    -- Secrets Manager or temporary credentials.
+    workgroupName :: Prelude.Maybe Prelude.Text,
     -- | The name of the database that contains the tables to list. If
     -- @ConnectedDatabase@ is not specified, this is also the database to
     -- connect to with your authentication credentials.
@@ -125,11 +136,19 @@ data ListTables = ListTables'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'dbUser', 'listTables_dbUser' - The database user name. This parameter is required when authenticating
--- using temporary credentials.
+-- 'clusterIdentifier', 'listTables_clusterIdentifier' - The cluster identifier. This parameter is required when connecting to a
+-- cluster and authenticating using either Secrets Manager or temporary
+-- credentials.
 --
 -- 'connectedDatabase', 'listTables_connectedDatabase' - A database name. The connected database is specified when you connect
 -- with your authentication credentials.
+--
+-- 'dbUser', 'listTables_dbUser' - The database user name. This parameter is required when connecting to a
+-- cluster and authenticating using temporary credentials.
+--
+-- 'maxResults', 'listTables_maxResults' - The maximum number of tables to return in the response. If more tables
+-- exist than fit in one response, then @NextToken@ is returned to page
+-- through the results.
 --
 -- 'nextToken', 'listTables_nextToken' - A value that indicates the starting point for the next set of response
 -- records in a subsequent request. If a value is returned in a response,
@@ -137,6 +156,14 @@ data ListTables = ListTables'
 -- NextToken value in the next NextToken parameter and retrying the
 -- command. If the NextToken field is empty, all response records have been
 -- retrieved for the request.
+--
+-- 'schemaPattern', 'listTables_schemaPattern' - A pattern to filter results by schema name. Within a schema pattern,
+-- \"%\" means match any substring of 0 or more characters and \"_\" means
+-- match any one character. Only schema name entries matching the search
+-- pattern are returned. If @SchemaPattern@ is not specified, then all
+-- tables that match @TablePattern@ are returned. If neither
+-- @SchemaPattern@ or @TablePattern@ are specified, then all tables are
+-- returned.
 --
 -- 'secretArn', 'listTables_secretArn' - The name or ARN of the secret that enables access to the database. This
 -- parameter is required when authenticating using Secrets Manager.
@@ -148,52 +175,52 @@ data ListTables = ListTables'
 -- match @SchemaPattern@are returned. If neither @SchemaPattern@ or
 -- @TablePattern@ are specified, then all tables are returned.
 --
--- 'maxResults', 'listTables_maxResults' - The maximum number of tables to return in the response. If more tables
--- exist than fit in one response, then @NextToken@ is returned to page
--- through the results.
---
--- 'schemaPattern', 'listTables_schemaPattern' - A pattern to filter results by schema name. Within a schema pattern,
--- \"%\" means match any substring of 0 or more characters and \"_\" means
--- match any one character. Only schema name entries matching the search
--- pattern are returned. If @SchemaPattern@ is not specified, then all
--- tables that match @TablePattern@ are returned. If neither
--- @SchemaPattern@ or @TablePattern@ are specified, then all tables are
--- returned.
---
--- 'clusterIdentifier', 'listTables_clusterIdentifier' - The cluster identifier. This parameter is required when authenticating
--- using either Secrets Manager or temporary credentials.
+-- 'workgroupName', 'listTables_workgroupName' - The serverless workgroup name. This parameter is required when
+-- connecting to a serverless workgroup and authenticating using either
+-- Secrets Manager or temporary credentials.
 --
 -- 'database', 'listTables_database' - The name of the database that contains the tables to list. If
 -- @ConnectedDatabase@ is not specified, this is also the database to
 -- connect to with your authentication credentials.
 newListTables ::
-  -- | 'clusterIdentifier'
-  Prelude.Text ->
   -- | 'database'
   Prelude.Text ->
   ListTables
-newListTables pClusterIdentifier_ pDatabase_ =
+newListTables pDatabase_ =
   ListTables'
-    { dbUser = Prelude.Nothing,
+    { clusterIdentifier = Prelude.Nothing,
       connectedDatabase = Prelude.Nothing,
+      dbUser = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
+      schemaPattern = Prelude.Nothing,
       secretArn = Prelude.Nothing,
       tablePattern = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
-      schemaPattern = Prelude.Nothing,
-      clusterIdentifier = pClusterIdentifier_,
+      workgroupName = Prelude.Nothing,
       database = pDatabase_
     }
 
--- | The database user name. This parameter is required when authenticating
--- using temporary credentials.
-listTables_dbUser :: Lens.Lens' ListTables (Prelude.Maybe Prelude.Text)
-listTables_dbUser = Lens.lens (\ListTables' {dbUser} -> dbUser) (\s@ListTables' {} a -> s {dbUser = a} :: ListTables)
+-- | The cluster identifier. This parameter is required when connecting to a
+-- cluster and authenticating using either Secrets Manager or temporary
+-- credentials.
+listTables_clusterIdentifier :: Lens.Lens' ListTables (Prelude.Maybe Prelude.Text)
+listTables_clusterIdentifier = Lens.lens (\ListTables' {clusterIdentifier} -> clusterIdentifier) (\s@ListTables' {} a -> s {clusterIdentifier = a} :: ListTables)
 
 -- | A database name. The connected database is specified when you connect
 -- with your authentication credentials.
 listTables_connectedDatabase :: Lens.Lens' ListTables (Prelude.Maybe Prelude.Text)
 listTables_connectedDatabase = Lens.lens (\ListTables' {connectedDatabase} -> connectedDatabase) (\s@ListTables' {} a -> s {connectedDatabase = a} :: ListTables)
+
+-- | The database user name. This parameter is required when connecting to a
+-- cluster and authenticating using temporary credentials.
+listTables_dbUser :: Lens.Lens' ListTables (Prelude.Maybe Prelude.Text)
+listTables_dbUser = Lens.lens (\ListTables' {dbUser} -> dbUser) (\s@ListTables' {} a -> s {dbUser = a} :: ListTables)
+
+-- | The maximum number of tables to return in the response. If more tables
+-- exist than fit in one response, then @NextToken@ is returned to page
+-- through the results.
+listTables_maxResults :: Lens.Lens' ListTables (Prelude.Maybe Prelude.Natural)
+listTables_maxResults = Lens.lens (\ListTables' {maxResults} -> maxResults) (\s@ListTables' {} a -> s {maxResults = a} :: ListTables)
 
 -- | A value that indicates the starting point for the next set of response
 -- records in a subsequent request. If a value is returned in a response,
@@ -203,6 +230,16 @@ listTables_connectedDatabase = Lens.lens (\ListTables' {connectedDatabase} -> co
 -- retrieved for the request.
 listTables_nextToken :: Lens.Lens' ListTables (Prelude.Maybe Prelude.Text)
 listTables_nextToken = Lens.lens (\ListTables' {nextToken} -> nextToken) (\s@ListTables' {} a -> s {nextToken = a} :: ListTables)
+
+-- | A pattern to filter results by schema name. Within a schema pattern,
+-- \"%\" means match any substring of 0 or more characters and \"_\" means
+-- match any one character. Only schema name entries matching the search
+-- pattern are returned. If @SchemaPattern@ is not specified, then all
+-- tables that match @TablePattern@ are returned. If neither
+-- @SchemaPattern@ or @TablePattern@ are specified, then all tables are
+-- returned.
+listTables_schemaPattern :: Lens.Lens' ListTables (Prelude.Maybe Prelude.Text)
+listTables_schemaPattern = Lens.lens (\ListTables' {schemaPattern} -> schemaPattern) (\s@ListTables' {} a -> s {schemaPattern = a} :: ListTables)
 
 -- | The name or ARN of the secret that enables access to the database. This
 -- parameter is required when authenticating using Secrets Manager.
@@ -218,26 +255,11 @@ listTables_secretArn = Lens.lens (\ListTables' {secretArn} -> secretArn) (\s@Lis
 listTables_tablePattern :: Lens.Lens' ListTables (Prelude.Maybe Prelude.Text)
 listTables_tablePattern = Lens.lens (\ListTables' {tablePattern} -> tablePattern) (\s@ListTables' {} a -> s {tablePattern = a} :: ListTables)
 
--- | The maximum number of tables to return in the response. If more tables
--- exist than fit in one response, then @NextToken@ is returned to page
--- through the results.
-listTables_maxResults :: Lens.Lens' ListTables (Prelude.Maybe Prelude.Natural)
-listTables_maxResults = Lens.lens (\ListTables' {maxResults} -> maxResults) (\s@ListTables' {} a -> s {maxResults = a} :: ListTables)
-
--- | A pattern to filter results by schema name. Within a schema pattern,
--- \"%\" means match any substring of 0 or more characters and \"_\" means
--- match any one character. Only schema name entries matching the search
--- pattern are returned. If @SchemaPattern@ is not specified, then all
--- tables that match @TablePattern@ are returned. If neither
--- @SchemaPattern@ or @TablePattern@ are specified, then all tables are
--- returned.
-listTables_schemaPattern :: Lens.Lens' ListTables (Prelude.Maybe Prelude.Text)
-listTables_schemaPattern = Lens.lens (\ListTables' {schemaPattern} -> schemaPattern) (\s@ListTables' {} a -> s {schemaPattern = a} :: ListTables)
-
--- | The cluster identifier. This parameter is required when authenticating
--- using either Secrets Manager or temporary credentials.
-listTables_clusterIdentifier :: Lens.Lens' ListTables Prelude.Text
-listTables_clusterIdentifier = Lens.lens (\ListTables' {clusterIdentifier} -> clusterIdentifier) (\s@ListTables' {} a -> s {clusterIdentifier = a} :: ListTables)
+-- | The serverless workgroup name. This parameter is required when
+-- connecting to a serverless workgroup and authenticating using either
+-- Secrets Manager or temporary credentials.
+listTables_workgroupName :: Lens.Lens' ListTables (Prelude.Maybe Prelude.Text)
+listTables_workgroupName = Lens.lens (\ListTables' {workgroupName} -> workgroupName) (\s@ListTables' {} a -> s {workgroupName = a} :: ListTables)
 
 -- | The name of the database that contains the tables to list. If
 -- @ConnectedDatabase@ is not specified, this is also the database to
@@ -266,75 +288,79 @@ instance Core.AWSPager ListTables where
 
 instance Core.AWSRequest ListTables where
   type AWSResponse ListTables = ListTablesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTablesResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Tables" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Tables" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListTables where
   hashWithSalt _salt ListTables' {..} =
-    _salt `Prelude.hashWithSalt` dbUser
+    _salt `Prelude.hashWithSalt` clusterIdentifier
       `Prelude.hashWithSalt` connectedDatabase
+      `Prelude.hashWithSalt` dbUser
+      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` schemaPattern
       `Prelude.hashWithSalt` secretArn
       `Prelude.hashWithSalt` tablePattern
-      `Prelude.hashWithSalt` maxResults
-      `Prelude.hashWithSalt` schemaPattern
-      `Prelude.hashWithSalt` clusterIdentifier
+      `Prelude.hashWithSalt` workgroupName
       `Prelude.hashWithSalt` database
 
 instance Prelude.NFData ListTables where
   rnf ListTables' {..} =
-    Prelude.rnf dbUser
+    Prelude.rnf clusterIdentifier
       `Prelude.seq` Prelude.rnf connectedDatabase
+      `Prelude.seq` Prelude.rnf dbUser
+      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf schemaPattern
       `Prelude.seq` Prelude.rnf secretArn
       `Prelude.seq` Prelude.rnf tablePattern
-      `Prelude.seq` Prelude.rnf maxResults
-      `Prelude.seq` Prelude.rnf schemaPattern
-      `Prelude.seq` Prelude.rnf clusterIdentifier
+      `Prelude.seq` Prelude.rnf workgroupName
       `Prelude.seq` Prelude.rnf database
 
-instance Core.ToHeaders ListTables where
+instance Data.ToHeaders ListTables where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("RedshiftData.ListTables" :: Prelude.ByteString),
+              Data.=# ("RedshiftData.ListTables" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTables where
+instance Data.ToJSON ListTables where
   toJSON ListTables' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DbUser" Core..=) Prelude.<$> dbUser,
-            ("ConnectedDatabase" Core..=)
+          [ ("ClusterIdentifier" Data..=)
+              Prelude.<$> clusterIdentifier,
+            ("ConnectedDatabase" Data..=)
               Prelude.<$> connectedDatabase,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("SecretArn" Core..=) Prelude.<$> secretArn,
-            ("TablePattern" Core..=) Prelude.<$> tablePattern,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            ("SchemaPattern" Core..=) Prelude.<$> schemaPattern,
-            Prelude.Just
-              ("ClusterIdentifier" Core..= clusterIdentifier),
-            Prelude.Just ("Database" Core..= database)
+            ("DbUser" Data..=) Prelude.<$> dbUser,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("SchemaPattern" Data..=) Prelude.<$> schemaPattern,
+            ("SecretArn" Data..=) Prelude.<$> secretArn,
+            ("TablePattern" Data..=) Prelude.<$> tablePattern,
+            ("WorkgroupName" Data..=) Prelude.<$> workgroupName,
+            Prelude.Just ("Database" Data..= database)
           ]
       )
 
-instance Core.ToPath ListTables where
+instance Data.ToPath ListTables where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTables where
+instance Data.ToQuery ListTables where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTablesResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppStream.DescribeUserStackAssociations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,46 +35,47 @@ module Amazonka.AppStream.DescribeUserStackAssociations
     newDescribeUserStackAssociations,
 
     -- * Request Lenses
-    describeUserStackAssociations_userName,
-    describeUserStackAssociations_nextToken,
     describeUserStackAssociations_authenticationType,
     describeUserStackAssociations_maxResults,
+    describeUserStackAssociations_nextToken,
     describeUserStackAssociations_stackName,
+    describeUserStackAssociations_userName,
 
     -- * Destructuring the Response
     DescribeUserStackAssociationsResponse (..),
     newDescribeUserStackAssociationsResponse,
 
     -- * Response Lenses
-    describeUserStackAssociationsResponse_userStackAssociations,
     describeUserStackAssociationsResponse_nextToken,
+    describeUserStackAssociationsResponse_userStackAssociations,
     describeUserStackAssociationsResponse_httpStatus,
   )
 where
 
 import Amazonka.AppStream.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeUserStackAssociations' smart constructor.
 data DescribeUserStackAssociations = DescribeUserStackAssociations'
-  { -- | The email address of the user who is associated with the stack.
-    --
-    -- Users\' email addresses are case-sensitive.
-    userName :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | The pagination token to use to retrieve the next page of results for
-    -- this operation. If this value is null, it retrieves the first page.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The authentication type for the user who is associated with the stack.
+  { -- | The authentication type for the user who is associated with the stack.
     -- You must specify USERPOOL.
     authenticationType :: Prelude.Maybe AuthenticationType,
     -- | The maximum size of each page of results.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token to use to retrieve the next page of results for
+    -- this operation. If this value is null, it retrieves the first page.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the stack that is associated with the user.
-    stackName :: Prelude.Maybe Prelude.Text
+    stackName :: Prelude.Maybe Prelude.Text,
+    -- | The email address of the user who is associated with the stack.
+    --
+    -- Users\' email addresses are case-sensitive.
+    userName :: Prelude.Maybe (Data.Sensitive Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -86,41 +87,30 @@ data DescribeUserStackAssociations = DescribeUserStackAssociations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'userName', 'describeUserStackAssociations_userName' - The email address of the user who is associated with the stack.
---
--- Users\' email addresses are case-sensitive.
---
--- 'nextToken', 'describeUserStackAssociations_nextToken' - The pagination token to use to retrieve the next page of results for
--- this operation. If this value is null, it retrieves the first page.
---
 -- 'authenticationType', 'describeUserStackAssociations_authenticationType' - The authentication type for the user who is associated with the stack.
 -- You must specify USERPOOL.
 --
 -- 'maxResults', 'describeUserStackAssociations_maxResults' - The maximum size of each page of results.
 --
+-- 'nextToken', 'describeUserStackAssociations_nextToken' - The pagination token to use to retrieve the next page of results for
+-- this operation. If this value is null, it retrieves the first page.
+--
 -- 'stackName', 'describeUserStackAssociations_stackName' - The name of the stack that is associated with the user.
+--
+-- 'userName', 'describeUserStackAssociations_userName' - The email address of the user who is associated with the stack.
+--
+-- Users\' email addresses are case-sensitive.
 newDescribeUserStackAssociations ::
   DescribeUserStackAssociations
 newDescribeUserStackAssociations =
   DescribeUserStackAssociations'
-    { userName =
+    { authenticationType =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      authenticationType = Prelude.Nothing,
       maxResults = Prelude.Nothing,
-      stackName = Prelude.Nothing
+      nextToken = Prelude.Nothing,
+      stackName = Prelude.Nothing,
+      userName = Prelude.Nothing
     }
-
--- | The email address of the user who is associated with the stack.
---
--- Users\' email addresses are case-sensitive.
-describeUserStackAssociations_userName :: Lens.Lens' DescribeUserStackAssociations (Prelude.Maybe Prelude.Text)
-describeUserStackAssociations_userName = Lens.lens (\DescribeUserStackAssociations' {userName} -> userName) (\s@DescribeUserStackAssociations' {} a -> s {userName = a} :: DescribeUserStackAssociations) Prelude.. Lens.mapping Core._Sensitive
-
--- | The pagination token to use to retrieve the next page of results for
--- this operation. If this value is null, it retrieves the first page.
-describeUserStackAssociations_nextToken :: Lens.Lens' DescribeUserStackAssociations (Prelude.Maybe Prelude.Text)
-describeUserStackAssociations_nextToken = Lens.lens (\DescribeUserStackAssociations' {nextToken} -> nextToken) (\s@DescribeUserStackAssociations' {} a -> s {nextToken = a} :: DescribeUserStackAssociations)
 
 -- | The authentication type for the user who is associated with the stack.
 -- You must specify USERPOOL.
@@ -131,9 +121,20 @@ describeUserStackAssociations_authenticationType = Lens.lens (\DescribeUserStack
 describeUserStackAssociations_maxResults :: Lens.Lens' DescribeUserStackAssociations (Prelude.Maybe Prelude.Natural)
 describeUserStackAssociations_maxResults = Lens.lens (\DescribeUserStackAssociations' {maxResults} -> maxResults) (\s@DescribeUserStackAssociations' {} a -> s {maxResults = a} :: DescribeUserStackAssociations)
 
+-- | The pagination token to use to retrieve the next page of results for
+-- this operation. If this value is null, it retrieves the first page.
+describeUserStackAssociations_nextToken :: Lens.Lens' DescribeUserStackAssociations (Prelude.Maybe Prelude.Text)
+describeUserStackAssociations_nextToken = Lens.lens (\DescribeUserStackAssociations' {nextToken} -> nextToken) (\s@DescribeUserStackAssociations' {} a -> s {nextToken = a} :: DescribeUserStackAssociations)
+
 -- | The name of the stack that is associated with the user.
 describeUserStackAssociations_stackName :: Lens.Lens' DescribeUserStackAssociations (Prelude.Maybe Prelude.Text)
 describeUserStackAssociations_stackName = Lens.lens (\DescribeUserStackAssociations' {stackName} -> stackName) (\s@DescribeUserStackAssociations' {} a -> s {stackName = a} :: DescribeUserStackAssociations)
+
+-- | The email address of the user who is associated with the stack.
+--
+-- Users\' email addresses are case-sensitive.
+describeUserStackAssociations_userName :: Lens.Lens' DescribeUserStackAssociations (Prelude.Maybe Prelude.Text)
+describeUserStackAssociations_userName = Lens.lens (\DescribeUserStackAssociations' {userName} -> userName) (\s@DescribeUserStackAssociations' {} a -> s {userName = a} :: DescribeUserStackAssociations) Prelude.. Lens.mapping Data._Sensitive
 
 instance Core.AWSPager DescribeUserStackAssociations where
   page rq rs
@@ -165,13 +166,14 @@ instance
   type
     AWSResponse DescribeUserStackAssociations =
       DescribeUserStackAssociationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeUserStackAssociationsResponse'
-            Prelude.<$> (x Core..?> "UserStackAssociations")
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "UserStackAssociations")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -180,61 +182,61 @@ instance
     DescribeUserStackAssociations
   where
   hashWithSalt _salt DescribeUserStackAssociations' {..} =
-    _salt `Prelude.hashWithSalt` userName
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` authenticationType
+    _salt `Prelude.hashWithSalt` authenticationType
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` stackName
+      `Prelude.hashWithSalt` userName
 
 instance Prelude.NFData DescribeUserStackAssociations where
   rnf DescribeUserStackAssociations' {..} =
-    Prelude.rnf userName
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf authenticationType
+    Prelude.rnf authenticationType
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf stackName
+      `Prelude.seq` Prelude.rnf userName
 
-instance Core.ToHeaders DescribeUserStackAssociations where
+instance Data.ToHeaders DescribeUserStackAssociations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "PhotonAdminProxyService.DescribeUserStackAssociations" ::
+              Data.=# ( "PhotonAdminProxyService.DescribeUserStackAssociations" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeUserStackAssociations where
+instance Data.ToJSON DescribeUserStackAssociations where
   toJSON DescribeUserStackAssociations' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("UserName" Core..=) Prelude.<$> userName,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("AuthenticationType" Core..=)
+          [ ("AuthenticationType" Data..=)
               Prelude.<$> authenticationType,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            ("StackName" Core..=) Prelude.<$> stackName
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("StackName" Data..=) Prelude.<$> stackName,
+            ("UserName" Data..=) Prelude.<$> userName
           ]
       )
 
-instance Core.ToPath DescribeUserStackAssociations where
+instance Data.ToPath DescribeUserStackAssociations where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeUserStackAssociations where
+instance Data.ToQuery DescribeUserStackAssociations where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeUserStackAssociationsResponse' smart constructor.
 data DescribeUserStackAssociationsResponse = DescribeUserStackAssociationsResponse'
-  { -- | The UserStackAssociation objects.
-    userStackAssociations :: Prelude.Maybe (Prelude.NonEmpty UserStackAssociation),
-    -- | The pagination token to use to retrieve the next page of results for
+  { -- | The pagination token to use to retrieve the next page of results for
     -- this operation. If there are no more pages, this value is null.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The UserStackAssociation objects.
+    userStackAssociations :: Prelude.Maybe (Prelude.NonEmpty UserStackAssociation),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -248,10 +250,10 @@ data DescribeUserStackAssociationsResponse = DescribeUserStackAssociationsRespon
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'userStackAssociations', 'describeUserStackAssociationsResponse_userStackAssociations' - The UserStackAssociation objects.
---
 -- 'nextToken', 'describeUserStackAssociationsResponse_nextToken' - The pagination token to use to retrieve the next page of results for
 -- this operation. If there are no more pages, this value is null.
+--
+-- 'userStackAssociations', 'describeUserStackAssociationsResponse_userStackAssociations' - The UserStackAssociation objects.
 --
 -- 'httpStatus', 'describeUserStackAssociationsResponse_httpStatus' - The response's http status code.
 newDescribeUserStackAssociationsResponse ::
@@ -260,20 +262,21 @@ newDescribeUserStackAssociationsResponse ::
   DescribeUserStackAssociationsResponse
 newDescribeUserStackAssociationsResponse pHttpStatus_ =
   DescribeUserStackAssociationsResponse'
-    { userStackAssociations =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      userStackAssociations =
+        Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The UserStackAssociation objects.
-describeUserStackAssociationsResponse_userStackAssociations :: Lens.Lens' DescribeUserStackAssociationsResponse (Prelude.Maybe (Prelude.NonEmpty UserStackAssociation))
-describeUserStackAssociationsResponse_userStackAssociations = Lens.lens (\DescribeUserStackAssociationsResponse' {userStackAssociations} -> userStackAssociations) (\s@DescribeUserStackAssociationsResponse' {} a -> s {userStackAssociations = a} :: DescribeUserStackAssociationsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The pagination token to use to retrieve the next page of results for
 -- this operation. If there are no more pages, this value is null.
 describeUserStackAssociationsResponse_nextToken :: Lens.Lens' DescribeUserStackAssociationsResponse (Prelude.Maybe Prelude.Text)
 describeUserStackAssociationsResponse_nextToken = Lens.lens (\DescribeUserStackAssociationsResponse' {nextToken} -> nextToken) (\s@DescribeUserStackAssociationsResponse' {} a -> s {nextToken = a} :: DescribeUserStackAssociationsResponse)
+
+-- | The UserStackAssociation objects.
+describeUserStackAssociationsResponse_userStackAssociations :: Lens.Lens' DescribeUserStackAssociationsResponse (Prelude.Maybe (Prelude.NonEmpty UserStackAssociation))
+describeUserStackAssociationsResponse_userStackAssociations = Lens.lens (\DescribeUserStackAssociationsResponse' {userStackAssociations} -> userStackAssociations) (\s@DescribeUserStackAssociationsResponse' {} a -> s {userStackAssociations = a} :: DescribeUserStackAssociationsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeUserStackAssociationsResponse_httpStatus :: Lens.Lens' DescribeUserStackAssociationsResponse Prelude.Int
@@ -284,6 +287,6 @@ instance
     DescribeUserStackAssociationsResponse
   where
   rnf DescribeUserStackAssociationsResponse' {..} =
-    Prelude.rnf userStackAssociations
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf userStackAssociations
       `Prelude.seq` Prelude.rnf httpStatus

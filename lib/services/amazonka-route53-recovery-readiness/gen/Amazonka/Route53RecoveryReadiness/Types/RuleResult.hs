@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryReadiness.Types.RuleResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,18 @@
 module Amazonka.Route53RecoveryReadiness.Types.RuleResult where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53RecoveryReadiness.Types.Message
 import Amazonka.Route53RecoveryReadiness.Types.Readiness
 
--- | Result with status for an individual rule..
+-- | The result of a successful Rule request, with status for an individual
+-- rule.
 --
 -- /See:/ 'newRuleResult' smart constructor.
 data RuleResult = RuleResult'
-  { -- | Details about the resource\'s readiness
+  { -- | Details about the resource\'s readiness.
     messages :: [Message],
     -- | The readiness at rule level.
     readiness :: Readiness,
@@ -37,7 +39,7 @@ data RuleResult = RuleResult'
     ruleId :: Prelude.Text,
     -- | The time the resource was last checked for readiness, in ISO-8601
     -- format, UTC.
-    lastCheckedTimestamp :: Core.POSIX
+    lastCheckedTimestamp :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -49,7 +51,7 @@ data RuleResult = RuleResult'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'messages', 'ruleResult_messages' - Details about the resource\'s readiness
+-- 'messages', 'ruleResult_messages' - Details about the resource\'s readiness.
 --
 -- 'readiness', 'ruleResult_readiness' - The readiness at rule level.
 --
@@ -74,10 +76,10 @@ newRuleResult
         readiness = pReadiness_,
         ruleId = pRuleId_,
         lastCheckedTimestamp =
-          Core._Time Lens.# pLastCheckedTimestamp_
+          Data._Time Lens.# pLastCheckedTimestamp_
       }
 
--- | Details about the resource\'s readiness
+-- | Details about the resource\'s readiness.
 ruleResult_messages :: Lens.Lens' RuleResult [Message]
 ruleResult_messages = Lens.lens (\RuleResult' {messages} -> messages) (\s@RuleResult' {} a -> s {messages = a} :: RuleResult) Prelude.. Lens.coerced
 
@@ -92,18 +94,18 @@ ruleResult_ruleId = Lens.lens (\RuleResult' {ruleId} -> ruleId) (\s@RuleResult' 
 -- | The time the resource was last checked for readiness, in ISO-8601
 -- format, UTC.
 ruleResult_lastCheckedTimestamp :: Lens.Lens' RuleResult Prelude.UTCTime
-ruleResult_lastCheckedTimestamp = Lens.lens (\RuleResult' {lastCheckedTimestamp} -> lastCheckedTimestamp) (\s@RuleResult' {} a -> s {lastCheckedTimestamp = a} :: RuleResult) Prelude.. Core._Time
+ruleResult_lastCheckedTimestamp = Lens.lens (\RuleResult' {lastCheckedTimestamp} -> lastCheckedTimestamp) (\s@RuleResult' {} a -> s {lastCheckedTimestamp = a} :: RuleResult) Prelude.. Data._Time
 
-instance Core.FromJSON RuleResult where
+instance Data.FromJSON RuleResult where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RuleResult"
       ( \x ->
           RuleResult'
-            Prelude.<$> (x Core..:? "messages" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "readiness")
-            Prelude.<*> (x Core..: "ruleId")
-            Prelude.<*> (x Core..: "lastCheckedTimestamp")
+            Prelude.<$> (x Data..:? "messages" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "readiness")
+            Prelude.<*> (x Data..: "ruleId")
+            Prelude.<*> (x Data..: "lastCheckedTimestamp")
       )
 
 instance Prelude.Hashable RuleResult where

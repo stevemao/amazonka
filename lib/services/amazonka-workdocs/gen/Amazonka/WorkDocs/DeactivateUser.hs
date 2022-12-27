@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkDocs.DeactivateUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ module Amazonka.WorkDocs.DeactivateUser
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -48,7 +49,7 @@ import Amazonka.WorkDocs.Types
 data DeactivateUser = DeactivateUser'
   { -- | Amazon WorkDocs authentication token. Not required when using AWS
     -- administrator credentials to access the API.
-    authenticationToken :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    authenticationToken :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The ID of the user.
     userId :: Prelude.Text
   }
@@ -80,7 +81,7 @@ newDeactivateUser pUserId_ =
 -- | Amazon WorkDocs authentication token. Not required when using AWS
 -- administrator credentials to access the API.
 deactivateUser_authenticationToken :: Lens.Lens' DeactivateUser (Prelude.Maybe Prelude.Text)
-deactivateUser_authenticationToken = Lens.lens (\DeactivateUser' {authenticationToken} -> authenticationToken) (\s@DeactivateUser' {} a -> s {authenticationToken = a} :: DeactivateUser) Prelude.. Lens.mapping Core._Sensitive
+deactivateUser_authenticationToken = Lens.lens (\DeactivateUser' {authenticationToken} -> authenticationToken) (\s@DeactivateUser' {} a -> s {authenticationToken = a} :: DeactivateUser) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The ID of the user.
 deactivateUser_userId :: Lens.Lens' DeactivateUser Prelude.Text
@@ -90,7 +91,8 @@ instance Core.AWSRequest DeactivateUser where
   type
     AWSResponse DeactivateUser =
       DeactivateUserResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeactivateUserResponse'
 
@@ -104,20 +106,20 @@ instance Prelude.NFData DeactivateUser where
     Prelude.rnf authenticationToken
       `Prelude.seq` Prelude.rnf userId
 
-instance Core.ToHeaders DeactivateUser where
+instance Data.ToHeaders DeactivateUser where
   toHeaders DeactivateUser' {..} =
     Prelude.mconcat
-      [ "Authentication" Core.=# authenticationToken,
+      [ "Authentication" Data.=# authenticationToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToPath DeactivateUser where
+instance Data.ToPath DeactivateUser where
   toPath DeactivateUser' {..} =
     Prelude.mconcat
-      ["/api/v1/users/", Core.toBS userId, "/activation"]
+      ["/api/v1/users/", Data.toBS userId, "/activation"]
 
-instance Core.ToQuery DeactivateUser where
+instance Data.ToQuery DeactivateUser where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeactivateUserResponse' smart constructor.

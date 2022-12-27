@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Config.Types.EvaluationResultIdentifier
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Config.Types.EvaluationResultIdentifier where
 
 import Amazonka.Config.Types.EvaluationResultQualifier
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Uniquely identifies an evaluation result.
@@ -36,7 +37,9 @@ data EvaluationResultIdentifier = EvaluationResultIdentifier'
     -- configuration item change notification, or it can indicate when Config
     -- delivered the configuration snapshot, depending on which event triggered
     -- the evaluation.
-    orderingTimestamp :: Prelude.Maybe Core.POSIX
+    orderingTimestamp :: Prelude.Maybe Data.POSIX,
+    -- | A Unique ID for an evaluation result.
+    resourceEvaluationId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -56,13 +59,16 @@ data EvaluationResultIdentifier = EvaluationResultIdentifier'
 -- configuration item change notification, or it can indicate when Config
 -- delivered the configuration snapshot, depending on which event triggered
 -- the evaluation.
+--
+-- 'resourceEvaluationId', 'evaluationResultIdentifier_resourceEvaluationId' - A Unique ID for an evaluation result.
 newEvaluationResultIdentifier ::
   EvaluationResultIdentifier
 newEvaluationResultIdentifier =
   EvaluationResultIdentifier'
     { evaluationResultQualifier =
         Prelude.Nothing,
-      orderingTimestamp = Prelude.Nothing
+      orderingTimestamp = Prelude.Nothing,
+      resourceEvaluationId = Prelude.Nothing
     }
 
 -- | Identifies an Config rule used to evaluate an Amazon Web Services
@@ -76,16 +82,21 @@ evaluationResultIdentifier_evaluationResultQualifier = Lens.lens (\EvaluationRes
 -- delivered the configuration snapshot, depending on which event triggered
 -- the evaluation.
 evaluationResultIdentifier_orderingTimestamp :: Lens.Lens' EvaluationResultIdentifier (Prelude.Maybe Prelude.UTCTime)
-evaluationResultIdentifier_orderingTimestamp = Lens.lens (\EvaluationResultIdentifier' {orderingTimestamp} -> orderingTimestamp) (\s@EvaluationResultIdentifier' {} a -> s {orderingTimestamp = a} :: EvaluationResultIdentifier) Prelude.. Lens.mapping Core._Time
+evaluationResultIdentifier_orderingTimestamp = Lens.lens (\EvaluationResultIdentifier' {orderingTimestamp} -> orderingTimestamp) (\s@EvaluationResultIdentifier' {} a -> s {orderingTimestamp = a} :: EvaluationResultIdentifier) Prelude.. Lens.mapping Data._Time
 
-instance Core.FromJSON EvaluationResultIdentifier where
+-- | A Unique ID for an evaluation result.
+evaluationResultIdentifier_resourceEvaluationId :: Lens.Lens' EvaluationResultIdentifier (Prelude.Maybe Prelude.Text)
+evaluationResultIdentifier_resourceEvaluationId = Lens.lens (\EvaluationResultIdentifier' {resourceEvaluationId} -> resourceEvaluationId) (\s@EvaluationResultIdentifier' {} a -> s {resourceEvaluationId = a} :: EvaluationResultIdentifier)
+
+instance Data.FromJSON EvaluationResultIdentifier where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EvaluationResultIdentifier"
       ( \x ->
           EvaluationResultIdentifier'
-            Prelude.<$> (x Core..:? "EvaluationResultQualifier")
-            Prelude.<*> (x Core..:? "OrderingTimestamp")
+            Prelude.<$> (x Data..:? "EvaluationResultQualifier")
+            Prelude.<*> (x Data..:? "OrderingTimestamp")
+            Prelude.<*> (x Data..:? "ResourceEvaluationId")
       )
 
 instance Prelude.Hashable EvaluationResultIdentifier where
@@ -93,8 +104,10 @@ instance Prelude.Hashable EvaluationResultIdentifier where
     _salt
       `Prelude.hashWithSalt` evaluationResultQualifier
       `Prelude.hashWithSalt` orderingTimestamp
+      `Prelude.hashWithSalt` resourceEvaluationId
 
 instance Prelude.NFData EvaluationResultIdentifier where
   rnf EvaluationResultIdentifier' {..} =
     Prelude.rnf evaluationResultQualifier
       `Prelude.seq` Prelude.rnf orderingTimestamp
+      `Prelude.seq` Prelude.rnf resourceEvaluationId

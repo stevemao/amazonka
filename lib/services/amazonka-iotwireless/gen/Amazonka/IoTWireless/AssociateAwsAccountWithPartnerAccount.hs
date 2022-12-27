@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.AssociateAwsAccountWithPartnerAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,15 +36,16 @@ module Amazonka.IoTWireless.AssociateAwsAccountWithPartnerAccount
     newAssociateAwsAccountWithPartnerAccountResponse,
 
     -- * Response Lenses
-    associateAwsAccountWithPartnerAccountResponse_sidewalk,
     associateAwsAccountWithPartnerAccountResponse_arn,
+    associateAwsAccountWithPartnerAccountResponse_sidewalk,
     associateAwsAccountWithPartnerAccountResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -117,13 +118,14 @@ instance
     AWSResponse
       AssociateAwsAccountWithPartnerAccount =
       AssociateAwsAccountWithPartnerAccountResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AssociateAwsAccountWithPartnerAccountResponse'
-            Prelude.<$> (x Core..?> "Sidewalk")
-              Prelude.<*> (x Core..?> "Arn")
+            Prelude.<$> (x Data..?> "Arn")
+              Prelude.<*> (x Data..?> "Sidewalk")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -148,43 +150,43 @@ instance
       `Prelude.seq` Prelude.rnf sidewalk
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     AssociateAwsAccountWithPartnerAccount
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AssociateAwsAccountWithPartnerAccount
   where
   toJSON AssociateAwsAccountWithPartnerAccount' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ClientRequestToken" Core..=)
+          [ ("ClientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Sidewalk" Core..= sidewalk)
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Sidewalk" Data..= sidewalk)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     AssociateAwsAccountWithPartnerAccount
   where
   toPath = Prelude.const "/partner-accounts"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     AssociateAwsAccountWithPartnerAccount
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateAwsAccountWithPartnerAccountResponse' smart constructor.
 data AssociateAwsAccountWithPartnerAccountResponse = AssociateAwsAccountWithPartnerAccountResponse'
-  { -- | The Sidewalk account credentials.
-    sidewalk :: Prelude.Maybe SidewalkAccountInfo,
-    -- | The Amazon Resource Name of the resource.
+  { -- | The Amazon Resource Name of the resource.
     arn :: Prelude.Maybe Prelude.Text,
+    -- | The Sidewalk account credentials.
+    sidewalk :: Prelude.Maybe SidewalkAccountInfo,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -198,9 +200,9 @@ data AssociateAwsAccountWithPartnerAccountResponse = AssociateAwsAccountWithPart
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sidewalk', 'associateAwsAccountWithPartnerAccountResponse_sidewalk' - The Sidewalk account credentials.
---
 -- 'arn', 'associateAwsAccountWithPartnerAccountResponse_arn' - The Amazon Resource Name of the resource.
+--
+-- 'sidewalk', 'associateAwsAccountWithPartnerAccountResponse_sidewalk' - The Sidewalk account credentials.
 --
 -- 'httpStatus', 'associateAwsAccountWithPartnerAccountResponse_httpStatus' - The response's http status code.
 newAssociateAwsAccountWithPartnerAccountResponse ::
@@ -210,19 +212,19 @@ newAssociateAwsAccountWithPartnerAccountResponse ::
 newAssociateAwsAccountWithPartnerAccountResponse
   pHttpStatus_ =
     AssociateAwsAccountWithPartnerAccountResponse'
-      { sidewalk =
+      { arn =
           Prelude.Nothing,
-        arn = Prelude.Nothing,
+        sidewalk = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | The Sidewalk account credentials.
-associateAwsAccountWithPartnerAccountResponse_sidewalk :: Lens.Lens' AssociateAwsAccountWithPartnerAccountResponse (Prelude.Maybe SidewalkAccountInfo)
-associateAwsAccountWithPartnerAccountResponse_sidewalk = Lens.lens (\AssociateAwsAccountWithPartnerAccountResponse' {sidewalk} -> sidewalk) (\s@AssociateAwsAccountWithPartnerAccountResponse' {} a -> s {sidewalk = a} :: AssociateAwsAccountWithPartnerAccountResponse)
 
 -- | The Amazon Resource Name of the resource.
 associateAwsAccountWithPartnerAccountResponse_arn :: Lens.Lens' AssociateAwsAccountWithPartnerAccountResponse (Prelude.Maybe Prelude.Text)
 associateAwsAccountWithPartnerAccountResponse_arn = Lens.lens (\AssociateAwsAccountWithPartnerAccountResponse' {arn} -> arn) (\s@AssociateAwsAccountWithPartnerAccountResponse' {} a -> s {arn = a} :: AssociateAwsAccountWithPartnerAccountResponse)
+
+-- | The Sidewalk account credentials.
+associateAwsAccountWithPartnerAccountResponse_sidewalk :: Lens.Lens' AssociateAwsAccountWithPartnerAccountResponse (Prelude.Maybe SidewalkAccountInfo)
+associateAwsAccountWithPartnerAccountResponse_sidewalk = Lens.lens (\AssociateAwsAccountWithPartnerAccountResponse' {sidewalk} -> sidewalk) (\s@AssociateAwsAccountWithPartnerAccountResponse' {} a -> s {sidewalk = a} :: AssociateAwsAccountWithPartnerAccountResponse)
 
 -- | The response's http status code.
 associateAwsAccountWithPartnerAccountResponse_httpStatus :: Lens.Lens' AssociateAwsAccountWithPartnerAccountResponse Prelude.Int
@@ -234,6 +236,6 @@ instance
   where
   rnf
     AssociateAwsAccountWithPartnerAccountResponse' {..} =
-      Prelude.rnf sidewalk
-        `Prelude.seq` Prelude.rnf arn
+      Prelude.rnf arn
+        `Prelude.seq` Prelude.rnf sidewalk
         `Prelude.seq` Prelude.rnf httpStatus

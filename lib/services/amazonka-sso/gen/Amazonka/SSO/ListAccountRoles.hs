@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSO.ListAccountRoles
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.SSO.ListAccountRoles
     newListAccountRoles,
 
     -- * Request Lenses
-    listAccountRoles_nextToken,
     listAccountRoles_maxResults,
+    listAccountRoles_nextToken,
     listAccountRoles_accessToken,
     listAccountRoles_accountId,
 
@@ -39,14 +39,15 @@ module Amazonka.SSO.ListAccountRoles
     newListAccountRolesResponse,
 
     -- * Response Lenses
-    listAccountRolesResponse_roleList,
     listAccountRolesResponse_nextToken,
+    listAccountRolesResponse_roleList,
     listAccountRolesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,16 +55,16 @@ import Amazonka.SSO.Types
 
 -- | /See:/ 'newListAccountRoles' smart constructor.
 data ListAccountRoles = ListAccountRoles'
-  { -- | The page token from the previous response output when you request
+  { -- | The number of items that clients can request per page.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The page token from the previous response output when you request
     -- subsequent pages.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The number of items that clients can request per page.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The token issued by the @CreateToken@ API call. For more information,
     -- see
     -- <https://docs.aws.amazon.com/singlesignon/latest/OIDCAPIReference/API_CreateToken.html CreateToken>
-    -- in the /AWS SSO OIDC API Reference Guide/.
-    accessToken :: Core.Sensitive Prelude.Text,
+    -- in the /IAM Identity Center OIDC API Reference Guide/.
+    accessToken :: Data.Sensitive Prelude.Text,
     -- | The identifier for the AWS account that is assigned to the user.
     accountId :: Prelude.Text
   }
@@ -77,15 +78,15 @@ data ListAccountRoles = ListAccountRoles'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listAccountRoles_maxResults' - The number of items that clients can request per page.
+--
 -- 'nextToken', 'listAccountRoles_nextToken' - The page token from the previous response output when you request
 -- subsequent pages.
---
--- 'maxResults', 'listAccountRoles_maxResults' - The number of items that clients can request per page.
 --
 -- 'accessToken', 'listAccountRoles_accessToken' - The token issued by the @CreateToken@ API call. For more information,
 -- see
 -- <https://docs.aws.amazon.com/singlesignon/latest/OIDCAPIReference/API_CreateToken.html CreateToken>
--- in the /AWS SSO OIDC API Reference Guide/.
+-- in the /IAM Identity Center OIDC API Reference Guide/.
 --
 -- 'accountId', 'listAccountRoles_accountId' - The identifier for the AWS account that is assigned to the user.
 newListAccountRoles ::
@@ -96,27 +97,27 @@ newListAccountRoles ::
   ListAccountRoles
 newListAccountRoles pAccessToken_ pAccountId_ =
   ListAccountRoles'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
-      accessToken = Core._Sensitive Lens.# pAccessToken_,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      accessToken = Data._Sensitive Lens.# pAccessToken_,
       accountId = pAccountId_
     }
+
+-- | The number of items that clients can request per page.
+listAccountRoles_maxResults :: Lens.Lens' ListAccountRoles (Prelude.Maybe Prelude.Natural)
+listAccountRoles_maxResults = Lens.lens (\ListAccountRoles' {maxResults} -> maxResults) (\s@ListAccountRoles' {} a -> s {maxResults = a} :: ListAccountRoles)
 
 -- | The page token from the previous response output when you request
 -- subsequent pages.
 listAccountRoles_nextToken :: Lens.Lens' ListAccountRoles (Prelude.Maybe Prelude.Text)
 listAccountRoles_nextToken = Lens.lens (\ListAccountRoles' {nextToken} -> nextToken) (\s@ListAccountRoles' {} a -> s {nextToken = a} :: ListAccountRoles)
 
--- | The number of items that clients can request per page.
-listAccountRoles_maxResults :: Lens.Lens' ListAccountRoles (Prelude.Maybe Prelude.Natural)
-listAccountRoles_maxResults = Lens.lens (\ListAccountRoles' {maxResults} -> maxResults) (\s@ListAccountRoles' {} a -> s {maxResults = a} :: ListAccountRoles)
-
 -- | The token issued by the @CreateToken@ API call. For more information,
 -- see
 -- <https://docs.aws.amazon.com/singlesignon/latest/OIDCAPIReference/API_CreateToken.html CreateToken>
--- in the /AWS SSO OIDC API Reference Guide/.
+-- in the /IAM Identity Center OIDC API Reference Guide/.
 listAccountRoles_accessToken :: Lens.Lens' ListAccountRoles Prelude.Text
-listAccountRoles_accessToken = Lens.lens (\ListAccountRoles' {accessToken} -> accessToken) (\s@ListAccountRoles' {} a -> s {accessToken = a} :: ListAccountRoles) Prelude.. Core._Sensitive
+listAccountRoles_accessToken = Lens.lens (\ListAccountRoles' {accessToken} -> accessToken) (\s@ListAccountRoles' {} a -> s {accessToken = a} :: ListAccountRoles) Prelude.. Data._Sensitive
 
 -- | The identifier for the AWS account that is assigned to the user.
 listAccountRoles_accountId :: Lens.Lens' ListAccountRoles Prelude.Text
@@ -148,56 +149,57 @@ instance Core.AWSRequest ListAccountRoles where
   type
     AWSResponse ListAccountRoles =
       ListAccountRolesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAccountRolesResponse'
-            Prelude.<$> (x Core..?> "roleList" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "roleList" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListAccountRoles where
   hashWithSalt _salt ListAccountRoles' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` accessToken
       `Prelude.hashWithSalt` accountId
 
 instance Prelude.NFData ListAccountRoles where
   rnf ListAccountRoles' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf accessToken
       `Prelude.seq` Prelude.rnf accountId
 
-instance Core.ToHeaders ListAccountRoles where
+instance Data.ToHeaders ListAccountRoles where
   toHeaders ListAccountRoles' {..} =
     Prelude.mconcat
-      [ "x-amz-sso_bearer_token" Core.=# accessToken,
+      [ "x-amz-sso_bearer_token" Data.=# accessToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToPath ListAccountRoles where
+instance Data.ToPath ListAccountRoles where
   toPath = Prelude.const "/assignment/roles"
 
-instance Core.ToQuery ListAccountRoles where
+instance Data.ToQuery ListAccountRoles where
   toQuery ListAccountRoles' {..} =
     Prelude.mconcat
-      [ "next_token" Core.=: nextToken,
-        "max_result" Core.=: maxResults,
-        "account_id" Core.=: accountId
+      [ "max_result" Data.=: maxResults,
+        "next_token" Data.=: nextToken,
+        "account_id" Data.=: accountId
       ]
 
 -- | /See:/ 'newListAccountRolesResponse' smart constructor.
 data ListAccountRolesResponse = ListAccountRolesResponse'
-  { -- | A paginated response with the list of roles and the next token if more
+  { -- | The page token client that is used to retrieve the list of accounts.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A paginated response with the list of roles and the next token if more
     -- results are available.
     roleList :: Prelude.Maybe [RoleInfo],
-    -- | The page token client that is used to retrieve the list of accounts.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -211,10 +213,10 @@ data ListAccountRolesResponse = ListAccountRolesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'nextToken', 'listAccountRolesResponse_nextToken' - The page token client that is used to retrieve the list of accounts.
+--
 -- 'roleList', 'listAccountRolesResponse_roleList' - A paginated response with the list of roles and the next token if more
 -- results are available.
---
--- 'nextToken', 'listAccountRolesResponse_nextToken' - The page token client that is used to retrieve the list of accounts.
 --
 -- 'httpStatus', 'listAccountRolesResponse_httpStatus' - The response's http status code.
 newListAccountRolesResponse ::
@@ -223,20 +225,20 @@ newListAccountRolesResponse ::
   ListAccountRolesResponse
 newListAccountRolesResponse pHttpStatus_ =
   ListAccountRolesResponse'
-    { roleList =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      roleList = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The page token client that is used to retrieve the list of accounts.
+listAccountRolesResponse_nextToken :: Lens.Lens' ListAccountRolesResponse (Prelude.Maybe Prelude.Text)
+listAccountRolesResponse_nextToken = Lens.lens (\ListAccountRolesResponse' {nextToken} -> nextToken) (\s@ListAccountRolesResponse' {} a -> s {nextToken = a} :: ListAccountRolesResponse)
 
 -- | A paginated response with the list of roles and the next token if more
 -- results are available.
 listAccountRolesResponse_roleList :: Lens.Lens' ListAccountRolesResponse (Prelude.Maybe [RoleInfo])
 listAccountRolesResponse_roleList = Lens.lens (\ListAccountRolesResponse' {roleList} -> roleList) (\s@ListAccountRolesResponse' {} a -> s {roleList = a} :: ListAccountRolesResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | The page token client that is used to retrieve the list of accounts.
-listAccountRolesResponse_nextToken :: Lens.Lens' ListAccountRolesResponse (Prelude.Maybe Prelude.Text)
-listAccountRolesResponse_nextToken = Lens.lens (\ListAccountRolesResponse' {nextToken} -> nextToken) (\s@ListAccountRolesResponse' {} a -> s {nextToken = a} :: ListAccountRolesResponse)
 
 -- | The response's http status code.
 listAccountRolesResponse_httpStatus :: Lens.Lens' ListAccountRolesResponse Prelude.Int
@@ -244,6 +246,6 @@ listAccountRolesResponse_httpStatus = Lens.lens (\ListAccountRolesResponse' {htt
 
 instance Prelude.NFData ListAccountRolesResponse where
   rnf ListAccountRolesResponse' {..} =
-    Prelude.rnf roleList
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf roleList
       `Prelude.seq` Prelude.rnf httpStatus

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.Types.ListInsightsAnyStatusFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.DevOpsGuru.Types.ListInsightsAnyStatusFilter where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DevOpsGuru.Types.InsightType
 import Amazonka.DevOpsGuru.Types.StartTimeRange
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Used to filter for insights that have any status.
@@ -82,12 +83,12 @@ instance Prelude.NFData ListInsightsAnyStatusFilter where
     Prelude.rnf type'
       `Prelude.seq` Prelude.rnf startTimeRange
 
-instance Core.ToJSON ListInsightsAnyStatusFilter where
+instance Data.ToJSON ListInsightsAnyStatusFilter where
   toJSON ListInsightsAnyStatusFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Type" Core..= type'),
+          [ Prelude.Just ("Type" Data..= type'),
             Prelude.Just
-              ("StartTimeRange" Core..= startTimeRange)
+              ("StartTimeRange" Data..= startTimeRange)
           ]
       )

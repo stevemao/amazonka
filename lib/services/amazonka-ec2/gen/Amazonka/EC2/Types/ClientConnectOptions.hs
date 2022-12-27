@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.ClientConnectOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.ClientConnectOptions where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The options for managing connection authorization for new client
@@ -79,9 +80,9 @@ instance Prelude.NFData ClientConnectOptions where
     Prelude.rnf enabled
       `Prelude.seq` Prelude.rnf lambdaFunctionArn
 
-instance Core.ToQuery ClientConnectOptions where
+instance Data.ToQuery ClientConnectOptions where
   toQuery ClientConnectOptions' {..} =
     Prelude.mconcat
-      [ "Enabled" Core.=: enabled,
-        "LambdaFunctionArn" Core.=: lambdaFunctionArn
+      [ "Enabled" Data.=: enabled,
+        "LambdaFunctionArn" Data.=: lambdaFunctionArn
       ]

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.UpdateDeviceInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.DeviceFarm.UpdateDeviceInstance
     newUpdateDeviceInstance,
 
     -- * Request Lenses
-    updateDeviceInstance_profileArn,
     updateDeviceInstance_labels,
+    updateDeviceInstance_profileArn,
     updateDeviceInstance_arn,
 
     -- * Destructuring the Response
@@ -42,19 +42,20 @@ module Amazonka.DeviceFarm.UpdateDeviceInstance
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateDeviceInstance' smart constructor.
 data UpdateDeviceInstance = UpdateDeviceInstance'
-  { -- | The ARN of the profile that you want to associate with the device
+  { -- | An array of strings that you want to associate with the device instance.
+    labels :: Prelude.Maybe [Prelude.Text],
+    -- | The ARN of the profile that you want to associate with the device
     -- instance.
     profileArn :: Prelude.Maybe Prelude.Text,
-    -- | An array of strings that you want to associate with the device instance.
-    labels :: Prelude.Maybe [Prelude.Text],
     -- | The Amazon Resource Name (ARN) of the device instance.
     arn :: Prelude.Text
   }
@@ -68,10 +69,10 @@ data UpdateDeviceInstance = UpdateDeviceInstance'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'labels', 'updateDeviceInstance_labels' - An array of strings that you want to associate with the device instance.
+--
 -- 'profileArn', 'updateDeviceInstance_profileArn' - The ARN of the profile that you want to associate with the device
 -- instance.
---
--- 'labels', 'updateDeviceInstance_labels' - An array of strings that you want to associate with the device instance.
 --
 -- 'arn', 'updateDeviceInstance_arn' - The Amazon Resource Name (ARN) of the device instance.
 newUpdateDeviceInstance ::
@@ -80,19 +81,19 @@ newUpdateDeviceInstance ::
   UpdateDeviceInstance
 newUpdateDeviceInstance pArn_ =
   UpdateDeviceInstance'
-    { profileArn = Prelude.Nothing,
-      labels = Prelude.Nothing,
+    { labels = Prelude.Nothing,
+      profileArn = Prelude.Nothing,
       arn = pArn_
     }
+
+-- | An array of strings that you want to associate with the device instance.
+updateDeviceInstance_labels :: Lens.Lens' UpdateDeviceInstance (Prelude.Maybe [Prelude.Text])
+updateDeviceInstance_labels = Lens.lens (\UpdateDeviceInstance' {labels} -> labels) (\s@UpdateDeviceInstance' {} a -> s {labels = a} :: UpdateDeviceInstance) Prelude.. Lens.mapping Lens.coerced
 
 -- | The ARN of the profile that you want to associate with the device
 -- instance.
 updateDeviceInstance_profileArn :: Lens.Lens' UpdateDeviceInstance (Prelude.Maybe Prelude.Text)
 updateDeviceInstance_profileArn = Lens.lens (\UpdateDeviceInstance' {profileArn} -> profileArn) (\s@UpdateDeviceInstance' {} a -> s {profileArn = a} :: UpdateDeviceInstance)
-
--- | An array of strings that you want to associate with the device instance.
-updateDeviceInstance_labels :: Lens.Lens' UpdateDeviceInstance (Prelude.Maybe [Prelude.Text])
-updateDeviceInstance_labels = Lens.lens (\UpdateDeviceInstance' {labels} -> labels) (\s@UpdateDeviceInstance' {} a -> s {labels = a} :: UpdateDeviceInstance) Prelude.. Lens.mapping Lens.coerced
 
 -- | The Amazon Resource Name (ARN) of the device instance.
 updateDeviceInstance_arn :: Lens.Lens' UpdateDeviceInstance Prelude.Text
@@ -102,56 +103,57 @@ instance Core.AWSRequest UpdateDeviceInstance where
   type
     AWSResponse UpdateDeviceInstance =
       UpdateDeviceInstanceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateDeviceInstanceResponse'
-            Prelude.<$> (x Core..?> "deviceInstance")
+            Prelude.<$> (x Data..?> "deviceInstance")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateDeviceInstance where
   hashWithSalt _salt UpdateDeviceInstance' {..} =
-    _salt `Prelude.hashWithSalt` profileArn
-      `Prelude.hashWithSalt` labels
+    _salt `Prelude.hashWithSalt` labels
+      `Prelude.hashWithSalt` profileArn
       `Prelude.hashWithSalt` arn
 
 instance Prelude.NFData UpdateDeviceInstance where
   rnf UpdateDeviceInstance' {..} =
-    Prelude.rnf profileArn
-      `Prelude.seq` Prelude.rnf labels
+    Prelude.rnf labels
+      `Prelude.seq` Prelude.rnf profileArn
       `Prelude.seq` Prelude.rnf arn
 
-instance Core.ToHeaders UpdateDeviceInstance where
+instance Data.ToHeaders UpdateDeviceInstance where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.UpdateDeviceInstance" ::
+              Data.=# ( "DeviceFarm_20150623.UpdateDeviceInstance" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateDeviceInstance where
+instance Data.ToJSON UpdateDeviceInstance where
   toJSON UpdateDeviceInstance' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("profileArn" Core..=) Prelude.<$> profileArn,
-            ("labels" Core..=) Prelude.<$> labels,
-            Prelude.Just ("arn" Core..= arn)
+          [ ("labels" Data..=) Prelude.<$> labels,
+            ("profileArn" Data..=) Prelude.<$> profileArn,
+            Prelude.Just ("arn" Data..= arn)
           ]
       )
 
-instance Core.ToPath UpdateDeviceInstance where
+instance Data.ToPath UpdateDeviceInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateDeviceInstance where
+instance Data.ToQuery UpdateDeviceInstance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateDeviceInstanceResponse' smart constructor.

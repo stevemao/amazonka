@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.Types.AnomalyDateInterval
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CostExplorer.Types.AnomalyDateInterval where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The time period for an anomaly.
@@ -73,11 +74,11 @@ instance Prelude.NFData AnomalyDateInterval where
     Prelude.rnf endDate
       `Prelude.seq` Prelude.rnf startDate
 
-instance Core.ToJSON AnomalyDateInterval where
+instance Data.ToJSON AnomalyDateInterval where
   toJSON AnomalyDateInterval' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EndDate" Core..=) Prelude.<$> endDate,
-            Prelude.Just ("StartDate" Core..= startDate)
+          [ ("EndDate" Data..=) Prelude.<$> endDate,
+            Prelude.Just ("StartDate" Data..= startDate)
           ]
       )

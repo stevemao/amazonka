@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.NestedFilters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.NestedFilters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.Filter
 
@@ -102,12 +103,12 @@ instance Prelude.NFData NestedFilters where
     Prelude.rnf nestedPropertyName
       `Prelude.seq` Prelude.rnf filters
 
-instance Core.ToJSON NestedFilters where
+instance Data.ToJSON NestedFilters where
   toJSON NestedFilters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("NestedPropertyName" Core..= nestedPropertyName),
-            Prelude.Just ("Filters" Core..= filters)
+              ("NestedPropertyName" Data..= nestedPropertyName),
+            Prelude.Just ("Filters" Data..= filters)
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.Types.AccessDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,12 +22,13 @@ module Amazonka.CertificateManagerPCA.Types.AccessDescription where
 import Amazonka.CertificateManagerPCA.Types.AccessMethod
 import Amazonka.CertificateManagerPCA.Types.GeneralName
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides access information used by the @authorityInfoAccess@ and
 -- @subjectInfoAccess@ extensions described in
--- <https://tools.ietf.org/html/rfc5280 RFC 5280>.
+-- <https://datatracker.ietf.org/doc/html/rfc5280 RFC 5280>.
 --
 -- /See:/ 'newAccessDescription' smart constructor.
 data AccessDescription = AccessDescription'
@@ -69,14 +70,14 @@ accessDescription_accessMethod = Lens.lens (\AccessDescription' {accessMethod} -
 accessDescription_accessLocation :: Lens.Lens' AccessDescription GeneralName
 accessDescription_accessLocation = Lens.lens (\AccessDescription' {accessLocation} -> accessLocation) (\s@AccessDescription' {} a -> s {accessLocation = a} :: AccessDescription)
 
-instance Core.FromJSON AccessDescription where
+instance Data.FromJSON AccessDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AccessDescription"
       ( \x ->
           AccessDescription'
-            Prelude.<$> (x Core..: "AccessMethod")
-            Prelude.<*> (x Core..: "AccessLocation")
+            Prelude.<$> (x Data..: "AccessMethod")
+            Prelude.<*> (x Data..: "AccessLocation")
       )
 
 instance Prelude.Hashable AccessDescription where
@@ -89,12 +90,12 @@ instance Prelude.NFData AccessDescription where
     Prelude.rnf accessMethod
       `Prelude.seq` Prelude.rnf accessLocation
 
-instance Core.ToJSON AccessDescription where
+instance Data.ToJSON AccessDescription where
   toJSON AccessDescription' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("AccessMethod" Core..= accessMethod),
+          [ Prelude.Just ("AccessMethod" Data..= accessMethod),
             Prelude.Just
-              ("AccessLocation" Core..= accessLocation)
+              ("AccessLocation" Data..= accessLocation)
           ]
       )

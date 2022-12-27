@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -11,22 +11,23 @@
 --
 -- Derived from API version @2020-11-12@ of the AWS service descriptions, licensed under Apache 2.0.
 --
--- This is the API Reference for AWS Network Firewall. This guide is for
+-- This is the API Reference for Network Firewall. This guide is for
 -- developers who need detailed information about the Network Firewall API
 -- actions, data types, and errors.
 --
 -- -   The REST API requires you to handle connection details, such as
 --     calculating signatures, handling request retries, and error
---     handling. For general information about using the AWS REST APIs, see
---     <https://docs.aws.amazon.com/general/latest/gr/aws-apis.html AWS APIs>.
+--     handling. For general information about using the Amazon Web
+--     Services REST APIs, see
+--     <https://docs.aws.amazon.com/general/latest/gr/aws-apis.html Amazon Web Services APIs>.
 --
 --     To access Network Firewall using the REST API endpoint:
 --     @https:\/\/network-firewall.\<region>.amazonaws.com @
 --
--- -   Alternatively, you can use one of the AWS SDKs to access an API
---     that\'s tailored to the programming language or platform that
---     you\'re using. For more information, see
---     <http://aws.amazon.com/tools/#SDKs AWS SDKs>.
+-- -   Alternatively, you can use one of the Amazon Web Services SDKs to
+--     access an API that\'s tailored to the programming language or
+--     platform that you\'re using. For more information, see
+--     <http://aws.amazon.com/tools/#SDKs Amazon Web Services SDKs>.
 --
 -- -   For descriptions of Network Firewall features, including and
 --     step-by-step instructions on how to use them through the Network
@@ -37,17 +38,17 @@
 -- detection and prevention service for Amazon Virtual Private Cloud
 -- (Amazon VPC). With Network Firewall, you can filter traffic at the
 -- perimeter of your VPC. This includes filtering traffic going to and
--- coming from an internet gateway, NAT gateway, or over VPN or AWS Direct
+-- coming from an internet gateway, NAT gateway, or over VPN or Direct
 -- Connect. Network Firewall uses rules that are compatible with Suricata,
--- a free, open source intrusion detection system (IDS) engine. AWS Network
--- Firewall supports Suricata version 5.0.2. For information about
--- Suricata, see the <https://suricata-ids.org/ Suricata website>.
+-- a free, open source network analysis and threat detection engine.
+-- Network Firewall supports Suricata version 5.0.2. For information about
+-- Suricata, see the <https://suricata.io/ Suricata website>.
 --
 -- You can use Network Firewall to monitor and protect your VPC traffic in
 -- a number of ways. The following are just a few examples:
 --
--- -   Allow domains or IP addresses for known AWS service endpoints, such
---     as Amazon S3, and block all other forms of traffic.
+-- -   Allow domains or IP addresses for known Amazon Web Services service
+--     endpoints, such as Amazon S3, and block all other forms of traffic.
 --
 -- -   Use custom lists of known bad domains to limit the types of domain
 --     names that your applications can access.
@@ -93,41 +94,41 @@ module Amazonka.NetworkFirewall
     -- * Errors
     -- $errors
 
-    -- ** LogDestinationPermissionException
-    _LogDestinationPermissionException,
-
-    -- ** InvalidRequestException
-    _InvalidRequestException,
-
-    -- ** UnsupportedOperationException
-    _UnsupportedOperationException,
-
-    -- ** ResourceOwnerCheckException
-    _ResourceOwnerCheckException,
-
-    -- ** InvalidResourcePolicyException
-    _InvalidResourcePolicyException,
-
-    -- ** ThrottlingException
-    _ThrottlingException,
+    -- ** InsufficientCapacityException
+    _InsufficientCapacityException,
 
     -- ** InternalServerError
     _InternalServerError,
 
-    -- ** InvalidTokenException
-    _InvalidTokenException,
-
     -- ** InvalidOperationException
     _InvalidOperationException,
 
-    -- ** InsufficientCapacityException
-    _InsufficientCapacityException,
+    -- ** InvalidRequestException
+    _InvalidRequestException,
+
+    -- ** InvalidResourcePolicyException
+    _InvalidResourcePolicyException,
+
+    -- ** InvalidTokenException
+    _InvalidTokenException,
+
+    -- ** LimitExceededException
+    _LimitExceededException,
+
+    -- ** LogDestinationPermissionException
+    _LogDestinationPermissionException,
 
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
 
-    -- ** LimitExceededException
-    _LimitExceededException,
+    -- ** ResourceOwnerCheckException
+    _ResourceOwnerCheckException,
+
+    -- ** ThrottlingException
+    _ThrottlingException,
+
+    -- ** UnsupportedOperationException
+    _UnsupportedOperationException,
 
     -- * Waiters
     -- $waiters
@@ -135,119 +136,17 @@ module Amazonka.NetworkFirewall
     -- * Operations
     -- $operations
 
-    -- ** AssociateSubnets
-    AssociateSubnets (AssociateSubnets'),
-    newAssociateSubnets,
-    AssociateSubnetsResponse (AssociateSubnetsResponse'),
-    newAssociateSubnetsResponse,
-
-    -- ** UpdateSubnetChangeProtection
-    UpdateSubnetChangeProtection (UpdateSubnetChangeProtection'),
-    newUpdateSubnetChangeProtection,
-    UpdateSubnetChangeProtectionResponse (UpdateSubnetChangeProtectionResponse'),
-    newUpdateSubnetChangeProtectionResponse,
-
-    -- ** UpdateFirewallPolicy
-    UpdateFirewallPolicy (UpdateFirewallPolicy'),
-    newUpdateFirewallPolicy,
-    UpdateFirewallPolicyResponse (UpdateFirewallPolicyResponse'),
-    newUpdateFirewallPolicyResponse,
-
-    -- ** DeleteFirewallPolicy
-    DeleteFirewallPolicy (DeleteFirewallPolicy'),
-    newDeleteFirewallPolicy,
-    DeleteFirewallPolicyResponse (DeleteFirewallPolicyResponse'),
-    newDeleteFirewallPolicyResponse,
-
-    -- ** CreateFirewallPolicy
-    CreateFirewallPolicy (CreateFirewallPolicy'),
-    newCreateFirewallPolicy,
-    CreateFirewallPolicyResponse (CreateFirewallPolicyResponse'),
-    newCreateFirewallPolicyResponse,
-
-    -- ** UpdateLoggingConfiguration
-    UpdateLoggingConfiguration (UpdateLoggingConfiguration'),
-    newUpdateLoggingConfiguration,
-    UpdateLoggingConfigurationResponse (UpdateLoggingConfigurationResponse'),
-    newUpdateLoggingConfigurationResponse,
-
-    -- ** DisassociateSubnets
-    DisassociateSubnets (DisassociateSubnets'),
-    newDisassociateSubnets,
-    DisassociateSubnetsResponse (DisassociateSubnetsResponse'),
-    newDisassociateSubnetsResponse,
-
-    -- ** ListTagsForResource (Paginated)
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** ListFirewallPolicies (Paginated)
-    ListFirewallPolicies (ListFirewallPolicies'),
-    newListFirewallPolicies,
-    ListFirewallPoliciesResponse (ListFirewallPoliciesResponse'),
-    newListFirewallPoliciesResponse,
-
-    -- ** UpdateFirewallDeleteProtection
-    UpdateFirewallDeleteProtection (UpdateFirewallDeleteProtection'),
-    newUpdateFirewallDeleteProtection,
-    UpdateFirewallDeleteProtectionResponse (UpdateFirewallDeleteProtectionResponse'),
-    newUpdateFirewallDeleteProtectionResponse,
-
-    -- ** CreateRuleGroup
-    CreateRuleGroup (CreateRuleGroup'),
-    newCreateRuleGroup,
-    CreateRuleGroupResponse (CreateRuleGroupResponse'),
-    newCreateRuleGroupResponse,
-
-    -- ** DescribeFirewallPolicy
-    DescribeFirewallPolicy (DescribeFirewallPolicy'),
-    newDescribeFirewallPolicy,
-    DescribeFirewallPolicyResponse (DescribeFirewallPolicyResponse'),
-    newDescribeFirewallPolicyResponse,
-
-    -- ** UpdateFirewallDescription
-    UpdateFirewallDescription (UpdateFirewallDescription'),
-    newUpdateFirewallDescription,
-    UpdateFirewallDescriptionResponse (UpdateFirewallDescriptionResponse'),
-    newUpdateFirewallDescriptionResponse,
-
-    -- ** DescribeRuleGroup
-    DescribeRuleGroup (DescribeRuleGroup'),
-    newDescribeRuleGroup,
-    DescribeRuleGroupResponse (DescribeRuleGroupResponse'),
-    newDescribeRuleGroupResponse,
-
-    -- ** DeleteFirewall
-    DeleteFirewall (DeleteFirewall'),
-    newDeleteFirewall,
-    DeleteFirewallResponse (DeleteFirewallResponse'),
-    newDeleteFirewallResponse,
-
-    -- ** ListFirewalls (Paginated)
-    ListFirewalls (ListFirewalls'),
-    newListFirewalls,
-    ListFirewallsResponse (ListFirewallsResponse'),
-    newListFirewallsResponse,
-
-    -- ** DescribeResourcePolicy
-    DescribeResourcePolicy (DescribeResourcePolicy'),
-    newDescribeResourcePolicy,
-    DescribeResourcePolicyResponse (DescribeResourcePolicyResponse'),
-    newDescribeResourcePolicyResponse,
-
     -- ** AssociateFirewallPolicy
     AssociateFirewallPolicy (AssociateFirewallPolicy'),
     newAssociateFirewallPolicy,
     AssociateFirewallPolicyResponse (AssociateFirewallPolicyResponse'),
     newAssociateFirewallPolicyResponse,
 
-    -- ** UpdateFirewallPolicyChangeProtection
-    UpdateFirewallPolicyChangeProtection (UpdateFirewallPolicyChangeProtection'),
-    newUpdateFirewallPolicyChangeProtection,
-    UpdateFirewallPolicyChangeProtectionResponse (UpdateFirewallPolicyChangeProtectionResponse'),
-    newUpdateFirewallPolicyChangeProtectionResponse,
+    -- ** AssociateSubnets
+    AssociateSubnets (AssociateSubnets'),
+    newAssociateSubnets,
+    AssociateSubnetsResponse (AssociateSubnetsResponse'),
+    newAssociateSubnetsResponse,
 
     -- ** CreateFirewall
     CreateFirewall (CreateFirewall'),
@@ -255,41 +154,29 @@ module Amazonka.NetworkFirewall
     CreateFirewallResponse (CreateFirewallResponse'),
     newCreateFirewallResponse,
 
-    -- ** ListRuleGroups (Paginated)
-    ListRuleGroups (ListRuleGroups'),
-    newListRuleGroups,
-    ListRuleGroupsResponse (ListRuleGroupsResponse'),
-    newListRuleGroupsResponse,
+    -- ** CreateFirewallPolicy
+    CreateFirewallPolicy (CreateFirewallPolicy'),
+    newCreateFirewallPolicy,
+    CreateFirewallPolicyResponse (CreateFirewallPolicyResponse'),
+    newCreateFirewallPolicyResponse,
 
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
+    -- ** CreateRuleGroup
+    CreateRuleGroup (CreateRuleGroup'),
+    newCreateRuleGroup,
+    CreateRuleGroupResponse (CreateRuleGroupResponse'),
+    newCreateRuleGroupResponse,
 
-    -- ** DeleteRuleGroup
-    DeleteRuleGroup (DeleteRuleGroup'),
-    newDeleteRuleGroup,
-    DeleteRuleGroupResponse (DeleteRuleGroupResponse'),
-    newDeleteRuleGroupResponse,
+    -- ** DeleteFirewall
+    DeleteFirewall (DeleteFirewall'),
+    newDeleteFirewall,
+    DeleteFirewallResponse (DeleteFirewallResponse'),
+    newDeleteFirewallResponse,
 
-    -- ** UpdateRuleGroup
-    UpdateRuleGroup (UpdateRuleGroup'),
-    newUpdateRuleGroup,
-    UpdateRuleGroupResponse (UpdateRuleGroupResponse'),
-    newUpdateRuleGroupResponse,
-
-    -- ** PutResourcePolicy
-    PutResourcePolicy (PutResourcePolicy'),
-    newPutResourcePolicy,
-    PutResourcePolicyResponse (PutResourcePolicyResponse'),
-    newPutResourcePolicyResponse,
-
-    -- ** DescribeFirewall
-    DescribeFirewall (DescribeFirewall'),
-    newDescribeFirewall,
-    DescribeFirewallResponse (DescribeFirewallResponse'),
-    newDescribeFirewallResponse,
+    -- ** DeleteFirewallPolicy
+    DeleteFirewallPolicy (DeleteFirewallPolicy'),
+    newDeleteFirewallPolicy,
+    DeleteFirewallPolicyResponse (DeleteFirewallPolicyResponse'),
+    newDeleteFirewallPolicyResponse,
 
     -- ** DeleteResourcePolicy
     DeleteResourcePolicy (DeleteResourcePolicy'),
@@ -297,17 +184,143 @@ module Amazonka.NetworkFirewall
     DeleteResourcePolicyResponse (DeleteResourcePolicyResponse'),
     newDeleteResourcePolicyResponse,
 
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
+    -- ** DeleteRuleGroup
+    DeleteRuleGroup (DeleteRuleGroup'),
+    newDeleteRuleGroup,
+    DeleteRuleGroupResponse (DeleteRuleGroupResponse'),
+    newDeleteRuleGroupResponse,
+
+    -- ** DescribeFirewall
+    DescribeFirewall (DescribeFirewall'),
+    newDescribeFirewall,
+    DescribeFirewallResponse (DescribeFirewallResponse'),
+    newDescribeFirewallResponse,
+
+    -- ** DescribeFirewallPolicy
+    DescribeFirewallPolicy (DescribeFirewallPolicy'),
+    newDescribeFirewallPolicy,
+    DescribeFirewallPolicyResponse (DescribeFirewallPolicyResponse'),
+    newDescribeFirewallPolicyResponse,
 
     -- ** DescribeLoggingConfiguration
     DescribeLoggingConfiguration (DescribeLoggingConfiguration'),
     newDescribeLoggingConfiguration,
     DescribeLoggingConfigurationResponse (DescribeLoggingConfigurationResponse'),
     newDescribeLoggingConfigurationResponse,
+
+    -- ** DescribeResourcePolicy
+    DescribeResourcePolicy (DescribeResourcePolicy'),
+    newDescribeResourcePolicy,
+    DescribeResourcePolicyResponse (DescribeResourcePolicyResponse'),
+    newDescribeResourcePolicyResponse,
+
+    -- ** DescribeRuleGroup
+    DescribeRuleGroup (DescribeRuleGroup'),
+    newDescribeRuleGroup,
+    DescribeRuleGroupResponse (DescribeRuleGroupResponse'),
+    newDescribeRuleGroupResponse,
+
+    -- ** DescribeRuleGroupMetadata
+    DescribeRuleGroupMetadata (DescribeRuleGroupMetadata'),
+    newDescribeRuleGroupMetadata,
+    DescribeRuleGroupMetadataResponse (DescribeRuleGroupMetadataResponse'),
+    newDescribeRuleGroupMetadataResponse,
+
+    -- ** DisassociateSubnets
+    DisassociateSubnets (DisassociateSubnets'),
+    newDisassociateSubnets,
+    DisassociateSubnetsResponse (DisassociateSubnetsResponse'),
+    newDisassociateSubnetsResponse,
+
+    -- ** ListFirewallPolicies (Paginated)
+    ListFirewallPolicies (ListFirewallPolicies'),
+    newListFirewallPolicies,
+    ListFirewallPoliciesResponse (ListFirewallPoliciesResponse'),
+    newListFirewallPoliciesResponse,
+
+    -- ** ListFirewalls (Paginated)
+    ListFirewalls (ListFirewalls'),
+    newListFirewalls,
+    ListFirewallsResponse (ListFirewallsResponse'),
+    newListFirewallsResponse,
+
+    -- ** ListRuleGroups (Paginated)
+    ListRuleGroups (ListRuleGroups'),
+    newListRuleGroups,
+    ListRuleGroupsResponse (ListRuleGroupsResponse'),
+    newListRuleGroupsResponse,
+
+    -- ** ListTagsForResource (Paginated)
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** PutResourcePolicy
+    PutResourcePolicy (PutResourcePolicy'),
+    newPutResourcePolicy,
+    PutResourcePolicyResponse (PutResourcePolicyResponse'),
+    newPutResourcePolicyResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UpdateFirewallDeleteProtection
+    UpdateFirewallDeleteProtection (UpdateFirewallDeleteProtection'),
+    newUpdateFirewallDeleteProtection,
+    UpdateFirewallDeleteProtectionResponse (UpdateFirewallDeleteProtectionResponse'),
+    newUpdateFirewallDeleteProtectionResponse,
+
+    -- ** UpdateFirewallDescription
+    UpdateFirewallDescription (UpdateFirewallDescription'),
+    newUpdateFirewallDescription,
+    UpdateFirewallDescriptionResponse (UpdateFirewallDescriptionResponse'),
+    newUpdateFirewallDescriptionResponse,
+
+    -- ** UpdateFirewallEncryptionConfiguration
+    UpdateFirewallEncryptionConfiguration (UpdateFirewallEncryptionConfiguration'),
+    newUpdateFirewallEncryptionConfiguration,
+    UpdateFirewallEncryptionConfigurationResponse (UpdateFirewallEncryptionConfigurationResponse'),
+    newUpdateFirewallEncryptionConfigurationResponse,
+
+    -- ** UpdateFirewallPolicy
+    UpdateFirewallPolicy (UpdateFirewallPolicy'),
+    newUpdateFirewallPolicy,
+    UpdateFirewallPolicyResponse (UpdateFirewallPolicyResponse'),
+    newUpdateFirewallPolicyResponse,
+
+    -- ** UpdateFirewallPolicyChangeProtection
+    UpdateFirewallPolicyChangeProtection (UpdateFirewallPolicyChangeProtection'),
+    newUpdateFirewallPolicyChangeProtection,
+    UpdateFirewallPolicyChangeProtectionResponse (UpdateFirewallPolicyChangeProtectionResponse'),
+    newUpdateFirewallPolicyChangeProtectionResponse,
+
+    -- ** UpdateLoggingConfiguration
+    UpdateLoggingConfiguration (UpdateLoggingConfiguration'),
+    newUpdateLoggingConfiguration,
+    UpdateLoggingConfigurationResponse (UpdateLoggingConfigurationResponse'),
+    newUpdateLoggingConfigurationResponse,
+
+    -- ** UpdateRuleGroup
+    UpdateRuleGroup (UpdateRuleGroup'),
+    newUpdateRuleGroup,
+    UpdateRuleGroupResponse (UpdateRuleGroupResponse'),
+    newUpdateRuleGroupResponse,
+
+    -- ** UpdateSubnetChangeProtection
+    UpdateSubnetChangeProtection (UpdateSubnetChangeProtection'),
+    newUpdateSubnetChangeProtection,
+    UpdateSubnetChangeProtectionResponse (UpdateSubnetChangeProtectionResponse'),
+    newUpdateSubnetChangeProtectionResponse,
 
     -- * Types
 
@@ -316,6 +329,9 @@ module Amazonka.NetworkFirewall
 
     -- ** ConfigurationSyncState
     ConfigurationSyncState (..),
+
+    -- ** EncryptionType
+    EncryptionType (..),
 
     -- ** FirewallStatusValue
     FirewallStatusValue (..),
@@ -329,8 +345,17 @@ module Amazonka.NetworkFirewall
     -- ** LogType
     LogType (..),
 
+    -- ** OverrideAction
+    OverrideAction (..),
+
     -- ** PerObjectSyncStatus
     PerObjectSyncStatus (..),
+
+    -- ** ResourceManagedStatus
+    ResourceManagedStatus (..),
+
+    -- ** ResourceManagedType
+    ResourceManagedType (..),
 
     -- ** ResourceStatus
     ResourceStatus (..),
@@ -350,6 +375,9 @@ module Amazonka.NetworkFirewall
     -- ** StatefulRuleProtocol
     StatefulRuleProtocol (..),
 
+    -- ** StreamExceptionPolicy
+    StreamExceptionPolicy (..),
+
     -- ** TCPFlag
     TCPFlag (..),
 
@@ -368,6 +396,14 @@ module Amazonka.NetworkFirewall
     Attachment (Attachment'),
     newAttachment,
 
+    -- ** CIDRSummary
+    CIDRSummary (CIDRSummary'),
+    newCIDRSummary,
+
+    -- ** CapacityUsageSummary
+    CapacityUsageSummary (CapacityUsageSummary'),
+    newCapacityUsageSummary,
+
     -- ** CustomAction
     CustomAction (CustomAction'),
     newCustomAction,
@@ -375,6 +411,10 @@ module Amazonka.NetworkFirewall
     -- ** Dimension
     Dimension (Dimension'),
     newDimension,
+
+    -- ** EncryptionConfiguration
+    EncryptionConfiguration (EncryptionConfiguration'),
+    newEncryptionConfiguration,
 
     -- ** Firewall
     Firewall (Firewall'),
@@ -408,6 +448,14 @@ module Amazonka.NetworkFirewall
     IPSet (IPSet'),
     newIPSet,
 
+    -- ** IPSetMetadata
+    IPSetMetadata (IPSetMetadata'),
+    newIPSetMetadata,
+
+    -- ** IPSetReference
+    IPSetReference (IPSetReference'),
+    newIPSetReference,
+
     -- ** LogDestinationConfig
     LogDestinationConfig (LogDestinationConfig'),
     newLogDestinationConfig,
@@ -435,6 +483,10 @@ module Amazonka.NetworkFirewall
     -- ** PublishMetricAction
     PublishMetricAction (PublishMetricAction'),
     newPublishMetricAction,
+
+    -- ** ReferenceSets
+    ReferenceSets (ReferenceSets'),
+    newReferenceSets,
 
     -- ** RuleDefinition
     RuleDefinition (RuleDefinition'),
@@ -468,6 +520,10 @@ module Amazonka.NetworkFirewall
     RulesSourceList (RulesSourceList'),
     newRulesSourceList,
 
+    -- ** SourceMetadata
+    SourceMetadata (SourceMetadata'),
+    newSourceMetadata,
+
     -- ** StatefulEngineOptions
     StatefulEngineOptions (StatefulEngineOptions'),
     newStatefulEngineOptions,
@@ -475,6 +531,10 @@ module Amazonka.NetworkFirewall
     -- ** StatefulRule
     StatefulRule (StatefulRule'),
     newStatefulRule,
+
+    -- ** StatefulRuleGroupOverride
+    StatefulRuleGroupOverride (StatefulRuleGroupOverride'),
+    newStatefulRuleGroupOverride,
 
     -- ** StatefulRuleGroupReference
     StatefulRuleGroupReference (StatefulRuleGroupReference'),
@@ -528,6 +588,7 @@ import Amazonka.NetworkFirewall.DescribeFirewallPolicy
 import Amazonka.NetworkFirewall.DescribeLoggingConfiguration
 import Amazonka.NetworkFirewall.DescribeResourcePolicy
 import Amazonka.NetworkFirewall.DescribeRuleGroup
+import Amazonka.NetworkFirewall.DescribeRuleGroupMetadata
 import Amazonka.NetworkFirewall.DisassociateSubnets
 import Amazonka.NetworkFirewall.Lens
 import Amazonka.NetworkFirewall.ListFirewallPolicies
@@ -540,6 +601,7 @@ import Amazonka.NetworkFirewall.Types
 import Amazonka.NetworkFirewall.UntagResource
 import Amazonka.NetworkFirewall.UpdateFirewallDeleteProtection
 import Amazonka.NetworkFirewall.UpdateFirewallDescription
+import Amazonka.NetworkFirewall.UpdateFirewallEncryptionConfiguration
 import Amazonka.NetworkFirewall.UpdateFirewallPolicy
 import Amazonka.NetworkFirewall.UpdateFirewallPolicyChangeProtection
 import Amazonka.NetworkFirewall.UpdateLoggingConfiguration

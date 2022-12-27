@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.Types.Runtime
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,6 +20,7 @@
 module Amazonka.Lambda.Types.Runtime
   ( Runtime
       ( ..,
+        Runtime_Dotnet6,
         Runtime_Dotnetcore1_0,
         Runtime_Dotnetcore2_0,
         Runtime_Dotnetcore2_1,
@@ -32,6 +33,8 @@ module Amazonka.Lambda.Types.Runtime
         Runtime_Nodejs10_x,
         Runtime_Nodejs12_x,
         Runtime_Nodejs14_x,
+        Runtime_Nodejs16_x,
+        Runtime_Nodejs18_x,
         Runtime_Nodejs4_3,
         Runtime_Nodejs4_3_edge,
         Runtime_Nodejs6_10,
@@ -50,9 +53,10 @@ module Amazonka.Lambda.Types.Runtime
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
-newtype Runtime = Runtime' {fromRuntime :: Core.Text}
+newtype Runtime = Runtime' {fromRuntime :: Data.Text}
   deriving stock
     ( Prelude.Show,
       Prelude.Read,
@@ -63,19 +67,22 @@ newtype Runtime = Runtime' {fromRuntime :: Core.Text}
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
+
+pattern Runtime_Dotnet6 :: Runtime
+pattern Runtime_Dotnet6 = Runtime' "dotnet6"
 
 pattern Runtime_Dotnetcore1_0 :: Runtime
 pattern Runtime_Dotnetcore1_0 = Runtime' "dotnetcore1.0"
@@ -112,6 +119,12 @@ pattern Runtime_Nodejs12_x = Runtime' "nodejs12.x"
 
 pattern Runtime_Nodejs14_x :: Runtime
 pattern Runtime_Nodejs14_x = Runtime' "nodejs14.x"
+
+pattern Runtime_Nodejs16_x :: Runtime
+pattern Runtime_Nodejs16_x = Runtime' "nodejs16.x"
+
+pattern Runtime_Nodejs18_x :: Runtime
+pattern Runtime_Nodejs18_x = Runtime' "nodejs18.x"
 
 pattern Runtime_Nodejs4_3 :: Runtime
 pattern Runtime_Nodejs4_3 = Runtime' "nodejs4.3"
@@ -153,6 +166,7 @@ pattern Runtime_Ruby2_7 :: Runtime
 pattern Runtime_Ruby2_7 = Runtime' "ruby2.7"
 
 {-# COMPLETE
+  Runtime_Dotnet6,
   Runtime_Dotnetcore1_0,
   Runtime_Dotnetcore2_0,
   Runtime_Dotnetcore2_1,
@@ -165,6 +179,8 @@ pattern Runtime_Ruby2_7 = Runtime' "ruby2.7"
   Runtime_Nodejs10_x,
   Runtime_Nodejs12_x,
   Runtime_Nodejs14_x,
+  Runtime_Nodejs16_x,
+  Runtime_Nodejs18_x,
   Runtime_Nodejs4_3,
   Runtime_Nodejs4_3_edge,
   Runtime_Nodejs6_10,

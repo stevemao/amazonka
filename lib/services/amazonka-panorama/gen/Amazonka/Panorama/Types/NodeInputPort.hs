@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Panorama.Types.NodeInputPort
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Panorama.Types.NodeInputPort where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Panorama.Types.PortType
 import qualified Amazonka.Prelude as Prelude
 
@@ -28,16 +29,16 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newNodeInputPort' smart constructor.
 data NodeInputPort = NodeInputPort'
-  { -- | The input port\'s max connections.
+  { -- | The input port\'s default value.
+    defaultValue :: Prelude.Maybe Prelude.Text,
+    -- | The input port\'s description.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The input port\'s max connections.
     maxConnections :: Prelude.Maybe Prelude.Int,
     -- | The input port\'s name.
     name :: Prelude.Maybe Prelude.Text,
-    -- | The input port\'s default value.
-    defaultValue :: Prelude.Maybe Prelude.Text,
     -- | The input port\'s type.
-    type' :: Prelude.Maybe PortType,
-    -- | The input port\'s description.
-    description :: Prelude.Maybe Prelude.Text
+    type' :: Prelude.Maybe PortType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -49,25 +50,33 @@ data NodeInputPort = NodeInputPort'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'defaultValue', 'nodeInputPort_defaultValue' - The input port\'s default value.
+--
+-- 'description', 'nodeInputPort_description' - The input port\'s description.
+--
 -- 'maxConnections', 'nodeInputPort_maxConnections' - The input port\'s max connections.
 --
 -- 'name', 'nodeInputPort_name' - The input port\'s name.
 --
--- 'defaultValue', 'nodeInputPort_defaultValue' - The input port\'s default value.
---
 -- 'type'', 'nodeInputPort_type' - The input port\'s type.
---
--- 'description', 'nodeInputPort_description' - The input port\'s description.
 newNodeInputPort ::
   NodeInputPort
 newNodeInputPort =
   NodeInputPort'
-    { maxConnections = Prelude.Nothing,
+    { defaultValue = Prelude.Nothing,
+      description = Prelude.Nothing,
+      maxConnections = Prelude.Nothing,
       name = Prelude.Nothing,
-      defaultValue = Prelude.Nothing,
-      type' = Prelude.Nothing,
-      description = Prelude.Nothing
+      type' = Prelude.Nothing
     }
+
+-- | The input port\'s default value.
+nodeInputPort_defaultValue :: Lens.Lens' NodeInputPort (Prelude.Maybe Prelude.Text)
+nodeInputPort_defaultValue = Lens.lens (\NodeInputPort' {defaultValue} -> defaultValue) (\s@NodeInputPort' {} a -> s {defaultValue = a} :: NodeInputPort)
+
+-- | The input port\'s description.
+nodeInputPort_description :: Lens.Lens' NodeInputPort (Prelude.Maybe Prelude.Text)
+nodeInputPort_description = Lens.lens (\NodeInputPort' {description} -> description) (\s@NodeInputPort' {} a -> s {description = a} :: NodeInputPort)
 
 -- | The input port\'s max connections.
 nodeInputPort_maxConnections :: Lens.Lens' NodeInputPort (Prelude.Maybe Prelude.Int)
@@ -77,43 +86,35 @@ nodeInputPort_maxConnections = Lens.lens (\NodeInputPort' {maxConnections} -> ma
 nodeInputPort_name :: Lens.Lens' NodeInputPort (Prelude.Maybe Prelude.Text)
 nodeInputPort_name = Lens.lens (\NodeInputPort' {name} -> name) (\s@NodeInputPort' {} a -> s {name = a} :: NodeInputPort)
 
--- | The input port\'s default value.
-nodeInputPort_defaultValue :: Lens.Lens' NodeInputPort (Prelude.Maybe Prelude.Text)
-nodeInputPort_defaultValue = Lens.lens (\NodeInputPort' {defaultValue} -> defaultValue) (\s@NodeInputPort' {} a -> s {defaultValue = a} :: NodeInputPort)
-
 -- | The input port\'s type.
 nodeInputPort_type :: Lens.Lens' NodeInputPort (Prelude.Maybe PortType)
 nodeInputPort_type = Lens.lens (\NodeInputPort' {type'} -> type') (\s@NodeInputPort' {} a -> s {type' = a} :: NodeInputPort)
 
--- | The input port\'s description.
-nodeInputPort_description :: Lens.Lens' NodeInputPort (Prelude.Maybe Prelude.Text)
-nodeInputPort_description = Lens.lens (\NodeInputPort' {description} -> description) (\s@NodeInputPort' {} a -> s {description = a} :: NodeInputPort)
-
-instance Core.FromJSON NodeInputPort where
+instance Data.FromJSON NodeInputPort where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NodeInputPort"
       ( \x ->
           NodeInputPort'
-            Prelude.<$> (x Core..:? "MaxConnections")
-            Prelude.<*> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "DefaultValue")
-            Prelude.<*> (x Core..:? "Type")
-            Prelude.<*> (x Core..:? "Description")
+            Prelude.<$> (x Data..:? "DefaultValue")
+            Prelude.<*> (x Data..:? "Description")
+            Prelude.<*> (x Data..:? "MaxConnections")
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "Type")
       )
 
 instance Prelude.Hashable NodeInputPort where
   hashWithSalt _salt NodeInputPort' {..} =
-    _salt `Prelude.hashWithSalt` maxConnections
-      `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` defaultValue
-      `Prelude.hashWithSalt` type'
+    _salt `Prelude.hashWithSalt` defaultValue
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` maxConnections
+      `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` type'
 
 instance Prelude.NFData NodeInputPort where
   rnf NodeInputPort' {..} =
-    Prelude.rnf maxConnections
-      `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf defaultValue
-      `Prelude.seq` Prelude.rnf type'
+    Prelude.rnf defaultValue
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf maxConnections
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf type'

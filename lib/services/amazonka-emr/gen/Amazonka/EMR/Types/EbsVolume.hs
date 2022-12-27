@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.EbsVolume
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.EMR.Types.EbsVolume where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | EBS block device that\'s attached to an EC2 instance.
@@ -61,14 +62,14 @@ ebsVolume_device = Lens.lens (\EbsVolume' {device} -> device) (\s@EbsVolume' {} 
 ebsVolume_volumeId :: Lens.Lens' EbsVolume (Prelude.Maybe Prelude.Text)
 ebsVolume_volumeId = Lens.lens (\EbsVolume' {volumeId} -> volumeId) (\s@EbsVolume' {} a -> s {volumeId = a} :: EbsVolume)
 
-instance Core.FromJSON EbsVolume where
+instance Data.FromJSON EbsVolume where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EbsVolume"
       ( \x ->
           EbsVolume'
-            Prelude.<$> (x Core..:? "Device")
-            Prelude.<*> (x Core..:? "VolumeId")
+            Prelude.<$> (x Data..:? "Device")
+            Prelude.<*> (x Data..:? "VolumeId")
       )
 
 instance Prelude.Hashable EbsVolume where

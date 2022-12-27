@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.Types.RecordError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ServiceCatalog.Types.RecordError where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The error code and description resulting from an operation.
@@ -61,14 +62,14 @@ recordError_code = Lens.lens (\RecordError' {code} -> code) (\s@RecordError' {} 
 recordError_description :: Lens.Lens' RecordError (Prelude.Maybe Prelude.Text)
 recordError_description = Lens.lens (\RecordError' {description} -> description) (\s@RecordError' {} a -> s {description = a} :: RecordError)
 
-instance Core.FromJSON RecordError where
+instance Data.FromJSON RecordError where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RecordError"
       ( \x ->
           RecordError'
-            Prelude.<$> (x Core..:? "Code")
-            Prelude.<*> (x Core..:? "Description")
+            Prelude.<$> (x Data..:? "Code")
+            Prelude.<*> (x Data..:? "Description")
       )
 
 instance Prelude.Hashable RecordError where

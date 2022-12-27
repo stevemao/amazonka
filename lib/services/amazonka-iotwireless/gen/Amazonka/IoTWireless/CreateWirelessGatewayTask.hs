@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.CreateWirelessGatewayTask
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.IoTWireless.CreateWirelessGatewayTask
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,13 +96,14 @@ instance Core.AWSRequest CreateWirelessGatewayTask where
   type
     AWSResponse CreateWirelessGatewayTask =
       CreateWirelessGatewayTaskResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateWirelessGatewayTaskResponse'
-            Prelude.<$> (x Core..?> "Status")
-            Prelude.<*> (x Core..?> "WirelessGatewayTaskDefinitionId")
+            Prelude.<$> (x Data..?> "Status")
+            Prelude.<*> (x Data..?> "WirelessGatewayTaskDefinitionId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -115,26 +117,26 @@ instance Prelude.NFData CreateWirelessGatewayTask where
     Prelude.rnf id
       `Prelude.seq` Prelude.rnf wirelessGatewayTaskDefinitionId
 
-instance Core.ToHeaders CreateWirelessGatewayTask where
+instance Data.ToHeaders CreateWirelessGatewayTask where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateWirelessGatewayTask where
+instance Data.ToJSON CreateWirelessGatewayTask where
   toJSON CreateWirelessGatewayTask' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "WirelessGatewayTaskDefinitionId"
-                  Core..= wirelessGatewayTaskDefinitionId
+                  Data..= wirelessGatewayTaskDefinitionId
               )
           ]
       )
 
-instance Core.ToPath CreateWirelessGatewayTask where
+instance Data.ToPath CreateWirelessGatewayTask where
   toPath CreateWirelessGatewayTask' {..} =
     Prelude.mconcat
-      ["/wireless-gateways/", Core.toBS id, "/tasks"]
+      ["/wireless-gateways/", Data.toBS id, "/tasks"]
 
-instance Core.ToQuery CreateWirelessGatewayTask where
+instance Data.ToQuery CreateWirelessGatewayTask where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateWirelessGatewayTaskResponse' smart constructor.

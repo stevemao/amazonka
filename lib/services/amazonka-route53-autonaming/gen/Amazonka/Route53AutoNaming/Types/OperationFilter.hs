@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53AutoNaming.Types.OperationFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53AutoNaming.Types.OperationFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53AutoNaming.Types.FilterCondition
 import Amazonka.Route53AutoNaming.Types.OperationFilterName
@@ -216,12 +217,12 @@ instance Prelude.NFData OperationFilter where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf values
 
-instance Core.ToJSON OperationFilter where
+instance Data.ToJSON OperationFilter where
   toJSON OperationFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Condition" Core..=) Prelude.<$> condition,
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Values" Core..= values)
+          [ ("Condition" Data..=) Prelude.<$> condition,
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Values" Data..= values)
           ]
       )

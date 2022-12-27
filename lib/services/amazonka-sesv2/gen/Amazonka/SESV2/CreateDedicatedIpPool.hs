@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.CreateDedicatedIpPool
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,6 +31,7 @@ module Amazonka.SESV2.CreateDedicatedIpPool
     newCreateDedicatedIpPool,
 
     -- * Request Lenses
+    createDedicatedIpPool_scalingMode,
     createDedicatedIpPool_tags,
     createDedicatedIpPool_poolName,
 
@@ -44,7 +45,8 @@ module Amazonka.SESV2.CreateDedicatedIpPool
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,7 +56,9 @@ import Amazonka.SESV2.Types
 --
 -- /See:/ 'newCreateDedicatedIpPool' smart constructor.
 data CreateDedicatedIpPool = CreateDedicatedIpPool'
-  { -- | An object that defines the tags (keys and values) that you want to
+  { -- | The type of scaling mode.
+    scalingMode :: Prelude.Maybe ScalingMode,
+    -- | An object that defines the tags (keys and values) that you want to
     -- associate with the pool.
     tags :: Prelude.Maybe [Tag],
     -- | The name of the dedicated IP pool.
@@ -70,6 +74,8 @@ data CreateDedicatedIpPool = CreateDedicatedIpPool'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'scalingMode', 'createDedicatedIpPool_scalingMode' - The type of scaling mode.
+--
 -- 'tags', 'createDedicatedIpPool_tags' - An object that defines the tags (keys and values) that you want to
 -- associate with the pool.
 --
@@ -80,9 +86,15 @@ newCreateDedicatedIpPool ::
   CreateDedicatedIpPool
 newCreateDedicatedIpPool pPoolName_ =
   CreateDedicatedIpPool'
-    { tags = Prelude.Nothing,
+    { scalingMode =
+        Prelude.Nothing,
+      tags = Prelude.Nothing,
       poolName = pPoolName_
     }
+
+-- | The type of scaling mode.
+createDedicatedIpPool_scalingMode :: Lens.Lens' CreateDedicatedIpPool (Prelude.Maybe ScalingMode)
+createDedicatedIpPool_scalingMode = Lens.lens (\CreateDedicatedIpPool' {scalingMode} -> scalingMode) (\s@CreateDedicatedIpPool' {} a -> s {scalingMode = a} :: CreateDedicatedIpPool)
 
 -- | An object that defines the tags (keys and values) that you want to
 -- associate with the pool.
@@ -97,7 +109,8 @@ instance Core.AWSRequest CreateDedicatedIpPool where
   type
     AWSResponse CreateDedicatedIpPool =
       CreateDedicatedIpPoolResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -107,37 +120,41 @@ instance Core.AWSRequest CreateDedicatedIpPool where
 
 instance Prelude.Hashable CreateDedicatedIpPool where
   hashWithSalt _salt CreateDedicatedIpPool' {..} =
-    _salt `Prelude.hashWithSalt` tags
+    _salt `Prelude.hashWithSalt` scalingMode
+      `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` poolName
 
 instance Prelude.NFData CreateDedicatedIpPool where
   rnf CreateDedicatedIpPool' {..} =
-    Prelude.rnf tags `Prelude.seq` Prelude.rnf poolName
+    Prelude.rnf scalingMode
+      `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf poolName
 
-instance Core.ToHeaders CreateDedicatedIpPool where
+instance Data.ToHeaders CreateDedicatedIpPool where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateDedicatedIpPool where
+instance Data.ToJSON CreateDedicatedIpPool where
   toJSON CreateDedicatedIpPool' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("PoolName" Core..= poolName)
+          [ ("ScalingMode" Data..=) Prelude.<$> scalingMode,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("PoolName" Data..= poolName)
           ]
       )
 
-instance Core.ToPath CreateDedicatedIpPool where
+instance Data.ToPath CreateDedicatedIpPool where
   toPath = Prelude.const "/v2/email/dedicated-ip-pools"
 
-instance Core.ToQuery CreateDedicatedIpPool where
+instance Data.ToQuery CreateDedicatedIpPool where
   toQuery = Prelude.const Prelude.mempty
 
 -- | An HTTP 200 response if the request succeeds, or an error message if the

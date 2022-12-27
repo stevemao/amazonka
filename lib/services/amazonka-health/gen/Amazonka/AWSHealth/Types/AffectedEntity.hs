@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AWSHealth.Types.AffectedEntity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,21 +21,25 @@ module Amazonka.AWSHealth.Types.AffectedEntity where
 
 import Amazonka.AWSHealth.Types.EntityStatusCode
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about an entity that is affected by a Health event.
 --
 -- /See:/ 'newAffectedEntity' smart constructor.
 data AffectedEntity = AffectedEntity'
-  { -- | The most recent time that the entity was updated.
-    lastUpdatedTime :: Prelude.Maybe Core.POSIX,
-    -- | The ID of the affected entity.
-    entityValue :: Prelude.Maybe Prelude.Text,
+  { -- | The 12-digit Amazon Web Services account number that contains the
+    -- affected entity.
+    awsAccountId :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the entity. Format:
+    -- @arn:aws:health:entity-region:aws-account:entity\/entity-id @. Example:
+    -- @arn:aws:health:us-east-1:111222333444:entity\/AVh5GGT7ul1arKr1sE1K@
+    entityArn :: Prelude.Maybe Prelude.Text,
     -- | The URL of the affected entity.
     entityUrl :: Prelude.Maybe Prelude.Text,
-    -- | The 12-digit AWS account number that contains the affected entity.
-    awsAccountId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the affected entity.
+    entityValue :: Prelude.Maybe Prelude.Text,
     -- | The unique identifier for the event. The event ARN has the
     -- @arn:aws:health:event-region::event\/SERVICE\/EVENT_TYPE_CODE\/EVENT_TYPE_PLUS_ID @
     -- format.
@@ -44,17 +48,15 @@ data AffectedEntity = AffectedEntity'
     --
     -- @arn:aws:health:us-east-1::event\/EC2\/EC2_INSTANCE_RETIREMENT_SCHEDULED\/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456@
     eventArn :: Prelude.Maybe Prelude.Text,
-    -- | The unique identifier for the entity. Format:
-    -- @arn:aws:health:entity-region:aws-account:entity\/entity-id @. Example:
-    -- @arn:aws:health:us-east-1:111222333444:entity\/AVh5GGT7ul1arKr1sE1K@
-    entityArn :: Prelude.Maybe Prelude.Text,
+    -- | The most recent time that the entity was updated.
+    lastUpdatedTime :: Prelude.Maybe Data.POSIX,
+    -- | The most recent status of the entity affected by the event. The possible
+    -- values are @IMPAIRED@, @UNIMPAIRED@, and @UNKNOWN@.
+    statusCode :: Prelude.Maybe EntityStatusCode,
     -- | A map of entity tags attached to the affected entity.
     --
     -- Currently, the @tags@ property isn\'t supported.
-    tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | The most recent status of the entity affected by the event. The possible
-    -- values are @IMPAIRED@, @UNIMPAIRED@, and @UNKNOWN@.
-    statusCode :: Prelude.Maybe EntityStatusCode
+    tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -66,13 +68,16 @@ data AffectedEntity = AffectedEntity'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'lastUpdatedTime', 'affectedEntity_lastUpdatedTime' - The most recent time that the entity was updated.
+-- 'awsAccountId', 'affectedEntity_awsAccountId' - The 12-digit Amazon Web Services account number that contains the
+-- affected entity.
 --
--- 'entityValue', 'affectedEntity_entityValue' - The ID of the affected entity.
+-- 'entityArn', 'affectedEntity_entityArn' - The unique identifier for the entity. Format:
+-- @arn:aws:health:entity-region:aws-account:entity\/entity-id @. Example:
+-- @arn:aws:health:us-east-1:111222333444:entity\/AVh5GGT7ul1arKr1sE1K@
 --
 -- 'entityUrl', 'affectedEntity_entityUrl' - The URL of the affected entity.
 --
--- 'awsAccountId', 'affectedEntity_awsAccountId' - The 12-digit AWS account number that contains the affected entity.
+-- 'entityValue', 'affectedEntity_entityValue' - The ID of the affected entity.
 --
 -- 'eventArn', 'affectedEntity_eventArn' - The unique identifier for the event. The event ARN has the
 -- @arn:aws:health:event-region::event\/SERVICE\/EVENT_TYPE_CODE\/EVENT_TYPE_PLUS_ID @
@@ -82,45 +87,46 @@ data AffectedEntity = AffectedEntity'
 --
 -- @arn:aws:health:us-east-1::event\/EC2\/EC2_INSTANCE_RETIREMENT_SCHEDULED\/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456@
 --
--- 'entityArn', 'affectedEntity_entityArn' - The unique identifier for the entity. Format:
--- @arn:aws:health:entity-region:aws-account:entity\/entity-id @. Example:
--- @arn:aws:health:us-east-1:111222333444:entity\/AVh5GGT7ul1arKr1sE1K@
+-- 'lastUpdatedTime', 'affectedEntity_lastUpdatedTime' - The most recent time that the entity was updated.
+--
+-- 'statusCode', 'affectedEntity_statusCode' - The most recent status of the entity affected by the event. The possible
+-- values are @IMPAIRED@, @UNIMPAIRED@, and @UNKNOWN@.
 --
 -- 'tags', 'affectedEntity_tags' - A map of entity tags attached to the affected entity.
 --
 -- Currently, the @tags@ property isn\'t supported.
---
--- 'statusCode', 'affectedEntity_statusCode' - The most recent status of the entity affected by the event. The possible
--- values are @IMPAIRED@, @UNIMPAIRED@, and @UNKNOWN@.
 newAffectedEntity ::
   AffectedEntity
 newAffectedEntity =
   AffectedEntity'
-    { lastUpdatedTime = Prelude.Nothing,
-      entityValue = Prelude.Nothing,
-      entityUrl = Prelude.Nothing,
-      awsAccountId = Prelude.Nothing,
-      eventArn = Prelude.Nothing,
+    { awsAccountId = Prelude.Nothing,
       entityArn = Prelude.Nothing,
-      tags = Prelude.Nothing,
-      statusCode = Prelude.Nothing
+      entityUrl = Prelude.Nothing,
+      entityValue = Prelude.Nothing,
+      eventArn = Prelude.Nothing,
+      lastUpdatedTime = Prelude.Nothing,
+      statusCode = Prelude.Nothing,
+      tags = Prelude.Nothing
     }
 
--- | The most recent time that the entity was updated.
-affectedEntity_lastUpdatedTime :: Lens.Lens' AffectedEntity (Prelude.Maybe Prelude.UTCTime)
-affectedEntity_lastUpdatedTime = Lens.lens (\AffectedEntity' {lastUpdatedTime} -> lastUpdatedTime) (\s@AffectedEntity' {} a -> s {lastUpdatedTime = a} :: AffectedEntity) Prelude.. Lens.mapping Core._Time
+-- | The 12-digit Amazon Web Services account number that contains the
+-- affected entity.
+affectedEntity_awsAccountId :: Lens.Lens' AffectedEntity (Prelude.Maybe Prelude.Text)
+affectedEntity_awsAccountId = Lens.lens (\AffectedEntity' {awsAccountId} -> awsAccountId) (\s@AffectedEntity' {} a -> s {awsAccountId = a} :: AffectedEntity)
 
--- | The ID of the affected entity.
-affectedEntity_entityValue :: Lens.Lens' AffectedEntity (Prelude.Maybe Prelude.Text)
-affectedEntity_entityValue = Lens.lens (\AffectedEntity' {entityValue} -> entityValue) (\s@AffectedEntity' {} a -> s {entityValue = a} :: AffectedEntity)
+-- | The unique identifier for the entity. Format:
+-- @arn:aws:health:entity-region:aws-account:entity\/entity-id @. Example:
+-- @arn:aws:health:us-east-1:111222333444:entity\/AVh5GGT7ul1arKr1sE1K@
+affectedEntity_entityArn :: Lens.Lens' AffectedEntity (Prelude.Maybe Prelude.Text)
+affectedEntity_entityArn = Lens.lens (\AffectedEntity' {entityArn} -> entityArn) (\s@AffectedEntity' {} a -> s {entityArn = a} :: AffectedEntity)
 
 -- | The URL of the affected entity.
 affectedEntity_entityUrl :: Lens.Lens' AffectedEntity (Prelude.Maybe Prelude.Text)
 affectedEntity_entityUrl = Lens.lens (\AffectedEntity' {entityUrl} -> entityUrl) (\s@AffectedEntity' {} a -> s {entityUrl = a} :: AffectedEntity)
 
--- | The 12-digit AWS account number that contains the affected entity.
-affectedEntity_awsAccountId :: Lens.Lens' AffectedEntity (Prelude.Maybe Prelude.Text)
-affectedEntity_awsAccountId = Lens.lens (\AffectedEntity' {awsAccountId} -> awsAccountId) (\s@AffectedEntity' {} a -> s {awsAccountId = a} :: AffectedEntity)
+-- | The ID of the affected entity.
+affectedEntity_entityValue :: Lens.Lens' AffectedEntity (Prelude.Maybe Prelude.Text)
+affectedEntity_entityValue = Lens.lens (\AffectedEntity' {entityValue} -> entityValue) (\s@AffectedEntity' {} a -> s {entityValue = a} :: AffectedEntity)
 
 -- | The unique identifier for the event. The event ARN has the
 -- @arn:aws:health:event-region::event\/SERVICE\/EVENT_TYPE_CODE\/EVENT_TYPE_PLUS_ID @
@@ -132,11 +138,14 @@ affectedEntity_awsAccountId = Lens.lens (\AffectedEntity' {awsAccountId} -> awsA
 affectedEntity_eventArn :: Lens.Lens' AffectedEntity (Prelude.Maybe Prelude.Text)
 affectedEntity_eventArn = Lens.lens (\AffectedEntity' {eventArn} -> eventArn) (\s@AffectedEntity' {} a -> s {eventArn = a} :: AffectedEntity)
 
--- | The unique identifier for the entity. Format:
--- @arn:aws:health:entity-region:aws-account:entity\/entity-id @. Example:
--- @arn:aws:health:us-east-1:111222333444:entity\/AVh5GGT7ul1arKr1sE1K@
-affectedEntity_entityArn :: Lens.Lens' AffectedEntity (Prelude.Maybe Prelude.Text)
-affectedEntity_entityArn = Lens.lens (\AffectedEntity' {entityArn} -> entityArn) (\s@AffectedEntity' {} a -> s {entityArn = a} :: AffectedEntity)
+-- | The most recent time that the entity was updated.
+affectedEntity_lastUpdatedTime :: Lens.Lens' AffectedEntity (Prelude.Maybe Prelude.UTCTime)
+affectedEntity_lastUpdatedTime = Lens.lens (\AffectedEntity' {lastUpdatedTime} -> lastUpdatedTime) (\s@AffectedEntity' {} a -> s {lastUpdatedTime = a} :: AffectedEntity) Prelude.. Lens.mapping Data._Time
+
+-- | The most recent status of the entity affected by the event. The possible
+-- values are @IMPAIRED@, @UNIMPAIRED@, and @UNKNOWN@.
+affectedEntity_statusCode :: Lens.Lens' AffectedEntity (Prelude.Maybe EntityStatusCode)
+affectedEntity_statusCode = Lens.lens (\AffectedEntity' {statusCode} -> statusCode) (\s@AffectedEntity' {} a -> s {statusCode = a} :: AffectedEntity)
 
 -- | A map of entity tags attached to the affected entity.
 --
@@ -144,45 +153,40 @@ affectedEntity_entityArn = Lens.lens (\AffectedEntity' {entityArn} -> entityArn)
 affectedEntity_tags :: Lens.Lens' AffectedEntity (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 affectedEntity_tags = Lens.lens (\AffectedEntity' {tags} -> tags) (\s@AffectedEntity' {} a -> s {tags = a} :: AffectedEntity) Prelude.. Lens.mapping Lens.coerced
 
--- | The most recent status of the entity affected by the event. The possible
--- values are @IMPAIRED@, @UNIMPAIRED@, and @UNKNOWN@.
-affectedEntity_statusCode :: Lens.Lens' AffectedEntity (Prelude.Maybe EntityStatusCode)
-affectedEntity_statusCode = Lens.lens (\AffectedEntity' {statusCode} -> statusCode) (\s@AffectedEntity' {} a -> s {statusCode = a} :: AffectedEntity)
-
-instance Core.FromJSON AffectedEntity where
+instance Data.FromJSON AffectedEntity where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AffectedEntity"
       ( \x ->
           AffectedEntity'
-            Prelude.<$> (x Core..:? "lastUpdatedTime")
-            Prelude.<*> (x Core..:? "entityValue")
-            Prelude.<*> (x Core..:? "entityUrl")
-            Prelude.<*> (x Core..:? "awsAccountId")
-            Prelude.<*> (x Core..:? "eventArn")
-            Prelude.<*> (x Core..:? "entityArn")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "statusCode")
+            Prelude.<$> (x Data..:? "awsAccountId")
+            Prelude.<*> (x Data..:? "entityArn")
+            Prelude.<*> (x Data..:? "entityUrl")
+            Prelude.<*> (x Data..:? "entityValue")
+            Prelude.<*> (x Data..:? "eventArn")
+            Prelude.<*> (x Data..:? "lastUpdatedTime")
+            Prelude.<*> (x Data..:? "statusCode")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable AffectedEntity where
   hashWithSalt _salt AffectedEntity' {..} =
-    _salt `Prelude.hashWithSalt` lastUpdatedTime
-      `Prelude.hashWithSalt` entityValue
-      `Prelude.hashWithSalt` entityUrl
-      `Prelude.hashWithSalt` awsAccountId
-      `Prelude.hashWithSalt` eventArn
+    _salt `Prelude.hashWithSalt` awsAccountId
       `Prelude.hashWithSalt` entityArn
-      `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` entityUrl
+      `Prelude.hashWithSalt` entityValue
+      `Prelude.hashWithSalt` eventArn
+      `Prelude.hashWithSalt` lastUpdatedTime
       `Prelude.hashWithSalt` statusCode
+      `Prelude.hashWithSalt` tags
 
 instance Prelude.NFData AffectedEntity where
   rnf AffectedEntity' {..} =
-    Prelude.rnf lastUpdatedTime
-      `Prelude.seq` Prelude.rnf entityValue
-      `Prelude.seq` Prelude.rnf entityUrl
-      `Prelude.seq` Prelude.rnf awsAccountId
-      `Prelude.seq` Prelude.rnf eventArn
+    Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf entityArn
-      `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf entityUrl
+      `Prelude.seq` Prelude.rnf entityValue
+      `Prelude.seq` Prelude.rnf eventArn
+      `Prelude.seq` Prelude.rnf lastUpdatedTime
       `Prelude.seq` Prelude.rnf statusCode
+      `Prelude.seq` Prelude.rnf tags

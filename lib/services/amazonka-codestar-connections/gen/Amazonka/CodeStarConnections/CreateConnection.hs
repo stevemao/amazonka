@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStarConnections.CreateConnection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.CodeStarConnections.CreateConnection
     newCreateConnection,
 
     -- * Request Lenses
-    createConnection_providerType,
     createConnection_hostArn,
+    createConnection_providerType,
     createConnection_tags,
     createConnection_connectionName,
 
@@ -48,19 +48,20 @@ where
 
 import Amazonka.CodeStarConnections.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateConnection' smart constructor.
 data CreateConnection = CreateConnection'
-  { -- | The name of the external provider where your third-party code repository
-    -- is configured.
-    providerType :: Prelude.Maybe ProviderType,
-    -- | The Amazon Resource Name (ARN) of the host associated with the
+  { -- | The Amazon Resource Name (ARN) of the host associated with the
     -- connection to be created.
     hostArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the external provider where your third-party code repository
+    -- is configured.
+    providerType :: Prelude.Maybe ProviderType,
     -- | The key-value pair to use when tagging the resource.
     tags :: Prelude.Maybe [Tag],
     -- | The name of the connection to be created. The name must be unique in the
@@ -77,11 +78,11 @@ data CreateConnection = CreateConnection'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'providerType', 'createConnection_providerType' - The name of the external provider where your third-party code repository
--- is configured.
---
 -- 'hostArn', 'createConnection_hostArn' - The Amazon Resource Name (ARN) of the host associated with the
 -- connection to be created.
+--
+-- 'providerType', 'createConnection_providerType' - The name of the external provider where your third-party code repository
+-- is configured.
 --
 -- 'tags', 'createConnection_tags' - The key-value pair to use when tagging the resource.
 --
@@ -93,21 +94,21 @@ newCreateConnection ::
   CreateConnection
 newCreateConnection pConnectionName_ =
   CreateConnection'
-    { providerType = Prelude.Nothing,
-      hostArn = Prelude.Nothing,
+    { hostArn = Prelude.Nothing,
+      providerType = Prelude.Nothing,
       tags = Prelude.Nothing,
       connectionName = pConnectionName_
     }
-
--- | The name of the external provider where your third-party code repository
--- is configured.
-createConnection_providerType :: Lens.Lens' CreateConnection (Prelude.Maybe ProviderType)
-createConnection_providerType = Lens.lens (\CreateConnection' {providerType} -> providerType) (\s@CreateConnection' {} a -> s {providerType = a} :: CreateConnection)
 
 -- | The Amazon Resource Name (ARN) of the host associated with the
 -- connection to be created.
 createConnection_hostArn :: Lens.Lens' CreateConnection (Prelude.Maybe Prelude.Text)
 createConnection_hostArn = Lens.lens (\CreateConnection' {hostArn} -> hostArn) (\s@CreateConnection' {} a -> s {hostArn = a} :: CreateConnection)
+
+-- | The name of the external provider where your third-party code repository
+-- is configured.
+createConnection_providerType :: Lens.Lens' CreateConnection (Prelude.Maybe ProviderType)
+createConnection_providerType = Lens.lens (\CreateConnection' {providerType} -> providerType) (\s@CreateConnection' {} a -> s {providerType = a} :: CreateConnection)
 
 -- | The key-value pair to use when tagging the resource.
 createConnection_tags :: Lens.Lens' CreateConnection (Prelude.Maybe [Tag])
@@ -122,61 +123,62 @@ instance Core.AWSRequest CreateConnection where
   type
     AWSResponse CreateConnection =
       CreateConnectionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateConnectionResponse'
-            Prelude.<$> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "ConnectionArn")
+            Prelude.<*> (x Data..:> "ConnectionArn")
       )
 
 instance Prelude.Hashable CreateConnection where
   hashWithSalt _salt CreateConnection' {..} =
-    _salt `Prelude.hashWithSalt` providerType
-      `Prelude.hashWithSalt` hostArn
+    _salt `Prelude.hashWithSalt` hostArn
+      `Prelude.hashWithSalt` providerType
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` connectionName
 
 instance Prelude.NFData CreateConnection where
   rnf CreateConnection' {..} =
-    Prelude.rnf providerType
-      `Prelude.seq` Prelude.rnf hostArn
+    Prelude.rnf hostArn
+      `Prelude.seq` Prelude.rnf providerType
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf connectionName
 
-instance Core.ToHeaders CreateConnection where
+instance Data.ToHeaders CreateConnection where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "com.amazonaws.codestar.connections.CodeStar_connections_20191201.CreateConnection" ::
+              Data.=# ( "com.amazonaws.codestar.connections.CodeStar_connections_20191201.CreateConnection" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateConnection where
+instance Data.ToJSON CreateConnection where
   toJSON CreateConnection' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ProviderType" Core..=) Prelude.<$> providerType,
-            ("HostArn" Core..=) Prelude.<$> hostArn,
-            ("Tags" Core..=) Prelude.<$> tags,
+          [ ("HostArn" Data..=) Prelude.<$> hostArn,
+            ("ProviderType" Data..=) Prelude.<$> providerType,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("ConnectionName" Core..= connectionName)
+              ("ConnectionName" Data..= connectionName)
           ]
       )
 
-instance Core.ToPath CreateConnection where
+instance Data.ToPath CreateConnection where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateConnection where
+instance Data.ToQuery CreateConnection where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateConnectionResponse' smart constructor.

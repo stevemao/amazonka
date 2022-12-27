@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApiGatewayV2.GetDomainNames
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.ApiGatewayV2.GetDomainNames
     newGetDomainNames,
 
     -- * Request Lenses
-    getDomainNames_nextToken,
     getDomainNames_maxResults,
+    getDomainNames_nextToken,
 
     -- * Destructuring the Response
     GetDomainNamesResponse (..),
@@ -45,18 +45,19 @@ where
 
 import Amazonka.ApiGatewayV2.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetDomainNames' smart constructor.
 data GetDomainNames = GetDomainNames'
-  { -- | The next page of elements from this collection. Not valid for the last
+  { -- | The maximum number of elements to be returned for this resource.
+    maxResults :: Prelude.Maybe Prelude.Text,
+    -- | The next page of elements from this collection. Not valid for the last
     -- element of the collection.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of elements to be returned for this resource.
-    maxResults :: Prelude.Maybe Prelude.Text
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -68,26 +69,26 @@ data GetDomainNames = GetDomainNames'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'getDomainNames_maxResults' - The maximum number of elements to be returned for this resource.
+--
 -- 'nextToken', 'getDomainNames_nextToken' - The next page of elements from this collection. Not valid for the last
 -- element of the collection.
---
--- 'maxResults', 'getDomainNames_maxResults' - The maximum number of elements to be returned for this resource.
 newGetDomainNames ::
   GetDomainNames
 newGetDomainNames =
   GetDomainNames'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of elements to be returned for this resource.
+getDomainNames_maxResults :: Lens.Lens' GetDomainNames (Prelude.Maybe Prelude.Text)
+getDomainNames_maxResults = Lens.lens (\GetDomainNames' {maxResults} -> maxResults) (\s@GetDomainNames' {} a -> s {maxResults = a} :: GetDomainNames)
 
 -- | The next page of elements from this collection. Not valid for the last
 -- element of the collection.
 getDomainNames_nextToken :: Lens.Lens' GetDomainNames (Prelude.Maybe Prelude.Text)
 getDomainNames_nextToken = Lens.lens (\GetDomainNames' {nextToken} -> nextToken) (\s@GetDomainNames' {} a -> s {nextToken = a} :: GetDomainNames)
-
--- | The maximum number of elements to be returned for this resource.
-getDomainNames_maxResults :: Lens.Lens' GetDomainNames (Prelude.Maybe Prelude.Text)
-getDomainNames_maxResults = Lens.lens (\GetDomainNames' {maxResults} -> maxResults) (\s@GetDomainNames' {} a -> s {maxResults = a} :: GetDomainNames)
 
 instance Core.AWSPager GetDomainNames where
   page rq rs
@@ -113,45 +114,46 @@ instance Core.AWSRequest GetDomainNames where
   type
     AWSResponse GetDomainNames =
       GetDomainNamesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDomainNamesResponse'
-            Prelude.<$> (x Core..?> "items" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "items" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetDomainNames where
   hashWithSalt _salt GetDomainNames' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData GetDomainNames where
   rnf GetDomainNames' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders GetDomainNames where
+instance Data.ToHeaders GetDomainNames where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetDomainNames where
+instance Data.ToPath GetDomainNames where
   toPath = Prelude.const "/v2/domainnames"
 
-instance Core.ToQuery GetDomainNames where
+instance Data.ToQuery GetDomainNames where
   toQuery GetDomainNames' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newGetDomainNamesResponse' smart constructor.

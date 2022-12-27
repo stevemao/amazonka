@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.DeleteRetentionConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,7 +37,8 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,7 +78,8 @@ instance Core.AWSRequest DeleteRetentionConfiguration where
   type
     AWSResponse DeleteRetentionConfiguration =
       DeleteRetentionConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       DeleteRetentionConfigurationResponse'
@@ -94,36 +96,36 @@ instance Prelude.NFData DeleteRetentionConfiguration where
   rnf DeleteRetentionConfiguration' {..} =
     Prelude.rnf retentionConfigurationName
 
-instance Core.ToHeaders DeleteRetentionConfiguration where
+instance Data.ToHeaders DeleteRetentionConfiguration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.DeleteRetentionConfiguration" ::
+              Data.=# ( "StarlingDoveService.DeleteRetentionConfiguration" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteRetentionConfiguration where
+instance Data.ToJSON DeleteRetentionConfiguration where
   toJSON DeleteRetentionConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "RetentionConfigurationName"
-                  Core..= retentionConfigurationName
+                  Data..= retentionConfigurationName
               )
           ]
       )
 
-instance Core.ToPath DeleteRetentionConfiguration where
+instance Data.ToPath DeleteRetentionConfiguration where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteRetentionConfiguration where
+instance Data.ToQuery DeleteRetentionConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteRetentionConfigurationResponse' smart constructor.

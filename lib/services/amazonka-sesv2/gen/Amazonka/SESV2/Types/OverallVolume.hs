@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.Types.OverallVolume
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SESV2.Types.OverallVolume where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SESV2.Types.DomainIspPlacement
 import Amazonka.SESV2.Types.VolumeStatistics
@@ -33,12 +34,12 @@ data OverallVolume = OverallVolume'
   { -- | An object that contains inbox and junk mail placement metrics for
     -- individual email providers.
     domainIspPlacements :: Prelude.Maybe [DomainIspPlacement],
-    -- | An object that contains information about the numbers of messages that
-    -- arrived in recipients\' inboxes and junk mail folders.
-    volumeStatistics :: Prelude.Maybe VolumeStatistics,
     -- | The percentage of emails that were sent from the domain that were read
     -- by their recipients.
-    readRatePercent :: Prelude.Maybe Prelude.Double
+    readRatePercent :: Prelude.Maybe Prelude.Double,
+    -- | An object that contains information about the numbers of messages that
+    -- arrived in recipients\' inboxes and junk mail folders.
+    volumeStatistics :: Prelude.Maybe VolumeStatistics
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -53,19 +54,19 @@ data OverallVolume = OverallVolume'
 -- 'domainIspPlacements', 'overallVolume_domainIspPlacements' - An object that contains inbox and junk mail placement metrics for
 -- individual email providers.
 --
--- 'volumeStatistics', 'overallVolume_volumeStatistics' - An object that contains information about the numbers of messages that
--- arrived in recipients\' inboxes and junk mail folders.
---
 -- 'readRatePercent', 'overallVolume_readRatePercent' - The percentage of emails that were sent from the domain that were read
 -- by their recipients.
+--
+-- 'volumeStatistics', 'overallVolume_volumeStatistics' - An object that contains information about the numbers of messages that
+-- arrived in recipients\' inboxes and junk mail folders.
 newOverallVolume ::
   OverallVolume
 newOverallVolume =
   OverallVolume'
     { domainIspPlacements =
         Prelude.Nothing,
-      volumeStatistics = Prelude.Nothing,
-      readRatePercent = Prelude.Nothing
+      readRatePercent = Prelude.Nothing,
+      volumeStatistics = Prelude.Nothing
     }
 
 -- | An object that contains inbox and junk mail placement metrics for
@@ -73,37 +74,37 @@ newOverallVolume =
 overallVolume_domainIspPlacements :: Lens.Lens' OverallVolume (Prelude.Maybe [DomainIspPlacement])
 overallVolume_domainIspPlacements = Lens.lens (\OverallVolume' {domainIspPlacements} -> domainIspPlacements) (\s@OverallVolume' {} a -> s {domainIspPlacements = a} :: OverallVolume) Prelude.. Lens.mapping Lens.coerced
 
--- | An object that contains information about the numbers of messages that
--- arrived in recipients\' inboxes and junk mail folders.
-overallVolume_volumeStatistics :: Lens.Lens' OverallVolume (Prelude.Maybe VolumeStatistics)
-overallVolume_volumeStatistics = Lens.lens (\OverallVolume' {volumeStatistics} -> volumeStatistics) (\s@OverallVolume' {} a -> s {volumeStatistics = a} :: OverallVolume)
-
 -- | The percentage of emails that were sent from the domain that were read
 -- by their recipients.
 overallVolume_readRatePercent :: Lens.Lens' OverallVolume (Prelude.Maybe Prelude.Double)
 overallVolume_readRatePercent = Lens.lens (\OverallVolume' {readRatePercent} -> readRatePercent) (\s@OverallVolume' {} a -> s {readRatePercent = a} :: OverallVolume)
 
-instance Core.FromJSON OverallVolume where
+-- | An object that contains information about the numbers of messages that
+-- arrived in recipients\' inboxes and junk mail folders.
+overallVolume_volumeStatistics :: Lens.Lens' OverallVolume (Prelude.Maybe VolumeStatistics)
+overallVolume_volumeStatistics = Lens.lens (\OverallVolume' {volumeStatistics} -> volumeStatistics) (\s@OverallVolume' {} a -> s {volumeStatistics = a} :: OverallVolume)
+
+instance Data.FromJSON OverallVolume where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OverallVolume"
       ( \x ->
           OverallVolume'
-            Prelude.<$> ( x Core..:? "DomainIspPlacements"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "DomainIspPlacements"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "VolumeStatistics")
-            Prelude.<*> (x Core..:? "ReadRatePercent")
+            Prelude.<*> (x Data..:? "ReadRatePercent")
+            Prelude.<*> (x Data..:? "VolumeStatistics")
       )
 
 instance Prelude.Hashable OverallVolume where
   hashWithSalt _salt OverallVolume' {..} =
     _salt `Prelude.hashWithSalt` domainIspPlacements
-      `Prelude.hashWithSalt` volumeStatistics
       `Prelude.hashWithSalt` readRatePercent
+      `Prelude.hashWithSalt` volumeStatistics
 
 instance Prelude.NFData OverallVolume where
   rnf OverallVolume' {..} =
     Prelude.rnf domainIspPlacements
-      `Prelude.seq` Prelude.rnf volumeStatistics
       `Prelude.seq` Prelude.rnf readRatePercent
+      `Prelude.seq` Prelude.rnf volumeStatistics

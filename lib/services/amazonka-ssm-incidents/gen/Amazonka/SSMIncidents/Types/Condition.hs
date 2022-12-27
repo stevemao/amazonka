@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSMIncidents.Types.Condition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSMIncidents.Types.Condition where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSMIncidents.Types.AttributeValueList
 
@@ -33,11 +34,11 @@ import Amazonka.SSMIncidents.Types.AttributeValueList
 -- /See:/ 'newCondition' smart constructor.
 data Condition = Condition'
   { -- | After the specified timestamp.
-    after :: Prelude.Maybe Core.POSIX,
-    -- | The value is equal to the provided string or integer.
-    equals :: Prelude.Maybe AttributeValueList,
+    after :: Prelude.Maybe Data.POSIX,
     -- | Before the specified timestamp
-    before :: Prelude.Maybe Core.POSIX
+    before :: Prelude.Maybe Data.POSIX,
+    -- | The value is equal to the provided string or integer.
+    equals :: Prelude.Maybe AttributeValueList
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -51,48 +52,48 @@ data Condition = Condition'
 --
 -- 'after', 'condition_after' - After the specified timestamp.
 --
--- 'equals', 'condition_equals' - The value is equal to the provided string or integer.
---
 -- 'before', 'condition_before' - Before the specified timestamp
+--
+-- 'equals', 'condition_equals' - The value is equal to the provided string or integer.
 newCondition ::
   Condition
 newCondition =
   Condition'
     { after = Prelude.Nothing,
-      equals = Prelude.Nothing,
-      before = Prelude.Nothing
+      before = Prelude.Nothing,
+      equals = Prelude.Nothing
     }
 
 -- | After the specified timestamp.
 condition_after :: Lens.Lens' Condition (Prelude.Maybe Prelude.UTCTime)
-condition_after = Lens.lens (\Condition' {after} -> after) (\s@Condition' {} a -> s {after = a} :: Condition) Prelude.. Lens.mapping Core._Time
+condition_after = Lens.lens (\Condition' {after} -> after) (\s@Condition' {} a -> s {after = a} :: Condition) Prelude.. Lens.mapping Data._Time
+
+-- | Before the specified timestamp
+condition_before :: Lens.Lens' Condition (Prelude.Maybe Prelude.UTCTime)
+condition_before = Lens.lens (\Condition' {before} -> before) (\s@Condition' {} a -> s {before = a} :: Condition) Prelude.. Lens.mapping Data._Time
 
 -- | The value is equal to the provided string or integer.
 condition_equals :: Lens.Lens' Condition (Prelude.Maybe AttributeValueList)
 condition_equals = Lens.lens (\Condition' {equals} -> equals) (\s@Condition' {} a -> s {equals = a} :: Condition)
 
--- | Before the specified timestamp
-condition_before :: Lens.Lens' Condition (Prelude.Maybe Prelude.UTCTime)
-condition_before = Lens.lens (\Condition' {before} -> before) (\s@Condition' {} a -> s {before = a} :: Condition) Prelude.. Lens.mapping Core._Time
-
 instance Prelude.Hashable Condition where
   hashWithSalt _salt Condition' {..} =
     _salt `Prelude.hashWithSalt` after
-      `Prelude.hashWithSalt` equals
       `Prelude.hashWithSalt` before
+      `Prelude.hashWithSalt` equals
 
 instance Prelude.NFData Condition where
   rnf Condition' {..} =
     Prelude.rnf after
-      `Prelude.seq` Prelude.rnf equals
       `Prelude.seq` Prelude.rnf before
+      `Prelude.seq` Prelude.rnf equals
 
-instance Core.ToJSON Condition where
+instance Data.ToJSON Condition where
   toJSON Condition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("after" Core..=) Prelude.<$> after,
-            ("equals" Core..=) Prelude.<$> equals,
-            ("before" Core..=) Prelude.<$> before
+          [ ("after" Data..=) Prelude.<$> after,
+            ("before" Data..=) Prelude.<$> before,
+            ("equals" Data..=) Prelude.<$> equals
           ]
       )

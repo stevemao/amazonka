@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.Failure
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ECS.Types.Failure where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A failed resource. For a list of common causes, see
@@ -31,10 +32,10 @@ import qualified Amazonka.Prelude as Prelude
 data Failure = Failure'
   { -- | The Amazon Resource Name (ARN) of the failed resource.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | The reason for the failure.
-    reason :: Prelude.Maybe Prelude.Text,
     -- | The details of the failure.
-    detail :: Prelude.Maybe Prelude.Text
+    detail :: Prelude.Maybe Prelude.Text,
+    -- | The reason for the failure.
+    reason :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,49 +49,49 @@ data Failure = Failure'
 --
 -- 'arn', 'failure_arn' - The Amazon Resource Name (ARN) of the failed resource.
 --
--- 'reason', 'failure_reason' - The reason for the failure.
---
 -- 'detail', 'failure_detail' - The details of the failure.
+--
+-- 'reason', 'failure_reason' - The reason for the failure.
 newFailure ::
   Failure
 newFailure =
   Failure'
     { arn = Prelude.Nothing,
-      reason = Prelude.Nothing,
-      detail = Prelude.Nothing
+      detail = Prelude.Nothing,
+      reason = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the failed resource.
 failure_arn :: Lens.Lens' Failure (Prelude.Maybe Prelude.Text)
 failure_arn = Lens.lens (\Failure' {arn} -> arn) (\s@Failure' {} a -> s {arn = a} :: Failure)
 
--- | The reason for the failure.
-failure_reason :: Lens.Lens' Failure (Prelude.Maybe Prelude.Text)
-failure_reason = Lens.lens (\Failure' {reason} -> reason) (\s@Failure' {} a -> s {reason = a} :: Failure)
-
 -- | The details of the failure.
 failure_detail :: Lens.Lens' Failure (Prelude.Maybe Prelude.Text)
 failure_detail = Lens.lens (\Failure' {detail} -> detail) (\s@Failure' {} a -> s {detail = a} :: Failure)
 
-instance Core.FromJSON Failure where
+-- | The reason for the failure.
+failure_reason :: Lens.Lens' Failure (Prelude.Maybe Prelude.Text)
+failure_reason = Lens.lens (\Failure' {reason} -> reason) (\s@Failure' {} a -> s {reason = a} :: Failure)
+
+instance Data.FromJSON Failure where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Failure"
       ( \x ->
           Failure'
-            Prelude.<$> (x Core..:? "arn")
-            Prelude.<*> (x Core..:? "reason")
-            Prelude.<*> (x Core..:? "detail")
+            Prelude.<$> (x Data..:? "arn")
+            Prelude.<*> (x Data..:? "detail")
+            Prelude.<*> (x Data..:? "reason")
       )
 
 instance Prelude.Hashable Failure where
   hashWithSalt _salt Failure' {..} =
     _salt `Prelude.hashWithSalt` arn
-      `Prelude.hashWithSalt` reason
       `Prelude.hashWithSalt` detail
+      `Prelude.hashWithSalt` reason
 
 instance Prelude.NFData Failure where
   rnf Failure' {..} =
     Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf reason
       `Prelude.seq` Prelude.rnf detail
+      `Prelude.seq` Prelude.rnf reason

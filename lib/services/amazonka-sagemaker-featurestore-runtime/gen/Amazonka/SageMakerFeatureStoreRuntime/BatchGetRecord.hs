@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMakerFeatureStoreRuntime.BatchGetRecord
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.SageMakerFeatureStoreRuntime.BatchGetRecord
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,15 +89,16 @@ instance Core.AWSRequest BatchGetRecord where
   type
     AWSResponse BatchGetRecord =
       BatchGetRecordResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchGetRecordResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Records" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "Errors" Core..!@ Prelude.mempty)
-            Prelude.<*> ( x Core..?> "UnprocessedIdentifiers"
+            Prelude.<*> (x Data..?> "Records" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Errors" Core..!@ Prelude.mempty)
+            Prelude.<*> ( x Data..?> "UnprocessedIdentifiers"
                             Core..!@ Prelude.mempty
                         )
       )
@@ -108,28 +110,28 @@ instance Prelude.Hashable BatchGetRecord where
 instance Prelude.NFData BatchGetRecord where
   rnf BatchGetRecord' {..} = Prelude.rnf identifiers
 
-instance Core.ToHeaders BatchGetRecord where
+instance Data.ToHeaders BatchGetRecord where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchGetRecord where
+instance Data.ToJSON BatchGetRecord where
   toJSON BatchGetRecord' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Identifiers" Core..= identifiers)]
+          [Prelude.Just ("Identifiers" Data..= identifiers)]
       )
 
-instance Core.ToPath BatchGetRecord where
+instance Data.ToPath BatchGetRecord where
   toPath = Prelude.const "/BatchGetRecord"
 
-instance Core.ToQuery BatchGetRecord where
+instance Data.ToQuery BatchGetRecord where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchGetRecordResponse' smart constructor.
@@ -138,7 +140,7 @@ data BatchGetRecordResponse = BatchGetRecordResponse'
     httpStatus :: Prelude.Int,
     -- | A list of Records you requested to be retrieved in batch.
     records :: [BatchGetRecordResultDetail],
-    -- | A list of errors that have occured when retrieving a batch of Records.
+    -- | A list of errors that have occurred when retrieving a batch of Records.
     errors :: [BatchGetRecordError],
     -- | A unprocessed list of @FeatureGroup@ names, with their corresponding
     -- @RecordIdentifier@ value, and Feature name.
@@ -158,7 +160,7 @@ data BatchGetRecordResponse = BatchGetRecordResponse'
 --
 -- 'records', 'batchGetRecordResponse_records' - A list of Records you requested to be retrieved in batch.
 --
--- 'errors', 'batchGetRecordResponse_errors' - A list of errors that have occured when retrieving a batch of Records.
+-- 'errors', 'batchGetRecordResponse_errors' - A list of errors that have occurred when retrieving a batch of Records.
 --
 -- 'unprocessedIdentifiers', 'batchGetRecordResponse_unprocessedIdentifiers' - A unprocessed list of @FeatureGroup@ names, with their corresponding
 -- @RecordIdentifier@ value, and Feature name.
@@ -182,7 +184,7 @@ batchGetRecordResponse_httpStatus = Lens.lens (\BatchGetRecordResponse' {httpSta
 batchGetRecordResponse_records :: Lens.Lens' BatchGetRecordResponse [BatchGetRecordResultDetail]
 batchGetRecordResponse_records = Lens.lens (\BatchGetRecordResponse' {records} -> records) (\s@BatchGetRecordResponse' {} a -> s {records = a} :: BatchGetRecordResponse) Prelude.. Lens.coerced
 
--- | A list of errors that have occured when retrieving a batch of Records.
+-- | A list of errors that have occurred when retrieving a batch of Records.
 batchGetRecordResponse_errors :: Lens.Lens' BatchGetRecordResponse [BatchGetRecordError]
 batchGetRecordResponse_errors = Lens.lens (\BatchGetRecordResponse' {errors} -> errors) (\s@BatchGetRecordResponse' {} a -> s {errors = a} :: BatchGetRecordResponse) Prelude.. Lens.coerced
 

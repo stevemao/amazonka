@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaStore.Types.CorsRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaStore.Types.CorsRule where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaStore.Types.MethodName
 import qualified Amazonka.Prelude as Prelude
 
@@ -36,17 +37,17 @@ data CorsRule = CorsRule'
     -- Each CORS rule must contain at least one @AllowedMethods@ and one
     -- @AllowedOrigins@ element.
     allowedMethods :: Prelude.Maybe (Prelude.NonEmpty MethodName),
-    -- | The time in seconds that your browser caches the preflight response for
-    -- the specified resource.
-    --
-    -- A CORS rule can have only one @MaxAgeSeconds@ element.
-    maxAgeSeconds :: Prelude.Maybe Prelude.Natural,
     -- | One or more headers in the response that you want users to be able to
     -- access from their applications (for example, from a JavaScript
     -- @XMLHttpRequest@ object).
     --
     -- This element is optional for each rule.
     exposeHeaders :: Prelude.Maybe [Prelude.Text],
+    -- | The time in seconds that your browser caches the preflight response for
+    -- the specified resource.
+    --
+    -- A CORS rule can have only one @MaxAgeSeconds@ element.
+    maxAgeSeconds :: Prelude.Maybe Prelude.Natural,
     -- | One or more response headers that you want users to be able to access
     -- from their applications (for example, from a JavaScript @XMLHttpRequest@
     -- object).
@@ -81,16 +82,16 @@ data CorsRule = CorsRule'
 -- Each CORS rule must contain at least one @AllowedMethods@ and one
 -- @AllowedOrigins@ element.
 --
--- 'maxAgeSeconds', 'corsRule_maxAgeSeconds' - The time in seconds that your browser caches the preflight response for
--- the specified resource.
---
--- A CORS rule can have only one @MaxAgeSeconds@ element.
---
 -- 'exposeHeaders', 'corsRule_exposeHeaders' - One or more headers in the response that you want users to be able to
 -- access from their applications (for example, from a JavaScript
 -- @XMLHttpRequest@ object).
 --
 -- This element is optional for each rule.
+--
+-- 'maxAgeSeconds', 'corsRule_maxAgeSeconds' - The time in seconds that your browser caches the preflight response for
+-- the specified resource.
+--
+-- A CORS rule can have only one @MaxAgeSeconds@ element.
 --
 -- 'allowedOrigins', 'corsRule_allowedOrigins' - One or more response headers that you want users to be able to access
 -- from their applications (for example, from a JavaScript @XMLHttpRequest@
@@ -115,8 +116,8 @@ newCorsRule ::
 newCorsRule pAllowedOrigins_ =
   CorsRule'
     { allowedMethods = Prelude.Nothing,
-      maxAgeSeconds = Prelude.Nothing,
       exposeHeaders = Prelude.Nothing,
+      maxAgeSeconds = Prelude.Nothing,
       allowedOrigins =
         Lens.coerced Lens.# pAllowedOrigins_,
       allowedHeaders = Prelude.mempty
@@ -130,13 +131,6 @@ newCorsRule pAllowedOrigins_ =
 corsRule_allowedMethods :: Lens.Lens' CorsRule (Prelude.Maybe (Prelude.NonEmpty MethodName))
 corsRule_allowedMethods = Lens.lens (\CorsRule' {allowedMethods} -> allowedMethods) (\s@CorsRule' {} a -> s {allowedMethods = a} :: CorsRule) Prelude.. Lens.mapping Lens.coerced
 
--- | The time in seconds that your browser caches the preflight response for
--- the specified resource.
---
--- A CORS rule can have only one @MaxAgeSeconds@ element.
-corsRule_maxAgeSeconds :: Lens.Lens' CorsRule (Prelude.Maybe Prelude.Natural)
-corsRule_maxAgeSeconds = Lens.lens (\CorsRule' {maxAgeSeconds} -> maxAgeSeconds) (\s@CorsRule' {} a -> s {maxAgeSeconds = a} :: CorsRule)
-
 -- | One or more headers in the response that you want users to be able to
 -- access from their applications (for example, from a JavaScript
 -- @XMLHttpRequest@ object).
@@ -144,6 +138,13 @@ corsRule_maxAgeSeconds = Lens.lens (\CorsRule' {maxAgeSeconds} -> maxAgeSeconds)
 -- This element is optional for each rule.
 corsRule_exposeHeaders :: Lens.Lens' CorsRule (Prelude.Maybe [Prelude.Text])
 corsRule_exposeHeaders = Lens.lens (\CorsRule' {exposeHeaders} -> exposeHeaders) (\s@CorsRule' {} a -> s {exposeHeaders = a} :: CorsRule) Prelude.. Lens.mapping Lens.coerced
+
+-- | The time in seconds that your browser caches the preflight response for
+-- the specified resource.
+--
+-- A CORS rule can have only one @MaxAgeSeconds@ element.
+corsRule_maxAgeSeconds :: Lens.Lens' CorsRule (Prelude.Maybe Prelude.Natural)
+corsRule_maxAgeSeconds = Lens.lens (\CorsRule' {maxAgeSeconds} -> maxAgeSeconds) (\s@CorsRule' {} a -> s {maxAgeSeconds = a} :: CorsRule)
 
 -- | One or more response headers that you want users to be able to access
 -- from their applications (for example, from a JavaScript @XMLHttpRequest@
@@ -166,48 +167,48 @@ corsRule_allowedOrigins = Lens.lens (\CorsRule' {allowedOrigins} -> allowedOrigi
 corsRule_allowedHeaders :: Lens.Lens' CorsRule [Prelude.Text]
 corsRule_allowedHeaders = Lens.lens (\CorsRule' {allowedHeaders} -> allowedHeaders) (\s@CorsRule' {} a -> s {allowedHeaders = a} :: CorsRule) Prelude.. Lens.coerced
 
-instance Core.FromJSON CorsRule where
+instance Data.FromJSON CorsRule where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CorsRule"
       ( \x ->
           CorsRule'
-            Prelude.<$> (x Core..:? "AllowedMethods")
-            Prelude.<*> (x Core..:? "MaxAgeSeconds")
-            Prelude.<*> (x Core..:? "ExposeHeaders" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "AllowedOrigins")
-            Prelude.<*> ( x Core..:? "AllowedHeaders"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "AllowedMethods")
+            Prelude.<*> (x Data..:? "ExposeHeaders" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "MaxAgeSeconds")
+            Prelude.<*> (x Data..: "AllowedOrigins")
+            Prelude.<*> ( x Data..:? "AllowedHeaders"
+                            Data..!= Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable CorsRule where
   hashWithSalt _salt CorsRule' {..} =
     _salt `Prelude.hashWithSalt` allowedMethods
-      `Prelude.hashWithSalt` maxAgeSeconds
       `Prelude.hashWithSalt` exposeHeaders
+      `Prelude.hashWithSalt` maxAgeSeconds
       `Prelude.hashWithSalt` allowedOrigins
       `Prelude.hashWithSalt` allowedHeaders
 
 instance Prelude.NFData CorsRule where
   rnf CorsRule' {..} =
     Prelude.rnf allowedMethods
-      `Prelude.seq` Prelude.rnf maxAgeSeconds
       `Prelude.seq` Prelude.rnf exposeHeaders
+      `Prelude.seq` Prelude.rnf maxAgeSeconds
       `Prelude.seq` Prelude.rnf allowedOrigins
       `Prelude.seq` Prelude.rnf allowedHeaders
 
-instance Core.ToJSON CorsRule where
+instance Data.ToJSON CorsRule where
   toJSON CorsRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AllowedMethods" Core..=)
+          [ ("AllowedMethods" Data..=)
               Prelude.<$> allowedMethods,
-            ("MaxAgeSeconds" Core..=) Prelude.<$> maxAgeSeconds,
-            ("ExposeHeaders" Core..=) Prelude.<$> exposeHeaders,
+            ("ExposeHeaders" Data..=) Prelude.<$> exposeHeaders,
+            ("MaxAgeSeconds" Data..=) Prelude.<$> maxAgeSeconds,
             Prelude.Just
-              ("AllowedOrigins" Core..= allowedOrigins),
+              ("AllowedOrigins" Data..= allowedOrigins),
             Prelude.Just
-              ("AllowedHeaders" Core..= allowedHeaders)
+              ("AllowedHeaders" Data..= allowedHeaders)
           ]
       )

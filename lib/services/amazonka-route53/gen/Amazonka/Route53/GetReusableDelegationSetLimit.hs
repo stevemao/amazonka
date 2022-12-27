@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.GetReusableDelegationSetLimit
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.Route53.GetReusableDelegationSetLimit
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -112,14 +113,15 @@ instance
   type
     AWSResponse GetReusableDelegationSetLimit =
       GetReusableDelegationSetLimitResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetReusableDelegationSetLimitResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "Limit")
-            Prelude.<*> (x Core..@ "Count")
+            Prelude.<*> (x Data..@ "Limit")
+            Prelude.<*> (x Data..@ "Count")
       )
 
 instance
@@ -135,19 +137,19 @@ instance Prelude.NFData GetReusableDelegationSetLimit where
     Prelude.rnf type'
       `Prelude.seq` Prelude.rnf delegationSetId
 
-instance Core.ToHeaders GetReusableDelegationSetLimit where
+instance Data.ToHeaders GetReusableDelegationSetLimit where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetReusableDelegationSetLimit where
+instance Data.ToPath GetReusableDelegationSetLimit where
   toPath GetReusableDelegationSetLimit' {..} =
     Prelude.mconcat
       [ "/2013-04-01/reusabledelegationsetlimit/",
-        Core.toBS delegationSetId,
+        Data.toBS delegationSetId,
         "/",
-        Core.toBS type'
+        Data.toBS type'
       ]
 
-instance Core.ToQuery GetReusableDelegationSetLimit where
+instance Data.ToQuery GetReusableDelegationSetLimit where
   toQuery = Prelude.const Prelude.mempty
 
 -- | A complex type that contains the requested limit.

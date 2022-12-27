@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.DeleteActivation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,9 +22,8 @@
 --
 -- Deletes an activation. You aren\'t required to delete an activation. If
 -- you delete an activation, you can no longer use it to register
--- additional managed instances. Deleting an activation doesn\'t
--- de-register managed instances. You must manually de-register managed
--- instances.
+-- additional managed nodes. Deleting an activation doesn\'t de-register
+-- managed nodes. You must manually de-register managed nodes.
 module Amazonka.SSM.DeleteActivation
   ( -- * Creating a Request
     DeleteActivation (..),
@@ -43,7 +42,8 @@ module Amazonka.SSM.DeleteActivation
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,7 +80,8 @@ instance Core.AWSRequest DeleteActivation where
   type
     AWSResponse DeleteActivation =
       DeleteActivationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -95,30 +96,30 @@ instance Prelude.Hashable DeleteActivation where
 instance Prelude.NFData DeleteActivation where
   rnf DeleteActivation' {..} = Prelude.rnf activationId
 
-instance Core.ToHeaders DeleteActivation where
+instance Data.ToHeaders DeleteActivation where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AmazonSSM.DeleteActivation" :: Prelude.ByteString),
+              Data.=# ("AmazonSSM.DeleteActivation" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteActivation where
+instance Data.ToJSON DeleteActivation where
   toJSON DeleteActivation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ActivationId" Core..= activationId)]
+          [Prelude.Just ("ActivationId" Data..= activationId)]
       )
 
-instance Core.ToPath DeleteActivation where
+instance Data.ToPath DeleteActivation where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteActivation where
+instance Data.ToQuery DeleteActivation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteActivationResponse' smart constructor.

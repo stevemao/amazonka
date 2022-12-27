@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.CreateLicense
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,15 +44,16 @@ module Amazonka.LicenseManager.CreateLicense
     newCreateLicenseResponse,
 
     -- * Response Lenses
+    createLicenseResponse_licenseArn,
     createLicenseResponse_status,
     createLicenseResponse_version,
-    createLicenseResponse_licenseArn,
     createLicenseResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LicenseManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -219,14 +220,15 @@ instance Core.AWSRequest CreateLicense where
   type
     AWSResponse CreateLicense =
       CreateLicenseResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateLicenseResponse'
-            Prelude.<$> (x Core..?> "Status")
-            Prelude.<*> (x Core..?> "Version")
-            Prelude.<*> (x Core..?> "LicenseArn")
+            Prelude.<$> (x Data..?> "LicenseArn")
+            Prelude.<*> (x Data..?> "Status")
+            Prelude.<*> (x Data..?> "Version")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -258,57 +260,57 @@ instance Prelude.NFData CreateLicense where
       `Prelude.seq` Prelude.rnf consumptionConfiguration
       `Prelude.seq` Prelude.rnf clientToken
 
-instance Core.ToHeaders CreateLicense where
+instance Data.ToHeaders CreateLicense where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSLicenseManager.CreateLicense" ::
+              Data.=# ( "AWSLicenseManager.CreateLicense" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateLicense where
+instance Data.ToJSON CreateLicense where
   toJSON CreateLicense' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("LicenseMetadata" Core..=)
+          [ ("LicenseMetadata" Data..=)
               Prelude.<$> licenseMetadata,
-            Prelude.Just ("LicenseName" Core..= licenseName),
-            Prelude.Just ("ProductName" Core..= productName),
-            Prelude.Just ("ProductSKU" Core..= productSKU),
-            Prelude.Just ("Issuer" Core..= issuer),
-            Prelude.Just ("HomeRegion" Core..= homeRegion),
-            Prelude.Just ("Validity" Core..= validity),
-            Prelude.Just ("Entitlements" Core..= entitlements),
-            Prelude.Just ("Beneficiary" Core..= beneficiary),
+            Prelude.Just ("LicenseName" Data..= licenseName),
+            Prelude.Just ("ProductName" Data..= productName),
+            Prelude.Just ("ProductSKU" Data..= productSKU),
+            Prelude.Just ("Issuer" Data..= issuer),
+            Prelude.Just ("HomeRegion" Data..= homeRegion),
+            Prelude.Just ("Validity" Data..= validity),
+            Prelude.Just ("Entitlements" Data..= entitlements),
+            Prelude.Just ("Beneficiary" Data..= beneficiary),
             Prelude.Just
               ( "ConsumptionConfiguration"
-                  Core..= consumptionConfiguration
+                  Data..= consumptionConfiguration
               ),
-            Prelude.Just ("ClientToken" Core..= clientToken)
+            Prelude.Just ("ClientToken" Data..= clientToken)
           ]
       )
 
-instance Core.ToPath CreateLicense where
+instance Data.ToPath CreateLicense where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateLicense where
+instance Data.ToQuery CreateLicense where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateLicenseResponse' smart constructor.
 data CreateLicenseResponse = CreateLicenseResponse'
-  { -- | License status.
+  { -- | Amazon Resource Name (ARN) of the license.
+    licenseArn :: Prelude.Maybe Prelude.Text,
+    -- | License status.
     status :: Prelude.Maybe LicenseStatus,
     -- | License version.
     version :: Prelude.Maybe Prelude.Text,
-    -- | Amazon Resource Name (ARN) of the license.
-    licenseArn :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -322,11 +324,11 @@ data CreateLicenseResponse = CreateLicenseResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'licenseArn', 'createLicenseResponse_licenseArn' - Amazon Resource Name (ARN) of the license.
+--
 -- 'status', 'createLicenseResponse_status' - License status.
 --
 -- 'version', 'createLicenseResponse_version' - License version.
---
--- 'licenseArn', 'createLicenseResponse_licenseArn' - Amazon Resource Name (ARN) of the license.
 --
 -- 'httpStatus', 'createLicenseResponse_httpStatus' - The response's http status code.
 newCreateLicenseResponse ::
@@ -335,11 +337,16 @@ newCreateLicenseResponse ::
   CreateLicenseResponse
 newCreateLicenseResponse pHttpStatus_ =
   CreateLicenseResponse'
-    { status = Prelude.Nothing,
+    { licenseArn =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
       version = Prelude.Nothing,
-      licenseArn = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | Amazon Resource Name (ARN) of the license.
+createLicenseResponse_licenseArn :: Lens.Lens' CreateLicenseResponse (Prelude.Maybe Prelude.Text)
+createLicenseResponse_licenseArn = Lens.lens (\CreateLicenseResponse' {licenseArn} -> licenseArn) (\s@CreateLicenseResponse' {} a -> s {licenseArn = a} :: CreateLicenseResponse)
 
 -- | License status.
 createLicenseResponse_status :: Lens.Lens' CreateLicenseResponse (Prelude.Maybe LicenseStatus)
@@ -349,17 +356,13 @@ createLicenseResponse_status = Lens.lens (\CreateLicenseResponse' {status} -> st
 createLicenseResponse_version :: Lens.Lens' CreateLicenseResponse (Prelude.Maybe Prelude.Text)
 createLicenseResponse_version = Lens.lens (\CreateLicenseResponse' {version} -> version) (\s@CreateLicenseResponse' {} a -> s {version = a} :: CreateLicenseResponse)
 
--- | Amazon Resource Name (ARN) of the license.
-createLicenseResponse_licenseArn :: Lens.Lens' CreateLicenseResponse (Prelude.Maybe Prelude.Text)
-createLicenseResponse_licenseArn = Lens.lens (\CreateLicenseResponse' {licenseArn} -> licenseArn) (\s@CreateLicenseResponse' {} a -> s {licenseArn = a} :: CreateLicenseResponse)
-
 -- | The response's http status code.
 createLicenseResponse_httpStatus :: Lens.Lens' CreateLicenseResponse Prelude.Int
 createLicenseResponse_httpStatus = Lens.lens (\CreateLicenseResponse' {httpStatus} -> httpStatus) (\s@CreateLicenseResponse' {} a -> s {httpStatus = a} :: CreateLicenseResponse)
 
 instance Prelude.NFData CreateLicenseResponse where
   rnf CreateLicenseResponse' {..} =
-    Prelude.rnf status
+    Prelude.rnf licenseArn
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf version
-      `Prelude.seq` Prelude.rnf licenseArn
       `Prelude.seq` Prelude.rnf httpStatus

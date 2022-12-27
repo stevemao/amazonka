@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.AvailBlanking
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.AvailBlanking where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.AvailBlankingState
 import Amazonka.MediaLive.Types.InputLocation
 import qualified Amazonka.Prelude as Prelude
@@ -29,12 +30,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAvailBlanking' smart constructor.
 data AvailBlanking = AvailBlanking'
-  { -- | When set to enabled, causes video, audio and captions to be blanked when
-    -- insertion metadata is added.
-    state :: Prelude.Maybe AvailBlankingState,
-    -- | Blanking image to be used. Leave empty for solid black. Only bmp and png
+  { -- | Blanking image to be used. Leave empty for solid black. Only bmp and png
     -- images are supported.
-    availBlankingImage :: Prelude.Maybe InputLocation
+    availBlankingImage :: Prelude.Maybe InputLocation,
+    -- | When set to enabled, causes video, audio and captions to be blanked when
+    -- insertion metadata is added.
+    state :: Prelude.Maybe AvailBlankingState
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,55 +47,56 @@ data AvailBlanking = AvailBlanking'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'state', 'availBlanking_state' - When set to enabled, causes video, audio and captions to be blanked when
--- insertion metadata is added.
---
 -- 'availBlankingImage', 'availBlanking_availBlankingImage' - Blanking image to be used. Leave empty for solid black. Only bmp and png
 -- images are supported.
+--
+-- 'state', 'availBlanking_state' - When set to enabled, causes video, audio and captions to be blanked when
+-- insertion metadata is added.
 newAvailBlanking ::
   AvailBlanking
 newAvailBlanking =
   AvailBlanking'
-    { state = Prelude.Nothing,
-      availBlankingImage = Prelude.Nothing
+    { availBlankingImage =
+        Prelude.Nothing,
+      state = Prelude.Nothing
     }
-
--- | When set to enabled, causes video, audio and captions to be blanked when
--- insertion metadata is added.
-availBlanking_state :: Lens.Lens' AvailBlanking (Prelude.Maybe AvailBlankingState)
-availBlanking_state = Lens.lens (\AvailBlanking' {state} -> state) (\s@AvailBlanking' {} a -> s {state = a} :: AvailBlanking)
 
 -- | Blanking image to be used. Leave empty for solid black. Only bmp and png
 -- images are supported.
 availBlanking_availBlankingImage :: Lens.Lens' AvailBlanking (Prelude.Maybe InputLocation)
 availBlanking_availBlankingImage = Lens.lens (\AvailBlanking' {availBlankingImage} -> availBlankingImage) (\s@AvailBlanking' {} a -> s {availBlankingImage = a} :: AvailBlanking)
 
-instance Core.FromJSON AvailBlanking where
+-- | When set to enabled, causes video, audio and captions to be blanked when
+-- insertion metadata is added.
+availBlanking_state :: Lens.Lens' AvailBlanking (Prelude.Maybe AvailBlankingState)
+availBlanking_state = Lens.lens (\AvailBlanking' {state} -> state) (\s@AvailBlanking' {} a -> s {state = a} :: AvailBlanking)
+
+instance Data.FromJSON AvailBlanking where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AvailBlanking"
       ( \x ->
           AvailBlanking'
-            Prelude.<$> (x Core..:? "state")
-            Prelude.<*> (x Core..:? "availBlankingImage")
+            Prelude.<$> (x Data..:? "availBlankingImage")
+            Prelude.<*> (x Data..:? "state")
       )
 
 instance Prelude.Hashable AvailBlanking where
   hashWithSalt _salt AvailBlanking' {..} =
-    _salt `Prelude.hashWithSalt` state
-      `Prelude.hashWithSalt` availBlankingImage
+    _salt `Prelude.hashWithSalt` availBlankingImage
+      `Prelude.hashWithSalt` state
 
 instance Prelude.NFData AvailBlanking where
   rnf AvailBlanking' {..} =
-    Prelude.rnf state
-      `Prelude.seq` Prelude.rnf availBlankingImage
+    Prelude.rnf availBlankingImage
+      `Prelude.seq` Prelude.rnf state
 
-instance Core.ToJSON AvailBlanking where
+instance Data.ToJSON AvailBlanking where
   toJSON AvailBlanking' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("state" Core..=) Prelude.<$> state,
-            ("availBlankingImage" Core..=)
-              Prelude.<$> availBlankingImage
+          [ ("availBlankingImage" Data..=)
+              Prelude.<$> availBlankingImage,
+            ("state" Data..=) Prelude.<$> state
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Backup.StartReportJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.Backup.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,12 +99,13 @@ instance Core.AWSRequest StartReportJob where
   type
     AWSResponse StartReportJob =
       StartReportJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartReportJobResponse'
-            Prelude.<$> (x Core..?> "ReportJobId")
+            Prelude.<$> (x Data..?> "ReportJobId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,32 +119,32 @@ instance Prelude.NFData StartReportJob where
     Prelude.rnf idempotencyToken
       `Prelude.seq` Prelude.rnf reportPlanName
 
-instance Core.ToHeaders StartReportJob where
+instance Data.ToHeaders StartReportJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartReportJob where
+instance Data.ToJSON StartReportJob where
   toJSON StartReportJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("IdempotencyToken" Core..=)
+          [ ("IdempotencyToken" Data..=)
               Prelude.<$> idempotencyToken
           ]
       )
 
-instance Core.ToPath StartReportJob where
+instance Data.ToPath StartReportJob where
   toPath StartReportJob' {..} =
     Prelude.mconcat
-      ["/audit/report-jobs/", Core.toBS reportPlanName]
+      ["/audit/report-jobs/", Data.toBS reportPlanName]
 
-instance Core.ToQuery StartReportJob where
+instance Data.ToQuery StartReportJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartReportJobResponse' smart constructor.

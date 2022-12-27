@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataBrew.Types.StatisticsConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.DataBrew.Types.StatisticsConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataBrew.Types.StatisticOverride
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration of evaluations for a profile job. This configuration can
@@ -30,11 +31,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newStatisticsConfiguration' smart constructor.
 data StatisticsConfiguration = StatisticsConfiguration'
-  { -- | List of overrides for evaluations.
-    overrides :: Prelude.Maybe (Prelude.NonEmpty StatisticOverride),
-    -- | List of included evaluations. When the list is undefined, all supported
+  { -- | List of included evaluations. When the list is undefined, all supported
     -- evaluations will be included.
-    includedStatistics :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text)
+    includedStatistics :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
+    -- | List of overrides for evaluations.
+    overrides :: Prelude.Maybe (Prelude.NonEmpty StatisticOverride)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,54 +47,54 @@ data StatisticsConfiguration = StatisticsConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'overrides', 'statisticsConfiguration_overrides' - List of overrides for evaluations.
---
 -- 'includedStatistics', 'statisticsConfiguration_includedStatistics' - List of included evaluations. When the list is undefined, all supported
 -- evaluations will be included.
+--
+-- 'overrides', 'statisticsConfiguration_overrides' - List of overrides for evaluations.
 newStatisticsConfiguration ::
   StatisticsConfiguration
 newStatisticsConfiguration =
   StatisticsConfiguration'
-    { overrides =
+    { includedStatistics =
         Prelude.Nothing,
-      includedStatistics = Prelude.Nothing
+      overrides = Prelude.Nothing
     }
-
--- | List of overrides for evaluations.
-statisticsConfiguration_overrides :: Lens.Lens' StatisticsConfiguration (Prelude.Maybe (Prelude.NonEmpty StatisticOverride))
-statisticsConfiguration_overrides = Lens.lens (\StatisticsConfiguration' {overrides} -> overrides) (\s@StatisticsConfiguration' {} a -> s {overrides = a} :: StatisticsConfiguration) Prelude.. Lens.mapping Lens.coerced
 
 -- | List of included evaluations. When the list is undefined, all supported
 -- evaluations will be included.
 statisticsConfiguration_includedStatistics :: Lens.Lens' StatisticsConfiguration (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
 statisticsConfiguration_includedStatistics = Lens.lens (\StatisticsConfiguration' {includedStatistics} -> includedStatistics) (\s@StatisticsConfiguration' {} a -> s {includedStatistics = a} :: StatisticsConfiguration) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON StatisticsConfiguration where
+-- | List of overrides for evaluations.
+statisticsConfiguration_overrides :: Lens.Lens' StatisticsConfiguration (Prelude.Maybe (Prelude.NonEmpty StatisticOverride))
+statisticsConfiguration_overrides = Lens.lens (\StatisticsConfiguration' {overrides} -> overrides) (\s@StatisticsConfiguration' {} a -> s {overrides = a} :: StatisticsConfiguration) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON StatisticsConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StatisticsConfiguration"
       ( \x ->
           StatisticsConfiguration'
-            Prelude.<$> (x Core..:? "Overrides")
-            Prelude.<*> (x Core..:? "IncludedStatistics")
+            Prelude.<$> (x Data..:? "IncludedStatistics")
+            Prelude.<*> (x Data..:? "Overrides")
       )
 
 instance Prelude.Hashable StatisticsConfiguration where
   hashWithSalt _salt StatisticsConfiguration' {..} =
-    _salt `Prelude.hashWithSalt` overrides
-      `Prelude.hashWithSalt` includedStatistics
+    _salt `Prelude.hashWithSalt` includedStatistics
+      `Prelude.hashWithSalt` overrides
 
 instance Prelude.NFData StatisticsConfiguration where
   rnf StatisticsConfiguration' {..} =
-    Prelude.rnf overrides
-      `Prelude.seq` Prelude.rnf includedStatistics
+    Prelude.rnf includedStatistics
+      `Prelude.seq` Prelude.rnf overrides
 
-instance Core.ToJSON StatisticsConfiguration where
+instance Data.ToJSON StatisticsConfiguration where
   toJSON StatisticsConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Overrides" Core..=) Prelude.<$> overrides,
-            ("IncludedStatistics" Core..=)
-              Prelude.<$> includedStatistics
+          [ ("IncludedStatistics" Data..=)
+              Prelude.<$> includedStatistics,
+            ("Overrides" Data..=) Prelude.<$> overrides
           ]
       )

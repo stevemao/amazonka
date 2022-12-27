@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DescribeDimension
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,19 +39,20 @@ module Amazonka.IoT.DescribeDimension
     newDescribeDimensionResponse,
 
     -- * Response Lenses
-    describeDimensionResponse_lastModifiedDate,
     describeDimensionResponse_arn,
-    describeDimensionResponse_stringValues,
-    describeDimensionResponse_name,
     describeDimensionResponse_creationDate,
+    describeDimensionResponse_lastModifiedDate,
+    describeDimensionResponse_name,
+    describeDimensionResponse_stringValues,
     describeDimensionResponse_type,
     describeDimensionResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -87,17 +88,18 @@ instance Core.AWSRequest DescribeDimension where
   type
     AWSResponse DescribeDimension =
       DescribeDimensionResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeDimensionResponse'
-            Prelude.<$> (x Core..?> "lastModifiedDate")
-            Prelude.<*> (x Core..?> "arn")
-            Prelude.<*> (x Core..?> "stringValues")
-            Prelude.<*> (x Core..?> "name")
-            Prelude.<*> (x Core..?> "creationDate")
-            Prelude.<*> (x Core..?> "type")
+            Prelude.<$> (x Data..?> "arn")
+            Prelude.<*> (x Data..?> "creationDate")
+            Prelude.<*> (x Data..?> "lastModifiedDate")
+            Prelude.<*> (x Data..?> "name")
+            Prelude.<*> (x Data..?> "stringValues")
+            Prelude.<*> (x Data..?> "type")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -108,30 +110,30 @@ instance Prelude.Hashable DescribeDimension where
 instance Prelude.NFData DescribeDimension where
   rnf DescribeDimension' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DescribeDimension where
+instance Data.ToHeaders DescribeDimension where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeDimension where
+instance Data.ToPath DescribeDimension where
   toPath DescribeDimension' {..} =
-    Prelude.mconcat ["/dimensions/", Core.toBS name]
+    Prelude.mconcat ["/dimensions/", Data.toBS name]
 
-instance Core.ToQuery DescribeDimension where
+instance Data.ToQuery DescribeDimension where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeDimensionResponse' smart constructor.
 data DescribeDimensionResponse = DescribeDimensionResponse'
-  { -- | The date the dimension was last modified.
-    lastModifiedDate :: Prelude.Maybe Core.POSIX,
-    -- | The Amazon Resource Name (ARN) for the dimension.
+  { -- | The Amazon Resource Name (ARN) for the dimension.
     arn :: Prelude.Maybe Prelude.Text,
+    -- | The date the dimension was created.
+    creationDate :: Prelude.Maybe Data.POSIX,
+    -- | The date the dimension was last modified.
+    lastModifiedDate :: Prelude.Maybe Data.POSIX,
+    -- | The unique identifier for the dimension.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The value or list of values used to scope the dimension. For example,
     -- for topic filters, this is the pattern used to match the MQTT topic
     -- name.
     stringValues :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
-    -- | The unique identifier for the dimension.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The date the dimension was created.
-    creationDate :: Prelude.Maybe Core.POSIX,
     -- | The type of the dimension.
     type' :: Prelude.Maybe DimensionType,
     -- | The response's http status code.
@@ -147,17 +149,17 @@ data DescribeDimensionResponse = DescribeDimensionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'arn', 'describeDimensionResponse_arn' - The Amazon Resource Name (ARN) for the dimension.
+--
+-- 'creationDate', 'describeDimensionResponse_creationDate' - The date the dimension was created.
+--
 -- 'lastModifiedDate', 'describeDimensionResponse_lastModifiedDate' - The date the dimension was last modified.
 --
--- 'arn', 'describeDimensionResponse_arn' - The Amazon Resource Name (ARN) for the dimension.
+-- 'name', 'describeDimensionResponse_name' - The unique identifier for the dimension.
 --
 -- 'stringValues', 'describeDimensionResponse_stringValues' - The value or list of values used to scope the dimension. For example,
 -- for topic filters, this is the pattern used to match the MQTT topic
 -- name.
---
--- 'name', 'describeDimensionResponse_name' - The unique identifier for the dimension.
---
--- 'creationDate', 'describeDimensionResponse_creationDate' - The date the dimension was created.
 --
 -- 'type'', 'describeDimensionResponse_type' - The type of the dimension.
 --
@@ -168,37 +170,36 @@ newDescribeDimensionResponse ::
   DescribeDimensionResponse
 newDescribeDimensionResponse pHttpStatus_ =
   DescribeDimensionResponse'
-    { lastModifiedDate =
-        Prelude.Nothing,
-      arn = Prelude.Nothing,
-      stringValues = Prelude.Nothing,
-      name = Prelude.Nothing,
+    { arn = Prelude.Nothing,
       creationDate = Prelude.Nothing,
+      lastModifiedDate = Prelude.Nothing,
+      name = Prelude.Nothing,
+      stringValues = Prelude.Nothing,
       type' = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The date the dimension was last modified.
-describeDimensionResponse_lastModifiedDate :: Lens.Lens' DescribeDimensionResponse (Prelude.Maybe Prelude.UTCTime)
-describeDimensionResponse_lastModifiedDate = Lens.lens (\DescribeDimensionResponse' {lastModifiedDate} -> lastModifiedDate) (\s@DescribeDimensionResponse' {} a -> s {lastModifiedDate = a} :: DescribeDimensionResponse) Prelude.. Lens.mapping Core._Time
-
 -- | The Amazon Resource Name (ARN) for the dimension.
 describeDimensionResponse_arn :: Lens.Lens' DescribeDimensionResponse (Prelude.Maybe Prelude.Text)
 describeDimensionResponse_arn = Lens.lens (\DescribeDimensionResponse' {arn} -> arn) (\s@DescribeDimensionResponse' {} a -> s {arn = a} :: DescribeDimensionResponse)
+
+-- | The date the dimension was created.
+describeDimensionResponse_creationDate :: Lens.Lens' DescribeDimensionResponse (Prelude.Maybe Prelude.UTCTime)
+describeDimensionResponse_creationDate = Lens.lens (\DescribeDimensionResponse' {creationDate} -> creationDate) (\s@DescribeDimensionResponse' {} a -> s {creationDate = a} :: DescribeDimensionResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The date the dimension was last modified.
+describeDimensionResponse_lastModifiedDate :: Lens.Lens' DescribeDimensionResponse (Prelude.Maybe Prelude.UTCTime)
+describeDimensionResponse_lastModifiedDate = Lens.lens (\DescribeDimensionResponse' {lastModifiedDate} -> lastModifiedDate) (\s@DescribeDimensionResponse' {} a -> s {lastModifiedDate = a} :: DescribeDimensionResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The unique identifier for the dimension.
+describeDimensionResponse_name :: Lens.Lens' DescribeDimensionResponse (Prelude.Maybe Prelude.Text)
+describeDimensionResponse_name = Lens.lens (\DescribeDimensionResponse' {name} -> name) (\s@DescribeDimensionResponse' {} a -> s {name = a} :: DescribeDimensionResponse)
 
 -- | The value or list of values used to scope the dimension. For example,
 -- for topic filters, this is the pattern used to match the MQTT topic
 -- name.
 describeDimensionResponse_stringValues :: Lens.Lens' DescribeDimensionResponse (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
 describeDimensionResponse_stringValues = Lens.lens (\DescribeDimensionResponse' {stringValues} -> stringValues) (\s@DescribeDimensionResponse' {} a -> s {stringValues = a} :: DescribeDimensionResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | The unique identifier for the dimension.
-describeDimensionResponse_name :: Lens.Lens' DescribeDimensionResponse (Prelude.Maybe Prelude.Text)
-describeDimensionResponse_name = Lens.lens (\DescribeDimensionResponse' {name} -> name) (\s@DescribeDimensionResponse' {} a -> s {name = a} :: DescribeDimensionResponse)
-
--- | The date the dimension was created.
-describeDimensionResponse_creationDate :: Lens.Lens' DescribeDimensionResponse (Prelude.Maybe Prelude.UTCTime)
-describeDimensionResponse_creationDate = Lens.lens (\DescribeDimensionResponse' {creationDate} -> creationDate) (\s@DescribeDimensionResponse' {} a -> s {creationDate = a} :: DescribeDimensionResponse) Prelude.. Lens.mapping Core._Time
 
 -- | The type of the dimension.
 describeDimensionResponse_type :: Lens.Lens' DescribeDimensionResponse (Prelude.Maybe DimensionType)
@@ -210,10 +211,10 @@ describeDimensionResponse_httpStatus = Lens.lens (\DescribeDimensionResponse' {h
 
 instance Prelude.NFData DescribeDimensionResponse where
   rnf DescribeDimensionResponse' {..} =
-    Prelude.rnf lastModifiedDate
-      `Prelude.seq` Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf stringValues
-      `Prelude.seq` Prelude.rnf name
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf creationDate
+      `Prelude.seq` Prelude.rnf lastModifiedDate
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf stringValues
       `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf httpStatus

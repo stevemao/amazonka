@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.SessionContext
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.SessionContext where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types.SessionContextAttributes
 import Amazonka.MacieV2.Types.SessionIssuer
 import qualified Amazonka.Prelude as Prelude
@@ -70,14 +71,14 @@ sessionContext_attributes = Lens.lens (\SessionContext' {attributes} -> attribut
 sessionContext_sessionIssuer :: Lens.Lens' SessionContext (Prelude.Maybe SessionIssuer)
 sessionContext_sessionIssuer = Lens.lens (\SessionContext' {sessionIssuer} -> sessionIssuer) (\s@SessionContext' {} a -> s {sessionIssuer = a} :: SessionContext)
 
-instance Core.FromJSON SessionContext where
+instance Data.FromJSON SessionContext where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SessionContext"
       ( \x ->
           SessionContext'
-            Prelude.<$> (x Core..:? "attributes")
-            Prelude.<*> (x Core..:? "sessionIssuer")
+            Prelude.<$> (x Data..:? "attributes")
+            Prelude.<*> (x Data..:? "sessionIssuer")
       )
 
 instance Prelude.Hashable SessionContext where

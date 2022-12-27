@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.MultiplexProgramSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.MultiplexProgramSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.MultiplexProgramServiceDescriptor
 import Amazonka.MediaLive.Types.MultiplexVideoSettings
 import Amazonka.MediaLive.Types.PreferredChannelPipeline
@@ -33,11 +34,11 @@ data MultiplexProgramSettings = MultiplexProgramSettings'
   { -- | Indicates which pipeline is preferred by the multiplex for program
     -- ingest.
     preferredChannelPipeline :: Prelude.Maybe PreferredChannelPipeline,
-    -- | Program video settings configuration.
-    videoSettings :: Prelude.Maybe MultiplexVideoSettings,
     -- | Transport stream service descriptor configuration for the Multiplex
     -- program.
     serviceDescriptor :: Prelude.Maybe MultiplexProgramServiceDescriptor,
+    -- | Program video settings configuration.
+    videoSettings :: Prelude.Maybe MultiplexVideoSettings,
     -- | Unique program number.
     programNumber :: Prelude.Natural
   }
@@ -54,10 +55,10 @@ data MultiplexProgramSettings = MultiplexProgramSettings'
 -- 'preferredChannelPipeline', 'multiplexProgramSettings_preferredChannelPipeline' - Indicates which pipeline is preferred by the multiplex for program
 -- ingest.
 --
--- 'videoSettings', 'multiplexProgramSettings_videoSettings' - Program video settings configuration.
---
 -- 'serviceDescriptor', 'multiplexProgramSettings_serviceDescriptor' - Transport stream service descriptor configuration for the Multiplex
 -- program.
+--
+-- 'videoSettings', 'multiplexProgramSettings_videoSettings' - Program video settings configuration.
 --
 -- 'programNumber', 'multiplexProgramSettings_programNumber' - Unique program number.
 newMultiplexProgramSettings ::
@@ -68,8 +69,8 @@ newMultiplexProgramSettings pProgramNumber_ =
   MultiplexProgramSettings'
     { preferredChannelPipeline =
         Prelude.Nothing,
-      videoSettings = Prelude.Nothing,
       serviceDescriptor = Prelude.Nothing,
+      videoSettings = Prelude.Nothing,
       programNumber = pProgramNumber_
     }
 
@@ -78,56 +79,56 @@ newMultiplexProgramSettings pProgramNumber_ =
 multiplexProgramSettings_preferredChannelPipeline :: Lens.Lens' MultiplexProgramSettings (Prelude.Maybe PreferredChannelPipeline)
 multiplexProgramSettings_preferredChannelPipeline = Lens.lens (\MultiplexProgramSettings' {preferredChannelPipeline} -> preferredChannelPipeline) (\s@MultiplexProgramSettings' {} a -> s {preferredChannelPipeline = a} :: MultiplexProgramSettings)
 
--- | Program video settings configuration.
-multiplexProgramSettings_videoSettings :: Lens.Lens' MultiplexProgramSettings (Prelude.Maybe MultiplexVideoSettings)
-multiplexProgramSettings_videoSettings = Lens.lens (\MultiplexProgramSettings' {videoSettings} -> videoSettings) (\s@MultiplexProgramSettings' {} a -> s {videoSettings = a} :: MultiplexProgramSettings)
-
 -- | Transport stream service descriptor configuration for the Multiplex
 -- program.
 multiplexProgramSettings_serviceDescriptor :: Lens.Lens' MultiplexProgramSettings (Prelude.Maybe MultiplexProgramServiceDescriptor)
 multiplexProgramSettings_serviceDescriptor = Lens.lens (\MultiplexProgramSettings' {serviceDescriptor} -> serviceDescriptor) (\s@MultiplexProgramSettings' {} a -> s {serviceDescriptor = a} :: MultiplexProgramSettings)
 
+-- | Program video settings configuration.
+multiplexProgramSettings_videoSettings :: Lens.Lens' MultiplexProgramSettings (Prelude.Maybe MultiplexVideoSettings)
+multiplexProgramSettings_videoSettings = Lens.lens (\MultiplexProgramSettings' {videoSettings} -> videoSettings) (\s@MultiplexProgramSettings' {} a -> s {videoSettings = a} :: MultiplexProgramSettings)
+
 -- | Unique program number.
 multiplexProgramSettings_programNumber :: Lens.Lens' MultiplexProgramSettings Prelude.Natural
 multiplexProgramSettings_programNumber = Lens.lens (\MultiplexProgramSettings' {programNumber} -> programNumber) (\s@MultiplexProgramSettings' {} a -> s {programNumber = a} :: MultiplexProgramSettings)
 
-instance Core.FromJSON MultiplexProgramSettings where
+instance Data.FromJSON MultiplexProgramSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MultiplexProgramSettings"
       ( \x ->
           MultiplexProgramSettings'
-            Prelude.<$> (x Core..:? "preferredChannelPipeline")
-            Prelude.<*> (x Core..:? "videoSettings")
-            Prelude.<*> (x Core..:? "serviceDescriptor")
-            Prelude.<*> (x Core..: "programNumber")
+            Prelude.<$> (x Data..:? "preferredChannelPipeline")
+            Prelude.<*> (x Data..:? "serviceDescriptor")
+            Prelude.<*> (x Data..:? "videoSettings")
+            Prelude.<*> (x Data..: "programNumber")
       )
 
 instance Prelude.Hashable MultiplexProgramSettings where
   hashWithSalt _salt MultiplexProgramSettings' {..} =
     _salt
       `Prelude.hashWithSalt` preferredChannelPipeline
-      `Prelude.hashWithSalt` videoSettings
       `Prelude.hashWithSalt` serviceDescriptor
+      `Prelude.hashWithSalt` videoSettings
       `Prelude.hashWithSalt` programNumber
 
 instance Prelude.NFData MultiplexProgramSettings where
   rnf MultiplexProgramSettings' {..} =
     Prelude.rnf preferredChannelPipeline
-      `Prelude.seq` Prelude.rnf videoSettings
       `Prelude.seq` Prelude.rnf serviceDescriptor
+      `Prelude.seq` Prelude.rnf videoSettings
       `Prelude.seq` Prelude.rnf programNumber
 
-instance Core.ToJSON MultiplexProgramSettings where
+instance Data.ToJSON MultiplexProgramSettings where
   toJSON MultiplexProgramSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("preferredChannelPipeline" Core..=)
+          [ ("preferredChannelPipeline" Data..=)
               Prelude.<$> preferredChannelPipeline,
-            ("videoSettings" Core..=) Prelude.<$> videoSettings,
-            ("serviceDescriptor" Core..=)
+            ("serviceDescriptor" Data..=)
               Prelude.<$> serviceDescriptor,
+            ("videoSettings" Data..=) Prelude.<$> videoSettings,
             Prelude.Just
-              ("programNumber" Core..= programNumber)
+              ("programNumber" Data..= programNumber)
           ]
       )

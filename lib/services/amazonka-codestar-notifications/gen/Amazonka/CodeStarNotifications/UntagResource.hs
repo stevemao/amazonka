@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStarNotifications.UntagResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CodeStarNotifications.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,7 +93,8 @@ instance Core.AWSRequest UntagResource where
   type
     AWSResponse UntagResource =
       UntagResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -109,31 +111,28 @@ instance Prelude.NFData UntagResource where
   rnf UntagResource' {..} =
     Prelude.rnf arn `Prelude.seq` Prelude.rnf tagKeys
 
-instance Core.ToHeaders UntagResource where
+instance Data.ToHeaders UntagResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UntagResource where
-  toJSON UntagResource' {..} =
-    Core.object
-      ( Prelude.catMaybes
-          [ Prelude.Just ("Arn" Core..= arn),
-            Prelude.Just ("TagKeys" Core..= tagKeys)
-          ]
-      )
+instance Data.ToJSON UntagResource where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath UntagResource where
-  toPath = Prelude.const "/untagResource"
+instance Data.ToPath UntagResource where
+  toPath UntagResource' {..} =
+    Prelude.mconcat ["/untagResource/", Data.toBS arn]
 
-instance Core.ToQuery UntagResource where
-  toQuery = Prelude.const Prelude.mempty
+instance Data.ToQuery UntagResource where
+  toQuery UntagResource' {..} =
+    Prelude.mconcat
+      ["tagKeys" Data.=: Data.toQueryList "member" tagKeys]
 
 -- | /See:/ 'newUntagResourceResponse' smart constructor.
 data UntagResourceResponse = UntagResourceResponse'

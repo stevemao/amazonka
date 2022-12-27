@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoSync.GetCognitoEvents
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.CognitoSync.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -87,12 +88,13 @@ instance Core.AWSRequest GetCognitoEvents where
   type
     AWSResponse GetCognitoEvents =
       GetCognitoEventsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetCognitoEventsResponse'
-            Prelude.<$> (x Core..?> "Events" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Events" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -104,26 +106,26 @@ instance Prelude.NFData GetCognitoEvents where
   rnf GetCognitoEvents' {..} =
     Prelude.rnf identityPoolId
 
-instance Core.ToHeaders GetCognitoEvents where
+instance Data.ToHeaders GetCognitoEvents where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetCognitoEvents where
+instance Data.ToPath GetCognitoEvents where
   toPath GetCognitoEvents' {..} =
     Prelude.mconcat
       [ "/identitypools/",
-        Core.toBS identityPoolId,
+        Data.toBS identityPoolId,
         "/events"
       ]
 
-instance Core.ToQuery GetCognitoEvents where
+instance Data.ToQuery GetCognitoEvents where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The response from the GetCognitoEvents request

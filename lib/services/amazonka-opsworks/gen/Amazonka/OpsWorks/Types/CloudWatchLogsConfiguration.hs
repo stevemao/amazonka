@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.Types.CloudWatchLogsConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.OpsWorks.Types.CloudWatchLogsConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types.CloudWatchLogsLogStream
 import qualified Amazonka.Prelude as Prelude
 
@@ -63,14 +64,14 @@ cloudWatchLogsConfiguration_enabled = Lens.lens (\CloudWatchLogsConfiguration' {
 cloudWatchLogsConfiguration_logStreams :: Lens.Lens' CloudWatchLogsConfiguration (Prelude.Maybe [CloudWatchLogsLogStream])
 cloudWatchLogsConfiguration_logStreams = Lens.lens (\CloudWatchLogsConfiguration' {logStreams} -> logStreams) (\s@CloudWatchLogsConfiguration' {} a -> s {logStreams = a} :: CloudWatchLogsConfiguration) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON CloudWatchLogsConfiguration where
+instance Data.FromJSON CloudWatchLogsConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CloudWatchLogsConfiguration"
       ( \x ->
           CloudWatchLogsConfiguration'
-            Prelude.<$> (x Core..:? "Enabled")
-            Prelude.<*> (x Core..:? "LogStreams" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Enabled")
+            Prelude.<*> (x Data..:? "LogStreams" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable CloudWatchLogsConfiguration where
@@ -83,11 +84,11 @@ instance Prelude.NFData CloudWatchLogsConfiguration where
     Prelude.rnf enabled
       `Prelude.seq` Prelude.rnf logStreams
 
-instance Core.ToJSON CloudWatchLogsConfiguration where
+instance Data.ToJSON CloudWatchLogsConfiguration where
   toJSON CloudWatchLogsConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Enabled" Core..=) Prelude.<$> enabled,
-            ("LogStreams" Core..=) Prelude.<$> logStreams
+          [ ("Enabled" Data..=) Prelude.<$> enabled,
+            ("LogStreams" Data..=) Prelude.<$> logStreams
           ]
       )

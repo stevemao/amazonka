@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.Statistics
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.Statistics where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides processing statistics for a classification job.
@@ -65,14 +66,14 @@ statistics_approximateNumberOfObjectsToProcess = Lens.lens (\Statistics' {approx
 statistics_numberOfRuns :: Lens.Lens' Statistics (Prelude.Maybe Prelude.Double)
 statistics_numberOfRuns = Lens.lens (\Statistics' {numberOfRuns} -> numberOfRuns) (\s@Statistics' {} a -> s {numberOfRuns = a} :: Statistics)
 
-instance Core.FromJSON Statistics where
+instance Data.FromJSON Statistics where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Statistics"
       ( \x ->
           Statistics'
-            Prelude.<$> (x Core..:? "approximateNumberOfObjectsToProcess")
-            Prelude.<*> (x Core..:? "numberOfRuns")
+            Prelude.<$> (x Data..:? "approximateNumberOfObjectsToProcess")
+            Prelude.<*> (x Data..:? "numberOfRuns")
       )
 
 instance Prelude.Hashable Statistics where

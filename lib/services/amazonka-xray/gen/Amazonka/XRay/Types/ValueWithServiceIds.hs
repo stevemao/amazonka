@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.XRay.Types.ValueWithServiceIds
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.XRay.Types.ValueWithServiceIds where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.XRay.Types.AnnotationValue
 import Amazonka.XRay.Types.ServiceId
@@ -29,10 +30,10 @@ import Amazonka.XRay.Types.ServiceId
 --
 -- /See:/ 'newValueWithServiceIds' smart constructor.
 data ValueWithServiceIds = ValueWithServiceIds'
-  { -- | Services to which the annotation applies.
-    serviceIds :: Prelude.Maybe [ServiceId],
-    -- | Values of the annotation.
-    annotationValue :: Prelude.Maybe AnnotationValue
+  { -- | Values of the annotation.
+    annotationValue :: Prelude.Maybe AnnotationValue,
+    -- | Services to which the annotation applies.
+    serviceIds :: Prelude.Maybe [ServiceId]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,41 +45,42 @@ data ValueWithServiceIds = ValueWithServiceIds'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'serviceIds', 'valueWithServiceIds_serviceIds' - Services to which the annotation applies.
---
 -- 'annotationValue', 'valueWithServiceIds_annotationValue' - Values of the annotation.
+--
+-- 'serviceIds', 'valueWithServiceIds_serviceIds' - Services to which the annotation applies.
 newValueWithServiceIds ::
   ValueWithServiceIds
 newValueWithServiceIds =
   ValueWithServiceIds'
-    { serviceIds = Prelude.Nothing,
-      annotationValue = Prelude.Nothing
+    { annotationValue =
+        Prelude.Nothing,
+      serviceIds = Prelude.Nothing
     }
-
--- | Services to which the annotation applies.
-valueWithServiceIds_serviceIds :: Lens.Lens' ValueWithServiceIds (Prelude.Maybe [ServiceId])
-valueWithServiceIds_serviceIds = Lens.lens (\ValueWithServiceIds' {serviceIds} -> serviceIds) (\s@ValueWithServiceIds' {} a -> s {serviceIds = a} :: ValueWithServiceIds) Prelude.. Lens.mapping Lens.coerced
 
 -- | Values of the annotation.
 valueWithServiceIds_annotationValue :: Lens.Lens' ValueWithServiceIds (Prelude.Maybe AnnotationValue)
 valueWithServiceIds_annotationValue = Lens.lens (\ValueWithServiceIds' {annotationValue} -> annotationValue) (\s@ValueWithServiceIds' {} a -> s {annotationValue = a} :: ValueWithServiceIds)
 
-instance Core.FromJSON ValueWithServiceIds where
+-- | Services to which the annotation applies.
+valueWithServiceIds_serviceIds :: Lens.Lens' ValueWithServiceIds (Prelude.Maybe [ServiceId])
+valueWithServiceIds_serviceIds = Lens.lens (\ValueWithServiceIds' {serviceIds} -> serviceIds) (\s@ValueWithServiceIds' {} a -> s {serviceIds = a} :: ValueWithServiceIds) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON ValueWithServiceIds where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ValueWithServiceIds"
       ( \x ->
           ValueWithServiceIds'
-            Prelude.<$> (x Core..:? "ServiceIds" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "AnnotationValue")
+            Prelude.<$> (x Data..:? "AnnotationValue")
+            Prelude.<*> (x Data..:? "ServiceIds" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable ValueWithServiceIds where
   hashWithSalt _salt ValueWithServiceIds' {..} =
-    _salt `Prelude.hashWithSalt` serviceIds
-      `Prelude.hashWithSalt` annotationValue
+    _salt `Prelude.hashWithSalt` annotationValue
+      `Prelude.hashWithSalt` serviceIds
 
 instance Prelude.NFData ValueWithServiceIds where
   rnf ValueWithServiceIds' {..} =
-    Prelude.rnf serviceIds
-      `Prelude.seq` Prelude.rnf annotationValue
+    Prelude.rnf annotationValue
+      `Prelude.seq` Prelude.rnf serviceIds

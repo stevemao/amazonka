@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.PolicyToPath
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudDirectory.Types.PolicyToPath where
 
 import Amazonka.CloudDirectory.Types.PolicyAttachment
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Used when a regular object exists in a Directory and you want to find
@@ -64,14 +65,14 @@ policyToPath_path = Lens.lens (\PolicyToPath' {path} -> path) (\s@PolicyToPath' 
 policyToPath_policies :: Lens.Lens' PolicyToPath (Prelude.Maybe [PolicyAttachment])
 policyToPath_policies = Lens.lens (\PolicyToPath' {policies} -> policies) (\s@PolicyToPath' {} a -> s {policies = a} :: PolicyToPath) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON PolicyToPath where
+instance Data.FromJSON PolicyToPath where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PolicyToPath"
       ( \x ->
           PolicyToPath'
-            Prelude.<$> (x Core..:? "Path")
-            Prelude.<*> (x Core..:? "Policies" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Path")
+            Prelude.<*> (x Data..:? "Policies" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable PolicyToPath where

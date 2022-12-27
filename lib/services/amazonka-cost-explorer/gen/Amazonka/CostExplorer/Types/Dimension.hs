@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.Types.Dimension
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,6 +29,7 @@ module Amazonka.CostExplorer.Types.Dimension
         Dimension_DEPLOYMENT_OPTION,
         Dimension_INSTANCE_TYPE,
         Dimension_INSTANCE_TYPE_FAMILY,
+        Dimension_INVOICING_ENTITY,
         Dimension_LEGAL_ENTITY_NAME,
         Dimension_LINKED_ACCOUNT,
         Dimension_LINKED_ACCOUNT_NAME,
@@ -56,11 +57,12 @@ module Amazonka.CostExplorer.Types.Dimension
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype Dimension = Dimension'
   { fromDimension ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -72,18 +74,18 @@ newtype Dimension = Dimension'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern Dimension_AGREEMENT_END_DATE_TIME_AFTER :: Dimension
@@ -112,6 +114,9 @@ pattern Dimension_INSTANCE_TYPE = Dimension' "INSTANCE_TYPE"
 
 pattern Dimension_INSTANCE_TYPE_FAMILY :: Dimension
 pattern Dimension_INSTANCE_TYPE_FAMILY = Dimension' "INSTANCE_TYPE_FAMILY"
+
+pattern Dimension_INVOICING_ENTITY :: Dimension
+pattern Dimension_INVOICING_ENTITY = Dimension' "INVOICING_ENTITY"
 
 pattern Dimension_LEGAL_ENTITY_NAME :: Dimension
 pattern Dimension_LEGAL_ENTITY_NAME = Dimension' "LEGAL_ENTITY_NAME"
@@ -189,6 +194,7 @@ pattern Dimension_USAGE_TYPE_GROUP = Dimension' "USAGE_TYPE_GROUP"
   Dimension_DEPLOYMENT_OPTION,
   Dimension_INSTANCE_TYPE,
   Dimension_INSTANCE_TYPE_FAMILY,
+  Dimension_INVOICING_ENTITY,
   Dimension_LEGAL_ENTITY_NAME,
   Dimension_LINKED_ACCOUNT,
   Dimension_LINKED_ACCOUNT_NAME,

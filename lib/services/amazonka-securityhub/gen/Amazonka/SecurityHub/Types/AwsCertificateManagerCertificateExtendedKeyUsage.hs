@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsCertificateManagerCertificateExtendedKeyUsage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsCertificateManagerCertificateExtendedKeyUsage where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about an extended key usage X.509 v3 extension
@@ -28,13 +29,13 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAwsCertificateManagerCertificateExtendedKeyUsage' smart constructor.
 data AwsCertificateManagerCertificateExtendedKeyUsage = AwsCertificateManagerCertificateExtendedKeyUsage'
-  { -- | An object identifier (OID) for the extension value.
+  { -- | The name of an extension value. Indicates the purpose for which the
+    -- certificate public key can be used.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | An object identifier (OID) for the extension value.
     --
     -- The format is numbers separated by periods.
-    oId :: Prelude.Maybe Prelude.Text,
-    -- | The name of an extension value. Indicates the purpose for which the
-    -- certificate public key can be used.
-    name :: Prelude.Maybe Prelude.Text
+    oId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,20 +47,25 @@ data AwsCertificateManagerCertificateExtendedKeyUsage = AwsCertificateManagerCer
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'name', 'awsCertificateManagerCertificateExtendedKeyUsage_name' - The name of an extension value. Indicates the purpose for which the
+-- certificate public key can be used.
+--
 -- 'oId', 'awsCertificateManagerCertificateExtendedKeyUsage_oId' - An object identifier (OID) for the extension value.
 --
 -- The format is numbers separated by periods.
---
--- 'name', 'awsCertificateManagerCertificateExtendedKeyUsage_name' - The name of an extension value. Indicates the purpose for which the
--- certificate public key can be used.
 newAwsCertificateManagerCertificateExtendedKeyUsage ::
   AwsCertificateManagerCertificateExtendedKeyUsage
 newAwsCertificateManagerCertificateExtendedKeyUsage =
   AwsCertificateManagerCertificateExtendedKeyUsage'
-    { oId =
+    { name =
         Prelude.Nothing,
-      name = Prelude.Nothing
+      oId = Prelude.Nothing
     }
+
+-- | The name of an extension value. Indicates the purpose for which the
+-- certificate public key can be used.
+awsCertificateManagerCertificateExtendedKeyUsage_name :: Lens.Lens' AwsCertificateManagerCertificateExtendedKeyUsage (Prelude.Maybe Prelude.Text)
+awsCertificateManagerCertificateExtendedKeyUsage_name = Lens.lens (\AwsCertificateManagerCertificateExtendedKeyUsage' {name} -> name) (\s@AwsCertificateManagerCertificateExtendedKeyUsage' {} a -> s {name = a} :: AwsCertificateManagerCertificateExtendedKeyUsage)
 
 -- | An object identifier (OID) for the extension value.
 --
@@ -67,21 +73,16 @@ newAwsCertificateManagerCertificateExtendedKeyUsage =
 awsCertificateManagerCertificateExtendedKeyUsage_oId :: Lens.Lens' AwsCertificateManagerCertificateExtendedKeyUsage (Prelude.Maybe Prelude.Text)
 awsCertificateManagerCertificateExtendedKeyUsage_oId = Lens.lens (\AwsCertificateManagerCertificateExtendedKeyUsage' {oId} -> oId) (\s@AwsCertificateManagerCertificateExtendedKeyUsage' {} a -> s {oId = a} :: AwsCertificateManagerCertificateExtendedKeyUsage)
 
--- | The name of an extension value. Indicates the purpose for which the
--- certificate public key can be used.
-awsCertificateManagerCertificateExtendedKeyUsage_name :: Lens.Lens' AwsCertificateManagerCertificateExtendedKeyUsage (Prelude.Maybe Prelude.Text)
-awsCertificateManagerCertificateExtendedKeyUsage_name = Lens.lens (\AwsCertificateManagerCertificateExtendedKeyUsage' {name} -> name) (\s@AwsCertificateManagerCertificateExtendedKeyUsage' {} a -> s {name = a} :: AwsCertificateManagerCertificateExtendedKeyUsage)
-
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsCertificateManagerCertificateExtendedKeyUsage
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsCertificateManagerCertificateExtendedKeyUsage"
       ( \x ->
           AwsCertificateManagerCertificateExtendedKeyUsage'
-            Prelude.<$> (x Core..:? "OId") Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Name") Prelude.<*> (x Data..:? "OId")
       )
 
 instance
@@ -91,8 +92,8 @@ instance
   hashWithSalt
     _salt
     AwsCertificateManagerCertificateExtendedKeyUsage' {..} =
-      _salt `Prelude.hashWithSalt` oId
-        `Prelude.hashWithSalt` name
+      _salt `Prelude.hashWithSalt` name
+        `Prelude.hashWithSalt` oId
 
 instance
   Prelude.NFData
@@ -100,17 +101,17 @@ instance
   where
   rnf
     AwsCertificateManagerCertificateExtendedKeyUsage' {..} =
-      Prelude.rnf oId `Prelude.seq` Prelude.rnf name
+      Prelude.rnf name `Prelude.seq` Prelude.rnf oId
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsCertificateManagerCertificateExtendedKeyUsage
   where
   toJSON
     AwsCertificateManagerCertificateExtendedKeyUsage' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("OId" Core..=) Prelude.<$> oId,
-              ("Name" Core..=) Prelude.<$> name
+            [ ("Name" Data..=) Prelude.<$> name,
+              ("OId" Data..=) Prelude.<$> oId
             ]
         )

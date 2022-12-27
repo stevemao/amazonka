@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SNS.SetPlatformApplicationAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.SNS.SetPlatformApplicationAttributes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,15 +60,32 @@ data SetPlatformApplicationAttributes = SetPlatformApplicationAttributes'
     -- include the following:
     --
     -- -   @PlatformCredential@ – The credential received from the notification
-    --     service. For @APNS@ and @APNS_SANDBOX@, @PlatformCredential@ is
-    --     @private key@. For @GCM@ (Firebase Cloud Messaging),
-    --     @PlatformCredential@ is @API key@. For @ADM@, @PlatformCredential@
-    --     is @client secret@.
+    --     service.
+    --
+    --     -   For ADM, @PlatformCredential@is client secret.
+    --
+    --     -   For Apple Services using certificate credentials,
+    --         @PlatformCredential@ is private key.
+    --
+    --     -   For Apple Services using token credentials, @PlatformCredential@
+    --         is signing key.
+    --
+    --     -   For GCM (Firebase Cloud Messaging), @PlatformCredential@ is API
+    --         key.
     --
     -- -   @PlatformPrincipal@ – The principal received from the notification
-    --     service. For @APNS@ and @APNS_SANDBOX@, @PlatformPrincipal@ is
-    --     @SSL certificate@. For @GCM@ (Firebase Cloud Messaging), there is no
-    --     @PlatformPrincipal@. For @ADM@, @PlatformPrincipal@ is @client id@.
+    --     service.
+    --
+    --     -   For ADM, @PlatformPrincipal@is client id.
+    --
+    --     -   For Apple Services using certificate credentials,
+    --         @PlatformPrincipal@ is SSL certificate.
+    --
+    --     -   For Apple Services using token credentials, @PlatformPrincipal@
+    --         is signing key ID.
+    --
+    --     -   For GCM (Firebase Cloud Messaging), there is no
+    --         @PlatformPrincipal@.
     --
     -- -   @EventEndpointCreated@ – Topic ARN to which @EndpointCreated@ event
     --     notifications are sent.
@@ -90,6 +108,15 @@ data SetPlatformApplicationAttributes = SetPlatformApplicationAttributes'
     --
     -- -   @SuccessFeedbackSampleRate@ – Sample rate percentage (0-100) of
     --     successfully delivered messages.
+    --
+    -- The following attributes only apply to @APNs@ token-based
+    -- authentication:
+    --
+    -- -   @ApplePlatformTeamID@ – The identifier that\'s assigned to your
+    --     Apple developer account team.
+    --
+    -- -   @ApplePlatformBundleID@ – The bundle identifier that\'s assigned to
+    --     your iOS app.
     attributes :: Prelude.HashMap Prelude.Text Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -108,15 +135,32 @@ data SetPlatformApplicationAttributes = SetPlatformApplicationAttributes'
 -- include the following:
 --
 -- -   @PlatformCredential@ – The credential received from the notification
---     service. For @APNS@ and @APNS_SANDBOX@, @PlatformCredential@ is
---     @private key@. For @GCM@ (Firebase Cloud Messaging),
---     @PlatformCredential@ is @API key@. For @ADM@, @PlatformCredential@
---     is @client secret@.
+--     service.
+--
+--     -   For ADM, @PlatformCredential@is client secret.
+--
+--     -   For Apple Services using certificate credentials,
+--         @PlatformCredential@ is private key.
+--
+--     -   For Apple Services using token credentials, @PlatformCredential@
+--         is signing key.
+--
+--     -   For GCM (Firebase Cloud Messaging), @PlatformCredential@ is API
+--         key.
 --
 -- -   @PlatformPrincipal@ – The principal received from the notification
---     service. For @APNS@ and @APNS_SANDBOX@, @PlatformPrincipal@ is
---     @SSL certificate@. For @GCM@ (Firebase Cloud Messaging), there is no
---     @PlatformPrincipal@. For @ADM@, @PlatformPrincipal@ is @client id@.
+--     service.
+--
+--     -   For ADM, @PlatformPrincipal@is client id.
+--
+--     -   For Apple Services using certificate credentials,
+--         @PlatformPrincipal@ is SSL certificate.
+--
+--     -   For Apple Services using token credentials, @PlatformPrincipal@
+--         is signing key ID.
+--
+--     -   For GCM (Firebase Cloud Messaging), there is no
+--         @PlatformPrincipal@.
 --
 -- -   @EventEndpointCreated@ – Topic ARN to which @EndpointCreated@ event
 --     notifications are sent.
@@ -139,6 +183,15 @@ data SetPlatformApplicationAttributes = SetPlatformApplicationAttributes'
 --
 -- -   @SuccessFeedbackSampleRate@ – Sample rate percentage (0-100) of
 --     successfully delivered messages.
+--
+-- The following attributes only apply to @APNs@ token-based
+-- authentication:
+--
+-- -   @ApplePlatformTeamID@ – The identifier that\'s assigned to your
+--     Apple developer account team.
+--
+-- -   @ApplePlatformBundleID@ – The bundle identifier that\'s assigned to
+--     your iOS app.
 newSetPlatformApplicationAttributes ::
   -- | 'platformApplicationArn'
   Prelude.Text ->
@@ -159,15 +212,32 @@ setPlatformApplicationAttributes_platformApplicationArn = Lens.lens (\SetPlatfor
 -- include the following:
 --
 -- -   @PlatformCredential@ – The credential received from the notification
---     service. For @APNS@ and @APNS_SANDBOX@, @PlatformCredential@ is
---     @private key@. For @GCM@ (Firebase Cloud Messaging),
---     @PlatformCredential@ is @API key@. For @ADM@, @PlatformCredential@
---     is @client secret@.
+--     service.
+--
+--     -   For ADM, @PlatformCredential@is client secret.
+--
+--     -   For Apple Services using certificate credentials,
+--         @PlatformCredential@ is private key.
+--
+--     -   For Apple Services using token credentials, @PlatformCredential@
+--         is signing key.
+--
+--     -   For GCM (Firebase Cloud Messaging), @PlatformCredential@ is API
+--         key.
 --
 -- -   @PlatformPrincipal@ – The principal received from the notification
---     service. For @APNS@ and @APNS_SANDBOX@, @PlatformPrincipal@ is
---     @SSL certificate@. For @GCM@ (Firebase Cloud Messaging), there is no
---     @PlatformPrincipal@. For @ADM@, @PlatformPrincipal@ is @client id@.
+--     service.
+--
+--     -   For ADM, @PlatformPrincipal@is client id.
+--
+--     -   For Apple Services using certificate credentials,
+--         @PlatformPrincipal@ is SSL certificate.
+--
+--     -   For Apple Services using token credentials, @PlatformPrincipal@
+--         is signing key ID.
+--
+--     -   For GCM (Firebase Cloud Messaging), there is no
+--         @PlatformPrincipal@.
 --
 -- -   @EventEndpointCreated@ – Topic ARN to which @EndpointCreated@ event
 --     notifications are sent.
@@ -190,6 +260,15 @@ setPlatformApplicationAttributes_platformApplicationArn = Lens.lens (\SetPlatfor
 --
 -- -   @SuccessFeedbackSampleRate@ – Sample rate percentage (0-100) of
 --     successfully delivered messages.
+--
+-- The following attributes only apply to @APNs@ token-based
+-- authentication:
+--
+-- -   @ApplePlatformTeamID@ – The identifier that\'s assigned to your
+--     Apple developer account team.
+--
+-- -   @ApplePlatformBundleID@ – The bundle identifier that\'s assigned to
+--     your iOS app.
 setPlatformApplicationAttributes_attributes :: Lens.Lens' SetPlatformApplicationAttributes (Prelude.HashMap Prelude.Text Prelude.Text)
 setPlatformApplicationAttributes_attributes = Lens.lens (\SetPlatformApplicationAttributes' {attributes} -> attributes) (\s@SetPlatformApplicationAttributes' {} a -> s {attributes = a} :: SetPlatformApplicationAttributes) Prelude.. Lens.coerced
 
@@ -200,7 +279,8 @@ instance
   type
     AWSResponse SetPlatformApplicationAttributes =
       SetPlatformApplicationAttributesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       SetPlatformApplicationAttributesResponse'
@@ -224,30 +304,30 @@ instance
       `Prelude.seq` Prelude.rnf attributes
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     SetPlatformApplicationAttributes
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath SetPlatformApplicationAttributes where
+instance Data.ToPath SetPlatformApplicationAttributes where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     SetPlatformApplicationAttributes
   where
   toQuery SetPlatformApplicationAttributes' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "SetPlatformApplicationAttributes" ::
+          Data.=: ( "SetPlatformApplicationAttributes" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-03-31" :: Prelude.ByteString),
+          Data.=: ("2010-03-31" :: Prelude.ByteString),
         "PlatformApplicationArn"
-          Core.=: platformApplicationArn,
+          Data.=: platformApplicationArn,
         "Attributes"
-          Core.=: Core.toQueryMap "entry" "key" "value" attributes
+          Data.=: Data.toQueryMap "entry" "key" "value" attributes
       ]
 
 -- | /See:/ 'newSetPlatformApplicationAttributesResponse' smart constructor.

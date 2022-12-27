@@ -26,33 +26,42 @@ module Amazonka.EC2.Metadata
     -- ** Path Constructors
     Dynamic (..),
     Metadata (..),
+    Autoscaling (..),
     Mapping (..),
-    Info (..),
+    ElasticGpus (..),
+    ElasticInference (..),
+    Events (..),
+    Maintenance (..),
+    Recommendations (..),
+    IAM (..),
     Interface (..),
+    Placement (..),
+    Services (..),
+    Spot (..),
+    Tags (..),
 
     -- ** Identity Document
     IdentityDocument (..),
 
     -- *** Lenses
-    devpayProductCodes,
-    billingProducts,
-    version,
-    privateIp,
-    availabilityZone,
-    region,
-    instanceId,
-    instanceType,
-    accountId,
-    imageId,
-    kernelId,
-    ramdiskId,
-    architecture,
-    pendingTime,
+    identityDocument_devpayProductCodes,
+    identityDocument_billingProducts,
+    identityDocument_version,
+    identityDocument_privateIp,
+    identityDocument_availabilityZone,
+    identityDocument_region,
+    identityDocument_instanceId,
+    identityDocument_instanceType,
+    identityDocument_accountId,
+    identityDocument_imageId,
+    identityDocument_kernelId,
+    identityDocument_ramdiskId,
+    identityDocument_architecture,
+    identityDocument_pendingTime,
   )
 where
 
 import Amazonka.Data
-import Amazonka.Lens (lens, mapping)
 import Amazonka.Prelude
 import Amazonka.Types (Region)
 import qualified Control.Exception as Exception
@@ -60,12 +69,13 @@ import qualified Data.ByteString.Char8 as BS8
 import qualified Data.ByteString.Lazy as LBS
 import qualified Data.Text as Text
 import qualified Network.HTTP.Client as Client
+import Network.HTTP.Simple (setRequestHeader, setRequestMethod)
 
 data Dynamic
   = -- | Value showing whether the customer has enabled detailed one-minute
     -- monitoring in CloudWatch.
     --
-    -- Valid values: enabled | disabled.
+    -- Valid values: @enabled@ | @disabled@.
     FWS
   | -- | JSON containing instance attributes, such as instance-id,
     -- private IP address, etc.
@@ -74,15 +84,18 @@ data Dynamic
   | -- | Used to verify the document's authenticity and content against the
     -- signature.
     PKCS7
-  | Signature
+  | -- | Data that can be used by other parties to verify its origin
+    -- and authenticity.
+    Signature
   deriving stock (Eq, Ord, Show, Generic)
 
 instance ToText Dynamic where
-  toText = \case
-    FWS -> "dynamic/fws/instance-monitoring"
-    Document -> "dynamic/instance-identity/document"
-    PKCS7 -> "dynamic/instance-identity/pkcs7"
-    Signature -> "dynamic/instance-identity/signature"
+  toText =
+    ("dynamic/" <>) . \case
+      FWS -> "fws/instance-monitoring"
+      Document -> "instance-identity/document"
+      PKCS7 -> "instance-identity/pkcs7"
+      Signature -> "instance-identity/signature"
 
 data Metadata
   = -- | The AMI ID used to launch the instance.
@@ -93,52 +106,86 @@ data Metadata
     AMILaunchIndex
   | -- | The path to the AMI's manifest file in Amazon S3.
     -- If you used an Amazon EBS-backed AMI to launch the instance,
-    -- the returned result is unknown.
+    -- the returned result is @unknown@.
     AMIManifestPath
   | -- | The AMI IDs of any instances that were rebundled to create this AMI.
     -- This value will only exist if the AMI manifest file contained an
-    -- ancestor-amis key.
+    -- @ancestor-amis@ key.
     AncestorAMIIds
+  | -- | See: 'Autoscaling'
+    Autoscaling !Autoscaling
   | -- | See: 'Mapping'
     BlockDevice !Mapping
-  | -- | The private hostname of the instance. In cases where multiple network
-    -- interfaces are present, this refers to the eth0 device
-    -- (the device for which the device number is 0).
+  | -- | See: 'ElasticGpus'
+    ElasticGpus !ElasticGpus
+  | -- | See 'ElasticInference'
+    ElasticInference !ElasticInference
+  | -- | See 'Events'
+    Events !Events
+  | -- | If the EC2 instance is using IP-based naming (IPBN), this is
+    -- the private IPv4 DNS hostname of the instance. If the EC2
+    -- instance is using Resource-based naming (RBN), this is the
+    -- RBN. In cases where multiple network interfaces are present,
+    -- this refers to the eth0 device (the device for which the device
+    -- number is 0). For more information about IPBN and RBN, see
+    -- [Amazon EC2 instance hostname types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-naming.html).
     Hostname
-  | -- | See: 'Info'
-    IAM !Info
+  | -- | See: 'IAM'
+    IAM !IAM
   | -- | Notifies the instance that it should reboot in preparation for bundling.
-    -- Valid values: none | shutdown | bundle-pending.
+    -- Valid values: @none@ | @shutdown@ | @bundle-pending@.
     InstanceAction
   | -- | The ID of this instance.
     InstanceId
-  | -- | The type of instance.
-    --
-    -- See: @InstanceType@
+  | -- | The purchasing option of this instance. For more
+    -- information, see
+    -- [Instance purchasing options](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-purchasing-options.html).
+    InstanceLifeCycle
+  | -- | The type of instance. For more information, see
+    -- [Instance types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html).
     InstanceType
+  | -- | The IPv6 address of the instance. In cases where multiple
+    -- network interfaces are present, this refers to the eth0 device
+    -- (the device for which the device number is 0) network interface
+    -- and the first IPv6 address assigned. If no IPv6 address exists
+    -- on network interface[0], this item is not set and results in an
+    -- HTTP 404 response.
+    IPV6
   | -- | The ID of the kernel launched with this instance, if applicable.
     KernelId
-  | -- | The private DNS hostname of the instance. In cases where multiple
-    -- network interfaces are present, this refers to the eth0 device
-    -- (the device for which the device number is 0).
+  | -- | In cases where multiple network interfaces are present, this
+    -- refers to the eth0 device (the device for which the device
+    -- number is 0). If the EC2 instance is using IP-based naming
+    -- (IPBN), this is the private IPv4 DNS hostname of the
+    -- instance. If the EC2 instance is using Resource-based naming
+    -- (RBN), this is the RBN. For more information about IPBN, RBN,
+    -- and EC2 instance naming, see
+    -- [Amazon EC2 instance hostname types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-naming.html).
     LocalHostname
-  | -- | The private IP address of the instance. In cases where multiple network
-    -- interfaces are present, this refers to the eth0 device
-    -- (the device for which the device number is 0).
+  | -- | The private IPv4 address of the instance. In cases where
+    -- multiple network interfaces are present, this refers to the
+    -- eth0 device (the device for which the device number is 0). If
+    -- this is an IPv6-only instance, this item is not set and results
+    -- in an HTTP 404 response.
     LocalIPV4
-  | -- | The instance's media access control (MAC) address. In cases where
-    -- multiple network interfaces are present, this refers to the eth0 device
-    -- (the device for which the device number is 0).
+  | -- | The instance's media access control (MAC) address. In cases
+    -- where multiple network interfaces are present, this refers to
+    -- the eth0 device (the device for which the device number is 0).
     MAC
   | -- | See: 'Interface'
     Network !Text !Interface
-  | -- | The Availability Zone in which the instance launched.
-    AvailabilityZone
-  | -- | Product codes associated with the instance, if any.
+  | -- | See: 'Placement'
+    Placement !Placement
+  | -- | AWS Marketplace product codes associated with the instance,
+    -- if any.
     ProductCodes
-  | -- | The instance's public DNS. If the instance is in a VPC, this category
-    -- is only returned if the enableDnsHostnames attribute is set to true.
-    -- For more information, see Using DNS with Your VPC.
+  | -- | The instance's public DNS (IPv4). This category is only
+    -- returned if the @enableDnsHostnames@ attribute is set to
+    -- @true@. For more information, see
+    -- [Using DNS with Your VPC](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html)
+    -- in the /Amazon VPC User Guide/. If the instance only has a
+    -- public-IPv6 address and no public-IPv4 address, this item is
+    -- not set and results in an HTTP 404 response.
     PublicHostname
   | -- | The public IP address. If an Elastic IP address is associated with the
     -- instance, the value returned is the Elastic IP address.
@@ -150,35 +197,73 @@ data Metadata
   | -- | ID of the reservation.
     ReservationId
   | -- | The names of the security groups applied to the instance.
+    --
+    -- After launch, you can change the security groups of the
+    -- instances. Such changes are reflected here and in
+    -- @network\/interfaces\/macs\/${mac}\/security-groups@.
     SecurityGroups
+  | -- | See: 'Services'
+    Services !Services
+  | -- | See: 'Spot'
+    Spot !Spot
+  | -- | See: 'Tags'
+    Tags !Tags
   deriving stock (Eq, Ord, Show, Generic)
 
 instance ToText Metadata where
-  toText = \case
-    AMIId -> "meta-data/ami-id"
-    AMILaunchIndex -> "meta-data/ami-launch-index"
-    AMIManifestPath -> "meta-data/ami-manifest-path"
-    AncestorAMIIds -> "meta-data/ancestor-ami-ids"
-    BlockDevice m -> "meta-data/block-device-mapping/" <> toText m
-    Hostname -> "meta-data/hostname"
-    IAM m -> "meta-data/iam/" <> toText m
-    InstanceAction -> "meta-data/instance-action"
-    InstanceId -> "meta-data/instance-id"
-    InstanceType -> "meta-data/instance-type"
-    KernelId -> "meta-data/kernel-id"
-    LocalHostname -> "meta-data/local-hostname"
-    LocalIPV4 -> "meta-data/local-ipv4"
-    MAC -> "meta-data/mac"
-    Network n m -> "meta-data/network/interfaces/macs/" <> toText n <> "/" <> toText m
-    AvailabilityZone -> "meta-data/placement/availability-zone"
-    ProductCodes -> "meta-data/product-codes"
-    PublicHostname -> "meta-data/public-hostname"
-    PublicIPV4 -> "meta-data/public-ipv4"
-    OpenSSHKey -> "meta-data/public-keys/0/openssh-key"
-    RAMDiskId -> "meta-data/ramdisk-id"
-    ReservationId -> "meta-data/reservation-id"
-    SecurityGroups -> "meta-data/security-groups"
+  toText =
+    ("meta-data/" <>) . \case
+      AMIId -> "ami-id"
+      AMILaunchIndex -> "ami-launch-index"
+      AMIManifestPath -> "ami-manifest-path"
+      AncestorAMIIds -> "ancestor-ami-ids"
+      Autoscaling m -> "autoscaling/" <> toText m
+      BlockDevice m -> "block-device-mapping/" <> toText m
+      Hostname -> "hostname"
+      ElasticGpus m -> "elastic-gpus/" <> toText m
+      ElasticInference m -> "elastic-inference/" <> toText m
+      Events m -> "events/" <> toText m
+      IAM m -> "iam/" <> toText m
+      InstanceAction -> "instance-action"
+      InstanceId -> "instance-id"
+      InstanceLifeCycle -> "instance-life-cycle"
+      InstanceType -> "instance-type"
+      IPV6 -> "ipv6"
+      KernelId -> "kernel-id"
+      LocalHostname -> "local-hostname"
+      LocalIPV4 -> "local-ipv4"
+      MAC -> "mac"
+      Network n m -> "network/interfaces/macs/" <> toText n <> "/" <> toText m
+      Placement m -> "placement/" <> toText m
+      ProductCodes -> "product-codes"
+      PublicHostname -> "public-hostname"
+      PublicIPV4 -> "public-ipv4"
+      OpenSSHKey -> "public-keys/0/openssh-key"
+      RAMDiskId -> "ramdisk-id"
+      ReservationId -> "reservation-id"
+      SecurityGroups -> "security-groups"
+      Services m -> "services/" <> toText m
+      Spot m -> "spot/" <> toText m
+      Tags m -> "tags/" <> toText m
 
+-- | Metadata keys for @autoscaling/*@.
+data Autoscaling
+  = -- | Value showing the target Auto Scaling lifecycle state that an
+    -- Auto Scaling instance is transitioning to. Present when the
+    -- instance transitions to one of the target lifecycle states
+    -- after March 10, 2022. Possible values: @Detached@ | @InService@
+    -- | @Standby@ | @Terminated@ | @Warmed:Hibernated@ |
+    -- @Warmed:Running@ | @Warmed:Stopped@ | @Warmed:Terminated@. See
+    -- [Retrieve the target lifecycle state through instance metadata](https://docs.aws.amazon.com/autoscaling/ec2/userguide/retrieving-target-lifecycle-state-through-imds.html)
+    -- in the /Amazon EC2 Auto Scaling User Guide/.
+    TargetLifecycleState
+  deriving stock (Eq, Ord, Show, Generic)
+
+instance ToText Autoscaling where
+  toText = \case
+    TargetLifecycleState -> "target-lifecycle-state"
+
+-- | Metadata keys for @block-device-mapping/*@.
 data Mapping
   = -- | The virtual device that contains the root/boot file system.
     AMI
@@ -205,60 +290,178 @@ instance ToText Mapping where
     Root -> "root"
     Swap -> "root"
 
+-- | Metadata keys for @elastic-gpus/*@.
+data ElasticGpus
+  = -- | If there is an Elastic GPU attached to the instance, contains
+    -- a JSON string with information about the Elastic GPU, including
+    -- its ID and connection information.
+    EGAssociations !Text
+  deriving stock (Eq, Ord, Show, Generic)
+
+instance ToText ElasticGpus where
+  toText = \case
+    EGAssociations gpuId -> "associations/" <> gpuId
+
+-- | Metadata keys for @elastic-inference/*@.
+data ElasticInference
+  = -- | If there is an Elastic Inference accelerator attached to the
+    -- instance, contains a JSON string with information about the
+    -- Elastic Inference accelerator, including its ID and type.
+    EIAssociations !Text
+  deriving stock (Eq, Ord, Show, Generic)
+
+instance ToText ElasticInference where
+  toText = \case
+    EIAssociations eiId -> "associations/" <> eiId
+
+-- | Metadata keys for @events/*@.
+data Events
+  = Maintenance !Maintenance
+  | Recommendations !Recommendations
+  deriving stock (Eq, Ord, Show, Generic)
+
+instance ToText Events where
+  toText = \case
+    Maintenance m -> "maintenance/" <> toText m
+    Recommendations m -> "recommendations/" <> toText m
+
+-- | Metadata keys for @events/maintenance/*@.
+data Maintenance
+  = -- | If there are completed or canceled maintenance events for the
+    -- instance, contains a JSON string with information about the
+    -- events. For more information, see
+    -- [To view event history about completed or canceled events](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitoring-instances-status-check_sched.html#viewing-event-history).
+    History
+  | -- | If there are active maintenance events for the instance,
+    -- contains a JSON string with information about the events. For
+    -- more information, see
+    -- [View scheduled events](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitoring-instances-status-check_sched.html#viewing_scheduled_events).
+    Scheduled
+  deriving stock (Eq, Ord, Show, Generic)
+
+instance ToText Maintenance where
+  toText = \case
+    History -> "history"
+    Scheduled -> "scheduled"
+
+-- | Metadata keys for @events\/recommendations\/*@.
+data Recommendations
+  = -- | The approximate time, in UTC, when the EC2 instance rebalance
+    -- recommendation notification is emitted for the instance. The
+    -- following is an example of the metadata for this category:
+    -- @{"noticeTime": "2020-11-05T08:22:00Z"}@. This category is
+    -- available only after the notification is emitted. For more
+    -- information, see
+    -- [EC2 instance rebalance recommendations](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/rebalance-recommendations.html).
+    Rebalance
+  deriving stock (Eq, Ord, Show, Generic)
+
+instance ToText Recommendations where
+  toText = \case
+    Rebalance -> "rebalance"
+
+-- | Metadata keys for @iam/*@.
+data IAM
+  = -- | If there is an IAM role associated with the instance,
+    -- contains information about the last time the instance profile
+    -- was updated, including the instance's LastUpdated date,
+    -- InstanceProfileArn, and InstanceProfileId. Otherwise, not
+    -- present.
+    Info
+  | -- | If there is an IAM role associated with the instance,
+    -- @role-name@ is the name of the role, and @role-name@ contains the
+    -- temporary security credentials associated with the role (for
+    -- more information, see
+    -- [Retrieve security credentials from instance metadata](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html#instance-metadata-security-credentials)).
+    -- Otherwise, not present.
+    --
+    -- See: 'Auth' for JSON deserialisation.
+    SecurityCredentials (Maybe Text)
+  deriving stock (Eq, Ord, Show, Generic)
+
+instance ToText IAM where
+  toText = \case
+    Info -> "info"
+    SecurityCredentials r -> "security-credentials/" <> maybe mempty toText r
+
+-- | Metadata keys for @network\/interfaces\/macs\/${mac}\/*@.
 data Interface
-  = -- | The device number associated with that interface. Each interface must
-    -- have a unique device number. The device number serves as a hint to device
-    -- naming in the instance; for example, device-number is 2 for the eth2 device.
+  = -- | The unique device number associated with that interface. The
+    -- device number corresponds to the device name; for example, a
+    -- @device-number@ of 2 is for the eth2 device. This category
+    -- corresponds to the @DeviceIndex@ and @device-index@ fields that
+    -- are used by the Amazon EC2 API and the EC2 commands for the AWS
+    -- CLI.
     IDeviceNumber
+  | -- | The ID of the network interface.
+    IInterfaceId
   | -- | The private IPv4 addresses that are associated with each public-ip
     -- address and assigned to that interface.
     IIPV4Associations !Text
-  | -- | The interface's local hostname.
+  | -- | The IPv6 addresses associated with the interface. Returned
+    -- only for instances launched into a VPC.
+    IIPV6s
+  | -- | The private IPv4 DNS hostname of the instance. In cases where
+    -- multiple network interfaces are present, this refers to the
+    -- eth0 device (the device for which the device number is 0). If
+    -- this is a IPv6-only instance, this is the resource-based
+    -- name. For more information about IPBN and RBN, see
+    -- [Amazon EC2 instance hostname types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-naming.html).
     ILocalHostname
-  | -- | The private IP addresses associated with the interface.
+  | -- | The private IPv4 addresses associated with the interface. If
+    -- this is an IPv6-only network interface, this item is not set
+    -- and results in an HTTP 404 response.
     ILocalIPV4s
   | -- | The instance's MAC address.
     IMAC
+  | -- | The index of the network card. Some instance types support multiple network cards.
+    INetworkCardIndex
   | -- | The ID of the owner of the network interface. In multiple-interface
     -- environments, an interface can be attached by a third party, such as
     -- Elastic Load Balancing. Traffic on an interface is always billed to
     -- the interface owner.
     IOwnerId
-  | -- | The interface's public DNS. If the instance is in a VPC, this category
-    -- is only returned if the enableDnsHostnames attribute is set to true.
-    -- For more information, see Using DNS with Your VPC.
+  | -- | The interface's public DNS (IPv4). This category is only
+    -- returned if the @enableDnsHostnames@ attribute is set to
+    -- @true@. For more information, see
+    -- [Using DNS with Your VPC](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html)
+    -- in the /Amazon VPC User Guide/. If the instance only has a
+    -- public-IPv6 address and no public-IPv4 address, this item is
+    -- not set and results in an HTTP 404 response.
     IPublicHostname
   | -- | The Elastic IP addresses associated with the interface. There may be
     -- multiple IP addresses on an instance.
     IPublicIPV4s
-  | -- | Security groups to which the network interface belongs. Returned only
-    -- for instances launched into a VPC.
+  | -- | Security groups to which the network interface belongs.
     ISecurityGroups
-  | -- | IDs of the security groups to which the network interface belongs.
-    -- Returned only for instances launched into a VPC. For more information on
-    -- security groups in the EC2-VPC platform, see Security Groups for Your VPC.
+  | -- | The IDs of the security groups to which the network interface belongs.
     ISecurityGroupIds
-  | -- | The ID of the subnet in which the interface resides. Returned only for
-    -- instances launched into a VPC.
+  | -- | The ID of the subnet in which the interface resides.
     ISubnetId
-  | -- | The CIDR block of the subnet in which the interface resides. Returned
-    -- only for instances launched into a VPC.
+  | -- | The IPv4 CIDR block of the subnet in which the interface resides.
     ISubnetIPV4_CIDRBlock
-  | -- | The ID of the VPC in which the interface resides. Returned only for
-    -- instances launched into a VPC.
+  | -- | The IPv6 CIDR block of the subnet in which the interface resides.
+    ISubnetIPV6_CIDRBlock
+  | -- | The ID of the VPC in which the interface resides.
     IVPCId
-  | -- | The CIDR block of the VPC in which the interface resides. Returned only
-    -- for instances launched into a VPC.
+  | -- | The primary IPv4 CIDR block of the VPC.
     IVPCIPV4_CIDRBlock
+  | -- | The IPv4 CIDR blocks for the VPC.
+    IVPCIPV4_CIDRBlocks
+  | -- | The IPv6 CIDR block of the VPC in which the interface resides.
+    IVPCIPV6_CIDRBlocks
   deriving stock (Eq, Ord, Show, Generic)
 
 instance ToText Interface where
   toText = \case
     IDeviceNumber -> "device-number"
+    IInterfaceId -> "interface-id"
     IIPV4Associations ip -> "ipv4-associations/" <> toText ip
+    IIPV6s -> "ipv6s"
     ILocalHostname -> "local-hostname"
     ILocalIPV4s -> "local-ipv4s"
     IMAC -> "mac"
+    INetworkCardIndex -> "network-card-index"
     IOwnerId -> "owner-id"
     IPublicHostname -> "public-hostname"
     IPublicIPV4s -> "public-ipv4s"
@@ -266,25 +469,94 @@ instance ToText Interface where
     ISecurityGroupIds -> "security-group-ids"
     ISubnetId -> "subnet-id"
     ISubnetIPV4_CIDRBlock -> "subnet-ipv4-cidr-block"
+    ISubnetIPV6_CIDRBlock -> "subnet-ipv6-cidr-block"
     IVPCId -> "vpc-id"
     IVPCIPV4_CIDRBlock -> "vpc-ipv4-cidr-block"
+    IVPCIPV4_CIDRBlocks -> "vpc-ipv4-cidr-blocks"
+    IVPCIPV6_CIDRBlocks -> "vpc-ipv6-cidr-blocks"
 
-data Info
-  = -- | Returns information about the last time the instance profile was updated,
-    -- including the instance's LastUpdated date, InstanceProfileArn,
-    -- and InstanceProfileId.
-    Info'
-  | -- | Where role-name is the name of the IAM role associated with the instance.
-    -- Returns the temporary security credentials.
-    --
-    -- See: 'Auth' for JSON deserialisation.
-    SecurityCredentials (Maybe Text)
+-- | Metadata keys for @placement/*@.
+data Placement
+  = -- | The Availability Zone in which the instance launched.
+    AvailabilityZone
+  | -- | The static Availability Zone ID in which the instance is
+    -- launched. The Availability Zone ID is consistent across
+    -- accounts. However, it might be different from the Availability
+    -- Zone, which can vary by account.
+    AvailabilityZoneId
+  | -- | The name of the placement group in which the instance is launched.
+    GroupName
+  | -- | The ID of the host on which the instance is
+    -- launched. Applicable only to Dedicated Hosts.
+    HostId
+  | -- | The number of the partition in which the instance is launched.
+    PartitionNumber
+  | -- | The AWS Region in which the instance is launched.
+    Region
   deriving stock (Eq, Ord, Show, Generic)
 
-instance ToText Info where
+instance ToText Placement where
   toText = \case
-    Info' -> "info"
-    SecurityCredentials r -> "security-credentials/" <> maybe mempty toText r
+    AvailabilityZone -> "availability-zone"
+    AvailabilityZoneId -> "availability-zone-id"
+    GroupName -> "group-name"
+    HostId -> "host-id"
+    PartitionNumber -> "partition-number"
+    Region -> "region"
+
+-- | Metadata keys for @services/*@.
+data Services
+  = -- | The domain for AWS resources for the Region.
+    Domain
+  | -- | The partition that the resource is in. For standard AWS
+    -- Regions, the partition is @aws@. If you have resources in other
+    -- partitions, the partition is @aws-${partitionname}@. For example,
+    -- the partition for resources in the China (Beijing) Region is
+    -- @aws-cn@.
+    Partition
+  deriving stock (Eq, Ord, Show, Generic)
+
+instance ToText Services where
+  toText = \case
+    Domain -> "domain"
+    Partition -> "partition"
+
+-- | Metadata keys for @spot/*@.
+data Spot
+  = -- | The action (hibernate, stop, or terminate) and the
+    -- approximate time, in UTC, when the action will occur. This item
+    -- is present only if the Spot Instance has been marked for
+    -- hibernate, stop, or terminate. For more information, see
+    -- [instance-action](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-instance-termination-notices.html#instance-action-metadata).
+    SInstanceAction
+  | -- | The approximate time, in UTC, that the operating system for
+    -- your Spot Instance will receive the shutdown signal. This item
+    -- is present and contains a time value (for example,
+    -- 2015-01-05T18:02:00Z) only if the Spot Instance has been marked
+    -- for termination by Amazon EC2. The termination-time item is not
+    -- set to a time if you terminated the Spot Instance yourself. For
+    -- more information, see
+    -- [termination-time](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-instance-termination-notices.html#termination-time-metadata).
+    STerminationTime
+  deriving stock (Eq, Ord, Show, Generic)
+
+instance ToText Spot where
+  toText = \case
+    SInstanceAction -> "instance-action"
+    STerminationTime -> "termination-time"
+
+-- | Metadata keys for @tags/*@.
+data Tags
+  = -- | The instance tags associated with the instance. Only
+    -- available if you explicitly allow access to tags in instance
+    -- metadata. For more information, see
+    -- [Allow access to tags in instance metadata](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#allow-access-to-tags-in-IMDS).
+    Instance
+  deriving stock (Eq, Ord, Show, Generic)
+
+instance ToText Tags where
+  toText = \case
+    Instance -> "instance"
 
 latest :: Text
 latest = "http://169.254.169.254/latest/"
@@ -295,7 +567,7 @@ isEC2 :: MonadIO m => Client.Manager -> m Bool
 isEC2 m = liftIO (Exception.catch req err)
   where
     req = do
-      !_ <- request m "http://instance-data/latest"
+      !_ <- get m "http://instance-data/latest"
 
       return True
 
@@ -336,100 +608,114 @@ userdata m =
 -- will need to be manually parsed using 'fromText' when the relevant types
 -- from a library such as "Amazonka.EC2" are brought into scope.
 data IdentityDocument = IdentityDocument
-  { _devpayProductCodes :: Maybe [Text],
-    _billingProducts :: Maybe [Text],
-    _version :: Maybe Text,
-    _privateIp :: Maybe Text,
-    _availabilityZone :: Text,
-    _region :: Region,
-    _instanceId :: Text,
-    _instanceType :: Text,
-    _accountId :: Text,
-    _imageId :: Maybe Text,
-    _kernelId :: Maybe Text,
-    _ramdiskId :: Maybe Text,
-    _architecture :: Maybe Text,
-    _pendingTime :: Maybe ISO8601
+  { devpayProductCodes :: Maybe [Text],
+    billingProducts :: Maybe [Text],
+    version :: Maybe Text,
+    privateIp :: Maybe Text,
+    availabilityZone :: Text,
+    region :: Region,
+    instanceId :: Text,
+    instanceType :: Text,
+    accountId :: Text,
+    imageId :: Maybe Text,
+    kernelId :: Maybe Text,
+    ramdiskId :: Maybe Text,
+    architecture :: Maybe Text,
+    pendingTime :: Maybe ISO8601
   }
   deriving stock (Eq, Show, Generic)
 
-devpayProductCodes :: Lens' IdentityDocument (Maybe [Text])
-devpayProductCodes = lens _devpayProductCodes (\s a -> s {_devpayProductCodes = a})
-
-billingProducts :: Lens' IdentityDocument (Maybe [Text])
-billingProducts = lens _billingProducts (\s a -> s {_billingProducts = a})
-
-version :: Lens' IdentityDocument (Maybe Text)
-version = lens _version (\s a -> s {_version = a})
-
-privateIp :: Lens' IdentityDocument (Maybe Text)
-privateIp = lens _privateIp (\s a -> s {_privateIp = a})
-
-availabilityZone :: Lens' IdentityDocument Text
-availabilityZone = lens _availabilityZone (\s a -> s {_availabilityZone = a})
-
-region :: Lens' IdentityDocument Region
-region = lens _region (\s a -> s {_region = a})
-
-instanceId :: Lens' IdentityDocument Text
-instanceId = lens _instanceId (\s a -> s {_instanceId = a})
-
-instanceType :: Lens' IdentityDocument Text
-instanceType = lens _instanceType (\s a -> s {_instanceType = a})
-
-accountId :: Lens' IdentityDocument Text
-accountId = lens _accountId (\s a -> s {_accountId = a})
-
-imageId :: Lens' IdentityDocument (Maybe Text)
-imageId = lens _imageId (\s a -> s {_imageId = a})
-
-kernelId :: Lens' IdentityDocument (Maybe Text)
-kernelId = lens _kernelId (\s a -> s {_kernelId = a})
-
-ramdiskId :: Lens' IdentityDocument (Maybe Text)
-ramdiskId = lens _ramdiskId (\s a -> s {_ramdiskId = a})
-
-architecture :: Lens' IdentityDocument (Maybe Text)
-architecture = lens _architecture (\s a -> s {_architecture = a})
-
-pendingTime :: Lens' IdentityDocument (Maybe UTCTime)
-pendingTime = lens _pendingTime (\s a -> s {_pendingTime = a}) . mapping _Time
-
 instance FromJSON IdentityDocument where
   parseJSON = withObject "dynamic/instance-identity/document" $ \o -> do
-    _devpayProductCodes <- o .:? "devpayProductCodes"
-    _billingProducts <- o .:? "billingProducts"
-    _privateIp <- o .:? "privateIp"
-    _version <- o .:? "version"
-    _availabilityZone <- o .: "availabilityZone"
-    _region <- o .: "region"
-    _instanceId <- o .: "instanceId"
-    _instanceType <- o .: "instanceType"
-    _accountId <- o .: "accountId"
-    _imageId <- o .:? "imageId"
-    _kernelId <- o .:? "kernelId"
-    _ramdiskId <- o .:? "ramdiskId"
-    _architecture <- o .:? "architecture"
-    _pendingTime <- o .:? "pendingTime"
+    devpayProductCodes <- o .:? "devpayProductCodes"
+    billingProducts <- o .:? "billingProducts"
+    privateIp <- o .:? "privateIp"
+    version <- o .:? "version"
+    availabilityZone <- o .: "availabilityZone"
+    region <- o .: "region"
+    instanceId <- o .: "instanceId"
+    instanceType <- o .: "instanceType"
+    accountId <- o .: "accountId"
+    imageId <- o .:? "imageId"
+    kernelId <- o .:? "kernelId"
+    ramdiskId <- o .:? "ramdiskId"
+    architecture <- o .:? "architecture"
+    pendingTime <- o .:? "pendingTime"
     pure IdentityDocument {..}
 
 instance ToJSON IdentityDocument where
   toJSON IdentityDocument {..} =
     object
-      [ "devpayProductCodes" .= _devpayProductCodes,
-        "billingProducts" .= _billingProducts,
-        "privateIp" .= _privateIp,
-        "version" .= _version,
-        "availabilityZone" .= _availabilityZone,
-        "region" .= _region,
-        "instanceId" .= _instanceId,
-        "instanceType" .= _instanceType,
-        "accountId" .= _accountId,
-        "imageId" .= _imageId,
-        "kernelId" .= _kernelId,
-        "ramdiskId" .= _ramdiskId,
-        "architecture" .= _architecture
+      [ "devpayProductCodes" .= devpayProductCodes,
+        "billingProducts" .= billingProducts,
+        "privateIp" .= privateIp,
+        "version" .= version,
+        "availabilityZone" .= availabilityZone,
+        "region" .= region,
+        "instanceId" .= instanceId,
+        "instanceType" .= instanceType,
+        "accountId" .= accountId,
+        "imageId" .= imageId,
+        "kernelId" .= kernelId,
+        "ramdiskId" .= ramdiskId,
+        "architecture" .= architecture
       ]
+
+{-# INLINE identityDocument_devpayProductCodes #-}
+identityDocument_devpayProductCodes :: Lens' IdentityDocument (Maybe [Text])
+identityDocument_devpayProductCodes f i@IdentityDocument {devpayProductCodes} = f devpayProductCodes <&> \devpayProductCodes' -> i {devpayProductCodes = devpayProductCodes'}
+
+{-# INLINE identityDocument_billingProducts #-}
+identityDocument_billingProducts :: Lens' IdentityDocument (Maybe [Text])
+identityDocument_billingProducts f i@IdentityDocument {billingProducts} = f billingProducts <&> \billingProducts' -> i {billingProducts = billingProducts'}
+
+{-# INLINE identityDocument_version #-}
+identityDocument_version :: Lens' IdentityDocument (Maybe Text)
+identityDocument_version f i@IdentityDocument {version} = f version <&> \version' -> i {version = version'}
+
+{-# INLINE identityDocument_privateIp #-}
+identityDocument_privateIp :: Lens' IdentityDocument (Maybe Text)
+identityDocument_privateIp f i@IdentityDocument {privateIp} = f privateIp <&> \privateIp' -> i {privateIp = privateIp'}
+
+{-# INLINE identityDocument_availabilityZone #-}
+identityDocument_availabilityZone :: Lens' IdentityDocument Text
+identityDocument_availabilityZone f i@IdentityDocument {availabilityZone} = f availabilityZone <&> \availabilityZone' -> i {availabilityZone = availabilityZone'}
+
+{-# INLINE identityDocument_region #-}
+identityDocument_region :: Lens' IdentityDocument Region
+identityDocument_region f i@IdentityDocument {region} = f region <&> \region' -> i {region = region'}
+
+{-# INLINE identityDocument_instanceId #-}
+identityDocument_instanceId :: Lens' IdentityDocument Text
+identityDocument_instanceId f i@IdentityDocument {instanceId} = f instanceId <&> \instanceId' -> i {instanceId = instanceId'}
+
+{-# INLINE identityDocument_instanceType #-}
+identityDocument_instanceType :: Lens' IdentityDocument Text
+identityDocument_instanceType f i@IdentityDocument {instanceType} = f instanceType <&> \instanceType' -> i {instanceType = instanceType'}
+
+{-# INLINE identityDocument_accountId #-}
+identityDocument_accountId :: Lens' IdentityDocument Text
+identityDocument_accountId f i@IdentityDocument {accountId} = f accountId <&> \accountId' -> i {accountId = accountId'}
+
+{-# INLINE identityDocument_imageId #-}
+identityDocument_imageId :: Lens' IdentityDocument (Maybe Text)
+identityDocument_imageId f i@IdentityDocument {imageId} = f imageId <&> \imageId' -> i {imageId = imageId'}
+
+{-# INLINE identityDocument_kernelId #-}
+identityDocument_kernelId :: Lens' IdentityDocument (Maybe Text)
+identityDocument_kernelId f i@IdentityDocument {kernelId} = f kernelId <&> \kernelId' -> i {kernelId = kernelId'}
+
+{-# INLINE identityDocument_ramdiskId #-}
+identityDocument_ramdiskId :: Lens' IdentityDocument (Maybe Text)
+identityDocument_ramdiskId f i@IdentityDocument {ramdiskId} = f ramdiskId <&> \ramdiskId' -> i {ramdiskId = ramdiskId'}
+
+{-# INLINE identityDocument_architecture #-}
+identityDocument_architecture :: Lens' IdentityDocument (Maybe Text)
+identityDocument_architecture f i@IdentityDocument {architecture} = f architecture <&> \architecture' -> i {architecture = architecture'}
+
+{-# INLINE identityDocument_pendingTime #-}
+identityDocument_pendingTime :: Lens' IdentityDocument (Maybe ISO8601)
+identityDocument_pendingTime f i@IdentityDocument {pendingTime} = f pendingTime <&> \pendingTime' -> i {pendingTime = pendingTime'}
 
 -- | Retrieve the instance's identity document, detailing various EC2 metadata.
 --
@@ -444,15 +730,31 @@ identity ::
 identity m = eitherDecode . LBS.fromStrict <$> dynamic m Document
 
 get :: MonadIO m => Client.Manager -> Text -> m ByteString
-get m url = liftIO (strip <$> request m url)
+get m url = liftIO $ do
+  token <- strip <$> requestToken
+  strip <$> requestWith (addToken token) m url
   where
+    requestToken =
+      requestWith
+        ( setRequestMethod "PUT"
+            . setRequestHeader "X-aws-ec2-metadata-token-ttl-seconds" ["60"]
+        )
+        m
+        (latest <> "api/token")
+
+    addToken token = setRequestHeader "X-aws-ec2-metadata-token" [token]
+
     strip bs
       | BS8.isSuffixOf "\n" bs = BS8.init bs
       | otherwise = bs
 
-request :: Client.Manager -> Text -> IO ByteString
-request m url = do
+requestWith ::
+  (Client.Request -> Client.Request) ->
+  Client.Manager ->
+  Text ->
+  IO ByteString
+requestWith modifyRequest m url = do
   rq <- Client.parseUrlThrow (Text.unpack url)
-  rs <- Client.httpLbs rq m
+  rs <- Client.httpLbs (modifyRequest rq) m
 
   return . LBS.toStrict $ Client.responseBody rs

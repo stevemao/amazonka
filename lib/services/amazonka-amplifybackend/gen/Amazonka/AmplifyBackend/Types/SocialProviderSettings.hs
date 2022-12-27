@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AmplifyBackend.Types.SocialProviderSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.AmplifyBackend.Types.SocialProviderSettings where
 import Amazonka.AmplifyBackend.Types.BackendAuthAppleProviderConfig
 import Amazonka.AmplifyBackend.Types.BackendAuthSocialProviderConfig
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The settings for using the social identity providers for access to your
@@ -30,10 +31,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSocialProviderSettings' smart constructor.
 data SocialProviderSettings = SocialProviderSettings'
-  { loginWithAmazon :: Prelude.Maybe BackendAuthSocialProviderConfig,
-    signInWithApple :: Prelude.Maybe BackendAuthAppleProviderConfig,
-    facebook :: Prelude.Maybe BackendAuthSocialProviderConfig,
-    google :: Prelude.Maybe BackendAuthSocialProviderConfig
+  { facebook :: Prelude.Maybe BackendAuthSocialProviderConfig,
+    google :: Prelude.Maybe BackendAuthSocialProviderConfig,
+    loginWithAmazon :: Prelude.Maybe BackendAuthSocialProviderConfig,
+    signInWithApple :: Prelude.Maybe BackendAuthAppleProviderConfig
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,31 +46,22 @@ data SocialProviderSettings = SocialProviderSettings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'loginWithAmazon', 'socialProviderSettings_loginWithAmazon' - Undocumented member.
---
--- 'signInWithApple', 'socialProviderSettings_signInWithApple' - Undocumented member.
---
 -- 'facebook', 'socialProviderSettings_facebook' - Undocumented member.
 --
 -- 'google', 'socialProviderSettings_google' - Undocumented member.
+--
+-- 'loginWithAmazon', 'socialProviderSettings_loginWithAmazon' - Undocumented member.
+--
+-- 'signInWithApple', 'socialProviderSettings_signInWithApple' - Undocumented member.
 newSocialProviderSettings ::
   SocialProviderSettings
 newSocialProviderSettings =
   SocialProviderSettings'
-    { loginWithAmazon =
-        Prelude.Nothing,
-      signInWithApple = Prelude.Nothing,
-      facebook = Prelude.Nothing,
-      google = Prelude.Nothing
+    { facebook = Prelude.Nothing,
+      google = Prelude.Nothing,
+      loginWithAmazon = Prelude.Nothing,
+      signInWithApple = Prelude.Nothing
     }
-
--- | Undocumented member.
-socialProviderSettings_loginWithAmazon :: Lens.Lens' SocialProviderSettings (Prelude.Maybe BackendAuthSocialProviderConfig)
-socialProviderSettings_loginWithAmazon = Lens.lens (\SocialProviderSettings' {loginWithAmazon} -> loginWithAmazon) (\s@SocialProviderSettings' {} a -> s {loginWithAmazon = a} :: SocialProviderSettings)
-
--- | Undocumented member.
-socialProviderSettings_signInWithApple :: Lens.Lens' SocialProviderSettings (Prelude.Maybe BackendAuthAppleProviderConfig)
-socialProviderSettings_signInWithApple = Lens.lens (\SocialProviderSettings' {signInWithApple} -> signInWithApple) (\s@SocialProviderSettings' {} a -> s {signInWithApple = a} :: SocialProviderSettings)
 
 -- | Undocumented member.
 socialProviderSettings_facebook :: Lens.Lens' SocialProviderSettings (Prelude.Maybe BackendAuthSocialProviderConfig)
@@ -79,41 +71,49 @@ socialProviderSettings_facebook = Lens.lens (\SocialProviderSettings' {facebook}
 socialProviderSettings_google :: Lens.Lens' SocialProviderSettings (Prelude.Maybe BackendAuthSocialProviderConfig)
 socialProviderSettings_google = Lens.lens (\SocialProviderSettings' {google} -> google) (\s@SocialProviderSettings' {} a -> s {google = a} :: SocialProviderSettings)
 
-instance Core.FromJSON SocialProviderSettings where
+-- | Undocumented member.
+socialProviderSettings_loginWithAmazon :: Lens.Lens' SocialProviderSettings (Prelude.Maybe BackendAuthSocialProviderConfig)
+socialProviderSettings_loginWithAmazon = Lens.lens (\SocialProviderSettings' {loginWithAmazon} -> loginWithAmazon) (\s@SocialProviderSettings' {} a -> s {loginWithAmazon = a} :: SocialProviderSettings)
+
+-- | Undocumented member.
+socialProviderSettings_signInWithApple :: Lens.Lens' SocialProviderSettings (Prelude.Maybe BackendAuthAppleProviderConfig)
+socialProviderSettings_signInWithApple = Lens.lens (\SocialProviderSettings' {signInWithApple} -> signInWithApple) (\s@SocialProviderSettings' {} a -> s {signInWithApple = a} :: SocialProviderSettings)
+
+instance Data.FromJSON SocialProviderSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SocialProviderSettings"
       ( \x ->
           SocialProviderSettings'
-            Prelude.<$> (x Core..:? "LoginWithAmazon")
-            Prelude.<*> (x Core..:? "SignInWithApple")
-            Prelude.<*> (x Core..:? "Facebook")
-            Prelude.<*> (x Core..:? "Google")
+            Prelude.<$> (x Data..:? "Facebook")
+            Prelude.<*> (x Data..:? "Google")
+            Prelude.<*> (x Data..:? "LoginWithAmazon")
+            Prelude.<*> (x Data..:? "SignInWithApple")
       )
 
 instance Prelude.Hashable SocialProviderSettings where
   hashWithSalt _salt SocialProviderSettings' {..} =
-    _salt `Prelude.hashWithSalt` loginWithAmazon
-      `Prelude.hashWithSalt` signInWithApple
-      `Prelude.hashWithSalt` facebook
+    _salt `Prelude.hashWithSalt` facebook
       `Prelude.hashWithSalt` google
+      `Prelude.hashWithSalt` loginWithAmazon
+      `Prelude.hashWithSalt` signInWithApple
 
 instance Prelude.NFData SocialProviderSettings where
   rnf SocialProviderSettings' {..} =
-    Prelude.rnf loginWithAmazon
-      `Prelude.seq` Prelude.rnf signInWithApple
-      `Prelude.seq` Prelude.rnf facebook
+    Prelude.rnf facebook
       `Prelude.seq` Prelude.rnf google
+      `Prelude.seq` Prelude.rnf loginWithAmazon
+      `Prelude.seq` Prelude.rnf signInWithApple
 
-instance Core.ToJSON SocialProviderSettings where
+instance Data.ToJSON SocialProviderSettings where
   toJSON SocialProviderSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("LoginWithAmazon" Core..=)
+          [ ("Facebook" Data..=) Prelude.<$> facebook,
+            ("Google" Data..=) Prelude.<$> google,
+            ("LoginWithAmazon" Data..=)
               Prelude.<$> loginWithAmazon,
-            ("SignInWithApple" Core..=)
-              Prelude.<$> signInWithApple,
-            ("Facebook" Core..=) Prelude.<$> facebook,
-            ("Google" Core..=) Prelude.<$> google
+            ("SignInWithApple" Data..=)
+              Prelude.<$> signInWithApple
           ]
       )

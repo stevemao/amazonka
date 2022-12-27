@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.UpdatePullRequestApprovalState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,7 +108,8 @@ instance
   type
     AWSResponse UpdatePullRequestApprovalState =
       UpdatePullRequestApprovalStateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       UpdatePullRequestApprovalStateResponse'
@@ -133,39 +135,39 @@ instance
       `Prelude.seq` Prelude.rnf approvalState
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdatePullRequestApprovalState
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.UpdatePullRequestApprovalState" ::
+              Data.=# ( "CodeCommit_20150413.UpdatePullRequestApprovalState" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdatePullRequestApprovalState where
+instance Data.ToJSON UpdatePullRequestApprovalState where
   toJSON UpdatePullRequestApprovalState' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("pullRequestId" Core..= pullRequestId),
-            Prelude.Just ("revisionId" Core..= revisionId),
+              ("pullRequestId" Data..= pullRequestId),
+            Prelude.Just ("revisionId" Data..= revisionId),
             Prelude.Just
-              ("approvalState" Core..= approvalState)
+              ("approvalState" Data..= approvalState)
           ]
       )
 
-instance Core.ToPath UpdatePullRequestApprovalState where
+instance Data.ToPath UpdatePullRequestApprovalState where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdatePullRequestApprovalState where
+instance Data.ToQuery UpdatePullRequestApprovalState where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdatePullRequestApprovalStateResponse' smart constructor.

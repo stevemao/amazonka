@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.InferenceAccelerator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.ECS.Types.InferenceAccelerator where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Details on a Elastic Inference accelerator. For more information, see
+-- | Details on an Elastic Inference accelerator. For more information, see
 -- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-inference.html Working with Amazon Elastic Inference on Amazon ECS>
 -- in the /Amazon Elastic Container Service Developer Guide/.
 --
@@ -70,14 +71,14 @@ inferenceAccelerator_deviceName = Lens.lens (\InferenceAccelerator' {deviceName}
 inferenceAccelerator_deviceType :: Lens.Lens' InferenceAccelerator Prelude.Text
 inferenceAccelerator_deviceType = Lens.lens (\InferenceAccelerator' {deviceType} -> deviceType) (\s@InferenceAccelerator' {} a -> s {deviceType = a} :: InferenceAccelerator)
 
-instance Core.FromJSON InferenceAccelerator where
+instance Data.FromJSON InferenceAccelerator where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InferenceAccelerator"
       ( \x ->
           InferenceAccelerator'
-            Prelude.<$> (x Core..: "deviceName")
-            Prelude.<*> (x Core..: "deviceType")
+            Prelude.<$> (x Data..: "deviceName")
+            Prelude.<*> (x Data..: "deviceType")
       )
 
 instance Prelude.Hashable InferenceAccelerator where
@@ -90,11 +91,11 @@ instance Prelude.NFData InferenceAccelerator where
     Prelude.rnf deviceName
       `Prelude.seq` Prelude.rnf deviceType
 
-instance Core.ToJSON InferenceAccelerator where
+instance Data.ToJSON InferenceAccelerator where
   toJSON InferenceAccelerator' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("deviceName" Core..= deviceName),
-            Prelude.Just ("deviceType" Core..= deviceType)
+          [ Prelude.Just ("deviceName" Data..= deviceName),
+            Prelude.Just ("deviceType" Data..= deviceType)
           ]
       )

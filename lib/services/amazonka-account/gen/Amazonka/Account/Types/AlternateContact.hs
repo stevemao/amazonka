@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Account.Types.AlternateContact
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Account.Types.AlternateContact where
 
 import Amazonka.Account.Types.AlternateContactType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A structure that contains the details of an alternate contact associated
@@ -31,14 +32,14 @@ import qualified Amazonka.Prelude as Prelude
 data AlternateContact = AlternateContact'
   { -- | The type of alternate contact.
     alternateContactType :: Prelude.Maybe AlternateContactType,
-    -- | The phone number associated with this alternate contact.
-    phoneNumber :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | The name associated with this alternate contact.
-    name :: Prelude.Maybe (Core.Sensitive Prelude.Text),
     -- | The email address associated with this alternate contact.
-    emailAddress :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    emailAddress :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | The name associated with this alternate contact.
+    name :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | The phone number associated with this alternate contact.
+    phoneNumber :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The title associated with this alternate contact.
-    title :: Prelude.Maybe (Core.Sensitive Prelude.Text)
+    title :: Prelude.Maybe (Data.Sensitive Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -52,11 +53,11 @@ data AlternateContact = AlternateContact'
 --
 -- 'alternateContactType', 'alternateContact_alternateContactType' - The type of alternate contact.
 --
--- 'phoneNumber', 'alternateContact_phoneNumber' - The phone number associated with this alternate contact.
+-- 'emailAddress', 'alternateContact_emailAddress' - The email address associated with this alternate contact.
 --
 -- 'name', 'alternateContact_name' - The name associated with this alternate contact.
 --
--- 'emailAddress', 'alternateContact_emailAddress' - The email address associated with this alternate contact.
+-- 'phoneNumber', 'alternateContact_phoneNumber' - The phone number associated with this alternate contact.
 --
 -- 'title', 'alternateContact_title' - The title associated with this alternate contact.
 newAlternateContact ::
@@ -65,9 +66,9 @@ newAlternateContact =
   AlternateContact'
     { alternateContactType =
         Prelude.Nothing,
-      phoneNumber = Prelude.Nothing,
-      name = Prelude.Nothing,
       emailAddress = Prelude.Nothing,
+      name = Prelude.Nothing,
+      phoneNumber = Prelude.Nothing,
       title = Prelude.Nothing
     }
 
@@ -75,47 +76,47 @@ newAlternateContact =
 alternateContact_alternateContactType :: Lens.Lens' AlternateContact (Prelude.Maybe AlternateContactType)
 alternateContact_alternateContactType = Lens.lens (\AlternateContact' {alternateContactType} -> alternateContactType) (\s@AlternateContact' {} a -> s {alternateContactType = a} :: AlternateContact)
 
--- | The phone number associated with this alternate contact.
-alternateContact_phoneNumber :: Lens.Lens' AlternateContact (Prelude.Maybe Prelude.Text)
-alternateContact_phoneNumber = Lens.lens (\AlternateContact' {phoneNumber} -> phoneNumber) (\s@AlternateContact' {} a -> s {phoneNumber = a} :: AlternateContact) Prelude.. Lens.mapping Core._Sensitive
+-- | The email address associated with this alternate contact.
+alternateContact_emailAddress :: Lens.Lens' AlternateContact (Prelude.Maybe Prelude.Text)
+alternateContact_emailAddress = Lens.lens (\AlternateContact' {emailAddress} -> emailAddress) (\s@AlternateContact' {} a -> s {emailAddress = a} :: AlternateContact) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The name associated with this alternate contact.
 alternateContact_name :: Lens.Lens' AlternateContact (Prelude.Maybe Prelude.Text)
-alternateContact_name = Lens.lens (\AlternateContact' {name} -> name) (\s@AlternateContact' {} a -> s {name = a} :: AlternateContact) Prelude.. Lens.mapping Core._Sensitive
+alternateContact_name = Lens.lens (\AlternateContact' {name} -> name) (\s@AlternateContact' {} a -> s {name = a} :: AlternateContact) Prelude.. Lens.mapping Data._Sensitive
 
--- | The email address associated with this alternate contact.
-alternateContact_emailAddress :: Lens.Lens' AlternateContact (Prelude.Maybe Prelude.Text)
-alternateContact_emailAddress = Lens.lens (\AlternateContact' {emailAddress} -> emailAddress) (\s@AlternateContact' {} a -> s {emailAddress = a} :: AlternateContact) Prelude.. Lens.mapping Core._Sensitive
+-- | The phone number associated with this alternate contact.
+alternateContact_phoneNumber :: Lens.Lens' AlternateContact (Prelude.Maybe Prelude.Text)
+alternateContact_phoneNumber = Lens.lens (\AlternateContact' {phoneNumber} -> phoneNumber) (\s@AlternateContact' {} a -> s {phoneNumber = a} :: AlternateContact) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The title associated with this alternate contact.
 alternateContact_title :: Lens.Lens' AlternateContact (Prelude.Maybe Prelude.Text)
-alternateContact_title = Lens.lens (\AlternateContact' {title} -> title) (\s@AlternateContact' {} a -> s {title = a} :: AlternateContact) Prelude.. Lens.mapping Core._Sensitive
+alternateContact_title = Lens.lens (\AlternateContact' {title} -> title) (\s@AlternateContact' {} a -> s {title = a} :: AlternateContact) Prelude.. Lens.mapping Data._Sensitive
 
-instance Core.FromJSON AlternateContact where
+instance Data.FromJSON AlternateContact where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AlternateContact"
       ( \x ->
           AlternateContact'
-            Prelude.<$> (x Core..:? "AlternateContactType")
-            Prelude.<*> (x Core..:? "PhoneNumber")
-            Prelude.<*> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "EmailAddress")
-            Prelude.<*> (x Core..:? "Title")
+            Prelude.<$> (x Data..:? "AlternateContactType")
+            Prelude.<*> (x Data..:? "EmailAddress")
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "PhoneNumber")
+            Prelude.<*> (x Data..:? "Title")
       )
 
 instance Prelude.Hashable AlternateContact where
   hashWithSalt _salt AlternateContact' {..} =
     _salt `Prelude.hashWithSalt` alternateContactType
-      `Prelude.hashWithSalt` phoneNumber
-      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` emailAddress
+      `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` phoneNumber
       `Prelude.hashWithSalt` title
 
 instance Prelude.NFData AlternateContact where
   rnf AlternateContact' {..} =
     Prelude.rnf alternateContactType
-      `Prelude.seq` Prelude.rnf phoneNumber
-      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf emailAddress
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf phoneNumber
       `Prelude.seq` Prelude.rnf title

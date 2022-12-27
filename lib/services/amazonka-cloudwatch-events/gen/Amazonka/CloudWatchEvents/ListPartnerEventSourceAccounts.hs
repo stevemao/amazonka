@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.ListPartnerEventSourceAccounts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.CloudWatchEvents.ListPartnerEventSourceAccounts
     newListPartnerEventSourceAccounts,
 
     -- * Request Lenses
-    listPartnerEventSourceAccounts_nextToken,
     listPartnerEventSourceAccounts_limit,
+    listPartnerEventSourceAccounts_nextToken,
     listPartnerEventSourceAccounts_eventSourceName,
 
     -- * Destructuring the Response
@@ -39,28 +39,29 @@ module Amazonka.CloudWatchEvents.ListPartnerEventSourceAccounts
     newListPartnerEventSourceAccountsResponse,
 
     -- * Response Lenses
-    listPartnerEventSourceAccountsResponse_partnerEventSourceAccounts,
     listPartnerEventSourceAccountsResponse_nextToken,
+    listPartnerEventSourceAccountsResponse_partnerEventSourceAccounts,
     listPartnerEventSourceAccountsResponse_httpStatus,
   )
 where
 
 import Amazonka.CloudWatchEvents.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListPartnerEventSourceAccounts' smart constructor.
 data ListPartnerEventSourceAccounts = ListPartnerEventSourceAccounts'
-  { -- | The token returned by a previous call to this operation. Specifying this
-    -- retrieves the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Specifying this limits the number of results returned by this operation.
+  { -- | Specifying this limits the number of results returned by this operation.
     -- The operation also returns a NextToken which you can use in a subsequent
     -- operation to retrieve the next set of results.
     limit :: Prelude.Maybe Prelude.Natural,
+    -- | The token returned by a previous call to this operation. Specifying this
+    -- retrieves the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the partner event source to display account information
     -- about.
     eventSourceName :: Prelude.Text
@@ -75,12 +76,12 @@ data ListPartnerEventSourceAccounts = ListPartnerEventSourceAccounts'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listPartnerEventSourceAccounts_nextToken' - The token returned by a previous call to this operation. Specifying this
--- retrieves the next set of results.
---
 -- 'limit', 'listPartnerEventSourceAccounts_limit' - Specifying this limits the number of results returned by this operation.
 -- The operation also returns a NextToken which you can use in a subsequent
 -- operation to retrieve the next set of results.
+--
+-- 'nextToken', 'listPartnerEventSourceAccounts_nextToken' - The token returned by a previous call to this operation. Specifying this
+-- retrieves the next set of results.
 --
 -- 'eventSourceName', 'listPartnerEventSourceAccounts_eventSourceName' - The name of the partner event source to display account information
 -- about.
@@ -90,22 +91,22 @@ newListPartnerEventSourceAccounts ::
   ListPartnerEventSourceAccounts
 newListPartnerEventSourceAccounts pEventSourceName_ =
   ListPartnerEventSourceAccounts'
-    { nextToken =
+    { limit =
         Prelude.Nothing,
-      limit = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       eventSourceName = pEventSourceName_
     }
-
--- | The token returned by a previous call to this operation. Specifying this
--- retrieves the next set of results.
-listPartnerEventSourceAccounts_nextToken :: Lens.Lens' ListPartnerEventSourceAccounts (Prelude.Maybe Prelude.Text)
-listPartnerEventSourceAccounts_nextToken = Lens.lens (\ListPartnerEventSourceAccounts' {nextToken} -> nextToken) (\s@ListPartnerEventSourceAccounts' {} a -> s {nextToken = a} :: ListPartnerEventSourceAccounts)
 
 -- | Specifying this limits the number of results returned by this operation.
 -- The operation also returns a NextToken which you can use in a subsequent
 -- operation to retrieve the next set of results.
 listPartnerEventSourceAccounts_limit :: Lens.Lens' ListPartnerEventSourceAccounts (Prelude.Maybe Prelude.Natural)
 listPartnerEventSourceAccounts_limit = Lens.lens (\ListPartnerEventSourceAccounts' {limit} -> limit) (\s@ListPartnerEventSourceAccounts' {} a -> s {limit = a} :: ListPartnerEventSourceAccounts)
+
+-- | The token returned by a previous call to this operation. Specifying this
+-- retrieves the next set of results.
+listPartnerEventSourceAccounts_nextToken :: Lens.Lens' ListPartnerEventSourceAccounts (Prelude.Maybe Prelude.Text)
+listPartnerEventSourceAccounts_nextToken = Lens.lens (\ListPartnerEventSourceAccounts' {nextToken} -> nextToken) (\s@ListPartnerEventSourceAccounts' {} a -> s {nextToken = a} :: ListPartnerEventSourceAccounts)
 
 -- | The name of the partner event source to display account information
 -- about.
@@ -119,15 +120,16 @@ instance
   type
     AWSResponse ListPartnerEventSourceAccounts =
       ListPartnerEventSourceAccountsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPartnerEventSourceAccountsResponse'
-            Prelude.<$> ( x Core..?> "PartnerEventSourceAccounts"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "PartnerEventSourceAccounts"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -138,8 +140,8 @@ instance
   hashWithSalt
     _salt
     ListPartnerEventSourceAccounts' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` limit
+      _salt `Prelude.hashWithSalt` limit
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` eventSourceName
 
 instance
@@ -147,52 +149,52 @@ instance
     ListPartnerEventSourceAccounts
   where
   rnf ListPartnerEventSourceAccounts' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf limit
+    Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf eventSourceName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListPartnerEventSourceAccounts
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSEvents.ListPartnerEventSourceAccounts" ::
+              Data.=# ( "AWSEvents.ListPartnerEventSourceAccounts" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListPartnerEventSourceAccounts where
+instance Data.ToJSON ListPartnerEventSourceAccounts where
   toJSON ListPartnerEventSourceAccounts' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Limit" Core..=) Prelude.<$> limit,
+          [ ("Limit" Data..=) Prelude.<$> limit,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("EventSourceName" Core..= eventSourceName)
+              ("EventSourceName" Data..= eventSourceName)
           ]
       )
 
-instance Core.ToPath ListPartnerEventSourceAccounts where
+instance Data.ToPath ListPartnerEventSourceAccounts where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListPartnerEventSourceAccounts where
+instance Data.ToQuery ListPartnerEventSourceAccounts where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListPartnerEventSourceAccountsResponse' smart constructor.
 data ListPartnerEventSourceAccountsResponse = ListPartnerEventSourceAccountsResponse'
-  { -- | The list of partner event sources returned by the operation.
-    partnerEventSourceAccounts :: Prelude.Maybe [PartnerEventSourceAccount],
-    -- | A token you can use in a subsequent operation to retrieve the next set
+  { -- | A token you can use in a subsequent operation to retrieve the next set
     -- of results.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of partner event sources returned by the operation.
+    partnerEventSourceAccounts :: Prelude.Maybe [PartnerEventSourceAccount],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -206,10 +208,10 @@ data ListPartnerEventSourceAccountsResponse = ListPartnerEventSourceAccountsResp
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'partnerEventSourceAccounts', 'listPartnerEventSourceAccountsResponse_partnerEventSourceAccounts' - The list of partner event sources returned by the operation.
---
 -- 'nextToken', 'listPartnerEventSourceAccountsResponse_nextToken' - A token you can use in a subsequent operation to retrieve the next set
 -- of results.
+--
+-- 'partnerEventSourceAccounts', 'listPartnerEventSourceAccountsResponse_partnerEventSourceAccounts' - The list of partner event sources returned by the operation.
 --
 -- 'httpStatus', 'listPartnerEventSourceAccountsResponse_httpStatus' - The response's http status code.
 newListPartnerEventSourceAccountsResponse ::
@@ -219,20 +221,21 @@ newListPartnerEventSourceAccountsResponse ::
 newListPartnerEventSourceAccountsResponse
   pHttpStatus_ =
     ListPartnerEventSourceAccountsResponse'
-      { partnerEventSourceAccounts =
+      { nextToken =
           Prelude.Nothing,
-        nextToken = Prelude.Nothing,
+        partnerEventSourceAccounts =
+          Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | The list of partner event sources returned by the operation.
-listPartnerEventSourceAccountsResponse_partnerEventSourceAccounts :: Lens.Lens' ListPartnerEventSourceAccountsResponse (Prelude.Maybe [PartnerEventSourceAccount])
-listPartnerEventSourceAccountsResponse_partnerEventSourceAccounts = Lens.lens (\ListPartnerEventSourceAccountsResponse' {partnerEventSourceAccounts} -> partnerEventSourceAccounts) (\s@ListPartnerEventSourceAccountsResponse' {} a -> s {partnerEventSourceAccounts = a} :: ListPartnerEventSourceAccountsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A token you can use in a subsequent operation to retrieve the next set
 -- of results.
 listPartnerEventSourceAccountsResponse_nextToken :: Lens.Lens' ListPartnerEventSourceAccountsResponse (Prelude.Maybe Prelude.Text)
 listPartnerEventSourceAccountsResponse_nextToken = Lens.lens (\ListPartnerEventSourceAccountsResponse' {nextToken} -> nextToken) (\s@ListPartnerEventSourceAccountsResponse' {} a -> s {nextToken = a} :: ListPartnerEventSourceAccountsResponse)
+
+-- | The list of partner event sources returned by the operation.
+listPartnerEventSourceAccountsResponse_partnerEventSourceAccounts :: Lens.Lens' ListPartnerEventSourceAccountsResponse (Prelude.Maybe [PartnerEventSourceAccount])
+listPartnerEventSourceAccountsResponse_partnerEventSourceAccounts = Lens.lens (\ListPartnerEventSourceAccountsResponse' {partnerEventSourceAccounts} -> partnerEventSourceAccounts) (\s@ListPartnerEventSourceAccountsResponse' {} a -> s {partnerEventSourceAccounts = a} :: ListPartnerEventSourceAccountsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listPartnerEventSourceAccountsResponse_httpStatus :: Lens.Lens' ListPartnerEventSourceAccountsResponse Prelude.Int
@@ -243,6 +246,6 @@ instance
     ListPartnerEventSourceAccountsResponse
   where
   rnf ListPartnerEventSourceAccountsResponse' {..} =
-    Prelude.rnf partnerEventSourceAccounts
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf partnerEventSourceAccounts
       `Prelude.seq` Prelude.rnf httpStatus

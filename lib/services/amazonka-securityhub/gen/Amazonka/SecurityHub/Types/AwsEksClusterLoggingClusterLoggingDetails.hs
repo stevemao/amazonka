@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsEksClusterLoggingClusterLoggingDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsEksClusterLoggingClusterLoggingDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details for a cluster logging configuration.
@@ -29,7 +30,17 @@ import qualified Amazonka.Prelude as Prelude
 data AwsEksClusterLoggingClusterLoggingDetails = AwsEksClusterLoggingClusterLoggingDetails'
   { -- | Whether the logging types that are listed in @Types@ are enabled.
     enabled :: Prelude.Maybe Prelude.Bool,
-    -- | A list of logging types.
+    -- | A list of logging types. Valid values are as follows:
+    --
+    -- -   @api@
+    --
+    -- -   @audit@
+    --
+    -- -   @authenticator@
+    --
+    -- -   @controllerManager@
+    --
+    -- -   @scheduler@
     types :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -44,7 +55,17 @@ data AwsEksClusterLoggingClusterLoggingDetails = AwsEksClusterLoggingClusterLogg
 --
 -- 'enabled', 'awsEksClusterLoggingClusterLoggingDetails_enabled' - Whether the logging types that are listed in @Types@ are enabled.
 --
--- 'types', 'awsEksClusterLoggingClusterLoggingDetails_types' - A list of logging types.
+-- 'types', 'awsEksClusterLoggingClusterLoggingDetails_types' - A list of logging types. Valid values are as follows:
+--
+-- -   @api@
+--
+-- -   @audit@
+--
+-- -   @authenticator@
+--
+-- -   @controllerManager@
+--
+-- -   @scheduler@
 newAwsEksClusterLoggingClusterLoggingDetails ::
   AwsEksClusterLoggingClusterLoggingDetails
 newAwsEksClusterLoggingClusterLoggingDetails =
@@ -58,21 +79,31 @@ newAwsEksClusterLoggingClusterLoggingDetails =
 awsEksClusterLoggingClusterLoggingDetails_enabled :: Lens.Lens' AwsEksClusterLoggingClusterLoggingDetails (Prelude.Maybe Prelude.Bool)
 awsEksClusterLoggingClusterLoggingDetails_enabled = Lens.lens (\AwsEksClusterLoggingClusterLoggingDetails' {enabled} -> enabled) (\s@AwsEksClusterLoggingClusterLoggingDetails' {} a -> s {enabled = a} :: AwsEksClusterLoggingClusterLoggingDetails)
 
--- | A list of logging types.
+-- | A list of logging types. Valid values are as follows:
+--
+-- -   @api@
+--
+-- -   @audit@
+--
+-- -   @authenticator@
+--
+-- -   @controllerManager@
+--
+-- -   @scheduler@
 awsEksClusterLoggingClusterLoggingDetails_types :: Lens.Lens' AwsEksClusterLoggingClusterLoggingDetails (Prelude.Maybe [Prelude.Text])
 awsEksClusterLoggingClusterLoggingDetails_types = Lens.lens (\AwsEksClusterLoggingClusterLoggingDetails' {types} -> types) (\s@AwsEksClusterLoggingClusterLoggingDetails' {} a -> s {types = a} :: AwsEksClusterLoggingClusterLoggingDetails) Prelude.. Lens.mapping Lens.coerced
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsEksClusterLoggingClusterLoggingDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsEksClusterLoggingClusterLoggingDetails"
       ( \x ->
           AwsEksClusterLoggingClusterLoggingDetails'
-            Prelude.<$> (x Core..:? "Enabled")
-              Prelude.<*> (x Core..:? "Types" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Enabled")
+              Prelude.<*> (x Data..:? "Types" Data..!= Prelude.mempty)
       )
 
 instance
@@ -93,13 +124,13 @@ instance
     Prelude.rnf enabled `Prelude.seq` Prelude.rnf types
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsEksClusterLoggingClusterLoggingDetails
   where
   toJSON AwsEksClusterLoggingClusterLoggingDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Enabled" Core..=) Prelude.<$> enabled,
-            ("Types" Core..=) Prelude.<$> types
+          [ ("Enabled" Data..=) Prelude.<$> enabled,
+            ("Types" Data..=) Prelude.<$> types
           ]
       )

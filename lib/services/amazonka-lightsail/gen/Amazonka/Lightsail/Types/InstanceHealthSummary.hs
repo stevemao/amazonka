@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.InstanceHealthSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.InstanceHealthSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types.InstanceHealthReason
 import Amazonka.Lightsail.Types.InstanceHealthState
 import qualified Amazonka.Prelude as Prelude
@@ -31,9 +32,6 @@ import qualified Amazonka.Prelude as Prelude
 data InstanceHealthSummary = InstanceHealthSummary'
   { -- | Describes the overall instance health. Valid values are below.
     instanceHealth :: Prelude.Maybe InstanceHealthState,
-    -- | The name of the Lightsail instance for which you are requesting health
-    -- check data.
-    instanceName :: Prelude.Maybe Prelude.Text,
     -- | More information about the instance health. If the @instanceHealth@ is
     -- @healthy@, then an @instanceHealthReason@ value is not provided.
     --
@@ -85,7 +83,10 @@ data InstanceHealthSummary = InstanceHealthSummary'
     -- -   __@Instance.DeregistrationInProgress@__ - The target instance is in
     --     the process of being deregistered and the deregistration delay
     --     period has not expired.
-    instanceHealthReason :: Prelude.Maybe InstanceHealthReason
+    instanceHealthReason :: Prelude.Maybe InstanceHealthReason,
+    -- | The name of the Lightsail instance for which you are requesting health
+    -- check data.
+    instanceName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -98,9 +99,6 @@ data InstanceHealthSummary = InstanceHealthSummary'
 -- for backwards compatibility:
 --
 -- 'instanceHealth', 'instanceHealthSummary_instanceHealth' - Describes the overall instance health. Valid values are below.
---
--- 'instanceName', 'instanceHealthSummary_instanceName' - The name of the Lightsail instance for which you are requesting health
--- check data.
 --
 -- 'instanceHealthReason', 'instanceHealthSummary_instanceHealthReason' - More information about the instance health. If the @instanceHealth@ is
 -- @healthy@, then an @instanceHealthReason@ value is not provided.
@@ -153,24 +151,22 @@ data InstanceHealthSummary = InstanceHealthSummary'
 -- -   __@Instance.DeregistrationInProgress@__ - The target instance is in
 --     the process of being deregistered and the deregistration delay
 --     period has not expired.
+--
+-- 'instanceName', 'instanceHealthSummary_instanceName' - The name of the Lightsail instance for which you are requesting health
+-- check data.
 newInstanceHealthSummary ::
   InstanceHealthSummary
 newInstanceHealthSummary =
   InstanceHealthSummary'
     { instanceHealth =
         Prelude.Nothing,
-      instanceName = Prelude.Nothing,
-      instanceHealthReason = Prelude.Nothing
+      instanceHealthReason = Prelude.Nothing,
+      instanceName = Prelude.Nothing
     }
 
 -- | Describes the overall instance health. Valid values are below.
 instanceHealthSummary_instanceHealth :: Lens.Lens' InstanceHealthSummary (Prelude.Maybe InstanceHealthState)
 instanceHealthSummary_instanceHealth = Lens.lens (\InstanceHealthSummary' {instanceHealth} -> instanceHealth) (\s@InstanceHealthSummary' {} a -> s {instanceHealth = a} :: InstanceHealthSummary)
-
--- | The name of the Lightsail instance for which you are requesting health
--- check data.
-instanceHealthSummary_instanceName :: Lens.Lens' InstanceHealthSummary (Prelude.Maybe Prelude.Text)
-instanceHealthSummary_instanceName = Lens.lens (\InstanceHealthSummary' {instanceName} -> instanceName) (\s@InstanceHealthSummary' {} a -> s {instanceName = a} :: InstanceHealthSummary)
 
 -- | More information about the instance health. If the @instanceHealth@ is
 -- @healthy@, then an @instanceHealthReason@ value is not provided.
@@ -226,25 +222,30 @@ instanceHealthSummary_instanceName = Lens.lens (\InstanceHealthSummary' {instanc
 instanceHealthSummary_instanceHealthReason :: Lens.Lens' InstanceHealthSummary (Prelude.Maybe InstanceHealthReason)
 instanceHealthSummary_instanceHealthReason = Lens.lens (\InstanceHealthSummary' {instanceHealthReason} -> instanceHealthReason) (\s@InstanceHealthSummary' {} a -> s {instanceHealthReason = a} :: InstanceHealthSummary)
 
-instance Core.FromJSON InstanceHealthSummary where
+-- | The name of the Lightsail instance for which you are requesting health
+-- check data.
+instanceHealthSummary_instanceName :: Lens.Lens' InstanceHealthSummary (Prelude.Maybe Prelude.Text)
+instanceHealthSummary_instanceName = Lens.lens (\InstanceHealthSummary' {instanceName} -> instanceName) (\s@InstanceHealthSummary' {} a -> s {instanceName = a} :: InstanceHealthSummary)
+
+instance Data.FromJSON InstanceHealthSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InstanceHealthSummary"
       ( \x ->
           InstanceHealthSummary'
-            Prelude.<$> (x Core..:? "instanceHealth")
-            Prelude.<*> (x Core..:? "instanceName")
-            Prelude.<*> (x Core..:? "instanceHealthReason")
+            Prelude.<$> (x Data..:? "instanceHealth")
+            Prelude.<*> (x Data..:? "instanceHealthReason")
+            Prelude.<*> (x Data..:? "instanceName")
       )
 
 instance Prelude.Hashable InstanceHealthSummary where
   hashWithSalt _salt InstanceHealthSummary' {..} =
     _salt `Prelude.hashWithSalt` instanceHealth
-      `Prelude.hashWithSalt` instanceName
       `Prelude.hashWithSalt` instanceHealthReason
+      `Prelude.hashWithSalt` instanceName
 
 instance Prelude.NFData InstanceHealthSummary where
   rnf InstanceHealthSummary' {..} =
     Prelude.rnf instanceHealth
-      `Prelude.seq` Prelude.rnf instanceName
       `Prelude.seq` Prelude.rnf instanceHealthReason
+      `Prelude.seq` Prelude.rnf instanceName

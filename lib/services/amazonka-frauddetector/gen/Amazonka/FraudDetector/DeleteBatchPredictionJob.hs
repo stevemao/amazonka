@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.DeleteBatchPredictionJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.FraudDetector.DeleteBatchPredictionJob
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteBatchPredictionJob where
   type
     AWSResponse DeleteBatchPredictionJob =
       DeleteBatchPredictionJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -91,32 +93,32 @@ instance Prelude.Hashable DeleteBatchPredictionJob where
 instance Prelude.NFData DeleteBatchPredictionJob where
   rnf DeleteBatchPredictionJob' {..} = Prelude.rnf jobId
 
-instance Core.ToHeaders DeleteBatchPredictionJob where
+instance Data.ToHeaders DeleteBatchPredictionJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.DeleteBatchPredictionJob" ::
+              Data.=# ( "AWSHawksNestServiceFacade.DeleteBatchPredictionJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteBatchPredictionJob where
+instance Data.ToJSON DeleteBatchPredictionJob where
   toJSON DeleteBatchPredictionJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("jobId" Core..= jobId)]
+          [Prelude.Just ("jobId" Data..= jobId)]
       )
 
-instance Core.ToPath DeleteBatchPredictionJob where
+instance Data.ToPath DeleteBatchPredictionJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteBatchPredictionJob where
+instance Data.ToQuery DeleteBatchPredictionJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteBatchPredictionJobResponse' smart constructor.

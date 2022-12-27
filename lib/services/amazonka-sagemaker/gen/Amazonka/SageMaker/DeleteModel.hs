@@ -14,16 +14,16 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.DeleteModel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Deletes a model. The @DeleteModel@ API deletes only the model entry that
--- was created in Amazon SageMaker when you called the @CreateModel@ API.
--- It does not delete model artifacts, inference code, or the IAM role that
--- you specified when creating the model.
+-- was created in SageMaker when you called the @CreateModel@ API. It does
+-- not delete model artifacts, inference code, or the IAM role that you
+-- specified when creating the model.
 module Amazonka.SageMaker.DeleteModel
   ( -- * Creating a Request
     DeleteModel (..),
@@ -39,7 +39,8 @@ module Amazonka.SageMaker.DeleteModel
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -74,7 +75,8 @@ deleteModel_modelName = Lens.lens (\DeleteModel' {modelName} -> modelName) (\s@D
 
 instance Core.AWSRequest DeleteModel where
   type AWSResponse DeleteModel = DeleteModelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull DeleteModelResponse'
 
 instance Prelude.Hashable DeleteModel where
@@ -84,30 +86,30 @@ instance Prelude.Hashable DeleteModel where
 instance Prelude.NFData DeleteModel where
   rnf DeleteModel' {..} = Prelude.rnf modelName
 
-instance Core.ToHeaders DeleteModel where
+instance Data.ToHeaders DeleteModel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.DeleteModel" :: Prelude.ByteString),
+              Data.=# ("SageMaker.DeleteModel" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteModel where
+instance Data.ToJSON DeleteModel where
   toJSON DeleteModel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ModelName" Core..= modelName)]
+          [Prelude.Just ("ModelName" Data..= modelName)]
       )
 
-instance Core.ToPath DeleteModel where
+instance Data.ToPath DeleteModel where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteModel where
+instance Data.ToQuery DeleteModel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteModelResponse' smart constructor.

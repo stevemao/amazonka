@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DeleteRouteTable
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.EC2.DeleteRouteTable
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,7 +97,8 @@ instance Core.AWSRequest DeleteRouteTable where
   type
     AWSResponse DeleteRouteTable =
       DeleteRouteTableResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull DeleteRouteTableResponse'
 
@@ -110,21 +112,21 @@ instance Prelude.NFData DeleteRouteTable where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf routeTableId
 
-instance Core.ToHeaders DeleteRouteTable where
+instance Data.ToHeaders DeleteRouteTable where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteRouteTable where
+instance Data.ToPath DeleteRouteTable where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteRouteTable where
+instance Data.ToQuery DeleteRouteTable where
   toQuery DeleteRouteTable' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteRouteTable" :: Prelude.ByteString),
+          Data.=: ("DeleteRouteTable" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "RouteTableId" Core.=: routeTableId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "RouteTableId" Data.=: routeTableId
       ]
 
 -- | /See:/ 'newDeleteRouteTableResponse' smart constructor.

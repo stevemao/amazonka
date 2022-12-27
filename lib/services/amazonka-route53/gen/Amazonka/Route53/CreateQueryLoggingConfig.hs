@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.CreateQueryLoggingConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -75,6 +75,24 @@
 --         example:
 --
 --         @arn:aws:logs:us-east-1:123412341234:log-group:\/aws\/route53\/*@
+--
+--         To avoid the confused deputy problem, a security issue where an
+--         entity without a permission for an action can coerce a
+--         more-privileged entity to perform it, you can optionally limit
+--         the permissions that a service has to a resource in a
+--         resource-based policy by supplying the following values:
+--
+--         -   For @aws:SourceArn@, supply the hosted zone ARN used in
+--             creating the query logging configuration. For example,
+--             @aws:SourceArn: arn:aws:route53:::hostedzone\/hosted zone ID@.
+--
+--         -   For @aws:SourceAccount@, supply the account ID for the
+--             account that creates the query logging configuration. For
+--             example, @aws:SourceAccount:111111111111@.
+--
+--         For more information, see
+--         <https://docs.aws.amazon.com/IAM/latest/UserGuide/confused-deputy.html The confused deputy problem>
+--         in the /Amazon Web Services IAM User Guide/.
 --
 --         You can\'t use the CloudWatch console to create or edit a
 --         resource policy. You must use the CloudWatch API, one of the
@@ -154,7 +172,8 @@ module Amazonka.Route53.CreateQueryLoggingConfig
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -241,14 +260,15 @@ instance Core.AWSRequest CreateQueryLoggingConfig where
   type
     AWSResponse CreateQueryLoggingConfig =
       CreateQueryLoggingConfigResponse
-  request = Request.postXML defaultService
+  request overrides =
+    Request.postXML (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CreateQueryLoggingConfigResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "QueryLoggingConfig")
-            Prelude.<*> (h Core..# "Location")
+            Prelude.<*> (x Data..@ "QueryLoggingConfig")
+            Prelude.<*> (h Data..# "Location")
       )
 
 instance Prelude.Hashable CreateQueryLoggingConfig where
@@ -261,27 +281,27 @@ instance Prelude.NFData CreateQueryLoggingConfig where
     Prelude.rnf hostedZoneId
       `Prelude.seq` Prelude.rnf cloudWatchLogsLogGroupArn
 
-instance Core.ToElement CreateQueryLoggingConfig where
+instance Data.ToElement CreateQueryLoggingConfig where
   toElement =
-    Core.mkElement
+    Data.mkElement
       "{https://route53.amazonaws.com/doc/2013-04-01/}CreateQueryLoggingConfigRequest"
 
-instance Core.ToHeaders CreateQueryLoggingConfig where
+instance Data.ToHeaders CreateQueryLoggingConfig where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateQueryLoggingConfig where
+instance Data.ToPath CreateQueryLoggingConfig where
   toPath =
     Prelude.const "/2013-04-01/queryloggingconfig"
 
-instance Core.ToQuery CreateQueryLoggingConfig where
+instance Data.ToQuery CreateQueryLoggingConfig where
   toQuery = Prelude.const Prelude.mempty
 
-instance Core.ToXML CreateQueryLoggingConfig where
+instance Data.ToXML CreateQueryLoggingConfig where
   toXML CreateQueryLoggingConfig' {..} =
     Prelude.mconcat
-      [ "HostedZoneId" Core.@= hostedZoneId,
+      [ "HostedZoneId" Data.@= hostedZoneId,
         "CloudWatchLogsLogGroupArn"
-          Core.@= cloudWatchLogsLogGroupArn
+          Data.@= cloudWatchLogsLogGroupArn
       ]
 
 -- | /See:/ 'newCreateQueryLoggingConfigResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Support.DescribeCases
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,14 +38,14 @@
 -- Case data is available for 12 months after creation. If a case was
 -- created more than 12 months ago, a request might return an error.
 --
--- -   You must have a Business or Enterprise Support plan to use the AWS
---     Support API.
+-- -   You must have a Business, Enterprise On-Ramp, or Enterprise Support
+--     plan to use the Amazon Web Services Support API.
 --
--- -   If you call the AWS Support API from an account that does not have a
---     Business or Enterprise Support plan, the
---     @SubscriptionRequiredException@ error message appears. For
+-- -   If you call the Amazon Web Services Support API from an account that
+--     does not have a Business, Enterprise On-Ramp, or Enterprise Support
+--     plan, the @SubscriptionRequiredException@ error message appears. For
 --     information about changing your support plan, see
---     <http://aws.amazon.com/premiumsupport/ AWS Support>.
+--     <http://aws.amazon.com/premiumsupport/ Amazon Web Services Support>.
 --
 -- This operation returns paginated results.
 module Amazonka.Support.DescribeCases
@@ -54,15 +54,15 @@ module Amazonka.Support.DescribeCases
     newDescribeCases,
 
     -- * Request Lenses
-    describeCases_includeResolvedCases,
-    describeCases_caseIdList,
     describeCases_afterTime,
     describeCases_beforeTime,
-    describeCases_nextToken,
-    describeCases_includeCommunications,
+    describeCases_caseIdList,
     describeCases_displayId,
+    describeCases_includeCommunications,
+    describeCases_includeResolvedCases,
     describeCases_language,
     describeCases_maxResults,
+    describeCases_nextToken,
 
     -- * Destructuring the Response
     DescribeCasesResponse (..),
@@ -76,7 +76,8 @@ module Amazonka.Support.DescribeCases
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,33 +85,34 @@ import Amazonka.Support.Types
 
 -- | /See:/ 'newDescribeCases' smart constructor.
 data DescribeCases = DescribeCases'
-  { -- | Specifies whether to include resolved support cases in the
-    -- @DescribeCases@ response. By default, resolved cases aren\'t included.
-    includeResolvedCases :: Prelude.Maybe Prelude.Bool,
-    -- | A list of ID numbers of the support cases you want returned. The maximum
-    -- number of cases is 100.
-    caseIdList :: Prelude.Maybe [Prelude.Text],
-    -- | The start date for a filtered date search on support case
+  { -- | The start date for a filtered date search on support case
     -- communications. Case communications are available for 12 months after
     -- creation.
     afterTime :: Prelude.Maybe Prelude.Text,
     -- | The end date for a filtered date search on support case communications.
     -- Case communications are available for 12 months after creation.
     beforeTime :: Prelude.Maybe Prelude.Text,
-    -- | A resumption point for pagination.
-    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of ID numbers of the support cases you want returned. The maximum
+    -- number of cases is 100.
+    caseIdList :: Prelude.Maybe [Prelude.Text],
+    -- | The ID displayed for a case in the Amazon Web Services Support Center
+    -- user interface.
+    displayId :: Prelude.Maybe Prelude.Text,
     -- | Specifies whether to include communications in the @DescribeCases@
     -- response. By default, communications are included.
     includeCommunications :: Prelude.Maybe Prelude.Bool,
-    -- | The ID displayed for a case in the AWS Support Center user interface.
-    displayId :: Prelude.Maybe Prelude.Text,
-    -- | The ISO 639-1 code for the language in which AWS provides support. AWS
-    -- Support currently supports English (\"en\") and Japanese (\"ja\").
-    -- Language parameters must be passed explicitly for operations that take
-    -- them.
+    -- | Specifies whether to include resolved support cases in the
+    -- @DescribeCases@ response. By default, resolved cases aren\'t included.
+    includeResolvedCases :: Prelude.Maybe Prelude.Bool,
+    -- | The ISO 639-1 code for the language in which Amazon Web Services
+    -- provides support. Amazon Web Services Support currently supports English
+    -- (\"en\") and Japanese (\"ja\"). Language parameters must be passed
+    -- explicitly for operations that take them.
     language :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of results to return before paginating.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A resumption point for pagination.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -122,12 +124,6 @@ data DescribeCases = DescribeCases'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'includeResolvedCases', 'describeCases_includeResolvedCases' - Specifies whether to include resolved support cases in the
--- @DescribeCases@ response. By default, resolved cases aren\'t included.
---
--- 'caseIdList', 'describeCases_caseIdList' - A list of ID numbers of the support cases you want returned. The maximum
--- number of cases is 100.
---
 -- 'afterTime', 'describeCases_afterTime' - The start date for a filtered date search on support case
 -- communications. Case communications are available for 12 months after
 -- creation.
@@ -135,44 +131,40 @@ data DescribeCases = DescribeCases'
 -- 'beforeTime', 'describeCases_beforeTime' - The end date for a filtered date search on support case communications.
 -- Case communications are available for 12 months after creation.
 --
--- 'nextToken', 'describeCases_nextToken' - A resumption point for pagination.
+-- 'caseIdList', 'describeCases_caseIdList' - A list of ID numbers of the support cases you want returned. The maximum
+-- number of cases is 100.
+--
+-- 'displayId', 'describeCases_displayId' - The ID displayed for a case in the Amazon Web Services Support Center
+-- user interface.
 --
 -- 'includeCommunications', 'describeCases_includeCommunications' - Specifies whether to include communications in the @DescribeCases@
 -- response. By default, communications are included.
 --
--- 'displayId', 'describeCases_displayId' - The ID displayed for a case in the AWS Support Center user interface.
+-- 'includeResolvedCases', 'describeCases_includeResolvedCases' - Specifies whether to include resolved support cases in the
+-- @DescribeCases@ response. By default, resolved cases aren\'t included.
 --
--- 'language', 'describeCases_language' - The ISO 639-1 code for the language in which AWS provides support. AWS
--- Support currently supports English (\"en\") and Japanese (\"ja\").
--- Language parameters must be passed explicitly for operations that take
--- them.
+-- 'language', 'describeCases_language' - The ISO 639-1 code for the language in which Amazon Web Services
+-- provides support. Amazon Web Services Support currently supports English
+-- (\"en\") and Japanese (\"ja\"). Language parameters must be passed
+-- explicitly for operations that take them.
 --
 -- 'maxResults', 'describeCases_maxResults' - The maximum number of results to return before paginating.
+--
+-- 'nextToken', 'describeCases_nextToken' - A resumption point for pagination.
 newDescribeCases ::
   DescribeCases
 newDescribeCases =
   DescribeCases'
-    { includeResolvedCases =
-        Prelude.Nothing,
-      caseIdList = Prelude.Nothing,
-      afterTime = Prelude.Nothing,
+    { afterTime = Prelude.Nothing,
       beforeTime = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      includeCommunications = Prelude.Nothing,
+      caseIdList = Prelude.Nothing,
       displayId = Prelude.Nothing,
+      includeCommunications = Prelude.Nothing,
+      includeResolvedCases = Prelude.Nothing,
       language = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | Specifies whether to include resolved support cases in the
--- @DescribeCases@ response. By default, resolved cases aren\'t included.
-describeCases_includeResolvedCases :: Lens.Lens' DescribeCases (Prelude.Maybe Prelude.Bool)
-describeCases_includeResolvedCases = Lens.lens (\DescribeCases' {includeResolvedCases} -> includeResolvedCases) (\s@DescribeCases' {} a -> s {includeResolvedCases = a} :: DescribeCases)
-
--- | A list of ID numbers of the support cases you want returned. The maximum
--- number of cases is 100.
-describeCases_caseIdList :: Lens.Lens' DescribeCases (Prelude.Maybe [Prelude.Text])
-describeCases_caseIdList = Lens.lens (\DescribeCases' {caseIdList} -> caseIdList) (\s@DescribeCases' {} a -> s {caseIdList = a} :: DescribeCases) Prelude.. Lens.mapping Lens.coerced
 
 -- | The start date for a filtered date search on support case
 -- communications. Case communications are available for 12 months after
@@ -185,29 +177,40 @@ describeCases_afterTime = Lens.lens (\DescribeCases' {afterTime} -> afterTime) (
 describeCases_beforeTime :: Lens.Lens' DescribeCases (Prelude.Maybe Prelude.Text)
 describeCases_beforeTime = Lens.lens (\DescribeCases' {beforeTime} -> beforeTime) (\s@DescribeCases' {} a -> s {beforeTime = a} :: DescribeCases)
 
--- | A resumption point for pagination.
-describeCases_nextToken :: Lens.Lens' DescribeCases (Prelude.Maybe Prelude.Text)
-describeCases_nextToken = Lens.lens (\DescribeCases' {nextToken} -> nextToken) (\s@DescribeCases' {} a -> s {nextToken = a} :: DescribeCases)
+-- | A list of ID numbers of the support cases you want returned. The maximum
+-- number of cases is 100.
+describeCases_caseIdList :: Lens.Lens' DescribeCases (Prelude.Maybe [Prelude.Text])
+describeCases_caseIdList = Lens.lens (\DescribeCases' {caseIdList} -> caseIdList) (\s@DescribeCases' {} a -> s {caseIdList = a} :: DescribeCases) Prelude.. Lens.mapping Lens.coerced
+
+-- | The ID displayed for a case in the Amazon Web Services Support Center
+-- user interface.
+describeCases_displayId :: Lens.Lens' DescribeCases (Prelude.Maybe Prelude.Text)
+describeCases_displayId = Lens.lens (\DescribeCases' {displayId} -> displayId) (\s@DescribeCases' {} a -> s {displayId = a} :: DescribeCases)
 
 -- | Specifies whether to include communications in the @DescribeCases@
 -- response. By default, communications are included.
 describeCases_includeCommunications :: Lens.Lens' DescribeCases (Prelude.Maybe Prelude.Bool)
 describeCases_includeCommunications = Lens.lens (\DescribeCases' {includeCommunications} -> includeCommunications) (\s@DescribeCases' {} a -> s {includeCommunications = a} :: DescribeCases)
 
--- | The ID displayed for a case in the AWS Support Center user interface.
-describeCases_displayId :: Lens.Lens' DescribeCases (Prelude.Maybe Prelude.Text)
-describeCases_displayId = Lens.lens (\DescribeCases' {displayId} -> displayId) (\s@DescribeCases' {} a -> s {displayId = a} :: DescribeCases)
+-- | Specifies whether to include resolved support cases in the
+-- @DescribeCases@ response. By default, resolved cases aren\'t included.
+describeCases_includeResolvedCases :: Lens.Lens' DescribeCases (Prelude.Maybe Prelude.Bool)
+describeCases_includeResolvedCases = Lens.lens (\DescribeCases' {includeResolvedCases} -> includeResolvedCases) (\s@DescribeCases' {} a -> s {includeResolvedCases = a} :: DescribeCases)
 
--- | The ISO 639-1 code for the language in which AWS provides support. AWS
--- Support currently supports English (\"en\") and Japanese (\"ja\").
--- Language parameters must be passed explicitly for operations that take
--- them.
+-- | The ISO 639-1 code for the language in which Amazon Web Services
+-- provides support. Amazon Web Services Support currently supports English
+-- (\"en\") and Japanese (\"ja\"). Language parameters must be passed
+-- explicitly for operations that take them.
 describeCases_language :: Lens.Lens' DescribeCases (Prelude.Maybe Prelude.Text)
 describeCases_language = Lens.lens (\DescribeCases' {language} -> language) (\s@DescribeCases' {} a -> s {language = a} :: DescribeCases)
 
 -- | The maximum number of results to return before paginating.
 describeCases_maxResults :: Lens.Lens' DescribeCases (Prelude.Maybe Prelude.Natural)
 describeCases_maxResults = Lens.lens (\DescribeCases' {maxResults} -> maxResults) (\s@DescribeCases' {} a -> s {maxResults = a} :: DescribeCases)
+
+-- | A resumption point for pagination.
+describeCases_nextToken :: Lens.Lens' DescribeCases (Prelude.Maybe Prelude.Text)
+describeCases_nextToken = Lens.lens (\DescribeCases' {nextToken} -> nextToken) (\s@DescribeCases' {} a -> s {nextToken = a} :: DescribeCases)
 
 instance Core.AWSPager DescribeCases where
   page rq rs
@@ -232,77 +235,78 @@ instance Core.AWSRequest DescribeCases where
   type
     AWSResponse DescribeCases =
       DescribeCasesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeCasesResponse'
-            Prelude.<$> (x Core..?> "cases" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "cases" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeCases where
   hashWithSalt _salt DescribeCases' {..} =
-    _salt `Prelude.hashWithSalt` includeResolvedCases
-      `Prelude.hashWithSalt` caseIdList
-      `Prelude.hashWithSalt` afterTime
+    _salt `Prelude.hashWithSalt` afterTime
       `Prelude.hashWithSalt` beforeTime
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` includeCommunications
+      `Prelude.hashWithSalt` caseIdList
       `Prelude.hashWithSalt` displayId
+      `Prelude.hashWithSalt` includeCommunications
+      `Prelude.hashWithSalt` includeResolvedCases
       `Prelude.hashWithSalt` language
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeCases where
   rnf DescribeCases' {..} =
-    Prelude.rnf includeResolvedCases
-      `Prelude.seq` Prelude.rnf caseIdList
-      `Prelude.seq` Prelude.rnf afterTime
+    Prelude.rnf afterTime
       `Prelude.seq` Prelude.rnf beforeTime
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf includeCommunications
+      `Prelude.seq` Prelude.rnf caseIdList
       `Prelude.seq` Prelude.rnf displayId
+      `Prelude.seq` Prelude.rnf includeCommunications
+      `Prelude.seq` Prelude.rnf includeResolvedCases
       `Prelude.seq` Prelude.rnf language
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeCases where
+instance Data.ToHeaders DescribeCases where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSSupport_20130415.DescribeCases" ::
+              Data.=# ( "AWSSupport_20130415.DescribeCases" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeCases where
+instance Data.ToJSON DescribeCases where
   toJSON DescribeCases' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("includeResolvedCases" Core..=)
-              Prelude.<$> includeResolvedCases,
-            ("caseIdList" Core..=) Prelude.<$> caseIdList,
-            ("afterTime" Core..=) Prelude.<$> afterTime,
-            ("beforeTime" Core..=) Prelude.<$> beforeTime,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("includeCommunications" Core..=)
+          [ ("afterTime" Data..=) Prelude.<$> afterTime,
+            ("beforeTime" Data..=) Prelude.<$> beforeTime,
+            ("caseIdList" Data..=) Prelude.<$> caseIdList,
+            ("displayId" Data..=) Prelude.<$> displayId,
+            ("includeCommunications" Data..=)
               Prelude.<$> includeCommunications,
-            ("displayId" Core..=) Prelude.<$> displayId,
-            ("language" Core..=) Prelude.<$> language,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+            ("includeResolvedCases" Data..=)
+              Prelude.<$> includeResolvedCases,
+            ("language" Data..=) Prelude.<$> language,
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath DescribeCases where
+instance Data.ToPath DescribeCases where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeCases where
+instance Data.ToQuery DescribeCases where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Returns an array of

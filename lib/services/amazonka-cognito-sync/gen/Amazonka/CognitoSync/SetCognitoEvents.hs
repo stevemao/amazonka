@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoSync.SetCognitoEvents
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.CognitoSync.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,7 +98,8 @@ instance Core.AWSRequest SetCognitoEvents where
   type
     AWSResponse SetCognitoEvents =
       SetCognitoEventsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull SetCognitoEventsResponse'
 
@@ -111,33 +113,33 @@ instance Prelude.NFData SetCognitoEvents where
     Prelude.rnf identityPoolId
       `Prelude.seq` Prelude.rnf events
 
-instance Core.ToHeaders SetCognitoEvents where
+instance Data.ToHeaders SetCognitoEvents where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SetCognitoEvents where
+instance Data.ToJSON SetCognitoEvents where
   toJSON SetCognitoEvents' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Events" Core..= events)]
+          [Prelude.Just ("Events" Data..= events)]
       )
 
-instance Core.ToPath SetCognitoEvents where
+instance Data.ToPath SetCognitoEvents where
   toPath SetCognitoEvents' {..} =
     Prelude.mconcat
       [ "/identitypools/",
-        Core.toBS identityPoolId,
+        Data.toBS identityPoolId,
         "/events"
       ]
 
-instance Core.ToQuery SetCognitoEvents where
+instance Data.ToQuery SetCognitoEvents where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSetCognitoEventsResponse' smart constructor.

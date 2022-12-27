@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaPackage.ListChannels
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.MediaPackage.ListChannels
     newListChannels,
 
     -- * Request Lenses
-    listChannels_nextToken,
     listChannels_maxResults,
+    listChannels_nextToken,
 
     -- * Destructuring the Response
     ListChannelsResponse (..),
@@ -44,7 +44,8 @@ module Amazonka.MediaPackage.ListChannels
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaPackage.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,10 +53,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListChannels' smart constructor.
 data ListChannels = ListChannels'
-  { -- | A token used to resume pagination from the end of a previous request.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Upper bound on number of records to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | Upper bound on number of records to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token used to resume pagination from the end of a previous request.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,24 +68,24 @@ data ListChannels = ListChannels'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listChannels_nextToken' - A token used to resume pagination from the end of a previous request.
---
 -- 'maxResults', 'listChannels_maxResults' - Upper bound on number of records to return.
+--
+-- 'nextToken', 'listChannels_nextToken' - A token used to resume pagination from the end of a previous request.
 newListChannels ::
   ListChannels
 newListChannels =
   ListChannels'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | A token used to resume pagination from the end of a previous request.
-listChannels_nextToken :: Lens.Lens' ListChannels (Prelude.Maybe Prelude.Text)
-listChannels_nextToken = Lens.lens (\ListChannels' {nextToken} -> nextToken) (\s@ListChannels' {} a -> s {nextToken = a} :: ListChannels)
 
 -- | Upper bound on number of records to return.
 listChannels_maxResults :: Lens.Lens' ListChannels (Prelude.Maybe Prelude.Natural)
 listChannels_maxResults = Lens.lens (\ListChannels' {maxResults} -> maxResults) (\s@ListChannels' {} a -> s {maxResults = a} :: ListChannels)
+
+-- | A token used to resume pagination from the end of a previous request.
+listChannels_nextToken :: Lens.Lens' ListChannels (Prelude.Maybe Prelude.Text)
+listChannels_nextToken = Lens.lens (\ListChannels' {nextToken} -> nextToken) (\s@ListChannels' {} a -> s {nextToken = a} :: ListChannels)
 
 instance Core.AWSPager ListChannels where
   page rq rs
@@ -107,45 +108,46 @@ instance Core.AWSPager ListChannels where
 
 instance Core.AWSRequest ListChannels where
   type AWSResponse ListChannels = ListChannelsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListChannelsResponse'
-            Prelude.<$> (x Core..?> "channels" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "channels" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListChannels where
   hashWithSalt _salt ListChannels' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListChannels where
   rnf ListChannels' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListChannels where
+instance Data.ToHeaders ListChannels where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListChannels where
+instance Data.ToPath ListChannels where
   toPath = Prelude.const "/channels"
 
-instance Core.ToQuery ListChannels where
+instance Data.ToQuery ListChannels where
   toQuery ListChannels' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListChannelsResponse' smart constructor.

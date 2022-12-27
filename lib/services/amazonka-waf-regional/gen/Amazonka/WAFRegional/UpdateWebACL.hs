@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.UpdateWebACL
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -97,8 +97,8 @@ module Amazonka.WAFRegional.UpdateWebACL
     newUpdateWebACL,
 
     -- * Request Lenses
-    updateWebACL_updates,
     updateWebACL_defaultAction,
+    updateWebACL_updates,
     updateWebACL_webACLId,
     updateWebACL_changeToken,
 
@@ -113,7 +113,8 @@ module Amazonka.WAFRegional.UpdateWebACL
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -121,7 +122,11 @@ import Amazonka.WAFRegional.Types
 
 -- | /See:/ 'newUpdateWebACL' smart constructor.
 data UpdateWebACL = UpdateWebACL'
-  { -- | An array of updates to make to the WebACL.
+  { -- | A default action for the web ACL, either ALLOW or BLOCK. AWS WAF
+    -- performs the default action if a request doesn\'t match the criteria in
+    -- any of the rules in a web ACL.
+    defaultAction :: Prelude.Maybe WafAction,
+    -- | An array of updates to make to the WebACL.
     --
     -- An array of @WebACLUpdate@ objects that you want to insert into or
     -- delete from a WebACL. For more information, see the applicable data
@@ -138,10 +143,6 @@ data UpdateWebACL = UpdateWebACL'
     --
     -- -   WafAction: Contains @Type@
     updates :: Prelude.Maybe [WebACLUpdate],
-    -- | A default action for the web ACL, either ALLOW or BLOCK. AWS WAF
-    -- performs the default action if a request doesn\'t match the criteria in
-    -- any of the rules in a web ACL.
-    defaultAction :: Prelude.Maybe WafAction,
     -- | The @WebACLId@ of the WebACL that you want to update. @WebACLId@ is
     -- returned by CreateWebACL and by ListWebACLs.
     webACLId :: Prelude.Text,
@@ -157,6 +158,10 @@ data UpdateWebACL = UpdateWebACL'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'defaultAction', 'updateWebACL_defaultAction' - A default action for the web ACL, either ALLOW or BLOCK. AWS WAF
+-- performs the default action if a request doesn\'t match the criteria in
+-- any of the rules in a web ACL.
 --
 -- 'updates', 'updateWebACL_updates' - An array of updates to make to the WebACL.
 --
@@ -175,10 +180,6 @@ data UpdateWebACL = UpdateWebACL'
 --
 -- -   WafAction: Contains @Type@
 --
--- 'defaultAction', 'updateWebACL_defaultAction' - A default action for the web ACL, either ALLOW or BLOCK. AWS WAF
--- performs the default action if a request doesn\'t match the criteria in
--- any of the rules in a web ACL.
---
 -- 'webACLId', 'updateWebACL_webACLId' - The @WebACLId@ of the WebACL that you want to update. @WebACLId@ is
 -- returned by CreateWebACL and by ListWebACLs.
 --
@@ -191,11 +192,17 @@ newUpdateWebACL ::
   UpdateWebACL
 newUpdateWebACL pWebACLId_ pChangeToken_ =
   UpdateWebACL'
-    { updates = Prelude.Nothing,
-      defaultAction = Prelude.Nothing,
+    { defaultAction = Prelude.Nothing,
+      updates = Prelude.Nothing,
       webACLId = pWebACLId_,
       changeToken = pChangeToken_
     }
+
+-- | A default action for the web ACL, either ALLOW or BLOCK. AWS WAF
+-- performs the default action if a request doesn\'t match the criteria in
+-- any of the rules in a web ACL.
+updateWebACL_defaultAction :: Lens.Lens' UpdateWebACL (Prelude.Maybe WafAction)
+updateWebACL_defaultAction = Lens.lens (\UpdateWebACL' {defaultAction} -> defaultAction) (\s@UpdateWebACL' {} a -> s {defaultAction = a} :: UpdateWebACL)
 
 -- | An array of updates to make to the WebACL.
 --
@@ -216,12 +223,6 @@ newUpdateWebACL pWebACLId_ pChangeToken_ =
 updateWebACL_updates :: Lens.Lens' UpdateWebACL (Prelude.Maybe [WebACLUpdate])
 updateWebACL_updates = Lens.lens (\UpdateWebACL' {updates} -> updates) (\s@UpdateWebACL' {} a -> s {updates = a} :: UpdateWebACL) Prelude.. Lens.mapping Lens.coerced
 
--- | A default action for the web ACL, either ALLOW or BLOCK. AWS WAF
--- performs the default action if a request doesn\'t match the criteria in
--- any of the rules in a web ACL.
-updateWebACL_defaultAction :: Lens.Lens' UpdateWebACL (Prelude.Maybe WafAction)
-updateWebACL_defaultAction = Lens.lens (\UpdateWebACL' {defaultAction} -> defaultAction) (\s@UpdateWebACL' {} a -> s {defaultAction = a} :: UpdateWebACL)
-
 -- | The @WebACLId@ of the WebACL that you want to update. @WebACLId@ is
 -- returned by CreateWebACL and by ListWebACLs.
 updateWebACL_webACLId :: Lens.Lens' UpdateWebACL Prelude.Text
@@ -233,59 +234,60 @@ updateWebACL_changeToken = Lens.lens (\UpdateWebACL' {changeToken} -> changeToke
 
 instance Core.AWSRequest UpdateWebACL where
   type AWSResponse UpdateWebACL = UpdateWebACLResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateWebACLResponse'
-            Prelude.<$> (x Core..?> "ChangeToken")
+            Prelude.<$> (x Data..?> "ChangeToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateWebACL where
   hashWithSalt _salt UpdateWebACL' {..} =
-    _salt `Prelude.hashWithSalt` updates
-      `Prelude.hashWithSalt` defaultAction
+    _salt `Prelude.hashWithSalt` defaultAction
+      `Prelude.hashWithSalt` updates
       `Prelude.hashWithSalt` webACLId
       `Prelude.hashWithSalt` changeToken
 
 instance Prelude.NFData UpdateWebACL where
   rnf UpdateWebACL' {..} =
-    Prelude.rnf updates
-      `Prelude.seq` Prelude.rnf defaultAction
+    Prelude.rnf defaultAction
+      `Prelude.seq` Prelude.rnf updates
       `Prelude.seq` Prelude.rnf webACLId
       `Prelude.seq` Prelude.rnf changeToken
 
-instance Core.ToHeaders UpdateWebACL where
+instance Data.ToHeaders UpdateWebACL where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_Regional_20161128.UpdateWebACL" ::
+              Data.=# ( "AWSWAF_Regional_20161128.UpdateWebACL" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateWebACL where
+instance Data.ToJSON UpdateWebACL where
   toJSON UpdateWebACL' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Updates" Core..=) Prelude.<$> updates,
-            ("DefaultAction" Core..=) Prelude.<$> defaultAction,
-            Prelude.Just ("WebACLId" Core..= webACLId),
-            Prelude.Just ("ChangeToken" Core..= changeToken)
+          [ ("DefaultAction" Data..=) Prelude.<$> defaultAction,
+            ("Updates" Data..=) Prelude.<$> updates,
+            Prelude.Just ("WebACLId" Data..= webACLId),
+            Prelude.Just ("ChangeToken" Data..= changeToken)
           ]
       )
 
-instance Core.ToPath UpdateWebACL where
+instance Data.ToPath UpdateWebACL where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateWebACL where
+instance Data.ToQuery UpdateWebACL where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateWebACLResponse' smart constructor.

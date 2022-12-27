@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.ListWebhooks
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.CodePipeline.ListWebhooks
     newListWebhooks,
 
     -- * Request Lenses
-    listWebhooks_nextToken,
     listWebhooks_maxResults,
+    listWebhooks_nextToken,
 
     -- * Destructuring the Response
     ListWebhooksResponse (..),
@@ -47,20 +47,21 @@ where
 
 import Amazonka.CodePipeline.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListWebhooks' smart constructor.
 data ListWebhooks = ListWebhooks'
-  { -- | The token that was returned from the previous ListWebhooks call, which
-    -- can be used to return the next set of webhooks in the list.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in a single call. To retrieve
+  { -- | The maximum number of results to return in a single call. To retrieve
     -- the remaining results, make another call with the returned nextToken
     -- value.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token that was returned from the previous ListWebhooks call, which
+    -- can be used to return the next set of webhooks in the list.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -72,30 +73,30 @@ data ListWebhooks = ListWebhooks'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listWebhooks_nextToken' - The token that was returned from the previous ListWebhooks call, which
--- can be used to return the next set of webhooks in the list.
---
 -- 'maxResults', 'listWebhooks_maxResults' - The maximum number of results to return in a single call. To retrieve
 -- the remaining results, make another call with the returned nextToken
 -- value.
+--
+-- 'nextToken', 'listWebhooks_nextToken' - The token that was returned from the previous ListWebhooks call, which
+-- can be used to return the next set of webhooks in the list.
 newListWebhooks ::
   ListWebhooks
 newListWebhooks =
   ListWebhooks'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The token that was returned from the previous ListWebhooks call, which
--- can be used to return the next set of webhooks in the list.
-listWebhooks_nextToken :: Lens.Lens' ListWebhooks (Prelude.Maybe Prelude.Text)
-listWebhooks_nextToken = Lens.lens (\ListWebhooks' {nextToken} -> nextToken) (\s@ListWebhooks' {} a -> s {nextToken = a} :: ListWebhooks)
 
 -- | The maximum number of results to return in a single call. To retrieve
 -- the remaining results, make another call with the returned nextToken
 -- value.
 listWebhooks_maxResults :: Lens.Lens' ListWebhooks (Prelude.Maybe Prelude.Natural)
 listWebhooks_maxResults = Lens.lens (\ListWebhooks' {maxResults} -> maxResults) (\s@ListWebhooks' {} a -> s {maxResults = a} :: ListWebhooks)
+
+-- | The token that was returned from the previous ListWebhooks call, which
+-- can be used to return the next set of webhooks in the list.
+listWebhooks_nextToken :: Lens.Lens' ListWebhooks (Prelude.Maybe Prelude.Text)
+listWebhooks_nextToken = Lens.lens (\ListWebhooks' {nextToken} -> nextToken) (\s@ListWebhooks' {} a -> s {nextToken = a} :: ListWebhooks)
 
 instance Core.AWSPager ListWebhooks where
   page rq rs
@@ -118,54 +119,55 @@ instance Core.AWSPager ListWebhooks where
 
 instance Core.AWSRequest ListWebhooks where
   type AWSResponse ListWebhooks = ListWebhooksResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListWebhooksResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "webhooks" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "webhooks" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListWebhooks where
   hashWithSalt _salt ListWebhooks' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListWebhooks where
   rnf ListWebhooks' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListWebhooks where
+instance Data.ToHeaders ListWebhooks where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodePipeline_20150709.ListWebhooks" ::
+              Data.=# ( "CodePipeline_20150709.ListWebhooks" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListWebhooks where
+instance Data.ToJSON ListWebhooks where
   toJSON ListWebhooks' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListWebhooks where
+instance Data.ToPath ListWebhooks where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListWebhooks where
+instance Data.ToQuery ListWebhooks where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListWebhooksResponse' smart constructor.

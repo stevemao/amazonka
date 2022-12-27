@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkSpaces.RegisterWorkspaceDirectory
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,10 +32,10 @@ module Amazonka.WorkSpaces.RegisterWorkspaceDirectory
     newRegisterWorkspaceDirectory,
 
     -- * Request Lenses
-    registerWorkspaceDirectory_subnetIds,
     registerWorkspaceDirectory_enableSelfService,
-    registerWorkspaceDirectory_tenancy,
+    registerWorkspaceDirectory_subnetIds,
     registerWorkspaceDirectory_tags,
+    registerWorkspaceDirectory_tenancy,
     registerWorkspaceDirectory_directoryId,
     registerWorkspaceDirectory_enableWorkDocs,
 
@@ -49,7 +49,8 @@ module Amazonka.WorkSpaces.RegisterWorkspaceDirectory
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,13 +58,15 @@ import Amazonka.WorkSpaces.Types
 
 -- | /See:/ 'newRegisterWorkspaceDirectory' smart constructor.
 data RegisterWorkspaceDirectory = RegisterWorkspaceDirectory'
-  { -- | The identifiers of the subnets for your virtual private cloud (VPC).
+  { -- | Indicates whether self-service capabilities are enabled or disabled.
+    enableSelfService :: Prelude.Maybe Prelude.Bool,
+    -- | The identifiers of the subnets for your virtual private cloud (VPC).
     -- Make sure that the subnets are in supported Availability Zones. The
     -- subnets must also be in separate Availability Zones. If these conditions
     -- are not met, you will receive an OperationNotSupportedException error.
     subnetIds :: Prelude.Maybe [Prelude.Text],
-    -- | Indicates whether self-service capabilities are enabled or disabled.
-    enableSelfService :: Prelude.Maybe Prelude.Bool,
+    -- | The tags associated with the directory.
+    tags :: Prelude.Maybe [Tag],
     -- | Indicates whether your WorkSpace directory is dedicated or shared. To
     -- use Bring Your Own License (BYOL) images, this value must be set to
     -- @DEDICATED@ and your Amazon Web Services account must be enabled for
@@ -72,8 +75,6 @@ data RegisterWorkspaceDirectory = RegisterWorkspaceDirectory'
     -- images, see
     -- <https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html Bring Your Own Windows Desktop Images>.
     tenancy :: Prelude.Maybe Tenancy,
-    -- | The tags associated with the directory.
-    tags :: Prelude.Maybe [Tag],
     -- | The identifier of the directory. You cannot register a directory if it
     -- does not have a status of Active. If the directory does not have a
     -- status of Active, you will receive an InvalidResourceStateException
@@ -98,12 +99,14 @@ data RegisterWorkspaceDirectory = RegisterWorkspaceDirectory'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'enableSelfService', 'registerWorkspaceDirectory_enableSelfService' - Indicates whether self-service capabilities are enabled or disabled.
+--
 -- 'subnetIds', 'registerWorkspaceDirectory_subnetIds' - The identifiers of the subnets for your virtual private cloud (VPC).
 -- Make sure that the subnets are in supported Availability Zones. The
 -- subnets must also be in separate Availability Zones. If these conditions
 -- are not met, you will receive an OperationNotSupportedException error.
 --
--- 'enableSelfService', 'registerWorkspaceDirectory_enableSelfService' - Indicates whether self-service capabilities are enabled or disabled.
+-- 'tags', 'registerWorkspaceDirectory_tags' - The tags associated with the directory.
 --
 -- 'tenancy', 'registerWorkspaceDirectory_tenancy' - Indicates whether your WorkSpace directory is dedicated or shared. To
 -- use Bring Your Own License (BYOL) images, this value must be set to
@@ -112,8 +115,6 @@ data RegisterWorkspaceDirectory = RegisterWorkspaceDirectory'
 -- InvalidParameterValuesException error. For more information about BYOL
 -- images, see
 -- <https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html Bring Your Own Windows Desktop Images>.
---
--- 'tags', 'registerWorkspaceDirectory_tags' - The tags associated with the directory.
 --
 -- 'directoryId', 'registerWorkspaceDirectory_directoryId' - The identifier of the directory. You cannot register a directory if it
 -- does not have a status of Active. If the directory does not have a
@@ -137,14 +138,18 @@ newRegisterWorkspaceDirectory
   pDirectoryId_
   pEnableWorkDocs_ =
     RegisterWorkspaceDirectory'
-      { subnetIds =
+      { enableSelfService =
           Prelude.Nothing,
-        enableSelfService = Prelude.Nothing,
-        tenancy = Prelude.Nothing,
+        subnetIds = Prelude.Nothing,
         tags = Prelude.Nothing,
+        tenancy = Prelude.Nothing,
         directoryId = pDirectoryId_,
         enableWorkDocs = pEnableWorkDocs_
       }
+
+-- | Indicates whether self-service capabilities are enabled or disabled.
+registerWorkspaceDirectory_enableSelfService :: Lens.Lens' RegisterWorkspaceDirectory (Prelude.Maybe Prelude.Bool)
+registerWorkspaceDirectory_enableSelfService = Lens.lens (\RegisterWorkspaceDirectory' {enableSelfService} -> enableSelfService) (\s@RegisterWorkspaceDirectory' {} a -> s {enableSelfService = a} :: RegisterWorkspaceDirectory)
 
 -- | The identifiers of the subnets for your virtual private cloud (VPC).
 -- Make sure that the subnets are in supported Availability Zones. The
@@ -153,9 +158,9 @@ newRegisterWorkspaceDirectory
 registerWorkspaceDirectory_subnetIds :: Lens.Lens' RegisterWorkspaceDirectory (Prelude.Maybe [Prelude.Text])
 registerWorkspaceDirectory_subnetIds = Lens.lens (\RegisterWorkspaceDirectory' {subnetIds} -> subnetIds) (\s@RegisterWorkspaceDirectory' {} a -> s {subnetIds = a} :: RegisterWorkspaceDirectory) Prelude.. Lens.mapping Lens.coerced
 
--- | Indicates whether self-service capabilities are enabled or disabled.
-registerWorkspaceDirectory_enableSelfService :: Lens.Lens' RegisterWorkspaceDirectory (Prelude.Maybe Prelude.Bool)
-registerWorkspaceDirectory_enableSelfService = Lens.lens (\RegisterWorkspaceDirectory' {enableSelfService} -> enableSelfService) (\s@RegisterWorkspaceDirectory' {} a -> s {enableSelfService = a} :: RegisterWorkspaceDirectory)
+-- | The tags associated with the directory.
+registerWorkspaceDirectory_tags :: Lens.Lens' RegisterWorkspaceDirectory (Prelude.Maybe [Tag])
+registerWorkspaceDirectory_tags = Lens.lens (\RegisterWorkspaceDirectory' {tags} -> tags) (\s@RegisterWorkspaceDirectory' {} a -> s {tags = a} :: RegisterWorkspaceDirectory) Prelude.. Lens.mapping Lens.coerced
 
 -- | Indicates whether your WorkSpace directory is dedicated or shared. To
 -- use Bring Your Own License (BYOL) images, this value must be set to
@@ -166,10 +171,6 @@ registerWorkspaceDirectory_enableSelfService = Lens.lens (\RegisterWorkspaceDire
 -- <https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html Bring Your Own Windows Desktop Images>.
 registerWorkspaceDirectory_tenancy :: Lens.Lens' RegisterWorkspaceDirectory (Prelude.Maybe Tenancy)
 registerWorkspaceDirectory_tenancy = Lens.lens (\RegisterWorkspaceDirectory' {tenancy} -> tenancy) (\s@RegisterWorkspaceDirectory' {} a -> s {tenancy = a} :: RegisterWorkspaceDirectory)
-
--- | The tags associated with the directory.
-registerWorkspaceDirectory_tags :: Lens.Lens' RegisterWorkspaceDirectory (Prelude.Maybe [Tag])
-registerWorkspaceDirectory_tags = Lens.lens (\RegisterWorkspaceDirectory' {tags} -> tags) (\s@RegisterWorkspaceDirectory' {} a -> s {tags = a} :: RegisterWorkspaceDirectory) Prelude.. Lens.mapping Lens.coerced
 
 -- | The identifier of the directory. You cannot register a directory if it
 -- does not have a status of Active. If the directory does not have a
@@ -192,7 +193,8 @@ instance Core.AWSRequest RegisterWorkspaceDirectory where
   type
     AWSResponse RegisterWorkspaceDirectory =
       RegisterWorkspaceDirectoryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -202,56 +204,56 @@ instance Core.AWSRequest RegisterWorkspaceDirectory where
 
 instance Prelude.Hashable RegisterWorkspaceDirectory where
   hashWithSalt _salt RegisterWorkspaceDirectory' {..} =
-    _salt `Prelude.hashWithSalt` subnetIds
-      `Prelude.hashWithSalt` enableSelfService
-      `Prelude.hashWithSalt` tenancy
+    _salt `Prelude.hashWithSalt` enableSelfService
+      `Prelude.hashWithSalt` subnetIds
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` tenancy
       `Prelude.hashWithSalt` directoryId
       `Prelude.hashWithSalt` enableWorkDocs
 
 instance Prelude.NFData RegisterWorkspaceDirectory where
   rnf RegisterWorkspaceDirectory' {..} =
-    Prelude.rnf subnetIds
-      `Prelude.seq` Prelude.rnf enableSelfService
-      `Prelude.seq` Prelude.rnf tenancy
+    Prelude.rnf enableSelfService
+      `Prelude.seq` Prelude.rnf subnetIds
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf tenancy
       `Prelude.seq` Prelude.rnf directoryId
       `Prelude.seq` Prelude.rnf enableWorkDocs
 
-instance Core.ToHeaders RegisterWorkspaceDirectory where
+instance Data.ToHeaders RegisterWorkspaceDirectory where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkspacesService.RegisterWorkspaceDirectory" ::
+              Data.=# ( "WorkspacesService.RegisterWorkspaceDirectory" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RegisterWorkspaceDirectory where
+instance Data.ToJSON RegisterWorkspaceDirectory where
   toJSON RegisterWorkspaceDirectory' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SubnetIds" Core..=) Prelude.<$> subnetIds,
-            ("EnableSelfService" Core..=)
+          [ ("EnableSelfService" Data..=)
               Prelude.<$> enableSelfService,
-            ("Tenancy" Core..=) Prelude.<$> tenancy,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("DirectoryId" Core..= directoryId),
+            ("SubnetIds" Data..=) Prelude.<$> subnetIds,
+            ("Tags" Data..=) Prelude.<$> tags,
+            ("Tenancy" Data..=) Prelude.<$> tenancy,
+            Prelude.Just ("DirectoryId" Data..= directoryId),
             Prelude.Just
-              ("EnableWorkDocs" Core..= enableWorkDocs)
+              ("EnableWorkDocs" Data..= enableWorkDocs)
           ]
       )
 
-instance Core.ToPath RegisterWorkspaceDirectory where
+instance Data.ToPath RegisterWorkspaceDirectory where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RegisterWorkspaceDirectory where
+instance Data.ToQuery RegisterWorkspaceDirectory where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRegisterWorkspaceDirectoryResponse' smart constructor.

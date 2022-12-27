@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Transfer.Types.S3InputFileLocation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Transfer.Types.S3InputFileLocation where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the customer input S3 file location. If it is used inside
@@ -45,8 +46,8 @@ import qualified Amazonka.Prelude as Prelude
 data S3InputFileLocation = S3InputFileLocation'
   { -- | Specifies the S3 bucket for the customer input file.
     bucket :: Prelude.Maybe Prelude.Text,
-    -- | The name assigned to the file when it was created in S3. You use the
-    -- object key to retrieve the object.
+    -- | The name assigned to the file when it was created in Amazon S3. You use
+    -- the object key to retrieve the object.
     key :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -61,8 +62,8 @@ data S3InputFileLocation = S3InputFileLocation'
 --
 -- 'bucket', 's3InputFileLocation_bucket' - Specifies the S3 bucket for the customer input file.
 --
--- 'key', 's3InputFileLocation_key' - The name assigned to the file when it was created in S3. You use the
--- object key to retrieve the object.
+-- 'key', 's3InputFileLocation_key' - The name assigned to the file when it was created in Amazon S3. You use
+-- the object key to retrieve the object.
 newS3InputFileLocation ::
   S3InputFileLocation
 newS3InputFileLocation =
@@ -75,18 +76,18 @@ newS3InputFileLocation =
 s3InputFileLocation_bucket :: Lens.Lens' S3InputFileLocation (Prelude.Maybe Prelude.Text)
 s3InputFileLocation_bucket = Lens.lens (\S3InputFileLocation' {bucket} -> bucket) (\s@S3InputFileLocation' {} a -> s {bucket = a} :: S3InputFileLocation)
 
--- | The name assigned to the file when it was created in S3. You use the
--- object key to retrieve the object.
+-- | The name assigned to the file when it was created in Amazon S3. You use
+-- the object key to retrieve the object.
 s3InputFileLocation_key :: Lens.Lens' S3InputFileLocation (Prelude.Maybe Prelude.Text)
 s3InputFileLocation_key = Lens.lens (\S3InputFileLocation' {key} -> key) (\s@S3InputFileLocation' {} a -> s {key = a} :: S3InputFileLocation)
 
-instance Core.FromJSON S3InputFileLocation where
+instance Data.FromJSON S3InputFileLocation where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "S3InputFileLocation"
       ( \x ->
           S3InputFileLocation'
-            Prelude.<$> (x Core..:? "Bucket") Prelude.<*> (x Core..:? "Key")
+            Prelude.<$> (x Data..:? "Bucket") Prelude.<*> (x Data..:? "Key")
       )
 
 instance Prelude.Hashable S3InputFileLocation where
@@ -98,11 +99,11 @@ instance Prelude.NFData S3InputFileLocation where
   rnf S3InputFileLocation' {..} =
     Prelude.rnf bucket `Prelude.seq` Prelude.rnf key
 
-instance Core.ToJSON S3InputFileLocation where
+instance Data.ToJSON S3InputFileLocation where
   toJSON S3InputFileLocation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Bucket" Core..=) Prelude.<$> bucket,
-            ("Key" Core..=) Prelude.<$> key
+          [ ("Bucket" Data..=) Prelude.<$> bucket,
+            ("Key" Data..=) Prelude.<$> key
           ]
       )

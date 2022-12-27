@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsElasticsearchDomainLogPublishingOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsElasticsearchDomainLogPublishingOptions where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.AwsElasticsearchDomainLogPublishingOptionsLogConfig
 
@@ -28,11 +29,11 @@ import Amazonka.SecurityHub.Types.AwsElasticsearchDomainLogPublishingOptionsLogC
 --
 -- /See:/ 'newAwsElasticsearchDomainLogPublishingOptions' smart constructor.
 data AwsElasticsearchDomainLogPublishingOptions = AwsElasticsearchDomainLogPublishingOptions'
-  { -- | Configures the OpenSearch index logs publishing.
+  { auditLogs :: Prelude.Maybe AwsElasticsearchDomainLogPublishingOptionsLogConfig,
+    -- | Configures the OpenSearch index logs publishing.
     indexSlowLogs :: Prelude.Maybe AwsElasticsearchDomainLogPublishingOptionsLogConfig,
     -- | Configures the OpenSearch search slow log publishing.
-    searchSlowLogs :: Prelude.Maybe AwsElasticsearchDomainLogPublishingOptionsLogConfig,
-    auditLogs :: Prelude.Maybe AwsElasticsearchDomainLogPublishingOptionsLogConfig
+    searchSlowLogs :: Prelude.Maybe AwsElasticsearchDomainLogPublishingOptionsLogConfig
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,21 +45,25 @@ data AwsElasticsearchDomainLogPublishingOptions = AwsElasticsearchDomainLogPubli
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'auditLogs', 'awsElasticsearchDomainLogPublishingOptions_auditLogs' - Undocumented member.
+--
 -- 'indexSlowLogs', 'awsElasticsearchDomainLogPublishingOptions_indexSlowLogs' - Configures the OpenSearch index logs publishing.
 --
 -- 'searchSlowLogs', 'awsElasticsearchDomainLogPublishingOptions_searchSlowLogs' - Configures the OpenSearch search slow log publishing.
---
--- 'auditLogs', 'awsElasticsearchDomainLogPublishingOptions_auditLogs' - Undocumented member.
 newAwsElasticsearchDomainLogPublishingOptions ::
   AwsElasticsearchDomainLogPublishingOptions
 newAwsElasticsearchDomainLogPublishingOptions =
   AwsElasticsearchDomainLogPublishingOptions'
-    { indexSlowLogs =
+    { auditLogs =
         Prelude.Nothing,
+      indexSlowLogs = Prelude.Nothing,
       searchSlowLogs =
-        Prelude.Nothing,
-      auditLogs = Prelude.Nothing
+        Prelude.Nothing
     }
+
+-- | Undocumented member.
+awsElasticsearchDomainLogPublishingOptions_auditLogs :: Lens.Lens' AwsElasticsearchDomainLogPublishingOptions (Prelude.Maybe AwsElasticsearchDomainLogPublishingOptionsLogConfig)
+awsElasticsearchDomainLogPublishingOptions_auditLogs = Lens.lens (\AwsElasticsearchDomainLogPublishingOptions' {auditLogs} -> auditLogs) (\s@AwsElasticsearchDomainLogPublishingOptions' {} a -> s {auditLogs = a} :: AwsElasticsearchDomainLogPublishingOptions)
 
 -- | Configures the OpenSearch index logs publishing.
 awsElasticsearchDomainLogPublishingOptions_indexSlowLogs :: Lens.Lens' AwsElasticsearchDomainLogPublishingOptions (Prelude.Maybe AwsElasticsearchDomainLogPublishingOptionsLogConfig)
@@ -68,22 +73,18 @@ awsElasticsearchDomainLogPublishingOptions_indexSlowLogs = Lens.lens (\AwsElasti
 awsElasticsearchDomainLogPublishingOptions_searchSlowLogs :: Lens.Lens' AwsElasticsearchDomainLogPublishingOptions (Prelude.Maybe AwsElasticsearchDomainLogPublishingOptionsLogConfig)
 awsElasticsearchDomainLogPublishingOptions_searchSlowLogs = Lens.lens (\AwsElasticsearchDomainLogPublishingOptions' {searchSlowLogs} -> searchSlowLogs) (\s@AwsElasticsearchDomainLogPublishingOptions' {} a -> s {searchSlowLogs = a} :: AwsElasticsearchDomainLogPublishingOptions)
 
--- | Undocumented member.
-awsElasticsearchDomainLogPublishingOptions_auditLogs :: Lens.Lens' AwsElasticsearchDomainLogPublishingOptions (Prelude.Maybe AwsElasticsearchDomainLogPublishingOptionsLogConfig)
-awsElasticsearchDomainLogPublishingOptions_auditLogs = Lens.lens (\AwsElasticsearchDomainLogPublishingOptions' {auditLogs} -> auditLogs) (\s@AwsElasticsearchDomainLogPublishingOptions' {} a -> s {auditLogs = a} :: AwsElasticsearchDomainLogPublishingOptions)
-
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsElasticsearchDomainLogPublishingOptions
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsElasticsearchDomainLogPublishingOptions"
       ( \x ->
           AwsElasticsearchDomainLogPublishingOptions'
-            Prelude.<$> (x Core..:? "IndexSlowLogs")
-              Prelude.<*> (x Core..:? "SearchSlowLogs")
-              Prelude.<*> (x Core..:? "AuditLogs")
+            Prelude.<$> (x Data..:? "AuditLogs")
+              Prelude.<*> (x Data..:? "IndexSlowLogs")
+              Prelude.<*> (x Data..:? "SearchSlowLogs")
       )
 
 instance
@@ -93,30 +94,30 @@ instance
   hashWithSalt
     _salt
     AwsElasticsearchDomainLogPublishingOptions' {..} =
-      _salt `Prelude.hashWithSalt` indexSlowLogs
+      _salt `Prelude.hashWithSalt` auditLogs
+        `Prelude.hashWithSalt` indexSlowLogs
         `Prelude.hashWithSalt` searchSlowLogs
-        `Prelude.hashWithSalt` auditLogs
 
 instance
   Prelude.NFData
     AwsElasticsearchDomainLogPublishingOptions
   where
   rnf AwsElasticsearchDomainLogPublishingOptions' {..} =
-    Prelude.rnf indexSlowLogs
+    Prelude.rnf auditLogs
+      `Prelude.seq` Prelude.rnf indexSlowLogs
       `Prelude.seq` Prelude.rnf searchSlowLogs
-      `Prelude.seq` Prelude.rnf auditLogs
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsElasticsearchDomainLogPublishingOptions
   where
   toJSON
     AwsElasticsearchDomainLogPublishingOptions' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("IndexSlowLogs" Core..=) Prelude.<$> indexSlowLogs,
-              ("SearchSlowLogs" Core..=)
-                Prelude.<$> searchSlowLogs,
-              ("AuditLogs" Core..=) Prelude.<$> auditLogs
+            [ ("AuditLogs" Data..=) Prelude.<$> auditLogs,
+              ("IndexSlowLogs" Data..=) Prelude.<$> indexSlowLogs,
+              ("SearchSlowLogs" Data..=)
+                Prelude.<$> searchSlowLogs
             ]
         )

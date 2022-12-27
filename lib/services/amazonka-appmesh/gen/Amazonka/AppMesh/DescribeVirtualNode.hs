@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.DescribeVirtualNode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.AppMesh.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,9 +53,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeVirtualNode' smart constructor.
 data DescribeVirtualNode = DescribeVirtualNode'
-  { -- | The AWS IAM account ID of the service mesh owner. If the account ID is
-    -- not your own, then it\'s the ID of the account that shared the mesh with
-    -- your account. For more information about mesh sharing, see
+  { -- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+    -- account ID is not your own, then it\'s the ID of the account that shared
+    -- the mesh with your account. For more information about mesh sharing, see
     -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
     meshOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the service mesh that the virtual node resides in.
@@ -72,9 +73,9 @@ data DescribeVirtualNode = DescribeVirtualNode'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'meshOwner', 'describeVirtualNode_meshOwner' - The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
+-- 'meshOwner', 'describeVirtualNode_meshOwner' - The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 --
 -- 'meshName', 'describeVirtualNode_meshName' - The name of the service mesh that the virtual node resides in.
@@ -93,9 +94,9 @@ newDescribeVirtualNode pMeshName_ pVirtualNodeName_ =
       virtualNodeName = pVirtualNodeName_
     }
 
--- | The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
+-- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 describeVirtualNode_meshOwner :: Lens.Lens' DescribeVirtualNode (Prelude.Maybe Prelude.Text)
 describeVirtualNode_meshOwner = Lens.lens (\DescribeVirtualNode' {meshOwner} -> meshOwner) (\s@DescribeVirtualNode' {} a -> s {meshOwner = a} :: DescribeVirtualNode)
@@ -112,13 +113,14 @@ instance Core.AWSRequest DescribeVirtualNode where
   type
     AWSResponse DescribeVirtualNode =
       DescribeVirtualNodeResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeVirtualNodeResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable DescribeVirtualNode where
@@ -133,29 +135,29 @@ instance Prelude.NFData DescribeVirtualNode where
       `Prelude.seq` Prelude.rnf meshName
       `Prelude.seq` Prelude.rnf virtualNodeName
 
-instance Core.ToHeaders DescribeVirtualNode where
+instance Data.ToHeaders DescribeVirtualNode where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeVirtualNode where
+instance Data.ToPath DescribeVirtualNode where
   toPath DescribeVirtualNode' {..} =
     Prelude.mconcat
       [ "/v20190125/meshes/",
-        Core.toBS meshName,
+        Data.toBS meshName,
         "/virtualNodes/",
-        Core.toBS virtualNodeName
+        Data.toBS virtualNodeName
       ]
 
-instance Core.ToQuery DescribeVirtualNode where
+instance Data.ToQuery DescribeVirtualNode where
   toQuery DescribeVirtualNode' {..} =
-    Prelude.mconcat ["meshOwner" Core.=: meshOwner]
+    Prelude.mconcat ["meshOwner" Data.=: meshOwner]
 
 -- |
 --

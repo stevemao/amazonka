@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Transfer.Types.ListedServer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Transfer.Types.ListedServer where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Transfer.Types.Domain
 import Amazonka.Transfer.Types.EndpointType
@@ -32,46 +33,51 @@ import Amazonka.Transfer.Types.State
 --
 -- /See:/ 'newListedServer' smart constructor.
 data ListedServer = ListedServer'
-  { -- | Specifies the Amazon Resource Name (ARN) of the Amazon Web Services
-    -- Identity and Access Management (IAM) role that allows a server to turn
-    -- on Amazon CloudWatch logging for Amazon S3 or Amazon EFS events. When
-    -- set, user activity can be viewed in your CloudWatch logs.
-    loggingRole :: Prelude.Maybe Prelude.Text,
-    -- | Specifies the condition of a server for the server that was described. A
-    -- value of @ONLINE@ indicates that the server can accept jobs and transfer
-    -- files. A @State@ value of @OFFLINE@ means that the server cannot perform
-    -- file transfer operations.
-    --
-    -- The states of @STARTING@ and @STOPPING@ indicate that the server is in
-    -- an intermediate state, either not fully able to respond, or not fully
-    -- offline. The values of @START_FAILED@ or @STOP_FAILED@ can indicate an
-    -- error condition.
-    state :: Prelude.Maybe State,
-    -- | Specifies the mode of authentication for a server. The default value is
-    -- @SERVICE_MANAGED@, which allows you to store and access user credentials
-    -- within the Amazon Web Services Transfer Family service.
-    --
-    -- Use @AWS_DIRECTORY_SERVICE@ to provide access to Active Directory groups
-    -- in Amazon Web Services Managed Active Directory or Microsoft Active
-    -- Directory in your on-premises environment or in Amazon Web Services
-    -- using AD Connectors. This option also requires you to provide a
-    -- Directory ID using the @IdentityProviderDetails@ parameter.
-    --
-    -- Use the @API_GATEWAY@ value to integrate with an identity provider of
-    -- your choosing. The @API_GATEWAY@ setting requires you to provide an API
-    -- Gateway endpoint URL to call for authentication using the
-    -- @IdentityProviderDetails@ parameter.
-    identityProviderType :: Prelude.Maybe IdentityProviderType,
-    -- | Specifies the unique system assigned identifier for the servers that
-    -- were listed.
-    serverId :: Prelude.Maybe Prelude.Text,
-    -- | Specifies the domain of the storage system that is used for file
+  { -- | Specifies the domain of the storage system that is used for file
     -- transfers.
     domain :: Prelude.Maybe Domain,
     -- | Specifies the type of VPC endpoint that your server is connected to. If
     -- your server is connected to a VPC endpoint, your server isn\'t
     -- accessible over the public internet.
     endpointType :: Prelude.Maybe EndpointType,
+    -- | The mode of authentication for a server. The default value is
+    -- @SERVICE_MANAGED@, which allows you to store and access user credentials
+    -- within the Transfer Family service.
+    --
+    -- Use @AWS_DIRECTORY_SERVICE@ to provide access to Active Directory groups
+    -- in Directory Service for Microsoft Active Directory or Microsoft Active
+    -- Directory in your on-premises environment or in Amazon Web Services
+    -- using AD Connector. This option also requires you to provide a Directory
+    -- ID by using the @IdentityProviderDetails@ parameter.
+    --
+    -- Use the @API_GATEWAY@ value to integrate with an identity provider of
+    -- your choosing. The @API_GATEWAY@ setting requires you to provide an
+    -- Amazon API Gateway endpoint URL to call for authentication by using the
+    -- @IdentityProviderDetails@ parameter.
+    --
+    -- Use the @AWS_LAMBDA@ value to directly use an Lambda function as your
+    -- identity provider. If you choose this value, you must specify the ARN
+    -- for the Lambda function in the @Function@ parameter or the
+    -- @IdentityProviderDetails@ data type.
+    identityProviderType :: Prelude.Maybe IdentityProviderType,
+    -- | The Amazon Resource Name (ARN) of the Identity and Access Management
+    -- (IAM) role that allows a server to turn on Amazon CloudWatch logging for
+    -- Amazon S3 or Amazon EFSevents. When set, you can view user activity in
+    -- your CloudWatch logs.
+    loggingRole :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the unique system assigned identifier for the servers that
+    -- were listed.
+    serverId :: Prelude.Maybe Prelude.Text,
+    -- | The condition of the server that was described. A value of @ONLINE@
+    -- indicates that the server can accept jobs and transfer files. A @State@
+    -- value of @OFFLINE@ means that the server cannot perform file transfer
+    -- operations.
+    --
+    -- The states of @STARTING@ and @STOPPING@ indicate that the server is in
+    -- an intermediate state, either not fully able to respond, or not fully
+    -- offline. The values of @START_FAILED@ or @STOP_FAILED@ can indicate an
+    -- error condition.
+    state :: Prelude.Maybe State,
     -- | Specifies the number of users that are assigned to a server you
     -- specified with the @ServerId@.
     userCount :: Prelude.Maybe Prelude.Int,
@@ -89,45 +95,50 @@ data ListedServer = ListedServer'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'loggingRole', 'listedServer_loggingRole' - Specifies the Amazon Resource Name (ARN) of the Amazon Web Services
--- Identity and Access Management (IAM) role that allows a server to turn
--- on Amazon CloudWatch logging for Amazon S3 or Amazon EFS events. When
--- set, user activity can be viewed in your CloudWatch logs.
---
--- 'state', 'listedServer_state' - Specifies the condition of a server for the server that was described. A
--- value of @ONLINE@ indicates that the server can accept jobs and transfer
--- files. A @State@ value of @OFFLINE@ means that the server cannot perform
--- file transfer operations.
---
--- The states of @STARTING@ and @STOPPING@ indicate that the server is in
--- an intermediate state, either not fully able to respond, or not fully
--- offline. The values of @START_FAILED@ or @STOP_FAILED@ can indicate an
--- error condition.
---
--- 'identityProviderType', 'listedServer_identityProviderType' - Specifies the mode of authentication for a server. The default value is
--- @SERVICE_MANAGED@, which allows you to store and access user credentials
--- within the Amazon Web Services Transfer Family service.
---
--- Use @AWS_DIRECTORY_SERVICE@ to provide access to Active Directory groups
--- in Amazon Web Services Managed Active Directory or Microsoft Active
--- Directory in your on-premises environment or in Amazon Web Services
--- using AD Connectors. This option also requires you to provide a
--- Directory ID using the @IdentityProviderDetails@ parameter.
---
--- Use the @API_GATEWAY@ value to integrate with an identity provider of
--- your choosing. The @API_GATEWAY@ setting requires you to provide an API
--- Gateway endpoint URL to call for authentication using the
--- @IdentityProviderDetails@ parameter.
---
--- 'serverId', 'listedServer_serverId' - Specifies the unique system assigned identifier for the servers that
--- were listed.
---
 -- 'domain', 'listedServer_domain' - Specifies the domain of the storage system that is used for file
 -- transfers.
 --
 -- 'endpointType', 'listedServer_endpointType' - Specifies the type of VPC endpoint that your server is connected to. If
 -- your server is connected to a VPC endpoint, your server isn\'t
 -- accessible over the public internet.
+--
+-- 'identityProviderType', 'listedServer_identityProviderType' - The mode of authentication for a server. The default value is
+-- @SERVICE_MANAGED@, which allows you to store and access user credentials
+-- within the Transfer Family service.
+--
+-- Use @AWS_DIRECTORY_SERVICE@ to provide access to Active Directory groups
+-- in Directory Service for Microsoft Active Directory or Microsoft Active
+-- Directory in your on-premises environment or in Amazon Web Services
+-- using AD Connector. This option also requires you to provide a Directory
+-- ID by using the @IdentityProviderDetails@ parameter.
+--
+-- Use the @API_GATEWAY@ value to integrate with an identity provider of
+-- your choosing. The @API_GATEWAY@ setting requires you to provide an
+-- Amazon API Gateway endpoint URL to call for authentication by using the
+-- @IdentityProviderDetails@ parameter.
+--
+-- Use the @AWS_LAMBDA@ value to directly use an Lambda function as your
+-- identity provider. If you choose this value, you must specify the ARN
+-- for the Lambda function in the @Function@ parameter or the
+-- @IdentityProviderDetails@ data type.
+--
+-- 'loggingRole', 'listedServer_loggingRole' - The Amazon Resource Name (ARN) of the Identity and Access Management
+-- (IAM) role that allows a server to turn on Amazon CloudWatch logging for
+-- Amazon S3 or Amazon EFSevents. When set, you can view user activity in
+-- your CloudWatch logs.
+--
+-- 'serverId', 'listedServer_serverId' - Specifies the unique system assigned identifier for the servers that
+-- were listed.
+--
+-- 'state', 'listedServer_state' - The condition of the server that was described. A value of @ONLINE@
+-- indicates that the server can accept jobs and transfer files. A @State@
+-- value of @OFFLINE@ means that the server cannot perform file transfer
+-- operations.
+--
+-- The states of @STARTING@ and @STOPPING@ indicate that the server is in
+-- an intermediate state, either not fully able to respond, or not fully
+-- offline. The values of @START_FAILED@ or @STOP_FAILED@ can indicate an
+-- error condition.
 --
 -- 'userCount', 'listedServer_userCount' - Specifies the number of users that are assigned to a server you
 -- specified with the @ServerId@.
@@ -140,56 +151,15 @@ newListedServer ::
   ListedServer
 newListedServer pArn_ =
   ListedServer'
-    { loggingRole = Prelude.Nothing,
-      state = Prelude.Nothing,
-      identityProviderType = Prelude.Nothing,
-      serverId = Prelude.Nothing,
-      domain = Prelude.Nothing,
+    { domain = Prelude.Nothing,
       endpointType = Prelude.Nothing,
+      identityProviderType = Prelude.Nothing,
+      loggingRole = Prelude.Nothing,
+      serverId = Prelude.Nothing,
+      state = Prelude.Nothing,
       userCount = Prelude.Nothing,
       arn = pArn_
     }
-
--- | Specifies the Amazon Resource Name (ARN) of the Amazon Web Services
--- Identity and Access Management (IAM) role that allows a server to turn
--- on Amazon CloudWatch logging for Amazon S3 or Amazon EFS events. When
--- set, user activity can be viewed in your CloudWatch logs.
-listedServer_loggingRole :: Lens.Lens' ListedServer (Prelude.Maybe Prelude.Text)
-listedServer_loggingRole = Lens.lens (\ListedServer' {loggingRole} -> loggingRole) (\s@ListedServer' {} a -> s {loggingRole = a} :: ListedServer)
-
--- | Specifies the condition of a server for the server that was described. A
--- value of @ONLINE@ indicates that the server can accept jobs and transfer
--- files. A @State@ value of @OFFLINE@ means that the server cannot perform
--- file transfer operations.
---
--- The states of @STARTING@ and @STOPPING@ indicate that the server is in
--- an intermediate state, either not fully able to respond, or not fully
--- offline. The values of @START_FAILED@ or @STOP_FAILED@ can indicate an
--- error condition.
-listedServer_state :: Lens.Lens' ListedServer (Prelude.Maybe State)
-listedServer_state = Lens.lens (\ListedServer' {state} -> state) (\s@ListedServer' {} a -> s {state = a} :: ListedServer)
-
--- | Specifies the mode of authentication for a server. The default value is
--- @SERVICE_MANAGED@, which allows you to store and access user credentials
--- within the Amazon Web Services Transfer Family service.
---
--- Use @AWS_DIRECTORY_SERVICE@ to provide access to Active Directory groups
--- in Amazon Web Services Managed Active Directory or Microsoft Active
--- Directory in your on-premises environment or in Amazon Web Services
--- using AD Connectors. This option also requires you to provide a
--- Directory ID using the @IdentityProviderDetails@ parameter.
---
--- Use the @API_GATEWAY@ value to integrate with an identity provider of
--- your choosing. The @API_GATEWAY@ setting requires you to provide an API
--- Gateway endpoint URL to call for authentication using the
--- @IdentityProviderDetails@ parameter.
-listedServer_identityProviderType :: Lens.Lens' ListedServer (Prelude.Maybe IdentityProviderType)
-listedServer_identityProviderType = Lens.lens (\ListedServer' {identityProviderType} -> identityProviderType) (\s@ListedServer' {} a -> s {identityProviderType = a} :: ListedServer)
-
--- | Specifies the unique system assigned identifier for the servers that
--- were listed.
-listedServer_serverId :: Lens.Lens' ListedServer (Prelude.Maybe Prelude.Text)
-listedServer_serverId = Lens.lens (\ListedServer' {serverId} -> serverId) (\s@ListedServer' {} a -> s {serverId = a} :: ListedServer)
 
 -- | Specifies the domain of the storage system that is used for file
 -- transfers.
@@ -202,6 +172,52 @@ listedServer_domain = Lens.lens (\ListedServer' {domain} -> domain) (\s@ListedSe
 listedServer_endpointType :: Lens.Lens' ListedServer (Prelude.Maybe EndpointType)
 listedServer_endpointType = Lens.lens (\ListedServer' {endpointType} -> endpointType) (\s@ListedServer' {} a -> s {endpointType = a} :: ListedServer)
 
+-- | The mode of authentication for a server. The default value is
+-- @SERVICE_MANAGED@, which allows you to store and access user credentials
+-- within the Transfer Family service.
+--
+-- Use @AWS_DIRECTORY_SERVICE@ to provide access to Active Directory groups
+-- in Directory Service for Microsoft Active Directory or Microsoft Active
+-- Directory in your on-premises environment or in Amazon Web Services
+-- using AD Connector. This option also requires you to provide a Directory
+-- ID by using the @IdentityProviderDetails@ parameter.
+--
+-- Use the @API_GATEWAY@ value to integrate with an identity provider of
+-- your choosing. The @API_GATEWAY@ setting requires you to provide an
+-- Amazon API Gateway endpoint URL to call for authentication by using the
+-- @IdentityProviderDetails@ parameter.
+--
+-- Use the @AWS_LAMBDA@ value to directly use an Lambda function as your
+-- identity provider. If you choose this value, you must specify the ARN
+-- for the Lambda function in the @Function@ parameter or the
+-- @IdentityProviderDetails@ data type.
+listedServer_identityProviderType :: Lens.Lens' ListedServer (Prelude.Maybe IdentityProviderType)
+listedServer_identityProviderType = Lens.lens (\ListedServer' {identityProviderType} -> identityProviderType) (\s@ListedServer' {} a -> s {identityProviderType = a} :: ListedServer)
+
+-- | The Amazon Resource Name (ARN) of the Identity and Access Management
+-- (IAM) role that allows a server to turn on Amazon CloudWatch logging for
+-- Amazon S3 or Amazon EFSevents. When set, you can view user activity in
+-- your CloudWatch logs.
+listedServer_loggingRole :: Lens.Lens' ListedServer (Prelude.Maybe Prelude.Text)
+listedServer_loggingRole = Lens.lens (\ListedServer' {loggingRole} -> loggingRole) (\s@ListedServer' {} a -> s {loggingRole = a} :: ListedServer)
+
+-- | Specifies the unique system assigned identifier for the servers that
+-- were listed.
+listedServer_serverId :: Lens.Lens' ListedServer (Prelude.Maybe Prelude.Text)
+listedServer_serverId = Lens.lens (\ListedServer' {serverId} -> serverId) (\s@ListedServer' {} a -> s {serverId = a} :: ListedServer)
+
+-- | The condition of the server that was described. A value of @ONLINE@
+-- indicates that the server can accept jobs and transfer files. A @State@
+-- value of @OFFLINE@ means that the server cannot perform file transfer
+-- operations.
+--
+-- The states of @STARTING@ and @STOPPING@ indicate that the server is in
+-- an intermediate state, either not fully able to respond, or not fully
+-- offline. The values of @START_FAILED@ or @STOP_FAILED@ can indicate an
+-- error condition.
+listedServer_state :: Lens.Lens' ListedServer (Prelude.Maybe State)
+listedServer_state = Lens.lens (\ListedServer' {state} -> state) (\s@ListedServer' {} a -> s {state = a} :: ListedServer)
+
 -- | Specifies the number of users that are assigned to a server you
 -- specified with the @ServerId@.
 listedServer_userCount :: Lens.Lens' ListedServer (Prelude.Maybe Prelude.Int)
@@ -212,40 +228,40 @@ listedServer_userCount = Lens.lens (\ListedServer' {userCount} -> userCount) (\s
 listedServer_arn :: Lens.Lens' ListedServer Prelude.Text
 listedServer_arn = Lens.lens (\ListedServer' {arn} -> arn) (\s@ListedServer' {} a -> s {arn = a} :: ListedServer)
 
-instance Core.FromJSON ListedServer where
+instance Data.FromJSON ListedServer where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ListedServer"
       ( \x ->
           ListedServer'
-            Prelude.<$> (x Core..:? "LoggingRole")
-            Prelude.<*> (x Core..:? "State")
-            Prelude.<*> (x Core..:? "IdentityProviderType")
-            Prelude.<*> (x Core..:? "ServerId")
-            Prelude.<*> (x Core..:? "Domain")
-            Prelude.<*> (x Core..:? "EndpointType")
-            Prelude.<*> (x Core..:? "UserCount")
-            Prelude.<*> (x Core..: "Arn")
+            Prelude.<$> (x Data..:? "Domain")
+            Prelude.<*> (x Data..:? "EndpointType")
+            Prelude.<*> (x Data..:? "IdentityProviderType")
+            Prelude.<*> (x Data..:? "LoggingRole")
+            Prelude.<*> (x Data..:? "ServerId")
+            Prelude.<*> (x Data..:? "State")
+            Prelude.<*> (x Data..:? "UserCount")
+            Prelude.<*> (x Data..: "Arn")
       )
 
 instance Prelude.Hashable ListedServer where
   hashWithSalt _salt ListedServer' {..} =
-    _salt `Prelude.hashWithSalt` loggingRole
-      `Prelude.hashWithSalt` state
-      `Prelude.hashWithSalt` identityProviderType
-      `Prelude.hashWithSalt` serverId
-      `Prelude.hashWithSalt` domain
+    _salt `Prelude.hashWithSalt` domain
       `Prelude.hashWithSalt` endpointType
+      `Prelude.hashWithSalt` identityProviderType
+      `Prelude.hashWithSalt` loggingRole
+      `Prelude.hashWithSalt` serverId
+      `Prelude.hashWithSalt` state
       `Prelude.hashWithSalt` userCount
       `Prelude.hashWithSalt` arn
 
 instance Prelude.NFData ListedServer where
   rnf ListedServer' {..} =
-    Prelude.rnf loggingRole
-      `Prelude.seq` Prelude.rnf state
-      `Prelude.seq` Prelude.rnf identityProviderType
-      `Prelude.seq` Prelude.rnf serverId
-      `Prelude.seq` Prelude.rnf domain
+    Prelude.rnf domain
       `Prelude.seq` Prelude.rnf endpointType
+      `Prelude.seq` Prelude.rnf identityProviderType
+      `Prelude.seq` Prelude.rnf loggingRole
+      `Prelude.seq` Prelude.rnf serverId
+      `Prelude.seq` Prelude.rnf state
       `Prelude.seq` Prelude.rnf userCount
       `Prelude.seq` Prelude.rnf arn

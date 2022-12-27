@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.ListAccessControlRules
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.WorkMail.ListAccessControlRules
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,12 +81,13 @@ instance Core.AWSRequest ListAccessControlRules where
   type
     AWSResponse ListAccessControlRules =
       ListAccessControlRulesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAccessControlRulesResponse'
-            Prelude.<$> (x Core..?> "Rules" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Rules" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,34 +99,34 @@ instance Prelude.NFData ListAccessControlRules where
   rnf ListAccessControlRules' {..} =
     Prelude.rnf organizationId
 
-instance Core.ToHeaders ListAccessControlRules where
+instance Data.ToHeaders ListAccessControlRules where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkMailService.ListAccessControlRules" ::
+              Data.=# ( "WorkMailService.ListAccessControlRules" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListAccessControlRules where
+instance Data.ToJSON ListAccessControlRules where
   toJSON ListAccessControlRules' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("OrganizationId" Core..= organizationId)
+              ("OrganizationId" Data..= organizationId)
           ]
       )
 
-instance Core.ToPath ListAccessControlRules where
+instance Data.ToPath ListAccessControlRules where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListAccessControlRules where
+instance Data.ToQuery ListAccessControlRules where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListAccessControlRulesResponse' smart constructor.

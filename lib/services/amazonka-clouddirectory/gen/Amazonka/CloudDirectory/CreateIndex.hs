@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.CreateIndex
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.CloudDirectory.CreateIndex
     newCreateIndex,
 
     -- * Request Lenses
-    createIndex_parentReference,
     createIndex_linkName,
+    createIndex_parentReference,
     createIndex_directoryArn,
     createIndex_orderedIndexedAttributeList,
     createIndex_isUnique,
@@ -47,17 +47,18 @@ where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateIndex' smart constructor.
 data CreateIndex = CreateIndex'
-  { -- | A reference to the parent object that contains the index object.
-    parentReference :: Prelude.Maybe ObjectReference,
-    -- | The name of the link between the parent object and the index object.
+  { -- | The name of the link between the parent object and the index object.
     linkName :: Prelude.Maybe Prelude.Text,
+    -- | A reference to the parent object that contains the index object.
+    parentReference :: Prelude.Maybe ObjectReference,
     -- | The ARN of the directory where the index should be created.
     directoryArn :: Prelude.Text,
     -- | Specifies the attributes that should be indexed on. Currently only a
@@ -77,9 +78,9 @@ data CreateIndex = CreateIndex'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'parentReference', 'createIndex_parentReference' - A reference to the parent object that contains the index object.
---
 -- 'linkName', 'createIndex_linkName' - The name of the link between the parent object and the index object.
+--
+-- 'parentReference', 'createIndex_parentReference' - A reference to the parent object that contains the index object.
 --
 -- 'directoryArn', 'createIndex_directoryArn' - The ARN of the directory where the index should be created.
 --
@@ -96,20 +97,20 @@ newCreateIndex ::
   CreateIndex
 newCreateIndex pDirectoryArn_ pIsUnique_ =
   CreateIndex'
-    { parentReference = Prelude.Nothing,
-      linkName = Prelude.Nothing,
+    { linkName = Prelude.Nothing,
+      parentReference = Prelude.Nothing,
       directoryArn = pDirectoryArn_,
       orderedIndexedAttributeList = Prelude.mempty,
       isUnique = pIsUnique_
     }
 
--- | A reference to the parent object that contains the index object.
-createIndex_parentReference :: Lens.Lens' CreateIndex (Prelude.Maybe ObjectReference)
-createIndex_parentReference = Lens.lens (\CreateIndex' {parentReference} -> parentReference) (\s@CreateIndex' {} a -> s {parentReference = a} :: CreateIndex)
-
 -- | The name of the link between the parent object and the index object.
 createIndex_linkName :: Lens.Lens' CreateIndex (Prelude.Maybe Prelude.Text)
 createIndex_linkName = Lens.lens (\CreateIndex' {linkName} -> linkName) (\s@CreateIndex' {} a -> s {linkName = a} :: CreateIndex)
+
+-- | A reference to the parent object that contains the index object.
+createIndex_parentReference :: Lens.Lens' CreateIndex (Prelude.Maybe ObjectReference)
+createIndex_parentReference = Lens.lens (\CreateIndex' {parentReference} -> parentReference) (\s@CreateIndex' {} a -> s {parentReference = a} :: CreateIndex)
 
 -- | The ARN of the directory where the index should be created.
 createIndex_directoryArn :: Lens.Lens' CreateIndex Prelude.Text
@@ -127,57 +128,58 @@ createIndex_isUnique = Lens.lens (\CreateIndex' {isUnique} -> isUnique) (\s@Crea
 
 instance Core.AWSRequest CreateIndex where
   type AWSResponse CreateIndex = CreateIndexResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateIndexResponse'
-            Prelude.<$> (x Core..?> "ObjectIdentifier")
+            Prelude.<$> (x Data..?> "ObjectIdentifier")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateIndex where
   hashWithSalt _salt CreateIndex' {..} =
-    _salt `Prelude.hashWithSalt` parentReference
-      `Prelude.hashWithSalt` linkName
+    _salt `Prelude.hashWithSalt` linkName
+      `Prelude.hashWithSalt` parentReference
       `Prelude.hashWithSalt` directoryArn
       `Prelude.hashWithSalt` orderedIndexedAttributeList
       `Prelude.hashWithSalt` isUnique
 
 instance Prelude.NFData CreateIndex where
   rnf CreateIndex' {..} =
-    Prelude.rnf parentReference
-      `Prelude.seq` Prelude.rnf linkName
+    Prelude.rnf linkName
+      `Prelude.seq` Prelude.rnf parentReference
       `Prelude.seq` Prelude.rnf directoryArn
       `Prelude.seq` Prelude.rnf orderedIndexedAttributeList
       `Prelude.seq` Prelude.rnf isUnique
 
-instance Core.ToHeaders CreateIndex where
+instance Data.ToHeaders CreateIndex where
   toHeaders CreateIndex' {..} =
     Prelude.mconcat
-      ["x-amz-data-partition" Core.=# directoryArn]
+      ["x-amz-data-partition" Data.=# directoryArn]
 
-instance Core.ToJSON CreateIndex where
+instance Data.ToJSON CreateIndex where
   toJSON CreateIndex' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ParentReference" Core..=)
+          [ ("LinkName" Data..=) Prelude.<$> linkName,
+            ("ParentReference" Data..=)
               Prelude.<$> parentReference,
-            ("LinkName" Core..=) Prelude.<$> linkName,
             Prelude.Just
               ( "OrderedIndexedAttributeList"
-                  Core..= orderedIndexedAttributeList
+                  Data..= orderedIndexedAttributeList
               ),
-            Prelude.Just ("IsUnique" Core..= isUnique)
+            Prelude.Just ("IsUnique" Data..= isUnique)
           ]
       )
 
-instance Core.ToPath CreateIndex where
+instance Data.ToPath CreateIndex where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/index"
 
-instance Core.ToQuery CreateIndex where
+instance Data.ToQuery CreateIndex where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateIndexResponse' smart constructor.

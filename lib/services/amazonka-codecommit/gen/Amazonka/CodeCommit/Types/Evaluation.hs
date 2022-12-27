@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.Types.Evaluation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeCommit.Types.Evaluation where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Returns information about the approval rules applied to a pull request
@@ -28,10 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newEvaluation' smart constructor.
 data Evaluation = Evaluation'
-  { -- | The names of the approval rules that have had their conditions met.
-    approvalRulesSatisfied :: Prelude.Maybe [Prelude.Text],
-    -- | The names of the approval rules that have not had their conditions met.
+  { -- | The names of the approval rules that have not had their conditions met.
     approvalRulesNotSatisfied :: Prelude.Maybe [Prelude.Text],
+    -- | The names of the approval rules that have had their conditions met.
+    approvalRulesSatisfied :: Prelude.Maybe [Prelude.Text],
     -- | Whether the state of the pull request is approved.
     approved :: Prelude.Maybe Prelude.Bool,
     -- | Whether the approval rule requirements for the pull request have been
@@ -48,9 +49,9 @@ data Evaluation = Evaluation'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'approvalRulesSatisfied', 'evaluation_approvalRulesSatisfied' - The names of the approval rules that have had their conditions met.
---
 -- 'approvalRulesNotSatisfied', 'evaluation_approvalRulesNotSatisfied' - The names of the approval rules that have not had their conditions met.
+--
+-- 'approvalRulesSatisfied', 'evaluation_approvalRulesSatisfied' - The names of the approval rules that have had their conditions met.
 --
 -- 'approved', 'evaluation_approved' - Whether the state of the pull request is approved.
 --
@@ -60,20 +61,20 @@ newEvaluation ::
   Evaluation
 newEvaluation =
   Evaluation'
-    { approvalRulesSatisfied =
+    { approvalRulesNotSatisfied =
         Prelude.Nothing,
-      approvalRulesNotSatisfied = Prelude.Nothing,
+      approvalRulesSatisfied = Prelude.Nothing,
       approved = Prelude.Nothing,
       overridden = Prelude.Nothing
     }
 
--- | The names of the approval rules that have had their conditions met.
-evaluation_approvalRulesSatisfied :: Lens.Lens' Evaluation (Prelude.Maybe [Prelude.Text])
-evaluation_approvalRulesSatisfied = Lens.lens (\Evaluation' {approvalRulesSatisfied} -> approvalRulesSatisfied) (\s@Evaluation' {} a -> s {approvalRulesSatisfied = a} :: Evaluation) Prelude.. Lens.mapping Lens.coerced
-
 -- | The names of the approval rules that have not had their conditions met.
 evaluation_approvalRulesNotSatisfied :: Lens.Lens' Evaluation (Prelude.Maybe [Prelude.Text])
 evaluation_approvalRulesNotSatisfied = Lens.lens (\Evaluation' {approvalRulesNotSatisfied} -> approvalRulesNotSatisfied) (\s@Evaluation' {} a -> s {approvalRulesNotSatisfied = a} :: Evaluation) Prelude.. Lens.mapping Lens.coerced
+
+-- | The names of the approval rules that have had their conditions met.
+evaluation_approvalRulesSatisfied :: Lens.Lens' Evaluation (Prelude.Maybe [Prelude.Text])
+evaluation_approvalRulesSatisfied = Lens.lens (\Evaluation' {approvalRulesSatisfied} -> approvalRulesSatisfied) (\s@Evaluation' {} a -> s {approvalRulesSatisfied = a} :: Evaluation) Prelude.. Lens.mapping Lens.coerced
 
 -- | Whether the state of the pull request is approved.
 evaluation_approved :: Lens.Lens' Evaluation (Prelude.Maybe Prelude.Bool)
@@ -84,32 +85,33 @@ evaluation_approved = Lens.lens (\Evaluation' {approved} -> approved) (\s@Evalua
 evaluation_overridden :: Lens.Lens' Evaluation (Prelude.Maybe Prelude.Bool)
 evaluation_overridden = Lens.lens (\Evaluation' {overridden} -> overridden) (\s@Evaluation' {} a -> s {overridden = a} :: Evaluation)
 
-instance Core.FromJSON Evaluation where
+instance Data.FromJSON Evaluation where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Evaluation"
       ( \x ->
           Evaluation'
-            Prelude.<$> ( x Core..:? "approvalRulesSatisfied"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "approvalRulesNotSatisfied"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> ( x Core..:? "approvalRulesNotSatisfied"
-                            Core..!= Prelude.mempty
+            Prelude.<*> ( x Data..:? "approvalRulesSatisfied"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "approved")
-            Prelude.<*> (x Core..:? "overridden")
+            Prelude.<*> (x Data..:? "approved")
+            Prelude.<*> (x Data..:? "overridden")
       )
 
 instance Prelude.Hashable Evaluation where
   hashWithSalt _salt Evaluation' {..} =
-    _salt `Prelude.hashWithSalt` approvalRulesSatisfied
+    _salt
       `Prelude.hashWithSalt` approvalRulesNotSatisfied
+      `Prelude.hashWithSalt` approvalRulesSatisfied
       `Prelude.hashWithSalt` approved
       `Prelude.hashWithSalt` overridden
 
 instance Prelude.NFData Evaluation where
   rnf Evaluation' {..} =
-    Prelude.rnf approvalRulesSatisfied
-      `Prelude.seq` Prelude.rnf approvalRulesNotSatisfied
+    Prelude.rnf approvalRulesNotSatisfied
+      `Prelude.seq` Prelude.rnf approvalRulesSatisfied
       `Prelude.seq` Prelude.rnf approved
       `Prelude.seq` Prelude.rnf overridden

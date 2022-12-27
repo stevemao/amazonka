@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Schemas.SearchSchemas
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Schemas.SearchSchemas
     newSearchSchemas,
 
     -- * Request Lenses
-    searchSchemas_nextToken,
     searchSchemas_limit,
+    searchSchemas_nextToken,
     searchSchemas_registryName,
     searchSchemas_keywords,
 
@@ -39,14 +39,15 @@ module Amazonka.Schemas.SearchSchemas
     newSearchSchemasResponse,
 
     -- * Response Lenses
-    searchSchemasResponse_schemas,
     searchSchemasResponse_nextToken,
+    searchSchemasResponse_schemas,
     searchSchemasResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,11 +55,11 @@ import Amazonka.Schemas.Types
 
 -- | /See:/ 'newSearchSchemas' smart constructor.
 data SearchSchemas = SearchSchemas'
-  { -- | The token that specifies the next page of results to return. To request
+  { limit :: Prelude.Maybe Prelude.Int,
+    -- | The token that specifies the next page of results to return. To request
     -- the first page, leave NextToken empty. The token will expire in 24
     -- hours, and cannot be shared with other accounts.
     nextToken :: Prelude.Maybe Prelude.Text,
-    limit :: Prelude.Maybe Prelude.Int,
     -- | The name of the registry.
     registryName :: Prelude.Text,
     -- | Specifying this limits the results to only schemas that include the
@@ -75,11 +76,11 @@ data SearchSchemas = SearchSchemas'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'limit', 'searchSchemas_limit' - Undocumented member.
+--
 -- 'nextToken', 'searchSchemas_nextToken' - The token that specifies the next page of results to return. To request
 -- the first page, leave NextToken empty. The token will expire in 24
 -- hours, and cannot be shared with other accounts.
---
--- 'limit', 'searchSchemas_limit' - Undocumented member.
 --
 -- 'registryName', 'searchSchemas_registryName' - The name of the registry.
 --
@@ -93,21 +94,21 @@ newSearchSchemas ::
   SearchSchemas
 newSearchSchemas pRegistryName_ pKeywords_ =
   SearchSchemas'
-    { nextToken = Prelude.Nothing,
-      limit = Prelude.Nothing,
+    { limit = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       registryName = pRegistryName_,
       keywords = pKeywords_
     }
+
+-- | Undocumented member.
+searchSchemas_limit :: Lens.Lens' SearchSchemas (Prelude.Maybe Prelude.Int)
+searchSchemas_limit = Lens.lens (\SearchSchemas' {limit} -> limit) (\s@SearchSchemas' {} a -> s {limit = a} :: SearchSchemas)
 
 -- | The token that specifies the next page of results to return. To request
 -- the first page, leave NextToken empty. The token will expire in 24
 -- hours, and cannot be shared with other accounts.
 searchSchemas_nextToken :: Lens.Lens' SearchSchemas (Prelude.Maybe Prelude.Text)
 searchSchemas_nextToken = Lens.lens (\SearchSchemas' {nextToken} -> nextToken) (\s@SearchSchemas' {} a -> s {nextToken = a} :: SearchSchemas)
-
--- | Undocumented member.
-searchSchemas_limit :: Lens.Lens' SearchSchemas (Prelude.Maybe Prelude.Int)
-searchSchemas_limit = Lens.lens (\SearchSchemas' {limit} -> limit) (\s@SearchSchemas' {} a -> s {limit = a} :: SearchSchemas)
 
 -- | The name of the registry.
 searchSchemas_registryName :: Lens.Lens' SearchSchemas Prelude.Text
@@ -141,65 +142,66 @@ instance Core.AWSRequest SearchSchemas where
   type
     AWSResponse SearchSchemas =
       SearchSchemasResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SearchSchemasResponse'
-            Prelude.<$> (x Core..?> "Schemas" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Schemas" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable SearchSchemas where
   hashWithSalt _salt SearchSchemas' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` limit
+    _salt `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` registryName
       `Prelude.hashWithSalt` keywords
 
 instance Prelude.NFData SearchSchemas where
   rnf SearchSchemas' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf limit
+    Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf registryName
       `Prelude.seq` Prelude.rnf keywords
 
-instance Core.ToHeaders SearchSchemas where
+instance Data.ToHeaders SearchSchemas where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath SearchSchemas where
+instance Data.ToPath SearchSchemas where
   toPath SearchSchemas' {..} =
     Prelude.mconcat
       [ "/v1/registries/name/",
-        Core.toBS registryName,
+        Data.toBS registryName,
         "/schemas/search"
       ]
 
-instance Core.ToQuery SearchSchemas where
+instance Data.ToQuery SearchSchemas where
   toQuery SearchSchemas' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "limit" Core.=: limit,
-        "keywords" Core.=: keywords
+      [ "limit" Data.=: limit,
+        "nextToken" Data.=: nextToken,
+        "keywords" Data.=: keywords
       ]
 
 -- | /See:/ 'newSearchSchemasResponse' smart constructor.
 data SearchSchemasResponse = SearchSchemasResponse'
-  { -- | An array of SearchSchemaSummary information.
-    schemas :: Prelude.Maybe [SearchSchemaSummary],
-    -- | The token that specifies the next page of results to return. To request
+  { -- | The token that specifies the next page of results to return. To request
     -- the first page, leave NextToken empty. The token will expire in 24
     -- hours, and cannot be shared with other accounts.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of SearchSchemaSummary information.
+    schemas :: Prelude.Maybe [SearchSchemaSummary],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -213,11 +215,11 @@ data SearchSchemasResponse = SearchSchemasResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'schemas', 'searchSchemasResponse_schemas' - An array of SearchSchemaSummary information.
---
 -- 'nextToken', 'searchSchemasResponse_nextToken' - The token that specifies the next page of results to return. To request
 -- the first page, leave NextToken empty. The token will expire in 24
 -- hours, and cannot be shared with other accounts.
+--
+-- 'schemas', 'searchSchemasResponse_schemas' - An array of SearchSchemaSummary information.
 --
 -- 'httpStatus', 'searchSchemasResponse_httpStatus' - The response's http status code.
 newSearchSchemasResponse ::
@@ -226,14 +228,10 @@ newSearchSchemasResponse ::
   SearchSchemasResponse
 newSearchSchemasResponse pHttpStatus_ =
   SearchSchemasResponse'
-    { schemas = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { nextToken = Prelude.Nothing,
+      schemas = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | An array of SearchSchemaSummary information.
-searchSchemasResponse_schemas :: Lens.Lens' SearchSchemasResponse (Prelude.Maybe [SearchSchemaSummary])
-searchSchemasResponse_schemas = Lens.lens (\SearchSchemasResponse' {schemas} -> schemas) (\s@SearchSchemasResponse' {} a -> s {schemas = a} :: SearchSchemasResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token that specifies the next page of results to return. To request
 -- the first page, leave NextToken empty. The token will expire in 24
@@ -241,12 +239,16 @@ searchSchemasResponse_schemas = Lens.lens (\SearchSchemasResponse' {schemas} -> 
 searchSchemasResponse_nextToken :: Lens.Lens' SearchSchemasResponse (Prelude.Maybe Prelude.Text)
 searchSchemasResponse_nextToken = Lens.lens (\SearchSchemasResponse' {nextToken} -> nextToken) (\s@SearchSchemasResponse' {} a -> s {nextToken = a} :: SearchSchemasResponse)
 
+-- | An array of SearchSchemaSummary information.
+searchSchemasResponse_schemas :: Lens.Lens' SearchSchemasResponse (Prelude.Maybe [SearchSchemaSummary])
+searchSchemasResponse_schemas = Lens.lens (\SearchSchemasResponse' {schemas} -> schemas) (\s@SearchSchemasResponse' {} a -> s {schemas = a} :: SearchSchemasResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The response's http status code.
 searchSchemasResponse_httpStatus :: Lens.Lens' SearchSchemasResponse Prelude.Int
 searchSchemasResponse_httpStatus = Lens.lens (\SearchSchemasResponse' {httpStatus} -> httpStatus) (\s@SearchSchemasResponse' {} a -> s {httpStatus = a} :: SearchSchemasResponse)
 
 instance Prelude.NFData SearchSchemasResponse where
   rnf SearchSchemasResponse' {..} =
-    Prelude.rnf schemas
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf schemas
       `Prelude.seq` Prelude.rnf httpStatus

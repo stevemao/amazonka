@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.ListResourceDelegates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.WorkMail.ListResourceDelegates
     newListResourceDelegates,
 
     -- * Request Lenses
-    listResourceDelegates_nextToken,
     listResourceDelegates_maxResults,
+    listResourceDelegates_nextToken,
     listResourceDelegates_organizationId,
     listResourceDelegates_resourceId,
 
@@ -47,7 +47,8 @@ module Amazonka.WorkMail.ListResourceDelegates
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,11 +56,11 @@ import Amazonka.WorkMail.Types
 
 -- | /See:/ 'newListResourceDelegates' smart constructor.
 data ListResourceDelegates = ListResourceDelegates'
-  { -- | The token used to paginate through the delegates associated with a
+  { -- | The number of maximum results in a page.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token used to paginate through the delegates associated with a
     -- resource.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The number of maximum results in a page.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The identifier for the organization that contains the resource for which
     -- delegates are listed.
     organizationId :: Prelude.Text,
@@ -76,10 +77,10 @@ data ListResourceDelegates = ListResourceDelegates'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listResourceDelegates_maxResults' - The number of maximum results in a page.
+--
 -- 'nextToken', 'listResourceDelegates_nextToken' - The token used to paginate through the delegates associated with a
 -- resource.
---
--- 'maxResults', 'listResourceDelegates_maxResults' - The number of maximum results in a page.
 --
 -- 'organizationId', 'listResourceDelegates_organizationId' - The identifier for the organization that contains the resource for which
 -- delegates are listed.
@@ -95,20 +96,21 @@ newListResourceDelegates
   pOrganizationId_
   pResourceId_ =
     ListResourceDelegates'
-      { nextToken = Prelude.Nothing,
-        maxResults = Prelude.Nothing,
+      { maxResults =
+          Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         organizationId = pOrganizationId_,
         resourceId = pResourceId_
       }
+
+-- | The number of maximum results in a page.
+listResourceDelegates_maxResults :: Lens.Lens' ListResourceDelegates (Prelude.Maybe Prelude.Natural)
+listResourceDelegates_maxResults = Lens.lens (\ListResourceDelegates' {maxResults} -> maxResults) (\s@ListResourceDelegates' {} a -> s {maxResults = a} :: ListResourceDelegates)
 
 -- | The token used to paginate through the delegates associated with a
 -- resource.
 listResourceDelegates_nextToken :: Lens.Lens' ListResourceDelegates (Prelude.Maybe Prelude.Text)
 listResourceDelegates_nextToken = Lens.lens (\ListResourceDelegates' {nextToken} -> nextToken) (\s@ListResourceDelegates' {} a -> s {nextToken = a} :: ListResourceDelegates)
-
--- | The number of maximum results in a page.
-listResourceDelegates_maxResults :: Lens.Lens' ListResourceDelegates (Prelude.Maybe Prelude.Natural)
-listResourceDelegates_maxResults = Lens.lens (\ListResourceDelegates' {maxResults} -> maxResults) (\s@ListResourceDelegates' {} a -> s {maxResults = a} :: ListResourceDelegates)
 
 -- | The identifier for the organization that contains the resource for which
 -- delegates are listed.
@@ -145,61 +147,62 @@ instance Core.AWSRequest ListResourceDelegates where
   type
     AWSResponse ListResourceDelegates =
       ListResourceDelegatesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListResourceDelegatesResponse'
-            Prelude.<$> (x Core..?> "Delegates" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Delegates" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListResourceDelegates where
   hashWithSalt _salt ListResourceDelegates' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` organizationId
       `Prelude.hashWithSalt` resourceId
 
 instance Prelude.NFData ListResourceDelegates where
   rnf ListResourceDelegates' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf organizationId
       `Prelude.seq` Prelude.rnf resourceId
 
-instance Core.ToHeaders ListResourceDelegates where
+instance Data.ToHeaders ListResourceDelegates where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkMailService.ListResourceDelegates" ::
+              Data.=# ( "WorkMailService.ListResourceDelegates" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListResourceDelegates where
+instance Data.ToJSON ListResourceDelegates where
   toJSON ListResourceDelegates' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("OrganizationId" Core..= organizationId),
-            Prelude.Just ("ResourceId" Core..= resourceId)
+              ("OrganizationId" Data..= organizationId),
+            Prelude.Just ("ResourceId" Data..= resourceId)
           ]
       )
 
-instance Core.ToPath ListResourceDelegates where
+instance Data.ToPath ListResourceDelegates where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListResourceDelegates where
+instance Data.ToQuery ListResourceDelegates where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListResourceDelegatesResponse' smart constructor.

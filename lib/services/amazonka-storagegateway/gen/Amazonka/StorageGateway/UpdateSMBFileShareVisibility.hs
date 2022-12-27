@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.UpdateSMBFileShareVisibility
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.StorageGateway.UpdateSMBFileShareVisibility
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,12 +96,13 @@ instance Core.AWSRequest UpdateSMBFileShareVisibility where
   type
     AWSResponse UpdateSMBFileShareVisibility =
       UpdateSMBFileShareVisibilityResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateSMBFileShareVisibilityResponse'
-            Prelude.<$> (x Core..?> "GatewayARN")
+            Prelude.<$> (x Data..?> "GatewayARN")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,35 +119,35 @@ instance Prelude.NFData UpdateSMBFileShareVisibility where
     Prelude.rnf gatewayARN
       `Prelude.seq` Prelude.rnf fileSharesVisible
 
-instance Core.ToHeaders UpdateSMBFileShareVisibility where
+instance Data.ToHeaders UpdateSMBFileShareVisibility where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.UpdateSMBFileShareVisibility" ::
+              Data.=# ( "StorageGateway_20130630.UpdateSMBFileShareVisibility" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateSMBFileShareVisibility where
+instance Data.ToJSON UpdateSMBFileShareVisibility where
   toJSON UpdateSMBFileShareVisibility' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("GatewayARN" Core..= gatewayARN),
+          [ Prelude.Just ("GatewayARN" Data..= gatewayARN),
             Prelude.Just
-              ("FileSharesVisible" Core..= fileSharesVisible)
+              ("FileSharesVisible" Data..= fileSharesVisible)
           ]
       )
 
-instance Core.ToPath UpdateSMBFileShareVisibility where
+instance Data.ToPath UpdateSMBFileShareVisibility where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateSMBFileShareVisibility where
+instance Data.ToQuery UpdateSMBFileShareVisibility where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateSMBFileShareVisibilityResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.UntagResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,7 +92,8 @@ instance Core.AWSRequest UntagResource where
   type
     AWSResponse UntagResource =
       UntagResourceResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -109,24 +111,24 @@ instance Prelude.NFData UntagResource where
     Prelude.rnf resourceArn
       `Prelude.seq` Prelude.rnf tagKeys
 
-instance Core.ToHeaders UntagResource where
+instance Data.ToHeaders UntagResource where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UntagResource where
+instance Data.ToJSON UntagResource where
   toJSON UntagResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ResourceArn" Core..= resourceArn),
-            Prelude.Just ("TagKeys" Core..= tagKeys)
+          [ Prelude.Just ("ResourceArn" Data..= resourceArn),
+            Prelude.Just ("TagKeys" Data..= tagKeys)
           ]
       )
 
-instance Core.ToPath UntagResource where
+instance Data.ToPath UntagResource where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/tags/remove"
 
-instance Core.ToQuery UntagResource where
+instance Data.ToQuery UntagResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUntagResourceResponse' smart constructor.

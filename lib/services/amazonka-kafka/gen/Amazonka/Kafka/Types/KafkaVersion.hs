@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.Types.KafkaVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Kafka.Types.KafkaVersion where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kafka.Types.KafkaVersionStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | /See:/ 'newKafkaVersion' smart constructor.
@@ -58,14 +59,14 @@ kafkaVersion_status = Lens.lens (\KafkaVersion' {status} -> status) (\s@KafkaVer
 kafkaVersion_version :: Lens.Lens' KafkaVersion (Prelude.Maybe Prelude.Text)
 kafkaVersion_version = Lens.lens (\KafkaVersion' {version} -> version) (\s@KafkaVersion' {} a -> s {version = a} :: KafkaVersion)
 
-instance Core.FromJSON KafkaVersion where
+instance Data.FromJSON KafkaVersion where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "KafkaVersion"
       ( \x ->
           KafkaVersion'
-            Prelude.<$> (x Core..:? "status")
-            Prelude.<*> (x Core..:? "version")
+            Prelude.<$> (x Data..:? "status")
+            Prelude.<*> (x Data..:? "version")
       )
 
 instance Prelude.Hashable KafkaVersion where

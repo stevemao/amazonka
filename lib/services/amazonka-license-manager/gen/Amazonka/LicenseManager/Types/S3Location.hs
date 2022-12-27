@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.Types.S3Location
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LicenseManager.Types.S3Location where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details of the S3 bucket that report generator reports are published to.
@@ -61,14 +62,14 @@ s3Location_bucket = Lens.lens (\S3Location' {bucket} -> bucket) (\s@S3Location' 
 s3Location_keyPrefix :: Lens.Lens' S3Location (Prelude.Maybe Prelude.Text)
 s3Location_keyPrefix = Lens.lens (\S3Location' {keyPrefix} -> keyPrefix) (\s@S3Location' {} a -> s {keyPrefix = a} :: S3Location)
 
-instance Core.FromJSON S3Location where
+instance Data.FromJSON S3Location where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "S3Location"
       ( \x ->
           S3Location'
-            Prelude.<$> (x Core..:? "bucket")
-            Prelude.<*> (x Core..:? "keyPrefix")
+            Prelude.<$> (x Data..:? "bucket")
+            Prelude.<*> (x Data..:? "keyPrefix")
       )
 
 instance Prelude.Hashable S3Location where

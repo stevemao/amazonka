@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.DeleteAppImageConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,7 +36,8 @@ module Amazonka.SageMaker.DeleteAppImageConfig
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteAppImageConfig where
   type
     AWSResponse DeleteAppImageConfig =
       DeleteAppImageConfigResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteAppImageConfigResponse'
 
@@ -88,34 +90,34 @@ instance Prelude.NFData DeleteAppImageConfig where
   rnf DeleteAppImageConfig' {..} =
     Prelude.rnf appImageConfigName
 
-instance Core.ToHeaders DeleteAppImageConfig where
+instance Data.ToHeaders DeleteAppImageConfig where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.DeleteAppImageConfig" ::
+              Data.=# ( "SageMaker.DeleteAppImageConfig" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteAppImageConfig where
+instance Data.ToJSON DeleteAppImageConfig where
   toJSON DeleteAppImageConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("AppImageConfigName" Core..= appImageConfigName)
+              ("AppImageConfigName" Data..= appImageConfigName)
           ]
       )
 
-instance Core.ToPath DeleteAppImageConfig where
+instance Data.ToPath DeleteAppImageConfig where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteAppImageConfig where
+instance Data.ToQuery DeleteAppImageConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAppImageConfigResponse' smart constructor.

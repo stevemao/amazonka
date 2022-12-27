@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.CreateAlias
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,6 @@
 --
 -- __Related actions__
 --
--- CreateAlias | ListAliases | DescribeAlias | UpdateAlias | DeleteAlias |
--- ResolveAlias |
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.CreateAlias
   ( -- * Creating a Request
@@ -65,27 +63,23 @@ module Amazonka.GameLift.CreateAlias
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newCreateAlias' smart constructor.
+-- | /See:/ 'newCreateAlias' smart constructor.
 data CreateAlias = CreateAlias'
   { -- | A human-readable description of the alias.
     description :: Prelude.Maybe Prelude.Text,
     -- | A list of labels to assign to the new alias resource. Tags are
-    -- developer-defined key-value pairs. Tagging AWS resources are useful for
-    -- resource management, access management and cost allocation. For more
-    -- information, see
-    -- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS Resources>
-    -- in the /AWS General Reference/. Once the resource is created, you can
-    -- use TagResource, UntagResource, and ListTagsForResource to add, remove,
-    -- and view tags. The maximum tag limit may be lower than stated. See the
-    -- AWS General Reference for actual tagging limits.
+    -- developer-defined key-value pairs. Tagging Amazon Web Services resources
+    -- are useful for resource management, access management and cost
+    -- allocation. For more information, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+    -- in the /Amazon Web Services General Reference/.
     tags :: Prelude.Maybe [Tag],
     -- | A descriptive label that is associated with an alias. Alias names do not
     -- need to be unique.
@@ -107,14 +101,11 @@ data CreateAlias = CreateAlias'
 -- 'description', 'createAlias_description' - A human-readable description of the alias.
 --
 -- 'tags', 'createAlias_tags' - A list of labels to assign to the new alias resource. Tags are
--- developer-defined key-value pairs. Tagging AWS resources are useful for
--- resource management, access management and cost allocation. For more
--- information, see
--- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS Resources>
--- in the /AWS General Reference/. Once the resource is created, you can
--- use TagResource, UntagResource, and ListTagsForResource to add, remove,
--- and view tags. The maximum tag limit may be lower than stated. See the
--- AWS General Reference for actual tagging limits.
+-- developer-defined key-value pairs. Tagging Amazon Web Services resources
+-- are useful for resource management, access management and cost
+-- allocation. For more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+-- in the /Amazon Web Services General Reference/.
 --
 -- 'name', 'createAlias_name' - A descriptive label that is associated with an alias. Alias names do not
 -- need to be unique.
@@ -140,14 +131,11 @@ createAlias_description :: Lens.Lens' CreateAlias (Prelude.Maybe Prelude.Text)
 createAlias_description = Lens.lens (\CreateAlias' {description} -> description) (\s@CreateAlias' {} a -> s {description = a} :: CreateAlias)
 
 -- | A list of labels to assign to the new alias resource. Tags are
--- developer-defined key-value pairs. Tagging AWS resources are useful for
--- resource management, access management and cost allocation. For more
--- information, see
--- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS Resources>
--- in the /AWS General Reference/. Once the resource is created, you can
--- use TagResource, UntagResource, and ListTagsForResource to add, remove,
--- and view tags. The maximum tag limit may be lower than stated. See the
--- AWS General Reference for actual tagging limits.
+-- developer-defined key-value pairs. Tagging Amazon Web Services resources
+-- are useful for resource management, access management and cost
+-- allocation. For more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+-- in the /Amazon Web Services General Reference/.
 createAlias_tags :: Lens.Lens' CreateAlias (Prelude.Maybe [Tag])
 createAlias_tags = Lens.lens (\CreateAlias' {tags} -> tags) (\s@CreateAlias' {} a -> s {tags = a} :: CreateAlias) Prelude.. Lens.mapping Lens.coerced
 
@@ -163,12 +151,13 @@ createAlias_routingStrategy = Lens.lens (\CreateAlias' {routingStrategy} -> rout
 
 instance Core.AWSRequest CreateAlias where
   type AWSResponse CreateAlias = CreateAliasResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateAliasResponse'
-            Prelude.<$> (x Core..?> "Alias")
+            Prelude.<$> (x Data..?> "Alias")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -186,40 +175,38 @@ instance Prelude.NFData CreateAlias where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf routingStrategy
 
-instance Core.ToHeaders CreateAlias where
+instance Data.ToHeaders CreateAlias where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("GameLift.CreateAlias" :: Prelude.ByteString),
+              Data.=# ("GameLift.CreateAlias" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateAlias where
+instance Data.ToJSON CreateAlias where
   toJSON CreateAlias' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name),
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name),
             Prelude.Just
-              ("RoutingStrategy" Core..= routingStrategy)
+              ("RoutingStrategy" Data..= routingStrategy)
           ]
       )
 
-instance Core.ToPath CreateAlias where
+instance Data.ToPath CreateAlias where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateAlias where
+instance Data.ToQuery CreateAlias where
   toQuery = Prelude.const Prelude.mempty
 
--- | Represents the returned data in response to a request operation.
---
--- /See:/ 'newCreateAliasResponse' smart constructor.
+-- | /See:/ 'newCreateAliasResponse' smart constructor.
 data CreateAliasResponse = CreateAliasResponse'
   { -- | The newly created alias resource.
     alias :: Prelude.Maybe Alias,

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.AdminListGroupsForUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.CognitoIdentityProvider.AdminListGroupsForUser
     newAdminListGroupsForUser,
 
     -- * Request Lenses
-    adminListGroupsForUser_nextToken,
     adminListGroupsForUser_limit,
+    adminListGroupsForUser_nextToken,
     adminListGroupsForUser_username,
     adminListGroupsForUser_userPoolId,
 
@@ -49,21 +49,22 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newAdminListGroupsForUser' smart constructor.
 data AdminListGroupsForUser = AdminListGroupsForUser'
-  { -- | An identifier that was returned from the previous call to this
+  { -- | The limit of the request to list groups.
+    limit :: Prelude.Maybe Prelude.Natural,
+    -- | An identifier that was returned from the previous call to this
     -- operation, which can be used to return the next set of items in the
     -- list.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The limit of the request to list groups.
-    limit :: Prelude.Maybe Prelude.Natural,
     -- | The username for the user.
-    username :: Core.Sensitive Prelude.Text,
+    username :: Data.Sensitive Prelude.Text,
     -- | The user pool ID for the user pool.
     userPoolId :: Prelude.Text
   }
@@ -77,11 +78,11 @@ data AdminListGroupsForUser = AdminListGroupsForUser'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'limit', 'adminListGroupsForUser_limit' - The limit of the request to list groups.
+--
 -- 'nextToken', 'adminListGroupsForUser_nextToken' - An identifier that was returned from the previous call to this
 -- operation, which can be used to return the next set of items in the
 -- list.
---
--- 'limit', 'adminListGroupsForUser_limit' - The limit of the request to list groups.
 --
 -- 'username', 'adminListGroupsForUser_username' - The username for the user.
 --
@@ -94,12 +95,15 @@ newAdminListGroupsForUser ::
   AdminListGroupsForUser
 newAdminListGroupsForUser pUsername_ pUserPoolId_ =
   AdminListGroupsForUser'
-    { nextToken =
-        Prelude.Nothing,
-      limit = Prelude.Nothing,
-      username = Core._Sensitive Lens.# pUsername_,
+    { limit = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      username = Data._Sensitive Lens.# pUsername_,
       userPoolId = pUserPoolId_
     }
+
+-- | The limit of the request to list groups.
+adminListGroupsForUser_limit :: Lens.Lens' AdminListGroupsForUser (Prelude.Maybe Prelude.Natural)
+adminListGroupsForUser_limit = Lens.lens (\AdminListGroupsForUser' {limit} -> limit) (\s@AdminListGroupsForUser' {} a -> s {limit = a} :: AdminListGroupsForUser)
 
 -- | An identifier that was returned from the previous call to this
 -- operation, which can be used to return the next set of items in the
@@ -107,13 +111,9 @@ newAdminListGroupsForUser pUsername_ pUserPoolId_ =
 adminListGroupsForUser_nextToken :: Lens.Lens' AdminListGroupsForUser (Prelude.Maybe Prelude.Text)
 adminListGroupsForUser_nextToken = Lens.lens (\AdminListGroupsForUser' {nextToken} -> nextToken) (\s@AdminListGroupsForUser' {} a -> s {nextToken = a} :: AdminListGroupsForUser)
 
--- | The limit of the request to list groups.
-adminListGroupsForUser_limit :: Lens.Lens' AdminListGroupsForUser (Prelude.Maybe Prelude.Natural)
-adminListGroupsForUser_limit = Lens.lens (\AdminListGroupsForUser' {limit} -> limit) (\s@AdminListGroupsForUser' {} a -> s {limit = a} :: AdminListGroupsForUser)
-
 -- | The username for the user.
 adminListGroupsForUser_username :: Lens.Lens' AdminListGroupsForUser Prelude.Text
-adminListGroupsForUser_username = Lens.lens (\AdminListGroupsForUser' {username} -> username) (\s@AdminListGroupsForUser' {} a -> s {username = a} :: AdminListGroupsForUser) Prelude.. Core._Sensitive
+adminListGroupsForUser_username = Lens.lens (\AdminListGroupsForUser' {username} -> username) (\s@AdminListGroupsForUser' {} a -> s {username = a} :: AdminListGroupsForUser) Prelude.. Data._Sensitive
 
 -- | The user pool ID for the user pool.
 adminListGroupsForUser_userPoolId :: Lens.Lens' AdminListGroupsForUser Prelude.Text
@@ -145,60 +145,61 @@ instance Core.AWSRequest AdminListGroupsForUser where
   type
     AWSResponse AdminListGroupsForUser =
       AdminListGroupsForUserResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AdminListGroupsForUserResponse'
-            Prelude.<$> (x Core..?> "Groups" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Groups" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable AdminListGroupsForUser where
   hashWithSalt _salt AdminListGroupsForUser' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` limit
+    _salt `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` username
       `Prelude.hashWithSalt` userPoolId
 
 instance Prelude.NFData AdminListGroupsForUser where
   rnf AdminListGroupsForUser' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf limit
+    Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf username
       `Prelude.seq` Prelude.rnf userPoolId
 
-instance Core.ToHeaders AdminListGroupsForUser where
+instance Data.ToHeaders AdminListGroupsForUser where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.AdminListGroupsForUser" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.AdminListGroupsForUser" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AdminListGroupsForUser where
+instance Data.ToJSON AdminListGroupsForUser where
   toJSON AdminListGroupsForUser' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Limit" Core..=) Prelude.<$> limit,
-            Prelude.Just ("Username" Core..= username),
-            Prelude.Just ("UserPoolId" Core..= userPoolId)
+          [ ("Limit" Data..=) Prelude.<$> limit,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("Username" Data..= username),
+            Prelude.Just ("UserPoolId" Data..= userPoolId)
           ]
       )
 
-instance Core.ToPath AdminListGroupsForUser where
+instance Data.ToPath AdminListGroupsForUser where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AdminListGroupsForUser where
+instance Data.ToQuery AdminListGroupsForUser where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAdminListGroupsForUserResponse' smart constructor.

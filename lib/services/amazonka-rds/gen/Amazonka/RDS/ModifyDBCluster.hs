@@ -14,49 +14,64 @@
 
 -- |
 -- Module      : Amazonka.RDS.ModifyDBCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modify a setting for an Amazon Aurora DB cluster. You can change one or
--- more database configuration parameters by specifying these parameters
--- and the new values in the request. For more information on Amazon
--- Aurora, see
--- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What Is Amazon Aurora?>
--- in the /Amazon Aurora User Guide./
+-- Modify the settings for an Amazon Aurora DB cluster or a Multi-AZ DB
+-- cluster. You can change one or more settings by specifying these
+-- parameters and the new values in the request.
 --
--- This action only applies to Aurora DB clusters.
+-- For more information on Amazon Aurora DB clusters, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What is Amazon Aurora?>
+-- in the /Amazon Aurora User Guide/.
+--
+-- For more information on Multi-AZ DB clusters, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html Multi-AZ deployments with two readable standby DB instances>
+-- in the /Amazon RDS User Guide/.
 module Amazonka.RDS.ModifyDBCluster
   ( -- * Creating a Request
     ModifyDBCluster (..),
     newModifyDBCluster,
 
     -- * Request Lenses
-    modifyDBCluster_engineVersion,
-    modifyDBCluster_enableGlobalWriteForwarding,
-    modifyDBCluster_deletionProtection,
-    modifyDBCluster_masterUserPassword,
-    modifyDBCluster_enableHttpEndpoint,
+    modifyDBCluster_allocatedStorage,
     modifyDBCluster_allowMajorVersionUpgrade,
-    modifyDBCluster_domain,
-    modifyDBCluster_backtrackWindow,
-    modifyDBCluster_cloudwatchLogsExportConfiguration,
-    modifyDBCluster_preferredMaintenanceWindow,
-    modifyDBCluster_preferredBackupWindow,
-    modifyDBCluster_backupRetentionPeriod,
-    modifyDBCluster_vpcSecurityGroupIds,
-    modifyDBCluster_dbClusterParameterGroupName,
-    modifyDBCluster_scalingConfiguration,
     modifyDBCluster_applyImmediately,
-    modifyDBCluster_optionGroupName,
+    modifyDBCluster_autoMinorVersionUpgrade,
+    modifyDBCluster_backtrackWindow,
+    modifyDBCluster_backupRetentionPeriod,
+    modifyDBCluster_cloudwatchLogsExportConfiguration,
     modifyDBCluster_copyTagsToSnapshot,
-    modifyDBCluster_newDBClusterIdentifier,
+    modifyDBCluster_dbClusterInstanceClass,
+    modifyDBCluster_dbClusterParameterGroupName,
     modifyDBCluster_dbInstanceParameterGroupName,
+    modifyDBCluster_deletionProtection,
+    modifyDBCluster_domain,
     modifyDBCluster_domainIAMRoleName,
-    modifyDBCluster_port,
+    modifyDBCluster_enableGlobalWriteForwarding,
+    modifyDBCluster_enableHttpEndpoint,
     modifyDBCluster_enableIAMDatabaseAuthentication,
+    modifyDBCluster_enablePerformanceInsights,
+    modifyDBCluster_engineVersion,
+    modifyDBCluster_iops,
+    modifyDBCluster_masterUserPassword,
+    modifyDBCluster_monitoringInterval,
+    modifyDBCluster_monitoringRoleArn,
+    modifyDBCluster_networkType,
+    modifyDBCluster_newDBClusterIdentifier,
+    modifyDBCluster_optionGroupName,
+    modifyDBCluster_performanceInsightsKMSKeyId,
+    modifyDBCluster_performanceInsightsRetentionPeriod,
+    modifyDBCluster_port,
+    modifyDBCluster_preferredBackupWindow,
+    modifyDBCluster_preferredMaintenanceWindow,
+    modifyDBCluster_scalingConfiguration,
+    modifyDBCluster_serverlessV2ScalingConfiguration,
+    modifyDBCluster_storageType,
+    modifyDBCluster_vpcSecurityGroupIds,
     modifyDBCluster_dbClusterIdentifier,
 
     -- * Destructuring the Response
@@ -70,7 +85,8 @@ module Amazonka.RDS.ModifyDBCluster
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -80,139 +96,21 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newModifyDBCluster' smart constructor.
 data ModifyDBCluster = ModifyDBCluster'
-  { -- | The version number of the database engine to which you want to upgrade.
-    -- Changing this parameter results in an outage. The change is applied
-    -- during the next maintenance window unless @ApplyImmediately@ is enabled.
+  { -- | The amount of storage in gibibytes (GiB) to allocate to each DB instance
+    -- in the Multi-AZ DB cluster.
     --
-    -- To list all of the available engine versions for @aurora@ (for MySQL
-    -- 5.6-compatible Aurora), use the following command:
+    -- Type: Integer
     --
-    -- @aws rds describe-db-engine-versions --engine aurora --query \"DBEngineVersions[].EngineVersion\"@
-    --
-    -- To list all of the available engine versions for @aurora-mysql@ (for
-    -- MySQL 5.7-compatible Aurora), use the following command:
-    --
-    -- @aws rds describe-db-engine-versions --engine aurora-mysql --query \"DBEngineVersions[].EngineVersion\"@
-    --
-    -- To list all of the available engine versions for @aurora-postgresql@,
-    -- use the following command:
-    --
-    -- @aws rds describe-db-engine-versions --engine aurora-postgresql --query \"DBEngineVersions[].EngineVersion\"@
-    engineVersion :: Prelude.Maybe Prelude.Text,
-    -- | A value that indicates whether to enable this DB cluster to forward
-    -- write operations to the primary cluster of an Aurora global database
-    -- (GlobalCluster). By default, write operations are not allowed on Aurora
-    -- DB clusters that are secondary clusters in an Aurora global database.
-    --
-    -- You can set this value only on Aurora DB clusters that are members of an
-    -- Aurora global database. With this parameter enabled, a secondary cluster
-    -- can forward writes to the current primary cluster and the resulting
-    -- changes are replicated back to this cluster. For the primary DB cluster
-    -- of an Aurora global database, this value is used immediately if the
-    -- primary is demoted by the FailoverGlobalCluster API operation, but it
-    -- does nothing until then.
-    enableGlobalWriteForwarding :: Prelude.Maybe Prelude.Bool,
-    -- | A value that indicates whether the DB cluster has deletion protection
-    -- enabled. The database can\'t be deleted when deletion protection is
-    -- enabled. By default, deletion protection is disabled.
-    deletionProtection :: Prelude.Maybe Prelude.Bool,
-    -- | The new password for the master database user. This password can contain
-    -- any printable ASCII character except \"\/\", \"\"\", or \"\@\".
-    --
-    -- Constraints: Must contain from 8 to 41 characters.
-    masterUserPassword :: Prelude.Maybe Prelude.Text,
-    -- | A value that indicates whether to enable the HTTP endpoint for an Aurora
-    -- Serverless DB cluster. By default, the HTTP endpoint is disabled.
-    --
-    -- When enabled, the HTTP endpoint provides a connectionless web service
-    -- API for running SQL queries on the Aurora Serverless DB cluster. You can
-    -- also query your database from inside the RDS console with the query
-    -- editor.
-    --
-    -- For more information, see
-    -- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html Using the Data API for Aurora Serverless>
-    -- in the /Amazon Aurora User Guide/.
-    enableHttpEndpoint :: Prelude.Maybe Prelude.Bool,
+    -- Valid for: Multi-AZ DB clusters only
+    allocatedStorage :: Prelude.Maybe Prelude.Int,
     -- | A value that indicates whether major version upgrades are allowed.
     --
     -- Constraints: You must allow major version upgrades when specifying a
     -- value for the @EngineVersion@ parameter that is a different major
     -- version than the DB cluster\'s current version.
+    --
+    -- Valid for: Aurora DB clusters only
     allowMajorVersionUpgrade :: Prelude.Maybe Prelude.Bool,
-    -- | The Active Directory directory ID to move the DB cluster to. Specify
-    -- @none@ to remove the cluster from its current domain. The domain must be
-    -- created prior to this operation.
-    --
-    -- For more information, see
-    -- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/kerberos-authentication.html Kerberos Authentication>
-    -- in the /Amazon Aurora User Guide/.
-    domain :: Prelude.Maybe Prelude.Text,
-    -- | The target backtrack window, in seconds. To disable backtracking, set
-    -- this value to 0.
-    --
-    -- Currently, Backtrack is only supported for Aurora MySQL DB clusters.
-    --
-    -- Default: 0
-    --
-    -- Constraints:
-    --
-    -- -   If specified, this value must be set to a number from 0 to 259,200
-    --     (72 hours).
-    backtrackWindow :: Prelude.Maybe Prelude.Integer,
-    -- | The configuration setting for the log types to be enabled for export to
-    -- CloudWatch Logs for a specific DB cluster.
-    cloudwatchLogsExportConfiguration :: Prelude.Maybe CloudwatchLogsExportConfiguration,
-    -- | The weekly time range during which system maintenance can occur, in
-    -- Universal Coordinated Time (UTC).
-    --
-    -- Format: @ddd:hh24:mi-ddd:hh24:mi@
-    --
-    -- The default is a 30-minute window selected at random from an 8-hour
-    -- block of time for each Amazon Web Services Region, occurring on a random
-    -- day of the week. To see the time blocks available, see
-    -- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora Adjusting the Preferred DB Cluster Maintenance Window>
-    -- in the /Amazon Aurora User Guide./
-    --
-    -- Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
-    --
-    -- Constraints: Minimum 30-minute window.
-    preferredMaintenanceWindow :: Prelude.Maybe Prelude.Text,
-    -- | The daily time range during which automated backups are created if
-    -- automated backups are enabled, using the @BackupRetentionPeriod@
-    -- parameter.
-    --
-    -- The default is a 30-minute window selected at random from an 8-hour
-    -- block of time for each Amazon Web Services Region. To view the time
-    -- blocks available, see
-    -- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html#Aurora.Managing.Backups.BackupWindow Backup window>
-    -- in the /Amazon Aurora User Guide./
-    --
-    -- Constraints:
-    --
-    -- -   Must be in the format @hh24:mi-hh24:mi@.
-    --
-    -- -   Must be in Universal Coordinated Time (UTC).
-    --
-    -- -   Must not conflict with the preferred maintenance window.
-    --
-    -- -   Must be at least 30 minutes.
-    preferredBackupWindow :: Prelude.Maybe Prelude.Text,
-    -- | The number of days for which automated backups are retained. You must
-    -- specify a minimum value of 1.
-    --
-    -- Default: 1
-    --
-    -- Constraints:
-    --
-    -- -   Must be a value from 1 to 35
-    backupRetentionPeriod :: Prelude.Maybe Prelude.Int,
-    -- | A list of VPC security groups that the DB cluster will belong to.
-    vpcSecurityGroupIds :: Prelude.Maybe [Prelude.Text],
-    -- | The name of the DB cluster parameter group to use for the DB cluster.
-    dbClusterParameterGroupName :: Prelude.Maybe Prelude.Text,
-    -- | The scaling properties of the DB cluster. You can only modify scaling
-    -- properties for DB clusters in @serverless@ DB engine mode.
-    scalingConfiguration :: Prelude.Maybe ScalingConfiguration,
     -- | A value that indicates whether the modifications in this request and any
     -- pending modifications are asynchronously applied as soon as possible,
     -- regardless of the @PreferredMaintenanceWindow@ setting for the DB
@@ -229,23 +127,271 @@ data ModifyDBCluster = ModifyDBCluster'
     -- parameter.
     --
     -- By default, this parameter is disabled.
-    applyImmediately :: Prelude.Maybe Prelude.Bool,
-    -- | A value that indicates that the DB cluster should be associated with the
-    -- specified option group. Changing this parameter doesn\'t result in an
-    -- outage except in the following case, and the change is applied during
-    -- the next maintenance window unless the @ApplyImmediately@ is enabled for
-    -- this request. If the parameter change results in an option group that
-    -- enables OEM, this change can cause a brief (sub-second) period during
-    -- which new connections are rejected but existing connections are not
-    -- interrupted.
     --
-    -- Permanent options can\'t be removed from an option group. The option
-    -- group can\'t be removed from a DB cluster once it is associated with a
-    -- DB cluster.
-    optionGroupName :: Prelude.Maybe Prelude.Text,
+    -- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+    applyImmediately :: Prelude.Maybe Prelude.Bool,
+    -- | A value that indicates whether minor engine upgrades are applied
+    -- automatically to the DB cluster during the maintenance window. By
+    -- default, minor engine upgrades are applied automatically.
+    --
+    -- Valid for: Multi-AZ DB clusters only
+    autoMinorVersionUpgrade :: Prelude.Maybe Prelude.Bool,
+    -- | The target backtrack window, in seconds. To disable backtracking, set
+    -- this value to 0.
+    --
+    -- Default: 0
+    --
+    -- Constraints:
+    --
+    -- -   If specified, this value must be set to a number from 0 to 259,200
+    --     (72 hours).
+    --
+    -- Valid for: Aurora MySQL DB clusters only
+    backtrackWindow :: Prelude.Maybe Prelude.Integer,
+    -- | The number of days for which automated backups are retained. Specify a
+    -- minimum value of 1.
+    --
+    -- Default: 1
+    --
+    -- Constraints:
+    --
+    -- -   Must be a value from 1 to 35
+    --
+    -- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+    backupRetentionPeriod :: Prelude.Maybe Prelude.Int,
+    -- | The configuration setting for the log types to be enabled for export to
+    -- CloudWatch Logs for a specific DB cluster. The values in the list depend
+    -- on the DB engine being used.
+    --
+    -- __RDS for MySQL__
+    --
+    -- Possible values are @error@, @general@, and @slowquery@.
+    --
+    -- __RDS for PostgreSQL__
+    --
+    -- Possible values are @postgresql@ and @upgrade@.
+    --
+    -- __Aurora MySQL__
+    --
+    -- Possible values are @audit@, @error@, @general@, and @slowquery@.
+    --
+    -- __Aurora PostgreSQL__
+    --
+    -- Possible value is @postgresql@.
+    --
+    -- For more information about exporting CloudWatch Logs for Amazon RDS, see
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch Publishing Database Logs to Amazon CloudWatch Logs>
+    -- in the /Amazon RDS User Guide/.
+    --
+    -- For more information about exporting CloudWatch Logs for Amazon Aurora,
+    -- see
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch Publishing Database Logs to Amazon CloudWatch Logs>
+    -- in the /Amazon Aurora User Guide/.
+    --
+    -- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+    cloudwatchLogsExportConfiguration :: Prelude.Maybe CloudwatchLogsExportConfiguration,
     -- | A value that indicates whether to copy all tags from the DB cluster to
     -- snapshots of the DB cluster. The default is not to copy them.
+    --
+    -- Valid for: Aurora DB clusters and Multi-AZ DB clusters
     copyTagsToSnapshot :: Prelude.Maybe Prelude.Bool,
+    -- | The compute and memory capacity of each DB instance in the Multi-AZ DB
+    -- cluster, for example db.m6gd.xlarge. Not all DB instance classes are
+    -- available in all Amazon Web Services Regions, or for all database
+    -- engines.
+    --
+    -- For the full list of DB instance classes and availability for your
+    -- engine, see
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html DB Instance Class>
+    -- in the /Amazon RDS User Guide/.
+    --
+    -- Valid for: Multi-AZ DB clusters only
+    dbClusterInstanceClass :: Prelude.Maybe Prelude.Text,
+    -- | The name of the DB cluster parameter group to use for the DB cluster.
+    --
+    -- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+    dbClusterParameterGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the DB parameter group to apply to all instances of the DB
+    -- cluster.
+    --
+    -- When you apply a parameter group using the
+    -- @DBInstanceParameterGroupName@ parameter, the DB cluster isn\'t rebooted
+    -- automatically. Also, parameter changes are applied immediately rather
+    -- than during the next maintenance window.
+    --
+    -- Default: The existing name setting
+    --
+    -- Constraints:
+    --
+    -- -   The DB parameter group must be in the same DB parameter group family
+    --     as this DB cluster.
+    --
+    -- -   The @DBInstanceParameterGroupName@ parameter is valid in combination
+    --     with the @AllowMajorVersionUpgrade@ parameter for a major version
+    --     upgrade only.
+    --
+    -- Valid for: Aurora DB clusters only
+    dbInstanceParameterGroupName :: Prelude.Maybe Prelude.Text,
+    -- | A value that indicates whether the DB cluster has deletion protection
+    -- enabled. The database can\'t be deleted when deletion protection is
+    -- enabled. By default, deletion protection isn\'t enabled.
+    --
+    -- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+    deletionProtection :: Prelude.Maybe Prelude.Bool,
+    -- | The Active Directory directory ID to move the DB cluster to. Specify
+    -- @none@ to remove the cluster from its current domain. The domain must be
+    -- created prior to this operation.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/kerberos-authentication.html Kerberos Authentication>
+    -- in the /Amazon Aurora User Guide/.
+    --
+    -- Valid for: Aurora DB clusters only
+    domain :: Prelude.Maybe Prelude.Text,
+    -- | Specify the name of the IAM role to be used when making API calls to the
+    -- Directory Service.
+    --
+    -- Valid for: Aurora DB clusters only
+    domainIAMRoleName :: Prelude.Maybe Prelude.Text,
+    -- | A value that indicates whether to enable this DB cluster to forward
+    -- write operations to the primary cluster of an Aurora global database
+    -- (GlobalCluster). By default, write operations are not allowed on Aurora
+    -- DB clusters that are secondary clusters in an Aurora global database.
+    --
+    -- You can set this value only on Aurora DB clusters that are members of an
+    -- Aurora global database. With this parameter enabled, a secondary cluster
+    -- can forward writes to the current primary cluster and the resulting
+    -- changes are replicated back to this cluster. For the primary DB cluster
+    -- of an Aurora global database, this value is used immediately if the
+    -- primary is demoted by the FailoverGlobalCluster API operation, but it
+    -- does nothing until then.
+    --
+    -- Valid for: Aurora DB clusters only
+    enableGlobalWriteForwarding :: Prelude.Maybe Prelude.Bool,
+    -- | A value that indicates whether to enable the HTTP endpoint for an Aurora
+    -- Serverless v1 DB cluster. By default, the HTTP endpoint is disabled.
+    --
+    -- When enabled, the HTTP endpoint provides a connectionless web service
+    -- API for running SQL queries on the Aurora Serverless v1 DB cluster. You
+    -- can also query your database from inside the RDS console with the query
+    -- editor.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html Using the Data API for Aurora Serverless v1>
+    -- in the /Amazon Aurora User Guide/.
+    --
+    -- Valid for: Aurora DB clusters only
+    enableHttpEndpoint :: Prelude.Maybe Prelude.Bool,
+    -- | A value that indicates whether to enable mapping of Amazon Web Services
+    -- Identity and Access Management (IAM) accounts to database accounts. By
+    -- default, mapping isn\'t enabled.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html IAM Database Authentication>
+    -- in the /Amazon Aurora User Guide/.
+    --
+    -- Valid for: Aurora DB clusters only
+    enableIAMDatabaseAuthentication :: Prelude.Maybe Prelude.Bool,
+    -- | A value that indicates whether to turn on Performance Insights for the
+    -- DB cluster.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html Using Amazon Performance Insights>
+    -- in the /Amazon RDS User Guide/.
+    --
+    -- Valid for: Multi-AZ DB clusters only
+    enablePerformanceInsights :: Prelude.Maybe Prelude.Bool,
+    -- | The version number of the database engine to which you want to upgrade.
+    -- Changing this parameter results in an outage. The change is applied
+    -- during the next maintenance window unless @ApplyImmediately@ is enabled.
+    --
+    -- To list all of the available engine versions for MySQL 5.6-compatible
+    -- Aurora, use the following command:
+    --
+    -- @aws rds describe-db-engine-versions --engine aurora --query \"DBEngineVersions[].EngineVersion\"@
+    --
+    -- To list all of the available engine versions for MySQL 5.7-compatible
+    -- and MySQL 8.0-compatible Aurora, use the following command:
+    --
+    -- @aws rds describe-db-engine-versions --engine aurora-mysql --query \"DBEngineVersions[].EngineVersion\"@
+    --
+    -- To list all of the available engine versions for Aurora PostgreSQL, use
+    -- the following command:
+    --
+    -- @aws rds describe-db-engine-versions --engine aurora-postgresql --query \"DBEngineVersions[].EngineVersion\"@
+    --
+    -- To list all of the available engine versions for RDS for MySQL, use the
+    -- following command:
+    --
+    -- @aws rds describe-db-engine-versions --engine mysql --query \"DBEngineVersions[].EngineVersion\"@
+    --
+    -- To list all of the available engine versions for RDS for PostgreSQL, use
+    -- the following command:
+    --
+    -- @aws rds describe-db-engine-versions --engine postgres --query \"DBEngineVersions[].EngineVersion\"@
+    --
+    -- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+    engineVersion :: Prelude.Maybe Prelude.Text,
+    -- | The amount of Provisioned IOPS (input\/output operations per second) to
+    -- be initially allocated for each DB instance in the Multi-AZ DB cluster.
+    --
+    -- For information about valid IOPS values, see
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS Amazon RDS Provisioned IOPS storage>
+    -- in the /Amazon RDS User Guide/.
+    --
+    -- Constraints: Must be a multiple between .5 and 50 of the storage amount
+    -- for the DB cluster.
+    --
+    -- Valid for: Multi-AZ DB clusters only
+    iops :: Prelude.Maybe Prelude.Int,
+    -- | The new password for the master database user. This password can contain
+    -- any printable ASCII character except \"\/\", \"\"\", or \"\@\".
+    --
+    -- Constraints: Must contain from 8 to 41 characters.
+    --
+    -- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+    masterUserPassword :: Prelude.Maybe Prelude.Text,
+    -- | The interval, in seconds, between points when Enhanced Monitoring
+    -- metrics are collected for the DB cluster. To turn off collecting
+    -- Enhanced Monitoring metrics, specify 0. The default is 0.
+    --
+    -- If @MonitoringRoleArn@ is specified, also set @MonitoringInterval@ to a
+    -- value other than 0.
+    --
+    -- Valid Values: @0, 1, 5, 10, 15, 30, 60@
+    --
+    -- Valid for: Multi-AZ DB clusters only
+    monitoringInterval :: Prelude.Maybe Prelude.Int,
+    -- | The Amazon Resource Name (ARN) for the IAM role that permits RDS to send
+    -- Enhanced Monitoring metrics to Amazon CloudWatch Logs. An example is
+    -- @arn:aws:iam:123456789012:role\/emaccess@. For information on creating a
+    -- monitoring role, see
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole To create an IAM role for Amazon RDS Enhanced Monitoring>
+    -- in the /Amazon RDS User Guide./
+    --
+    -- If @MonitoringInterval@ is set to a value other than 0, supply a
+    -- @MonitoringRoleArn@ value.
+    --
+    -- Valid for: Multi-AZ DB clusters only
+    monitoringRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | The network type of the DB cluster.
+    --
+    -- Valid values:
+    --
+    -- -   @IPV4@
+    --
+    -- -   @DUAL@
+    --
+    -- The network type is determined by the @DBSubnetGroup@ specified for the
+    -- DB cluster. A @DBSubnetGroup@ can support only the IPv4 protocol or the
+    -- IPv4 and the IPv6 protocols (@DUAL@).
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html Working with a DB instance in a VPC>
+    -- in the /Amazon Aurora User Guide./
+    --
+    -- Valid for: Aurora DB clusters only
+    networkType :: Prelude.Maybe Prelude.Text,
     -- | The new DB cluster identifier for the DB cluster when renaming a DB
     -- cluster. This value is stored as a lowercase string.
     --
@@ -258,47 +404,126 @@ data ModifyDBCluster = ModifyDBCluster'
     -- -   Can\'t end with a hyphen or contain two consecutive hyphens
     --
     -- Example: @my-cluster2@
+    --
+    -- Valid for: Aurora DB clusters only
     newDBClusterIdentifier' :: Prelude.Maybe Prelude.Text,
-    -- | The name of the DB parameter group to apply to all instances of the DB
-    -- cluster.
+    -- | A value that indicates that the DB cluster should be associated with the
+    -- specified option group.
     --
-    -- When you apply a parameter group using the
-    -- @DBInstanceParameterGroupName@ parameter, the DB cluster isn\'t rebooted
-    -- automatically. Also, parameter changes aren\'t applied during the next
-    -- maintenance window but instead are applied immediately.
+    -- DB clusters are associated with a default option group that can\'t be
+    -- modified.
+    optionGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Web Services KMS key identifier for encryption of Performance
+    -- Insights data.
     --
-    -- Default: The existing name setting
+    -- The Amazon Web Services KMS key identifier is the key ARN, key ID, alias
+    -- ARN, or alias name for the KMS key.
     --
-    -- Constraints:
+    -- If you don\'t specify a value for @PerformanceInsightsKMSKeyId@, then
+    -- Amazon RDS uses your default KMS key. There is a default KMS key for
+    -- your Amazon Web Services account. Your Amazon Web Services account has a
+    -- different default KMS key for each Amazon Web Services Region.
     --
-    -- -   The DB parameter group must be in the same DB parameter group family
-    --     as this DB cluster.
+    -- Valid for: Multi-AZ DB clusters only
+    performanceInsightsKMSKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The number of days to retain Performance Insights data. The default is 7
+    -- days. The following values are valid:
     --
-    -- -   The @DBInstanceParameterGroupName@ parameter is only valid in
-    --     combination with the @AllowMajorVersionUpgrade@ parameter.
-    dbInstanceParameterGroupName :: Prelude.Maybe Prelude.Text,
-    -- | Specify the name of the IAM role to be used when making API calls to the
-    -- Directory Service.
-    domainIAMRoleName :: Prelude.Maybe Prelude.Text,
+    -- -   7
+    --
+    -- -   /month/ * 31, where /month/ is a number of months from 1-23
+    --
+    -- -   731
+    --
+    -- For example, the following values are valid:
+    --
+    -- -   93 (3 months * 31)
+    --
+    -- -   341 (11 months * 31)
+    --
+    -- -   589 (19 months * 31)
+    --
+    -- -   731
+    --
+    -- If you specify a retention period such as 94, which isn\'t a valid
+    -- value, RDS issues an error.
+    --
+    -- Valid for: Multi-AZ DB clusters only
+    performanceInsightsRetentionPeriod :: Prelude.Maybe Prelude.Int,
     -- | The port number on which the DB cluster accepts connections.
     --
     -- Constraints: Value must be @1150-65535@
     --
     -- Default: The same port as the original DB cluster.
-    port :: Prelude.Maybe Prelude.Int,
-    -- | A value that indicates whether to enable mapping of Amazon Web Services
-    -- Identity and Access Management (IAM) accounts to database accounts. By
-    -- default, mapping is disabled.
     --
-    -- For more information, see
-    -- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html IAM Database Authentication>
-    -- in the /Amazon Aurora User Guide./
-    enableIAMDatabaseAuthentication :: Prelude.Maybe Prelude.Bool,
+    -- Valid for: Aurora DB clusters only
+    port :: Prelude.Maybe Prelude.Int,
+    -- | The daily time range during which automated backups are created if
+    -- automated backups are enabled, using the @BackupRetentionPeriod@
+    -- parameter.
+    --
+    -- The default is a 30-minute window selected at random from an 8-hour
+    -- block of time for each Amazon Web Services Region. To view the time
+    -- blocks available, see
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html#Aurora.Managing.Backups.BackupWindow Backup window>
+    -- in the /Amazon Aurora User Guide/.
+    --
+    -- Constraints:
+    --
+    -- -   Must be in the format @hh24:mi-hh24:mi@.
+    --
+    -- -   Must be in Universal Coordinated Time (UTC).
+    --
+    -- -   Must not conflict with the preferred maintenance window.
+    --
+    -- -   Must be at least 30 minutes.
+    --
+    -- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+    preferredBackupWindow :: Prelude.Maybe Prelude.Text,
+    -- | The weekly time range during which system maintenance can occur, in
+    -- Universal Coordinated Time (UTC).
+    --
+    -- Format: @ddd:hh24:mi-ddd:hh24:mi@
+    --
+    -- The default is a 30-minute window selected at random from an 8-hour
+    -- block of time for each Amazon Web Services Region, occurring on a random
+    -- day of the week. To see the time blocks available, see
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora Adjusting the Preferred DB Cluster Maintenance Window>
+    -- in the /Amazon Aurora User Guide/.
+    --
+    -- Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
+    --
+    -- Constraints: Minimum 30-minute window.
+    --
+    -- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+    preferredMaintenanceWindow :: Prelude.Maybe Prelude.Text,
+    -- | The scaling properties of the DB cluster. You can only modify scaling
+    -- properties for DB clusters in @serverless@ DB engine mode.
+    --
+    -- Valid for: Aurora DB clusters only
+    scalingConfiguration :: Prelude.Maybe ScalingConfiguration,
+    serverlessV2ScalingConfiguration :: Prelude.Maybe ServerlessV2ScalingConfiguration,
+    -- | Specifies the storage type to be associated with the DB cluster.
+    --
+    -- Valid values: @io1@
+    --
+    -- When specified, a value for the @Iops@ parameter is required.
+    --
+    -- Default: @io1@
+    --
+    -- Valid for: Multi-AZ DB clusters only
+    storageType :: Prelude.Maybe Prelude.Text,
+    -- | A list of VPC security groups that the DB cluster will belong to.
+    --
+    -- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+    vpcSecurityGroupIds :: Prelude.Maybe [Prelude.Text],
     -- | The DB cluster identifier for the cluster being modified. This parameter
     -- isn\'t case-sensitive.
     --
     -- Constraints: This identifier must match the identifier of an existing DB
     -- cluster.
+    --
+    -- Valid for: Aurora DB clusters and Multi-AZ DB clusters
     dbClusterIdentifier :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -311,58 +536,12 @@ data ModifyDBCluster = ModifyDBCluster'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'engineVersion', 'modifyDBCluster_engineVersion' - The version number of the database engine to which you want to upgrade.
--- Changing this parameter results in an outage. The change is applied
--- during the next maintenance window unless @ApplyImmediately@ is enabled.
+-- 'allocatedStorage', 'modifyDBCluster_allocatedStorage' - The amount of storage in gibibytes (GiB) to allocate to each DB instance
+-- in the Multi-AZ DB cluster.
 --
--- To list all of the available engine versions for @aurora@ (for MySQL
--- 5.6-compatible Aurora), use the following command:
+-- Type: Integer
 --
--- @aws rds describe-db-engine-versions --engine aurora --query \"DBEngineVersions[].EngineVersion\"@
---
--- To list all of the available engine versions for @aurora-mysql@ (for
--- MySQL 5.7-compatible Aurora), use the following command:
---
--- @aws rds describe-db-engine-versions --engine aurora-mysql --query \"DBEngineVersions[].EngineVersion\"@
---
--- To list all of the available engine versions for @aurora-postgresql@,
--- use the following command:
---
--- @aws rds describe-db-engine-versions --engine aurora-postgresql --query \"DBEngineVersions[].EngineVersion\"@
---
--- 'enableGlobalWriteForwarding', 'modifyDBCluster_enableGlobalWriteForwarding' - A value that indicates whether to enable this DB cluster to forward
--- write operations to the primary cluster of an Aurora global database
--- (GlobalCluster). By default, write operations are not allowed on Aurora
--- DB clusters that are secondary clusters in an Aurora global database.
---
--- You can set this value only on Aurora DB clusters that are members of an
--- Aurora global database. With this parameter enabled, a secondary cluster
--- can forward writes to the current primary cluster and the resulting
--- changes are replicated back to this cluster. For the primary DB cluster
--- of an Aurora global database, this value is used immediately if the
--- primary is demoted by the FailoverGlobalCluster API operation, but it
--- does nothing until then.
---
--- 'deletionProtection', 'modifyDBCluster_deletionProtection' - A value that indicates whether the DB cluster has deletion protection
--- enabled. The database can\'t be deleted when deletion protection is
--- enabled. By default, deletion protection is disabled.
---
--- 'masterUserPassword', 'modifyDBCluster_masterUserPassword' - The new password for the master database user. This password can contain
--- any printable ASCII character except \"\/\", \"\"\", or \"\@\".
---
--- Constraints: Must contain from 8 to 41 characters.
---
--- 'enableHttpEndpoint', 'modifyDBCluster_enableHttpEndpoint' - A value that indicates whether to enable the HTTP endpoint for an Aurora
--- Serverless DB cluster. By default, the HTTP endpoint is disabled.
---
--- When enabled, the HTTP endpoint provides a connectionless web service
--- API for running SQL queries on the Aurora Serverless DB cluster. You can
--- also query your database from inside the RDS console with the query
--- editor.
---
--- For more information, see
--- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html Using the Data API for Aurora Serverless>
--- in the /Amazon Aurora User Guide/.
+-- Valid for: Multi-AZ DB clusters only
 --
 -- 'allowMajorVersionUpgrade', 'modifyDBCluster_allowMajorVersionUpgrade' - A value that indicates whether major version upgrades are allowed.
 --
@@ -370,79 +549,7 @@ data ModifyDBCluster = ModifyDBCluster'
 -- value for the @EngineVersion@ parameter that is a different major
 -- version than the DB cluster\'s current version.
 --
--- 'domain', 'modifyDBCluster_domain' - The Active Directory directory ID to move the DB cluster to. Specify
--- @none@ to remove the cluster from its current domain. The domain must be
--- created prior to this operation.
---
--- For more information, see
--- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/kerberos-authentication.html Kerberos Authentication>
--- in the /Amazon Aurora User Guide/.
---
--- 'backtrackWindow', 'modifyDBCluster_backtrackWindow' - The target backtrack window, in seconds. To disable backtracking, set
--- this value to 0.
---
--- Currently, Backtrack is only supported for Aurora MySQL DB clusters.
---
--- Default: 0
---
--- Constraints:
---
--- -   If specified, this value must be set to a number from 0 to 259,200
---     (72 hours).
---
--- 'cloudwatchLogsExportConfiguration', 'modifyDBCluster_cloudwatchLogsExportConfiguration' - The configuration setting for the log types to be enabled for export to
--- CloudWatch Logs for a specific DB cluster.
---
--- 'preferredMaintenanceWindow', 'modifyDBCluster_preferredMaintenanceWindow' - The weekly time range during which system maintenance can occur, in
--- Universal Coordinated Time (UTC).
---
--- Format: @ddd:hh24:mi-ddd:hh24:mi@
---
--- The default is a 30-minute window selected at random from an 8-hour
--- block of time for each Amazon Web Services Region, occurring on a random
--- day of the week. To see the time blocks available, see
--- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora Adjusting the Preferred DB Cluster Maintenance Window>
--- in the /Amazon Aurora User Guide./
---
--- Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
---
--- Constraints: Minimum 30-minute window.
---
--- 'preferredBackupWindow', 'modifyDBCluster_preferredBackupWindow' - The daily time range during which automated backups are created if
--- automated backups are enabled, using the @BackupRetentionPeriod@
--- parameter.
---
--- The default is a 30-minute window selected at random from an 8-hour
--- block of time for each Amazon Web Services Region. To view the time
--- blocks available, see
--- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html#Aurora.Managing.Backups.BackupWindow Backup window>
--- in the /Amazon Aurora User Guide./
---
--- Constraints:
---
--- -   Must be in the format @hh24:mi-hh24:mi@.
---
--- -   Must be in Universal Coordinated Time (UTC).
---
--- -   Must not conflict with the preferred maintenance window.
---
--- -   Must be at least 30 minutes.
---
--- 'backupRetentionPeriod', 'modifyDBCluster_backupRetentionPeriod' - The number of days for which automated backups are retained. You must
--- specify a minimum value of 1.
---
--- Default: 1
---
--- Constraints:
---
--- -   Must be a value from 1 to 35
---
--- 'vpcSecurityGroupIds', 'modifyDBCluster_vpcSecurityGroupIds' - A list of VPC security groups that the DB cluster will belong to.
---
--- 'dbClusterParameterGroupName', 'modifyDBCluster_dbClusterParameterGroupName' - The name of the DB cluster parameter group to use for the DB cluster.
---
--- 'scalingConfiguration', 'modifyDBCluster_scalingConfiguration' - The scaling properties of the DB cluster. You can only modify scaling
--- properties for DB clusters in @serverless@ DB engine mode.
+-- Valid for: Aurora DB clusters only
 --
 -- 'applyImmediately', 'modifyDBCluster_applyImmediately' - A value that indicates whether the modifications in this request and any
 -- pending modifications are asynchronously applied as soon as possible,
@@ -461,21 +568,269 @@ data ModifyDBCluster = ModifyDBCluster'
 --
 -- By default, this parameter is disabled.
 --
--- 'optionGroupName', 'modifyDBCluster_optionGroupName' - A value that indicates that the DB cluster should be associated with the
--- specified option group. Changing this parameter doesn\'t result in an
--- outage except in the following case, and the change is applied during
--- the next maintenance window unless the @ApplyImmediately@ is enabled for
--- this request. If the parameter change results in an option group that
--- enables OEM, this change can cause a brief (sub-second) period during
--- which new connections are rejected but existing connections are not
--- interrupted.
+-- Valid for: Aurora DB clusters and Multi-AZ DB clusters
 --
--- Permanent options can\'t be removed from an option group. The option
--- group can\'t be removed from a DB cluster once it is associated with a
--- DB cluster.
+-- 'autoMinorVersionUpgrade', 'modifyDBCluster_autoMinorVersionUpgrade' - A value that indicates whether minor engine upgrades are applied
+-- automatically to the DB cluster during the maintenance window. By
+-- default, minor engine upgrades are applied automatically.
+--
+-- Valid for: Multi-AZ DB clusters only
+--
+-- 'backtrackWindow', 'modifyDBCluster_backtrackWindow' - The target backtrack window, in seconds. To disable backtracking, set
+-- this value to 0.
+--
+-- Default: 0
+--
+-- Constraints:
+--
+-- -   If specified, this value must be set to a number from 0 to 259,200
+--     (72 hours).
+--
+-- Valid for: Aurora MySQL DB clusters only
+--
+-- 'backupRetentionPeriod', 'modifyDBCluster_backupRetentionPeriod' - The number of days for which automated backups are retained. Specify a
+-- minimum value of 1.
+--
+-- Default: 1
+--
+-- Constraints:
+--
+-- -   Must be a value from 1 to 35
+--
+-- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+--
+-- 'cloudwatchLogsExportConfiguration', 'modifyDBCluster_cloudwatchLogsExportConfiguration' - The configuration setting for the log types to be enabled for export to
+-- CloudWatch Logs for a specific DB cluster. The values in the list depend
+-- on the DB engine being used.
+--
+-- __RDS for MySQL__
+--
+-- Possible values are @error@, @general@, and @slowquery@.
+--
+-- __RDS for PostgreSQL__
+--
+-- Possible values are @postgresql@ and @upgrade@.
+--
+-- __Aurora MySQL__
+--
+-- Possible values are @audit@, @error@, @general@, and @slowquery@.
+--
+-- __Aurora PostgreSQL__
+--
+-- Possible value is @postgresql@.
+--
+-- For more information about exporting CloudWatch Logs for Amazon RDS, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch Publishing Database Logs to Amazon CloudWatch Logs>
+-- in the /Amazon RDS User Guide/.
+--
+-- For more information about exporting CloudWatch Logs for Amazon Aurora,
+-- see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch Publishing Database Logs to Amazon CloudWatch Logs>
+-- in the /Amazon Aurora User Guide/.
+--
+-- Valid for: Aurora DB clusters and Multi-AZ DB clusters
 --
 -- 'copyTagsToSnapshot', 'modifyDBCluster_copyTagsToSnapshot' - A value that indicates whether to copy all tags from the DB cluster to
 -- snapshots of the DB cluster. The default is not to copy them.
+--
+-- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+--
+-- 'dbClusterInstanceClass', 'modifyDBCluster_dbClusterInstanceClass' - The compute and memory capacity of each DB instance in the Multi-AZ DB
+-- cluster, for example db.m6gd.xlarge. Not all DB instance classes are
+-- available in all Amazon Web Services Regions, or for all database
+-- engines.
+--
+-- For the full list of DB instance classes and availability for your
+-- engine, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html DB Instance Class>
+-- in the /Amazon RDS User Guide/.
+--
+-- Valid for: Multi-AZ DB clusters only
+--
+-- 'dbClusterParameterGroupName', 'modifyDBCluster_dbClusterParameterGroupName' - The name of the DB cluster parameter group to use for the DB cluster.
+--
+-- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+--
+-- 'dbInstanceParameterGroupName', 'modifyDBCluster_dbInstanceParameterGroupName' - The name of the DB parameter group to apply to all instances of the DB
+-- cluster.
+--
+-- When you apply a parameter group using the
+-- @DBInstanceParameterGroupName@ parameter, the DB cluster isn\'t rebooted
+-- automatically. Also, parameter changes are applied immediately rather
+-- than during the next maintenance window.
+--
+-- Default: The existing name setting
+--
+-- Constraints:
+--
+-- -   The DB parameter group must be in the same DB parameter group family
+--     as this DB cluster.
+--
+-- -   The @DBInstanceParameterGroupName@ parameter is valid in combination
+--     with the @AllowMajorVersionUpgrade@ parameter for a major version
+--     upgrade only.
+--
+-- Valid for: Aurora DB clusters only
+--
+-- 'deletionProtection', 'modifyDBCluster_deletionProtection' - A value that indicates whether the DB cluster has deletion protection
+-- enabled. The database can\'t be deleted when deletion protection is
+-- enabled. By default, deletion protection isn\'t enabled.
+--
+-- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+--
+-- 'domain', 'modifyDBCluster_domain' - The Active Directory directory ID to move the DB cluster to. Specify
+-- @none@ to remove the cluster from its current domain. The domain must be
+-- created prior to this operation.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/kerberos-authentication.html Kerberos Authentication>
+-- in the /Amazon Aurora User Guide/.
+--
+-- Valid for: Aurora DB clusters only
+--
+-- 'domainIAMRoleName', 'modifyDBCluster_domainIAMRoleName' - Specify the name of the IAM role to be used when making API calls to the
+-- Directory Service.
+--
+-- Valid for: Aurora DB clusters only
+--
+-- 'enableGlobalWriteForwarding', 'modifyDBCluster_enableGlobalWriteForwarding' - A value that indicates whether to enable this DB cluster to forward
+-- write operations to the primary cluster of an Aurora global database
+-- (GlobalCluster). By default, write operations are not allowed on Aurora
+-- DB clusters that are secondary clusters in an Aurora global database.
+--
+-- You can set this value only on Aurora DB clusters that are members of an
+-- Aurora global database. With this parameter enabled, a secondary cluster
+-- can forward writes to the current primary cluster and the resulting
+-- changes are replicated back to this cluster. For the primary DB cluster
+-- of an Aurora global database, this value is used immediately if the
+-- primary is demoted by the FailoverGlobalCluster API operation, but it
+-- does nothing until then.
+--
+-- Valid for: Aurora DB clusters only
+--
+-- 'enableHttpEndpoint', 'modifyDBCluster_enableHttpEndpoint' - A value that indicates whether to enable the HTTP endpoint for an Aurora
+-- Serverless v1 DB cluster. By default, the HTTP endpoint is disabled.
+--
+-- When enabled, the HTTP endpoint provides a connectionless web service
+-- API for running SQL queries on the Aurora Serverless v1 DB cluster. You
+-- can also query your database from inside the RDS console with the query
+-- editor.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html Using the Data API for Aurora Serverless v1>
+-- in the /Amazon Aurora User Guide/.
+--
+-- Valid for: Aurora DB clusters only
+--
+-- 'enableIAMDatabaseAuthentication', 'modifyDBCluster_enableIAMDatabaseAuthentication' - A value that indicates whether to enable mapping of Amazon Web Services
+-- Identity and Access Management (IAM) accounts to database accounts. By
+-- default, mapping isn\'t enabled.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html IAM Database Authentication>
+-- in the /Amazon Aurora User Guide/.
+--
+-- Valid for: Aurora DB clusters only
+--
+-- 'enablePerformanceInsights', 'modifyDBCluster_enablePerformanceInsights' - A value that indicates whether to turn on Performance Insights for the
+-- DB cluster.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html Using Amazon Performance Insights>
+-- in the /Amazon RDS User Guide/.
+--
+-- Valid for: Multi-AZ DB clusters only
+--
+-- 'engineVersion', 'modifyDBCluster_engineVersion' - The version number of the database engine to which you want to upgrade.
+-- Changing this parameter results in an outage. The change is applied
+-- during the next maintenance window unless @ApplyImmediately@ is enabled.
+--
+-- To list all of the available engine versions for MySQL 5.6-compatible
+-- Aurora, use the following command:
+--
+-- @aws rds describe-db-engine-versions --engine aurora --query \"DBEngineVersions[].EngineVersion\"@
+--
+-- To list all of the available engine versions for MySQL 5.7-compatible
+-- and MySQL 8.0-compatible Aurora, use the following command:
+--
+-- @aws rds describe-db-engine-versions --engine aurora-mysql --query \"DBEngineVersions[].EngineVersion\"@
+--
+-- To list all of the available engine versions for Aurora PostgreSQL, use
+-- the following command:
+--
+-- @aws rds describe-db-engine-versions --engine aurora-postgresql --query \"DBEngineVersions[].EngineVersion\"@
+--
+-- To list all of the available engine versions for RDS for MySQL, use the
+-- following command:
+--
+-- @aws rds describe-db-engine-versions --engine mysql --query \"DBEngineVersions[].EngineVersion\"@
+--
+-- To list all of the available engine versions for RDS for PostgreSQL, use
+-- the following command:
+--
+-- @aws rds describe-db-engine-versions --engine postgres --query \"DBEngineVersions[].EngineVersion\"@
+--
+-- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+--
+-- 'iops', 'modifyDBCluster_iops' - The amount of Provisioned IOPS (input\/output operations per second) to
+-- be initially allocated for each DB instance in the Multi-AZ DB cluster.
+--
+-- For information about valid IOPS values, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS Amazon RDS Provisioned IOPS storage>
+-- in the /Amazon RDS User Guide/.
+--
+-- Constraints: Must be a multiple between .5 and 50 of the storage amount
+-- for the DB cluster.
+--
+-- Valid for: Multi-AZ DB clusters only
+--
+-- 'masterUserPassword', 'modifyDBCluster_masterUserPassword' - The new password for the master database user. This password can contain
+-- any printable ASCII character except \"\/\", \"\"\", or \"\@\".
+--
+-- Constraints: Must contain from 8 to 41 characters.
+--
+-- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+--
+-- 'monitoringInterval', 'modifyDBCluster_monitoringInterval' - The interval, in seconds, between points when Enhanced Monitoring
+-- metrics are collected for the DB cluster. To turn off collecting
+-- Enhanced Monitoring metrics, specify 0. The default is 0.
+--
+-- If @MonitoringRoleArn@ is specified, also set @MonitoringInterval@ to a
+-- value other than 0.
+--
+-- Valid Values: @0, 1, 5, 10, 15, 30, 60@
+--
+-- Valid for: Multi-AZ DB clusters only
+--
+-- 'monitoringRoleArn', 'modifyDBCluster_monitoringRoleArn' - The Amazon Resource Name (ARN) for the IAM role that permits RDS to send
+-- Enhanced Monitoring metrics to Amazon CloudWatch Logs. An example is
+-- @arn:aws:iam:123456789012:role\/emaccess@. For information on creating a
+-- monitoring role, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole To create an IAM role for Amazon RDS Enhanced Monitoring>
+-- in the /Amazon RDS User Guide./
+--
+-- If @MonitoringInterval@ is set to a value other than 0, supply a
+-- @MonitoringRoleArn@ value.
+--
+-- Valid for: Multi-AZ DB clusters only
+--
+-- 'networkType', 'modifyDBCluster_networkType' - The network type of the DB cluster.
+--
+-- Valid values:
+--
+-- -   @IPV4@
+--
+-- -   @DUAL@
+--
+-- The network type is determined by the @DBSubnetGroup@ specified for the
+-- DB cluster. A @DBSubnetGroup@ can support only the IPv4 protocol or the
+-- IPv4 and the IPv6 protocols (@DUAL@).
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html Working with a DB instance in a VPC>
+-- in the /Amazon Aurora User Guide./
+--
+-- Valid for: Aurora DB clusters only
 --
 -- 'newDBClusterIdentifier'', 'modifyDBCluster_newDBClusterIdentifier' - The new DB cluster identifier for the DB cluster when renaming a DB
 -- cluster. This value is stored as a lowercase string.
@@ -490,26 +845,50 @@ data ModifyDBCluster = ModifyDBCluster'
 --
 -- Example: @my-cluster2@
 --
--- 'dbInstanceParameterGroupName', 'modifyDBCluster_dbInstanceParameterGroupName' - The name of the DB parameter group to apply to all instances of the DB
--- cluster.
+-- Valid for: Aurora DB clusters only
 --
--- When you apply a parameter group using the
--- @DBInstanceParameterGroupName@ parameter, the DB cluster isn\'t rebooted
--- automatically. Also, parameter changes aren\'t applied during the next
--- maintenance window but instead are applied immediately.
+-- 'optionGroupName', 'modifyDBCluster_optionGroupName' - A value that indicates that the DB cluster should be associated with the
+-- specified option group.
 --
--- Default: The existing name setting
+-- DB clusters are associated with a default option group that can\'t be
+-- modified.
 --
--- Constraints:
+-- 'performanceInsightsKMSKeyId', 'modifyDBCluster_performanceInsightsKMSKeyId' - The Amazon Web Services KMS key identifier for encryption of Performance
+-- Insights data.
 --
--- -   The DB parameter group must be in the same DB parameter group family
---     as this DB cluster.
+-- The Amazon Web Services KMS key identifier is the key ARN, key ID, alias
+-- ARN, or alias name for the KMS key.
 --
--- -   The @DBInstanceParameterGroupName@ parameter is only valid in
---     combination with the @AllowMajorVersionUpgrade@ parameter.
+-- If you don\'t specify a value for @PerformanceInsightsKMSKeyId@, then
+-- Amazon RDS uses your default KMS key. There is a default KMS key for
+-- your Amazon Web Services account. Your Amazon Web Services account has a
+-- different default KMS key for each Amazon Web Services Region.
 --
--- 'domainIAMRoleName', 'modifyDBCluster_domainIAMRoleName' - Specify the name of the IAM role to be used when making API calls to the
--- Directory Service.
+-- Valid for: Multi-AZ DB clusters only
+--
+-- 'performanceInsightsRetentionPeriod', 'modifyDBCluster_performanceInsightsRetentionPeriod' - The number of days to retain Performance Insights data. The default is 7
+-- days. The following values are valid:
+--
+-- -   7
+--
+-- -   /month/ * 31, where /month/ is a number of months from 1-23
+--
+-- -   731
+--
+-- For example, the following values are valid:
+--
+-- -   93 (3 months * 31)
+--
+-- -   341 (11 months * 31)
+--
+-- -   589 (19 months * 31)
+--
+-- -   731
+--
+-- If you specify a retention period such as 94, which isn\'t a valid
+-- value, RDS issues an error.
+--
+-- Valid for: Multi-AZ DB clusters only
 --
 -- 'port', 'modifyDBCluster_port' - The port number on which the DB cluster accepts connections.
 --
@@ -517,169 +896,9 @@ data ModifyDBCluster = ModifyDBCluster'
 --
 -- Default: The same port as the original DB cluster.
 --
--- 'enableIAMDatabaseAuthentication', 'modifyDBCluster_enableIAMDatabaseAuthentication' - A value that indicates whether to enable mapping of Amazon Web Services
--- Identity and Access Management (IAM) accounts to database accounts. By
--- default, mapping is disabled.
+-- Valid for: Aurora DB clusters only
 --
--- For more information, see
--- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html IAM Database Authentication>
--- in the /Amazon Aurora User Guide./
---
--- 'dbClusterIdentifier', 'modifyDBCluster_dbClusterIdentifier' - The DB cluster identifier for the cluster being modified. This parameter
--- isn\'t case-sensitive.
---
--- Constraints: This identifier must match the identifier of an existing DB
--- cluster.
-newModifyDBCluster ::
-  -- | 'dbClusterIdentifier'
-  Prelude.Text ->
-  ModifyDBCluster
-newModifyDBCluster pDBClusterIdentifier_ =
-  ModifyDBCluster'
-    { engineVersion = Prelude.Nothing,
-      enableGlobalWriteForwarding = Prelude.Nothing,
-      deletionProtection = Prelude.Nothing,
-      masterUserPassword = Prelude.Nothing,
-      enableHttpEndpoint = Prelude.Nothing,
-      allowMajorVersionUpgrade = Prelude.Nothing,
-      domain = Prelude.Nothing,
-      backtrackWindow = Prelude.Nothing,
-      cloudwatchLogsExportConfiguration = Prelude.Nothing,
-      preferredMaintenanceWindow = Prelude.Nothing,
-      preferredBackupWindow = Prelude.Nothing,
-      backupRetentionPeriod = Prelude.Nothing,
-      vpcSecurityGroupIds = Prelude.Nothing,
-      dbClusterParameterGroupName = Prelude.Nothing,
-      scalingConfiguration = Prelude.Nothing,
-      applyImmediately = Prelude.Nothing,
-      optionGroupName = Prelude.Nothing,
-      copyTagsToSnapshot = Prelude.Nothing,
-      newDBClusterIdentifier' = Prelude.Nothing,
-      dbInstanceParameterGroupName = Prelude.Nothing,
-      domainIAMRoleName = Prelude.Nothing,
-      port = Prelude.Nothing,
-      enableIAMDatabaseAuthentication = Prelude.Nothing,
-      dbClusterIdentifier = pDBClusterIdentifier_
-    }
-
--- | The version number of the database engine to which you want to upgrade.
--- Changing this parameter results in an outage. The change is applied
--- during the next maintenance window unless @ApplyImmediately@ is enabled.
---
--- To list all of the available engine versions for @aurora@ (for MySQL
--- 5.6-compatible Aurora), use the following command:
---
--- @aws rds describe-db-engine-versions --engine aurora --query \"DBEngineVersions[].EngineVersion\"@
---
--- To list all of the available engine versions for @aurora-mysql@ (for
--- MySQL 5.7-compatible Aurora), use the following command:
---
--- @aws rds describe-db-engine-versions --engine aurora-mysql --query \"DBEngineVersions[].EngineVersion\"@
---
--- To list all of the available engine versions for @aurora-postgresql@,
--- use the following command:
---
--- @aws rds describe-db-engine-versions --engine aurora-postgresql --query \"DBEngineVersions[].EngineVersion\"@
-modifyDBCluster_engineVersion :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Text)
-modifyDBCluster_engineVersion = Lens.lens (\ModifyDBCluster' {engineVersion} -> engineVersion) (\s@ModifyDBCluster' {} a -> s {engineVersion = a} :: ModifyDBCluster)
-
--- | A value that indicates whether to enable this DB cluster to forward
--- write operations to the primary cluster of an Aurora global database
--- (GlobalCluster). By default, write operations are not allowed on Aurora
--- DB clusters that are secondary clusters in an Aurora global database.
---
--- You can set this value only on Aurora DB clusters that are members of an
--- Aurora global database. With this parameter enabled, a secondary cluster
--- can forward writes to the current primary cluster and the resulting
--- changes are replicated back to this cluster. For the primary DB cluster
--- of an Aurora global database, this value is used immediately if the
--- primary is demoted by the FailoverGlobalCluster API operation, but it
--- does nothing until then.
-modifyDBCluster_enableGlobalWriteForwarding :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Bool)
-modifyDBCluster_enableGlobalWriteForwarding = Lens.lens (\ModifyDBCluster' {enableGlobalWriteForwarding} -> enableGlobalWriteForwarding) (\s@ModifyDBCluster' {} a -> s {enableGlobalWriteForwarding = a} :: ModifyDBCluster)
-
--- | A value that indicates whether the DB cluster has deletion protection
--- enabled. The database can\'t be deleted when deletion protection is
--- enabled. By default, deletion protection is disabled.
-modifyDBCluster_deletionProtection :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Bool)
-modifyDBCluster_deletionProtection = Lens.lens (\ModifyDBCluster' {deletionProtection} -> deletionProtection) (\s@ModifyDBCluster' {} a -> s {deletionProtection = a} :: ModifyDBCluster)
-
--- | The new password for the master database user. This password can contain
--- any printable ASCII character except \"\/\", \"\"\", or \"\@\".
---
--- Constraints: Must contain from 8 to 41 characters.
-modifyDBCluster_masterUserPassword :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Text)
-modifyDBCluster_masterUserPassword = Lens.lens (\ModifyDBCluster' {masterUserPassword} -> masterUserPassword) (\s@ModifyDBCluster' {} a -> s {masterUserPassword = a} :: ModifyDBCluster)
-
--- | A value that indicates whether to enable the HTTP endpoint for an Aurora
--- Serverless DB cluster. By default, the HTTP endpoint is disabled.
---
--- When enabled, the HTTP endpoint provides a connectionless web service
--- API for running SQL queries on the Aurora Serverless DB cluster. You can
--- also query your database from inside the RDS console with the query
--- editor.
---
--- For more information, see
--- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html Using the Data API for Aurora Serverless>
--- in the /Amazon Aurora User Guide/.
-modifyDBCluster_enableHttpEndpoint :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Bool)
-modifyDBCluster_enableHttpEndpoint = Lens.lens (\ModifyDBCluster' {enableHttpEndpoint} -> enableHttpEndpoint) (\s@ModifyDBCluster' {} a -> s {enableHttpEndpoint = a} :: ModifyDBCluster)
-
--- | A value that indicates whether major version upgrades are allowed.
---
--- Constraints: You must allow major version upgrades when specifying a
--- value for the @EngineVersion@ parameter that is a different major
--- version than the DB cluster\'s current version.
-modifyDBCluster_allowMajorVersionUpgrade :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Bool)
-modifyDBCluster_allowMajorVersionUpgrade = Lens.lens (\ModifyDBCluster' {allowMajorVersionUpgrade} -> allowMajorVersionUpgrade) (\s@ModifyDBCluster' {} a -> s {allowMajorVersionUpgrade = a} :: ModifyDBCluster)
-
--- | The Active Directory directory ID to move the DB cluster to. Specify
--- @none@ to remove the cluster from its current domain. The domain must be
--- created prior to this operation.
---
--- For more information, see
--- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/kerberos-authentication.html Kerberos Authentication>
--- in the /Amazon Aurora User Guide/.
-modifyDBCluster_domain :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Text)
-modifyDBCluster_domain = Lens.lens (\ModifyDBCluster' {domain} -> domain) (\s@ModifyDBCluster' {} a -> s {domain = a} :: ModifyDBCluster)
-
--- | The target backtrack window, in seconds. To disable backtracking, set
--- this value to 0.
---
--- Currently, Backtrack is only supported for Aurora MySQL DB clusters.
---
--- Default: 0
---
--- Constraints:
---
--- -   If specified, this value must be set to a number from 0 to 259,200
---     (72 hours).
-modifyDBCluster_backtrackWindow :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Integer)
-modifyDBCluster_backtrackWindow = Lens.lens (\ModifyDBCluster' {backtrackWindow} -> backtrackWindow) (\s@ModifyDBCluster' {} a -> s {backtrackWindow = a} :: ModifyDBCluster)
-
--- | The configuration setting for the log types to be enabled for export to
--- CloudWatch Logs for a specific DB cluster.
-modifyDBCluster_cloudwatchLogsExportConfiguration :: Lens.Lens' ModifyDBCluster (Prelude.Maybe CloudwatchLogsExportConfiguration)
-modifyDBCluster_cloudwatchLogsExportConfiguration = Lens.lens (\ModifyDBCluster' {cloudwatchLogsExportConfiguration} -> cloudwatchLogsExportConfiguration) (\s@ModifyDBCluster' {} a -> s {cloudwatchLogsExportConfiguration = a} :: ModifyDBCluster)
-
--- | The weekly time range during which system maintenance can occur, in
--- Universal Coordinated Time (UTC).
---
--- Format: @ddd:hh24:mi-ddd:hh24:mi@
---
--- The default is a 30-minute window selected at random from an 8-hour
--- block of time for each Amazon Web Services Region, occurring on a random
--- day of the week. To see the time blocks available, see
--- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora Adjusting the Preferred DB Cluster Maintenance Window>
--- in the /Amazon Aurora User Guide./
---
--- Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
---
--- Constraints: Minimum 30-minute window.
-modifyDBCluster_preferredMaintenanceWindow :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Text)
-modifyDBCluster_preferredMaintenanceWindow = Lens.lens (\ModifyDBCluster' {preferredMaintenanceWindow} -> preferredMaintenanceWindow) (\s@ModifyDBCluster' {} a -> s {preferredMaintenanceWindow = a} :: ModifyDBCluster)
-
--- | The daily time range during which automated backups are created if
+-- 'preferredBackupWindow', 'modifyDBCluster_preferredBackupWindow' - The daily time range during which automated backups are created if
 -- automated backups are enabled, using the @BackupRetentionPeriod@
 -- parameter.
 --
@@ -687,7 +906,7 @@ modifyDBCluster_preferredMaintenanceWindow = Lens.lens (\ModifyDBCluster' {prefe
 -- block of time for each Amazon Web Services Region. To view the time
 -- blocks available, see
 -- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html#Aurora.Managing.Backups.BackupWindow Backup window>
--- in the /Amazon Aurora User Guide./
+-- in the /Amazon Aurora User Guide/.
 --
 -- Constraints:
 --
@@ -698,32 +917,117 @@ modifyDBCluster_preferredMaintenanceWindow = Lens.lens (\ModifyDBCluster' {prefe
 -- -   Must not conflict with the preferred maintenance window.
 --
 -- -   Must be at least 30 minutes.
-modifyDBCluster_preferredBackupWindow :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Text)
-modifyDBCluster_preferredBackupWindow = Lens.lens (\ModifyDBCluster' {preferredBackupWindow} -> preferredBackupWindow) (\s@ModifyDBCluster' {} a -> s {preferredBackupWindow = a} :: ModifyDBCluster)
-
--- | The number of days for which automated backups are retained. You must
--- specify a minimum value of 1.
 --
--- Default: 1
+-- Valid for: Aurora DB clusters and Multi-AZ DB clusters
 --
--- Constraints:
+-- 'preferredMaintenanceWindow', 'modifyDBCluster_preferredMaintenanceWindow' - The weekly time range during which system maintenance can occur, in
+-- Universal Coordinated Time (UTC).
 --
--- -   Must be a value from 1 to 35
-modifyDBCluster_backupRetentionPeriod :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Int)
-modifyDBCluster_backupRetentionPeriod = Lens.lens (\ModifyDBCluster' {backupRetentionPeriod} -> backupRetentionPeriod) (\s@ModifyDBCluster' {} a -> s {backupRetentionPeriod = a} :: ModifyDBCluster)
-
--- | A list of VPC security groups that the DB cluster will belong to.
-modifyDBCluster_vpcSecurityGroupIds :: Lens.Lens' ModifyDBCluster (Prelude.Maybe [Prelude.Text])
-modifyDBCluster_vpcSecurityGroupIds = Lens.lens (\ModifyDBCluster' {vpcSecurityGroupIds} -> vpcSecurityGroupIds) (\s@ModifyDBCluster' {} a -> s {vpcSecurityGroupIds = a} :: ModifyDBCluster) Prelude.. Lens.mapping Lens.coerced
-
--- | The name of the DB cluster parameter group to use for the DB cluster.
-modifyDBCluster_dbClusterParameterGroupName :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Text)
-modifyDBCluster_dbClusterParameterGroupName = Lens.lens (\ModifyDBCluster' {dbClusterParameterGroupName} -> dbClusterParameterGroupName) (\s@ModifyDBCluster' {} a -> s {dbClusterParameterGroupName = a} :: ModifyDBCluster)
-
--- | The scaling properties of the DB cluster. You can only modify scaling
+-- Format: @ddd:hh24:mi-ddd:hh24:mi@
+--
+-- The default is a 30-minute window selected at random from an 8-hour
+-- block of time for each Amazon Web Services Region, occurring on a random
+-- day of the week. To see the time blocks available, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora Adjusting the Preferred DB Cluster Maintenance Window>
+-- in the /Amazon Aurora User Guide/.
+--
+-- Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
+--
+-- Constraints: Minimum 30-minute window.
+--
+-- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+--
+-- 'scalingConfiguration', 'modifyDBCluster_scalingConfiguration' - The scaling properties of the DB cluster. You can only modify scaling
 -- properties for DB clusters in @serverless@ DB engine mode.
-modifyDBCluster_scalingConfiguration :: Lens.Lens' ModifyDBCluster (Prelude.Maybe ScalingConfiguration)
-modifyDBCluster_scalingConfiguration = Lens.lens (\ModifyDBCluster' {scalingConfiguration} -> scalingConfiguration) (\s@ModifyDBCluster' {} a -> s {scalingConfiguration = a} :: ModifyDBCluster)
+--
+-- Valid for: Aurora DB clusters only
+--
+-- 'serverlessV2ScalingConfiguration', 'modifyDBCluster_serverlessV2ScalingConfiguration' - Undocumented member.
+--
+-- 'storageType', 'modifyDBCluster_storageType' - Specifies the storage type to be associated with the DB cluster.
+--
+-- Valid values: @io1@
+--
+-- When specified, a value for the @Iops@ parameter is required.
+--
+-- Default: @io1@
+--
+-- Valid for: Multi-AZ DB clusters only
+--
+-- 'vpcSecurityGroupIds', 'modifyDBCluster_vpcSecurityGroupIds' - A list of VPC security groups that the DB cluster will belong to.
+--
+-- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+--
+-- 'dbClusterIdentifier', 'modifyDBCluster_dbClusterIdentifier' - The DB cluster identifier for the cluster being modified. This parameter
+-- isn\'t case-sensitive.
+--
+-- Constraints: This identifier must match the identifier of an existing DB
+-- cluster.
+--
+-- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+newModifyDBCluster ::
+  -- | 'dbClusterIdentifier'
+  Prelude.Text ->
+  ModifyDBCluster
+newModifyDBCluster pDBClusterIdentifier_ =
+  ModifyDBCluster'
+    { allocatedStorage =
+        Prelude.Nothing,
+      allowMajorVersionUpgrade = Prelude.Nothing,
+      applyImmediately = Prelude.Nothing,
+      autoMinorVersionUpgrade = Prelude.Nothing,
+      backtrackWindow = Prelude.Nothing,
+      backupRetentionPeriod = Prelude.Nothing,
+      cloudwatchLogsExportConfiguration = Prelude.Nothing,
+      copyTagsToSnapshot = Prelude.Nothing,
+      dbClusterInstanceClass = Prelude.Nothing,
+      dbClusterParameterGroupName = Prelude.Nothing,
+      dbInstanceParameterGroupName = Prelude.Nothing,
+      deletionProtection = Prelude.Nothing,
+      domain = Prelude.Nothing,
+      domainIAMRoleName = Prelude.Nothing,
+      enableGlobalWriteForwarding = Prelude.Nothing,
+      enableHttpEndpoint = Prelude.Nothing,
+      enableIAMDatabaseAuthentication = Prelude.Nothing,
+      enablePerformanceInsights = Prelude.Nothing,
+      engineVersion = Prelude.Nothing,
+      iops = Prelude.Nothing,
+      masterUserPassword = Prelude.Nothing,
+      monitoringInterval = Prelude.Nothing,
+      monitoringRoleArn = Prelude.Nothing,
+      networkType = Prelude.Nothing,
+      newDBClusterIdentifier' = Prelude.Nothing,
+      optionGroupName = Prelude.Nothing,
+      performanceInsightsKMSKeyId = Prelude.Nothing,
+      performanceInsightsRetentionPeriod = Prelude.Nothing,
+      port = Prelude.Nothing,
+      preferredBackupWindow = Prelude.Nothing,
+      preferredMaintenanceWindow = Prelude.Nothing,
+      scalingConfiguration = Prelude.Nothing,
+      serverlessV2ScalingConfiguration = Prelude.Nothing,
+      storageType = Prelude.Nothing,
+      vpcSecurityGroupIds = Prelude.Nothing,
+      dbClusterIdentifier = pDBClusterIdentifier_
+    }
+
+-- | The amount of storage in gibibytes (GiB) to allocate to each DB instance
+-- in the Multi-AZ DB cluster.
+--
+-- Type: Integer
+--
+-- Valid for: Multi-AZ DB clusters only
+modifyDBCluster_allocatedStorage :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Int)
+modifyDBCluster_allocatedStorage = Lens.lens (\ModifyDBCluster' {allocatedStorage} -> allocatedStorage) (\s@ModifyDBCluster' {} a -> s {allocatedStorage = a} :: ModifyDBCluster)
+
+-- | A value that indicates whether major version upgrades are allowed.
+--
+-- Constraints: You must allow major version upgrades when specifying a
+-- value for the @EngineVersion@ parameter that is a different major
+-- version than the DB cluster\'s current version.
+--
+-- Valid for: Aurora DB clusters only
+modifyDBCluster_allowMajorVersionUpgrade :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Bool)
+modifyDBCluster_allowMajorVersionUpgrade = Lens.lens (\ModifyDBCluster' {allowMajorVersionUpgrade} -> allowMajorVersionUpgrade) (\s@ModifyDBCluster' {} a -> s {allowMajorVersionUpgrade = a} :: ModifyDBCluster)
 
 -- | A value that indicates whether the modifications in this request and any
 -- pending modifications are asynchronously applied as soon as possible,
@@ -741,28 +1045,314 @@ modifyDBCluster_scalingConfiguration = Lens.lens (\ModifyDBCluster' {scalingConf
 -- parameter.
 --
 -- By default, this parameter is disabled.
+--
+-- Valid for: Aurora DB clusters and Multi-AZ DB clusters
 modifyDBCluster_applyImmediately :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Bool)
 modifyDBCluster_applyImmediately = Lens.lens (\ModifyDBCluster' {applyImmediately} -> applyImmediately) (\s@ModifyDBCluster' {} a -> s {applyImmediately = a} :: ModifyDBCluster)
 
--- | A value that indicates that the DB cluster should be associated with the
--- specified option group. Changing this parameter doesn\'t result in an
--- outage except in the following case, and the change is applied during
--- the next maintenance window unless the @ApplyImmediately@ is enabled for
--- this request. If the parameter change results in an option group that
--- enables OEM, this change can cause a brief (sub-second) period during
--- which new connections are rejected but existing connections are not
--- interrupted.
+-- | A value that indicates whether minor engine upgrades are applied
+-- automatically to the DB cluster during the maintenance window. By
+-- default, minor engine upgrades are applied automatically.
 --
--- Permanent options can\'t be removed from an option group. The option
--- group can\'t be removed from a DB cluster once it is associated with a
--- DB cluster.
-modifyDBCluster_optionGroupName :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Text)
-modifyDBCluster_optionGroupName = Lens.lens (\ModifyDBCluster' {optionGroupName} -> optionGroupName) (\s@ModifyDBCluster' {} a -> s {optionGroupName = a} :: ModifyDBCluster)
+-- Valid for: Multi-AZ DB clusters only
+modifyDBCluster_autoMinorVersionUpgrade :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Bool)
+modifyDBCluster_autoMinorVersionUpgrade = Lens.lens (\ModifyDBCluster' {autoMinorVersionUpgrade} -> autoMinorVersionUpgrade) (\s@ModifyDBCluster' {} a -> s {autoMinorVersionUpgrade = a} :: ModifyDBCluster)
+
+-- | The target backtrack window, in seconds. To disable backtracking, set
+-- this value to 0.
+--
+-- Default: 0
+--
+-- Constraints:
+--
+-- -   If specified, this value must be set to a number from 0 to 259,200
+--     (72 hours).
+--
+-- Valid for: Aurora MySQL DB clusters only
+modifyDBCluster_backtrackWindow :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Integer)
+modifyDBCluster_backtrackWindow = Lens.lens (\ModifyDBCluster' {backtrackWindow} -> backtrackWindow) (\s@ModifyDBCluster' {} a -> s {backtrackWindow = a} :: ModifyDBCluster)
+
+-- | The number of days for which automated backups are retained. Specify a
+-- minimum value of 1.
+--
+-- Default: 1
+--
+-- Constraints:
+--
+-- -   Must be a value from 1 to 35
+--
+-- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+modifyDBCluster_backupRetentionPeriod :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Int)
+modifyDBCluster_backupRetentionPeriod = Lens.lens (\ModifyDBCluster' {backupRetentionPeriod} -> backupRetentionPeriod) (\s@ModifyDBCluster' {} a -> s {backupRetentionPeriod = a} :: ModifyDBCluster)
+
+-- | The configuration setting for the log types to be enabled for export to
+-- CloudWatch Logs for a specific DB cluster. The values in the list depend
+-- on the DB engine being used.
+--
+-- __RDS for MySQL__
+--
+-- Possible values are @error@, @general@, and @slowquery@.
+--
+-- __RDS for PostgreSQL__
+--
+-- Possible values are @postgresql@ and @upgrade@.
+--
+-- __Aurora MySQL__
+--
+-- Possible values are @audit@, @error@, @general@, and @slowquery@.
+--
+-- __Aurora PostgreSQL__
+--
+-- Possible value is @postgresql@.
+--
+-- For more information about exporting CloudWatch Logs for Amazon RDS, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch Publishing Database Logs to Amazon CloudWatch Logs>
+-- in the /Amazon RDS User Guide/.
+--
+-- For more information about exporting CloudWatch Logs for Amazon Aurora,
+-- see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch Publishing Database Logs to Amazon CloudWatch Logs>
+-- in the /Amazon Aurora User Guide/.
+--
+-- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+modifyDBCluster_cloudwatchLogsExportConfiguration :: Lens.Lens' ModifyDBCluster (Prelude.Maybe CloudwatchLogsExportConfiguration)
+modifyDBCluster_cloudwatchLogsExportConfiguration = Lens.lens (\ModifyDBCluster' {cloudwatchLogsExportConfiguration} -> cloudwatchLogsExportConfiguration) (\s@ModifyDBCluster' {} a -> s {cloudwatchLogsExportConfiguration = a} :: ModifyDBCluster)
 
 -- | A value that indicates whether to copy all tags from the DB cluster to
 -- snapshots of the DB cluster. The default is not to copy them.
+--
+-- Valid for: Aurora DB clusters and Multi-AZ DB clusters
 modifyDBCluster_copyTagsToSnapshot :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Bool)
 modifyDBCluster_copyTagsToSnapshot = Lens.lens (\ModifyDBCluster' {copyTagsToSnapshot} -> copyTagsToSnapshot) (\s@ModifyDBCluster' {} a -> s {copyTagsToSnapshot = a} :: ModifyDBCluster)
+
+-- | The compute and memory capacity of each DB instance in the Multi-AZ DB
+-- cluster, for example db.m6gd.xlarge. Not all DB instance classes are
+-- available in all Amazon Web Services Regions, or for all database
+-- engines.
+--
+-- For the full list of DB instance classes and availability for your
+-- engine, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html DB Instance Class>
+-- in the /Amazon RDS User Guide/.
+--
+-- Valid for: Multi-AZ DB clusters only
+modifyDBCluster_dbClusterInstanceClass :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Text)
+modifyDBCluster_dbClusterInstanceClass = Lens.lens (\ModifyDBCluster' {dbClusterInstanceClass} -> dbClusterInstanceClass) (\s@ModifyDBCluster' {} a -> s {dbClusterInstanceClass = a} :: ModifyDBCluster)
+
+-- | The name of the DB cluster parameter group to use for the DB cluster.
+--
+-- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+modifyDBCluster_dbClusterParameterGroupName :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Text)
+modifyDBCluster_dbClusterParameterGroupName = Lens.lens (\ModifyDBCluster' {dbClusterParameterGroupName} -> dbClusterParameterGroupName) (\s@ModifyDBCluster' {} a -> s {dbClusterParameterGroupName = a} :: ModifyDBCluster)
+
+-- | The name of the DB parameter group to apply to all instances of the DB
+-- cluster.
+--
+-- When you apply a parameter group using the
+-- @DBInstanceParameterGroupName@ parameter, the DB cluster isn\'t rebooted
+-- automatically. Also, parameter changes are applied immediately rather
+-- than during the next maintenance window.
+--
+-- Default: The existing name setting
+--
+-- Constraints:
+--
+-- -   The DB parameter group must be in the same DB parameter group family
+--     as this DB cluster.
+--
+-- -   The @DBInstanceParameterGroupName@ parameter is valid in combination
+--     with the @AllowMajorVersionUpgrade@ parameter for a major version
+--     upgrade only.
+--
+-- Valid for: Aurora DB clusters only
+modifyDBCluster_dbInstanceParameterGroupName :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Text)
+modifyDBCluster_dbInstanceParameterGroupName = Lens.lens (\ModifyDBCluster' {dbInstanceParameterGroupName} -> dbInstanceParameterGroupName) (\s@ModifyDBCluster' {} a -> s {dbInstanceParameterGroupName = a} :: ModifyDBCluster)
+
+-- | A value that indicates whether the DB cluster has deletion protection
+-- enabled. The database can\'t be deleted when deletion protection is
+-- enabled. By default, deletion protection isn\'t enabled.
+--
+-- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+modifyDBCluster_deletionProtection :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Bool)
+modifyDBCluster_deletionProtection = Lens.lens (\ModifyDBCluster' {deletionProtection} -> deletionProtection) (\s@ModifyDBCluster' {} a -> s {deletionProtection = a} :: ModifyDBCluster)
+
+-- | The Active Directory directory ID to move the DB cluster to. Specify
+-- @none@ to remove the cluster from its current domain. The domain must be
+-- created prior to this operation.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/kerberos-authentication.html Kerberos Authentication>
+-- in the /Amazon Aurora User Guide/.
+--
+-- Valid for: Aurora DB clusters only
+modifyDBCluster_domain :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Text)
+modifyDBCluster_domain = Lens.lens (\ModifyDBCluster' {domain} -> domain) (\s@ModifyDBCluster' {} a -> s {domain = a} :: ModifyDBCluster)
+
+-- | Specify the name of the IAM role to be used when making API calls to the
+-- Directory Service.
+--
+-- Valid for: Aurora DB clusters only
+modifyDBCluster_domainIAMRoleName :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Text)
+modifyDBCluster_domainIAMRoleName = Lens.lens (\ModifyDBCluster' {domainIAMRoleName} -> domainIAMRoleName) (\s@ModifyDBCluster' {} a -> s {domainIAMRoleName = a} :: ModifyDBCluster)
+
+-- | A value that indicates whether to enable this DB cluster to forward
+-- write operations to the primary cluster of an Aurora global database
+-- (GlobalCluster). By default, write operations are not allowed on Aurora
+-- DB clusters that are secondary clusters in an Aurora global database.
+--
+-- You can set this value only on Aurora DB clusters that are members of an
+-- Aurora global database. With this parameter enabled, a secondary cluster
+-- can forward writes to the current primary cluster and the resulting
+-- changes are replicated back to this cluster. For the primary DB cluster
+-- of an Aurora global database, this value is used immediately if the
+-- primary is demoted by the FailoverGlobalCluster API operation, but it
+-- does nothing until then.
+--
+-- Valid for: Aurora DB clusters only
+modifyDBCluster_enableGlobalWriteForwarding :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Bool)
+modifyDBCluster_enableGlobalWriteForwarding = Lens.lens (\ModifyDBCluster' {enableGlobalWriteForwarding} -> enableGlobalWriteForwarding) (\s@ModifyDBCluster' {} a -> s {enableGlobalWriteForwarding = a} :: ModifyDBCluster)
+
+-- | A value that indicates whether to enable the HTTP endpoint for an Aurora
+-- Serverless v1 DB cluster. By default, the HTTP endpoint is disabled.
+--
+-- When enabled, the HTTP endpoint provides a connectionless web service
+-- API for running SQL queries on the Aurora Serverless v1 DB cluster. You
+-- can also query your database from inside the RDS console with the query
+-- editor.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html Using the Data API for Aurora Serverless v1>
+-- in the /Amazon Aurora User Guide/.
+--
+-- Valid for: Aurora DB clusters only
+modifyDBCluster_enableHttpEndpoint :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Bool)
+modifyDBCluster_enableHttpEndpoint = Lens.lens (\ModifyDBCluster' {enableHttpEndpoint} -> enableHttpEndpoint) (\s@ModifyDBCluster' {} a -> s {enableHttpEndpoint = a} :: ModifyDBCluster)
+
+-- | A value that indicates whether to enable mapping of Amazon Web Services
+-- Identity and Access Management (IAM) accounts to database accounts. By
+-- default, mapping isn\'t enabled.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html IAM Database Authentication>
+-- in the /Amazon Aurora User Guide/.
+--
+-- Valid for: Aurora DB clusters only
+modifyDBCluster_enableIAMDatabaseAuthentication :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Bool)
+modifyDBCluster_enableIAMDatabaseAuthentication = Lens.lens (\ModifyDBCluster' {enableIAMDatabaseAuthentication} -> enableIAMDatabaseAuthentication) (\s@ModifyDBCluster' {} a -> s {enableIAMDatabaseAuthentication = a} :: ModifyDBCluster)
+
+-- | A value that indicates whether to turn on Performance Insights for the
+-- DB cluster.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html Using Amazon Performance Insights>
+-- in the /Amazon RDS User Guide/.
+--
+-- Valid for: Multi-AZ DB clusters only
+modifyDBCluster_enablePerformanceInsights :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Bool)
+modifyDBCluster_enablePerformanceInsights = Lens.lens (\ModifyDBCluster' {enablePerformanceInsights} -> enablePerformanceInsights) (\s@ModifyDBCluster' {} a -> s {enablePerformanceInsights = a} :: ModifyDBCluster)
+
+-- | The version number of the database engine to which you want to upgrade.
+-- Changing this parameter results in an outage. The change is applied
+-- during the next maintenance window unless @ApplyImmediately@ is enabled.
+--
+-- To list all of the available engine versions for MySQL 5.6-compatible
+-- Aurora, use the following command:
+--
+-- @aws rds describe-db-engine-versions --engine aurora --query \"DBEngineVersions[].EngineVersion\"@
+--
+-- To list all of the available engine versions for MySQL 5.7-compatible
+-- and MySQL 8.0-compatible Aurora, use the following command:
+--
+-- @aws rds describe-db-engine-versions --engine aurora-mysql --query \"DBEngineVersions[].EngineVersion\"@
+--
+-- To list all of the available engine versions for Aurora PostgreSQL, use
+-- the following command:
+--
+-- @aws rds describe-db-engine-versions --engine aurora-postgresql --query \"DBEngineVersions[].EngineVersion\"@
+--
+-- To list all of the available engine versions for RDS for MySQL, use the
+-- following command:
+--
+-- @aws rds describe-db-engine-versions --engine mysql --query \"DBEngineVersions[].EngineVersion\"@
+--
+-- To list all of the available engine versions for RDS for PostgreSQL, use
+-- the following command:
+--
+-- @aws rds describe-db-engine-versions --engine postgres --query \"DBEngineVersions[].EngineVersion\"@
+--
+-- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+modifyDBCluster_engineVersion :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Text)
+modifyDBCluster_engineVersion = Lens.lens (\ModifyDBCluster' {engineVersion} -> engineVersion) (\s@ModifyDBCluster' {} a -> s {engineVersion = a} :: ModifyDBCluster)
+
+-- | The amount of Provisioned IOPS (input\/output operations per second) to
+-- be initially allocated for each DB instance in the Multi-AZ DB cluster.
+--
+-- For information about valid IOPS values, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS Amazon RDS Provisioned IOPS storage>
+-- in the /Amazon RDS User Guide/.
+--
+-- Constraints: Must be a multiple between .5 and 50 of the storage amount
+-- for the DB cluster.
+--
+-- Valid for: Multi-AZ DB clusters only
+modifyDBCluster_iops :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Int)
+modifyDBCluster_iops = Lens.lens (\ModifyDBCluster' {iops} -> iops) (\s@ModifyDBCluster' {} a -> s {iops = a} :: ModifyDBCluster)
+
+-- | The new password for the master database user. This password can contain
+-- any printable ASCII character except \"\/\", \"\"\", or \"\@\".
+--
+-- Constraints: Must contain from 8 to 41 characters.
+--
+-- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+modifyDBCluster_masterUserPassword :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Text)
+modifyDBCluster_masterUserPassword = Lens.lens (\ModifyDBCluster' {masterUserPassword} -> masterUserPassword) (\s@ModifyDBCluster' {} a -> s {masterUserPassword = a} :: ModifyDBCluster)
+
+-- | The interval, in seconds, between points when Enhanced Monitoring
+-- metrics are collected for the DB cluster. To turn off collecting
+-- Enhanced Monitoring metrics, specify 0. The default is 0.
+--
+-- If @MonitoringRoleArn@ is specified, also set @MonitoringInterval@ to a
+-- value other than 0.
+--
+-- Valid Values: @0, 1, 5, 10, 15, 30, 60@
+--
+-- Valid for: Multi-AZ DB clusters only
+modifyDBCluster_monitoringInterval :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Int)
+modifyDBCluster_monitoringInterval = Lens.lens (\ModifyDBCluster' {monitoringInterval} -> monitoringInterval) (\s@ModifyDBCluster' {} a -> s {monitoringInterval = a} :: ModifyDBCluster)
+
+-- | The Amazon Resource Name (ARN) for the IAM role that permits RDS to send
+-- Enhanced Monitoring metrics to Amazon CloudWatch Logs. An example is
+-- @arn:aws:iam:123456789012:role\/emaccess@. For information on creating a
+-- monitoring role, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole To create an IAM role for Amazon RDS Enhanced Monitoring>
+-- in the /Amazon RDS User Guide./
+--
+-- If @MonitoringInterval@ is set to a value other than 0, supply a
+-- @MonitoringRoleArn@ value.
+--
+-- Valid for: Multi-AZ DB clusters only
+modifyDBCluster_monitoringRoleArn :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Text)
+modifyDBCluster_monitoringRoleArn = Lens.lens (\ModifyDBCluster' {monitoringRoleArn} -> monitoringRoleArn) (\s@ModifyDBCluster' {} a -> s {monitoringRoleArn = a} :: ModifyDBCluster)
+
+-- | The network type of the DB cluster.
+--
+-- Valid values:
+--
+-- -   @IPV4@
+--
+-- -   @DUAL@
+--
+-- The network type is determined by the @DBSubnetGroup@ specified for the
+-- DB cluster. A @DBSubnetGroup@ can support only the IPv4 protocol or the
+-- IPv4 and the IPv6 protocols (@DUAL@).
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html Working with a DB instance in a VPC>
+-- in the /Amazon Aurora User Guide./
+--
+-- Valid for: Aurora DB clusters only
+modifyDBCluster_networkType :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Text)
+modifyDBCluster_networkType = Lens.lens (\ModifyDBCluster' {networkType} -> networkType) (\s@ModifyDBCluster' {} a -> s {networkType = a} :: ModifyDBCluster)
 
 -- | The new DB cluster identifier for the DB cluster when renaming a DB
 -- cluster. This value is stored as a lowercase string.
@@ -776,57 +1366,149 @@ modifyDBCluster_copyTagsToSnapshot = Lens.lens (\ModifyDBCluster' {copyTagsToSna
 -- -   Can\'t end with a hyphen or contain two consecutive hyphens
 --
 -- Example: @my-cluster2@
+--
+-- Valid for: Aurora DB clusters only
 modifyDBCluster_newDBClusterIdentifier :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Text)
 modifyDBCluster_newDBClusterIdentifier = Lens.lens (\ModifyDBCluster' {newDBClusterIdentifier'} -> newDBClusterIdentifier') (\s@ModifyDBCluster' {} a -> s {newDBClusterIdentifier' = a} :: ModifyDBCluster)
 
--- | The name of the DB parameter group to apply to all instances of the DB
--- cluster.
+-- | A value that indicates that the DB cluster should be associated with the
+-- specified option group.
 --
--- When you apply a parameter group using the
--- @DBInstanceParameterGroupName@ parameter, the DB cluster isn\'t rebooted
--- automatically. Also, parameter changes aren\'t applied during the next
--- maintenance window but instead are applied immediately.
---
--- Default: The existing name setting
---
--- Constraints:
---
--- -   The DB parameter group must be in the same DB parameter group family
---     as this DB cluster.
---
--- -   The @DBInstanceParameterGroupName@ parameter is only valid in
---     combination with the @AllowMajorVersionUpgrade@ parameter.
-modifyDBCluster_dbInstanceParameterGroupName :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Text)
-modifyDBCluster_dbInstanceParameterGroupName = Lens.lens (\ModifyDBCluster' {dbInstanceParameterGroupName} -> dbInstanceParameterGroupName) (\s@ModifyDBCluster' {} a -> s {dbInstanceParameterGroupName = a} :: ModifyDBCluster)
+-- DB clusters are associated with a default option group that can\'t be
+-- modified.
+modifyDBCluster_optionGroupName :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Text)
+modifyDBCluster_optionGroupName = Lens.lens (\ModifyDBCluster' {optionGroupName} -> optionGroupName) (\s@ModifyDBCluster' {} a -> s {optionGroupName = a} :: ModifyDBCluster)
 
--- | Specify the name of the IAM role to be used when making API calls to the
--- Directory Service.
-modifyDBCluster_domainIAMRoleName :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Text)
-modifyDBCluster_domainIAMRoleName = Lens.lens (\ModifyDBCluster' {domainIAMRoleName} -> domainIAMRoleName) (\s@ModifyDBCluster' {} a -> s {domainIAMRoleName = a} :: ModifyDBCluster)
+-- | The Amazon Web Services KMS key identifier for encryption of Performance
+-- Insights data.
+--
+-- The Amazon Web Services KMS key identifier is the key ARN, key ID, alias
+-- ARN, or alias name for the KMS key.
+--
+-- If you don\'t specify a value for @PerformanceInsightsKMSKeyId@, then
+-- Amazon RDS uses your default KMS key. There is a default KMS key for
+-- your Amazon Web Services account. Your Amazon Web Services account has a
+-- different default KMS key for each Amazon Web Services Region.
+--
+-- Valid for: Multi-AZ DB clusters only
+modifyDBCluster_performanceInsightsKMSKeyId :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Text)
+modifyDBCluster_performanceInsightsKMSKeyId = Lens.lens (\ModifyDBCluster' {performanceInsightsKMSKeyId} -> performanceInsightsKMSKeyId) (\s@ModifyDBCluster' {} a -> s {performanceInsightsKMSKeyId = a} :: ModifyDBCluster)
+
+-- | The number of days to retain Performance Insights data. The default is 7
+-- days. The following values are valid:
+--
+-- -   7
+--
+-- -   /month/ * 31, where /month/ is a number of months from 1-23
+--
+-- -   731
+--
+-- For example, the following values are valid:
+--
+-- -   93 (3 months * 31)
+--
+-- -   341 (11 months * 31)
+--
+-- -   589 (19 months * 31)
+--
+-- -   731
+--
+-- If you specify a retention period such as 94, which isn\'t a valid
+-- value, RDS issues an error.
+--
+-- Valid for: Multi-AZ DB clusters only
+modifyDBCluster_performanceInsightsRetentionPeriod :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Int)
+modifyDBCluster_performanceInsightsRetentionPeriod = Lens.lens (\ModifyDBCluster' {performanceInsightsRetentionPeriod} -> performanceInsightsRetentionPeriod) (\s@ModifyDBCluster' {} a -> s {performanceInsightsRetentionPeriod = a} :: ModifyDBCluster)
 
 -- | The port number on which the DB cluster accepts connections.
 --
 -- Constraints: Value must be @1150-65535@
 --
 -- Default: The same port as the original DB cluster.
+--
+-- Valid for: Aurora DB clusters only
 modifyDBCluster_port :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Int)
 modifyDBCluster_port = Lens.lens (\ModifyDBCluster' {port} -> port) (\s@ModifyDBCluster' {} a -> s {port = a} :: ModifyDBCluster)
 
--- | A value that indicates whether to enable mapping of Amazon Web Services
--- Identity and Access Management (IAM) accounts to database accounts. By
--- default, mapping is disabled.
+-- | The daily time range during which automated backups are created if
+-- automated backups are enabled, using the @BackupRetentionPeriod@
+-- parameter.
 --
--- For more information, see
--- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html IAM Database Authentication>
--- in the /Amazon Aurora User Guide./
-modifyDBCluster_enableIAMDatabaseAuthentication :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Bool)
-modifyDBCluster_enableIAMDatabaseAuthentication = Lens.lens (\ModifyDBCluster' {enableIAMDatabaseAuthentication} -> enableIAMDatabaseAuthentication) (\s@ModifyDBCluster' {} a -> s {enableIAMDatabaseAuthentication = a} :: ModifyDBCluster)
+-- The default is a 30-minute window selected at random from an 8-hour
+-- block of time for each Amazon Web Services Region. To view the time
+-- blocks available, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html#Aurora.Managing.Backups.BackupWindow Backup window>
+-- in the /Amazon Aurora User Guide/.
+--
+-- Constraints:
+--
+-- -   Must be in the format @hh24:mi-hh24:mi@.
+--
+-- -   Must be in Universal Coordinated Time (UTC).
+--
+-- -   Must not conflict with the preferred maintenance window.
+--
+-- -   Must be at least 30 minutes.
+--
+-- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+modifyDBCluster_preferredBackupWindow :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Text)
+modifyDBCluster_preferredBackupWindow = Lens.lens (\ModifyDBCluster' {preferredBackupWindow} -> preferredBackupWindow) (\s@ModifyDBCluster' {} a -> s {preferredBackupWindow = a} :: ModifyDBCluster)
+
+-- | The weekly time range during which system maintenance can occur, in
+-- Universal Coordinated Time (UTC).
+--
+-- Format: @ddd:hh24:mi-ddd:hh24:mi@
+--
+-- The default is a 30-minute window selected at random from an 8-hour
+-- block of time for each Amazon Web Services Region, occurring on a random
+-- day of the week. To see the time blocks available, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora Adjusting the Preferred DB Cluster Maintenance Window>
+-- in the /Amazon Aurora User Guide/.
+--
+-- Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
+--
+-- Constraints: Minimum 30-minute window.
+--
+-- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+modifyDBCluster_preferredMaintenanceWindow :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Text)
+modifyDBCluster_preferredMaintenanceWindow = Lens.lens (\ModifyDBCluster' {preferredMaintenanceWindow} -> preferredMaintenanceWindow) (\s@ModifyDBCluster' {} a -> s {preferredMaintenanceWindow = a} :: ModifyDBCluster)
+
+-- | The scaling properties of the DB cluster. You can only modify scaling
+-- properties for DB clusters in @serverless@ DB engine mode.
+--
+-- Valid for: Aurora DB clusters only
+modifyDBCluster_scalingConfiguration :: Lens.Lens' ModifyDBCluster (Prelude.Maybe ScalingConfiguration)
+modifyDBCluster_scalingConfiguration = Lens.lens (\ModifyDBCluster' {scalingConfiguration} -> scalingConfiguration) (\s@ModifyDBCluster' {} a -> s {scalingConfiguration = a} :: ModifyDBCluster)
+
+-- | Undocumented member.
+modifyDBCluster_serverlessV2ScalingConfiguration :: Lens.Lens' ModifyDBCluster (Prelude.Maybe ServerlessV2ScalingConfiguration)
+modifyDBCluster_serverlessV2ScalingConfiguration = Lens.lens (\ModifyDBCluster' {serverlessV2ScalingConfiguration} -> serverlessV2ScalingConfiguration) (\s@ModifyDBCluster' {} a -> s {serverlessV2ScalingConfiguration = a} :: ModifyDBCluster)
+
+-- | Specifies the storage type to be associated with the DB cluster.
+--
+-- Valid values: @io1@
+--
+-- When specified, a value for the @Iops@ parameter is required.
+--
+-- Default: @io1@
+--
+-- Valid for: Multi-AZ DB clusters only
+modifyDBCluster_storageType :: Lens.Lens' ModifyDBCluster (Prelude.Maybe Prelude.Text)
+modifyDBCluster_storageType = Lens.lens (\ModifyDBCluster' {storageType} -> storageType) (\s@ModifyDBCluster' {} a -> s {storageType = a} :: ModifyDBCluster)
+
+-- | A list of VPC security groups that the DB cluster will belong to.
+--
+-- Valid for: Aurora DB clusters and Multi-AZ DB clusters
+modifyDBCluster_vpcSecurityGroupIds :: Lens.Lens' ModifyDBCluster (Prelude.Maybe [Prelude.Text])
+modifyDBCluster_vpcSecurityGroupIds = Lens.lens (\ModifyDBCluster' {vpcSecurityGroupIds} -> vpcSecurityGroupIds) (\s@ModifyDBCluster' {} a -> s {vpcSecurityGroupIds = a} :: ModifyDBCluster) Prelude.. Lens.mapping Lens.coerced
 
 -- | The DB cluster identifier for the cluster being modified. This parameter
 -- isn\'t case-sensitive.
 --
 -- Constraints: This identifier must match the identifier of an existing DB
 -- cluster.
+--
+-- Valid for: Aurora DB clusters and Multi-AZ DB clusters
 modifyDBCluster_dbClusterIdentifier :: Lens.Lens' ModifyDBCluster Prelude.Text
 modifyDBCluster_dbClusterIdentifier = Lens.lens (\ModifyDBCluster' {dbClusterIdentifier} -> dbClusterIdentifier) (\s@ModifyDBCluster' {} a -> s {dbClusterIdentifier = a} :: ModifyDBCluster)
 
@@ -834,126 +1516,182 @@ instance Core.AWSRequest ModifyDBCluster where
   type
     AWSResponse ModifyDBCluster =
       ModifyDBClusterResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ModifyDBClusterResult"
       ( \s h x ->
           ModifyDBClusterResponse'
-            Prelude.<$> (x Core..@? "DBCluster")
+            Prelude.<$> (x Data..@? "DBCluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ModifyDBCluster where
   hashWithSalt _salt ModifyDBCluster' {..} =
-    _salt `Prelude.hashWithSalt` engineVersion
-      `Prelude.hashWithSalt` enableGlobalWriteForwarding
-      `Prelude.hashWithSalt` deletionProtection
-      `Prelude.hashWithSalt` masterUserPassword
-      `Prelude.hashWithSalt` enableHttpEndpoint
+    _salt `Prelude.hashWithSalt` allocatedStorage
       `Prelude.hashWithSalt` allowMajorVersionUpgrade
-      `Prelude.hashWithSalt` domain
-      `Prelude.hashWithSalt` backtrackWindow
-      `Prelude.hashWithSalt` cloudwatchLogsExportConfiguration
-      `Prelude.hashWithSalt` preferredMaintenanceWindow
-      `Prelude.hashWithSalt` preferredBackupWindow
-      `Prelude.hashWithSalt` backupRetentionPeriod
-      `Prelude.hashWithSalt` vpcSecurityGroupIds
-      `Prelude.hashWithSalt` dbClusterParameterGroupName
-      `Prelude.hashWithSalt` scalingConfiguration
       `Prelude.hashWithSalt` applyImmediately
-      `Prelude.hashWithSalt` optionGroupName
+      `Prelude.hashWithSalt` autoMinorVersionUpgrade
+      `Prelude.hashWithSalt` backtrackWindow
+      `Prelude.hashWithSalt` backupRetentionPeriod
+      `Prelude.hashWithSalt` cloudwatchLogsExportConfiguration
       `Prelude.hashWithSalt` copyTagsToSnapshot
-      `Prelude.hashWithSalt` newDBClusterIdentifier'
+      `Prelude.hashWithSalt` dbClusterInstanceClass
+      `Prelude.hashWithSalt` dbClusterParameterGroupName
       `Prelude.hashWithSalt` dbInstanceParameterGroupName
+      `Prelude.hashWithSalt` deletionProtection
+      `Prelude.hashWithSalt` domain
       `Prelude.hashWithSalt` domainIAMRoleName
-      `Prelude.hashWithSalt` port
+      `Prelude.hashWithSalt` enableGlobalWriteForwarding
+      `Prelude.hashWithSalt` enableHttpEndpoint
       `Prelude.hashWithSalt` enableIAMDatabaseAuthentication
+      `Prelude.hashWithSalt` enablePerformanceInsights
+      `Prelude.hashWithSalt` engineVersion
+      `Prelude.hashWithSalt` iops
+      `Prelude.hashWithSalt` masterUserPassword
+      `Prelude.hashWithSalt` monitoringInterval
+      `Prelude.hashWithSalt` monitoringRoleArn
+      `Prelude.hashWithSalt` networkType
+      `Prelude.hashWithSalt` newDBClusterIdentifier'
+      `Prelude.hashWithSalt` optionGroupName
+      `Prelude.hashWithSalt` performanceInsightsKMSKeyId
+      `Prelude.hashWithSalt` performanceInsightsRetentionPeriod
+      `Prelude.hashWithSalt` port
+      `Prelude.hashWithSalt` preferredBackupWindow
+      `Prelude.hashWithSalt` preferredMaintenanceWindow
+      `Prelude.hashWithSalt` scalingConfiguration
+      `Prelude.hashWithSalt` serverlessV2ScalingConfiguration
+      `Prelude.hashWithSalt` storageType
+      `Prelude.hashWithSalt` vpcSecurityGroupIds
       `Prelude.hashWithSalt` dbClusterIdentifier
 
 instance Prelude.NFData ModifyDBCluster where
   rnf ModifyDBCluster' {..} =
-    Prelude.rnf engineVersion
-      `Prelude.seq` Prelude.rnf enableGlobalWriteForwarding
-      `Prelude.seq` Prelude.rnf deletionProtection
-      `Prelude.seq` Prelude.rnf masterUserPassword
-      `Prelude.seq` Prelude.rnf enableHttpEndpoint
+    Prelude.rnf allocatedStorage
       `Prelude.seq` Prelude.rnf allowMajorVersionUpgrade
-      `Prelude.seq` Prelude.rnf domain
-      `Prelude.seq` Prelude.rnf backtrackWindow
-      `Prelude.seq` Prelude.rnf cloudwatchLogsExportConfiguration
-      `Prelude.seq` Prelude.rnf preferredMaintenanceWindow
-      `Prelude.seq` Prelude.rnf preferredBackupWindow
-      `Prelude.seq` Prelude.rnf backupRetentionPeriod
-      `Prelude.seq` Prelude.rnf vpcSecurityGroupIds
-      `Prelude.seq` Prelude.rnf dbClusterParameterGroupName
-      `Prelude.seq` Prelude.rnf scalingConfiguration
       `Prelude.seq` Prelude.rnf applyImmediately
-      `Prelude.seq` Prelude.rnf optionGroupName
+      `Prelude.seq` Prelude.rnf autoMinorVersionUpgrade
+      `Prelude.seq` Prelude.rnf backtrackWindow
+      `Prelude.seq` Prelude.rnf backupRetentionPeriod
+      `Prelude.seq` Prelude.rnf cloudwatchLogsExportConfiguration
       `Prelude.seq` Prelude.rnf copyTagsToSnapshot
-      `Prelude.seq` Prelude.rnf
-        newDBClusterIdentifier'
-      `Prelude.seq` Prelude.rnf
-        dbInstanceParameterGroupName
-      `Prelude.seq` Prelude.rnf
-        domainIAMRoleName
-      `Prelude.seq` Prelude.rnf port
+      `Prelude.seq` Prelude.rnf dbClusterInstanceClass
+      `Prelude.seq` Prelude.rnf dbClusterParameterGroupName
+      `Prelude.seq` Prelude.rnf dbInstanceParameterGroupName
+      `Prelude.seq` Prelude.rnf deletionProtection
+      `Prelude.seq` Prelude.rnf domain
+      `Prelude.seq` Prelude.rnf domainIAMRoleName
+      `Prelude.seq` Prelude.rnf enableGlobalWriteForwarding
+      `Prelude.seq` Prelude.rnf enableHttpEndpoint
       `Prelude.seq` Prelude.rnf
         enableIAMDatabaseAuthentication
       `Prelude.seq` Prelude.rnf
+        enablePerformanceInsights
+      `Prelude.seq` Prelude.rnf engineVersion
+      `Prelude.seq` Prelude.rnf iops
+      `Prelude.seq` Prelude.rnf
+        masterUserPassword
+      `Prelude.seq` Prelude.rnf
+        monitoringInterval
+      `Prelude.seq` Prelude.rnf
+        monitoringRoleArn
+      `Prelude.seq` Prelude.rnf
+        networkType
+      `Prelude.seq` Prelude.rnf
+        newDBClusterIdentifier'
+      `Prelude.seq` Prelude.rnf
+        optionGroupName
+      `Prelude.seq` Prelude.rnf
+        performanceInsightsKMSKeyId
+      `Prelude.seq` Prelude.rnf
+        performanceInsightsRetentionPeriod
+      `Prelude.seq` Prelude.rnf
+        port
+      `Prelude.seq` Prelude.rnf
+        preferredBackupWindow
+      `Prelude.seq` Prelude.rnf
+        preferredMaintenanceWindow
+      `Prelude.seq` Prelude.rnf
+        scalingConfiguration
+      `Prelude.seq` Prelude.rnf
+        serverlessV2ScalingConfiguration
+      `Prelude.seq` Prelude.rnf
+        storageType
+      `Prelude.seq` Prelude.rnf
+        vpcSecurityGroupIds
+      `Prelude.seq` Prelude.rnf
         dbClusterIdentifier
 
-instance Core.ToHeaders ModifyDBCluster where
+instance Data.ToHeaders ModifyDBCluster where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyDBCluster where
+instance Data.ToPath ModifyDBCluster where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyDBCluster where
+instance Data.ToQuery ModifyDBCluster where
   toQuery ModifyDBCluster' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyDBCluster" :: Prelude.ByteString),
+          Data.=: ("ModifyDBCluster" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "EngineVersion" Core.=: engineVersion,
-        "EnableGlobalWriteForwarding"
-          Core.=: enableGlobalWriteForwarding,
-        "DeletionProtection" Core.=: deletionProtection,
-        "MasterUserPassword" Core.=: masterUserPassword,
-        "EnableHttpEndpoint" Core.=: enableHttpEndpoint,
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "AllocatedStorage" Data.=: allocatedStorage,
         "AllowMajorVersionUpgrade"
-          Core.=: allowMajorVersionUpgrade,
-        "Domain" Core.=: domain,
-        "BacktrackWindow" Core.=: backtrackWindow,
-        "CloudwatchLogsExportConfiguration"
-          Core.=: cloudwatchLogsExportConfiguration,
-        "PreferredMaintenanceWindow"
-          Core.=: preferredMaintenanceWindow,
-        "PreferredBackupWindow"
-          Core.=: preferredBackupWindow,
+          Data.=: allowMajorVersionUpgrade,
+        "ApplyImmediately" Data.=: applyImmediately,
+        "AutoMinorVersionUpgrade"
+          Data.=: autoMinorVersionUpgrade,
+        "BacktrackWindow" Data.=: backtrackWindow,
         "BackupRetentionPeriod"
-          Core.=: backupRetentionPeriod,
+          Data.=: backupRetentionPeriod,
+        "CloudwatchLogsExportConfiguration"
+          Data.=: cloudwatchLogsExportConfiguration,
+        "CopyTagsToSnapshot" Data.=: copyTagsToSnapshot,
+        "DBClusterInstanceClass"
+          Data.=: dbClusterInstanceClass,
+        "DBClusterParameterGroupName"
+          Data.=: dbClusterParameterGroupName,
+        "DBInstanceParameterGroupName"
+          Data.=: dbInstanceParameterGroupName,
+        "DeletionProtection" Data.=: deletionProtection,
+        "Domain" Data.=: domain,
+        "DomainIAMRoleName" Data.=: domainIAMRoleName,
+        "EnableGlobalWriteForwarding"
+          Data.=: enableGlobalWriteForwarding,
+        "EnableHttpEndpoint" Data.=: enableHttpEndpoint,
+        "EnableIAMDatabaseAuthentication"
+          Data.=: enableIAMDatabaseAuthentication,
+        "EnablePerformanceInsights"
+          Data.=: enablePerformanceInsights,
+        "EngineVersion" Data.=: engineVersion,
+        "Iops" Data.=: iops,
+        "MasterUserPassword" Data.=: masterUserPassword,
+        "MonitoringInterval" Data.=: monitoringInterval,
+        "MonitoringRoleArn" Data.=: monitoringRoleArn,
+        "NetworkType" Data.=: networkType,
+        "NewDBClusterIdentifier"
+          Data.=: newDBClusterIdentifier',
+        "OptionGroupName" Data.=: optionGroupName,
+        "PerformanceInsightsKMSKeyId"
+          Data.=: performanceInsightsKMSKeyId,
+        "PerformanceInsightsRetentionPeriod"
+          Data.=: performanceInsightsRetentionPeriod,
+        "Port" Data.=: port,
+        "PreferredBackupWindow"
+          Data.=: preferredBackupWindow,
+        "PreferredMaintenanceWindow"
+          Data.=: preferredMaintenanceWindow,
+        "ScalingConfiguration" Data.=: scalingConfiguration,
+        "ServerlessV2ScalingConfiguration"
+          Data.=: serverlessV2ScalingConfiguration,
+        "StorageType" Data.=: storageType,
         "VpcSecurityGroupIds"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "VpcSecurityGroupId"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "VpcSecurityGroupId"
                 Prelude.<$> vpcSecurityGroupIds
             ),
-        "DBClusterParameterGroupName"
-          Core.=: dbClusterParameterGroupName,
-        "ScalingConfiguration" Core.=: scalingConfiguration,
-        "ApplyImmediately" Core.=: applyImmediately,
-        "OptionGroupName" Core.=: optionGroupName,
-        "CopyTagsToSnapshot" Core.=: copyTagsToSnapshot,
-        "NewDBClusterIdentifier"
-          Core.=: newDBClusterIdentifier',
-        "DBInstanceParameterGroupName"
-          Core.=: dbInstanceParameterGroupName,
-        "DomainIAMRoleName" Core.=: domainIAMRoleName,
-        "Port" Core.=: port,
-        "EnableIAMDatabaseAuthentication"
-          Core.=: enableIAMDatabaseAuthentication,
-        "DBClusterIdentifier" Core.=: dbClusterIdentifier
+        "DBClusterIdentifier" Data.=: dbClusterIdentifier
       ]
 
 -- | /See:/ 'newModifyDBClusterResponse' smart constructor.

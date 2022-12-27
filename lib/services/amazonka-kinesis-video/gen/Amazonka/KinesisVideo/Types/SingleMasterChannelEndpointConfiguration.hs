@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideo.Types.SingleMasterChannelEndpointConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.KinesisVideo.Types.SingleMasterChannelEndpointConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisVideo.Types.ChannelProtocol
 import Amazonka.KinesisVideo.Types.ChannelRole
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that contains the endpoint configuration for the
@@ -111,13 +112,13 @@ instance
       `Prelude.seq` Prelude.rnf role'
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     SingleMasterChannelEndpointConfiguration
   where
   toJSON SingleMasterChannelEndpointConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Protocols" Core..=) Prelude.<$> protocols,
-            ("Role" Core..=) Prelude.<$> role'
+          [ ("Protocols" Data..=) Prelude.<$> protocols,
+            ("Role" Data..=) Prelude.<$> role'
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.ListAliases
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.WorkMail.ListAliases
     newListAliases,
 
     -- * Request Lenses
-    listAliases_nextToken,
     listAliases_maxResults,
+    listAliases_nextToken,
     listAliases_organizationId,
     listAliases_entityId,
 
@@ -47,7 +47,8 @@ module Amazonka.WorkMail.ListAliases
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,11 +56,11 @@ import Amazonka.WorkMail.Types
 
 -- | /See:/ 'newListAliases' smart constructor.
 data ListAliases = ListAliases'
-  { -- | The token to use to retrieve the next page of results. The first call
+  { -- | The maximum number of results to return in a single call.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to use to retrieve the next page of results. The first call
     -- does not contain any tokens.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in a single call.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The identifier for the organization under which the entity exists.
     organizationId :: Prelude.Text,
     -- | The identifier for the entity for which to list the aliases.
@@ -75,10 +76,10 @@ data ListAliases = ListAliases'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listAliases_maxResults' - The maximum number of results to return in a single call.
+--
 -- 'nextToken', 'listAliases_nextToken' - The token to use to retrieve the next page of results. The first call
 -- does not contain any tokens.
---
--- 'maxResults', 'listAliases_maxResults' - The maximum number of results to return in a single call.
 --
 -- 'organizationId', 'listAliases_organizationId' - The identifier for the organization under which the entity exists.
 --
@@ -91,20 +92,20 @@ newListAliases ::
   ListAliases
 newListAliases pOrganizationId_ pEntityId_ =
   ListAliases'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       organizationId = pOrganizationId_,
       entityId = pEntityId_
     }
+
+-- | The maximum number of results to return in a single call.
+listAliases_maxResults :: Lens.Lens' ListAliases (Prelude.Maybe Prelude.Natural)
+listAliases_maxResults = Lens.lens (\ListAliases' {maxResults} -> maxResults) (\s@ListAliases' {} a -> s {maxResults = a} :: ListAliases)
 
 -- | The token to use to retrieve the next page of results. The first call
 -- does not contain any tokens.
 listAliases_nextToken :: Lens.Lens' ListAliases (Prelude.Maybe Prelude.Text)
 listAliases_nextToken = Lens.lens (\ListAliases' {nextToken} -> nextToken) (\s@ListAliases' {} a -> s {nextToken = a} :: ListAliases)
-
--- | The maximum number of results to return in a single call.
-listAliases_maxResults :: Lens.Lens' ListAliases (Prelude.Maybe Prelude.Natural)
-listAliases_maxResults = Lens.lens (\ListAliases' {maxResults} -> maxResults) (\s@ListAliases' {} a -> s {maxResults = a} :: ListAliases)
 
 -- | The identifier for the organization under which the entity exists.
 listAliases_organizationId :: Lens.Lens' ListAliases Prelude.Text
@@ -135,61 +136,62 @@ instance Core.AWSPager ListAliases where
 
 instance Core.AWSRequest ListAliases where
   type AWSResponse ListAliases = ListAliasesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAliasesResponse'
-            Prelude.<$> (x Core..?> "Aliases" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Aliases" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListAliases where
   hashWithSalt _salt ListAliases' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` organizationId
       `Prelude.hashWithSalt` entityId
 
 instance Prelude.NFData ListAliases where
   rnf ListAliases' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf organizationId
       `Prelude.seq` Prelude.rnf entityId
 
-instance Core.ToHeaders ListAliases where
+instance Data.ToHeaders ListAliases where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkMailService.ListAliases" ::
+              Data.=# ( "WorkMailService.ListAliases" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListAliases where
+instance Data.ToJSON ListAliases where
   toJSON ListAliases' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("OrganizationId" Core..= organizationId),
-            Prelude.Just ("EntityId" Core..= entityId)
+              ("OrganizationId" Data..= organizationId),
+            Prelude.Just ("EntityId" Data..= entityId)
           ]
       )
 
-instance Core.ToPath ListAliases where
+instance Data.ToPath ListAliases where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListAliases where
+instance Data.ToQuery ListAliases where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListAliasesResponse' smart constructor.

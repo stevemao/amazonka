@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.DeleteDiskSnapshot
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -53,7 +53,8 @@ module Amazonka.Lightsail.DeleteDiskSnapshot
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -96,12 +97,13 @@ instance Core.AWSRequest DeleteDiskSnapshot where
   type
     AWSResponse DeleteDiskSnapshot =
       DeleteDiskSnapshotResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteDiskSnapshotResponse'
-            Prelude.<$> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -113,34 +115,34 @@ instance Prelude.NFData DeleteDiskSnapshot where
   rnf DeleteDiskSnapshot' {..} =
     Prelude.rnf diskSnapshotName
 
-instance Core.ToHeaders DeleteDiskSnapshot where
+instance Data.ToHeaders DeleteDiskSnapshot where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.DeleteDiskSnapshot" ::
+              Data.=# ( "Lightsail_20161128.DeleteDiskSnapshot" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteDiskSnapshot where
+instance Data.ToJSON DeleteDiskSnapshot where
   toJSON DeleteDiskSnapshot' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("diskSnapshotName" Core..= diskSnapshotName)
+              ("diskSnapshotName" Data..= diskSnapshotName)
           ]
       )
 
-instance Core.ToPath DeleteDiskSnapshot where
+instance Data.ToPath DeleteDiskSnapshot where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDiskSnapshot where
+instance Data.ToQuery DeleteDiskSnapshot where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteDiskSnapshotResponse' smart constructor.

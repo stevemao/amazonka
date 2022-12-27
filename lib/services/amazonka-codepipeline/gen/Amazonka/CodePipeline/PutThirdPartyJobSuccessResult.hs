@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.PutThirdPartyJobSuccessResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.CodePipeline.PutThirdPartyJobSuccessResult
 
     -- * Request Lenses
     putThirdPartyJobSuccessResult_continuationToken,
-    putThirdPartyJobSuccessResult_executionDetails,
     putThirdPartyJobSuccessResult_currentRevision,
+    putThirdPartyJobSuccessResult_executionDetails,
     putThirdPartyJobSuccessResult_jobId,
     putThirdPartyJobSuccessResult_clientToken,
 
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CodePipeline.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,11 +59,11 @@ data PutThirdPartyJobSuccessResult = PutThirdPartyJobSuccessResult'
     -- progress of the partner action. When the action is complete, no
     -- continuation token should be supplied.
     continuationToken :: Prelude.Maybe Prelude.Text,
+    -- | Represents information about a current revision.
+    currentRevision :: Prelude.Maybe CurrentRevision,
     -- | The details of the actions taken and results produced on an artifact as
     -- it passes through stages in the pipeline.
     executionDetails :: Prelude.Maybe ExecutionDetails,
-    -- | Represents information about a current revision.
-    currentRevision :: Prelude.Maybe CurrentRevision,
     -- | The ID of the job that successfully completed. This is the same ID
     -- returned from @PollForThirdPartyJobs@.
     jobId :: Prelude.Text,
@@ -88,10 +89,10 @@ data PutThirdPartyJobSuccessResult = PutThirdPartyJobSuccessResult'
 -- progress of the partner action. When the action is complete, no
 -- continuation token should be supplied.
 --
+-- 'currentRevision', 'putThirdPartyJobSuccessResult_currentRevision' - Represents information about a current revision.
+--
 -- 'executionDetails', 'putThirdPartyJobSuccessResult_executionDetails' - The details of the actions taken and results produced on an artifact as
 -- it passes through stages in the pipeline.
---
--- 'currentRevision', 'putThirdPartyJobSuccessResult_currentRevision' - Represents information about a current revision.
 --
 -- 'jobId', 'putThirdPartyJobSuccessResult_jobId' - The ID of the job that successfully completed. This is the same ID
 -- returned from @PollForThirdPartyJobs@.
@@ -111,8 +112,8 @@ newPutThirdPartyJobSuccessResult
     PutThirdPartyJobSuccessResult'
       { continuationToken =
           Prelude.Nothing,
-        executionDetails = Prelude.Nothing,
         currentRevision = Prelude.Nothing,
+        executionDetails = Prelude.Nothing,
         jobId = pJobId_,
         clientToken = pClientToken_
       }
@@ -126,14 +127,14 @@ newPutThirdPartyJobSuccessResult
 putThirdPartyJobSuccessResult_continuationToken :: Lens.Lens' PutThirdPartyJobSuccessResult (Prelude.Maybe Prelude.Text)
 putThirdPartyJobSuccessResult_continuationToken = Lens.lens (\PutThirdPartyJobSuccessResult' {continuationToken} -> continuationToken) (\s@PutThirdPartyJobSuccessResult' {} a -> s {continuationToken = a} :: PutThirdPartyJobSuccessResult)
 
+-- | Represents information about a current revision.
+putThirdPartyJobSuccessResult_currentRevision :: Lens.Lens' PutThirdPartyJobSuccessResult (Prelude.Maybe CurrentRevision)
+putThirdPartyJobSuccessResult_currentRevision = Lens.lens (\PutThirdPartyJobSuccessResult' {currentRevision} -> currentRevision) (\s@PutThirdPartyJobSuccessResult' {} a -> s {currentRevision = a} :: PutThirdPartyJobSuccessResult)
+
 -- | The details of the actions taken and results produced on an artifact as
 -- it passes through stages in the pipeline.
 putThirdPartyJobSuccessResult_executionDetails :: Lens.Lens' PutThirdPartyJobSuccessResult (Prelude.Maybe ExecutionDetails)
 putThirdPartyJobSuccessResult_executionDetails = Lens.lens (\PutThirdPartyJobSuccessResult' {executionDetails} -> executionDetails) (\s@PutThirdPartyJobSuccessResult' {} a -> s {executionDetails = a} :: PutThirdPartyJobSuccessResult)
-
--- | Represents information about a current revision.
-putThirdPartyJobSuccessResult_currentRevision :: Lens.Lens' PutThirdPartyJobSuccessResult (Prelude.Maybe CurrentRevision)
-putThirdPartyJobSuccessResult_currentRevision = Lens.lens (\PutThirdPartyJobSuccessResult' {currentRevision} -> currentRevision) (\s@PutThirdPartyJobSuccessResult' {} a -> s {currentRevision = a} :: PutThirdPartyJobSuccessResult)
 
 -- | The ID of the job that successfully completed. This is the same ID
 -- returned from @PollForThirdPartyJobs@.
@@ -153,7 +154,8 @@ instance
   type
     AWSResponse PutThirdPartyJobSuccessResult =
       PutThirdPartyJobSuccessResultResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       PutThirdPartyJobSuccessResultResponse'
@@ -164,53 +166,53 @@ instance
   where
   hashWithSalt _salt PutThirdPartyJobSuccessResult' {..} =
     _salt `Prelude.hashWithSalt` continuationToken
-      `Prelude.hashWithSalt` executionDetails
       `Prelude.hashWithSalt` currentRevision
+      `Prelude.hashWithSalt` executionDetails
       `Prelude.hashWithSalt` jobId
       `Prelude.hashWithSalt` clientToken
 
 instance Prelude.NFData PutThirdPartyJobSuccessResult where
   rnf PutThirdPartyJobSuccessResult' {..} =
     Prelude.rnf continuationToken
-      `Prelude.seq` Prelude.rnf executionDetails
       `Prelude.seq` Prelude.rnf currentRevision
+      `Prelude.seq` Prelude.rnf executionDetails
       `Prelude.seq` Prelude.rnf jobId
       `Prelude.seq` Prelude.rnf clientToken
 
-instance Core.ToHeaders PutThirdPartyJobSuccessResult where
+instance Data.ToHeaders PutThirdPartyJobSuccessResult where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodePipeline_20150709.PutThirdPartyJobSuccessResult" ::
+              Data.=# ( "CodePipeline_20150709.PutThirdPartyJobSuccessResult" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutThirdPartyJobSuccessResult where
+instance Data.ToJSON PutThirdPartyJobSuccessResult where
   toJSON PutThirdPartyJobSuccessResult' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("continuationToken" Core..=)
+          [ ("continuationToken" Data..=)
               Prelude.<$> continuationToken,
-            ("executionDetails" Core..=)
-              Prelude.<$> executionDetails,
-            ("currentRevision" Core..=)
+            ("currentRevision" Data..=)
               Prelude.<$> currentRevision,
-            Prelude.Just ("jobId" Core..= jobId),
-            Prelude.Just ("clientToken" Core..= clientToken)
+            ("executionDetails" Data..=)
+              Prelude.<$> executionDetails,
+            Prelude.Just ("jobId" Data..= jobId),
+            Prelude.Just ("clientToken" Data..= clientToken)
           ]
       )
 
-instance Core.ToPath PutThirdPartyJobSuccessResult where
+instance Data.ToPath PutThirdPartyJobSuccessResult where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutThirdPartyJobSuccessResult where
+instance Data.ToQuery PutThirdPartyJobSuccessResult where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutThirdPartyJobSuccessResultResponse' smart constructor.

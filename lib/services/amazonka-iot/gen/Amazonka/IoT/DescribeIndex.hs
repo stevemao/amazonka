@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DescribeIndex
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,16 +38,17 @@ module Amazonka.IoT.DescribeIndex
     newDescribeIndexResponse,
 
     -- * Response Lenses
+    describeIndexResponse_indexName,
     describeIndexResponse_indexStatus,
     describeIndexResponse_schema,
-    describeIndexResponse_indexName,
     describeIndexResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,14 +84,15 @@ instance Core.AWSRequest DescribeIndex where
   type
     AWSResponse DescribeIndex =
       DescribeIndexResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeIndexResponse'
-            Prelude.<$> (x Core..?> "indexStatus")
-            Prelude.<*> (x Core..?> "schema")
-            Prelude.<*> (x Core..?> "indexName")
+            Prelude.<$> (x Data..?> "indexName")
+            Prelude.<*> (x Data..?> "indexStatus")
+            Prelude.<*> (x Data..?> "schema")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -101,19 +103,21 @@ instance Prelude.Hashable DescribeIndex where
 instance Prelude.NFData DescribeIndex where
   rnf DescribeIndex' {..} = Prelude.rnf indexName
 
-instance Core.ToHeaders DescribeIndex where
+instance Data.ToHeaders DescribeIndex where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeIndex where
+instance Data.ToPath DescribeIndex where
   toPath DescribeIndex' {..} =
-    Prelude.mconcat ["/indices/", Core.toBS indexName]
+    Prelude.mconcat ["/indices/", Data.toBS indexName]
 
-instance Core.ToQuery DescribeIndex where
+instance Data.ToQuery DescribeIndex where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeIndexResponse' smart constructor.
 data DescribeIndexResponse = DescribeIndexResponse'
-  { -- | The index status.
+  { -- | The index name.
+    indexName :: Prelude.Maybe Prelude.Text,
+    -- | The index status.
     indexStatus :: Prelude.Maybe IndexStatus,
     -- | Contains a value that specifies the type of indexing performed. Valid
     -- values are:
@@ -129,9 +133,11 @@ data DescribeIndexResponse = DescribeIndexResponse'
     -- -   REGISTRY_AND_SHADOW_AND_CONNECTIVITY_STATUS - Your thing index
     --     contains registry data, shadow data, and thing connectivity status
     --     data.
+    --
+    -- -   MULTI_INDEXING_MODE - Your thing index contains multiple data
+    --     sources. For more information, see
+    --     <https://docs.aws.amazon.com/iot/latest/apireference/API_GetIndexingConfiguration.html GetIndexingConfiguration>.
     schema :: Prelude.Maybe Prelude.Text,
-    -- | The index name.
-    indexName :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -144,6 +150,8 @@ data DescribeIndexResponse = DescribeIndexResponse'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'indexName', 'describeIndexResponse_indexName' - The index name.
 --
 -- 'indexStatus', 'describeIndexResponse_indexStatus' - The index status.
 --
@@ -162,7 +170,9 @@ data DescribeIndexResponse = DescribeIndexResponse'
 --     contains registry data, shadow data, and thing connectivity status
 --     data.
 --
--- 'indexName', 'describeIndexResponse_indexName' - The index name.
+-- -   MULTI_INDEXING_MODE - Your thing index contains multiple data
+--     sources. For more information, see
+--     <https://docs.aws.amazon.com/iot/latest/apireference/API_GetIndexingConfiguration.html GetIndexingConfiguration>.
 --
 -- 'httpStatus', 'describeIndexResponse_httpStatus' - The response's http status code.
 newDescribeIndexResponse ::
@@ -171,12 +181,15 @@ newDescribeIndexResponse ::
   DescribeIndexResponse
 newDescribeIndexResponse pHttpStatus_ =
   DescribeIndexResponse'
-    { indexStatus =
-        Prelude.Nothing,
+    { indexName = Prelude.Nothing,
+      indexStatus = Prelude.Nothing,
       schema = Prelude.Nothing,
-      indexName = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The index name.
+describeIndexResponse_indexName :: Lens.Lens' DescribeIndexResponse (Prelude.Maybe Prelude.Text)
+describeIndexResponse_indexName = Lens.lens (\DescribeIndexResponse' {indexName} -> indexName) (\s@DescribeIndexResponse' {} a -> s {indexName = a} :: DescribeIndexResponse)
 
 -- | The index status.
 describeIndexResponse_indexStatus :: Lens.Lens' DescribeIndexResponse (Prelude.Maybe IndexStatus)
@@ -196,12 +209,12 @@ describeIndexResponse_indexStatus = Lens.lens (\DescribeIndexResponse' {indexSta
 -- -   REGISTRY_AND_SHADOW_AND_CONNECTIVITY_STATUS - Your thing index
 --     contains registry data, shadow data, and thing connectivity status
 --     data.
+--
+-- -   MULTI_INDEXING_MODE - Your thing index contains multiple data
+--     sources. For more information, see
+--     <https://docs.aws.amazon.com/iot/latest/apireference/API_GetIndexingConfiguration.html GetIndexingConfiguration>.
 describeIndexResponse_schema :: Lens.Lens' DescribeIndexResponse (Prelude.Maybe Prelude.Text)
 describeIndexResponse_schema = Lens.lens (\DescribeIndexResponse' {schema} -> schema) (\s@DescribeIndexResponse' {} a -> s {schema = a} :: DescribeIndexResponse)
-
--- | The index name.
-describeIndexResponse_indexName :: Lens.Lens' DescribeIndexResponse (Prelude.Maybe Prelude.Text)
-describeIndexResponse_indexName = Lens.lens (\DescribeIndexResponse' {indexName} -> indexName) (\s@DescribeIndexResponse' {} a -> s {indexName = a} :: DescribeIndexResponse)
 
 -- | The response's http status code.
 describeIndexResponse_httpStatus :: Lens.Lens' DescribeIndexResponse Prelude.Int
@@ -209,7 +222,7 @@ describeIndexResponse_httpStatus = Lens.lens (\DescribeIndexResponse' {httpStatu
 
 instance Prelude.NFData DescribeIndexResponse where
   rnf DescribeIndexResponse' {..} =
-    Prelude.rnf indexStatus
+    Prelude.rnf indexName
+      `Prelude.seq` Prelude.rnf indexStatus
       `Prelude.seq` Prelude.rnf schema
-      `Prelude.seq` Prelude.rnf indexName
       `Prelude.seq` Prelude.rnf httpStatus

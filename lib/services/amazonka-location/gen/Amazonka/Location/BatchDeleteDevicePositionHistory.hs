@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Location.BatchDeleteDevicePositionHistory
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.Location.BatchDeleteDevicePositionHistory
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -107,13 +108,14 @@ instance
   type
     AWSResponse BatchDeleteDevicePositionHistory =
       BatchDeleteDevicePositionHistoryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchDeleteDevicePositionHistoryResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Errors" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Errors" Core..!@ Prelude.mempty)
       )
 
 instance
@@ -135,36 +137,36 @@ instance
       `Prelude.seq` Prelude.rnf trackerName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     BatchDeleteDevicePositionHistory
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchDeleteDevicePositionHistory where
+instance Data.ToJSON BatchDeleteDevicePositionHistory where
   toJSON BatchDeleteDevicePositionHistory' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("DeviceIds" Core..= deviceIds)]
+          [Prelude.Just ("DeviceIds" Data..= deviceIds)]
       )
 
-instance Core.ToPath BatchDeleteDevicePositionHistory where
+instance Data.ToPath BatchDeleteDevicePositionHistory where
   toPath BatchDeleteDevicePositionHistory' {..} =
     Prelude.mconcat
       [ "/tracking/v0/trackers/",
-        Core.toBS trackerName,
+        Data.toBS trackerName,
         "/delete-positions"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     BatchDeleteDevicePositionHistory
   where
   toQuery = Prelude.const Prelude.mempty

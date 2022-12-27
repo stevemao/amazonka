@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.PersonalizeEvents.Types.User
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.PersonalizeEvents.Types.User where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents user metadata added to a Users dataset using the @PutUsers@
@@ -38,11 +39,11 @@ data User = User'
     -- schema. For categorical string data, to include multiple categories for
     -- a single user, separate each category with a pipe separator (@|@). For
     -- example, @\\\"Member|Frequent shopper\\\"@.
-    properties :: Prelude.Maybe Prelude.Text,
+    properties :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The ID associated with the user.
     userId :: Prelude.Text
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'User' with all optional fields omitted.
@@ -83,7 +84,7 @@ newUser pUserId_ =
 -- a single user, separate each category with a pipe separator (@|@). For
 -- example, @\\\"Member|Frequent shopper\\\"@.
 user_properties :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
-user_properties = Lens.lens (\User' {properties} -> properties) (\s@User' {} a -> s {properties = a} :: User)
+user_properties = Lens.lens (\User' {properties} -> properties) (\s@User' {} a -> s {properties = a} :: User) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The ID associated with the user.
 user_userId :: Lens.Lens' User Prelude.Text
@@ -99,11 +100,11 @@ instance Prelude.NFData User where
     Prelude.rnf properties
       `Prelude.seq` Prelude.rnf userId
 
-instance Core.ToJSON User where
+instance Data.ToJSON User where
   toJSON User' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("properties" Core..=) Prelude.<$> properties,
-            Prelude.Just ("userId" Core..= userId)
+          [ ("properties" Data..=) Prelude.<$> properties,
+            Prelude.Just ("userId" Data..= userId)
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.Ipv6Range
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.Ipv6Range where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | [EC2-VPC only] Describes an IPv6 range.
@@ -80,11 +81,11 @@ ipv6Range_cidrIpv6 = Lens.lens (\Ipv6Range' {cidrIpv6} -> cidrIpv6) (\s@Ipv6Rang
 ipv6Range_description :: Lens.Lens' Ipv6Range (Prelude.Maybe Prelude.Text)
 ipv6Range_description = Lens.lens (\Ipv6Range' {description} -> description) (\s@Ipv6Range' {} a -> s {description = a} :: Ipv6Range)
 
-instance Core.FromXML Ipv6Range where
+instance Data.FromXML Ipv6Range where
   parseXML x =
     Ipv6Range'
-      Prelude.<$> (x Core..@? "cidrIpv6")
-      Prelude.<*> (x Core..@? "description")
+      Prelude.<$> (x Data..@? "cidrIpv6")
+      Prelude.<*> (x Data..@? "description")
 
 instance Prelude.Hashable Ipv6Range where
   hashWithSalt _salt Ipv6Range' {..} =
@@ -96,9 +97,9 @@ instance Prelude.NFData Ipv6Range where
     Prelude.rnf cidrIpv6
       `Prelude.seq` Prelude.rnf description
 
-instance Core.ToQuery Ipv6Range where
+instance Data.ToQuery Ipv6Range where
   toQuery Ipv6Range' {..} =
     Prelude.mconcat
-      [ "CidrIpv6" Core.=: cidrIpv6,
-        "Description" Core.=: description
+      [ "CidrIpv6" Data.=: cidrIpv6,
+        "Description" Data.=: description
       ]

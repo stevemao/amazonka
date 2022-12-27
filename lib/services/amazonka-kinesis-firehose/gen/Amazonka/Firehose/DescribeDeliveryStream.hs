@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Firehose.DescribeDeliveryStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,8 +52,9 @@ module Amazonka.Firehose.DescribeDeliveryStream
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Firehose.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -119,13 +120,14 @@ instance Core.AWSRequest DescribeDeliveryStream where
   type
     AWSResponse DescribeDeliveryStream =
       DescribeDeliveryStreamResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeDeliveryStreamResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "DeliveryStreamDescription")
+            Prelude.<*> (x Data..:> "DeliveryStreamDescription")
       )
 
 instance Prelude.Hashable DescribeDeliveryStream where
@@ -141,37 +143,37 @@ instance Prelude.NFData DescribeDeliveryStream where
       `Prelude.seq` Prelude.rnf limit
       `Prelude.seq` Prelude.rnf deliveryStreamName
 
-instance Core.ToHeaders DescribeDeliveryStream where
+instance Data.ToHeaders DescribeDeliveryStream where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Firehose_20150804.DescribeDeliveryStream" ::
+              Data.=# ( "Firehose_20150804.DescribeDeliveryStream" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeDeliveryStream where
+instance Data.ToJSON DescribeDeliveryStream where
   toJSON DescribeDeliveryStream' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ExclusiveStartDestinationId" Core..=)
+          [ ("ExclusiveStartDestinationId" Data..=)
               Prelude.<$> exclusiveStartDestinationId,
-            ("Limit" Core..=) Prelude.<$> limit,
+            ("Limit" Data..=) Prelude.<$> limit,
             Prelude.Just
-              ("DeliveryStreamName" Core..= deliveryStreamName)
+              ("DeliveryStreamName" Data..= deliveryStreamName)
           ]
       )
 
-instance Core.ToPath DescribeDeliveryStream where
+instance Data.ToPath DescribeDeliveryStream where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeDeliveryStream where
+instance Data.ToQuery DescribeDeliveryStream where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeDeliveryStreamResponse' smart constructor.

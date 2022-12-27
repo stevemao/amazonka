@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.CreateUsagePlan
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,10 +29,10 @@ module Amazonka.APIGateway.CreateUsagePlan
 
     -- * Request Lenses
     createUsagePlan_apiStages,
-    createUsagePlan_throttle,
-    createUsagePlan_quota,
     createUsagePlan_description,
+    createUsagePlan_quota,
     createUsagePlan_tags,
+    createUsagePlan_throttle,
     createUsagePlan_name,
 
     -- * Destructuring the Response
@@ -41,19 +41,20 @@ module Amazonka.APIGateway.CreateUsagePlan
 
     -- * Response Lenses
     usagePlan_apiStages,
-    usagePlan_name,
-    usagePlan_id,
-    usagePlan_throttle,
-    usagePlan_quota,
     usagePlan_description,
+    usagePlan_id,
+    usagePlan_name,
     usagePlan_productCode,
+    usagePlan_quota,
     usagePlan_tags,
+    usagePlan_throttle,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,17 +67,17 @@ import qualified Amazonka.Response as Response
 data CreateUsagePlan = CreateUsagePlan'
   { -- | The associated API stages of the usage plan.
     apiStages :: Prelude.Maybe [ApiStage],
-    -- | The throttling limits of the usage plan.
-    throttle :: Prelude.Maybe ThrottleSettings,
-    -- | The quota of the usage plan.
-    quota :: Prelude.Maybe QuotaSettings,
     -- | The description of the usage plan.
     description :: Prelude.Maybe Prelude.Text,
+    -- | The quota of the usage plan.
+    quota :: Prelude.Maybe QuotaSettings,
     -- | The key-value map of strings. The valid character set is
     -- [a-zA-Z+-=._:\/]. The tag key can be up to 128 characters and must not
     -- start with @aws:@. The tag value can be up to 256 characters.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | [Required] The name of the usage plan.
+    -- | The throttling limits of the usage plan.
+    throttle :: Prelude.Maybe ThrottleSettings,
+    -- | The name of the usage plan.
     name :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -91,17 +92,17 @@ data CreateUsagePlan = CreateUsagePlan'
 --
 -- 'apiStages', 'createUsagePlan_apiStages' - The associated API stages of the usage plan.
 --
--- 'throttle', 'createUsagePlan_throttle' - The throttling limits of the usage plan.
+-- 'description', 'createUsagePlan_description' - The description of the usage plan.
 --
 -- 'quota', 'createUsagePlan_quota' - The quota of the usage plan.
---
--- 'description', 'createUsagePlan_description' - The description of the usage plan.
 --
 -- 'tags', 'createUsagePlan_tags' - The key-value map of strings. The valid character set is
 -- [a-zA-Z+-=._:\/]. The tag key can be up to 128 characters and must not
 -- start with @aws:@. The tag value can be up to 256 characters.
 --
--- 'name', 'createUsagePlan_name' - [Required] The name of the usage plan.
+-- 'throttle', 'createUsagePlan_throttle' - The throttling limits of the usage plan.
+--
+-- 'name', 'createUsagePlan_name' - The name of the usage plan.
 newCreateUsagePlan ::
   -- | 'name'
   Prelude.Text ->
@@ -109,10 +110,10 @@ newCreateUsagePlan ::
 newCreateUsagePlan pName_ =
   CreateUsagePlan'
     { apiStages = Prelude.Nothing,
-      throttle = Prelude.Nothing,
-      quota = Prelude.Nothing,
       description = Prelude.Nothing,
+      quota = Prelude.Nothing,
       tags = Prelude.Nothing,
+      throttle = Prelude.Nothing,
       name = pName_
     }
 
@@ -120,17 +121,13 @@ newCreateUsagePlan pName_ =
 createUsagePlan_apiStages :: Lens.Lens' CreateUsagePlan (Prelude.Maybe [ApiStage])
 createUsagePlan_apiStages = Lens.lens (\CreateUsagePlan' {apiStages} -> apiStages) (\s@CreateUsagePlan' {} a -> s {apiStages = a} :: CreateUsagePlan) Prelude.. Lens.mapping Lens.coerced
 
--- | The throttling limits of the usage plan.
-createUsagePlan_throttle :: Lens.Lens' CreateUsagePlan (Prelude.Maybe ThrottleSettings)
-createUsagePlan_throttle = Lens.lens (\CreateUsagePlan' {throttle} -> throttle) (\s@CreateUsagePlan' {} a -> s {throttle = a} :: CreateUsagePlan)
+-- | The description of the usage plan.
+createUsagePlan_description :: Lens.Lens' CreateUsagePlan (Prelude.Maybe Prelude.Text)
+createUsagePlan_description = Lens.lens (\CreateUsagePlan' {description} -> description) (\s@CreateUsagePlan' {} a -> s {description = a} :: CreateUsagePlan)
 
 -- | The quota of the usage plan.
 createUsagePlan_quota :: Lens.Lens' CreateUsagePlan (Prelude.Maybe QuotaSettings)
 createUsagePlan_quota = Lens.lens (\CreateUsagePlan' {quota} -> quota) (\s@CreateUsagePlan' {} a -> s {quota = a} :: CreateUsagePlan)
-
--- | The description of the usage plan.
-createUsagePlan_description :: Lens.Lens' CreateUsagePlan (Prelude.Maybe Prelude.Text)
-createUsagePlan_description = Lens.lens (\CreateUsagePlan' {description} -> description) (\s@CreateUsagePlan' {} a -> s {description = a} :: CreateUsagePlan)
 
 -- | The key-value map of strings. The valid character set is
 -- [a-zA-Z+-=._:\/]. The tag key can be up to 128 characters and must not
@@ -138,59 +135,64 @@ createUsagePlan_description = Lens.lens (\CreateUsagePlan' {description} -> desc
 createUsagePlan_tags :: Lens.Lens' CreateUsagePlan (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createUsagePlan_tags = Lens.lens (\CreateUsagePlan' {tags} -> tags) (\s@CreateUsagePlan' {} a -> s {tags = a} :: CreateUsagePlan) Prelude.. Lens.mapping Lens.coerced
 
--- | [Required] The name of the usage plan.
+-- | The throttling limits of the usage plan.
+createUsagePlan_throttle :: Lens.Lens' CreateUsagePlan (Prelude.Maybe ThrottleSettings)
+createUsagePlan_throttle = Lens.lens (\CreateUsagePlan' {throttle} -> throttle) (\s@CreateUsagePlan' {} a -> s {throttle = a} :: CreateUsagePlan)
+
+-- | The name of the usage plan.
 createUsagePlan_name :: Lens.Lens' CreateUsagePlan Prelude.Text
 createUsagePlan_name = Lens.lens (\CreateUsagePlan' {name} -> name) (\s@CreateUsagePlan' {} a -> s {name = a} :: CreateUsagePlan)
 
 instance Core.AWSRequest CreateUsagePlan where
   type AWSResponse CreateUsagePlan = UsagePlan
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable CreateUsagePlan where
   hashWithSalt _salt CreateUsagePlan' {..} =
     _salt `Prelude.hashWithSalt` apiStages
-      `Prelude.hashWithSalt` throttle
-      `Prelude.hashWithSalt` quota
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` quota
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` throttle
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData CreateUsagePlan where
   rnf CreateUsagePlan' {..} =
     Prelude.rnf apiStages
-      `Prelude.seq` Prelude.rnf throttle
-      `Prelude.seq` Prelude.rnf quota
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf quota
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf throttle
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreateUsagePlan where
+instance Data.ToHeaders CreateUsagePlan where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToJSON CreateUsagePlan where
+instance Data.ToJSON CreateUsagePlan where
   toJSON CreateUsagePlan' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("apiStages" Core..=) Prelude.<$> apiStages,
-            ("throttle" Core..=) Prelude.<$> throttle,
-            ("quota" Core..=) Prelude.<$> quota,
-            ("description" Core..=) Prelude.<$> description,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("name" Core..= name)
+          [ ("apiStages" Data..=) Prelude.<$> apiStages,
+            ("description" Data..=) Prelude.<$> description,
+            ("quota" Data..=) Prelude.<$> quota,
+            ("tags" Data..=) Prelude.<$> tags,
+            ("throttle" Data..=) Prelude.<$> throttle,
+            Prelude.Just ("name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateUsagePlan where
+instance Data.ToPath CreateUsagePlan where
   toPath = Prelude.const "/usageplans"
 
-instance Core.ToQuery CreateUsagePlan where
+instance Data.ToQuery CreateUsagePlan where
   toQuery = Prelude.const Prelude.mempty

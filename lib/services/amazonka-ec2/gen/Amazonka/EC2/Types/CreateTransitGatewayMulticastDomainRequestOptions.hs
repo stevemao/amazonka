@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.CreateTransitGatewayMulticastDomainRequestOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.EC2.Types.CreateTransitGatewayMulticastDomainRequestOptions where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.AutoAcceptSharedAssociationsValue
 import Amazonka.EC2.Types.Igmpv2SupportValue
 import Amazonka.EC2.Types.StaticSourcesSupportValue
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The options for the transit gateway multicast domain.
@@ -112,14 +113,14 @@ instance
         `Prelude.seq` Prelude.rnf staticSourcesSupport
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     CreateTransitGatewayMulticastDomainRequestOptions
   where
   toQuery
     CreateTransitGatewayMulticastDomainRequestOptions' {..} =
       Prelude.mconcat
         [ "AutoAcceptSharedAssociations"
-            Core.=: autoAcceptSharedAssociations,
-          "Igmpv2Support" Core.=: igmpv2Support,
-          "StaticSourcesSupport" Core.=: staticSourcesSupport
+            Data.=: autoAcceptSharedAssociations,
+          "Igmpv2Support" Data.=: igmpv2Support,
+          "StaticSourcesSupport" Data.=: staticSourcesSupport
         ]

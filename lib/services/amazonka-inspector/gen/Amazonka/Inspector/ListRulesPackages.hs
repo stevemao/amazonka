@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Inspector.ListRulesPackages
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Inspector.ListRulesPackages
     newListRulesPackages,
 
     -- * Request Lenses
-    listRulesPackages_nextToken,
     listRulesPackages_maxResults,
+    listRulesPackages_nextToken,
 
     -- * Destructuring the Response
     ListRulesPackagesResponse (..),
@@ -44,23 +44,24 @@ module Amazonka.Inspector.ListRulesPackages
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Inspector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListRulesPackages' smart constructor.
 data ListRulesPackages = ListRulesPackages'
-  { -- | You can use this parameter when paginating results. Set the value of
+  { -- | You can use this parameter to indicate the maximum number of items you
+    -- want in the response. The default value is 10. The maximum value is 500.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | You can use this parameter when paginating results. Set the value of
     -- this parameter to null on your first call to the __ListRulesPackages__
     -- action. Subsequent calls to the action fill __nextToken__ in the request
     -- with the value of __NextToken__ from the previous response to continue
     -- listing data.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | You can use this parameter to indicate the maximum number of items you
-    -- want in the response. The default value is 10. The maximum value is 500.
-    maxResults :: Prelude.Maybe Prelude.Int
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -72,21 +73,26 @@ data ListRulesPackages = ListRulesPackages'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listRulesPackages_maxResults' - You can use this parameter to indicate the maximum number of items you
+-- want in the response. The default value is 10. The maximum value is 500.
+--
 -- 'nextToken', 'listRulesPackages_nextToken' - You can use this parameter when paginating results. Set the value of
 -- this parameter to null on your first call to the __ListRulesPackages__
 -- action. Subsequent calls to the action fill __nextToken__ in the request
 -- with the value of __NextToken__ from the previous response to continue
 -- listing data.
---
--- 'maxResults', 'listRulesPackages_maxResults' - You can use this parameter to indicate the maximum number of items you
--- want in the response. The default value is 10. The maximum value is 500.
 newListRulesPackages ::
   ListRulesPackages
 newListRulesPackages =
   ListRulesPackages'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | You can use this parameter to indicate the maximum number of items you
+-- want in the response. The default value is 10. The maximum value is 500.
+listRulesPackages_maxResults :: Lens.Lens' ListRulesPackages (Prelude.Maybe Prelude.Int)
+listRulesPackages_maxResults = Lens.lens (\ListRulesPackages' {maxResults} -> maxResults) (\s@ListRulesPackages' {} a -> s {maxResults = a} :: ListRulesPackages)
 
 -- | You can use this parameter when paginating results. Set the value of
 -- this parameter to null on your first call to the __ListRulesPackages__
@@ -95,11 +101,6 @@ newListRulesPackages =
 -- listing data.
 listRulesPackages_nextToken :: Lens.Lens' ListRulesPackages (Prelude.Maybe Prelude.Text)
 listRulesPackages_nextToken = Lens.lens (\ListRulesPackages' {nextToken} -> nextToken) (\s@ListRulesPackages' {} a -> s {nextToken = a} :: ListRulesPackages)
-
--- | You can use this parameter to indicate the maximum number of items you
--- want in the response. The default value is 10. The maximum value is 500.
-listRulesPackages_maxResults :: Lens.Lens' ListRulesPackages (Prelude.Maybe Prelude.Int)
-listRulesPackages_maxResults = Lens.lens (\ListRulesPackages' {maxResults} -> maxResults) (\s@ListRulesPackages' {} a -> s {maxResults = a} :: ListRulesPackages)
 
 instance Core.AWSPager ListRulesPackages where
   page rq rs
@@ -126,56 +127,57 @@ instance Core.AWSRequest ListRulesPackages where
   type
     AWSResponse ListRulesPackages =
       ListRulesPackagesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListRulesPackagesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "rulesPackageArns"
+            Prelude.<*> ( x Data..?> "rulesPackageArns"
                             Core..!@ Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable ListRulesPackages where
   hashWithSalt _salt ListRulesPackages' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListRulesPackages where
   rnf ListRulesPackages' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListRulesPackages where
+instance Data.ToHeaders ListRulesPackages where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "InspectorService.ListRulesPackages" ::
+              Data.=# ( "InspectorService.ListRulesPackages" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListRulesPackages where
+instance Data.ToJSON ListRulesPackages where
   toJSON ListRulesPackages' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListRulesPackages where
+instance Data.ToPath ListRulesPackages where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListRulesPackages where
+instance Data.ToQuery ListRulesPackages where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListRulesPackagesResponse' smart constructor.

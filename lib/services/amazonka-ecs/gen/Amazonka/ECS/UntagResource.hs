@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.UntagResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,18 +40,18 @@ module Amazonka.ECS.UntagResource
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUntagResource' smart constructor.
 data UntagResource = UntagResource'
-  { -- | The Amazon Resource Name (ARN) of the resource from which to delete
-    -- tags. Currently, the supported resources are Amazon ECS capacity
-    -- providers, tasks, services, task definitions, clusters, and container
-    -- instances.
+  { -- | The Amazon Resource Name (ARN) of the resource to delete tags from.
+    -- Currently, the supported resources are Amazon ECS capacity providers,
+    -- tasks, services, task definitions, clusters, and container instances.
     resourceArn :: Prelude.Text,
     -- | The keys of the tags to be removed.
     tagKeys :: [Prelude.Text]
@@ -66,10 +66,9 @@ data UntagResource = UntagResource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceArn', 'untagResource_resourceArn' - The Amazon Resource Name (ARN) of the resource from which to delete
--- tags. Currently, the supported resources are Amazon ECS capacity
--- providers, tasks, services, task definitions, clusters, and container
--- instances.
+-- 'resourceArn', 'untagResource_resourceArn' - The Amazon Resource Name (ARN) of the resource to delete tags from.
+-- Currently, the supported resources are Amazon ECS capacity providers,
+-- tasks, services, task definitions, clusters, and container instances.
 --
 -- 'tagKeys', 'untagResource_tagKeys' - The keys of the tags to be removed.
 newUntagResource ::
@@ -82,10 +81,9 @@ newUntagResource pResourceArn_ =
       tagKeys = Prelude.mempty
     }
 
--- | The Amazon Resource Name (ARN) of the resource from which to delete
--- tags. Currently, the supported resources are Amazon ECS capacity
--- providers, tasks, services, task definitions, clusters, and container
--- instances.
+-- | The Amazon Resource Name (ARN) of the resource to delete tags from.
+-- Currently, the supported resources are Amazon ECS capacity providers,
+-- tasks, services, task definitions, clusters, and container instances.
 untagResource_resourceArn :: Lens.Lens' UntagResource Prelude.Text
 untagResource_resourceArn = Lens.lens (\UntagResource' {resourceArn} -> resourceArn) (\s@UntagResource' {} a -> s {resourceArn = a} :: UntagResource)
 
@@ -97,7 +95,8 @@ instance Core.AWSRequest UntagResource where
   type
     AWSResponse UntagResource =
       UntagResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -115,34 +114,34 @@ instance Prelude.NFData UntagResource where
     Prelude.rnf resourceArn
       `Prelude.seq` Prelude.rnf tagKeys
 
-instance Core.ToHeaders UntagResource where
+instance Data.ToHeaders UntagResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerServiceV20141113.UntagResource" ::
+              Data.=# ( "AmazonEC2ContainerServiceV20141113.UntagResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UntagResource where
+instance Data.ToJSON UntagResource where
   toJSON UntagResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("resourceArn" Core..= resourceArn),
-            Prelude.Just ("tagKeys" Core..= tagKeys)
+          [ Prelude.Just ("resourceArn" Data..= resourceArn),
+            Prelude.Just ("tagKeys" Data..= tagKeys)
           ]
       )
 
-instance Core.ToPath UntagResource where
+instance Data.ToPath UntagResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UntagResource where
+instance Data.ToQuery UntagResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUntagResourceResponse' smart constructor.

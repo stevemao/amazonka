@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.STS.Types.Tag
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,13 +20,14 @@
 module Amazonka.STS.Types.Tag where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | You can pass custom key-value pair attributes when you assume a role or
 -- federate a user. These are called session tags. You can then use the
 -- session tags to control access to resources. For more information, see
--- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html Tagging STS Sessions>
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html Tagging Amazon Web Services STS Sessions>
 -- in the /IAM User Guide/.
 --
 -- /See:/ 'newTag' smart constructor.
@@ -105,7 +106,7 @@ instance Prelude.NFData Tag where
   rnf Tag' {..} =
     Prelude.rnf key `Prelude.seq` Prelude.rnf value
 
-instance Core.ToQuery Tag where
+instance Data.ToQuery Tag where
   toQuery Tag' {..} =
     Prelude.mconcat
-      ["Key" Core.=: key, "Value" Core.=: value]
+      ["Key" Data.=: key, "Value" Data.=: value]

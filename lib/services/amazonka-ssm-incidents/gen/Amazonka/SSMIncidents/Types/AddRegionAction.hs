@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSMIncidents.Types.AddRegionAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,18 @@
 module Amazonka.SSMIncidents.Types.AddRegionAction where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Defines the Region and KMS key to add to the replication set.
+-- | Defines the Amazon Web Services Region and KMS key to add to the
+-- replication set.
 --
 -- /See:/ 'newAddRegionAction' smart constructor.
 data AddRegionAction = AddRegionAction'
   { -- | The KMS key ID to use to encrypt your replication set.
     sseKmsKeyId :: Prelude.Maybe Prelude.Text,
-    -- | The Region name to add to the replication set.
+    -- | The Amazon Web Services Region name to add to the replication set.
     regionName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -44,7 +46,7 @@ data AddRegionAction = AddRegionAction'
 --
 -- 'sseKmsKeyId', 'addRegionAction_sseKmsKeyId' - The KMS key ID to use to encrypt your replication set.
 --
--- 'regionName', 'addRegionAction_regionName' - The Region name to add to the replication set.
+-- 'regionName', 'addRegionAction_regionName' - The Amazon Web Services Region name to add to the replication set.
 newAddRegionAction ::
   -- | 'regionName'
   Prelude.Text ->
@@ -59,7 +61,7 @@ newAddRegionAction pRegionName_ =
 addRegionAction_sseKmsKeyId :: Lens.Lens' AddRegionAction (Prelude.Maybe Prelude.Text)
 addRegionAction_sseKmsKeyId = Lens.lens (\AddRegionAction' {sseKmsKeyId} -> sseKmsKeyId) (\s@AddRegionAction' {} a -> s {sseKmsKeyId = a} :: AddRegionAction)
 
--- | The Region name to add to the replication set.
+-- | The Amazon Web Services Region name to add to the replication set.
 addRegionAction_regionName :: Lens.Lens' AddRegionAction Prelude.Text
 addRegionAction_regionName = Lens.lens (\AddRegionAction' {regionName} -> regionName) (\s@AddRegionAction' {} a -> s {regionName = a} :: AddRegionAction)
 
@@ -73,11 +75,11 @@ instance Prelude.NFData AddRegionAction where
     Prelude.rnf sseKmsKeyId
       `Prelude.seq` Prelude.rnf regionName
 
-instance Core.ToJSON AddRegionAction where
+instance Data.ToJSON AddRegionAction where
   toJSON AddRegionAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("sseKmsKeyId" Core..=) Prelude.<$> sseKmsKeyId,
-            Prelude.Just ("regionName" Core..= regionName)
+          [ ("sseKmsKeyId" Data..=) Prelude.<$> sseKmsKeyId,
+            Prelude.Just ("regionName" Data..= regionName)
           ]
       )

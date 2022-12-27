@@ -1,6 +1,6 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_library", "haskell_test")
 
-# rule generated from amazonka-batch/amazonka-batch.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-batch/amazonka-batch.cabal by gazelle_cabal
 haskell_library(
     name = "amazonka-batch",
     srcs = [
@@ -8,15 +8,19 @@ haskell_library(
         "gen/Amazonka/Batch/CancelJob.hs",
         "gen/Amazonka/Batch/CreateComputeEnvironment.hs",
         "gen/Amazonka/Batch/CreateJobQueue.hs",
+        "gen/Amazonka/Batch/CreateSchedulingPolicy.hs",
         "gen/Amazonka/Batch/DeleteComputeEnvironment.hs",
         "gen/Amazonka/Batch/DeleteJobQueue.hs",
+        "gen/Amazonka/Batch/DeleteSchedulingPolicy.hs",
         "gen/Amazonka/Batch/DeregisterJobDefinition.hs",
         "gen/Amazonka/Batch/DescribeComputeEnvironments.hs",
         "gen/Amazonka/Batch/DescribeJobDefinitions.hs",
         "gen/Amazonka/Batch/DescribeJobQueues.hs",
         "gen/Amazonka/Batch/DescribeJobs.hs",
+        "gen/Amazonka/Batch/DescribeSchedulingPolicies.hs",
         "gen/Amazonka/Batch/Lens.hs",
         "gen/Amazonka/Batch/ListJobs.hs",
+        "gen/Amazonka/Batch/ListSchedulingPolicies.hs",
         "gen/Amazonka/Batch/ListTagsForResource.hs",
         "gen/Amazonka/Batch/RegisterJobDefinition.hs",
         "gen/Amazonka/Batch/SubmitJob.hs",
@@ -35,6 +39,7 @@ haskell_library(
         "gen/Amazonka/Batch/Types/CEType.hs",
         "gen/Amazonka/Batch/Types/CRAllocationStrategy.hs",
         "gen/Amazonka/Batch/Types/CRType.hs",
+        "gen/Amazonka/Batch/Types/CRUpdateAllocationStrategy.hs",
         "gen/Amazonka/Batch/Types/ComputeEnvironmentDetail.hs",
         "gen/Amazonka/Batch/Types/ComputeEnvironmentOrder.hs",
         "gen/Amazonka/Batch/Types/ComputeResource.hs",
@@ -50,7 +55,28 @@ haskell_library(
         "gen/Amazonka/Batch/Types/EFSTransitEncryption.hs",
         "gen/Amazonka/Batch/Types/EFSVolumeConfiguration.hs",
         "gen/Amazonka/Batch/Types/Ec2Configuration.hs",
+        "gen/Amazonka/Batch/Types/EksAttemptContainerDetail.hs",
+        "gen/Amazonka/Batch/Types/EksAttemptDetail.hs",
+        "gen/Amazonka/Batch/Types/EksConfiguration.hs",
+        "gen/Amazonka/Batch/Types/EksContainer.hs",
+        "gen/Amazonka/Batch/Types/EksContainerDetail.hs",
+        "gen/Amazonka/Batch/Types/EksContainerEnvironmentVariable.hs",
+        "gen/Amazonka/Batch/Types/EksContainerOverride.hs",
+        "gen/Amazonka/Batch/Types/EksContainerResourceRequirements.hs",
+        "gen/Amazonka/Batch/Types/EksContainerSecurityContext.hs",
+        "gen/Amazonka/Batch/Types/EksContainerVolumeMount.hs",
+        "gen/Amazonka/Batch/Types/EksEmptyDir.hs",
+        "gen/Amazonka/Batch/Types/EksHostPath.hs",
+        "gen/Amazonka/Batch/Types/EksPodProperties.hs",
+        "gen/Amazonka/Batch/Types/EksPodPropertiesDetail.hs",
+        "gen/Amazonka/Batch/Types/EksPodPropertiesOverride.hs",
+        "gen/Amazonka/Batch/Types/EksProperties.hs",
+        "gen/Amazonka/Batch/Types/EksPropertiesDetail.hs",
+        "gen/Amazonka/Batch/Types/EksPropertiesOverride.hs",
+        "gen/Amazonka/Batch/Types/EksSecret.hs",
+        "gen/Amazonka/Batch/Types/EksVolume.hs",
         "gen/Amazonka/Batch/Types/EvaluateOnExit.hs",
+        "gen/Amazonka/Batch/Types/FairsharePolicy.hs",
         "gen/Amazonka/Batch/Types/FargatePlatformConfiguration.hs",
         "gen/Amazonka/Batch/Types/Host.hs",
         "gen/Amazonka/Batch/Types/JQState.hs",
@@ -78,28 +104,33 @@ haskell_library(
         "gen/Amazonka/Batch/Types/NodePropertiesSummary.hs",
         "gen/Amazonka/Batch/Types/NodePropertyOverride.hs",
         "gen/Amazonka/Batch/Types/NodeRangeProperty.hs",
+        "gen/Amazonka/Batch/Types/OrchestrationType.hs",
         "gen/Amazonka/Batch/Types/PlatformCapability.hs",
         "gen/Amazonka/Batch/Types/ResourceRequirement.hs",
         "gen/Amazonka/Batch/Types/ResourceType.hs",
         "gen/Amazonka/Batch/Types/RetryAction.hs",
         "gen/Amazonka/Batch/Types/RetryStrategy.hs",
+        "gen/Amazonka/Batch/Types/SchedulingPolicyDetail.hs",
+        "gen/Amazonka/Batch/Types/SchedulingPolicyListingDetail.hs",
         "gen/Amazonka/Batch/Types/Secret.hs",
+        "gen/Amazonka/Batch/Types/ShareAttributes.hs",
         "gen/Amazonka/Batch/Types/Tmpfs.hs",
         "gen/Amazonka/Batch/Types/Ulimit.hs",
+        "gen/Amazonka/Batch/Types/UpdatePolicy.hs",
         "gen/Amazonka/Batch/Types/Volume.hs",
         "gen/Amazonka/Batch/UntagResource.hs",
         "gen/Amazonka/Batch/UpdateComputeEnvironment.hs",
         "gen/Amazonka/Batch/UpdateJobQueue.hs",
+        "gen/Amazonka/Batch/UpdateSchedulingPolicy.hs",
         "gen/Amazonka/Batch/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_batch=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
-        "-DVERSION_amazonka_batch=\"2.0\"",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -108,7 +139,7 @@ haskell_library(
     ],
 )
 
-# rule generated from amazonka-batch/amazonka-batch.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-batch/amazonka-batch.cabal by gazelle_cabal
 haskell_test(
     name = "amazonka-batch-test",
     srcs = [
@@ -117,11 +148,12 @@ haskell_test(
         "test/Test/Amazonka/Batch/Internal.hs",
         "test/Test/Amazonka/Gen/Batch.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_batch=\"2.0\"",
         "-Wall",
         "-threaded",
-        "-DVERSION_amazonka_batch=\"2.0\"",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

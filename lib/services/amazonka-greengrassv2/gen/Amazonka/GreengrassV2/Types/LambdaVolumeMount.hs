@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GreengrassV2.Types.LambdaVolumeMount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.GreengrassV2.Types.LambdaVolumeMount where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GreengrassV2.Types.LambdaFilesystemPermission
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about a volume that Linux processes in a container
@@ -118,14 +119,14 @@ instance Prelude.NFData LambdaVolumeMount where
       `Prelude.seq` Prelude.rnf sourcePath
       `Prelude.seq` Prelude.rnf destinationPath
 
-instance Core.ToJSON LambdaVolumeMount where
+instance Data.ToJSON LambdaVolumeMount where
   toJSON LambdaVolumeMount' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("addGroupOwner" Core..=) Prelude.<$> addGroupOwner,
-            ("permission" Core..=) Prelude.<$> permission,
-            Prelude.Just ("sourcePath" Core..= sourcePath),
+          [ ("addGroupOwner" Data..=) Prelude.<$> addGroupOwner,
+            ("permission" Data..=) Prelude.<$> permission,
+            Prelude.Just ("sourcePath" Data..= sourcePath),
             Prelude.Just
-              ("destinationPath" Core..= destinationPath)
+              ("destinationPath" Data..= destinationPath)
           ]
       )

@@ -14,15 +14,13 @@
 
 -- |
 -- Module      : Amazonka.RDS.PromoteReadReplicaDBCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Promotes a read replica DB cluster to a standalone DB cluster.
---
--- This action only applies to Aurora DB clusters.
 module Amazonka.RDS.PromoteReadReplicaDBCluster
   ( -- * Creating a Request
     PromoteReadReplicaDBCluster (..),
@@ -42,7 +40,8 @@ module Amazonka.RDS.PromoteReadReplicaDBCluster
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -105,13 +104,14 @@ instance Core.AWSRequest PromoteReadReplicaDBCluster where
   type
     AWSResponse PromoteReadReplicaDBCluster =
       PromoteReadReplicaDBClusterResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "PromoteReadReplicaDBClusterResult"
       ( \s h x ->
           PromoteReadReplicaDBClusterResponse'
-            Prelude.<$> (x Core..@? "DBCluster")
+            Prelude.<$> (x Data..@? "DBCluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -123,22 +123,22 @@ instance Prelude.NFData PromoteReadReplicaDBCluster where
   rnf PromoteReadReplicaDBCluster' {..} =
     Prelude.rnf dbClusterIdentifier
 
-instance Core.ToHeaders PromoteReadReplicaDBCluster where
+instance Data.ToHeaders PromoteReadReplicaDBCluster where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath PromoteReadReplicaDBCluster where
+instance Data.ToPath PromoteReadReplicaDBCluster where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PromoteReadReplicaDBCluster where
+instance Data.ToQuery PromoteReadReplicaDBCluster where
   toQuery PromoteReadReplicaDBCluster' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "PromoteReadReplicaDBCluster" ::
+          Data.=: ( "PromoteReadReplicaDBCluster" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "DBClusterIdentifier" Core.=: dbClusterIdentifier
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBClusterIdentifier" Data.=: dbClusterIdentifier
       ]
 
 -- | /See:/ 'newPromoteReadReplicaDBClusterResponse' smart constructor.

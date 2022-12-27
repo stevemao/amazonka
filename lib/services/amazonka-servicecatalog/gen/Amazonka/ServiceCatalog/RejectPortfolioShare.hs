@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.RejectPortfolioShare
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.ServiceCatalog.RejectPortfolioShare
     newRejectPortfolioShare,
 
     -- * Request Lenses
-    rejectPortfolioShare_portfolioShareType,
     rejectPortfolioShare_acceptLanguage,
+    rejectPortfolioShare_portfolioShareType,
     rejectPortfolioShare_portfolioId,
 
     -- * Destructuring the Response
@@ -41,7 +41,8 @@ module Amazonka.ServiceCatalog.RejectPortfolioShare
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,7 +50,15 @@ import Amazonka.ServiceCatalog.Types
 
 -- | /See:/ 'newRejectPortfolioShare' smart constructor.
 data RejectPortfolioShare = RejectPortfolioShare'
-  { -- | The type of shared portfolios to reject. The default is to reject
+  { -- | The language code.
+    --
+    -- -   @en@ - English (default)
+    --
+    -- -   @jp@ - Japanese
+    --
+    -- -   @zh@ - Chinese
+    acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The type of shared portfolios to reject. The default is to reject
     -- imported portfolios.
     --
     -- -   @AWS_ORGANIZATIONS@ - Reject portfolios shared by the management
@@ -63,14 +72,6 @@ data RejectPortfolioShare = RejectPortfolioShare'
     -- For example,
     -- @aws servicecatalog reject-portfolio-share --portfolio-id \"port-2qwzkwxt3y5fk\" --portfolio-share-type AWS_ORGANIZATIONS@
     portfolioShareType :: Prelude.Maybe PortfolioShareType,
-    -- | The language code.
-    --
-    -- -   @en@ - English (default)
-    --
-    -- -   @jp@ - Japanese
-    --
-    -- -   @zh@ - Chinese
-    acceptLanguage :: Prelude.Maybe Prelude.Text,
     -- | The portfolio identifier.
     portfolioId :: Prelude.Text
   }
@@ -83,6 +84,14 @@ data RejectPortfolioShare = RejectPortfolioShare'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'acceptLanguage', 'rejectPortfolioShare_acceptLanguage' - The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
 --
 -- 'portfolioShareType', 'rejectPortfolioShare_portfolioShareType' - The type of shared portfolios to reject. The default is to reject
 -- imported portfolios.
@@ -98,14 +107,6 @@ data RejectPortfolioShare = RejectPortfolioShare'
 -- For example,
 -- @aws servicecatalog reject-portfolio-share --portfolio-id \"port-2qwzkwxt3y5fk\" --portfolio-share-type AWS_ORGANIZATIONS@
 --
--- 'acceptLanguage', 'rejectPortfolioShare_acceptLanguage' - The language code.
---
--- -   @en@ - English (default)
---
--- -   @jp@ - Japanese
---
--- -   @zh@ - Chinese
---
 -- 'portfolioId', 'rejectPortfolioShare_portfolioId' - The portfolio identifier.
 newRejectPortfolioShare ::
   -- | 'portfolioId'
@@ -113,11 +114,21 @@ newRejectPortfolioShare ::
   RejectPortfolioShare
 newRejectPortfolioShare pPortfolioId_ =
   RejectPortfolioShare'
-    { portfolioShareType =
+    { acceptLanguage =
         Prelude.Nothing,
-      acceptLanguage = Prelude.Nothing,
+      portfolioShareType = Prelude.Nothing,
       portfolioId = pPortfolioId_
     }
+
+-- | The language code.
+--
+-- -   @en@ - English (default)
+--
+-- -   @jp@ - Japanese
+--
+-- -   @zh@ - Chinese
+rejectPortfolioShare_acceptLanguage :: Lens.Lens' RejectPortfolioShare (Prelude.Maybe Prelude.Text)
+rejectPortfolioShare_acceptLanguage = Lens.lens (\RejectPortfolioShare' {acceptLanguage} -> acceptLanguage) (\s@RejectPortfolioShare' {} a -> s {acceptLanguage = a} :: RejectPortfolioShare)
 
 -- | The type of shared portfolios to reject. The default is to reject
 -- imported portfolios.
@@ -135,16 +146,6 @@ newRejectPortfolioShare pPortfolioId_ =
 rejectPortfolioShare_portfolioShareType :: Lens.Lens' RejectPortfolioShare (Prelude.Maybe PortfolioShareType)
 rejectPortfolioShare_portfolioShareType = Lens.lens (\RejectPortfolioShare' {portfolioShareType} -> portfolioShareType) (\s@RejectPortfolioShare' {} a -> s {portfolioShareType = a} :: RejectPortfolioShare)
 
--- | The language code.
---
--- -   @en@ - English (default)
---
--- -   @jp@ - Japanese
---
--- -   @zh@ - Chinese
-rejectPortfolioShare_acceptLanguage :: Lens.Lens' RejectPortfolioShare (Prelude.Maybe Prelude.Text)
-rejectPortfolioShare_acceptLanguage = Lens.lens (\RejectPortfolioShare' {acceptLanguage} -> acceptLanguage) (\s@RejectPortfolioShare' {} a -> s {acceptLanguage = a} :: RejectPortfolioShare)
-
 -- | The portfolio identifier.
 rejectPortfolioShare_portfolioId :: Lens.Lens' RejectPortfolioShare Prelude.Text
 rejectPortfolioShare_portfolioId = Lens.lens (\RejectPortfolioShare' {portfolioId} -> portfolioId) (\s@RejectPortfolioShare' {} a -> s {portfolioId = a} :: RejectPortfolioShare)
@@ -153,7 +154,8 @@ instance Core.AWSRequest RejectPortfolioShare where
   type
     AWSResponse RejectPortfolioShare =
       RejectPortfolioShareResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -163,47 +165,47 @@ instance Core.AWSRequest RejectPortfolioShare where
 
 instance Prelude.Hashable RejectPortfolioShare where
   hashWithSalt _salt RejectPortfolioShare' {..} =
-    _salt `Prelude.hashWithSalt` portfolioShareType
-      `Prelude.hashWithSalt` acceptLanguage
+    _salt `Prelude.hashWithSalt` acceptLanguage
+      `Prelude.hashWithSalt` portfolioShareType
       `Prelude.hashWithSalt` portfolioId
 
 instance Prelude.NFData RejectPortfolioShare where
   rnf RejectPortfolioShare' {..} =
-    Prelude.rnf portfolioShareType
-      `Prelude.seq` Prelude.rnf acceptLanguage
+    Prelude.rnf acceptLanguage
+      `Prelude.seq` Prelude.rnf portfolioShareType
       `Prelude.seq` Prelude.rnf portfolioId
 
-instance Core.ToHeaders RejectPortfolioShare where
+instance Data.ToHeaders RejectPortfolioShare where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.RejectPortfolioShare" ::
+              Data.=# ( "AWS242ServiceCatalogService.RejectPortfolioShare" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RejectPortfolioShare where
+instance Data.ToJSON RejectPortfolioShare where
   toJSON RejectPortfolioShare' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PortfolioShareType" Core..=)
-              Prelude.<$> portfolioShareType,
-            ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            Prelude.Just ("PortfolioId" Core..= portfolioId)
+            ("PortfolioShareType" Data..=)
+              Prelude.<$> portfolioShareType,
+            Prelude.Just ("PortfolioId" Data..= portfolioId)
           ]
       )
 
-instance Core.ToPath RejectPortfolioShare where
+instance Data.ToPath RejectPortfolioShare where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RejectPortfolioShare where
+instance Data.ToQuery RejectPortfolioShare where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRejectPortfolioShareResponse' smart constructor.

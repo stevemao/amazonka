@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.ServiceCatalogProvisionedProductDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.ServiceCatalogProvisionedProductDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details of a provisioned service catalog product. For information about
@@ -29,7 +30,9 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newServiceCatalogProvisionedProductDetails' smart constructor.
 data ServiceCatalogProvisionedProductDetails = ServiceCatalogProvisionedProductDetails'
-  { -- | The current status of the product.
+  { -- | The ID of the provisioned product.
+    provisionedProductId :: Prelude.Maybe Prelude.Text,
+    -- | The current status of the product.
     --
     -- -   @AVAILABLE@ - Stable state, ready to perform any operation. The most
     --     recent operation succeeded and completed.
@@ -53,9 +56,7 @@ data ServiceCatalogProvisionedProductDetails = ServiceCatalogProvisionedProductD
     --     been created. After reviewing the list of resources to be created,
     --     execute the plan. Wait for an AVAILABLE status before performing
     --     operations.
-    provisionedProductStatusMessage :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the provisioned product.
-    provisionedProductId :: Prelude.Maybe Prelude.Text
+    provisionedProductStatusMessage :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -66,6 +67,8 @@ data ServiceCatalogProvisionedProductDetails = ServiceCatalogProvisionedProductD
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'provisionedProductId', 'serviceCatalogProvisionedProductDetails_provisionedProductId' - The ID of the provisioned product.
 --
 -- 'provisionedProductStatusMessage', 'serviceCatalogProvisionedProductDetails_provisionedProductStatusMessage' - The current status of the product.
 --
@@ -91,17 +94,19 @@ data ServiceCatalogProvisionedProductDetails = ServiceCatalogProvisionedProductD
 --     been created. After reviewing the list of resources to be created,
 --     execute the plan. Wait for an AVAILABLE status before performing
 --     operations.
---
--- 'provisionedProductId', 'serviceCatalogProvisionedProductDetails_provisionedProductId' - The ID of the provisioned product.
 newServiceCatalogProvisionedProductDetails ::
   ServiceCatalogProvisionedProductDetails
 newServiceCatalogProvisionedProductDetails =
   ServiceCatalogProvisionedProductDetails'
-    { provisionedProductStatusMessage =
+    { provisionedProductId =
         Prelude.Nothing,
-      provisionedProductId =
+      provisionedProductStatusMessage =
         Prelude.Nothing
     }
+
+-- | The ID of the provisioned product.
+serviceCatalogProvisionedProductDetails_provisionedProductId :: Lens.Lens' ServiceCatalogProvisionedProductDetails (Prelude.Maybe Prelude.Text)
+serviceCatalogProvisionedProductDetails_provisionedProductId = Lens.lens (\ServiceCatalogProvisionedProductDetails' {provisionedProductId} -> provisionedProductId) (\s@ServiceCatalogProvisionedProductDetails' {} a -> s {provisionedProductId = a} :: ServiceCatalogProvisionedProductDetails)
 
 -- | The current status of the product.
 --
@@ -130,21 +135,17 @@ newServiceCatalogProvisionedProductDetails =
 serviceCatalogProvisionedProductDetails_provisionedProductStatusMessage :: Lens.Lens' ServiceCatalogProvisionedProductDetails (Prelude.Maybe Prelude.Text)
 serviceCatalogProvisionedProductDetails_provisionedProductStatusMessage = Lens.lens (\ServiceCatalogProvisionedProductDetails' {provisionedProductStatusMessage} -> provisionedProductStatusMessage) (\s@ServiceCatalogProvisionedProductDetails' {} a -> s {provisionedProductStatusMessage = a} :: ServiceCatalogProvisionedProductDetails)
 
--- | The ID of the provisioned product.
-serviceCatalogProvisionedProductDetails_provisionedProductId :: Lens.Lens' ServiceCatalogProvisionedProductDetails (Prelude.Maybe Prelude.Text)
-serviceCatalogProvisionedProductDetails_provisionedProductId = Lens.lens (\ServiceCatalogProvisionedProductDetails' {provisionedProductId} -> provisionedProductId) (\s@ServiceCatalogProvisionedProductDetails' {} a -> s {provisionedProductId = a} :: ServiceCatalogProvisionedProductDetails)
-
 instance
-  Core.FromJSON
+  Data.FromJSON
     ServiceCatalogProvisionedProductDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ServiceCatalogProvisionedProductDetails"
       ( \x ->
           ServiceCatalogProvisionedProductDetails'
-            Prelude.<$> (x Core..:? "ProvisionedProductStatusMessage")
-            Prelude.<*> (x Core..:? "ProvisionedProductId")
+            Prelude.<$> (x Data..:? "ProvisionedProductId")
+            Prelude.<*> (x Data..:? "ProvisionedProductStatusMessage")
       )
 
 instance
@@ -154,14 +155,13 @@ instance
   hashWithSalt
     _salt
     ServiceCatalogProvisionedProductDetails' {..} =
-      _salt
+      _salt `Prelude.hashWithSalt` provisionedProductId
         `Prelude.hashWithSalt` provisionedProductStatusMessage
-        `Prelude.hashWithSalt` provisionedProductId
 
 instance
   Prelude.NFData
     ServiceCatalogProvisionedProductDetails
   where
   rnf ServiceCatalogProvisionedProductDetails' {..} =
-    Prelude.rnf provisionedProductStatusMessage
-      `Prelude.seq` Prelude.rnf provisionedProductId
+    Prelude.rnf provisionedProductId
+      `Prelude.seq` Prelude.rnf provisionedProductStatusMessage

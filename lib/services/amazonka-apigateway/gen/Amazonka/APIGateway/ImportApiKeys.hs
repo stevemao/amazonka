@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.ImportApiKeys
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,8 +59,7 @@ data ImportApiKeys = ImportApiKeys'
     -- (@true@) or not (@false@) when error is encountered.
     failOnWarnings :: Prelude.Maybe Prelude.Bool,
     -- | The payload of the POST request to import API keys. For the payload
-    -- format, see
-    -- <https://docs.aws.amazon.com/apigateway/latest/developerguide/api-key-file-format.html API Key File Format>.
+    -- format, see API Key File Format.
     body :: Prelude.ByteString,
     -- | A query parameter to specify the input format to imported API keys.
     -- Currently, only the @csv@ format is supported.
@@ -79,8 +79,7 @@ data ImportApiKeys = ImportApiKeys'
 -- (@true@) or not (@false@) when error is encountered.
 --
 -- 'body', 'importApiKeys_body' - The payload of the POST request to import API keys. For the payload
--- format, see
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/api-key-file-format.html API Key File Format>.
+-- format, see API Key File Format.
 --
 -- 'format', 'importApiKeys_format' - A query parameter to specify the input format to imported API keys.
 -- Currently, only the @csv@ format is supported.
@@ -103,8 +102,7 @@ importApiKeys_failOnWarnings :: Lens.Lens' ImportApiKeys (Prelude.Maybe Prelude.
 importApiKeys_failOnWarnings = Lens.lens (\ImportApiKeys' {failOnWarnings} -> failOnWarnings) (\s@ImportApiKeys' {} a -> s {failOnWarnings = a} :: ImportApiKeys)
 
 -- | The payload of the POST request to import API keys. For the payload
--- format, see
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/api-key-file-format.html API Key File Format>.
+-- format, see API Key File Format.
 importApiKeys_body :: Lens.Lens' ImportApiKeys Prelude.ByteString
 importApiKeys_body = Lens.lens (\ImportApiKeys' {body} -> body) (\s@ImportApiKeys' {} a -> s {body = a} :: ImportApiKeys)
 
@@ -117,13 +115,14 @@ instance Core.AWSRequest ImportApiKeys where
   type
     AWSResponse ImportApiKeys =
       ImportApiKeysResponse
-  request = Request.postBody defaultService
+  request overrides =
+    Request.postBody (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ImportApiKeysResponse'
-            Prelude.<$> (x Core..?> "ids" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "warnings" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "ids" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "warnings" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -139,26 +138,26 @@ instance Prelude.NFData ImportApiKeys where
       `Prelude.seq` Prelude.rnf body
       `Prelude.seq` Prelude.rnf format
 
-instance Core.ToBody ImportApiKeys where
-  toBody ImportApiKeys' {..} = Core.toBody body
+instance Data.ToBody ImportApiKeys where
+  toBody ImportApiKeys' {..} = Data.toBody body
 
-instance Core.ToHeaders ImportApiKeys where
+instance Data.ToHeaders ImportApiKeys where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath ImportApiKeys where
+instance Data.ToPath ImportApiKeys where
   toPath = Prelude.const "/apikeys"
 
-instance Core.ToQuery ImportApiKeys where
+instance Data.ToQuery ImportApiKeys where
   toQuery ImportApiKeys' {..} =
     Prelude.mconcat
-      [ "failonwarnings" Core.=: failOnWarnings,
-        "format" Core.=: format,
+      [ "failonwarnings" Data.=: failOnWarnings,
+        "format" Data.=: format,
         "mode=import"
       ]
 

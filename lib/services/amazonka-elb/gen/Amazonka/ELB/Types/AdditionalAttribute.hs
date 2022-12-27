@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ELB.Types.AdditionalAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,16 @@
 module Amazonka.ELB.Types.AdditionalAttribute where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELB.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about additional load balancer attributes.
 --
 -- /See:/ 'newAdditionalAttribute' smart constructor.
 data AdditionalAttribute = AdditionalAttribute'
-  { -- | This value of the attribute.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The name of the attribute.
+  { -- | The name of the attribute.
     --
     -- The following attribute is supported.
     --
@@ -38,7 +37,9 @@ data AdditionalAttribute = AdditionalAttribute'
     --     handles requests that might pose a security risk to your
     --     application. The possible values are @monitor@, @defensive@, and
     --     @strictest@. The default is @defensive@.
-    key :: Prelude.Maybe Prelude.Text
+    key :: Prelude.Maybe Prelude.Text,
+    -- | This value of the attribute.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -50,8 +51,6 @@ data AdditionalAttribute = AdditionalAttribute'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'additionalAttribute_value' - This value of the attribute.
---
 -- 'key', 'additionalAttribute_key' - The name of the attribute.
 --
 -- The following attribute is supported.
@@ -60,17 +59,15 @@ data AdditionalAttribute = AdditionalAttribute'
 --     handles requests that might pose a security risk to your
 --     application. The possible values are @monitor@, @defensive@, and
 --     @strictest@. The default is @defensive@.
+--
+-- 'value', 'additionalAttribute_value' - This value of the attribute.
 newAdditionalAttribute ::
   AdditionalAttribute
 newAdditionalAttribute =
   AdditionalAttribute'
-    { value = Prelude.Nothing,
-      key = Prelude.Nothing
+    { key = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | This value of the attribute.
-additionalAttribute_value :: Lens.Lens' AdditionalAttribute (Prelude.Maybe Prelude.Text)
-additionalAttribute_value = Lens.lens (\AdditionalAttribute' {value} -> value) (\s@AdditionalAttribute' {} a -> s {value = a} :: AdditionalAttribute)
 
 -- | The name of the attribute.
 --
@@ -83,21 +80,25 @@ additionalAttribute_value = Lens.lens (\AdditionalAttribute' {value} -> value) (
 additionalAttribute_key :: Lens.Lens' AdditionalAttribute (Prelude.Maybe Prelude.Text)
 additionalAttribute_key = Lens.lens (\AdditionalAttribute' {key} -> key) (\s@AdditionalAttribute' {} a -> s {key = a} :: AdditionalAttribute)
 
-instance Core.FromXML AdditionalAttribute where
+-- | This value of the attribute.
+additionalAttribute_value :: Lens.Lens' AdditionalAttribute (Prelude.Maybe Prelude.Text)
+additionalAttribute_value = Lens.lens (\AdditionalAttribute' {value} -> value) (\s@AdditionalAttribute' {} a -> s {value = a} :: AdditionalAttribute)
+
+instance Data.FromXML AdditionalAttribute where
   parseXML x =
     AdditionalAttribute'
-      Prelude.<$> (x Core..@? "Value") Prelude.<*> (x Core..@? "Key")
+      Prelude.<$> (x Data..@? "Key") Prelude.<*> (x Data..@? "Value")
 
 instance Prelude.Hashable AdditionalAttribute where
   hashWithSalt _salt AdditionalAttribute' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` key
+    _salt `Prelude.hashWithSalt` key
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData AdditionalAttribute where
   rnf AdditionalAttribute' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf key
+    Prelude.rnf key `Prelude.seq` Prelude.rnf value
 
-instance Core.ToQuery AdditionalAttribute where
+instance Data.ToQuery AdditionalAttribute where
   toQuery AdditionalAttribute' {..} =
     Prelude.mconcat
-      ["Value" Core.=: value, "Key" Core.=: key]
+      ["Key" Data.=: key, "Value" Data.=: value]

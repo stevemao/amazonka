@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.Types.OpenIDConnectProviderListEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IAM.Types.OpenIDConnectProviderListEntry where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the Amazon Resource Name (ARN) for an IAM OpenID Connect
@@ -53,10 +54,10 @@ newOpenIDConnectProviderListEntry =
 openIDConnectProviderListEntry_arn :: Lens.Lens' OpenIDConnectProviderListEntry (Prelude.Maybe Prelude.Text)
 openIDConnectProviderListEntry_arn = Lens.lens (\OpenIDConnectProviderListEntry' {arn} -> arn) (\s@OpenIDConnectProviderListEntry' {} a -> s {arn = a} :: OpenIDConnectProviderListEntry)
 
-instance Core.FromXML OpenIDConnectProviderListEntry where
+instance Data.FromXML OpenIDConnectProviderListEntry where
   parseXML x =
     OpenIDConnectProviderListEntry'
-      Prelude.<$> (x Core..@? "Arn")
+      Prelude.<$> (x Data..@? "Arn")
 
 instance
   Prelude.Hashable

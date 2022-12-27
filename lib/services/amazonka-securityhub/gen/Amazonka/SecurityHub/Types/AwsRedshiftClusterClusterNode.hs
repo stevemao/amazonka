@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsRedshiftClusterClusterNode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsRedshiftClusterClusterNode where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A node in an Amazon Redshift cluster.
@@ -71,15 +72,15 @@ awsRedshiftClusterClusterNode_privateIpAddress = Lens.lens (\AwsRedshiftClusterC
 awsRedshiftClusterClusterNode_publicIpAddress :: Lens.Lens' AwsRedshiftClusterClusterNode (Prelude.Maybe Prelude.Text)
 awsRedshiftClusterClusterNode_publicIpAddress = Lens.lens (\AwsRedshiftClusterClusterNode' {publicIpAddress} -> publicIpAddress) (\s@AwsRedshiftClusterClusterNode' {} a -> s {publicIpAddress = a} :: AwsRedshiftClusterClusterNode)
 
-instance Core.FromJSON AwsRedshiftClusterClusterNode where
+instance Data.FromJSON AwsRedshiftClusterClusterNode where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsRedshiftClusterClusterNode"
       ( \x ->
           AwsRedshiftClusterClusterNode'
-            Prelude.<$> (x Core..:? "NodeRole")
-            Prelude.<*> (x Core..:? "PrivateIpAddress")
-            Prelude.<*> (x Core..:? "PublicIpAddress")
+            Prelude.<$> (x Data..:? "NodeRole")
+            Prelude.<*> (x Data..:? "PrivateIpAddress")
+            Prelude.<*> (x Data..:? "PublicIpAddress")
       )
 
 instance
@@ -97,14 +98,14 @@ instance Prelude.NFData AwsRedshiftClusterClusterNode where
       `Prelude.seq` Prelude.rnf privateIpAddress
       `Prelude.seq` Prelude.rnf publicIpAddress
 
-instance Core.ToJSON AwsRedshiftClusterClusterNode where
+instance Data.ToJSON AwsRedshiftClusterClusterNode where
   toJSON AwsRedshiftClusterClusterNode' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NodeRole" Core..=) Prelude.<$> nodeRole,
-            ("PrivateIpAddress" Core..=)
+          [ ("NodeRole" Data..=) Prelude.<$> nodeRole,
+            ("PrivateIpAddress" Data..=)
               Prelude.<$> privateIpAddress,
-            ("PublicIpAddress" Core..=)
+            ("PublicIpAddress" Data..=)
               Prelude.<$> publicIpAddress
           ]
       )

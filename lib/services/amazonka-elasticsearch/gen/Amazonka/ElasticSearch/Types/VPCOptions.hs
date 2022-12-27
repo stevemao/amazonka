@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.Types.VPCOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElasticSearch.Types.VPCOptions where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Options to specify the subnets and security groups for VPC endpoint. For
@@ -73,12 +74,12 @@ instance Prelude.NFData VPCOptions where
     Prelude.rnf securityGroupIds
       `Prelude.seq` Prelude.rnf subnetIds
 
-instance Core.ToJSON VPCOptions where
+instance Data.ToJSON VPCOptions where
   toJSON VPCOptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SecurityGroupIds" Core..=)
+          [ ("SecurityGroupIds" Data..=)
               Prelude.<$> securityGroupIds,
-            ("SubnetIds" Core..=) Prelude.<$> subnetIds
+            ("SubnetIds" Data..=) Prelude.<$> subnetIds
           ]
       )

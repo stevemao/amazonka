@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.IoTDeviceAdvisor.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,16 +18,25 @@ module Amazonka.IoTDeviceAdvisor.Types
     defaultService,
 
     -- * Errors
-    _ValidationException,
     _ConflictException,
     _InternalServerException,
     _ResourceNotFoundException,
+    _ValidationException,
+
+    -- * Protocol
+    Protocol (..),
 
     -- * Status
     Status (..),
 
     -- * SuiteRunStatus
     SuiteRunStatus (..),
+
+    -- * TestCaseScenarioStatus
+    TestCaseScenarioStatus (..),
+
+    -- * TestCaseScenarioType
+    TestCaseScenarioType (..),
 
     -- * DeviceUnderTest
     DeviceUnderTest (..),
@@ -37,60 +47,75 @@ module Amazonka.IoTDeviceAdvisor.Types
     -- * GroupResult
     GroupResult (..),
     newGroupResult,
-    groupResult_tests,
     groupResult_groupId,
     groupResult_groupName,
+    groupResult_tests,
 
     -- * SuiteDefinitionConfiguration
     SuiteDefinitionConfiguration (..),
     newSuiteDefinitionConfiguration,
-    suiteDefinitionConfiguration_suiteDefinitionName,
-    suiteDefinitionConfiguration_intendedForQualification,
     suiteDefinitionConfiguration_devicePermissionRoleArn,
     suiteDefinitionConfiguration_devices,
+    suiteDefinitionConfiguration_intendedForQualification,
+    suiteDefinitionConfiguration_isLongDurationTest,
+    suiteDefinitionConfiguration_protocol,
     suiteDefinitionConfiguration_rootGroup,
+    suiteDefinitionConfiguration_suiteDefinitionName,
 
     -- * SuiteDefinitionInformation
     SuiteDefinitionInformation (..),
     newSuiteDefinitionInformation,
     suiteDefinitionInformation_createdAt,
     suiteDefinitionInformation_defaultDevices,
+    suiteDefinitionInformation_intendedForQualification,
+    suiteDefinitionInformation_isLongDurationTest,
+    suiteDefinitionInformation_protocol,
     suiteDefinitionInformation_suiteDefinitionId,
     suiteDefinitionInformation_suiteDefinitionName,
-    suiteDefinitionInformation_intendedForQualification,
 
     -- * SuiteRunConfiguration
     SuiteRunConfiguration (..),
     newSuiteRunConfiguration,
+    suiteRunConfiguration_parallelRun,
     suiteRunConfiguration_primaryDevice,
     suiteRunConfiguration_selectedTestList,
 
     -- * SuiteRunInformation
     SuiteRunInformation (..),
     newSuiteRunInformation,
-    suiteRunInformation_status,
     suiteRunInformation_createdAt,
-    suiteRunInformation_passed,
-    suiteRunInformation_suiteDefinitionId,
-    suiteRunInformation_suiteDefinitionVersion,
-    suiteRunInformation_startedAt,
-    suiteRunInformation_suiteDefinitionName,
     suiteRunInformation_endAt,
-    suiteRunInformation_suiteRunId,
     suiteRunInformation_failed,
+    suiteRunInformation_passed,
+    suiteRunInformation_startedAt,
+    suiteRunInformation_status,
+    suiteRunInformation_suiteDefinitionId,
+    suiteRunInformation_suiteDefinitionName,
+    suiteRunInformation_suiteDefinitionVersion,
+    suiteRunInformation_suiteRunId,
 
     -- * TestCaseRun
     TestCaseRun (..),
     newTestCaseRun,
-    testCaseRun_status,
+    testCaseRun_endTime,
+    testCaseRun_failure,
     testCaseRun_logUrl,
     testCaseRun_startTime,
-    testCaseRun_testCaseRunId,
-    testCaseRun_warnings,
-    testCaseRun_endTime,
+    testCaseRun_status,
     testCaseRun_testCaseDefinitionId,
-    testCaseRun_failure,
     testCaseRun_testCaseDefinitionName,
+    testCaseRun_testCaseRunId,
+    testCaseRun_testScenarios,
+    testCaseRun_warnings,
+
+    -- * TestCaseScenario
+    TestCaseScenario (..),
+    newTestCaseScenario,
+    testCaseScenario_failure,
+    testCaseScenario_status,
+    testCaseScenario_systemMessage,
+    testCaseScenario_testCaseScenarioId,
+    testCaseScenario_testCaseScenarioType,
 
     -- * TestResult
     TestResult (..),
@@ -100,8 +125,10 @@ module Amazonka.IoTDeviceAdvisor.Types
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.IoTDeviceAdvisor.Types.DeviceUnderTest
 import Amazonka.IoTDeviceAdvisor.Types.GroupResult
+import Amazonka.IoTDeviceAdvisor.Types.Protocol
 import Amazonka.IoTDeviceAdvisor.Types.Status
 import Amazonka.IoTDeviceAdvisor.Types.SuiteDefinitionConfiguration
 import Amazonka.IoTDeviceAdvisor.Types.SuiteDefinitionInformation
@@ -109,8 +136,10 @@ import Amazonka.IoTDeviceAdvisor.Types.SuiteRunConfiguration
 import Amazonka.IoTDeviceAdvisor.Types.SuiteRunInformation
 import Amazonka.IoTDeviceAdvisor.Types.SuiteRunStatus
 import Amazonka.IoTDeviceAdvisor.Types.TestCaseRun
+import Amazonka.IoTDeviceAdvisor.Types.TestCaseScenario
+import Amazonka.IoTDeviceAdvisor.Types.TestCaseScenarioStatus
+import Amazonka.IoTDeviceAdvisor.Types.TestCaseScenarioType
 import Amazonka.IoTDeviceAdvisor.Types.TestResult
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 
@@ -118,43 +147,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev =
-        "IoTDeviceAdvisor",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "api.iotdeviceadvisor",
-      Core._serviceSigningName = "iotdeviceadvisor",
-      Core._serviceVersion = "2020-09-18",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
-        Core.parseJSONError "IoTDeviceAdvisor",
-      Core._serviceRetry = retry
+    { Core.abbrev = "IoTDeviceAdvisor",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "api.iotdeviceadvisor",
+      Core.signingName = "iotdeviceadvisor",
+      Core.version = "2020-09-18",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "IoTDeviceAdvisor",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -162,39 +197,23 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
 
--- | Sends invalid request exception.
-_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ValidationException =
-  Core._MatchServiceError
-    defaultService
-    "ValidationException"
-    Prelude.. Core.hasStatus 400
-
--- | Sends Conflict Exception.
+-- | Sends a Conflict Exception.
 _ConflictException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
 _ConflictException =
   Core._MatchServiceError
@@ -202,7 +221,7 @@ _ConflictException =
     "ConflictException"
     Prelude.. Core.hasStatus 400
 
--- | Sends Internal Failure Exception.
+-- | Sends an Internal Failure exception.
 _InternalServerException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
 _InternalServerException =
   Core._MatchServiceError
@@ -210,10 +229,18 @@ _InternalServerException =
     "InternalServerException"
     Prelude.. Core.hasStatus 500
 
--- | Sends Resource Not Found Exception.
+-- | Sends a Resource Not Found exception.
 _ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
 _ResourceNotFoundException =
   Core._MatchServiceError
     defaultService
     "ResourceNotFoundException"
     Prelude.. Core.hasStatus 404
+
+-- | Sends a validation exception.
+_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ValidationException =
+  Core._MatchServiceError
+    defaultService
+    "ValidationException"
+    Prelude.. Core.hasStatus 400

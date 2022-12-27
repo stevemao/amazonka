@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -19,17 +20,20 @@ module Amazonka.Lightsail.Types
     -- * Errors
     _AccessDeniedException,
     _AccountSetupInProgressException,
+    _InvalidInputException,
     _NotFoundException,
     _OperationFailureException,
     _ServiceException,
     _UnauthenticatedException,
-    _InvalidInputException,
 
     -- * AccessDirection
     AccessDirection (..),
 
     -- * AccessType
     AccessType (..),
+
+    -- * AccountLevelBpaSyncStatus
+    AccountLevelBpaSyncStatus (..),
 
     -- * AddOnType
     AddOnType (..),
@@ -40,6 +44,9 @@ module Amazonka.Lightsail.Types
     -- * AutoSnapshotStatus
     AutoSnapshotStatus (..),
 
+    -- * BPAStatusMessage
+    BPAStatusMessage (..),
+
     -- * BehaviorEnum
     BehaviorEnum (..),
 
@@ -48,6 +55,9 @@ module Amazonka.Lightsail.Types
 
     -- * BucketMetricName
     BucketMetricName (..),
+
+    -- * CertificateDomainValidationStatus
+    CertificateDomainValidationStatus (..),
 
     -- * CertificateStatus
     CertificateStatus (..),
@@ -94,6 +104,9 @@ module Amazonka.Lightsail.Types
     -- * DistributionMetricName
     DistributionMetricName (..),
 
+    -- * DnsRecordCreationStateCode
+    DnsRecordCreationStateCode (..),
+
     -- * ExportSnapshotRecordSourceType
     ExportSnapshotRecordSourceType (..),
 
@@ -103,6 +116,15 @@ module Amazonka.Lightsail.Types
     -- * HeaderEnum
     HeaderEnum (..),
 
+    -- * HttpEndpoint
+    HttpEndpoint (..),
+
+    -- * HttpProtocolIpv6
+    HttpProtocolIpv6 (..),
+
+    -- * HttpTokens
+    HttpTokens (..),
+
     -- * InstanceAccessProtocol
     InstanceAccessProtocol (..),
 
@@ -111,6 +133,9 @@ module Amazonka.Lightsail.Types
 
     -- * InstanceHealthState
     InstanceHealthState (..),
+
+    -- * InstanceMetadataState
+    InstanceMetadataState (..),
 
     -- * InstanceMetricName
     InstanceMetricName (..),
@@ -136,6 +161,9 @@ module Amazonka.Lightsail.Types
     -- * LoadBalancerState
     LoadBalancerState (..),
 
+    -- * LoadBalancerTlsCertificateDnsRecordCreationStateCode
+    LoadBalancerTlsCertificateDnsRecordCreationStateCode (..),
+
     -- * LoadBalancerTlsCertificateDomainStatus
     LoadBalancerTlsCertificateDomainStatus (..),
 
@@ -160,6 +188,9 @@ module Amazonka.Lightsail.Types
     -- * MetricUnit
     MetricUnit (..),
 
+    -- * NameServersUpdateStateCode
+    NameServersUpdateStateCode (..),
+
     -- * NetworkProtocol
     NetworkProtocol (..),
 
@@ -180,6 +211,9 @@ module Amazonka.Lightsail.Types
 
     -- * PortState
     PortState (..),
+
+    -- * R53HostedZoneDeletionStateCode
+    R53HostedZoneDeletionStateCode (..),
 
     -- * RecordState
     RecordState (..),
@@ -214,32 +248,40 @@ module Amazonka.Lightsail.Types
     -- * AccessKey
     AccessKey (..),
     newAccessKey,
-    accessKey_status,
-    accessKey_createdAt,
-    accessKey_secretAccessKey,
-    accessKey_lastUsed,
     accessKey_accessKeyId,
+    accessKey_createdAt,
+    accessKey_lastUsed,
+    accessKey_secretAccessKey,
+    accessKey_status,
 
     -- * AccessKeyLastUsed
     AccessKeyLastUsed (..),
     newAccessKeyLastUsed,
     accessKeyLastUsed_lastUsedDate,
-    accessKeyLastUsed_serviceName,
     accessKeyLastUsed_region,
+    accessKeyLastUsed_serviceName,
 
     -- * AccessRules
     AccessRules (..),
     newAccessRules,
-    accessRules_getObject,
     accessRules_allowPublicOverrides,
+    accessRules_getObject,
+
+    -- * AccountLevelBpaSync
+    AccountLevelBpaSync (..),
+    newAccountLevelBpaSync,
+    accountLevelBpaSync_bpaImpactsLightsail,
+    accountLevelBpaSync_lastSyncedAt,
+    accountLevelBpaSync_message,
+    accountLevelBpaSync_status,
 
     -- * AddOn
     AddOn (..),
     newAddOn,
-    addOn_status,
+    addOn_name,
     addOn_nextSnapshotTimeOfDay,
     addOn_snapshotTimeOfDay,
-    addOn_name,
+    addOn_status,
 
     -- * AddOnRequest
     AddOnRequest (..),
@@ -250,26 +292,26 @@ module Amazonka.Lightsail.Types
     -- * Alarm
     Alarm (..),
     newAlarm,
-    alarm_state,
-    alarm_treatMissingData,
-    alarm_resourceType,
     alarm_arn,
-    alarm_createdAt,
-    alarm_location,
-    alarm_contactProtocols,
-    alarm_period,
-    alarm_evaluationPeriods,
-    alarm_metricName,
     alarm_comparisonOperator,
-    alarm_name,
-    alarm_threshold,
+    alarm_contactProtocols,
+    alarm_createdAt,
     alarm_datapointsToAlarm,
-    alarm_supportCode,
+    alarm_evaluationPeriods,
+    alarm_location,
+    alarm_metricName,
+    alarm_monitoredResourceInfo,
+    alarm_name,
     alarm_notificationEnabled,
     alarm_notificationTriggers,
+    alarm_period,
+    alarm_resourceType,
+    alarm_state,
     alarm_statistic,
+    alarm_supportCode,
+    alarm_threshold,
+    alarm_treatMissingData,
     alarm_unit,
-    alarm_monitoredResourceInfo,
 
     -- * AttachedDisk
     AttachedDisk (..),
@@ -285,10 +327,10 @@ module Amazonka.Lightsail.Types
     -- * AutoSnapshotDetails
     AutoSnapshotDetails (..),
     newAutoSnapshotDetails,
-    autoSnapshotDetails_status,
-    autoSnapshotDetails_fromAttachedDisks,
     autoSnapshotDetails_createdAt,
     autoSnapshotDetails_date,
+    autoSnapshotDetails_fromAttachedDisks,
+    autoSnapshotDetails_status,
 
     -- * AvailabilityZone
     AvailabilityZone (..),
@@ -299,47 +341,55 @@ module Amazonka.Lightsail.Types
     -- * Blueprint
     Blueprint (..),
     newBlueprint,
-    blueprint_versionCode,
-    blueprint_platform,
-    blueprint_group,
-    blueprint_minPower,
-    blueprint_productUrl,
-    blueprint_licenseUrl,
-    blueprint_name,
-    blueprint_version,
     blueprint_blueprintId,
-    blueprint_type,
-    blueprint_isActive,
     blueprint_description,
+    blueprint_group,
+    blueprint_isActive,
+    blueprint_licenseUrl,
+    blueprint_minPower,
+    blueprint_name,
+    blueprint_platform,
+    blueprint_productUrl,
+    blueprint_type,
+    blueprint_version,
+    blueprint_versionCode,
 
     -- * Bucket
     Bucket (..),
     newBucket,
-    bucket_state,
-    bucket_objectVersioning,
-    bucket_resourceType,
+    bucket_ableToUpdateBundle,
+    bucket_accessLogConfig,
+    bucket_accessRules,
     bucket_arn,
+    bucket_bundleId,
     bucket_createdAt,
     bucket_location,
-    bucket_readonlyAccessAccounts,
-    bucket_url,
-    bucket_resourcesReceivingAccess,
-    bucket_bundleId,
-    bucket_accessRules,
-    bucket_ableToUpdateBundle,
     bucket_name,
+    bucket_objectVersioning,
+    bucket_readonlyAccessAccounts,
+    bucket_resourceType,
+    bucket_resourcesReceivingAccess,
+    bucket_state,
     bucket_supportCode,
     bucket_tags,
+    bucket_url,
+
+    -- * BucketAccessLogConfig
+    BucketAccessLogConfig (..),
+    newBucketAccessLogConfig,
+    bucketAccessLogConfig_destination,
+    bucketAccessLogConfig_prefix,
+    bucketAccessLogConfig_enabled,
 
     -- * BucketBundle
     BucketBundle (..),
     newBucketBundle,
-    bucketBundle_storagePerMonthInGb,
-    bucketBundle_transferPerMonthInGb,
     bucketBundle_bundleId,
+    bucketBundle_isActive,
     bucketBundle_name,
     bucketBundle_price,
-    bucketBundle_isActive,
+    bucketBundle_storagePerMonthInGb,
+    bucketBundle_transferPerMonthInGb,
 
     -- * BucketState
     BucketState (..),
@@ -350,17 +400,17 @@ module Amazonka.Lightsail.Types
     -- * Bundle
     Bundle (..),
     newBundle,
-    bundle_cpuCount,
-    bundle_transferPerMonthInGb,
     bundle_bundleId,
+    bundle_cpuCount,
+    bundle_diskSizeInGb,
     bundle_instanceType,
+    bundle_isActive,
     bundle_name,
     bundle_power,
-    bundle_diskSizeInGb,
-    bundle_supportedPlatforms,
     bundle_price,
-    bundle_isActive,
     bundle_ramSizeInGb,
+    bundle_supportedPlatforms,
+    bundle_transferPerMonthInGb,
 
     -- * CacheBehavior
     CacheBehavior (..),
@@ -370,153 +420,165 @@ module Amazonka.Lightsail.Types
     -- * CacheBehaviorPerPath
     CacheBehaviorPerPath (..),
     newCacheBehaviorPerPath,
-    cacheBehaviorPerPath_path,
     cacheBehaviorPerPath_behavior,
+    cacheBehaviorPerPath_path,
 
     -- * CacheSettings
     CacheSettings (..),
     newCacheSettings,
-    cacheSettings_maximumTTL,
-    cacheSettings_cachedHTTPMethods,
-    cacheSettings_forwardedCookies,
     cacheSettings_allowedHTTPMethods,
+    cacheSettings_cachedHTTPMethods,
     cacheSettings_defaultTTL,
-    cacheSettings_minimumTTL,
+    cacheSettings_forwardedCookies,
     cacheSettings_forwardedHeaders,
     cacheSettings_forwardedQueryStrings,
+    cacheSettings_maximumTTL,
+    cacheSettings_minimumTTL,
 
     -- * Certificate
     Certificate (..),
     newCertificate,
-    certificate_status,
-    certificate_subjectAlternativeNames,
     certificate_arn,
     certificate_createdAt,
-    certificate_eligibleToRenew,
-    certificate_requestFailureReason,
-    certificate_revokedAt,
-    certificate_notBefore,
-    certificate_revocationReason,
     certificate_domainName,
-    certificate_name,
-    certificate_renewalSummary,
-    certificate_supportCode,
     certificate_domainValidationRecords,
+    certificate_eligibleToRenew,
     certificate_inUseResourceCount,
     certificate_issuedAt,
-    certificate_keyAlgorithm,
-    certificate_serialNumber,
     certificate_issuerCA,
-    certificate_tags,
+    certificate_keyAlgorithm,
+    certificate_name,
     certificate_notAfter,
+    certificate_notBefore,
+    certificate_renewalSummary,
+    certificate_requestFailureReason,
+    certificate_revocationReason,
+    certificate_revokedAt,
+    certificate_serialNumber,
+    certificate_status,
+    certificate_subjectAlternativeNames,
+    certificate_supportCode,
+    certificate_tags,
 
     -- * CertificateSummary
     CertificateSummary (..),
     newCertificateSummary,
+    certificateSummary_certificateArn,
     certificateSummary_certificateDetail,
     certificateSummary_certificateName,
-    certificateSummary_certificateArn,
     certificateSummary_domainName,
     certificateSummary_tags,
 
     -- * CloudFormationStackRecord
     CloudFormationStackRecord (..),
     newCloudFormationStackRecord,
-    cloudFormationStackRecord_state,
-    cloudFormationStackRecord_destinationInfo,
-    cloudFormationStackRecord_resourceType,
     cloudFormationStackRecord_arn,
     cloudFormationStackRecord_createdAt,
+    cloudFormationStackRecord_destinationInfo,
     cloudFormationStackRecord_location,
     cloudFormationStackRecord_name,
+    cloudFormationStackRecord_resourceType,
     cloudFormationStackRecord_sourceInfo,
+    cloudFormationStackRecord_state,
 
     -- * CloudFormationStackRecordSourceInfo
     CloudFormationStackRecordSourceInfo (..),
     newCloudFormationStackRecordSourceInfo,
-    cloudFormationStackRecordSourceInfo_resourceType,
     cloudFormationStackRecordSourceInfo_arn,
     cloudFormationStackRecordSourceInfo_name,
+    cloudFormationStackRecordSourceInfo_resourceType,
 
     -- * ContactMethod
     ContactMethod (..),
     newContactMethod,
-    contactMethod_status,
-    contactMethod_resourceType,
     contactMethod_arn,
+    contactMethod_contactEndpoint,
     contactMethod_createdAt,
     contactMethod_location,
-    contactMethod_protocol,
     contactMethod_name,
+    contactMethod_protocol,
+    contactMethod_resourceType,
+    contactMethod_status,
     contactMethod_supportCode,
-    contactMethod_contactEndpoint,
 
     -- * Container
     Container (..),
     newContainer,
-    container_image,
     container_command,
     container_environment,
+    container_image,
     container_ports,
 
     -- * ContainerImage
     ContainerImage (..),
     newContainerImage,
-    containerImage_image,
     containerImage_createdAt,
     containerImage_digest,
+    containerImage_image,
 
     -- * ContainerService
     ContainerService (..),
     newContainerService,
-    containerService_state,
-    containerService_powerId,
-    containerService_resourceType,
     containerService_arn,
-    containerService_createdAt,
-    containerService_location,
-    containerService_scale,
-    containerService_url,
-    containerService_stateDetail,
-    containerService_nextDeployment,
-    containerService_principalArn,
-    containerService_power,
-    containerService_privateDomainName,
-    containerService_isDisabled,
-    containerService_publicDomainNames,
     containerService_containerServiceName,
+    containerService_createdAt,
     containerService_currentDeployment,
+    containerService_isDisabled,
+    containerService_location,
+    containerService_nextDeployment,
+    containerService_power,
+    containerService_powerId,
+    containerService_principalArn,
+    containerService_privateDomainName,
+    containerService_privateRegistryAccess,
+    containerService_publicDomainNames,
+    containerService_resourceType,
+    containerService_scale,
+    containerService_state,
+    containerService_stateDetail,
     containerService_tags,
+    containerService_url,
 
     -- * ContainerServiceDeployment
     ContainerServiceDeployment (..),
     newContainerServiceDeployment,
-    containerServiceDeployment_state,
-    containerServiceDeployment_publicEndpoint,
-    containerServiceDeployment_createdAt,
     containerServiceDeployment_containers,
+    containerServiceDeployment_createdAt,
+    containerServiceDeployment_publicEndpoint,
+    containerServiceDeployment_state,
     containerServiceDeployment_version,
 
     -- * ContainerServiceDeploymentRequest
     ContainerServiceDeploymentRequest (..),
     newContainerServiceDeploymentRequest,
-    containerServiceDeploymentRequest_publicEndpoint,
     containerServiceDeploymentRequest_containers,
+    containerServiceDeploymentRequest_publicEndpoint,
+
+    -- * ContainerServiceECRImagePullerRole
+    ContainerServiceECRImagePullerRole (..),
+    newContainerServiceECRImagePullerRole,
+    containerServiceECRImagePullerRole_isActive,
+    containerServiceECRImagePullerRole_principalArn,
+
+    -- * ContainerServiceECRImagePullerRoleRequest
+    ContainerServiceECRImagePullerRoleRequest (..),
+    newContainerServiceECRImagePullerRoleRequest,
+    containerServiceECRImagePullerRoleRequest_isActive,
 
     -- * ContainerServiceEndpoint
     ContainerServiceEndpoint (..),
     newContainerServiceEndpoint,
-    containerServiceEndpoint_healthCheck,
     containerServiceEndpoint_containerName,
     containerServiceEndpoint_containerPort,
+    containerServiceEndpoint_healthCheck,
 
     -- * ContainerServiceHealthCheckConfig
     ContainerServiceHealthCheckConfig (..),
     newContainerServiceHealthCheckConfig,
     containerServiceHealthCheckConfig_healthyThreshold,
+    containerServiceHealthCheckConfig_intervalSeconds,
     containerServiceHealthCheckConfig_path,
     containerServiceHealthCheckConfig_successCodes,
-    containerServiceHealthCheckConfig_intervalSeconds,
     containerServiceHealthCheckConfig_timeoutSeconds,
     containerServiceHealthCheckConfig_unhealthyThreshold,
 
@@ -529,20 +591,20 @@ module Amazonka.Lightsail.Types
     -- * ContainerServicePower
     ContainerServicePower (..),
     newContainerServicePower,
-    containerServicePower_powerId,
     containerServicePower_cpuCount,
-    containerServicePower_name,
-    containerServicePower_price,
     containerServicePower_isActive,
+    containerServicePower_name,
+    containerServicePower_powerId,
+    containerServicePower_price,
     containerServicePower_ramSizeInGb,
 
     -- * ContainerServiceRegistryLogin
     ContainerServiceRegistryLogin (..),
     newContainerServiceRegistryLogin,
     containerServiceRegistryLogin_expiresAt,
-    containerServiceRegistryLogin_username,
     containerServiceRegistryLogin_password,
     containerServiceRegistryLogin_registry,
+    containerServiceRegistryLogin_username,
 
     -- * ContainerServiceStateDetail
     ContainerServiceStateDetail (..),
@@ -559,37 +621,37 @@ module Amazonka.Lightsail.Types
     -- * DestinationInfo
     DestinationInfo (..),
     newDestinationInfo,
-    destinationInfo_service,
     destinationInfo_id,
+    destinationInfo_service,
 
     -- * Disk
     Disk (..),
     newDisk,
-    disk_state,
-    disk_resourceType,
+    disk_addOns,
     disk_arn,
-    disk_path,
+    disk_attachedTo,
+    disk_attachmentState,
     disk_createdAt,
-    disk_location,
+    disk_gbInUse,
     disk_iops,
     disk_isAttached,
-    disk_addOns,
-    disk_attachmentState,
-    disk_name,
-    disk_sizeInGb,
-    disk_supportCode,
     disk_isSystemDisk,
-    disk_attachedTo,
-    disk_gbInUse,
+    disk_location,
+    disk_name,
+    disk_path,
+    disk_resourceType,
+    disk_sizeInGb,
+    disk_state,
+    disk_supportCode,
     disk_tags,
 
     -- * DiskInfo
     DiskInfo (..),
     newDiskInfo,
-    diskInfo_path,
-    diskInfo_name,
-    diskInfo_sizeInGb,
     diskInfo_isSystemDisk,
+    diskInfo_name,
+    diskInfo_path,
+    diskInfo_sizeInGb,
 
     -- * DiskMap
     DiskMap (..),
@@ -600,20 +662,20 @@ module Amazonka.Lightsail.Types
     -- * DiskSnapshot
     DiskSnapshot (..),
     newDiskSnapshot,
-    diskSnapshot_fromDiskName,
-    diskSnapshot_isFromAutoSnapshot,
-    diskSnapshot_state,
-    diskSnapshot_resourceType,
     diskSnapshot_arn,
     diskSnapshot_createdAt,
-    diskSnapshot_location,
-    diskSnapshot_progress,
-    diskSnapshot_name,
-    diskSnapshot_sizeInGb,
-    diskSnapshot_supportCode,
+    diskSnapshot_fromDiskArn,
+    diskSnapshot_fromDiskName,
     diskSnapshot_fromInstanceArn,
     diskSnapshot_fromInstanceName,
-    diskSnapshot_fromDiskArn,
+    diskSnapshot_isFromAutoSnapshot,
+    diskSnapshot_location,
+    diskSnapshot_name,
+    diskSnapshot_progress,
+    diskSnapshot_resourceType,
+    diskSnapshot_sizeInGb,
+    diskSnapshot_state,
+    diskSnapshot_supportCode,
     diskSnapshot_tags,
 
     -- * DiskSnapshotInfo
@@ -624,39 +686,48 @@ module Amazonka.Lightsail.Types
     -- * DistributionBundle
     DistributionBundle (..),
     newDistributionBundle,
-    distributionBundle_transferPerMonthInGb,
     distributionBundle_bundleId,
+    distributionBundle_isActive,
     distributionBundle_name,
     distributionBundle_price,
-    distributionBundle_isActive,
+    distributionBundle_transferPerMonthInGb,
+
+    -- * DnsRecordCreationState
+    DnsRecordCreationState (..),
+    newDnsRecordCreationState,
+    dnsRecordCreationState_code,
+    dnsRecordCreationState_message,
 
     -- * Domain
     Domain (..),
     newDomain,
-    domain_resourceType,
-    domain_domainEntries,
     domain_arn,
     domain_createdAt,
+    domain_domainEntries,
     domain_location,
     domain_name,
+    domain_registeredDomainDelegationInfo,
+    domain_resourceType,
     domain_supportCode,
     domain_tags,
 
     -- * DomainEntry
     DomainEntry (..),
     newDomainEntry,
+    domainEntry_id,
     domainEntry_isAlias,
     domainEntry_name,
-    domainEntry_id,
     domainEntry_options,
-    domainEntry_type,
     domainEntry_target,
+    domainEntry_type,
 
     -- * DomainValidationRecord
     DomainValidationRecord (..),
     newDomainValidationRecord,
-    domainValidationRecord_resourceRecord,
+    domainValidationRecord_dnsRecordCreationState,
     domainValidationRecord_domainName,
+    domainValidationRecord_resourceRecord,
+    domainValidationRecord_validationStatus,
 
     -- * EndpointRequest
     EndpointRequest (..),
@@ -668,26 +739,26 @@ module Amazonka.Lightsail.Types
     -- * ExportSnapshotRecord
     ExportSnapshotRecord (..),
     newExportSnapshotRecord,
-    exportSnapshotRecord_state,
-    exportSnapshotRecord_destinationInfo,
-    exportSnapshotRecord_resourceType,
     exportSnapshotRecord_arn,
     exportSnapshotRecord_createdAt,
+    exportSnapshotRecord_destinationInfo,
     exportSnapshotRecord_location,
     exportSnapshotRecord_name,
+    exportSnapshotRecord_resourceType,
     exportSnapshotRecord_sourceInfo,
+    exportSnapshotRecord_state,
 
     -- * ExportSnapshotRecordSourceInfo
     ExportSnapshotRecordSourceInfo (..),
     newExportSnapshotRecordSourceInfo,
-    exportSnapshotRecordSourceInfo_diskSnapshotInfo,
-    exportSnapshotRecordSourceInfo_resourceType,
     exportSnapshotRecordSourceInfo_arn,
     exportSnapshotRecordSourceInfo_createdAt,
+    exportSnapshotRecordSourceInfo_diskSnapshotInfo,
     exportSnapshotRecordSourceInfo_fromResourceArn,
-    exportSnapshotRecordSourceInfo_name,
-    exportSnapshotRecordSourceInfo_instanceSnapshotInfo,
     exportSnapshotRecordSourceInfo_fromResourceName,
+    exportSnapshotRecordSourceInfo_instanceSnapshotInfo,
+    exportSnapshotRecordSourceInfo_name,
+    exportSnapshotRecordSourceInfo_resourceType,
 
     -- * HeaderObject
     HeaderObject (..),
@@ -698,59 +769,60 @@ module Amazonka.Lightsail.Types
     -- * HostKeyAttributes
     HostKeyAttributes (..),
     newHostKeyAttributes,
+    hostKeyAttributes_algorithm,
+    hostKeyAttributes_fingerprintSHA1,
+    hostKeyAttributes_fingerprintSHA256,
     hostKeyAttributes_notValidAfter,
     hostKeyAttributes_notValidBefore,
-    hostKeyAttributes_fingerprintSHA1,
     hostKeyAttributes_publicKey,
-    hostKeyAttributes_algorithm,
     hostKeyAttributes_witnessedAt,
-    hostKeyAttributes_fingerprintSHA256,
 
     -- * InputOrigin
     InputOrigin (..),
     newInputOrigin,
-    inputOrigin_regionName,
     inputOrigin_name,
     inputOrigin_protocolPolicy,
+    inputOrigin_regionName,
 
     -- * Instance
     Instance (..),
     newInstance,
-    instance_state,
-    instance_resourceType,
-    instance_arn,
-    instance_createdAt,
-    instance_location,
-    instance_sshKeyName,
     instance_addOns,
-    instance_username,
-    instance_networking,
-    instance_bundleId,
-    instance_name,
-    instance_ipAddressType,
-    instance_supportCode,
+    instance_arn,
     instance_blueprintId,
-    instance_privateIpAddress,
     instance_blueprintName,
-    instance_isStaticIp,
-    instance_publicIpAddress,
+    instance_bundleId,
+    instance_createdAt,
     instance_hardware,
+    instance_ipAddressType,
     instance_ipv6Addresses,
+    instance_isStaticIp,
+    instance_location,
+    instance_metadataOptions,
+    instance_name,
+    instance_networking,
+    instance_privateIpAddress,
+    instance_publicIpAddress,
+    instance_resourceType,
+    instance_sshKeyName,
+    instance_state,
+    instance_supportCode,
     instance_tags,
+    instance_username,
 
     -- * InstanceAccessDetails
     InstanceAccessDetails (..),
     newInstanceAccessDetails,
-    instanceAccessDetails_hostKeys,
     instanceAccessDetails_certKey,
-    instanceAccessDetails_ipAddress,
-    instanceAccessDetails_privateKey,
     instanceAccessDetails_expiresAt,
-    instanceAccessDetails_username,
-    instanceAccessDetails_protocol,
-    instanceAccessDetails_passwordData,
-    instanceAccessDetails_password,
+    instanceAccessDetails_hostKeys,
     instanceAccessDetails_instanceName,
+    instanceAccessDetails_ipAddress,
+    instanceAccessDetails_password,
+    instanceAccessDetails_passwordData,
+    instanceAccessDetails_privateKey,
+    instanceAccessDetails_protocol,
+    instanceAccessDetails_username,
 
     -- * InstanceEntry
     InstanceEntry (..),
@@ -772,8 +844,17 @@ module Amazonka.Lightsail.Types
     InstanceHealthSummary (..),
     newInstanceHealthSummary,
     instanceHealthSummary_instanceHealth,
-    instanceHealthSummary_instanceName,
     instanceHealthSummary_instanceHealthReason,
+    instanceHealthSummary_instanceName,
+
+    -- * InstanceMetadataOptions
+    InstanceMetadataOptions (..),
+    newInstanceMetadataOptions,
+    instanceMetadataOptions_httpEndpoint,
+    instanceMetadataOptions_httpProtocolIpv6,
+    instanceMetadataOptions_httpPutResponseHopLimit,
+    instanceMetadataOptions_httpTokens,
+    instanceMetadataOptions_state,
 
     -- * InstanceNetworking
     InstanceNetworking (..),
@@ -784,46 +865,46 @@ module Amazonka.Lightsail.Types
     -- * InstancePortInfo
     InstancePortInfo (..),
     newInstancePortInfo,
-    instancePortInfo_fromPort,
+    instancePortInfo_accessDirection,
+    instancePortInfo_accessFrom,
+    instancePortInfo_accessType,
+    instancePortInfo_cidrListAliases,
     instancePortInfo_cidrs,
     instancePortInfo_commonName,
-    instancePortInfo_protocol,
-    instancePortInfo_cidrListAliases,
+    instancePortInfo_fromPort,
     instancePortInfo_ipv6Cidrs,
-    instancePortInfo_accessDirection,
-    instancePortInfo_accessType,
+    instancePortInfo_protocol,
     instancePortInfo_toPort,
-    instancePortInfo_accessFrom,
 
     -- * InstancePortState
     InstancePortState (..),
     newInstancePortState,
-    instancePortState_fromPort,
-    instancePortState_cidrs,
-    instancePortState_state,
-    instancePortState_protocol,
     instancePortState_cidrListAliases,
+    instancePortState_cidrs,
+    instancePortState_fromPort,
     instancePortState_ipv6Cidrs,
+    instancePortState_protocol,
+    instancePortState_state,
     instancePortState_toPort,
 
     -- * InstanceSnapshot
     InstanceSnapshot (..),
     newInstanceSnapshot,
-    instanceSnapshot_fromBlueprintId,
-    instanceSnapshot_isFromAutoSnapshot,
-    instanceSnapshot_state,
-    instanceSnapshot_resourceType,
-    instanceSnapshot_fromAttachedDisks,
     instanceSnapshot_arn,
     instanceSnapshot_createdAt,
-    instanceSnapshot_location,
-    instanceSnapshot_progress,
-    instanceSnapshot_name,
+    instanceSnapshot_fromAttachedDisks,
+    instanceSnapshot_fromBlueprintId,
     instanceSnapshot_fromBundleId,
-    instanceSnapshot_sizeInGb,
-    instanceSnapshot_supportCode,
     instanceSnapshot_fromInstanceArn,
     instanceSnapshot_fromInstanceName,
+    instanceSnapshot_isFromAutoSnapshot,
+    instanceSnapshot_location,
+    instanceSnapshot_name,
+    instanceSnapshot_progress,
+    instanceSnapshot_resourceType,
+    instanceSnapshot_sizeInGb,
+    instanceSnapshot_state,
+    instanceSnapshot_supportCode,
     instanceSnapshot_tags,
 
     -- * InstanceSnapshotInfo
@@ -836,94 +917,102 @@ module Amazonka.Lightsail.Types
     -- * InstanceState
     InstanceState (..),
     newInstanceState,
-    instanceState_name,
     instanceState_code,
+    instanceState_name,
 
     -- * KeyPair
     KeyPair (..),
     newKeyPair,
-    keyPair_resourceType,
     keyPair_arn,
     keyPair_createdAt,
-    keyPair_location,
     keyPair_fingerprint,
+    keyPair_location,
     keyPair_name,
+    keyPair_resourceType,
     keyPair_supportCode,
     keyPair_tags,
 
     -- * LightsailDistribution
     LightsailDistribution (..),
     newLightsailDistribution,
-    lightsailDistribution_status,
-    lightsailDistribution_origin,
-    lightsailDistribution_certificateName,
-    lightsailDistribution_resourceType,
-    lightsailDistribution_arn,
-    lightsailDistribution_createdAt,
-    lightsailDistribution_location,
-    lightsailDistribution_cacheBehaviorSettings,
-    lightsailDistribution_alternativeDomainNames,
-    lightsailDistribution_bundleId,
     lightsailDistribution_ableToUpdateBundle,
-    lightsailDistribution_originPublicDNS,
+    lightsailDistribution_alternativeDomainNames,
+    lightsailDistribution_arn,
+    lightsailDistribution_bundleId,
+    lightsailDistribution_cacheBehaviorSettings,
+    lightsailDistribution_cacheBehaviors,
+    lightsailDistribution_certificateName,
+    lightsailDistribution_createdAt,
+    lightsailDistribution_defaultCacheBehavior,
     lightsailDistribution_domainName,
-    lightsailDistribution_name,
     lightsailDistribution_ipAddressType,
     lightsailDistribution_isEnabled,
+    lightsailDistribution_location,
+    lightsailDistribution_name,
+    lightsailDistribution_origin,
+    lightsailDistribution_originPublicDNS,
+    lightsailDistribution_resourceType,
+    lightsailDistribution_status,
     lightsailDistribution_supportCode,
-    lightsailDistribution_defaultCacheBehavior,
-    lightsailDistribution_cacheBehaviors,
     lightsailDistribution_tags,
 
     -- * LoadBalancer
     LoadBalancer (..),
     newLoadBalancer,
-    loadBalancer_healthCheckPath,
-    loadBalancer_state,
-    loadBalancer_resourceType,
     loadBalancer_arn,
-    loadBalancer_createdAt,
-    loadBalancer_location,
-    loadBalancer_instancePort,
     loadBalancer_configurationOptions,
-    loadBalancer_protocol,
-    loadBalancer_tlsCertificateSummaries,
-    loadBalancer_name,
-    loadBalancer_ipAddressType,
-    loadBalancer_supportCode,
-    loadBalancer_publicPorts,
+    loadBalancer_createdAt,
     loadBalancer_dnsName,
+    loadBalancer_healthCheckPath,
+    loadBalancer_httpsRedirectionEnabled,
     loadBalancer_instanceHealthSummary,
+    loadBalancer_instancePort,
+    loadBalancer_ipAddressType,
+    loadBalancer_location,
+    loadBalancer_name,
+    loadBalancer_protocol,
+    loadBalancer_publicPorts,
+    loadBalancer_resourceType,
+    loadBalancer_state,
+    loadBalancer_supportCode,
     loadBalancer_tags,
+    loadBalancer_tlsCertificateSummaries,
+    loadBalancer_tlsPolicyName,
 
     -- * LoadBalancerTlsCertificate
     LoadBalancerTlsCertificate (..),
     newLoadBalancerTlsCertificate,
-    loadBalancerTlsCertificate_failureReason,
-    loadBalancerTlsCertificate_subject,
-    loadBalancerTlsCertificate_status,
-    loadBalancerTlsCertificate_subjectAlternativeNames,
-    loadBalancerTlsCertificate_resourceType,
     loadBalancerTlsCertificate_arn,
     loadBalancerTlsCertificate_createdAt,
-    loadBalancerTlsCertificate_location,
-    loadBalancerTlsCertificate_loadBalancerName,
-    loadBalancerTlsCertificate_serial,
-    loadBalancerTlsCertificate_isAttached,
-    loadBalancerTlsCertificate_revokedAt,
-    loadBalancerTlsCertificate_notBefore,
-    loadBalancerTlsCertificate_revocationReason,
     loadBalancerTlsCertificate_domainName,
-    loadBalancerTlsCertificate_name,
-    loadBalancerTlsCertificate_renewalSummary,
-    loadBalancerTlsCertificate_supportCode,
     loadBalancerTlsCertificate_domainValidationRecords,
+    loadBalancerTlsCertificate_failureReason,
+    loadBalancerTlsCertificate_isAttached,
     loadBalancerTlsCertificate_issuedAt,
-    loadBalancerTlsCertificate_keyAlgorithm,
-    loadBalancerTlsCertificate_signatureAlgorithm,
     loadBalancerTlsCertificate_issuer,
-    loadBalancerTlsCertificate_tags,
+    loadBalancerTlsCertificate_keyAlgorithm,
+    loadBalancerTlsCertificate_loadBalancerName,
+    loadBalancerTlsCertificate_location,
+    loadBalancerTlsCertificate_name,
     loadBalancerTlsCertificate_notAfter,
+    loadBalancerTlsCertificate_notBefore,
+    loadBalancerTlsCertificate_renewalSummary,
+    loadBalancerTlsCertificate_resourceType,
+    loadBalancerTlsCertificate_revocationReason,
+    loadBalancerTlsCertificate_revokedAt,
+    loadBalancerTlsCertificate_serial,
+    loadBalancerTlsCertificate_signatureAlgorithm,
+    loadBalancerTlsCertificate_status,
+    loadBalancerTlsCertificate_subject,
+    loadBalancerTlsCertificate_subjectAlternativeNames,
+    loadBalancerTlsCertificate_supportCode,
+    loadBalancerTlsCertificate_tags,
+
+    -- * LoadBalancerTlsCertificateDnsRecordCreationState
+    LoadBalancerTlsCertificateDnsRecordCreationState (..),
+    newLoadBalancerTlsCertificateDnsRecordCreationState,
+    loadBalancerTlsCertificateDnsRecordCreationState_code,
+    loadBalancerTlsCertificateDnsRecordCreationState_message,
 
     -- * LoadBalancerTlsCertificateDomainValidationOption
     LoadBalancerTlsCertificateDomainValidationOption (..),
@@ -934,23 +1023,33 @@ module Amazonka.Lightsail.Types
     -- * LoadBalancerTlsCertificateDomainValidationRecord
     LoadBalancerTlsCertificateDomainValidationRecord (..),
     newLoadBalancerTlsCertificateDomainValidationRecord,
-    loadBalancerTlsCertificateDomainValidationRecord_value,
+    loadBalancerTlsCertificateDomainValidationRecord_dnsRecordCreationState,
     loadBalancerTlsCertificateDomainValidationRecord_domainName,
     loadBalancerTlsCertificateDomainValidationRecord_name,
-    loadBalancerTlsCertificateDomainValidationRecord_validationStatus,
     loadBalancerTlsCertificateDomainValidationRecord_type,
+    loadBalancerTlsCertificateDomainValidationRecord_validationStatus,
+    loadBalancerTlsCertificateDomainValidationRecord_value,
 
     -- * LoadBalancerTlsCertificateRenewalSummary
     LoadBalancerTlsCertificateRenewalSummary (..),
     newLoadBalancerTlsCertificateRenewalSummary,
-    loadBalancerTlsCertificateRenewalSummary_renewalStatus,
     loadBalancerTlsCertificateRenewalSummary_domainValidationOptions,
+    loadBalancerTlsCertificateRenewalSummary_renewalStatus,
 
     -- * LoadBalancerTlsCertificateSummary
     LoadBalancerTlsCertificateSummary (..),
     newLoadBalancerTlsCertificateSummary,
     loadBalancerTlsCertificateSummary_isAttached,
     loadBalancerTlsCertificateSummary_name,
+
+    -- * LoadBalancerTlsPolicy
+    LoadBalancerTlsPolicy (..),
+    newLoadBalancerTlsPolicy,
+    loadBalancerTlsPolicy_ciphers,
+    loadBalancerTlsPolicy_description,
+    loadBalancerTlsPolicy_isDefault,
+    loadBalancerTlsPolicy_name,
+    loadBalancerTlsPolicy_protocols,
 
     -- * LogEvent
     LogEvent (..),
@@ -961,10 +1060,10 @@ module Amazonka.Lightsail.Types
     -- * MetricDatapoint
     MetricDatapoint (..),
     newMetricDatapoint,
-    metricDatapoint_sampleCount,
-    metricDatapoint_maximum,
     metricDatapoint_average,
+    metricDatapoint_maximum,
     metricDatapoint_minimum,
+    metricDatapoint_sampleCount,
     metricDatapoint_sum,
     metricDatapoint_timestamp,
     metricDatapoint_unit,
@@ -972,137 +1071,165 @@ module Amazonka.Lightsail.Types
     -- * MonitoredResourceInfo
     MonitoredResourceInfo (..),
     newMonitoredResourceInfo,
-    monitoredResourceInfo_resourceType,
     monitoredResourceInfo_arn,
     monitoredResourceInfo_name,
+    monitoredResourceInfo_resourceType,
 
     -- * MonthlyTransfer
     MonthlyTransfer (..),
     newMonthlyTransfer,
     monthlyTransfer_gbPerMonthAllocated,
 
+    -- * NameServersUpdateState
+    NameServersUpdateState (..),
+    newNameServersUpdateState,
+    nameServersUpdateState_code,
+    nameServersUpdateState_message,
+
     -- * Operation
     Operation (..),
     newOperation,
-    operation_status,
-    operation_operationDetails,
-    operation_resourceType,
     operation_createdAt,
-    operation_resourceName,
-    operation_location,
-    operation_statusChangedAt,
-    operation_errorDetails,
     operation_errorCode,
+    operation_errorDetails,
     operation_id,
-    operation_operationType,
     operation_isTerminal,
+    operation_location,
+    operation_operationDetails,
+    operation_operationType,
+    operation_resourceName,
+    operation_resourceType,
+    operation_status,
+    operation_statusChangedAt,
 
     -- * Origin
     Origin (..),
     newOrigin,
-    origin_regionName,
-    origin_resourceType,
     origin_name,
     origin_protocolPolicy,
+    origin_regionName,
+    origin_resourceType,
 
     -- * PasswordData
     PasswordData (..),
     newPasswordData,
-    passwordData_keyPairName,
     passwordData_ciphertext,
+    passwordData_keyPairName,
 
     -- * PendingMaintenanceAction
     PendingMaintenanceAction (..),
     newPendingMaintenanceAction,
     pendingMaintenanceAction_action,
-    pendingMaintenanceAction_description,
     pendingMaintenanceAction_currentApplyDate,
+    pendingMaintenanceAction_description,
 
     -- * PendingModifiedRelationalDatabaseValues
     PendingModifiedRelationalDatabaseValues (..),
     newPendingModifiedRelationalDatabaseValues,
+    pendingModifiedRelationalDatabaseValues_backupRetentionEnabled,
     pendingModifiedRelationalDatabaseValues_engineVersion,
     pendingModifiedRelationalDatabaseValues_masterUserPassword,
-    pendingModifiedRelationalDatabaseValues_backupRetentionEnabled,
 
     -- * PortInfo
     PortInfo (..),
     newPortInfo,
-    portInfo_fromPort,
-    portInfo_cidrs,
-    portInfo_protocol,
     portInfo_cidrListAliases,
+    portInfo_cidrs,
+    portInfo_fromPort,
     portInfo_ipv6Cidrs,
+    portInfo_protocol,
     portInfo_toPort,
+
+    -- * PrivateRegistryAccess
+    PrivateRegistryAccess (..),
+    newPrivateRegistryAccess,
+    privateRegistryAccess_ecrImagePullerRole,
+
+    -- * PrivateRegistryAccessRequest
+    PrivateRegistryAccessRequest (..),
+    newPrivateRegistryAccessRequest,
+    privateRegistryAccessRequest_ecrImagePullerRole,
 
     -- * QueryStringObject
     QueryStringObject (..),
     newQueryStringObject,
-    queryStringObject_queryStringsAllowList,
     queryStringObject_option,
+    queryStringObject_queryStringsAllowList,
+
+    -- * R53HostedZoneDeletionState
+    R53HostedZoneDeletionState (..),
+    newR53HostedZoneDeletionState,
+    r53HostedZoneDeletionState_code,
+    r53HostedZoneDeletionState_message,
 
     -- * RegionInfo
     RegionInfo (..),
     newRegionInfo,
     regionInfo_availabilityZones,
-    regionInfo_name,
-    regionInfo_relationalDatabaseAvailabilityZones,
-    regionInfo_displayName,
     regionInfo_continentCode,
     regionInfo_description,
+    regionInfo_displayName,
+    regionInfo_name,
+    regionInfo_relationalDatabaseAvailabilityZones,
+
+    -- * RegisteredDomainDelegationInfo
+    RegisteredDomainDelegationInfo (..),
+    newRegisteredDomainDelegationInfo,
+    registeredDomainDelegationInfo_nameServersUpdateState,
+    registeredDomainDelegationInfo_r53HostedZoneDeletionState,
 
     -- * RelationalDatabase
     RelationalDatabase (..),
     newRelationalDatabase,
-    relationalDatabase_engineVersion,
-    relationalDatabase_relationalDatabaseBundleId,
-    relationalDatabase_masterEndpoint,
-    relationalDatabase_state,
-    relationalDatabase_resourceType,
-    relationalDatabase_publiclyAccessible,
-    relationalDatabase_masterUsername,
     relationalDatabase_arn,
-    relationalDatabase_createdAt,
-    relationalDatabase_location,
-    relationalDatabase_engine,
-    relationalDatabase_latestRestorableTime,
-    relationalDatabase_preferredMaintenanceWindow,
-    relationalDatabase_relationalDatabaseBlueprintId,
-    relationalDatabase_caCertificateIdentifier,
-    relationalDatabase_name,
     relationalDatabase_backupRetentionEnabled,
-    relationalDatabase_preferredBackupWindow,
-    relationalDatabase_pendingMaintenanceActions,
-    relationalDatabase_supportCode,
-    relationalDatabase_secondaryAvailabilityZone,
-    relationalDatabase_pendingModifiedValues,
-    relationalDatabase_masterDatabaseName,
+    relationalDatabase_caCertificateIdentifier,
+    relationalDatabase_createdAt,
+    relationalDatabase_engine,
+    relationalDatabase_engineVersion,
     relationalDatabase_hardware,
+    relationalDatabase_latestRestorableTime,
+    relationalDatabase_location,
+    relationalDatabase_masterDatabaseName,
+    relationalDatabase_masterEndpoint,
+    relationalDatabase_masterUsername,
+    relationalDatabase_name,
     relationalDatabase_parameterApplyStatus,
+    relationalDatabase_pendingMaintenanceActions,
+    relationalDatabase_pendingModifiedValues,
+    relationalDatabase_preferredBackupWindow,
+    relationalDatabase_preferredMaintenanceWindow,
+    relationalDatabase_publiclyAccessible,
+    relationalDatabase_relationalDatabaseBlueprintId,
+    relationalDatabase_relationalDatabaseBundleId,
+    relationalDatabase_resourceType,
+    relationalDatabase_secondaryAvailabilityZone,
+    relationalDatabase_state,
+    relationalDatabase_supportCode,
     relationalDatabase_tags,
 
     -- * RelationalDatabaseBlueprint
     RelationalDatabaseBlueprint (..),
     newRelationalDatabaseBlueprint,
-    relationalDatabaseBlueprint_engineVersion,
-    relationalDatabaseBlueprint_isEngineDefault,
-    relationalDatabaseBlueprint_engineVersionDescription,
-    relationalDatabaseBlueprint_engine,
     relationalDatabaseBlueprint_blueprintId,
+    relationalDatabaseBlueprint_engine,
     relationalDatabaseBlueprint_engineDescription,
+    relationalDatabaseBlueprint_engineVersion,
+    relationalDatabaseBlueprint_engineVersionDescription,
+    relationalDatabaseBlueprint_isEngineDefault,
 
     -- * RelationalDatabaseBundle
     RelationalDatabaseBundle (..),
     newRelationalDatabaseBundle,
-    relationalDatabaseBundle_isEncrypted,
-    relationalDatabaseBundle_cpuCount,
-    relationalDatabaseBundle_transferPerMonthInGb,
     relationalDatabaseBundle_bundleId,
-    relationalDatabaseBundle_name,
+    relationalDatabaseBundle_cpuCount,
     relationalDatabaseBundle_diskSizeInGb,
-    relationalDatabaseBundle_price,
     relationalDatabaseBundle_isActive,
+    relationalDatabaseBundle_isEncrypted,
+    relationalDatabaseBundle_name,
+    relationalDatabaseBundle_price,
     relationalDatabaseBundle_ramSizeInGb,
+    relationalDatabaseBundle_transferPerMonthInGb,
 
     -- * RelationalDatabaseEndpoint
     RelationalDatabaseEndpoint (..),
@@ -1115,8 +1242,8 @@ module Amazonka.Lightsail.Types
     newRelationalDatabaseEvent,
     relationalDatabaseEvent_createdAt,
     relationalDatabaseEvent_eventCategories,
-    relationalDatabaseEvent_resource,
     relationalDatabaseEvent_message,
+    relationalDatabaseEvent_resource,
 
     -- * RelationalDatabaseHardware
     RelationalDatabaseHardware (..),
@@ -1128,89 +1255,91 @@ module Amazonka.Lightsail.Types
     -- * RelationalDatabaseParameter
     RelationalDatabaseParameter (..),
     newRelationalDatabaseParameter,
-    relationalDatabaseParameter_applyType,
-    relationalDatabaseParameter_parameterValue,
-    relationalDatabaseParameter_applyMethod,
-    relationalDatabaseParameter_dataType,
-    relationalDatabaseParameter_isModifiable,
     relationalDatabaseParameter_allowedValues,
-    relationalDatabaseParameter_parameterName,
+    relationalDatabaseParameter_applyMethod,
+    relationalDatabaseParameter_applyType,
+    relationalDatabaseParameter_dataType,
     relationalDatabaseParameter_description,
+    relationalDatabaseParameter_isModifiable,
+    relationalDatabaseParameter_parameterName,
+    relationalDatabaseParameter_parameterValue,
 
     -- * RelationalDatabaseSnapshot
     RelationalDatabaseSnapshot (..),
     newRelationalDatabaseSnapshot,
-    relationalDatabaseSnapshot_engineVersion,
-    relationalDatabaseSnapshot_state,
-    relationalDatabaseSnapshot_fromRelationalDatabaseName,
-    relationalDatabaseSnapshot_resourceType,
-    relationalDatabaseSnapshot_fromRelationalDatabaseBlueprintId,
     relationalDatabaseSnapshot_arn,
     relationalDatabaseSnapshot_createdAt,
-    relationalDatabaseSnapshot_location,
     relationalDatabaseSnapshot_engine,
-    relationalDatabaseSnapshot_name,
-    relationalDatabaseSnapshot_sizeInGb,
-    relationalDatabaseSnapshot_supportCode,
+    relationalDatabaseSnapshot_engineVersion,
     relationalDatabaseSnapshot_fromRelationalDatabaseArn,
+    relationalDatabaseSnapshot_fromRelationalDatabaseBlueprintId,
     relationalDatabaseSnapshot_fromRelationalDatabaseBundleId,
+    relationalDatabaseSnapshot_fromRelationalDatabaseName,
+    relationalDatabaseSnapshot_location,
+    relationalDatabaseSnapshot_name,
+    relationalDatabaseSnapshot_resourceType,
+    relationalDatabaseSnapshot_sizeInGb,
+    relationalDatabaseSnapshot_state,
+    relationalDatabaseSnapshot_supportCode,
     relationalDatabaseSnapshot_tags,
 
     -- * RenewalSummary
     RenewalSummary (..),
     newRenewalSummary,
-    renewalSummary_renewalStatus,
     renewalSummary_domainValidationRecords,
-    renewalSummary_updatedAt,
+    renewalSummary_renewalStatus,
     renewalSummary_renewalStatusReason,
+    renewalSummary_updatedAt,
 
     -- * ResourceLocation
     ResourceLocation (..),
     newResourceLocation,
-    resourceLocation_regionName,
     resourceLocation_availabilityZone,
+    resourceLocation_regionName,
 
     -- * ResourceReceivingAccess
     ResourceReceivingAccess (..),
     newResourceReceivingAccess,
-    resourceReceivingAccess_resourceType,
     resourceReceivingAccess_name,
+    resourceReceivingAccess_resourceType,
 
     -- * ResourceRecord
     ResourceRecord (..),
     newResourceRecord,
-    resourceRecord_value,
     resourceRecord_name,
     resourceRecord_type,
+    resourceRecord_value,
 
     -- * StaticIp
     StaticIp (..),
     newStaticIp,
-    staticIp_ipAddress,
-    staticIp_resourceType,
     staticIp_arn,
-    staticIp_createdAt,
-    staticIp_location,
-    staticIp_isAttached,
-    staticIp_name,
-    staticIp_supportCode,
     staticIp_attachedTo,
+    staticIp_createdAt,
+    staticIp_ipAddress,
+    staticIp_isAttached,
+    staticIp_location,
+    staticIp_name,
+    staticIp_resourceType,
+    staticIp_supportCode,
 
     -- * Tag
     Tag (..),
     newTag,
-    tag_value,
     tag_key,
+    tag_value,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.Lightsail.Types.AccessDirection
 import Amazonka.Lightsail.Types.AccessKey
 import Amazonka.Lightsail.Types.AccessKeyLastUsed
 import Amazonka.Lightsail.Types.AccessRules
 import Amazonka.Lightsail.Types.AccessType
+import Amazonka.Lightsail.Types.AccountLevelBpaSync
+import Amazonka.Lightsail.Types.AccountLevelBpaSyncStatus
 import Amazonka.Lightsail.Types.AddOn
 import Amazonka.Lightsail.Types.AddOnRequest
 import Amazonka.Lightsail.Types.AddOnType
@@ -1221,10 +1350,12 @@ import Amazonka.Lightsail.Types.AutoSnapshotAddOnRequest
 import Amazonka.Lightsail.Types.AutoSnapshotDetails
 import Amazonka.Lightsail.Types.AutoSnapshotStatus
 import Amazonka.Lightsail.Types.AvailabilityZone
+import Amazonka.Lightsail.Types.BPAStatusMessage
 import Amazonka.Lightsail.Types.BehaviorEnum
 import Amazonka.Lightsail.Types.Blueprint
 import Amazonka.Lightsail.Types.BlueprintType
 import Amazonka.Lightsail.Types.Bucket
+import Amazonka.Lightsail.Types.BucketAccessLogConfig
 import Amazonka.Lightsail.Types.BucketBundle
 import Amazonka.Lightsail.Types.BucketMetricName
 import Amazonka.Lightsail.Types.BucketState
@@ -1233,6 +1364,7 @@ import Amazonka.Lightsail.Types.CacheBehavior
 import Amazonka.Lightsail.Types.CacheBehaviorPerPath
 import Amazonka.Lightsail.Types.CacheSettings
 import Amazonka.Lightsail.Types.Certificate
+import Amazonka.Lightsail.Types.CertificateDomainValidationStatus
 import Amazonka.Lightsail.Types.CertificateStatus
 import Amazonka.Lightsail.Types.CertificateSummary
 import Amazonka.Lightsail.Types.CloudFormationStackRecord
@@ -1249,6 +1381,8 @@ import Amazonka.Lightsail.Types.ContainerService
 import Amazonka.Lightsail.Types.ContainerServiceDeployment
 import Amazonka.Lightsail.Types.ContainerServiceDeploymentRequest
 import Amazonka.Lightsail.Types.ContainerServiceDeploymentState
+import Amazonka.Lightsail.Types.ContainerServiceECRImagePullerRole
+import Amazonka.Lightsail.Types.ContainerServiceECRImagePullerRoleRequest
 import Amazonka.Lightsail.Types.ContainerServiceEndpoint
 import Amazonka.Lightsail.Types.ContainerServiceHealthCheckConfig
 import Amazonka.Lightsail.Types.ContainerServiceLogEvent
@@ -1271,6 +1405,8 @@ import Amazonka.Lightsail.Types.DiskSnapshotState
 import Amazonka.Lightsail.Types.DiskState
 import Amazonka.Lightsail.Types.DistributionBundle
 import Amazonka.Lightsail.Types.DistributionMetricName
+import Amazonka.Lightsail.Types.DnsRecordCreationState
+import Amazonka.Lightsail.Types.DnsRecordCreationStateCode
 import Amazonka.Lightsail.Types.Domain
 import Amazonka.Lightsail.Types.DomainEntry
 import Amazonka.Lightsail.Types.DomainValidationRecord
@@ -1282,6 +1418,9 @@ import Amazonka.Lightsail.Types.ForwardValues
 import Amazonka.Lightsail.Types.HeaderEnum
 import Amazonka.Lightsail.Types.HeaderObject
 import Amazonka.Lightsail.Types.HostKeyAttributes
+import Amazonka.Lightsail.Types.HttpEndpoint
+import Amazonka.Lightsail.Types.HttpProtocolIpv6
+import Amazonka.Lightsail.Types.HttpTokens
 import Amazonka.Lightsail.Types.InputOrigin
 import Amazonka.Lightsail.Types.Instance
 import Amazonka.Lightsail.Types.InstanceAccessDetails
@@ -1291,6 +1430,8 @@ import Amazonka.Lightsail.Types.InstanceHardware
 import Amazonka.Lightsail.Types.InstanceHealthReason
 import Amazonka.Lightsail.Types.InstanceHealthState
 import Amazonka.Lightsail.Types.InstanceHealthSummary
+import Amazonka.Lightsail.Types.InstanceMetadataOptions
+import Amazonka.Lightsail.Types.InstanceMetadataState
 import Amazonka.Lightsail.Types.InstanceMetricName
 import Amazonka.Lightsail.Types.InstanceNetworking
 import Amazonka.Lightsail.Types.InstancePlatform
@@ -1309,6 +1450,8 @@ import Amazonka.Lightsail.Types.LoadBalancerMetricName
 import Amazonka.Lightsail.Types.LoadBalancerProtocol
 import Amazonka.Lightsail.Types.LoadBalancerState
 import Amazonka.Lightsail.Types.LoadBalancerTlsCertificate
+import Amazonka.Lightsail.Types.LoadBalancerTlsCertificateDnsRecordCreationState
+import Amazonka.Lightsail.Types.LoadBalancerTlsCertificateDnsRecordCreationStateCode
 import Amazonka.Lightsail.Types.LoadBalancerTlsCertificateDomainStatus
 import Amazonka.Lightsail.Types.LoadBalancerTlsCertificateDomainValidationOption
 import Amazonka.Lightsail.Types.LoadBalancerTlsCertificateDomainValidationRecord
@@ -1318,6 +1461,7 @@ import Amazonka.Lightsail.Types.LoadBalancerTlsCertificateRenewalSummary
 import Amazonka.Lightsail.Types.LoadBalancerTlsCertificateRevocationReason
 import Amazonka.Lightsail.Types.LoadBalancerTlsCertificateStatus
 import Amazonka.Lightsail.Types.LoadBalancerTlsCertificateSummary
+import Amazonka.Lightsail.Types.LoadBalancerTlsPolicy
 import Amazonka.Lightsail.Types.LogEvent
 import Amazonka.Lightsail.Types.MetricDatapoint
 import Amazonka.Lightsail.Types.MetricName
@@ -1325,6 +1469,8 @@ import Amazonka.Lightsail.Types.MetricStatistic
 import Amazonka.Lightsail.Types.MetricUnit
 import Amazonka.Lightsail.Types.MonitoredResourceInfo
 import Amazonka.Lightsail.Types.MonthlyTransfer
+import Amazonka.Lightsail.Types.NameServersUpdateState
+import Amazonka.Lightsail.Types.NameServersUpdateStateCode
 import Amazonka.Lightsail.Types.NetworkProtocol
 import Amazonka.Lightsail.Types.Operation
 import Amazonka.Lightsail.Types.OperationStatus
@@ -1338,10 +1484,15 @@ import Amazonka.Lightsail.Types.PortAccessType
 import Amazonka.Lightsail.Types.PortInfo
 import Amazonka.Lightsail.Types.PortInfoSourceType
 import Amazonka.Lightsail.Types.PortState
+import Amazonka.Lightsail.Types.PrivateRegistryAccess
+import Amazonka.Lightsail.Types.PrivateRegistryAccessRequest
 import Amazonka.Lightsail.Types.QueryStringObject
+import Amazonka.Lightsail.Types.R53HostedZoneDeletionState
+import Amazonka.Lightsail.Types.R53HostedZoneDeletionStateCode
 import Amazonka.Lightsail.Types.RecordState
 import Amazonka.Lightsail.Types.RegionInfo
 import Amazonka.Lightsail.Types.RegionName
+import Amazonka.Lightsail.Types.RegisteredDomainDelegationInfo
 import Amazonka.Lightsail.Types.RelationalDatabase
 import Amazonka.Lightsail.Types.RelationalDatabaseBlueprint
 import Amazonka.Lightsail.Types.RelationalDatabaseBundle
@@ -1371,41 +1522,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "Lightsail",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "lightsail",
-      Core._serviceSigningName = "lightsail",
-      Core._serviceVersion = "2016-11-28",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError = Core.parseJSONError "Lightsail",
-      Core._serviceRetry = retry
+    { Core.abbrev = "Lightsail",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "lightsail",
+      Core.signingName = "lightsail",
+      Core.version = "2016-11-28",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "Lightsail",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -1413,28 +1572,20 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
 
 -- | Lightsail throws this exception when the user cannot be authenticated or
@@ -1452,6 +1603,19 @@ _AccountSetupInProgressException =
   Core._MatchServiceError
     defaultService
     "AccountSetupInProgressException"
+
+-- | Lightsail throws this exception when user input does not conform to the
+-- validation rules of an input field.
+--
+-- Domain and distribution APIs are only available in the N. Virginia
+-- (@us-east-1@) Amazon Web Services Region. Please set your Amazon Web
+-- Services Region configuration to @us-east-1@ to create, view, or edit
+-- these resources.
+_InvalidInputException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidInputException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidInputException"
 
 -- | Lightsail throws this exception when it cannot find a resource.
 _NotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -1481,15 +1645,3 @@ _UnauthenticatedException =
   Core._MatchServiceError
     defaultService
     "UnauthenticatedException"
-
--- | Lightsail throws this exception when user input does not conform to the
--- validation rules of an input field.
---
--- Domain and distribution APIs are only available in the N. Virginia
--- (@us-east-1@) AWS Region. Please set your AWS Region configuration to
--- @us-east-1@ to create, view, or edit these resources.
-_InvalidInputException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidInputException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidInputException"

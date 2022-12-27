@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.BatchWrite
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,12 +92,13 @@ batchWrite_operations = Lens.lens (\BatchWrite' {operations} -> operations) (\s@
 
 instance Core.AWSRequest BatchWrite where
   type AWSResponse BatchWrite = BatchWriteResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchWriteResponse'
-            Prelude.<$> (x Core..?> "Responses" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Responses" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -110,24 +112,24 @@ instance Prelude.NFData BatchWrite where
     Prelude.rnf directoryArn
       `Prelude.seq` Prelude.rnf operations
 
-instance Core.ToHeaders BatchWrite where
+instance Data.ToHeaders BatchWrite where
   toHeaders BatchWrite' {..} =
     Prelude.mconcat
-      ["x-amz-data-partition" Core.=# directoryArn]
+      ["x-amz-data-partition" Data.=# directoryArn]
 
-instance Core.ToJSON BatchWrite where
+instance Data.ToJSON BatchWrite where
   toJSON BatchWrite' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Operations" Core..= operations)]
+          [Prelude.Just ("Operations" Data..= operations)]
       )
 
-instance Core.ToPath BatchWrite where
+instance Data.ToPath BatchWrite where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/batchwrite"
 
-instance Core.ToQuery BatchWrite where
+instance Data.ToQuery BatchWrite where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchWriteResponse' smart constructor.

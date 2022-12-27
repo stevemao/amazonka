@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.Types.ScaleOutPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KafkaConnect.Types.ScaleOutPolicy where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The scale-out policy for the connector.
@@ -67,13 +68,13 @@ instance Prelude.NFData ScaleOutPolicy where
   rnf ScaleOutPolicy' {..} =
     Prelude.rnf cpuUtilizationPercentage
 
-instance Core.ToJSON ScaleOutPolicy where
+instance Data.ToJSON ScaleOutPolicy where
   toJSON ScaleOutPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "cpuUtilizationPercentage"
-                  Core..= cpuUtilizationPercentage
+                  Data..= cpuUtilizationPercentage
               )
           ]
       )

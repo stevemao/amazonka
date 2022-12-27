@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ChimeSDKMessaging.Types.MessagingSessionEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ChimeSDKMessaging.Types.MessagingSessionEndpoint where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The websocket endpoint used to connect to Amazon Chime SDK messaging.
@@ -50,13 +51,13 @@ newMessagingSessionEndpoint =
 messagingSessionEndpoint_url :: Lens.Lens' MessagingSessionEndpoint (Prelude.Maybe Prelude.Text)
 messagingSessionEndpoint_url = Lens.lens (\MessagingSessionEndpoint' {url} -> url) (\s@MessagingSessionEndpoint' {} a -> s {url = a} :: MessagingSessionEndpoint)
 
-instance Core.FromJSON MessagingSessionEndpoint where
+instance Data.FromJSON MessagingSessionEndpoint where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MessagingSessionEndpoint"
       ( \x ->
           MessagingSessionEndpoint'
-            Prelude.<$> (x Core..:? "Url")
+            Prelude.<$> (x Data..:? "Url")
       )
 
 instance Prelude.Hashable MessagingSessionEndpoint where

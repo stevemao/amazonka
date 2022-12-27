@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.InferenceExecutionConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.InferenceExecutionConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.InferenceExecutionMode
 
@@ -69,13 +70,13 @@ newInferenceExecutionConfig pMode_ =
 inferenceExecutionConfig_mode :: Lens.Lens' InferenceExecutionConfig InferenceExecutionMode
 inferenceExecutionConfig_mode = Lens.lens (\InferenceExecutionConfig' {mode} -> mode) (\s@InferenceExecutionConfig' {} a -> s {mode = a} :: InferenceExecutionConfig)
 
-instance Core.FromJSON InferenceExecutionConfig where
+instance Data.FromJSON InferenceExecutionConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InferenceExecutionConfig"
       ( \x ->
           InferenceExecutionConfig'
-            Prelude.<$> (x Core..: "Mode")
+            Prelude.<$> (x Data..: "Mode")
       )
 
 instance Prelude.Hashable InferenceExecutionConfig where
@@ -85,9 +86,9 @@ instance Prelude.Hashable InferenceExecutionConfig where
 instance Prelude.NFData InferenceExecutionConfig where
   rnf InferenceExecutionConfig' {..} = Prelude.rnf mode
 
-instance Core.ToJSON InferenceExecutionConfig where
+instance Data.ToJSON InferenceExecutionConfig where
   toJSON InferenceExecutionConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Mode" Core..= mode)]
+          [Prelude.Just ("Mode" Data..= mode)]
       )

@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.StepFunctions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,32 +27,29 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestDeleteActivity $
+--         [ requestCreateActivity $
+--             newCreateActivity
+--
+--         , requestCreateStateMachine $
+--             newCreateStateMachine
+--
+--         , requestDeleteActivity $
 --             newDeleteActivity
---
---         , requestDescribeStateMachine $
---             newDescribeStateMachine
---
---         , requestListTagsForResource $
---             newListTagsForResource
---
---         , requestStopExecution $
---             newStopExecution
---
---         , requestDescribeActivity $
---             newDescribeActivity
---
---         , requestListStateMachines $
---             newListStateMachines
---
---         , requestListExecutions $
---             newListExecutions
 --
 --         , requestDeleteStateMachine $
 --             newDeleteStateMachine
 --
---         , requestUpdateStateMachine $
---             newUpdateStateMachine
+--         , requestDescribeActivity $
+--             newDescribeActivity
+--
+--         , requestDescribeExecution $
+--             newDescribeExecution
+--
+--         , requestDescribeMapRun $
+--             newDescribeMapRun
+--
+--         , requestDescribeStateMachine $
+--             newDescribeStateMachine
 --
 --         , requestDescribeStateMachineForExecution $
 --             newDescribeStateMachineForExecution
@@ -60,20 +57,29 @@ import Test.Tasty
 --         , requestGetActivityTask $
 --             newGetActivityTask
 --
---         , requestCreateActivity $
---             newCreateActivity
+--         , requestGetExecutionHistory $
+--             newGetExecutionHistory
 --
 --         , requestListActivities $
 --             newListActivities
 --
---         , requestSendTaskHeartbeat $
---             newSendTaskHeartbeat
+--         , requestListExecutions $
+--             newListExecutions
+--
+--         , requestListMapRuns $
+--             newListMapRuns
+--
+--         , requestListStateMachines $
+--             newListStateMachines
+--
+--         , requestListTagsForResource $
+--             newListTagsForResource
 --
 --         , requestSendTaskFailure $
 --             newSendTaskFailure
 --
---         , requestDescribeExecution $
---             newDescribeExecution
+--         , requestSendTaskHeartbeat $
+--             newSendTaskHeartbeat
 --
 --         , requestSendTaskSuccess $
 --             newSendTaskSuccess
@@ -84,47 +90,47 @@ import Test.Tasty
 --         , requestStartSyncExecution $
 --             newStartSyncExecution
 --
+--         , requestStopExecution $
+--             newStopExecution
+--
 --         , requestTagResource $
 --             newTagResource
 --
 --         , requestUntagResource $
 --             newUntagResource
 --
---         , requestGetExecutionHistory $
---             newGetExecutionHistory
+--         , requestUpdateMapRun $
+--             newUpdateMapRun
 --
---         , requestCreateStateMachine $
---             newCreateStateMachine
+--         , requestUpdateStateMachine $
+--             newUpdateStateMachine
 --
 --           ]
 
 --     , testGroup "response"
---         [ responseDeleteActivity $
+--         [ responseCreateActivity $
+--             newCreateActivityResponse
+--
+--         , responseCreateStateMachine $
+--             newCreateStateMachineResponse
+--
+--         , responseDeleteActivity $
 --             newDeleteActivityResponse
---
---         , responseDescribeStateMachine $
---             newDescribeStateMachineResponse
---
---         , responseListTagsForResource $
---             newListTagsForResourceResponse
---
---         , responseStopExecution $
---             newStopExecutionResponse
---
---         , responseDescribeActivity $
---             newDescribeActivityResponse
---
---         , responseListStateMachines $
---             newListStateMachinesResponse
---
---         , responseListExecutions $
---             newListExecutionsResponse
 --
 --         , responseDeleteStateMachine $
 --             newDeleteStateMachineResponse
 --
---         , responseUpdateStateMachine $
---             newUpdateStateMachineResponse
+--         , responseDescribeActivity $
+--             newDescribeActivityResponse
+--
+--         , responseDescribeExecution $
+--             newDescribeExecutionResponse
+--
+--         , responseDescribeMapRun $
+--             newDescribeMapRunResponse
+--
+--         , responseDescribeStateMachine $
+--             newDescribeStateMachineResponse
 --
 --         , responseDescribeStateMachineForExecution $
 --             newDescribeStateMachineForExecutionResponse
@@ -132,20 +138,29 @@ import Test.Tasty
 --         , responseGetActivityTask $
 --             newGetActivityTaskResponse
 --
---         , responseCreateActivity $
---             newCreateActivityResponse
+--         , responseGetExecutionHistory $
+--             newGetExecutionHistoryResponse
 --
 --         , responseListActivities $
 --             newListActivitiesResponse
 --
---         , responseSendTaskHeartbeat $
---             newSendTaskHeartbeatResponse
+--         , responseListExecutions $
+--             newListExecutionsResponse
+--
+--         , responseListMapRuns $
+--             newListMapRunsResponse
+--
+--         , responseListStateMachines $
+--             newListStateMachinesResponse
+--
+--         , responseListTagsForResource $
+--             newListTagsForResourceResponse
 --
 --         , responseSendTaskFailure $
 --             newSendTaskFailureResponse
 --
---         , responseDescribeExecution $
---             newDescribeExecutionResponse
+--         , responseSendTaskHeartbeat $
+--             newSendTaskHeartbeatResponse
 --
 --         , responseSendTaskSuccess $
 --             newSendTaskSuccessResponse
@@ -156,22 +171,37 @@ import Test.Tasty
 --         , responseStartSyncExecution $
 --             newStartSyncExecutionResponse
 --
+--         , responseStopExecution $
+--             newStopExecutionResponse
+--
 --         , responseTagResource $
 --             newTagResourceResponse
 --
 --         , responseUntagResource $
 --             newUntagResourceResponse
 --
---         , responseGetExecutionHistory $
---             newGetExecutionHistoryResponse
+--         , responseUpdateMapRun $
+--             newUpdateMapRunResponse
 --
---         , responseCreateStateMachine $
---             newCreateStateMachineResponse
+--         , responseUpdateStateMachine $
+--             newUpdateStateMachineResponse
 --
 --           ]
 --     ]
 
 -- Requests
+
+requestCreateActivity :: CreateActivity -> TestTree
+requestCreateActivity =
+  req
+    "CreateActivity"
+    "fixture/CreateActivity.yaml"
+
+requestCreateStateMachine :: CreateStateMachine -> TestTree
+requestCreateStateMachine =
+  req
+    "CreateStateMachine"
+    "fixture/CreateStateMachine.yaml"
 
 requestDeleteActivity :: DeleteActivity -> TestTree
 requestDeleteActivity =
@@ -179,23 +209,11 @@ requestDeleteActivity =
     "DeleteActivity"
     "fixture/DeleteActivity.yaml"
 
-requestDescribeStateMachine :: DescribeStateMachine -> TestTree
-requestDescribeStateMachine =
+requestDeleteStateMachine :: DeleteStateMachine -> TestTree
+requestDeleteStateMachine =
   req
-    "DescribeStateMachine"
-    "fixture/DescribeStateMachine.yaml"
-
-requestListTagsForResource :: ListTagsForResource -> TestTree
-requestListTagsForResource =
-  req
-    "ListTagsForResource"
-    "fixture/ListTagsForResource.yaml"
-
-requestStopExecution :: StopExecution -> TestTree
-requestStopExecution =
-  req
-    "StopExecution"
-    "fixture/StopExecution.yaml"
+    "DeleteStateMachine"
+    "fixture/DeleteStateMachine.yaml"
 
 requestDescribeActivity :: DescribeActivity -> TestTree
 requestDescribeActivity =
@@ -203,29 +221,23 @@ requestDescribeActivity =
     "DescribeActivity"
     "fixture/DescribeActivity.yaml"
 
-requestListStateMachines :: ListStateMachines -> TestTree
-requestListStateMachines =
+requestDescribeExecution :: DescribeExecution -> TestTree
+requestDescribeExecution =
   req
-    "ListStateMachines"
-    "fixture/ListStateMachines.yaml"
+    "DescribeExecution"
+    "fixture/DescribeExecution.yaml"
 
-requestListExecutions :: ListExecutions -> TestTree
-requestListExecutions =
+requestDescribeMapRun :: DescribeMapRun -> TestTree
+requestDescribeMapRun =
   req
-    "ListExecutions"
-    "fixture/ListExecutions.yaml"
+    "DescribeMapRun"
+    "fixture/DescribeMapRun.yaml"
 
-requestDeleteStateMachine :: DeleteStateMachine -> TestTree
-requestDeleteStateMachine =
+requestDescribeStateMachine :: DescribeStateMachine -> TestTree
+requestDescribeStateMachine =
   req
-    "DeleteStateMachine"
-    "fixture/DeleteStateMachine.yaml"
-
-requestUpdateStateMachine :: UpdateStateMachine -> TestTree
-requestUpdateStateMachine =
-  req
-    "UpdateStateMachine"
-    "fixture/UpdateStateMachine.yaml"
+    "DescribeStateMachine"
+    "fixture/DescribeStateMachine.yaml"
 
 requestDescribeStateMachineForExecution :: DescribeStateMachineForExecution -> TestTree
 requestDescribeStateMachineForExecution =
@@ -239,11 +251,11 @@ requestGetActivityTask =
     "GetActivityTask"
     "fixture/GetActivityTask.yaml"
 
-requestCreateActivity :: CreateActivity -> TestTree
-requestCreateActivity =
+requestGetExecutionHistory :: GetExecutionHistory -> TestTree
+requestGetExecutionHistory =
   req
-    "CreateActivity"
-    "fixture/CreateActivity.yaml"
+    "GetExecutionHistory"
+    "fixture/GetExecutionHistory.yaml"
 
 requestListActivities :: ListActivities -> TestTree
 requestListActivities =
@@ -251,11 +263,29 @@ requestListActivities =
     "ListActivities"
     "fixture/ListActivities.yaml"
 
-requestSendTaskHeartbeat :: SendTaskHeartbeat -> TestTree
-requestSendTaskHeartbeat =
+requestListExecutions :: ListExecutions -> TestTree
+requestListExecutions =
   req
-    "SendTaskHeartbeat"
-    "fixture/SendTaskHeartbeat.yaml"
+    "ListExecutions"
+    "fixture/ListExecutions.yaml"
+
+requestListMapRuns :: ListMapRuns -> TestTree
+requestListMapRuns =
+  req
+    "ListMapRuns"
+    "fixture/ListMapRuns.yaml"
+
+requestListStateMachines :: ListStateMachines -> TestTree
+requestListStateMachines =
+  req
+    "ListStateMachines"
+    "fixture/ListStateMachines.yaml"
+
+requestListTagsForResource :: ListTagsForResource -> TestTree
+requestListTagsForResource =
+  req
+    "ListTagsForResource"
+    "fixture/ListTagsForResource.yaml"
 
 requestSendTaskFailure :: SendTaskFailure -> TestTree
 requestSendTaskFailure =
@@ -263,11 +293,11 @@ requestSendTaskFailure =
     "SendTaskFailure"
     "fixture/SendTaskFailure.yaml"
 
-requestDescribeExecution :: DescribeExecution -> TestTree
-requestDescribeExecution =
+requestSendTaskHeartbeat :: SendTaskHeartbeat -> TestTree
+requestSendTaskHeartbeat =
   req
-    "DescribeExecution"
-    "fixture/DescribeExecution.yaml"
+    "SendTaskHeartbeat"
+    "fixture/SendTaskHeartbeat.yaml"
 
 requestSendTaskSuccess :: SendTaskSuccess -> TestTree
 requestSendTaskSuccess =
@@ -287,6 +317,12 @@ requestStartSyncExecution =
     "StartSyncExecution"
     "fixture/StartSyncExecution.yaml"
 
+requestStopExecution :: StopExecution -> TestTree
+requestStopExecution =
+  req
+    "StopExecution"
+    "fixture/StopExecution.yaml"
+
 requestTagResource :: TagResource -> TestTree
 requestTagResource =
   req
@@ -299,19 +335,35 @@ requestUntagResource =
     "UntagResource"
     "fixture/UntagResource.yaml"
 
-requestGetExecutionHistory :: GetExecutionHistory -> TestTree
-requestGetExecutionHistory =
+requestUpdateMapRun :: UpdateMapRun -> TestTree
+requestUpdateMapRun =
   req
-    "GetExecutionHistory"
-    "fixture/GetExecutionHistory.yaml"
+    "UpdateMapRun"
+    "fixture/UpdateMapRun.yaml"
 
-requestCreateStateMachine :: CreateStateMachine -> TestTree
-requestCreateStateMachine =
+requestUpdateStateMachine :: UpdateStateMachine -> TestTree
+requestUpdateStateMachine =
   req
-    "CreateStateMachine"
-    "fixture/CreateStateMachine.yaml"
+    "UpdateStateMachine"
+    "fixture/UpdateStateMachine.yaml"
 
 -- Responses
+
+responseCreateActivity :: CreateActivityResponse -> TestTree
+responseCreateActivity =
+  res
+    "CreateActivityResponse"
+    "fixture/CreateActivityResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy CreateActivity)
+
+responseCreateStateMachine :: CreateStateMachineResponse -> TestTree
+responseCreateStateMachine =
+  res
+    "CreateStateMachineResponse"
+    "fixture/CreateStateMachineResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy CreateStateMachine)
 
 responseDeleteActivity :: DeleteActivityResponse -> TestTree
 responseDeleteActivity =
@@ -321,29 +373,13 @@ responseDeleteActivity =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy DeleteActivity)
 
-responseDescribeStateMachine :: DescribeStateMachineResponse -> TestTree
-responseDescribeStateMachine =
+responseDeleteStateMachine :: DeleteStateMachineResponse -> TestTree
+responseDeleteStateMachine =
   res
-    "DescribeStateMachineResponse"
-    "fixture/DescribeStateMachineResponse.proto"
+    "DeleteStateMachineResponse"
+    "fixture/DeleteStateMachineResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeStateMachine)
-
-responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
-responseListTagsForResource =
-  res
-    "ListTagsForResourceResponse"
-    "fixture/ListTagsForResourceResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
-
-responseStopExecution :: StopExecutionResponse -> TestTree
-responseStopExecution =
-  res
-    "StopExecutionResponse"
-    "fixture/StopExecutionResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy StopExecution)
+    (Proxy.Proxy :: Proxy.Proxy DeleteStateMachine)
 
 responseDescribeActivity :: DescribeActivityResponse -> TestTree
 responseDescribeActivity =
@@ -353,37 +389,29 @@ responseDescribeActivity =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy DescribeActivity)
 
-responseListStateMachines :: ListStateMachinesResponse -> TestTree
-responseListStateMachines =
+responseDescribeExecution :: DescribeExecutionResponse -> TestTree
+responseDescribeExecution =
   res
-    "ListStateMachinesResponse"
-    "fixture/ListStateMachinesResponse.proto"
+    "DescribeExecutionResponse"
+    "fixture/DescribeExecutionResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListStateMachines)
+    (Proxy.Proxy :: Proxy.Proxy DescribeExecution)
 
-responseListExecutions :: ListExecutionsResponse -> TestTree
-responseListExecutions =
+responseDescribeMapRun :: DescribeMapRunResponse -> TestTree
+responseDescribeMapRun =
   res
-    "ListExecutionsResponse"
-    "fixture/ListExecutionsResponse.proto"
+    "DescribeMapRunResponse"
+    "fixture/DescribeMapRunResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListExecutions)
+    (Proxy.Proxy :: Proxy.Proxy DescribeMapRun)
 
-responseDeleteStateMachine :: DeleteStateMachineResponse -> TestTree
-responseDeleteStateMachine =
+responseDescribeStateMachine :: DescribeStateMachineResponse -> TestTree
+responseDescribeStateMachine =
   res
-    "DeleteStateMachineResponse"
-    "fixture/DeleteStateMachineResponse.proto"
+    "DescribeStateMachineResponse"
+    "fixture/DescribeStateMachineResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteStateMachine)
-
-responseUpdateStateMachine :: UpdateStateMachineResponse -> TestTree
-responseUpdateStateMachine =
-  res
-    "UpdateStateMachineResponse"
-    "fixture/UpdateStateMachineResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateStateMachine)
+    (Proxy.Proxy :: Proxy.Proxy DescribeStateMachine)
 
 responseDescribeStateMachineForExecution :: DescribeStateMachineForExecutionResponse -> TestTree
 responseDescribeStateMachineForExecution =
@@ -401,13 +429,13 @@ responseGetActivityTask =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy GetActivityTask)
 
-responseCreateActivity :: CreateActivityResponse -> TestTree
-responseCreateActivity =
+responseGetExecutionHistory :: GetExecutionHistoryResponse -> TestTree
+responseGetExecutionHistory =
   res
-    "CreateActivityResponse"
-    "fixture/CreateActivityResponse.proto"
+    "GetExecutionHistoryResponse"
+    "fixture/GetExecutionHistoryResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateActivity)
+    (Proxy.Proxy :: Proxy.Proxy GetExecutionHistory)
 
 responseListActivities :: ListActivitiesResponse -> TestTree
 responseListActivities =
@@ -417,13 +445,37 @@ responseListActivities =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy ListActivities)
 
-responseSendTaskHeartbeat :: SendTaskHeartbeatResponse -> TestTree
-responseSendTaskHeartbeat =
+responseListExecutions :: ListExecutionsResponse -> TestTree
+responseListExecutions =
   res
-    "SendTaskHeartbeatResponse"
-    "fixture/SendTaskHeartbeatResponse.proto"
+    "ListExecutionsResponse"
+    "fixture/ListExecutionsResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy SendTaskHeartbeat)
+    (Proxy.Proxy :: Proxy.Proxy ListExecutions)
+
+responseListMapRuns :: ListMapRunsResponse -> TestTree
+responseListMapRuns =
+  res
+    "ListMapRunsResponse"
+    "fixture/ListMapRunsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListMapRuns)
+
+responseListStateMachines :: ListStateMachinesResponse -> TestTree
+responseListStateMachines =
+  res
+    "ListStateMachinesResponse"
+    "fixture/ListStateMachinesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListStateMachines)
+
+responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
+responseListTagsForResource =
+  res
+    "ListTagsForResourceResponse"
+    "fixture/ListTagsForResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
 
 responseSendTaskFailure :: SendTaskFailureResponse -> TestTree
 responseSendTaskFailure =
@@ -433,13 +485,13 @@ responseSendTaskFailure =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy SendTaskFailure)
 
-responseDescribeExecution :: DescribeExecutionResponse -> TestTree
-responseDescribeExecution =
+responseSendTaskHeartbeat :: SendTaskHeartbeatResponse -> TestTree
+responseSendTaskHeartbeat =
   res
-    "DescribeExecutionResponse"
-    "fixture/DescribeExecutionResponse.proto"
+    "SendTaskHeartbeatResponse"
+    "fixture/SendTaskHeartbeatResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeExecution)
+    (Proxy.Proxy :: Proxy.Proxy SendTaskHeartbeat)
 
 responseSendTaskSuccess :: SendTaskSuccessResponse -> TestTree
 responseSendTaskSuccess =
@@ -465,6 +517,14 @@ responseStartSyncExecution =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy StartSyncExecution)
 
+responseStopExecution :: StopExecutionResponse -> TestTree
+responseStopExecution =
+  res
+    "StopExecutionResponse"
+    "fixture/StopExecutionResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy StopExecution)
+
 responseTagResource :: TagResourceResponse -> TestTree
 responseTagResource =
   res
@@ -481,18 +541,18 @@ responseUntagResource =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy UntagResource)
 
-responseGetExecutionHistory :: GetExecutionHistoryResponse -> TestTree
-responseGetExecutionHistory =
+responseUpdateMapRun :: UpdateMapRunResponse -> TestTree
+responseUpdateMapRun =
   res
-    "GetExecutionHistoryResponse"
-    "fixture/GetExecutionHistoryResponse.proto"
+    "UpdateMapRunResponse"
+    "fixture/UpdateMapRunResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetExecutionHistory)
+    (Proxy.Proxy :: Proxy.Proxy UpdateMapRun)
 
-responseCreateStateMachine :: CreateStateMachineResponse -> TestTree
-responseCreateStateMachine =
+responseUpdateStateMachine :: UpdateStateMachineResponse -> TestTree
+responseUpdateStateMachine =
   res
-    "CreateStateMachineResponse"
-    "fixture/CreateStateMachineResponse.proto"
+    "UpdateStateMachineResponse"
+    "fixture/UpdateStateMachineResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateStateMachine)
+    (Proxy.Proxy :: Proxy.Proxy UpdateStateMachine)

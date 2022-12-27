@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.DescribeIAMPolicyAssignment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes an existing IAMpolicy assignment, as specified by the
+-- Describes an existing IAM policy assignment, as specified by the
 -- assignment name.
 module Amazonka.QuickSight.DescribeIAMPolicyAssignment
   ( -- * Creating a Request
@@ -37,14 +37,15 @@ module Amazonka.QuickSight.DescribeIAMPolicyAssignment
     newDescribeIAMPolicyAssignmentResponse,
 
     -- * Response Lenses
-    describeIAMPolicyAssignmentResponse_requestId,
     describeIAMPolicyAssignmentResponse_iAMPolicyAssignment,
+    describeIAMPolicyAssignmentResponse_requestId,
     describeIAMPolicyAssignmentResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -112,13 +113,14 @@ instance Core.AWSRequest DescribeIAMPolicyAssignment where
   type
     AWSResponse DescribeIAMPolicyAssignment =
       DescribeIAMPolicyAssignmentResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeIAMPolicyAssignmentResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "IAMPolicyAssignment")
+            Prelude.<$> (x Data..?> "IAMPolicyAssignment")
+            Prelude.<*> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -134,37 +136,37 @@ instance Prelude.NFData DescribeIAMPolicyAssignment where
       `Prelude.seq` Prelude.rnf assignmentName
       `Prelude.seq` Prelude.rnf namespace
 
-instance Core.ToHeaders DescribeIAMPolicyAssignment where
+instance Data.ToHeaders DescribeIAMPolicyAssignment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeIAMPolicyAssignment where
+instance Data.ToPath DescribeIAMPolicyAssignment where
   toPath DescribeIAMPolicyAssignment' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/namespaces/",
-        Core.toBS namespace,
+        Data.toBS namespace,
         "/iam-policy-assignments/",
-        Core.toBS assignmentName
+        Data.toBS assignmentName
       ]
 
-instance Core.ToQuery DescribeIAMPolicyAssignment where
+instance Data.ToQuery DescribeIAMPolicyAssignment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeIAMPolicyAssignmentResponse' smart constructor.
 data DescribeIAMPolicyAssignmentResponse = DescribeIAMPolicyAssignmentResponse'
-  { -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | Information describing the IAMpolicy assignment.
+  { -- | Information describing the IAM policy assignment.
     iAMPolicyAssignment :: Prelude.Maybe IAMPolicyAssignment,
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -178,9 +180,9 @@ data DescribeIAMPolicyAssignmentResponse = DescribeIAMPolicyAssignmentResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'describeIAMPolicyAssignmentResponse_requestId' - The Amazon Web Services request ID for this operation.
+-- 'iAMPolicyAssignment', 'describeIAMPolicyAssignmentResponse_iAMPolicyAssignment' - Information describing the IAM policy assignment.
 --
--- 'iAMPolicyAssignment', 'describeIAMPolicyAssignmentResponse_iAMPolicyAssignment' - Information describing the IAMpolicy assignment.
+-- 'requestId', 'describeIAMPolicyAssignmentResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'status', 'describeIAMPolicyAssignmentResponse_status' - The HTTP status of the request.
 newDescribeIAMPolicyAssignmentResponse ::
@@ -189,19 +191,19 @@ newDescribeIAMPolicyAssignmentResponse ::
   DescribeIAMPolicyAssignmentResponse
 newDescribeIAMPolicyAssignmentResponse pStatus_ =
   DescribeIAMPolicyAssignmentResponse'
-    { requestId =
+    { iAMPolicyAssignment =
         Prelude.Nothing,
-      iAMPolicyAssignment = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       status = pStatus_
     }
+
+-- | Information describing the IAM policy assignment.
+describeIAMPolicyAssignmentResponse_iAMPolicyAssignment :: Lens.Lens' DescribeIAMPolicyAssignmentResponse (Prelude.Maybe IAMPolicyAssignment)
+describeIAMPolicyAssignmentResponse_iAMPolicyAssignment = Lens.lens (\DescribeIAMPolicyAssignmentResponse' {iAMPolicyAssignment} -> iAMPolicyAssignment) (\s@DescribeIAMPolicyAssignmentResponse' {} a -> s {iAMPolicyAssignment = a} :: DescribeIAMPolicyAssignmentResponse)
 
 -- | The Amazon Web Services request ID for this operation.
 describeIAMPolicyAssignmentResponse_requestId :: Lens.Lens' DescribeIAMPolicyAssignmentResponse (Prelude.Maybe Prelude.Text)
 describeIAMPolicyAssignmentResponse_requestId = Lens.lens (\DescribeIAMPolicyAssignmentResponse' {requestId} -> requestId) (\s@DescribeIAMPolicyAssignmentResponse' {} a -> s {requestId = a} :: DescribeIAMPolicyAssignmentResponse)
-
--- | Information describing the IAMpolicy assignment.
-describeIAMPolicyAssignmentResponse_iAMPolicyAssignment :: Lens.Lens' DescribeIAMPolicyAssignmentResponse (Prelude.Maybe IAMPolicyAssignment)
-describeIAMPolicyAssignmentResponse_iAMPolicyAssignment = Lens.lens (\DescribeIAMPolicyAssignmentResponse' {iAMPolicyAssignment} -> iAMPolicyAssignment) (\s@DescribeIAMPolicyAssignmentResponse' {} a -> s {iAMPolicyAssignment = a} :: DescribeIAMPolicyAssignmentResponse)
 
 -- | The HTTP status of the request.
 describeIAMPolicyAssignmentResponse_status :: Lens.Lens' DescribeIAMPolicyAssignmentResponse Prelude.Int
@@ -212,6 +214,6 @@ instance
     DescribeIAMPolicyAssignmentResponse
   where
   rnf DescribeIAMPolicyAssignmentResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf iAMPolicyAssignment
+    Prelude.rnf iAMPolicyAssignment
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf status

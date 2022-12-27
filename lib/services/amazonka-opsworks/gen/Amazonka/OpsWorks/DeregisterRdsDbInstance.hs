@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.DeregisterRdsDbInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.OpsWorks.DeregisterRdsDbInstance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -82,7 +83,8 @@ instance Core.AWSRequest DeregisterRdsDbInstance where
   type
     AWSResponse DeregisterRdsDbInstance =
       DeregisterRdsDbInstanceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       DeregisterRdsDbInstanceResponse'
@@ -95,34 +97,34 @@ instance Prelude.NFData DeregisterRdsDbInstance where
   rnf DeregisterRdsDbInstance' {..} =
     Prelude.rnf rdsDbInstanceArn
 
-instance Core.ToHeaders DeregisterRdsDbInstance where
+instance Data.ToHeaders DeregisterRdsDbInstance where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.DeregisterRdsDbInstance" ::
+              Data.=# ( "OpsWorks_20130218.DeregisterRdsDbInstance" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeregisterRdsDbInstance where
+instance Data.ToJSON DeregisterRdsDbInstance where
   toJSON DeregisterRdsDbInstance' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("RdsDbInstanceArn" Core..= rdsDbInstanceArn)
+              ("RdsDbInstanceArn" Data..= rdsDbInstanceArn)
           ]
       )
 
-instance Core.ToPath DeregisterRdsDbInstance where
+instance Data.ToPath DeregisterRdsDbInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeregisterRdsDbInstance where
+instance Data.ToQuery DeregisterRdsDbInstance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeregisterRdsDbInstanceResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RobOMaker.CancelWorldExportJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.RobOMaker.CancelWorldExportJob
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ instance Core.AWSRequest CancelWorldExportJob where
   type
     AWSResponse CancelWorldExportJob =
       CancelWorldExportJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -91,28 +93,28 @@ instance Prelude.Hashable CancelWorldExportJob where
 instance Prelude.NFData CancelWorldExportJob where
   rnf CancelWorldExportJob' {..} = Prelude.rnf job
 
-instance Core.ToHeaders CancelWorldExportJob where
+instance Data.ToHeaders CancelWorldExportJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CancelWorldExportJob where
+instance Data.ToJSON CancelWorldExportJob where
   toJSON CancelWorldExportJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("job" Core..= job)]
+          [Prelude.Just ("job" Data..= job)]
       )
 
-instance Core.ToPath CancelWorldExportJob where
+instance Data.ToPath CancelWorldExportJob where
   toPath = Prelude.const "/cancelWorldExportJob"
 
-instance Core.ToQuery CancelWorldExportJob where
+instance Data.ToQuery CancelWorldExportJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCancelWorldExportJobResponse' smart constructor.

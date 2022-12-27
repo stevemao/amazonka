@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataPipeline.SetStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.DataPipeline.SetStatus
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataPipeline.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -111,7 +112,8 @@ setStatus_status = Lens.lens (\SetStatus' {status} -> status) (\s@SetStatus' {} 
 
 instance Core.AWSRequest SetStatus where
   type AWSResponse SetStatus = SetStatusResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull SetStatusResponse'
 
 instance Prelude.Hashable SetStatus where
@@ -126,33 +128,33 @@ instance Prelude.NFData SetStatus where
       `Prelude.seq` Prelude.rnf objectIds
       `Prelude.seq` Prelude.rnf status
 
-instance Core.ToHeaders SetStatus where
+instance Data.ToHeaders SetStatus where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("DataPipeline.SetStatus" :: Prelude.ByteString),
+              Data.=# ("DataPipeline.SetStatus" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SetStatus where
+instance Data.ToJSON SetStatus where
   toJSON SetStatus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("pipelineId" Core..= pipelineId),
-            Prelude.Just ("objectIds" Core..= objectIds),
-            Prelude.Just ("status" Core..= status)
+          [ Prelude.Just ("pipelineId" Data..= pipelineId),
+            Prelude.Just ("objectIds" Data..= objectIds),
+            Prelude.Just ("status" Data..= status)
           ]
       )
 
-instance Core.ToPath SetStatus where
+instance Data.ToPath SetStatus where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SetStatus where
+instance Data.ToQuery SetStatus where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSetStatusResponse' smart constructor.

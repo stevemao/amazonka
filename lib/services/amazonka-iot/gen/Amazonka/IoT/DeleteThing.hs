@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DeleteThing
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.IoT.DeleteThing
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,7 +103,8 @@ deleteThing_thingName = Lens.lens (\DeleteThing' {thingName} -> thingName) (\s@D
 
 instance Core.AWSRequest DeleteThing where
   type AWSResponse DeleteThing = DeleteThingResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -120,17 +122,17 @@ instance Prelude.NFData DeleteThing where
     Prelude.rnf expectedVersion
       `Prelude.seq` Prelude.rnf thingName
 
-instance Core.ToHeaders DeleteThing where
+instance Data.ToHeaders DeleteThing where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteThing where
+instance Data.ToPath DeleteThing where
   toPath DeleteThing' {..} =
-    Prelude.mconcat ["/things/", Core.toBS thingName]
+    Prelude.mconcat ["/things/", Data.toBS thingName]
 
-instance Core.ToQuery DeleteThing where
+instance Data.ToQuery DeleteThing where
   toQuery DeleteThing' {..} =
     Prelude.mconcat
-      ["expectedVersion" Core.=: expectedVersion]
+      ["expectedVersion" Data.=: expectedVersion]
 
 -- | The output of the DeleteThing operation.
 --

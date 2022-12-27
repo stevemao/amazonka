@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Kinesis.IncreaseStreamRetentionPeriod
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,8 +22,8 @@
 --
 -- Increases the Kinesis data stream\'s retention period, which is the
 -- length of time data records are accessible after they are added to the
--- stream. The maximum value of a stream\'s retention period is 168 hours
--- (7 days).
+-- stream. The maximum value of a stream\'s retention period is 8760 hours
+-- (365 days).
 --
 -- If you choose a longer stream retention period, this operation increases
 -- the time period during which records that have not yet expired are
@@ -48,8 +48,9 @@ module Amazonka.Kinesis.IncreaseStreamRetentionPeriod
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kinesis.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -110,7 +111,8 @@ instance
   type
     AWSResponse IncreaseStreamRetentionPeriod =
       IncreaseStreamRetentionPeriodResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       IncreaseStreamRetentionPeriodResponse'
@@ -128,37 +130,37 @@ instance Prelude.NFData IncreaseStreamRetentionPeriod where
     Prelude.rnf streamName
       `Prelude.seq` Prelude.rnf retentionPeriodHours
 
-instance Core.ToHeaders IncreaseStreamRetentionPeriod where
+instance Data.ToHeaders IncreaseStreamRetentionPeriod where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Kinesis_20131202.IncreaseStreamRetentionPeriod" ::
+              Data.=# ( "Kinesis_20131202.IncreaseStreamRetentionPeriod" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON IncreaseStreamRetentionPeriod where
+instance Data.ToJSON IncreaseStreamRetentionPeriod where
   toJSON IncreaseStreamRetentionPeriod' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("StreamName" Core..= streamName),
+          [ Prelude.Just ("StreamName" Data..= streamName),
             Prelude.Just
               ( "RetentionPeriodHours"
-                  Core..= retentionPeriodHours
+                  Data..= retentionPeriodHours
               )
           ]
       )
 
-instance Core.ToPath IncreaseStreamRetentionPeriod where
+instance Data.ToPath IncreaseStreamRetentionPeriod where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery IncreaseStreamRetentionPeriod where
+instance Data.ToQuery IncreaseStreamRetentionPeriod where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newIncreaseStreamRetentionPeriodResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.ResultAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.ResultAttribute where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The inventory item result attribute.
@@ -62,9 +63,9 @@ instance Prelude.Hashable ResultAttribute where
 instance Prelude.NFData ResultAttribute where
   rnf ResultAttribute' {..} = Prelude.rnf typeName
 
-instance Core.ToJSON ResultAttribute where
+instance Data.ToJSON ResultAttribute where
   toJSON ResultAttribute' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("TypeName" Core..= typeName)]
+          [Prelude.Just ("TypeName" Data..= typeName)]
       )

@@ -1,6 +1,6 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_library", "haskell_test")
 
-# rule generated from amazonka-mq/amazonka-mq.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-mq/amazonka-mq.cabal by gazelle_cabal
 haskell_library(
     name = "amazonka-mq",
     srcs = [
@@ -26,6 +26,7 @@ haskell_library(
         "gen/Amazonka/MQ/ListUsers.hs",
         "gen/Amazonka/MQ/RebootBroker.hs",
         "gen/Amazonka/MQ/Types.hs",
+        "gen/Amazonka/MQ/Types/ActionRequired.hs",
         "gen/Amazonka/MQ/Types/AuthenticationStrategy.hs",
         "gen/Amazonka/MQ/Types/AvailabilityZone.hs",
         "gen/Amazonka/MQ/Types/BrokerEngineType.hs",
@@ -60,14 +61,13 @@ haskell_library(
         "gen/Amazonka/MQ/UpdateUser.hs",
         "gen/Amazonka/MQ/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_mq=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
-        "-DVERSION_amazonka_mq=\"2.0\"",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -76,7 +76,7 @@ haskell_library(
     ],
 )
 
-# rule generated from amazonka-mq/amazonka-mq.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-mq/amazonka-mq.cabal by gazelle_cabal
 haskell_test(
     name = "amazonka-mq-test",
     srcs = [
@@ -85,11 +85,12 @@ haskell_test(
         "test/Test/Amazonka/MQ.hs",
         "test/Test/Amazonka/MQ/Internal.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_mq=\"2.0\"",
         "-Wall",
         "-threaded",
-        "-DVERSION_amazonka_mq=\"2.0\"",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.CreateTopicRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.IoT.CreateTopicRule
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -129,7 +130,8 @@ instance Core.AWSRequest CreateTopicRule where
   type
     AWSResponse CreateTopicRule =
       CreateTopicRuleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull CreateTopicRuleResponse'
 
@@ -145,24 +147,19 @@ instance Prelude.NFData CreateTopicRule where
       `Prelude.seq` Prelude.rnf ruleName
       `Prelude.seq` Prelude.rnf topicRulePayload
 
-instance Core.ToHeaders CreateTopicRule where
+instance Data.ToHeaders CreateTopicRule where
   toHeaders CreateTopicRule' {..} =
-    Prelude.mconcat ["x-amz-tagging" Core.=# tags]
+    Prelude.mconcat ["x-amz-tagging" Data.=# tags]
 
-instance Core.ToJSON CreateTopicRule where
+instance Data.ToJSON CreateTopicRule where
   toJSON CreateTopicRule' {..} =
-    Core.object
-      ( Prelude.catMaybes
-          [ Prelude.Just
-              ("topicRulePayload" Core..= topicRulePayload)
-          ]
-      )
+    Data.toJSON topicRulePayload
 
-instance Core.ToPath CreateTopicRule where
+instance Data.ToPath CreateTopicRule where
   toPath CreateTopicRule' {..} =
-    Prelude.mconcat ["/rules/", Core.toBS ruleName]
+    Prelude.mconcat ["/rules/", Data.toBS ruleName]
 
-instance Core.ToQuery CreateTopicRule where
+instance Data.ToQuery CreateTopicRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateTopicRuleResponse' smart constructor.

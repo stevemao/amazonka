@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.Types.ApacheKafkaClusterDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KafkaConnect.Types.ApacheKafkaClusterDescription where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KafkaConnect.Types.VpcDescription
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The description of the Apache Kafka cluster to which the connector is
@@ -67,14 +68,14 @@ apacheKafkaClusterDescription_bootstrapServers = Lens.lens (\ApacheKafkaClusterD
 apacheKafkaClusterDescription_vpc :: Lens.Lens' ApacheKafkaClusterDescription (Prelude.Maybe VpcDescription)
 apacheKafkaClusterDescription_vpc = Lens.lens (\ApacheKafkaClusterDescription' {vpc} -> vpc) (\s@ApacheKafkaClusterDescription' {} a -> s {vpc = a} :: ApacheKafkaClusterDescription)
 
-instance Core.FromJSON ApacheKafkaClusterDescription where
+instance Data.FromJSON ApacheKafkaClusterDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ApacheKafkaClusterDescription"
       ( \x ->
           ApacheKafkaClusterDescription'
-            Prelude.<$> (x Core..:? "bootstrapServers")
-            Prelude.<*> (x Core..:? "vpc")
+            Prelude.<$> (x Data..:? "bootstrapServers")
+            Prelude.<*> (x Data..:? "vpc")
       )
 
 instance

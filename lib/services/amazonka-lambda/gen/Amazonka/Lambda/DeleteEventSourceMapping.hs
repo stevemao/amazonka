@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.DeleteEventSourceMapping
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,34 +40,38 @@ module Amazonka.Lambda.DeleteEventSourceMapping
     newEventSourceMappingConfiguration,
 
     -- * Response Lenses
-    eventSourceMappingConfiguration_eventSourceArn,
-    eventSourceMappingConfiguration_state,
-    eventSourceMappingConfiguration_startingPositionTimestamp,
-    eventSourceMappingConfiguration_functionArn,
-    eventSourceMappingConfiguration_topics,
-    eventSourceMappingConfiguration_queues,
-    eventSourceMappingConfiguration_bisectBatchOnFunctionError,
-    eventSourceMappingConfiguration_uuid,
-    eventSourceMappingConfiguration_parallelizationFactor,
-    eventSourceMappingConfiguration_lastProcessingResult,
-    eventSourceMappingConfiguration_maximumRetryAttempts,
+    eventSourceMappingConfiguration_amazonManagedKafkaEventSourceConfig,
     eventSourceMappingConfiguration_batchSize,
-    eventSourceMappingConfiguration_stateTransitionReason,
-    eventSourceMappingConfiguration_maximumBatchingWindowInSeconds,
-    eventSourceMappingConfiguration_sourceAccessConfigurations,
-    eventSourceMappingConfiguration_maximumRecordAgeInSeconds,
-    eventSourceMappingConfiguration_functionResponseTypes,
-    eventSourceMappingConfiguration_tumblingWindowInSeconds,
-    eventSourceMappingConfiguration_selfManagedEventSource,
-    eventSourceMappingConfiguration_lastModified,
+    eventSourceMappingConfiguration_bisectBatchOnFunctionError,
     eventSourceMappingConfiguration_destinationConfig,
+    eventSourceMappingConfiguration_eventSourceArn,
+    eventSourceMappingConfiguration_filterCriteria,
+    eventSourceMappingConfiguration_functionArn,
+    eventSourceMappingConfiguration_functionResponseTypes,
+    eventSourceMappingConfiguration_lastModified,
+    eventSourceMappingConfiguration_lastProcessingResult,
+    eventSourceMappingConfiguration_maximumBatchingWindowInSeconds,
+    eventSourceMappingConfiguration_maximumRecordAgeInSeconds,
+    eventSourceMappingConfiguration_maximumRetryAttempts,
+    eventSourceMappingConfiguration_parallelizationFactor,
+    eventSourceMappingConfiguration_queues,
+    eventSourceMappingConfiguration_selfManagedEventSource,
+    eventSourceMappingConfiguration_selfManagedKafkaEventSourceConfig,
+    eventSourceMappingConfiguration_sourceAccessConfigurations,
     eventSourceMappingConfiguration_startingPosition,
+    eventSourceMappingConfiguration_startingPositionTimestamp,
+    eventSourceMappingConfiguration_state,
+    eventSourceMappingConfiguration_stateTransitionReason,
+    eventSourceMappingConfiguration_topics,
+    eventSourceMappingConfiguration_tumblingWindowInSeconds,
+    eventSourceMappingConfiguration_uuid,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -103,10 +107,11 @@ instance Core.AWSRequest DeleteEventSourceMapping where
   type
     AWSResponse DeleteEventSourceMapping =
       EventSourceMappingConfiguration
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable DeleteEventSourceMapping where
   hashWithSalt _salt DeleteEventSourceMapping' {..} =
@@ -115,15 +120,15 @@ instance Prelude.Hashable DeleteEventSourceMapping where
 instance Prelude.NFData DeleteEventSourceMapping where
   rnf DeleteEventSourceMapping' {..} = Prelude.rnf uuid
 
-instance Core.ToHeaders DeleteEventSourceMapping where
+instance Data.ToHeaders DeleteEventSourceMapping where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteEventSourceMapping where
+instance Data.ToPath DeleteEventSourceMapping where
   toPath DeleteEventSourceMapping' {..} =
     Prelude.mconcat
       [ "/2015-03-31/event-source-mappings/",
-        Core.toBS uuid
+        Data.toBS uuid
       ]
 
-instance Core.ToQuery DeleteEventSourceMapping where
+instance Data.ToQuery DeleteEventSourceMapping where
   toQuery = Prelude.const Prelude.mempty

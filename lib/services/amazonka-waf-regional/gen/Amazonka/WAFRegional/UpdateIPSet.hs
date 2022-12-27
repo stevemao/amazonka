@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.UpdateIPSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -106,7 +106,8 @@ module Amazonka.WAFRegional.UpdateIPSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -189,12 +190,13 @@ updateIPSet_updates = Lens.lens (\UpdateIPSet' {updates} -> updates) (\s@UpdateI
 
 instance Core.AWSRequest UpdateIPSet where
   type AWSResponse UpdateIPSet = UpdateIPSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateIPSetResponse'
-            Prelude.<$> (x Core..?> "ChangeToken")
+            Prelude.<$> (x Data..?> "ChangeToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -210,35 +212,35 @@ instance Prelude.NFData UpdateIPSet where
       `Prelude.seq` Prelude.rnf changeToken
       `Prelude.seq` Prelude.rnf updates
 
-instance Core.ToHeaders UpdateIPSet where
+instance Data.ToHeaders UpdateIPSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_Regional_20161128.UpdateIPSet" ::
+              Data.=# ( "AWSWAF_Regional_20161128.UpdateIPSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateIPSet where
+instance Data.ToJSON UpdateIPSet where
   toJSON UpdateIPSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("IPSetId" Core..= iPSetId),
-            Prelude.Just ("ChangeToken" Core..= changeToken),
-            Prelude.Just ("Updates" Core..= updates)
+          [ Prelude.Just ("IPSetId" Data..= iPSetId),
+            Prelude.Just ("ChangeToken" Data..= changeToken),
+            Prelude.Just ("Updates" Data..= updates)
           ]
       )
 
-instance Core.ToPath UpdateIPSet where
+instance Data.ToPath UpdateIPSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateIPSet where
+instance Data.ToQuery UpdateIPSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateIPSetResponse' smart constructor.

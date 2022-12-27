@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.CreateBucketConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.CreateBucketConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 
@@ -68,7 +69,7 @@ instance Prelude.NFData CreateBucketConfiguration where
   rnf CreateBucketConfiguration' {..} =
     Prelude.rnf locationConstraint
 
-instance Core.ToXML CreateBucketConfiguration where
+instance Data.ToXML CreateBucketConfiguration where
   toXML CreateBucketConfiguration' {..} =
     Prelude.mconcat
-      ["LocationConstraint" Core.@= locationConstraint]
+      ["LocationConstraint" Data.@= locationConstraint]

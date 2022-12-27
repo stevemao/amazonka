@@ -14,15 +14,20 @@
 
 -- |
 -- Module      : Amazonka.Detective.DisassociateMembership
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Removes the member account from the specified behavior graph. This
--- operation can only be called by a member account that has the @ENABLED@
--- status.
+-- operation can only be called by an invited member account that has the
+-- @ENABLED@ status.
+--
+-- @DisassociateMembership@ cannot be called by an organization account in
+-- the organization behavior graph. For the organization behavior graph,
+-- the Detective administrator account determines which organization
+-- accounts to enable or disable as member accounts.
 module Amazonka.Detective.DisassociateMembership
   ( -- * Creating a Request
     DisassociateMembership (..),
@@ -38,8 +43,9 @@ module Amazonka.Detective.DisassociateMembership
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Detective.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,7 +90,8 @@ instance Core.AWSRequest DisassociateMembership where
   type
     AWSResponse DisassociateMembership =
       DisassociateMembershipResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       DisassociateMembershipResponse'
@@ -97,28 +104,28 @@ instance Prelude.NFData DisassociateMembership where
   rnf DisassociateMembership' {..} =
     Prelude.rnf graphArn
 
-instance Core.ToHeaders DisassociateMembership where
+instance Data.ToHeaders DisassociateMembership where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisassociateMembership where
+instance Data.ToJSON DisassociateMembership where
   toJSON DisassociateMembership' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("GraphArn" Core..= graphArn)]
+          [Prelude.Just ("GraphArn" Data..= graphArn)]
       )
 
-instance Core.ToPath DisassociateMembership where
+instance Data.ToPath DisassociateMembership where
   toPath = Prelude.const "/membership/removal"
 
-instance Core.ToQuery DisassociateMembership where
+instance Data.ToQuery DisassociateMembership where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateMembershipResponse' smart constructor.

@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.CreateUserGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- For Redis engine version 6.x onwards: Creates a Redis user group. For
+-- For Redis engine version 6.0 onwards: Creates a Redis user group. For
 -- more information, see
 -- <http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html Using Role Based Access Control (RBAC)>
 module Amazonka.ElastiCache.CreateUserGroup
@@ -29,8 +29,8 @@ module Amazonka.ElastiCache.CreateUserGroup
     newCreateUserGroup,
 
     -- * Request Lenses
-    createUserGroup_userIds,
     createUserGroup_tags,
+    createUserGroup_userIds,
     createUserGroup_userGroupId,
     createUserGroup_engine,
 
@@ -39,30 +39,32 @@ module Amazonka.ElastiCache.CreateUserGroup
     newUserGroup,
 
     -- * Response Lenses
-    userGroup_status,
-    userGroup_userIds,
     userGroup_arn,
-    userGroup_userGroupId,
     userGroup_engine,
+    userGroup_minimumEngineVersion,
     userGroup_pendingChanges,
     userGroup_replicationGroups,
+    userGroup_status,
+    userGroup_userGroupId,
+    userGroup_userIds,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateUserGroup' smart constructor.
 data CreateUserGroup = CreateUserGroup'
-  { -- | The list of user IDs that belong to the user group.
-    userIds :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
-    -- | A list of tags to be added to this resource. A tag is a key-value pair.
+  { -- | A list of tags to be added to this resource. A tag is a key-value pair.
     -- A tag key must be accompanied by a tag value, although null is accepted.
     tags :: Prelude.Maybe [Tag],
+    -- | The list of user IDs that belong to the user group.
+    userIds :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
     -- | The ID of the user group.
     userGroupId :: Prelude.Text,
     -- | The current supported value is Redis.
@@ -78,10 +80,10 @@ data CreateUserGroup = CreateUserGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'userIds', 'createUserGroup_userIds' - The list of user IDs that belong to the user group.
---
 -- 'tags', 'createUserGroup_tags' - A list of tags to be added to this resource. A tag is a key-value pair.
 -- A tag key must be accompanied by a tag value, although null is accepted.
+--
+-- 'userIds', 'createUserGroup_userIds' - The list of user IDs that belong to the user group.
 --
 -- 'userGroupId', 'createUserGroup_userGroupId' - The ID of the user group.
 --
@@ -94,20 +96,20 @@ newCreateUserGroup ::
   CreateUserGroup
 newCreateUserGroup pUserGroupId_ pEngine_ =
   CreateUserGroup'
-    { userIds = Prelude.Nothing,
-      tags = Prelude.Nothing,
+    { tags = Prelude.Nothing,
+      userIds = Prelude.Nothing,
       userGroupId = pUserGroupId_,
       engine = pEngine_
     }
-
--- | The list of user IDs that belong to the user group.
-createUserGroup_userIds :: Lens.Lens' CreateUserGroup (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
-createUserGroup_userIds = Lens.lens (\CreateUserGroup' {userIds} -> userIds) (\s@CreateUserGroup' {} a -> s {userIds = a} :: CreateUserGroup) Prelude.. Lens.mapping Lens.coerced
 
 -- | A list of tags to be added to this resource. A tag is a key-value pair.
 -- A tag key must be accompanied by a tag value, although null is accepted.
 createUserGroup_tags :: Lens.Lens' CreateUserGroup (Prelude.Maybe [Tag])
 createUserGroup_tags = Lens.lens (\CreateUserGroup' {tags} -> tags) (\s@CreateUserGroup' {} a -> s {tags = a} :: CreateUserGroup) Prelude.. Lens.mapping Lens.coerced
+
+-- | The list of user IDs that belong to the user group.
+createUserGroup_userIds :: Lens.Lens' CreateUserGroup (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+createUserGroup_userIds = Lens.lens (\CreateUserGroup' {userIds} -> userIds) (\s@CreateUserGroup' {} a -> s {userIds = a} :: CreateUserGroup) Prelude.. Lens.mapping Lens.coerced
 
 -- | The ID of the user group.
 createUserGroup_userGroupId :: Lens.Lens' CreateUserGroup Prelude.Text
@@ -119,45 +121,46 @@ createUserGroup_engine = Lens.lens (\CreateUserGroup' {engine} -> engine) (\s@Cr
 
 instance Core.AWSRequest CreateUserGroup where
   type AWSResponse CreateUserGroup = UserGroup
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateUserGroupResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance Prelude.Hashable CreateUserGroup where
   hashWithSalt _salt CreateUserGroup' {..} =
-    _salt `Prelude.hashWithSalt` userIds
-      `Prelude.hashWithSalt` tags
+    _salt `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` userIds
       `Prelude.hashWithSalt` userGroupId
       `Prelude.hashWithSalt` engine
 
 instance Prelude.NFData CreateUserGroup where
   rnf CreateUserGroup' {..} =
-    Prelude.rnf userIds
-      `Prelude.seq` Prelude.rnf tags
+    Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf userIds
       `Prelude.seq` Prelude.rnf userGroupId
       `Prelude.seq` Prelude.rnf engine
 
-instance Core.ToHeaders CreateUserGroup where
+instance Data.ToHeaders CreateUserGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateUserGroup where
+instance Data.ToPath CreateUserGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateUserGroup where
+instance Data.ToQuery CreateUserGroup where
   toQuery CreateUserGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateUserGroup" :: Prelude.ByteString),
+          Data.=: ("CreateUserGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
-        "UserIds"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> userIds),
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Tag" Prelude.<$> tags),
-        "UserGroupId" Core.=: userGroupId,
-        "Engine" Core.=: engine
+          Data.=: Data.toQuery
+            (Data.toQueryList "Tag" Prelude.<$> tags),
+        "UserIds"
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> userIds),
+        "UserGroupId" Data.=: userGroupId,
+        "Engine" Data.=: engine
       ]

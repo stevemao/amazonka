@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.AwsJobAbortCriteria
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.IoT.Types.AwsJobAbortCriteria where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.AwsJobAbortCriteriaAbortAction
 import Amazonka.IoT.Types.AwsJobAbortCriteriaFailureType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The criteria that determine when and how a job abort takes place.
@@ -123,17 +124,17 @@ instance Prelude.NFData AwsJobAbortCriteria where
       `Prelude.seq` Prelude.rnf thresholdPercentage
       `Prelude.seq` Prelude.rnf minNumberOfExecutedThings
 
-instance Core.ToJSON AwsJobAbortCriteria where
+instance Data.ToJSON AwsJobAbortCriteria where
   toJSON AwsJobAbortCriteria' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("failureType" Core..= failureType),
-            Prelude.Just ("action" Core..= action),
+          [ Prelude.Just ("failureType" Data..= failureType),
+            Prelude.Just ("action" Data..= action),
             Prelude.Just
-              ("thresholdPercentage" Core..= thresholdPercentage),
+              ("thresholdPercentage" Data..= thresholdPercentage),
             Prelude.Just
               ( "minNumberOfExecutedThings"
-                  Core..= minNumberOfExecutedThings
+                  Data..= minNumberOfExecutedThings
               )
           ]
       )

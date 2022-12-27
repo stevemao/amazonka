@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruReviewer.Types.RepositoryHeadSourceCodeType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeGuruReviewer.Types.RepositoryHeadSourceCodeType where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A
@@ -60,13 +61,13 @@ newRepositoryHeadSourceCodeType pBranchName_ =
 repositoryHeadSourceCodeType_branchName :: Lens.Lens' RepositoryHeadSourceCodeType Prelude.Text
 repositoryHeadSourceCodeType_branchName = Lens.lens (\RepositoryHeadSourceCodeType' {branchName} -> branchName) (\s@RepositoryHeadSourceCodeType' {} a -> s {branchName = a} :: RepositoryHeadSourceCodeType)
 
-instance Core.FromJSON RepositoryHeadSourceCodeType where
+instance Data.FromJSON RepositoryHeadSourceCodeType where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RepositoryHeadSourceCodeType"
       ( \x ->
           RepositoryHeadSourceCodeType'
-            Prelude.<$> (x Core..: "BranchName")
+            Prelude.<$> (x Data..: "BranchName")
       )
 
 instance
@@ -80,9 +81,9 @@ instance Prelude.NFData RepositoryHeadSourceCodeType where
   rnf RepositoryHeadSourceCodeType' {..} =
     Prelude.rnf branchName
 
-instance Core.ToJSON RepositoryHeadSourceCodeType where
+instance Data.ToJSON RepositoryHeadSourceCodeType where
   toJSON RepositoryHeadSourceCodeType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("BranchName" Core..= branchName)]
+          [Prelude.Just ("BranchName" Data..= branchName)]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.GetSagemakerServicecatalogPortfolioStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ module Amazonka.SageMaker.GetSagemakerServicecatalogPortfolioStatus
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -67,12 +68,13 @@ instance
     AWSResponse
       GetSagemakerServicecatalogPortfolioStatus =
       GetSagemakerServicecatalogPortfolioStatusResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSagemakerServicecatalogPortfolioStatusResponse'
-            Prelude.<$> (x Core..?> "Status")
+            Prelude.<$> (x Data..?> "Status")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -90,37 +92,37 @@ instance
   rnf _ = ()
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetSagemakerServicecatalogPortfolioStatus
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.GetSagemakerServicecatalogPortfolioStatus" ::
+              Data.=# ( "SageMaker.GetSagemakerServicecatalogPortfolioStatus" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     GetSagemakerServicecatalogPortfolioStatus
   where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
 instance
-  Core.ToPath
+  Data.ToPath
     GetSagemakerServicecatalogPortfolioStatus
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetSagemakerServicecatalogPortfolioStatus
   where
   toQuery = Prelude.const Prelude.mempty

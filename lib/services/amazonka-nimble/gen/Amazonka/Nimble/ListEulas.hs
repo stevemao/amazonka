@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.ListEulas
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Nimble.ListEulas
     newListEulas,
 
     -- * Request Lenses
-    listEulas_nextToken,
     listEulas_eulaIds,
+    listEulas_nextToken,
 
     -- * Destructuring the Response
     ListEulasResponse (..),
@@ -44,7 +44,8 @@ module Amazonka.Nimble.ListEulas
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,11 +53,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListEulas' smart constructor.
 data ListEulas = ListEulas'
-  { -- | The token for the next set of results, or null if there are no more
-    -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | A collection of EULA IDs.
-    eulaIds :: Prelude.Maybe [Prelude.Text]
+  { -- | The list of EULA IDs that should be returned
+    eulaIds :: Prelude.Maybe [Prelude.Text],
+    -- | The token to request the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -68,26 +68,24 @@ data ListEulas = ListEulas'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listEulas_nextToken' - The token for the next set of results, or null if there are no more
--- results.
+-- 'eulaIds', 'listEulas_eulaIds' - The list of EULA IDs that should be returned
 --
--- 'eulaIds', 'listEulas_eulaIds' - A collection of EULA IDs.
+-- 'nextToken', 'listEulas_nextToken' - The token to request the next page of results.
 newListEulas ::
   ListEulas
 newListEulas =
   ListEulas'
-    { nextToken = Prelude.Nothing,
-      eulaIds = Prelude.Nothing
+    { eulaIds = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
--- | The token for the next set of results, or null if there are no more
--- results.
-listEulas_nextToken :: Lens.Lens' ListEulas (Prelude.Maybe Prelude.Text)
-listEulas_nextToken = Lens.lens (\ListEulas' {nextToken} -> nextToken) (\s@ListEulas' {} a -> s {nextToken = a} :: ListEulas)
-
--- | A collection of EULA IDs.
+-- | The list of EULA IDs that should be returned
 listEulas_eulaIds :: Lens.Lens' ListEulas (Prelude.Maybe [Prelude.Text])
 listEulas_eulaIds = Lens.lens (\ListEulas' {eulaIds} -> eulaIds) (\s@ListEulas' {} a -> s {eulaIds = a} :: ListEulas) Prelude.. Lens.mapping Lens.coerced
+
+-- | The token to request the next page of results.
+listEulas_nextToken :: Lens.Lens' ListEulas (Prelude.Maybe Prelude.Text)
+listEulas_nextToken = Lens.lens (\ListEulas' {nextToken} -> nextToken) (\s@ListEulas' {} a -> s {nextToken = a} :: ListEulas)
 
 instance Core.AWSPager ListEulas where
   page rq rs
@@ -110,47 +108,48 @@ instance Core.AWSPager ListEulas where
 
 instance Core.AWSRequest ListEulas where
   type AWSResponse ListEulas = ListEulasResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListEulasResponse'
-            Prelude.<$> (x Core..?> "eulas" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "eulas" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListEulas where
   hashWithSalt _salt ListEulas' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` eulaIds
+    _salt `Prelude.hashWithSalt` eulaIds
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListEulas where
   rnf ListEulas' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf eulaIds
+    Prelude.rnf eulaIds
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListEulas where
+instance Data.ToHeaders ListEulas where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListEulas where
+instance Data.ToPath ListEulas where
   toPath = Prelude.const "/2020-08-01/eulas"
 
-instance Core.ToQuery ListEulas where
+instance Data.ToQuery ListEulas where
   toQuery ListEulas' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "eulaIds"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> eulaIds)
+      [ "eulaIds"
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> eulaIds),
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListEulasResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.GetFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.GuardDuty.GetFilter
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,18 +95,19 @@ getFilter_filterName = Lens.lens (\GetFilter' {filterName} -> filterName) (\s@Ge
 
 instance Core.AWSRequest GetFilter where
   type AWSResponse GetFilter = GetFilterResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetFilterResponse'
-            Prelude.<$> (x Core..?> "description")
-            Prelude.<*> (x Core..?> "rank")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "description")
+            Prelude.<*> (x Data..?> "rank")
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "name")
-            Prelude.<*> (x Core..:> "action")
-            Prelude.<*> (x Core..:> "findingCriteria")
+            Prelude.<*> (x Data..:> "name")
+            Prelude.<*> (x Data..:> "action")
+            Prelude.<*> (x Data..:> "findingCriteria")
       )
 
 instance Prelude.Hashable GetFilter where
@@ -118,27 +120,27 @@ instance Prelude.NFData GetFilter where
     Prelude.rnf detectorId
       `Prelude.seq` Prelude.rnf filterName
 
-instance Core.ToHeaders GetFilter where
+instance Data.ToHeaders GetFilter where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetFilter where
+instance Data.ToPath GetFilter where
   toPath GetFilter' {..} =
     Prelude.mconcat
       [ "/detector/",
-        Core.toBS detectorId,
+        Data.toBS detectorId,
         "/filter/",
-        Core.toBS filterName
+        Data.toBS filterName
       ]
 
-instance Core.ToQuery GetFilter where
+instance Data.ToQuery GetFilter where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetFilterResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.SendMessages
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Pinpoint.SendMessages
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -91,13 +92,14 @@ sendMessages_messageRequest = Lens.lens (\SendMessages' {messageRequest} -> mess
 
 instance Core.AWSRequest SendMessages where
   type AWSResponse SendMessages = SendMessagesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SendMessagesResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable SendMessages where
@@ -110,32 +112,26 @@ instance Prelude.NFData SendMessages where
     Prelude.rnf applicationId
       `Prelude.seq` Prelude.rnf messageRequest
 
-instance Core.ToHeaders SendMessages where
+instance Data.ToHeaders SendMessages where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SendMessages where
-  toJSON SendMessages' {..} =
-    Core.object
-      ( Prelude.catMaybes
-          [ Prelude.Just
-              ("MessageRequest" Core..= messageRequest)
-          ]
-      )
+instance Data.ToJSON SendMessages where
+  toJSON SendMessages' {..} = Data.toJSON messageRequest
 
-instance Core.ToPath SendMessages where
+instance Data.ToPath SendMessages where
   toPath SendMessages' {..} =
     Prelude.mconcat
-      ["/v1/apps/", Core.toBS applicationId, "/messages"]
+      ["/v1/apps/", Data.toBS applicationId, "/messages"]
 
-instance Core.ToQuery SendMessages where
+instance Data.ToQuery SendMessages where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSendMessagesResponse' smart constructor.

@@ -14,10 +14,9 @@
 module Amazonka.Presign where
 
 import Amazonka.Data
-import Amazonka.Lens ((%~))
 import Amazonka.Prelude
 import Amazonka.Request (clientRequestURL)
-import Amazonka.Types
+import Amazonka.Types hiding (presign)
 import qualified Network.HTTP.Types as HTTP
 
 -- | Presign an URL that is valid from the specified time until the
@@ -84,6 +83,7 @@ defaultHeaders = filter ((/= hExpect) . fst)
 -- | A variant of 'presign' that allows modifying the default 'Headers'
 -- and the default 'Service' definition used to configure the request.
 presignWithHeaders ::
+  forall a m.
   (MonadIO m, AWSRequest a) =>
   -- | Modify the default headers.
   ([Header] -> [Header]) ->
@@ -100,5 +100,7 @@ presignWithHeaders ::
   m ClientRequest
 presignWithHeaders f g a r ts ex x =
   withAuth a $ \ae ->
-    pure $! signedRequest $
-      requestPresign ex (request x & requestHeaders %~ f & requestService %~ g) ae r ts
+    let rq@Request {headers} = request g x
+        rq' :: Request a
+        rq' = rq {headers = f headers}
+     in pure $! signedRequest $ requestPresign ex rq' ae r ts

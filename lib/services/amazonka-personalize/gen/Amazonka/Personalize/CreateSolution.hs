@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.CreateSolution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,14 +22,16 @@
 --
 -- Creates the configuration for training a model. A trained model is known
 -- as a solution. After the configuration is created, you train the model
--- (create a solution) by calling the CreateSolutionVersion operation.
--- Every time you call @CreateSolutionVersion@, a new version of the
--- solution is created.
+-- (create a solution) by calling the
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolutionVersion.html CreateSolutionVersion>
+-- operation. Every time you call @CreateSolutionVersion@, a new version of
+-- the solution is created.
 --
 -- After creating a solution version, you check its accuracy by calling
--- GetSolutionMetrics. When you are satisfied with the version, you deploy
--- it using CreateCampaign. The campaign provides recommendations to a
--- client through the
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_GetSolutionMetrics.html GetSolutionMetrics>.
+-- When you are satisfied with the version, you deploy it using
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_CreateCampaign.html CreateCampaign>.
+-- The campaign provides recommendations to a client through the
 -- <https://docs.aws.amazon.com/personalize/latest/dg/API_RS_GetRecommendations.html GetRecommendations>
 -- API.
 --
@@ -52,33 +54,36 @@
 --
 -- -   DELETE PENDING > DELETE IN_PROGRESS
 --
--- To get the status of the solution, call DescribeSolution. Wait until the
--- status shows as ACTIVE before calling @CreateSolutionVersion@.
+-- To get the status of the solution, call
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeSolution.html DescribeSolution>.
+-- Wait until the status shows as ACTIVE before calling
+-- @CreateSolutionVersion@.
 --
 -- __Related APIs__
 --
--- -   ListSolutions
+-- -   <https://docs.aws.amazon.com/personalize/latest/dg/API_ListSolutions.html ListSolutions>
 --
--- -   CreateSolutionVersion
+-- -   <https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolutionVersion.html CreateSolutionVersion>
 --
--- -   DescribeSolution
+-- -   <https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeSolution.html DescribeSolution>
 --
--- -   DeleteSolution
+-- -   <https://docs.aws.amazon.com/personalize/latest/dg/API_DeleteSolution.html DeleteSolution>
 --
--- -   ListSolutionVersions
+-- -   <https://docs.aws.amazon.com/personalize/latest/dg/API_ListSolutionVersions.html ListSolutionVersions>
 --
--- -   DescribeSolutionVersion
+-- -   <https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeSolutionVersion.html DescribeSolutionVersion>
 module Amazonka.Personalize.CreateSolution
   ( -- * Creating a Request
     CreateSolution (..),
     newCreateSolution,
 
     -- * Request Lenses
-    createSolution_performAutoML,
-    createSolution_recipeArn,
     createSolution_eventType,
-    createSolution_solutionConfig,
+    createSolution_performAutoML,
     createSolution_performHPO,
+    createSolution_recipeArn,
+    createSolution_solutionConfig,
+    createSolution_tags,
     createSolution_name,
     createSolution_datasetGroupArn,
 
@@ -93,7 +98,8 @@ module Amazonka.Personalize.CreateSolution
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -101,7 +107,14 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateSolution' smart constructor.
 data CreateSolution = CreateSolution'
-  { -- | Whether to perform automated machine learning (AutoML). The default is
+  { -- | When your have multiple event types (using an @EVENT_TYPE@ schema
+    -- field), this parameter specifies which event type (for example,
+    -- \'click\' or \'like\') is used for training the model.
+    --
+    -- If you do not provide an @eventType@, Amazon Personalize will use all
+    -- interactions for training with equal weight regardless of type.
+    eventType :: Prelude.Maybe Prelude.Text,
+    -- | Whether to perform automated machine learning (AutoML). The default is
     -- @false@. For this case, you must specify @recipeArn@.
     --
     -- When set to @true@, Amazon Personalize analyzes your training data and
@@ -111,16 +124,15 @@ data CreateSolution = CreateSolution'
     -- hyperparameters. AutoML lengthens the training process as compared to
     -- selecting a specific recipe.
     performAutoML :: Prelude.Maybe Prelude.Bool,
+    -- | Whether to perform hyperparameter optimization (HPO) on the specified or
+    -- selected recipe. The default is @false@.
+    --
+    -- When performing AutoML, this parameter is always @true@ and you should
+    -- not set it to @false@.
+    performHPO :: Prelude.Maybe Prelude.Bool,
     -- | The ARN of the recipe to use for model training. Only specified when
     -- @performAutoML@ is false.
     recipeArn :: Prelude.Maybe Prelude.Text,
-    -- | When your have multiple event types (using an @EVENT_TYPE@ schema
-    -- field), this parameter specifies which event type (for example,
-    -- \'click\' or \'like\') is used for training the model.
-    --
-    -- If you do not provide an @eventType@, Amazon Personalize will use all
-    -- interactions for training with equal weight regardless of type.
-    eventType :: Prelude.Maybe Prelude.Text,
     -- | The configuration to use with the solution. When @performAutoML@ is set
     -- to true, Amazon Personalize only evaluates the @autoMLConfig@ section of
     -- the solution configuration.
@@ -128,12 +140,10 @@ data CreateSolution = CreateSolution'
     -- Amazon Personalize doesn\'t support configuring the @hpoObjective@ at
     -- this time.
     solutionConfig :: Prelude.Maybe SolutionConfig,
-    -- | Whether to perform hyperparameter optimization (HPO) on the specified or
-    -- selected recipe. The default is @false@.
-    --
-    -- When performing AutoML, this parameter is always @true@ and you should
-    -- not set it to @false@.
-    performHPO :: Prelude.Maybe Prelude.Bool,
+    -- | A list of
+    -- <https://docs.aws.amazon.com/personalize/latest/dev/tagging-resources.html tags>
+    -- to apply to the solution.
+    tags :: Prelude.Maybe [Tag],
     -- | The name for the solution.
     name :: Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the dataset group that provides the
@@ -150,6 +160,13 @@ data CreateSolution = CreateSolution'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'eventType', 'createSolution_eventType' - When your have multiple event types (using an @EVENT_TYPE@ schema
+-- field), this parameter specifies which event type (for example,
+-- \'click\' or \'like\') is used for training the model.
+--
+-- If you do not provide an @eventType@, Amazon Personalize will use all
+-- interactions for training with equal weight regardless of type.
+--
 -- 'performAutoML', 'createSolution_performAutoML' - Whether to perform automated machine learning (AutoML). The default is
 -- @false@. For this case, you must specify @recipeArn@.
 --
@@ -160,15 +177,14 @@ data CreateSolution = CreateSolution'
 -- hyperparameters. AutoML lengthens the training process as compared to
 -- selecting a specific recipe.
 --
+-- 'performHPO', 'createSolution_performHPO' - Whether to perform hyperparameter optimization (HPO) on the specified or
+-- selected recipe. The default is @false@.
+--
+-- When performing AutoML, this parameter is always @true@ and you should
+-- not set it to @false@.
+--
 -- 'recipeArn', 'createSolution_recipeArn' - The ARN of the recipe to use for model training. Only specified when
 -- @performAutoML@ is false.
---
--- 'eventType', 'createSolution_eventType' - When your have multiple event types (using an @EVENT_TYPE@ schema
--- field), this parameter specifies which event type (for example,
--- \'click\' or \'like\') is used for training the model.
---
--- If you do not provide an @eventType@, Amazon Personalize will use all
--- interactions for training with equal weight regardless of type.
 --
 -- 'solutionConfig', 'createSolution_solutionConfig' - The configuration to use with the solution. When @performAutoML@ is set
 -- to true, Amazon Personalize only evaluates the @autoMLConfig@ section of
@@ -177,11 +193,9 @@ data CreateSolution = CreateSolution'
 -- Amazon Personalize doesn\'t support configuring the @hpoObjective@ at
 -- this time.
 --
--- 'performHPO', 'createSolution_performHPO' - Whether to perform hyperparameter optimization (HPO) on the specified or
--- selected recipe. The default is @false@.
---
--- When performing AutoML, this parameter is always @true@ and you should
--- not set it to @false@.
+-- 'tags', 'createSolution_tags' - A list of
+-- <https://docs.aws.amazon.com/personalize/latest/dev/tagging-resources.html tags>
+-- to apply to the solution.
 --
 -- 'name', 'createSolution_name' - The name for the solution.
 --
@@ -195,14 +209,24 @@ newCreateSolution ::
   CreateSolution
 newCreateSolution pName_ pDatasetGroupArn_ =
   CreateSolution'
-    { performAutoML = Prelude.Nothing,
-      recipeArn = Prelude.Nothing,
-      eventType = Prelude.Nothing,
-      solutionConfig = Prelude.Nothing,
+    { eventType = Prelude.Nothing,
+      performAutoML = Prelude.Nothing,
       performHPO = Prelude.Nothing,
+      recipeArn = Prelude.Nothing,
+      solutionConfig = Prelude.Nothing,
+      tags = Prelude.Nothing,
       name = pName_,
       datasetGroupArn = pDatasetGroupArn_
     }
+
+-- | When your have multiple event types (using an @EVENT_TYPE@ schema
+-- field), this parameter specifies which event type (for example,
+-- \'click\' or \'like\') is used for training the model.
+--
+-- If you do not provide an @eventType@, Amazon Personalize will use all
+-- interactions for training with equal weight regardless of type.
+createSolution_eventType :: Lens.Lens' CreateSolution (Prelude.Maybe Prelude.Text)
+createSolution_eventType = Lens.lens (\CreateSolution' {eventType} -> eventType) (\s@CreateSolution' {} a -> s {eventType = a} :: CreateSolution)
 
 -- | Whether to perform automated machine learning (AutoML). The default is
 -- @false@. For this case, you must specify @recipeArn@.
@@ -216,19 +240,18 @@ newCreateSolution pName_ pDatasetGroupArn_ =
 createSolution_performAutoML :: Lens.Lens' CreateSolution (Prelude.Maybe Prelude.Bool)
 createSolution_performAutoML = Lens.lens (\CreateSolution' {performAutoML} -> performAutoML) (\s@CreateSolution' {} a -> s {performAutoML = a} :: CreateSolution)
 
+-- | Whether to perform hyperparameter optimization (HPO) on the specified or
+-- selected recipe. The default is @false@.
+--
+-- When performing AutoML, this parameter is always @true@ and you should
+-- not set it to @false@.
+createSolution_performHPO :: Lens.Lens' CreateSolution (Prelude.Maybe Prelude.Bool)
+createSolution_performHPO = Lens.lens (\CreateSolution' {performHPO} -> performHPO) (\s@CreateSolution' {} a -> s {performHPO = a} :: CreateSolution)
+
 -- | The ARN of the recipe to use for model training. Only specified when
 -- @performAutoML@ is false.
 createSolution_recipeArn :: Lens.Lens' CreateSolution (Prelude.Maybe Prelude.Text)
 createSolution_recipeArn = Lens.lens (\CreateSolution' {recipeArn} -> recipeArn) (\s@CreateSolution' {} a -> s {recipeArn = a} :: CreateSolution)
-
--- | When your have multiple event types (using an @EVENT_TYPE@ schema
--- field), this parameter specifies which event type (for example,
--- \'click\' or \'like\') is used for training the model.
---
--- If you do not provide an @eventType@, Amazon Personalize will use all
--- interactions for training with equal weight regardless of type.
-createSolution_eventType :: Lens.Lens' CreateSolution (Prelude.Maybe Prelude.Text)
-createSolution_eventType = Lens.lens (\CreateSolution' {eventType} -> eventType) (\s@CreateSolution' {} a -> s {eventType = a} :: CreateSolution)
 
 -- | The configuration to use with the solution. When @performAutoML@ is set
 -- to true, Amazon Personalize only evaluates the @autoMLConfig@ section of
@@ -239,13 +262,11 @@ createSolution_eventType = Lens.lens (\CreateSolution' {eventType} -> eventType)
 createSolution_solutionConfig :: Lens.Lens' CreateSolution (Prelude.Maybe SolutionConfig)
 createSolution_solutionConfig = Lens.lens (\CreateSolution' {solutionConfig} -> solutionConfig) (\s@CreateSolution' {} a -> s {solutionConfig = a} :: CreateSolution)
 
--- | Whether to perform hyperparameter optimization (HPO) on the specified or
--- selected recipe. The default is @false@.
---
--- When performing AutoML, this parameter is always @true@ and you should
--- not set it to @false@.
-createSolution_performHPO :: Lens.Lens' CreateSolution (Prelude.Maybe Prelude.Bool)
-createSolution_performHPO = Lens.lens (\CreateSolution' {performHPO} -> performHPO) (\s@CreateSolution' {} a -> s {performHPO = a} :: CreateSolution)
+-- | A list of
+-- <https://docs.aws.amazon.com/personalize/latest/dev/tagging-resources.html tags>
+-- to apply to the solution.
+createSolution_tags :: Lens.Lens' CreateSolution (Prelude.Maybe [Tag])
+createSolution_tags = Lens.lens (\CreateSolution' {tags} -> tags) (\s@CreateSolution' {} a -> s {tags = a} :: CreateSolution) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name for the solution.
 createSolution_name :: Lens.Lens' CreateSolution Prelude.Text
@@ -260,70 +281,74 @@ instance Core.AWSRequest CreateSolution where
   type
     AWSResponse CreateSolution =
       CreateSolutionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateSolutionResponse'
-            Prelude.<$> (x Core..?> "solutionArn")
+            Prelude.<$> (x Data..?> "solutionArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateSolution where
   hashWithSalt _salt CreateSolution' {..} =
-    _salt `Prelude.hashWithSalt` performAutoML
-      `Prelude.hashWithSalt` recipeArn
-      `Prelude.hashWithSalt` eventType
-      `Prelude.hashWithSalt` solutionConfig
+    _salt `Prelude.hashWithSalt` eventType
+      `Prelude.hashWithSalt` performAutoML
       `Prelude.hashWithSalt` performHPO
+      `Prelude.hashWithSalt` recipeArn
+      `Prelude.hashWithSalt` solutionConfig
+      `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` datasetGroupArn
 
 instance Prelude.NFData CreateSolution where
   rnf CreateSolution' {..} =
-    Prelude.rnf performAutoML
-      `Prelude.seq` Prelude.rnf recipeArn
-      `Prelude.seq` Prelude.rnf eventType
-      `Prelude.seq` Prelude.rnf solutionConfig
+    Prelude.rnf eventType
+      `Prelude.seq` Prelude.rnf performAutoML
       `Prelude.seq` Prelude.rnf performHPO
+      `Prelude.seq` Prelude.rnf recipeArn
+      `Prelude.seq` Prelude.rnf solutionConfig
+      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf datasetGroupArn
 
-instance Core.ToHeaders CreateSolution where
+instance Data.ToHeaders CreateSolution where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.CreateSolution" ::
+              Data.=# ( "AmazonPersonalize.CreateSolution" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateSolution where
+instance Data.ToJSON CreateSolution where
   toJSON CreateSolution' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("performAutoML" Core..=) Prelude.<$> performAutoML,
-            ("recipeArn" Core..=) Prelude.<$> recipeArn,
-            ("eventType" Core..=) Prelude.<$> eventType,
-            ("solutionConfig" Core..=)
+          [ ("eventType" Data..=) Prelude.<$> eventType,
+            ("performAutoML" Data..=) Prelude.<$> performAutoML,
+            ("performHPO" Data..=) Prelude.<$> performHPO,
+            ("recipeArn" Data..=) Prelude.<$> recipeArn,
+            ("solutionConfig" Data..=)
               Prelude.<$> solutionConfig,
-            ("performHPO" Core..=) Prelude.<$> performHPO,
-            Prelude.Just ("name" Core..= name),
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("name" Data..= name),
             Prelude.Just
-              ("datasetGroupArn" Core..= datasetGroupArn)
+              ("datasetGroupArn" Data..= datasetGroupArn)
           ]
       )
 
-instance Core.ToPath CreateSolution where
+instance Data.ToPath CreateSolution where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateSolution where
+instance Data.ToQuery CreateSolution where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateSolutionResponse' smart constructor.

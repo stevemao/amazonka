@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.DescribeLifecycleHookTypes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -68,15 +69,16 @@ instance Core.AWSRequest DescribeLifecycleHookTypes where
   type
     AWSResponse DescribeLifecycleHookTypes =
       DescribeLifecycleHookTypesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeLifecycleHookTypesResult"
       ( \s h x ->
           DescribeLifecycleHookTypesResponse'
-            Prelude.<$> ( x Core..@? "LifecycleHookTypes"
+            Prelude.<$> ( x Data..@? "LifecycleHookTypes"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -88,20 +90,20 @@ instance Prelude.Hashable DescribeLifecycleHookTypes where
 instance Prelude.NFData DescribeLifecycleHookTypes where
   rnf _ = ()
 
-instance Core.ToHeaders DescribeLifecycleHookTypes where
+instance Data.ToHeaders DescribeLifecycleHookTypes where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeLifecycleHookTypes where
+instance Data.ToPath DescribeLifecycleHookTypes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeLifecycleHookTypes where
+instance Data.ToQuery DescribeLifecycleHookTypes where
   toQuery =
     Prelude.const
       ( Prelude.mconcat
           [ "Action"
-              Core.=: ("DescribeLifecycleHookTypes" :: Prelude.ByteString),
+              Data.=: ("DescribeLifecycleHookTypes" :: Prelude.ByteString),
             "Version"
-              Core.=: ("2011-01-01" :: Prelude.ByteString)
+              Data.=: ("2011-01-01" :: Prelude.ByteString)
           ]
       )
 

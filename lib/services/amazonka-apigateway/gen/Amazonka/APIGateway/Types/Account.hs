@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.Types.Account
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,44 +21,11 @@ module Amazonka.APIGateway.Types.Account where
 
 import Amazonka.APIGateway.Types.ThrottleSettings
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents an AWS account that is associated with API Gateway.
---
--- To view the account info, call @GET@ on this resource.
---
--- ==== Error Codes
---
--- The following exception may be thrown when the request fails.
---
--- -   UnauthorizedException
--- -   NotFoundException
--- -   TooManyRequestsException
---
--- For detailed error code information, including the corresponding HTTP
--- Status Codes, see
--- <https://docs.aws.amazon.com/apigateway/api-reference/handling-errors/#api-error-codes API Gateway Error Codes>
---
--- ==== Example: Get the information about an account.
---
--- ===== Request
---
--- > GET /account HTTP/1.1 Content-Type: application/json Host: apigateway.us-east-1.amazonaws.com X-Amz-Date: 20160531T184618Z Authorization: AWS4-HMAC-SHA256 Credential={access_key_ID}/us-east-1/apigateway/aws4_request, SignedHeaders=content-type;host;x-amz-date, Signature={sig4_hash}
---
--- ===== Response
---
--- The successful response returns a @200 OK@ status code and a payload
--- similar to the following:
---
--- > { "_links": { "curies": { "href": "https://docs.aws.amazon.com/apigateway/latest/developerguide/account-apigateway-{rel}.html", "name": "account", "templated": true }, "self": { "href": "/account" }, "account:update": { "href": "/account" } }, "cloudwatchRoleArn": "arn:aws:iam::123456789012:role/apigAwsProxyRole", "throttleSettings": { "rateLimit": 500, "burstLimit": 1000 } }
---
--- In addition to making the REST API call directly, you can use the AWS
--- CLI and an AWS SDK to access this resource.
---
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-limits.html API Gateway Limits>
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html Developer Guide>,
--- <https://docs.aws.amazon.com/cli/latest/reference/apigateway/get-account.html AWS CLI>
 --
 -- /See:/ 'newAccount' smart constructor.
 data Account = Account'
@@ -117,16 +84,16 @@ account_features = Lens.lens (\Account' {features} -> features) (\s@Account' {} 
 account_throttleSettings :: Lens.Lens' Account (Prelude.Maybe ThrottleSettings)
 account_throttleSettings = Lens.lens (\Account' {throttleSettings} -> throttleSettings) (\s@Account' {} a -> s {throttleSettings = a} :: Account)
 
-instance Core.FromJSON Account where
+instance Data.FromJSON Account where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Account"
       ( \x ->
           Account'
-            Prelude.<$> (x Core..:? "apiKeyVersion")
-            Prelude.<*> (x Core..:? "cloudwatchRoleArn")
-            Prelude.<*> (x Core..:? "features" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "throttleSettings")
+            Prelude.<$> (x Data..:? "apiKeyVersion")
+            Prelude.<*> (x Data..:? "cloudwatchRoleArn")
+            Prelude.<*> (x Data..:? "features" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "throttleSettings")
       )
 
 instance Prelude.Hashable Account where

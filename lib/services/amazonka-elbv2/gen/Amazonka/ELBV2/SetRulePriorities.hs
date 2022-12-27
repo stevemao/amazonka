@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ELBV2.SetRulePriorities
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.ELBV2.SetRulePriorities
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELBV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,14 +80,15 @@ instance Core.AWSRequest SetRulePriorities where
   type
     AWSResponse SetRulePriorities =
       SetRulePrioritiesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "SetRulePrioritiesResult"
       ( \s h x ->
           SetRulePrioritiesResponse'
-            Prelude.<$> ( x Core..@? "Rules" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> ( x Data..@? "Rules" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -99,21 +101,21 @@ instance Prelude.NFData SetRulePriorities where
   rnf SetRulePriorities' {..} =
     Prelude.rnf rulePriorities
 
-instance Core.ToHeaders SetRulePriorities where
+instance Data.ToHeaders SetRulePriorities where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath SetRulePriorities where
+instance Data.ToPath SetRulePriorities where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SetRulePriorities where
+instance Data.ToQuery SetRulePriorities where
   toQuery SetRulePriorities' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("SetRulePriorities" :: Prelude.ByteString),
+          Data.=: ("SetRulePriorities" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-12-01" :: Prelude.ByteString),
+          Data.=: ("2015-12-01" :: Prelude.ByteString),
         "RulePriorities"
-          Core.=: Core.toQueryList "member" rulePriorities
+          Data.=: Data.toQueryList "member" rulePriorities
       ]
 
 -- | /See:/ 'newSetRulePrioritiesResponse' smart constructor.

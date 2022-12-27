@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DMS.DescribeReplicationInstances
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.DMS.DescribeReplicationInstances
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DMS.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -162,13 +163,14 @@ instance Core.AWSRequest DescribeReplicationInstances where
   type
     AWSResponse DescribeReplicationInstances =
       DescribeReplicationInstancesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeReplicationInstancesResponse'
-            Prelude.<$> (x Core..?> "Marker")
-            Prelude.<*> ( x Core..?> "ReplicationInstances"
+            Prelude.<$> (x Data..?> "Marker")
+            Prelude.<*> ( x Data..?> "ReplicationInstances"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -189,35 +191,35 @@ instance Prelude.NFData DescribeReplicationInstances where
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
 
-instance Core.ToHeaders DescribeReplicationInstances where
+instance Data.ToHeaders DescribeReplicationInstances where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonDMSv20160101.DescribeReplicationInstances" ::
+              Data.=# ( "AmazonDMSv20160101.DescribeReplicationInstances" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeReplicationInstances where
+instance Data.ToJSON DescribeReplicationInstances where
   toJSON DescribeReplicationInstances' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("Marker" Core..=) Prelude.<$> marker,
-            ("MaxRecords" Core..=) Prelude.<$> maxRecords
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("Marker" Data..=) Prelude.<$> marker,
+            ("MaxRecords" Data..=) Prelude.<$> maxRecords
           ]
       )
 
-instance Core.ToPath DescribeReplicationInstances where
+instance Data.ToPath DescribeReplicationInstances where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeReplicationInstances where
+instance Data.ToQuery DescribeReplicationInstances where
   toQuery = Prelude.const Prelude.mempty
 
 -- |

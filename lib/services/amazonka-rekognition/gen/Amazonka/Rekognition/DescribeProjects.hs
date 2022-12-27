@@ -14,14 +14,13 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.DescribeProjects
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists and gets information about your Amazon Rekognition Custom Labels
--- projects.
+-- Gets information about your Amazon Rekognition Custom Labels projects.
 --
 -- This operation requires permissions to perform the
 -- @rekognition:DescribeProjects@ action.
@@ -33,8 +32,9 @@ module Amazonka.Rekognition.DescribeProjects
     newDescribeProjects,
 
     -- * Request Lenses
-    describeProjects_nextToken,
     describeProjects_maxResults,
+    describeProjects_nextToken,
+    describeProjects_projectNames,
 
     -- * Destructuring the Response
     DescribeProjectsResponse (..),
@@ -48,7 +48,8 @@ module Amazonka.Rekognition.DescribeProjects
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types
 import qualified Amazonka.Request as Request
@@ -56,15 +57,19 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeProjects' smart constructor.
 data DescribeProjects = DescribeProjects'
-  { -- | If the previous response was incomplete (because there is more results
+  { -- | The maximum number of results to return per paginated call. The largest
+    -- value you can specify is 100. If you specify a value greater than 100, a
+    -- ValidationException error occurs. The default value is 100.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | If the previous response was incomplete (because there is more results
     -- to retrieve), Amazon Rekognition Custom Labels returns a pagination
     -- token in the response. You can use this pagination token to retrieve the
     -- next set of results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return per paginated call. The largest
-    -- value you can specify is 100. If you specify a value greater than 100, a
-    -- ValidationException error occurs. The default value is 100.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    -- | A list of the projects that you want Amazon Rekognition Custom Labels to
+    -- describe. If you don\'t specify a value, the response includes
+    -- descriptions for all the projects in your AWS account.
+    projectNames :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -76,21 +81,32 @@ data DescribeProjects = DescribeProjects'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'describeProjects_maxResults' - The maximum number of results to return per paginated call. The largest
+-- value you can specify is 100. If you specify a value greater than 100, a
+-- ValidationException error occurs. The default value is 100.
+--
 -- 'nextToken', 'describeProjects_nextToken' - If the previous response was incomplete (because there is more results
 -- to retrieve), Amazon Rekognition Custom Labels returns a pagination
 -- token in the response. You can use this pagination token to retrieve the
 -- next set of results.
 --
--- 'maxResults', 'describeProjects_maxResults' - The maximum number of results to return per paginated call. The largest
--- value you can specify is 100. If you specify a value greater than 100, a
--- ValidationException error occurs. The default value is 100.
+-- 'projectNames', 'describeProjects_projectNames' - A list of the projects that you want Amazon Rekognition Custom Labels to
+-- describe. If you don\'t specify a value, the response includes
+-- descriptions for all the projects in your AWS account.
 newDescribeProjects ::
   DescribeProjects
 newDescribeProjects =
   DescribeProjects'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      projectNames = Prelude.Nothing
     }
+
+-- | The maximum number of results to return per paginated call. The largest
+-- value you can specify is 100. If you specify a value greater than 100, a
+-- ValidationException error occurs. The default value is 100.
+describeProjects_maxResults :: Lens.Lens' DescribeProjects (Prelude.Maybe Prelude.Natural)
+describeProjects_maxResults = Lens.lens (\DescribeProjects' {maxResults} -> maxResults) (\s@DescribeProjects' {} a -> s {maxResults = a} :: DescribeProjects)
 
 -- | If the previous response was incomplete (because there is more results
 -- to retrieve), Amazon Rekognition Custom Labels returns a pagination
@@ -99,11 +115,11 @@ newDescribeProjects =
 describeProjects_nextToken :: Lens.Lens' DescribeProjects (Prelude.Maybe Prelude.Text)
 describeProjects_nextToken = Lens.lens (\DescribeProjects' {nextToken} -> nextToken) (\s@DescribeProjects' {} a -> s {nextToken = a} :: DescribeProjects)
 
--- | The maximum number of results to return per paginated call. The largest
--- value you can specify is 100. If you specify a value greater than 100, a
--- ValidationException error occurs. The default value is 100.
-describeProjects_maxResults :: Lens.Lens' DescribeProjects (Prelude.Maybe Prelude.Natural)
-describeProjects_maxResults = Lens.lens (\DescribeProjects' {maxResults} -> maxResults) (\s@DescribeProjects' {} a -> s {maxResults = a} :: DescribeProjects)
+-- | A list of the projects that you want Amazon Rekognition Custom Labels to
+-- describe. If you don\'t specify a value, the response includes
+-- descriptions for all the projects in your AWS account.
+describeProjects_projectNames :: Lens.Lens' DescribeProjects (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+describeProjects_projectNames = Lens.lens (\DescribeProjects' {projectNames} -> projectNames) (\s@DescribeProjects' {} a -> s {projectNames = a} :: DescribeProjects) Prelude.. Lens.mapping Lens.coerced
 
 instance Core.AWSPager DescribeProjects where
   page rq rs
@@ -131,13 +147,14 @@ instance Core.AWSRequest DescribeProjects where
   type
     AWSResponse DescribeProjects =
       DescribeProjectsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeProjectsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "ProjectDescriptions"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "ProjectDescriptions"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -145,42 +162,45 @@ instance Core.AWSRequest DescribeProjects where
 
 instance Prelude.Hashable DescribeProjects where
   hashWithSalt _salt DescribeProjects' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` projectNames
 
 instance Prelude.NFData DescribeProjects where
   rnf DescribeProjects' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf projectNames
 
-instance Core.ToHeaders DescribeProjects where
+instance Data.ToHeaders DescribeProjects where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "RekognitionService.DescribeProjects" ::
+              Data.=# ( "RekognitionService.DescribeProjects" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeProjects where
+instance Data.ToJSON DescribeProjects where
   toJSON DescribeProjects' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("ProjectNames" Data..=) Prelude.<$> projectNames
           ]
       )
 
-instance Core.ToPath DescribeProjects where
+instance Data.ToPath DescribeProjects where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeProjects where
+instance Data.ToQuery DescribeProjects where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeProjectsResponse' smart constructor.

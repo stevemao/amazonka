@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ELB.DeleteLoadBalancerListeners
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.ELB.DeleteLoadBalancerListeners
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,7 +92,8 @@ instance Core.AWSRequest DeleteLoadBalancerListeners where
   type
     AWSResponse DeleteLoadBalancerListeners =
       DeleteLoadBalancerListenersResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeleteLoadBalancerListenersResult"
@@ -110,24 +112,24 @@ instance Prelude.NFData DeleteLoadBalancerListeners where
     Prelude.rnf loadBalancerName
       `Prelude.seq` Prelude.rnf loadBalancerPorts
 
-instance Core.ToHeaders DeleteLoadBalancerListeners where
+instance Data.ToHeaders DeleteLoadBalancerListeners where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteLoadBalancerListeners where
+instance Data.ToPath DeleteLoadBalancerListeners where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteLoadBalancerListeners where
+instance Data.ToQuery DeleteLoadBalancerListeners where
   toQuery DeleteLoadBalancerListeners' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DeleteLoadBalancerListeners" ::
+          Data.=: ( "DeleteLoadBalancerListeners" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2012-06-01" :: Prelude.ByteString),
-        "LoadBalancerName" Core.=: loadBalancerName,
+          Data.=: ("2012-06-01" :: Prelude.ByteString),
+        "LoadBalancerName" Data.=: loadBalancerName,
         "LoadBalancerPorts"
-          Core.=: Core.toQueryList "member" loadBalancerPorts
+          Data.=: Data.toQueryList "member" loadBalancerPorts
       ]
 
 -- | Contains the output of DeleteLoadBalancerListeners.

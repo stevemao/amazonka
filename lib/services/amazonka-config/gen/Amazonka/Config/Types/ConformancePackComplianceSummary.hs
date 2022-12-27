@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Config.Types.ConformancePackComplianceSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Config.Types.ConformancePackComplianceSummary where
 
 import Amazonka.Config.Types.ConformancePackComplianceType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Summary includes the name and status of the conformance pack.
@@ -74,16 +75,16 @@ conformancePackComplianceSummary_conformancePackComplianceStatus :: Lens.Lens' C
 conformancePackComplianceSummary_conformancePackComplianceStatus = Lens.lens (\ConformancePackComplianceSummary' {conformancePackComplianceStatus} -> conformancePackComplianceStatus) (\s@ConformancePackComplianceSummary' {} a -> s {conformancePackComplianceStatus = a} :: ConformancePackComplianceSummary)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ConformancePackComplianceSummary
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ConformancePackComplianceSummary"
       ( \x ->
           ConformancePackComplianceSummary'
-            Prelude.<$> (x Core..: "ConformancePackName")
-            Prelude.<*> (x Core..: "ConformancePackComplianceStatus")
+            Prelude.<$> (x Data..: "ConformancePackName")
+            Prelude.<*> (x Data..: "ConformancePackComplianceStatus")
       )
 
 instance

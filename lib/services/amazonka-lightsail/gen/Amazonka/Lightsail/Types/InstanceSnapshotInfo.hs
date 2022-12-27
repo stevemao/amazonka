@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.InstanceSnapshotInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.InstanceSnapshotInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types.DiskInfo
 import qualified Amazonka.Prelude as Prelude
 
@@ -78,15 +79,15 @@ instanceSnapshotInfo_fromBundleId = Lens.lens (\InstanceSnapshotInfo' {fromBundl
 instanceSnapshotInfo_fromDiskInfo :: Lens.Lens' InstanceSnapshotInfo (Prelude.Maybe [DiskInfo])
 instanceSnapshotInfo_fromDiskInfo = Lens.lens (\InstanceSnapshotInfo' {fromDiskInfo} -> fromDiskInfo) (\s@InstanceSnapshotInfo' {} a -> s {fromDiskInfo = a} :: InstanceSnapshotInfo) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON InstanceSnapshotInfo where
+instance Data.FromJSON InstanceSnapshotInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InstanceSnapshotInfo"
       ( \x ->
           InstanceSnapshotInfo'
-            Prelude.<$> (x Core..:? "fromBlueprintId")
-            Prelude.<*> (x Core..:? "fromBundleId")
-            Prelude.<*> (x Core..:? "fromDiskInfo" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "fromBlueprintId")
+            Prelude.<*> (x Data..:? "fromBundleId")
+            Prelude.<*> (x Data..:? "fromDiskInfo" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable InstanceSnapshotInfo where

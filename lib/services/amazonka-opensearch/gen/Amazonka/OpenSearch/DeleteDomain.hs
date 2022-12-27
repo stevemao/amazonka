@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.DeleteDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Permanently deletes the specified domain and all of its data. Once a
--- domain is deleted, it cannot be recovered.
+-- Deletes an Amazon OpenSearch Service domain and all of its data. You
+-- can\'t recover a domain after you delete it.
 module Amazonka.OpenSearch.DeleteDomain
   ( -- * Creating a Request
     DeleteDomain (..),
@@ -41,14 +41,14 @@ module Amazonka.OpenSearch.DeleteDomain
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpenSearch.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Container for the parameters to the @ DeleteDomain @ operation.
--- Specifies the name of the domain you want to delete.
+-- | Container for the parameters to the @DeleteDomain@ operation.
 --
 -- /See:/ 'newDeleteDomain' smart constructor.
 data DeleteDomain = DeleteDomain'
@@ -79,12 +79,13 @@ deleteDomain_domainName = Lens.lens (\DeleteDomain' {domainName} -> domainName) 
 
 instance Core.AWSRequest DeleteDomain where
   type AWSResponse DeleteDomain = DeleteDomainResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteDomainResponse'
-            Prelude.<$> (x Core..?> "DomainStatus")
+            Prelude.<$> (x Data..?> "DomainStatus")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -95,20 +96,20 @@ instance Prelude.Hashable DeleteDomain where
 instance Prelude.NFData DeleteDomain where
   rnf DeleteDomain' {..} = Prelude.rnf domainName
 
-instance Core.ToHeaders DeleteDomain where
+instance Data.ToHeaders DeleteDomain where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteDomain where
+instance Data.ToPath DeleteDomain where
   toPath DeleteDomain' {..} =
     Prelude.mconcat
       [ "/2021-01-01/opensearch/domain/",
-        Core.toBS domainName
+        Data.toBS domainName
       ]
 
-instance Core.ToQuery DeleteDomain where
+instance Data.ToQuery DeleteDomain where
   toQuery = Prelude.const Prelude.mempty
 
--- | The result of a @DeleteDomain@ request. Contains the status of the
+-- | The results of a @DeleteDomain@ request. Contains the status of the
 -- pending deletion, or a \"domain not found\" error if the domain and all
 -- of its resources have been deleted.
 --

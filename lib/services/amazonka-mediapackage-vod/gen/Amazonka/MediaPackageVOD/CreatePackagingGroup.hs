@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaPackageVOD.CreatePackagingGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,15 +40,16 @@ module Amazonka.MediaPackageVOD.CreatePackagingGroup
     createPackagingGroupResponse_arn,
     createPackagingGroupResponse_authorization,
     createPackagingGroupResponse_domainName,
-    createPackagingGroupResponse_id,
     createPackagingGroupResponse_egressAccessLogs,
+    createPackagingGroupResponse_id,
     createPackagingGroupResponse_tags,
     createPackagingGroupResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaPackageVOD.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -114,17 +115,18 @@ instance Core.AWSRequest CreatePackagingGroup where
   type
     AWSResponse CreatePackagingGroup =
       CreatePackagingGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreatePackagingGroupResponse'
-            Prelude.<$> (x Core..?> "arn")
-            Prelude.<*> (x Core..?> "authorization")
-            Prelude.<*> (x Core..?> "domainName")
-            Prelude.<*> (x Core..?> "id")
-            Prelude.<*> (x Core..?> "egressAccessLogs")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "arn")
+            Prelude.<*> (x Data..?> "authorization")
+            Prelude.<*> (x Data..?> "domainName")
+            Prelude.<*> (x Data..?> "egressAccessLogs")
+            Prelude.<*> (x Data..?> "id")
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -142,33 +144,33 @@ instance Prelude.NFData CreatePackagingGroup where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf id
 
-instance Core.ToHeaders CreatePackagingGroup where
+instance Data.ToHeaders CreatePackagingGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreatePackagingGroup where
+instance Data.ToJSON CreatePackagingGroup where
   toJSON CreatePackagingGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("authorization" Core..=) Prelude.<$> authorization,
-            ("egressAccessLogs" Core..=)
+          [ ("authorization" Data..=) Prelude.<$> authorization,
+            ("egressAccessLogs" Data..=)
               Prelude.<$> egressAccessLogs,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("id" Core..= id)
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("id" Data..= id)
           ]
       )
 
-instance Core.ToPath CreatePackagingGroup where
+instance Data.ToPath CreatePackagingGroup where
   toPath = Prelude.const "/packaging_groups"
 
-instance Core.ToQuery CreatePackagingGroup where
+instance Data.ToQuery CreatePackagingGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreatePackagingGroupResponse' smart constructor.
@@ -178,9 +180,9 @@ data CreatePackagingGroupResponse = CreatePackagingGroupResponse'
     authorization :: Prelude.Maybe Authorization,
     -- | The fully qualified domain name for Assets in the PackagingGroup.
     domainName :: Prelude.Maybe Prelude.Text,
+    egressAccessLogs :: Prelude.Maybe EgressAccessLogs,
     -- | The ID of the PackagingGroup.
     id :: Prelude.Maybe Prelude.Text,
-    egressAccessLogs :: Prelude.Maybe EgressAccessLogs,
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -201,9 +203,9 @@ data CreatePackagingGroupResponse = CreatePackagingGroupResponse'
 --
 -- 'domainName', 'createPackagingGroupResponse_domainName' - The fully qualified domain name for Assets in the PackagingGroup.
 --
--- 'id', 'createPackagingGroupResponse_id' - The ID of the PackagingGroup.
---
 -- 'egressAccessLogs', 'createPackagingGroupResponse_egressAccessLogs' - Undocumented member.
+--
+-- 'id', 'createPackagingGroupResponse_id' - The ID of the PackagingGroup.
 --
 -- 'tags', 'createPackagingGroupResponse_tags' - Undocumented member.
 --
@@ -218,8 +220,8 @@ newCreatePackagingGroupResponse pHttpStatus_ =
         Prelude.Nothing,
       authorization = Prelude.Nothing,
       domainName = Prelude.Nothing,
-      id = Prelude.Nothing,
       egressAccessLogs = Prelude.Nothing,
+      id = Prelude.Nothing,
       tags = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
@@ -236,13 +238,13 @@ createPackagingGroupResponse_authorization = Lens.lens (\CreatePackagingGroupRes
 createPackagingGroupResponse_domainName :: Lens.Lens' CreatePackagingGroupResponse (Prelude.Maybe Prelude.Text)
 createPackagingGroupResponse_domainName = Lens.lens (\CreatePackagingGroupResponse' {domainName} -> domainName) (\s@CreatePackagingGroupResponse' {} a -> s {domainName = a} :: CreatePackagingGroupResponse)
 
--- | The ID of the PackagingGroup.
-createPackagingGroupResponse_id :: Lens.Lens' CreatePackagingGroupResponse (Prelude.Maybe Prelude.Text)
-createPackagingGroupResponse_id = Lens.lens (\CreatePackagingGroupResponse' {id} -> id) (\s@CreatePackagingGroupResponse' {} a -> s {id = a} :: CreatePackagingGroupResponse)
-
 -- | Undocumented member.
 createPackagingGroupResponse_egressAccessLogs :: Lens.Lens' CreatePackagingGroupResponse (Prelude.Maybe EgressAccessLogs)
 createPackagingGroupResponse_egressAccessLogs = Lens.lens (\CreatePackagingGroupResponse' {egressAccessLogs} -> egressAccessLogs) (\s@CreatePackagingGroupResponse' {} a -> s {egressAccessLogs = a} :: CreatePackagingGroupResponse)
+
+-- | The ID of the PackagingGroup.
+createPackagingGroupResponse_id :: Lens.Lens' CreatePackagingGroupResponse (Prelude.Maybe Prelude.Text)
+createPackagingGroupResponse_id = Lens.lens (\CreatePackagingGroupResponse' {id} -> id) (\s@CreatePackagingGroupResponse' {} a -> s {id = a} :: CreatePackagingGroupResponse)
 
 -- | Undocumented member.
 createPackagingGroupResponse_tags :: Lens.Lens' CreatePackagingGroupResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -257,7 +259,7 @@ instance Prelude.NFData CreatePackagingGroupResponse where
     Prelude.rnf arn
       `Prelude.seq` Prelude.rnf authorization
       `Prelude.seq` Prelude.rnf domainName
-      `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf egressAccessLogs
+      `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus

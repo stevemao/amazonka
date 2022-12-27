@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GroundStation.ListGroundStations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,24 +29,25 @@ module Amazonka.GroundStation.ListGroundStations
     newListGroundStations,
 
     -- * Request Lenses
-    listGroundStations_satelliteId,
-    listGroundStations_nextToken,
     listGroundStations_maxResults,
+    listGroundStations_nextToken,
+    listGroundStations_satelliteId,
 
     -- * Destructuring the Response
     ListGroundStationsResponse (..),
     newListGroundStationsResponse,
 
     -- * Response Lenses
-    listGroundStationsResponse_nextToken,
     listGroundStationsResponse_groundStationList,
+    listGroundStationsResponse_nextToken,
     listGroundStationsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GroundStation.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,13 +56,13 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListGroundStations' smart constructor.
 data ListGroundStations = ListGroundStations'
-  { -- | Satellite ID to retrieve on-boarded ground stations.
-    satelliteId :: Prelude.Maybe Prelude.Text,
+  { -- | Maximum number of ground stations returned.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | Next token that can be supplied in the next call to get the next page of
     -- ground stations.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Maximum number of ground stations returned.
-    maxResults :: Prelude.Maybe Prelude.Int
+    -- | Satellite ID to retrieve on-boarded ground stations.
+    satelliteId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,33 +74,33 @@ data ListGroundStations = ListGroundStations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'satelliteId', 'listGroundStations_satelliteId' - Satellite ID to retrieve on-boarded ground stations.
+-- 'maxResults', 'listGroundStations_maxResults' - Maximum number of ground stations returned.
 --
 -- 'nextToken', 'listGroundStations_nextToken' - Next token that can be supplied in the next call to get the next page of
 -- ground stations.
 --
--- 'maxResults', 'listGroundStations_maxResults' - Maximum number of ground stations returned.
+-- 'satelliteId', 'listGroundStations_satelliteId' - Satellite ID to retrieve on-boarded ground stations.
 newListGroundStations ::
   ListGroundStations
 newListGroundStations =
   ListGroundStations'
-    { satelliteId = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      satelliteId = Prelude.Nothing
     }
 
--- | Satellite ID to retrieve on-boarded ground stations.
-listGroundStations_satelliteId :: Lens.Lens' ListGroundStations (Prelude.Maybe Prelude.Text)
-listGroundStations_satelliteId = Lens.lens (\ListGroundStations' {satelliteId} -> satelliteId) (\s@ListGroundStations' {} a -> s {satelliteId = a} :: ListGroundStations)
+-- | Maximum number of ground stations returned.
+listGroundStations_maxResults :: Lens.Lens' ListGroundStations (Prelude.Maybe Prelude.Natural)
+listGroundStations_maxResults = Lens.lens (\ListGroundStations' {maxResults} -> maxResults) (\s@ListGroundStations' {} a -> s {maxResults = a} :: ListGroundStations)
 
 -- | Next token that can be supplied in the next call to get the next page of
 -- ground stations.
 listGroundStations_nextToken :: Lens.Lens' ListGroundStations (Prelude.Maybe Prelude.Text)
 listGroundStations_nextToken = Lens.lens (\ListGroundStations' {nextToken} -> nextToken) (\s@ListGroundStations' {} a -> s {nextToken = a} :: ListGroundStations)
 
--- | Maximum number of ground stations returned.
-listGroundStations_maxResults :: Lens.Lens' ListGroundStations (Prelude.Maybe Prelude.Int)
-listGroundStations_maxResults = Lens.lens (\ListGroundStations' {maxResults} -> maxResults) (\s@ListGroundStations' {} a -> s {maxResults = a} :: ListGroundStations)
+-- | Satellite ID to retrieve on-boarded ground stations.
+listGroundStations_satelliteId :: Lens.Lens' ListGroundStations (Prelude.Maybe Prelude.Text)
+listGroundStations_satelliteId = Lens.lens (\ListGroundStations' {satelliteId} -> satelliteId) (\s@ListGroundStations' {} a -> s {satelliteId = a} :: ListGroundStations)
 
 instance Core.AWSPager ListGroundStations where
   page rq rs
@@ -127,61 +128,62 @@ instance Core.AWSRequest ListGroundStations where
   type
     AWSResponse ListGroundStations =
       ListGroundStationsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListGroundStationsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> ( x Core..?> "groundStationList"
+            Prelude.<$> ( x Data..?> "groundStationList"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListGroundStations where
   hashWithSalt _salt ListGroundStations' {..} =
-    _salt `Prelude.hashWithSalt` satelliteId
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` satelliteId
 
 instance Prelude.NFData ListGroundStations where
   rnf ListGroundStations' {..} =
-    Prelude.rnf satelliteId
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf satelliteId
 
-instance Core.ToHeaders ListGroundStations where
+instance Data.ToHeaders ListGroundStations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListGroundStations where
+instance Data.ToPath ListGroundStations where
   toPath = Prelude.const "/groundstation"
 
-instance Core.ToQuery ListGroundStations where
+instance Data.ToQuery ListGroundStations where
   toQuery ListGroundStations' {..} =
     Prelude.mconcat
-      [ "satelliteId" Core.=: satelliteId,
-        "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "satelliteId" Data.=: satelliteId
       ]
 
 -- |
 --
 -- /See:/ 'newListGroundStationsResponse' smart constructor.
 data ListGroundStationsResponse = ListGroundStationsResponse'
-  { -- | Next token that can be supplied in the next call to get the next page of
+  { -- | List of ground stations.
+    groundStationList :: Prelude.Maybe [GroundStationData],
+    -- | Next token that can be supplied in the next call to get the next page of
     -- ground stations.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | List of ground stations.
-    groundStationList :: Prelude.Maybe [GroundStationData],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -195,10 +197,10 @@ data ListGroundStationsResponse = ListGroundStationsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'groundStationList', 'listGroundStationsResponse_groundStationList' - List of ground stations.
+--
 -- 'nextToken', 'listGroundStationsResponse_nextToken' - Next token that can be supplied in the next call to get the next page of
 -- ground stations.
---
--- 'groundStationList', 'listGroundStationsResponse_groundStationList' - List of ground stations.
 --
 -- 'httpStatus', 'listGroundStationsResponse_httpStatus' - The response's http status code.
 newListGroundStationsResponse ::
@@ -207,20 +209,20 @@ newListGroundStationsResponse ::
   ListGroundStationsResponse
 newListGroundStationsResponse pHttpStatus_ =
   ListGroundStationsResponse'
-    { nextToken =
+    { groundStationList =
         Prelude.Nothing,
-      groundStationList = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | List of ground stations.
+listGroundStationsResponse_groundStationList :: Lens.Lens' ListGroundStationsResponse (Prelude.Maybe [GroundStationData])
+listGroundStationsResponse_groundStationList = Lens.lens (\ListGroundStationsResponse' {groundStationList} -> groundStationList) (\s@ListGroundStationsResponse' {} a -> s {groundStationList = a} :: ListGroundStationsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | Next token that can be supplied in the next call to get the next page of
 -- ground stations.
 listGroundStationsResponse_nextToken :: Lens.Lens' ListGroundStationsResponse (Prelude.Maybe Prelude.Text)
 listGroundStationsResponse_nextToken = Lens.lens (\ListGroundStationsResponse' {nextToken} -> nextToken) (\s@ListGroundStationsResponse' {} a -> s {nextToken = a} :: ListGroundStationsResponse)
-
--- | List of ground stations.
-listGroundStationsResponse_groundStationList :: Lens.Lens' ListGroundStationsResponse (Prelude.Maybe [GroundStationData])
-listGroundStationsResponse_groundStationList = Lens.lens (\ListGroundStationsResponse' {groundStationList} -> groundStationList) (\s@ListGroundStationsResponse' {} a -> s {groundStationList = a} :: ListGroundStationsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listGroundStationsResponse_httpStatus :: Lens.Lens' ListGroundStationsResponse Prelude.Int
@@ -228,6 +230,6 @@ listGroundStationsResponse_httpStatus = Lens.lens (\ListGroundStationsResponse' 
 
 instance Prelude.NFData ListGroundStationsResponse where
   rnf ListGroundStationsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf groundStationList
+    Prelude.rnf groundStationList
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

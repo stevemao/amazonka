@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AccessAnalyzer.Types.Finding
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,46 +23,47 @@ import Amazonka.AccessAnalyzer.Types.FindingSource
 import Amazonka.AccessAnalyzer.Types.FindingStatus
 import Amazonka.AccessAnalyzer.Types.ResourceType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about a finding.
 --
 -- /See:/ 'newFinding' smart constructor.
 data Finding = Finding'
-  { -- | An error.
+  { -- | The action in the analyzed policy statement that an external principal
+    -- has permission to use.
+    action :: Prelude.Maybe [Prelude.Text],
+    -- | An error.
     error :: Prelude.Maybe Prelude.Text,
     -- | Indicates whether the policy that generated the finding allows public
     -- access to the resource.
     isPublic :: Prelude.Maybe Prelude.Bool,
-    -- | The action in the analyzed policy statement that an external principal
-    -- has permission to use.
-    action :: Prelude.Maybe [Prelude.Text],
-    -- | The sources of the finding. This indicates how the access that generated
-    -- the finding is granted. It is populated for Amazon S3 bucket findings.
-    sources :: Prelude.Maybe [FindingSource],
-    -- | The resource that an external principal has access to.
-    resource :: Prelude.Maybe Prelude.Text,
     -- | The external principal that access to a resource within the zone of
     -- trust.
     principal :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | The time at which the resource was analyzed.
-    analyzedAt :: Core.POSIX,
+    -- | The resource that an external principal has access to.
+    resource :: Prelude.Maybe Prelude.Text,
+    -- | The sources of the finding. This indicates how the access that generated
+    -- the finding is granted. It is populated for Amazon S3 bucket findings.
+    sources :: Prelude.Maybe [FindingSource],
+    -- | The ID of the finding.
+    id :: Prelude.Text,
+    -- | The type of the resource identified in the finding.
+    resourceType :: ResourceType,
     -- | The condition in the analyzed policy statement that resulted in a
     -- finding.
     condition :: Prelude.HashMap Prelude.Text Prelude.Text,
     -- | The time at which the finding was generated.
-    createdAt :: Core.POSIX,
-    -- | The ID of the finding.
-    id :: Prelude.Text,
-    -- | The Amazon Web Services account ID that owns the resource.
-    resourceOwnerAccount :: Prelude.Text,
-    -- | The type of the resource identified in the finding.
-    resourceType :: ResourceType,
+    createdAt :: Data.POSIX,
+    -- | The time at which the resource was analyzed.
+    analyzedAt :: Data.POSIX,
+    -- | The time at which the finding was updated.
+    updatedAt :: Data.POSIX,
     -- | The current status of the finding.
     status :: FindingStatus,
-    -- | The time at which the finding was updated.
-    updatedAt :: Core.POSIX
+    -- | The Amazon Web Services account ID that owns the resource.
+    resourceOwnerAccount :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -74,78 +75,83 @@ data Finding = Finding'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'action', 'finding_action' - The action in the analyzed policy statement that an external principal
+-- has permission to use.
+--
 -- 'error', 'finding_error' - An error.
 --
 -- 'isPublic', 'finding_isPublic' - Indicates whether the policy that generated the finding allows public
 -- access to the resource.
 --
--- 'action', 'finding_action' - The action in the analyzed policy statement that an external principal
--- has permission to use.
+-- 'principal', 'finding_principal' - The external principal that access to a resource within the zone of
+-- trust.
+--
+-- 'resource', 'finding_resource' - The resource that an external principal has access to.
 --
 -- 'sources', 'finding_sources' - The sources of the finding. This indicates how the access that generated
 -- the finding is granted. It is populated for Amazon S3 bucket findings.
 --
--- 'resource', 'finding_resource' - The resource that an external principal has access to.
+-- 'id', 'finding_id' - The ID of the finding.
 --
--- 'principal', 'finding_principal' - The external principal that access to a resource within the zone of
--- trust.
---
--- 'analyzedAt', 'finding_analyzedAt' - The time at which the resource was analyzed.
+-- 'resourceType', 'finding_resourceType' - The type of the resource identified in the finding.
 --
 -- 'condition', 'finding_condition' - The condition in the analyzed policy statement that resulted in a
 -- finding.
 --
 -- 'createdAt', 'finding_createdAt' - The time at which the finding was generated.
 --
--- 'id', 'finding_id' - The ID of the finding.
+-- 'analyzedAt', 'finding_analyzedAt' - The time at which the resource was analyzed.
 --
--- 'resourceOwnerAccount', 'finding_resourceOwnerAccount' - The Amazon Web Services account ID that owns the resource.
---
--- 'resourceType', 'finding_resourceType' - The type of the resource identified in the finding.
+-- 'updatedAt', 'finding_updatedAt' - The time at which the finding was updated.
 --
 -- 'status', 'finding_status' - The current status of the finding.
 --
--- 'updatedAt', 'finding_updatedAt' - The time at which the finding was updated.
+-- 'resourceOwnerAccount', 'finding_resourceOwnerAccount' - The Amazon Web Services account ID that owns the resource.
 newFinding ::
-  -- | 'analyzedAt'
-  Prelude.UTCTime ->
-  -- | 'createdAt'
-  Prelude.UTCTime ->
   -- | 'id'
-  Prelude.Text ->
-  -- | 'resourceOwnerAccount'
   Prelude.Text ->
   -- | 'resourceType'
   ResourceType ->
-  -- | 'status'
-  FindingStatus ->
+  -- | 'createdAt'
+  Prelude.UTCTime ->
+  -- | 'analyzedAt'
+  Prelude.UTCTime ->
   -- | 'updatedAt'
   Prelude.UTCTime ->
+  -- | 'status'
+  FindingStatus ->
+  -- | 'resourceOwnerAccount'
+  Prelude.Text ->
   Finding
 newFinding
-  pAnalyzedAt_
-  pCreatedAt_
   pId_
-  pResourceOwnerAccount_
   pResourceType_
+  pCreatedAt_
+  pAnalyzedAt_
+  pUpdatedAt_
   pStatus_
-  pUpdatedAt_ =
+  pResourceOwnerAccount_ =
     Finding'
-      { error = Prelude.Nothing,
+      { action = Prelude.Nothing,
+        error = Prelude.Nothing,
         isPublic = Prelude.Nothing,
-        action = Prelude.Nothing,
-        sources = Prelude.Nothing,
-        resource = Prelude.Nothing,
         principal = Prelude.Nothing,
-        analyzedAt = Core._Time Lens.# pAnalyzedAt_,
-        condition = Prelude.mempty,
-        createdAt = Core._Time Lens.# pCreatedAt_,
+        resource = Prelude.Nothing,
+        sources = Prelude.Nothing,
         id = pId_,
-        resourceOwnerAccount = pResourceOwnerAccount_,
         resourceType = pResourceType_,
+        condition = Prelude.mempty,
+        createdAt = Data._Time Lens.# pCreatedAt_,
+        analyzedAt = Data._Time Lens.# pAnalyzedAt_,
+        updatedAt = Data._Time Lens.# pUpdatedAt_,
         status = pStatus_,
-        updatedAt = Core._Time Lens.# pUpdatedAt_
+        resourceOwnerAccount = pResourceOwnerAccount_
       }
+
+-- | The action in the analyzed policy statement that an external principal
+-- has permission to use.
+finding_action :: Lens.Lens' Finding (Prelude.Maybe [Prelude.Text])
+finding_action = Lens.lens (\Finding' {action} -> action) (\s@Finding' {} a -> s {action = a} :: Finding) Prelude.. Lens.mapping Lens.coerced
 
 -- | An error.
 finding_error :: Lens.Lens' Finding (Prelude.Maybe Prelude.Text)
@@ -156,28 +162,27 @@ finding_error = Lens.lens (\Finding' {error} -> error) (\s@Finding' {} a -> s {e
 finding_isPublic :: Lens.Lens' Finding (Prelude.Maybe Prelude.Bool)
 finding_isPublic = Lens.lens (\Finding' {isPublic} -> isPublic) (\s@Finding' {} a -> s {isPublic = a} :: Finding)
 
--- | The action in the analyzed policy statement that an external principal
--- has permission to use.
-finding_action :: Lens.Lens' Finding (Prelude.Maybe [Prelude.Text])
-finding_action = Lens.lens (\Finding' {action} -> action) (\s@Finding' {} a -> s {action = a} :: Finding) Prelude.. Lens.mapping Lens.coerced
+-- | The external principal that access to a resource within the zone of
+-- trust.
+finding_principal :: Lens.Lens' Finding (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+finding_principal = Lens.lens (\Finding' {principal} -> principal) (\s@Finding' {} a -> s {principal = a} :: Finding) Prelude.. Lens.mapping Lens.coerced
+
+-- | The resource that an external principal has access to.
+finding_resource :: Lens.Lens' Finding (Prelude.Maybe Prelude.Text)
+finding_resource = Lens.lens (\Finding' {resource} -> resource) (\s@Finding' {} a -> s {resource = a} :: Finding)
 
 -- | The sources of the finding. This indicates how the access that generated
 -- the finding is granted. It is populated for Amazon S3 bucket findings.
 finding_sources :: Lens.Lens' Finding (Prelude.Maybe [FindingSource])
 finding_sources = Lens.lens (\Finding' {sources} -> sources) (\s@Finding' {} a -> s {sources = a} :: Finding) Prelude.. Lens.mapping Lens.coerced
 
--- | The resource that an external principal has access to.
-finding_resource :: Lens.Lens' Finding (Prelude.Maybe Prelude.Text)
-finding_resource = Lens.lens (\Finding' {resource} -> resource) (\s@Finding' {} a -> s {resource = a} :: Finding)
+-- | The ID of the finding.
+finding_id :: Lens.Lens' Finding Prelude.Text
+finding_id = Lens.lens (\Finding' {id} -> id) (\s@Finding' {} a -> s {id = a} :: Finding)
 
--- | The external principal that access to a resource within the zone of
--- trust.
-finding_principal :: Lens.Lens' Finding (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
-finding_principal = Lens.lens (\Finding' {principal} -> principal) (\s@Finding' {} a -> s {principal = a} :: Finding) Prelude.. Lens.mapping Lens.coerced
-
--- | The time at which the resource was analyzed.
-finding_analyzedAt :: Lens.Lens' Finding Prelude.UTCTime
-finding_analyzedAt = Lens.lens (\Finding' {analyzedAt} -> analyzedAt) (\s@Finding' {} a -> s {analyzedAt = a} :: Finding) Prelude.. Core._Time
+-- | The type of the resource identified in the finding.
+finding_resourceType :: Lens.Lens' Finding ResourceType
+finding_resourceType = Lens.lens (\Finding' {resourceType} -> resourceType) (\s@Finding' {} a -> s {resourceType = a} :: Finding)
 
 -- | The condition in the analyzed policy statement that resulted in a
 -- finding.
@@ -186,80 +191,76 @@ finding_condition = Lens.lens (\Finding' {condition} -> condition) (\s@Finding' 
 
 -- | The time at which the finding was generated.
 finding_createdAt :: Lens.Lens' Finding Prelude.UTCTime
-finding_createdAt = Lens.lens (\Finding' {createdAt} -> createdAt) (\s@Finding' {} a -> s {createdAt = a} :: Finding) Prelude.. Core._Time
+finding_createdAt = Lens.lens (\Finding' {createdAt} -> createdAt) (\s@Finding' {} a -> s {createdAt = a} :: Finding) Prelude.. Data._Time
 
--- | The ID of the finding.
-finding_id :: Lens.Lens' Finding Prelude.Text
-finding_id = Lens.lens (\Finding' {id} -> id) (\s@Finding' {} a -> s {id = a} :: Finding)
+-- | The time at which the resource was analyzed.
+finding_analyzedAt :: Lens.Lens' Finding Prelude.UTCTime
+finding_analyzedAt = Lens.lens (\Finding' {analyzedAt} -> analyzedAt) (\s@Finding' {} a -> s {analyzedAt = a} :: Finding) Prelude.. Data._Time
 
--- | The Amazon Web Services account ID that owns the resource.
-finding_resourceOwnerAccount :: Lens.Lens' Finding Prelude.Text
-finding_resourceOwnerAccount = Lens.lens (\Finding' {resourceOwnerAccount} -> resourceOwnerAccount) (\s@Finding' {} a -> s {resourceOwnerAccount = a} :: Finding)
-
--- | The type of the resource identified in the finding.
-finding_resourceType :: Lens.Lens' Finding ResourceType
-finding_resourceType = Lens.lens (\Finding' {resourceType} -> resourceType) (\s@Finding' {} a -> s {resourceType = a} :: Finding)
+-- | The time at which the finding was updated.
+finding_updatedAt :: Lens.Lens' Finding Prelude.UTCTime
+finding_updatedAt = Lens.lens (\Finding' {updatedAt} -> updatedAt) (\s@Finding' {} a -> s {updatedAt = a} :: Finding) Prelude.. Data._Time
 
 -- | The current status of the finding.
 finding_status :: Lens.Lens' Finding FindingStatus
 finding_status = Lens.lens (\Finding' {status} -> status) (\s@Finding' {} a -> s {status = a} :: Finding)
 
--- | The time at which the finding was updated.
-finding_updatedAt :: Lens.Lens' Finding Prelude.UTCTime
-finding_updatedAt = Lens.lens (\Finding' {updatedAt} -> updatedAt) (\s@Finding' {} a -> s {updatedAt = a} :: Finding) Prelude.. Core._Time
+-- | The Amazon Web Services account ID that owns the resource.
+finding_resourceOwnerAccount :: Lens.Lens' Finding Prelude.Text
+finding_resourceOwnerAccount = Lens.lens (\Finding' {resourceOwnerAccount} -> resourceOwnerAccount) (\s@Finding' {} a -> s {resourceOwnerAccount = a} :: Finding)
 
-instance Core.FromJSON Finding where
+instance Data.FromJSON Finding where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Finding"
       ( \x ->
           Finding'
-            Prelude.<$> (x Core..:? "error")
-            Prelude.<*> (x Core..:? "isPublic")
-            Prelude.<*> (x Core..:? "action" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "sources" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "resource")
-            Prelude.<*> (x Core..:? "principal" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "analyzedAt")
-            Prelude.<*> (x Core..:? "condition" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "createdAt")
-            Prelude.<*> (x Core..: "id")
-            Prelude.<*> (x Core..: "resourceOwnerAccount")
-            Prelude.<*> (x Core..: "resourceType")
-            Prelude.<*> (x Core..: "status")
-            Prelude.<*> (x Core..: "updatedAt")
+            Prelude.<$> (x Data..:? "action" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "error")
+            Prelude.<*> (x Data..:? "isPublic")
+            Prelude.<*> (x Data..:? "principal" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "resource")
+            Prelude.<*> (x Data..:? "sources" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "id")
+            Prelude.<*> (x Data..: "resourceType")
+            Prelude.<*> (x Data..:? "condition" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "createdAt")
+            Prelude.<*> (x Data..: "analyzedAt")
+            Prelude.<*> (x Data..: "updatedAt")
+            Prelude.<*> (x Data..: "status")
+            Prelude.<*> (x Data..: "resourceOwnerAccount")
       )
 
 instance Prelude.Hashable Finding where
   hashWithSalt _salt Finding' {..} =
-    _salt `Prelude.hashWithSalt` error
+    _salt `Prelude.hashWithSalt` action
+      `Prelude.hashWithSalt` error
       `Prelude.hashWithSalt` isPublic
-      `Prelude.hashWithSalt` action
-      `Prelude.hashWithSalt` sources
-      `Prelude.hashWithSalt` resource
       `Prelude.hashWithSalt` principal
-      `Prelude.hashWithSalt` analyzedAt
+      `Prelude.hashWithSalt` resource
+      `Prelude.hashWithSalt` sources
+      `Prelude.hashWithSalt` id
+      `Prelude.hashWithSalt` resourceType
       `Prelude.hashWithSalt` condition
       `Prelude.hashWithSalt` createdAt
-      `Prelude.hashWithSalt` id
-      `Prelude.hashWithSalt` resourceOwnerAccount
-      `Prelude.hashWithSalt` resourceType
-      `Prelude.hashWithSalt` status
+      `Prelude.hashWithSalt` analyzedAt
       `Prelude.hashWithSalt` updatedAt
+      `Prelude.hashWithSalt` status
+      `Prelude.hashWithSalt` resourceOwnerAccount
 
 instance Prelude.NFData Finding where
   rnf Finding' {..} =
-    Prelude.rnf error
+    Prelude.rnf action
+      `Prelude.seq` Prelude.rnf error
       `Prelude.seq` Prelude.rnf isPublic
-      `Prelude.seq` Prelude.rnf action
-      `Prelude.seq` Prelude.rnf sources
-      `Prelude.seq` Prelude.rnf resource
       `Prelude.seq` Prelude.rnf principal
-      `Prelude.seq` Prelude.rnf analyzedAt
+      `Prelude.seq` Prelude.rnf resource
+      `Prelude.seq` Prelude.rnf sources
+      `Prelude.seq` Prelude.rnf id
+      `Prelude.seq` Prelude.rnf resourceType
       `Prelude.seq` Prelude.rnf condition
       `Prelude.seq` Prelude.rnf createdAt
-      `Prelude.seq` Prelude.rnf id
-      `Prelude.seq` Prelude.rnf resourceOwnerAccount
-      `Prelude.seq` Prelude.rnf resourceType
-      `Prelude.seq` Prelude.rnf status
+      `Prelude.seq` Prelude.rnf analyzedAt
       `Prelude.seq` Prelude.rnf updatedAt
+      `Prelude.seq` Prelude.rnf status
+      `Prelude.seq` Prelude.rnf resourceOwnerAccount

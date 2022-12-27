@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.WaitTime
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.WaitTime where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies a duration or a date and time that indicates when Amazon
@@ -75,14 +76,14 @@ waitTime_waitFor = Lens.lens (\WaitTime' {waitFor} -> waitFor) (\s@WaitTime' {} 
 waitTime_waitUntil :: Lens.Lens' WaitTime (Prelude.Maybe Prelude.Text)
 waitTime_waitUntil = Lens.lens (\WaitTime' {waitUntil} -> waitUntil) (\s@WaitTime' {} a -> s {waitUntil = a} :: WaitTime)
 
-instance Core.FromJSON WaitTime where
+instance Data.FromJSON WaitTime where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "WaitTime"
       ( \x ->
           WaitTime'
-            Prelude.<$> (x Core..:? "WaitFor")
-            Prelude.<*> (x Core..:? "WaitUntil")
+            Prelude.<$> (x Data..:? "WaitFor")
+            Prelude.<*> (x Data..:? "WaitUntil")
       )
 
 instance Prelude.Hashable WaitTime where
@@ -95,11 +96,11 @@ instance Prelude.NFData WaitTime where
     Prelude.rnf waitFor
       `Prelude.seq` Prelude.rnf waitUntil
 
-instance Core.ToJSON WaitTime where
+instance Data.ToJSON WaitTime where
   toJSON WaitTime' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("WaitFor" Core..=) Prelude.<$> waitFor,
-            ("WaitUntil" Core..=) Prelude.<$> waitUntil
+          [ ("WaitFor" Data..=) Prelude.<$> waitFor,
+            ("WaitUntil" Data..=) Prelude.<$> waitUntil
           ]
       )

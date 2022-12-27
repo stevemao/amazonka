@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeArtifact.DeleteRepositoryPermissionsPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,16 +26,16 @@
 -- might not be immediate.
 --
 -- Use @DeleteRepositoryPermissionsPolicy@ with caution. After a policy is
--- deleted, AWS users, roles, and accounts lose permissions to perform the
--- repository actions granted by the deleted policy.
+-- deleted, Amazon Web Services users, roles, and accounts lose permissions
+-- to perform the repository actions granted by the deleted policy.
 module Amazonka.CodeArtifact.DeleteRepositoryPermissionsPolicy
   ( -- * Creating a Request
     DeleteRepositoryPermissionsPolicy (..),
     newDeleteRepositoryPermissionsPolicy,
 
     -- * Request Lenses
-    deleteRepositoryPermissionsPolicy_policyRevision,
     deleteRepositoryPermissionsPolicy_domainOwner,
+    deleteRepositoryPermissionsPolicy_policyRevision,
     deleteRepositoryPermissionsPolicy_domain,
     deleteRepositoryPermissionsPolicy_repository,
 
@@ -51,21 +51,22 @@ where
 
 import Amazonka.CodeArtifact.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteRepositoryPermissionsPolicy' smart constructor.
 data DeleteRepositoryPermissionsPolicy = DeleteRepositoryPermissionsPolicy'
-  { -- | The revision of the repository\'s resource policy to be deleted. This
+  { -- | The 12-digit account number of the Amazon Web Services account that owns
+    -- the domain. It does not include dashes or spaces.
+    domainOwner :: Prelude.Maybe Prelude.Text,
+    -- | The revision of the repository\'s resource policy to be deleted. This
     -- revision is used for optimistic locking, which prevents others from
     -- accidentally overwriting your changes to the repository\'s resource
     -- policy.
     policyRevision :: Prelude.Maybe Prelude.Text,
-    -- | The 12-digit account number of the AWS account that owns the domain. It
-    -- does not include dashes or spaces.
-    domainOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the domain that contains the repository associated with the
     -- resource policy to be deleted.
     domain :: Prelude.Text,
@@ -83,13 +84,13 @@ data DeleteRepositoryPermissionsPolicy = DeleteRepositoryPermissionsPolicy'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'domainOwner', 'deleteRepositoryPermissionsPolicy_domainOwner' - The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
+--
 -- 'policyRevision', 'deleteRepositoryPermissionsPolicy_policyRevision' - The revision of the repository\'s resource policy to be deleted. This
 -- revision is used for optimistic locking, which prevents others from
 -- accidentally overwriting your changes to the repository\'s resource
 -- policy.
---
--- 'domainOwner', 'deleteRepositoryPermissionsPolicy_domainOwner' - The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
 --
 -- 'domain', 'deleteRepositoryPermissionsPolicy_domain' - The name of the domain that contains the repository associated with the
 -- resource policy to be deleted.
@@ -106,12 +107,17 @@ newDeleteRepositoryPermissionsPolicy
   pDomain_
   pRepository_ =
     DeleteRepositoryPermissionsPolicy'
-      { policyRevision =
+      { domainOwner =
           Prelude.Nothing,
-        domainOwner = Prelude.Nothing,
+        policyRevision = Prelude.Nothing,
         domain = pDomain_,
         repository = pRepository_
       }
+
+-- | The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
+deleteRepositoryPermissionsPolicy_domainOwner :: Lens.Lens' DeleteRepositoryPermissionsPolicy (Prelude.Maybe Prelude.Text)
+deleteRepositoryPermissionsPolicy_domainOwner = Lens.lens (\DeleteRepositoryPermissionsPolicy' {domainOwner} -> domainOwner) (\s@DeleteRepositoryPermissionsPolicy' {} a -> s {domainOwner = a} :: DeleteRepositoryPermissionsPolicy)
 
 -- | The revision of the repository\'s resource policy to be deleted. This
 -- revision is used for optimistic locking, which prevents others from
@@ -119,11 +125,6 @@ newDeleteRepositoryPermissionsPolicy
 -- policy.
 deleteRepositoryPermissionsPolicy_policyRevision :: Lens.Lens' DeleteRepositoryPermissionsPolicy (Prelude.Maybe Prelude.Text)
 deleteRepositoryPermissionsPolicy_policyRevision = Lens.lens (\DeleteRepositoryPermissionsPolicy' {policyRevision} -> policyRevision) (\s@DeleteRepositoryPermissionsPolicy' {} a -> s {policyRevision = a} :: DeleteRepositoryPermissionsPolicy)
-
--- | The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
-deleteRepositoryPermissionsPolicy_domainOwner :: Lens.Lens' DeleteRepositoryPermissionsPolicy (Prelude.Maybe Prelude.Text)
-deleteRepositoryPermissionsPolicy_domainOwner = Lens.lens (\DeleteRepositoryPermissionsPolicy' {domainOwner} -> domainOwner) (\s@DeleteRepositoryPermissionsPolicy' {} a -> s {domainOwner = a} :: DeleteRepositoryPermissionsPolicy)
 
 -- | The name of the domain that contains the repository associated with the
 -- resource policy to be deleted.
@@ -142,12 +143,13 @@ instance
   type
     AWSResponse DeleteRepositoryPermissionsPolicy =
       DeleteRepositoryPermissionsPolicyResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteRepositoryPermissionsPolicyResponse'
-            Prelude.<$> (x Core..?> "policy")
+            Prelude.<$> (x Data..?> "policy")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -158,8 +160,8 @@ instance
   hashWithSalt
     _salt
     DeleteRepositoryPermissionsPolicy' {..} =
-      _salt `Prelude.hashWithSalt` policyRevision
-        `Prelude.hashWithSalt` domainOwner
+      _salt `Prelude.hashWithSalt` domainOwner
+        `Prelude.hashWithSalt` policyRevision
         `Prelude.hashWithSalt` domain
         `Prelude.hashWithSalt` repository
 
@@ -168,42 +170,42 @@ instance
     DeleteRepositoryPermissionsPolicy
   where
   rnf DeleteRepositoryPermissionsPolicy' {..} =
-    Prelude.rnf policyRevision
-      `Prelude.seq` Prelude.rnf domainOwner
+    Prelude.rnf domainOwner
+      `Prelude.seq` Prelude.rnf policyRevision
       `Prelude.seq` Prelude.rnf domain
       `Prelude.seq` Prelude.rnf repository
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteRepositoryPermissionsPolicy
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DeleteRepositoryPermissionsPolicy
   where
   toPath =
     Prelude.const "/v1/repository/permissions/policies"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DeleteRepositoryPermissionsPolicy
   where
   toQuery DeleteRepositoryPermissionsPolicy' {..} =
     Prelude.mconcat
-      [ "policy-revision" Core.=: policyRevision,
-        "domain-owner" Core.=: domainOwner,
-        "domain" Core.=: domain,
-        "repository" Core.=: repository
+      [ "domain-owner" Data.=: domainOwner,
+        "policy-revision" Data.=: policyRevision,
+        "domain" Data.=: domain,
+        "repository" Data.=: repository
       ]
 
 -- | /See:/ 'newDeleteRepositoryPermissionsPolicyResponse' smart constructor.

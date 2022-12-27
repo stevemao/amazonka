@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Backup.GetBackupVaultNotifications
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,17 +34,18 @@ module Amazonka.Backup.GetBackupVaultNotifications
     newGetBackupVaultNotificationsResponse,
 
     -- * Response Lenses
-    getBackupVaultNotificationsResponse_sNSTopicArn,
     getBackupVaultNotificationsResponse_backupVaultArn,
-    getBackupVaultNotificationsResponse_backupVaultName,
     getBackupVaultNotificationsResponse_backupVaultEvents,
+    getBackupVaultNotificationsResponse_backupVaultName,
+    getBackupVaultNotificationsResponse_sNSTopicArn,
     getBackupVaultNotificationsResponse_httpStatus,
   )
 where
 
 import Amazonka.Backup.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,17 +93,18 @@ instance Core.AWSRequest GetBackupVaultNotifications where
   type
     AWSResponse GetBackupVaultNotifications =
       GetBackupVaultNotificationsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetBackupVaultNotificationsResponse'
-            Prelude.<$> (x Core..?> "SNSTopicArn")
-            Prelude.<*> (x Core..?> "BackupVaultArn")
-            Prelude.<*> (x Core..?> "BackupVaultName")
-            Prelude.<*> ( x Core..?> "BackupVaultEvents"
+            Prelude.<$> (x Data..?> "BackupVaultArn")
+            Prelude.<*> ( x Data..?> "BackupVaultEvents"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "BackupVaultName")
+            Prelude.<*> (x Data..?> "SNSTopicArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -114,45 +116,45 @@ instance Prelude.NFData GetBackupVaultNotifications where
   rnf GetBackupVaultNotifications' {..} =
     Prelude.rnf backupVaultName
 
-instance Core.ToHeaders GetBackupVaultNotifications where
+instance Data.ToHeaders GetBackupVaultNotifications where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetBackupVaultNotifications where
+instance Data.ToPath GetBackupVaultNotifications where
   toPath GetBackupVaultNotifications' {..} =
     Prelude.mconcat
       [ "/backup-vaults/",
-        Core.toBS backupVaultName,
+        Data.toBS backupVaultName,
         "/notification-configuration"
       ]
 
-instance Core.ToQuery GetBackupVaultNotifications where
+instance Data.ToQuery GetBackupVaultNotifications where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetBackupVaultNotificationsResponse' smart constructor.
 data GetBackupVaultNotificationsResponse = GetBackupVaultNotificationsResponse'
-  { -- | An ARN that uniquely identifies an Amazon Simple Notification Service
-    -- (Amazon SNS) topic; for example,
-    -- @arn:aws:sns:us-west-2:111122223333:MyTopic@.
-    sNSTopicArn :: Prelude.Maybe Prelude.Text,
-    -- | An Amazon Resource Name (ARN) that uniquely identifies a backup vault;
+  { -- | An Amazon Resource Name (ARN) that uniquely identifies a backup vault;
     -- for example, @arn:aws:backup:us-east-1:123456789012:vault:aBackupVault@.
     backupVaultArn :: Prelude.Maybe Prelude.Text,
+    -- | An array of events that indicate the status of jobs to back up resources
+    -- to the backup vault.
+    backupVaultEvents :: Prelude.Maybe [BackupVaultEvent],
     -- | The name of a logical container where backups are stored. Backup vaults
     -- are identified by names that are unique to the account used to create
     -- them and the Region where they are created. They consist of lowercase
     -- letters, numbers, and hyphens.
     backupVaultName :: Prelude.Maybe Prelude.Text,
-    -- | An array of events that indicate the status of jobs to back up resources
-    -- to the backup vault.
-    backupVaultEvents :: Prelude.Maybe [BackupVaultEvent],
+    -- | An ARN that uniquely identifies an Amazon Simple Notification Service
+    -- (Amazon SNS) topic; for example,
+    -- @arn:aws:sns:us-west-2:111122223333:MyTopic@.
+    sNSTopicArn :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -166,20 +168,20 @@ data GetBackupVaultNotificationsResponse = GetBackupVaultNotificationsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sNSTopicArn', 'getBackupVaultNotificationsResponse_sNSTopicArn' - An ARN that uniquely identifies an Amazon Simple Notification Service
--- (Amazon SNS) topic; for example,
--- @arn:aws:sns:us-west-2:111122223333:MyTopic@.
---
 -- 'backupVaultArn', 'getBackupVaultNotificationsResponse_backupVaultArn' - An Amazon Resource Name (ARN) that uniquely identifies a backup vault;
 -- for example, @arn:aws:backup:us-east-1:123456789012:vault:aBackupVault@.
+--
+-- 'backupVaultEvents', 'getBackupVaultNotificationsResponse_backupVaultEvents' - An array of events that indicate the status of jobs to back up resources
+-- to the backup vault.
 --
 -- 'backupVaultName', 'getBackupVaultNotificationsResponse_backupVaultName' - The name of a logical container where backups are stored. Backup vaults
 -- are identified by names that are unique to the account used to create
 -- them and the Region where they are created. They consist of lowercase
 -- letters, numbers, and hyphens.
 --
--- 'backupVaultEvents', 'getBackupVaultNotificationsResponse_backupVaultEvents' - An array of events that indicate the status of jobs to back up resources
--- to the backup vault.
+-- 'sNSTopicArn', 'getBackupVaultNotificationsResponse_sNSTopicArn' - An ARN that uniquely identifies an Amazon Simple Notification Service
+-- (Amazon SNS) topic; for example,
+-- @arn:aws:sns:us-west-2:111122223333:MyTopic@.
 --
 -- 'httpStatus', 'getBackupVaultNotificationsResponse_httpStatus' - The response's http status code.
 newGetBackupVaultNotificationsResponse ::
@@ -188,24 +190,23 @@ newGetBackupVaultNotificationsResponse ::
   GetBackupVaultNotificationsResponse
 newGetBackupVaultNotificationsResponse pHttpStatus_ =
   GetBackupVaultNotificationsResponse'
-    { sNSTopicArn =
+    { backupVaultArn =
         Prelude.Nothing,
-      backupVaultArn = Prelude.Nothing,
-      backupVaultName = Prelude.Nothing,
       backupVaultEvents = Prelude.Nothing,
+      backupVaultName = Prelude.Nothing,
+      sNSTopicArn = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | An ARN that uniquely identifies an Amazon Simple Notification Service
--- (Amazon SNS) topic; for example,
--- @arn:aws:sns:us-west-2:111122223333:MyTopic@.
-getBackupVaultNotificationsResponse_sNSTopicArn :: Lens.Lens' GetBackupVaultNotificationsResponse (Prelude.Maybe Prelude.Text)
-getBackupVaultNotificationsResponse_sNSTopicArn = Lens.lens (\GetBackupVaultNotificationsResponse' {sNSTopicArn} -> sNSTopicArn) (\s@GetBackupVaultNotificationsResponse' {} a -> s {sNSTopicArn = a} :: GetBackupVaultNotificationsResponse)
 
 -- | An Amazon Resource Name (ARN) that uniquely identifies a backup vault;
 -- for example, @arn:aws:backup:us-east-1:123456789012:vault:aBackupVault@.
 getBackupVaultNotificationsResponse_backupVaultArn :: Lens.Lens' GetBackupVaultNotificationsResponse (Prelude.Maybe Prelude.Text)
 getBackupVaultNotificationsResponse_backupVaultArn = Lens.lens (\GetBackupVaultNotificationsResponse' {backupVaultArn} -> backupVaultArn) (\s@GetBackupVaultNotificationsResponse' {} a -> s {backupVaultArn = a} :: GetBackupVaultNotificationsResponse)
+
+-- | An array of events that indicate the status of jobs to back up resources
+-- to the backup vault.
+getBackupVaultNotificationsResponse_backupVaultEvents :: Lens.Lens' GetBackupVaultNotificationsResponse (Prelude.Maybe [BackupVaultEvent])
+getBackupVaultNotificationsResponse_backupVaultEvents = Lens.lens (\GetBackupVaultNotificationsResponse' {backupVaultEvents} -> backupVaultEvents) (\s@GetBackupVaultNotificationsResponse' {} a -> s {backupVaultEvents = a} :: GetBackupVaultNotificationsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of a logical container where backups are stored. Backup vaults
 -- are identified by names that are unique to the account used to create
@@ -214,10 +215,11 @@ getBackupVaultNotificationsResponse_backupVaultArn = Lens.lens (\GetBackupVaultN
 getBackupVaultNotificationsResponse_backupVaultName :: Lens.Lens' GetBackupVaultNotificationsResponse (Prelude.Maybe Prelude.Text)
 getBackupVaultNotificationsResponse_backupVaultName = Lens.lens (\GetBackupVaultNotificationsResponse' {backupVaultName} -> backupVaultName) (\s@GetBackupVaultNotificationsResponse' {} a -> s {backupVaultName = a} :: GetBackupVaultNotificationsResponse)
 
--- | An array of events that indicate the status of jobs to back up resources
--- to the backup vault.
-getBackupVaultNotificationsResponse_backupVaultEvents :: Lens.Lens' GetBackupVaultNotificationsResponse (Prelude.Maybe [BackupVaultEvent])
-getBackupVaultNotificationsResponse_backupVaultEvents = Lens.lens (\GetBackupVaultNotificationsResponse' {backupVaultEvents} -> backupVaultEvents) (\s@GetBackupVaultNotificationsResponse' {} a -> s {backupVaultEvents = a} :: GetBackupVaultNotificationsResponse) Prelude.. Lens.mapping Lens.coerced
+-- | An ARN that uniquely identifies an Amazon Simple Notification Service
+-- (Amazon SNS) topic; for example,
+-- @arn:aws:sns:us-west-2:111122223333:MyTopic@.
+getBackupVaultNotificationsResponse_sNSTopicArn :: Lens.Lens' GetBackupVaultNotificationsResponse (Prelude.Maybe Prelude.Text)
+getBackupVaultNotificationsResponse_sNSTopicArn = Lens.lens (\GetBackupVaultNotificationsResponse' {sNSTopicArn} -> sNSTopicArn) (\s@GetBackupVaultNotificationsResponse' {} a -> s {sNSTopicArn = a} :: GetBackupVaultNotificationsResponse)
 
 -- | The response's http status code.
 getBackupVaultNotificationsResponse_httpStatus :: Lens.Lens' GetBackupVaultNotificationsResponse Prelude.Int
@@ -228,8 +230,8 @@ instance
     GetBackupVaultNotificationsResponse
   where
   rnf GetBackupVaultNotificationsResponse' {..} =
-    Prelude.rnf sNSTopicArn
-      `Prelude.seq` Prelude.rnf backupVaultArn
-      `Prelude.seq` Prelude.rnf backupVaultName
+    Prelude.rnf backupVaultArn
       `Prelude.seq` Prelude.rnf backupVaultEvents
+      `Prelude.seq` Prelude.rnf backupVaultName
+      `Prelude.seq` Prelude.rnf sNSTopicArn
       `Prelude.seq` Prelude.rnf httpStatus

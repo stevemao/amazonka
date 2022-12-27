@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.GetTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,10 +23,10 @@
 -- Returns the template body for a specified stack. You can get the
 -- template for running or deleted stacks.
 --
--- For deleted stacks, GetTemplate returns the template for up to 90 days
+-- For deleted stacks, @GetTemplate@ returns the template for up to 90 days
 -- after the stack has been deleted.
 --
--- If the template does not exist, a @ValidationError@ is returned.
+-- If the template doesn\'t exist, a @ValidationError@ is returned.
 module Amazonka.CloudFormation.GetTemplate
   ( -- * Creating a Request
     GetTemplate (..),
@@ -34,8 +34,8 @@ module Amazonka.CloudFormation.GetTemplate
 
     -- * Request Lenses
     getTemplate_changeSetName,
-    getTemplate_templateStage,
     getTemplate_stackName,
+    getTemplate_templateStage,
 
     -- * Destructuring the Response
     GetTemplateResponse (..),
@@ -50,7 +50,8 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -63,6 +64,16 @@ data GetTemplate = GetTemplate'
     -- CloudFormation returns the associated template. If you specify a name,
     -- you must also specify the @StackName@.
     changeSetName :: Prelude.Maybe Prelude.Text,
+    -- | The name or the unique stack ID that\'s associated with the stack, which
+    -- aren\'t always interchangeable:
+    --
+    -- -   Running stacks: You can specify either the stack\'s name or its
+    --     unique stack ID.
+    --
+    -- -   Deleted stacks: You must specify the unique stack ID.
+    --
+    -- Default: There is no default value.
+    stackName :: Prelude.Maybe Prelude.Text,
     -- | For templates that include transforms, the stage of the template that
     -- CloudFormation returns. To get the user-submitted template, specify
     -- @Original@. To get the template after CloudFormation has processed all
@@ -71,17 +82,7 @@ data GetTemplate = GetTemplate'
     -- If the template doesn\'t include transforms, @Original@ and @Processed@
     -- return the same template. By default, CloudFormation specifies
     -- @Processed@.
-    templateStage :: Prelude.Maybe TemplateStage,
-    -- | The name or the unique stack ID that is associated with the stack, which
-    -- are not always interchangeable:
-    --
-    -- -   Running stacks: You can specify either the stack\'s name or its
-    --     unique stack ID.
-    --
-    -- -   Deleted stacks: You must specify the unique stack ID.
-    --
-    -- Default: There is no default value.
-    stackName :: Prelude.Maybe Prelude.Text
+    templateStage :: Prelude.Maybe TemplateStage
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -97,6 +98,16 @@ data GetTemplate = GetTemplate'
 -- CloudFormation returns the associated template. If you specify a name,
 -- you must also specify the @StackName@.
 --
+-- 'stackName', 'getTemplate_stackName' - The name or the unique stack ID that\'s associated with the stack, which
+-- aren\'t always interchangeable:
+--
+-- -   Running stacks: You can specify either the stack\'s name or its
+--     unique stack ID.
+--
+-- -   Deleted stacks: You must specify the unique stack ID.
+--
+-- Default: There is no default value.
+--
 -- 'templateStage', 'getTemplate_templateStage' - For templates that include transforms, the stage of the template that
 -- CloudFormation returns. To get the user-submitted template, specify
 -- @Original@. To get the template after CloudFormation has processed all
@@ -105,23 +116,13 @@ data GetTemplate = GetTemplate'
 -- If the template doesn\'t include transforms, @Original@ and @Processed@
 -- return the same template. By default, CloudFormation specifies
 -- @Processed@.
---
--- 'stackName', 'getTemplate_stackName' - The name or the unique stack ID that is associated with the stack, which
--- are not always interchangeable:
---
--- -   Running stacks: You can specify either the stack\'s name or its
---     unique stack ID.
---
--- -   Deleted stacks: You must specify the unique stack ID.
---
--- Default: There is no default value.
 newGetTemplate ::
   GetTemplate
 newGetTemplate =
   GetTemplate'
     { changeSetName = Prelude.Nothing,
-      templateStage = Prelude.Nothing,
-      stackName = Prelude.Nothing
+      stackName = Prelude.Nothing,
+      templateStage = Prelude.Nothing
     }
 
 -- | The name or Amazon Resource Name (ARN) of a change set for which
@@ -129,6 +130,18 @@ newGetTemplate =
 -- you must also specify the @StackName@.
 getTemplate_changeSetName :: Lens.Lens' GetTemplate (Prelude.Maybe Prelude.Text)
 getTemplate_changeSetName = Lens.lens (\GetTemplate' {changeSetName} -> changeSetName) (\s@GetTemplate' {} a -> s {changeSetName = a} :: GetTemplate)
+
+-- | The name or the unique stack ID that\'s associated with the stack, which
+-- aren\'t always interchangeable:
+--
+-- -   Running stacks: You can specify either the stack\'s name or its
+--     unique stack ID.
+--
+-- -   Deleted stacks: You must specify the unique stack ID.
+--
+-- Default: There is no default value.
+getTemplate_stackName :: Lens.Lens' GetTemplate (Prelude.Maybe Prelude.Text)
+getTemplate_stackName = Lens.lens (\GetTemplate' {stackName} -> stackName) (\s@GetTemplate' {} a -> s {stackName = a} :: GetTemplate)
 
 -- | For templates that include transforms, the stage of the template that
 -- CloudFormation returns. To get the user-submitted template, specify
@@ -141,61 +154,50 @@ getTemplate_changeSetName = Lens.lens (\GetTemplate' {changeSetName} -> changeSe
 getTemplate_templateStage :: Lens.Lens' GetTemplate (Prelude.Maybe TemplateStage)
 getTemplate_templateStage = Lens.lens (\GetTemplate' {templateStage} -> templateStage) (\s@GetTemplate' {} a -> s {templateStage = a} :: GetTemplate)
 
--- | The name or the unique stack ID that is associated with the stack, which
--- are not always interchangeable:
---
--- -   Running stacks: You can specify either the stack\'s name or its
---     unique stack ID.
---
--- -   Deleted stacks: You must specify the unique stack ID.
---
--- Default: There is no default value.
-getTemplate_stackName :: Lens.Lens' GetTemplate (Prelude.Maybe Prelude.Text)
-getTemplate_stackName = Lens.lens (\GetTemplate' {stackName} -> stackName) (\s@GetTemplate' {} a -> s {stackName = a} :: GetTemplate)
-
 instance Core.AWSRequest GetTemplate where
   type AWSResponse GetTemplate = GetTemplateResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GetTemplateResult"
       ( \s h x ->
           GetTemplateResponse'
-            Prelude.<$> ( x Core..@? "StagesAvailable" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> ( x Data..@? "StagesAvailable" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> (x Core..@? "TemplateBody")
+            Prelude.<*> (x Data..@? "TemplateBody")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetTemplate where
   hashWithSalt _salt GetTemplate' {..} =
     _salt `Prelude.hashWithSalt` changeSetName
-      `Prelude.hashWithSalt` templateStage
       `Prelude.hashWithSalt` stackName
+      `Prelude.hashWithSalt` templateStage
 
 instance Prelude.NFData GetTemplate where
   rnf GetTemplate' {..} =
     Prelude.rnf changeSetName
-      `Prelude.seq` Prelude.rnf templateStage
       `Prelude.seq` Prelude.rnf stackName
+      `Prelude.seq` Prelude.rnf templateStage
 
-instance Core.ToHeaders GetTemplate where
+instance Data.ToHeaders GetTemplate where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetTemplate where
+instance Data.ToPath GetTemplate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetTemplate where
+instance Data.ToQuery GetTemplate where
   toQuery GetTemplate' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("GetTemplate" :: Prelude.ByteString),
+          Data.=: ("GetTemplate" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
-        "ChangeSetName" Core.=: changeSetName,
-        "TemplateStage" Core.=: templateStage,
-        "StackName" Core.=: stackName
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "ChangeSetName" Data.=: changeSetName,
+        "StackName" Data.=: stackName,
+        "TemplateStage" Data.=: templateStage
       ]
 
 -- | The output for GetTemplate action.

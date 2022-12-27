@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Account.DeleteAlternateContact
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,6 +26,12 @@
 -- For complete details about how to use the alternate contact operations,
 -- see
 -- <https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-update-contact.html Access or updating the alternate contacts>.
+--
+-- Before you can update the alternate contact information for an Amazon
+-- Web Services account that is managed by Organizations, you must first
+-- enable integration between Amazon Web Services Account Management and
+-- Organizations. For more information, see
+-- <https://docs.aws.amazon.com/accounts/latest/reference/using-orgs-trusted-access.html Enabling trusted access for Amazon Web Services Account Management>.
 module Amazonka.Account.DeleteAlternateContact
   ( -- * Creating a Request
     DeleteAlternateContact (..),
@@ -43,7 +49,8 @@ where
 
 import Amazonka.Account.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -163,7 +170,8 @@ instance Core.AWSRequest DeleteAlternateContact where
   type
     AWSResponse DeleteAlternateContact =
       DeleteAlternateContactResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       DeleteAlternateContactResponse'
@@ -178,33 +186,33 @@ instance Prelude.NFData DeleteAlternateContact where
     Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf alternateContactType
 
-instance Core.ToHeaders DeleteAlternateContact where
+instance Data.ToHeaders DeleteAlternateContact where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteAlternateContact where
+instance Data.ToJSON DeleteAlternateContact where
   toJSON DeleteAlternateContact' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AccountId" Core..=) Prelude.<$> accountId,
+          [ ("AccountId" Data..=) Prelude.<$> accountId,
             Prelude.Just
               ( "AlternateContactType"
-                  Core..= alternateContactType
+                  Data..= alternateContactType
               )
           ]
       )
 
-instance Core.ToPath DeleteAlternateContact where
+instance Data.ToPath DeleteAlternateContact where
   toPath = Prelude.const "/deleteAlternateContact"
 
-instance Core.ToQuery DeleteAlternateContact where
+instance Data.ToQuery DeleteAlternateContact where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAlternateContactResponse' smart constructor.

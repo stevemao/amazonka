@@ -14,16 +14,17 @@
 
 -- |
 -- Module      : Amazonka.WorkSpaces.ImportWorkspaceImage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Imports the specified Windows 10 Bring Your Own License (BYOL) image
--- into Amazon WorkSpaces. The image must be an already licensed Amazon EC2
--- image that is in your Amazon Web Services account, and you must own the
--- image. For more information about creating BYOL images, see
+-- Imports the specified Windows 10 Bring Your Own License (BYOL) or
+-- Windows Server 2016 BYOL image into Amazon WorkSpaces. The image must be
+-- an already licensed Amazon EC2 image that is in your Amazon Web Services
+-- account, and you must own the image. For more information about creating
+-- BYOL images, see
 -- <https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html Bring Your Own Windows Desktop Licenses>.
 module Amazonka.WorkSpaces.ImportWorkspaceImage
   ( -- * Creating a Request
@@ -49,7 +50,8 @@ module Amazonka.WorkSpaces.ImportWorkspaceImage
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -71,13 +73,19 @@ data ImportWorkspaceImage = ImportWorkspaceImage'
     ec2ImageId :: Prelude.Text,
     -- | The ingestion process to be used when importing the image, depending on
     -- which protocol you want to use for your BYOL Workspace image, either
-    -- PCoIP or WorkSpaces Streaming Protocol (WSP). To use WSP, specify a
-    -- value that ends in @_WSP@. To use PCoIP, specify a value that does not
-    -- end in @_WSP@.
+    -- PCoIP, WorkSpaces Streaming Protocol (WSP), or bring your own protocol
+    -- (BYOP). To use WSP, specify a value that ends in @_WSP@. To use PCoIP,
+    -- specify a value that does not end in @_WSP@. To use BYOP, specify a
+    -- value that ends in @_BYOP@.
     --
     -- For non-GPU-enabled bundles (bundles other than Graphics or
-    -- GraphicsPro), specify @BYOL_REGULAR@ or @BYOL_REGULAR_WSP@, depending on
-    -- the protocol.
+    -- GraphicsPro), specify @BYOL_REGULAR@, @BYOL_REGULAR_WSP@, or
+    -- @BYOL_REGULAR_BYOP@, depending on the protocol.
+    --
+    -- The @BYOL_REGULAR_BYOP@ and @BYOL_GRAPHICS_G4DN_BYOP@ values are only
+    -- supported by Amazon WorkSpaces Core. Contact your account team to be
+    -- allow-listed to use these values. For more information, see
+    -- <http://aws.amazon.com/workspaces/core/ Amazon WorkSpaces Core>.
     ingestionProcess :: WorkspaceImageIngestionProcess,
     -- | The name of the WorkSpace image.
     imageName :: Prelude.Text,
@@ -108,13 +116,19 @@ data ImportWorkspaceImage = ImportWorkspaceImage'
 --
 -- 'ingestionProcess', 'importWorkspaceImage_ingestionProcess' - The ingestion process to be used when importing the image, depending on
 -- which protocol you want to use for your BYOL Workspace image, either
--- PCoIP or WorkSpaces Streaming Protocol (WSP). To use WSP, specify a
--- value that ends in @_WSP@. To use PCoIP, specify a value that does not
--- end in @_WSP@.
+-- PCoIP, WorkSpaces Streaming Protocol (WSP), or bring your own protocol
+-- (BYOP). To use WSP, specify a value that ends in @_WSP@. To use PCoIP,
+-- specify a value that does not end in @_WSP@. To use BYOP, specify a
+-- value that ends in @_BYOP@.
 --
 -- For non-GPU-enabled bundles (bundles other than Graphics or
--- GraphicsPro), specify @BYOL_REGULAR@ or @BYOL_REGULAR_WSP@, depending on
--- the protocol.
+-- GraphicsPro), specify @BYOL_REGULAR@, @BYOL_REGULAR_WSP@, or
+-- @BYOL_REGULAR_BYOP@, depending on the protocol.
+--
+-- The @BYOL_REGULAR_BYOP@ and @BYOL_GRAPHICS_G4DN_BYOP@ values are only
+-- supported by Amazon WorkSpaces Core. Contact your account team to be
+-- allow-listed to use these values. For more information, see
+-- <http://aws.amazon.com/workspaces/core/ Amazon WorkSpaces Core>.
 --
 -- 'imageName', 'importWorkspaceImage_imageName' - The name of the WorkSpace image.
 --
@@ -164,13 +178,19 @@ importWorkspaceImage_ec2ImageId = Lens.lens (\ImportWorkspaceImage' {ec2ImageId}
 
 -- | The ingestion process to be used when importing the image, depending on
 -- which protocol you want to use for your BYOL Workspace image, either
--- PCoIP or WorkSpaces Streaming Protocol (WSP). To use WSP, specify a
--- value that ends in @_WSP@. To use PCoIP, specify a value that does not
--- end in @_WSP@.
+-- PCoIP, WorkSpaces Streaming Protocol (WSP), or bring your own protocol
+-- (BYOP). To use WSP, specify a value that ends in @_WSP@. To use PCoIP,
+-- specify a value that does not end in @_WSP@. To use BYOP, specify a
+-- value that ends in @_BYOP@.
 --
 -- For non-GPU-enabled bundles (bundles other than Graphics or
--- GraphicsPro), specify @BYOL_REGULAR@ or @BYOL_REGULAR_WSP@, depending on
--- the protocol.
+-- GraphicsPro), specify @BYOL_REGULAR@, @BYOL_REGULAR_WSP@, or
+-- @BYOL_REGULAR_BYOP@, depending on the protocol.
+--
+-- The @BYOL_REGULAR_BYOP@ and @BYOL_GRAPHICS_G4DN_BYOP@ values are only
+-- supported by Amazon WorkSpaces Core. Contact your account team to be
+-- allow-listed to use these values. For more information, see
+-- <http://aws.amazon.com/workspaces/core/ Amazon WorkSpaces Core>.
 importWorkspaceImage_ingestionProcess :: Lens.Lens' ImportWorkspaceImage WorkspaceImageIngestionProcess
 importWorkspaceImage_ingestionProcess = Lens.lens (\ImportWorkspaceImage' {ingestionProcess} -> ingestionProcess) (\s@ImportWorkspaceImage' {} a -> s {ingestionProcess = a} :: ImportWorkspaceImage)
 
@@ -186,12 +206,13 @@ instance Core.AWSRequest ImportWorkspaceImage where
   type
     AWSResponse ImportWorkspaceImage =
       ImportWorkspaceImageResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ImportWorkspaceImageResponse'
-            Prelude.<$> (x Core..?> "ImageId")
+            Prelude.<$> (x Data..?> "ImageId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -213,40 +234,40 @@ instance Prelude.NFData ImportWorkspaceImage where
       `Prelude.seq` Prelude.rnf imageName
       `Prelude.seq` Prelude.rnf imageDescription
 
-instance Core.ToHeaders ImportWorkspaceImage where
+instance Data.ToHeaders ImportWorkspaceImage where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkspacesService.ImportWorkspaceImage" ::
+              Data.=# ( "WorkspacesService.ImportWorkspaceImage" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ImportWorkspaceImage where
+instance Data.ToJSON ImportWorkspaceImage where
   toJSON ImportWorkspaceImage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Applications" Core..=) Prelude.<$> applications,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Ec2ImageId" Core..= ec2ImageId),
+          [ ("Applications" Data..=) Prelude.<$> applications,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Ec2ImageId" Data..= ec2ImageId),
             Prelude.Just
-              ("IngestionProcess" Core..= ingestionProcess),
-            Prelude.Just ("ImageName" Core..= imageName),
+              ("IngestionProcess" Data..= ingestionProcess),
+            Prelude.Just ("ImageName" Data..= imageName),
             Prelude.Just
-              ("ImageDescription" Core..= imageDescription)
+              ("ImageDescription" Data..= imageDescription)
           ]
       )
 
-instance Core.ToPath ImportWorkspaceImage where
+instance Data.ToPath ImportWorkspaceImage where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ImportWorkspaceImage where
+instance Data.ToQuery ImportWorkspaceImage where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newImportWorkspaceImageResponse' smart constructor.

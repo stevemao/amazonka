@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Location.ListMaps
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Location.ListMaps
     newListMaps,
 
     -- * Request Lenses
-    listMaps_nextToken,
     listMaps_maxResults,
+    listMaps_nextToken,
 
     -- * Destructuring the Response
     ListMapsResponse (..),
@@ -44,7 +44,8 @@ module Amazonka.Location.ListMaps
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,15 +53,15 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListMaps' smart constructor.
 data ListMaps = ListMaps'
-  { -- | The pagination token specifying which page of results to return in the
+  { -- | An optional limit for the number of resources returned in a single call.
+    --
+    -- Default value: @100@
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token specifying which page of results to return in the
     -- response. If no token is provided, the default page is the first page.
     --
     -- Default value: @null@
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | An optional limit for the number of resources returned in a single call.
-    --
-    -- Default value: @100@
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -72,21 +73,27 @@ data ListMaps = ListMaps'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listMaps_maxResults' - An optional limit for the number of resources returned in a single call.
+--
+-- Default value: @100@
+--
 -- 'nextToken', 'listMaps_nextToken' - The pagination token specifying which page of results to return in the
 -- response. If no token is provided, the default page is the first page.
 --
 -- Default value: @null@
---
--- 'maxResults', 'listMaps_maxResults' - An optional limit for the number of resources returned in a single call.
---
--- Default value: @100@
 newListMaps ::
   ListMaps
 newListMaps =
   ListMaps'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | An optional limit for the number of resources returned in a single call.
+--
+-- Default value: @100@
+listMaps_maxResults :: Lens.Lens' ListMaps (Prelude.Maybe Prelude.Natural)
+listMaps_maxResults = Lens.lens (\ListMaps' {maxResults} -> maxResults) (\s@ListMaps' {} a -> s {maxResults = a} :: ListMaps)
 
 -- | The pagination token specifying which page of results to return in the
 -- response. If no token is provided, the default page is the first page.
@@ -94,12 +101,6 @@ newListMaps =
 -- Default value: @null@
 listMaps_nextToken :: Lens.Lens' ListMaps (Prelude.Maybe Prelude.Text)
 listMaps_nextToken = Lens.lens (\ListMaps' {nextToken} -> nextToken) (\s@ListMaps' {} a -> s {nextToken = a} :: ListMaps)
-
--- | An optional limit for the number of resources returned in a single call.
---
--- Default value: @100@
-listMaps_maxResults :: Lens.Lens' ListMaps (Prelude.Maybe Prelude.Natural)
-listMaps_maxResults = Lens.lens (\ListMaps' {maxResults} -> maxResults) (\s@ListMaps' {} a -> s {maxResults = a} :: ListMaps)
 
 instance Core.AWSPager ListMaps where
   page rq rs
@@ -119,50 +120,51 @@ instance Core.AWSPager ListMaps where
 
 instance Core.AWSRequest ListMaps where
   type AWSResponse ListMaps = ListMapsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListMapsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Entries" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Entries" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListMaps where
   hashWithSalt _salt ListMaps' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListMaps where
   rnf ListMaps' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListMaps where
+instance Data.ToHeaders ListMaps where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListMaps where
+instance Data.ToJSON ListMaps where
   toJSON ListMaps' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListMaps where
+instance Data.ToPath ListMaps where
   toPath = Prelude.const "/maps/v0/list-maps"
 
-instance Core.ToQuery ListMaps where
+instance Data.ToQuery ListMaps where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListMapsResponse' smart constructor.

@@ -14,18 +14,18 @@
 
 -- |
 -- Module      : Amazonka.Config.DeleteOrganizationConfigRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified organization config rule and all of its evaluation
+-- Deletes the specified organization Config rule and all of its evaluation
 -- results from all member accounts in that organization.
 --
--- Only a master account and a delegated administrator account can delete
--- an organization config rule. When calling this API with a delegated
--- administrator, you must ensure Organizations
+-- Only a management account and a delegated administrator account can
+-- delete an organization Config rule. When calling this API with a
+-- delegated administrator, you must ensure Organizations
 -- @ListDelegatedAdministrator@ permissions are added.
 --
 -- Config sets the state of a rule to DELETE_IN_PROGRESS until the deletion
@@ -46,14 +46,15 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteOrganizationConfigRule' smart constructor.
 data DeleteOrganizationConfigRule = DeleteOrganizationConfigRule'
-  { -- | The name of organization config rule that you want to delete.
+  { -- | The name of organization Config rule that you want to delete.
     organizationConfigRuleName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -66,7 +67,7 @@ data DeleteOrganizationConfigRule = DeleteOrganizationConfigRule'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'organizationConfigRuleName', 'deleteOrganizationConfigRule_organizationConfigRuleName' - The name of organization config rule that you want to delete.
+-- 'organizationConfigRuleName', 'deleteOrganizationConfigRule_organizationConfigRuleName' - The name of organization Config rule that you want to delete.
 newDeleteOrganizationConfigRule ::
   -- | 'organizationConfigRuleName'
   Prelude.Text ->
@@ -78,7 +79,7 @@ newDeleteOrganizationConfigRule
           pOrganizationConfigRuleName_
       }
 
--- | The name of organization config rule that you want to delete.
+-- | The name of organization Config rule that you want to delete.
 deleteOrganizationConfigRule_organizationConfigRuleName :: Lens.Lens' DeleteOrganizationConfigRule Prelude.Text
 deleteOrganizationConfigRule_organizationConfigRuleName = Lens.lens (\DeleteOrganizationConfigRule' {organizationConfigRuleName} -> organizationConfigRuleName) (\s@DeleteOrganizationConfigRule' {} a -> s {organizationConfigRuleName = a} :: DeleteOrganizationConfigRule)
 
@@ -86,7 +87,8 @@ instance Core.AWSRequest DeleteOrganizationConfigRule where
   type
     AWSResponse DeleteOrganizationConfigRule =
       DeleteOrganizationConfigRuleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       DeleteOrganizationConfigRuleResponse'
@@ -103,36 +105,36 @@ instance Prelude.NFData DeleteOrganizationConfigRule where
   rnf DeleteOrganizationConfigRule' {..} =
     Prelude.rnf organizationConfigRuleName
 
-instance Core.ToHeaders DeleteOrganizationConfigRule where
+instance Data.ToHeaders DeleteOrganizationConfigRule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.DeleteOrganizationConfigRule" ::
+              Data.=# ( "StarlingDoveService.DeleteOrganizationConfigRule" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteOrganizationConfigRule where
+instance Data.ToJSON DeleteOrganizationConfigRule where
   toJSON DeleteOrganizationConfigRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "OrganizationConfigRuleName"
-                  Core..= organizationConfigRuleName
+                  Data..= organizationConfigRuleName
               )
           ]
       )
 
-instance Core.ToPath DeleteOrganizationConfigRule where
+instance Data.ToPath DeleteOrganizationConfigRule where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteOrganizationConfigRule where
+instance Data.ToQuery DeleteOrganizationConfigRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteOrganizationConfigRuleResponse' smart constructor.

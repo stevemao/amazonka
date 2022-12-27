@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53AutoNaming.Types.OperationSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53AutoNaming.Types.OperationSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53AutoNaming.Types.OperationStatus
 
@@ -31,7 +32,9 @@ import Amazonka.Route53AutoNaming.Types.OperationStatus
 --
 -- /See:/ 'newOperationSummary' smart constructor.
 data OperationSummary = OperationSummary'
-  { -- | The status of the operation. Values include the following:
+  { -- | The ID for an operation.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The status of the operation. Values include the following:
     --
     -- -   __SUBMITTED__: This is the initial state immediately after you
     --     submit a request.
@@ -42,9 +45,7 @@ data OperationSummary = OperationSummary'
     --
     -- -   __FAIL__: The operation failed. For the failure reason, see
     --     @ErrorMessage@.
-    status :: Prelude.Maybe OperationStatus,
-    -- | The ID for an operation.
-    id :: Prelude.Maybe Prelude.Text
+    status :: Prelude.Maybe OperationStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -55,6 +56,8 @@ data OperationSummary = OperationSummary'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'id', 'operationSummary_id' - The ID for an operation.
 --
 -- 'status', 'operationSummary_status' - The status of the operation. Values include the following:
 --
@@ -67,15 +70,17 @@ data OperationSummary = OperationSummary'
 --
 -- -   __FAIL__: The operation failed. For the failure reason, see
 --     @ErrorMessage@.
---
--- 'id', 'operationSummary_id' - The ID for an operation.
 newOperationSummary ::
   OperationSummary
 newOperationSummary =
   OperationSummary'
-    { status = Prelude.Nothing,
-      id = Prelude.Nothing
+    { id = Prelude.Nothing,
+      status = Prelude.Nothing
     }
+
+-- | The ID for an operation.
+operationSummary_id :: Lens.Lens' OperationSummary (Prelude.Maybe Prelude.Text)
+operationSummary_id = Lens.lens (\OperationSummary' {id} -> id) (\s@OperationSummary' {} a -> s {id = a} :: OperationSummary)
 
 -- | The status of the operation. Values include the following:
 --
@@ -91,24 +96,20 @@ newOperationSummary =
 operationSummary_status :: Lens.Lens' OperationSummary (Prelude.Maybe OperationStatus)
 operationSummary_status = Lens.lens (\OperationSummary' {status} -> status) (\s@OperationSummary' {} a -> s {status = a} :: OperationSummary)
 
--- | The ID for an operation.
-operationSummary_id :: Lens.Lens' OperationSummary (Prelude.Maybe Prelude.Text)
-operationSummary_id = Lens.lens (\OperationSummary' {id} -> id) (\s@OperationSummary' {} a -> s {id = a} :: OperationSummary)
-
-instance Core.FromJSON OperationSummary where
+instance Data.FromJSON OperationSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OperationSummary"
       ( \x ->
           OperationSummary'
-            Prelude.<$> (x Core..:? "Status") Prelude.<*> (x Core..:? "Id")
+            Prelude.<$> (x Data..:? "Id") Prelude.<*> (x Data..:? "Status")
       )
 
 instance Prelude.Hashable OperationSummary where
   hashWithSalt _salt OperationSummary' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` id
+    _salt `Prelude.hashWithSalt` id
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData OperationSummary where
   rnf OperationSummary' {..} =
-    Prelude.rnf status `Prelude.seq` Prelude.rnf id
+    Prelude.rnf id `Prelude.seq` Prelude.rnf status

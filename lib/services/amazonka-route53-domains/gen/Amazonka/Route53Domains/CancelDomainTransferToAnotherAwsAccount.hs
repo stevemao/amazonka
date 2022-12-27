@@ -14,18 +14,19 @@
 
 -- |
 -- Module      : Amazonka.Route53Domains.CancelDomainTransferToAnotherAwsAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Cancels the transfer of a domain from the current AWS account to another
--- AWS account. You initiate a transfer between AWS accounts using
+-- Cancels the transfer of a domain from the current Amazon Web Services
+-- account to another Amazon Web Services account. You initiate a transfer
+-- betweenAmazon Web Services accounts using
 -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_TransferDomainToAnotherAwsAccount.html TransferDomainToAnotherAwsAccount>.
 --
--- You must cancel the transfer before the other AWS account accepts the
--- transfer using
+-- You must cancel the transfer before the other Amazon Web Services
+-- account accepts the transfer using
 -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_AcceptDomainTransferFromAnotherAwsAccount.html AcceptDomainTransferFromAnotherAwsAccount>.
 --
 -- Use either
@@ -55,7 +56,8 @@ module Amazonka.Route53Domains.CancelDomainTransferToAnotherAwsAccount
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -67,7 +69,7 @@ import Amazonka.Route53Domains.Types
 -- /See:/ 'newCancelDomainTransferToAnotherAwsAccount' smart constructor.
 data CancelDomainTransferToAnotherAwsAccount = CancelDomainTransferToAnotherAwsAccount'
   { -- | The name of the domain for which you want to cancel the transfer to
-    -- another AWS account.
+    -- another Amazon Web Services account.
     domainName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -81,7 +83,7 @@ data CancelDomainTransferToAnotherAwsAccount = CancelDomainTransferToAnotherAwsA
 -- for backwards compatibility:
 --
 -- 'domainName', 'cancelDomainTransferToAnotherAwsAccount_domainName' - The name of the domain for which you want to cancel the transfer to
--- another AWS account.
+-- another Amazon Web Services account.
 newCancelDomainTransferToAnotherAwsAccount ::
   -- | 'domainName'
   Prelude.Text ->
@@ -94,7 +96,7 @@ newCancelDomainTransferToAnotherAwsAccount
       }
 
 -- | The name of the domain for which you want to cancel the transfer to
--- another AWS account.
+-- another Amazon Web Services account.
 cancelDomainTransferToAnotherAwsAccount_domainName :: Lens.Lens' CancelDomainTransferToAnotherAwsAccount Prelude.Text
 cancelDomainTransferToAnotherAwsAccount_domainName = Lens.lens (\CancelDomainTransferToAnotherAwsAccount' {domainName} -> domainName) (\s@CancelDomainTransferToAnotherAwsAccount' {} a -> s {domainName = a} :: CancelDomainTransferToAnotherAwsAccount)
 
@@ -106,12 +108,13 @@ instance
     AWSResponse
       CancelDomainTransferToAnotherAwsAccount =
       CancelDomainTransferToAnotherAwsAccountResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CancelDomainTransferToAnotherAwsAccountResponse'
-            Prelude.<$> (x Core..?> "OperationId")
+            Prelude.<$> (x Data..?> "OperationId")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -132,41 +135,41 @@ instance
     Prelude.rnf domainName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CancelDomainTransferToAnotherAwsAccount
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53Domains_v20140515.CancelDomainTransferToAnotherAwsAccount" ::
+              Data.=# ( "Route53Domains_v20140515.CancelDomainTransferToAnotherAwsAccount" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     CancelDomainTransferToAnotherAwsAccount
   where
   toJSON CancelDomainTransferToAnotherAwsAccount' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("DomainName" Core..= domainName)]
+          [Prelude.Just ("DomainName" Data..= domainName)]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     CancelDomainTransferToAnotherAwsAccount
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     CancelDomainTransferToAnotherAwsAccount
   where
   toQuery = Prelude.const Prelude.mempty

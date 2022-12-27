@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.UpdateAccessPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.IoTSiteWise.UpdateAccessPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,8 +59,8 @@ data UpdateAccessPolicy = UpdateAccessPolicy'
     clientToken :: Prelude.Maybe Prelude.Text,
     -- | The ID of the access policy.
     accessPolicyId :: Prelude.Text,
-    -- | The identity for this access policy. Choose an Amazon Web Services SSO
-    -- user, an Amazon Web Services SSO group, or an IAM user.
+    -- | The identity for this access policy. Choose an IAM Identity Center user,
+    -- an IAM Identity Center group, or an IAM user.
     accessPolicyIdentity :: Identity,
     -- | The IoT SiteWise Monitor resource for this access policy. Choose either
     -- a portal or a project.
@@ -84,8 +85,8 @@ data UpdateAccessPolicy = UpdateAccessPolicy'
 --
 -- 'accessPolicyId', 'updateAccessPolicy_accessPolicyId' - The ID of the access policy.
 --
--- 'accessPolicyIdentity', 'updateAccessPolicy_accessPolicyIdentity' - The identity for this access policy. Choose an Amazon Web Services SSO
--- user, an Amazon Web Services SSO group, or an IAM user.
+-- 'accessPolicyIdentity', 'updateAccessPolicy_accessPolicyIdentity' - The identity for this access policy. Choose an IAM Identity Center user,
+-- an IAM Identity Center group, or an IAM user.
 --
 -- 'accessPolicyResource', 'updateAccessPolicy_accessPolicyResource' - The IoT SiteWise Monitor resource for this access policy. Choose either
 -- a portal or a project.
@@ -125,8 +126,8 @@ updateAccessPolicy_clientToken = Lens.lens (\UpdateAccessPolicy' {clientToken} -
 updateAccessPolicy_accessPolicyId :: Lens.Lens' UpdateAccessPolicy Prelude.Text
 updateAccessPolicy_accessPolicyId = Lens.lens (\UpdateAccessPolicy' {accessPolicyId} -> accessPolicyId) (\s@UpdateAccessPolicy' {} a -> s {accessPolicyId = a} :: UpdateAccessPolicy)
 
--- | The identity for this access policy. Choose an Amazon Web Services SSO
--- user, an Amazon Web Services SSO group, or an IAM user.
+-- | The identity for this access policy. Choose an IAM Identity Center user,
+-- an IAM Identity Center group, or an IAM user.
 updateAccessPolicy_accessPolicyIdentity :: Lens.Lens' UpdateAccessPolicy Identity
 updateAccessPolicy_accessPolicyIdentity = Lens.lens (\UpdateAccessPolicy' {accessPolicyIdentity} -> accessPolicyIdentity) (\s@UpdateAccessPolicy' {} a -> s {accessPolicyIdentity = a} :: UpdateAccessPolicy)
 
@@ -144,7 +145,8 @@ instance Core.AWSRequest UpdateAccessPolicy where
   type
     AWSResponse UpdateAccessPolicy =
       UpdateAccessPolicyResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -168,43 +170,43 @@ instance Prelude.NFData UpdateAccessPolicy where
       `Prelude.seq` Prelude.rnf accessPolicyResource
       `Prelude.seq` Prelude.rnf accessPolicyPermission
 
-instance Core.ToHeaders UpdateAccessPolicy where
+instance Data.ToHeaders UpdateAccessPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateAccessPolicy where
+instance Data.ToJSON UpdateAccessPolicy where
   toJSON UpdateAccessPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
             Prelude.Just
               ( "accessPolicyIdentity"
-                  Core..= accessPolicyIdentity
+                  Data..= accessPolicyIdentity
               ),
             Prelude.Just
               ( "accessPolicyResource"
-                  Core..= accessPolicyResource
+                  Data..= accessPolicyResource
               ),
             Prelude.Just
               ( "accessPolicyPermission"
-                  Core..= accessPolicyPermission
+                  Data..= accessPolicyPermission
               )
           ]
       )
 
-instance Core.ToPath UpdateAccessPolicy where
+instance Data.ToPath UpdateAccessPolicy where
   toPath UpdateAccessPolicy' {..} =
     Prelude.mconcat
-      ["/access-policies/", Core.toBS accessPolicyId]
+      ["/access-policies/", Data.toBS accessPolicyId]
 
-instance Core.ToQuery UpdateAccessPolicy where
+instance Data.ToQuery UpdateAccessPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateAccessPolicyResponse' smart constructor.

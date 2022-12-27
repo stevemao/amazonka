@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.MappingParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.KinesisAnalyticsV2.Types.MappingParameters where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.CSVMappingParameters
 import Amazonka.KinesisAnalyticsV2.Types.JSONMappingParameters
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | When you configure a SQL-based Kinesis Data Analytics application\'s
@@ -74,14 +75,14 @@ mappingParameters_cSVMappingParameters = Lens.lens (\MappingParameters' {cSVMapp
 mappingParameters_jSONMappingParameters :: Lens.Lens' MappingParameters (Prelude.Maybe JSONMappingParameters)
 mappingParameters_jSONMappingParameters = Lens.lens (\MappingParameters' {jSONMappingParameters} -> jSONMappingParameters) (\s@MappingParameters' {} a -> s {jSONMappingParameters = a} :: MappingParameters)
 
-instance Core.FromJSON MappingParameters where
+instance Data.FromJSON MappingParameters where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MappingParameters"
       ( \x ->
           MappingParameters'
-            Prelude.<$> (x Core..:? "CSVMappingParameters")
-            Prelude.<*> (x Core..:? "JSONMappingParameters")
+            Prelude.<$> (x Data..:? "CSVMappingParameters")
+            Prelude.<*> (x Data..:? "JSONMappingParameters")
       )
 
 instance Prelude.Hashable MappingParameters where
@@ -94,13 +95,13 @@ instance Prelude.NFData MappingParameters where
     Prelude.rnf cSVMappingParameters
       `Prelude.seq` Prelude.rnf jSONMappingParameters
 
-instance Core.ToJSON MappingParameters where
+instance Data.ToJSON MappingParameters where
   toJSON MappingParameters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CSVMappingParameters" Core..=)
+          [ ("CSVMappingParameters" Data..=)
               Prelude.<$> cSVMappingParameters,
-            ("JSONMappingParameters" Core..=)
+            ("JSONMappingParameters" Data..=)
               Prelude.<$> jSONMappingParameters
           ]
       )

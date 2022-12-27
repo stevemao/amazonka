@@ -14,15 +14,23 @@
 
 -- |
 -- Module      : Amazonka.RAM.EnableSharingWithAwsOrganization
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Enables resource sharing within your organization in Organizations.
+-- Calling this operation enables RAM to retrieve information about the
+-- organization and its structure. This lets you share resources with all
+-- of the accounts in an organization by specifying the organization\'s ID,
+-- or all of the accounts in an organizational unit (OU) by specifying the
+-- OU\'s ID. Until you enable sharing within the organization, you can
+-- specify only individual Amazon Web Services accounts, or for supported
+-- resource types, IAM users and roles.
 --
--- The caller must be the master account for the organization.
+-- You must call this operation from an IAM user or role in the
+-- organization\'s management account.
 module Amazonka.RAM.EnableSharingWithAwsOrganization
   ( -- * Creating a Request
     EnableSharingWithAwsOrganization (..),
@@ -39,7 +47,8 @@ module Amazonka.RAM.EnableSharingWithAwsOrganization
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RAM.Types
 import qualified Amazonka.Request as Request
@@ -67,12 +76,13 @@ instance
   type
     AWSResponse EnableSharingWithAwsOrganization =
       EnableSharingWithAwsOrganizationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           EnableSharingWithAwsOrganizationResponse'
-            Prelude.<$> (x Core..?> "returnValue")
+            Prelude.<$> (x Data..?> "returnValue")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -90,35 +100,36 @@ instance
   rnf _ = ()
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     EnableSharingWithAwsOrganization
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON EnableSharingWithAwsOrganization where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON EnableSharingWithAwsOrganization where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath EnableSharingWithAwsOrganization where
+instance Data.ToPath EnableSharingWithAwsOrganization where
   toPath =
     Prelude.const "/enablesharingwithawsorganization"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     EnableSharingWithAwsOrganization
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newEnableSharingWithAwsOrganizationResponse' smart constructor.
 data EnableSharingWithAwsOrganizationResponse = EnableSharingWithAwsOrganizationResponse'
-  { -- | Indicates whether the request succeeded.
+  { -- | A return value of @true@ indicates that the request succeeded. A value
+    -- of @false@ indicates that the request failed.
     returnValue :: Prelude.Maybe Prelude.Bool,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -133,7 +144,8 @@ data EnableSharingWithAwsOrganizationResponse = EnableSharingWithAwsOrganization
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'returnValue', 'enableSharingWithAwsOrganizationResponse_returnValue' - Indicates whether the request succeeded.
+-- 'returnValue', 'enableSharingWithAwsOrganizationResponse_returnValue' - A return value of @true@ indicates that the request succeeded. A value
+-- of @false@ indicates that the request failed.
 --
 -- 'httpStatus', 'enableSharingWithAwsOrganizationResponse_httpStatus' - The response's http status code.
 newEnableSharingWithAwsOrganizationResponse ::
@@ -148,7 +160,8 @@ newEnableSharingWithAwsOrganizationResponse
         httpStatus = pHttpStatus_
       }
 
--- | Indicates whether the request succeeded.
+-- | A return value of @true@ indicates that the request succeeded. A value
+-- of @false@ indicates that the request failed.
 enableSharingWithAwsOrganizationResponse_returnValue :: Lens.Lens' EnableSharingWithAwsOrganizationResponse (Prelude.Maybe Prelude.Bool)
 enableSharingWithAwsOrganizationResponse_returnValue = Lens.lens (\EnableSharingWithAwsOrganizationResponse' {returnValue} -> returnValue) (\s@EnableSharingWithAwsOrganizationResponse' {} a -> s {returnValue = a} :: EnableSharingWithAwsOrganizationResponse)
 

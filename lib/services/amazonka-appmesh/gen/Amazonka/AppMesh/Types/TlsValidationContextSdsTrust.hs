@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.TlsValidationContextSdsTrust
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppMesh.Types.TlsValidationContextSdsTrust where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents a Transport Layer Security (TLS) Secret
@@ -65,13 +66,13 @@ newTlsValidationContextSdsTrust pSecretName_ =
 tlsValidationContextSdsTrust_secretName :: Lens.Lens' TlsValidationContextSdsTrust Prelude.Text
 tlsValidationContextSdsTrust_secretName = Lens.lens (\TlsValidationContextSdsTrust' {secretName} -> secretName) (\s@TlsValidationContextSdsTrust' {} a -> s {secretName = a} :: TlsValidationContextSdsTrust)
 
-instance Core.FromJSON TlsValidationContextSdsTrust where
+instance Data.FromJSON TlsValidationContextSdsTrust where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TlsValidationContextSdsTrust"
       ( \x ->
           TlsValidationContextSdsTrust'
-            Prelude.<$> (x Core..: "secretName")
+            Prelude.<$> (x Data..: "secretName")
       )
 
 instance
@@ -85,9 +86,9 @@ instance Prelude.NFData TlsValidationContextSdsTrust where
   rnf TlsValidationContextSdsTrust' {..} =
     Prelude.rnf secretName
 
-instance Core.ToJSON TlsValidationContextSdsTrust where
+instance Data.ToJSON TlsValidationContextSdsTrust where
   toJSON TlsValidationContextSdsTrust' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("secretName" Core..= secretName)]
+          [Prelude.Just ("secretName" Data..= secretName)]
       )

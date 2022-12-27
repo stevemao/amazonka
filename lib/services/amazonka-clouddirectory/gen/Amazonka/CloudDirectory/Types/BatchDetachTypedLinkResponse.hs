@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.BatchDetachTypedLinkResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudDirectory.Types.BatchDetachTypedLinkResponse where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the output of a DetachTypedLink response operation.
@@ -40,9 +41,9 @@ newBatchDetachTypedLinkResponse ::
 newBatchDetachTypedLinkResponse =
   BatchDetachTypedLinkResponse'
 
-instance Core.FromJSON BatchDetachTypedLinkResponse where
+instance Data.FromJSON BatchDetachTypedLinkResponse where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchDetachTypedLinkResponse"
       (\x -> Prelude.pure BatchDetachTypedLinkResponse')
 

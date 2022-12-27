@@ -14,20 +14,25 @@
 
 -- |
 -- Module      : Amazonka.EC2.ModifyReservedInstances
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modifies the Availability Zone, instance count, instance type, or
--- network platform (EC2-Classic or EC2-VPC) of your Reserved Instances.
--- The Reserved Instances to be modified must be identical, except for
--- Availability Zone, network platform, and instance type.
+-- Modifies the configuration of your Reserved Instances, such as the
+-- Availability Zone, instance count, or instance type. The Reserved
+-- Instances to be modified must be identical, except for Availability
+-- Zone, network platform, and instance type.
 --
 -- For more information, see
 -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-modifying.html Modifying Reserved Instances>
 -- in the /Amazon EC2 User Guide/.
+--
+-- We are retiring EC2-Classic. We recommend that you migrate from
+-- EC2-Classic to a VPC. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html Migrate from EC2-Classic to a VPC>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
 module Amazonka.EC2.ModifyReservedInstances
   ( -- * Creating a Request
     ModifyReservedInstances (..),
@@ -49,8 +54,9 @@ module Amazonka.EC2.ModifyReservedInstances
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -113,12 +119,13 @@ instance Core.AWSRequest ModifyReservedInstances where
   type
     AWSResponse ModifyReservedInstances =
       ModifyReservedInstancesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ModifyReservedInstancesResponse'
-            Prelude.<$> (x Core..@? "reservedInstancesModificationId")
+            Prelude.<$> (x Data..@? "reservedInstancesModificationId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -134,24 +141,24 @@ instance Prelude.NFData ModifyReservedInstances where
       `Prelude.seq` Prelude.rnf reservedInstancesIds
       `Prelude.seq` Prelude.rnf targetConfigurations
 
-instance Core.ToHeaders ModifyReservedInstances where
+instance Data.ToHeaders ModifyReservedInstances where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyReservedInstances where
+instance Data.ToPath ModifyReservedInstances where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyReservedInstances where
+instance Data.ToQuery ModifyReservedInstances where
   toQuery ModifyReservedInstances' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyReservedInstances" :: Prelude.ByteString),
+          Data.=: ("ModifyReservedInstances" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "ClientToken" Core.=: clientToken,
-        Core.toQueryList
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "ClientToken" Data.=: clientToken,
+        Data.toQueryList
           "ReservedInstancesId"
           reservedInstancesIds,
-        Core.toQueryList
+        Data.toQueryList
           "ReservedInstancesConfigurationSetItemType"
           targetConfigurations
       ]

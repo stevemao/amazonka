@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StepFunctions.GetExecutionHistory
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,10 +41,10 @@ module Amazonka.StepFunctions.GetExecutionHistory
     newGetExecutionHistory,
 
     -- * Request Lenses
-    getExecutionHistory_reverseOrder,
     getExecutionHistory_includeExecutionData,
-    getExecutionHistory_nextToken,
     getExecutionHistory_maxResults,
+    getExecutionHistory_nextToken,
+    getExecutionHistory_reverseOrder,
     getExecutionHistory_executionArn,
 
     -- * Destructuring the Response
@@ -59,7 +59,8 @@ module Amazonka.StepFunctions.GetExecutionHistory
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -67,18 +68,9 @@ import Amazonka.StepFunctions.Types
 
 -- | /See:/ 'newGetExecutionHistory' smart constructor.
 data GetExecutionHistory = GetExecutionHistory'
-  { -- | Lists events in descending order of their @timeStamp@.
-    reverseOrder :: Prelude.Maybe Prelude.Bool,
-    -- | You can select whether execution data (input or output of a history
+  { -- | You can select whether execution data (input or output of a history
     -- event) is returned. The default is @true@.
     includeExecutionData :: Prelude.Maybe Prelude.Bool,
-    -- | If @nextToken@ is returned, there are more results available. The value
-    -- of @nextToken@ is a unique pagination token for each page. Make the call
-    -- again using the returned token to retrieve the next page. Keep all other
-    -- arguments unchanged. Each pagination token expires after 24 hours. Using
-    -- an expired pagination token will return an /HTTP 400 InvalidToken/
-    -- error.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of results that are returned per call. You can use
     -- @nextToken@ to obtain further pages of results. The default is 100 and
     -- the maximum allowed page size is 1000. A value of 0 uses the default.
@@ -86,6 +78,15 @@ data GetExecutionHistory = GetExecutionHistory'
     -- This is only an upper limit. The actual number of results returned per
     -- call might be fewer than the specified maximum.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | If @nextToken@ is returned, there are more results available. The value
+    -- of @nextToken@ is a unique pagination token for each page. Make the call
+    -- again using the returned token to retrieve the next page. Keep all other
+    -- arguments unchanged. Each pagination token expires after 24 hours. Using
+    -- an expired pagination token will return an /HTTP 400 InvalidToken/
+    -- error.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Lists events in descending order of their @timeStamp@.
+    reverseOrder :: Prelude.Maybe Prelude.Bool,
     -- | The Amazon Resource Name (ARN) of the execution.
     executionArn :: Prelude.Text
   }
@@ -99,17 +100,8 @@ data GetExecutionHistory = GetExecutionHistory'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'reverseOrder', 'getExecutionHistory_reverseOrder' - Lists events in descending order of their @timeStamp@.
---
 -- 'includeExecutionData', 'getExecutionHistory_includeExecutionData' - You can select whether execution data (input or output of a history
 -- event) is returned. The default is @true@.
---
--- 'nextToken', 'getExecutionHistory_nextToken' - If @nextToken@ is returned, there are more results available. The value
--- of @nextToken@ is a unique pagination token for each page. Make the call
--- again using the returned token to retrieve the next page. Keep all other
--- arguments unchanged. Each pagination token expires after 24 hours. Using
--- an expired pagination token will return an /HTTP 400 InvalidToken/
--- error.
 --
 -- 'maxResults', 'getExecutionHistory_maxResults' - The maximum number of results that are returned per call. You can use
 -- @nextToken@ to obtain further pages of results. The default is 100 and
@@ -118,6 +110,15 @@ data GetExecutionHistory = GetExecutionHistory'
 -- This is only an upper limit. The actual number of results returned per
 -- call might be fewer than the specified maximum.
 --
+-- 'nextToken', 'getExecutionHistory_nextToken' - If @nextToken@ is returned, there are more results available. The value
+-- of @nextToken@ is a unique pagination token for each page. Make the call
+-- again using the returned token to retrieve the next page. Keep all other
+-- arguments unchanged. Each pagination token expires after 24 hours. Using
+-- an expired pagination token will return an /HTTP 400 InvalidToken/
+-- error.
+--
+-- 'reverseOrder', 'getExecutionHistory_reverseOrder' - Lists events in descending order of their @timeStamp@.
+--
 -- 'executionArn', 'getExecutionHistory_executionArn' - The Amazon Resource Name (ARN) of the execution.
 newGetExecutionHistory ::
   -- | 'executionArn'
@@ -125,22 +126,27 @@ newGetExecutionHistory ::
   GetExecutionHistory
 newGetExecutionHistory pExecutionArn_ =
   GetExecutionHistory'
-    { reverseOrder =
+    { includeExecutionData =
         Prelude.Nothing,
-      includeExecutionData = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      reverseOrder = Prelude.Nothing,
       executionArn = pExecutionArn_
     }
-
--- | Lists events in descending order of their @timeStamp@.
-getExecutionHistory_reverseOrder :: Lens.Lens' GetExecutionHistory (Prelude.Maybe Prelude.Bool)
-getExecutionHistory_reverseOrder = Lens.lens (\GetExecutionHistory' {reverseOrder} -> reverseOrder) (\s@GetExecutionHistory' {} a -> s {reverseOrder = a} :: GetExecutionHistory)
 
 -- | You can select whether execution data (input or output of a history
 -- event) is returned. The default is @true@.
 getExecutionHistory_includeExecutionData :: Lens.Lens' GetExecutionHistory (Prelude.Maybe Prelude.Bool)
 getExecutionHistory_includeExecutionData = Lens.lens (\GetExecutionHistory' {includeExecutionData} -> includeExecutionData) (\s@GetExecutionHistory' {} a -> s {includeExecutionData = a} :: GetExecutionHistory)
+
+-- | The maximum number of results that are returned per call. You can use
+-- @nextToken@ to obtain further pages of results. The default is 100 and
+-- the maximum allowed page size is 1000. A value of 0 uses the default.
+--
+-- This is only an upper limit. The actual number of results returned per
+-- call might be fewer than the specified maximum.
+getExecutionHistory_maxResults :: Lens.Lens' GetExecutionHistory (Prelude.Maybe Prelude.Natural)
+getExecutionHistory_maxResults = Lens.lens (\GetExecutionHistory' {maxResults} -> maxResults) (\s@GetExecutionHistory' {} a -> s {maxResults = a} :: GetExecutionHistory)
 
 -- | If @nextToken@ is returned, there are more results available. The value
 -- of @nextToken@ is a unique pagination token for each page. Make the call
@@ -151,14 +157,9 @@ getExecutionHistory_includeExecutionData = Lens.lens (\GetExecutionHistory' {inc
 getExecutionHistory_nextToken :: Lens.Lens' GetExecutionHistory (Prelude.Maybe Prelude.Text)
 getExecutionHistory_nextToken = Lens.lens (\GetExecutionHistory' {nextToken} -> nextToken) (\s@GetExecutionHistory' {} a -> s {nextToken = a} :: GetExecutionHistory)
 
--- | The maximum number of results that are returned per call. You can use
--- @nextToken@ to obtain further pages of results. The default is 100 and
--- the maximum allowed page size is 1000. A value of 0 uses the default.
---
--- This is only an upper limit. The actual number of results returned per
--- call might be fewer than the specified maximum.
-getExecutionHistory_maxResults :: Lens.Lens' GetExecutionHistory (Prelude.Maybe Prelude.Natural)
-getExecutionHistory_maxResults = Lens.lens (\GetExecutionHistory' {maxResults} -> maxResults) (\s@GetExecutionHistory' {} a -> s {maxResults = a} :: GetExecutionHistory)
+-- | Lists events in descending order of their @timeStamp@.
+getExecutionHistory_reverseOrder :: Lens.Lens' GetExecutionHistory (Prelude.Maybe Prelude.Bool)
+getExecutionHistory_reverseOrder = Lens.lens (\GetExecutionHistory' {reverseOrder} -> reverseOrder) (\s@GetExecutionHistory' {} a -> s {reverseOrder = a} :: GetExecutionHistory)
 
 -- | The Amazon Resource Name (ARN) of the execution.
 getExecutionHistory_executionArn :: Lens.Lens' GetExecutionHistory Prelude.Text
@@ -187,64 +188,65 @@ instance Core.AWSRequest GetExecutionHistory where
   type
     AWSResponse GetExecutionHistory =
       GetExecutionHistoryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetExecutionHistoryResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "events" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "events" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable GetExecutionHistory where
   hashWithSalt _salt GetExecutionHistory' {..} =
-    _salt `Prelude.hashWithSalt` reverseOrder
-      `Prelude.hashWithSalt` includeExecutionData
-      `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` includeExecutionData
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` reverseOrder
       `Prelude.hashWithSalt` executionArn
 
 instance Prelude.NFData GetExecutionHistory where
   rnf GetExecutionHistory' {..} =
-    Prelude.rnf reverseOrder
-      `Prelude.seq` Prelude.rnf includeExecutionData
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf includeExecutionData
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf reverseOrder
       `Prelude.seq` Prelude.rnf executionArn
 
-instance Core.ToHeaders GetExecutionHistory where
+instance Data.ToHeaders GetExecutionHistory where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSStepFunctions.GetExecutionHistory" ::
+              Data.=# ( "AWSStepFunctions.GetExecutionHistory" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetExecutionHistory where
+instance Data.ToJSON GetExecutionHistory where
   toJSON GetExecutionHistory' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("reverseOrder" Core..=) Prelude.<$> reverseOrder,
-            ("includeExecutionData" Core..=)
+          [ ("includeExecutionData" Data..=)
               Prelude.<$> includeExecutionData,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("executionArn" Core..= executionArn)
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            ("reverseOrder" Data..=) Prelude.<$> reverseOrder,
+            Prelude.Just ("executionArn" Data..= executionArn)
           ]
       )
 
-instance Core.ToPath GetExecutionHistory where
+instance Data.ToPath GetExecutionHistory where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetExecutionHistory where
+instance Data.ToQuery GetExecutionHistory where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetExecutionHistoryResponse' smart constructor.

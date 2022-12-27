@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ImageBuilder.Types.TargetContainerRepository
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ImageBuilder.Types.TargetContainerRepository where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ImageBuilder.Types.ContainerRepositoryService
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The container repository where the output container image is stored.
@@ -71,14 +72,14 @@ targetContainerRepository_service = Lens.lens (\TargetContainerRepository' {serv
 targetContainerRepository_repositoryName :: Lens.Lens' TargetContainerRepository Prelude.Text
 targetContainerRepository_repositoryName = Lens.lens (\TargetContainerRepository' {repositoryName} -> repositoryName) (\s@TargetContainerRepository' {} a -> s {repositoryName = a} :: TargetContainerRepository)
 
-instance Core.FromJSON TargetContainerRepository where
+instance Data.FromJSON TargetContainerRepository where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TargetContainerRepository"
       ( \x ->
           TargetContainerRepository'
-            Prelude.<$> (x Core..: "service")
-            Prelude.<*> (x Core..: "repositoryName")
+            Prelude.<$> (x Data..: "service")
+            Prelude.<*> (x Data..: "repositoryName")
       )
 
 instance Prelude.Hashable TargetContainerRepository where
@@ -91,12 +92,12 @@ instance Prelude.NFData TargetContainerRepository where
     Prelude.rnf service
       `Prelude.seq` Prelude.rnf repositoryName
 
-instance Core.ToJSON TargetContainerRepository where
+instance Data.ToJSON TargetContainerRepository where
   toJSON TargetContainerRepository' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("service" Core..= service),
+          [ Prelude.Just ("service" Data..= service),
             Prelude.Just
-              ("repositoryName" Core..= repositoryName)
+              ("repositoryName" Data..= repositoryName)
           ]
       )

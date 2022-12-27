@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Athena.GetTableMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.Athena.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -109,12 +110,13 @@ instance Core.AWSRequest GetTableMetadata where
   type
     AWSResponse GetTableMetadata =
       GetTableMetadataResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetTableMetadataResponse'
-            Prelude.<$> (x Core..?> "TableMetadata")
+            Prelude.<$> (x Data..?> "TableMetadata")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -130,35 +132,35 @@ instance Prelude.NFData GetTableMetadata where
       `Prelude.seq` Prelude.rnf databaseName
       `Prelude.seq` Prelude.rnf tableName
 
-instance Core.ToHeaders GetTableMetadata where
+instance Data.ToHeaders GetTableMetadata where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonAthena.GetTableMetadata" ::
+              Data.=# ( "AmazonAthena.GetTableMetadata" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetTableMetadata where
+instance Data.ToJSON GetTableMetadata where
   toJSON GetTableMetadata' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("CatalogName" Core..= catalogName),
-            Prelude.Just ("DatabaseName" Core..= databaseName),
-            Prelude.Just ("TableName" Core..= tableName)
+          [ Prelude.Just ("CatalogName" Data..= catalogName),
+            Prelude.Just ("DatabaseName" Data..= databaseName),
+            Prelude.Just ("TableName" Data..= tableName)
           ]
       )
 
-instance Core.ToPath GetTableMetadata where
+instance Data.ToPath GetTableMetadata where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetTableMetadata where
+instance Data.ToQuery GetTableMetadata where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetTableMetadataResponse' smart constructor.

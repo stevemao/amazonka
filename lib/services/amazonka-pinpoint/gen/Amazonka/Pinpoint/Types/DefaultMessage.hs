@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.DefaultMessage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.Pinpoint.Types.DefaultMessage where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the default message for all channels.
 --
 -- /See:/ 'newDefaultMessage' smart constructor.
 data DefaultMessage = DefaultMessage'
-  { -- | The default message variables to use in the message. You can override
+  { -- | The default body of the message.
+    body :: Prelude.Maybe Prelude.Text,
+    -- | The default message variables to use in the message. You can override
     -- these default variables with individual address variables.
-    substitutions :: Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]),
-    -- | The default body of the message.
-    body :: Prelude.Maybe Prelude.Text
+    substitutions :: Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text])
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,42 +44,42 @@ data DefaultMessage = DefaultMessage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'body', 'defaultMessage_body' - The default body of the message.
+--
 -- 'substitutions', 'defaultMessage_substitutions' - The default message variables to use in the message. You can override
 -- these default variables with individual address variables.
---
--- 'body', 'defaultMessage_body' - The default body of the message.
 newDefaultMessage ::
   DefaultMessage
 newDefaultMessage =
   DefaultMessage'
-    { substitutions = Prelude.Nothing,
-      body = Prelude.Nothing
+    { body = Prelude.Nothing,
+      substitutions = Prelude.Nothing
     }
+
+-- | The default body of the message.
+defaultMessage_body :: Lens.Lens' DefaultMessage (Prelude.Maybe Prelude.Text)
+defaultMessage_body = Lens.lens (\DefaultMessage' {body} -> body) (\s@DefaultMessage' {} a -> s {body = a} :: DefaultMessage)
 
 -- | The default message variables to use in the message. You can override
 -- these default variables with individual address variables.
 defaultMessage_substitutions :: Lens.Lens' DefaultMessage (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
 defaultMessage_substitutions = Lens.lens (\DefaultMessage' {substitutions} -> substitutions) (\s@DefaultMessage' {} a -> s {substitutions = a} :: DefaultMessage) Prelude.. Lens.mapping Lens.coerced
 
--- | The default body of the message.
-defaultMessage_body :: Lens.Lens' DefaultMessage (Prelude.Maybe Prelude.Text)
-defaultMessage_body = Lens.lens (\DefaultMessage' {body} -> body) (\s@DefaultMessage' {} a -> s {body = a} :: DefaultMessage)
-
 instance Prelude.Hashable DefaultMessage where
   hashWithSalt _salt DefaultMessage' {..} =
-    _salt `Prelude.hashWithSalt` substitutions
-      `Prelude.hashWithSalt` body
+    _salt `Prelude.hashWithSalt` body
+      `Prelude.hashWithSalt` substitutions
 
 instance Prelude.NFData DefaultMessage where
   rnf DefaultMessage' {..} =
-    Prelude.rnf substitutions
-      `Prelude.seq` Prelude.rnf body
+    Prelude.rnf body
+      `Prelude.seq` Prelude.rnf substitutions
 
-instance Core.ToJSON DefaultMessage where
+instance Data.ToJSON DefaultMessage where
   toJSON DefaultMessage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Substitutions" Core..=) Prelude.<$> substitutions,
-            ("Body" Core..=) Prelude.<$> body
+          [ ("Body" Data..=) Prelude.<$> body,
+            ("Substitutions" Data..=) Prelude.<$> substitutions
           ]
       )

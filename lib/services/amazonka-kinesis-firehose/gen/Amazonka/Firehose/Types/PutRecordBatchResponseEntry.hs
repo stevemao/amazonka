@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Firehose.Types.PutRecordBatchResponseEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Firehose.Types.PutRecordBatchResponseEntry where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the result for an individual record from a PutRecordBatch
@@ -30,12 +31,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newPutRecordBatchResponseEntry' smart constructor.
 data PutRecordBatchResponseEntry = PutRecordBatchResponseEntry'
-  { -- | The ID of the record.
-    recordId :: Prelude.Maybe Prelude.Text,
-    -- | The error code for an individual record result.
+  { -- | The error code for an individual record result.
     errorCode :: Prelude.Maybe Prelude.Text,
     -- | The error message for an individual record result.
-    errorMessage :: Prelude.Maybe Prelude.Text
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the record.
+    recordId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,24 +48,20 @@ data PutRecordBatchResponseEntry = PutRecordBatchResponseEntry'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'recordId', 'putRecordBatchResponseEntry_recordId' - The ID of the record.
---
 -- 'errorCode', 'putRecordBatchResponseEntry_errorCode' - The error code for an individual record result.
 --
 -- 'errorMessage', 'putRecordBatchResponseEntry_errorMessage' - The error message for an individual record result.
+--
+-- 'recordId', 'putRecordBatchResponseEntry_recordId' - The ID of the record.
 newPutRecordBatchResponseEntry ::
   PutRecordBatchResponseEntry
 newPutRecordBatchResponseEntry =
   PutRecordBatchResponseEntry'
-    { recordId =
+    { errorCode =
         Prelude.Nothing,
-      errorCode = Prelude.Nothing,
-      errorMessage = Prelude.Nothing
+      errorMessage = Prelude.Nothing,
+      recordId = Prelude.Nothing
     }
-
--- | The ID of the record.
-putRecordBatchResponseEntry_recordId :: Lens.Lens' PutRecordBatchResponseEntry (Prelude.Maybe Prelude.Text)
-putRecordBatchResponseEntry_recordId = Lens.lens (\PutRecordBatchResponseEntry' {recordId} -> recordId) (\s@PutRecordBatchResponseEntry' {} a -> s {recordId = a} :: PutRecordBatchResponseEntry)
 
 -- | The error code for an individual record result.
 putRecordBatchResponseEntry_errorCode :: Lens.Lens' PutRecordBatchResponseEntry (Prelude.Maybe Prelude.Text)
@@ -74,25 +71,29 @@ putRecordBatchResponseEntry_errorCode = Lens.lens (\PutRecordBatchResponseEntry'
 putRecordBatchResponseEntry_errorMessage :: Lens.Lens' PutRecordBatchResponseEntry (Prelude.Maybe Prelude.Text)
 putRecordBatchResponseEntry_errorMessage = Lens.lens (\PutRecordBatchResponseEntry' {errorMessage} -> errorMessage) (\s@PutRecordBatchResponseEntry' {} a -> s {errorMessage = a} :: PutRecordBatchResponseEntry)
 
-instance Core.FromJSON PutRecordBatchResponseEntry where
+-- | The ID of the record.
+putRecordBatchResponseEntry_recordId :: Lens.Lens' PutRecordBatchResponseEntry (Prelude.Maybe Prelude.Text)
+putRecordBatchResponseEntry_recordId = Lens.lens (\PutRecordBatchResponseEntry' {recordId} -> recordId) (\s@PutRecordBatchResponseEntry' {} a -> s {recordId = a} :: PutRecordBatchResponseEntry)
+
+instance Data.FromJSON PutRecordBatchResponseEntry where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PutRecordBatchResponseEntry"
       ( \x ->
           PutRecordBatchResponseEntry'
-            Prelude.<$> (x Core..:? "RecordId")
-            Prelude.<*> (x Core..:? "ErrorCode")
-            Prelude.<*> (x Core..:? "ErrorMessage")
+            Prelude.<$> (x Data..:? "ErrorCode")
+            Prelude.<*> (x Data..:? "ErrorMessage")
+            Prelude.<*> (x Data..:? "RecordId")
       )
 
 instance Prelude.Hashable PutRecordBatchResponseEntry where
   hashWithSalt _salt PutRecordBatchResponseEntry' {..} =
-    _salt `Prelude.hashWithSalt` recordId
-      `Prelude.hashWithSalt` errorCode
+    _salt `Prelude.hashWithSalt` errorCode
       `Prelude.hashWithSalt` errorMessage
+      `Prelude.hashWithSalt` recordId
 
 instance Prelude.NFData PutRecordBatchResponseEntry where
   rnf PutRecordBatchResponseEntry' {..} =
-    Prelude.rnf recordId
-      `Prelude.seq` Prelude.rnf errorCode
+    Prelude.rnf errorCode
       `Prelude.seq` Prelude.rnf errorMessage
+      `Prelude.seq` Prelude.rnf recordId

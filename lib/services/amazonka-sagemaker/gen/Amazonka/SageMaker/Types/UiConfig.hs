@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.UiConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.UiConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provided configuration information for the worker UI for a labeling job.
@@ -35,13 +36,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newUiConfig' smart constructor.
 data UiConfig = UiConfig'
-  { -- | The Amazon S3 bucket location of the UI template, or worker task
-    -- template. This is the template used to render the worker UI and tools
-    -- for labeling job tasks. For more information about the contents of a UI
-    -- template, see
-    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/sms-custom-templates-step2.html Creating Your Custom Labeling Task Template>.
-    uiTemplateS3Uri :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the worker task template used to render the worker UI and
+  { -- | The ARN of the worker task template used to render the worker UI and
     -- tools for labeling job tasks.
     --
     -- Use this parameter when you are creating a labeling job for named entity
@@ -87,7 +82,13 @@ data UiConfig = UiConfig'
     -- frame object tracking adjustment labeling jobs.
     --
     -- -   @arn:aws:sagemaker:aws-region:394669845002:human-task-ui\/VideoObjectTracking@
-    humanTaskUiArn :: Prelude.Maybe Prelude.Text
+    humanTaskUiArn :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon S3 bucket location of the UI template, or worker task
+    -- template. This is the template used to render the worker UI and tools
+    -- for labeling job tasks. For more information about the contents of a UI
+    -- template, see
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/sms-custom-templates-step2.html Creating Your Custom Labeling Task Template>.
+    uiTemplateS3Uri :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -98,12 +99,6 @@ data UiConfig = UiConfig'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'uiTemplateS3Uri', 'uiConfig_uiTemplateS3Uri' - The Amazon S3 bucket location of the UI template, or worker task
--- template. This is the template used to render the worker UI and tools
--- for labeling job tasks. For more information about the contents of a UI
--- template, see
--- <https://docs.aws.amazon.com/sagemaker/latest/dg/sms-custom-templates-step2.html Creating Your Custom Labeling Task Template>.
 --
 -- 'humanTaskUiArn', 'uiConfig_humanTaskUiArn' - The ARN of the worker task template used to render the worker UI and
 -- tools for labeling job tasks.
@@ -151,21 +146,19 @@ data UiConfig = UiConfig'
 -- frame object tracking adjustment labeling jobs.
 --
 -- -   @arn:aws:sagemaker:aws-region:394669845002:human-task-ui\/VideoObjectTracking@
-newUiConfig ::
-  UiConfig
-newUiConfig =
-  UiConfig'
-    { uiTemplateS3Uri = Prelude.Nothing,
-      humanTaskUiArn = Prelude.Nothing
-    }
-
--- | The Amazon S3 bucket location of the UI template, or worker task
+--
+-- 'uiTemplateS3Uri', 'uiConfig_uiTemplateS3Uri' - The Amazon S3 bucket location of the UI template, or worker task
 -- template. This is the template used to render the worker UI and tools
 -- for labeling job tasks. For more information about the contents of a UI
 -- template, see
 -- <https://docs.aws.amazon.com/sagemaker/latest/dg/sms-custom-templates-step2.html Creating Your Custom Labeling Task Template>.
-uiConfig_uiTemplateS3Uri :: Lens.Lens' UiConfig (Prelude.Maybe Prelude.Text)
-uiConfig_uiTemplateS3Uri = Lens.lens (\UiConfig' {uiTemplateS3Uri} -> uiTemplateS3Uri) (\s@UiConfig' {} a -> s {uiTemplateS3Uri = a} :: UiConfig)
+newUiConfig ::
+  UiConfig
+newUiConfig =
+  UiConfig'
+    { humanTaskUiArn = Prelude.Nothing,
+      uiTemplateS3Uri = Prelude.Nothing
+    }
 
 -- | The ARN of the worker task template used to render the worker UI and
 -- tools for labeling job tasks.
@@ -216,33 +209,41 @@ uiConfig_uiTemplateS3Uri = Lens.lens (\UiConfig' {uiTemplateS3Uri} -> uiTemplate
 uiConfig_humanTaskUiArn :: Lens.Lens' UiConfig (Prelude.Maybe Prelude.Text)
 uiConfig_humanTaskUiArn = Lens.lens (\UiConfig' {humanTaskUiArn} -> humanTaskUiArn) (\s@UiConfig' {} a -> s {humanTaskUiArn = a} :: UiConfig)
 
-instance Core.FromJSON UiConfig where
+-- | The Amazon S3 bucket location of the UI template, or worker task
+-- template. This is the template used to render the worker UI and tools
+-- for labeling job tasks. For more information about the contents of a UI
+-- template, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/sms-custom-templates-step2.html Creating Your Custom Labeling Task Template>.
+uiConfig_uiTemplateS3Uri :: Lens.Lens' UiConfig (Prelude.Maybe Prelude.Text)
+uiConfig_uiTemplateS3Uri = Lens.lens (\UiConfig' {uiTemplateS3Uri} -> uiTemplateS3Uri) (\s@UiConfig' {} a -> s {uiTemplateS3Uri = a} :: UiConfig)
+
+instance Data.FromJSON UiConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UiConfig"
       ( \x ->
           UiConfig'
-            Prelude.<$> (x Core..:? "UiTemplateS3Uri")
-            Prelude.<*> (x Core..:? "HumanTaskUiArn")
+            Prelude.<$> (x Data..:? "HumanTaskUiArn")
+            Prelude.<*> (x Data..:? "UiTemplateS3Uri")
       )
 
 instance Prelude.Hashable UiConfig where
   hashWithSalt _salt UiConfig' {..} =
-    _salt `Prelude.hashWithSalt` uiTemplateS3Uri
-      `Prelude.hashWithSalt` humanTaskUiArn
+    _salt `Prelude.hashWithSalt` humanTaskUiArn
+      `Prelude.hashWithSalt` uiTemplateS3Uri
 
 instance Prelude.NFData UiConfig where
   rnf UiConfig' {..} =
-    Prelude.rnf uiTemplateS3Uri
-      `Prelude.seq` Prelude.rnf humanTaskUiArn
+    Prelude.rnf humanTaskUiArn
+      `Prelude.seq` Prelude.rnf uiTemplateS3Uri
 
-instance Core.ToJSON UiConfig where
+instance Data.ToJSON UiConfig where
   toJSON UiConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("UiTemplateS3Uri" Core..=)
-              Prelude.<$> uiTemplateS3Uri,
-            ("HumanTaskUiArn" Core..=)
-              Prelude.<$> humanTaskUiArn
+          [ ("HumanTaskUiArn" Data..=)
+              Prelude.<$> humanTaskUiArn,
+            ("UiTemplateS3Uri" Data..=)
+              Prelude.<$> uiTemplateS3Uri
           ]
       )

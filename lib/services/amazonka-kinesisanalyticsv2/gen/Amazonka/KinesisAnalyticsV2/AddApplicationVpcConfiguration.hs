@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.AddApplicationVpcConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,8 +38,8 @@ module Amazonka.KinesisAnalyticsV2.AddApplicationVpcConfiguration
     newAddApplicationVpcConfiguration,
 
     -- * Request Lenses
-    addApplicationVpcConfiguration_currentApplicationVersionId,
     addApplicationVpcConfiguration_conditionalToken,
+    addApplicationVpcConfiguration_currentApplicationVersionId,
     addApplicationVpcConfiguration_applicationName,
     addApplicationVpcConfiguration_vpcConfiguration,
 
@@ -56,15 +56,22 @@ module Amazonka.KinesisAnalyticsV2.AddApplicationVpcConfiguration
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newAddApplicationVpcConfiguration' smart constructor.
 data AddApplicationVpcConfiguration = AddApplicationVpcConfiguration'
-  { -- | The version of the application to which you want to add the VPC
+  { -- | A value you use to implement strong concurrency for application updates.
+    -- You must provide the @ApplicationVersionID@ or the @ConditionalToken@.
+    -- You get the application\'s current @ConditionalToken@ using
+    -- DescribeApplication. For better concurrency support, use the
+    -- @ConditionalToken@ parameter instead of @CurrentApplicationVersionId@.
+    conditionalToken :: Prelude.Maybe Prelude.Text,
+    -- | The version of the application to which you want to add the VPC
     -- configuration. You must provide the @CurrentApplicationVersionId@ or the
     -- @ConditionalToken@. You can use the DescribeApplication operation to get
     -- the current application version. If the version specified is not the
@@ -72,12 +79,6 @@ data AddApplicationVpcConfiguration = AddApplicationVpcConfiguration'
     -- better concurrency support, use the @ConditionalToken@ parameter instead
     -- of @CurrentApplicationVersionId@.
     currentApplicationVersionId :: Prelude.Maybe Prelude.Natural,
-    -- | A value you use to implement strong concurrency for application updates.
-    -- You must provide the @ApplicationVersionID@ or the @ConditionalToken@.
-    -- You get the application\'s current @ConditionalToken@ using
-    -- DescribeApplication. For better concurrency support, use the
-    -- @ConditionalToken@ parameter instead of @CurrentApplicationVersionId@.
-    conditionalToken :: Prelude.Maybe Prelude.Text,
     -- | The name of an existing application.
     applicationName :: Prelude.Text,
     -- | Description of the VPC to add to the application.
@@ -93,6 +94,12 @@ data AddApplicationVpcConfiguration = AddApplicationVpcConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'conditionalToken', 'addApplicationVpcConfiguration_conditionalToken' - A value you use to implement strong concurrency for application updates.
+-- You must provide the @ApplicationVersionID@ or the @ConditionalToken@.
+-- You get the application\'s current @ConditionalToken@ using
+-- DescribeApplication. For better concurrency support, use the
+-- @ConditionalToken@ parameter instead of @CurrentApplicationVersionId@.
+--
 -- 'currentApplicationVersionId', 'addApplicationVpcConfiguration_currentApplicationVersionId' - The version of the application to which you want to add the VPC
 -- configuration. You must provide the @CurrentApplicationVersionId@ or the
 -- @ConditionalToken@. You can use the DescribeApplication operation to get
@@ -100,12 +107,6 @@ data AddApplicationVpcConfiguration = AddApplicationVpcConfiguration'
 -- current version, the @ConcurrentModificationException@ is returned. For
 -- better concurrency support, use the @ConditionalToken@ parameter instead
 -- of @CurrentApplicationVersionId@.
---
--- 'conditionalToken', 'addApplicationVpcConfiguration_conditionalToken' - A value you use to implement strong concurrency for application updates.
--- You must provide the @ApplicationVersionID@ or the @ConditionalToken@.
--- You get the application\'s current @ConditionalToken@ using
--- DescribeApplication. For better concurrency support, use the
--- @ConditionalToken@ parameter instead of @CurrentApplicationVersionId@.
 --
 -- 'applicationName', 'addApplicationVpcConfiguration_applicationName' - The name of an existing application.
 --
@@ -120,12 +121,21 @@ newAddApplicationVpcConfiguration
   pApplicationName_
   pVpcConfiguration_ =
     AddApplicationVpcConfiguration'
-      { currentApplicationVersionId =
+      { conditionalToken =
           Prelude.Nothing,
-        conditionalToken = Prelude.Nothing,
+        currentApplicationVersionId =
+          Prelude.Nothing,
         applicationName = pApplicationName_,
         vpcConfiguration = pVpcConfiguration_
       }
+
+-- | A value you use to implement strong concurrency for application updates.
+-- You must provide the @ApplicationVersionID@ or the @ConditionalToken@.
+-- You get the application\'s current @ConditionalToken@ using
+-- DescribeApplication. For better concurrency support, use the
+-- @ConditionalToken@ parameter instead of @CurrentApplicationVersionId@.
+addApplicationVpcConfiguration_conditionalToken :: Lens.Lens' AddApplicationVpcConfiguration (Prelude.Maybe Prelude.Text)
+addApplicationVpcConfiguration_conditionalToken = Lens.lens (\AddApplicationVpcConfiguration' {conditionalToken} -> conditionalToken) (\s@AddApplicationVpcConfiguration' {} a -> s {conditionalToken = a} :: AddApplicationVpcConfiguration)
 
 -- | The version of the application to which you want to add the VPC
 -- configuration. You must provide the @CurrentApplicationVersionId@ or the
@@ -136,14 +146,6 @@ newAddApplicationVpcConfiguration
 -- of @CurrentApplicationVersionId@.
 addApplicationVpcConfiguration_currentApplicationVersionId :: Lens.Lens' AddApplicationVpcConfiguration (Prelude.Maybe Prelude.Natural)
 addApplicationVpcConfiguration_currentApplicationVersionId = Lens.lens (\AddApplicationVpcConfiguration' {currentApplicationVersionId} -> currentApplicationVersionId) (\s@AddApplicationVpcConfiguration' {} a -> s {currentApplicationVersionId = a} :: AddApplicationVpcConfiguration)
-
--- | A value you use to implement strong concurrency for application updates.
--- You must provide the @ApplicationVersionID@ or the @ConditionalToken@.
--- You get the application\'s current @ConditionalToken@ using
--- DescribeApplication. For better concurrency support, use the
--- @ConditionalToken@ parameter instead of @CurrentApplicationVersionId@.
-addApplicationVpcConfiguration_conditionalToken :: Lens.Lens' AddApplicationVpcConfiguration (Prelude.Maybe Prelude.Text)
-addApplicationVpcConfiguration_conditionalToken = Lens.lens (\AddApplicationVpcConfiguration' {conditionalToken} -> conditionalToken) (\s@AddApplicationVpcConfiguration' {} a -> s {conditionalToken = a} :: AddApplicationVpcConfiguration)
 
 -- | The name of an existing application.
 addApplicationVpcConfiguration_applicationName :: Lens.Lens' AddApplicationVpcConfiguration Prelude.Text
@@ -160,14 +162,15 @@ instance
   type
     AWSResponse AddApplicationVpcConfiguration =
       AddApplicationVpcConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AddApplicationVpcConfigurationResponse'
-            Prelude.<$> (x Core..?> "ApplicationARN")
-            Prelude.<*> (x Core..?> "ApplicationVersionId")
-            Prelude.<*> (x Core..?> "VpcConfigurationDescription")
+            Prelude.<$> (x Data..?> "ApplicationARN")
+            Prelude.<*> (x Data..?> "ApplicationVersionId")
+            Prelude.<*> (x Data..?> "VpcConfigurationDescription")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -178,9 +181,8 @@ instance
   hashWithSalt
     _salt
     AddApplicationVpcConfiguration' {..} =
-      _salt
+      _salt `Prelude.hashWithSalt` conditionalToken
         `Prelude.hashWithSalt` currentApplicationVersionId
-        `Prelude.hashWithSalt` conditionalToken
         `Prelude.hashWithSalt` applicationName
         `Prelude.hashWithSalt` vpcConfiguration
 
@@ -189,48 +191,48 @@ instance
     AddApplicationVpcConfiguration
   where
   rnf AddApplicationVpcConfiguration' {..} =
-    Prelude.rnf currentApplicationVersionId
-      `Prelude.seq` Prelude.rnf conditionalToken
+    Prelude.rnf conditionalToken
+      `Prelude.seq` Prelude.rnf currentApplicationVersionId
       `Prelude.seq` Prelude.rnf applicationName
       `Prelude.seq` Prelude.rnf vpcConfiguration
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     AddApplicationVpcConfiguration
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "KinesisAnalytics_20180523.AddApplicationVpcConfiguration" ::
+              Data.=# ( "KinesisAnalytics_20180523.AddApplicationVpcConfiguration" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AddApplicationVpcConfiguration where
+instance Data.ToJSON AddApplicationVpcConfiguration where
   toJSON AddApplicationVpcConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CurrentApplicationVersionId" Core..=)
-              Prelude.<$> currentApplicationVersionId,
-            ("ConditionalToken" Core..=)
+          [ ("ConditionalToken" Data..=)
               Prelude.<$> conditionalToken,
+            ("CurrentApplicationVersionId" Data..=)
+              Prelude.<$> currentApplicationVersionId,
             Prelude.Just
-              ("ApplicationName" Core..= applicationName),
+              ("ApplicationName" Data..= applicationName),
             Prelude.Just
-              ("VpcConfiguration" Core..= vpcConfiguration)
+              ("VpcConfiguration" Data..= vpcConfiguration)
           ]
       )
 
-instance Core.ToPath AddApplicationVpcConfiguration where
+instance Data.ToPath AddApplicationVpcConfiguration where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AddApplicationVpcConfiguration where
+instance Data.ToQuery AddApplicationVpcConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAddApplicationVpcConfigurationResponse' smart constructor.

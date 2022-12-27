@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.PublishVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,44 +49,47 @@ module Amazonka.Lambda.PublishVersion
     newFunctionConfiguration,
 
     -- * Response Lenses
-    functionConfiguration_memorySize,
-    functionConfiguration_runtime,
-    functionConfiguration_state,
-    functionConfiguration_signingProfileVersionArn,
-    functionConfiguration_lastUpdateStatus,
-    functionConfiguration_functionArn,
-    functionConfiguration_kmsKeyArn,
-    functionConfiguration_packageType,
-    functionConfiguration_fileSystemConfigs,
-    functionConfiguration_environment,
-    functionConfiguration_deadLetterConfig,
     functionConfiguration_architectures,
-    functionConfiguration_signingJobArn,
-    functionConfiguration_role,
-    functionConfiguration_vpcConfig,
-    functionConfiguration_version,
-    functionConfiguration_functionName,
-    functionConfiguration_layers,
-    functionConfiguration_codeSize,
-    functionConfiguration_handler,
-    functionConfiguration_timeout,
-    functionConfiguration_lastUpdateStatusReason,
-    functionConfiguration_stateReason,
-    functionConfiguration_lastModified,
     functionConfiguration_codeSha256,
-    functionConfiguration_tracingConfig,
-    functionConfiguration_stateReasonCode,
-    functionConfiguration_imageConfigResponse,
+    functionConfiguration_codeSize,
+    functionConfiguration_deadLetterConfig,
     functionConfiguration_description,
+    functionConfiguration_environment,
+    functionConfiguration_ephemeralStorage,
+    functionConfiguration_fileSystemConfigs,
+    functionConfiguration_functionArn,
+    functionConfiguration_functionName,
+    functionConfiguration_handler,
+    functionConfiguration_imageConfigResponse,
+    functionConfiguration_kmsKeyArn,
+    functionConfiguration_lastModified,
+    functionConfiguration_lastUpdateStatus,
+    functionConfiguration_lastUpdateStatusReason,
     functionConfiguration_lastUpdateStatusReasonCode,
-    functionConfiguration_revisionId,
+    functionConfiguration_layers,
     functionConfiguration_masterArn,
+    functionConfiguration_memorySize,
+    functionConfiguration_packageType,
+    functionConfiguration_revisionId,
+    functionConfiguration_role,
+    functionConfiguration_runtime,
+    functionConfiguration_signingJobArn,
+    functionConfiguration_signingProfileVersionArn,
+    functionConfiguration_snapStart,
+    functionConfiguration_state,
+    functionConfiguration_stateReason,
+    functionConfiguration_stateReasonCode,
+    functionConfiguration_timeout,
+    functionConfiguration_tracingConfig,
+    functionConfiguration_version,
+    functionConfiguration_vpcConfig,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -205,10 +208,11 @@ instance Core.AWSRequest PublishVersion where
   type
     AWSResponse PublishVersion =
       FunctionConfiguration
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable PublishVersion where
   hashWithSalt _salt PublishVersion' {..} =
@@ -224,26 +228,26 @@ instance Prelude.NFData PublishVersion where
       `Prelude.seq` Prelude.rnf revisionId
       `Prelude.seq` Prelude.rnf functionName
 
-instance Core.ToHeaders PublishVersion where
+instance Data.ToHeaders PublishVersion where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON PublishVersion where
+instance Data.ToJSON PublishVersion where
   toJSON PublishVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CodeSha256" Core..=) Prelude.<$> codeSha256,
-            ("Description" Core..=) Prelude.<$> description,
-            ("RevisionId" Core..=) Prelude.<$> revisionId
+          [ ("CodeSha256" Data..=) Prelude.<$> codeSha256,
+            ("Description" Data..=) Prelude.<$> description,
+            ("RevisionId" Data..=) Prelude.<$> revisionId
           ]
       )
 
-instance Core.ToPath PublishVersion where
+instance Data.ToPath PublishVersion where
   toPath PublishVersion' {..} =
     Prelude.mconcat
       [ "/2015-03-31/functions/",
-        Core.toBS functionName,
+        Data.toBS functionName,
         "/versions"
       ]
 
-instance Core.ToQuery PublishVersion where
+instance Data.ToQuery PublishVersion where
   toQuery = Prelude.const Prelude.mempty

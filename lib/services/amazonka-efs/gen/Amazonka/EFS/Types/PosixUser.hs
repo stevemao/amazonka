@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EFS.Types.PosixUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.EFS.Types.PosixUser where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The full POSIX identity, including the user ID, group ID, and any
@@ -85,15 +86,15 @@ posixUser_uid = Lens.lens (\PosixUser' {uid} -> uid) (\s@PosixUser' {} a -> s {u
 posixUser_gid :: Lens.Lens' PosixUser Prelude.Natural
 posixUser_gid = Lens.lens (\PosixUser' {gid} -> gid) (\s@PosixUser' {} a -> s {gid = a} :: PosixUser)
 
-instance Core.FromJSON PosixUser where
+instance Data.FromJSON PosixUser where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PosixUser"
       ( \x ->
           PosixUser'
-            Prelude.<$> (x Core..:? "SecondaryGids" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "Uid")
-            Prelude.<*> (x Core..: "Gid")
+            Prelude.<$> (x Data..:? "SecondaryGids" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "Uid")
+            Prelude.<*> (x Data..: "Gid")
       )
 
 instance Prelude.Hashable PosixUser where
@@ -108,12 +109,12 @@ instance Prelude.NFData PosixUser where
       `Prelude.seq` Prelude.rnf uid
       `Prelude.seq` Prelude.rnf gid
 
-instance Core.ToJSON PosixUser where
+instance Data.ToJSON PosixUser where
   toJSON PosixUser' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SecondaryGids" Core..=) Prelude.<$> secondaryGids,
-            Prelude.Just ("Uid" Core..= uid),
-            Prelude.Just ("Gid" Core..= gid)
+          [ ("SecondaryGids" Data..=) Prelude.<$> secondaryGids,
+            Prelude.Just ("Uid" Data..= uid),
+            Prelude.Just ("Gid" Data..= gid)
           ]
       )

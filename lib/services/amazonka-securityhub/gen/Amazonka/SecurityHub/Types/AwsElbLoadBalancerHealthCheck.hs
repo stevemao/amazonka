@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsElbLoadBalancerHealthCheck
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsElbLoadBalancerHealthCheck where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the health checks that are conducted on the
@@ -34,12 +35,6 @@ data AwsElbLoadBalancerHealthCheck = AwsElbLoadBalancerHealthCheck'
     -- | The approximate interval, in seconds, between health checks of an
     -- individual instance.
     interval :: Prelude.Maybe Prelude.Int,
-    -- | The amount of time, in seconds, during which no response means a failed
-    -- health check.
-    timeout :: Prelude.Maybe Prelude.Int,
-    -- | The number of consecutive health check failures that must occur before
-    -- the instance is moved to the Unhealthy state.
-    unhealthyThreshold :: Prelude.Maybe Prelude.Int,
     -- | The instance that is being checked. The target specifies the protocol
     -- and port. The available protocols are TCP, SSL, HTTP, and HTTPS. The
     -- range of valid ports is 1 through 65535.
@@ -53,7 +48,13 @@ data AwsElbLoadBalancerHealthCheck = AwsElbLoadBalancerHealthCheck'
     --
     -- For the HTTP and HTTPS protocols, the target is specified as
     -- @ \<protocol>:\<port>\/\<path to ping> @.
-    target :: Prelude.Maybe Prelude.Text
+    target :: Prelude.Maybe Prelude.Text,
+    -- | The amount of time, in seconds, during which no response means a failed
+    -- health check.
+    timeout :: Prelude.Maybe Prelude.Int,
+    -- | The number of consecutive health check failures that must occur before
+    -- the instance is moved to the Unhealthy state.
+    unhealthyThreshold :: Prelude.Maybe Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -71,12 +72,6 @@ data AwsElbLoadBalancerHealthCheck = AwsElbLoadBalancerHealthCheck'
 -- 'interval', 'awsElbLoadBalancerHealthCheck_interval' - The approximate interval, in seconds, between health checks of an
 -- individual instance.
 --
--- 'timeout', 'awsElbLoadBalancerHealthCheck_timeout' - The amount of time, in seconds, during which no response means a failed
--- health check.
---
--- 'unhealthyThreshold', 'awsElbLoadBalancerHealthCheck_unhealthyThreshold' - The number of consecutive health check failures that must occur before
--- the instance is moved to the Unhealthy state.
---
 -- 'target', 'awsElbLoadBalancerHealthCheck_target' - The instance that is being checked. The target specifies the protocol
 -- and port. The available protocols are TCP, SSL, HTTP, and HTTPS. The
 -- range of valid ports is 1 through 65535.
@@ -90,6 +85,12 @@ data AwsElbLoadBalancerHealthCheck = AwsElbLoadBalancerHealthCheck'
 --
 -- For the HTTP and HTTPS protocols, the target is specified as
 -- @ \<protocol>:\<port>\/\<path to ping> @.
+--
+-- 'timeout', 'awsElbLoadBalancerHealthCheck_timeout' - The amount of time, in seconds, during which no response means a failed
+-- health check.
+--
+-- 'unhealthyThreshold', 'awsElbLoadBalancerHealthCheck_unhealthyThreshold' - The number of consecutive health check failures that must occur before
+-- the instance is moved to the Unhealthy state.
 newAwsElbLoadBalancerHealthCheck ::
   AwsElbLoadBalancerHealthCheck
 newAwsElbLoadBalancerHealthCheck =
@@ -97,9 +98,9 @@ newAwsElbLoadBalancerHealthCheck =
     { healthyThreshold =
         Prelude.Nothing,
       interval = Prelude.Nothing,
+      target = Prelude.Nothing,
       timeout = Prelude.Nothing,
-      unhealthyThreshold = Prelude.Nothing,
-      target = Prelude.Nothing
+      unhealthyThreshold = Prelude.Nothing
     }
 
 -- | The number of consecutive health check successes required before the
@@ -111,16 +112,6 @@ awsElbLoadBalancerHealthCheck_healthyThreshold = Lens.lens (\AwsElbLoadBalancerH
 -- individual instance.
 awsElbLoadBalancerHealthCheck_interval :: Lens.Lens' AwsElbLoadBalancerHealthCheck (Prelude.Maybe Prelude.Int)
 awsElbLoadBalancerHealthCheck_interval = Lens.lens (\AwsElbLoadBalancerHealthCheck' {interval} -> interval) (\s@AwsElbLoadBalancerHealthCheck' {} a -> s {interval = a} :: AwsElbLoadBalancerHealthCheck)
-
--- | The amount of time, in seconds, during which no response means a failed
--- health check.
-awsElbLoadBalancerHealthCheck_timeout :: Lens.Lens' AwsElbLoadBalancerHealthCheck (Prelude.Maybe Prelude.Int)
-awsElbLoadBalancerHealthCheck_timeout = Lens.lens (\AwsElbLoadBalancerHealthCheck' {timeout} -> timeout) (\s@AwsElbLoadBalancerHealthCheck' {} a -> s {timeout = a} :: AwsElbLoadBalancerHealthCheck)
-
--- | The number of consecutive health check failures that must occur before
--- the instance is moved to the Unhealthy state.
-awsElbLoadBalancerHealthCheck_unhealthyThreshold :: Lens.Lens' AwsElbLoadBalancerHealthCheck (Prelude.Maybe Prelude.Int)
-awsElbLoadBalancerHealthCheck_unhealthyThreshold = Lens.lens (\AwsElbLoadBalancerHealthCheck' {unhealthyThreshold} -> unhealthyThreshold) (\s@AwsElbLoadBalancerHealthCheck' {} a -> s {unhealthyThreshold = a} :: AwsElbLoadBalancerHealthCheck)
 
 -- | The instance that is being checked. The target specifies the protocol
 -- and port. The available protocols are TCP, SSL, HTTP, and HTTPS. The
@@ -138,17 +129,27 @@ awsElbLoadBalancerHealthCheck_unhealthyThreshold = Lens.lens (\AwsElbLoadBalance
 awsElbLoadBalancerHealthCheck_target :: Lens.Lens' AwsElbLoadBalancerHealthCheck (Prelude.Maybe Prelude.Text)
 awsElbLoadBalancerHealthCheck_target = Lens.lens (\AwsElbLoadBalancerHealthCheck' {target} -> target) (\s@AwsElbLoadBalancerHealthCheck' {} a -> s {target = a} :: AwsElbLoadBalancerHealthCheck)
 
-instance Core.FromJSON AwsElbLoadBalancerHealthCheck where
+-- | The amount of time, in seconds, during which no response means a failed
+-- health check.
+awsElbLoadBalancerHealthCheck_timeout :: Lens.Lens' AwsElbLoadBalancerHealthCheck (Prelude.Maybe Prelude.Int)
+awsElbLoadBalancerHealthCheck_timeout = Lens.lens (\AwsElbLoadBalancerHealthCheck' {timeout} -> timeout) (\s@AwsElbLoadBalancerHealthCheck' {} a -> s {timeout = a} :: AwsElbLoadBalancerHealthCheck)
+
+-- | The number of consecutive health check failures that must occur before
+-- the instance is moved to the Unhealthy state.
+awsElbLoadBalancerHealthCheck_unhealthyThreshold :: Lens.Lens' AwsElbLoadBalancerHealthCheck (Prelude.Maybe Prelude.Int)
+awsElbLoadBalancerHealthCheck_unhealthyThreshold = Lens.lens (\AwsElbLoadBalancerHealthCheck' {unhealthyThreshold} -> unhealthyThreshold) (\s@AwsElbLoadBalancerHealthCheck' {} a -> s {unhealthyThreshold = a} :: AwsElbLoadBalancerHealthCheck)
+
+instance Data.FromJSON AwsElbLoadBalancerHealthCheck where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsElbLoadBalancerHealthCheck"
       ( \x ->
           AwsElbLoadBalancerHealthCheck'
-            Prelude.<$> (x Core..:? "HealthyThreshold")
-            Prelude.<*> (x Core..:? "Interval")
-            Prelude.<*> (x Core..:? "Timeout")
-            Prelude.<*> (x Core..:? "UnhealthyThreshold")
-            Prelude.<*> (x Core..:? "Target")
+            Prelude.<$> (x Data..:? "HealthyThreshold")
+            Prelude.<*> (x Data..:? "Interval")
+            Prelude.<*> (x Data..:? "Target")
+            Prelude.<*> (x Data..:? "Timeout")
+            Prelude.<*> (x Data..:? "UnhealthyThreshold")
       )
 
 instance
@@ -158,28 +159,28 @@ instance
   hashWithSalt _salt AwsElbLoadBalancerHealthCheck' {..} =
     _salt `Prelude.hashWithSalt` healthyThreshold
       `Prelude.hashWithSalt` interval
+      `Prelude.hashWithSalt` target
       `Prelude.hashWithSalt` timeout
       `Prelude.hashWithSalt` unhealthyThreshold
-      `Prelude.hashWithSalt` target
 
 instance Prelude.NFData AwsElbLoadBalancerHealthCheck where
   rnf AwsElbLoadBalancerHealthCheck' {..} =
     Prelude.rnf healthyThreshold
       `Prelude.seq` Prelude.rnf interval
+      `Prelude.seq` Prelude.rnf target
       `Prelude.seq` Prelude.rnf timeout
       `Prelude.seq` Prelude.rnf unhealthyThreshold
-      `Prelude.seq` Prelude.rnf target
 
-instance Core.ToJSON AwsElbLoadBalancerHealthCheck where
+instance Data.ToJSON AwsElbLoadBalancerHealthCheck where
   toJSON AwsElbLoadBalancerHealthCheck' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("HealthyThreshold" Core..=)
+          [ ("HealthyThreshold" Data..=)
               Prelude.<$> healthyThreshold,
-            ("Interval" Core..=) Prelude.<$> interval,
-            ("Timeout" Core..=) Prelude.<$> timeout,
-            ("UnhealthyThreshold" Core..=)
-              Prelude.<$> unhealthyThreshold,
-            ("Target" Core..=) Prelude.<$> target
+            ("Interval" Data..=) Prelude.<$> interval,
+            ("Target" Data..=) Prelude.<$> target,
+            ("Timeout" Data..=) Prelude.<$> timeout,
+            ("UnhealthyThreshold" Data..=)
+              Prelude.<$> unhealthyThreshold
           ]
       )

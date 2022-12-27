@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECR.PutLifecyclePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,16 +38,17 @@ module Amazonka.ECR.PutLifecyclePolicy
     newPutLifecyclePolicyResponse,
 
     -- * Response Lenses
-    putLifecyclePolicyResponse_registryId,
     putLifecyclePolicyResponse_lifecyclePolicyText,
+    putLifecyclePolicyResponse_registryId,
     putLifecyclePolicyResponse_repositoryName,
     putLifecyclePolicyResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -113,14 +114,15 @@ instance Core.AWSRequest PutLifecyclePolicy where
   type
     AWSResponse PutLifecyclePolicy =
       PutLifecyclePolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutLifecyclePolicyResponse'
-            Prelude.<$> (x Core..?> "registryId")
-            Prelude.<*> (x Core..?> "lifecyclePolicyText")
-            Prelude.<*> (x Core..?> "repositoryName")
+            Prelude.<$> (x Data..?> "lifecyclePolicyText")
+            Prelude.<*> (x Data..?> "registryId")
+            Prelude.<*> (x Data..?> "repositoryName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -136,45 +138,45 @@ instance Prelude.NFData PutLifecyclePolicy where
       `Prelude.seq` Prelude.rnf repositoryName
       `Prelude.seq` Prelude.rnf lifecyclePolicyText
 
-instance Core.ToHeaders PutLifecyclePolicy where
+instance Data.ToHeaders PutLifecyclePolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerRegistry_V20150921.PutLifecyclePolicy" ::
+              Data.=# ( "AmazonEC2ContainerRegistry_V20150921.PutLifecyclePolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutLifecyclePolicy where
+instance Data.ToJSON PutLifecyclePolicy where
   toJSON PutLifecyclePolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("registryId" Core..=) Prelude.<$> registryId,
+          [ ("registryId" Data..=) Prelude.<$> registryId,
             Prelude.Just
-              ("repositoryName" Core..= repositoryName),
+              ("repositoryName" Data..= repositoryName),
             Prelude.Just
-              ("lifecyclePolicyText" Core..= lifecyclePolicyText)
+              ("lifecyclePolicyText" Data..= lifecyclePolicyText)
           ]
       )
 
-instance Core.ToPath PutLifecyclePolicy where
+instance Data.ToPath PutLifecyclePolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutLifecyclePolicy where
+instance Data.ToQuery PutLifecyclePolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutLifecyclePolicyResponse' smart constructor.
 data PutLifecyclePolicyResponse = PutLifecyclePolicyResponse'
-  { -- | The registry ID associated with the request.
-    registryId :: Prelude.Maybe Prelude.Text,
-    -- | The JSON repository policy text.
+  { -- | The JSON repository policy text.
     lifecyclePolicyText :: Prelude.Maybe Prelude.Text,
+    -- | The registry ID associated with the request.
+    registryId :: Prelude.Maybe Prelude.Text,
     -- | The repository name associated with the request.
     repositoryName :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
@@ -190,9 +192,9 @@ data PutLifecyclePolicyResponse = PutLifecyclePolicyResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'registryId', 'putLifecyclePolicyResponse_registryId' - The registry ID associated with the request.
---
 -- 'lifecyclePolicyText', 'putLifecyclePolicyResponse_lifecyclePolicyText' - The JSON repository policy text.
+--
+-- 'registryId', 'putLifecyclePolicyResponse_registryId' - The registry ID associated with the request.
 --
 -- 'repositoryName', 'putLifecyclePolicyResponse_repositoryName' - The repository name associated with the request.
 --
@@ -203,20 +205,20 @@ newPutLifecyclePolicyResponse ::
   PutLifecyclePolicyResponse
 newPutLifecyclePolicyResponse pHttpStatus_ =
   PutLifecyclePolicyResponse'
-    { registryId =
+    { lifecyclePolicyText =
         Prelude.Nothing,
-      lifecyclePolicyText = Prelude.Nothing,
+      registryId = Prelude.Nothing,
       repositoryName = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The registry ID associated with the request.
-putLifecyclePolicyResponse_registryId :: Lens.Lens' PutLifecyclePolicyResponse (Prelude.Maybe Prelude.Text)
-putLifecyclePolicyResponse_registryId = Lens.lens (\PutLifecyclePolicyResponse' {registryId} -> registryId) (\s@PutLifecyclePolicyResponse' {} a -> s {registryId = a} :: PutLifecyclePolicyResponse)
-
 -- | The JSON repository policy text.
 putLifecyclePolicyResponse_lifecyclePolicyText :: Lens.Lens' PutLifecyclePolicyResponse (Prelude.Maybe Prelude.Text)
 putLifecyclePolicyResponse_lifecyclePolicyText = Lens.lens (\PutLifecyclePolicyResponse' {lifecyclePolicyText} -> lifecyclePolicyText) (\s@PutLifecyclePolicyResponse' {} a -> s {lifecyclePolicyText = a} :: PutLifecyclePolicyResponse)
+
+-- | The registry ID associated with the request.
+putLifecyclePolicyResponse_registryId :: Lens.Lens' PutLifecyclePolicyResponse (Prelude.Maybe Prelude.Text)
+putLifecyclePolicyResponse_registryId = Lens.lens (\PutLifecyclePolicyResponse' {registryId} -> registryId) (\s@PutLifecyclePolicyResponse' {} a -> s {registryId = a} :: PutLifecyclePolicyResponse)
 
 -- | The repository name associated with the request.
 putLifecyclePolicyResponse_repositoryName :: Lens.Lens' PutLifecyclePolicyResponse (Prelude.Maybe Prelude.Text)
@@ -228,7 +230,7 @@ putLifecyclePolicyResponse_httpStatus = Lens.lens (\PutLifecyclePolicyResponse' 
 
 instance Prelude.NFData PutLifecyclePolicyResponse where
   rnf PutLifecyclePolicyResponse' {..} =
-    Prelude.rnf registryId
-      `Prelude.seq` Prelude.rnf lifecyclePolicyText
+    Prelude.rnf lifecyclePolicyText
+      `Prelude.seq` Prelude.rnf registryId
       `Prelude.seq` Prelude.rnf repositoryName
       `Prelude.seq` Prelude.rnf httpStatus

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.DeleteDomainEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.Lightsail.DeleteDomainEntry
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -99,12 +100,13 @@ instance Core.AWSRequest DeleteDomainEntry where
   type
     AWSResponse DeleteDomainEntry =
       DeleteDomainEntryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteDomainEntryResponse'
-            Prelude.<$> (x Core..?> "operation")
+            Prelude.<$> (x Data..?> "operation")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -118,34 +120,34 @@ instance Prelude.NFData DeleteDomainEntry where
     Prelude.rnf domainName
       `Prelude.seq` Prelude.rnf domainEntry
 
-instance Core.ToHeaders DeleteDomainEntry where
+instance Data.ToHeaders DeleteDomainEntry where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.DeleteDomainEntry" ::
+              Data.=# ( "Lightsail_20161128.DeleteDomainEntry" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteDomainEntry where
+instance Data.ToJSON DeleteDomainEntry where
   toJSON DeleteDomainEntry' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("domainName" Core..= domainName),
-            Prelude.Just ("domainEntry" Core..= domainEntry)
+          [ Prelude.Just ("domainName" Data..= domainName),
+            Prelude.Just ("domainEntry" Data..= domainEntry)
           ]
       )
 
-instance Core.ToPath DeleteDomainEntry where
+instance Data.ToPath DeleteDomainEntry where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDomainEntry where
+instance Data.ToQuery DeleteDomainEntry where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteDomainEntryResponse' smart constructor.

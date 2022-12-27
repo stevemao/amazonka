@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StepFunctions.DeleteActivity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.StepFunctions.DeleteActivity
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteActivity where
   type
     AWSResponse DeleteActivity =
       DeleteActivityResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -91,32 +93,32 @@ instance Prelude.Hashable DeleteActivity where
 instance Prelude.NFData DeleteActivity where
   rnf DeleteActivity' {..} = Prelude.rnf activityArn
 
-instance Core.ToHeaders DeleteActivity where
+instance Data.ToHeaders DeleteActivity where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSStepFunctions.DeleteActivity" ::
+              Data.=# ( "AWSStepFunctions.DeleteActivity" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteActivity where
+instance Data.ToJSON DeleteActivity where
   toJSON DeleteActivity' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("activityArn" Core..= activityArn)]
+          [Prelude.Just ("activityArn" Data..= activityArn)]
       )
 
-instance Core.ToPath DeleteActivity where
+instance Data.ToPath DeleteActivity where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteActivity where
+instance Data.ToQuery DeleteActivity where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteActivityResponse' smart constructor.

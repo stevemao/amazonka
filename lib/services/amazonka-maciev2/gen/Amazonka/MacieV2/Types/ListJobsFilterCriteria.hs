@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.ListJobsFilterCriteria
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.ListJobsFilterCriteria where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types.ListJobsFilterTerm
 import qualified Amazonka.Prelude as Prelude
 
@@ -30,11 +31,11 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newListJobsFilterCriteria' smart constructor.
 data ListJobsFilterCriteria = ListJobsFilterCriteria'
   { -- | An array of objects, one for each condition that determines which jobs
-    -- to include in the results.
-    includes :: Prelude.Maybe [ListJobsFilterTerm],
-    -- | An array of objects, one for each condition that determines which jobs
     -- to exclude from the results.
-    excludes :: Prelude.Maybe [ListJobsFilterTerm]
+    excludes :: Prelude.Maybe [ListJobsFilterTerm],
+    -- | An array of objects, one for each condition that determines which jobs
+    -- to include in the results.
+    includes :: Prelude.Maybe [ListJobsFilterTerm]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,44 +47,44 @@ data ListJobsFilterCriteria = ListJobsFilterCriteria'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'includes', 'listJobsFilterCriteria_includes' - An array of objects, one for each condition that determines which jobs
--- to include in the results.
---
 -- 'excludes', 'listJobsFilterCriteria_excludes' - An array of objects, one for each condition that determines which jobs
 -- to exclude from the results.
+--
+-- 'includes', 'listJobsFilterCriteria_includes' - An array of objects, one for each condition that determines which jobs
+-- to include in the results.
 newListJobsFilterCriteria ::
   ListJobsFilterCriteria
 newListJobsFilterCriteria =
   ListJobsFilterCriteria'
-    { includes = Prelude.Nothing,
-      excludes = Prelude.Nothing
+    { excludes = Prelude.Nothing,
+      includes = Prelude.Nothing
     }
-
--- | An array of objects, one for each condition that determines which jobs
--- to include in the results.
-listJobsFilterCriteria_includes :: Lens.Lens' ListJobsFilterCriteria (Prelude.Maybe [ListJobsFilterTerm])
-listJobsFilterCriteria_includes = Lens.lens (\ListJobsFilterCriteria' {includes} -> includes) (\s@ListJobsFilterCriteria' {} a -> s {includes = a} :: ListJobsFilterCriteria) Prelude.. Lens.mapping Lens.coerced
 
 -- | An array of objects, one for each condition that determines which jobs
 -- to exclude from the results.
 listJobsFilterCriteria_excludes :: Lens.Lens' ListJobsFilterCriteria (Prelude.Maybe [ListJobsFilterTerm])
 listJobsFilterCriteria_excludes = Lens.lens (\ListJobsFilterCriteria' {excludes} -> excludes) (\s@ListJobsFilterCriteria' {} a -> s {excludes = a} :: ListJobsFilterCriteria) Prelude.. Lens.mapping Lens.coerced
 
+-- | An array of objects, one for each condition that determines which jobs
+-- to include in the results.
+listJobsFilterCriteria_includes :: Lens.Lens' ListJobsFilterCriteria (Prelude.Maybe [ListJobsFilterTerm])
+listJobsFilterCriteria_includes = Lens.lens (\ListJobsFilterCriteria' {includes} -> includes) (\s@ListJobsFilterCriteria' {} a -> s {includes = a} :: ListJobsFilterCriteria) Prelude.. Lens.mapping Lens.coerced
+
 instance Prelude.Hashable ListJobsFilterCriteria where
   hashWithSalt _salt ListJobsFilterCriteria' {..} =
-    _salt `Prelude.hashWithSalt` includes
-      `Prelude.hashWithSalt` excludes
+    _salt `Prelude.hashWithSalt` excludes
+      `Prelude.hashWithSalt` includes
 
 instance Prelude.NFData ListJobsFilterCriteria where
   rnf ListJobsFilterCriteria' {..} =
-    Prelude.rnf includes
-      `Prelude.seq` Prelude.rnf excludes
+    Prelude.rnf excludes
+      `Prelude.seq` Prelude.rnf includes
 
-instance Core.ToJSON ListJobsFilterCriteria where
+instance Data.ToJSON ListJobsFilterCriteria where
   toJSON ListJobsFilterCriteria' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("includes" Core..=) Prelude.<$> includes,
-            ("excludes" Core..=) Prelude.<$> excludes
+          [ ("excludes" Data..=) Prelude.<$> excludes,
+            ("includes" Data..=) Prelude.<$> includes
           ]
       )

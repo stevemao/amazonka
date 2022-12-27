@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.ResourceLocation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.ResourceLocation where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types.RegionName
 import qualified Amazonka.Prelude as Prelude
 
@@ -28,10 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newResourceLocation' smart constructor.
 data ResourceLocation = ResourceLocation'
-  { -- | The AWS Region name.
-    regionName :: Prelude.Maybe RegionName,
-    -- | The Availability Zone. Follows the format @us-east-2a@ (case-sensitive).
-    availabilityZone :: Prelude.Maybe Prelude.Text
+  { -- | The Availability Zone. Follows the format @us-east-2a@ (case-sensitive).
+    availabilityZone :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Web Services Region name.
+    regionName :: Prelude.Maybe RegionName
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,41 +44,42 @@ data ResourceLocation = ResourceLocation'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'regionName', 'resourceLocation_regionName' - The AWS Region name.
---
 -- 'availabilityZone', 'resourceLocation_availabilityZone' - The Availability Zone. Follows the format @us-east-2a@ (case-sensitive).
+--
+-- 'regionName', 'resourceLocation_regionName' - The Amazon Web Services Region name.
 newResourceLocation ::
   ResourceLocation
 newResourceLocation =
   ResourceLocation'
-    { regionName = Prelude.Nothing,
-      availabilityZone = Prelude.Nothing
+    { availabilityZone =
+        Prelude.Nothing,
+      regionName = Prelude.Nothing
     }
-
--- | The AWS Region name.
-resourceLocation_regionName :: Lens.Lens' ResourceLocation (Prelude.Maybe RegionName)
-resourceLocation_regionName = Lens.lens (\ResourceLocation' {regionName} -> regionName) (\s@ResourceLocation' {} a -> s {regionName = a} :: ResourceLocation)
 
 -- | The Availability Zone. Follows the format @us-east-2a@ (case-sensitive).
 resourceLocation_availabilityZone :: Lens.Lens' ResourceLocation (Prelude.Maybe Prelude.Text)
 resourceLocation_availabilityZone = Lens.lens (\ResourceLocation' {availabilityZone} -> availabilityZone) (\s@ResourceLocation' {} a -> s {availabilityZone = a} :: ResourceLocation)
 
-instance Core.FromJSON ResourceLocation where
+-- | The Amazon Web Services Region name.
+resourceLocation_regionName :: Lens.Lens' ResourceLocation (Prelude.Maybe RegionName)
+resourceLocation_regionName = Lens.lens (\ResourceLocation' {regionName} -> regionName) (\s@ResourceLocation' {} a -> s {regionName = a} :: ResourceLocation)
+
+instance Data.FromJSON ResourceLocation where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResourceLocation"
       ( \x ->
           ResourceLocation'
-            Prelude.<$> (x Core..:? "regionName")
-            Prelude.<*> (x Core..:? "availabilityZone")
+            Prelude.<$> (x Data..:? "availabilityZone")
+            Prelude.<*> (x Data..:? "regionName")
       )
 
 instance Prelude.Hashable ResourceLocation where
   hashWithSalt _salt ResourceLocation' {..} =
-    _salt `Prelude.hashWithSalt` regionName
-      `Prelude.hashWithSalt` availabilityZone
+    _salt `Prelude.hashWithSalt` availabilityZone
+      `Prelude.hashWithSalt` regionName
 
 instance Prelude.NFData ResourceLocation where
   rnf ResourceLocation' {..} =
-    Prelude.rnf regionName
-      `Prelude.seq` Prelude.rnf availabilityZone
+    Prelude.rnf availabilityZone
+      `Prelude.seq` Prelude.rnf regionName

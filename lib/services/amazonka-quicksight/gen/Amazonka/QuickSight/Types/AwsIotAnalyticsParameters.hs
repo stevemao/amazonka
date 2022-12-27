@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.AwsIotAnalyticsParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.AwsIotAnalyticsParameters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The parameters for IoT Analytics.
@@ -55,13 +56,13 @@ newAwsIotAnalyticsParameters pDataSetName_ =
 awsIotAnalyticsParameters_dataSetName :: Lens.Lens' AwsIotAnalyticsParameters Prelude.Text
 awsIotAnalyticsParameters_dataSetName = Lens.lens (\AwsIotAnalyticsParameters' {dataSetName} -> dataSetName) (\s@AwsIotAnalyticsParameters' {} a -> s {dataSetName = a} :: AwsIotAnalyticsParameters)
 
-instance Core.FromJSON AwsIotAnalyticsParameters where
+instance Data.FromJSON AwsIotAnalyticsParameters where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsIotAnalyticsParameters"
       ( \x ->
           AwsIotAnalyticsParameters'
-            Prelude.<$> (x Core..: "DataSetName")
+            Prelude.<$> (x Data..: "DataSetName")
       )
 
 instance Prelude.Hashable AwsIotAnalyticsParameters where
@@ -72,9 +73,9 @@ instance Prelude.NFData AwsIotAnalyticsParameters where
   rnf AwsIotAnalyticsParameters' {..} =
     Prelude.rnf dataSetName
 
-instance Core.ToJSON AwsIotAnalyticsParameters where
+instance Data.ToJSON AwsIotAnalyticsParameters where
   toJSON AwsIotAnalyticsParameters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("DataSetName" Core..= dataSetName)]
+          [Prelude.Just ("DataSetName" Data..= dataSetName)]
       )

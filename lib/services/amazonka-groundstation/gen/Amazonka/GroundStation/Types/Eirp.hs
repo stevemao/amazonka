@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GroundStation.Types.Eirp
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.GroundStation.Types.Eirp where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GroundStation.Types.EirpUnits
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Object that represents EIRP.
@@ -63,13 +64,13 @@ eirp_units = Lens.lens (\Eirp' {units} -> units) (\s@Eirp' {} a -> s {units = a}
 eirp_value :: Lens.Lens' Eirp Prelude.Double
 eirp_value = Lens.lens (\Eirp' {value} -> value) (\s@Eirp' {} a -> s {value = a} :: Eirp)
 
-instance Core.FromJSON Eirp where
+instance Data.FromJSON Eirp where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Eirp"
       ( \x ->
           Eirp'
-            Prelude.<$> (x Core..: "units") Prelude.<*> (x Core..: "value")
+            Prelude.<$> (x Data..: "units") Prelude.<*> (x Data..: "value")
       )
 
 instance Prelude.Hashable Eirp where
@@ -81,11 +82,11 @@ instance Prelude.NFData Eirp where
   rnf Eirp' {..} =
     Prelude.rnf units `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON Eirp where
+instance Data.ToJSON Eirp where
   toJSON Eirp' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("units" Core..= units),
-            Prelude.Just ("value" Core..= value)
+          [ Prelude.Just ("units" Data..= units),
+            Prelude.Just ("value" Data..= value)
           ]
       )

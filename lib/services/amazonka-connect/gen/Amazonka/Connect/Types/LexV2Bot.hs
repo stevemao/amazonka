@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.Types.LexV2Bot
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Connect.Types.LexV2Bot where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration information of an Amazon Lex V2 bot.
@@ -49,12 +50,12 @@ newLexV2Bot = LexV2Bot' {aliasArn = Prelude.Nothing}
 lexV2Bot_aliasArn :: Lens.Lens' LexV2Bot (Prelude.Maybe Prelude.Text)
 lexV2Bot_aliasArn = Lens.lens (\LexV2Bot' {aliasArn} -> aliasArn) (\s@LexV2Bot' {} a -> s {aliasArn = a} :: LexV2Bot)
 
-instance Core.FromJSON LexV2Bot where
+instance Data.FromJSON LexV2Bot where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LexV2Bot"
       ( \x ->
-          LexV2Bot' Prelude.<$> (x Core..:? "AliasArn")
+          LexV2Bot' Prelude.<$> (x Data..:? "AliasArn")
       )
 
 instance Prelude.Hashable LexV2Bot where
@@ -64,9 +65,9 @@ instance Prelude.Hashable LexV2Bot where
 instance Prelude.NFData LexV2Bot where
   rnf LexV2Bot' {..} = Prelude.rnf aliasArn
 
-instance Core.ToJSON LexV2Bot where
+instance Data.ToJSON LexV2Bot where
   toJSON LexV2Bot' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("AliasArn" Core..=) Prelude.<$> aliasArn]
+          [("AliasArn" Data..=) Prelude.<$> aliasArn]
       )

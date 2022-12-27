@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.DescribeElasticIps
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,7 +51,8 @@ module Amazonka.OpsWorks.DescribeElasticIps
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -127,12 +128,13 @@ instance Core.AWSRequest DescribeElasticIps where
   type
     AWSResponse DescribeElasticIps =
       DescribeElasticIpsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeElasticIpsResponse'
-            Prelude.<$> (x Core..?> "ElasticIps" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "ElasticIps" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -148,35 +150,35 @@ instance Prelude.NFData DescribeElasticIps where
       `Prelude.seq` Prelude.rnf ips
       `Prelude.seq` Prelude.rnf stackId
 
-instance Core.ToHeaders DescribeElasticIps where
+instance Data.ToHeaders DescribeElasticIps where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.DescribeElasticIps" ::
+              Data.=# ( "OpsWorks_20130218.DescribeElasticIps" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeElasticIps where
+instance Data.ToJSON DescribeElasticIps where
   toJSON DescribeElasticIps' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("InstanceId" Core..=) Prelude.<$> instanceId,
-            ("Ips" Core..=) Prelude.<$> ips,
-            ("StackId" Core..=) Prelude.<$> stackId
+          [ ("InstanceId" Data..=) Prelude.<$> instanceId,
+            ("Ips" Data..=) Prelude.<$> ips,
+            ("StackId" Data..=) Prelude.<$> stackId
           ]
       )
 
-instance Core.ToPath DescribeElasticIps where
+instance Data.ToPath DescribeElasticIps where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeElasticIps where
+instance Data.ToQuery DescribeElasticIps where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the response to a @DescribeElasticIps@ request.

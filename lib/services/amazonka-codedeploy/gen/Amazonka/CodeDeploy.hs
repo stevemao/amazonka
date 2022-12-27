@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -11,33 +11,31 @@
 --
 -- Derived from API version @2014-10-06@ of the AWS service descriptions, licensed under Apache 2.0.
 --
--- AWS CodeDeploy
---
--- AWS CodeDeploy is a deployment service that automates application
+-- CodeDeploy is a deployment service that automates application
 -- deployments to Amazon EC2 instances, on-premises instances running in
--- your own facility, serverless AWS Lambda functions, or applications in
--- an Amazon ECS service.
+-- your own facility, serverless Lambda functions, or applications in an
+-- Amazon ECS service.
 --
 -- You can deploy a nearly unlimited variety of application content, such
 -- as an updated Lambda function, updated applications in an Amazon ECS
 -- service, code, web and configuration files, executables, packages,
--- scripts, multimedia files, and so on. AWS CodeDeploy can deploy
--- application content stored in Amazon S3 buckets, GitHub repositories, or
--- Bitbucket repositories. You do not need to make changes to your existing
--- code before you can use AWS CodeDeploy.
+-- scripts, multimedia files, and so on. CodeDeploy can deploy application
+-- content stored in Amazon S3 buckets, GitHub repositories, or Bitbucket
+-- repositories. You do not need to make changes to your existing code
+-- before you can use CodeDeploy.
 --
--- AWS CodeDeploy makes it easier for you to rapidly release new features,
+-- CodeDeploy makes it easier for you to rapidly release new features,
 -- helps you avoid downtime during application deployment, and handles the
 -- complexity of updating your applications, without many of the risks
 -- associated with error-prone manual deployments.
 --
--- __AWS CodeDeploy Components__
+-- __CodeDeploy Components__
 --
 -- Use the information in this guide to help you work with the following
--- AWS CodeDeploy components:
+-- CodeDeploy components:
 --
 -- -   __Application__: A name that uniquely identifies the application you
---     want to deploy. AWS CodeDeploy uses this name, which functions as a
+--     want to deploy. CodeDeploy uses this name, which functions as a
 --     container, to ensure the correct combination of revision, deployment
 --     configuration, and deployment group are referenced during a
 --     deployment.
@@ -48,20 +46,21 @@
 --     route traffic to a new version of a Lambda function. An Amazon ECS
 --     deployment group specifies the service created in Amazon ECS to
 --     deploy, a load balancer, and a listener to reroute production
---     traffic to an updated containerized application. An EC2\/On-premises
---     deployment group contains individually tagged instances, Amazon EC2
---     instances in Amazon EC2 Auto Scaling groups, or both. All deployment
---     groups can specify optional trigger, alarm, and rollback settings.
+--     traffic to an updated containerized application. An Amazon
+--     EC2\/On-premises deployment group contains individually tagged
+--     instances, Amazon EC2 instances in Amazon EC2 Auto Scaling groups,
+--     or both. All deployment groups can specify optional trigger, alarm,
+--     and rollback settings.
 --
 -- -   __Deployment configuration__: A set of deployment rules and
---     deployment success and failure conditions used by AWS CodeDeploy
---     during a deployment.
+--     deployment success and failure conditions used by CodeDeploy during
+--     a deployment.
 --
 -- -   __Deployment__: The process and the components used when updating a
 --     Lambda function, a containerized application in an Amazon ECS
 --     service, or of installing content on one or more instances.
 --
--- -   __Application revisions__: For an AWS Lambda deployment, this is an
+-- -   __Application revisions__: For an Lambda deployment, this is an
 --     AppSpec file that specifies the Lambda function to be updated and
 --     one or more functions to validate deployment lifecycle events. For
 --     an Amazon ECS deployment, this is an AppSpec file that specifies the
@@ -76,18 +75,18 @@
 --
 -- This guide also contains information to help you get details about the
 -- instances in your deployments, to make on-premises instances available
--- for AWS CodeDeploy deployments, to get details about a Lambda function
+-- for CodeDeploy deployments, to get details about a Lambda function
 -- deployment, and to get details about Amazon ECS service deployments.
 --
--- __AWS CodeDeploy Information Resources__
+-- __CodeDeploy Information Resources__
 --
--- -   <https://docs.aws.amazon.com/codedeploy/latest/userguide AWS CodeDeploy User Guide>
+-- -   <https://docs.aws.amazon.com/codedeploy/latest/userguide CodeDeploy User Guide>
 --
--- -   <https://docs.aws.amazon.com/codedeploy/latest/APIReference/ AWS CodeDeploy API Reference Guide>
+-- -   <https://docs.aws.amazon.com/codedeploy/latest/APIReference/ CodeDeploy API Reference Guide>
 --
--- -   <https://docs.aws.amazon.com/cli/latest/reference/deploy/index.html AWS CLI Reference for AWS CodeDeploy>
+-- -   <https://docs.aws.amazon.com/cli/latest/reference/deploy/index.html CLI Reference for CodeDeploy>
 --
--- -   <https://forums.aws.amazon.com/forum.jspa?forumID=179 AWS CodeDeploy Developer Forum>
+-- -   <https://forums.aws.amazon.com/forum.jspa?forumID=179 CodeDeploy Developer Forum>
 module Amazonka.CodeDeploy
   ( -- * Service Configuration
     defaultService,
@@ -95,341 +94,341 @@ module Amazonka.CodeDeploy
     -- * Errors
     -- $errors
 
-    -- ** LifecycleHookLimitExceededException
-    _LifecycleHookLimitExceededException,
-
-    -- ** InvalidTimeRangeException
-    _InvalidTimeRangeException,
-
-    -- ** InvalidComputePlatformException
-    _InvalidComputePlatformException,
-
-    -- ** InvalidTagException
-    _InvalidTagException,
-
-    -- ** InvalidFileExistsBehaviorException
-    _InvalidFileExistsBehaviorException,
-
-    -- ** InvalidAlarmConfigException
-    _InvalidAlarmConfigException,
-
-    -- ** InstanceNameAlreadyRegisteredException
-    _InstanceNameAlreadyRegisteredException,
-
-    -- ** IamUserArnRequiredException
-    _IamUserArnRequiredException,
-
-    -- ** InvalidDeploymentGroupNameException
-    _InvalidDeploymentGroupNameException,
-
-    -- ** InvalidInstanceTypeException
-    _InvalidInstanceTypeException,
-
-    -- ** IamSessionArnAlreadyRegisteredException
-    _IamSessionArnAlreadyRegisteredException,
-
-    -- ** InvalidTrafficRoutingConfigurationException
-    _InvalidTrafficRoutingConfigurationException,
-
-    -- ** DescriptionTooLongException
-    _DescriptionTooLongException,
-
-    -- ** InvalidIamUserArnException
-    _InvalidIamUserArnException,
-
-    -- ** InvalidOnPremisesTagCombinationException
-    _InvalidOnPremisesTagCombinationException,
-
-    -- ** DeploymentNotStartedException
-    _DeploymentNotStartedException,
-
-    -- ** DeploymentConfigLimitExceededException
-    _DeploymentConfigLimitExceededException,
-
-    -- ** RoleRequiredException
-    _RoleRequiredException,
-
-    -- ** InvalidLoadBalancerInfoException
-    _InvalidLoadBalancerInfoException,
-
-    -- ** InvalidBlueGreenDeploymentConfigurationException
-    _InvalidBlueGreenDeploymentConfigurationException,
-
-    -- ** InvalidRoleException
-    _InvalidRoleException,
-
-    -- ** DeploymentConfigAlreadyExistsException
-    _DeploymentConfigAlreadyExistsException,
-
-    -- ** InvalidTargetInstancesException
-    _InvalidTargetInstancesException,
-
-    -- ** InvalidTagsToAddException
-    _InvalidTagsToAddException,
-
-    -- ** DeploymentLimitExceededException
-    _DeploymentLimitExceededException,
-
-    -- ** IamUserArnAlreadyRegisteredException
-    _IamUserArnAlreadyRegisteredException,
-
-    -- ** InvalidIamSessionArnException
-    _InvalidIamSessionArnException,
-
-    -- ** InstanceLimitExceededException
-    _InstanceLimitExceededException,
-
-    -- ** InvalidLifecycleEventHookExecutionIdException
-    _InvalidLifecycleEventHookExecutionIdException,
-
-    -- ** InvalidDeploymentStyleException
-    _InvalidDeploymentStyleException,
-
-    -- ** InvalidTargetFilterNameException
-    _InvalidTargetFilterNameException,
-
-    -- ** DeploymentTargetListSizeExceededException
-    _DeploymentTargetListSizeExceededException,
-
-    -- ** InvalidDeployedStateFilterException
-    _InvalidDeployedStateFilterException,
-
-    -- ** InvalidAutoScalingGroupException
-    _InvalidAutoScalingGroupException,
-
-    -- ** InvalidApplicationNameException
-    _InvalidApplicationNameException,
-
-    -- ** GitHubAccountTokenDoesNotExistException
-    _GitHubAccountTokenDoesNotExistException,
-
-    -- ** ApplicationDoesNotExistException
-    _ApplicationDoesNotExistException,
-
-    -- ** InvalidMinimumHealthyHostValueException
-    _InvalidMinimumHealthyHostValueException,
-
-    -- ** UnsupportedActionForDeploymentTypeException
-    _UnsupportedActionForDeploymentTypeException,
-
-    -- ** ResourceValidationException
-    _ResourceValidationException,
-
-    -- ** ArnNotSupportedException
-    _ArnNotSupportedException,
-
-    -- ** InvalidGitHubAccountTokenException
-    _InvalidGitHubAccountTokenException,
-
-    -- ** InvalidEC2TagCombinationException
-    _InvalidEC2TagCombinationException,
-
-    -- ** InvalidLifecycleEventHookExecutionStatusException
-    _InvalidLifecycleEventHookExecutionStatusException,
-
     -- ** AlarmsLimitExceededException
     _AlarmsLimitExceededException,
-
-    -- ** OperationNotSupportedException
-    _OperationNotSupportedException,
-
-    -- ** DeploymentTargetDoesNotExistException
-    _DeploymentTargetDoesNotExistException,
-
-    -- ** InvalidTagFilterException
-    _InvalidTagFilterException,
-
-    -- ** InvalidTriggerConfigException
-    _InvalidTriggerConfigException,
-
-    -- ** InvalidDeploymentWaitTypeException
-    _InvalidDeploymentWaitTypeException,
-
-    -- ** InvalidIgnoreApplicationStopFailuresValueException
-    _InvalidIgnoreApplicationStopFailuresValueException,
-
-    -- ** InvalidUpdateOutdatedInstancesOnlyValueException
-    _InvalidUpdateOutdatedInstancesOnlyValueException,
-
-    -- ** TagRequiredException
-    _TagRequiredException,
-
-    -- ** DeploymentGroupNameRequiredException
-    _DeploymentGroupNameRequiredException,
-
-    -- ** BucketNameFilterRequiredException
-    _BucketNameFilterRequiredException,
-
-    -- ** DeploymentConfigDoesNotExistException
-    _DeploymentConfigDoesNotExistException,
-
-    -- ** InvalidBucketNameFilterException
-    _InvalidBucketNameFilterException,
-
-    -- ** DeploymentGroupAlreadyExistsException
-    _DeploymentGroupAlreadyExistsException,
-
-    -- ** InvalidSortByException
-    _InvalidSortByException,
-
-    -- ** RevisionDoesNotExistException
-    _RevisionDoesNotExistException,
-
-    -- ** InvalidTargetException
-    _InvalidTargetException,
-
-    -- ** DeploymentGroupLimitExceededException
-    _DeploymentGroupLimitExceededException,
-
-    -- ** DeploymentGroupDoesNotExistException
-    _DeploymentGroupDoesNotExistException,
-
-    -- ** ThrottlingException
-    _ThrottlingException,
-
-    -- ** InvalidDeploymentConfigNameException
-    _InvalidDeploymentConfigNameException,
-
-    -- ** DeploymentConfigNameRequiredException
-    _DeploymentConfigNameRequiredException,
-
-    -- ** DeploymentIdRequiredException
-    _DeploymentIdRequiredException,
-
-    -- ** InvalidInstanceIdException
-    _InvalidInstanceIdException,
-
-    -- ** DeploymentIsNotInReadyStateException
-    _DeploymentIsNotInReadyStateException,
-
-    -- ** InvalidTargetGroupPairException
-    _InvalidTargetGroupPairException,
-
-    -- ** InvalidNextTokenException
-    _InvalidNextTokenException,
-
-    -- ** InstanceIdRequiredException
-    _InstanceIdRequiredException,
-
-    -- ** InvalidDeploymentIdException
-    _InvalidDeploymentIdException,
-
-    -- ** InvalidSortOrderException
-    _InvalidSortOrderException,
-
-    -- ** InvalidAutoRollbackConfigException
-    _InvalidAutoRollbackConfigException,
-
-    -- ** DeploymentAlreadyCompletedException
-    _DeploymentAlreadyCompletedException,
-
-    -- ** ECSServiceMappingLimitExceededException
-    _ECSServiceMappingLimitExceededException,
-
-    -- ** DeploymentDoesNotExistException
-    _DeploymentDoesNotExistException,
-
-    -- ** BatchLimitExceededException
-    _BatchLimitExceededException,
-
-    -- ** InvalidRevisionException
-    _InvalidRevisionException,
-
-    -- ** RevisionRequiredException
-    _RevisionRequiredException,
-
-    -- ** InstanceDoesNotExistException
-    _InstanceDoesNotExistException,
-
-    -- ** DeploymentConfigInUseException
-    _DeploymentConfigInUseException,
-
-    -- ** InvalidInputException
-    _InvalidInputException,
-
-    -- ** InvalidEC2TagException
-    _InvalidEC2TagException,
-
-    -- ** InvalidInstanceNameException
-    _InvalidInstanceNameException,
-
-    -- ** InstanceNameRequiredException
-    _InstanceNameRequiredException,
-
-    -- ** MultipleIamArnsProvidedException
-    _MultipleIamArnsProvidedException,
-
-    -- ** TriggerTargetsLimitExceededException
-    _TriggerTargetsLimitExceededException,
-
-    -- ** InvalidDeploymentStatusException
-    _InvalidDeploymentStatusException,
-
-    -- ** InvalidRegistrationStatusException
-    _InvalidRegistrationStatusException,
-
-    -- ** ApplicationNameRequiredException
-    _ApplicationNameRequiredException,
-
-    -- ** InstanceNotRegisteredException
-    _InstanceNotRegisteredException,
 
     -- ** ApplicationAlreadyExistsException
     _ApplicationAlreadyExistsException,
 
-    -- ** InvalidInstanceStatusException
-    _InvalidInstanceStatusException,
-
-    -- ** InvalidDeploymentTargetIdException
-    _InvalidDeploymentTargetIdException,
-
-    -- ** TagLimitExceededException
-    _TagLimitExceededException,
+    -- ** ApplicationDoesNotExistException
+    _ApplicationDoesNotExistException,
 
     -- ** ApplicationLimitExceededException
     _ApplicationLimitExceededException,
 
-    -- ** TagSetListLimitExceededException
-    _TagSetListLimitExceededException,
+    -- ** ApplicationNameRequiredException
+    _ApplicationNameRequiredException,
 
-    -- ** InvalidArnException
-    _InvalidArnException,
+    -- ** ArnNotSupportedException
+    _ArnNotSupportedException,
 
-    -- ** InvalidOperationException
-    _InvalidOperationException,
+    -- ** BatchLimitExceededException
+    _BatchLimitExceededException,
+
+    -- ** BucketNameFilterRequiredException
+    _BucketNameFilterRequiredException,
+
+    -- ** DeploymentAlreadyCompletedException
+    _DeploymentAlreadyCompletedException,
+
+    -- ** DeploymentAlreadyStartedException
+    _DeploymentAlreadyStartedException,
+
+    -- ** DeploymentConfigAlreadyExistsException
+    _DeploymentConfigAlreadyExistsException,
+
+    -- ** DeploymentConfigDoesNotExistException
+    _DeploymentConfigDoesNotExistException,
+
+    -- ** DeploymentConfigInUseException
+    _DeploymentConfigInUseException,
+
+    -- ** DeploymentConfigLimitExceededException
+    _DeploymentConfigLimitExceededException,
+
+    -- ** DeploymentConfigNameRequiredException
+    _DeploymentConfigNameRequiredException,
+
+    -- ** DeploymentDoesNotExistException
+    _DeploymentDoesNotExistException,
+
+    -- ** DeploymentGroupAlreadyExistsException
+    _DeploymentGroupAlreadyExistsException,
+
+    -- ** DeploymentGroupDoesNotExistException
+    _DeploymentGroupDoesNotExistException,
+
+    -- ** DeploymentGroupLimitExceededException
+    _DeploymentGroupLimitExceededException,
+
+    -- ** DeploymentGroupNameRequiredException
+    _DeploymentGroupNameRequiredException,
+
+    -- ** DeploymentIdRequiredException
+    _DeploymentIdRequiredException,
+
+    -- ** DeploymentIsNotInReadyStateException
+    _DeploymentIsNotInReadyStateException,
+
+    -- ** DeploymentLimitExceededException
+    _DeploymentLimitExceededException,
+
+    -- ** DeploymentNotStartedException
+    _DeploymentNotStartedException,
+
+    -- ** DeploymentTargetDoesNotExistException
+    _DeploymentTargetDoesNotExistException,
 
     -- ** DeploymentTargetIdRequiredException
     _DeploymentTargetIdRequiredException,
 
+    -- ** DeploymentTargetListSizeExceededException
+    _DeploymentTargetListSizeExceededException,
+
+    -- ** DescriptionTooLongException
+    _DescriptionTooLongException,
+
+    -- ** ECSServiceMappingLimitExceededException
+    _ECSServiceMappingLimitExceededException,
+
+    -- ** GitHubAccountTokenDoesNotExistException
+    _GitHubAccountTokenDoesNotExistException,
+
     -- ** GitHubAccountTokenNameRequiredException
     _GitHubAccountTokenNameRequiredException,
-
-    -- ** InvalidECSServiceException
-    _InvalidECSServiceException,
-
-    -- ** InvalidDeploymentInstanceTypeException
-    _InvalidDeploymentInstanceTypeException,
-
-    -- ** InvalidExternalIdException
-    _InvalidExternalIdException,
 
     -- ** IamArnRequiredException
     _IamArnRequiredException,
 
+    -- ** IamSessionArnAlreadyRegisteredException
+    _IamSessionArnAlreadyRegisteredException,
+
+    -- ** IamUserArnAlreadyRegisteredException
+    _IamUserArnAlreadyRegisteredException,
+
+    -- ** IamUserArnRequiredException
+    _IamUserArnRequiredException,
+
+    -- ** InstanceDoesNotExistException
+    _InstanceDoesNotExistException,
+
+    -- ** InstanceIdRequiredException
+    _InstanceIdRequiredException,
+
+    -- ** InstanceLimitExceededException
+    _InstanceLimitExceededException,
+
+    -- ** InstanceNameAlreadyRegisteredException
+    _InstanceNameAlreadyRegisteredException,
+
+    -- ** InstanceNameRequiredException
+    _InstanceNameRequiredException,
+
+    -- ** InstanceNotRegisteredException
+    _InstanceNotRegisteredException,
+
+    -- ** InvalidAlarmConfigException
+    _InvalidAlarmConfigException,
+
+    -- ** InvalidApplicationNameException
+    _InvalidApplicationNameException,
+
+    -- ** InvalidArnException
+    _InvalidArnException,
+
+    -- ** InvalidAutoRollbackConfigException
+    _InvalidAutoRollbackConfigException,
+
+    -- ** InvalidAutoScalingGroupException
+    _InvalidAutoScalingGroupException,
+
+    -- ** InvalidBlueGreenDeploymentConfigurationException
+    _InvalidBlueGreenDeploymentConfigurationException,
+
+    -- ** InvalidBucketNameFilterException
+    _InvalidBucketNameFilterException,
+
+    -- ** InvalidComputePlatformException
+    _InvalidComputePlatformException,
+
+    -- ** InvalidDeployedStateFilterException
+    _InvalidDeployedStateFilterException,
+
+    -- ** InvalidDeploymentConfigNameException
+    _InvalidDeploymentConfigNameException,
+
+    -- ** InvalidDeploymentGroupNameException
+    _InvalidDeploymentGroupNameException,
+
+    -- ** InvalidDeploymentIdException
+    _InvalidDeploymentIdException,
+
+    -- ** InvalidDeploymentInstanceTypeException
+    _InvalidDeploymentInstanceTypeException,
+
+    -- ** InvalidDeploymentStatusException
+    _InvalidDeploymentStatusException,
+
+    -- ** InvalidDeploymentStyleException
+    _InvalidDeploymentStyleException,
+
+    -- ** InvalidDeploymentTargetIdException
+    _InvalidDeploymentTargetIdException,
+
+    -- ** InvalidDeploymentWaitTypeException
+    _InvalidDeploymentWaitTypeException,
+
+    -- ** InvalidEC2TagCombinationException
+    _InvalidEC2TagCombinationException,
+
+    -- ** InvalidEC2TagException
+    _InvalidEC2TagException,
+
+    -- ** InvalidECSServiceException
+    _InvalidECSServiceException,
+
+    -- ** InvalidExternalIdException
+    _InvalidExternalIdException,
+
+    -- ** InvalidFileExistsBehaviorException
+    _InvalidFileExistsBehaviorException,
+
+    -- ** InvalidGitHubAccountTokenException
+    _InvalidGitHubAccountTokenException,
+
     -- ** InvalidGitHubAccountTokenNameException
     _InvalidGitHubAccountTokenNameException,
 
-    -- ** LifecycleEventAlreadyCompletedException
-    _LifecycleEventAlreadyCompletedException,
+    -- ** InvalidIamSessionArnException
+    _InvalidIamSessionArnException,
+
+    -- ** InvalidIamUserArnException
+    _InvalidIamUserArnException,
+
+    -- ** InvalidIgnoreApplicationStopFailuresValueException
+    _InvalidIgnoreApplicationStopFailuresValueException,
+
+    -- ** InvalidInputException
+    _InvalidInputException,
+
+    -- ** InvalidInstanceIdException
+    _InvalidInstanceIdException,
+
+    -- ** InvalidInstanceNameException
+    _InvalidInstanceNameException,
+
+    -- ** InvalidInstanceStatusException
+    _InvalidInstanceStatusException,
+
+    -- ** InvalidInstanceTypeException
+    _InvalidInstanceTypeException,
 
     -- ** InvalidKeyPrefixFilterException
     _InvalidKeyPrefixFilterException,
 
+    -- ** InvalidLifecycleEventHookExecutionIdException
+    _InvalidLifecycleEventHookExecutionIdException,
+
+    -- ** InvalidLifecycleEventHookExecutionStatusException
+    _InvalidLifecycleEventHookExecutionStatusException,
+
+    -- ** InvalidLoadBalancerInfoException
+    _InvalidLoadBalancerInfoException,
+
+    -- ** InvalidMinimumHealthyHostValueException
+    _InvalidMinimumHealthyHostValueException,
+
+    -- ** InvalidNextTokenException
+    _InvalidNextTokenException,
+
+    -- ** InvalidOnPremisesTagCombinationException
+    _InvalidOnPremisesTagCombinationException,
+
+    -- ** InvalidOperationException
+    _InvalidOperationException,
+
+    -- ** InvalidRegistrationStatusException
+    _InvalidRegistrationStatusException,
+
+    -- ** InvalidRevisionException
+    _InvalidRevisionException,
+
+    -- ** InvalidRoleException
+    _InvalidRoleException,
+
+    -- ** InvalidSortByException
+    _InvalidSortByException,
+
+    -- ** InvalidSortOrderException
+    _InvalidSortOrderException,
+
+    -- ** InvalidTagException
+    _InvalidTagException,
+
+    -- ** InvalidTagFilterException
+    _InvalidTagFilterException,
+
+    -- ** InvalidTagsToAddException
+    _InvalidTagsToAddException,
+
+    -- ** InvalidTargetException
+    _InvalidTargetException,
+
+    -- ** InvalidTargetFilterNameException
+    _InvalidTargetFilterNameException,
+
+    -- ** InvalidTargetGroupPairException
+    _InvalidTargetGroupPairException,
+
+    -- ** InvalidTargetInstancesException
+    _InvalidTargetInstancesException,
+
+    -- ** InvalidTimeRangeException
+    _InvalidTimeRangeException,
+
+    -- ** InvalidTrafficRoutingConfigurationException
+    _InvalidTrafficRoutingConfigurationException,
+
+    -- ** InvalidTriggerConfigException
+    _InvalidTriggerConfigException,
+
+    -- ** InvalidUpdateOutdatedInstancesOnlyValueException
+    _InvalidUpdateOutdatedInstancesOnlyValueException,
+
+    -- ** LifecycleEventAlreadyCompletedException
+    _LifecycleEventAlreadyCompletedException,
+
+    -- ** LifecycleHookLimitExceededException
+    _LifecycleHookLimitExceededException,
+
+    -- ** MultipleIamArnsProvidedException
+    _MultipleIamArnsProvidedException,
+
+    -- ** OperationNotSupportedException
+    _OperationNotSupportedException,
+
     -- ** ResourceArnRequiredException
     _ResourceArnRequiredException,
 
-    -- ** DeploymentAlreadyStartedException
-    _DeploymentAlreadyStartedException,
+    -- ** ResourceValidationException
+    _ResourceValidationException,
+
+    -- ** RevisionDoesNotExistException
+    _RevisionDoesNotExistException,
+
+    -- ** RevisionRequiredException
+    _RevisionRequiredException,
+
+    -- ** RoleRequiredException
+    _RoleRequiredException,
+
+    -- ** TagLimitExceededException
+    _TagLimitExceededException,
+
+    -- ** TagRequiredException
+    _TagRequiredException,
+
+    -- ** TagSetListLimitExceededException
+    _TagSetListLimitExceededException,
+
+    -- ** ThrottlingException
+    _ThrottlingException,
+
+    -- ** TriggerTargetsLimitExceededException
+    _TriggerTargetsLimitExceededException,
+
+    -- ** UnsupportedActionForDeploymentTypeException
+    _UnsupportedActionForDeploymentTypeException,
 
     -- * Waiters
     -- $waiters
@@ -440,11 +439,23 @@ module Amazonka.CodeDeploy
     -- * Operations
     -- $operations
 
-    -- ** RemoveTagsFromOnPremisesInstances
-    RemoveTagsFromOnPremisesInstances (RemoveTagsFromOnPremisesInstances'),
-    newRemoveTagsFromOnPremisesInstances,
-    RemoveTagsFromOnPremisesInstancesResponse (RemoveTagsFromOnPremisesInstancesResponse'),
-    newRemoveTagsFromOnPremisesInstancesResponse,
+    -- ** AddTagsToOnPremisesInstances
+    AddTagsToOnPremisesInstances (AddTagsToOnPremisesInstances'),
+    newAddTagsToOnPremisesInstances,
+    AddTagsToOnPremisesInstancesResponse (AddTagsToOnPremisesInstancesResponse'),
+    newAddTagsToOnPremisesInstancesResponse,
+
+    -- ** BatchGetApplicationRevisions
+    BatchGetApplicationRevisions (BatchGetApplicationRevisions'),
+    newBatchGetApplicationRevisions,
+    BatchGetApplicationRevisionsResponse (BatchGetApplicationRevisionsResponse'),
+    newBatchGetApplicationRevisionsResponse,
+
+    -- ** BatchGetApplications
+    BatchGetApplications (BatchGetApplications'),
+    newBatchGetApplications,
+    BatchGetApplicationsResponse (BatchGetApplicationsResponse'),
+    newBatchGetApplicationsResponse,
 
     -- ** BatchGetDeploymentGroups
     BatchGetDeploymentGroups (BatchGetDeploymentGroups'),
@@ -452,29 +463,95 @@ module Amazonka.CodeDeploy
     BatchGetDeploymentGroupsResponse (BatchGetDeploymentGroupsResponse'),
     newBatchGetDeploymentGroupsResponse,
 
-    -- ** DeleteDeploymentGroup
-    DeleteDeploymentGroup (DeleteDeploymentGroup'),
-    newDeleteDeploymentGroup,
-    DeleteDeploymentGroupResponse (DeleteDeploymentGroupResponse'),
-    newDeleteDeploymentGroupResponse,
+    -- ** BatchGetDeploymentTargets
+    BatchGetDeploymentTargets (BatchGetDeploymentTargets'),
+    newBatchGetDeploymentTargets,
+    BatchGetDeploymentTargetsResponse (BatchGetDeploymentTargetsResponse'),
+    newBatchGetDeploymentTargetsResponse,
 
-    -- ** UpdateDeploymentGroup
-    UpdateDeploymentGroup (UpdateDeploymentGroup'),
-    newUpdateDeploymentGroup,
-    UpdateDeploymentGroupResponse (UpdateDeploymentGroupResponse'),
-    newUpdateDeploymentGroupResponse,
+    -- ** BatchGetDeployments
+    BatchGetDeployments (BatchGetDeployments'),
+    newBatchGetDeployments,
+    BatchGetDeploymentsResponse (BatchGetDeploymentsResponse'),
+    newBatchGetDeploymentsResponse,
 
-    -- ** ListOnPremisesInstances (Paginated)
-    ListOnPremisesInstances (ListOnPremisesInstances'),
-    newListOnPremisesInstances,
-    ListOnPremisesInstancesResponse (ListOnPremisesInstancesResponse'),
-    newListOnPremisesInstancesResponse,
+    -- ** BatchGetOnPremisesInstances
+    BatchGetOnPremisesInstances (BatchGetOnPremisesInstances'),
+    newBatchGetOnPremisesInstances,
+    BatchGetOnPremisesInstancesResponse (BatchGetOnPremisesInstancesResponse'),
+    newBatchGetOnPremisesInstancesResponse,
+
+    -- ** ContinueDeployment
+    ContinueDeployment (ContinueDeployment'),
+    newContinueDeployment,
+    ContinueDeploymentResponse (ContinueDeploymentResponse'),
+    newContinueDeploymentResponse,
+
+    -- ** CreateApplication
+    CreateApplication (CreateApplication'),
+    newCreateApplication,
+    CreateApplicationResponse (CreateApplicationResponse'),
+    newCreateApplicationResponse,
+
+    -- ** CreateDeployment
+    CreateDeployment (CreateDeployment'),
+    newCreateDeployment,
+    CreateDeploymentResponse (CreateDeploymentResponse'),
+    newCreateDeploymentResponse,
 
     -- ** CreateDeploymentConfig
     CreateDeploymentConfig (CreateDeploymentConfig'),
     newCreateDeploymentConfig,
     CreateDeploymentConfigResponse (CreateDeploymentConfigResponse'),
     newCreateDeploymentConfigResponse,
+
+    -- ** CreateDeploymentGroup
+    CreateDeploymentGroup (CreateDeploymentGroup'),
+    newCreateDeploymentGroup,
+    CreateDeploymentGroupResponse (CreateDeploymentGroupResponse'),
+    newCreateDeploymentGroupResponse,
+
+    -- ** DeleteApplication
+    DeleteApplication (DeleteApplication'),
+    newDeleteApplication,
+    DeleteApplicationResponse (DeleteApplicationResponse'),
+    newDeleteApplicationResponse,
+
+    -- ** DeleteDeploymentConfig
+    DeleteDeploymentConfig (DeleteDeploymentConfig'),
+    newDeleteDeploymentConfig,
+    DeleteDeploymentConfigResponse (DeleteDeploymentConfigResponse'),
+    newDeleteDeploymentConfigResponse,
+
+    -- ** DeleteDeploymentGroup
+    DeleteDeploymentGroup (DeleteDeploymentGroup'),
+    newDeleteDeploymentGroup,
+    DeleteDeploymentGroupResponse (DeleteDeploymentGroupResponse'),
+    newDeleteDeploymentGroupResponse,
+
+    -- ** DeleteGitHubAccountToken
+    DeleteGitHubAccountToken (DeleteGitHubAccountToken'),
+    newDeleteGitHubAccountToken,
+    DeleteGitHubAccountTokenResponse (DeleteGitHubAccountTokenResponse'),
+    newDeleteGitHubAccountTokenResponse,
+
+    -- ** DeleteResourcesByExternalId
+    DeleteResourcesByExternalId (DeleteResourcesByExternalId'),
+    newDeleteResourcesByExternalId,
+    DeleteResourcesByExternalIdResponse (DeleteResourcesByExternalIdResponse'),
+    newDeleteResourcesByExternalIdResponse,
+
+    -- ** DeregisterOnPremisesInstance
+    DeregisterOnPremisesInstance (DeregisterOnPremisesInstance'),
+    newDeregisterOnPremisesInstance,
+    DeregisterOnPremisesInstanceResponse (DeregisterOnPremisesInstanceResponse'),
+    newDeregisterOnPremisesInstanceResponse,
+
+    -- ** GetApplication
+    GetApplication (GetApplication'),
+    newGetApplication,
+    GetApplicationResponse (GetApplicationResponse'),
+    newGetApplicationResponse,
 
     -- ** GetApplicationRevision
     GetApplicationRevision (GetApplicationRevision'),
@@ -488,161 +565,11 @@ module Amazonka.CodeDeploy
     GetDeploymentResponse (GetDeploymentResponse'),
     newGetDeploymentResponse,
 
-    -- ** DeleteDeploymentConfig
-    DeleteDeploymentConfig (DeleteDeploymentConfig'),
-    newDeleteDeploymentConfig,
-    DeleteDeploymentConfigResponse (DeleteDeploymentConfigResponse'),
-    newDeleteDeploymentConfigResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
     -- ** GetDeploymentConfig
     GetDeploymentConfig (GetDeploymentConfig'),
     newGetDeploymentConfig,
     GetDeploymentConfigResponse (GetDeploymentConfigResponse'),
     newGetDeploymentConfigResponse,
-
-    -- ** CreateDeployment
-    CreateDeployment (CreateDeployment'),
-    newCreateDeployment,
-    CreateDeploymentResponse (CreateDeploymentResponse'),
-    newCreateDeploymentResponse,
-
-    -- ** BatchGetApplicationRevisions
-    BatchGetApplicationRevisions (BatchGetApplicationRevisions'),
-    newBatchGetApplicationRevisions,
-    BatchGetApplicationRevisionsResponse (BatchGetApplicationRevisionsResponse'),
-    newBatchGetApplicationRevisionsResponse,
-
-    -- ** BatchGetDeployments
-    BatchGetDeployments (BatchGetDeployments'),
-    newBatchGetDeployments,
-    BatchGetDeploymentsResponse (BatchGetDeploymentsResponse'),
-    newBatchGetDeploymentsResponse,
-
-    -- ** GetOnPremisesInstance
-    GetOnPremisesInstance (GetOnPremisesInstance'),
-    newGetOnPremisesInstance,
-    GetOnPremisesInstanceResponse (GetOnPremisesInstanceResponse'),
-    newGetOnPremisesInstanceResponse,
-
-    -- ** RegisterApplicationRevision
-    RegisterApplicationRevision (RegisterApplicationRevision'),
-    newRegisterApplicationRevision,
-    RegisterApplicationRevisionResponse (RegisterApplicationRevisionResponse'),
-    newRegisterApplicationRevisionResponse,
-
-    -- ** ContinueDeployment
-    ContinueDeployment (ContinueDeployment'),
-    newContinueDeployment,
-    ContinueDeploymentResponse (ContinueDeploymentResponse'),
-    newContinueDeploymentResponse,
-
-    -- ** BatchGetApplications
-    BatchGetApplications (BatchGetApplications'),
-    newBatchGetApplications,
-    BatchGetApplicationsResponse (BatchGetApplicationsResponse'),
-    newBatchGetApplicationsResponse,
-
-    -- ** DeleteApplication
-    DeleteApplication (DeleteApplication'),
-    newDeleteApplication,
-    DeleteApplicationResponse (DeleteApplicationResponse'),
-    newDeleteApplicationResponse,
-
-    -- ** UpdateApplication
-    UpdateApplication (UpdateApplication'),
-    newUpdateApplication,
-    UpdateApplicationResponse (UpdateApplicationResponse'),
-    newUpdateApplicationResponse,
-
-    -- ** DeleteGitHubAccountToken
-    DeleteGitHubAccountToken (DeleteGitHubAccountToken'),
-    newDeleteGitHubAccountToken,
-    DeleteGitHubAccountTokenResponse (DeleteGitHubAccountTokenResponse'),
-    newDeleteGitHubAccountTokenResponse,
-
-    -- ** DeregisterOnPremisesInstance
-    DeregisterOnPremisesInstance (DeregisterOnPremisesInstance'),
-    newDeregisterOnPremisesInstance,
-    DeregisterOnPremisesInstanceResponse (DeregisterOnPremisesInstanceResponse'),
-    newDeregisterOnPremisesInstanceResponse,
-
-    -- ** PutLifecycleEventHookExecutionStatus
-    PutLifecycleEventHookExecutionStatus (PutLifecycleEventHookExecutionStatus'),
-    newPutLifecycleEventHookExecutionStatus,
-    PutLifecycleEventHookExecutionStatusResponse (PutLifecycleEventHookExecutionStatusResponse'),
-    newPutLifecycleEventHookExecutionStatusResponse,
-
-    -- ** GetDeploymentTarget
-    GetDeploymentTarget (GetDeploymentTarget'),
-    newGetDeploymentTarget,
-    GetDeploymentTargetResponse (GetDeploymentTargetResponse'),
-    newGetDeploymentTargetResponse,
-
-    -- ** CreateApplication
-    CreateApplication (CreateApplication'),
-    newCreateApplication,
-    CreateApplicationResponse (CreateApplicationResponse'),
-    newCreateApplicationResponse,
-
-    -- ** BatchGetDeploymentTargets
-    BatchGetDeploymentTargets (BatchGetDeploymentTargets'),
-    newBatchGetDeploymentTargets,
-    BatchGetDeploymentTargetsResponse (BatchGetDeploymentTargetsResponse'),
-    newBatchGetDeploymentTargetsResponse,
-
-    -- ** StopDeployment
-    StopDeployment (StopDeployment'),
-    newStopDeployment,
-    StopDeploymentResponse (StopDeploymentResponse'),
-    newStopDeploymentResponse,
-
-    -- ** ListGitHubAccountTokenNames (Paginated)
-    ListGitHubAccountTokenNames (ListGitHubAccountTokenNames'),
-    newListGitHubAccountTokenNames,
-    ListGitHubAccountTokenNamesResponse (ListGitHubAccountTokenNamesResponse'),
-    newListGitHubAccountTokenNamesResponse,
-
-    -- ** GetApplication
-    GetApplication (GetApplication'),
-    newGetApplication,
-    GetApplicationResponse (GetApplicationResponse'),
-    newGetApplicationResponse,
-
-    -- ** ListDeploymentGroups (Paginated)
-    ListDeploymentGroups (ListDeploymentGroups'),
-    newListDeploymentGroups,
-    ListDeploymentGroupsResponse (ListDeploymentGroupsResponse'),
-    newListDeploymentGroupsResponse,
-
-    -- ** BatchGetOnPremisesInstances
-    BatchGetOnPremisesInstances (BatchGetOnPremisesInstances'),
-    newBatchGetOnPremisesInstances,
-    BatchGetOnPremisesInstancesResponse (BatchGetOnPremisesInstancesResponse'),
-    newBatchGetOnPremisesInstancesResponse,
-
-    -- ** RegisterOnPremisesInstance
-    RegisterOnPremisesInstance (RegisterOnPremisesInstance'),
-    newRegisterOnPremisesInstance,
-    RegisterOnPremisesInstanceResponse (RegisterOnPremisesInstanceResponse'),
-    newRegisterOnPremisesInstanceResponse,
-
-    -- ** CreateDeploymentGroup
-    CreateDeploymentGroup (CreateDeploymentGroup'),
-    newCreateDeploymentGroup,
-    CreateDeploymentGroupResponse (CreateDeploymentGroupResponse'),
-    newCreateDeploymentGroupResponse,
-
-    -- ** ListDeploymentConfigs (Paginated)
-    ListDeploymentConfigs (ListDeploymentConfigs'),
-    newListDeploymentConfigs,
-    ListDeploymentConfigsResponse (ListDeploymentConfigsResponse'),
-    newListDeploymentConfigsResponse,
 
     -- ** GetDeploymentGroup
     GetDeploymentGroup (GetDeploymentGroup'),
@@ -650,17 +577,17 @@ module Amazonka.CodeDeploy
     GetDeploymentGroupResponse (GetDeploymentGroupResponse'),
     newGetDeploymentGroupResponse,
 
-    -- ** ListDeployments (Paginated)
-    ListDeployments (ListDeployments'),
-    newListDeployments,
-    ListDeploymentsResponse (ListDeploymentsResponse'),
-    newListDeploymentsResponse,
+    -- ** GetDeploymentTarget
+    GetDeploymentTarget (GetDeploymentTarget'),
+    newGetDeploymentTarget,
+    GetDeploymentTargetResponse (GetDeploymentTargetResponse'),
+    newGetDeploymentTargetResponse,
 
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
+    -- ** GetOnPremisesInstance
+    GetOnPremisesInstance (GetOnPremisesInstance'),
+    newGetOnPremisesInstance,
+    GetOnPremisesInstanceResponse (GetOnPremisesInstanceResponse'),
+    newGetOnPremisesInstanceResponse,
 
     -- ** ListApplicationRevisions (Paginated)
     ListApplicationRevisions (ListApplicationRevisions'),
@@ -674,29 +601,101 @@ module Amazonka.CodeDeploy
     ListApplicationsResponse (ListApplicationsResponse'),
     newListApplicationsResponse,
 
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
+    -- ** ListDeploymentConfigs (Paginated)
+    ListDeploymentConfigs (ListDeploymentConfigs'),
+    newListDeploymentConfigs,
+    ListDeploymentConfigsResponse (ListDeploymentConfigsResponse'),
+    newListDeploymentConfigsResponse,
 
-    -- ** DeleteResourcesByExternalId
-    DeleteResourcesByExternalId (DeleteResourcesByExternalId'),
-    newDeleteResourcesByExternalId,
-    DeleteResourcesByExternalIdResponse (DeleteResourcesByExternalIdResponse'),
-    newDeleteResourcesByExternalIdResponse,
-
-    -- ** AddTagsToOnPremisesInstances
-    AddTagsToOnPremisesInstances (AddTagsToOnPremisesInstances'),
-    newAddTagsToOnPremisesInstances,
-    AddTagsToOnPremisesInstancesResponse (AddTagsToOnPremisesInstancesResponse'),
-    newAddTagsToOnPremisesInstancesResponse,
+    -- ** ListDeploymentGroups (Paginated)
+    ListDeploymentGroups (ListDeploymentGroups'),
+    newListDeploymentGroups,
+    ListDeploymentGroupsResponse (ListDeploymentGroupsResponse'),
+    newListDeploymentGroupsResponse,
 
     -- ** ListDeploymentTargets (Paginated)
     ListDeploymentTargets (ListDeploymentTargets'),
     newListDeploymentTargets,
     ListDeploymentTargetsResponse (ListDeploymentTargetsResponse'),
     newListDeploymentTargetsResponse,
+
+    -- ** ListDeployments (Paginated)
+    ListDeployments (ListDeployments'),
+    newListDeployments,
+    ListDeploymentsResponse (ListDeploymentsResponse'),
+    newListDeploymentsResponse,
+
+    -- ** ListGitHubAccountTokenNames (Paginated)
+    ListGitHubAccountTokenNames (ListGitHubAccountTokenNames'),
+    newListGitHubAccountTokenNames,
+    ListGitHubAccountTokenNamesResponse (ListGitHubAccountTokenNamesResponse'),
+    newListGitHubAccountTokenNamesResponse,
+
+    -- ** ListOnPremisesInstances (Paginated)
+    ListOnPremisesInstances (ListOnPremisesInstances'),
+    newListOnPremisesInstances,
+    ListOnPremisesInstancesResponse (ListOnPremisesInstancesResponse'),
+    newListOnPremisesInstancesResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** PutLifecycleEventHookExecutionStatus
+    PutLifecycleEventHookExecutionStatus (PutLifecycleEventHookExecutionStatus'),
+    newPutLifecycleEventHookExecutionStatus,
+    PutLifecycleEventHookExecutionStatusResponse (PutLifecycleEventHookExecutionStatusResponse'),
+    newPutLifecycleEventHookExecutionStatusResponse,
+
+    -- ** RegisterApplicationRevision
+    RegisterApplicationRevision (RegisterApplicationRevision'),
+    newRegisterApplicationRevision,
+    RegisterApplicationRevisionResponse (RegisterApplicationRevisionResponse'),
+    newRegisterApplicationRevisionResponse,
+
+    -- ** RegisterOnPremisesInstance
+    RegisterOnPremisesInstance (RegisterOnPremisesInstance'),
+    newRegisterOnPremisesInstance,
+    RegisterOnPremisesInstanceResponse (RegisterOnPremisesInstanceResponse'),
+    newRegisterOnPremisesInstanceResponse,
+
+    -- ** RemoveTagsFromOnPremisesInstances
+    RemoveTagsFromOnPremisesInstances (RemoveTagsFromOnPremisesInstances'),
+    newRemoveTagsFromOnPremisesInstances,
+    RemoveTagsFromOnPremisesInstancesResponse (RemoveTagsFromOnPremisesInstancesResponse'),
+    newRemoveTagsFromOnPremisesInstancesResponse,
+
+    -- ** StopDeployment
+    StopDeployment (StopDeployment'),
+    newStopDeployment,
+    StopDeploymentResponse (StopDeploymentResponse'),
+    newStopDeploymentResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UpdateApplication
+    UpdateApplication (UpdateApplication'),
+    newUpdateApplication,
+    UpdateApplicationResponse (UpdateApplicationResponse'),
+    newUpdateApplicationResponse,
+
+    -- ** UpdateDeploymentGroup
+    UpdateDeploymentGroup (UpdateDeploymentGroup'),
+    newUpdateDeploymentGroup,
+    UpdateDeploymentGroupResponse (UpdateDeploymentGroupResponse'),
+    newUpdateDeploymentGroupResponse,
 
     -- * Types
 

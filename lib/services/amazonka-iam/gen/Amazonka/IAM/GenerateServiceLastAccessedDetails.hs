@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.GenerateServiceLastAccessedDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,9 +23,9 @@
 -- Generates a report that includes details about when an IAM resource
 -- (user, group, role, or policy) was last used in an attempt to access
 -- Amazon Web Services services. Recent activity usually appears within
--- four hours. IAM reports activity for the last 365 days, or less if your
--- Region began supporting this feature within the last year. For more
--- information, see
+-- four hours. IAM reports activity for at least the last 400 days, or less
+-- if your Region began supporting this feature within the last year. For
+-- more information, see
 -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period Regions where data is tracked>.
 --
 -- The service last accessed data includes all attempts to access an Amazon
@@ -99,8 +99,9 @@ module Amazonka.IAM.GenerateServiceLastAccessedDetails
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -172,13 +173,14 @@ instance
   type
     AWSResponse GenerateServiceLastAccessedDetails =
       GenerateServiceLastAccessedDetailsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GenerateServiceLastAccessedDetailsResult"
       ( \s h x ->
           GenerateServiceLastAccessedDetailsResponse'
-            Prelude.<$> (x Core..@? "JobId")
+            Prelude.<$> (x Data..@? "JobId")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -201,31 +203,31 @@ instance
       `Prelude.seq` Prelude.rnf arn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GenerateServiceLastAccessedDetails
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     GenerateServiceLastAccessedDetails
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GenerateServiceLastAccessedDetails
   where
   toQuery GenerateServiceLastAccessedDetails' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "GenerateServiceLastAccessedDetails" ::
+          Data.=: ( "GenerateServiceLastAccessedDetails" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "Granularity" Core.=: granularity,
-        "Arn" Core.=: arn
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "Granularity" Data.=: granularity,
+        "Arn" Data.=: arn
       ]
 
 -- | /See:/ 'newGenerateServiceLastAccessedDetailsResponse' smart constructor.

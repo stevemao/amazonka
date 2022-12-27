@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MechanicalTurk.ApproveAssignment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -62,7 +62,8 @@ module Amazonka.MechanicalTurk.ApproveAssignment
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MechanicalTurk.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -129,7 +130,8 @@ instance Core.AWSRequest ApproveAssignment where
   type
     AWSResponse ApproveAssignment =
       ApproveAssignmentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -149,37 +151,37 @@ instance Prelude.NFData ApproveAssignment where
       `Prelude.seq` Prelude.rnf requesterFeedback
       `Prelude.seq` Prelude.rnf assignmentId
 
-instance Core.ToHeaders ApproveAssignment where
+instance Data.ToHeaders ApproveAssignment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "MTurkRequesterServiceV20170117.ApproveAssignment" ::
+              Data.=# ( "MTurkRequesterServiceV20170117.ApproveAssignment" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ApproveAssignment where
+instance Data.ToJSON ApproveAssignment where
   toJSON ApproveAssignment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("OverrideRejection" Core..=)
+          [ ("OverrideRejection" Data..=)
               Prelude.<$> overrideRejection,
-            ("RequesterFeedback" Core..=)
+            ("RequesterFeedback" Data..=)
               Prelude.<$> requesterFeedback,
-            Prelude.Just ("AssignmentId" Core..= assignmentId)
+            Prelude.Just ("AssignmentId" Data..= assignmentId)
           ]
       )
 
-instance Core.ToPath ApproveAssignment where
+instance Data.ToPath ApproveAssignment where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ApproveAssignment where
+instance Data.ToQuery ApproveAssignment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newApproveAssignmentResponse' smart constructor.

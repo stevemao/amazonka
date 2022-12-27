@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Transfer.Types.WorkflowDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Transfer.Types.WorkflowDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Transfer.Types.WorkflowDetail
 
@@ -29,9 +30,21 @@ import Amazonka.Transfer.Types.WorkflowDetail
 --
 -- /See:/ 'newWorkflowDetails' smart constructor.
 data WorkflowDetails = WorkflowDetails'
-  { -- | A trigger that starts a workflow: the workflow begins to execute after a
+  { -- | A trigger that starts a workflow if a file is only partially uploaded.
+    -- You can attach a workflow to a server that executes whenever there is a
+    -- partial upload.
+    --
+    -- A /partial upload/ occurs when a file is open when the session
+    -- disconnects.
+    onPartialUpload :: Prelude.Maybe [WorkflowDetail],
+    -- | A trigger that starts a workflow: the workflow begins to execute after a
     -- file is uploaded.
-    onUpload :: [WorkflowDetail]
+    --
+    -- To remove an associated workflow from a server, you can provide an empty
+    -- @OnUpload@ object, as in the following example.
+    --
+    -- @aws transfer update-server --server-id s-01234567890abcdef --workflow-details \'{\"OnUpload\":[]}\'@
+    onUpload :: Prelude.Maybe [WorkflowDetail]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,37 +56,75 @@ data WorkflowDetails = WorkflowDetails'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'onPartialUpload', 'workflowDetails_onPartialUpload' - A trigger that starts a workflow if a file is only partially uploaded.
+-- You can attach a workflow to a server that executes whenever there is a
+-- partial upload.
+--
+-- A /partial upload/ occurs when a file is open when the session
+-- disconnects.
+--
 -- 'onUpload', 'workflowDetails_onUpload' - A trigger that starts a workflow: the workflow begins to execute after a
 -- file is uploaded.
+--
+-- To remove an associated workflow from a server, you can provide an empty
+-- @OnUpload@ object, as in the following example.
+--
+-- @aws transfer update-server --server-id s-01234567890abcdef --workflow-details \'{\"OnUpload\":[]}\'@
 newWorkflowDetails ::
   WorkflowDetails
 newWorkflowDetails =
-  WorkflowDetails' {onUpload = Prelude.mempty}
+  WorkflowDetails'
+    { onPartialUpload = Prelude.Nothing,
+      onUpload = Prelude.Nothing
+    }
+
+-- | A trigger that starts a workflow if a file is only partially uploaded.
+-- You can attach a workflow to a server that executes whenever there is a
+-- partial upload.
+--
+-- A /partial upload/ occurs when a file is open when the session
+-- disconnects.
+workflowDetails_onPartialUpload :: Lens.Lens' WorkflowDetails (Prelude.Maybe [WorkflowDetail])
+workflowDetails_onPartialUpload = Lens.lens (\WorkflowDetails' {onPartialUpload} -> onPartialUpload) (\s@WorkflowDetails' {} a -> s {onPartialUpload = a} :: WorkflowDetails) Prelude.. Lens.mapping Lens.coerced
 
 -- | A trigger that starts a workflow: the workflow begins to execute after a
 -- file is uploaded.
-workflowDetails_onUpload :: Lens.Lens' WorkflowDetails [WorkflowDetail]
-workflowDetails_onUpload = Lens.lens (\WorkflowDetails' {onUpload} -> onUpload) (\s@WorkflowDetails' {} a -> s {onUpload = a} :: WorkflowDetails) Prelude.. Lens.coerced
+--
+-- To remove an associated workflow from a server, you can provide an empty
+-- @OnUpload@ object, as in the following example.
+--
+-- @aws transfer update-server --server-id s-01234567890abcdef --workflow-details \'{\"OnUpload\":[]}\'@
+workflowDetails_onUpload :: Lens.Lens' WorkflowDetails (Prelude.Maybe [WorkflowDetail])
+workflowDetails_onUpload = Lens.lens (\WorkflowDetails' {onUpload} -> onUpload) (\s@WorkflowDetails' {} a -> s {onUpload = a} :: WorkflowDetails) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON WorkflowDetails where
+instance Data.FromJSON WorkflowDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "WorkflowDetails"
       ( \x ->
           WorkflowDetails'
-            Prelude.<$> (x Core..:? "OnUpload" Core..!= Prelude.mempty)
+            Prelude.<$> ( x Data..:? "OnPartialUpload"
+                            Data..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Data..:? "OnUpload" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable WorkflowDetails where
   hashWithSalt _salt WorkflowDetails' {..} =
-    _salt `Prelude.hashWithSalt` onUpload
+    _salt `Prelude.hashWithSalt` onPartialUpload
+      `Prelude.hashWithSalt` onUpload
 
 instance Prelude.NFData WorkflowDetails where
-  rnf WorkflowDetails' {..} = Prelude.rnf onUpload
+  rnf WorkflowDetails' {..} =
+    Prelude.rnf onPartialUpload
+      `Prelude.seq` Prelude.rnf onUpload
 
-instance Core.ToJSON WorkflowDetails where
+instance Data.ToJSON WorkflowDetails where
   toJSON WorkflowDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("OnUpload" Core..= onUpload)]
+          [ ("OnPartialUpload" Data..=)
+              Prelude.<$> onPartialUpload,
+            ("OnUpload" Data..=) Prelude.<$> onUpload
+          ]
       )

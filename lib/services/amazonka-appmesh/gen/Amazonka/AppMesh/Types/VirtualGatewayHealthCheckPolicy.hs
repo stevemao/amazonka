@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.VirtualGatewayHealthCheckPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppMesh.Types.VirtualGatewayHealthCheckPolicy where
 
 import Amazonka.AppMesh.Types.VirtualGatewayPortProtocol
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents the health check policy for a virtual
@@ -149,21 +150,21 @@ virtualGatewayHealthCheckPolicy_unhealthyThreshold :: Lens.Lens' VirtualGatewayH
 virtualGatewayHealthCheckPolicy_unhealthyThreshold = Lens.lens (\VirtualGatewayHealthCheckPolicy' {unhealthyThreshold} -> unhealthyThreshold) (\s@VirtualGatewayHealthCheckPolicy' {} a -> s {unhealthyThreshold = a} :: VirtualGatewayHealthCheckPolicy)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     VirtualGatewayHealthCheckPolicy
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VirtualGatewayHealthCheckPolicy"
       ( \x ->
           VirtualGatewayHealthCheckPolicy'
-            Prelude.<$> (x Core..:? "path")
-            Prelude.<*> (x Core..:? "port")
-            Prelude.<*> (x Core..: "healthyThreshold")
-            Prelude.<*> (x Core..: "intervalMillis")
-            Prelude.<*> (x Core..: "protocol")
-            Prelude.<*> (x Core..: "timeoutMillis")
-            Prelude.<*> (x Core..: "unhealthyThreshold")
+            Prelude.<$> (x Data..:? "path")
+            Prelude.<*> (x Data..:? "port")
+            Prelude.<*> (x Data..: "healthyThreshold")
+            Prelude.<*> (x Data..: "intervalMillis")
+            Prelude.<*> (x Data..: "protocol")
+            Prelude.<*> (x Data..: "timeoutMillis")
+            Prelude.<*> (x Data..: "unhealthyThreshold")
       )
 
 instance
@@ -194,19 +195,19 @@ instance
       `Prelude.seq` Prelude.rnf timeoutMillis
       `Prelude.seq` Prelude.rnf unhealthyThreshold
 
-instance Core.ToJSON VirtualGatewayHealthCheckPolicy where
+instance Data.ToJSON VirtualGatewayHealthCheckPolicy where
   toJSON VirtualGatewayHealthCheckPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("path" Core..=) Prelude.<$> path,
-            ("port" Core..=) Prelude.<$> port,
+          [ ("path" Data..=) Prelude.<$> path,
+            ("port" Data..=) Prelude.<$> port,
             Prelude.Just
-              ("healthyThreshold" Core..= healthyThreshold),
+              ("healthyThreshold" Data..= healthyThreshold),
             Prelude.Just
-              ("intervalMillis" Core..= intervalMillis),
-            Prelude.Just ("protocol" Core..= protocol),
-            Prelude.Just ("timeoutMillis" Core..= timeoutMillis),
+              ("intervalMillis" Data..= intervalMillis),
+            Prelude.Just ("protocol" Data..= protocol),
+            Prelude.Just ("timeoutMillis" Data..= timeoutMillis),
             Prelude.Just
-              ("unhealthyThreshold" Core..= unhealthyThreshold)
+              ("unhealthyThreshold" Data..= unhealthyThreshold)
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.GetApplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.CodeDeploy.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -50,8 +51,8 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newGetApplication' smart constructor.
 data GetApplication = GetApplication'
-  { -- | The name of an AWS CodeDeploy application associated with the IAM user
-    -- or AWS account.
+  { -- | The name of an CodeDeploy application associated with the IAM user or
+    -- Amazon Web Services account.
     applicationName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -64,8 +65,8 @@ data GetApplication = GetApplication'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'applicationName', 'getApplication_applicationName' - The name of an AWS CodeDeploy application associated with the IAM user
--- or AWS account.
+-- 'applicationName', 'getApplication_applicationName' - The name of an CodeDeploy application associated with the IAM user or
+-- Amazon Web Services account.
 newGetApplication ::
   -- | 'applicationName'
   Prelude.Text ->
@@ -76,8 +77,8 @@ newGetApplication pApplicationName_ =
         pApplicationName_
     }
 
--- | The name of an AWS CodeDeploy application associated with the IAM user
--- or AWS account.
+-- | The name of an CodeDeploy application associated with the IAM user or
+-- Amazon Web Services account.
 getApplication_applicationName :: Lens.Lens' GetApplication Prelude.Text
 getApplication_applicationName = Lens.lens (\GetApplication' {applicationName} -> applicationName) (\s@GetApplication' {} a -> s {applicationName = a} :: GetApplication)
 
@@ -85,12 +86,13 @@ instance Core.AWSRequest GetApplication where
   type
     AWSResponse GetApplication =
       GetApplicationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetApplicationResponse'
-            Prelude.<$> (x Core..?> "application")
+            Prelude.<$> (x Data..?> "application")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -101,34 +103,34 @@ instance Prelude.Hashable GetApplication where
 instance Prelude.NFData GetApplication where
   rnf GetApplication' {..} = Prelude.rnf applicationName
 
-instance Core.ToHeaders GetApplication where
+instance Data.ToHeaders GetApplication where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeDeploy_20141006.GetApplication" ::
+              Data.=# ( "CodeDeploy_20141006.GetApplication" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetApplication where
+instance Data.ToJSON GetApplication where
   toJSON GetApplication' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("applicationName" Core..= applicationName)
+              ("applicationName" Data..= applicationName)
           ]
       )
 
-instance Core.ToPath GetApplication where
+instance Data.ToPath GetApplication where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetApplication where
+instance Data.ToQuery GetApplication where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @GetApplication@ operation.

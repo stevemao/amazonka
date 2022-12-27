@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutEquipment.Types.InferenceS3OutputConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LookoutEquipment.Types.InferenceS3OutputConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies configuration information for the output results from the
@@ -68,14 +69,14 @@ inferenceS3OutputConfiguration_prefix = Lens.lens (\InferenceS3OutputConfigurati
 inferenceS3OutputConfiguration_bucket :: Lens.Lens' InferenceS3OutputConfiguration Prelude.Text
 inferenceS3OutputConfiguration_bucket = Lens.lens (\InferenceS3OutputConfiguration' {bucket} -> bucket) (\s@InferenceS3OutputConfiguration' {} a -> s {bucket = a} :: InferenceS3OutputConfiguration)
 
-instance Core.FromJSON InferenceS3OutputConfiguration where
+instance Data.FromJSON InferenceS3OutputConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InferenceS3OutputConfiguration"
       ( \x ->
           InferenceS3OutputConfiguration'
-            Prelude.<$> (x Core..:? "Prefix")
-            Prelude.<*> (x Core..: "Bucket")
+            Prelude.<$> (x Data..:? "Prefix")
+            Prelude.<*> (x Data..: "Bucket")
       )
 
 instance
@@ -95,11 +96,11 @@ instance
   rnf InferenceS3OutputConfiguration' {..} =
     Prelude.rnf prefix `Prelude.seq` Prelude.rnf bucket
 
-instance Core.ToJSON InferenceS3OutputConfiguration where
+instance Data.ToJSON InferenceS3OutputConfiguration where
   toJSON InferenceS3OutputConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Prefix" Core..=) Prelude.<$> prefix,
-            Prelude.Just ("Bucket" Core..= bucket)
+          [ ("Prefix" Data..=) Prelude.<$> prefix,
+            Prelude.Just ("Bucket" Data..= bucket)
           ]
       )

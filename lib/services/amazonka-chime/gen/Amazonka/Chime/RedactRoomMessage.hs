@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.RedactRoomMessage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,7 +103,8 @@ instance Core.AWSRequest RedactRoomMessage where
   type
     AWSResponse RedactRoomMessage =
       RedactRoomMessageResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -122,24 +124,24 @@ instance Prelude.NFData RedactRoomMessage where
       `Prelude.seq` Prelude.rnf roomId
       `Prelude.seq` Prelude.rnf messageId
 
-instance Core.ToHeaders RedactRoomMessage where
+instance Data.ToHeaders RedactRoomMessage where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON RedactRoomMessage where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON RedactRoomMessage where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath RedactRoomMessage where
+instance Data.ToPath RedactRoomMessage where
   toPath RedactRoomMessage' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/rooms/",
-        Core.toBS roomId,
+        Data.toBS roomId,
         "/messages/",
-        Core.toBS messageId
+        Data.toBS messageId
       ]
 
-instance Core.ToQuery RedactRoomMessage where
+instance Data.ToQuery RedactRoomMessage where
   toQuery =
     Prelude.const
       (Prelude.mconcat ["operation=redact"])

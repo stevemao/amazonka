@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.UnlabelParameterVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.SSM.UnlabelParameterVersion
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -113,13 +114,14 @@ instance Core.AWSRequest UnlabelParameterVersion where
   type
     AWSResponse UnlabelParameterVersion =
       UnlabelParameterVersionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UnlabelParameterVersionResponse'
-            Prelude.<$> (x Core..?> "InvalidLabels")
-            Prelude.<*> (x Core..?> "RemovedLabels")
+            Prelude.<$> (x Data..?> "InvalidLabels")
+            Prelude.<*> (x Data..?> "RemovedLabels")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -135,36 +137,36 @@ instance Prelude.NFData UnlabelParameterVersion where
       `Prelude.seq` Prelude.rnf parameterVersion
       `Prelude.seq` Prelude.rnf labels
 
-instance Core.ToHeaders UnlabelParameterVersion where
+instance Data.ToHeaders UnlabelParameterVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.UnlabelParameterVersion" ::
+              Data.=# ( "AmazonSSM.UnlabelParameterVersion" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UnlabelParameterVersion where
+instance Data.ToJSON UnlabelParameterVersion where
   toJSON UnlabelParameterVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Name" Core..= name),
+          [ Prelude.Just ("Name" Data..= name),
             Prelude.Just
-              ("ParameterVersion" Core..= parameterVersion),
-            Prelude.Just ("Labels" Core..= labels)
+              ("ParameterVersion" Data..= parameterVersion),
+            Prelude.Just ("Labels" Data..= labels)
           ]
       )
 
-instance Core.ToPath UnlabelParameterVersion where
+instance Data.ToPath UnlabelParameterVersion where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UnlabelParameterVersion where
+instance Data.ToQuery UnlabelParameterVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUnlabelParameterVersionResponse' smart constructor.

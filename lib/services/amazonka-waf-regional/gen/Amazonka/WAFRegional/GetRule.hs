@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.GetRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ module Amazonka.WAFRegional.GetRule
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -87,12 +88,13 @@ getRule_ruleId = Lens.lens (\GetRule' {ruleId} -> ruleId) (\s@GetRule' {} a -> s
 
 instance Core.AWSRequest GetRule where
   type AWSResponse GetRule = GetRuleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetRuleResponse'
-            Prelude.<$> (x Core..?> "Rule")
+            Prelude.<$> (x Data..?> "Rule")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -103,32 +105,32 @@ instance Prelude.Hashable GetRule where
 instance Prelude.NFData GetRule where
   rnf GetRule' {..} = Prelude.rnf ruleId
 
-instance Core.ToHeaders GetRule where
+instance Data.ToHeaders GetRule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_Regional_20161128.GetRule" ::
+              Data.=# ( "AWSWAF_Regional_20161128.GetRule" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetRule where
+instance Data.ToJSON GetRule where
   toJSON GetRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("RuleId" Core..= ruleId)]
+          [Prelude.Just ("RuleId" Data..= ruleId)]
       )
 
-instance Core.ToPath GetRule where
+instance Data.ToPath GetRule where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetRule where
+instance Data.ToQuery GetRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetRuleResponse' smart constructor.

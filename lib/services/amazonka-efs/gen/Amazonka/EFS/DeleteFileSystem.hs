@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EFS.DeleteFileSystem
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,6 +23,13 @@
 -- Deletes a file system, permanently severing access to its contents. Upon
 -- return, the file system no longer exists and you can\'t access any
 -- contents of the deleted file system.
+--
+-- You need to manually delete mount targets attached to a file system
+-- before you can delete an EFS file system. This step is performed for you
+-- when you use the Amazon Web Services console to delete a file system.
+--
+-- You cannot delete a file system that is part of an EFS Replication
+-- configuration. You need to delete the replication configuration first.
 --
 -- You can\'t delete a file system that is in use. That is, if the file
 -- system has any mount targets, you must first delete them. For more
@@ -52,8 +59,9 @@ module Amazonka.EFS.DeleteFileSystem
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EFS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,7 +99,8 @@ instance Core.AWSRequest DeleteFileSystem where
   type
     AWSResponse DeleteFileSystem =
       DeleteFileSystemResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteFileSystemResponse'
 
@@ -102,15 +111,15 @@ instance Prelude.Hashable DeleteFileSystem where
 instance Prelude.NFData DeleteFileSystem where
   rnf DeleteFileSystem' {..} = Prelude.rnf fileSystemId
 
-instance Core.ToHeaders DeleteFileSystem where
+instance Data.ToHeaders DeleteFileSystem where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteFileSystem where
+instance Data.ToPath DeleteFileSystem where
   toPath DeleteFileSystem' {..} =
     Prelude.mconcat
-      ["/2015-02-01/file-systems/", Core.toBS fileSystemId]
+      ["/2015-02-01/file-systems/", Data.toBS fileSystemId]
 
-instance Core.ToQuery DeleteFileSystem where
+instance Data.ToQuery DeleteFileSystem where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteFileSystemResponse' smart constructor.

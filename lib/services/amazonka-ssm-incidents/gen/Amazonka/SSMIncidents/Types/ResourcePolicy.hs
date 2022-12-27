@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSMIncidents.Types.ResourcePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSMIncidents.Types.ResourcePolicy where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The resource policy that allows Incident Manager to perform actions on
@@ -32,7 +33,8 @@ data ResourcePolicy = ResourcePolicy'
     policyDocument :: Prelude.Text,
     -- | The ID of the resource policy.
     policyId :: Prelude.Text,
-    -- | The Region that policy allows resources to be used in.
+    -- | The Amazon Web Services Region that policy allows resources to be used
+    -- in.
     ramResourceShareRegion :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -49,7 +51,8 @@ data ResourcePolicy = ResourcePolicy'
 --
 -- 'policyId', 'resourcePolicy_policyId' - The ID of the resource policy.
 --
--- 'ramResourceShareRegion', 'resourcePolicy_ramResourceShareRegion' - The Region that policy allows resources to be used in.
+-- 'ramResourceShareRegion', 'resourcePolicy_ramResourceShareRegion' - The Amazon Web Services Region that policy allows resources to be used
+-- in.
 newResourcePolicy ::
   -- | 'policyDocument'
   Prelude.Text ->
@@ -76,19 +79,20 @@ resourcePolicy_policyDocument = Lens.lens (\ResourcePolicy' {policyDocument} -> 
 resourcePolicy_policyId :: Lens.Lens' ResourcePolicy Prelude.Text
 resourcePolicy_policyId = Lens.lens (\ResourcePolicy' {policyId} -> policyId) (\s@ResourcePolicy' {} a -> s {policyId = a} :: ResourcePolicy)
 
--- | The Region that policy allows resources to be used in.
+-- | The Amazon Web Services Region that policy allows resources to be used
+-- in.
 resourcePolicy_ramResourceShareRegion :: Lens.Lens' ResourcePolicy Prelude.Text
 resourcePolicy_ramResourceShareRegion = Lens.lens (\ResourcePolicy' {ramResourceShareRegion} -> ramResourceShareRegion) (\s@ResourcePolicy' {} a -> s {ramResourceShareRegion = a} :: ResourcePolicy)
 
-instance Core.FromJSON ResourcePolicy where
+instance Data.FromJSON ResourcePolicy where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResourcePolicy"
       ( \x ->
           ResourcePolicy'
-            Prelude.<$> (x Core..: "policyDocument")
-            Prelude.<*> (x Core..: "policyId")
-            Prelude.<*> (x Core..: "ramResourceShareRegion")
+            Prelude.<$> (x Data..: "policyDocument")
+            Prelude.<*> (x Data..: "policyId")
+            Prelude.<*> (x Data..: "ramResourceShareRegion")
       )
 
 instance Prelude.Hashable ResourcePolicy where

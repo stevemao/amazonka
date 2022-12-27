@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.UpdateAssetModel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,11 +43,11 @@ module Amazonka.IoTSiteWise.UpdateAssetModel
     newUpdateAssetModel,
 
     -- * Request Lenses
-    updateAssetModel_clientToken,
-    updateAssetModel_assetModelDescription,
-    updateAssetModel_assetModelProperties,
     updateAssetModel_assetModelCompositeModels,
+    updateAssetModel_assetModelDescription,
     updateAssetModel_assetModelHierarchies,
+    updateAssetModel_assetModelProperties,
+    updateAssetModel_clientToken,
     updateAssetModel_assetModelId,
     updateAssetModel_assetModelName,
 
@@ -62,36 +62,23 @@ module Amazonka.IoTSiteWise.UpdateAssetModel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateAssetModel' smart constructor.
 data UpdateAssetModel = UpdateAssetModel'
-  { -- | A unique case-sensitive identifier that you can provide to ensure the
-    -- idempotency of the request. Don\'t reuse this client token if a new
-    -- idempotent request is required.
-    clientToken :: Prelude.Maybe Prelude.Text,
-    -- | A description for the asset model.
-    assetModelDescription :: Prelude.Maybe Prelude.Text,
-    -- | The updated property definitions of the asset model. For more
-    -- information, see
-    -- <https://docs.aws.amazon.com/iot-sitewise/latest/userguide/asset-properties.html Asset properties>
-    -- in the /IoT SiteWise User Guide/.
-    --
-    -- You can specify up to 200 properties per asset model. For more
-    -- information, see
-    -- <https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html Quotas>
-    -- in the /IoT SiteWise User Guide/.
-    assetModelProperties :: Prelude.Maybe [AssetModelProperty],
-    -- | The composite asset models that are part of this asset model. Composite
+  { -- | The composite asset models that are part of this asset model. Composite
     -- asset models are asset models that contain specific properties. Each
     -- composite model has a type that defines the properties that the
     -- composite model supports. Use composite asset models to define alarms on
     -- this asset model.
     assetModelCompositeModels :: Prelude.Maybe [AssetModelCompositeModel],
+    -- | A description for the asset model.
+    assetModelDescription :: Prelude.Maybe Prelude.Text,
     -- | The updated hierarchy definitions of the asset model. Each hierarchy
     -- specifies an asset model whose assets can be children of any other
     -- assets created from this asset model. For more information, see
@@ -103,6 +90,20 @@ data UpdateAssetModel = UpdateAssetModel'
     -- <https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html Quotas>
     -- in the /IoT SiteWise User Guide/.
     assetModelHierarchies :: Prelude.Maybe [AssetModelHierarchy],
+    -- | The updated property definitions of the asset model. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/iot-sitewise/latest/userguide/asset-properties.html Asset properties>
+    -- in the /IoT SiteWise User Guide/.
+    --
+    -- You can specify up to 200 properties per asset model. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html Quotas>
+    -- in the /IoT SiteWise User Guide/.
+    assetModelProperties :: Prelude.Maybe [AssetModelProperty],
+    -- | A unique case-sensitive identifier that you can provide to ensure the
+    -- idempotency of the request. Don\'t reuse this client token if a new
+    -- idempotent request is required.
+    clientToken :: Prelude.Maybe Prelude.Text,
     -- | The ID of the asset model to update.
     assetModelId :: Prelude.Text,
     -- | A unique, friendly name for the asset model.
@@ -118,27 +119,13 @@ data UpdateAssetModel = UpdateAssetModel'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'clientToken', 'updateAssetModel_clientToken' - A unique case-sensitive identifier that you can provide to ensure the
--- idempotency of the request. Don\'t reuse this client token if a new
--- idempotent request is required.
---
--- 'assetModelDescription', 'updateAssetModel_assetModelDescription' - A description for the asset model.
---
--- 'assetModelProperties', 'updateAssetModel_assetModelProperties' - The updated property definitions of the asset model. For more
--- information, see
--- <https://docs.aws.amazon.com/iot-sitewise/latest/userguide/asset-properties.html Asset properties>
--- in the /IoT SiteWise User Guide/.
---
--- You can specify up to 200 properties per asset model. For more
--- information, see
--- <https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html Quotas>
--- in the /IoT SiteWise User Guide/.
---
 -- 'assetModelCompositeModels', 'updateAssetModel_assetModelCompositeModels' - The composite asset models that are part of this asset model. Composite
 -- asset models are asset models that contain specific properties. Each
 -- composite model has a type that defines the properties that the
 -- composite model supports. Use composite asset models to define alarms on
 -- this asset model.
+--
+-- 'assetModelDescription', 'updateAssetModel_assetModelDescription' - A description for the asset model.
 --
 -- 'assetModelHierarchies', 'updateAssetModel_assetModelHierarchies' - The updated hierarchy definitions of the asset model. Each hierarchy
 -- specifies an asset model whose assets can be children of any other
@@ -151,6 +138,20 @@ data UpdateAssetModel = UpdateAssetModel'
 -- <https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html Quotas>
 -- in the /IoT SiteWise User Guide/.
 --
+-- 'assetModelProperties', 'updateAssetModel_assetModelProperties' - The updated property definitions of the asset model. For more
+-- information, see
+-- <https://docs.aws.amazon.com/iot-sitewise/latest/userguide/asset-properties.html Asset properties>
+-- in the /IoT SiteWise User Guide/.
+--
+-- You can specify up to 200 properties per asset model. For more
+-- information, see
+-- <https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html Quotas>
+-- in the /IoT SiteWise User Guide/.
+--
+-- 'clientToken', 'updateAssetModel_clientToken' - A unique case-sensitive identifier that you can provide to ensure the
+-- idempotency of the request. Don\'t reuse this client token if a new
+-- idempotent request is required.
+--
 -- 'assetModelId', 'updateAssetModel_assetModelId' - The ID of the asset model to update.
 --
 -- 'assetModelName', 'updateAssetModel_assetModelName' - A unique, friendly name for the asset model.
@@ -162,36 +163,15 @@ newUpdateAssetModel ::
   UpdateAssetModel
 newUpdateAssetModel pAssetModelId_ pAssetModelName_ =
   UpdateAssetModel'
-    { clientToken = Prelude.Nothing,
+    { assetModelCompositeModels =
+        Prelude.Nothing,
       assetModelDescription = Prelude.Nothing,
-      assetModelProperties = Prelude.Nothing,
-      assetModelCompositeModels = Prelude.Nothing,
       assetModelHierarchies = Prelude.Nothing,
+      assetModelProperties = Prelude.Nothing,
+      clientToken = Prelude.Nothing,
       assetModelId = pAssetModelId_,
       assetModelName = pAssetModelName_
     }
-
--- | A unique case-sensitive identifier that you can provide to ensure the
--- idempotency of the request. Don\'t reuse this client token if a new
--- idempotent request is required.
-updateAssetModel_clientToken :: Lens.Lens' UpdateAssetModel (Prelude.Maybe Prelude.Text)
-updateAssetModel_clientToken = Lens.lens (\UpdateAssetModel' {clientToken} -> clientToken) (\s@UpdateAssetModel' {} a -> s {clientToken = a} :: UpdateAssetModel)
-
--- | A description for the asset model.
-updateAssetModel_assetModelDescription :: Lens.Lens' UpdateAssetModel (Prelude.Maybe Prelude.Text)
-updateAssetModel_assetModelDescription = Lens.lens (\UpdateAssetModel' {assetModelDescription} -> assetModelDescription) (\s@UpdateAssetModel' {} a -> s {assetModelDescription = a} :: UpdateAssetModel)
-
--- | The updated property definitions of the asset model. For more
--- information, see
--- <https://docs.aws.amazon.com/iot-sitewise/latest/userguide/asset-properties.html Asset properties>
--- in the /IoT SiteWise User Guide/.
---
--- You can specify up to 200 properties per asset model. For more
--- information, see
--- <https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html Quotas>
--- in the /IoT SiteWise User Guide/.
-updateAssetModel_assetModelProperties :: Lens.Lens' UpdateAssetModel (Prelude.Maybe [AssetModelProperty])
-updateAssetModel_assetModelProperties = Lens.lens (\UpdateAssetModel' {assetModelProperties} -> assetModelProperties) (\s@UpdateAssetModel' {} a -> s {assetModelProperties = a} :: UpdateAssetModel) Prelude.. Lens.mapping Lens.coerced
 
 -- | The composite asset models that are part of this asset model. Composite
 -- asset models are asset models that contain specific properties. Each
@@ -200,6 +180,10 @@ updateAssetModel_assetModelProperties = Lens.lens (\UpdateAssetModel' {assetMode
 -- this asset model.
 updateAssetModel_assetModelCompositeModels :: Lens.Lens' UpdateAssetModel (Prelude.Maybe [AssetModelCompositeModel])
 updateAssetModel_assetModelCompositeModels = Lens.lens (\UpdateAssetModel' {assetModelCompositeModels} -> assetModelCompositeModels) (\s@UpdateAssetModel' {} a -> s {assetModelCompositeModels = a} :: UpdateAssetModel) Prelude.. Lens.mapping Lens.coerced
+
+-- | A description for the asset model.
+updateAssetModel_assetModelDescription :: Lens.Lens' UpdateAssetModel (Prelude.Maybe Prelude.Text)
+updateAssetModel_assetModelDescription = Lens.lens (\UpdateAssetModel' {assetModelDescription} -> assetModelDescription) (\s@UpdateAssetModel' {} a -> s {assetModelDescription = a} :: UpdateAssetModel)
 
 -- | The updated hierarchy definitions of the asset model. Each hierarchy
 -- specifies an asset model whose assets can be children of any other
@@ -214,6 +198,24 @@ updateAssetModel_assetModelCompositeModels = Lens.lens (\UpdateAssetModel' {asse
 updateAssetModel_assetModelHierarchies :: Lens.Lens' UpdateAssetModel (Prelude.Maybe [AssetModelHierarchy])
 updateAssetModel_assetModelHierarchies = Lens.lens (\UpdateAssetModel' {assetModelHierarchies} -> assetModelHierarchies) (\s@UpdateAssetModel' {} a -> s {assetModelHierarchies = a} :: UpdateAssetModel) Prelude.. Lens.mapping Lens.coerced
 
+-- | The updated property definitions of the asset model. For more
+-- information, see
+-- <https://docs.aws.amazon.com/iot-sitewise/latest/userguide/asset-properties.html Asset properties>
+-- in the /IoT SiteWise User Guide/.
+--
+-- You can specify up to 200 properties per asset model. For more
+-- information, see
+-- <https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html Quotas>
+-- in the /IoT SiteWise User Guide/.
+updateAssetModel_assetModelProperties :: Lens.Lens' UpdateAssetModel (Prelude.Maybe [AssetModelProperty])
+updateAssetModel_assetModelProperties = Lens.lens (\UpdateAssetModel' {assetModelProperties} -> assetModelProperties) (\s@UpdateAssetModel' {} a -> s {assetModelProperties = a} :: UpdateAssetModel) Prelude.. Lens.mapping Lens.coerced
+
+-- | A unique case-sensitive identifier that you can provide to ensure the
+-- idempotency of the request. Don\'t reuse this client token if a new
+-- idempotent request is required.
+updateAssetModel_clientToken :: Lens.Lens' UpdateAssetModel (Prelude.Maybe Prelude.Text)
+updateAssetModel_clientToken = Lens.lens (\UpdateAssetModel' {clientToken} -> clientToken) (\s@UpdateAssetModel' {} a -> s {clientToken = a} :: UpdateAssetModel)
+
 -- | The ID of the asset model to update.
 updateAssetModel_assetModelId :: Lens.Lens' UpdateAssetModel Prelude.Text
 updateAssetModel_assetModelId = Lens.lens (\UpdateAssetModel' {assetModelId} -> assetModelId) (\s@UpdateAssetModel' {} a -> s {assetModelId = a} :: UpdateAssetModel)
@@ -226,70 +228,72 @@ instance Core.AWSRequest UpdateAssetModel where
   type
     AWSResponse UpdateAssetModel =
       UpdateAssetModelResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateAssetModelResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "assetModelStatus")
+            Prelude.<*> (x Data..:> "assetModelStatus")
       )
 
 instance Prelude.Hashable UpdateAssetModel where
   hashWithSalt _salt UpdateAssetModel' {..} =
-    _salt `Prelude.hashWithSalt` clientToken
-      `Prelude.hashWithSalt` assetModelDescription
-      `Prelude.hashWithSalt` assetModelProperties
+    _salt
       `Prelude.hashWithSalt` assetModelCompositeModels
+      `Prelude.hashWithSalt` assetModelDescription
       `Prelude.hashWithSalt` assetModelHierarchies
+      `Prelude.hashWithSalt` assetModelProperties
+      `Prelude.hashWithSalt` clientToken
       `Prelude.hashWithSalt` assetModelId
       `Prelude.hashWithSalt` assetModelName
 
 instance Prelude.NFData UpdateAssetModel where
   rnf UpdateAssetModel' {..} =
-    Prelude.rnf clientToken
+    Prelude.rnf assetModelCompositeModels
       `Prelude.seq` Prelude.rnf assetModelDescription
-      `Prelude.seq` Prelude.rnf assetModelProperties
-      `Prelude.seq` Prelude.rnf assetModelCompositeModels
       `Prelude.seq` Prelude.rnf assetModelHierarchies
+      `Prelude.seq` Prelude.rnf assetModelProperties
+      `Prelude.seq` Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf assetModelId
       `Prelude.seq` Prelude.rnf assetModelName
 
-instance Core.ToHeaders UpdateAssetModel where
+instance Data.ToHeaders UpdateAssetModel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateAssetModel where
+instance Data.ToJSON UpdateAssetModel where
   toJSON UpdateAssetModel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("assetModelDescription" Core..=)
-              Prelude.<$> assetModelDescription,
-            ("assetModelProperties" Core..=)
-              Prelude.<$> assetModelProperties,
-            ("assetModelCompositeModels" Core..=)
+          [ ("assetModelCompositeModels" Data..=)
               Prelude.<$> assetModelCompositeModels,
-            ("assetModelHierarchies" Core..=)
+            ("assetModelDescription" Data..=)
+              Prelude.<$> assetModelDescription,
+            ("assetModelHierarchies" Data..=)
               Prelude.<$> assetModelHierarchies,
+            ("assetModelProperties" Data..=)
+              Prelude.<$> assetModelProperties,
+            ("clientToken" Data..=) Prelude.<$> clientToken,
             Prelude.Just
-              ("assetModelName" Core..= assetModelName)
+              ("assetModelName" Data..= assetModelName)
           ]
       )
 
-instance Core.ToPath UpdateAssetModel where
+instance Data.ToPath UpdateAssetModel where
   toPath UpdateAssetModel' {..} =
     Prelude.mconcat
-      ["/asset-models/", Core.toBS assetModelId]
+      ["/asset-models/", Data.toBS assetModelId]
 
-instance Core.ToQuery UpdateAssetModel where
+instance Data.ToQuery UpdateAssetModel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateAssetModelResponse' smart constructor.

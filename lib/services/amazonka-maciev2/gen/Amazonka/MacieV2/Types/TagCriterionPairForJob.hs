@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.TagCriterionPairForJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.TagCriterionPairForJob where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies a tag key, a tag value, or a tag key and value (as a pair) to
@@ -31,10 +32,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newTagCriterionPairForJob' smart constructor.
 data TagCriterionPairForJob = TagCriterionPairForJob'
-  { -- | The tag value to use in the condition.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The value for the tag key to use in the condition.
-    key :: Prelude.Maybe Prelude.Text
+  { -- | The value for the tag key to use in the condition.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The tag value to use in the condition.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,48 +47,48 @@ data TagCriterionPairForJob = TagCriterionPairForJob'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'tagCriterionPairForJob_value' - The tag value to use in the condition.
---
 -- 'key', 'tagCriterionPairForJob_key' - The value for the tag key to use in the condition.
+--
+-- 'value', 'tagCriterionPairForJob_value' - The tag value to use in the condition.
 newTagCriterionPairForJob ::
   TagCriterionPairForJob
 newTagCriterionPairForJob =
   TagCriterionPairForJob'
-    { value = Prelude.Nothing,
-      key = Prelude.Nothing
+    { key = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The tag value to use in the condition.
-tagCriterionPairForJob_value :: Lens.Lens' TagCriterionPairForJob (Prelude.Maybe Prelude.Text)
-tagCriterionPairForJob_value = Lens.lens (\TagCriterionPairForJob' {value} -> value) (\s@TagCriterionPairForJob' {} a -> s {value = a} :: TagCriterionPairForJob)
 
 -- | The value for the tag key to use in the condition.
 tagCriterionPairForJob_key :: Lens.Lens' TagCriterionPairForJob (Prelude.Maybe Prelude.Text)
 tagCriterionPairForJob_key = Lens.lens (\TagCriterionPairForJob' {key} -> key) (\s@TagCriterionPairForJob' {} a -> s {key = a} :: TagCriterionPairForJob)
 
-instance Core.FromJSON TagCriterionPairForJob where
+-- | The tag value to use in the condition.
+tagCriterionPairForJob_value :: Lens.Lens' TagCriterionPairForJob (Prelude.Maybe Prelude.Text)
+tagCriterionPairForJob_value = Lens.lens (\TagCriterionPairForJob' {value} -> value) (\s@TagCriterionPairForJob' {} a -> s {value = a} :: TagCriterionPairForJob)
+
+instance Data.FromJSON TagCriterionPairForJob where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TagCriterionPairForJob"
       ( \x ->
           TagCriterionPairForJob'
-            Prelude.<$> (x Core..:? "value") Prelude.<*> (x Core..:? "key")
+            Prelude.<$> (x Data..:? "key") Prelude.<*> (x Data..:? "value")
       )
 
 instance Prelude.Hashable TagCriterionPairForJob where
   hashWithSalt _salt TagCriterionPairForJob' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` key
+    _salt `Prelude.hashWithSalt` key
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData TagCriterionPairForJob where
   rnf TagCriterionPairForJob' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf key
+    Prelude.rnf key `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON TagCriterionPairForJob where
+instance Data.ToJSON TagCriterionPairForJob where
   toJSON TagCriterionPairForJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("value" Core..=) Prelude.<$> value,
-            ("key" Core..=) Prelude.<$> key
+          [ ("key" Data..=) Prelude.<$> key,
+            ("value" Data..=) Prelude.<$> value
           ]
       )

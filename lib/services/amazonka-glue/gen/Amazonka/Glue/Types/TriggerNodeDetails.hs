@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.TriggerNodeDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Glue.Types.TriggerNodeDetails where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types.Trigger
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The details of a Trigger node present in the workflow.
@@ -51,13 +52,13 @@ newTriggerNodeDetails =
 triggerNodeDetails_trigger :: Lens.Lens' TriggerNodeDetails (Prelude.Maybe Trigger)
 triggerNodeDetails_trigger = Lens.lens (\TriggerNodeDetails' {trigger} -> trigger) (\s@TriggerNodeDetails' {} a -> s {trigger = a} :: TriggerNodeDetails)
 
-instance Core.FromJSON TriggerNodeDetails where
+instance Data.FromJSON TriggerNodeDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TriggerNodeDetails"
       ( \x ->
           TriggerNodeDetails'
-            Prelude.<$> (x Core..:? "Trigger")
+            Prelude.<$> (x Data..:? "Trigger")
       )
 
 instance Prelude.Hashable TriggerNodeDetails where

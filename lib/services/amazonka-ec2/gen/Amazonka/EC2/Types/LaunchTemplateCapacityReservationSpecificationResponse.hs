@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.LaunchTemplateCapacityReservationSpecificationResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,18 @@
 module Amazonka.EC2.Types.LaunchTemplateCapacityReservationSpecificationResponse where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.CapacityReservationPreference
 import Amazonka.EC2.Types.CapacityReservationTargetResponse
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the Capacity Reservation targeting option.
 --
 -- /See:/ 'newLaunchTemplateCapacityReservationSpecificationResponse' smart constructor.
 data LaunchTemplateCapacityReservationSpecificationResponse = LaunchTemplateCapacityReservationSpecificationResponse'
-  { -- | Information about the target Capacity Reservation or Capacity
-    -- Reservation group.
-    capacityReservationTarget :: Prelude.Maybe CapacityReservationTargetResponse,
-    -- | Indicates the instance\'s Capacity Reservation preferences. Possible
+  { -- | Indicates the instance\'s Capacity Reservation preferences. Possible
     -- preferences include:
     --
     -- -   @open@ - The instance can run in any @open@ Capacity Reservation
@@ -42,7 +40,10 @@ data LaunchTemplateCapacityReservationSpecificationResponse = LaunchTemplateCapa
     --
     -- -   @none@ - The instance avoids running in a Capacity Reservation even
     --     if one is available. The instance runs in On-Demand capacity.
-    capacityReservationPreference :: Prelude.Maybe CapacityReservationPreference
+    capacityReservationPreference :: Prelude.Maybe CapacityReservationPreference,
+    -- | Information about the target Capacity Reservation or Capacity
+    -- Reservation group.
+    capacityReservationTarget :: Prelude.Maybe CapacityReservationTargetResponse
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -54,9 +55,6 @@ data LaunchTemplateCapacityReservationSpecificationResponse = LaunchTemplateCapa
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'capacityReservationTarget', 'launchTemplateCapacityReservationSpecificationResponse_capacityReservationTarget' - Information about the target Capacity Reservation or Capacity
--- Reservation group.
---
 -- 'capacityReservationPreference', 'launchTemplateCapacityReservationSpecificationResponse_capacityReservationPreference' - Indicates the instance\'s Capacity Reservation preferences. Possible
 -- preferences include:
 --
@@ -66,20 +64,18 @@ data LaunchTemplateCapacityReservationSpecificationResponse = LaunchTemplateCapa
 --
 -- -   @none@ - The instance avoids running in a Capacity Reservation even
 --     if one is available. The instance runs in On-Demand capacity.
+--
+-- 'capacityReservationTarget', 'launchTemplateCapacityReservationSpecificationResponse_capacityReservationTarget' - Information about the target Capacity Reservation or Capacity
+-- Reservation group.
 newLaunchTemplateCapacityReservationSpecificationResponse ::
   LaunchTemplateCapacityReservationSpecificationResponse
 newLaunchTemplateCapacityReservationSpecificationResponse =
   LaunchTemplateCapacityReservationSpecificationResponse'
-    { capacityReservationTarget =
+    { capacityReservationPreference =
         Prelude.Nothing,
-      capacityReservationPreference =
+      capacityReservationTarget =
         Prelude.Nothing
     }
-
--- | Information about the target Capacity Reservation or Capacity
--- Reservation group.
-launchTemplateCapacityReservationSpecificationResponse_capacityReservationTarget :: Lens.Lens' LaunchTemplateCapacityReservationSpecificationResponse (Prelude.Maybe CapacityReservationTargetResponse)
-launchTemplateCapacityReservationSpecificationResponse_capacityReservationTarget = Lens.lens (\LaunchTemplateCapacityReservationSpecificationResponse' {capacityReservationTarget} -> capacityReservationTarget) (\s@LaunchTemplateCapacityReservationSpecificationResponse' {} a -> s {capacityReservationTarget = a} :: LaunchTemplateCapacityReservationSpecificationResponse)
 
 -- | Indicates the instance\'s Capacity Reservation preferences. Possible
 -- preferences include:
@@ -93,14 +89,19 @@ launchTemplateCapacityReservationSpecificationResponse_capacityReservationTarget
 launchTemplateCapacityReservationSpecificationResponse_capacityReservationPreference :: Lens.Lens' LaunchTemplateCapacityReservationSpecificationResponse (Prelude.Maybe CapacityReservationPreference)
 launchTemplateCapacityReservationSpecificationResponse_capacityReservationPreference = Lens.lens (\LaunchTemplateCapacityReservationSpecificationResponse' {capacityReservationPreference} -> capacityReservationPreference) (\s@LaunchTemplateCapacityReservationSpecificationResponse' {} a -> s {capacityReservationPreference = a} :: LaunchTemplateCapacityReservationSpecificationResponse)
 
+-- | Information about the target Capacity Reservation or Capacity
+-- Reservation group.
+launchTemplateCapacityReservationSpecificationResponse_capacityReservationTarget :: Lens.Lens' LaunchTemplateCapacityReservationSpecificationResponse (Prelude.Maybe CapacityReservationTargetResponse)
+launchTemplateCapacityReservationSpecificationResponse_capacityReservationTarget = Lens.lens (\LaunchTemplateCapacityReservationSpecificationResponse' {capacityReservationTarget} -> capacityReservationTarget) (\s@LaunchTemplateCapacityReservationSpecificationResponse' {} a -> s {capacityReservationTarget = a} :: LaunchTemplateCapacityReservationSpecificationResponse)
+
 instance
-  Core.FromXML
+  Data.FromXML
     LaunchTemplateCapacityReservationSpecificationResponse
   where
   parseXML x =
     LaunchTemplateCapacityReservationSpecificationResponse'
-      Prelude.<$> (x Core..@? "capacityReservationTarget")
-        Prelude.<*> (x Core..@? "capacityReservationPreference")
+      Prelude.<$> (x Data..@? "capacityReservationPreference")
+        Prelude.<*> (x Data..@? "capacityReservationTarget")
 
 instance
   Prelude.Hashable
@@ -110,8 +111,8 @@ instance
     _salt
     LaunchTemplateCapacityReservationSpecificationResponse' {..} =
       _salt
-        `Prelude.hashWithSalt` capacityReservationTarget
         `Prelude.hashWithSalt` capacityReservationPreference
+        `Prelude.hashWithSalt` capacityReservationTarget
 
 instance
   Prelude.NFData
@@ -119,5 +120,5 @@ instance
   where
   rnf
     LaunchTemplateCapacityReservationSpecificationResponse' {..} =
-      Prelude.rnf capacityReservationTarget
-        `Prelude.seq` Prelude.rnf capacityReservationPreference
+      Prelude.rnf capacityReservationPreference
+        `Prelude.seq` Prelude.rnf capacityReservationTarget

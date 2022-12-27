@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,41 +20,44 @@ module Amazonka.KinesisVideo
     -- ** AccessDeniedException
     _AccessDeniedException,
 
-    -- ** InvalidArgumentException
-    _InvalidArgumentException,
-
-    -- ** TagsPerResourceExceededLimitException
-    _TagsPerResourceExceededLimitException,
-
-    -- ** NotAuthorizedException
-    _NotAuthorizedException,
-
-    -- ** ClientLimitExceededException
-    _ClientLimitExceededException,
-
     -- ** AccountChannelLimitExceededException
     _AccountChannelLimitExceededException,
-
-    -- ** InvalidDeviceException
-    _InvalidDeviceException,
-
-    -- ** VersionMismatchException
-    _VersionMismatchException,
 
     -- ** AccountStreamLimitExceededException
     _AccountStreamLimitExceededException,
 
-    -- ** InvalidResourceFormatException
-    _InvalidResourceFormatException,
+    -- ** ClientLimitExceededException
+    _ClientLimitExceededException,
 
     -- ** DeviceStreamLimitExceededException
     _DeviceStreamLimitExceededException,
 
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
+    -- ** InvalidArgumentException
+    _InvalidArgumentException,
+
+    -- ** InvalidDeviceException
+    _InvalidDeviceException,
+
+    -- ** InvalidResourceFormatException
+    _InvalidResourceFormatException,
+
+    -- ** NoDataRetentionException
+    _NoDataRetentionException,
+
+    -- ** NotAuthorizedException
+    _NotAuthorizedException,
 
     -- ** ResourceInUseException
     _ResourceInUseException,
+
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
+
+    -- ** TagsPerResourceExceededLimitException
+    _TagsPerResourceExceededLimitException,
+
+    -- ** VersionMismatchException
+    _VersionMismatchException,
 
     -- * Waiters
     -- $waiters
@@ -62,29 +65,53 @@ module Amazonka.KinesisVideo
     -- * Operations
     -- $operations
 
-    -- ** ListSignalingChannels (Paginated)
-    ListSignalingChannels (ListSignalingChannels'),
-    newListSignalingChannels,
-    ListSignalingChannelsResponse (ListSignalingChannelsResponse'),
-    newListSignalingChannelsResponse,
+    -- ** CreateSignalingChannel
+    CreateSignalingChannel (CreateSignalingChannel'),
+    newCreateSignalingChannel,
+    CreateSignalingChannelResponse (CreateSignalingChannelResponse'),
+    newCreateSignalingChannelResponse,
 
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
+    -- ** CreateStream
+    CreateStream (CreateStream'),
+    newCreateStream,
+    CreateStreamResponse (CreateStreamResponse'),
+    newCreateStreamResponse,
 
-    -- ** UntagStream
-    UntagStream (UntagStream'),
-    newUntagStream,
-    UntagStreamResponse (UntagStreamResponse'),
-    newUntagStreamResponse,
+    -- ** DeleteSignalingChannel
+    DeleteSignalingChannel (DeleteSignalingChannel'),
+    newDeleteSignalingChannel,
+    DeleteSignalingChannelResponse (DeleteSignalingChannelResponse'),
+    newDeleteSignalingChannelResponse,
 
-    -- ** UpdateDataRetention
-    UpdateDataRetention (UpdateDataRetention'),
-    newUpdateDataRetention,
-    UpdateDataRetentionResponse (UpdateDataRetentionResponse'),
-    newUpdateDataRetentionResponse,
+    -- ** DeleteStream
+    DeleteStream (DeleteStream'),
+    newDeleteStream,
+    DeleteStreamResponse (DeleteStreamResponse'),
+    newDeleteStreamResponse,
+
+    -- ** DescribeImageGenerationConfiguration
+    DescribeImageGenerationConfiguration (DescribeImageGenerationConfiguration'),
+    newDescribeImageGenerationConfiguration,
+    DescribeImageGenerationConfigurationResponse (DescribeImageGenerationConfigurationResponse'),
+    newDescribeImageGenerationConfigurationResponse,
+
+    -- ** DescribeNotificationConfiguration
+    DescribeNotificationConfiguration (DescribeNotificationConfiguration'),
+    newDescribeNotificationConfiguration,
+    DescribeNotificationConfigurationResponse (DescribeNotificationConfigurationResponse'),
+    newDescribeNotificationConfigurationResponse,
+
+    -- ** DescribeSignalingChannel
+    DescribeSignalingChannel (DescribeSignalingChannel'),
+    newDescribeSignalingChannel,
+    DescribeSignalingChannelResponse (DescribeSignalingChannelResponse'),
+    newDescribeSignalingChannelResponse,
+
+    -- ** DescribeStream
+    DescribeStream (DescribeStream'),
+    newDescribeStream,
+    DescribeStreamResponse (DescribeStreamResponse'),
+    newDescribeStreamResponse,
 
     -- ** GetDataEndpoint
     GetDataEndpoint (GetDataEndpoint'),
@@ -98,17 +125,71 @@ module Amazonka.KinesisVideo
     GetSignalingChannelEndpointResponse (GetSignalingChannelEndpointResponse'),
     newGetSignalingChannelEndpointResponse,
 
+    -- ** ListSignalingChannels (Paginated)
+    ListSignalingChannels (ListSignalingChannels'),
+    newListSignalingChannels,
+    ListSignalingChannelsResponse (ListSignalingChannelsResponse'),
+    newListSignalingChannelsResponse,
+
+    -- ** ListStreams (Paginated)
+    ListStreams (ListStreams'),
+    newListStreams,
+    ListStreamsResponse (ListStreamsResponse'),
+    newListStreamsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
     -- ** ListTagsForStream
     ListTagsForStream (ListTagsForStream'),
     newListTagsForStream,
     ListTagsForStreamResponse (ListTagsForStreamResponse'),
     newListTagsForStreamResponse,
 
-    -- ** DeleteSignalingChannel
-    DeleteSignalingChannel (DeleteSignalingChannel'),
-    newDeleteSignalingChannel,
-    DeleteSignalingChannelResponse (DeleteSignalingChannelResponse'),
-    newDeleteSignalingChannelResponse,
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** TagStream
+    TagStream (TagStream'),
+    newTagStream,
+    TagStreamResponse (TagStreamResponse'),
+    newTagStreamResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UntagStream
+    UntagStream (UntagStream'),
+    newUntagStream,
+    UntagStreamResponse (UntagStreamResponse'),
+    newUntagStreamResponse,
+
+    -- ** UpdateDataRetention
+    UpdateDataRetention (UpdateDataRetention'),
+    newUpdateDataRetention,
+    UpdateDataRetentionResponse (UpdateDataRetentionResponse'),
+    newUpdateDataRetentionResponse,
+
+    -- ** UpdateImageGenerationConfiguration
+    UpdateImageGenerationConfiguration (UpdateImageGenerationConfiguration'),
+    newUpdateImageGenerationConfiguration,
+    UpdateImageGenerationConfigurationResponse (UpdateImageGenerationConfigurationResponse'),
+    newUpdateImageGenerationConfigurationResponse,
+
+    -- ** UpdateNotificationConfiguration
+    UpdateNotificationConfiguration (UpdateNotificationConfiguration'),
+    newUpdateNotificationConfiguration,
+    UpdateNotificationConfigurationResponse (UpdateNotificationConfigurationResponse'),
+    newUpdateNotificationConfigurationResponse,
 
     -- ** UpdateSignalingChannel
     UpdateSignalingChannel (UpdateSignalingChannel'),
@@ -121,60 +202,6 @@ module Amazonka.KinesisVideo
     newUpdateStream,
     UpdateStreamResponse (UpdateStreamResponse'),
     newUpdateStreamResponse,
-
-    -- ** DeleteStream
-    DeleteStream (DeleteStream'),
-    newDeleteStream,
-    DeleteStreamResponse (DeleteStreamResponse'),
-    newDeleteStreamResponse,
-
-    -- ** ListStreams (Paginated)
-    ListStreams (ListStreams'),
-    newListStreams,
-    ListStreamsResponse (ListStreamsResponse'),
-    newListStreamsResponse,
-
-    -- ** CreateStream
-    CreateStream (CreateStream'),
-    newCreateStream,
-    CreateStreamResponse (CreateStreamResponse'),
-    newCreateStreamResponse,
-
-    -- ** DescribeSignalingChannel
-    DescribeSignalingChannel (DescribeSignalingChannel'),
-    newDescribeSignalingChannel,
-    DescribeSignalingChannelResponse (DescribeSignalingChannelResponse'),
-    newDescribeSignalingChannelResponse,
-
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
-
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
-
-    -- ** TagStream
-    TagStream (TagStream'),
-    newTagStream,
-    TagStreamResponse (TagStreamResponse'),
-    newTagStreamResponse,
-
-    -- ** CreateSignalingChannel
-    CreateSignalingChannel (CreateSignalingChannel'),
-    newCreateSignalingChannel,
-    CreateSignalingChannelResponse (CreateSignalingChannelResponse'),
-    newCreateSignalingChannelResponse,
-
-    -- ** DescribeStream
-    DescribeStream (DescribeStream'),
-    newDescribeStream,
-    DescribeStreamResponse (DescribeStreamResponse'),
-    newDescribeStreamResponse,
 
     -- * Types
 
@@ -193,6 +220,18 @@ module Amazonka.KinesisVideo
     -- ** ComparisonOperator
     ComparisonOperator (..),
 
+    -- ** ConfigurationStatus
+    ConfigurationStatus (..),
+
+    -- ** Format
+    Format (..),
+
+    -- ** FormatConfigKey
+    FormatConfigKey (..),
+
+    -- ** ImageSelectorType
+    ImageSelectorType (..),
+
     -- ** StreamStatus
     StreamStatus (..),
 
@@ -206,6 +245,22 @@ module Amazonka.KinesisVideo
     -- ** ChannelNameCondition
     ChannelNameCondition (ChannelNameCondition'),
     newChannelNameCondition,
+
+    -- ** ImageGenerationConfiguration
+    ImageGenerationConfiguration (ImageGenerationConfiguration'),
+    newImageGenerationConfiguration,
+
+    -- ** ImageGenerationDestinationConfig
+    ImageGenerationDestinationConfig (ImageGenerationDestinationConfig'),
+    newImageGenerationDestinationConfig,
+
+    -- ** NotificationConfiguration
+    NotificationConfiguration (NotificationConfiguration'),
+    newNotificationConfiguration,
+
+    -- ** NotificationDestinationConfig
+    NotificationDestinationConfig (NotificationDestinationConfig'),
+    newNotificationDestinationConfig,
 
     -- ** ResourceEndpointListItem
     ResourceEndpointListItem (ResourceEndpointListItem'),
@@ -237,6 +292,8 @@ import Amazonka.KinesisVideo.CreateSignalingChannel
 import Amazonka.KinesisVideo.CreateStream
 import Amazonka.KinesisVideo.DeleteSignalingChannel
 import Amazonka.KinesisVideo.DeleteStream
+import Amazonka.KinesisVideo.DescribeImageGenerationConfiguration
+import Amazonka.KinesisVideo.DescribeNotificationConfiguration
 import Amazonka.KinesisVideo.DescribeSignalingChannel
 import Amazonka.KinesisVideo.DescribeStream
 import Amazonka.KinesisVideo.GetDataEndpoint
@@ -252,6 +309,8 @@ import Amazonka.KinesisVideo.Types
 import Amazonka.KinesisVideo.UntagResource
 import Amazonka.KinesisVideo.UntagStream
 import Amazonka.KinesisVideo.UpdateDataRetention
+import Amazonka.KinesisVideo.UpdateImageGenerationConfiguration
+import Amazonka.KinesisVideo.UpdateNotificationConfiguration
 import Amazonka.KinesisVideo.UpdateSignalingChannel
 import Amazonka.KinesisVideo.UpdateStream
 import Amazonka.KinesisVideo.Waiters

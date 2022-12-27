@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.AuditMitigationActionsTaskMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoT.Types.AuditMitigationActionsTaskMetadata where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.AuditMitigationActionsTaskStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about an audit mitigation actions task that is returned by
@@ -30,7 +31,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newAuditMitigationActionsTaskMetadata' smart constructor.
 data AuditMitigationActionsTaskMetadata = AuditMitigationActionsTaskMetadata'
   { -- | The time at which the audit mitigation actions task was started.
-    startTime :: Prelude.Maybe Core.POSIX,
+    startTime :: Prelude.Maybe Data.POSIX,
     -- | The unique identifier for the task.
     taskId :: Prelude.Maybe Prelude.Text,
     -- | The current state of the audit mitigation actions task.
@@ -63,7 +64,7 @@ newAuditMitigationActionsTaskMetadata =
 
 -- | The time at which the audit mitigation actions task was started.
 auditMitigationActionsTaskMetadata_startTime :: Lens.Lens' AuditMitigationActionsTaskMetadata (Prelude.Maybe Prelude.UTCTime)
-auditMitigationActionsTaskMetadata_startTime = Lens.lens (\AuditMitigationActionsTaskMetadata' {startTime} -> startTime) (\s@AuditMitigationActionsTaskMetadata' {} a -> s {startTime = a} :: AuditMitigationActionsTaskMetadata) Prelude.. Lens.mapping Core._Time
+auditMitigationActionsTaskMetadata_startTime = Lens.lens (\AuditMitigationActionsTaskMetadata' {startTime} -> startTime) (\s@AuditMitigationActionsTaskMetadata' {} a -> s {startTime = a} :: AuditMitigationActionsTaskMetadata) Prelude.. Lens.mapping Data._Time
 
 -- | The unique identifier for the task.
 auditMitigationActionsTaskMetadata_taskId :: Lens.Lens' AuditMitigationActionsTaskMetadata (Prelude.Maybe Prelude.Text)
@@ -74,17 +75,17 @@ auditMitigationActionsTaskMetadata_taskStatus :: Lens.Lens' AuditMitigationActio
 auditMitigationActionsTaskMetadata_taskStatus = Lens.lens (\AuditMitigationActionsTaskMetadata' {taskStatus} -> taskStatus) (\s@AuditMitigationActionsTaskMetadata' {} a -> s {taskStatus = a} :: AuditMitigationActionsTaskMetadata)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AuditMitigationActionsTaskMetadata
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AuditMitigationActionsTaskMetadata"
       ( \x ->
           AuditMitigationActionsTaskMetadata'
-            Prelude.<$> (x Core..:? "startTime")
-            Prelude.<*> (x Core..:? "taskId")
-            Prelude.<*> (x Core..:? "taskStatus")
+            Prelude.<$> (x Data..:? "startTime")
+            Prelude.<*> (x Data..:? "taskId")
+            Prelude.<*> (x Data..:? "taskStatus")
       )
 
 instance

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Support.Types.TrustedAdvisorCategorySpecificSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Support.Types.TrustedAdvisorCategorySpecificSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Support.Types.TrustedAdvisorCostOptimizingSummary
 
@@ -59,15 +60,15 @@ trustedAdvisorCategorySpecificSummary_costOptimizing :: Lens.Lens' TrustedAdviso
 trustedAdvisorCategorySpecificSummary_costOptimizing = Lens.lens (\TrustedAdvisorCategorySpecificSummary' {costOptimizing} -> costOptimizing) (\s@TrustedAdvisorCategorySpecificSummary' {} a -> s {costOptimizing = a} :: TrustedAdvisorCategorySpecificSummary)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     TrustedAdvisorCategorySpecificSummary
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TrustedAdvisorCategorySpecificSummary"
       ( \x ->
           TrustedAdvisorCategorySpecificSummary'
-            Prelude.<$> (x Core..:? "costOptimizing")
+            Prelude.<$> (x Data..:? "costOptimizing")
       )
 
 instance

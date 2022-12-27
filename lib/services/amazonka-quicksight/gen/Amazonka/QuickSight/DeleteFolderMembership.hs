@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.DeleteFolderMembership
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.QuickSight.DeleteFolderMembership
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -53,7 +54,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteFolderMembership' smart constructor.
 data DeleteFolderMembership = DeleteFolderMembership'
-  { -- | The AWS Account ID.
+  { -- | The ID for the Amazon Web Services account that contains the folder.
     awsAccountId :: Prelude.Text,
     -- | The Folder ID.
     folderId :: Prelude.Text,
@@ -73,7 +74,7 @@ data DeleteFolderMembership = DeleteFolderMembership'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'awsAccountId', 'deleteFolderMembership_awsAccountId' - The AWS Account ID.
+-- 'awsAccountId', 'deleteFolderMembership_awsAccountId' - The ID for the Amazon Web Services account that contains the folder.
 --
 -- 'folderId', 'deleteFolderMembership_folderId' - The Folder ID.
 --
@@ -104,7 +105,7 @@ newDeleteFolderMembership
         memberType = pMemberType_
       }
 
--- | The AWS Account ID.
+-- | The ID for the Amazon Web Services account that contains the folder.
 deleteFolderMembership_awsAccountId :: Lens.Lens' DeleteFolderMembership Prelude.Text
 deleteFolderMembership_awsAccountId = Lens.lens (\DeleteFolderMembership' {awsAccountId} -> awsAccountId) (\s@DeleteFolderMembership' {} a -> s {awsAccountId = a} :: DeleteFolderMembership)
 
@@ -125,13 +126,14 @@ instance Core.AWSRequest DeleteFolderMembership where
   type
     AWSResponse DeleteFolderMembership =
       DeleteFolderMembershipResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteFolderMembershipResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "Status")
+            Prelude.<$> (x Data..?> "RequestId")
+            Prelude.<*> (x Data..?> "Status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -149,39 +151,38 @@ instance Prelude.NFData DeleteFolderMembership where
       `Prelude.seq` Prelude.rnf memberId
       `Prelude.seq` Prelude.rnf memberType
 
-instance Core.ToHeaders DeleteFolderMembership where
+instance Data.ToHeaders DeleteFolderMembership where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteFolderMembership where
+instance Data.ToPath DeleteFolderMembership where
   toPath DeleteFolderMembership' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/folders/",
-        Core.toBS folderId,
+        Data.toBS folderId,
         "/members/",
-        Core.toBS memberType,
+        Data.toBS memberType,
         "/",
-        Core.toBS memberId
+        Data.toBS memberId
       ]
 
-instance Core.ToQuery DeleteFolderMembership where
+instance Data.ToQuery DeleteFolderMembership where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteFolderMembershipResponse' smart constructor.
 data DeleteFolderMembershipResponse = DeleteFolderMembershipResponse'
-  { -- | The request ID.
+  { -- | The Amazon Web Services request ID for this operation.
     requestId :: Prelude.Maybe Prelude.Text,
-    -- | The status of deleting the asset. If succeeded, the status is
-    -- @SC_OK (200)@.
+    -- | The HTTP status of the request.
     status :: Prelude.Maybe Prelude.Int,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -196,10 +197,9 @@ data DeleteFolderMembershipResponse = DeleteFolderMembershipResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'deleteFolderMembershipResponse_requestId' - The request ID.
+-- 'requestId', 'deleteFolderMembershipResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
--- 'status', 'deleteFolderMembershipResponse_status' - The status of deleting the asset. If succeeded, the status is
--- @SC_OK (200)@.
+-- 'status', 'deleteFolderMembershipResponse_status' - The HTTP status of the request.
 --
 -- 'httpStatus', 'deleteFolderMembershipResponse_httpStatus' - The response's http status code.
 newDeleteFolderMembershipResponse ::
@@ -214,12 +214,11 @@ newDeleteFolderMembershipResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The request ID.
+-- | The Amazon Web Services request ID for this operation.
 deleteFolderMembershipResponse_requestId :: Lens.Lens' DeleteFolderMembershipResponse (Prelude.Maybe Prelude.Text)
 deleteFolderMembershipResponse_requestId = Lens.lens (\DeleteFolderMembershipResponse' {requestId} -> requestId) (\s@DeleteFolderMembershipResponse' {} a -> s {requestId = a} :: DeleteFolderMembershipResponse)
 
--- | The status of deleting the asset. If succeeded, the status is
--- @SC_OK (200)@.
+-- | The HTTP status of the request.
 deleteFolderMembershipResponse_status :: Lens.Lens' DeleteFolderMembershipResponse (Prelude.Maybe Prelude.Int)
 deleteFolderMembershipResponse_status = Lens.lens (\DeleteFolderMembershipResponse' {status} -> status) (\s@DeleteFolderMembershipResponse' {} a -> s {status = a} :: DeleteFolderMembershipResponse)
 

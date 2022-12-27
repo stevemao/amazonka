@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.GetRelationalDatabaseBundles
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,6 +33,7 @@ module Amazonka.Lightsail.GetRelationalDatabaseBundles
     newGetRelationalDatabaseBundles,
 
     -- * Request Lenses
+    getRelationalDatabaseBundles_includeInactive,
     getRelationalDatabaseBundles_pageToken,
 
     -- * Destructuring the Response
@@ -40,14 +41,15 @@ module Amazonka.Lightsail.GetRelationalDatabaseBundles
     newGetRelationalDatabaseBundlesResponse,
 
     -- * Response Lenses
-    getRelationalDatabaseBundlesResponse_nextPageToken,
     getRelationalDatabaseBundlesResponse_bundles,
+    getRelationalDatabaseBundlesResponse_nextPageToken,
     getRelationalDatabaseBundlesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -55,7 +57,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetRelationalDatabaseBundles' smart constructor.
 data GetRelationalDatabaseBundles = GetRelationalDatabaseBundles'
-  { -- | The token to advance to the next page of results from your request.
+  { -- | A Boolean value that indicates whether to include inactive (unavailable)
+    -- bundles in the response of your request.
+    includeInactive :: Prelude.Maybe Prelude.Bool,
+    -- | The token to advance to the next page of results from your request.
     --
     -- To get a page token, perform an initial @GetRelationalDatabaseBundles@
     -- request. If your results are paginated, the response will return a next
@@ -73,6 +78,9 @@ data GetRelationalDatabaseBundles = GetRelationalDatabaseBundles'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'includeInactive', 'getRelationalDatabaseBundles_includeInactive' - A Boolean value that indicates whether to include inactive (unavailable)
+-- bundles in the response of your request.
+--
 -- 'pageToken', 'getRelationalDatabaseBundles_pageToken' - The token to advance to the next page of results from your request.
 --
 -- To get a page token, perform an initial @GetRelationalDatabaseBundles@
@@ -83,9 +91,15 @@ newGetRelationalDatabaseBundles ::
   GetRelationalDatabaseBundles
 newGetRelationalDatabaseBundles =
   GetRelationalDatabaseBundles'
-    { pageToken =
-        Prelude.Nothing
+    { includeInactive =
+        Prelude.Nothing,
+      pageToken = Prelude.Nothing
     }
+
+-- | A Boolean value that indicates whether to include inactive (unavailable)
+-- bundles in the response of your request.
+getRelationalDatabaseBundles_includeInactive :: Lens.Lens' GetRelationalDatabaseBundles (Prelude.Maybe Prelude.Bool)
+getRelationalDatabaseBundles_includeInactive = Lens.lens (\GetRelationalDatabaseBundles' {includeInactive} -> includeInactive) (\s@GetRelationalDatabaseBundles' {} a -> s {includeInactive = a} :: GetRelationalDatabaseBundles)
 
 -- | The token to advance to the next page of results from your request.
 --
@@ -122,13 +136,14 @@ instance Core.AWSRequest GetRelationalDatabaseBundles where
   type
     AWSResponse GetRelationalDatabaseBundles =
       GetRelationalDatabaseBundlesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetRelationalDatabaseBundlesResponse'
-            Prelude.<$> (x Core..?> "nextPageToken")
-            Prelude.<*> (x Core..?> "bundles" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "bundles" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextPageToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -137,43 +152,51 @@ instance
     GetRelationalDatabaseBundles
   where
   hashWithSalt _salt GetRelationalDatabaseBundles' {..} =
-    _salt `Prelude.hashWithSalt` pageToken
+    _salt `Prelude.hashWithSalt` includeInactive
+      `Prelude.hashWithSalt` pageToken
 
 instance Prelude.NFData GetRelationalDatabaseBundles where
   rnf GetRelationalDatabaseBundles' {..} =
-    Prelude.rnf pageToken
+    Prelude.rnf includeInactive
+      `Prelude.seq` Prelude.rnf pageToken
 
-instance Core.ToHeaders GetRelationalDatabaseBundles where
+instance Data.ToHeaders GetRelationalDatabaseBundles where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.GetRelationalDatabaseBundles" ::
+              Data.=# ( "Lightsail_20161128.GetRelationalDatabaseBundles" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetRelationalDatabaseBundles where
+instance Data.ToJSON GetRelationalDatabaseBundles where
   toJSON GetRelationalDatabaseBundles' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("pageToken" Core..=) Prelude.<$> pageToken]
+          [ ("includeInactive" Data..=)
+              Prelude.<$> includeInactive,
+            ("pageToken" Data..=) Prelude.<$> pageToken
+          ]
       )
 
-instance Core.ToPath GetRelationalDatabaseBundles where
+instance Data.ToPath GetRelationalDatabaseBundles where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetRelationalDatabaseBundles where
+instance Data.ToQuery GetRelationalDatabaseBundles where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetRelationalDatabaseBundlesResponse' smart constructor.
 data GetRelationalDatabaseBundlesResponse = GetRelationalDatabaseBundlesResponse'
-  { -- | The token to advance to the next page of results from your request.
+  { -- | An object describing the result of your get relational database bundles
+    -- request.
+    bundles :: Prelude.Maybe [RelationalDatabaseBundle],
+    -- | The token to advance to the next page of results from your request.
     --
     -- A next page token is not returned if there are no more results to
     -- display.
@@ -182,9 +205,6 @@ data GetRelationalDatabaseBundlesResponse = GetRelationalDatabaseBundlesResponse
     -- @GetRelationalDatabaseBundles@ request and specify the next page token
     -- using the @pageToken@ parameter.
     nextPageToken :: Prelude.Maybe Prelude.Text,
-    -- | An object describing the result of your get relational database bundles
-    -- request.
-    bundles :: Prelude.Maybe [RelationalDatabaseBundle],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -198,6 +218,9 @@ data GetRelationalDatabaseBundlesResponse = GetRelationalDatabaseBundlesResponse
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'bundles', 'getRelationalDatabaseBundlesResponse_bundles' - An object describing the result of your get relational database bundles
+-- request.
+--
 -- 'nextPageToken', 'getRelationalDatabaseBundlesResponse_nextPageToken' - The token to advance to the next page of results from your request.
 --
 -- A next page token is not returned if there are no more results to
@@ -207,9 +230,6 @@ data GetRelationalDatabaseBundlesResponse = GetRelationalDatabaseBundlesResponse
 -- @GetRelationalDatabaseBundles@ request and specify the next page token
 -- using the @pageToken@ parameter.
 --
--- 'bundles', 'getRelationalDatabaseBundlesResponse_bundles' - An object describing the result of your get relational database bundles
--- request.
---
 -- 'httpStatus', 'getRelationalDatabaseBundlesResponse_httpStatus' - The response's http status code.
 newGetRelationalDatabaseBundlesResponse ::
   -- | 'httpStatus'
@@ -217,11 +237,16 @@ newGetRelationalDatabaseBundlesResponse ::
   GetRelationalDatabaseBundlesResponse
 newGetRelationalDatabaseBundlesResponse pHttpStatus_ =
   GetRelationalDatabaseBundlesResponse'
-    { nextPageToken =
+    { bundles =
         Prelude.Nothing,
-      bundles = Prelude.Nothing,
+      nextPageToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | An object describing the result of your get relational database bundles
+-- request.
+getRelationalDatabaseBundlesResponse_bundles :: Lens.Lens' GetRelationalDatabaseBundlesResponse (Prelude.Maybe [RelationalDatabaseBundle])
+getRelationalDatabaseBundlesResponse_bundles = Lens.lens (\GetRelationalDatabaseBundlesResponse' {bundles} -> bundles) (\s@GetRelationalDatabaseBundlesResponse' {} a -> s {bundles = a} :: GetRelationalDatabaseBundlesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token to advance to the next page of results from your request.
 --
@@ -234,11 +259,6 @@ newGetRelationalDatabaseBundlesResponse pHttpStatus_ =
 getRelationalDatabaseBundlesResponse_nextPageToken :: Lens.Lens' GetRelationalDatabaseBundlesResponse (Prelude.Maybe Prelude.Text)
 getRelationalDatabaseBundlesResponse_nextPageToken = Lens.lens (\GetRelationalDatabaseBundlesResponse' {nextPageToken} -> nextPageToken) (\s@GetRelationalDatabaseBundlesResponse' {} a -> s {nextPageToken = a} :: GetRelationalDatabaseBundlesResponse)
 
--- | An object describing the result of your get relational database bundles
--- request.
-getRelationalDatabaseBundlesResponse_bundles :: Lens.Lens' GetRelationalDatabaseBundlesResponse (Prelude.Maybe [RelationalDatabaseBundle])
-getRelationalDatabaseBundlesResponse_bundles = Lens.lens (\GetRelationalDatabaseBundlesResponse' {bundles} -> bundles) (\s@GetRelationalDatabaseBundlesResponse' {} a -> s {bundles = a} :: GetRelationalDatabaseBundlesResponse) Prelude.. Lens.mapping Lens.coerced
-
 -- | The response's http status code.
 getRelationalDatabaseBundlesResponse_httpStatus :: Lens.Lens' GetRelationalDatabaseBundlesResponse Prelude.Int
 getRelationalDatabaseBundlesResponse_httpStatus = Lens.lens (\GetRelationalDatabaseBundlesResponse' {httpStatus} -> httpStatus) (\s@GetRelationalDatabaseBundlesResponse' {} a -> s {httpStatus = a} :: GetRelationalDatabaseBundlesResponse)
@@ -248,6 +268,6 @@ instance
     GetRelationalDatabaseBundlesResponse
   where
   rnf GetRelationalDatabaseBundlesResponse' {..} =
-    Prelude.rnf nextPageToken
-      `Prelude.seq` Prelude.rnf bundles
+    Prelude.rnf bundles
+      `Prelude.seq` Prelude.rnf nextPageToken
       `Prelude.seq` Prelude.rnf httpStatus

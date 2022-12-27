@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.UpdateRecommenderConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.UpdateRecommenderConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies Amazon Pinpoint configuration settings for retrieving and
@@ -28,40 +29,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newUpdateRecommenderConfiguration' smart constructor.
 data UpdateRecommenderConfiguration = UpdateRecommenderConfiguration'
-  { -- | The name or Amazon Resource Name (ARN) of the AWS Lambda function to
-    -- invoke for additional processing of recommendation data that\'s
-    -- retrieved from the recommender model.
-    recommendationTransformerUri :: Prelude.Maybe Prelude.Text,
-    -- | A custom display name for the standard endpoint or user attribute
-    -- (RecommendationItems) that temporarily stores recommended items for each
-    -- endpoint or user, depending on the value for the
-    -- RecommendationProviderIdType property. This value is required if the
-    -- configuration doesn\'t invoke an AWS Lambda function
-    -- (RecommendationTransformerUri) to perform additional processing of
-    -- recommendation data.
-    --
-    -- This name appears in the __Attribute finder__ of the template editor on
-    -- the Amazon Pinpoint console. The name can contain up to 25 characters.
-    -- The characters can be letters, numbers, spaces, underscores (_), or
-    -- hyphens (-). These restrictions don\'t apply to attribute values.
-    recommendationsDisplayName :: Prelude.Maybe Prelude.Text,
-    -- | The type of Amazon Pinpoint ID to associate with unique user IDs in the
-    -- recommender model. This value enables the model to use attribute and
-    -- event data that’s specific to a particular endpoint or user in an Amazon
-    -- Pinpoint application. Valid values are:
-    --
-    -- -   PINPOINT_ENDPOINT_ID - Associate each user in the model with a
-    --     particular endpoint in Amazon Pinpoint. The data is correlated based
-    --     on endpoint IDs in Amazon Pinpoint. This is the default value.
-    --
-    -- -   PINPOINT_USER_ID - Associate each user in the model with a
-    --     particular user and endpoint in Amazon Pinpoint. The data is
-    --     correlated based on user IDs in Amazon Pinpoint. If you specify this
-    --     value, an endpoint definition in Amazon Pinpoint has to specify both
-    --     a user ID (UserId) and an endpoint ID. Otherwise, messages won’t be
-    --     sent to the user\'s endpoint.
-    recommendationProviderIdType :: Prelude.Maybe Prelude.Text,
-    -- | A map of key-value pairs that defines 1-10 custom endpoint or user
+  { -- | A map of key-value pairs that defines 1-10 custom endpoint or user
     -- attributes, depending on the value for the RecommendationProviderIdType
     -- property. Each of these attributes temporarily stores a recommended item
     -- that\'s retrieved from the recommender model and sent to an AWS Lambda
@@ -86,15 +54,48 @@ data UpdateRecommenderConfiguration = UpdateRecommenderConfiguration'
     -- function (RecommendationTransformerUri) to process recommendation data.
     -- Otherwise, don\'t include this object in your request.
     attributes :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | A custom description of the configuration for the recommender model. The
+    -- description can contain up to 128 characters. The characters can be
+    -- letters, numbers, spaces, or the following symbols: _ ; () , ‐.
+    description :: Prelude.Maybe Prelude.Text,
     -- | A custom name of the configuration for the recommender model. The name
     -- must start with a letter or number and it can contain up to 128
     -- characters. The characters can be letters, numbers, spaces, underscores
     -- (_), or hyphens (-).
     name :: Prelude.Maybe Prelude.Text,
-    -- | A custom description of the configuration for the recommender model. The
-    -- description can contain up to 128 characters. The characters can be
-    -- letters, numbers, spaces, or the following symbols: _ ; () , ‐.
-    description :: Prelude.Maybe Prelude.Text,
+    -- | The type of Amazon Pinpoint ID to associate with unique user IDs in the
+    -- recommender model. This value enables the model to use attribute and
+    -- event data that’s specific to a particular endpoint or user in an Amazon
+    -- Pinpoint application. Valid values are:
+    --
+    -- -   PINPOINT_ENDPOINT_ID - Associate each user in the model with a
+    --     particular endpoint in Amazon Pinpoint. The data is correlated based
+    --     on endpoint IDs in Amazon Pinpoint. This is the default value.
+    --
+    -- -   PINPOINT_USER_ID - Associate each user in the model with a
+    --     particular user and endpoint in Amazon Pinpoint. The data is
+    --     correlated based on user IDs in Amazon Pinpoint. If you specify this
+    --     value, an endpoint definition in Amazon Pinpoint has to specify both
+    --     a user ID (UserId) and an endpoint ID. Otherwise, messages won’t be
+    --     sent to the user\'s endpoint.
+    recommendationProviderIdType :: Prelude.Maybe Prelude.Text,
+    -- | The name or Amazon Resource Name (ARN) of the AWS Lambda function to
+    -- invoke for additional processing of recommendation data that\'s
+    -- retrieved from the recommender model.
+    recommendationTransformerUri :: Prelude.Maybe Prelude.Text,
+    -- | A custom display name for the standard endpoint or user attribute
+    -- (RecommendationItems) that temporarily stores recommended items for each
+    -- endpoint or user, depending on the value for the
+    -- RecommendationProviderIdType property. This value is required if the
+    -- configuration doesn\'t invoke an AWS Lambda function
+    -- (RecommendationTransformerUri) to perform additional processing of
+    -- recommendation data.
+    --
+    -- This name appears in the __Attribute finder__ of the template editor on
+    -- the Amazon Pinpoint console. The name can contain up to 25 characters.
+    -- The characters can be letters, numbers, spaces, underscores (_), or
+    -- hyphens (-). These restrictions don\'t apply to attribute values.
+    recommendationsDisplayName :: Prelude.Maybe Prelude.Text,
     -- | The number of recommended items to retrieve from the model for each
     -- endpoint or user, depending on the value for the
     -- RecommendationProviderIdType property. This number determines how many
@@ -125,39 +126,6 @@ data UpdateRecommenderConfiguration = UpdateRecommenderConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'recommendationTransformerUri', 'updateRecommenderConfiguration_recommendationTransformerUri' - The name or Amazon Resource Name (ARN) of the AWS Lambda function to
--- invoke for additional processing of recommendation data that\'s
--- retrieved from the recommender model.
---
--- 'recommendationsDisplayName', 'updateRecommenderConfiguration_recommendationsDisplayName' - A custom display name for the standard endpoint or user attribute
--- (RecommendationItems) that temporarily stores recommended items for each
--- endpoint or user, depending on the value for the
--- RecommendationProviderIdType property. This value is required if the
--- configuration doesn\'t invoke an AWS Lambda function
--- (RecommendationTransformerUri) to perform additional processing of
--- recommendation data.
---
--- This name appears in the __Attribute finder__ of the template editor on
--- the Amazon Pinpoint console. The name can contain up to 25 characters.
--- The characters can be letters, numbers, spaces, underscores (_), or
--- hyphens (-). These restrictions don\'t apply to attribute values.
---
--- 'recommendationProviderIdType', 'updateRecommenderConfiguration_recommendationProviderIdType' - The type of Amazon Pinpoint ID to associate with unique user IDs in the
--- recommender model. This value enables the model to use attribute and
--- event data that’s specific to a particular endpoint or user in an Amazon
--- Pinpoint application. Valid values are:
---
--- -   PINPOINT_ENDPOINT_ID - Associate each user in the model with a
---     particular endpoint in Amazon Pinpoint. The data is correlated based
---     on endpoint IDs in Amazon Pinpoint. This is the default value.
---
--- -   PINPOINT_USER_ID - Associate each user in the model with a
---     particular user and endpoint in Amazon Pinpoint. The data is
---     correlated based on user IDs in Amazon Pinpoint. If you specify this
---     value, an endpoint definition in Amazon Pinpoint has to specify both
---     a user ID (UserId) and an endpoint ID. Otherwise, messages won’t be
---     sent to the user\'s endpoint.
---
 -- 'attributes', 'updateRecommenderConfiguration_attributes' - A map of key-value pairs that defines 1-10 custom endpoint or user
 -- attributes, depending on the value for the RecommendationProviderIdType
 -- property. Each of these attributes temporarily stores a recommended item
@@ -183,14 +151,47 @@ data UpdateRecommenderConfiguration = UpdateRecommenderConfiguration'
 -- function (RecommendationTransformerUri) to process recommendation data.
 -- Otherwise, don\'t include this object in your request.
 --
+-- 'description', 'updateRecommenderConfiguration_description' - A custom description of the configuration for the recommender model. The
+-- description can contain up to 128 characters. The characters can be
+-- letters, numbers, spaces, or the following symbols: _ ; () , ‐.
+--
 -- 'name', 'updateRecommenderConfiguration_name' - A custom name of the configuration for the recommender model. The name
 -- must start with a letter or number and it can contain up to 128
 -- characters. The characters can be letters, numbers, spaces, underscores
 -- (_), or hyphens (-).
 --
--- 'description', 'updateRecommenderConfiguration_description' - A custom description of the configuration for the recommender model. The
--- description can contain up to 128 characters. The characters can be
--- letters, numbers, spaces, or the following symbols: _ ; () , ‐.
+-- 'recommendationProviderIdType', 'updateRecommenderConfiguration_recommendationProviderIdType' - The type of Amazon Pinpoint ID to associate with unique user IDs in the
+-- recommender model. This value enables the model to use attribute and
+-- event data that’s specific to a particular endpoint or user in an Amazon
+-- Pinpoint application. Valid values are:
+--
+-- -   PINPOINT_ENDPOINT_ID - Associate each user in the model with a
+--     particular endpoint in Amazon Pinpoint. The data is correlated based
+--     on endpoint IDs in Amazon Pinpoint. This is the default value.
+--
+-- -   PINPOINT_USER_ID - Associate each user in the model with a
+--     particular user and endpoint in Amazon Pinpoint. The data is
+--     correlated based on user IDs in Amazon Pinpoint. If you specify this
+--     value, an endpoint definition in Amazon Pinpoint has to specify both
+--     a user ID (UserId) and an endpoint ID. Otherwise, messages won’t be
+--     sent to the user\'s endpoint.
+--
+-- 'recommendationTransformerUri', 'updateRecommenderConfiguration_recommendationTransformerUri' - The name or Amazon Resource Name (ARN) of the AWS Lambda function to
+-- invoke for additional processing of recommendation data that\'s
+-- retrieved from the recommender model.
+--
+-- 'recommendationsDisplayName', 'updateRecommenderConfiguration_recommendationsDisplayName' - A custom display name for the standard endpoint or user attribute
+-- (RecommendationItems) that temporarily stores recommended items for each
+-- endpoint or user, depending on the value for the
+-- RecommendationProviderIdType property. This value is required if the
+-- configuration doesn\'t invoke an AWS Lambda function
+-- (RecommendationTransformerUri) to perform additional processing of
+-- recommendation data.
+--
+-- This name appears in the __Attribute finder__ of the template editor on
+-- the Amazon Pinpoint console. The name can contain up to 25 characters.
+-- The characters can be letters, numbers, spaces, underscores (_), or
+-- hyphens (-). These restrictions don\'t apply to attribute values.
 --
 -- 'recommendationsPerMessage', 'updateRecommenderConfiguration_recommendationsPerMessage' - The number of recommended items to retrieve from the model for each
 -- endpoint or user, depending on the value for the
@@ -220,60 +221,22 @@ newUpdateRecommenderConfiguration
   pRecommendationProviderUri_
   pRecommendationProviderRoleArn_ =
     UpdateRecommenderConfiguration'
-      { recommendationTransformerUri =
+      { attributes =
+          Prelude.Nothing,
+        description = Prelude.Nothing,
+        name = Prelude.Nothing,
+        recommendationProviderIdType =
+          Prelude.Nothing,
+        recommendationTransformerUri =
           Prelude.Nothing,
         recommendationsDisplayName =
           Prelude.Nothing,
-        recommendationProviderIdType =
-          Prelude.Nothing,
-        attributes = Prelude.Nothing,
-        name = Prelude.Nothing,
-        description = Prelude.Nothing,
         recommendationsPerMessage = Prelude.Nothing,
         recommendationProviderUri =
           pRecommendationProviderUri_,
         recommendationProviderRoleArn =
           pRecommendationProviderRoleArn_
       }
-
--- | The name or Amazon Resource Name (ARN) of the AWS Lambda function to
--- invoke for additional processing of recommendation data that\'s
--- retrieved from the recommender model.
-updateRecommenderConfiguration_recommendationTransformerUri :: Lens.Lens' UpdateRecommenderConfiguration (Prelude.Maybe Prelude.Text)
-updateRecommenderConfiguration_recommendationTransformerUri = Lens.lens (\UpdateRecommenderConfiguration' {recommendationTransformerUri} -> recommendationTransformerUri) (\s@UpdateRecommenderConfiguration' {} a -> s {recommendationTransformerUri = a} :: UpdateRecommenderConfiguration)
-
--- | A custom display name for the standard endpoint or user attribute
--- (RecommendationItems) that temporarily stores recommended items for each
--- endpoint or user, depending on the value for the
--- RecommendationProviderIdType property. This value is required if the
--- configuration doesn\'t invoke an AWS Lambda function
--- (RecommendationTransformerUri) to perform additional processing of
--- recommendation data.
---
--- This name appears in the __Attribute finder__ of the template editor on
--- the Amazon Pinpoint console. The name can contain up to 25 characters.
--- The characters can be letters, numbers, spaces, underscores (_), or
--- hyphens (-). These restrictions don\'t apply to attribute values.
-updateRecommenderConfiguration_recommendationsDisplayName :: Lens.Lens' UpdateRecommenderConfiguration (Prelude.Maybe Prelude.Text)
-updateRecommenderConfiguration_recommendationsDisplayName = Lens.lens (\UpdateRecommenderConfiguration' {recommendationsDisplayName} -> recommendationsDisplayName) (\s@UpdateRecommenderConfiguration' {} a -> s {recommendationsDisplayName = a} :: UpdateRecommenderConfiguration)
-
--- | The type of Amazon Pinpoint ID to associate with unique user IDs in the
--- recommender model. This value enables the model to use attribute and
--- event data that’s specific to a particular endpoint or user in an Amazon
--- Pinpoint application. Valid values are:
---
--- -   PINPOINT_ENDPOINT_ID - Associate each user in the model with a
---     particular endpoint in Amazon Pinpoint. The data is correlated based
---     on endpoint IDs in Amazon Pinpoint. This is the default value.
---
--- -   PINPOINT_USER_ID - Associate each user in the model with a
---     particular user and endpoint in Amazon Pinpoint. The data is
---     correlated based on user IDs in Amazon Pinpoint. If you specify this
---     value, an endpoint definition in Amazon Pinpoint has to specify both
---     a user ID (UserId) and an endpoint ID. Otherwise, messages won’t be
---     sent to the user\'s endpoint.
-updateRecommenderConfiguration_recommendationProviderIdType :: Lens.Lens' UpdateRecommenderConfiguration (Prelude.Maybe Prelude.Text)
-updateRecommenderConfiguration_recommendationProviderIdType = Lens.lens (\UpdateRecommenderConfiguration' {recommendationProviderIdType} -> recommendationProviderIdType) (\s@UpdateRecommenderConfiguration' {} a -> s {recommendationProviderIdType = a} :: UpdateRecommenderConfiguration)
 
 -- | A map of key-value pairs that defines 1-10 custom endpoint or user
 -- attributes, depending on the value for the RecommendationProviderIdType
@@ -302,6 +265,12 @@ updateRecommenderConfiguration_recommendationProviderIdType = Lens.lens (\Update
 updateRecommenderConfiguration_attributes :: Lens.Lens' UpdateRecommenderConfiguration (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 updateRecommenderConfiguration_attributes = Lens.lens (\UpdateRecommenderConfiguration' {attributes} -> attributes) (\s@UpdateRecommenderConfiguration' {} a -> s {attributes = a} :: UpdateRecommenderConfiguration) Prelude.. Lens.mapping Lens.coerced
 
+-- | A custom description of the configuration for the recommender model. The
+-- description can contain up to 128 characters. The characters can be
+-- letters, numbers, spaces, or the following symbols: _ ; () , ‐.
+updateRecommenderConfiguration_description :: Lens.Lens' UpdateRecommenderConfiguration (Prelude.Maybe Prelude.Text)
+updateRecommenderConfiguration_description = Lens.lens (\UpdateRecommenderConfiguration' {description} -> description) (\s@UpdateRecommenderConfiguration' {} a -> s {description = a} :: UpdateRecommenderConfiguration)
+
 -- | A custom name of the configuration for the recommender model. The name
 -- must start with a letter or number and it can contain up to 128
 -- characters. The characters can be letters, numbers, spaces, underscores
@@ -309,11 +278,44 @@ updateRecommenderConfiguration_attributes = Lens.lens (\UpdateRecommenderConfigu
 updateRecommenderConfiguration_name :: Lens.Lens' UpdateRecommenderConfiguration (Prelude.Maybe Prelude.Text)
 updateRecommenderConfiguration_name = Lens.lens (\UpdateRecommenderConfiguration' {name} -> name) (\s@UpdateRecommenderConfiguration' {} a -> s {name = a} :: UpdateRecommenderConfiguration)
 
--- | A custom description of the configuration for the recommender model. The
--- description can contain up to 128 characters. The characters can be
--- letters, numbers, spaces, or the following symbols: _ ; () , ‐.
-updateRecommenderConfiguration_description :: Lens.Lens' UpdateRecommenderConfiguration (Prelude.Maybe Prelude.Text)
-updateRecommenderConfiguration_description = Lens.lens (\UpdateRecommenderConfiguration' {description} -> description) (\s@UpdateRecommenderConfiguration' {} a -> s {description = a} :: UpdateRecommenderConfiguration)
+-- | The type of Amazon Pinpoint ID to associate with unique user IDs in the
+-- recommender model. This value enables the model to use attribute and
+-- event data that’s specific to a particular endpoint or user in an Amazon
+-- Pinpoint application. Valid values are:
+--
+-- -   PINPOINT_ENDPOINT_ID - Associate each user in the model with a
+--     particular endpoint in Amazon Pinpoint. The data is correlated based
+--     on endpoint IDs in Amazon Pinpoint. This is the default value.
+--
+-- -   PINPOINT_USER_ID - Associate each user in the model with a
+--     particular user and endpoint in Amazon Pinpoint. The data is
+--     correlated based on user IDs in Amazon Pinpoint. If you specify this
+--     value, an endpoint definition in Amazon Pinpoint has to specify both
+--     a user ID (UserId) and an endpoint ID. Otherwise, messages won’t be
+--     sent to the user\'s endpoint.
+updateRecommenderConfiguration_recommendationProviderIdType :: Lens.Lens' UpdateRecommenderConfiguration (Prelude.Maybe Prelude.Text)
+updateRecommenderConfiguration_recommendationProviderIdType = Lens.lens (\UpdateRecommenderConfiguration' {recommendationProviderIdType} -> recommendationProviderIdType) (\s@UpdateRecommenderConfiguration' {} a -> s {recommendationProviderIdType = a} :: UpdateRecommenderConfiguration)
+
+-- | The name or Amazon Resource Name (ARN) of the AWS Lambda function to
+-- invoke for additional processing of recommendation data that\'s
+-- retrieved from the recommender model.
+updateRecommenderConfiguration_recommendationTransformerUri :: Lens.Lens' UpdateRecommenderConfiguration (Prelude.Maybe Prelude.Text)
+updateRecommenderConfiguration_recommendationTransformerUri = Lens.lens (\UpdateRecommenderConfiguration' {recommendationTransformerUri} -> recommendationTransformerUri) (\s@UpdateRecommenderConfiguration' {} a -> s {recommendationTransformerUri = a} :: UpdateRecommenderConfiguration)
+
+-- | A custom display name for the standard endpoint or user attribute
+-- (RecommendationItems) that temporarily stores recommended items for each
+-- endpoint or user, depending on the value for the
+-- RecommendationProviderIdType property. This value is required if the
+-- configuration doesn\'t invoke an AWS Lambda function
+-- (RecommendationTransformerUri) to perform additional processing of
+-- recommendation data.
+--
+-- This name appears in the __Attribute finder__ of the template editor on
+-- the Amazon Pinpoint console. The name can contain up to 25 characters.
+-- The characters can be letters, numbers, spaces, underscores (_), or
+-- hyphens (-). These restrictions don\'t apply to attribute values.
+updateRecommenderConfiguration_recommendationsDisplayName :: Lens.Lens' UpdateRecommenderConfiguration (Prelude.Maybe Prelude.Text)
+updateRecommenderConfiguration_recommendationsDisplayName = Lens.lens (\UpdateRecommenderConfiguration' {recommendationsDisplayName} -> recommendationsDisplayName) (\s@UpdateRecommenderConfiguration' {} a -> s {recommendationsDisplayName = a} :: UpdateRecommenderConfiguration)
 
 -- | The number of recommended items to retrieve from the model for each
 -- endpoint or user, depending on the value for the
@@ -347,13 +349,12 @@ instance
   hashWithSalt
     _salt
     UpdateRecommenderConfiguration' {..} =
-      _salt
+      _salt `Prelude.hashWithSalt` attributes
+        `Prelude.hashWithSalt` description
+        `Prelude.hashWithSalt` name
+        `Prelude.hashWithSalt` recommendationProviderIdType
         `Prelude.hashWithSalt` recommendationTransformerUri
         `Prelude.hashWithSalt` recommendationsDisplayName
-        `Prelude.hashWithSalt` recommendationProviderIdType
-        `Prelude.hashWithSalt` attributes
-        `Prelude.hashWithSalt` name
-        `Prelude.hashWithSalt` description
         `Prelude.hashWithSalt` recommendationsPerMessage
         `Prelude.hashWithSalt` recommendationProviderUri
         `Prelude.hashWithSalt` recommendationProviderRoleArn
@@ -363,38 +364,38 @@ instance
     UpdateRecommenderConfiguration
   where
   rnf UpdateRecommenderConfiguration' {..} =
-    Prelude.rnf recommendationTransformerUri
-      `Prelude.seq` Prelude.rnf recommendationsDisplayName
-      `Prelude.seq` Prelude.rnf recommendationProviderIdType
-      `Prelude.seq` Prelude.rnf attributes
-      `Prelude.seq` Prelude.rnf name
+    Prelude.rnf attributes
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf recommendationProviderIdType
+      `Prelude.seq` Prelude.rnf recommendationTransformerUri
+      `Prelude.seq` Prelude.rnf recommendationsDisplayName
       `Prelude.seq` Prelude.rnf recommendationsPerMessage
       `Prelude.seq` Prelude.rnf recommendationProviderUri
       `Prelude.seq` Prelude.rnf recommendationProviderRoleArn
 
-instance Core.ToJSON UpdateRecommenderConfiguration where
+instance Data.ToJSON UpdateRecommenderConfiguration where
   toJSON UpdateRecommenderConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RecommendationTransformerUri" Core..=)
-              Prelude.<$> recommendationTransformerUri,
-            ("RecommendationsDisplayName" Core..=)
-              Prelude.<$> recommendationsDisplayName,
-            ("RecommendationProviderIdType" Core..=)
+          [ ("Attributes" Data..=) Prelude.<$> attributes,
+            ("Description" Data..=) Prelude.<$> description,
+            ("Name" Data..=) Prelude.<$> name,
+            ("RecommendationProviderIdType" Data..=)
               Prelude.<$> recommendationProviderIdType,
-            ("Attributes" Core..=) Prelude.<$> attributes,
-            ("Name" Core..=) Prelude.<$> name,
-            ("Description" Core..=) Prelude.<$> description,
-            ("RecommendationsPerMessage" Core..=)
+            ("RecommendationTransformerUri" Data..=)
+              Prelude.<$> recommendationTransformerUri,
+            ("RecommendationsDisplayName" Data..=)
+              Prelude.<$> recommendationsDisplayName,
+            ("RecommendationsPerMessage" Data..=)
               Prelude.<$> recommendationsPerMessage,
             Prelude.Just
               ( "RecommendationProviderUri"
-                  Core..= recommendationProviderUri
+                  Data..= recommendationProviderUri
               ),
             Prelude.Just
               ( "RecommendationProviderRoleArn"
-                  Core..= recommendationProviderRoleArn
+                  Data..= recommendationProviderRoleArn
               )
           ]
       )

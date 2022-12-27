@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.ListSecurityKeys
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,8 @@ module Amazonka.Connect.ListSecurityKeys
     newListSecurityKeys,
 
     -- * Request Lenses
-    listSecurityKeys_nextToken,
     listSecurityKeys_maxResults,
+    listSecurityKeys_nextToken,
     listSecurityKeys_instanceId,
 
     -- * Destructuring the Response
@@ -50,19 +50,20 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListSecurityKeys' smart constructor.
 data ListSecurityKeys = ListSecurityKeys'
-  { -- | The token for the next set of results. Use the value returned in the
+  { -- | The maximum number of results to return per page.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results. Use the value returned in the
     -- previous response in the next request to retrieve the next set of
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return per page.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The identifier of the Amazon Connect instance. You can find the
     -- instanceId in the ARN of the instance.
     instanceId :: Prelude.Text
@@ -77,11 +78,11 @@ data ListSecurityKeys = ListSecurityKeys'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listSecurityKeys_maxResults' - The maximum number of results to return per page.
+--
 -- 'nextToken', 'listSecurityKeys_nextToken' - The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
---
--- 'maxResults', 'listSecurityKeys_maxResults' - The maximum number of results to return per page.
 --
 -- 'instanceId', 'listSecurityKeys_instanceId' - The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -91,20 +92,20 @@ newListSecurityKeys ::
   ListSecurityKeys
 newListSecurityKeys pInstanceId_ =
   ListSecurityKeys'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       instanceId = pInstanceId_
     }
+
+-- | The maximum number of results to return per page.
+listSecurityKeys_maxResults :: Lens.Lens' ListSecurityKeys (Prelude.Maybe Prelude.Natural)
+listSecurityKeys_maxResults = Lens.lens (\ListSecurityKeys' {maxResults} -> maxResults) (\s@ListSecurityKeys' {} a -> s {maxResults = a} :: ListSecurityKeys)
 
 -- | The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
 listSecurityKeys_nextToken :: Lens.Lens' ListSecurityKeys (Prelude.Maybe Prelude.Text)
 listSecurityKeys_nextToken = Lens.lens (\ListSecurityKeys' {nextToken} -> nextToken) (\s@ListSecurityKeys' {} a -> s {nextToken = a} :: ListSecurityKeys)
-
--- | The maximum number of results to return per page.
-listSecurityKeys_maxResults :: Lens.Lens' ListSecurityKeys (Prelude.Maybe Prelude.Natural)
-listSecurityKeys_maxResults = Lens.lens (\ListSecurityKeys' {maxResults} -> maxResults) (\s@ListSecurityKeys' {} a -> s {maxResults = a} :: ListSecurityKeys)
 
 -- | The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -137,52 +138,53 @@ instance Core.AWSRequest ListSecurityKeys where
   type
     AWSResponse ListSecurityKeys =
       ListSecurityKeysResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListSecurityKeysResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "SecurityKeys" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "SecurityKeys" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListSecurityKeys where
   hashWithSalt _salt ListSecurityKeys' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` instanceId
 
 instance Prelude.NFData ListSecurityKeys where
   rnf ListSecurityKeys' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf instanceId
 
-instance Core.ToHeaders ListSecurityKeys where
+instance Data.ToHeaders ListSecurityKeys where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListSecurityKeys where
+instance Data.ToPath ListSecurityKeys where
   toPath ListSecurityKeys' {..} =
     Prelude.mconcat
       [ "/instance/",
-        Core.toBS instanceId,
+        Data.toBS instanceId,
         "/security-keys"
       ]
 
-instance Core.ToQuery ListSecurityKeys where
+instance Data.ToQuery ListSecurityKeys where
   toQuery ListSecurityKeys' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListSecurityKeysResponse' smart constructor.

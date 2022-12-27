@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SNS.ListTagsForResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.SNS.ListTagsForResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,14 +81,15 @@ instance Core.AWSRequest ListTagsForResource where
   type
     AWSResponse ListTagsForResource =
       ListTagsForResourceResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListTagsForResourceResult"
       ( \s h x ->
           ListTagsForResourceResponse'
-            Prelude.<$> ( x Core..@? "Tags" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> ( x Data..@? "Tags" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -100,20 +102,20 @@ instance Prelude.NFData ListTagsForResource where
   rnf ListTagsForResource' {..} =
     Prelude.rnf resourceArn
 
-instance Core.ToHeaders ListTagsForResource where
+instance Data.ToHeaders ListTagsForResource where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListTagsForResource where
+instance Data.ToPath ListTagsForResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTagsForResource where
+instance Data.ToQuery ListTagsForResource where
   toQuery ListTagsForResource' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ListTagsForResource" :: Prelude.ByteString),
+          Data.=: ("ListTagsForResource" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-03-31" :: Prelude.ByteString),
-        "ResourceArn" Core.=: resourceArn
+          Data.=: ("2010-03-31" :: Prelude.ByteString),
+        "ResourceArn" Data.=: resourceArn
       ]
 
 -- | /See:/ 'newListTagsForResourceResponse' smart constructor.

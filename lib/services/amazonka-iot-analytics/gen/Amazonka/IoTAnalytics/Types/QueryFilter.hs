@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.Types.QueryFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTAnalytics.Types.QueryFilter where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types.DeltaTime
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information that is used to filter message data, to segregate it
@@ -55,12 +56,12 @@ newQueryFilter =
 queryFilter_deltaTime :: Lens.Lens' QueryFilter (Prelude.Maybe DeltaTime)
 queryFilter_deltaTime = Lens.lens (\QueryFilter' {deltaTime} -> deltaTime) (\s@QueryFilter' {} a -> s {deltaTime = a} :: QueryFilter)
 
-instance Core.FromJSON QueryFilter where
+instance Data.FromJSON QueryFilter where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "QueryFilter"
       ( \x ->
-          QueryFilter' Prelude.<$> (x Core..:? "deltaTime")
+          QueryFilter' Prelude.<$> (x Data..:? "deltaTime")
       )
 
 instance Prelude.Hashable QueryFilter where
@@ -70,9 +71,9 @@ instance Prelude.Hashable QueryFilter where
 instance Prelude.NFData QueryFilter where
   rnf QueryFilter' {..} = Prelude.rnf deltaTime
 
-instance Core.ToJSON QueryFilter where
+instance Data.ToJSON QueryFilter where
   toJSON QueryFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("deltaTime" Core..=) Prelude.<$> deltaTime]
+          [("deltaTime" Data..=) Prelude.<$> deltaTime]
       )

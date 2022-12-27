@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.AssociateWirelessDeviceWithThing
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.IoTWireless.AssociateWirelessDeviceWithThing
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,7 +94,8 @@ instance
   type
     AWSResponse AssociateWirelessDeviceWithThing =
       AssociateWirelessDeviceWithThingResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -119,25 +121,25 @@ instance
     Prelude.rnf id `Prelude.seq` Prelude.rnf thingArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     AssociateWirelessDeviceWithThing
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON AssociateWirelessDeviceWithThing where
+instance Data.ToJSON AssociateWirelessDeviceWithThing where
   toJSON AssociateWirelessDeviceWithThing' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ThingArn" Core..= thingArn)]
+          [Prelude.Just ("ThingArn" Data..= thingArn)]
       )
 
-instance Core.ToPath AssociateWirelessDeviceWithThing where
+instance Data.ToPath AssociateWirelessDeviceWithThing where
   toPath AssociateWirelessDeviceWithThing' {..} =
     Prelude.mconcat
-      ["/wireless-devices/", Core.toBS id, "/thing"]
+      ["/wireless-devices/", Data.toBS id, "/thing"]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     AssociateWirelessDeviceWithThing
   where
   toQuery = Prelude.const Prelude.mempty

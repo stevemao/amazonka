@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceQuotas.Types.MetricInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ServiceQuotas.Types.MetricInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the CloudWatch metric that reflects quota usage.
@@ -32,11 +33,11 @@ data MetricInfo = MetricInfo'
     metricDimensions :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The name of the metric.
     metricName :: Prelude.Maybe Prelude.Text,
+    -- | The namespace of the metric.
+    metricNamespace :: Prelude.Maybe Prelude.Text,
     -- | The metric statistic that we recommend you use when determining quota
     -- usage.
-    metricStatisticRecommendation :: Prelude.Maybe Prelude.Text,
-    -- | The namespace of the metric.
-    metricNamespace :: Prelude.Maybe Prelude.Text
+    metricStatisticRecommendation :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -53,18 +54,18 @@ data MetricInfo = MetricInfo'
 --
 -- 'metricName', 'metricInfo_metricName' - The name of the metric.
 --
+-- 'metricNamespace', 'metricInfo_metricNamespace' - The namespace of the metric.
+--
 -- 'metricStatisticRecommendation', 'metricInfo_metricStatisticRecommendation' - The metric statistic that we recommend you use when determining quota
 -- usage.
---
--- 'metricNamespace', 'metricInfo_metricNamespace' - The namespace of the metric.
 newMetricInfo ::
   MetricInfo
 newMetricInfo =
   MetricInfo'
     { metricDimensions = Prelude.Nothing,
       metricName = Prelude.Nothing,
-      metricStatisticRecommendation = Prelude.Nothing,
-      metricNamespace = Prelude.Nothing
+      metricNamespace = Prelude.Nothing,
+      metricStatisticRecommendation = Prelude.Nothing
     }
 
 -- | The metric dimension. This is a name\/value pair that is part of the
@@ -76,39 +77,39 @@ metricInfo_metricDimensions = Lens.lens (\MetricInfo' {metricDimensions} -> metr
 metricInfo_metricName :: Lens.Lens' MetricInfo (Prelude.Maybe Prelude.Text)
 metricInfo_metricName = Lens.lens (\MetricInfo' {metricName} -> metricName) (\s@MetricInfo' {} a -> s {metricName = a} :: MetricInfo)
 
+-- | The namespace of the metric.
+metricInfo_metricNamespace :: Lens.Lens' MetricInfo (Prelude.Maybe Prelude.Text)
+metricInfo_metricNamespace = Lens.lens (\MetricInfo' {metricNamespace} -> metricNamespace) (\s@MetricInfo' {} a -> s {metricNamespace = a} :: MetricInfo)
+
 -- | The metric statistic that we recommend you use when determining quota
 -- usage.
 metricInfo_metricStatisticRecommendation :: Lens.Lens' MetricInfo (Prelude.Maybe Prelude.Text)
 metricInfo_metricStatisticRecommendation = Lens.lens (\MetricInfo' {metricStatisticRecommendation} -> metricStatisticRecommendation) (\s@MetricInfo' {} a -> s {metricStatisticRecommendation = a} :: MetricInfo)
 
--- | The namespace of the metric.
-metricInfo_metricNamespace :: Lens.Lens' MetricInfo (Prelude.Maybe Prelude.Text)
-metricInfo_metricNamespace = Lens.lens (\MetricInfo' {metricNamespace} -> metricNamespace) (\s@MetricInfo' {} a -> s {metricNamespace = a} :: MetricInfo)
-
-instance Core.FromJSON MetricInfo where
+instance Data.FromJSON MetricInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MetricInfo"
       ( \x ->
           MetricInfo'
-            Prelude.<$> ( x Core..:? "MetricDimensions"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "MetricDimensions"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "MetricName")
-            Prelude.<*> (x Core..:? "MetricStatisticRecommendation")
-            Prelude.<*> (x Core..:? "MetricNamespace")
+            Prelude.<*> (x Data..:? "MetricName")
+            Prelude.<*> (x Data..:? "MetricNamespace")
+            Prelude.<*> (x Data..:? "MetricStatisticRecommendation")
       )
 
 instance Prelude.Hashable MetricInfo where
   hashWithSalt _salt MetricInfo' {..} =
     _salt `Prelude.hashWithSalt` metricDimensions
       `Prelude.hashWithSalt` metricName
-      `Prelude.hashWithSalt` metricStatisticRecommendation
       `Prelude.hashWithSalt` metricNamespace
+      `Prelude.hashWithSalt` metricStatisticRecommendation
 
 instance Prelude.NFData MetricInfo where
   rnf MetricInfo' {..} =
     Prelude.rnf metricDimensions
       `Prelude.seq` Prelude.rnf metricName
-      `Prelude.seq` Prelude.rnf metricStatisticRecommendation
       `Prelude.seq` Prelude.rnf metricNamespace
+      `Prelude.seq` Prelude.rnf metricStatisticRecommendation

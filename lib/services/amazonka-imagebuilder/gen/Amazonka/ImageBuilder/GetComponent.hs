@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ImageBuilder.GetComponent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,15 +34,16 @@ module Amazonka.ImageBuilder.GetComponent
     newGetComponentResponse,
 
     -- * Response Lenses
-    getComponentResponse_requestId,
     getComponentResponse_component,
+    getComponentResponse_requestId,
     getComponentResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ImageBuilder.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,13 +83,14 @@ getComponent_componentBuildVersionArn = Lens.lens (\GetComponent' {componentBuil
 
 instance Core.AWSRequest GetComponent where
   type AWSResponse GetComponent = GetComponentResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetComponentResponse'
-            Prelude.<$> (x Core..?> "requestId")
-            Prelude.<*> (x Core..?> "component")
+            Prelude.<$> (x Data..?> "component")
+            Prelude.<*> (x Data..?> "requestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -101,33 +103,33 @@ instance Prelude.NFData GetComponent where
   rnf GetComponent' {..} =
     Prelude.rnf componentBuildVersionArn
 
-instance Core.ToHeaders GetComponent where
+instance Data.ToHeaders GetComponent where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetComponent where
+instance Data.ToPath GetComponent where
   toPath = Prelude.const "/GetComponent"
 
-instance Core.ToQuery GetComponent where
+instance Data.ToQuery GetComponent where
   toQuery GetComponent' {..} =
     Prelude.mconcat
       [ "componentBuildVersionArn"
-          Core.=: componentBuildVersionArn
+          Data.=: componentBuildVersionArn
       ]
 
 -- | /See:/ 'newGetComponentResponse' smart constructor.
 data GetComponentResponse = GetComponentResponse'
-  { -- | The request ID that uniquely identifies this request.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The component object associated with the specified ARN.
+  { -- | The component object associated with the specified ARN.
     component :: Prelude.Maybe Component,
+    -- | The request ID that uniquely identifies this request.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -141,9 +143,9 @@ data GetComponentResponse = GetComponentResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'getComponentResponse_requestId' - The request ID that uniquely identifies this request.
---
 -- 'component', 'getComponentResponse_component' - The component object associated with the specified ARN.
+--
+-- 'requestId', 'getComponentResponse_requestId' - The request ID that uniquely identifies this request.
 --
 -- 'httpStatus', 'getComponentResponse_httpStatus' - The response's http status code.
 newGetComponentResponse ::
@@ -152,18 +154,18 @@ newGetComponentResponse ::
   GetComponentResponse
 newGetComponentResponse pHttpStatus_ =
   GetComponentResponse'
-    { requestId = Prelude.Nothing,
-      component = Prelude.Nothing,
+    { component = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The request ID that uniquely identifies this request.
-getComponentResponse_requestId :: Lens.Lens' GetComponentResponse (Prelude.Maybe Prelude.Text)
-getComponentResponse_requestId = Lens.lens (\GetComponentResponse' {requestId} -> requestId) (\s@GetComponentResponse' {} a -> s {requestId = a} :: GetComponentResponse)
 
 -- | The component object associated with the specified ARN.
 getComponentResponse_component :: Lens.Lens' GetComponentResponse (Prelude.Maybe Component)
 getComponentResponse_component = Lens.lens (\GetComponentResponse' {component} -> component) (\s@GetComponentResponse' {} a -> s {component = a} :: GetComponentResponse)
+
+-- | The request ID that uniquely identifies this request.
+getComponentResponse_requestId :: Lens.Lens' GetComponentResponse (Prelude.Maybe Prelude.Text)
+getComponentResponse_requestId = Lens.lens (\GetComponentResponse' {requestId} -> requestId) (\s@GetComponentResponse' {} a -> s {requestId = a} :: GetComponentResponse)
 
 -- | The response's http status code.
 getComponentResponse_httpStatus :: Lens.Lens' GetComponentResponse Prelude.Int
@@ -171,6 +173,6 @@ getComponentResponse_httpStatus = Lens.lens (\GetComponentResponse' {httpStatus}
 
 instance Prelude.NFData GetComponentResponse where
   rnf GetComponentResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf component
+    Prelude.rnf component
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf httpStatus

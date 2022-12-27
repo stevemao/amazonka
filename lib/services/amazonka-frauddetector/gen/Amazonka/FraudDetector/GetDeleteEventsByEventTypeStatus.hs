@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.GetDeleteEventsByEventTypeStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.FraudDetector.GetDeleteEventsByEventTypeStatus
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,13 +85,14 @@ instance
   type
     AWSResponse GetDeleteEventsByEventTypeStatus =
       GetDeleteEventsByEventTypeStatusResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDeleteEventsByEventTypeStatusResponse'
-            Prelude.<$> (x Core..?> "eventTypeName")
-            Prelude.<*> (x Core..?> "eventsDeletionStatus")
+            Prelude.<$> (x Data..?> "eventTypeName")
+            Prelude.<*> (x Data..?> "eventsDeletionStatus")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -111,37 +113,37 @@ instance
     Prelude.rnf eventTypeName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetDeleteEventsByEventTypeStatus
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.GetDeleteEventsByEventTypeStatus" ::
+              Data.=# ( "AWSHawksNestServiceFacade.GetDeleteEventsByEventTypeStatus" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetDeleteEventsByEventTypeStatus where
+instance Data.ToJSON GetDeleteEventsByEventTypeStatus where
   toJSON GetDeleteEventsByEventTypeStatus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("eventTypeName" Core..= eventTypeName)
+              ("eventTypeName" Data..= eventTypeName)
           ]
       )
 
-instance Core.ToPath GetDeleteEventsByEventTypeStatus where
+instance Data.ToPath GetDeleteEventsByEventTypeStatus where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetDeleteEventsByEventTypeStatus
   where
   toQuery = Prelude.const Prelude.mempty

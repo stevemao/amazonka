@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.DeleteScalingPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,15 +25,9 @@
 -- specify both the scaling policy name and the fleet ID it is associated
 -- with.
 --
--- To temporarily suspend scaling policies, call StopFleetActions. This
--- operation suspends all policies for the fleet.
---
--- __Related actions__
---
--- DescribeFleetCapacity | UpdateFleetCapacity | DescribeEC2InstanceLimits
--- | PutScalingPolicy | DescribeScalingPolicies | DeleteScalingPolicy |
--- StopFleetActions | StartFleetActions |
--- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
+-- To temporarily suspend scaling policies, use
+-- <https://docs.aws.amazon.com/gamelift/latest/apireference/API_StopFleetActions.html StopFleetActions>.
+-- This operation suspends all policies for the fleet.
 module Amazonka.GameLift.DeleteScalingPolicy
   ( -- * Creating a Request
     DeleteScalingPolicy (..),
@@ -50,15 +44,14 @@ module Amazonka.GameLift.DeleteScalingPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newDeleteScalingPolicy' smart constructor.
+-- | /See:/ 'newDeleteScalingPolicy' smart constructor.
 data DeleteScalingPolicy = DeleteScalingPolicy'
   { -- | A descriptive label that is associated with a fleet\'s scaling policy.
     -- Policy names do not need to be unique.
@@ -108,7 +101,8 @@ instance Core.AWSRequest DeleteScalingPolicy where
   type
     AWSResponse DeleteScalingPolicy =
       DeleteScalingPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteScalingPolicyResponse'
 
@@ -121,34 +115,34 @@ instance Prelude.NFData DeleteScalingPolicy where
   rnf DeleteScalingPolicy' {..} =
     Prelude.rnf name `Prelude.seq` Prelude.rnf fleetId
 
-instance Core.ToHeaders DeleteScalingPolicy where
+instance Data.ToHeaders DeleteScalingPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.DeleteScalingPolicy" ::
+              Data.=# ( "GameLift.DeleteScalingPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteScalingPolicy where
+instance Data.ToJSON DeleteScalingPolicy where
   toJSON DeleteScalingPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("FleetId" Core..= fleetId)
+          [ Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("FleetId" Data..= fleetId)
           ]
       )
 
-instance Core.ToPath DeleteScalingPolicy where
+instance Data.ToPath DeleteScalingPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteScalingPolicy where
+instance Data.ToQuery DeleteScalingPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteScalingPolicyResponse' smart constructor.

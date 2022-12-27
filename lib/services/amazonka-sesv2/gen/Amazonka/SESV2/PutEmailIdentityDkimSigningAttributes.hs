@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.PutEmailIdentityDkimSigningAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -58,7 +58,8 @@ module Amazonka.SESV2.PutEmailIdentityDkimSigningAttributes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -160,13 +161,14 @@ instance
     AWSResponse
       PutEmailIdentityDkimSigningAttributes =
       PutEmailIdentityDkimSigningAttributesResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutEmailIdentityDkimSigningAttributesResponse'
-            Prelude.<$> (x Core..?> "DkimStatus")
-              Prelude.<*> (x Core..?> "DkimTokens" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "DkimStatus")
+              Prelude.<*> (x Data..?> "DkimTokens" Core..!@ Prelude.mempty)
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -191,48 +193,48 @@ instance
       `Prelude.seq` Prelude.rnf signingAttributesOrigin
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     PutEmailIdentityDkimSigningAttributes
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     PutEmailIdentityDkimSigningAttributes
   where
   toJSON PutEmailIdentityDkimSigningAttributes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SigningAttributes" Core..=)
+          [ ("SigningAttributes" Data..=)
               Prelude.<$> signingAttributes,
             Prelude.Just
               ( "SigningAttributesOrigin"
-                  Core..= signingAttributesOrigin
+                  Data..= signingAttributesOrigin
               )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     PutEmailIdentityDkimSigningAttributes
   where
   toPath PutEmailIdentityDkimSigningAttributes' {..} =
     Prelude.mconcat
       [ "/v1/email/identities/",
-        Core.toBS emailIdentity,
+        Data.toBS emailIdentity,
         "/dkim/signing"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     PutEmailIdentityDkimSigningAttributes
   where
   toQuery = Prelude.const Prelude.mempty

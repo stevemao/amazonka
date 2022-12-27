@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMakerRuntime.InvokeEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,9 +32,9 @@
 -- on the behavior of headers outside those enumerated in the request
 -- syntax.
 --
--- Calls to @InvokeEndpoint@ are authenticated by using AWS Signature
--- Version 4. For information, see
--- <https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html Authenticating Requests (AWS Signature Version 4)>
+-- Calls to @InvokeEndpoint@ are authenticated by using Amazon Web Services
+-- Signature Version 4. For information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html Authenticating Requests (Amazon Web Services Signature Version 4)>
 -- in the /Amazon S3 API Reference/.
 --
 -- A customer\'s model containers must respond to requests within 60
@@ -53,12 +53,13 @@ module Amazonka.SageMakerRuntime.InvokeEndpoint
 
     -- * Request Lenses
     invokeEndpoint_accept,
-    invokeEndpoint_targetModel,
-    invokeEndpoint_customAttributes,
-    invokeEndpoint_inferenceId,
-    invokeEndpoint_targetVariant,
     invokeEndpoint_contentType,
+    invokeEndpoint_customAttributes,
+    invokeEndpoint_enableExplanations,
+    invokeEndpoint_inferenceId,
     invokeEndpoint_targetContainerHostname,
+    invokeEndpoint_targetModel,
+    invokeEndpoint_targetVariant,
     invokeEndpoint_endpointName,
     invokeEndpoint_body,
 
@@ -67,16 +68,17 @@ module Amazonka.SageMakerRuntime.InvokeEndpoint
     newInvokeEndpointResponse,
 
     -- * Response Lenses
-    invokeEndpointResponse_invokedProductionVariant,
-    invokeEndpointResponse_customAttributes,
     invokeEndpointResponse_contentType,
+    invokeEndpointResponse_customAttributes,
+    invokeEndpointResponse_invokedProductionVariant,
     invokeEndpointResponse_httpStatus,
     invokeEndpointResponse_body,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,8 +88,8 @@ import Amazonka.SageMakerRuntime.Types
 data InvokeEndpoint = InvokeEndpoint'
   { -- | The desired MIME type of the inference in the response.
     accept :: Prelude.Maybe Prelude.Text,
-    -- | The model to request for inference when invoking a multi-model endpoint.
-    targetModel :: Prelude.Maybe Prelude.Text,
+    -- | The MIME type of the input data in the request body.
+    contentType :: Prelude.Maybe Prelude.Text,
     -- | Provides additional information about a request for an inference
     -- submitted to a model hosted at an Amazon SageMaker endpoint. The
     -- information is an opaque value that is forwarded verbatim. You could use
@@ -104,13 +106,25 @@ data InvokeEndpoint = InvokeEndpoint'
     -- represents the trace ID, your model can prepend the custom attribute
     -- with @Trace ID:@ in your post-processing function.
     --
-    -- This feature is currently supported in the AWS SDKs but not in the
-    -- Amazon SageMaker Python SDK.
-    customAttributes :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    -- This feature is currently supported in the Amazon Web Services SDKs but
+    -- not in the Amazon SageMaker Python SDK.
+    customAttributes :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | An optional JMESPath expression used to override the
+    -- @EnableExplanations@ parameter of the @ClarifyExplainerConfig@ API. See
+    -- the
+    -- <https://docs.aws.amazon.com/clarify-online-explainability-create-endpoint.html#clarify-online-exaplainability-create-endpoint-enable EnableExplanations>
+    -- section in the developer guide for more information.
+    enableExplanations :: Prelude.Maybe Prelude.Text,
     -- | If you provide a value, it is added to the captured data when you enable
     -- data capture on the endpoint. For information about data capture, see
     -- <https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-data-capture.html Capture Data>.
     inferenceId :: Prelude.Maybe Prelude.Text,
+    -- | If the endpoint hosts multiple containers and is configured to use
+    -- direct invocation, this parameter specifies the host name of the
+    -- container to invoke.
+    targetContainerHostname :: Prelude.Maybe Prelude.Text,
+    -- | The model to request for inference when invoking a multi-model endpoint.
+    targetModel :: Prelude.Maybe Prelude.Text,
     -- | Specify the production variant to send the inference request to when
     -- invoking an endpoint that is running two or more variants. Note that
     -- this parameter overrides the default behavior for the endpoint, which is
@@ -120,12 +134,6 @@ data InvokeEndpoint = InvokeEndpoint'
     -- testing, see
     -- <https://docs.aws.amazon.com/sagemaker/latest/dg/model-ab-testing.html Test models in production>
     targetVariant :: Prelude.Maybe Prelude.Text,
-    -- | The MIME type of the input data in the request body.
-    contentType :: Prelude.Maybe Prelude.Text,
-    -- | If the endpoint hosts multiple containers and is configured to use
-    -- direct invocation, this parameter specifies the host name of the
-    -- container to invoke.
-    targetContainerHostname :: Prelude.Maybe Prelude.Text,
     -- | The name of the endpoint that you specified when you created the
     -- endpoint using the
     -- <https://docs.aws.amazon.com/sagemaker/latest/dg/API_CreateEndpoint.html CreateEndpoint>
@@ -151,7 +159,7 @@ data InvokeEndpoint = InvokeEndpoint'
 --
 -- 'accept', 'invokeEndpoint_accept' - The desired MIME type of the inference in the response.
 --
--- 'targetModel', 'invokeEndpoint_targetModel' - The model to request for inference when invoking a multi-model endpoint.
+-- 'contentType', 'invokeEndpoint_contentType' - The MIME type of the input data in the request body.
 --
 -- 'customAttributes', 'invokeEndpoint_customAttributes' - Provides additional information about a request for an inference
 -- submitted to a model hosted at an Amazon SageMaker endpoint. The
@@ -169,12 +177,24 @@ data InvokeEndpoint = InvokeEndpoint'
 -- represents the trace ID, your model can prepend the custom attribute
 -- with @Trace ID:@ in your post-processing function.
 --
--- This feature is currently supported in the AWS SDKs but not in the
--- Amazon SageMaker Python SDK.
+-- This feature is currently supported in the Amazon Web Services SDKs but
+-- not in the Amazon SageMaker Python SDK.
+--
+-- 'enableExplanations', 'invokeEndpoint_enableExplanations' - An optional JMESPath expression used to override the
+-- @EnableExplanations@ parameter of the @ClarifyExplainerConfig@ API. See
+-- the
+-- <https://docs.aws.amazon.com/clarify-online-explainability-create-endpoint.html#clarify-online-exaplainability-create-endpoint-enable EnableExplanations>
+-- section in the developer guide for more information.
 --
 -- 'inferenceId', 'invokeEndpoint_inferenceId' - If you provide a value, it is added to the captured data when you enable
 -- data capture on the endpoint. For information about data capture, see
 -- <https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-data-capture.html Capture Data>.
+--
+-- 'targetContainerHostname', 'invokeEndpoint_targetContainerHostname' - If the endpoint hosts multiple containers and is configured to use
+-- direct invocation, this parameter specifies the host name of the
+-- container to invoke.
+--
+-- 'targetModel', 'invokeEndpoint_targetModel' - The model to request for inference when invoking a multi-model endpoint.
 --
 -- 'targetVariant', 'invokeEndpoint_targetVariant' - Specify the production variant to send the inference request to when
 -- invoking an endpoint that is running two or more variants. Note that
@@ -184,12 +204,6 @@ data InvokeEndpoint = InvokeEndpoint'
 -- For information about how to use variant targeting to perform a\/b
 -- testing, see
 -- <https://docs.aws.amazon.com/sagemaker/latest/dg/model-ab-testing.html Test models in production>
---
--- 'contentType', 'invokeEndpoint_contentType' - The MIME type of the input data in the request body.
---
--- 'targetContainerHostname', 'invokeEndpoint_targetContainerHostname' - If the endpoint hosts multiple containers and is configured to use
--- direct invocation, this parameter specifies the host name of the
--- container to invoke.
 --
 -- 'endpointName', 'invokeEndpoint_endpointName' - The name of the endpoint that you specified when you created the
 -- endpoint using the
@@ -211,12 +225,13 @@ newInvokeEndpoint ::
 newInvokeEndpoint pEndpointName_ pBody_ =
   InvokeEndpoint'
     { accept = Prelude.Nothing,
-      targetModel = Prelude.Nothing,
-      customAttributes = Prelude.Nothing,
-      inferenceId = Prelude.Nothing,
-      targetVariant = Prelude.Nothing,
       contentType = Prelude.Nothing,
+      customAttributes = Prelude.Nothing,
+      enableExplanations = Prelude.Nothing,
+      inferenceId = Prelude.Nothing,
       targetContainerHostname = Prelude.Nothing,
+      targetModel = Prelude.Nothing,
+      targetVariant = Prelude.Nothing,
       endpointName = pEndpointName_,
       body = pBody_
     }
@@ -225,9 +240,9 @@ newInvokeEndpoint pEndpointName_ pBody_ =
 invokeEndpoint_accept :: Lens.Lens' InvokeEndpoint (Prelude.Maybe Prelude.Text)
 invokeEndpoint_accept = Lens.lens (\InvokeEndpoint' {accept} -> accept) (\s@InvokeEndpoint' {} a -> s {accept = a} :: InvokeEndpoint)
 
--- | The model to request for inference when invoking a multi-model endpoint.
-invokeEndpoint_targetModel :: Lens.Lens' InvokeEndpoint (Prelude.Maybe Prelude.Text)
-invokeEndpoint_targetModel = Lens.lens (\InvokeEndpoint' {targetModel} -> targetModel) (\s@InvokeEndpoint' {} a -> s {targetModel = a} :: InvokeEndpoint)
+-- | The MIME type of the input data in the request body.
+invokeEndpoint_contentType :: Lens.Lens' InvokeEndpoint (Prelude.Maybe Prelude.Text)
+invokeEndpoint_contentType = Lens.lens (\InvokeEndpoint' {contentType} -> contentType) (\s@InvokeEndpoint' {} a -> s {contentType = a} :: InvokeEndpoint)
 
 -- | Provides additional information about a request for an inference
 -- submitted to a model hosted at an Amazon SageMaker endpoint. The
@@ -245,16 +260,34 @@ invokeEndpoint_targetModel = Lens.lens (\InvokeEndpoint' {targetModel} -> target
 -- represents the trace ID, your model can prepend the custom attribute
 -- with @Trace ID:@ in your post-processing function.
 --
--- This feature is currently supported in the AWS SDKs but not in the
--- Amazon SageMaker Python SDK.
+-- This feature is currently supported in the Amazon Web Services SDKs but
+-- not in the Amazon SageMaker Python SDK.
 invokeEndpoint_customAttributes :: Lens.Lens' InvokeEndpoint (Prelude.Maybe Prelude.Text)
-invokeEndpoint_customAttributes = Lens.lens (\InvokeEndpoint' {customAttributes} -> customAttributes) (\s@InvokeEndpoint' {} a -> s {customAttributes = a} :: InvokeEndpoint) Prelude.. Lens.mapping Core._Sensitive
+invokeEndpoint_customAttributes = Lens.lens (\InvokeEndpoint' {customAttributes} -> customAttributes) (\s@InvokeEndpoint' {} a -> s {customAttributes = a} :: InvokeEndpoint) Prelude.. Lens.mapping Data._Sensitive
+
+-- | An optional JMESPath expression used to override the
+-- @EnableExplanations@ parameter of the @ClarifyExplainerConfig@ API. See
+-- the
+-- <https://docs.aws.amazon.com/clarify-online-explainability-create-endpoint.html#clarify-online-exaplainability-create-endpoint-enable EnableExplanations>
+-- section in the developer guide for more information.
+invokeEndpoint_enableExplanations :: Lens.Lens' InvokeEndpoint (Prelude.Maybe Prelude.Text)
+invokeEndpoint_enableExplanations = Lens.lens (\InvokeEndpoint' {enableExplanations} -> enableExplanations) (\s@InvokeEndpoint' {} a -> s {enableExplanations = a} :: InvokeEndpoint)
 
 -- | If you provide a value, it is added to the captured data when you enable
 -- data capture on the endpoint. For information about data capture, see
 -- <https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-data-capture.html Capture Data>.
 invokeEndpoint_inferenceId :: Lens.Lens' InvokeEndpoint (Prelude.Maybe Prelude.Text)
 invokeEndpoint_inferenceId = Lens.lens (\InvokeEndpoint' {inferenceId} -> inferenceId) (\s@InvokeEndpoint' {} a -> s {inferenceId = a} :: InvokeEndpoint)
+
+-- | If the endpoint hosts multiple containers and is configured to use
+-- direct invocation, this parameter specifies the host name of the
+-- container to invoke.
+invokeEndpoint_targetContainerHostname :: Lens.Lens' InvokeEndpoint (Prelude.Maybe Prelude.Text)
+invokeEndpoint_targetContainerHostname = Lens.lens (\InvokeEndpoint' {targetContainerHostname} -> targetContainerHostname) (\s@InvokeEndpoint' {} a -> s {targetContainerHostname = a} :: InvokeEndpoint)
+
+-- | The model to request for inference when invoking a multi-model endpoint.
+invokeEndpoint_targetModel :: Lens.Lens' InvokeEndpoint (Prelude.Maybe Prelude.Text)
+invokeEndpoint_targetModel = Lens.lens (\InvokeEndpoint' {targetModel} -> targetModel) (\s@InvokeEndpoint' {} a -> s {targetModel = a} :: InvokeEndpoint)
 
 -- | Specify the production variant to send the inference request to when
 -- invoking an endpoint that is running two or more variants. Note that
@@ -266,16 +299,6 @@ invokeEndpoint_inferenceId = Lens.lens (\InvokeEndpoint' {inferenceId} -> infere
 -- <https://docs.aws.amazon.com/sagemaker/latest/dg/model-ab-testing.html Test models in production>
 invokeEndpoint_targetVariant :: Lens.Lens' InvokeEndpoint (Prelude.Maybe Prelude.Text)
 invokeEndpoint_targetVariant = Lens.lens (\InvokeEndpoint' {targetVariant} -> targetVariant) (\s@InvokeEndpoint' {} a -> s {targetVariant = a} :: InvokeEndpoint)
-
--- | The MIME type of the input data in the request body.
-invokeEndpoint_contentType :: Lens.Lens' InvokeEndpoint (Prelude.Maybe Prelude.Text)
-invokeEndpoint_contentType = Lens.lens (\InvokeEndpoint' {contentType} -> contentType) (\s@InvokeEndpoint' {} a -> s {contentType = a} :: InvokeEndpoint)
-
--- | If the endpoint hosts multiple containers and is configured to use
--- direct invocation, this parameter specifies the host name of the
--- container to invoke.
-invokeEndpoint_targetContainerHostname :: Lens.Lens' InvokeEndpoint (Prelude.Maybe Prelude.Text)
-invokeEndpoint_targetContainerHostname = Lens.lens (\InvokeEndpoint' {targetContainerHostname} -> targetContainerHostname) (\s@InvokeEndpoint' {} a -> s {targetContainerHostname = a} :: InvokeEndpoint)
 
 -- | The name of the endpoint that you specified when you created the
 -- endpoint using the
@@ -297,79 +320,80 @@ instance Core.AWSRequest InvokeEndpoint where
   type
     AWSResponse InvokeEndpoint =
       InvokeEndpointResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           InvokeEndpointResponse'
-            Prelude.<$> (h Core..#? "x-Amzn-Invoked-Production-Variant")
-            Prelude.<*> (h Core..#? "X-Amzn-SageMaker-Custom-Attributes")
-            Prelude.<*> (h Core..#? "Content-Type")
+            Prelude.<$> (h Data..#? "Content-Type")
+            Prelude.<*> (h Data..#? "X-Amzn-SageMaker-Custom-Attributes")
+            Prelude.<*> (h Data..#? "x-Amzn-Invoked-Production-Variant")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable InvokeEndpoint where
   hashWithSalt _salt InvokeEndpoint' {..} =
     _salt `Prelude.hashWithSalt` accept
-      `Prelude.hashWithSalt` targetModel
-      `Prelude.hashWithSalt` customAttributes
-      `Prelude.hashWithSalt` inferenceId
-      `Prelude.hashWithSalt` targetVariant
       `Prelude.hashWithSalt` contentType
+      `Prelude.hashWithSalt` customAttributes
+      `Prelude.hashWithSalt` enableExplanations
+      `Prelude.hashWithSalt` inferenceId
       `Prelude.hashWithSalt` targetContainerHostname
+      `Prelude.hashWithSalt` targetModel
+      `Prelude.hashWithSalt` targetVariant
       `Prelude.hashWithSalt` endpointName
       `Prelude.hashWithSalt` body
 
 instance Prelude.NFData InvokeEndpoint where
   rnf InvokeEndpoint' {..} =
     Prelude.rnf accept
-      `Prelude.seq` Prelude.rnf targetModel
-      `Prelude.seq` Prelude.rnf customAttributes
-      `Prelude.seq` Prelude.rnf inferenceId
-      `Prelude.seq` Prelude.rnf targetVariant
       `Prelude.seq` Prelude.rnf contentType
+      `Prelude.seq` Prelude.rnf customAttributes
+      `Prelude.seq` Prelude.rnf enableExplanations
+      `Prelude.seq` Prelude.rnf inferenceId
       `Prelude.seq` Prelude.rnf targetContainerHostname
+      `Prelude.seq` Prelude.rnf targetModel
+      `Prelude.seq` Prelude.rnf targetVariant
       `Prelude.seq` Prelude.rnf endpointName
       `Prelude.seq` Prelude.rnf body
 
-instance Core.ToHeaders InvokeEndpoint where
+instance Data.ToHeaders InvokeEndpoint where
   toHeaders InvokeEndpoint' {..} =
     Prelude.mconcat
-      [ "Accept" Core.=# accept,
-        "X-Amzn-SageMaker-Target-Model" Core.=# targetModel,
+      [ "Accept" Data.=# accept,
+        "Content-Type" Data.=# contentType,
         "X-Amzn-SageMaker-Custom-Attributes"
-          Core.=# customAttributes,
-        "X-Amzn-SageMaker-Inference-Id" Core.=# inferenceId,
-        "X-Amzn-SageMaker-Target-Variant"
-          Core.=# targetVariant,
-        "Content-Type" Core.=# contentType,
+          Data.=# customAttributes,
+        "X-Amzn-SageMaker-Enable-Explanations"
+          Data.=# enableExplanations,
+        "X-Amzn-SageMaker-Inference-Id" Data.=# inferenceId,
         "X-Amzn-SageMaker-Target-Container-Hostname"
-          Core.=# targetContainerHostname
+          Data.=# targetContainerHostname,
+        "X-Amzn-SageMaker-Target-Model" Data.=# targetModel,
+        "X-Amzn-SageMaker-Target-Variant"
+          Data.=# targetVariant
       ]
 
-instance Core.ToJSON InvokeEndpoint where
-  toJSON InvokeEndpoint' {..} =
-    Core.object
-      ( Prelude.catMaybes
-          [Prelude.Just ("Body" Core..= body)]
-      )
+instance Data.ToJSON InvokeEndpoint where
+  toJSON InvokeEndpoint' {..} = Data.toJSON body
 
-instance Core.ToPath InvokeEndpoint where
+instance Data.ToPath InvokeEndpoint where
   toPath InvokeEndpoint' {..} =
     Prelude.mconcat
       [ "/endpoints/",
-        Core.toBS endpointName,
+        Data.toBS endpointName,
         "/invocations"
       ]
 
-instance Core.ToQuery InvokeEndpoint where
+instance Data.ToQuery InvokeEndpoint where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newInvokeEndpointResponse' smart constructor.
 data InvokeEndpointResponse = InvokeEndpointResponse'
-  { -- | Identifies the production variant that was invoked.
-    invokedProductionVariant :: Prelude.Maybe Prelude.Text,
+  { -- | The MIME type of the inference returned in the response body.
+    contentType :: Prelude.Maybe Prelude.Text,
     -- | Provides additional information in the response about the inference
     -- returned by a model hosted at an Amazon SageMaker endpoint. The
     -- information is an opaque value that is forwarded verbatim. You could use
@@ -388,17 +412,23 @@ data InvokeEndpointResponse = InvokeEndpointResponse'
     -- represents the trace ID, your model can prepend the custom attribute
     -- with @Trace ID:@ in your post-processing function.
     --
-    -- This feature is currently supported in the AWS SDKs but not in the
-    -- Amazon SageMaker Python SDK.
-    customAttributes :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | The MIME type of the inference returned in the response body.
-    contentType :: Prelude.Maybe Prelude.Text,
+    -- This feature is currently supported in the Amazon Web Services SDKs but
+    -- not in the Amazon SageMaker Python SDK.
+    customAttributes :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | Identifies the production variant that was invoked.
+    invokedProductionVariant :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | Includes the inference provided by the model.
     --
     -- For information about the format of the response body, see
     -- <https://docs.aws.amazon.com/sagemaker/latest/dg/cdf-inference.html Common Data Formats-Inference>.
+    --
+    -- If the explainer is activated, the body includes the explanations
+    -- provided by the model. For more information, see the __Response
+    -- section__ under
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-online-explainability-invoke-endpoint.html#clarify-online-explainability-response Invoke the Endpoint>
+    -- in the Developer Guide.
     body :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
@@ -411,7 +441,7 @@ data InvokeEndpointResponse = InvokeEndpointResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'invokedProductionVariant', 'invokeEndpointResponse_invokedProductionVariant' - Identifies the production variant that was invoked.
+-- 'contentType', 'invokeEndpointResponse_contentType' - The MIME type of the inference returned in the response body.
 --
 -- 'customAttributes', 'invokeEndpointResponse_customAttributes' - Provides additional information in the response about the inference
 -- returned by a model hosted at an Amazon SageMaker endpoint. The
@@ -431,10 +461,10 @@ data InvokeEndpointResponse = InvokeEndpointResponse'
 -- represents the trace ID, your model can prepend the custom attribute
 -- with @Trace ID:@ in your post-processing function.
 --
--- This feature is currently supported in the AWS SDKs but not in the
--- Amazon SageMaker Python SDK.
+-- This feature is currently supported in the Amazon Web Services SDKs but
+-- not in the Amazon SageMaker Python SDK.
 --
--- 'contentType', 'invokeEndpointResponse_contentType' - The MIME type of the inference returned in the response body.
+-- 'invokedProductionVariant', 'invokeEndpointResponse_invokedProductionVariant' - Identifies the production variant that was invoked.
 --
 -- 'httpStatus', 'invokeEndpointResponse_httpStatus' - The response's http status code.
 --
@@ -442,6 +472,12 @@ data InvokeEndpointResponse = InvokeEndpointResponse'
 --
 -- For information about the format of the response body, see
 -- <https://docs.aws.amazon.com/sagemaker/latest/dg/cdf-inference.html Common Data Formats-Inference>.
+--
+-- If the explainer is activated, the body includes the explanations
+-- provided by the model. For more information, see the __Response
+-- section__ under
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-online-explainability-invoke-endpoint.html#clarify-online-explainability-response Invoke the Endpoint>
+-- in the Developer Guide.
 newInvokeEndpointResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
@@ -450,17 +486,17 @@ newInvokeEndpointResponse ::
   InvokeEndpointResponse
 newInvokeEndpointResponse pHttpStatus_ pBody_ =
   InvokeEndpointResponse'
-    { invokedProductionVariant =
+    { contentType =
         Prelude.Nothing,
       customAttributes = Prelude.Nothing,
-      contentType = Prelude.Nothing,
+      invokedProductionVariant = Prelude.Nothing,
       httpStatus = pHttpStatus_,
       body = pBody_
     }
 
--- | Identifies the production variant that was invoked.
-invokeEndpointResponse_invokedProductionVariant :: Lens.Lens' InvokeEndpointResponse (Prelude.Maybe Prelude.Text)
-invokeEndpointResponse_invokedProductionVariant = Lens.lens (\InvokeEndpointResponse' {invokedProductionVariant} -> invokedProductionVariant) (\s@InvokeEndpointResponse' {} a -> s {invokedProductionVariant = a} :: InvokeEndpointResponse)
+-- | The MIME type of the inference returned in the response body.
+invokeEndpointResponse_contentType :: Lens.Lens' InvokeEndpointResponse (Prelude.Maybe Prelude.Text)
+invokeEndpointResponse_contentType = Lens.lens (\InvokeEndpointResponse' {contentType} -> contentType) (\s@InvokeEndpointResponse' {} a -> s {contentType = a} :: InvokeEndpointResponse)
 
 -- | Provides additional information in the response about the inference
 -- returned by a model hosted at an Amazon SageMaker endpoint. The
@@ -480,14 +516,14 @@ invokeEndpointResponse_invokedProductionVariant = Lens.lens (\InvokeEndpointResp
 -- represents the trace ID, your model can prepend the custom attribute
 -- with @Trace ID:@ in your post-processing function.
 --
--- This feature is currently supported in the AWS SDKs but not in the
--- Amazon SageMaker Python SDK.
+-- This feature is currently supported in the Amazon Web Services SDKs but
+-- not in the Amazon SageMaker Python SDK.
 invokeEndpointResponse_customAttributes :: Lens.Lens' InvokeEndpointResponse (Prelude.Maybe Prelude.Text)
-invokeEndpointResponse_customAttributes = Lens.lens (\InvokeEndpointResponse' {customAttributes} -> customAttributes) (\s@InvokeEndpointResponse' {} a -> s {customAttributes = a} :: InvokeEndpointResponse) Prelude.. Lens.mapping Core._Sensitive
+invokeEndpointResponse_customAttributes = Lens.lens (\InvokeEndpointResponse' {customAttributes} -> customAttributes) (\s@InvokeEndpointResponse' {} a -> s {customAttributes = a} :: InvokeEndpointResponse) Prelude.. Lens.mapping Data._Sensitive
 
--- | The MIME type of the inference returned in the response body.
-invokeEndpointResponse_contentType :: Lens.Lens' InvokeEndpointResponse (Prelude.Maybe Prelude.Text)
-invokeEndpointResponse_contentType = Lens.lens (\InvokeEndpointResponse' {contentType} -> contentType) (\s@InvokeEndpointResponse' {} a -> s {contentType = a} :: InvokeEndpointResponse)
+-- | Identifies the production variant that was invoked.
+invokeEndpointResponse_invokedProductionVariant :: Lens.Lens' InvokeEndpointResponse (Prelude.Maybe Prelude.Text)
+invokeEndpointResponse_invokedProductionVariant = Lens.lens (\InvokeEndpointResponse' {invokedProductionVariant} -> invokedProductionVariant) (\s@InvokeEndpointResponse' {} a -> s {invokedProductionVariant = a} :: InvokeEndpointResponse)
 
 -- | The response's http status code.
 invokeEndpointResponse_httpStatus :: Lens.Lens' InvokeEndpointResponse Prelude.Int
@@ -497,13 +533,19 @@ invokeEndpointResponse_httpStatus = Lens.lens (\InvokeEndpointResponse' {httpSta
 --
 -- For information about the format of the response body, see
 -- <https://docs.aws.amazon.com/sagemaker/latest/dg/cdf-inference.html Common Data Formats-Inference>.
+--
+-- If the explainer is activated, the body includes the explanations
+-- provided by the model. For more information, see the __Response
+-- section__ under
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-online-explainability-invoke-endpoint.html#clarify-online-explainability-response Invoke the Endpoint>
+-- in the Developer Guide.
 invokeEndpointResponse_body :: Lens.Lens' InvokeEndpointResponse Prelude.Text
 invokeEndpointResponse_body = Lens.lens (\InvokeEndpointResponse' {body} -> body) (\s@InvokeEndpointResponse' {} a -> s {body = a} :: InvokeEndpointResponse)
 
 instance Prelude.NFData InvokeEndpointResponse where
   rnf InvokeEndpointResponse' {..} =
-    Prelude.rnf invokedProductionVariant
+    Prelude.rnf contentType
       `Prelude.seq` Prelude.rnf customAttributes
-      `Prelude.seq` Prelude.rnf contentType
+      `Prelude.seq` Prelude.rnf invokedProductionVariant
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf body

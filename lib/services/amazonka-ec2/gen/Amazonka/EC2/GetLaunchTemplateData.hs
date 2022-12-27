@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.GetLaunchTemplateData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,10 +25,10 @@
 --
 -- This action calls on other describe actions to get instance information.
 -- Depending on your instance configuration, you may need to allow the
--- following actions in your IAM policy: DescribeSpotInstanceRequests,
--- DescribeInstanceCreditSpecifications, DescribeVolumes,
--- DescribeInstanceAttribute, and DescribeElasticGpus. Or, you can allow
--- @describe*@ depending on your instance requirements.
+-- following actions in your IAM policy: @DescribeSpotInstanceRequests@,
+-- @DescribeInstanceCreditSpecifications@, @DescribeVolumes@,
+-- @DescribeInstanceAttribute@, and @DescribeElasticGpus@. Or, you can
+-- allow @describe*@ depending on your instance requirements.
 module Amazonka.EC2.GetLaunchTemplateData
   ( -- * Creating a Request
     GetLaunchTemplateData (..),
@@ -49,8 +49,9 @@ module Amazonka.EC2.GetLaunchTemplateData
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,12 +107,13 @@ instance Core.AWSRequest GetLaunchTemplateData where
   type
     AWSResponse GetLaunchTemplateData =
       GetLaunchTemplateDataResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetLaunchTemplateDataResponse'
-            Prelude.<$> (x Core..@? "launchTemplateData")
+            Prelude.<$> (x Data..@? "launchTemplateData")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -125,21 +127,21 @@ instance Prelude.NFData GetLaunchTemplateData where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf instanceId
 
-instance Core.ToHeaders GetLaunchTemplateData where
+instance Data.ToHeaders GetLaunchTemplateData where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetLaunchTemplateData where
+instance Data.ToPath GetLaunchTemplateData where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetLaunchTemplateData where
+instance Data.ToQuery GetLaunchTemplateData where
   toQuery GetLaunchTemplateData' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("GetLaunchTemplateData" :: Prelude.ByteString),
+          Data.=: ("GetLaunchTemplateData" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "InstanceId" Core.=: instanceId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "InstanceId" Data.=: instanceId
       ]
 
 -- | /See:/ 'newGetLaunchTemplateDataResponse' smart constructor.

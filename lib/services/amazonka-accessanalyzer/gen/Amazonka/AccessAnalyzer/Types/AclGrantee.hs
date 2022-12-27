@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AccessAnalyzer.Types.AclGrantee
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AccessAnalyzer.Types.AclGrantee where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | You specify each grantee as a type-value pair using one of these types.
@@ -29,11 +30,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAclGrantee' smart constructor.
 data AclGrantee = AclGrantee'
-  { -- | Used for granting permissions to a predefined group.
-    uri :: Prelude.Maybe Prelude.Text,
-    -- | The value specified is the canonical user ID of an Amazon Web Services
+  { -- | The value specified is the canonical user ID of an Amazon Web Services
     -- account.
-    id :: Prelude.Maybe Prelude.Text
+    id :: Prelude.Maybe Prelude.Text,
+    -- | Used for granting permissions to a predefined group.
+    uri :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,50 +46,50 @@ data AclGrantee = AclGrantee'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'uri', 'aclGrantee_uri' - Used for granting permissions to a predefined group.
---
 -- 'id', 'aclGrantee_id' - The value specified is the canonical user ID of an Amazon Web Services
 -- account.
+--
+-- 'uri', 'aclGrantee_uri' - Used for granting permissions to a predefined group.
 newAclGrantee ::
   AclGrantee
 newAclGrantee =
   AclGrantee'
-    { uri = Prelude.Nothing,
-      id = Prelude.Nothing
+    { id = Prelude.Nothing,
+      uri = Prelude.Nothing
     }
-
--- | Used for granting permissions to a predefined group.
-aclGrantee_uri :: Lens.Lens' AclGrantee (Prelude.Maybe Prelude.Text)
-aclGrantee_uri = Lens.lens (\AclGrantee' {uri} -> uri) (\s@AclGrantee' {} a -> s {uri = a} :: AclGrantee)
 
 -- | The value specified is the canonical user ID of an Amazon Web Services
 -- account.
 aclGrantee_id :: Lens.Lens' AclGrantee (Prelude.Maybe Prelude.Text)
 aclGrantee_id = Lens.lens (\AclGrantee' {id} -> id) (\s@AclGrantee' {} a -> s {id = a} :: AclGrantee)
 
-instance Core.FromJSON AclGrantee where
+-- | Used for granting permissions to a predefined group.
+aclGrantee_uri :: Lens.Lens' AclGrantee (Prelude.Maybe Prelude.Text)
+aclGrantee_uri = Lens.lens (\AclGrantee' {uri} -> uri) (\s@AclGrantee' {} a -> s {uri = a} :: AclGrantee)
+
+instance Data.FromJSON AclGrantee where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AclGrantee"
       ( \x ->
           AclGrantee'
-            Prelude.<$> (x Core..:? "uri") Prelude.<*> (x Core..:? "id")
+            Prelude.<$> (x Data..:? "id") Prelude.<*> (x Data..:? "uri")
       )
 
 instance Prelude.Hashable AclGrantee where
   hashWithSalt _salt AclGrantee' {..} =
-    _salt `Prelude.hashWithSalt` uri
-      `Prelude.hashWithSalt` id
+    _salt `Prelude.hashWithSalt` id
+      `Prelude.hashWithSalt` uri
 
 instance Prelude.NFData AclGrantee where
   rnf AclGrantee' {..} =
-    Prelude.rnf uri `Prelude.seq` Prelude.rnf id
+    Prelude.rnf id `Prelude.seq` Prelude.rnf uri
 
-instance Core.ToJSON AclGrantee where
+instance Data.ToJSON AclGrantee where
   toJSON AclGrantee' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("uri" Core..=) Prelude.<$> uri,
-            ("id" Core..=) Prelude.<$> id
+          [ ("id" Data..=) Prelude.<$> id,
+            ("uri" Data..=) Prelude.<$> uri
           ]
       )

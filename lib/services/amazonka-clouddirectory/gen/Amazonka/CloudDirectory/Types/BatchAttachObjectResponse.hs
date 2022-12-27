@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.BatchAttachObjectResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudDirectory.Types.BatchAttachObjectResponse where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the output batch AttachObject response operation.
@@ -53,13 +54,13 @@ newBatchAttachObjectResponse =
 batchAttachObjectResponse_attachedObjectIdentifier :: Lens.Lens' BatchAttachObjectResponse (Prelude.Maybe Prelude.Text)
 batchAttachObjectResponse_attachedObjectIdentifier = Lens.lens (\BatchAttachObjectResponse' {attachedObjectIdentifier} -> attachedObjectIdentifier) (\s@BatchAttachObjectResponse' {} a -> s {attachedObjectIdentifier = a} :: BatchAttachObjectResponse)
 
-instance Core.FromJSON BatchAttachObjectResponse where
+instance Data.FromJSON BatchAttachObjectResponse where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchAttachObjectResponse"
       ( \x ->
           BatchAttachObjectResponse'
-            Prelude.<$> (x Core..:? "attachedObjectIdentifier")
+            Prelude.<$> (x Data..:? "attachedObjectIdentifier")
       )
 
 instance Prelude.Hashable BatchAttachObjectResponse where

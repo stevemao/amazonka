@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Textract.Types.LineItemGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Textract.Types.LineItemGroup where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Textract.Types.LineItemFields
 
@@ -29,12 +30,12 @@ import Amazonka.Textract.Types.LineItemFields
 --
 -- /See:/ 'newLineItemGroup' smart constructor.
 data LineItemGroup = LineItemGroup'
-  { -- | The breakdown of information on a particular line of a table.
-    lineItems :: Prelude.Maybe [LineItemFields],
-    -- | The number used to identify a specific table in a document. The first
+  { -- | The number used to identify a specific table in a document. The first
     -- table encountered will have a LineItemGroupIndex of 1, the second 2,
     -- etc.
-    lineItemGroupIndex :: Prelude.Maybe Prelude.Natural
+    lineItemGroupIndex :: Prelude.Maybe Prelude.Natural,
+    -- | The breakdown of information on a particular line of a table.
+    lineItems :: Prelude.Maybe [LineItemFields]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,22 +47,19 @@ data LineItemGroup = LineItemGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'lineItems', 'lineItemGroup_lineItems' - The breakdown of information on a particular line of a table.
---
 -- 'lineItemGroupIndex', 'lineItemGroup_lineItemGroupIndex' - The number used to identify a specific table in a document. The first
 -- table encountered will have a LineItemGroupIndex of 1, the second 2,
 -- etc.
+--
+-- 'lineItems', 'lineItemGroup_lineItems' - The breakdown of information on a particular line of a table.
 newLineItemGroup ::
   LineItemGroup
 newLineItemGroup =
   LineItemGroup'
-    { lineItems = Prelude.Nothing,
-      lineItemGroupIndex = Prelude.Nothing
+    { lineItemGroupIndex =
+        Prelude.Nothing,
+      lineItems = Prelude.Nothing
     }
-
--- | The breakdown of information on a particular line of a table.
-lineItemGroup_lineItems :: Lens.Lens' LineItemGroup (Prelude.Maybe [LineItemFields])
-lineItemGroup_lineItems = Lens.lens (\LineItemGroup' {lineItems} -> lineItems) (\s@LineItemGroup' {} a -> s {lineItems = a} :: LineItemGroup) Prelude.. Lens.mapping Lens.coerced
 
 -- | The number used to identify a specific table in a document. The first
 -- table encountered will have a LineItemGroupIndex of 1, the second 2,
@@ -69,22 +67,26 @@ lineItemGroup_lineItems = Lens.lens (\LineItemGroup' {lineItems} -> lineItems) (
 lineItemGroup_lineItemGroupIndex :: Lens.Lens' LineItemGroup (Prelude.Maybe Prelude.Natural)
 lineItemGroup_lineItemGroupIndex = Lens.lens (\LineItemGroup' {lineItemGroupIndex} -> lineItemGroupIndex) (\s@LineItemGroup' {} a -> s {lineItemGroupIndex = a} :: LineItemGroup)
 
-instance Core.FromJSON LineItemGroup where
+-- | The breakdown of information on a particular line of a table.
+lineItemGroup_lineItems :: Lens.Lens' LineItemGroup (Prelude.Maybe [LineItemFields])
+lineItemGroup_lineItems = Lens.lens (\LineItemGroup' {lineItems} -> lineItems) (\s@LineItemGroup' {} a -> s {lineItems = a} :: LineItemGroup) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON LineItemGroup where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LineItemGroup"
       ( \x ->
           LineItemGroup'
-            Prelude.<$> (x Core..:? "LineItems" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "LineItemGroupIndex")
+            Prelude.<$> (x Data..:? "LineItemGroupIndex")
+            Prelude.<*> (x Data..:? "LineItems" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable LineItemGroup where
   hashWithSalt _salt LineItemGroup' {..} =
-    _salt `Prelude.hashWithSalt` lineItems
-      `Prelude.hashWithSalt` lineItemGroupIndex
+    _salt `Prelude.hashWithSalt` lineItemGroupIndex
+      `Prelude.hashWithSalt` lineItems
 
 instance Prelude.NFData LineItemGroup where
   rnf LineItemGroup' {..} =
-    Prelude.rnf lineItems
-      `Prelude.seq` Prelude.rnf lineItemGroupIndex
+    Prelude.rnf lineItemGroupIndex
+      `Prelude.seq` Prelude.rnf lineItems

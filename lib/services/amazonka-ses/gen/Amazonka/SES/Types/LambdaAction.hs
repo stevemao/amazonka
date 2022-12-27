@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SES.Types.LambdaAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SES.Types.LambdaAction where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SES.Types.InvocationType
 
@@ -138,12 +139,12 @@ lambdaAction_topicArn = Lens.lens (\LambdaAction' {topicArn} -> topicArn) (\s@La
 lambdaAction_functionArn :: Lens.Lens' LambdaAction Prelude.Text
 lambdaAction_functionArn = Lens.lens (\LambdaAction' {functionArn} -> functionArn) (\s@LambdaAction' {} a -> s {functionArn = a} :: LambdaAction)
 
-instance Core.FromXML LambdaAction where
+instance Data.FromXML LambdaAction where
   parseXML x =
     LambdaAction'
-      Prelude.<$> (x Core..@? "InvocationType")
-      Prelude.<*> (x Core..@? "TopicArn")
-      Prelude.<*> (x Core..@ "FunctionArn")
+      Prelude.<$> (x Data..@? "InvocationType")
+      Prelude.<*> (x Data..@? "TopicArn")
+      Prelude.<*> (x Data..@ "FunctionArn")
 
 instance Prelude.Hashable LambdaAction where
   hashWithSalt _salt LambdaAction' {..} =
@@ -157,10 +158,10 @@ instance Prelude.NFData LambdaAction where
       `Prelude.seq` Prelude.rnf topicArn
       `Prelude.seq` Prelude.rnf functionArn
 
-instance Core.ToQuery LambdaAction where
+instance Data.ToQuery LambdaAction where
   toQuery LambdaAction' {..} =
     Prelude.mconcat
-      [ "InvocationType" Core.=: invocationType,
-        "TopicArn" Core.=: topicArn,
-        "FunctionArn" Core.=: functionArn
+      [ "InvocationType" Data.=: invocationType,
+        "TopicArn" Data.=: topicArn,
+        "FunctionArn" Data.=: functionArn
       ]

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.Types.AssistantData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Wisdom.Types.AssistantData where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Wisdom.Types.AssistantStatus
 import Amazonka.Wisdom.Types.AssistantType
@@ -36,7 +37,7 @@ data AssistantData = AssistantData'
     serverSideEncryptionConfiguration :: Prelude.Maybe ServerSideEncryptionConfiguration,
     -- | The tags used to organize, track, or control access for this resource.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | The Amazon Resource Name (ARN) of the Wisdom assistant
+    -- | The Amazon Resource Name (ARN) of the Wisdom assistant.
     assistantArn :: Prelude.Text,
     -- | The identifier of the Wisdom assistant.
     assistantId :: Prelude.Text,
@@ -63,7 +64,7 @@ data AssistantData = AssistantData'
 --
 -- 'tags', 'assistantData_tags' - The tags used to organize, track, or control access for this resource.
 --
--- 'assistantArn', 'assistantData_assistantArn' - The Amazon Resource Name (ARN) of the Wisdom assistant
+-- 'assistantArn', 'assistantData_assistantArn' - The Amazon Resource Name (ARN) of the Wisdom assistant.
 --
 -- 'assistantId', 'assistantData_assistantId' - The identifier of the Wisdom assistant.
 --
@@ -113,7 +114,7 @@ assistantData_serverSideEncryptionConfiguration = Lens.lens (\AssistantData' {se
 assistantData_tags :: Lens.Lens' AssistantData (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 assistantData_tags = Lens.lens (\AssistantData' {tags} -> tags) (\s@AssistantData' {} a -> s {tags = a} :: AssistantData) Prelude.. Lens.mapping Lens.coerced
 
--- | The Amazon Resource Name (ARN) of the Wisdom assistant
+-- | The Amazon Resource Name (ARN) of the Wisdom assistant.
 assistantData_assistantArn :: Lens.Lens' AssistantData Prelude.Text
 assistantData_assistantArn = Lens.lens (\AssistantData' {assistantArn} -> assistantArn) (\s@AssistantData' {} a -> s {assistantArn = a} :: AssistantData)
 
@@ -133,20 +134,20 @@ assistantData_status = Lens.lens (\AssistantData' {status} -> status) (\s@Assist
 assistantData_type :: Lens.Lens' AssistantData AssistantType
 assistantData_type = Lens.lens (\AssistantData' {type'} -> type') (\s@AssistantData' {} a -> s {type' = a} :: AssistantData)
 
-instance Core.FromJSON AssistantData where
+instance Data.FromJSON AssistantData where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AssistantData"
       ( \x ->
           AssistantData'
-            Prelude.<$> (x Core..:? "description")
-            Prelude.<*> (x Core..:? "serverSideEncryptionConfiguration")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "assistantArn")
-            Prelude.<*> (x Core..: "assistantId")
-            Prelude.<*> (x Core..: "name")
-            Prelude.<*> (x Core..: "status")
-            Prelude.<*> (x Core..: "type")
+            Prelude.<$> (x Data..:? "description")
+            Prelude.<*> (x Data..:? "serverSideEncryptionConfiguration")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "assistantArn")
+            Prelude.<*> (x Data..: "assistantId")
+            Prelude.<*> (x Data..: "name")
+            Prelude.<*> (x Data..: "status")
+            Prelude.<*> (x Data..: "type")
       )
 
 instance Prelude.Hashable AssistantData where

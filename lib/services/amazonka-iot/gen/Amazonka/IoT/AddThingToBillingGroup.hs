@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.AddThingToBillingGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,10 +31,10 @@ module Amazonka.IoT.AddThingToBillingGroup
     newAddThingToBillingGroup,
 
     -- * Request Lenses
-    addThingToBillingGroup_thingArn,
     addThingToBillingGroup_billingGroupArn,
-    addThingToBillingGroup_thingName,
     addThingToBillingGroup_billingGroupName,
+    addThingToBillingGroup_thingArn,
+    addThingToBillingGroup_thingName,
 
     -- * Destructuring the Response
     AddThingToBillingGroupResponse (..),
@@ -46,22 +46,26 @@ module Amazonka.IoT.AddThingToBillingGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newAddThingToBillingGroup' smart constructor.
 data AddThingToBillingGroup = AddThingToBillingGroup'
-  { -- | The ARN of the thing to be added to the billing group.
-    thingArn :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the billing group.
+  { -- | The ARN of the billing group.
     billingGroupArn :: Prelude.Maybe Prelude.Text,
-    -- | The name of the thing to be added to the billing group.
-    thingName :: Prelude.Maybe Prelude.Text,
     -- | The name of the billing group.
-    billingGroupName :: Prelude.Maybe Prelude.Text
+    --
+    -- This call is asynchronous. It might take several seconds for the
+    -- detachment to propagate.
+    billingGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the thing to be added to the billing group.
+    thingArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the thing to be added to the billing group.
+    thingName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,44 +77,52 @@ data AddThingToBillingGroup = AddThingToBillingGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'thingArn', 'addThingToBillingGroup_thingArn' - The ARN of the thing to be added to the billing group.
---
 -- 'billingGroupArn', 'addThingToBillingGroup_billingGroupArn' - The ARN of the billing group.
 --
--- 'thingName', 'addThingToBillingGroup_thingName' - The name of the thing to be added to the billing group.
---
 -- 'billingGroupName', 'addThingToBillingGroup_billingGroupName' - The name of the billing group.
+--
+-- This call is asynchronous. It might take several seconds for the
+-- detachment to propagate.
+--
+-- 'thingArn', 'addThingToBillingGroup_thingArn' - The ARN of the thing to be added to the billing group.
+--
+-- 'thingName', 'addThingToBillingGroup_thingName' - The name of the thing to be added to the billing group.
 newAddThingToBillingGroup ::
   AddThingToBillingGroup
 newAddThingToBillingGroup =
   AddThingToBillingGroup'
-    { thingArn = Prelude.Nothing,
-      billingGroupArn = Prelude.Nothing,
-      thingName = Prelude.Nothing,
-      billingGroupName = Prelude.Nothing
+    { billingGroupArn =
+        Prelude.Nothing,
+      billingGroupName = Prelude.Nothing,
+      thingArn = Prelude.Nothing,
+      thingName = Prelude.Nothing
     }
-
--- | The ARN of the thing to be added to the billing group.
-addThingToBillingGroup_thingArn :: Lens.Lens' AddThingToBillingGroup (Prelude.Maybe Prelude.Text)
-addThingToBillingGroup_thingArn = Lens.lens (\AddThingToBillingGroup' {thingArn} -> thingArn) (\s@AddThingToBillingGroup' {} a -> s {thingArn = a} :: AddThingToBillingGroup)
 
 -- | The ARN of the billing group.
 addThingToBillingGroup_billingGroupArn :: Lens.Lens' AddThingToBillingGroup (Prelude.Maybe Prelude.Text)
 addThingToBillingGroup_billingGroupArn = Lens.lens (\AddThingToBillingGroup' {billingGroupArn} -> billingGroupArn) (\s@AddThingToBillingGroup' {} a -> s {billingGroupArn = a} :: AddThingToBillingGroup)
 
+-- | The name of the billing group.
+--
+-- This call is asynchronous. It might take several seconds for the
+-- detachment to propagate.
+addThingToBillingGroup_billingGroupName :: Lens.Lens' AddThingToBillingGroup (Prelude.Maybe Prelude.Text)
+addThingToBillingGroup_billingGroupName = Lens.lens (\AddThingToBillingGroup' {billingGroupName} -> billingGroupName) (\s@AddThingToBillingGroup' {} a -> s {billingGroupName = a} :: AddThingToBillingGroup)
+
+-- | The ARN of the thing to be added to the billing group.
+addThingToBillingGroup_thingArn :: Lens.Lens' AddThingToBillingGroup (Prelude.Maybe Prelude.Text)
+addThingToBillingGroup_thingArn = Lens.lens (\AddThingToBillingGroup' {thingArn} -> thingArn) (\s@AddThingToBillingGroup' {} a -> s {thingArn = a} :: AddThingToBillingGroup)
+
 -- | The name of the thing to be added to the billing group.
 addThingToBillingGroup_thingName :: Lens.Lens' AddThingToBillingGroup (Prelude.Maybe Prelude.Text)
 addThingToBillingGroup_thingName = Lens.lens (\AddThingToBillingGroup' {thingName} -> thingName) (\s@AddThingToBillingGroup' {} a -> s {thingName = a} :: AddThingToBillingGroup)
-
--- | The name of the billing group.
-addThingToBillingGroup_billingGroupName :: Lens.Lens' AddThingToBillingGroup (Prelude.Maybe Prelude.Text)
-addThingToBillingGroup_billingGroupName = Lens.lens (\AddThingToBillingGroup' {billingGroupName} -> billingGroupName) (\s@AddThingToBillingGroup' {} a -> s {billingGroupName = a} :: AddThingToBillingGroup)
 
 instance Core.AWSRequest AddThingToBillingGroup where
   type
     AWSResponse AddThingToBillingGroup =
       AddThingToBillingGroupResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -120,40 +132,40 @@ instance Core.AWSRequest AddThingToBillingGroup where
 
 instance Prelude.Hashable AddThingToBillingGroup where
   hashWithSalt _salt AddThingToBillingGroup' {..} =
-    _salt `Prelude.hashWithSalt` thingArn
-      `Prelude.hashWithSalt` billingGroupArn
-      `Prelude.hashWithSalt` thingName
+    _salt `Prelude.hashWithSalt` billingGroupArn
       `Prelude.hashWithSalt` billingGroupName
+      `Prelude.hashWithSalt` thingArn
+      `Prelude.hashWithSalt` thingName
 
 instance Prelude.NFData AddThingToBillingGroup where
   rnf AddThingToBillingGroup' {..} =
-    Prelude.rnf thingArn
-      `Prelude.seq` Prelude.rnf billingGroupArn
-      `Prelude.seq` Prelude.rnf thingName
+    Prelude.rnf billingGroupArn
       `Prelude.seq` Prelude.rnf billingGroupName
+      `Prelude.seq` Prelude.rnf thingArn
+      `Prelude.seq` Prelude.rnf thingName
 
-instance Core.ToHeaders AddThingToBillingGroup where
+instance Data.ToHeaders AddThingToBillingGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON AddThingToBillingGroup where
+instance Data.ToJSON AddThingToBillingGroup where
   toJSON AddThingToBillingGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("thingArn" Core..=) Prelude.<$> thingArn,
-            ("billingGroupArn" Core..=)
+          [ ("billingGroupArn" Data..=)
               Prelude.<$> billingGroupArn,
-            ("thingName" Core..=) Prelude.<$> thingName,
-            ("billingGroupName" Core..=)
-              Prelude.<$> billingGroupName
+            ("billingGroupName" Data..=)
+              Prelude.<$> billingGroupName,
+            ("thingArn" Data..=) Prelude.<$> thingArn,
+            ("thingName" Data..=) Prelude.<$> thingName
           ]
       )
 
-instance Core.ToPath AddThingToBillingGroup where
+instance Data.ToPath AddThingToBillingGroup where
   toPath =
     Prelude.const
       "/billing-groups/addThingToBillingGroup"
 
-instance Core.ToQuery AddThingToBillingGroup where
+instance Data.ToQuery AddThingToBillingGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAddThingToBillingGroupResponse' smart constructor.

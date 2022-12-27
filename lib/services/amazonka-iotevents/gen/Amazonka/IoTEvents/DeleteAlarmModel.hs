@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.DeleteAlarmModel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.IoTEvents.DeleteAlarmModel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,7 +81,8 @@ instance Core.AWSRequest DeleteAlarmModel where
   type
     AWSResponse DeleteAlarmModel =
       DeleteAlarmModelResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -96,15 +98,15 @@ instance Prelude.NFData DeleteAlarmModel where
   rnf DeleteAlarmModel' {..} =
     Prelude.rnf alarmModelName
 
-instance Core.ToHeaders DeleteAlarmModel where
+instance Data.ToHeaders DeleteAlarmModel where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteAlarmModel where
+instance Data.ToPath DeleteAlarmModel where
   toPath DeleteAlarmModel' {..} =
     Prelude.mconcat
-      ["/alarm-models/", Core.toBS alarmModelName]
+      ["/alarm-models/", Data.toBS alarmModelName]
 
-instance Core.ToQuery DeleteAlarmModel where
+instance Data.ToQuery DeleteAlarmModel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAlarmModelResponse' smart constructor.

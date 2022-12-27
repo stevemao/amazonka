@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.DescribeAccountAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.Redshift.DescribeAccountAttributes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -78,15 +79,16 @@ instance Core.AWSRequest DescribeAccountAttributes where
   type
     AWSResponse DescribeAccountAttributes =
       DescribeAccountAttributesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeAccountAttributesResult"
       ( \s h x ->
           DescribeAccountAttributesResponse'
-            Prelude.<$> ( x Core..@? "AccountAttributes"
+            Prelude.<$> ( x Data..@? "AccountAttributes"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "AccountAttribute")
+                            Prelude.>>= Core.may (Data.parseXMLList "AccountAttribute")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -99,22 +101,22 @@ instance Prelude.NFData DescribeAccountAttributes where
   rnf DescribeAccountAttributes' {..} =
     Prelude.rnf attributeNames
 
-instance Core.ToHeaders DescribeAccountAttributes where
+instance Data.ToHeaders DescribeAccountAttributes where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeAccountAttributes where
+instance Data.ToPath DescribeAccountAttributes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeAccountAttributes where
+instance Data.ToQuery DescribeAccountAttributes where
   toQuery DescribeAccountAttributes' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeAccountAttributes" :: Prelude.ByteString),
+          Data.=: ("DescribeAccountAttributes" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
         "AttributeNames"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "AttributeName"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "AttributeName"
                 Prelude.<$> attributeNames
             )
       ]

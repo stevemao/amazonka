@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.ListServiceSpecificCredentials
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,8 +34,8 @@ module Amazonka.IAM.ListServiceSpecificCredentials
     newListServiceSpecificCredentials,
 
     -- * Request Lenses
-    listServiceSpecificCredentials_userName,
     listServiceSpecificCredentials_serviceName,
+    listServiceSpecificCredentials_userName,
 
     -- * Destructuring the Response
     ListServiceSpecificCredentialsResponse (..),
@@ -48,15 +48,20 @@ module Amazonka.IAM.ListServiceSpecificCredentials
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListServiceSpecificCredentials' smart constructor.
 data ListServiceSpecificCredentials = ListServiceSpecificCredentials'
-  { -- | The name of the user whose service-specific credentials you want
+  { -- | Filters the returned results to only those for the specified Amazon Web
+    -- Services service. If not specified, then Amazon Web Services returns
+    -- service-specific credentials for all services.
+    serviceName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the user whose service-specific credentials you want
     -- information about. If this value is not specified, then the operation
     -- assumes the user whose credentials are used to call the operation.
     --
@@ -64,11 +69,7 @@ data ListServiceSpecificCredentials = ListServiceSpecificCredentials'
     -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
     -- consisting of upper and lowercase alphanumeric characters with no
     -- spaces. You can also include any of the following characters: _+=,.\@-
-    userName :: Prelude.Maybe Prelude.Text,
-    -- | Filters the returned results to only those for the specified Amazon Web
-    -- Services service. If not specified, then Amazon Web Services returns
-    -- service-specific credentials for all services.
-    serviceName :: Prelude.Maybe Prelude.Text
+    userName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -80,6 +81,10 @@ data ListServiceSpecificCredentials = ListServiceSpecificCredentials'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'serviceName', 'listServiceSpecificCredentials_serviceName' - Filters the returned results to only those for the specified Amazon Web
+-- Services service. If not specified, then Amazon Web Services returns
+-- service-specific credentials for all services.
+--
 -- 'userName', 'listServiceSpecificCredentials_userName' - The name of the user whose service-specific credentials you want
 -- information about. If this value is not specified, then the operation
 -- assumes the user whose credentials are used to call the operation.
@@ -88,18 +93,20 @@ data ListServiceSpecificCredentials = ListServiceSpecificCredentials'
 -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
 -- consisting of upper and lowercase alphanumeric characters with no
 -- spaces. You can also include any of the following characters: _+=,.\@-
---
--- 'serviceName', 'listServiceSpecificCredentials_serviceName' - Filters the returned results to only those for the specified Amazon Web
--- Services service. If not specified, then Amazon Web Services returns
--- service-specific credentials for all services.
 newListServiceSpecificCredentials ::
   ListServiceSpecificCredentials
 newListServiceSpecificCredentials =
   ListServiceSpecificCredentials'
-    { userName =
+    { serviceName =
         Prelude.Nothing,
-      serviceName = Prelude.Nothing
+      userName = Prelude.Nothing
     }
+
+-- | Filters the returned results to only those for the specified Amazon Web
+-- Services service. If not specified, then Amazon Web Services returns
+-- service-specific credentials for all services.
+listServiceSpecificCredentials_serviceName :: Lens.Lens' ListServiceSpecificCredentials (Prelude.Maybe Prelude.Text)
+listServiceSpecificCredentials_serviceName = Lens.lens (\ListServiceSpecificCredentials' {serviceName} -> serviceName) (\s@ListServiceSpecificCredentials' {} a -> s {serviceName = a} :: ListServiceSpecificCredentials)
 
 -- | The name of the user whose service-specific credentials you want
 -- information about. If this value is not specified, then the operation
@@ -112,12 +119,6 @@ newListServiceSpecificCredentials =
 listServiceSpecificCredentials_userName :: Lens.Lens' ListServiceSpecificCredentials (Prelude.Maybe Prelude.Text)
 listServiceSpecificCredentials_userName = Lens.lens (\ListServiceSpecificCredentials' {userName} -> userName) (\s@ListServiceSpecificCredentials' {} a -> s {userName = a} :: ListServiceSpecificCredentials)
 
--- | Filters the returned results to only those for the specified Amazon Web
--- Services service. If not specified, then Amazon Web Services returns
--- service-specific credentials for all services.
-listServiceSpecificCredentials_serviceName :: Lens.Lens' ListServiceSpecificCredentials (Prelude.Maybe Prelude.Text)
-listServiceSpecificCredentials_serviceName = Lens.lens (\ListServiceSpecificCredentials' {serviceName} -> serviceName) (\s@ListServiceSpecificCredentials' {} a -> s {serviceName = a} :: ListServiceSpecificCredentials)
-
 instance
   Core.AWSRequest
     ListServiceSpecificCredentials
@@ -125,15 +126,16 @@ instance
   type
     AWSResponse ListServiceSpecificCredentials =
       ListServiceSpecificCredentialsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListServiceSpecificCredentialsResult"
       ( \s h x ->
           ListServiceSpecificCredentialsResponse'
-            Prelude.<$> ( x Core..@? "ServiceSpecificCredentials"
+            Prelude.<$> ( x Data..@? "ServiceSpecificCredentials"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -145,37 +147,37 @@ instance
   hashWithSalt
     _salt
     ListServiceSpecificCredentials' {..} =
-      _salt `Prelude.hashWithSalt` userName
-        `Prelude.hashWithSalt` serviceName
+      _salt `Prelude.hashWithSalt` serviceName
+        `Prelude.hashWithSalt` userName
 
 instance
   Prelude.NFData
     ListServiceSpecificCredentials
   where
   rnf ListServiceSpecificCredentials' {..} =
-    Prelude.rnf userName
-      `Prelude.seq` Prelude.rnf serviceName
+    Prelude.rnf serviceName
+      `Prelude.seq` Prelude.rnf userName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListServiceSpecificCredentials
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListServiceSpecificCredentials where
+instance Data.ToPath ListServiceSpecificCredentials where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListServiceSpecificCredentials where
+instance Data.ToQuery ListServiceSpecificCredentials where
   toQuery ListServiceSpecificCredentials' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "ListServiceSpecificCredentials" ::
+          Data.=: ( "ListServiceSpecificCredentials" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "UserName" Core.=: userName,
-        "ServiceName" Core.=: serviceName
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "ServiceName" Data.=: serviceName,
+        "UserName" Data.=: userName
       ]
 
 -- | /See:/ 'newListServiceSpecificCredentialsResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Proton.DeleteEnvironment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.Proton.DeleteEnvironment
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types
 import qualified Amazonka.Request as Request
@@ -77,12 +78,13 @@ instance Core.AWSRequest DeleteEnvironment where
   type
     AWSResponse DeleteEnvironment =
       DeleteEnvironmentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteEnvironmentResponse'
-            Prelude.<$> (x Core..?> "environment")
+            Prelude.<$> (x Data..?> "environment")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -93,37 +95,37 @@ instance Prelude.Hashable DeleteEnvironment where
 instance Prelude.NFData DeleteEnvironment where
   rnf DeleteEnvironment' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DeleteEnvironment where
+instance Data.ToHeaders DeleteEnvironment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AwsProton20200720.DeleteEnvironment" ::
+              Data.=# ( "AwsProton20200720.DeleteEnvironment" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteEnvironment where
+instance Data.ToJSON DeleteEnvironment where
   toJSON DeleteEnvironment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("name" Core..= name)]
+          [Prelude.Just ("name" Data..= name)]
       )
 
-instance Core.ToPath DeleteEnvironment where
+instance Data.ToPath DeleteEnvironment where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteEnvironment where
+instance Data.ToQuery DeleteEnvironment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteEnvironmentResponse' smart constructor.
 data DeleteEnvironmentResponse = DeleteEnvironmentResponse'
-  { -- | The environment detail data that\'s returned by AWS Proton.
+  { -- | The detailed data of the environment being deleted.
     environment :: Prelude.Maybe Environment,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -138,7 +140,7 @@ data DeleteEnvironmentResponse = DeleteEnvironmentResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'environment', 'deleteEnvironmentResponse_environment' - The environment detail data that\'s returned by AWS Proton.
+-- 'environment', 'deleteEnvironmentResponse_environment' - The detailed data of the environment being deleted.
 --
 -- 'httpStatus', 'deleteEnvironmentResponse_httpStatus' - The response's http status code.
 newDeleteEnvironmentResponse ::
@@ -152,7 +154,7 @@ newDeleteEnvironmentResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The environment detail data that\'s returned by AWS Proton.
+-- | The detailed data of the environment being deleted.
 deleteEnvironmentResponse_environment :: Lens.Lens' DeleteEnvironmentResponse (Prelude.Maybe Environment)
 deleteEnvironmentResponse_environment = Lens.lens (\DeleteEnvironmentResponse' {environment} -> environment) (\s@DeleteEnvironmentResponse' {} a -> s {environment = a} :: DeleteEnvironmentResponse)
 

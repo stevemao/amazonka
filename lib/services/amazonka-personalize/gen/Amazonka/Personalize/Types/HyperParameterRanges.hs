@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.Types.HyperParameterRanges
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Personalize.Types.HyperParameterRanges where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types.CategoricalHyperParameterRange
 import Amazonka.Personalize.Types.ContinuousHyperParameterRange
 import Amazonka.Personalize.Types.IntegerHyperParameterRange
@@ -31,12 +32,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newHyperParameterRanges' smart constructor.
 data HyperParameterRanges = HyperParameterRanges'
-  { -- | The integer-valued hyperparameters and their ranges.
-    integerHyperParameterRanges :: Prelude.Maybe [IntegerHyperParameterRange],
-    -- | The categorical hyperparameters and their ranges.
+  { -- | The categorical hyperparameters and their ranges.
     categoricalHyperParameterRanges :: Prelude.Maybe [CategoricalHyperParameterRange],
     -- | The continuous hyperparameters and their ranges.
-    continuousHyperParameterRanges :: Prelude.Maybe [ContinuousHyperParameterRange]
+    continuousHyperParameterRanges :: Prelude.Maybe [ContinuousHyperParameterRange],
+    -- | The integer-valued hyperparameters and their ranges.
+    integerHyperParameterRanges :: Prelude.Maybe [IntegerHyperParameterRange]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,24 +49,20 @@ data HyperParameterRanges = HyperParameterRanges'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'integerHyperParameterRanges', 'hyperParameterRanges_integerHyperParameterRanges' - The integer-valued hyperparameters and their ranges.
---
 -- 'categoricalHyperParameterRanges', 'hyperParameterRanges_categoricalHyperParameterRanges' - The categorical hyperparameters and their ranges.
 --
 -- 'continuousHyperParameterRanges', 'hyperParameterRanges_continuousHyperParameterRanges' - The continuous hyperparameters and their ranges.
+--
+-- 'integerHyperParameterRanges', 'hyperParameterRanges_integerHyperParameterRanges' - The integer-valued hyperparameters and their ranges.
 newHyperParameterRanges ::
   HyperParameterRanges
 newHyperParameterRanges =
   HyperParameterRanges'
-    { integerHyperParameterRanges =
+    { categoricalHyperParameterRanges =
         Prelude.Nothing,
-      categoricalHyperParameterRanges = Prelude.Nothing,
-      continuousHyperParameterRanges = Prelude.Nothing
+      continuousHyperParameterRanges = Prelude.Nothing,
+      integerHyperParameterRanges = Prelude.Nothing
     }
-
--- | The integer-valued hyperparameters and their ranges.
-hyperParameterRanges_integerHyperParameterRanges :: Lens.Lens' HyperParameterRanges (Prelude.Maybe [IntegerHyperParameterRange])
-hyperParameterRanges_integerHyperParameterRanges = Lens.lens (\HyperParameterRanges' {integerHyperParameterRanges} -> integerHyperParameterRanges) (\s@HyperParameterRanges' {} a -> s {integerHyperParameterRanges = a} :: HyperParameterRanges) Prelude.. Lens.mapping Lens.coerced
 
 -- | The categorical hyperparameters and their ranges.
 hyperParameterRanges_categoricalHyperParameterRanges :: Lens.Lens' HyperParameterRanges (Prelude.Maybe [CategoricalHyperParameterRange])
@@ -75,45 +72,49 @@ hyperParameterRanges_categoricalHyperParameterRanges = Lens.lens (\HyperParamete
 hyperParameterRanges_continuousHyperParameterRanges :: Lens.Lens' HyperParameterRanges (Prelude.Maybe [ContinuousHyperParameterRange])
 hyperParameterRanges_continuousHyperParameterRanges = Lens.lens (\HyperParameterRanges' {continuousHyperParameterRanges} -> continuousHyperParameterRanges) (\s@HyperParameterRanges' {} a -> s {continuousHyperParameterRanges = a} :: HyperParameterRanges) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON HyperParameterRanges where
+-- | The integer-valued hyperparameters and their ranges.
+hyperParameterRanges_integerHyperParameterRanges :: Lens.Lens' HyperParameterRanges (Prelude.Maybe [IntegerHyperParameterRange])
+hyperParameterRanges_integerHyperParameterRanges = Lens.lens (\HyperParameterRanges' {integerHyperParameterRanges} -> integerHyperParameterRanges) (\s@HyperParameterRanges' {} a -> s {integerHyperParameterRanges = a} :: HyperParameterRanges) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON HyperParameterRanges where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HyperParameterRanges"
       ( \x ->
           HyperParameterRanges'
-            Prelude.<$> ( x Core..:? "integerHyperParameterRanges"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "categoricalHyperParameterRanges"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> ( x Core..:? "categoricalHyperParameterRanges"
-                            Core..!= Prelude.mempty
+            Prelude.<*> ( x Data..:? "continuousHyperParameterRanges"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> ( x Core..:? "continuousHyperParameterRanges"
-                            Core..!= Prelude.mempty
+            Prelude.<*> ( x Data..:? "integerHyperParameterRanges"
+                            Data..!= Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable HyperParameterRanges where
   hashWithSalt _salt HyperParameterRanges' {..} =
     _salt
-      `Prelude.hashWithSalt` integerHyperParameterRanges
       `Prelude.hashWithSalt` categoricalHyperParameterRanges
       `Prelude.hashWithSalt` continuousHyperParameterRanges
+      `Prelude.hashWithSalt` integerHyperParameterRanges
 
 instance Prelude.NFData HyperParameterRanges where
   rnf HyperParameterRanges' {..} =
-    Prelude.rnf integerHyperParameterRanges
-      `Prelude.seq` Prelude.rnf categoricalHyperParameterRanges
+    Prelude.rnf categoricalHyperParameterRanges
       `Prelude.seq` Prelude.rnf continuousHyperParameterRanges
+      `Prelude.seq` Prelude.rnf integerHyperParameterRanges
 
-instance Core.ToJSON HyperParameterRanges where
+instance Data.ToJSON HyperParameterRanges where
   toJSON HyperParameterRanges' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("integerHyperParameterRanges" Core..=)
-              Prelude.<$> integerHyperParameterRanges,
-            ("categoricalHyperParameterRanges" Core..=)
+          [ ("categoricalHyperParameterRanges" Data..=)
               Prelude.<$> categoricalHyperParameterRanges,
-            ("continuousHyperParameterRanges" Core..=)
-              Prelude.<$> continuousHyperParameterRanges
+            ("continuousHyperParameterRanges" Data..=)
+              Prelude.<$> continuousHyperParameterRanges,
+            ("integerHyperParameterRanges" Data..=)
+              Prelude.<$> integerHyperParameterRanges
           ]
       )

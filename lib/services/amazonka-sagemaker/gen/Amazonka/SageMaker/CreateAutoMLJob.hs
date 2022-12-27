@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.CreateAutoMLJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,11 +33,11 @@ module Amazonka.SageMaker.CreateAutoMLJob
     newCreateAutoMLJob,
 
     -- * Request Lenses
-    createAutoMLJob_generateCandidateDefinitionsOnly,
-    createAutoMLJob_problemType,
     createAutoMLJob_autoMLJobConfig,
     createAutoMLJob_autoMLJobObjective,
+    createAutoMLJob_generateCandidateDefinitionsOnly,
     createAutoMLJob_modelDeployConfig,
+    createAutoMLJob_problemType,
     createAutoMLJob_tags,
     createAutoMLJob_autoMLJobName,
     createAutoMLJob_inputDataConfig,
@@ -55,7 +55,8 @@ module Amazonka.SageMaker.CreateAutoMLJob
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -63,25 +64,23 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newCreateAutoMLJob' smart constructor.
 data CreateAutoMLJob = CreateAutoMLJob'
-  { -- | Generates possible candidates without training the models. A candidate
-    -- is a combination of data preprocessors, algorithms, and algorithm
-    -- parameter settings.
-    generateCandidateDefinitionsOnly :: Prelude.Maybe Prelude.Bool,
-    -- | Defines the type of supervised learning available for the candidates.
-    -- Options include: @BinaryClassification@, @MulticlassClassification@, and
-    -- @Regression@. For more information, see
-    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/autopilot-automate-model-development-problem-types.html Amazon SageMaker Autopilot problem types and algorithm support>.
-    problemType :: Prelude.Maybe ProblemType,
-    -- | Contains @CompletionCriteria@ and @SecurityConfig@ settings for the
-    -- AutoML job.
+  { -- | A collection of settings used to configure an AutoML job.
     autoMLJobConfig :: Prelude.Maybe AutoMLJobConfig,
     -- | Defines the objective metric used to measure the predictive quality of
     -- an AutoML job. You provide an AutoMLJobObjective$MetricName and
     -- Autopilot infers whether to minimize or maximize it.
     autoMLJobObjective :: Prelude.Maybe AutoMLJobObjective,
+    -- | Generates possible candidates without training the models. A candidate
+    -- is a combination of data preprocessors, algorithms, and algorithm
+    -- parameter settings.
+    generateCandidateDefinitionsOnly :: Prelude.Maybe Prelude.Bool,
     -- | Specifies how to generate the endpoint name for an automatic one-click
     -- Autopilot model deployment.
     modelDeployConfig :: Prelude.Maybe ModelDeployConfig,
+    -- | Defines the type of supervised learning available for the candidates.
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/autopilot-automate-model-development-problem-types.html Amazon SageMaker Autopilot problem types and algorithm support>.
+    problemType :: Prelude.Maybe ProblemType,
     -- | Each tag consists of a key and an optional value. Tag keys must be
     -- unique per resource.
     tags :: Prelude.Maybe [Tag],
@@ -90,8 +89,9 @@ data CreateAutoMLJob = CreateAutoMLJob'
     autoMLJobName :: Prelude.Text,
     -- | An array of channel objects that describes the input data and its
     -- location. Each channel is a named input source. Similar to
-    -- @InputDataConfig@ supported by . Format(s) supported: CSV. Minimum of
-    -- 500 rows.
+    -- @InputDataConfig@ supported by . Format(s) supported: CSV, Parquet. A
+    -- minimum of 500 rows is required for the training dataset. There is not a
+    -- minimum number of rows required for the validation dataset.
     inputDataConfig :: Prelude.NonEmpty AutoMLChannel,
     -- | Provides information about encryption and the Amazon S3 output path
     -- needed to store artifacts from an AutoML job. Format(s) supported: CSV.
@@ -109,24 +109,22 @@ data CreateAutoMLJob = CreateAutoMLJob'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'generateCandidateDefinitionsOnly', 'createAutoMLJob_generateCandidateDefinitionsOnly' - Generates possible candidates without training the models. A candidate
--- is a combination of data preprocessors, algorithms, and algorithm
--- parameter settings.
---
--- 'problemType', 'createAutoMLJob_problemType' - Defines the type of supervised learning available for the candidates.
--- Options include: @BinaryClassification@, @MulticlassClassification@, and
--- @Regression@. For more information, see
--- <https://docs.aws.amazon.com/sagemaker/latest/dg/autopilot-automate-model-development-problem-types.html Amazon SageMaker Autopilot problem types and algorithm support>.
---
--- 'autoMLJobConfig', 'createAutoMLJob_autoMLJobConfig' - Contains @CompletionCriteria@ and @SecurityConfig@ settings for the
--- AutoML job.
+-- 'autoMLJobConfig', 'createAutoMLJob_autoMLJobConfig' - A collection of settings used to configure an AutoML job.
 --
 -- 'autoMLJobObjective', 'createAutoMLJob_autoMLJobObjective' - Defines the objective metric used to measure the predictive quality of
 -- an AutoML job. You provide an AutoMLJobObjective$MetricName and
 -- Autopilot infers whether to minimize or maximize it.
 --
+-- 'generateCandidateDefinitionsOnly', 'createAutoMLJob_generateCandidateDefinitionsOnly' - Generates possible candidates without training the models. A candidate
+-- is a combination of data preprocessors, algorithms, and algorithm
+-- parameter settings.
+--
 -- 'modelDeployConfig', 'createAutoMLJob_modelDeployConfig' - Specifies how to generate the endpoint name for an automatic one-click
 -- Autopilot model deployment.
+--
+-- 'problemType', 'createAutoMLJob_problemType' - Defines the type of supervised learning available for the candidates.
+-- For more information, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/autopilot-automate-model-development-problem-types.html Amazon SageMaker Autopilot problem types and algorithm support>.
 --
 -- 'tags', 'createAutoMLJob_tags' - Each tag consists of a key and an optional value. Tag keys must be
 -- unique per resource.
@@ -136,8 +134,9 @@ data CreateAutoMLJob = CreateAutoMLJob'
 --
 -- 'inputDataConfig', 'createAutoMLJob_inputDataConfig' - An array of channel objects that describes the input data and its
 -- location. Each channel is a named input source. Similar to
--- @InputDataConfig@ supported by . Format(s) supported: CSV. Minimum of
--- 500 rows.
+-- @InputDataConfig@ supported by . Format(s) supported: CSV, Parquet. A
+-- minimum of 500 rows is required for the training dataset. There is not a
+-- minimum number of rows required for the validation dataset.
 --
 -- 'outputDataConfig', 'createAutoMLJob_outputDataConfig' - Provides information about encryption and the Amazon S3 output path
 -- needed to store artifacts from an AutoML job. Format(s) supported: CSV.
@@ -159,12 +158,11 @@ newCreateAutoMLJob
   pOutputDataConfig_
   pRoleArn_ =
     CreateAutoMLJob'
-      { generateCandidateDefinitionsOnly =
-          Prelude.Nothing,
-        problemType = Prelude.Nothing,
-        autoMLJobConfig = Prelude.Nothing,
+      { autoMLJobConfig = Prelude.Nothing,
         autoMLJobObjective = Prelude.Nothing,
+        generateCandidateDefinitionsOnly = Prelude.Nothing,
         modelDeployConfig = Prelude.Nothing,
+        problemType = Prelude.Nothing,
         tags = Prelude.Nothing,
         autoMLJobName = pAutoMLJobName_,
         inputDataConfig =
@@ -173,21 +171,7 @@ newCreateAutoMLJob
         roleArn = pRoleArn_
       }
 
--- | Generates possible candidates without training the models. A candidate
--- is a combination of data preprocessors, algorithms, and algorithm
--- parameter settings.
-createAutoMLJob_generateCandidateDefinitionsOnly :: Lens.Lens' CreateAutoMLJob (Prelude.Maybe Prelude.Bool)
-createAutoMLJob_generateCandidateDefinitionsOnly = Lens.lens (\CreateAutoMLJob' {generateCandidateDefinitionsOnly} -> generateCandidateDefinitionsOnly) (\s@CreateAutoMLJob' {} a -> s {generateCandidateDefinitionsOnly = a} :: CreateAutoMLJob)
-
--- | Defines the type of supervised learning available for the candidates.
--- Options include: @BinaryClassification@, @MulticlassClassification@, and
--- @Regression@. For more information, see
--- <https://docs.aws.amazon.com/sagemaker/latest/dg/autopilot-automate-model-development-problem-types.html Amazon SageMaker Autopilot problem types and algorithm support>.
-createAutoMLJob_problemType :: Lens.Lens' CreateAutoMLJob (Prelude.Maybe ProblemType)
-createAutoMLJob_problemType = Lens.lens (\CreateAutoMLJob' {problemType} -> problemType) (\s@CreateAutoMLJob' {} a -> s {problemType = a} :: CreateAutoMLJob)
-
--- | Contains @CompletionCriteria@ and @SecurityConfig@ settings for the
--- AutoML job.
+-- | A collection of settings used to configure an AutoML job.
 createAutoMLJob_autoMLJobConfig :: Lens.Lens' CreateAutoMLJob (Prelude.Maybe AutoMLJobConfig)
 createAutoMLJob_autoMLJobConfig = Lens.lens (\CreateAutoMLJob' {autoMLJobConfig} -> autoMLJobConfig) (\s@CreateAutoMLJob' {} a -> s {autoMLJobConfig = a} :: CreateAutoMLJob)
 
@@ -197,10 +181,22 @@ createAutoMLJob_autoMLJobConfig = Lens.lens (\CreateAutoMLJob' {autoMLJobConfig}
 createAutoMLJob_autoMLJobObjective :: Lens.Lens' CreateAutoMLJob (Prelude.Maybe AutoMLJobObjective)
 createAutoMLJob_autoMLJobObjective = Lens.lens (\CreateAutoMLJob' {autoMLJobObjective} -> autoMLJobObjective) (\s@CreateAutoMLJob' {} a -> s {autoMLJobObjective = a} :: CreateAutoMLJob)
 
+-- | Generates possible candidates without training the models. A candidate
+-- is a combination of data preprocessors, algorithms, and algorithm
+-- parameter settings.
+createAutoMLJob_generateCandidateDefinitionsOnly :: Lens.Lens' CreateAutoMLJob (Prelude.Maybe Prelude.Bool)
+createAutoMLJob_generateCandidateDefinitionsOnly = Lens.lens (\CreateAutoMLJob' {generateCandidateDefinitionsOnly} -> generateCandidateDefinitionsOnly) (\s@CreateAutoMLJob' {} a -> s {generateCandidateDefinitionsOnly = a} :: CreateAutoMLJob)
+
 -- | Specifies how to generate the endpoint name for an automatic one-click
 -- Autopilot model deployment.
 createAutoMLJob_modelDeployConfig :: Lens.Lens' CreateAutoMLJob (Prelude.Maybe ModelDeployConfig)
 createAutoMLJob_modelDeployConfig = Lens.lens (\CreateAutoMLJob' {modelDeployConfig} -> modelDeployConfig) (\s@CreateAutoMLJob' {} a -> s {modelDeployConfig = a} :: CreateAutoMLJob)
+
+-- | Defines the type of supervised learning available for the candidates.
+-- For more information, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/autopilot-automate-model-development-problem-types.html Amazon SageMaker Autopilot problem types and algorithm support>.
+createAutoMLJob_problemType :: Lens.Lens' CreateAutoMLJob (Prelude.Maybe ProblemType)
+createAutoMLJob_problemType = Lens.lens (\CreateAutoMLJob' {problemType} -> problemType) (\s@CreateAutoMLJob' {} a -> s {problemType = a} :: CreateAutoMLJob)
 
 -- | Each tag consists of a key and an optional value. Tag keys must be
 -- unique per resource.
@@ -214,8 +210,9 @@ createAutoMLJob_autoMLJobName = Lens.lens (\CreateAutoMLJob' {autoMLJobName} -> 
 
 -- | An array of channel objects that describes the input data and its
 -- location. Each channel is a named input source. Similar to
--- @InputDataConfig@ supported by . Format(s) supported: CSV. Minimum of
--- 500 rows.
+-- @InputDataConfig@ supported by . Format(s) supported: CSV, Parquet. A
+-- minimum of 500 rows is required for the training dataset. There is not a
+-- minimum number of rows required for the validation dataset.
 createAutoMLJob_inputDataConfig :: Lens.Lens' CreateAutoMLJob (Prelude.NonEmpty AutoMLChannel)
 createAutoMLJob_inputDataConfig = Lens.lens (\CreateAutoMLJob' {inputDataConfig} -> inputDataConfig) (\s@CreateAutoMLJob' {} a -> s {inputDataConfig = a} :: CreateAutoMLJob) Prelude.. Lens.coerced
 
@@ -232,23 +229,23 @@ instance Core.AWSRequest CreateAutoMLJob where
   type
     AWSResponse CreateAutoMLJob =
       CreateAutoMLJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateAutoMLJobResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "AutoMLJobArn")
+            Prelude.<*> (x Data..:> "AutoMLJobArn")
       )
 
 instance Prelude.Hashable CreateAutoMLJob where
   hashWithSalt _salt CreateAutoMLJob' {..} =
-    _salt
-      `Prelude.hashWithSalt` generateCandidateDefinitionsOnly
-      `Prelude.hashWithSalt` problemType
-      `Prelude.hashWithSalt` autoMLJobConfig
+    _salt `Prelude.hashWithSalt` autoMLJobConfig
       `Prelude.hashWithSalt` autoMLJobObjective
+      `Prelude.hashWithSalt` generateCandidateDefinitionsOnly
       `Prelude.hashWithSalt` modelDeployConfig
+      `Prelude.hashWithSalt` problemType
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` autoMLJobName
       `Prelude.hashWithSalt` inputDataConfig
@@ -257,57 +254,57 @@ instance Prelude.Hashable CreateAutoMLJob where
 
 instance Prelude.NFData CreateAutoMLJob where
   rnf CreateAutoMLJob' {..} =
-    Prelude.rnf generateCandidateDefinitionsOnly
-      `Prelude.seq` Prelude.rnf problemType
-      `Prelude.seq` Prelude.rnf autoMLJobConfig
+    Prelude.rnf autoMLJobConfig
       `Prelude.seq` Prelude.rnf autoMLJobObjective
+      `Prelude.seq` Prelude.rnf generateCandidateDefinitionsOnly
       `Prelude.seq` Prelude.rnf modelDeployConfig
+      `Prelude.seq` Prelude.rnf problemType
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf autoMLJobName
       `Prelude.seq` Prelude.rnf inputDataConfig
       `Prelude.seq` Prelude.rnf outputDataConfig
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToHeaders CreateAutoMLJob where
+instance Data.ToHeaders CreateAutoMLJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.CreateAutoMLJob" :: Prelude.ByteString),
+              Data.=# ("SageMaker.CreateAutoMLJob" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateAutoMLJob where
+instance Data.ToJSON CreateAutoMLJob where
   toJSON CreateAutoMLJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("GenerateCandidateDefinitionsOnly" Core..=)
-              Prelude.<$> generateCandidateDefinitionsOnly,
-            ("ProblemType" Core..=) Prelude.<$> problemType,
-            ("AutoMLJobConfig" Core..=)
+          [ ("AutoMLJobConfig" Data..=)
               Prelude.<$> autoMLJobConfig,
-            ("AutoMLJobObjective" Core..=)
+            ("AutoMLJobObjective" Data..=)
               Prelude.<$> autoMLJobObjective,
-            ("ModelDeployConfig" Core..=)
+            ("GenerateCandidateDefinitionsOnly" Data..=)
+              Prelude.<$> generateCandidateDefinitionsOnly,
+            ("ModelDeployConfig" Data..=)
               Prelude.<$> modelDeployConfig,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("AutoMLJobName" Core..= autoMLJobName),
+            ("ProblemType" Data..=) Prelude.<$> problemType,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("AutoMLJobName" Data..= autoMLJobName),
             Prelude.Just
-              ("InputDataConfig" Core..= inputDataConfig),
+              ("InputDataConfig" Data..= inputDataConfig),
             Prelude.Just
-              ("OutputDataConfig" Core..= outputDataConfig),
-            Prelude.Just ("RoleArn" Core..= roleArn)
+              ("OutputDataConfig" Data..= outputDataConfig),
+            Prelude.Just ("RoleArn" Data..= roleArn)
           ]
       )
 
-instance Core.ToPath CreateAutoMLJob where
+instance Data.ToPath CreateAutoMLJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateAutoMLJob where
+instance Data.ToQuery CreateAutoMLJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateAutoMLJobResponse' smart constructor.

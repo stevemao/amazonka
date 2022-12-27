@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.Types.EventTimeRange
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,21 @@
 module Amazonka.DevOpsGuru.Types.EventTimeRange where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The time range during which an AWS event occurred. AWS resource events
--- and metrics are analyzed by DevOps Guru to find anomalous behavior and
--- provide recommendations to improve your operational solutions.
+-- | The time range during which an Amazon Web Services event occurred.
+-- Amazon Web Services resource events and metrics are analyzed by DevOps
+-- Guru to find anomalous behavior and provide recommendations to improve
+-- your operational solutions.
 --
 -- /See:/ 'newEventTimeRange' smart constructor.
 data EventTimeRange = EventTimeRange'
   { -- | The time when the event started.
-    fromTime :: Core.POSIX,
+    fromTime :: Data.POSIX,
     -- | The time when the event ended.
-    toTime :: Core.POSIX
+    toTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -56,17 +58,17 @@ newEventTimeRange ::
 newEventTimeRange pFromTime_ pToTime_ =
   EventTimeRange'
     { fromTime =
-        Core._Time Lens.# pFromTime_,
-      toTime = Core._Time Lens.# pToTime_
+        Data._Time Lens.# pFromTime_,
+      toTime = Data._Time Lens.# pToTime_
     }
 
 -- | The time when the event started.
 eventTimeRange_fromTime :: Lens.Lens' EventTimeRange Prelude.UTCTime
-eventTimeRange_fromTime = Lens.lens (\EventTimeRange' {fromTime} -> fromTime) (\s@EventTimeRange' {} a -> s {fromTime = a} :: EventTimeRange) Prelude.. Core._Time
+eventTimeRange_fromTime = Lens.lens (\EventTimeRange' {fromTime} -> fromTime) (\s@EventTimeRange' {} a -> s {fromTime = a} :: EventTimeRange) Prelude.. Data._Time
 
 -- | The time when the event ended.
 eventTimeRange_toTime :: Lens.Lens' EventTimeRange Prelude.UTCTime
-eventTimeRange_toTime = Lens.lens (\EventTimeRange' {toTime} -> toTime) (\s@EventTimeRange' {} a -> s {toTime = a} :: EventTimeRange) Prelude.. Core._Time
+eventTimeRange_toTime = Lens.lens (\EventTimeRange' {toTime} -> toTime) (\s@EventTimeRange' {} a -> s {toTime = a} :: EventTimeRange) Prelude.. Data._Time
 
 instance Prelude.Hashable EventTimeRange where
   hashWithSalt _salt EventTimeRange' {..} =
@@ -78,11 +80,11 @@ instance Prelude.NFData EventTimeRange where
     Prelude.rnf fromTime
       `Prelude.seq` Prelude.rnf toTime
 
-instance Core.ToJSON EventTimeRange where
+instance Data.ToJSON EventTimeRange where
   toJSON EventTimeRange' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("FromTime" Core..= fromTime),
-            Prelude.Just ("ToTime" Core..= toTime)
+          [ Prelude.Just ("FromTime" Data..= fromTime),
+            Prelude.Just ("ToTime" Data..= toTime)
           ]
       )

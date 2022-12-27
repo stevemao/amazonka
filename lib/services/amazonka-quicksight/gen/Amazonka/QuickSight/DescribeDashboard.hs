@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.DescribeDashboard
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,14 +37,15 @@ module Amazonka.QuickSight.DescribeDashboard
     newDescribeDashboardResponse,
 
     -- * Response Lenses
-    describeDashboardResponse_requestId,
     describeDashboardResponse_dashboard,
+    describeDashboardResponse_requestId,
     describeDashboardResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -118,13 +119,14 @@ instance Core.AWSRequest DescribeDashboard where
   type
     AWSResponse DescribeDashboard =
       DescribeDashboardResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeDashboardResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "Dashboard")
+            Prelude.<$> (x Data..?> "Dashboard")
+            Prelude.<*> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -142,39 +144,39 @@ instance Prelude.NFData DescribeDashboard where
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf dashboardId
 
-instance Core.ToHeaders DescribeDashboard where
+instance Data.ToHeaders DescribeDashboard where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeDashboard where
+instance Data.ToPath DescribeDashboard where
   toPath DescribeDashboard' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/dashboards/",
-        Core.toBS dashboardId
+        Data.toBS dashboardId
       ]
 
-instance Core.ToQuery DescribeDashboard where
+instance Data.ToQuery DescribeDashboard where
   toQuery DescribeDashboard' {..} =
     Prelude.mconcat
-      [ "alias-name" Core.=: aliasName,
-        "version-number" Core.=: versionNumber
+      [ "alias-name" Data.=: aliasName,
+        "version-number" Data.=: versionNumber
       ]
 
 -- | /See:/ 'newDescribeDashboardResponse' smart constructor.
 data DescribeDashboardResponse = DescribeDashboardResponse'
-  { -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | Information about the dashboard.
+  { -- | Information about the dashboard.
     dashboard :: Prelude.Maybe Dashboard,
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of this request.
     status :: Prelude.Int
   }
@@ -188,9 +190,9 @@ data DescribeDashboardResponse = DescribeDashboardResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'describeDashboardResponse_requestId' - The Amazon Web Services request ID for this operation.
---
 -- 'dashboard', 'describeDashboardResponse_dashboard' - Information about the dashboard.
+--
+-- 'requestId', 'describeDashboardResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'status', 'describeDashboardResponse_status' - The HTTP status of this request.
 newDescribeDashboardResponse ::
@@ -199,19 +201,19 @@ newDescribeDashboardResponse ::
   DescribeDashboardResponse
 newDescribeDashboardResponse pStatus_ =
   DescribeDashboardResponse'
-    { requestId =
+    { dashboard =
         Prelude.Nothing,
-      dashboard = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       status = pStatus_
     }
-
--- | The Amazon Web Services request ID for this operation.
-describeDashboardResponse_requestId :: Lens.Lens' DescribeDashboardResponse (Prelude.Maybe Prelude.Text)
-describeDashboardResponse_requestId = Lens.lens (\DescribeDashboardResponse' {requestId} -> requestId) (\s@DescribeDashboardResponse' {} a -> s {requestId = a} :: DescribeDashboardResponse)
 
 -- | Information about the dashboard.
 describeDashboardResponse_dashboard :: Lens.Lens' DescribeDashboardResponse (Prelude.Maybe Dashboard)
 describeDashboardResponse_dashboard = Lens.lens (\DescribeDashboardResponse' {dashboard} -> dashboard) (\s@DescribeDashboardResponse' {} a -> s {dashboard = a} :: DescribeDashboardResponse)
+
+-- | The Amazon Web Services request ID for this operation.
+describeDashboardResponse_requestId :: Lens.Lens' DescribeDashboardResponse (Prelude.Maybe Prelude.Text)
+describeDashboardResponse_requestId = Lens.lens (\DescribeDashboardResponse' {requestId} -> requestId) (\s@DescribeDashboardResponse' {} a -> s {requestId = a} :: DescribeDashboardResponse)
 
 -- | The HTTP status of this request.
 describeDashboardResponse_status :: Lens.Lens' DescribeDashboardResponse Prelude.Int
@@ -219,6 +221,6 @@ describeDashboardResponse_status = Lens.lens (\DescribeDashboardResponse' {statu
 
 instance Prelude.NFData DescribeDashboardResponse where
   rnf DescribeDashboardResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf dashboard
+    Prelude.rnf dashboard
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf status

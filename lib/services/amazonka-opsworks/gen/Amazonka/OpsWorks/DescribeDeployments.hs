@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.DescribeDeployments
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ module Amazonka.OpsWorks.DescribeDeployments
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -117,12 +118,13 @@ instance Core.AWSRequest DescribeDeployments where
   type
     AWSResponse DescribeDeployments =
       DescribeDeploymentsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeDeploymentsResponse'
-            Prelude.<$> (x Core..?> "Deployments" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Deployments" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -138,35 +140,35 @@ instance Prelude.NFData DescribeDeployments where
       `Prelude.seq` Prelude.rnf deploymentIds
       `Prelude.seq` Prelude.rnf stackId
 
-instance Core.ToHeaders DescribeDeployments where
+instance Data.ToHeaders DescribeDeployments where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.DescribeDeployments" ::
+              Data.=# ( "OpsWorks_20130218.DescribeDeployments" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeDeployments where
+instance Data.ToJSON DescribeDeployments where
   toJSON DescribeDeployments' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AppId" Core..=) Prelude.<$> appId,
-            ("DeploymentIds" Core..=) Prelude.<$> deploymentIds,
-            ("StackId" Core..=) Prelude.<$> stackId
+          [ ("AppId" Data..=) Prelude.<$> appId,
+            ("DeploymentIds" Data..=) Prelude.<$> deploymentIds,
+            ("StackId" Data..=) Prelude.<$> stackId
           ]
       )
 
-instance Core.ToPath DescribeDeployments where
+instance Data.ToPath DescribeDeployments where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeDeployments where
+instance Data.ToQuery DescribeDeployments where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the response to a @DescribeDeployments@ request.

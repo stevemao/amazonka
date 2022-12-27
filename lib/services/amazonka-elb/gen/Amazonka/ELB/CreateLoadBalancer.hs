@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ELB.CreateLoadBalancer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,10 +42,10 @@ module Amazonka.ELB.CreateLoadBalancer
     newCreateLoadBalancer,
 
     -- * Request Lenses
-    createLoadBalancer_securityGroups,
-    createLoadBalancer_subnets,
     createLoadBalancer_availabilityZones,
     createLoadBalancer_scheme,
+    createLoadBalancer_securityGroups,
+    createLoadBalancer_subnets,
     createLoadBalancer_tags,
     createLoadBalancer_loadBalancerName,
     createLoadBalancer_listeners,
@@ -61,8 +61,9 @@ module Amazonka.ELB.CreateLoadBalancer
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -71,13 +72,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCreateLoadBalancer' smart constructor.
 data CreateLoadBalancer = CreateLoadBalancer'
-  { -- | The IDs of the security groups to assign to the load balancer.
-    securityGroups :: Prelude.Maybe [Prelude.Text],
-    -- | The IDs of the subnets in your VPC to attach to the load balancer.
-    -- Specify one subnet per Availability Zone specified in
-    -- @AvailabilityZones@.
-    subnets :: Prelude.Maybe [Prelude.Text],
-    -- | One or more Availability Zones from the same region as the load
+  { -- | One or more Availability Zones from the same region as the load
     -- balancer.
     --
     -- You must specify at least one Availability Zone.
@@ -96,6 +91,12 @@ data CreateLoadBalancer = CreateLoadBalancer'
     -- Specify @internal@ to create a load balancer with a DNS name that
     -- resolves to private IP addresses.
     scheme :: Prelude.Maybe Prelude.Text,
+    -- | The IDs of the security groups to assign to the load balancer.
+    securityGroups :: Prelude.Maybe [Prelude.Text],
+    -- | The IDs of the subnets in your VPC to attach to the load balancer.
+    -- Specify one subnet per Availability Zone specified in
+    -- @AvailabilityZones@.
+    subnets :: Prelude.Maybe [Prelude.Text],
     -- | A list of tags to assign to the load balancer.
     --
     -- For more information about tagging your load balancer, see
@@ -126,12 +127,6 @@ data CreateLoadBalancer = CreateLoadBalancer'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'securityGroups', 'createLoadBalancer_securityGroups' - The IDs of the security groups to assign to the load balancer.
---
--- 'subnets', 'createLoadBalancer_subnets' - The IDs of the subnets in your VPC to attach to the load balancer.
--- Specify one subnet per Availability Zone specified in
--- @AvailabilityZones@.
---
 -- 'availabilityZones', 'createLoadBalancer_availabilityZones' - One or more Availability Zones from the same region as the load
 -- balancer.
 --
@@ -150,6 +145,12 @@ data CreateLoadBalancer = CreateLoadBalancer'
 --
 -- Specify @internal@ to create a load balancer with a DNS name that
 -- resolves to private IP addresses.
+--
+-- 'securityGroups', 'createLoadBalancer_securityGroups' - The IDs of the security groups to assign to the load balancer.
+--
+-- 'subnets', 'createLoadBalancer_subnets' - The IDs of the subnets in your VPC to attach to the load balancer.
+-- Specify one subnet per Availability Zone specified in
+-- @AvailabilityZones@.
 --
 -- 'tags', 'createLoadBalancer_tags' - A list of tags to assign to the load balancer.
 --
@@ -175,25 +176,15 @@ newCreateLoadBalancer ::
   CreateLoadBalancer
 newCreateLoadBalancer pLoadBalancerName_ =
   CreateLoadBalancer'
-    { securityGroups =
+    { availabilityZones =
         Prelude.Nothing,
-      subnets = Prelude.Nothing,
-      availabilityZones = Prelude.Nothing,
       scheme = Prelude.Nothing,
+      securityGroups = Prelude.Nothing,
+      subnets = Prelude.Nothing,
       tags = Prelude.Nothing,
       loadBalancerName = pLoadBalancerName_,
       listeners = Prelude.mempty
     }
-
--- | The IDs of the security groups to assign to the load balancer.
-createLoadBalancer_securityGroups :: Lens.Lens' CreateLoadBalancer (Prelude.Maybe [Prelude.Text])
-createLoadBalancer_securityGroups = Lens.lens (\CreateLoadBalancer' {securityGroups} -> securityGroups) (\s@CreateLoadBalancer' {} a -> s {securityGroups = a} :: CreateLoadBalancer) Prelude.. Lens.mapping Lens.coerced
-
--- | The IDs of the subnets in your VPC to attach to the load balancer.
--- Specify one subnet per Availability Zone specified in
--- @AvailabilityZones@.
-createLoadBalancer_subnets :: Lens.Lens' CreateLoadBalancer (Prelude.Maybe [Prelude.Text])
-createLoadBalancer_subnets = Lens.lens (\CreateLoadBalancer' {subnets} -> subnets) (\s@CreateLoadBalancer' {} a -> s {subnets = a} :: CreateLoadBalancer) Prelude.. Lens.mapping Lens.coerced
 
 -- | One or more Availability Zones from the same region as the load
 -- balancer.
@@ -217,6 +208,16 @@ createLoadBalancer_availabilityZones = Lens.lens (\CreateLoadBalancer' {availabi
 -- resolves to private IP addresses.
 createLoadBalancer_scheme :: Lens.Lens' CreateLoadBalancer (Prelude.Maybe Prelude.Text)
 createLoadBalancer_scheme = Lens.lens (\CreateLoadBalancer' {scheme} -> scheme) (\s@CreateLoadBalancer' {} a -> s {scheme = a} :: CreateLoadBalancer)
+
+-- | The IDs of the security groups to assign to the load balancer.
+createLoadBalancer_securityGroups :: Lens.Lens' CreateLoadBalancer (Prelude.Maybe [Prelude.Text])
+createLoadBalancer_securityGroups = Lens.lens (\CreateLoadBalancer' {securityGroups} -> securityGroups) (\s@CreateLoadBalancer' {} a -> s {securityGroups = a} :: CreateLoadBalancer) Prelude.. Lens.mapping Lens.coerced
+
+-- | The IDs of the subnets in your VPC to attach to the load balancer.
+-- Specify one subnet per Availability Zone specified in
+-- @AvailabilityZones@.
+createLoadBalancer_subnets :: Lens.Lens' CreateLoadBalancer (Prelude.Maybe [Prelude.Text])
+createLoadBalancer_subnets = Lens.lens (\CreateLoadBalancer' {subnets} -> subnets) (\s@CreateLoadBalancer' {} a -> s {subnets = a} :: CreateLoadBalancer) Prelude.. Lens.mapping Lens.coerced
 
 -- | A list of tags to assign to the load balancer.
 --
@@ -247,69 +248,70 @@ instance Core.AWSRequest CreateLoadBalancer where
   type
     AWSResponse CreateLoadBalancer =
       CreateLoadBalancerResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateLoadBalancerResult"
       ( \s h x ->
           CreateLoadBalancerResponse'
-            Prelude.<$> (x Core..@? "DNSName")
+            Prelude.<$> (x Data..@? "DNSName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateLoadBalancer where
   hashWithSalt _salt CreateLoadBalancer' {..} =
-    _salt `Prelude.hashWithSalt` securityGroups
-      `Prelude.hashWithSalt` subnets
-      `Prelude.hashWithSalt` availabilityZones
+    _salt `Prelude.hashWithSalt` availabilityZones
       `Prelude.hashWithSalt` scheme
+      `Prelude.hashWithSalt` securityGroups
+      `Prelude.hashWithSalt` subnets
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` loadBalancerName
       `Prelude.hashWithSalt` listeners
 
 instance Prelude.NFData CreateLoadBalancer where
   rnf CreateLoadBalancer' {..} =
-    Prelude.rnf securityGroups
-      `Prelude.seq` Prelude.rnf subnets
-      `Prelude.seq` Prelude.rnf availabilityZones
+    Prelude.rnf availabilityZones
       `Prelude.seq` Prelude.rnf scheme
+      `Prelude.seq` Prelude.rnf securityGroups
+      `Prelude.seq` Prelude.rnf subnets
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf loadBalancerName
       `Prelude.seq` Prelude.rnf listeners
 
-instance Core.ToHeaders CreateLoadBalancer where
+instance Data.ToHeaders CreateLoadBalancer where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateLoadBalancer where
+instance Data.ToPath CreateLoadBalancer where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateLoadBalancer where
+instance Data.ToQuery CreateLoadBalancer where
   toQuery CreateLoadBalancer' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateLoadBalancer" :: Prelude.ByteString),
+          Data.=: ("CreateLoadBalancer" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-06-01" :: Prelude.ByteString),
+          Data.=: ("2012-06-01" :: Prelude.ByteString),
+        "AvailabilityZones"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
+                Prelude.<$> availabilityZones
+            ),
+        "Scheme" Data.=: scheme,
         "SecurityGroups"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> securityGroups
             ),
         "Subnets"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> subnets),
-        "AvailabilityZones"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
-                Prelude.<$> availabilityZones
-            ),
-        "Scheme" Core.=: scheme,
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> subnets),
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> tags),
-        "LoadBalancerName" Core.=: loadBalancerName,
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> tags),
+        "LoadBalancerName" Data.=: loadBalancerName,
         "Listeners"
-          Core.=: Core.toQueryList "member" listeners
+          Data.=: Data.toQueryList "member" listeners
       ]
 
 -- | Contains the output for CreateLoadBalancer.

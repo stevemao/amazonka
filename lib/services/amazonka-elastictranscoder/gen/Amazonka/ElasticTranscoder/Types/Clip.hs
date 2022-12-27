@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticTranscoder.Types.Clip
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ElasticTranscoder.Types.Clip where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticTranscoder.Types.TimeSpan
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Settings for one clip in a composition. All jobs in a playlist must have
@@ -51,11 +52,11 @@ newClip = Clip' {timeSpan = Prelude.Nothing}
 clip_timeSpan :: Lens.Lens' Clip (Prelude.Maybe TimeSpan)
 clip_timeSpan = Lens.lens (\Clip' {timeSpan} -> timeSpan) (\s@Clip' {} a -> s {timeSpan = a} :: Clip)
 
-instance Core.FromJSON Clip where
+instance Data.FromJSON Clip where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Clip"
-      (\x -> Clip' Prelude.<$> (x Core..:? "TimeSpan"))
+      (\x -> Clip' Prelude.<$> (x Data..:? "TimeSpan"))
 
 instance Prelude.Hashable Clip where
   hashWithSalt _salt Clip' {..} =
@@ -64,9 +65,9 @@ instance Prelude.Hashable Clip where
 instance Prelude.NFData Clip where
   rnf Clip' {..} = Prelude.rnf timeSpan
 
-instance Core.ToJSON Clip where
+instance Data.ToJSON Clip where
   toJSON Clip' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("TimeSpan" Core..=) Prelude.<$> timeSpan]
+          [("TimeSpan" Data..=) Prelude.<$> timeSpan]
       )

@@ -14,17 +14,17 @@
 
 -- |
 -- Module      : Amazonka.AppConfig.CreateEnvironment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- For each application, you define one or more environments. An
--- environment is a logical deployment group of AppConfig targets, such as
--- applications in a @Beta@ or @Production@ environment. You can also
--- define environments for application subcomponents such as the @Web@,
--- @Mobile@ and @Back-end@ components for your application. You can
+-- Creates an environment. For each application, you define one or more
+-- environments. An environment is a deployment group of AppConfig targets,
+-- such as applications in a @Beta@ or @Production@ environment. You can
+-- also define environments for application subcomponents such as the
+-- @Web@, @Mobile@ and @Back-end@ components for your application. You can
 -- configure Amazon CloudWatch alarms for each environment. The system
 -- monitors alarms during a configuration deployment. If an alarm is
 -- triggered, the system rolls back the configuration.
@@ -34,8 +34,8 @@ module Amazonka.AppConfig.CreateEnvironment
     newCreateEnvironment,
 
     -- * Request Lenses
-    createEnvironment_monitors,
     createEnvironment_description,
+    createEnvironment_monitors,
     createEnvironment_tags,
     createEnvironment_applicationId,
     createEnvironment_name,
@@ -45,28 +45,29 @@ module Amazonka.AppConfig.CreateEnvironment
     newEnvironment,
 
     -- * Response Lenses
-    environment_state,
-    environment_monitors,
     environment_applicationId,
-    environment_name,
-    environment_id,
     environment_description,
+    environment_id,
+    environment_monitors,
+    environment_name,
+    environment_state,
   )
 where
 
 import Amazonka.AppConfig.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateEnvironment' smart constructor.
 data CreateEnvironment = CreateEnvironment'
-  { -- | Amazon CloudWatch alarms to monitor during the deployment process.
-    monitors :: Prelude.Maybe [Monitor],
-    -- | A description of the environment.
+  { -- | A description of the environment.
     description :: Prelude.Maybe Prelude.Text,
+    -- | Amazon CloudWatch alarms to monitor during the deployment process.
+    monitors :: Prelude.Maybe [Monitor],
     -- | Metadata to assign to the environment. Tags help organize and categorize
     -- your AppConfig resources. Each tag consists of a key and an optional
     -- value, both of which you define.
@@ -86,9 +87,9 @@ data CreateEnvironment = CreateEnvironment'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'monitors', 'createEnvironment_monitors' - Amazon CloudWatch alarms to monitor during the deployment process.
---
 -- 'description', 'createEnvironment_description' - A description of the environment.
+--
+-- 'monitors', 'createEnvironment_monitors' - Amazon CloudWatch alarms to monitor during the deployment process.
 --
 -- 'tags', 'createEnvironment_tags' - Metadata to assign to the environment. Tags help organize and categorize
 -- your AppConfig resources. Each tag consists of a key and an optional
@@ -105,20 +106,20 @@ newCreateEnvironment ::
   CreateEnvironment
 newCreateEnvironment pApplicationId_ pName_ =
   CreateEnvironment'
-    { monitors = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      monitors = Prelude.Nothing,
       tags = Prelude.Nothing,
       applicationId = pApplicationId_,
       name = pName_
     }
 
--- | Amazon CloudWatch alarms to monitor during the deployment process.
-createEnvironment_monitors :: Lens.Lens' CreateEnvironment (Prelude.Maybe [Monitor])
-createEnvironment_monitors = Lens.lens (\CreateEnvironment' {monitors} -> monitors) (\s@CreateEnvironment' {} a -> s {monitors = a} :: CreateEnvironment) Prelude.. Lens.mapping Lens.coerced
-
 -- | A description of the environment.
 createEnvironment_description :: Lens.Lens' CreateEnvironment (Prelude.Maybe Prelude.Text)
 createEnvironment_description = Lens.lens (\CreateEnvironment' {description} -> description) (\s@CreateEnvironment' {} a -> s {description = a} :: CreateEnvironment)
+
+-- | Amazon CloudWatch alarms to monitor during the deployment process.
+createEnvironment_monitors :: Lens.Lens' CreateEnvironment (Prelude.Maybe [Monitor])
+createEnvironment_monitors = Lens.lens (\CreateEnvironment' {monitors} -> monitors) (\s@CreateEnvironment' {} a -> s {monitors = a} :: CreateEnvironment) Prelude.. Lens.mapping Lens.coerced
 
 -- | Metadata to assign to the environment. Tags help organize and categorize
 -- your AppConfig resources. Each tag consists of a key and an optional
@@ -136,56 +137,57 @@ createEnvironment_name = Lens.lens (\CreateEnvironment' {name} -> name) (\s@Crea
 
 instance Core.AWSRequest CreateEnvironment where
   type AWSResponse CreateEnvironment = Environment
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable CreateEnvironment where
   hashWithSalt _salt CreateEnvironment' {..} =
-    _salt `Prelude.hashWithSalt` monitors
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` monitors
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` applicationId
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData CreateEnvironment where
   rnf CreateEnvironment' {..} =
-    Prelude.rnf monitors
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf monitors
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf applicationId
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreateEnvironment where
+instance Data.ToHeaders CreateEnvironment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateEnvironment where
+instance Data.ToJSON CreateEnvironment where
   toJSON CreateEnvironment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Monitors" Core..=) Prelude.<$> monitors,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Monitors" Data..=) Prelude.<$> monitors,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateEnvironment where
+instance Data.ToPath CreateEnvironment where
   toPath CreateEnvironment' {..} =
     Prelude.mconcat
       [ "/applications/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/environments"
       ]
 
-instance Core.ToQuery CreateEnvironment where
+instance Data.ToQuery CreateEnvironment where
   toQuery = Prelude.const Prelude.mempty

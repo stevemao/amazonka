@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.DeleteScheduledAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,7 +36,8 @@ module Amazonka.Redshift.DeleteScheduledAction
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteScheduledAction where
   type
     AWSResponse DeleteScheduledAction =
       DeleteScheduledActionResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull DeleteScheduledActionResponse'
 
@@ -88,20 +90,20 @@ instance Prelude.NFData DeleteScheduledAction where
   rnf DeleteScheduledAction' {..} =
     Prelude.rnf scheduledActionName
 
-instance Core.ToHeaders DeleteScheduledAction where
+instance Data.ToHeaders DeleteScheduledAction where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteScheduledAction where
+instance Data.ToPath DeleteScheduledAction where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteScheduledAction where
+instance Data.ToQuery DeleteScheduledAction where
   toQuery DeleteScheduledAction' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteScheduledAction" :: Prelude.ByteString),
+          Data.=: ("DeleteScheduledAction" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "ScheduledActionName" Core.=: scheduledActionName
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "ScheduledActionName" Data.=: scheduledActionName
       ]
 
 -- | /See:/ 'newDeleteScheduledActionResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Amplify.StartJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,10 +28,10 @@ module Amazonka.Amplify.StartJob
 
     -- * Request Lenses
     startJob_commitId,
+    startJob_commitMessage,
+    startJob_commitTime,
     startJob_jobId,
     startJob_jobReason,
-    startJob_commitTime,
-    startJob_commitMessage,
     startJob_appId,
     startJob_branchName,
     startJob_jobType,
@@ -48,7 +48,8 @@ where
 
 import Amazonka.Amplify.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,15 +60,15 @@ import qualified Amazonka.Response as Response
 data StartJob = StartJob'
   { -- | The commit ID from a third-party repository provider for the job.
     commitId :: Prelude.Maybe Prelude.Text,
+    -- | The commit message from a third-party repository provider for the job.
+    commitMessage :: Prelude.Maybe Prelude.Text,
+    -- | The commit date and time for the job.
+    commitTime :: Prelude.Maybe Data.POSIX,
     -- | The unique ID for an existing job. This is required if the value of
     -- @jobType@ is @RETRY@.
     jobId :: Prelude.Maybe Prelude.Text,
     -- | A descriptive reason for starting this job.
     jobReason :: Prelude.Maybe Prelude.Text,
-    -- | The commit date and time for the job.
-    commitTime :: Prelude.Maybe Core.POSIX,
-    -- | The commit message from a third-party repository provider for the job.
-    commitMessage :: Prelude.Maybe Prelude.Text,
     -- | The unique ID for an Amplify app.
     appId :: Prelude.Text,
     -- | The branch name for the job.
@@ -91,14 +92,14 @@ data StartJob = StartJob'
 --
 -- 'commitId', 'startJob_commitId' - The commit ID from a third-party repository provider for the job.
 --
+-- 'commitMessage', 'startJob_commitMessage' - The commit message from a third-party repository provider for the job.
+--
+-- 'commitTime', 'startJob_commitTime' - The commit date and time for the job.
+--
 -- 'jobId', 'startJob_jobId' - The unique ID for an existing job. This is required if the value of
 -- @jobType@ is @RETRY@.
 --
 -- 'jobReason', 'startJob_jobReason' - A descriptive reason for starting this job.
---
--- 'commitTime', 'startJob_commitTime' - The commit date and time for the job.
---
--- 'commitMessage', 'startJob_commitMessage' - The commit message from a third-party repository provider for the job.
 --
 -- 'appId', 'startJob_appId' - The unique ID for an Amplify app.
 --
@@ -120,10 +121,10 @@ newStartJob ::
 newStartJob pAppId_ pBranchName_ pJobType_ =
   StartJob'
     { commitId = Prelude.Nothing,
+      commitMessage = Prelude.Nothing,
+      commitTime = Prelude.Nothing,
       jobId = Prelude.Nothing,
       jobReason = Prelude.Nothing,
-      commitTime = Prelude.Nothing,
-      commitMessage = Prelude.Nothing,
       appId = pAppId_,
       branchName = pBranchName_,
       jobType = pJobType_
@@ -133,6 +134,14 @@ newStartJob pAppId_ pBranchName_ pJobType_ =
 startJob_commitId :: Lens.Lens' StartJob (Prelude.Maybe Prelude.Text)
 startJob_commitId = Lens.lens (\StartJob' {commitId} -> commitId) (\s@StartJob' {} a -> s {commitId = a} :: StartJob)
 
+-- | The commit message from a third-party repository provider for the job.
+startJob_commitMessage :: Lens.Lens' StartJob (Prelude.Maybe Prelude.Text)
+startJob_commitMessage = Lens.lens (\StartJob' {commitMessage} -> commitMessage) (\s@StartJob' {} a -> s {commitMessage = a} :: StartJob)
+
+-- | The commit date and time for the job.
+startJob_commitTime :: Lens.Lens' StartJob (Prelude.Maybe Prelude.UTCTime)
+startJob_commitTime = Lens.lens (\StartJob' {commitTime} -> commitTime) (\s@StartJob' {} a -> s {commitTime = a} :: StartJob) Prelude.. Lens.mapping Data._Time
+
 -- | The unique ID for an existing job. This is required if the value of
 -- @jobType@ is @RETRY@.
 startJob_jobId :: Lens.Lens' StartJob (Prelude.Maybe Prelude.Text)
@@ -141,14 +150,6 @@ startJob_jobId = Lens.lens (\StartJob' {jobId} -> jobId) (\s@StartJob' {} a -> s
 -- | A descriptive reason for starting this job.
 startJob_jobReason :: Lens.Lens' StartJob (Prelude.Maybe Prelude.Text)
 startJob_jobReason = Lens.lens (\StartJob' {jobReason} -> jobReason) (\s@StartJob' {} a -> s {jobReason = a} :: StartJob)
-
--- | The commit date and time for the job.
-startJob_commitTime :: Lens.Lens' StartJob (Prelude.Maybe Prelude.UTCTime)
-startJob_commitTime = Lens.lens (\StartJob' {commitTime} -> commitTime) (\s@StartJob' {} a -> s {commitTime = a} :: StartJob) Prelude.. Lens.mapping Core._Time
-
--- | The commit message from a third-party repository provider for the job.
-startJob_commitMessage :: Lens.Lens' StartJob (Prelude.Maybe Prelude.Text)
-startJob_commitMessage = Lens.lens (\StartJob' {commitMessage} -> commitMessage) (\s@StartJob' {} a -> s {commitMessage = a} :: StartJob)
 
 -- | The unique ID for an Amplify app.
 startJob_appId :: Lens.Lens' StartJob Prelude.Text
@@ -168,22 +169,23 @@ startJob_jobType = Lens.lens (\StartJob' {jobType} -> jobType) (\s@StartJob' {} 
 
 instance Core.AWSRequest StartJob where
   type AWSResponse StartJob = StartJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartJobResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "jobSummary")
+            Prelude.<*> (x Data..:> "jobSummary")
       )
 
 instance Prelude.Hashable StartJob where
   hashWithSalt _salt StartJob' {..} =
     _salt `Prelude.hashWithSalt` commitId
+      `Prelude.hashWithSalt` commitMessage
+      `Prelude.hashWithSalt` commitTime
       `Prelude.hashWithSalt` jobId
       `Prelude.hashWithSalt` jobReason
-      `Prelude.hashWithSalt` commitTime
-      `Prelude.hashWithSalt` commitMessage
       `Prelude.hashWithSalt` appId
       `Prelude.hashWithSalt` branchName
       `Prelude.hashWithSalt` jobType
@@ -191,49 +193,49 @@ instance Prelude.Hashable StartJob where
 instance Prelude.NFData StartJob where
   rnf StartJob' {..} =
     Prelude.rnf commitId
+      `Prelude.seq` Prelude.rnf commitMessage
+      `Prelude.seq` Prelude.rnf commitTime
       `Prelude.seq` Prelude.rnf jobId
       `Prelude.seq` Prelude.rnf jobReason
-      `Prelude.seq` Prelude.rnf commitTime
-      `Prelude.seq` Prelude.rnf commitMessage
       `Prelude.seq` Prelude.rnf appId
       `Prelude.seq` Prelude.rnf branchName
       `Prelude.seq` Prelude.rnf jobType
 
-instance Core.ToHeaders StartJob where
+instance Data.ToHeaders StartJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartJob where
+instance Data.ToJSON StartJob where
   toJSON StartJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("commitId" Core..=) Prelude.<$> commitId,
-            ("jobId" Core..=) Prelude.<$> jobId,
-            ("jobReason" Core..=) Prelude.<$> jobReason,
-            ("commitTime" Core..=) Prelude.<$> commitTime,
-            ("commitMessage" Core..=) Prelude.<$> commitMessage,
-            Prelude.Just ("jobType" Core..= jobType)
+          [ ("commitId" Data..=) Prelude.<$> commitId,
+            ("commitMessage" Data..=) Prelude.<$> commitMessage,
+            ("commitTime" Data..=) Prelude.<$> commitTime,
+            ("jobId" Data..=) Prelude.<$> jobId,
+            ("jobReason" Data..=) Prelude.<$> jobReason,
+            Prelude.Just ("jobType" Data..= jobType)
           ]
       )
 
-instance Core.ToPath StartJob where
+instance Data.ToPath StartJob where
   toPath StartJob' {..} =
     Prelude.mconcat
       [ "/apps/",
-        Core.toBS appId,
+        Data.toBS appId,
         "/branches/",
-        Core.toBS branchName,
+        Data.toBS branchName,
         "/jobs"
       ]
 
-instance Core.ToQuery StartJob where
+instance Data.ToQuery StartJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The result structure for the run job request.

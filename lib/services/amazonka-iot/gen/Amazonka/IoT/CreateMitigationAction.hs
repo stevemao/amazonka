@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.CreateMitigationAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,15 +46,16 @@ module Amazonka.IoT.CreateMitigationAction
     newCreateMitigationActionResponse,
 
     -- * Response Lenses
-    createMitigationActionResponse_actionId,
     createMitigationActionResponse_actionArn,
+    createMitigationActionResponse_actionId,
     createMitigationActionResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -129,13 +130,14 @@ instance Core.AWSRequest CreateMitigationAction where
   type
     AWSResponse CreateMitigationAction =
       CreateMitigationActionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateMitigationActionResponse'
-            Prelude.<$> (x Core..?> "actionId")
-            Prelude.<*> (x Core..?> "actionArn")
+            Prelude.<$> (x Data..?> "actionArn")
+            Prelude.<*> (x Data..?> "actionId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -153,33 +155,33 @@ instance Prelude.NFData CreateMitigationAction where
       `Prelude.seq` Prelude.rnf roleArn
       `Prelude.seq` Prelude.rnf actionParams
 
-instance Core.ToHeaders CreateMitigationAction where
+instance Data.ToHeaders CreateMitigationAction where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateMitigationAction where
+instance Data.ToJSON CreateMitigationAction where
   toJSON CreateMitigationAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("roleArn" Core..= roleArn),
-            Prelude.Just ("actionParams" Core..= actionParams)
+          [ ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("roleArn" Data..= roleArn),
+            Prelude.Just ("actionParams" Data..= actionParams)
           ]
       )
 
-instance Core.ToPath CreateMitigationAction where
+instance Data.ToPath CreateMitigationAction where
   toPath CreateMitigationAction' {..} =
     Prelude.mconcat
-      ["/mitigationactions/actions/", Core.toBS actionName]
+      ["/mitigationactions/actions/", Data.toBS actionName]
 
-instance Core.ToQuery CreateMitigationAction where
+instance Data.ToQuery CreateMitigationAction where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateMitigationActionResponse' smart constructor.
 data CreateMitigationActionResponse = CreateMitigationActionResponse'
-  { -- | A unique identifier for the new mitigation action.
-    actionId :: Prelude.Maybe Prelude.Text,
-    -- | The ARN for the new mitigation action.
+  { -- | The ARN for the new mitigation action.
     actionArn :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for the new mitigation action.
+    actionId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -193,9 +195,9 @@ data CreateMitigationActionResponse = CreateMitigationActionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'actionId', 'createMitigationActionResponse_actionId' - A unique identifier for the new mitigation action.
---
 -- 'actionArn', 'createMitigationActionResponse_actionArn' - The ARN for the new mitigation action.
+--
+-- 'actionId', 'createMitigationActionResponse_actionId' - A unique identifier for the new mitigation action.
 --
 -- 'httpStatus', 'createMitigationActionResponse_httpStatus' - The response's http status code.
 newCreateMitigationActionResponse ::
@@ -204,19 +206,19 @@ newCreateMitigationActionResponse ::
   CreateMitigationActionResponse
 newCreateMitigationActionResponse pHttpStatus_ =
   CreateMitigationActionResponse'
-    { actionId =
+    { actionArn =
         Prelude.Nothing,
-      actionArn = Prelude.Nothing,
+      actionId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A unique identifier for the new mitigation action.
-createMitigationActionResponse_actionId :: Lens.Lens' CreateMitigationActionResponse (Prelude.Maybe Prelude.Text)
-createMitigationActionResponse_actionId = Lens.lens (\CreateMitigationActionResponse' {actionId} -> actionId) (\s@CreateMitigationActionResponse' {} a -> s {actionId = a} :: CreateMitigationActionResponse)
 
 -- | The ARN for the new mitigation action.
 createMitigationActionResponse_actionArn :: Lens.Lens' CreateMitigationActionResponse (Prelude.Maybe Prelude.Text)
 createMitigationActionResponse_actionArn = Lens.lens (\CreateMitigationActionResponse' {actionArn} -> actionArn) (\s@CreateMitigationActionResponse' {} a -> s {actionArn = a} :: CreateMitigationActionResponse)
+
+-- | A unique identifier for the new mitigation action.
+createMitigationActionResponse_actionId :: Lens.Lens' CreateMitigationActionResponse (Prelude.Maybe Prelude.Text)
+createMitigationActionResponse_actionId = Lens.lens (\CreateMitigationActionResponse' {actionId} -> actionId) (\s@CreateMitigationActionResponse' {} a -> s {actionId = a} :: CreateMitigationActionResponse)
 
 -- | The response's http status code.
 createMitigationActionResponse_httpStatus :: Lens.Lens' CreateMitigationActionResponse Prelude.Int
@@ -227,6 +229,6 @@ instance
     CreateMitigationActionResponse
   where
   rnf CreateMitigationActionResponse' {..} =
-    Prelude.rnf actionId
-      `Prelude.seq` Prelude.rnf actionArn
+    Prelude.rnf actionArn
+      `Prelude.seq` Prelude.rnf actionId
       `Prelude.seq` Prelude.rnf httpStatus

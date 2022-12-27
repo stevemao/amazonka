@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.HealthLake.Types.KmsEncryptionConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.HealthLake.Types.KmsEncryptionConfig where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.HealthLake.Types.CmkType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The customer-managed-key(CMK) used when creating a Data Store. If a
@@ -72,14 +73,14 @@ kmsEncryptionConfig_kmsKeyId = Lens.lens (\KmsEncryptionConfig' {kmsKeyId} -> km
 kmsEncryptionConfig_cmkType :: Lens.Lens' KmsEncryptionConfig CmkType
 kmsEncryptionConfig_cmkType = Lens.lens (\KmsEncryptionConfig' {cmkType} -> cmkType) (\s@KmsEncryptionConfig' {} a -> s {cmkType = a} :: KmsEncryptionConfig)
 
-instance Core.FromJSON KmsEncryptionConfig where
+instance Data.FromJSON KmsEncryptionConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "KmsEncryptionConfig"
       ( \x ->
           KmsEncryptionConfig'
-            Prelude.<$> (x Core..:? "KmsKeyId")
-            Prelude.<*> (x Core..: "CmkType")
+            Prelude.<$> (x Data..:? "KmsKeyId")
+            Prelude.<*> (x Data..: "CmkType")
       )
 
 instance Prelude.Hashable KmsEncryptionConfig where
@@ -92,11 +93,11 @@ instance Prelude.NFData KmsEncryptionConfig where
     Prelude.rnf kmsKeyId
       `Prelude.seq` Prelude.rnf cmkType
 
-instance Core.ToJSON KmsEncryptionConfig where
+instance Data.ToJSON KmsEncryptionConfig where
   toJSON KmsEncryptionConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("KmsKeyId" Core..=) Prelude.<$> kmsKeyId,
-            Prelude.Just ("CmkType" Core..= cmkType)
+          [ ("KmsKeyId" Data..=) Prelude.<$> kmsKeyId,
+            Prelude.Just ("CmkType" Data..= cmkType)
           ]
       )

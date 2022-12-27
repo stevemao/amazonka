@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Batch.Types.LogConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.Batch.Types.LogConfiguration where
 import Amazonka.Batch.Types.LogDriver
 import Amazonka.Batch.Types.Secret
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Log configuration options to send to a custom log driver for the
@@ -33,16 +34,16 @@ data LogConfiguration = LogConfiguration'
   { -- | The configuration options to send to the log driver. This parameter
     -- requires version 1.19 of the Docker Remote API or greater on your
     -- container instance. To check the Docker Remote API version on your
-    -- container instance, log into your container instance and run the
+    -- container instance, log in to your container instance and run the
     -- following command: @sudo docker version | grep \"Server API version\"@
     options :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The secrets to pass to the log configuration. For more information, see
-    -- <https://docs.aws.amazon.com/batch/latest/userguide/specifying-sensitive-data.html Specifying Sensitive Data>
+    -- <https://docs.aws.amazon.com/batch/latest/userguide/specifying-sensitive-data.html Specifying sensitive data>
     -- in the /Batch User Guide/.
     secretOptions :: Prelude.Maybe [Secret],
-    -- | The log driver to use for the container. The valid values listed for
-    -- this parameter are log drivers that the Amazon ECS container agent can
-    -- communicate with by default.
+    -- | The log driver to use for the container. The valid values that are
+    -- listed for this parameter are log drivers that the Amazon ECS container
+    -- agent can communicate with by default.
     --
     -- The supported log drivers are @awslogs@, @fluentd@, @gelf@, @json-file@,
     -- @journald@, @logentries@, @syslog@, and @splunk@.
@@ -53,46 +54,46 @@ data LogConfiguration = LogConfiguration'
     -- [awslogs]
     --     Specifies the Amazon CloudWatch Logs logging driver. For more
     --     information, see
-    --     <https://docs.aws.amazon.com/batch/latest/userguide/using_awslogs.html Using the awslogs Log Driver>
+    --     <https://docs.aws.amazon.com/batch/latest/userguide/using_awslogs.html Using the awslogs log driver>
     --     in the /Batch User Guide/ and
     --     <https://docs.docker.com/config/containers/logging/awslogs/ Amazon CloudWatch Logs logging driver>
     --     in the Docker documentation.
     --
     -- [fluentd]
-    --     Specifies the Fluentd logging driver. For more information,
-    --     including usage and options, see
+    --     Specifies the Fluentd logging driver. For more information including
+    --     usage and options, see
     --     <https://docs.docker.com/config/containers/logging/fluentd/ Fluentd logging driver>
-    --     in the Docker documentation.
+    --     in the /Docker documentation/.
     --
     -- [gelf]
     --     Specifies the Graylog Extended Format (GELF) logging driver. For
-    --     more information, including usage and options, see
+    --     more information including usage and options, see
     --     <https://docs.docker.com/config/containers/logging/gelf/ Graylog Extended Format logging driver>
-    --     in the Docker documentation.
+    --     in the /Docker documentation/.
     --
     -- [journald]
-    --     Specifies the journald logging driver. For more information,
+    --     Specifies the journald logging driver. For more information
     --     including usage and options, see
     --     <https://docs.docker.com/config/containers/logging/journald/ Journald logging driver>
-    --     in the Docker documentation.
+    --     in the /Docker documentation/.
     --
     -- [json-file]
-    --     Specifies the JSON file logging driver. For more information,
+    --     Specifies the JSON file logging driver. For more information
     --     including usage and options, see
     --     <https://docs.docker.com/config/containers/logging/json-file/ JSON File logging driver>
-    --     in the Docker documentation.
+    --     in the /Docker documentation/.
     --
     -- [splunk]
-    --     Specifies the Splunk logging driver. For more information, including
+    --     Specifies the Splunk logging driver. For more information including
     --     usage and options, see
     --     <https://docs.docker.com/config/containers/logging/splunk/ Splunk logging driver>
-    --     in the Docker documentation.
+    --     in the /Docker documentation/.
     --
     -- [syslog]
-    --     Specifies the syslog logging driver. For more information, including
+    --     Specifies the syslog logging driver. For more information including
     --     usage and options, see
     --     <https://docs.docker.com/config/containers/logging/syslog/ Syslog logging driver>
-    --     in the Docker documentation.
+    --     in the /Docker documentation/.
     --
     -- If you have a custom driver that\'s not listed earlier that you want to
     -- work with the Amazon ECS container agent, you can fork the Amazon ECS
@@ -105,7 +106,7 @@ data LogConfiguration = LogConfiguration'
     --
     -- This parameter requires version 1.18 of the Docker Remote API or greater
     -- on your container instance. To check the Docker Remote API version on
-    -- your container instance, log into your container instance and run the
+    -- your container instance, log in to your container instance and run the
     -- following command: @sudo docker version | grep \"Server API version\"@
     logDriver :: LogDriver
   }
@@ -122,16 +123,16 @@ data LogConfiguration = LogConfiguration'
 -- 'options', 'logConfiguration_options' - The configuration options to send to the log driver. This parameter
 -- requires version 1.19 of the Docker Remote API or greater on your
 -- container instance. To check the Docker Remote API version on your
--- container instance, log into your container instance and run the
+-- container instance, log in to your container instance and run the
 -- following command: @sudo docker version | grep \"Server API version\"@
 --
 -- 'secretOptions', 'logConfiguration_secretOptions' - The secrets to pass to the log configuration. For more information, see
--- <https://docs.aws.amazon.com/batch/latest/userguide/specifying-sensitive-data.html Specifying Sensitive Data>
+-- <https://docs.aws.amazon.com/batch/latest/userguide/specifying-sensitive-data.html Specifying sensitive data>
 -- in the /Batch User Guide/.
 --
--- 'logDriver', 'logConfiguration_logDriver' - The log driver to use for the container. The valid values listed for
--- this parameter are log drivers that the Amazon ECS container agent can
--- communicate with by default.
+-- 'logDriver', 'logConfiguration_logDriver' - The log driver to use for the container. The valid values that are
+-- listed for this parameter are log drivers that the Amazon ECS container
+-- agent can communicate with by default.
 --
 -- The supported log drivers are @awslogs@, @fluentd@, @gelf@, @json-file@,
 -- @journald@, @logentries@, @syslog@, and @splunk@.
@@ -142,46 +143,46 @@ data LogConfiguration = LogConfiguration'
 -- [awslogs]
 --     Specifies the Amazon CloudWatch Logs logging driver. For more
 --     information, see
---     <https://docs.aws.amazon.com/batch/latest/userguide/using_awslogs.html Using the awslogs Log Driver>
+--     <https://docs.aws.amazon.com/batch/latest/userguide/using_awslogs.html Using the awslogs log driver>
 --     in the /Batch User Guide/ and
 --     <https://docs.docker.com/config/containers/logging/awslogs/ Amazon CloudWatch Logs logging driver>
 --     in the Docker documentation.
 --
 -- [fluentd]
---     Specifies the Fluentd logging driver. For more information,
---     including usage and options, see
+--     Specifies the Fluentd logging driver. For more information including
+--     usage and options, see
 --     <https://docs.docker.com/config/containers/logging/fluentd/ Fluentd logging driver>
---     in the Docker documentation.
+--     in the /Docker documentation/.
 --
 -- [gelf]
 --     Specifies the Graylog Extended Format (GELF) logging driver. For
---     more information, including usage and options, see
+--     more information including usage and options, see
 --     <https://docs.docker.com/config/containers/logging/gelf/ Graylog Extended Format logging driver>
---     in the Docker documentation.
+--     in the /Docker documentation/.
 --
 -- [journald]
---     Specifies the journald logging driver. For more information,
+--     Specifies the journald logging driver. For more information
 --     including usage and options, see
 --     <https://docs.docker.com/config/containers/logging/journald/ Journald logging driver>
---     in the Docker documentation.
+--     in the /Docker documentation/.
 --
 -- [json-file]
---     Specifies the JSON file logging driver. For more information,
+--     Specifies the JSON file logging driver. For more information
 --     including usage and options, see
 --     <https://docs.docker.com/config/containers/logging/json-file/ JSON File logging driver>
---     in the Docker documentation.
+--     in the /Docker documentation/.
 --
 -- [splunk]
---     Specifies the Splunk logging driver. For more information, including
+--     Specifies the Splunk logging driver. For more information including
 --     usage and options, see
 --     <https://docs.docker.com/config/containers/logging/splunk/ Splunk logging driver>
---     in the Docker documentation.
+--     in the /Docker documentation/.
 --
 -- [syslog]
---     Specifies the syslog logging driver. For more information, including
+--     Specifies the syslog logging driver. For more information including
 --     usage and options, see
 --     <https://docs.docker.com/config/containers/logging/syslog/ Syslog logging driver>
---     in the Docker documentation.
+--     in the /Docker documentation/.
 --
 -- If you have a custom driver that\'s not listed earlier that you want to
 -- work with the Amazon ECS container agent, you can fork the Amazon ECS
@@ -194,7 +195,7 @@ data LogConfiguration = LogConfiguration'
 --
 -- This parameter requires version 1.18 of the Docker Remote API or greater
 -- on your container instance. To check the Docker Remote API version on
--- your container instance, log into your container instance and run the
+-- your container instance, log in to your container instance and run the
 -- following command: @sudo docker version | grep \"Server API version\"@
 newLogConfiguration ::
   -- | 'logDriver'
@@ -210,20 +211,20 @@ newLogConfiguration pLogDriver_ =
 -- | The configuration options to send to the log driver. This parameter
 -- requires version 1.19 of the Docker Remote API or greater on your
 -- container instance. To check the Docker Remote API version on your
--- container instance, log into your container instance and run the
+-- container instance, log in to your container instance and run the
 -- following command: @sudo docker version | grep \"Server API version\"@
 logConfiguration_options :: Lens.Lens' LogConfiguration (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 logConfiguration_options = Lens.lens (\LogConfiguration' {options} -> options) (\s@LogConfiguration' {} a -> s {options = a} :: LogConfiguration) Prelude.. Lens.mapping Lens.coerced
 
 -- | The secrets to pass to the log configuration. For more information, see
--- <https://docs.aws.amazon.com/batch/latest/userguide/specifying-sensitive-data.html Specifying Sensitive Data>
+-- <https://docs.aws.amazon.com/batch/latest/userguide/specifying-sensitive-data.html Specifying sensitive data>
 -- in the /Batch User Guide/.
 logConfiguration_secretOptions :: Lens.Lens' LogConfiguration (Prelude.Maybe [Secret])
 logConfiguration_secretOptions = Lens.lens (\LogConfiguration' {secretOptions} -> secretOptions) (\s@LogConfiguration' {} a -> s {secretOptions = a} :: LogConfiguration) Prelude.. Lens.mapping Lens.coerced
 
--- | The log driver to use for the container. The valid values listed for
--- this parameter are log drivers that the Amazon ECS container agent can
--- communicate with by default.
+-- | The log driver to use for the container. The valid values that are
+-- listed for this parameter are log drivers that the Amazon ECS container
+-- agent can communicate with by default.
 --
 -- The supported log drivers are @awslogs@, @fluentd@, @gelf@, @json-file@,
 -- @journald@, @logentries@, @syslog@, and @splunk@.
@@ -234,46 +235,46 @@ logConfiguration_secretOptions = Lens.lens (\LogConfiguration' {secretOptions} -
 -- [awslogs]
 --     Specifies the Amazon CloudWatch Logs logging driver. For more
 --     information, see
---     <https://docs.aws.amazon.com/batch/latest/userguide/using_awslogs.html Using the awslogs Log Driver>
+--     <https://docs.aws.amazon.com/batch/latest/userguide/using_awslogs.html Using the awslogs log driver>
 --     in the /Batch User Guide/ and
 --     <https://docs.docker.com/config/containers/logging/awslogs/ Amazon CloudWatch Logs logging driver>
 --     in the Docker documentation.
 --
 -- [fluentd]
---     Specifies the Fluentd logging driver. For more information,
---     including usage and options, see
+--     Specifies the Fluentd logging driver. For more information including
+--     usage and options, see
 --     <https://docs.docker.com/config/containers/logging/fluentd/ Fluentd logging driver>
---     in the Docker documentation.
+--     in the /Docker documentation/.
 --
 -- [gelf]
 --     Specifies the Graylog Extended Format (GELF) logging driver. For
---     more information, including usage and options, see
+--     more information including usage and options, see
 --     <https://docs.docker.com/config/containers/logging/gelf/ Graylog Extended Format logging driver>
---     in the Docker documentation.
+--     in the /Docker documentation/.
 --
 -- [journald]
---     Specifies the journald logging driver. For more information,
+--     Specifies the journald logging driver. For more information
 --     including usage and options, see
 --     <https://docs.docker.com/config/containers/logging/journald/ Journald logging driver>
---     in the Docker documentation.
+--     in the /Docker documentation/.
 --
 -- [json-file]
---     Specifies the JSON file logging driver. For more information,
+--     Specifies the JSON file logging driver. For more information
 --     including usage and options, see
 --     <https://docs.docker.com/config/containers/logging/json-file/ JSON File logging driver>
---     in the Docker documentation.
+--     in the /Docker documentation/.
 --
 -- [splunk]
---     Specifies the Splunk logging driver. For more information, including
+--     Specifies the Splunk logging driver. For more information including
 --     usage and options, see
 --     <https://docs.docker.com/config/containers/logging/splunk/ Splunk logging driver>
---     in the Docker documentation.
+--     in the /Docker documentation/.
 --
 -- [syslog]
---     Specifies the syslog logging driver. For more information, including
+--     Specifies the syslog logging driver. For more information including
 --     usage and options, see
 --     <https://docs.docker.com/config/containers/logging/syslog/ Syslog logging driver>
---     in the Docker documentation.
+--     in the /Docker documentation/.
 --
 -- If you have a custom driver that\'s not listed earlier that you want to
 -- work with the Amazon ECS container agent, you can fork the Amazon ECS
@@ -286,20 +287,20 @@ logConfiguration_secretOptions = Lens.lens (\LogConfiguration' {secretOptions} -
 --
 -- This parameter requires version 1.18 of the Docker Remote API or greater
 -- on your container instance. To check the Docker Remote API version on
--- your container instance, log into your container instance and run the
+-- your container instance, log in to your container instance and run the
 -- following command: @sudo docker version | grep \"Server API version\"@
 logConfiguration_logDriver :: Lens.Lens' LogConfiguration LogDriver
 logConfiguration_logDriver = Lens.lens (\LogConfiguration' {logDriver} -> logDriver) (\s@LogConfiguration' {} a -> s {logDriver = a} :: LogConfiguration)
 
-instance Core.FromJSON LogConfiguration where
+instance Data.FromJSON LogConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LogConfiguration"
       ( \x ->
           LogConfiguration'
-            Prelude.<$> (x Core..:? "options" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "secretOptions" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "logDriver")
+            Prelude.<$> (x Data..:? "options" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "secretOptions" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "logDriver")
       )
 
 instance Prelude.Hashable LogConfiguration where
@@ -314,12 +315,12 @@ instance Prelude.NFData LogConfiguration where
       `Prelude.seq` Prelude.rnf secretOptions
       `Prelude.seq` Prelude.rnf logDriver
 
-instance Core.ToJSON LogConfiguration where
+instance Data.ToJSON LogConfiguration where
   toJSON LogConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("options" Core..=) Prelude.<$> options,
-            ("secretOptions" Core..=) Prelude.<$> secretOptions,
-            Prelude.Just ("logDriver" Core..= logDriver)
+          [ ("options" Data..=) Prelude.<$> options,
+            ("secretOptions" Data..=) Prelude.<$> secretOptions,
+            Prelude.Just ("logDriver" Data..= logDriver)
           ]
       )

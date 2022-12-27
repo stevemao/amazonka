@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.Types.Entity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.FraudDetector.Types.Entity where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The entity details.
@@ -68,14 +69,14 @@ entity_entityType = Lens.lens (\Entity' {entityType} -> entityType) (\s@Entity' 
 entity_entityId :: Lens.Lens' Entity Prelude.Text
 entity_entityId = Lens.lens (\Entity' {entityId} -> entityId) (\s@Entity' {} a -> s {entityId = a} :: Entity)
 
-instance Core.FromJSON Entity where
+instance Data.FromJSON Entity where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Entity"
       ( \x ->
           Entity'
-            Prelude.<$> (x Core..: "entityType")
-            Prelude.<*> (x Core..: "entityId")
+            Prelude.<$> (x Data..: "entityType")
+            Prelude.<*> (x Data..: "entityId")
       )
 
 instance Prelude.Hashable Entity where
@@ -88,11 +89,11 @@ instance Prelude.NFData Entity where
     Prelude.rnf entityType
       `Prelude.seq` Prelude.rnf entityId
 
-instance Core.ToJSON Entity where
+instance Data.ToJSON Entity where
   toJSON Entity' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("entityType" Core..= entityType),
-            Prelude.Just ("entityId" Core..= entityId)
+          [ Prelude.Just ("entityType" Data..= entityType),
+            Prelude.Just ("entityId" Data..= entityId)
           ]
       )

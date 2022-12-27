@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.MaintenanceWindowExecutionTaskIdentity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,11 @@
 module Amazonka.SSM.Types.MaintenanceWindowExecutionTaskIdentity where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
+import Amazonka.SSM.Types.AlarmConfiguration
+import Amazonka.SSM.Types.AlarmStateInformation
 import Amazonka.SSM.Types.MaintenanceWindowExecutionStatus
 import Amazonka.SSM.Types.MaintenanceWindowTaskType
 
@@ -30,24 +33,29 @@ import Amazonka.SSM.Types.MaintenanceWindowTaskType
 --
 -- /See:/ 'newMaintenanceWindowExecutionTaskIdentity' smart constructor.
 data MaintenanceWindowExecutionTaskIdentity = MaintenanceWindowExecutionTaskIdentity'
-  { -- | The status of the task execution.
-    status :: Prelude.Maybe MaintenanceWindowExecutionStatus,
-    -- | The ID of the specific task execution in the maintenance window
-    -- execution.
-    taskExecutionId :: Prelude.Maybe Prelude.Text,
+  { -- | The details for the CloudWatch alarm applied to your maintenance window
+    -- task.
+    alarmConfiguration :: Prelude.Maybe AlarmConfiguration,
+    -- | The time the task execution finished.
+    endTime :: Prelude.Maybe Data.POSIX,
     -- | The time the task execution started.
-    startTime :: Prelude.Maybe Core.POSIX,
-    -- | The type of task that ran.
-    taskType :: Prelude.Maybe MaintenanceWindowTaskType,
-    -- | The Amazon Resource Name (ARN) of the task that ran.
-    taskArn :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the maintenance window execution that ran the task.
-    windowExecutionId :: Prelude.Maybe Prelude.Text,
+    startTime :: Prelude.Maybe Data.POSIX,
+    -- | The status of the task execution.
+    status :: Prelude.Maybe MaintenanceWindowExecutionStatus,
     -- | The details explaining the status of the task execution. Not available
     -- for all status values.
     statusDetails :: Prelude.Maybe Prelude.Text,
-    -- | The time the task execution finished.
-    endTime :: Prelude.Maybe Core.POSIX
+    -- | The Amazon Resource Name (ARN) of the task that ran.
+    taskArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the specific task execution in the maintenance window
+    -- execution.
+    taskExecutionId :: Prelude.Maybe Prelude.Text,
+    -- | The type of task that ran.
+    taskType :: Prelude.Maybe MaintenanceWindowTaskType,
+    -- | The CloudWatch alarm that was invoked by the maintenance window task.
+    triggeredAlarms :: Prelude.Maybe (Prelude.NonEmpty AlarmStateInformation),
+    -- | The ID of the maintenance window execution that ran the task.
+    windowExecutionId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -59,89 +67,107 @@ data MaintenanceWindowExecutionTaskIdentity = MaintenanceWindowExecutionTaskIden
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'maintenanceWindowExecutionTaskIdentity_status' - The status of the task execution.
+-- 'alarmConfiguration', 'maintenanceWindowExecutionTaskIdentity_alarmConfiguration' - The details for the CloudWatch alarm applied to your maintenance window
+-- task.
 --
--- 'taskExecutionId', 'maintenanceWindowExecutionTaskIdentity_taskExecutionId' - The ID of the specific task execution in the maintenance window
--- execution.
+-- 'endTime', 'maintenanceWindowExecutionTaskIdentity_endTime' - The time the task execution finished.
 --
 -- 'startTime', 'maintenanceWindowExecutionTaskIdentity_startTime' - The time the task execution started.
 --
--- 'taskType', 'maintenanceWindowExecutionTaskIdentity_taskType' - The type of task that ran.
---
--- 'taskArn', 'maintenanceWindowExecutionTaskIdentity_taskArn' - The Amazon Resource Name (ARN) of the task that ran.
---
--- 'windowExecutionId', 'maintenanceWindowExecutionTaskIdentity_windowExecutionId' - The ID of the maintenance window execution that ran the task.
+-- 'status', 'maintenanceWindowExecutionTaskIdentity_status' - The status of the task execution.
 --
 -- 'statusDetails', 'maintenanceWindowExecutionTaskIdentity_statusDetails' - The details explaining the status of the task execution. Not available
 -- for all status values.
 --
--- 'endTime', 'maintenanceWindowExecutionTaskIdentity_endTime' - The time the task execution finished.
+-- 'taskArn', 'maintenanceWindowExecutionTaskIdentity_taskArn' - The Amazon Resource Name (ARN) of the task that ran.
+--
+-- 'taskExecutionId', 'maintenanceWindowExecutionTaskIdentity_taskExecutionId' - The ID of the specific task execution in the maintenance window
+-- execution.
+--
+-- 'taskType', 'maintenanceWindowExecutionTaskIdentity_taskType' - The type of task that ran.
+--
+-- 'triggeredAlarms', 'maintenanceWindowExecutionTaskIdentity_triggeredAlarms' - The CloudWatch alarm that was invoked by the maintenance window task.
+--
+-- 'windowExecutionId', 'maintenanceWindowExecutionTaskIdentity_windowExecutionId' - The ID of the maintenance window execution that ran the task.
 newMaintenanceWindowExecutionTaskIdentity ::
   MaintenanceWindowExecutionTaskIdentity
 newMaintenanceWindowExecutionTaskIdentity =
   MaintenanceWindowExecutionTaskIdentity'
-    { status =
+    { alarmConfiguration =
         Prelude.Nothing,
-      taskExecutionId = Prelude.Nothing,
+      endTime = Prelude.Nothing,
       startTime = Prelude.Nothing,
-      taskType = Prelude.Nothing,
-      taskArn = Prelude.Nothing,
-      windowExecutionId = Prelude.Nothing,
+      status = Prelude.Nothing,
       statusDetails = Prelude.Nothing,
-      endTime = Prelude.Nothing
+      taskArn = Prelude.Nothing,
+      taskExecutionId = Prelude.Nothing,
+      taskType = Prelude.Nothing,
+      triggeredAlarms = Prelude.Nothing,
+      windowExecutionId = Prelude.Nothing
     }
+
+-- | The details for the CloudWatch alarm applied to your maintenance window
+-- task.
+maintenanceWindowExecutionTaskIdentity_alarmConfiguration :: Lens.Lens' MaintenanceWindowExecutionTaskIdentity (Prelude.Maybe AlarmConfiguration)
+maintenanceWindowExecutionTaskIdentity_alarmConfiguration = Lens.lens (\MaintenanceWindowExecutionTaskIdentity' {alarmConfiguration} -> alarmConfiguration) (\s@MaintenanceWindowExecutionTaskIdentity' {} a -> s {alarmConfiguration = a} :: MaintenanceWindowExecutionTaskIdentity)
+
+-- | The time the task execution finished.
+maintenanceWindowExecutionTaskIdentity_endTime :: Lens.Lens' MaintenanceWindowExecutionTaskIdentity (Prelude.Maybe Prelude.UTCTime)
+maintenanceWindowExecutionTaskIdentity_endTime = Lens.lens (\MaintenanceWindowExecutionTaskIdentity' {endTime} -> endTime) (\s@MaintenanceWindowExecutionTaskIdentity' {} a -> s {endTime = a} :: MaintenanceWindowExecutionTaskIdentity) Prelude.. Lens.mapping Data._Time
+
+-- | The time the task execution started.
+maintenanceWindowExecutionTaskIdentity_startTime :: Lens.Lens' MaintenanceWindowExecutionTaskIdentity (Prelude.Maybe Prelude.UTCTime)
+maintenanceWindowExecutionTaskIdentity_startTime = Lens.lens (\MaintenanceWindowExecutionTaskIdentity' {startTime} -> startTime) (\s@MaintenanceWindowExecutionTaskIdentity' {} a -> s {startTime = a} :: MaintenanceWindowExecutionTaskIdentity) Prelude.. Lens.mapping Data._Time
 
 -- | The status of the task execution.
 maintenanceWindowExecutionTaskIdentity_status :: Lens.Lens' MaintenanceWindowExecutionTaskIdentity (Prelude.Maybe MaintenanceWindowExecutionStatus)
 maintenanceWindowExecutionTaskIdentity_status = Lens.lens (\MaintenanceWindowExecutionTaskIdentity' {status} -> status) (\s@MaintenanceWindowExecutionTaskIdentity' {} a -> s {status = a} :: MaintenanceWindowExecutionTaskIdentity)
-
--- | The ID of the specific task execution in the maintenance window
--- execution.
-maintenanceWindowExecutionTaskIdentity_taskExecutionId :: Lens.Lens' MaintenanceWindowExecutionTaskIdentity (Prelude.Maybe Prelude.Text)
-maintenanceWindowExecutionTaskIdentity_taskExecutionId = Lens.lens (\MaintenanceWindowExecutionTaskIdentity' {taskExecutionId} -> taskExecutionId) (\s@MaintenanceWindowExecutionTaskIdentity' {} a -> s {taskExecutionId = a} :: MaintenanceWindowExecutionTaskIdentity)
-
--- | The time the task execution started.
-maintenanceWindowExecutionTaskIdentity_startTime :: Lens.Lens' MaintenanceWindowExecutionTaskIdentity (Prelude.Maybe Prelude.UTCTime)
-maintenanceWindowExecutionTaskIdentity_startTime = Lens.lens (\MaintenanceWindowExecutionTaskIdentity' {startTime} -> startTime) (\s@MaintenanceWindowExecutionTaskIdentity' {} a -> s {startTime = a} :: MaintenanceWindowExecutionTaskIdentity) Prelude.. Lens.mapping Core._Time
-
--- | The type of task that ran.
-maintenanceWindowExecutionTaskIdentity_taskType :: Lens.Lens' MaintenanceWindowExecutionTaskIdentity (Prelude.Maybe MaintenanceWindowTaskType)
-maintenanceWindowExecutionTaskIdentity_taskType = Lens.lens (\MaintenanceWindowExecutionTaskIdentity' {taskType} -> taskType) (\s@MaintenanceWindowExecutionTaskIdentity' {} a -> s {taskType = a} :: MaintenanceWindowExecutionTaskIdentity)
-
--- | The Amazon Resource Name (ARN) of the task that ran.
-maintenanceWindowExecutionTaskIdentity_taskArn :: Lens.Lens' MaintenanceWindowExecutionTaskIdentity (Prelude.Maybe Prelude.Text)
-maintenanceWindowExecutionTaskIdentity_taskArn = Lens.lens (\MaintenanceWindowExecutionTaskIdentity' {taskArn} -> taskArn) (\s@MaintenanceWindowExecutionTaskIdentity' {} a -> s {taskArn = a} :: MaintenanceWindowExecutionTaskIdentity)
-
--- | The ID of the maintenance window execution that ran the task.
-maintenanceWindowExecutionTaskIdentity_windowExecutionId :: Lens.Lens' MaintenanceWindowExecutionTaskIdentity (Prelude.Maybe Prelude.Text)
-maintenanceWindowExecutionTaskIdentity_windowExecutionId = Lens.lens (\MaintenanceWindowExecutionTaskIdentity' {windowExecutionId} -> windowExecutionId) (\s@MaintenanceWindowExecutionTaskIdentity' {} a -> s {windowExecutionId = a} :: MaintenanceWindowExecutionTaskIdentity)
 
 -- | The details explaining the status of the task execution. Not available
 -- for all status values.
 maintenanceWindowExecutionTaskIdentity_statusDetails :: Lens.Lens' MaintenanceWindowExecutionTaskIdentity (Prelude.Maybe Prelude.Text)
 maintenanceWindowExecutionTaskIdentity_statusDetails = Lens.lens (\MaintenanceWindowExecutionTaskIdentity' {statusDetails} -> statusDetails) (\s@MaintenanceWindowExecutionTaskIdentity' {} a -> s {statusDetails = a} :: MaintenanceWindowExecutionTaskIdentity)
 
--- | The time the task execution finished.
-maintenanceWindowExecutionTaskIdentity_endTime :: Lens.Lens' MaintenanceWindowExecutionTaskIdentity (Prelude.Maybe Prelude.UTCTime)
-maintenanceWindowExecutionTaskIdentity_endTime = Lens.lens (\MaintenanceWindowExecutionTaskIdentity' {endTime} -> endTime) (\s@MaintenanceWindowExecutionTaskIdentity' {} a -> s {endTime = a} :: MaintenanceWindowExecutionTaskIdentity) Prelude.. Lens.mapping Core._Time
+-- | The Amazon Resource Name (ARN) of the task that ran.
+maintenanceWindowExecutionTaskIdentity_taskArn :: Lens.Lens' MaintenanceWindowExecutionTaskIdentity (Prelude.Maybe Prelude.Text)
+maintenanceWindowExecutionTaskIdentity_taskArn = Lens.lens (\MaintenanceWindowExecutionTaskIdentity' {taskArn} -> taskArn) (\s@MaintenanceWindowExecutionTaskIdentity' {} a -> s {taskArn = a} :: MaintenanceWindowExecutionTaskIdentity)
+
+-- | The ID of the specific task execution in the maintenance window
+-- execution.
+maintenanceWindowExecutionTaskIdentity_taskExecutionId :: Lens.Lens' MaintenanceWindowExecutionTaskIdentity (Prelude.Maybe Prelude.Text)
+maintenanceWindowExecutionTaskIdentity_taskExecutionId = Lens.lens (\MaintenanceWindowExecutionTaskIdentity' {taskExecutionId} -> taskExecutionId) (\s@MaintenanceWindowExecutionTaskIdentity' {} a -> s {taskExecutionId = a} :: MaintenanceWindowExecutionTaskIdentity)
+
+-- | The type of task that ran.
+maintenanceWindowExecutionTaskIdentity_taskType :: Lens.Lens' MaintenanceWindowExecutionTaskIdentity (Prelude.Maybe MaintenanceWindowTaskType)
+maintenanceWindowExecutionTaskIdentity_taskType = Lens.lens (\MaintenanceWindowExecutionTaskIdentity' {taskType} -> taskType) (\s@MaintenanceWindowExecutionTaskIdentity' {} a -> s {taskType = a} :: MaintenanceWindowExecutionTaskIdentity)
+
+-- | The CloudWatch alarm that was invoked by the maintenance window task.
+maintenanceWindowExecutionTaskIdentity_triggeredAlarms :: Lens.Lens' MaintenanceWindowExecutionTaskIdentity (Prelude.Maybe (Prelude.NonEmpty AlarmStateInformation))
+maintenanceWindowExecutionTaskIdentity_triggeredAlarms = Lens.lens (\MaintenanceWindowExecutionTaskIdentity' {triggeredAlarms} -> triggeredAlarms) (\s@MaintenanceWindowExecutionTaskIdentity' {} a -> s {triggeredAlarms = a} :: MaintenanceWindowExecutionTaskIdentity) Prelude.. Lens.mapping Lens.coerced
+
+-- | The ID of the maintenance window execution that ran the task.
+maintenanceWindowExecutionTaskIdentity_windowExecutionId :: Lens.Lens' MaintenanceWindowExecutionTaskIdentity (Prelude.Maybe Prelude.Text)
+maintenanceWindowExecutionTaskIdentity_windowExecutionId = Lens.lens (\MaintenanceWindowExecutionTaskIdentity' {windowExecutionId} -> windowExecutionId) (\s@MaintenanceWindowExecutionTaskIdentity' {} a -> s {windowExecutionId = a} :: MaintenanceWindowExecutionTaskIdentity)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     MaintenanceWindowExecutionTaskIdentity
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MaintenanceWindowExecutionTaskIdentity"
       ( \x ->
           MaintenanceWindowExecutionTaskIdentity'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "TaskExecutionId")
-            Prelude.<*> (x Core..:? "StartTime")
-            Prelude.<*> (x Core..:? "TaskType")
-            Prelude.<*> (x Core..:? "TaskArn")
-            Prelude.<*> (x Core..:? "WindowExecutionId")
-            Prelude.<*> (x Core..:? "StatusDetails")
-            Prelude.<*> (x Core..:? "EndTime")
+            Prelude.<$> (x Data..:? "AlarmConfiguration")
+            Prelude.<*> (x Data..:? "EndTime")
+            Prelude.<*> (x Data..:? "StartTime")
+            Prelude.<*> (x Data..:? "Status")
+            Prelude.<*> (x Data..:? "StatusDetails")
+            Prelude.<*> (x Data..:? "TaskArn")
+            Prelude.<*> (x Data..:? "TaskExecutionId")
+            Prelude.<*> (x Data..:? "TaskType")
+            Prelude.<*> (x Data..:? "TriggeredAlarms")
+            Prelude.<*> (x Data..:? "WindowExecutionId")
       )
 
 instance
@@ -151,25 +177,29 @@ instance
   hashWithSalt
     _salt
     MaintenanceWindowExecutionTaskIdentity' {..} =
-      _salt `Prelude.hashWithSalt` status
-        `Prelude.hashWithSalt` taskExecutionId
-        `Prelude.hashWithSalt` startTime
-        `Prelude.hashWithSalt` taskType
-        `Prelude.hashWithSalt` taskArn
-        `Prelude.hashWithSalt` windowExecutionId
-        `Prelude.hashWithSalt` statusDetails
+      _salt `Prelude.hashWithSalt` alarmConfiguration
         `Prelude.hashWithSalt` endTime
+        `Prelude.hashWithSalt` startTime
+        `Prelude.hashWithSalt` status
+        `Prelude.hashWithSalt` statusDetails
+        `Prelude.hashWithSalt` taskArn
+        `Prelude.hashWithSalt` taskExecutionId
+        `Prelude.hashWithSalt` taskType
+        `Prelude.hashWithSalt` triggeredAlarms
+        `Prelude.hashWithSalt` windowExecutionId
 
 instance
   Prelude.NFData
     MaintenanceWindowExecutionTaskIdentity
   where
   rnf MaintenanceWindowExecutionTaskIdentity' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf taskExecutionId
-      `Prelude.seq` Prelude.rnf startTime
-      `Prelude.seq` Prelude.rnf taskType
-      `Prelude.seq` Prelude.rnf taskArn
-      `Prelude.seq` Prelude.rnf windowExecutionId
-      `Prelude.seq` Prelude.rnf statusDetails
+    Prelude.rnf alarmConfiguration
       `Prelude.seq` Prelude.rnf endTime
+      `Prelude.seq` Prelude.rnf startTime
+      `Prelude.seq` Prelude.rnf status
+      `Prelude.seq` Prelude.rnf statusDetails
+      `Prelude.seq` Prelude.rnf taskArn
+      `Prelude.seq` Prelude.rnf taskExecutionId
+      `Prelude.seq` Prelude.rnf taskType
+      `Prelude.seq` Prelude.rnf triggeredAlarms
+      `Prelude.seq` Prelude.rnf windowExecutionId

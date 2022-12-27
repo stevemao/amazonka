@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.Destination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.Destination where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.AccessControlTranslation
@@ -35,10 +36,7 @@ import Amazonka.S3.Types.StorageClass
 --
 -- /See:/ 'newDestination' smart constructor.
 data Destination = Destination'
-  { -- | A container specifying replication metrics-related settings enabling
-    -- replication metrics and events.
-    metrics :: Prelude.Maybe Metrics,
-    -- | Specify this only in a cross-account scenario (where source and
+  { -- | Specify this only in a cross-account scenario (where source and
     -- destination bucket owners are not the same), and you want to change
     -- replica ownership to the Amazon Web Services account that owns the
     -- destination bucket. If this is not specified in the replication
@@ -53,6 +51,17 @@ data Destination = Destination'
     -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-change-owner.html Replication Additional Configuration: Changing the Replica Owner>
     -- in the /Amazon S3 User Guide/.
     account :: Prelude.Maybe Prelude.Text,
+    -- | A container that provides information about encryption. If
+    -- @SourceSelectionCriteria@ is specified, you must specify this element.
+    encryptionConfiguration :: Prelude.Maybe EncryptionConfiguration,
+    -- | A container specifying replication metrics-related settings enabling
+    -- replication metrics and events.
+    metrics :: Prelude.Maybe Metrics,
+    -- | A container specifying S3 Replication Time Control (S3 RTC), including
+    -- whether S3 RTC is enabled and the time when all objects and operations
+    -- on objects must be replicated. Must be specified together with a
+    -- @Metrics@ block.
+    replicationTime :: Prelude.Maybe ReplicationTime,
     -- | The storage class to use when replicating objects, such as S3 Standard
     -- or reduced redundancy. By default, Amazon S3 uses the storage class of
     -- the source object to create the object replica.
@@ -61,14 +70,6 @@ data Destination = Destination'
     -- <https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTreplication.html PUT Bucket replication>
     -- action in the /Amazon S3 API Reference/.
     storageClass :: Prelude.Maybe StorageClass,
-    -- | A container that provides information about encryption. If
-    -- @SourceSelectionCriteria@ is specified, you must specify this element.
-    encryptionConfiguration :: Prelude.Maybe EncryptionConfiguration,
-    -- | A container specifying S3 Replication Time Control (S3 RTC), including
-    -- whether S3 RTC is enabled and the time when all objects and operations
-    -- on objects must be replicated. Must be specified together with a
-    -- @Metrics@ block.
-    replicationTime :: Prelude.Maybe ReplicationTime,
     -- | The Amazon Resource Name (ARN) of the bucket where you want Amazon S3 to
     -- store the results.
     bucket :: BucketName
@@ -82,9 +83,6 @@ data Destination = Destination'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'metrics', 'destination_metrics' - A container specifying replication metrics-related settings enabling
--- replication metrics and events.
 --
 -- 'accessControlTranslation', 'destination_accessControlTranslation' - Specify this only in a cross-account scenario (where source and
 -- destination bucket owners are not the same), and you want to change
@@ -101,6 +99,17 @@ data Destination = Destination'
 -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/replication-change-owner.html Replication Additional Configuration: Changing the Replica Owner>
 -- in the /Amazon S3 User Guide/.
 --
+-- 'encryptionConfiguration', 'destination_encryptionConfiguration' - A container that provides information about encryption. If
+-- @SourceSelectionCriteria@ is specified, you must specify this element.
+--
+-- 'metrics', 'destination_metrics' - A container specifying replication metrics-related settings enabling
+-- replication metrics and events.
+--
+-- 'replicationTime', 'destination_replicationTime' - A container specifying S3 Replication Time Control (S3 RTC), including
+-- whether S3 RTC is enabled and the time when all objects and operations
+-- on objects must be replicated. Must be specified together with a
+-- @Metrics@ block.
+--
 -- 'storageClass', 'destination_storageClass' - The storage class to use when replicating objects, such as S3 Standard
 -- or reduced redundancy. By default, Amazon S3 uses the storage class of
 -- the source object to create the object replica.
@@ -108,14 +117,6 @@ data Destination = Destination'
 -- For valid values, see the @StorageClass@ element of the
 -- <https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTreplication.html PUT Bucket replication>
 -- action in the /Amazon S3 API Reference/.
---
--- 'encryptionConfiguration', 'destination_encryptionConfiguration' - A container that provides information about encryption. If
--- @SourceSelectionCriteria@ is specified, you must specify this element.
---
--- 'replicationTime', 'destination_replicationTime' - A container specifying S3 Replication Time Control (S3 RTC), including
--- whether S3 RTC is enabled and the time when all objects and operations
--- on objects must be replicated. Must be specified together with a
--- @Metrics@ block.
 --
 -- 'bucket', 'destination_bucket' - The Amazon Resource Name (ARN) of the bucket where you want Amazon S3 to
 -- store the results.
@@ -125,19 +126,15 @@ newDestination ::
   Destination
 newDestination pBucket_ =
   Destination'
-    { metrics = Prelude.Nothing,
-      accessControlTranslation = Prelude.Nothing,
+    { accessControlTranslation =
+        Prelude.Nothing,
       account = Prelude.Nothing,
-      storageClass = Prelude.Nothing,
       encryptionConfiguration = Prelude.Nothing,
+      metrics = Prelude.Nothing,
       replicationTime = Prelude.Nothing,
+      storageClass = Prelude.Nothing,
       bucket = pBucket_
     }
-
--- | A container specifying replication metrics-related settings enabling
--- replication metrics and events.
-destination_metrics :: Lens.Lens' Destination (Prelude.Maybe Metrics)
-destination_metrics = Lens.lens (\Destination' {metrics} -> metrics) (\s@Destination' {} a -> s {metrics = a} :: Destination)
 
 -- | Specify this only in a cross-account scenario (where source and
 -- destination bucket owners are not the same), and you want to change
@@ -158,6 +155,23 @@ destination_accessControlTranslation = Lens.lens (\Destination' {accessControlTr
 destination_account :: Lens.Lens' Destination (Prelude.Maybe Prelude.Text)
 destination_account = Lens.lens (\Destination' {account} -> account) (\s@Destination' {} a -> s {account = a} :: Destination)
 
+-- | A container that provides information about encryption. If
+-- @SourceSelectionCriteria@ is specified, you must specify this element.
+destination_encryptionConfiguration :: Lens.Lens' Destination (Prelude.Maybe EncryptionConfiguration)
+destination_encryptionConfiguration = Lens.lens (\Destination' {encryptionConfiguration} -> encryptionConfiguration) (\s@Destination' {} a -> s {encryptionConfiguration = a} :: Destination)
+
+-- | A container specifying replication metrics-related settings enabling
+-- replication metrics and events.
+destination_metrics :: Lens.Lens' Destination (Prelude.Maybe Metrics)
+destination_metrics = Lens.lens (\Destination' {metrics} -> metrics) (\s@Destination' {} a -> s {metrics = a} :: Destination)
+
+-- | A container specifying S3 Replication Time Control (S3 RTC), including
+-- whether S3 RTC is enabled and the time when all objects and operations
+-- on objects must be replicated. Must be specified together with a
+-- @Metrics@ block.
+destination_replicationTime :: Lens.Lens' Destination (Prelude.Maybe ReplicationTime)
+destination_replicationTime = Lens.lens (\Destination' {replicationTime} -> replicationTime) (\s@Destination' {} a -> s {replicationTime = a} :: Destination)
+
 -- | The storage class to use when replicating objects, such as S3 Standard
 -- or reduced redundancy. By default, Amazon S3 uses the storage class of
 -- the source object to create the object replica.
@@ -168,64 +182,53 @@ destination_account = Lens.lens (\Destination' {account} -> account) (\s@Destina
 destination_storageClass :: Lens.Lens' Destination (Prelude.Maybe StorageClass)
 destination_storageClass = Lens.lens (\Destination' {storageClass} -> storageClass) (\s@Destination' {} a -> s {storageClass = a} :: Destination)
 
--- | A container that provides information about encryption. If
--- @SourceSelectionCriteria@ is specified, you must specify this element.
-destination_encryptionConfiguration :: Lens.Lens' Destination (Prelude.Maybe EncryptionConfiguration)
-destination_encryptionConfiguration = Lens.lens (\Destination' {encryptionConfiguration} -> encryptionConfiguration) (\s@Destination' {} a -> s {encryptionConfiguration = a} :: Destination)
-
--- | A container specifying S3 Replication Time Control (S3 RTC), including
--- whether S3 RTC is enabled and the time when all objects and operations
--- on objects must be replicated. Must be specified together with a
--- @Metrics@ block.
-destination_replicationTime :: Lens.Lens' Destination (Prelude.Maybe ReplicationTime)
-destination_replicationTime = Lens.lens (\Destination' {replicationTime} -> replicationTime) (\s@Destination' {} a -> s {replicationTime = a} :: Destination)
-
 -- | The Amazon Resource Name (ARN) of the bucket where you want Amazon S3 to
 -- store the results.
 destination_bucket :: Lens.Lens' Destination BucketName
 destination_bucket = Lens.lens (\Destination' {bucket} -> bucket) (\s@Destination' {} a -> s {bucket = a} :: Destination)
 
-instance Core.FromXML Destination where
+instance Data.FromXML Destination where
   parseXML x =
     Destination'
-      Prelude.<$> (x Core..@? "Metrics")
-      Prelude.<*> (x Core..@? "AccessControlTranslation")
-      Prelude.<*> (x Core..@? "Account")
-      Prelude.<*> (x Core..@? "StorageClass")
-      Prelude.<*> (x Core..@? "EncryptionConfiguration")
-      Prelude.<*> (x Core..@? "ReplicationTime")
-      Prelude.<*> (x Core..@ "Bucket")
+      Prelude.<$> (x Data..@? "AccessControlTranslation")
+      Prelude.<*> (x Data..@? "Account")
+      Prelude.<*> (x Data..@? "EncryptionConfiguration")
+      Prelude.<*> (x Data..@? "Metrics")
+      Prelude.<*> (x Data..@? "ReplicationTime")
+      Prelude.<*> (x Data..@? "StorageClass")
+      Prelude.<*> (x Data..@ "Bucket")
 
 instance Prelude.Hashable Destination where
   hashWithSalt _salt Destination' {..} =
-    _salt `Prelude.hashWithSalt` metrics
+    _salt
       `Prelude.hashWithSalt` accessControlTranslation
       `Prelude.hashWithSalt` account
-      `Prelude.hashWithSalt` storageClass
       `Prelude.hashWithSalt` encryptionConfiguration
+      `Prelude.hashWithSalt` metrics
       `Prelude.hashWithSalt` replicationTime
+      `Prelude.hashWithSalt` storageClass
       `Prelude.hashWithSalt` bucket
 
 instance Prelude.NFData Destination where
   rnf Destination' {..} =
-    Prelude.rnf metrics
-      `Prelude.seq` Prelude.rnf accessControlTranslation
+    Prelude.rnf accessControlTranslation
       `Prelude.seq` Prelude.rnf account
-      `Prelude.seq` Prelude.rnf storageClass
       `Prelude.seq` Prelude.rnf encryptionConfiguration
+      `Prelude.seq` Prelude.rnf metrics
       `Prelude.seq` Prelude.rnf replicationTime
+      `Prelude.seq` Prelude.rnf storageClass
       `Prelude.seq` Prelude.rnf bucket
 
-instance Core.ToXML Destination where
+instance Data.ToXML Destination where
   toXML Destination' {..} =
     Prelude.mconcat
-      [ "Metrics" Core.@= metrics,
-        "AccessControlTranslation"
-          Core.@= accessControlTranslation,
-        "Account" Core.@= account,
-        "StorageClass" Core.@= storageClass,
+      [ "AccessControlTranslation"
+          Data.@= accessControlTranslation,
+        "Account" Data.@= account,
         "EncryptionConfiguration"
-          Core.@= encryptionConfiguration,
-        "ReplicationTime" Core.@= replicationTime,
-        "Bucket" Core.@= bucket
+          Data.@= encryptionConfiguration,
+        "Metrics" Data.@= metrics,
+        "ReplicationTime" Data.@= replicationTime,
+        "StorageClass" Data.@= storageClass,
+        "Bucket" Data.@= bucket
       ]

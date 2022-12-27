@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Firehose.Types.HttpEndpointRequestConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.Firehose.Types.HttpEndpointRequestConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Firehose.Types.ContentEncoding
 import Amazonka.Firehose.Types.HttpEndpointCommonAttribute
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configuration of the HTTP endpoint request.
@@ -77,18 +78,18 @@ httpEndpointRequestConfiguration_contentEncoding :: Lens.Lens' HttpEndpointReque
 httpEndpointRequestConfiguration_contentEncoding = Lens.lens (\HttpEndpointRequestConfiguration' {contentEncoding} -> contentEncoding) (\s@HttpEndpointRequestConfiguration' {} a -> s {contentEncoding = a} :: HttpEndpointRequestConfiguration)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     HttpEndpointRequestConfiguration
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HttpEndpointRequestConfiguration"
       ( \x ->
           HttpEndpointRequestConfiguration'
-            Prelude.<$> ( x Core..:? "CommonAttributes"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "CommonAttributes"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "ContentEncoding")
+            Prelude.<*> (x Data..:? "ContentEncoding")
       )
 
 instance
@@ -109,13 +110,13 @@ instance
     Prelude.rnf commonAttributes
       `Prelude.seq` Prelude.rnf contentEncoding
 
-instance Core.ToJSON HttpEndpointRequestConfiguration where
+instance Data.ToJSON HttpEndpointRequestConfiguration where
   toJSON HttpEndpointRequestConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CommonAttributes" Core..=)
+          [ ("CommonAttributes" Data..=)
               Prelude.<$> commonAttributes,
-            ("ContentEncoding" Core..=)
+            ("ContentEncoding" Data..=)
               Prelude.<$> contentEncoding
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.HyperParameterTuningJobObjective
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.HyperParameterTuningJobObjective where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.HyperParameterTuningJobObjectiveType
 
@@ -73,16 +74,16 @@ hyperParameterTuningJobObjective_metricName :: Lens.Lens' HyperParameterTuningJo
 hyperParameterTuningJobObjective_metricName = Lens.lens (\HyperParameterTuningJobObjective' {metricName} -> metricName) (\s@HyperParameterTuningJobObjective' {} a -> s {metricName = a} :: HyperParameterTuningJobObjective)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     HyperParameterTuningJobObjective
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HyperParameterTuningJobObjective"
       ( \x ->
           HyperParameterTuningJobObjective'
-            Prelude.<$> (x Core..: "Type")
-            Prelude.<*> (x Core..: "MetricName")
+            Prelude.<$> (x Data..: "Type")
+            Prelude.<*> (x Data..: "MetricName")
       )
 
 instance
@@ -103,11 +104,11 @@ instance
     Prelude.rnf type'
       `Prelude.seq` Prelude.rnf metricName
 
-instance Core.ToJSON HyperParameterTuningJobObjective where
+instance Data.ToJSON HyperParameterTuningJobObjective where
   toJSON HyperParameterTuningJobObjective' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Type" Core..= type'),
-            Prelude.Just ("MetricName" Core..= metricName)
+          [ Prelude.Just ("Type" Data..= type'),
+            Prelude.Just ("MetricName" Data..= metricName)
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStarNotifications.DescribeNotificationRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,16 +34,16 @@ module Amazonka.CodeStarNotifications.DescribeNotificationRule
     newDescribeNotificationRuleResponse,
 
     -- * Response Lenses
-    describeNotificationRuleResponse_status,
+    describeNotificationRuleResponse_createdBy,
+    describeNotificationRuleResponse_createdTimestamp,
+    describeNotificationRuleResponse_detailType,
     describeNotificationRuleResponse_eventTypes,
     describeNotificationRuleResponse_lastModifiedTimestamp,
-    describeNotificationRuleResponse_createdBy,
-    describeNotificationRuleResponse_detailType,
     describeNotificationRuleResponse_name,
-    describeNotificationRuleResponse_targets,
     describeNotificationRuleResponse_resource,
-    describeNotificationRuleResponse_createdTimestamp,
+    describeNotificationRuleResponse_status,
     describeNotificationRuleResponse_tags,
+    describeNotificationRuleResponse_targets,
     describeNotificationRuleResponse_httpStatus,
     describeNotificationRuleResponse_arn,
   )
@@ -51,7 +51,8 @@ where
 
 import Amazonka.CodeStarNotifications.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -87,23 +88,24 @@ instance Core.AWSRequest DescribeNotificationRule where
   type
     AWSResponse DescribeNotificationRule =
       DescribeNotificationRuleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeNotificationRuleResponse'
-            Prelude.<$> (x Core..?> "Status")
-            Prelude.<*> (x Core..?> "EventTypes" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "LastModifiedTimestamp")
-            Prelude.<*> (x Core..?> "CreatedBy")
-            Prelude.<*> (x Core..?> "DetailType")
-            Prelude.<*> (x Core..?> "Name")
-            Prelude.<*> (x Core..?> "Targets" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "Resource")
-            Prelude.<*> (x Core..?> "CreatedTimestamp")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "CreatedBy")
+            Prelude.<*> (x Data..?> "CreatedTimestamp")
+            Prelude.<*> (x Data..?> "DetailType")
+            Prelude.<*> (x Data..?> "EventTypes" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "LastModifiedTimestamp")
+            Prelude.<*> (x Data..?> "Name")
+            Prelude.<*> (x Data..?> "Resource")
+            Prelude.<*> (x Data..?> "Status")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Targets" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Arn")
+            Prelude.<*> (x Data..:> "Arn")
       )
 
 instance Prelude.Hashable DescribeNotificationRule where
@@ -113,60 +115,61 @@ instance Prelude.Hashable DescribeNotificationRule where
 instance Prelude.NFData DescribeNotificationRule where
   rnf DescribeNotificationRule' {..} = Prelude.rnf arn
 
-instance Core.ToHeaders DescribeNotificationRule where
+instance Data.ToHeaders DescribeNotificationRule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeNotificationRule where
+instance Data.ToJSON DescribeNotificationRule where
   toJSON DescribeNotificationRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Arn" Core..= arn)]
+          [Prelude.Just ("Arn" Data..= arn)]
       )
 
-instance Core.ToPath DescribeNotificationRule where
+instance Data.ToPath DescribeNotificationRule where
   toPath = Prelude.const "/describeNotificationRule"
 
-instance Core.ToQuery DescribeNotificationRule where
+instance Data.ToQuery DescribeNotificationRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeNotificationRuleResponse' smart constructor.
 data DescribeNotificationRuleResponse = DescribeNotificationRuleResponse'
-  { -- | The status of the notification rule. Valid statuses are on (sending
-    -- notifications) or off (not sending notifications).
-    status :: Prelude.Maybe NotificationRuleStatus,
+  { -- | The name or email alias of the person who created the notification rule.
+    createdBy :: Prelude.Maybe Prelude.Text,
+    -- | The date and time the notification rule was created, in timestamp
+    -- format.
+    createdTimestamp :: Prelude.Maybe Data.POSIX,
+    -- | The level of detail included in the notifications for this resource.
+    -- BASIC will include only the contents of the event as it would appear in
+    -- Amazon CloudWatch. FULL will include any supplemental information
+    -- provided by AWS CodeStar Notifications and\/or the service for the
+    -- resource for which the notification is created.
+    detailType :: Prelude.Maybe DetailType,
     -- | A list of the event types associated with the notification rule.
     eventTypes :: Prelude.Maybe [EventTypeSummary],
     -- | The date and time the notification rule was most recently updated, in
     -- timestamp format.
-    lastModifiedTimestamp :: Prelude.Maybe Core.POSIX,
-    -- | The name or email alias of the person who created the notification rule.
-    createdBy :: Prelude.Maybe Prelude.Text,
-    -- | The level of detail included in the notifications for this resource.
-    -- BASIC will include only the contents of the event as it would appear in
-    -- AWS CloudWatch. FULL will include any supplemental information provided
-    -- by AWS CodeStar Notifications and\/or the service for the resource for
-    -- which the notification is created.
-    detailType :: Prelude.Maybe DetailType,
+    lastModifiedTimestamp :: Prelude.Maybe Data.POSIX,
     -- | The name of the notification rule.
-    name :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | A list of the SNS topics associated with the notification rule.
-    targets :: Prelude.Maybe [TargetSummary],
+    name :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The Amazon Resource Name (ARN) of the resource associated with the
     -- notification rule.
     resource :: Prelude.Maybe Prelude.Text,
-    -- | The date and time the notification rule was created, in timestamp
-    -- format.
-    createdTimestamp :: Prelude.Maybe Core.POSIX,
+    -- | The status of the notification rule. Valid statuses are on (sending
+    -- notifications) or off (not sending notifications).
+    status :: Prelude.Maybe NotificationRuleStatus,
     -- | The tags associated with the notification rule.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | A list of the Chatbot topics and Chatbot clients associated with the
+    -- notification rule.
+    targets :: Prelude.Maybe [TargetSummary],
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | The Amazon Resource Name (ARN) of the notification rule.
@@ -182,33 +185,34 @@ data DescribeNotificationRuleResponse = DescribeNotificationRuleResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'describeNotificationRuleResponse_status' - The status of the notification rule. Valid statuses are on (sending
--- notifications) or off (not sending notifications).
+-- 'createdBy', 'describeNotificationRuleResponse_createdBy' - The name or email alias of the person who created the notification rule.
+--
+-- 'createdTimestamp', 'describeNotificationRuleResponse_createdTimestamp' - The date and time the notification rule was created, in timestamp
+-- format.
+--
+-- 'detailType', 'describeNotificationRuleResponse_detailType' - The level of detail included in the notifications for this resource.
+-- BASIC will include only the contents of the event as it would appear in
+-- Amazon CloudWatch. FULL will include any supplemental information
+-- provided by AWS CodeStar Notifications and\/or the service for the
+-- resource for which the notification is created.
 --
 -- 'eventTypes', 'describeNotificationRuleResponse_eventTypes' - A list of the event types associated with the notification rule.
 --
 -- 'lastModifiedTimestamp', 'describeNotificationRuleResponse_lastModifiedTimestamp' - The date and time the notification rule was most recently updated, in
 -- timestamp format.
 --
--- 'createdBy', 'describeNotificationRuleResponse_createdBy' - The name or email alias of the person who created the notification rule.
---
--- 'detailType', 'describeNotificationRuleResponse_detailType' - The level of detail included in the notifications for this resource.
--- BASIC will include only the contents of the event as it would appear in
--- AWS CloudWatch. FULL will include any supplemental information provided
--- by AWS CodeStar Notifications and\/or the service for the resource for
--- which the notification is created.
---
 -- 'name', 'describeNotificationRuleResponse_name' - The name of the notification rule.
---
--- 'targets', 'describeNotificationRuleResponse_targets' - A list of the SNS topics associated with the notification rule.
 --
 -- 'resource', 'describeNotificationRuleResponse_resource' - The Amazon Resource Name (ARN) of the resource associated with the
 -- notification rule.
 --
--- 'createdTimestamp', 'describeNotificationRuleResponse_createdTimestamp' - The date and time the notification rule was created, in timestamp
--- format.
+-- 'status', 'describeNotificationRuleResponse_status' - The status of the notification rule. Valid statuses are on (sending
+-- notifications) or off (not sending notifications).
 --
 -- 'tags', 'describeNotificationRuleResponse_tags' - The tags associated with the notification rule.
+--
+-- 'targets', 'describeNotificationRuleResponse_targets' - A list of the Chatbot topics and Chatbot clients associated with the
+-- notification rule.
 --
 -- 'httpStatus', 'describeNotificationRuleResponse_httpStatus' - The response's http status code.
 --
@@ -223,25 +227,37 @@ newDescribeNotificationRuleResponse
   pHttpStatus_
   pArn_ =
     DescribeNotificationRuleResponse'
-      { status =
+      { createdBy =
           Prelude.Nothing,
+        createdTimestamp = Prelude.Nothing,
+        detailType = Prelude.Nothing,
         eventTypes = Prelude.Nothing,
         lastModifiedTimestamp = Prelude.Nothing,
-        createdBy = Prelude.Nothing,
-        detailType = Prelude.Nothing,
         name = Prelude.Nothing,
-        targets = Prelude.Nothing,
         resource = Prelude.Nothing,
-        createdTimestamp = Prelude.Nothing,
+        status = Prelude.Nothing,
         tags = Prelude.Nothing,
+        targets = Prelude.Nothing,
         httpStatus = pHttpStatus_,
         arn = pArn_
       }
 
--- | The status of the notification rule. Valid statuses are on (sending
--- notifications) or off (not sending notifications).
-describeNotificationRuleResponse_status :: Lens.Lens' DescribeNotificationRuleResponse (Prelude.Maybe NotificationRuleStatus)
-describeNotificationRuleResponse_status = Lens.lens (\DescribeNotificationRuleResponse' {status} -> status) (\s@DescribeNotificationRuleResponse' {} a -> s {status = a} :: DescribeNotificationRuleResponse)
+-- | The name or email alias of the person who created the notification rule.
+describeNotificationRuleResponse_createdBy :: Lens.Lens' DescribeNotificationRuleResponse (Prelude.Maybe Prelude.Text)
+describeNotificationRuleResponse_createdBy = Lens.lens (\DescribeNotificationRuleResponse' {createdBy} -> createdBy) (\s@DescribeNotificationRuleResponse' {} a -> s {createdBy = a} :: DescribeNotificationRuleResponse)
+
+-- | The date and time the notification rule was created, in timestamp
+-- format.
+describeNotificationRuleResponse_createdTimestamp :: Lens.Lens' DescribeNotificationRuleResponse (Prelude.Maybe Prelude.UTCTime)
+describeNotificationRuleResponse_createdTimestamp = Lens.lens (\DescribeNotificationRuleResponse' {createdTimestamp} -> createdTimestamp) (\s@DescribeNotificationRuleResponse' {} a -> s {createdTimestamp = a} :: DescribeNotificationRuleResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The level of detail included in the notifications for this resource.
+-- BASIC will include only the contents of the event as it would appear in
+-- Amazon CloudWatch. FULL will include any supplemental information
+-- provided by AWS CodeStar Notifications and\/or the service for the
+-- resource for which the notification is created.
+describeNotificationRuleResponse_detailType :: Lens.Lens' DescribeNotificationRuleResponse (Prelude.Maybe DetailType)
+describeNotificationRuleResponse_detailType = Lens.lens (\DescribeNotificationRuleResponse' {detailType} -> detailType) (\s@DescribeNotificationRuleResponse' {} a -> s {detailType = a} :: DescribeNotificationRuleResponse)
 
 -- | A list of the event types associated with the notification rule.
 describeNotificationRuleResponse_eventTypes :: Lens.Lens' DescribeNotificationRuleResponse (Prelude.Maybe [EventTypeSummary])
@@ -250,41 +266,30 @@ describeNotificationRuleResponse_eventTypes = Lens.lens (\DescribeNotificationRu
 -- | The date and time the notification rule was most recently updated, in
 -- timestamp format.
 describeNotificationRuleResponse_lastModifiedTimestamp :: Lens.Lens' DescribeNotificationRuleResponse (Prelude.Maybe Prelude.UTCTime)
-describeNotificationRuleResponse_lastModifiedTimestamp = Lens.lens (\DescribeNotificationRuleResponse' {lastModifiedTimestamp} -> lastModifiedTimestamp) (\s@DescribeNotificationRuleResponse' {} a -> s {lastModifiedTimestamp = a} :: DescribeNotificationRuleResponse) Prelude.. Lens.mapping Core._Time
-
--- | The name or email alias of the person who created the notification rule.
-describeNotificationRuleResponse_createdBy :: Lens.Lens' DescribeNotificationRuleResponse (Prelude.Maybe Prelude.Text)
-describeNotificationRuleResponse_createdBy = Lens.lens (\DescribeNotificationRuleResponse' {createdBy} -> createdBy) (\s@DescribeNotificationRuleResponse' {} a -> s {createdBy = a} :: DescribeNotificationRuleResponse)
-
--- | The level of detail included in the notifications for this resource.
--- BASIC will include only the contents of the event as it would appear in
--- AWS CloudWatch. FULL will include any supplemental information provided
--- by AWS CodeStar Notifications and\/or the service for the resource for
--- which the notification is created.
-describeNotificationRuleResponse_detailType :: Lens.Lens' DescribeNotificationRuleResponse (Prelude.Maybe DetailType)
-describeNotificationRuleResponse_detailType = Lens.lens (\DescribeNotificationRuleResponse' {detailType} -> detailType) (\s@DescribeNotificationRuleResponse' {} a -> s {detailType = a} :: DescribeNotificationRuleResponse)
+describeNotificationRuleResponse_lastModifiedTimestamp = Lens.lens (\DescribeNotificationRuleResponse' {lastModifiedTimestamp} -> lastModifiedTimestamp) (\s@DescribeNotificationRuleResponse' {} a -> s {lastModifiedTimestamp = a} :: DescribeNotificationRuleResponse) Prelude.. Lens.mapping Data._Time
 
 -- | The name of the notification rule.
 describeNotificationRuleResponse_name :: Lens.Lens' DescribeNotificationRuleResponse (Prelude.Maybe Prelude.Text)
-describeNotificationRuleResponse_name = Lens.lens (\DescribeNotificationRuleResponse' {name} -> name) (\s@DescribeNotificationRuleResponse' {} a -> s {name = a} :: DescribeNotificationRuleResponse) Prelude.. Lens.mapping Core._Sensitive
-
--- | A list of the SNS topics associated with the notification rule.
-describeNotificationRuleResponse_targets :: Lens.Lens' DescribeNotificationRuleResponse (Prelude.Maybe [TargetSummary])
-describeNotificationRuleResponse_targets = Lens.lens (\DescribeNotificationRuleResponse' {targets} -> targets) (\s@DescribeNotificationRuleResponse' {} a -> s {targets = a} :: DescribeNotificationRuleResponse) Prelude.. Lens.mapping Lens.coerced
+describeNotificationRuleResponse_name = Lens.lens (\DescribeNotificationRuleResponse' {name} -> name) (\s@DescribeNotificationRuleResponse' {} a -> s {name = a} :: DescribeNotificationRuleResponse) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The Amazon Resource Name (ARN) of the resource associated with the
 -- notification rule.
 describeNotificationRuleResponse_resource :: Lens.Lens' DescribeNotificationRuleResponse (Prelude.Maybe Prelude.Text)
 describeNotificationRuleResponse_resource = Lens.lens (\DescribeNotificationRuleResponse' {resource} -> resource) (\s@DescribeNotificationRuleResponse' {} a -> s {resource = a} :: DescribeNotificationRuleResponse)
 
--- | The date and time the notification rule was created, in timestamp
--- format.
-describeNotificationRuleResponse_createdTimestamp :: Lens.Lens' DescribeNotificationRuleResponse (Prelude.Maybe Prelude.UTCTime)
-describeNotificationRuleResponse_createdTimestamp = Lens.lens (\DescribeNotificationRuleResponse' {createdTimestamp} -> createdTimestamp) (\s@DescribeNotificationRuleResponse' {} a -> s {createdTimestamp = a} :: DescribeNotificationRuleResponse) Prelude.. Lens.mapping Core._Time
+-- | The status of the notification rule. Valid statuses are on (sending
+-- notifications) or off (not sending notifications).
+describeNotificationRuleResponse_status :: Lens.Lens' DescribeNotificationRuleResponse (Prelude.Maybe NotificationRuleStatus)
+describeNotificationRuleResponse_status = Lens.lens (\DescribeNotificationRuleResponse' {status} -> status) (\s@DescribeNotificationRuleResponse' {} a -> s {status = a} :: DescribeNotificationRuleResponse)
 
 -- | The tags associated with the notification rule.
 describeNotificationRuleResponse_tags :: Lens.Lens' DescribeNotificationRuleResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 describeNotificationRuleResponse_tags = Lens.lens (\DescribeNotificationRuleResponse' {tags} -> tags) (\s@DescribeNotificationRuleResponse' {} a -> s {tags = a} :: DescribeNotificationRuleResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | A list of the Chatbot topics and Chatbot clients associated with the
+-- notification rule.
+describeNotificationRuleResponse_targets :: Lens.Lens' DescribeNotificationRuleResponse (Prelude.Maybe [TargetSummary])
+describeNotificationRuleResponse_targets = Lens.lens (\DescribeNotificationRuleResponse' {targets} -> targets) (\s@DescribeNotificationRuleResponse' {} a -> s {targets = a} :: DescribeNotificationRuleResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeNotificationRuleResponse_httpStatus :: Lens.Lens' DescribeNotificationRuleResponse Prelude.Int
@@ -299,15 +304,15 @@ instance
     DescribeNotificationRuleResponse
   where
   rnf DescribeNotificationRuleResponse' {..} =
-    Prelude.rnf status
+    Prelude.rnf createdBy
+      `Prelude.seq` Prelude.rnf createdTimestamp
+      `Prelude.seq` Prelude.rnf detailType
       `Prelude.seq` Prelude.rnf eventTypes
       `Prelude.seq` Prelude.rnf lastModifiedTimestamp
-      `Prelude.seq` Prelude.rnf createdBy
-      `Prelude.seq` Prelude.rnf detailType
       `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf targets
       `Prelude.seq` Prelude.rnf resource
-      `Prelude.seq` Prelude.rnf createdTimestamp
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf targets
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf arn

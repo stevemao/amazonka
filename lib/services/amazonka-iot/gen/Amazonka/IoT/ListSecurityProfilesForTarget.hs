@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.ListSecurityProfilesForTarget
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,9 +34,9 @@ module Amazonka.IoT.ListSecurityProfilesForTarget
     newListSecurityProfilesForTarget,
 
     -- * Request Lenses
+    listSecurityProfilesForTarget_maxResults,
     listSecurityProfilesForTarget_nextToken,
     listSecurityProfilesForTarget_recursive,
-    listSecurityProfilesForTarget_maxResults,
     listSecurityProfilesForTarget_securityProfileTargetArn,
 
     -- * Destructuring the Response
@@ -51,20 +51,21 @@ module Amazonka.IoT.ListSecurityProfilesForTarget
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListSecurityProfilesForTarget' smart constructor.
 data ListSecurityProfilesForTarget = ListSecurityProfilesForTarget'
-  { -- | The token for the next set of results.
+  { -- | The maximum number of results to return at one time.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | If true, return child groups too.
     recursive :: Prelude.Maybe Prelude.Bool,
-    -- | The maximum number of results to return at one time.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The ARN of the target (thing group) whose attached security profiles you
     -- want to get.
     securityProfileTargetArn :: Prelude.Text
@@ -79,11 +80,11 @@ data ListSecurityProfilesForTarget = ListSecurityProfilesForTarget'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listSecurityProfilesForTarget_maxResults' - The maximum number of results to return at one time.
+--
 -- 'nextToken', 'listSecurityProfilesForTarget_nextToken' - The token for the next set of results.
 --
 -- 'recursive', 'listSecurityProfilesForTarget_recursive' - If true, return child groups too.
---
--- 'maxResults', 'listSecurityProfilesForTarget_maxResults' - The maximum number of results to return at one time.
 --
 -- 'securityProfileTargetArn', 'listSecurityProfilesForTarget_securityProfileTargetArn' - The ARN of the target (thing group) whose attached security profiles you
 -- want to get.
@@ -94,13 +95,17 @@ newListSecurityProfilesForTarget ::
 newListSecurityProfilesForTarget
   pSecurityProfileTargetArn_ =
     ListSecurityProfilesForTarget'
-      { nextToken =
+      { maxResults =
           Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         recursive = Prelude.Nothing,
-        maxResults = Prelude.Nothing,
         securityProfileTargetArn =
           pSecurityProfileTargetArn_
       }
+
+-- | The maximum number of results to return at one time.
+listSecurityProfilesForTarget_maxResults :: Lens.Lens' ListSecurityProfilesForTarget (Prelude.Maybe Prelude.Natural)
+listSecurityProfilesForTarget_maxResults = Lens.lens (\ListSecurityProfilesForTarget' {maxResults} -> maxResults) (\s@ListSecurityProfilesForTarget' {} a -> s {maxResults = a} :: ListSecurityProfilesForTarget)
 
 -- | The token for the next set of results.
 listSecurityProfilesForTarget_nextToken :: Lens.Lens' ListSecurityProfilesForTarget (Prelude.Maybe Prelude.Text)
@@ -109,10 +114,6 @@ listSecurityProfilesForTarget_nextToken = Lens.lens (\ListSecurityProfilesForTar
 -- | If true, return child groups too.
 listSecurityProfilesForTarget_recursive :: Lens.Lens' ListSecurityProfilesForTarget (Prelude.Maybe Prelude.Bool)
 listSecurityProfilesForTarget_recursive = Lens.lens (\ListSecurityProfilesForTarget' {recursive} -> recursive) (\s@ListSecurityProfilesForTarget' {} a -> s {recursive = a} :: ListSecurityProfilesForTarget)
-
--- | The maximum number of results to return at one time.
-listSecurityProfilesForTarget_maxResults :: Lens.Lens' ListSecurityProfilesForTarget (Prelude.Maybe Prelude.Natural)
-listSecurityProfilesForTarget_maxResults = Lens.lens (\ListSecurityProfilesForTarget' {maxResults} -> maxResults) (\s@ListSecurityProfilesForTarget' {} a -> s {maxResults = a} :: ListSecurityProfilesForTarget)
 
 -- | The ARN of the target (thing group) whose attached security profiles you
 -- want to get.
@@ -148,13 +149,14 @@ instance
   type
     AWSResponse ListSecurityProfilesForTarget =
       ListSecurityProfilesForTargetResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListSecurityProfilesForTargetResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> ( x Core..?> "securityProfileTargetMappings"
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> ( x Data..?> "securityProfileTargetMappings"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -165,33 +167,33 @@ instance
     ListSecurityProfilesForTarget
   where
   hashWithSalt _salt ListSecurityProfilesForTarget' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` recursive
-      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` securityProfileTargetArn
 
 instance Prelude.NFData ListSecurityProfilesForTarget where
   rnf ListSecurityProfilesForTarget' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf recursive
-      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf securityProfileTargetArn
 
-instance Core.ToHeaders ListSecurityProfilesForTarget where
+instance Data.ToHeaders ListSecurityProfilesForTarget where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListSecurityProfilesForTarget where
+instance Data.ToPath ListSecurityProfilesForTarget where
   toPath =
     Prelude.const "/security-profiles-for-target"
 
-instance Core.ToQuery ListSecurityProfilesForTarget where
+instance Data.ToQuery ListSecurityProfilesForTarget where
   toQuery ListSecurityProfilesForTarget' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "recursive" Core.=: recursive,
-        "maxResults" Core.=: maxResults,
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "recursive" Data.=: recursive,
         "securityProfileTargetArn"
-          Core.=: securityProfileTargetArn
+          Data.=: securityProfileTargetArn
       ]
 
 -- | /See:/ 'newListSecurityProfilesForTargetResponse' smart constructor.

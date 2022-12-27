@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.Types.AquaConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,34 +20,24 @@
 module Amazonka.Redshift.Types.AquaConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Internal
 import Amazonka.Redshift.Types.AquaConfigurationStatus
 import Amazonka.Redshift.Types.AquaStatus
 
--- | The AQUA (Advanced Query Accelerator) configuration of the cluster.
+-- | The operation that uses this structure is retired. Amazon Redshift
+-- automatically determines whether to use AQUA (Advanced Query
+-- Accelerator).
 --
 -- /See:/ 'newAquaConfiguration' smart constructor.
 data AquaConfiguration = AquaConfiguration'
-  { -- | The value represents how the cluster is configured to use AQUA. Possible
-    -- values include the following.
-    --
-    -- -   enabled - Use AQUA if it is available for the current Amazon Web
-    --     Services Region and Amazon Redshift node type.
-    --
-    -- -   disabled - Don\'t use AQUA.
-    --
-    -- -   auto - Amazon Redshift determines whether to use AQUA.
+  { -- | This field is retired. Amazon Redshift automatically determines whether
+    -- to use AQUA (Advanced Query Accelerator).
     aquaConfigurationStatus :: Prelude.Maybe AquaConfigurationStatus,
-    -- | The value indicates the status of AQUA on the cluster. Possible values
-    -- include the following.
-    --
-    -- -   enabled - AQUA is enabled.
-    --
-    -- -   disabled - AQUA is not enabled.
-    --
-    -- -   applying - AQUA status is being applied.
+    -- | This field is retired. Amazon Redshift automatically determines whether
+    -- to use AQUA (Advanced Query Accelerator).
     aquaStatus :: Prelude.Maybe AquaStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -60,24 +50,11 @@ data AquaConfiguration = AquaConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'aquaConfigurationStatus', 'aquaConfiguration_aquaConfigurationStatus' - The value represents how the cluster is configured to use AQUA. Possible
--- values include the following.
+-- 'aquaConfigurationStatus', 'aquaConfiguration_aquaConfigurationStatus' - This field is retired. Amazon Redshift automatically determines whether
+-- to use AQUA (Advanced Query Accelerator).
 --
--- -   enabled - Use AQUA if it is available for the current Amazon Web
---     Services Region and Amazon Redshift node type.
---
--- -   disabled - Don\'t use AQUA.
---
--- -   auto - Amazon Redshift determines whether to use AQUA.
---
--- 'aquaStatus', 'aquaConfiguration_aquaStatus' - The value indicates the status of AQUA on the cluster. Possible values
--- include the following.
---
--- -   enabled - AQUA is enabled.
---
--- -   disabled - AQUA is not enabled.
---
--- -   applying - AQUA status is being applied.
+-- 'aquaStatus', 'aquaConfiguration_aquaStatus' - This field is retired. Amazon Redshift automatically determines whether
+-- to use AQUA (Advanced Query Accelerator).
 newAquaConfiguration ::
   AquaConfiguration
 newAquaConfiguration =
@@ -87,34 +64,21 @@ newAquaConfiguration =
       aquaStatus = Prelude.Nothing
     }
 
--- | The value represents how the cluster is configured to use AQUA. Possible
--- values include the following.
---
--- -   enabled - Use AQUA if it is available for the current Amazon Web
---     Services Region and Amazon Redshift node type.
---
--- -   disabled - Don\'t use AQUA.
---
--- -   auto - Amazon Redshift determines whether to use AQUA.
+-- | This field is retired. Amazon Redshift automatically determines whether
+-- to use AQUA (Advanced Query Accelerator).
 aquaConfiguration_aquaConfigurationStatus :: Lens.Lens' AquaConfiguration (Prelude.Maybe AquaConfigurationStatus)
 aquaConfiguration_aquaConfigurationStatus = Lens.lens (\AquaConfiguration' {aquaConfigurationStatus} -> aquaConfigurationStatus) (\s@AquaConfiguration' {} a -> s {aquaConfigurationStatus = a} :: AquaConfiguration)
 
--- | The value indicates the status of AQUA on the cluster. Possible values
--- include the following.
---
--- -   enabled - AQUA is enabled.
---
--- -   disabled - AQUA is not enabled.
---
--- -   applying - AQUA status is being applied.
+-- | This field is retired. Amazon Redshift automatically determines whether
+-- to use AQUA (Advanced Query Accelerator).
 aquaConfiguration_aquaStatus :: Lens.Lens' AquaConfiguration (Prelude.Maybe AquaStatus)
 aquaConfiguration_aquaStatus = Lens.lens (\AquaConfiguration' {aquaStatus} -> aquaStatus) (\s@AquaConfiguration' {} a -> s {aquaStatus = a} :: AquaConfiguration)
 
-instance Core.FromXML AquaConfiguration where
+instance Data.FromXML AquaConfiguration where
   parseXML x =
     AquaConfiguration'
-      Prelude.<$> (x Core..@? "AquaConfigurationStatus")
-      Prelude.<*> (x Core..@? "AquaStatus")
+      Prelude.<$> (x Data..@? "AquaConfigurationStatus")
+      Prelude.<*> (x Data..@? "AquaStatus")
 
 instance Prelude.Hashable AquaConfiguration where
   hashWithSalt _salt AquaConfiguration' {..} =

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.DeleteAssessment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,14 +40,15 @@ where
 
 import Amazonka.AuditManager.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteAssessment' smart constructor.
 data DeleteAssessment = DeleteAssessment'
-  { -- | The identifier for the specified assessment.
+  { -- | The identifier for the assessment.
     assessmentId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -60,7 +61,7 @@ data DeleteAssessment = DeleteAssessment'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'assessmentId', 'deleteAssessment_assessmentId' - The identifier for the specified assessment.
+-- 'assessmentId', 'deleteAssessment_assessmentId' - The identifier for the assessment.
 newDeleteAssessment ::
   -- | 'assessmentId'
   Prelude.Text ->
@@ -68,7 +69,7 @@ newDeleteAssessment ::
 newDeleteAssessment pAssessmentId_ =
   DeleteAssessment' {assessmentId = pAssessmentId_}
 
--- | The identifier for the specified assessment.
+-- | The identifier for the assessment.
 deleteAssessment_assessmentId :: Lens.Lens' DeleteAssessment Prelude.Text
 deleteAssessment_assessmentId = Lens.lens (\DeleteAssessment' {assessmentId} -> assessmentId) (\s@DeleteAssessment' {} a -> s {assessmentId = a} :: DeleteAssessment)
 
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteAssessment where
   type
     AWSResponse DeleteAssessment =
       DeleteAssessmentResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -91,23 +93,23 @@ instance Prelude.Hashable DeleteAssessment where
 instance Prelude.NFData DeleteAssessment where
   rnf DeleteAssessment' {..} = Prelude.rnf assessmentId
 
-instance Core.ToHeaders DeleteAssessment where
+instance Data.ToHeaders DeleteAssessment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteAssessment where
+instance Data.ToPath DeleteAssessment where
   toPath DeleteAssessment' {..} =
     Prelude.mconcat
-      ["/assessments/", Core.toBS assessmentId]
+      ["/assessments/", Data.toBS assessmentId]
 
-instance Core.ToQuery DeleteAssessment where
+instance Data.ToQuery DeleteAssessment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAssessmentResponse' smart constructor.

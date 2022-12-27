@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutVision.ListDatasetEntries
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,13 +34,13 @@ module Amazonka.LookoutVision.ListDatasetEntries
     newListDatasetEntries,
 
     -- * Request Lenses
-    listDatasetEntries_beforeCreationDate,
-    listDatasetEntries_sourceRefContains,
-    listDatasetEntries_nextToken,
-    listDatasetEntries_labeled,
-    listDatasetEntries_anomalyClass,
-    listDatasetEntries_maxResults,
     listDatasetEntries_afterCreationDate,
+    listDatasetEntries_anomalyClass,
+    listDatasetEntries_beforeCreationDate,
+    listDatasetEntries_labeled,
+    listDatasetEntries_maxResults,
+    listDatasetEntries_nextToken,
+    listDatasetEntries_sourceRefContains,
     listDatasetEntries_projectName,
     listDatasetEntries_datasetType,
 
@@ -56,7 +56,8 @@ module Amazonka.LookoutVision.ListDatasetEntries
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LookoutVision.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -64,32 +65,32 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListDatasetEntries' smart constructor.
 data ListDatasetEntries = ListDatasetEntries'
-  { -- | Only includes entries before the specified date in the response. For
+  { -- | Only includes entries after the specified date in the response. For
     -- example, @2020-06-23T00:00:00@.
-    beforeCreationDate :: Prelude.Maybe Core.POSIX,
-    -- | Perform a \"contains\" search on the values of the @source-ref@ key
-    -- within the dataset. For example a value of \"IMG_17\" returns all JSON
-    -- Lines where the @source-ref@ key value matches /*IMG_17*/.
-    sourceRefContains :: Prelude.Maybe Prelude.Text,
+    afterCreationDate :: Prelude.Maybe Data.POSIX,
+    -- | Specify @normal@ to include only normal images. Specify @anomaly@ to
+    -- only include anomalous entries. If you don\'t specify a value, Amazon
+    -- Lookout for Vision returns normal and anomalous images.
+    anomalyClass :: Prelude.Maybe Prelude.Text,
+    -- | Only includes entries before the specified date in the response. For
+    -- example, @2020-06-23T00:00:00@.
+    beforeCreationDate :: Prelude.Maybe Data.POSIX,
+    -- | Specify @true@ to include labeled entries, otherwise specify @false@. If
+    -- you don\'t specify a value, Lookout for Vision returns all entries.
+    labeled :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of results to return per paginated call. The largest
+    -- value you can specify is 100. If you specify a value greater than 100, a
+    -- ValidationException error occurs. The default value is 100.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | If the previous response was incomplete (because there is more data to
     -- retrieve), Amazon Lookout for Vision returns a pagination token in the
     -- response. You can use this pagination token to retrieve the next set of
     -- dataset entries.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Specify @true@ to include labeled entries, otherwise specify @false@. If
-    -- you don\'t specify a value, Lookout for Vision returns all entries.
-    labeled :: Prelude.Maybe Prelude.Bool,
-    -- | Specify @normal@ to include only normal images. Specify @anomaly@ to
-    -- only include anomalous entries. If you don\'t specify a value, Amazon
-    -- Lookout for Vision returns normal and anomalous images.
-    anomalyClass :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return per paginated call. The largest
-    -- value you can specify is 100. If you specify a value greater than 100, a
-    -- ValidationException error occurs. The default value is 100.
-    maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | Only includes entries after the specified date in the response. For
-    -- example, @2020-06-23T00:00:00@.
-    afterCreationDate :: Prelude.Maybe Core.POSIX,
+    -- | Perform a \"contains\" search on the values of the @source-ref@ key
+    -- within the dataset. For example a value of \"IMG_17\" returns all JSON
+    -- Lines where the @source-ref@ key value matches /*IMG_17*/.
+    sourceRefContains :: Prelude.Maybe Prelude.Text,
     -- | The name of the project that contains the dataset that you want to list.
     projectName :: Prelude.Text,
     -- | The type of the dataset that you want to list. Specify @train@ to list
@@ -107,31 +108,31 @@ data ListDatasetEntries = ListDatasetEntries'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'afterCreationDate', 'listDatasetEntries_afterCreationDate' - Only includes entries after the specified date in the response. For
+-- example, @2020-06-23T00:00:00@.
+--
+-- 'anomalyClass', 'listDatasetEntries_anomalyClass' - Specify @normal@ to include only normal images. Specify @anomaly@ to
+-- only include anomalous entries. If you don\'t specify a value, Amazon
+-- Lookout for Vision returns normal and anomalous images.
+--
 -- 'beforeCreationDate', 'listDatasetEntries_beforeCreationDate' - Only includes entries before the specified date in the response. For
 -- example, @2020-06-23T00:00:00@.
 --
--- 'sourceRefContains', 'listDatasetEntries_sourceRefContains' - Perform a \"contains\" search on the values of the @source-ref@ key
--- within the dataset. For example a value of \"IMG_17\" returns all JSON
--- Lines where the @source-ref@ key value matches /*IMG_17*/.
+-- 'labeled', 'listDatasetEntries_labeled' - Specify @true@ to include labeled entries, otherwise specify @false@. If
+-- you don\'t specify a value, Lookout for Vision returns all entries.
+--
+-- 'maxResults', 'listDatasetEntries_maxResults' - The maximum number of results to return per paginated call. The largest
+-- value you can specify is 100. If you specify a value greater than 100, a
+-- ValidationException error occurs. The default value is 100.
 --
 -- 'nextToken', 'listDatasetEntries_nextToken' - If the previous response was incomplete (because there is more data to
 -- retrieve), Amazon Lookout for Vision returns a pagination token in the
 -- response. You can use this pagination token to retrieve the next set of
 -- dataset entries.
 --
--- 'labeled', 'listDatasetEntries_labeled' - Specify @true@ to include labeled entries, otherwise specify @false@. If
--- you don\'t specify a value, Lookout for Vision returns all entries.
---
--- 'anomalyClass', 'listDatasetEntries_anomalyClass' - Specify @normal@ to include only normal images. Specify @anomaly@ to
--- only include anomalous entries. If you don\'t specify a value, Amazon
--- Lookout for Vision returns normal and anomalous images.
---
--- 'maxResults', 'listDatasetEntries_maxResults' - The maximum number of results to return per paginated call. The largest
--- value you can specify is 100. If you specify a value greater than 100, a
--- ValidationException error occurs. The default value is 100.
---
--- 'afterCreationDate', 'listDatasetEntries_afterCreationDate' - Only includes entries after the specified date in the response. For
--- example, @2020-06-23T00:00:00@.
+-- 'sourceRefContains', 'listDatasetEntries_sourceRefContains' - Perform a \"contains\" search on the values of the @source-ref@ key
+-- within the dataset. For example a value of \"IMG_17\" returns all JSON
+-- Lines where the @source-ref@ key value matches /*IMG_17*/.
 --
 -- 'projectName', 'listDatasetEntries_projectName' - The name of the project that contains the dataset that you want to list.
 --
@@ -146,28 +147,44 @@ newListDatasetEntries ::
   ListDatasetEntries
 newListDatasetEntries pProjectName_ pDatasetType_ =
   ListDatasetEntries'
-    { beforeCreationDate =
+    { afterCreationDate =
         Prelude.Nothing,
-      sourceRefContains = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      labeled = Prelude.Nothing,
       anomalyClass = Prelude.Nothing,
+      beforeCreationDate = Prelude.Nothing,
+      labeled = Prelude.Nothing,
       maxResults = Prelude.Nothing,
-      afterCreationDate = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      sourceRefContains = Prelude.Nothing,
       projectName = pProjectName_,
       datasetType = pDatasetType_
     }
 
+-- | Only includes entries after the specified date in the response. For
+-- example, @2020-06-23T00:00:00@.
+listDatasetEntries_afterCreationDate :: Lens.Lens' ListDatasetEntries (Prelude.Maybe Prelude.UTCTime)
+listDatasetEntries_afterCreationDate = Lens.lens (\ListDatasetEntries' {afterCreationDate} -> afterCreationDate) (\s@ListDatasetEntries' {} a -> s {afterCreationDate = a} :: ListDatasetEntries) Prelude.. Lens.mapping Data._Time
+
+-- | Specify @normal@ to include only normal images. Specify @anomaly@ to
+-- only include anomalous entries. If you don\'t specify a value, Amazon
+-- Lookout for Vision returns normal and anomalous images.
+listDatasetEntries_anomalyClass :: Lens.Lens' ListDatasetEntries (Prelude.Maybe Prelude.Text)
+listDatasetEntries_anomalyClass = Lens.lens (\ListDatasetEntries' {anomalyClass} -> anomalyClass) (\s@ListDatasetEntries' {} a -> s {anomalyClass = a} :: ListDatasetEntries)
+
 -- | Only includes entries before the specified date in the response. For
 -- example, @2020-06-23T00:00:00@.
 listDatasetEntries_beforeCreationDate :: Lens.Lens' ListDatasetEntries (Prelude.Maybe Prelude.UTCTime)
-listDatasetEntries_beforeCreationDate = Lens.lens (\ListDatasetEntries' {beforeCreationDate} -> beforeCreationDate) (\s@ListDatasetEntries' {} a -> s {beforeCreationDate = a} :: ListDatasetEntries) Prelude.. Lens.mapping Core._Time
+listDatasetEntries_beforeCreationDate = Lens.lens (\ListDatasetEntries' {beforeCreationDate} -> beforeCreationDate) (\s@ListDatasetEntries' {} a -> s {beforeCreationDate = a} :: ListDatasetEntries) Prelude.. Lens.mapping Data._Time
 
--- | Perform a \"contains\" search on the values of the @source-ref@ key
--- within the dataset. For example a value of \"IMG_17\" returns all JSON
--- Lines where the @source-ref@ key value matches /*IMG_17*/.
-listDatasetEntries_sourceRefContains :: Lens.Lens' ListDatasetEntries (Prelude.Maybe Prelude.Text)
-listDatasetEntries_sourceRefContains = Lens.lens (\ListDatasetEntries' {sourceRefContains} -> sourceRefContains) (\s@ListDatasetEntries' {} a -> s {sourceRefContains = a} :: ListDatasetEntries)
+-- | Specify @true@ to include labeled entries, otherwise specify @false@. If
+-- you don\'t specify a value, Lookout for Vision returns all entries.
+listDatasetEntries_labeled :: Lens.Lens' ListDatasetEntries (Prelude.Maybe Prelude.Bool)
+listDatasetEntries_labeled = Lens.lens (\ListDatasetEntries' {labeled} -> labeled) (\s@ListDatasetEntries' {} a -> s {labeled = a} :: ListDatasetEntries)
+
+-- | The maximum number of results to return per paginated call. The largest
+-- value you can specify is 100. If you specify a value greater than 100, a
+-- ValidationException error occurs. The default value is 100.
+listDatasetEntries_maxResults :: Lens.Lens' ListDatasetEntries (Prelude.Maybe Prelude.Natural)
+listDatasetEntries_maxResults = Lens.lens (\ListDatasetEntries' {maxResults} -> maxResults) (\s@ListDatasetEntries' {} a -> s {maxResults = a} :: ListDatasetEntries)
 
 -- | If the previous response was incomplete (because there is more data to
 -- retrieve), Amazon Lookout for Vision returns a pagination token in the
@@ -176,27 +193,11 @@ listDatasetEntries_sourceRefContains = Lens.lens (\ListDatasetEntries' {sourceRe
 listDatasetEntries_nextToken :: Lens.Lens' ListDatasetEntries (Prelude.Maybe Prelude.Text)
 listDatasetEntries_nextToken = Lens.lens (\ListDatasetEntries' {nextToken} -> nextToken) (\s@ListDatasetEntries' {} a -> s {nextToken = a} :: ListDatasetEntries)
 
--- | Specify @true@ to include labeled entries, otherwise specify @false@. If
--- you don\'t specify a value, Lookout for Vision returns all entries.
-listDatasetEntries_labeled :: Lens.Lens' ListDatasetEntries (Prelude.Maybe Prelude.Bool)
-listDatasetEntries_labeled = Lens.lens (\ListDatasetEntries' {labeled} -> labeled) (\s@ListDatasetEntries' {} a -> s {labeled = a} :: ListDatasetEntries)
-
--- | Specify @normal@ to include only normal images. Specify @anomaly@ to
--- only include anomalous entries. If you don\'t specify a value, Amazon
--- Lookout for Vision returns normal and anomalous images.
-listDatasetEntries_anomalyClass :: Lens.Lens' ListDatasetEntries (Prelude.Maybe Prelude.Text)
-listDatasetEntries_anomalyClass = Lens.lens (\ListDatasetEntries' {anomalyClass} -> anomalyClass) (\s@ListDatasetEntries' {} a -> s {anomalyClass = a} :: ListDatasetEntries)
-
--- | The maximum number of results to return per paginated call. The largest
--- value you can specify is 100. If you specify a value greater than 100, a
--- ValidationException error occurs. The default value is 100.
-listDatasetEntries_maxResults :: Lens.Lens' ListDatasetEntries (Prelude.Maybe Prelude.Natural)
-listDatasetEntries_maxResults = Lens.lens (\ListDatasetEntries' {maxResults} -> maxResults) (\s@ListDatasetEntries' {} a -> s {maxResults = a} :: ListDatasetEntries)
-
--- | Only includes entries after the specified date in the response. For
--- example, @2020-06-23T00:00:00@.
-listDatasetEntries_afterCreationDate :: Lens.Lens' ListDatasetEntries (Prelude.Maybe Prelude.UTCTime)
-listDatasetEntries_afterCreationDate = Lens.lens (\ListDatasetEntries' {afterCreationDate} -> afterCreationDate) (\s@ListDatasetEntries' {} a -> s {afterCreationDate = a} :: ListDatasetEntries) Prelude.. Lens.mapping Core._Time
+-- | Perform a \"contains\" search on the values of the @source-ref@ key
+-- within the dataset. For example a value of \"IMG_17\" returns all JSON
+-- Lines where the @source-ref@ key value matches /*IMG_17*/.
+listDatasetEntries_sourceRefContains :: Lens.Lens' ListDatasetEntries (Prelude.Maybe Prelude.Text)
+listDatasetEntries_sourceRefContains = Lens.lens (\ListDatasetEntries' {sourceRefContains} -> sourceRefContains) (\s@ListDatasetEntries' {} a -> s {sourceRefContains = a} :: ListDatasetEntries)
 
 -- | The name of the project that contains the dataset that you want to list.
 listDatasetEntries_projectName :: Lens.Lens' ListDatasetEntries Prelude.Text
@@ -234,71 +235,72 @@ instance Core.AWSRequest ListDatasetEntries where
   type
     AWSResponse ListDatasetEntries =
       ListDatasetEntriesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDatasetEntriesResponse'
-            Prelude.<$> (x Core..?> "DatasetEntries" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "DatasetEntries" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListDatasetEntries where
   hashWithSalt _salt ListDatasetEntries' {..} =
-    _salt `Prelude.hashWithSalt` beforeCreationDate
-      `Prelude.hashWithSalt` sourceRefContains
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` labeled
+    _salt `Prelude.hashWithSalt` afterCreationDate
       `Prelude.hashWithSalt` anomalyClass
+      `Prelude.hashWithSalt` beforeCreationDate
+      `Prelude.hashWithSalt` labeled
       `Prelude.hashWithSalt` maxResults
-      `Prelude.hashWithSalt` afterCreationDate
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` sourceRefContains
       `Prelude.hashWithSalt` projectName
       `Prelude.hashWithSalt` datasetType
 
 instance Prelude.NFData ListDatasetEntries where
   rnf ListDatasetEntries' {..} =
-    Prelude.rnf beforeCreationDate
-      `Prelude.seq` Prelude.rnf sourceRefContains
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf labeled
+    Prelude.rnf afterCreationDate
       `Prelude.seq` Prelude.rnf anomalyClass
+      `Prelude.seq` Prelude.rnf beforeCreationDate
+      `Prelude.seq` Prelude.rnf labeled
       `Prelude.seq` Prelude.rnf maxResults
-      `Prelude.seq` Prelude.rnf afterCreationDate
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf sourceRefContains
       `Prelude.seq` Prelude.rnf projectName
       `Prelude.seq` Prelude.rnf datasetType
 
-instance Core.ToHeaders ListDatasetEntries where
+instance Data.ToHeaders ListDatasetEntries where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListDatasetEntries where
+instance Data.ToPath ListDatasetEntries where
   toPath ListDatasetEntries' {..} =
     Prelude.mconcat
       [ "/2020-11-20/projects/",
-        Core.toBS projectName,
+        Data.toBS projectName,
         "/datasets/",
-        Core.toBS datasetType,
+        Data.toBS datasetType,
         "/entries"
       ]
 
-instance Core.ToQuery ListDatasetEntries where
+instance Data.ToQuery ListDatasetEntries where
   toQuery ListDatasetEntries' {..} =
     Prelude.mconcat
-      [ "createdBefore" Core.=: beforeCreationDate,
-        "sourceRefContains" Core.=: sourceRefContains,
-        "nextToken" Core.=: nextToken,
-        "labeled" Core.=: labeled,
-        "anomalyClass" Core.=: anomalyClass,
-        "maxResults" Core.=: maxResults,
-        "createdAfter" Core.=: afterCreationDate
+      [ "createdAfter" Data.=: afterCreationDate,
+        "anomalyClass" Data.=: anomalyClass,
+        "createdBefore" Data.=: beforeCreationDate,
+        "labeled" Data.=: labeled,
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "sourceRefContains" Data.=: sourceRefContains
       ]
 
 -- | /See:/ 'newListDatasetEntriesResponse' smart constructor.

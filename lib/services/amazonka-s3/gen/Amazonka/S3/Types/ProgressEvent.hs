@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.ProgressEvent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.ProgressEvent where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.Progress
@@ -53,9 +54,9 @@ newProgressEvent =
 progressEvent_details :: Lens.Lens' ProgressEvent (Prelude.Maybe Progress)
 progressEvent_details = Lens.lens (\ProgressEvent' {details} -> details) (\s@ProgressEvent' {} a -> s {details = a} :: ProgressEvent)
 
-instance Core.FromXML ProgressEvent where
+instance Data.FromXML ProgressEvent where
   parseXML x =
-    ProgressEvent' Prelude.<$> (x Core..@? "Details")
+    ProgressEvent' Prelude.<$> (x Data..@? "Details")
 
 instance Prelude.Hashable ProgressEvent where
   hashWithSalt _salt ProgressEvent' {..} =

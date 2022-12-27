@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.ListUpdates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,9 +31,9 @@ module Amazonka.EKS.ListUpdates
 
     -- * Request Lenses
     listUpdates_addonName,
+    listUpdates_maxResults,
     listUpdates_nextToken,
     listUpdates_nodegroupName,
-    listUpdates_maxResults,
     listUpdates_name,
 
     -- * Destructuring the Response
@@ -48,8 +48,9 @@ module Amazonka.EKS.ListUpdates
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EKS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,13 +59,6 @@ import qualified Amazonka.Response as Response
 data ListUpdates = ListUpdates'
   { -- | The names of the installed add-ons that have available updates.
     addonName :: Prelude.Maybe Prelude.Text,
-    -- | The @nextToken@ value returned from a previous paginated @ListUpdates@
-    -- request where @maxResults@ was used and the results exceeded the value
-    -- of that parameter. Pagination continues from the end of the previous
-    -- results that returned the @nextToken@ value.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The name of the Amazon EKS managed node group to list updates for.
-    nodegroupName :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of update results returned by @ListUpdates@ in
     -- paginated output. When you use this parameter, @ListUpdates@ returns
     -- only @maxResults@ results in a single page along with a @nextToken@
@@ -74,6 +68,13 @@ data ListUpdates = ListUpdates'
     -- use this parameter, @ListUpdates@ returns up to 100 results and a
     -- @nextToken@ value if applicable.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The @nextToken@ value returned from a previous paginated @ListUpdates@
+    -- request where @maxResults@ was used and the results exceeded the value
+    -- of that parameter. Pagination continues from the end of the previous
+    -- results that returned the @nextToken@ value.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The name of the Amazon EKS managed node group to list updates for.
+    nodegroupName :: Prelude.Maybe Prelude.Text,
     -- | The name of the Amazon EKS cluster to list updates for.
     name :: Prelude.Text
   }
@@ -89,13 +90,6 @@ data ListUpdates = ListUpdates'
 --
 -- 'addonName', 'listUpdates_addonName' - The names of the installed add-ons that have available updates.
 --
--- 'nextToken', 'listUpdates_nextToken' - The @nextToken@ value returned from a previous paginated @ListUpdates@
--- request where @maxResults@ was used and the results exceeded the value
--- of that parameter. Pagination continues from the end of the previous
--- results that returned the @nextToken@ value.
---
--- 'nodegroupName', 'listUpdates_nodegroupName' - The name of the Amazon EKS managed node group to list updates for.
---
 -- 'maxResults', 'listUpdates_maxResults' - The maximum number of update results returned by @ListUpdates@ in
 -- paginated output. When you use this parameter, @ListUpdates@ returns
 -- only @maxResults@ results in a single page along with a @nextToken@
@@ -105,6 +99,13 @@ data ListUpdates = ListUpdates'
 -- use this parameter, @ListUpdates@ returns up to 100 results and a
 -- @nextToken@ value if applicable.
 --
+-- 'nextToken', 'listUpdates_nextToken' - The @nextToken@ value returned from a previous paginated @ListUpdates@
+-- request where @maxResults@ was used and the results exceeded the value
+-- of that parameter. Pagination continues from the end of the previous
+-- results that returned the @nextToken@ value.
+--
+-- 'nodegroupName', 'listUpdates_nodegroupName' - The name of the Amazon EKS managed node group to list updates for.
+--
 -- 'name', 'listUpdates_name' - The name of the Amazon EKS cluster to list updates for.
 newListUpdates ::
   -- | 'name'
@@ -113,26 +114,15 @@ newListUpdates ::
 newListUpdates pName_ =
   ListUpdates'
     { addonName = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
       nodegroupName = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
       name = pName_
     }
 
 -- | The names of the installed add-ons that have available updates.
 listUpdates_addonName :: Lens.Lens' ListUpdates (Prelude.Maybe Prelude.Text)
 listUpdates_addonName = Lens.lens (\ListUpdates' {addonName} -> addonName) (\s@ListUpdates' {} a -> s {addonName = a} :: ListUpdates)
-
--- | The @nextToken@ value returned from a previous paginated @ListUpdates@
--- request where @maxResults@ was used and the results exceeded the value
--- of that parameter. Pagination continues from the end of the previous
--- results that returned the @nextToken@ value.
-listUpdates_nextToken :: Lens.Lens' ListUpdates (Prelude.Maybe Prelude.Text)
-listUpdates_nextToken = Lens.lens (\ListUpdates' {nextToken} -> nextToken) (\s@ListUpdates' {} a -> s {nextToken = a} :: ListUpdates)
-
--- | The name of the Amazon EKS managed node group to list updates for.
-listUpdates_nodegroupName :: Lens.Lens' ListUpdates (Prelude.Maybe Prelude.Text)
-listUpdates_nodegroupName = Lens.lens (\ListUpdates' {nodegroupName} -> nodegroupName) (\s@ListUpdates' {} a -> s {nodegroupName = a} :: ListUpdates)
 
 -- | The maximum number of update results returned by @ListUpdates@ in
 -- paginated output. When you use this parameter, @ListUpdates@ returns
@@ -144,6 +134,17 @@ listUpdates_nodegroupName = Lens.lens (\ListUpdates' {nodegroupName} -> nodegrou
 -- @nextToken@ value if applicable.
 listUpdates_maxResults :: Lens.Lens' ListUpdates (Prelude.Maybe Prelude.Natural)
 listUpdates_maxResults = Lens.lens (\ListUpdates' {maxResults} -> maxResults) (\s@ListUpdates' {} a -> s {maxResults = a} :: ListUpdates)
+
+-- | The @nextToken@ value returned from a previous paginated @ListUpdates@
+-- request where @maxResults@ was used and the results exceeded the value
+-- of that parameter. Pagination continues from the end of the previous
+-- results that returned the @nextToken@ value.
+listUpdates_nextToken :: Lens.Lens' ListUpdates (Prelude.Maybe Prelude.Text)
+listUpdates_nextToken = Lens.lens (\ListUpdates' {nextToken} -> nextToken) (\s@ListUpdates' {} a -> s {nextToken = a} :: ListUpdates)
+
+-- | The name of the Amazon EKS managed node group to list updates for.
+listUpdates_nodegroupName :: Lens.Lens' ListUpdates (Prelude.Maybe Prelude.Text)
+listUpdates_nodegroupName = Lens.lens (\ListUpdates' {nodegroupName} -> nodegroupName) (\s@ListUpdates' {} a -> s {nodegroupName = a} :: ListUpdates)
 
 -- | The name of the Amazon EKS cluster to list updates for.
 listUpdates_name :: Lens.Lens' ListUpdates Prelude.Text
@@ -170,55 +171,56 @@ instance Core.AWSPager ListUpdates where
 
 instance Core.AWSRequest ListUpdates where
   type AWSResponse ListUpdates = ListUpdatesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListUpdatesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "updateIds" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "updateIds" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListUpdates where
   hashWithSalt _salt ListUpdates' {..} =
     _salt `Prelude.hashWithSalt` addonName
+      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` nodegroupName
-      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData ListUpdates where
   rnf ListUpdates' {..} =
     Prelude.rnf addonName
+      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf nodegroupName
-      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders ListUpdates where
+instance Data.ToHeaders ListUpdates where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListUpdates where
+instance Data.ToPath ListUpdates where
   toPath ListUpdates' {..} =
     Prelude.mconcat
-      ["/clusters/", Core.toBS name, "/updates"]
+      ["/clusters/", Data.toBS name, "/updates"]
 
-instance Core.ToQuery ListUpdates where
+instance Data.ToQuery ListUpdates where
   toQuery ListUpdates' {..} =
     Prelude.mconcat
-      [ "addonName" Core.=: addonName,
-        "nextToken" Core.=: nextToken,
-        "nodegroupName" Core.=: nodegroupName,
-        "maxResults" Core.=: maxResults
+      [ "addonName" Data.=: addonName,
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "nodegroupName" Data.=: nodegroupName
       ]
 
 -- | /See:/ 'newListUpdatesResponse' smart constructor.

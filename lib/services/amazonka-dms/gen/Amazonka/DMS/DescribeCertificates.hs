@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DMS.DescribeCertificates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.DMS.DescribeCertificates
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DMS.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,7 +55,7 @@ import qualified Amazonka.Response as Response
 -- | /See:/ 'newDescribeCertificates' smart constructor.
 data DescribeCertificates = DescribeCertificates'
   { -- | Filters applied to the certificates described in the form of key-value
-    -- pairs.
+    -- pairs. Valid values are @certificate-arn@ and @certificate-id@.
     filters :: Prelude.Maybe [Filter],
     -- | An optional pagination token provided by a previous request. If this
     -- parameter is specified, the response includes only records beyond the
@@ -79,7 +80,7 @@ data DescribeCertificates = DescribeCertificates'
 -- for backwards compatibility:
 --
 -- 'filters', 'describeCertificates_filters' - Filters applied to the certificates described in the form of key-value
--- pairs.
+-- pairs. Valid values are @certificate-arn@ and @certificate-id@.
 --
 -- 'marker', 'describeCertificates_marker' - An optional pagination token provided by a previous request. If this
 -- parameter is specified, the response includes only records beyond the
@@ -101,7 +102,7 @@ newDescribeCertificates =
     }
 
 -- | Filters applied to the certificates described in the form of key-value
--- pairs.
+-- pairs. Valid values are @certificate-arn@ and @certificate-id@.
 describeCertificates_filters :: Lens.Lens' DescribeCertificates (Prelude.Maybe [Filter])
 describeCertificates_filters = Lens.lens (\DescribeCertificates' {filters} -> filters) (\s@DescribeCertificates' {} a -> s {filters = a} :: DescribeCertificates) Prelude.. Lens.mapping Lens.coerced
 
@@ -146,13 +147,14 @@ instance Core.AWSRequest DescribeCertificates where
   type
     AWSResponse DescribeCertificates =
       DescribeCertificatesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeCertificatesResponse'
-            Prelude.<$> (x Core..?> "Certificates" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "Marker")
+            Prelude.<$> (x Data..?> "Certificates" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -168,35 +170,35 @@ instance Prelude.NFData DescribeCertificates where
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
 
-instance Core.ToHeaders DescribeCertificates where
+instance Data.ToHeaders DescribeCertificates where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonDMSv20160101.DescribeCertificates" ::
+              Data.=# ( "AmazonDMSv20160101.DescribeCertificates" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeCertificates where
+instance Data.ToJSON DescribeCertificates where
   toJSON DescribeCertificates' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("Marker" Core..=) Prelude.<$> marker,
-            ("MaxRecords" Core..=) Prelude.<$> maxRecords
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("Marker" Data..=) Prelude.<$> marker,
+            ("MaxRecords" Data..=) Prelude.<$> maxRecords
           ]
       )
 
-instance Core.ToPath DescribeCertificates where
+instance Data.ToPath DescribeCertificates where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeCertificates where
+instance Data.ToQuery DescribeCertificates where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeCertificatesResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.MovSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.MovSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types.MovClapAtom
 import Amazonka.MediaConvert.Types.MovCslgAtom
 import Amazonka.MediaConvert.Types.MovMpeg2FourCCControl
@@ -32,8 +33,9 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newMovSettings' smart constructor.
 data MovSettings = MovSettings'
-  { -- | Always keep the default value (SELF_CONTAINED) for this setting.
-    reference :: Prelude.Maybe MovReference,
+  { -- | When enabled, include \'clap\' atom if appropriate for the video output
+    -- settings.
+    clapAtom :: Prelude.Maybe MovClapAtom,
     -- | When enabled, file composition times will start at zero, composition
     -- times in the \'ctts\' (composition time to sample) box for B-frames will
     -- be negative, and a \'cslg\' (composition shift least greatest) box will
@@ -51,9 +53,8 @@ data MovSettings = MovSettings'
     -- length of the edit list atom. This might cause file rejections when a
     -- recipient of the output file doesn\'t expct this extra padding.
     paddingControl :: Prelude.Maybe MovPaddingControl,
-    -- | When enabled, include \'clap\' atom if appropriate for the video output
-    -- settings.
-    clapAtom :: Prelude.Maybe MovClapAtom
+    -- | Always keep the default value (SELF_CONTAINED) for this setting.
+    reference :: Prelude.Maybe MovReference
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -65,7 +66,8 @@ data MovSettings = MovSettings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'reference', 'movSettings_reference' - Always keep the default value (SELF_CONTAINED) for this setting.
+-- 'clapAtom', 'movSettings_clapAtom' - When enabled, include \'clap\' atom if appropriate for the video output
+-- settings.
 --
 -- 'cslgAtom', 'movSettings_cslgAtom' - When enabled, file composition times will start at zero, composition
 -- times in the \'ctts\' (composition time to sample) box for B-frames will
@@ -84,22 +86,22 @@ data MovSettings = MovSettings'
 -- length of the edit list atom. This might cause file rejections when a
 -- recipient of the output file doesn\'t expct this extra padding.
 --
--- 'clapAtom', 'movSettings_clapAtom' - When enabled, include \'clap\' atom if appropriate for the video output
--- settings.
+-- 'reference', 'movSettings_reference' - Always keep the default value (SELF_CONTAINED) for this setting.
 newMovSettings ::
   MovSettings
 newMovSettings =
   MovSettings'
-    { reference = Prelude.Nothing,
+    { clapAtom = Prelude.Nothing,
       cslgAtom = Prelude.Nothing,
       mpeg2FourCCControl = Prelude.Nothing,
       paddingControl = Prelude.Nothing,
-      clapAtom = Prelude.Nothing
+      reference = Prelude.Nothing
     }
 
--- | Always keep the default value (SELF_CONTAINED) for this setting.
-movSettings_reference :: Lens.Lens' MovSettings (Prelude.Maybe MovReference)
-movSettings_reference = Lens.lens (\MovSettings' {reference} -> reference) (\s@MovSettings' {} a -> s {reference = a} :: MovSettings)
+-- | When enabled, include \'clap\' atom if appropriate for the video output
+-- settings.
+movSettings_clapAtom :: Lens.Lens' MovSettings (Prelude.Maybe MovClapAtom)
+movSettings_clapAtom = Lens.lens (\MovSettings' {clapAtom} -> clapAtom) (\s@MovSettings' {} a -> s {clapAtom = a} :: MovSettings)
 
 -- | When enabled, file composition times will start at zero, composition
 -- times in the \'ctts\' (composition time to sample) box for B-frames will
@@ -124,50 +126,49 @@ movSettings_mpeg2FourCCControl = Lens.lens (\MovSettings' {mpeg2FourCCControl} -
 movSettings_paddingControl :: Lens.Lens' MovSettings (Prelude.Maybe MovPaddingControl)
 movSettings_paddingControl = Lens.lens (\MovSettings' {paddingControl} -> paddingControl) (\s@MovSettings' {} a -> s {paddingControl = a} :: MovSettings)
 
--- | When enabled, include \'clap\' atom if appropriate for the video output
--- settings.
-movSettings_clapAtom :: Lens.Lens' MovSettings (Prelude.Maybe MovClapAtom)
-movSettings_clapAtom = Lens.lens (\MovSettings' {clapAtom} -> clapAtom) (\s@MovSettings' {} a -> s {clapAtom = a} :: MovSettings)
+-- | Always keep the default value (SELF_CONTAINED) for this setting.
+movSettings_reference :: Lens.Lens' MovSettings (Prelude.Maybe MovReference)
+movSettings_reference = Lens.lens (\MovSettings' {reference} -> reference) (\s@MovSettings' {} a -> s {reference = a} :: MovSettings)
 
-instance Core.FromJSON MovSettings where
+instance Data.FromJSON MovSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MovSettings"
       ( \x ->
           MovSettings'
-            Prelude.<$> (x Core..:? "reference")
-            Prelude.<*> (x Core..:? "cslgAtom")
-            Prelude.<*> (x Core..:? "mpeg2FourCCControl")
-            Prelude.<*> (x Core..:? "paddingControl")
-            Prelude.<*> (x Core..:? "clapAtom")
+            Prelude.<$> (x Data..:? "clapAtom")
+            Prelude.<*> (x Data..:? "cslgAtom")
+            Prelude.<*> (x Data..:? "mpeg2FourCCControl")
+            Prelude.<*> (x Data..:? "paddingControl")
+            Prelude.<*> (x Data..:? "reference")
       )
 
 instance Prelude.Hashable MovSettings where
   hashWithSalt _salt MovSettings' {..} =
-    _salt `Prelude.hashWithSalt` reference
+    _salt `Prelude.hashWithSalt` clapAtom
       `Prelude.hashWithSalt` cslgAtom
       `Prelude.hashWithSalt` mpeg2FourCCControl
       `Prelude.hashWithSalt` paddingControl
-      `Prelude.hashWithSalt` clapAtom
+      `Prelude.hashWithSalt` reference
 
 instance Prelude.NFData MovSettings where
   rnf MovSettings' {..} =
-    Prelude.rnf reference
+    Prelude.rnf clapAtom
       `Prelude.seq` Prelude.rnf cslgAtom
       `Prelude.seq` Prelude.rnf mpeg2FourCCControl
       `Prelude.seq` Prelude.rnf paddingControl
-      `Prelude.seq` Prelude.rnf clapAtom
+      `Prelude.seq` Prelude.rnf reference
 
-instance Core.ToJSON MovSettings where
+instance Data.ToJSON MovSettings where
   toJSON MovSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("reference" Core..=) Prelude.<$> reference,
-            ("cslgAtom" Core..=) Prelude.<$> cslgAtom,
-            ("mpeg2FourCCControl" Core..=)
+          [ ("clapAtom" Data..=) Prelude.<$> clapAtom,
+            ("cslgAtom" Data..=) Prelude.<$> cslgAtom,
+            ("mpeg2FourCCControl" Data..=)
               Prelude.<$> mpeg2FourCCControl,
-            ("paddingControl" Core..=)
+            ("paddingControl" Data..=)
               Prelude.<$> paddingControl,
-            ("clapAtom" Core..=) Prelude.<$> clapAtom
+            ("reference" Data..=) Prelude.<$> reference
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.EgressOnlyInternetGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,21 @@
 module Amazonka.EC2.Types.EgressOnlyInternetGateway where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.InternetGatewayAttachment
 import Amazonka.EC2.Types.Tag
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an egress-only internet gateway.
 --
 -- /See:/ 'newEgressOnlyInternetGateway' smart constructor.
 data EgressOnlyInternetGateway = EgressOnlyInternetGateway'
-  { -- | The ID of the egress-only internet gateway.
-    egressOnlyInternetGatewayId :: Prelude.Maybe Prelude.Text,
-    -- | Information about the attachment of the egress-only internet gateway.
+  { -- | Information about the attachment of the egress-only internet gateway.
     attachments :: Prelude.Maybe [InternetGatewayAttachment],
+    -- | The ID of the egress-only internet gateway.
+    egressOnlyInternetGatewayId :: Prelude.Maybe Prelude.Text,
     -- | The tags assigned to the egress-only internet gateway.
     tags :: Prelude.Maybe [Tag]
   }
@@ -47,53 +48,52 @@ data EgressOnlyInternetGateway = EgressOnlyInternetGateway'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'egressOnlyInternetGatewayId', 'egressOnlyInternetGateway_egressOnlyInternetGatewayId' - The ID of the egress-only internet gateway.
---
 -- 'attachments', 'egressOnlyInternetGateway_attachments' - Information about the attachment of the egress-only internet gateway.
+--
+-- 'egressOnlyInternetGatewayId', 'egressOnlyInternetGateway_egressOnlyInternetGatewayId' - The ID of the egress-only internet gateway.
 --
 -- 'tags', 'egressOnlyInternetGateway_tags' - The tags assigned to the egress-only internet gateway.
 newEgressOnlyInternetGateway ::
   EgressOnlyInternetGateway
 newEgressOnlyInternetGateway =
   EgressOnlyInternetGateway'
-    { egressOnlyInternetGatewayId =
+    { attachments =
         Prelude.Nothing,
-      attachments = Prelude.Nothing,
+      egressOnlyInternetGatewayId = Prelude.Nothing,
       tags = Prelude.Nothing
     }
-
--- | The ID of the egress-only internet gateway.
-egressOnlyInternetGateway_egressOnlyInternetGatewayId :: Lens.Lens' EgressOnlyInternetGateway (Prelude.Maybe Prelude.Text)
-egressOnlyInternetGateway_egressOnlyInternetGatewayId = Lens.lens (\EgressOnlyInternetGateway' {egressOnlyInternetGatewayId} -> egressOnlyInternetGatewayId) (\s@EgressOnlyInternetGateway' {} a -> s {egressOnlyInternetGatewayId = a} :: EgressOnlyInternetGateway)
 
 -- | Information about the attachment of the egress-only internet gateway.
 egressOnlyInternetGateway_attachments :: Lens.Lens' EgressOnlyInternetGateway (Prelude.Maybe [InternetGatewayAttachment])
 egressOnlyInternetGateway_attachments = Lens.lens (\EgressOnlyInternetGateway' {attachments} -> attachments) (\s@EgressOnlyInternetGateway' {} a -> s {attachments = a} :: EgressOnlyInternetGateway) Prelude.. Lens.mapping Lens.coerced
 
+-- | The ID of the egress-only internet gateway.
+egressOnlyInternetGateway_egressOnlyInternetGatewayId :: Lens.Lens' EgressOnlyInternetGateway (Prelude.Maybe Prelude.Text)
+egressOnlyInternetGateway_egressOnlyInternetGatewayId = Lens.lens (\EgressOnlyInternetGateway' {egressOnlyInternetGatewayId} -> egressOnlyInternetGatewayId) (\s@EgressOnlyInternetGateway' {} a -> s {egressOnlyInternetGatewayId = a} :: EgressOnlyInternetGateway)
+
 -- | The tags assigned to the egress-only internet gateway.
 egressOnlyInternetGateway_tags :: Lens.Lens' EgressOnlyInternetGateway (Prelude.Maybe [Tag])
 egressOnlyInternetGateway_tags = Lens.lens (\EgressOnlyInternetGateway' {tags} -> tags) (\s@EgressOnlyInternetGateway' {} a -> s {tags = a} :: EgressOnlyInternetGateway) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML EgressOnlyInternetGateway where
+instance Data.FromXML EgressOnlyInternetGateway where
   parseXML x =
     EgressOnlyInternetGateway'
-      Prelude.<$> (x Core..@? "egressOnlyInternetGatewayId")
-      Prelude.<*> ( x Core..@? "attachmentSet" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+      Prelude.<$> ( x Data..@? "attachmentSet" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
-      Prelude.<*> ( x Core..@? "tagSet" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+      Prelude.<*> (x Data..@? "egressOnlyInternetGatewayId")
+      Prelude.<*> ( x Data..@? "tagSet" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
 
 instance Prelude.Hashable EgressOnlyInternetGateway where
   hashWithSalt _salt EgressOnlyInternetGateway' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` attachments
       `Prelude.hashWithSalt` egressOnlyInternetGatewayId
-      `Prelude.hashWithSalt` attachments
       `Prelude.hashWithSalt` tags
 
 instance Prelude.NFData EgressOnlyInternetGateway where
   rnf EgressOnlyInternetGateway' {..} =
-    Prelude.rnf egressOnlyInternetGatewayId
-      `Prelude.seq` Prelude.rnf attachments
+    Prelude.rnf attachments
+      `Prelude.seq` Prelude.rnf egressOnlyInternetGatewayId
       `Prelude.seq` Prelude.rnf tags

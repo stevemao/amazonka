@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutMetrics.GetFeedback
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.LookoutMetrics.GetFeedback
     newGetFeedback,
 
     -- * Request Lenses
-    getFeedback_nextToken,
     getFeedback_maxResults,
+    getFeedback_nextToken,
     getFeedback_anomalyDetectorArn,
     getFeedback_anomalyGroupTimeSeriesFeedback,
 
@@ -44,7 +44,8 @@ module Amazonka.LookoutMetrics.GetFeedback
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LookoutMetrics.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,11 +53,11 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetFeedback' smart constructor.
 data GetFeedback = GetFeedback'
-  { -- | Specify the pagination token that\'s returned by a previous request to
+  { -- | The maximum number of results to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Specify the pagination token that\'s returned by a previous request to
     -- retrieve the next page of results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The Amazon Resource Name (ARN) of the anomaly detector.
     anomalyDetectorArn :: Prelude.Text,
     -- | The anomalous metric and group ID.
@@ -72,10 +73,10 @@ data GetFeedback = GetFeedback'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'getFeedback_maxResults' - The maximum number of results to return.
+--
 -- 'nextToken', 'getFeedback_nextToken' - Specify the pagination token that\'s returned by a previous request to
 -- retrieve the next page of results.
---
--- 'maxResults', 'getFeedback_maxResults' - The maximum number of results to return.
 --
 -- 'anomalyDetectorArn', 'getFeedback_anomalyDetectorArn' - The Amazon Resource Name (ARN) of the anomaly detector.
 --
@@ -90,21 +91,21 @@ newGetFeedback
   pAnomalyDetectorArn_
   pAnomalyGroupTimeSeriesFeedback_ =
     GetFeedback'
-      { nextToken = Prelude.Nothing,
-        maxResults = Prelude.Nothing,
+      { maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         anomalyDetectorArn = pAnomalyDetectorArn_,
         anomalyGroupTimeSeriesFeedback =
           pAnomalyGroupTimeSeriesFeedback_
       }
 
+-- | The maximum number of results to return.
+getFeedback_maxResults :: Lens.Lens' GetFeedback (Prelude.Maybe Prelude.Natural)
+getFeedback_maxResults = Lens.lens (\GetFeedback' {maxResults} -> maxResults) (\s@GetFeedback' {} a -> s {maxResults = a} :: GetFeedback)
+
 -- | Specify the pagination token that\'s returned by a previous request to
 -- retrieve the next page of results.
 getFeedback_nextToken :: Lens.Lens' GetFeedback (Prelude.Maybe Prelude.Text)
 getFeedback_nextToken = Lens.lens (\GetFeedback' {nextToken} -> nextToken) (\s@GetFeedback' {} a -> s {nextToken = a} :: GetFeedback)
-
--- | The maximum number of results to return.
-getFeedback_maxResults :: Lens.Lens' GetFeedback (Prelude.Maybe Prelude.Natural)
-getFeedback_maxResults = Lens.lens (\GetFeedback' {maxResults} -> maxResults) (\s@GetFeedback' {} a -> s {maxResults = a} :: GetFeedback)
 
 -- | The Amazon Resource Name (ARN) of the anomaly detector.
 getFeedback_anomalyDetectorArn :: Lens.Lens' GetFeedback Prelude.Text
@@ -116,62 +117,63 @@ getFeedback_anomalyGroupTimeSeriesFeedback = Lens.lens (\GetFeedback' {anomalyGr
 
 instance Core.AWSRequest GetFeedback where
   type AWSResponse GetFeedback = GetFeedbackResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetFeedbackResponse'
-            Prelude.<$> ( x Core..?> "AnomalyGroupTimeSeriesFeedback"
+            Prelude.<$> ( x Data..?> "AnomalyGroupTimeSeriesFeedback"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetFeedback where
   hashWithSalt _salt GetFeedback' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` anomalyDetectorArn
       `Prelude.hashWithSalt` anomalyGroupTimeSeriesFeedback
 
 instance Prelude.NFData GetFeedback where
   rnf GetFeedback' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf anomalyDetectorArn
       `Prelude.seq` Prelude.rnf anomalyGroupTimeSeriesFeedback
 
-instance Core.ToHeaders GetFeedback where
+instance Data.ToHeaders GetFeedback where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetFeedback where
+instance Data.ToJSON GetFeedback where
   toJSON GetFeedback' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("AnomalyDetectorArn" Core..= anomalyDetectorArn),
+              ("AnomalyDetectorArn" Data..= anomalyDetectorArn),
             Prelude.Just
               ( "AnomalyGroupTimeSeriesFeedback"
-                  Core..= anomalyGroupTimeSeriesFeedback
+                  Data..= anomalyGroupTimeSeriesFeedback
               )
           ]
       )
 
-instance Core.ToPath GetFeedback where
+instance Data.ToPath GetFeedback where
   toPath = Prelude.const "/GetFeedback"
 
-instance Core.ToQuery GetFeedback where
+instance Data.ToQuery GetFeedback where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetFeedbackResponse' smart constructor.

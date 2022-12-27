@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.VpcCidrBlockState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.VpcCidrBlockState where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.VpcCidrBlockStateCode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the state of a CIDR block.
@@ -63,11 +64,11 @@ vpcCidrBlockState_state = Lens.lens (\VpcCidrBlockState' {state} -> state) (\s@V
 vpcCidrBlockState_statusMessage :: Lens.Lens' VpcCidrBlockState (Prelude.Maybe Prelude.Text)
 vpcCidrBlockState_statusMessage = Lens.lens (\VpcCidrBlockState' {statusMessage} -> statusMessage) (\s@VpcCidrBlockState' {} a -> s {statusMessage = a} :: VpcCidrBlockState)
 
-instance Core.FromXML VpcCidrBlockState where
+instance Data.FromXML VpcCidrBlockState where
   parseXML x =
     VpcCidrBlockState'
-      Prelude.<$> (x Core..@? "state")
-      Prelude.<*> (x Core..@? "statusMessage")
+      Prelude.<$> (x Data..@? "state")
+      Prelude.<*> (x Data..@? "statusMessage")
 
 instance Prelude.Hashable VpcCidrBlockState where
   hashWithSalt _salt VpcCidrBlockState' {..} =

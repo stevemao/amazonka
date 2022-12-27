@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.GetPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,13 +31,14 @@
 --
 -- __About Policies__
 --
--- -   A policy grants access on a private CA to an AWS customer account,
---     to AWS Organizations, or to an AWS Organizations unit. Policies are
---     under the control of a CA administrator. For more information, see
+-- -   A policy grants access on a private CA to an Amazon Web Services
+--     customer account, to Amazon Web Services Organizations, or to an
+--     Amazon Web Services Organizations unit. Policies are under the
+--     control of a CA administrator. For more information, see
 --     <https://docs.aws.amazon.com/acm-pca/latest/userguide/pca-rbp.html Using a Resource Based Policy with ACM Private CA>.
 --
--- -   A policy permits a user of AWS Certificate Manager (ACM) to issue
---     ACM certificates signed by a CA in another account.
+-- -   A policy permits a user of Certificate Manager (ACM) to issue ACM
+--     certificates signed by a CA in another account.
 --
 -- -   For ACM to manage automatic renewal of these certificates, the ACM
 --     user must configure a Service Linked Role (SLR). The SLR allows the
@@ -46,8 +47,8 @@
 --     information, see
 --     <https://docs.aws.amazon.com/acm/latest/userguide/acm-slr.html Using a Service Linked Role with ACM>.
 --
--- -   Updates made in AWS Resource Manager (RAM) are reflected in
---     policies. For more information, see
+-- -   Updates made in Amazon Web Services Resource Manager (RAM) are
+--     reflected in policies. For more information, see
 --     <https://docs.aws.amazon.com/acm-pca/latest/userguide/pca-ram.html Attach a Policy for Cross-Account Access>.
 module Amazonka.CertificateManagerPCA.GetPolicy
   ( -- * Creating a Request
@@ -69,7 +70,8 @@ where
 
 import Amazonka.CertificateManagerPCA.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -109,12 +111,13 @@ getPolicy_resourceArn = Lens.lens (\GetPolicy' {resourceArn} -> resourceArn) (\s
 
 instance Core.AWSRequest GetPolicy where
   type AWSResponse GetPolicy = GetPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetPolicyResponse'
-            Prelude.<$> (x Core..?> "Policy")
+            Prelude.<$> (x Data..?> "Policy")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -125,30 +128,30 @@ instance Prelude.Hashable GetPolicy where
 instance Prelude.NFData GetPolicy where
   rnf GetPolicy' {..} = Prelude.rnf resourceArn
 
-instance Core.ToHeaders GetPolicy where
+instance Data.ToHeaders GetPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("ACMPrivateCA.GetPolicy" :: Prelude.ByteString),
+              Data.=# ("ACMPrivateCA.GetPolicy" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetPolicy where
+instance Data.ToJSON GetPolicy where
   toJSON GetPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ResourceArn" Core..= resourceArn)]
+          [Prelude.Just ("ResourceArn" Data..= resourceArn)]
       )
 
-instance Core.ToPath GetPolicy where
+instance Data.ToPath GetPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetPolicy where
+instance Data.ToQuery GetPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetPolicyResponse' smart constructor.

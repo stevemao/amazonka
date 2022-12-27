@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MGN.Types.DataReplicationError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MGN.Types.DataReplicationError where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MGN.Types.DataReplicationErrorString
 import qualified Amazonka.Prelude as Prelude
 
@@ -29,9 +30,9 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newDataReplicationError' smart constructor.
 data DataReplicationError = DataReplicationError'
   { -- | Error in data replication.
-    rawError :: Prelude.Maybe Prelude.Text,
+    error :: Prelude.Maybe DataReplicationErrorString,
     -- | Error in data replication.
-    error :: Prelude.Maybe DataReplicationErrorString
+    rawError :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,41 +44,41 @@ data DataReplicationError = DataReplicationError'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'rawError', 'dataReplicationError_rawError' - Error in data replication.
---
 -- 'error', 'dataReplicationError_error' - Error in data replication.
+--
+-- 'rawError', 'dataReplicationError_rawError' - Error in data replication.
 newDataReplicationError ::
   DataReplicationError
 newDataReplicationError =
   DataReplicationError'
-    { rawError = Prelude.Nothing,
-      error = Prelude.Nothing
+    { error = Prelude.Nothing,
+      rawError = Prelude.Nothing
     }
-
--- | Error in data replication.
-dataReplicationError_rawError :: Lens.Lens' DataReplicationError (Prelude.Maybe Prelude.Text)
-dataReplicationError_rawError = Lens.lens (\DataReplicationError' {rawError} -> rawError) (\s@DataReplicationError' {} a -> s {rawError = a} :: DataReplicationError)
 
 -- | Error in data replication.
 dataReplicationError_error :: Lens.Lens' DataReplicationError (Prelude.Maybe DataReplicationErrorString)
 dataReplicationError_error = Lens.lens (\DataReplicationError' {error} -> error) (\s@DataReplicationError' {} a -> s {error = a} :: DataReplicationError)
 
-instance Core.FromJSON DataReplicationError where
+-- | Error in data replication.
+dataReplicationError_rawError :: Lens.Lens' DataReplicationError (Prelude.Maybe Prelude.Text)
+dataReplicationError_rawError = Lens.lens (\DataReplicationError' {rawError} -> rawError) (\s@DataReplicationError' {} a -> s {rawError = a} :: DataReplicationError)
+
+instance Data.FromJSON DataReplicationError where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DataReplicationError"
       ( \x ->
           DataReplicationError'
-            Prelude.<$> (x Core..:? "rawError")
-            Prelude.<*> (x Core..:? "error")
+            Prelude.<$> (x Data..:? "error")
+            Prelude.<*> (x Data..:? "rawError")
       )
 
 instance Prelude.Hashable DataReplicationError where
   hashWithSalt _salt DataReplicationError' {..} =
-    _salt `Prelude.hashWithSalt` rawError
-      `Prelude.hashWithSalt` error
+    _salt `Prelude.hashWithSalt` error
+      `Prelude.hashWithSalt` rawError
 
 instance Prelude.NFData DataReplicationError where
   rnf DataReplicationError' {..} =
-    Prelude.rnf rawError
-      `Prelude.seq` Prelude.rnf error
+    Prelude.rnf error
+      `Prelude.seq` Prelude.rnf rawError

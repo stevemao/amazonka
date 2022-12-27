@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.ListBranches
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -111,13 +112,14 @@ instance Core.AWSPager ListBranches where
 
 instance Core.AWSRequest ListBranches where
   type AWSResponse ListBranches = ListBranchesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListBranchesResponse'
-            Prelude.<$> (x Core..?> "branches" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "branches" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -131,35 +133,35 @@ instance Prelude.NFData ListBranches where
     Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf repositoryName
 
-instance Core.ToHeaders ListBranches where
+instance Data.ToHeaders ListBranches where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.ListBranches" ::
+              Data.=# ( "CodeCommit_20150413.ListBranches" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListBranches where
+instance Data.ToJSON ListBranches where
   toJSON ListBranches' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
+          [ ("nextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("repositoryName" Core..= repositoryName)
+              ("repositoryName" Data..= repositoryName)
           ]
       )
 
-instance Core.ToPath ListBranches where
+instance Data.ToPath ListBranches where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListBranches where
+instance Data.ToQuery ListBranches where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a list branches operation.

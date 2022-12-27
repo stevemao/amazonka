@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.Phase2EncryptionAlgorithmsListValue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.Phase2EncryptionAlgorithmsListValue where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The encryption algorithm for phase 2 IKE negotiations.
@@ -55,12 +56,12 @@ phase2EncryptionAlgorithmsListValue_value :: Lens.Lens' Phase2EncryptionAlgorith
 phase2EncryptionAlgorithmsListValue_value = Lens.lens (\Phase2EncryptionAlgorithmsListValue' {value} -> value) (\s@Phase2EncryptionAlgorithmsListValue' {} a -> s {value = a} :: Phase2EncryptionAlgorithmsListValue)
 
 instance
-  Core.FromXML
+  Data.FromXML
     Phase2EncryptionAlgorithmsListValue
   where
   parseXML x =
     Phase2EncryptionAlgorithmsListValue'
-      Prelude.<$> (x Core..@? "value")
+      Prelude.<$> (x Data..@? "value")
 
 instance
   Prelude.Hashable

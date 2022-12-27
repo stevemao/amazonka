@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Panorama.Types.OutPutS3Location
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Panorama.Types.OutPutS3Location where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The location of an output object in Amazon S3.
@@ -65,14 +66,14 @@ outPutS3Location_bucketName = Lens.lens (\OutPutS3Location' {bucketName} -> buck
 outPutS3Location_objectKey :: Lens.Lens' OutPutS3Location Prelude.Text
 outPutS3Location_objectKey = Lens.lens (\OutPutS3Location' {objectKey} -> objectKey) (\s@OutPutS3Location' {} a -> s {objectKey = a} :: OutPutS3Location)
 
-instance Core.FromJSON OutPutS3Location where
+instance Data.FromJSON OutPutS3Location where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OutPutS3Location"
       ( \x ->
           OutPutS3Location'
-            Prelude.<$> (x Core..: "BucketName")
-            Prelude.<*> (x Core..: "ObjectKey")
+            Prelude.<$> (x Data..: "BucketName")
+            Prelude.<*> (x Data..: "ObjectKey")
       )
 
 instance Prelude.Hashable OutPutS3Location where

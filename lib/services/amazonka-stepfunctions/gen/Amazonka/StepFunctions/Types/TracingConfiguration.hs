@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.StepFunctions.Types.TracingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,16 @@
 module Amazonka.StepFunctions.Types.TracingConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Selects whether or not the state machine\'s AWS X-Ray tracing is
--- enabled. Default is @false@
+-- | Selects whether or not the state machine\'s X-Ray tracing is enabled.
+-- Default is @false@
 --
 -- /See:/ 'newTracingConfiguration' smart constructor.
 data TracingConfiguration = TracingConfiguration'
-  { -- | When set to @true@, AWS X-Ray tracing is enabled.
+  { -- | When set to @true@, X-Ray tracing is enabled.
     enabled :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -41,23 +42,23 @@ data TracingConfiguration = TracingConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'enabled', 'tracingConfiguration_enabled' - When set to @true@, AWS X-Ray tracing is enabled.
+-- 'enabled', 'tracingConfiguration_enabled' - When set to @true@, X-Ray tracing is enabled.
 newTracingConfiguration ::
   TracingConfiguration
 newTracingConfiguration =
   TracingConfiguration' {enabled = Prelude.Nothing}
 
--- | When set to @true@, AWS X-Ray tracing is enabled.
+-- | When set to @true@, X-Ray tracing is enabled.
 tracingConfiguration_enabled :: Lens.Lens' TracingConfiguration (Prelude.Maybe Prelude.Bool)
 tracingConfiguration_enabled = Lens.lens (\TracingConfiguration' {enabled} -> enabled) (\s@TracingConfiguration' {} a -> s {enabled = a} :: TracingConfiguration)
 
-instance Core.FromJSON TracingConfiguration where
+instance Data.FromJSON TracingConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TracingConfiguration"
       ( \x ->
           TracingConfiguration'
-            Prelude.<$> (x Core..:? "enabled")
+            Prelude.<$> (x Data..:? "enabled")
       )
 
 instance Prelude.Hashable TracingConfiguration where
@@ -67,9 +68,9 @@ instance Prelude.Hashable TracingConfiguration where
 instance Prelude.NFData TracingConfiguration where
   rnf TracingConfiguration' {..} = Prelude.rnf enabled
 
-instance Core.ToJSON TracingConfiguration where
+instance Data.ToJSON TracingConfiguration where
   toJSON TracingConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("enabled" Core..=) Prelude.<$> enabled]
+          [("enabled" Data..=) Prelude.<$> enabled]
       )

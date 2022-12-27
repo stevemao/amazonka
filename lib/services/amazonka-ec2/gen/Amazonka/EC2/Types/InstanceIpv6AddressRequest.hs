@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.InstanceIpv6AddressRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.InstanceIpv6AddressRequest where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an IPv6 address.
@@ -62,6 +63,6 @@ instance Prelude.NFData InstanceIpv6AddressRequest where
   rnf InstanceIpv6AddressRequest' {..} =
     Prelude.rnf ipv6Address
 
-instance Core.ToQuery InstanceIpv6AddressRequest where
+instance Data.ToQuery InstanceIpv6AddressRequest where
   toQuery InstanceIpv6AddressRequest' {..} =
-    Prelude.mconcat ["Ipv6Address" Core.=: ipv6Address]
+    Prelude.mconcat ["Ipv6Address" Data.=: ipv6Address]

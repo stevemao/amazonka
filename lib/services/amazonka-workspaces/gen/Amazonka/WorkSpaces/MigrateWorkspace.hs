@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkSpaces.MigrateWorkspace
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -55,7 +55,8 @@ module Amazonka.WorkSpaces.MigrateWorkspace
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,13 +107,14 @@ instance Core.AWSRequest MigrateWorkspace where
   type
     AWSResponse MigrateWorkspace =
       MigrateWorkspaceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           MigrateWorkspaceResponse'
-            Prelude.<$> (x Core..?> "SourceWorkspaceId")
-            Prelude.<*> (x Core..?> "TargetWorkspaceId")
+            Prelude.<$> (x Data..?> "SourceWorkspaceId")
+            Prelude.<*> (x Data..?> "TargetWorkspaceId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -126,35 +128,35 @@ instance Prelude.NFData MigrateWorkspace where
     Prelude.rnf sourceWorkspaceId
       `Prelude.seq` Prelude.rnf bundleId
 
-instance Core.ToHeaders MigrateWorkspace where
+instance Data.ToHeaders MigrateWorkspace where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkspacesService.MigrateWorkspace" ::
+              Data.=# ( "WorkspacesService.MigrateWorkspace" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON MigrateWorkspace where
+instance Data.ToJSON MigrateWorkspace where
   toJSON MigrateWorkspace' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("SourceWorkspaceId" Core..= sourceWorkspaceId),
-            Prelude.Just ("BundleId" Core..= bundleId)
+              ("SourceWorkspaceId" Data..= sourceWorkspaceId),
+            Prelude.Just ("BundleId" Data..= bundleId)
           ]
       )
 
-instance Core.ToPath MigrateWorkspace where
+instance Data.ToPath MigrateWorkspace where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery MigrateWorkspace where
+instance Data.ToQuery MigrateWorkspace where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newMigrateWorkspaceResponse' smart constructor.

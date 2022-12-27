@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.GetSavingsPlansUtilizationDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,10 +36,10 @@ module Amazonka.CostExplorer.GetSavingsPlansUtilizationDetails
     newGetSavingsPlansUtilizationDetails,
 
     -- * Request Lenses
-    getSavingsPlansUtilizationDetails_nextToken,
     getSavingsPlansUtilizationDetails_dataType,
     getSavingsPlansUtilizationDetails_filter,
     getSavingsPlansUtilizationDetails_maxResults,
+    getSavingsPlansUtilizationDetails_nextToken,
     getSavingsPlansUtilizationDetails_sortBy,
     getSavingsPlansUtilizationDetails_timePeriod,
 
@@ -57,19 +57,16 @@ module Amazonka.CostExplorer.GetSavingsPlansUtilizationDetails
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostExplorer.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetSavingsPlansUtilizationDetails' smart constructor.
 data GetSavingsPlansUtilizationDetails = GetSavingsPlansUtilizationDetails'
-  { -- | The token to retrieve the next set of results. Amazon Web Services
-    -- provides the token when the response from a previous call has more
-    -- results than the maximum page size.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The data type.
+  { -- | The data type.
     dataType :: Prelude.Maybe [SavingsPlansDataType],
     -- | Filters Savings Plans utilization coverage data for active Savings Plans
     -- dimensions. You can filter data with the following dimensions:
@@ -92,7 +89,11 @@ data GetSavingsPlansUtilizationDetails = GetSavingsPlansUtilizationDetails'
     -- | The number of items to be returned in a response. The default is @20@,
     -- with a minimum value of @1@.
     maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | The value by which you want to sort the data.
+    -- | The token to retrieve the next set of results. Amazon Web Services
+    -- provides the token when the response from a previous call has more
+    -- results than the maximum page size.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The value that you want to sort the data by.
     --
     -- The following values are supported for @Key@:
     --
@@ -110,7 +111,7 @@ data GetSavingsPlansUtilizationDetails = GetSavingsPlansUtilizationDetails'
     --
     -- -   @AmortizedUpfrontCommitment@
     --
-    -- Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@.
+    -- The supported values for @SortOrder@ are @ASCENDING@ and @DESCENDING@.
     sortBy :: Prelude.Maybe SortDefinition,
     -- | The time period that you want the usage and costs for. The @Start@ date
     -- must be within 13 months. The @End@ date must be after the @Start@ date,
@@ -127,10 +128,6 @@ data GetSavingsPlansUtilizationDetails = GetSavingsPlansUtilizationDetails'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'nextToken', 'getSavingsPlansUtilizationDetails_nextToken' - The token to retrieve the next set of results. Amazon Web Services
--- provides the token when the response from a previous call has more
--- results than the maximum page size.
 --
 -- 'dataType', 'getSavingsPlansUtilizationDetails_dataType' - The data type.
 --
@@ -155,7 +152,11 @@ data GetSavingsPlansUtilizationDetails = GetSavingsPlansUtilizationDetails'
 -- 'maxResults', 'getSavingsPlansUtilizationDetails_maxResults' - The number of items to be returned in a response. The default is @20@,
 -- with a minimum value of @1@.
 --
--- 'sortBy', 'getSavingsPlansUtilizationDetails_sortBy' - The value by which you want to sort the data.
+-- 'nextToken', 'getSavingsPlansUtilizationDetails_nextToken' - The token to retrieve the next set of results. Amazon Web Services
+-- provides the token when the response from a previous call has more
+-- results than the maximum page size.
+--
+-- 'sortBy', 'getSavingsPlansUtilizationDetails_sortBy' - The value that you want to sort the data by.
 --
 -- The following values are supported for @Key@:
 --
@@ -173,7 +174,7 @@ data GetSavingsPlansUtilizationDetails = GetSavingsPlansUtilizationDetails'
 --
 -- -   @AmortizedUpfrontCommitment@
 --
--- Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@.
+-- The supported values for @SortOrder@ are @ASCENDING@ and @DESCENDING@.
 --
 -- 'timePeriod', 'getSavingsPlansUtilizationDetails_timePeriod' - The time period that you want the usage and costs for. The @Start@ date
 -- must be within 13 months. The @End@ date must be after the @Start@ date,
@@ -185,20 +186,14 @@ newGetSavingsPlansUtilizationDetails ::
   GetSavingsPlansUtilizationDetails
 newGetSavingsPlansUtilizationDetails pTimePeriod_ =
   GetSavingsPlansUtilizationDetails'
-    { nextToken =
+    { dataType =
         Prelude.Nothing,
-      dataType = Prelude.Nothing,
       filter' = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       sortBy = Prelude.Nothing,
       timePeriod = pTimePeriod_
     }
-
--- | The token to retrieve the next set of results. Amazon Web Services
--- provides the token when the response from a previous call has more
--- results than the maximum page size.
-getSavingsPlansUtilizationDetails_nextToken :: Lens.Lens' GetSavingsPlansUtilizationDetails (Prelude.Maybe Prelude.Text)
-getSavingsPlansUtilizationDetails_nextToken = Lens.lens (\GetSavingsPlansUtilizationDetails' {nextToken} -> nextToken) (\s@GetSavingsPlansUtilizationDetails' {} a -> s {nextToken = a} :: GetSavingsPlansUtilizationDetails)
 
 -- | The data type.
 getSavingsPlansUtilizationDetails_dataType :: Lens.Lens' GetSavingsPlansUtilizationDetails (Prelude.Maybe [SavingsPlansDataType])
@@ -229,7 +224,13 @@ getSavingsPlansUtilizationDetails_filter = Lens.lens (\GetSavingsPlansUtilizatio
 getSavingsPlansUtilizationDetails_maxResults :: Lens.Lens' GetSavingsPlansUtilizationDetails (Prelude.Maybe Prelude.Natural)
 getSavingsPlansUtilizationDetails_maxResults = Lens.lens (\GetSavingsPlansUtilizationDetails' {maxResults} -> maxResults) (\s@GetSavingsPlansUtilizationDetails' {} a -> s {maxResults = a} :: GetSavingsPlansUtilizationDetails)
 
--- | The value by which you want to sort the data.
+-- | The token to retrieve the next set of results. Amazon Web Services
+-- provides the token when the response from a previous call has more
+-- results than the maximum page size.
+getSavingsPlansUtilizationDetails_nextToken :: Lens.Lens' GetSavingsPlansUtilizationDetails (Prelude.Maybe Prelude.Text)
+getSavingsPlansUtilizationDetails_nextToken = Lens.lens (\GetSavingsPlansUtilizationDetails' {nextToken} -> nextToken) (\s@GetSavingsPlansUtilizationDetails' {} a -> s {nextToken = a} :: GetSavingsPlansUtilizationDetails)
+
+-- | The value that you want to sort the data by.
 --
 -- The following values are supported for @Key@:
 --
@@ -247,7 +248,7 @@ getSavingsPlansUtilizationDetails_maxResults = Lens.lens (\GetSavingsPlansUtiliz
 --
 -- -   @AmortizedUpfrontCommitment@
 --
--- Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@.
+-- The supported values for @SortOrder@ are @ASCENDING@ and @DESCENDING@.
 getSavingsPlansUtilizationDetails_sortBy :: Lens.Lens' GetSavingsPlansUtilizationDetails (Prelude.Maybe SortDefinition)
 getSavingsPlansUtilizationDetails_sortBy = Lens.lens (\GetSavingsPlansUtilizationDetails' {sortBy} -> sortBy) (\s@GetSavingsPlansUtilizationDetails' {} a -> s {sortBy = a} :: GetSavingsPlansUtilizationDetails)
 
@@ -265,18 +266,19 @@ instance
   type
     AWSResponse GetSavingsPlansUtilizationDetails =
       GetSavingsPlansUtilizationDetailsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSavingsPlansUtilizationDetailsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-              Prelude.<*> (x Core..?> "Total")
+            Prelude.<$> (x Data..?> "NextToken")
+              Prelude.<*> (x Data..?> "Total")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-              Prelude.<*> ( x Core..?> "SavingsPlansUtilizationDetails"
+              Prelude.<*> ( x Data..?> "SavingsPlansUtilizationDetails"
                               Core..!@ Prelude.mempty
                           )
-              Prelude.<*> (x Core..:> "TimePeriod")
+              Prelude.<*> (x Data..:> "TimePeriod")
       )
 
 instance
@@ -286,10 +288,10 @@ instance
   hashWithSalt
     _salt
     GetSavingsPlansUtilizationDetails' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` dataType
+      _salt `Prelude.hashWithSalt` dataType
         `Prelude.hashWithSalt` filter'
         `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` sortBy
         `Prelude.hashWithSalt` timePeriod
 
@@ -298,55 +300,55 @@ instance
     GetSavingsPlansUtilizationDetails
   where
   rnf GetSavingsPlansUtilizationDetails' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf dataType
+    Prelude.rnf dataType
       `Prelude.seq` Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf sortBy
       `Prelude.seq` Prelude.rnf timePeriod
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetSavingsPlansUtilizationDetails
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSInsightsIndexService.GetSavingsPlansUtilizationDetails" ::
+              Data.=# ( "AWSInsightsIndexService.GetSavingsPlansUtilizationDetails" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     GetSavingsPlansUtilizationDetails
   where
   toJSON GetSavingsPlansUtilizationDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("DataType" Core..=) Prelude.<$> dataType,
-            ("Filter" Core..=) Prelude.<$> filter',
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            ("SortBy" Core..=) Prelude.<$> sortBy,
-            Prelude.Just ("TimePeriod" Core..= timePeriod)
+          [ ("DataType" Data..=) Prelude.<$> dataType,
+            ("Filter" Data..=) Prelude.<$> filter',
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("SortBy" Data..=) Prelude.<$> sortBy,
+            Prelude.Just ("TimePeriod" Data..= timePeriod)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     GetSavingsPlansUtilizationDetails
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetSavingsPlansUtilizationDetails
   where
   toQuery = Prelude.const Prelude.mempty

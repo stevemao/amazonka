@@ -14,16 +14,16 @@
 
 -- |
 -- Module      : Amazonka.Location.CalculateRoute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- <https://docs.aws.amazon.com/location/latest/developerguide/calculate-route.html Calculates a route>
--- given the following required parameters: @DeparturePostiton@ and
+-- given the following required parameters: @DeparturePosition@ and
 -- @DestinationPosition@. Requires that you first
--- <https://docs.aws.amazon.com/location-routes/latest/APIReference/API_CreateRouteCalculator.html create a route calculator resource>
+-- <https://docs.aws.amazon.com/location-routes/latest/APIReference/API_CreateRouteCalculator.html create a route calculator resource>.
 --
 -- By default, a request that doesn\'t specify a departure time uses the
 -- best time of day to travel with the best traffic conditions when
@@ -31,31 +31,35 @@
 --
 -- Additional options include:
 --
--- -   <https://docs.aws.amazon.com/location/latest/developerguide/calculate-route.html#departure-time Specifying a departure time>
---     using either @DepartureTime@ or @DepartureNow@. This calculates a
---     route based on predictive traffic data at the given time.
+-- -   <https://docs.aws.amazon.com/location/latest/developerguide/departure-time.html Specifying a departure time>
+--     using either @DepartureTime@ or @DepartNow@. This calculates a route
+--     based on predictive traffic data at the given time.
 --
---     You can\'t specify both @DepartureTime@ and @DepartureNow@ in a
---     single request. Specifying both parameters returns an error message.
+--     You can\'t specify both @DepartureTime@ and @DepartNow@ in a single
+--     request. Specifying both parameters returns a validation error.
 --
--- -   <https://docs.aws.amazon.com/location/latest/developerguide/calculate-route.html#travel-mode Specifying a travel mode>
---     using TravelMode. This lets you specify an additional route
---     preference such as @CarModeOptions@ if traveling by @Car@, or
---     @TruckModeOptions@ if traveling by @Truck@.
+-- -   <https://docs.aws.amazon.com/location/latest/developerguide/travel-mode.html Specifying a travel mode>
+--     using TravelMode sets the transportation mode used to calculate the
+--     routes. This also lets you specify additional route preferences in
+--     @CarModeOptions@ if traveling by @Car@, or @TruckModeOptions@ if
+--     traveling by @Truck@.
+--
+--     If you specify @walking@ for the travel mode and your data provider
+--     is Esri, the start and destination must be within 40km.
 module Amazonka.Location.CalculateRoute
   ( -- * Creating a Request
     CalculateRoute (..),
     newCalculateRoute,
 
     -- * Request Lenses
+    calculateRoute_carModeOptions,
+    calculateRoute_departNow,
+    calculateRoute_departureTime,
     calculateRoute_distanceUnit,
+    calculateRoute_includeLegGeometry,
+    calculateRoute_travelMode,
     calculateRoute_truckModeOptions,
     calculateRoute_waypointPositions,
-    calculateRoute_includeLegGeometry,
-    calculateRoute_departNow,
-    calculateRoute_travelMode,
-    calculateRoute_carModeOptions,
-    calculateRoute_departureTime,
     calculateRoute_calculatorName,
     calculateRoute_departurePosition,
     calculateRoute_destinationPosition,
@@ -72,7 +76,8 @@ module Amazonka.Location.CalculateRoute
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -80,10 +85,54 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCalculateRoute' smart constructor.
 data CalculateRoute = CalculateRoute'
-  { -- | Set the unit system to specify the distance.
+  { -- | Specifies route preferences when traveling by @Car@, such as avoiding
+    -- routes that use ferries or tolls.
+    --
+    -- Requirements: @TravelMode@ must be specified as @Car@.
+    carModeOptions :: Prelude.Maybe CalculateRouteCarModeOptions,
+    -- | Sets the time of departure as the current time. Uses the current time to
+    -- calculate a route. Otherwise, the best time of day to travel with the
+    -- best traffic conditions is used to calculate the route.
+    --
+    -- Default Value: @false@
+    --
+    -- Valid Values: @false@ | @true@
+    departNow :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies the desired time of departure. Uses the given time to
+    -- calculate the route. Otherwise, the best time of day to travel with the
+    -- best traffic conditions is used to calculate the route.
+    --
+    -- Setting a departure time in the past returns a @400 ValidationException@
+    -- error.
+    --
+    -- -   In <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
+    --     format: @YYYY-MM-DDThh:mm:ss.sssZ@. For example,
+    --     @2020–07-2T12:15:20.000Z+01:00@
+    departureTime :: Prelude.Maybe Data.POSIX,
+    -- | Set the unit system to specify the distance.
     --
     -- Default Value: @Kilometers@
     distanceUnit :: Prelude.Maybe DistanceUnit,
+    -- | Set to include the geometry details in the result for each path between
+    -- a pair of positions.
+    --
+    -- Default Value: @false@
+    --
+    -- Valid Values: @false@ | @true@
+    includeLegGeometry :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies the mode of transport when calculating a route. Used in
+    -- estimating the speed of travel and road compatibility. You can choose
+    -- @Car@, @Truck@, or @Walking@ as options for the @TravelMode@.
+    --
+    -- The @TravelMode@ you specify also determines how you specify route
+    -- preferences:
+    --
+    -- -   If traveling by @Car@ use the @CarModeOptions@ parameter.
+    --
+    -- -   If traveling by @Truck@ use the @TruckModeOptions@ parameter.
+    --
+    -- Default Value: @Car@
+    travelMode :: Prelude.Maybe TravelMode,
     -- | Specifies route preferences when traveling by @Truck@, such as avoiding
     -- routes that use ferries or tolls, and truck specifications to consider
     -- when choosing an optimal road.
@@ -99,7 +148,7 @@ data CalculateRoute = CalculateRoute'
     --
     -- If you specify a waypoint position that\'s not located on a road, Amazon
     -- Location
-    -- <https://docs.aws.amazon.com/location/latest/developerguide/calculate-route.html#snap-to-nearby-road moves the position to the nearest road>.
+    -- <https://docs.aws.amazon.com/location/latest/developerguide/snap-to-nearby-road.html moves the position to the nearest road>.
     --
     -- Specifying more than 23 waypoints returns a @400 ValidationException@
     -- error.
@@ -109,80 +158,37 @@ data CalculateRoute = CalculateRoute'
     -- error.
     --
     -- Valid Values: @[-180 to 180,-90 to 90]@
-    waypointPositions :: Prelude.Maybe [Core.Sensitive (Prelude.NonEmpty Prelude.Double)],
-    -- | Set to include the geometry details in the result for each path between
-    -- a pair of positions.
-    --
-    -- Default Value: @false@
-    --
-    -- Valid Values: @false@ | @true@
-    includeLegGeometry :: Prelude.Maybe Prelude.Bool,
-    -- | Sets the time of departure as the current time. Uses the current time to
-    -- calculate a route. Otherwise, the best time of day to travel with the
-    -- best traffic conditions is used to calculate the route.
-    --
-    -- Default Value: @false@
-    --
-    -- Valid Values: @false@ | @true@
-    departNow :: Prelude.Maybe Prelude.Bool,
-    -- | Specifies the mode of transport when calculating a route. Used in
-    -- estimating the speed of travel and road compatibility.
-    --
-    -- The @TravelMode@ you specify determines how you specify route
-    -- preferences:
-    --
-    -- -   If traveling by @Car@ use the @CarModeOptions@ parameter.
-    --
-    -- -   If traveling by @Truck@ use the @TruckModeOptions@ parameter.
-    --
-    -- Default Value: @Car@
-    travelMode :: Prelude.Maybe TravelMode,
-    -- | Specifies route preferences when traveling by @Car@, such as avoiding
-    -- routes that use ferries or tolls.
-    --
-    -- Requirements: @TravelMode@ must be specified as @Car@.
-    carModeOptions :: Prelude.Maybe CalculateRouteCarModeOptions,
-    -- | Specifies the desired time of departure. Uses the given time to
-    -- calculate a route. Otherwise, the best time of day to travel with the
-    -- best traffic conditions is used to calculate the route.
-    --
-    -- Setting a departure time in the past returns a @400 ValidationException@
-    -- error.
-    --
-    -- -   In <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
-    --     format: @YYYY-MM-DDThh:mm:ss.sssZ@. For example,
-    --     @2020–07-2T12:15:20.000Z+01:00@
-    departureTime :: Prelude.Maybe Core.POSIX,
+    waypointPositions :: Prelude.Maybe [Data.Sensitive (Prelude.NonEmpty Prelude.Double)],
     -- | The name of the route calculator resource that you want to use to
-    -- calculate a route.
+    -- calculate the route.
     calculatorName :: Prelude.Text,
     -- | The start position for the route. Defined in
-    -- <https://earth-info.nga.mil/GandG/wgs84/index.html WGS 84> format:
-    -- @[longitude, latitude]@.
+    -- <https://earth-info.nga.mil/index.php?dir=wgs84&action=wgs84 World Geodetic System (WGS 84)>
+    -- format: @[longitude, latitude]@.
     --
     -- -   For example, @[-123.115, 49.285]@
     --
     -- If you specify a departure that\'s not located on a road, Amazon
     -- Location
-    -- <https://docs.aws.amazon.com/location/latest/developerguide/calculate-route.html#snap-to-nearby-road moves the position to the nearest road>.
+    -- <https://docs.aws.amazon.com/location/latest/developerguide/snap-to-nearby-road.html moves the position to the nearest road>.
     -- If Esri is the provider for your route calculator, specifying a route
     -- that is longer than 400 km returns a @400 RoutesValidationException@
     -- error.
     --
     -- Valid Values: @[-180 to 180,-90 to 90]@
-    departurePosition :: Core.Sensitive (Prelude.NonEmpty Prelude.Double),
+    departurePosition :: Data.Sensitive (Prelude.NonEmpty Prelude.Double),
     -- | The finish position for the route. Defined in
-    -- <https://earth-info.nga.mil/GandG/wgs84/index.html WGS 84> format:
-    -- @[longitude, latitude]@.
+    -- <https://earth-info.nga.mil/index.php?dir=wgs84&action=wgs84 World Geodetic System (WGS 84)>
+    -- format: @[longitude, latitude]@.
     --
     -- -   For example, @[-122.339, 47.615]@
     --
     -- If you specify a destination that\'s not located on a road, Amazon
     -- Location
-    -- <https://docs.aws.amazon.com/location/latest/developerguide/calculate-route.html#snap-to-nearby-road moves the position to the nearest road>.
+    -- <https://docs.aws.amazon.com/location/latest/developerguide/snap-to-nearby-road.html moves the position to the nearest road>.
     --
     -- Valid Values: @[-180 to 180,-90 to 90]@
-    destinationPosition :: Core.Sensitive (Prelude.NonEmpty Prelude.Double)
+    destinationPosition :: Data.Sensitive (Prelude.NonEmpty Prelude.Double)
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -194,9 +200,53 @@ data CalculateRoute = CalculateRoute'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'carModeOptions', 'calculateRoute_carModeOptions' - Specifies route preferences when traveling by @Car@, such as avoiding
+-- routes that use ferries or tolls.
+--
+-- Requirements: @TravelMode@ must be specified as @Car@.
+--
+-- 'departNow', 'calculateRoute_departNow' - Sets the time of departure as the current time. Uses the current time to
+-- calculate a route. Otherwise, the best time of day to travel with the
+-- best traffic conditions is used to calculate the route.
+--
+-- Default Value: @false@
+--
+-- Valid Values: @false@ | @true@
+--
+-- 'departureTime', 'calculateRoute_departureTime' - Specifies the desired time of departure. Uses the given time to
+-- calculate the route. Otherwise, the best time of day to travel with the
+-- best traffic conditions is used to calculate the route.
+--
+-- Setting a departure time in the past returns a @400 ValidationException@
+-- error.
+--
+-- -   In <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
+--     format: @YYYY-MM-DDThh:mm:ss.sssZ@. For example,
+--     @2020–07-2T12:15:20.000Z+01:00@
+--
 -- 'distanceUnit', 'calculateRoute_distanceUnit' - Set the unit system to specify the distance.
 --
 -- Default Value: @Kilometers@
+--
+-- 'includeLegGeometry', 'calculateRoute_includeLegGeometry' - Set to include the geometry details in the result for each path between
+-- a pair of positions.
+--
+-- Default Value: @false@
+--
+-- Valid Values: @false@ | @true@
+--
+-- 'travelMode', 'calculateRoute_travelMode' - Specifies the mode of transport when calculating a route. Used in
+-- estimating the speed of travel and road compatibility. You can choose
+-- @Car@, @Truck@, or @Walking@ as options for the @TravelMode@.
+--
+-- The @TravelMode@ you specify also determines how you specify route
+-- preferences:
+--
+-- -   If traveling by @Car@ use the @CarModeOptions@ parameter.
+--
+-- -   If traveling by @Truck@ use the @TruckModeOptions@ parameter.
+--
+-- Default Value: @Car@
 --
 -- 'truckModeOptions', 'calculateRoute_truckModeOptions' - Specifies route preferences when traveling by @Truck@, such as avoiding
 -- routes that use ferries or tolls, and truck specifications to consider
@@ -213,7 +263,7 @@ data CalculateRoute = CalculateRoute'
 --
 -- If you specify a waypoint position that\'s not located on a road, Amazon
 -- Location
--- <https://docs.aws.amazon.com/location/latest/developerguide/calculate-route.html#snap-to-nearby-road moves the position to the nearest road>.
+-- <https://docs.aws.amazon.com/location/latest/developerguide/snap-to-nearby-road.html moves the position to the nearest road>.
 --
 -- Specifying more than 23 waypoints returns a @400 ValidationException@
 -- error.
@@ -224,61 +274,18 @@ data CalculateRoute = CalculateRoute'
 --
 -- Valid Values: @[-180 to 180,-90 to 90]@
 --
--- 'includeLegGeometry', 'calculateRoute_includeLegGeometry' - Set to include the geometry details in the result for each path between
--- a pair of positions.
---
--- Default Value: @false@
---
--- Valid Values: @false@ | @true@
---
--- 'departNow', 'calculateRoute_departNow' - Sets the time of departure as the current time. Uses the current time to
--- calculate a route. Otherwise, the best time of day to travel with the
--- best traffic conditions is used to calculate the route.
---
--- Default Value: @false@
---
--- Valid Values: @false@ | @true@
---
--- 'travelMode', 'calculateRoute_travelMode' - Specifies the mode of transport when calculating a route. Used in
--- estimating the speed of travel and road compatibility.
---
--- The @TravelMode@ you specify determines how you specify route
--- preferences:
---
--- -   If traveling by @Car@ use the @CarModeOptions@ parameter.
---
--- -   If traveling by @Truck@ use the @TruckModeOptions@ parameter.
---
--- Default Value: @Car@
---
--- 'carModeOptions', 'calculateRoute_carModeOptions' - Specifies route preferences when traveling by @Car@, such as avoiding
--- routes that use ferries or tolls.
---
--- Requirements: @TravelMode@ must be specified as @Car@.
---
--- 'departureTime', 'calculateRoute_departureTime' - Specifies the desired time of departure. Uses the given time to
--- calculate a route. Otherwise, the best time of day to travel with the
--- best traffic conditions is used to calculate the route.
---
--- Setting a departure time in the past returns a @400 ValidationException@
--- error.
---
--- -   In <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
---     format: @YYYY-MM-DDThh:mm:ss.sssZ@. For example,
---     @2020–07-2T12:15:20.000Z+01:00@
---
 -- 'calculatorName', 'calculateRoute_calculatorName' - The name of the route calculator resource that you want to use to
--- calculate a route.
+-- calculate the route.
 --
 -- 'departurePosition', 'calculateRoute_departurePosition' - The start position for the route. Defined in
--- <https://earth-info.nga.mil/GandG/wgs84/index.html WGS 84> format:
--- @[longitude, latitude]@.
+-- <https://earth-info.nga.mil/index.php?dir=wgs84&action=wgs84 World Geodetic System (WGS 84)>
+-- format: @[longitude, latitude]@.
 --
 -- -   For example, @[-123.115, 49.285]@
 --
 -- If you specify a departure that\'s not located on a road, Amazon
 -- Location
--- <https://docs.aws.amazon.com/location/latest/developerguide/calculate-route.html#snap-to-nearby-road moves the position to the nearest road>.
+-- <https://docs.aws.amazon.com/location/latest/developerguide/snap-to-nearby-road.html moves the position to the nearest road>.
 -- If Esri is the provider for your route calculator, specifying a route
 -- that is longer than 400 km returns a @400 RoutesValidationException@
 -- error.
@@ -286,14 +293,14 @@ data CalculateRoute = CalculateRoute'
 -- Valid Values: @[-180 to 180,-90 to 90]@
 --
 -- 'destinationPosition', 'calculateRoute_destinationPosition' - The finish position for the route. Defined in
--- <https://earth-info.nga.mil/GandG/wgs84/index.html WGS 84> format:
--- @[longitude, latitude]@.
+-- <https://earth-info.nga.mil/index.php?dir=wgs84&action=wgs84 World Geodetic System (WGS 84)>
+-- format: @[longitude, latitude]@.
 --
 -- -   For example, @[-122.339, 47.615]@
 --
 -- If you specify a destination that\'s not located on a road, Amazon
 -- Location
--- <https://docs.aws.amazon.com/location/latest/developerguide/calculate-route.html#snap-to-nearby-road moves the position to the nearest road>.
+-- <https://docs.aws.amazon.com/location/latest/developerguide/snap-to-nearby-road.html moves the position to the nearest road>.
 --
 -- Valid Values: @[-180 to 180,-90 to 90]@
 newCalculateRoute ::
@@ -309,28 +316,82 @@ newCalculateRoute
   pDeparturePosition_
   pDestinationPosition_ =
     CalculateRoute'
-      { distanceUnit = Prelude.Nothing,
+      { carModeOptions = Prelude.Nothing,
+        departNow = Prelude.Nothing,
+        departureTime = Prelude.Nothing,
+        distanceUnit = Prelude.Nothing,
+        includeLegGeometry = Prelude.Nothing,
+        travelMode = Prelude.Nothing,
         truckModeOptions = Prelude.Nothing,
         waypointPositions = Prelude.Nothing,
-        includeLegGeometry = Prelude.Nothing,
-        departNow = Prelude.Nothing,
-        travelMode = Prelude.Nothing,
-        carModeOptions = Prelude.Nothing,
-        departureTime = Prelude.Nothing,
         calculatorName = pCalculatorName_,
         departurePosition =
-          Core._Sensitive Prelude.. Lens.coerced
+          Data._Sensitive Prelude.. Lens.coerced
             Lens.# pDeparturePosition_,
         destinationPosition =
-          Core._Sensitive Prelude.. Lens.coerced
+          Data._Sensitive Prelude.. Lens.coerced
             Lens.# pDestinationPosition_
       }
+
+-- | Specifies route preferences when traveling by @Car@, such as avoiding
+-- routes that use ferries or tolls.
+--
+-- Requirements: @TravelMode@ must be specified as @Car@.
+calculateRoute_carModeOptions :: Lens.Lens' CalculateRoute (Prelude.Maybe CalculateRouteCarModeOptions)
+calculateRoute_carModeOptions = Lens.lens (\CalculateRoute' {carModeOptions} -> carModeOptions) (\s@CalculateRoute' {} a -> s {carModeOptions = a} :: CalculateRoute)
+
+-- | Sets the time of departure as the current time. Uses the current time to
+-- calculate a route. Otherwise, the best time of day to travel with the
+-- best traffic conditions is used to calculate the route.
+--
+-- Default Value: @false@
+--
+-- Valid Values: @false@ | @true@
+calculateRoute_departNow :: Lens.Lens' CalculateRoute (Prelude.Maybe Prelude.Bool)
+calculateRoute_departNow = Lens.lens (\CalculateRoute' {departNow} -> departNow) (\s@CalculateRoute' {} a -> s {departNow = a} :: CalculateRoute)
+
+-- | Specifies the desired time of departure. Uses the given time to
+-- calculate the route. Otherwise, the best time of day to travel with the
+-- best traffic conditions is used to calculate the route.
+--
+-- Setting a departure time in the past returns a @400 ValidationException@
+-- error.
+--
+-- -   In <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
+--     format: @YYYY-MM-DDThh:mm:ss.sssZ@. For example,
+--     @2020–07-2T12:15:20.000Z+01:00@
+calculateRoute_departureTime :: Lens.Lens' CalculateRoute (Prelude.Maybe Prelude.UTCTime)
+calculateRoute_departureTime = Lens.lens (\CalculateRoute' {departureTime} -> departureTime) (\s@CalculateRoute' {} a -> s {departureTime = a} :: CalculateRoute) Prelude.. Lens.mapping Data._Time
 
 -- | Set the unit system to specify the distance.
 --
 -- Default Value: @Kilometers@
 calculateRoute_distanceUnit :: Lens.Lens' CalculateRoute (Prelude.Maybe DistanceUnit)
 calculateRoute_distanceUnit = Lens.lens (\CalculateRoute' {distanceUnit} -> distanceUnit) (\s@CalculateRoute' {} a -> s {distanceUnit = a} :: CalculateRoute)
+
+-- | Set to include the geometry details in the result for each path between
+-- a pair of positions.
+--
+-- Default Value: @false@
+--
+-- Valid Values: @false@ | @true@
+calculateRoute_includeLegGeometry :: Lens.Lens' CalculateRoute (Prelude.Maybe Prelude.Bool)
+calculateRoute_includeLegGeometry = Lens.lens (\CalculateRoute' {includeLegGeometry} -> includeLegGeometry) (\s@CalculateRoute' {} a -> s {includeLegGeometry = a} :: CalculateRoute)
+
+-- | Specifies the mode of transport when calculating a route. Used in
+-- estimating the speed of travel and road compatibility. You can choose
+-- @Car@, @Truck@, or @Walking@ as options for the @TravelMode@.
+--
+-- The @TravelMode@ you specify also determines how you specify route
+-- preferences:
+--
+-- -   If traveling by @Car@ use the @CarModeOptions@ parameter.
+--
+-- -   If traveling by @Truck@ use the @TruckModeOptions@ parameter.
+--
+-- Default Value: @Car@
+calculateRoute_travelMode :: Lens.Lens' CalculateRoute (Prelude.Maybe TravelMode)
+calculateRoute_travelMode = Lens.lens (\CalculateRoute' {travelMode} -> travelMode) (\s@CalculateRoute' {} a -> s {travelMode = a} :: CalculateRoute)
 
 -- | Specifies route preferences when traveling by @Truck@, such as avoiding
 -- routes that use ferries or tolls, and truck specifications to consider
@@ -349,7 +410,7 @@ calculateRoute_truckModeOptions = Lens.lens (\CalculateRoute' {truckModeOptions}
 --
 -- If you specify a waypoint position that\'s not located on a road, Amazon
 -- Location
--- <https://docs.aws.amazon.com/location/latest/developerguide/calculate-route.html#snap-to-nearby-road moves the position to the nearest road>.
+-- <https://docs.aws.amazon.com/location/latest/developerguide/snap-to-nearby-road.html moves the position to the nearest road>.
 --
 -- Specifying more than 23 waypoints returns a @400 ValidationException@
 -- error.
@@ -362,180 +423,128 @@ calculateRoute_truckModeOptions = Lens.lens (\CalculateRoute' {truckModeOptions}
 calculateRoute_waypointPositions :: Lens.Lens' CalculateRoute (Prelude.Maybe [Prelude.NonEmpty Prelude.Double])
 calculateRoute_waypointPositions = Lens.lens (\CalculateRoute' {waypointPositions} -> waypointPositions) (\s@CalculateRoute' {} a -> s {waypointPositions = a} :: CalculateRoute) Prelude.. Lens.mapping Lens.coerced
 
--- | Set to include the geometry details in the result for each path between
--- a pair of positions.
---
--- Default Value: @false@
---
--- Valid Values: @false@ | @true@
-calculateRoute_includeLegGeometry :: Lens.Lens' CalculateRoute (Prelude.Maybe Prelude.Bool)
-calculateRoute_includeLegGeometry = Lens.lens (\CalculateRoute' {includeLegGeometry} -> includeLegGeometry) (\s@CalculateRoute' {} a -> s {includeLegGeometry = a} :: CalculateRoute)
-
--- | Sets the time of departure as the current time. Uses the current time to
--- calculate a route. Otherwise, the best time of day to travel with the
--- best traffic conditions is used to calculate the route.
---
--- Default Value: @false@
---
--- Valid Values: @false@ | @true@
-calculateRoute_departNow :: Lens.Lens' CalculateRoute (Prelude.Maybe Prelude.Bool)
-calculateRoute_departNow = Lens.lens (\CalculateRoute' {departNow} -> departNow) (\s@CalculateRoute' {} a -> s {departNow = a} :: CalculateRoute)
-
--- | Specifies the mode of transport when calculating a route. Used in
--- estimating the speed of travel and road compatibility.
---
--- The @TravelMode@ you specify determines how you specify route
--- preferences:
---
--- -   If traveling by @Car@ use the @CarModeOptions@ parameter.
---
--- -   If traveling by @Truck@ use the @TruckModeOptions@ parameter.
---
--- Default Value: @Car@
-calculateRoute_travelMode :: Lens.Lens' CalculateRoute (Prelude.Maybe TravelMode)
-calculateRoute_travelMode = Lens.lens (\CalculateRoute' {travelMode} -> travelMode) (\s@CalculateRoute' {} a -> s {travelMode = a} :: CalculateRoute)
-
--- | Specifies route preferences when traveling by @Car@, such as avoiding
--- routes that use ferries or tolls.
---
--- Requirements: @TravelMode@ must be specified as @Car@.
-calculateRoute_carModeOptions :: Lens.Lens' CalculateRoute (Prelude.Maybe CalculateRouteCarModeOptions)
-calculateRoute_carModeOptions = Lens.lens (\CalculateRoute' {carModeOptions} -> carModeOptions) (\s@CalculateRoute' {} a -> s {carModeOptions = a} :: CalculateRoute)
-
--- | Specifies the desired time of departure. Uses the given time to
--- calculate a route. Otherwise, the best time of day to travel with the
--- best traffic conditions is used to calculate the route.
---
--- Setting a departure time in the past returns a @400 ValidationException@
--- error.
---
--- -   In <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
---     format: @YYYY-MM-DDThh:mm:ss.sssZ@. For example,
---     @2020–07-2T12:15:20.000Z+01:00@
-calculateRoute_departureTime :: Lens.Lens' CalculateRoute (Prelude.Maybe Prelude.UTCTime)
-calculateRoute_departureTime = Lens.lens (\CalculateRoute' {departureTime} -> departureTime) (\s@CalculateRoute' {} a -> s {departureTime = a} :: CalculateRoute) Prelude.. Lens.mapping Core._Time
-
 -- | The name of the route calculator resource that you want to use to
--- calculate a route.
+-- calculate the route.
 calculateRoute_calculatorName :: Lens.Lens' CalculateRoute Prelude.Text
 calculateRoute_calculatorName = Lens.lens (\CalculateRoute' {calculatorName} -> calculatorName) (\s@CalculateRoute' {} a -> s {calculatorName = a} :: CalculateRoute)
 
 -- | The start position for the route. Defined in
--- <https://earth-info.nga.mil/GandG/wgs84/index.html WGS 84> format:
--- @[longitude, latitude]@.
+-- <https://earth-info.nga.mil/index.php?dir=wgs84&action=wgs84 World Geodetic System (WGS 84)>
+-- format: @[longitude, latitude]@.
 --
 -- -   For example, @[-123.115, 49.285]@
 --
 -- If you specify a departure that\'s not located on a road, Amazon
 -- Location
--- <https://docs.aws.amazon.com/location/latest/developerguide/calculate-route.html#snap-to-nearby-road moves the position to the nearest road>.
+-- <https://docs.aws.amazon.com/location/latest/developerguide/snap-to-nearby-road.html moves the position to the nearest road>.
 -- If Esri is the provider for your route calculator, specifying a route
 -- that is longer than 400 km returns a @400 RoutesValidationException@
 -- error.
 --
 -- Valid Values: @[-180 to 180,-90 to 90]@
 calculateRoute_departurePosition :: Lens.Lens' CalculateRoute (Prelude.NonEmpty Prelude.Double)
-calculateRoute_departurePosition = Lens.lens (\CalculateRoute' {departurePosition} -> departurePosition) (\s@CalculateRoute' {} a -> s {departurePosition = a} :: CalculateRoute) Prelude.. Core._Sensitive Prelude.. Lens.coerced
+calculateRoute_departurePosition = Lens.lens (\CalculateRoute' {departurePosition} -> departurePosition) (\s@CalculateRoute' {} a -> s {departurePosition = a} :: CalculateRoute) Prelude.. Data._Sensitive Prelude.. Lens.coerced
 
 -- | The finish position for the route. Defined in
--- <https://earth-info.nga.mil/GandG/wgs84/index.html WGS 84> format:
--- @[longitude, latitude]@.
+-- <https://earth-info.nga.mil/index.php?dir=wgs84&action=wgs84 World Geodetic System (WGS 84)>
+-- format: @[longitude, latitude]@.
 --
 -- -   For example, @[-122.339, 47.615]@
 --
 -- If you specify a destination that\'s not located on a road, Amazon
 -- Location
--- <https://docs.aws.amazon.com/location/latest/developerguide/calculate-route.html#snap-to-nearby-road moves the position to the nearest road>.
+-- <https://docs.aws.amazon.com/location/latest/developerguide/snap-to-nearby-road.html moves the position to the nearest road>.
 --
 -- Valid Values: @[-180 to 180,-90 to 90]@
 calculateRoute_destinationPosition :: Lens.Lens' CalculateRoute (Prelude.NonEmpty Prelude.Double)
-calculateRoute_destinationPosition = Lens.lens (\CalculateRoute' {destinationPosition} -> destinationPosition) (\s@CalculateRoute' {} a -> s {destinationPosition = a} :: CalculateRoute) Prelude.. Core._Sensitive Prelude.. Lens.coerced
+calculateRoute_destinationPosition = Lens.lens (\CalculateRoute' {destinationPosition} -> destinationPosition) (\s@CalculateRoute' {} a -> s {destinationPosition = a} :: CalculateRoute) Prelude.. Data._Sensitive Prelude.. Lens.coerced
 
 instance Core.AWSRequest CalculateRoute where
   type
     AWSResponse CalculateRoute =
       CalculateRouteResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CalculateRouteResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Legs" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..:> "Summary")
+            Prelude.<*> (x Data..?> "Legs" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..:> "Summary")
       )
 
 instance Prelude.Hashable CalculateRoute where
   hashWithSalt _salt CalculateRoute' {..} =
-    _salt `Prelude.hashWithSalt` distanceUnit
+    _salt `Prelude.hashWithSalt` carModeOptions
+      `Prelude.hashWithSalt` departNow
+      `Prelude.hashWithSalt` departureTime
+      `Prelude.hashWithSalt` distanceUnit
+      `Prelude.hashWithSalt` includeLegGeometry
+      `Prelude.hashWithSalt` travelMode
       `Prelude.hashWithSalt` truckModeOptions
       `Prelude.hashWithSalt` waypointPositions
-      `Prelude.hashWithSalt` includeLegGeometry
-      `Prelude.hashWithSalt` departNow
-      `Prelude.hashWithSalt` travelMode
-      `Prelude.hashWithSalt` carModeOptions
-      `Prelude.hashWithSalt` departureTime
       `Prelude.hashWithSalt` calculatorName
       `Prelude.hashWithSalt` departurePosition
       `Prelude.hashWithSalt` destinationPosition
 
 instance Prelude.NFData CalculateRoute where
   rnf CalculateRoute' {..} =
-    Prelude.rnf distanceUnit
+    Prelude.rnf carModeOptions
+      `Prelude.seq` Prelude.rnf departNow
+      `Prelude.seq` Prelude.rnf departureTime
+      `Prelude.seq` Prelude.rnf distanceUnit
+      `Prelude.seq` Prelude.rnf includeLegGeometry
+      `Prelude.seq` Prelude.rnf travelMode
       `Prelude.seq` Prelude.rnf truckModeOptions
       `Prelude.seq` Prelude.rnf waypointPositions
-      `Prelude.seq` Prelude.rnf includeLegGeometry
-      `Prelude.seq` Prelude.rnf departNow
-      `Prelude.seq` Prelude.rnf travelMode
-      `Prelude.seq` Prelude.rnf carModeOptions
-      `Prelude.seq` Prelude.rnf departureTime
       `Prelude.seq` Prelude.rnf calculatorName
       `Prelude.seq` Prelude.rnf departurePosition
       `Prelude.seq` Prelude.rnf destinationPosition
 
-instance Core.ToHeaders CalculateRoute where
+instance Data.ToHeaders CalculateRoute where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CalculateRoute where
+instance Data.ToJSON CalculateRoute where
   toJSON CalculateRoute' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DistanceUnit" Core..=) Prelude.<$> distanceUnit,
-            ("TruckModeOptions" Core..=)
-              Prelude.<$> truckModeOptions,
-            ("WaypointPositions" Core..=)
-              Prelude.<$> waypointPositions,
-            ("IncludeLegGeometry" Core..=)
-              Prelude.<$> includeLegGeometry,
-            ("DepartNow" Core..=) Prelude.<$> departNow,
-            ("TravelMode" Core..=) Prelude.<$> travelMode,
-            ("CarModeOptions" Core..=)
+          [ ("CarModeOptions" Data..=)
               Prelude.<$> carModeOptions,
-            ("DepartureTime" Core..=) Prelude.<$> departureTime,
+            ("DepartNow" Data..=) Prelude.<$> departNow,
+            ("DepartureTime" Data..=) Prelude.<$> departureTime,
+            ("DistanceUnit" Data..=) Prelude.<$> distanceUnit,
+            ("IncludeLegGeometry" Data..=)
+              Prelude.<$> includeLegGeometry,
+            ("TravelMode" Data..=) Prelude.<$> travelMode,
+            ("TruckModeOptions" Data..=)
+              Prelude.<$> truckModeOptions,
+            ("WaypointPositions" Data..=)
+              Prelude.<$> waypointPositions,
             Prelude.Just
-              ("DeparturePosition" Core..= departurePosition),
+              ("DeparturePosition" Data..= departurePosition),
             Prelude.Just
-              ("DestinationPosition" Core..= destinationPosition)
+              ("DestinationPosition" Data..= destinationPosition)
           ]
       )
 
-instance Core.ToPath CalculateRoute where
+instance Data.ToPath CalculateRoute where
   toPath CalculateRoute' {..} =
     Prelude.mconcat
       [ "/routes/v0/calculators/",
-        Core.toBS calculatorName,
+        Data.toBS calculatorName,
         "/calculate/route"
       ]
 
-instance Core.ToQuery CalculateRoute where
+instance Data.ToQuery CalculateRoute where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Returns the result of the route calculation. Metadata includes legs and
@@ -553,7 +562,7 @@ data CalculateRouteResponse = CalculateRouteResponse'
     --
     -- For example, a route with a departure position and destination position
     -- returns one leg with the positions
-    -- <https://docs.aws.amazon.com/location/latest/developerguide/calculate-route.html#snap-to-nearby-road snapped to a nearby road>:
+    -- <https://docs.aws.amazon.com/location/latest/developerguide/snap-to-nearby-road.html snapped to a nearby road>:
     --
     -- -   The @StartPosition@ is the departure position.
     --
@@ -592,7 +601,7 @@ data CalculateRouteResponse = CalculateRouteResponse'
 --
 -- For example, a route with a departure position and destination position
 -- returns one leg with the positions
--- <https://docs.aws.amazon.com/location/latest/developerguide/calculate-route.html#snap-to-nearby-road snapped to a nearby road>:
+-- <https://docs.aws.amazon.com/location/latest/developerguide/snap-to-nearby-road.html snapped to a nearby road>:
 --
 -- -   The @StartPosition@ is the departure position.
 --
@@ -634,7 +643,7 @@ calculateRouteResponse_httpStatus = Lens.lens (\CalculateRouteResponse' {httpSta
 --
 -- For example, a route with a departure position and destination position
 -- returns one leg with the positions
--- <https://docs.aws.amazon.com/location/latest/developerguide/calculate-route.html#snap-to-nearby-road snapped to a nearby road>:
+-- <https://docs.aws.amazon.com/location/latest/developerguide/snap-to-nearby-road.html snapped to a nearby road>:
 --
 -- -   The @StartPosition@ is the departure position.
 --

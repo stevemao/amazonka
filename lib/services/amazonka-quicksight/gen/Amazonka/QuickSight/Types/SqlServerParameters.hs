@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.SqlServerParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.SqlServerParameters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The parameters for SQL Server.
@@ -76,15 +77,15 @@ sqlServerParameters_port = Lens.lens (\SqlServerParameters' {port} -> port) (\s@
 sqlServerParameters_database :: Lens.Lens' SqlServerParameters Prelude.Text
 sqlServerParameters_database = Lens.lens (\SqlServerParameters' {database} -> database) (\s@SqlServerParameters' {} a -> s {database = a} :: SqlServerParameters)
 
-instance Core.FromJSON SqlServerParameters where
+instance Data.FromJSON SqlServerParameters where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SqlServerParameters"
       ( \x ->
           SqlServerParameters'
-            Prelude.<$> (x Core..: "Host")
-            Prelude.<*> (x Core..: "Port")
-            Prelude.<*> (x Core..: "Database")
+            Prelude.<$> (x Data..: "Host")
+            Prelude.<*> (x Data..: "Port")
+            Prelude.<*> (x Data..: "Database")
       )
 
 instance Prelude.Hashable SqlServerParameters where
@@ -99,12 +100,12 @@ instance Prelude.NFData SqlServerParameters where
       `Prelude.seq` Prelude.rnf port
       `Prelude.seq` Prelude.rnf database
 
-instance Core.ToJSON SqlServerParameters where
+instance Data.ToJSON SqlServerParameters where
   toJSON SqlServerParameters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Host" Core..= host),
-            Prelude.Just ("Port" Core..= port),
-            Prelude.Just ("Database" Core..= database)
+          [ Prelude.Just ("Host" Data..= host),
+            Prelude.Just ("Port" Data..= port),
+            Prelude.Just ("Database" Data..= database)
           ]
       )

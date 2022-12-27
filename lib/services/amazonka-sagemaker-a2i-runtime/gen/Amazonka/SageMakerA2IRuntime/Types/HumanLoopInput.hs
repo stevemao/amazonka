@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMakerA2IRuntime.Types.HumanLoopInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMakerA2IRuntime.Types.HumanLoopInput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object containing the human loop input in JSON format.
@@ -62,9 +63,9 @@ instance Prelude.Hashable HumanLoopInput where
 instance Prelude.NFData HumanLoopInput where
   rnf HumanLoopInput' {..} = Prelude.rnf inputContent
 
-instance Core.ToJSON HumanLoopInput where
+instance Data.ToJSON HumanLoopInput where
   toJSON HumanLoopInput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("InputContent" Core..= inputContent)]
+          [Prelude.Just ("InputContent" Data..= inputContent)]
       )

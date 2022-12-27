@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.ConnectorType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,6 +21,7 @@ module Amazonka.AppFlow.Types.ConnectorType
   ( ConnectorType
       ( ..,
         ConnectorType_Amplitude,
+        ConnectorType_CustomConnector,
         ConnectorType_CustomerProfiles,
         ConnectorType_Datadog,
         ConnectorType_Dynatrace,
@@ -47,11 +48,12 @@ module Amazonka.AppFlow.Types.ConnectorType
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype ConnectorType = ConnectorType'
   { fromConnectorType ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -63,22 +65,25 @@ newtype ConnectorType = ConnectorType'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern ConnectorType_Amplitude :: ConnectorType
 pattern ConnectorType_Amplitude = ConnectorType' "Amplitude"
+
+pattern ConnectorType_CustomConnector :: ConnectorType
+pattern ConnectorType_CustomConnector = ConnectorType' "CustomConnector"
 
 pattern ConnectorType_CustomerProfiles :: ConnectorType
 pattern ConnectorType_CustomerProfiles = ConnectorType' "CustomerProfiles"
@@ -145,6 +150,7 @@ pattern ConnectorType_Zendesk = ConnectorType' "Zendesk"
 
 {-# COMPLETE
   ConnectorType_Amplitude,
+  ConnectorType_CustomConnector,
   ConnectorType_CustomerProfiles,
   ConnectorType_Datadog,
   ConnectorType_Dynatrace,

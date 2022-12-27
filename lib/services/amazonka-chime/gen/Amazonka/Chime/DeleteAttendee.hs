@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.DeleteAttendee
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,7 +93,8 @@ instance Core.AWSRequest DeleteAttendee where
   type
     AWSResponse DeleteAttendee =
       DeleteAttendeeResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteAttendeeResponse'
 
@@ -106,19 +108,19 @@ instance Prelude.NFData DeleteAttendee where
     Prelude.rnf meetingId
       `Prelude.seq` Prelude.rnf attendeeId
 
-instance Core.ToHeaders DeleteAttendee where
+instance Data.ToHeaders DeleteAttendee where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteAttendee where
+instance Data.ToPath DeleteAttendee where
   toPath DeleteAttendee' {..} =
     Prelude.mconcat
       [ "/meetings/",
-        Core.toBS meetingId,
+        Data.toBS meetingId,
         "/attendees/",
-        Core.toBS attendeeId
+        Data.toBS attendeeId
       ]
 
-instance Core.ToQuery DeleteAttendee where
+instance Data.ToQuery DeleteAttendee where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAttendeeResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.Types.QueueReference
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Connect.Types.QueueReference where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about a queue resource for which metrics are
@@ -62,13 +63,13 @@ queueReference_arn = Lens.lens (\QueueReference' {arn} -> arn) (\s@QueueReferenc
 queueReference_id :: Lens.Lens' QueueReference (Prelude.Maybe Prelude.Text)
 queueReference_id = Lens.lens (\QueueReference' {id} -> id) (\s@QueueReference' {} a -> s {id = a} :: QueueReference)
 
-instance Core.FromJSON QueueReference where
+instance Data.FromJSON QueueReference where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "QueueReference"
       ( \x ->
           QueueReference'
-            Prelude.<$> (x Core..:? "Arn") Prelude.<*> (x Core..:? "Id")
+            Prelude.<$> (x Data..:? "Arn") Prelude.<*> (x Data..:? "Id")
       )
 
 instance Prelude.Hashable QueueReference where

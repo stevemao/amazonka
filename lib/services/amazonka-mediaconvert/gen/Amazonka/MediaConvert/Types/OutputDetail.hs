@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.OutputDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.OutputDetail where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types.VideoDetail
 import qualified Amazonka.Prelude as Prelude
 
@@ -28,10 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newOutputDetail' smart constructor.
 data OutputDetail = OutputDetail'
-  { -- | Contains details about the output\'s video stream
-    videoDetails :: Prelude.Maybe VideoDetail,
-    -- | Duration in milliseconds
-    durationInMs :: Prelude.Maybe Prelude.Int
+  { -- | Duration in milliseconds
+    durationInMs :: Prelude.Maybe Prelude.Int,
+    -- | Contains details about the output\'s video stream
+    videoDetails :: Prelude.Maybe VideoDetail
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,41 +44,41 @@ data OutputDetail = OutputDetail'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'videoDetails', 'outputDetail_videoDetails' - Contains details about the output\'s video stream
---
 -- 'durationInMs', 'outputDetail_durationInMs' - Duration in milliseconds
+--
+-- 'videoDetails', 'outputDetail_videoDetails' - Contains details about the output\'s video stream
 newOutputDetail ::
   OutputDetail
 newOutputDetail =
   OutputDetail'
-    { videoDetails = Prelude.Nothing,
-      durationInMs = Prelude.Nothing
+    { durationInMs = Prelude.Nothing,
+      videoDetails = Prelude.Nothing
     }
-
--- | Contains details about the output\'s video stream
-outputDetail_videoDetails :: Lens.Lens' OutputDetail (Prelude.Maybe VideoDetail)
-outputDetail_videoDetails = Lens.lens (\OutputDetail' {videoDetails} -> videoDetails) (\s@OutputDetail' {} a -> s {videoDetails = a} :: OutputDetail)
 
 -- | Duration in milliseconds
 outputDetail_durationInMs :: Lens.Lens' OutputDetail (Prelude.Maybe Prelude.Int)
 outputDetail_durationInMs = Lens.lens (\OutputDetail' {durationInMs} -> durationInMs) (\s@OutputDetail' {} a -> s {durationInMs = a} :: OutputDetail)
 
-instance Core.FromJSON OutputDetail where
+-- | Contains details about the output\'s video stream
+outputDetail_videoDetails :: Lens.Lens' OutputDetail (Prelude.Maybe VideoDetail)
+outputDetail_videoDetails = Lens.lens (\OutputDetail' {videoDetails} -> videoDetails) (\s@OutputDetail' {} a -> s {videoDetails = a} :: OutputDetail)
+
+instance Data.FromJSON OutputDetail where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OutputDetail"
       ( \x ->
           OutputDetail'
-            Prelude.<$> (x Core..:? "videoDetails")
-            Prelude.<*> (x Core..:? "durationInMs")
+            Prelude.<$> (x Data..:? "durationInMs")
+            Prelude.<*> (x Data..:? "videoDetails")
       )
 
 instance Prelude.Hashable OutputDetail where
   hashWithSalt _salt OutputDetail' {..} =
-    _salt `Prelude.hashWithSalt` videoDetails
-      `Prelude.hashWithSalt` durationInMs
+    _salt `Prelude.hashWithSalt` durationInMs
+      `Prelude.hashWithSalt` videoDetails
 
 instance Prelude.NFData OutputDetail where
   rnf OutputDetail' {..} =
-    Prelude.rnf videoDetails
-      `Prelude.seq` Prelude.rnf durationInMs
+    Prelude.rnf durationInMs
+      `Prelude.seq` Prelude.rnf videoDetails

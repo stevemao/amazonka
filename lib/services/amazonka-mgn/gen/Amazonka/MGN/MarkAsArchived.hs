@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MGN.MarkAsArchived
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,8 +22,8 @@
 --
 -- Archives specific Source Servers by setting the SourceServer.isArchived
 -- property to true for specified SourceServers by ID. This command only
--- works for SourceServers with a lifecycle.state which equals DISCONNECTED
--- or CUTOVER.
+-- works for SourceServers with a lifecycle. state which equals
+-- DISCONNECTED or CUTOVER.
 module Amazonka.MGN.MarkAsArchived
   ( -- * Creating a Request
     MarkAsArchived (..),
@@ -37,19 +37,23 @@ module Amazonka.MGN.MarkAsArchived
     newSourceServer,
 
     -- * Response Lenses
-    sourceServer_sourceProperties,
+    sourceServer_applicationID,
     sourceServer_arn,
+    sourceServer_dataReplicationInfo,
+    sourceServer_isArchived,
     sourceServer_launchedInstance,
     sourceServer_lifeCycle,
-    sourceServer_isArchived,
-    sourceServer_dataReplicationInfo,
+    sourceServer_replicationType,
+    sourceServer_sourceProperties,
     sourceServer_sourceServerID,
     sourceServer_tags,
+    sourceServer_vcenterClientID,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MGN.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -84,10 +88,11 @@ markAsArchived_sourceServerID = Lens.lens (\MarkAsArchived' {sourceServerID} -> 
 
 instance Core.AWSRequest MarkAsArchived where
   type AWSResponse MarkAsArchived = SourceServer
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable MarkAsArchived where
   hashWithSalt _salt MarkAsArchived' {..} =
@@ -96,28 +101,28 @@ instance Prelude.Hashable MarkAsArchived where
 instance Prelude.NFData MarkAsArchived where
   rnf MarkAsArchived' {..} = Prelude.rnf sourceServerID
 
-instance Core.ToHeaders MarkAsArchived where
+instance Data.ToHeaders MarkAsArchived where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON MarkAsArchived where
+instance Data.ToJSON MarkAsArchived where
   toJSON MarkAsArchived' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("sourceServerID" Core..= sourceServerID)
+              ("sourceServerID" Data..= sourceServerID)
           ]
       )
 
-instance Core.ToPath MarkAsArchived where
+instance Data.ToPath MarkAsArchived where
   toPath = Prelude.const "/MarkAsArchived"
 
-instance Core.ToQuery MarkAsArchived where
+instance Data.ToQuery MarkAsArchived where
   toQuery = Prelude.const Prelude.mempty

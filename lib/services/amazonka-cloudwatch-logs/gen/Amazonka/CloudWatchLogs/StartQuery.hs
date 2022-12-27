@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchLogs.StartQuery
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,18 +27,29 @@
 -- For more information, see
 -- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html CloudWatch Logs Insights Query Syntax>.
 --
--- Queries time out after 15 minutes of execution. If your queries are
--- timing out, reduce the time range being searched or partition your query
--- into a number of queries.
+-- Queries time out after 15 minutes of runtime. If your queries are timing
+-- out, reduce the time range being searched or partition your query into a
+-- number of queries.
+--
+-- If you are using CloudWatch cross-account observability, you can use
+-- this operation in a monitoring account to start a query in a linked
+-- source account. For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Unified-Cross-Account.html CloudWatch cross-account observability>.
+-- For a cross-account @StartQuery@ operation, the query definition must be
+-- defined in the monitoring account.
+--
+-- You can have up to 20 concurrent CloudWatch Logs insights queries,
+-- including queries that have been added to dashboards.
 module Amazonka.CloudWatchLogs.StartQuery
   ( -- * Creating a Request
     StartQuery (..),
     newStartQuery,
 
     -- * Request Lenses
-    startQuery_logGroupNames,
-    startQuery_logGroupName,
     startQuery_limit,
+    startQuery_logGroupIdentifiers,
+    startQuery_logGroupName,
+    startQuery_logGroupNames,
     startQuery_startTime,
     startQuery_endTime,
     startQuery_queryString,
@@ -55,35 +66,48 @@ where
 
 import Amazonka.CloudWatchLogs.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newStartQuery' smart constructor.
 data StartQuery = StartQuery'
-  { -- | The list of log groups to be queried. You can include up to 20 log
-    -- groups.
-    --
-    -- A @StartQuery@ operation must include a @logGroupNames@ or a
-    -- @logGroupName@ parameter, but not both.
-    logGroupNames :: Prelude.Maybe [Prelude.Text],
-    -- | The log group on which to perform the query.
-    --
-    -- A @StartQuery@ operation must include a @logGroupNames@ or a
-    -- @logGroupName@ parameter, but not both.
-    logGroupName :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of log events to return in the query. If the query
+  { -- | The maximum number of log events to return in the query. If the query
     -- string uses the @fields@ command, only the specified fields and their
     -- values are returned. The default is 1000.
     limit :: Prelude.Maybe Prelude.Natural,
+    -- | The list of log groups to query. You can include up to 50 log groups.
+    --
+    -- You can specify them by the log group name or ARN. If a log group that
+    -- you\'re querying is in a source account and you\'re using a monitoring
+    -- account, you must specify the ARN of the log group here. The query
+    -- definition must also be defined in the monitoring account.
+    --
+    -- If you specify an ARN, the ARN can\'t end with an asterisk (*).
+    --
+    -- A @StartQuery@ operation must include exactly one of the following
+    -- parameters: @logGroupName@, @logGroupNames@ or @logGroupIdentifiers@.
+    logGroupIdentifiers :: Prelude.Maybe [Prelude.Text],
+    -- | The log group on which to perform the query.
+    --
+    -- A @StartQuery@ operation must include exactly one of the following
+    -- parameters: @logGroupName@, @logGroupNames@ or @logGroupIdentifiers@.
+    logGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The list of log groups to be queried. You can include up to 50 log
+    -- groups.
+    --
+    -- A @StartQuery@ operation must include exactly one of the following
+    -- parameters: @logGroupName@, @logGroupNames@ or @logGroupIdentifiers@.
+    logGroupNames :: Prelude.Maybe [Prelude.Text],
     -- | The beginning of the time range to query. The range is inclusive, so the
     -- specified start time is included in the query. Specified as epoch time,
-    -- the number of seconds since January 1, 1970, 00:00:00 UTC.
+    -- the number of seconds since @January 1, 1970, 00:00:00 UTC@.
     startTime :: Prelude.Natural,
     -- | The end of the time range to query. The range is inclusive, so the
     -- specified end time is included in the query. Specified as epoch time,
-    -- the number of seconds since January 1, 1970, 00:00:00 UTC.
+    -- the number of seconds since @January 1, 1970, 00:00:00 UTC@.
     endTime :: Prelude.Natural,
     -- | The query string to use. For more information, see
     -- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html CloudWatch Logs Insights Query Syntax>.
@@ -99,28 +123,40 @@ data StartQuery = StartQuery'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'logGroupNames', 'startQuery_logGroupNames' - The list of log groups to be queried. You can include up to 20 log
--- groups.
---
--- A @StartQuery@ operation must include a @logGroupNames@ or a
--- @logGroupName@ parameter, but not both.
---
--- 'logGroupName', 'startQuery_logGroupName' - The log group on which to perform the query.
---
--- A @StartQuery@ operation must include a @logGroupNames@ or a
--- @logGroupName@ parameter, but not both.
---
 -- 'limit', 'startQuery_limit' - The maximum number of log events to return in the query. If the query
 -- string uses the @fields@ command, only the specified fields and their
 -- values are returned. The default is 1000.
 --
+-- 'logGroupIdentifiers', 'startQuery_logGroupIdentifiers' - The list of log groups to query. You can include up to 50 log groups.
+--
+-- You can specify them by the log group name or ARN. If a log group that
+-- you\'re querying is in a source account and you\'re using a monitoring
+-- account, you must specify the ARN of the log group here. The query
+-- definition must also be defined in the monitoring account.
+--
+-- If you specify an ARN, the ARN can\'t end with an asterisk (*).
+--
+-- A @StartQuery@ operation must include exactly one of the following
+-- parameters: @logGroupName@, @logGroupNames@ or @logGroupIdentifiers@.
+--
+-- 'logGroupName', 'startQuery_logGroupName' - The log group on which to perform the query.
+--
+-- A @StartQuery@ operation must include exactly one of the following
+-- parameters: @logGroupName@, @logGroupNames@ or @logGroupIdentifiers@.
+--
+-- 'logGroupNames', 'startQuery_logGroupNames' - The list of log groups to be queried. You can include up to 50 log
+-- groups.
+--
+-- A @StartQuery@ operation must include exactly one of the following
+-- parameters: @logGroupName@, @logGroupNames@ or @logGroupIdentifiers@.
+--
 -- 'startTime', 'startQuery_startTime' - The beginning of the time range to query. The range is inclusive, so the
 -- specified start time is included in the query. Specified as epoch time,
--- the number of seconds since January 1, 1970, 00:00:00 UTC.
+-- the number of seconds since @January 1, 1970, 00:00:00 UTC@.
 --
 -- 'endTime', 'startQuery_endTime' - The end of the time range to query. The range is inclusive, so the
 -- specified end time is included in the query. Specified as epoch time,
--- the number of seconds since January 1, 1970, 00:00:00 UTC.
+-- the number of seconds since @January 1, 1970, 00:00:00 UTC@.
 --
 -- 'queryString', 'startQuery_queryString' - The query string to use. For more information, see
 -- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html CloudWatch Logs Insights Query Syntax>.
@@ -134,28 +170,14 @@ newStartQuery ::
   StartQuery
 newStartQuery pStartTime_ pEndTime_ pQueryString_ =
   StartQuery'
-    { logGroupNames = Prelude.Nothing,
+    { limit = Prelude.Nothing,
+      logGroupIdentifiers = Prelude.Nothing,
       logGroupName = Prelude.Nothing,
-      limit = Prelude.Nothing,
+      logGroupNames = Prelude.Nothing,
       startTime = pStartTime_,
       endTime = pEndTime_,
       queryString = pQueryString_
     }
-
--- | The list of log groups to be queried. You can include up to 20 log
--- groups.
---
--- A @StartQuery@ operation must include a @logGroupNames@ or a
--- @logGroupName@ parameter, but not both.
-startQuery_logGroupNames :: Lens.Lens' StartQuery (Prelude.Maybe [Prelude.Text])
-startQuery_logGroupNames = Lens.lens (\StartQuery' {logGroupNames} -> logGroupNames) (\s@StartQuery' {} a -> s {logGroupNames = a} :: StartQuery) Prelude.. Lens.mapping Lens.coerced
-
--- | The log group on which to perform the query.
---
--- A @StartQuery@ operation must include a @logGroupNames@ or a
--- @logGroupName@ parameter, but not both.
-startQuery_logGroupName :: Lens.Lens' StartQuery (Prelude.Maybe Prelude.Text)
-startQuery_logGroupName = Lens.lens (\StartQuery' {logGroupName} -> logGroupName) (\s@StartQuery' {} a -> s {logGroupName = a} :: StartQuery)
 
 -- | The maximum number of log events to return in the query. If the query
 -- string uses the @fields@ command, only the specified fields and their
@@ -163,15 +185,44 @@ startQuery_logGroupName = Lens.lens (\StartQuery' {logGroupName} -> logGroupName
 startQuery_limit :: Lens.Lens' StartQuery (Prelude.Maybe Prelude.Natural)
 startQuery_limit = Lens.lens (\StartQuery' {limit} -> limit) (\s@StartQuery' {} a -> s {limit = a} :: StartQuery)
 
+-- | The list of log groups to query. You can include up to 50 log groups.
+--
+-- You can specify them by the log group name or ARN. If a log group that
+-- you\'re querying is in a source account and you\'re using a monitoring
+-- account, you must specify the ARN of the log group here. The query
+-- definition must also be defined in the monitoring account.
+--
+-- If you specify an ARN, the ARN can\'t end with an asterisk (*).
+--
+-- A @StartQuery@ operation must include exactly one of the following
+-- parameters: @logGroupName@, @logGroupNames@ or @logGroupIdentifiers@.
+startQuery_logGroupIdentifiers :: Lens.Lens' StartQuery (Prelude.Maybe [Prelude.Text])
+startQuery_logGroupIdentifiers = Lens.lens (\StartQuery' {logGroupIdentifiers} -> logGroupIdentifiers) (\s@StartQuery' {} a -> s {logGroupIdentifiers = a} :: StartQuery) Prelude.. Lens.mapping Lens.coerced
+
+-- | The log group on which to perform the query.
+--
+-- A @StartQuery@ operation must include exactly one of the following
+-- parameters: @logGroupName@, @logGroupNames@ or @logGroupIdentifiers@.
+startQuery_logGroupName :: Lens.Lens' StartQuery (Prelude.Maybe Prelude.Text)
+startQuery_logGroupName = Lens.lens (\StartQuery' {logGroupName} -> logGroupName) (\s@StartQuery' {} a -> s {logGroupName = a} :: StartQuery)
+
+-- | The list of log groups to be queried. You can include up to 50 log
+-- groups.
+--
+-- A @StartQuery@ operation must include exactly one of the following
+-- parameters: @logGroupName@, @logGroupNames@ or @logGroupIdentifiers@.
+startQuery_logGroupNames :: Lens.Lens' StartQuery (Prelude.Maybe [Prelude.Text])
+startQuery_logGroupNames = Lens.lens (\StartQuery' {logGroupNames} -> logGroupNames) (\s@StartQuery' {} a -> s {logGroupNames = a} :: StartQuery) Prelude.. Lens.mapping Lens.coerced
+
 -- | The beginning of the time range to query. The range is inclusive, so the
 -- specified start time is included in the query. Specified as epoch time,
--- the number of seconds since January 1, 1970, 00:00:00 UTC.
+-- the number of seconds since @January 1, 1970, 00:00:00 UTC@.
 startQuery_startTime :: Lens.Lens' StartQuery Prelude.Natural
 startQuery_startTime = Lens.lens (\StartQuery' {startTime} -> startTime) (\s@StartQuery' {} a -> s {startTime = a} :: StartQuery)
 
 -- | The end of the time range to query. The range is inclusive, so the
 -- specified end time is included in the query. Specified as epoch time,
--- the number of seconds since January 1, 1970, 00:00:00 UTC.
+-- the number of seconds since @January 1, 1970, 00:00:00 UTC@.
 startQuery_endTime :: Lens.Lens' StartQuery Prelude.Natural
 startQuery_endTime = Lens.lens (\StartQuery' {endTime} -> endTime) (\s@StartQuery' {} a -> s {endTime = a} :: StartQuery)
 
@@ -182,63 +233,68 @@ startQuery_queryString = Lens.lens (\StartQuery' {queryString} -> queryString) (
 
 instance Core.AWSRequest StartQuery where
   type AWSResponse StartQuery = StartQueryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartQueryResponse'
-            Prelude.<$> (x Core..?> "queryId")
+            Prelude.<$> (x Data..?> "queryId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable StartQuery where
   hashWithSalt _salt StartQuery' {..} =
-    _salt `Prelude.hashWithSalt` logGroupNames
+    _salt `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` logGroupIdentifiers
       `Prelude.hashWithSalt` logGroupName
-      `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` logGroupNames
       `Prelude.hashWithSalt` startTime
       `Prelude.hashWithSalt` endTime
       `Prelude.hashWithSalt` queryString
 
 instance Prelude.NFData StartQuery where
   rnf StartQuery' {..} =
-    Prelude.rnf logGroupNames
+    Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf logGroupIdentifiers
       `Prelude.seq` Prelude.rnf logGroupName
-      `Prelude.seq` Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf logGroupNames
       `Prelude.seq` Prelude.rnf startTime
       `Prelude.seq` Prelude.rnf endTime
       `Prelude.seq` Prelude.rnf queryString
 
-instance Core.ToHeaders StartQuery where
+instance Data.ToHeaders StartQuery where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("Logs_20140328.StartQuery" :: Prelude.ByteString),
+              Data.=# ("Logs_20140328.StartQuery" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartQuery where
+instance Data.ToJSON StartQuery where
   toJSON StartQuery' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("logGroupNames" Core..=) Prelude.<$> logGroupNames,
-            ("logGroupName" Core..=) Prelude.<$> logGroupName,
-            ("limit" Core..=) Prelude.<$> limit,
-            Prelude.Just ("startTime" Core..= startTime),
-            Prelude.Just ("endTime" Core..= endTime),
-            Prelude.Just ("queryString" Core..= queryString)
+          [ ("limit" Data..=) Prelude.<$> limit,
+            ("logGroupIdentifiers" Data..=)
+              Prelude.<$> logGroupIdentifiers,
+            ("logGroupName" Data..=) Prelude.<$> logGroupName,
+            ("logGroupNames" Data..=) Prelude.<$> logGroupNames,
+            Prelude.Just ("startTime" Data..= startTime),
+            Prelude.Just ("endTime" Data..= endTime),
+            Prelude.Just ("queryString" Data..= queryString)
           ]
       )
 
-instance Core.ToPath StartQuery where
+instance Data.ToPath StartQuery where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartQuery where
+instance Data.ToQuery StartQuery where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartQueryResponse' smart constructor.

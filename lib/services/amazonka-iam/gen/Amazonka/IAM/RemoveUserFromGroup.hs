@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.RemoveUserFromGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,8 +37,9 @@ module Amazonka.IAM.RemoveUserFromGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -117,7 +118,8 @@ instance Core.AWSRequest RemoveUserFromGroup where
   type
     AWSResponse RemoveUserFromGroup =
       RemoveUserFromGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull RemoveUserFromGroupResponse'
 
@@ -131,21 +133,21 @@ instance Prelude.NFData RemoveUserFromGroup where
     Prelude.rnf groupName
       `Prelude.seq` Prelude.rnf userName
 
-instance Core.ToHeaders RemoveUserFromGroup where
+instance Data.ToHeaders RemoveUserFromGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath RemoveUserFromGroup where
+instance Data.ToPath RemoveUserFromGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RemoveUserFromGroup where
+instance Data.ToQuery RemoveUserFromGroup where
   toQuery RemoveUserFromGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("RemoveUserFromGroup" :: Prelude.ByteString),
+          Data.=: ("RemoveUserFromGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "GroupName" Core.=: groupName,
-        "UserName" Core.=: userName
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "GroupName" Data.=: groupName,
+        "UserName" Data.=: userName
       ]
 
 -- | /See:/ 'newRemoveUserFromGroupResponse' smart constructor.

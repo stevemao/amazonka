@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -8,7 +9,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatch.Waiters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -19,23 +20,24 @@ import Amazonka.CloudWatch.DescribeAlarms
 import Amazonka.CloudWatch.Lens
 import Amazonka.CloudWatch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Polls 'Amazonka.CloudWatch.DescribeAlarms' every 5 seconds until a successful state is reached. An error is returned after 40 failed checks.
-newCompositeAlarmExists :: Core.Wait DescribeAlarms
-newCompositeAlarmExists =
+newAlarmExists :: Core.Wait DescribeAlarms
+newAlarmExists =
   Core.Wait
-    { Core._waitName = "CompositeAlarmExists",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 5,
-      Core._waitAcceptors =
+    { Core.name = "AlarmExists",
+      Core.attempts = 40,
+      Core.delay = 5,
+      Core.acceptors =
         [ Core.matchNonEmpty
             Prelude.True
             Core.AcceptSuccess
             ( Lens.folding
                 ( Lens.concatOf
-                    ( describeAlarmsResponse_compositeAlarms
+                    ( describeAlarmsResponse_metricAlarms
                         Prelude.. Lens._Just
                     )
                 )
@@ -44,19 +46,19 @@ newCompositeAlarmExists =
     }
 
 -- | Polls 'Amazonka.CloudWatch.DescribeAlarms' every 5 seconds until a successful state is reached. An error is returned after 40 failed checks.
-newAlarmExists :: Core.Wait DescribeAlarms
-newAlarmExists =
+newCompositeAlarmExists :: Core.Wait DescribeAlarms
+newCompositeAlarmExists =
   Core.Wait
-    { Core._waitName = "AlarmExists",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 5,
-      Core._waitAcceptors =
+    { Core.name = "CompositeAlarmExists",
+      Core.attempts = 40,
+      Core.delay = 5,
+      Core.acceptors =
         [ Core.matchNonEmpty
             Prelude.True
             Core.AcceptSuccess
             ( Lens.folding
                 ( Lens.concatOf
-                    ( describeAlarmsResponse_metricAlarms
+                    ( describeAlarmsResponse_compositeAlarms
                         Prelude.. Lens._Just
                     )
                 )

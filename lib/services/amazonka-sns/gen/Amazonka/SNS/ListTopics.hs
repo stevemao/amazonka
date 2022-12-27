@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SNS.ListTopics
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,14 +41,15 @@ module Amazonka.SNS.ListTopics
     newListTopicsResponse,
 
     -- * Response Lenses
-    listTopicsResponse_topics,
     listTopicsResponse_nextToken,
+    listTopicsResponse_topics,
     listTopicsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,16 +101,17 @@ instance Core.AWSPager ListTopics where
 
 instance Core.AWSRequest ListTopics where
   type AWSResponse ListTopics = ListTopicsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListTopicsResult"
       ( \s h x ->
           ListTopicsResponse'
-            Prelude.<$> ( x Core..@? "Topics" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> (x Data..@? "NextToken")
+            Prelude.<*> ( x Data..@? "Topics" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> (x Core..@? "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -120,31 +122,31 @@ instance Prelude.Hashable ListTopics where
 instance Prelude.NFData ListTopics where
   rnf ListTopics' {..} = Prelude.rnf nextToken
 
-instance Core.ToHeaders ListTopics where
+instance Data.ToHeaders ListTopics where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListTopics where
+instance Data.ToPath ListTopics where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTopics where
+instance Data.ToQuery ListTopics where
   toQuery ListTopics' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ListTopics" :: Prelude.ByteString),
+          Data.=: ("ListTopics" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-03-31" :: Prelude.ByteString),
-        "NextToken" Core.=: nextToken
+          Data.=: ("2010-03-31" :: Prelude.ByteString),
+        "NextToken" Data.=: nextToken
       ]
 
 -- | Response for ListTopics action.
 --
 -- /See:/ 'newListTopicsResponse' smart constructor.
 data ListTopicsResponse = ListTopicsResponse'
-  { -- | A list of topic ARNs.
-    topics :: Prelude.Maybe [Topic],
-    -- | Token to pass along to the next @ListTopics@ request. This element is
+  { -- | Token to pass along to the next @ListTopics@ request. This element is
     -- returned if there are additional topics to retrieve.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of topic ARNs.
+    topics :: Prelude.Maybe [Topic],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -158,10 +160,10 @@ data ListTopicsResponse = ListTopicsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'topics', 'listTopicsResponse_topics' - A list of topic ARNs.
---
 -- 'nextToken', 'listTopicsResponse_nextToken' - Token to pass along to the next @ListTopics@ request. This element is
 -- returned if there are additional topics to retrieve.
+--
+-- 'topics', 'listTopicsResponse_topics' - A list of topic ARNs.
 --
 -- 'httpStatus', 'listTopicsResponse_httpStatus' - The response's http status code.
 newListTopicsResponse ::
@@ -170,19 +172,19 @@ newListTopicsResponse ::
   ListTopicsResponse
 newListTopicsResponse pHttpStatus_ =
   ListTopicsResponse'
-    { topics = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { nextToken = Prelude.Nothing,
+      topics = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A list of topic ARNs.
-listTopicsResponse_topics :: Lens.Lens' ListTopicsResponse (Prelude.Maybe [Topic])
-listTopicsResponse_topics = Lens.lens (\ListTopicsResponse' {topics} -> topics) (\s@ListTopicsResponse' {} a -> s {topics = a} :: ListTopicsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | Token to pass along to the next @ListTopics@ request. This element is
 -- returned if there are additional topics to retrieve.
 listTopicsResponse_nextToken :: Lens.Lens' ListTopicsResponse (Prelude.Maybe Prelude.Text)
 listTopicsResponse_nextToken = Lens.lens (\ListTopicsResponse' {nextToken} -> nextToken) (\s@ListTopicsResponse' {} a -> s {nextToken = a} :: ListTopicsResponse)
+
+-- | A list of topic ARNs.
+listTopicsResponse_topics :: Lens.Lens' ListTopicsResponse (Prelude.Maybe [Topic])
+listTopicsResponse_topics = Lens.lens (\ListTopicsResponse' {topics} -> topics) (\s@ListTopicsResponse' {} a -> s {topics = a} :: ListTopicsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listTopicsResponse_httpStatus :: Lens.Lens' ListTopicsResponse Prelude.Int
@@ -190,6 +192,6 @@ listTopicsResponse_httpStatus = Lens.lens (\ListTopicsResponse' {httpStatus} -> 
 
 instance Prelude.NFData ListTopicsResponse where
   rnf ListTopicsResponse' {..} =
-    Prelude.rnf topics
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf topics
       `Prelude.seq` Prelude.rnf httpStatus

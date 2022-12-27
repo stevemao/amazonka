@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.CreateLag
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,8 +54,8 @@ module Amazonka.DirectConnect.CreateLag
     -- * Request Lenses
     createLag_childConnectionTags,
     createLag_connectionId,
-    createLag_requestMACSec,
     createLag_providerName,
+    createLag_requestMACSec,
     createLag_tags,
     createLag_numberOfConnections,
     createLag_location,
@@ -67,33 +67,34 @@ module Amazonka.DirectConnect.CreateLag
     newLag,
 
     -- * Response Lenses
-    lag_lagId,
-    lag_macSecCapable,
-    lag_connectionsBandwidth,
-    lag_minimumLinks,
-    lag_lagName,
-    lag_location,
-    lag_connections,
-    lag_awsDevice,
-    lag_hasLogicalRedundancy,
-    lag_awsLogicalDeviceId,
     lag_allowsHostedConnections,
-    lag_encryptionMode,
-    lag_numberOfConnections,
-    lag_jumboFrameCapable,
-    lag_lagState,
-    lag_ownerAccount,
-    lag_region,
-    lag_macSecKeys,
-    lag_providerName,
+    lag_awsDevice,
     lag_awsDeviceV2,
+    lag_awsLogicalDeviceId,
+    lag_connections,
+    lag_connectionsBandwidth,
+    lag_encryptionMode,
+    lag_hasLogicalRedundancy,
+    lag_jumboFrameCapable,
+    lag_lagId,
+    lag_lagName,
+    lag_lagState,
+    lag_location,
+    lag_macSecCapable,
+    lag_macSecKeys,
+    lag_minimumLinks,
+    lag_numberOfConnections,
+    lag_ownerAccount,
+    lag_providerName,
+    lag_region,
     lag_tags,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -104,6 +105,8 @@ data CreateLag = CreateLag'
     childConnectionTags :: Prelude.Maybe (Prelude.NonEmpty Tag),
     -- | The ID of an existing dedicated connection to migrate to the LAG.
     connectionId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the service provider associated with the LAG.
+    providerName :: Prelude.Maybe Prelude.Text,
     -- | Indicates whether the connection will support MAC Security (MACsec).
     --
     -- All connections in the LAG must be capable of supporting MAC Security
@@ -111,8 +114,6 @@ data CreateLag = CreateLag'
     -- <https://docs.aws.amazon.com/directconnect/latest/UserGuide/direct-connect-mac-sec-getting-started.html#mac-sec-prerequisites MACsec prerequisties>
     -- in the /Direct Connect User Guide/.
     requestMACSec :: Prelude.Maybe Prelude.Bool,
-    -- | The name of the service provider associated with the LAG.
-    providerName :: Prelude.Maybe Prelude.Text,
     -- | The tags to associate with the LAG.
     tags :: Prelude.Maybe (Prelude.NonEmpty Tag),
     -- | The number of physical dedicated connections initially provisioned and
@@ -140,14 +141,14 @@ data CreateLag = CreateLag'
 --
 -- 'connectionId', 'createLag_connectionId' - The ID of an existing dedicated connection to migrate to the LAG.
 --
+-- 'providerName', 'createLag_providerName' - The name of the service provider associated with the LAG.
+--
 -- 'requestMACSec', 'createLag_requestMACSec' - Indicates whether the connection will support MAC Security (MACsec).
 --
 -- All connections in the LAG must be capable of supporting MAC Security
 -- (MACsec). For information about MAC Security (MACsec) prerequisties, see
 -- <https://docs.aws.amazon.com/directconnect/latest/UserGuide/direct-connect-mac-sec-getting-started.html#mac-sec-prerequisites MACsec prerequisties>
 -- in the /Direct Connect User Guide/.
---
--- 'providerName', 'createLag_providerName' - The name of the service provider associated with the LAG.
 --
 -- 'tags', 'createLag_tags' - The tags to associate with the LAG.
 --
@@ -178,8 +179,8 @@ newCreateLag
     CreateLag'
       { childConnectionTags = Prelude.Nothing,
         connectionId = Prelude.Nothing,
-        requestMACSec = Prelude.Nothing,
         providerName = Prelude.Nothing,
+        requestMACSec = Prelude.Nothing,
         tags = Prelude.Nothing,
         numberOfConnections = pNumberOfConnections_,
         location = pLocation_,
@@ -195,6 +196,10 @@ createLag_childConnectionTags = Lens.lens (\CreateLag' {childConnectionTags} -> 
 createLag_connectionId :: Lens.Lens' CreateLag (Prelude.Maybe Prelude.Text)
 createLag_connectionId = Lens.lens (\CreateLag' {connectionId} -> connectionId) (\s@CreateLag' {} a -> s {connectionId = a} :: CreateLag)
 
+-- | The name of the service provider associated with the LAG.
+createLag_providerName :: Lens.Lens' CreateLag (Prelude.Maybe Prelude.Text)
+createLag_providerName = Lens.lens (\CreateLag' {providerName} -> providerName) (\s@CreateLag' {} a -> s {providerName = a} :: CreateLag)
+
 -- | Indicates whether the connection will support MAC Security (MACsec).
 --
 -- All connections in the LAG must be capable of supporting MAC Security
@@ -203,10 +208,6 @@ createLag_connectionId = Lens.lens (\CreateLag' {connectionId} -> connectionId) 
 -- in the /Direct Connect User Guide/.
 createLag_requestMACSec :: Lens.Lens' CreateLag (Prelude.Maybe Prelude.Bool)
 createLag_requestMACSec = Lens.lens (\CreateLag' {requestMACSec} -> requestMACSec) (\s@CreateLag' {} a -> s {requestMACSec = a} :: CreateLag)
-
--- | The name of the service provider associated with the LAG.
-createLag_providerName :: Lens.Lens' CreateLag (Prelude.Maybe Prelude.Text)
-createLag_providerName = Lens.lens (\CreateLag' {providerName} -> providerName) (\s@CreateLag' {} a -> s {providerName = a} :: CreateLag)
 
 -- | The tags to associate with the LAG.
 createLag_tags :: Lens.Lens' CreateLag (Prelude.Maybe (Prelude.NonEmpty Tag))
@@ -232,17 +233,18 @@ createLag_lagName = Lens.lens (\CreateLag' {lagName} -> lagName) (\s@CreateLag' 
 
 instance Core.AWSRequest CreateLag where
   type AWSResponse CreateLag = Lag
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable CreateLag where
   hashWithSalt _salt CreateLag' {..} =
     _salt `Prelude.hashWithSalt` childConnectionTags
       `Prelude.hashWithSalt` connectionId
-      `Prelude.hashWithSalt` requestMACSec
       `Prelude.hashWithSalt` providerName
+      `Prelude.hashWithSalt` requestMACSec
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` numberOfConnections
       `Prelude.hashWithSalt` location
@@ -253,50 +255,50 @@ instance Prelude.NFData CreateLag where
   rnf CreateLag' {..} =
     Prelude.rnf childConnectionTags
       `Prelude.seq` Prelude.rnf connectionId
-      `Prelude.seq` Prelude.rnf requestMACSec
       `Prelude.seq` Prelude.rnf providerName
+      `Prelude.seq` Prelude.rnf requestMACSec
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf numberOfConnections
       `Prelude.seq` Prelude.rnf location
       `Prelude.seq` Prelude.rnf connectionsBandwidth
       `Prelude.seq` Prelude.rnf lagName
 
-instance Core.ToHeaders CreateLag where
+instance Data.ToHeaders CreateLag where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("OvertureService.CreateLag" :: Prelude.ByteString),
+              Data.=# ("OvertureService.CreateLag" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateLag where
+instance Data.ToJSON CreateLag where
   toJSON CreateLag' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("childConnectionTags" Core..=)
+          [ ("childConnectionTags" Data..=)
               Prelude.<$> childConnectionTags,
-            ("connectionId" Core..=) Prelude.<$> connectionId,
-            ("requestMACSec" Core..=) Prelude.<$> requestMACSec,
-            ("providerName" Core..=) Prelude.<$> providerName,
-            ("tags" Core..=) Prelude.<$> tags,
+            ("connectionId" Data..=) Prelude.<$> connectionId,
+            ("providerName" Data..=) Prelude.<$> providerName,
+            ("requestMACSec" Data..=) Prelude.<$> requestMACSec,
+            ("tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("numberOfConnections" Core..= numberOfConnections),
-            Prelude.Just ("location" Core..= location),
+              ("numberOfConnections" Data..= numberOfConnections),
+            Prelude.Just ("location" Data..= location),
             Prelude.Just
               ( "connectionsBandwidth"
-                  Core..= connectionsBandwidth
+                  Data..= connectionsBandwidth
               ),
-            Prelude.Just ("lagName" Core..= lagName)
+            Prelude.Just ("lagName" Data..= lagName)
           ]
       )
 
-instance Core.ToPath CreateLag where
+instance Data.ToPath CreateLag where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateLag where
+instance Data.ToQuery CreateLag where
   toQuery = Prelude.const Prelude.mempty

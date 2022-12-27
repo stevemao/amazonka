@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -73,9 +73,11 @@ library
     Amazonka.DirectoryService.DescribeEventTopics
     Amazonka.DirectoryService.DescribeLDAPSSettings
     Amazonka.DirectoryService.DescribeRegions
+    Amazonka.DirectoryService.DescribeSettings
     Amazonka.DirectoryService.DescribeSharedDirectories
     Amazonka.DirectoryService.DescribeSnapshots
     Amazonka.DirectoryService.DescribeTrusts
+    Amazonka.DirectoryService.DescribeUpdateDirectory
     Amazonka.DirectoryService.DisableClientAuthentication
     Amazonka.DirectoryService.DisableLDAPS
     Amazonka.DirectoryService.DisableRadius
@@ -114,6 +116,7 @@ library
     Amazonka.DirectoryService.Types.ClientCertAuthSettings
     Amazonka.DirectoryService.Types.Computer
     Amazonka.DirectoryService.Types.ConditionalForwarder
+    Amazonka.DirectoryService.Types.DirectoryConfigurationStatus
     Amazonka.DirectoryService.Types.DirectoryConnectSettings
     Amazonka.DirectoryService.Types.DirectoryConnectSettingsDescription
     Amazonka.DirectoryService.Types.DirectoryDescription
@@ -134,6 +137,8 @@ library
     Amazonka.DirectoryService.Types.LDAPSStatus
     Amazonka.DirectoryService.Types.LDAPSType
     Amazonka.DirectoryService.Types.LogSubscription
+    Amazonka.DirectoryService.Types.OSUpdateSettings
+    Amazonka.DirectoryService.Types.OSVersion
     Amazonka.DirectoryService.Types.OwnerDirectoryDescription
     Amazonka.DirectoryService.Types.RadiusAuthenticationProtocol
     Amazonka.DirectoryService.Types.RadiusSettings
@@ -145,6 +150,8 @@ library
     Amazonka.DirectoryService.Types.SchemaExtensionInfo
     Amazonka.DirectoryService.Types.SchemaExtensionStatus
     Amazonka.DirectoryService.Types.SelectiveAuth
+    Amazonka.DirectoryService.Types.Setting
+    Amazonka.DirectoryService.Types.SettingEntry
     Amazonka.DirectoryService.Types.SharedDirectory
     Amazonka.DirectoryService.Types.ShareMethod
     Amazonka.DirectoryService.Types.ShareStatus
@@ -161,16 +168,22 @@ library
     Amazonka.DirectoryService.Types.TrustState
     Amazonka.DirectoryService.Types.TrustType
     Amazonka.DirectoryService.Types.UnshareTarget
+    Amazonka.DirectoryService.Types.UpdateInfoEntry
+    Amazonka.DirectoryService.Types.UpdateStatus
+    Amazonka.DirectoryService.Types.UpdateType
+    Amazonka.DirectoryService.Types.UpdateValue
     Amazonka.DirectoryService.UnshareDirectory
     Amazonka.DirectoryService.UpdateConditionalForwarder
+    Amazonka.DirectoryService.UpdateDirectorySetup
     Amazonka.DirectoryService.UpdateNumberOfDomainControllers
     Amazonka.DirectoryService.UpdateRadius
+    Amazonka.DirectoryService.UpdateSettings
     Amazonka.DirectoryService.UpdateTrust
     Amazonka.DirectoryService.VerifyTrust
     Amazonka.DirectoryService.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-ds-test
@@ -189,9 +202,9 @@ test-suite amazonka-ds-test
     Test.Amazonka.Gen.DirectoryService
 
   build-depends:
-    , amazonka-core         ^>=2.0
+    , amazonka-core         >=2.0 && <2.1
     , amazonka-ds
-    , amazonka-test         ^>=2.0
+    , amazonka-test         >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryReadiness.DeleteReadinessCheck
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an existing Readiness Check.
+-- Deletes a readiness check.
 module Amazonka.Route53RecoveryReadiness.DeleteReadinessCheck
   ( -- * Creating a Request
     DeleteReadinessCheck (..),
@@ -36,7 +36,8 @@ module Amazonka.Route53RecoveryReadiness.DeleteReadinessCheck
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -44,7 +45,7 @@ import Amazonka.Route53RecoveryReadiness.Types
 
 -- | /See:/ 'newDeleteReadinessCheck' smart constructor.
 data DeleteReadinessCheck = DeleteReadinessCheck'
-  { -- | The ReadinessCheck to delete
+  { -- | Name of a readiness check.
     readinessCheckName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -57,7 +58,7 @@ data DeleteReadinessCheck = DeleteReadinessCheck'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'readinessCheckName', 'deleteReadinessCheck_readinessCheckName' - The ReadinessCheck to delete
+-- 'readinessCheckName', 'deleteReadinessCheck_readinessCheckName' - Name of a readiness check.
 newDeleteReadinessCheck ::
   -- | 'readinessCheckName'
   Prelude.Text ->
@@ -68,7 +69,7 @@ newDeleteReadinessCheck pReadinessCheckName_ =
         pReadinessCheckName_
     }
 
--- | The ReadinessCheck to delete
+-- | Name of a readiness check.
 deleteReadinessCheck_readinessCheckName :: Lens.Lens' DeleteReadinessCheck Prelude.Text
 deleteReadinessCheck_readinessCheckName = Lens.lens (\DeleteReadinessCheck' {readinessCheckName} -> readinessCheckName) (\s@DeleteReadinessCheck' {} a -> s {readinessCheckName = a} :: DeleteReadinessCheck)
 
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteReadinessCheck where
   type
     AWSResponse DeleteReadinessCheck =
       DeleteReadinessCheckResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteReadinessCheckResponse'
 
@@ -88,23 +90,23 @@ instance Prelude.NFData DeleteReadinessCheck where
   rnf DeleteReadinessCheck' {..} =
     Prelude.rnf readinessCheckName
 
-instance Core.ToHeaders DeleteReadinessCheck where
+instance Data.ToHeaders DeleteReadinessCheck where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteReadinessCheck where
+instance Data.ToPath DeleteReadinessCheck where
   toPath DeleteReadinessCheck' {..} =
     Prelude.mconcat
-      ["/readinesschecks/", Core.toBS readinessCheckName]
+      ["/readinesschecks/", Data.toBS readinessCheckName]
 
-instance Core.ToQuery DeleteReadinessCheck where
+instance Data.ToQuery DeleteReadinessCheck where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteReadinessCheckResponse' smart constructor.

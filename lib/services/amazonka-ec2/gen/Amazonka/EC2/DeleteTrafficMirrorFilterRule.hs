@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DeleteTrafficMirrorFilterRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.EC2.DeleteTrafficMirrorFilterRule
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -104,12 +105,13 @@ instance
   type
     AWSResponse DeleteTrafficMirrorFilterRule =
       DeleteTrafficMirrorFilterRuleResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DeleteTrafficMirrorFilterRuleResponse'
-            Prelude.<$> (x Core..@? "trafficMirrorFilterRuleId")
+            Prelude.<$> (x Data..@? "trafficMirrorFilterRuleId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -126,24 +128,24 @@ instance Prelude.NFData DeleteTrafficMirrorFilterRule where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf trafficMirrorFilterRuleId
 
-instance Core.ToHeaders DeleteTrafficMirrorFilterRule where
+instance Data.ToHeaders DeleteTrafficMirrorFilterRule where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteTrafficMirrorFilterRule where
+instance Data.ToPath DeleteTrafficMirrorFilterRule where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteTrafficMirrorFilterRule where
+instance Data.ToQuery DeleteTrafficMirrorFilterRule where
   toQuery DeleteTrafficMirrorFilterRule' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DeleteTrafficMirrorFilterRule" ::
+          Data.=: ( "DeleteTrafficMirrorFilterRule" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
         "TrafficMirrorFilterRuleId"
-          Core.=: trafficMirrorFilterRuleId
+          Data.=: trafficMirrorFilterRuleId
       ]
 
 -- | /See:/ 'newDeleteTrafficMirrorFilterRuleResponse' smart constructor.

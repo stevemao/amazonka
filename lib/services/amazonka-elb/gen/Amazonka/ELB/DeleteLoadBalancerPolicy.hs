@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ELB.DeleteLoadBalancerPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.ELB.DeleteLoadBalancerPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,7 +97,8 @@ instance Core.AWSRequest DeleteLoadBalancerPolicy where
   type
     AWSResponse DeleteLoadBalancerPolicy =
       DeleteLoadBalancerPolicyResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeleteLoadBalancerPolicyResult"
@@ -115,21 +117,21 @@ instance Prelude.NFData DeleteLoadBalancerPolicy where
     Prelude.rnf loadBalancerName
       `Prelude.seq` Prelude.rnf policyName
 
-instance Core.ToHeaders DeleteLoadBalancerPolicy where
+instance Data.ToHeaders DeleteLoadBalancerPolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteLoadBalancerPolicy where
+instance Data.ToPath DeleteLoadBalancerPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteLoadBalancerPolicy where
+instance Data.ToQuery DeleteLoadBalancerPolicy where
   toQuery DeleteLoadBalancerPolicy' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteLoadBalancerPolicy" :: Prelude.ByteString),
+          Data.=: ("DeleteLoadBalancerPolicy" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-06-01" :: Prelude.ByteString),
-        "LoadBalancerName" Core.=: loadBalancerName,
-        "PolicyName" Core.=: policyName
+          Data.=: ("2012-06-01" :: Prelude.ByteString),
+        "LoadBalancerName" Data.=: loadBalancerName,
+        "PolicyName" Data.=: policyName
       ]
 
 -- | Contains the output of DeleteLoadBalancerPolicy.

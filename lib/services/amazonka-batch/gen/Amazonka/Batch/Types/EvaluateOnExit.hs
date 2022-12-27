@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Batch.Types.EvaluateOnExit
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,29 +21,34 @@ module Amazonka.Batch.Types.EvaluateOnExit where
 
 import Amazonka.Batch.Types.RetryAction
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Specifies a set of conditions to be met, and an action to take (@RETRY@
--- or @EXIT@) if all conditions are met.
+-- | Specifies an array of up to 5 conditions to be met, and an action to
+-- take (@RETRY@ or @EXIT@) if all conditions are met. If none of the
+-- @EvaluateOnExit@ conditions in a @RetryStrategy@ match, then the job is
+-- retried.
 --
 -- /See:/ 'newEvaluateOnExit' smart constructor.
 data EvaluateOnExit = EvaluateOnExit'
   { -- | Contains a glob pattern to match against the decimal representation of
     -- the @ExitCode@ returned for a job. The pattern can be up to 512
-    -- characters in length. It can contain only numbers, and can optionally
-    -- end with an asterisk (*) so that only the start of the string needs to
-    -- be an exact match.
+    -- characters long. It can contain only numbers, and can end with an
+    -- asterisk (*) so that only the start of the string needs to be an exact
+    -- match.
+    --
+    -- The string can contain up to 512 characters.
     onExitCode :: Prelude.Maybe Prelude.Text,
     -- | Contains a glob pattern to match against the @Reason@ returned for a
-    -- job. The pattern can be up to 512 characters in length. It can contain
+    -- job. The pattern can contain up to 512 characters. It can contain
     -- letters, numbers, periods (.), colons (:), and white space (including
     -- spaces and tabs). It can optionally end with an asterisk (*) so that
     -- only the start of the string needs to be an exact match.
     onReason :: Prelude.Maybe Prelude.Text,
     -- | Contains a glob pattern to match against the @StatusReason@ returned for
-    -- a job. The pattern can be up to 512 characters in length. It can contain
-    -- letters, numbers, periods (.), colons (:), and white space (including
+    -- a job. The pattern can contain up to 512 characters. It can contain
+    -- letters, numbers, periods (.), colons (:), and white spaces (including
     -- spaces or tabs). It can optionally end with an asterisk (*) so that only
     -- the start of the string needs to be an exact match.
     onStatusReason :: Prelude.Maybe Prelude.Text,
@@ -64,19 +69,21 @@ data EvaluateOnExit = EvaluateOnExit'
 --
 -- 'onExitCode', 'evaluateOnExit_onExitCode' - Contains a glob pattern to match against the decimal representation of
 -- the @ExitCode@ returned for a job. The pattern can be up to 512
--- characters in length. It can contain only numbers, and can optionally
--- end with an asterisk (*) so that only the start of the string needs to
--- be an exact match.
+-- characters long. It can contain only numbers, and can end with an
+-- asterisk (*) so that only the start of the string needs to be an exact
+-- match.
+--
+-- The string can contain up to 512 characters.
 --
 -- 'onReason', 'evaluateOnExit_onReason' - Contains a glob pattern to match against the @Reason@ returned for a
--- job. The pattern can be up to 512 characters in length. It can contain
+-- job. The pattern can contain up to 512 characters. It can contain
 -- letters, numbers, periods (.), colons (:), and white space (including
 -- spaces and tabs). It can optionally end with an asterisk (*) so that
 -- only the start of the string needs to be an exact match.
 --
 -- 'onStatusReason', 'evaluateOnExit_onStatusReason' - Contains a glob pattern to match against the @StatusReason@ returned for
--- a job. The pattern can be up to 512 characters in length. It can contain
--- letters, numbers, periods (.), colons (:), and white space (including
+-- a job. The pattern can contain up to 512 characters. It can contain
+-- letters, numbers, periods (.), colons (:), and white spaces (including
 -- spaces or tabs). It can optionally end with an asterisk (*) so that only
 -- the start of the string needs to be an exact match.
 --
@@ -97,14 +104,16 @@ newEvaluateOnExit pAction_ =
 
 -- | Contains a glob pattern to match against the decimal representation of
 -- the @ExitCode@ returned for a job. The pattern can be up to 512
--- characters in length. It can contain only numbers, and can optionally
--- end with an asterisk (*) so that only the start of the string needs to
--- be an exact match.
+-- characters long. It can contain only numbers, and can end with an
+-- asterisk (*) so that only the start of the string needs to be an exact
+-- match.
+--
+-- The string can contain up to 512 characters.
 evaluateOnExit_onExitCode :: Lens.Lens' EvaluateOnExit (Prelude.Maybe Prelude.Text)
 evaluateOnExit_onExitCode = Lens.lens (\EvaluateOnExit' {onExitCode} -> onExitCode) (\s@EvaluateOnExit' {} a -> s {onExitCode = a} :: EvaluateOnExit)
 
 -- | Contains a glob pattern to match against the @Reason@ returned for a
--- job. The pattern can be up to 512 characters in length. It can contain
+-- job. The pattern can contain up to 512 characters. It can contain
 -- letters, numbers, periods (.), colons (:), and white space (including
 -- spaces and tabs). It can optionally end with an asterisk (*) so that
 -- only the start of the string needs to be an exact match.
@@ -112,8 +121,8 @@ evaluateOnExit_onReason :: Lens.Lens' EvaluateOnExit (Prelude.Maybe Prelude.Text
 evaluateOnExit_onReason = Lens.lens (\EvaluateOnExit' {onReason} -> onReason) (\s@EvaluateOnExit' {} a -> s {onReason = a} :: EvaluateOnExit)
 
 -- | Contains a glob pattern to match against the @StatusReason@ returned for
--- a job. The pattern can be up to 512 characters in length. It can contain
--- letters, numbers, periods (.), colons (:), and white space (including
+-- a job. The pattern can contain up to 512 characters. It can contain
+-- letters, numbers, periods (.), colons (:), and white spaces (including
 -- spaces or tabs). It can optionally end with an asterisk (*) so that only
 -- the start of the string needs to be an exact match.
 evaluateOnExit_onStatusReason :: Lens.Lens' EvaluateOnExit (Prelude.Maybe Prelude.Text)
@@ -125,16 +134,16 @@ evaluateOnExit_onStatusReason = Lens.lens (\EvaluateOnExit' {onStatusReason} -> 
 evaluateOnExit_action :: Lens.Lens' EvaluateOnExit RetryAction
 evaluateOnExit_action = Lens.lens (\EvaluateOnExit' {action} -> action) (\s@EvaluateOnExit' {} a -> s {action = a} :: EvaluateOnExit)
 
-instance Core.FromJSON EvaluateOnExit where
+instance Data.FromJSON EvaluateOnExit where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EvaluateOnExit"
       ( \x ->
           EvaluateOnExit'
-            Prelude.<$> (x Core..:? "onExitCode")
-            Prelude.<*> (x Core..:? "onReason")
-            Prelude.<*> (x Core..:? "onStatusReason")
-            Prelude.<*> (x Core..: "action")
+            Prelude.<$> (x Data..:? "onExitCode")
+            Prelude.<*> (x Data..:? "onReason")
+            Prelude.<*> (x Data..:? "onStatusReason")
+            Prelude.<*> (x Data..: "action")
       )
 
 instance Prelude.Hashable EvaluateOnExit where
@@ -151,14 +160,14 @@ instance Prelude.NFData EvaluateOnExit where
       `Prelude.seq` Prelude.rnf onStatusReason
       `Prelude.seq` Prelude.rnf action
 
-instance Core.ToJSON EvaluateOnExit where
+instance Data.ToJSON EvaluateOnExit where
   toJSON EvaluateOnExit' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("onExitCode" Core..=) Prelude.<$> onExitCode,
-            ("onReason" Core..=) Prelude.<$> onReason,
-            ("onStatusReason" Core..=)
+          [ ("onExitCode" Data..=) Prelude.<$> onExitCode,
+            ("onReason" Data..=) Prelude.<$> onReason,
+            ("onStatusReason" Data..=)
               Prelude.<$> onStatusReason,
-            Prelude.Just ("action" Core..= action)
+            Prelude.Just ("action" Data..= action)
           ]
       )

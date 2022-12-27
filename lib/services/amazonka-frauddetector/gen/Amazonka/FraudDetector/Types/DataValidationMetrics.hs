@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.Types.DataValidationMetrics
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.FraudDetector.Types.DataValidationMetrics where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types.FieldValidationMessage
 import Amazonka.FraudDetector.Types.FileValidationMessage
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
--- | The model training validation messages.
+-- | The model training data validation metrics.
 --
 -- /See:/ 'newDataValidationMetrics' smart constructor.
 data DataValidationMetrics = DataValidationMetrics'
   { -- | The field-specific model training validation messages.
     fieldLevelMessages :: Prelude.Maybe [FieldValidationMessage],
-    -- | The file-specific model training validation messages.
+    -- | The file-specific model training data validation messages.
     fileLevelMessages :: Prelude.Maybe [FileValidationMessage]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -46,7 +47,7 @@ data DataValidationMetrics = DataValidationMetrics'
 --
 -- 'fieldLevelMessages', 'dataValidationMetrics_fieldLevelMessages' - The field-specific model training validation messages.
 --
--- 'fileLevelMessages', 'dataValidationMetrics_fileLevelMessages' - The file-specific model training validation messages.
+-- 'fileLevelMessages', 'dataValidationMetrics_fileLevelMessages' - The file-specific model training data validation messages.
 newDataValidationMetrics ::
   DataValidationMetrics
 newDataValidationMetrics =
@@ -60,21 +61,21 @@ newDataValidationMetrics =
 dataValidationMetrics_fieldLevelMessages :: Lens.Lens' DataValidationMetrics (Prelude.Maybe [FieldValidationMessage])
 dataValidationMetrics_fieldLevelMessages = Lens.lens (\DataValidationMetrics' {fieldLevelMessages} -> fieldLevelMessages) (\s@DataValidationMetrics' {} a -> s {fieldLevelMessages = a} :: DataValidationMetrics) Prelude.. Lens.mapping Lens.coerced
 
--- | The file-specific model training validation messages.
+-- | The file-specific model training data validation messages.
 dataValidationMetrics_fileLevelMessages :: Lens.Lens' DataValidationMetrics (Prelude.Maybe [FileValidationMessage])
 dataValidationMetrics_fileLevelMessages = Lens.lens (\DataValidationMetrics' {fileLevelMessages} -> fileLevelMessages) (\s@DataValidationMetrics' {} a -> s {fileLevelMessages = a} :: DataValidationMetrics) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON DataValidationMetrics where
+instance Data.FromJSON DataValidationMetrics where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DataValidationMetrics"
       ( \x ->
           DataValidationMetrics'
-            Prelude.<$> ( x Core..:? "fieldLevelMessages"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "fieldLevelMessages"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> ( x Core..:? "fileLevelMessages"
-                            Core..!= Prelude.mempty
+            Prelude.<*> ( x Data..:? "fileLevelMessages"
+                            Data..!= Prelude.mempty
                         )
       )
 

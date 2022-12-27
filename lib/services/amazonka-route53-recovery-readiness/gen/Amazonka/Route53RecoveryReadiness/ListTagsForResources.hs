@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryReadiness.ListTagsForResources
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of the tags assigned to the specified resource.
+-- Lists the tags for a resource.
 module Amazonka.Route53RecoveryReadiness.ListTagsForResources
   ( -- * Creating a Request
     ListTagsForResources (..),
@@ -40,7 +40,8 @@ module Amazonka.Route53RecoveryReadiness.ListTagsForResources
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -48,8 +49,7 @@ import Amazonka.Route53RecoveryReadiness.Types
 
 -- | /See:/ 'newListTagsForResources' smart constructor.
 data ListTagsForResources = ListTagsForResources'
-  { -- | The Amazon Resource Name (ARN) for the resource. You can get this from
-    -- the response to any request to the resource.
+  { -- | The Amazon Resource Name (ARN) for a resource.
     resourceArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -62,8 +62,7 @@ data ListTagsForResources = ListTagsForResources'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceArn', 'listTagsForResources_resourceArn' - The Amazon Resource Name (ARN) for the resource. You can get this from
--- the response to any request to the resource.
+-- 'resourceArn', 'listTagsForResources_resourceArn' - The Amazon Resource Name (ARN) for a resource.
 newListTagsForResources ::
   -- | 'resourceArn'
   Prelude.Text ->
@@ -71,8 +70,7 @@ newListTagsForResources ::
 newListTagsForResources pResourceArn_ =
   ListTagsForResources' {resourceArn = pResourceArn_}
 
--- | The Amazon Resource Name (ARN) for the resource. You can get this from
--- the response to any request to the resource.
+-- | The Amazon Resource Name (ARN) for a resource.
 listTagsForResources_resourceArn :: Lens.Lens' ListTagsForResources Prelude.Text
 listTagsForResources_resourceArn = Lens.lens (\ListTagsForResources' {resourceArn} -> resourceArn) (\s@ListTagsForResources' {} a -> s {resourceArn = a} :: ListTagsForResources)
 
@@ -80,12 +78,13 @@ instance Core.AWSRequest ListTagsForResources where
   type
     AWSResponse ListTagsForResources =
       ListTagsForResourcesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTagsForResourcesResponse'
-            Prelude.<$> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,22 +96,22 @@ instance Prelude.NFData ListTagsForResources where
   rnf ListTagsForResources' {..} =
     Prelude.rnf resourceArn
 
-instance Core.ToHeaders ListTagsForResources where
+instance Data.ToHeaders ListTagsForResources where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListTagsForResources where
+instance Data.ToPath ListTagsForResources where
   toPath ListTagsForResources' {..} =
-    Prelude.mconcat ["/tags/", Core.toBS resourceArn]
+    Prelude.mconcat ["/tags/", Data.toBS resourceArn]
 
-instance Core.ToQuery ListTagsForResources where
+instance Data.ToQuery ListTagsForResources where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTagsForResourcesResponse' smart constructor.
@@ -131,7 +130,7 @@ data ListTagsForResourcesResponse = ListTagsForResourcesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tags', 'listTagsForResourcesResponse_tags' - Undocumented member.
+-- 'tags', 'listTagsForResourcesResponse_tags' -
 --
 -- 'httpStatus', 'listTagsForResourcesResponse_httpStatus' - The response's http status code.
 newListTagsForResourcesResponse ::
@@ -145,7 +144,7 @@ newListTagsForResourcesResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | Undocumented member.
+-- |
 listTagsForResourcesResponse_tags :: Lens.Lens' ListTagsForResourcesResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 listTagsForResourcesResponse_tags = Lens.lens (\ListTagsForResourcesResponse' {tags} -> tags) (\s@ListTagsForResourcesResponse' {} a -> s {tags = a} :: ListTagsForResourcesResponse) Prelude.. Lens.mapping Lens.coerced
 

@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetDocumentationVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- -- | Undocumented operation.
+-- Gets a documentation version.
 module Amazonka.APIGateway.GetDocumentationVersion
   ( -- * Creating a Request
     GetDocumentationVersion (..),
@@ -36,14 +36,15 @@ module Amazonka.APIGateway.GetDocumentationVersion
 
     -- * Response Lenses
     documentationVersion_createdDate,
-    documentationVersion_version,
     documentationVersion_description,
+    documentationVersion_version,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,10 +53,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newGetDocumentationVersion' smart constructor.
 data GetDocumentationVersion = GetDocumentationVersion'
-  { -- | [Required] The string identifier of the associated RestApi.
+  { -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] The version identifier of the to-be-retrieved documentation
-    -- snapshot.
+    -- | The version identifier of the to-be-retrieved documentation snapshot.
     documentationVersion :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -68,10 +68,9 @@ data GetDocumentationVersion = GetDocumentationVersion'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'restApiId', 'getDocumentationVersion_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'getDocumentationVersion_restApiId' - The string identifier of the associated RestApi.
 --
--- 'documentationVersion', 'getDocumentationVersion_documentationVersion' - [Required] The version identifier of the to-be-retrieved documentation
--- snapshot.
+-- 'documentationVersion', 'getDocumentationVersion_documentationVersion' - The version identifier of the to-be-retrieved documentation snapshot.
 newGetDocumentationVersion ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -86,12 +85,11 @@ newGetDocumentationVersion
         documentationVersion = pDocumentationVersion_
       }
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 getDocumentationVersion_restApiId :: Lens.Lens' GetDocumentationVersion Prelude.Text
 getDocumentationVersion_restApiId = Lens.lens (\GetDocumentationVersion' {restApiId} -> restApiId) (\s@GetDocumentationVersion' {} a -> s {restApiId = a} :: GetDocumentationVersion)
 
--- | [Required] The version identifier of the to-be-retrieved documentation
--- snapshot.
+-- | The version identifier of the to-be-retrieved documentation snapshot.
 getDocumentationVersion_documentationVersion :: Lens.Lens' GetDocumentationVersion Prelude.Text
 getDocumentationVersion_documentationVersion = Lens.lens (\GetDocumentationVersion' {documentationVersion} -> documentationVersion) (\s@GetDocumentationVersion' {} a -> s {documentationVersion = a} :: GetDocumentationVersion)
 
@@ -99,10 +97,11 @@ instance Core.AWSRequest GetDocumentationVersion where
   type
     AWSResponse GetDocumentationVersion =
       DocumentationVersion
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetDocumentationVersion where
   hashWithSalt _salt GetDocumentationVersion' {..} =
@@ -114,23 +113,23 @@ instance Prelude.NFData GetDocumentationVersion where
     Prelude.rnf restApiId
       `Prelude.seq` Prelude.rnf documentationVersion
 
-instance Core.ToHeaders GetDocumentationVersion where
+instance Data.ToHeaders GetDocumentationVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetDocumentationVersion where
+instance Data.ToPath GetDocumentationVersion where
   toPath GetDocumentationVersion' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/documentation/versions/",
-        Core.toBS documentationVersion
+        Data.toBS documentationVersion
       ]
 
-instance Core.ToQuery GetDocumentationVersion where
+instance Data.ToQuery GetDocumentationVersion where
   toQuery = Prelude.const Prelude.mempty

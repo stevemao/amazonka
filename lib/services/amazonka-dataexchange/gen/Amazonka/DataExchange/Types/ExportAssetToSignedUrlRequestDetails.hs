@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataExchange.Types.ExportAssetToSignedUrlRequestDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.DataExchange.Types.ExportAssetToSignedUrlRequestDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details of the operation to be performed by the job.
 --
 -- /See:/ 'newExportAssetToSignedUrlRequestDetails' smart constructor.
 data ExportAssetToSignedUrlRequestDetails = ExportAssetToSignedUrlRequestDetails'
-  { -- | The unique identifier for the data set associated with this export job.
-    dataSetId :: Prelude.Text,
-    -- | The unique identifier for the asset that is exported to a signed URL.
+  { -- | The unique identifier for the asset that is exported to a signed URL.
     assetId :: Prelude.Text,
+    -- | The unique identifier for the data set associated with this export job.
+    dataSetId :: Prelude.Text,
     -- | The unique identifier for the revision associated with this export
     -- request.
     revisionId :: Prelude.Text
@@ -45,38 +46,38 @@ data ExportAssetToSignedUrlRequestDetails = ExportAssetToSignedUrlRequestDetails
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'dataSetId', 'exportAssetToSignedUrlRequestDetails_dataSetId' - The unique identifier for the data set associated with this export job.
---
 -- 'assetId', 'exportAssetToSignedUrlRequestDetails_assetId' - The unique identifier for the asset that is exported to a signed URL.
+--
+-- 'dataSetId', 'exportAssetToSignedUrlRequestDetails_dataSetId' - The unique identifier for the data set associated with this export job.
 --
 -- 'revisionId', 'exportAssetToSignedUrlRequestDetails_revisionId' - The unique identifier for the revision associated with this export
 -- request.
 newExportAssetToSignedUrlRequestDetails ::
-  -- | 'dataSetId'
-  Prelude.Text ->
   -- | 'assetId'
+  Prelude.Text ->
+  -- | 'dataSetId'
   Prelude.Text ->
   -- | 'revisionId'
   Prelude.Text ->
   ExportAssetToSignedUrlRequestDetails
 newExportAssetToSignedUrlRequestDetails
-  pDataSetId_
   pAssetId_
+  pDataSetId_
   pRevisionId_ =
     ExportAssetToSignedUrlRequestDetails'
-      { dataSetId =
-          pDataSetId_,
-        assetId = pAssetId_,
+      { assetId =
+          pAssetId_,
+        dataSetId = pDataSetId_,
         revisionId = pRevisionId_
       }
-
--- | The unique identifier for the data set associated with this export job.
-exportAssetToSignedUrlRequestDetails_dataSetId :: Lens.Lens' ExportAssetToSignedUrlRequestDetails Prelude.Text
-exportAssetToSignedUrlRequestDetails_dataSetId = Lens.lens (\ExportAssetToSignedUrlRequestDetails' {dataSetId} -> dataSetId) (\s@ExportAssetToSignedUrlRequestDetails' {} a -> s {dataSetId = a} :: ExportAssetToSignedUrlRequestDetails)
 
 -- | The unique identifier for the asset that is exported to a signed URL.
 exportAssetToSignedUrlRequestDetails_assetId :: Lens.Lens' ExportAssetToSignedUrlRequestDetails Prelude.Text
 exportAssetToSignedUrlRequestDetails_assetId = Lens.lens (\ExportAssetToSignedUrlRequestDetails' {assetId} -> assetId) (\s@ExportAssetToSignedUrlRequestDetails' {} a -> s {assetId = a} :: ExportAssetToSignedUrlRequestDetails)
+
+-- | The unique identifier for the data set associated with this export job.
+exportAssetToSignedUrlRequestDetails_dataSetId :: Lens.Lens' ExportAssetToSignedUrlRequestDetails Prelude.Text
+exportAssetToSignedUrlRequestDetails_dataSetId = Lens.lens (\ExportAssetToSignedUrlRequestDetails' {dataSetId} -> dataSetId) (\s@ExportAssetToSignedUrlRequestDetails' {} a -> s {dataSetId = a} :: ExportAssetToSignedUrlRequestDetails)
 
 -- | The unique identifier for the revision associated with this export
 -- request.
@@ -90,8 +91,8 @@ instance
   hashWithSalt
     _salt
     ExportAssetToSignedUrlRequestDetails' {..} =
-      _salt `Prelude.hashWithSalt` dataSetId
-        `Prelude.hashWithSalt` assetId
+      _salt `Prelude.hashWithSalt` assetId
+        `Prelude.hashWithSalt` dataSetId
         `Prelude.hashWithSalt` revisionId
 
 instance
@@ -99,19 +100,19 @@ instance
     ExportAssetToSignedUrlRequestDetails
   where
   rnf ExportAssetToSignedUrlRequestDetails' {..} =
-    Prelude.rnf dataSetId
-      `Prelude.seq` Prelude.rnf assetId
+    Prelude.rnf assetId
+      `Prelude.seq` Prelude.rnf dataSetId
       `Prelude.seq` Prelude.rnf revisionId
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ExportAssetToSignedUrlRequestDetails
   where
   toJSON ExportAssetToSignedUrlRequestDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("DataSetId" Core..= dataSetId),
-            Prelude.Just ("AssetId" Core..= assetId),
-            Prelude.Just ("RevisionId" Core..= revisionId)
+          [ Prelude.Just ("AssetId" Data..= assetId),
+            Prelude.Just ("DataSetId" Data..= dataSetId),
+            Prelude.Just ("RevisionId" Data..= revisionId)
           ]
       )

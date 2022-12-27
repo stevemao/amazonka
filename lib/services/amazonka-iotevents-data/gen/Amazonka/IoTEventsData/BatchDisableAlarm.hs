@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEventsData.BatchDisableAlarm
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.IoTEventsData.BatchDisableAlarm
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEventsData.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,12 +85,13 @@ instance Core.AWSRequest BatchDisableAlarm where
   type
     AWSResponse BatchDisableAlarm =
       BatchDisableAlarmResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchDisableAlarmResponse'
-            Prelude.<$> (x Core..?> "errorEntries" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "errorEntries" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -101,24 +103,24 @@ instance Prelude.NFData BatchDisableAlarm where
   rnf BatchDisableAlarm' {..} =
     Prelude.rnf disableActionRequests
 
-instance Core.ToHeaders BatchDisableAlarm where
+instance Data.ToHeaders BatchDisableAlarm where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON BatchDisableAlarm where
+instance Data.ToJSON BatchDisableAlarm where
   toJSON BatchDisableAlarm' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "disableActionRequests"
-                  Core..= disableActionRequests
+                  Data..= disableActionRequests
               )
           ]
       )
 
-instance Core.ToPath BatchDisableAlarm where
+instance Data.ToPath BatchDisableAlarm where
   toPath = Prelude.const "/alarms/disable"
 
-instance Core.ToQuery BatchDisableAlarm where
+instance Data.ToQuery BatchDisableAlarm where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchDisableAlarmResponse' smart constructor.

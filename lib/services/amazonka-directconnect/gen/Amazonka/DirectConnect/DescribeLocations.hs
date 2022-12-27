@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.DescribeLocations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.DirectConnect.DescribeLocations
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -63,12 +64,13 @@ instance Core.AWSRequest DescribeLocations where
   type
     AWSResponse DescribeLocations =
       DescribeLocationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeLocationsResponse'
-            Prelude.<$> (x Core..?> "locations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "locations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -79,28 +81,28 @@ instance Prelude.Hashable DescribeLocations where
 instance Prelude.NFData DescribeLocations where
   rnf _ = ()
 
-instance Core.ToHeaders DescribeLocations where
+instance Data.ToHeaders DescribeLocations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OvertureService.DescribeLocations" ::
+              Data.=# ( "OvertureService.DescribeLocations" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeLocations where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON DescribeLocations where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath DescribeLocations where
+instance Data.ToPath DescribeLocations where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeLocations where
+instance Data.ToQuery DescribeLocations where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeLocationsResponse' smart constructor.

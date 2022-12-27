@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.LabelingSetGenerationTaskRunProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Glue.Types.LabelingSetGenerationTaskRunProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies configuration properties for a labeling set generation task
@@ -58,15 +59,15 @@ labelingSetGenerationTaskRunProperties_outputS3Path :: Lens.Lens' LabelingSetGen
 labelingSetGenerationTaskRunProperties_outputS3Path = Lens.lens (\LabelingSetGenerationTaskRunProperties' {outputS3Path} -> outputS3Path) (\s@LabelingSetGenerationTaskRunProperties' {} a -> s {outputS3Path = a} :: LabelingSetGenerationTaskRunProperties)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     LabelingSetGenerationTaskRunProperties
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LabelingSetGenerationTaskRunProperties"
       ( \x ->
           LabelingSetGenerationTaskRunProperties'
-            Prelude.<$> (x Core..:? "OutputS3Path")
+            Prelude.<$> (x Data..:? "OutputS3Path")
       )
 
 instance

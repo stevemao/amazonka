@@ -14,13 +14,25 @@
 
 -- |
 -- Module      : Amazonka.SecretsManager.RemoveRegionsFromReplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Remove regions from replication.
+-- For a secret that is replicated to other Regions, deletes the secret
+-- replicas from the Regions you specify.
+--
+-- Secrets Manager generates a CloudTrail log entry when you call this
+-- action. Do not include sensitive information in request parameters
+-- because it might be logged. For more information, see
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieve-ct-entries.html Logging Secrets Manager events with CloudTrail>.
+--
+-- __Required permissions:__ @secretsmanager:RemoveRegionsFromReplication@.
+-- For more information, see
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#reference_iam-permissions_actions IAM policy actions for Secrets Manager>
+-- and
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html Authentication and access control in Secrets Manager>.
 module Amazonka.SecretsManager.RemoveRegionsFromReplication
   ( -- * Creating a Request
     RemoveRegionsFromReplication (..),
@@ -42,7 +54,8 @@ module Amazonka.SecretsManager.RemoveRegionsFromReplication
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -50,9 +63,9 @@ import Amazonka.SecretsManager.Types
 
 -- | /See:/ 'newRemoveRegionsFromReplication' smart constructor.
 data RemoveRegionsFromReplication = RemoveRegionsFromReplication'
-  { -- | Remove a secret by @SecretId@ from replica Regions.
+  { -- | The ARN or name of the secret.
     secretId :: Prelude.Text,
-    -- | Remove replication from specific Regions.
+    -- | The Regions of the replicas to remove.
     removeReplicaRegions :: Prelude.NonEmpty Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -65,9 +78,9 @@ data RemoveRegionsFromReplication = RemoveRegionsFromReplication'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'secretId', 'removeRegionsFromReplication_secretId' - Remove a secret by @SecretId@ from replica Regions.
+-- 'secretId', 'removeRegionsFromReplication_secretId' - The ARN or name of the secret.
 --
--- 'removeReplicaRegions', 'removeRegionsFromReplication_removeReplicaRegions' - Remove replication from specific Regions.
+-- 'removeReplicaRegions', 'removeRegionsFromReplication_removeReplicaRegions' - The Regions of the replicas to remove.
 newRemoveRegionsFromReplication ::
   -- | 'secretId'
   Prelude.Text ->
@@ -84,11 +97,11 @@ newRemoveRegionsFromReplication
           Lens.coerced Lens.# pRemoveReplicaRegions_
       }
 
--- | Remove a secret by @SecretId@ from replica Regions.
+-- | The ARN or name of the secret.
 removeRegionsFromReplication_secretId :: Lens.Lens' RemoveRegionsFromReplication Prelude.Text
 removeRegionsFromReplication_secretId = Lens.lens (\RemoveRegionsFromReplication' {secretId} -> secretId) (\s@RemoveRegionsFromReplication' {} a -> s {secretId = a} :: RemoveRegionsFromReplication)
 
--- | Remove replication from specific Regions.
+-- | The Regions of the replicas to remove.
 removeRegionsFromReplication_removeReplicaRegions :: Lens.Lens' RemoveRegionsFromReplication (Prelude.NonEmpty Prelude.Text)
 removeRegionsFromReplication_removeReplicaRegions = Lens.lens (\RemoveRegionsFromReplication' {removeReplicaRegions} -> removeReplicaRegions) (\s@RemoveRegionsFromReplication' {} a -> s {removeReplicaRegions = a} :: RemoveRegionsFromReplication) Prelude.. Lens.coerced
 
@@ -96,13 +109,14 @@ instance Core.AWSRequest RemoveRegionsFromReplication where
   type
     AWSResponse RemoveRegionsFromReplication =
       RemoveRegionsFromReplicationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RemoveRegionsFromReplicationResponse'
-            Prelude.<$> (x Core..?> "ARN")
-            Prelude.<*> ( x Core..?> "ReplicationStatus"
+            Prelude.<$> (x Data..?> "ARN")
+            Prelude.<*> ( x Data..?> "ReplicationStatus"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -121,45 +135,44 @@ instance Prelude.NFData RemoveRegionsFromReplication where
     Prelude.rnf secretId
       `Prelude.seq` Prelude.rnf removeReplicaRegions
 
-instance Core.ToHeaders RemoveRegionsFromReplication where
+instance Data.ToHeaders RemoveRegionsFromReplication where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "secretsmanager.RemoveRegionsFromReplication" ::
+              Data.=# ( "secretsmanager.RemoveRegionsFromReplication" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RemoveRegionsFromReplication where
+instance Data.ToJSON RemoveRegionsFromReplication where
   toJSON RemoveRegionsFromReplication' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("SecretId" Core..= secretId),
+          [ Prelude.Just ("SecretId" Data..= secretId),
             Prelude.Just
               ( "RemoveReplicaRegions"
-                  Core..= removeReplicaRegions
+                  Data..= removeReplicaRegions
               )
           ]
       )
 
-instance Core.ToPath RemoveRegionsFromReplication where
+instance Data.ToPath RemoveRegionsFromReplication where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RemoveRegionsFromReplication where
+instance Data.ToQuery RemoveRegionsFromReplication where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRemoveRegionsFromReplicationResponse' smart constructor.
 data RemoveRegionsFromReplicationResponse = RemoveRegionsFromReplicationResponse'
-  { -- | The secret @ARN@ removed from replication regions.
+  { -- | The ARN of the primary secret.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | Describes the remaining replication status after you remove regions from
-    -- the replication list.
+    -- | The status of replicas for this secret after you remove Regions.
     replicationStatus :: Prelude.Maybe [ReplicationStatusType],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -174,10 +187,9 @@ data RemoveRegionsFromReplicationResponse = RemoveRegionsFromReplicationResponse
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'arn', 'removeRegionsFromReplicationResponse_arn' - The secret @ARN@ removed from replication regions.
+-- 'arn', 'removeRegionsFromReplicationResponse_arn' - The ARN of the primary secret.
 --
--- 'replicationStatus', 'removeRegionsFromReplicationResponse_replicationStatus' - Describes the remaining replication status after you remove regions from
--- the replication list.
+-- 'replicationStatus', 'removeRegionsFromReplicationResponse_replicationStatus' - The status of replicas for this secret after you remove Regions.
 --
 -- 'httpStatus', 'removeRegionsFromReplicationResponse_httpStatus' - The response's http status code.
 newRemoveRegionsFromReplicationResponse ::
@@ -192,12 +204,11 @@ newRemoveRegionsFromReplicationResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The secret @ARN@ removed from replication regions.
+-- | The ARN of the primary secret.
 removeRegionsFromReplicationResponse_arn :: Lens.Lens' RemoveRegionsFromReplicationResponse (Prelude.Maybe Prelude.Text)
 removeRegionsFromReplicationResponse_arn = Lens.lens (\RemoveRegionsFromReplicationResponse' {arn} -> arn) (\s@RemoveRegionsFromReplicationResponse' {} a -> s {arn = a} :: RemoveRegionsFromReplicationResponse)
 
--- | Describes the remaining replication status after you remove regions from
--- the replication list.
+-- | The status of replicas for this secret after you remove Regions.
 removeRegionsFromReplicationResponse_replicationStatus :: Lens.Lens' RemoveRegionsFromReplicationResponse (Prelude.Maybe [ReplicationStatusType])
 removeRegionsFromReplicationResponse_replicationStatus = Lens.lens (\RemoveRegionsFromReplicationResponse' {replicationStatus} -> replicationStatus) (\s@RemoveRegionsFromReplicationResponse' {} a -> s {replicationStatus = a} :: RemoveRegionsFromReplicationResponse) Prelude.. Lens.mapping Lens.coerced
 

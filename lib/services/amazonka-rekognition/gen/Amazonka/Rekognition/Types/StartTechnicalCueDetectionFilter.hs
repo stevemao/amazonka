@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.StartTechnicalCueDetectionFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.StartTechnicalCueDetectionFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types.BlackFrame
 
@@ -121,12 +122,12 @@ instance
     Prelude.rnf blackFrame
       `Prelude.seq` Prelude.rnf minSegmentConfidence
 
-instance Core.ToJSON StartTechnicalCueDetectionFilter where
+instance Data.ToJSON StartTechnicalCueDetectionFilter where
   toJSON StartTechnicalCueDetectionFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("BlackFrame" Core..=) Prelude.<$> blackFrame,
-            ("MinSegmentConfidence" Core..=)
+          [ ("BlackFrame" Data..=) Prelude.<$> blackFrame,
+            ("MinSegmentConfidence" Data..=)
               Prelude.<$> minSegmentConfidence
           ]
       )

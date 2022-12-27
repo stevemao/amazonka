@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.AddCache
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.StorageGateway.AddCache
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,12 +100,13 @@ addCache_diskIds = Lens.lens (\AddCache' {diskIds} -> diskIds) (\s@AddCache' {} 
 
 instance Core.AWSRequest AddCache where
   type AWSResponse AddCache = AddCacheResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AddCacheResponse'
-            Prelude.<$> (x Core..?> "GatewayARN")
+            Prelude.<$> (x Data..?> "GatewayARN")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -118,34 +120,34 @@ instance Prelude.NFData AddCache where
     Prelude.rnf gatewayARN
       `Prelude.seq` Prelude.rnf diskIds
 
-instance Core.ToHeaders AddCache where
+instance Data.ToHeaders AddCache where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.AddCache" ::
+              Data.=# ( "StorageGateway_20130630.AddCache" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AddCache where
+instance Data.ToJSON AddCache where
   toJSON AddCache' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("GatewayARN" Core..= gatewayARN),
-            Prelude.Just ("DiskIds" Core..= diskIds)
+          [ Prelude.Just ("GatewayARN" Data..= gatewayARN),
+            Prelude.Just ("DiskIds" Data..= diskIds)
           ]
       )
 
-instance Core.ToPath AddCache where
+instance Data.ToPath AddCache where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AddCache where
+instance Data.ToQuery AddCache where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAddCacheResponse' smart constructor.

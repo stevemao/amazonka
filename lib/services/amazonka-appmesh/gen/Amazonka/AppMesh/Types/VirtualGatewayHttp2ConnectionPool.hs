@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.VirtualGatewayHttp2ConnectionPool
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppMesh.Types.VirtualGatewayHttp2ConnectionPool where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents a type of connection pool.
@@ -59,15 +60,15 @@ virtualGatewayHttp2ConnectionPool_maxRequests :: Lens.Lens' VirtualGatewayHttp2C
 virtualGatewayHttp2ConnectionPool_maxRequests = Lens.lens (\VirtualGatewayHttp2ConnectionPool' {maxRequests} -> maxRequests) (\s@VirtualGatewayHttp2ConnectionPool' {} a -> s {maxRequests = a} :: VirtualGatewayHttp2ConnectionPool)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     VirtualGatewayHttp2ConnectionPool
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VirtualGatewayHttp2ConnectionPool"
       ( \x ->
           VirtualGatewayHttp2ConnectionPool'
-            Prelude.<$> (x Core..: "maxRequests")
+            Prelude.<$> (x Data..: "maxRequests")
       )
 
 instance
@@ -87,11 +88,11 @@ instance
     Prelude.rnf maxRequests
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     VirtualGatewayHttp2ConnectionPool
   where
   toJSON VirtualGatewayHttp2ConnectionPool' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("maxRequests" Core..= maxRequests)]
+          [Prelude.Just ("maxRequests" Data..= maxRequests)]
       )

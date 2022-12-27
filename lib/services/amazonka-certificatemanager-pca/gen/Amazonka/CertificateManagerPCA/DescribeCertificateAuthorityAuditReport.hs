@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.DescribeCertificateAuthorityAuditReport
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,17 +43,18 @@ module Amazonka.CertificateManagerPCA.DescribeCertificateAuthorityAuditReport
     newDescribeCertificateAuthorityAuditReportResponse,
 
     -- * Response Lenses
-    describeCertificateAuthorityAuditReportResponse_s3Key,
-    describeCertificateAuthorityAuditReportResponse_createdAt,
     describeCertificateAuthorityAuditReportResponse_auditReportStatus,
+    describeCertificateAuthorityAuditReportResponse_createdAt,
     describeCertificateAuthorityAuditReportResponse_s3BucketName,
+    describeCertificateAuthorityAuditReportResponse_s3Key,
     describeCertificateAuthorityAuditReportResponse_httpStatus,
   )
 where
 
 import Amazonka.CertificateManagerPCA.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -124,15 +125,16 @@ instance
     AWSResponse
       DescribeCertificateAuthorityAuditReport =
       DescribeCertificateAuthorityAuditReportResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeCertificateAuthorityAuditReportResponse'
-            Prelude.<$> (x Core..?> "S3Key")
-              Prelude.<*> (x Core..?> "CreatedAt")
-              Prelude.<*> (x Core..?> "AuditReportStatus")
-              Prelude.<*> (x Core..?> "S3BucketName")
+            Prelude.<$> (x Data..?> "AuditReportStatus")
+              Prelude.<*> (x Data..?> "CreatedAt")
+              Prelude.<*> (x Data..?> "S3BucketName")
+              Prelude.<*> (x Data..?> "S3Key")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -156,62 +158,62 @@ instance
       `Prelude.seq` Prelude.rnf auditReportId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeCertificateAuthorityAuditReport
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ACMPrivateCA.DescribeCertificateAuthorityAuditReport" ::
+              Data.=# ( "ACMPrivateCA.DescribeCertificateAuthorityAuditReport" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DescribeCertificateAuthorityAuditReport
   where
   toJSON DescribeCertificateAuthorityAuditReport' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "CertificateAuthorityArn"
-                  Core..= certificateAuthorityArn
+                  Data..= certificateAuthorityArn
               ),
             Prelude.Just
-              ("AuditReportId" Core..= auditReportId)
+              ("AuditReportId" Data..= auditReportId)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeCertificateAuthorityAuditReport
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeCertificateAuthorityAuditReport
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeCertificateAuthorityAuditReportResponse' smart constructor.
 data DescribeCertificateAuthorityAuditReportResponse = DescribeCertificateAuthorityAuditReportResponse'
-  { -- | S3 __key__ that uniquely identifies the report file in your S3 bucket.
-    s3Key :: Prelude.Maybe Prelude.Text,
-    -- | The date and time at which the report was created.
-    createdAt :: Prelude.Maybe Core.POSIX,
-    -- | Specifies whether report creation is in progress, has succeeded, or has
+  { -- | Specifies whether report creation is in progress, has succeeded, or has
     -- failed.
     auditReportStatus :: Prelude.Maybe AuditReportStatus,
+    -- | The date and time at which the report was created.
+    createdAt :: Prelude.Maybe Data.POSIX,
     -- | Name of the S3 bucket that contains the report.
     s3BucketName :: Prelude.Maybe Prelude.Text,
+    -- | S3 __key__ that uniquely identifies the report file in your S3 bucket.
+    s3Key :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -225,14 +227,14 @@ data DescribeCertificateAuthorityAuditReportResponse = DescribeCertificateAuthor
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 's3Key', 'describeCertificateAuthorityAuditReportResponse_s3Key' - S3 __key__ that uniquely identifies the report file in your S3 bucket.
---
--- 'createdAt', 'describeCertificateAuthorityAuditReportResponse_createdAt' - The date and time at which the report was created.
---
 -- 'auditReportStatus', 'describeCertificateAuthorityAuditReportResponse_auditReportStatus' - Specifies whether report creation is in progress, has succeeded, or has
 -- failed.
 --
+-- 'createdAt', 'describeCertificateAuthorityAuditReportResponse_createdAt' - The date and time at which the report was created.
+--
 -- 's3BucketName', 'describeCertificateAuthorityAuditReportResponse_s3BucketName' - Name of the S3 bucket that contains the report.
+--
+-- 's3Key', 'describeCertificateAuthorityAuditReportResponse_s3Key' - S3 __key__ that uniquely identifies the report file in your S3 bucket.
 --
 -- 'httpStatus', 'describeCertificateAuthorityAuditReportResponse_httpStatus' - The response's http status code.
 newDescribeCertificateAuthorityAuditReportResponse ::
@@ -242,33 +244,32 @@ newDescribeCertificateAuthorityAuditReportResponse ::
 newDescribeCertificateAuthorityAuditReportResponse
   pHttpStatus_ =
     DescribeCertificateAuthorityAuditReportResponse'
-      { s3Key =
+      { auditReportStatus =
           Prelude.Nothing,
         createdAt =
           Prelude.Nothing,
-        auditReportStatus =
-          Prelude.Nothing,
         s3BucketName =
           Prelude.Nothing,
+        s3Key = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | S3 __key__ that uniquely identifies the report file in your S3 bucket.
-describeCertificateAuthorityAuditReportResponse_s3Key :: Lens.Lens' DescribeCertificateAuthorityAuditReportResponse (Prelude.Maybe Prelude.Text)
-describeCertificateAuthorityAuditReportResponse_s3Key = Lens.lens (\DescribeCertificateAuthorityAuditReportResponse' {s3Key} -> s3Key) (\s@DescribeCertificateAuthorityAuditReportResponse' {} a -> s {s3Key = a} :: DescribeCertificateAuthorityAuditReportResponse)
-
--- | The date and time at which the report was created.
-describeCertificateAuthorityAuditReportResponse_createdAt :: Lens.Lens' DescribeCertificateAuthorityAuditReportResponse (Prelude.Maybe Prelude.UTCTime)
-describeCertificateAuthorityAuditReportResponse_createdAt = Lens.lens (\DescribeCertificateAuthorityAuditReportResponse' {createdAt} -> createdAt) (\s@DescribeCertificateAuthorityAuditReportResponse' {} a -> s {createdAt = a} :: DescribeCertificateAuthorityAuditReportResponse) Prelude.. Lens.mapping Core._Time
 
 -- | Specifies whether report creation is in progress, has succeeded, or has
 -- failed.
 describeCertificateAuthorityAuditReportResponse_auditReportStatus :: Lens.Lens' DescribeCertificateAuthorityAuditReportResponse (Prelude.Maybe AuditReportStatus)
 describeCertificateAuthorityAuditReportResponse_auditReportStatus = Lens.lens (\DescribeCertificateAuthorityAuditReportResponse' {auditReportStatus} -> auditReportStatus) (\s@DescribeCertificateAuthorityAuditReportResponse' {} a -> s {auditReportStatus = a} :: DescribeCertificateAuthorityAuditReportResponse)
 
+-- | The date and time at which the report was created.
+describeCertificateAuthorityAuditReportResponse_createdAt :: Lens.Lens' DescribeCertificateAuthorityAuditReportResponse (Prelude.Maybe Prelude.UTCTime)
+describeCertificateAuthorityAuditReportResponse_createdAt = Lens.lens (\DescribeCertificateAuthorityAuditReportResponse' {createdAt} -> createdAt) (\s@DescribeCertificateAuthorityAuditReportResponse' {} a -> s {createdAt = a} :: DescribeCertificateAuthorityAuditReportResponse) Prelude.. Lens.mapping Data._Time
+
 -- | Name of the S3 bucket that contains the report.
 describeCertificateAuthorityAuditReportResponse_s3BucketName :: Lens.Lens' DescribeCertificateAuthorityAuditReportResponse (Prelude.Maybe Prelude.Text)
 describeCertificateAuthorityAuditReportResponse_s3BucketName = Lens.lens (\DescribeCertificateAuthorityAuditReportResponse' {s3BucketName} -> s3BucketName) (\s@DescribeCertificateAuthorityAuditReportResponse' {} a -> s {s3BucketName = a} :: DescribeCertificateAuthorityAuditReportResponse)
+
+-- | S3 __key__ that uniquely identifies the report file in your S3 bucket.
+describeCertificateAuthorityAuditReportResponse_s3Key :: Lens.Lens' DescribeCertificateAuthorityAuditReportResponse (Prelude.Maybe Prelude.Text)
+describeCertificateAuthorityAuditReportResponse_s3Key = Lens.lens (\DescribeCertificateAuthorityAuditReportResponse' {s3Key} -> s3Key) (\s@DescribeCertificateAuthorityAuditReportResponse' {} a -> s {s3Key = a} :: DescribeCertificateAuthorityAuditReportResponse)
 
 -- | The response's http status code.
 describeCertificateAuthorityAuditReportResponse_httpStatus :: Lens.Lens' DescribeCertificateAuthorityAuditReportResponse Prelude.Int
@@ -280,8 +281,8 @@ instance
   where
   rnf
     DescribeCertificateAuthorityAuditReportResponse' {..} =
-      Prelude.rnf s3Key
+      Prelude.rnf auditReportStatus
         `Prelude.seq` Prelude.rnf createdAt
-        `Prelude.seq` Prelude.rnf auditReportStatus
         `Prelude.seq` Prelude.rnf s3BucketName
+        `Prelude.seq` Prelude.rnf s3Key
         `Prelude.seq` Prelude.rnf httpStatus

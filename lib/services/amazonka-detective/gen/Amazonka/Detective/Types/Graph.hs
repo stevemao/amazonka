@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Detective.Types.Graph
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Detective.Types.Graph where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A behavior graph in Detective.
@@ -29,9 +30,9 @@ import qualified Amazonka.Prelude as Prelude
 data Graph = Graph'
   { -- | The ARN of the behavior graph.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | The date and time that the behavior graph was created. The value is in
-    -- milliseconds since the epoch.
-    createdTime :: Prelude.Maybe Core.POSIX
+    -- | The date and time that the behavior graph was created. The value is an
+    -- ISO8601 formatted string. For example, @2021-08-18T16:35:56.284Z@.
+    createdTime :: Prelude.Maybe Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,8 +46,8 @@ data Graph = Graph'
 --
 -- 'arn', 'graph_arn' - The ARN of the behavior graph.
 --
--- 'createdTime', 'graph_createdTime' - The date and time that the behavior graph was created. The value is in
--- milliseconds since the epoch.
+-- 'createdTime', 'graph_createdTime' - The date and time that the behavior graph was created. The value is an
+-- ISO8601 formatted string. For example, @2021-08-18T16:35:56.284Z@.
 newGraph ::
   Graph
 newGraph =
@@ -59,19 +60,19 @@ newGraph =
 graph_arn :: Lens.Lens' Graph (Prelude.Maybe Prelude.Text)
 graph_arn = Lens.lens (\Graph' {arn} -> arn) (\s@Graph' {} a -> s {arn = a} :: Graph)
 
--- | The date and time that the behavior graph was created. The value is in
--- milliseconds since the epoch.
+-- | The date and time that the behavior graph was created. The value is an
+-- ISO8601 formatted string. For example, @2021-08-18T16:35:56.284Z@.
 graph_createdTime :: Lens.Lens' Graph (Prelude.Maybe Prelude.UTCTime)
-graph_createdTime = Lens.lens (\Graph' {createdTime} -> createdTime) (\s@Graph' {} a -> s {createdTime = a} :: Graph) Prelude.. Lens.mapping Core._Time
+graph_createdTime = Lens.lens (\Graph' {createdTime} -> createdTime) (\s@Graph' {} a -> s {createdTime = a} :: Graph) Prelude.. Lens.mapping Data._Time
 
-instance Core.FromJSON Graph where
+instance Data.FromJSON Graph where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Graph"
       ( \x ->
           Graph'
-            Prelude.<$> (x Core..:? "Arn")
-            Prelude.<*> (x Core..:? "CreatedTime")
+            Prelude.<$> (x Data..:? "Arn")
+            Prelude.<*> (x Data..:? "CreatedTime")
       )
 
 instance Prelude.Hashable Graph where

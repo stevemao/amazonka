@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ELBV2.RegisterTargets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,8 +54,9 @@ module Amazonka.ELBV2.RegisterTargets
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELBV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,7 +103,8 @@ instance Core.AWSRequest RegisterTargets where
   type
     AWSResponse RegisterTargets =
       RegisterTargetsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "RegisterTargetsResult"
@@ -121,21 +123,21 @@ instance Prelude.NFData RegisterTargets where
     Prelude.rnf targetGroupArn
       `Prelude.seq` Prelude.rnf targets
 
-instance Core.ToHeaders RegisterTargets where
+instance Data.ToHeaders RegisterTargets where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath RegisterTargets where
+instance Data.ToPath RegisterTargets where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RegisterTargets where
+instance Data.ToQuery RegisterTargets where
   toQuery RegisterTargets' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("RegisterTargets" :: Prelude.ByteString),
+          Data.=: ("RegisterTargets" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-12-01" :: Prelude.ByteString),
-        "TargetGroupArn" Core.=: targetGroupArn,
-        "Targets" Core.=: Core.toQueryList "member" targets
+          Data.=: ("2015-12-01" :: Prelude.ByteString),
+        "TargetGroupArn" Data.=: targetGroupArn,
+        "Targets" Data.=: Data.toQueryList "member" targets
       ]
 
 -- | /See:/ 'newRegisterTargetsResponse' smart constructor.

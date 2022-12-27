@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SQS.ReceiveMessage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -77,12 +77,12 @@ module Amazonka.SQS.ReceiveMessage
     newReceiveMessage,
 
     -- * Request Lenses
-    receiveMessage_receiveRequestAttemptId,
-    receiveMessage_visibilityTimeout,
-    receiveMessage_messageAttributeNames,
-    receiveMessage_waitTimeSeconds,
     receiveMessage_attributeNames,
     receiveMessage_maxNumberOfMessages,
+    receiveMessage_messageAttributeNames,
+    receiveMessage_receiveRequestAttemptId,
+    receiveMessage_visibilityTimeout,
+    receiveMessage_waitTimeSeconds,
     receiveMessage_queueUrl,
 
     -- * Destructuring the Response
@@ -96,7 +96,8 @@ module Amazonka.SQS.ReceiveMessage
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,7 +107,75 @@ import Amazonka.SQS.Types
 --
 -- /See:/ 'newReceiveMessage' smart constructor.
 data ReceiveMessage = ReceiveMessage'
-  { -- | This parameter applies only to FIFO (first-in-first-out) queues.
+  { -- | A list of attributes that need to be returned along with each message.
+    -- These attributes include:
+    --
+    -- -   @All@ – Returns all values.
+    --
+    -- -   @ApproximateFirstReceiveTimestamp@ – Returns the time the message
+    --     was first received from the queue
+    --     (<http://en.wikipedia.org/wiki/Unix_time epoch time> in
+    --     milliseconds).
+    --
+    -- -   @ApproximateReceiveCount@ – Returns the number of times a message
+    --     has been received across all queues but not deleted.
+    --
+    -- -   @AWSTraceHeader@ – Returns the X-Ray trace header string.
+    --
+    -- -   @SenderId@
+    --
+    --     -   For an IAM user, returns the IAM user ID, for example
+    --         @ABCDEFGHI1JKLMNOPQ23R@.
+    --
+    --     -   For an IAM role, returns the IAM role ID, for example
+    --         @ABCDE1F2GH3I4JK5LMNOP:i-a123b456@.
+    --
+    -- -   @SentTimestamp@ – Returns the time the message was sent to the queue
+    --     (<http://en.wikipedia.org/wiki/Unix_time epoch time> in
+    --     milliseconds).
+    --
+    -- -   @SqsManagedSseEnabled@ – Enables server-side queue encryption using
+    --     SQS owned encryption keys. Only one server-side encryption option is
+    --     supported per queue (e.g.
+    --     <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sse-existing-queue.html SSE-KMS>
+    --     or
+    --     <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sqs-sse-queue.html SSE-SQS>).
+    --
+    -- -   @MessageDeduplicationId@ – Returns the value provided by the
+    --     producer that calls the @ SendMessage @ action.
+    --
+    -- -   @MessageGroupId@ – Returns the value provided by the producer that
+    --     calls the @ SendMessage @ action. Messages with the same
+    --     @MessageGroupId@ are returned in sequence.
+    --
+    -- -   @SequenceNumber@ – Returns the value provided by Amazon SQS.
+    attributeNames :: Prelude.Maybe [MessageAttribute],
+    -- | The maximum number of messages to return. Amazon SQS never returns more
+    -- messages than this value (however, fewer messages might be returned).
+    -- Valid values: 1 to 10. Default: 1.
+    maxNumberOfMessages :: Prelude.Maybe Prelude.Int,
+    -- | The name of the message attribute, where /N/ is the index.
+    --
+    -- -   The name can contain alphanumeric characters and the underscore
+    --     (@_@), hyphen (@-@), and period (@.@).
+    --
+    -- -   The name is case-sensitive and must be unique among all attribute
+    --     names for the message.
+    --
+    -- -   The name must not start with AWS-reserved prefixes such as @AWS.@ or
+    --     @Amazon.@ (or any casing variants).
+    --
+    -- -   The name must not start or end with a period (@.@), and it should
+    --     not have periods in succession (@..@).
+    --
+    -- -   The name can be up to 256 characters long.
+    --
+    -- When using @ReceiveMessage@, you can send a list of attribute names to
+    -- receive, or you can return all of the attributes by specifying @All@ or
+    -- @.*@ in your request. You can also use all message attributes starting
+    -- with a prefix, for example @bar.*@.
+    messageAttributeNames :: Prelude.Maybe [Prelude.Text],
+    -- | This parameter applies only to FIFO (first-in-first-out) queues.
     --
     -- The token used for deduplication of @ReceiveMessage@ calls. If a
     -- networking issue occurs after a @ReceiveMessage@ action, and instead of
@@ -169,27 +238,6 @@ data ReceiveMessage = ReceiveMessage'
     -- subsequent retrieve requests after being retrieved by a @ReceiveMessage@
     -- request.
     visibilityTimeout :: Prelude.Maybe Prelude.Int,
-    -- | The name of the message attribute, where /N/ is the index.
-    --
-    -- -   The name can contain alphanumeric characters and the underscore
-    --     (@_@), hyphen (@-@), and period (@.@).
-    --
-    -- -   The name is case-sensitive and must be unique among all attribute
-    --     names for the message.
-    --
-    -- -   The name must not start with AWS-reserved prefixes such as @AWS.@ or
-    --     @Amazon.@ (or any casing variants).
-    --
-    -- -   The name must not start or end with a period (@.@), and it should
-    --     not have periods in succession (@..@).
-    --
-    -- -   The name can be up to 256 characters long.
-    --
-    -- When using @ReceiveMessage@, you can send a list of attribute names to
-    -- receive, or you can return all of the attributes by specifying @All@ or
-    -- @.*@ in your request. You can also use all message attributes starting
-    -- with a prefix, for example @bar.*@.
-    messageAttributeNames :: Prelude.Maybe [Prelude.Text],
     -- | The duration (in seconds) for which the call waits for a message to
     -- arrive in the queue before returning. If a message is available, the
     -- call returns sooner than @WaitTimeSeconds@. If no messages are available
@@ -205,46 +253,6 @@ data ReceiveMessage = ReceiveMessage'
     -- <https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/apache/ApacheHttpClient.html ApacheHttpClient>
     -- for synchronous clients.
     waitTimeSeconds :: Prelude.Maybe Prelude.Int,
-    -- | A list of attributes that need to be returned along with each message.
-    -- These attributes include:
-    --
-    -- -   @All@ – Returns all values.
-    --
-    -- -   @ApproximateFirstReceiveTimestamp@ – Returns the time the message
-    --     was first received from the queue
-    --     (<http://en.wikipedia.org/wiki/Unix_time epoch time> in
-    --     milliseconds).
-    --
-    -- -   @ApproximateReceiveCount@ – Returns the number of times a message
-    --     has been received across all queues but not deleted.
-    --
-    -- -   @AWSTraceHeader@ – Returns the X-Ray trace header string.
-    --
-    -- -   @SenderId@
-    --
-    --     -   For an IAM user, returns the IAM user ID, for example
-    --         @ABCDEFGHI1JKLMNOPQ23R@.
-    --
-    --     -   For an IAM role, returns the IAM role ID, for example
-    --         @ABCDE1F2GH3I4JK5LMNOP:i-a123b456@.
-    --
-    -- -   @SentTimestamp@ – Returns the time the message was sent to the queue
-    --     (<http://en.wikipedia.org/wiki/Unix_time epoch time> in
-    --     milliseconds).
-    --
-    -- -   @MessageDeduplicationId@ – Returns the value provided by the
-    --     producer that calls the @ SendMessage @ action.
-    --
-    -- -   @MessageGroupId@ – Returns the value provided by the producer that
-    --     calls the @ SendMessage @ action. Messages with the same
-    --     @MessageGroupId@ are returned in sequence.
-    --
-    -- -   @SequenceNumber@ – Returns the value provided by Amazon SQS.
-    attributeNames :: Prelude.Maybe [MessageAttribute],
-    -- | The maximum number of messages to return. Amazon SQS never returns more
-    -- messages than this value (however, fewer messages might be returned).
-    -- Valid values: 1 to 10. Default: 1.
-    maxNumberOfMessages :: Prelude.Maybe Prelude.Int,
     -- | The URL of the Amazon SQS queue from which messages are received.
     --
     -- Queue URLs and names are case-sensitive.
@@ -259,6 +267,74 @@ data ReceiveMessage = ReceiveMessage'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'attributeNames', 'receiveMessage_attributeNames' - A list of attributes that need to be returned along with each message.
+-- These attributes include:
+--
+-- -   @All@ – Returns all values.
+--
+-- -   @ApproximateFirstReceiveTimestamp@ – Returns the time the message
+--     was first received from the queue
+--     (<http://en.wikipedia.org/wiki/Unix_time epoch time> in
+--     milliseconds).
+--
+-- -   @ApproximateReceiveCount@ – Returns the number of times a message
+--     has been received across all queues but not deleted.
+--
+-- -   @AWSTraceHeader@ – Returns the X-Ray trace header string.
+--
+-- -   @SenderId@
+--
+--     -   For an IAM user, returns the IAM user ID, for example
+--         @ABCDEFGHI1JKLMNOPQ23R@.
+--
+--     -   For an IAM role, returns the IAM role ID, for example
+--         @ABCDE1F2GH3I4JK5LMNOP:i-a123b456@.
+--
+-- -   @SentTimestamp@ – Returns the time the message was sent to the queue
+--     (<http://en.wikipedia.org/wiki/Unix_time epoch time> in
+--     milliseconds).
+--
+-- -   @SqsManagedSseEnabled@ – Enables server-side queue encryption using
+--     SQS owned encryption keys. Only one server-side encryption option is
+--     supported per queue (e.g.
+--     <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sse-existing-queue.html SSE-KMS>
+--     or
+--     <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sqs-sse-queue.html SSE-SQS>).
+--
+-- -   @MessageDeduplicationId@ – Returns the value provided by the
+--     producer that calls the @ SendMessage @ action.
+--
+-- -   @MessageGroupId@ – Returns the value provided by the producer that
+--     calls the @ SendMessage @ action. Messages with the same
+--     @MessageGroupId@ are returned in sequence.
+--
+-- -   @SequenceNumber@ – Returns the value provided by Amazon SQS.
+--
+-- 'maxNumberOfMessages', 'receiveMessage_maxNumberOfMessages' - The maximum number of messages to return. Amazon SQS never returns more
+-- messages than this value (however, fewer messages might be returned).
+-- Valid values: 1 to 10. Default: 1.
+--
+-- 'messageAttributeNames', 'receiveMessage_messageAttributeNames' - The name of the message attribute, where /N/ is the index.
+--
+-- -   The name can contain alphanumeric characters and the underscore
+--     (@_@), hyphen (@-@), and period (@.@).
+--
+-- -   The name is case-sensitive and must be unique among all attribute
+--     names for the message.
+--
+-- -   The name must not start with AWS-reserved prefixes such as @AWS.@ or
+--     @Amazon.@ (or any casing variants).
+--
+-- -   The name must not start or end with a period (@.@), and it should
+--     not have periods in succession (@..@).
+--
+-- -   The name can be up to 256 characters long.
+--
+-- When using @ReceiveMessage@, you can send a list of attribute names to
+-- receive, or you can return all of the attributes by specifying @All@ or
+-- @.*@ in your request. You can also use all message attributes starting
+-- with a prefix, for example @bar.*@.
 --
 -- 'receiveRequestAttemptId', 'receiveMessage_receiveRequestAttemptId' - This parameter applies only to FIFO (first-in-first-out) queues.
 --
@@ -323,27 +399,6 @@ data ReceiveMessage = ReceiveMessage'
 -- subsequent retrieve requests after being retrieved by a @ReceiveMessage@
 -- request.
 --
--- 'messageAttributeNames', 'receiveMessage_messageAttributeNames' - The name of the message attribute, where /N/ is the index.
---
--- -   The name can contain alphanumeric characters and the underscore
---     (@_@), hyphen (@-@), and period (@.@).
---
--- -   The name is case-sensitive and must be unique among all attribute
---     names for the message.
---
--- -   The name must not start with AWS-reserved prefixes such as @AWS.@ or
---     @Amazon.@ (or any casing variants).
---
--- -   The name must not start or end with a period (@.@), and it should
---     not have periods in succession (@..@).
---
--- -   The name can be up to 256 characters long.
---
--- When using @ReceiveMessage@, you can send a list of attribute names to
--- receive, or you can return all of the attributes by specifying @All@ or
--- @.*@ in your request. You can also use all message attributes starting
--- with a prefix, for example @bar.*@.
---
 -- 'waitTimeSeconds', 'receiveMessage_waitTimeSeconds' - The duration (in seconds) for which the call waits for a message to
 -- arrive in the queue before returning. If a message is available, the
 -- call returns sooner than @WaitTimeSeconds@. If no messages are available
@@ -359,7 +414,25 @@ data ReceiveMessage = ReceiveMessage'
 -- <https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/apache/ApacheHttpClient.html ApacheHttpClient>
 -- for synchronous clients.
 --
--- 'attributeNames', 'receiveMessage_attributeNames' - A list of attributes that need to be returned along with each message.
+-- 'queueUrl', 'receiveMessage_queueUrl' - The URL of the Amazon SQS queue from which messages are received.
+--
+-- Queue URLs and names are case-sensitive.
+newReceiveMessage ::
+  -- | 'queueUrl'
+  Prelude.Text ->
+  ReceiveMessage
+newReceiveMessage pQueueUrl_ =
+  ReceiveMessage'
+    { attributeNames = Prelude.Nothing,
+      maxNumberOfMessages = Prelude.Nothing,
+      messageAttributeNames = Prelude.Nothing,
+      receiveRequestAttemptId = Prelude.Nothing,
+      visibilityTimeout = Prelude.Nothing,
+      waitTimeSeconds = Prelude.Nothing,
+      queueUrl = pQueueUrl_
+    }
+
+-- | A list of attributes that need to be returned along with each message.
 -- These attributes include:
 --
 -- -   @All@ – Returns all values.
@@ -386,6 +459,13 @@ data ReceiveMessage = ReceiveMessage'
 --     (<http://en.wikipedia.org/wiki/Unix_time epoch time> in
 --     milliseconds).
 --
+-- -   @SqsManagedSseEnabled@ – Enables server-side queue encryption using
+--     SQS owned encryption keys. Only one server-side encryption option is
+--     supported per queue (e.g.
+--     <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sse-existing-queue.html SSE-KMS>
+--     or
+--     <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sqs-sse-queue.html SSE-SQS>).
+--
 -- -   @MessageDeduplicationId@ – Returns the value provided by the
 --     producer that calls the @ SendMessage @ action.
 --
@@ -394,29 +474,37 @@ data ReceiveMessage = ReceiveMessage'
 --     @MessageGroupId@ are returned in sequence.
 --
 -- -   @SequenceNumber@ – Returns the value provided by Amazon SQS.
---
--- 'maxNumberOfMessages', 'receiveMessage_maxNumberOfMessages' - The maximum number of messages to return. Amazon SQS never returns more
+receiveMessage_attributeNames :: Lens.Lens' ReceiveMessage (Prelude.Maybe [MessageAttribute])
+receiveMessage_attributeNames = Lens.lens (\ReceiveMessage' {attributeNames} -> attributeNames) (\s@ReceiveMessage' {} a -> s {attributeNames = a} :: ReceiveMessage) Prelude.. Lens.mapping Lens.coerced
+
+-- | The maximum number of messages to return. Amazon SQS never returns more
 -- messages than this value (however, fewer messages might be returned).
 -- Valid values: 1 to 10. Default: 1.
+receiveMessage_maxNumberOfMessages :: Lens.Lens' ReceiveMessage (Prelude.Maybe Prelude.Int)
+receiveMessage_maxNumberOfMessages = Lens.lens (\ReceiveMessage' {maxNumberOfMessages} -> maxNumberOfMessages) (\s@ReceiveMessage' {} a -> s {maxNumberOfMessages = a} :: ReceiveMessage)
+
+-- | The name of the message attribute, where /N/ is the index.
 --
--- 'queueUrl', 'receiveMessage_queueUrl' - The URL of the Amazon SQS queue from which messages are received.
+-- -   The name can contain alphanumeric characters and the underscore
+--     (@_@), hyphen (@-@), and period (@.@).
 --
--- Queue URLs and names are case-sensitive.
-newReceiveMessage ::
-  -- | 'queueUrl'
-  Prelude.Text ->
-  ReceiveMessage
-newReceiveMessage pQueueUrl_ =
-  ReceiveMessage'
-    { receiveRequestAttemptId =
-        Prelude.Nothing,
-      visibilityTimeout = Prelude.Nothing,
-      messageAttributeNames = Prelude.Nothing,
-      waitTimeSeconds = Prelude.Nothing,
-      attributeNames = Prelude.Nothing,
-      maxNumberOfMessages = Prelude.Nothing,
-      queueUrl = pQueueUrl_
-    }
+-- -   The name is case-sensitive and must be unique among all attribute
+--     names for the message.
+--
+-- -   The name must not start with AWS-reserved prefixes such as @AWS.@ or
+--     @Amazon.@ (or any casing variants).
+--
+-- -   The name must not start or end with a period (@.@), and it should
+--     not have periods in succession (@..@).
+--
+-- -   The name can be up to 256 characters long.
+--
+-- When using @ReceiveMessage@, you can send a list of attribute names to
+-- receive, or you can return all of the attributes by specifying @All@ or
+-- @.*@ in your request. You can also use all message attributes starting
+-- with a prefix, for example @bar.*@.
+receiveMessage_messageAttributeNames :: Lens.Lens' ReceiveMessage (Prelude.Maybe [Prelude.Text])
+receiveMessage_messageAttributeNames = Lens.lens (\ReceiveMessage' {messageAttributeNames} -> messageAttributeNames) (\s@ReceiveMessage' {} a -> s {messageAttributeNames = a} :: ReceiveMessage) Prelude.. Lens.mapping Lens.coerced
 
 -- | This parameter applies only to FIFO (first-in-first-out) queues.
 --
@@ -485,29 +573,6 @@ receiveMessage_receiveRequestAttemptId = Lens.lens (\ReceiveMessage' {receiveReq
 receiveMessage_visibilityTimeout :: Lens.Lens' ReceiveMessage (Prelude.Maybe Prelude.Int)
 receiveMessage_visibilityTimeout = Lens.lens (\ReceiveMessage' {visibilityTimeout} -> visibilityTimeout) (\s@ReceiveMessage' {} a -> s {visibilityTimeout = a} :: ReceiveMessage)
 
--- | The name of the message attribute, where /N/ is the index.
---
--- -   The name can contain alphanumeric characters and the underscore
---     (@_@), hyphen (@-@), and period (@.@).
---
--- -   The name is case-sensitive and must be unique among all attribute
---     names for the message.
---
--- -   The name must not start with AWS-reserved prefixes such as @AWS.@ or
---     @Amazon.@ (or any casing variants).
---
--- -   The name must not start or end with a period (@.@), and it should
---     not have periods in succession (@..@).
---
--- -   The name can be up to 256 characters long.
---
--- When using @ReceiveMessage@, you can send a list of attribute names to
--- receive, or you can return all of the attributes by specifying @All@ or
--- @.*@ in your request. You can also use all message attributes starting
--- with a prefix, for example @bar.*@.
-receiveMessage_messageAttributeNames :: Lens.Lens' ReceiveMessage (Prelude.Maybe [Prelude.Text])
-receiveMessage_messageAttributeNames = Lens.lens (\ReceiveMessage' {messageAttributeNames} -> messageAttributeNames) (\s@ReceiveMessage' {} a -> s {messageAttributeNames = a} :: ReceiveMessage) Prelude.. Lens.mapping Lens.coerced
-
 -- | The duration (in seconds) for which the call waits for a message to
 -- arrive in the queue before returning. If a message is available, the
 -- call returns sooner than @WaitTimeSeconds@. If no messages are available
@@ -525,50 +590,6 @@ receiveMessage_messageAttributeNames = Lens.lens (\ReceiveMessage' {messageAttri
 receiveMessage_waitTimeSeconds :: Lens.Lens' ReceiveMessage (Prelude.Maybe Prelude.Int)
 receiveMessage_waitTimeSeconds = Lens.lens (\ReceiveMessage' {waitTimeSeconds} -> waitTimeSeconds) (\s@ReceiveMessage' {} a -> s {waitTimeSeconds = a} :: ReceiveMessage)
 
--- | A list of attributes that need to be returned along with each message.
--- These attributes include:
---
--- -   @All@ – Returns all values.
---
--- -   @ApproximateFirstReceiveTimestamp@ – Returns the time the message
---     was first received from the queue
---     (<http://en.wikipedia.org/wiki/Unix_time epoch time> in
---     milliseconds).
---
--- -   @ApproximateReceiveCount@ – Returns the number of times a message
---     has been received across all queues but not deleted.
---
--- -   @AWSTraceHeader@ – Returns the X-Ray trace header string.
---
--- -   @SenderId@
---
---     -   For an IAM user, returns the IAM user ID, for example
---         @ABCDEFGHI1JKLMNOPQ23R@.
---
---     -   For an IAM role, returns the IAM role ID, for example
---         @ABCDE1F2GH3I4JK5LMNOP:i-a123b456@.
---
--- -   @SentTimestamp@ – Returns the time the message was sent to the queue
---     (<http://en.wikipedia.org/wiki/Unix_time epoch time> in
---     milliseconds).
---
--- -   @MessageDeduplicationId@ – Returns the value provided by the
---     producer that calls the @ SendMessage @ action.
---
--- -   @MessageGroupId@ – Returns the value provided by the producer that
---     calls the @ SendMessage @ action. Messages with the same
---     @MessageGroupId@ are returned in sequence.
---
--- -   @SequenceNumber@ – Returns the value provided by Amazon SQS.
-receiveMessage_attributeNames :: Lens.Lens' ReceiveMessage (Prelude.Maybe [MessageAttribute])
-receiveMessage_attributeNames = Lens.lens (\ReceiveMessage' {attributeNames} -> attributeNames) (\s@ReceiveMessage' {} a -> s {attributeNames = a} :: ReceiveMessage) Prelude.. Lens.mapping Lens.coerced
-
--- | The maximum number of messages to return. Amazon SQS never returns more
--- messages than this value (however, fewer messages might be returned).
--- Valid values: 1 to 10. Default: 1.
-receiveMessage_maxNumberOfMessages :: Lens.Lens' ReceiveMessage (Prelude.Maybe Prelude.Int)
-receiveMessage_maxNumberOfMessages = Lens.lens (\ReceiveMessage' {maxNumberOfMessages} -> maxNumberOfMessages) (\s@ReceiveMessage' {} a -> s {maxNumberOfMessages = a} :: ReceiveMessage)
-
 -- | The URL of the Amazon SQS queue from which messages are received.
 --
 -- Queue URLs and names are case-sensitive.
@@ -579,64 +600,64 @@ instance Core.AWSRequest ReceiveMessage where
   type
     AWSResponse ReceiveMessage =
       ReceiveMessageResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ReceiveMessageResult"
       ( \s h x ->
           ReceiveMessageResponse'
-            Prelude.<$> (Core.may (Core.parseXMLList "Message") x)
+            Prelude.<$> (Core.may (Data.parseXMLList "Message") x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ReceiveMessage where
   hashWithSalt _salt ReceiveMessage' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` attributeNames
+      `Prelude.hashWithSalt` maxNumberOfMessages
+      `Prelude.hashWithSalt` messageAttributeNames
       `Prelude.hashWithSalt` receiveRequestAttemptId
       `Prelude.hashWithSalt` visibilityTimeout
-      `Prelude.hashWithSalt` messageAttributeNames
       `Prelude.hashWithSalt` waitTimeSeconds
-      `Prelude.hashWithSalt` attributeNames
-      `Prelude.hashWithSalt` maxNumberOfMessages
       `Prelude.hashWithSalt` queueUrl
 
 instance Prelude.NFData ReceiveMessage where
   rnf ReceiveMessage' {..} =
-    Prelude.rnf receiveRequestAttemptId
-      `Prelude.seq` Prelude.rnf visibilityTimeout
-      `Prelude.seq` Prelude.rnf messageAttributeNames
-      `Prelude.seq` Prelude.rnf waitTimeSeconds
-      `Prelude.seq` Prelude.rnf attributeNames
+    Prelude.rnf attributeNames
       `Prelude.seq` Prelude.rnf maxNumberOfMessages
+      `Prelude.seq` Prelude.rnf messageAttributeNames
+      `Prelude.seq` Prelude.rnf receiveRequestAttemptId
+      `Prelude.seq` Prelude.rnf visibilityTimeout
+      `Prelude.seq` Prelude.rnf waitTimeSeconds
       `Prelude.seq` Prelude.rnf queueUrl
 
-instance Core.ToHeaders ReceiveMessage where
+instance Data.ToHeaders ReceiveMessage where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ReceiveMessage where
+instance Data.ToPath ReceiveMessage where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ReceiveMessage where
+instance Data.ToQuery ReceiveMessage where
   toQuery ReceiveMessage' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ReceiveMessage" :: Prelude.ByteString),
+          Data.=: ("ReceiveMessage" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-11-05" :: Prelude.ByteString),
-        "ReceiveRequestAttemptId"
-          Core.=: receiveRequestAttemptId,
-        "VisibilityTimeout" Core.=: visibilityTimeout,
-        Core.toQuery
-          ( Core.toQueryList "MessageAttributeName"
-              Prelude.<$> messageAttributeNames
-          ),
-        "WaitTimeSeconds" Core.=: waitTimeSeconds,
-        Core.toQuery
-          ( Core.toQueryList "AttributeName"
+          Data.=: ("2012-11-05" :: Prelude.ByteString),
+        Data.toQuery
+          ( Data.toQueryList "AttributeName"
               Prelude.<$> attributeNames
           ),
-        "MaxNumberOfMessages" Core.=: maxNumberOfMessages,
-        "QueueUrl" Core.=: queueUrl
+        "MaxNumberOfMessages" Data.=: maxNumberOfMessages,
+        Data.toQuery
+          ( Data.toQueryList "MessageAttributeName"
+              Prelude.<$> messageAttributeNames
+          ),
+        "ReceiveRequestAttemptId"
+          Data.=: receiveRequestAttemptId,
+        "VisibilityTimeout" Data.=: visibilityTimeout,
+        "WaitTimeSeconds" Data.=: waitTimeSeconds,
+        "QueueUrl" Data.=: queueUrl
       ]
 
 -- | A list of received messages.

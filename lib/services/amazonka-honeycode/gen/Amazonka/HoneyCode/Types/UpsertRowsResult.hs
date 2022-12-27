@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.HoneyCode.Types.UpsertRowsResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.HoneyCode.Types.UpsertRowsResult where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.HoneyCode.Types.UpsertAction
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents the result of a single upsert row request.
@@ -79,14 +80,14 @@ upsertRowsResult_rowIds = Lens.lens (\UpsertRowsResult' {rowIds} -> rowIds) (\s@
 upsertRowsResult_upsertAction :: Lens.Lens' UpsertRowsResult UpsertAction
 upsertRowsResult_upsertAction = Lens.lens (\UpsertRowsResult' {upsertAction} -> upsertAction) (\s@UpsertRowsResult' {} a -> s {upsertAction = a} :: UpsertRowsResult)
 
-instance Core.FromJSON UpsertRowsResult where
+instance Data.FromJSON UpsertRowsResult where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UpsertRowsResult"
       ( \x ->
           UpsertRowsResult'
-            Prelude.<$> (x Core..: "rowIds")
-            Prelude.<*> (x Core..: "upsertAction")
+            Prelude.<$> (x Data..: "rowIds")
+            Prelude.<*> (x Data..: "upsertAction")
       )
 
 instance Prelude.Hashable UpsertRowsResult where

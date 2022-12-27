@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeCustomerGateways
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,8 +32,8 @@ module Amazonka.EC2.DescribeCustomerGateways
 
     -- * Request Lenses
     describeCustomerGateways_customerGatewayIds,
-    describeCustomerGateways_filters,
     describeCustomerGateways_dryRun,
+    describeCustomerGateways_filters,
 
     -- * Destructuring the Response
     DescribeCustomerGatewaysResponse (..),
@@ -46,8 +46,9 @@ module Amazonka.EC2.DescribeCustomerGateways
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,6 +61,11 @@ data DescribeCustomerGateways = DescribeCustomerGateways'
     --
     -- Default: Describes all your customer gateways.
     customerGatewayIds :: Prelude.Maybe [Prelude.Text],
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | One or more filters.
     --
     -- -   @bgp-asn@ - The customer gateway\'s Border Gateway Protocol (BGP)
@@ -67,8 +73,8 @@ data DescribeCustomerGateways = DescribeCustomerGateways'
     --
     -- -   @customer-gateway-id@ - The ID of the customer gateway.
     --
-    -- -   @ip-address@ - The IP address of the customer gateway\'s
-    --     Internet-routable external interface.
+    -- -   @ip-address@ - The IP address of the customer gateway device\'s
+    --     external interface.
     --
     -- -   @state@ - The state of the customer gateway (@pending@ | @available@
     --     | @deleting@ | @deleted@).
@@ -85,12 +91,7 @@ data DescribeCustomerGateways = DescribeCustomerGateways'
     -- -   @tag-key@ - The key of a tag assigned to the resource. Use this
     --     filter to find all resources assigned a tag with a specific key,
     --     regardless of the tag value.
-    filters :: Prelude.Maybe [Filter],
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool
+    filters :: Prelude.Maybe [Filter]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -106,6 +107,11 @@ data DescribeCustomerGateways = DescribeCustomerGateways'
 --
 -- Default: Describes all your customer gateways.
 --
+-- 'dryRun', 'describeCustomerGateways_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
 -- 'filters', 'describeCustomerGateways_filters' - One or more filters.
 --
 -- -   @bgp-asn@ - The customer gateway\'s Border Gateway Protocol (BGP)
@@ -113,8 +119,8 @@ data DescribeCustomerGateways = DescribeCustomerGateways'
 --
 -- -   @customer-gateway-id@ - The ID of the customer gateway.
 --
--- -   @ip-address@ - The IP address of the customer gateway\'s
---     Internet-routable external interface.
+-- -   @ip-address@ - The IP address of the customer gateway device\'s
+--     external interface.
 --
 -- -   @state@ - The state of the customer gateway (@pending@ | @available@
 --     | @deleting@ | @deleted@).
@@ -131,19 +137,14 @@ data DescribeCustomerGateways = DescribeCustomerGateways'
 -- -   @tag-key@ - The key of a tag assigned to the resource. Use this
 --     filter to find all resources assigned a tag with a specific key,
 --     regardless of the tag value.
---
--- 'dryRun', 'describeCustomerGateways_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
 newDescribeCustomerGateways ::
   DescribeCustomerGateways
 newDescribeCustomerGateways =
   DescribeCustomerGateways'
     { customerGatewayIds =
         Prelude.Nothing,
-      filters = Prelude.Nothing,
-      dryRun = Prelude.Nothing
+      dryRun = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
 -- | One or more customer gateway IDs.
@@ -152,6 +153,13 @@ newDescribeCustomerGateways =
 describeCustomerGateways_customerGatewayIds :: Lens.Lens' DescribeCustomerGateways (Prelude.Maybe [Prelude.Text])
 describeCustomerGateways_customerGatewayIds = Lens.lens (\DescribeCustomerGateways' {customerGatewayIds} -> customerGatewayIds) (\s@DescribeCustomerGateways' {} a -> s {customerGatewayIds = a} :: DescribeCustomerGateways) Prelude.. Lens.mapping Lens.coerced
 
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeCustomerGateways_dryRun :: Lens.Lens' DescribeCustomerGateways (Prelude.Maybe Prelude.Bool)
+describeCustomerGateways_dryRun = Lens.lens (\DescribeCustomerGateways' {dryRun} -> dryRun) (\s@DescribeCustomerGateways' {} a -> s {dryRun = a} :: DescribeCustomerGateways)
+
 -- | One or more filters.
 --
 -- -   @bgp-asn@ - The customer gateway\'s Border Gateway Protocol (BGP)
@@ -159,8 +167,8 @@ describeCustomerGateways_customerGatewayIds = Lens.lens (\DescribeCustomerGatewa
 --
 -- -   @customer-gateway-id@ - The ID of the customer gateway.
 --
--- -   @ip-address@ - The IP address of the customer gateway\'s
---     Internet-routable external interface.
+-- -   @ip-address@ - The IP address of the customer gateway device\'s
+--     external interface.
 --
 -- -   @state@ - The state of the customer gateway (@pending@ | @available@
 --     | @deleting@ | @deleted@).
@@ -180,25 +188,19 @@ describeCustomerGateways_customerGatewayIds = Lens.lens (\DescribeCustomerGatewa
 describeCustomerGateways_filters :: Lens.Lens' DescribeCustomerGateways (Prelude.Maybe [Filter])
 describeCustomerGateways_filters = Lens.lens (\DescribeCustomerGateways' {filters} -> filters) (\s@DescribeCustomerGateways' {} a -> s {filters = a} :: DescribeCustomerGateways) Prelude.. Lens.mapping Lens.coerced
 
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describeCustomerGateways_dryRun :: Lens.Lens' DescribeCustomerGateways (Prelude.Maybe Prelude.Bool)
-describeCustomerGateways_dryRun = Lens.lens (\DescribeCustomerGateways' {dryRun} -> dryRun) (\s@DescribeCustomerGateways' {} a -> s {dryRun = a} :: DescribeCustomerGateways)
-
 instance Core.AWSRequest DescribeCustomerGateways where
   type
     AWSResponse DescribeCustomerGateways =
       DescribeCustomerGatewaysResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeCustomerGatewaysResponse'
-            Prelude.<$> ( x Core..@? "customerGatewaySet"
+            Prelude.<$> ( x Data..@? "customerGatewaySet"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -206,35 +208,35 @@ instance Core.AWSRequest DescribeCustomerGateways where
 instance Prelude.Hashable DescribeCustomerGateways where
   hashWithSalt _salt DescribeCustomerGateways' {..} =
     _salt `Prelude.hashWithSalt` customerGatewayIds
-      `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` filters
 
 instance Prelude.NFData DescribeCustomerGateways where
   rnf DescribeCustomerGateways' {..} =
     Prelude.rnf customerGatewayIds
-      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf filters
 
-instance Core.ToHeaders DescribeCustomerGateways where
+instance Data.ToHeaders DescribeCustomerGateways where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeCustomerGateways where
+instance Data.ToPath DescribeCustomerGateways where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeCustomerGateways where
+instance Data.ToQuery DescribeCustomerGateways where
   toQuery DescribeCustomerGateways' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeCustomerGateways" :: Prelude.ByteString),
+          Data.=: ("DescribeCustomerGateways" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          ( Core.toQueryList "CustomerGatewayId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        Data.toQuery
+          ( Data.toQueryList "CustomerGatewayId"
               Prelude.<$> customerGatewayIds
           ),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "DryRun" Core.=: dryRun
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters)
       ]
 
 -- | Contains the output of DescribeCustomerGateways.

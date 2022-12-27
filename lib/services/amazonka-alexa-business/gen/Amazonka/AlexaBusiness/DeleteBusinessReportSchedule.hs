@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.DeleteBusinessReportSchedule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,7 +81,8 @@ instance Core.AWSRequest DeleteBusinessReportSchedule where
   type
     AWSResponse DeleteBusinessReportSchedule =
       DeleteBusinessReportScheduleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -99,32 +101,32 @@ instance Prelude.NFData DeleteBusinessReportSchedule where
   rnf DeleteBusinessReportSchedule' {..} =
     Prelude.rnf scheduleArn
 
-instance Core.ToHeaders DeleteBusinessReportSchedule where
+instance Data.ToHeaders DeleteBusinessReportSchedule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.DeleteBusinessReportSchedule" ::
+              Data.=# ( "AlexaForBusiness.DeleteBusinessReportSchedule" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteBusinessReportSchedule where
+instance Data.ToJSON DeleteBusinessReportSchedule where
   toJSON DeleteBusinessReportSchedule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ScheduleArn" Core..= scheduleArn)]
+          [Prelude.Just ("ScheduleArn" Data..= scheduleArn)]
       )
 
-instance Core.ToPath DeleteBusinessReportSchedule where
+instance Data.ToPath DeleteBusinessReportSchedule where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteBusinessReportSchedule where
+instance Data.ToQuery DeleteBusinessReportSchedule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteBusinessReportScheduleResponse' smart constructor.

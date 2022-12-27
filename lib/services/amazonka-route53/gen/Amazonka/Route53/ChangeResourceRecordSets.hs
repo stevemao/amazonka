@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.ChangeResourceRecordSets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -76,9 +76,8 @@
 -- -   @DELETE@: Deletes an existing resource record set that has the
 --     specified values.
 --
--- -   @UPSERT@: If a resource record set does not already exist, Amazon
---     Web Services creates it. If a resource set does exist, Route 53
---     updates it with the values in the request.
+-- -   @UPSERT@: If a resource set exists Route 53 updates it with the
+--     values in the request.
 --
 -- __Syntaxes for Creating, Updating, and Deleting Resource Record Sets__
 --
@@ -129,7 +128,8 @@ module Amazonka.Route53.ChangeResourceRecordSets
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -191,13 +191,14 @@ instance Core.AWSRequest ChangeResourceRecordSets where
   type
     AWSResponse ChangeResourceRecordSets =
       ChangeResourceRecordSetsResponse
-  request = Request.postXML defaultService
+  request overrides =
+    Request.postXML (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ChangeResourceRecordSetsResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "ChangeInfo")
+            Prelude.<*> (x Data..@ "ChangeInfo")
       )
 
 instance Prelude.Hashable ChangeResourceRecordSets where
@@ -210,28 +211,28 @@ instance Prelude.NFData ChangeResourceRecordSets where
     Prelude.rnf hostedZoneId
       `Prelude.seq` Prelude.rnf changeBatch
 
-instance Core.ToElement ChangeResourceRecordSets where
+instance Data.ToElement ChangeResourceRecordSets where
   toElement =
-    Core.mkElement
+    Data.mkElement
       "{https://route53.amazonaws.com/doc/2013-04-01/}ChangeResourceRecordSetsRequest"
 
-instance Core.ToHeaders ChangeResourceRecordSets where
+instance Data.ToHeaders ChangeResourceRecordSets where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ChangeResourceRecordSets where
+instance Data.ToPath ChangeResourceRecordSets where
   toPath ChangeResourceRecordSets' {..} =
     Prelude.mconcat
       [ "/2013-04-01/hostedzone/",
-        Core.toBS hostedZoneId,
+        Data.toBS hostedZoneId,
         "/rrset/"
       ]
 
-instance Core.ToQuery ChangeResourceRecordSets where
+instance Data.ToQuery ChangeResourceRecordSets where
   toQuery = Prelude.const Prelude.mempty
 
-instance Core.ToXML ChangeResourceRecordSets where
+instance Data.ToXML ChangeResourceRecordSets where
   toXML ChangeResourceRecordSets' {..} =
-    Prelude.mconcat ["ChangeBatch" Core.@= changeBatch]
+    Prelude.mconcat ["ChangeBatch" Data.@= changeBatch]
 
 -- | A complex type containing the response for the request.
 --

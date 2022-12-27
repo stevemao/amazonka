@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudHSM.ListHapgs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -63,7 +63,8 @@ where
 
 import Amazonka.CloudHSM.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -114,14 +115,15 @@ instance Core.AWSPager ListHapgs where
 
 instance Core.AWSRequest ListHapgs where
   type AWSResponse ListHapgs = ListHapgsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListHapgsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "HapgList" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "HapgList" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListHapgs where
@@ -131,32 +133,32 @@ instance Prelude.Hashable ListHapgs where
 instance Prelude.NFData ListHapgs where
   rnf ListHapgs' {..} = Prelude.rnf nextToken
 
-instance Core.ToHeaders ListHapgs where
+instance Data.ToHeaders ListHapgs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CloudHsmFrontendService.ListHapgs" ::
+              Data.=# ( "CloudHsmFrontendService.ListHapgs" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListHapgs where
+instance Data.ToJSON ListHapgs where
   toJSON ListHapgs' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("NextToken" Core..=) Prelude.<$> nextToken]
+          [("NextToken" Data..=) Prelude.<$> nextToken]
       )
 
-instance Core.ToPath ListHapgs where
+instance Data.ToPath ListHapgs where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListHapgs where
+instance Data.ToQuery ListHapgs where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListHapgsResponse' smart constructor.

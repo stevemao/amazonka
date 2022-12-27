@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.DetachLoadBalancers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,7 +25,7 @@
 --
 -- This operation detaches only Classic Load Balancers. If you have
 -- Application Load Balancers, Network Load Balancers, or Gateway Load
--- Balancers, use the DetachLoadBalancerTargetGroups API instead.
+-- Balancer, use the DetachLoadBalancerTargetGroups API instead.
 --
 -- When you detach a load balancer, it enters the @Removing@ state while
 -- deregistering the instances in the group. When all instances are
@@ -51,7 +51,8 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,7 +103,8 @@ instance Core.AWSRequest DetachLoadBalancers where
   type
     AWSResponse DetachLoadBalancers =
       DetachLoadBalancersResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DetachLoadBalancersResult"
@@ -121,22 +123,22 @@ instance Prelude.NFData DetachLoadBalancers where
     Prelude.rnf autoScalingGroupName
       `Prelude.seq` Prelude.rnf loadBalancerNames
 
-instance Core.ToHeaders DetachLoadBalancers where
+instance Data.ToHeaders DetachLoadBalancers where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DetachLoadBalancers where
+instance Data.ToPath DetachLoadBalancers where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DetachLoadBalancers where
+instance Data.ToQuery DetachLoadBalancers where
   toQuery DetachLoadBalancers' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DetachLoadBalancers" :: Prelude.ByteString),
+          Data.=: ("DetachLoadBalancers" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
-        "AutoScalingGroupName" Core.=: autoScalingGroupName,
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
+        "AutoScalingGroupName" Data.=: autoScalingGroupName,
         "LoadBalancerNames"
-          Core.=: Core.toQueryList "member" loadBalancerNames
+          Data.=: Data.toQueryList "member" loadBalancerNames
       ]
 
 -- | /See:/ 'newDetachLoadBalancersResponse' smart constructor.

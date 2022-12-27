@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LakeFormation.Types.LFTagPolicyResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,24 +20,25 @@
 module Amazonka.LakeFormation.Types.LFTagPolicyResource where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LakeFormation.Types.LFTag
 import Amazonka.LakeFormation.Types.ResourceType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
--- | A structure containing a list of tag conditions that apply to a
--- resource\'s tag policy.
+-- | A structure containing a list of LF-tag conditions that apply to a
+-- resource\'s LF-tag policy.
 --
 -- /See:/ 'newLFTagPolicyResource' smart constructor.
 data LFTagPolicyResource = LFTagPolicyResource'
   { -- | The identifier for the Data Catalog. By default, the account ID. The
     -- Data Catalog is the persistent metadata store. It contains database
     -- definitions, table definitions, and other control information to manage
-    -- your AWS Lake Formation environment.
+    -- your Lake Formation environment.
     catalogId :: Prelude.Maybe Prelude.Text,
-    -- | The resource type for which the tag policy applies.
+    -- | The resource type for which the LF-tag policy applies.
     resourceType :: ResourceType,
-    -- | A list of tag conditions that apply to the resource\'s tag policy.
+    -- | A list of LF-tag conditions that apply to the resource\'s LF-tag policy.
     expression :: Prelude.NonEmpty LFTag
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -53,11 +54,11 @@ data LFTagPolicyResource = LFTagPolicyResource'
 -- 'catalogId', 'lFTagPolicyResource_catalogId' - The identifier for the Data Catalog. By default, the account ID. The
 -- Data Catalog is the persistent metadata store. It contains database
 -- definitions, table definitions, and other control information to manage
--- your AWS Lake Formation environment.
+-- your Lake Formation environment.
 --
--- 'resourceType', 'lFTagPolicyResource_resourceType' - The resource type for which the tag policy applies.
+-- 'resourceType', 'lFTagPolicyResource_resourceType' - The resource type for which the LF-tag policy applies.
 --
--- 'expression', 'lFTagPolicyResource_expression' - A list of tag conditions that apply to the resource\'s tag policy.
+-- 'expression', 'lFTagPolicyResource_expression' - A list of LF-tag conditions that apply to the resource\'s LF-tag policy.
 newLFTagPolicyResource ::
   -- | 'resourceType'
   ResourceType ->
@@ -74,27 +75,27 @@ newLFTagPolicyResource pResourceType_ pExpression_ =
 -- | The identifier for the Data Catalog. By default, the account ID. The
 -- Data Catalog is the persistent metadata store. It contains database
 -- definitions, table definitions, and other control information to manage
--- your AWS Lake Formation environment.
+-- your Lake Formation environment.
 lFTagPolicyResource_catalogId :: Lens.Lens' LFTagPolicyResource (Prelude.Maybe Prelude.Text)
 lFTagPolicyResource_catalogId = Lens.lens (\LFTagPolicyResource' {catalogId} -> catalogId) (\s@LFTagPolicyResource' {} a -> s {catalogId = a} :: LFTagPolicyResource)
 
--- | The resource type for which the tag policy applies.
+-- | The resource type for which the LF-tag policy applies.
 lFTagPolicyResource_resourceType :: Lens.Lens' LFTagPolicyResource ResourceType
 lFTagPolicyResource_resourceType = Lens.lens (\LFTagPolicyResource' {resourceType} -> resourceType) (\s@LFTagPolicyResource' {} a -> s {resourceType = a} :: LFTagPolicyResource)
 
--- | A list of tag conditions that apply to the resource\'s tag policy.
+-- | A list of LF-tag conditions that apply to the resource\'s LF-tag policy.
 lFTagPolicyResource_expression :: Lens.Lens' LFTagPolicyResource (Prelude.NonEmpty LFTag)
 lFTagPolicyResource_expression = Lens.lens (\LFTagPolicyResource' {expression} -> expression) (\s@LFTagPolicyResource' {} a -> s {expression = a} :: LFTagPolicyResource) Prelude.. Lens.coerced
 
-instance Core.FromJSON LFTagPolicyResource where
+instance Data.FromJSON LFTagPolicyResource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LFTagPolicyResource"
       ( \x ->
           LFTagPolicyResource'
-            Prelude.<$> (x Core..:? "CatalogId")
-            Prelude.<*> (x Core..: "ResourceType")
-            Prelude.<*> (x Core..: "Expression")
+            Prelude.<$> (x Data..:? "CatalogId")
+            Prelude.<*> (x Data..: "ResourceType")
+            Prelude.<*> (x Data..: "Expression")
       )
 
 instance Prelude.Hashable LFTagPolicyResource where
@@ -109,12 +110,12 @@ instance Prelude.NFData LFTagPolicyResource where
       `Prelude.seq` Prelude.rnf resourceType
       `Prelude.seq` Prelude.rnf expression
 
-instance Core.ToJSON LFTagPolicyResource where
+instance Data.ToJSON LFTagPolicyResource where
   toJSON LFTagPolicyResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            Prelude.Just ("ResourceType" Core..= resourceType),
-            Prelude.Just ("Expression" Core..= expression)
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            Prelude.Just ("ResourceType" Data..= resourceType),
+            Prelude.Just ("Expression" Data..= expression)
           ]
       )

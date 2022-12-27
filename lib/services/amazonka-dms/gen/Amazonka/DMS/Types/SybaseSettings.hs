@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DMS.Types.SybaseSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,20 @@
 module Amazonka.DMS.Types.SybaseSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides information that defines a SAP ASE endpoint.
 --
 -- /See:/ 'newSybaseSettings' smart constructor.
 data SybaseSettings = SybaseSettings'
-  { -- | Fully qualified domain name of the endpoint.
-    serverName :: Prelude.Maybe Prelude.Text,
+  { -- | Database name for the endpoint.
+    databaseName :: Prelude.Maybe Prelude.Text,
+    -- | Endpoint connection password.
+    password :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | Endpoint TCP port. The default is 5000.
+    port :: Prelude.Maybe Prelude.Int,
     -- | The full Amazon Resource Name (ARN) of the IAM role that specifies DMS
     -- as the trusted entity and grants the required permissions to access the
     -- value in @SecretsManagerSecret@. The role must allow the @iam:PassRole@
@@ -44,18 +49,14 @@ data SybaseSettings = SybaseSettings'
     -- <https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Security.html#security-iam-secretsmanager Using secrets to access Database Migration Service resources>
     -- in the /Database Migration Service User Guide/.
     secretsManagerAccessRoleArn :: Prelude.Maybe Prelude.Text,
-    -- | Endpoint connection user name.
-    username :: Prelude.Maybe Prelude.Text,
-    -- | Endpoint connection password.
-    password :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | Database name for the endpoint.
-    databaseName :: Prelude.Maybe Prelude.Text,
     -- | The full ARN, partial ARN, or friendly name of the
     -- @SecretsManagerSecret@ that contains the SAP SAE endpoint connection
     -- details.
     secretsManagerSecretId :: Prelude.Maybe Prelude.Text,
-    -- | Endpoint TCP port.
-    port :: Prelude.Maybe Prelude.Int
+    -- | Fully qualified domain name of the endpoint.
+    serverName :: Prelude.Maybe Prelude.Text,
+    -- | Endpoint connection user name.
+    username :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -67,7 +68,11 @@ data SybaseSettings = SybaseSettings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'serverName', 'sybaseSettings_serverName' - Fully qualified domain name of the endpoint.
+-- 'databaseName', 'sybaseSettings_databaseName' - Database name for the endpoint.
+--
+-- 'password', 'sybaseSettings_password' - Endpoint connection password.
+--
+-- 'port', 'sybaseSettings_port' - Endpoint TCP port. The default is 5000.
 --
 -- 'secretsManagerAccessRoleArn', 'sybaseSettings_secretsManagerAccessRoleArn' - The full Amazon Resource Name (ARN) of the IAM role that specifies DMS
 -- as the trusted entity and grants the required permissions to access the
@@ -84,33 +89,37 @@ data SybaseSettings = SybaseSettings'
 -- <https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Security.html#security-iam-secretsmanager Using secrets to access Database Migration Service resources>
 -- in the /Database Migration Service User Guide/.
 --
--- 'username', 'sybaseSettings_username' - Endpoint connection user name.
---
--- 'password', 'sybaseSettings_password' - Endpoint connection password.
---
--- 'databaseName', 'sybaseSettings_databaseName' - Database name for the endpoint.
---
 -- 'secretsManagerSecretId', 'sybaseSettings_secretsManagerSecretId' - The full ARN, partial ARN, or friendly name of the
 -- @SecretsManagerSecret@ that contains the SAP SAE endpoint connection
 -- details.
 --
--- 'port', 'sybaseSettings_port' - Endpoint TCP port.
+-- 'serverName', 'sybaseSettings_serverName' - Fully qualified domain name of the endpoint.
+--
+-- 'username', 'sybaseSettings_username' - Endpoint connection user name.
 newSybaseSettings ::
   SybaseSettings
 newSybaseSettings =
   SybaseSettings'
-    { serverName = Prelude.Nothing,
-      secretsManagerAccessRoleArn = Prelude.Nothing,
-      username = Prelude.Nothing,
+    { databaseName = Prelude.Nothing,
       password = Prelude.Nothing,
-      databaseName = Prelude.Nothing,
+      port = Prelude.Nothing,
+      secretsManagerAccessRoleArn = Prelude.Nothing,
       secretsManagerSecretId = Prelude.Nothing,
-      port = Prelude.Nothing
+      serverName = Prelude.Nothing,
+      username = Prelude.Nothing
     }
 
--- | Fully qualified domain name of the endpoint.
-sybaseSettings_serverName :: Lens.Lens' SybaseSettings (Prelude.Maybe Prelude.Text)
-sybaseSettings_serverName = Lens.lens (\SybaseSettings' {serverName} -> serverName) (\s@SybaseSettings' {} a -> s {serverName = a} :: SybaseSettings)
+-- | Database name for the endpoint.
+sybaseSettings_databaseName :: Lens.Lens' SybaseSettings (Prelude.Maybe Prelude.Text)
+sybaseSettings_databaseName = Lens.lens (\SybaseSettings' {databaseName} -> databaseName) (\s@SybaseSettings' {} a -> s {databaseName = a} :: SybaseSettings)
+
+-- | Endpoint connection password.
+sybaseSettings_password :: Lens.Lens' SybaseSettings (Prelude.Maybe Prelude.Text)
+sybaseSettings_password = Lens.lens (\SybaseSettings' {password} -> password) (\s@SybaseSettings' {} a -> s {password = a} :: SybaseSettings) Prelude.. Lens.mapping Data._Sensitive
+
+-- | Endpoint TCP port. The default is 5000.
+sybaseSettings_port :: Lens.Lens' SybaseSettings (Prelude.Maybe Prelude.Int)
+sybaseSettings_port = Lens.lens (\SybaseSettings' {port} -> port) (\s@SybaseSettings' {} a -> s {port = a} :: SybaseSettings)
 
 -- | The full Amazon Resource Name (ARN) of the IAM role that specifies DMS
 -- as the trusted entity and grants the required permissions to access the
@@ -129,75 +138,67 @@ sybaseSettings_serverName = Lens.lens (\SybaseSettings' {serverName} -> serverNa
 sybaseSettings_secretsManagerAccessRoleArn :: Lens.Lens' SybaseSettings (Prelude.Maybe Prelude.Text)
 sybaseSettings_secretsManagerAccessRoleArn = Lens.lens (\SybaseSettings' {secretsManagerAccessRoleArn} -> secretsManagerAccessRoleArn) (\s@SybaseSettings' {} a -> s {secretsManagerAccessRoleArn = a} :: SybaseSettings)
 
--- | Endpoint connection user name.
-sybaseSettings_username :: Lens.Lens' SybaseSettings (Prelude.Maybe Prelude.Text)
-sybaseSettings_username = Lens.lens (\SybaseSettings' {username} -> username) (\s@SybaseSettings' {} a -> s {username = a} :: SybaseSettings)
-
--- | Endpoint connection password.
-sybaseSettings_password :: Lens.Lens' SybaseSettings (Prelude.Maybe Prelude.Text)
-sybaseSettings_password = Lens.lens (\SybaseSettings' {password} -> password) (\s@SybaseSettings' {} a -> s {password = a} :: SybaseSettings) Prelude.. Lens.mapping Core._Sensitive
-
--- | Database name for the endpoint.
-sybaseSettings_databaseName :: Lens.Lens' SybaseSettings (Prelude.Maybe Prelude.Text)
-sybaseSettings_databaseName = Lens.lens (\SybaseSettings' {databaseName} -> databaseName) (\s@SybaseSettings' {} a -> s {databaseName = a} :: SybaseSettings)
-
 -- | The full ARN, partial ARN, or friendly name of the
 -- @SecretsManagerSecret@ that contains the SAP SAE endpoint connection
 -- details.
 sybaseSettings_secretsManagerSecretId :: Lens.Lens' SybaseSettings (Prelude.Maybe Prelude.Text)
 sybaseSettings_secretsManagerSecretId = Lens.lens (\SybaseSettings' {secretsManagerSecretId} -> secretsManagerSecretId) (\s@SybaseSettings' {} a -> s {secretsManagerSecretId = a} :: SybaseSettings)
 
--- | Endpoint TCP port.
-sybaseSettings_port :: Lens.Lens' SybaseSettings (Prelude.Maybe Prelude.Int)
-sybaseSettings_port = Lens.lens (\SybaseSettings' {port} -> port) (\s@SybaseSettings' {} a -> s {port = a} :: SybaseSettings)
+-- | Fully qualified domain name of the endpoint.
+sybaseSettings_serverName :: Lens.Lens' SybaseSettings (Prelude.Maybe Prelude.Text)
+sybaseSettings_serverName = Lens.lens (\SybaseSettings' {serverName} -> serverName) (\s@SybaseSettings' {} a -> s {serverName = a} :: SybaseSettings)
 
-instance Core.FromJSON SybaseSettings where
+-- | Endpoint connection user name.
+sybaseSettings_username :: Lens.Lens' SybaseSettings (Prelude.Maybe Prelude.Text)
+sybaseSettings_username = Lens.lens (\SybaseSettings' {username} -> username) (\s@SybaseSettings' {} a -> s {username = a} :: SybaseSettings)
+
+instance Data.FromJSON SybaseSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SybaseSettings"
       ( \x ->
           SybaseSettings'
-            Prelude.<$> (x Core..:? "ServerName")
-            Prelude.<*> (x Core..:? "SecretsManagerAccessRoleArn")
-            Prelude.<*> (x Core..:? "Username")
-            Prelude.<*> (x Core..:? "Password")
-            Prelude.<*> (x Core..:? "DatabaseName")
-            Prelude.<*> (x Core..:? "SecretsManagerSecretId")
-            Prelude.<*> (x Core..:? "Port")
+            Prelude.<$> (x Data..:? "DatabaseName")
+            Prelude.<*> (x Data..:? "Password")
+            Prelude.<*> (x Data..:? "Port")
+            Prelude.<*> (x Data..:? "SecretsManagerAccessRoleArn")
+            Prelude.<*> (x Data..:? "SecretsManagerSecretId")
+            Prelude.<*> (x Data..:? "ServerName")
+            Prelude.<*> (x Data..:? "Username")
       )
 
 instance Prelude.Hashable SybaseSettings where
   hashWithSalt _salt SybaseSettings' {..} =
-    _salt `Prelude.hashWithSalt` serverName
-      `Prelude.hashWithSalt` secretsManagerAccessRoleArn
-      `Prelude.hashWithSalt` username
+    _salt `Prelude.hashWithSalt` databaseName
       `Prelude.hashWithSalt` password
-      `Prelude.hashWithSalt` databaseName
-      `Prelude.hashWithSalt` secretsManagerSecretId
       `Prelude.hashWithSalt` port
+      `Prelude.hashWithSalt` secretsManagerAccessRoleArn
+      `Prelude.hashWithSalt` secretsManagerSecretId
+      `Prelude.hashWithSalt` serverName
+      `Prelude.hashWithSalt` username
 
 instance Prelude.NFData SybaseSettings where
   rnf SybaseSettings' {..} =
-    Prelude.rnf serverName
-      `Prelude.seq` Prelude.rnf secretsManagerAccessRoleArn
-      `Prelude.seq` Prelude.rnf username
+    Prelude.rnf databaseName
       `Prelude.seq` Prelude.rnf password
-      `Prelude.seq` Prelude.rnf databaseName
-      `Prelude.seq` Prelude.rnf secretsManagerSecretId
       `Prelude.seq` Prelude.rnf port
+      `Prelude.seq` Prelude.rnf secretsManagerAccessRoleArn
+      `Prelude.seq` Prelude.rnf secretsManagerSecretId
+      `Prelude.seq` Prelude.rnf serverName
+      `Prelude.seq` Prelude.rnf username
 
-instance Core.ToJSON SybaseSettings where
+instance Data.ToJSON SybaseSettings where
   toJSON SybaseSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ServerName" Core..=) Prelude.<$> serverName,
-            ("SecretsManagerAccessRoleArn" Core..=)
+          [ ("DatabaseName" Data..=) Prelude.<$> databaseName,
+            ("Password" Data..=) Prelude.<$> password,
+            ("Port" Data..=) Prelude.<$> port,
+            ("SecretsManagerAccessRoleArn" Data..=)
               Prelude.<$> secretsManagerAccessRoleArn,
-            ("Username" Core..=) Prelude.<$> username,
-            ("Password" Core..=) Prelude.<$> password,
-            ("DatabaseName" Core..=) Prelude.<$> databaseName,
-            ("SecretsManagerSecretId" Core..=)
+            ("SecretsManagerSecretId" Data..=)
               Prelude.<$> secretsManagerSecretId,
-            ("Port" Core..=) Prelude.<$> port
+            ("ServerName" Data..=) Prelude.<$> serverName,
+            ("Username" Data..=) Prelude.<$> username
           ]
       )

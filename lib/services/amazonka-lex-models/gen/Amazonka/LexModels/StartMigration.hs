@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.StartMigration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,20 +44,21 @@ module Amazonka.LexModels.StartMigration
     newStartMigrationResponse,
 
     -- * Response Lenses
-    startMigrationResponse_v1BotVersion,
+    startMigrationResponse_migrationId,
     startMigrationResponse_migrationStrategy,
     startMigrationResponse_migrationTimestamp,
-    startMigrationResponse_v2BotId,
     startMigrationResponse_v1BotLocale,
     startMigrationResponse_v1BotName,
+    startMigrationResponse_v1BotVersion,
+    startMigrationResponse_v2BotId,
     startMigrationResponse_v2BotRole,
-    startMigrationResponse_migrationId,
     startMigrationResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LexModels.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -196,19 +197,20 @@ instance Core.AWSRequest StartMigration where
   type
     AWSResponse StartMigration =
       StartMigrationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartMigrationResponse'
-            Prelude.<$> (x Core..?> "v1BotVersion")
-            Prelude.<*> (x Core..?> "migrationStrategy")
-            Prelude.<*> (x Core..?> "migrationTimestamp")
-            Prelude.<*> (x Core..?> "v2BotId")
-            Prelude.<*> (x Core..?> "v1BotLocale")
-            Prelude.<*> (x Core..?> "v1BotName")
-            Prelude.<*> (x Core..?> "v2BotRole")
-            Prelude.<*> (x Core..?> "migrationId")
+            Prelude.<$> (x Data..?> "migrationId")
+            Prelude.<*> (x Data..?> "migrationStrategy")
+            Prelude.<*> (x Data..?> "migrationTimestamp")
+            Prelude.<*> (x Data..?> "v1BotLocale")
+            Prelude.<*> (x Data..?> "v1BotName")
+            Prelude.<*> (x Data..?> "v1BotVersion")
+            Prelude.<*> (x Data..?> "v2BotId")
+            Prelude.<*> (x Data..?> "v2BotRole")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -228,55 +230,55 @@ instance Prelude.NFData StartMigration where
       `Prelude.seq` Prelude.rnf v2BotRole
       `Prelude.seq` Prelude.rnf migrationStrategy
 
-instance Core.ToHeaders StartMigration where
+instance Data.ToHeaders StartMigration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartMigration where
+instance Data.ToJSON StartMigration where
   toJSON StartMigration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("v1BotName" Core..= v1BotName),
-            Prelude.Just ("v1BotVersion" Core..= v1BotVersion),
-            Prelude.Just ("v2BotName" Core..= v2BotName),
-            Prelude.Just ("v2BotRole" Core..= v2BotRole),
+          [ Prelude.Just ("v1BotName" Data..= v1BotName),
+            Prelude.Just ("v1BotVersion" Data..= v1BotVersion),
+            Prelude.Just ("v2BotName" Data..= v2BotName),
+            Prelude.Just ("v2BotRole" Data..= v2BotRole),
             Prelude.Just
-              ("migrationStrategy" Core..= migrationStrategy)
+              ("migrationStrategy" Data..= migrationStrategy)
           ]
       )
 
-instance Core.ToPath StartMigration where
+instance Data.ToPath StartMigration where
   toPath = Prelude.const "/migrations"
 
-instance Core.ToQuery StartMigration where
+instance Data.ToQuery StartMigration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartMigrationResponse' smart constructor.
 data StartMigrationResponse = StartMigrationResponse'
-  { -- | The version of the bot to migrate to Amazon Lex V2.
-    v1BotVersion :: Prelude.Maybe Prelude.Text,
+  { -- | The unique identifier that Amazon Lex assigned to the migration.
+    migrationId :: Prelude.Maybe Prelude.Text,
     -- | The strategy used to conduct the migration.
     migrationStrategy :: Prelude.Maybe MigrationStrategy,
     -- | The date and time that the migration started.
-    migrationTimestamp :: Prelude.Maybe Core.POSIX,
-    -- | The unique identifier for the Amazon Lex V2 bot.
-    v2BotId :: Prelude.Maybe Prelude.Text,
+    migrationTimestamp :: Prelude.Maybe Data.POSIX,
     -- | The locale used for the Amazon Lex V1 bot.
     v1BotLocale :: Prelude.Maybe Locale,
     -- | The name of the Amazon Lex V1 bot that you are migrating to Amazon Lex
     -- V2.
     v1BotName :: Prelude.Maybe Prelude.Text,
+    -- | The version of the bot to migrate to Amazon Lex V2.
+    v1BotVersion :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the Amazon Lex V2 bot.
+    v2BotId :: Prelude.Maybe Prelude.Text,
     -- | The IAM role that Amazon Lex uses to run the Amazon Lex V2 bot.
     v2BotRole :: Prelude.Maybe Prelude.Text,
-    -- | The unique identifier that Amazon Lex assigned to the migration.
-    migrationId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -290,22 +292,22 @@ data StartMigrationResponse = StartMigrationResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'v1BotVersion', 'startMigrationResponse_v1BotVersion' - The version of the bot to migrate to Amazon Lex V2.
+-- 'migrationId', 'startMigrationResponse_migrationId' - The unique identifier that Amazon Lex assigned to the migration.
 --
 -- 'migrationStrategy', 'startMigrationResponse_migrationStrategy' - The strategy used to conduct the migration.
 --
 -- 'migrationTimestamp', 'startMigrationResponse_migrationTimestamp' - The date and time that the migration started.
---
--- 'v2BotId', 'startMigrationResponse_v2BotId' - The unique identifier for the Amazon Lex V2 bot.
 --
 -- 'v1BotLocale', 'startMigrationResponse_v1BotLocale' - The locale used for the Amazon Lex V1 bot.
 --
 -- 'v1BotName', 'startMigrationResponse_v1BotName' - The name of the Amazon Lex V1 bot that you are migrating to Amazon Lex
 -- V2.
 --
--- 'v2BotRole', 'startMigrationResponse_v2BotRole' - The IAM role that Amazon Lex uses to run the Amazon Lex V2 bot.
+-- 'v1BotVersion', 'startMigrationResponse_v1BotVersion' - The version of the bot to migrate to Amazon Lex V2.
 --
--- 'migrationId', 'startMigrationResponse_migrationId' - The unique identifier that Amazon Lex assigned to the migration.
+-- 'v2BotId', 'startMigrationResponse_v2BotId' - The unique identifier for the Amazon Lex V2 bot.
+--
+-- 'v2BotRole', 'startMigrationResponse_v2BotRole' - The IAM role that Amazon Lex uses to run the Amazon Lex V2 bot.
 --
 -- 'httpStatus', 'startMigrationResponse_httpStatus' - The response's http status code.
 newStartMigrationResponse ::
@@ -314,21 +316,21 @@ newStartMigrationResponse ::
   StartMigrationResponse
 newStartMigrationResponse pHttpStatus_ =
   StartMigrationResponse'
-    { v1BotVersion =
+    { migrationId =
         Prelude.Nothing,
       migrationStrategy = Prelude.Nothing,
       migrationTimestamp = Prelude.Nothing,
-      v2BotId = Prelude.Nothing,
       v1BotLocale = Prelude.Nothing,
       v1BotName = Prelude.Nothing,
+      v1BotVersion = Prelude.Nothing,
+      v2BotId = Prelude.Nothing,
       v2BotRole = Prelude.Nothing,
-      migrationId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The version of the bot to migrate to Amazon Lex V2.
-startMigrationResponse_v1BotVersion :: Lens.Lens' StartMigrationResponse (Prelude.Maybe Prelude.Text)
-startMigrationResponse_v1BotVersion = Lens.lens (\StartMigrationResponse' {v1BotVersion} -> v1BotVersion) (\s@StartMigrationResponse' {} a -> s {v1BotVersion = a} :: StartMigrationResponse)
+-- | The unique identifier that Amazon Lex assigned to the migration.
+startMigrationResponse_migrationId :: Lens.Lens' StartMigrationResponse (Prelude.Maybe Prelude.Text)
+startMigrationResponse_migrationId = Lens.lens (\StartMigrationResponse' {migrationId} -> migrationId) (\s@StartMigrationResponse' {} a -> s {migrationId = a} :: StartMigrationResponse)
 
 -- | The strategy used to conduct the migration.
 startMigrationResponse_migrationStrategy :: Lens.Lens' StartMigrationResponse (Prelude.Maybe MigrationStrategy)
@@ -336,11 +338,7 @@ startMigrationResponse_migrationStrategy = Lens.lens (\StartMigrationResponse' {
 
 -- | The date and time that the migration started.
 startMigrationResponse_migrationTimestamp :: Lens.Lens' StartMigrationResponse (Prelude.Maybe Prelude.UTCTime)
-startMigrationResponse_migrationTimestamp = Lens.lens (\StartMigrationResponse' {migrationTimestamp} -> migrationTimestamp) (\s@StartMigrationResponse' {} a -> s {migrationTimestamp = a} :: StartMigrationResponse) Prelude.. Lens.mapping Core._Time
-
--- | The unique identifier for the Amazon Lex V2 bot.
-startMigrationResponse_v2BotId :: Lens.Lens' StartMigrationResponse (Prelude.Maybe Prelude.Text)
-startMigrationResponse_v2BotId = Lens.lens (\StartMigrationResponse' {v2BotId} -> v2BotId) (\s@StartMigrationResponse' {} a -> s {v2BotId = a} :: StartMigrationResponse)
+startMigrationResponse_migrationTimestamp = Lens.lens (\StartMigrationResponse' {migrationTimestamp} -> migrationTimestamp) (\s@StartMigrationResponse' {} a -> s {migrationTimestamp = a} :: StartMigrationResponse) Prelude.. Lens.mapping Data._Time
 
 -- | The locale used for the Amazon Lex V1 bot.
 startMigrationResponse_v1BotLocale :: Lens.Lens' StartMigrationResponse (Prelude.Maybe Locale)
@@ -351,13 +349,17 @@ startMigrationResponse_v1BotLocale = Lens.lens (\StartMigrationResponse' {v1BotL
 startMigrationResponse_v1BotName :: Lens.Lens' StartMigrationResponse (Prelude.Maybe Prelude.Text)
 startMigrationResponse_v1BotName = Lens.lens (\StartMigrationResponse' {v1BotName} -> v1BotName) (\s@StartMigrationResponse' {} a -> s {v1BotName = a} :: StartMigrationResponse)
 
+-- | The version of the bot to migrate to Amazon Lex V2.
+startMigrationResponse_v1BotVersion :: Lens.Lens' StartMigrationResponse (Prelude.Maybe Prelude.Text)
+startMigrationResponse_v1BotVersion = Lens.lens (\StartMigrationResponse' {v1BotVersion} -> v1BotVersion) (\s@StartMigrationResponse' {} a -> s {v1BotVersion = a} :: StartMigrationResponse)
+
+-- | The unique identifier for the Amazon Lex V2 bot.
+startMigrationResponse_v2BotId :: Lens.Lens' StartMigrationResponse (Prelude.Maybe Prelude.Text)
+startMigrationResponse_v2BotId = Lens.lens (\StartMigrationResponse' {v2BotId} -> v2BotId) (\s@StartMigrationResponse' {} a -> s {v2BotId = a} :: StartMigrationResponse)
+
 -- | The IAM role that Amazon Lex uses to run the Amazon Lex V2 bot.
 startMigrationResponse_v2BotRole :: Lens.Lens' StartMigrationResponse (Prelude.Maybe Prelude.Text)
 startMigrationResponse_v2BotRole = Lens.lens (\StartMigrationResponse' {v2BotRole} -> v2BotRole) (\s@StartMigrationResponse' {} a -> s {v2BotRole = a} :: StartMigrationResponse)
-
--- | The unique identifier that Amazon Lex assigned to the migration.
-startMigrationResponse_migrationId :: Lens.Lens' StartMigrationResponse (Prelude.Maybe Prelude.Text)
-startMigrationResponse_migrationId = Lens.lens (\StartMigrationResponse' {migrationId} -> migrationId) (\s@StartMigrationResponse' {} a -> s {migrationId = a} :: StartMigrationResponse)
 
 -- | The response's http status code.
 startMigrationResponse_httpStatus :: Lens.Lens' StartMigrationResponse Prelude.Int
@@ -365,12 +367,12 @@ startMigrationResponse_httpStatus = Lens.lens (\StartMigrationResponse' {httpSta
 
 instance Prelude.NFData StartMigrationResponse where
   rnf StartMigrationResponse' {..} =
-    Prelude.rnf v1BotVersion
+    Prelude.rnf migrationId
       `Prelude.seq` Prelude.rnf migrationStrategy
       `Prelude.seq` Prelude.rnf migrationTimestamp
-      `Prelude.seq` Prelude.rnf v2BotId
       `Prelude.seq` Prelude.rnf v1BotLocale
       `Prelude.seq` Prelude.rnf v1BotName
+      `Prelude.seq` Prelude.rnf v1BotVersion
+      `Prelude.seq` Prelude.rnf v2BotId
       `Prelude.seq` Prelude.rnf v2BotRole
-      `Prelude.seq` Prelude.rnf migrationId
       `Prelude.seq` Prelude.rnf httpStatus

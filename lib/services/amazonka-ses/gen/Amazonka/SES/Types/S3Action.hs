@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SES.Types.S3Action
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SES.Types.S3Action where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | When included in a receipt rule, this action saves the received message
@@ -81,16 +82,16 @@ data S3Action = S3Action'
     -- the
     -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingClientSideEncryption.html Amazon S3 Developer Guide>.
     kmsKeyArn :: Prelude.Maybe Prelude.Text,
+    -- | The key prefix of the Amazon S3 bucket. The key prefix is similar to a
+    -- directory name that enables you to store similar data under the same
+    -- directory in a bucket.
+    objectKeyPrefix :: Prelude.Maybe Prelude.Text,
     -- | The ARN of the Amazon SNS topic to notify when the message is saved to
     -- the Amazon S3 bucket. An example of an Amazon SNS topic ARN is
     -- @arn:aws:sns:us-west-2:123456789012:MyTopic@. For more information about
     -- Amazon SNS topics, see the
     -- <https://docs.aws.amazon.com/sns/latest/dg/CreateTopic.html Amazon SNS Developer Guide>.
     topicArn :: Prelude.Maybe Prelude.Text,
-    -- | The key prefix of the Amazon S3 bucket. The key prefix is similar to a
-    -- directory name that enables you to store similar data under the same
-    -- directory in a bucket.
-    objectKeyPrefix :: Prelude.Maybe Prelude.Text,
     -- | The name of the Amazon S3 bucket that incoming email will be saved to.
     bucketName :: Prelude.Text
   }
@@ -142,15 +143,15 @@ data S3Action = S3Action'
 -- the
 -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingClientSideEncryption.html Amazon S3 Developer Guide>.
 --
+-- 'objectKeyPrefix', 's3Action_objectKeyPrefix' - The key prefix of the Amazon S3 bucket. The key prefix is similar to a
+-- directory name that enables you to store similar data under the same
+-- directory in a bucket.
+--
 -- 'topicArn', 's3Action_topicArn' - The ARN of the Amazon SNS topic to notify when the message is saved to
 -- the Amazon S3 bucket. An example of an Amazon SNS topic ARN is
 -- @arn:aws:sns:us-west-2:123456789012:MyTopic@. For more information about
 -- Amazon SNS topics, see the
 -- <https://docs.aws.amazon.com/sns/latest/dg/CreateTopic.html Amazon SNS Developer Guide>.
---
--- 'objectKeyPrefix', 's3Action_objectKeyPrefix' - The key prefix of the Amazon S3 bucket. The key prefix is similar to a
--- directory name that enables you to store similar data under the same
--- directory in a bucket.
 --
 -- 'bucketName', 's3Action_bucketName' - The name of the Amazon S3 bucket that incoming email will be saved to.
 newS3Action ::
@@ -160,8 +161,8 @@ newS3Action ::
 newS3Action pBucketName_ =
   S3Action'
     { kmsKeyArn = Prelude.Nothing,
-      topicArn = Prelude.Nothing,
       objectKeyPrefix = Prelude.Nothing,
+      topicArn = Prelude.Nothing,
       bucketName = pBucketName_
     }
 
@@ -205,6 +206,12 @@ newS3Action pBucketName_ =
 s3Action_kmsKeyArn :: Lens.Lens' S3Action (Prelude.Maybe Prelude.Text)
 s3Action_kmsKeyArn = Lens.lens (\S3Action' {kmsKeyArn} -> kmsKeyArn) (\s@S3Action' {} a -> s {kmsKeyArn = a} :: S3Action)
 
+-- | The key prefix of the Amazon S3 bucket. The key prefix is similar to a
+-- directory name that enables you to store similar data under the same
+-- directory in a bucket.
+s3Action_objectKeyPrefix :: Lens.Lens' S3Action (Prelude.Maybe Prelude.Text)
+s3Action_objectKeyPrefix = Lens.lens (\S3Action' {objectKeyPrefix} -> objectKeyPrefix) (\s@S3Action' {} a -> s {objectKeyPrefix = a} :: S3Action)
+
 -- | The ARN of the Amazon SNS topic to notify when the message is saved to
 -- the Amazon S3 bucket. An example of an Amazon SNS topic ARN is
 -- @arn:aws:sns:us-west-2:123456789012:MyTopic@. For more information about
@@ -213,43 +220,37 @@ s3Action_kmsKeyArn = Lens.lens (\S3Action' {kmsKeyArn} -> kmsKeyArn) (\s@S3Actio
 s3Action_topicArn :: Lens.Lens' S3Action (Prelude.Maybe Prelude.Text)
 s3Action_topicArn = Lens.lens (\S3Action' {topicArn} -> topicArn) (\s@S3Action' {} a -> s {topicArn = a} :: S3Action)
 
--- | The key prefix of the Amazon S3 bucket. The key prefix is similar to a
--- directory name that enables you to store similar data under the same
--- directory in a bucket.
-s3Action_objectKeyPrefix :: Lens.Lens' S3Action (Prelude.Maybe Prelude.Text)
-s3Action_objectKeyPrefix = Lens.lens (\S3Action' {objectKeyPrefix} -> objectKeyPrefix) (\s@S3Action' {} a -> s {objectKeyPrefix = a} :: S3Action)
-
 -- | The name of the Amazon S3 bucket that incoming email will be saved to.
 s3Action_bucketName :: Lens.Lens' S3Action Prelude.Text
 s3Action_bucketName = Lens.lens (\S3Action' {bucketName} -> bucketName) (\s@S3Action' {} a -> s {bucketName = a} :: S3Action)
 
-instance Core.FromXML S3Action where
+instance Data.FromXML S3Action where
   parseXML x =
     S3Action'
-      Prelude.<$> (x Core..@? "KmsKeyArn")
-      Prelude.<*> (x Core..@? "TopicArn")
-      Prelude.<*> (x Core..@? "ObjectKeyPrefix")
-      Prelude.<*> (x Core..@ "BucketName")
+      Prelude.<$> (x Data..@? "KmsKeyArn")
+      Prelude.<*> (x Data..@? "ObjectKeyPrefix")
+      Prelude.<*> (x Data..@? "TopicArn")
+      Prelude.<*> (x Data..@ "BucketName")
 
 instance Prelude.Hashable S3Action where
   hashWithSalt _salt S3Action' {..} =
     _salt `Prelude.hashWithSalt` kmsKeyArn
-      `Prelude.hashWithSalt` topicArn
       `Prelude.hashWithSalt` objectKeyPrefix
+      `Prelude.hashWithSalt` topicArn
       `Prelude.hashWithSalt` bucketName
 
 instance Prelude.NFData S3Action where
   rnf S3Action' {..} =
     Prelude.rnf kmsKeyArn
-      `Prelude.seq` Prelude.rnf topicArn
       `Prelude.seq` Prelude.rnf objectKeyPrefix
+      `Prelude.seq` Prelude.rnf topicArn
       `Prelude.seq` Prelude.rnf bucketName
 
-instance Core.ToQuery S3Action where
+instance Data.ToQuery S3Action where
   toQuery S3Action' {..} =
     Prelude.mconcat
-      [ "KmsKeyArn" Core.=: kmsKeyArn,
-        "TopicArn" Core.=: topicArn,
-        "ObjectKeyPrefix" Core.=: objectKeyPrefix,
-        "BucketName" Core.=: bucketName
+      [ "KmsKeyArn" Data.=: kmsKeyArn,
+        "ObjectKeyPrefix" Data.=: objectKeyPrefix,
+        "TopicArn" Data.=: topicArn,
+        "BucketName" Data.=: bucketName
       ]

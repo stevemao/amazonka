@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.GetComplianceSummaryByResourceType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -104,12 +105,13 @@ instance
   type
     AWSResponse GetComplianceSummaryByResourceType =
       GetComplianceSummaryByResourceTypeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetComplianceSummaryByResourceTypeResponse'
-            Prelude.<$> ( x Core..?> "ComplianceSummariesByResourceType"
+            Prelude.<$> ( x Data..?> "ComplianceSummariesByResourceType"
                             Core..!@ Prelude.mempty
                         )
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -132,43 +134,43 @@ instance
     Prelude.rnf resourceTypes
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetComplianceSummaryByResourceType
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.GetComplianceSummaryByResourceType" ::
+              Data.=# ( "StarlingDoveService.GetComplianceSummaryByResourceType" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     GetComplianceSummaryByResourceType
   where
   toJSON GetComplianceSummaryByResourceType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ResourceTypes" Core..=)
+          [ ("ResourceTypes" Data..=)
               Prelude.<$> resourceTypes
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     GetComplianceSummaryByResourceType
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetComplianceSummaryByResourceType
   where
   toQuery = Prelude.const Prelude.mempty

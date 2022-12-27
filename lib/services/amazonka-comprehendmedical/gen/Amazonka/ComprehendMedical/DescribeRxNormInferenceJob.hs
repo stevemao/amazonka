@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ComprehendMedical.DescribeRxNormInferenceJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.ComprehendMedical.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,12 +85,13 @@ instance Core.AWSRequest DescribeRxNormInferenceJob where
   type
     AWSResponse DescribeRxNormInferenceJob =
       DescribeRxNormInferenceJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeRxNormInferenceJobResponse'
-            Prelude.<$> (x Core..?> "ComprehendMedicalAsyncJobProperties")
+            Prelude.<$> (x Data..?> "ComprehendMedicalAsyncJobProperties")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -101,32 +103,32 @@ instance Prelude.NFData DescribeRxNormInferenceJob where
   rnf DescribeRxNormInferenceJob' {..} =
     Prelude.rnf jobId
 
-instance Core.ToHeaders DescribeRxNormInferenceJob where
+instance Data.ToHeaders DescribeRxNormInferenceJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ComprehendMedical_20181030.DescribeRxNormInferenceJob" ::
+              Data.=# ( "ComprehendMedical_20181030.DescribeRxNormInferenceJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeRxNormInferenceJob where
+instance Data.ToJSON DescribeRxNormInferenceJob where
   toJSON DescribeRxNormInferenceJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("JobId" Core..= jobId)]
+          [Prelude.Just ("JobId" Data..= jobId)]
       )
 
-instance Core.ToPath DescribeRxNormInferenceJob where
+instance Data.ToPath DescribeRxNormInferenceJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeRxNormInferenceJob where
+instance Data.ToQuery DescribeRxNormInferenceJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeRxNormInferenceJobResponse' smart constructor.

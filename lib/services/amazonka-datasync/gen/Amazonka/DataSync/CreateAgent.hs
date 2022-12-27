@@ -14,19 +14,19 @@
 
 -- |
 -- Module      : Amazonka.DataSync.CreateAgent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Activates an DataSync agent that you have deployed on your host. The
--- activation process associates your agent with your account. In the
--- activation process, you specify information such as the Amazon Web
--- Services Region that you want to activate the agent in. You activate the
--- agent in the Amazon Web Services Region where your target locations (in
--- Amazon S3 or Amazon EFS) reside. Your tasks are created in this Amazon
--- Web Services Region.
+-- Activates an DataSync agent that you have deployed in your storage
+-- environment. The activation process associates your agent with your
+-- account. In the activation process, you specify information such as the
+-- Amazon Web Services Region that you want to activate the agent in. You
+-- activate the agent in the Amazon Web Services Region where your target
+-- locations (in Amazon S3 or Amazon EFS) reside. Your tasks are created in
+-- this Amazon Web Services Region.
 --
 -- You can activate the agent in a VPC (virtual private cloud) or provide
 -- the agent access to a VPC endpoint so you can run tasks without going
@@ -46,11 +46,11 @@ module Amazonka.DataSync.CreateAgent
     newCreateAgent,
 
     -- * Request Lenses
+    createAgent_agentName,
     createAgent_securityGroupArns,
     createAgent_subnetArns,
-    createAgent_agentName,
-    createAgent_vpcEndpointId,
     createAgent_tags,
+    createAgent_vpcEndpointId,
     createAgent_activationKey,
 
     -- * Destructuring the Response
@@ -64,8 +64,9 @@ module Amazonka.DataSync.CreateAgent
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataSync.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -74,7 +75,10 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCreateAgent' smart constructor.
 data CreateAgent = CreateAgent'
-  { -- | The ARNs of the security groups used to protect your data transfer task
+  { -- | The name you configured for your agent. This value is a text reference
+    -- that is used to identify the agent in the console.
+    agentName :: Prelude.Maybe Prelude.Text,
+    -- | The ARNs of the security groups used to protect your data transfer task
     -- subnets. See
     -- <https://docs.aws.amazon.com/datasync/latest/userguide/API_Ec2Config.html#DataSync-Type-Ec2Config-SecurityGroupArns SecurityGroupArns>.
     securityGroupArns :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
@@ -87,17 +91,6 @@ data CreateAgent = CreateAgent'
     -- For a data transfer to work, the agent must be able to route to all
     -- these four network interfaces.
     subnetArns :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
-    -- | The name you configured for your agent. This value is a text reference
-    -- that is used to identify the agent in the console.
-    agentName :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the VPC (virtual private cloud) endpoint that the agent has
-    -- access to. This is the client-side VPC endpoint, also called a
-    -- PrivateLink. If you don\'t have a PrivateLink VPC endpoint, see
-    -- <https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.html#create-endpoint-service Creating a VPC Endpoint Service Configuration>
-    -- in the Amazon VPC User Guide.
-    --
-    -- VPC endpoint ID looks like this: @vpce-01234d5aff67890e1@.
-    vpcEndpointId :: Prelude.Maybe Prelude.Text,
     -- | The key-value pair that represents the tag that you want to associate
     -- with the agent. The value can be an empty string. This value helps you
     -- manage, filter, and search for your agents.
@@ -106,6 +99,14 @@ data CreateAgent = CreateAgent'
     -- representable in UTF-8 format, and the following special characters: + -
     -- = . _ : \/ \@.
     tags :: Prelude.Maybe [TagListEntry],
+    -- | The ID of the VPC (virtual private cloud) endpoint that the agent has
+    -- access to. This is the client-side VPC endpoint, also called a
+    -- PrivateLink. If you don\'t have a PrivateLink VPC endpoint, see
+    -- <https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.html#create-endpoint-service Creating a VPC Endpoint Service Configuration>
+    -- in the Amazon VPC User Guide.
+    --
+    -- VPC endpoint ID looks like this: @vpce-01234d5aff67890e1@.
+    vpcEndpointId :: Prelude.Maybe Prelude.Text,
     -- | Your agent activation key. You can get the activation key either by
     -- sending an HTTP GET request with redirects that enable you to get the
     -- agent IP address (port 80). Alternatively, you can get it from the
@@ -131,6 +132,9 @@ data CreateAgent = CreateAgent'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'agentName', 'createAgent_agentName' - The name you configured for your agent. This value is a text reference
+-- that is used to identify the agent in the console.
+--
 -- 'securityGroupArns', 'createAgent_securityGroupArns' - The ARNs of the security groups used to protect your data transfer task
 -- subnets. See
 -- <https://docs.aws.amazon.com/datasync/latest/userguide/API_Ec2Config.html#DataSync-Type-Ec2Config-SecurityGroupArns SecurityGroupArns>.
@@ -144,8 +148,13 @@ data CreateAgent = CreateAgent'
 -- For a data transfer to work, the agent must be able to route to all
 -- these four network interfaces.
 --
--- 'agentName', 'createAgent_agentName' - The name you configured for your agent. This value is a text reference
--- that is used to identify the agent in the console.
+-- 'tags', 'createAgent_tags' - The key-value pair that represents the tag that you want to associate
+-- with the agent. The value can be an empty string. This value helps you
+-- manage, filter, and search for your agents.
+--
+-- Valid characters for key and value are letters, spaces, and numbers
+-- representable in UTF-8 format, and the following special characters: + -
+-- = . _ : \/ \@.
 --
 -- 'vpcEndpointId', 'createAgent_vpcEndpointId' - The ID of the VPC (virtual private cloud) endpoint that the agent has
 -- access to. This is the client-side VPC endpoint, also called a
@@ -154,14 +163,6 @@ data CreateAgent = CreateAgent'
 -- in the Amazon VPC User Guide.
 --
 -- VPC endpoint ID looks like this: @vpce-01234d5aff67890e1@.
---
--- 'tags', 'createAgent_tags' - The key-value pair that represents the tag that you want to associate
--- with the agent. The value can be an empty string. This value helps you
--- manage, filter, and search for your agents.
---
--- Valid characters for key and value are letters, spaces, and numbers
--- representable in UTF-8 format, and the following special characters: + -
--- = . _ : \/ \@.
 --
 -- 'activationKey', 'createAgent_activationKey' - Your agent activation key. You can get the activation key either by
 -- sending an HTTP GET request with redirects that enable you to get the
@@ -182,13 +183,18 @@ newCreateAgent ::
   CreateAgent
 newCreateAgent pActivationKey_ =
   CreateAgent'
-    { securityGroupArns = Prelude.Nothing,
+    { agentName = Prelude.Nothing,
+      securityGroupArns = Prelude.Nothing,
       subnetArns = Prelude.Nothing,
-      agentName = Prelude.Nothing,
-      vpcEndpointId = Prelude.Nothing,
       tags = Prelude.Nothing,
+      vpcEndpointId = Prelude.Nothing,
       activationKey = pActivationKey_
     }
+
+-- | The name you configured for your agent. This value is a text reference
+-- that is used to identify the agent in the console.
+createAgent_agentName :: Lens.Lens' CreateAgent (Prelude.Maybe Prelude.Text)
+createAgent_agentName = Lens.lens (\CreateAgent' {agentName} -> agentName) (\s@CreateAgent' {} a -> s {agentName = a} :: CreateAgent)
 
 -- | The ARNs of the security groups used to protect your data transfer task
 -- subnets. See
@@ -207,10 +213,15 @@ createAgent_securityGroupArns = Lens.lens (\CreateAgent' {securityGroupArns} -> 
 createAgent_subnetArns :: Lens.Lens' CreateAgent (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
 createAgent_subnetArns = Lens.lens (\CreateAgent' {subnetArns} -> subnetArns) (\s@CreateAgent' {} a -> s {subnetArns = a} :: CreateAgent) Prelude.. Lens.mapping Lens.coerced
 
--- | The name you configured for your agent. This value is a text reference
--- that is used to identify the agent in the console.
-createAgent_agentName :: Lens.Lens' CreateAgent (Prelude.Maybe Prelude.Text)
-createAgent_agentName = Lens.lens (\CreateAgent' {agentName} -> agentName) (\s@CreateAgent' {} a -> s {agentName = a} :: CreateAgent)
+-- | The key-value pair that represents the tag that you want to associate
+-- with the agent. The value can be an empty string. This value helps you
+-- manage, filter, and search for your agents.
+--
+-- Valid characters for key and value are letters, spaces, and numbers
+-- representable in UTF-8 format, and the following special characters: + -
+-- = . _ : \/ \@.
+createAgent_tags :: Lens.Lens' CreateAgent (Prelude.Maybe [TagListEntry])
+createAgent_tags = Lens.lens (\CreateAgent' {tags} -> tags) (\s@CreateAgent' {} a -> s {tags = a} :: CreateAgent) Prelude.. Lens.mapping Lens.coerced
 
 -- | The ID of the VPC (virtual private cloud) endpoint that the agent has
 -- access to. This is the client-side VPC endpoint, also called a
@@ -221,16 +232,6 @@ createAgent_agentName = Lens.lens (\CreateAgent' {agentName} -> agentName) (\s@C
 -- VPC endpoint ID looks like this: @vpce-01234d5aff67890e1@.
 createAgent_vpcEndpointId :: Lens.Lens' CreateAgent (Prelude.Maybe Prelude.Text)
 createAgent_vpcEndpointId = Lens.lens (\CreateAgent' {vpcEndpointId} -> vpcEndpointId) (\s@CreateAgent' {} a -> s {vpcEndpointId = a} :: CreateAgent)
-
--- | The key-value pair that represents the tag that you want to associate
--- with the agent. The value can be an empty string. This value helps you
--- manage, filter, and search for your agents.
---
--- Valid characters for key and value are letters, spaces, and numbers
--- representable in UTF-8 format, and the following special characters: + -
--- = . _ : \/ \@.
-createAgent_tags :: Lens.Lens' CreateAgent (Prelude.Maybe [TagListEntry])
-createAgent_tags = Lens.lens (\CreateAgent' {tags} -> tags) (\s@CreateAgent' {} a -> s {tags = a} :: CreateAgent) Prelude.. Lens.mapping Lens.coerced
 
 -- | Your agent activation key. You can get the activation key either by
 -- sending an HTTP GET request with redirects that enable you to get the
@@ -250,65 +251,66 @@ createAgent_activationKey = Lens.lens (\CreateAgent' {activationKey} -> activati
 
 instance Core.AWSRequest CreateAgent where
   type AWSResponse CreateAgent = CreateAgentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateAgentResponse'
-            Prelude.<$> (x Core..?> "AgentArn")
+            Prelude.<$> (x Data..?> "AgentArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateAgent where
   hashWithSalt _salt CreateAgent' {..} =
-    _salt `Prelude.hashWithSalt` securityGroupArns
+    _salt `Prelude.hashWithSalt` agentName
+      `Prelude.hashWithSalt` securityGroupArns
       `Prelude.hashWithSalt` subnetArns
-      `Prelude.hashWithSalt` agentName
-      `Prelude.hashWithSalt` vpcEndpointId
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` vpcEndpointId
       `Prelude.hashWithSalt` activationKey
 
 instance Prelude.NFData CreateAgent where
   rnf CreateAgent' {..} =
-    Prelude.rnf securityGroupArns
+    Prelude.rnf agentName
+      `Prelude.seq` Prelude.rnf securityGroupArns
       `Prelude.seq` Prelude.rnf subnetArns
-      `Prelude.seq` Prelude.rnf agentName
-      `Prelude.seq` Prelude.rnf vpcEndpointId
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf vpcEndpointId
       `Prelude.seq` Prelude.rnf activationKey
 
-instance Core.ToHeaders CreateAgent where
+instance Data.ToHeaders CreateAgent where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("FmrsService.CreateAgent" :: Prelude.ByteString),
+              Data.=# ("FmrsService.CreateAgent" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateAgent where
+instance Data.ToJSON CreateAgent where
   toJSON CreateAgent' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SecurityGroupArns" Core..=)
+          [ ("AgentName" Data..=) Prelude.<$> agentName,
+            ("SecurityGroupArns" Data..=)
               Prelude.<$> securityGroupArns,
-            ("SubnetArns" Core..=) Prelude.<$> subnetArns,
-            ("AgentName" Core..=) Prelude.<$> agentName,
-            ("VpcEndpointId" Core..=) Prelude.<$> vpcEndpointId,
-            ("Tags" Core..=) Prelude.<$> tags,
+            ("SubnetArns" Data..=) Prelude.<$> subnetArns,
+            ("Tags" Data..=) Prelude.<$> tags,
+            ("VpcEndpointId" Data..=) Prelude.<$> vpcEndpointId,
             Prelude.Just
-              ("ActivationKey" Core..= activationKey)
+              ("ActivationKey" Data..= activationKey)
           ]
       )
 
-instance Core.ToPath CreateAgent where
+instance Data.ToPath CreateAgent where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateAgent where
+instance Data.ToQuery CreateAgent where
   toQuery = Prelude.const Prelude.mempty
 
 -- | CreateAgentResponse

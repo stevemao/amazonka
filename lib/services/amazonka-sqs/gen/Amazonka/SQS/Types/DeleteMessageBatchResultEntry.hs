@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SQS.Types.DeleteMessageBatchResultEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SQS.Types.DeleteMessageBatchResultEntry where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Encloses the @Id@ of an entry in @ DeleteMessageBatch.@
@@ -52,10 +53,10 @@ newDeleteMessageBatchResultEntry pId_ =
 deleteMessageBatchResultEntry_id :: Lens.Lens' DeleteMessageBatchResultEntry Prelude.Text
 deleteMessageBatchResultEntry_id = Lens.lens (\DeleteMessageBatchResultEntry' {id} -> id) (\s@DeleteMessageBatchResultEntry' {} a -> s {id = a} :: DeleteMessageBatchResultEntry)
 
-instance Core.FromXML DeleteMessageBatchResultEntry where
+instance Data.FromXML DeleteMessageBatchResultEntry where
   parseXML x =
     DeleteMessageBatchResultEntry'
-      Prelude.<$> (x Core..@ "Id")
+      Prelude.<$> (x Data..@ "Id")
 
 instance
   Prelude.Hashable

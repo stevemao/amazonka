@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.Types.SearchFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElasticBeanstalk.Types.SearchFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes criteria to restrict a list of results.
@@ -42,12 +43,12 @@ data SearchFilter = SearchFilter'
   { -- | The result attribute to which the filter values are applied. Valid
     -- values vary by API action.
     attribute :: Prelude.Maybe Prelude.Text,
-    -- | The list of values applied to the @Attribute@ and @Operator@ attributes.
-    -- Number of values and valid values vary by @Attribute@.
-    values :: Prelude.Maybe [Prelude.Text],
     -- | The operator to apply to the @Attribute@ with each of the @Values@.
     -- Valid values vary by @Attribute@.
-    operator :: Prelude.Maybe Prelude.Text
+    operator :: Prelude.Maybe Prelude.Text,
+    -- | The list of values applied to the @Attribute@ and @Operator@ attributes.
+    -- Number of values and valid values vary by @Attribute@.
+    values :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -62,18 +63,18 @@ data SearchFilter = SearchFilter'
 -- 'attribute', 'searchFilter_attribute' - The result attribute to which the filter values are applied. Valid
 -- values vary by API action.
 --
--- 'values', 'searchFilter_values' - The list of values applied to the @Attribute@ and @Operator@ attributes.
--- Number of values and valid values vary by @Attribute@.
---
 -- 'operator', 'searchFilter_operator' - The operator to apply to the @Attribute@ with each of the @Values@.
 -- Valid values vary by @Attribute@.
+--
+-- 'values', 'searchFilter_values' - The list of values applied to the @Attribute@ and @Operator@ attributes.
+-- Number of values and valid values vary by @Attribute@.
 newSearchFilter ::
   SearchFilter
 newSearchFilter =
   SearchFilter'
     { attribute = Prelude.Nothing,
-      values = Prelude.Nothing,
-      operator = Prelude.Nothing
+      operator = Prelude.Nothing,
+      values = Prelude.Nothing
     }
 
 -- | The result attribute to which the filter values are applied. Valid
@@ -81,34 +82,34 @@ newSearchFilter =
 searchFilter_attribute :: Lens.Lens' SearchFilter (Prelude.Maybe Prelude.Text)
 searchFilter_attribute = Lens.lens (\SearchFilter' {attribute} -> attribute) (\s@SearchFilter' {} a -> s {attribute = a} :: SearchFilter)
 
--- | The list of values applied to the @Attribute@ and @Operator@ attributes.
--- Number of values and valid values vary by @Attribute@.
-searchFilter_values :: Lens.Lens' SearchFilter (Prelude.Maybe [Prelude.Text])
-searchFilter_values = Lens.lens (\SearchFilter' {values} -> values) (\s@SearchFilter' {} a -> s {values = a} :: SearchFilter) Prelude.. Lens.mapping Lens.coerced
-
 -- | The operator to apply to the @Attribute@ with each of the @Values@.
 -- Valid values vary by @Attribute@.
 searchFilter_operator :: Lens.Lens' SearchFilter (Prelude.Maybe Prelude.Text)
 searchFilter_operator = Lens.lens (\SearchFilter' {operator} -> operator) (\s@SearchFilter' {} a -> s {operator = a} :: SearchFilter)
 
+-- | The list of values applied to the @Attribute@ and @Operator@ attributes.
+-- Number of values and valid values vary by @Attribute@.
+searchFilter_values :: Lens.Lens' SearchFilter (Prelude.Maybe [Prelude.Text])
+searchFilter_values = Lens.lens (\SearchFilter' {values} -> values) (\s@SearchFilter' {} a -> s {values = a} :: SearchFilter) Prelude.. Lens.mapping Lens.coerced
+
 instance Prelude.Hashable SearchFilter where
   hashWithSalt _salt SearchFilter' {..} =
     _salt `Prelude.hashWithSalt` attribute
-      `Prelude.hashWithSalt` values
       `Prelude.hashWithSalt` operator
+      `Prelude.hashWithSalt` values
 
 instance Prelude.NFData SearchFilter where
   rnf SearchFilter' {..} =
     Prelude.rnf attribute
-      `Prelude.seq` Prelude.rnf values
       `Prelude.seq` Prelude.rnf operator
+      `Prelude.seq` Prelude.rnf values
 
-instance Core.ToQuery SearchFilter where
+instance Data.ToQuery SearchFilter where
   toQuery SearchFilter' {..} =
     Prelude.mconcat
-      [ "Attribute" Core.=: attribute,
+      [ "Attribute" Data.=: attribute,
+        "Operator" Data.=: operator,
         "Values"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> values),
-        "Operator" Core.=: operator
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> values)
       ]

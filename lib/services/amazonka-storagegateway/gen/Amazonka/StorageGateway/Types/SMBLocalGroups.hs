@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.Types.SMBLocalGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.StorageGateway.Types.SMBLocalGroups where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A list of Active Directory users and groups that have special
@@ -66,13 +67,13 @@ newSMBLocalGroups =
 sMBLocalGroups_gatewayAdmins :: Lens.Lens' SMBLocalGroups (Prelude.Maybe [Prelude.Text])
 sMBLocalGroups_gatewayAdmins = Lens.lens (\SMBLocalGroups' {gatewayAdmins} -> gatewayAdmins) (\s@SMBLocalGroups' {} a -> s {gatewayAdmins = a} :: SMBLocalGroups) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON SMBLocalGroups where
+instance Data.FromJSON SMBLocalGroups where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SMBLocalGroups"
       ( \x ->
           SMBLocalGroups'
-            Prelude.<$> (x Core..:? "GatewayAdmins" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "GatewayAdmins" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable SMBLocalGroups where
@@ -82,11 +83,11 @@ instance Prelude.Hashable SMBLocalGroups where
 instance Prelude.NFData SMBLocalGroups where
   rnf SMBLocalGroups' {..} = Prelude.rnf gatewayAdmins
 
-instance Core.ToJSON SMBLocalGroups where
+instance Data.ToJSON SMBLocalGroups where
   toJSON SMBLocalGroups' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("GatewayAdmins" Core..=)
+          [ ("GatewayAdmins" Data..=)
               Prelude.<$> gatewayAdmins
           ]
       )

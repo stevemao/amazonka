@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.ExecutionEngineConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EMR.Types.ExecutionEngineConfig where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types.ExecutionEngineType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the execution engine (cluster) to run the notebook and perform
@@ -90,15 +91,15 @@ executionEngineConfig_type = Lens.lens (\ExecutionEngineConfig' {type'} -> type'
 executionEngineConfig_id :: Lens.Lens' ExecutionEngineConfig Prelude.Text
 executionEngineConfig_id = Lens.lens (\ExecutionEngineConfig' {id} -> id) (\s@ExecutionEngineConfig' {} a -> s {id = a} :: ExecutionEngineConfig)
 
-instance Core.FromJSON ExecutionEngineConfig where
+instance Data.FromJSON ExecutionEngineConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ExecutionEngineConfig"
       ( \x ->
           ExecutionEngineConfig'
-            Prelude.<$> (x Core..:? "MasterInstanceSecurityGroupId")
-            Prelude.<*> (x Core..:? "Type")
-            Prelude.<*> (x Core..: "Id")
+            Prelude.<$> (x Data..:? "MasterInstanceSecurityGroupId")
+            Prelude.<*> (x Data..:? "Type")
+            Prelude.<*> (x Data..: "Id")
       )
 
 instance Prelude.Hashable ExecutionEngineConfig where
@@ -114,13 +115,13 @@ instance Prelude.NFData ExecutionEngineConfig where
       `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf id
 
-instance Core.ToJSON ExecutionEngineConfig where
+instance Data.ToJSON ExecutionEngineConfig where
   toJSON ExecutionEngineConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MasterInstanceSecurityGroupId" Core..=)
+          [ ("MasterInstanceSecurityGroupId" Data..=)
               Prelude.<$> masterInstanceSecurityGroupId,
-            ("Type" Core..=) Prelude.<$> type',
-            Prelude.Just ("Id" Core..= id)
+            ("Type" Data..=) Prelude.<$> type',
+            Prelude.Just ("Id" Data..= id)
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.ListDevices
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,11 +29,11 @@ module Amazonka.SageMaker.ListDevices
     newListDevices,
 
     -- * Request Lenses
+    listDevices_deviceFleetName,
     listDevices_latestHeartbeatAfter,
+    listDevices_maxResults,
     listDevices_modelName,
     listDevices_nextToken,
-    listDevices_maxResults,
-    listDevices_deviceFleetName,
 
     -- * Destructuring the Response
     ListDevicesResponse (..),
@@ -47,7 +47,8 @@ module Amazonka.SageMaker.ListDevices
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,18 +56,18 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newListDevices' smart constructor.
 data ListDevices = ListDevices'
-  { -- | Select fleets where the job was updated after X
-    latestHeartbeatAfter :: Prelude.Maybe Core.POSIX,
+  { -- | Filter for fleets containing this name in their device fleet name.
+    deviceFleetName :: Prelude.Maybe Prelude.Text,
+    -- | Select fleets where the job was updated after X
+    latestHeartbeatAfter :: Prelude.Maybe Data.POSIX,
+    -- | Maximum number of results to select.
+    maxResults :: Prelude.Maybe Prelude.Int,
     -- | A filter that searches devices that contains this name in any of their
     -- models.
     modelName :: Prelude.Maybe Prelude.Text,
     -- | The response from the last list when returning a list large enough to
     -- need tokening.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Maximum number of results to select.
-    maxResults :: Prelude.Maybe Prelude.Int,
-    -- | Filter for fleets containing this name in their device fleet name.
-    deviceFleetName :: Prelude.Maybe Prelude.Text
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -78,32 +79,39 @@ data ListDevices = ListDevices'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'deviceFleetName', 'listDevices_deviceFleetName' - Filter for fleets containing this name in their device fleet name.
+--
 -- 'latestHeartbeatAfter', 'listDevices_latestHeartbeatAfter' - Select fleets where the job was updated after X
+--
+-- 'maxResults', 'listDevices_maxResults' - Maximum number of results to select.
 --
 -- 'modelName', 'listDevices_modelName' - A filter that searches devices that contains this name in any of their
 -- models.
 --
 -- 'nextToken', 'listDevices_nextToken' - The response from the last list when returning a list large enough to
 -- need tokening.
---
--- 'maxResults', 'listDevices_maxResults' - Maximum number of results to select.
---
--- 'deviceFleetName', 'listDevices_deviceFleetName' - Filter for fleets containing this name in their device fleet name.
 newListDevices ::
   ListDevices
 newListDevices =
   ListDevices'
-    { latestHeartbeatAfter =
-        Prelude.Nothing,
-      modelName = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { deviceFleetName = Prelude.Nothing,
+      latestHeartbeatAfter = Prelude.Nothing,
       maxResults = Prelude.Nothing,
-      deviceFleetName = Prelude.Nothing
+      modelName = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | Filter for fleets containing this name in their device fleet name.
+listDevices_deviceFleetName :: Lens.Lens' ListDevices (Prelude.Maybe Prelude.Text)
+listDevices_deviceFleetName = Lens.lens (\ListDevices' {deviceFleetName} -> deviceFleetName) (\s@ListDevices' {} a -> s {deviceFleetName = a} :: ListDevices)
 
 -- | Select fleets where the job was updated after X
 listDevices_latestHeartbeatAfter :: Lens.Lens' ListDevices (Prelude.Maybe Prelude.UTCTime)
-listDevices_latestHeartbeatAfter = Lens.lens (\ListDevices' {latestHeartbeatAfter} -> latestHeartbeatAfter) (\s@ListDevices' {} a -> s {latestHeartbeatAfter = a} :: ListDevices) Prelude.. Lens.mapping Core._Time
+listDevices_latestHeartbeatAfter = Lens.lens (\ListDevices' {latestHeartbeatAfter} -> latestHeartbeatAfter) (\s@ListDevices' {} a -> s {latestHeartbeatAfter = a} :: ListDevices) Prelude.. Lens.mapping Data._Time
+
+-- | Maximum number of results to select.
+listDevices_maxResults :: Lens.Lens' ListDevices (Prelude.Maybe Prelude.Int)
+listDevices_maxResults = Lens.lens (\ListDevices' {maxResults} -> maxResults) (\s@ListDevices' {} a -> s {maxResults = a} :: ListDevices)
 
 -- | A filter that searches devices that contains this name in any of their
 -- models.
@@ -114,14 +122,6 @@ listDevices_modelName = Lens.lens (\ListDevices' {modelName} -> modelName) (\s@L
 -- need tokening.
 listDevices_nextToken :: Lens.Lens' ListDevices (Prelude.Maybe Prelude.Text)
 listDevices_nextToken = Lens.lens (\ListDevices' {nextToken} -> nextToken) (\s@ListDevices' {} a -> s {nextToken = a} :: ListDevices)
-
--- | Maximum number of results to select.
-listDevices_maxResults :: Lens.Lens' ListDevices (Prelude.Maybe Prelude.Int)
-listDevices_maxResults = Lens.lens (\ListDevices' {maxResults} -> maxResults) (\s@ListDevices' {} a -> s {maxResults = a} :: ListDevices)
-
--- | Filter for fleets containing this name in their device fleet name.
-listDevices_deviceFleetName :: Lens.Lens' ListDevices (Prelude.Maybe Prelude.Text)
-listDevices_deviceFleetName = Lens.lens (\ListDevices' {deviceFleetName} -> deviceFleetName) (\s@ListDevices' {} a -> s {deviceFleetName = a} :: ListDevices)
 
 instance Core.AWSPager ListDevices where
   page rq rs
@@ -142,65 +142,66 @@ instance Core.AWSPager ListDevices where
 
 instance Core.AWSRequest ListDevices where
   type AWSResponse ListDevices = ListDevicesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDevicesResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "DeviceSummaries"
+            Prelude.<*> ( x Data..?> "DeviceSummaries"
                             Core..!@ Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable ListDevices where
   hashWithSalt _salt ListDevices' {..} =
-    _salt `Prelude.hashWithSalt` latestHeartbeatAfter
+    _salt `Prelude.hashWithSalt` deviceFleetName
+      `Prelude.hashWithSalt` latestHeartbeatAfter
+      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` modelName
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
-      `Prelude.hashWithSalt` deviceFleetName
 
 instance Prelude.NFData ListDevices where
   rnf ListDevices' {..} =
-    Prelude.rnf latestHeartbeatAfter
+    Prelude.rnf deviceFleetName
+      `Prelude.seq` Prelude.rnf latestHeartbeatAfter
+      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf modelName
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
-      `Prelude.seq` Prelude.rnf deviceFleetName
 
-instance Core.ToHeaders ListDevices where
+instance Data.ToHeaders ListDevices where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.ListDevices" :: Prelude.ByteString),
+              Data.=# ("SageMaker.ListDevices" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListDevices where
+instance Data.ToJSON ListDevices where
   toJSON ListDevices' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("LatestHeartbeatAfter" Core..=)
+          [ ("DeviceFleetName" Data..=)
+              Prelude.<$> deviceFleetName,
+            ("LatestHeartbeatAfter" Data..=)
               Prelude.<$> latestHeartbeatAfter,
-            ("ModelName" Core..=) Prelude.<$> modelName,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            ("DeviceFleetName" Core..=)
-              Prelude.<$> deviceFleetName
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("ModelName" Data..=) Prelude.<$> modelName,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListDevices where
+instance Data.ToPath ListDevices where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListDevices where
+instance Data.ToQuery ListDevices where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListDevicesResponse' smart constructor.

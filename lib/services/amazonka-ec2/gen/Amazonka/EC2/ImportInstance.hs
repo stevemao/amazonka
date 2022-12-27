@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ImportInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,10 +40,10 @@ module Amazonka.EC2.ImportInstance
     newImportInstance,
 
     -- * Request Lenses
-    importInstance_launchSpecification,
-    importInstance_diskImages,
     importInstance_description,
+    importInstance_diskImages,
     importInstance_dryRun,
+    importInstance_launchSpecification,
     importInstance_platform,
 
     -- * Destructuring the Response
@@ -57,25 +57,26 @@ module Amazonka.EC2.ImportInstance
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newImportInstance' smart constructor.
 data ImportInstance = ImportInstance'
-  { -- | The launch specification.
-    launchSpecification :: Prelude.Maybe ImportInstanceLaunchSpecification,
+  { -- | A description for the instance being imported.
+    description :: Prelude.Maybe Prelude.Text,
     -- | The disk image.
     diskImages :: Prelude.Maybe [DiskImage],
-    -- | A description for the instance being imported.
-    description :: Prelude.Maybe Prelude.Text,
     -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The launch specification.
+    launchSpecification :: Prelude.Maybe ImportInstanceLaunchSpecification,
     -- | The instance operating system.
     platform :: PlatformValues
   }
@@ -89,16 +90,16 @@ data ImportInstance = ImportInstance'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'launchSpecification', 'importInstance_launchSpecification' - The launch specification.
+-- 'description', 'importInstance_description' - A description for the instance being imported.
 --
 -- 'diskImages', 'importInstance_diskImages' - The disk image.
---
--- 'description', 'importInstance_description' - A description for the instance being imported.
 --
 -- 'dryRun', 'importInstance_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'launchSpecification', 'importInstance_launchSpecification' - The launch specification.
 --
 -- 'platform', 'importInstance_platform' - The instance operating system.
 newImportInstance ::
@@ -107,25 +108,20 @@ newImportInstance ::
   ImportInstance
 newImportInstance pPlatform_ =
   ImportInstance'
-    { launchSpecification =
-        Prelude.Nothing,
+    { description = Prelude.Nothing,
       diskImages = Prelude.Nothing,
-      description = Prelude.Nothing,
       dryRun = Prelude.Nothing,
+      launchSpecification = Prelude.Nothing,
       platform = pPlatform_
     }
-
--- | The launch specification.
-importInstance_launchSpecification :: Lens.Lens' ImportInstance (Prelude.Maybe ImportInstanceLaunchSpecification)
-importInstance_launchSpecification = Lens.lens (\ImportInstance' {launchSpecification} -> launchSpecification) (\s@ImportInstance' {} a -> s {launchSpecification = a} :: ImportInstance)
-
--- | The disk image.
-importInstance_diskImages :: Lens.Lens' ImportInstance (Prelude.Maybe [DiskImage])
-importInstance_diskImages = Lens.lens (\ImportInstance' {diskImages} -> diskImages) (\s@ImportInstance' {} a -> s {diskImages = a} :: ImportInstance) Prelude.. Lens.mapping Lens.coerced
 
 -- | A description for the instance being imported.
 importInstance_description :: Lens.Lens' ImportInstance (Prelude.Maybe Prelude.Text)
 importInstance_description = Lens.lens (\ImportInstance' {description} -> description) (\s@ImportInstance' {} a -> s {description = a} :: ImportInstance)
+
+-- | The disk image.
+importInstance_diskImages :: Lens.Lens' ImportInstance (Prelude.Maybe [DiskImage])
+importInstance_diskImages = Lens.lens (\ImportInstance' {diskImages} -> diskImages) (\s@ImportInstance' {} a -> s {diskImages = a} :: ImportInstance) Prelude.. Lens.mapping Lens.coerced
 
 -- | Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
@@ -133,6 +129,10 @@ importInstance_description = Lens.lens (\ImportInstance' {description} -> descri
 -- Otherwise, it is @UnauthorizedOperation@.
 importInstance_dryRun :: Lens.Lens' ImportInstance (Prelude.Maybe Prelude.Bool)
 importInstance_dryRun = Lens.lens (\ImportInstance' {dryRun} -> dryRun) (\s@ImportInstance' {} a -> s {dryRun = a} :: ImportInstance)
+
+-- | The launch specification.
+importInstance_launchSpecification :: Lens.Lens' ImportInstance (Prelude.Maybe ImportInstanceLaunchSpecification)
+importInstance_launchSpecification = Lens.lens (\ImportInstance' {launchSpecification} -> launchSpecification) (\s@ImportInstance' {} a -> s {launchSpecification = a} :: ImportInstance)
 
 -- | The instance operating system.
 importInstance_platform :: Lens.Lens' ImportInstance PlatformValues
@@ -142,52 +142,53 @@ instance Core.AWSRequest ImportInstance where
   type
     AWSResponse ImportInstance =
       ImportInstanceResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ImportInstanceResponse'
-            Prelude.<$> (x Core..@? "conversionTask")
+            Prelude.<$> (x Data..@? "conversionTask")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ImportInstance where
   hashWithSalt _salt ImportInstance' {..} =
-    _salt `Prelude.hashWithSalt` launchSpecification
+    _salt `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` diskImages
-      `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` launchSpecification
       `Prelude.hashWithSalt` platform
 
 instance Prelude.NFData ImportInstance where
   rnf ImportInstance' {..} =
-    Prelude.rnf launchSpecification
+    Prelude.rnf description
       `Prelude.seq` Prelude.rnf diskImages
-      `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf launchSpecification
       `Prelude.seq` Prelude.rnf platform
 
-instance Core.ToHeaders ImportInstance where
+instance Data.ToHeaders ImportInstance where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ImportInstance where
+instance Data.ToPath ImportInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ImportInstance where
+instance Data.ToQuery ImportInstance where
   toQuery ImportInstance' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ImportInstance" :: Prelude.ByteString),
+          Data.=: ("ImportInstance" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "LaunchSpecification" Core.=: launchSpecification,
-        Core.toQuery
-          ( Core.toQueryList "DiskImage"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "Description" Data.=: description,
+        Data.toQuery
+          ( Data.toQueryList "DiskImage"
               Prelude.<$> diskImages
           ),
-        "Description" Core.=: description,
-        "DryRun" Core.=: dryRun,
-        "Platform" Core.=: platform
+        "DryRun" Data.=: dryRun,
+        "LaunchSpecification" Data.=: launchSpecification,
+        "Platform" Data.=: platform
       ]
 
 -- | /See:/ 'newImportInstanceResponse' smart constructor.

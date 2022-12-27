@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Inspector.Types.AssessmentRunStateChange
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Inspector.Types.AssessmentRunStateChange where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Inspector.Types.AssessmentRunState
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Used as one of the elements of the AssessmentRun data type.
@@ -29,7 +30,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newAssessmentRunStateChange' smart constructor.
 data AssessmentRunStateChange = AssessmentRunStateChange'
   { -- | The last time the assessment run state changed.
-    stateChangedAt :: Core.POSIX,
+    stateChangedAt :: Data.POSIX,
     -- | The assessment run state.
     state :: AssessmentRunState
   }
@@ -55,26 +56,26 @@ newAssessmentRunStateChange ::
 newAssessmentRunStateChange pStateChangedAt_ pState_ =
   AssessmentRunStateChange'
     { stateChangedAt =
-        Core._Time Lens.# pStateChangedAt_,
+        Data._Time Lens.# pStateChangedAt_,
       state = pState_
     }
 
 -- | The last time the assessment run state changed.
 assessmentRunStateChange_stateChangedAt :: Lens.Lens' AssessmentRunStateChange Prelude.UTCTime
-assessmentRunStateChange_stateChangedAt = Lens.lens (\AssessmentRunStateChange' {stateChangedAt} -> stateChangedAt) (\s@AssessmentRunStateChange' {} a -> s {stateChangedAt = a} :: AssessmentRunStateChange) Prelude.. Core._Time
+assessmentRunStateChange_stateChangedAt = Lens.lens (\AssessmentRunStateChange' {stateChangedAt} -> stateChangedAt) (\s@AssessmentRunStateChange' {} a -> s {stateChangedAt = a} :: AssessmentRunStateChange) Prelude.. Data._Time
 
 -- | The assessment run state.
 assessmentRunStateChange_state :: Lens.Lens' AssessmentRunStateChange AssessmentRunState
 assessmentRunStateChange_state = Lens.lens (\AssessmentRunStateChange' {state} -> state) (\s@AssessmentRunStateChange' {} a -> s {state = a} :: AssessmentRunStateChange)
 
-instance Core.FromJSON AssessmentRunStateChange where
+instance Data.FromJSON AssessmentRunStateChange where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AssessmentRunStateChange"
       ( \x ->
           AssessmentRunStateChange'
-            Prelude.<$> (x Core..: "stateChangedAt")
-            Prelude.<*> (x Core..: "state")
+            Prelude.<$> (x Data..: "stateChangedAt")
+            Prelude.<*> (x Data..: "state")
       )
 
 instance Prelude.Hashable AssessmentRunStateChange where

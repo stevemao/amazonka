@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Signer.Types.SigningImageFormat
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Signer.Types.SigningImageFormat where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Signer.Types.ImageFormat
 
@@ -65,16 +66,16 @@ signingImageFormat_supportedFormats = Lens.lens (\SigningImageFormat' {supported
 signingImageFormat_defaultFormat :: Lens.Lens' SigningImageFormat ImageFormat
 signingImageFormat_defaultFormat = Lens.lens (\SigningImageFormat' {defaultFormat} -> defaultFormat) (\s@SigningImageFormat' {} a -> s {defaultFormat = a} :: SigningImageFormat)
 
-instance Core.FromJSON SigningImageFormat where
+instance Data.FromJSON SigningImageFormat where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SigningImageFormat"
       ( \x ->
           SigningImageFormat'
-            Prelude.<$> ( x Core..:? "supportedFormats"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "supportedFormats"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..: "defaultFormat")
+            Prelude.<*> (x Data..: "defaultFormat")
       )
 
 instance Prelude.Hashable SigningImageFormat where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MechanicalTurk.CreateWorkerBlock
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.MechanicalTurk.CreateWorkerBlock
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MechanicalTurk.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -98,7 +99,8 @@ instance Core.AWSRequest CreateWorkerBlock where
   type
     AWSResponse CreateWorkerBlock =
       CreateWorkerBlockResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -116,34 +118,34 @@ instance Prelude.NFData CreateWorkerBlock where
     Prelude.rnf workerId
       `Prelude.seq` Prelude.rnf reason
 
-instance Core.ToHeaders CreateWorkerBlock where
+instance Data.ToHeaders CreateWorkerBlock where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "MTurkRequesterServiceV20170117.CreateWorkerBlock" ::
+              Data.=# ( "MTurkRequesterServiceV20170117.CreateWorkerBlock" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateWorkerBlock where
+instance Data.ToJSON CreateWorkerBlock where
   toJSON CreateWorkerBlock' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("WorkerId" Core..= workerId),
-            Prelude.Just ("Reason" Core..= reason)
+          [ Prelude.Just ("WorkerId" Data..= workerId),
+            Prelude.Just ("Reason" Data..= reason)
           ]
       )
 
-instance Core.ToPath CreateWorkerBlock where
+instance Data.ToPath CreateWorkerBlock where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateWorkerBlock where
+instance Data.ToQuery CreateWorkerBlock where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateWorkerBlockResponse' smart constructor.

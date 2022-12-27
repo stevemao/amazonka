@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaPackageVOD.Types.DashEncryption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaPackageVOD.Types.DashEncryption where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaPackageVOD.Types.SpekeKeyProvider
 import qualified Amazonka.Prelude as Prelude
 
@@ -55,13 +56,13 @@ newDashEncryption pSpekeKeyProvider_ =
 dashEncryption_spekeKeyProvider :: Lens.Lens' DashEncryption SpekeKeyProvider
 dashEncryption_spekeKeyProvider = Lens.lens (\DashEncryption' {spekeKeyProvider} -> spekeKeyProvider) (\s@DashEncryption' {} a -> s {spekeKeyProvider = a} :: DashEncryption)
 
-instance Core.FromJSON DashEncryption where
+instance Data.FromJSON DashEncryption where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DashEncryption"
       ( \x ->
           DashEncryption'
-            Prelude.<$> (x Core..: "spekeKeyProvider")
+            Prelude.<$> (x Data..: "spekeKeyProvider")
       )
 
 instance Prelude.Hashable DashEncryption where
@@ -72,11 +73,11 @@ instance Prelude.NFData DashEncryption where
   rnf DashEncryption' {..} =
     Prelude.rnf spekeKeyProvider
 
-instance Core.ToJSON DashEncryption where
+instance Data.ToJSON DashEncryption where
   toJSON DashEncryption' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("spekeKeyProvider" Core..= spekeKeyProvider)
+              ("spekeKeyProvider" Data..= spekeKeyProvider)
           ]
       )

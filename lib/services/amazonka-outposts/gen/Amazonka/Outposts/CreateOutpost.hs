@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Outposts.CreateOutpost
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,16 +22,17 @@
 --
 -- Creates an Outpost.
 --
--- You can specify @AvailabilityZone@ or @AvailabilityZoneId@.
+-- You can specify either an Availability one or an AZ ID.
 module Amazonka.Outposts.CreateOutpost
   ( -- * Creating a Request
     CreateOutpost (..),
     newCreateOutpost,
 
     -- * Request Lenses
-    createOutpost_availabilityZoneId,
     createOutpost_availabilityZone,
+    createOutpost_availabilityZoneId,
     createOutpost_description,
+    createOutpost_supportedHardwareType,
     createOutpost_tags,
     createOutpost_name,
     createOutpost_siteId,
@@ -47,7 +48,8 @@ module Amazonka.Outposts.CreateOutpost
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Outposts.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -55,12 +57,15 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateOutpost' smart constructor.
 data CreateOutpost = CreateOutpost'
-  { availabilityZoneId :: Prelude.Maybe Prelude.Text,
-    availabilityZone :: Prelude.Maybe Prelude.Text,
+  { availabilityZone :: Prelude.Maybe Prelude.Text,
+    availabilityZoneId :: Prelude.Maybe Prelude.Text,
     description :: Prelude.Maybe Prelude.Text,
+    -- | The type of hardware for this Outpost.
+    supportedHardwareType :: Prelude.Maybe SupportedHardwareType,
     -- | The tags to apply to the Outpost.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     name :: Prelude.Text,
+    -- | The ID or the Amazon Resource Name (ARN) of the site.
     siteId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -73,17 +78,19 @@ data CreateOutpost = CreateOutpost'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'availabilityZoneId', 'createOutpost_availabilityZoneId' - Undocumented member.
---
 -- 'availabilityZone', 'createOutpost_availabilityZone' - Undocumented member.
 --
+-- 'availabilityZoneId', 'createOutpost_availabilityZoneId' - Undocumented member.
+--
 -- 'description', 'createOutpost_description' - Undocumented member.
+--
+-- 'supportedHardwareType', 'createOutpost_supportedHardwareType' - The type of hardware for this Outpost.
 --
 -- 'tags', 'createOutpost_tags' - The tags to apply to the Outpost.
 --
 -- 'name', 'createOutpost_name' - Undocumented member.
 --
--- 'siteId', 'createOutpost_siteId' - Undocumented member.
+-- 'siteId', 'createOutpost_siteId' - The ID or the Amazon Resource Name (ARN) of the site.
 newCreateOutpost ::
   -- | 'name'
   Prelude.Text ->
@@ -92,26 +99,30 @@ newCreateOutpost ::
   CreateOutpost
 newCreateOutpost pName_ pSiteId_ =
   CreateOutpost'
-    { availabilityZoneId =
-        Prelude.Nothing,
-      availabilityZone = Prelude.Nothing,
+    { availabilityZone = Prelude.Nothing,
+      availabilityZoneId = Prelude.Nothing,
       description = Prelude.Nothing,
+      supportedHardwareType = Prelude.Nothing,
       tags = Prelude.Nothing,
       name = pName_,
       siteId = pSiteId_
     }
 
 -- | Undocumented member.
-createOutpost_availabilityZoneId :: Lens.Lens' CreateOutpost (Prelude.Maybe Prelude.Text)
-createOutpost_availabilityZoneId = Lens.lens (\CreateOutpost' {availabilityZoneId} -> availabilityZoneId) (\s@CreateOutpost' {} a -> s {availabilityZoneId = a} :: CreateOutpost)
-
--- | Undocumented member.
 createOutpost_availabilityZone :: Lens.Lens' CreateOutpost (Prelude.Maybe Prelude.Text)
 createOutpost_availabilityZone = Lens.lens (\CreateOutpost' {availabilityZone} -> availabilityZone) (\s@CreateOutpost' {} a -> s {availabilityZone = a} :: CreateOutpost)
 
 -- | Undocumented member.
+createOutpost_availabilityZoneId :: Lens.Lens' CreateOutpost (Prelude.Maybe Prelude.Text)
+createOutpost_availabilityZoneId = Lens.lens (\CreateOutpost' {availabilityZoneId} -> availabilityZoneId) (\s@CreateOutpost' {} a -> s {availabilityZoneId = a} :: CreateOutpost)
+
+-- | Undocumented member.
 createOutpost_description :: Lens.Lens' CreateOutpost (Prelude.Maybe Prelude.Text)
 createOutpost_description = Lens.lens (\CreateOutpost' {description} -> description) (\s@CreateOutpost' {} a -> s {description = a} :: CreateOutpost)
+
+-- | The type of hardware for this Outpost.
+createOutpost_supportedHardwareType :: Lens.Lens' CreateOutpost (Prelude.Maybe SupportedHardwareType)
+createOutpost_supportedHardwareType = Lens.lens (\CreateOutpost' {supportedHardwareType} -> supportedHardwareType) (\s@CreateOutpost' {} a -> s {supportedHardwareType = a} :: CreateOutpost)
 
 -- | The tags to apply to the Outpost.
 createOutpost_tags :: Lens.Lens' CreateOutpost (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -121,7 +132,7 @@ createOutpost_tags = Lens.lens (\CreateOutpost' {tags} -> tags) (\s@CreateOutpos
 createOutpost_name :: Lens.Lens' CreateOutpost Prelude.Text
 createOutpost_name = Lens.lens (\CreateOutpost' {name} -> name) (\s@CreateOutpost' {} a -> s {name = a} :: CreateOutpost)
 
--- | Undocumented member.
+-- | The ID or the Amazon Resource Name (ARN) of the site.
 createOutpost_siteId :: Lens.Lens' CreateOutpost Prelude.Text
 createOutpost_siteId = Lens.lens (\CreateOutpost' {siteId} -> siteId) (\s@CreateOutpost' {} a -> s {siteId = a} :: CreateOutpost)
 
@@ -129,63 +140,68 @@ instance Core.AWSRequest CreateOutpost where
   type
     AWSResponse CreateOutpost =
       CreateOutpostResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateOutpostResponse'
-            Prelude.<$> (x Core..?> "Outpost")
+            Prelude.<$> (x Data..?> "Outpost")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateOutpost where
   hashWithSalt _salt CreateOutpost' {..} =
-    _salt `Prelude.hashWithSalt` availabilityZoneId
-      `Prelude.hashWithSalt` availabilityZone
+    _salt `Prelude.hashWithSalt` availabilityZone
+      `Prelude.hashWithSalt` availabilityZoneId
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` supportedHardwareType
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` siteId
 
 instance Prelude.NFData CreateOutpost where
   rnf CreateOutpost' {..} =
-    Prelude.rnf availabilityZoneId
-      `Prelude.seq` Prelude.rnf availabilityZone
+    Prelude.rnf availabilityZone
+      `Prelude.seq` Prelude.rnf availabilityZoneId
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf supportedHardwareType
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf siteId
 
-instance Core.ToHeaders CreateOutpost where
+instance Data.ToHeaders CreateOutpost where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateOutpost where
+instance Data.ToJSON CreateOutpost where
   toJSON CreateOutpost' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AvailabilityZoneId" Core..=)
-              Prelude.<$> availabilityZoneId,
-            ("AvailabilityZone" Core..=)
+          [ ("AvailabilityZone" Data..=)
               Prelude.<$> availabilityZone,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("SiteId" Core..= siteId)
+            ("AvailabilityZoneId" Data..=)
+              Prelude.<$> availabilityZoneId,
+            ("Description" Data..=) Prelude.<$> description,
+            ("SupportedHardwareType" Data..=)
+              Prelude.<$> supportedHardwareType,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("SiteId" Data..= siteId)
           ]
       )
 
-instance Core.ToPath CreateOutpost where
+instance Data.ToPath CreateOutpost where
   toPath = Prelude.const "/outposts"
 
-instance Core.ToQuery CreateOutpost where
+instance Data.ToQuery CreateOutpost where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateOutpostResponse' smart constructor.

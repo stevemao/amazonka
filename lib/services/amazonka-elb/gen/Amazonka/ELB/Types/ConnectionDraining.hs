@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ELB.Types.ConnectionDraining
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ELB.Types.ConnectionDraining where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELB.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the @ConnectionDraining@ attribute.
@@ -67,11 +68,11 @@ connectionDraining_timeout = Lens.lens (\ConnectionDraining' {timeout} -> timeou
 connectionDraining_enabled :: Lens.Lens' ConnectionDraining Prelude.Bool
 connectionDraining_enabled = Lens.lens (\ConnectionDraining' {enabled} -> enabled) (\s@ConnectionDraining' {} a -> s {enabled = a} :: ConnectionDraining)
 
-instance Core.FromXML ConnectionDraining where
+instance Data.FromXML ConnectionDraining where
   parseXML x =
     ConnectionDraining'
-      Prelude.<$> (x Core..@? "Timeout")
-      Prelude.<*> (x Core..@ "Enabled")
+      Prelude.<$> (x Data..@? "Timeout")
+      Prelude.<*> (x Data..@ "Enabled")
 
 instance Prelude.Hashable ConnectionDraining where
   hashWithSalt _salt ConnectionDraining' {..} =
@@ -83,9 +84,9 @@ instance Prelude.NFData ConnectionDraining where
     Prelude.rnf timeout
       `Prelude.seq` Prelude.rnf enabled
 
-instance Core.ToQuery ConnectionDraining where
+instance Data.ToQuery ConnectionDraining where
   toQuery ConnectionDraining' {..} =
     Prelude.mconcat
-      [ "Timeout" Core.=: timeout,
-        "Enabled" Core.=: enabled
+      [ "Timeout" Data.=: timeout,
+        "Enabled" Data.=: enabled
       ]

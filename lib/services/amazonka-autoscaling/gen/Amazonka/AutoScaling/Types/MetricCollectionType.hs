@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.Types.MetricCollectionType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AutoScaling.Types.MetricCollectionType where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a metric.
@@ -170,10 +171,10 @@ newMetricCollectionType =
 metricCollectionType_metric :: Lens.Lens' MetricCollectionType (Prelude.Maybe Prelude.Text)
 metricCollectionType_metric = Lens.lens (\MetricCollectionType' {metric} -> metric) (\s@MetricCollectionType' {} a -> s {metric = a} :: MetricCollectionType)
 
-instance Core.FromXML MetricCollectionType where
+instance Data.FromXML MetricCollectionType where
   parseXML x =
     MetricCollectionType'
-      Prelude.<$> (x Core..@? "Metric")
+      Prelude.<$> (x Data..@? "Metric")
 
 instance Prelude.Hashable MetricCollectionType where
   hashWithSalt _salt MetricCollectionType' {..} =

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.Types.UsageAccountResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.GuardDuty.Types.UsageAccountResult where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types.Total
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information on the total of usage based on account IDs.
@@ -62,14 +63,14 @@ usageAccountResult_accountId = Lens.lens (\UsageAccountResult' {accountId} -> ac
 usageAccountResult_total :: Lens.Lens' UsageAccountResult (Prelude.Maybe Total)
 usageAccountResult_total = Lens.lens (\UsageAccountResult' {total} -> total) (\s@UsageAccountResult' {} a -> s {total = a} :: UsageAccountResult)
 
-instance Core.FromJSON UsageAccountResult where
+instance Data.FromJSON UsageAccountResult where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UsageAccountResult"
       ( \x ->
           UsageAccountResult'
-            Prelude.<$> (x Core..:? "accountId")
-            Prelude.<*> (x Core..:? "total")
+            Prelude.<$> (x Data..:? "accountId")
+            Prelude.<*> (x Data..:? "total")
       )
 
 instance Prelude.Hashable UsageAccountResult where

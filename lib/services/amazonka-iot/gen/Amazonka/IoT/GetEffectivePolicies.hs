@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.GetEffectivePolicies
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,8 @@ module Amazonka.IoT.GetEffectivePolicies
     newGetEffectivePolicies,
 
     -- * Request Lenses
-    getEffectivePolicies_principal,
     getEffectivePolicies_cognitoIdentityPoolId,
+    getEffectivePolicies_principal,
     getEffectivePolicies_thingName,
 
     -- * Destructuring the Response
@@ -48,21 +48,22 @@ module Amazonka.IoT.GetEffectivePolicies
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetEffectivePolicies' smart constructor.
 data GetEffectivePolicies = GetEffectivePolicies'
-  { -- | The principal. Valid principals are CertificateArn
+  { -- | The Cognito identity pool ID.
+    cognitoIdentityPoolId :: Prelude.Maybe Prelude.Text,
+    -- | The principal. Valid principals are CertificateArn
     -- (arn:aws:iot:/region/:/accountId/:cert\//certificateId/), thingGroupArn
     -- (arn:aws:iot:/region/:/accountId/:thinggroup\//groupName/) and CognitoId
     -- (/region/:/id/).
     principal :: Prelude.Maybe Prelude.Text,
-    -- | The Cognito identity pool ID.
-    cognitoIdentityPoolId :: Prelude.Maybe Prelude.Text,
     -- | The thing name.
     thingName :: Prelude.Maybe Prelude.Text
   }
@@ -76,22 +77,27 @@ data GetEffectivePolicies = GetEffectivePolicies'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'cognitoIdentityPoolId', 'getEffectivePolicies_cognitoIdentityPoolId' - The Cognito identity pool ID.
+--
 -- 'principal', 'getEffectivePolicies_principal' - The principal. Valid principals are CertificateArn
 -- (arn:aws:iot:/region/:/accountId/:cert\//certificateId/), thingGroupArn
 -- (arn:aws:iot:/region/:/accountId/:thinggroup\//groupName/) and CognitoId
 -- (/region/:/id/).
---
--- 'cognitoIdentityPoolId', 'getEffectivePolicies_cognitoIdentityPoolId' - The Cognito identity pool ID.
 --
 -- 'thingName', 'getEffectivePolicies_thingName' - The thing name.
 newGetEffectivePolicies ::
   GetEffectivePolicies
 newGetEffectivePolicies =
   GetEffectivePolicies'
-    { principal = Prelude.Nothing,
-      cognitoIdentityPoolId = Prelude.Nothing,
+    { cognitoIdentityPoolId =
+        Prelude.Nothing,
+      principal = Prelude.Nothing,
       thingName = Prelude.Nothing
     }
+
+-- | The Cognito identity pool ID.
+getEffectivePolicies_cognitoIdentityPoolId :: Lens.Lens' GetEffectivePolicies (Prelude.Maybe Prelude.Text)
+getEffectivePolicies_cognitoIdentityPoolId = Lens.lens (\GetEffectivePolicies' {cognitoIdentityPoolId} -> cognitoIdentityPoolId) (\s@GetEffectivePolicies' {} a -> s {cognitoIdentityPoolId = a} :: GetEffectivePolicies)
 
 -- | The principal. Valid principals are CertificateArn
 -- (arn:aws:iot:/region/:/accountId/:cert\//certificateId/), thingGroupArn
@@ -99,10 +105,6 @@ newGetEffectivePolicies =
 -- (/region/:/id/).
 getEffectivePolicies_principal :: Lens.Lens' GetEffectivePolicies (Prelude.Maybe Prelude.Text)
 getEffectivePolicies_principal = Lens.lens (\GetEffectivePolicies' {principal} -> principal) (\s@GetEffectivePolicies' {} a -> s {principal = a} :: GetEffectivePolicies)
-
--- | The Cognito identity pool ID.
-getEffectivePolicies_cognitoIdentityPoolId :: Lens.Lens' GetEffectivePolicies (Prelude.Maybe Prelude.Text)
-getEffectivePolicies_cognitoIdentityPoolId = Lens.lens (\GetEffectivePolicies' {cognitoIdentityPoolId} -> cognitoIdentityPoolId) (\s@GetEffectivePolicies' {} a -> s {cognitoIdentityPoolId = a} :: GetEffectivePolicies)
 
 -- | The thing name.
 getEffectivePolicies_thingName :: Lens.Lens' GetEffectivePolicies (Prelude.Maybe Prelude.Text)
@@ -112,12 +114,13 @@ instance Core.AWSRequest GetEffectivePolicies where
   type
     AWSResponse GetEffectivePolicies =
       GetEffectivePoliciesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetEffectivePoliciesResponse'
-            Prelude.<$> ( x Core..?> "effectivePolicies"
+            Prelude.<$> ( x Data..?> "effectivePolicies"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -125,35 +128,35 @@ instance Core.AWSRequest GetEffectivePolicies where
 
 instance Prelude.Hashable GetEffectivePolicies where
   hashWithSalt _salt GetEffectivePolicies' {..} =
-    _salt `Prelude.hashWithSalt` principal
-      `Prelude.hashWithSalt` cognitoIdentityPoolId
+    _salt `Prelude.hashWithSalt` cognitoIdentityPoolId
+      `Prelude.hashWithSalt` principal
       `Prelude.hashWithSalt` thingName
 
 instance Prelude.NFData GetEffectivePolicies where
   rnf GetEffectivePolicies' {..} =
-    Prelude.rnf principal
-      `Prelude.seq` Prelude.rnf cognitoIdentityPoolId
+    Prelude.rnf cognitoIdentityPoolId
+      `Prelude.seq` Prelude.rnf principal
       `Prelude.seq` Prelude.rnf thingName
 
-instance Core.ToHeaders GetEffectivePolicies where
+instance Data.ToHeaders GetEffectivePolicies where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON GetEffectivePolicies where
+instance Data.ToJSON GetEffectivePolicies where
   toJSON GetEffectivePolicies' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("principal" Core..=) Prelude.<$> principal,
-            ("cognitoIdentityPoolId" Core..=)
-              Prelude.<$> cognitoIdentityPoolId
+          [ ("cognitoIdentityPoolId" Data..=)
+              Prelude.<$> cognitoIdentityPoolId,
+            ("principal" Data..=) Prelude.<$> principal
           ]
       )
 
-instance Core.ToPath GetEffectivePolicies where
+instance Data.ToPath GetEffectivePolicies where
   toPath = Prelude.const "/effective-policies"
 
-instance Core.ToQuery GetEffectivePolicies where
+instance Data.ToQuery GetEffectivePolicies where
   toQuery GetEffectivePolicies' {..} =
-    Prelude.mconcat ["thingName" Core.=: thingName]
+    Prelude.mconcat ["thingName" Data.=: thingName]
 
 -- | /See:/ 'newGetEffectivePoliciesResponse' smart constructor.
 data GetEffectivePoliciesResponse = GetEffectivePoliciesResponse'

@@ -14,13 +14,23 @@
 
 -- |
 -- Module      : Amazonka.Braket.GetDevice
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Retrieves the devices available in Amazon Braket.
+--
+-- For backwards compatibility with older versions of BraketSchemas,
+-- OpenQASM information is omitted from GetDevice API calls. To get this
+-- information the user-agent needs to present a recent version of the
+-- BraketSchemas (1.8.0 or later). The Braket SDK automatically reports
+-- this for you. If you do not see OpenQASM results in the GetDevice
+-- response when using a Braket SDK, you may need to set AWS_EXECUTION_ENV
+-- environment variable to configure user-agent. See the code examples
+-- provided below for how to do this for the AWS CLI, Boto3, and the Go,
+-- Java, and JavaScript\/TypeScript SDKs.
 module Amazonka.Braket.GetDevice
   ( -- * Creating a Request
     GetDevice (..),
@@ -46,7 +56,8 @@ where
 
 import Amazonka.Braket.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,18 +91,19 @@ getDevice_deviceArn = Lens.lens (\GetDevice' {deviceArn} -> deviceArn) (\s@GetDe
 
 instance Core.AWSRequest GetDevice where
   type AWSResponse GetDevice = GetDeviceResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDeviceResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "deviceArn")
-            Prelude.<*> (x Core..:> "deviceCapabilities")
-            Prelude.<*> (x Core..:> "deviceName")
-            Prelude.<*> (x Core..:> "deviceStatus")
-            Prelude.<*> (x Core..:> "deviceType")
-            Prelude.<*> (x Core..:> "providerName")
+            Prelude.<*> (x Data..:> "deviceArn")
+            Prelude.<*> (x Data..:> "deviceCapabilities")
+            Prelude.<*> (x Data..:> "deviceName")
+            Prelude.<*> (x Data..:> "deviceStatus")
+            Prelude.<*> (x Data..:> "deviceType")
+            Prelude.<*> (x Data..:> "providerName")
       )
 
 instance Prelude.Hashable GetDevice where
@@ -101,22 +113,22 @@ instance Prelude.Hashable GetDevice where
 instance Prelude.NFData GetDevice where
   rnf GetDevice' {..} = Prelude.rnf deviceArn
 
-instance Core.ToHeaders GetDevice where
+instance Data.ToHeaders GetDevice where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetDevice where
+instance Data.ToPath GetDevice where
   toPath GetDevice' {..} =
-    Prelude.mconcat ["/device/", Core.toBS deviceArn]
+    Prelude.mconcat ["/device/", Data.toBS deviceArn]
 
-instance Core.ToQuery GetDevice where
+instance Data.ToQuery GetDevice where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetDeviceResponse' smart constructor.

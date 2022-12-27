@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,280 +14,30 @@
 module Amazonka.Greengrass.Lens
   ( -- * Operations
 
-    -- ** GetGroupCertificateConfiguration
-    getGroupCertificateConfiguration_groupId,
-    getGroupCertificateConfigurationResponse_certificateAuthorityExpiryInMilliseconds,
-    getGroupCertificateConfigurationResponse_groupId,
-    getGroupCertificateConfigurationResponse_certificateExpiryInMilliseconds,
-    getGroupCertificateConfigurationResponse_httpStatus,
-
-    -- ** ListGroupVersions
-    listGroupVersions_nextToken,
-    listGroupVersions_maxResults,
-    listGroupVersions_groupId,
-    listGroupVersionsResponse_versions,
-    listGroupVersionsResponse_nextToken,
-    listGroupVersionsResponse_httpStatus,
-
-    -- ** ListFunctionDefinitionVersions
-    listFunctionDefinitionVersions_nextToken,
-    listFunctionDefinitionVersions_maxResults,
-    listFunctionDefinitionVersions_functionDefinitionId,
-    listFunctionDefinitionVersionsResponse_versions,
-    listFunctionDefinitionVersionsResponse_nextToken,
-    listFunctionDefinitionVersionsResponse_httpStatus,
-
-    -- ** ListDeviceDefinitions
-    listDeviceDefinitions_nextToken,
-    listDeviceDefinitions_maxResults,
-    listDeviceDefinitionsResponse_nextToken,
-    listDeviceDefinitionsResponse_definitions,
-    listDeviceDefinitionsResponse_httpStatus,
-
     -- ** AssociateRoleToGroup
     associateRoleToGroup_groupId,
     associateRoleToGroup_roleArn,
     associateRoleToGroupResponse_associatedAt,
     associateRoleToGroupResponse_httpStatus,
 
-    -- ** UpdateCoreDefinition
-    updateCoreDefinition_name,
-    updateCoreDefinition_coreDefinitionId,
-    updateCoreDefinitionResponse_httpStatus,
+    -- ** AssociateServiceRoleToAccount
+    associateServiceRoleToAccount_roleArn,
+    associateServiceRoleToAccountResponse_associatedAt,
+    associateServiceRoleToAccountResponse_httpStatus,
 
-    -- ** DeleteCoreDefinition
-    deleteCoreDefinition_coreDefinitionId,
-    deleteCoreDefinitionResponse_httpStatus,
-
-    -- ** GetLoggerDefinition
-    getLoggerDefinition_loggerDefinitionId,
-    getLoggerDefinitionResponse_latestVersionArn,
-    getLoggerDefinitionResponse_arn,
-    getLoggerDefinitionResponse_name,
-    getLoggerDefinitionResponse_creationTimestamp,
-    getLoggerDefinitionResponse_id,
-    getLoggerDefinitionResponse_latestVersion,
-    getLoggerDefinitionResponse_lastUpdatedTimestamp,
-    getLoggerDefinitionResponse_tags,
-    getLoggerDefinitionResponse_httpStatus,
-
-    -- ** ListGroupCertificateAuthorities
-    listGroupCertificateAuthorities_groupId,
-    listGroupCertificateAuthoritiesResponse_groupCertificateAuthorities,
-    listGroupCertificateAuthoritiesResponse_httpStatus,
-
-    -- ** DisassociateRoleFromGroup
-    disassociateRoleFromGroup_groupId,
-    disassociateRoleFromGroupResponse_disassociatedAt,
-    disassociateRoleFromGroupResponse_httpStatus,
-
-    -- ** UpdateSubscriptionDefinition
-    updateSubscriptionDefinition_name,
-    updateSubscriptionDefinition_subscriptionDefinitionId,
-    updateSubscriptionDefinitionResponse_httpStatus,
-
-    -- ** DeleteSubscriptionDefinition
-    deleteSubscriptionDefinition_subscriptionDefinitionId,
-    deleteSubscriptionDefinitionResponse_httpStatus,
-
-    -- ** ListCoreDefinitions
-    listCoreDefinitions_nextToken,
-    listCoreDefinitions_maxResults,
-    listCoreDefinitionsResponse_nextToken,
-    listCoreDefinitionsResponse_definitions,
-    listCoreDefinitionsResponse_httpStatus,
-
-    -- ** ListSubscriptionDefinitions
-    listSubscriptionDefinitions_nextToken,
-    listSubscriptionDefinitions_maxResults,
-    listSubscriptionDefinitionsResponse_nextToken,
-    listSubscriptionDefinitionsResponse_definitions,
-    listSubscriptionDefinitionsResponse_httpStatus,
-
-    -- ** CreateGroupCertificateAuthority
-    createGroupCertificateAuthority_amznClientToken,
-    createGroupCertificateAuthority_groupId,
-    createGroupCertificateAuthorityResponse_groupCertificateAuthorityArn,
-    createGroupCertificateAuthorityResponse_httpStatus,
-
-    -- ** DeleteConnectorDefinition
-    deleteConnectorDefinition_connectorDefinitionId,
-    deleteConnectorDefinitionResponse_httpStatus,
-
-    -- ** UpdateConnectorDefinition
-    updateConnectorDefinition_name,
-    updateConnectorDefinition_connectorDefinitionId,
-    updateConnectorDefinitionResponse_httpStatus,
-
-    -- ** CreateLoggerDefinitionVersion
-    createLoggerDefinitionVersion_loggers,
-    createLoggerDefinitionVersion_amznClientToken,
-    createLoggerDefinitionVersion_loggerDefinitionId,
-    createLoggerDefinitionVersionResponse_arn,
-    createLoggerDefinitionVersionResponse_creationTimestamp,
-    createLoggerDefinitionVersionResponse_version,
-    createLoggerDefinitionVersionResponse_id,
-    createLoggerDefinitionVersionResponse_httpStatus,
-
-    -- ** CreateCoreDefinition
-    createCoreDefinition_amznClientToken,
-    createCoreDefinition_initialVersion,
-    createCoreDefinition_name,
-    createCoreDefinition_tags,
-    createCoreDefinitionResponse_latestVersionArn,
-    createCoreDefinitionResponse_arn,
-    createCoreDefinitionResponse_name,
-    createCoreDefinitionResponse_creationTimestamp,
-    createCoreDefinitionResponse_id,
-    createCoreDefinitionResponse_latestVersion,
-    createCoreDefinitionResponse_lastUpdatedTimestamp,
-    createCoreDefinitionResponse_httpStatus,
-
-    -- ** GetConnectorDefinitionVersion
-    getConnectorDefinitionVersion_nextToken,
-    getConnectorDefinitionVersion_connectorDefinitionId,
-    getConnectorDefinitionVersion_connectorDefinitionVersionId,
-    getConnectorDefinitionVersionResponse_definition,
-    getConnectorDefinitionVersionResponse_arn,
-    getConnectorDefinitionVersionResponse_nextToken,
-    getConnectorDefinitionVersionResponse_creationTimestamp,
-    getConnectorDefinitionVersionResponse_version,
-    getConnectorDefinitionVersionResponse_id,
-    getConnectorDefinitionVersionResponse_httpStatus,
-
-    -- ** UpdateConnectivityInfo
-    updateConnectivityInfo_connectivityInfo,
-    updateConnectivityInfo_thingName,
-    updateConnectivityInfoResponse_version,
-    updateConnectivityInfoResponse_message,
-    updateConnectivityInfoResponse_httpStatus,
-
-    -- ** CreateSubscriptionDefinition
-    createSubscriptionDefinition_amznClientToken,
-    createSubscriptionDefinition_initialVersion,
-    createSubscriptionDefinition_name,
-    createSubscriptionDefinition_tags,
-    createSubscriptionDefinitionResponse_latestVersionArn,
-    createSubscriptionDefinitionResponse_arn,
-    createSubscriptionDefinitionResponse_name,
-    createSubscriptionDefinitionResponse_creationTimestamp,
-    createSubscriptionDefinitionResponse_id,
-    createSubscriptionDefinitionResponse_latestVersion,
-    createSubscriptionDefinitionResponse_lastUpdatedTimestamp,
-    createSubscriptionDefinitionResponse_httpStatus,
-
-    -- ** ListTagsForResource
-    listTagsForResource_resourceArn,
-    listTagsForResourceResponse_tags,
-    listTagsForResourceResponse_httpStatus,
-
-    -- ** GetGroupCertificateAuthority
-    getGroupCertificateAuthority_certificateAuthorityId,
-    getGroupCertificateAuthority_groupId,
-    getGroupCertificateAuthorityResponse_pemEncodedCertificate,
-    getGroupCertificateAuthorityResponse_groupCertificateAuthorityArn,
-    getGroupCertificateAuthorityResponse_groupCertificateAuthorityId,
-    getGroupCertificateAuthorityResponse_httpStatus,
-
-    -- ** GetLoggerDefinitionVersion
-    getLoggerDefinitionVersion_nextToken,
-    getLoggerDefinitionVersion_loggerDefinitionVersionId,
-    getLoggerDefinitionVersion_loggerDefinitionId,
-    getLoggerDefinitionVersionResponse_definition,
-    getLoggerDefinitionVersionResponse_arn,
-    getLoggerDefinitionVersionResponse_creationTimestamp,
-    getLoggerDefinitionVersionResponse_version,
-    getLoggerDefinitionVersionResponse_id,
-    getLoggerDefinitionVersionResponse_httpStatus,
-
-    -- ** GetServiceRoleForAccount
-    getServiceRoleForAccountResponse_associatedAt,
-    getServiceRoleForAccountResponse_roleArn,
-    getServiceRoleForAccountResponse_httpStatus,
-
-    -- ** ListConnectorDefinitionVersions
-    listConnectorDefinitionVersions_nextToken,
-    listConnectorDefinitionVersions_maxResults,
-    listConnectorDefinitionVersions_connectorDefinitionId,
-    listConnectorDefinitionVersionsResponse_versions,
-    listConnectorDefinitionVersionsResponse_nextToken,
-    listConnectorDefinitionVersionsResponse_httpStatus,
-
-    -- ** CreateSoftwareUpdateJob
-    createSoftwareUpdateJob_updateAgentLogLevel,
-    createSoftwareUpdateJob_amznClientToken,
-    createSoftwareUpdateJob_s3UrlSignerRole,
-    createSoftwareUpdateJob_updateTargetsArchitecture,
-    createSoftwareUpdateJob_softwareToUpdate,
-    createSoftwareUpdateJob_updateTargets,
-    createSoftwareUpdateJob_updateTargetsOperatingSystem,
-    createSoftwareUpdateJobResponse_platformSoftwareVersion,
-    createSoftwareUpdateJobResponse_iotJobArn,
-    createSoftwareUpdateJobResponse_iotJobId,
-    createSoftwareUpdateJobResponse_httpStatus,
-
-    -- ** CreateLoggerDefinition
-    createLoggerDefinition_amznClientToken,
-    createLoggerDefinition_initialVersion,
-    createLoggerDefinition_name,
-    createLoggerDefinition_tags,
-    createLoggerDefinitionResponse_latestVersionArn,
-    createLoggerDefinitionResponse_arn,
-    createLoggerDefinitionResponse_name,
-    createLoggerDefinitionResponse_creationTimestamp,
-    createLoggerDefinitionResponse_id,
-    createLoggerDefinitionResponse_latestVersion,
-    createLoggerDefinitionResponse_lastUpdatedTimestamp,
-    createLoggerDefinitionResponse_httpStatus,
-
-    -- ** GetConnectivityInfo
-    getConnectivityInfo_thingName,
-    getConnectivityInfoResponse_message,
-    getConnectivityInfoResponse_connectivityInfo,
-    getConnectivityInfoResponse_httpStatus,
-
-    -- ** CreateDeployment
-    createDeployment_deploymentId,
-    createDeployment_amznClientToken,
-    createDeployment_groupVersionId,
-    createDeployment_groupId,
-    createDeployment_deploymentType,
-    createDeploymentResponse_deploymentId,
-    createDeploymentResponse_deploymentArn,
-    createDeploymentResponse_httpStatus,
-
-    -- ** DeleteLoggerDefinition
-    deleteLoggerDefinition_loggerDefinitionId,
-    deleteLoggerDefinitionResponse_httpStatus,
-
-    -- ** UpdateLoggerDefinition
-    updateLoggerDefinition_name,
-    updateLoggerDefinition_loggerDefinitionId,
-    updateLoggerDefinitionResponse_httpStatus,
-
-    -- ** GetSubscriptionDefinition
-    getSubscriptionDefinition_subscriptionDefinitionId,
-    getSubscriptionDefinitionResponse_latestVersionArn,
-    getSubscriptionDefinitionResponse_arn,
-    getSubscriptionDefinitionResponse_name,
-    getSubscriptionDefinitionResponse_creationTimestamp,
-    getSubscriptionDefinitionResponse_id,
-    getSubscriptionDefinitionResponse_latestVersion,
-    getSubscriptionDefinitionResponse_lastUpdatedTimestamp,
-    getSubscriptionDefinitionResponse_tags,
-    getSubscriptionDefinitionResponse_httpStatus,
-
-    -- ** GetCoreDefinition
-    getCoreDefinition_coreDefinitionId,
-    getCoreDefinitionResponse_latestVersionArn,
-    getCoreDefinitionResponse_arn,
-    getCoreDefinitionResponse_name,
-    getCoreDefinitionResponse_creationTimestamp,
-    getCoreDefinitionResponse_id,
-    getCoreDefinitionResponse_latestVersion,
-    getCoreDefinitionResponse_lastUpdatedTimestamp,
-    getCoreDefinitionResponse_tags,
-    getCoreDefinitionResponse_httpStatus,
+    -- ** CreateConnectorDefinition
+    createConnectorDefinition_amznClientToken,
+    createConnectorDefinition_initialVersion,
+    createConnectorDefinition_name,
+    createConnectorDefinition_tags,
+    createConnectorDefinitionResponse_arn,
+    createConnectorDefinitionResponse_creationTimestamp,
+    createConnectorDefinitionResponse_id,
+    createConnectorDefinitionResponse_lastUpdatedTimestamp,
+    createConnectorDefinitionResponse_latestVersion,
+    createConnectorDefinitionResponse_latestVersionArn,
+    createConnectorDefinitionResponse_name,
+    createConnectorDefinitionResponse_httpStatus,
 
     -- ** CreateConnectorDefinitionVersion
     createConnectorDefinitionVersion_amznClientToken,
@@ -295,203 +45,23 @@ module Amazonka.Greengrass.Lens
     createConnectorDefinitionVersion_connectorDefinitionId,
     createConnectorDefinitionVersionResponse_arn,
     createConnectorDefinitionVersionResponse_creationTimestamp,
-    createConnectorDefinitionVersionResponse_version,
     createConnectorDefinitionVersionResponse_id,
+    createConnectorDefinitionVersionResponse_version,
     createConnectorDefinitionVersionResponse_httpStatus,
 
-    -- ** GetDeploymentStatus
-    getDeploymentStatus_groupId,
-    getDeploymentStatus_deploymentId,
-    getDeploymentStatusResponse_deploymentType,
-    getDeploymentStatusResponse_errorDetails,
-    getDeploymentStatusResponse_deploymentStatus,
-    getDeploymentStatusResponse_updatedAt,
-    getDeploymentStatusResponse_errorMessage,
-    getDeploymentStatusResponse_httpStatus,
-
-    -- ** GetBulkDeploymentStatus
-    getBulkDeploymentStatus_bulkDeploymentId,
-    getBulkDeploymentStatusResponse_createdAt,
-    getBulkDeploymentStatusResponse_errorDetails,
-    getBulkDeploymentStatusResponse_bulkDeploymentStatus,
-    getBulkDeploymentStatusResponse_errorMessage,
-    getBulkDeploymentStatusResponse_bulkDeploymentMetrics,
-    getBulkDeploymentStatusResponse_tags,
-    getBulkDeploymentStatusResponse_httpStatus,
-
-    -- ** CreateResourceDefinition
-    createResourceDefinition_amznClientToken,
-    createResourceDefinition_initialVersion,
-    createResourceDefinition_name,
-    createResourceDefinition_tags,
-    createResourceDefinitionResponse_latestVersionArn,
-    createResourceDefinitionResponse_arn,
-    createResourceDefinitionResponse_name,
-    createResourceDefinitionResponse_creationTimestamp,
-    createResourceDefinitionResponse_id,
-    createResourceDefinitionResponse_latestVersion,
-    createResourceDefinitionResponse_lastUpdatedTimestamp,
-    createResourceDefinitionResponse_httpStatus,
-
-    -- ** GetResourceDefinitionVersion
-    getResourceDefinitionVersion_resourceDefinitionVersionId,
-    getResourceDefinitionVersion_resourceDefinitionId,
-    getResourceDefinitionVersionResponse_definition,
-    getResourceDefinitionVersionResponse_arn,
-    getResourceDefinitionVersionResponse_creationTimestamp,
-    getResourceDefinitionVersionResponse_version,
-    getResourceDefinitionVersionResponse_id,
-    getResourceDefinitionVersionResponse_httpStatus,
-
-    -- ** UpdateFunctionDefinition
-    updateFunctionDefinition_name,
-    updateFunctionDefinition_functionDefinitionId,
-    updateFunctionDefinitionResponse_httpStatus,
-
-    -- ** DeleteFunctionDefinition
-    deleteFunctionDefinition_functionDefinitionId,
-    deleteFunctionDefinitionResponse_httpStatus,
-
-    -- ** ListResourceDefinitions
-    listResourceDefinitions_nextToken,
-    listResourceDefinitions_maxResults,
-    listResourceDefinitionsResponse_nextToken,
-    listResourceDefinitionsResponse_definitions,
-    listResourceDefinitionsResponse_httpStatus,
-
-    -- ** StopBulkDeployment
-    stopBulkDeployment_bulkDeploymentId,
-    stopBulkDeploymentResponse_httpStatus,
-
-    -- ** CreateResourceDefinitionVersion
-    createResourceDefinitionVersion_amznClientToken,
-    createResourceDefinitionVersion_resources,
-    createResourceDefinitionVersion_resourceDefinitionId,
-    createResourceDefinitionVersionResponse_arn,
-    createResourceDefinitionVersionResponse_creationTimestamp,
-    createResourceDefinitionVersionResponse_version,
-    createResourceDefinitionVersionResponse_id,
-    createResourceDefinitionVersionResponse_httpStatus,
-
-    -- ** GetResourceDefinition
-    getResourceDefinition_resourceDefinitionId,
-    getResourceDefinitionResponse_latestVersionArn,
-    getResourceDefinitionResponse_arn,
-    getResourceDefinitionResponse_name,
-    getResourceDefinitionResponse_creationTimestamp,
-    getResourceDefinitionResponse_id,
-    getResourceDefinitionResponse_latestVersion,
-    getResourceDefinitionResponse_lastUpdatedTimestamp,
-    getResourceDefinitionResponse_tags,
-    getResourceDefinitionResponse_httpStatus,
-
-    -- ** ListResourceDefinitionVersions
-    listResourceDefinitionVersions_nextToken,
-    listResourceDefinitionVersions_maxResults,
-    listResourceDefinitionVersions_resourceDefinitionId,
-    listResourceDefinitionVersionsResponse_versions,
-    listResourceDefinitionVersionsResponse_nextToken,
-    listResourceDefinitionVersionsResponse_httpStatus,
-
-    -- ** DisassociateServiceRoleFromAccount
-    disassociateServiceRoleFromAccountResponse_disassociatedAt,
-    disassociateServiceRoleFromAccountResponse_httpStatus,
-
-    -- ** DeleteDeviceDefinition
-    deleteDeviceDefinition_deviceDefinitionId,
-    deleteDeviceDefinitionResponse_httpStatus,
-
-    -- ** UpdateDeviceDefinition
-    updateDeviceDefinition_name,
-    updateDeviceDefinition_deviceDefinitionId,
-    updateDeviceDefinitionResponse_httpStatus,
-
-    -- ** AssociateServiceRoleToAccount
-    associateServiceRoleToAccount_roleArn,
-    associateServiceRoleToAccountResponse_associatedAt,
-    associateServiceRoleToAccountResponse_httpStatus,
-
-    -- ** ResetDeployments
-    resetDeployments_amznClientToken,
-    resetDeployments_force,
-    resetDeployments_groupId,
-    resetDeploymentsResponse_deploymentId,
-    resetDeploymentsResponse_deploymentArn,
-    resetDeploymentsResponse_httpStatus,
-
-    -- ** ListConnectorDefinitions
-    listConnectorDefinitions_nextToken,
-    listConnectorDefinitions_maxResults,
-    listConnectorDefinitionsResponse_nextToken,
-    listConnectorDefinitionsResponse_definitions,
-    listConnectorDefinitionsResponse_httpStatus,
-
-    -- ** GetSubscriptionDefinitionVersion
-    getSubscriptionDefinitionVersion_nextToken,
-    getSubscriptionDefinitionVersion_subscriptionDefinitionId,
-    getSubscriptionDefinitionVersion_subscriptionDefinitionVersionId,
-    getSubscriptionDefinitionVersionResponse_definition,
-    getSubscriptionDefinitionVersionResponse_arn,
-    getSubscriptionDefinitionVersionResponse_nextToken,
-    getSubscriptionDefinitionVersionResponse_creationTimestamp,
-    getSubscriptionDefinitionVersionResponse_version,
-    getSubscriptionDefinitionVersionResponse_id,
-    getSubscriptionDefinitionVersionResponse_httpStatus,
-
-    -- ** GetAssociatedRole
-    getAssociatedRole_groupId,
-    getAssociatedRoleResponse_associatedAt,
-    getAssociatedRoleResponse_roleArn,
-    getAssociatedRoleResponse_httpStatus,
-
-    -- ** ListLoggerDefinitionVersions
-    listLoggerDefinitionVersions_nextToken,
-    listLoggerDefinitionVersions_maxResults,
-    listLoggerDefinitionVersions_loggerDefinitionId,
-    listLoggerDefinitionVersionsResponse_versions,
-    listLoggerDefinitionVersionsResponse_nextToken,
-    listLoggerDefinitionVersionsResponse_httpStatus,
-
-    -- ** CreateConnectorDefinition
-    createConnectorDefinition_amznClientToken,
-    createConnectorDefinition_initialVersion,
-    createConnectorDefinition_name,
-    createConnectorDefinition_tags,
-    createConnectorDefinitionResponse_latestVersionArn,
-    createConnectorDefinitionResponse_arn,
-    createConnectorDefinitionResponse_name,
-    createConnectorDefinitionResponse_creationTimestamp,
-    createConnectorDefinitionResponse_id,
-    createConnectorDefinitionResponse_latestVersion,
-    createConnectorDefinitionResponse_lastUpdatedTimestamp,
-    createConnectorDefinitionResponse_httpStatus,
-
-    -- ** GetCoreDefinitionVersion
-    getCoreDefinitionVersion_coreDefinitionId,
-    getCoreDefinitionVersion_coreDefinitionVersionId,
-    getCoreDefinitionVersionResponse_definition,
-    getCoreDefinitionVersionResponse_arn,
-    getCoreDefinitionVersionResponse_nextToken,
-    getCoreDefinitionVersionResponse_creationTimestamp,
-    getCoreDefinitionVersionResponse_version,
-    getCoreDefinitionVersionResponse_id,
-    getCoreDefinitionVersionResponse_httpStatus,
-
-    -- ** ListSubscriptionDefinitionVersions
-    listSubscriptionDefinitionVersions_nextToken,
-    listSubscriptionDefinitionVersions_maxResults,
-    listSubscriptionDefinitionVersions_subscriptionDefinitionId,
-    listSubscriptionDefinitionVersionsResponse_versions,
-    listSubscriptionDefinitionVersionsResponse_nextToken,
-    listSubscriptionDefinitionVersionsResponse_httpStatus,
-
-    -- ** ListCoreDefinitionVersions
-    listCoreDefinitionVersions_nextToken,
-    listCoreDefinitionVersions_maxResults,
-    listCoreDefinitionVersions_coreDefinitionId,
-    listCoreDefinitionVersionsResponse_versions,
-    listCoreDefinitionVersionsResponse_nextToken,
-    listCoreDefinitionVersionsResponse_httpStatus,
+    -- ** CreateCoreDefinition
+    createCoreDefinition_amznClientToken,
+    createCoreDefinition_initialVersion,
+    createCoreDefinition_name,
+    createCoreDefinition_tags,
+    createCoreDefinitionResponse_arn,
+    createCoreDefinitionResponse_creationTimestamp,
+    createCoreDefinitionResponse_id,
+    createCoreDefinitionResponse_lastUpdatedTimestamp,
+    createCoreDefinitionResponse_latestVersion,
+    createCoreDefinitionResponse_latestVersionArn,
+    createCoreDefinitionResponse_name,
+    createCoreDefinitionResponse_httpStatus,
 
     -- ** CreateCoreDefinitionVersion
     createCoreDefinitionVersion_amznClientToken,
@@ -499,131 +69,33 @@ module Amazonka.Greengrass.Lens
     createCoreDefinitionVersion_coreDefinitionId,
     createCoreDefinitionVersionResponse_arn,
     createCoreDefinitionVersionResponse_creationTimestamp,
-    createCoreDefinitionVersionResponse_version,
     createCoreDefinitionVersionResponse_id,
+    createCoreDefinitionVersionResponse_version,
     createCoreDefinitionVersionResponse_httpStatus,
 
-    -- ** ListBulkDeployments
-    listBulkDeployments_nextToken,
-    listBulkDeployments_maxResults,
-    listBulkDeploymentsResponse_nextToken,
-    listBulkDeploymentsResponse_bulkDeployments,
-    listBulkDeploymentsResponse_httpStatus,
+    -- ** CreateDeployment
+    createDeployment_amznClientToken,
+    createDeployment_deploymentId,
+    createDeployment_groupVersionId,
+    createDeployment_groupId,
+    createDeployment_deploymentType,
+    createDeploymentResponse_deploymentArn,
+    createDeploymentResponse_deploymentId,
+    createDeploymentResponse_httpStatus,
 
-    -- ** ListDeployments
-    listDeployments_nextToken,
-    listDeployments_maxResults,
-    listDeployments_groupId,
-    listDeploymentsResponse_nextToken,
-    listDeploymentsResponse_deployments,
-    listDeploymentsResponse_httpStatus,
-
-    -- ** GetConnectorDefinition
-    getConnectorDefinition_connectorDefinitionId,
-    getConnectorDefinitionResponse_latestVersionArn,
-    getConnectorDefinitionResponse_arn,
-    getConnectorDefinitionResponse_name,
-    getConnectorDefinitionResponse_creationTimestamp,
-    getConnectorDefinitionResponse_id,
-    getConnectorDefinitionResponse_latestVersion,
-    getConnectorDefinitionResponse_lastUpdatedTimestamp,
-    getConnectorDefinitionResponse_tags,
-    getConnectorDefinitionResponse_httpStatus,
-
-    -- ** ListLoggerDefinitions
-    listLoggerDefinitions_nextToken,
-    listLoggerDefinitions_maxResults,
-    listLoggerDefinitionsResponse_nextToken,
-    listLoggerDefinitionsResponse_definitions,
-    listLoggerDefinitionsResponse_httpStatus,
-
-    -- ** TagResource
-    tagResource_tags,
-    tagResource_resourceArn,
-
-    -- ** CreateSubscriptionDefinitionVersion
-    createSubscriptionDefinitionVersion_amznClientToken,
-    createSubscriptionDefinitionVersion_subscriptions,
-    createSubscriptionDefinitionVersion_subscriptionDefinitionId,
-    createSubscriptionDefinitionVersionResponse_arn,
-    createSubscriptionDefinitionVersionResponse_creationTimestamp,
-    createSubscriptionDefinitionVersionResponse_version,
-    createSubscriptionDefinitionVersionResponse_id,
-    createSubscriptionDefinitionVersionResponse_httpStatus,
-
-    -- ** GetGroupVersion
-    getGroupVersion_groupVersionId,
-    getGroupVersion_groupId,
-    getGroupVersionResponse_definition,
-    getGroupVersionResponse_arn,
-    getGroupVersionResponse_creationTimestamp,
-    getGroupVersionResponse_version,
-    getGroupVersionResponse_id,
-    getGroupVersionResponse_httpStatus,
-
-    -- ** UpdateGroupCertificateConfiguration
-    updateGroupCertificateConfiguration_certificateExpiryInMilliseconds,
-    updateGroupCertificateConfiguration_groupId,
-    updateGroupCertificateConfigurationResponse_certificateAuthorityExpiryInMilliseconds,
-    updateGroupCertificateConfigurationResponse_groupId,
-    updateGroupCertificateConfigurationResponse_certificateExpiryInMilliseconds,
-    updateGroupCertificateConfigurationResponse_httpStatus,
-
-    -- ** GetFunctionDefinitionVersion
-    getFunctionDefinitionVersion_nextToken,
-    getFunctionDefinitionVersion_functionDefinitionId,
-    getFunctionDefinitionVersion_functionDefinitionVersionId,
-    getFunctionDefinitionVersionResponse_definition,
-    getFunctionDefinitionVersionResponse_arn,
-    getFunctionDefinitionVersionResponse_nextToken,
-    getFunctionDefinitionVersionResponse_creationTimestamp,
-    getFunctionDefinitionVersionResponse_version,
-    getFunctionDefinitionVersionResponse_id,
-    getFunctionDefinitionVersionResponse_httpStatus,
-
-    -- ** GetDeviceDefinition
-    getDeviceDefinition_deviceDefinitionId,
-    getDeviceDefinitionResponse_latestVersionArn,
-    getDeviceDefinitionResponse_arn,
-    getDeviceDefinitionResponse_name,
-    getDeviceDefinitionResponse_creationTimestamp,
-    getDeviceDefinitionResponse_id,
-    getDeviceDefinitionResponse_latestVersion,
-    getDeviceDefinitionResponse_lastUpdatedTimestamp,
-    getDeviceDefinitionResponse_tags,
-    getDeviceDefinitionResponse_httpStatus,
-
-    -- ** CreateGroup
-    createGroup_amznClientToken,
-    createGroup_initialVersion,
-    createGroup_tags,
-    createGroup_name,
-    createGroupResponse_latestVersionArn,
-    createGroupResponse_arn,
-    createGroupResponse_name,
-    createGroupResponse_creationTimestamp,
-    createGroupResponse_id,
-    createGroupResponse_latestVersion,
-    createGroupResponse_lastUpdatedTimestamp,
-    createGroupResponse_httpStatus,
-
-    -- ** CreateFunctionDefinition
-    createFunctionDefinition_amznClientToken,
-    createFunctionDefinition_initialVersion,
-    createFunctionDefinition_name,
-    createFunctionDefinition_tags,
-    createFunctionDefinitionResponse_latestVersionArn,
-    createFunctionDefinitionResponse_arn,
-    createFunctionDefinitionResponse_name,
-    createFunctionDefinitionResponse_creationTimestamp,
-    createFunctionDefinitionResponse_id,
-    createFunctionDefinitionResponse_latestVersion,
-    createFunctionDefinitionResponse_lastUpdatedTimestamp,
-    createFunctionDefinitionResponse_httpStatus,
-
-    -- ** UntagResource
-    untagResource_tagKeys,
-    untagResource_resourceArn,
+    -- ** CreateDeviceDefinition
+    createDeviceDefinition_amznClientToken,
+    createDeviceDefinition_initialVersion,
+    createDeviceDefinition_name,
+    createDeviceDefinition_tags,
+    createDeviceDefinitionResponse_arn,
+    createDeviceDefinitionResponse_creationTimestamp,
+    createDeviceDefinitionResponse_id,
+    createDeviceDefinitionResponse_lastUpdatedTimestamp,
+    createDeviceDefinitionResponse_latestVersion,
+    createDeviceDefinitionResponse_latestVersionArn,
+    createDeviceDefinitionResponse_name,
+    createDeviceDefinitionResponse_httpStatus,
 
     -- ** CreateDeviceDefinitionVersion
     createDeviceDefinitionVersion_amznClientToken,
@@ -631,116 +103,23 @@ module Amazonka.Greengrass.Lens
     createDeviceDefinitionVersion_deviceDefinitionId,
     createDeviceDefinitionVersionResponse_arn,
     createDeviceDefinitionVersionResponse_creationTimestamp,
-    createDeviceDefinitionVersionResponse_version,
     createDeviceDefinitionVersionResponse_id,
+    createDeviceDefinitionVersionResponse_version,
     createDeviceDefinitionVersionResponse_httpStatus,
 
-    -- ** DeleteGroup
-    deleteGroup_groupId,
-    deleteGroupResponse_httpStatus,
-
-    -- ** UpdateGroup
-    updateGroup_name,
-    updateGroup_groupId,
-    updateGroupResponse_httpStatus,
-
-    -- ** ListGroups
-    listGroups_nextToken,
-    listGroups_maxResults,
-    listGroupsResponse_groups,
-    listGroupsResponse_nextToken,
-    listGroupsResponse_httpStatus,
-
-    -- ** ListBulkDeploymentDetailedReports
-    listBulkDeploymentDetailedReports_nextToken,
-    listBulkDeploymentDetailedReports_maxResults,
-    listBulkDeploymentDetailedReports_bulkDeploymentId,
-    listBulkDeploymentDetailedReportsResponse_nextToken,
-    listBulkDeploymentDetailedReportsResponse_deployments,
-    listBulkDeploymentDetailedReportsResponse_httpStatus,
-
-    -- ** GetThingRuntimeConfiguration
-    getThingRuntimeConfiguration_thingName,
-    getThingRuntimeConfigurationResponse_runtimeConfiguration,
-    getThingRuntimeConfigurationResponse_httpStatus,
-
-    -- ** DeleteResourceDefinition
-    deleteResourceDefinition_resourceDefinitionId,
-    deleteResourceDefinitionResponse_httpStatus,
-
-    -- ** UpdateResourceDefinition
-    updateResourceDefinition_name,
-    updateResourceDefinition_resourceDefinitionId,
-    updateResourceDefinitionResponse_httpStatus,
-
-    -- ** ListDeviceDefinitionVersions
-    listDeviceDefinitionVersions_nextToken,
-    listDeviceDefinitionVersions_maxResults,
-    listDeviceDefinitionVersions_deviceDefinitionId,
-    listDeviceDefinitionVersionsResponse_versions,
-    listDeviceDefinitionVersionsResponse_nextToken,
-    listDeviceDefinitionVersionsResponse_httpStatus,
-
-    -- ** ListFunctionDefinitions
-    listFunctionDefinitions_nextToken,
-    listFunctionDefinitions_maxResults,
-    listFunctionDefinitionsResponse_nextToken,
-    listFunctionDefinitionsResponse_definitions,
-    listFunctionDefinitionsResponse_httpStatus,
-
-    -- ** GetFunctionDefinition
-    getFunctionDefinition_functionDefinitionId,
-    getFunctionDefinitionResponse_latestVersionArn,
-    getFunctionDefinitionResponse_arn,
-    getFunctionDefinitionResponse_name,
-    getFunctionDefinitionResponse_creationTimestamp,
-    getFunctionDefinitionResponse_id,
-    getFunctionDefinitionResponse_latestVersion,
-    getFunctionDefinitionResponse_lastUpdatedTimestamp,
-    getFunctionDefinitionResponse_tags,
-    getFunctionDefinitionResponse_httpStatus,
-
-    -- ** GetGroup
-    getGroup_groupId,
-    getGroupResponse_latestVersionArn,
-    getGroupResponse_arn,
-    getGroupResponse_name,
-    getGroupResponse_creationTimestamp,
-    getGroupResponse_id,
-    getGroupResponse_latestVersion,
-    getGroupResponse_lastUpdatedTimestamp,
-    getGroupResponse_tags,
-    getGroupResponse_httpStatus,
-
-    -- ** CreateDeviceDefinition
-    createDeviceDefinition_amznClientToken,
-    createDeviceDefinition_initialVersion,
-    createDeviceDefinition_name,
-    createDeviceDefinition_tags,
-    createDeviceDefinitionResponse_latestVersionArn,
-    createDeviceDefinitionResponse_arn,
-    createDeviceDefinitionResponse_name,
-    createDeviceDefinitionResponse_creationTimestamp,
-    createDeviceDefinitionResponse_id,
-    createDeviceDefinitionResponse_latestVersion,
-    createDeviceDefinitionResponse_lastUpdatedTimestamp,
-    createDeviceDefinitionResponse_httpStatus,
-
-    -- ** CreateGroupVersion
-    createGroupVersion_amznClientToken,
-    createGroupVersion_resourceDefinitionVersionArn,
-    createGroupVersion_subscriptionDefinitionVersionArn,
-    createGroupVersion_coreDefinitionVersionArn,
-    createGroupVersion_deviceDefinitionVersionArn,
-    createGroupVersion_functionDefinitionVersionArn,
-    createGroupVersion_loggerDefinitionVersionArn,
-    createGroupVersion_connectorDefinitionVersionArn,
-    createGroupVersion_groupId,
-    createGroupVersionResponse_arn,
-    createGroupVersionResponse_creationTimestamp,
-    createGroupVersionResponse_version,
-    createGroupVersionResponse_id,
-    createGroupVersionResponse_httpStatus,
+    -- ** CreateFunctionDefinition
+    createFunctionDefinition_amznClientToken,
+    createFunctionDefinition_initialVersion,
+    createFunctionDefinition_name,
+    createFunctionDefinition_tags,
+    createFunctionDefinitionResponse_arn,
+    createFunctionDefinitionResponse_creationTimestamp,
+    createFunctionDefinitionResponse_id,
+    createFunctionDefinitionResponse_lastUpdatedTimestamp,
+    createFunctionDefinitionResponse_latestVersion,
+    createFunctionDefinitionResponse_latestVersionArn,
+    createFunctionDefinitionResponse_name,
+    createFunctionDefinitionResponse_httpStatus,
 
     -- ** CreateFunctionDefinitionVersion
     createFunctionDefinitionVersion_amznClientToken,
@@ -749,9 +128,575 @@ module Amazonka.Greengrass.Lens
     createFunctionDefinitionVersion_functionDefinitionId,
     createFunctionDefinitionVersionResponse_arn,
     createFunctionDefinitionVersionResponse_creationTimestamp,
-    createFunctionDefinitionVersionResponse_version,
     createFunctionDefinitionVersionResponse_id,
+    createFunctionDefinitionVersionResponse_version,
     createFunctionDefinitionVersionResponse_httpStatus,
+
+    -- ** CreateGroup
+    createGroup_amznClientToken,
+    createGroup_initialVersion,
+    createGroup_tags,
+    createGroup_name,
+    createGroupResponse_arn,
+    createGroupResponse_creationTimestamp,
+    createGroupResponse_id,
+    createGroupResponse_lastUpdatedTimestamp,
+    createGroupResponse_latestVersion,
+    createGroupResponse_latestVersionArn,
+    createGroupResponse_name,
+    createGroupResponse_httpStatus,
+
+    -- ** CreateGroupCertificateAuthority
+    createGroupCertificateAuthority_amznClientToken,
+    createGroupCertificateAuthority_groupId,
+    createGroupCertificateAuthorityResponse_groupCertificateAuthorityArn,
+    createGroupCertificateAuthorityResponse_httpStatus,
+
+    -- ** CreateGroupVersion
+    createGroupVersion_amznClientToken,
+    createGroupVersion_connectorDefinitionVersionArn,
+    createGroupVersion_coreDefinitionVersionArn,
+    createGroupVersion_deviceDefinitionVersionArn,
+    createGroupVersion_functionDefinitionVersionArn,
+    createGroupVersion_loggerDefinitionVersionArn,
+    createGroupVersion_resourceDefinitionVersionArn,
+    createGroupVersion_subscriptionDefinitionVersionArn,
+    createGroupVersion_groupId,
+    createGroupVersionResponse_arn,
+    createGroupVersionResponse_creationTimestamp,
+    createGroupVersionResponse_id,
+    createGroupVersionResponse_version,
+    createGroupVersionResponse_httpStatus,
+
+    -- ** CreateLoggerDefinition
+    createLoggerDefinition_amznClientToken,
+    createLoggerDefinition_initialVersion,
+    createLoggerDefinition_name,
+    createLoggerDefinition_tags,
+    createLoggerDefinitionResponse_arn,
+    createLoggerDefinitionResponse_creationTimestamp,
+    createLoggerDefinitionResponse_id,
+    createLoggerDefinitionResponse_lastUpdatedTimestamp,
+    createLoggerDefinitionResponse_latestVersion,
+    createLoggerDefinitionResponse_latestVersionArn,
+    createLoggerDefinitionResponse_name,
+    createLoggerDefinitionResponse_httpStatus,
+
+    -- ** CreateLoggerDefinitionVersion
+    createLoggerDefinitionVersion_amznClientToken,
+    createLoggerDefinitionVersion_loggers,
+    createLoggerDefinitionVersion_loggerDefinitionId,
+    createLoggerDefinitionVersionResponse_arn,
+    createLoggerDefinitionVersionResponse_creationTimestamp,
+    createLoggerDefinitionVersionResponse_id,
+    createLoggerDefinitionVersionResponse_version,
+    createLoggerDefinitionVersionResponse_httpStatus,
+
+    -- ** CreateResourceDefinition
+    createResourceDefinition_amznClientToken,
+    createResourceDefinition_initialVersion,
+    createResourceDefinition_name,
+    createResourceDefinition_tags,
+    createResourceDefinitionResponse_arn,
+    createResourceDefinitionResponse_creationTimestamp,
+    createResourceDefinitionResponse_id,
+    createResourceDefinitionResponse_lastUpdatedTimestamp,
+    createResourceDefinitionResponse_latestVersion,
+    createResourceDefinitionResponse_latestVersionArn,
+    createResourceDefinitionResponse_name,
+    createResourceDefinitionResponse_httpStatus,
+
+    -- ** CreateResourceDefinitionVersion
+    createResourceDefinitionVersion_amznClientToken,
+    createResourceDefinitionVersion_resources,
+    createResourceDefinitionVersion_resourceDefinitionId,
+    createResourceDefinitionVersionResponse_arn,
+    createResourceDefinitionVersionResponse_creationTimestamp,
+    createResourceDefinitionVersionResponse_id,
+    createResourceDefinitionVersionResponse_version,
+    createResourceDefinitionVersionResponse_httpStatus,
+
+    -- ** CreateSoftwareUpdateJob
+    createSoftwareUpdateJob_amznClientToken,
+    createSoftwareUpdateJob_updateAgentLogLevel,
+    createSoftwareUpdateJob_s3UrlSignerRole,
+    createSoftwareUpdateJob_updateTargetsArchitecture,
+    createSoftwareUpdateJob_softwareToUpdate,
+    createSoftwareUpdateJob_updateTargets,
+    createSoftwareUpdateJob_updateTargetsOperatingSystem,
+    createSoftwareUpdateJobResponse_iotJobArn,
+    createSoftwareUpdateJobResponse_iotJobId,
+    createSoftwareUpdateJobResponse_platformSoftwareVersion,
+    createSoftwareUpdateJobResponse_httpStatus,
+
+    -- ** CreateSubscriptionDefinition
+    createSubscriptionDefinition_amznClientToken,
+    createSubscriptionDefinition_initialVersion,
+    createSubscriptionDefinition_name,
+    createSubscriptionDefinition_tags,
+    createSubscriptionDefinitionResponse_arn,
+    createSubscriptionDefinitionResponse_creationTimestamp,
+    createSubscriptionDefinitionResponse_id,
+    createSubscriptionDefinitionResponse_lastUpdatedTimestamp,
+    createSubscriptionDefinitionResponse_latestVersion,
+    createSubscriptionDefinitionResponse_latestVersionArn,
+    createSubscriptionDefinitionResponse_name,
+    createSubscriptionDefinitionResponse_httpStatus,
+
+    -- ** CreateSubscriptionDefinitionVersion
+    createSubscriptionDefinitionVersion_amznClientToken,
+    createSubscriptionDefinitionVersion_subscriptions,
+    createSubscriptionDefinitionVersion_subscriptionDefinitionId,
+    createSubscriptionDefinitionVersionResponse_arn,
+    createSubscriptionDefinitionVersionResponse_creationTimestamp,
+    createSubscriptionDefinitionVersionResponse_id,
+    createSubscriptionDefinitionVersionResponse_version,
+    createSubscriptionDefinitionVersionResponse_httpStatus,
+
+    -- ** DeleteConnectorDefinition
+    deleteConnectorDefinition_connectorDefinitionId,
+    deleteConnectorDefinitionResponse_httpStatus,
+
+    -- ** DeleteCoreDefinition
+    deleteCoreDefinition_coreDefinitionId,
+    deleteCoreDefinitionResponse_httpStatus,
+
+    -- ** DeleteDeviceDefinition
+    deleteDeviceDefinition_deviceDefinitionId,
+    deleteDeviceDefinitionResponse_httpStatus,
+
+    -- ** DeleteFunctionDefinition
+    deleteFunctionDefinition_functionDefinitionId,
+    deleteFunctionDefinitionResponse_httpStatus,
+
+    -- ** DeleteGroup
+    deleteGroup_groupId,
+    deleteGroupResponse_httpStatus,
+
+    -- ** DeleteLoggerDefinition
+    deleteLoggerDefinition_loggerDefinitionId,
+    deleteLoggerDefinitionResponse_httpStatus,
+
+    -- ** DeleteResourceDefinition
+    deleteResourceDefinition_resourceDefinitionId,
+    deleteResourceDefinitionResponse_httpStatus,
+
+    -- ** DeleteSubscriptionDefinition
+    deleteSubscriptionDefinition_subscriptionDefinitionId,
+    deleteSubscriptionDefinitionResponse_httpStatus,
+
+    -- ** DisassociateRoleFromGroup
+    disassociateRoleFromGroup_groupId,
+    disassociateRoleFromGroupResponse_disassociatedAt,
+    disassociateRoleFromGroupResponse_httpStatus,
+
+    -- ** DisassociateServiceRoleFromAccount
+    disassociateServiceRoleFromAccountResponse_disassociatedAt,
+    disassociateServiceRoleFromAccountResponse_httpStatus,
+
+    -- ** GetAssociatedRole
+    getAssociatedRole_groupId,
+    getAssociatedRoleResponse_associatedAt,
+    getAssociatedRoleResponse_roleArn,
+    getAssociatedRoleResponse_httpStatus,
+
+    -- ** GetBulkDeploymentStatus
+    getBulkDeploymentStatus_bulkDeploymentId,
+    getBulkDeploymentStatusResponse_bulkDeploymentMetrics,
+    getBulkDeploymentStatusResponse_bulkDeploymentStatus,
+    getBulkDeploymentStatusResponse_createdAt,
+    getBulkDeploymentStatusResponse_errorDetails,
+    getBulkDeploymentStatusResponse_errorMessage,
+    getBulkDeploymentStatusResponse_tags,
+    getBulkDeploymentStatusResponse_httpStatus,
+
+    -- ** GetConnectivityInfo
+    getConnectivityInfo_thingName,
+    getConnectivityInfoResponse_connectivityInfo,
+    getConnectivityInfoResponse_message,
+    getConnectivityInfoResponse_httpStatus,
+
+    -- ** GetConnectorDefinition
+    getConnectorDefinition_connectorDefinitionId,
+    getConnectorDefinitionResponse_arn,
+    getConnectorDefinitionResponse_creationTimestamp,
+    getConnectorDefinitionResponse_id,
+    getConnectorDefinitionResponse_lastUpdatedTimestamp,
+    getConnectorDefinitionResponse_latestVersion,
+    getConnectorDefinitionResponse_latestVersionArn,
+    getConnectorDefinitionResponse_name,
+    getConnectorDefinitionResponse_tags,
+    getConnectorDefinitionResponse_httpStatus,
+
+    -- ** GetConnectorDefinitionVersion
+    getConnectorDefinitionVersion_nextToken,
+    getConnectorDefinitionVersion_connectorDefinitionId,
+    getConnectorDefinitionVersion_connectorDefinitionVersionId,
+    getConnectorDefinitionVersionResponse_arn,
+    getConnectorDefinitionVersionResponse_creationTimestamp,
+    getConnectorDefinitionVersionResponse_definition,
+    getConnectorDefinitionVersionResponse_id,
+    getConnectorDefinitionVersionResponse_nextToken,
+    getConnectorDefinitionVersionResponse_version,
+    getConnectorDefinitionVersionResponse_httpStatus,
+
+    -- ** GetCoreDefinition
+    getCoreDefinition_coreDefinitionId,
+    getCoreDefinitionResponse_arn,
+    getCoreDefinitionResponse_creationTimestamp,
+    getCoreDefinitionResponse_id,
+    getCoreDefinitionResponse_lastUpdatedTimestamp,
+    getCoreDefinitionResponse_latestVersion,
+    getCoreDefinitionResponse_latestVersionArn,
+    getCoreDefinitionResponse_name,
+    getCoreDefinitionResponse_tags,
+    getCoreDefinitionResponse_httpStatus,
+
+    -- ** GetCoreDefinitionVersion
+    getCoreDefinitionVersion_coreDefinitionId,
+    getCoreDefinitionVersion_coreDefinitionVersionId,
+    getCoreDefinitionVersionResponse_arn,
+    getCoreDefinitionVersionResponse_creationTimestamp,
+    getCoreDefinitionVersionResponse_definition,
+    getCoreDefinitionVersionResponse_id,
+    getCoreDefinitionVersionResponse_nextToken,
+    getCoreDefinitionVersionResponse_version,
+    getCoreDefinitionVersionResponse_httpStatus,
+
+    -- ** GetDeploymentStatus
+    getDeploymentStatus_groupId,
+    getDeploymentStatus_deploymentId,
+    getDeploymentStatusResponse_deploymentStatus,
+    getDeploymentStatusResponse_deploymentType,
+    getDeploymentStatusResponse_errorDetails,
+    getDeploymentStatusResponse_errorMessage,
+    getDeploymentStatusResponse_updatedAt,
+    getDeploymentStatusResponse_httpStatus,
+
+    -- ** GetDeviceDefinition
+    getDeviceDefinition_deviceDefinitionId,
+    getDeviceDefinitionResponse_arn,
+    getDeviceDefinitionResponse_creationTimestamp,
+    getDeviceDefinitionResponse_id,
+    getDeviceDefinitionResponse_lastUpdatedTimestamp,
+    getDeviceDefinitionResponse_latestVersion,
+    getDeviceDefinitionResponse_latestVersionArn,
+    getDeviceDefinitionResponse_name,
+    getDeviceDefinitionResponse_tags,
+    getDeviceDefinitionResponse_httpStatus,
+
+    -- ** GetDeviceDefinitionVersion
+    getDeviceDefinitionVersion_nextToken,
+    getDeviceDefinitionVersion_deviceDefinitionVersionId,
+    getDeviceDefinitionVersion_deviceDefinitionId,
+    getDeviceDefinitionVersionResponse_arn,
+    getDeviceDefinitionVersionResponse_creationTimestamp,
+    getDeviceDefinitionVersionResponse_definition,
+    getDeviceDefinitionVersionResponse_id,
+    getDeviceDefinitionVersionResponse_nextToken,
+    getDeviceDefinitionVersionResponse_version,
+    getDeviceDefinitionVersionResponse_httpStatus,
+
+    -- ** GetFunctionDefinition
+    getFunctionDefinition_functionDefinitionId,
+    getFunctionDefinitionResponse_arn,
+    getFunctionDefinitionResponse_creationTimestamp,
+    getFunctionDefinitionResponse_id,
+    getFunctionDefinitionResponse_lastUpdatedTimestamp,
+    getFunctionDefinitionResponse_latestVersion,
+    getFunctionDefinitionResponse_latestVersionArn,
+    getFunctionDefinitionResponse_name,
+    getFunctionDefinitionResponse_tags,
+    getFunctionDefinitionResponse_httpStatus,
+
+    -- ** GetFunctionDefinitionVersion
+    getFunctionDefinitionVersion_nextToken,
+    getFunctionDefinitionVersion_functionDefinitionId,
+    getFunctionDefinitionVersion_functionDefinitionVersionId,
+    getFunctionDefinitionVersionResponse_arn,
+    getFunctionDefinitionVersionResponse_creationTimestamp,
+    getFunctionDefinitionVersionResponse_definition,
+    getFunctionDefinitionVersionResponse_id,
+    getFunctionDefinitionVersionResponse_nextToken,
+    getFunctionDefinitionVersionResponse_version,
+    getFunctionDefinitionVersionResponse_httpStatus,
+
+    -- ** GetGroup
+    getGroup_groupId,
+    getGroupResponse_arn,
+    getGroupResponse_creationTimestamp,
+    getGroupResponse_id,
+    getGroupResponse_lastUpdatedTimestamp,
+    getGroupResponse_latestVersion,
+    getGroupResponse_latestVersionArn,
+    getGroupResponse_name,
+    getGroupResponse_tags,
+    getGroupResponse_httpStatus,
+
+    -- ** GetGroupCertificateAuthority
+    getGroupCertificateAuthority_certificateAuthorityId,
+    getGroupCertificateAuthority_groupId,
+    getGroupCertificateAuthorityResponse_groupCertificateAuthorityArn,
+    getGroupCertificateAuthorityResponse_groupCertificateAuthorityId,
+    getGroupCertificateAuthorityResponse_pemEncodedCertificate,
+    getGroupCertificateAuthorityResponse_httpStatus,
+
+    -- ** GetGroupCertificateConfiguration
+    getGroupCertificateConfiguration_groupId,
+    getGroupCertificateConfigurationResponse_certificateAuthorityExpiryInMilliseconds,
+    getGroupCertificateConfigurationResponse_certificateExpiryInMilliseconds,
+    getGroupCertificateConfigurationResponse_groupId,
+    getGroupCertificateConfigurationResponse_httpStatus,
+
+    -- ** GetGroupVersion
+    getGroupVersion_groupVersionId,
+    getGroupVersion_groupId,
+    getGroupVersionResponse_arn,
+    getGroupVersionResponse_creationTimestamp,
+    getGroupVersionResponse_definition,
+    getGroupVersionResponse_id,
+    getGroupVersionResponse_version,
+    getGroupVersionResponse_httpStatus,
+
+    -- ** GetLoggerDefinition
+    getLoggerDefinition_loggerDefinitionId,
+    getLoggerDefinitionResponse_arn,
+    getLoggerDefinitionResponse_creationTimestamp,
+    getLoggerDefinitionResponse_id,
+    getLoggerDefinitionResponse_lastUpdatedTimestamp,
+    getLoggerDefinitionResponse_latestVersion,
+    getLoggerDefinitionResponse_latestVersionArn,
+    getLoggerDefinitionResponse_name,
+    getLoggerDefinitionResponse_tags,
+    getLoggerDefinitionResponse_httpStatus,
+
+    -- ** GetLoggerDefinitionVersion
+    getLoggerDefinitionVersion_nextToken,
+    getLoggerDefinitionVersion_loggerDefinitionVersionId,
+    getLoggerDefinitionVersion_loggerDefinitionId,
+    getLoggerDefinitionVersionResponse_arn,
+    getLoggerDefinitionVersionResponse_creationTimestamp,
+    getLoggerDefinitionVersionResponse_definition,
+    getLoggerDefinitionVersionResponse_id,
+    getLoggerDefinitionVersionResponse_version,
+    getLoggerDefinitionVersionResponse_httpStatus,
+
+    -- ** GetResourceDefinition
+    getResourceDefinition_resourceDefinitionId,
+    getResourceDefinitionResponse_arn,
+    getResourceDefinitionResponse_creationTimestamp,
+    getResourceDefinitionResponse_id,
+    getResourceDefinitionResponse_lastUpdatedTimestamp,
+    getResourceDefinitionResponse_latestVersion,
+    getResourceDefinitionResponse_latestVersionArn,
+    getResourceDefinitionResponse_name,
+    getResourceDefinitionResponse_tags,
+    getResourceDefinitionResponse_httpStatus,
+
+    -- ** GetResourceDefinitionVersion
+    getResourceDefinitionVersion_resourceDefinitionVersionId,
+    getResourceDefinitionVersion_resourceDefinitionId,
+    getResourceDefinitionVersionResponse_arn,
+    getResourceDefinitionVersionResponse_creationTimestamp,
+    getResourceDefinitionVersionResponse_definition,
+    getResourceDefinitionVersionResponse_id,
+    getResourceDefinitionVersionResponse_version,
+    getResourceDefinitionVersionResponse_httpStatus,
+
+    -- ** GetServiceRoleForAccount
+    getServiceRoleForAccountResponse_associatedAt,
+    getServiceRoleForAccountResponse_roleArn,
+    getServiceRoleForAccountResponse_httpStatus,
+
+    -- ** GetSubscriptionDefinition
+    getSubscriptionDefinition_subscriptionDefinitionId,
+    getSubscriptionDefinitionResponse_arn,
+    getSubscriptionDefinitionResponse_creationTimestamp,
+    getSubscriptionDefinitionResponse_id,
+    getSubscriptionDefinitionResponse_lastUpdatedTimestamp,
+    getSubscriptionDefinitionResponse_latestVersion,
+    getSubscriptionDefinitionResponse_latestVersionArn,
+    getSubscriptionDefinitionResponse_name,
+    getSubscriptionDefinitionResponse_tags,
+    getSubscriptionDefinitionResponse_httpStatus,
+
+    -- ** GetSubscriptionDefinitionVersion
+    getSubscriptionDefinitionVersion_nextToken,
+    getSubscriptionDefinitionVersion_subscriptionDefinitionId,
+    getSubscriptionDefinitionVersion_subscriptionDefinitionVersionId,
+    getSubscriptionDefinitionVersionResponse_arn,
+    getSubscriptionDefinitionVersionResponse_creationTimestamp,
+    getSubscriptionDefinitionVersionResponse_definition,
+    getSubscriptionDefinitionVersionResponse_id,
+    getSubscriptionDefinitionVersionResponse_nextToken,
+    getSubscriptionDefinitionVersionResponse_version,
+    getSubscriptionDefinitionVersionResponse_httpStatus,
+
+    -- ** GetThingRuntimeConfiguration
+    getThingRuntimeConfiguration_thingName,
+    getThingRuntimeConfigurationResponse_runtimeConfiguration,
+    getThingRuntimeConfigurationResponse_httpStatus,
+
+    -- ** ListBulkDeploymentDetailedReports
+    listBulkDeploymentDetailedReports_maxResults,
+    listBulkDeploymentDetailedReports_nextToken,
+    listBulkDeploymentDetailedReports_bulkDeploymentId,
+    listBulkDeploymentDetailedReportsResponse_deployments,
+    listBulkDeploymentDetailedReportsResponse_nextToken,
+    listBulkDeploymentDetailedReportsResponse_httpStatus,
+
+    -- ** ListBulkDeployments
+    listBulkDeployments_maxResults,
+    listBulkDeployments_nextToken,
+    listBulkDeploymentsResponse_bulkDeployments,
+    listBulkDeploymentsResponse_nextToken,
+    listBulkDeploymentsResponse_httpStatus,
+
+    -- ** ListConnectorDefinitionVersions
+    listConnectorDefinitionVersions_maxResults,
+    listConnectorDefinitionVersions_nextToken,
+    listConnectorDefinitionVersions_connectorDefinitionId,
+    listConnectorDefinitionVersionsResponse_nextToken,
+    listConnectorDefinitionVersionsResponse_versions,
+    listConnectorDefinitionVersionsResponse_httpStatus,
+
+    -- ** ListConnectorDefinitions
+    listConnectorDefinitions_maxResults,
+    listConnectorDefinitions_nextToken,
+    listConnectorDefinitionsResponse_definitions,
+    listConnectorDefinitionsResponse_nextToken,
+    listConnectorDefinitionsResponse_httpStatus,
+
+    -- ** ListCoreDefinitionVersions
+    listCoreDefinitionVersions_maxResults,
+    listCoreDefinitionVersions_nextToken,
+    listCoreDefinitionVersions_coreDefinitionId,
+    listCoreDefinitionVersionsResponse_nextToken,
+    listCoreDefinitionVersionsResponse_versions,
+    listCoreDefinitionVersionsResponse_httpStatus,
+
+    -- ** ListCoreDefinitions
+    listCoreDefinitions_maxResults,
+    listCoreDefinitions_nextToken,
+    listCoreDefinitionsResponse_definitions,
+    listCoreDefinitionsResponse_nextToken,
+    listCoreDefinitionsResponse_httpStatus,
+
+    -- ** ListDeployments
+    listDeployments_maxResults,
+    listDeployments_nextToken,
+    listDeployments_groupId,
+    listDeploymentsResponse_deployments,
+    listDeploymentsResponse_nextToken,
+    listDeploymentsResponse_httpStatus,
+
+    -- ** ListDeviceDefinitionVersions
+    listDeviceDefinitionVersions_maxResults,
+    listDeviceDefinitionVersions_nextToken,
+    listDeviceDefinitionVersions_deviceDefinitionId,
+    listDeviceDefinitionVersionsResponse_nextToken,
+    listDeviceDefinitionVersionsResponse_versions,
+    listDeviceDefinitionVersionsResponse_httpStatus,
+
+    -- ** ListDeviceDefinitions
+    listDeviceDefinitions_maxResults,
+    listDeviceDefinitions_nextToken,
+    listDeviceDefinitionsResponse_definitions,
+    listDeviceDefinitionsResponse_nextToken,
+    listDeviceDefinitionsResponse_httpStatus,
+
+    -- ** ListFunctionDefinitionVersions
+    listFunctionDefinitionVersions_maxResults,
+    listFunctionDefinitionVersions_nextToken,
+    listFunctionDefinitionVersions_functionDefinitionId,
+    listFunctionDefinitionVersionsResponse_nextToken,
+    listFunctionDefinitionVersionsResponse_versions,
+    listFunctionDefinitionVersionsResponse_httpStatus,
+
+    -- ** ListFunctionDefinitions
+    listFunctionDefinitions_maxResults,
+    listFunctionDefinitions_nextToken,
+    listFunctionDefinitionsResponse_definitions,
+    listFunctionDefinitionsResponse_nextToken,
+    listFunctionDefinitionsResponse_httpStatus,
+
+    -- ** ListGroupCertificateAuthorities
+    listGroupCertificateAuthorities_groupId,
+    listGroupCertificateAuthoritiesResponse_groupCertificateAuthorities,
+    listGroupCertificateAuthoritiesResponse_httpStatus,
+
+    -- ** ListGroupVersions
+    listGroupVersions_maxResults,
+    listGroupVersions_nextToken,
+    listGroupVersions_groupId,
+    listGroupVersionsResponse_nextToken,
+    listGroupVersionsResponse_versions,
+    listGroupVersionsResponse_httpStatus,
+
+    -- ** ListGroups
+    listGroups_maxResults,
+    listGroups_nextToken,
+    listGroupsResponse_groups,
+    listGroupsResponse_nextToken,
+    listGroupsResponse_httpStatus,
+
+    -- ** ListLoggerDefinitionVersions
+    listLoggerDefinitionVersions_maxResults,
+    listLoggerDefinitionVersions_nextToken,
+    listLoggerDefinitionVersions_loggerDefinitionId,
+    listLoggerDefinitionVersionsResponse_nextToken,
+    listLoggerDefinitionVersionsResponse_versions,
+    listLoggerDefinitionVersionsResponse_httpStatus,
+
+    -- ** ListLoggerDefinitions
+    listLoggerDefinitions_maxResults,
+    listLoggerDefinitions_nextToken,
+    listLoggerDefinitionsResponse_definitions,
+    listLoggerDefinitionsResponse_nextToken,
+    listLoggerDefinitionsResponse_httpStatus,
+
+    -- ** ListResourceDefinitionVersions
+    listResourceDefinitionVersions_maxResults,
+    listResourceDefinitionVersions_nextToken,
+    listResourceDefinitionVersions_resourceDefinitionId,
+    listResourceDefinitionVersionsResponse_nextToken,
+    listResourceDefinitionVersionsResponse_versions,
+    listResourceDefinitionVersionsResponse_httpStatus,
+
+    -- ** ListResourceDefinitions
+    listResourceDefinitions_maxResults,
+    listResourceDefinitions_nextToken,
+    listResourceDefinitionsResponse_definitions,
+    listResourceDefinitionsResponse_nextToken,
+    listResourceDefinitionsResponse_httpStatus,
+
+    -- ** ListSubscriptionDefinitionVersions
+    listSubscriptionDefinitionVersions_maxResults,
+    listSubscriptionDefinitionVersions_nextToken,
+    listSubscriptionDefinitionVersions_subscriptionDefinitionId,
+    listSubscriptionDefinitionVersionsResponse_nextToken,
+    listSubscriptionDefinitionVersionsResponse_versions,
+    listSubscriptionDefinitionVersionsResponse_httpStatus,
+
+    -- ** ListSubscriptionDefinitions
+    listSubscriptionDefinitions_maxResults,
+    listSubscriptionDefinitions_nextToken,
+    listSubscriptionDefinitionsResponse_definitions,
+    listSubscriptionDefinitionsResponse_nextToken,
+    listSubscriptionDefinitionsResponse_httpStatus,
+
+    -- ** ListTagsForResource
+    listTagsForResource_resourceArn,
+    listTagsForResourceResponse_tags,
+    listTagsForResourceResponse_httpStatus,
+
+    -- ** ResetDeployments
+    resetDeployments_amznClientToken,
+    resetDeployments_force,
+    resetDeployments_groupId,
+    resetDeploymentsResponse_deploymentArn,
+    resetDeploymentsResponse_deploymentId,
+    resetDeploymentsResponse_httpStatus,
 
     -- ** StartBulkDeployment
     startBulkDeployment_amznClientToken,
@@ -762,22 +707,77 @@ module Amazonka.Greengrass.Lens
     startBulkDeploymentResponse_bulkDeploymentId,
     startBulkDeploymentResponse_httpStatus,
 
+    -- ** StopBulkDeployment
+    stopBulkDeployment_bulkDeploymentId,
+    stopBulkDeploymentResponse_httpStatus,
+
+    -- ** TagResource
+    tagResource_tags,
+    tagResource_resourceArn,
+
+    -- ** UntagResource
+    untagResource_tagKeys,
+    untagResource_resourceArn,
+
+    -- ** UpdateConnectivityInfo
+    updateConnectivityInfo_connectivityInfo,
+    updateConnectivityInfo_thingName,
+    updateConnectivityInfoResponse_message,
+    updateConnectivityInfoResponse_version,
+    updateConnectivityInfoResponse_httpStatus,
+
+    -- ** UpdateConnectorDefinition
+    updateConnectorDefinition_name,
+    updateConnectorDefinition_connectorDefinitionId,
+    updateConnectorDefinitionResponse_httpStatus,
+
+    -- ** UpdateCoreDefinition
+    updateCoreDefinition_name,
+    updateCoreDefinition_coreDefinitionId,
+    updateCoreDefinitionResponse_httpStatus,
+
+    -- ** UpdateDeviceDefinition
+    updateDeviceDefinition_name,
+    updateDeviceDefinition_deviceDefinitionId,
+    updateDeviceDefinitionResponse_httpStatus,
+
+    -- ** UpdateFunctionDefinition
+    updateFunctionDefinition_name,
+    updateFunctionDefinition_functionDefinitionId,
+    updateFunctionDefinitionResponse_httpStatus,
+
+    -- ** UpdateGroup
+    updateGroup_name,
+    updateGroup_groupId,
+    updateGroupResponse_httpStatus,
+
+    -- ** UpdateGroupCertificateConfiguration
+    updateGroupCertificateConfiguration_certificateExpiryInMilliseconds,
+    updateGroupCertificateConfiguration_groupId,
+    updateGroupCertificateConfigurationResponse_certificateAuthorityExpiryInMilliseconds,
+    updateGroupCertificateConfigurationResponse_certificateExpiryInMilliseconds,
+    updateGroupCertificateConfigurationResponse_groupId,
+    updateGroupCertificateConfigurationResponse_httpStatus,
+
+    -- ** UpdateLoggerDefinition
+    updateLoggerDefinition_name,
+    updateLoggerDefinition_loggerDefinitionId,
+    updateLoggerDefinitionResponse_httpStatus,
+
+    -- ** UpdateResourceDefinition
+    updateResourceDefinition_name,
+    updateResourceDefinition_resourceDefinitionId,
+    updateResourceDefinitionResponse_httpStatus,
+
+    -- ** UpdateSubscriptionDefinition
+    updateSubscriptionDefinition_name,
+    updateSubscriptionDefinition_subscriptionDefinitionId,
+    updateSubscriptionDefinitionResponse_httpStatus,
+
     -- ** UpdateThingRuntimeConfiguration
     updateThingRuntimeConfiguration_telemetryConfiguration,
     updateThingRuntimeConfiguration_thingName,
     updateThingRuntimeConfigurationResponse_httpStatus,
-
-    -- ** GetDeviceDefinitionVersion
-    getDeviceDefinitionVersion_nextToken,
-    getDeviceDefinitionVersion_deviceDefinitionVersionId,
-    getDeviceDefinitionVersion_deviceDefinitionId,
-    getDeviceDefinitionVersionResponse_definition,
-    getDeviceDefinitionVersionResponse_arn,
-    getDeviceDefinitionVersionResponse_nextToken,
-    getDeviceDefinitionVersionResponse_creationTimestamp,
-    getDeviceDefinitionVersionResponse_version,
-    getDeviceDefinitionVersionResponse_id,
-    getDeviceDefinitionVersionResponse_httpStatus,
 
     -- * Types
 
@@ -787,25 +787,25 @@ module Amazonka.Greengrass.Lens
     bulkDeployment_createdAt,
 
     -- ** BulkDeploymentMetrics
+    bulkDeploymentMetrics_invalidInputRecords,
     bulkDeploymentMetrics_recordsProcessed,
     bulkDeploymentMetrics_retryAttempts,
-    bulkDeploymentMetrics_invalidInputRecords,
 
     -- ** BulkDeploymentResult
-    bulkDeploymentResult_deploymentId,
-    bulkDeploymentResult_deploymentArn,
     bulkDeploymentResult_createdAt,
+    bulkDeploymentResult_deploymentArn,
+    bulkDeploymentResult_deploymentId,
+    bulkDeploymentResult_deploymentStatus,
     bulkDeploymentResult_deploymentType,
     bulkDeploymentResult_errorDetails,
-    bulkDeploymentResult_groupArn,
-    bulkDeploymentResult_deploymentStatus,
     bulkDeploymentResult_errorMessage,
+    bulkDeploymentResult_groupArn,
 
     -- ** ConnectivityInfo
-    connectivityInfo_portNumber,
+    connectivityInfo_hostAddress,
     connectivityInfo_id,
     connectivityInfo_metadata,
-    connectivityInfo_hostAddress,
+    connectivityInfo_portNumber,
 
     -- ** Connector
     connector_parameters,
@@ -825,19 +825,19 @@ module Amazonka.Greengrass.Lens
     coreDefinitionVersion_cores,
 
     -- ** DefinitionInformation
-    definitionInformation_latestVersionArn,
     definitionInformation_arn,
-    definitionInformation_name,
     definitionInformation_creationTimestamp,
     definitionInformation_id,
-    definitionInformation_tags,
-    definitionInformation_latestVersion,
     definitionInformation_lastUpdatedTimestamp,
+    definitionInformation_latestVersion,
+    definitionInformation_latestVersionArn,
+    definitionInformation_name,
+    definitionInformation_tags,
 
     -- ** Deployment
-    deployment_deploymentId,
-    deployment_deploymentArn,
     deployment_createdAt,
+    deployment_deploymentArn,
+    deployment_deploymentId,
     deployment_deploymentType,
     deployment_groupArn,
 
@@ -860,38 +860,39 @@ module Amazonka.Greengrass.Lens
     function_id,
 
     -- ** FunctionConfiguration
-    functionConfiguration_memorySize,
-    functionConfiguration_execArgs,
-    functionConfiguration_environment,
-    functionConfiguration_executable,
-    functionConfiguration_pinned,
     functionConfiguration_encodingType,
+    functionConfiguration_environment,
+    functionConfiguration_execArgs,
+    functionConfiguration_executable,
+    functionConfiguration_functionRuntimeOverride,
+    functionConfiguration_memorySize,
+    functionConfiguration_pinned,
     functionConfiguration_timeout,
 
     -- ** FunctionConfigurationEnvironment
-    functionConfigurationEnvironment_variables,
+    functionConfigurationEnvironment_accessSysfs,
     functionConfigurationEnvironment_execution,
     functionConfigurationEnvironment_resourceAccessPolicies,
-    functionConfigurationEnvironment_accessSysfs,
+    functionConfigurationEnvironment_variables,
 
     -- ** FunctionDefaultConfig
     functionDefaultConfig_execution,
 
     -- ** FunctionDefaultExecutionConfig
-    functionDefaultExecutionConfig_runAs,
     functionDefaultExecutionConfig_isolationMode,
+    functionDefaultExecutionConfig_runAs,
 
     -- ** FunctionDefinitionVersion
     functionDefinitionVersion_defaultConfig,
     functionDefinitionVersion_functions,
 
     -- ** FunctionExecutionConfig
-    functionExecutionConfig_runAs,
     functionExecutionConfig_isolationMode,
+    functionExecutionConfig_runAs,
 
     -- ** FunctionRunAsConfig
-    functionRunAsConfig_uid,
     functionRunAsConfig_gid,
+    functionRunAsConfig_uid,
 
     -- ** GreengrassLogger
     greengrassLogger_space,
@@ -905,34 +906,34 @@ module Amazonka.Greengrass.Lens
     groupCertificateAuthorityProperties_groupCertificateAuthorityId,
 
     -- ** GroupInformation
-    groupInformation_latestVersionArn,
     groupInformation_arn,
-    groupInformation_name,
     groupInformation_creationTimestamp,
     groupInformation_id,
-    groupInformation_latestVersion,
     groupInformation_lastUpdatedTimestamp,
+    groupInformation_latestVersion,
+    groupInformation_latestVersionArn,
+    groupInformation_name,
 
     -- ** GroupOwnerSetting
     groupOwnerSetting_autoAddGroupOwner,
     groupOwnerSetting_groupOwner,
 
     -- ** GroupVersion
-    groupVersion_resourceDefinitionVersionArn,
-    groupVersion_subscriptionDefinitionVersionArn,
+    groupVersion_connectorDefinitionVersionArn,
     groupVersion_coreDefinitionVersionArn,
     groupVersion_deviceDefinitionVersionArn,
     groupVersion_functionDefinitionVersionArn,
     groupVersion_loggerDefinitionVersionArn,
-    groupVersion_connectorDefinitionVersionArn,
+    groupVersion_resourceDefinitionVersionArn,
+    groupVersion_subscriptionDefinitionVersionArn,
 
     -- ** LocalDeviceResourceData
     localDeviceResourceData_groupOwnerSetting,
     localDeviceResourceData_sourcePath,
 
     -- ** LocalVolumeResourceData
-    localVolumeResourceData_groupOwnerSetting,
     localVolumeResourceData_destinationPath,
+    localVolumeResourceData_groupOwnerSetting,
     localVolumeResourceData_sourcePath,
 
     -- ** LoggerDefinitionVersion
@@ -948,10 +949,10 @@ module Amazonka.Greengrass.Lens
     resourceAccessPolicy_resourceId,
 
     -- ** ResourceDataContainer
+    resourceDataContainer_localDeviceResourceData,
+    resourceDataContainer_localVolumeResourceData,
     resourceDataContainer_s3MachineLearningModelResourceData,
     resourceDataContainer_sageMakerMachineLearningModelResourceData,
-    resourceDataContainer_localVolumeResourceData,
-    resourceDataContainer_localDeviceResourceData,
     resourceDataContainer_secretsManagerSecretResourceData,
 
     -- ** ResourceDefinitionVersion
@@ -965,18 +966,18 @@ module Amazonka.Greengrass.Lens
     runtimeConfiguration_telemetryConfiguration,
 
     -- ** S3MachineLearningModelResourceData
-    s3MachineLearningModelResourceData_ownerSetting,
     s3MachineLearningModelResourceData_destinationPath,
+    s3MachineLearningModelResourceData_ownerSetting,
     s3MachineLearningModelResourceData_s3Uri,
 
     -- ** SageMakerMachineLearningModelResourceData
+    sageMakerMachineLearningModelResourceData_destinationPath,
     sageMakerMachineLearningModelResourceData_ownerSetting,
     sageMakerMachineLearningModelResourceData_sageMakerJobArn,
-    sageMakerMachineLearningModelResourceData_destinationPath,
 
     -- ** SecretsManagerSecretResourceData
-    secretsManagerSecretResourceData_additionalStagingLabelsToDownload,
     secretsManagerSecretResourceData_arn,
+    secretsManagerSecretResourceData_additionalStagingLabelsToDownload,
 
     -- ** Subscription
     subscription_target,
@@ -997,8 +998,8 @@ module Amazonka.Greengrass.Lens
     -- ** VersionInformation
     versionInformation_arn,
     versionInformation_creationTimestamp,
-    versionInformation_version,
     versionInformation_id,
+    versionInformation_version,
   )
 where
 

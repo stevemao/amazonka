@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ImageBuilder.PutComponentPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,15 +41,16 @@ module Amazonka.ImageBuilder.PutComponentPolicy
     newPutComponentPolicyResponse,
 
     -- * Response Lenses
-    putComponentPolicyResponse_requestId,
     putComponentPolicyResponse_componentArn,
+    putComponentPolicyResponse_requestId,
     putComponentPolicyResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ImageBuilder.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -101,13 +102,14 @@ instance Core.AWSRequest PutComponentPolicy where
   type
     AWSResponse PutComponentPolicy =
       PutComponentPolicyResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutComponentPolicyResponse'
-            Prelude.<$> (x Core..?> "requestId")
-            Prelude.<*> (x Core..?> "componentArn")
+            Prelude.<$> (x Data..?> "componentArn")
+            Prelude.<*> (x Data..?> "requestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -121,39 +123,39 @@ instance Prelude.NFData PutComponentPolicy where
     Prelude.rnf componentArn
       `Prelude.seq` Prelude.rnf policy
 
-instance Core.ToHeaders PutComponentPolicy where
+instance Data.ToHeaders PutComponentPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutComponentPolicy where
+instance Data.ToJSON PutComponentPolicy where
   toJSON PutComponentPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("componentArn" Core..= componentArn),
-            Prelude.Just ("policy" Core..= policy)
+          [ Prelude.Just ("componentArn" Data..= componentArn),
+            Prelude.Just ("policy" Data..= policy)
           ]
       )
 
-instance Core.ToPath PutComponentPolicy where
+instance Data.ToPath PutComponentPolicy where
   toPath = Prelude.const "/PutComponentPolicy"
 
-instance Core.ToQuery PutComponentPolicy where
+instance Data.ToQuery PutComponentPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutComponentPolicyResponse' smart constructor.
 data PutComponentPolicyResponse = PutComponentPolicyResponse'
-  { -- | The request ID that uniquely identifies this request.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the component that this policy was
+  { -- | The Amazon Resource Name (ARN) of the component that this policy was
     -- applied to.
     componentArn :: Prelude.Maybe Prelude.Text,
+    -- | The request ID that uniquely identifies this request.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -167,10 +169,10 @@ data PutComponentPolicyResponse = PutComponentPolicyResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'putComponentPolicyResponse_requestId' - The request ID that uniquely identifies this request.
---
 -- 'componentArn', 'putComponentPolicyResponse_componentArn' - The Amazon Resource Name (ARN) of the component that this policy was
 -- applied to.
+--
+-- 'requestId', 'putComponentPolicyResponse_requestId' - The request ID that uniquely identifies this request.
 --
 -- 'httpStatus', 'putComponentPolicyResponse_httpStatus' - The response's http status code.
 newPutComponentPolicyResponse ::
@@ -179,20 +181,20 @@ newPutComponentPolicyResponse ::
   PutComponentPolicyResponse
 newPutComponentPolicyResponse pHttpStatus_ =
   PutComponentPolicyResponse'
-    { requestId =
+    { componentArn =
         Prelude.Nothing,
-      componentArn = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The request ID that uniquely identifies this request.
-putComponentPolicyResponse_requestId :: Lens.Lens' PutComponentPolicyResponse (Prelude.Maybe Prelude.Text)
-putComponentPolicyResponse_requestId = Lens.lens (\PutComponentPolicyResponse' {requestId} -> requestId) (\s@PutComponentPolicyResponse' {} a -> s {requestId = a} :: PutComponentPolicyResponse)
 
 -- | The Amazon Resource Name (ARN) of the component that this policy was
 -- applied to.
 putComponentPolicyResponse_componentArn :: Lens.Lens' PutComponentPolicyResponse (Prelude.Maybe Prelude.Text)
 putComponentPolicyResponse_componentArn = Lens.lens (\PutComponentPolicyResponse' {componentArn} -> componentArn) (\s@PutComponentPolicyResponse' {} a -> s {componentArn = a} :: PutComponentPolicyResponse)
+
+-- | The request ID that uniquely identifies this request.
+putComponentPolicyResponse_requestId :: Lens.Lens' PutComponentPolicyResponse (Prelude.Maybe Prelude.Text)
+putComponentPolicyResponse_requestId = Lens.lens (\PutComponentPolicyResponse' {requestId} -> requestId) (\s@PutComponentPolicyResponse' {} a -> s {requestId = a} :: PutComponentPolicyResponse)
 
 -- | The response's http status code.
 putComponentPolicyResponse_httpStatus :: Lens.Lens' PutComponentPolicyResponse Prelude.Int
@@ -200,6 +202,6 @@ putComponentPolicyResponse_httpStatus = Lens.lens (\PutComponentPolicyResponse' 
 
 instance Prelude.NFData PutComponentPolicyResponse where
   rnf PutComponentPolicyResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf componentArn
+    Prelude.rnf componentArn
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf httpStatus

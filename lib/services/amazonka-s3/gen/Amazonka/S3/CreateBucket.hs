@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.CreateBucket
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,10 +49,22 @@
 -- to handle 307 redirect. For more information, see
 -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html Virtual hosting of buckets>.
 --
--- When creating a bucket using this operation, you can optionally specify
--- the accounts or groups that should be granted specific permissions on
--- the bucket. There are two ways to grant the appropriate permissions
--- using the request headers.
+-- __Access control lists (ACLs)__
+--
+-- When creating a bucket using this operation, you can optionally
+-- configure the bucket ACL to specify the accounts or groups that should
+-- be granted specific permissions on the bucket.
+--
+-- If your CreateBucket request sets bucket owner enforced for S3 Object
+-- Ownership and specifies a bucket ACL that provides access to an external
+-- Amazon Web Services account, your request fails with a @400@ error and
+-- returns the @InvalidBucketAclWithObjectOwnership@ error code. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html Controlling object ownership>
+-- in the /Amazon S3 User Guide/.
+--
+-- There are two ways to grant the appropriate permissions using the
+-- request headers.
 --
 -- -   Specify a canned ACL using the @x-amz-acl@ request header. Amazon S3
 --     supports a set of predefined ACLs, known as /canned ACLs/. Each
@@ -65,7 +77,7 @@
 --     @x-amz-grant-write-acp@, and @x-amz-grant-full-control@ headers.
 --     These headers map to the set of permissions Amazon S3 supports in an
 --     ACL. For more information, see
---     <https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html Access control list (ACL) overview>.
+--     <https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html Access control list (ACL) overview>.
 --
 --     You specify each grantee as a type=value pair, where the type is one
 --     of the following:
@@ -113,16 +125,23 @@
 --
 -- __Permissions__
 --
--- If your @CreateBucket@ request specifies ACL permissions and the ACL is
--- public-read, public-read-write, authenticated-read, or if you specify
--- access permissions explicitly through any other ACL, both
--- @s3:CreateBucket@ and @s3:PutBucketAcl@ permissions are needed. If the
--- ACL the @CreateBucket@ request is private, only @s3:CreateBucket@
--- permission is needed.
+-- In addition to @s3:CreateBucket@, the following permissions are required
+-- when your CreateBucket includes specific headers:
 --
--- If @ObjectLockEnabledForBucket@ is set to true in your @CreateBucket@
--- request, @s3:PutBucketObjectLockConfiguration@ and
--- @s3:PutBucketVersioning@ permissions are required.
+-- -   __ACLs__ - If your @CreateBucket@ request specifies ACL permissions
+--     and the ACL is public-read, public-read-write, authenticated-read,
+--     or if you specify access permissions explicitly through any other
+--     ACL, both @s3:CreateBucket@ and @s3:PutBucketAcl@ permissions are
+--     needed. If the ACL the @CreateBucket@ request is private or doesn\'t
+--     specify any ACLs, only @s3:CreateBucket@ permission is needed.
+--
+-- -   __Object Lock__ - If @ObjectLockEnabledForBucket@ is set to true in
+--     your @CreateBucket@ request, @s3:PutBucketObjectLockConfiguration@
+--     and @s3:PutBucketVersioning@ permissions are required.
+--
+-- -   __S3 Object Ownership__ - If your CreateBucket request includes the
+--     the @x-amz-object-ownership@ header, @s3:PutBucketOwnershipControls@
+--     permission is required.
 --
 -- The following operations are related to @CreateBucket@:
 --
@@ -135,14 +154,15 @@ module Amazonka.S3.CreateBucket
     newCreateBucket,
 
     -- * Request Lenses
-    createBucket_grantReadACP,
-    createBucket_objectLockEnabledForBucket,
-    createBucket_grantWriteACP,
-    createBucket_grantRead,
-    createBucket_grantFullControl,
-    createBucket_createBucketConfiguration,
-    createBucket_grantWrite,
     createBucket_acl,
+    createBucket_createBucketConfiguration,
+    createBucket_grantFullControl,
+    createBucket_grantRead,
+    createBucket_grantReadACP,
+    createBucket_grantWrite,
+    createBucket_grantWriteACP,
+    createBucket_objectLockEnabledForBucket,
+    createBucket_objectOwnership,
     createBucket_bucket,
 
     -- * Destructuring the Response
@@ -156,7 +176,8 @@ module Amazonka.S3.CreateBucket
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -164,27 +185,28 @@ import Amazonka.S3.Types
 
 -- | /See:/ 'newCreateBucket' smart constructor.
 data CreateBucket = CreateBucket'
-  { -- | Allows grantee to read the bucket ACL.
-    grantReadACP :: Prelude.Maybe Prelude.Text,
-    -- | Specifies whether you want S3 Object Lock to be enabled for the new
-    -- bucket.
-    objectLockEnabledForBucket :: Prelude.Maybe Prelude.Bool,
-    -- | Allows grantee to write the ACL for the applicable bucket.
-    grantWriteACP :: Prelude.Maybe Prelude.Text,
-    -- | Allows grantee to list the objects in the bucket.
-    grantRead :: Prelude.Maybe Prelude.Text,
+  { -- | The canned ACL to apply to the bucket.
+    acl :: Prelude.Maybe BucketCannedACL,
+    -- | The configuration information for the bucket.
+    createBucketConfiguration :: Prelude.Maybe CreateBucketConfiguration,
     -- | Allows grantee the read, write, read ACP, and write ACP permissions on
     -- the bucket.
     grantFullControl :: Prelude.Maybe Prelude.Text,
-    -- | The configuration information for the bucket.
-    createBucketConfiguration :: Prelude.Maybe CreateBucketConfiguration,
+    -- | Allows grantee to list the objects in the bucket.
+    grantRead :: Prelude.Maybe Prelude.Text,
+    -- | Allows grantee to read the bucket ACL.
+    grantReadACP :: Prelude.Maybe Prelude.Text,
     -- | Allows grantee to create new objects in the bucket.
     --
     -- For the bucket and object owners of existing objects, also allows
     -- deletions and overwrites of those objects.
     grantWrite :: Prelude.Maybe Prelude.Text,
-    -- | The canned ACL to apply to the bucket.
-    acl :: Prelude.Maybe BucketCannedACL,
+    -- | Allows grantee to write the ACL for the applicable bucket.
+    grantWriteACP :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether you want S3 Object Lock to be enabled for the new
+    -- bucket.
+    objectLockEnabledForBucket :: Prelude.Maybe Prelude.Bool,
+    objectOwnership :: Prelude.Maybe ObjectOwnership,
     -- | The name of the bucket to create.
     bucket :: BucketName
   }
@@ -198,26 +220,28 @@ data CreateBucket = CreateBucket'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'grantReadACP', 'createBucket_grantReadACP' - Allows grantee to read the bucket ACL.
+-- 'acl', 'createBucket_acl' - The canned ACL to apply to the bucket.
 --
--- 'objectLockEnabledForBucket', 'createBucket_objectLockEnabledForBucket' - Specifies whether you want S3 Object Lock to be enabled for the new
--- bucket.
---
--- 'grantWriteACP', 'createBucket_grantWriteACP' - Allows grantee to write the ACL for the applicable bucket.
---
--- 'grantRead', 'createBucket_grantRead' - Allows grantee to list the objects in the bucket.
+-- 'createBucketConfiguration', 'createBucket_createBucketConfiguration' - The configuration information for the bucket.
 --
 -- 'grantFullControl', 'createBucket_grantFullControl' - Allows grantee the read, write, read ACP, and write ACP permissions on
 -- the bucket.
 --
--- 'createBucketConfiguration', 'createBucket_createBucketConfiguration' - The configuration information for the bucket.
+-- 'grantRead', 'createBucket_grantRead' - Allows grantee to list the objects in the bucket.
+--
+-- 'grantReadACP', 'createBucket_grantReadACP' - Allows grantee to read the bucket ACL.
 --
 -- 'grantWrite', 'createBucket_grantWrite' - Allows grantee to create new objects in the bucket.
 --
 -- For the bucket and object owners of existing objects, also allows
 -- deletions and overwrites of those objects.
 --
--- 'acl', 'createBucket_acl' - The canned ACL to apply to the bucket.
+-- 'grantWriteACP', 'createBucket_grantWriteACP' - Allows grantee to write the ACL for the applicable bucket.
+--
+-- 'objectLockEnabledForBucket', 'createBucket_objectLockEnabledForBucket' - Specifies whether you want S3 Object Lock to be enabled for the new
+-- bucket.
+--
+-- 'objectOwnership', 'createBucket_objectOwnership' - Undocumented member.
 --
 -- 'bucket', 'createBucket_bucket' - The name of the bucket to create.
 newCreateBucket ::
@@ -226,42 +250,38 @@ newCreateBucket ::
   CreateBucket
 newCreateBucket pBucket_ =
   CreateBucket'
-    { grantReadACP = Prelude.Nothing,
-      objectLockEnabledForBucket = Prelude.Nothing,
-      grantWriteACP = Prelude.Nothing,
-      grantRead = Prelude.Nothing,
-      grantFullControl = Prelude.Nothing,
+    { acl = Prelude.Nothing,
       createBucketConfiguration = Prelude.Nothing,
+      grantFullControl = Prelude.Nothing,
+      grantRead = Prelude.Nothing,
+      grantReadACP = Prelude.Nothing,
       grantWrite = Prelude.Nothing,
-      acl = Prelude.Nothing,
+      grantWriteACP = Prelude.Nothing,
+      objectLockEnabledForBucket = Prelude.Nothing,
+      objectOwnership = Prelude.Nothing,
       bucket = pBucket_
     }
 
--- | Allows grantee to read the bucket ACL.
-createBucket_grantReadACP :: Lens.Lens' CreateBucket (Prelude.Maybe Prelude.Text)
-createBucket_grantReadACP = Lens.lens (\CreateBucket' {grantReadACP} -> grantReadACP) (\s@CreateBucket' {} a -> s {grantReadACP = a} :: CreateBucket)
+-- | The canned ACL to apply to the bucket.
+createBucket_acl :: Lens.Lens' CreateBucket (Prelude.Maybe BucketCannedACL)
+createBucket_acl = Lens.lens (\CreateBucket' {acl} -> acl) (\s@CreateBucket' {} a -> s {acl = a} :: CreateBucket)
 
--- | Specifies whether you want S3 Object Lock to be enabled for the new
--- bucket.
-createBucket_objectLockEnabledForBucket :: Lens.Lens' CreateBucket (Prelude.Maybe Prelude.Bool)
-createBucket_objectLockEnabledForBucket = Lens.lens (\CreateBucket' {objectLockEnabledForBucket} -> objectLockEnabledForBucket) (\s@CreateBucket' {} a -> s {objectLockEnabledForBucket = a} :: CreateBucket)
-
--- | Allows grantee to write the ACL for the applicable bucket.
-createBucket_grantWriteACP :: Lens.Lens' CreateBucket (Prelude.Maybe Prelude.Text)
-createBucket_grantWriteACP = Lens.lens (\CreateBucket' {grantWriteACP} -> grantWriteACP) (\s@CreateBucket' {} a -> s {grantWriteACP = a} :: CreateBucket)
-
--- | Allows grantee to list the objects in the bucket.
-createBucket_grantRead :: Lens.Lens' CreateBucket (Prelude.Maybe Prelude.Text)
-createBucket_grantRead = Lens.lens (\CreateBucket' {grantRead} -> grantRead) (\s@CreateBucket' {} a -> s {grantRead = a} :: CreateBucket)
+-- | The configuration information for the bucket.
+createBucket_createBucketConfiguration :: Lens.Lens' CreateBucket (Prelude.Maybe CreateBucketConfiguration)
+createBucket_createBucketConfiguration = Lens.lens (\CreateBucket' {createBucketConfiguration} -> createBucketConfiguration) (\s@CreateBucket' {} a -> s {createBucketConfiguration = a} :: CreateBucket)
 
 -- | Allows grantee the read, write, read ACP, and write ACP permissions on
 -- the bucket.
 createBucket_grantFullControl :: Lens.Lens' CreateBucket (Prelude.Maybe Prelude.Text)
 createBucket_grantFullControl = Lens.lens (\CreateBucket' {grantFullControl} -> grantFullControl) (\s@CreateBucket' {} a -> s {grantFullControl = a} :: CreateBucket)
 
--- | The configuration information for the bucket.
-createBucket_createBucketConfiguration :: Lens.Lens' CreateBucket (Prelude.Maybe CreateBucketConfiguration)
-createBucket_createBucketConfiguration = Lens.lens (\CreateBucket' {createBucketConfiguration} -> createBucketConfiguration) (\s@CreateBucket' {} a -> s {createBucketConfiguration = a} :: CreateBucket)
+-- | Allows grantee to list the objects in the bucket.
+createBucket_grantRead :: Lens.Lens' CreateBucket (Prelude.Maybe Prelude.Text)
+createBucket_grantRead = Lens.lens (\CreateBucket' {grantRead} -> grantRead) (\s@CreateBucket' {} a -> s {grantRead = a} :: CreateBucket)
+
+-- | Allows grantee to read the bucket ACL.
+createBucket_grantReadACP :: Lens.Lens' CreateBucket (Prelude.Maybe Prelude.Text)
+createBucket_grantReadACP = Lens.lens (\CreateBucket' {grantReadACP} -> grantReadACP) (\s@CreateBucket' {} a -> s {grantReadACP = a} :: CreateBucket)
 
 -- | Allows grantee to create new objects in the bucket.
 --
@@ -270,9 +290,18 @@ createBucket_createBucketConfiguration = Lens.lens (\CreateBucket' {createBucket
 createBucket_grantWrite :: Lens.Lens' CreateBucket (Prelude.Maybe Prelude.Text)
 createBucket_grantWrite = Lens.lens (\CreateBucket' {grantWrite} -> grantWrite) (\s@CreateBucket' {} a -> s {grantWrite = a} :: CreateBucket)
 
--- | The canned ACL to apply to the bucket.
-createBucket_acl :: Lens.Lens' CreateBucket (Prelude.Maybe BucketCannedACL)
-createBucket_acl = Lens.lens (\CreateBucket' {acl} -> acl) (\s@CreateBucket' {} a -> s {acl = a} :: CreateBucket)
+-- | Allows grantee to write the ACL for the applicable bucket.
+createBucket_grantWriteACP :: Lens.Lens' CreateBucket (Prelude.Maybe Prelude.Text)
+createBucket_grantWriteACP = Lens.lens (\CreateBucket' {grantWriteACP} -> grantWriteACP) (\s@CreateBucket' {} a -> s {grantWriteACP = a} :: CreateBucket)
+
+-- | Specifies whether you want S3 Object Lock to be enabled for the new
+-- bucket.
+createBucket_objectLockEnabledForBucket :: Lens.Lens' CreateBucket (Prelude.Maybe Prelude.Bool)
+createBucket_objectLockEnabledForBucket = Lens.lens (\CreateBucket' {objectLockEnabledForBucket} -> objectLockEnabledForBucket) (\s@CreateBucket' {} a -> s {objectLockEnabledForBucket = a} :: CreateBucket)
+
+-- | Undocumented member.
+createBucket_objectOwnership :: Lens.Lens' CreateBucket (Prelude.Maybe ObjectOwnership)
+createBucket_objectOwnership = Lens.lens (\CreateBucket' {objectOwnership} -> objectOwnership) (\s@CreateBucket' {} a -> s {objectOwnership = a} :: CreateBucket)
 
 -- | The name of the bucket to create.
 createBucket_bucket :: Lens.Lens' CreateBucket BucketName
@@ -280,72 +309,73 @@ createBucket_bucket = Lens.lens (\CreateBucket' {bucket} -> bucket) (\s@CreateBu
 
 instance Core.AWSRequest CreateBucket where
   type AWSResponse CreateBucket = CreateBucketResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.putXML defaultService
+      Prelude.. Request.putXML (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
           CreateBucketResponse'
-            Prelude.<$> (h Core..#? "Location")
+            Prelude.<$> (h Data..#? "Location")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateBucket where
   hashWithSalt _salt CreateBucket' {..} =
-    _salt `Prelude.hashWithSalt` grantReadACP
-      `Prelude.hashWithSalt` objectLockEnabledForBucket
-      `Prelude.hashWithSalt` grantWriteACP
-      `Prelude.hashWithSalt` grantRead
-      `Prelude.hashWithSalt` grantFullControl
+    _salt `Prelude.hashWithSalt` acl
       `Prelude.hashWithSalt` createBucketConfiguration
+      `Prelude.hashWithSalt` grantFullControl
+      `Prelude.hashWithSalt` grantRead
+      `Prelude.hashWithSalt` grantReadACP
       `Prelude.hashWithSalt` grantWrite
-      `Prelude.hashWithSalt` acl
+      `Prelude.hashWithSalt` grantWriteACP
+      `Prelude.hashWithSalt` objectLockEnabledForBucket
+      `Prelude.hashWithSalt` objectOwnership
       `Prelude.hashWithSalt` bucket
 
 instance Prelude.NFData CreateBucket where
   rnf CreateBucket' {..} =
-    Prelude.rnf grantReadACP
-      `Prelude.seq` Prelude.rnf objectLockEnabledForBucket
-      `Prelude.seq` Prelude.rnf grantWriteACP
-      `Prelude.seq` Prelude.rnf grantRead
-      `Prelude.seq` Prelude.rnf grantFullControl
+    Prelude.rnf acl
       `Prelude.seq` Prelude.rnf createBucketConfiguration
+      `Prelude.seq` Prelude.rnf grantFullControl
+      `Prelude.seq` Prelude.rnf grantRead
+      `Prelude.seq` Prelude.rnf grantReadACP
       `Prelude.seq` Prelude.rnf grantWrite
-      `Prelude.seq` Prelude.rnf acl
+      `Prelude.seq` Prelude.rnf grantWriteACP
+      `Prelude.seq` Prelude.rnf objectLockEnabledForBucket
+      `Prelude.seq` Prelude.rnf objectOwnership
       `Prelude.seq` Prelude.rnf bucket
 
-instance Core.ToElement CreateBucket where
+instance Data.ToElement CreateBucket where
   toElement CreateBucket' {..} =
-    Core.mkElement
+    Data.mkElement
       "{http://s3.amazonaws.com/doc/2006-03-01/}CreateBucketConfiguration"
       createBucketConfiguration
 
-instance Core.ToHeaders CreateBucket where
+instance Data.ToHeaders CreateBucket where
   toHeaders CreateBucket' {..} =
     Prelude.mconcat
-      [ "x-amz-grant-read-acp" Core.=# grantReadACP,
+      [ "x-amz-acl" Data.=# acl,
+        "x-amz-grant-full-control" Data.=# grantFullControl,
+        "x-amz-grant-read" Data.=# grantRead,
+        "x-amz-grant-read-acp" Data.=# grantReadACP,
+        "x-amz-grant-write" Data.=# grantWrite,
+        "x-amz-grant-write-acp" Data.=# grantWriteACP,
         "x-amz-bucket-object-lock-enabled"
-          Core.=# objectLockEnabledForBucket,
-        "x-amz-grant-write-acp" Core.=# grantWriteACP,
-        "x-amz-grant-read" Core.=# grantRead,
-        "x-amz-grant-full-control" Core.=# grantFullControl,
-        "x-amz-grant-write" Core.=# grantWrite,
-        "x-amz-acl" Core.=# acl
+          Data.=# objectLockEnabledForBucket,
+        "x-amz-object-ownership" Data.=# objectOwnership
       ]
 
-instance Core.ToPath CreateBucket where
+instance Data.ToPath CreateBucket where
   toPath CreateBucket' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery CreateBucket where
+instance Data.ToQuery CreateBucket where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateBucketResponse' smart constructor.
 data CreateBucketResponse = CreateBucketResponse'
-  { -- | Specifies the Region where the bucket will be created. If you are
-    -- creating a bucket on the US East (N. Virginia) Region (us-east-1), you
-    -- do not need to specify the location.
+  { -- | A forward slash followed by the name of the bucket.
     location :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -360,9 +390,7 @@ data CreateBucketResponse = CreateBucketResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'location', 'createBucketResponse_location' - Specifies the Region where the bucket will be created. If you are
--- creating a bucket on the US East (N. Virginia) Region (us-east-1), you
--- do not need to specify the location.
+-- 'location', 'createBucketResponse_location' - A forward slash followed by the name of the bucket.
 --
 -- 'httpStatus', 'createBucketResponse_httpStatus' - The response's http status code.
 newCreateBucketResponse ::
@@ -375,9 +403,7 @@ newCreateBucketResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | Specifies the Region where the bucket will be created. If you are
--- creating a bucket on the US East (N. Virginia) Region (us-east-1), you
--- do not need to specify the location.
+-- | A forward slash followed by the name of the bucket.
 createBucketResponse_location :: Lens.Lens' CreateBucketResponse (Prelude.Maybe Prelude.Text)
 createBucketResponse_location = Lens.lens (\CreateBucketResponse' {location} -> location) (\s@CreateBucketResponse' {} a -> s {location = a} :: CreateBucketResponse)
 

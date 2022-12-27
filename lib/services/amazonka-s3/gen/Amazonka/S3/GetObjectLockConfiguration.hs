@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.GetObjectLockConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,6 +24,10 @@
 -- the Object Lock configuration will be applied by default to every new
 -- object placed in the specified bucket. For more information, see
 -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html Locking Objects>.
+--
+-- The following action is related to @GetObjectLockConfiguration@:
+--
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html GetObjectAttributes>
 module Amazonka.S3.GetObjectLockConfiguration
   ( -- * Creating a Request
     GetObjectLockConfiguration (..),
@@ -44,7 +48,8 @@ module Amazonka.S3.GetObjectLockConfiguration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,8 +58,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newGetObjectLockConfiguration' smart constructor.
 data GetObjectLockConfiguration = GetObjectLockConfiguration'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The bucket whose Object Lock configuration you want to retrieve.
     --
@@ -79,8 +84,8 @@ data GetObjectLockConfiguration = GetObjectLockConfiguration'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'getObjectLockConfiguration_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'getObjectLockConfiguration_bucket' - The bucket whose Object Lock configuration you want to retrieve.
 --
@@ -104,8 +109,8 @@ newGetObjectLockConfiguration pBucket_ =
     }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 getObjectLockConfiguration_expectedBucketOwner :: Lens.Lens' GetObjectLockConfiguration (Prelude.Maybe Prelude.Text)
 getObjectLockConfiguration_expectedBucketOwner = Lens.lens (\GetObjectLockConfiguration' {expectedBucketOwner} -> expectedBucketOwner) (\s@GetObjectLockConfiguration' {} a -> s {expectedBucketOwner = a} :: GetObjectLockConfiguration)
 
@@ -126,14 +131,14 @@ instance Core.AWSRequest GetObjectLockConfiguration where
   type
     AWSResponse GetObjectLockConfiguration =
       GetObjectLockConfigurationResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.get defaultService
+      Prelude.. Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetObjectLockConfigurationResponse'
-            Prelude.<$> (Core.parseXML x)
+            Prelude.<$> (Data.parseXML x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -147,18 +152,18 @@ instance Prelude.NFData GetObjectLockConfiguration where
     Prelude.rnf expectedBucketOwner
       `Prelude.seq` Prelude.rnf bucket
 
-instance Core.ToHeaders GetObjectLockConfiguration where
+instance Data.ToHeaders GetObjectLockConfiguration where
   toHeaders GetObjectLockConfiguration' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath GetObjectLockConfiguration where
+instance Data.ToPath GetObjectLockConfiguration where
   toPath GetObjectLockConfiguration' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery GetObjectLockConfiguration where
+instance Data.ToQuery GetObjectLockConfiguration where
   toQuery =
     Prelude.const (Prelude.mconcat ["object-lock"])
 

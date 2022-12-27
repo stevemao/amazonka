@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentity.MergeDeveloperIdentities
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -58,7 +58,8 @@ where
 
 import Amazonka.CognitoIdentity.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -158,12 +159,13 @@ instance Core.AWSRequest MergeDeveloperIdentities where
   type
     AWSResponse MergeDeveloperIdentities =
       MergeDeveloperIdentitiesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           MergeDeveloperIdentitiesResponse'
-            Prelude.<$> (x Core..?> "IdentityId")
+            Prelude.<$> (x Data..?> "IdentityId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -181,46 +183,46 @@ instance Prelude.NFData MergeDeveloperIdentities where
       `Prelude.seq` Prelude.rnf developerProviderName
       `Prelude.seq` Prelude.rnf identityPoolId
 
-instance Core.ToHeaders MergeDeveloperIdentities where
+instance Data.ToHeaders MergeDeveloperIdentities where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityService.MergeDeveloperIdentities" ::
+              Data.=# ( "AWSCognitoIdentityService.MergeDeveloperIdentities" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON MergeDeveloperIdentities where
+instance Data.ToJSON MergeDeveloperIdentities where
   toJSON MergeDeveloperIdentities' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "SourceUserIdentifier"
-                  Core..= sourceUserIdentifier
+                  Data..= sourceUserIdentifier
               ),
             Prelude.Just
               ( "DestinationUserIdentifier"
-                  Core..= destinationUserIdentifier
+                  Data..= destinationUserIdentifier
               ),
             Prelude.Just
               ( "DeveloperProviderName"
-                  Core..= developerProviderName
+                  Data..= developerProviderName
               ),
             Prelude.Just
-              ("IdentityPoolId" Core..= identityPoolId)
+              ("IdentityPoolId" Data..= identityPoolId)
           ]
       )
 
-instance Core.ToPath MergeDeveloperIdentities where
+instance Data.ToPath MergeDeveloperIdentities where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery MergeDeveloperIdentities where
+instance Data.ToQuery MergeDeveloperIdentities where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Returned in response to a successful @MergeDeveloperIdentities@ action.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.CancelHandshake
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ module Amazonka.Organizations.CancelHandshake
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -101,12 +102,13 @@ instance Core.AWSRequest CancelHandshake where
   type
     AWSResponse CancelHandshake =
       CancelHandshakeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CancelHandshakeResponse'
-            Prelude.<$> (x Core..?> "Handshake")
+            Prelude.<$> (x Data..?> "Handshake")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,32 +119,32 @@ instance Prelude.Hashable CancelHandshake where
 instance Prelude.NFData CancelHandshake where
   rnf CancelHandshake' {..} = Prelude.rnf handshakeId
 
-instance Core.ToHeaders CancelHandshake where
+instance Data.ToHeaders CancelHandshake where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.CancelHandshake" ::
+              Data.=# ( "AWSOrganizationsV20161128.CancelHandshake" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CancelHandshake where
+instance Data.ToJSON CancelHandshake where
   toJSON CancelHandshake' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("HandshakeId" Core..= handshakeId)]
+          [Prelude.Just ("HandshakeId" Data..= handshakeId)]
       )
 
-instance Core.ToPath CancelHandshake where
+instance Data.ToPath CancelHandshake where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CancelHandshake where
+instance Data.ToQuery CancelHandshake where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCancelHandshakeResponse' smart constructor.

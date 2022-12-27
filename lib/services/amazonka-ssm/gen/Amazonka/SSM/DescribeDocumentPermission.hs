@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.DescribeDocumentPermission
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.SSM.DescribeDocumentPermission
     newDescribeDocumentPermission,
 
     -- * Request Lenses
-    describeDocumentPermission_nextToken,
     describeDocumentPermission_maxResults,
+    describeDocumentPermission_nextToken,
     describeDocumentPermission_name,
     describeDocumentPermission_permissionType,
 
@@ -49,7 +49,8 @@ module Amazonka.SSM.DescribeDocumentPermission
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,13 +58,13 @@ import Amazonka.SSM.Types
 
 -- | /See:/ 'newDescribeDocumentPermission' smart constructor.
 data DescribeDocumentPermission = DescribeDocumentPermission'
-  { -- | The token for the next set of items to return. (You received this token
-    -- from a previous call.)
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return for this call. The call also
+  { -- | The maximum number of items to return for this call. The call also
     -- returns a token that you can specify in a subsequent call to get the
     -- next set of results.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the document for which you are the owner.
     name :: Prelude.Text,
     -- | The permission type for the document. The permission type can be
@@ -80,12 +81,12 @@ data DescribeDocumentPermission = DescribeDocumentPermission'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeDocumentPermission_nextToken' - The token for the next set of items to return. (You received this token
--- from a previous call.)
---
 -- 'maxResults', 'describeDocumentPermission_maxResults' - The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results.
+--
+-- 'nextToken', 'describeDocumentPermission_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 --
 -- 'name', 'describeDocumentPermission_name' - The name of the document for which you are the owner.
 --
@@ -99,23 +100,23 @@ newDescribeDocumentPermission ::
   DescribeDocumentPermission
 newDescribeDocumentPermission pName_ pPermissionType_ =
   DescribeDocumentPermission'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       name = pName_,
       permissionType = pPermissionType_
     }
-
--- | The token for the next set of items to return. (You received this token
--- from a previous call.)
-describeDocumentPermission_nextToken :: Lens.Lens' DescribeDocumentPermission (Prelude.Maybe Prelude.Text)
-describeDocumentPermission_nextToken = Lens.lens (\DescribeDocumentPermission' {nextToken} -> nextToken) (\s@DescribeDocumentPermission' {} a -> s {nextToken = a} :: DescribeDocumentPermission)
 
 -- | The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results.
 describeDocumentPermission_maxResults :: Lens.Lens' DescribeDocumentPermission (Prelude.Maybe Prelude.Natural)
 describeDocumentPermission_maxResults = Lens.lens (\DescribeDocumentPermission' {maxResults} -> maxResults) (\s@DescribeDocumentPermission' {} a -> s {maxResults = a} :: DescribeDocumentPermission)
+
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+describeDocumentPermission_nextToken :: Lens.Lens' DescribeDocumentPermission (Prelude.Maybe Prelude.Text)
+describeDocumentPermission_nextToken = Lens.lens (\DescribeDocumentPermission' {nextToken} -> nextToken) (\s@DescribeDocumentPermission' {} a -> s {nextToken = a} :: DescribeDocumentPermission)
 
 -- | The name of the document for which you are the owner.
 describeDocumentPermission_name :: Lens.Lens' DescribeDocumentPermission Prelude.Text
@@ -130,64 +131,65 @@ instance Core.AWSRequest DescribeDocumentPermission where
   type
     AWSResponse DescribeDocumentPermission =
       DescribeDocumentPermissionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeDocumentPermissionResponse'
-            Prelude.<$> (x Core..?> "AccountIds" Core..!@ Prelude.mempty)
-            Prelude.<*> ( x Core..?> "AccountSharingInfoList"
+            Prelude.<$> (x Data..?> "AccountIds" Core..!@ Prelude.mempty)
+            Prelude.<*> ( x Data..?> "AccountSharingInfoList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeDocumentPermission where
   hashWithSalt _salt DescribeDocumentPermission' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` permissionType
 
 instance Prelude.NFData DescribeDocumentPermission where
   rnf DescribeDocumentPermission' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf permissionType
 
-instance Core.ToHeaders DescribeDocumentPermission where
+instance Data.ToHeaders DescribeDocumentPermission where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.DescribeDocumentPermission" ::
+              Data.=# ( "AmazonSSM.DescribeDocumentPermission" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeDocumentPermission where
+instance Data.ToJSON DescribeDocumentPermission where
   toJSON DescribeDocumentPermission' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("Name" Core..= name),
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("Name" Data..= name),
             Prelude.Just
-              ("PermissionType" Core..= permissionType)
+              ("PermissionType" Data..= permissionType)
           ]
       )
 
-instance Core.ToPath DescribeDocumentPermission where
+instance Data.ToPath DescribeDocumentPermission where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeDocumentPermission where
+instance Data.ToQuery DescribeDocumentPermission where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeDocumentPermissionResponse' smart constructor.

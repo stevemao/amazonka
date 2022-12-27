@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.ComprehendMedical.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,14 +18,14 @@ module Amazonka.ComprehendMedical.Types
     defaultService,
 
     -- * Errors
-    _ValidationException,
-    _InvalidRequestException,
-    _TooManyRequestsException,
-    _InvalidEncodingException,
     _InternalServerException,
-    _ServiceUnavailableException,
+    _InvalidEncodingException,
+    _InvalidRequestException,
     _ResourceNotFoundException,
+    _ServiceUnavailableException,
     _TextSizeLimitExceededException,
+    _TooManyRequestsException,
+    _ValidationException,
 
     -- * AttributeName
     AttributeName (..),
@@ -71,99 +72,119 @@ module Amazonka.ComprehendMedical.Types
     -- * RxNormTraitName
     RxNormTraitName (..),
 
+    -- * SNOMEDCTAttributeType
+    SNOMEDCTAttributeType (..),
+
+    -- * SNOMEDCTEntityCategory
+    SNOMEDCTEntityCategory (..),
+
+    -- * SNOMEDCTEntityType
+    SNOMEDCTEntityType (..),
+
+    -- * SNOMEDCTRelationshipType
+    SNOMEDCTRelationshipType (..),
+
+    -- * SNOMEDCTTraitName
+    SNOMEDCTTraitName (..),
+
     -- * Attribute
     Attribute (..),
     newAttribute,
-    attribute_relationshipScore,
     attribute_beginOffset,
-    attribute_text,
     attribute_category,
-    attribute_score,
-    attribute_traits,
-    attribute_relationshipType,
     attribute_endOffset,
     attribute_id,
+    attribute_relationshipScore,
+    attribute_relationshipType,
+    attribute_score,
+    attribute_text,
+    attribute_traits,
     attribute_type,
+
+    -- * Characters
+    Characters (..),
+    newCharacters,
+    characters_originalTextCharacters,
 
     -- * ComprehendMedicalAsyncJobFilter
     ComprehendMedicalAsyncJobFilter (..),
     newComprehendMedicalAsyncJobFilter,
-    comprehendMedicalAsyncJobFilter_submitTimeAfter,
-    comprehendMedicalAsyncJobFilter_submitTimeBefore,
     comprehendMedicalAsyncJobFilter_jobName,
     comprehendMedicalAsyncJobFilter_jobStatus,
+    comprehendMedicalAsyncJobFilter_submitTimeAfter,
+    comprehendMedicalAsyncJobFilter_submitTimeBefore,
 
     -- * ComprehendMedicalAsyncJobProperties
     ComprehendMedicalAsyncJobProperties (..),
     newComprehendMedicalAsyncJobProperties,
-    comprehendMedicalAsyncJobProperties_languageCode,
-    comprehendMedicalAsyncJobProperties_kmsKey,
+    comprehendMedicalAsyncJobProperties_dataAccessRoleArn,
+    comprehendMedicalAsyncJobProperties_endTime,
+    comprehendMedicalAsyncJobProperties_expirationTime,
+    comprehendMedicalAsyncJobProperties_inputDataConfig,
     comprehendMedicalAsyncJobProperties_jobId,
     comprehendMedicalAsyncJobProperties_jobName,
-    comprehendMedicalAsyncJobProperties_manifestFilePath,
-    comprehendMedicalAsyncJobProperties_inputDataConfig,
-    comprehendMedicalAsyncJobProperties_endTime,
-    comprehendMedicalAsyncJobProperties_outputDataConfig,
-    comprehendMedicalAsyncJobProperties_modelVersion,
-    comprehendMedicalAsyncJobProperties_dataAccessRoleArn,
     comprehendMedicalAsyncJobProperties_jobStatus,
+    comprehendMedicalAsyncJobProperties_kmsKey,
+    comprehendMedicalAsyncJobProperties_languageCode,
+    comprehendMedicalAsyncJobProperties_manifestFilePath,
     comprehendMedicalAsyncJobProperties_message,
-    comprehendMedicalAsyncJobProperties_expirationTime,
+    comprehendMedicalAsyncJobProperties_modelVersion,
+    comprehendMedicalAsyncJobProperties_outputDataConfig,
     comprehendMedicalAsyncJobProperties_submitTime,
 
     -- * Entity
     Entity (..),
     newEntity,
-    entity_beginOffset,
-    entity_text,
-    entity_category,
-    entity_score,
-    entity_traits,
     entity_attributes,
+    entity_beginOffset,
+    entity_category,
     entity_endOffset,
     entity_id,
+    entity_score,
+    entity_text,
+    entity_traits,
     entity_type,
 
     -- * ICD10CMAttribute
     ICD10CMAttribute (..),
     newICD10CMAttribute,
-    iCD10CMAttribute_relationshipScore,
     iCD10CMAttribute_beginOffset,
-    iCD10CMAttribute_text,
     iCD10CMAttribute_category,
-    iCD10CMAttribute_score,
-    iCD10CMAttribute_traits,
-    iCD10CMAttribute_relationshipType,
     iCD10CMAttribute_endOffset,
     iCD10CMAttribute_id,
+    iCD10CMAttribute_relationshipScore,
+    iCD10CMAttribute_relationshipType,
+    iCD10CMAttribute_score,
+    iCD10CMAttribute_text,
+    iCD10CMAttribute_traits,
     iCD10CMAttribute_type,
 
     -- * ICD10CMConcept
     ICD10CMConcept (..),
     newICD10CMConcept,
-    iCD10CMConcept_score,
     iCD10CMConcept_code,
     iCD10CMConcept_description,
+    iCD10CMConcept_score,
 
     -- * ICD10CMEntity
     ICD10CMEntity (..),
     newICD10CMEntity,
-    iCD10CMEntity_iCD10CMConcepts,
-    iCD10CMEntity_beginOffset,
-    iCD10CMEntity_text,
-    iCD10CMEntity_category,
-    iCD10CMEntity_score,
-    iCD10CMEntity_traits,
     iCD10CMEntity_attributes,
+    iCD10CMEntity_beginOffset,
+    iCD10CMEntity_category,
     iCD10CMEntity_endOffset,
+    iCD10CMEntity_iCD10CMConcepts,
     iCD10CMEntity_id,
+    iCD10CMEntity_score,
+    iCD10CMEntity_text,
+    iCD10CMEntity_traits,
     iCD10CMEntity_type,
 
     -- * ICD10CMTrait
     ICD10CMTrait (..),
     newICD10CMTrait,
-    iCD10CMTrait_score,
     iCD10CMTrait_name,
+    iCD10CMTrait_score,
 
     -- * InputDataConfig
     InputDataConfig (..),
@@ -180,47 +201,96 @@ module Amazonka.ComprehendMedical.Types
     -- * RxNormAttribute
     RxNormAttribute (..),
     newRxNormAttribute,
-    rxNormAttribute_relationshipScore,
     rxNormAttribute_beginOffset,
-    rxNormAttribute_text,
-    rxNormAttribute_score,
-    rxNormAttribute_traits,
     rxNormAttribute_endOffset,
     rxNormAttribute_id,
+    rxNormAttribute_relationshipScore,
+    rxNormAttribute_score,
+    rxNormAttribute_text,
+    rxNormAttribute_traits,
     rxNormAttribute_type,
 
     -- * RxNormConcept
     RxNormConcept (..),
     newRxNormConcept,
-    rxNormConcept_score,
     rxNormConcept_code,
     rxNormConcept_description,
+    rxNormConcept_score,
 
     -- * RxNormEntity
     RxNormEntity (..),
     newRxNormEntity,
-    rxNormEntity_rxNormConcepts,
-    rxNormEntity_beginOffset,
-    rxNormEntity_text,
-    rxNormEntity_category,
-    rxNormEntity_score,
-    rxNormEntity_traits,
     rxNormEntity_attributes,
+    rxNormEntity_beginOffset,
+    rxNormEntity_category,
     rxNormEntity_endOffset,
     rxNormEntity_id,
+    rxNormEntity_rxNormConcepts,
+    rxNormEntity_score,
+    rxNormEntity_text,
+    rxNormEntity_traits,
     rxNormEntity_type,
 
     -- * RxNormTrait
     RxNormTrait (..),
     newRxNormTrait,
-    rxNormTrait_score,
     rxNormTrait_name,
+    rxNormTrait_score,
+
+    -- * SNOMEDCTAttribute
+    SNOMEDCTAttribute (..),
+    newSNOMEDCTAttribute,
+    sNOMEDCTAttribute_beginOffset,
+    sNOMEDCTAttribute_category,
+    sNOMEDCTAttribute_endOffset,
+    sNOMEDCTAttribute_id,
+    sNOMEDCTAttribute_relationshipScore,
+    sNOMEDCTAttribute_relationshipType,
+    sNOMEDCTAttribute_sNOMEDCTConcepts,
+    sNOMEDCTAttribute_score,
+    sNOMEDCTAttribute_text,
+    sNOMEDCTAttribute_traits,
+    sNOMEDCTAttribute_type,
+
+    -- * SNOMEDCTConcept
+    SNOMEDCTConcept (..),
+    newSNOMEDCTConcept,
+    sNOMEDCTConcept_code,
+    sNOMEDCTConcept_description,
+    sNOMEDCTConcept_score,
+
+    -- * SNOMEDCTDetails
+    SNOMEDCTDetails (..),
+    newSNOMEDCTDetails,
+    sNOMEDCTDetails_edition,
+    sNOMEDCTDetails_language,
+    sNOMEDCTDetails_versionDate,
+
+    -- * SNOMEDCTEntity
+    SNOMEDCTEntity (..),
+    newSNOMEDCTEntity,
+    sNOMEDCTEntity_attributes,
+    sNOMEDCTEntity_beginOffset,
+    sNOMEDCTEntity_category,
+    sNOMEDCTEntity_endOffset,
+    sNOMEDCTEntity_id,
+    sNOMEDCTEntity_sNOMEDCTConcepts,
+    sNOMEDCTEntity_score,
+    sNOMEDCTEntity_text,
+    sNOMEDCTEntity_traits,
+    sNOMEDCTEntity_type,
+
+    -- * SNOMEDCTTrait
+    SNOMEDCTTrait (..),
+    newSNOMEDCTTrait,
+    sNOMEDCTTrait_name,
+    sNOMEDCTTrait_score,
 
     -- * Trait
     Trait (..),
     newTrait,
-    trait_score,
     trait_name,
+    trait_score,
 
     -- * UnmappedAttribute
     UnmappedAttribute (..),
@@ -232,6 +302,7 @@ where
 
 import Amazonka.ComprehendMedical.Types.Attribute
 import Amazonka.ComprehendMedical.Types.AttributeName
+import Amazonka.ComprehendMedical.Types.Characters
 import Amazonka.ComprehendMedical.Types.ComprehendMedicalAsyncJobFilter
 import Amazonka.ComprehendMedical.Types.ComprehendMedicalAsyncJobProperties
 import Amazonka.ComprehendMedical.Types.Entity
@@ -259,10 +330,20 @@ import Amazonka.ComprehendMedical.Types.RxNormEntityCategory
 import Amazonka.ComprehendMedical.Types.RxNormEntityType
 import Amazonka.ComprehendMedical.Types.RxNormTrait
 import Amazonka.ComprehendMedical.Types.RxNormTraitName
+import Amazonka.ComprehendMedical.Types.SNOMEDCTAttribute
+import Amazonka.ComprehendMedical.Types.SNOMEDCTAttributeType
+import Amazonka.ComprehendMedical.Types.SNOMEDCTConcept
+import Amazonka.ComprehendMedical.Types.SNOMEDCTDetails
+import Amazonka.ComprehendMedical.Types.SNOMEDCTEntity
+import Amazonka.ComprehendMedical.Types.SNOMEDCTEntityCategory
+import Amazonka.ComprehendMedical.Types.SNOMEDCTEntityType
+import Amazonka.ComprehendMedical.Types.SNOMEDCTRelationshipType
+import Amazonka.ComprehendMedical.Types.SNOMEDCTTrait
+import Amazonka.ComprehendMedical.Types.SNOMEDCTTraitName
 import Amazonka.ComprehendMedical.Types.Trait
 import Amazonka.ComprehendMedical.Types.UnmappedAttribute
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 
@@ -270,43 +351,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev =
-        "ComprehendMedical",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "comprehendmedical",
-      Core._serviceSigningName = "comprehendmedical",
-      Core._serviceVersion = "2018-10-30",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
-        Core.parseJSONError "ComprehendMedical",
-      Core._serviceRetry = retry
+    { Core.abbrev = "ComprehendMedical",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "comprehendmedical",
+      Core.signingName = "comprehendmedical",
+      Core.version = "2018-10-30",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "ComprehendMedical",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -314,37 +401,36 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
 
--- | The filter that you specified for the operation is invalid. Check the
--- filter values that you entered and try your request again.
-_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ValidationException =
+-- | An internal server error occurred. Retry your request.
+_InternalServerException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InternalServerException =
   Core._MatchServiceError
     defaultService
-    "ValidationException"
+    "InternalServerException"
+
+-- | The input text was not in valid UTF-8 character encoding. Check your
+-- text then retry your request.
+_InvalidEncodingException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidEncodingException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidEncodingException"
 
 -- | The request that you made is invalid. Check your request to determine
 -- why it\'s invalid and then retry the request.
@@ -353,6 +439,30 @@ _InvalidRequestException =
   Core._MatchServiceError
     defaultService
     "InvalidRequestException"
+
+-- | The resource identified by the specified Amazon Resource Name (ARN) was
+-- not found. Check the ARN and try your request again.
+_ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ResourceNotFoundException =
+  Core._MatchServiceError
+    defaultService
+    "ResourceNotFoundException"
+
+-- | The Comprehend Medical; service is temporarily unavailable. Please wait
+-- and then retry your request.
+_ServiceUnavailableException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ServiceUnavailableException =
+  Core._MatchServiceError
+    defaultService
+    "ServiceUnavailableException"
+
+-- | The size of the text you submitted exceeds the size limit. Reduce the
+-- size of the text or use a smaller document and then retry your request.
+_TextSizeLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TextSizeLimitExceededException =
+  Core._MatchServiceError
+    defaultService
+    "TextSizeLimitExceededException"
 
 -- | You have made too many requests within a short period of time. Wait for
 -- a short time and then try your request again. Contact customer support
@@ -363,41 +473,10 @@ _TooManyRequestsException =
     defaultService
     "TooManyRequestsException"
 
--- | The input text was not in valid UTF-8 character encoding. Check your
--- text then retry your request.
-_InvalidEncodingException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidEncodingException =
+-- | The filter that you specified for the operation is invalid. Check the
+-- filter values that you entered and try your request again.
+_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ValidationException =
   Core._MatchServiceError
     defaultService
-    "InvalidEncodingException"
-
--- | An internal server error occurred. Retry your request.
-_InternalServerException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InternalServerException =
-  Core._MatchServiceError
-    defaultService
-    "InternalServerException"
-
--- | The Amazon Comprehend Medical service is temporarily unavailable. Please
--- wait and then retry your request.
-_ServiceUnavailableException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ServiceUnavailableException =
-  Core._MatchServiceError
-    defaultService
-    "ServiceUnavailableException"
-
--- | The resource identified by the specified Amazon Resource Name (ARN) was
--- not found. Check the ARN and try your request again.
-_ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ResourceNotFoundException =
-  Core._MatchServiceError
-    defaultService
-    "ResourceNotFoundException"
-
--- | The size of the text you submitted exceeds the size limit. Reduce the
--- size of the text or use a smaller document and then retry your request.
-_TextSizeLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TextSizeLimitExceededException =
-  Core._MatchServiceError
-    defaultService
-    "TextSizeLimitExceededException"
+    "ValidationException"

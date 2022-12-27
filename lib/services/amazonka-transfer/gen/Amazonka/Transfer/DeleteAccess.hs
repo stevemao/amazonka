@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Transfer.DeleteAccess
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ module Amazonka.Transfer.DeleteAccess
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,18 +53,17 @@ data DeleteAccess = DeleteAccess'
     -- | A unique identifier that is required to identify specific groups within
     -- your directory. The users of the group that you associate have access to
     -- your Amazon S3 or Amazon EFS resources over the enabled protocols using
-    -- Amazon Web Services Transfer Family. If you know the group name, you can
-    -- view the SID values by running the following command using Windows
-    -- PowerShell.
+    -- Transfer Family. If you know the group name, you can view the SID values
+    -- by running the following command using Windows PowerShell.
     --
     -- @Get-ADGroup -Filter {samAccountName -like \"YourGroupName*\"} -Properties * | Select SamAccountName,ObjectSid@
     --
     -- In that command, replace /YourGroupName/ with the name of your Active
     -- Directory group.
     --
-    -- The regex used to validate this parameter is a string of characters
-    -- consisting of uppercase and lowercase alphanumeric characters with no
-    -- spaces. You can also include underscores or any of the following
+    -- The regular expression used to validate this parameter is a string of
+    -- characters consisting of uppercase and lowercase alphanumeric characters
+    -- with no spaces. You can also include underscores or any of the following
     -- characters: =,.\@:\/-
     externalId :: Prelude.Text
   }
@@ -83,18 +83,17 @@ data DeleteAccess = DeleteAccess'
 -- 'externalId', 'deleteAccess_externalId' - A unique identifier that is required to identify specific groups within
 -- your directory. The users of the group that you associate have access to
 -- your Amazon S3 or Amazon EFS resources over the enabled protocols using
--- Amazon Web Services Transfer Family. If you know the group name, you can
--- view the SID values by running the following command using Windows
--- PowerShell.
+-- Transfer Family. If you know the group name, you can view the SID values
+-- by running the following command using Windows PowerShell.
 --
 -- @Get-ADGroup -Filter {samAccountName -like \"YourGroupName*\"} -Properties * | Select SamAccountName,ObjectSid@
 --
 -- In that command, replace /YourGroupName/ with the name of your Active
 -- Directory group.
 --
--- The regex used to validate this parameter is a string of characters
--- consisting of uppercase and lowercase alphanumeric characters with no
--- spaces. You can also include underscores or any of the following
+-- The regular expression used to validate this parameter is a string of
+-- characters consisting of uppercase and lowercase alphanumeric characters
+-- with no spaces. You can also include underscores or any of the following
 -- characters: =,.\@:\/-
 newDeleteAccess ::
   -- | 'serverId'
@@ -116,25 +115,25 @@ deleteAccess_serverId = Lens.lens (\DeleteAccess' {serverId} -> serverId) (\s@De
 -- | A unique identifier that is required to identify specific groups within
 -- your directory. The users of the group that you associate have access to
 -- your Amazon S3 or Amazon EFS resources over the enabled protocols using
--- Amazon Web Services Transfer Family. If you know the group name, you can
--- view the SID values by running the following command using Windows
--- PowerShell.
+-- Transfer Family. If you know the group name, you can view the SID values
+-- by running the following command using Windows PowerShell.
 --
 -- @Get-ADGroup -Filter {samAccountName -like \"YourGroupName*\"} -Properties * | Select SamAccountName,ObjectSid@
 --
 -- In that command, replace /YourGroupName/ with the name of your Active
 -- Directory group.
 --
--- The regex used to validate this parameter is a string of characters
--- consisting of uppercase and lowercase alphanumeric characters with no
--- spaces. You can also include underscores or any of the following
+-- The regular expression used to validate this parameter is a string of
+-- characters consisting of uppercase and lowercase alphanumeric characters
+-- with no spaces. You can also include underscores or any of the following
 -- characters: =,.\@:\/-
 deleteAccess_externalId :: Lens.Lens' DeleteAccess Prelude.Text
 deleteAccess_externalId = Lens.lens (\DeleteAccess' {externalId} -> externalId) (\s@DeleteAccess' {} a -> s {externalId = a} :: DeleteAccess)
 
 instance Core.AWSRequest DeleteAccess where
   type AWSResponse DeleteAccess = DeleteAccessResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull DeleteAccessResponse'
 
 instance Prelude.Hashable DeleteAccess where
@@ -147,34 +146,34 @@ instance Prelude.NFData DeleteAccess where
     Prelude.rnf serverId
       `Prelude.seq` Prelude.rnf externalId
 
-instance Core.ToHeaders DeleteAccess where
+instance Data.ToHeaders DeleteAccess where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "TransferService.DeleteAccess" ::
+              Data.=# ( "TransferService.DeleteAccess" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteAccess where
+instance Data.ToJSON DeleteAccess where
   toJSON DeleteAccess' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ServerId" Core..= serverId),
-            Prelude.Just ("ExternalId" Core..= externalId)
+          [ Prelude.Just ("ServerId" Data..= serverId),
+            Prelude.Just ("ExternalId" Data..= externalId)
           ]
       )
 
-instance Core.ToPath DeleteAccess where
+instance Data.ToPath DeleteAccess where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteAccess where
+instance Data.ToQuery DeleteAccess where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAccessResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.LoggingOptionsPayload
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoT.Types.LoggingOptionsPayload where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.LogLevel
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the logging options payload.
@@ -74,11 +75,11 @@ instance Prelude.NFData LoggingOptionsPayload where
     Prelude.rnf logLevel
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToJSON LoggingOptionsPayload where
+instance Data.ToJSON LoggingOptionsPayload where
   toJSON LoggingOptionsPayload' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("logLevel" Core..=) Prelude.<$> logLevel,
-            Prelude.Just ("roleArn" Core..= roleArn)
+          [ ("logLevel" Data..=) Prelude.<$> logLevel,
+            Prelude.Just ("roleArn" Data..= roleArn)
           ]
       )

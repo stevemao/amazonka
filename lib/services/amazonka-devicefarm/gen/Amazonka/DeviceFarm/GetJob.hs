@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.GetJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.DeviceFarm.GetJob
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,12 +77,13 @@ getJob_arn = Lens.lens (\GetJob' {arn} -> arn) (\s@GetJob' {} a -> s {arn = a} :
 
 instance Core.AWSRequest GetJob where
   type AWSResponse GetJob = GetJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetJobResponse'
-            Prelude.<$> (x Core..?> "job")
+            Prelude.<$> (x Data..?> "job")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -92,30 +94,30 @@ instance Prelude.Hashable GetJob where
 instance Prelude.NFData GetJob where
   rnf GetJob' {..} = Prelude.rnf arn
 
-instance Core.ToHeaders GetJob where
+instance Data.ToHeaders GetJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("DeviceFarm_20150623.GetJob" :: Prelude.ByteString),
+              Data.=# ("DeviceFarm_20150623.GetJob" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetJob where
+instance Data.ToJSON GetJob where
   toJSON GetJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("arn" Core..= arn)]
+          [Prelude.Just ("arn" Data..= arn)]
       )
 
-instance Core.ToPath GetJob where
+instance Data.ToPath GetJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetJob where
+instance Data.ToQuery GetJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a get job request.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.VerifyEmailAddress
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,7 +37,8 @@ module Amazonka.SES.VerifyEmailAddress
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,7 +79,8 @@ instance Core.AWSRequest VerifyEmailAddress where
   type
     AWSResponse VerifyEmailAddress =
       VerifyEmailAddressResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull VerifyEmailAddressResponse'
 
@@ -90,20 +92,20 @@ instance Prelude.NFData VerifyEmailAddress where
   rnf VerifyEmailAddress' {..} =
     Prelude.rnf emailAddress
 
-instance Core.ToHeaders VerifyEmailAddress where
+instance Data.ToHeaders VerifyEmailAddress where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath VerifyEmailAddress where
+instance Data.ToPath VerifyEmailAddress where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery VerifyEmailAddress where
+instance Data.ToQuery VerifyEmailAddress where
   toQuery VerifyEmailAddress' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("VerifyEmailAddress" :: Prelude.ByteString),
+          Data.=: ("VerifyEmailAddress" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "EmailAddress" Core.=: emailAddress
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "EmailAddress" Data.=: emailAddress
       ]
 
 -- | /See:/ 'newVerifyEmailAddressResponse' smart constructor.

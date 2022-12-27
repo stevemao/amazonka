@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.Grafana
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,20 +30,11 @@ module Amazonka.Grafana
     -- * Errors
     -- $errors
 
-    -- ** ValidationException
-    _ValidationException,
-
     -- ** AccessDeniedException
     _AccessDeniedException,
 
     -- ** ConflictException
     _ConflictException,
-
-    -- ** ServiceQuotaExceededException
-    _ServiceQuotaExceededException,
-
-    -- ** ThrottlingException
-    _ThrottlingException,
 
     -- ** InternalServerException
     _InternalServerException,
@@ -51,11 +42,86 @@ module Amazonka.Grafana
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
 
+    -- ** ServiceQuotaExceededException
+    _ServiceQuotaExceededException,
+
+    -- ** ThrottlingException
+    _ThrottlingException,
+
+    -- ** ValidationException
+    _ValidationException,
+
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
+
+    -- ** AssociateLicense
+    AssociateLicense (AssociateLicense'),
+    newAssociateLicense,
+    AssociateLicenseResponse (AssociateLicenseResponse'),
+    newAssociateLicenseResponse,
+
+    -- ** CreateWorkspace
+    CreateWorkspace (CreateWorkspace'),
+    newCreateWorkspace,
+    CreateWorkspaceResponse (CreateWorkspaceResponse'),
+    newCreateWorkspaceResponse,
+
+    -- ** CreateWorkspaceApiKey
+    CreateWorkspaceApiKey (CreateWorkspaceApiKey'),
+    newCreateWorkspaceApiKey,
+    CreateWorkspaceApiKeyResponse (CreateWorkspaceApiKeyResponse'),
+    newCreateWorkspaceApiKeyResponse,
+
+    -- ** DeleteWorkspace
+    DeleteWorkspace (DeleteWorkspace'),
+    newDeleteWorkspace,
+    DeleteWorkspaceResponse (DeleteWorkspaceResponse'),
+    newDeleteWorkspaceResponse,
+
+    -- ** DeleteWorkspaceApiKey
+    DeleteWorkspaceApiKey (DeleteWorkspaceApiKey'),
+    newDeleteWorkspaceApiKey,
+    DeleteWorkspaceApiKeyResponse (DeleteWorkspaceApiKeyResponse'),
+    newDeleteWorkspaceApiKeyResponse,
+
+    -- ** DescribeWorkspace
+    DescribeWorkspace (DescribeWorkspace'),
+    newDescribeWorkspace,
+    DescribeWorkspaceResponse (DescribeWorkspaceResponse'),
+    newDescribeWorkspaceResponse,
+
+    -- ** DescribeWorkspaceAuthentication
+    DescribeWorkspaceAuthentication (DescribeWorkspaceAuthentication'),
+    newDescribeWorkspaceAuthentication,
+    DescribeWorkspaceAuthenticationResponse (DescribeWorkspaceAuthenticationResponse'),
+    newDescribeWorkspaceAuthenticationResponse,
+
+    -- ** DescribeWorkspaceConfiguration
+    DescribeWorkspaceConfiguration (DescribeWorkspaceConfiguration'),
+    newDescribeWorkspaceConfiguration,
+    DescribeWorkspaceConfigurationResponse (DescribeWorkspaceConfigurationResponse'),
+    newDescribeWorkspaceConfigurationResponse,
+
+    -- ** DisassociateLicense
+    DisassociateLicense (DisassociateLicense'),
+    newDisassociateLicense,
+    DisassociateLicenseResponse (DisassociateLicenseResponse'),
+    newDisassociateLicenseResponse,
+
+    -- ** ListPermissions (Paginated)
+    ListPermissions (ListPermissions'),
+    newListPermissions,
+    ListPermissionsResponse (ListPermissionsResponse'),
+    newListPermissionsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** ListWorkspaces (Paginated)
     ListWorkspaces (ListWorkspaces'),
@@ -63,11 +129,23 @@ module Amazonka.Grafana
     ListWorkspacesResponse (ListWorkspacesResponse'),
     newListWorkspacesResponse,
 
-    -- ** DeleteWorkspace
-    DeleteWorkspace (DeleteWorkspace'),
-    newDeleteWorkspace,
-    DeleteWorkspaceResponse (DeleteWorkspaceResponse'),
-    newDeleteWorkspaceResponse,
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UpdatePermissions
+    UpdatePermissions (UpdatePermissions'),
+    newUpdatePermissions,
+    UpdatePermissionsResponse (UpdatePermissionsResponse'),
+    newUpdatePermissionsResponse,
 
     -- ** UpdateWorkspace
     UpdateWorkspace (UpdateWorkspace'),
@@ -81,47 +159,11 @@ module Amazonka.Grafana
     UpdateWorkspaceAuthenticationResponse (UpdateWorkspaceAuthenticationResponse'),
     newUpdateWorkspaceAuthenticationResponse,
 
-    -- ** DescribeWorkspaceAuthentication
-    DescribeWorkspaceAuthentication (DescribeWorkspaceAuthentication'),
-    newDescribeWorkspaceAuthentication,
-    DescribeWorkspaceAuthenticationResponse (DescribeWorkspaceAuthenticationResponse'),
-    newDescribeWorkspaceAuthenticationResponse,
-
-    -- ** DescribeWorkspace
-    DescribeWorkspace (DescribeWorkspace'),
-    newDescribeWorkspace,
-    DescribeWorkspaceResponse (DescribeWorkspaceResponse'),
-    newDescribeWorkspaceResponse,
-
-    -- ** AssociateLicense
-    AssociateLicense (AssociateLicense'),
-    newAssociateLicense,
-    AssociateLicenseResponse (AssociateLicenseResponse'),
-    newAssociateLicenseResponse,
-
-    -- ** ListPermissions (Paginated)
-    ListPermissions (ListPermissions'),
-    newListPermissions,
-    ListPermissionsResponse (ListPermissionsResponse'),
-    newListPermissionsResponse,
-
-    -- ** UpdatePermissions
-    UpdatePermissions (UpdatePermissions'),
-    newUpdatePermissions,
-    UpdatePermissionsResponse (UpdatePermissionsResponse'),
-    newUpdatePermissionsResponse,
-
-    -- ** DisassociateLicense
-    DisassociateLicense (DisassociateLicense'),
-    newDisassociateLicense,
-    DisassociateLicenseResponse (DisassociateLicenseResponse'),
-    newDisassociateLicenseResponse,
-
-    -- ** CreateWorkspace
-    CreateWorkspace (CreateWorkspace'),
-    newCreateWorkspace,
-    CreateWorkspaceResponse (CreateWorkspaceResponse'),
-    newCreateWorkspaceResponse,
+    -- ** UpdateWorkspaceConfiguration
+    UpdateWorkspaceConfiguration (UpdateWorkspaceConfiguration'),
+    newUpdateWorkspaceConfiguration,
+    UpdateWorkspaceConfigurationResponse (UpdateWorkspaceConfigurationResponse'),
+    newUpdateWorkspaceConfigurationResponse,
 
     -- * Types
 
@@ -206,6 +248,10 @@ module Amazonka.Grafana
     User (User'),
     newUser,
 
+    -- ** VpcConfiguration
+    VpcConfiguration (VpcConfiguration'),
+    newVpcConfiguration,
+
     -- ** WorkspaceDescription
     WorkspaceDescription (WorkspaceDescription'),
     newWorkspaceDescription,
@@ -218,17 +264,24 @@ where
 
 import Amazonka.Grafana.AssociateLicense
 import Amazonka.Grafana.CreateWorkspace
+import Amazonka.Grafana.CreateWorkspaceApiKey
 import Amazonka.Grafana.DeleteWorkspace
+import Amazonka.Grafana.DeleteWorkspaceApiKey
 import Amazonka.Grafana.DescribeWorkspace
 import Amazonka.Grafana.DescribeWorkspaceAuthentication
+import Amazonka.Grafana.DescribeWorkspaceConfiguration
 import Amazonka.Grafana.DisassociateLicense
 import Amazonka.Grafana.Lens
 import Amazonka.Grafana.ListPermissions
+import Amazonka.Grafana.ListTagsForResource
 import Amazonka.Grafana.ListWorkspaces
+import Amazonka.Grafana.TagResource
 import Amazonka.Grafana.Types
+import Amazonka.Grafana.UntagResource
 import Amazonka.Grafana.UpdatePermissions
 import Amazonka.Grafana.UpdateWorkspace
 import Amazonka.Grafana.UpdateWorkspaceAuthentication
+import Amazonka.Grafana.UpdateWorkspaceConfiguration
 import Amazonka.Grafana.Waiters
 
 -- $errors

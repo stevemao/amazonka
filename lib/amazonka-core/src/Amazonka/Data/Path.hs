@@ -10,6 +10,7 @@ module Amazonka.Data.Path
     Path (..),
     RawPath,
     EscapedPath,
+    TwiceEscapedPath,
 
     -- * Constructing Paths
     ToPath (..),
@@ -17,6 +18,7 @@ module Amazonka.Data.Path
 
     -- * Manipulating Paths
     escapePath,
+    escapePathTwice,
     collapsePath,
   )
 where
@@ -47,7 +49,7 @@ rawPath = Raw . strip . BS8.split sep . toPath
 data Encoding = NoEncoding | Percent
   deriving stock (Eq, Show)
 
-data Path :: Encoding -> * where
+data Path :: Encoding -> Type where
   Raw :: [ByteString] -> Path 'NoEncoding
   Encoded :: [ByteString] -> Path 'Percent
 
@@ -58,6 +60,10 @@ deriving stock instance Eq (Path a)
 type RawPath = Path 'NoEncoding
 
 type EscapedPath = Path 'Percent
+
+-- | Used in SigV4
+newtype TwiceEscapedPath = TwiceEscapedPath (Path 'Percent)
+  deriving newtype (Eq, Show, ToByteString)
 
 instance Semigroup RawPath where
   Raw xs <> Raw ys = Raw (xs ++ ys)
@@ -73,6 +79,13 @@ instance ToByteString EscapedPath where
 escapePath :: Path a -> EscapedPath
 escapePath (Raw xs) = Encoded (map (URI.urlEncode True) xs)
 escapePath (Encoded xs) = Encoded xs
+
+-- | Escape a path twice. Used when computing the SigV4 canonical path.
+escapePathTwice :: Path a -> TwiceEscapedPath
+escapePathTwice p = TwiceEscapedPath $
+  Encoded $ case p of
+    Raw xs -> map (URI.urlEncode True . URI.urlEncode True) xs
+    Encoded xs -> map (URI.urlEncode True) xs
 
 collapsePath :: Path a -> Path a
 collapsePath = \case

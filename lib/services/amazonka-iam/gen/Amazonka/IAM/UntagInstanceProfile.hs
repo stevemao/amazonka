@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.UntagInstanceProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.IAM.UntagInstanceProfile
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,7 +108,8 @@ instance Core.AWSRequest UntagInstanceProfile where
   type
     AWSResponse UntagInstanceProfile =
       UntagInstanceProfileResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull UntagInstanceProfileResponse'
 
@@ -121,21 +123,21 @@ instance Prelude.NFData UntagInstanceProfile where
     Prelude.rnf instanceProfileName
       `Prelude.seq` Prelude.rnf tagKeys
 
-instance Core.ToHeaders UntagInstanceProfile where
+instance Data.ToHeaders UntagInstanceProfile where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath UntagInstanceProfile where
+instance Data.ToPath UntagInstanceProfile where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UntagInstanceProfile where
+instance Data.ToQuery UntagInstanceProfile where
   toQuery UntagInstanceProfile' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("UntagInstanceProfile" :: Prelude.ByteString),
+          Data.=: ("UntagInstanceProfile" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "InstanceProfileName" Core.=: instanceProfileName,
-        "TagKeys" Core.=: Core.toQueryList "member" tagKeys
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "InstanceProfileName" Data.=: instanceProfileName,
+        "TagKeys" Data.=: Data.toQueryList "member" tagKeys
       ]
 
 -- | /See:/ 'newUntagInstanceProfileResponse' smart constructor.

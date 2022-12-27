@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.Textract
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,47 +21,47 @@ module Amazonka.Textract
     -- * Errors
     -- $errors
 
-    -- ** InvalidJobIdException
-    _InvalidJobIdException,
-
     -- ** AccessDeniedException
     _AccessDeniedException,
 
     -- ** BadDocumentException
     _BadDocumentException,
 
-    -- ** InvalidParameterException
-    _InvalidParameterException,
-
-    -- ** UnsupportedDocumentException
-    _UnsupportedDocumentException,
-
-    -- ** InvalidS3ObjectException
-    _InvalidS3ObjectException,
-
-    -- ** ProvisionedThroughputExceededException
-    _ProvisionedThroughputExceededException,
-
-    -- ** InvalidKMSKeyException
-    _InvalidKMSKeyException,
-
-    -- ** ThrottlingException
-    _ThrottlingException,
-
-    -- ** InternalServerError
-    _InternalServerError,
-
-    -- ** IdempotentParameterMismatchException
-    _IdempotentParameterMismatchException,
+    -- ** DocumentTooLargeException
+    _DocumentTooLargeException,
 
     -- ** HumanLoopQuotaExceededException
     _HumanLoopQuotaExceededException,
 
-    -- ** DocumentTooLargeException
-    _DocumentTooLargeException,
+    -- ** IdempotentParameterMismatchException
+    _IdempotentParameterMismatchException,
+
+    -- ** InternalServerError
+    _InternalServerError,
+
+    -- ** InvalidJobIdException
+    _InvalidJobIdException,
+
+    -- ** InvalidKMSKeyException
+    _InvalidKMSKeyException,
+
+    -- ** InvalidParameterException
+    _InvalidParameterException,
+
+    -- ** InvalidS3ObjectException
+    _InvalidS3ObjectException,
 
     -- ** LimitExceededException
     _LimitExceededException,
+
+    -- ** ProvisionedThroughputExceededException
+    _ProvisionedThroughputExceededException,
+
+    -- ** ThrottlingException
+    _ThrottlingException,
+
+    -- ** UnsupportedDocumentException
+    _UnsupportedDocumentException,
 
     -- * Waiters
     -- $waiters
@@ -69,29 +69,11 @@ module Amazonka.Textract
     -- * Operations
     -- $operations
 
-    -- ** DetectDocumentText
-    DetectDocumentText (DetectDocumentText'),
-    newDetectDocumentText,
-    DetectDocumentTextResponse (DetectDocumentTextResponse'),
-    newDetectDocumentTextResponse,
-
-    -- ** StartDocumentAnalysis
-    StartDocumentAnalysis (StartDocumentAnalysis'),
-    newStartDocumentAnalysis,
-    StartDocumentAnalysisResponse (StartDocumentAnalysisResponse'),
-    newStartDocumentAnalysisResponse,
-
     -- ** AnalyzeDocument
     AnalyzeDocument (AnalyzeDocument'),
     newAnalyzeDocument,
     AnalyzeDocumentResponse (AnalyzeDocumentResponse'),
     newAnalyzeDocumentResponse,
-
-    -- ** GetDocumentTextDetection
-    GetDocumentTextDetection (GetDocumentTextDetection'),
-    newGetDocumentTextDetection,
-    GetDocumentTextDetectionResponse (GetDocumentTextDetectionResponse'),
-    newGetDocumentTextDetectionResponse,
 
     -- ** AnalyzeExpense
     AnalyzeExpense (AnalyzeExpense'),
@@ -99,17 +81,71 @@ module Amazonka.Textract
     AnalyzeExpenseResponse (AnalyzeExpenseResponse'),
     newAnalyzeExpenseResponse,
 
-    -- ** StartDocumentTextDetection
-    StartDocumentTextDetection (StartDocumentTextDetection'),
-    newStartDocumentTextDetection,
-    StartDocumentTextDetectionResponse (StartDocumentTextDetectionResponse'),
-    newStartDocumentTextDetectionResponse,
+    -- ** AnalyzeID
+    AnalyzeID (AnalyzeID'),
+    newAnalyzeID,
+    AnalyzeIDResponse (AnalyzeIDResponse'),
+    newAnalyzeIDResponse,
+
+    -- ** DetectDocumentText
+    DetectDocumentText (DetectDocumentText'),
+    newDetectDocumentText,
+    DetectDocumentTextResponse (DetectDocumentTextResponse'),
+    newDetectDocumentTextResponse,
 
     -- ** GetDocumentAnalysis
     GetDocumentAnalysis (GetDocumentAnalysis'),
     newGetDocumentAnalysis,
     GetDocumentAnalysisResponse (GetDocumentAnalysisResponse'),
     newGetDocumentAnalysisResponse,
+
+    -- ** GetDocumentTextDetection
+    GetDocumentTextDetection (GetDocumentTextDetection'),
+    newGetDocumentTextDetection,
+    GetDocumentTextDetectionResponse (GetDocumentTextDetectionResponse'),
+    newGetDocumentTextDetectionResponse,
+
+    -- ** GetExpenseAnalysis
+    GetExpenseAnalysis (GetExpenseAnalysis'),
+    newGetExpenseAnalysis,
+    GetExpenseAnalysisResponse (GetExpenseAnalysisResponse'),
+    newGetExpenseAnalysisResponse,
+
+    -- ** GetLendingAnalysis
+    GetLendingAnalysis (GetLendingAnalysis'),
+    newGetLendingAnalysis,
+    GetLendingAnalysisResponse (GetLendingAnalysisResponse'),
+    newGetLendingAnalysisResponse,
+
+    -- ** GetLendingAnalysisSummary
+    GetLendingAnalysisSummary (GetLendingAnalysisSummary'),
+    newGetLendingAnalysisSummary,
+    GetLendingAnalysisSummaryResponse (GetLendingAnalysisSummaryResponse'),
+    newGetLendingAnalysisSummaryResponse,
+
+    -- ** StartDocumentAnalysis
+    StartDocumentAnalysis (StartDocumentAnalysis'),
+    newStartDocumentAnalysis,
+    StartDocumentAnalysisResponse (StartDocumentAnalysisResponse'),
+    newStartDocumentAnalysisResponse,
+
+    -- ** StartDocumentTextDetection
+    StartDocumentTextDetection (StartDocumentTextDetection'),
+    newStartDocumentTextDetection,
+    StartDocumentTextDetectionResponse (StartDocumentTextDetectionResponse'),
+    newStartDocumentTextDetectionResponse,
+
+    -- ** StartExpenseAnalysis
+    StartExpenseAnalysis (StartExpenseAnalysis'),
+    newStartExpenseAnalysis,
+    StartExpenseAnalysisResponse (StartExpenseAnalysisResponse'),
+    newStartExpenseAnalysisResponse,
+
+    -- ** StartLendingAnalysis
+    StartLendingAnalysis (StartLendingAnalysis'),
+    newStartLendingAnalysis,
+    StartLendingAnalysisResponse (StartLendingAnalysisResponse'),
+    newStartLendingAnalysisResponse,
 
     -- * Types
 
@@ -137,6 +173,13 @@ module Amazonka.Textract
     -- ** TextType
     TextType (..),
 
+    -- ** ValueType
+    ValueType (..),
+
+    -- ** AnalyzeIDDetections
+    AnalyzeIDDetections (AnalyzeIDDetections'),
+    newAnalyzeIDDetections,
+
     -- ** Block
     Block (Block'),
     newBlock,
@@ -145,9 +188,17 @@ module Amazonka.Textract
     BoundingBox (BoundingBox'),
     newBoundingBox,
 
+    -- ** DetectedSignature
+    DetectedSignature (DetectedSignature'),
+    newDetectedSignature,
+
     -- ** Document
     Document (Document'),
     newDocument,
+
+    -- ** DocumentGroup
+    DocumentGroup (DocumentGroup'),
+    newDocumentGroup,
 
     -- ** DocumentLocation
     DocumentLocation (DocumentLocation'),
@@ -156,6 +207,10 @@ module Amazonka.Textract
     -- ** DocumentMetadata
     DocumentMetadata (DocumentMetadata'),
     newDocumentMetadata,
+
+    -- ** ExpenseCurrency
+    ExpenseCurrency (ExpenseCurrency'),
+    newExpenseCurrency,
 
     -- ** ExpenseDetection
     ExpenseDetection (ExpenseDetection'),
@@ -169,9 +224,17 @@ module Amazonka.Textract
     ExpenseField (ExpenseField'),
     newExpenseField,
 
+    -- ** ExpenseGroupProperty
+    ExpenseGroupProperty (ExpenseGroupProperty'),
+    newExpenseGroupProperty,
+
     -- ** ExpenseType
     ExpenseType (ExpenseType'),
     newExpenseType,
+
+    -- ** Extraction
+    Extraction (Extraction'),
+    newExtraction,
 
     -- ** Geometry
     Geometry (Geometry'),
@@ -189,6 +252,34 @@ module Amazonka.Textract
     HumanLoopDataAttributes (HumanLoopDataAttributes'),
     newHumanLoopDataAttributes,
 
+    -- ** IdentityDocument
+    IdentityDocument (IdentityDocument'),
+    newIdentityDocument,
+
+    -- ** IdentityDocumentField
+    IdentityDocumentField (IdentityDocumentField'),
+    newIdentityDocumentField,
+
+    -- ** LendingDetection
+    LendingDetection (LendingDetection'),
+    newLendingDetection,
+
+    -- ** LendingDocument
+    LendingDocument (LendingDocument'),
+    newLendingDocument,
+
+    -- ** LendingField
+    LendingField (LendingField'),
+    newLendingField,
+
+    -- ** LendingResult
+    LendingResult (LendingResult'),
+    newLendingResult,
+
+    -- ** LendingSummary
+    LendingSummary (LendingSummary'),
+    newLendingSummary,
+
     -- ** LineItemFields
     LineItemFields (LineItemFields'),
     newLineItemFields,
@@ -196,6 +287,10 @@ module Amazonka.Textract
     -- ** LineItemGroup
     LineItemGroup (LineItemGroup'),
     newLineItemGroup,
+
+    -- ** NormalizedValue
+    NormalizedValue (NormalizedValue'),
+    newNormalizedValue,
 
     -- ** NotificationChannel
     NotificationChannel (NotificationChannel'),
@@ -205,9 +300,25 @@ module Amazonka.Textract
     OutputConfig (OutputConfig'),
     newOutputConfig,
 
+    -- ** PageClassification
+    PageClassification (PageClassification'),
+    newPageClassification,
+
     -- ** Point
     Point (Point'),
     newPoint,
+
+    -- ** Prediction
+    Prediction (Prediction'),
+    newPrediction,
+
+    -- ** QueriesConfig
+    QueriesConfig (QueriesConfig'),
+    newQueriesConfig,
+
+    -- ** Query
+    Query (Query'),
+    newQuery,
 
     -- ** Relationship
     Relationship (Relationship'),
@@ -217,6 +328,18 @@ module Amazonka.Textract
     S3Object (S3Object'),
     newS3Object,
 
+    -- ** SignatureDetection
+    SignatureDetection (SignatureDetection'),
+    newSignatureDetection,
+
+    -- ** SplitDocument
+    SplitDocument (SplitDocument'),
+    newSplitDocument,
+
+    -- ** UndetectedSignature
+    UndetectedSignature (UndetectedSignature'),
+    newUndetectedSignature,
+
     -- ** Warning
     Warning (Warning'),
     newWarning,
@@ -225,12 +348,18 @@ where
 
 import Amazonka.Textract.AnalyzeDocument
 import Amazonka.Textract.AnalyzeExpense
+import Amazonka.Textract.AnalyzeID
 import Amazonka.Textract.DetectDocumentText
 import Amazonka.Textract.GetDocumentAnalysis
 import Amazonka.Textract.GetDocumentTextDetection
+import Amazonka.Textract.GetExpenseAnalysis
+import Amazonka.Textract.GetLendingAnalysis
+import Amazonka.Textract.GetLendingAnalysisSummary
 import Amazonka.Textract.Lens
 import Amazonka.Textract.StartDocumentAnalysis
 import Amazonka.Textract.StartDocumentTextDetection
+import Amazonka.Textract.StartExpenseAnalysis
+import Amazonka.Textract.StartLendingAnalysis
 import Amazonka.Textract.Types
 import Amazonka.Textract.Waiters
 

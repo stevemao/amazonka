@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.ZeppelinMonitoringConfigurationDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KinesisAnalyticsV2.Types.ZeppelinMonitoringConfigurationDescription where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.LogLevel
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The monitoring configuration for Apache Zeppelin within a Kinesis Data
@@ -56,15 +57,15 @@ zeppelinMonitoringConfigurationDescription_logLevel :: Lens.Lens' ZeppelinMonito
 zeppelinMonitoringConfigurationDescription_logLevel = Lens.lens (\ZeppelinMonitoringConfigurationDescription' {logLevel} -> logLevel) (\s@ZeppelinMonitoringConfigurationDescription' {} a -> s {logLevel = a} :: ZeppelinMonitoringConfigurationDescription)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ZeppelinMonitoringConfigurationDescription
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ZeppelinMonitoringConfigurationDescription"
       ( \x ->
           ZeppelinMonitoringConfigurationDescription'
-            Prelude.<$> (x Core..:? "LogLevel")
+            Prelude.<$> (x Data..:? "LogLevel")
       )
 
 instance

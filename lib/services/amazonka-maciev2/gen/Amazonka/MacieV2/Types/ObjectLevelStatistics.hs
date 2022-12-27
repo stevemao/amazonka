@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.ObjectLevelStatistics
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,17 @@
 module Amazonka.MacieV2.Types.ObjectLevelStatistics where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides information about the total storage size (in bytes) or number
 -- of objects that Amazon Macie can\'t analyze in one or more S3 buckets.
 -- In a BucketMetadata or MatchingBucket object, this data is for a
 -- specific bucket. In a GetBucketStatisticsResponse object, this data is
--- aggregated for the buckets in the query results. If versioning is
--- enabled for a bucket, total storage size values are based on the size of
--- the latest version of each applicable object in the bucket.
+-- aggregated for all the buckets in the query results. If versioning is
+-- enabled for a bucket, storage size values are based on the size of the
+-- latest version of each applicable object in the bucket.
 --
 -- /See:/ 'newObjectLevelStatistics' smart constructor.
 data ObjectLevelStatistics = ObjectLevelStatistics'
@@ -94,15 +95,15 @@ objectLevelStatistics_storageClass = Lens.lens (\ObjectLevelStatistics' {storage
 objectLevelStatistics_total :: Lens.Lens' ObjectLevelStatistics (Prelude.Maybe Prelude.Integer)
 objectLevelStatistics_total = Lens.lens (\ObjectLevelStatistics' {total} -> total) (\s@ObjectLevelStatistics' {} a -> s {total = a} :: ObjectLevelStatistics)
 
-instance Core.FromJSON ObjectLevelStatistics where
+instance Data.FromJSON ObjectLevelStatistics where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ObjectLevelStatistics"
       ( \x ->
           ObjectLevelStatistics'
-            Prelude.<$> (x Core..:? "fileType")
-            Prelude.<*> (x Core..:? "storageClass")
-            Prelude.<*> (x Core..:? "total")
+            Prelude.<$> (x Data..:? "fileType")
+            Prelude.<*> (x Data..:? "storageClass")
+            Prelude.<*> (x Data..:? "total")
       )
 
 instance Prelude.Hashable ObjectLevelStatistics where

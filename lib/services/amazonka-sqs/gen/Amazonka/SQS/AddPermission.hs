@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SQS.AddPermission
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -72,7 +72,8 @@ module Amazonka.SQS.AddPermission
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,10 +91,10 @@ data AddPermission = AddPermission'
     -- example, @AliceSendMessage@). Maximum 80 characters. Allowed characters
     -- include alphanumeric characters, hyphens (@-@), and underscores (@_@).
     label :: Prelude.Text,
-    -- | The account numbers of the
+    -- | The Amazon Web Services account numbers of the
     -- <https://docs.aws.amazon.com/general/latest/gr/glos-chap.html#P principals>
-    -- who are to receive permission. For information about locating the
-    -- account identification, see
+    -- who are to receive permission. For information about locating the Amazon
+    -- Web Services account identification, see
     -- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-making-api-requests.html#sqs-api-request-authentication Your Amazon Web Services Identifiers>
     -- in the /Amazon SQS Developer Guide/.
     aWSAccountIds :: [Prelude.Text],
@@ -128,10 +129,10 @@ data AddPermission = AddPermission'
 -- example, @AliceSendMessage@). Maximum 80 characters. Allowed characters
 -- include alphanumeric characters, hyphens (@-@), and underscores (@_@).
 --
--- 'aWSAccountIds', 'addPermission_aWSAccountIds' - The account numbers of the
+-- 'aWSAccountIds', 'addPermission_aWSAccountIds' - The Amazon Web Services account numbers of the
 -- <https://docs.aws.amazon.com/general/latest/gr/glos-chap.html#P principals>
--- who are to receive permission. For information about locating the
--- account identification, see
+-- who are to receive permission. For information about locating the Amazon
+-- Web Services account identification, see
 -- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-making-api-requests.html#sqs-api-request-authentication Your Amazon Web Services Identifiers>
 -- in the /Amazon SQS Developer Guide/.
 --
@@ -172,10 +173,10 @@ addPermission_queueUrl = Lens.lens (\AddPermission' {queueUrl} -> queueUrl) (\s@
 addPermission_label :: Lens.Lens' AddPermission Prelude.Text
 addPermission_label = Lens.lens (\AddPermission' {label} -> label) (\s@AddPermission' {} a -> s {label = a} :: AddPermission)
 
--- | The account numbers of the
+-- | The Amazon Web Services account numbers of the
 -- <https://docs.aws.amazon.com/general/latest/gr/glos-chap.html#P principals>
--- who are to receive permission. For information about locating the
--- account identification, see
+-- who are to receive permission. For information about locating the Amazon
+-- Web Services account identification, see
 -- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-making-api-requests.html#sqs-api-request-authentication Your Amazon Web Services Identifiers>
 -- in the /Amazon SQS Developer Guide/.
 addPermission_aWSAccountIds :: Lens.Lens' AddPermission [Prelude.Text]
@@ -199,7 +200,8 @@ instance Core.AWSRequest AddPermission where
   type
     AWSResponse AddPermission =
       AddPermissionResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull AddPermissionResponse'
 
@@ -217,23 +219,23 @@ instance Prelude.NFData AddPermission where
       `Prelude.seq` Prelude.rnf aWSAccountIds
       `Prelude.seq` Prelude.rnf actions
 
-instance Core.ToHeaders AddPermission where
+instance Data.ToHeaders AddPermission where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath AddPermission where
+instance Data.ToPath AddPermission where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AddPermission where
+instance Data.ToQuery AddPermission where
   toQuery AddPermission' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("AddPermission" :: Prelude.ByteString),
+          Data.=: ("AddPermission" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-11-05" :: Prelude.ByteString),
-        "QueueUrl" Core.=: queueUrl,
-        "Label" Core.=: label,
-        Core.toQueryList "AWSAccountId" aWSAccountIds,
-        Core.toQueryList "ActionName" actions
+          Data.=: ("2012-11-05" :: Prelude.ByteString),
+        "QueueUrl" Data.=: queueUrl,
+        "Label" Data.=: label,
+        Data.toQueryList "AWSAccountId" aWSAccountIds,
+        Data.toQueryList "ActionName" actions
       ]
 
 -- | /See:/ 'newAddPermissionResponse' smart constructor.

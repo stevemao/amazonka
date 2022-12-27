@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Domains.Types.CountryCode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,6 +20,7 @@
 module Amazonka.Route53Domains.Types.CountryCode
   ( CountryCode
       ( ..,
+        CountryCode_AC,
         CountryCode_AD,
         CountryCode_AE,
         CountryCode_AF,
@@ -35,6 +36,7 @@ module Amazonka.Route53Domains.Types.CountryCode
         CountryCode_AT,
         CountryCode_AU,
         CountryCode_AW,
+        CountryCode_AX,
         CountryCode_AZ,
         CountryCode_BA,
         CountryCode_BB,
@@ -49,9 +51,11 @@ module Amazonka.Route53Domains.Types.CountryCode
         CountryCode_BM,
         CountryCode_BN,
         CountryCode_BO,
+        CountryCode_BQ,
         CountryCode_BR,
         CountryCode_BS,
         CountryCode_BT,
+        CountryCode_BV,
         CountryCode_BW,
         CountryCode_BY,
         CountryCode_BZ,
@@ -70,6 +74,7 @@ module Amazonka.Route53Domains.Types.CountryCode
         CountryCode_CR,
         CountryCode_CU,
         CountryCode_CV,
+        CountryCode_CW,
         CountryCode_CX,
         CountryCode_CY,
         CountryCode_CZ,
@@ -82,6 +87,7 @@ module Amazonka.Route53Domains.Types.CountryCode
         CountryCode_EC,
         CountryCode_EE,
         CountryCode_EG,
+        CountryCode_EH,
         CountryCode_ER,
         CountryCode_ES,
         CountryCode_ET,
@@ -95,18 +101,23 @@ module Amazonka.Route53Domains.Types.CountryCode
         CountryCode_GB,
         CountryCode_GD,
         CountryCode_GE,
+        CountryCode_GF,
+        CountryCode_GG,
         CountryCode_GH,
         CountryCode_GI,
         CountryCode_GL,
         CountryCode_GM,
         CountryCode_GN,
+        CountryCode_GP,
         CountryCode_GQ,
         CountryCode_GR,
+        CountryCode_GS,
         CountryCode_GT,
         CountryCode_GU,
         CountryCode_GW,
         CountryCode_GY,
         CountryCode_HK,
+        CountryCode_HM,
         CountryCode_HN,
         CountryCode_HR,
         CountryCode_HT,
@@ -116,10 +127,12 @@ module Amazonka.Route53Domains.Types.CountryCode
         CountryCode_IL,
         CountryCode_IM,
         CountryCode_IN,
+        CountryCode_IO,
         CountryCode_IQ,
         CountryCode_IR,
         CountryCode_IS,
         CountryCode_IT,
+        CountryCode_JE,
         CountryCode_JM,
         CountryCode_JO,
         CountryCode_JP,
@@ -158,6 +171,7 @@ module Amazonka.Route53Domains.Types.CountryCode
         CountryCode_MN,
         CountryCode_MO,
         CountryCode_MP,
+        CountryCode_MQ,
         CountryCode_MR,
         CountryCode_MS,
         CountryCode_MT,
@@ -170,6 +184,7 @@ module Amazonka.Route53Domains.Types.CountryCode
         CountryCode_NA,
         CountryCode_NC,
         CountryCode_NE,
+        CountryCode_NF,
         CountryCode_NG,
         CountryCode_NI,
         CountryCode_NL,
@@ -189,10 +204,12 @@ module Amazonka.Route53Domains.Types.CountryCode
         CountryCode_PM,
         CountryCode_PN,
         CountryCode_PR,
+        CountryCode_PS,
         CountryCode_PT,
         CountryCode_PW,
         CountryCode_PY,
         CountryCode_QA,
+        CountryCode_RE,
         CountryCode_RO,
         CountryCode_RS,
         CountryCode_RU,
@@ -205,18 +222,22 @@ module Amazonka.Route53Domains.Types.CountryCode
         CountryCode_SG,
         CountryCode_SH,
         CountryCode_SI,
+        CountryCode_SJ,
         CountryCode_SK,
         CountryCode_SL,
         CountryCode_SM,
         CountryCode_SN,
         CountryCode_SO,
         CountryCode_SR,
+        CountryCode_SS,
         CountryCode_ST,
         CountryCode_SV,
+        CountryCode_SX,
         CountryCode_SY,
         CountryCode_SZ,
         CountryCode_TC,
         CountryCode_TD,
+        CountryCode_TF,
         CountryCode_TG,
         CountryCode_TH,
         CountryCode_TJ,
@@ -225,6 +246,7 @@ module Amazonka.Route53Domains.Types.CountryCode
         CountryCode_TM,
         CountryCode_TN,
         CountryCode_TO,
+        CountryCode_TP,
         CountryCode_TR,
         CountryCode_TT,
         CountryCode_TV,
@@ -254,11 +276,12 @@ module Amazonka.Route53Domains.Types.CountryCode
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype CountryCode = CountryCode'
   { fromCountryCode ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -270,19 +293,22 @@ newtype CountryCode = CountryCode'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
+
+pattern CountryCode_AC :: CountryCode
+pattern CountryCode_AC = CountryCode' "AC"
 
 pattern CountryCode_AD :: CountryCode
 pattern CountryCode_AD = CountryCode' "AD"
@@ -329,6 +355,9 @@ pattern CountryCode_AU = CountryCode' "AU"
 pattern CountryCode_AW :: CountryCode
 pattern CountryCode_AW = CountryCode' "AW"
 
+pattern CountryCode_AX :: CountryCode
+pattern CountryCode_AX = CountryCode' "AX"
+
 pattern CountryCode_AZ :: CountryCode
 pattern CountryCode_AZ = CountryCode' "AZ"
 
@@ -371,6 +400,9 @@ pattern CountryCode_BN = CountryCode' "BN"
 pattern CountryCode_BO :: CountryCode
 pattern CountryCode_BO = CountryCode' "BO"
 
+pattern CountryCode_BQ :: CountryCode
+pattern CountryCode_BQ = CountryCode' "BQ"
+
 pattern CountryCode_BR :: CountryCode
 pattern CountryCode_BR = CountryCode' "BR"
 
@@ -379,6 +411,9 @@ pattern CountryCode_BS = CountryCode' "BS"
 
 pattern CountryCode_BT :: CountryCode
 pattern CountryCode_BT = CountryCode' "BT"
+
+pattern CountryCode_BV :: CountryCode
+pattern CountryCode_BV = CountryCode' "BV"
 
 pattern CountryCode_BW :: CountryCode
 pattern CountryCode_BW = CountryCode' "BW"
@@ -434,6 +469,9 @@ pattern CountryCode_CU = CountryCode' "CU"
 pattern CountryCode_CV :: CountryCode
 pattern CountryCode_CV = CountryCode' "CV"
 
+pattern CountryCode_CW :: CountryCode
+pattern CountryCode_CW = CountryCode' "CW"
+
 pattern CountryCode_CX :: CountryCode
 pattern CountryCode_CX = CountryCode' "CX"
 
@@ -469,6 +507,9 @@ pattern CountryCode_EE = CountryCode' "EE"
 
 pattern CountryCode_EG :: CountryCode
 pattern CountryCode_EG = CountryCode' "EG"
+
+pattern CountryCode_EH :: CountryCode
+pattern CountryCode_EH = CountryCode' "EH"
 
 pattern CountryCode_ER :: CountryCode
 pattern CountryCode_ER = CountryCode' "ER"
@@ -509,6 +550,12 @@ pattern CountryCode_GD = CountryCode' "GD"
 pattern CountryCode_GE :: CountryCode
 pattern CountryCode_GE = CountryCode' "GE"
 
+pattern CountryCode_GF :: CountryCode
+pattern CountryCode_GF = CountryCode' "GF"
+
+pattern CountryCode_GG :: CountryCode
+pattern CountryCode_GG = CountryCode' "GG"
+
 pattern CountryCode_GH :: CountryCode
 pattern CountryCode_GH = CountryCode' "GH"
 
@@ -524,11 +571,17 @@ pattern CountryCode_GM = CountryCode' "GM"
 pattern CountryCode_GN :: CountryCode
 pattern CountryCode_GN = CountryCode' "GN"
 
+pattern CountryCode_GP :: CountryCode
+pattern CountryCode_GP = CountryCode' "GP"
+
 pattern CountryCode_GQ :: CountryCode
 pattern CountryCode_GQ = CountryCode' "GQ"
 
 pattern CountryCode_GR :: CountryCode
 pattern CountryCode_GR = CountryCode' "GR"
+
+pattern CountryCode_GS :: CountryCode
+pattern CountryCode_GS = CountryCode' "GS"
 
 pattern CountryCode_GT :: CountryCode
 pattern CountryCode_GT = CountryCode' "GT"
@@ -544,6 +597,9 @@ pattern CountryCode_GY = CountryCode' "GY"
 
 pattern CountryCode_HK :: CountryCode
 pattern CountryCode_HK = CountryCode' "HK"
+
+pattern CountryCode_HM :: CountryCode
+pattern CountryCode_HM = CountryCode' "HM"
 
 pattern CountryCode_HN :: CountryCode
 pattern CountryCode_HN = CountryCode' "HN"
@@ -572,6 +628,9 @@ pattern CountryCode_IM = CountryCode' "IM"
 pattern CountryCode_IN :: CountryCode
 pattern CountryCode_IN = CountryCode' "IN"
 
+pattern CountryCode_IO :: CountryCode
+pattern CountryCode_IO = CountryCode' "IO"
+
 pattern CountryCode_IQ :: CountryCode
 pattern CountryCode_IQ = CountryCode' "IQ"
 
@@ -583,6 +642,9 @@ pattern CountryCode_IS = CountryCode' "IS"
 
 pattern CountryCode_IT :: CountryCode
 pattern CountryCode_IT = CountryCode' "IT"
+
+pattern CountryCode_JE :: CountryCode
+pattern CountryCode_JE = CountryCode' "JE"
 
 pattern CountryCode_JM :: CountryCode
 pattern CountryCode_JM = CountryCode' "JM"
@@ -698,6 +760,9 @@ pattern CountryCode_MO = CountryCode' "MO"
 pattern CountryCode_MP :: CountryCode
 pattern CountryCode_MP = CountryCode' "MP"
 
+pattern CountryCode_MQ :: CountryCode
+pattern CountryCode_MQ = CountryCode' "MQ"
+
 pattern CountryCode_MR :: CountryCode
 pattern CountryCode_MR = CountryCode' "MR"
 
@@ -733,6 +798,9 @@ pattern CountryCode_NC = CountryCode' "NC"
 
 pattern CountryCode_NE :: CountryCode
 pattern CountryCode_NE = CountryCode' "NE"
+
+pattern CountryCode_NF :: CountryCode
+pattern CountryCode_NF = CountryCode' "NF"
 
 pattern CountryCode_NG :: CountryCode
 pattern CountryCode_NG = CountryCode' "NG"
@@ -791,6 +859,9 @@ pattern CountryCode_PN = CountryCode' "PN"
 pattern CountryCode_PR :: CountryCode
 pattern CountryCode_PR = CountryCode' "PR"
 
+pattern CountryCode_PS :: CountryCode
+pattern CountryCode_PS = CountryCode' "PS"
+
 pattern CountryCode_PT :: CountryCode
 pattern CountryCode_PT = CountryCode' "PT"
 
@@ -802,6 +873,9 @@ pattern CountryCode_PY = CountryCode' "PY"
 
 pattern CountryCode_QA :: CountryCode
 pattern CountryCode_QA = CountryCode' "QA"
+
+pattern CountryCode_RE :: CountryCode
+pattern CountryCode_RE = CountryCode' "RE"
 
 pattern CountryCode_RO :: CountryCode
 pattern CountryCode_RO = CountryCode' "RO"
@@ -839,6 +913,9 @@ pattern CountryCode_SH = CountryCode' "SH"
 pattern CountryCode_SI :: CountryCode
 pattern CountryCode_SI = CountryCode' "SI"
 
+pattern CountryCode_SJ :: CountryCode
+pattern CountryCode_SJ = CountryCode' "SJ"
+
 pattern CountryCode_SK :: CountryCode
 pattern CountryCode_SK = CountryCode' "SK"
 
@@ -857,11 +934,17 @@ pattern CountryCode_SO = CountryCode' "SO"
 pattern CountryCode_SR :: CountryCode
 pattern CountryCode_SR = CountryCode' "SR"
 
+pattern CountryCode_SS :: CountryCode
+pattern CountryCode_SS = CountryCode' "SS"
+
 pattern CountryCode_ST :: CountryCode
 pattern CountryCode_ST = CountryCode' "ST"
 
 pattern CountryCode_SV :: CountryCode
 pattern CountryCode_SV = CountryCode' "SV"
+
+pattern CountryCode_SX :: CountryCode
+pattern CountryCode_SX = CountryCode' "SX"
 
 pattern CountryCode_SY :: CountryCode
 pattern CountryCode_SY = CountryCode' "SY"
@@ -874,6 +957,9 @@ pattern CountryCode_TC = CountryCode' "TC"
 
 pattern CountryCode_TD :: CountryCode
 pattern CountryCode_TD = CountryCode' "TD"
+
+pattern CountryCode_TF :: CountryCode
+pattern CountryCode_TF = CountryCode' "TF"
 
 pattern CountryCode_TG :: CountryCode
 pattern CountryCode_TG = CountryCode' "TG"
@@ -898,6 +984,9 @@ pattern CountryCode_TN = CountryCode' "TN"
 
 pattern CountryCode_TO :: CountryCode
 pattern CountryCode_TO = CountryCode' "TO"
+
+pattern CountryCode_TP :: CountryCode
+pattern CountryCode_TP = CountryCode' "TP"
 
 pattern CountryCode_TR :: CountryCode
 pattern CountryCode_TR = CountryCode' "TR"
@@ -972,6 +1061,7 @@ pattern CountryCode_ZW :: CountryCode
 pattern CountryCode_ZW = CountryCode' "ZW"
 
 {-# COMPLETE
+  CountryCode_AC,
   CountryCode_AD,
   CountryCode_AE,
   CountryCode_AF,
@@ -987,6 +1077,7 @@ pattern CountryCode_ZW = CountryCode' "ZW"
   CountryCode_AT,
   CountryCode_AU,
   CountryCode_AW,
+  CountryCode_AX,
   CountryCode_AZ,
   CountryCode_BA,
   CountryCode_BB,
@@ -1001,9 +1092,11 @@ pattern CountryCode_ZW = CountryCode' "ZW"
   CountryCode_BM,
   CountryCode_BN,
   CountryCode_BO,
+  CountryCode_BQ,
   CountryCode_BR,
   CountryCode_BS,
   CountryCode_BT,
+  CountryCode_BV,
   CountryCode_BW,
   CountryCode_BY,
   CountryCode_BZ,
@@ -1022,6 +1115,7 @@ pattern CountryCode_ZW = CountryCode' "ZW"
   CountryCode_CR,
   CountryCode_CU,
   CountryCode_CV,
+  CountryCode_CW,
   CountryCode_CX,
   CountryCode_CY,
   CountryCode_CZ,
@@ -1034,6 +1128,7 @@ pattern CountryCode_ZW = CountryCode' "ZW"
   CountryCode_EC,
   CountryCode_EE,
   CountryCode_EG,
+  CountryCode_EH,
   CountryCode_ER,
   CountryCode_ES,
   CountryCode_ET,
@@ -1047,18 +1142,23 @@ pattern CountryCode_ZW = CountryCode' "ZW"
   CountryCode_GB,
   CountryCode_GD,
   CountryCode_GE,
+  CountryCode_GF,
+  CountryCode_GG,
   CountryCode_GH,
   CountryCode_GI,
   CountryCode_GL,
   CountryCode_GM,
   CountryCode_GN,
+  CountryCode_GP,
   CountryCode_GQ,
   CountryCode_GR,
+  CountryCode_GS,
   CountryCode_GT,
   CountryCode_GU,
   CountryCode_GW,
   CountryCode_GY,
   CountryCode_HK,
+  CountryCode_HM,
   CountryCode_HN,
   CountryCode_HR,
   CountryCode_HT,
@@ -1068,10 +1168,12 @@ pattern CountryCode_ZW = CountryCode' "ZW"
   CountryCode_IL,
   CountryCode_IM,
   CountryCode_IN,
+  CountryCode_IO,
   CountryCode_IQ,
   CountryCode_IR,
   CountryCode_IS,
   CountryCode_IT,
+  CountryCode_JE,
   CountryCode_JM,
   CountryCode_JO,
   CountryCode_JP,
@@ -1110,6 +1212,7 @@ pattern CountryCode_ZW = CountryCode' "ZW"
   CountryCode_MN,
   CountryCode_MO,
   CountryCode_MP,
+  CountryCode_MQ,
   CountryCode_MR,
   CountryCode_MS,
   CountryCode_MT,
@@ -1122,6 +1225,7 @@ pattern CountryCode_ZW = CountryCode' "ZW"
   CountryCode_NA,
   CountryCode_NC,
   CountryCode_NE,
+  CountryCode_NF,
   CountryCode_NG,
   CountryCode_NI,
   CountryCode_NL,
@@ -1141,10 +1245,12 @@ pattern CountryCode_ZW = CountryCode' "ZW"
   CountryCode_PM,
   CountryCode_PN,
   CountryCode_PR,
+  CountryCode_PS,
   CountryCode_PT,
   CountryCode_PW,
   CountryCode_PY,
   CountryCode_QA,
+  CountryCode_RE,
   CountryCode_RO,
   CountryCode_RS,
   CountryCode_RU,
@@ -1157,18 +1263,22 @@ pattern CountryCode_ZW = CountryCode' "ZW"
   CountryCode_SG,
   CountryCode_SH,
   CountryCode_SI,
+  CountryCode_SJ,
   CountryCode_SK,
   CountryCode_SL,
   CountryCode_SM,
   CountryCode_SN,
   CountryCode_SO,
   CountryCode_SR,
+  CountryCode_SS,
   CountryCode_ST,
   CountryCode_SV,
+  CountryCode_SX,
   CountryCode_SY,
   CountryCode_SZ,
   CountryCode_TC,
   CountryCode_TD,
+  CountryCode_TF,
   CountryCode_TG,
   CountryCode_TH,
   CountryCode_TJ,
@@ -1177,6 +1287,7 @@ pattern CountryCode_ZW = CountryCode' "ZW"
   CountryCode_TM,
   CountryCode_TN,
   CountryCode_TO,
+  CountryCode_TP,
   CountryCode_TR,
   CountryCode_TT,
   CountryCode_TV,

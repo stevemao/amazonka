@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Shield.Types.SummarizedAttackVector
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Shield.Types.SummarizedAttackVector where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Shield.Types.SummarizedCounter
 
@@ -65,14 +66,14 @@ summarizedAttackVector_vectorCounters = Lens.lens (\SummarizedAttackVector' {vec
 summarizedAttackVector_vectorType :: Lens.Lens' SummarizedAttackVector Prelude.Text
 summarizedAttackVector_vectorType = Lens.lens (\SummarizedAttackVector' {vectorType} -> vectorType) (\s@SummarizedAttackVector' {} a -> s {vectorType = a} :: SummarizedAttackVector)
 
-instance Core.FromJSON SummarizedAttackVector where
+instance Data.FromJSON SummarizedAttackVector where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SummarizedAttackVector"
       ( \x ->
           SummarizedAttackVector'
-            Prelude.<$> (x Core..:? "VectorCounters" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "VectorType")
+            Prelude.<$> (x Data..:? "VectorCounters" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "VectorType")
       )
 
 instance Prelude.Hashable SummarizedAttackVector where

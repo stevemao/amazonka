@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.GetSampledRequests
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -57,15 +57,16 @@ module Amazonka.WAFRegional.GetSampledRequests
     newGetSampledRequestsResponse,
 
     -- * Response Lenses
-    getSampledRequestsResponse_sampledRequests,
     getSampledRequestsResponse_populationSize,
+    getSampledRequestsResponse_sampledRequests,
     getSampledRequestsResponse_timeWindow,
     getSampledRequestsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -192,16 +193,17 @@ instance Core.AWSRequest GetSampledRequests where
   type
     AWSResponse GetSampledRequests =
       GetSampledRequestsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSampledRequestsResponse'
-            Prelude.<$> ( x Core..?> "SampledRequests"
+            Prelude.<$> (x Data..?> "PopulationSize")
+            Prelude.<*> ( x Data..?> "SampledRequests"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "PopulationSize")
-            Prelude.<*> (x Core..?> "TimeWindow")
+            Prelude.<*> (x Data..?> "TimeWindow")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -219,48 +221,48 @@ instance Prelude.NFData GetSampledRequests where
       `Prelude.seq` Prelude.rnf timeWindow
       `Prelude.seq` Prelude.rnf maxItems
 
-instance Core.ToHeaders GetSampledRequests where
+instance Data.ToHeaders GetSampledRequests where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_Regional_20161128.GetSampledRequests" ::
+              Data.=# ( "AWSWAF_Regional_20161128.GetSampledRequests" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetSampledRequests where
+instance Data.ToJSON GetSampledRequests where
   toJSON GetSampledRequests' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("WebAclId" Core..= webAclId),
-            Prelude.Just ("RuleId" Core..= ruleId),
-            Prelude.Just ("TimeWindow" Core..= timeWindow),
-            Prelude.Just ("MaxItems" Core..= maxItems)
+          [ Prelude.Just ("WebAclId" Data..= webAclId),
+            Prelude.Just ("RuleId" Data..= ruleId),
+            Prelude.Just ("TimeWindow" Data..= timeWindow),
+            Prelude.Just ("MaxItems" Data..= maxItems)
           ]
       )
 
-instance Core.ToPath GetSampledRequests where
+instance Data.ToPath GetSampledRequests where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetSampledRequests where
+instance Data.ToQuery GetSampledRequests where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetSampledRequestsResponse' smart constructor.
 data GetSampledRequestsResponse = GetSampledRequestsResponse'
-  { -- | A complex type that contains detailed information about each of the
-    -- requests in the sample.
-    sampledRequests :: Prelude.Maybe [SampledHTTPRequest],
-    -- | The total number of requests from which @GetSampledRequests@ got a
+  { -- | The total number of requests from which @GetSampledRequests@ got a
     -- sample of @MaxItems@ requests. If @PopulationSize@ is less than
     -- @MaxItems@, the sample includes every request that your AWS resource
     -- received during the specified time range.
     populationSize :: Prelude.Maybe Prelude.Integer,
+    -- | A complex type that contains detailed information about each of the
+    -- requests in the sample.
+    sampledRequests :: Prelude.Maybe [SampledHTTPRequest],
     -- | Usually, @TimeWindow@ is the time range that you specified in the
     -- @GetSampledRequests@ request. However, if your AWS resource received
     -- more than 5,000 requests during the time range that you specified in the
@@ -280,13 +282,13 @@ data GetSampledRequestsResponse = GetSampledRequestsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sampledRequests', 'getSampledRequestsResponse_sampledRequests' - A complex type that contains detailed information about each of the
--- requests in the sample.
---
 -- 'populationSize', 'getSampledRequestsResponse_populationSize' - The total number of requests from which @GetSampledRequests@ got a
 -- sample of @MaxItems@ requests. If @PopulationSize@ is less than
 -- @MaxItems@, the sample includes every request that your AWS resource
 -- received during the specified time range.
+--
+-- 'sampledRequests', 'getSampledRequestsResponse_sampledRequests' - A complex type that contains detailed information about each of the
+-- requests in the sample.
 --
 -- 'timeWindow', 'getSampledRequestsResponse_timeWindow' - Usually, @TimeWindow@ is the time range that you specified in the
 -- @GetSampledRequests@ request. However, if your AWS resource received
@@ -301,17 +303,12 @@ newGetSampledRequestsResponse ::
   GetSampledRequestsResponse
 newGetSampledRequestsResponse pHttpStatus_ =
   GetSampledRequestsResponse'
-    { sampledRequests =
+    { populationSize =
         Prelude.Nothing,
-      populationSize = Prelude.Nothing,
+      sampledRequests = Prelude.Nothing,
       timeWindow = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A complex type that contains detailed information about each of the
--- requests in the sample.
-getSampledRequestsResponse_sampledRequests :: Lens.Lens' GetSampledRequestsResponse (Prelude.Maybe [SampledHTTPRequest])
-getSampledRequestsResponse_sampledRequests = Lens.lens (\GetSampledRequestsResponse' {sampledRequests} -> sampledRequests) (\s@GetSampledRequestsResponse' {} a -> s {sampledRequests = a} :: GetSampledRequestsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The total number of requests from which @GetSampledRequests@ got a
 -- sample of @MaxItems@ requests. If @PopulationSize@ is less than
@@ -319,6 +316,11 @@ getSampledRequestsResponse_sampledRequests = Lens.lens (\GetSampledRequestsRespo
 -- received during the specified time range.
 getSampledRequestsResponse_populationSize :: Lens.Lens' GetSampledRequestsResponse (Prelude.Maybe Prelude.Integer)
 getSampledRequestsResponse_populationSize = Lens.lens (\GetSampledRequestsResponse' {populationSize} -> populationSize) (\s@GetSampledRequestsResponse' {} a -> s {populationSize = a} :: GetSampledRequestsResponse)
+
+-- | A complex type that contains detailed information about each of the
+-- requests in the sample.
+getSampledRequestsResponse_sampledRequests :: Lens.Lens' GetSampledRequestsResponse (Prelude.Maybe [SampledHTTPRequest])
+getSampledRequestsResponse_sampledRequests = Lens.lens (\GetSampledRequestsResponse' {sampledRequests} -> sampledRequests) (\s@GetSampledRequestsResponse' {} a -> s {sampledRequests = a} :: GetSampledRequestsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | Usually, @TimeWindow@ is the time range that you specified in the
 -- @GetSampledRequests@ request. However, if your AWS resource received
@@ -334,7 +336,7 @@ getSampledRequestsResponse_httpStatus = Lens.lens (\GetSampledRequestsResponse' 
 
 instance Prelude.NFData GetSampledRequestsResponse where
   rnf GetSampledRequestsResponse' {..} =
-    Prelude.rnf sampledRequests
-      `Prelude.seq` Prelude.rnf populationSize
+    Prelude.rnf populationSize
+      `Prelude.seq` Prelude.rnf sampledRequests
       `Prelude.seq` Prelude.rnf timeWindow
       `Prelude.seq` Prelude.rnf httpStatus

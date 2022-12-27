@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.ListDistributedGrants
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,9 +28,9 @@ module Amazonka.LicenseManager.ListDistributedGrants
 
     -- * Request Lenses
     listDistributedGrants_filters,
-    listDistributedGrants_nextToken,
     listDistributedGrants_grantArns,
     listDistributedGrants_maxResults,
+    listDistributedGrants_nextToken,
 
     -- * Destructuring the Response
     ListDistributedGrantsResponse (..),
@@ -44,7 +44,8 @@ module Amazonka.LicenseManager.ListDistributedGrants
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LicenseManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -64,12 +65,12 @@ data ListDistributedGrants = ListDistributedGrants'
     --
     -- -   @LicenseIssuerName@
     filters :: Prelude.Maybe [Filter],
-    -- | Token for the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | Amazon Resource Names (ARNs) of the grants.
     grantArns :: Prelude.Maybe [Prelude.Text],
     -- | Maximum number of results to return in a single call.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -93,19 +94,19 @@ data ListDistributedGrants = ListDistributedGrants'
 --
 -- -   @LicenseIssuerName@
 --
--- 'nextToken', 'listDistributedGrants_nextToken' - Token for the next set of results.
---
 -- 'grantArns', 'listDistributedGrants_grantArns' - Amazon Resource Names (ARNs) of the grants.
 --
 -- 'maxResults', 'listDistributedGrants_maxResults' - Maximum number of results to return in a single call.
+--
+-- 'nextToken', 'listDistributedGrants_nextToken' - Token for the next set of results.
 newListDistributedGrants ::
   ListDistributedGrants
 newListDistributedGrants =
   ListDistributedGrants'
     { filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       grantArns = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | Filters to scope the results. The following filters are supported:
@@ -122,10 +123,6 @@ newListDistributedGrants =
 listDistributedGrants_filters :: Lens.Lens' ListDistributedGrants (Prelude.Maybe [Filter])
 listDistributedGrants_filters = Lens.lens (\ListDistributedGrants' {filters} -> filters) (\s@ListDistributedGrants' {} a -> s {filters = a} :: ListDistributedGrants) Prelude.. Lens.mapping Lens.coerced
 
--- | Token for the next set of results.
-listDistributedGrants_nextToken :: Lens.Lens' ListDistributedGrants (Prelude.Maybe Prelude.Text)
-listDistributedGrants_nextToken = Lens.lens (\ListDistributedGrants' {nextToken} -> nextToken) (\s@ListDistributedGrants' {} a -> s {nextToken = a} :: ListDistributedGrants)
-
 -- | Amazon Resource Names (ARNs) of the grants.
 listDistributedGrants_grantArns :: Lens.Lens' ListDistributedGrants (Prelude.Maybe [Prelude.Text])
 listDistributedGrants_grantArns = Lens.lens (\ListDistributedGrants' {grantArns} -> grantArns) (\s@ListDistributedGrants' {} a -> s {grantArns = a} :: ListDistributedGrants) Prelude.. Lens.mapping Lens.coerced
@@ -134,64 +131,69 @@ listDistributedGrants_grantArns = Lens.lens (\ListDistributedGrants' {grantArns}
 listDistributedGrants_maxResults :: Lens.Lens' ListDistributedGrants (Prelude.Maybe Prelude.Natural)
 listDistributedGrants_maxResults = Lens.lens (\ListDistributedGrants' {maxResults} -> maxResults) (\s@ListDistributedGrants' {} a -> s {maxResults = a} :: ListDistributedGrants)
 
+-- | Token for the next set of results.
+listDistributedGrants_nextToken :: Lens.Lens' ListDistributedGrants (Prelude.Maybe Prelude.Text)
+listDistributedGrants_nextToken = Lens.lens (\ListDistributedGrants' {nextToken} -> nextToken) (\s@ListDistributedGrants' {} a -> s {nextToken = a} :: ListDistributedGrants)
+
 instance Core.AWSRequest ListDistributedGrants where
   type
     AWSResponse ListDistributedGrants =
       ListDistributedGrantsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDistributedGrantsResponse'
-            Prelude.<$> (x Core..?> "Grants" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Grants" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListDistributedGrants where
   hashWithSalt _salt ListDistributedGrants' {..} =
     _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` grantArns
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListDistributedGrants where
   rnf ListDistributedGrants' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf grantArns
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListDistributedGrants where
+instance Data.ToHeaders ListDistributedGrants where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSLicenseManager.ListDistributedGrants" ::
+              Data.=# ( "AWSLicenseManager.ListDistributedGrants" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListDistributedGrants where
+instance Data.ToJSON ListDistributedGrants where
   toJSON ListDistributedGrants' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("GrantArns" Core..=) Prelude.<$> grantArns,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("GrantArns" Data..=) Prelude.<$> grantArns,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListDistributedGrants where
+instance Data.ToPath ListDistributedGrants where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListDistributedGrants where
+instance Data.ToQuery ListDistributedGrants where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListDistributedGrantsResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.KeysAndAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,10 @@
 module Amazonka.DynamoDB.Types.KeysAndAttributes where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a set of primary keys and, for each key, the attributes to
@@ -34,24 +36,15 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newKeysAndAttributes' smart constructor.
 data KeysAndAttributes = KeysAndAttributes'
-  { -- | A string that identifies one or more attributes to retrieve from the
-    -- table. These attributes can include scalars, sets, or elements of a JSON
-    -- document. The attributes in the @ProjectionExpression@ must be separated
-    -- by commas.
-    --
-    -- If no attribute names are specified, then all attributes will be
-    -- returned. If any of the requested attributes are not found, they will
-    -- not appear in the result.
-    --
-    -- For more information, see
-    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html Accessing Item Attributes>
-    -- in the /Amazon DynamoDB Developer Guide/.
-    projectionExpression :: Prelude.Maybe Prelude.Text,
-    -- | This is a legacy parameter. Use @ProjectionExpression@ instead. For more
+  { -- | This is a legacy parameter. Use @ProjectionExpression@ instead. For more
     -- information, see
     -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.html Legacy Conditional Parameters>
     -- in the /Amazon DynamoDB Developer Guide/.
     attributesToGet :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
+    -- | The consistency of a read operation. If set to @true@, then a strongly
+    -- consistent read is used; otherwise, an eventually consistent read is
+    -- used.
+    consistentRead :: Prelude.Maybe Prelude.Bool,
     -- | One or more substitution tokens for attribute names in an expression.
     -- The following are some use cases for using @ExpressionAttributeNames@:
     --
@@ -90,10 +83,19 @@ data KeysAndAttributes = KeysAndAttributes'
     -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html Accessing Item Attributes>
     -- in the /Amazon DynamoDB Developer Guide/.
     expressionAttributeNames :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | The consistency of a read operation. If set to @true@, then a strongly
-    -- consistent read is used; otherwise, an eventually consistent read is
-    -- used.
-    consistentRead :: Prelude.Maybe Prelude.Bool,
+    -- | A string that identifies one or more attributes to retrieve from the
+    -- table. These attributes can include scalars, sets, or elements of a JSON
+    -- document. The attributes in the @ProjectionExpression@ must be separated
+    -- by commas.
+    --
+    -- If no attribute names are specified, then all attributes will be
+    -- returned. If any of the requested attributes are not found, they will
+    -- not appear in the result.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html Accessing Item Attributes>
+    -- in the /Amazon DynamoDB Developer Guide/.
+    projectionExpression :: Prelude.Maybe Prelude.Text,
     -- | The primary key attribute values that define the items and the
     -- attributes associated with the items.
     keys :: Prelude.NonEmpty (Prelude.HashMap Prelude.Text AttributeValue)
@@ -108,23 +110,14 @@ data KeysAndAttributes = KeysAndAttributes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'projectionExpression', 'keysAndAttributes_projectionExpression' - A string that identifies one or more attributes to retrieve from the
--- table. These attributes can include scalars, sets, or elements of a JSON
--- document. The attributes in the @ProjectionExpression@ must be separated
--- by commas.
---
--- If no attribute names are specified, then all attributes will be
--- returned. If any of the requested attributes are not found, they will
--- not appear in the result.
---
--- For more information, see
--- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html Accessing Item Attributes>
--- in the /Amazon DynamoDB Developer Guide/.
---
 -- 'attributesToGet', 'keysAndAttributes_attributesToGet' - This is a legacy parameter. Use @ProjectionExpression@ instead. For more
 -- information, see
 -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.html Legacy Conditional Parameters>
 -- in the /Amazon DynamoDB Developer Guide/.
+--
+-- 'consistentRead', 'keysAndAttributes_consistentRead' - The consistency of a read operation. If set to @true@, then a strongly
+-- consistent read is used; otherwise, an eventually consistent read is
+-- used.
 --
 -- 'expressionAttributeNames', 'keysAndAttributes_expressionAttributeNames' - One or more substitution tokens for attribute names in an expression.
 -- The following are some use cases for using @ExpressionAttributeNames@:
@@ -164,27 +157,7 @@ data KeysAndAttributes = KeysAndAttributes'
 -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html Accessing Item Attributes>
 -- in the /Amazon DynamoDB Developer Guide/.
 --
--- 'consistentRead', 'keysAndAttributes_consistentRead' - The consistency of a read operation. If set to @true@, then a strongly
--- consistent read is used; otherwise, an eventually consistent read is
--- used.
---
--- 'keys', 'keysAndAttributes_keys' - The primary key attribute values that define the items and the
--- attributes associated with the items.
-newKeysAndAttributes ::
-  -- | 'keys'
-  Prelude.NonEmpty (Prelude.HashMap Prelude.Text AttributeValue) ->
-  KeysAndAttributes
-newKeysAndAttributes pKeys_ =
-  KeysAndAttributes'
-    { projectionExpression =
-        Prelude.Nothing,
-      attributesToGet = Prelude.Nothing,
-      expressionAttributeNames = Prelude.Nothing,
-      consistentRead = Prelude.Nothing,
-      keys = Lens.coerced Lens.# pKeys_
-    }
-
--- | A string that identifies one or more attributes to retrieve from the
+-- 'projectionExpression', 'keysAndAttributes_projectionExpression' - A string that identifies one or more attributes to retrieve from the
 -- table. These attributes can include scalars, sets, or elements of a JSON
 -- document. The attributes in the @ProjectionExpression@ must be separated
 -- by commas.
@@ -196,8 +169,22 @@ newKeysAndAttributes pKeys_ =
 -- For more information, see
 -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html Accessing Item Attributes>
 -- in the /Amazon DynamoDB Developer Guide/.
-keysAndAttributes_projectionExpression :: Lens.Lens' KeysAndAttributes (Prelude.Maybe Prelude.Text)
-keysAndAttributes_projectionExpression = Lens.lens (\KeysAndAttributes' {projectionExpression} -> projectionExpression) (\s@KeysAndAttributes' {} a -> s {projectionExpression = a} :: KeysAndAttributes)
+--
+-- 'keys', 'keysAndAttributes_keys' - The primary key attribute values that define the items and the
+-- attributes associated with the items.
+newKeysAndAttributes ::
+  -- | 'keys'
+  Prelude.NonEmpty (Prelude.HashMap Prelude.Text AttributeValue) ->
+  KeysAndAttributes
+newKeysAndAttributes pKeys_ =
+  KeysAndAttributes'
+    { attributesToGet =
+        Prelude.Nothing,
+      consistentRead = Prelude.Nothing,
+      expressionAttributeNames = Prelude.Nothing,
+      projectionExpression = Prelude.Nothing,
+      keys = Lens.coerced Lens.# pKeys_
+    }
 
 -- | This is a legacy parameter. Use @ProjectionExpression@ instead. For more
 -- information, see
@@ -205,6 +192,12 @@ keysAndAttributes_projectionExpression = Lens.lens (\KeysAndAttributes' {project
 -- in the /Amazon DynamoDB Developer Guide/.
 keysAndAttributes_attributesToGet :: Lens.Lens' KeysAndAttributes (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
 keysAndAttributes_attributesToGet = Lens.lens (\KeysAndAttributes' {attributesToGet} -> attributesToGet) (\s@KeysAndAttributes' {} a -> s {attributesToGet = a} :: KeysAndAttributes) Prelude.. Lens.mapping Lens.coerced
+
+-- | The consistency of a read operation. If set to @true@, then a strongly
+-- consistent read is used; otherwise, an eventually consistent read is
+-- used.
+keysAndAttributes_consistentRead :: Lens.Lens' KeysAndAttributes (Prelude.Maybe Prelude.Bool)
+keysAndAttributes_consistentRead = Lens.lens (\KeysAndAttributes' {consistentRead} -> consistentRead) (\s@KeysAndAttributes' {} a -> s {consistentRead = a} :: KeysAndAttributes)
 
 -- | One or more substitution tokens for attribute names in an expression.
 -- The following are some use cases for using @ExpressionAttributeNames@:
@@ -246,60 +239,69 @@ keysAndAttributes_attributesToGet = Lens.lens (\KeysAndAttributes' {attributesTo
 keysAndAttributes_expressionAttributeNames :: Lens.Lens' KeysAndAttributes (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 keysAndAttributes_expressionAttributeNames = Lens.lens (\KeysAndAttributes' {expressionAttributeNames} -> expressionAttributeNames) (\s@KeysAndAttributes' {} a -> s {expressionAttributeNames = a} :: KeysAndAttributes) Prelude.. Lens.mapping Lens.coerced
 
--- | The consistency of a read operation. If set to @true@, then a strongly
--- consistent read is used; otherwise, an eventually consistent read is
--- used.
-keysAndAttributes_consistentRead :: Lens.Lens' KeysAndAttributes (Prelude.Maybe Prelude.Bool)
-keysAndAttributes_consistentRead = Lens.lens (\KeysAndAttributes' {consistentRead} -> consistentRead) (\s@KeysAndAttributes' {} a -> s {consistentRead = a} :: KeysAndAttributes)
+-- | A string that identifies one or more attributes to retrieve from the
+-- table. These attributes can include scalars, sets, or elements of a JSON
+-- document. The attributes in the @ProjectionExpression@ must be separated
+-- by commas.
+--
+-- If no attribute names are specified, then all attributes will be
+-- returned. If any of the requested attributes are not found, they will
+-- not appear in the result.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html Accessing Item Attributes>
+-- in the /Amazon DynamoDB Developer Guide/.
+keysAndAttributes_projectionExpression :: Lens.Lens' KeysAndAttributes (Prelude.Maybe Prelude.Text)
+keysAndAttributes_projectionExpression = Lens.lens (\KeysAndAttributes' {projectionExpression} -> projectionExpression) (\s@KeysAndAttributes' {} a -> s {projectionExpression = a} :: KeysAndAttributes)
 
 -- | The primary key attribute values that define the items and the
 -- attributes associated with the items.
 keysAndAttributes_keys :: Lens.Lens' KeysAndAttributes (Prelude.NonEmpty (Prelude.HashMap Prelude.Text AttributeValue))
 keysAndAttributes_keys = Lens.lens (\KeysAndAttributes' {keys} -> keys) (\s@KeysAndAttributes' {} a -> s {keys = a} :: KeysAndAttributes) Prelude.. Lens.coerced
 
-instance Core.FromJSON KeysAndAttributes where
+instance Data.FromJSON KeysAndAttributes where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "KeysAndAttributes"
       ( \x ->
           KeysAndAttributes'
-            Prelude.<$> (x Core..:? "ProjectionExpression")
-            Prelude.<*> (x Core..:? "AttributesToGet")
-            Prelude.<*> ( x Core..:? "ExpressionAttributeNames"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "AttributesToGet")
+            Prelude.<*> (x Data..:? "ConsistentRead")
+            Prelude.<*> ( x Data..:? "ExpressionAttributeNames"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "ConsistentRead")
-            Prelude.<*> (x Core..: "Keys")
+            Prelude.<*> (x Data..:? "ProjectionExpression")
+            Prelude.<*> (x Data..: "Keys")
       )
 
 instance Prelude.Hashable KeysAndAttributes where
   hashWithSalt _salt KeysAndAttributes' {..} =
-    _salt `Prelude.hashWithSalt` projectionExpression
-      `Prelude.hashWithSalt` attributesToGet
-      `Prelude.hashWithSalt` expressionAttributeNames
+    _salt `Prelude.hashWithSalt` attributesToGet
       `Prelude.hashWithSalt` consistentRead
+      `Prelude.hashWithSalt` expressionAttributeNames
+      `Prelude.hashWithSalt` projectionExpression
       `Prelude.hashWithSalt` keys
 
 instance Prelude.NFData KeysAndAttributes where
   rnf KeysAndAttributes' {..} =
-    Prelude.rnf projectionExpression
-      `Prelude.seq` Prelude.rnf attributesToGet
-      `Prelude.seq` Prelude.rnf expressionAttributeNames
+    Prelude.rnf attributesToGet
       `Prelude.seq` Prelude.rnf consistentRead
+      `Prelude.seq` Prelude.rnf expressionAttributeNames
+      `Prelude.seq` Prelude.rnf projectionExpression
       `Prelude.seq` Prelude.rnf keys
 
-instance Core.ToJSON KeysAndAttributes where
+instance Data.ToJSON KeysAndAttributes where
   toJSON KeysAndAttributes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ProjectionExpression" Core..=)
-              Prelude.<$> projectionExpression,
-            ("AttributesToGet" Core..=)
+          [ ("AttributesToGet" Data..=)
               Prelude.<$> attributesToGet,
-            ("ExpressionAttributeNames" Core..=)
-              Prelude.<$> expressionAttributeNames,
-            ("ConsistentRead" Core..=)
+            ("ConsistentRead" Data..=)
               Prelude.<$> consistentRead,
-            Prelude.Just ("Keys" Core..= keys)
+            ("ExpressionAttributeNames" Data..=)
+              Prelude.<$> expressionAttributeNames,
+            ("ProjectionExpression" Data..=)
+              Prelude.<$> projectionExpression,
+            Prelude.Just ("Keys" Data..= keys)
           ]
       )

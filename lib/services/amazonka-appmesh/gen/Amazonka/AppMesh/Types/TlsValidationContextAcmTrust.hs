@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.TlsValidationContextAcmTrust
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppMesh.Types.TlsValidationContextAcmTrust where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents a Transport Layer Security (TLS) validation
@@ -58,13 +59,13 @@ newTlsValidationContextAcmTrust
 tlsValidationContextAcmTrust_certificateAuthorityArns :: Lens.Lens' TlsValidationContextAcmTrust (Prelude.NonEmpty Prelude.Text)
 tlsValidationContextAcmTrust_certificateAuthorityArns = Lens.lens (\TlsValidationContextAcmTrust' {certificateAuthorityArns} -> certificateAuthorityArns) (\s@TlsValidationContextAcmTrust' {} a -> s {certificateAuthorityArns = a} :: TlsValidationContextAcmTrust) Prelude.. Lens.coerced
 
-instance Core.FromJSON TlsValidationContextAcmTrust where
+instance Data.FromJSON TlsValidationContextAcmTrust where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TlsValidationContextAcmTrust"
       ( \x ->
           TlsValidationContextAcmTrust'
-            Prelude.<$> (x Core..: "certificateAuthorityArns")
+            Prelude.<$> (x Data..: "certificateAuthorityArns")
       )
 
 instance
@@ -79,13 +80,13 @@ instance Prelude.NFData TlsValidationContextAcmTrust where
   rnf TlsValidationContextAcmTrust' {..} =
     Prelude.rnf certificateAuthorityArns
 
-instance Core.ToJSON TlsValidationContextAcmTrust where
+instance Data.ToJSON TlsValidationContextAcmTrust where
   toJSON TlsValidationContextAcmTrust' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "certificateAuthorityArns"
-                  Core..= certificateAuthorityArns
+                  Data..= certificateAuthorityArns
               )
           ]
       )

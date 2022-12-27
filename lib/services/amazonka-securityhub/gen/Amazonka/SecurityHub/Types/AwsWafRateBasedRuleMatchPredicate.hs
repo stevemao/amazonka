@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsWafRateBasedRuleMatchPredicate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsWafRateBasedRuleMatchPredicate where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A match predicate. A predicate might look for characteristics such as
@@ -28,15 +29,29 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAwsWafRateBasedRuleMatchPredicate' smart constructor.
 data AwsWafRateBasedRuleMatchPredicate = AwsWafRateBasedRuleMatchPredicate'
-  { -- | If set to @true@, then the rule actions are performed on requests that
+  { -- | The unique identifier for the predicate.
+    dataId :: Prelude.Maybe Prelude.Text,
+    -- | If set to @true@, then the rule actions are performed on requests that
     -- match the predicate settings.
     --
     -- If set to @false@, then the rule actions are performed on all requests
     -- except those that match the predicate settings.
     negated :: Prelude.Maybe Prelude.Bool,
-    -- | The unique identifier for the predicate.
-    dataId :: Prelude.Maybe Prelude.Text,
-    -- | The type of predicate.
+    -- | The type of predicate. Valid values are as follows:
+    --
+    -- -   @ByteMatch@
+    --
+    -- -   @GeoMatch@
+    --
+    -- -   @IPMatch@
+    --
+    -- -   @RegexMatch@
+    --
+    -- -   @SizeConstraint@
+    --
+    -- -   @SqlInjectionMatch@
+    --
+    -- -   @XssMatch@
     type' :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -49,24 +64,42 @@ data AwsWafRateBasedRuleMatchPredicate = AwsWafRateBasedRuleMatchPredicate'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'dataId', 'awsWafRateBasedRuleMatchPredicate_dataId' - The unique identifier for the predicate.
+--
 -- 'negated', 'awsWafRateBasedRuleMatchPredicate_negated' - If set to @true@, then the rule actions are performed on requests that
 -- match the predicate settings.
 --
 -- If set to @false@, then the rule actions are performed on all requests
 -- except those that match the predicate settings.
 --
--- 'dataId', 'awsWafRateBasedRuleMatchPredicate_dataId' - The unique identifier for the predicate.
+-- 'type'', 'awsWafRateBasedRuleMatchPredicate_type' - The type of predicate. Valid values are as follows:
 --
--- 'type'', 'awsWafRateBasedRuleMatchPredicate_type' - The type of predicate.
+-- -   @ByteMatch@
+--
+-- -   @GeoMatch@
+--
+-- -   @IPMatch@
+--
+-- -   @RegexMatch@
+--
+-- -   @SizeConstraint@
+--
+-- -   @SqlInjectionMatch@
+--
+-- -   @XssMatch@
 newAwsWafRateBasedRuleMatchPredicate ::
   AwsWafRateBasedRuleMatchPredicate
 newAwsWafRateBasedRuleMatchPredicate =
   AwsWafRateBasedRuleMatchPredicate'
-    { negated =
+    { dataId =
         Prelude.Nothing,
-      dataId = Prelude.Nothing,
+      negated = Prelude.Nothing,
       type' = Prelude.Nothing
     }
+
+-- | The unique identifier for the predicate.
+awsWafRateBasedRuleMatchPredicate_dataId :: Lens.Lens' AwsWafRateBasedRuleMatchPredicate (Prelude.Maybe Prelude.Text)
+awsWafRateBasedRuleMatchPredicate_dataId = Lens.lens (\AwsWafRateBasedRuleMatchPredicate' {dataId} -> dataId) (\s@AwsWafRateBasedRuleMatchPredicate' {} a -> s {dataId = a} :: AwsWafRateBasedRuleMatchPredicate)
 
 -- | If set to @true@, then the rule actions are performed on requests that
 -- match the predicate settings.
@@ -76,26 +109,36 @@ newAwsWafRateBasedRuleMatchPredicate =
 awsWafRateBasedRuleMatchPredicate_negated :: Lens.Lens' AwsWafRateBasedRuleMatchPredicate (Prelude.Maybe Prelude.Bool)
 awsWafRateBasedRuleMatchPredicate_negated = Lens.lens (\AwsWafRateBasedRuleMatchPredicate' {negated} -> negated) (\s@AwsWafRateBasedRuleMatchPredicate' {} a -> s {negated = a} :: AwsWafRateBasedRuleMatchPredicate)
 
--- | The unique identifier for the predicate.
-awsWafRateBasedRuleMatchPredicate_dataId :: Lens.Lens' AwsWafRateBasedRuleMatchPredicate (Prelude.Maybe Prelude.Text)
-awsWafRateBasedRuleMatchPredicate_dataId = Lens.lens (\AwsWafRateBasedRuleMatchPredicate' {dataId} -> dataId) (\s@AwsWafRateBasedRuleMatchPredicate' {} a -> s {dataId = a} :: AwsWafRateBasedRuleMatchPredicate)
-
--- | The type of predicate.
+-- | The type of predicate. Valid values are as follows:
+--
+-- -   @ByteMatch@
+--
+-- -   @GeoMatch@
+--
+-- -   @IPMatch@
+--
+-- -   @RegexMatch@
+--
+-- -   @SizeConstraint@
+--
+-- -   @SqlInjectionMatch@
+--
+-- -   @XssMatch@
 awsWafRateBasedRuleMatchPredicate_type :: Lens.Lens' AwsWafRateBasedRuleMatchPredicate (Prelude.Maybe Prelude.Text)
 awsWafRateBasedRuleMatchPredicate_type = Lens.lens (\AwsWafRateBasedRuleMatchPredicate' {type'} -> type') (\s@AwsWafRateBasedRuleMatchPredicate' {} a -> s {type' = a} :: AwsWafRateBasedRuleMatchPredicate)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsWafRateBasedRuleMatchPredicate
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsWafRateBasedRuleMatchPredicate"
       ( \x ->
           AwsWafRateBasedRuleMatchPredicate'
-            Prelude.<$> (x Core..:? "Negated")
-            Prelude.<*> (x Core..:? "DataId")
-            Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "DataId")
+            Prelude.<*> (x Data..:? "Negated")
+            Prelude.<*> (x Data..:? "Type")
       )
 
 instance
@@ -105,8 +148,8 @@ instance
   hashWithSalt
     _salt
     AwsWafRateBasedRuleMatchPredicate' {..} =
-      _salt `Prelude.hashWithSalt` negated
-        `Prelude.hashWithSalt` dataId
+      _salt `Prelude.hashWithSalt` dataId
+        `Prelude.hashWithSalt` negated
         `Prelude.hashWithSalt` type'
 
 instance
@@ -114,19 +157,19 @@ instance
     AwsWafRateBasedRuleMatchPredicate
   where
   rnf AwsWafRateBasedRuleMatchPredicate' {..} =
-    Prelude.rnf negated
-      `Prelude.seq` Prelude.rnf dataId
+    Prelude.rnf dataId
+      `Prelude.seq` Prelude.rnf negated
       `Prelude.seq` Prelude.rnf type'
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsWafRateBasedRuleMatchPredicate
   where
   toJSON AwsWafRateBasedRuleMatchPredicate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Negated" Core..=) Prelude.<$> negated,
-            ("DataId" Core..=) Prelude.<$> dataId,
-            ("Type" Core..=) Prelude.<$> type'
+          [ ("DataId" Data..=) Prelude.<$> dataId,
+            ("Negated" Data..=) Prelude.<$> negated,
+            ("Type" Data..=) Prelude.<$> type'
           ]
       )

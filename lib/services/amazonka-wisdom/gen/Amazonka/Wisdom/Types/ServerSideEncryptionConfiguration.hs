@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.Types.ServerSideEncryptionConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Wisdom.Types.ServerSideEncryptionConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The KMS key used for encryption.
@@ -28,8 +29,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newServerSideEncryptionConfiguration' smart constructor.
 data ServerSideEncryptionConfiguration = ServerSideEncryptionConfiguration'
   { -- | The KMS key. For information about valid ID values, see
-    -- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id Key identifiers (KeyId)>
-    -- in the /AWS Key Management Service Developer Guide/.
+    -- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id Key identifiers (KeyId)>.
     kmsKeyId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -43,8 +43,7 @@ data ServerSideEncryptionConfiguration = ServerSideEncryptionConfiguration'
 -- for backwards compatibility:
 --
 -- 'kmsKeyId', 'serverSideEncryptionConfiguration_kmsKeyId' - The KMS key. For information about valid ID values, see
--- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id Key identifiers (KeyId)>
--- in the /AWS Key Management Service Developer Guide/.
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id Key identifiers (KeyId)>.
 newServerSideEncryptionConfiguration ::
   ServerSideEncryptionConfiguration
 newServerSideEncryptionConfiguration =
@@ -54,21 +53,20 @@ newServerSideEncryptionConfiguration =
     }
 
 -- | The KMS key. For information about valid ID values, see
--- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id Key identifiers (KeyId)>
--- in the /AWS Key Management Service Developer Guide/.
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id Key identifiers (KeyId)>.
 serverSideEncryptionConfiguration_kmsKeyId :: Lens.Lens' ServerSideEncryptionConfiguration (Prelude.Maybe Prelude.Text)
 serverSideEncryptionConfiguration_kmsKeyId = Lens.lens (\ServerSideEncryptionConfiguration' {kmsKeyId} -> kmsKeyId) (\s@ServerSideEncryptionConfiguration' {} a -> s {kmsKeyId = a} :: ServerSideEncryptionConfiguration)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ServerSideEncryptionConfiguration
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ServerSideEncryptionConfiguration"
       ( \x ->
           ServerSideEncryptionConfiguration'
-            Prelude.<$> (x Core..:? "kmsKeyId")
+            Prelude.<$> (x Data..:? "kmsKeyId")
       )
 
 instance
@@ -88,11 +86,11 @@ instance
     Prelude.rnf kmsKeyId
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ServerSideEncryptionConfiguration
   where
   toJSON ServerSideEncryptionConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("kmsKeyId" Core..=) Prelude.<$> kmsKeyId]
+          [("kmsKeyId" Data..=) Prelude.<$> kmsKeyId]
       )

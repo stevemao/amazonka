@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.WriteOperationType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,6 +20,7 @@
 module Amazonka.AppFlow.Types.WriteOperationType
   ( WriteOperationType
       ( ..,
+        WriteOperationType_DELETE,
         WriteOperationType_INSERT,
         WriteOperationType_UPDATE,
         WriteOperationType_UPSERT
@@ -28,13 +29,14 @@ module Amazonka.AppFlow.Types.WriteOperationType
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The possible write operations in the destination connector. When this
 -- value is not provided, this defaults to the @INSERT@ operation.
 newtype WriteOperationType = WriteOperationType'
   { fromWriteOperationType ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -46,19 +48,22 @@ newtype WriteOperationType = WriteOperationType'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
+
+pattern WriteOperationType_DELETE :: WriteOperationType
+pattern WriteOperationType_DELETE = WriteOperationType' "DELETE"
 
 pattern WriteOperationType_INSERT :: WriteOperationType
 pattern WriteOperationType_INSERT = WriteOperationType' "INSERT"
@@ -70,6 +75,7 @@ pattern WriteOperationType_UPSERT :: WriteOperationType
 pattern WriteOperationType_UPSERT = WriteOperationType' "UPSERT"
 
 {-# COMPLETE
+  WriteOperationType_DELETE,
   WriteOperationType_INSERT,
   WriteOperationType_UPDATE,
   WriteOperationType_UPSERT,

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.Types.SMSConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTEvents.Types.SMSConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types.RecipientDetail
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the configuration information of SMS notifications.
@@ -86,15 +87,15 @@ sMSConfiguration_senderId = Lens.lens (\SMSConfiguration' {senderId} -> senderId
 sMSConfiguration_recipients :: Lens.Lens' SMSConfiguration (Prelude.NonEmpty RecipientDetail)
 sMSConfiguration_recipients = Lens.lens (\SMSConfiguration' {recipients} -> recipients) (\s@SMSConfiguration' {} a -> s {recipients = a} :: SMSConfiguration) Prelude.. Lens.coerced
 
-instance Core.FromJSON SMSConfiguration where
+instance Data.FromJSON SMSConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SMSConfiguration"
       ( \x ->
           SMSConfiguration'
-            Prelude.<$> (x Core..:? "additionalMessage")
-            Prelude.<*> (x Core..:? "senderId")
-            Prelude.<*> (x Core..: "recipients")
+            Prelude.<$> (x Data..:? "additionalMessage")
+            Prelude.<*> (x Data..:? "senderId")
+            Prelude.<*> (x Data..: "recipients")
       )
 
 instance Prelude.Hashable SMSConfiguration where
@@ -109,13 +110,13 @@ instance Prelude.NFData SMSConfiguration where
       `Prelude.seq` Prelude.rnf senderId
       `Prelude.seq` Prelude.rnf recipients
 
-instance Core.ToJSON SMSConfiguration where
+instance Data.ToJSON SMSConfiguration where
   toJSON SMSConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("additionalMessage" Core..=)
+          [ ("additionalMessage" Data..=)
               Prelude.<$> additionalMessage,
-            ("senderId" Core..=) Prelude.<$> senderId,
-            Prelude.Just ("recipients" Core..= recipients)
+            ("senderId" Data..=) Prelude.<$> senderId,
+            Prelude.Just ("recipients" Data..= recipients)
           ]
       )

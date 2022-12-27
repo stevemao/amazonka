@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.Types.AccountLevelPermissions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.GuardDuty.Types.AccountLevelPermissions where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types.BlockPublicAccess
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the account level permissions on the S3
@@ -58,13 +59,13 @@ newAccountLevelPermissions =
 accountLevelPermissions_blockPublicAccess :: Lens.Lens' AccountLevelPermissions (Prelude.Maybe BlockPublicAccess)
 accountLevelPermissions_blockPublicAccess = Lens.lens (\AccountLevelPermissions' {blockPublicAccess} -> blockPublicAccess) (\s@AccountLevelPermissions' {} a -> s {blockPublicAccess = a} :: AccountLevelPermissions)
 
-instance Core.FromJSON AccountLevelPermissions where
+instance Data.FromJSON AccountLevelPermissions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AccountLevelPermissions"
       ( \x ->
           AccountLevelPermissions'
-            Prelude.<$> (x Core..:? "blockPublicAccess")
+            Prelude.<$> (x Data..:? "blockPublicAccess")
       )
 
 instance Prelude.Hashable AccountLevelPermissions where

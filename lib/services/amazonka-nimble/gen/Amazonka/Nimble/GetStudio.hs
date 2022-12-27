@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.GetStudio
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,13 +34,14 @@ module Amazonka.Nimble.GetStudio
     newGetStudioResponse,
 
     -- * Response Lenses
-    getStudioResponse_studio,
     getStudioResponse_httpStatus,
+    getStudioResponse_studio,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -75,13 +76,14 @@ getStudio_studioId = Lens.lens (\GetStudio' {studioId} -> studioId) (\s@GetStudi
 
 instance Core.AWSRequest GetStudio where
   type AWSResponse GetStudio = GetStudioResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetStudioResponse'
-            Prelude.<$> (x Core..?> "studio")
-            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Data..:> "studio")
       )
 
 instance Prelude.Hashable GetStudio where
@@ -91,33 +93,33 @@ instance Prelude.Hashable GetStudio where
 instance Prelude.NFData GetStudio where
   rnf GetStudio' {..} = Prelude.rnf studioId
 
-instance Core.ToHeaders GetStudio where
+instance Data.ToHeaders GetStudio where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetStudio where
+instance Data.ToPath GetStudio where
   toPath GetStudio' {..} =
     Prelude.mconcat
-      ["/2020-08-01/studios/", Core.toBS studioId]
+      ["/2020-08-01/studios/", Data.toBS studioId]
 
-instance Core.ToQuery GetStudio where
+instance Data.ToQuery GetStudio where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetStudioResponse' smart constructor.
 data GetStudioResponse = GetStudioResponse'
-  { -- | Information about a studio.
-    studio :: Prelude.Maybe Studio,
-    -- | The response's http status code.
-    httpStatus :: Prelude.Int
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Information about a studio.
+    studio :: Studio
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'GetStudioResponse' with all optional fields omitted.
@@ -127,28 +129,30 @@ data GetStudioResponse = GetStudioResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'studio', 'getStudioResponse_studio' - Information about a studio.
---
 -- 'httpStatus', 'getStudioResponse_httpStatus' - The response's http status code.
+--
+-- 'studio', 'getStudioResponse_studio' - Information about a studio.
 newGetStudioResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
+  -- | 'studio'
+  Studio ->
   GetStudioResponse
-newGetStudioResponse pHttpStatus_ =
+newGetStudioResponse pHttpStatus_ pStudio_ =
   GetStudioResponse'
-    { studio = Prelude.Nothing,
-      httpStatus = pHttpStatus_
+    { httpStatus = pHttpStatus_,
+      studio = pStudio_
     }
-
--- | Information about a studio.
-getStudioResponse_studio :: Lens.Lens' GetStudioResponse (Prelude.Maybe Studio)
-getStudioResponse_studio = Lens.lens (\GetStudioResponse' {studio} -> studio) (\s@GetStudioResponse' {} a -> s {studio = a} :: GetStudioResponse)
 
 -- | The response's http status code.
 getStudioResponse_httpStatus :: Lens.Lens' GetStudioResponse Prelude.Int
 getStudioResponse_httpStatus = Lens.lens (\GetStudioResponse' {httpStatus} -> httpStatus) (\s@GetStudioResponse' {} a -> s {httpStatus = a} :: GetStudioResponse)
 
+-- | Information about a studio.
+getStudioResponse_studio :: Lens.Lens' GetStudioResponse Studio
+getStudioResponse_studio = Lens.lens (\GetStudioResponse' {studio} -> studio) (\s@GetStudioResponse' {} a -> s {studio = a} :: GetStudioResponse)
+
 instance Prelude.NFData GetStudioResponse where
   rnf GetStudioResponse' {..} =
-    Prelude.rnf studio
-      `Prelude.seq` Prelude.rnf httpStatus
+    Prelude.rnf httpStatus
+      `Prelude.seq` Prelude.rnf studio

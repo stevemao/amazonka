@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.BatchListPolicyAttachments
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudDirectory.Types.BatchListPolicyAttachments where
 
 import Amazonka.CloudDirectory.Types.ObjectReference
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Returns all of the @ObjectIdentifiers@ to which a given policy is
@@ -30,10 +31,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newBatchListPolicyAttachments' smart constructor.
 data BatchListPolicyAttachments = BatchListPolicyAttachments'
-  { -- | The pagination token.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to retrieve.
+  { -- | The maximum number of results to retrieve.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The reference that identifies the policy object.
     policyReference :: ObjectReference
   }
@@ -47,9 +48,9 @@ data BatchListPolicyAttachments = BatchListPolicyAttachments'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'batchListPolicyAttachments_nextToken' - The pagination token.
---
 -- 'maxResults', 'batchListPolicyAttachments_maxResults' - The maximum number of results to retrieve.
+--
+-- 'nextToken', 'batchListPolicyAttachments_nextToken' - The pagination token.
 --
 -- 'policyReference', 'batchListPolicyAttachments_policyReference' - The reference that identifies the policy object.
 newBatchListPolicyAttachments ::
@@ -58,19 +59,19 @@ newBatchListPolicyAttachments ::
   BatchListPolicyAttachments
 newBatchListPolicyAttachments pPolicyReference_ =
   BatchListPolicyAttachments'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       policyReference = pPolicyReference_
     }
-
--- | The pagination token.
-batchListPolicyAttachments_nextToken :: Lens.Lens' BatchListPolicyAttachments (Prelude.Maybe Prelude.Text)
-batchListPolicyAttachments_nextToken = Lens.lens (\BatchListPolicyAttachments' {nextToken} -> nextToken) (\s@BatchListPolicyAttachments' {} a -> s {nextToken = a} :: BatchListPolicyAttachments)
 
 -- | The maximum number of results to retrieve.
 batchListPolicyAttachments_maxResults :: Lens.Lens' BatchListPolicyAttachments (Prelude.Maybe Prelude.Natural)
 batchListPolicyAttachments_maxResults = Lens.lens (\BatchListPolicyAttachments' {maxResults} -> maxResults) (\s@BatchListPolicyAttachments' {} a -> s {maxResults = a} :: BatchListPolicyAttachments)
+
+-- | The pagination token.
+batchListPolicyAttachments_nextToken :: Lens.Lens' BatchListPolicyAttachments (Prelude.Maybe Prelude.Text)
+batchListPolicyAttachments_nextToken = Lens.lens (\BatchListPolicyAttachments' {nextToken} -> nextToken) (\s@BatchListPolicyAttachments' {} a -> s {nextToken = a} :: BatchListPolicyAttachments)
 
 -- | The reference that identifies the policy object.
 batchListPolicyAttachments_policyReference :: Lens.Lens' BatchListPolicyAttachments ObjectReference
@@ -78,23 +79,23 @@ batchListPolicyAttachments_policyReference = Lens.lens (\BatchListPolicyAttachme
 
 instance Prelude.Hashable BatchListPolicyAttachments where
   hashWithSalt _salt BatchListPolicyAttachments' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` policyReference
 
 instance Prelude.NFData BatchListPolicyAttachments where
   rnf BatchListPolicyAttachments' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf policyReference
 
-instance Core.ToJSON BatchListPolicyAttachments where
+instance Data.ToJSON BatchListPolicyAttachments where
   toJSON BatchListPolicyAttachments' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("PolicyReference" Core..= policyReference)
+              ("PolicyReference" Data..= policyReference)
           ]
       )

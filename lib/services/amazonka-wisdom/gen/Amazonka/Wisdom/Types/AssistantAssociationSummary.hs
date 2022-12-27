@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.Types.AssistantAssociationSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Wisdom.Types.AssistantAssociationSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Wisdom.Types.AssistantAssociationOutputData
 import Amazonka.Wisdom.Types.AssociationType
@@ -31,7 +32,7 @@ import Amazonka.Wisdom.Types.AssociationType
 data AssistantAssociationSummary = AssistantAssociationSummary'
   { -- | The tags used to organize, track, or control access for this resource.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | The Amazon Resource Name (ARN) of the Wisdom assistant
+    -- | The Amazon Resource Name (ARN) of the Wisdom assistant.
     assistantArn :: Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the assistant association.
     assistantAssociationArn :: Prelude.Text,
@@ -56,7 +57,7 @@ data AssistantAssociationSummary = AssistantAssociationSummary'
 --
 -- 'tags', 'assistantAssociationSummary_tags' - The tags used to organize, track, or control access for this resource.
 --
--- 'assistantArn', 'assistantAssociationSummary_assistantArn' - The Amazon Resource Name (ARN) of the Wisdom assistant
+-- 'assistantArn', 'assistantAssociationSummary_assistantArn' - The Amazon Resource Name (ARN) of the Wisdom assistant.
 --
 -- 'assistantAssociationArn', 'assistantAssociationSummary_assistantAssociationArn' - The Amazon Resource Name (ARN) of the assistant association.
 --
@@ -105,7 +106,7 @@ newAssistantAssociationSummary
 assistantAssociationSummary_tags :: Lens.Lens' AssistantAssociationSummary (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 assistantAssociationSummary_tags = Lens.lens (\AssistantAssociationSummary' {tags} -> tags) (\s@AssistantAssociationSummary' {} a -> s {tags = a} :: AssistantAssociationSummary) Prelude.. Lens.mapping Lens.coerced
 
--- | The Amazon Resource Name (ARN) of the Wisdom assistant
+-- | The Amazon Resource Name (ARN) of the Wisdom assistant.
 assistantAssociationSummary_assistantArn :: Lens.Lens' AssistantAssociationSummary Prelude.Text
 assistantAssociationSummary_assistantArn = Lens.lens (\AssistantAssociationSummary' {assistantArn} -> assistantArn) (\s@AssistantAssociationSummary' {} a -> s {assistantArn = a} :: AssistantAssociationSummary)
 
@@ -129,19 +130,19 @@ assistantAssociationSummary_associationData = Lens.lens (\AssistantAssociationSu
 assistantAssociationSummary_associationType :: Lens.Lens' AssistantAssociationSummary AssociationType
 assistantAssociationSummary_associationType = Lens.lens (\AssistantAssociationSummary' {associationType} -> associationType) (\s@AssistantAssociationSummary' {} a -> s {associationType = a} :: AssistantAssociationSummary)
 
-instance Core.FromJSON AssistantAssociationSummary where
+instance Data.FromJSON AssistantAssociationSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AssistantAssociationSummary"
       ( \x ->
           AssistantAssociationSummary'
-            Prelude.<$> (x Core..:? "tags" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "assistantArn")
-            Prelude.<*> (x Core..: "assistantAssociationArn")
-            Prelude.<*> (x Core..: "assistantAssociationId")
-            Prelude.<*> (x Core..: "assistantId")
-            Prelude.<*> (x Core..: "associationData")
-            Prelude.<*> (x Core..: "associationType")
+            Prelude.<$> (x Data..:? "tags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "assistantArn")
+            Prelude.<*> (x Data..: "assistantAssociationArn")
+            Prelude.<*> (x Data..: "assistantAssociationId")
+            Prelude.<*> (x Data..: "assistantId")
+            Prelude.<*> (x Data..: "associationData")
+            Prelude.<*> (x Data..: "associationType")
       )
 
 instance Prelude.Hashable AssistantAssociationSummary where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.PutVoiceConnectorStreamingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,8 +22,8 @@
 --
 -- Adds a streaming configuration for the specified Amazon Chime Voice
 -- Connector. The streaming configuration specifies whether media streaming
--- is enabled for sending to Indonesians. It also sets the retention
--- period, in hours, for the Amazon Kinesis data.
+-- is enabled for sending to Kinesis. It also sets the retention period, in
+-- hours, for the Amazon Kinesis data.
 module Amazonka.Chime.PutVoiceConnectorStreamingConfiguration
   ( -- * Creating a Request
     PutVoiceConnectorStreamingConfiguration (..),
@@ -45,7 +45,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,12 +103,13 @@ instance
     AWSResponse
       PutVoiceConnectorStreamingConfiguration =
       PutVoiceConnectorStreamingConfigurationResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutVoiceConnectorStreamingConfigurationResponse'
-            Prelude.<$> (x Core..?> "StreamingConfiguration")
+            Prelude.<$> (x Data..?> "StreamingConfiguration")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -130,38 +132,38 @@ instance
       `Prelude.seq` Prelude.rnf streamingConfiguration
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     PutVoiceConnectorStreamingConfiguration
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     PutVoiceConnectorStreamingConfiguration
   where
   toJSON PutVoiceConnectorStreamingConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "StreamingConfiguration"
-                  Core..= streamingConfiguration
+                  Data..= streamingConfiguration
               )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     PutVoiceConnectorStreamingConfiguration
   where
   toPath PutVoiceConnectorStreamingConfiguration' {..} =
     Prelude.mconcat
       [ "/voice-connectors/",
-        Core.toBS voiceConnectorId,
+        Data.toBS voiceConnectorId,
         "/streaming-configuration"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     PutVoiceConnectorStreamingConfiguration
   where
   toQuery = Prelude.const Prelude.mempty

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CustomerProfiles.Types.ObjectFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,21 @@
 module Amazonka.CustomerProfiles.Types.ObjectFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The filter applied to ListProfileObjects response to include profile
 -- objects with the specified index values. This filter is only supported
--- for ObjectTypeName _asset and _case.
+-- for ObjectTypeName _asset, _case and _order.
 --
 -- /See:/ 'newObjectFilter' smart constructor.
 data ObjectFilter = ObjectFilter'
   { -- | A searchable identifier of a standard profile object. The predefined
     -- keys you can use to search for _asset include: _assetId, _assetName,
     -- _serialNumber. The predefined keys you can use to search for _case
-    -- include: _caseId.
+    -- include: _caseId. The predefined keys you can use to search for _order
+    -- include: _orderId.
     keyName :: Prelude.Text,
     -- | A list of key values.
     values :: [Prelude.Text]
@@ -50,7 +52,8 @@ data ObjectFilter = ObjectFilter'
 -- 'keyName', 'objectFilter_keyName' - A searchable identifier of a standard profile object. The predefined
 -- keys you can use to search for _asset include: _assetId, _assetName,
 -- _serialNumber. The predefined keys you can use to search for _case
--- include: _caseId.
+-- include: _caseId. The predefined keys you can use to search for _order
+-- include: _orderId.
 --
 -- 'values', 'objectFilter_values' - A list of key values.
 newObjectFilter ::
@@ -66,7 +69,8 @@ newObjectFilter pKeyName_ =
 -- | A searchable identifier of a standard profile object. The predefined
 -- keys you can use to search for _asset include: _assetId, _assetName,
 -- _serialNumber. The predefined keys you can use to search for _case
--- include: _caseId.
+-- include: _caseId. The predefined keys you can use to search for _order
+-- include: _orderId.
 objectFilter_keyName :: Lens.Lens' ObjectFilter Prelude.Text
 objectFilter_keyName = Lens.lens (\ObjectFilter' {keyName} -> keyName) (\s@ObjectFilter' {} a -> s {keyName = a} :: ObjectFilter)
 
@@ -84,11 +88,11 @@ instance Prelude.NFData ObjectFilter where
     Prelude.rnf keyName
       `Prelude.seq` Prelude.rnf values
 
-instance Core.ToJSON ObjectFilter where
+instance Data.ToJSON ObjectFilter where
   toJSON ObjectFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("KeyName" Core..= keyName),
-            Prelude.Just ("Values" Core..= values)
+          [ Prelude.Just ("KeyName" Data..= keyName),
+            Prelude.Just ("Values" Data..= values)
           ]
       )

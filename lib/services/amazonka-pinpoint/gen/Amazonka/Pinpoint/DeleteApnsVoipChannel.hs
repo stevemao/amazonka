@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.DeleteApnsVoipChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Pinpoint.DeleteApnsVoipChannel
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -84,13 +85,14 @@ instance Core.AWSRequest DeleteApnsVoipChannel where
   type
     AWSResponse DeleteApnsVoipChannel =
       DeleteApnsVoipChannelResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteApnsVoipChannelResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable DeleteApnsVoipChannel where
@@ -101,26 +103,26 @@ instance Prelude.NFData DeleteApnsVoipChannel where
   rnf DeleteApnsVoipChannel' {..} =
     Prelude.rnf applicationId
 
-instance Core.ToHeaders DeleteApnsVoipChannel where
+instance Data.ToHeaders DeleteApnsVoipChannel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteApnsVoipChannel where
+instance Data.ToPath DeleteApnsVoipChannel where
   toPath DeleteApnsVoipChannel' {..} =
     Prelude.mconcat
       [ "/v1/apps/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/channels/apns_voip"
       ]
 
-instance Core.ToQuery DeleteApnsVoipChannel where
+instance Data.ToQuery DeleteApnsVoipChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteApnsVoipChannelResponse' smart constructor.

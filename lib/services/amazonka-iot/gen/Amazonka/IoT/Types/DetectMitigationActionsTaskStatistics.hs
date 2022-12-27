@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.DetectMitigationActionsTaskStatistics
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.IoT.Types.DetectMitigationActionsTaskStatistics where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The statistics of a mitigation action task.
 --
 -- /See:/ 'newDetectMitigationActionsTaskStatistics' smart constructor.
 data DetectMitigationActionsTaskStatistics = DetectMitigationActionsTaskStatistics'
-  { -- | The actions that failed.
+  { -- | The actions that were performed.
+    actionsExecuted :: Prelude.Maybe Prelude.Integer,
+    -- | The actions that failed.
     actionsFailed :: Prelude.Maybe Prelude.Integer,
     -- | The actions that were skipped.
-    actionsSkipped :: Prelude.Maybe Prelude.Integer,
-    -- | The actions that were performed.
-    actionsExecuted :: Prelude.Maybe Prelude.Integer
+    actionsSkipped :: Prelude.Maybe Prelude.Integer
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,20 +45,24 @@ data DetectMitigationActionsTaskStatistics = DetectMitigationActionsTaskStatisti
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'actionsExecuted', 'detectMitigationActionsTaskStatistics_actionsExecuted' - The actions that were performed.
+--
 -- 'actionsFailed', 'detectMitigationActionsTaskStatistics_actionsFailed' - The actions that failed.
 --
 -- 'actionsSkipped', 'detectMitigationActionsTaskStatistics_actionsSkipped' - The actions that were skipped.
---
--- 'actionsExecuted', 'detectMitigationActionsTaskStatistics_actionsExecuted' - The actions that were performed.
 newDetectMitigationActionsTaskStatistics ::
   DetectMitigationActionsTaskStatistics
 newDetectMitigationActionsTaskStatistics =
   DetectMitigationActionsTaskStatistics'
-    { actionsFailed =
+    { actionsExecuted =
         Prelude.Nothing,
-      actionsSkipped = Prelude.Nothing,
-      actionsExecuted = Prelude.Nothing
+      actionsFailed = Prelude.Nothing,
+      actionsSkipped = Prelude.Nothing
     }
+
+-- | The actions that were performed.
+detectMitigationActionsTaskStatistics_actionsExecuted :: Lens.Lens' DetectMitigationActionsTaskStatistics (Prelude.Maybe Prelude.Integer)
+detectMitigationActionsTaskStatistics_actionsExecuted = Lens.lens (\DetectMitigationActionsTaskStatistics' {actionsExecuted} -> actionsExecuted) (\s@DetectMitigationActionsTaskStatistics' {} a -> s {actionsExecuted = a} :: DetectMitigationActionsTaskStatistics)
 
 -- | The actions that failed.
 detectMitigationActionsTaskStatistics_actionsFailed :: Lens.Lens' DetectMitigationActionsTaskStatistics (Prelude.Maybe Prelude.Integer)
@@ -67,22 +72,18 @@ detectMitigationActionsTaskStatistics_actionsFailed = Lens.lens (\DetectMitigati
 detectMitigationActionsTaskStatistics_actionsSkipped :: Lens.Lens' DetectMitigationActionsTaskStatistics (Prelude.Maybe Prelude.Integer)
 detectMitigationActionsTaskStatistics_actionsSkipped = Lens.lens (\DetectMitigationActionsTaskStatistics' {actionsSkipped} -> actionsSkipped) (\s@DetectMitigationActionsTaskStatistics' {} a -> s {actionsSkipped = a} :: DetectMitigationActionsTaskStatistics)
 
--- | The actions that were performed.
-detectMitigationActionsTaskStatistics_actionsExecuted :: Lens.Lens' DetectMitigationActionsTaskStatistics (Prelude.Maybe Prelude.Integer)
-detectMitigationActionsTaskStatistics_actionsExecuted = Lens.lens (\DetectMitigationActionsTaskStatistics' {actionsExecuted} -> actionsExecuted) (\s@DetectMitigationActionsTaskStatistics' {} a -> s {actionsExecuted = a} :: DetectMitigationActionsTaskStatistics)
-
 instance
-  Core.FromJSON
+  Data.FromJSON
     DetectMitigationActionsTaskStatistics
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DetectMitigationActionsTaskStatistics"
       ( \x ->
           DetectMitigationActionsTaskStatistics'
-            Prelude.<$> (x Core..:? "actionsFailed")
-            Prelude.<*> (x Core..:? "actionsSkipped")
-            Prelude.<*> (x Core..:? "actionsExecuted")
+            Prelude.<$> (x Data..:? "actionsExecuted")
+            Prelude.<*> (x Data..:? "actionsFailed")
+            Prelude.<*> (x Data..:? "actionsSkipped")
       )
 
 instance
@@ -92,15 +93,15 @@ instance
   hashWithSalt
     _salt
     DetectMitigationActionsTaskStatistics' {..} =
-      _salt `Prelude.hashWithSalt` actionsFailed
+      _salt `Prelude.hashWithSalt` actionsExecuted
+        `Prelude.hashWithSalt` actionsFailed
         `Prelude.hashWithSalt` actionsSkipped
-        `Prelude.hashWithSalt` actionsExecuted
 
 instance
   Prelude.NFData
     DetectMitigationActionsTaskStatistics
   where
   rnf DetectMitigationActionsTaskStatistics' {..} =
-    Prelude.rnf actionsFailed
+    Prelude.rnf actionsExecuted
+      `Prelude.seq` Prelude.rnf actionsFailed
       `Prelude.seq` Prelude.rnf actionsSkipped
-      `Prelude.seq` Prelude.rnf actionsExecuted

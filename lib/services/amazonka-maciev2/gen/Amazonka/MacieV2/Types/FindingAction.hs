@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.FindingAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.FindingAction where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types.ApiCallDetails
 import Amazonka.MacieV2.Types.FindingActionType
 import qualified Amazonka.Prelude as Prelude
@@ -30,14 +31,14 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newFindingAction' smart constructor.
 data FindingAction = FindingAction'
-  { -- | The invocation details of the API operation that an entity invoked for
-    -- the affected resource, if the value for the actionType property is
-    -- AWS_API_CALL.
-    apiCallDetails :: Prelude.Maybe ApiCallDetails,
-    -- | The type of action that occurred for the affected resource. This value
+  { -- | The type of action that occurred for the affected resource. This value
     -- is typically AWS_API_CALL, which indicates that an entity invoked an API
     -- operation for the resource.
-    actionType :: Prelude.Maybe FindingActionType
+    actionType :: Prelude.Maybe FindingActionType,
+    -- | The invocation details of the API operation that an entity invoked for
+    -- the affected resource, if the value for the actionType property is
+    -- AWS_API_CALL.
+    apiCallDetails :: Prelude.Maybe ApiCallDetails
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -49,26 +50,20 @@ data FindingAction = FindingAction'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'apiCallDetails', 'findingAction_apiCallDetails' - The invocation details of the API operation that an entity invoked for
--- the affected resource, if the value for the actionType property is
--- AWS_API_CALL.
---
 -- 'actionType', 'findingAction_actionType' - The type of action that occurred for the affected resource. This value
 -- is typically AWS_API_CALL, which indicates that an entity invoked an API
 -- operation for the resource.
+--
+-- 'apiCallDetails', 'findingAction_apiCallDetails' - The invocation details of the API operation that an entity invoked for
+-- the affected resource, if the value for the actionType property is
+-- AWS_API_CALL.
 newFindingAction ::
   FindingAction
 newFindingAction =
   FindingAction'
-    { apiCallDetails = Prelude.Nothing,
-      actionType = Prelude.Nothing
+    { actionType = Prelude.Nothing,
+      apiCallDetails = Prelude.Nothing
     }
-
--- | The invocation details of the API operation that an entity invoked for
--- the affected resource, if the value for the actionType property is
--- AWS_API_CALL.
-findingAction_apiCallDetails :: Lens.Lens' FindingAction (Prelude.Maybe ApiCallDetails)
-findingAction_apiCallDetails = Lens.lens (\FindingAction' {apiCallDetails} -> apiCallDetails) (\s@FindingAction' {} a -> s {apiCallDetails = a} :: FindingAction)
 
 -- | The type of action that occurred for the affected resource. This value
 -- is typically AWS_API_CALL, which indicates that an entity invoked an API
@@ -76,22 +71,28 @@ findingAction_apiCallDetails = Lens.lens (\FindingAction' {apiCallDetails} -> ap
 findingAction_actionType :: Lens.Lens' FindingAction (Prelude.Maybe FindingActionType)
 findingAction_actionType = Lens.lens (\FindingAction' {actionType} -> actionType) (\s@FindingAction' {} a -> s {actionType = a} :: FindingAction)
 
-instance Core.FromJSON FindingAction where
+-- | The invocation details of the API operation that an entity invoked for
+-- the affected resource, if the value for the actionType property is
+-- AWS_API_CALL.
+findingAction_apiCallDetails :: Lens.Lens' FindingAction (Prelude.Maybe ApiCallDetails)
+findingAction_apiCallDetails = Lens.lens (\FindingAction' {apiCallDetails} -> apiCallDetails) (\s@FindingAction' {} a -> s {apiCallDetails = a} :: FindingAction)
+
+instance Data.FromJSON FindingAction where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FindingAction"
       ( \x ->
           FindingAction'
-            Prelude.<$> (x Core..:? "apiCallDetails")
-            Prelude.<*> (x Core..:? "actionType")
+            Prelude.<$> (x Data..:? "actionType")
+            Prelude.<*> (x Data..:? "apiCallDetails")
       )
 
 instance Prelude.Hashable FindingAction where
   hashWithSalt _salt FindingAction' {..} =
-    _salt `Prelude.hashWithSalt` apiCallDetails
-      `Prelude.hashWithSalt` actionType
+    _salt `Prelude.hashWithSalt` actionType
+      `Prelude.hashWithSalt` apiCallDetails
 
 instance Prelude.NFData FindingAction where
   rnf FindingAction' {..} =
-    Prelude.rnf apiCallDetails
-      `Prelude.seq` Prelude.rnf actionType
+    Prelude.rnf actionType
+      `Prelude.seq` Prelude.rnf apiCallDetails

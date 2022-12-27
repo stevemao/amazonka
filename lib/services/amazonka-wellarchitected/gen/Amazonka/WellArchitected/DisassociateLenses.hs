@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WellArchitected.DisassociateLenses
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,8 +22,11 @@
 --
 -- Disassociate a lens from a workload.
 --
--- The AWS Well-Architected Framework lens (@wellarchitected@) cannot be
--- removed from a workload.
+-- Up to 10 lenses can be disassociated from a workload in a single API
+-- operation.
+--
+-- The Amazon Web Services Well-Architected Framework lens
+-- (@wellarchitected@) cannot be removed from a workload.
 module Amazonka.WellArchitected.DisassociateLenses
   ( -- * Creating a Request
     DisassociateLenses (..),
@@ -40,7 +43,8 @@ module Amazonka.WellArchitected.DisassociateLenses
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,7 +94,8 @@ instance Core.AWSRequest DisassociateLenses where
   type
     AWSResponse DisassociateLenses =
       DisassociateLensesResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveNull DisassociateLensesResponse'
 
@@ -104,33 +109,33 @@ instance Prelude.NFData DisassociateLenses where
     Prelude.rnf workloadId
       `Prelude.seq` Prelude.rnf lensAliases
 
-instance Core.ToHeaders DisassociateLenses where
+instance Data.ToHeaders DisassociateLenses where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisassociateLenses where
+instance Data.ToJSON DisassociateLenses where
   toJSON DisassociateLenses' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("LensAliases" Core..= lensAliases)]
+          [Prelude.Just ("LensAliases" Data..= lensAliases)]
       )
 
-instance Core.ToPath DisassociateLenses where
+instance Data.ToPath DisassociateLenses where
   toPath DisassociateLenses' {..} =
     Prelude.mconcat
       [ "/workloads/",
-        Core.toBS workloadId,
+        Data.toBS workloadId,
         "/disassociateLenses"
       ]
 
-instance Core.ToQuery DisassociateLenses where
+instance Data.ToQuery DisassociateLenses where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateLensesResponse' smart constructor.

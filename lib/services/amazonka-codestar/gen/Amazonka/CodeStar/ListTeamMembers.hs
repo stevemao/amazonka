@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStar.ListTeamMembers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.CodeStar.ListTeamMembers
     newListTeamMembers,
 
     -- * Request Lenses
-    listTeamMembers_nextToken,
     listTeamMembers_maxResults,
+    listTeamMembers_nextToken,
     listTeamMembers_projectId,
 
     -- * Destructuring the Response
@@ -46,18 +46,19 @@ where
 
 import Amazonka.CodeStar.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListTeamMembers' smart constructor.
 data ListTeamMembers = ListTeamMembers'
-  { -- | The continuation token for the next set of results, if the results
+  { -- | The maximum number of team members you want returned in a response.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The continuation token for the next set of results, if the results
     -- cannot be returned in one response.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of team members you want returned in a response.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The ID of the project for which you want to list team members.
     projectId :: Prelude.Text
   }
@@ -71,10 +72,10 @@ data ListTeamMembers = ListTeamMembers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listTeamMembers_maxResults' - The maximum number of team members you want returned in a response.
+--
 -- 'nextToken', 'listTeamMembers_nextToken' - The continuation token for the next set of results, if the results
 -- cannot be returned in one response.
---
--- 'maxResults', 'listTeamMembers_maxResults' - The maximum number of team members you want returned in a response.
 --
 -- 'projectId', 'listTeamMembers_projectId' - The ID of the project for which you want to list team members.
 newListTeamMembers ::
@@ -83,19 +84,19 @@ newListTeamMembers ::
   ListTeamMembers
 newListTeamMembers pProjectId_ =
   ListTeamMembers'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       projectId = pProjectId_
     }
+
+-- | The maximum number of team members you want returned in a response.
+listTeamMembers_maxResults :: Lens.Lens' ListTeamMembers (Prelude.Maybe Prelude.Natural)
+listTeamMembers_maxResults = Lens.lens (\ListTeamMembers' {maxResults} -> maxResults) (\s@ListTeamMembers' {} a -> s {maxResults = a} :: ListTeamMembers)
 
 -- | The continuation token for the next set of results, if the results
 -- cannot be returned in one response.
 listTeamMembers_nextToken :: Lens.Lens' ListTeamMembers (Prelude.Maybe Prelude.Text)
 listTeamMembers_nextToken = Lens.lens (\ListTeamMembers' {nextToken} -> nextToken) (\s@ListTeamMembers' {} a -> s {nextToken = a} :: ListTeamMembers)
-
--- | The maximum number of team members you want returned in a response.
-listTeamMembers_maxResults :: Lens.Lens' ListTeamMembers (Prelude.Maybe Prelude.Natural)
-listTeamMembers_maxResults = Lens.lens (\ListTeamMembers' {maxResults} -> maxResults) (\s@ListTeamMembers' {} a -> s {maxResults = a} :: ListTeamMembers)
 
 -- | The ID of the project for which you want to list team members.
 listTeamMembers_projectId :: Lens.Lens' ListTeamMembers Prelude.Text
@@ -124,57 +125,58 @@ instance Core.AWSRequest ListTeamMembers where
   type
     AWSResponse ListTeamMembers =
       ListTeamMembersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTeamMembersResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "teamMembers" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "teamMembers" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListTeamMembers where
   hashWithSalt _salt ListTeamMembers' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` projectId
 
 instance Prelude.NFData ListTeamMembers where
   rnf ListTeamMembers' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf projectId
 
-instance Core.ToHeaders ListTeamMembers where
+instance Data.ToHeaders ListTeamMembers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeStar_20170419.ListTeamMembers" ::
+              Data.=# ( "CodeStar_20170419.ListTeamMembers" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTeamMembers where
+instance Data.ToJSON ListTeamMembers where
   toJSON ListTeamMembers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("projectId" Core..= projectId)
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("projectId" Data..= projectId)
           ]
       )
 
-instance Core.ToPath ListTeamMembers where
+instance Data.ToPath ListTeamMembers where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTeamMembers where
+instance Data.ToQuery ListTeamMembers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTeamMembersResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.Types.RecommendationRelatedAnomalyResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DevOpsGuru.Types.RecommendationRelatedAnomalyResource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a resource in which DevOps Guru detected anomalous
@@ -30,7 +31,12 @@ import qualified Amazonka.Prelude as Prelude
 data RecommendationRelatedAnomalyResource = RecommendationRelatedAnomalyResource'
   { -- | The name of the resource.
     name :: Prelude.Maybe Prelude.Text,
-    -- | The type of the resource.
+    -- | The type of the resource. Resource types take the same form that is used
+    -- by Amazon Web Services CloudFormation resource type identifiers,
+    -- @service-provider::service-name::data-type-name@. For example,
+    -- @AWS::RDS::DBCluster@. For more information, see
+    -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html Amazon Web Services resource and property types reference>
+    -- in the /Amazon Web Services CloudFormation User Guide/.
     type' :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -45,7 +51,12 @@ data RecommendationRelatedAnomalyResource = RecommendationRelatedAnomalyResource
 --
 -- 'name', 'recommendationRelatedAnomalyResource_name' - The name of the resource.
 --
--- 'type'', 'recommendationRelatedAnomalyResource_type' - The type of the resource.
+-- 'type'', 'recommendationRelatedAnomalyResource_type' - The type of the resource. Resource types take the same form that is used
+-- by Amazon Web Services CloudFormation resource type identifiers,
+-- @service-provider::service-name::data-type-name@. For example,
+-- @AWS::RDS::DBCluster@. For more information, see
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html Amazon Web Services resource and property types reference>
+-- in the /Amazon Web Services CloudFormation User Guide/.
 newRecommendationRelatedAnomalyResource ::
   RecommendationRelatedAnomalyResource
 newRecommendationRelatedAnomalyResource =
@@ -59,20 +70,25 @@ newRecommendationRelatedAnomalyResource =
 recommendationRelatedAnomalyResource_name :: Lens.Lens' RecommendationRelatedAnomalyResource (Prelude.Maybe Prelude.Text)
 recommendationRelatedAnomalyResource_name = Lens.lens (\RecommendationRelatedAnomalyResource' {name} -> name) (\s@RecommendationRelatedAnomalyResource' {} a -> s {name = a} :: RecommendationRelatedAnomalyResource)
 
--- | The type of the resource.
+-- | The type of the resource. Resource types take the same form that is used
+-- by Amazon Web Services CloudFormation resource type identifiers,
+-- @service-provider::service-name::data-type-name@. For example,
+-- @AWS::RDS::DBCluster@. For more information, see
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html Amazon Web Services resource and property types reference>
+-- in the /Amazon Web Services CloudFormation User Guide/.
 recommendationRelatedAnomalyResource_type :: Lens.Lens' RecommendationRelatedAnomalyResource (Prelude.Maybe Prelude.Text)
 recommendationRelatedAnomalyResource_type = Lens.lens (\RecommendationRelatedAnomalyResource' {type'} -> type') (\s@RecommendationRelatedAnomalyResource' {} a -> s {type' = a} :: RecommendationRelatedAnomalyResource)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     RecommendationRelatedAnomalyResource
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RecommendationRelatedAnomalyResource"
       ( \x ->
           RecommendationRelatedAnomalyResource'
-            Prelude.<$> (x Core..:? "Name") Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "Name") Prelude.<*> (x Data..:? "Type")
       )
 
 instance

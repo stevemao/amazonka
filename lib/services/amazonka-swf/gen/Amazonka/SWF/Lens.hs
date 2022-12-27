@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,40 +14,25 @@
 module Amazonka.SWF.Lens
   ( -- * Operations
 
-    -- ** ListOpenWorkflowExecutions
-    listOpenWorkflowExecutions_nextPageToken,
-    listOpenWorkflowExecutions_executionFilter,
-    listOpenWorkflowExecutions_typeFilter,
-    listOpenWorkflowExecutions_reverseOrder,
-    listOpenWorkflowExecutions_tagFilter,
-    listOpenWorkflowExecutions_maximumPageSize,
-    listOpenWorkflowExecutions_domain,
-    listOpenWorkflowExecutions_startTimeFilter,
-    workflowExecutionInfos_nextPageToken,
-    workflowExecutionInfos_executionInfos,
+    -- ** CountClosedWorkflowExecutions
+    countClosedWorkflowExecutions_closeStatusFilter,
+    countClosedWorkflowExecutions_closeTimeFilter,
+    countClosedWorkflowExecutions_executionFilter,
+    countClosedWorkflowExecutions_startTimeFilter,
+    countClosedWorkflowExecutions_tagFilter,
+    countClosedWorkflowExecutions_typeFilter,
+    countClosedWorkflowExecutions_domain,
+    workflowExecutionCount_truncated,
+    workflowExecutionCount_count,
 
-    -- ** RegisterActivityType
-    registerActivityType_defaultTaskScheduleToStartTimeout,
-    registerActivityType_defaultTaskList,
-    registerActivityType_defaultTaskPriority,
-    registerActivityType_defaultTaskHeartbeatTimeout,
-    registerActivityType_defaultTaskScheduleToCloseTimeout,
-    registerActivityType_defaultTaskStartToCloseTimeout,
-    registerActivityType_description,
-    registerActivityType_domain,
-    registerActivityType_name,
-    registerActivityType_version,
-
-    -- ** ListActivityTypes
-    listActivityTypes_nextPageToken,
-    listActivityTypes_reverseOrder,
-    listActivityTypes_name,
-    listActivityTypes_maximumPageSize,
-    listActivityTypes_domain,
-    listActivityTypes_registrationStatus,
-    listActivityTypesResponse_nextPageToken,
-    listActivityTypesResponse_httpStatus,
-    listActivityTypesResponse_typeInfos,
+    -- ** CountOpenWorkflowExecutions
+    countOpenWorkflowExecutions_executionFilter,
+    countOpenWorkflowExecutions_tagFilter,
+    countOpenWorkflowExecutions_typeFilter,
+    countOpenWorkflowExecutions_domain,
+    countOpenWorkflowExecutions_startTimeFilter,
+    workflowExecutionCount_truncated,
+    workflowExecutionCount_count,
 
     -- ** CountPendingActivityTasks
     countPendingActivityTasks_domain,
@@ -55,93 +40,35 @@ module Amazonka.SWF.Lens
     pendingTaskCount_truncated,
     pendingTaskCount_count,
 
-    -- ** RegisterWorkflowType
-    registerWorkflowType_defaultLambdaRole,
-    registerWorkflowType_defaultChildPolicy,
-    registerWorkflowType_defaultTaskList,
-    registerWorkflowType_defaultTaskPriority,
-    registerWorkflowType_defaultExecutionStartToCloseTimeout,
-    registerWorkflowType_defaultTaskStartToCloseTimeout,
-    registerWorkflowType_description,
-    registerWorkflowType_domain,
-    registerWorkflowType_name,
-    registerWorkflowType_version,
+    -- ** CountPendingDecisionTasks
+    countPendingDecisionTasks_domain,
+    countPendingDecisionTasks_taskList,
+    pendingTaskCount_truncated,
+    pendingTaskCount_count,
 
-    -- ** ListWorkflowTypes
-    listWorkflowTypes_nextPageToken,
-    listWorkflowTypes_reverseOrder,
-    listWorkflowTypes_name,
-    listWorkflowTypes_maximumPageSize,
-    listWorkflowTypes_domain,
-    listWorkflowTypes_registrationStatus,
-    listWorkflowTypesResponse_nextPageToken,
-    listWorkflowTypesResponse_httpStatus,
-    listWorkflowTypesResponse_typeInfos,
+    -- ** DeprecateActivityType
+    deprecateActivityType_domain,
+    deprecateActivityType_activityType,
 
-    -- ** ListTagsForResource
-    listTagsForResource_resourceArn,
-    listTagsForResourceResponse_tags,
-    listTagsForResourceResponse_httpStatus,
-
-    -- ** RespondActivityTaskFailed
-    respondActivityTaskFailed_reason,
-    respondActivityTaskFailed_details,
-    respondActivityTaskFailed_taskToken,
-
-    -- ** CountOpenWorkflowExecutions
-    countOpenWorkflowExecutions_executionFilter,
-    countOpenWorkflowExecutions_typeFilter,
-    countOpenWorkflowExecutions_tagFilter,
-    countOpenWorkflowExecutions_domain,
-    countOpenWorkflowExecutions_startTimeFilter,
-    workflowExecutionCount_truncated,
-    workflowExecutionCount_count,
-
-    -- ** UndeprecateDomain
-    undeprecateDomain_name,
-
-    -- ** DescribeWorkflowType
-    describeWorkflowType_domain,
-    describeWorkflowType_workflowType,
-    describeWorkflowTypeResponse_httpStatus,
-    describeWorkflowTypeResponse_typeInfo,
-    describeWorkflowTypeResponse_configuration,
+    -- ** DeprecateDomain
+    deprecateDomain_name,
 
     -- ** DeprecateWorkflowType
     deprecateWorkflowType_domain,
     deprecateWorkflowType_workflowType,
 
-    -- ** RequestCancelWorkflowExecution
-    requestCancelWorkflowExecution_runId,
-    requestCancelWorkflowExecution_domain,
-    requestCancelWorkflowExecution_workflowId,
+    -- ** DescribeActivityType
+    describeActivityType_domain,
+    describeActivityType_activityType,
+    describeActivityTypeResponse_httpStatus,
+    describeActivityTypeResponse_typeInfo,
+    describeActivityTypeResponse_configuration,
 
-    -- ** RegisterDomain
-    registerDomain_description,
-    registerDomain_tags,
-    registerDomain_name,
-    registerDomain_workflowExecutionRetentionPeriodInDays,
-
-    -- ** RespondDecisionTaskCompleted
-    respondDecisionTaskCompleted_decisions,
-    respondDecisionTaskCompleted_executionContext,
-    respondDecisionTaskCompleted_taskToken,
-
-    -- ** PollForActivityTask
-    pollForActivityTask_identity,
-    pollForActivityTask_domain,
-    pollForActivityTask_taskList,
-    pollForActivityTaskResponse_activityType,
-    pollForActivityTaskResponse_activityId,
-    pollForActivityTaskResponse_input,
-    pollForActivityTaskResponse_taskToken,
-    pollForActivityTaskResponse_workflowExecution,
-    pollForActivityTaskResponse_httpStatus,
-    pollForActivityTaskResponse_startedEventId,
-
-    -- ** RespondActivityTaskCompleted
-    respondActivityTaskCompleted_result,
-    respondActivityTaskCompleted_taskToken,
+    -- ** DescribeDomain
+    describeDomain_name,
+    describeDomainResponse_httpStatus,
+    describeDomainResponse_domainInfo,
+    describeDomainResponse_configuration,
 
     -- ** DescribeWorkflowExecution
     describeWorkflowExecution_domain,
@@ -153,32 +80,112 @@ module Amazonka.SWF.Lens
     describeWorkflowExecutionResponse_executionConfiguration,
     describeWorkflowExecutionResponse_openCounts,
 
-    -- ** SignalWorkflowExecution
-    signalWorkflowExecution_input,
-    signalWorkflowExecution_runId,
-    signalWorkflowExecution_domain,
-    signalWorkflowExecution_workflowId,
-    signalWorkflowExecution_signalName,
+    -- ** DescribeWorkflowType
+    describeWorkflowType_domain,
+    describeWorkflowType_workflowType,
+    describeWorkflowTypeResponse_httpStatus,
+    describeWorkflowTypeResponse_typeInfo,
+    describeWorkflowTypeResponse_configuration,
 
-    -- ** CountPendingDecisionTasks
-    countPendingDecisionTasks_domain,
-    countPendingDecisionTasks_taskList,
-    pendingTaskCount_truncated,
-    pendingTaskCount_count,
+    -- ** GetWorkflowExecutionHistory
+    getWorkflowExecutionHistory_maximumPageSize,
+    getWorkflowExecutionHistory_nextPageToken,
+    getWorkflowExecutionHistory_reverseOrder,
+    getWorkflowExecutionHistory_domain,
+    getWorkflowExecutionHistory_execution,
+    getWorkflowExecutionHistoryResponse_nextPageToken,
+    getWorkflowExecutionHistoryResponse_httpStatus,
+    getWorkflowExecutionHistoryResponse_events,
+
+    -- ** ListActivityTypes
+    listActivityTypes_maximumPageSize,
+    listActivityTypes_name,
+    listActivityTypes_nextPageToken,
+    listActivityTypes_reverseOrder,
+    listActivityTypes_domain,
+    listActivityTypes_registrationStatus,
+    listActivityTypesResponse_nextPageToken,
+    listActivityTypesResponse_httpStatus,
+    listActivityTypesResponse_typeInfos,
 
     -- ** ListClosedWorkflowExecutions
-    listClosedWorkflowExecutions_nextPageToken,
-    listClosedWorkflowExecutions_executionFilter,
     listClosedWorkflowExecutions_closeStatusFilter,
-    listClosedWorkflowExecutions_typeFilter,
     listClosedWorkflowExecutions_closeTimeFilter,
-    listClosedWorkflowExecutions_reverseOrder,
-    listClosedWorkflowExecutions_tagFilter,
-    listClosedWorkflowExecutions_startTimeFilter,
+    listClosedWorkflowExecutions_executionFilter,
     listClosedWorkflowExecutions_maximumPageSize,
+    listClosedWorkflowExecutions_nextPageToken,
+    listClosedWorkflowExecutions_reverseOrder,
+    listClosedWorkflowExecutions_startTimeFilter,
+    listClosedWorkflowExecutions_tagFilter,
+    listClosedWorkflowExecutions_typeFilter,
     listClosedWorkflowExecutions_domain,
     workflowExecutionInfos_nextPageToken,
     workflowExecutionInfos_executionInfos,
+
+    -- ** ListDomains
+    listDomains_maximumPageSize,
+    listDomains_nextPageToken,
+    listDomains_reverseOrder,
+    listDomains_registrationStatus,
+    listDomainsResponse_nextPageToken,
+    listDomainsResponse_httpStatus,
+    listDomainsResponse_domainInfos,
+
+    -- ** ListOpenWorkflowExecutions
+    listOpenWorkflowExecutions_executionFilter,
+    listOpenWorkflowExecutions_maximumPageSize,
+    listOpenWorkflowExecutions_nextPageToken,
+    listOpenWorkflowExecutions_reverseOrder,
+    listOpenWorkflowExecutions_tagFilter,
+    listOpenWorkflowExecutions_typeFilter,
+    listOpenWorkflowExecutions_domain,
+    listOpenWorkflowExecutions_startTimeFilter,
+    workflowExecutionInfos_nextPageToken,
+    workflowExecutionInfos_executionInfos,
+
+    -- ** ListTagsForResource
+    listTagsForResource_resourceArn,
+    listTagsForResourceResponse_tags,
+    listTagsForResourceResponse_httpStatus,
+
+    -- ** ListWorkflowTypes
+    listWorkflowTypes_maximumPageSize,
+    listWorkflowTypes_name,
+    listWorkflowTypes_nextPageToken,
+    listWorkflowTypes_reverseOrder,
+    listWorkflowTypes_domain,
+    listWorkflowTypes_registrationStatus,
+    listWorkflowTypesResponse_nextPageToken,
+    listWorkflowTypesResponse_httpStatus,
+    listWorkflowTypesResponse_typeInfos,
+
+    -- ** PollForActivityTask
+    pollForActivityTask_identity,
+    pollForActivityTask_domain,
+    pollForActivityTask_taskList,
+    pollForActivityTaskResponse_activityId,
+    pollForActivityTaskResponse_activityType,
+    pollForActivityTaskResponse_input,
+    pollForActivityTaskResponse_taskToken,
+    pollForActivityTaskResponse_workflowExecution,
+    pollForActivityTaskResponse_httpStatus,
+    pollForActivityTaskResponse_startedEventId,
+
+    -- ** PollForDecisionTask
+    pollForDecisionTask_identity,
+    pollForDecisionTask_maximumPageSize,
+    pollForDecisionTask_nextPageToken,
+    pollForDecisionTask_reverseOrder,
+    pollForDecisionTask_domain,
+    pollForDecisionTask_taskList,
+    pollForDecisionTaskResponse_events,
+    pollForDecisionTaskResponse_nextPageToken,
+    pollForDecisionTaskResponse_previousStartedEventId,
+    pollForDecisionTaskResponse_taskToken,
+    pollForDecisionTaskResponse_workflowExecution,
+    pollForDecisionTaskResponse_workflowType,
+    pollForDecisionTaskResponse_httpStatus,
+    pollForDecisionTaskResponse_startedEventId,
 
     -- ** RecordActivityTaskHeartbeat
     recordActivityTaskHeartbeat_details,
@@ -186,114 +193,107 @@ module Amazonka.SWF.Lens
     recordActivityTaskHeartbeatResponse_httpStatus,
     recordActivityTaskHeartbeatResponse_cancelRequested,
 
-    -- ** DescribeDomain
-    describeDomain_name,
-    describeDomainResponse_httpStatus,
-    describeDomainResponse_domainInfo,
-    describeDomainResponse_configuration,
+    -- ** RegisterActivityType
+    registerActivityType_defaultTaskHeartbeatTimeout,
+    registerActivityType_defaultTaskList,
+    registerActivityType_defaultTaskPriority,
+    registerActivityType_defaultTaskScheduleToCloseTimeout,
+    registerActivityType_defaultTaskScheduleToStartTimeout,
+    registerActivityType_defaultTaskStartToCloseTimeout,
+    registerActivityType_description,
+    registerActivityType_domain,
+    registerActivityType_name,
+    registerActivityType_version,
 
-    -- ** GetWorkflowExecutionHistory
-    getWorkflowExecutionHistory_nextPageToken,
-    getWorkflowExecutionHistory_reverseOrder,
-    getWorkflowExecutionHistory_maximumPageSize,
-    getWorkflowExecutionHistory_domain,
-    getWorkflowExecutionHistory_execution,
-    getWorkflowExecutionHistoryResponse_nextPageToken,
-    getWorkflowExecutionHistoryResponse_httpStatus,
-    getWorkflowExecutionHistoryResponse_events,
+    -- ** RegisterDomain
+    registerDomain_description,
+    registerDomain_tags,
+    registerDomain_name,
+    registerDomain_workflowExecutionRetentionPeriodInDays,
 
-    -- ** DeprecateDomain
-    deprecateDomain_name,
+    -- ** RegisterWorkflowType
+    registerWorkflowType_defaultChildPolicy,
+    registerWorkflowType_defaultExecutionStartToCloseTimeout,
+    registerWorkflowType_defaultLambdaRole,
+    registerWorkflowType_defaultTaskList,
+    registerWorkflowType_defaultTaskPriority,
+    registerWorkflowType_defaultTaskStartToCloseTimeout,
+    registerWorkflowType_description,
+    registerWorkflowType_domain,
+    registerWorkflowType_name,
+    registerWorkflowType_version,
 
-    -- ** UndeprecateWorkflowType
-    undeprecateWorkflowType_domain,
-    undeprecateWorkflowType_workflowType,
-
-    -- ** TerminateWorkflowExecution
-    terminateWorkflowExecution_reason,
-    terminateWorkflowExecution_runId,
-    terminateWorkflowExecution_childPolicy,
-    terminateWorkflowExecution_details,
-    terminateWorkflowExecution_domain,
-    terminateWorkflowExecution_workflowId,
-
-    -- ** DescribeActivityType
-    describeActivityType_domain,
-    describeActivityType_activityType,
-    describeActivityTypeResponse_httpStatus,
-    describeActivityTypeResponse_typeInfo,
-    describeActivityTypeResponse_configuration,
-
-    -- ** TagResource
-    tagResource_resourceArn,
-    tagResource_tags,
-
-    -- ** DeprecateActivityType
-    deprecateActivityType_domain,
-    deprecateActivityType_activityType,
-
-    -- ** UndeprecateActivityType
-    undeprecateActivityType_domain,
-    undeprecateActivityType_activityType,
-
-    -- ** CountClosedWorkflowExecutions
-    countClosedWorkflowExecutions_executionFilter,
-    countClosedWorkflowExecutions_closeStatusFilter,
-    countClosedWorkflowExecutions_typeFilter,
-    countClosedWorkflowExecutions_closeTimeFilter,
-    countClosedWorkflowExecutions_tagFilter,
-    countClosedWorkflowExecutions_startTimeFilter,
-    countClosedWorkflowExecutions_domain,
-    workflowExecutionCount_truncated,
-    workflowExecutionCount_count,
-
-    -- ** UntagResource
-    untagResource_resourceArn,
-    untagResource_tagKeys,
+    -- ** RequestCancelWorkflowExecution
+    requestCancelWorkflowExecution_runId,
+    requestCancelWorkflowExecution_domain,
+    requestCancelWorkflowExecution_workflowId,
 
     -- ** RespondActivityTaskCanceled
     respondActivityTaskCanceled_details,
     respondActivityTaskCanceled_taskToken,
 
+    -- ** RespondActivityTaskCompleted
+    respondActivityTaskCompleted_result,
+    respondActivityTaskCompleted_taskToken,
+
+    -- ** RespondActivityTaskFailed
+    respondActivityTaskFailed_details,
+    respondActivityTaskFailed_reason,
+    respondActivityTaskFailed_taskToken,
+
+    -- ** RespondDecisionTaskCompleted
+    respondDecisionTaskCompleted_decisions,
+    respondDecisionTaskCompleted_executionContext,
+    respondDecisionTaskCompleted_taskToken,
+
+    -- ** SignalWorkflowExecution
+    signalWorkflowExecution_input,
+    signalWorkflowExecution_runId,
+    signalWorkflowExecution_domain,
+    signalWorkflowExecution_workflowId,
+    signalWorkflowExecution_signalName,
+
     -- ** StartWorkflowExecution
-    startWorkflowExecution_tagList,
-    startWorkflowExecution_taskStartToCloseTimeout,
-    startWorkflowExecution_lambdaRole,
-    startWorkflowExecution_input,
+    startWorkflowExecution_childPolicy,
     startWorkflowExecution_executionStartToCloseTimeout,
+    startWorkflowExecution_input,
+    startWorkflowExecution_lambdaRole,
+    startWorkflowExecution_tagList,
     startWorkflowExecution_taskList,
     startWorkflowExecution_taskPriority,
-    startWorkflowExecution_childPolicy,
+    startWorkflowExecution_taskStartToCloseTimeout,
     startWorkflowExecution_domain,
     startWorkflowExecution_workflowId,
     startWorkflowExecution_workflowType,
     startWorkflowExecutionResponse_runId,
     startWorkflowExecutionResponse_httpStatus,
 
-    -- ** PollForDecisionTask
-    pollForDecisionTask_nextPageToken,
-    pollForDecisionTask_reverseOrder,
-    pollForDecisionTask_maximumPageSize,
-    pollForDecisionTask_identity,
-    pollForDecisionTask_domain,
-    pollForDecisionTask_taskList,
-    pollForDecisionTaskResponse_nextPageToken,
-    pollForDecisionTaskResponse_workflowType,
-    pollForDecisionTaskResponse_previousStartedEventId,
-    pollForDecisionTaskResponse_events,
-    pollForDecisionTaskResponse_taskToken,
-    pollForDecisionTaskResponse_workflowExecution,
-    pollForDecisionTaskResponse_httpStatus,
-    pollForDecisionTaskResponse_startedEventId,
+    -- ** TagResource
+    tagResource_resourceArn,
+    tagResource_tags,
 
-    -- ** ListDomains
-    listDomains_nextPageToken,
-    listDomains_reverseOrder,
-    listDomains_maximumPageSize,
-    listDomains_registrationStatus,
-    listDomainsResponse_nextPageToken,
-    listDomainsResponse_httpStatus,
-    listDomainsResponse_domainInfos,
+    -- ** TerminateWorkflowExecution
+    terminateWorkflowExecution_childPolicy,
+    terminateWorkflowExecution_details,
+    terminateWorkflowExecution_reason,
+    terminateWorkflowExecution_runId,
+    terminateWorkflowExecution_domain,
+    terminateWorkflowExecution_workflowId,
+
+    -- ** UndeprecateActivityType
+    undeprecateActivityType_domain,
+    undeprecateActivityType_activityType,
+
+    -- ** UndeprecateDomain
+    undeprecateDomain_name,
+
+    -- ** UndeprecateWorkflowType
+    undeprecateWorkflowType_domain,
+    undeprecateWorkflowType_workflowType,
+
+    -- ** UntagResource
+    untagResource_resourceArn,
+    untagResource_tagKeys,
 
     -- * Types
 
@@ -302,8 +302,8 @@ module Amazonka.SWF.Lens
     activityTaskCancelRequestedEventAttributes_activityId,
 
     -- ** ActivityTaskCanceledEventAttributes
-    activityTaskCanceledEventAttributes_latestCancelRequestedEventId,
     activityTaskCanceledEventAttributes_details,
+    activityTaskCanceledEventAttributes_latestCancelRequestedEventId,
     activityTaskCanceledEventAttributes_scheduledEventId,
     activityTaskCanceledEventAttributes_startedEventId,
 
@@ -313,19 +313,19 @@ module Amazonka.SWF.Lens
     activityTaskCompletedEventAttributes_startedEventId,
 
     -- ** ActivityTaskFailedEventAttributes
-    activityTaskFailedEventAttributes_reason,
     activityTaskFailedEventAttributes_details,
+    activityTaskFailedEventAttributes_reason,
     activityTaskFailedEventAttributes_scheduledEventId,
     activityTaskFailedEventAttributes_startedEventId,
 
     -- ** ActivityTaskScheduledEventAttributes
     activityTaskScheduledEventAttributes_control,
     activityTaskScheduledEventAttributes_heartbeatTimeout,
-    activityTaskScheduledEventAttributes_scheduleToCloseTimeout,
     activityTaskScheduledEventAttributes_input,
-    activityTaskScheduledEventAttributes_taskPriority,
+    activityTaskScheduledEventAttributes_scheduleToCloseTimeout,
     activityTaskScheduledEventAttributes_scheduleToStartTimeout,
     activityTaskScheduledEventAttributes_startToCloseTimeout,
+    activityTaskScheduledEventAttributes_taskPriority,
     activityTaskScheduledEventAttributes_activityType,
     activityTaskScheduledEventAttributes_activityId,
     activityTaskScheduledEventAttributes_taskList,
@@ -346,11 +346,11 @@ module Amazonka.SWF.Lens
     activityType_version,
 
     -- ** ActivityTypeConfiguration
-    activityTypeConfiguration_defaultTaskScheduleToStartTimeout,
+    activityTypeConfiguration_defaultTaskHeartbeatTimeout,
     activityTypeConfiguration_defaultTaskList,
     activityTypeConfiguration_defaultTaskPriority,
-    activityTypeConfiguration_defaultTaskHeartbeatTimeout,
     activityTypeConfiguration_defaultTaskScheduleToCloseTimeout,
+    activityTypeConfiguration_defaultTaskScheduleToStartTimeout,
     activityTypeConfiguration_defaultTaskStartToCloseTimeout,
 
     -- ** ActivityTypeInfo
@@ -390,8 +390,8 @@ module Amazonka.SWF.Lens
     childWorkflowExecutionCompletedEventAttributes_startedEventId,
 
     -- ** ChildWorkflowExecutionFailedEventAttributes
-    childWorkflowExecutionFailedEventAttributes_reason,
     childWorkflowExecutionFailedEventAttributes_details,
+    childWorkflowExecutionFailedEventAttributes_reason,
     childWorkflowExecutionFailedEventAttributes_workflowExecution,
     childWorkflowExecutionFailedEventAttributes_workflowType,
     childWorkflowExecutionFailedEventAttributes_initiatedEventId,
@@ -426,34 +426,34 @@ module Amazonka.SWF.Lens
     completeWorkflowExecutionFailedEventAttributes_decisionTaskCompletedEventId,
 
     -- ** ContinueAsNewWorkflowExecutionDecisionAttributes
-    continueAsNewWorkflowExecutionDecisionAttributes_tagList,
-    continueAsNewWorkflowExecutionDecisionAttributes_taskStartToCloseTimeout,
-    continueAsNewWorkflowExecutionDecisionAttributes_lambdaRole,
-    continueAsNewWorkflowExecutionDecisionAttributes_input,
-    continueAsNewWorkflowExecutionDecisionAttributes_workflowTypeVersion,
+    continueAsNewWorkflowExecutionDecisionAttributes_childPolicy,
     continueAsNewWorkflowExecutionDecisionAttributes_executionStartToCloseTimeout,
+    continueAsNewWorkflowExecutionDecisionAttributes_input,
+    continueAsNewWorkflowExecutionDecisionAttributes_lambdaRole,
+    continueAsNewWorkflowExecutionDecisionAttributes_tagList,
     continueAsNewWorkflowExecutionDecisionAttributes_taskList,
     continueAsNewWorkflowExecutionDecisionAttributes_taskPriority,
-    continueAsNewWorkflowExecutionDecisionAttributes_childPolicy,
+    continueAsNewWorkflowExecutionDecisionAttributes_taskStartToCloseTimeout,
+    continueAsNewWorkflowExecutionDecisionAttributes_workflowTypeVersion,
 
     -- ** ContinueAsNewWorkflowExecutionFailedEventAttributes
     continueAsNewWorkflowExecutionFailedEventAttributes_cause,
     continueAsNewWorkflowExecutionFailedEventAttributes_decisionTaskCompletedEventId,
 
     -- ** Decision
+    decision_cancelTimerDecisionAttributes,
+    decision_cancelWorkflowExecutionDecisionAttributes,
+    decision_completeWorkflowExecutionDecisionAttributes,
+    decision_continueAsNewWorkflowExecutionDecisionAttributes,
+    decision_failWorkflowExecutionDecisionAttributes,
+    decision_recordMarkerDecisionAttributes,
+    decision_requestCancelActivityTaskDecisionAttributes,
     decision_requestCancelExternalWorkflowExecutionDecisionAttributes,
     decision_scheduleActivityTaskDecisionAttributes,
-    decision_signalExternalWorkflowExecutionDecisionAttributes,
-    decision_startTimerDecisionAttributes,
-    decision_recordMarkerDecisionAttributes,
-    decision_failWorkflowExecutionDecisionAttributes,
-    decision_startChildWorkflowExecutionDecisionAttributes,
-    decision_completeWorkflowExecutionDecisionAttributes,
     decision_scheduleLambdaFunctionDecisionAttributes,
-    decision_requestCancelActivityTaskDecisionAttributes,
-    decision_cancelWorkflowExecutionDecisionAttributes,
-    decision_cancelTimerDecisionAttributes,
-    decision_continueAsNewWorkflowExecutionDecisionAttributes,
+    decision_signalExternalWorkflowExecutionDecisionAttributes,
+    decision_startChildWorkflowExecutionDecisionAttributes,
+    decision_startTimerDecisionAttributes,
     decision_decisionType,
 
     -- ** DecisionTaskCompletedEventAttributes
@@ -462,8 +462,8 @@ module Amazonka.SWF.Lens
     decisionTaskCompletedEventAttributes_startedEventId,
 
     -- ** DecisionTaskScheduledEventAttributes
-    decisionTaskScheduledEventAttributes_taskPriority,
     decisionTaskScheduledEventAttributes_startToCloseTimeout,
+    decisionTaskScheduledEventAttributes_taskPriority,
     decisionTaskScheduledEventAttributes_taskList,
 
     -- ** DecisionTaskStartedEventAttributes
@@ -497,68 +497,68 @@ module Amazonka.SWF.Lens
     externalWorkflowExecutionSignaledEventAttributes_initiatedEventId,
 
     -- ** FailWorkflowExecutionDecisionAttributes
-    failWorkflowExecutionDecisionAttributes_reason,
     failWorkflowExecutionDecisionAttributes_details,
+    failWorkflowExecutionDecisionAttributes_reason,
 
     -- ** FailWorkflowExecutionFailedEventAttributes
     failWorkflowExecutionFailedEventAttributes_cause,
     failWorkflowExecutionFailedEventAttributes_decisionTaskCompletedEventId,
 
     -- ** HistoryEvent
-    historyEvent_workflowExecutionCancelRequestedEventAttributes,
-    historyEvent_recordMarkerFailedEventAttributes,
-    historyEvent_requestCancelExternalWorkflowExecutionInitiatedEventAttributes,
-    historyEvent_lambdaFunctionStartedEventAttributes,
-    historyEvent_decisionTaskScheduledEventAttributes,
-    historyEvent_workflowExecutionCompletedEventAttributes,
-    historyEvent_startTimerFailedEventAttributes,
-    historyEvent_activityTaskScheduledEventAttributes,
-    historyEvent_scheduleActivityTaskFailedEventAttributes,
-    historyEvent_childWorkflowExecutionCompletedEventAttributes,
-    historyEvent_markerRecordedEventAttributes,
-    historyEvent_scheduleLambdaFunctionFailedEventAttributes,
-    historyEvent_completeWorkflowExecutionFailedEventAttributes,
-    historyEvent_lambdaFunctionCompletedEventAttributes,
-    historyEvent_requestCancelExternalWorkflowExecutionFailedEventAttributes,
-    historyEvent_timerCanceledEventAttributes,
-    historyEvent_workflowExecutionStartedEventAttributes,
-    historyEvent_activityTaskCompletedEventAttributes,
-    historyEvent_decisionTaskTimedOutEventAttributes,
-    historyEvent_cancelTimerFailedEventAttributes,
-    historyEvent_childWorkflowExecutionStartedEventAttributes,
-    historyEvent_activityTaskCanceledEventAttributes,
-    historyEvent_activityTaskTimedOutEventAttributes,
-    historyEvent_decisionTaskStartedEventAttributes,
-    historyEvent_workflowExecutionTerminatedEventAttributes,
-    historyEvent_childWorkflowExecutionCanceledEventAttributes,
-    historyEvent_requestCancelActivityTaskFailedEventAttributes,
-    historyEvent_lambdaFunctionScheduledEventAttributes,
-    historyEvent_childWorkflowExecutionTimedOutEventAttributes,
-    historyEvent_cancelWorkflowExecutionFailedEventAttributes,
-    historyEvent_startChildWorkflowExecutionInitiatedEventAttributes,
-    historyEvent_signalExternalWorkflowExecutionFailedEventAttributes,
-    historyEvent_activityTaskStartedEventAttributes,
-    historyEvent_startLambdaFunctionFailedEventAttributes,
-    historyEvent_childWorkflowExecutionTerminatedEventAttributes,
-    historyEvent_lambdaFunctionFailedEventAttributes,
-    historyEvent_workflowExecutionCanceledEventAttributes,
-    historyEvent_timerStartedEventAttributes,
     historyEvent_activityTaskCancelRequestedEventAttributes,
-    historyEvent_workflowExecutionTimedOutEventAttributes,
-    historyEvent_workflowExecutionSignaledEventAttributes,
-    historyEvent_timerFiredEventAttributes,
+    historyEvent_activityTaskCanceledEventAttributes,
+    historyEvent_activityTaskCompletedEventAttributes,
     historyEvent_activityTaskFailedEventAttributes,
-    historyEvent_externalWorkflowExecutionSignaledEventAttributes,
-    historyEvent_decisionTaskCompletedEventAttributes,
-    historyEvent_startChildWorkflowExecutionFailedEventAttributes,
+    historyEvent_activityTaskScheduledEventAttributes,
+    historyEvent_activityTaskStartedEventAttributes,
+    historyEvent_activityTaskTimedOutEventAttributes,
+    historyEvent_cancelTimerFailedEventAttributes,
+    historyEvent_cancelWorkflowExecutionFailedEventAttributes,
+    historyEvent_childWorkflowExecutionCanceledEventAttributes,
+    historyEvent_childWorkflowExecutionCompletedEventAttributes,
     historyEvent_childWorkflowExecutionFailedEventAttributes,
-    historyEvent_failWorkflowExecutionFailedEventAttributes,
+    historyEvent_childWorkflowExecutionStartedEventAttributes,
+    historyEvent_childWorkflowExecutionTerminatedEventAttributes,
+    historyEvent_childWorkflowExecutionTimedOutEventAttributes,
+    historyEvent_completeWorkflowExecutionFailedEventAttributes,
     historyEvent_continueAsNewWorkflowExecutionFailedEventAttributes,
-    historyEvent_signalExternalWorkflowExecutionInitiatedEventAttributes,
-    historyEvent_lambdaFunctionTimedOutEventAttributes,
-    historyEvent_workflowExecutionFailedEventAttributes,
-    historyEvent_workflowExecutionContinuedAsNewEventAttributes,
+    historyEvent_decisionTaskCompletedEventAttributes,
+    historyEvent_decisionTaskScheduledEventAttributes,
+    historyEvent_decisionTaskStartedEventAttributes,
+    historyEvent_decisionTaskTimedOutEventAttributes,
     historyEvent_externalWorkflowExecutionCancelRequestedEventAttributes,
+    historyEvent_externalWorkflowExecutionSignaledEventAttributes,
+    historyEvent_failWorkflowExecutionFailedEventAttributes,
+    historyEvent_lambdaFunctionCompletedEventAttributes,
+    historyEvent_lambdaFunctionFailedEventAttributes,
+    historyEvent_lambdaFunctionScheduledEventAttributes,
+    historyEvent_lambdaFunctionStartedEventAttributes,
+    historyEvent_lambdaFunctionTimedOutEventAttributes,
+    historyEvent_markerRecordedEventAttributes,
+    historyEvent_recordMarkerFailedEventAttributes,
+    historyEvent_requestCancelActivityTaskFailedEventAttributes,
+    historyEvent_requestCancelExternalWorkflowExecutionFailedEventAttributes,
+    historyEvent_requestCancelExternalWorkflowExecutionInitiatedEventAttributes,
+    historyEvent_scheduleActivityTaskFailedEventAttributes,
+    historyEvent_scheduleLambdaFunctionFailedEventAttributes,
+    historyEvent_signalExternalWorkflowExecutionFailedEventAttributes,
+    historyEvent_signalExternalWorkflowExecutionInitiatedEventAttributes,
+    historyEvent_startChildWorkflowExecutionFailedEventAttributes,
+    historyEvent_startChildWorkflowExecutionInitiatedEventAttributes,
+    historyEvent_startLambdaFunctionFailedEventAttributes,
+    historyEvent_startTimerFailedEventAttributes,
+    historyEvent_timerCanceledEventAttributes,
+    historyEvent_timerFiredEventAttributes,
+    historyEvent_timerStartedEventAttributes,
+    historyEvent_workflowExecutionCancelRequestedEventAttributes,
+    historyEvent_workflowExecutionCanceledEventAttributes,
+    historyEvent_workflowExecutionCompletedEventAttributes,
+    historyEvent_workflowExecutionContinuedAsNewEventAttributes,
+    historyEvent_workflowExecutionFailedEventAttributes,
+    historyEvent_workflowExecutionSignaledEventAttributes,
+    historyEvent_workflowExecutionStartedEventAttributes,
+    historyEvent_workflowExecutionTerminatedEventAttributes,
+    historyEvent_workflowExecutionTimedOutEventAttributes,
     historyEvent_eventTimestamp,
     historyEvent_eventType,
     historyEvent_eventId,
@@ -569,8 +569,8 @@ module Amazonka.SWF.Lens
     lambdaFunctionCompletedEventAttributes_startedEventId,
 
     -- ** LambdaFunctionFailedEventAttributes
-    lambdaFunctionFailedEventAttributes_reason,
     lambdaFunctionFailedEventAttributes_details,
+    lambdaFunctionFailedEventAttributes_reason,
     lambdaFunctionFailedEventAttributes_scheduledEventId,
     lambdaFunctionFailedEventAttributes_startedEventId,
 
@@ -642,12 +642,12 @@ module Amazonka.SWF.Lens
     -- ** ScheduleActivityTaskDecisionAttributes
     scheduleActivityTaskDecisionAttributes_control,
     scheduleActivityTaskDecisionAttributes_heartbeatTimeout,
-    scheduleActivityTaskDecisionAttributes_scheduleToCloseTimeout,
     scheduleActivityTaskDecisionAttributes_input,
-    scheduleActivityTaskDecisionAttributes_taskList,
-    scheduleActivityTaskDecisionAttributes_taskPriority,
+    scheduleActivityTaskDecisionAttributes_scheduleToCloseTimeout,
     scheduleActivityTaskDecisionAttributes_scheduleToStartTimeout,
     scheduleActivityTaskDecisionAttributes_startToCloseTimeout,
+    scheduleActivityTaskDecisionAttributes_taskList,
+    scheduleActivityTaskDecisionAttributes_taskPriority,
     scheduleActivityTaskDecisionAttributes_activityType,
     scheduleActivityTaskDecisionAttributes_activityId,
 
@@ -694,15 +694,15 @@ module Amazonka.SWF.Lens
     signalExternalWorkflowExecutionInitiatedEventAttributes_decisionTaskCompletedEventId,
 
     -- ** StartChildWorkflowExecutionDecisionAttributes
+    startChildWorkflowExecutionDecisionAttributes_childPolicy,
     startChildWorkflowExecutionDecisionAttributes_control,
-    startChildWorkflowExecutionDecisionAttributes_tagList,
-    startChildWorkflowExecutionDecisionAttributes_taskStartToCloseTimeout,
-    startChildWorkflowExecutionDecisionAttributes_lambdaRole,
-    startChildWorkflowExecutionDecisionAttributes_input,
     startChildWorkflowExecutionDecisionAttributes_executionStartToCloseTimeout,
+    startChildWorkflowExecutionDecisionAttributes_input,
+    startChildWorkflowExecutionDecisionAttributes_lambdaRole,
+    startChildWorkflowExecutionDecisionAttributes_tagList,
     startChildWorkflowExecutionDecisionAttributes_taskList,
     startChildWorkflowExecutionDecisionAttributes_taskPriority,
-    startChildWorkflowExecutionDecisionAttributes_childPolicy,
+    startChildWorkflowExecutionDecisionAttributes_taskStartToCloseTimeout,
     startChildWorkflowExecutionDecisionAttributes_workflowType,
     startChildWorkflowExecutionDecisionAttributes_workflowId,
 
@@ -716,12 +716,12 @@ module Amazonka.SWF.Lens
 
     -- ** StartChildWorkflowExecutionInitiatedEventAttributes
     startChildWorkflowExecutionInitiatedEventAttributes_control,
-    startChildWorkflowExecutionInitiatedEventAttributes_tagList,
-    startChildWorkflowExecutionInitiatedEventAttributes_taskStartToCloseTimeout,
-    startChildWorkflowExecutionInitiatedEventAttributes_lambdaRole,
-    startChildWorkflowExecutionInitiatedEventAttributes_input,
     startChildWorkflowExecutionInitiatedEventAttributes_executionStartToCloseTimeout,
+    startChildWorkflowExecutionInitiatedEventAttributes_input,
+    startChildWorkflowExecutionInitiatedEventAttributes_lambdaRole,
+    startChildWorkflowExecutionInitiatedEventAttributes_tagList,
     startChildWorkflowExecutionInitiatedEventAttributes_taskPriority,
+    startChildWorkflowExecutionInitiatedEventAttributes_taskStartToCloseTimeout,
     startChildWorkflowExecutionInitiatedEventAttributes_workflowId,
     startChildWorkflowExecutionInitiatedEventAttributes_workflowType,
     startChildWorkflowExecutionInitiatedEventAttributes_taskList,
@@ -729,9 +729,9 @@ module Amazonka.SWF.Lens
     startChildWorkflowExecutionInitiatedEventAttributes_childPolicy,
 
     -- ** StartLambdaFunctionFailedEventAttributes
-    startLambdaFunctionFailedEventAttributes_scheduledEventId,
     startLambdaFunctionFailedEventAttributes_cause,
     startLambdaFunctionFailedEventAttributes_message,
+    startLambdaFunctionFailedEventAttributes_scheduledEventId,
 
     -- ** StartTimerDecisionAttributes
     startTimerDecisionAttributes_control,
@@ -769,9 +769,9 @@ module Amazonka.SWF.Lens
     workflowExecution_runId,
 
     -- ** WorkflowExecutionCancelRequestedEventAttributes
-    workflowExecutionCancelRequestedEventAttributes_externalWorkflowExecution,
-    workflowExecutionCancelRequestedEventAttributes_externalInitiatedEventId,
     workflowExecutionCancelRequestedEventAttributes_cause,
+    workflowExecutionCancelRequestedEventAttributes_externalInitiatedEventId,
+    workflowExecutionCancelRequestedEventAttributes_externalWorkflowExecution,
 
     -- ** WorkflowExecutionCanceledEventAttributes
     workflowExecutionCanceledEventAttributes_details,
@@ -790,12 +790,12 @@ module Amazonka.SWF.Lens
     workflowExecutionConfiguration_childPolicy,
 
     -- ** WorkflowExecutionContinuedAsNewEventAttributes
-    workflowExecutionContinuedAsNewEventAttributes_tagList,
-    workflowExecutionContinuedAsNewEventAttributes_taskStartToCloseTimeout,
-    workflowExecutionContinuedAsNewEventAttributes_lambdaRole,
-    workflowExecutionContinuedAsNewEventAttributes_input,
     workflowExecutionContinuedAsNewEventAttributes_executionStartToCloseTimeout,
+    workflowExecutionContinuedAsNewEventAttributes_input,
+    workflowExecutionContinuedAsNewEventAttributes_lambdaRole,
+    workflowExecutionContinuedAsNewEventAttributes_tagList,
     workflowExecutionContinuedAsNewEventAttributes_taskPriority,
+    workflowExecutionContinuedAsNewEventAttributes_taskStartToCloseTimeout,
     workflowExecutionContinuedAsNewEventAttributes_decisionTaskCompletedEventId,
     workflowExecutionContinuedAsNewEventAttributes_newExecutionRunId,
     workflowExecutionContinuedAsNewEventAttributes_taskList,
@@ -807,19 +807,19 @@ module Amazonka.SWF.Lens
     workflowExecutionCount_count,
 
     -- ** WorkflowExecutionFailedEventAttributes
-    workflowExecutionFailedEventAttributes_reason,
     workflowExecutionFailedEventAttributes_details,
+    workflowExecutionFailedEventAttributes_reason,
     workflowExecutionFailedEventAttributes_decisionTaskCompletedEventId,
 
     -- ** WorkflowExecutionFilter
     workflowExecutionFilter_workflowId,
 
     -- ** WorkflowExecutionInfo
-    workflowExecutionInfo_parent,
-    workflowExecutionInfo_tagList,
+    workflowExecutionInfo_cancelRequested,
     workflowExecutionInfo_closeStatus,
     workflowExecutionInfo_closeTimestamp,
-    workflowExecutionInfo_cancelRequested,
+    workflowExecutionInfo_parent,
+    workflowExecutionInfo_tagList,
     workflowExecutionInfo_execution,
     workflowExecutionInfo_workflowType,
     workflowExecutionInfo_startTimestamp,
@@ -837,29 +837,29 @@ module Amazonka.SWF.Lens
     workflowExecutionOpenCounts_openChildWorkflowExecutions,
 
     -- ** WorkflowExecutionSignaledEventAttributes
-    workflowExecutionSignaledEventAttributes_externalWorkflowExecution,
     workflowExecutionSignaledEventAttributes_externalInitiatedEventId,
+    workflowExecutionSignaledEventAttributes_externalWorkflowExecution,
     workflowExecutionSignaledEventAttributes_input,
     workflowExecutionSignaledEventAttributes_signalName,
 
     -- ** WorkflowExecutionStartedEventAttributes
-    workflowExecutionStartedEventAttributes_parentInitiatedEventId,
-    workflowExecutionStartedEventAttributes_tagList,
-    workflowExecutionStartedEventAttributes_taskStartToCloseTimeout,
-    workflowExecutionStartedEventAttributes_lambdaRole,
-    workflowExecutionStartedEventAttributes_input,
-    workflowExecutionStartedEventAttributes_executionStartToCloseTimeout,
-    workflowExecutionStartedEventAttributes_taskPriority,
-    workflowExecutionStartedEventAttributes_parentWorkflowExecution,
     workflowExecutionStartedEventAttributes_continuedExecutionRunId,
+    workflowExecutionStartedEventAttributes_executionStartToCloseTimeout,
+    workflowExecutionStartedEventAttributes_input,
+    workflowExecutionStartedEventAttributes_lambdaRole,
+    workflowExecutionStartedEventAttributes_parentInitiatedEventId,
+    workflowExecutionStartedEventAttributes_parentWorkflowExecution,
+    workflowExecutionStartedEventAttributes_tagList,
+    workflowExecutionStartedEventAttributes_taskPriority,
+    workflowExecutionStartedEventAttributes_taskStartToCloseTimeout,
     workflowExecutionStartedEventAttributes_childPolicy,
     workflowExecutionStartedEventAttributes_taskList,
     workflowExecutionStartedEventAttributes_workflowType,
 
     -- ** WorkflowExecutionTerminatedEventAttributes
     workflowExecutionTerminatedEventAttributes_cause,
-    workflowExecutionTerminatedEventAttributes_reason,
     workflowExecutionTerminatedEventAttributes_details,
+    workflowExecutionTerminatedEventAttributes_reason,
     workflowExecutionTerminatedEventAttributes_childPolicy,
 
     -- ** WorkflowExecutionTimedOutEventAttributes
@@ -871,11 +871,11 @@ module Amazonka.SWF.Lens
     workflowType_version,
 
     -- ** WorkflowTypeConfiguration
-    workflowTypeConfiguration_defaultLambdaRole,
     workflowTypeConfiguration_defaultChildPolicy,
+    workflowTypeConfiguration_defaultExecutionStartToCloseTimeout,
+    workflowTypeConfiguration_defaultLambdaRole,
     workflowTypeConfiguration_defaultTaskList,
     workflowTypeConfiguration_defaultTaskPriority,
-    workflowTypeConfiguration_defaultExecutionStartToCloseTimeout,
     workflowTypeConfiguration_defaultTaskStartToCloseTimeout,
 
     -- ** WorkflowTypeFilter

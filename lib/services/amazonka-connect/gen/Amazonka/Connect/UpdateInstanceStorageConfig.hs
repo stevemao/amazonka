@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.UpdateInstanceStorageConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -125,7 +126,8 @@ instance Core.AWSRequest UpdateInstanceStorageConfig where
   type
     AWSResponse UpdateInstanceStorageConfig =
       UpdateInstanceStorageConfigResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       UpdateInstanceStorageConfigResponse'
@@ -144,39 +146,39 @@ instance Prelude.NFData UpdateInstanceStorageConfig where
       `Prelude.seq` Prelude.rnf resourceType
       `Prelude.seq` Prelude.rnf storageConfig
 
-instance Core.ToHeaders UpdateInstanceStorageConfig where
+instance Data.ToHeaders UpdateInstanceStorageConfig where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateInstanceStorageConfig where
+instance Data.ToJSON UpdateInstanceStorageConfig where
   toJSON UpdateInstanceStorageConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("StorageConfig" Core..= storageConfig)
+              ("StorageConfig" Data..= storageConfig)
           ]
       )
 
-instance Core.ToPath UpdateInstanceStorageConfig where
+instance Data.ToPath UpdateInstanceStorageConfig where
   toPath UpdateInstanceStorageConfig' {..} =
     Prelude.mconcat
       [ "/instance/",
-        Core.toBS instanceId,
+        Data.toBS instanceId,
         "/storage-config/",
-        Core.toBS associationId
+        Data.toBS associationId
       ]
 
-instance Core.ToQuery UpdateInstanceStorageConfig where
+instance Data.ToQuery UpdateInstanceStorageConfig where
   toQuery UpdateInstanceStorageConfig' {..} =
     Prelude.mconcat
-      ["resourceType" Core.=: resourceType]
+      ["resourceType" Data.=: resourceType]
 
 -- | /See:/ 'newUpdateInstanceStorageConfigResponse' smart constructor.
 data UpdateInstanceStorageConfigResponse = UpdateInstanceStorageConfigResponse'

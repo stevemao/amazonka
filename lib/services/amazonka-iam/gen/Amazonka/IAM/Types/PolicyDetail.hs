@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.Types.PolicyDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IAM.Types.PolicyDetail where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about an IAM policy, including the policy document.
@@ -64,11 +65,11 @@ policyDetail_policyDocument = Lens.lens (\PolicyDetail' {policyDocument} -> poli
 policyDetail_policyName :: Lens.Lens' PolicyDetail (Prelude.Maybe Prelude.Text)
 policyDetail_policyName = Lens.lens (\PolicyDetail' {policyName} -> policyName) (\s@PolicyDetail' {} a -> s {policyName = a} :: PolicyDetail)
 
-instance Core.FromXML PolicyDetail where
+instance Data.FromXML PolicyDetail where
   parseXML x =
     PolicyDetail'
-      Prelude.<$> (x Core..@? "PolicyDocument")
-      Prelude.<*> (x Core..@? "PolicyName")
+      Prelude.<$> (x Data..@? "PolicyDocument")
+      Prelude.<*> (x Data..@? "PolicyName")
 
 instance Prelude.Hashable PolicyDetail where
   hashWithSalt _salt PolicyDetail' {..} =

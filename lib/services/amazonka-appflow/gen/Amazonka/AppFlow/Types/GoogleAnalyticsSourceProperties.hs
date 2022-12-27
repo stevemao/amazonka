@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.GoogleAnalyticsSourceProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppFlow.Types.GoogleAnalyticsSourceProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The properties that are applied when Google Analytics is being used as a
@@ -57,15 +58,15 @@ googleAnalyticsSourceProperties_object :: Lens.Lens' GoogleAnalyticsSourceProper
 googleAnalyticsSourceProperties_object = Lens.lens (\GoogleAnalyticsSourceProperties' {object'} -> object') (\s@GoogleAnalyticsSourceProperties' {} a -> s {object' = a} :: GoogleAnalyticsSourceProperties)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     GoogleAnalyticsSourceProperties
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GoogleAnalyticsSourceProperties"
       ( \x ->
           GoogleAnalyticsSourceProperties'
-            Prelude.<$> (x Core..: "object")
+            Prelude.<$> (x Data..: "object")
       )
 
 instance
@@ -84,9 +85,9 @@ instance
   rnf GoogleAnalyticsSourceProperties' {..} =
     Prelude.rnf object'
 
-instance Core.ToJSON GoogleAnalyticsSourceProperties where
+instance Data.ToJSON GoogleAnalyticsSourceProperties where
   toJSON GoogleAnalyticsSourceProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("object" Core..= object')]
+          [Prelude.Just ("object" Data..= object')]
       )

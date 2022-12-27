@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.ListObjectChildren
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.CloudDirectory.ListObjectChildren
 
     -- * Request Lenses
     listObjectChildren_consistencyLevel,
-    listObjectChildren_nextToken,
     listObjectChildren_maxResults,
+    listObjectChildren_nextToken,
     listObjectChildren_directoryArn,
     listObjectChildren_objectReference,
 
@@ -47,7 +47,8 @@ where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,11 +59,11 @@ data ListObjectChildren = ListObjectChildren'
     -- of an object is reflected in a subsequent read operation of that same
     -- object.
     consistencyLevel :: Prelude.Maybe ConsistencyLevel,
-    -- | The pagination token.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of items to be retrieved in a single call. This is an
     -- approximate number.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) that is associated with the Directory
     -- where the object resides. For more information, see arns.
     directoryArn :: Prelude.Text,
@@ -84,10 +85,10 @@ data ListObjectChildren = ListObjectChildren'
 -- of an object is reflected in a subsequent read operation of that same
 -- object.
 --
--- 'nextToken', 'listObjectChildren_nextToken' - The pagination token.
---
 -- 'maxResults', 'listObjectChildren_maxResults' - The maximum number of items to be retrieved in a single call. This is an
 -- approximate number.
+--
+-- 'nextToken', 'listObjectChildren_nextToken' - The pagination token.
 --
 -- 'directoryArn', 'listObjectChildren_directoryArn' - The Amazon Resource Name (ARN) that is associated with the Directory
 -- where the object resides. For more information, see arns.
@@ -106,8 +107,8 @@ newListObjectChildren
     ListObjectChildren'
       { consistencyLevel =
           Prelude.Nothing,
-        nextToken = Prelude.Nothing,
         maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         directoryArn = pDirectoryArn_,
         objectReference = pObjectReference_
       }
@@ -118,14 +119,14 @@ newListObjectChildren
 listObjectChildren_consistencyLevel :: Lens.Lens' ListObjectChildren (Prelude.Maybe ConsistencyLevel)
 listObjectChildren_consistencyLevel = Lens.lens (\ListObjectChildren' {consistencyLevel} -> consistencyLevel) (\s@ListObjectChildren' {} a -> s {consistencyLevel = a} :: ListObjectChildren)
 
--- | The pagination token.
-listObjectChildren_nextToken :: Lens.Lens' ListObjectChildren (Prelude.Maybe Prelude.Text)
-listObjectChildren_nextToken = Lens.lens (\ListObjectChildren' {nextToken} -> nextToken) (\s@ListObjectChildren' {} a -> s {nextToken = a} :: ListObjectChildren)
-
 -- | The maximum number of items to be retrieved in a single call. This is an
 -- approximate number.
 listObjectChildren_maxResults :: Lens.Lens' ListObjectChildren (Prelude.Maybe Prelude.Natural)
 listObjectChildren_maxResults = Lens.lens (\ListObjectChildren' {maxResults} -> maxResults) (\s@ListObjectChildren' {} a -> s {maxResults = a} :: ListObjectChildren)
+
+-- | The pagination token.
+listObjectChildren_nextToken :: Lens.Lens' ListObjectChildren (Prelude.Maybe Prelude.Text)
+listObjectChildren_nextToken = Lens.lens (\ListObjectChildren' {nextToken} -> nextToken) (\s@ListObjectChildren' {} a -> s {nextToken = a} :: ListObjectChildren)
 
 -- | The Amazon Resource Name (ARN) that is associated with the Directory
 -- where the object resides. For more information, see arns.
@@ -141,56 +142,57 @@ instance Core.AWSRequest ListObjectChildren where
   type
     AWSResponse ListObjectChildren =
       ListObjectChildrenResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListObjectChildrenResponse'
-            Prelude.<$> (x Core..?> "Children" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Children" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListObjectChildren where
   hashWithSalt _salt ListObjectChildren' {..} =
     _salt `Prelude.hashWithSalt` consistencyLevel
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` directoryArn
       `Prelude.hashWithSalt` objectReference
 
 instance Prelude.NFData ListObjectChildren where
   rnf ListObjectChildren' {..} =
     Prelude.rnf consistencyLevel
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf directoryArn
       `Prelude.seq` Prelude.rnf objectReference
 
-instance Core.ToHeaders ListObjectChildren where
+instance Data.ToHeaders ListObjectChildren where
   toHeaders ListObjectChildren' {..} =
     Prelude.mconcat
-      [ "x-amz-consistency-level" Core.=# consistencyLevel,
-        "x-amz-data-partition" Core.=# directoryArn
+      [ "x-amz-consistency-level" Data.=# consistencyLevel,
+        "x-amz-data-partition" Data.=# directoryArn
       ]
 
-instance Core.ToJSON ListObjectChildren where
+instance Data.ToJSON ListObjectChildren where
   toJSON ListObjectChildren' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("ObjectReference" Core..= objectReference)
+              ("ObjectReference" Data..= objectReference)
           ]
       )
 
-instance Core.ToPath ListObjectChildren where
+instance Data.ToPath ListObjectChildren where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/object/children"
 
-instance Core.ToQuery ListObjectChildren where
+instance Data.ToQuery ListObjectChildren where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListObjectChildrenResponse' smart constructor.

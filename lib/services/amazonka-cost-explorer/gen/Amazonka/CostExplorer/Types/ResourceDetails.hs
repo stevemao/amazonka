@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.Types.ResourceDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,16 @@
 module Amazonka.CostExplorer.Types.ResourceDetails where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostExplorer.Types.EC2ResourceDetails
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Details on the resource.
+-- | Details for the resource.
 --
 -- /See:/ 'newResourceDetails' smart constructor.
 data ResourceDetails = ResourceDetails'
-  { -- | Details on the Amazon EC2 resource.
+  { -- | Details for the Amazon EC2 resource.
     eC2ResourceDetails :: Prelude.Maybe EC2ResourceDetails
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -41,7 +42,7 @@ data ResourceDetails = ResourceDetails'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'eC2ResourceDetails', 'resourceDetails_eC2ResourceDetails' - Details on the Amazon EC2 resource.
+-- 'eC2ResourceDetails', 'resourceDetails_eC2ResourceDetails' - Details for the Amazon EC2 resource.
 newResourceDetails ::
   ResourceDetails
 newResourceDetails =
@@ -50,17 +51,17 @@ newResourceDetails =
         Prelude.Nothing
     }
 
--- | Details on the Amazon EC2 resource.
+-- | Details for the Amazon EC2 resource.
 resourceDetails_eC2ResourceDetails :: Lens.Lens' ResourceDetails (Prelude.Maybe EC2ResourceDetails)
 resourceDetails_eC2ResourceDetails = Lens.lens (\ResourceDetails' {eC2ResourceDetails} -> eC2ResourceDetails) (\s@ResourceDetails' {} a -> s {eC2ResourceDetails = a} :: ResourceDetails)
 
-instance Core.FromJSON ResourceDetails where
+instance Data.FromJSON ResourceDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResourceDetails"
       ( \x ->
           ResourceDetails'
-            Prelude.<$> (x Core..:? "EC2ResourceDetails")
+            Prelude.<$> (x Data..:? "EC2ResourceDetails")
       )
 
 instance Prelude.Hashable ResourceDetails where

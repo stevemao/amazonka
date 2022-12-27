@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.PutPublicAccessBlock
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,6 +52,7 @@ module Amazonka.S3.PutPublicAccessBlock
     newPutPublicAccessBlock,
 
     -- * Request Lenses
+    putPublicAccessBlock_checksumAlgorithm,
     putPublicAccessBlock_contentMD5,
     putPublicAccessBlock_expectedBucketOwner,
     putPublicAccessBlock_bucket,
@@ -64,7 +65,8 @@ module Amazonka.S3.PutPublicAccessBlock
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -72,15 +74,27 @@ import Amazonka.S3.Types
 
 -- | /See:/ 'newPutPublicAccessBlock' smart constructor.
 data PutPublicAccessBlock = PutPublicAccessBlock'
-  { -- | The MD5 hash of the @PutPublicAccessBlock@ request body.
+  { -- | Indicates the algorithm used to create the checksum for the object when
+    -- using the SDK. This header will not provide any additional functionality
+    -- if not using the SDK. When sending this header, there must be a
+    -- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+    -- Otherwise, Amazon S3 fails the request with the HTTP status code
+    -- @400 Bad Request@. For more information, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+    -- in the /Amazon S3 User Guide/.
+    --
+    -- If you provide an individual checksum, Amazon S3 ignores any provided
+    -- @ChecksumAlgorithm@ parameter.
+    checksumAlgorithm :: Prelude.Maybe ChecksumAlgorithm,
+    -- | The MD5 hash of the @PutPublicAccessBlock@ request body.
     --
     -- For requests made using the Amazon Web Services Command Line Interface
     -- (CLI) or Amazon Web Services SDKs, this field is calculated
     -- automatically.
     contentMD5 :: Prelude.Maybe Prelude.Text,
     -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the Amazon S3 bucket whose @PublicAccessBlock@ configuration
     -- you want to set.
@@ -103,6 +117,18 @@ data PutPublicAccessBlock = PutPublicAccessBlock'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'checksumAlgorithm', 'putPublicAccessBlock_checksumAlgorithm' - Indicates the algorithm used to create the checksum for the object when
+-- using the SDK. This header will not provide any additional functionality
+-- if not using the SDK. When sending this header, there must be a
+-- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+-- Otherwise, Amazon S3 fails the request with the HTTP status code
+-- @400 Bad Request@. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+-- in the /Amazon S3 User Guide/.
+--
+-- If you provide an individual checksum, Amazon S3 ignores any provided
+-- @ChecksumAlgorithm@ parameter.
+--
 -- 'contentMD5', 'putPublicAccessBlock_contentMD5' - The MD5 hash of the @PutPublicAccessBlock@ request body.
 --
 -- For requests made using the Amazon Web Services Command Line Interface
@@ -110,8 +136,8 @@ data PutPublicAccessBlock = PutPublicAccessBlock'
 -- automatically.
 --
 -- 'expectedBucketOwner', 'putPublicAccessBlock_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'putPublicAccessBlock_bucket' - The name of the Amazon S3 bucket whose @PublicAccessBlock@ configuration
 -- you want to set.
@@ -132,12 +158,28 @@ newPutPublicAccessBlock
   pBucket_
   pPublicAccessBlockConfiguration_ =
     PutPublicAccessBlock'
-      { contentMD5 = Prelude.Nothing,
+      { checksumAlgorithm =
+          Prelude.Nothing,
+        contentMD5 = Prelude.Nothing,
         expectedBucketOwner = Prelude.Nothing,
         bucket = pBucket_,
         publicAccessBlockConfiguration =
           pPublicAccessBlockConfiguration_
       }
+
+-- | Indicates the algorithm used to create the checksum for the object when
+-- using the SDK. This header will not provide any additional functionality
+-- if not using the SDK. When sending this header, there must be a
+-- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+-- Otherwise, Amazon S3 fails the request with the HTTP status code
+-- @400 Bad Request@. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+-- in the /Amazon S3 User Guide/.
+--
+-- If you provide an individual checksum, Amazon S3 ignores any provided
+-- @ChecksumAlgorithm@ parameter.
+putPublicAccessBlock_checksumAlgorithm :: Lens.Lens' PutPublicAccessBlock (Prelude.Maybe ChecksumAlgorithm)
+putPublicAccessBlock_checksumAlgorithm = Lens.lens (\PutPublicAccessBlock' {checksumAlgorithm} -> checksumAlgorithm) (\s@PutPublicAccessBlock' {} a -> s {checksumAlgorithm = a} :: PutPublicAccessBlock)
 
 -- | The MD5 hash of the @PutPublicAccessBlock@ request body.
 --
@@ -148,8 +190,8 @@ putPublicAccessBlock_contentMD5 :: Lens.Lens' PutPublicAccessBlock (Prelude.Mayb
 putPublicAccessBlock_contentMD5 = Lens.lens (\PutPublicAccessBlock' {contentMD5} -> contentMD5) (\s@PutPublicAccessBlock' {} a -> s {contentMD5 = a} :: PutPublicAccessBlock)
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 putPublicAccessBlock_expectedBucketOwner :: Lens.Lens' PutPublicAccessBlock (Prelude.Maybe Prelude.Text)
 putPublicAccessBlock_expectedBucketOwner = Lens.lens (\PutPublicAccessBlock' {expectedBucketOwner} -> expectedBucketOwner) (\s@PutPublicAccessBlock' {} a -> s {expectedBucketOwner = a} :: PutPublicAccessBlock)
 
@@ -171,45 +213,49 @@ instance Core.AWSRequest PutPublicAccessBlock where
   type
     AWSResponse PutPublicAccessBlock =
       PutPublicAccessBlockResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.putXML defaultService
+      Prelude.. Request.putXML (overrides defaultService)
   response =
     Response.receiveNull PutPublicAccessBlockResponse'
 
 instance Prelude.Hashable PutPublicAccessBlock where
   hashWithSalt _salt PutPublicAccessBlock' {..} =
-    _salt `Prelude.hashWithSalt` contentMD5
+    _salt `Prelude.hashWithSalt` checksumAlgorithm
+      `Prelude.hashWithSalt` contentMD5
       `Prelude.hashWithSalt` expectedBucketOwner
       `Prelude.hashWithSalt` bucket
       `Prelude.hashWithSalt` publicAccessBlockConfiguration
 
 instance Prelude.NFData PutPublicAccessBlock where
   rnf PutPublicAccessBlock' {..} =
-    Prelude.rnf contentMD5
+    Prelude.rnf checksumAlgorithm
+      `Prelude.seq` Prelude.rnf contentMD5
       `Prelude.seq` Prelude.rnf expectedBucketOwner
       `Prelude.seq` Prelude.rnf bucket
       `Prelude.seq` Prelude.rnf publicAccessBlockConfiguration
 
-instance Core.ToElement PutPublicAccessBlock where
+instance Data.ToElement PutPublicAccessBlock where
   toElement PutPublicAccessBlock' {..} =
-    Core.mkElement
+    Data.mkElement
       "{http://s3.amazonaws.com/doc/2006-03-01/}PublicAccessBlockConfiguration"
       publicAccessBlockConfiguration
 
-instance Core.ToHeaders PutPublicAccessBlock where
+instance Data.ToHeaders PutPublicAccessBlock where
   toHeaders PutPublicAccessBlock' {..} =
     Prelude.mconcat
-      [ "Content-MD5" Core.=# contentMD5,
+      [ "x-amz-sdk-checksum-algorithm"
+          Data.=# checksumAlgorithm,
+        "Content-MD5" Data.=# contentMD5,
         "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath PutPublicAccessBlock where
+instance Data.ToPath PutPublicAccessBlock where
   toPath PutPublicAccessBlock' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery PutPublicAccessBlock where
+instance Data.ToQuery PutPublicAccessBlock where
   toQuery =
     Prelude.const
       (Prelude.mconcat ["publicAccessBlock"])

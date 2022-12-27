@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.GetDeviceDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,21 +34,22 @@ module Amazonka.Greengrass.GetDeviceDefinition
     newGetDeviceDefinitionResponse,
 
     -- * Response Lenses
-    getDeviceDefinitionResponse_latestVersionArn,
     getDeviceDefinitionResponse_arn,
-    getDeviceDefinitionResponse_name,
     getDeviceDefinitionResponse_creationTimestamp,
     getDeviceDefinitionResponse_id,
-    getDeviceDefinitionResponse_latestVersion,
     getDeviceDefinitionResponse_lastUpdatedTimestamp,
+    getDeviceDefinitionResponse_latestVersion,
+    getDeviceDefinitionResponse_latestVersionArn,
+    getDeviceDefinitionResponse_name,
     getDeviceDefinitionResponse_tags,
     getDeviceDefinitionResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -87,19 +88,20 @@ instance Core.AWSRequest GetDeviceDefinition where
   type
     AWSResponse GetDeviceDefinition =
       GetDeviceDefinitionResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDeviceDefinitionResponse'
-            Prelude.<$> (x Core..?> "LatestVersionArn")
-            Prelude.<*> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "Name")
-            Prelude.<*> (x Core..?> "CreationTimestamp")
-            Prelude.<*> (x Core..?> "Id")
-            Prelude.<*> (x Core..?> "LatestVersion")
-            Prelude.<*> (x Core..?> "LastUpdatedTimestamp")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "CreationTimestamp")
+            Prelude.<*> (x Data..?> "Id")
+            Prelude.<*> (x Data..?> "LastUpdatedTimestamp")
+            Prelude.<*> (x Data..?> "LatestVersion")
+            Prelude.<*> (x Data..?> "LatestVersionArn")
+            Prelude.<*> (x Data..?> "Name")
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -111,45 +113,45 @@ instance Prelude.NFData GetDeviceDefinition where
   rnf GetDeviceDefinition' {..} =
     Prelude.rnf deviceDefinitionId
 
-instance Core.ToHeaders GetDeviceDefinition where
+instance Data.ToHeaders GetDeviceDefinition where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetDeviceDefinition where
+instance Data.ToPath GetDeviceDefinition where
   toPath GetDeviceDefinition' {..} =
     Prelude.mconcat
       [ "/greengrass/definition/devices/",
-        Core.toBS deviceDefinitionId
+        Data.toBS deviceDefinitionId
       ]
 
-instance Core.ToQuery GetDeviceDefinition where
+instance Data.ToQuery GetDeviceDefinition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetDeviceDefinitionResponse' smart constructor.
 data GetDeviceDefinitionResponse = GetDeviceDefinitionResponse'
-  { -- | The ARN of the latest version associated with the definition.
-    latestVersionArn :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the definition.
+  { -- | The ARN of the definition.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | The name of the definition.
-    name :: Prelude.Maybe Prelude.Text,
     -- | The time, in milliseconds since the epoch, when the definition was
     -- created.
     creationTimestamp :: Prelude.Maybe Prelude.Text,
     -- | The ID of the definition.
     id :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the latest version associated with the definition.
-    latestVersion :: Prelude.Maybe Prelude.Text,
     -- | The time, in milliseconds since the epoch, when the definition was last
     -- updated.
     lastUpdatedTimestamp :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the latest version associated with the definition.
+    latestVersion :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the latest version associated with the definition.
+    latestVersionArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the definition.
+    name :: Prelude.Maybe Prelude.Text,
     -- | Tag(s) attached to the resource arn.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The response's http status code.
@@ -165,21 +167,21 @@ data GetDeviceDefinitionResponse = GetDeviceDefinitionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'latestVersionArn', 'getDeviceDefinitionResponse_latestVersionArn' - The ARN of the latest version associated with the definition.
---
 -- 'arn', 'getDeviceDefinitionResponse_arn' - The ARN of the definition.
---
--- 'name', 'getDeviceDefinitionResponse_name' - The name of the definition.
 --
 -- 'creationTimestamp', 'getDeviceDefinitionResponse_creationTimestamp' - The time, in milliseconds since the epoch, when the definition was
 -- created.
 --
 -- 'id', 'getDeviceDefinitionResponse_id' - The ID of the definition.
 --
--- 'latestVersion', 'getDeviceDefinitionResponse_latestVersion' - The ID of the latest version associated with the definition.
---
 -- 'lastUpdatedTimestamp', 'getDeviceDefinitionResponse_lastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the definition was last
 -- updated.
+--
+-- 'latestVersion', 'getDeviceDefinitionResponse_latestVersion' - The ID of the latest version associated with the definition.
+--
+-- 'latestVersionArn', 'getDeviceDefinitionResponse_latestVersionArn' - The ARN of the latest version associated with the definition.
+--
+-- 'name', 'getDeviceDefinitionResponse_name' - The name of the definition.
 --
 -- 'tags', 'getDeviceDefinitionResponse_tags' - Tag(s) attached to the resource arn.
 --
@@ -190,29 +192,20 @@ newGetDeviceDefinitionResponse ::
   GetDeviceDefinitionResponse
 newGetDeviceDefinitionResponse pHttpStatus_ =
   GetDeviceDefinitionResponse'
-    { latestVersionArn =
-        Prelude.Nothing,
-      arn = Prelude.Nothing,
-      name = Prelude.Nothing,
+    { arn = Prelude.Nothing,
       creationTimestamp = Prelude.Nothing,
       id = Prelude.Nothing,
-      latestVersion = Prelude.Nothing,
       lastUpdatedTimestamp = Prelude.Nothing,
+      latestVersion = Prelude.Nothing,
+      latestVersionArn = Prelude.Nothing,
+      name = Prelude.Nothing,
       tags = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The ARN of the latest version associated with the definition.
-getDeviceDefinitionResponse_latestVersionArn :: Lens.Lens' GetDeviceDefinitionResponse (Prelude.Maybe Prelude.Text)
-getDeviceDefinitionResponse_latestVersionArn = Lens.lens (\GetDeviceDefinitionResponse' {latestVersionArn} -> latestVersionArn) (\s@GetDeviceDefinitionResponse' {} a -> s {latestVersionArn = a} :: GetDeviceDefinitionResponse)
-
 -- | The ARN of the definition.
 getDeviceDefinitionResponse_arn :: Lens.Lens' GetDeviceDefinitionResponse (Prelude.Maybe Prelude.Text)
 getDeviceDefinitionResponse_arn = Lens.lens (\GetDeviceDefinitionResponse' {arn} -> arn) (\s@GetDeviceDefinitionResponse' {} a -> s {arn = a} :: GetDeviceDefinitionResponse)
-
--- | The name of the definition.
-getDeviceDefinitionResponse_name :: Lens.Lens' GetDeviceDefinitionResponse (Prelude.Maybe Prelude.Text)
-getDeviceDefinitionResponse_name = Lens.lens (\GetDeviceDefinitionResponse' {name} -> name) (\s@GetDeviceDefinitionResponse' {} a -> s {name = a} :: GetDeviceDefinitionResponse)
 
 -- | The time, in milliseconds since the epoch, when the definition was
 -- created.
@@ -223,14 +216,22 @@ getDeviceDefinitionResponse_creationTimestamp = Lens.lens (\GetDeviceDefinitionR
 getDeviceDefinitionResponse_id :: Lens.Lens' GetDeviceDefinitionResponse (Prelude.Maybe Prelude.Text)
 getDeviceDefinitionResponse_id = Lens.lens (\GetDeviceDefinitionResponse' {id} -> id) (\s@GetDeviceDefinitionResponse' {} a -> s {id = a} :: GetDeviceDefinitionResponse)
 
--- | The ID of the latest version associated with the definition.
-getDeviceDefinitionResponse_latestVersion :: Lens.Lens' GetDeviceDefinitionResponse (Prelude.Maybe Prelude.Text)
-getDeviceDefinitionResponse_latestVersion = Lens.lens (\GetDeviceDefinitionResponse' {latestVersion} -> latestVersion) (\s@GetDeviceDefinitionResponse' {} a -> s {latestVersion = a} :: GetDeviceDefinitionResponse)
-
 -- | The time, in milliseconds since the epoch, when the definition was last
 -- updated.
 getDeviceDefinitionResponse_lastUpdatedTimestamp :: Lens.Lens' GetDeviceDefinitionResponse (Prelude.Maybe Prelude.Text)
 getDeviceDefinitionResponse_lastUpdatedTimestamp = Lens.lens (\GetDeviceDefinitionResponse' {lastUpdatedTimestamp} -> lastUpdatedTimestamp) (\s@GetDeviceDefinitionResponse' {} a -> s {lastUpdatedTimestamp = a} :: GetDeviceDefinitionResponse)
+
+-- | The ID of the latest version associated with the definition.
+getDeviceDefinitionResponse_latestVersion :: Lens.Lens' GetDeviceDefinitionResponse (Prelude.Maybe Prelude.Text)
+getDeviceDefinitionResponse_latestVersion = Lens.lens (\GetDeviceDefinitionResponse' {latestVersion} -> latestVersion) (\s@GetDeviceDefinitionResponse' {} a -> s {latestVersion = a} :: GetDeviceDefinitionResponse)
+
+-- | The ARN of the latest version associated with the definition.
+getDeviceDefinitionResponse_latestVersionArn :: Lens.Lens' GetDeviceDefinitionResponse (Prelude.Maybe Prelude.Text)
+getDeviceDefinitionResponse_latestVersionArn = Lens.lens (\GetDeviceDefinitionResponse' {latestVersionArn} -> latestVersionArn) (\s@GetDeviceDefinitionResponse' {} a -> s {latestVersionArn = a} :: GetDeviceDefinitionResponse)
+
+-- | The name of the definition.
+getDeviceDefinitionResponse_name :: Lens.Lens' GetDeviceDefinitionResponse (Prelude.Maybe Prelude.Text)
+getDeviceDefinitionResponse_name = Lens.lens (\GetDeviceDefinitionResponse' {name} -> name) (\s@GetDeviceDefinitionResponse' {} a -> s {name = a} :: GetDeviceDefinitionResponse)
 
 -- | Tag(s) attached to the resource arn.
 getDeviceDefinitionResponse_tags :: Lens.Lens' GetDeviceDefinitionResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -242,12 +243,12 @@ getDeviceDefinitionResponse_httpStatus = Lens.lens (\GetDeviceDefinitionResponse
 
 instance Prelude.NFData GetDeviceDefinitionResponse where
   rnf GetDeviceDefinitionResponse' {..} =
-    Prelude.rnf latestVersionArn
-      `Prelude.seq` Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf name
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf creationTimestamp
       `Prelude.seq` Prelude.rnf id
-      `Prelude.seq` Prelude.rnf latestVersion
       `Prelude.seq` Prelude.rnf lastUpdatedTimestamp
+      `Prelude.seq` Prelude.rnf latestVersion
+      `Prelude.seq` Prelude.rnf latestVersionArn
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus

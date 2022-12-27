@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutEquipment.ListInferenceSchedulers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,10 +28,10 @@ module Amazonka.LookoutEquipment.ListInferenceSchedulers
     newListInferenceSchedulers,
 
     -- * Request Lenses
-    listInferenceSchedulers_modelName,
-    listInferenceSchedulers_nextToken,
     listInferenceSchedulers_inferenceSchedulerNameBeginsWith,
     listInferenceSchedulers_maxResults,
+    listInferenceSchedulers_modelName,
+    listInferenceSchedulers_nextToken,
 
     -- * Destructuring the Response
     ListInferenceSchedulersResponse (..),
@@ -45,7 +45,8 @@ module Amazonka.LookoutEquipment.ListInferenceSchedulers
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LookoutEquipment.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -53,15 +54,15 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListInferenceSchedulers' smart constructor.
 data ListInferenceSchedulers = ListInferenceSchedulers'
-  { -- | The name of the ML model used by the inference scheduler to be listed.
+  { -- | The beginning of the name of the inference schedulers to be listed.
+    inferenceSchedulerNameBeginsWith :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the maximum number of inference schedulers to list.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The name of the ML model used by the inference scheduler to be listed.
     modelName :: Prelude.Maybe Prelude.Text,
     -- | An opaque pagination token indicating where to continue the listing of
     -- inference schedulers.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The beginning of the name of the inference schedulers to be listed.
-    inferenceSchedulerNameBeginsWith :: Prelude.Maybe Prelude.Text,
-    -- | Specifies the maximum number of inference schedulers to list.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,24 +74,32 @@ data ListInferenceSchedulers = ListInferenceSchedulers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'inferenceSchedulerNameBeginsWith', 'listInferenceSchedulers_inferenceSchedulerNameBeginsWith' - The beginning of the name of the inference schedulers to be listed.
+--
+-- 'maxResults', 'listInferenceSchedulers_maxResults' - Specifies the maximum number of inference schedulers to list.
+--
 -- 'modelName', 'listInferenceSchedulers_modelName' - The name of the ML model used by the inference scheduler to be listed.
 --
 -- 'nextToken', 'listInferenceSchedulers_nextToken' - An opaque pagination token indicating where to continue the listing of
 -- inference schedulers.
---
--- 'inferenceSchedulerNameBeginsWith', 'listInferenceSchedulers_inferenceSchedulerNameBeginsWith' - The beginning of the name of the inference schedulers to be listed.
---
--- 'maxResults', 'listInferenceSchedulers_maxResults' - Specifies the maximum number of inference schedulers to list.
 newListInferenceSchedulers ::
   ListInferenceSchedulers
 newListInferenceSchedulers =
   ListInferenceSchedulers'
-    { modelName =
+    { inferenceSchedulerNameBeginsWith =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      inferenceSchedulerNameBeginsWith = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      modelName = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The beginning of the name of the inference schedulers to be listed.
+listInferenceSchedulers_inferenceSchedulerNameBeginsWith :: Lens.Lens' ListInferenceSchedulers (Prelude.Maybe Prelude.Text)
+listInferenceSchedulers_inferenceSchedulerNameBeginsWith = Lens.lens (\ListInferenceSchedulers' {inferenceSchedulerNameBeginsWith} -> inferenceSchedulerNameBeginsWith) (\s@ListInferenceSchedulers' {} a -> s {inferenceSchedulerNameBeginsWith = a} :: ListInferenceSchedulers)
+
+-- | Specifies the maximum number of inference schedulers to list.
+listInferenceSchedulers_maxResults :: Lens.Lens' ListInferenceSchedulers (Prelude.Maybe Prelude.Natural)
+listInferenceSchedulers_maxResults = Lens.lens (\ListInferenceSchedulers' {maxResults} -> maxResults) (\s@ListInferenceSchedulers' {} a -> s {maxResults = a} :: ListInferenceSchedulers)
 
 -- | The name of the ML model used by the inference scheduler to be listed.
 listInferenceSchedulers_modelName :: Lens.Lens' ListInferenceSchedulers (Prelude.Maybe Prelude.Text)
@@ -101,75 +110,69 @@ listInferenceSchedulers_modelName = Lens.lens (\ListInferenceSchedulers' {modelN
 listInferenceSchedulers_nextToken :: Lens.Lens' ListInferenceSchedulers (Prelude.Maybe Prelude.Text)
 listInferenceSchedulers_nextToken = Lens.lens (\ListInferenceSchedulers' {nextToken} -> nextToken) (\s@ListInferenceSchedulers' {} a -> s {nextToken = a} :: ListInferenceSchedulers)
 
--- | The beginning of the name of the inference schedulers to be listed.
-listInferenceSchedulers_inferenceSchedulerNameBeginsWith :: Lens.Lens' ListInferenceSchedulers (Prelude.Maybe Prelude.Text)
-listInferenceSchedulers_inferenceSchedulerNameBeginsWith = Lens.lens (\ListInferenceSchedulers' {inferenceSchedulerNameBeginsWith} -> inferenceSchedulerNameBeginsWith) (\s@ListInferenceSchedulers' {} a -> s {inferenceSchedulerNameBeginsWith = a} :: ListInferenceSchedulers)
-
--- | Specifies the maximum number of inference schedulers to list.
-listInferenceSchedulers_maxResults :: Lens.Lens' ListInferenceSchedulers (Prelude.Maybe Prelude.Natural)
-listInferenceSchedulers_maxResults = Lens.lens (\ListInferenceSchedulers' {maxResults} -> maxResults) (\s@ListInferenceSchedulers' {} a -> s {maxResults = a} :: ListInferenceSchedulers)
-
 instance Core.AWSRequest ListInferenceSchedulers where
   type
     AWSResponse ListInferenceSchedulers =
       ListInferenceSchedulersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListInferenceSchedulersResponse'
-            Prelude.<$> ( x Core..?> "InferenceSchedulerSummaries"
+            Prelude.<$> ( x Data..?> "InferenceSchedulerSummaries"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListInferenceSchedulers where
   hashWithSalt _salt ListInferenceSchedulers' {..} =
-    _salt `Prelude.hashWithSalt` modelName
-      `Prelude.hashWithSalt` nextToken
+    _salt
       `Prelude.hashWithSalt` inferenceSchedulerNameBeginsWith
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` modelName
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListInferenceSchedulers where
   rnf ListInferenceSchedulers' {..} =
-    Prelude.rnf modelName
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf inferenceSchedulerNameBeginsWith
+    Prelude.rnf inferenceSchedulerNameBeginsWith
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf modelName
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListInferenceSchedulers where
+instance Data.ToHeaders ListInferenceSchedulers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSLookoutEquipmentFrontendService.ListInferenceSchedulers" ::
+              Data.=# ( "AWSLookoutEquipmentFrontendService.ListInferenceSchedulers" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListInferenceSchedulers where
+instance Data.ToJSON ListInferenceSchedulers where
   toJSON ListInferenceSchedulers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ModelName" Core..=) Prelude.<$> modelName,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("InferenceSchedulerNameBeginsWith" Core..=)
+          [ ("InferenceSchedulerNameBeginsWith" Data..=)
               Prelude.<$> inferenceSchedulerNameBeginsWith,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("ModelName" Data..=) Prelude.<$> modelName,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListInferenceSchedulers where
+instance Data.ToPath ListInferenceSchedulers where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListInferenceSchedulers where
+instance Data.ToQuery ListInferenceSchedulers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListInferenceSchedulersResponse' smart constructor.

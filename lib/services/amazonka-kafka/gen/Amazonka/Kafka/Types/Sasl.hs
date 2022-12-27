@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.Types.Sasl
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.Kafka.Types.Sasl where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kafka.Types.Iam
 import Amazonka.Kafka.Types.Scram
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details for client authentication using SASL.
@@ -63,13 +64,13 @@ sasl_iam = Lens.lens (\Sasl' {iam} -> iam) (\s@Sasl' {} a -> s {iam = a} :: Sasl
 sasl_scram :: Lens.Lens' Sasl (Prelude.Maybe Scram)
 sasl_scram = Lens.lens (\Sasl' {scram} -> scram) (\s@Sasl' {} a -> s {scram = a} :: Sasl)
 
-instance Core.FromJSON Sasl where
+instance Data.FromJSON Sasl where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Sasl"
       ( \x ->
           Sasl'
-            Prelude.<$> (x Core..:? "iam") Prelude.<*> (x Core..:? "scram")
+            Prelude.<$> (x Data..:? "iam") Prelude.<*> (x Data..:? "scram")
       )
 
 instance Prelude.Hashable Sasl where
@@ -81,11 +82,11 @@ instance Prelude.NFData Sasl where
   rnf Sasl' {..} =
     Prelude.rnf iam `Prelude.seq` Prelude.rnf scram
 
-instance Core.ToJSON Sasl where
+instance Data.ToJSON Sasl where
   toJSON Sasl' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("iam" Core..=) Prelude.<$> iam,
-            ("scram" Core..=) Prelude.<$> scram
+          [ ("iam" Data..=) Prelude.<$> iam,
+            ("scram" Data..=) Prelude.<$> scram
           ]
       )

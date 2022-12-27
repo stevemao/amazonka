@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.Resource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.IoTSiteWise.Types.Resource where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types.PortalResource
 import Amazonka.IoTSiteWise.Types.ProjectResource
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains an IoT SiteWise Monitor resource ID for a portal or project.
@@ -63,14 +64,14 @@ resource_portal = Lens.lens (\Resource' {portal} -> portal) (\s@Resource' {} a -
 resource_project :: Lens.Lens' Resource (Prelude.Maybe ProjectResource)
 resource_project = Lens.lens (\Resource' {project} -> project) (\s@Resource' {} a -> s {project = a} :: Resource)
 
-instance Core.FromJSON Resource where
+instance Data.FromJSON Resource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Resource"
       ( \x ->
           Resource'
-            Prelude.<$> (x Core..:? "portal")
-            Prelude.<*> (x Core..:? "project")
+            Prelude.<$> (x Data..:? "portal")
+            Prelude.<*> (x Data..:? "project")
       )
 
 instance Prelude.Hashable Resource where
@@ -83,11 +84,11 @@ instance Prelude.NFData Resource where
     Prelude.rnf portal
       `Prelude.seq` Prelude.rnf project
 
-instance Core.ToJSON Resource where
+instance Data.ToJSON Resource where
   toJSON Resource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("portal" Core..=) Prelude.<$> portal,
-            ("project" Core..=) Prelude.<$> project
+          [ ("portal" Data..=) Prelude.<$> portal,
+            ("project" Data..=) Prelude.<$> project
           ]
       )

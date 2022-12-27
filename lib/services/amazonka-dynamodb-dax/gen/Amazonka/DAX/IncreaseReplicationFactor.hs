@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DAX.IncreaseReplicationFactor
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.DAX.IncreaseReplicationFactor
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DAX.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -113,12 +114,13 @@ instance Core.AWSRequest IncreaseReplicationFactor where
   type
     AWSResponse IncreaseReplicationFactor =
       IncreaseReplicationFactorResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           IncreaseReplicationFactorResponse'
-            Prelude.<$> (x Core..?> "Cluster")
+            Prelude.<$> (x Data..?> "Cluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -134,39 +136,39 @@ instance Prelude.NFData IncreaseReplicationFactor where
       `Prelude.seq` Prelude.rnf clusterName
       `Prelude.seq` Prelude.rnf newReplicationFactor'
 
-instance Core.ToHeaders IncreaseReplicationFactor where
+instance Data.ToHeaders IncreaseReplicationFactor where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonDAXV3.IncreaseReplicationFactor" ::
+              Data.=# ( "AmazonDAXV3.IncreaseReplicationFactor" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON IncreaseReplicationFactor where
+instance Data.ToJSON IncreaseReplicationFactor where
   toJSON IncreaseReplicationFactor' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AvailabilityZones" Core..=)
+          [ ("AvailabilityZones" Data..=)
               Prelude.<$> availabilityZones,
-            Prelude.Just ("ClusterName" Core..= clusterName),
+            Prelude.Just ("ClusterName" Data..= clusterName),
             Prelude.Just
               ( "NewReplicationFactor"
-                  Core..= newReplicationFactor'
+                  Data..= newReplicationFactor'
               )
           ]
       )
 
-instance Core.ToPath IncreaseReplicationFactor where
+instance Data.ToPath IncreaseReplicationFactor where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery IncreaseReplicationFactor where
+instance Data.ToQuery IncreaseReplicationFactor where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newIncreaseReplicationFactorResponse' smart constructor.

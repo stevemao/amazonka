@@ -14,15 +14,15 @@
 
 -- |
 -- Module      : Amazonka.ManagedBlockChain.VoteOnProposal
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Casts a vote for a specified @ProposalId@ on behalf of a member. The
--- member to vote as, specified by @VoterMemberId@, must be in the same AWS
--- account as the principal that calls the action.
+-- member to vote as, specified by @VoterMemberId@, must be in the same
+-- Amazon Web Services account as the principal that calls the action.
 --
 -- Applies only to Hyperledger Fabric.
 module Amazonka.ManagedBlockChain.VoteOnProposal
@@ -46,7 +46,8 @@ module Amazonka.ManagedBlockChain.VoteOnProposal
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ManagedBlockChain.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -122,7 +123,8 @@ instance Core.AWSRequest VoteOnProposal where
   type
     AWSResponse VoteOnProposal =
       VoteOnProposalResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -144,38 +146,38 @@ instance Prelude.NFData VoteOnProposal where
       `Prelude.seq` Prelude.rnf voterMemberId
       `Prelude.seq` Prelude.rnf vote
 
-instance Core.ToHeaders VoteOnProposal where
+instance Data.ToHeaders VoteOnProposal where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON VoteOnProposal where
+instance Data.ToJSON VoteOnProposal where
   toJSON VoteOnProposal' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("VoterMemberId" Core..= voterMemberId),
-            Prelude.Just ("Vote" Core..= vote)
+              ("VoterMemberId" Data..= voterMemberId),
+            Prelude.Just ("Vote" Data..= vote)
           ]
       )
 
-instance Core.ToPath VoteOnProposal where
+instance Data.ToPath VoteOnProposal where
   toPath VoteOnProposal' {..} =
     Prelude.mconcat
       [ "/networks/",
-        Core.toBS networkId,
+        Data.toBS networkId,
         "/proposals/",
-        Core.toBS proposalId,
+        Data.toBS proposalId,
         "/votes"
       ]
 
-instance Core.ToQuery VoteOnProposal where
+instance Data.ToQuery VoteOnProposal where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newVoteOnProposalResponse' smart constructor.

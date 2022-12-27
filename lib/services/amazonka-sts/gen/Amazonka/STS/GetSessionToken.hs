@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.STS.GetSessionToken
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,7 +35,14 @@
 -- produce temporary credentials, see
 -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html Requesting Temporary Security Credentials>
 -- and
--- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#stsapi_comparison Comparing the STS API operations>
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#stsapi_comparison Comparing the Amazon Web Services STS API operations>
+-- in the /IAM User Guide/.
+--
+-- No permissions are required for users to perform this operation. The
+-- purpose of the @sts:GetSessionToken@ operation is to authenticate the
+-- user using MFA. You cannot use policies to control authentication
+-- operations. For more information, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_control-access_getsessiontoken.html Permissions for GetSessionToken>
 -- in the /IAM User Guide/.
 --
 -- __Session Duration__
@@ -86,9 +93,9 @@ module Amazonka.STS.GetSessionToken
     newGetSessionToken,
 
     -- * Request Lenses
-    getSessionToken_tokenCode,
     getSessionToken_durationSeconds,
     getSessionToken_serialNumber,
+    getSessionToken_tokenCode,
 
     -- * Destructuring the Response
     GetSessionTokenResponse (..),
@@ -101,7 +108,8 @@ module Amazonka.STS.GetSessionToken
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -109,17 +117,7 @@ import Amazonka.STS.Types
 
 -- | /See:/ 'newGetSessionToken' smart constructor.
 data GetSessionToken = GetSessionToken'
-  { -- | The value provided by the MFA device, if MFA is required. If any policy
-    -- requires the IAM user to submit an MFA code, specify this value. If MFA
-    -- authentication is required, the user must provide a code when requesting
-    -- a set of temporary security credentials. A user who fails to provide the
-    -- code receives an \"access denied\" response when requesting resources
-    -- that require MFA authentication.
-    --
-    -- The format for this parameter, as described by its regex pattern, is a
-    -- sequence of six numeric digits.
-    tokenCode :: Prelude.Maybe Prelude.Text,
-    -- | The duration, in seconds, that the credentials should remain valid.
+  { -- | The duration, in seconds, that the credentials should remain valid.
     -- Acceptable durations for IAM user sessions range from 900 seconds (15
     -- minutes) to 129,600 seconds (36 hours), with 43,200 seconds (12 hours)
     -- as the default. Sessions for Amazon Web Services account owners are
@@ -133,14 +131,24 @@ data GetSessionToken = GetSessionToken'
     -- either the serial number for a hardware device (such as @GAHT12345678@)
     -- or an Amazon Resource Name (ARN) for a virtual device (such as
     -- @arn:aws:iam::123456789012:mfa\/user@). You can find the device for an
-    -- IAM user by going to the Management Console and viewing the user\'s
-    -- security credentials.
+    -- IAM user by going to the Amazon Web Services Management Console and
+    -- viewing the user\'s security credentials.
     --
     -- The regex used to validate this parameter is a string of characters
     -- consisting of upper- and lower-case alphanumeric characters with no
     -- spaces. You can also include underscores or any of the following
     -- characters: =,.\@:\/-
-    serialNumber :: Prelude.Maybe Prelude.Text
+    serialNumber :: Prelude.Maybe Prelude.Text,
+    -- | The value provided by the MFA device, if MFA is required. If any policy
+    -- requires the IAM user to submit an MFA code, specify this value. If MFA
+    -- authentication is required, the user must provide a code when requesting
+    -- a set of temporary security credentials. A user who fails to provide the
+    -- code receives an \"access denied\" response when requesting resources
+    -- that require MFA authentication.
+    --
+    -- The format for this parameter, as described by its regex pattern, is a
+    -- sequence of six numeric digits.
+    tokenCode :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -151,16 +159,6 @@ data GetSessionToken = GetSessionToken'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'tokenCode', 'getSessionToken_tokenCode' - The value provided by the MFA device, if MFA is required. If any policy
--- requires the IAM user to submit an MFA code, specify this value. If MFA
--- authentication is required, the user must provide a code when requesting
--- a set of temporary security credentials. A user who fails to provide the
--- code receives an \"access denied\" response when requesting resources
--- that require MFA authentication.
---
--- The format for this parameter, as described by its regex pattern, is a
--- sequence of six numeric digits.
 --
 -- 'durationSeconds', 'getSessionToken_durationSeconds' - The duration, in seconds, that the credentials should remain valid.
 -- Acceptable durations for IAM user sessions range from 900 seconds (15
@@ -176,23 +174,15 @@ data GetSessionToken = GetSessionToken'
 -- either the serial number for a hardware device (such as @GAHT12345678@)
 -- or an Amazon Resource Name (ARN) for a virtual device (such as
 -- @arn:aws:iam::123456789012:mfa\/user@). You can find the device for an
--- IAM user by going to the Management Console and viewing the user\'s
--- security credentials.
+-- IAM user by going to the Amazon Web Services Management Console and
+-- viewing the user\'s security credentials.
 --
 -- The regex used to validate this parameter is a string of characters
 -- consisting of upper- and lower-case alphanumeric characters with no
 -- spaces. You can also include underscores or any of the following
 -- characters: =,.\@:\/-
-newGetSessionToken ::
-  GetSessionToken
-newGetSessionToken =
-  GetSessionToken'
-    { tokenCode = Prelude.Nothing,
-      durationSeconds = Prelude.Nothing,
-      serialNumber = Prelude.Nothing
-    }
-
--- | The value provided by the MFA device, if MFA is required. If any policy
+--
+-- 'tokenCode', 'getSessionToken_tokenCode' - The value provided by the MFA device, if MFA is required. If any policy
 -- requires the IAM user to submit an MFA code, specify this value. If MFA
 -- authentication is required, the user must provide a code when requesting
 -- a set of temporary security credentials. A user who fails to provide the
@@ -201,8 +191,14 @@ newGetSessionToken =
 --
 -- The format for this parameter, as described by its regex pattern, is a
 -- sequence of six numeric digits.
-getSessionToken_tokenCode :: Lens.Lens' GetSessionToken (Prelude.Maybe Prelude.Text)
-getSessionToken_tokenCode = Lens.lens (\GetSessionToken' {tokenCode} -> tokenCode) (\s@GetSessionToken' {} a -> s {tokenCode = a} :: GetSessionToken)
+newGetSessionToken ::
+  GetSessionToken
+newGetSessionToken =
+  GetSessionToken'
+    { durationSeconds = Prelude.Nothing,
+      serialNumber = Prelude.Nothing,
+      tokenCode = Prelude.Nothing
+    }
 
 -- | The duration, in seconds, that the credentials should remain valid.
 -- Acceptable durations for IAM user sessions range from 900 seconds (15
@@ -220,8 +216,8 @@ getSessionToken_durationSeconds = Lens.lens (\GetSessionToken' {durationSeconds}
 -- either the serial number for a hardware device (such as @GAHT12345678@)
 -- or an Amazon Resource Name (ARN) for a virtual device (such as
 -- @arn:aws:iam::123456789012:mfa\/user@). You can find the device for an
--- IAM user by going to the Management Console and viewing the user\'s
--- security credentials.
+-- IAM user by going to the Amazon Web Services Management Console and
+-- viewing the user\'s security credentials.
 --
 -- The regex used to validate this parameter is a string of characters
 -- consisting of upper- and lower-case alphanumeric characters with no
@@ -230,48 +226,61 @@ getSessionToken_durationSeconds = Lens.lens (\GetSessionToken' {durationSeconds}
 getSessionToken_serialNumber :: Lens.Lens' GetSessionToken (Prelude.Maybe Prelude.Text)
 getSessionToken_serialNumber = Lens.lens (\GetSessionToken' {serialNumber} -> serialNumber) (\s@GetSessionToken' {} a -> s {serialNumber = a} :: GetSessionToken)
 
+-- | The value provided by the MFA device, if MFA is required. If any policy
+-- requires the IAM user to submit an MFA code, specify this value. If MFA
+-- authentication is required, the user must provide a code when requesting
+-- a set of temporary security credentials. A user who fails to provide the
+-- code receives an \"access denied\" response when requesting resources
+-- that require MFA authentication.
+--
+-- The format for this parameter, as described by its regex pattern, is a
+-- sequence of six numeric digits.
+getSessionToken_tokenCode :: Lens.Lens' GetSessionToken (Prelude.Maybe Prelude.Text)
+getSessionToken_tokenCode = Lens.lens (\GetSessionToken' {tokenCode} -> tokenCode) (\s@GetSessionToken' {} a -> s {tokenCode = a} :: GetSessionToken)
+
 instance Core.AWSRequest GetSessionToken where
   type
     AWSResponse GetSessionToken =
       GetSessionTokenResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GetSessionTokenResult"
       ( \s h x ->
           GetSessionTokenResponse'
-            Prelude.<$> (x Core..@? "Credentials")
+            Prelude.<$> (x Data..@? "Credentials")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetSessionToken where
   hashWithSalt _salt GetSessionToken' {..} =
-    _salt `Prelude.hashWithSalt` tokenCode
-      `Prelude.hashWithSalt` durationSeconds
+    _salt `Prelude.hashWithSalt` durationSeconds
       `Prelude.hashWithSalt` serialNumber
+      `Prelude.hashWithSalt` tokenCode
 
 instance Prelude.NFData GetSessionToken where
   rnf GetSessionToken' {..} =
-    Prelude.rnf tokenCode
-      `Prelude.seq` Prelude.rnf durationSeconds
+    Prelude.rnf durationSeconds
       `Prelude.seq` Prelude.rnf serialNumber
+      `Prelude.seq` Prelude.rnf tokenCode
 
-instance Core.ToHeaders GetSessionToken where
+instance Data.ToHeaders GetSessionToken where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetSessionToken where
+instance Data.ToPath GetSessionToken where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetSessionToken where
+instance Data.ToQuery GetSessionToken where
   toQuery GetSessionToken' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("GetSessionToken" :: Prelude.ByteString),
+          Data.=: ("GetSessionToken" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2011-06-15" :: Prelude.ByteString),
-        "TokenCode" Core.=: tokenCode,
-        "DurationSeconds" Core.=: durationSeconds,
-        "SerialNumber" Core.=: serialNumber
+          Data.=: ("2011-06-15" :: Prelude.ByteString),
+        "DurationSeconds" Data.=: durationSeconds,
+        "SerialNumber" Data.=: serialNumber,
+        "TokenCode" Data.=: tokenCode
       ]
 
 -- | Contains the response to a successful GetSessionToken request, including

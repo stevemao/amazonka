@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.Smile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.Smile where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Indicates whether or not the face is smiling, and the confidence level
@@ -28,10 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSmile' smart constructor.
 data Smile = Smile'
-  { -- | Boolean value that indicates whether the face is smiling or not.
-    value :: Prelude.Maybe Prelude.Bool,
-    -- | Level of confidence in the determination.
-    confidence :: Prelude.Maybe Prelude.Double
+  { -- | Level of confidence in the determination.
+    confidence :: Prelude.Maybe Prelude.Double,
+    -- | Boolean value that indicates whether the face is smiling or not.
+    value :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,41 +44,41 @@ data Smile = Smile'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'smile_value' - Boolean value that indicates whether the face is smiling or not.
---
 -- 'confidence', 'smile_confidence' - Level of confidence in the determination.
+--
+-- 'value', 'smile_value' - Boolean value that indicates whether the face is smiling or not.
 newSmile ::
   Smile
 newSmile =
   Smile'
-    { value = Prelude.Nothing,
-      confidence = Prelude.Nothing
+    { confidence = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | Boolean value that indicates whether the face is smiling or not.
-smile_value :: Lens.Lens' Smile (Prelude.Maybe Prelude.Bool)
-smile_value = Lens.lens (\Smile' {value} -> value) (\s@Smile' {} a -> s {value = a} :: Smile)
 
 -- | Level of confidence in the determination.
 smile_confidence :: Lens.Lens' Smile (Prelude.Maybe Prelude.Double)
 smile_confidence = Lens.lens (\Smile' {confidence} -> confidence) (\s@Smile' {} a -> s {confidence = a} :: Smile)
 
-instance Core.FromJSON Smile where
+-- | Boolean value that indicates whether the face is smiling or not.
+smile_value :: Lens.Lens' Smile (Prelude.Maybe Prelude.Bool)
+smile_value = Lens.lens (\Smile' {value} -> value) (\s@Smile' {} a -> s {value = a} :: Smile)
+
+instance Data.FromJSON Smile where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Smile"
       ( \x ->
           Smile'
-            Prelude.<$> (x Core..:? "Value")
-            Prelude.<*> (x Core..:? "Confidence")
+            Prelude.<$> (x Data..:? "Confidence")
+            Prelude.<*> (x Data..:? "Value")
       )
 
 instance Prelude.Hashable Smile where
   hashWithSalt _salt Smile' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` confidence
+    _salt `Prelude.hashWithSalt` confidence
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData Smile where
   rnf Smile' {..} =
-    Prelude.rnf value
-      `Prelude.seq` Prelude.rnf confidence
+    Prelude.rnf confidence
+      `Prelude.seq` Prelude.rnf value

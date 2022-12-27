@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.SendDataToWirelessDevice
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.IoTWireless.SendDataToWirelessDevice
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,7 +59,6 @@ data SendDataToWirelessDevice = SendDataToWirelessDevice'
     -- | The transmit mode to use to send data to the wireless device. Can be:
     -- @0@ for UM (unacknowledge mode) or @1@ for AM (acknowledge mode).
     transmitMode :: Prelude.Natural,
-    -- | The binary to be sent to the end device, encoded in base64.
     payloadData :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -78,7 +78,7 @@ data SendDataToWirelessDevice = SendDataToWirelessDevice'
 -- 'transmitMode', 'sendDataToWirelessDevice_transmitMode' - The transmit mode to use to send data to the wireless device. Can be:
 -- @0@ for UM (unacknowledge mode) or @1@ for AM (acknowledge mode).
 --
--- 'payloadData', 'sendDataToWirelessDevice_payloadData' - The binary to be sent to the end device, encoded in base64.
+-- 'payloadData', 'sendDataToWirelessDevice_payloadData' - Undocumented member.
 newSendDataToWirelessDevice ::
   -- | 'id'
   Prelude.Text ->
@@ -112,7 +112,7 @@ sendDataToWirelessDevice_id = Lens.lens (\SendDataToWirelessDevice' {id} -> id) 
 sendDataToWirelessDevice_transmitMode :: Lens.Lens' SendDataToWirelessDevice Prelude.Natural
 sendDataToWirelessDevice_transmitMode = Lens.lens (\SendDataToWirelessDevice' {transmitMode} -> transmitMode) (\s@SendDataToWirelessDevice' {} a -> s {transmitMode = a} :: SendDataToWirelessDevice)
 
--- | The binary to be sent to the end device, encoded in base64.
+-- | Undocumented member.
 sendDataToWirelessDevice_payloadData :: Lens.Lens' SendDataToWirelessDevice Prelude.Text
 sendDataToWirelessDevice_payloadData = Lens.lens (\SendDataToWirelessDevice' {payloadData} -> payloadData) (\s@SendDataToWirelessDevice' {} a -> s {payloadData = a} :: SendDataToWirelessDevice)
 
@@ -120,12 +120,13 @@ instance Core.AWSRequest SendDataToWirelessDevice where
   type
     AWSResponse SendDataToWirelessDevice =
       SendDataToWirelessDeviceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SendDataToWirelessDeviceResponse'
-            Prelude.<$> (x Core..?> "MessageId")
+            Prelude.<$> (x Data..?> "MessageId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -143,26 +144,26 @@ instance Prelude.NFData SendDataToWirelessDevice where
       `Prelude.seq` Prelude.rnf transmitMode
       `Prelude.seq` Prelude.rnf payloadData
 
-instance Core.ToHeaders SendDataToWirelessDevice where
+instance Data.ToHeaders SendDataToWirelessDevice where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON SendDataToWirelessDevice where
+instance Data.ToJSON SendDataToWirelessDevice where
   toJSON SendDataToWirelessDevice' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("WirelessMetadata" Core..=)
+          [ ("WirelessMetadata" Data..=)
               Prelude.<$> wirelessMetadata,
-            Prelude.Just ("TransmitMode" Core..= transmitMode),
-            Prelude.Just ("PayloadData" Core..= payloadData)
+            Prelude.Just ("TransmitMode" Data..= transmitMode),
+            Prelude.Just ("PayloadData" Data..= payloadData)
           ]
       )
 
-instance Core.ToPath SendDataToWirelessDevice where
+instance Data.ToPath SendDataToWirelessDevice where
   toPath SendDataToWirelessDevice' {..} =
     Prelude.mconcat
-      ["/wireless-devices/", Core.toBS id, "/data"]
+      ["/wireless-devices/", Data.toBS id, "/data"]
 
-instance Core.ToQuery SendDataToWirelessDevice where
+instance Data.ToQuery SendDataToWirelessDevice where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSendDataToWirelessDeviceResponse' smart constructor.

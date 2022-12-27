@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.Types.S3Config
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Connect.Types.S3Config where
 
 import Amazonka.Connect.Types.EncryptionConfig
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the Amazon Simple Storage Service (Amazon S3) storage
@@ -76,15 +77,15 @@ s3Config_bucketName = Lens.lens (\S3Config' {bucketName} -> bucketName) (\s@S3Co
 s3Config_bucketPrefix :: Lens.Lens' S3Config Prelude.Text
 s3Config_bucketPrefix = Lens.lens (\S3Config' {bucketPrefix} -> bucketPrefix) (\s@S3Config' {} a -> s {bucketPrefix = a} :: S3Config)
 
-instance Core.FromJSON S3Config where
+instance Data.FromJSON S3Config where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "S3Config"
       ( \x ->
           S3Config'
-            Prelude.<$> (x Core..:? "EncryptionConfig")
-            Prelude.<*> (x Core..: "BucketName")
-            Prelude.<*> (x Core..: "BucketPrefix")
+            Prelude.<$> (x Data..:? "EncryptionConfig")
+            Prelude.<*> (x Data..: "BucketName")
+            Prelude.<*> (x Data..: "BucketPrefix")
       )
 
 instance Prelude.Hashable S3Config where
@@ -99,13 +100,13 @@ instance Prelude.NFData S3Config where
       `Prelude.seq` Prelude.rnf bucketName
       `Prelude.seq` Prelude.rnf bucketPrefix
 
-instance Core.ToJSON S3Config where
+instance Data.ToJSON S3Config where
   toJSON S3Config' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EncryptionConfig" Core..=)
+          [ ("EncryptionConfig" Data..=)
               Prelude.<$> encryptionConfig,
-            Prelude.Just ("BucketName" Core..= bucketName),
-            Prelude.Just ("BucketPrefix" Core..= bucketPrefix)
+            Prelude.Just ("BucketName" Data..= bucketName),
+            Prelude.Just ("BucketPrefix" Data..= bucketPrefix)
           ]
       )

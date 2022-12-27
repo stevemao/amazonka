@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEventsData.DescribeAlarm
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.IoTEventsData.DescribeAlarm
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEventsData.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,12 +96,13 @@ instance Core.AWSRequest DescribeAlarm where
   type
     AWSResponse DescribeAlarm =
       DescribeAlarmResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAlarmResponse'
-            Prelude.<$> (x Core..?> "alarm")
+            Prelude.<$> (x Data..?> "alarm")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -114,17 +116,17 @@ instance Prelude.NFData DescribeAlarm where
     Prelude.rnf keyValue
       `Prelude.seq` Prelude.rnf alarmModelName
 
-instance Core.ToHeaders DescribeAlarm where
+instance Data.ToHeaders DescribeAlarm where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeAlarm where
+instance Data.ToPath DescribeAlarm where
   toPath DescribeAlarm' {..} =
     Prelude.mconcat
-      ["/alarms/", Core.toBS alarmModelName, "/keyValues/"]
+      ["/alarms/", Data.toBS alarmModelName, "/keyValues/"]
 
-instance Core.ToQuery DescribeAlarm where
+instance Data.ToQuery DescribeAlarm where
   toQuery DescribeAlarm' {..} =
-    Prelude.mconcat ["keyValue" Core.=: keyValue]
+    Prelude.mconcat ["keyValue" Data.=: keyValue]
 
 -- | /See:/ 'newDescribeAlarmResponse' smart constructor.
 data DescribeAlarmResponse = DescribeAlarmResponse'

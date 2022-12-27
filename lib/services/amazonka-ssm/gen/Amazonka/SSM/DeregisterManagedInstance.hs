@@ -14,16 +14,16 @@
 
 -- |
 -- Module      : Amazonka.SSM.DeregisterManagedInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Removes the server or virtual machine from the list of registered
--- servers. You can reregister the instance again at any time. If you
--- don\'t plan to use Run Command on the server, we suggest uninstalling
--- SSM Agent first.
+-- servers. You can reregister the node again at any time. If you don\'t
+-- plan to use Run Command on the server, we suggest uninstalling SSM Agent
+-- first.
 module Amazonka.SSM.DeregisterManagedInstance
   ( -- * Creating a Request
     DeregisterManagedInstance (..),
@@ -42,7 +42,8 @@ module Amazonka.SSM.DeregisterManagedInstance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -50,7 +51,7 @@ import Amazonka.SSM.Types
 
 -- | /See:/ 'newDeregisterManagedInstance' smart constructor.
 data DeregisterManagedInstance = DeregisterManagedInstance'
-  { -- | The ID assigned to the managed instance when you registered it using the
+  { -- | The ID assigned to the managed node when you registered it using the
     -- activation process.
     instanceId :: Prelude.Text
   }
@@ -64,7 +65,7 @@ data DeregisterManagedInstance = DeregisterManagedInstance'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'instanceId', 'deregisterManagedInstance_instanceId' - The ID assigned to the managed instance when you registered it using the
+-- 'instanceId', 'deregisterManagedInstance_instanceId' - The ID assigned to the managed node when you registered it using the
 -- activation process.
 newDeregisterManagedInstance ::
   -- | 'instanceId'
@@ -76,7 +77,7 @@ newDeregisterManagedInstance pInstanceId_ =
         pInstanceId_
     }
 
--- | The ID assigned to the managed instance when you registered it using the
+-- | The ID assigned to the managed node when you registered it using the
 -- activation process.
 deregisterManagedInstance_instanceId :: Lens.Lens' DeregisterManagedInstance Prelude.Text
 deregisterManagedInstance_instanceId = Lens.lens (\DeregisterManagedInstance' {instanceId} -> instanceId) (\s@DeregisterManagedInstance' {} a -> s {instanceId = a} :: DeregisterManagedInstance)
@@ -85,7 +86,8 @@ instance Core.AWSRequest DeregisterManagedInstance where
   type
     AWSResponse DeregisterManagedInstance =
       DeregisterManagedInstanceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -101,32 +103,32 @@ instance Prelude.NFData DeregisterManagedInstance where
   rnf DeregisterManagedInstance' {..} =
     Prelude.rnf instanceId
 
-instance Core.ToHeaders DeregisterManagedInstance where
+instance Data.ToHeaders DeregisterManagedInstance where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.DeregisterManagedInstance" ::
+              Data.=# ( "AmazonSSM.DeregisterManagedInstance" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeregisterManagedInstance where
+instance Data.ToJSON DeregisterManagedInstance where
   toJSON DeregisterManagedInstance' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("InstanceId" Core..= instanceId)]
+          [Prelude.Just ("InstanceId" Data..= instanceId)]
       )
 
-instance Core.ToPath DeregisterManagedInstance where
+instance Data.ToPath DeregisterManagedInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeregisterManagedInstance where
+instance Data.ToQuery DeregisterManagedInstance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeregisterManagedInstanceResponse' smart constructor.

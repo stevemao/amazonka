@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.CreateDeploymentConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.CodeDeploy.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -68,7 +69,7 @@ data CreateDeploymentConfig = CreateDeploymentConfig'
     -- -   FLEET_PERCENT: The value parameter represents the minimum number of
     --     healthy instances as a percentage of the total number of instances
     --     in the deployment. If you specify FLEET_PERCENT, at the start of the
-    --     deployment, AWS CodeDeploy converts the percentage to the equivalent
+    --     deployment, CodeDeploy converts the percentage to the equivalent
     --     number of instances and rounds up fractional instances.
     --
     -- The value parameter takes an integer.
@@ -106,7 +107,7 @@ data CreateDeploymentConfig = CreateDeploymentConfig'
 -- -   FLEET_PERCENT: The value parameter represents the minimum number of
 --     healthy instances as a percentage of the total number of instances
 --     in the deployment. If you specify FLEET_PERCENT, at the start of the
---     deployment, AWS CodeDeploy converts the percentage to the equivalent
+--     deployment, CodeDeploy converts the percentage to the equivalent
 --     number of instances and rounds up fractional instances.
 --
 -- The value parameter takes an integer.
@@ -147,7 +148,7 @@ createDeploymentConfig_computePlatform = Lens.lens (\CreateDeploymentConfig' {co
 -- -   FLEET_PERCENT: The value parameter represents the minimum number of
 --     healthy instances as a percentage of the total number of instances
 --     in the deployment. If you specify FLEET_PERCENT, at the start of the
---     deployment, AWS CodeDeploy converts the percentage to the equivalent
+--     deployment, CodeDeploy converts the percentage to the equivalent
 --     number of instances and rounds up fractional instances.
 --
 -- The value parameter takes an integer.
@@ -169,12 +170,13 @@ instance Core.AWSRequest CreateDeploymentConfig where
   type
     AWSResponse CreateDeploymentConfig =
       CreateDeploymentConfigResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateDeploymentConfigResponse'
-            Prelude.<$> (x Core..?> "deploymentConfigId")
+            Prelude.<$> (x Data..?> "deploymentConfigId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -192,42 +194,42 @@ instance Prelude.NFData CreateDeploymentConfig where
       `Prelude.seq` Prelude.rnf trafficRoutingConfig
       `Prelude.seq` Prelude.rnf deploymentConfigName
 
-instance Core.ToHeaders CreateDeploymentConfig where
+instance Data.ToHeaders CreateDeploymentConfig where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeDeploy_20141006.CreateDeploymentConfig" ::
+              Data.=# ( "CodeDeploy_20141006.CreateDeploymentConfig" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateDeploymentConfig where
+instance Data.ToJSON CreateDeploymentConfig where
   toJSON CreateDeploymentConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("computePlatform" Core..=)
+          [ ("computePlatform" Data..=)
               Prelude.<$> computePlatform,
-            ("minimumHealthyHosts" Core..=)
+            ("minimumHealthyHosts" Data..=)
               Prelude.<$> minimumHealthyHosts,
-            ("trafficRoutingConfig" Core..=)
+            ("trafficRoutingConfig" Data..=)
               Prelude.<$> trafficRoutingConfig,
             Prelude.Just
               ( "deploymentConfigName"
-                  Core..= deploymentConfigName
+                  Data..= deploymentConfigName
               )
           ]
       )
 
-instance Core.ToPath CreateDeploymentConfig where
+instance Data.ToPath CreateDeploymentConfig where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateDeploymentConfig where
+instance Data.ToQuery CreateDeploymentConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @CreateDeploymentConfig@ operation.

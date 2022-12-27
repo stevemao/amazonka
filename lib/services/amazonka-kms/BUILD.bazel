@@ -1,6 +1,6 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_library", "haskell_test")
 
-# rule generated from amazonka-kms/amazonka-kms.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-kms/amazonka-kms.cabal by gazelle_cabal
 haskell_library(
     name = "amazonka-kms",
     srcs = [
@@ -27,6 +27,7 @@ haskell_library(
         "gen/Amazonka/KMS/GenerateDataKeyPair.hs",
         "gen/Amazonka/KMS/GenerateDataKeyPairWithoutPlaintext.hs",
         "gen/Amazonka/KMS/GenerateDataKeyWithoutPlaintext.hs",
+        "gen/Amazonka/KMS/GenerateMac.hs",
         "gen/Amazonka/KMS/GenerateRandom.hs",
         "gen/Amazonka/KMS/GetKeyPolicy.hs",
         "gen/Amazonka/KMS/GetKeyRotationStatus.hs",
@@ -53,6 +54,7 @@ haskell_library(
         "gen/Amazonka/KMS/Types/AliasListEntry.hs",
         "gen/Amazonka/KMS/Types/ConnectionErrorCodeType.hs",
         "gen/Amazonka/KMS/Types/ConnectionStateType.hs",
+        "gen/Amazonka/KMS/Types/CustomKeyStoreType.hs",
         "gen/Amazonka/KMS/Types/CustomKeyStoresListEntry.hs",
         "gen/Amazonka/KMS/Types/CustomerMasterKeySpec.hs",
         "gen/Amazonka/KMS/Types/DataKeyPairSpec.hs",
@@ -69,6 +71,7 @@ haskell_library(
         "gen/Amazonka/KMS/Types/KeyState.hs",
         "gen/Amazonka/KMS/Types/KeyUsageType.hs",
         "gen/Amazonka/KMS/Types/ListGrantsResponse.hs",
+        "gen/Amazonka/KMS/Types/MacAlgorithmSpec.hs",
         "gen/Amazonka/KMS/Types/MessageType.hs",
         "gen/Amazonka/KMS/Types/MultiRegionConfiguration.hs",
         "gen/Amazonka/KMS/Types/MultiRegionKey.hs",
@@ -77,22 +80,26 @@ haskell_library(
         "gen/Amazonka/KMS/Types/SigningAlgorithmSpec.hs",
         "gen/Amazonka/KMS/Types/Tag.hs",
         "gen/Amazonka/KMS/Types/WrappingKeySpec.hs",
+        "gen/Amazonka/KMS/Types/XksKeyConfigurationType.hs",
+        "gen/Amazonka/KMS/Types/XksProxyAuthenticationCredentialType.hs",
+        "gen/Amazonka/KMS/Types/XksProxyConfigurationType.hs",
+        "gen/Amazonka/KMS/Types/XksProxyConnectivityType.hs",
         "gen/Amazonka/KMS/UntagResource.hs",
         "gen/Amazonka/KMS/UpdateAlias.hs",
         "gen/Amazonka/KMS/UpdateCustomKeyStore.hs",
         "gen/Amazonka/KMS/UpdateKeyDescription.hs",
         "gen/Amazonka/KMS/UpdatePrimaryRegion.hs",
         "gen/Amazonka/KMS/Verify.hs",
+        "gen/Amazonka/KMS/VerifyMac.hs",
         "gen/Amazonka/KMS/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_kms=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
-        "-DVERSION_amazonka_kms=\"2.0\"",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -101,7 +108,7 @@ haskell_library(
     ],
 )
 
-# rule generated from amazonka-kms/amazonka-kms.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-kms/amazonka-kms.cabal by gazelle_cabal
 haskell_test(
     name = "amazonka-kms-test",
     srcs = [
@@ -110,11 +117,12 @@ haskell_test(
         "test/Test/Amazonka/KMS.hs",
         "test/Test/Amazonka/KMS/Internal.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_kms=\"2.0\"",
         "-Wall",
         "-threaded",
-        "-DVERSION_amazonka_kms=\"2.0\"",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

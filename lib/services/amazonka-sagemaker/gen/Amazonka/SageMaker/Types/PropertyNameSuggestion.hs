@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.PropertyNameSuggestion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.PropertyNameSuggestion where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A property name returned from a @GetSearchSuggestions@ call that
@@ -57,13 +58,13 @@ newPropertyNameSuggestion =
 propertyNameSuggestion_propertyName :: Lens.Lens' PropertyNameSuggestion (Prelude.Maybe Prelude.Text)
 propertyNameSuggestion_propertyName = Lens.lens (\PropertyNameSuggestion' {propertyName} -> propertyName) (\s@PropertyNameSuggestion' {} a -> s {propertyName = a} :: PropertyNameSuggestion)
 
-instance Core.FromJSON PropertyNameSuggestion where
+instance Data.FromJSON PropertyNameSuggestion where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PropertyNameSuggestion"
       ( \x ->
           PropertyNameSuggestion'
-            Prelude.<$> (x Core..:? "PropertyName")
+            Prelude.<$> (x Data..:? "PropertyName")
       )
 
 instance Prelude.Hashable PropertyNameSuggestion where

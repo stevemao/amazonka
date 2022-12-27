@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.Types.ShareTarget
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.DirectoryService.Types.ShareTarget where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types.TargetType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Identifier that contains details about the directory consumer account.
@@ -72,11 +73,11 @@ instance Prelude.NFData ShareTarget where
   rnf ShareTarget' {..} =
     Prelude.rnf id `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON ShareTarget where
+instance Data.ToJSON ShareTarget where
   toJSON ShareTarget' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Id" Core..= id),
-            Prelude.Just ("Type" Core..= type')
+          [ Prelude.Just ("Id" Data..= id),
+            Prelude.Just ("Type" Data..= type')
           ]
       )

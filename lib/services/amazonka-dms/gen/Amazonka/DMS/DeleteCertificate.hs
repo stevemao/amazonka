@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DMS.DeleteCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,15 +40,16 @@ module Amazonka.DMS.DeleteCertificate
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DMS.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteCertificate' smart constructor.
 data DeleteCertificate = DeleteCertificate'
-  { -- | The Amazon Resource Name (ARN) of the deleted certificate.
+  { -- | The Amazon Resource Name (ARN) of the certificate.
     certificateArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -61,7 +62,7 @@ data DeleteCertificate = DeleteCertificate'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'certificateArn', 'deleteCertificate_certificateArn' - The Amazon Resource Name (ARN) of the deleted certificate.
+-- 'certificateArn', 'deleteCertificate_certificateArn' - The Amazon Resource Name (ARN) of the certificate.
 newDeleteCertificate ::
   -- | 'certificateArn'
   Prelude.Text ->
@@ -72,7 +73,7 @@ newDeleteCertificate pCertificateArn_ =
         pCertificateArn_
     }
 
--- | The Amazon Resource Name (ARN) of the deleted certificate.
+-- | The Amazon Resource Name (ARN) of the certificate.
 deleteCertificate_certificateArn :: Lens.Lens' DeleteCertificate Prelude.Text
 deleteCertificate_certificateArn = Lens.lens (\DeleteCertificate' {certificateArn} -> certificateArn) (\s@DeleteCertificate' {} a -> s {certificateArn = a} :: DeleteCertificate)
 
@@ -80,12 +81,13 @@ instance Core.AWSRequest DeleteCertificate where
   type
     AWSResponse DeleteCertificate =
       DeleteCertificateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteCertificateResponse'
-            Prelude.<$> (x Core..?> "Certificate")
+            Prelude.<$> (x Data..?> "Certificate")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,34 +99,34 @@ instance Prelude.NFData DeleteCertificate where
   rnf DeleteCertificate' {..} =
     Prelude.rnf certificateArn
 
-instance Core.ToHeaders DeleteCertificate where
+instance Data.ToHeaders DeleteCertificate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonDMSv20160101.DeleteCertificate" ::
+              Data.=# ( "AmazonDMSv20160101.DeleteCertificate" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteCertificate where
+instance Data.ToJSON DeleteCertificate where
   toJSON DeleteCertificate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("CertificateArn" Core..= certificateArn)
+              ("CertificateArn" Data..= certificateArn)
           ]
       )
 
-instance Core.ToPath DeleteCertificate where
+instance Data.ToPath DeleteCertificate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteCertificate where
+instance Data.ToQuery DeleteCertificate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteCertificateResponse' smart constructor.

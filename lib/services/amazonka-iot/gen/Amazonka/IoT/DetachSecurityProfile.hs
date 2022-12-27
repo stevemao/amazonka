@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DetachSecurityProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.IoT.DetachSecurityProfile
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,7 +100,8 @@ instance Core.AWSRequest DetachSecurityProfile where
   type
     AWSResponse DetachSecurityProfile =
       DetachSecurityProfileResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -117,22 +119,22 @@ instance Prelude.NFData DetachSecurityProfile where
     Prelude.rnf securityProfileName
       `Prelude.seq` Prelude.rnf securityProfileTargetArn
 
-instance Core.ToHeaders DetachSecurityProfile where
+instance Data.ToHeaders DetachSecurityProfile where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DetachSecurityProfile where
+instance Data.ToPath DetachSecurityProfile where
   toPath DetachSecurityProfile' {..} =
     Prelude.mconcat
       [ "/security-profiles/",
-        Core.toBS securityProfileName,
+        Data.toBS securityProfileName,
         "/targets"
       ]
 
-instance Core.ToQuery DetachSecurityProfile where
+instance Data.ToQuery DetachSecurityProfile where
   toQuery DetachSecurityProfile' {..} =
     Prelude.mconcat
       [ "securityProfileTargetArn"
-          Core.=: securityProfileTargetArn
+          Data.=: securityProfileTargetArn
       ]
 
 -- | /See:/ 'newDetachSecurityProfileResponse' smart constructor.

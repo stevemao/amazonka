@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.DeleteApplicationSnapshot
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.KinesisAnalyticsV2.DeleteApplicationSnapshot
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,7 +56,7 @@ data DeleteApplicationSnapshot = DeleteApplicationSnapshot'
     snapshotName :: Prelude.Text,
     -- | The creation timestamp of the application snapshot to delete. You can
     -- retrieve this value using or .
-    snapshotCreationTimestamp :: Core.POSIX
+    snapshotCreationTimestamp :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -90,7 +91,7 @@ newDeleteApplicationSnapshot
           pApplicationName_,
         snapshotName = pSnapshotName_,
         snapshotCreationTimestamp =
-          Core._Time Lens.# pSnapshotCreationTimestamp_
+          Data._Time Lens.# pSnapshotCreationTimestamp_
       }
 
 -- | The name of an existing application.
@@ -104,13 +105,14 @@ deleteApplicationSnapshot_snapshotName = Lens.lens (\DeleteApplicationSnapshot' 
 -- | The creation timestamp of the application snapshot to delete. You can
 -- retrieve this value using or .
 deleteApplicationSnapshot_snapshotCreationTimestamp :: Lens.Lens' DeleteApplicationSnapshot Prelude.UTCTime
-deleteApplicationSnapshot_snapshotCreationTimestamp = Lens.lens (\DeleteApplicationSnapshot' {snapshotCreationTimestamp} -> snapshotCreationTimestamp) (\s@DeleteApplicationSnapshot' {} a -> s {snapshotCreationTimestamp = a} :: DeleteApplicationSnapshot) Prelude.. Core._Time
+deleteApplicationSnapshot_snapshotCreationTimestamp = Lens.lens (\DeleteApplicationSnapshot' {snapshotCreationTimestamp} -> snapshotCreationTimestamp) (\s@DeleteApplicationSnapshot' {} a -> s {snapshotCreationTimestamp = a} :: DeleteApplicationSnapshot) Prelude.. Data._Time
 
 instance Core.AWSRequest DeleteApplicationSnapshot where
   type
     AWSResponse DeleteApplicationSnapshot =
       DeleteApplicationSnapshotResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -130,39 +132,39 @@ instance Prelude.NFData DeleteApplicationSnapshot where
       `Prelude.seq` Prelude.rnf snapshotName
       `Prelude.seq` Prelude.rnf snapshotCreationTimestamp
 
-instance Core.ToHeaders DeleteApplicationSnapshot where
+instance Data.ToHeaders DeleteApplicationSnapshot where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "KinesisAnalytics_20180523.DeleteApplicationSnapshot" ::
+              Data.=# ( "KinesisAnalytics_20180523.DeleteApplicationSnapshot" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteApplicationSnapshot where
+instance Data.ToJSON DeleteApplicationSnapshot where
   toJSON DeleteApplicationSnapshot' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ApplicationName" Core..= applicationName),
-            Prelude.Just ("SnapshotName" Core..= snapshotName),
+              ("ApplicationName" Data..= applicationName),
+            Prelude.Just ("SnapshotName" Data..= snapshotName),
             Prelude.Just
               ( "SnapshotCreationTimestamp"
-                  Core..= snapshotCreationTimestamp
+                  Data..= snapshotCreationTimestamp
               )
           ]
       )
 
-instance Core.ToPath DeleteApplicationSnapshot where
+instance Data.ToPath DeleteApplicationSnapshot where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteApplicationSnapshot where
+instance Data.ToQuery DeleteApplicationSnapshot where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteApplicationSnapshotResponse' smart constructor.

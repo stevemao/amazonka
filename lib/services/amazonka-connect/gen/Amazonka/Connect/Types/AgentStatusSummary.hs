@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.Types.AgentStatusSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Connect.Types.AgentStatusSummary where
 
 import Amazonka.Connect.Types.AgentStatusType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Summary information for an agent status.
@@ -30,10 +31,10 @@ import qualified Amazonka.Prelude as Prelude
 data AgentStatusSummary = AgentStatusSummary'
   { -- | The Amazon Resource Name (ARN) for the agent status.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | The name of the agent status.
-    name :: Prelude.Maybe Prelude.Text,
     -- | The identifier for an agent status.
     id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the agent status.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The type of the agent status.
     type' :: Prelude.Maybe AgentStatusType
   }
@@ -49,9 +50,9 @@ data AgentStatusSummary = AgentStatusSummary'
 --
 -- 'arn', 'agentStatusSummary_arn' - The Amazon Resource Name (ARN) for the agent status.
 --
--- 'name', 'agentStatusSummary_name' - The name of the agent status.
---
 -- 'id', 'agentStatusSummary_id' - The identifier for an agent status.
+--
+-- 'name', 'agentStatusSummary_name' - The name of the agent status.
 --
 -- 'type'', 'agentStatusSummary_type' - The type of the agent status.
 newAgentStatusSummary ::
@@ -59,8 +60,8 @@ newAgentStatusSummary ::
 newAgentStatusSummary =
   AgentStatusSummary'
     { arn = Prelude.Nothing,
-      name = Prelude.Nothing,
       id = Prelude.Nothing,
+      name = Prelude.Nothing,
       type' = Prelude.Nothing
     }
 
@@ -68,40 +69,40 @@ newAgentStatusSummary =
 agentStatusSummary_arn :: Lens.Lens' AgentStatusSummary (Prelude.Maybe Prelude.Text)
 agentStatusSummary_arn = Lens.lens (\AgentStatusSummary' {arn} -> arn) (\s@AgentStatusSummary' {} a -> s {arn = a} :: AgentStatusSummary)
 
--- | The name of the agent status.
-agentStatusSummary_name :: Lens.Lens' AgentStatusSummary (Prelude.Maybe Prelude.Text)
-agentStatusSummary_name = Lens.lens (\AgentStatusSummary' {name} -> name) (\s@AgentStatusSummary' {} a -> s {name = a} :: AgentStatusSummary)
-
 -- | The identifier for an agent status.
 agentStatusSummary_id :: Lens.Lens' AgentStatusSummary (Prelude.Maybe Prelude.Text)
 agentStatusSummary_id = Lens.lens (\AgentStatusSummary' {id} -> id) (\s@AgentStatusSummary' {} a -> s {id = a} :: AgentStatusSummary)
+
+-- | The name of the agent status.
+agentStatusSummary_name :: Lens.Lens' AgentStatusSummary (Prelude.Maybe Prelude.Text)
+agentStatusSummary_name = Lens.lens (\AgentStatusSummary' {name} -> name) (\s@AgentStatusSummary' {} a -> s {name = a} :: AgentStatusSummary)
 
 -- | The type of the agent status.
 agentStatusSummary_type :: Lens.Lens' AgentStatusSummary (Prelude.Maybe AgentStatusType)
 agentStatusSummary_type = Lens.lens (\AgentStatusSummary' {type'} -> type') (\s@AgentStatusSummary' {} a -> s {type' = a} :: AgentStatusSummary)
 
-instance Core.FromJSON AgentStatusSummary where
+instance Data.FromJSON AgentStatusSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AgentStatusSummary"
       ( \x ->
           AgentStatusSummary'
-            Prelude.<$> (x Core..:? "Arn")
-            Prelude.<*> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "Id")
-            Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "Arn")
+            Prelude.<*> (x Data..:? "Id")
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "Type")
       )
 
 instance Prelude.Hashable AgentStatusSummary where
   hashWithSalt _salt AgentStatusSummary' {..} =
     _salt `Prelude.hashWithSalt` arn
-      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` id
+      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` type'
 
 instance Prelude.NFData AgentStatusSummary where
   rnf AgentStatusSummary' {..} =
     Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf id
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf type'

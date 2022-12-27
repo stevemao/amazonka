@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DisassociateVpcCidrBlock
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,16 +40,17 @@ module Amazonka.EC2.DisassociateVpcCidrBlock
     newDisassociateVpcCidrBlockResponse,
 
     -- * Response Lenses
-    disassociateVpcCidrBlockResponse_vpcId,
     disassociateVpcCidrBlockResponse_cidrBlockAssociation,
     disassociateVpcCidrBlockResponse_ipv6CidrBlockAssociation,
+    disassociateVpcCidrBlockResponse_vpcId,
     disassociateVpcCidrBlockResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,14 +89,15 @@ instance Core.AWSRequest DisassociateVpcCidrBlock where
   type
     AWSResponse DisassociateVpcCidrBlock =
       DisassociateVpcCidrBlockResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DisassociateVpcCidrBlockResponse'
-            Prelude.<$> (x Core..@? "vpcId")
-            Prelude.<*> (x Core..@? "cidrBlockAssociation")
-            Prelude.<*> (x Core..@? "ipv6CidrBlockAssociation")
+            Prelude.<$> (x Data..@? "cidrBlockAssociation")
+            Prelude.<*> (x Data..@? "ipv6CidrBlockAssociation")
+            Prelude.<*> (x Data..@? "vpcId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -107,30 +109,30 @@ instance Prelude.NFData DisassociateVpcCidrBlock where
   rnf DisassociateVpcCidrBlock' {..} =
     Prelude.rnf associationId
 
-instance Core.ToHeaders DisassociateVpcCidrBlock where
+instance Data.ToHeaders DisassociateVpcCidrBlock where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DisassociateVpcCidrBlock where
+instance Data.ToPath DisassociateVpcCidrBlock where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisassociateVpcCidrBlock where
+instance Data.ToQuery DisassociateVpcCidrBlock where
   toQuery DisassociateVpcCidrBlock' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DisassociateVpcCidrBlock" :: Prelude.ByteString),
+          Data.=: ("DisassociateVpcCidrBlock" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "AssociationId" Core.=: associationId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "AssociationId" Data.=: associationId
       ]
 
 -- | /See:/ 'newDisassociateVpcCidrBlockResponse' smart constructor.
 data DisassociateVpcCidrBlockResponse = DisassociateVpcCidrBlockResponse'
-  { -- | The ID of the VPC.
-    vpcId :: Prelude.Maybe Prelude.Text,
-    -- | Information about the IPv4 CIDR block association.
+  { -- | Information about the IPv4 CIDR block association.
     cidrBlockAssociation :: Prelude.Maybe VpcCidrBlockAssociation,
     -- | Information about the IPv6 CIDR block association.
     ipv6CidrBlockAssociation :: Prelude.Maybe VpcIpv6CidrBlockAssociation,
+    -- | The ID of the VPC.
+    vpcId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -144,11 +146,11 @@ data DisassociateVpcCidrBlockResponse = DisassociateVpcCidrBlockResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'vpcId', 'disassociateVpcCidrBlockResponse_vpcId' - The ID of the VPC.
---
 -- 'cidrBlockAssociation', 'disassociateVpcCidrBlockResponse_cidrBlockAssociation' - Information about the IPv4 CIDR block association.
 --
 -- 'ipv6CidrBlockAssociation', 'disassociateVpcCidrBlockResponse_ipv6CidrBlockAssociation' - Information about the IPv6 CIDR block association.
+--
+-- 'vpcId', 'disassociateVpcCidrBlockResponse_vpcId' - The ID of the VPC.
 --
 -- 'httpStatus', 'disassociateVpcCidrBlockResponse_httpStatus' - The response's http status code.
 newDisassociateVpcCidrBlockResponse ::
@@ -157,17 +159,13 @@ newDisassociateVpcCidrBlockResponse ::
   DisassociateVpcCidrBlockResponse
 newDisassociateVpcCidrBlockResponse pHttpStatus_ =
   DisassociateVpcCidrBlockResponse'
-    { vpcId =
+    { cidrBlockAssociation =
         Prelude.Nothing,
-      cidrBlockAssociation = Prelude.Nothing,
       ipv6CidrBlockAssociation =
         Prelude.Nothing,
+      vpcId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The ID of the VPC.
-disassociateVpcCidrBlockResponse_vpcId :: Lens.Lens' DisassociateVpcCidrBlockResponse (Prelude.Maybe Prelude.Text)
-disassociateVpcCidrBlockResponse_vpcId = Lens.lens (\DisassociateVpcCidrBlockResponse' {vpcId} -> vpcId) (\s@DisassociateVpcCidrBlockResponse' {} a -> s {vpcId = a} :: DisassociateVpcCidrBlockResponse)
 
 -- | Information about the IPv4 CIDR block association.
 disassociateVpcCidrBlockResponse_cidrBlockAssociation :: Lens.Lens' DisassociateVpcCidrBlockResponse (Prelude.Maybe VpcCidrBlockAssociation)
@@ -176,6 +174,10 @@ disassociateVpcCidrBlockResponse_cidrBlockAssociation = Lens.lens (\Disassociate
 -- | Information about the IPv6 CIDR block association.
 disassociateVpcCidrBlockResponse_ipv6CidrBlockAssociation :: Lens.Lens' DisassociateVpcCidrBlockResponse (Prelude.Maybe VpcIpv6CidrBlockAssociation)
 disassociateVpcCidrBlockResponse_ipv6CidrBlockAssociation = Lens.lens (\DisassociateVpcCidrBlockResponse' {ipv6CidrBlockAssociation} -> ipv6CidrBlockAssociation) (\s@DisassociateVpcCidrBlockResponse' {} a -> s {ipv6CidrBlockAssociation = a} :: DisassociateVpcCidrBlockResponse)
+
+-- | The ID of the VPC.
+disassociateVpcCidrBlockResponse_vpcId :: Lens.Lens' DisassociateVpcCidrBlockResponse (Prelude.Maybe Prelude.Text)
+disassociateVpcCidrBlockResponse_vpcId = Lens.lens (\DisassociateVpcCidrBlockResponse' {vpcId} -> vpcId) (\s@DisassociateVpcCidrBlockResponse' {} a -> s {vpcId = a} :: DisassociateVpcCidrBlockResponse)
 
 -- | The response's http status code.
 disassociateVpcCidrBlockResponse_httpStatus :: Lens.Lens' DisassociateVpcCidrBlockResponse Prelude.Int
@@ -186,7 +188,7 @@ instance
     DisassociateVpcCidrBlockResponse
   where
   rnf DisassociateVpcCidrBlockResponse' {..} =
-    Prelude.rnf vpcId
-      `Prelude.seq` Prelude.rnf cidrBlockAssociation
+    Prelude.rnf cidrBlockAssociation
       `Prelude.seq` Prelude.rnf ipv6CidrBlockAssociation
+      `Prelude.seq` Prelude.rnf vpcId
       `Prelude.seq` Prelude.rnf httpStatus

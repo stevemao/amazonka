@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IVS.DeletePlaybackKeyPair
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.IVS.DeletePlaybackKeyPair
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IVS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,7 +81,8 @@ instance Core.AWSRequest DeletePlaybackKeyPair where
   type
     AWSResponse DeletePlaybackKeyPair =
       DeletePlaybackKeyPairResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -95,28 +97,28 @@ instance Prelude.Hashable DeletePlaybackKeyPair where
 instance Prelude.NFData DeletePlaybackKeyPair where
   rnf DeletePlaybackKeyPair' {..} = Prelude.rnf arn
 
-instance Core.ToHeaders DeletePlaybackKeyPair where
+instance Data.ToHeaders DeletePlaybackKeyPair where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeletePlaybackKeyPair where
+instance Data.ToJSON DeletePlaybackKeyPair where
   toJSON DeletePlaybackKeyPair' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("arn" Core..= arn)]
+          [Prelude.Just ("arn" Data..= arn)]
       )
 
-instance Core.ToPath DeletePlaybackKeyPair where
+instance Data.ToPath DeletePlaybackKeyPair where
   toPath = Prelude.const "/DeletePlaybackKeyPair"
 
-instance Core.ToQuery DeletePlaybackKeyPair where
+instance Data.ToQuery DeletePlaybackKeyPair where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeletePlaybackKeyPairResponse' smart constructor.

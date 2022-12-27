@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAF.UpdateRuleGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -76,7 +76,8 @@ module Amazonka.WAF.UpdateRuleGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -170,12 +171,13 @@ instance Core.AWSRequest UpdateRuleGroup where
   type
     AWSResponse UpdateRuleGroup =
       UpdateRuleGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateRuleGroupResponse'
-            Prelude.<$> (x Core..?> "ChangeToken")
+            Prelude.<$> (x Data..?> "ChangeToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -191,35 +193,35 @@ instance Prelude.NFData UpdateRuleGroup where
       `Prelude.seq` Prelude.rnf updates
       `Prelude.seq` Prelude.rnf changeToken
 
-instance Core.ToHeaders UpdateRuleGroup where
+instance Data.ToHeaders UpdateRuleGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_20150824.UpdateRuleGroup" ::
+              Data.=# ( "AWSWAF_20150824.UpdateRuleGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateRuleGroup where
+instance Data.ToJSON UpdateRuleGroup where
   toJSON UpdateRuleGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("RuleGroupId" Core..= ruleGroupId),
-            Prelude.Just ("Updates" Core..= updates),
-            Prelude.Just ("ChangeToken" Core..= changeToken)
+          [ Prelude.Just ("RuleGroupId" Data..= ruleGroupId),
+            Prelude.Just ("Updates" Data..= updates),
+            Prelude.Just ("ChangeToken" Data..= changeToken)
           ]
       )
 
-instance Core.ToPath UpdateRuleGroup where
+instance Data.ToPath UpdateRuleGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateRuleGroup where
+instance Data.ToQuery UpdateRuleGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateRuleGroupResponse' smart constructor.

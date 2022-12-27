@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.PutFunctionConcurrency
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,7 +33,7 @@
 -- reserve concurrency for as many functions as you like, as long as you
 -- leave at least 100 simultaneous executions unreserved for functions that
 -- aren\'t configured with a per-function limit. For more information, see
--- <https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html Managing Concurrency>.
+-- <https://docs.aws.amazon.com/lambda/latest/dg/invocation-scaling.html Lambda function scaling>.
 module Amazonka.Lambda.PutFunctionConcurrency
   ( -- * Creating a Request
     PutFunctionConcurrency (..),
@@ -53,8 +53,9 @@ module Amazonka.Lambda.PutFunctionConcurrency
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -65,12 +66,12 @@ data PutFunctionConcurrency = PutFunctionConcurrency'
     --
     -- __Name formats__
     --
-    -- -   __Function name__ - @my-function@.
+    -- -   __Function name__ – @my-function@.
     --
-    -- -   __Function ARN__ -
+    -- -   __Function ARN__ –
     --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
     --
-    -- -   __Partial ARN__ - @123456789012:function:my-function@.
+    -- -   __Partial ARN__ – @123456789012:function:my-function@.
     --
     -- The length constraint applies only to the full ARN. If you specify only
     -- the function name, it is limited to 64 characters in length.
@@ -92,12 +93,12 @@ data PutFunctionConcurrency = PutFunctionConcurrency'
 --
 -- __Name formats__
 --
--- -   __Function name__ - @my-function@.
+-- -   __Function name__ – @my-function@.
 --
--- -   __Function ARN__ -
+-- -   __Function ARN__ –
 --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
 --
--- -   __Partial ARN__ - @123456789012:function:my-function@.
+-- -   __Partial ARN__ – @123456789012:function:my-function@.
 --
 -- The length constraint applies only to the full ARN. If you specify only
 -- the function name, it is limited to 64 characters in length.
@@ -123,12 +124,12 @@ newPutFunctionConcurrency
 --
 -- __Name formats__
 --
--- -   __Function name__ - @my-function@.
+-- -   __Function name__ – @my-function@.
 --
--- -   __Function ARN__ -
+-- -   __Function ARN__ –
 --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
 --
--- -   __Partial ARN__ - @123456789012:function:my-function@.
+-- -   __Partial ARN__ – @123456789012:function:my-function@.
 --
 -- The length constraint applies only to the full ARN. If you specify only
 -- the function name, it is limited to 64 characters in length.
@@ -141,10 +142,11 @@ putFunctionConcurrency_reservedConcurrentExecutions = Lens.lens (\PutFunctionCon
 
 instance Core.AWSRequest PutFunctionConcurrency where
   type AWSResponse PutFunctionConcurrency = Concurrency
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable PutFunctionConcurrency where
   hashWithSalt _salt PutFunctionConcurrency' {..} =
@@ -156,27 +158,27 @@ instance Prelude.NFData PutFunctionConcurrency where
     Prelude.rnf functionName
       `Prelude.seq` Prelude.rnf reservedConcurrentExecutions
 
-instance Core.ToHeaders PutFunctionConcurrency where
+instance Data.ToHeaders PutFunctionConcurrency where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON PutFunctionConcurrency where
+instance Data.ToJSON PutFunctionConcurrency where
   toJSON PutFunctionConcurrency' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "ReservedConcurrentExecutions"
-                  Core..= reservedConcurrentExecutions
+                  Data..= reservedConcurrentExecutions
               )
           ]
       )
 
-instance Core.ToPath PutFunctionConcurrency where
+instance Data.ToPath PutFunctionConcurrency where
   toPath PutFunctionConcurrency' {..} =
     Prelude.mconcat
       [ "/2017-10-31/functions/",
-        Core.toBS functionName,
+        Data.toBS functionName,
         "/concurrency"
       ]
 
-instance Core.ToQuery PutFunctionConcurrency where
+instance Data.ToQuery PutFunctionConcurrency where
   toQuery = Prelude.const Prelude.mempty

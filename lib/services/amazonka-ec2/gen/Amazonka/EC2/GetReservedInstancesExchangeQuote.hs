@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.GetReservedInstancesExchangeQuote
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.EC2.GetReservedInstancesExchangeQuote
     newGetReservedInstancesExchangeQuote,
 
     -- * Request Lenses
-    getReservedInstancesExchangeQuote_targetConfigurations,
     getReservedInstancesExchangeQuote_dryRun,
+    getReservedInstancesExchangeQuote_targetConfigurations,
     getReservedInstancesExchangeQuote_reservedInstanceIds,
 
     -- * Destructuring the Response
@@ -40,22 +40,23 @@ module Amazonka.EC2.GetReservedInstancesExchangeQuote
     newGetReservedInstancesExchangeQuoteResponse,
 
     -- * Response Lenses
-    getReservedInstancesExchangeQuoteResponse_validationFailureReason,
-    getReservedInstancesExchangeQuoteResponse_targetConfigurationValueRollup,
     getReservedInstancesExchangeQuoteResponse_currencyCode,
-    getReservedInstancesExchangeQuoteResponse_targetConfigurationValueSet,
-    getReservedInstancesExchangeQuoteResponse_reservedInstanceValueRollup,
-    getReservedInstancesExchangeQuoteResponse_outputReservedInstancesWillExpireAt,
-    getReservedInstancesExchangeQuoteResponse_reservedInstanceValueSet,
     getReservedInstancesExchangeQuoteResponse_isValidExchange,
+    getReservedInstancesExchangeQuoteResponse_outputReservedInstancesWillExpireAt,
     getReservedInstancesExchangeQuoteResponse_paymentDue,
+    getReservedInstancesExchangeQuoteResponse_reservedInstanceValueRollup,
+    getReservedInstancesExchangeQuoteResponse_reservedInstanceValueSet,
+    getReservedInstancesExchangeQuoteResponse_targetConfigurationValueRollup,
+    getReservedInstancesExchangeQuoteResponse_targetConfigurationValueSet,
+    getReservedInstancesExchangeQuoteResponse_validationFailureReason,
     getReservedInstancesExchangeQuoteResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -64,14 +65,14 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newGetReservedInstancesExchangeQuote' smart constructor.
 data GetReservedInstancesExchangeQuote = GetReservedInstancesExchangeQuote'
-  { -- | The configuration of the target Convertible Reserved Instance to
-    -- exchange for your current Convertible Reserved Instances.
-    targetConfigurations :: Prelude.Maybe [TargetConfigurationRequest],
-    -- | Checks whether you have the required permissions for the action, without
+  { -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The configuration of the target Convertible Reserved Instance to
+    -- exchange for your current Convertible Reserved Instances.
+    targetConfigurations :: Prelude.Maybe [TargetConfigurationRequest],
     -- | The IDs of the Convertible Reserved Instances to exchange.
     reservedInstanceIds :: [Prelude.Text]
   }
@@ -85,29 +86,24 @@ data GetReservedInstancesExchangeQuote = GetReservedInstancesExchangeQuote'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'targetConfigurations', 'getReservedInstancesExchangeQuote_targetConfigurations' - The configuration of the target Convertible Reserved Instance to
--- exchange for your current Convertible Reserved Instances.
---
 -- 'dryRun', 'getReservedInstancesExchangeQuote_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'targetConfigurations', 'getReservedInstancesExchangeQuote_targetConfigurations' - The configuration of the target Convertible Reserved Instance to
+-- exchange for your current Convertible Reserved Instances.
 --
 -- 'reservedInstanceIds', 'getReservedInstancesExchangeQuote_reservedInstanceIds' - The IDs of the Convertible Reserved Instances to exchange.
 newGetReservedInstancesExchangeQuote ::
   GetReservedInstancesExchangeQuote
 newGetReservedInstancesExchangeQuote =
   GetReservedInstancesExchangeQuote'
-    { targetConfigurations =
+    { dryRun =
         Prelude.Nothing,
-      dryRun = Prelude.Nothing,
+      targetConfigurations = Prelude.Nothing,
       reservedInstanceIds = Prelude.mempty
     }
-
--- | The configuration of the target Convertible Reserved Instance to
--- exchange for your current Convertible Reserved Instances.
-getReservedInstancesExchangeQuote_targetConfigurations :: Lens.Lens' GetReservedInstancesExchangeQuote (Prelude.Maybe [TargetConfigurationRequest])
-getReservedInstancesExchangeQuote_targetConfigurations = Lens.lens (\GetReservedInstancesExchangeQuote' {targetConfigurations} -> targetConfigurations) (\s@GetReservedInstancesExchangeQuote' {} a -> s {targetConfigurations = a} :: GetReservedInstancesExchangeQuote) Prelude.. Lens.mapping Lens.coerced
 
 -- | Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
@@ -115,6 +111,11 @@ getReservedInstancesExchangeQuote_targetConfigurations = Lens.lens (\GetReserved
 -- Otherwise, it is @UnauthorizedOperation@.
 getReservedInstancesExchangeQuote_dryRun :: Lens.Lens' GetReservedInstancesExchangeQuote (Prelude.Maybe Prelude.Bool)
 getReservedInstancesExchangeQuote_dryRun = Lens.lens (\GetReservedInstancesExchangeQuote' {dryRun} -> dryRun) (\s@GetReservedInstancesExchangeQuote' {} a -> s {dryRun = a} :: GetReservedInstancesExchangeQuote)
+
+-- | The configuration of the target Convertible Reserved Instance to
+-- exchange for your current Convertible Reserved Instances.
+getReservedInstancesExchangeQuote_targetConfigurations :: Lens.Lens' GetReservedInstancesExchangeQuote (Prelude.Maybe [TargetConfigurationRequest])
+getReservedInstancesExchangeQuote_targetConfigurations = Lens.lens (\GetReservedInstancesExchangeQuote' {targetConfigurations} -> targetConfigurations) (\s@GetReservedInstancesExchangeQuote' {} a -> s {targetConfigurations = a} :: GetReservedInstancesExchangeQuote) Prelude.. Lens.mapping Lens.coerced
 
 -- | The IDs of the Convertible Reserved Instances to exchange.
 getReservedInstancesExchangeQuote_reservedInstanceIds :: Lens.Lens' GetReservedInstancesExchangeQuote [Prelude.Text]
@@ -127,26 +128,27 @@ instance
   type
     AWSResponse GetReservedInstancesExchangeQuote =
       GetReservedInstancesExchangeQuoteResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetReservedInstancesExchangeQuoteResponse'
-            Prelude.<$> (x Core..@? "validationFailureReason")
-              Prelude.<*> (x Core..@? "targetConfigurationValueRollup")
-              Prelude.<*> (x Core..@? "currencyCode")
-              Prelude.<*> ( x Core..@? "targetConfigurationValueSet"
+            Prelude.<$> (x Data..@? "currencyCode")
+              Prelude.<*> (x Data..@? "isValidExchange")
+              Prelude.<*> (x Data..@? "outputReservedInstancesWillExpireAt")
+              Prelude.<*> (x Data..@? "paymentDue")
+              Prelude.<*> (x Data..@? "reservedInstanceValueRollup")
+              Prelude.<*> ( x Data..@? "reservedInstanceValueSet"
                               Core..!@ Prelude.mempty
-                              Prelude.>>= Core.may (Core.parseXMLList "item")
+                              Prelude.>>= Core.may (Data.parseXMLList "item")
                           )
-              Prelude.<*> (x Core..@? "reservedInstanceValueRollup")
-              Prelude.<*> (x Core..@? "outputReservedInstancesWillExpireAt")
-              Prelude.<*> ( x Core..@? "reservedInstanceValueSet"
+              Prelude.<*> (x Data..@? "targetConfigurationValueRollup")
+              Prelude.<*> ( x Data..@? "targetConfigurationValueSet"
                               Core..!@ Prelude.mempty
-                              Prelude.>>= Core.may (Core.parseXMLList "item")
+                              Prelude.>>= Core.may (Data.parseXMLList "item")
                           )
-              Prelude.<*> (x Core..@? "isValidExchange")
-              Prelude.<*> (x Core..@? "paymentDue")
+              Prelude.<*> (x Data..@? "validationFailureReason")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -157,8 +159,8 @@ instance
   hashWithSalt
     _salt
     GetReservedInstancesExchangeQuote' {..} =
-      _salt `Prelude.hashWithSalt` targetConfigurations
-        `Prelude.hashWithSalt` dryRun
+      _salt `Prelude.hashWithSalt` dryRun
+        `Prelude.hashWithSalt` targetConfigurations
         `Prelude.hashWithSalt` reservedInstanceIds
 
 instance
@@ -166,40 +168,40 @@ instance
     GetReservedInstancesExchangeQuote
   where
   rnf GetReservedInstancesExchangeQuote' {..} =
-    Prelude.rnf targetConfigurations
-      `Prelude.seq` Prelude.rnf dryRun
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf targetConfigurations
       `Prelude.seq` Prelude.rnf reservedInstanceIds
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetReservedInstancesExchangeQuote
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     GetReservedInstancesExchangeQuote
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetReservedInstancesExchangeQuote
   where
   toQuery GetReservedInstancesExchangeQuote' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "GetReservedInstancesExchangeQuote" ::
+          Data.=: ( "GetReservedInstancesExchangeQuote" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          ( Core.toQueryList "TargetConfiguration"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          ( Data.toQueryList "TargetConfiguration"
               Prelude.<$> targetConfigurations
           ),
-        "DryRun" Core.=: dryRun,
-        Core.toQueryList
+        Data.toQueryList
           "ReservedInstanceId"
           reservedInstanceIds
       ]
@@ -208,25 +210,25 @@ instance
 --
 -- /See:/ 'newGetReservedInstancesExchangeQuoteResponse' smart constructor.
 data GetReservedInstancesExchangeQuoteResponse = GetReservedInstancesExchangeQuoteResponse'
-  { -- | Describes the reason why the exchange cannot be completed.
-    validationFailureReason :: Prelude.Maybe Prelude.Text,
-    -- | The cost associated with the Reserved Instance.
-    targetConfigurationValueRollup :: Prelude.Maybe ReservationValue,
-    -- | The currency of the transaction.
+  { -- | The currency of the transaction.
     currencyCode :: Prelude.Maybe Prelude.Text,
-    -- | The values of the target Convertible Reserved Instances.
-    targetConfigurationValueSet :: Prelude.Maybe [TargetReservationValue],
-    -- | The cost associated with the Reserved Instance.
-    reservedInstanceValueRollup :: Prelude.Maybe ReservationValue,
-    -- | The new end date of the reservation term.
-    outputReservedInstancesWillExpireAt :: Prelude.Maybe Core.ISO8601,
-    -- | The configuration of your Convertible Reserved Instances.
-    reservedInstanceValueSet :: Prelude.Maybe [ReservedInstanceReservationValue],
     -- | If @true@, the exchange is valid. If @false@, the exchange cannot be
     -- completed.
     isValidExchange :: Prelude.Maybe Prelude.Bool,
+    -- | The new end date of the reservation term.
+    outputReservedInstancesWillExpireAt :: Prelude.Maybe Data.ISO8601,
     -- | The total true upfront charge for the exchange.
     paymentDue :: Prelude.Maybe Prelude.Text,
+    -- | The cost associated with the Reserved Instance.
+    reservedInstanceValueRollup :: Prelude.Maybe ReservationValue,
+    -- | The configuration of your Convertible Reserved Instances.
+    reservedInstanceValueSet :: Prelude.Maybe [ReservedInstanceReservationValue],
+    -- | The cost associated with the Reserved Instance.
+    targetConfigurationValueRollup :: Prelude.Maybe ReservationValue,
+    -- | The values of the target Convertible Reserved Instances.
+    targetConfigurationValueSet :: Prelude.Maybe [TargetReservationValue],
+    -- | Describes the reason why the exchange cannot be completed.
+    validationFailureReason :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -240,24 +242,24 @@ data GetReservedInstancesExchangeQuoteResponse = GetReservedInstancesExchangeQuo
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'validationFailureReason', 'getReservedInstancesExchangeQuoteResponse_validationFailureReason' - Describes the reason why the exchange cannot be completed.
---
--- 'targetConfigurationValueRollup', 'getReservedInstancesExchangeQuoteResponse_targetConfigurationValueRollup' - The cost associated with the Reserved Instance.
---
 -- 'currencyCode', 'getReservedInstancesExchangeQuoteResponse_currencyCode' - The currency of the transaction.
---
--- 'targetConfigurationValueSet', 'getReservedInstancesExchangeQuoteResponse_targetConfigurationValueSet' - The values of the target Convertible Reserved Instances.
---
--- 'reservedInstanceValueRollup', 'getReservedInstancesExchangeQuoteResponse_reservedInstanceValueRollup' - The cost associated with the Reserved Instance.
---
--- 'outputReservedInstancesWillExpireAt', 'getReservedInstancesExchangeQuoteResponse_outputReservedInstancesWillExpireAt' - The new end date of the reservation term.
---
--- 'reservedInstanceValueSet', 'getReservedInstancesExchangeQuoteResponse_reservedInstanceValueSet' - The configuration of your Convertible Reserved Instances.
 --
 -- 'isValidExchange', 'getReservedInstancesExchangeQuoteResponse_isValidExchange' - If @true@, the exchange is valid. If @false@, the exchange cannot be
 -- completed.
 --
+-- 'outputReservedInstancesWillExpireAt', 'getReservedInstancesExchangeQuoteResponse_outputReservedInstancesWillExpireAt' - The new end date of the reservation term.
+--
 -- 'paymentDue', 'getReservedInstancesExchangeQuoteResponse_paymentDue' - The total true upfront charge for the exchange.
+--
+-- 'reservedInstanceValueRollup', 'getReservedInstancesExchangeQuoteResponse_reservedInstanceValueRollup' - The cost associated with the Reserved Instance.
+--
+-- 'reservedInstanceValueSet', 'getReservedInstancesExchangeQuoteResponse_reservedInstanceValueSet' - The configuration of your Convertible Reserved Instances.
+--
+-- 'targetConfigurationValueRollup', 'getReservedInstancesExchangeQuoteResponse_targetConfigurationValueRollup' - The cost associated with the Reserved Instance.
+--
+-- 'targetConfigurationValueSet', 'getReservedInstancesExchangeQuoteResponse_targetConfigurationValueSet' - The values of the target Convertible Reserved Instances.
+--
+-- 'validationFailureReason', 'getReservedInstancesExchangeQuoteResponse_validationFailureReason' - Describes the reason why the exchange cannot be completed.
 --
 -- 'httpStatus', 'getReservedInstancesExchangeQuoteResponse_httpStatus' - The response's http status code.
 newGetReservedInstancesExchangeQuoteResponse ::
@@ -267,61 +269,62 @@ newGetReservedInstancesExchangeQuoteResponse ::
 newGetReservedInstancesExchangeQuoteResponse
   pHttpStatus_ =
     GetReservedInstancesExchangeQuoteResponse'
-      { validationFailureReason =
-          Prelude.Nothing,
-        targetConfigurationValueRollup =
-          Prelude.Nothing,
-        currencyCode = Prelude.Nothing,
-        targetConfigurationValueSet =
-          Prelude.Nothing,
-        reservedInstanceValueRollup =
-          Prelude.Nothing,
-        outputReservedInstancesWillExpireAt =
-          Prelude.Nothing,
-        reservedInstanceValueSet =
+      { currencyCode =
           Prelude.Nothing,
         isValidExchange =
           Prelude.Nothing,
+        outputReservedInstancesWillExpireAt =
+          Prelude.Nothing,
         paymentDue = Prelude.Nothing,
+        reservedInstanceValueRollup =
+          Prelude.Nothing,
+        reservedInstanceValueSet =
+          Prelude.Nothing,
+        targetConfigurationValueRollup =
+          Prelude.Nothing,
+        targetConfigurationValueSet =
+          Prelude.Nothing,
+        validationFailureReason =
+          Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | Describes the reason why the exchange cannot be completed.
-getReservedInstancesExchangeQuoteResponse_validationFailureReason :: Lens.Lens' GetReservedInstancesExchangeQuoteResponse (Prelude.Maybe Prelude.Text)
-getReservedInstancesExchangeQuoteResponse_validationFailureReason = Lens.lens (\GetReservedInstancesExchangeQuoteResponse' {validationFailureReason} -> validationFailureReason) (\s@GetReservedInstancesExchangeQuoteResponse' {} a -> s {validationFailureReason = a} :: GetReservedInstancesExchangeQuoteResponse)
-
--- | The cost associated with the Reserved Instance.
-getReservedInstancesExchangeQuoteResponse_targetConfigurationValueRollup :: Lens.Lens' GetReservedInstancesExchangeQuoteResponse (Prelude.Maybe ReservationValue)
-getReservedInstancesExchangeQuoteResponse_targetConfigurationValueRollup = Lens.lens (\GetReservedInstancesExchangeQuoteResponse' {targetConfigurationValueRollup} -> targetConfigurationValueRollup) (\s@GetReservedInstancesExchangeQuoteResponse' {} a -> s {targetConfigurationValueRollup = a} :: GetReservedInstancesExchangeQuoteResponse)
 
 -- | The currency of the transaction.
 getReservedInstancesExchangeQuoteResponse_currencyCode :: Lens.Lens' GetReservedInstancesExchangeQuoteResponse (Prelude.Maybe Prelude.Text)
 getReservedInstancesExchangeQuoteResponse_currencyCode = Lens.lens (\GetReservedInstancesExchangeQuoteResponse' {currencyCode} -> currencyCode) (\s@GetReservedInstancesExchangeQuoteResponse' {} a -> s {currencyCode = a} :: GetReservedInstancesExchangeQuoteResponse)
-
--- | The values of the target Convertible Reserved Instances.
-getReservedInstancesExchangeQuoteResponse_targetConfigurationValueSet :: Lens.Lens' GetReservedInstancesExchangeQuoteResponse (Prelude.Maybe [TargetReservationValue])
-getReservedInstancesExchangeQuoteResponse_targetConfigurationValueSet = Lens.lens (\GetReservedInstancesExchangeQuoteResponse' {targetConfigurationValueSet} -> targetConfigurationValueSet) (\s@GetReservedInstancesExchangeQuoteResponse' {} a -> s {targetConfigurationValueSet = a} :: GetReservedInstancesExchangeQuoteResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | The cost associated with the Reserved Instance.
-getReservedInstancesExchangeQuoteResponse_reservedInstanceValueRollup :: Lens.Lens' GetReservedInstancesExchangeQuoteResponse (Prelude.Maybe ReservationValue)
-getReservedInstancesExchangeQuoteResponse_reservedInstanceValueRollup = Lens.lens (\GetReservedInstancesExchangeQuoteResponse' {reservedInstanceValueRollup} -> reservedInstanceValueRollup) (\s@GetReservedInstancesExchangeQuoteResponse' {} a -> s {reservedInstanceValueRollup = a} :: GetReservedInstancesExchangeQuoteResponse)
-
--- | The new end date of the reservation term.
-getReservedInstancesExchangeQuoteResponse_outputReservedInstancesWillExpireAt :: Lens.Lens' GetReservedInstancesExchangeQuoteResponse (Prelude.Maybe Prelude.UTCTime)
-getReservedInstancesExchangeQuoteResponse_outputReservedInstancesWillExpireAt = Lens.lens (\GetReservedInstancesExchangeQuoteResponse' {outputReservedInstancesWillExpireAt} -> outputReservedInstancesWillExpireAt) (\s@GetReservedInstancesExchangeQuoteResponse' {} a -> s {outputReservedInstancesWillExpireAt = a} :: GetReservedInstancesExchangeQuoteResponse) Prelude.. Lens.mapping Core._Time
-
--- | The configuration of your Convertible Reserved Instances.
-getReservedInstancesExchangeQuoteResponse_reservedInstanceValueSet :: Lens.Lens' GetReservedInstancesExchangeQuoteResponse (Prelude.Maybe [ReservedInstanceReservationValue])
-getReservedInstancesExchangeQuoteResponse_reservedInstanceValueSet = Lens.lens (\GetReservedInstancesExchangeQuoteResponse' {reservedInstanceValueSet} -> reservedInstanceValueSet) (\s@GetReservedInstancesExchangeQuoteResponse' {} a -> s {reservedInstanceValueSet = a} :: GetReservedInstancesExchangeQuoteResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | If @true@, the exchange is valid. If @false@, the exchange cannot be
 -- completed.
 getReservedInstancesExchangeQuoteResponse_isValidExchange :: Lens.Lens' GetReservedInstancesExchangeQuoteResponse (Prelude.Maybe Prelude.Bool)
 getReservedInstancesExchangeQuoteResponse_isValidExchange = Lens.lens (\GetReservedInstancesExchangeQuoteResponse' {isValidExchange} -> isValidExchange) (\s@GetReservedInstancesExchangeQuoteResponse' {} a -> s {isValidExchange = a} :: GetReservedInstancesExchangeQuoteResponse)
 
+-- | The new end date of the reservation term.
+getReservedInstancesExchangeQuoteResponse_outputReservedInstancesWillExpireAt :: Lens.Lens' GetReservedInstancesExchangeQuoteResponse (Prelude.Maybe Prelude.UTCTime)
+getReservedInstancesExchangeQuoteResponse_outputReservedInstancesWillExpireAt = Lens.lens (\GetReservedInstancesExchangeQuoteResponse' {outputReservedInstancesWillExpireAt} -> outputReservedInstancesWillExpireAt) (\s@GetReservedInstancesExchangeQuoteResponse' {} a -> s {outputReservedInstancesWillExpireAt = a} :: GetReservedInstancesExchangeQuoteResponse) Prelude.. Lens.mapping Data._Time
+
 -- | The total true upfront charge for the exchange.
 getReservedInstancesExchangeQuoteResponse_paymentDue :: Lens.Lens' GetReservedInstancesExchangeQuoteResponse (Prelude.Maybe Prelude.Text)
 getReservedInstancesExchangeQuoteResponse_paymentDue = Lens.lens (\GetReservedInstancesExchangeQuoteResponse' {paymentDue} -> paymentDue) (\s@GetReservedInstancesExchangeQuoteResponse' {} a -> s {paymentDue = a} :: GetReservedInstancesExchangeQuoteResponse)
+
+-- | The cost associated with the Reserved Instance.
+getReservedInstancesExchangeQuoteResponse_reservedInstanceValueRollup :: Lens.Lens' GetReservedInstancesExchangeQuoteResponse (Prelude.Maybe ReservationValue)
+getReservedInstancesExchangeQuoteResponse_reservedInstanceValueRollup = Lens.lens (\GetReservedInstancesExchangeQuoteResponse' {reservedInstanceValueRollup} -> reservedInstanceValueRollup) (\s@GetReservedInstancesExchangeQuoteResponse' {} a -> s {reservedInstanceValueRollup = a} :: GetReservedInstancesExchangeQuoteResponse)
+
+-- | The configuration of your Convertible Reserved Instances.
+getReservedInstancesExchangeQuoteResponse_reservedInstanceValueSet :: Lens.Lens' GetReservedInstancesExchangeQuoteResponse (Prelude.Maybe [ReservedInstanceReservationValue])
+getReservedInstancesExchangeQuoteResponse_reservedInstanceValueSet = Lens.lens (\GetReservedInstancesExchangeQuoteResponse' {reservedInstanceValueSet} -> reservedInstanceValueSet) (\s@GetReservedInstancesExchangeQuoteResponse' {} a -> s {reservedInstanceValueSet = a} :: GetReservedInstancesExchangeQuoteResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The cost associated with the Reserved Instance.
+getReservedInstancesExchangeQuoteResponse_targetConfigurationValueRollup :: Lens.Lens' GetReservedInstancesExchangeQuoteResponse (Prelude.Maybe ReservationValue)
+getReservedInstancesExchangeQuoteResponse_targetConfigurationValueRollup = Lens.lens (\GetReservedInstancesExchangeQuoteResponse' {targetConfigurationValueRollup} -> targetConfigurationValueRollup) (\s@GetReservedInstancesExchangeQuoteResponse' {} a -> s {targetConfigurationValueRollup = a} :: GetReservedInstancesExchangeQuoteResponse)
+
+-- | The values of the target Convertible Reserved Instances.
+getReservedInstancesExchangeQuoteResponse_targetConfigurationValueSet :: Lens.Lens' GetReservedInstancesExchangeQuoteResponse (Prelude.Maybe [TargetReservationValue])
+getReservedInstancesExchangeQuoteResponse_targetConfigurationValueSet = Lens.lens (\GetReservedInstancesExchangeQuoteResponse' {targetConfigurationValueSet} -> targetConfigurationValueSet) (\s@GetReservedInstancesExchangeQuoteResponse' {} a -> s {targetConfigurationValueSet = a} :: GetReservedInstancesExchangeQuoteResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | Describes the reason why the exchange cannot be completed.
+getReservedInstancesExchangeQuoteResponse_validationFailureReason :: Lens.Lens' GetReservedInstancesExchangeQuoteResponse (Prelude.Maybe Prelude.Text)
+getReservedInstancesExchangeQuoteResponse_validationFailureReason = Lens.lens (\GetReservedInstancesExchangeQuoteResponse' {validationFailureReason} -> validationFailureReason) (\s@GetReservedInstancesExchangeQuoteResponse' {} a -> s {validationFailureReason = a} :: GetReservedInstancesExchangeQuoteResponse)
 
 -- | The response's http status code.
 getReservedInstancesExchangeQuoteResponse_httpStatus :: Lens.Lens' GetReservedInstancesExchangeQuoteResponse Prelude.Int
@@ -332,13 +335,13 @@ instance
     GetReservedInstancesExchangeQuoteResponse
   where
   rnf GetReservedInstancesExchangeQuoteResponse' {..} =
-    Prelude.rnf validationFailureReason
-      `Prelude.seq` Prelude.rnf targetConfigurationValueRollup
-      `Prelude.seq` Prelude.rnf currencyCode
-      `Prelude.seq` Prelude.rnf targetConfigurationValueSet
-      `Prelude.seq` Prelude.rnf reservedInstanceValueRollup
-      `Prelude.seq` Prelude.rnf outputReservedInstancesWillExpireAt
-      `Prelude.seq` Prelude.rnf reservedInstanceValueSet
+    Prelude.rnf currencyCode
       `Prelude.seq` Prelude.rnf isValidExchange
+      `Prelude.seq` Prelude.rnf outputReservedInstancesWillExpireAt
       `Prelude.seq` Prelude.rnf paymentDue
+      `Prelude.seq` Prelude.rnf reservedInstanceValueRollup
+      `Prelude.seq` Prelude.rnf reservedInstanceValueSet
+      `Prelude.seq` Prelude.rnf targetConfigurationValueRollup
+      `Prelude.seq` Prelude.rnf targetConfigurationValueSet
+      `Prelude.seq` Prelude.rnf validationFailureReason
       `Prelude.seq` Prelude.rnf httpStatus

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.DescribeMergeConflicts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,9 +31,9 @@ module Amazonka.CodeCommit.DescribeMergeConflicts
 
     -- * Request Lenses
     describeMergeConflicts_conflictDetailLevel,
-    describeMergeConflicts_nextToken,
-    describeMergeConflicts_maxMergeHunks,
     describeMergeConflicts_conflictResolutionStrategy,
+    describeMergeConflicts_maxMergeHunks,
+    describeMergeConflicts_nextToken,
     describeMergeConflicts_repositoryName,
     describeMergeConflicts_destinationCommitSpecifier,
     describeMergeConflicts_sourceCommitSpecifier,
@@ -57,7 +57,8 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -70,16 +71,16 @@ data DescribeMergeConflicts = DescribeMergeConflicts'
     -- conflict is considered not mergeable if the same file in both branches
     -- has differences on the same line.
     conflictDetailLevel :: Prelude.Maybe ConflictDetailLevelTypeEnum,
-    -- | An enumeration token that, when provided in a request, returns the next
-    -- batch of the results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of merge hunks to include in the output.
-    maxMergeHunks :: Prelude.Maybe Prelude.Int,
     -- | Specifies which branch to use when resolving conflicts, or whether to
     -- attempt automatically merging two versions of a file. The default is
     -- NONE, which requires any conflicts to be resolved manually before the
     -- merge operation is successful.
     conflictResolutionStrategy :: Prelude.Maybe ConflictResolutionStrategyTypeEnum,
+    -- | The maximum number of merge hunks to include in the output.
+    maxMergeHunks :: Prelude.Maybe Prelude.Int,
+    -- | An enumeration token that, when provided in a request, returns the next
+    -- batch of the results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the repository where you want to get information about a
     -- merge conflict.
     repositoryName :: Prelude.Text,
@@ -110,15 +111,15 @@ data DescribeMergeConflicts = DescribeMergeConflicts'
 -- conflict is considered not mergeable if the same file in both branches
 -- has differences on the same line.
 --
--- 'nextToken', 'describeMergeConflicts_nextToken' - An enumeration token that, when provided in a request, returns the next
--- batch of the results.
---
--- 'maxMergeHunks', 'describeMergeConflicts_maxMergeHunks' - The maximum number of merge hunks to include in the output.
---
 -- 'conflictResolutionStrategy', 'describeMergeConflicts_conflictResolutionStrategy' - Specifies which branch to use when resolving conflicts, or whether to
 -- attempt automatically merging two versions of a file. The default is
 -- NONE, which requires any conflicts to be resolved manually before the
 -- merge operation is successful.
+--
+-- 'maxMergeHunks', 'describeMergeConflicts_maxMergeHunks' - The maximum number of merge hunks to include in the output.
+--
+-- 'nextToken', 'describeMergeConflicts_nextToken' - An enumeration token that, when provided in a request, returns the next
+-- batch of the results.
 --
 -- 'repositoryName', 'describeMergeConflicts_repositoryName' - The name of the repository where you want to get information about a
 -- merge conflict.
@@ -153,9 +154,9 @@ newDescribeMergeConflicts
     DescribeMergeConflicts'
       { conflictDetailLevel =
           Prelude.Nothing,
-        nextToken = Prelude.Nothing,
-        maxMergeHunks = Prelude.Nothing,
         conflictResolutionStrategy = Prelude.Nothing,
+        maxMergeHunks = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         repositoryName = pRepositoryName_,
         destinationCommitSpecifier =
           pDestinationCommitSpecifier_,
@@ -172,21 +173,21 @@ newDescribeMergeConflicts
 describeMergeConflicts_conflictDetailLevel :: Lens.Lens' DescribeMergeConflicts (Prelude.Maybe ConflictDetailLevelTypeEnum)
 describeMergeConflicts_conflictDetailLevel = Lens.lens (\DescribeMergeConflicts' {conflictDetailLevel} -> conflictDetailLevel) (\s@DescribeMergeConflicts' {} a -> s {conflictDetailLevel = a} :: DescribeMergeConflicts)
 
--- | An enumeration token that, when provided in a request, returns the next
--- batch of the results.
-describeMergeConflicts_nextToken :: Lens.Lens' DescribeMergeConflicts (Prelude.Maybe Prelude.Text)
-describeMergeConflicts_nextToken = Lens.lens (\DescribeMergeConflicts' {nextToken} -> nextToken) (\s@DescribeMergeConflicts' {} a -> s {nextToken = a} :: DescribeMergeConflicts)
-
--- | The maximum number of merge hunks to include in the output.
-describeMergeConflicts_maxMergeHunks :: Lens.Lens' DescribeMergeConflicts (Prelude.Maybe Prelude.Int)
-describeMergeConflicts_maxMergeHunks = Lens.lens (\DescribeMergeConflicts' {maxMergeHunks} -> maxMergeHunks) (\s@DescribeMergeConflicts' {} a -> s {maxMergeHunks = a} :: DescribeMergeConflicts)
-
 -- | Specifies which branch to use when resolving conflicts, or whether to
 -- attempt automatically merging two versions of a file. The default is
 -- NONE, which requires any conflicts to be resolved manually before the
 -- merge operation is successful.
 describeMergeConflicts_conflictResolutionStrategy :: Lens.Lens' DescribeMergeConflicts (Prelude.Maybe ConflictResolutionStrategyTypeEnum)
 describeMergeConflicts_conflictResolutionStrategy = Lens.lens (\DescribeMergeConflicts' {conflictResolutionStrategy} -> conflictResolutionStrategy) (\s@DescribeMergeConflicts' {} a -> s {conflictResolutionStrategy = a} :: DescribeMergeConflicts)
+
+-- | The maximum number of merge hunks to include in the output.
+describeMergeConflicts_maxMergeHunks :: Lens.Lens' DescribeMergeConflicts (Prelude.Maybe Prelude.Int)
+describeMergeConflicts_maxMergeHunks = Lens.lens (\DescribeMergeConflicts' {maxMergeHunks} -> maxMergeHunks) (\s@DescribeMergeConflicts' {} a -> s {maxMergeHunks = a} :: DescribeMergeConflicts)
+
+-- | An enumeration token that, when provided in a request, returns the next
+-- batch of the results.
+describeMergeConflicts_nextToken :: Lens.Lens' DescribeMergeConflicts (Prelude.Maybe Prelude.Text)
+describeMergeConflicts_nextToken = Lens.lens (\DescribeMergeConflicts' {nextToken} -> nextToken) (\s@DescribeMergeConflicts' {} a -> s {nextToken = a} :: DescribeMergeConflicts)
 
 -- | The name of the repository where you want to get information about a
 -- merge conflict.
@@ -215,26 +216,27 @@ instance Core.AWSRequest DescribeMergeConflicts where
   type
     AWSResponse DescribeMergeConflicts =
       DescribeMergeConflictsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeMergeConflictsResponse'
-            Prelude.<$> (x Core..?> "baseCommitId")
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "baseCommitId")
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "conflictMetadata")
-            Prelude.<*> (x Core..?> "mergeHunks" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..:> "destinationCommitId")
-            Prelude.<*> (x Core..:> "sourceCommitId")
+            Prelude.<*> (x Data..:> "conflictMetadata")
+            Prelude.<*> (x Data..?> "mergeHunks" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..:> "destinationCommitId")
+            Prelude.<*> (x Data..:> "sourceCommitId")
       )
 
 instance Prelude.Hashable DescribeMergeConflicts where
   hashWithSalt _salt DescribeMergeConflicts' {..} =
     _salt `Prelude.hashWithSalt` conflictDetailLevel
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxMergeHunks
       `Prelude.hashWithSalt` conflictResolutionStrategy
+      `Prelude.hashWithSalt` maxMergeHunks
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` repositoryName
       `Prelude.hashWithSalt` destinationCommitSpecifier
       `Prelude.hashWithSalt` sourceCommitSpecifier
@@ -244,59 +246,59 @@ instance Prelude.Hashable DescribeMergeConflicts where
 instance Prelude.NFData DescribeMergeConflicts where
   rnf DescribeMergeConflicts' {..} =
     Prelude.rnf conflictDetailLevel
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxMergeHunks
       `Prelude.seq` Prelude.rnf conflictResolutionStrategy
+      `Prelude.seq` Prelude.rnf maxMergeHunks
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf repositoryName
       `Prelude.seq` Prelude.rnf destinationCommitSpecifier
       `Prelude.seq` Prelude.rnf sourceCommitSpecifier
       `Prelude.seq` Prelude.rnf mergeOption
       `Prelude.seq` Prelude.rnf filePath
 
-instance Core.ToHeaders DescribeMergeConflicts where
+instance Data.ToHeaders DescribeMergeConflicts where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.DescribeMergeConflicts" ::
+              Data.=# ( "CodeCommit_20150413.DescribeMergeConflicts" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeMergeConflicts where
+instance Data.ToJSON DescribeMergeConflicts where
   toJSON DescribeMergeConflicts' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("conflictDetailLevel" Core..=)
+          [ ("conflictDetailLevel" Data..=)
               Prelude.<$> conflictDetailLevel,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxMergeHunks" Core..=) Prelude.<$> maxMergeHunks,
-            ("conflictResolutionStrategy" Core..=)
+            ("conflictResolutionStrategy" Data..=)
               Prelude.<$> conflictResolutionStrategy,
+            ("maxMergeHunks" Data..=) Prelude.<$> maxMergeHunks,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("repositoryName" Core..= repositoryName),
+              ("repositoryName" Data..= repositoryName),
             Prelude.Just
               ( "destinationCommitSpecifier"
-                  Core..= destinationCommitSpecifier
+                  Data..= destinationCommitSpecifier
               ),
             Prelude.Just
               ( "sourceCommitSpecifier"
-                  Core..= sourceCommitSpecifier
+                  Data..= sourceCommitSpecifier
               ),
-            Prelude.Just ("mergeOption" Core..= mergeOption),
-            Prelude.Just ("filePath" Core..= filePath)
+            Prelude.Just ("mergeOption" Data..= mergeOption),
+            Prelude.Just ("filePath" Data..= filePath)
           ]
       )
 
-instance Core.ToPath DescribeMergeConflicts where
+instance Data.ToPath DescribeMergeConflicts where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeMergeConflicts where
+instance Data.ToQuery DescribeMergeConflicts where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeMergeConflictsResponse' smart constructor.

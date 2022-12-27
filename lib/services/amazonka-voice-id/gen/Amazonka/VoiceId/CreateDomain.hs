@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.VoiceId.CreateDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.VoiceId.CreateDomain
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,16 +57,16 @@ data CreateDomain = CreateDomain'
   { -- | The idempotency token for creating a new domain. If not provided, Amazon
     -- Web Services SDK populates this field.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | A brief description of this domain.
-    description :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    -- | A brief description of the domain.
+    description :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | A list of tags you want added to the domain.
     tags :: Prelude.Maybe [Tag],
     -- | The name of the domain.
-    name :: Core.Sensitive Prelude.Text,
-    -- | The configuration, containing the KMS Key Identifier, to be used by
+    name :: Data.Sensitive Prelude.Text,
+    -- | The configuration, containing the KMS key identifier, to be used by
     -- Voice ID for the server-side encryption of your data. Refer to
-    -- <https://docs.aws.amazon.com/connect/latest/adminguide/encryption-at-rest.html#encryption-at-rest-voiceid Amazon Connect VoiceID encryption at rest>
-    -- for more details on how the KMS Key is used.
+    -- <https://docs.aws.amazon.com/connect/latest/adminguide/encryption-at-rest.html#encryption-at-rest-voiceid Amazon Connect Voice ID encryption at rest>
+    -- for more details on how the KMS key is used.
     serverSideEncryptionConfiguration :: ServerSideEncryptionConfiguration
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
@@ -81,16 +82,16 @@ data CreateDomain = CreateDomain'
 -- 'clientToken', 'createDomain_clientToken' - The idempotency token for creating a new domain. If not provided, Amazon
 -- Web Services SDK populates this field.
 --
--- 'description', 'createDomain_description' - A brief description of this domain.
+-- 'description', 'createDomain_description' - A brief description of the domain.
 --
 -- 'tags', 'createDomain_tags' - A list of tags you want added to the domain.
 --
 -- 'name', 'createDomain_name' - The name of the domain.
 --
--- 'serverSideEncryptionConfiguration', 'createDomain_serverSideEncryptionConfiguration' - The configuration, containing the KMS Key Identifier, to be used by
+-- 'serverSideEncryptionConfiguration', 'createDomain_serverSideEncryptionConfiguration' - The configuration, containing the KMS key identifier, to be used by
 -- Voice ID for the server-side encryption of your data. Refer to
--- <https://docs.aws.amazon.com/connect/latest/adminguide/encryption-at-rest.html#encryption-at-rest-voiceid Amazon Connect VoiceID encryption at rest>
--- for more details on how the KMS Key is used.
+-- <https://docs.aws.amazon.com/connect/latest/adminguide/encryption-at-rest.html#encryption-at-rest-voiceid Amazon Connect Voice ID encryption at rest>
+-- for more details on how the KMS key is used.
 newCreateDomain ::
   -- | 'name'
   Prelude.Text ->
@@ -104,7 +105,7 @@ newCreateDomain
       { clientToken = Prelude.Nothing,
         description = Prelude.Nothing,
         tags = Prelude.Nothing,
-        name = Core._Sensitive Lens.# pName_,
+        name = Data._Sensitive Lens.# pName_,
         serverSideEncryptionConfiguration =
           pServerSideEncryptionConfiguration_
       }
@@ -114,9 +115,9 @@ newCreateDomain
 createDomain_clientToken :: Lens.Lens' CreateDomain (Prelude.Maybe Prelude.Text)
 createDomain_clientToken = Lens.lens (\CreateDomain' {clientToken} -> clientToken) (\s@CreateDomain' {} a -> s {clientToken = a} :: CreateDomain)
 
--- | A brief description of this domain.
+-- | A brief description of the domain.
 createDomain_description :: Lens.Lens' CreateDomain (Prelude.Maybe Prelude.Text)
-createDomain_description = Lens.lens (\CreateDomain' {description} -> description) (\s@CreateDomain' {} a -> s {description = a} :: CreateDomain) Prelude.. Lens.mapping Core._Sensitive
+createDomain_description = Lens.lens (\CreateDomain' {description} -> description) (\s@CreateDomain' {} a -> s {description = a} :: CreateDomain) Prelude.. Lens.mapping Data._Sensitive
 
 -- | A list of tags you want added to the domain.
 createDomain_tags :: Lens.Lens' CreateDomain (Prelude.Maybe [Tag])
@@ -124,23 +125,24 @@ createDomain_tags = Lens.lens (\CreateDomain' {tags} -> tags) (\s@CreateDomain' 
 
 -- | The name of the domain.
 createDomain_name :: Lens.Lens' CreateDomain Prelude.Text
-createDomain_name = Lens.lens (\CreateDomain' {name} -> name) (\s@CreateDomain' {} a -> s {name = a} :: CreateDomain) Prelude.. Core._Sensitive
+createDomain_name = Lens.lens (\CreateDomain' {name} -> name) (\s@CreateDomain' {} a -> s {name = a} :: CreateDomain) Prelude.. Data._Sensitive
 
--- | The configuration, containing the KMS Key Identifier, to be used by
+-- | The configuration, containing the KMS key identifier, to be used by
 -- Voice ID for the server-side encryption of your data. Refer to
--- <https://docs.aws.amazon.com/connect/latest/adminguide/encryption-at-rest.html#encryption-at-rest-voiceid Amazon Connect VoiceID encryption at rest>
--- for more details on how the KMS Key is used.
+-- <https://docs.aws.amazon.com/connect/latest/adminguide/encryption-at-rest.html#encryption-at-rest-voiceid Amazon Connect Voice ID encryption at rest>
+-- for more details on how the KMS key is used.
 createDomain_serverSideEncryptionConfiguration :: Lens.Lens' CreateDomain ServerSideEncryptionConfiguration
 createDomain_serverSideEncryptionConfiguration = Lens.lens (\CreateDomain' {serverSideEncryptionConfiguration} -> serverSideEncryptionConfiguration) (\s@CreateDomain' {} a -> s {serverSideEncryptionConfiguration = a} :: CreateDomain)
 
 instance Core.AWSRequest CreateDomain where
   type AWSResponse CreateDomain = CreateDomainResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateDomainResponse'
-            Prelude.<$> (x Core..?> "Domain")
+            Prelude.<$> (x Data..?> "Domain")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -160,38 +162,38 @@ instance Prelude.NFData CreateDomain where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf serverSideEncryptionConfiguration
 
-instance Core.ToHeaders CreateDomain where
+instance Data.ToHeaders CreateDomain where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("VoiceID.CreateDomain" :: Prelude.ByteString),
+              Data.=# ("VoiceID.CreateDomain" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateDomain where
+instance Data.ToJSON CreateDomain where
   toJSON CreateDomain' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ClientToken" Core..=) Prelude.<$> clientToken,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name),
+          [ ("ClientToken" Data..=) Prelude.<$> clientToken,
+            ("Description" Data..=) Prelude.<$> description,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name),
             Prelude.Just
               ( "ServerSideEncryptionConfiguration"
-                  Core..= serverSideEncryptionConfiguration
+                  Data..= serverSideEncryptionConfiguration
               )
           ]
       )
 
-instance Core.ToPath CreateDomain where
+instance Data.ToPath CreateDomain where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateDomain where
+instance Data.ToQuery CreateDomain where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateDomainResponse' smart constructor.

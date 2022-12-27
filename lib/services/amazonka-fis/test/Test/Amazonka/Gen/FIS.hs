@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.FIS
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,38 +27,44 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestGetExperimentTemplate $
---             newGetExperimentTemplate
---
---         , requestListActions $
---             newListActions
---
---         , requestListTagsForResource $
---             newListTagsForResource
---
---         , requestCreateExperimentTemplate $
+--         [ requestCreateExperimentTemplate $
 --             newCreateExperimentTemplate
---
---         , requestListExperiments $
---             newListExperiments
---
---         , requestUpdateExperimentTemplate $
---             newUpdateExperimentTemplate
---
---         , requestGetAction $
---             newGetAction
 --
 --         , requestDeleteExperimentTemplate $
 --             newDeleteExperimentTemplate
 --
---         , requestStartExperiment $
---             newStartExperiment
+--         , requestGetAction $
+--             newGetAction
 --
 --         , requestGetExperiment $
 --             newGetExperiment
 --
+--         , requestGetExperimentTemplate $
+--             newGetExperimentTemplate
+--
+--         , requestGetTargetResourceType $
+--             newGetTargetResourceType
+--
+--         , requestListActions $
+--             newListActions
+--
 --         , requestListExperimentTemplates $
 --             newListExperimentTemplates
+--
+--         , requestListExperiments $
+--             newListExperiments
+--
+--         , requestListTagsForResource $
+--             newListTagsForResource
+--
+--         , requestListTargetResourceTypes $
+--             newListTargetResourceTypes
+--
+--         , requestStartExperiment $
+--             newStartExperiment
+--
+--         , requestStopExperiment $
+--             newStopExperiment
 --
 --         , requestTagResource $
 --             newTagResource
@@ -66,44 +72,50 @@ import Test.Tasty
 --         , requestUntagResource $
 --             newUntagResource
 --
---         , requestStopExperiment $
---             newStopExperiment
+--         , requestUpdateExperimentTemplate $
+--             newUpdateExperimentTemplate
 --
 --           ]
 
 --     , testGroup "response"
---         [ responseGetExperimentTemplate $
---             newGetExperimentTemplateResponse
---
---         , responseListActions $
---             newListActionsResponse
---
---         , responseListTagsForResource $
---             newListTagsForResourceResponse
---
---         , responseCreateExperimentTemplate $
+--         [ responseCreateExperimentTemplate $
 --             newCreateExperimentTemplateResponse
---
---         , responseListExperiments $
---             newListExperimentsResponse
---
---         , responseUpdateExperimentTemplate $
---             newUpdateExperimentTemplateResponse
---
---         , responseGetAction $
---             newGetActionResponse
 --
 --         , responseDeleteExperimentTemplate $
 --             newDeleteExperimentTemplateResponse
 --
---         , responseStartExperiment $
---             newStartExperimentResponse
+--         , responseGetAction $
+--             newGetActionResponse
 --
 --         , responseGetExperiment $
 --             newGetExperimentResponse
 --
+--         , responseGetExperimentTemplate $
+--             newGetExperimentTemplateResponse
+--
+--         , responseGetTargetResourceType $
+--             newGetTargetResourceTypeResponse
+--
+--         , responseListActions $
+--             newListActionsResponse
+--
 --         , responseListExperimentTemplates $
 --             newListExperimentTemplatesResponse
+--
+--         , responseListExperiments $
+--             newListExperimentsResponse
+--
+--         , responseListTagsForResource $
+--             newListTagsForResourceResponse
+--
+--         , responseListTargetResourceTypes $
+--             newListTargetResourceTypesResponse
+--
+--         , responseStartExperiment $
+--             newStartExperimentResponse
+--
+--         , responseStopExperiment $
+--             newStopExperimentResponse
 --
 --         , responseTagResource $
 --             newTagResourceResponse
@@ -111,31 +123,13 @@ import Test.Tasty
 --         , responseUntagResource $
 --             newUntagResourceResponse
 --
---         , responseStopExperiment $
---             newStopExperimentResponse
+--         , responseUpdateExperimentTemplate $
+--             newUpdateExperimentTemplateResponse
 --
 --           ]
 --     ]
 
 -- Requests
-
-requestGetExperimentTemplate :: GetExperimentTemplate -> TestTree
-requestGetExperimentTemplate =
-  req
-    "GetExperimentTemplate"
-    "fixture/GetExperimentTemplate.yaml"
-
-requestListActions :: ListActions -> TestTree
-requestListActions =
-  req
-    "ListActions"
-    "fixture/ListActions.yaml"
-
-requestListTagsForResource :: ListTagsForResource -> TestTree
-requestListTagsForResource =
-  req
-    "ListTagsForResource"
-    "fixture/ListTagsForResource.yaml"
 
 requestCreateExperimentTemplate :: CreateExperimentTemplate -> TestTree
 requestCreateExperimentTemplate =
@@ -143,17 +137,11 @@ requestCreateExperimentTemplate =
     "CreateExperimentTemplate"
     "fixture/CreateExperimentTemplate.yaml"
 
-requestListExperiments :: ListExperiments -> TestTree
-requestListExperiments =
+requestDeleteExperimentTemplate :: DeleteExperimentTemplate -> TestTree
+requestDeleteExperimentTemplate =
   req
-    "ListExperiments"
-    "fixture/ListExperiments.yaml"
-
-requestUpdateExperimentTemplate :: UpdateExperimentTemplate -> TestTree
-requestUpdateExperimentTemplate =
-  req
-    "UpdateExperimentTemplate"
-    "fixture/UpdateExperimentTemplate.yaml"
+    "DeleteExperimentTemplate"
+    "fixture/DeleteExperimentTemplate.yaml"
 
 requestGetAction :: GetAction -> TestTree
 requestGetAction =
@@ -161,11 +149,53 @@ requestGetAction =
     "GetAction"
     "fixture/GetAction.yaml"
 
-requestDeleteExperimentTemplate :: DeleteExperimentTemplate -> TestTree
-requestDeleteExperimentTemplate =
+requestGetExperiment :: GetExperiment -> TestTree
+requestGetExperiment =
   req
-    "DeleteExperimentTemplate"
-    "fixture/DeleteExperimentTemplate.yaml"
+    "GetExperiment"
+    "fixture/GetExperiment.yaml"
+
+requestGetExperimentTemplate :: GetExperimentTemplate -> TestTree
+requestGetExperimentTemplate =
+  req
+    "GetExperimentTemplate"
+    "fixture/GetExperimentTemplate.yaml"
+
+requestGetTargetResourceType :: GetTargetResourceType -> TestTree
+requestGetTargetResourceType =
+  req
+    "GetTargetResourceType"
+    "fixture/GetTargetResourceType.yaml"
+
+requestListActions :: ListActions -> TestTree
+requestListActions =
+  req
+    "ListActions"
+    "fixture/ListActions.yaml"
+
+requestListExperimentTemplates :: ListExperimentTemplates -> TestTree
+requestListExperimentTemplates =
+  req
+    "ListExperimentTemplates"
+    "fixture/ListExperimentTemplates.yaml"
+
+requestListExperiments :: ListExperiments -> TestTree
+requestListExperiments =
+  req
+    "ListExperiments"
+    "fixture/ListExperiments.yaml"
+
+requestListTagsForResource :: ListTagsForResource -> TestTree
+requestListTagsForResource =
+  req
+    "ListTagsForResource"
+    "fixture/ListTagsForResource.yaml"
+
+requestListTargetResourceTypes :: ListTargetResourceTypes -> TestTree
+requestListTargetResourceTypes =
+  req
+    "ListTargetResourceTypes"
+    "fixture/ListTargetResourceTypes.yaml"
 
 requestStartExperiment :: StartExperiment -> TestTree
 requestStartExperiment =
@@ -173,17 +203,11 @@ requestStartExperiment =
     "StartExperiment"
     "fixture/StartExperiment.yaml"
 
-requestGetExperiment :: GetExperiment -> TestTree
-requestGetExperiment =
+requestStopExperiment :: StopExperiment -> TestTree
+requestStopExperiment =
   req
-    "GetExperiment"
-    "fixture/GetExperiment.yaml"
-
-requestListExperimentTemplates :: ListExperimentTemplates -> TestTree
-requestListExperimentTemplates =
-  req
-    "ListExperimentTemplates"
-    "fixture/ListExperimentTemplates.yaml"
+    "StopExperiment"
+    "fixture/StopExperiment.yaml"
 
 requestTagResource :: TagResource -> TestTree
 requestTagResource =
@@ -197,37 +221,13 @@ requestUntagResource =
     "UntagResource"
     "fixture/UntagResource.yaml"
 
-requestStopExperiment :: StopExperiment -> TestTree
-requestStopExperiment =
+requestUpdateExperimentTemplate :: UpdateExperimentTemplate -> TestTree
+requestUpdateExperimentTemplate =
   req
-    "StopExperiment"
-    "fixture/StopExperiment.yaml"
+    "UpdateExperimentTemplate"
+    "fixture/UpdateExperimentTemplate.yaml"
 
 -- Responses
-
-responseGetExperimentTemplate :: GetExperimentTemplateResponse -> TestTree
-responseGetExperimentTemplate =
-  res
-    "GetExperimentTemplateResponse"
-    "fixture/GetExperimentTemplateResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetExperimentTemplate)
-
-responseListActions :: ListActionsResponse -> TestTree
-responseListActions =
-  res
-    "ListActionsResponse"
-    "fixture/ListActionsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListActions)
-
-responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
-responseListTagsForResource =
-  res
-    "ListTagsForResourceResponse"
-    "fixture/ListTagsForResourceResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
 
 responseCreateExperimentTemplate :: CreateExperimentTemplateResponse -> TestTree
 responseCreateExperimentTemplate =
@@ -237,21 +237,13 @@ responseCreateExperimentTemplate =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CreateExperimentTemplate)
 
-responseListExperiments :: ListExperimentsResponse -> TestTree
-responseListExperiments =
+responseDeleteExperimentTemplate :: DeleteExperimentTemplateResponse -> TestTree
+responseDeleteExperimentTemplate =
   res
-    "ListExperimentsResponse"
-    "fixture/ListExperimentsResponse.proto"
+    "DeleteExperimentTemplateResponse"
+    "fixture/DeleteExperimentTemplateResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListExperiments)
-
-responseUpdateExperimentTemplate :: UpdateExperimentTemplateResponse -> TestTree
-responseUpdateExperimentTemplate =
-  res
-    "UpdateExperimentTemplateResponse"
-    "fixture/UpdateExperimentTemplateResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateExperimentTemplate)
+    (Proxy.Proxy :: Proxy.Proxy DeleteExperimentTemplate)
 
 responseGetAction :: GetActionResponse -> TestTree
 responseGetAction =
@@ -261,13 +253,69 @@ responseGetAction =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy GetAction)
 
-responseDeleteExperimentTemplate :: DeleteExperimentTemplateResponse -> TestTree
-responseDeleteExperimentTemplate =
+responseGetExperiment :: GetExperimentResponse -> TestTree
+responseGetExperiment =
   res
-    "DeleteExperimentTemplateResponse"
-    "fixture/DeleteExperimentTemplateResponse.proto"
+    "GetExperimentResponse"
+    "fixture/GetExperimentResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteExperimentTemplate)
+    (Proxy.Proxy :: Proxy.Proxy GetExperiment)
+
+responseGetExperimentTemplate :: GetExperimentTemplateResponse -> TestTree
+responseGetExperimentTemplate =
+  res
+    "GetExperimentTemplateResponse"
+    "fixture/GetExperimentTemplateResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetExperimentTemplate)
+
+responseGetTargetResourceType :: GetTargetResourceTypeResponse -> TestTree
+responseGetTargetResourceType =
+  res
+    "GetTargetResourceTypeResponse"
+    "fixture/GetTargetResourceTypeResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetTargetResourceType)
+
+responseListActions :: ListActionsResponse -> TestTree
+responseListActions =
+  res
+    "ListActionsResponse"
+    "fixture/ListActionsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListActions)
+
+responseListExperimentTemplates :: ListExperimentTemplatesResponse -> TestTree
+responseListExperimentTemplates =
+  res
+    "ListExperimentTemplatesResponse"
+    "fixture/ListExperimentTemplatesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListExperimentTemplates)
+
+responseListExperiments :: ListExperimentsResponse -> TestTree
+responseListExperiments =
+  res
+    "ListExperimentsResponse"
+    "fixture/ListExperimentsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListExperiments)
+
+responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
+responseListTagsForResource =
+  res
+    "ListTagsForResourceResponse"
+    "fixture/ListTagsForResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
+
+responseListTargetResourceTypes :: ListTargetResourceTypesResponse -> TestTree
+responseListTargetResourceTypes =
+  res
+    "ListTargetResourceTypesResponse"
+    "fixture/ListTargetResourceTypesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTargetResourceTypes)
 
 responseStartExperiment :: StartExperimentResponse -> TestTree
 responseStartExperiment =
@@ -277,21 +325,13 @@ responseStartExperiment =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy StartExperiment)
 
-responseGetExperiment :: GetExperimentResponse -> TestTree
-responseGetExperiment =
+responseStopExperiment :: StopExperimentResponse -> TestTree
+responseStopExperiment =
   res
-    "GetExperimentResponse"
-    "fixture/GetExperimentResponse.proto"
+    "StopExperimentResponse"
+    "fixture/StopExperimentResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetExperiment)
-
-responseListExperimentTemplates :: ListExperimentTemplatesResponse -> TestTree
-responseListExperimentTemplates =
-  res
-    "ListExperimentTemplatesResponse"
-    "fixture/ListExperimentTemplatesResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListExperimentTemplates)
+    (Proxy.Proxy :: Proxy.Proxy StopExperiment)
 
 responseTagResource :: TagResourceResponse -> TestTree
 responseTagResource =
@@ -309,10 +349,10 @@ responseUntagResource =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy UntagResource)
 
-responseStopExperiment :: StopExperimentResponse -> TestTree
-responseStopExperiment =
+responseUpdateExperimentTemplate :: UpdateExperimentTemplateResponse -> TestTree
+responseUpdateExperimentTemplate =
   res
-    "StopExperimentResponse"
-    "fixture/StopExperimentResponse.proto"
+    "UpdateExperimentTemplateResponse"
+    "fixture/UpdateExperimentTemplateResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy StopExperiment)
+    (Proxy.Proxy :: Proxy.Proxy UpdateExperimentTemplate)

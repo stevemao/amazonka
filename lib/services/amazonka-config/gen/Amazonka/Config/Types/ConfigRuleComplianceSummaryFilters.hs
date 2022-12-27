@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Config.Types.ConfigRuleComplianceSummaryFilters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Config.Types.ConfigRuleComplianceSummaryFilters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Filters the results based on the account IDs and regions.
@@ -81,13 +82,13 @@ instance
       `Prelude.seq` Prelude.rnf awsRegion
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ConfigRuleComplianceSummaryFilters
   where
   toJSON ConfigRuleComplianceSummaryFilters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AccountId" Core..=) Prelude.<$> accountId,
-            ("AwsRegion" Core..=) Prelude.<$> awsRegion
+          [ ("AccountId" Data..=) Prelude.<$> accountId,
+            ("AwsRegion" Data..=) Prelude.<$> awsRegion
           ]
       )

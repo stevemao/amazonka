@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.ListTagsForResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,9 +22,9 @@
 --
 -- Lists tags that are attached to the specified resource.
 --
--- You can attach tags to the following resources in AWS Organizations.
+-- You can attach tags to the following resources in Organizations.
 --
--- -   AWS account
+-- -   Amazon Web Services account
 --
 -- -   Organization root
 --
@@ -34,7 +34,7 @@
 --
 -- This operation can be called only from the organization\'s management
 -- account or by a member account that is a delegated administrator for an
--- AWS service.
+-- Amazon Web Services service.
 --
 -- This operation returns paginated results.
 module Amazonka.Organizations.ListTagsForResource
@@ -58,7 +58,8 @@ module Amazonka.Organizations.ListTagsForResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -76,7 +77,7 @@ data ListTagsForResource = ListTagsForResource'
     --
     -- You can specify any of the following taggable resources.
     --
-    -- -   AWS account – specify the account ID number.
+    -- -   Amazon Web Services account – specify the account ID number.
     --
     -- -   Organizational unit – specify the OU ID that begins with @ou-@ and
     --     looks similar to: @ou-1a2b-34uvwxyz @
@@ -108,7 +109,7 @@ data ListTagsForResource = ListTagsForResource'
 --
 -- You can specify any of the following taggable resources.
 --
--- -   AWS account – specify the account ID number.
+-- -   Amazon Web Services account – specify the account ID number.
 --
 -- -   Organizational unit – specify the OU ID that begins with @ou-@ and
 --     looks similar to: @ou-1a2b-34uvwxyz @
@@ -140,7 +141,7 @@ listTagsForResource_nextToken = Lens.lens (\ListTagsForResource' {nextToken} -> 
 --
 -- You can specify any of the following taggable resources.
 --
--- -   AWS account – specify the account ID number.
+-- -   Amazon Web Services account – specify the account ID number.
 --
 -- -   Organizational unit – specify the OU ID that begins with @ou-@ and
 --     looks similar to: @ou-1a2b-34uvwxyz @
@@ -179,13 +180,14 @@ instance Core.AWSRequest ListTagsForResource where
   type
     AWSResponse ListTagsForResource =
       ListTagsForResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTagsForResourceResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -199,34 +201,34 @@ instance Prelude.NFData ListTagsForResource where
     Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf resourceId
 
-instance Core.ToHeaders ListTagsForResource where
+instance Data.ToHeaders ListTagsForResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.ListTagsForResource" ::
+              Data.=# ( "AWSOrganizationsV20161128.ListTagsForResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTagsForResource where
+instance Data.ToJSON ListTagsForResource where
   toJSON ListTagsForResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            Prelude.Just ("ResourceId" Core..= resourceId)
+          [ ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("ResourceId" Data..= resourceId)
           ]
       )
 
-instance Core.ToPath ListTagsForResource where
+instance Data.ToPath ListTagsForResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTagsForResource where
+instance Data.ToQuery ListTagsForResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTagsForResourceResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchLogs.Types.SearchedLogStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudWatchLogs.Types.SearchedLogStream where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the search status of a log stream.
@@ -61,14 +62,14 @@ searchedLogStream_logStreamName = Lens.lens (\SearchedLogStream' {logStreamName}
 searchedLogStream_searchedCompletely :: Lens.Lens' SearchedLogStream (Prelude.Maybe Prelude.Bool)
 searchedLogStream_searchedCompletely = Lens.lens (\SearchedLogStream' {searchedCompletely} -> searchedCompletely) (\s@SearchedLogStream' {} a -> s {searchedCompletely = a} :: SearchedLogStream)
 
-instance Core.FromJSON SearchedLogStream where
+instance Data.FromJSON SearchedLogStream where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SearchedLogStream"
       ( \x ->
           SearchedLogStream'
-            Prelude.<$> (x Core..:? "logStreamName")
-            Prelude.<*> (x Core..:? "searchedCompletely")
+            Prelude.<$> (x Data..:? "logStreamName")
+            Prelude.<*> (x Data..:? "searchedCompletely")
       )
 
 instance Prelude.Hashable SearchedLogStream where

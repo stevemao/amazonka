@@ -14,22 +14,23 @@
 
 -- |
 -- Module      : Amazonka.SNS.DeleteSMSSandboxPhoneNumber
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an account\'s verified or pending phone number from the SMS
--- sandbox.
+-- Deletes an Amazon Web Services account\'s verified or pending phone
+-- number from the SMS sandbox.
 --
--- When you start using Amazon SNS to send SMS messages, your account is in
--- the /SMS sandbox/. The SMS sandbox provides a safe environment for you
--- to try Amazon SNS features without risking your reputation as an SMS
--- sender. While your account is in the SMS sandbox, you can use all of the
--- features of Amazon SNS. However, you can send SMS messages only to
--- verified destination phone numbers. For more information, including how
--- to move out of the sandbox to send messages without restrictions, see
+-- When you start using Amazon SNS to send SMS messages, your Amazon Web
+-- Services account is in the /SMS sandbox/. The SMS sandbox provides a
+-- safe environment for you to try Amazon SNS features without risking your
+-- reputation as an SMS sender. While your Amazon Web Services account is
+-- in the SMS sandbox, you can use all of the features of Amazon SNS.
+-- However, you can send SMS messages only to verified destination phone
+-- numbers. For more information, including how to move out of the sandbox
+-- to send messages without restrictions, see
 -- <https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html SMS sandbox>
 -- in the /Amazon SNS Developer Guide/.
 module Amazonka.SNS.DeleteSMSSandboxPhoneNumber
@@ -50,7 +51,8 @@ module Amazonka.SNS.DeleteSMSSandboxPhoneNumber
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,7 +92,8 @@ instance Core.AWSRequest DeleteSMSSandboxPhoneNumber where
   type
     AWSResponse DeleteSMSSandboxPhoneNumber =
       DeleteSMSSandboxPhoneNumberResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeleteSMSSandboxPhoneNumberResult"
@@ -107,22 +110,22 @@ instance Prelude.NFData DeleteSMSSandboxPhoneNumber where
   rnf DeleteSMSSandboxPhoneNumber' {..} =
     Prelude.rnf phoneNumber
 
-instance Core.ToHeaders DeleteSMSSandboxPhoneNumber where
+instance Data.ToHeaders DeleteSMSSandboxPhoneNumber where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteSMSSandboxPhoneNumber where
+instance Data.ToPath DeleteSMSSandboxPhoneNumber where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteSMSSandboxPhoneNumber where
+instance Data.ToQuery DeleteSMSSandboxPhoneNumber where
   toQuery DeleteSMSSandboxPhoneNumber' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DeleteSMSSandboxPhoneNumber" ::
+          Data.=: ( "DeleteSMSSandboxPhoneNumber" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-03-31" :: Prelude.ByteString),
-        "PhoneNumber" Core.=: phoneNumber
+          Data.=: ("2010-03-31" :: Prelude.ByteString),
+        "PhoneNumber" Data.=: phoneNumber
       ]
 
 -- | /See:/ 'newDeleteSMSSandboxPhoneNumberResponse' smart constructor.

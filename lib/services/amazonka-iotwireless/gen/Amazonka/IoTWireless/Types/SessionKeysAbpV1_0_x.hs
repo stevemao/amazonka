@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.Types.SessionKeysAbpV1_0_x
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.IoTWireless.Types.SessionKeysAbpV1_0_x where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Session keys for ABP v1.1
 --
 -- /See:/ 'newSessionKeysAbpV1_0_x' smart constructor.
 data SessionKeysAbpV1_0_x = SessionKeysAbpV1_0_x'
-  { -- | The NwkSKey value.
-    nwkSKey :: Prelude.Maybe Prelude.Text,
-    -- | The AppSKey value.
-    appSKey :: Prelude.Maybe Prelude.Text
+  { -- | The AppSKey value.
+    appSKey :: Prelude.Maybe Prelude.Text,
+    -- | The NwkSKey value.
+    nwkSKey :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,50 +43,50 @@ data SessionKeysAbpV1_0_x = SessionKeysAbpV1_0_x'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nwkSKey', 'sessionKeysAbpV1_0_x_nwkSKey' - The NwkSKey value.
---
 -- 'appSKey', 'sessionKeysAbpV1_0_x_appSKey' - The AppSKey value.
+--
+-- 'nwkSKey', 'sessionKeysAbpV1_0_x_nwkSKey' - The NwkSKey value.
 newSessionKeysAbpV1_0_x ::
   SessionKeysAbpV1_0_x
 newSessionKeysAbpV1_0_x =
   SessionKeysAbpV1_0_x'
-    { nwkSKey = Prelude.Nothing,
-      appSKey = Prelude.Nothing
+    { appSKey = Prelude.Nothing,
+      nwkSKey = Prelude.Nothing
     }
-
--- | The NwkSKey value.
-sessionKeysAbpV1_0_x_nwkSKey :: Lens.Lens' SessionKeysAbpV1_0_x (Prelude.Maybe Prelude.Text)
-sessionKeysAbpV1_0_x_nwkSKey = Lens.lens (\SessionKeysAbpV1_0_x' {nwkSKey} -> nwkSKey) (\s@SessionKeysAbpV1_0_x' {} a -> s {nwkSKey = a} :: SessionKeysAbpV1_0_x)
 
 -- | The AppSKey value.
 sessionKeysAbpV1_0_x_appSKey :: Lens.Lens' SessionKeysAbpV1_0_x (Prelude.Maybe Prelude.Text)
 sessionKeysAbpV1_0_x_appSKey = Lens.lens (\SessionKeysAbpV1_0_x' {appSKey} -> appSKey) (\s@SessionKeysAbpV1_0_x' {} a -> s {appSKey = a} :: SessionKeysAbpV1_0_x)
 
-instance Core.FromJSON SessionKeysAbpV1_0_x where
+-- | The NwkSKey value.
+sessionKeysAbpV1_0_x_nwkSKey :: Lens.Lens' SessionKeysAbpV1_0_x (Prelude.Maybe Prelude.Text)
+sessionKeysAbpV1_0_x_nwkSKey = Lens.lens (\SessionKeysAbpV1_0_x' {nwkSKey} -> nwkSKey) (\s@SessionKeysAbpV1_0_x' {} a -> s {nwkSKey = a} :: SessionKeysAbpV1_0_x)
+
+instance Data.FromJSON SessionKeysAbpV1_0_x where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SessionKeysAbpV1_0_x"
       ( \x ->
           SessionKeysAbpV1_0_x'
-            Prelude.<$> (x Core..:? "NwkSKey")
-            Prelude.<*> (x Core..:? "AppSKey")
+            Prelude.<$> (x Data..:? "AppSKey")
+            Prelude.<*> (x Data..:? "NwkSKey")
       )
 
 instance Prelude.Hashable SessionKeysAbpV1_0_x where
   hashWithSalt _salt SessionKeysAbpV1_0_x' {..} =
-    _salt `Prelude.hashWithSalt` nwkSKey
-      `Prelude.hashWithSalt` appSKey
+    _salt `Prelude.hashWithSalt` appSKey
+      `Prelude.hashWithSalt` nwkSKey
 
 instance Prelude.NFData SessionKeysAbpV1_0_x where
   rnf SessionKeysAbpV1_0_x' {..} =
-    Prelude.rnf nwkSKey
-      `Prelude.seq` Prelude.rnf appSKey
+    Prelude.rnf appSKey
+      `Prelude.seq` Prelude.rnf nwkSKey
 
-instance Core.ToJSON SessionKeysAbpV1_0_x where
+instance Data.ToJSON SessionKeysAbpV1_0_x where
   toJSON SessionKeysAbpV1_0_x' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NwkSKey" Core..=) Prelude.<$> nwkSKey,
-            ("AppSKey" Core..=) Prelude.<$> appSKey
+          [ ("AppSKey" Data..=) Prelude.<$> appSKey,
+            ("NwkSKey" Data..=) Prelude.<$> nwkSKey
           ]
       )

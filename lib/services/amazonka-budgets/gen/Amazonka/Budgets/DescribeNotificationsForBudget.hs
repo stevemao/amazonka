@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Budgets.DescribeNotificationsForBudget
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Budgets.DescribeNotificationsForBudget
     newDescribeNotificationsForBudget,
 
     -- * Request Lenses
-    describeNotificationsForBudget_nextToken,
     describeNotificationsForBudget_maxResults,
+    describeNotificationsForBudget_nextToken,
     describeNotificationsForBudget_accountId,
     describeNotificationsForBudget_budgetName,
 
@@ -47,7 +47,8 @@ where
 
 import Amazonka.Budgets.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,12 +57,12 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeNotificationsForBudget' smart constructor.
 data DescribeNotificationsForBudget = DescribeNotificationsForBudget'
-  { -- | The pagination token that you include in your request to indicate the
-    -- next set of results that you want to retrieve.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | An optional integer that represents how many entries a paginated
+  { -- | An optional integer that represents how many entries a paginated
     -- response contains. The maximum is 100.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token that you include in your request to indicate the
+    -- next set of results that you want to retrieve.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The @accountId@ that is associated with the budget whose notifications
     -- you want descriptions of.
     accountId :: Prelude.Text,
@@ -78,11 +79,11 @@ data DescribeNotificationsForBudget = DescribeNotificationsForBudget'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeNotificationsForBudget_nextToken' - The pagination token that you include in your request to indicate the
--- next set of results that you want to retrieve.
---
 -- 'maxResults', 'describeNotificationsForBudget_maxResults' - An optional integer that represents how many entries a paginated
 -- response contains. The maximum is 100.
+--
+-- 'nextToken', 'describeNotificationsForBudget_nextToken' - The pagination token that you include in your request to indicate the
+-- next set of results that you want to retrieve.
 --
 -- 'accountId', 'describeNotificationsForBudget_accountId' - The @accountId@ that is associated with the budget whose notifications
 -- you want descriptions of.
@@ -98,22 +99,22 @@ newDescribeNotificationsForBudget
   pAccountId_
   pBudgetName_ =
     DescribeNotificationsForBudget'
-      { nextToken =
+      { maxResults =
           Prelude.Nothing,
-        maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         accountId = pAccountId_,
         budgetName = pBudgetName_
       }
-
--- | The pagination token that you include in your request to indicate the
--- next set of results that you want to retrieve.
-describeNotificationsForBudget_nextToken :: Lens.Lens' DescribeNotificationsForBudget (Prelude.Maybe Prelude.Text)
-describeNotificationsForBudget_nextToken = Lens.lens (\DescribeNotificationsForBudget' {nextToken} -> nextToken) (\s@DescribeNotificationsForBudget' {} a -> s {nextToken = a} :: DescribeNotificationsForBudget)
 
 -- | An optional integer that represents how many entries a paginated
 -- response contains. The maximum is 100.
 describeNotificationsForBudget_maxResults :: Lens.Lens' DescribeNotificationsForBudget (Prelude.Maybe Prelude.Natural)
 describeNotificationsForBudget_maxResults = Lens.lens (\DescribeNotificationsForBudget' {maxResults} -> maxResults) (\s@DescribeNotificationsForBudget' {} a -> s {maxResults = a} :: DescribeNotificationsForBudget)
+
+-- | The pagination token that you include in your request to indicate the
+-- next set of results that you want to retrieve.
+describeNotificationsForBudget_nextToken :: Lens.Lens' DescribeNotificationsForBudget (Prelude.Maybe Prelude.Text)
+describeNotificationsForBudget_nextToken = Lens.lens (\DescribeNotificationsForBudget' {nextToken} -> nextToken) (\s@DescribeNotificationsForBudget' {} a -> s {nextToken = a} :: DescribeNotificationsForBudget)
 
 -- | The @accountId@ that is associated with the budget whose notifications
 -- you want descriptions of.
@@ -153,13 +154,14 @@ instance
   type
     AWSResponse DescribeNotificationsForBudget =
       DescribeNotificationsForBudgetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeNotificationsForBudgetResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Notifications" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Notifications" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -170,8 +172,8 @@ instance
   hashWithSalt
     _salt
     DescribeNotificationsForBudget' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` accountId
         `Prelude.hashWithSalt` budgetName
 
@@ -180,44 +182,44 @@ instance
     DescribeNotificationsForBudget
   where
   rnf DescribeNotificationsForBudget' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf budgetName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeNotificationsForBudget
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSBudgetServiceGateway.DescribeNotificationsForBudget" ::
+              Data.=# ( "AWSBudgetServiceGateway.DescribeNotificationsForBudget" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeNotificationsForBudget where
+instance Data.ToJSON DescribeNotificationsForBudget where
   toJSON DescribeNotificationsForBudget' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("AccountId" Core..= accountId),
-            Prelude.Just ("BudgetName" Core..= budgetName)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("AccountId" Data..= accountId),
+            Prelude.Just ("BudgetName" Data..= budgetName)
           ]
       )
 
-instance Core.ToPath DescribeNotificationsForBudget where
+instance Data.ToPath DescribeNotificationsForBudget where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeNotificationsForBudget where
+instance Data.ToQuery DescribeNotificationsForBudget where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Response of GetNotificationsForBudget

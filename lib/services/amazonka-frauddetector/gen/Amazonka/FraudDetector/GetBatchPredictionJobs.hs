@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.GetBatchPredictionJobs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,8 +34,8 @@ module Amazonka.FraudDetector.GetBatchPredictionJobs
 
     -- * Request Lenses
     getBatchPredictionJobs_jobId,
-    getBatchPredictionJobs_nextToken,
     getBatchPredictionJobs_maxResults,
+    getBatchPredictionJobs_nextToken,
 
     -- * Destructuring the Response
     GetBatchPredictionJobsResponse (..),
@@ -49,8 +49,9 @@ module Amazonka.FraudDetector.GetBatchPredictionJobs
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,10 +60,10 @@ import qualified Amazonka.Response as Response
 data GetBatchPredictionJobs = GetBatchPredictionJobs'
   { -- | The batch prediction job for which to get the details.
     jobId :: Prelude.Maybe Prelude.Text,
-    -- | The next token from the previous request.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of objects to return for the request.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The next token from the previous request.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -76,87 +77,88 @@ data GetBatchPredictionJobs = GetBatchPredictionJobs'
 --
 -- 'jobId', 'getBatchPredictionJobs_jobId' - The batch prediction job for which to get the details.
 --
--- 'nextToken', 'getBatchPredictionJobs_nextToken' - The next token from the previous request.
---
 -- 'maxResults', 'getBatchPredictionJobs_maxResults' - The maximum number of objects to return for the request.
+--
+-- 'nextToken', 'getBatchPredictionJobs_nextToken' - The next token from the previous request.
 newGetBatchPredictionJobs ::
   GetBatchPredictionJobs
 newGetBatchPredictionJobs =
   GetBatchPredictionJobs'
     { jobId = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | The batch prediction job for which to get the details.
 getBatchPredictionJobs_jobId :: Lens.Lens' GetBatchPredictionJobs (Prelude.Maybe Prelude.Text)
 getBatchPredictionJobs_jobId = Lens.lens (\GetBatchPredictionJobs' {jobId} -> jobId) (\s@GetBatchPredictionJobs' {} a -> s {jobId = a} :: GetBatchPredictionJobs)
 
--- | The next token from the previous request.
-getBatchPredictionJobs_nextToken :: Lens.Lens' GetBatchPredictionJobs (Prelude.Maybe Prelude.Text)
-getBatchPredictionJobs_nextToken = Lens.lens (\GetBatchPredictionJobs' {nextToken} -> nextToken) (\s@GetBatchPredictionJobs' {} a -> s {nextToken = a} :: GetBatchPredictionJobs)
-
 -- | The maximum number of objects to return for the request.
 getBatchPredictionJobs_maxResults :: Lens.Lens' GetBatchPredictionJobs (Prelude.Maybe Prelude.Natural)
 getBatchPredictionJobs_maxResults = Lens.lens (\GetBatchPredictionJobs' {maxResults} -> maxResults) (\s@GetBatchPredictionJobs' {} a -> s {maxResults = a} :: GetBatchPredictionJobs)
+
+-- | The next token from the previous request.
+getBatchPredictionJobs_nextToken :: Lens.Lens' GetBatchPredictionJobs (Prelude.Maybe Prelude.Text)
+getBatchPredictionJobs_nextToken = Lens.lens (\GetBatchPredictionJobs' {nextToken} -> nextToken) (\s@GetBatchPredictionJobs' {} a -> s {nextToken = a} :: GetBatchPredictionJobs)
 
 instance Core.AWSRequest GetBatchPredictionJobs where
   type
     AWSResponse GetBatchPredictionJobs =
       GetBatchPredictionJobsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetBatchPredictionJobsResponse'
-            Prelude.<$> ( x Core..?> "batchPredictions"
+            Prelude.<$> ( x Data..?> "batchPredictions"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetBatchPredictionJobs where
   hashWithSalt _salt GetBatchPredictionJobs' {..} =
     _salt `Prelude.hashWithSalt` jobId
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData GetBatchPredictionJobs where
   rnf GetBatchPredictionJobs' {..} =
     Prelude.rnf jobId
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders GetBatchPredictionJobs where
+instance Data.ToHeaders GetBatchPredictionJobs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.GetBatchPredictionJobs" ::
+              Data.=# ( "AWSHawksNestServiceFacade.GetBatchPredictionJobs" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetBatchPredictionJobs where
+instance Data.ToJSON GetBatchPredictionJobs where
   toJSON GetBatchPredictionJobs' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("jobId" Core..=) Prelude.<$> jobId,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("jobId" Data..=) Prelude.<$> jobId,
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath GetBatchPredictionJobs where
+instance Data.ToPath GetBatchPredictionJobs where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetBatchPredictionJobs where
+instance Data.ToQuery GetBatchPredictionJobs where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetBatchPredictionJobsResponse' smart constructor.

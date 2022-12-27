@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeArtifact.DeletePackageVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,9 +34,9 @@ module Amazonka.CodeArtifact.DeletePackageVersions
     newDeletePackageVersions,
 
     -- * Request Lenses
+    deletePackageVersions_domainOwner,
     deletePackageVersions_expectedStatus,
     deletePackageVersions_namespace,
-    deletePackageVersions_domainOwner,
     deletePackageVersions_domain,
     deletePackageVersions_repository,
     deletePackageVersions_format,
@@ -56,49 +56,36 @@ where
 
 import Amazonka.CodeArtifact.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeletePackageVersions' smart constructor.
 data DeletePackageVersions = DeletePackageVersions'
-  { -- | The expected status of the package version to delete. Valid values are:
-    --
-    -- -   @Published@
-    --
-    -- -   @Unfinished@
-    --
-    -- -   @Unlisted@
-    --
-    -- -   @Archived@
-    --
-    -- -   @Disposed@
-    expectedStatus :: Prelude.Maybe PackageVersionStatus,
-    -- | The namespace of the package. The package component that specifies its
-    -- namespace depends on its type. For example:
-    --
-    -- -   The namespace of a Maven package is its @groupId@.
-    --
-    -- -   The namespace of an npm package is its @scope@.
-    --
-    -- -   A Python package does not contain a corresponding component, so
-    --     Python packages do not have a namespace.
-    namespace :: Prelude.Maybe Prelude.Text,
-    -- | The 12-digit account number of the AWS account that owns the domain. It
-    -- does not include dashes or spaces.
+  { -- | The 12-digit account number of the Amazon Web Services account that owns
+    -- the domain. It does not include dashes or spaces.
     domainOwner :: Prelude.Maybe Prelude.Text,
+    -- | The expected status of the package version to delete.
+    expectedStatus :: Prelude.Maybe PackageVersionStatus,
+    -- | The namespace of the package versions to be deleted. The package version
+    -- component that specifies its namespace depends on its type. For example:
+    --
+    -- -   The namespace of a Maven package version is its @groupId@. The
+    --     namespace is required when deleting Maven package versions.
+    --
+    -- -   The namespace of an npm package version is its @scope@.
+    --
+    -- -   Python and NuGet package versions do not contain a corresponding
+    --     component, package versions of those formats do not have a
+    --     namespace.
+    namespace :: Prelude.Maybe Prelude.Text,
     -- | The name of the domain that contains the package to delete.
     domain :: Prelude.Text,
     -- | The name of the repository that contains the package versions to delete.
     repository :: Prelude.Text,
-    -- | The format of the package versions to delete. The valid values are:
-    --
-    -- -   @npm@
-    --
-    -- -   @pypi@
-    --
-    -- -   @maven@
+    -- | The format of the package versions to delete.
     format :: PackageFormat,
     -- | The name of the package with the versions to delete.
     package :: Prelude.Text,
@@ -115,42 +102,28 @@ data DeletePackageVersions = DeletePackageVersions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'expectedStatus', 'deletePackageVersions_expectedStatus' - The expected status of the package version to delete. Valid values are:
+-- 'domainOwner', 'deletePackageVersions_domainOwner' - The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
 --
--- -   @Published@
+-- 'expectedStatus', 'deletePackageVersions_expectedStatus' - The expected status of the package version to delete.
 --
--- -   @Unfinished@
+-- 'namespace', 'deletePackageVersions_namespace' - The namespace of the package versions to be deleted. The package version
+-- component that specifies its namespace depends on its type. For example:
 --
--- -   @Unlisted@
+-- -   The namespace of a Maven package version is its @groupId@. The
+--     namespace is required when deleting Maven package versions.
 --
--- -   @Archived@
+-- -   The namespace of an npm package version is its @scope@.
 --
--- -   @Disposed@
---
--- 'namespace', 'deletePackageVersions_namespace' - The namespace of the package. The package component that specifies its
--- namespace depends on its type. For example:
---
--- -   The namespace of a Maven package is its @groupId@.
---
--- -   The namespace of an npm package is its @scope@.
---
--- -   A Python package does not contain a corresponding component, so
---     Python packages do not have a namespace.
---
--- 'domainOwner', 'deletePackageVersions_domainOwner' - The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
+-- -   Python and NuGet package versions do not contain a corresponding
+--     component, package versions of those formats do not have a
+--     namespace.
 --
 -- 'domain', 'deletePackageVersions_domain' - The name of the domain that contains the package to delete.
 --
 -- 'repository', 'deletePackageVersions_repository' - The name of the repository that contains the package versions to delete.
 --
--- 'format', 'deletePackageVersions_format' - The format of the package versions to delete. The valid values are:
---
--- -   @npm@
---
--- -   @pypi@
---
--- -   @maven@
+-- 'format', 'deletePackageVersions_format' - The format of the package versions to delete.
 --
 -- 'package', 'deletePackageVersions_package' - The name of the package with the versions to delete.
 --
@@ -171,10 +144,10 @@ newDeletePackageVersions
   pFormat_
   pPackage_ =
     DeletePackageVersions'
-      { expectedStatus =
+      { domainOwner =
           Prelude.Nothing,
+        expectedStatus = Prelude.Nothing,
         namespace = Prelude.Nothing,
-        domainOwner = Prelude.Nothing,
         domain = pDomain_,
         repository = pRepository_,
         format = pFormat_,
@@ -182,36 +155,28 @@ newDeletePackageVersions
         versions = Prelude.mempty
       }
 
--- | The expected status of the package version to delete. Valid values are:
---
--- -   @Published@
---
--- -   @Unfinished@
---
--- -   @Unlisted@
---
--- -   @Archived@
---
--- -   @Disposed@
+-- | The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
+deletePackageVersions_domainOwner :: Lens.Lens' DeletePackageVersions (Prelude.Maybe Prelude.Text)
+deletePackageVersions_domainOwner = Lens.lens (\DeletePackageVersions' {domainOwner} -> domainOwner) (\s@DeletePackageVersions' {} a -> s {domainOwner = a} :: DeletePackageVersions)
+
+-- | The expected status of the package version to delete.
 deletePackageVersions_expectedStatus :: Lens.Lens' DeletePackageVersions (Prelude.Maybe PackageVersionStatus)
 deletePackageVersions_expectedStatus = Lens.lens (\DeletePackageVersions' {expectedStatus} -> expectedStatus) (\s@DeletePackageVersions' {} a -> s {expectedStatus = a} :: DeletePackageVersions)
 
--- | The namespace of the package. The package component that specifies its
--- namespace depends on its type. For example:
+-- | The namespace of the package versions to be deleted. The package version
+-- component that specifies its namespace depends on its type. For example:
 --
--- -   The namespace of a Maven package is its @groupId@.
+-- -   The namespace of a Maven package version is its @groupId@. The
+--     namespace is required when deleting Maven package versions.
 --
--- -   The namespace of an npm package is its @scope@.
+-- -   The namespace of an npm package version is its @scope@.
 --
--- -   A Python package does not contain a corresponding component, so
---     Python packages do not have a namespace.
+-- -   Python and NuGet package versions do not contain a corresponding
+--     component, package versions of those formats do not have a
+--     namespace.
 deletePackageVersions_namespace :: Lens.Lens' DeletePackageVersions (Prelude.Maybe Prelude.Text)
 deletePackageVersions_namespace = Lens.lens (\DeletePackageVersions' {namespace} -> namespace) (\s@DeletePackageVersions' {} a -> s {namespace = a} :: DeletePackageVersions)
-
--- | The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
-deletePackageVersions_domainOwner :: Lens.Lens' DeletePackageVersions (Prelude.Maybe Prelude.Text)
-deletePackageVersions_domainOwner = Lens.lens (\DeletePackageVersions' {domainOwner} -> domainOwner) (\s@DeletePackageVersions' {} a -> s {domainOwner = a} :: DeletePackageVersions)
 
 -- | The name of the domain that contains the package to delete.
 deletePackageVersions_domain :: Lens.Lens' DeletePackageVersions Prelude.Text
@@ -221,13 +186,7 @@ deletePackageVersions_domain = Lens.lens (\DeletePackageVersions' {domain} -> do
 deletePackageVersions_repository :: Lens.Lens' DeletePackageVersions Prelude.Text
 deletePackageVersions_repository = Lens.lens (\DeletePackageVersions' {repository} -> repository) (\s@DeletePackageVersions' {} a -> s {repository = a} :: DeletePackageVersions)
 
--- | The format of the package versions to delete. The valid values are:
---
--- -   @npm@
---
--- -   @pypi@
---
--- -   @maven@
+-- | The format of the package versions to delete.
 deletePackageVersions_format :: Lens.Lens' DeletePackageVersions PackageFormat
 deletePackageVersions_format = Lens.lens (\DeletePackageVersions' {format} -> format) (\s@DeletePackageVersions' {} a -> s {format = a} :: DeletePackageVersions)
 
@@ -243,13 +202,14 @@ instance Core.AWSRequest DeletePackageVersions where
   type
     AWSResponse DeletePackageVersions =
       DeletePackageVersionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeletePackageVersionsResponse'
-            Prelude.<$> (x Core..?> "failedVersions" Core..!@ Prelude.mempty)
-            Prelude.<*> ( x Core..?> "successfulVersions"
+            Prelude.<$> (x Data..?> "failedVersions" Core..!@ Prelude.mempty)
+            Prelude.<*> ( x Data..?> "successfulVersions"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -257,9 +217,9 @@ instance Core.AWSRequest DeletePackageVersions where
 
 instance Prelude.Hashable DeletePackageVersions where
   hashWithSalt _salt DeletePackageVersions' {..} =
-    _salt `Prelude.hashWithSalt` expectedStatus
+    _salt `Prelude.hashWithSalt` domainOwner
+      `Prelude.hashWithSalt` expectedStatus
       `Prelude.hashWithSalt` namespace
-      `Prelude.hashWithSalt` domainOwner
       `Prelude.hashWithSalt` domain
       `Prelude.hashWithSalt` repository
       `Prelude.hashWithSalt` format
@@ -268,48 +228,48 @@ instance Prelude.Hashable DeletePackageVersions where
 
 instance Prelude.NFData DeletePackageVersions where
   rnf DeletePackageVersions' {..} =
-    Prelude.rnf expectedStatus
+    Prelude.rnf domainOwner
+      `Prelude.seq` Prelude.rnf expectedStatus
       `Prelude.seq` Prelude.rnf namespace
-      `Prelude.seq` Prelude.rnf domainOwner
       `Prelude.seq` Prelude.rnf domain
       `Prelude.seq` Prelude.rnf repository
       `Prelude.seq` Prelude.rnf format
       `Prelude.seq` Prelude.rnf package
       `Prelude.seq` Prelude.rnf versions
 
-instance Core.ToHeaders DeletePackageVersions where
+instance Data.ToHeaders DeletePackageVersions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeletePackageVersions where
+instance Data.ToJSON DeletePackageVersions where
   toJSON DeletePackageVersions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("expectedStatus" Core..=)
+          [ ("expectedStatus" Data..=)
               Prelude.<$> expectedStatus,
-            Prelude.Just ("versions" Core..= versions)
+            Prelude.Just ("versions" Data..= versions)
           ]
       )
 
-instance Core.ToPath DeletePackageVersions where
+instance Data.ToPath DeletePackageVersions where
   toPath = Prelude.const "/v1/package/versions/delete"
 
-instance Core.ToQuery DeletePackageVersions where
+instance Data.ToQuery DeletePackageVersions where
   toQuery DeletePackageVersions' {..} =
     Prelude.mconcat
-      [ "namespace" Core.=: namespace,
-        "domain-owner" Core.=: domainOwner,
-        "domain" Core.=: domain,
-        "repository" Core.=: repository,
-        "format" Core.=: format,
-        "package" Core.=: package
+      [ "domain-owner" Data.=: domainOwner,
+        "namespace" Data.=: namespace,
+        "domain" Data.=: domain,
+        "repository" Data.=: repository,
+        "format" Data.=: format,
+        "package" Data.=: package
       ]
 
 -- | /See:/ 'newDeletePackageVersionsResponse' smart constructor.
@@ -329,7 +289,8 @@ data DeletePackageVersionsResponse = DeletePackageVersionsResponse'
     --
     -- -   @SKIPPED@
     failedVersions :: Prelude.Maybe (Prelude.HashMap Prelude.Text PackageVersionError),
-    -- | A list of the package versions that were successfully deleted.
+    -- | A list of the package versions that were successfully deleted. The
+    -- status of every successful version will be @Deleted@.
     successfulVersions :: Prelude.Maybe (Prelude.HashMap Prelude.Text SuccessfulPackageVersionInfo),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -359,7 +320,8 @@ data DeletePackageVersionsResponse = DeletePackageVersionsResponse'
 --
 -- -   @SKIPPED@
 --
--- 'successfulVersions', 'deletePackageVersionsResponse_successfulVersions' - A list of the package versions that were successfully deleted.
+-- 'successfulVersions', 'deletePackageVersionsResponse_successfulVersions' - A list of the package versions that were successfully deleted. The
+-- status of every successful version will be @Deleted@.
 --
 -- 'httpStatus', 'deletePackageVersionsResponse_httpStatus' - The response's http status code.
 newDeletePackageVersionsResponse ::
@@ -391,7 +353,8 @@ newDeletePackageVersionsResponse pHttpStatus_ =
 deletePackageVersionsResponse_failedVersions :: Lens.Lens' DeletePackageVersionsResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text PackageVersionError))
 deletePackageVersionsResponse_failedVersions = Lens.lens (\DeletePackageVersionsResponse' {failedVersions} -> failedVersions) (\s@DeletePackageVersionsResponse' {} a -> s {failedVersions = a} :: DeletePackageVersionsResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | A list of the package versions that were successfully deleted.
+-- | A list of the package versions that were successfully deleted. The
+-- status of every successful version will be @Deleted@.
 deletePackageVersionsResponse_successfulVersions :: Lens.Lens' DeletePackageVersionsResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text SuccessfulPackageVersionInfo))
 deletePackageVersionsResponse_successfulVersions = Lens.lens (\DeletePackageVersionsResponse' {successfulVersions} -> successfulVersions) (\s@DeletePackageVersionsResponse' {} a -> s {successfulVersions = a} :: DeletePackageVersionsResponse) Prelude.. Lens.mapping Lens.coerced
 

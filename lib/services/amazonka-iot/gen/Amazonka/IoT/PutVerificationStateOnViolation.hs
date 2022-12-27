@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.PutVerificationStateOnViolation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.IoT.PutVerificationStateOnViolation
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -110,7 +111,8 @@ instance
   type
     AWSResponse PutVerificationStateOnViolation =
       PutVerificationStateOnViolationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -140,30 +142,30 @@ instance
       `Prelude.seq` Prelude.rnf verificationState
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     PutVerificationStateOnViolation
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON PutVerificationStateOnViolation where
+instance Data.ToJSON PutVerificationStateOnViolation where
   toJSON PutVerificationStateOnViolation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("verificationStateDescription" Core..=)
+          [ ("verificationStateDescription" Data..=)
               Prelude.<$> verificationStateDescription,
             Prelude.Just
-              ("verificationState" Core..= verificationState)
+              ("verificationState" Data..= verificationState)
           ]
       )
 
-instance Core.ToPath PutVerificationStateOnViolation where
+instance Data.ToPath PutVerificationStateOnViolation where
   toPath PutVerificationStateOnViolation' {..} =
     Prelude.mconcat
       [ "/violations/verification-state/",
-        Core.toBS violationId
+        Data.toBS violationId
       ]
 
-instance Core.ToQuery PutVerificationStateOnViolation where
+instance Data.ToQuery PutVerificationStateOnViolation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutVerificationStateOnViolationResponse' smart constructor.

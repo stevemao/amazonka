@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.UpdateEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,8 +25,8 @@
 -- the endpoint using the previous @EndpointConfig@ (there is no
 -- availability loss).
 --
--- When Amazon SageMaker receives the request, it sets the endpoint status
--- to @Updating@. After updating the endpoint, it sets the status to
+-- When SageMaker receives the request, it sets the endpoint status to
+-- @Updating@. After updating the endpoint, it sets the status to
 -- @InService@. To check the status of an endpoint, use the
 -- DescribeEndpoint API.
 --
@@ -45,9 +45,10 @@ module Amazonka.SageMaker.UpdateEndpoint
     newUpdateEndpoint,
 
     -- * Request Lenses
+    updateEndpoint_deploymentConfig,
     updateEndpoint_excludeRetainedVariantProperties,
     updateEndpoint_retainAllVariantProperties,
-    updateEndpoint_deploymentConfig,
+    updateEndpoint_retainDeploymentConfig,
     updateEndpoint_endpointName,
     updateEndpoint_endpointConfigName,
 
@@ -62,7 +63,8 @@ module Amazonka.SageMaker.UpdateEndpoint
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -70,7 +72,10 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newUpdateEndpoint' smart constructor.
 data UpdateEndpoint = UpdateEndpoint'
-  { -- | When you are updating endpoint resources with
+  { -- | The deployment configuration for an endpoint, which contains the desired
+    -- deployment strategy and rollback configurations.
+    deploymentConfig :: Prelude.Maybe DeploymentConfig,
+    -- | When you are updating endpoint resources with
     -- UpdateEndpointInput$RetainAllVariantProperties, whose value is set to
     -- @true@, @ExcludeRetainedVariantProperties@ specifies the list of type
     -- VariantProperty to override with the values provided by
@@ -85,8 +90,9 @@ data UpdateEndpoint = UpdateEndpoint'
     -- specified in a new @EndpointConfig@ call when updating an endpoint, set
     -- @RetainAllVariantProperties@ to @false@. The default is @false@.
     retainAllVariantProperties :: Prelude.Maybe Prelude.Bool,
-    -- | The deployment configuration for the endpoint to be updated.
-    deploymentConfig :: Prelude.Maybe DeploymentConfig,
+    -- | Specifies whether to reuse the last deployment configuration. The
+    -- default value is false (the configuration is not reused).
+    retainDeploymentConfig :: Prelude.Maybe Prelude.Bool,
     -- | The name of the endpoint whose configuration you want to update.
     endpointName :: Prelude.Text,
     -- | The name of the new endpoint configuration.
@@ -101,6 +107,9 @@ data UpdateEndpoint = UpdateEndpoint'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'deploymentConfig', 'updateEndpoint_deploymentConfig' - The deployment configuration for an endpoint, which contains the desired
+-- deployment strategy and rollback configurations.
 --
 -- 'excludeRetainedVariantProperties', 'updateEndpoint_excludeRetainedVariantProperties' - When you are updating endpoint resources with
 -- UpdateEndpointInput$RetainAllVariantProperties, whose value is set to
@@ -117,7 +126,8 @@ data UpdateEndpoint = UpdateEndpoint'
 -- specified in a new @EndpointConfig@ call when updating an endpoint, set
 -- @RetainAllVariantProperties@ to @false@. The default is @false@.
 --
--- 'deploymentConfig', 'updateEndpoint_deploymentConfig' - The deployment configuration for the endpoint to be updated.
+-- 'retainDeploymentConfig', 'updateEndpoint_retainDeploymentConfig' - Specifies whether to reuse the last deployment configuration. The
+-- default value is false (the configuration is not reused).
 --
 -- 'endpointName', 'updateEndpoint_endpointName' - The name of the endpoint whose configuration you want to update.
 --
@@ -130,13 +140,18 @@ newUpdateEndpoint ::
   UpdateEndpoint
 newUpdateEndpoint pEndpointName_ pEndpointConfigName_ =
   UpdateEndpoint'
-    { excludeRetainedVariantProperties =
-        Prelude.Nothing,
+    { deploymentConfig = Prelude.Nothing,
+      excludeRetainedVariantProperties = Prelude.Nothing,
       retainAllVariantProperties = Prelude.Nothing,
-      deploymentConfig = Prelude.Nothing,
+      retainDeploymentConfig = Prelude.Nothing,
       endpointName = pEndpointName_,
       endpointConfigName = pEndpointConfigName_
     }
+
+-- | The deployment configuration for an endpoint, which contains the desired
+-- deployment strategy and rollback configurations.
+updateEndpoint_deploymentConfig :: Lens.Lens' UpdateEndpoint (Prelude.Maybe DeploymentConfig)
+updateEndpoint_deploymentConfig = Lens.lens (\UpdateEndpoint' {deploymentConfig} -> deploymentConfig) (\s@UpdateEndpoint' {} a -> s {deploymentConfig = a} :: UpdateEndpoint)
 
 -- | When you are updating endpoint resources with
 -- UpdateEndpointInput$RetainAllVariantProperties, whose value is set to
@@ -157,9 +172,10 @@ updateEndpoint_excludeRetainedVariantProperties = Lens.lens (\UpdateEndpoint' {e
 updateEndpoint_retainAllVariantProperties :: Lens.Lens' UpdateEndpoint (Prelude.Maybe Prelude.Bool)
 updateEndpoint_retainAllVariantProperties = Lens.lens (\UpdateEndpoint' {retainAllVariantProperties} -> retainAllVariantProperties) (\s@UpdateEndpoint' {} a -> s {retainAllVariantProperties = a} :: UpdateEndpoint)
 
--- | The deployment configuration for the endpoint to be updated.
-updateEndpoint_deploymentConfig :: Lens.Lens' UpdateEndpoint (Prelude.Maybe DeploymentConfig)
-updateEndpoint_deploymentConfig = Lens.lens (\UpdateEndpoint' {deploymentConfig} -> deploymentConfig) (\s@UpdateEndpoint' {} a -> s {deploymentConfig = a} :: UpdateEndpoint)
+-- | Specifies whether to reuse the last deployment configuration. The
+-- default value is false (the configuration is not reused).
+updateEndpoint_retainDeploymentConfig :: Lens.Lens' UpdateEndpoint (Prelude.Maybe Prelude.Bool)
+updateEndpoint_retainDeploymentConfig = Lens.lens (\UpdateEndpoint' {retainDeploymentConfig} -> retainDeploymentConfig) (\s@UpdateEndpoint' {} a -> s {retainDeploymentConfig = a} :: UpdateEndpoint)
 
 -- | The name of the endpoint whose configuration you want to update.
 updateEndpoint_endpointName :: Lens.Lens' UpdateEndpoint Prelude.Text
@@ -173,65 +189,69 @@ instance Core.AWSRequest UpdateEndpoint where
   type
     AWSResponse UpdateEndpoint =
       UpdateEndpointResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateEndpointResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "EndpointArn")
+            Prelude.<*> (x Data..:> "EndpointArn")
       )
 
 instance Prelude.Hashable UpdateEndpoint where
   hashWithSalt _salt UpdateEndpoint' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` deploymentConfig
       `Prelude.hashWithSalt` excludeRetainedVariantProperties
       `Prelude.hashWithSalt` retainAllVariantProperties
-      `Prelude.hashWithSalt` deploymentConfig
+      `Prelude.hashWithSalt` retainDeploymentConfig
       `Prelude.hashWithSalt` endpointName
       `Prelude.hashWithSalt` endpointConfigName
 
 instance Prelude.NFData UpdateEndpoint where
   rnf UpdateEndpoint' {..} =
-    Prelude.rnf excludeRetainedVariantProperties
+    Prelude.rnf deploymentConfig
+      `Prelude.seq` Prelude.rnf excludeRetainedVariantProperties
       `Prelude.seq` Prelude.rnf retainAllVariantProperties
-      `Prelude.seq` Prelude.rnf deploymentConfig
+      `Prelude.seq` Prelude.rnf retainDeploymentConfig
       `Prelude.seq` Prelude.rnf endpointName
       `Prelude.seq` Prelude.rnf endpointConfigName
 
-instance Core.ToHeaders UpdateEndpoint where
+instance Data.ToHeaders UpdateEndpoint where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.UpdateEndpoint" :: Prelude.ByteString),
+              Data.=# ("SageMaker.UpdateEndpoint" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateEndpoint where
+instance Data.ToJSON UpdateEndpoint where
   toJSON UpdateEndpoint' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ExcludeRetainedVariantProperties" Core..=)
-              Prelude.<$> excludeRetainedVariantProperties,
-            ("RetainAllVariantProperties" Core..=)
-              Prelude.<$> retainAllVariantProperties,
-            ("DeploymentConfig" Core..=)
+          [ ("DeploymentConfig" Data..=)
               Prelude.<$> deploymentConfig,
-            Prelude.Just ("EndpointName" Core..= endpointName),
+            ("ExcludeRetainedVariantProperties" Data..=)
+              Prelude.<$> excludeRetainedVariantProperties,
+            ("RetainAllVariantProperties" Data..=)
+              Prelude.<$> retainAllVariantProperties,
+            ("RetainDeploymentConfig" Data..=)
+              Prelude.<$> retainDeploymentConfig,
+            Prelude.Just ("EndpointName" Data..= endpointName),
             Prelude.Just
-              ("EndpointConfigName" Core..= endpointConfigName)
+              ("EndpointConfigName" Data..= endpointConfigName)
           ]
       )
 
-instance Core.ToPath UpdateEndpoint where
+instance Data.ToPath UpdateEndpoint where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateEndpoint where
+instance Data.ToQuery UpdateEndpoint where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateEndpointResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Kinesis.UpdateShardCount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,14 +51,14 @@
 --
 -- -   Scale down below half your current shard count for a stream
 --
--- -   Scale up to more than 500 shards in a stream
+-- -   Scale up to more than 10000 shards in a stream
 --
--- -   Scale a stream with more than 500 shards down unless the result is
---     less than 500 shards
+-- -   Scale a stream with more than 10000 shards down unless the result is
+--     less than 10000 shards
 --
 -- -   Scale up to more than the shard limit for your account
 --
--- For the default limits for an AWS account, see
+-- For the default limits for an Amazon Web Services account, see
 -- <https://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html Streams Limits>
 -- in the /Amazon Kinesis Data Streams Developer Guide/. To request an
 -- increase in the call rate limit, the shard limit for this API, or your
@@ -79,16 +79,17 @@ module Amazonka.Kinesis.UpdateShardCount
     newUpdateShardCountResponse,
 
     -- * Response Lenses
-    updateShardCountResponse_targetShardCount,
-    updateShardCountResponse_streamName,
     updateShardCountResponse_currentShardCount,
+    updateShardCountResponse_streamName,
+    updateShardCountResponse_targetShardCount,
     updateShardCountResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kinesis.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -105,12 +106,12 @@ data UpdateShardCount = UpdateShardCount'
     --
     -- -   Set this value below half your current shard count for a stream.
     --
-    -- -   Set this value to more than 500 shards in a stream (the default
-    --     limit for shard count per stream is 500 per account per region),
+    -- -   Set this value to more than 10000 shards in a stream (the default
+    --     limit for shard count per stream is 10000 per account per region),
     --     unless you request a limit increase.
     --
-    -- -   Scale a stream with more than 500 shards down unless you set this
-    --     value to less than 500 shards.
+    -- -   Scale a stream with more than 10000 shards down unless you set this
+    --     value to less than 10000 shards.
     targetShardCount :: Prelude.Natural,
     -- | The scaling type. Uniform scaling creates shards of equal size.
     scalingType :: ScalingType
@@ -135,12 +136,12 @@ data UpdateShardCount = UpdateShardCount'
 --
 -- -   Set this value below half your current shard count for a stream.
 --
--- -   Set this value to more than 500 shards in a stream (the default
---     limit for shard count per stream is 500 per account per region),
+-- -   Set this value to more than 10000 shards in a stream (the default
+--     limit for shard count per stream is 10000 per account per region),
 --     unless you request a limit increase.
 --
--- -   Scale a stream with more than 500 shards down unless you set this
---     value to less than 500 shards.
+-- -   Scale a stream with more than 10000 shards down unless you set this
+--     value to less than 10000 shards.
 --
 -- 'scalingType', 'updateShardCount_scalingType' - The scaling type. Uniform scaling creates shards of equal size.
 newUpdateShardCount ::
@@ -173,12 +174,12 @@ updateShardCount_streamName = Lens.lens (\UpdateShardCount' {streamName} -> stre
 --
 -- -   Set this value below half your current shard count for a stream.
 --
--- -   Set this value to more than 500 shards in a stream (the default
---     limit for shard count per stream is 500 per account per region),
+-- -   Set this value to more than 10000 shards in a stream (the default
+--     limit for shard count per stream is 10000 per account per region),
 --     unless you request a limit increase.
 --
--- -   Scale a stream with more than 500 shards down unless you set this
---     value to less than 500 shards.
+-- -   Scale a stream with more than 10000 shards down unless you set this
+--     value to less than 10000 shards.
 updateShardCount_targetShardCount :: Lens.Lens' UpdateShardCount Prelude.Natural
 updateShardCount_targetShardCount = Lens.lens (\UpdateShardCount' {targetShardCount} -> targetShardCount) (\s@UpdateShardCount' {} a -> s {targetShardCount = a} :: UpdateShardCount)
 
@@ -190,14 +191,15 @@ instance Core.AWSRequest UpdateShardCount where
   type
     AWSResponse UpdateShardCount =
       UpdateShardCountResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateShardCountResponse'
-            Prelude.<$> (x Core..?> "TargetShardCount")
-            Prelude.<*> (x Core..?> "StreamName")
-            Prelude.<*> (x Core..?> "CurrentShardCount")
+            Prelude.<$> (x Data..?> "CurrentShardCount")
+            Prelude.<*> (x Data..?> "StreamName")
+            Prelude.<*> (x Data..?> "TargetShardCount")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -213,46 +215,46 @@ instance Prelude.NFData UpdateShardCount where
       `Prelude.seq` Prelude.rnf targetShardCount
       `Prelude.seq` Prelude.rnf scalingType
 
-instance Core.ToHeaders UpdateShardCount where
+instance Data.ToHeaders UpdateShardCount where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Kinesis_20131202.UpdateShardCount" ::
+              Data.=# ( "Kinesis_20131202.UpdateShardCount" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateShardCount where
+instance Data.ToJSON UpdateShardCount where
   toJSON UpdateShardCount' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("StreamName" Core..= streamName),
+          [ Prelude.Just ("StreamName" Data..= streamName),
             Prelude.Just
-              ("TargetShardCount" Core..= targetShardCount),
-            Prelude.Just ("ScalingType" Core..= scalingType)
+              ("TargetShardCount" Data..= targetShardCount),
+            Prelude.Just ("ScalingType" Data..= scalingType)
           ]
       )
 
-instance Core.ToPath UpdateShardCount where
+instance Data.ToPath UpdateShardCount where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateShardCount where
+instance Data.ToQuery UpdateShardCount where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateShardCountResponse' smart constructor.
 data UpdateShardCountResponse = UpdateShardCountResponse'
-  { -- | The updated number of shards.
-    targetShardCount :: Prelude.Maybe Prelude.Natural,
+  { -- | The current number of shards.
+    currentShardCount :: Prelude.Maybe Prelude.Natural,
     -- | The name of the stream.
     streamName :: Prelude.Maybe Prelude.Text,
-    -- | The current number of shards.
-    currentShardCount :: Prelude.Maybe Prelude.Natural,
+    -- | The updated number of shards.
+    targetShardCount :: Prelude.Maybe Prelude.Natural,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -266,11 +268,11 @@ data UpdateShardCountResponse = UpdateShardCountResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'targetShardCount', 'updateShardCountResponse_targetShardCount' - The updated number of shards.
+-- 'currentShardCount', 'updateShardCountResponse_currentShardCount' - The current number of shards.
 --
 -- 'streamName', 'updateShardCountResponse_streamName' - The name of the stream.
 --
--- 'currentShardCount', 'updateShardCountResponse_currentShardCount' - The current number of shards.
+-- 'targetShardCount', 'updateShardCountResponse_targetShardCount' - The updated number of shards.
 --
 -- 'httpStatus', 'updateShardCountResponse_httpStatus' - The response's http status code.
 newUpdateShardCountResponse ::
@@ -279,24 +281,24 @@ newUpdateShardCountResponse ::
   UpdateShardCountResponse
 newUpdateShardCountResponse pHttpStatus_ =
   UpdateShardCountResponse'
-    { targetShardCount =
+    { currentShardCount =
         Prelude.Nothing,
       streamName = Prelude.Nothing,
-      currentShardCount = Prelude.Nothing,
+      targetShardCount = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The updated number of shards.
-updateShardCountResponse_targetShardCount :: Lens.Lens' UpdateShardCountResponse (Prelude.Maybe Prelude.Natural)
-updateShardCountResponse_targetShardCount = Lens.lens (\UpdateShardCountResponse' {targetShardCount} -> targetShardCount) (\s@UpdateShardCountResponse' {} a -> s {targetShardCount = a} :: UpdateShardCountResponse)
+-- | The current number of shards.
+updateShardCountResponse_currentShardCount :: Lens.Lens' UpdateShardCountResponse (Prelude.Maybe Prelude.Natural)
+updateShardCountResponse_currentShardCount = Lens.lens (\UpdateShardCountResponse' {currentShardCount} -> currentShardCount) (\s@UpdateShardCountResponse' {} a -> s {currentShardCount = a} :: UpdateShardCountResponse)
 
 -- | The name of the stream.
 updateShardCountResponse_streamName :: Lens.Lens' UpdateShardCountResponse (Prelude.Maybe Prelude.Text)
 updateShardCountResponse_streamName = Lens.lens (\UpdateShardCountResponse' {streamName} -> streamName) (\s@UpdateShardCountResponse' {} a -> s {streamName = a} :: UpdateShardCountResponse)
 
--- | The current number of shards.
-updateShardCountResponse_currentShardCount :: Lens.Lens' UpdateShardCountResponse (Prelude.Maybe Prelude.Natural)
-updateShardCountResponse_currentShardCount = Lens.lens (\UpdateShardCountResponse' {currentShardCount} -> currentShardCount) (\s@UpdateShardCountResponse' {} a -> s {currentShardCount = a} :: UpdateShardCountResponse)
+-- | The updated number of shards.
+updateShardCountResponse_targetShardCount :: Lens.Lens' UpdateShardCountResponse (Prelude.Maybe Prelude.Natural)
+updateShardCountResponse_targetShardCount = Lens.lens (\UpdateShardCountResponse' {targetShardCount} -> targetShardCount) (\s@UpdateShardCountResponse' {} a -> s {targetShardCount = a} :: UpdateShardCountResponse)
 
 -- | The response's http status code.
 updateShardCountResponse_httpStatus :: Lens.Lens' UpdateShardCountResponse Prelude.Int
@@ -304,7 +306,7 @@ updateShardCountResponse_httpStatus = Lens.lens (\UpdateShardCountResponse' {htt
 
 instance Prelude.NFData UpdateShardCountResponse where
   rnf UpdateShardCountResponse' {..} =
-    Prelude.rnf targetShardCount
+    Prelude.rnf currentShardCount
       `Prelude.seq` Prelude.rnf streamName
-      `Prelude.seq` Prelude.rnf currentShardCount
+      `Prelude.seq` Prelude.rnf targetShardCount
       `Prelude.seq` Prelude.rnf httpStatus

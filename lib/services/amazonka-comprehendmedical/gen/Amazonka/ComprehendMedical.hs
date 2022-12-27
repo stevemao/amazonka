@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.ComprehendMedical
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -11,9 +11,8 @@
 --
 -- Derived from API version @2018-10-30@ of the AWS service descriptions, licensed under Apache 2.0.
 --
--- Amazon Comprehend Medical extracts structured information from
--- unstructured clinical text. Use these actions to gain insight in your
--- documents.
+-- Comprehend Medical; extracts structured information from unstructured
+-- clinical text. Use these actions to gain insight in your documents.
 module Amazonka.ComprehendMedical
   ( -- * Service Configuration
     defaultService,
@@ -21,29 +20,29 @@ module Amazonka.ComprehendMedical
     -- * Errors
     -- $errors
 
-    -- ** ValidationException
-    _ValidationException,
-
-    -- ** InvalidRequestException
-    _InvalidRequestException,
-
-    -- ** TooManyRequestsException
-    _TooManyRequestsException,
+    -- ** InternalServerException
+    _InternalServerException,
 
     -- ** InvalidEncodingException
     _InvalidEncodingException,
 
-    -- ** InternalServerException
-    _InternalServerException,
-
-    -- ** ServiceUnavailableException
-    _ServiceUnavailableException,
+    -- ** InvalidRequestException
+    _InvalidRequestException,
 
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
 
+    -- ** ServiceUnavailableException
+    _ServiceUnavailableException,
+
     -- ** TextSizeLimitExceededException
     _TextSizeLimitExceededException,
+
+    -- ** TooManyRequestsException
+    _TooManyRequestsException,
+
+    -- ** ValidationException
+    _ValidationException,
 
     -- * Waiters
     -- $waiters
@@ -57,17 +56,41 @@ module Amazonka.ComprehendMedical
     DescribeEntitiesDetectionV2JobResponse (DescribeEntitiesDetectionV2JobResponse'),
     newDescribeEntitiesDetectionV2JobResponse,
 
+    -- ** DescribeICD10CMInferenceJob
+    DescribeICD10CMInferenceJob (DescribeICD10CMInferenceJob'),
+    newDescribeICD10CMInferenceJob,
+    DescribeICD10CMInferenceJobResponse (DescribeICD10CMInferenceJobResponse'),
+    newDescribeICD10CMInferenceJobResponse,
+
     -- ** DescribePHIDetectionJob
     DescribePHIDetectionJob (DescribePHIDetectionJob'),
     newDescribePHIDetectionJob,
     DescribePHIDetectionJobResponse (DescribePHIDetectionJobResponse'),
     newDescribePHIDetectionJobResponse,
 
-    -- ** ListICD10CMInferenceJobs
-    ListICD10CMInferenceJobs (ListICD10CMInferenceJobs'),
-    newListICD10CMInferenceJobs,
-    ListICD10CMInferenceJobsResponse (ListICD10CMInferenceJobsResponse'),
-    newListICD10CMInferenceJobsResponse,
+    -- ** DescribeRxNormInferenceJob
+    DescribeRxNormInferenceJob (DescribeRxNormInferenceJob'),
+    newDescribeRxNormInferenceJob,
+    DescribeRxNormInferenceJobResponse (DescribeRxNormInferenceJobResponse'),
+    newDescribeRxNormInferenceJobResponse,
+
+    -- ** DescribeSNOMEDCTInferenceJob
+    DescribeSNOMEDCTInferenceJob (DescribeSNOMEDCTInferenceJob'),
+    newDescribeSNOMEDCTInferenceJob,
+    DescribeSNOMEDCTInferenceJobResponse (DescribeSNOMEDCTInferenceJobResponse'),
+    newDescribeSNOMEDCTInferenceJobResponse,
+
+    -- ** DetectEntitiesV2
+    DetectEntitiesV2 (DetectEntitiesV2'),
+    newDetectEntitiesV2,
+    DetectEntitiesV2Response (DetectEntitiesV2Response'),
+    newDetectEntitiesV2Response,
+
+    -- ** DetectPHI
+    DetectPHI (DetectPHI'),
+    newDetectPHI,
+    DetectPHIResponse (DetectPHIResponse'),
+    newDetectPHIResponse,
 
     -- ** InferICD10CM
     InferICD10CM (InferICD10CM'),
@@ -81,53 +104,11 @@ module Amazonka.ComprehendMedical
     InferRxNormResponse (InferRxNormResponse'),
     newInferRxNormResponse,
 
-    -- ** StartICD10CMInferenceJob
-    StartICD10CMInferenceJob (StartICD10CMInferenceJob'),
-    newStartICD10CMInferenceJob,
-    StartICD10CMInferenceJobResponse (StartICD10CMInferenceJobResponse'),
-    newStartICD10CMInferenceJobResponse,
-
-    -- ** StartRxNormInferenceJob
-    StartRxNormInferenceJob (StartRxNormInferenceJob'),
-    newStartRxNormInferenceJob,
-    StartRxNormInferenceJobResponse (StartRxNormInferenceJobResponse'),
-    newStartRxNormInferenceJobResponse,
-
-    -- ** ListPHIDetectionJobs
-    ListPHIDetectionJobs (ListPHIDetectionJobs'),
-    newListPHIDetectionJobs,
-    ListPHIDetectionJobsResponse (ListPHIDetectionJobsResponse'),
-    newListPHIDetectionJobsResponse,
-
-    -- ** DescribeICD10CMInferenceJob
-    DescribeICD10CMInferenceJob (DescribeICD10CMInferenceJob'),
-    newDescribeICD10CMInferenceJob,
-    DescribeICD10CMInferenceJobResponse (DescribeICD10CMInferenceJobResponse'),
-    newDescribeICD10CMInferenceJobResponse,
-
-    -- ** StartPHIDetectionJob
-    StartPHIDetectionJob (StartPHIDetectionJob'),
-    newStartPHIDetectionJob,
-    StartPHIDetectionJobResponse (StartPHIDetectionJobResponse'),
-    newStartPHIDetectionJobResponse,
-
-    -- ** StopEntitiesDetectionV2Job
-    StopEntitiesDetectionV2Job (StopEntitiesDetectionV2Job'),
-    newStopEntitiesDetectionV2Job,
-    StopEntitiesDetectionV2JobResponse (StopEntitiesDetectionV2JobResponse'),
-    newStopEntitiesDetectionV2JobResponse,
-
-    -- ** DescribeRxNormInferenceJob
-    DescribeRxNormInferenceJob (DescribeRxNormInferenceJob'),
-    newDescribeRxNormInferenceJob,
-    DescribeRxNormInferenceJobResponse (DescribeRxNormInferenceJobResponse'),
-    newDescribeRxNormInferenceJobResponse,
-
-    -- ** StopICD10CMInferenceJob
-    StopICD10CMInferenceJob (StopICD10CMInferenceJob'),
-    newStopICD10CMInferenceJob,
-    StopICD10CMInferenceJobResponse (StopICD10CMInferenceJobResponse'),
-    newStopICD10CMInferenceJobResponse,
+    -- ** InferSNOMEDCT
+    InferSNOMEDCT (InferSNOMEDCT'),
+    newInferSNOMEDCT,
+    InferSNOMEDCTResponse (InferSNOMEDCTResponse'),
+    newInferSNOMEDCTResponse,
 
     -- ** ListEntitiesDetectionV2Jobs
     ListEntitiesDetectionV2Jobs (ListEntitiesDetectionV2Jobs'),
@@ -135,29 +116,29 @@ module Amazonka.ComprehendMedical
     ListEntitiesDetectionV2JobsResponse (ListEntitiesDetectionV2JobsResponse'),
     newListEntitiesDetectionV2JobsResponse,
 
-    -- ** StopRxNormInferenceJob
-    StopRxNormInferenceJob (StopRxNormInferenceJob'),
-    newStopRxNormInferenceJob,
-    StopRxNormInferenceJobResponse (StopRxNormInferenceJobResponse'),
-    newStopRxNormInferenceJobResponse,
+    -- ** ListICD10CMInferenceJobs
+    ListICD10CMInferenceJobs (ListICD10CMInferenceJobs'),
+    newListICD10CMInferenceJobs,
+    ListICD10CMInferenceJobsResponse (ListICD10CMInferenceJobsResponse'),
+    newListICD10CMInferenceJobsResponse,
 
-    -- ** DetectPHI
-    DetectPHI (DetectPHI'),
-    newDetectPHI,
-    DetectPHIResponse (DetectPHIResponse'),
-    newDetectPHIResponse,
+    -- ** ListPHIDetectionJobs
+    ListPHIDetectionJobs (ListPHIDetectionJobs'),
+    newListPHIDetectionJobs,
+    ListPHIDetectionJobsResponse (ListPHIDetectionJobsResponse'),
+    newListPHIDetectionJobsResponse,
 
-    -- ** DetectEntitiesV2
-    DetectEntitiesV2 (DetectEntitiesV2'),
-    newDetectEntitiesV2,
-    DetectEntitiesV2Response (DetectEntitiesV2Response'),
-    newDetectEntitiesV2Response,
+    -- ** ListRxNormInferenceJobs
+    ListRxNormInferenceJobs (ListRxNormInferenceJobs'),
+    newListRxNormInferenceJobs,
+    ListRxNormInferenceJobsResponse (ListRxNormInferenceJobsResponse'),
+    newListRxNormInferenceJobsResponse,
 
-    -- ** StopPHIDetectionJob
-    StopPHIDetectionJob (StopPHIDetectionJob'),
-    newStopPHIDetectionJob,
-    StopPHIDetectionJobResponse (StopPHIDetectionJobResponse'),
-    newStopPHIDetectionJobResponse,
+    -- ** ListSNOMEDCTInferenceJobs
+    ListSNOMEDCTInferenceJobs (ListSNOMEDCTInferenceJobs'),
+    newListSNOMEDCTInferenceJobs,
+    ListSNOMEDCTInferenceJobsResponse (ListSNOMEDCTInferenceJobsResponse'),
+    newListSNOMEDCTInferenceJobsResponse,
 
     -- ** StartEntitiesDetectionV2Job
     StartEntitiesDetectionV2Job (StartEntitiesDetectionV2Job'),
@@ -165,11 +146,59 @@ module Amazonka.ComprehendMedical
     StartEntitiesDetectionV2JobResponse (StartEntitiesDetectionV2JobResponse'),
     newStartEntitiesDetectionV2JobResponse,
 
-    -- ** ListRxNormInferenceJobs
-    ListRxNormInferenceJobs (ListRxNormInferenceJobs'),
-    newListRxNormInferenceJobs,
-    ListRxNormInferenceJobsResponse (ListRxNormInferenceJobsResponse'),
-    newListRxNormInferenceJobsResponse,
+    -- ** StartICD10CMInferenceJob
+    StartICD10CMInferenceJob (StartICD10CMInferenceJob'),
+    newStartICD10CMInferenceJob,
+    StartICD10CMInferenceJobResponse (StartICD10CMInferenceJobResponse'),
+    newStartICD10CMInferenceJobResponse,
+
+    -- ** StartPHIDetectionJob
+    StartPHIDetectionJob (StartPHIDetectionJob'),
+    newStartPHIDetectionJob,
+    StartPHIDetectionJobResponse (StartPHIDetectionJobResponse'),
+    newStartPHIDetectionJobResponse,
+
+    -- ** StartRxNormInferenceJob
+    StartRxNormInferenceJob (StartRxNormInferenceJob'),
+    newStartRxNormInferenceJob,
+    StartRxNormInferenceJobResponse (StartRxNormInferenceJobResponse'),
+    newStartRxNormInferenceJobResponse,
+
+    -- ** StartSNOMEDCTInferenceJob
+    StartSNOMEDCTInferenceJob (StartSNOMEDCTInferenceJob'),
+    newStartSNOMEDCTInferenceJob,
+    StartSNOMEDCTInferenceJobResponse (StartSNOMEDCTInferenceJobResponse'),
+    newStartSNOMEDCTInferenceJobResponse,
+
+    -- ** StopEntitiesDetectionV2Job
+    StopEntitiesDetectionV2Job (StopEntitiesDetectionV2Job'),
+    newStopEntitiesDetectionV2Job,
+    StopEntitiesDetectionV2JobResponse (StopEntitiesDetectionV2JobResponse'),
+    newStopEntitiesDetectionV2JobResponse,
+
+    -- ** StopICD10CMInferenceJob
+    StopICD10CMInferenceJob (StopICD10CMInferenceJob'),
+    newStopICD10CMInferenceJob,
+    StopICD10CMInferenceJobResponse (StopICD10CMInferenceJobResponse'),
+    newStopICD10CMInferenceJobResponse,
+
+    -- ** StopPHIDetectionJob
+    StopPHIDetectionJob (StopPHIDetectionJob'),
+    newStopPHIDetectionJob,
+    StopPHIDetectionJobResponse (StopPHIDetectionJobResponse'),
+    newStopPHIDetectionJobResponse,
+
+    -- ** StopRxNormInferenceJob
+    StopRxNormInferenceJob (StopRxNormInferenceJob'),
+    newStopRxNormInferenceJob,
+    StopRxNormInferenceJobResponse (StopRxNormInferenceJobResponse'),
+    newStopRxNormInferenceJobResponse,
+
+    -- ** StopSNOMEDCTInferenceJob
+    StopSNOMEDCTInferenceJob (StopSNOMEDCTInferenceJob'),
+    newStopSNOMEDCTInferenceJob,
+    StopSNOMEDCTInferenceJobResponse (StopSNOMEDCTInferenceJobResponse'),
+    newStopSNOMEDCTInferenceJobResponse,
 
     -- * Types
 
@@ -218,9 +247,28 @@ module Amazonka.ComprehendMedical
     -- ** RxNormTraitName
     RxNormTraitName (..),
 
+    -- ** SNOMEDCTAttributeType
+    SNOMEDCTAttributeType (..),
+
+    -- ** SNOMEDCTEntityCategory
+    SNOMEDCTEntityCategory (..),
+
+    -- ** SNOMEDCTEntityType
+    SNOMEDCTEntityType (..),
+
+    -- ** SNOMEDCTRelationshipType
+    SNOMEDCTRelationshipType (..),
+
+    -- ** SNOMEDCTTraitName
+    SNOMEDCTTraitName (..),
+
     -- ** Attribute
     Attribute (Attribute'),
     newAttribute,
+
+    -- ** Characters
+    Characters (Characters'),
+    newCharacters,
 
     -- ** ComprehendMedicalAsyncJobFilter
     ComprehendMedicalAsyncJobFilter (ComprehendMedicalAsyncJobFilter'),
@@ -274,6 +322,26 @@ module Amazonka.ComprehendMedical
     RxNormTrait (RxNormTrait'),
     newRxNormTrait,
 
+    -- ** SNOMEDCTAttribute
+    SNOMEDCTAttribute (SNOMEDCTAttribute'),
+    newSNOMEDCTAttribute,
+
+    -- ** SNOMEDCTConcept
+    SNOMEDCTConcept (SNOMEDCTConcept'),
+    newSNOMEDCTConcept,
+
+    -- ** SNOMEDCTDetails
+    SNOMEDCTDetails (SNOMEDCTDetails'),
+    newSNOMEDCTDetails,
+
+    -- ** SNOMEDCTEntity
+    SNOMEDCTEntity (SNOMEDCTEntity'),
+    newSNOMEDCTEntity,
+
+    -- ** SNOMEDCTTrait
+    SNOMEDCTTrait (SNOMEDCTTrait'),
+    newSNOMEDCTTrait,
+
     -- ** Trait
     Trait (Trait'),
     newTrait,
@@ -288,23 +356,28 @@ import Amazonka.ComprehendMedical.DescribeEntitiesDetectionV2Job
 import Amazonka.ComprehendMedical.DescribeICD10CMInferenceJob
 import Amazonka.ComprehendMedical.DescribePHIDetectionJob
 import Amazonka.ComprehendMedical.DescribeRxNormInferenceJob
+import Amazonka.ComprehendMedical.DescribeSNOMEDCTInferenceJob
 import Amazonka.ComprehendMedical.DetectEntitiesV2
 import Amazonka.ComprehendMedical.DetectPHI
 import Amazonka.ComprehendMedical.InferICD10CM
 import Amazonka.ComprehendMedical.InferRxNorm
+import Amazonka.ComprehendMedical.InferSNOMEDCT
 import Amazonka.ComprehendMedical.Lens
 import Amazonka.ComprehendMedical.ListEntitiesDetectionV2Jobs
 import Amazonka.ComprehendMedical.ListICD10CMInferenceJobs
 import Amazonka.ComprehendMedical.ListPHIDetectionJobs
 import Amazonka.ComprehendMedical.ListRxNormInferenceJobs
+import Amazonka.ComprehendMedical.ListSNOMEDCTInferenceJobs
 import Amazonka.ComprehendMedical.StartEntitiesDetectionV2Job
 import Amazonka.ComprehendMedical.StartICD10CMInferenceJob
 import Amazonka.ComprehendMedical.StartPHIDetectionJob
 import Amazonka.ComprehendMedical.StartRxNormInferenceJob
+import Amazonka.ComprehendMedical.StartSNOMEDCTInferenceJob
 import Amazonka.ComprehendMedical.StopEntitiesDetectionV2Job
 import Amazonka.ComprehendMedical.StopICD10CMInferenceJob
 import Amazonka.ComprehendMedical.StopPHIDetectionJob
 import Amazonka.ComprehendMedical.StopRxNormInferenceJob
+import Amazonka.ComprehendMedical.StopSNOMEDCTInferenceJob
 import Amazonka.ComprehendMedical.Types
 import Amazonka.ComprehendMedical.Waiters
 

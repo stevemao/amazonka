@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.BatchCreateRoomMembership
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -104,12 +105,13 @@ instance Core.AWSRequest BatchCreateRoomMembership where
   type
     AWSResponse BatchCreateRoomMembership =
       BatchCreateRoomMembershipResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchCreateRoomMembershipResponse'
-            Prelude.<$> (x Core..?> "Errors" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Errors" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -125,29 +127,29 @@ instance Prelude.NFData BatchCreateRoomMembership where
       `Prelude.seq` Prelude.rnf roomId
       `Prelude.seq` Prelude.rnf membershipItemList
 
-instance Core.ToHeaders BatchCreateRoomMembership where
+instance Data.ToHeaders BatchCreateRoomMembership where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON BatchCreateRoomMembership where
+instance Data.ToJSON BatchCreateRoomMembership where
   toJSON BatchCreateRoomMembership' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("MembershipItemList" Core..= membershipItemList)
+              ("MembershipItemList" Data..= membershipItemList)
           ]
       )
 
-instance Core.ToPath BatchCreateRoomMembership where
+instance Data.ToPath BatchCreateRoomMembership where
   toPath BatchCreateRoomMembership' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/rooms/",
-        Core.toBS roomId,
+        Data.toBS roomId,
         "/memberships"
       ]
 
-instance Core.ToQuery BatchCreateRoomMembership where
+instance Data.ToQuery BatchCreateRoomMembership where
   toQuery =
     Prelude.const
       (Prelude.mconcat ["operation=batch-create"])

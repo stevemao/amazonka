@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecretsManager.Types.ReplicationStatusType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecretsManager.Types.ReplicationStatusType where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecretsManager.Types.StatusType
 
@@ -29,17 +30,18 @@ import Amazonka.SecretsManager.Types.StatusType
 --
 -- /See:/ 'newReplicationStatusType' smart constructor.
 data ReplicationStatusType = ReplicationStatusType'
-  { -- | The status can be @InProgress@, @Failed@, or @InSync@.
-    status :: Prelude.Maybe StatusType,
-    -- | Can be an @ARN@, @Key ID@, or @Alias@.
+  { -- | Can be an @ARN@, @Key ID@, or @Alias@.
     kmsKeyId :: Prelude.Maybe Prelude.Text,
-    -- | Status message such as \"/Secret with this name already exists in this
-    -- region/\".
-    statusMessage :: Prelude.Maybe Prelude.Text,
+    -- | The date that the secret was last accessed in the Region. This field is
+    -- omitted if the secret has never been retrieved in the Region.
+    lastAccessedDate :: Prelude.Maybe Data.POSIX,
     -- | The Region where replication occurs.
     region :: Prelude.Maybe Prelude.Text,
-    -- | The date that you last accessed the secret in the Region.
-    lastAccessedDate :: Prelude.Maybe Core.POSIX
+    -- | The status can be @InProgress@, @Failed@, or @InSync@.
+    status :: Prelude.Maybe StatusType,
+    -- | Status message such as \"/Secret with this name already exists in this
+    -- region/\".
+    statusMessage :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -51,73 +53,75 @@ data ReplicationStatusType = ReplicationStatusType'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'replicationStatusType_status' - The status can be @InProgress@, @Failed@, or @InSync@.
---
 -- 'kmsKeyId', 'replicationStatusType_kmsKeyId' - Can be an @ARN@, @Key ID@, or @Alias@.
 --
--- 'statusMessage', 'replicationStatusType_statusMessage' - Status message such as \"/Secret with this name already exists in this
--- region/\".
+-- 'lastAccessedDate', 'replicationStatusType_lastAccessedDate' - The date that the secret was last accessed in the Region. This field is
+-- omitted if the secret has never been retrieved in the Region.
 --
 -- 'region', 'replicationStatusType_region' - The Region where replication occurs.
 --
--- 'lastAccessedDate', 'replicationStatusType_lastAccessedDate' - The date that you last accessed the secret in the Region.
+-- 'status', 'replicationStatusType_status' - The status can be @InProgress@, @Failed@, or @InSync@.
+--
+-- 'statusMessage', 'replicationStatusType_statusMessage' - Status message such as \"/Secret with this name already exists in this
+-- region/\".
 newReplicationStatusType ::
   ReplicationStatusType
 newReplicationStatusType =
   ReplicationStatusType'
-    { status = Prelude.Nothing,
-      kmsKeyId = Prelude.Nothing,
-      statusMessage = Prelude.Nothing,
+    { kmsKeyId = Prelude.Nothing,
+      lastAccessedDate = Prelude.Nothing,
       region = Prelude.Nothing,
-      lastAccessedDate = Prelude.Nothing
+      status = Prelude.Nothing,
+      statusMessage = Prelude.Nothing
     }
-
--- | The status can be @InProgress@, @Failed@, or @InSync@.
-replicationStatusType_status :: Lens.Lens' ReplicationStatusType (Prelude.Maybe StatusType)
-replicationStatusType_status = Lens.lens (\ReplicationStatusType' {status} -> status) (\s@ReplicationStatusType' {} a -> s {status = a} :: ReplicationStatusType)
 
 -- | Can be an @ARN@, @Key ID@, or @Alias@.
 replicationStatusType_kmsKeyId :: Lens.Lens' ReplicationStatusType (Prelude.Maybe Prelude.Text)
 replicationStatusType_kmsKeyId = Lens.lens (\ReplicationStatusType' {kmsKeyId} -> kmsKeyId) (\s@ReplicationStatusType' {} a -> s {kmsKeyId = a} :: ReplicationStatusType)
+
+-- | The date that the secret was last accessed in the Region. This field is
+-- omitted if the secret has never been retrieved in the Region.
+replicationStatusType_lastAccessedDate :: Lens.Lens' ReplicationStatusType (Prelude.Maybe Prelude.UTCTime)
+replicationStatusType_lastAccessedDate = Lens.lens (\ReplicationStatusType' {lastAccessedDate} -> lastAccessedDate) (\s@ReplicationStatusType' {} a -> s {lastAccessedDate = a} :: ReplicationStatusType) Prelude.. Lens.mapping Data._Time
+
+-- | The Region where replication occurs.
+replicationStatusType_region :: Lens.Lens' ReplicationStatusType (Prelude.Maybe Prelude.Text)
+replicationStatusType_region = Lens.lens (\ReplicationStatusType' {region} -> region) (\s@ReplicationStatusType' {} a -> s {region = a} :: ReplicationStatusType)
+
+-- | The status can be @InProgress@, @Failed@, or @InSync@.
+replicationStatusType_status :: Lens.Lens' ReplicationStatusType (Prelude.Maybe StatusType)
+replicationStatusType_status = Lens.lens (\ReplicationStatusType' {status} -> status) (\s@ReplicationStatusType' {} a -> s {status = a} :: ReplicationStatusType)
 
 -- | Status message such as \"/Secret with this name already exists in this
 -- region/\".
 replicationStatusType_statusMessage :: Lens.Lens' ReplicationStatusType (Prelude.Maybe Prelude.Text)
 replicationStatusType_statusMessage = Lens.lens (\ReplicationStatusType' {statusMessage} -> statusMessage) (\s@ReplicationStatusType' {} a -> s {statusMessage = a} :: ReplicationStatusType)
 
--- | The Region where replication occurs.
-replicationStatusType_region :: Lens.Lens' ReplicationStatusType (Prelude.Maybe Prelude.Text)
-replicationStatusType_region = Lens.lens (\ReplicationStatusType' {region} -> region) (\s@ReplicationStatusType' {} a -> s {region = a} :: ReplicationStatusType)
-
--- | The date that you last accessed the secret in the Region.
-replicationStatusType_lastAccessedDate :: Lens.Lens' ReplicationStatusType (Prelude.Maybe Prelude.UTCTime)
-replicationStatusType_lastAccessedDate = Lens.lens (\ReplicationStatusType' {lastAccessedDate} -> lastAccessedDate) (\s@ReplicationStatusType' {} a -> s {lastAccessedDate = a} :: ReplicationStatusType) Prelude.. Lens.mapping Core._Time
-
-instance Core.FromJSON ReplicationStatusType where
+instance Data.FromJSON ReplicationStatusType where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ReplicationStatusType"
       ( \x ->
           ReplicationStatusType'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "KmsKeyId")
-            Prelude.<*> (x Core..:? "StatusMessage")
-            Prelude.<*> (x Core..:? "Region")
-            Prelude.<*> (x Core..:? "LastAccessedDate")
+            Prelude.<$> (x Data..:? "KmsKeyId")
+            Prelude.<*> (x Data..:? "LastAccessedDate")
+            Prelude.<*> (x Data..:? "Region")
+            Prelude.<*> (x Data..:? "Status")
+            Prelude.<*> (x Data..:? "StatusMessage")
       )
 
 instance Prelude.Hashable ReplicationStatusType where
   hashWithSalt _salt ReplicationStatusType' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` kmsKeyId
-      `Prelude.hashWithSalt` statusMessage
-      `Prelude.hashWithSalt` region
+    _salt `Prelude.hashWithSalt` kmsKeyId
       `Prelude.hashWithSalt` lastAccessedDate
+      `Prelude.hashWithSalt` region
+      `Prelude.hashWithSalt` status
+      `Prelude.hashWithSalt` statusMessage
 
 instance Prelude.NFData ReplicationStatusType where
   rnf ReplicationStatusType' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf kmsKeyId
-      `Prelude.seq` Prelude.rnf statusMessage
-      `Prelude.seq` Prelude.rnf region
+    Prelude.rnf kmsKeyId
       `Prelude.seq` Prelude.rnf lastAccessedDate
+      `Prelude.seq` Prelude.rnf region
+      `Prelude.seq` Prelude.rnf status
+      `Prelude.seq` Prelude.rnf statusMessage

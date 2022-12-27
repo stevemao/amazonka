@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.GrpcRoute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,7 +24,8 @@ import Amazonka.AppMesh.Types.GrpcRouteAction
 import Amazonka.AppMesh.Types.GrpcRouteMatch
 import Amazonka.AppMesh.Types.GrpcTimeout
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents a gRPC route type.
@@ -87,16 +88,16 @@ grpcRoute_action = Lens.lens (\GrpcRoute' {action} -> action) (\s@GrpcRoute' {} 
 grpcRoute_match :: Lens.Lens' GrpcRoute GrpcRouteMatch
 grpcRoute_match = Lens.lens (\GrpcRoute' {match} -> match) (\s@GrpcRoute' {} a -> s {match = a} :: GrpcRoute)
 
-instance Core.FromJSON GrpcRoute where
+instance Data.FromJSON GrpcRoute where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GrpcRoute"
       ( \x ->
           GrpcRoute'
-            Prelude.<$> (x Core..:? "retryPolicy")
-            Prelude.<*> (x Core..:? "timeout")
-            Prelude.<*> (x Core..: "action")
-            Prelude.<*> (x Core..: "match")
+            Prelude.<$> (x Data..:? "retryPolicy")
+            Prelude.<*> (x Data..:? "timeout")
+            Prelude.<*> (x Data..: "action")
+            Prelude.<*> (x Data..: "match")
       )
 
 instance Prelude.Hashable GrpcRoute where
@@ -113,13 +114,13 @@ instance Prelude.NFData GrpcRoute where
       `Prelude.seq` Prelude.rnf action
       `Prelude.seq` Prelude.rnf match
 
-instance Core.ToJSON GrpcRoute where
+instance Data.ToJSON GrpcRoute where
   toJSON GrpcRoute' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("retryPolicy" Core..=) Prelude.<$> retryPolicy,
-            ("timeout" Core..=) Prelude.<$> timeout,
-            Prelude.Just ("action" Core..= action),
-            Prelude.Just ("match" Core..= match)
+          [ ("retryPolicy" Data..=) Prelude.<$> retryPolicy,
+            ("timeout" Data..=) Prelude.<$> timeout,
+            Prelude.Just ("action" Data..= action),
+            Prelude.Just ("match" Data..= match)
           ]
       )

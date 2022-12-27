@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Firehose.Types.CopyCommand
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Firehose.Types.CopyCommand where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a @COPY@ command for Amazon Redshift.
@@ -141,15 +142,15 @@ copyCommand_dataTableColumns = Lens.lens (\CopyCommand' {dataTableColumns} -> da
 copyCommand_dataTableName :: Lens.Lens' CopyCommand Prelude.Text
 copyCommand_dataTableName = Lens.lens (\CopyCommand' {dataTableName} -> dataTableName) (\s@CopyCommand' {} a -> s {dataTableName = a} :: CopyCommand)
 
-instance Core.FromJSON CopyCommand where
+instance Data.FromJSON CopyCommand where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CopyCommand"
       ( \x ->
           CopyCommand'
-            Prelude.<$> (x Core..:? "CopyOptions")
-            Prelude.<*> (x Core..:? "DataTableColumns")
-            Prelude.<*> (x Core..: "DataTableName")
+            Prelude.<$> (x Data..:? "CopyOptions")
+            Prelude.<*> (x Data..:? "DataTableColumns")
+            Prelude.<*> (x Data..: "DataTableName")
       )
 
 instance Prelude.Hashable CopyCommand where
@@ -164,14 +165,14 @@ instance Prelude.NFData CopyCommand where
       `Prelude.seq` Prelude.rnf dataTableColumns
       `Prelude.seq` Prelude.rnf dataTableName
 
-instance Core.ToJSON CopyCommand where
+instance Data.ToJSON CopyCommand where
   toJSON CopyCommand' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CopyOptions" Core..=) Prelude.<$> copyOptions,
-            ("DataTableColumns" Core..=)
+          [ ("CopyOptions" Data..=) Prelude.<$> copyOptions,
+            ("DataTableColumns" Data..=)
               Prelude.<$> dataTableColumns,
             Prelude.Just
-              ("DataTableName" Core..= dataTableName)
+              ("DataTableName" Data..= dataTableName)
           ]
       )

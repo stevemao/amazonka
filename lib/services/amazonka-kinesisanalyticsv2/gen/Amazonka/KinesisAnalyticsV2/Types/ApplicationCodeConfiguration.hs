@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.ApplicationCodeConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.KinesisAnalyticsV2.Types.ApplicationCodeConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.CodeContent
 import Amazonka.KinesisAnalyticsV2.Types.CodeContentType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes code configuration for an application.
@@ -79,12 +80,12 @@ instance Prelude.NFData ApplicationCodeConfiguration where
     Prelude.rnf codeContent
       `Prelude.seq` Prelude.rnf codeContentType
 
-instance Core.ToJSON ApplicationCodeConfiguration where
+instance Data.ToJSON ApplicationCodeConfiguration where
   toJSON ApplicationCodeConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CodeContent" Core..=) Prelude.<$> codeContent,
+          [ ("CodeContent" Data..=) Prelude.<$> codeContent,
             Prelude.Just
-              ("CodeContentType" Core..= codeContentType)
+              ("CodeContentType" Data..= codeContentType)
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.BatchDisassociateApprovalRuleTemplateFromRepositories
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -113,16 +114,17 @@ instance
     AWSResponse
       BatchDisassociateApprovalRuleTemplateFromRepositories =
       BatchDisassociateApprovalRuleTemplateFromRepositoriesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchDisassociateApprovalRuleTemplateFromRepositoriesResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-              Prelude.<*> ( x Core..?> "disassociatedRepositoryNames"
+              Prelude.<*> ( x Data..?> "disassociatedRepositoryNames"
                               Core..!@ Prelude.mempty
                           )
-              Prelude.<*> (x Core..?> "errors" Core..!@ Prelude.mempty)
+              Prelude.<*> (x Data..?> "errors" Core..!@ Prelude.mempty)
       )
 
 instance
@@ -146,48 +148,48 @@ instance
         `Prelude.seq` Prelude.rnf repositoryNames
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     BatchDisassociateApprovalRuleTemplateFromRepositories
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.BatchDisassociateApprovalRuleTemplateFromRepositories" ::
+              Data.=# ( "CodeCommit_20150413.BatchDisassociateApprovalRuleTemplateFromRepositories" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     BatchDisassociateApprovalRuleTemplateFromRepositories
   where
   toJSON
     BatchDisassociateApprovalRuleTemplateFromRepositories' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
             [ Prelude.Just
                 ( "approvalRuleTemplateName"
-                    Core..= approvalRuleTemplateName
+                    Data..= approvalRuleTemplateName
                 ),
               Prelude.Just
-                ("repositoryNames" Core..= repositoryNames)
+                ("repositoryNames" Data..= repositoryNames)
             ]
         )
 
 instance
-  Core.ToPath
+  Data.ToPath
     BatchDisassociateApprovalRuleTemplateFromRepositories
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     BatchDisassociateApprovalRuleTemplateFromRepositories
   where
   toQuery = Prelude.const Prelude.mempty

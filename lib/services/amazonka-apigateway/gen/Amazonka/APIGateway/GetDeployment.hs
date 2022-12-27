@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetDeployment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,14 +38,15 @@ module Amazonka.APIGateway.GetDeployment
     -- * Response Lenses
     deployment_apiSummary,
     deployment_createdDate,
-    deployment_id,
     deployment_description,
+    deployment_id,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -65,10 +66,9 @@ data GetDeployment = GetDeployment'
     -- example,
     -- @GET \/restapis\/{restapi_id}\/deployments\/{deployment_id}?embed=apisummary@.
     embed :: Prelude.Maybe [Prelude.Text],
-    -- | [Required] The string identifier of the associated RestApi.
+    -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] The identifier of the Deployment resource to get information
-    -- about.
+    -- | The identifier of the Deployment resource to get information about.
     deploymentId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -92,10 +92,9 @@ data GetDeployment = GetDeployment'
 -- example,
 -- @GET \/restapis\/{restapi_id}\/deployments\/{deployment_id}?embed=apisummary@.
 --
--- 'restApiId', 'getDeployment_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'getDeployment_restApiId' - The string identifier of the associated RestApi.
 --
--- 'deploymentId', 'getDeployment_deploymentId' - [Required] The identifier of the Deployment resource to get information
--- about.
+-- 'deploymentId', 'getDeployment_deploymentId' - The identifier of the Deployment resource to get information about.
 newGetDeployment ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -122,21 +121,21 @@ newGetDeployment pRestApiId_ pDeploymentId_ =
 getDeployment_embed :: Lens.Lens' GetDeployment (Prelude.Maybe [Prelude.Text])
 getDeployment_embed = Lens.lens (\GetDeployment' {embed} -> embed) (\s@GetDeployment' {} a -> s {embed = a} :: GetDeployment) Prelude.. Lens.mapping Lens.coerced
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 getDeployment_restApiId :: Lens.Lens' GetDeployment Prelude.Text
 getDeployment_restApiId = Lens.lens (\GetDeployment' {restApiId} -> restApiId) (\s@GetDeployment' {} a -> s {restApiId = a} :: GetDeployment)
 
--- | [Required] The identifier of the Deployment resource to get information
--- about.
+-- | The identifier of the Deployment resource to get information about.
 getDeployment_deploymentId :: Lens.Lens' GetDeployment Prelude.Text
 getDeployment_deploymentId = Lens.lens (\GetDeployment' {deploymentId} -> deploymentId) (\s@GetDeployment' {} a -> s {deploymentId = a} :: GetDeployment)
 
 instance Core.AWSRequest GetDeployment where
   type AWSResponse GetDeployment = Deployment
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetDeployment where
   hashWithSalt _salt GetDeployment' {..} =
@@ -150,28 +149,28 @@ instance Prelude.NFData GetDeployment where
       `Prelude.seq` Prelude.rnf restApiId
       `Prelude.seq` Prelude.rnf deploymentId
 
-instance Core.ToHeaders GetDeployment where
+instance Data.ToHeaders GetDeployment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetDeployment where
+instance Data.ToPath GetDeployment where
   toPath GetDeployment' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/deployments/",
-        Core.toBS deploymentId
+        Data.toBS deploymentId
       ]
 
-instance Core.ToQuery GetDeployment where
+instance Data.ToQuery GetDeployment where
   toQuery GetDeployment' {..} =
     Prelude.mconcat
       [ "embed"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> embed)
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> embed)
       ]

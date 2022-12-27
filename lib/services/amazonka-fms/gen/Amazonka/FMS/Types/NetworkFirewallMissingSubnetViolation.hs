@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.Types.NetworkFirewallMissingSubnetViolation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.FMS.Types.NetworkFirewallMissingSubnetViolation where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Violation detail for Network Firewall for an Availability Zone that\'s
@@ -28,10 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newNetworkFirewallMissingSubnetViolation' smart constructor.
 data NetworkFirewallMissingSubnetViolation = NetworkFirewallMissingSubnetViolation'
-  { -- | The reason the resource has this violation, if one is available.
-    targetViolationReason :: Prelude.Maybe Prelude.Text,
-    -- | The Availability Zone of a violating subnet.
+  { -- | The Availability Zone of a violating subnet.
     availabilityZone :: Prelude.Maybe Prelude.Text,
+    -- | The reason the resource has this violation, if one is available.
+    targetViolationReason :: Prelude.Maybe Prelude.Text,
     -- | The resource ID of the VPC associated with a violating subnet.
     vpc :: Prelude.Maybe Prelude.Text,
     -- | The ID of the Network Firewall or VPC resource that\'s in violation.
@@ -47,9 +48,9 @@ data NetworkFirewallMissingSubnetViolation = NetworkFirewallMissingSubnetViolati
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'targetViolationReason', 'networkFirewallMissingSubnetViolation_targetViolationReason' - The reason the resource has this violation, if one is available.
---
 -- 'availabilityZone', 'networkFirewallMissingSubnetViolation_availabilityZone' - The Availability Zone of a violating subnet.
+--
+-- 'targetViolationReason', 'networkFirewallMissingSubnetViolation_targetViolationReason' - The reason the resource has this violation, if one is available.
 --
 -- 'vpc', 'networkFirewallMissingSubnetViolation_vpc' - The resource ID of the VPC associated with a violating subnet.
 --
@@ -58,20 +59,21 @@ newNetworkFirewallMissingSubnetViolation ::
   NetworkFirewallMissingSubnetViolation
 newNetworkFirewallMissingSubnetViolation =
   NetworkFirewallMissingSubnetViolation'
-    { targetViolationReason =
+    { availabilityZone =
         Prelude.Nothing,
-      availabilityZone = Prelude.Nothing,
+      targetViolationReason =
+        Prelude.Nothing,
       vpc = Prelude.Nothing,
       violationTarget = Prelude.Nothing
     }
 
--- | The reason the resource has this violation, if one is available.
-networkFirewallMissingSubnetViolation_targetViolationReason :: Lens.Lens' NetworkFirewallMissingSubnetViolation (Prelude.Maybe Prelude.Text)
-networkFirewallMissingSubnetViolation_targetViolationReason = Lens.lens (\NetworkFirewallMissingSubnetViolation' {targetViolationReason} -> targetViolationReason) (\s@NetworkFirewallMissingSubnetViolation' {} a -> s {targetViolationReason = a} :: NetworkFirewallMissingSubnetViolation)
-
 -- | The Availability Zone of a violating subnet.
 networkFirewallMissingSubnetViolation_availabilityZone :: Lens.Lens' NetworkFirewallMissingSubnetViolation (Prelude.Maybe Prelude.Text)
 networkFirewallMissingSubnetViolation_availabilityZone = Lens.lens (\NetworkFirewallMissingSubnetViolation' {availabilityZone} -> availabilityZone) (\s@NetworkFirewallMissingSubnetViolation' {} a -> s {availabilityZone = a} :: NetworkFirewallMissingSubnetViolation)
+
+-- | The reason the resource has this violation, if one is available.
+networkFirewallMissingSubnetViolation_targetViolationReason :: Lens.Lens' NetworkFirewallMissingSubnetViolation (Prelude.Maybe Prelude.Text)
+networkFirewallMissingSubnetViolation_targetViolationReason = Lens.lens (\NetworkFirewallMissingSubnetViolation' {targetViolationReason} -> targetViolationReason) (\s@NetworkFirewallMissingSubnetViolation' {} a -> s {targetViolationReason = a} :: NetworkFirewallMissingSubnetViolation)
 
 -- | The resource ID of the VPC associated with a violating subnet.
 networkFirewallMissingSubnetViolation_vpc :: Lens.Lens' NetworkFirewallMissingSubnetViolation (Prelude.Maybe Prelude.Text)
@@ -82,18 +84,18 @@ networkFirewallMissingSubnetViolation_violationTarget :: Lens.Lens' NetworkFirew
 networkFirewallMissingSubnetViolation_violationTarget = Lens.lens (\NetworkFirewallMissingSubnetViolation' {violationTarget} -> violationTarget) (\s@NetworkFirewallMissingSubnetViolation' {} a -> s {violationTarget = a} :: NetworkFirewallMissingSubnetViolation)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     NetworkFirewallMissingSubnetViolation
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NetworkFirewallMissingSubnetViolation"
       ( \x ->
           NetworkFirewallMissingSubnetViolation'
-            Prelude.<$> (x Core..:? "TargetViolationReason")
-            Prelude.<*> (x Core..:? "AvailabilityZone")
-            Prelude.<*> (x Core..:? "VPC")
-            Prelude.<*> (x Core..:? "ViolationTarget")
+            Prelude.<$> (x Data..:? "AvailabilityZone")
+            Prelude.<*> (x Data..:? "TargetViolationReason")
+            Prelude.<*> (x Data..:? "VPC")
+            Prelude.<*> (x Data..:? "ViolationTarget")
       )
 
 instance
@@ -103,8 +105,8 @@ instance
   hashWithSalt
     _salt
     NetworkFirewallMissingSubnetViolation' {..} =
-      _salt `Prelude.hashWithSalt` targetViolationReason
-        `Prelude.hashWithSalt` availabilityZone
+      _salt `Prelude.hashWithSalt` availabilityZone
+        `Prelude.hashWithSalt` targetViolationReason
         `Prelude.hashWithSalt` vpc
         `Prelude.hashWithSalt` violationTarget
 
@@ -113,7 +115,7 @@ instance
     NetworkFirewallMissingSubnetViolation
   where
   rnf NetworkFirewallMissingSubnetViolation' {..} =
-    Prelude.rnf targetViolationReason
-      `Prelude.seq` Prelude.rnf availabilityZone
+    Prelude.rnf availabilityZone
+      `Prelude.seq` Prelude.rnf targetViolationReason
       `Prelude.seq` Prelude.rnf vpc
       `Prelude.seq` Prelude.rnf violationTarget

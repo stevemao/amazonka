@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.InstanceMetricName
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,6 +23,7 @@ module Amazonka.Lightsail.Types.InstanceMetricName
         InstanceMetricName_BurstCapacityPercentage,
         InstanceMetricName_BurstCapacityTime,
         InstanceMetricName_CPUUtilization,
+        InstanceMetricName_MetadataNoToken,
         InstanceMetricName_NetworkIn,
         InstanceMetricName_NetworkOut,
         InstanceMetricName_StatusCheckFailed,
@@ -33,11 +34,12 @@ module Amazonka.Lightsail.Types.InstanceMetricName
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype InstanceMetricName = InstanceMetricName'
   { fromInstanceMetricName ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -49,18 +51,18 @@ newtype InstanceMetricName = InstanceMetricName'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern InstanceMetricName_BurstCapacityPercentage :: InstanceMetricName
@@ -71,6 +73,9 @@ pattern InstanceMetricName_BurstCapacityTime = InstanceMetricName' "BurstCapacit
 
 pattern InstanceMetricName_CPUUtilization :: InstanceMetricName
 pattern InstanceMetricName_CPUUtilization = InstanceMetricName' "CPUUtilization"
+
+pattern InstanceMetricName_MetadataNoToken :: InstanceMetricName
+pattern InstanceMetricName_MetadataNoToken = InstanceMetricName' "MetadataNoToken"
 
 pattern InstanceMetricName_NetworkIn :: InstanceMetricName
 pattern InstanceMetricName_NetworkIn = InstanceMetricName' "NetworkIn"
@@ -91,6 +96,7 @@ pattern InstanceMetricName_StatusCheckFailed_System = InstanceMetricName' "Statu
   InstanceMetricName_BurstCapacityPercentage,
   InstanceMetricName_BurstCapacityTime,
   InstanceMetricName_CPUUtilization,
+  InstanceMetricName_MetadataNoToken,
   InstanceMetricName_NetworkIn,
   InstanceMetricName_NetworkOut,
   InstanceMetricName_StatusCheckFailed,

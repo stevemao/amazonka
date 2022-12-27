@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.BatchListObjectChildren
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,18 +21,19 @@ module Amazonka.CloudDirectory.Types.BatchListObjectChildren where
 
 import Amazonka.CloudDirectory.Types.ObjectReference
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the output of a ListObjectChildren operation.
 --
 -- /See:/ 'newBatchListObjectChildren' smart constructor.
 data BatchListObjectChildren = BatchListObjectChildren'
-  { -- | The pagination token.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Maximum number of items to be retrieved in a single call. This is an
+  { -- | Maximum number of items to be retrieved in a single call. This is an
     -- approximate number.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | Reference of the object for which child objects are being listed.
     objectReference :: ObjectReference
   }
@@ -46,10 +47,10 @@ data BatchListObjectChildren = BatchListObjectChildren'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'batchListObjectChildren_nextToken' - The pagination token.
---
 -- 'maxResults', 'batchListObjectChildren_maxResults' - Maximum number of items to be retrieved in a single call. This is an
 -- approximate number.
+--
+-- 'nextToken', 'batchListObjectChildren_nextToken' - The pagination token.
 --
 -- 'objectReference', 'batchListObjectChildren_objectReference' - Reference of the object for which child objects are being listed.
 newBatchListObjectChildren ::
@@ -58,20 +59,20 @@ newBatchListObjectChildren ::
   BatchListObjectChildren
 newBatchListObjectChildren pObjectReference_ =
   BatchListObjectChildren'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       objectReference = pObjectReference_
     }
-
--- | The pagination token.
-batchListObjectChildren_nextToken :: Lens.Lens' BatchListObjectChildren (Prelude.Maybe Prelude.Text)
-batchListObjectChildren_nextToken = Lens.lens (\BatchListObjectChildren' {nextToken} -> nextToken) (\s@BatchListObjectChildren' {} a -> s {nextToken = a} :: BatchListObjectChildren)
 
 -- | Maximum number of items to be retrieved in a single call. This is an
 -- approximate number.
 batchListObjectChildren_maxResults :: Lens.Lens' BatchListObjectChildren (Prelude.Maybe Prelude.Natural)
 batchListObjectChildren_maxResults = Lens.lens (\BatchListObjectChildren' {maxResults} -> maxResults) (\s@BatchListObjectChildren' {} a -> s {maxResults = a} :: BatchListObjectChildren)
+
+-- | The pagination token.
+batchListObjectChildren_nextToken :: Lens.Lens' BatchListObjectChildren (Prelude.Maybe Prelude.Text)
+batchListObjectChildren_nextToken = Lens.lens (\BatchListObjectChildren' {nextToken} -> nextToken) (\s@BatchListObjectChildren' {} a -> s {nextToken = a} :: BatchListObjectChildren)
 
 -- | Reference of the object for which child objects are being listed.
 batchListObjectChildren_objectReference :: Lens.Lens' BatchListObjectChildren ObjectReference
@@ -79,23 +80,23 @@ batchListObjectChildren_objectReference = Lens.lens (\BatchListObjectChildren' {
 
 instance Prelude.Hashable BatchListObjectChildren where
   hashWithSalt _salt BatchListObjectChildren' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` objectReference
 
 instance Prelude.NFData BatchListObjectChildren where
   rnf BatchListObjectChildren' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf objectReference
 
-instance Core.ToJSON BatchListObjectChildren where
+instance Data.ToJSON BatchListObjectChildren where
   toJSON BatchListObjectChildren' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("ObjectReference" Core..= objectReference)
+              ("ObjectReference" Data..= objectReference)
           ]
       )

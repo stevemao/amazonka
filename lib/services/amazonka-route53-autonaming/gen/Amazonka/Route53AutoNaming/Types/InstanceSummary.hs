@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53AutoNaming.Types.InstanceSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53AutoNaming.Types.InstanceSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A complex type that contains information about the instances that you
@@ -55,22 +56,22 @@ data InstanceSummary = InstanceSummary'
     --     status is @HEALTHY@.
     --
     -- [AWS_INSTANCE_CNAME]
-    --     For a @CNAME@ record, the domain name that Route 53 returns in
+    --     For a @CNAME@ record, the domain name that Route 53 returns in
     --     response to DNS queries (for example, @example.com@).
     --
     -- [AWS_INSTANCE_IPV4]
-    --     For an @A@ record, the IPv4 address that Route 53 returns in
+    --     For an @A@ record, the IPv4 address that Route 53 returns in
     --     response to DNS queries (for example, @192.0.2.44@).
     --
     -- [AWS_INSTANCE_IPV6]
-    --     For an @AAAA@ record, the IPv6 address that Route 53 returns in
+    --     For an @AAAA@ record, the IPv6 address that Route 53 returns in
     --     response to DNS queries (for example,
     --     @2001:0db8:85a3:0000:0000:abcd:0001:2345@).
     --
     -- [AWS_INSTANCE_PORT]
-    --     For an @SRV@ record, the value that Route 53 returns for the port.
+    --     For an @SRV@ record, the value that Route 53 returns for the port.
     --     In addition, if the service includes @HealthCheckConfig@, the port
-    --     on the endpoint that Route 53 sends requests to.
+    --     on the endpoint that Route 53 sends requests to.
     attributes :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The ID for an instance that you created by using a specified service.
     id :: Prelude.Maybe Prelude.Text
@@ -112,22 +113,22 @@ data InstanceSummary = InstanceSummary'
 --     status is @HEALTHY@.
 --
 -- [AWS_INSTANCE_CNAME]
---     For a @CNAME@ record, the domain name that Route 53 returns in
+--     For a @CNAME@ record, the domain name that Route 53 returns in
 --     response to DNS queries (for example, @example.com@).
 --
 -- [AWS_INSTANCE_IPV4]
---     For an @A@ record, the IPv4 address that Route 53 returns in
+--     For an @A@ record, the IPv4 address that Route 53 returns in
 --     response to DNS queries (for example, @192.0.2.44@).
 --
 -- [AWS_INSTANCE_IPV6]
---     For an @AAAA@ record, the IPv6 address that Route 53 returns in
+--     For an @AAAA@ record, the IPv6 address that Route 53 returns in
 --     response to DNS queries (for example,
 --     @2001:0db8:85a3:0000:0000:abcd:0001:2345@).
 --
 -- [AWS_INSTANCE_PORT]
---     For an @SRV@ record, the value that Route 53 returns for the port.
+--     For an @SRV@ record, the value that Route 53 returns for the port.
 --     In addition, if the service includes @HealthCheckConfig@, the port
---     on the endpoint that Route 53 sends requests to.
+--     on the endpoint that Route 53 sends requests to.
 --
 -- 'id', 'instanceSummary_id' - The ID for an instance that you created by using a specified service.
 newInstanceSummary ::
@@ -165,22 +166,22 @@ newInstanceSummary =
 --     status is @HEALTHY@.
 --
 -- [AWS_INSTANCE_CNAME]
---     For a @CNAME@ record, the domain name that Route 53 returns in
+--     For a @CNAME@ record, the domain name that Route 53 returns in
 --     response to DNS queries (for example, @example.com@).
 --
 -- [AWS_INSTANCE_IPV4]
---     For an @A@ record, the IPv4 address that Route 53 returns in
+--     For an @A@ record, the IPv4 address that Route 53 returns in
 --     response to DNS queries (for example, @192.0.2.44@).
 --
 -- [AWS_INSTANCE_IPV6]
---     For an @AAAA@ record, the IPv6 address that Route 53 returns in
+--     For an @AAAA@ record, the IPv6 address that Route 53 returns in
 --     response to DNS queries (for example,
 --     @2001:0db8:85a3:0000:0000:abcd:0001:2345@).
 --
 -- [AWS_INSTANCE_PORT]
---     For an @SRV@ record, the value that Route 53 returns for the port.
+--     For an @SRV@ record, the value that Route 53 returns for the port.
 --     In addition, if the service includes @HealthCheckConfig@, the port
---     on the endpoint that Route 53 sends requests to.
+--     on the endpoint that Route 53 sends requests to.
 instanceSummary_attributes :: Lens.Lens' InstanceSummary (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 instanceSummary_attributes = Lens.lens (\InstanceSummary' {attributes} -> attributes) (\s@InstanceSummary' {} a -> s {attributes = a} :: InstanceSummary) Prelude.. Lens.mapping Lens.coerced
 
@@ -188,14 +189,14 @@ instanceSummary_attributes = Lens.lens (\InstanceSummary' {attributes} -> attrib
 instanceSummary_id :: Lens.Lens' InstanceSummary (Prelude.Maybe Prelude.Text)
 instanceSummary_id = Lens.lens (\InstanceSummary' {id} -> id) (\s@InstanceSummary' {} a -> s {id = a} :: InstanceSummary)
 
-instance Core.FromJSON InstanceSummary where
+instance Data.FromJSON InstanceSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InstanceSummary"
       ( \x ->
           InstanceSummary'
-            Prelude.<$> (x Core..:? "Attributes" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Id")
+            Prelude.<$> (x Data..:? "Attributes" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Id")
       )
 
 instance Prelude.Hashable InstanceSummary where

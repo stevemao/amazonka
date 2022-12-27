@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.PatchComplianceData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,12 +20,13 @@
 module Amazonka.SSM.Types.PatchComplianceData where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSM.Types.PatchComplianceDataState
 
--- | Information about the state of a patch on a particular instance as it
--- relates to the patch baseline used to patch the instance.
+-- | Information about the state of a patch on a particular managed node as
+-- it relates to the patch baseline used to patch the node.
 --
 -- /See:/ 'newPatchComplianceData' smart constructor.
 data PatchComplianceData = PatchComplianceData'
@@ -39,18 +40,18 @@ data PatchComplianceData = PatchComplianceData'
     -- | The classification of the patch, such as @SecurityUpdates@, @Updates@,
     -- and @CriticalUpdates@.
     classification :: Prelude.Text,
-    -- | The severity of the patchsuch as @Critical@, @Important@, and
+    -- | The severity of the patch such as @Critical@, @Important@, and
     -- @Moderate@.
     severity :: Prelude.Text,
-    -- | The state of the patch on the instance, such as INSTALLED or FAILED.
+    -- | The state of the patch on the managed node, such as INSTALLED or FAILED.
     --
     -- For descriptions of each patch state, see
     -- <https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-compliance-about.html#sysman-compliance-monitor-patch About patch compliance>
     -- in the /Amazon Web Services Systems Manager User Guide/.
     state :: PatchComplianceDataState,
-    -- | The date\/time the patch was installed on the instance. Not all
+    -- | The date\/time the patch was installed on the managed node. Not all
     -- operating systems provide this level of information.
-    installedTime :: Core.POSIX
+    installedTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -72,16 +73,16 @@ data PatchComplianceData = PatchComplianceData'
 -- 'classification', 'patchComplianceData_classification' - The classification of the patch, such as @SecurityUpdates@, @Updates@,
 -- and @CriticalUpdates@.
 --
--- 'severity', 'patchComplianceData_severity' - The severity of the patchsuch as @Critical@, @Important@, and
+-- 'severity', 'patchComplianceData_severity' - The severity of the patch such as @Critical@, @Important@, and
 -- @Moderate@.
 --
--- 'state', 'patchComplianceData_state' - The state of the patch on the instance, such as INSTALLED or FAILED.
+-- 'state', 'patchComplianceData_state' - The state of the patch on the managed node, such as INSTALLED or FAILED.
 --
 -- For descriptions of each patch state, see
 -- <https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-compliance-about.html#sysman-compliance-monitor-patch About patch compliance>
 -- in the /Amazon Web Services Systems Manager User Guide/.
 --
--- 'installedTime', 'patchComplianceData_installedTime' - The date\/time the patch was installed on the instance. Not all
+-- 'installedTime', 'patchComplianceData_installedTime' - The date\/time the patch was installed on the managed node. Not all
 -- operating systems provide this level of information.
 newPatchComplianceData ::
   -- | 'title'
@@ -111,7 +112,7 @@ newPatchComplianceData
         classification = pClassification_,
         severity = pSeverity_,
         state = pState_,
-        installedTime = Core._Time Lens.# pInstalledTime_
+        installedTime = Data._Time Lens.# pInstalledTime_
       }
 
 -- | The IDs of one or more Common Vulnerabilities and Exposure (CVE) issues
@@ -132,12 +133,12 @@ patchComplianceData_kBId = Lens.lens (\PatchComplianceData' {kBId} -> kBId) (\s@
 patchComplianceData_classification :: Lens.Lens' PatchComplianceData Prelude.Text
 patchComplianceData_classification = Lens.lens (\PatchComplianceData' {classification} -> classification) (\s@PatchComplianceData' {} a -> s {classification = a} :: PatchComplianceData)
 
--- | The severity of the patchsuch as @Critical@, @Important@, and
+-- | The severity of the patch such as @Critical@, @Important@, and
 -- @Moderate@.
 patchComplianceData_severity :: Lens.Lens' PatchComplianceData Prelude.Text
 patchComplianceData_severity = Lens.lens (\PatchComplianceData' {severity} -> severity) (\s@PatchComplianceData' {} a -> s {severity = a} :: PatchComplianceData)
 
--- | The state of the patch on the instance, such as INSTALLED or FAILED.
+-- | The state of the patch on the managed node, such as INSTALLED or FAILED.
 --
 -- For descriptions of each patch state, see
 -- <https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-compliance-about.html#sysman-compliance-monitor-patch About patch compliance>
@@ -145,24 +146,24 @@ patchComplianceData_severity = Lens.lens (\PatchComplianceData' {severity} -> se
 patchComplianceData_state :: Lens.Lens' PatchComplianceData PatchComplianceDataState
 patchComplianceData_state = Lens.lens (\PatchComplianceData' {state} -> state) (\s@PatchComplianceData' {} a -> s {state = a} :: PatchComplianceData)
 
--- | The date\/time the patch was installed on the instance. Not all
+-- | The date\/time the patch was installed on the managed node. Not all
 -- operating systems provide this level of information.
 patchComplianceData_installedTime :: Lens.Lens' PatchComplianceData Prelude.UTCTime
-patchComplianceData_installedTime = Lens.lens (\PatchComplianceData' {installedTime} -> installedTime) (\s@PatchComplianceData' {} a -> s {installedTime = a} :: PatchComplianceData) Prelude.. Core._Time
+patchComplianceData_installedTime = Lens.lens (\PatchComplianceData' {installedTime} -> installedTime) (\s@PatchComplianceData' {} a -> s {installedTime = a} :: PatchComplianceData) Prelude.. Data._Time
 
-instance Core.FromJSON PatchComplianceData where
+instance Data.FromJSON PatchComplianceData where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PatchComplianceData"
       ( \x ->
           PatchComplianceData'
-            Prelude.<$> (x Core..:? "CVEIds")
-            Prelude.<*> (x Core..: "Title")
-            Prelude.<*> (x Core..: "KBId")
-            Prelude.<*> (x Core..: "Classification")
-            Prelude.<*> (x Core..: "Severity")
-            Prelude.<*> (x Core..: "State")
-            Prelude.<*> (x Core..: "InstalledTime")
+            Prelude.<$> (x Data..:? "CVEIds")
+            Prelude.<*> (x Data..: "Title")
+            Prelude.<*> (x Data..: "KBId")
+            Prelude.<*> (x Data..: "Classification")
+            Prelude.<*> (x Data..: "Severity")
+            Prelude.<*> (x Data..: "State")
+            Prelude.<*> (x Data..: "InstalledTime")
       )
 
 instance Prelude.Hashable PatchComplianceData where

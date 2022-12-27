@@ -14,16 +14,16 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.GenerateEmbedUrlForAnonymousUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Generates an embed URL that you can use to embed an Amazon QuickSight
--- dashboard in your website, without having to register any reader users.
--- Before you use this action, make sure that you have configured the
--- dashboards and permissions.
+-- dashboard or visual in your website, without having to register any
+-- reader users. Before you use this action, make sure that you have
+-- configured the dashboards and permissions.
 --
 -- The following rules apply to the generated URL:
 --
@@ -33,10 +33,9 @@
 --
 -- -   The URL validity period should not be confused with the actual
 --     session lifetime that can be customized using the
---     @ SessionLifetimeInMinutes @ parameter.
---
---     The resulting user session is valid for 15 minutes (default) to 10
---     hours (maximum).
+--     @ SessionLifetimeInMinutes @ parameter. The resulting user session
+--     is valid for 15 minutes (minimum) to 10 hours (maximum). The default
+--     session duration is 10 hours.
 --
 -- -   You are charged only when the URL is used or there is interaction
 --     with Amazon QuickSight.
@@ -54,6 +53,7 @@ module Amazonka.QuickSight.GenerateEmbedUrlForAnonymousUser
     newGenerateEmbedUrlForAnonymousUser,
 
     -- * Request Lenses
+    generateEmbedUrlForAnonymousUser_allowedDomains,
     generateEmbedUrlForAnonymousUser_sessionLifetimeInMinutes,
     generateEmbedUrlForAnonymousUser_sessionTags,
     generateEmbedUrlForAnonymousUser_awsAccountId,
@@ -69,11 +69,13 @@ module Amazonka.QuickSight.GenerateEmbedUrlForAnonymousUser
     generateEmbedUrlForAnonymousUserResponse_status,
     generateEmbedUrlForAnonymousUserResponse_embedUrl,
     generateEmbedUrlForAnonymousUserResponse_requestId,
+    generateEmbedUrlForAnonymousUserResponse_anonymousUserArn,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -81,7 +83,18 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGenerateEmbedUrlForAnonymousUser' smart constructor.
 data GenerateEmbedUrlForAnonymousUser = GenerateEmbedUrlForAnonymousUser'
-  { -- | How many minutes the session is valid. The session lifetime must be in
+  { -- | The domains that you want to add to the allow list for access to the
+    -- generated URL that is then embedded. This optional parameter overrides
+    -- the static domains that are configured in the Manage QuickSight menu in
+    -- the Amazon QuickSight console. Instead, it allows only the domains that
+    -- you include in this parameter. You can list up to three domains or
+    -- subdomains in each API call.
+    --
+    -- To include all subdomains under a specific domain to the allow list, use
+    -- @*@. For example, @https:\/\/*.sapp.amazon.com@ includes all subdomains
+    -- under @https:\/\/sapp.amazon.com@.
+    allowedDomains :: Prelude.Maybe [Prelude.Text],
+    -- | How many minutes the session is valid. The session lifetime must be in
     -- [15-600] minutes range.
     sessionLifetimeInMinutes :: Prelude.Maybe Prelude.Natural,
     -- | The session tags used for row-level security. Before you use this
@@ -91,7 +104,8 @@ data GenerateEmbedUrlForAnonymousUser = GenerateEmbedUrlForAnonymousUser'
     --
     -- These are not the tags used for the Amazon Web Services resource tagging
     -- feature. For more information, see
-    -- <https://docs.aws.amazon.com/quicksight/latest/user/quicksight-dev-rls-tags.html Using Row-Level Security (RLS) with Tags>.
+    -- <https://docs.aws.amazon.com/quicksight/latest/user/quicksight-dev-rls-tags.html Using Row-Level Security (RLS) with Tags>in
+    -- the /Amazon QuickSight User Guide/.
     sessionTags :: Prelude.Maybe (Prelude.NonEmpty SessionTag),
     -- | The ID for the Amazon Web Services account that contains the dashboard
     -- that you\'re embedding.
@@ -100,12 +114,13 @@ data GenerateEmbedUrlForAnonymousUser = GenerateEmbedUrlForAnonymousUser'
     -- belongs to. If you are not using an Amazon QuickSight custom namespace,
     -- set this to @default@.
     namespace :: Prelude.Text,
-    -- | The Amazon Resource Names for the Amazon QuickSight resources that the
-    -- user is authorized to access during the lifetime of the session. If you
-    -- choose @Dashboard@ embedding experience, pass the list of dashboard ARNs
-    -- in the account that you want the user to be able to view.
+    -- | The Amazon Resource Names (ARNs) for the Amazon QuickSight resources
+    -- that the user is authorized to access during the lifetime of the
+    -- session. If you choose @Dashboard@ embedding experience, pass the list
+    -- of dashboard ARNs in the account that you want the user to be able to
+    -- view. Currently, you can pass up to 25 dashboard ARNs in each API call.
     authorizedResourceArns :: [Prelude.Text],
-    -- | The configuration of the experience you are embedding.
+    -- | The configuration of the experience that you are embedding.
     experienceConfiguration :: AnonymousUserEmbeddingExperienceConfiguration
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
@@ -118,6 +133,17 @@ data GenerateEmbedUrlForAnonymousUser = GenerateEmbedUrlForAnonymousUser'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'allowedDomains', 'generateEmbedUrlForAnonymousUser_allowedDomains' - The domains that you want to add to the allow list for access to the
+-- generated URL that is then embedded. This optional parameter overrides
+-- the static domains that are configured in the Manage QuickSight menu in
+-- the Amazon QuickSight console. Instead, it allows only the domains that
+-- you include in this parameter. You can list up to three domains or
+-- subdomains in each API call.
+--
+-- To include all subdomains under a specific domain to the allow list, use
+-- @*@. For example, @https:\/\/*.sapp.amazon.com@ includes all subdomains
+-- under @https:\/\/sapp.amazon.com@.
+--
 -- 'sessionLifetimeInMinutes', 'generateEmbedUrlForAnonymousUser_sessionLifetimeInMinutes' - How many minutes the session is valid. The session lifetime must be in
 -- [15-600] minutes range.
 --
@@ -128,7 +154,8 @@ data GenerateEmbedUrlForAnonymousUser = GenerateEmbedUrlForAnonymousUser'
 --
 -- These are not the tags used for the Amazon Web Services resource tagging
 -- feature. For more information, see
--- <https://docs.aws.amazon.com/quicksight/latest/user/quicksight-dev-rls-tags.html Using Row-Level Security (RLS) with Tags>.
+-- <https://docs.aws.amazon.com/quicksight/latest/user/quicksight-dev-rls-tags.html Using Row-Level Security (RLS) with Tags>in
+-- the /Amazon QuickSight User Guide/.
 --
 -- 'awsAccountId', 'generateEmbedUrlForAnonymousUser_awsAccountId' - The ID for the Amazon Web Services account that contains the dashboard
 -- that you\'re embedding.
@@ -137,12 +164,13 @@ data GenerateEmbedUrlForAnonymousUser = GenerateEmbedUrlForAnonymousUser'
 -- belongs to. If you are not using an Amazon QuickSight custom namespace,
 -- set this to @default@.
 --
--- 'authorizedResourceArns', 'generateEmbedUrlForAnonymousUser_authorizedResourceArns' - The Amazon Resource Names for the Amazon QuickSight resources that the
--- user is authorized to access during the lifetime of the session. If you
--- choose @Dashboard@ embedding experience, pass the list of dashboard ARNs
--- in the account that you want the user to be able to view.
+-- 'authorizedResourceArns', 'generateEmbedUrlForAnonymousUser_authorizedResourceArns' - The Amazon Resource Names (ARNs) for the Amazon QuickSight resources
+-- that the user is authorized to access during the lifetime of the
+-- session. If you choose @Dashboard@ embedding experience, pass the list
+-- of dashboard ARNs in the account that you want the user to be able to
+-- view. Currently, you can pass up to 25 dashboard ARNs in each API call.
 --
--- 'experienceConfiguration', 'generateEmbedUrlForAnonymousUser_experienceConfiguration' - The configuration of the experience you are embedding.
+-- 'experienceConfiguration', 'generateEmbedUrlForAnonymousUser_experienceConfiguration' - The configuration of the experience that you are embedding.
 newGenerateEmbedUrlForAnonymousUser ::
   -- | 'awsAccountId'
   Prelude.Text ->
@@ -156,7 +184,9 @@ newGenerateEmbedUrlForAnonymousUser
   pNamespace_
   pExperienceConfiguration_ =
     GenerateEmbedUrlForAnonymousUser'
-      { sessionLifetimeInMinutes =
+      { allowedDomains =
+          Prelude.Nothing,
+        sessionLifetimeInMinutes =
           Prelude.Nothing,
         sessionTags = Prelude.Nothing,
         awsAccountId = pAwsAccountId_,
@@ -165,6 +195,19 @@ newGenerateEmbedUrlForAnonymousUser
         experienceConfiguration =
           pExperienceConfiguration_
       }
+
+-- | The domains that you want to add to the allow list for access to the
+-- generated URL that is then embedded. This optional parameter overrides
+-- the static domains that are configured in the Manage QuickSight menu in
+-- the Amazon QuickSight console. Instead, it allows only the domains that
+-- you include in this parameter. You can list up to three domains or
+-- subdomains in each API call.
+--
+-- To include all subdomains under a specific domain to the allow list, use
+-- @*@. For example, @https:\/\/*.sapp.amazon.com@ includes all subdomains
+-- under @https:\/\/sapp.amazon.com@.
+generateEmbedUrlForAnonymousUser_allowedDomains :: Lens.Lens' GenerateEmbedUrlForAnonymousUser (Prelude.Maybe [Prelude.Text])
+generateEmbedUrlForAnonymousUser_allowedDomains = Lens.lens (\GenerateEmbedUrlForAnonymousUser' {allowedDomains} -> allowedDomains) (\s@GenerateEmbedUrlForAnonymousUser' {} a -> s {allowedDomains = a} :: GenerateEmbedUrlForAnonymousUser) Prelude.. Lens.mapping Lens.coerced
 
 -- | How many minutes the session is valid. The session lifetime must be in
 -- [15-600] minutes range.
@@ -178,7 +221,8 @@ generateEmbedUrlForAnonymousUser_sessionLifetimeInMinutes = Lens.lens (\Generate
 --
 -- These are not the tags used for the Amazon Web Services resource tagging
 -- feature. For more information, see
--- <https://docs.aws.amazon.com/quicksight/latest/user/quicksight-dev-rls-tags.html Using Row-Level Security (RLS) with Tags>.
+-- <https://docs.aws.amazon.com/quicksight/latest/user/quicksight-dev-rls-tags.html Using Row-Level Security (RLS) with Tags>in
+-- the /Amazon QuickSight User Guide/.
 generateEmbedUrlForAnonymousUser_sessionTags :: Lens.Lens' GenerateEmbedUrlForAnonymousUser (Prelude.Maybe (Prelude.NonEmpty SessionTag))
 generateEmbedUrlForAnonymousUser_sessionTags = Lens.lens (\GenerateEmbedUrlForAnonymousUser' {sessionTags} -> sessionTags) (\s@GenerateEmbedUrlForAnonymousUser' {} a -> s {sessionTags = a} :: GenerateEmbedUrlForAnonymousUser) Prelude.. Lens.mapping Lens.coerced
 
@@ -193,14 +237,15 @@ generateEmbedUrlForAnonymousUser_awsAccountId = Lens.lens (\GenerateEmbedUrlForA
 generateEmbedUrlForAnonymousUser_namespace :: Lens.Lens' GenerateEmbedUrlForAnonymousUser Prelude.Text
 generateEmbedUrlForAnonymousUser_namespace = Lens.lens (\GenerateEmbedUrlForAnonymousUser' {namespace} -> namespace) (\s@GenerateEmbedUrlForAnonymousUser' {} a -> s {namespace = a} :: GenerateEmbedUrlForAnonymousUser)
 
--- | The Amazon Resource Names for the Amazon QuickSight resources that the
--- user is authorized to access during the lifetime of the session. If you
--- choose @Dashboard@ embedding experience, pass the list of dashboard ARNs
--- in the account that you want the user to be able to view.
+-- | The Amazon Resource Names (ARNs) for the Amazon QuickSight resources
+-- that the user is authorized to access during the lifetime of the
+-- session. If you choose @Dashboard@ embedding experience, pass the list
+-- of dashboard ARNs in the account that you want the user to be able to
+-- view. Currently, you can pass up to 25 dashboard ARNs in each API call.
 generateEmbedUrlForAnonymousUser_authorizedResourceArns :: Lens.Lens' GenerateEmbedUrlForAnonymousUser [Prelude.Text]
 generateEmbedUrlForAnonymousUser_authorizedResourceArns = Lens.lens (\GenerateEmbedUrlForAnonymousUser' {authorizedResourceArns} -> authorizedResourceArns) (\s@GenerateEmbedUrlForAnonymousUser' {} a -> s {authorizedResourceArns = a} :: GenerateEmbedUrlForAnonymousUser) Prelude.. Lens.coerced
 
--- | The configuration of the experience you are embedding.
+-- | The configuration of the experience that you are embedding.
 generateEmbedUrlForAnonymousUser_experienceConfiguration :: Lens.Lens' GenerateEmbedUrlForAnonymousUser AnonymousUserEmbeddingExperienceConfiguration
 generateEmbedUrlForAnonymousUser_experienceConfiguration = Lens.lens (\GenerateEmbedUrlForAnonymousUser' {experienceConfiguration} -> experienceConfiguration) (\s@GenerateEmbedUrlForAnonymousUser' {} a -> s {experienceConfiguration = a} :: GenerateEmbedUrlForAnonymousUser)
 
@@ -211,14 +256,16 @@ instance
   type
     AWSResponse GenerateEmbedUrlForAnonymousUser =
       GenerateEmbedUrlForAnonymousUserResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GenerateEmbedUrlForAnonymousUserResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "EmbedUrl")
-            Prelude.<*> (x Core..:> "RequestId")
+            Prelude.<*> (x Data..:> "EmbedUrl")
+            Prelude.<*> (x Data..:> "RequestId")
+            Prelude.<*> (x Data..:> "AnonymousUserArn")
       )
 
 instance
@@ -228,7 +275,7 @@ instance
   hashWithSalt
     _salt
     GenerateEmbedUrlForAnonymousUser' {..} =
-      _salt
+      _salt `Prelude.hashWithSalt` allowedDomains
         `Prelude.hashWithSalt` sessionLifetimeInMinutes
         `Prelude.hashWithSalt` sessionTags
         `Prelude.hashWithSalt` awsAccountId
@@ -241,7 +288,8 @@ instance
     GenerateEmbedUrlForAnonymousUser
   where
   rnf GenerateEmbedUrlForAnonymousUser' {..} =
-    Prelude.rnf sessionLifetimeInMinutes
+    Prelude.rnf allowedDomains
+      `Prelude.seq` Prelude.rnf sessionLifetimeInMinutes
       `Prelude.seq` Prelude.rnf sessionTags
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf namespace
@@ -249,48 +297,50 @@ instance
       `Prelude.seq` Prelude.rnf experienceConfiguration
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GenerateEmbedUrlForAnonymousUser
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GenerateEmbedUrlForAnonymousUser where
+instance Data.ToJSON GenerateEmbedUrlForAnonymousUser where
   toJSON GenerateEmbedUrlForAnonymousUser' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SessionLifetimeInMinutes" Core..=)
+          [ ("AllowedDomains" Data..=)
+              Prelude.<$> allowedDomains,
+            ("SessionLifetimeInMinutes" Data..=)
               Prelude.<$> sessionLifetimeInMinutes,
-            ("SessionTags" Core..=) Prelude.<$> sessionTags,
-            Prelude.Just ("Namespace" Core..= namespace),
+            ("SessionTags" Data..=) Prelude.<$> sessionTags,
+            Prelude.Just ("Namespace" Data..= namespace),
             Prelude.Just
               ( "AuthorizedResourceArns"
-                  Core..= authorizedResourceArns
+                  Data..= authorizedResourceArns
               ),
             Prelude.Just
               ( "ExperienceConfiguration"
-                  Core..= experienceConfiguration
+                  Data..= experienceConfiguration
               )
           ]
       )
 
-instance Core.ToPath GenerateEmbedUrlForAnonymousUser where
+instance Data.ToPath GenerateEmbedUrlForAnonymousUser where
   toPath GenerateEmbedUrlForAnonymousUser' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/embed-url/anonymous-user"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GenerateEmbedUrlForAnonymousUser
   where
   toQuery = Prelude.const Prelude.mempty
@@ -300,9 +350,12 @@ data GenerateEmbedUrlForAnonymousUserResponse = GenerateEmbedUrlForAnonymousUser
   { -- | The HTTP status of the request.
     status :: Prelude.Int,
     -- | The embed URL for the dashboard.
-    embedUrl :: Core.Sensitive Prelude.Text,
+    embedUrl :: Data.Sensitive Prelude.Text,
     -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Text
+    requestId :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) to use for the anonymous Amazon
+    -- QuickSight user.
+    anonymousUserArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -319,6 +372,9 @@ data GenerateEmbedUrlForAnonymousUserResponse = GenerateEmbedUrlForAnonymousUser
 -- 'embedUrl', 'generateEmbedUrlForAnonymousUserResponse_embedUrl' - The embed URL for the dashboard.
 --
 -- 'requestId', 'generateEmbedUrlForAnonymousUserResponse_requestId' - The Amazon Web Services request ID for this operation.
+--
+-- 'anonymousUserArn', 'generateEmbedUrlForAnonymousUserResponse_anonymousUserArn' - The Amazon Resource Name (ARN) to use for the anonymous Amazon
+-- QuickSight user.
 newGenerateEmbedUrlForAnonymousUserResponse ::
   -- | 'status'
   Prelude.Int ->
@@ -326,18 +382,23 @@ newGenerateEmbedUrlForAnonymousUserResponse ::
   Prelude.Text ->
   -- | 'requestId'
   Prelude.Text ->
+  -- | 'anonymousUserArn'
+  Prelude.Text ->
   GenerateEmbedUrlForAnonymousUserResponse
 newGenerateEmbedUrlForAnonymousUserResponse
   pStatus_
   pEmbedUrl_
-  pRequestId_ =
+  pRequestId_
+  pAnonymousUserArn_ =
     GenerateEmbedUrlForAnonymousUserResponse'
       { status =
           pStatus_,
         embedUrl =
-          Core._Sensitive
+          Data._Sensitive
             Lens.# pEmbedUrl_,
-        requestId = pRequestId_
+        requestId = pRequestId_,
+        anonymousUserArn =
+          pAnonymousUserArn_
       }
 
 -- | The HTTP status of the request.
@@ -346,11 +407,16 @@ generateEmbedUrlForAnonymousUserResponse_status = Lens.lens (\GenerateEmbedUrlFo
 
 -- | The embed URL for the dashboard.
 generateEmbedUrlForAnonymousUserResponse_embedUrl :: Lens.Lens' GenerateEmbedUrlForAnonymousUserResponse Prelude.Text
-generateEmbedUrlForAnonymousUserResponse_embedUrl = Lens.lens (\GenerateEmbedUrlForAnonymousUserResponse' {embedUrl} -> embedUrl) (\s@GenerateEmbedUrlForAnonymousUserResponse' {} a -> s {embedUrl = a} :: GenerateEmbedUrlForAnonymousUserResponse) Prelude.. Core._Sensitive
+generateEmbedUrlForAnonymousUserResponse_embedUrl = Lens.lens (\GenerateEmbedUrlForAnonymousUserResponse' {embedUrl} -> embedUrl) (\s@GenerateEmbedUrlForAnonymousUserResponse' {} a -> s {embedUrl = a} :: GenerateEmbedUrlForAnonymousUserResponse) Prelude.. Data._Sensitive
 
 -- | The Amazon Web Services request ID for this operation.
 generateEmbedUrlForAnonymousUserResponse_requestId :: Lens.Lens' GenerateEmbedUrlForAnonymousUserResponse Prelude.Text
 generateEmbedUrlForAnonymousUserResponse_requestId = Lens.lens (\GenerateEmbedUrlForAnonymousUserResponse' {requestId} -> requestId) (\s@GenerateEmbedUrlForAnonymousUserResponse' {} a -> s {requestId = a} :: GenerateEmbedUrlForAnonymousUserResponse)
+
+-- | The Amazon Resource Name (ARN) to use for the anonymous Amazon
+-- QuickSight user.
+generateEmbedUrlForAnonymousUserResponse_anonymousUserArn :: Lens.Lens' GenerateEmbedUrlForAnonymousUserResponse Prelude.Text
+generateEmbedUrlForAnonymousUserResponse_anonymousUserArn = Lens.lens (\GenerateEmbedUrlForAnonymousUserResponse' {anonymousUserArn} -> anonymousUserArn) (\s@GenerateEmbedUrlForAnonymousUserResponse' {} a -> s {anonymousUserArn = a} :: GenerateEmbedUrlForAnonymousUserResponse)
 
 instance
   Prelude.NFData
@@ -360,3 +426,4 @@ instance
     Prelude.rnf status
       `Prelude.seq` Prelude.rnf embedUrl
       `Prelude.seq` Prelude.rnf requestId
+      `Prelude.seq` Prelude.rnf anonymousUserArn

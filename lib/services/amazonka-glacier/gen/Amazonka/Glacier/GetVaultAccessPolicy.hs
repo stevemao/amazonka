@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glacier.GetVaultAccessPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.Glacier.GetVaultAccessPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glacier.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -111,14 +112,14 @@ instance Core.AWSRequest GetVaultAccessPolicy where
   type
     AWSResponse GetVaultAccessPolicy =
       GetVaultAccessPolicyResponse
-  request =
-    Request.glacierVersionHeader (Core._serviceVersion defaultService)
-      Prelude.. Request.get defaultService
+  request overrides =
+    Request.glacierVersionHeader (Core.version defaultService)
+      Prelude.. Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetVaultAccessPolicyResponse'
-            Prelude.<$> (Core.eitherParseJSON x)
+            Prelude.<$> (Data.eitherParseJSON x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -132,20 +133,20 @@ instance Prelude.NFData GetVaultAccessPolicy where
     Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf vaultName
 
-instance Core.ToHeaders GetVaultAccessPolicy where
+instance Data.ToHeaders GetVaultAccessPolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetVaultAccessPolicy where
+instance Data.ToPath GetVaultAccessPolicy where
   toPath GetVaultAccessPolicy' {..} =
     Prelude.mconcat
       [ "/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/vaults/",
-        Core.toBS vaultName,
+        Data.toBS vaultName,
         "/access-policy"
       ]
 
-instance Core.ToQuery GetVaultAccessPolicy where
+instance Data.ToQuery GetVaultAccessPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Output for GetVaultAccessPolicy.

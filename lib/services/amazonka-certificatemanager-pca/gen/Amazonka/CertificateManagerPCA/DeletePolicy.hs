@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.DeletePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,12 +24,12 @@
 -- will remove any access that the policy has granted. If there is no
 -- policy attached to the private CA, this action will return successful.
 --
--- If you delete a policy that was applied through AWS Resource Access
--- Manager (RAM), the CA will be removed from all shares in which it was
--- included.
+-- If you delete a policy that was applied through Amazon Web Services
+-- Resource Access Manager (RAM), the CA will be removed from all shares in
+-- which it was included.
 --
--- The AWS Certificate Manager Service Linked Role that the policy supports
--- is not affected when you delete the policy.
+-- The Certificate Manager Service Linked Role that the policy supports is
+-- not affected when you delete the policy.
 --
 -- The current policy can be shown with
 -- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_GetPolicy.html GetPolicy>
@@ -38,13 +38,14 @@
 --
 -- __About Policies__
 --
--- -   A policy grants access on a private CA to an AWS customer account,
---     to AWS Organizations, or to an AWS Organizations unit. Policies are
---     under the control of a CA administrator. For more information, see
+-- -   A policy grants access on a private CA to an Amazon Web Services
+--     customer account, to Amazon Web Services Organizations, or to an
+--     Amazon Web Services Organizations unit. Policies are under the
+--     control of a CA administrator. For more information, see
 --     <https://docs.aws.amazon.com/acm-pca/latest/userguide/pca-rbp.html Using a Resource Based Policy with ACM Private CA>.
 --
--- -   A policy permits a user of AWS Certificate Manager (ACM) to issue
---     ACM certificates signed by a CA in another account.
+-- -   A policy permits a user of Certificate Manager (ACM) to issue ACM
+--     certificates signed by a CA in another account.
 --
 -- -   For ACM to manage automatic renewal of these certificates, the ACM
 --     user must configure a Service Linked Role (SLR). The SLR allows the
@@ -53,8 +54,8 @@
 --     information, see
 --     <https://docs.aws.amazon.com/acm/latest/userguide/acm-slr.html Using a Service Linked Role with ACM>.
 --
--- -   Updates made in AWS Resource Manager (RAM) are reflected in
---     policies. For more information, see
+-- -   Updates made in Amazon Web Services Resource Manager (RAM) are
+--     reflected in policies. For more information, see
 --     <https://docs.aws.amazon.com/acm-pca/latest/userguide/pca-ram.html Attach a Policy for Cross-Account Access>.
 module Amazonka.CertificateManagerPCA.DeletePolicy
   ( -- * Creating a Request
@@ -72,7 +73,8 @@ where
 
 import Amazonka.CertificateManagerPCA.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -118,7 +120,8 @@ deletePolicy_resourceArn = Lens.lens (\DeletePolicy' {resourceArn} -> resourceAr
 
 instance Core.AWSRequest DeletePolicy where
   type AWSResponse DeletePolicy = DeletePolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull DeletePolicyResponse'
 
 instance Prelude.Hashable DeletePolicy where
@@ -128,30 +131,30 @@ instance Prelude.Hashable DeletePolicy where
 instance Prelude.NFData DeletePolicy where
   rnf DeletePolicy' {..} = Prelude.rnf resourceArn
 
-instance Core.ToHeaders DeletePolicy where
+instance Data.ToHeaders DeletePolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("ACMPrivateCA.DeletePolicy" :: Prelude.ByteString),
+              Data.=# ("ACMPrivateCA.DeletePolicy" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeletePolicy where
+instance Data.ToJSON DeletePolicy where
   toJSON DeletePolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ResourceArn" Core..= resourceArn)]
+          [Prelude.Just ("ResourceArn" Data..= resourceArn)]
       )
 
-instance Core.ToPath DeletePolicy where
+instance Data.ToPath DeletePolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeletePolicy where
+instance Data.ToQuery DeletePolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeletePolicyResponse' smart constructor.

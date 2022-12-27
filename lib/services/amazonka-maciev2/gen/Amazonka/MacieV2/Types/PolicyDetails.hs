@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.PolicyDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.PolicyDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types.FindingAction
 import Amazonka.MacieV2.Types.FindingActor
 import qualified Amazonka.Prelude as Prelude
@@ -29,10 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newPolicyDetails' smart constructor.
 data PolicyDetails = PolicyDetails'
-  { -- | The entity that performed the action that produced the finding.
-    actor :: Prelude.Maybe FindingActor,
-    -- | The action that produced the finding.
-    action :: Prelude.Maybe FindingAction
+  { -- | The action that produced the finding.
+    action :: Prelude.Maybe FindingAction,
+    -- | The entity that performed the action that produced the finding.
+    actor :: Prelude.Maybe FindingActor
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,40 +45,40 @@ data PolicyDetails = PolicyDetails'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'actor', 'policyDetails_actor' - The entity that performed the action that produced the finding.
---
 -- 'action', 'policyDetails_action' - The action that produced the finding.
+--
+-- 'actor', 'policyDetails_actor' - The entity that performed the action that produced the finding.
 newPolicyDetails ::
   PolicyDetails
 newPolicyDetails =
   PolicyDetails'
-    { actor = Prelude.Nothing,
-      action = Prelude.Nothing
+    { action = Prelude.Nothing,
+      actor = Prelude.Nothing
     }
-
--- | The entity that performed the action that produced the finding.
-policyDetails_actor :: Lens.Lens' PolicyDetails (Prelude.Maybe FindingActor)
-policyDetails_actor = Lens.lens (\PolicyDetails' {actor} -> actor) (\s@PolicyDetails' {} a -> s {actor = a} :: PolicyDetails)
 
 -- | The action that produced the finding.
 policyDetails_action :: Lens.Lens' PolicyDetails (Prelude.Maybe FindingAction)
 policyDetails_action = Lens.lens (\PolicyDetails' {action} -> action) (\s@PolicyDetails' {} a -> s {action = a} :: PolicyDetails)
 
-instance Core.FromJSON PolicyDetails where
+-- | The entity that performed the action that produced the finding.
+policyDetails_actor :: Lens.Lens' PolicyDetails (Prelude.Maybe FindingActor)
+policyDetails_actor = Lens.lens (\PolicyDetails' {actor} -> actor) (\s@PolicyDetails' {} a -> s {actor = a} :: PolicyDetails)
+
+instance Data.FromJSON PolicyDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PolicyDetails"
       ( \x ->
           PolicyDetails'
-            Prelude.<$> (x Core..:? "actor")
-            Prelude.<*> (x Core..:? "action")
+            Prelude.<$> (x Data..:? "action")
+            Prelude.<*> (x Data..:? "actor")
       )
 
 instance Prelude.Hashable PolicyDetails where
   hashWithSalt _salt PolicyDetails' {..} =
-    _salt `Prelude.hashWithSalt` actor
-      `Prelude.hashWithSalt` action
+    _salt `Prelude.hashWithSalt` action
+      `Prelude.hashWithSalt` actor
 
 instance Prelude.NFData PolicyDetails where
   rnf PolicyDetails' {..} =
-    Prelude.rnf actor `Prelude.seq` Prelude.rnf action
+    Prelude.rnf action `Prelude.seq` Prelude.rnf actor

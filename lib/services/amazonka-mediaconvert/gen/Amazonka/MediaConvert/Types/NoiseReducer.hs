@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.NoiseReducer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.NoiseReducer where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types.NoiseReducerFilter
 import Amazonka.MediaConvert.Types.NoiseReducerFilterSettings
 import Amazonka.MediaConvert.Types.NoiseReducerSpatialFilterSettings
@@ -35,20 +36,20 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newNoiseReducer' smart constructor.
 data NoiseReducer = NoiseReducer'
-  { -- | Noise reducer filter settings for temporal filter.
-    temporalFilterSettings :: Prelude.Maybe NoiseReducerTemporalFilterSettings,
-    -- | Noise reducer filter settings for spatial filter.
-    spatialFilterSettings :: Prelude.Maybe NoiseReducerSpatialFilterSettings,
-    -- | Settings for a noise reducer filter
-    filterSettings :: Prelude.Maybe NoiseReducerFilterSettings,
-    -- | Use Noise reducer filter (NoiseReducerFilter) to select one of the
+  { -- | Use Noise reducer filter (NoiseReducerFilter) to select one of the
     -- following spatial image filtering functions. To use this setting, you
     -- must also enable Noise reducer (NoiseReducer). * Bilateral preserves
     -- edges while reducing noise. * Mean (softest), Gaussian, Lanczos, and
     -- Sharpen (sharpest) do convolution filtering. * Conserve does min\/max
     -- noise reduction. * Spatial does frequency-domain filtering based on JND
     -- principles. * Temporal optimizes video quality for complex motion.
-    filter' :: Prelude.Maybe NoiseReducerFilter
+    filter' :: Prelude.Maybe NoiseReducerFilter,
+    -- | Settings for a noise reducer filter
+    filterSettings :: Prelude.Maybe NoiseReducerFilterSettings,
+    -- | Noise reducer filter settings for spatial filter.
+    spatialFilterSettings :: Prelude.Maybe NoiseReducerSpatialFilterSettings,
+    -- | Noise reducer filter settings for temporal filter.
+    temporalFilterSettings :: Prelude.Maybe NoiseReducerTemporalFilterSettings
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -60,12 +61,6 @@ data NoiseReducer = NoiseReducer'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'temporalFilterSettings', 'noiseReducer_temporalFilterSettings' - Noise reducer filter settings for temporal filter.
---
--- 'spatialFilterSettings', 'noiseReducer_spatialFilterSettings' - Noise reducer filter settings for spatial filter.
---
--- 'filterSettings', 'noiseReducer_filterSettings' - Settings for a noise reducer filter
---
 -- 'filter'', 'noiseReducer_filter' - Use Noise reducer filter (NoiseReducerFilter) to select one of the
 -- following spatial image filtering functions. To use this setting, you
 -- must also enable Noise reducer (NoiseReducer). * Bilateral preserves
@@ -73,28 +68,21 @@ data NoiseReducer = NoiseReducer'
 -- Sharpen (sharpest) do convolution filtering. * Conserve does min\/max
 -- noise reduction. * Spatial does frequency-domain filtering based on JND
 -- principles. * Temporal optimizes video quality for complex motion.
+--
+-- 'filterSettings', 'noiseReducer_filterSettings' - Settings for a noise reducer filter
+--
+-- 'spatialFilterSettings', 'noiseReducer_spatialFilterSettings' - Noise reducer filter settings for spatial filter.
+--
+-- 'temporalFilterSettings', 'noiseReducer_temporalFilterSettings' - Noise reducer filter settings for temporal filter.
 newNoiseReducer ::
   NoiseReducer
 newNoiseReducer =
   NoiseReducer'
-    { temporalFilterSettings =
-        Prelude.Nothing,
-      spatialFilterSettings = Prelude.Nothing,
+    { filter' = Prelude.Nothing,
       filterSettings = Prelude.Nothing,
-      filter' = Prelude.Nothing
+      spatialFilterSettings = Prelude.Nothing,
+      temporalFilterSettings = Prelude.Nothing
     }
-
--- | Noise reducer filter settings for temporal filter.
-noiseReducer_temporalFilterSettings :: Lens.Lens' NoiseReducer (Prelude.Maybe NoiseReducerTemporalFilterSettings)
-noiseReducer_temporalFilterSettings = Lens.lens (\NoiseReducer' {temporalFilterSettings} -> temporalFilterSettings) (\s@NoiseReducer' {} a -> s {temporalFilterSettings = a} :: NoiseReducer)
-
--- | Noise reducer filter settings for spatial filter.
-noiseReducer_spatialFilterSettings :: Lens.Lens' NoiseReducer (Prelude.Maybe NoiseReducerSpatialFilterSettings)
-noiseReducer_spatialFilterSettings = Lens.lens (\NoiseReducer' {spatialFilterSettings} -> spatialFilterSettings) (\s@NoiseReducer' {} a -> s {spatialFilterSettings = a} :: NoiseReducer)
-
--- | Settings for a noise reducer filter
-noiseReducer_filterSettings :: Lens.Lens' NoiseReducer (Prelude.Maybe NoiseReducerFilterSettings)
-noiseReducer_filterSettings = Lens.lens (\NoiseReducer' {filterSettings} -> filterSettings) (\s@NoiseReducer' {} a -> s {filterSettings = a} :: NoiseReducer)
 
 -- | Use Noise reducer filter (NoiseReducerFilter) to select one of the
 -- following spatial image filtering functions. To use this setting, you
@@ -106,42 +94,54 @@ noiseReducer_filterSettings = Lens.lens (\NoiseReducer' {filterSettings} -> filt
 noiseReducer_filter :: Lens.Lens' NoiseReducer (Prelude.Maybe NoiseReducerFilter)
 noiseReducer_filter = Lens.lens (\NoiseReducer' {filter'} -> filter') (\s@NoiseReducer' {} a -> s {filter' = a} :: NoiseReducer)
 
-instance Core.FromJSON NoiseReducer where
+-- | Settings for a noise reducer filter
+noiseReducer_filterSettings :: Lens.Lens' NoiseReducer (Prelude.Maybe NoiseReducerFilterSettings)
+noiseReducer_filterSettings = Lens.lens (\NoiseReducer' {filterSettings} -> filterSettings) (\s@NoiseReducer' {} a -> s {filterSettings = a} :: NoiseReducer)
+
+-- | Noise reducer filter settings for spatial filter.
+noiseReducer_spatialFilterSettings :: Lens.Lens' NoiseReducer (Prelude.Maybe NoiseReducerSpatialFilterSettings)
+noiseReducer_spatialFilterSettings = Lens.lens (\NoiseReducer' {spatialFilterSettings} -> spatialFilterSettings) (\s@NoiseReducer' {} a -> s {spatialFilterSettings = a} :: NoiseReducer)
+
+-- | Noise reducer filter settings for temporal filter.
+noiseReducer_temporalFilterSettings :: Lens.Lens' NoiseReducer (Prelude.Maybe NoiseReducerTemporalFilterSettings)
+noiseReducer_temporalFilterSettings = Lens.lens (\NoiseReducer' {temporalFilterSettings} -> temporalFilterSettings) (\s@NoiseReducer' {} a -> s {temporalFilterSettings = a} :: NoiseReducer)
+
+instance Data.FromJSON NoiseReducer where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NoiseReducer"
       ( \x ->
           NoiseReducer'
-            Prelude.<$> (x Core..:? "temporalFilterSettings")
-            Prelude.<*> (x Core..:? "spatialFilterSettings")
-            Prelude.<*> (x Core..:? "filterSettings")
-            Prelude.<*> (x Core..:? "filter")
+            Prelude.<$> (x Data..:? "filter")
+            Prelude.<*> (x Data..:? "filterSettings")
+            Prelude.<*> (x Data..:? "spatialFilterSettings")
+            Prelude.<*> (x Data..:? "temporalFilterSettings")
       )
 
 instance Prelude.Hashable NoiseReducer where
   hashWithSalt _salt NoiseReducer' {..} =
-    _salt `Prelude.hashWithSalt` temporalFilterSettings
-      `Prelude.hashWithSalt` spatialFilterSettings
+    _salt `Prelude.hashWithSalt` filter'
       `Prelude.hashWithSalt` filterSettings
-      `Prelude.hashWithSalt` filter'
+      `Prelude.hashWithSalt` spatialFilterSettings
+      `Prelude.hashWithSalt` temporalFilterSettings
 
 instance Prelude.NFData NoiseReducer where
   rnf NoiseReducer' {..} =
-    Prelude.rnf temporalFilterSettings
-      `Prelude.seq` Prelude.rnf spatialFilterSettings
+    Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf filterSettings
-      `Prelude.seq` Prelude.rnf filter'
+      `Prelude.seq` Prelude.rnf spatialFilterSettings
+      `Prelude.seq` Prelude.rnf temporalFilterSettings
 
-instance Core.ToJSON NoiseReducer where
+instance Data.ToJSON NoiseReducer where
   toJSON NoiseReducer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("temporalFilterSettings" Core..=)
-              Prelude.<$> temporalFilterSettings,
-            ("spatialFilterSettings" Core..=)
-              Prelude.<$> spatialFilterSettings,
-            ("filterSettings" Core..=)
+          [ ("filter" Data..=) Prelude.<$> filter',
+            ("filterSettings" Data..=)
               Prelude.<$> filterSettings,
-            ("filter" Core..=) Prelude.<$> filter'
+            ("spatialFilterSettings" Data..=)
+              Prelude.<$> spatialFilterSettings,
+            ("temporalFilterSettings" Data..=)
+              Prelude.<$> temporalFilterSettings
           ]
       )

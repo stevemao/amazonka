@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.Types.DesiredPlayerSession
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.GameLift.Types.DesiredPlayerSession where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Player information for use when creating player sessions using a game
--- session placement request with StartGameSessionPlacement.
+-- session placement request.
 --
 -- /See:/ 'newDesiredPlayerSession' smart constructor.
 data DesiredPlayerSession = DesiredPlayerSession'
@@ -75,11 +76,11 @@ instance Prelude.NFData DesiredPlayerSession where
     Prelude.rnf playerData
       `Prelude.seq` Prelude.rnf playerId
 
-instance Core.ToJSON DesiredPlayerSession where
+instance Data.ToJSON DesiredPlayerSession where
   toJSON DesiredPlayerSession' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PlayerData" Core..=) Prelude.<$> playerData,
-            ("PlayerId" Core..=) Prelude.<$> playerId
+          [ ("PlayerData" Data..=) Prelude.<$> playerData,
+            ("PlayerId" Data..=) Prelude.<$> playerId
           ]
       )

@@ -14,21 +14,23 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.UpdatePackage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates a package for use with Amazon OpenSearch Service domains.
+-- Updates a package for use with Amazon OpenSearch Service domains. For
+-- more information, see
+-- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/custom-packages.html Custom packages for Amazon OpenSearch Service>.
 module Amazonka.OpenSearch.UpdatePackage
   ( -- * Creating a Request
     UpdatePackage (..),
     newUpdatePackage,
 
     -- * Request Lenses
-    updatePackage_packageDescription,
     updatePackage_commitMessage,
+    updatePackage_packageDescription,
     updatePackage_packageID,
     updatePackage_packageSource,
 
@@ -43,23 +45,25 @@ module Amazonka.OpenSearch.UpdatePackage
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpenSearch.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Container for request parameters to the @ UpdatePackage @ operation.
+-- | Container for request parameters to the @UpdatePackage@ operation.
 --
 -- /See:/ 'newUpdatePackage' smart constructor.
 data UpdatePackage = UpdatePackage'
-  { -- | A new description of the package.
-    packageDescription :: Prelude.Maybe Prelude.Text,
-    -- | A commit message for the new version which is shown as part of
+  { -- | Commit message for the updated file, which is shown as part of
     -- @GetPackageVersionHistoryResponse@.
     commitMessage :: Prelude.Maybe Prelude.Text,
+    -- | A new description of the package.
+    packageDescription :: Prelude.Maybe Prelude.Text,
     -- | The unique identifier for the package.
     packageID :: Prelude.Text,
+    -- | Amazon S3 bucket and key for the package.
     packageSource :: PackageSource
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -72,14 +76,14 @@ data UpdatePackage = UpdatePackage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'packageDescription', 'updatePackage_packageDescription' - A new description of the package.
---
--- 'commitMessage', 'updatePackage_commitMessage' - A commit message for the new version which is shown as part of
+-- 'commitMessage', 'updatePackage_commitMessage' - Commit message for the updated file, which is shown as part of
 -- @GetPackageVersionHistoryResponse@.
+--
+-- 'packageDescription', 'updatePackage_packageDescription' - A new description of the package.
 --
 -- 'packageID', 'updatePackage_packageID' - The unique identifier for the package.
 --
--- 'packageSource', 'updatePackage_packageSource' - Undocumented member.
+-- 'packageSource', 'updatePackage_packageSource' - Amazon S3 bucket and key for the package.
 newUpdatePackage ::
   -- | 'packageID'
   Prelude.Text ->
@@ -88,27 +92,26 @@ newUpdatePackage ::
   UpdatePackage
 newUpdatePackage pPackageID_ pPackageSource_ =
   UpdatePackage'
-    { packageDescription =
-        Prelude.Nothing,
-      commitMessage = Prelude.Nothing,
+    { commitMessage = Prelude.Nothing,
+      packageDescription = Prelude.Nothing,
       packageID = pPackageID_,
       packageSource = pPackageSource_
     }
+
+-- | Commit message for the updated file, which is shown as part of
+-- @GetPackageVersionHistoryResponse@.
+updatePackage_commitMessage :: Lens.Lens' UpdatePackage (Prelude.Maybe Prelude.Text)
+updatePackage_commitMessage = Lens.lens (\UpdatePackage' {commitMessage} -> commitMessage) (\s@UpdatePackage' {} a -> s {commitMessage = a} :: UpdatePackage)
 
 -- | A new description of the package.
 updatePackage_packageDescription :: Lens.Lens' UpdatePackage (Prelude.Maybe Prelude.Text)
 updatePackage_packageDescription = Lens.lens (\UpdatePackage' {packageDescription} -> packageDescription) (\s@UpdatePackage' {} a -> s {packageDescription = a} :: UpdatePackage)
 
--- | A commit message for the new version which is shown as part of
--- @GetPackageVersionHistoryResponse@.
-updatePackage_commitMessage :: Lens.Lens' UpdatePackage (Prelude.Maybe Prelude.Text)
-updatePackage_commitMessage = Lens.lens (\UpdatePackage' {commitMessage} -> commitMessage) (\s@UpdatePackage' {} a -> s {commitMessage = a} :: UpdatePackage)
-
 -- | The unique identifier for the package.
 updatePackage_packageID :: Lens.Lens' UpdatePackage Prelude.Text
 updatePackage_packageID = Lens.lens (\UpdatePackage' {packageID} -> packageID) (\s@UpdatePackage' {} a -> s {packageID = a} :: UpdatePackage)
 
--- | Undocumented member.
+-- | Amazon S3 bucket and key for the package.
 updatePackage_packageSource :: Lens.Lens' UpdatePackage PackageSource
 updatePackage_packageSource = Lens.lens (\UpdatePackage' {packageSource} -> packageSource) (\s@UpdatePackage' {} a -> s {packageSource = a} :: UpdatePackage)
 
@@ -116,56 +119,57 @@ instance Core.AWSRequest UpdatePackage where
   type
     AWSResponse UpdatePackage =
       UpdatePackageResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdatePackageResponse'
-            Prelude.<$> (x Core..?> "PackageDetails")
+            Prelude.<$> (x Data..?> "PackageDetails")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdatePackage where
   hashWithSalt _salt UpdatePackage' {..} =
-    _salt `Prelude.hashWithSalt` packageDescription
-      `Prelude.hashWithSalt` commitMessage
+    _salt `Prelude.hashWithSalt` commitMessage
+      `Prelude.hashWithSalt` packageDescription
       `Prelude.hashWithSalt` packageID
       `Prelude.hashWithSalt` packageSource
 
 instance Prelude.NFData UpdatePackage where
   rnf UpdatePackage' {..} =
-    Prelude.rnf packageDescription
-      `Prelude.seq` Prelude.rnf commitMessage
+    Prelude.rnf commitMessage
+      `Prelude.seq` Prelude.rnf packageDescription
       `Prelude.seq` Prelude.rnf packageID
       `Prelude.seq` Prelude.rnf packageSource
 
-instance Core.ToHeaders UpdatePackage where
+instance Data.ToHeaders UpdatePackage where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdatePackage where
+instance Data.ToJSON UpdatePackage where
   toJSON UpdatePackage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PackageDescription" Core..=)
+          [ ("CommitMessage" Data..=) Prelude.<$> commitMessage,
+            ("PackageDescription" Data..=)
               Prelude.<$> packageDescription,
-            ("CommitMessage" Core..=) Prelude.<$> commitMessage,
-            Prelude.Just ("PackageID" Core..= packageID),
+            Prelude.Just ("PackageID" Data..= packageID),
             Prelude.Just
-              ("PackageSource" Core..= packageSource)
+              ("PackageSource" Data..= packageSource)
           ]
       )
 
-instance Core.ToPath UpdatePackage where
+instance Data.ToPath UpdatePackage where
   toPath = Prelude.const "/2021-01-01/packages/update"
 
-instance Core.ToQuery UpdatePackage where
+instance Data.ToQuery UpdatePackage where
   toQuery = Prelude.const Prelude.mempty
 
--- | Container for the response returned by the @ UpdatePackage @ operation.
+-- | Container for the response returned by the @UpdatePackage@ operation.
 --
 -- /See:/ 'newUpdatePackageResponse' smart constructor.
 data UpdatePackageResponse = UpdatePackageResponse'
-  { -- | Information about the package.
+  { -- | Information about a package.
     packageDetails :: Prelude.Maybe PackageDetails,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -180,7 +184,7 @@ data UpdatePackageResponse = UpdatePackageResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'packageDetails', 'updatePackageResponse_packageDetails' - Information about the package.
+-- 'packageDetails', 'updatePackageResponse_packageDetails' - Information about a package.
 --
 -- 'httpStatus', 'updatePackageResponse_httpStatus' - The response's http status code.
 newUpdatePackageResponse ::
@@ -194,7 +198,7 @@ newUpdatePackageResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | Information about the package.
+-- | Information about a package.
 updatePackageResponse_packageDetails :: Lens.Lens' UpdatePackageResponse (Prelude.Maybe PackageDetails)
 updatePackageResponse_packageDetails = Lens.lens (\UpdatePackageResponse' {packageDetails} -> packageDetails) (\s@UpdatePackageResponse' {} a -> s {packageDetails = a} :: UpdatePackageResponse)
 

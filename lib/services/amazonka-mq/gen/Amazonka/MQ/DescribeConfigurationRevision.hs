@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MQ.DescribeConfigurationRevision
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,15 +37,16 @@ module Amazonka.MQ.DescribeConfigurationRevision
 
     -- * Response Lenses
     describeConfigurationRevisionResponse_configurationId,
-    describeConfigurationRevisionResponse_data,
     describeConfigurationRevisionResponse_created,
+    describeConfigurationRevisionResponse_data,
     describeConfigurationRevisionResponse_description,
     describeConfigurationRevisionResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MQ.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -101,15 +102,16 @@ instance
   type
     AWSResponse DescribeConfigurationRevision =
       DescribeConfigurationRevisionResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeConfigurationRevisionResponse'
-            Prelude.<$> (x Core..?> "configurationId")
-            Prelude.<*> (x Core..?> "data")
-            Prelude.<*> (x Core..?> "created")
-            Prelude.<*> (x Core..?> "description")
+            Prelude.<$> (x Data..?> "configurationId")
+            Prelude.<*> (x Data..?> "created")
+            Prelude.<*> (x Data..?> "data")
+            Prelude.<*> (x Data..?> "description")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -126,37 +128,37 @@ instance Prelude.NFData DescribeConfigurationRevision where
     Prelude.rnf configurationRevision
       `Prelude.seq` Prelude.rnf configurationId
 
-instance Core.ToHeaders DescribeConfigurationRevision where
+instance Data.ToHeaders DescribeConfigurationRevision where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeConfigurationRevision where
+instance Data.ToPath DescribeConfigurationRevision where
   toPath DescribeConfigurationRevision' {..} =
     Prelude.mconcat
       [ "/v1/configurations/",
-        Core.toBS configurationId,
+        Data.toBS configurationId,
         "/revisions/",
-        Core.toBS configurationRevision
+        Data.toBS configurationRevision
       ]
 
-instance Core.ToQuery DescribeConfigurationRevision where
+instance Data.ToQuery DescribeConfigurationRevision where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeConfigurationRevisionResponse' smart constructor.
 data DescribeConfigurationRevisionResponse = DescribeConfigurationRevisionResponse'
   { -- | Required. The unique ID that Amazon MQ generates for the configuration.
     configurationId :: Prelude.Maybe Prelude.Text,
+    -- | Required. The date and time of the configuration.
+    created :: Prelude.Maybe Data.POSIX,
     -- | Required. The base64-encoded XML configuration.
     data' :: Prelude.Maybe Prelude.Text,
-    -- | Required. The date and time of the configuration.
-    created :: Prelude.Maybe Core.POSIX,
     -- | The description of the configuration.
     description :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
@@ -174,9 +176,9 @@ data DescribeConfigurationRevisionResponse = DescribeConfigurationRevisionRespon
 --
 -- 'configurationId', 'describeConfigurationRevisionResponse_configurationId' - Required. The unique ID that Amazon MQ generates for the configuration.
 --
--- 'data'', 'describeConfigurationRevisionResponse_data' - Required. The base64-encoded XML configuration.
---
 -- 'created', 'describeConfigurationRevisionResponse_created' - Required. The date and time of the configuration.
+--
+-- 'data'', 'describeConfigurationRevisionResponse_data' - Required. The base64-encoded XML configuration.
 --
 -- 'description', 'describeConfigurationRevisionResponse_description' - The description of the configuration.
 --
@@ -189,8 +191,8 @@ newDescribeConfigurationRevisionResponse pHttpStatus_ =
   DescribeConfigurationRevisionResponse'
     { configurationId =
         Prelude.Nothing,
-      data' = Prelude.Nothing,
       created = Prelude.Nothing,
+      data' = Prelude.Nothing,
       description = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
@@ -199,13 +201,13 @@ newDescribeConfigurationRevisionResponse pHttpStatus_ =
 describeConfigurationRevisionResponse_configurationId :: Lens.Lens' DescribeConfigurationRevisionResponse (Prelude.Maybe Prelude.Text)
 describeConfigurationRevisionResponse_configurationId = Lens.lens (\DescribeConfigurationRevisionResponse' {configurationId} -> configurationId) (\s@DescribeConfigurationRevisionResponse' {} a -> s {configurationId = a} :: DescribeConfigurationRevisionResponse)
 
+-- | Required. The date and time of the configuration.
+describeConfigurationRevisionResponse_created :: Lens.Lens' DescribeConfigurationRevisionResponse (Prelude.Maybe Prelude.UTCTime)
+describeConfigurationRevisionResponse_created = Lens.lens (\DescribeConfigurationRevisionResponse' {created} -> created) (\s@DescribeConfigurationRevisionResponse' {} a -> s {created = a} :: DescribeConfigurationRevisionResponse) Prelude.. Lens.mapping Data._Time
+
 -- | Required. The base64-encoded XML configuration.
 describeConfigurationRevisionResponse_data :: Lens.Lens' DescribeConfigurationRevisionResponse (Prelude.Maybe Prelude.Text)
 describeConfigurationRevisionResponse_data = Lens.lens (\DescribeConfigurationRevisionResponse' {data'} -> data') (\s@DescribeConfigurationRevisionResponse' {} a -> s {data' = a} :: DescribeConfigurationRevisionResponse)
-
--- | Required. The date and time of the configuration.
-describeConfigurationRevisionResponse_created :: Lens.Lens' DescribeConfigurationRevisionResponse (Prelude.Maybe Prelude.UTCTime)
-describeConfigurationRevisionResponse_created = Lens.lens (\DescribeConfigurationRevisionResponse' {created} -> created) (\s@DescribeConfigurationRevisionResponse' {} a -> s {created = a} :: DescribeConfigurationRevisionResponse) Prelude.. Lens.mapping Core._Time
 
 -- | The description of the configuration.
 describeConfigurationRevisionResponse_description :: Lens.Lens' DescribeConfigurationRevisionResponse (Prelude.Maybe Prelude.Text)
@@ -221,7 +223,7 @@ instance
   where
   rnf DescribeConfigurationRevisionResponse' {..} =
     Prelude.rnf configurationId
-      `Prelude.seq` Prelude.rnf data'
       `Prelude.seq` Prelude.rnf created
+      `Prelude.seq` Prelude.rnf data'
       `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf httpStatus

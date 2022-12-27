@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.Types.DeviceFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.DeviceFarm.Types.DeviceFilter where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types.DeviceFilterAttribute
 import Amazonka.DeviceFarm.Types.RuleOperator
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a device filter used to select a set of devices to be
@@ -361,15 +362,15 @@ deviceFilter_operator = Lens.lens (\DeviceFilter' {operator} -> operator) (\s@De
 deviceFilter_values :: Lens.Lens' DeviceFilter [Prelude.Text]
 deviceFilter_values = Lens.lens (\DeviceFilter' {values} -> values) (\s@DeviceFilter' {} a -> s {values = a} :: DeviceFilter) Prelude.. Lens.coerced
 
-instance Core.FromJSON DeviceFilter where
+instance Data.FromJSON DeviceFilter where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DeviceFilter"
       ( \x ->
           DeviceFilter'
-            Prelude.<$> (x Core..: "attribute")
-            Prelude.<*> (x Core..: "operator")
-            Prelude.<*> (x Core..:? "values" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..: "attribute")
+            Prelude.<*> (x Data..: "operator")
+            Prelude.<*> (x Data..:? "values" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable DeviceFilter where
@@ -384,12 +385,12 @@ instance Prelude.NFData DeviceFilter where
       `Prelude.seq` Prelude.rnf operator
       `Prelude.seq` Prelude.rnf values
 
-instance Core.ToJSON DeviceFilter where
+instance Data.ToJSON DeviceFilter where
   toJSON DeviceFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("attribute" Core..= attribute),
-            Prelude.Just ("operator" Core..= operator),
-            Prelude.Just ("values" Core..= values)
+          [ Prelude.Just ("attribute" Data..= attribute),
+            Prelude.Just ("operator" Data..= operator),
+            Prelude.Just ("values" Data..= values)
           ]
       )

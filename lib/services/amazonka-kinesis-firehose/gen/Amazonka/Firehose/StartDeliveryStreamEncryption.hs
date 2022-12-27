@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Firehose.StartDeliveryStreamEncryption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -87,8 +87,9 @@ module Amazonka.Firehose.StartDeliveryStreamEncryption
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Firehose.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -145,7 +146,8 @@ instance
   type
     AWSResponse StartDeliveryStreamEncryption =
       StartDeliveryStreamEncryptionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -168,38 +170,38 @@ instance Prelude.NFData StartDeliveryStreamEncryption where
       deliveryStreamEncryptionConfigurationInput
       `Prelude.seq` Prelude.rnf deliveryStreamName
 
-instance Core.ToHeaders StartDeliveryStreamEncryption where
+instance Data.ToHeaders StartDeliveryStreamEncryption where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Firehose_20150804.StartDeliveryStreamEncryption" ::
+              Data.=# ( "Firehose_20150804.StartDeliveryStreamEncryption" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartDeliveryStreamEncryption where
+instance Data.ToJSON StartDeliveryStreamEncryption where
   toJSON StartDeliveryStreamEncryption' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ ( "DeliveryStreamEncryptionConfigurationInput"
-                Core..=
+                Data..=
             )
               Prelude.<$> deliveryStreamEncryptionConfigurationInput,
             Prelude.Just
-              ("DeliveryStreamName" Core..= deliveryStreamName)
+              ("DeliveryStreamName" Data..= deliveryStreamName)
           ]
       )
 
-instance Core.ToPath StartDeliveryStreamEncryption where
+instance Data.ToPath StartDeliveryStreamEncryption where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartDeliveryStreamEncryption where
+instance Data.ToQuery StartDeliveryStreamEncryption where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartDeliveryStreamEncryptionResponse' smart constructor.

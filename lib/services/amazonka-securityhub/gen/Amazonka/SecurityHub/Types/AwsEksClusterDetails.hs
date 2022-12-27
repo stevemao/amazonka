@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsEksClusterDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsEksClusterDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.AwsEksClusterLoggingDetails
 import Amazonka.SecurityHub.Types.AwsEksClusterResourcesVpcConfigDetails
@@ -33,22 +34,34 @@ data AwsEksClusterDetails = AwsEksClusterDetails'
     arn :: Prelude.Maybe Prelude.Text,
     -- | The certificate authority data for the cluster.
     certificateAuthorityData :: Prelude.Maybe Prelude.Text,
-    -- | The name of the cluster.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon EKS server version for the cluster.
-    version :: Prelude.Maybe Prelude.Text,
-    -- | The logging configuration for the cluster.
-    logging :: Prelude.Maybe AwsEksClusterLoggingDetails,
+    -- | The status of the cluster. Valid values are as follows:
+    --
+    -- -   @ACTIVE@
+    --
+    -- -   @CREATING@
+    --
+    -- -   @DELETING@
+    --
+    -- -   @FAILED@
+    --
+    -- -   @PENDING@
+    --
+    -- -   @UPDATING@
+    clusterStatus :: Prelude.Maybe Prelude.Text,
     -- | The endpoint for the Amazon EKS API server.
     endpoint :: Prelude.Maybe Prelude.Text,
+    -- | The logging configuration for the cluster.
+    logging :: Prelude.Maybe AwsEksClusterLoggingDetails,
+    -- | The name of the cluster.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The VPC configuration used by the cluster control plane.
     resourcesVpcConfig :: Prelude.Maybe AwsEksClusterResourcesVpcConfigDetails,
-    -- | The status of the cluster.
-    clusterStatus :: Prelude.Maybe Prelude.Text,
     -- | The ARN of the IAM role that provides permissions for the Amazon EKS
     -- control plane to make calls to Amazon Web Services API operations on
     -- your behalf.
-    roleArn :: Prelude.Maybe Prelude.Text
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon EKS server version for the cluster.
+    version :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -64,34 +77,46 @@ data AwsEksClusterDetails = AwsEksClusterDetails'
 --
 -- 'certificateAuthorityData', 'awsEksClusterDetails_certificateAuthorityData' - The certificate authority data for the cluster.
 --
--- 'name', 'awsEksClusterDetails_name' - The name of the cluster.
+-- 'clusterStatus', 'awsEksClusterDetails_clusterStatus' - The status of the cluster. Valid values are as follows:
 --
--- 'version', 'awsEksClusterDetails_version' - The Amazon EKS server version for the cluster.
+-- -   @ACTIVE@
 --
--- 'logging', 'awsEksClusterDetails_logging' - The logging configuration for the cluster.
+-- -   @CREATING@
+--
+-- -   @DELETING@
+--
+-- -   @FAILED@
+--
+-- -   @PENDING@
+--
+-- -   @UPDATING@
 --
 -- 'endpoint', 'awsEksClusterDetails_endpoint' - The endpoint for the Amazon EKS API server.
 --
--- 'resourcesVpcConfig', 'awsEksClusterDetails_resourcesVpcConfig' - The VPC configuration used by the cluster control plane.
+-- 'logging', 'awsEksClusterDetails_logging' - The logging configuration for the cluster.
 --
--- 'clusterStatus', 'awsEksClusterDetails_clusterStatus' - The status of the cluster.
+-- 'name', 'awsEksClusterDetails_name' - The name of the cluster.
+--
+-- 'resourcesVpcConfig', 'awsEksClusterDetails_resourcesVpcConfig' - The VPC configuration used by the cluster control plane.
 --
 -- 'roleArn', 'awsEksClusterDetails_roleArn' - The ARN of the IAM role that provides permissions for the Amazon EKS
 -- control plane to make calls to Amazon Web Services API operations on
 -- your behalf.
+--
+-- 'version', 'awsEksClusterDetails_version' - The Amazon EKS server version for the cluster.
 newAwsEksClusterDetails ::
   AwsEksClusterDetails
 newAwsEksClusterDetails =
   AwsEksClusterDetails'
     { arn = Prelude.Nothing,
       certificateAuthorityData = Prelude.Nothing,
-      name = Prelude.Nothing,
-      version = Prelude.Nothing,
-      logging = Prelude.Nothing,
-      endpoint = Prelude.Nothing,
-      resourcesVpcConfig = Prelude.Nothing,
       clusterStatus = Prelude.Nothing,
-      roleArn = Prelude.Nothing
+      endpoint = Prelude.Nothing,
+      logging = Prelude.Nothing,
+      name = Prelude.Nothing,
+      resourcesVpcConfig = Prelude.Nothing,
+      roleArn = Prelude.Nothing,
+      version = Prelude.Nothing
     }
 
 -- | The ARN of the cluster.
@@ -102,29 +127,37 @@ awsEksClusterDetails_arn = Lens.lens (\AwsEksClusterDetails' {arn} -> arn) (\s@A
 awsEksClusterDetails_certificateAuthorityData :: Lens.Lens' AwsEksClusterDetails (Prelude.Maybe Prelude.Text)
 awsEksClusterDetails_certificateAuthorityData = Lens.lens (\AwsEksClusterDetails' {certificateAuthorityData} -> certificateAuthorityData) (\s@AwsEksClusterDetails' {} a -> s {certificateAuthorityData = a} :: AwsEksClusterDetails)
 
--- | The name of the cluster.
-awsEksClusterDetails_name :: Lens.Lens' AwsEksClusterDetails (Prelude.Maybe Prelude.Text)
-awsEksClusterDetails_name = Lens.lens (\AwsEksClusterDetails' {name} -> name) (\s@AwsEksClusterDetails' {} a -> s {name = a} :: AwsEksClusterDetails)
-
--- | The Amazon EKS server version for the cluster.
-awsEksClusterDetails_version :: Lens.Lens' AwsEksClusterDetails (Prelude.Maybe Prelude.Text)
-awsEksClusterDetails_version = Lens.lens (\AwsEksClusterDetails' {version} -> version) (\s@AwsEksClusterDetails' {} a -> s {version = a} :: AwsEksClusterDetails)
-
--- | The logging configuration for the cluster.
-awsEksClusterDetails_logging :: Lens.Lens' AwsEksClusterDetails (Prelude.Maybe AwsEksClusterLoggingDetails)
-awsEksClusterDetails_logging = Lens.lens (\AwsEksClusterDetails' {logging} -> logging) (\s@AwsEksClusterDetails' {} a -> s {logging = a} :: AwsEksClusterDetails)
+-- | The status of the cluster. Valid values are as follows:
+--
+-- -   @ACTIVE@
+--
+-- -   @CREATING@
+--
+-- -   @DELETING@
+--
+-- -   @FAILED@
+--
+-- -   @PENDING@
+--
+-- -   @UPDATING@
+awsEksClusterDetails_clusterStatus :: Lens.Lens' AwsEksClusterDetails (Prelude.Maybe Prelude.Text)
+awsEksClusterDetails_clusterStatus = Lens.lens (\AwsEksClusterDetails' {clusterStatus} -> clusterStatus) (\s@AwsEksClusterDetails' {} a -> s {clusterStatus = a} :: AwsEksClusterDetails)
 
 -- | The endpoint for the Amazon EKS API server.
 awsEksClusterDetails_endpoint :: Lens.Lens' AwsEksClusterDetails (Prelude.Maybe Prelude.Text)
 awsEksClusterDetails_endpoint = Lens.lens (\AwsEksClusterDetails' {endpoint} -> endpoint) (\s@AwsEksClusterDetails' {} a -> s {endpoint = a} :: AwsEksClusterDetails)
 
+-- | The logging configuration for the cluster.
+awsEksClusterDetails_logging :: Lens.Lens' AwsEksClusterDetails (Prelude.Maybe AwsEksClusterLoggingDetails)
+awsEksClusterDetails_logging = Lens.lens (\AwsEksClusterDetails' {logging} -> logging) (\s@AwsEksClusterDetails' {} a -> s {logging = a} :: AwsEksClusterDetails)
+
+-- | The name of the cluster.
+awsEksClusterDetails_name :: Lens.Lens' AwsEksClusterDetails (Prelude.Maybe Prelude.Text)
+awsEksClusterDetails_name = Lens.lens (\AwsEksClusterDetails' {name} -> name) (\s@AwsEksClusterDetails' {} a -> s {name = a} :: AwsEksClusterDetails)
+
 -- | The VPC configuration used by the cluster control plane.
 awsEksClusterDetails_resourcesVpcConfig :: Lens.Lens' AwsEksClusterDetails (Prelude.Maybe AwsEksClusterResourcesVpcConfigDetails)
 awsEksClusterDetails_resourcesVpcConfig = Lens.lens (\AwsEksClusterDetails' {resourcesVpcConfig} -> resourcesVpcConfig) (\s@AwsEksClusterDetails' {} a -> s {resourcesVpcConfig = a} :: AwsEksClusterDetails)
-
--- | The status of the cluster.
-awsEksClusterDetails_clusterStatus :: Lens.Lens' AwsEksClusterDetails (Prelude.Maybe Prelude.Text)
-awsEksClusterDetails_clusterStatus = Lens.lens (\AwsEksClusterDetails' {clusterStatus} -> clusterStatus) (\s@AwsEksClusterDetails' {} a -> s {clusterStatus = a} :: AwsEksClusterDetails)
 
 -- | The ARN of the IAM role that provides permissions for the Amazon EKS
 -- control plane to make calls to Amazon Web Services API operations on
@@ -132,61 +165,65 @@ awsEksClusterDetails_clusterStatus = Lens.lens (\AwsEksClusterDetails' {clusterS
 awsEksClusterDetails_roleArn :: Lens.Lens' AwsEksClusterDetails (Prelude.Maybe Prelude.Text)
 awsEksClusterDetails_roleArn = Lens.lens (\AwsEksClusterDetails' {roleArn} -> roleArn) (\s@AwsEksClusterDetails' {} a -> s {roleArn = a} :: AwsEksClusterDetails)
 
-instance Core.FromJSON AwsEksClusterDetails where
+-- | The Amazon EKS server version for the cluster.
+awsEksClusterDetails_version :: Lens.Lens' AwsEksClusterDetails (Prelude.Maybe Prelude.Text)
+awsEksClusterDetails_version = Lens.lens (\AwsEksClusterDetails' {version} -> version) (\s@AwsEksClusterDetails' {} a -> s {version = a} :: AwsEksClusterDetails)
+
+instance Data.FromJSON AwsEksClusterDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsEksClusterDetails"
       ( \x ->
           AwsEksClusterDetails'
-            Prelude.<$> (x Core..:? "Arn")
-            Prelude.<*> (x Core..:? "CertificateAuthorityData")
-            Prelude.<*> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "Version")
-            Prelude.<*> (x Core..:? "Logging")
-            Prelude.<*> (x Core..:? "Endpoint")
-            Prelude.<*> (x Core..:? "ResourcesVpcConfig")
-            Prelude.<*> (x Core..:? "ClusterStatus")
-            Prelude.<*> (x Core..:? "RoleArn")
+            Prelude.<$> (x Data..:? "Arn")
+            Prelude.<*> (x Data..:? "CertificateAuthorityData")
+            Prelude.<*> (x Data..:? "ClusterStatus")
+            Prelude.<*> (x Data..:? "Endpoint")
+            Prelude.<*> (x Data..:? "Logging")
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "ResourcesVpcConfig")
+            Prelude.<*> (x Data..:? "RoleArn")
+            Prelude.<*> (x Data..:? "Version")
       )
 
 instance Prelude.Hashable AwsEksClusterDetails where
   hashWithSalt _salt AwsEksClusterDetails' {..} =
     _salt `Prelude.hashWithSalt` arn
       `Prelude.hashWithSalt` certificateAuthorityData
-      `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` version
-      `Prelude.hashWithSalt` logging
-      `Prelude.hashWithSalt` endpoint
-      `Prelude.hashWithSalt` resourcesVpcConfig
       `Prelude.hashWithSalt` clusterStatus
+      `Prelude.hashWithSalt` endpoint
+      `Prelude.hashWithSalt` logging
+      `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` resourcesVpcConfig
       `Prelude.hashWithSalt` roleArn
+      `Prelude.hashWithSalt` version
 
 instance Prelude.NFData AwsEksClusterDetails where
   rnf AwsEksClusterDetails' {..} =
     Prelude.rnf arn
       `Prelude.seq` Prelude.rnf certificateAuthorityData
-      `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf version
-      `Prelude.seq` Prelude.rnf logging
-      `Prelude.seq` Prelude.rnf endpoint
-      `Prelude.seq` Prelude.rnf resourcesVpcConfig
       `Prelude.seq` Prelude.rnf clusterStatus
+      `Prelude.seq` Prelude.rnf endpoint
+      `Prelude.seq` Prelude.rnf logging
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf resourcesVpcConfig
       `Prelude.seq` Prelude.rnf roleArn
+      `Prelude.seq` Prelude.rnf version
 
-instance Core.ToJSON AwsEksClusterDetails where
+instance Data.ToJSON AwsEksClusterDetails where
   toJSON AwsEksClusterDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Arn" Core..=) Prelude.<$> arn,
-            ("CertificateAuthorityData" Core..=)
+          [ ("Arn" Data..=) Prelude.<$> arn,
+            ("CertificateAuthorityData" Data..=)
               Prelude.<$> certificateAuthorityData,
-            ("Name" Core..=) Prelude.<$> name,
-            ("Version" Core..=) Prelude.<$> version,
-            ("Logging" Core..=) Prelude.<$> logging,
-            ("Endpoint" Core..=) Prelude.<$> endpoint,
-            ("ResourcesVpcConfig" Core..=)
+            ("ClusterStatus" Data..=) Prelude.<$> clusterStatus,
+            ("Endpoint" Data..=) Prelude.<$> endpoint,
+            ("Logging" Data..=) Prelude.<$> logging,
+            ("Name" Data..=) Prelude.<$> name,
+            ("ResourcesVpcConfig" Data..=)
               Prelude.<$> resourcesVpcConfig,
-            ("ClusterStatus" Core..=) Prelude.<$> clusterStatus,
-            ("RoleArn" Core..=) Prelude.<$> roleArn
+            ("RoleArn" Data..=) Prelude.<$> roleArn,
+            ("Version" Data..=) Prelude.<$> version
           ]
       )

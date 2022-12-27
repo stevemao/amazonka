@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.Point
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.Rekognition.Types.Point where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The X and Y coordinates of a point on an image. The X and Y values
--- returned are ratios of the overall image size. For example, if the input
--- image is 700x200 and the operation returns X=0.5 and Y=0.25, then the
--- point is at the (350,50) pixel coordinate on the image.
+-- | The X and Y coordinates of a point on an image or video frame. The X and
+-- Y values are ratios of the overall image size or video resolution. For
+-- example, if an input image is 700x200 and the values are X=0.5 and
+-- Y=0.25, then the point is at the (350,50) pixel coordinate on the image.
 --
--- An array of @Point@ objects, @Polygon@, is returned by DetectText and by
--- DetectCustomLabels. @Polygon@ represents a fine-grained polygon around a
--- detected item. For more information, see Geometry in the Amazon
--- Rekognition Developer Guide.
+-- An array of @Point@ objects makes up a @Polygon@. A @Polygon@ is
+-- returned by DetectText and by DetectCustomLabels @Polygon@ represents a
+-- fine-grained polygon around a detected item. For more information, see
+-- Geometry in the Amazon Rekognition Developer Guide.
 --
 -- /See:/ 'newPoint' smart constructor.
 data Point = Point'
@@ -66,13 +67,13 @@ point_x = Lens.lens (\Point' {x} -> x) (\s@Point' {} a -> s {x = a} :: Point)
 point_y :: Lens.Lens' Point (Prelude.Maybe Prelude.Double)
 point_y = Lens.lens (\Point' {y} -> y) (\s@Point' {} a -> s {y = a} :: Point)
 
-instance Core.FromJSON Point where
+instance Data.FromJSON Point where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Point"
       ( \x ->
           Point'
-            Prelude.<$> (x Core..:? "X") Prelude.<*> (x Core..:? "Y")
+            Prelude.<$> (x Data..:? "X") Prelude.<*> (x Data..:? "Y")
       )
 
 instance Prelude.Hashable Point where
@@ -83,3 +84,12 @@ instance Prelude.Hashable Point where
 instance Prelude.NFData Point where
   rnf Point' {..} =
     Prelude.rnf x `Prelude.seq` Prelude.rnf y
+
+instance Data.ToJSON Point where
+  toJSON Point' {..} =
+    Data.object
+      ( Prelude.catMaybes
+          [ ("X" Data..=) Prelude.<$> x,
+            ("Y" Data..=) Prelude.<$> y
+          ]
+      )

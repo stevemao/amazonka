@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SQS.SetQueueAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,7 +54,8 @@ module Amazonka.SQS.SetQueueAttributes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,18 +97,12 @@ data SetQueueAttributes = SetQueueAttributes'
     --     for which a @ ReceiveMessage @ action waits for a message to arrive.
     --     Valid values: An integer from 0 to 20 (seconds). Default: 0.
     --
-    -- -   @VisibilityTimeout@ – The visibility timeout for the queue, in
-    --     seconds. Valid values: An integer from 0 to 43,200 (12 hours).
-    --     Default: 30. For more information about the visibility timeout, see
-    --     <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html Visibility Timeout>
-    --     in the /Amazon SQS Developer Guide/.
-    --
-    -- The following attributes apply only to
-    -- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html dead-letter queues:>
-    --
     -- -   @RedrivePolicy@ – The string that includes the parameters for the
     --     dead-letter queue functionality of the source queue as a JSON
-    --     object. The parameters are as follows:
+    --     object. For more information about the redrive policy and
+    --     dead-letter queues, see
+    --     <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html Using Amazon SQS Dead-Letter Queues>
+    --     in the /Amazon SQS Developer Guide/.
     --
     --     -   @deadLetterTargetArn@ – The Amazon Resource Name (ARN) of the
     --         dead-letter queue to which Amazon SQS moves messages after the
@@ -119,36 +114,15 @@ data SetQueueAttributes = SetQueueAttributes'
     --         @maxReceiveCount@ for a queue, Amazon SQS moves the message to
     --         the dead-letter-queue.
     --
-    -- -   @RedriveAllowPolicy@ – The string that includes the parameters for
-    --     the permissions for the dead-letter queue redrive permission and
-    --     which source queues can specify dead-letter queues as a JSON object.
-    --     The parameters are as follows:
+    --     The dead-letter queue of a FIFO queue must also be a FIFO queue.
+    --     Similarly, the dead-letter queue of a standard queue must also be a
+    --     standard queue.
     --
-    --     -   @redrivePermission@ – The permission type that defines which
-    --         source queues can specify the current queue as the dead-letter
-    --         queue. Valid values are:
-    --
-    --         -   @allowAll@ – (Default) Any source queues in this Amazon Web
-    --             Services account in the same Region can specify this queue
-    --             as the dead-letter queue.
-    --
-    --         -   @denyAll@ – No source queues can specify this queue as the
-    --             dead-letter queue.
-    --
-    --         -   @byQueue@ – Only queues specified by the @sourceQueueArns@
-    --             parameter can specify this queue as the dead-letter queue.
-    --
-    --     -   @sourceQueueArns@ – The Amazon Resource Names (ARN)s of the
-    --         source queues that can specify this queue as the dead-letter
-    --         queue and redrive messages. You can specify this parameter only
-    --         when the @redrivePermission@ parameter is set to @byQueue@. You
-    --         can specify up to 10 source queue ARNs. To allow more than 10
-    --         source queues to specify dead-letter queues, set the
-    --         @redrivePermission@ parameter to @allowAll@.
-    --
-    -- The dead-letter queue of a FIFO queue must also be a FIFO queue.
-    -- Similarly, the dead-letter queue of a standard queue must also be a
-    -- standard queue.
+    -- -   @VisibilityTimeout@ – The visibility timeout for the queue, in
+    --     seconds. Valid values: An integer from 0 to 43,200 (12 hours).
+    --     Default: 30. For more information about the visibility timeout, see
+    --     <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html Visibility Timeout>
+    --     in the /Amazon SQS Developer Guide/.
     --
     -- The following attributes apply only to
     -- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html server-side-encryption>:
@@ -172,6 +146,13 @@ data SetQueueAttributes = SetQueueAttributes'
     --     provides better security but results in more calls to KMS which
     --     might incur charges after Free Tier. For more information, see
     --     <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html#sqs-how-does-the-data-key-reuse-period-work How Does the Data Key Reuse Period Work?>.
+    --
+    -- -   @SqsManagedSseEnabled@ – Enables server-side queue encryption using
+    --     SQS owned encryption keys. Only one server-side encryption option is
+    --     supported per queue (e.g.
+    --     <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sse-existing-queue.html SSE-KMS>
+    --     or
+    --     <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sqs-sse-queue.html SSE-SQS>).
     --
     -- The following attribute applies only to
     -- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html FIFO (first-in-first-out) queues>:
@@ -279,18 +260,12 @@ data SetQueueAttributes = SetQueueAttributes'
 --     for which a @ ReceiveMessage @ action waits for a message to arrive.
 --     Valid values: An integer from 0 to 20 (seconds). Default: 0.
 --
--- -   @VisibilityTimeout@ – The visibility timeout for the queue, in
---     seconds. Valid values: An integer from 0 to 43,200 (12 hours).
---     Default: 30. For more information about the visibility timeout, see
---     <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html Visibility Timeout>
---     in the /Amazon SQS Developer Guide/.
---
--- The following attributes apply only to
--- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html dead-letter queues:>
---
 -- -   @RedrivePolicy@ – The string that includes the parameters for the
 --     dead-letter queue functionality of the source queue as a JSON
---     object. The parameters are as follows:
+--     object. For more information about the redrive policy and
+--     dead-letter queues, see
+--     <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html Using Amazon SQS Dead-Letter Queues>
+--     in the /Amazon SQS Developer Guide/.
 --
 --     -   @deadLetterTargetArn@ – The Amazon Resource Name (ARN) of the
 --         dead-letter queue to which Amazon SQS moves messages after the
@@ -302,36 +277,15 @@ data SetQueueAttributes = SetQueueAttributes'
 --         @maxReceiveCount@ for a queue, Amazon SQS moves the message to
 --         the dead-letter-queue.
 --
--- -   @RedriveAllowPolicy@ – The string that includes the parameters for
---     the permissions for the dead-letter queue redrive permission and
---     which source queues can specify dead-letter queues as a JSON object.
---     The parameters are as follows:
+--     The dead-letter queue of a FIFO queue must also be a FIFO queue.
+--     Similarly, the dead-letter queue of a standard queue must also be a
+--     standard queue.
 --
---     -   @redrivePermission@ – The permission type that defines which
---         source queues can specify the current queue as the dead-letter
---         queue. Valid values are:
---
---         -   @allowAll@ – (Default) Any source queues in this Amazon Web
---             Services account in the same Region can specify this queue
---             as the dead-letter queue.
---
---         -   @denyAll@ – No source queues can specify this queue as the
---             dead-letter queue.
---
---         -   @byQueue@ – Only queues specified by the @sourceQueueArns@
---             parameter can specify this queue as the dead-letter queue.
---
---     -   @sourceQueueArns@ – The Amazon Resource Names (ARN)s of the
---         source queues that can specify this queue as the dead-letter
---         queue and redrive messages. You can specify this parameter only
---         when the @redrivePermission@ parameter is set to @byQueue@. You
---         can specify up to 10 source queue ARNs. To allow more than 10
---         source queues to specify dead-letter queues, set the
---         @redrivePermission@ parameter to @allowAll@.
---
--- The dead-letter queue of a FIFO queue must also be a FIFO queue.
--- Similarly, the dead-letter queue of a standard queue must also be a
--- standard queue.
+-- -   @VisibilityTimeout@ – The visibility timeout for the queue, in
+--     seconds. Valid values: An integer from 0 to 43,200 (12 hours).
+--     Default: 30. For more information about the visibility timeout, see
+--     <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html Visibility Timeout>
+--     in the /Amazon SQS Developer Guide/.
 --
 -- The following attributes apply only to
 -- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html server-side-encryption>:
@@ -355,6 +309,13 @@ data SetQueueAttributes = SetQueueAttributes'
 --     provides better security but results in more calls to KMS which
 --     might incur charges after Free Tier. For more information, see
 --     <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html#sqs-how-does-the-data-key-reuse-period-work How Does the Data Key Reuse Period Work?>.
+--
+-- -   @SqsManagedSseEnabled@ – Enables server-side queue encryption using
+--     SQS owned encryption keys. Only one server-side encryption option is
+--     supported per queue (e.g.
+--     <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sse-existing-queue.html SSE-KMS>
+--     or
+--     <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sqs-sse-queue.html SSE-SQS>).
 --
 -- The following attribute applies only to
 -- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html FIFO (first-in-first-out) queues>:
@@ -462,18 +423,12 @@ setQueueAttributes_queueUrl = Lens.lens (\SetQueueAttributes' {queueUrl} -> queu
 --     for which a @ ReceiveMessage @ action waits for a message to arrive.
 --     Valid values: An integer from 0 to 20 (seconds). Default: 0.
 --
--- -   @VisibilityTimeout@ – The visibility timeout for the queue, in
---     seconds. Valid values: An integer from 0 to 43,200 (12 hours).
---     Default: 30. For more information about the visibility timeout, see
---     <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html Visibility Timeout>
---     in the /Amazon SQS Developer Guide/.
---
--- The following attributes apply only to
--- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html dead-letter queues:>
---
 -- -   @RedrivePolicy@ – The string that includes the parameters for the
 --     dead-letter queue functionality of the source queue as a JSON
---     object. The parameters are as follows:
+--     object. For more information about the redrive policy and
+--     dead-letter queues, see
+--     <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html Using Amazon SQS Dead-Letter Queues>
+--     in the /Amazon SQS Developer Guide/.
 --
 --     -   @deadLetterTargetArn@ – The Amazon Resource Name (ARN) of the
 --         dead-letter queue to which Amazon SQS moves messages after the
@@ -485,36 +440,15 @@ setQueueAttributes_queueUrl = Lens.lens (\SetQueueAttributes' {queueUrl} -> queu
 --         @maxReceiveCount@ for a queue, Amazon SQS moves the message to
 --         the dead-letter-queue.
 --
--- -   @RedriveAllowPolicy@ – The string that includes the parameters for
---     the permissions for the dead-letter queue redrive permission and
---     which source queues can specify dead-letter queues as a JSON object.
---     The parameters are as follows:
+--     The dead-letter queue of a FIFO queue must also be a FIFO queue.
+--     Similarly, the dead-letter queue of a standard queue must also be a
+--     standard queue.
 --
---     -   @redrivePermission@ – The permission type that defines which
---         source queues can specify the current queue as the dead-letter
---         queue. Valid values are:
---
---         -   @allowAll@ – (Default) Any source queues in this Amazon Web
---             Services account in the same Region can specify this queue
---             as the dead-letter queue.
---
---         -   @denyAll@ – No source queues can specify this queue as the
---             dead-letter queue.
---
---         -   @byQueue@ – Only queues specified by the @sourceQueueArns@
---             parameter can specify this queue as the dead-letter queue.
---
---     -   @sourceQueueArns@ – The Amazon Resource Names (ARN)s of the
---         source queues that can specify this queue as the dead-letter
---         queue and redrive messages. You can specify this parameter only
---         when the @redrivePermission@ parameter is set to @byQueue@. You
---         can specify up to 10 source queue ARNs. To allow more than 10
---         source queues to specify dead-letter queues, set the
---         @redrivePermission@ parameter to @allowAll@.
---
--- The dead-letter queue of a FIFO queue must also be a FIFO queue.
--- Similarly, the dead-letter queue of a standard queue must also be a
--- standard queue.
+-- -   @VisibilityTimeout@ – The visibility timeout for the queue, in
+--     seconds. Valid values: An integer from 0 to 43,200 (12 hours).
+--     Default: 30. For more information about the visibility timeout, see
+--     <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html Visibility Timeout>
+--     in the /Amazon SQS Developer Guide/.
 --
 -- The following attributes apply only to
 -- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html server-side-encryption>:
@@ -538,6 +472,13 @@ setQueueAttributes_queueUrl = Lens.lens (\SetQueueAttributes' {queueUrl} -> queu
 --     provides better security but results in more calls to KMS which
 --     might incur charges after Free Tier. For more information, see
 --     <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html#sqs-how-does-the-data-key-reuse-period-work How Does the Data Key Reuse Period Work?>.
+--
+-- -   @SqsManagedSseEnabled@ – Enables server-side queue encryption using
+--     SQS owned encryption keys. Only one server-side encryption option is
+--     supported per queue (e.g.
+--     <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sse-existing-queue.html SSE-KMS>
+--     or
+--     <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sqs-sse-queue.html SSE-SQS>).
 --
 -- The following attribute applies only to
 -- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html FIFO (first-in-first-out) queues>:
@@ -608,7 +549,8 @@ instance Core.AWSRequest SetQueueAttributes where
   type
     AWSResponse SetQueueAttributes =
       SetQueueAttributesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull SetQueueAttributesResponse'
 
@@ -622,21 +564,21 @@ instance Prelude.NFData SetQueueAttributes where
     Prelude.rnf queueUrl
       `Prelude.seq` Prelude.rnf attributes
 
-instance Core.ToHeaders SetQueueAttributes where
+instance Data.ToHeaders SetQueueAttributes where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath SetQueueAttributes where
+instance Data.ToPath SetQueueAttributes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SetQueueAttributes where
+instance Data.ToQuery SetQueueAttributes where
   toQuery SetQueueAttributes' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("SetQueueAttributes" :: Prelude.ByteString),
+          Data.=: ("SetQueueAttributes" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-11-05" :: Prelude.ByteString),
-        "QueueUrl" Core.=: queueUrl,
-        Core.toQueryMap
+          Data.=: ("2012-11-05" :: Prelude.ByteString),
+        "QueueUrl" Data.=: queueUrl,
+        Data.toQueryMap
           "Attribute"
           "Name"
           "Value"

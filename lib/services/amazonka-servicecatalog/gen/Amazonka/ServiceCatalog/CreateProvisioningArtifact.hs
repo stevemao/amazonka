@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.CreateProvisioningArtifact
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,15 +46,16 @@ module Amazonka.ServiceCatalog.CreateProvisioningArtifact
     newCreateProvisioningArtifactResponse,
 
     -- * Response Lenses
-    createProvisioningArtifactResponse_status,
     createProvisioningArtifactResponse_info,
     createProvisioningArtifactResponse_provisioningArtifactDetail,
+    createProvisioningArtifactResponse_status,
     createProvisioningArtifactResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -152,14 +153,15 @@ instance Core.AWSRequest CreateProvisioningArtifact where
   type
     AWSResponse CreateProvisioningArtifact =
       CreateProvisioningArtifactResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateProvisioningArtifactResponse'
-            Prelude.<$> (x Core..?> "Status")
-            Prelude.<*> (x Core..?> "Info" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "ProvisioningArtifactDetail")
+            Prelude.<$> (x Data..?> "Info" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "ProvisioningArtifactDetail")
+            Prelude.<*> (x Data..?> "Status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -177,52 +179,52 @@ instance Prelude.NFData CreateProvisioningArtifact where
       `Prelude.seq` Prelude.rnf parameters
       `Prelude.seq` Prelude.rnf idempotencyToken
 
-instance Core.ToHeaders CreateProvisioningArtifact where
+instance Data.ToHeaders CreateProvisioningArtifact where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.CreateProvisioningArtifact" ::
+              Data.=# ( "AWS242ServiceCatalogService.CreateProvisioningArtifact" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateProvisioningArtifact where
+instance Data.ToJSON CreateProvisioningArtifact where
   toJSON CreateProvisioningArtifact' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            Prelude.Just ("ProductId" Core..= productId),
-            Prelude.Just ("Parameters" Core..= parameters),
+            Prelude.Just ("ProductId" Data..= productId),
+            Prelude.Just ("Parameters" Data..= parameters),
             Prelude.Just
-              ("IdempotencyToken" Core..= idempotencyToken)
+              ("IdempotencyToken" Data..= idempotencyToken)
           ]
       )
 
-instance Core.ToPath CreateProvisioningArtifact where
+instance Data.ToPath CreateProvisioningArtifact where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateProvisioningArtifact where
+instance Data.ToQuery CreateProvisioningArtifact where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateProvisioningArtifactResponse' smart constructor.
 data CreateProvisioningArtifactResponse = CreateProvisioningArtifactResponse'
-  { -- | The status of the current request.
-    status :: Prelude.Maybe RequestStatus,
-    -- | Specify the template source with one of the following options, but not
+  { -- | Specify the template source with one of the following options, but not
     -- both. Keys accepted: [ @LoadTemplateFromURL@, @ImportFromPhysicalId@ ].
     --
-    -- The URL of the CloudFormation template in Amazon S3, in JSON format.
+    -- Use the URL of the CloudFormation template in Amazon S3 or GitHub in
+    -- JSON format.
     --
     -- @LoadTemplateFromURL@
     --
-    -- Use the URL of the CloudFormation template in Amazon S3 in JSON format.
+    -- Use the URL of the CloudFormation template in Amazon S3 or GitHub in
+    -- JSON format.
     --
     -- @ImportFromPhysicalId@
     --
@@ -231,6 +233,8 @@ data CreateProvisioningArtifactResponse = CreateProvisioningArtifactResponse'
     info :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | Information about the provisioning artifact.
     provisioningArtifactDetail :: Prelude.Maybe ProvisioningArtifactDetail,
+    -- | The status of the current request.
+    status :: Prelude.Maybe RequestStatus,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -244,16 +248,16 @@ data CreateProvisioningArtifactResponse = CreateProvisioningArtifactResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'createProvisioningArtifactResponse_status' - The status of the current request.
---
 -- 'info', 'createProvisioningArtifactResponse_info' - Specify the template source with one of the following options, but not
 -- both. Keys accepted: [ @LoadTemplateFromURL@, @ImportFromPhysicalId@ ].
 --
--- The URL of the CloudFormation template in Amazon S3, in JSON format.
+-- Use the URL of the CloudFormation template in Amazon S3 or GitHub in
+-- JSON format.
 --
 -- @LoadTemplateFromURL@
 --
--- Use the URL of the CloudFormation template in Amazon S3 in JSON format.
+-- Use the URL of the CloudFormation template in Amazon S3 or GitHub in
+-- JSON format.
 --
 -- @ImportFromPhysicalId@
 --
@@ -262,6 +266,8 @@ data CreateProvisioningArtifactResponse = CreateProvisioningArtifactResponse'
 --
 -- 'provisioningArtifactDetail', 'createProvisioningArtifactResponse_provisioningArtifactDetail' - Information about the provisioning artifact.
 --
+-- 'status', 'createProvisioningArtifactResponse_status' - The status of the current request.
+--
 -- 'httpStatus', 'createProvisioningArtifactResponse_httpStatus' - The response's http status code.
 newCreateProvisioningArtifactResponse ::
   -- | 'httpStatus'
@@ -269,26 +275,24 @@ newCreateProvisioningArtifactResponse ::
   CreateProvisioningArtifactResponse
 newCreateProvisioningArtifactResponse pHttpStatus_ =
   CreateProvisioningArtifactResponse'
-    { status =
+    { info =
         Prelude.Nothing,
-      info = Prelude.Nothing,
       provisioningArtifactDetail =
         Prelude.Nothing,
+      status = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The status of the current request.
-createProvisioningArtifactResponse_status :: Lens.Lens' CreateProvisioningArtifactResponse (Prelude.Maybe RequestStatus)
-createProvisioningArtifactResponse_status = Lens.lens (\CreateProvisioningArtifactResponse' {status} -> status) (\s@CreateProvisioningArtifactResponse' {} a -> s {status = a} :: CreateProvisioningArtifactResponse)
 
 -- | Specify the template source with one of the following options, but not
 -- both. Keys accepted: [ @LoadTemplateFromURL@, @ImportFromPhysicalId@ ].
 --
--- The URL of the CloudFormation template in Amazon S3, in JSON format.
+-- Use the URL of the CloudFormation template in Amazon S3 or GitHub in
+-- JSON format.
 --
 -- @LoadTemplateFromURL@
 --
--- Use the URL of the CloudFormation template in Amazon S3 in JSON format.
+-- Use the URL of the CloudFormation template in Amazon S3 or GitHub in
+-- JSON format.
 --
 -- @ImportFromPhysicalId@
 --
@@ -301,6 +305,10 @@ createProvisioningArtifactResponse_info = Lens.lens (\CreateProvisioningArtifact
 createProvisioningArtifactResponse_provisioningArtifactDetail :: Lens.Lens' CreateProvisioningArtifactResponse (Prelude.Maybe ProvisioningArtifactDetail)
 createProvisioningArtifactResponse_provisioningArtifactDetail = Lens.lens (\CreateProvisioningArtifactResponse' {provisioningArtifactDetail} -> provisioningArtifactDetail) (\s@CreateProvisioningArtifactResponse' {} a -> s {provisioningArtifactDetail = a} :: CreateProvisioningArtifactResponse)
 
+-- | The status of the current request.
+createProvisioningArtifactResponse_status :: Lens.Lens' CreateProvisioningArtifactResponse (Prelude.Maybe RequestStatus)
+createProvisioningArtifactResponse_status = Lens.lens (\CreateProvisioningArtifactResponse' {status} -> status) (\s@CreateProvisioningArtifactResponse' {} a -> s {status = a} :: CreateProvisioningArtifactResponse)
+
 -- | The response's http status code.
 createProvisioningArtifactResponse_httpStatus :: Lens.Lens' CreateProvisioningArtifactResponse Prelude.Int
 createProvisioningArtifactResponse_httpStatus = Lens.lens (\CreateProvisioningArtifactResponse' {httpStatus} -> httpStatus) (\s@CreateProvisioningArtifactResponse' {} a -> s {httpStatus = a} :: CreateProvisioningArtifactResponse)
@@ -310,7 +318,7 @@ instance
     CreateProvisioningArtifactResponse
   where
   rnf CreateProvisioningArtifactResponse' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf info
+    Prelude.rnf info
       `Prelude.seq` Prelude.rnf provisioningArtifactDetail
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf httpStatus

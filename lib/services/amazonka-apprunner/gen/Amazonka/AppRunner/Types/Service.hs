@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppRunner.Types.Service
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,10 +23,13 @@ import Amazonka.AppRunner.Types.AutoScalingConfigurationSummary
 import Amazonka.AppRunner.Types.EncryptionConfiguration
 import Amazonka.AppRunner.Types.HealthCheckConfiguration
 import Amazonka.AppRunner.Types.InstanceConfiguration
+import Amazonka.AppRunner.Types.NetworkConfiguration
+import Amazonka.AppRunner.Types.ServiceObservabilityConfiguration
 import Amazonka.AppRunner.Types.ServiceStatus
 import Amazonka.AppRunner.Types.SourceConfiguration
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an App Runner service. It can describe a service in any state,
@@ -46,17 +49,22 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newService' smart constructor.
 data Service = Service'
-  { -- | The encryption key that App Runner uses to encrypt the service logs and
+  { -- | The time when the App Runner service was deleted. It\'s in the Unix time
+    -- stamp format.
+    deletedAt :: Prelude.Maybe Data.POSIX,
+    -- | The encryption key that App Runner uses to encrypt the service logs and
     -- the copy of the source repository that App Runner maintains for the
     -- service. It can be either a customer-provided encryption key or an
-    -- Amazon Web Services managed CMK.
+    -- Amazon Web Services managed key.
     encryptionConfiguration :: Prelude.Maybe EncryptionConfiguration,
     -- | The settings for the health check that App Runner performs to monitor
     -- the health of this service.
     healthCheckConfiguration :: Prelude.Maybe HealthCheckConfiguration,
-    -- | The time when the App Runner service was deleted. It\'s in the Unix time
-    -- stamp format.
-    deletedAt :: Prelude.Maybe Core.POSIX,
+    -- | The observability configuration of this service.
+    observabilityConfiguration :: Prelude.Maybe ServiceObservabilityConfiguration,
+    -- | A subdomain URL that App Runner generated for this service. You can use
+    -- this URL to access your service web application.
+    serviceUrl :: Prelude.Maybe Prelude.Text,
     -- | The customer-provided service name.
     serviceName :: Prelude.Text,
     -- | An ID that App Runner generated for this service. It\'s unique within
@@ -64,15 +72,12 @@ data Service = Service'
     serviceId :: Prelude.Text,
     -- | The Amazon Resource Name (ARN) of this service.
     serviceArn :: Prelude.Text,
-    -- | A subdomain URL that App Runner generated for this service. You can use
-    -- this URL to access your service web application.
-    serviceUrl :: Prelude.Text,
     -- | The time when the App Runner service was created. It\'s in the Unix time
     -- stamp format.
-    createdAt :: Core.POSIX,
+    createdAt :: Data.POSIX,
     -- | The time when the App Runner service was last updated at. It\'s in the
     -- Unix time stamp format.
-    updatedAt :: Core.POSIX,
+    updatedAt :: Data.POSIX,
     -- | The current state of the App Runner service. These particular values
     -- mean the following.
     --
@@ -95,7 +100,10 @@ data Service = Service'
     instanceConfiguration :: InstanceConfiguration,
     -- | Summary information for the App Runner automatic scaling configuration
     -- resource that\'s associated with this service.
-    autoScalingConfigurationSummary :: AutoScalingConfigurationSummary
+    autoScalingConfigurationSummary :: AutoScalingConfigurationSummary,
+    -- | Configuration settings related to network traffic of the web application
+    -- that this service runs.
+    networkConfiguration :: NetworkConfiguration
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -107,16 +115,21 @@ data Service = Service'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'deletedAt', 'service_deletedAt' - The time when the App Runner service was deleted. It\'s in the Unix time
+-- stamp format.
+--
 -- 'encryptionConfiguration', 'service_encryptionConfiguration' - The encryption key that App Runner uses to encrypt the service logs and
 -- the copy of the source repository that App Runner maintains for the
 -- service. It can be either a customer-provided encryption key or an
--- Amazon Web Services managed CMK.
+-- Amazon Web Services managed key.
 --
 -- 'healthCheckConfiguration', 'service_healthCheckConfiguration' - The settings for the health check that App Runner performs to monitor
 -- the health of this service.
 --
--- 'deletedAt', 'service_deletedAt' - The time when the App Runner service was deleted. It\'s in the Unix time
--- stamp format.
+-- 'observabilityConfiguration', 'service_observabilityConfiguration' - The observability configuration of this service.
+--
+-- 'serviceUrl', 'service_serviceUrl' - A subdomain URL that App Runner generated for this service. You can use
+-- this URL to access your service web application.
 --
 -- 'serviceName', 'service_serviceName' - The customer-provided service name.
 --
@@ -124,9 +137,6 @@ data Service = Service'
 -- the Amazon Web Services Region.
 --
 -- 'serviceArn', 'service_serviceArn' - The Amazon Resource Name (ARN) of this service.
---
--- 'serviceUrl', 'service_serviceUrl' - A subdomain URL that App Runner generated for this service. You can use
--- this URL to access your service web application.
 --
 -- 'createdAt', 'service_createdAt' - The time when the App Runner service was created. It\'s in the Unix time
 -- stamp format.
@@ -156,14 +166,15 @@ data Service = Service'
 --
 -- 'autoScalingConfigurationSummary', 'service_autoScalingConfigurationSummary' - Summary information for the App Runner automatic scaling configuration
 -- resource that\'s associated with this service.
+--
+-- 'networkConfiguration', 'service_networkConfiguration' - Configuration settings related to network traffic of the web application
+-- that this service runs.
 newService ::
   -- | 'serviceName'
   Prelude.Text ->
   -- | 'serviceId'
   Prelude.Text ->
   -- | 'serviceArn'
-  Prelude.Text ->
-  -- | 'serviceUrl'
   Prelude.Text ->
   -- | 'createdAt'
   Prelude.UTCTime ->
@@ -177,39 +188,48 @@ newService ::
   InstanceConfiguration ->
   -- | 'autoScalingConfigurationSummary'
   AutoScalingConfigurationSummary ->
+  -- | 'networkConfiguration'
+  NetworkConfiguration ->
   Service
 newService
   pServiceName_
   pServiceId_
   pServiceArn_
-  pServiceUrl_
   pCreatedAt_
   pUpdatedAt_
   pStatus_
   pSourceConfiguration_
   pInstanceConfiguration_
-  pAutoScalingConfigurationSummary_ =
+  pAutoScalingConfigurationSummary_
+  pNetworkConfiguration_ =
     Service'
-      { encryptionConfiguration = Prelude.Nothing,
+      { deletedAt = Prelude.Nothing,
+        encryptionConfiguration = Prelude.Nothing,
         healthCheckConfiguration = Prelude.Nothing,
-        deletedAt = Prelude.Nothing,
+        observabilityConfiguration = Prelude.Nothing,
+        serviceUrl = Prelude.Nothing,
         serviceName = pServiceName_,
         serviceId = pServiceId_,
         serviceArn = pServiceArn_,
-        serviceUrl = pServiceUrl_,
-        createdAt = Core._Time Lens.# pCreatedAt_,
-        updatedAt = Core._Time Lens.# pUpdatedAt_,
+        createdAt = Data._Time Lens.# pCreatedAt_,
+        updatedAt = Data._Time Lens.# pUpdatedAt_,
         status = pStatus_,
         sourceConfiguration = pSourceConfiguration_,
         instanceConfiguration = pInstanceConfiguration_,
         autoScalingConfigurationSummary =
-          pAutoScalingConfigurationSummary_
+          pAutoScalingConfigurationSummary_,
+        networkConfiguration = pNetworkConfiguration_
       }
+
+-- | The time when the App Runner service was deleted. It\'s in the Unix time
+-- stamp format.
+service_deletedAt :: Lens.Lens' Service (Prelude.Maybe Prelude.UTCTime)
+service_deletedAt = Lens.lens (\Service' {deletedAt} -> deletedAt) (\s@Service' {} a -> s {deletedAt = a} :: Service) Prelude.. Lens.mapping Data._Time
 
 -- | The encryption key that App Runner uses to encrypt the service logs and
 -- the copy of the source repository that App Runner maintains for the
 -- service. It can be either a customer-provided encryption key or an
--- Amazon Web Services managed CMK.
+-- Amazon Web Services managed key.
 service_encryptionConfiguration :: Lens.Lens' Service (Prelude.Maybe EncryptionConfiguration)
 service_encryptionConfiguration = Lens.lens (\Service' {encryptionConfiguration} -> encryptionConfiguration) (\s@Service' {} a -> s {encryptionConfiguration = a} :: Service)
 
@@ -218,10 +238,14 @@ service_encryptionConfiguration = Lens.lens (\Service' {encryptionConfiguration}
 service_healthCheckConfiguration :: Lens.Lens' Service (Prelude.Maybe HealthCheckConfiguration)
 service_healthCheckConfiguration = Lens.lens (\Service' {healthCheckConfiguration} -> healthCheckConfiguration) (\s@Service' {} a -> s {healthCheckConfiguration = a} :: Service)
 
--- | The time when the App Runner service was deleted. It\'s in the Unix time
--- stamp format.
-service_deletedAt :: Lens.Lens' Service (Prelude.Maybe Prelude.UTCTime)
-service_deletedAt = Lens.lens (\Service' {deletedAt} -> deletedAt) (\s@Service' {} a -> s {deletedAt = a} :: Service) Prelude.. Lens.mapping Core._Time
+-- | The observability configuration of this service.
+service_observabilityConfiguration :: Lens.Lens' Service (Prelude.Maybe ServiceObservabilityConfiguration)
+service_observabilityConfiguration = Lens.lens (\Service' {observabilityConfiguration} -> observabilityConfiguration) (\s@Service' {} a -> s {observabilityConfiguration = a} :: Service)
+
+-- | A subdomain URL that App Runner generated for this service. You can use
+-- this URL to access your service web application.
+service_serviceUrl :: Lens.Lens' Service (Prelude.Maybe Prelude.Text)
+service_serviceUrl = Lens.lens (\Service' {serviceUrl} -> serviceUrl) (\s@Service' {} a -> s {serviceUrl = a} :: Service)
 
 -- | The customer-provided service name.
 service_serviceName :: Lens.Lens' Service Prelude.Text
@@ -236,20 +260,15 @@ service_serviceId = Lens.lens (\Service' {serviceId} -> serviceId) (\s@Service' 
 service_serviceArn :: Lens.Lens' Service Prelude.Text
 service_serviceArn = Lens.lens (\Service' {serviceArn} -> serviceArn) (\s@Service' {} a -> s {serviceArn = a} :: Service)
 
--- | A subdomain URL that App Runner generated for this service. You can use
--- this URL to access your service web application.
-service_serviceUrl :: Lens.Lens' Service Prelude.Text
-service_serviceUrl = Lens.lens (\Service' {serviceUrl} -> serviceUrl) (\s@Service' {} a -> s {serviceUrl = a} :: Service)
-
 -- | The time when the App Runner service was created. It\'s in the Unix time
 -- stamp format.
 service_createdAt :: Lens.Lens' Service Prelude.UTCTime
-service_createdAt = Lens.lens (\Service' {createdAt} -> createdAt) (\s@Service' {} a -> s {createdAt = a} :: Service) Prelude.. Core._Time
+service_createdAt = Lens.lens (\Service' {createdAt} -> createdAt) (\s@Service' {} a -> s {createdAt = a} :: Service) Prelude.. Data._Time
 
 -- | The time when the App Runner service was last updated at. It\'s in the
 -- Unix time stamp format.
 service_updatedAt :: Lens.Lens' Service Prelude.UTCTime
-service_updatedAt = Lens.lens (\Service' {updatedAt} -> updatedAt) (\s@Service' {} a -> s {updatedAt = a} :: Service) Prelude.. Core._Time
+service_updatedAt = Lens.lens (\Service' {updatedAt} -> updatedAt) (\s@Service' {} a -> s {updatedAt = a} :: Service) Prelude.. Data._Time
 
 -- | The current state of the App Runner service. These particular values
 -- mean the following.
@@ -282,56 +301,67 @@ service_instanceConfiguration = Lens.lens (\Service' {instanceConfiguration} -> 
 service_autoScalingConfigurationSummary :: Lens.Lens' Service AutoScalingConfigurationSummary
 service_autoScalingConfigurationSummary = Lens.lens (\Service' {autoScalingConfigurationSummary} -> autoScalingConfigurationSummary) (\s@Service' {} a -> s {autoScalingConfigurationSummary = a} :: Service)
 
-instance Core.FromJSON Service where
+-- | Configuration settings related to network traffic of the web application
+-- that this service runs.
+service_networkConfiguration :: Lens.Lens' Service NetworkConfiguration
+service_networkConfiguration = Lens.lens (\Service' {networkConfiguration} -> networkConfiguration) (\s@Service' {} a -> s {networkConfiguration = a} :: Service)
+
+instance Data.FromJSON Service where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Service"
       ( \x ->
           Service'
-            Prelude.<$> (x Core..:? "EncryptionConfiguration")
-            Prelude.<*> (x Core..:? "HealthCheckConfiguration")
-            Prelude.<*> (x Core..:? "DeletedAt")
-            Prelude.<*> (x Core..: "ServiceName")
-            Prelude.<*> (x Core..: "ServiceId")
-            Prelude.<*> (x Core..: "ServiceArn")
-            Prelude.<*> (x Core..: "ServiceUrl")
-            Prelude.<*> (x Core..: "CreatedAt")
-            Prelude.<*> (x Core..: "UpdatedAt")
-            Prelude.<*> (x Core..: "Status")
-            Prelude.<*> (x Core..: "SourceConfiguration")
-            Prelude.<*> (x Core..: "InstanceConfiguration")
-            Prelude.<*> (x Core..: "AutoScalingConfigurationSummary")
+            Prelude.<$> (x Data..:? "DeletedAt")
+            Prelude.<*> (x Data..:? "EncryptionConfiguration")
+            Prelude.<*> (x Data..:? "HealthCheckConfiguration")
+            Prelude.<*> (x Data..:? "ObservabilityConfiguration")
+            Prelude.<*> (x Data..:? "ServiceUrl")
+            Prelude.<*> (x Data..: "ServiceName")
+            Prelude.<*> (x Data..: "ServiceId")
+            Prelude.<*> (x Data..: "ServiceArn")
+            Prelude.<*> (x Data..: "CreatedAt")
+            Prelude.<*> (x Data..: "UpdatedAt")
+            Prelude.<*> (x Data..: "Status")
+            Prelude.<*> (x Data..: "SourceConfiguration")
+            Prelude.<*> (x Data..: "InstanceConfiguration")
+            Prelude.<*> (x Data..: "AutoScalingConfigurationSummary")
+            Prelude.<*> (x Data..: "NetworkConfiguration")
       )
 
 instance Prelude.Hashable Service where
   hashWithSalt _salt Service' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` deletedAt
       `Prelude.hashWithSalt` encryptionConfiguration
       `Prelude.hashWithSalt` healthCheckConfiguration
-      `Prelude.hashWithSalt` deletedAt
+      `Prelude.hashWithSalt` observabilityConfiguration
+      `Prelude.hashWithSalt` serviceUrl
       `Prelude.hashWithSalt` serviceName
       `Prelude.hashWithSalt` serviceId
       `Prelude.hashWithSalt` serviceArn
-      `Prelude.hashWithSalt` serviceUrl
       `Prelude.hashWithSalt` createdAt
       `Prelude.hashWithSalt` updatedAt
       `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` sourceConfiguration
       `Prelude.hashWithSalt` instanceConfiguration
       `Prelude.hashWithSalt` autoScalingConfigurationSummary
+      `Prelude.hashWithSalt` networkConfiguration
 
 instance Prelude.NFData Service where
   rnf Service' {..} =
-    Prelude.rnf encryptionConfiguration
+    Prelude.rnf deletedAt
+      `Prelude.seq` Prelude.rnf encryptionConfiguration
       `Prelude.seq` Prelude.rnf healthCheckConfiguration
-      `Prelude.seq` Prelude.rnf deletedAt
+      `Prelude.seq` Prelude.rnf observabilityConfiguration
+      `Prelude.seq` Prelude.rnf serviceUrl
       `Prelude.seq` Prelude.rnf serviceName
       `Prelude.seq` Prelude.rnf serviceId
       `Prelude.seq` Prelude.rnf serviceArn
-      `Prelude.seq` Prelude.rnf serviceUrl
       `Prelude.seq` Prelude.rnf createdAt
       `Prelude.seq` Prelude.rnf updatedAt
       `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf sourceConfiguration
       `Prelude.seq` Prelude.rnf instanceConfiguration
-      `Prelude.seq` Prelude.rnf autoScalingConfigurationSummary
+      `Prelude.seq` Prelude.rnf
+        autoScalingConfigurationSummary
+      `Prelude.seq` Prelude.rnf networkConfiguration

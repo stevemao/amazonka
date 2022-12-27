@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSOAdmin.UpdatePermissionSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,9 +27,9 @@ module Amazonka.SSOAdmin.UpdatePermissionSet
     newUpdatePermissionSet,
 
     -- * Request Lenses
+    updatePermissionSet_description,
     updatePermissionSet_relayState,
     updatePermissionSet_sessionDuration,
-    updatePermissionSet_description,
     updatePermissionSet_instanceArn,
     updatePermissionSet_permissionSetArn,
 
@@ -43,7 +43,8 @@ module Amazonka.SSOAdmin.UpdatePermissionSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -51,18 +52,18 @@ import Amazonka.SSOAdmin.Types
 
 -- | /See:/ 'newUpdatePermissionSet' smart constructor.
 data UpdatePermissionSet = UpdatePermissionSet'
-  { -- | Used to redirect users within the application during the federation
+  { -- | The description of the PermissionSet.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Used to redirect users within the application during the federation
     -- authentication process.
     relayState :: Prelude.Maybe Prelude.Text,
     -- | The length of time that the application user sessions are valid for in
     -- the ISO-8601 standard.
     sessionDuration :: Prelude.Maybe Prelude.Text,
-    -- | The description of the PermissionSet.
-    description :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the SSO instance under which the operation will be executed.
-    -- For more information about ARNs, see
-    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
-    -- in the /Amazon Web Services General Reference/.
+    -- | The ARN of the IAM Identity Center instance under which the operation
+    -- will be executed. For more information about ARNs, see
+    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+    -- in the /AWS General Reference/.
     instanceArn :: Prelude.Text,
     -- | The ARN of the permission set.
     permissionSetArn :: Prelude.Text
@@ -77,18 +78,18 @@ data UpdatePermissionSet = UpdatePermissionSet'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'updatePermissionSet_description' - The description of the PermissionSet.
+--
 -- 'relayState', 'updatePermissionSet_relayState' - Used to redirect users within the application during the federation
 -- authentication process.
 --
 -- 'sessionDuration', 'updatePermissionSet_sessionDuration' - The length of time that the application user sessions are valid for in
 -- the ISO-8601 standard.
 --
--- 'description', 'updatePermissionSet_description' - The description of the PermissionSet.
---
--- 'instanceArn', 'updatePermissionSet_instanceArn' - The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- 'instanceArn', 'updatePermissionSet_instanceArn' - The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 --
 -- 'permissionSetArn', 'updatePermissionSet_permissionSetArn' - The ARN of the permission set.
 newUpdatePermissionSet ::
@@ -101,12 +102,16 @@ newUpdatePermissionSet
   pInstanceArn_
   pPermissionSetArn_ =
     UpdatePermissionSet'
-      { relayState = Prelude.Nothing,
+      { description = Prelude.Nothing,
+        relayState = Prelude.Nothing,
         sessionDuration = Prelude.Nothing,
-        description = Prelude.Nothing,
         instanceArn = pInstanceArn_,
         permissionSetArn = pPermissionSetArn_
       }
+
+-- | The description of the PermissionSet.
+updatePermissionSet_description :: Lens.Lens' UpdatePermissionSet (Prelude.Maybe Prelude.Text)
+updatePermissionSet_description = Lens.lens (\UpdatePermissionSet' {description} -> description) (\s@UpdatePermissionSet' {} a -> s {description = a} :: UpdatePermissionSet)
 
 -- | Used to redirect users within the application during the federation
 -- authentication process.
@@ -118,14 +123,10 @@ updatePermissionSet_relayState = Lens.lens (\UpdatePermissionSet' {relayState} -
 updatePermissionSet_sessionDuration :: Lens.Lens' UpdatePermissionSet (Prelude.Maybe Prelude.Text)
 updatePermissionSet_sessionDuration = Lens.lens (\UpdatePermissionSet' {sessionDuration} -> sessionDuration) (\s@UpdatePermissionSet' {} a -> s {sessionDuration = a} :: UpdatePermissionSet)
 
--- | The description of the PermissionSet.
-updatePermissionSet_description :: Lens.Lens' UpdatePermissionSet (Prelude.Maybe Prelude.Text)
-updatePermissionSet_description = Lens.lens (\UpdatePermissionSet' {description} -> description) (\s@UpdatePermissionSet' {} a -> s {description = a} :: UpdatePermissionSet)
-
--- | The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- | The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 updatePermissionSet_instanceArn :: Lens.Lens' UpdatePermissionSet Prelude.Text
 updatePermissionSet_instanceArn = Lens.lens (\UpdatePermissionSet' {instanceArn} -> instanceArn) (\s@UpdatePermissionSet' {} a -> s {instanceArn = a} :: UpdatePermissionSet)
 
@@ -137,7 +138,8 @@ instance Core.AWSRequest UpdatePermissionSet where
   type
     AWSResponse UpdatePermissionSet =
       UpdatePermissionSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -147,53 +149,53 @@ instance Core.AWSRequest UpdatePermissionSet where
 
 instance Prelude.Hashable UpdatePermissionSet where
   hashWithSalt _salt UpdatePermissionSet' {..} =
-    _salt `Prelude.hashWithSalt` relayState
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` relayState
       `Prelude.hashWithSalt` sessionDuration
-      `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` instanceArn
       `Prelude.hashWithSalt` permissionSetArn
 
 instance Prelude.NFData UpdatePermissionSet where
   rnf UpdatePermissionSet' {..} =
-    Prelude.rnf relayState
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf relayState
       `Prelude.seq` Prelude.rnf sessionDuration
-      `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf instanceArn
       `Prelude.seq` Prelude.rnf permissionSetArn
 
-instance Core.ToHeaders UpdatePermissionSet where
+instance Data.ToHeaders UpdatePermissionSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SWBExternalService.UpdatePermissionSet" ::
+              Data.=# ( "SWBExternalService.UpdatePermissionSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdatePermissionSet where
+instance Data.ToJSON UpdatePermissionSet where
   toJSON UpdatePermissionSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RelayState" Core..=) Prelude.<$> relayState,
-            ("SessionDuration" Core..=)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("RelayState" Data..=) Prelude.<$> relayState,
+            ("SessionDuration" Data..=)
               Prelude.<$> sessionDuration,
-            ("Description" Core..=) Prelude.<$> description,
-            Prelude.Just ("InstanceArn" Core..= instanceArn),
+            Prelude.Just ("InstanceArn" Data..= instanceArn),
             Prelude.Just
-              ("PermissionSetArn" Core..= permissionSetArn)
+              ("PermissionSetArn" Data..= permissionSetArn)
           ]
       )
 
-instance Core.ToPath UpdatePermissionSet where
+instance Data.ToPath UpdatePermissionSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdatePermissionSet where
+instance Data.ToQuery UpdatePermissionSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdatePermissionSetResponse' smart constructor.

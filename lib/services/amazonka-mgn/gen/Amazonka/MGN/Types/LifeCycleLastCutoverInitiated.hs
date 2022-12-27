@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MGN.Types.LifeCycleLastCutoverInitiated
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,17 @@
 module Amazonka.MGN.Types.LifeCycleLastCutoverInitiated where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Lifecycle last Cutover initiated.
 --
 -- /See:/ 'newLifeCycleLastCutoverInitiated' smart constructor.
 data LifeCycleLastCutoverInitiated = LifeCycleLastCutoverInitiated'
-  { -- | Lifecycle last Cutover initiated by Job ID.
-    jobID :: Prelude.Maybe Prelude.Text,
-    apiCallDateTime :: Prelude.Maybe Prelude.Text
+  { apiCallDateTime :: Prelude.Maybe Prelude.Text,
+    -- | Lifecycle last Cutover initiated by Job ID.
+    jobID :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -41,34 +42,34 @@ data LifeCycleLastCutoverInitiated = LifeCycleLastCutoverInitiated'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'jobID', 'lifeCycleLastCutoverInitiated_jobID' - Lifecycle last Cutover initiated by Job ID.
---
 -- 'apiCallDateTime', 'lifeCycleLastCutoverInitiated_apiCallDateTime' -
+--
+-- 'jobID', 'lifeCycleLastCutoverInitiated_jobID' - Lifecycle last Cutover initiated by Job ID.
 newLifeCycleLastCutoverInitiated ::
   LifeCycleLastCutoverInitiated
 newLifeCycleLastCutoverInitiated =
   LifeCycleLastCutoverInitiated'
-    { jobID =
+    { apiCallDateTime =
         Prelude.Nothing,
-      apiCallDateTime = Prelude.Nothing
+      jobID = Prelude.Nothing
     }
-
--- | Lifecycle last Cutover initiated by Job ID.
-lifeCycleLastCutoverInitiated_jobID :: Lens.Lens' LifeCycleLastCutoverInitiated (Prelude.Maybe Prelude.Text)
-lifeCycleLastCutoverInitiated_jobID = Lens.lens (\LifeCycleLastCutoverInitiated' {jobID} -> jobID) (\s@LifeCycleLastCutoverInitiated' {} a -> s {jobID = a} :: LifeCycleLastCutoverInitiated)
 
 -- |
 lifeCycleLastCutoverInitiated_apiCallDateTime :: Lens.Lens' LifeCycleLastCutoverInitiated (Prelude.Maybe Prelude.Text)
 lifeCycleLastCutoverInitiated_apiCallDateTime = Lens.lens (\LifeCycleLastCutoverInitiated' {apiCallDateTime} -> apiCallDateTime) (\s@LifeCycleLastCutoverInitiated' {} a -> s {apiCallDateTime = a} :: LifeCycleLastCutoverInitiated)
 
-instance Core.FromJSON LifeCycleLastCutoverInitiated where
+-- | Lifecycle last Cutover initiated by Job ID.
+lifeCycleLastCutoverInitiated_jobID :: Lens.Lens' LifeCycleLastCutoverInitiated (Prelude.Maybe Prelude.Text)
+lifeCycleLastCutoverInitiated_jobID = Lens.lens (\LifeCycleLastCutoverInitiated' {jobID} -> jobID) (\s@LifeCycleLastCutoverInitiated' {} a -> s {jobID = a} :: LifeCycleLastCutoverInitiated)
+
+instance Data.FromJSON LifeCycleLastCutoverInitiated where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LifeCycleLastCutoverInitiated"
       ( \x ->
           LifeCycleLastCutoverInitiated'
-            Prelude.<$> (x Core..:? "jobID")
-            Prelude.<*> (x Core..:? "apiCallDateTime")
+            Prelude.<$> (x Data..:? "apiCallDateTime")
+            Prelude.<*> (x Data..:? "jobID")
       )
 
 instance
@@ -76,10 +77,10 @@ instance
     LifeCycleLastCutoverInitiated
   where
   hashWithSalt _salt LifeCycleLastCutoverInitiated' {..} =
-    _salt `Prelude.hashWithSalt` jobID
-      `Prelude.hashWithSalt` apiCallDateTime
+    _salt `Prelude.hashWithSalt` apiCallDateTime
+      `Prelude.hashWithSalt` jobID
 
 instance Prelude.NFData LifeCycleLastCutoverInitiated where
   rnf LifeCycleLastCutoverInitiated' {..} =
-    Prelude.rnf jobID
-      `Prelude.seq` Prelude.rnf apiCallDateTime
+    Prelude.rnf apiCallDateTime
+      `Prelude.seq` Prelude.rnf jobID

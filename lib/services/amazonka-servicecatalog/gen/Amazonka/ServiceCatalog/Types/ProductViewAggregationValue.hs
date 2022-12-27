@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.Types.ProductViewAggregationValue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ServiceCatalog.Types.ProductViewAggregationValue where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A single product view aggregation value\/count pair, containing metadata
@@ -28,10 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newProductViewAggregationValue' smart constructor.
 data ProductViewAggregationValue = ProductViewAggregationValue'
-  { -- | The value of the product view aggregation.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | An approximate count of the products that match the value.
-    approximateCount :: Prelude.Maybe Prelude.Int
+  { -- | An approximate count of the products that match the value.
+    approximateCount :: Prelude.Maybe Prelude.Int,
+    -- | The value of the product view aggregation.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,42 +44,42 @@ data ProductViewAggregationValue = ProductViewAggregationValue'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'productViewAggregationValue_value' - The value of the product view aggregation.
---
 -- 'approximateCount', 'productViewAggregationValue_approximateCount' - An approximate count of the products that match the value.
+--
+-- 'value', 'productViewAggregationValue_value' - The value of the product view aggregation.
 newProductViewAggregationValue ::
   ProductViewAggregationValue
 newProductViewAggregationValue =
   ProductViewAggregationValue'
-    { value =
+    { approximateCount =
         Prelude.Nothing,
-      approximateCount = Prelude.Nothing
+      value = Prelude.Nothing
     }
-
--- | The value of the product view aggregation.
-productViewAggregationValue_value :: Lens.Lens' ProductViewAggregationValue (Prelude.Maybe Prelude.Text)
-productViewAggregationValue_value = Lens.lens (\ProductViewAggregationValue' {value} -> value) (\s@ProductViewAggregationValue' {} a -> s {value = a} :: ProductViewAggregationValue)
 
 -- | An approximate count of the products that match the value.
 productViewAggregationValue_approximateCount :: Lens.Lens' ProductViewAggregationValue (Prelude.Maybe Prelude.Int)
 productViewAggregationValue_approximateCount = Lens.lens (\ProductViewAggregationValue' {approximateCount} -> approximateCount) (\s@ProductViewAggregationValue' {} a -> s {approximateCount = a} :: ProductViewAggregationValue)
 
-instance Core.FromJSON ProductViewAggregationValue where
+-- | The value of the product view aggregation.
+productViewAggregationValue_value :: Lens.Lens' ProductViewAggregationValue (Prelude.Maybe Prelude.Text)
+productViewAggregationValue_value = Lens.lens (\ProductViewAggregationValue' {value} -> value) (\s@ProductViewAggregationValue' {} a -> s {value = a} :: ProductViewAggregationValue)
+
+instance Data.FromJSON ProductViewAggregationValue where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ProductViewAggregationValue"
       ( \x ->
           ProductViewAggregationValue'
-            Prelude.<$> (x Core..:? "Value")
-            Prelude.<*> (x Core..:? "ApproximateCount")
+            Prelude.<$> (x Data..:? "ApproximateCount")
+            Prelude.<*> (x Data..:? "Value")
       )
 
 instance Prelude.Hashable ProductViewAggregationValue where
   hashWithSalt _salt ProductViewAggregationValue' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` approximateCount
+    _salt `Prelude.hashWithSalt` approximateCount
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData ProductViewAggregationValue where
   rnf ProductViewAggregationValue' {..} =
-    Prelude.rnf value
-      `Prelude.seq` Prelude.rnf approximateCount
+    Prelude.rnf approximateCount
+      `Prelude.seq` Prelude.rnf value

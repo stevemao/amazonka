@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.Types.SlotTypeRegexConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LexModels.Types.SlotTypeRegexConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides a regular expression used to validate the value of a slot.
@@ -106,13 +107,13 @@ newSlotTypeRegexConfiguration pPattern_ =
 slotTypeRegexConfiguration_pattern :: Lens.Lens' SlotTypeRegexConfiguration Prelude.Text
 slotTypeRegexConfiguration_pattern = Lens.lens (\SlotTypeRegexConfiguration' {pattern'} -> pattern') (\s@SlotTypeRegexConfiguration' {} a -> s {pattern' = a} :: SlotTypeRegexConfiguration)
 
-instance Core.FromJSON SlotTypeRegexConfiguration where
+instance Data.FromJSON SlotTypeRegexConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SlotTypeRegexConfiguration"
       ( \x ->
           SlotTypeRegexConfiguration'
-            Prelude.<$> (x Core..: "pattern")
+            Prelude.<$> (x Data..: "pattern")
       )
 
 instance Prelude.Hashable SlotTypeRegexConfiguration where
@@ -123,9 +124,9 @@ instance Prelude.NFData SlotTypeRegexConfiguration where
   rnf SlotTypeRegexConfiguration' {..} =
     Prelude.rnf pattern'
 
-instance Core.ToJSON SlotTypeRegexConfiguration where
+instance Data.ToJSON SlotTypeRegexConfiguration where
   toJSON SlotTypeRegexConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("pattern" Core..= pattern')]
+          [Prelude.Just ("pattern" Data..= pattern')]
       )

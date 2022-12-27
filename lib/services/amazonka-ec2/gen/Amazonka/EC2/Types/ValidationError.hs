@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.ValidationError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.ValidationError where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The error code and error message that is returned for a parameter or
@@ -32,11 +33,11 @@ import qualified Amazonka.Prelude as Prelude
 data ValidationError = ValidationError'
   { -- | The error code that indicates why the parameter or parameter combination
     -- is not valid. For more information about error codes, see
-    -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html Error Codes>.
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html Error codes>.
     code :: Prelude.Maybe Prelude.Text,
     -- | The error message that describes why the parameter or parameter
     -- combination is not valid. For more information about error messages, see
-    -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html Error Codes>.
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html Error codes>.
     message :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -51,11 +52,11 @@ data ValidationError = ValidationError'
 --
 -- 'code', 'validationError_code' - The error code that indicates why the parameter or parameter combination
 -- is not valid. For more information about error codes, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html Error Codes>.
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html Error codes>.
 --
 -- 'message', 'validationError_message' - The error message that describes why the parameter or parameter
 -- combination is not valid. For more information about error messages, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html Error Codes>.
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html Error codes>.
 newValidationError ::
   ValidationError
 newValidationError =
@@ -66,21 +67,21 @@ newValidationError =
 
 -- | The error code that indicates why the parameter or parameter combination
 -- is not valid. For more information about error codes, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html Error Codes>.
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html Error codes>.
 validationError_code :: Lens.Lens' ValidationError (Prelude.Maybe Prelude.Text)
 validationError_code = Lens.lens (\ValidationError' {code} -> code) (\s@ValidationError' {} a -> s {code = a} :: ValidationError)
 
 -- | The error message that describes why the parameter or parameter
 -- combination is not valid. For more information about error messages, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html Error Codes>.
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html Error codes>.
 validationError_message :: Lens.Lens' ValidationError (Prelude.Maybe Prelude.Text)
 validationError_message = Lens.lens (\ValidationError' {message} -> message) (\s@ValidationError' {} a -> s {message = a} :: ValidationError)
 
-instance Core.FromXML ValidationError where
+instance Data.FromXML ValidationError where
   parseXML x =
     ValidationError'
-      Prelude.<$> (x Core..@? "code")
-      Prelude.<*> (x Core..@? "message")
+      Prelude.<$> (x Data..@? "code")
+      Prelude.<*> (x Data..@? "message")
 
 instance Prelude.Hashable ValidationError where
   hashWithSalt _salt ValidationError' {..} =

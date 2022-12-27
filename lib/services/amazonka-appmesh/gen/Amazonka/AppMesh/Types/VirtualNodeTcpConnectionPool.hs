@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.VirtualNodeTcpConnectionPool
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppMesh.Types.VirtualNodeTcpConnectionPool where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents a type of connection pool.
@@ -58,13 +59,13 @@ newVirtualNodeTcpConnectionPool pMaxConnections_ =
 virtualNodeTcpConnectionPool_maxConnections :: Lens.Lens' VirtualNodeTcpConnectionPool Prelude.Natural
 virtualNodeTcpConnectionPool_maxConnections = Lens.lens (\VirtualNodeTcpConnectionPool' {maxConnections} -> maxConnections) (\s@VirtualNodeTcpConnectionPool' {} a -> s {maxConnections = a} :: VirtualNodeTcpConnectionPool)
 
-instance Core.FromJSON VirtualNodeTcpConnectionPool where
+instance Data.FromJSON VirtualNodeTcpConnectionPool where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VirtualNodeTcpConnectionPool"
       ( \x ->
           VirtualNodeTcpConnectionPool'
-            Prelude.<$> (x Core..: "maxConnections")
+            Prelude.<$> (x Data..: "maxConnections")
       )
 
 instance
@@ -78,11 +79,11 @@ instance Prelude.NFData VirtualNodeTcpConnectionPool where
   rnf VirtualNodeTcpConnectionPool' {..} =
     Prelude.rnf maxConnections
 
-instance Core.ToJSON VirtualNodeTcpConnectionPool where
+instance Data.ToJSON VirtualNodeTcpConnectionPool where
   toJSON VirtualNodeTcpConnectionPool' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("maxConnections" Core..= maxConnections)
+              ("maxConnections" Data..= maxConnections)
           ]
       )

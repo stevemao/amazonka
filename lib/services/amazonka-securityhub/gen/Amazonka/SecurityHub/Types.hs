@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -18,15 +19,18 @@ module Amazonka.SecurityHub.Types
 
     -- * Errors
     _AccessDeniedException,
+    _InternalException,
     _InvalidAccessException,
     _InvalidInputException,
-    _InternalException,
+    _LimitExceededException,
     _ResourceConflictException,
     _ResourceNotFoundException,
-    _LimitExceededException,
 
     -- * AdminStatus
     AdminStatus (..),
+
+    -- * AutoEnableStandards
+    AutoEnableStandards (..),
 
     -- * AwsIamAccessKeyStatus
     AwsIamAccessKeyStatus (..),
@@ -76,6 +80,9 @@ module Amazonka.SecurityHub.Types
     -- * StandardsStatus
     StandardsStatus (..),
 
+    -- * StatusReasonCode
+    StatusReasonCode (..),
+
     -- * StringFilterComparison
     StringFilterComparison (..),
 
@@ -87,6 +94,9 @@ module Amazonka.SecurityHub.Types
 
     -- * VerificationState
     VerificationState (..),
+
+    -- * VulnerabilityFixAvailable
+    VulnerabilityFixAvailable (..),
 
     -- * WorkflowState
     WorkflowState (..),
@@ -103,11 +113,11 @@ module Amazonka.SecurityHub.Types
     -- * Action
     Action (..),
     newAction,
+    action_actionType,
+    action_awsApiCallAction,
+    action_dnsRequestAction,
     action_networkConnectionAction,
     action_portProbeAction,
-    action_actionType,
-    action_dnsRequestAction,
-    action_awsApiCallAction,
 
     -- * ActionLocalIpDetails
     ActionLocalIpDetails (..),
@@ -117,23 +127,23 @@ module Amazonka.SecurityHub.Types
     -- * ActionLocalPortDetails
     ActionLocalPortDetails (..),
     newActionLocalPortDetails,
-    actionLocalPortDetails_portName,
     actionLocalPortDetails_port,
+    actionLocalPortDetails_portName,
 
     -- * ActionRemoteIpDetails
     ActionRemoteIpDetails (..),
     newActionRemoteIpDetails,
-    actionRemoteIpDetails_country,
     actionRemoteIpDetails_city,
-    actionRemoteIpDetails_ipAddressV4,
+    actionRemoteIpDetails_country,
     actionRemoteIpDetails_geoLocation,
+    actionRemoteIpDetails_ipAddressV4,
     actionRemoteIpDetails_organization,
 
     -- * ActionRemotePortDetails
     ActionRemotePortDetails (..),
     newActionRemotePortDetails,
-    actionRemotePortDetails_portName,
     actionRemotePortDetails_port,
+    actionRemotePortDetails_portName,
 
     -- * ActionTarget
     ActionTarget (..),
@@ -145,14 +155,14 @@ module Amazonka.SecurityHub.Types
     -- * Adjustment
     Adjustment (..),
     newAdjustment,
-    adjustment_reason,
     adjustment_metric,
+    adjustment_reason,
 
     -- * AdminAccount
     AdminAccount (..),
     newAdminAccount,
-    adminAccount_status,
     adminAccount_accountId,
+    adminAccount_status,
 
     -- * AvailabilityZone
     AvailabilityZone (..),
@@ -163,14 +173,14 @@ module Amazonka.SecurityHub.Types
     -- * AwsApiCallAction
     AwsApiCallAction (..),
     newAwsApiCallAction,
-    awsApiCallAction_remoteIpDetails,
-    awsApiCallAction_firstSeen,
-    awsApiCallAction_callerType,
     awsApiCallAction_affectedResources,
-    awsApiCallAction_lastSeen,
-    awsApiCallAction_domainDetails,
-    awsApiCallAction_serviceName,
     awsApiCallAction_api,
+    awsApiCallAction_callerType,
+    awsApiCallAction_domainDetails,
+    awsApiCallAction_firstSeen,
+    awsApiCallAction_lastSeen,
+    awsApiCallAction_remoteIpDetails,
+    awsApiCallAction_serviceName,
 
     -- * AwsApiCallActionDomainDetails
     AwsApiCallActionDomainDetails (..),
@@ -180,16 +190,16 @@ module Amazonka.SecurityHub.Types
     -- * AwsApiGatewayAccessLogSettings
     AwsApiGatewayAccessLogSettings (..),
     newAwsApiGatewayAccessLogSettings,
-    awsApiGatewayAccessLogSettings_format,
     awsApiGatewayAccessLogSettings_destinationArn,
+    awsApiGatewayAccessLogSettings_format,
 
     -- * AwsApiGatewayCanarySettings
     AwsApiGatewayCanarySettings (..),
     newAwsApiGatewayCanarySettings,
     awsApiGatewayCanarySettings_deploymentId,
+    awsApiGatewayCanarySettings_percentTraffic,
     awsApiGatewayCanarySettings_stageVariableOverrides,
     awsApiGatewayCanarySettings_useStageCache,
-    awsApiGatewayCanarySettings_percentTraffic,
 
     -- * AwsApiGatewayEndpointConfiguration
     AwsApiGatewayEndpointConfiguration (..),
@@ -199,188 +209,351 @@ module Amazonka.SecurityHub.Types
     -- * AwsApiGatewayMethodSettings
     AwsApiGatewayMethodSettings (..),
     newAwsApiGatewayMethodSettings,
-    awsApiGatewayMethodSettings_dataTraceEnabled,
-    awsApiGatewayMethodSettings_cacheTtlInSeconds,
-    awsApiGatewayMethodSettings_httpMethod,
-    awsApiGatewayMethodSettings_throttlingBurstLimit,
     awsApiGatewayMethodSettings_cacheDataEncrypted,
-    awsApiGatewayMethodSettings_loggingLevel,
-    awsApiGatewayMethodSettings_requireAuthorizationForCacheControl,
+    awsApiGatewayMethodSettings_cacheTtlInSeconds,
     awsApiGatewayMethodSettings_cachingEnabled,
-    awsApiGatewayMethodSettings_resourcePath,
-    awsApiGatewayMethodSettings_throttlingRateLimit,
+    awsApiGatewayMethodSettings_dataTraceEnabled,
+    awsApiGatewayMethodSettings_httpMethod,
+    awsApiGatewayMethodSettings_loggingLevel,
     awsApiGatewayMethodSettings_metricsEnabled,
+    awsApiGatewayMethodSettings_requireAuthorizationForCacheControl,
+    awsApiGatewayMethodSettings_resourcePath,
+    awsApiGatewayMethodSettings_throttlingBurstLimit,
+    awsApiGatewayMethodSettings_throttlingRateLimit,
     awsApiGatewayMethodSettings_unauthorizedCacheControlHeaderStrategy,
 
     -- * AwsApiGatewayRestApiDetails
     AwsApiGatewayRestApiDetails (..),
     newAwsApiGatewayRestApiDetails,
-    awsApiGatewayRestApiDetails_minimumCompressionSize,
+    awsApiGatewayRestApiDetails_apiKeySource,
     awsApiGatewayRestApiDetails_binaryMediaTypes,
     awsApiGatewayRestApiDetails_createdDate,
-    awsApiGatewayRestApiDetails_name,
-    awsApiGatewayRestApiDetails_apiKeySource,
-    awsApiGatewayRestApiDetails_version,
-    awsApiGatewayRestApiDetails_id,
-    awsApiGatewayRestApiDetails_endpointConfiguration,
     awsApiGatewayRestApiDetails_description,
+    awsApiGatewayRestApiDetails_endpointConfiguration,
+    awsApiGatewayRestApiDetails_id,
+    awsApiGatewayRestApiDetails_minimumCompressionSize,
+    awsApiGatewayRestApiDetails_name,
+    awsApiGatewayRestApiDetails_version,
 
     -- * AwsApiGatewayStageDetails
     AwsApiGatewayStageDetails (..),
     newAwsApiGatewayStageDetails,
-    awsApiGatewayStageDetails_deploymentId,
     awsApiGatewayStageDetails_accessLogSettings,
-    awsApiGatewayStageDetails_variables,
-    awsApiGatewayStageDetails_documentationVersion,
-    awsApiGatewayStageDetails_clientCertificateId,
-    awsApiGatewayStageDetails_tracingEnabled,
-    awsApiGatewayStageDetails_createdDate,
-    awsApiGatewayStageDetails_methodSettings,
-    awsApiGatewayStageDetails_cacheClusterStatus,
-    awsApiGatewayStageDetails_webAclArn,
-    awsApiGatewayStageDetails_stageName,
     awsApiGatewayStageDetails_cacheClusterEnabled,
     awsApiGatewayStageDetails_cacheClusterSize,
-    awsApiGatewayStageDetails_lastUpdatedDate,
+    awsApiGatewayStageDetails_cacheClusterStatus,
     awsApiGatewayStageDetails_canarySettings,
+    awsApiGatewayStageDetails_clientCertificateId,
+    awsApiGatewayStageDetails_createdDate,
+    awsApiGatewayStageDetails_deploymentId,
     awsApiGatewayStageDetails_description,
+    awsApiGatewayStageDetails_documentationVersion,
+    awsApiGatewayStageDetails_lastUpdatedDate,
+    awsApiGatewayStageDetails_methodSettings,
+    awsApiGatewayStageDetails_stageName,
+    awsApiGatewayStageDetails_tracingEnabled,
+    awsApiGatewayStageDetails_variables,
+    awsApiGatewayStageDetails_webAclArn,
 
     -- * AwsApiGatewayV2ApiDetails
     AwsApiGatewayV2ApiDetails (..),
     newAwsApiGatewayV2ApiDetails,
-    awsApiGatewayV2ApiDetails_apiId,
     awsApiGatewayV2ApiDetails_apiEndpoint,
-    awsApiGatewayV2ApiDetails_createdDate,
-    awsApiGatewayV2ApiDetails_name,
-    awsApiGatewayV2ApiDetails_version,
+    awsApiGatewayV2ApiDetails_apiId,
     awsApiGatewayV2ApiDetails_apiKeySelectionExpression,
     awsApiGatewayV2ApiDetails_corsConfiguration,
-    awsApiGatewayV2ApiDetails_routeSelectionExpression,
+    awsApiGatewayV2ApiDetails_createdDate,
     awsApiGatewayV2ApiDetails_description,
+    awsApiGatewayV2ApiDetails_name,
     awsApiGatewayV2ApiDetails_protocolType,
+    awsApiGatewayV2ApiDetails_routeSelectionExpression,
+    awsApiGatewayV2ApiDetails_version,
 
     -- * AwsApiGatewayV2RouteSettings
     AwsApiGatewayV2RouteSettings (..),
     newAwsApiGatewayV2RouteSettings,
     awsApiGatewayV2RouteSettings_dataTraceEnabled,
-    awsApiGatewayV2RouteSettings_throttlingBurstLimit,
-    awsApiGatewayV2RouteSettings_loggingLevel,
-    awsApiGatewayV2RouteSettings_throttlingRateLimit,
     awsApiGatewayV2RouteSettings_detailedMetricsEnabled,
+    awsApiGatewayV2RouteSettings_loggingLevel,
+    awsApiGatewayV2RouteSettings_throttlingBurstLimit,
+    awsApiGatewayV2RouteSettings_throttlingRateLimit,
 
     -- * AwsApiGatewayV2StageDetails
     AwsApiGatewayV2StageDetails (..),
     newAwsApiGatewayV2StageDetails,
-    awsApiGatewayV2StageDetails_lastDeploymentStatusMessage,
-    awsApiGatewayV2StageDetails_deploymentId,
-    awsApiGatewayV2StageDetails_routeSettings,
     awsApiGatewayV2StageDetails_accessLogSettings,
-    awsApiGatewayV2StageDetails_clientCertificateId,
-    awsApiGatewayV2StageDetails_stageVariables,
+    awsApiGatewayV2StageDetails_apiGatewayManaged,
     awsApiGatewayV2StageDetails_autoDeploy,
+    awsApiGatewayV2StageDetails_clientCertificateId,
     awsApiGatewayV2StageDetails_createdDate,
     awsApiGatewayV2StageDetails_defaultRouteSettings,
-    awsApiGatewayV2StageDetails_apiGatewayManaged,
-    awsApiGatewayV2StageDetails_stageName,
-    awsApiGatewayV2StageDetails_lastUpdatedDate,
+    awsApiGatewayV2StageDetails_deploymentId,
     awsApiGatewayV2StageDetails_description,
+    awsApiGatewayV2StageDetails_lastDeploymentStatusMessage,
+    awsApiGatewayV2StageDetails_lastUpdatedDate,
+    awsApiGatewayV2StageDetails_routeSettings,
+    awsApiGatewayV2StageDetails_stageName,
+    awsApiGatewayV2StageDetails_stageVariables,
+
+    -- * AwsAutoScalingAutoScalingGroupAvailabilityZonesListDetails
+    AwsAutoScalingAutoScalingGroupAvailabilityZonesListDetails (..),
+    newAwsAutoScalingAutoScalingGroupAvailabilityZonesListDetails,
+    awsAutoScalingAutoScalingGroupAvailabilityZonesListDetails_value,
 
     -- * AwsAutoScalingAutoScalingGroupDetails
     AwsAutoScalingAutoScalingGroupDetails (..),
     newAwsAutoScalingAutoScalingGroupDetails,
+    awsAutoScalingAutoScalingGroupDetails_availabilityZones,
+    awsAutoScalingAutoScalingGroupDetails_capacityRebalance,
     awsAutoScalingAutoScalingGroupDetails_createdTime,
     awsAutoScalingAutoScalingGroupDetails_healthCheckGracePeriod,
-    awsAutoScalingAutoScalingGroupDetails_launchConfigurationName,
     awsAutoScalingAutoScalingGroupDetails_healthCheckType,
+    awsAutoScalingAutoScalingGroupDetails_launchConfigurationName,
+    awsAutoScalingAutoScalingGroupDetails_launchTemplate,
     awsAutoScalingAutoScalingGroupDetails_loadBalancerNames,
+    awsAutoScalingAutoScalingGroupDetails_mixedInstancesPolicy,
+
+    -- * AwsAutoScalingAutoScalingGroupLaunchTemplateLaunchTemplateSpecification
+    AwsAutoScalingAutoScalingGroupLaunchTemplateLaunchTemplateSpecification (..),
+    newAwsAutoScalingAutoScalingGroupLaunchTemplateLaunchTemplateSpecification,
+    awsAutoScalingAutoScalingGroupLaunchTemplateLaunchTemplateSpecification_launchTemplateId,
+    awsAutoScalingAutoScalingGroupLaunchTemplateLaunchTemplateSpecification_launchTemplateName,
+    awsAutoScalingAutoScalingGroupLaunchTemplateLaunchTemplateSpecification_version,
+
+    -- * AwsAutoScalingAutoScalingGroupMixedInstancesPolicyDetails
+    AwsAutoScalingAutoScalingGroupMixedInstancesPolicyDetails (..),
+    newAwsAutoScalingAutoScalingGroupMixedInstancesPolicyDetails,
+    awsAutoScalingAutoScalingGroupMixedInstancesPolicyDetails_instancesDistribution,
+    awsAutoScalingAutoScalingGroupMixedInstancesPolicyDetails_launchTemplate,
+
+    -- * AwsAutoScalingAutoScalingGroupMixedInstancesPolicyInstancesDistributionDetails
+    AwsAutoScalingAutoScalingGroupMixedInstancesPolicyInstancesDistributionDetails (..),
+    newAwsAutoScalingAutoScalingGroupMixedInstancesPolicyInstancesDistributionDetails,
+    awsAutoScalingAutoScalingGroupMixedInstancesPolicyInstancesDistributionDetails_onDemandAllocationStrategy,
+    awsAutoScalingAutoScalingGroupMixedInstancesPolicyInstancesDistributionDetails_onDemandBaseCapacity,
+    awsAutoScalingAutoScalingGroupMixedInstancesPolicyInstancesDistributionDetails_onDemandPercentageAboveBaseCapacity,
+    awsAutoScalingAutoScalingGroupMixedInstancesPolicyInstancesDistributionDetails_spotAllocationStrategy,
+    awsAutoScalingAutoScalingGroupMixedInstancesPolicyInstancesDistributionDetails_spotInstancePools,
+    awsAutoScalingAutoScalingGroupMixedInstancesPolicyInstancesDistributionDetails_spotMaxPrice,
+
+    -- * AwsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateDetails
+    AwsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateDetails (..),
+    newAwsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateDetails,
+    awsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateDetails_launchTemplateSpecification,
+    awsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateDetails_overrides,
+
+    -- * AwsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateLaunchTemplateSpecification
+    AwsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateLaunchTemplateSpecification (..),
+    newAwsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateLaunchTemplateSpecification,
+    awsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateLaunchTemplateSpecification_launchTemplateId,
+    awsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateLaunchTemplateSpecification_launchTemplateName,
+    awsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateLaunchTemplateSpecification_version,
+
+    -- * AwsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateOverridesListDetails
+    AwsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateOverridesListDetails (..),
+    newAwsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateOverridesListDetails,
+    awsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateOverridesListDetails_instanceType,
+    awsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateOverridesListDetails_weightedCapacity,
 
     -- * AwsAutoScalingLaunchConfigurationBlockDeviceMappingsDetails
     AwsAutoScalingLaunchConfigurationBlockDeviceMappingsDetails (..),
     newAwsAutoScalingLaunchConfigurationBlockDeviceMappingsDetails,
-    awsAutoScalingLaunchConfigurationBlockDeviceMappingsDetails_virtualName,
-    awsAutoScalingLaunchConfigurationBlockDeviceMappingsDetails_noDevice,
-    awsAutoScalingLaunchConfigurationBlockDeviceMappingsDetails_ebs,
     awsAutoScalingLaunchConfigurationBlockDeviceMappingsDetails_deviceName,
+    awsAutoScalingLaunchConfigurationBlockDeviceMappingsDetails_ebs,
+    awsAutoScalingLaunchConfigurationBlockDeviceMappingsDetails_noDevice,
+    awsAutoScalingLaunchConfigurationBlockDeviceMappingsDetails_virtualName,
 
     -- * AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails
     AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails (..),
     newAwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails,
     awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_deleteOnTermination,
-    awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_volumeSize,
-    awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_iops,
     awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_encrypted,
-    awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_volumeType,
+    awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_iops,
     awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_snapshotId,
+    awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_volumeSize,
+    awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_volumeType,
 
     -- * AwsAutoScalingLaunchConfigurationDetails
     AwsAutoScalingLaunchConfigurationDetails (..),
     newAwsAutoScalingLaunchConfigurationDetails,
     awsAutoScalingLaunchConfigurationDetails_associatePublicIpAddress,
-    awsAutoScalingLaunchConfigurationDetails_securityGroups,
-    awsAutoScalingLaunchConfigurationDetails_spotPrice,
-    awsAutoScalingLaunchConfigurationDetails_createdTime,
-    awsAutoScalingLaunchConfigurationDetails_instanceMonitoring,
-    awsAutoScalingLaunchConfigurationDetails_keyName,
-    awsAutoScalingLaunchConfigurationDetails_classicLinkVpcSecurityGroups,
-    awsAutoScalingLaunchConfigurationDetails_ramdiskId,
-    awsAutoScalingLaunchConfigurationDetails_kernelId,
-    awsAutoScalingLaunchConfigurationDetails_instanceType,
-    awsAutoScalingLaunchConfigurationDetails_ebsOptimized,
-    awsAutoScalingLaunchConfigurationDetails_userData,
+    awsAutoScalingLaunchConfigurationDetails_blockDeviceMappings,
     awsAutoScalingLaunchConfigurationDetails_classicLinkVpcId,
+    awsAutoScalingLaunchConfigurationDetails_classicLinkVpcSecurityGroups,
+    awsAutoScalingLaunchConfigurationDetails_createdTime,
+    awsAutoScalingLaunchConfigurationDetails_ebsOptimized,
     awsAutoScalingLaunchConfigurationDetails_iamInstanceProfile,
     awsAutoScalingLaunchConfigurationDetails_imageId,
+    awsAutoScalingLaunchConfigurationDetails_instanceMonitoring,
+    awsAutoScalingLaunchConfigurationDetails_instanceType,
+    awsAutoScalingLaunchConfigurationDetails_kernelId,
+    awsAutoScalingLaunchConfigurationDetails_keyName,
     awsAutoScalingLaunchConfigurationDetails_launchConfigurationName,
+    awsAutoScalingLaunchConfigurationDetails_metadataOptions,
     awsAutoScalingLaunchConfigurationDetails_placementTenancy,
-    awsAutoScalingLaunchConfigurationDetails_blockDeviceMappings,
+    awsAutoScalingLaunchConfigurationDetails_ramdiskId,
+    awsAutoScalingLaunchConfigurationDetails_securityGroups,
+    awsAutoScalingLaunchConfigurationDetails_spotPrice,
+    awsAutoScalingLaunchConfigurationDetails_userData,
 
     -- * AwsAutoScalingLaunchConfigurationInstanceMonitoringDetails
     AwsAutoScalingLaunchConfigurationInstanceMonitoringDetails (..),
     newAwsAutoScalingLaunchConfigurationInstanceMonitoringDetails,
     awsAutoScalingLaunchConfigurationInstanceMonitoringDetails_enabled,
 
+    -- * AwsAutoScalingLaunchConfigurationMetadataOptions
+    AwsAutoScalingLaunchConfigurationMetadataOptions (..),
+    newAwsAutoScalingLaunchConfigurationMetadataOptions,
+    awsAutoScalingLaunchConfigurationMetadataOptions_httpEndpoint,
+    awsAutoScalingLaunchConfigurationMetadataOptions_httpPutResponseHopLimit,
+    awsAutoScalingLaunchConfigurationMetadataOptions_httpTokens,
+
+    -- * AwsBackupBackupPlanAdvancedBackupSettingsDetails
+    AwsBackupBackupPlanAdvancedBackupSettingsDetails (..),
+    newAwsBackupBackupPlanAdvancedBackupSettingsDetails,
+    awsBackupBackupPlanAdvancedBackupSettingsDetails_backupOptions,
+    awsBackupBackupPlanAdvancedBackupSettingsDetails_resourceType,
+
+    -- * AwsBackupBackupPlanBackupPlanDetails
+    AwsBackupBackupPlanBackupPlanDetails (..),
+    newAwsBackupBackupPlanBackupPlanDetails,
+    awsBackupBackupPlanBackupPlanDetails_advancedBackupSettings,
+    awsBackupBackupPlanBackupPlanDetails_backupPlanName,
+    awsBackupBackupPlanBackupPlanDetails_backupPlanRule,
+
+    -- * AwsBackupBackupPlanDetails
+    AwsBackupBackupPlanDetails (..),
+    newAwsBackupBackupPlanDetails,
+    awsBackupBackupPlanDetails_backupPlan,
+    awsBackupBackupPlanDetails_backupPlanArn,
+    awsBackupBackupPlanDetails_backupPlanId,
+    awsBackupBackupPlanDetails_versionId,
+
+    -- * AwsBackupBackupPlanLifecycleDetails
+    AwsBackupBackupPlanLifecycleDetails (..),
+    newAwsBackupBackupPlanLifecycleDetails,
+    awsBackupBackupPlanLifecycleDetails_deleteAfterDays,
+    awsBackupBackupPlanLifecycleDetails_moveToColdStorageAfterDays,
+
+    -- * AwsBackupBackupPlanRuleCopyActionsDetails
+    AwsBackupBackupPlanRuleCopyActionsDetails (..),
+    newAwsBackupBackupPlanRuleCopyActionsDetails,
+    awsBackupBackupPlanRuleCopyActionsDetails_destinationBackupVaultArn,
+    awsBackupBackupPlanRuleCopyActionsDetails_lifecycle,
+
+    -- * AwsBackupBackupPlanRuleDetails
+    AwsBackupBackupPlanRuleDetails (..),
+    newAwsBackupBackupPlanRuleDetails,
+    awsBackupBackupPlanRuleDetails_completionWindowMinutes,
+    awsBackupBackupPlanRuleDetails_copyActions,
+    awsBackupBackupPlanRuleDetails_enableContinuousBackup,
+    awsBackupBackupPlanRuleDetails_lifecycle,
+    awsBackupBackupPlanRuleDetails_ruleId,
+    awsBackupBackupPlanRuleDetails_ruleName,
+    awsBackupBackupPlanRuleDetails_scheduleExpression,
+    awsBackupBackupPlanRuleDetails_startWindowMinutes,
+    awsBackupBackupPlanRuleDetails_targetBackupVault,
+
+    -- * AwsBackupBackupVaultDetails
+    AwsBackupBackupVaultDetails (..),
+    newAwsBackupBackupVaultDetails,
+    awsBackupBackupVaultDetails_accessPolicy,
+    awsBackupBackupVaultDetails_backupVaultArn,
+    awsBackupBackupVaultDetails_backupVaultName,
+    awsBackupBackupVaultDetails_encryptionKeyArn,
+    awsBackupBackupVaultDetails_notifications,
+
+    -- * AwsBackupBackupVaultNotificationsDetails
+    AwsBackupBackupVaultNotificationsDetails (..),
+    newAwsBackupBackupVaultNotificationsDetails,
+    awsBackupBackupVaultNotificationsDetails_backupVaultEvents,
+    awsBackupBackupVaultNotificationsDetails_snsTopicArn,
+
+    -- * AwsBackupRecoveryPointCalculatedLifecycleDetails
+    AwsBackupRecoveryPointCalculatedLifecycleDetails (..),
+    newAwsBackupRecoveryPointCalculatedLifecycleDetails,
+    awsBackupRecoveryPointCalculatedLifecycleDetails_deleteAt,
+    awsBackupRecoveryPointCalculatedLifecycleDetails_moveToColdStorageAt,
+
+    -- * AwsBackupRecoveryPointCreatedByDetails
+    AwsBackupRecoveryPointCreatedByDetails (..),
+    newAwsBackupRecoveryPointCreatedByDetails,
+    awsBackupRecoveryPointCreatedByDetails_backupPlanArn,
+    awsBackupRecoveryPointCreatedByDetails_backupPlanId,
+    awsBackupRecoveryPointCreatedByDetails_backupPlanVersion,
+    awsBackupRecoveryPointCreatedByDetails_backupRuleId,
+
+    -- * AwsBackupRecoveryPointDetails
+    AwsBackupRecoveryPointDetails (..),
+    newAwsBackupRecoveryPointDetails,
+    awsBackupRecoveryPointDetails_backupSizeInBytes,
+    awsBackupRecoveryPointDetails_backupVaultArn,
+    awsBackupRecoveryPointDetails_backupVaultName,
+    awsBackupRecoveryPointDetails_calculatedLifecycle,
+    awsBackupRecoveryPointDetails_completionDate,
+    awsBackupRecoveryPointDetails_createdBy,
+    awsBackupRecoveryPointDetails_creationDate,
+    awsBackupRecoveryPointDetails_encryptionKeyArn,
+    awsBackupRecoveryPointDetails_iamRoleArn,
+    awsBackupRecoveryPointDetails_isEncrypted,
+    awsBackupRecoveryPointDetails_lastRestoreTime,
+    awsBackupRecoveryPointDetails_lifecycle,
+    awsBackupRecoveryPointDetails_recoveryPointArn,
+    awsBackupRecoveryPointDetails_resourceArn,
+    awsBackupRecoveryPointDetails_resourceType,
+    awsBackupRecoveryPointDetails_sourceBackupVaultArn,
+    awsBackupRecoveryPointDetails_status,
+    awsBackupRecoveryPointDetails_statusMessage,
+    awsBackupRecoveryPointDetails_storageClass,
+
+    -- * AwsBackupRecoveryPointLifecycleDetails
+    AwsBackupRecoveryPointLifecycleDetails (..),
+    newAwsBackupRecoveryPointLifecycleDetails,
+    awsBackupRecoveryPointLifecycleDetails_deleteAfterDays,
+    awsBackupRecoveryPointLifecycleDetails_moveToColdStorageAfterDays,
+
     -- * AwsCertificateManagerCertificateDetails
     AwsCertificateManagerCertificateDetails (..),
     newAwsCertificateManagerCertificateDetails,
-    awsCertificateManagerCertificateDetails_subject,
-    awsCertificateManagerCertificateDetails_status,
-    awsCertificateManagerCertificateDetails_failureReason,
-    awsCertificateManagerCertificateDetails_subjectAlternativeNames,
-    awsCertificateManagerCertificateDetails_inUseBy,
-    awsCertificateManagerCertificateDetails_createdAt,
-    awsCertificateManagerCertificateDetails_serial,
-    awsCertificateManagerCertificateDetails_renewalEligibility,
-    awsCertificateManagerCertificateDetails_extendedKeyUsages,
-    awsCertificateManagerCertificateDetails_importedAt,
-    awsCertificateManagerCertificateDetails_keyUsages,
-    awsCertificateManagerCertificateDetails_notBefore,
-    awsCertificateManagerCertificateDetails_domainName,
-    awsCertificateManagerCertificateDetails_renewalSummary,
-    awsCertificateManagerCertificateDetails_keyAlgorithm,
-    awsCertificateManagerCertificateDetails_type,
-    awsCertificateManagerCertificateDetails_options,
-    awsCertificateManagerCertificateDetails_issuedAt,
-    awsCertificateManagerCertificateDetails_signatureAlgorithm,
-    awsCertificateManagerCertificateDetails_domainValidationOptions,
-    awsCertificateManagerCertificateDetails_issuer,
-    awsCertificateManagerCertificateDetails_notAfter,
     awsCertificateManagerCertificateDetails_certificateAuthorityArn,
+    awsCertificateManagerCertificateDetails_createdAt,
+    awsCertificateManagerCertificateDetails_domainName,
+    awsCertificateManagerCertificateDetails_domainValidationOptions,
+    awsCertificateManagerCertificateDetails_extendedKeyUsages,
+    awsCertificateManagerCertificateDetails_failureReason,
+    awsCertificateManagerCertificateDetails_importedAt,
+    awsCertificateManagerCertificateDetails_inUseBy,
+    awsCertificateManagerCertificateDetails_issuedAt,
+    awsCertificateManagerCertificateDetails_issuer,
+    awsCertificateManagerCertificateDetails_keyAlgorithm,
+    awsCertificateManagerCertificateDetails_keyUsages,
+    awsCertificateManagerCertificateDetails_notAfter,
+    awsCertificateManagerCertificateDetails_notBefore,
+    awsCertificateManagerCertificateDetails_options,
+    awsCertificateManagerCertificateDetails_renewalEligibility,
+    awsCertificateManagerCertificateDetails_renewalSummary,
+    awsCertificateManagerCertificateDetails_serial,
+    awsCertificateManagerCertificateDetails_signatureAlgorithm,
+    awsCertificateManagerCertificateDetails_status,
+    awsCertificateManagerCertificateDetails_subject,
+    awsCertificateManagerCertificateDetails_subjectAlternativeNames,
+    awsCertificateManagerCertificateDetails_type,
 
     -- * AwsCertificateManagerCertificateDomainValidationOption
     AwsCertificateManagerCertificateDomainValidationOption (..),
     newAwsCertificateManagerCertificateDomainValidationOption,
+    awsCertificateManagerCertificateDomainValidationOption_domainName,
+    awsCertificateManagerCertificateDomainValidationOption_resourceRecord,
+    awsCertificateManagerCertificateDomainValidationOption_validationDomain,
     awsCertificateManagerCertificateDomainValidationOption_validationEmails,
     awsCertificateManagerCertificateDomainValidationOption_validationMethod,
-    awsCertificateManagerCertificateDomainValidationOption_resourceRecord,
     awsCertificateManagerCertificateDomainValidationOption_validationStatus,
-    awsCertificateManagerCertificateDomainValidationOption_domainName,
-    awsCertificateManagerCertificateDomainValidationOption_validationDomain,
 
     -- * AwsCertificateManagerCertificateExtendedKeyUsage
     AwsCertificateManagerCertificateExtendedKeyUsage (..),
     newAwsCertificateManagerCertificateExtendedKeyUsage,
-    awsCertificateManagerCertificateExtendedKeyUsage_oId,
     awsCertificateManagerCertificateExtendedKeyUsage_name,
+    awsCertificateManagerCertificateExtendedKeyUsage_oId,
 
     -- * AwsCertificateManagerCertificateKeyUsage
     AwsCertificateManagerCertificateKeyUsage (..),
@@ -395,17 +568,48 @@ module Amazonka.SecurityHub.Types
     -- * AwsCertificateManagerCertificateRenewalSummary
     AwsCertificateManagerCertificateRenewalSummary (..),
     newAwsCertificateManagerCertificateRenewalSummary,
-    awsCertificateManagerCertificateRenewalSummary_renewalStatus,
-    awsCertificateManagerCertificateRenewalSummary_updatedAt,
     awsCertificateManagerCertificateRenewalSummary_domainValidationOptions,
+    awsCertificateManagerCertificateRenewalSummary_renewalStatus,
     awsCertificateManagerCertificateRenewalSummary_renewalStatusReason,
+    awsCertificateManagerCertificateRenewalSummary_updatedAt,
 
     -- * AwsCertificateManagerCertificateResourceRecord
     AwsCertificateManagerCertificateResourceRecord (..),
     newAwsCertificateManagerCertificateResourceRecord,
-    awsCertificateManagerCertificateResourceRecord_value,
     awsCertificateManagerCertificateResourceRecord_name,
     awsCertificateManagerCertificateResourceRecord_type,
+    awsCertificateManagerCertificateResourceRecord_value,
+
+    -- * AwsCloudFormationStackDetails
+    AwsCloudFormationStackDetails (..),
+    newAwsCloudFormationStackDetails,
+    awsCloudFormationStackDetails_capabilities,
+    awsCloudFormationStackDetails_creationTime,
+    awsCloudFormationStackDetails_description,
+    awsCloudFormationStackDetails_disableRollback,
+    awsCloudFormationStackDetails_driftInformation,
+    awsCloudFormationStackDetails_enableTerminationProtection,
+    awsCloudFormationStackDetails_lastUpdatedTime,
+    awsCloudFormationStackDetails_notificationArns,
+    awsCloudFormationStackDetails_outputs,
+    awsCloudFormationStackDetails_roleArn,
+    awsCloudFormationStackDetails_stackId,
+    awsCloudFormationStackDetails_stackName,
+    awsCloudFormationStackDetails_stackStatus,
+    awsCloudFormationStackDetails_stackStatusReason,
+    awsCloudFormationStackDetails_timeoutInMinutes,
+
+    -- * AwsCloudFormationStackDriftInformationDetails
+    AwsCloudFormationStackDriftInformationDetails (..),
+    newAwsCloudFormationStackDriftInformationDetails,
+    awsCloudFormationStackDriftInformationDetails_stackDriftStatus,
+
+    -- * AwsCloudFormationStackOutputsDetails
+    AwsCloudFormationStackOutputsDetails (..),
+    newAwsCloudFormationStackOutputsDetails,
+    awsCloudFormationStackOutputsDetails_description,
+    awsCloudFormationStackOutputsDetails_outputKey,
+    awsCloudFormationStackOutputsDetails_outputValue,
 
     -- * AwsCloudFrontDistributionCacheBehavior
     AwsCloudFrontDistributionCacheBehavior (..),
@@ -425,26 +629,36 @@ module Amazonka.SecurityHub.Types
     -- * AwsCloudFrontDistributionDetails
     AwsCloudFrontDistributionDetails (..),
     newAwsCloudFrontDistributionDetails,
-    awsCloudFrontDistributionDetails_status,
-    awsCloudFrontDistributionDetails_eTag,
-    awsCloudFrontDistributionDetails_originGroups,
-    awsCloudFrontDistributionDetails_defaultRootObject,
-    awsCloudFrontDistributionDetails_webAclId,
-    awsCloudFrontDistributionDetails_lastModifiedTime,
-    awsCloudFrontDistributionDetails_viewerCertificate,
-    awsCloudFrontDistributionDetails_domainName,
-    awsCloudFrontDistributionDetails_origins,
-    awsCloudFrontDistributionDetails_logging,
     awsCloudFrontDistributionDetails_cacheBehaviors,
     awsCloudFrontDistributionDetails_defaultCacheBehavior,
+    awsCloudFrontDistributionDetails_defaultRootObject,
+    awsCloudFrontDistributionDetails_domainName,
+    awsCloudFrontDistributionDetails_eTag,
+    awsCloudFrontDistributionDetails_lastModifiedTime,
+    awsCloudFrontDistributionDetails_logging,
+    awsCloudFrontDistributionDetails_originGroups,
+    awsCloudFrontDistributionDetails_origins,
+    awsCloudFrontDistributionDetails_status,
+    awsCloudFrontDistributionDetails_viewerCertificate,
+    awsCloudFrontDistributionDetails_webAclId,
 
     -- * AwsCloudFrontDistributionLogging
     AwsCloudFrontDistributionLogging (..),
     newAwsCloudFrontDistributionLogging,
-    awsCloudFrontDistributionLogging_enabled,
-    awsCloudFrontDistributionLogging_prefix,
     awsCloudFrontDistributionLogging_bucket,
+    awsCloudFrontDistributionLogging_enabled,
     awsCloudFrontDistributionLogging_includeCookies,
+    awsCloudFrontDistributionLogging_prefix,
+
+    -- * AwsCloudFrontDistributionOriginCustomOriginConfig
+    AwsCloudFrontDistributionOriginCustomOriginConfig (..),
+    newAwsCloudFrontDistributionOriginCustomOriginConfig,
+    awsCloudFrontDistributionOriginCustomOriginConfig_httpPort,
+    awsCloudFrontDistributionOriginCustomOriginConfig_httpsPort,
+    awsCloudFrontDistributionOriginCustomOriginConfig_originKeepaliveTimeout,
+    awsCloudFrontDistributionOriginCustomOriginConfig_originProtocolPolicy,
+    awsCloudFrontDistributionOriginCustomOriginConfig_originReadTimeout,
+    awsCloudFrontDistributionOriginCustomOriginConfig_originSslProtocols,
 
     -- * AwsCloudFrontDistributionOriginGroup
     AwsCloudFrontDistributionOriginGroup (..),
@@ -459,8 +673,8 @@ module Amazonka.SecurityHub.Types
     -- * AwsCloudFrontDistributionOriginGroupFailoverStatusCodes
     AwsCloudFrontDistributionOriginGroupFailoverStatusCodes (..),
     newAwsCloudFrontDistributionOriginGroupFailoverStatusCodes,
-    awsCloudFrontDistributionOriginGroupFailoverStatusCodes_quantity,
     awsCloudFrontDistributionOriginGroupFailoverStatusCodes_items,
+    awsCloudFrontDistributionOriginGroupFailoverStatusCodes_quantity,
 
     -- * AwsCloudFrontDistributionOriginGroups
     AwsCloudFrontDistributionOriginGroups (..),
@@ -470,15 +684,22 @@ module Amazonka.SecurityHub.Types
     -- * AwsCloudFrontDistributionOriginItem
     AwsCloudFrontDistributionOriginItem (..),
     newAwsCloudFrontDistributionOriginItem,
-    awsCloudFrontDistributionOriginItem_s3OriginConfig,
-    awsCloudFrontDistributionOriginItem_originPath,
+    awsCloudFrontDistributionOriginItem_customOriginConfig,
     awsCloudFrontDistributionOriginItem_domainName,
     awsCloudFrontDistributionOriginItem_id,
+    awsCloudFrontDistributionOriginItem_originPath,
+    awsCloudFrontDistributionOriginItem_s3OriginConfig,
 
     -- * AwsCloudFrontDistributionOriginS3OriginConfig
     AwsCloudFrontDistributionOriginS3OriginConfig (..),
     newAwsCloudFrontDistributionOriginS3OriginConfig,
     awsCloudFrontDistributionOriginS3OriginConfig_originAccessIdentity,
+
+    -- * AwsCloudFrontDistributionOriginSslProtocols
+    AwsCloudFrontDistributionOriginSslProtocols (..),
+    newAwsCloudFrontDistributionOriginSslProtocols,
+    awsCloudFrontDistributionOriginSslProtocols_items,
+    awsCloudFrontDistributionOriginSslProtocols_quantity,
 
     -- * AwsCloudFrontDistributionOrigins
     AwsCloudFrontDistributionOrigins (..),
@@ -488,74 +709,107 @@ module Amazonka.SecurityHub.Types
     -- * AwsCloudFrontDistributionViewerCertificate
     AwsCloudFrontDistributionViewerCertificate (..),
     newAwsCloudFrontDistributionViewerCertificate,
-    awsCloudFrontDistributionViewerCertificate_sslSupportMethod,
     awsCloudFrontDistributionViewerCertificate_acmCertificateArn,
-    awsCloudFrontDistributionViewerCertificate_certificateSource,
-    awsCloudFrontDistributionViewerCertificate_minimumProtocolVersion,
     awsCloudFrontDistributionViewerCertificate_certificate,
-    awsCloudFrontDistributionViewerCertificate_iamCertificateId,
+    awsCloudFrontDistributionViewerCertificate_certificateSource,
     awsCloudFrontDistributionViewerCertificate_cloudFrontDefaultCertificate,
+    awsCloudFrontDistributionViewerCertificate_iamCertificateId,
+    awsCloudFrontDistributionViewerCertificate_minimumProtocolVersion,
+    awsCloudFrontDistributionViewerCertificate_sslSupportMethod,
 
     -- * AwsCloudTrailTrailDetails
     AwsCloudTrailTrailDetails (..),
     newAwsCloudTrailTrailDetails,
+    awsCloudTrailTrailDetails_cloudWatchLogsLogGroupArn,
+    awsCloudTrailTrailDetails_cloudWatchLogsRoleArn,
+    awsCloudTrailTrailDetails_hasCustomEventSelectors,
+    awsCloudTrailTrailDetails_homeRegion,
+    awsCloudTrailTrailDetails_includeGlobalServiceEvents,
+    awsCloudTrailTrailDetails_isMultiRegionTrail,
+    awsCloudTrailTrailDetails_isOrganizationTrail,
+    awsCloudTrailTrailDetails_kmsKeyId,
     awsCloudTrailTrailDetails_logFileValidationEnabled,
-    awsCloudTrailTrailDetails_trailArn,
+    awsCloudTrailTrailDetails_name,
+    awsCloudTrailTrailDetails_s3BucketName,
     awsCloudTrailTrailDetails_s3KeyPrefix,
     awsCloudTrailTrailDetails_snsTopicArn,
     awsCloudTrailTrailDetails_snsTopicName,
-    awsCloudTrailTrailDetails_cloudWatchLogsLogGroupArn,
-    awsCloudTrailTrailDetails_kmsKeyId,
-    awsCloudTrailTrailDetails_homeRegion,
-    awsCloudTrailTrailDetails_name,
-    awsCloudTrailTrailDetails_includeGlobalServiceEvents,
-    awsCloudTrailTrailDetails_hasCustomEventSelectors,
-    awsCloudTrailTrailDetails_isOrganizationTrail,
-    awsCloudTrailTrailDetails_cloudWatchLogsRoleArn,
-    awsCloudTrailTrailDetails_s3BucketName,
-    awsCloudTrailTrailDetails_isMultiRegionTrail,
+    awsCloudTrailTrailDetails_trailArn,
+
+    -- * AwsCloudWatchAlarmDetails
+    AwsCloudWatchAlarmDetails (..),
+    newAwsCloudWatchAlarmDetails,
+    awsCloudWatchAlarmDetails_actionsEnabled,
+    awsCloudWatchAlarmDetails_alarmActions,
+    awsCloudWatchAlarmDetails_alarmArn,
+    awsCloudWatchAlarmDetails_alarmConfigurationUpdatedTimestamp,
+    awsCloudWatchAlarmDetails_alarmDescription,
+    awsCloudWatchAlarmDetails_alarmName,
+    awsCloudWatchAlarmDetails_comparisonOperator,
+    awsCloudWatchAlarmDetails_datapointsToAlarm,
+    awsCloudWatchAlarmDetails_dimensions,
+    awsCloudWatchAlarmDetails_evaluateLowSampleCountPercentile,
+    awsCloudWatchAlarmDetails_evaluationPeriods,
+    awsCloudWatchAlarmDetails_extendedStatistic,
+    awsCloudWatchAlarmDetails_insufficientDataActions,
+    awsCloudWatchAlarmDetails_metricName,
+    awsCloudWatchAlarmDetails_namespace,
+    awsCloudWatchAlarmDetails_okActions,
+    awsCloudWatchAlarmDetails_period,
+    awsCloudWatchAlarmDetails_statistic,
+    awsCloudWatchAlarmDetails_threshold,
+    awsCloudWatchAlarmDetails_thresholdMetricId,
+    awsCloudWatchAlarmDetails_treatMissingData,
+    awsCloudWatchAlarmDetails_unit,
+
+    -- * AwsCloudWatchAlarmDimensionsDetails
+    AwsCloudWatchAlarmDimensionsDetails (..),
+    newAwsCloudWatchAlarmDimensionsDetails,
+    awsCloudWatchAlarmDimensionsDetails_name,
+    awsCloudWatchAlarmDimensionsDetails_value,
 
     -- * AwsCodeBuildProjectArtifactsDetails
     AwsCodeBuildProjectArtifactsDetails (..),
     newAwsCodeBuildProjectArtifactsDetails,
-    awsCodeBuildProjectArtifactsDetails_packaging,
-    awsCodeBuildProjectArtifactsDetails_location,
-    awsCodeBuildProjectArtifactsDetails_path,
-    awsCodeBuildProjectArtifactsDetails_encryptionDisabled,
-    awsCodeBuildProjectArtifactsDetails_name,
-    awsCodeBuildProjectArtifactsDetails_overrideArtifactName,
     awsCodeBuildProjectArtifactsDetails_artifactIdentifier,
-    awsCodeBuildProjectArtifactsDetails_type,
+    awsCodeBuildProjectArtifactsDetails_encryptionDisabled,
+    awsCodeBuildProjectArtifactsDetails_location,
+    awsCodeBuildProjectArtifactsDetails_name,
     awsCodeBuildProjectArtifactsDetails_namespaceType,
+    awsCodeBuildProjectArtifactsDetails_overrideArtifactName,
+    awsCodeBuildProjectArtifactsDetails_packaging,
+    awsCodeBuildProjectArtifactsDetails_path,
+    awsCodeBuildProjectArtifactsDetails_type,
 
     -- * AwsCodeBuildProjectDetails
     AwsCodeBuildProjectDetails (..),
     newAwsCodeBuildProjectDetails,
     awsCodeBuildProjectDetails_artifacts,
-    awsCodeBuildProjectDetails_environment,
-    awsCodeBuildProjectDetails_vpcConfig,
-    awsCodeBuildProjectDetails_name,
-    awsCodeBuildProjectDetails_source,
-    awsCodeBuildProjectDetails_logsConfig,
     awsCodeBuildProjectDetails_encryptionKey,
+    awsCodeBuildProjectDetails_environment,
+    awsCodeBuildProjectDetails_logsConfig,
+    awsCodeBuildProjectDetails_name,
+    awsCodeBuildProjectDetails_secondaryArtifacts,
     awsCodeBuildProjectDetails_serviceRole,
+    awsCodeBuildProjectDetails_source,
+    awsCodeBuildProjectDetails_vpcConfig,
 
     -- * AwsCodeBuildProjectEnvironment
     AwsCodeBuildProjectEnvironment (..),
     newAwsCodeBuildProjectEnvironment,
+    awsCodeBuildProjectEnvironment_certificate,
+    awsCodeBuildProjectEnvironment_environmentVariables,
     awsCodeBuildProjectEnvironment_imagePullCredentialsType,
     awsCodeBuildProjectEnvironment_privilegedMode,
     awsCodeBuildProjectEnvironment_registryCredential,
-    awsCodeBuildProjectEnvironment_certificate,
-    awsCodeBuildProjectEnvironment_environmentVariables,
     awsCodeBuildProjectEnvironment_type,
 
     -- * AwsCodeBuildProjectEnvironmentEnvironmentVariablesDetails
     AwsCodeBuildProjectEnvironmentEnvironmentVariablesDetails (..),
     newAwsCodeBuildProjectEnvironmentEnvironmentVariablesDetails,
-    awsCodeBuildProjectEnvironmentEnvironmentVariablesDetails_value,
     awsCodeBuildProjectEnvironmentEnvironmentVariablesDetails_name,
     awsCodeBuildProjectEnvironmentEnvironmentVariablesDetails_type,
+    awsCodeBuildProjectEnvironmentEnvironmentVariablesDetails_value,
 
     -- * AwsCodeBuildProjectEnvironmentRegistryCredential
     AwsCodeBuildProjectEnvironmentRegistryCredential (..),
@@ -566,124 +820,124 @@ module Amazonka.SecurityHub.Types
     -- * AwsCodeBuildProjectLogsConfigCloudWatchLogsDetails
     AwsCodeBuildProjectLogsConfigCloudWatchLogsDetails (..),
     newAwsCodeBuildProjectLogsConfigCloudWatchLogsDetails,
-    awsCodeBuildProjectLogsConfigCloudWatchLogsDetails_status,
     awsCodeBuildProjectLogsConfigCloudWatchLogsDetails_groupName,
+    awsCodeBuildProjectLogsConfigCloudWatchLogsDetails_status,
     awsCodeBuildProjectLogsConfigCloudWatchLogsDetails_streamName,
 
     -- * AwsCodeBuildProjectLogsConfigDetails
     AwsCodeBuildProjectLogsConfigDetails (..),
     newAwsCodeBuildProjectLogsConfigDetails,
-    awsCodeBuildProjectLogsConfigDetails_s3Logs,
     awsCodeBuildProjectLogsConfigDetails_cloudWatchLogs,
+    awsCodeBuildProjectLogsConfigDetails_s3Logs,
 
     -- * AwsCodeBuildProjectLogsConfigS3LogsDetails
     AwsCodeBuildProjectLogsConfigS3LogsDetails (..),
     newAwsCodeBuildProjectLogsConfigS3LogsDetails,
-    awsCodeBuildProjectLogsConfigS3LogsDetails_status,
-    awsCodeBuildProjectLogsConfigS3LogsDetails_location,
     awsCodeBuildProjectLogsConfigS3LogsDetails_encryptionDisabled,
+    awsCodeBuildProjectLogsConfigS3LogsDetails_location,
+    awsCodeBuildProjectLogsConfigS3LogsDetails_status,
 
     -- * AwsCodeBuildProjectSource
     AwsCodeBuildProjectSource (..),
     newAwsCodeBuildProjectSource,
+    awsCodeBuildProjectSource_gitCloneDepth,
     awsCodeBuildProjectSource_insecureSsl,
     awsCodeBuildProjectSource_location,
-    awsCodeBuildProjectSource_gitCloneDepth,
     awsCodeBuildProjectSource_type,
 
     -- * AwsCodeBuildProjectVpcConfig
     AwsCodeBuildProjectVpcConfig (..),
     newAwsCodeBuildProjectVpcConfig,
     awsCodeBuildProjectVpcConfig_securityGroupIds,
-    awsCodeBuildProjectVpcConfig_vpcId,
     awsCodeBuildProjectVpcConfig_subnets,
+    awsCodeBuildProjectVpcConfig_vpcId,
 
     -- * AwsCorsConfiguration
     AwsCorsConfiguration (..),
     newAwsCorsConfiguration,
-    awsCorsConfiguration_maxAge,
-    awsCorsConfiguration_allowMethods,
-    awsCorsConfiguration_allowHeaders,
-    awsCorsConfiguration_exposeHeaders,
-    awsCorsConfiguration_allowOrigins,
     awsCorsConfiguration_allowCredentials,
+    awsCorsConfiguration_allowHeaders,
+    awsCorsConfiguration_allowMethods,
+    awsCorsConfiguration_allowOrigins,
+    awsCorsConfiguration_exposeHeaders,
+    awsCorsConfiguration_maxAge,
 
     -- * AwsDynamoDbTableAttributeDefinition
     AwsDynamoDbTableAttributeDefinition (..),
     newAwsDynamoDbTableAttributeDefinition,
-    awsDynamoDbTableAttributeDefinition_attributeType,
     awsDynamoDbTableAttributeDefinition_attributeName,
+    awsDynamoDbTableAttributeDefinition_attributeType,
 
     -- * AwsDynamoDbTableBillingModeSummary
     AwsDynamoDbTableBillingModeSummary (..),
     newAwsDynamoDbTableBillingModeSummary,
-    awsDynamoDbTableBillingModeSummary_lastUpdateToPayPerRequestDateTime,
     awsDynamoDbTableBillingModeSummary_billingMode,
+    awsDynamoDbTableBillingModeSummary_lastUpdateToPayPerRequestDateTime,
 
     -- * AwsDynamoDbTableDetails
     AwsDynamoDbTableDetails (..),
     newAwsDynamoDbTableDetails,
-    awsDynamoDbTableDetails_restoreSummary,
-    awsDynamoDbTableDetails_globalTableVersion,
-    awsDynamoDbTableDetails_tableSizeBytes,
     awsDynamoDbTableDetails_attributeDefinitions,
-    awsDynamoDbTableDetails_latestStreamArn,
-    awsDynamoDbTableDetails_provisionedThroughput,
-    awsDynamoDbTableDetails_tableStatus,
-    awsDynamoDbTableDetails_keySchema,
-    awsDynamoDbTableDetails_globalSecondaryIndexes,
-    awsDynamoDbTableDetails_latestStreamLabel,
     awsDynamoDbTableDetails_billingModeSummary,
-    awsDynamoDbTableDetails_localSecondaryIndexes,
     awsDynamoDbTableDetails_creationDateTime,
-    awsDynamoDbTableDetails_sseDescription,
-    awsDynamoDbTableDetails_tableId,
-    awsDynamoDbTableDetails_replicas,
+    awsDynamoDbTableDetails_globalSecondaryIndexes,
+    awsDynamoDbTableDetails_globalTableVersion,
     awsDynamoDbTableDetails_itemCount,
-    awsDynamoDbTableDetails_tableName,
+    awsDynamoDbTableDetails_keySchema,
+    awsDynamoDbTableDetails_latestStreamArn,
+    awsDynamoDbTableDetails_latestStreamLabel,
+    awsDynamoDbTableDetails_localSecondaryIndexes,
+    awsDynamoDbTableDetails_provisionedThroughput,
+    awsDynamoDbTableDetails_replicas,
+    awsDynamoDbTableDetails_restoreSummary,
+    awsDynamoDbTableDetails_sseDescription,
     awsDynamoDbTableDetails_streamSpecification,
+    awsDynamoDbTableDetails_tableId,
+    awsDynamoDbTableDetails_tableName,
+    awsDynamoDbTableDetails_tableSizeBytes,
+    awsDynamoDbTableDetails_tableStatus,
 
     -- * AwsDynamoDbTableGlobalSecondaryIndex
     AwsDynamoDbTableGlobalSecondaryIndex (..),
     newAwsDynamoDbTableGlobalSecondaryIndex,
     awsDynamoDbTableGlobalSecondaryIndex_backfilling,
+    awsDynamoDbTableGlobalSecondaryIndex_indexArn,
+    awsDynamoDbTableGlobalSecondaryIndex_indexName,
     awsDynamoDbTableGlobalSecondaryIndex_indexSizeBytes,
     awsDynamoDbTableGlobalSecondaryIndex_indexStatus,
-    awsDynamoDbTableGlobalSecondaryIndex_provisionedThroughput,
-    awsDynamoDbTableGlobalSecondaryIndex_indexArn,
+    awsDynamoDbTableGlobalSecondaryIndex_itemCount,
     awsDynamoDbTableGlobalSecondaryIndex_keySchema,
     awsDynamoDbTableGlobalSecondaryIndex_projection,
-    awsDynamoDbTableGlobalSecondaryIndex_itemCount,
-    awsDynamoDbTableGlobalSecondaryIndex_indexName,
+    awsDynamoDbTableGlobalSecondaryIndex_provisionedThroughput,
 
     -- * AwsDynamoDbTableKeySchema
     AwsDynamoDbTableKeySchema (..),
     newAwsDynamoDbTableKeySchema,
-    awsDynamoDbTableKeySchema_keyType,
     awsDynamoDbTableKeySchema_attributeName,
+    awsDynamoDbTableKeySchema_keyType,
 
     -- * AwsDynamoDbTableLocalSecondaryIndex
     AwsDynamoDbTableLocalSecondaryIndex (..),
     newAwsDynamoDbTableLocalSecondaryIndex,
     awsDynamoDbTableLocalSecondaryIndex_indexArn,
+    awsDynamoDbTableLocalSecondaryIndex_indexName,
     awsDynamoDbTableLocalSecondaryIndex_keySchema,
     awsDynamoDbTableLocalSecondaryIndex_projection,
-    awsDynamoDbTableLocalSecondaryIndex_indexName,
 
     -- * AwsDynamoDbTableProjection
     AwsDynamoDbTableProjection (..),
     newAwsDynamoDbTableProjection,
-    awsDynamoDbTableProjection_projectionType,
     awsDynamoDbTableProjection_nonKeyAttributes,
+    awsDynamoDbTableProjection_projectionType,
 
     -- * AwsDynamoDbTableProvisionedThroughput
     AwsDynamoDbTableProvisionedThroughput (..),
     newAwsDynamoDbTableProvisionedThroughput,
-    awsDynamoDbTableProvisionedThroughput_readCapacityUnits,
     awsDynamoDbTableProvisionedThroughput_lastDecreaseDateTime,
-    awsDynamoDbTableProvisionedThroughput_writeCapacityUnits,
-    awsDynamoDbTableProvisionedThroughput_numberOfDecreasesToday,
     awsDynamoDbTableProvisionedThroughput_lastIncreaseDateTime,
+    awsDynamoDbTableProvisionedThroughput_numberOfDecreasesToday,
+    awsDynamoDbTableProvisionedThroughput_readCapacityUnits,
+    awsDynamoDbTableProvisionedThroughput_writeCapacityUnits,
 
     -- * AwsDynamoDbTableProvisionedThroughputOverride
     AwsDynamoDbTableProvisionedThroughputOverride (..),
@@ -693,68 +947,79 @@ module Amazonka.SecurityHub.Types
     -- * AwsDynamoDbTableReplica
     AwsDynamoDbTableReplica (..),
     newAwsDynamoDbTableReplica,
-    awsDynamoDbTableReplica_replicaStatus,
-    awsDynamoDbTableReplica_regionName,
-    awsDynamoDbTableReplica_replicaStatusDescription,
+    awsDynamoDbTableReplica_globalSecondaryIndexes,
     awsDynamoDbTableReplica_kmsMasterKeyId,
     awsDynamoDbTableReplica_provisionedThroughputOverride,
-    awsDynamoDbTableReplica_globalSecondaryIndexes,
+    awsDynamoDbTableReplica_regionName,
+    awsDynamoDbTableReplica_replicaStatus,
+    awsDynamoDbTableReplica_replicaStatusDescription,
 
     -- * AwsDynamoDbTableReplicaGlobalSecondaryIndex
     AwsDynamoDbTableReplicaGlobalSecondaryIndex (..),
     newAwsDynamoDbTableReplicaGlobalSecondaryIndex,
-    awsDynamoDbTableReplicaGlobalSecondaryIndex_provisionedThroughputOverride,
     awsDynamoDbTableReplicaGlobalSecondaryIndex_indexName,
+    awsDynamoDbTableReplicaGlobalSecondaryIndex_provisionedThroughputOverride,
 
     -- * AwsDynamoDbTableRestoreSummary
     AwsDynamoDbTableRestoreSummary (..),
     newAwsDynamoDbTableRestoreSummary,
-    awsDynamoDbTableRestoreSummary_sourceTableArn,
-    awsDynamoDbTableRestoreSummary_sourceBackupArn,
-    awsDynamoDbTableRestoreSummary_restoreInProgress,
     awsDynamoDbTableRestoreSummary_restoreDateTime,
+    awsDynamoDbTableRestoreSummary_restoreInProgress,
+    awsDynamoDbTableRestoreSummary_sourceBackupArn,
+    awsDynamoDbTableRestoreSummary_sourceTableArn,
 
     -- * AwsDynamoDbTableSseDescription
     AwsDynamoDbTableSseDescription (..),
     newAwsDynamoDbTableSseDescription,
-    awsDynamoDbTableSseDescription_status,
     awsDynamoDbTableSseDescription_inaccessibleEncryptionDateTime,
-    awsDynamoDbTableSseDescription_sseType,
     awsDynamoDbTableSseDescription_kmsMasterKeyArn,
+    awsDynamoDbTableSseDescription_sseType,
+    awsDynamoDbTableSseDescription_status,
 
     -- * AwsDynamoDbTableStreamSpecification
     AwsDynamoDbTableStreamSpecification (..),
     newAwsDynamoDbTableStreamSpecification,
-    awsDynamoDbTableStreamSpecification_streamViewType,
     awsDynamoDbTableStreamSpecification_streamEnabled,
+    awsDynamoDbTableStreamSpecification_streamViewType,
 
     -- * AwsEc2EipDetails
     AwsEc2EipDetails (..),
     newAwsEc2EipDetails,
-    awsEc2EipDetails_associationId,
-    awsEc2EipDetails_instanceId,
-    awsEc2EipDetails_networkInterfaceOwnerId,
     awsEc2EipDetails_allocationId,
-    awsEc2EipDetails_networkBorderGroup,
+    awsEc2EipDetails_associationId,
     awsEc2EipDetails_domain,
+    awsEc2EipDetails_instanceId,
+    awsEc2EipDetails_networkBorderGroup,
     awsEc2EipDetails_networkInterfaceId,
-    awsEc2EipDetails_publicIpv4Pool,
+    awsEc2EipDetails_networkInterfaceOwnerId,
     awsEc2EipDetails_privateIpAddress,
     awsEc2EipDetails_publicIp,
+    awsEc2EipDetails_publicIpv4Pool,
 
     -- * AwsEc2InstanceDetails
     AwsEc2InstanceDetails (..),
     newAwsEc2InstanceDetails,
     awsEc2InstanceDetails_iamInstanceProfileArn,
-    awsEc2InstanceDetails_vpcId,
-    awsEc2InstanceDetails_keyName,
-    awsEc2InstanceDetails_networkInterfaces,
-    awsEc2InstanceDetails_ipV4Addresses,
-    awsEc2InstanceDetails_subnetId,
     awsEc2InstanceDetails_imageId,
-    awsEc2InstanceDetails_type,
+    awsEc2InstanceDetails_ipV4Addresses,
     awsEc2InstanceDetails_ipV6Addresses,
+    awsEc2InstanceDetails_keyName,
     awsEc2InstanceDetails_launchedAt,
+    awsEc2InstanceDetails_metadataOptions,
+    awsEc2InstanceDetails_networkInterfaces,
+    awsEc2InstanceDetails_subnetId,
+    awsEc2InstanceDetails_type,
+    awsEc2InstanceDetails_virtualizationType,
+    awsEc2InstanceDetails_vpcId,
+
+    -- * AwsEc2InstanceMetadataOptions
+    AwsEc2InstanceMetadataOptions (..),
+    newAwsEc2InstanceMetadataOptions,
+    awsEc2InstanceMetadataOptions_httpEndpoint,
+    awsEc2InstanceMetadataOptions_httpProtocolIpv6,
+    awsEc2InstanceMetadataOptions_httpPutResponseHopLimit,
+    awsEc2InstanceMetadataOptions_httpTokens,
+    awsEc2InstanceMetadataOptions_instanceMetadataTags,
 
     -- * AwsEc2InstanceNetworkInterfacesDetails
     AwsEc2InstanceNetworkInterfacesDetails (..),
@@ -764,54 +1029,54 @@ module Amazonka.SecurityHub.Types
     -- * AwsEc2NetworkAclAssociation
     AwsEc2NetworkAclAssociation (..),
     newAwsEc2NetworkAclAssociation,
+    awsEc2NetworkAclAssociation_networkAclAssociationId,
     awsEc2NetworkAclAssociation_networkAclId,
     awsEc2NetworkAclAssociation_subnetId,
-    awsEc2NetworkAclAssociation_networkAclAssociationId,
 
     -- * AwsEc2NetworkAclDetails
     AwsEc2NetworkAclDetails (..),
     newAwsEc2NetworkAclDetails,
-    awsEc2NetworkAclDetails_entries,
-    awsEc2NetworkAclDetails_networkAclId,
-    awsEc2NetworkAclDetails_vpcId,
-    awsEc2NetworkAclDetails_ownerId,
     awsEc2NetworkAclDetails_associations,
+    awsEc2NetworkAclDetails_entries,
     awsEc2NetworkAclDetails_isDefault,
+    awsEc2NetworkAclDetails_networkAclId,
+    awsEc2NetworkAclDetails_ownerId,
+    awsEc2NetworkAclDetails_vpcId,
 
     -- * AwsEc2NetworkAclEntry
     AwsEc2NetworkAclEntry (..),
     newAwsEc2NetworkAclEntry,
-    awsEc2NetworkAclEntry_ipv6CidrBlock,
-    awsEc2NetworkAclEntry_icmpTypeCode,
-    awsEc2NetworkAclEntry_ruleNumber,
-    awsEc2NetworkAclEntry_ruleAction,
-    awsEc2NetworkAclEntry_protocol,
-    awsEc2NetworkAclEntry_portRange,
     awsEc2NetworkAclEntry_cidrBlock,
     awsEc2NetworkAclEntry_egress,
+    awsEc2NetworkAclEntry_icmpTypeCode,
+    awsEc2NetworkAclEntry_ipv6CidrBlock,
+    awsEc2NetworkAclEntry_portRange,
+    awsEc2NetworkAclEntry_protocol,
+    awsEc2NetworkAclEntry_ruleAction,
+    awsEc2NetworkAclEntry_ruleNumber,
 
     -- * AwsEc2NetworkInterfaceAttachment
     AwsEc2NetworkInterfaceAttachment (..),
     newAwsEc2NetworkInterfaceAttachment,
-    awsEc2NetworkInterfaceAttachment_instanceId,
-    awsEc2NetworkInterfaceAttachment_status,
-    awsEc2NetworkInterfaceAttachment_deleteOnTermination,
-    awsEc2NetworkInterfaceAttachment_attachmentId,
-    awsEc2NetworkInterfaceAttachment_instanceOwnerId,
     awsEc2NetworkInterfaceAttachment_attachTime,
+    awsEc2NetworkInterfaceAttachment_attachmentId,
+    awsEc2NetworkInterfaceAttachment_deleteOnTermination,
     awsEc2NetworkInterfaceAttachment_deviceIndex,
+    awsEc2NetworkInterfaceAttachment_instanceId,
+    awsEc2NetworkInterfaceAttachment_instanceOwnerId,
+    awsEc2NetworkInterfaceAttachment_status,
 
     -- * AwsEc2NetworkInterfaceDetails
     AwsEc2NetworkInterfaceDetails (..),
     newAwsEc2NetworkInterfaceDetails,
+    awsEc2NetworkInterfaceDetails_attachment,
+    awsEc2NetworkInterfaceDetails_ipV6Addresses,
+    awsEc2NetworkInterfaceDetails_networkInterfaceId,
     awsEc2NetworkInterfaceDetails_privateIpAddresses,
     awsEc2NetworkInterfaceDetails_publicDnsName,
+    awsEc2NetworkInterfaceDetails_publicIp,
     awsEc2NetworkInterfaceDetails_securityGroups,
     awsEc2NetworkInterfaceDetails_sourceDestCheck,
-    awsEc2NetworkInterfaceDetails_networkInterfaceId,
-    awsEc2NetworkInterfaceDetails_attachment,
-    awsEc2NetworkInterfaceDetails_publicIp,
-    awsEc2NetworkInterfaceDetails_ipV6Addresses,
 
     -- * AwsEc2NetworkInterfaceIpV6AddressDetail
     AwsEc2NetworkInterfaceIpV6AddressDetail (..),
@@ -821,8 +1086,8 @@ module Amazonka.SecurityHub.Types
     -- * AwsEc2NetworkInterfacePrivateIpAddressDetail
     AwsEc2NetworkInterfacePrivateIpAddressDetail (..),
     newAwsEc2NetworkInterfacePrivateIpAddressDetail,
-    awsEc2NetworkInterfacePrivateIpAddressDetail_privateIpAddress,
     awsEc2NetworkInterfacePrivateIpAddressDetail_privateDnsName,
+    awsEc2NetworkInterfacePrivateIpAddressDetail_privateIpAddress,
 
     -- * AwsEc2NetworkInterfaceSecurityGroup
     AwsEc2NetworkInterfaceSecurityGroup (..),
@@ -833,23 +1098,23 @@ module Amazonka.SecurityHub.Types
     -- * AwsEc2SecurityGroupDetails
     AwsEc2SecurityGroupDetails (..),
     newAwsEc2SecurityGroupDetails,
-    awsEc2SecurityGroupDetails_vpcId,
-    awsEc2SecurityGroupDetails_ipPermissions,
-    awsEc2SecurityGroupDetails_ownerId,
-    awsEc2SecurityGroupDetails_ipPermissionsEgress,
     awsEc2SecurityGroupDetails_groupId,
     awsEc2SecurityGroupDetails_groupName,
+    awsEc2SecurityGroupDetails_ipPermissions,
+    awsEc2SecurityGroupDetails_ipPermissionsEgress,
+    awsEc2SecurityGroupDetails_ownerId,
+    awsEc2SecurityGroupDetails_vpcId,
 
     -- * AwsEc2SecurityGroupIpPermission
     AwsEc2SecurityGroupIpPermission (..),
     newAwsEc2SecurityGroupIpPermission,
     awsEc2SecurityGroupIpPermission_fromPort,
-    awsEc2SecurityGroupIpPermission_userIdGroupPairs,
-    awsEc2SecurityGroupIpPermission_prefixListIds,
     awsEc2SecurityGroupIpPermission_ipProtocol,
-    awsEc2SecurityGroupIpPermission_toPort,
-    awsEc2SecurityGroupIpPermission_ipv6Ranges,
     awsEc2SecurityGroupIpPermission_ipRanges,
+    awsEc2SecurityGroupIpPermission_ipv6Ranges,
+    awsEc2SecurityGroupIpPermission_prefixListIds,
+    awsEc2SecurityGroupIpPermission_toPort,
+    awsEc2SecurityGroupIpPermission_userIdGroupPairs,
 
     -- * AwsEc2SecurityGroupIpRange
     AwsEc2SecurityGroupIpRange (..),
@@ -869,142 +1134,188 @@ module Amazonka.SecurityHub.Types
     -- * AwsEc2SecurityGroupUserIdGroupPair
     AwsEc2SecurityGroupUserIdGroupPair (..),
     newAwsEc2SecurityGroupUserIdGroupPair,
-    awsEc2SecurityGroupUserIdGroupPair_vpcPeeringConnectionId,
-    awsEc2SecurityGroupUserIdGroupPair_vpcId,
-    awsEc2SecurityGroupUserIdGroupPair_userId,
     awsEc2SecurityGroupUserIdGroupPair_groupId,
     awsEc2SecurityGroupUserIdGroupPair_groupName,
     awsEc2SecurityGroupUserIdGroupPair_peeringStatus,
+    awsEc2SecurityGroupUserIdGroupPair_userId,
+    awsEc2SecurityGroupUserIdGroupPair_vpcId,
+    awsEc2SecurityGroupUserIdGroupPair_vpcPeeringConnectionId,
 
     -- * AwsEc2SubnetDetails
     AwsEc2SubnetDetails (..),
     newAwsEc2SubnetDetails,
-    awsEc2SubnetDetails_state,
-    awsEc2SubnetDetails_ipv6CidrBlockAssociationSet,
+    awsEc2SubnetDetails_assignIpv6AddressOnCreation,
+    awsEc2SubnetDetails_availabilityZone,
     awsEc2SubnetDetails_availabilityZoneId,
     awsEc2SubnetDetails_availableIpAddressCount,
-    awsEc2SubnetDetails_vpcId,
-    awsEc2SubnetDetails_assignIpv6AddressOnCreation,
-    awsEc2SubnetDetails_subnetId,
-    awsEc2SubnetDetails_subnetArn,
-    awsEc2SubnetDetails_ownerId,
-    awsEc2SubnetDetails_availabilityZone,
     awsEc2SubnetDetails_cidrBlock,
-    awsEc2SubnetDetails_mapPublicIpOnLaunch,
     awsEc2SubnetDetails_defaultForAz,
+    awsEc2SubnetDetails_ipv6CidrBlockAssociationSet,
+    awsEc2SubnetDetails_mapPublicIpOnLaunch,
+    awsEc2SubnetDetails_ownerId,
+    awsEc2SubnetDetails_state,
+    awsEc2SubnetDetails_subnetArn,
+    awsEc2SubnetDetails_subnetId,
+    awsEc2SubnetDetails_vpcId,
+
+    -- * AwsEc2TransitGatewayDetails
+    AwsEc2TransitGatewayDetails (..),
+    newAwsEc2TransitGatewayDetails,
+    awsEc2TransitGatewayDetails_amazonSideAsn,
+    awsEc2TransitGatewayDetails_associationDefaultRouteTableId,
+    awsEc2TransitGatewayDetails_autoAcceptSharedAttachments,
+    awsEc2TransitGatewayDetails_defaultRouteTableAssociation,
+    awsEc2TransitGatewayDetails_defaultRouteTablePropagation,
+    awsEc2TransitGatewayDetails_description,
+    awsEc2TransitGatewayDetails_dnsSupport,
+    awsEc2TransitGatewayDetails_id,
+    awsEc2TransitGatewayDetails_multicastSupport,
+    awsEc2TransitGatewayDetails_propagationDefaultRouteTableId,
+    awsEc2TransitGatewayDetails_transitGatewayCidrBlocks,
+    awsEc2TransitGatewayDetails_vpnEcmpSupport,
 
     -- * AwsEc2VolumeAttachment
     AwsEc2VolumeAttachment (..),
     newAwsEc2VolumeAttachment,
+    awsEc2VolumeAttachment_attachTime,
+    awsEc2VolumeAttachment_deleteOnTermination,
     awsEc2VolumeAttachment_instanceId,
     awsEc2VolumeAttachment_status,
-    awsEc2VolumeAttachment_deleteOnTermination,
-    awsEc2VolumeAttachment_attachTime,
 
     -- * AwsEc2VolumeDetails
     AwsEc2VolumeDetails (..),
     newAwsEc2VolumeDetails,
-    awsEc2VolumeDetails_status,
     awsEc2VolumeDetails_attachments,
-    awsEc2VolumeDetails_size,
+    awsEc2VolumeDetails_createTime,
+    awsEc2VolumeDetails_deviceName,
     awsEc2VolumeDetails_encrypted,
     awsEc2VolumeDetails_kmsKeyId,
-    awsEc2VolumeDetails_createTime,
+    awsEc2VolumeDetails_size,
     awsEc2VolumeDetails_snapshotId,
+    awsEc2VolumeDetails_status,
+    awsEc2VolumeDetails_volumeId,
+    awsEc2VolumeDetails_volumeScanStatus,
+    awsEc2VolumeDetails_volumeType,
 
     -- * AwsEc2VpcDetails
     AwsEc2VpcDetails (..),
     newAwsEc2VpcDetails,
-    awsEc2VpcDetails_state,
-    awsEc2VpcDetails_ipv6CidrBlockAssociationSet,
     awsEc2VpcDetails_cidrBlockAssociationSet,
     awsEc2VpcDetails_dhcpOptionsId,
+    awsEc2VpcDetails_ipv6CidrBlockAssociationSet,
+    awsEc2VpcDetails_state,
 
     -- * AwsEc2VpcEndpointServiceDetails
     AwsEc2VpcEndpointServiceDetails (..),
     newAwsEc2VpcEndpointServiceDetails,
-    awsEc2VpcEndpointServiceDetails_networkLoadBalancerArns,
-    awsEc2VpcEndpointServiceDetails_baseEndpointDnsNames,
+    awsEc2VpcEndpointServiceDetails_acceptanceRequired,
     awsEc2VpcEndpointServiceDetails_availabilityZones,
+    awsEc2VpcEndpointServiceDetails_baseEndpointDnsNames,
     awsEc2VpcEndpointServiceDetails_gatewayLoadBalancerArns,
     awsEc2VpcEndpointServiceDetails_managesVpcEndpoints,
+    awsEc2VpcEndpointServiceDetails_networkLoadBalancerArns,
+    awsEc2VpcEndpointServiceDetails_privateDnsName,
+    awsEc2VpcEndpointServiceDetails_serviceId,
     awsEc2VpcEndpointServiceDetails_serviceName,
     awsEc2VpcEndpointServiceDetails_serviceState,
     awsEc2VpcEndpointServiceDetails_serviceType,
-    awsEc2VpcEndpointServiceDetails_acceptanceRequired,
-    awsEc2VpcEndpointServiceDetails_serviceId,
-    awsEc2VpcEndpointServiceDetails_privateDnsName,
 
     -- * AwsEc2VpcEndpointServiceServiceTypeDetails
     AwsEc2VpcEndpointServiceServiceTypeDetails (..),
     newAwsEc2VpcEndpointServiceServiceTypeDetails,
     awsEc2VpcEndpointServiceServiceTypeDetails_serviceType,
 
+    -- * AwsEc2VpcPeeringConnectionDetails
+    AwsEc2VpcPeeringConnectionDetails (..),
+    newAwsEc2VpcPeeringConnectionDetails,
+    awsEc2VpcPeeringConnectionDetails_accepterVpcInfo,
+    awsEc2VpcPeeringConnectionDetails_expirationTime,
+    awsEc2VpcPeeringConnectionDetails_requesterVpcInfo,
+    awsEc2VpcPeeringConnectionDetails_status,
+    awsEc2VpcPeeringConnectionDetails_vpcPeeringConnectionId,
+
+    -- * AwsEc2VpcPeeringConnectionStatusDetails
+    AwsEc2VpcPeeringConnectionStatusDetails (..),
+    newAwsEc2VpcPeeringConnectionStatusDetails,
+    awsEc2VpcPeeringConnectionStatusDetails_code,
+    awsEc2VpcPeeringConnectionStatusDetails_message,
+
+    -- * AwsEc2VpcPeeringConnectionVpcInfoDetails
+    AwsEc2VpcPeeringConnectionVpcInfoDetails (..),
+    newAwsEc2VpcPeeringConnectionVpcInfoDetails,
+    awsEc2VpcPeeringConnectionVpcInfoDetails_cidrBlock,
+    awsEc2VpcPeeringConnectionVpcInfoDetails_cidrBlockSet,
+    awsEc2VpcPeeringConnectionVpcInfoDetails_ipv6CidrBlockSet,
+    awsEc2VpcPeeringConnectionVpcInfoDetails_ownerId,
+    awsEc2VpcPeeringConnectionVpcInfoDetails_peeringOptions,
+    awsEc2VpcPeeringConnectionVpcInfoDetails_region,
+    awsEc2VpcPeeringConnectionVpcInfoDetails_vpcId,
+
     -- * AwsEc2VpnConnectionDetails
     AwsEc2VpnConnectionDetails (..),
     newAwsEc2VpnConnectionDetails,
-    awsEc2VpnConnectionDetails_customerGatewayConfiguration,
-    awsEc2VpnConnectionDetails_state,
-    awsEc2VpnConnectionDetails_routes,
-    awsEc2VpnConnectionDetails_vpnGatewayId,
     awsEc2VpnConnectionDetails_category,
+    awsEc2VpnConnectionDetails_customerGatewayConfiguration,
     awsEc2VpnConnectionDetails_customerGatewayId,
+    awsEc2VpnConnectionDetails_options,
+    awsEc2VpnConnectionDetails_routes,
+    awsEc2VpnConnectionDetails_state,
     awsEc2VpnConnectionDetails_transitGatewayId,
     awsEc2VpnConnectionDetails_type,
-    awsEc2VpnConnectionDetails_options,
-    awsEc2VpnConnectionDetails_vpnConnectionId,
     awsEc2VpnConnectionDetails_vgwTelemetry,
+    awsEc2VpnConnectionDetails_vpnConnectionId,
+    awsEc2VpnConnectionDetails_vpnGatewayId,
 
     -- * AwsEc2VpnConnectionOptionsDetails
     AwsEc2VpnConnectionOptionsDetails (..),
     newAwsEc2VpnConnectionOptionsDetails,
-    awsEc2VpnConnectionOptionsDetails_tunnelOptions,
     awsEc2VpnConnectionOptionsDetails_staticRoutesOnly,
+    awsEc2VpnConnectionOptionsDetails_tunnelOptions,
 
     -- * AwsEc2VpnConnectionOptionsTunnelOptionsDetails
     AwsEc2VpnConnectionOptionsTunnelOptionsDetails (..),
     newAwsEc2VpnConnectionOptionsTunnelOptionsDetails,
-    awsEc2VpnConnectionOptionsTunnelOptionsDetails_outsideIpAddress,
-    awsEc2VpnConnectionOptionsTunnelOptionsDetails_replayWindowSize,
-    awsEc2VpnConnectionOptionsTunnelOptionsDetails_rekeyFuzzPercentage,
-    awsEc2VpnConnectionOptionsTunnelOptionsDetails_phase1LifetimeSeconds,
+    awsEc2VpnConnectionOptionsTunnelOptionsDetails_dpdTimeoutSeconds,
     awsEc2VpnConnectionOptionsTunnelOptionsDetails_ikeVersions,
+    awsEc2VpnConnectionOptionsTunnelOptionsDetails_outsideIpAddress,
+    awsEc2VpnConnectionOptionsTunnelOptionsDetails_phase1DhGroupNumbers,
+    awsEc2VpnConnectionOptionsTunnelOptionsDetails_phase1EncryptionAlgorithms,
+    awsEc2VpnConnectionOptionsTunnelOptionsDetails_phase1IntegrityAlgorithms,
+    awsEc2VpnConnectionOptionsTunnelOptionsDetails_phase1LifetimeSeconds,
+    awsEc2VpnConnectionOptionsTunnelOptionsDetails_phase2DhGroupNumbers,
+    awsEc2VpnConnectionOptionsTunnelOptionsDetails_phase2EncryptionAlgorithms,
     awsEc2VpnConnectionOptionsTunnelOptionsDetails_phase2IntegrityAlgorithms,
     awsEc2VpnConnectionOptionsTunnelOptionsDetails_phase2LifetimeSeconds,
-    awsEc2VpnConnectionOptionsTunnelOptionsDetails_phase1EncryptionAlgorithms,
-    awsEc2VpnConnectionOptionsTunnelOptionsDetails_phase1DhGroupNumbers,
-    awsEc2VpnConnectionOptionsTunnelOptionsDetails_phase1IntegrityAlgorithms,
-    awsEc2VpnConnectionOptionsTunnelOptionsDetails_rekeyMarginTimeSeconds,
-    awsEc2VpnConnectionOptionsTunnelOptionsDetails_dpdTimeoutSeconds,
-    awsEc2VpnConnectionOptionsTunnelOptionsDetails_tunnelInsideCidr,
-    awsEc2VpnConnectionOptionsTunnelOptionsDetails_phase2EncryptionAlgorithms,
-    awsEc2VpnConnectionOptionsTunnelOptionsDetails_phase2DhGroupNumbers,
     awsEc2VpnConnectionOptionsTunnelOptionsDetails_preSharedKey,
+    awsEc2VpnConnectionOptionsTunnelOptionsDetails_rekeyFuzzPercentage,
+    awsEc2VpnConnectionOptionsTunnelOptionsDetails_rekeyMarginTimeSeconds,
+    awsEc2VpnConnectionOptionsTunnelOptionsDetails_replayWindowSize,
+    awsEc2VpnConnectionOptionsTunnelOptionsDetails_tunnelInsideCidr,
 
     -- * AwsEc2VpnConnectionRoutesDetails
     AwsEc2VpnConnectionRoutesDetails (..),
     newAwsEc2VpnConnectionRoutesDetails,
-    awsEc2VpnConnectionRoutesDetails_state,
     awsEc2VpnConnectionRoutesDetails_destinationCidrBlock,
+    awsEc2VpnConnectionRoutesDetails_state,
 
     -- * AwsEc2VpnConnectionVgwTelemetryDetails
     AwsEc2VpnConnectionVgwTelemetryDetails (..),
     newAwsEc2VpnConnectionVgwTelemetryDetails,
-    awsEc2VpnConnectionVgwTelemetryDetails_status,
-    awsEc2VpnConnectionVgwTelemetryDetails_outsideIpAddress,
+    awsEc2VpnConnectionVgwTelemetryDetails_acceptedRouteCount,
     awsEc2VpnConnectionVgwTelemetryDetails_certificateArn,
     awsEc2VpnConnectionVgwTelemetryDetails_lastStatusChange,
-    awsEc2VpnConnectionVgwTelemetryDetails_acceptedRouteCount,
+    awsEc2VpnConnectionVgwTelemetryDetails_outsideIpAddress,
+    awsEc2VpnConnectionVgwTelemetryDetails_status,
     awsEc2VpnConnectionVgwTelemetryDetails_statusMessage,
 
     -- * AwsEcrContainerImageDetails
     AwsEcrContainerImageDetails (..),
     newAwsEcrContainerImageDetails,
-    awsEcrContainerImageDetails_registryId,
-    awsEcrContainerImageDetails_imageTags,
+    awsEcrContainerImageDetails_architecture,
     awsEcrContainerImageDetails_imageDigest,
     awsEcrContainerImageDetails_imagePublishedAt,
-    awsEcrContainerImageDetails_architecture,
+    awsEcrContainerImageDetails_imageTags,
+    awsEcrContainerImageDetails_registryId,
     awsEcrContainerImageDetails_repositoryName,
 
     -- * AwsEcrRepositoryDetails
@@ -1012,10 +1323,10 @@ module Amazonka.SecurityHub.Types
     newAwsEcrRepositoryDetails,
     awsEcrRepositoryDetails_arn,
     awsEcrRepositoryDetails_imageScanningConfiguration,
-    awsEcrRepositoryDetails_repositoryPolicyText,
-    awsEcrRepositoryDetails_repositoryName,
     awsEcrRepositoryDetails_imageTagMutability,
     awsEcrRepositoryDetails_lifecyclePolicy,
+    awsEcrRepositoryDetails_repositoryName,
+    awsEcrRepositoryDetails_repositoryPolicyText,
 
     -- * AwsEcrRepositoryImageScanningConfigurationDetails
     AwsEcrRepositoryImageScanningConfigurationDetails (..),
@@ -1025,14 +1336,14 @@ module Amazonka.SecurityHub.Types
     -- * AwsEcrRepositoryLifecyclePolicyDetails
     AwsEcrRepositoryLifecyclePolicyDetails (..),
     newAwsEcrRepositoryLifecyclePolicyDetails,
-    awsEcrRepositoryLifecyclePolicyDetails_registryId,
     awsEcrRepositoryLifecyclePolicyDetails_lifecyclePolicyText,
+    awsEcrRepositoryLifecyclePolicyDetails_registryId,
 
     -- * AwsEcsClusterClusterSettingsDetails
     AwsEcsClusterClusterSettingsDetails (..),
     newAwsEcsClusterClusterSettingsDetails,
-    awsEcsClusterClusterSettingsDetails_value,
     awsEcsClusterClusterSettingsDetails_name,
+    awsEcsClusterClusterSettingsDetails_value,
 
     -- * AwsEcsClusterConfigurationDetails
     AwsEcsClusterConfigurationDetails (..),
@@ -1042,18 +1353,18 @@ module Amazonka.SecurityHub.Types
     -- * AwsEcsClusterConfigurationExecuteCommandConfigurationDetails
     AwsEcsClusterConfigurationExecuteCommandConfigurationDetails (..),
     newAwsEcsClusterConfigurationExecuteCommandConfigurationDetails,
-    awsEcsClusterConfigurationExecuteCommandConfigurationDetails_logConfiguration,
     awsEcsClusterConfigurationExecuteCommandConfigurationDetails_kmsKeyId,
+    awsEcsClusterConfigurationExecuteCommandConfigurationDetails_logConfiguration,
     awsEcsClusterConfigurationExecuteCommandConfigurationDetails_logging,
 
     -- * AwsEcsClusterConfigurationExecuteCommandConfigurationLogConfigurationDetails
     AwsEcsClusterConfigurationExecuteCommandConfigurationLogConfigurationDetails (..),
     newAwsEcsClusterConfigurationExecuteCommandConfigurationLogConfigurationDetails,
-    awsEcsClusterConfigurationExecuteCommandConfigurationLogConfigurationDetails_cloudWatchLogGroupName,
-    awsEcsClusterConfigurationExecuteCommandConfigurationLogConfigurationDetails_s3KeyPrefix,
     awsEcsClusterConfigurationExecuteCommandConfigurationLogConfigurationDetails_cloudWatchEncryptionEnabled,
-    awsEcsClusterConfigurationExecuteCommandConfigurationLogConfigurationDetails_s3EncryptionEnabled,
+    awsEcsClusterConfigurationExecuteCommandConfigurationLogConfigurationDetails_cloudWatchLogGroupName,
     awsEcsClusterConfigurationExecuteCommandConfigurationLogConfigurationDetails_s3BucketName,
+    awsEcsClusterConfigurationExecuteCommandConfigurationLogConfigurationDetails_s3EncryptionEnabled,
+    awsEcsClusterConfigurationExecuteCommandConfigurationLogConfigurationDetails_s3KeyPrefix,
 
     -- * AwsEcsClusterDefaultCapacityProviderStrategyDetails
     AwsEcsClusterDefaultCapacityProviderStrategyDetails (..),
@@ -1065,10 +1376,24 @@ module Amazonka.SecurityHub.Types
     -- * AwsEcsClusterDetails
     AwsEcsClusterDetails (..),
     newAwsEcsClusterDetails,
-    awsEcsClusterDetails_clusterSettings,
-    awsEcsClusterDetails_defaultCapacityProviderStrategy,
-    awsEcsClusterDetails_configuration,
+    awsEcsClusterDetails_activeServicesCount,
     awsEcsClusterDetails_capacityProviders,
+    awsEcsClusterDetails_clusterArn,
+    awsEcsClusterDetails_clusterName,
+    awsEcsClusterDetails_clusterSettings,
+    awsEcsClusterDetails_configuration,
+    awsEcsClusterDetails_defaultCapacityProviderStrategy,
+    awsEcsClusterDetails_registeredContainerInstancesCount,
+    awsEcsClusterDetails_runningTasksCount,
+    awsEcsClusterDetails_status,
+
+    -- * AwsEcsContainerDetails
+    AwsEcsContainerDetails (..),
+    newAwsEcsContainerDetails,
+    awsEcsContainerDetails_image,
+    awsEcsContainerDetails_mountPoints,
+    awsEcsContainerDetails_name,
+    awsEcsContainerDetails_privileged,
 
     -- * AwsEcsServiceCapacityProviderStrategyDetails
     AwsEcsServiceCapacityProviderStrategyDetails (..),
@@ -1080,15 +1405,15 @@ module Amazonka.SecurityHub.Types
     -- * AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails
     AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails (..),
     newAwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails,
-    awsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails_rollback,
     awsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails_enable,
+    awsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails_rollback,
 
     -- * AwsEcsServiceDeploymentConfigurationDetails
     AwsEcsServiceDeploymentConfigurationDetails (..),
     newAwsEcsServiceDeploymentConfigurationDetails,
-    awsEcsServiceDeploymentConfigurationDetails_minimumHealthyPercent,
-    awsEcsServiceDeploymentConfigurationDetails_maximumPercent,
     awsEcsServiceDeploymentConfigurationDetails_deploymentCircuitBreaker,
+    awsEcsServiceDeploymentConfigurationDetails_maximumPercent,
+    awsEcsServiceDeploymentConfigurationDetails_minimumHealthyPercent,
 
     -- * AwsEcsServiceDeploymentControllerDetails
     AwsEcsServiceDeploymentControllerDetails (..),
@@ -1098,43 +1423,43 @@ module Amazonka.SecurityHub.Types
     -- * AwsEcsServiceDetails
     AwsEcsServiceDetails (..),
     newAwsEcsServiceDetails,
-    awsEcsServiceDetails_placementStrategies,
-    awsEcsServiceDetails_cluster,
-    awsEcsServiceDetails_propagateTags,
-    awsEcsServiceDetails_platformVersion,
-    awsEcsServiceDetails_enableEcsManagedTags,
-    awsEcsServiceDetails_desiredCount,
-    awsEcsServiceDetails_loadBalancers,
-    awsEcsServiceDetails_role,
-    awsEcsServiceDetails_name,
-    awsEcsServiceDetails_placementConstraints,
-    awsEcsServiceDetails_serviceName,
-    awsEcsServiceDetails_deploymentController,
-    awsEcsServiceDetails_launchType,
-    awsEcsServiceDetails_taskDefinition,
-    awsEcsServiceDetails_serviceArn,
-    awsEcsServiceDetails_schedulingStrategy,
     awsEcsServiceDetails_capacityProviderStrategy,
-    awsEcsServiceDetails_serviceRegistries,
-    awsEcsServiceDetails_healthCheckGracePeriodSeconds,
-    awsEcsServiceDetails_networkConfiguration,
+    awsEcsServiceDetails_cluster,
     awsEcsServiceDetails_deploymentConfiguration,
+    awsEcsServiceDetails_deploymentController,
+    awsEcsServiceDetails_desiredCount,
+    awsEcsServiceDetails_enableEcsManagedTags,
     awsEcsServiceDetails_enableExecuteCommand,
+    awsEcsServiceDetails_healthCheckGracePeriodSeconds,
+    awsEcsServiceDetails_launchType,
+    awsEcsServiceDetails_loadBalancers,
+    awsEcsServiceDetails_name,
+    awsEcsServiceDetails_networkConfiguration,
+    awsEcsServiceDetails_placementConstraints,
+    awsEcsServiceDetails_placementStrategies,
+    awsEcsServiceDetails_platformVersion,
+    awsEcsServiceDetails_propagateTags,
+    awsEcsServiceDetails_role,
+    awsEcsServiceDetails_schedulingStrategy,
+    awsEcsServiceDetails_serviceArn,
+    awsEcsServiceDetails_serviceName,
+    awsEcsServiceDetails_serviceRegistries,
+    awsEcsServiceDetails_taskDefinition,
 
     -- * AwsEcsServiceLoadBalancersDetails
     AwsEcsServiceLoadBalancersDetails (..),
     newAwsEcsServiceLoadBalancersDetails,
-    awsEcsServiceLoadBalancersDetails_loadBalancerName,
     awsEcsServiceLoadBalancersDetails_containerName,
-    awsEcsServiceLoadBalancersDetails_targetGroupArn,
     awsEcsServiceLoadBalancersDetails_containerPort,
+    awsEcsServiceLoadBalancersDetails_loadBalancerName,
+    awsEcsServiceLoadBalancersDetails_targetGroupArn,
 
     -- * AwsEcsServiceNetworkConfigurationAwsVpcConfigurationDetails
     AwsEcsServiceNetworkConfigurationAwsVpcConfigurationDetails (..),
     newAwsEcsServiceNetworkConfigurationAwsVpcConfigurationDetails,
+    awsEcsServiceNetworkConfigurationAwsVpcConfigurationDetails_assignPublicIp,
     awsEcsServiceNetworkConfigurationAwsVpcConfigurationDetails_securityGroups,
     awsEcsServiceNetworkConfigurationAwsVpcConfigurationDetails_subnets,
-    awsEcsServiceNetworkConfigurationAwsVpcConfigurationDetails_assignPublicIp,
 
     -- * AwsEcsServiceNetworkConfigurationDetails
     AwsEcsServiceNetworkConfigurationDetails (..),
@@ -1157,70 +1482,70 @@ module Amazonka.SecurityHub.Types
     AwsEcsServiceServiceRegistriesDetails (..),
     newAwsEcsServiceServiceRegistriesDetails,
     awsEcsServiceServiceRegistriesDetails_containerName,
-    awsEcsServiceServiceRegistriesDetails_registryArn,
     awsEcsServiceServiceRegistriesDetails_containerPort,
     awsEcsServiceServiceRegistriesDetails_port,
+    awsEcsServiceServiceRegistriesDetails_registryArn,
 
     -- * AwsEcsTaskDefinitionContainerDefinitionsDependsOnDetails
     AwsEcsTaskDefinitionContainerDefinitionsDependsOnDetails (..),
     newAwsEcsTaskDefinitionContainerDefinitionsDependsOnDetails,
-    awsEcsTaskDefinitionContainerDefinitionsDependsOnDetails_containerName,
     awsEcsTaskDefinitionContainerDefinitionsDependsOnDetails_condition,
+    awsEcsTaskDefinitionContainerDefinitionsDependsOnDetails_containerName,
 
     -- * AwsEcsTaskDefinitionContainerDefinitionsDetails
     AwsEcsTaskDefinitionContainerDefinitionsDetails (..),
     newAwsEcsTaskDefinitionContainerDefinitionsDetails,
     awsEcsTaskDefinitionContainerDefinitionsDetails_command,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_cpu,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_dependsOn,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_disableNetworking,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_dnsSearchDomains,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_dnsServers,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_dockerLabels,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_dockerSecurityOptions,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_entryPoint,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_environment,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_environmentFiles,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_essential,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_extraHosts,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_firelensConfiguration,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_healthCheck,
     awsEcsTaskDefinitionContainerDefinitionsDetails_hostname,
     awsEcsTaskDefinitionContainerDefinitionsDetails_image,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_repositoryCredentials,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_dockerSecurityOptions,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_healthCheck,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_disableNetworking,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_volumesFrom,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_environment,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_secrets,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_entryPoint,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_workingDirectory,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_environmentFiles,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_stopTimeout,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_privileged,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_ulimits,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_portMappings,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_resourceRequirements,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_memory,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_extraHosts,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_dockerLabels,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_user,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_systemControls,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_interactive,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_links,
     awsEcsTaskDefinitionContainerDefinitionsDetails_linuxParameters,
     awsEcsTaskDefinitionContainerDefinitionsDetails_logConfiguration,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_firelensConfiguration,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_dnsSearchDomains,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_pseudoTerminal,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_dependsOn,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_dnsServers,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_name,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_mountPoints,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_interactive,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_startTimeout,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_readonlyRootFilesystem,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_links,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_cpu,
-    awsEcsTaskDefinitionContainerDefinitionsDetails_essential,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_memory,
     awsEcsTaskDefinitionContainerDefinitionsDetails_memoryReservation,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_mountPoints,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_name,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_portMappings,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_privileged,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_pseudoTerminal,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_readonlyRootFilesystem,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_repositoryCredentials,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_resourceRequirements,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_secrets,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_startTimeout,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_stopTimeout,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_systemControls,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_ulimits,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_user,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_volumesFrom,
+    awsEcsTaskDefinitionContainerDefinitionsDetails_workingDirectory,
 
     -- * AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails
     AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails (..),
     newAwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails,
-    awsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails_value,
     awsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails_name,
+    awsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails_value,
 
     -- * AwsEcsTaskDefinitionContainerDefinitionsEnvironmentFilesDetails
     AwsEcsTaskDefinitionContainerDefinitionsEnvironmentFilesDetails (..),
     newAwsEcsTaskDefinitionContainerDefinitionsEnvironmentFilesDetails,
-    awsEcsTaskDefinitionContainerDefinitionsEnvironmentFilesDetails_value,
     awsEcsTaskDefinitionContainerDefinitionsEnvironmentFilesDetails_type,
+    awsEcsTaskDefinitionContainerDefinitionsEnvironmentFilesDetails_value,
 
     -- * AwsEcsTaskDefinitionContainerDefinitionsExtraHostsDetails
     AwsEcsTaskDefinitionContainerDefinitionsExtraHostsDetails (..),
@@ -1231,34 +1556,34 @@ module Amazonka.SecurityHub.Types
     -- * AwsEcsTaskDefinitionContainerDefinitionsFirelensConfigurationDetails
     AwsEcsTaskDefinitionContainerDefinitionsFirelensConfigurationDetails (..),
     newAwsEcsTaskDefinitionContainerDefinitionsFirelensConfigurationDetails,
-    awsEcsTaskDefinitionContainerDefinitionsFirelensConfigurationDetails_type,
     awsEcsTaskDefinitionContainerDefinitionsFirelensConfigurationDetails_options,
+    awsEcsTaskDefinitionContainerDefinitionsFirelensConfigurationDetails_type,
 
     -- * AwsEcsTaskDefinitionContainerDefinitionsHealthCheckDetails
     AwsEcsTaskDefinitionContainerDefinitionsHealthCheckDetails (..),
     newAwsEcsTaskDefinitionContainerDefinitionsHealthCheckDetails,
     awsEcsTaskDefinitionContainerDefinitionsHealthCheckDetails_command,
-    awsEcsTaskDefinitionContainerDefinitionsHealthCheckDetails_startPeriod,
-    awsEcsTaskDefinitionContainerDefinitionsHealthCheckDetails_retries,
     awsEcsTaskDefinitionContainerDefinitionsHealthCheckDetails_interval,
+    awsEcsTaskDefinitionContainerDefinitionsHealthCheckDetails_retries,
+    awsEcsTaskDefinitionContainerDefinitionsHealthCheckDetails_startPeriod,
     awsEcsTaskDefinitionContainerDefinitionsHealthCheckDetails_timeout,
 
     -- * AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersCapabilitiesDetails
     AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersCapabilitiesDetails (..),
     newAwsEcsTaskDefinitionContainerDefinitionsLinuxParametersCapabilitiesDetails,
-    awsEcsTaskDefinitionContainerDefinitionsLinuxParametersCapabilitiesDetails_drop,
     awsEcsTaskDefinitionContainerDefinitionsLinuxParametersCapabilitiesDetails_add,
+    awsEcsTaskDefinitionContainerDefinitionsLinuxParametersCapabilitiesDetails_drop,
 
     -- * AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersDetails
     AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersDetails (..),
     newAwsEcsTaskDefinitionContainerDefinitionsLinuxParametersDetails,
-    awsEcsTaskDefinitionContainerDefinitionsLinuxParametersDetails_sharedMemorySize,
-    awsEcsTaskDefinitionContainerDefinitionsLinuxParametersDetails_tmpfs,
-    awsEcsTaskDefinitionContainerDefinitionsLinuxParametersDetails_initProcessEnabled,
-    awsEcsTaskDefinitionContainerDefinitionsLinuxParametersDetails_swappiness,
-    awsEcsTaskDefinitionContainerDefinitionsLinuxParametersDetails_devices,
     awsEcsTaskDefinitionContainerDefinitionsLinuxParametersDetails_capabilities,
+    awsEcsTaskDefinitionContainerDefinitionsLinuxParametersDetails_devices,
+    awsEcsTaskDefinitionContainerDefinitionsLinuxParametersDetails_initProcessEnabled,
     awsEcsTaskDefinitionContainerDefinitionsLinuxParametersDetails_maxSwap,
+    awsEcsTaskDefinitionContainerDefinitionsLinuxParametersDetails_sharedMemorySize,
+    awsEcsTaskDefinitionContainerDefinitionsLinuxParametersDetails_swappiness,
+    awsEcsTaskDefinitionContainerDefinitionsLinuxParametersDetails_tmpfs,
 
     -- * AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersDevicesDetails
     AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersDevicesDetails (..),
@@ -1270,9 +1595,9 @@ module Amazonka.SecurityHub.Types
     -- * AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersTmpfsDetails
     AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersTmpfsDetails (..),
     newAwsEcsTaskDefinitionContainerDefinitionsLinuxParametersTmpfsDetails,
-    awsEcsTaskDefinitionContainerDefinitionsLinuxParametersTmpfsDetails_size,
     awsEcsTaskDefinitionContainerDefinitionsLinuxParametersTmpfsDetails_containerPath,
     awsEcsTaskDefinitionContainerDefinitionsLinuxParametersTmpfsDetails_mountOptions,
+    awsEcsTaskDefinitionContainerDefinitionsLinuxParametersTmpfsDetails_size,
 
     -- * AwsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails
     AwsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails (..),
@@ -1291,15 +1616,15 @@ module Amazonka.SecurityHub.Types
     AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails (..),
     newAwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails,
     awsEcsTaskDefinitionContainerDefinitionsMountPointsDetails_containerPath,
-    awsEcsTaskDefinitionContainerDefinitionsMountPointsDetails_sourceVolume,
     awsEcsTaskDefinitionContainerDefinitionsMountPointsDetails_readOnly,
+    awsEcsTaskDefinitionContainerDefinitionsMountPointsDetails_sourceVolume,
 
     -- * AwsEcsTaskDefinitionContainerDefinitionsPortMappingsDetails
     AwsEcsTaskDefinitionContainerDefinitionsPortMappingsDetails (..),
     newAwsEcsTaskDefinitionContainerDefinitionsPortMappingsDetails,
-    awsEcsTaskDefinitionContainerDefinitionsPortMappingsDetails_protocol,
-    awsEcsTaskDefinitionContainerDefinitionsPortMappingsDetails_hostPort,
     awsEcsTaskDefinitionContainerDefinitionsPortMappingsDetails_containerPort,
+    awsEcsTaskDefinitionContainerDefinitionsPortMappingsDetails_hostPort,
+    awsEcsTaskDefinitionContainerDefinitionsPortMappingsDetails_protocol,
 
     -- * AwsEcsTaskDefinitionContainerDefinitionsRepositoryCredentialsDetails
     AwsEcsTaskDefinitionContainerDefinitionsRepositoryCredentialsDetails (..),
@@ -1309,8 +1634,8 @@ module Amazonka.SecurityHub.Types
     -- * AwsEcsTaskDefinitionContainerDefinitionsResourceRequirementsDetails
     AwsEcsTaskDefinitionContainerDefinitionsResourceRequirementsDetails (..),
     newAwsEcsTaskDefinitionContainerDefinitionsResourceRequirementsDetails,
-    awsEcsTaskDefinitionContainerDefinitionsResourceRequirementsDetails_value,
     awsEcsTaskDefinitionContainerDefinitionsResourceRequirementsDetails_type,
+    awsEcsTaskDefinitionContainerDefinitionsResourceRequirementsDetails_value,
 
     -- * AwsEcsTaskDefinitionContainerDefinitionsSecretsDetails
     AwsEcsTaskDefinitionContainerDefinitionsSecretsDetails (..),
@@ -1327,33 +1652,33 @@ module Amazonka.SecurityHub.Types
     -- * AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails
     AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails (..),
     newAwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails,
-    awsEcsTaskDefinitionContainerDefinitionsUlimitsDetails_name,
     awsEcsTaskDefinitionContainerDefinitionsUlimitsDetails_hardLimit,
+    awsEcsTaskDefinitionContainerDefinitionsUlimitsDetails_name,
     awsEcsTaskDefinitionContainerDefinitionsUlimitsDetails_softLimit,
 
     -- * AwsEcsTaskDefinitionContainerDefinitionsVolumesFromDetails
     AwsEcsTaskDefinitionContainerDefinitionsVolumesFromDetails (..),
     newAwsEcsTaskDefinitionContainerDefinitionsVolumesFromDetails,
-    awsEcsTaskDefinitionContainerDefinitionsVolumesFromDetails_sourceContainer,
     awsEcsTaskDefinitionContainerDefinitionsVolumesFromDetails_readOnly,
+    awsEcsTaskDefinitionContainerDefinitionsVolumesFromDetails_sourceContainer,
 
     -- * AwsEcsTaskDefinitionDetails
     AwsEcsTaskDefinitionDetails (..),
     newAwsEcsTaskDefinitionDetails,
-    awsEcsTaskDefinitionDetails_inferenceAccelerators,
-    awsEcsTaskDefinitionDetails_executionRoleArn,
-    awsEcsTaskDefinitionDetails_pidMode,
-    awsEcsTaskDefinitionDetails_family,
-    awsEcsTaskDefinitionDetails_requiresCompatibilities,
     awsEcsTaskDefinitionDetails_containerDefinitions,
-    awsEcsTaskDefinitionDetails_memory,
-    awsEcsTaskDefinitionDetails_ipcMode,
-    awsEcsTaskDefinitionDetails_taskRoleArn,
-    awsEcsTaskDefinitionDetails_proxyConfiguration,
-    awsEcsTaskDefinitionDetails_placementConstraints,
-    awsEcsTaskDefinitionDetails_networkMode,
-    awsEcsTaskDefinitionDetails_volumes,
     awsEcsTaskDefinitionDetails_cpu,
+    awsEcsTaskDefinitionDetails_executionRoleArn,
+    awsEcsTaskDefinitionDetails_family,
+    awsEcsTaskDefinitionDetails_inferenceAccelerators,
+    awsEcsTaskDefinitionDetails_ipcMode,
+    awsEcsTaskDefinitionDetails_memory,
+    awsEcsTaskDefinitionDetails_networkMode,
+    awsEcsTaskDefinitionDetails_pidMode,
+    awsEcsTaskDefinitionDetails_placementConstraints,
+    awsEcsTaskDefinitionDetails_proxyConfiguration,
+    awsEcsTaskDefinitionDetails_requiresCompatibilities,
+    awsEcsTaskDefinitionDetails_taskRoleArn,
+    awsEcsTaskDefinitionDetails_volumes,
 
     -- * AwsEcsTaskDefinitionInferenceAcceleratorsDetails
     AwsEcsTaskDefinitionInferenceAcceleratorsDetails (..),
@@ -1370,46 +1695,46 @@ module Amazonka.SecurityHub.Types
     -- * AwsEcsTaskDefinitionProxyConfigurationDetails
     AwsEcsTaskDefinitionProxyConfigurationDetails (..),
     newAwsEcsTaskDefinitionProxyConfigurationDetails,
-    awsEcsTaskDefinitionProxyConfigurationDetails_proxyConfigurationProperties,
     awsEcsTaskDefinitionProxyConfigurationDetails_containerName,
+    awsEcsTaskDefinitionProxyConfigurationDetails_proxyConfigurationProperties,
     awsEcsTaskDefinitionProxyConfigurationDetails_type,
 
     -- * AwsEcsTaskDefinitionProxyConfigurationProxyConfigurationPropertiesDetails
     AwsEcsTaskDefinitionProxyConfigurationProxyConfigurationPropertiesDetails (..),
     newAwsEcsTaskDefinitionProxyConfigurationProxyConfigurationPropertiesDetails,
-    awsEcsTaskDefinitionProxyConfigurationProxyConfigurationPropertiesDetails_value,
     awsEcsTaskDefinitionProxyConfigurationProxyConfigurationPropertiesDetails_name,
+    awsEcsTaskDefinitionProxyConfigurationProxyConfigurationPropertiesDetails_value,
 
     -- * AwsEcsTaskDefinitionVolumesDetails
     AwsEcsTaskDefinitionVolumesDetails (..),
     newAwsEcsTaskDefinitionVolumesDetails,
     awsEcsTaskDefinitionVolumesDetails_dockerVolumeConfiguration,
-    awsEcsTaskDefinitionVolumesDetails_name,
     awsEcsTaskDefinitionVolumesDetails_efsVolumeConfiguration,
     awsEcsTaskDefinitionVolumesDetails_host,
+    awsEcsTaskDefinitionVolumesDetails_name,
 
     -- * AwsEcsTaskDefinitionVolumesDockerVolumeConfigurationDetails
     AwsEcsTaskDefinitionVolumesDockerVolumeConfigurationDetails (..),
     newAwsEcsTaskDefinitionVolumesDockerVolumeConfigurationDetails,
+    awsEcsTaskDefinitionVolumesDockerVolumeConfigurationDetails_autoprovision,
     awsEcsTaskDefinitionVolumesDockerVolumeConfigurationDetails_driver,
     awsEcsTaskDefinitionVolumesDockerVolumeConfigurationDetails_driverOpts,
-    awsEcsTaskDefinitionVolumesDockerVolumeConfigurationDetails_scope,
     awsEcsTaskDefinitionVolumesDockerVolumeConfigurationDetails_labels,
-    awsEcsTaskDefinitionVolumesDockerVolumeConfigurationDetails_autoprovision,
+    awsEcsTaskDefinitionVolumesDockerVolumeConfigurationDetails_scope,
 
     -- * AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails
     AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails (..),
     newAwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails,
-    awsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails_iam,
     awsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails_accessPointId,
+    awsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails_iam,
 
     -- * AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationDetails
     AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationDetails (..),
     newAwsEcsTaskDefinitionVolumesEfsVolumeConfigurationDetails,
+    awsEcsTaskDefinitionVolumesEfsVolumeConfigurationDetails_authorizationConfig,
+    awsEcsTaskDefinitionVolumesEfsVolumeConfigurationDetails_filesystemId,
     awsEcsTaskDefinitionVolumesEfsVolumeConfigurationDetails_rootDirectory,
     awsEcsTaskDefinitionVolumesEfsVolumeConfigurationDetails_transitEncryption,
-    awsEcsTaskDefinitionVolumesEfsVolumeConfigurationDetails_filesystemId,
-    awsEcsTaskDefinitionVolumesEfsVolumeConfigurationDetails_authorizationConfig,
     awsEcsTaskDefinitionVolumesEfsVolumeConfigurationDetails_transitEncryptionPort,
 
     -- * AwsEcsTaskDefinitionVolumesHostDetails
@@ -1417,18 +1742,72 @@ module Amazonka.SecurityHub.Types
     newAwsEcsTaskDefinitionVolumesHostDetails,
     awsEcsTaskDefinitionVolumesHostDetails_sourcePath,
 
+    -- * AwsEcsTaskDetails
+    AwsEcsTaskDetails (..),
+    newAwsEcsTaskDetails,
+    awsEcsTaskDetails_clusterArn,
+    awsEcsTaskDetails_containers,
+    awsEcsTaskDetails_createdAt,
+    awsEcsTaskDetails_group,
+    awsEcsTaskDetails_startedAt,
+    awsEcsTaskDetails_startedBy,
+    awsEcsTaskDetails_taskDefinitionArn,
+    awsEcsTaskDetails_version,
+    awsEcsTaskDetails_volumes,
+
+    -- * AwsEcsTaskVolumeDetails
+    AwsEcsTaskVolumeDetails (..),
+    newAwsEcsTaskVolumeDetails,
+    awsEcsTaskVolumeDetails_host,
+    awsEcsTaskVolumeDetails_name,
+
+    -- * AwsEcsTaskVolumeHostDetails
+    AwsEcsTaskVolumeHostDetails (..),
+    newAwsEcsTaskVolumeHostDetails,
+    awsEcsTaskVolumeHostDetails_sourcePath,
+
+    -- * AwsEfsAccessPointDetails
+    AwsEfsAccessPointDetails (..),
+    newAwsEfsAccessPointDetails,
+    awsEfsAccessPointDetails_accessPointId,
+    awsEfsAccessPointDetails_arn,
+    awsEfsAccessPointDetails_clientToken,
+    awsEfsAccessPointDetails_fileSystemId,
+    awsEfsAccessPointDetails_posixUser,
+    awsEfsAccessPointDetails_rootDirectory,
+
+    -- * AwsEfsAccessPointPosixUserDetails
+    AwsEfsAccessPointPosixUserDetails (..),
+    newAwsEfsAccessPointPosixUserDetails,
+    awsEfsAccessPointPosixUserDetails_gid,
+    awsEfsAccessPointPosixUserDetails_secondaryGids,
+    awsEfsAccessPointPosixUserDetails_uid,
+
+    -- * AwsEfsAccessPointRootDirectoryCreationInfoDetails
+    AwsEfsAccessPointRootDirectoryCreationInfoDetails (..),
+    newAwsEfsAccessPointRootDirectoryCreationInfoDetails,
+    awsEfsAccessPointRootDirectoryCreationInfoDetails_ownerGid,
+    awsEfsAccessPointRootDirectoryCreationInfoDetails_ownerUid,
+    awsEfsAccessPointRootDirectoryCreationInfoDetails_permissions,
+
+    -- * AwsEfsAccessPointRootDirectoryDetails
+    AwsEfsAccessPointRootDirectoryDetails (..),
+    newAwsEfsAccessPointRootDirectoryDetails,
+    awsEfsAccessPointRootDirectoryDetails_creationInfo,
+    awsEfsAccessPointRootDirectoryDetails_path,
+
     -- * AwsEksClusterDetails
     AwsEksClusterDetails (..),
     newAwsEksClusterDetails,
     awsEksClusterDetails_arn,
     awsEksClusterDetails_certificateAuthorityData,
-    awsEksClusterDetails_name,
-    awsEksClusterDetails_version,
-    awsEksClusterDetails_logging,
-    awsEksClusterDetails_endpoint,
-    awsEksClusterDetails_resourcesVpcConfig,
     awsEksClusterDetails_clusterStatus,
+    awsEksClusterDetails_endpoint,
+    awsEksClusterDetails_logging,
+    awsEksClusterDetails_name,
+    awsEksClusterDetails_resourcesVpcConfig,
     awsEksClusterDetails_roleArn,
+    awsEksClusterDetails_version,
 
     -- * AwsEksClusterLoggingClusterLoggingDetails
     AwsEksClusterLoggingClusterLoggingDetails (..),
@@ -1450,60 +1829,60 @@ module Amazonka.SecurityHub.Types
     -- * AwsElasticBeanstalkEnvironmentDetails
     AwsElasticBeanstalkEnvironmentDetails (..),
     newAwsElasticBeanstalkEnvironmentDetails,
-    awsElasticBeanstalkEnvironmentDetails_status,
-    awsElasticBeanstalkEnvironmentDetails_cname,
-    awsElasticBeanstalkEnvironmentDetails_endpointUrl,
-    awsElasticBeanstalkEnvironmentDetails_optionSettings,
-    awsElasticBeanstalkEnvironmentDetails_dateUpdated,
-    awsElasticBeanstalkEnvironmentDetails_dateCreated,
-    awsElasticBeanstalkEnvironmentDetails_versionLabel,
-    awsElasticBeanstalkEnvironmentDetails_platformArn,
-    awsElasticBeanstalkEnvironmentDetails_tier,
-    awsElasticBeanstalkEnvironmentDetails_environmentName,
     awsElasticBeanstalkEnvironmentDetails_applicationName,
+    awsElasticBeanstalkEnvironmentDetails_cname,
+    awsElasticBeanstalkEnvironmentDetails_dateCreated,
+    awsElasticBeanstalkEnvironmentDetails_dateUpdated,
+    awsElasticBeanstalkEnvironmentDetails_description,
+    awsElasticBeanstalkEnvironmentDetails_endpointUrl,
     awsElasticBeanstalkEnvironmentDetails_environmentArn,
-    awsElasticBeanstalkEnvironmentDetails_solutionStackName,
     awsElasticBeanstalkEnvironmentDetails_environmentId,
     awsElasticBeanstalkEnvironmentDetails_environmentLinks,
-    awsElasticBeanstalkEnvironmentDetails_description,
+    awsElasticBeanstalkEnvironmentDetails_environmentName,
+    awsElasticBeanstalkEnvironmentDetails_optionSettings,
+    awsElasticBeanstalkEnvironmentDetails_platformArn,
+    awsElasticBeanstalkEnvironmentDetails_solutionStackName,
+    awsElasticBeanstalkEnvironmentDetails_status,
+    awsElasticBeanstalkEnvironmentDetails_tier,
+    awsElasticBeanstalkEnvironmentDetails_versionLabel,
 
     -- * AwsElasticBeanstalkEnvironmentEnvironmentLink
     AwsElasticBeanstalkEnvironmentEnvironmentLink (..),
     newAwsElasticBeanstalkEnvironmentEnvironmentLink,
-    awsElasticBeanstalkEnvironmentEnvironmentLink_linkName,
     awsElasticBeanstalkEnvironmentEnvironmentLink_environmentName,
+    awsElasticBeanstalkEnvironmentEnvironmentLink_linkName,
 
     -- * AwsElasticBeanstalkEnvironmentOptionSetting
     AwsElasticBeanstalkEnvironmentOptionSetting (..),
     newAwsElasticBeanstalkEnvironmentOptionSetting,
+    awsElasticBeanstalkEnvironmentOptionSetting_namespace,
     awsElasticBeanstalkEnvironmentOptionSetting_optionName,
     awsElasticBeanstalkEnvironmentOptionSetting_resourceName,
-    awsElasticBeanstalkEnvironmentOptionSetting_namespace,
     awsElasticBeanstalkEnvironmentOptionSetting_value,
 
     -- * AwsElasticBeanstalkEnvironmentTier
     AwsElasticBeanstalkEnvironmentTier (..),
     newAwsElasticBeanstalkEnvironmentTier,
     awsElasticBeanstalkEnvironmentTier_name,
-    awsElasticBeanstalkEnvironmentTier_version,
     awsElasticBeanstalkEnvironmentTier_type,
+    awsElasticBeanstalkEnvironmentTier_version,
 
     -- * AwsElasticsearchDomainDetails
     AwsElasticsearchDomainDetails (..),
     newAwsElasticsearchDomainDetails,
-    awsElasticsearchDomainDetails_nodeToNodeEncryptionOptions,
     awsElasticsearchDomainDetails_accessPolicies,
-    awsElasticsearchDomainDetails_serviceSoftwareOptions,
-    awsElasticsearchDomainDetails_logPublishingOptions,
-    awsElasticsearchDomainDetails_elasticsearchClusterConfig,
-    awsElasticsearchDomainDetails_domainName,
-    awsElasticsearchDomainDetails_encryptionAtRestOptions,
-    awsElasticsearchDomainDetails_vPCOptions,
-    awsElasticsearchDomainDetails_domainId,
-    awsElasticsearchDomainDetails_endpoints,
     awsElasticsearchDomainDetails_domainEndpointOptions,
-    awsElasticsearchDomainDetails_endpoint,
+    awsElasticsearchDomainDetails_domainId,
+    awsElasticsearchDomainDetails_domainName,
+    awsElasticsearchDomainDetails_elasticsearchClusterConfig,
     awsElasticsearchDomainDetails_elasticsearchVersion,
+    awsElasticsearchDomainDetails_encryptionAtRestOptions,
+    awsElasticsearchDomainDetails_endpoint,
+    awsElasticsearchDomainDetails_endpoints,
+    awsElasticsearchDomainDetails_logPublishingOptions,
+    awsElasticsearchDomainDetails_nodeToNodeEncryptionOptions,
+    awsElasticsearchDomainDetails_serviceSoftwareOptions,
+    awsElasticsearchDomainDetails_vPCOptions,
 
     -- * AwsElasticsearchDomainDomainEndpointOptions
     AwsElasticsearchDomainDomainEndpointOptions (..),
@@ -1515,12 +1894,12 @@ module Amazonka.SecurityHub.Types
     AwsElasticsearchDomainElasticsearchClusterConfigDetails (..),
     newAwsElasticsearchDomainElasticsearchClusterConfigDetails,
     awsElasticsearchDomainElasticsearchClusterConfigDetails_dedicatedMasterCount,
-    awsElasticsearchDomainElasticsearchClusterConfigDetails_dedicatedMasterType,
     awsElasticsearchDomainElasticsearchClusterConfigDetails_dedicatedMasterEnabled,
+    awsElasticsearchDomainElasticsearchClusterConfigDetails_dedicatedMasterType,
     awsElasticsearchDomainElasticsearchClusterConfigDetails_instanceCount,
-    awsElasticsearchDomainElasticsearchClusterConfigDetails_zoneAwarenessEnabled,
     awsElasticsearchDomainElasticsearchClusterConfigDetails_instanceType,
     awsElasticsearchDomainElasticsearchClusterConfigDetails_zoneAwarenessConfig,
+    awsElasticsearchDomainElasticsearchClusterConfigDetails_zoneAwarenessEnabled,
 
     -- * AwsElasticsearchDomainElasticsearchClusterConfigZoneAwarenessConfigDetails
     AwsElasticsearchDomainElasticsearchClusterConfigZoneAwarenessConfigDetails (..),
@@ -1536,15 +1915,15 @@ module Amazonka.SecurityHub.Types
     -- * AwsElasticsearchDomainLogPublishingOptions
     AwsElasticsearchDomainLogPublishingOptions (..),
     newAwsElasticsearchDomainLogPublishingOptions,
+    awsElasticsearchDomainLogPublishingOptions_auditLogs,
     awsElasticsearchDomainLogPublishingOptions_indexSlowLogs,
     awsElasticsearchDomainLogPublishingOptions_searchSlowLogs,
-    awsElasticsearchDomainLogPublishingOptions_auditLogs,
 
     -- * AwsElasticsearchDomainLogPublishingOptionsLogConfig
     AwsElasticsearchDomainLogPublishingOptionsLogConfig (..),
     newAwsElasticsearchDomainLogPublishingOptionsLogConfig,
-    awsElasticsearchDomainLogPublishingOptionsLogConfig_enabled,
     awsElasticsearchDomainLogPublishingOptionsLogConfig_cloudWatchLogsLogGroupArn,
+    awsElasticsearchDomainLogPublishingOptionsLogConfig_enabled,
 
     -- * AwsElasticsearchDomainNodeToNodeEncryptionOptions
     AwsElasticsearchDomainNodeToNodeEncryptionOptions (..),
@@ -1555,54 +1934,61 @@ module Amazonka.SecurityHub.Types
     AwsElasticsearchDomainServiceSoftwareOptions (..),
     newAwsElasticsearchDomainServiceSoftwareOptions,
     awsElasticsearchDomainServiceSoftwareOptions_automatedUpdateDate,
-    awsElasticsearchDomainServiceSoftwareOptions_currentVersion,
-    awsElasticsearchDomainServiceSoftwareOptions_updateStatus,
     awsElasticsearchDomainServiceSoftwareOptions_cancellable,
-    awsElasticsearchDomainServiceSoftwareOptions_updateAvailable,
+    awsElasticsearchDomainServiceSoftwareOptions_currentVersion,
     awsElasticsearchDomainServiceSoftwareOptions_description,
     awsElasticsearchDomainServiceSoftwareOptions_newVersion,
+    awsElasticsearchDomainServiceSoftwareOptions_updateAvailable,
+    awsElasticsearchDomainServiceSoftwareOptions_updateStatus,
 
     -- * AwsElasticsearchDomainVPCOptions
     AwsElasticsearchDomainVPCOptions (..),
     newAwsElasticsearchDomainVPCOptions,
+    awsElasticsearchDomainVPCOptions_availabilityZones,
     awsElasticsearchDomainVPCOptions_securityGroupIds,
     awsElasticsearchDomainVPCOptions_subnetIds,
     awsElasticsearchDomainVPCOptions_vPCId,
-    awsElasticsearchDomainVPCOptions_availabilityZones,
 
     -- * AwsElbAppCookieStickinessPolicy
     AwsElbAppCookieStickinessPolicy (..),
     newAwsElbAppCookieStickinessPolicy,
-    awsElbAppCookieStickinessPolicy_policyName,
     awsElbAppCookieStickinessPolicy_cookieName,
+    awsElbAppCookieStickinessPolicy_policyName,
 
     -- * AwsElbLbCookieStickinessPolicy
     AwsElbLbCookieStickinessPolicy (..),
     newAwsElbLbCookieStickinessPolicy,
-    awsElbLbCookieStickinessPolicy_policyName,
     awsElbLbCookieStickinessPolicy_cookieExpirationPeriod,
+    awsElbLbCookieStickinessPolicy_policyName,
 
     -- * AwsElbLoadBalancerAccessLog
     AwsElbLoadBalancerAccessLog (..),
     newAwsElbLoadBalancerAccessLog,
     awsElbLoadBalancerAccessLog_emitInterval,
     awsElbLoadBalancerAccessLog_enabled,
-    awsElbLoadBalancerAccessLog_s3BucketPrefix,
     awsElbLoadBalancerAccessLog_s3BucketName,
+    awsElbLoadBalancerAccessLog_s3BucketPrefix,
+
+    -- * AwsElbLoadBalancerAdditionalAttribute
+    AwsElbLoadBalancerAdditionalAttribute (..),
+    newAwsElbLoadBalancerAdditionalAttribute,
+    awsElbLoadBalancerAdditionalAttribute_key,
+    awsElbLoadBalancerAdditionalAttribute_value,
 
     -- * AwsElbLoadBalancerAttributes
     AwsElbLoadBalancerAttributes (..),
     newAwsElbLoadBalancerAttributes,
-    awsElbLoadBalancerAttributes_crossZoneLoadBalancing,
     awsElbLoadBalancerAttributes_accessLog,
-    awsElbLoadBalancerAttributes_connectionSettings,
+    awsElbLoadBalancerAttributes_additionalAttributes,
     awsElbLoadBalancerAttributes_connectionDraining,
+    awsElbLoadBalancerAttributes_connectionSettings,
+    awsElbLoadBalancerAttributes_crossZoneLoadBalancing,
 
     -- * AwsElbLoadBalancerBackendServerDescription
     AwsElbLoadBalancerBackendServerDescription (..),
     newAwsElbLoadBalancerBackendServerDescription,
-    awsElbLoadBalancerBackendServerDescription_policyNames,
     awsElbLoadBalancerBackendServerDescription_instancePort,
+    awsElbLoadBalancerBackendServerDescription_policyNames,
 
     -- * AwsElbLoadBalancerConnectionDraining
     AwsElbLoadBalancerConnectionDraining (..),
@@ -1623,32 +2009,32 @@ module Amazonka.SecurityHub.Types
     -- * AwsElbLoadBalancerDetails
     AwsElbLoadBalancerDetails (..),
     newAwsElbLoadBalancerDetails,
-    awsElbLoadBalancerDetails_sourceSecurityGroup,
-    awsElbLoadBalancerDetails_canonicalHostedZoneName,
-    awsElbLoadBalancerDetails_securityGroups,
-    awsElbLoadBalancerDetails_healthCheck,
-    awsElbLoadBalancerDetails_loadBalancerName,
-    awsElbLoadBalancerDetails_loadBalancerAttributes,
-    awsElbLoadBalancerDetails_createdTime,
-    awsElbLoadBalancerDetails_vpcId,
-    awsElbLoadBalancerDetails_subnets,
     awsElbLoadBalancerDetails_availabilityZones,
     awsElbLoadBalancerDetails_backendServerDescriptions,
+    awsElbLoadBalancerDetails_canonicalHostedZoneName,
     awsElbLoadBalancerDetails_canonicalHostedZoneNameID,
-    awsElbLoadBalancerDetails_instances,
-    awsElbLoadBalancerDetails_scheme,
-    awsElbLoadBalancerDetails_listenerDescriptions,
+    awsElbLoadBalancerDetails_createdTime,
     awsElbLoadBalancerDetails_dnsName,
+    awsElbLoadBalancerDetails_healthCheck,
+    awsElbLoadBalancerDetails_instances,
+    awsElbLoadBalancerDetails_listenerDescriptions,
+    awsElbLoadBalancerDetails_loadBalancerAttributes,
+    awsElbLoadBalancerDetails_loadBalancerName,
     awsElbLoadBalancerDetails_policies,
+    awsElbLoadBalancerDetails_scheme,
+    awsElbLoadBalancerDetails_securityGroups,
+    awsElbLoadBalancerDetails_sourceSecurityGroup,
+    awsElbLoadBalancerDetails_subnets,
+    awsElbLoadBalancerDetails_vpcId,
 
     -- * AwsElbLoadBalancerHealthCheck
     AwsElbLoadBalancerHealthCheck (..),
     newAwsElbLoadBalancerHealthCheck,
     awsElbLoadBalancerHealthCheck_healthyThreshold,
     awsElbLoadBalancerHealthCheck_interval,
+    awsElbLoadBalancerHealthCheck_target,
     awsElbLoadBalancerHealthCheck_timeout,
     awsElbLoadBalancerHealthCheck_unhealthyThreshold,
-    awsElbLoadBalancerHealthCheck_target,
 
     -- * AwsElbLoadBalancerInstance
     AwsElbLoadBalancerInstance (..),
@@ -1658,8 +2044,8 @@ module Amazonka.SecurityHub.Types
     -- * AwsElbLoadBalancerListener
     AwsElbLoadBalancerListener (..),
     newAwsElbLoadBalancerListener,
-    awsElbLoadBalancerListener_instanceProtocol,
     awsElbLoadBalancerListener_instancePort,
+    awsElbLoadBalancerListener_instanceProtocol,
     awsElbLoadBalancerListener_loadBalancerPort,
     awsElbLoadBalancerListener_protocol,
     awsElbLoadBalancerListener_sslCertificateId,
@@ -1667,55 +2053,55 @@ module Amazonka.SecurityHub.Types
     -- * AwsElbLoadBalancerListenerDescription
     AwsElbLoadBalancerListenerDescription (..),
     newAwsElbLoadBalancerListenerDescription,
-    awsElbLoadBalancerListenerDescription_policyNames,
     awsElbLoadBalancerListenerDescription_listener,
+    awsElbLoadBalancerListenerDescription_policyNames,
 
     -- * AwsElbLoadBalancerPolicies
     AwsElbLoadBalancerPolicies (..),
     newAwsElbLoadBalancerPolicies,
-    awsElbLoadBalancerPolicies_otherPolicies,
-    awsElbLoadBalancerPolicies_lbCookieStickinessPolicies,
     awsElbLoadBalancerPolicies_appCookieStickinessPolicies,
+    awsElbLoadBalancerPolicies_lbCookieStickinessPolicies,
+    awsElbLoadBalancerPolicies_otherPolicies,
 
     -- * AwsElbLoadBalancerSourceSecurityGroup
     AwsElbLoadBalancerSourceSecurityGroup (..),
     newAwsElbLoadBalancerSourceSecurityGroup,
-    awsElbLoadBalancerSourceSecurityGroup_ownerAlias,
     awsElbLoadBalancerSourceSecurityGroup_groupName,
+    awsElbLoadBalancerSourceSecurityGroup_ownerAlias,
 
     -- * AwsElbv2LoadBalancerAttribute
     AwsElbv2LoadBalancerAttribute (..),
     newAwsElbv2LoadBalancerAttribute,
-    awsElbv2LoadBalancerAttribute_value,
     awsElbv2LoadBalancerAttribute_key,
+    awsElbv2LoadBalancerAttribute_value,
 
     -- * AwsElbv2LoadBalancerDetails
     AwsElbv2LoadBalancerDetails (..),
     newAwsElbv2LoadBalancerDetails,
-    awsElbv2LoadBalancerDetails_state,
-    awsElbv2LoadBalancerDetails_securityGroups,
-    awsElbv2LoadBalancerDetails_loadBalancerAttributes,
-    awsElbv2LoadBalancerDetails_createdTime,
-    awsElbv2LoadBalancerDetails_vpcId,
-    awsElbv2LoadBalancerDetails_canonicalHostedZoneId,
     awsElbv2LoadBalancerDetails_availabilityZones,
-    awsElbv2LoadBalancerDetails_ipAddressType,
-    awsElbv2LoadBalancerDetails_scheme,
-    awsElbv2LoadBalancerDetails_type,
+    awsElbv2LoadBalancerDetails_canonicalHostedZoneId,
+    awsElbv2LoadBalancerDetails_createdTime,
     awsElbv2LoadBalancerDetails_dNSName,
+    awsElbv2LoadBalancerDetails_ipAddressType,
+    awsElbv2LoadBalancerDetails_loadBalancerAttributes,
+    awsElbv2LoadBalancerDetails_scheme,
+    awsElbv2LoadBalancerDetails_securityGroups,
+    awsElbv2LoadBalancerDetails_state,
+    awsElbv2LoadBalancerDetails_type,
+    awsElbv2LoadBalancerDetails_vpcId,
 
     -- * AwsIamAccessKeyDetails
     AwsIamAccessKeyDetails (..),
     newAwsIamAccessKeyDetails,
-    awsIamAccessKeyDetails_status,
-    awsIamAccessKeyDetails_principalId,
-    awsIamAccessKeyDetails_principalType,
-    awsIamAccessKeyDetails_principalName,
-    awsIamAccessKeyDetails_createdAt,
-    awsIamAccessKeyDetails_userName,
-    awsIamAccessKeyDetails_sessionContext,
-    awsIamAccessKeyDetails_accountId,
     awsIamAccessKeyDetails_accessKeyId,
+    awsIamAccessKeyDetails_accountId,
+    awsIamAccessKeyDetails_createdAt,
+    awsIamAccessKeyDetails_principalId,
+    awsIamAccessKeyDetails_principalName,
+    awsIamAccessKeyDetails_principalType,
+    awsIamAccessKeyDetails_sessionContext,
+    awsIamAccessKeyDetails_status,
+    awsIamAccessKeyDetails_userName,
 
     -- * AwsIamAccessKeySessionContext
     AwsIamAccessKeySessionContext (..),
@@ -1732,27 +2118,27 @@ module Amazonka.SecurityHub.Types
     -- * AwsIamAccessKeySessionContextSessionIssuer
     AwsIamAccessKeySessionContextSessionIssuer (..),
     newAwsIamAccessKeySessionContextSessionIssuer,
-    awsIamAccessKeySessionContextSessionIssuer_principalId,
-    awsIamAccessKeySessionContextSessionIssuer_arn,
-    awsIamAccessKeySessionContextSessionIssuer_userName,
     awsIamAccessKeySessionContextSessionIssuer_accountId,
+    awsIamAccessKeySessionContextSessionIssuer_arn,
+    awsIamAccessKeySessionContextSessionIssuer_principalId,
     awsIamAccessKeySessionContextSessionIssuer_type,
+    awsIamAccessKeySessionContextSessionIssuer_userName,
 
     -- * AwsIamAttachedManagedPolicy
     AwsIamAttachedManagedPolicy (..),
     newAwsIamAttachedManagedPolicy,
-    awsIamAttachedManagedPolicy_policyName,
     awsIamAttachedManagedPolicy_policyArn,
+    awsIamAttachedManagedPolicy_policyName,
 
     -- * AwsIamGroupDetails
     AwsIamGroupDetails (..),
     newAwsIamGroupDetails,
-    awsIamGroupDetails_path,
+    awsIamGroupDetails_attachedManagedPolicies,
     awsIamGroupDetails_createDate,
     awsIamGroupDetails_groupId,
-    awsIamGroupDetails_groupPolicyList,
     awsIamGroupDetails_groupName,
-    awsIamGroupDetails_attachedManagedPolicies,
+    awsIamGroupDetails_groupPolicyList,
+    awsIamGroupDetails_path,
 
     -- * AwsIamGroupPolicy
     AwsIamGroupPolicy (..),
@@ -1762,64 +2148,64 @@ module Amazonka.SecurityHub.Types
     -- * AwsIamInstanceProfile
     AwsIamInstanceProfile (..),
     newAwsIamInstanceProfile,
-    awsIamInstanceProfile_roles,
     awsIamInstanceProfile_arn,
-    awsIamInstanceProfile_path,
     awsIamInstanceProfile_createDate,
     awsIamInstanceProfile_instanceProfileId,
     awsIamInstanceProfile_instanceProfileName,
+    awsIamInstanceProfile_path,
+    awsIamInstanceProfile_roles,
 
     -- * AwsIamInstanceProfileRole
     AwsIamInstanceProfileRole (..),
     newAwsIamInstanceProfileRole,
-    awsIamInstanceProfileRole_assumeRolePolicyDocument,
     awsIamInstanceProfileRole_arn,
-    awsIamInstanceProfileRole_path,
+    awsIamInstanceProfileRole_assumeRolePolicyDocument,
     awsIamInstanceProfileRole_createDate,
-    awsIamInstanceProfileRole_roleName,
+    awsIamInstanceProfileRole_path,
     awsIamInstanceProfileRole_roleId,
+    awsIamInstanceProfileRole_roleName,
 
     -- * AwsIamPermissionsBoundary
     AwsIamPermissionsBoundary (..),
     newAwsIamPermissionsBoundary,
-    awsIamPermissionsBoundary_permissionsBoundaryType,
     awsIamPermissionsBoundary_permissionsBoundaryArn,
+    awsIamPermissionsBoundary_permissionsBoundaryType,
 
     -- * AwsIamPolicyDetails
     AwsIamPolicyDetails (..),
     newAwsIamPolicyDetails,
-    awsIamPolicyDetails_policyName,
-    awsIamPolicyDetails_updateDate,
-    awsIamPolicyDetails_policyId,
-    awsIamPolicyDetails_path,
-    awsIamPolicyDetails_policyVersionList,
-    awsIamPolicyDetails_createDate,
-    awsIamPolicyDetails_isAttachable,
-    awsIamPolicyDetails_permissionsBoundaryUsageCount,
-    awsIamPolicyDetails_defaultVersionId,
     awsIamPolicyDetails_attachmentCount,
+    awsIamPolicyDetails_createDate,
+    awsIamPolicyDetails_defaultVersionId,
     awsIamPolicyDetails_description,
+    awsIamPolicyDetails_isAttachable,
+    awsIamPolicyDetails_path,
+    awsIamPolicyDetails_permissionsBoundaryUsageCount,
+    awsIamPolicyDetails_policyId,
+    awsIamPolicyDetails_policyName,
+    awsIamPolicyDetails_policyVersionList,
+    awsIamPolicyDetails_updateDate,
 
     -- * AwsIamPolicyVersion
     AwsIamPolicyVersion (..),
     newAwsIamPolicyVersion,
-    awsIamPolicyVersion_versionId,
     awsIamPolicyVersion_createDate,
     awsIamPolicyVersion_isDefaultVersion,
+    awsIamPolicyVersion_versionId,
 
     -- * AwsIamRoleDetails
     AwsIamRoleDetails (..),
     newAwsIamRoleDetails,
-    awsIamRoleDetails_maxSessionDuration,
     awsIamRoleDetails_assumeRolePolicyDocument,
-    awsIamRoleDetails_path,
-    awsIamRoleDetails_instanceProfileList,
-    awsIamRoleDetails_createDate,
-    awsIamRoleDetails_roleName,
-    awsIamRoleDetails_roleId,
-    awsIamRoleDetails_permissionsBoundary,
-    awsIamRoleDetails_rolePolicyList,
     awsIamRoleDetails_attachedManagedPolicies,
+    awsIamRoleDetails_createDate,
+    awsIamRoleDetails_instanceProfileList,
+    awsIamRoleDetails_maxSessionDuration,
+    awsIamRoleDetails_path,
+    awsIamRoleDetails_permissionsBoundary,
+    awsIamRoleDetails_roleId,
+    awsIamRoleDetails_roleName,
+    awsIamRoleDetails_rolePolicyList,
 
     -- * AwsIamRolePolicy
     AwsIamRolePolicy (..),
@@ -1829,39 +2215,54 @@ module Amazonka.SecurityHub.Types
     -- * AwsIamUserDetails
     AwsIamUserDetails (..),
     newAwsIamUserDetails,
+    awsIamUserDetails_attachedManagedPolicies,
+    awsIamUserDetails_createDate,
     awsIamUserDetails_groupList,
     awsIamUserDetails_path,
-    awsIamUserDetails_createDate,
-    awsIamUserDetails_userName,
-    awsIamUserDetails_userId,
     awsIamUserDetails_permissionsBoundary,
+    awsIamUserDetails_userId,
+    awsIamUserDetails_userName,
     awsIamUserDetails_userPolicyList,
-    awsIamUserDetails_attachedManagedPolicies,
 
     -- * AwsIamUserPolicy
     AwsIamUserPolicy (..),
     newAwsIamUserPolicy,
     awsIamUserPolicy_policyName,
 
+    -- * AwsKinesisStreamDetails
+    AwsKinesisStreamDetails (..),
+    newAwsKinesisStreamDetails,
+    awsKinesisStreamDetails_arn,
+    awsKinesisStreamDetails_name,
+    awsKinesisStreamDetails_retentionPeriodHours,
+    awsKinesisStreamDetails_shardCount,
+    awsKinesisStreamDetails_streamEncryption,
+
+    -- * AwsKinesisStreamStreamEncryptionDetails
+    AwsKinesisStreamStreamEncryptionDetails (..),
+    newAwsKinesisStreamStreamEncryptionDetails,
+    awsKinesisStreamStreamEncryptionDetails_encryptionType,
+    awsKinesisStreamStreamEncryptionDetails_keyId,
+
     -- * AwsKmsKeyDetails
     AwsKmsKeyDetails (..),
     newAwsKmsKeyDetails,
-    awsKmsKeyDetails_origin,
-    awsKmsKeyDetails_keyManager,
-    awsKmsKeyDetails_keyId,
-    awsKmsKeyDetails_keyState,
     awsKmsKeyDetails_aWSAccountId,
-    awsKmsKeyDetails_keyRotationStatus,
     awsKmsKeyDetails_creationDate,
     awsKmsKeyDetails_description,
+    awsKmsKeyDetails_keyId,
+    awsKmsKeyDetails_keyManager,
+    awsKmsKeyDetails_keyRotationStatus,
+    awsKmsKeyDetails_keyState,
+    awsKmsKeyDetails_origin,
 
     -- * AwsLambdaFunctionCode
     AwsLambdaFunctionCode (..),
     newAwsLambdaFunctionCode,
-    awsLambdaFunctionCode_s3ObjectVersion,
-    awsLambdaFunctionCode_s3Key,
-    awsLambdaFunctionCode_zipFile,
     awsLambdaFunctionCode_s3Bucket,
+    awsLambdaFunctionCode_s3Key,
+    awsLambdaFunctionCode_s3ObjectVersion,
+    awsLambdaFunctionCode_zipFile,
 
     -- * AwsLambdaFunctionDeadLetterConfig
     AwsLambdaFunctionDeadLetterConfig (..),
@@ -1871,30 +2272,32 @@ module Amazonka.SecurityHub.Types
     -- * AwsLambdaFunctionDetails
     AwsLambdaFunctionDetails (..),
     newAwsLambdaFunctionDetails,
-    awsLambdaFunctionDetails_memorySize,
-    awsLambdaFunctionDetails_runtime,
-    awsLambdaFunctionDetails_kmsKeyArn,
-    awsLambdaFunctionDetails_environment,
-    awsLambdaFunctionDetails_deadLetterConfig,
-    awsLambdaFunctionDetails_role,
-    awsLambdaFunctionDetails_vpcConfig,
-    awsLambdaFunctionDetails_version,
-    awsLambdaFunctionDetails_functionName,
+    awsLambdaFunctionDetails_architectures,
     awsLambdaFunctionDetails_code,
-    awsLambdaFunctionDetails_layers,
-    awsLambdaFunctionDetails_handler,
-    awsLambdaFunctionDetails_timeout,
-    awsLambdaFunctionDetails_lastModified,
     awsLambdaFunctionDetails_codeSha256,
-    awsLambdaFunctionDetails_tracingConfig,
-    awsLambdaFunctionDetails_revisionId,
+    awsLambdaFunctionDetails_deadLetterConfig,
+    awsLambdaFunctionDetails_environment,
+    awsLambdaFunctionDetails_functionName,
+    awsLambdaFunctionDetails_handler,
+    awsLambdaFunctionDetails_kmsKeyArn,
+    awsLambdaFunctionDetails_lastModified,
+    awsLambdaFunctionDetails_layers,
     awsLambdaFunctionDetails_masterArn,
+    awsLambdaFunctionDetails_memorySize,
+    awsLambdaFunctionDetails_packageType,
+    awsLambdaFunctionDetails_revisionId,
+    awsLambdaFunctionDetails_role,
+    awsLambdaFunctionDetails_runtime,
+    awsLambdaFunctionDetails_timeout,
+    awsLambdaFunctionDetails_tracingConfig,
+    awsLambdaFunctionDetails_version,
+    awsLambdaFunctionDetails_vpcConfig,
 
     -- * AwsLambdaFunctionEnvironment
     AwsLambdaFunctionEnvironment (..),
     newAwsLambdaFunctionEnvironment,
-    awsLambdaFunctionEnvironment_variables,
     awsLambdaFunctionEnvironment_error,
+    awsLambdaFunctionEnvironment_variables,
 
     -- * AwsLambdaFunctionEnvironmentError
     AwsLambdaFunctionEnvironmentError (..),
@@ -1923,23 +2326,75 @@ module Amazonka.SecurityHub.Types
     -- * AwsLambdaLayerVersionDetails
     AwsLambdaLayerVersionDetails (..),
     newAwsLambdaLayerVersionDetails,
+    awsLambdaLayerVersionDetails_compatibleRuntimes,
     awsLambdaLayerVersionDetails_createdDate,
     awsLambdaLayerVersionDetails_version,
-    awsLambdaLayerVersionDetails_compatibleRuntimes,
+
+    -- * AwsMountPoint
+    AwsMountPoint (..),
+    newAwsMountPoint,
+    awsMountPoint_containerPath,
+    awsMountPoint_sourceVolume,
+
+    -- * AwsNetworkFirewallFirewallDetails
+    AwsNetworkFirewallFirewallDetails (..),
+    newAwsNetworkFirewallFirewallDetails,
+    awsNetworkFirewallFirewallDetails_deleteProtection,
+    awsNetworkFirewallFirewallDetails_description,
+    awsNetworkFirewallFirewallDetails_firewallArn,
+    awsNetworkFirewallFirewallDetails_firewallId,
+    awsNetworkFirewallFirewallDetails_firewallName,
+    awsNetworkFirewallFirewallDetails_firewallPolicyArn,
+    awsNetworkFirewallFirewallDetails_firewallPolicyChangeProtection,
+    awsNetworkFirewallFirewallDetails_subnetChangeProtection,
+    awsNetworkFirewallFirewallDetails_subnetMappings,
+    awsNetworkFirewallFirewallDetails_vpcId,
+
+    -- * AwsNetworkFirewallFirewallPolicyDetails
+    AwsNetworkFirewallFirewallPolicyDetails (..),
+    newAwsNetworkFirewallFirewallPolicyDetails,
+    awsNetworkFirewallFirewallPolicyDetails_description,
+    awsNetworkFirewallFirewallPolicyDetails_firewallPolicy,
+    awsNetworkFirewallFirewallPolicyDetails_firewallPolicyArn,
+    awsNetworkFirewallFirewallPolicyDetails_firewallPolicyId,
+    awsNetworkFirewallFirewallPolicyDetails_firewallPolicyName,
+
+    -- * AwsNetworkFirewallFirewallSubnetMappingsDetails
+    AwsNetworkFirewallFirewallSubnetMappingsDetails (..),
+    newAwsNetworkFirewallFirewallSubnetMappingsDetails,
+    awsNetworkFirewallFirewallSubnetMappingsDetails_subnetId,
+
+    -- * AwsNetworkFirewallRuleGroupDetails
+    AwsNetworkFirewallRuleGroupDetails (..),
+    newAwsNetworkFirewallRuleGroupDetails,
+    awsNetworkFirewallRuleGroupDetails_capacity,
+    awsNetworkFirewallRuleGroupDetails_description,
+    awsNetworkFirewallRuleGroupDetails_ruleGroup,
+    awsNetworkFirewallRuleGroupDetails_ruleGroupArn,
+    awsNetworkFirewallRuleGroupDetails_ruleGroupId,
+    awsNetworkFirewallRuleGroupDetails_ruleGroupName,
+    awsNetworkFirewallRuleGroupDetails_type,
+
+    -- * AwsOpenSearchServiceDomainAdvancedSecurityOptionsDetails
+    AwsOpenSearchServiceDomainAdvancedSecurityOptionsDetails (..),
+    newAwsOpenSearchServiceDomainAdvancedSecurityOptionsDetails,
+    awsOpenSearchServiceDomainAdvancedSecurityOptionsDetails_enabled,
+    awsOpenSearchServiceDomainAdvancedSecurityOptionsDetails_internalUserDatabaseEnabled,
+    awsOpenSearchServiceDomainAdvancedSecurityOptionsDetails_masterUserOptions,
 
     -- * AwsOpenSearchServiceDomainClusterConfigDetails
     AwsOpenSearchServiceDomainClusterConfigDetails (..),
     newAwsOpenSearchServiceDomainClusterConfigDetails,
     awsOpenSearchServiceDomainClusterConfigDetails_dedicatedMasterCount,
-    awsOpenSearchServiceDomainClusterConfigDetails_dedicatedMasterType,
     awsOpenSearchServiceDomainClusterConfigDetails_dedicatedMasterEnabled,
+    awsOpenSearchServiceDomainClusterConfigDetails_dedicatedMasterType,
     awsOpenSearchServiceDomainClusterConfigDetails_instanceCount,
-    awsOpenSearchServiceDomainClusterConfigDetails_zoneAwarenessEnabled,
     awsOpenSearchServiceDomainClusterConfigDetails_instanceType,
-    awsOpenSearchServiceDomainClusterConfigDetails_warmEnabled,
-    awsOpenSearchServiceDomainClusterConfigDetails_zoneAwarenessConfig,
     awsOpenSearchServiceDomainClusterConfigDetails_warmCount,
+    awsOpenSearchServiceDomainClusterConfigDetails_warmEnabled,
     awsOpenSearchServiceDomainClusterConfigDetails_warmType,
+    awsOpenSearchServiceDomainClusterConfigDetails_zoneAwarenessConfig,
+    awsOpenSearchServiceDomainClusterConfigDetails_zoneAwarenessEnabled,
 
     -- * AwsOpenSearchServiceDomainClusterConfigZoneAwarenessConfigDetails
     AwsOpenSearchServiceDomainClusterConfigZoneAwarenessConfigDetails (..),
@@ -1949,29 +2404,30 @@ module Amazonka.SecurityHub.Types
     -- * AwsOpenSearchServiceDomainDetails
     AwsOpenSearchServiceDomainDetails (..),
     newAwsOpenSearchServiceDomainDetails,
-    awsOpenSearchServiceDomainDetails_engineVersion,
-    awsOpenSearchServiceDomainDetails_nodeToNodeEncryptionOptions,
     awsOpenSearchServiceDomainDetails_accessPolicies,
-    awsOpenSearchServiceDomainDetails_serviceSoftwareOptions,
+    awsOpenSearchServiceDomainDetails_advancedSecurityOptions,
     awsOpenSearchServiceDomainDetails_arn,
-    awsOpenSearchServiceDomainDetails_logPublishingOptions,
     awsOpenSearchServiceDomainDetails_clusterConfig,
-    awsOpenSearchServiceDomainDetails_domainName,
-    awsOpenSearchServiceDomainDetails_encryptionAtRestOptions,
-    awsOpenSearchServiceDomainDetails_vpcOptions,
-    awsOpenSearchServiceDomainDetails_id,
-    awsOpenSearchServiceDomainDetails_domainEndpoints,
     awsOpenSearchServiceDomainDetails_domainEndpoint,
     awsOpenSearchServiceDomainDetails_domainEndpointOptions,
+    awsOpenSearchServiceDomainDetails_domainEndpoints,
+    awsOpenSearchServiceDomainDetails_domainName,
+    awsOpenSearchServiceDomainDetails_encryptionAtRestOptions,
+    awsOpenSearchServiceDomainDetails_engineVersion,
+    awsOpenSearchServiceDomainDetails_id,
+    awsOpenSearchServiceDomainDetails_logPublishingOptions,
+    awsOpenSearchServiceDomainDetails_nodeToNodeEncryptionOptions,
+    awsOpenSearchServiceDomainDetails_serviceSoftwareOptions,
+    awsOpenSearchServiceDomainDetails_vpcOptions,
 
     -- * AwsOpenSearchServiceDomainDomainEndpointOptionsDetails
     AwsOpenSearchServiceDomainDomainEndpointOptionsDetails (..),
     newAwsOpenSearchServiceDomainDomainEndpointOptionsDetails,
-    awsOpenSearchServiceDomainDomainEndpointOptionsDetails_enforceHTTPS,
-    awsOpenSearchServiceDomainDomainEndpointOptionsDetails_tLSSecurityPolicy,
-    awsOpenSearchServiceDomainDomainEndpointOptionsDetails_customEndpointEnabled,
     awsOpenSearchServiceDomainDomainEndpointOptionsDetails_customEndpoint,
     awsOpenSearchServiceDomainDomainEndpointOptionsDetails_customEndpointCertificateArn,
+    awsOpenSearchServiceDomainDomainEndpointOptionsDetails_customEndpointEnabled,
+    awsOpenSearchServiceDomainDomainEndpointOptionsDetails_enforceHTTPS,
+    awsOpenSearchServiceDomainDomainEndpointOptionsDetails_tLSSecurityPolicy,
 
     -- * AwsOpenSearchServiceDomainEncryptionAtRestOptionsDetails
     AwsOpenSearchServiceDomainEncryptionAtRestOptionsDetails (..),
@@ -1982,15 +2438,22 @@ module Amazonka.SecurityHub.Types
     -- * AwsOpenSearchServiceDomainLogPublishingOption
     AwsOpenSearchServiceDomainLogPublishingOption (..),
     newAwsOpenSearchServiceDomainLogPublishingOption,
-    awsOpenSearchServiceDomainLogPublishingOption_enabled,
     awsOpenSearchServiceDomainLogPublishingOption_cloudWatchLogsLogGroupArn,
+    awsOpenSearchServiceDomainLogPublishingOption_enabled,
 
     -- * AwsOpenSearchServiceDomainLogPublishingOptionsDetails
     AwsOpenSearchServiceDomainLogPublishingOptionsDetails (..),
     newAwsOpenSearchServiceDomainLogPublishingOptionsDetails,
+    awsOpenSearchServiceDomainLogPublishingOptionsDetails_auditLogs,
     awsOpenSearchServiceDomainLogPublishingOptionsDetails_indexSlowLogs,
     awsOpenSearchServiceDomainLogPublishingOptionsDetails_searchSlowLogs,
-    awsOpenSearchServiceDomainLogPublishingOptionsDetails_auditLogs,
+
+    -- * AwsOpenSearchServiceDomainMasterUserOptionsDetails
+    AwsOpenSearchServiceDomainMasterUserOptionsDetails (..),
+    newAwsOpenSearchServiceDomainMasterUserOptionsDetails,
+    awsOpenSearchServiceDomainMasterUserOptionsDetails_masterUserArn,
+    awsOpenSearchServiceDomainMasterUserOptionsDetails_masterUserName,
+    awsOpenSearchServiceDomainMasterUserOptionsDetails_masterUserPassword,
 
     -- * AwsOpenSearchServiceDomainNodeToNodeEncryptionOptionsDetails
     AwsOpenSearchServiceDomainNodeToNodeEncryptionOptionsDetails (..),
@@ -2001,13 +2464,13 @@ module Amazonka.SecurityHub.Types
     AwsOpenSearchServiceDomainServiceSoftwareOptionsDetails (..),
     newAwsOpenSearchServiceDomainServiceSoftwareOptionsDetails,
     awsOpenSearchServiceDomainServiceSoftwareOptionsDetails_automatedUpdateDate,
-    awsOpenSearchServiceDomainServiceSoftwareOptionsDetails_currentVersion,
-    awsOpenSearchServiceDomainServiceSoftwareOptionsDetails_optionalDeployment,
-    awsOpenSearchServiceDomainServiceSoftwareOptionsDetails_updateStatus,
     awsOpenSearchServiceDomainServiceSoftwareOptionsDetails_cancellable,
-    awsOpenSearchServiceDomainServiceSoftwareOptionsDetails_updateAvailable,
+    awsOpenSearchServiceDomainServiceSoftwareOptionsDetails_currentVersion,
     awsOpenSearchServiceDomainServiceSoftwareOptionsDetails_description,
     awsOpenSearchServiceDomainServiceSoftwareOptionsDetails_newVersion,
+    awsOpenSearchServiceDomainServiceSoftwareOptionsDetails_optionalDeployment,
+    awsOpenSearchServiceDomainServiceSoftwareOptionsDetails_updateAvailable,
+    awsOpenSearchServiceDomainServiceSoftwareOptionsDetails_updateStatus,
 
     -- * AwsOpenSearchServiceDomainVpcOptionsDetails
     AwsOpenSearchServiceDomainVpcOptionsDetails (..),
@@ -2018,167 +2481,167 @@ module Amazonka.SecurityHub.Types
     -- * AwsRdsDbClusterAssociatedRole
     AwsRdsDbClusterAssociatedRole (..),
     newAwsRdsDbClusterAssociatedRole,
-    awsRdsDbClusterAssociatedRole_status,
     awsRdsDbClusterAssociatedRole_roleArn,
+    awsRdsDbClusterAssociatedRole_status,
 
     -- * AwsRdsDbClusterDetails
     AwsRdsDbClusterDetails (..),
     newAwsRdsDbClusterDetails,
-    awsRdsDbClusterDetails_engineVersion,
-    awsRdsDbClusterDetails_status,
-    awsRdsDbClusterDetails_dbClusterMembers,
-    awsRdsDbClusterDetails_deletionProtection,
-    awsRdsDbClusterDetails_storageEncrypted,
-    awsRdsDbClusterDetails_dbClusterIdentifier,
-    awsRdsDbClusterDetails_readReplicaIdentifiers,
-    awsRdsDbClusterDetails_dbClusterParameterGroup,
-    awsRdsDbClusterDetails_hostedZoneId,
-    awsRdsDbClusterDetails_masterUsername,
-    awsRdsDbClusterDetails_iamDatabaseAuthenticationEnabled,
-    awsRdsDbClusterDetails_dbClusterResourceId,
-    awsRdsDbClusterDetails_customEndpoints,
-    awsRdsDbClusterDetails_engine,
-    awsRdsDbClusterDetails_httpEndpointEnabled,
-    awsRdsDbClusterDetails_crossAccountClone,
-    awsRdsDbClusterDetails_preferredMaintenanceWindow,
-    awsRdsDbClusterDetails_availabilityZones,
-    awsRdsDbClusterDetails_kmsKeyId,
-    awsRdsDbClusterDetails_preferredBackupWindow,
-    awsRdsDbClusterDetails_associatedRoles,
-    awsRdsDbClusterDetails_vpcSecurityGroups,
-    awsRdsDbClusterDetails_backupRetentionPeriod,
-    awsRdsDbClusterDetails_dbSubnetGroup,
-    awsRdsDbClusterDetails_multiAz,
-    awsRdsDbClusterDetails_databaseName,
-    awsRdsDbClusterDetails_engineMode,
-    awsRdsDbClusterDetails_enabledCloudWatchLogsExports,
     awsRdsDbClusterDetails_activityStreamStatus,
     awsRdsDbClusterDetails_allocatedStorage,
-    awsRdsDbClusterDetails_copyTagsToSnapshot,
+    awsRdsDbClusterDetails_associatedRoles,
+    awsRdsDbClusterDetails_availabilityZones,
+    awsRdsDbClusterDetails_backupRetentionPeriod,
     awsRdsDbClusterDetails_clusterCreateTime,
-    awsRdsDbClusterDetails_endpoint,
-    awsRdsDbClusterDetails_readerEndpoint,
+    awsRdsDbClusterDetails_copyTagsToSnapshot,
+    awsRdsDbClusterDetails_crossAccountClone,
+    awsRdsDbClusterDetails_customEndpoints,
+    awsRdsDbClusterDetails_databaseName,
+    awsRdsDbClusterDetails_dbClusterIdentifier,
+    awsRdsDbClusterDetails_dbClusterMembers,
     awsRdsDbClusterDetails_dbClusterOptionGroupMemberships,
-    awsRdsDbClusterDetails_port,
+    awsRdsDbClusterDetails_dbClusterParameterGroup,
+    awsRdsDbClusterDetails_dbClusterResourceId,
+    awsRdsDbClusterDetails_dbSubnetGroup,
+    awsRdsDbClusterDetails_deletionProtection,
     awsRdsDbClusterDetails_domainMemberships,
+    awsRdsDbClusterDetails_enabledCloudWatchLogsExports,
+    awsRdsDbClusterDetails_endpoint,
+    awsRdsDbClusterDetails_engine,
+    awsRdsDbClusterDetails_engineMode,
+    awsRdsDbClusterDetails_engineVersion,
+    awsRdsDbClusterDetails_hostedZoneId,
+    awsRdsDbClusterDetails_httpEndpointEnabled,
+    awsRdsDbClusterDetails_iamDatabaseAuthenticationEnabled,
+    awsRdsDbClusterDetails_kmsKeyId,
+    awsRdsDbClusterDetails_masterUsername,
+    awsRdsDbClusterDetails_multiAz,
+    awsRdsDbClusterDetails_port,
+    awsRdsDbClusterDetails_preferredBackupWindow,
+    awsRdsDbClusterDetails_preferredMaintenanceWindow,
+    awsRdsDbClusterDetails_readReplicaIdentifiers,
+    awsRdsDbClusterDetails_readerEndpoint,
+    awsRdsDbClusterDetails_status,
+    awsRdsDbClusterDetails_storageEncrypted,
+    awsRdsDbClusterDetails_vpcSecurityGroups,
 
     -- * AwsRdsDbClusterMember
     AwsRdsDbClusterMember (..),
     newAwsRdsDbClusterMember,
-    awsRdsDbClusterMember_promotionTier,
+    awsRdsDbClusterMember_dbClusterParameterGroupStatus,
     awsRdsDbClusterMember_dbInstanceIdentifier,
     awsRdsDbClusterMember_isClusterWriter,
-    awsRdsDbClusterMember_dbClusterParameterGroupStatus,
+    awsRdsDbClusterMember_promotionTier,
 
     -- * AwsRdsDbClusterOptionGroupMembership
     AwsRdsDbClusterOptionGroupMembership (..),
     newAwsRdsDbClusterOptionGroupMembership,
-    awsRdsDbClusterOptionGroupMembership_status,
     awsRdsDbClusterOptionGroupMembership_dbClusterOptionGroupName,
+    awsRdsDbClusterOptionGroupMembership_status,
 
     -- * AwsRdsDbClusterSnapshotDetails
     AwsRdsDbClusterSnapshotDetails (..),
     newAwsRdsDbClusterSnapshotDetails,
-    awsRdsDbClusterSnapshotDetails_engineVersion,
-    awsRdsDbClusterSnapshotDetails_status,
-    awsRdsDbClusterSnapshotDetails_storageEncrypted,
+    awsRdsDbClusterSnapshotDetails_allocatedStorage,
+    awsRdsDbClusterSnapshotDetails_availabilityZones,
+    awsRdsDbClusterSnapshotDetails_clusterCreateTime,
     awsRdsDbClusterSnapshotDetails_dbClusterIdentifier,
-    awsRdsDbClusterSnapshotDetails_masterUsername,
-    awsRdsDbClusterSnapshotDetails_iamDatabaseAuthenticationEnabled,
-    awsRdsDbClusterSnapshotDetails_vpcId,
     awsRdsDbClusterSnapshotDetails_dbClusterSnapshotIdentifier,
     awsRdsDbClusterSnapshotDetails_engine,
-    awsRdsDbClusterSnapshotDetails_licenseModel,
-    awsRdsDbClusterSnapshotDetails_availabilityZones,
-    awsRdsDbClusterSnapshotDetails_snapshotType,
+    awsRdsDbClusterSnapshotDetails_engineVersion,
+    awsRdsDbClusterSnapshotDetails_iamDatabaseAuthenticationEnabled,
     awsRdsDbClusterSnapshotDetails_kmsKeyId,
-    awsRdsDbClusterSnapshotDetails_snapshotCreateTime,
-    awsRdsDbClusterSnapshotDetails_allocatedStorage,
-    awsRdsDbClusterSnapshotDetails_clusterCreateTime,
+    awsRdsDbClusterSnapshotDetails_licenseModel,
+    awsRdsDbClusterSnapshotDetails_masterUsername,
     awsRdsDbClusterSnapshotDetails_percentProgress,
     awsRdsDbClusterSnapshotDetails_port,
+    awsRdsDbClusterSnapshotDetails_snapshotCreateTime,
+    awsRdsDbClusterSnapshotDetails_snapshotType,
+    awsRdsDbClusterSnapshotDetails_status,
+    awsRdsDbClusterSnapshotDetails_storageEncrypted,
+    awsRdsDbClusterSnapshotDetails_vpcId,
 
     -- * AwsRdsDbDomainMembership
     AwsRdsDbDomainMembership (..),
     newAwsRdsDbDomainMembership,
-    awsRdsDbDomainMembership_status,
-    awsRdsDbDomainMembership_fqdn,
     awsRdsDbDomainMembership_domain,
+    awsRdsDbDomainMembership_fqdn,
     awsRdsDbDomainMembership_iamRoleName,
+    awsRdsDbDomainMembership_status,
 
     -- * AwsRdsDbInstanceAssociatedRole
     AwsRdsDbInstanceAssociatedRole (..),
     newAwsRdsDbInstanceAssociatedRole,
-    awsRdsDbInstanceAssociatedRole_status,
     awsRdsDbInstanceAssociatedRole_featureName,
     awsRdsDbInstanceAssociatedRole_roleArn,
+    awsRdsDbInstanceAssociatedRole_status,
 
     -- * AwsRdsDbInstanceDetails
     AwsRdsDbInstanceDetails (..),
     newAwsRdsDbInstanceDetails,
-    awsRdsDbInstanceDetails_dbSecurityGroups,
-    awsRdsDbInstanceDetails_engineVersion,
-    awsRdsDbInstanceDetails_deletionProtection,
-    awsRdsDbInstanceDetails_storageEncrypted,
-    awsRdsDbInstanceDetails_dbClusterIdentifier,
-    awsRdsDbInstanceDetails_publiclyAccessible,
-    awsRdsDbInstanceDetails_autoMinorVersionUpgrade,
-    awsRdsDbInstanceDetails_masterUsername,
-    awsRdsDbInstanceDetails_readReplicaDBInstanceIdentifiers,
-    awsRdsDbInstanceDetails_iAMDatabaseAuthenticationEnabled,
-    awsRdsDbInstanceDetails_monitoringRoleArn,
-    awsRdsDbInstanceDetails_iops,
-    awsRdsDbInstanceDetails_instanceCreateTime,
-    awsRdsDbInstanceDetails_readReplicaSourceDBInstanceIdentifier,
-    awsRdsDbInstanceDetails_monitoringInterval,
-    awsRdsDbInstanceDetails_engine,
-    awsRdsDbInstanceDetails_processorFeatures,
-    awsRdsDbInstanceDetails_latestRestorableTime,
-    awsRdsDbInstanceDetails_dbInstanceClass,
-    awsRdsDbInstanceDetails_promotionTier,
-    awsRdsDbInstanceDetails_licenseModel,
-    awsRdsDbInstanceDetails_preferredMaintenanceWindow,
-    awsRdsDbInstanceDetails_performanceInsightsRetentionPeriod,
-    awsRdsDbInstanceDetails_cACertificateIdentifier,
-    awsRdsDbInstanceDetails_dbInstanceIdentifier,
-    awsRdsDbInstanceDetails_characterSetName,
-    awsRdsDbInstanceDetails_maxAllocatedStorage,
-    awsRdsDbInstanceDetails_kmsKeyId,
-    awsRdsDbInstanceDetails_preferredBackupWindow,
-    awsRdsDbInstanceDetails_associatedRoles,
-    awsRdsDbInstanceDetails_availabilityZone,
-    awsRdsDbInstanceDetails_vpcSecurityGroups,
-    awsRdsDbInstanceDetails_backupRetentionPeriod,
-    awsRdsDbInstanceDetails_performanceInsightsKmsKeyId,
-    awsRdsDbInstanceDetails_dbSubnetGroup,
-    awsRdsDbInstanceDetails_multiAz,
-    awsRdsDbInstanceDetails_listenerEndpoint,
-    awsRdsDbInstanceDetails_optionGroupMemberships,
-    awsRdsDbInstanceDetails_enhancedMonitoringResourceArn,
-    awsRdsDbInstanceDetails_secondaryAvailabilityZone,
-    awsRdsDbInstanceDetails_enabledCloudWatchLogsExports,
-    awsRdsDbInstanceDetails_performanceInsightsEnabled,
     awsRdsDbInstanceDetails_allocatedStorage,
-    awsRdsDbInstanceDetails_dbiResourceId,
-    awsRdsDbInstanceDetails_dbInstanceStatus,
+    awsRdsDbInstanceDetails_associatedRoles,
+    awsRdsDbInstanceDetails_autoMinorVersionUpgrade,
+    awsRdsDbInstanceDetails_availabilityZone,
+    awsRdsDbInstanceDetails_backupRetentionPeriod,
+    awsRdsDbInstanceDetails_cACertificateIdentifier,
+    awsRdsDbInstanceDetails_characterSetName,
     awsRdsDbInstanceDetails_copyTagsToSnapshot,
-    awsRdsDbInstanceDetails_timezone,
-    awsRdsDbInstanceDetails_tdeCredentialArn,
-    awsRdsDbInstanceDetails_dbParameterGroups,
-    awsRdsDbInstanceDetails_endpoint,
-    awsRdsDbInstanceDetails_dbInstancePort,
-    awsRdsDbInstanceDetails_pendingModifiedValues,
-    awsRdsDbInstanceDetails_readReplicaDBClusterIdentifiers,
-    awsRdsDbInstanceDetails_storageType,
-    awsRdsDbInstanceDetails_statusInfos,
-    awsRdsDbInstanceDetails_domainMemberships,
+    awsRdsDbInstanceDetails_dbClusterIdentifier,
+    awsRdsDbInstanceDetails_dbInstanceClass,
+    awsRdsDbInstanceDetails_dbInstanceIdentifier,
     awsRdsDbInstanceDetails_dbName,
+    awsRdsDbInstanceDetails_dbInstancePort,
+    awsRdsDbInstanceDetails_dbInstanceStatus,
+    awsRdsDbInstanceDetails_dbParameterGroups,
+    awsRdsDbInstanceDetails_dbSecurityGroups,
+    awsRdsDbInstanceDetails_dbSubnetGroup,
+    awsRdsDbInstanceDetails_dbiResourceId,
+    awsRdsDbInstanceDetails_deletionProtection,
+    awsRdsDbInstanceDetails_domainMemberships,
+    awsRdsDbInstanceDetails_enabledCloudWatchLogsExports,
+    awsRdsDbInstanceDetails_endpoint,
+    awsRdsDbInstanceDetails_engine,
+    awsRdsDbInstanceDetails_engineVersion,
+    awsRdsDbInstanceDetails_enhancedMonitoringResourceArn,
+    awsRdsDbInstanceDetails_iAMDatabaseAuthenticationEnabled,
+    awsRdsDbInstanceDetails_instanceCreateTime,
+    awsRdsDbInstanceDetails_iops,
+    awsRdsDbInstanceDetails_kmsKeyId,
+    awsRdsDbInstanceDetails_latestRestorableTime,
+    awsRdsDbInstanceDetails_licenseModel,
+    awsRdsDbInstanceDetails_listenerEndpoint,
+    awsRdsDbInstanceDetails_masterUsername,
+    awsRdsDbInstanceDetails_maxAllocatedStorage,
+    awsRdsDbInstanceDetails_monitoringInterval,
+    awsRdsDbInstanceDetails_monitoringRoleArn,
+    awsRdsDbInstanceDetails_multiAz,
+    awsRdsDbInstanceDetails_optionGroupMemberships,
+    awsRdsDbInstanceDetails_pendingModifiedValues,
+    awsRdsDbInstanceDetails_performanceInsightsEnabled,
+    awsRdsDbInstanceDetails_performanceInsightsKmsKeyId,
+    awsRdsDbInstanceDetails_performanceInsightsRetentionPeriod,
+    awsRdsDbInstanceDetails_preferredBackupWindow,
+    awsRdsDbInstanceDetails_preferredMaintenanceWindow,
+    awsRdsDbInstanceDetails_processorFeatures,
+    awsRdsDbInstanceDetails_promotionTier,
+    awsRdsDbInstanceDetails_publiclyAccessible,
+    awsRdsDbInstanceDetails_readReplicaDBClusterIdentifiers,
+    awsRdsDbInstanceDetails_readReplicaDBInstanceIdentifiers,
+    awsRdsDbInstanceDetails_readReplicaSourceDBInstanceIdentifier,
+    awsRdsDbInstanceDetails_secondaryAvailabilityZone,
+    awsRdsDbInstanceDetails_statusInfos,
+    awsRdsDbInstanceDetails_storageEncrypted,
+    awsRdsDbInstanceDetails_storageType,
+    awsRdsDbInstanceDetails_tdeCredentialArn,
+    awsRdsDbInstanceDetails_timezone,
+    awsRdsDbInstanceDetails_vpcSecurityGroups,
 
     -- * AwsRdsDbInstanceEndpoint
     AwsRdsDbInstanceEndpoint (..),
     newAwsRdsDbInstanceEndpoint,
-    awsRdsDbInstanceEndpoint_hostedZoneId,
     awsRdsDbInstanceEndpoint_address,
+    awsRdsDbInstanceEndpoint_hostedZoneId,
     awsRdsDbInstanceEndpoint_port,
 
     -- * AwsRdsDbInstanceVpcSecurityGroup
@@ -2190,8 +2653,8 @@ module Amazonka.SecurityHub.Types
     -- * AwsRdsDbOptionGroupMembership
     AwsRdsDbOptionGroupMembership (..),
     newAwsRdsDbOptionGroupMembership,
-    awsRdsDbOptionGroupMembership_status,
     awsRdsDbOptionGroupMembership_optionGroupName,
+    awsRdsDbOptionGroupMembership_status,
 
     -- * AwsRdsDbParameterGroup
     AwsRdsDbParameterGroup (..),
@@ -2202,83 +2665,108 @@ module Amazonka.SecurityHub.Types
     -- * AwsRdsDbPendingModifiedValues
     AwsRdsDbPendingModifiedValues (..),
     newAwsRdsDbPendingModifiedValues,
-    awsRdsDbPendingModifiedValues_engineVersion,
-    awsRdsDbPendingModifiedValues_masterUserPassword,
-    awsRdsDbPendingModifiedValues_dbSubnetGroupName,
-    awsRdsDbPendingModifiedValues_iops,
-    awsRdsDbPendingModifiedValues_dbInstanceClass,
-    awsRdsDbPendingModifiedValues_processorFeatures,
-    awsRdsDbPendingModifiedValues_licenseModel,
-    awsRdsDbPendingModifiedValues_dbInstanceIdentifier,
-    awsRdsDbPendingModifiedValues_caCertificateIdentifier,
-    awsRdsDbPendingModifiedValues_pendingCloudWatchLogsExports,
-    awsRdsDbPendingModifiedValues_backupRetentionPeriod,
-    awsRdsDbPendingModifiedValues_multiAZ,
     awsRdsDbPendingModifiedValues_allocatedStorage,
+    awsRdsDbPendingModifiedValues_backupRetentionPeriod,
+    awsRdsDbPendingModifiedValues_caCertificateIdentifier,
+    awsRdsDbPendingModifiedValues_dbInstanceClass,
+    awsRdsDbPendingModifiedValues_dbInstanceIdentifier,
+    awsRdsDbPendingModifiedValues_dbSubnetGroupName,
+    awsRdsDbPendingModifiedValues_engineVersion,
+    awsRdsDbPendingModifiedValues_iops,
+    awsRdsDbPendingModifiedValues_licenseModel,
+    awsRdsDbPendingModifiedValues_masterUserPassword,
+    awsRdsDbPendingModifiedValues_multiAZ,
+    awsRdsDbPendingModifiedValues_pendingCloudWatchLogsExports,
     awsRdsDbPendingModifiedValues_port,
+    awsRdsDbPendingModifiedValues_processorFeatures,
     awsRdsDbPendingModifiedValues_storageType,
 
     -- * AwsRdsDbProcessorFeature
     AwsRdsDbProcessorFeature (..),
     newAwsRdsDbProcessorFeature,
-    awsRdsDbProcessorFeature_value,
     awsRdsDbProcessorFeature_name,
+    awsRdsDbProcessorFeature_value,
+
+    -- * AwsRdsDbSecurityGroupDetails
+    AwsRdsDbSecurityGroupDetails (..),
+    newAwsRdsDbSecurityGroupDetails,
+    awsRdsDbSecurityGroupDetails_dbSecurityGroupArn,
+    awsRdsDbSecurityGroupDetails_dbSecurityGroupDescription,
+    awsRdsDbSecurityGroupDetails_dbSecurityGroupName,
+    awsRdsDbSecurityGroupDetails_ec2SecurityGroups,
+    awsRdsDbSecurityGroupDetails_ipRanges,
+    awsRdsDbSecurityGroupDetails_ownerId,
+    awsRdsDbSecurityGroupDetails_vpcId,
+
+    -- * AwsRdsDbSecurityGroupEc2SecurityGroup
+    AwsRdsDbSecurityGroupEc2SecurityGroup (..),
+    newAwsRdsDbSecurityGroupEc2SecurityGroup,
+    awsRdsDbSecurityGroupEc2SecurityGroup_ec2SecurityGroupId,
+    awsRdsDbSecurityGroupEc2SecurityGroup_ec2SecurityGroupName,
+    awsRdsDbSecurityGroupEc2SecurityGroup_ec2SecurityGroupOwnerId,
+    awsRdsDbSecurityGroupEc2SecurityGroup_status,
+
+    -- * AwsRdsDbSecurityGroupIpRange
+    AwsRdsDbSecurityGroupIpRange (..),
+    newAwsRdsDbSecurityGroupIpRange,
+    awsRdsDbSecurityGroupIpRange_cidrIp,
+    awsRdsDbSecurityGroupIpRange_status,
 
     -- * AwsRdsDbSnapshotDetails
     AwsRdsDbSnapshotDetails (..),
     newAwsRdsDbSnapshotDetails,
-    awsRdsDbSnapshotDetails_engineVersion,
-    awsRdsDbSnapshotDetails_status,
-    awsRdsDbSnapshotDetails_masterUsername,
-    awsRdsDbSnapshotDetails_sourceRegion,
-    awsRdsDbSnapshotDetails_iops,
-    awsRdsDbSnapshotDetails_iamDatabaseAuthenticationEnabled,
-    awsRdsDbSnapshotDetails_vpcId,
-    awsRdsDbSnapshotDetails_instanceCreateTime,
-    awsRdsDbSnapshotDetails_engine,
-    awsRdsDbSnapshotDetails_encrypted,
-    awsRdsDbSnapshotDetails_dbSnapshotIdentifier,
-    awsRdsDbSnapshotDetails_processorFeatures,
-    awsRdsDbSnapshotDetails_licenseModel,
-    awsRdsDbSnapshotDetails_dbInstanceIdentifier,
-    awsRdsDbSnapshotDetails_snapshotType,
-    awsRdsDbSnapshotDetails_sourceDbSnapshotIdentifier,
-    awsRdsDbSnapshotDetails_kmsKeyId,
-    awsRdsDbSnapshotDetails_availabilityZone,
-    awsRdsDbSnapshotDetails_snapshotCreateTime,
     awsRdsDbSnapshotDetails_allocatedStorage,
+    awsRdsDbSnapshotDetails_availabilityZone,
+    awsRdsDbSnapshotDetails_dbInstanceIdentifier,
+    awsRdsDbSnapshotDetails_dbSnapshotIdentifier,
     awsRdsDbSnapshotDetails_dbiResourceId,
+    awsRdsDbSnapshotDetails_encrypted,
+    awsRdsDbSnapshotDetails_engine,
+    awsRdsDbSnapshotDetails_engineVersion,
+    awsRdsDbSnapshotDetails_iamDatabaseAuthenticationEnabled,
+    awsRdsDbSnapshotDetails_instanceCreateTime,
+    awsRdsDbSnapshotDetails_iops,
+    awsRdsDbSnapshotDetails_kmsKeyId,
+    awsRdsDbSnapshotDetails_licenseModel,
+    awsRdsDbSnapshotDetails_masterUsername,
     awsRdsDbSnapshotDetails_optionGroupName,
-    awsRdsDbSnapshotDetails_timezone,
-    awsRdsDbSnapshotDetails_tdeCredentialArn,
     awsRdsDbSnapshotDetails_percentProgress,
     awsRdsDbSnapshotDetails_port,
+    awsRdsDbSnapshotDetails_processorFeatures,
+    awsRdsDbSnapshotDetails_snapshotCreateTime,
+    awsRdsDbSnapshotDetails_snapshotType,
+    awsRdsDbSnapshotDetails_sourceDbSnapshotIdentifier,
+    awsRdsDbSnapshotDetails_sourceRegion,
+    awsRdsDbSnapshotDetails_status,
     awsRdsDbSnapshotDetails_storageType,
+    awsRdsDbSnapshotDetails_tdeCredentialArn,
+    awsRdsDbSnapshotDetails_timezone,
+    awsRdsDbSnapshotDetails_vpcId,
 
     -- * AwsRdsDbStatusInfo
     AwsRdsDbStatusInfo (..),
     newAwsRdsDbStatusInfo,
-    awsRdsDbStatusInfo_status,
-    awsRdsDbStatusInfo_normal,
-    awsRdsDbStatusInfo_statusType,
     awsRdsDbStatusInfo_message,
+    awsRdsDbStatusInfo_normal,
+    awsRdsDbStatusInfo_status,
+    awsRdsDbStatusInfo_statusType,
 
     -- * AwsRdsDbSubnetGroup
     AwsRdsDbSubnetGroup (..),
     newAwsRdsDbSubnetGroup,
-    awsRdsDbSubnetGroup_dbSubnetGroupName,
-    awsRdsDbSubnetGroup_vpcId,
-    awsRdsDbSubnetGroup_subnets,
-    awsRdsDbSubnetGroup_dbSubnetGroupDescription,
     awsRdsDbSubnetGroup_dbSubnetGroupArn,
+    awsRdsDbSubnetGroup_dbSubnetGroupDescription,
+    awsRdsDbSubnetGroup_dbSubnetGroupName,
     awsRdsDbSubnetGroup_subnetGroupStatus,
+    awsRdsDbSubnetGroup_subnets,
+    awsRdsDbSubnetGroup_vpcId,
 
     -- * AwsRdsDbSubnetGroupSubnet
     AwsRdsDbSubnetGroupSubnet (..),
     newAwsRdsDbSubnetGroupSubnet,
-    awsRdsDbSubnetGroupSubnet_subnetStatus,
-    awsRdsDbSubnetGroupSubnet_subnetIdentifier,
     awsRdsDbSubnetGroupSubnet_subnetAvailabilityZone,
+    awsRdsDbSubnetGroupSubnet_subnetIdentifier,
+    awsRdsDbSubnetGroupSubnet_subnetStatus,
 
     -- * AwsRdsDbSubnetGroupSubnetAvailabilityZone
     AwsRdsDbSubnetGroupSubnetAvailabilityZone (..),
@@ -2288,22 +2776,22 @@ module Amazonka.SecurityHub.Types
     -- * AwsRdsEventSubscriptionDetails
     AwsRdsEventSubscriptionDetails (..),
     newAwsRdsEventSubscriptionDetails,
-    awsRdsEventSubscriptionDetails_status,
-    awsRdsEventSubscriptionDetails_customerAwsId,
     awsRdsEventSubscriptionDetails_custSubscriptionId,
-    awsRdsEventSubscriptionDetails_snsTopicArn,
-    awsRdsEventSubscriptionDetails_eventSubscriptionArn,
+    awsRdsEventSubscriptionDetails_customerAwsId,
     awsRdsEventSubscriptionDetails_enabled,
-    awsRdsEventSubscriptionDetails_sourceType,
-    awsRdsEventSubscriptionDetails_subscriptionCreationTime,
     awsRdsEventSubscriptionDetails_eventCategoriesList,
+    awsRdsEventSubscriptionDetails_eventSubscriptionArn,
+    awsRdsEventSubscriptionDetails_snsTopicArn,
     awsRdsEventSubscriptionDetails_sourceIdsList,
+    awsRdsEventSubscriptionDetails_sourceType,
+    awsRdsEventSubscriptionDetails_status,
+    awsRdsEventSubscriptionDetails_subscriptionCreationTime,
 
     -- * AwsRdsPendingCloudWatchLogsExports
     AwsRdsPendingCloudWatchLogsExports (..),
     newAwsRdsPendingCloudWatchLogsExports,
-    awsRdsPendingCloudWatchLogsExports_logTypesToEnable,
     awsRdsPendingCloudWatchLogsExports_logTypesToDisable,
+    awsRdsPendingCloudWatchLogsExports_logTypesToEnable,
 
     -- * AwsRedshiftClusterClusterNode
     AwsRedshiftClusterClusterNode (..),
@@ -2323,82 +2811,83 @@ module Amazonka.SecurityHub.Types
     AwsRedshiftClusterClusterParameterStatus (..),
     newAwsRedshiftClusterClusterParameterStatus,
     awsRedshiftClusterClusterParameterStatus_parameterApplyErrorDescription,
-    awsRedshiftClusterClusterParameterStatus_parameterName,
     awsRedshiftClusterClusterParameterStatus_parameterApplyStatus,
+    awsRedshiftClusterClusterParameterStatus_parameterName,
 
     -- * AwsRedshiftClusterClusterSecurityGroup
     AwsRedshiftClusterClusterSecurityGroup (..),
     newAwsRedshiftClusterClusterSecurityGroup,
-    awsRedshiftClusterClusterSecurityGroup_status,
     awsRedshiftClusterClusterSecurityGroup_clusterSecurityGroupName,
+    awsRedshiftClusterClusterSecurityGroup_status,
 
     -- * AwsRedshiftClusterClusterSnapshotCopyStatus
     AwsRedshiftClusterClusterSnapshotCopyStatus (..),
     newAwsRedshiftClusterClusterSnapshotCopyStatus,
+    awsRedshiftClusterClusterSnapshotCopyStatus_destinationRegion,
     awsRedshiftClusterClusterSnapshotCopyStatus_manualSnapshotRetentionPeriod,
     awsRedshiftClusterClusterSnapshotCopyStatus_retentionPeriod,
-    awsRedshiftClusterClusterSnapshotCopyStatus_destinationRegion,
     awsRedshiftClusterClusterSnapshotCopyStatus_snapshotCopyGrantName,
 
     -- * AwsRedshiftClusterDeferredMaintenanceWindow
     AwsRedshiftClusterDeferredMaintenanceWindow (..),
     newAwsRedshiftClusterDeferredMaintenanceWindow,
     awsRedshiftClusterDeferredMaintenanceWindow_deferMaintenanceEndTime,
-    awsRedshiftClusterDeferredMaintenanceWindow_deferMaintenanceStartTime,
     awsRedshiftClusterDeferredMaintenanceWindow_deferMaintenanceIdentifier,
+    awsRedshiftClusterDeferredMaintenanceWindow_deferMaintenanceStartTime,
 
     -- * AwsRedshiftClusterDetails
     AwsRedshiftClusterDetails (..),
     newAwsRedshiftClusterDetails,
-    awsRedshiftClusterDetails_resizeInfo,
-    awsRedshiftClusterDetails_restoreStatus,
-    awsRedshiftClusterDetails_manualSnapshotRetentionPeriod,
-    awsRedshiftClusterDetails_enhancedVpcRouting,
-    awsRedshiftClusterDetails_clusterSnapshotCopyStatus,
-    awsRedshiftClusterDetails_clusterAvailabilityStatus,
-    awsRedshiftClusterDetails_clusterRevisionNumber,
-    awsRedshiftClusterDetails_snapshotScheduleIdentifier,
-    awsRedshiftClusterDetails_publiclyAccessible,
-    awsRedshiftClusterDetails_masterUsername,
-    awsRedshiftClusterDetails_maintenanceTrackName,
-    awsRedshiftClusterDetails_expectedNextSnapshotScheduleTime,
-    awsRedshiftClusterDetails_elasticResizeNumberOfNodeOptions,
-    awsRedshiftClusterDetails_vpcId,
-    awsRedshiftClusterDetails_clusterSecurityGroups,
+    awsRedshiftClusterDetails_allowVersionUpgrade,
     awsRedshiftClusterDetails_automatedSnapshotRetentionPeriod,
-    awsRedshiftClusterDetails_snapshotScheduleState,
-    awsRedshiftClusterDetails_encrypted,
-    awsRedshiftClusterDetails_clusterSubnetGroupName,
-    awsRedshiftClusterDetails_expectedNextSnapshotScheduleTimeStatus,
-    awsRedshiftClusterDetails_clusterIdentifier,
-    awsRedshiftClusterDetails_deferredMaintenanceWindows,
-    awsRedshiftClusterDetails_numberOfNodes,
-    awsRedshiftClusterDetails_clusterPublicKey,
-    awsRedshiftClusterDetails_preferredMaintenanceWindow,
-    awsRedshiftClusterDetails_kmsKeyId,
-    awsRedshiftClusterDetails_clusterParameterGroups,
     awsRedshiftClusterDetails_availabilityZone,
-    awsRedshiftClusterDetails_vpcSecurityGroups,
+    awsRedshiftClusterDetails_clusterAvailabilityStatus,
+    awsRedshiftClusterDetails_clusterCreateTime,
+    awsRedshiftClusterDetails_clusterIdentifier,
+    awsRedshiftClusterDetails_clusterNodes,
+    awsRedshiftClusterDetails_clusterParameterGroups,
+    awsRedshiftClusterDetails_clusterPublicKey,
+    awsRedshiftClusterDetails_clusterRevisionNumber,
+    awsRedshiftClusterDetails_clusterSecurityGroups,
+    awsRedshiftClusterDetails_clusterSnapshotCopyStatus,
+    awsRedshiftClusterDetails_clusterStatus,
+    awsRedshiftClusterDetails_clusterSubnetGroupName,
+    awsRedshiftClusterDetails_clusterVersion,
+    awsRedshiftClusterDetails_dbName,
+    awsRedshiftClusterDetails_deferredMaintenanceWindows,
+    awsRedshiftClusterDetails_elasticIpStatus,
+    awsRedshiftClusterDetails_elasticResizeNumberOfNodeOptions,
+    awsRedshiftClusterDetails_encrypted,
+    awsRedshiftClusterDetails_endpoint,
+    awsRedshiftClusterDetails_enhancedVpcRouting,
+    awsRedshiftClusterDetails_expectedNextSnapshotScheduleTime,
+    awsRedshiftClusterDetails_expectedNextSnapshotScheduleTimeStatus,
     awsRedshiftClusterDetails_hsmStatus,
     awsRedshiftClusterDetails_iamRoles,
-    awsRedshiftClusterDetails_pendingActions,
-    awsRedshiftClusterDetails_elasticIpStatus,
-    awsRedshiftClusterDetails_clusterVersion,
-    awsRedshiftClusterDetails_nodeType,
+    awsRedshiftClusterDetails_kmsKeyId,
+    awsRedshiftClusterDetails_loggingStatus,
+    awsRedshiftClusterDetails_maintenanceTrackName,
+    awsRedshiftClusterDetails_manualSnapshotRetentionPeriod,
+    awsRedshiftClusterDetails_masterUsername,
     awsRedshiftClusterDetails_nextMaintenanceWindowStartTime,
-    awsRedshiftClusterDetails_clusterCreateTime,
-    awsRedshiftClusterDetails_endpoint,
-    awsRedshiftClusterDetails_allowVersionUpgrade,
-    awsRedshiftClusterDetails_clusterStatus,
+    awsRedshiftClusterDetails_nodeType,
+    awsRedshiftClusterDetails_numberOfNodes,
+    awsRedshiftClusterDetails_pendingActions,
     awsRedshiftClusterDetails_pendingModifiedValues,
-    awsRedshiftClusterDetails_clusterNodes,
-    awsRedshiftClusterDetails_dbName,
+    awsRedshiftClusterDetails_preferredMaintenanceWindow,
+    awsRedshiftClusterDetails_publiclyAccessible,
+    awsRedshiftClusterDetails_resizeInfo,
+    awsRedshiftClusterDetails_restoreStatus,
+    awsRedshiftClusterDetails_snapshotScheduleIdentifier,
+    awsRedshiftClusterDetails_snapshotScheduleState,
+    awsRedshiftClusterDetails_vpcId,
+    awsRedshiftClusterDetails_vpcSecurityGroups,
 
     -- * AwsRedshiftClusterElasticIpStatus
     AwsRedshiftClusterElasticIpStatus (..),
     newAwsRedshiftClusterElasticIpStatus,
-    awsRedshiftClusterElasticIpStatus_status,
     awsRedshiftClusterElasticIpStatus_elasticIp,
+    awsRedshiftClusterElasticIpStatus_status,
 
     -- * AwsRedshiftClusterEndpoint
     AwsRedshiftClusterEndpoint (..),
@@ -2409,30 +2898,40 @@ module Amazonka.SecurityHub.Types
     -- * AwsRedshiftClusterHsmStatus
     AwsRedshiftClusterHsmStatus (..),
     newAwsRedshiftClusterHsmStatus,
-    awsRedshiftClusterHsmStatus_status,
-    awsRedshiftClusterHsmStatus_hsmConfigurationIdentifier,
     awsRedshiftClusterHsmStatus_hsmClientCertificateIdentifier,
+    awsRedshiftClusterHsmStatus_hsmConfigurationIdentifier,
+    awsRedshiftClusterHsmStatus_status,
 
     -- * AwsRedshiftClusterIamRole
     AwsRedshiftClusterIamRole (..),
     newAwsRedshiftClusterIamRole,
-    awsRedshiftClusterIamRole_iamRoleArn,
     awsRedshiftClusterIamRole_applyStatus,
+    awsRedshiftClusterIamRole_iamRoleArn,
+
+    -- * AwsRedshiftClusterLoggingStatus
+    AwsRedshiftClusterLoggingStatus (..),
+    newAwsRedshiftClusterLoggingStatus,
+    awsRedshiftClusterLoggingStatus_bucketName,
+    awsRedshiftClusterLoggingStatus_lastFailureMessage,
+    awsRedshiftClusterLoggingStatus_lastFailureTime,
+    awsRedshiftClusterLoggingStatus_lastSuccessfulDeliveryTime,
+    awsRedshiftClusterLoggingStatus_loggingEnabled,
+    awsRedshiftClusterLoggingStatus_s3KeyPrefix,
 
     -- * AwsRedshiftClusterPendingModifiedValues
     AwsRedshiftClusterPendingModifiedValues (..),
     newAwsRedshiftClusterPendingModifiedValues,
-    awsRedshiftClusterPendingModifiedValues_encryptionType,
-    awsRedshiftClusterPendingModifiedValues_enhancedVpcRouting,
-    awsRedshiftClusterPendingModifiedValues_masterUserPassword,
-    awsRedshiftClusterPendingModifiedValues_publiclyAccessible,
-    awsRedshiftClusterPendingModifiedValues_maintenanceTrackName,
     awsRedshiftClusterPendingModifiedValues_automatedSnapshotRetentionPeriod,
     awsRedshiftClusterPendingModifiedValues_clusterIdentifier,
-    awsRedshiftClusterPendingModifiedValues_numberOfNodes,
     awsRedshiftClusterPendingModifiedValues_clusterType,
     awsRedshiftClusterPendingModifiedValues_clusterVersion,
+    awsRedshiftClusterPendingModifiedValues_encryptionType,
+    awsRedshiftClusterPendingModifiedValues_enhancedVpcRouting,
+    awsRedshiftClusterPendingModifiedValues_maintenanceTrackName,
+    awsRedshiftClusterPendingModifiedValues_masterUserPassword,
     awsRedshiftClusterPendingModifiedValues_nodeType,
+    awsRedshiftClusterPendingModifiedValues_numberOfNodes,
+    awsRedshiftClusterPendingModifiedValues_publiclyAccessible,
 
     -- * AwsRedshiftClusterResizeInfo
     AwsRedshiftClusterResizeInfo (..),
@@ -2443,12 +2942,12 @@ module Amazonka.SecurityHub.Types
     -- * AwsRedshiftClusterRestoreStatus
     AwsRedshiftClusterRestoreStatus (..),
     newAwsRedshiftClusterRestoreStatus,
-    awsRedshiftClusterRestoreStatus_status,
-    awsRedshiftClusterRestoreStatus_estimatedTimeToCompletionInSeconds,
     awsRedshiftClusterRestoreStatus_currentRestoreRateInMegaBytesPerSecond,
-    awsRedshiftClusterRestoreStatus_progressInMegaBytes,
     awsRedshiftClusterRestoreStatus_elapsedTimeInSeconds,
+    awsRedshiftClusterRestoreStatus_estimatedTimeToCompletionInSeconds,
+    awsRedshiftClusterRestoreStatus_progressInMegaBytes,
     awsRedshiftClusterRestoreStatus_snapshotSizeInMegaBytes,
+    awsRedshiftClusterRestoreStatus_status,
 
     -- * AwsRedshiftClusterVpcSecurityGroup
     AwsRedshiftClusterVpcSecurityGroup (..),
@@ -2459,10 +2958,10 @@ module Amazonka.SecurityHub.Types
     -- * AwsS3AccountPublicAccessBlockDetails
     AwsS3AccountPublicAccessBlockDetails (..),
     newAwsS3AccountPublicAccessBlockDetails,
-    awsS3AccountPublicAccessBlockDetails_ignorePublicAcls,
     awsS3AccountPublicAccessBlockDetails_blockPublicAcls,
-    awsS3AccountPublicAccessBlockDetails_restrictPublicBuckets,
     awsS3AccountPublicAccessBlockDetails_blockPublicPolicy,
+    awsS3AccountPublicAccessBlockDetails_ignorePublicAcls,
+    awsS3AccountPublicAccessBlockDetails_restrictPublicBuckets,
 
     -- * AwsS3BucketBucketLifecycleConfigurationDetails
     AwsS3BucketBucketLifecycleConfigurationDetails (..),
@@ -2477,17 +2976,17 @@ module Amazonka.SecurityHub.Types
     -- * AwsS3BucketBucketLifecycleConfigurationRulesDetails
     AwsS3BucketBucketLifecycleConfigurationRulesDetails (..),
     newAwsS3BucketBucketLifecycleConfigurationRulesDetails,
+    awsS3BucketBucketLifecycleConfigurationRulesDetails_abortIncompleteMultipartUpload,
+    awsS3BucketBucketLifecycleConfigurationRulesDetails_expirationDate,
+    awsS3BucketBucketLifecycleConfigurationRulesDetails_expirationInDays,
+    awsS3BucketBucketLifecycleConfigurationRulesDetails_expiredObjectDeleteMarker,
+    awsS3BucketBucketLifecycleConfigurationRulesDetails_filter,
+    awsS3BucketBucketLifecycleConfigurationRulesDetails_id,
+    awsS3BucketBucketLifecycleConfigurationRulesDetails_noncurrentVersionExpirationInDays,
+    awsS3BucketBucketLifecycleConfigurationRulesDetails_noncurrentVersionTransitions,
+    awsS3BucketBucketLifecycleConfigurationRulesDetails_prefix,
     awsS3BucketBucketLifecycleConfigurationRulesDetails_status,
     awsS3BucketBucketLifecycleConfigurationRulesDetails_transitions,
-    awsS3BucketBucketLifecycleConfigurationRulesDetails_prefix,
-    awsS3BucketBucketLifecycleConfigurationRulesDetails_noncurrentVersionTransitions,
-    awsS3BucketBucketLifecycleConfigurationRulesDetails_noncurrentVersionExpirationInDays,
-    awsS3BucketBucketLifecycleConfigurationRulesDetails_expirationDate,
-    awsS3BucketBucketLifecycleConfigurationRulesDetails_id,
-    awsS3BucketBucketLifecycleConfigurationRulesDetails_filter,
-    awsS3BucketBucketLifecycleConfigurationRulesDetails_expirationInDays,
-    awsS3BucketBucketLifecycleConfigurationRulesDetails_abortIncompleteMultipartUpload,
-    awsS3BucketBucketLifecycleConfigurationRulesDetails_expiredObjectDeleteMarker,
 
     -- * AwsS3BucketBucketLifecycleConfigurationRulesFilterDetails
     AwsS3BucketBucketLifecycleConfigurationRulesFilterDetails (..),
@@ -2497,29 +2996,29 @@ module Amazonka.SecurityHub.Types
     -- * AwsS3BucketBucketLifecycleConfigurationRulesFilterPredicateDetails
     AwsS3BucketBucketLifecycleConfigurationRulesFilterPredicateDetails (..),
     newAwsS3BucketBucketLifecycleConfigurationRulesFilterPredicateDetails,
-    awsS3BucketBucketLifecycleConfigurationRulesFilterPredicateDetails_tag,
-    awsS3BucketBucketLifecycleConfigurationRulesFilterPredicateDetails_prefix,
-    awsS3BucketBucketLifecycleConfigurationRulesFilterPredicateDetails_type,
     awsS3BucketBucketLifecycleConfigurationRulesFilterPredicateDetails_operands,
+    awsS3BucketBucketLifecycleConfigurationRulesFilterPredicateDetails_prefix,
+    awsS3BucketBucketLifecycleConfigurationRulesFilterPredicateDetails_tag,
+    awsS3BucketBucketLifecycleConfigurationRulesFilterPredicateDetails_type,
 
     -- * AwsS3BucketBucketLifecycleConfigurationRulesFilterPredicateOperandsDetails
     AwsS3BucketBucketLifecycleConfigurationRulesFilterPredicateOperandsDetails (..),
     newAwsS3BucketBucketLifecycleConfigurationRulesFilterPredicateOperandsDetails,
-    awsS3BucketBucketLifecycleConfigurationRulesFilterPredicateOperandsDetails_tag,
     awsS3BucketBucketLifecycleConfigurationRulesFilterPredicateOperandsDetails_prefix,
+    awsS3BucketBucketLifecycleConfigurationRulesFilterPredicateOperandsDetails_tag,
     awsS3BucketBucketLifecycleConfigurationRulesFilterPredicateOperandsDetails_type,
 
     -- * AwsS3BucketBucketLifecycleConfigurationRulesFilterPredicateOperandsTagDetails
     AwsS3BucketBucketLifecycleConfigurationRulesFilterPredicateOperandsTagDetails (..),
     newAwsS3BucketBucketLifecycleConfigurationRulesFilterPredicateOperandsTagDetails,
-    awsS3BucketBucketLifecycleConfigurationRulesFilterPredicateOperandsTagDetails_value,
     awsS3BucketBucketLifecycleConfigurationRulesFilterPredicateOperandsTagDetails_key,
+    awsS3BucketBucketLifecycleConfigurationRulesFilterPredicateOperandsTagDetails_value,
 
     -- * AwsS3BucketBucketLifecycleConfigurationRulesFilterPredicateTagDetails
     AwsS3BucketBucketLifecycleConfigurationRulesFilterPredicateTagDetails (..),
     newAwsS3BucketBucketLifecycleConfigurationRulesFilterPredicateTagDetails,
-    awsS3BucketBucketLifecycleConfigurationRulesFilterPredicateTagDetails_value,
     awsS3BucketBucketLifecycleConfigurationRulesFilterPredicateTagDetails_key,
+    awsS3BucketBucketLifecycleConfigurationRulesFilterPredicateTagDetails_value,
 
     -- * AwsS3BucketBucketLifecycleConfigurationRulesNoncurrentVersionTransitionsDetails
     AwsS3BucketBucketLifecycleConfigurationRulesNoncurrentVersionTransitionsDetails (..),
@@ -2530,30 +3029,37 @@ module Amazonka.SecurityHub.Types
     -- * AwsS3BucketBucketLifecycleConfigurationRulesTransitionsDetails
     AwsS3BucketBucketLifecycleConfigurationRulesTransitionsDetails (..),
     newAwsS3BucketBucketLifecycleConfigurationRulesTransitionsDetails,
-    awsS3BucketBucketLifecycleConfigurationRulesTransitionsDetails_days,
     awsS3BucketBucketLifecycleConfigurationRulesTransitionsDetails_date,
+    awsS3BucketBucketLifecycleConfigurationRulesTransitionsDetails_days,
     awsS3BucketBucketLifecycleConfigurationRulesTransitionsDetails_storageClass,
+
+    -- * AwsS3BucketBucketVersioningConfiguration
+    AwsS3BucketBucketVersioningConfiguration (..),
+    newAwsS3BucketBucketVersioningConfiguration,
+    awsS3BucketBucketVersioningConfiguration_isMfaDeleteEnabled,
+    awsS3BucketBucketVersioningConfiguration_status,
 
     -- * AwsS3BucketDetails
     AwsS3BucketDetails (..),
     newAwsS3BucketDetails,
+    awsS3BucketDetails_accessControlList,
+    awsS3BucketDetails_bucketLifecycleConfiguration,
+    awsS3BucketDetails_bucketLoggingConfiguration,
+    awsS3BucketDetails_bucketNotificationConfiguration,
+    awsS3BucketDetails_bucketVersioningConfiguration,
+    awsS3BucketDetails_bucketWebsiteConfiguration,
     awsS3BucketDetails_createdAt,
     awsS3BucketDetails_ownerAccountId,
-    awsS3BucketDetails_bucketLoggingConfiguration,
-    awsS3BucketDetails_ownerName,
-    awsS3BucketDetails_accessControlList,
     awsS3BucketDetails_ownerId,
+    awsS3BucketDetails_ownerName,
     awsS3BucketDetails_publicAccessBlockConfiguration,
-    awsS3BucketDetails_bucketWebsiteConfiguration,
-    awsS3BucketDetails_bucketLifecycleConfiguration,
-    awsS3BucketDetails_bucketNotificationConfiguration,
     awsS3BucketDetails_serverSideEncryptionConfiguration,
 
     -- * AwsS3BucketLoggingConfiguration
     AwsS3BucketLoggingConfiguration (..),
     newAwsS3BucketLoggingConfiguration,
-    awsS3BucketLoggingConfiguration_logFilePrefix,
     awsS3BucketLoggingConfiguration_destinationBucketName,
+    awsS3BucketLoggingConfiguration_logFilePrefix,
 
     -- * AwsS3BucketNotificationConfiguration
     AwsS3BucketNotificationConfiguration (..),
@@ -2565,8 +3071,8 @@ module Amazonka.SecurityHub.Types
     newAwsS3BucketNotificationConfigurationDetail,
     awsS3BucketNotificationConfigurationDetail_destination,
     awsS3BucketNotificationConfigurationDetail_events,
-    awsS3BucketNotificationConfigurationDetail_type,
     awsS3BucketNotificationConfigurationDetail_filter,
+    awsS3BucketNotificationConfigurationDetail_type,
 
     -- * AwsS3BucketNotificationConfigurationFilter
     AwsS3BucketNotificationConfigurationFilter (..),
@@ -2581,14 +3087,14 @@ module Amazonka.SecurityHub.Types
     -- * AwsS3BucketNotificationConfigurationS3KeyFilterRule
     AwsS3BucketNotificationConfigurationS3KeyFilterRule (..),
     newAwsS3BucketNotificationConfigurationS3KeyFilterRule,
-    awsS3BucketNotificationConfigurationS3KeyFilterRule_value,
     awsS3BucketNotificationConfigurationS3KeyFilterRule_name,
+    awsS3BucketNotificationConfigurationS3KeyFilterRule_value,
 
     -- * AwsS3BucketServerSideEncryptionByDefault
     AwsS3BucketServerSideEncryptionByDefault (..),
     newAwsS3BucketServerSideEncryptionByDefault,
-    awsS3BucketServerSideEncryptionByDefault_sSEAlgorithm,
     awsS3BucketServerSideEncryptionByDefault_kmsMasterKeyID,
+    awsS3BucketServerSideEncryptionByDefault_sSEAlgorithm,
 
     -- * AwsS3BucketServerSideEncryptionConfiguration
     AwsS3BucketServerSideEncryptionConfiguration (..),
@@ -2603,9 +3109,9 @@ module Amazonka.SecurityHub.Types
     -- * AwsS3BucketWebsiteConfiguration
     AwsS3BucketWebsiteConfiguration (..),
     newAwsS3BucketWebsiteConfiguration,
-    awsS3BucketWebsiteConfiguration_redirectAllRequestsTo,
-    awsS3BucketWebsiteConfiguration_indexDocumentSuffix,
     awsS3BucketWebsiteConfiguration_errorDocument,
+    awsS3BucketWebsiteConfiguration_indexDocumentSuffix,
+    awsS3BucketWebsiteConfiguration_redirectAllRequestsTo,
     awsS3BucketWebsiteConfiguration_routingRules,
 
     -- * AwsS3BucketWebsiteConfigurationRedirectTo
@@ -2617,45 +3123,45 @@ module Amazonka.SecurityHub.Types
     -- * AwsS3BucketWebsiteConfigurationRoutingRule
     AwsS3BucketWebsiteConfigurationRoutingRule (..),
     newAwsS3BucketWebsiteConfigurationRoutingRule,
-    awsS3BucketWebsiteConfigurationRoutingRule_redirect,
     awsS3BucketWebsiteConfigurationRoutingRule_condition,
+    awsS3BucketWebsiteConfigurationRoutingRule_redirect,
 
     -- * AwsS3BucketWebsiteConfigurationRoutingRuleCondition
     AwsS3BucketWebsiteConfigurationRoutingRuleCondition (..),
     newAwsS3BucketWebsiteConfigurationRoutingRuleCondition,
-    awsS3BucketWebsiteConfigurationRoutingRuleCondition_keyPrefixEquals,
     awsS3BucketWebsiteConfigurationRoutingRuleCondition_httpErrorCodeReturnedEquals,
+    awsS3BucketWebsiteConfigurationRoutingRuleCondition_keyPrefixEquals,
 
     -- * AwsS3BucketWebsiteConfigurationRoutingRuleRedirect
     AwsS3BucketWebsiteConfigurationRoutingRuleRedirect (..),
     newAwsS3BucketWebsiteConfigurationRoutingRuleRedirect,
     awsS3BucketWebsiteConfigurationRoutingRuleRedirect_hostname,
-    awsS3BucketWebsiteConfigurationRoutingRuleRedirect_protocol,
     awsS3BucketWebsiteConfigurationRoutingRuleRedirect_httpRedirectCode,
-    awsS3BucketWebsiteConfigurationRoutingRuleRedirect_replaceKeyWith,
+    awsS3BucketWebsiteConfigurationRoutingRuleRedirect_protocol,
     awsS3BucketWebsiteConfigurationRoutingRuleRedirect_replaceKeyPrefixWith,
+    awsS3BucketWebsiteConfigurationRoutingRuleRedirect_replaceKeyWith,
 
     -- * AwsS3ObjectDetails
     AwsS3ObjectDetails (..),
     newAwsS3ObjectDetails,
-    awsS3ObjectDetails_eTag,
-    awsS3ObjectDetails_versionId,
-    awsS3ObjectDetails_sSEKMSKeyId,
-    awsS3ObjectDetails_lastModified,
-    awsS3ObjectDetails_serverSideEncryption,
     awsS3ObjectDetails_contentType,
+    awsS3ObjectDetails_eTag,
+    awsS3ObjectDetails_lastModified,
+    awsS3ObjectDetails_sSEKMSKeyId,
+    awsS3ObjectDetails_serverSideEncryption,
+    awsS3ObjectDetails_versionId,
 
     -- * AwsSecretsManagerSecretDetails
     AwsSecretsManagerSecretDetails (..),
     newAwsSecretsManagerSecretDetails,
-    awsSecretsManagerSecretDetails_rotationRules,
-    awsSecretsManagerSecretDetails_rotationEnabled,
-    awsSecretsManagerSecretDetails_kmsKeyId,
-    awsSecretsManagerSecretDetails_name,
     awsSecretsManagerSecretDetails_deleted,
     awsSecretsManagerSecretDetails_description,
-    awsSecretsManagerSecretDetails_rotationOccurredWithinFrequency,
+    awsSecretsManagerSecretDetails_kmsKeyId,
+    awsSecretsManagerSecretDetails_name,
+    awsSecretsManagerSecretDetails_rotationEnabled,
     awsSecretsManagerSecretDetails_rotationLambdaArn,
+    awsSecretsManagerSecretDetails_rotationOccurredWithinFrequency,
+    awsSecretsManagerSecretDetails_rotationRules,
 
     -- * AwsSecretsManagerSecretRotationRules
     AwsSecretsManagerSecretRotationRules (..),
@@ -2665,35 +3171,37 @@ module Amazonka.SecurityHub.Types
     -- * AwsSecurityFinding
     AwsSecurityFinding (..),
     newAwsSecurityFinding,
-    awsSecurityFinding_productName,
-    awsSecurityFinding_workflowState,
-    awsSecurityFinding_criticality,
-    awsSecurityFinding_recordState,
-    awsSecurityFinding_productFields,
-    awsSecurityFinding_compliance,
-    awsSecurityFinding_findingProviderFields,
-    awsSecurityFinding_companyName,
-    awsSecurityFinding_note,
-    awsSecurityFinding_process,
-    awsSecurityFinding_severity,
-    awsSecurityFinding_types,
     awsSecurityFinding_action,
-    awsSecurityFinding_network,
-    awsSecurityFinding_relatedFindings,
-    awsSecurityFinding_firstObservedAt,
-    awsSecurityFinding_malware,
+    awsSecurityFinding_companyName,
+    awsSecurityFinding_compliance,
     awsSecurityFinding_confidence,
-    awsSecurityFinding_remediation,
-    awsSecurityFinding_patchSummary,
-    awsSecurityFinding_vulnerabilities,
-    awsSecurityFinding_region,
-    awsSecurityFinding_networkPath,
-    awsSecurityFinding_workflow,
-    awsSecurityFinding_verificationState,
-    awsSecurityFinding_threatIntelIndicators,
-    awsSecurityFinding_sourceUrl,
+    awsSecurityFinding_criticality,
+    awsSecurityFinding_findingProviderFields,
+    awsSecurityFinding_firstObservedAt,
     awsSecurityFinding_lastObservedAt,
+    awsSecurityFinding_malware,
+    awsSecurityFinding_network,
+    awsSecurityFinding_networkPath,
+    awsSecurityFinding_note,
+    awsSecurityFinding_patchSummary,
+    awsSecurityFinding_process,
+    awsSecurityFinding_productFields,
+    awsSecurityFinding_productName,
+    awsSecurityFinding_recordState,
+    awsSecurityFinding_region,
+    awsSecurityFinding_relatedFindings,
+    awsSecurityFinding_remediation,
+    awsSecurityFinding_sample,
+    awsSecurityFinding_severity,
+    awsSecurityFinding_sourceUrl,
+    awsSecurityFinding_threatIntelIndicators,
+    awsSecurityFinding_threats,
+    awsSecurityFinding_types,
     awsSecurityFinding_userDefinedFields,
+    awsSecurityFinding_verificationState,
+    awsSecurityFinding_vulnerabilities,
+    awsSecurityFinding_workflow,
+    awsSecurityFinding_workflowState,
     awsSecurityFinding_schemaVersion,
     awsSecurityFinding_id,
     awsSecurityFinding_productArn,
@@ -2708,100 +3216,101 @@ module Amazonka.SecurityHub.Types
     -- * AwsSecurityFindingFilters
     AwsSecurityFindingFilters (..),
     newAwsSecurityFindingFilters,
-    awsSecurityFindingFilters_resourceAwsIamAccessKeyPrincipalName,
-    awsSecurityFindingFilters_resourceAwsIamAccessKeyCreatedAt,
-    awsSecurityFindingFilters_malwarePath,
-    awsSecurityFindingFilters_resourceDetailsOther,
-    awsSecurityFindingFilters_productName,
-    awsSecurityFindingFilters_resourceAwsEc2InstanceSubnetId,
-    awsSecurityFindingFilters_workflowState,
-    awsSecurityFindingFilters_resourceContainerImageId,
-    awsSecurityFindingFilters_relatedFindingsProductArn,
-    awsSecurityFindingFilters_criticality,
-    awsSecurityFindingFilters_resourceId,
-    awsSecurityFindingFilters_resourceAwsIamAccessKeyUserName,
-    awsSecurityFindingFilters_processParentPid,
-    awsSecurityFindingFilters_resourceAwsEc2InstanceType,
-    awsSecurityFindingFilters_resourceRegion,
-    awsSecurityFindingFilters_recordState,
-    awsSecurityFindingFilters_networkSourceIpV6,
-    awsSecurityFindingFilters_resourceType,
-    awsSecurityFindingFilters_productFields,
-    awsSecurityFindingFilters_noteText,
-    awsSecurityFindingFilters_resourceContainerImageName,
-    awsSecurityFindingFilters_createdAt,
-    awsSecurityFindingFilters_threatIntelIndicatorCategory,
-    awsSecurityFindingFilters_severityProduct,
-    awsSecurityFindingFilters_companyName,
-    awsSecurityFindingFilters_findingProviderFieldsSeverityLabel,
-    awsSecurityFindingFilters_networkProtocol,
-    awsSecurityFindingFilters_resourceAwsEc2InstanceImageId,
-    awsSecurityFindingFilters_resourcePartition,
-    awsSecurityFindingFilters_resourceAwsEc2InstanceIpV6Addresses,
-    awsSecurityFindingFilters_resourceTags,
-    awsSecurityFindingFilters_resourceAwsEc2InstanceLaunchedAt,
-    awsSecurityFindingFilters_networkSourceDomain,
-    awsSecurityFindingFilters_networkDestinationPort,
-    awsSecurityFindingFilters_noteUpdatedBy,
-    awsSecurityFindingFilters_malwareName,
-    awsSecurityFindingFilters_findingProviderFieldsTypes,
-    awsSecurityFindingFilters_threatIntelIndicatorValue,
-    awsSecurityFindingFilters_malwareState,
     awsSecurityFindingFilters_awsAccountId,
+    awsSecurityFindingFilters_companyName,
     awsSecurityFindingFilters_complianceStatus,
-    awsSecurityFindingFilters_networkDestinationIpV4,
-    awsSecurityFindingFilters_findingProviderFieldsRelatedFindingsId,
-    awsSecurityFindingFilters_firstObservedAt,
-    awsSecurityFindingFilters_threatIntelIndicatorLastObservedAt,
-    awsSecurityFindingFilters_recommendationText,
-    awsSecurityFindingFilters_resourceContainerLaunchedAt,
-    awsSecurityFindingFilters_networkSourceMac,
     awsSecurityFindingFilters_confidence,
-    awsSecurityFindingFilters_relatedFindingsId,
-    awsSecurityFindingFilters_processName,
-    awsSecurityFindingFilters_findingProviderFieldsSeverityOriginal,
-    awsSecurityFindingFilters_workflowStatus,
-    awsSecurityFindingFilters_resourceAwsS3BucketOwnerName,
-    awsSecurityFindingFilters_findingProviderFieldsCriticality,
-    awsSecurityFindingFilters_findingProviderFieldsRelatedFindingsProductArn,
-    awsSecurityFindingFilters_resourceAwsEc2InstanceVpcId,
-    awsSecurityFindingFilters_networkSourcePort,
-    awsSecurityFindingFilters_resourceContainerName,
-    awsSecurityFindingFilters_severityNormalized,
-    awsSecurityFindingFilters_resourceAwsEc2InstanceKeyName,
-    awsSecurityFindingFilters_networkDestinationDomain,
-    awsSecurityFindingFilters_processLaunchedAt,
-    awsSecurityFindingFilters_id,
-    awsSecurityFindingFilters_severityLabel,
-    awsSecurityFindingFilters_resourceAwsIamAccessKeyStatus,
-    awsSecurityFindingFilters_resourceAwsS3BucketOwnerId,
-    awsSecurityFindingFilters_threatIntelIndicatorType,
-    awsSecurityFindingFilters_resourceAwsIamUserUserName,
-    awsSecurityFindingFilters_noteUpdatedAt,
-    awsSecurityFindingFilters_title,
-    awsSecurityFindingFilters_region,
-    awsSecurityFindingFilters_threatIntelIndicatorSource,
-    awsSecurityFindingFilters_type,
-    awsSecurityFindingFilters_networkSourceIpV4,
-    awsSecurityFindingFilters_resourceAwsEc2InstanceIamInstanceProfileArn,
-    awsSecurityFindingFilters_updatedAt,
-    awsSecurityFindingFilters_processTerminatedAt,
-    awsSecurityFindingFilters_networkDestinationIpV6,
-    awsSecurityFindingFilters_threatIntelIndicatorSourceUrl,
-    awsSecurityFindingFilters_networkDirection,
+    awsSecurityFindingFilters_createdAt,
+    awsSecurityFindingFilters_criticality,
     awsSecurityFindingFilters_description,
-    awsSecurityFindingFilters_verificationState,
-    awsSecurityFindingFilters_sourceUrl,
+    awsSecurityFindingFilters_findingProviderFieldsConfidence,
+    awsSecurityFindingFilters_findingProviderFieldsCriticality,
+    awsSecurityFindingFilters_findingProviderFieldsRelatedFindingsId,
+    awsSecurityFindingFilters_findingProviderFieldsRelatedFindingsProductArn,
+    awsSecurityFindingFilters_findingProviderFieldsSeverityLabel,
+    awsSecurityFindingFilters_findingProviderFieldsSeverityOriginal,
+    awsSecurityFindingFilters_findingProviderFieldsTypes,
+    awsSecurityFindingFilters_firstObservedAt,
+    awsSecurityFindingFilters_generatorId,
+    awsSecurityFindingFilters_id,
+    awsSecurityFindingFilters_keyword,
+    awsSecurityFindingFilters_lastObservedAt,
+    awsSecurityFindingFilters_malwareName,
+    awsSecurityFindingFilters_malwarePath,
+    awsSecurityFindingFilters_malwareState,
+    awsSecurityFindingFilters_malwareType,
+    awsSecurityFindingFilters_networkDestinationDomain,
+    awsSecurityFindingFilters_networkDestinationIpV4,
+    awsSecurityFindingFilters_networkDestinationIpV6,
+    awsSecurityFindingFilters_networkDestinationPort,
+    awsSecurityFindingFilters_networkDirection,
+    awsSecurityFindingFilters_networkProtocol,
+    awsSecurityFindingFilters_networkSourceDomain,
+    awsSecurityFindingFilters_networkSourceIpV4,
+    awsSecurityFindingFilters_networkSourceIpV6,
+    awsSecurityFindingFilters_networkSourceMac,
+    awsSecurityFindingFilters_networkSourcePort,
+    awsSecurityFindingFilters_noteText,
+    awsSecurityFindingFilters_noteUpdatedAt,
+    awsSecurityFindingFilters_noteUpdatedBy,
+    awsSecurityFindingFilters_processLaunchedAt,
+    awsSecurityFindingFilters_processName,
+    awsSecurityFindingFilters_processParentPid,
     awsSecurityFindingFilters_processPath,
     awsSecurityFindingFilters_processPid,
-    awsSecurityFindingFilters_generatorId,
+    awsSecurityFindingFilters_processTerminatedAt,
     awsSecurityFindingFilters_productArn,
-    awsSecurityFindingFilters_lastObservedAt,
-    awsSecurityFindingFilters_findingProviderFieldsConfidence,
-    awsSecurityFindingFilters_userDefinedFields,
+    awsSecurityFindingFilters_productFields,
+    awsSecurityFindingFilters_productName,
+    awsSecurityFindingFilters_recommendationText,
+    awsSecurityFindingFilters_recordState,
+    awsSecurityFindingFilters_region,
+    awsSecurityFindingFilters_relatedFindingsId,
+    awsSecurityFindingFilters_relatedFindingsProductArn,
+    awsSecurityFindingFilters_resourceAwsEc2InstanceIamInstanceProfileArn,
+    awsSecurityFindingFilters_resourceAwsEc2InstanceImageId,
     awsSecurityFindingFilters_resourceAwsEc2InstanceIpV4Addresses,
-    awsSecurityFindingFilters_malwareType,
-    awsSecurityFindingFilters_keyword,
+    awsSecurityFindingFilters_resourceAwsEc2InstanceIpV6Addresses,
+    awsSecurityFindingFilters_resourceAwsEc2InstanceKeyName,
+    awsSecurityFindingFilters_resourceAwsEc2InstanceLaunchedAt,
+    awsSecurityFindingFilters_resourceAwsEc2InstanceSubnetId,
+    awsSecurityFindingFilters_resourceAwsEc2InstanceType,
+    awsSecurityFindingFilters_resourceAwsEc2InstanceVpcId,
+    awsSecurityFindingFilters_resourceAwsIamAccessKeyCreatedAt,
+    awsSecurityFindingFilters_resourceAwsIamAccessKeyPrincipalName,
+    awsSecurityFindingFilters_resourceAwsIamAccessKeyStatus,
+    awsSecurityFindingFilters_resourceAwsIamAccessKeyUserName,
+    awsSecurityFindingFilters_resourceAwsIamUserUserName,
+    awsSecurityFindingFilters_resourceAwsS3BucketOwnerId,
+    awsSecurityFindingFilters_resourceAwsS3BucketOwnerName,
+    awsSecurityFindingFilters_resourceContainerImageId,
+    awsSecurityFindingFilters_resourceContainerImageName,
+    awsSecurityFindingFilters_resourceContainerLaunchedAt,
+    awsSecurityFindingFilters_resourceContainerName,
+    awsSecurityFindingFilters_resourceDetailsOther,
+    awsSecurityFindingFilters_resourceId,
+    awsSecurityFindingFilters_resourcePartition,
+    awsSecurityFindingFilters_resourceRegion,
+    awsSecurityFindingFilters_resourceTags,
+    awsSecurityFindingFilters_resourceType,
+    awsSecurityFindingFilters_sample,
+    awsSecurityFindingFilters_severityLabel,
+    awsSecurityFindingFilters_severityNormalized,
+    awsSecurityFindingFilters_severityProduct,
+    awsSecurityFindingFilters_sourceUrl,
+    awsSecurityFindingFilters_threatIntelIndicatorCategory,
+    awsSecurityFindingFilters_threatIntelIndicatorLastObservedAt,
+    awsSecurityFindingFilters_threatIntelIndicatorSource,
+    awsSecurityFindingFilters_threatIntelIndicatorSourceUrl,
+    awsSecurityFindingFilters_threatIntelIndicatorType,
+    awsSecurityFindingFilters_threatIntelIndicatorValue,
+    awsSecurityFindingFilters_title,
+    awsSecurityFindingFilters_type,
+    awsSecurityFindingFilters_updatedAt,
+    awsSecurityFindingFilters_userDefinedFields,
+    awsSecurityFindingFilters_verificationState,
+    awsSecurityFindingFilters_workflowState,
+    awsSecurityFindingFilters_workflowStatus,
 
     -- * AwsSecurityFindingIdentifier
     AwsSecurityFindingIdentifier (..),
@@ -2812,46 +3321,53 @@ module Amazonka.SecurityHub.Types
     -- * AwsSnsTopicDetails
     AwsSnsTopicDetails (..),
     newAwsSnsTopicDetails,
+    awsSnsTopicDetails_applicationSuccessFeedbackRoleArn,
+    awsSnsTopicDetails_firehoseFailureFeedbackRoleArn,
+    awsSnsTopicDetails_firehoseSuccessFeedbackRoleArn,
+    awsSnsTopicDetails_httpFailureFeedbackRoleArn,
+    awsSnsTopicDetails_httpSuccessFeedbackRoleArn,
     awsSnsTopicDetails_kmsMasterKeyId,
-    awsSnsTopicDetails_topicName,
     awsSnsTopicDetails_owner,
+    awsSnsTopicDetails_sqsFailureFeedbackRoleArn,
+    awsSnsTopicDetails_sqsSuccessFeedbackRoleArn,
     awsSnsTopicDetails_subscription,
+    awsSnsTopicDetails_topicName,
 
     -- * AwsSnsTopicSubscription
     AwsSnsTopicSubscription (..),
     newAwsSnsTopicSubscription,
-    awsSnsTopicSubscription_protocol,
     awsSnsTopicSubscription_endpoint,
+    awsSnsTopicSubscription_protocol,
 
     -- * AwsSqsQueueDetails
     AwsSqsQueueDetails (..),
     newAwsSqsQueueDetails,
+    awsSqsQueueDetails_deadLetterTargetArn,
+    awsSqsQueueDetails_kmsDataKeyReusePeriodSeconds,
     awsSqsQueueDetails_kmsMasterKeyId,
     awsSqsQueueDetails_queueName,
-    awsSqsQueueDetails_kmsDataKeyReusePeriodSeconds,
-    awsSqsQueueDetails_deadLetterTargetArn,
 
     -- * AwsSsmComplianceSummary
     AwsSsmComplianceSummary (..),
     newAwsSsmComplianceSummary,
-    awsSsmComplianceSummary_status,
-    awsSsmComplianceSummary_nonCompliantLowCount,
-    awsSsmComplianceSummary_compliantHighCount,
-    awsSsmComplianceSummary_nonCompliantUnspecifiedCount,
-    awsSsmComplianceSummary_executionType,
-    awsSsmComplianceSummary_compliantInformationalCount,
-    awsSsmComplianceSummary_nonCompliantHighCount,
-    awsSsmComplianceSummary_nonCompliantMediumCount,
-    awsSsmComplianceSummary_overallSeverity,
-    awsSsmComplianceSummary_compliantCriticalCount,
-    awsSsmComplianceSummary_nonCompliantInformationalCount,
     awsSsmComplianceSummary_complianceType,
-    awsSsmComplianceSummary_compliantUnspecifiedCount,
-    awsSsmComplianceSummary_nonCompliantCriticalCount,
-    awsSsmComplianceSummary_patchBaselineId,
+    awsSsmComplianceSummary_compliantCriticalCount,
+    awsSsmComplianceSummary_compliantHighCount,
+    awsSsmComplianceSummary_compliantInformationalCount,
     awsSsmComplianceSummary_compliantLowCount,
-    awsSsmComplianceSummary_patchGroup,
     awsSsmComplianceSummary_compliantMediumCount,
+    awsSsmComplianceSummary_compliantUnspecifiedCount,
+    awsSsmComplianceSummary_executionType,
+    awsSsmComplianceSummary_nonCompliantCriticalCount,
+    awsSsmComplianceSummary_nonCompliantHighCount,
+    awsSsmComplianceSummary_nonCompliantInformationalCount,
+    awsSsmComplianceSummary_nonCompliantLowCount,
+    awsSsmComplianceSummary_nonCompliantMediumCount,
+    awsSsmComplianceSummary_nonCompliantUnspecifiedCount,
+    awsSsmComplianceSummary_overallSeverity,
+    awsSsmComplianceSummary_patchBaselineId,
+    awsSsmComplianceSummary_patchGroup,
+    awsSsmComplianceSummary_status,
 
     -- * AwsSsmPatch
     AwsSsmPatch (..),
@@ -2866,60 +3382,160 @@ module Amazonka.SecurityHub.Types
     -- * AwsWafRateBasedRuleDetails
     AwsWafRateBasedRuleDetails (..),
     newAwsWafRateBasedRuleDetails,
-    awsWafRateBasedRuleDetails_rateLimit,
-    awsWafRateBasedRuleDetails_rateKey,
-    awsWafRateBasedRuleDetails_metricName,
-    awsWafRateBasedRuleDetails_ruleId,
-    awsWafRateBasedRuleDetails_name,
     awsWafRateBasedRuleDetails_matchPredicates,
+    awsWafRateBasedRuleDetails_metricName,
+    awsWafRateBasedRuleDetails_name,
+    awsWafRateBasedRuleDetails_rateKey,
+    awsWafRateBasedRuleDetails_rateLimit,
+    awsWafRateBasedRuleDetails_ruleId,
 
     -- * AwsWafRateBasedRuleMatchPredicate
     AwsWafRateBasedRuleMatchPredicate (..),
     newAwsWafRateBasedRuleMatchPredicate,
-    awsWafRateBasedRuleMatchPredicate_negated,
     awsWafRateBasedRuleMatchPredicate_dataId,
+    awsWafRateBasedRuleMatchPredicate_negated,
     awsWafRateBasedRuleMatchPredicate_type,
 
     -- * AwsWafRegionalRateBasedRuleDetails
     AwsWafRegionalRateBasedRuleDetails (..),
     newAwsWafRegionalRateBasedRuleDetails,
-    awsWafRegionalRateBasedRuleDetails_rateLimit,
-    awsWafRegionalRateBasedRuleDetails_rateKey,
-    awsWafRegionalRateBasedRuleDetails_metricName,
-    awsWafRegionalRateBasedRuleDetails_ruleId,
-    awsWafRegionalRateBasedRuleDetails_name,
     awsWafRegionalRateBasedRuleDetails_matchPredicates,
+    awsWafRegionalRateBasedRuleDetails_metricName,
+    awsWafRegionalRateBasedRuleDetails_name,
+    awsWafRegionalRateBasedRuleDetails_rateKey,
+    awsWafRegionalRateBasedRuleDetails_rateLimit,
+    awsWafRegionalRateBasedRuleDetails_ruleId,
 
     -- * AwsWafRegionalRateBasedRuleMatchPredicate
     AwsWafRegionalRateBasedRuleMatchPredicate (..),
     newAwsWafRegionalRateBasedRuleMatchPredicate,
-    awsWafRegionalRateBasedRuleMatchPredicate_negated,
     awsWafRegionalRateBasedRuleMatchPredicate_dataId,
+    awsWafRegionalRateBasedRuleMatchPredicate_negated,
     awsWafRegionalRateBasedRuleMatchPredicate_type,
+
+    -- * AwsWafRegionalRuleDetails
+    AwsWafRegionalRuleDetails (..),
+    newAwsWafRegionalRuleDetails,
+    awsWafRegionalRuleDetails_metricName,
+    awsWafRegionalRuleDetails_name,
+    awsWafRegionalRuleDetails_predicateList,
+    awsWafRegionalRuleDetails_ruleId,
+
+    -- * AwsWafRegionalRuleGroupDetails
+    AwsWafRegionalRuleGroupDetails (..),
+    newAwsWafRegionalRuleGroupDetails,
+    awsWafRegionalRuleGroupDetails_metricName,
+    awsWafRegionalRuleGroupDetails_name,
+    awsWafRegionalRuleGroupDetails_ruleGroupId,
+    awsWafRegionalRuleGroupDetails_rules,
+
+    -- * AwsWafRegionalRuleGroupRulesActionDetails
+    AwsWafRegionalRuleGroupRulesActionDetails (..),
+    newAwsWafRegionalRuleGroupRulesActionDetails,
+    awsWafRegionalRuleGroupRulesActionDetails_type,
+
+    -- * AwsWafRegionalRuleGroupRulesDetails
+    AwsWafRegionalRuleGroupRulesDetails (..),
+    newAwsWafRegionalRuleGroupRulesDetails,
+    awsWafRegionalRuleGroupRulesDetails_action,
+    awsWafRegionalRuleGroupRulesDetails_priority,
+    awsWafRegionalRuleGroupRulesDetails_ruleId,
+    awsWafRegionalRuleGroupRulesDetails_type,
+
+    -- * AwsWafRegionalRulePredicateListDetails
+    AwsWafRegionalRulePredicateListDetails (..),
+    newAwsWafRegionalRulePredicateListDetails,
+    awsWafRegionalRulePredicateListDetails_dataId,
+    awsWafRegionalRulePredicateListDetails_negated,
+    awsWafRegionalRulePredicateListDetails_type,
+
+    -- * AwsWafRegionalWebAclDetails
+    AwsWafRegionalWebAclDetails (..),
+    newAwsWafRegionalWebAclDetails,
+    awsWafRegionalWebAclDetails_defaultAction,
+    awsWafRegionalWebAclDetails_metricName,
+    awsWafRegionalWebAclDetails_name,
+    awsWafRegionalWebAclDetails_rulesList,
+    awsWafRegionalWebAclDetails_webAclId,
+
+    -- * AwsWafRegionalWebAclRulesListActionDetails
+    AwsWafRegionalWebAclRulesListActionDetails (..),
+    newAwsWafRegionalWebAclRulesListActionDetails,
+    awsWafRegionalWebAclRulesListActionDetails_type,
+
+    -- * AwsWafRegionalWebAclRulesListDetails
+    AwsWafRegionalWebAclRulesListDetails (..),
+    newAwsWafRegionalWebAclRulesListDetails,
+    awsWafRegionalWebAclRulesListDetails_action,
+    awsWafRegionalWebAclRulesListDetails_overrideAction,
+    awsWafRegionalWebAclRulesListDetails_priority,
+    awsWafRegionalWebAclRulesListDetails_ruleId,
+    awsWafRegionalWebAclRulesListDetails_type,
+
+    -- * AwsWafRegionalWebAclRulesListOverrideActionDetails
+    AwsWafRegionalWebAclRulesListOverrideActionDetails (..),
+    newAwsWafRegionalWebAclRulesListOverrideActionDetails,
+    awsWafRegionalWebAclRulesListOverrideActionDetails_type,
+
+    -- * AwsWafRuleDetails
+    AwsWafRuleDetails (..),
+    newAwsWafRuleDetails,
+    awsWafRuleDetails_metricName,
+    awsWafRuleDetails_name,
+    awsWafRuleDetails_predicateList,
+    awsWafRuleDetails_ruleId,
+
+    -- * AwsWafRuleGroupDetails
+    AwsWafRuleGroupDetails (..),
+    newAwsWafRuleGroupDetails,
+    awsWafRuleGroupDetails_metricName,
+    awsWafRuleGroupDetails_name,
+    awsWafRuleGroupDetails_ruleGroupId,
+    awsWafRuleGroupDetails_rules,
+
+    -- * AwsWafRuleGroupRulesActionDetails
+    AwsWafRuleGroupRulesActionDetails (..),
+    newAwsWafRuleGroupRulesActionDetails,
+    awsWafRuleGroupRulesActionDetails_type,
+
+    -- * AwsWafRuleGroupRulesDetails
+    AwsWafRuleGroupRulesDetails (..),
+    newAwsWafRuleGroupRulesDetails,
+    awsWafRuleGroupRulesDetails_action,
+    awsWafRuleGroupRulesDetails_priority,
+    awsWafRuleGroupRulesDetails_ruleId,
+    awsWafRuleGroupRulesDetails_type,
+
+    -- * AwsWafRulePredicateListDetails
+    AwsWafRulePredicateListDetails (..),
+    newAwsWafRulePredicateListDetails,
+    awsWafRulePredicateListDetails_dataId,
+    awsWafRulePredicateListDetails_negated,
+    awsWafRulePredicateListDetails_type,
 
     -- * AwsWafWebAclDetails
     AwsWafWebAclDetails (..),
     newAwsWafWebAclDetails,
+    awsWafWebAclDetails_defaultAction,
+    awsWafWebAclDetails_name,
     awsWafWebAclDetails_rules,
     awsWafWebAclDetails_webAclId,
-    awsWafWebAclDetails_name,
-    awsWafWebAclDetails_defaultAction,
 
     -- * AwsWafWebAclRule
     AwsWafWebAclRule (..),
     newAwsWafWebAclRule,
-    awsWafWebAclRule_priority,
-    awsWafWebAclRule_overrideAction,
-    awsWafWebAclRule_ruleId,
     awsWafWebAclRule_action,
     awsWafWebAclRule_excludedRules,
+    awsWafWebAclRule_overrideAction,
+    awsWafWebAclRule_priority,
+    awsWafWebAclRule_ruleId,
     awsWafWebAclRule_type,
 
     -- * AwsXrayEncryptionConfigDetails
     AwsXrayEncryptionConfigDetails (..),
     newAwsXrayEncryptionConfigDetails,
-    awsXrayEncryptionConfigDetails_status,
     awsXrayEncryptionConfigDetails_keyId,
+    awsXrayEncryptionConfigDetails_status,
     awsXrayEncryptionConfigDetails_type,
 
     -- * BatchUpdateFindingsUnprocessedFinding
@@ -2929,20 +3545,25 @@ module Amazonka.SecurityHub.Types
     batchUpdateFindingsUnprocessedFinding_errorCode,
     batchUpdateFindingsUnprocessedFinding_errorMessage,
 
+    -- * BooleanFilter
+    BooleanFilter (..),
+    newBooleanFilter,
+    booleanFilter_value,
+
     -- * Cell
     Cell (..),
     newCell,
-    cell_row,
     cell_cellReference,
     cell_column,
     cell_columnName,
+    cell_row,
 
     -- * CidrBlockAssociation
     CidrBlockAssociation (..),
     newCidrBlockAssociation,
     cidrBlockAssociation_associationId,
-    cidrBlockAssociation_cidrBlockState,
     cidrBlockAssociation_cidrBlock,
+    cidrBlockAssociation_cidrBlockState,
 
     -- * City
     City (..),
@@ -2952,47 +3573,50 @@ module Amazonka.SecurityHub.Types
     -- * ClassificationResult
     ClassificationResult (..),
     newClassificationResult,
-    classificationResult_status,
-    classificationResult_sensitiveData,
-    classificationResult_mimeType,
-    classificationResult_sizeClassified,
     classificationResult_additionalOccurrences,
     classificationResult_customDataIdentifiers,
+    classificationResult_mimeType,
+    classificationResult_sensitiveData,
+    classificationResult_sizeClassified,
+    classificationResult_status,
 
     -- * ClassificationStatus
     ClassificationStatus (..),
     newClassificationStatus,
-    classificationStatus_reason,
     classificationStatus_code,
+    classificationStatus_reason,
 
     -- * Compliance
     Compliance (..),
     newCompliance,
-    compliance_status,
     compliance_relatedRequirements,
+    compliance_status,
     compliance_statusReasons,
 
     -- * ContainerDetails
     ContainerDetails (..),
     newContainerDetails,
-    containerDetails_name,
+    containerDetails_containerRuntime,
     containerDetails_imageId,
     containerDetails_imageName,
     containerDetails_launchedAt,
+    containerDetails_name,
+    containerDetails_privileged,
+    containerDetails_volumeMounts,
 
     -- * Country
     Country (..),
     newCountry,
-    country_countryName,
     country_countryCode,
+    country_countryName,
 
     -- * CustomDataIdentifiersDetections
     CustomDataIdentifiersDetections (..),
     newCustomDataIdentifiersDetections,
-    customDataIdentifiersDetections_occurrences,
     customDataIdentifiersDetections_arn,
     customDataIdentifiersDetections_count,
     customDataIdentifiersDetections_name,
+    customDataIdentifiersDetections_occurrences,
 
     -- * CustomDataIdentifiersResult
     CustomDataIdentifiersResult (..),
@@ -3004,10 +3628,10 @@ module Amazonka.SecurityHub.Types
     Cvss (..),
     newCvss,
     cvss_adjustments,
-    cvss_baseVector,
-    cvss_version,
-    cvss_source,
     cvss_baseScore,
+    cvss_baseVector,
+    cvss_source,
+    cvss_version,
 
     -- * DataClassificationDetails
     DataClassificationDetails (..),
@@ -3018,22 +3642,30 @@ module Amazonka.SecurityHub.Types
     -- * DateFilter
     DateFilter (..),
     newDateFilter,
-    dateFilter_start,
     dateFilter_dateRange,
     dateFilter_end,
+    dateFilter_start,
 
     -- * DateRange
     DateRange (..),
     newDateRange,
-    dateRange_value,
     dateRange_unit,
+    dateRange_value,
 
     -- * DnsRequestAction
     DnsRequestAction (..),
     newDnsRequestAction,
+    dnsRequestAction_blocked,
     dnsRequestAction_domain,
     dnsRequestAction_protocol,
-    dnsRequestAction_blocked,
+
+    -- * FilePaths
+    FilePaths (..),
+    newFilePaths,
+    filePaths_fileName,
+    filePaths_filePath,
+    filePaths_hash,
+    filePaths_resourceId,
 
     -- * FindingAggregator
     FindingAggregator (..),
@@ -3043,17 +3675,43 @@ module Amazonka.SecurityHub.Types
     -- * FindingProviderFields
     FindingProviderFields (..),
     newFindingProviderFields,
+    findingProviderFields_confidence,
     findingProviderFields_criticality,
+    findingProviderFields_relatedFindings,
     findingProviderFields_severity,
     findingProviderFields_types,
-    findingProviderFields_relatedFindings,
-    findingProviderFields_confidence,
 
     -- * FindingProviderSeverity
     FindingProviderSeverity (..),
     newFindingProviderSeverity,
     findingProviderSeverity_label,
     findingProviderSeverity_original,
+
+    -- * FirewallPolicyDetails
+    FirewallPolicyDetails (..),
+    newFirewallPolicyDetails,
+    firewallPolicyDetails_statefulRuleGroupReferences,
+    firewallPolicyDetails_statelessCustomActions,
+    firewallPolicyDetails_statelessDefaultActions,
+    firewallPolicyDetails_statelessFragmentDefaultActions,
+    firewallPolicyDetails_statelessRuleGroupReferences,
+
+    -- * FirewallPolicyStatefulRuleGroupReferencesDetails
+    FirewallPolicyStatefulRuleGroupReferencesDetails (..),
+    newFirewallPolicyStatefulRuleGroupReferencesDetails,
+    firewallPolicyStatefulRuleGroupReferencesDetails_resourceArn,
+
+    -- * FirewallPolicyStatelessCustomActionsDetails
+    FirewallPolicyStatelessCustomActionsDetails (..),
+    newFirewallPolicyStatelessCustomActionsDetails,
+    firewallPolicyStatelessCustomActionsDetails_actionDefinition,
+    firewallPolicyStatelessCustomActionsDetails_actionName,
+
+    -- * FirewallPolicyStatelessRuleGroupReferencesDetails
+    FirewallPolicyStatelessRuleGroupReferencesDetails (..),
+    newFirewallPolicyStatelessRuleGroupReferencesDetails,
+    firewallPolicyStatelessRuleGroupReferencesDetails_priority,
+    firewallPolicyStatelessRuleGroupReferencesDetails_resourceArn,
 
     -- * GeoLocation
     GeoLocation (..),
@@ -3098,9 +3756,9 @@ module Amazonka.SecurityHub.Types
     -- * Invitation
     Invitation (..),
     newInvitation,
-    invitation_invitedAt,
-    invitation_invitationId,
     invitation_accountId,
+    invitation_invitationId,
+    invitation_invitedAt,
     invitation_memberStatus,
 
     -- * IpFilter
@@ -3111,17 +3769,17 @@ module Amazonka.SecurityHub.Types
     -- * IpOrganizationDetails
     IpOrganizationDetails (..),
     newIpOrganizationDetails,
-    ipOrganizationDetails_org,
-    ipOrganizationDetails_asnOrg,
     ipOrganizationDetails_asn,
+    ipOrganizationDetails_asnOrg,
     ipOrganizationDetails_isp,
+    ipOrganizationDetails_org,
 
     -- * Ipv6CidrBlockAssociation
     Ipv6CidrBlockAssociation (..),
     newIpv6CidrBlockAssociation,
     ipv6CidrBlockAssociation_associationId,
-    ipv6CidrBlockAssociation_ipv6CidrBlock,
     ipv6CidrBlockAssociation_cidrBlockState,
+    ipv6CidrBlockAssociation_ipv6CidrBlock,
 
     -- * KeywordFilter
     KeywordFilter (..),
@@ -3131,32 +3789,32 @@ module Amazonka.SecurityHub.Types
     -- * LoadBalancerState
     LoadBalancerState (..),
     newLoadBalancerState,
-    loadBalancerState_reason,
     loadBalancerState_code,
+    loadBalancerState_reason,
 
     -- * Malware
     Malware (..),
     newMalware,
-    malware_state,
     malware_path,
+    malware_state,
     malware_type,
     malware_name,
 
     -- * MapFilter
     MapFilter (..),
     newMapFilter,
-    mapFilter_value,
     mapFilter_comparison,
     mapFilter_key,
+    mapFilter_value,
 
     -- * Member
     Member (..),
     newMember,
+    member_accountId,
+    member_administratorId,
     member_email,
     member_invitedAt,
-    member_administratorId,
     member_masterId,
-    member_accountId,
     member_memberStatus,
     member_updatedAt,
 
@@ -3164,27 +3822,27 @@ module Amazonka.SecurityHub.Types
     Network (..),
     newNetwork,
     network_destinationDomain,
-    network_sourcePort,
-    network_openPortRange,
-    network_sourceMac,
-    network_direction,
-    network_destinationIpV6,
-    network_protocol,
-    network_sourceIpV6,
     network_destinationIpV4,
-    network_sourceDomain,
+    network_destinationIpV6,
     network_destinationPort,
+    network_direction,
+    network_openPortRange,
+    network_protocol,
+    network_sourceDomain,
     network_sourceIpV4,
+    network_sourceIpV6,
+    network_sourceMac,
+    network_sourcePort,
 
     -- * NetworkConnectionAction
     NetworkConnectionAction (..),
     newNetworkConnectionAction,
-    networkConnectionAction_remoteIpDetails,
-    networkConnectionAction_protocol,
-    networkConnectionAction_remotePortDetails,
     networkConnectionAction_blocked,
     networkConnectionAction_connectionDirection,
     networkConnectionAction_localPortDetails,
+    networkConnectionAction_protocol,
+    networkConnectionAction_remoteIpDetails,
+    networkConnectionAction_remotePortDetails,
 
     -- * NetworkHeader
     NetworkHeader (..),
@@ -3196,16 +3854,16 @@ module Amazonka.SecurityHub.Types
     -- * NetworkPathComponent
     NetworkPathComponent (..),
     newNetworkPathComponent,
-    networkPathComponent_componentType,
-    networkPathComponent_ingress,
     networkPathComponent_componentId,
+    networkPathComponent_componentType,
     networkPathComponent_egress,
+    networkPathComponent_ingress,
 
     -- * NetworkPathComponentDetails
     NetworkPathComponentDetails (..),
     newNetworkPathComponentDetails,
-    networkPathComponentDetails_portRanges,
     networkPathComponentDetails_address,
+    networkPathComponentDetails_portRanges,
 
     -- * Note
     Note (..),
@@ -3224,52 +3882,52 @@ module Amazonka.SecurityHub.Types
     NumberFilter (..),
     newNumberFilter,
     numberFilter_eq,
-    numberFilter_lte,
     numberFilter_gte,
+    numberFilter_lte,
 
     -- * Occurrences
     Occurrences (..),
     newOccurrences,
-    occurrences_lineRanges,
     occurrences_cells,
+    occurrences_lineRanges,
+    occurrences_offsetRanges,
     occurrences_pages,
     occurrences_records,
-    occurrences_offsetRanges,
 
     -- * Page
     Page (..),
     newPage,
-    page_offsetRange,
     page_lineRange,
+    page_offsetRange,
     page_pageNumber,
 
     -- * PatchSummary
     PatchSummary (..),
     newPatchSummary,
-    patchSummary_operationEndTime,
-    patchSummary_rebootOption,
-    patchSummary_operation,
-    patchSummary_installedRejectedCount,
     patchSummary_failedCount,
-    patchSummary_installedOtherCount,
-    patchSummary_missingCount,
-    patchSummary_operationStartTime,
     patchSummary_installedCount,
+    patchSummary_installedOtherCount,
     patchSummary_installedPendingReboot,
+    patchSummary_installedRejectedCount,
+    patchSummary_missingCount,
+    patchSummary_operation,
+    patchSummary_operationEndTime,
+    patchSummary_operationStartTime,
+    patchSummary_rebootOption,
     patchSummary_id,
 
     -- * PortProbeAction
     PortProbeAction (..),
     newPortProbeAction,
-    portProbeAction_portProbeDetails,
     portProbeAction_blocked,
+    portProbeAction_portProbeDetails,
 
     -- * PortProbeDetail
     PortProbeDetail (..),
     newPortProbeDetail,
-    portProbeDetail_remoteIpDetails,
     portProbeDetail_localIpDetails,
     portProbeDetail_localPortDetails,
+    portProbeDetail_remoteIpDetails,
 
     -- * PortRange
     PortRange (..),
@@ -3280,37 +3938,37 @@ module Amazonka.SecurityHub.Types
     -- * PortRangeFromTo
     PortRangeFromTo (..),
     newPortRangeFromTo,
-    portRangeFromTo_to,
     portRangeFromTo_from,
+    portRangeFromTo_to,
 
     -- * ProcessDetails
     ProcessDetails (..),
     newProcessDetails,
-    processDetails_path,
+    processDetails_launchedAt,
     processDetails_name,
+    processDetails_parentPid,
+    processDetails_path,
     processDetails_pid,
     processDetails_terminatedAt,
-    processDetails_parentPid,
-    processDetails_launchedAt,
 
     -- * Product
     Product (..),
     newProduct,
+    product_activationUrl,
+    product_categories,
+    product_companyName,
+    product_description,
+    product_integrationTypes,
+    product_marketplaceUrl,
     product_productName,
     product_productSubscriptionResourcePolicy,
-    product_companyName,
-    product_categories,
-    product_marketplaceUrl,
-    product_activationUrl,
-    product_integrationTypes,
-    product_description,
     product_productArn,
 
     -- * Range
     Range (..),
     newRange,
-    range_start,
     range_end,
+    range_start,
     range_startColumn,
 
     -- * Recommendation
@@ -3340,8 +3998,8 @@ module Amazonka.SecurityHub.Types
     Resource (..),
     newResource,
     resource_dataClassification,
-    resource_partition,
     resource_details,
+    resource_partition,
     resource_region,
     resource_resourceRole,
     resource_tags,
@@ -3351,65 +4009,85 @@ module Amazonka.SecurityHub.Types
     -- * ResourceDetails
     ResourceDetails (..),
     newResourceDetails,
-    resourceDetails_awsCloudTrailTrail,
-    resourceDetails_awsRdsDbCluster,
-    resourceDetails_other,
-    resourceDetails_awsIamRole,
-    resourceDetails_awsElbLoadBalancer,
-    resourceDetails_awsEc2VpnConnection,
-    resourceDetails_awsCloudFrontDistribution,
-    resourceDetails_awsKmsKey,
-    resourceDetails_awsEksCluster,
-    resourceDetails_awsAutoScalingLaunchConfiguration,
-    resourceDetails_awsOpenSearchServiceDomain,
-    resourceDetails_awsRdsDbSnapshot,
-    resourceDetails_awsWafRegionalRateBasedRule,
     resourceDetails_awsApiGatewayRestApi,
-    resourceDetails_awsSqsQueue,
-    resourceDetails_awsSecretsManagerSecret,
-    resourceDetails_awsDynamoDbTable,
-    resourceDetails_awsS3AccountPublicAccessBlock,
-    resourceDetails_awsRdsDbClusterSnapshot,
-    resourceDetails_awsEc2SecurityGroup,
-    resourceDetails_awsEc2Instance,
-    resourceDetails_awsIamPolicy,
-    resourceDetails_awsS3Object,
-    resourceDetails_awsEcsTaskDefinition,
-    resourceDetails_awsLambdaLayerVersion,
-    resourceDetails_awsS3Bucket,
-    resourceDetails_awsIamAccessKey,
-    resourceDetails_awsCodeBuildProject,
     resourceDetails_awsApiGatewayStage,
-    resourceDetails_awsEc2NetworkAcl,
     resourceDetails_awsApiGatewayV2Api,
-    resourceDetails_awsElasticBeanstalkEnvironment,
-    resourceDetails_awsEc2Vpc,
-    resourceDetails_awsRedshiftCluster,
-    resourceDetails_awsRdsDbInstance,
-    resourceDetails_awsRdsEventSubscription,
-    resourceDetails_container,
-    resourceDetails_awsIamGroup,
-    resourceDetails_awsXrayEncryptionConfig,
-    resourceDetails_awsEc2Subnet,
-    resourceDetails_awsEcsCluster,
-    resourceDetails_awsEc2VpcEndpointService,
-    resourceDetails_awsAutoScalingAutoScalingGroup,
-    resourceDetails_awsSnsTopic,
-    resourceDetails_awsEc2NetworkInterface,
-    resourceDetails_awsEcsService,
-    resourceDetails_awsEc2Eip,
     resourceDetails_awsApiGatewayV2Stage,
-    resourceDetails_awsLambdaFunction,
-    resourceDetails_awsElbv2LoadBalancer,
-    resourceDetails_awsWafRateBasedRule,
-    resourceDetails_awsEcrRepository,
-    resourceDetails_awsWafWebAcl,
-    resourceDetails_awsSsmPatchCompliance,
-    resourceDetails_awsElasticsearchDomain,
+    resourceDetails_awsAutoScalingAutoScalingGroup,
+    resourceDetails_awsAutoScalingLaunchConfiguration,
+    resourceDetails_awsBackupBackupPlan,
+    resourceDetails_awsBackupBackupVault,
+    resourceDetails_awsBackupRecoveryPoint,
     resourceDetails_awsCertificateManagerCertificate,
-    resourceDetails_awsEcrContainerImage,
-    resourceDetails_awsIamUser,
+    resourceDetails_awsCloudFormationStack,
+    resourceDetails_awsCloudFrontDistribution,
+    resourceDetails_awsCloudTrailTrail,
+    resourceDetails_awsCloudWatchAlarm,
+    resourceDetails_awsCodeBuildProject,
+    resourceDetails_awsDynamoDbTable,
+    resourceDetails_awsEc2Eip,
+    resourceDetails_awsEc2Instance,
+    resourceDetails_awsEc2NetworkAcl,
+    resourceDetails_awsEc2NetworkInterface,
+    resourceDetails_awsEc2SecurityGroup,
+    resourceDetails_awsEc2Subnet,
+    resourceDetails_awsEc2TransitGateway,
     resourceDetails_awsEc2Volume,
+    resourceDetails_awsEc2Vpc,
+    resourceDetails_awsEc2VpcEndpointService,
+    resourceDetails_awsEc2VpcPeeringConnection,
+    resourceDetails_awsEc2VpnConnection,
+    resourceDetails_awsEcrContainerImage,
+    resourceDetails_awsEcrRepository,
+    resourceDetails_awsEcsCluster,
+    resourceDetails_awsEcsContainer,
+    resourceDetails_awsEcsService,
+    resourceDetails_awsEcsTask,
+    resourceDetails_awsEcsTaskDefinition,
+    resourceDetails_awsEfsAccessPoint,
+    resourceDetails_awsEksCluster,
+    resourceDetails_awsElasticBeanstalkEnvironment,
+    resourceDetails_awsElasticsearchDomain,
+    resourceDetails_awsElbLoadBalancer,
+    resourceDetails_awsElbv2LoadBalancer,
+    resourceDetails_awsIamAccessKey,
+    resourceDetails_awsIamGroup,
+    resourceDetails_awsIamPolicy,
+    resourceDetails_awsIamRole,
+    resourceDetails_awsIamUser,
+    resourceDetails_awsKinesisStream,
+    resourceDetails_awsKmsKey,
+    resourceDetails_awsLambdaFunction,
+    resourceDetails_awsLambdaLayerVersion,
+    resourceDetails_awsNetworkFirewallFirewall,
+    resourceDetails_awsNetworkFirewallFirewallPolicy,
+    resourceDetails_awsNetworkFirewallRuleGroup,
+    resourceDetails_awsOpenSearchServiceDomain,
+    resourceDetails_awsRdsDbCluster,
+    resourceDetails_awsRdsDbClusterSnapshot,
+    resourceDetails_awsRdsDbInstance,
+    resourceDetails_awsRdsDbSecurityGroup,
+    resourceDetails_awsRdsDbSnapshot,
+    resourceDetails_awsRdsEventSubscription,
+    resourceDetails_awsRedshiftCluster,
+    resourceDetails_awsS3AccountPublicAccessBlock,
+    resourceDetails_awsS3Bucket,
+    resourceDetails_awsS3Object,
+    resourceDetails_awsSecretsManagerSecret,
+    resourceDetails_awsSnsTopic,
+    resourceDetails_awsSqsQueue,
+    resourceDetails_awsSsmPatchCompliance,
+    resourceDetails_awsWafRateBasedRule,
+    resourceDetails_awsWafRegionalRateBasedRule,
+    resourceDetails_awsWafRegionalRule,
+    resourceDetails_awsWafRegionalRuleGroup,
+    resourceDetails_awsWafRegionalWebAcl,
+    resourceDetails_awsWafRule,
+    resourceDetails_awsWafRuleGroup,
+    resourceDetails_awsWafWebAcl,
+    resourceDetails_awsXrayEncryptionConfig,
+    resourceDetails_container,
+    resourceDetails_other,
 
     -- * Result
     Result (..),
@@ -3417,45 +4095,171 @@ module Amazonka.SecurityHub.Types
     result_accountId,
     result_processingResult,
 
+    -- * RuleGroupDetails
+    RuleGroupDetails (..),
+    newRuleGroupDetails,
+    ruleGroupDetails_ruleVariables,
+    ruleGroupDetails_rulesSource,
+
+    -- * RuleGroupSource
+    RuleGroupSource (..),
+    newRuleGroupSource,
+    ruleGroupSource_rulesSourceList,
+    ruleGroupSource_rulesString,
+    ruleGroupSource_statefulRules,
+    ruleGroupSource_statelessRulesAndCustomActions,
+
+    -- * RuleGroupSourceCustomActionsDetails
+    RuleGroupSourceCustomActionsDetails (..),
+    newRuleGroupSourceCustomActionsDetails,
+    ruleGroupSourceCustomActionsDetails_actionDefinition,
+    ruleGroupSourceCustomActionsDetails_actionName,
+
+    -- * RuleGroupSourceListDetails
+    RuleGroupSourceListDetails (..),
+    newRuleGroupSourceListDetails,
+    ruleGroupSourceListDetails_generatedRulesType,
+    ruleGroupSourceListDetails_targetTypes,
+    ruleGroupSourceListDetails_targets,
+
+    -- * RuleGroupSourceStatefulRulesDetails
+    RuleGroupSourceStatefulRulesDetails (..),
+    newRuleGroupSourceStatefulRulesDetails,
+    ruleGroupSourceStatefulRulesDetails_action,
+    ruleGroupSourceStatefulRulesDetails_header,
+    ruleGroupSourceStatefulRulesDetails_ruleOptions,
+
+    -- * RuleGroupSourceStatefulRulesHeaderDetails
+    RuleGroupSourceStatefulRulesHeaderDetails (..),
+    newRuleGroupSourceStatefulRulesHeaderDetails,
+    ruleGroupSourceStatefulRulesHeaderDetails_destination,
+    ruleGroupSourceStatefulRulesHeaderDetails_destinationPort,
+    ruleGroupSourceStatefulRulesHeaderDetails_direction,
+    ruleGroupSourceStatefulRulesHeaderDetails_protocol,
+    ruleGroupSourceStatefulRulesHeaderDetails_source,
+    ruleGroupSourceStatefulRulesHeaderDetails_sourcePort,
+
+    -- * RuleGroupSourceStatefulRulesOptionsDetails
+    RuleGroupSourceStatefulRulesOptionsDetails (..),
+    newRuleGroupSourceStatefulRulesOptionsDetails,
+    ruleGroupSourceStatefulRulesOptionsDetails_keyword,
+    ruleGroupSourceStatefulRulesOptionsDetails_settings,
+
+    -- * RuleGroupSourceStatelessRuleDefinition
+    RuleGroupSourceStatelessRuleDefinition (..),
+    newRuleGroupSourceStatelessRuleDefinition,
+    ruleGroupSourceStatelessRuleDefinition_actions,
+    ruleGroupSourceStatelessRuleDefinition_matchAttributes,
+
+    -- * RuleGroupSourceStatelessRuleMatchAttributes
+    RuleGroupSourceStatelessRuleMatchAttributes (..),
+    newRuleGroupSourceStatelessRuleMatchAttributes,
+    ruleGroupSourceStatelessRuleMatchAttributes_destinationPorts,
+    ruleGroupSourceStatelessRuleMatchAttributes_destinations,
+    ruleGroupSourceStatelessRuleMatchAttributes_protocols,
+    ruleGroupSourceStatelessRuleMatchAttributes_sourcePorts,
+    ruleGroupSourceStatelessRuleMatchAttributes_sources,
+    ruleGroupSourceStatelessRuleMatchAttributes_tcpFlags,
+
+    -- * RuleGroupSourceStatelessRuleMatchAttributesDestinationPorts
+    RuleGroupSourceStatelessRuleMatchAttributesDestinationPorts (..),
+    newRuleGroupSourceStatelessRuleMatchAttributesDestinationPorts,
+    ruleGroupSourceStatelessRuleMatchAttributesDestinationPorts_fromPort,
+    ruleGroupSourceStatelessRuleMatchAttributesDestinationPorts_toPort,
+
+    -- * RuleGroupSourceStatelessRuleMatchAttributesDestinations
+    RuleGroupSourceStatelessRuleMatchAttributesDestinations (..),
+    newRuleGroupSourceStatelessRuleMatchAttributesDestinations,
+    ruleGroupSourceStatelessRuleMatchAttributesDestinations_addressDefinition,
+
+    -- * RuleGroupSourceStatelessRuleMatchAttributesSourcePorts
+    RuleGroupSourceStatelessRuleMatchAttributesSourcePorts (..),
+    newRuleGroupSourceStatelessRuleMatchAttributesSourcePorts,
+    ruleGroupSourceStatelessRuleMatchAttributesSourcePorts_fromPort,
+    ruleGroupSourceStatelessRuleMatchAttributesSourcePorts_toPort,
+
+    -- * RuleGroupSourceStatelessRuleMatchAttributesSources
+    RuleGroupSourceStatelessRuleMatchAttributesSources (..),
+    newRuleGroupSourceStatelessRuleMatchAttributesSources,
+    ruleGroupSourceStatelessRuleMatchAttributesSources_addressDefinition,
+
+    -- * RuleGroupSourceStatelessRuleMatchAttributesTcpFlags
+    RuleGroupSourceStatelessRuleMatchAttributesTcpFlags (..),
+    newRuleGroupSourceStatelessRuleMatchAttributesTcpFlags,
+    ruleGroupSourceStatelessRuleMatchAttributesTcpFlags_flags,
+    ruleGroupSourceStatelessRuleMatchAttributesTcpFlags_masks,
+
+    -- * RuleGroupSourceStatelessRulesAndCustomActionsDetails
+    RuleGroupSourceStatelessRulesAndCustomActionsDetails (..),
+    newRuleGroupSourceStatelessRulesAndCustomActionsDetails,
+    ruleGroupSourceStatelessRulesAndCustomActionsDetails_customActions,
+    ruleGroupSourceStatelessRulesAndCustomActionsDetails_statelessRules,
+
+    -- * RuleGroupSourceStatelessRulesDetails
+    RuleGroupSourceStatelessRulesDetails (..),
+    newRuleGroupSourceStatelessRulesDetails,
+    ruleGroupSourceStatelessRulesDetails_priority,
+    ruleGroupSourceStatelessRulesDetails_ruleDefinition,
+
+    -- * RuleGroupVariables
+    RuleGroupVariables (..),
+    newRuleGroupVariables,
+    ruleGroupVariables_ipSets,
+    ruleGroupVariables_portSets,
+
+    -- * RuleGroupVariablesIpSetsDetails
+    RuleGroupVariablesIpSetsDetails (..),
+    newRuleGroupVariablesIpSetsDetails,
+    ruleGroupVariablesIpSetsDetails_definition,
+
+    -- * RuleGroupVariablesPortSetsDetails
+    RuleGroupVariablesPortSetsDetails (..),
+    newRuleGroupVariablesPortSetsDetails,
+    ruleGroupVariablesPortSetsDetails_definition,
+
     -- * SensitiveDataDetections
     SensitiveDataDetections (..),
     newSensitiveDataDetections,
-    sensitiveDataDetections_occurrences,
     sensitiveDataDetections_count,
+    sensitiveDataDetections_occurrences,
     sensitiveDataDetections_type,
 
     -- * SensitiveDataResult
     SensitiveDataResult (..),
     newSensitiveDataResult,
-    sensitiveDataResult_detections,
     sensitiveDataResult_category,
+    sensitiveDataResult_detections,
     sensitiveDataResult_totalCount,
 
     -- * Severity
     Severity (..),
     newSeverity,
-    severity_product,
     severity_label,
-    severity_original,
     severity_normalized,
+    severity_original,
+    severity_product,
 
     -- * SeverityUpdate
     SeverityUpdate (..),
     newSeverityUpdate,
-    severityUpdate_product,
     severityUpdate_label,
     severityUpdate_normalized,
+    severityUpdate_product,
 
     -- * SoftwarePackage
     SoftwarePackage (..),
     newSoftwarePackage,
-    softwarePackage_filePath,
-    softwarePackage_release,
-    softwarePackage_name,
-    softwarePackage_version,
     softwarePackage_architecture,
-    softwarePackage_packageManager,
     softwarePackage_epoch,
+    softwarePackage_filePath,
+    softwarePackage_fixedInVersion,
+    softwarePackage_name,
+    softwarePackage_packageManager,
+    softwarePackage_release,
+    softwarePackage_remediation,
+    softwarePackage_sourceLayerArn,
+    softwarePackage_sourceLayerHash,
+    softwarePackage_version,
 
     -- * SortCriterion
     SortCriterion (..),
@@ -3466,28 +4270,41 @@ module Amazonka.SecurityHub.Types
     -- * Standard
     Standard (..),
     newStandard,
-    standard_standardsArn,
+    standard_description,
     standard_enabledByDefault,
     standard_name,
-    standard_description,
+    standard_standardsArn,
+    standard_standardsManagedBy,
 
     -- * StandardsControl
     StandardsControl (..),
     newStandardsControl,
+    standardsControl_controlId,
+    standardsControl_controlStatus,
+    standardsControl_controlStatusUpdatedAt,
+    standardsControl_description,
+    standardsControl_disabledReason,
+    standardsControl_relatedRequirements,
     standardsControl_remediationUrl,
     standardsControl_severityRating,
-    standardsControl_controlStatusUpdatedAt,
-    standardsControl_relatedRequirements,
-    standardsControl_controlStatus,
-    standardsControl_disabledReason,
-    standardsControl_controlId,
     standardsControl_standardsControlArn,
     standardsControl_title,
-    standardsControl_description,
+
+    -- * StandardsManagedBy
+    StandardsManagedBy (..),
+    newStandardsManagedBy,
+    standardsManagedBy_company,
+    standardsManagedBy_product,
+
+    -- * StandardsStatusReason
+    StandardsStatusReason (..),
+    newStandardsStatusReason,
+    standardsStatusReason_statusReasonCode,
 
     -- * StandardsSubscription
     StandardsSubscription (..),
     newStandardsSubscription,
+    standardsSubscription_standardsStatusReason,
     standardsSubscription_standardsSubscriptionArn,
     standardsSubscription_standardsArn,
     standardsSubscription_standardsInput,
@@ -3499,6 +4316,21 @@ module Amazonka.SecurityHub.Types
     standardsSubscriptionRequest_standardsInput,
     standardsSubscriptionRequest_standardsArn,
 
+    -- * StatelessCustomActionDefinition
+    StatelessCustomActionDefinition (..),
+    newStatelessCustomActionDefinition,
+    statelessCustomActionDefinition_publishMetricAction,
+
+    -- * StatelessCustomPublishMetricAction
+    StatelessCustomPublishMetricAction (..),
+    newStatelessCustomPublishMetricAction,
+    statelessCustomPublishMetricAction_dimensions,
+
+    -- * StatelessCustomPublishMetricActionDimension
+    StatelessCustomPublishMetricActionDimension (..),
+    newStatelessCustomPublishMetricActionDimension,
+    statelessCustomPublishMetricActionDimension_value,
+
     -- * StatusReason
     StatusReason (..),
     newStatusReason,
@@ -3508,35 +4340,67 @@ module Amazonka.SecurityHub.Types
     -- * StringFilter
     StringFilter (..),
     newStringFilter,
-    stringFilter_value,
     stringFilter_comparison,
+    stringFilter_value,
+
+    -- * Threat
+    Threat (..),
+    newThreat,
+    threat_filePaths,
+    threat_itemCount,
+    threat_name,
+    threat_severity,
 
     -- * ThreatIntelIndicator
     ThreatIntelIndicator (..),
     newThreatIntelIndicator,
     threatIntelIndicator_category,
-    threatIntelIndicator_value,
-    threatIntelIndicator_source,
-    threatIntelIndicator_type,
-    threatIntelIndicator_sourceUrl,
     threatIntelIndicator_lastObservedAt,
+    threatIntelIndicator_source,
+    threatIntelIndicator_sourceUrl,
+    threatIntelIndicator_type,
+    threatIntelIndicator_value,
+
+    -- * VolumeMount
+    VolumeMount (..),
+    newVolumeMount,
+    volumeMount_mountPath,
+    volumeMount_name,
+
+    -- * VpcInfoCidrBlockSetDetails
+    VpcInfoCidrBlockSetDetails (..),
+    newVpcInfoCidrBlockSetDetails,
+    vpcInfoCidrBlockSetDetails_cidrBlock,
+
+    -- * VpcInfoIpv6CidrBlockSetDetails
+    VpcInfoIpv6CidrBlockSetDetails (..),
+    newVpcInfoIpv6CidrBlockSetDetails,
+    vpcInfoIpv6CidrBlockSetDetails_ipv6CidrBlock,
+
+    -- * VpcInfoPeeringOptionsDetails
+    VpcInfoPeeringOptionsDetails (..),
+    newVpcInfoPeeringOptionsDetails,
+    vpcInfoPeeringOptionsDetails_allowDnsResolutionFromRemoteVpc,
+    vpcInfoPeeringOptionsDetails_allowEgressFromLocalClassicLinkToRemoteVpc,
+    vpcInfoPeeringOptionsDetails_allowEgressFromLocalVpcToRemoteClassicLink,
 
     -- * Vulnerability
     Vulnerability (..),
     newVulnerability,
-    vulnerability_vendor,
-    vulnerability_relatedVulnerabilities,
-    vulnerability_vulnerablePackages,
-    vulnerability_referenceUrls,
     vulnerability_cvss,
+    vulnerability_fixAvailable,
+    vulnerability_referenceUrls,
+    vulnerability_relatedVulnerabilities,
+    vulnerability_vendor,
+    vulnerability_vulnerablePackages,
     vulnerability_id,
 
     -- * VulnerabilityVendor
     VulnerabilityVendor (..),
     newVulnerabilityVendor,
-    vulnerabilityVendor_vendorSeverity,
     vulnerabilityVendor_url,
     vulnerabilityVendor_vendorCreatedAt,
+    vulnerabilityVendor_vendorSeverity,
     vulnerabilityVendor_vendorUpdatedAt,
     vulnerabilityVendor_name,
 
@@ -3568,7 +4432,7 @@ module Amazonka.SecurityHub.Types
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.AccountDetails
 import Amazonka.SecurityHub.Types.Action
@@ -3580,6 +4444,7 @@ import Amazonka.SecurityHub.Types.ActionTarget
 import Amazonka.SecurityHub.Types.Adjustment
 import Amazonka.SecurityHub.Types.AdminAccount
 import Amazonka.SecurityHub.Types.AdminStatus
+import Amazonka.SecurityHub.Types.AutoEnableStandards
 import Amazonka.SecurityHub.Types.AvailabilityZone
 import Amazonka.SecurityHub.Types.AwsApiCallAction
 import Amazonka.SecurityHub.Types.AwsApiCallActionDomainDetails
@@ -3592,11 +4457,31 @@ import Amazonka.SecurityHub.Types.AwsApiGatewayStageDetails
 import Amazonka.SecurityHub.Types.AwsApiGatewayV2ApiDetails
 import Amazonka.SecurityHub.Types.AwsApiGatewayV2RouteSettings
 import Amazonka.SecurityHub.Types.AwsApiGatewayV2StageDetails
+import Amazonka.SecurityHub.Types.AwsAutoScalingAutoScalingGroupAvailabilityZonesListDetails
 import Amazonka.SecurityHub.Types.AwsAutoScalingAutoScalingGroupDetails
+import Amazonka.SecurityHub.Types.AwsAutoScalingAutoScalingGroupLaunchTemplateLaunchTemplateSpecification
+import Amazonka.SecurityHub.Types.AwsAutoScalingAutoScalingGroupMixedInstancesPolicyDetails
+import Amazonka.SecurityHub.Types.AwsAutoScalingAutoScalingGroupMixedInstancesPolicyInstancesDistributionDetails
+import Amazonka.SecurityHub.Types.AwsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateDetails
+import Amazonka.SecurityHub.Types.AwsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateLaunchTemplateSpecification
+import Amazonka.SecurityHub.Types.AwsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateOverridesListDetails
 import Amazonka.SecurityHub.Types.AwsAutoScalingLaunchConfigurationBlockDeviceMappingsDetails
 import Amazonka.SecurityHub.Types.AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails
 import Amazonka.SecurityHub.Types.AwsAutoScalingLaunchConfigurationDetails
 import Amazonka.SecurityHub.Types.AwsAutoScalingLaunchConfigurationInstanceMonitoringDetails
+import Amazonka.SecurityHub.Types.AwsAutoScalingLaunchConfigurationMetadataOptions
+import Amazonka.SecurityHub.Types.AwsBackupBackupPlanAdvancedBackupSettingsDetails
+import Amazonka.SecurityHub.Types.AwsBackupBackupPlanBackupPlanDetails
+import Amazonka.SecurityHub.Types.AwsBackupBackupPlanDetails
+import Amazonka.SecurityHub.Types.AwsBackupBackupPlanLifecycleDetails
+import Amazonka.SecurityHub.Types.AwsBackupBackupPlanRuleCopyActionsDetails
+import Amazonka.SecurityHub.Types.AwsBackupBackupPlanRuleDetails
+import Amazonka.SecurityHub.Types.AwsBackupBackupVaultDetails
+import Amazonka.SecurityHub.Types.AwsBackupBackupVaultNotificationsDetails
+import Amazonka.SecurityHub.Types.AwsBackupRecoveryPointCalculatedLifecycleDetails
+import Amazonka.SecurityHub.Types.AwsBackupRecoveryPointCreatedByDetails
+import Amazonka.SecurityHub.Types.AwsBackupRecoveryPointDetails
+import Amazonka.SecurityHub.Types.AwsBackupRecoveryPointLifecycleDetails
 import Amazonka.SecurityHub.Types.AwsCertificateManagerCertificateDetails
 import Amazonka.SecurityHub.Types.AwsCertificateManagerCertificateDomainValidationOption
 import Amazonka.SecurityHub.Types.AwsCertificateManagerCertificateExtendedKeyUsage
@@ -3604,20 +4489,27 @@ import Amazonka.SecurityHub.Types.AwsCertificateManagerCertificateKeyUsage
 import Amazonka.SecurityHub.Types.AwsCertificateManagerCertificateOptions
 import Amazonka.SecurityHub.Types.AwsCertificateManagerCertificateRenewalSummary
 import Amazonka.SecurityHub.Types.AwsCertificateManagerCertificateResourceRecord
+import Amazonka.SecurityHub.Types.AwsCloudFormationStackDetails
+import Amazonka.SecurityHub.Types.AwsCloudFormationStackDriftInformationDetails
+import Amazonka.SecurityHub.Types.AwsCloudFormationStackOutputsDetails
 import Amazonka.SecurityHub.Types.AwsCloudFrontDistributionCacheBehavior
 import Amazonka.SecurityHub.Types.AwsCloudFrontDistributionCacheBehaviors
 import Amazonka.SecurityHub.Types.AwsCloudFrontDistributionDefaultCacheBehavior
 import Amazonka.SecurityHub.Types.AwsCloudFrontDistributionDetails
 import Amazonka.SecurityHub.Types.AwsCloudFrontDistributionLogging
+import Amazonka.SecurityHub.Types.AwsCloudFrontDistributionOriginCustomOriginConfig
 import Amazonka.SecurityHub.Types.AwsCloudFrontDistributionOriginGroup
 import Amazonka.SecurityHub.Types.AwsCloudFrontDistributionOriginGroupFailover
 import Amazonka.SecurityHub.Types.AwsCloudFrontDistributionOriginGroupFailoverStatusCodes
 import Amazonka.SecurityHub.Types.AwsCloudFrontDistributionOriginGroups
 import Amazonka.SecurityHub.Types.AwsCloudFrontDistributionOriginItem
 import Amazonka.SecurityHub.Types.AwsCloudFrontDistributionOriginS3OriginConfig
+import Amazonka.SecurityHub.Types.AwsCloudFrontDistributionOriginSslProtocols
 import Amazonka.SecurityHub.Types.AwsCloudFrontDistributionOrigins
 import Amazonka.SecurityHub.Types.AwsCloudFrontDistributionViewerCertificate
 import Amazonka.SecurityHub.Types.AwsCloudTrailTrailDetails
+import Amazonka.SecurityHub.Types.AwsCloudWatchAlarmDetails
+import Amazonka.SecurityHub.Types.AwsCloudWatchAlarmDimensionsDetails
 import Amazonka.SecurityHub.Types.AwsCodeBuildProjectArtifactsDetails
 import Amazonka.SecurityHub.Types.AwsCodeBuildProjectDetails
 import Amazonka.SecurityHub.Types.AwsCodeBuildProjectEnvironment
@@ -3645,6 +4537,7 @@ import Amazonka.SecurityHub.Types.AwsDynamoDbTableSseDescription
 import Amazonka.SecurityHub.Types.AwsDynamoDbTableStreamSpecification
 import Amazonka.SecurityHub.Types.AwsEc2EipDetails
 import Amazonka.SecurityHub.Types.AwsEc2InstanceDetails
+import Amazonka.SecurityHub.Types.AwsEc2InstanceMetadataOptions
 import Amazonka.SecurityHub.Types.AwsEc2InstanceNetworkInterfacesDetails
 import Amazonka.SecurityHub.Types.AwsEc2NetworkAclAssociation
 import Amazonka.SecurityHub.Types.AwsEc2NetworkAclDetails
@@ -3661,11 +4554,15 @@ import Amazonka.SecurityHub.Types.AwsEc2SecurityGroupIpv6Range
 import Amazonka.SecurityHub.Types.AwsEc2SecurityGroupPrefixListId
 import Amazonka.SecurityHub.Types.AwsEc2SecurityGroupUserIdGroupPair
 import Amazonka.SecurityHub.Types.AwsEc2SubnetDetails
+import Amazonka.SecurityHub.Types.AwsEc2TransitGatewayDetails
 import Amazonka.SecurityHub.Types.AwsEc2VolumeAttachment
 import Amazonka.SecurityHub.Types.AwsEc2VolumeDetails
 import Amazonka.SecurityHub.Types.AwsEc2VpcDetails
 import Amazonka.SecurityHub.Types.AwsEc2VpcEndpointServiceDetails
 import Amazonka.SecurityHub.Types.AwsEc2VpcEndpointServiceServiceTypeDetails
+import Amazonka.SecurityHub.Types.AwsEc2VpcPeeringConnectionDetails
+import Amazonka.SecurityHub.Types.AwsEc2VpcPeeringConnectionStatusDetails
+import Amazonka.SecurityHub.Types.AwsEc2VpcPeeringConnectionVpcInfoDetails
 import Amazonka.SecurityHub.Types.AwsEc2VpnConnectionDetails
 import Amazonka.SecurityHub.Types.AwsEc2VpnConnectionOptionsDetails
 import Amazonka.SecurityHub.Types.AwsEc2VpnConnectionOptionsTunnelOptionsDetails
@@ -3681,6 +4578,7 @@ import Amazonka.SecurityHub.Types.AwsEcsClusterConfigurationExecuteCommandConfig
 import Amazonka.SecurityHub.Types.AwsEcsClusterConfigurationExecuteCommandConfigurationLogConfigurationDetails
 import Amazonka.SecurityHub.Types.AwsEcsClusterDefaultCapacityProviderStrategyDetails
 import Amazonka.SecurityHub.Types.AwsEcsClusterDetails
+import Amazonka.SecurityHub.Types.AwsEcsContainerDetails
 import Amazonka.SecurityHub.Types.AwsEcsServiceCapacityProviderStrategyDetails
 import Amazonka.SecurityHub.Types.AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails
 import Amazonka.SecurityHub.Types.AwsEcsServiceDeploymentConfigurationDetails
@@ -3723,6 +4621,13 @@ import Amazonka.SecurityHub.Types.AwsEcsTaskDefinitionVolumesDockerVolumeConfigu
 import Amazonka.SecurityHub.Types.AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails
 import Amazonka.SecurityHub.Types.AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationDetails
 import Amazonka.SecurityHub.Types.AwsEcsTaskDefinitionVolumesHostDetails
+import Amazonka.SecurityHub.Types.AwsEcsTaskDetails
+import Amazonka.SecurityHub.Types.AwsEcsTaskVolumeDetails
+import Amazonka.SecurityHub.Types.AwsEcsTaskVolumeHostDetails
+import Amazonka.SecurityHub.Types.AwsEfsAccessPointDetails
+import Amazonka.SecurityHub.Types.AwsEfsAccessPointPosixUserDetails
+import Amazonka.SecurityHub.Types.AwsEfsAccessPointRootDirectoryCreationInfoDetails
+import Amazonka.SecurityHub.Types.AwsEfsAccessPointRootDirectoryDetails
 import Amazonka.SecurityHub.Types.AwsEksClusterDetails
 import Amazonka.SecurityHub.Types.AwsEksClusterLoggingClusterLoggingDetails
 import Amazonka.SecurityHub.Types.AwsEksClusterLoggingDetails
@@ -3744,6 +4649,7 @@ import Amazonka.SecurityHub.Types.AwsElasticsearchDomainVPCOptions
 import Amazonka.SecurityHub.Types.AwsElbAppCookieStickinessPolicy
 import Amazonka.SecurityHub.Types.AwsElbLbCookieStickinessPolicy
 import Amazonka.SecurityHub.Types.AwsElbLoadBalancerAccessLog
+import Amazonka.SecurityHub.Types.AwsElbLoadBalancerAdditionalAttribute
 import Amazonka.SecurityHub.Types.AwsElbLoadBalancerAttributes
 import Amazonka.SecurityHub.Types.AwsElbLoadBalancerBackendServerDescription
 import Amazonka.SecurityHub.Types.AwsElbLoadBalancerConnectionDraining
@@ -3775,6 +4681,8 @@ import Amazonka.SecurityHub.Types.AwsIamRoleDetails
 import Amazonka.SecurityHub.Types.AwsIamRolePolicy
 import Amazonka.SecurityHub.Types.AwsIamUserDetails
 import Amazonka.SecurityHub.Types.AwsIamUserPolicy
+import Amazonka.SecurityHub.Types.AwsKinesisStreamDetails
+import Amazonka.SecurityHub.Types.AwsKinesisStreamStreamEncryptionDetails
 import Amazonka.SecurityHub.Types.AwsKmsKeyDetails
 import Amazonka.SecurityHub.Types.AwsLambdaFunctionCode
 import Amazonka.SecurityHub.Types.AwsLambdaFunctionDeadLetterConfig
@@ -3785,6 +4693,12 @@ import Amazonka.SecurityHub.Types.AwsLambdaFunctionLayer
 import Amazonka.SecurityHub.Types.AwsLambdaFunctionTracingConfig
 import Amazonka.SecurityHub.Types.AwsLambdaFunctionVpcConfig
 import Amazonka.SecurityHub.Types.AwsLambdaLayerVersionDetails
+import Amazonka.SecurityHub.Types.AwsMountPoint
+import Amazonka.SecurityHub.Types.AwsNetworkFirewallFirewallDetails
+import Amazonka.SecurityHub.Types.AwsNetworkFirewallFirewallPolicyDetails
+import Amazonka.SecurityHub.Types.AwsNetworkFirewallFirewallSubnetMappingsDetails
+import Amazonka.SecurityHub.Types.AwsNetworkFirewallRuleGroupDetails
+import Amazonka.SecurityHub.Types.AwsOpenSearchServiceDomainAdvancedSecurityOptionsDetails
 import Amazonka.SecurityHub.Types.AwsOpenSearchServiceDomainClusterConfigDetails
 import Amazonka.SecurityHub.Types.AwsOpenSearchServiceDomainClusterConfigZoneAwarenessConfigDetails
 import Amazonka.SecurityHub.Types.AwsOpenSearchServiceDomainDetails
@@ -3792,6 +4706,7 @@ import Amazonka.SecurityHub.Types.AwsOpenSearchServiceDomainDomainEndpointOption
 import Amazonka.SecurityHub.Types.AwsOpenSearchServiceDomainEncryptionAtRestOptionsDetails
 import Amazonka.SecurityHub.Types.AwsOpenSearchServiceDomainLogPublishingOption
 import Amazonka.SecurityHub.Types.AwsOpenSearchServiceDomainLogPublishingOptionsDetails
+import Amazonka.SecurityHub.Types.AwsOpenSearchServiceDomainMasterUserOptionsDetails
 import Amazonka.SecurityHub.Types.AwsOpenSearchServiceDomainNodeToNodeEncryptionOptionsDetails
 import Amazonka.SecurityHub.Types.AwsOpenSearchServiceDomainServiceSoftwareOptionsDetails
 import Amazonka.SecurityHub.Types.AwsOpenSearchServiceDomainVpcOptionsDetails
@@ -3809,6 +4724,9 @@ import Amazonka.SecurityHub.Types.AwsRdsDbOptionGroupMembership
 import Amazonka.SecurityHub.Types.AwsRdsDbParameterGroup
 import Amazonka.SecurityHub.Types.AwsRdsDbPendingModifiedValues
 import Amazonka.SecurityHub.Types.AwsRdsDbProcessorFeature
+import Amazonka.SecurityHub.Types.AwsRdsDbSecurityGroupDetails
+import Amazonka.SecurityHub.Types.AwsRdsDbSecurityGroupEc2SecurityGroup
+import Amazonka.SecurityHub.Types.AwsRdsDbSecurityGroupIpRange
 import Amazonka.SecurityHub.Types.AwsRdsDbSnapshotDetails
 import Amazonka.SecurityHub.Types.AwsRdsDbStatusInfo
 import Amazonka.SecurityHub.Types.AwsRdsDbSubnetGroup
@@ -3827,6 +4745,7 @@ import Amazonka.SecurityHub.Types.AwsRedshiftClusterElasticIpStatus
 import Amazonka.SecurityHub.Types.AwsRedshiftClusterEndpoint
 import Amazonka.SecurityHub.Types.AwsRedshiftClusterHsmStatus
 import Amazonka.SecurityHub.Types.AwsRedshiftClusterIamRole
+import Amazonka.SecurityHub.Types.AwsRedshiftClusterLoggingStatus
 import Amazonka.SecurityHub.Types.AwsRedshiftClusterPendingModifiedValues
 import Amazonka.SecurityHub.Types.AwsRedshiftClusterResizeInfo
 import Amazonka.SecurityHub.Types.AwsRedshiftClusterRestoreStatus
@@ -3842,6 +4761,7 @@ import Amazonka.SecurityHub.Types.AwsS3BucketBucketLifecycleConfigurationRulesFi
 import Amazonka.SecurityHub.Types.AwsS3BucketBucketLifecycleConfigurationRulesFilterPredicateTagDetails
 import Amazonka.SecurityHub.Types.AwsS3BucketBucketLifecycleConfigurationRulesNoncurrentVersionTransitionsDetails
 import Amazonka.SecurityHub.Types.AwsS3BucketBucketLifecycleConfigurationRulesTransitionsDetails
+import Amazonka.SecurityHub.Types.AwsS3BucketBucketVersioningConfiguration
 import Amazonka.SecurityHub.Types.AwsS3BucketDetails
 import Amazonka.SecurityHub.Types.AwsS3BucketLoggingConfiguration
 import Amazonka.SecurityHub.Types.AwsS3BucketNotificationConfiguration
@@ -3874,10 +4794,25 @@ import Amazonka.SecurityHub.Types.AwsWafRateBasedRuleDetails
 import Amazonka.SecurityHub.Types.AwsWafRateBasedRuleMatchPredicate
 import Amazonka.SecurityHub.Types.AwsWafRegionalRateBasedRuleDetails
 import Amazonka.SecurityHub.Types.AwsWafRegionalRateBasedRuleMatchPredicate
+import Amazonka.SecurityHub.Types.AwsWafRegionalRuleDetails
+import Amazonka.SecurityHub.Types.AwsWafRegionalRuleGroupDetails
+import Amazonka.SecurityHub.Types.AwsWafRegionalRuleGroupRulesActionDetails
+import Amazonka.SecurityHub.Types.AwsWafRegionalRuleGroupRulesDetails
+import Amazonka.SecurityHub.Types.AwsWafRegionalRulePredicateListDetails
+import Amazonka.SecurityHub.Types.AwsWafRegionalWebAclDetails
+import Amazonka.SecurityHub.Types.AwsWafRegionalWebAclRulesListActionDetails
+import Amazonka.SecurityHub.Types.AwsWafRegionalWebAclRulesListDetails
+import Amazonka.SecurityHub.Types.AwsWafRegionalWebAclRulesListOverrideActionDetails
+import Amazonka.SecurityHub.Types.AwsWafRuleDetails
+import Amazonka.SecurityHub.Types.AwsWafRuleGroupDetails
+import Amazonka.SecurityHub.Types.AwsWafRuleGroupRulesActionDetails
+import Amazonka.SecurityHub.Types.AwsWafRuleGroupRulesDetails
+import Amazonka.SecurityHub.Types.AwsWafRulePredicateListDetails
 import Amazonka.SecurityHub.Types.AwsWafWebAclDetails
 import Amazonka.SecurityHub.Types.AwsWafWebAclRule
 import Amazonka.SecurityHub.Types.AwsXrayEncryptionConfigDetails
 import Amazonka.SecurityHub.Types.BatchUpdateFindingsUnprocessedFinding
+import Amazonka.SecurityHub.Types.BooleanFilter
 import Amazonka.SecurityHub.Types.Cell
 import Amazonka.SecurityHub.Types.CidrBlockAssociation
 import Amazonka.SecurityHub.Types.City
@@ -3896,9 +4831,14 @@ import Amazonka.SecurityHub.Types.DateFilter
 import Amazonka.SecurityHub.Types.DateRange
 import Amazonka.SecurityHub.Types.DateRangeUnit
 import Amazonka.SecurityHub.Types.DnsRequestAction
+import Amazonka.SecurityHub.Types.FilePaths
 import Amazonka.SecurityHub.Types.FindingAggregator
 import Amazonka.SecurityHub.Types.FindingProviderFields
 import Amazonka.SecurityHub.Types.FindingProviderSeverity
+import Amazonka.SecurityHub.Types.FirewallPolicyDetails
+import Amazonka.SecurityHub.Types.FirewallPolicyStatefulRuleGroupReferencesDetails
+import Amazonka.SecurityHub.Types.FirewallPolicyStatelessCustomActionsDetails
+import Amazonka.SecurityHub.Types.FirewallPolicyStatelessRuleGroupReferencesDetails
 import Amazonka.SecurityHub.Types.GeoLocation
 import Amazonka.SecurityHub.Types.IcmpTypeCode
 import Amazonka.SecurityHub.Types.ImportFindingsError
@@ -3946,6 +4886,25 @@ import Amazonka.SecurityHub.Types.Remediation
 import Amazonka.SecurityHub.Types.Resource
 import Amazonka.SecurityHub.Types.ResourceDetails
 import Amazonka.SecurityHub.Types.Result
+import Amazonka.SecurityHub.Types.RuleGroupDetails
+import Amazonka.SecurityHub.Types.RuleGroupSource
+import Amazonka.SecurityHub.Types.RuleGroupSourceCustomActionsDetails
+import Amazonka.SecurityHub.Types.RuleGroupSourceListDetails
+import Amazonka.SecurityHub.Types.RuleGroupSourceStatefulRulesDetails
+import Amazonka.SecurityHub.Types.RuleGroupSourceStatefulRulesHeaderDetails
+import Amazonka.SecurityHub.Types.RuleGroupSourceStatefulRulesOptionsDetails
+import Amazonka.SecurityHub.Types.RuleGroupSourceStatelessRuleDefinition
+import Amazonka.SecurityHub.Types.RuleGroupSourceStatelessRuleMatchAttributes
+import Amazonka.SecurityHub.Types.RuleGroupSourceStatelessRuleMatchAttributesDestinationPorts
+import Amazonka.SecurityHub.Types.RuleGroupSourceStatelessRuleMatchAttributesDestinations
+import Amazonka.SecurityHub.Types.RuleGroupSourceStatelessRuleMatchAttributesSourcePorts
+import Amazonka.SecurityHub.Types.RuleGroupSourceStatelessRuleMatchAttributesSources
+import Amazonka.SecurityHub.Types.RuleGroupSourceStatelessRuleMatchAttributesTcpFlags
+import Amazonka.SecurityHub.Types.RuleGroupSourceStatelessRulesAndCustomActionsDetails
+import Amazonka.SecurityHub.Types.RuleGroupSourceStatelessRulesDetails
+import Amazonka.SecurityHub.Types.RuleGroupVariables
+import Amazonka.SecurityHub.Types.RuleGroupVariablesIpSetsDetails
+import Amazonka.SecurityHub.Types.RuleGroupVariablesPortSetsDetails
 import Amazonka.SecurityHub.Types.SensitiveDataDetections
 import Amazonka.SecurityHub.Types.SensitiveDataResult
 import Amazonka.SecurityHub.Types.Severity
@@ -3957,17 +4916,29 @@ import Amazonka.SecurityHub.Types.SortCriterion
 import Amazonka.SecurityHub.Types.SortOrder
 import Amazonka.SecurityHub.Types.Standard
 import Amazonka.SecurityHub.Types.StandardsControl
+import Amazonka.SecurityHub.Types.StandardsManagedBy
 import Amazonka.SecurityHub.Types.StandardsStatus
+import Amazonka.SecurityHub.Types.StandardsStatusReason
 import Amazonka.SecurityHub.Types.StandardsSubscription
 import Amazonka.SecurityHub.Types.StandardsSubscriptionRequest
+import Amazonka.SecurityHub.Types.StatelessCustomActionDefinition
+import Amazonka.SecurityHub.Types.StatelessCustomPublishMetricAction
+import Amazonka.SecurityHub.Types.StatelessCustomPublishMetricActionDimension
 import Amazonka.SecurityHub.Types.StatusReason
+import Amazonka.SecurityHub.Types.StatusReasonCode
 import Amazonka.SecurityHub.Types.StringFilter
 import Amazonka.SecurityHub.Types.StringFilterComparison
+import Amazonka.SecurityHub.Types.Threat
 import Amazonka.SecurityHub.Types.ThreatIntelIndicator
 import Amazonka.SecurityHub.Types.ThreatIntelIndicatorCategory
 import Amazonka.SecurityHub.Types.ThreatIntelIndicatorType
 import Amazonka.SecurityHub.Types.VerificationState
+import Amazonka.SecurityHub.Types.VolumeMount
+import Amazonka.SecurityHub.Types.VpcInfoCidrBlockSetDetails
+import Amazonka.SecurityHub.Types.VpcInfoIpv6CidrBlockSetDetails
+import Amazonka.SecurityHub.Types.VpcInfoPeeringOptionsDetails
 import Amazonka.SecurityHub.Types.Vulnerability
+import Amazonka.SecurityHub.Types.VulnerabilityFixAvailable
 import Amazonka.SecurityHub.Types.VulnerabilityVendor
 import Amazonka.SecurityHub.Types.WafAction
 import Amazonka.SecurityHub.Types.WafExcludedRule
@@ -3982,42 +4953,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "SecurityHub",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "securityhub",
-      Core._serviceSigningName = "securityhub",
-      Core._serviceVersion = "2018-10-26",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
-        Core.parseJSONError "SecurityHub",
-      Core._serviceRetry = retry
+    { Core.abbrev = "SecurityHub",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "securityhub",
+      Core.signingName = "securityhub",
+      Core.version = "2018-10-26",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "SecurityHub",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -4025,28 +5003,20 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
 
 -- | You don\'t have permission to perform the action specified in the
@@ -4057,6 +5027,14 @@ _AccessDeniedException =
     defaultService
     "AccessDeniedException"
     Prelude.. Core.hasStatus 403
+
+-- | Internal server error.
+_InternalException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InternalException =
+  Core._MatchServiceError
+    defaultService
+    "InternalException"
+    Prelude.. Core.hasStatus 500
 
 -- | There is an issue with the account used to make the request. Either
 -- Security Hub is not enabled for the account, or the account does not
@@ -4077,13 +5055,15 @@ _InvalidInputException =
     "InvalidInputException"
     Prelude.. Core.hasStatus 400
 
--- | Internal server error.
-_InternalException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InternalException =
+-- | The request was rejected because it attempted to create resources beyond
+-- the current Amazon Web Services account or throttling limits. The error
+-- code describes the limit exceeded.
+_LimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_LimitExceededException =
   Core._MatchServiceError
     defaultService
-    "InternalException"
-    Prelude.. Core.hasStatus 500
+    "LimitExceededException"
+    Prelude.. Core.hasStatus 429
 
 -- | The resource specified in the request conflicts with an existing
 -- resource.
@@ -4101,13 +5081,3 @@ _ResourceNotFoundException =
     defaultService
     "ResourceNotFoundException"
     Prelude.. Core.hasStatus 404
-
--- | The request was rejected because it attempted to create resources beyond
--- the current Amazon Web Services account or throttling limits. The error
--- code describes the limit exceeded.
-_LimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_LimitExceededException =
-  Core._MatchServiceError
-    defaultService
-    "LimitExceededException"
-    Prelude.. Core.hasStatus 429

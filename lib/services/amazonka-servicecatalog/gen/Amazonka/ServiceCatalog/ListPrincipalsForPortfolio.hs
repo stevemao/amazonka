@@ -14,13 +14,14 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.ListPrincipalsForPortfolio
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists all principal ARNs associated with the specified portfolio.
+-- Lists all @PrincipalARN@s and corresponding @PrincipalType@s associated
+-- with the specified portfolio.
 --
 -- This operation returns paginated results.
 module Amazonka.ServiceCatalog.ListPrincipalsForPortfolio
@@ -30,8 +31,8 @@ module Amazonka.ServiceCatalog.ListPrincipalsForPortfolio
 
     -- * Request Lenses
     listPrincipalsForPortfolio_acceptLanguage,
-    listPrincipalsForPortfolio_pageToken,
     listPrincipalsForPortfolio_pageSize,
+    listPrincipalsForPortfolio_pageToken,
     listPrincipalsForPortfolio_portfolioId,
 
     -- * Destructuring the Response
@@ -46,7 +47,8 @@ module Amazonka.ServiceCatalog.ListPrincipalsForPortfolio
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,11 +64,11 @@ data ListPrincipalsForPortfolio = ListPrincipalsForPortfolio'
     --
     -- -   @zh@ - Chinese
     acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return with this call.
+    pageSize :: Prelude.Maybe Prelude.Natural,
     -- | The page token for the next set of results. To retrieve the first set of
     -- results, use null.
     pageToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return with this call.
-    pageSize :: Prelude.Maybe Prelude.Natural,
     -- | The portfolio identifier.
     portfolioId :: Prelude.Text
   }
@@ -88,10 +90,10 @@ data ListPrincipalsForPortfolio = ListPrincipalsForPortfolio'
 --
 -- -   @zh@ - Chinese
 --
+-- 'pageSize', 'listPrincipalsForPortfolio_pageSize' - The maximum number of items to return with this call.
+--
 -- 'pageToken', 'listPrincipalsForPortfolio_pageToken' - The page token for the next set of results. To retrieve the first set of
 -- results, use null.
---
--- 'pageSize', 'listPrincipalsForPortfolio_pageSize' - The maximum number of items to return with this call.
 --
 -- 'portfolioId', 'listPrincipalsForPortfolio_portfolioId' - The portfolio identifier.
 newListPrincipalsForPortfolio ::
@@ -102,8 +104,8 @@ newListPrincipalsForPortfolio pPortfolioId_ =
   ListPrincipalsForPortfolio'
     { acceptLanguage =
         Prelude.Nothing,
-      pageToken = Prelude.Nothing,
       pageSize = Prelude.Nothing,
+      pageToken = Prelude.Nothing,
       portfolioId = pPortfolioId_
     }
 
@@ -117,14 +119,14 @@ newListPrincipalsForPortfolio pPortfolioId_ =
 listPrincipalsForPortfolio_acceptLanguage :: Lens.Lens' ListPrincipalsForPortfolio (Prelude.Maybe Prelude.Text)
 listPrincipalsForPortfolio_acceptLanguage = Lens.lens (\ListPrincipalsForPortfolio' {acceptLanguage} -> acceptLanguage) (\s@ListPrincipalsForPortfolio' {} a -> s {acceptLanguage = a} :: ListPrincipalsForPortfolio)
 
+-- | The maximum number of items to return with this call.
+listPrincipalsForPortfolio_pageSize :: Lens.Lens' ListPrincipalsForPortfolio (Prelude.Maybe Prelude.Natural)
+listPrincipalsForPortfolio_pageSize = Lens.lens (\ListPrincipalsForPortfolio' {pageSize} -> pageSize) (\s@ListPrincipalsForPortfolio' {} a -> s {pageSize = a} :: ListPrincipalsForPortfolio)
+
 -- | The page token for the next set of results. To retrieve the first set of
 -- results, use null.
 listPrincipalsForPortfolio_pageToken :: Lens.Lens' ListPrincipalsForPortfolio (Prelude.Maybe Prelude.Text)
 listPrincipalsForPortfolio_pageToken = Lens.lens (\ListPrincipalsForPortfolio' {pageToken} -> pageToken) (\s@ListPrincipalsForPortfolio' {} a -> s {pageToken = a} :: ListPrincipalsForPortfolio)
-
--- | The maximum number of items to return with this call.
-listPrincipalsForPortfolio_pageSize :: Lens.Lens' ListPrincipalsForPortfolio (Prelude.Maybe Prelude.Natural)
-listPrincipalsForPortfolio_pageSize = Lens.lens (\ListPrincipalsForPortfolio' {pageSize} -> pageSize) (\s@ListPrincipalsForPortfolio' {} a -> s {pageSize = a} :: ListPrincipalsForPortfolio)
 
 -- | The portfolio identifier.
 listPrincipalsForPortfolio_portfolioId :: Lens.Lens' ListPrincipalsForPortfolio Prelude.Text
@@ -156,61 +158,62 @@ instance Core.AWSRequest ListPrincipalsForPortfolio where
   type
     AWSResponse ListPrincipalsForPortfolio =
       ListPrincipalsForPortfolioResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPrincipalsForPortfolioResponse'
-            Prelude.<$> (x Core..?> "NextPageToken")
-            Prelude.<*> (x Core..?> "Principals" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextPageToken")
+            Prelude.<*> (x Data..?> "Principals" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListPrincipalsForPortfolio where
   hashWithSalt _salt ListPrincipalsForPortfolio' {..} =
     _salt `Prelude.hashWithSalt` acceptLanguage
-      `Prelude.hashWithSalt` pageToken
       `Prelude.hashWithSalt` pageSize
+      `Prelude.hashWithSalt` pageToken
       `Prelude.hashWithSalt` portfolioId
 
 instance Prelude.NFData ListPrincipalsForPortfolio where
   rnf ListPrincipalsForPortfolio' {..} =
     Prelude.rnf acceptLanguage
-      `Prelude.seq` Prelude.rnf pageToken
       `Prelude.seq` Prelude.rnf pageSize
+      `Prelude.seq` Prelude.rnf pageToken
       `Prelude.seq` Prelude.rnf portfolioId
 
-instance Core.ToHeaders ListPrincipalsForPortfolio where
+instance Data.ToHeaders ListPrincipalsForPortfolio where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.ListPrincipalsForPortfolio" ::
+              Data.=# ( "AWS242ServiceCatalogService.ListPrincipalsForPortfolio" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListPrincipalsForPortfolio where
+instance Data.ToJSON ListPrincipalsForPortfolio where
   toJSON ListPrincipalsForPortfolio' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            ("PageToken" Core..=) Prelude.<$> pageToken,
-            ("PageSize" Core..=) Prelude.<$> pageSize,
-            Prelude.Just ("PortfolioId" Core..= portfolioId)
+            ("PageSize" Data..=) Prelude.<$> pageSize,
+            ("PageToken" Data..=) Prelude.<$> pageToken,
+            Prelude.Just ("PortfolioId" Data..= portfolioId)
           ]
       )
 
-instance Core.ToPath ListPrincipalsForPortfolio where
+instance Data.ToPath ListPrincipalsForPortfolio where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListPrincipalsForPortfolio where
+instance Data.ToQuery ListPrincipalsForPortfolio where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListPrincipalsForPortfolioResponse' smart constructor.
@@ -218,7 +221,8 @@ data ListPrincipalsForPortfolioResponse = ListPrincipalsForPortfolioResponse'
   { -- | The page token to use to retrieve the next set of results. If there are
     -- no additional results, this value is null.
     nextPageToken :: Prelude.Maybe Prelude.Text,
-    -- | The IAM principals (users or roles) associated with the portfolio.
+    -- | The @PrincipalARN@s and corresponding @PrincipalType@s associated with
+    -- the portfolio.
     principals :: Prelude.Maybe [Principal],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -236,7 +240,8 @@ data ListPrincipalsForPortfolioResponse = ListPrincipalsForPortfolioResponse'
 -- 'nextPageToken', 'listPrincipalsForPortfolioResponse_nextPageToken' - The page token to use to retrieve the next set of results. If there are
 -- no additional results, this value is null.
 --
--- 'principals', 'listPrincipalsForPortfolioResponse_principals' - The IAM principals (users or roles) associated with the portfolio.
+-- 'principals', 'listPrincipalsForPortfolioResponse_principals' - The @PrincipalARN@s and corresponding @PrincipalType@s associated with
+-- the portfolio.
 --
 -- 'httpStatus', 'listPrincipalsForPortfolioResponse_httpStatus' - The response's http status code.
 newListPrincipalsForPortfolioResponse ::
@@ -256,7 +261,8 @@ newListPrincipalsForPortfolioResponse pHttpStatus_ =
 listPrincipalsForPortfolioResponse_nextPageToken :: Lens.Lens' ListPrincipalsForPortfolioResponse (Prelude.Maybe Prelude.Text)
 listPrincipalsForPortfolioResponse_nextPageToken = Lens.lens (\ListPrincipalsForPortfolioResponse' {nextPageToken} -> nextPageToken) (\s@ListPrincipalsForPortfolioResponse' {} a -> s {nextPageToken = a} :: ListPrincipalsForPortfolioResponse)
 
--- | The IAM principals (users or roles) associated with the portfolio.
+-- | The @PrincipalARN@s and corresponding @PrincipalType@s associated with
+-- the portfolio.
 listPrincipalsForPortfolioResponse_principals :: Lens.Lens' ListPrincipalsForPortfolioResponse (Prelude.Maybe [Principal])
 listPrincipalsForPortfolioResponse_principals = Lens.lens (\ListPrincipalsForPortfolioResponse' {principals} -> principals) (\s@ListPrincipalsForPortfolioResponse' {} a -> s {principals = a} :: ListPrincipalsForPortfolioResponse) Prelude.. Lens.mapping Lens.coerced
 

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.Types.OfferingStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.DeviceFarm.Types.OfferingStatus where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types.Offering
 import Amazonka.DeviceFarm.Types.OfferingTransactionType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The status of the offering.
@@ -30,7 +31,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newOfferingStatus' smart constructor.
 data OfferingStatus = OfferingStatus'
   { -- | The date on which the offering is effective.
-    effectiveOn :: Prelude.Maybe Core.POSIX,
+    effectiveOn :: Prelude.Maybe Data.POSIX,
     -- | Represents the metadata of an offering status.
     offering :: Prelude.Maybe Offering,
     -- | The number of available devices in the offering.
@@ -67,7 +68,7 @@ newOfferingStatus =
 
 -- | The date on which the offering is effective.
 offeringStatus_effectiveOn :: Lens.Lens' OfferingStatus (Prelude.Maybe Prelude.UTCTime)
-offeringStatus_effectiveOn = Lens.lens (\OfferingStatus' {effectiveOn} -> effectiveOn) (\s@OfferingStatus' {} a -> s {effectiveOn = a} :: OfferingStatus) Prelude.. Lens.mapping Core._Time
+offeringStatus_effectiveOn = Lens.lens (\OfferingStatus' {effectiveOn} -> effectiveOn) (\s@OfferingStatus' {} a -> s {effectiveOn = a} :: OfferingStatus) Prelude.. Lens.mapping Data._Time
 
 -- | Represents the metadata of an offering status.
 offeringStatus_offering :: Lens.Lens' OfferingStatus (Prelude.Maybe Offering)
@@ -81,16 +82,16 @@ offeringStatus_quantity = Lens.lens (\OfferingStatus' {quantity} -> quantity) (\
 offeringStatus_type :: Lens.Lens' OfferingStatus (Prelude.Maybe OfferingTransactionType)
 offeringStatus_type = Lens.lens (\OfferingStatus' {type'} -> type') (\s@OfferingStatus' {} a -> s {type' = a} :: OfferingStatus)
 
-instance Core.FromJSON OfferingStatus where
+instance Data.FromJSON OfferingStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OfferingStatus"
       ( \x ->
           OfferingStatus'
-            Prelude.<$> (x Core..:? "effectiveOn")
-            Prelude.<*> (x Core..:? "offering")
-            Prelude.<*> (x Core..:? "quantity")
-            Prelude.<*> (x Core..:? "type")
+            Prelude.<$> (x Data..:? "effectiveOn")
+            Prelude.<*> (x Data..:? "offering")
+            Prelude.<*> (x Data..:? "quantity")
+            Prelude.<*> (x Data..:? "type")
       )
 
 instance Prelude.Hashable OfferingStatus where

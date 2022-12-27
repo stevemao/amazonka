@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.GetConformancePackComplianceSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.Config.GetConformancePackComplianceSummary
     newGetConformancePackComplianceSummary,
 
     -- * Request Lenses
-    getConformancePackComplianceSummary_nextToken,
     getConformancePackComplianceSummary_limit,
+    getConformancePackComplianceSummary_nextToken,
     getConformancePackComplianceSummary_conformancePackNames,
 
     -- * Destructuring the Response
@@ -47,18 +47,19 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetConformancePackComplianceSummary' smart constructor.
 data GetConformancePackComplianceSummary = GetConformancePackComplianceSummary'
-  { -- | The nextToken string returned on a previous page that you use to get the
+  { -- | The maximum number of conformance packs returned on each page.
+    limit :: Prelude.Maybe Prelude.Natural,
+    -- | The nextToken string returned on a previous page that you use to get the
     -- next page of results in a paginated response.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of conformance packs returned on each page.
-    limit :: Prelude.Maybe Prelude.Natural,
     -- | Names of conformance packs.
     conformancePackNames :: Prelude.NonEmpty Prelude.Text
   }
@@ -72,10 +73,10 @@ data GetConformancePackComplianceSummary = GetConformancePackComplianceSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'limit', 'getConformancePackComplianceSummary_limit' - The maximum number of conformance packs returned on each page.
+--
 -- 'nextToken', 'getConformancePackComplianceSummary_nextToken' - The nextToken string returned on a previous page that you use to get the
 -- next page of results in a paginated response.
---
--- 'limit', 'getConformancePackComplianceSummary_limit' - The maximum number of conformance packs returned on each page.
 --
 -- 'conformancePackNames', 'getConformancePackComplianceSummary_conformancePackNames' - Names of conformance packs.
 newGetConformancePackComplianceSummary ::
@@ -85,22 +86,22 @@ newGetConformancePackComplianceSummary ::
 newGetConformancePackComplianceSummary
   pConformancePackNames_ =
     GetConformancePackComplianceSummary'
-      { nextToken =
+      { limit =
           Prelude.Nothing,
-        limit = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         conformancePackNames =
           Lens.coerced
             Lens.# pConformancePackNames_
       }
 
+-- | The maximum number of conformance packs returned on each page.
+getConformancePackComplianceSummary_limit :: Lens.Lens' GetConformancePackComplianceSummary (Prelude.Maybe Prelude.Natural)
+getConformancePackComplianceSummary_limit = Lens.lens (\GetConformancePackComplianceSummary' {limit} -> limit) (\s@GetConformancePackComplianceSummary' {} a -> s {limit = a} :: GetConformancePackComplianceSummary)
+
 -- | The nextToken string returned on a previous page that you use to get the
 -- next page of results in a paginated response.
 getConformancePackComplianceSummary_nextToken :: Lens.Lens' GetConformancePackComplianceSummary (Prelude.Maybe Prelude.Text)
 getConformancePackComplianceSummary_nextToken = Lens.lens (\GetConformancePackComplianceSummary' {nextToken} -> nextToken) (\s@GetConformancePackComplianceSummary' {} a -> s {nextToken = a} :: GetConformancePackComplianceSummary)
-
--- | The maximum number of conformance packs returned on each page.
-getConformancePackComplianceSummary_limit :: Lens.Lens' GetConformancePackComplianceSummary (Prelude.Maybe Prelude.Natural)
-getConformancePackComplianceSummary_limit = Lens.lens (\GetConformancePackComplianceSummary' {limit} -> limit) (\s@GetConformancePackComplianceSummary' {} a -> s {limit = a} :: GetConformancePackComplianceSummary)
 
 -- | Names of conformance packs.
 getConformancePackComplianceSummary_conformancePackNames :: Lens.Lens' GetConformancePackComplianceSummary (Prelude.NonEmpty Prelude.Text)
@@ -139,13 +140,14 @@ instance
   type
     AWSResponse GetConformancePackComplianceSummary =
       GetConformancePackComplianceSummaryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetConformancePackComplianceSummaryResponse'
-            Prelude.<$> (x Core..?> "ConformancePackComplianceSummaryList")
-              Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "ConformancePackComplianceSummaryList")
+              Prelude.<*> (x Data..?> "NextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -156,8 +158,8 @@ instance
   hashWithSalt
     _salt
     GetConformancePackComplianceSummary' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` limit
+      _salt `Prelude.hashWithSalt` limit
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` conformancePackNames
 
 instance
@@ -165,52 +167,52 @@ instance
     GetConformancePackComplianceSummary
   where
   rnf GetConformancePackComplianceSummary' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf limit
+    Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf conformancePackNames
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetConformancePackComplianceSummary
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.GetConformancePackComplianceSummary" ::
+              Data.=# ( "StarlingDoveService.GetConformancePackComplianceSummary" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     GetConformancePackComplianceSummary
   where
   toJSON GetConformancePackComplianceSummary' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Limit" Core..=) Prelude.<$> limit,
+          [ ("Limit" Data..=) Prelude.<$> limit,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
               ( "ConformancePackNames"
-                  Core..= conformancePackNames
+                  Data..= conformancePackNames
               )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     GetConformancePackComplianceSummary
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetConformancePackComplianceSummary
   where
   toQuery = Prelude.const Prelude.mempty

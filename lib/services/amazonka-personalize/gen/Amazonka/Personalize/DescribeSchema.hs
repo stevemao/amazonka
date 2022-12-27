@@ -14,13 +14,14 @@
 
 -- |
 -- Module      : Amazonka.Personalize.DescribeSchema
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes a schema. For more information on schemas, see CreateSchema.
+-- Describes a schema. For more information on schemas, see
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSchema.html CreateSchema>.
 module Amazonka.Personalize.DescribeSchema
   ( -- * Creating a Request
     DescribeSchema (..),
@@ -40,7 +41,8 @@ module Amazonka.Personalize.DescribeSchema
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -77,12 +79,13 @@ instance Core.AWSRequest DescribeSchema where
   type
     AWSResponse DescribeSchema =
       DescribeSchemaResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeSchemaResponse'
-            Prelude.<$> (x Core..?> "schema")
+            Prelude.<$> (x Data..?> "schema")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -93,32 +96,32 @@ instance Prelude.Hashable DescribeSchema where
 instance Prelude.NFData DescribeSchema where
   rnf DescribeSchema' {..} = Prelude.rnf schemaArn
 
-instance Core.ToHeaders DescribeSchema where
+instance Data.ToHeaders DescribeSchema where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.DescribeSchema" ::
+              Data.=# ( "AmazonPersonalize.DescribeSchema" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeSchema where
+instance Data.ToJSON DescribeSchema where
   toJSON DescribeSchema' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("schemaArn" Core..= schemaArn)]
+          [Prelude.Just ("schemaArn" Data..= schemaArn)]
       )
 
-instance Core.ToPath DescribeSchema where
+instance Data.ToPath DescribeSchema where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeSchema where
+instance Data.ToQuery DescribeSchema where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeSchemaResponse' smart constructor.

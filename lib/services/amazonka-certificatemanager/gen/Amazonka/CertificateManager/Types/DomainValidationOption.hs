@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManager.Types.DomainValidationOption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CertificateManager.Types.DomainValidationOption where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the domain names that you want ACM to use to
@@ -126,12 +127,12 @@ instance Prelude.NFData DomainValidationOption where
     Prelude.rnf domainName
       `Prelude.seq` Prelude.rnf validationDomain
 
-instance Core.ToJSON DomainValidationOption where
+instance Data.ToJSON DomainValidationOption where
   toJSON DomainValidationOption' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("DomainName" Core..= domainName),
+          [ Prelude.Just ("DomainName" Data..= domainName),
             Prelude.Just
-              ("ValidationDomain" Core..= validationDomain)
+              ("ValidationDomain" Data..= validationDomain)
           ]
       )

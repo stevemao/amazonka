@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.TransitGatewayRouteTableAssociation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.EC2.Types.TransitGatewayRouteTableAssociation where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.TransitGatewayAssociationState
 import Amazonka.EC2.Types.TransitGatewayAttachmentResourceType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an association between a route table and a resource
@@ -31,13 +32,13 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newTransitGatewayRouteTableAssociation' smart constructor.
 data TransitGatewayRouteTableAssociation = TransitGatewayRouteTableAssociation'
-  { -- | The state of the association.
-    state :: Prelude.Maybe TransitGatewayAssociationState,
-    -- | The ID of the resource.
+  { -- | The ID of the resource.
     resourceId :: Prelude.Maybe Prelude.Text,
     -- | The resource type. Note that the @tgw-peering@ resource type has been
     -- deprecated.
     resourceType :: Prelude.Maybe TransitGatewayAttachmentResourceType,
+    -- | The state of the association.
+    state :: Prelude.Maybe TransitGatewayAssociationState,
     -- | The ID of the attachment.
     transitGatewayAttachmentId :: Prelude.Maybe Prelude.Text
   }
@@ -51,29 +52,25 @@ data TransitGatewayRouteTableAssociation = TransitGatewayRouteTableAssociation'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'state', 'transitGatewayRouteTableAssociation_state' - The state of the association.
---
 -- 'resourceId', 'transitGatewayRouteTableAssociation_resourceId' - The ID of the resource.
 --
 -- 'resourceType', 'transitGatewayRouteTableAssociation_resourceType' - The resource type. Note that the @tgw-peering@ resource type has been
 -- deprecated.
+--
+-- 'state', 'transitGatewayRouteTableAssociation_state' - The state of the association.
 --
 -- 'transitGatewayAttachmentId', 'transitGatewayRouteTableAssociation_transitGatewayAttachmentId' - The ID of the attachment.
 newTransitGatewayRouteTableAssociation ::
   TransitGatewayRouteTableAssociation
 newTransitGatewayRouteTableAssociation =
   TransitGatewayRouteTableAssociation'
-    { state =
+    { resourceId =
         Prelude.Nothing,
-      resourceId = Prelude.Nothing,
       resourceType = Prelude.Nothing,
+      state = Prelude.Nothing,
       transitGatewayAttachmentId =
         Prelude.Nothing
     }
-
--- | The state of the association.
-transitGatewayRouteTableAssociation_state :: Lens.Lens' TransitGatewayRouteTableAssociation (Prelude.Maybe TransitGatewayAssociationState)
-transitGatewayRouteTableAssociation_state = Lens.lens (\TransitGatewayRouteTableAssociation' {state} -> state) (\s@TransitGatewayRouteTableAssociation' {} a -> s {state = a} :: TransitGatewayRouteTableAssociation)
 
 -- | The ID of the resource.
 transitGatewayRouteTableAssociation_resourceId :: Lens.Lens' TransitGatewayRouteTableAssociation (Prelude.Maybe Prelude.Text)
@@ -84,20 +81,24 @@ transitGatewayRouteTableAssociation_resourceId = Lens.lens (\TransitGatewayRoute
 transitGatewayRouteTableAssociation_resourceType :: Lens.Lens' TransitGatewayRouteTableAssociation (Prelude.Maybe TransitGatewayAttachmentResourceType)
 transitGatewayRouteTableAssociation_resourceType = Lens.lens (\TransitGatewayRouteTableAssociation' {resourceType} -> resourceType) (\s@TransitGatewayRouteTableAssociation' {} a -> s {resourceType = a} :: TransitGatewayRouteTableAssociation)
 
+-- | The state of the association.
+transitGatewayRouteTableAssociation_state :: Lens.Lens' TransitGatewayRouteTableAssociation (Prelude.Maybe TransitGatewayAssociationState)
+transitGatewayRouteTableAssociation_state = Lens.lens (\TransitGatewayRouteTableAssociation' {state} -> state) (\s@TransitGatewayRouteTableAssociation' {} a -> s {state = a} :: TransitGatewayRouteTableAssociation)
+
 -- | The ID of the attachment.
 transitGatewayRouteTableAssociation_transitGatewayAttachmentId :: Lens.Lens' TransitGatewayRouteTableAssociation (Prelude.Maybe Prelude.Text)
 transitGatewayRouteTableAssociation_transitGatewayAttachmentId = Lens.lens (\TransitGatewayRouteTableAssociation' {transitGatewayAttachmentId} -> transitGatewayAttachmentId) (\s@TransitGatewayRouteTableAssociation' {} a -> s {transitGatewayAttachmentId = a} :: TransitGatewayRouteTableAssociation)
 
 instance
-  Core.FromXML
+  Data.FromXML
     TransitGatewayRouteTableAssociation
   where
   parseXML x =
     TransitGatewayRouteTableAssociation'
-      Prelude.<$> (x Core..@? "state")
-      Prelude.<*> (x Core..@? "resourceId")
-      Prelude.<*> (x Core..@? "resourceType")
-      Prelude.<*> (x Core..@? "transitGatewayAttachmentId")
+      Prelude.<$> (x Data..@? "resourceId")
+      Prelude.<*> (x Data..@? "resourceType")
+      Prelude.<*> (x Data..@? "state")
+      Prelude.<*> (x Data..@? "transitGatewayAttachmentId")
 
 instance
   Prelude.Hashable
@@ -106,9 +107,9 @@ instance
   hashWithSalt
     _salt
     TransitGatewayRouteTableAssociation' {..} =
-      _salt `Prelude.hashWithSalt` state
-        `Prelude.hashWithSalt` resourceId
+      _salt `Prelude.hashWithSalt` resourceId
         `Prelude.hashWithSalt` resourceType
+        `Prelude.hashWithSalt` state
         `Prelude.hashWithSalt` transitGatewayAttachmentId
 
 instance
@@ -116,7 +117,7 @@ instance
     TransitGatewayRouteTableAssociation
   where
   rnf TransitGatewayRouteTableAssociation' {..} =
-    Prelude.rnf state
-      `Prelude.seq` Prelude.rnf resourceId
+    Prelude.rnf resourceId
       `Prelude.seq` Prelude.rnf resourceType
+      `Prelude.seq` Prelude.rnf state
       `Prelude.seq` Prelude.rnf transitGatewayAttachmentId

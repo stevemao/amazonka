@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.PrefixList
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.PrefixList where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes prefixes for Amazon Web Services services.
@@ -71,14 +72,14 @@ prefixList_prefixListId = Lens.lens (\PrefixList' {prefixListId} -> prefixListId
 prefixList_prefixListName :: Lens.Lens' PrefixList (Prelude.Maybe Prelude.Text)
 prefixList_prefixListName = Lens.lens (\PrefixList' {prefixListName} -> prefixListName) (\s@PrefixList' {} a -> s {prefixListName = a} :: PrefixList)
 
-instance Core.FromXML PrefixList where
+instance Data.FromXML PrefixList where
   parseXML x =
     PrefixList'
-      Prelude.<$> ( x Core..@? "cidrSet" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+      Prelude.<$> ( x Data..@? "cidrSet" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
-      Prelude.<*> (x Core..@? "prefixListId")
-      Prelude.<*> (x Core..@? "prefixListName")
+      Prelude.<*> (x Data..@? "prefixListId")
+      Prelude.<*> (x Data..@? "prefixListName")
 
 instance Prelude.Hashable PrefixList where
   hashWithSalt _salt PrefixList' {..} =

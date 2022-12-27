@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.DeleteApplicationInputProcessingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.KinesisAnalyticsV2.DeleteApplicationInputProcessingConfiguration
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -125,13 +126,14 @@ instance
     AWSResponse
       DeleteApplicationInputProcessingConfiguration =
       DeleteApplicationInputProcessingConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteApplicationInputProcessingConfigurationResponse'
-            Prelude.<$> (x Core..?> "ApplicationARN")
-              Prelude.<*> (x Core..?> "ApplicationVersionId")
+            Prelude.<$> (x Data..?> "ApplicationARN")
+              Prelude.<*> (x Data..?> "ApplicationVersionId")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -157,49 +159,49 @@ instance
         `Prelude.seq` Prelude.rnf inputId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteApplicationInputProcessingConfiguration
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "KinesisAnalytics_20180523.DeleteApplicationInputProcessingConfiguration" ::
+              Data.=# ( "KinesisAnalytics_20180523.DeleteApplicationInputProcessingConfiguration" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DeleteApplicationInputProcessingConfiguration
   where
   toJSON
     DeleteApplicationInputProcessingConfiguration' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
             [ Prelude.Just
-                ("ApplicationName" Core..= applicationName),
+                ("ApplicationName" Data..= applicationName),
               Prelude.Just
                 ( "CurrentApplicationVersionId"
-                    Core..= currentApplicationVersionId
+                    Data..= currentApplicationVersionId
                 ),
-              Prelude.Just ("InputId" Core..= inputId)
+              Prelude.Just ("InputId" Data..= inputId)
             ]
         )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DeleteApplicationInputProcessingConfiguration
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DeleteApplicationInputProcessingConfiguration
   where
   toQuery = Prelude.const Prelude.mempty

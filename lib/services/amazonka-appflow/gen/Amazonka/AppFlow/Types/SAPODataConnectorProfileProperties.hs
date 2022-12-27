@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.SAPODataConnectorProfileProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppFlow.Types.SAPODataConnectorProfileProperties where
 
 import Amazonka.AppFlow.Types.OAuthProperties
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The connector-specific profile properties required when using SAPOData.
@@ -30,11 +31,11 @@ import qualified Amazonka.Prelude as Prelude
 data SAPODataConnectorProfileProperties = SAPODataConnectorProfileProperties'
   { -- | The logon language of SAPOData instance.
     logonLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The SAPOData OAuth properties required for OAuth type authentication.
+    oAuthProperties :: Prelude.Maybe OAuthProperties,
     -- | The SAPOData Private Link service name to be used for private data
     -- transfers.
     privateLinkServiceName :: Prelude.Maybe Prelude.Text,
-    -- | The SAPOData OAuth properties required for OAuth type authentication.
-    oAuthProperties :: Prelude.Maybe OAuthProperties,
     -- | The location of the SAPOData resource.
     applicationHostUrl :: Prelude.Text,
     -- | The application path to catalog service.
@@ -56,10 +57,10 @@ data SAPODataConnectorProfileProperties = SAPODataConnectorProfileProperties'
 --
 -- 'logonLanguage', 'sAPODataConnectorProfileProperties_logonLanguage' - The logon language of SAPOData instance.
 --
+-- 'oAuthProperties', 'sAPODataConnectorProfileProperties_oAuthProperties' - The SAPOData OAuth properties required for OAuth type authentication.
+--
 -- 'privateLinkServiceName', 'sAPODataConnectorProfileProperties_privateLinkServiceName' - The SAPOData Private Link service name to be used for private data
 -- transfers.
---
--- 'oAuthProperties', 'sAPODataConnectorProfileProperties_oAuthProperties' - The SAPOData OAuth properties required for OAuth type authentication.
 --
 -- 'applicationHostUrl', 'sAPODataConnectorProfileProperties_applicationHostUrl' - The location of the SAPOData resource.
 --
@@ -86,9 +87,9 @@ newSAPODataConnectorProfileProperties
     SAPODataConnectorProfileProperties'
       { logonLanguage =
           Prelude.Nothing,
+        oAuthProperties = Prelude.Nothing,
         privateLinkServiceName =
           Prelude.Nothing,
-        oAuthProperties = Prelude.Nothing,
         applicationHostUrl =
           pApplicationHostUrl_,
         applicationServicePath =
@@ -101,14 +102,14 @@ newSAPODataConnectorProfileProperties
 sAPODataConnectorProfileProperties_logonLanguage :: Lens.Lens' SAPODataConnectorProfileProperties (Prelude.Maybe Prelude.Text)
 sAPODataConnectorProfileProperties_logonLanguage = Lens.lens (\SAPODataConnectorProfileProperties' {logonLanguage} -> logonLanguage) (\s@SAPODataConnectorProfileProperties' {} a -> s {logonLanguage = a} :: SAPODataConnectorProfileProperties)
 
+-- | The SAPOData OAuth properties required for OAuth type authentication.
+sAPODataConnectorProfileProperties_oAuthProperties :: Lens.Lens' SAPODataConnectorProfileProperties (Prelude.Maybe OAuthProperties)
+sAPODataConnectorProfileProperties_oAuthProperties = Lens.lens (\SAPODataConnectorProfileProperties' {oAuthProperties} -> oAuthProperties) (\s@SAPODataConnectorProfileProperties' {} a -> s {oAuthProperties = a} :: SAPODataConnectorProfileProperties)
+
 -- | The SAPOData Private Link service name to be used for private data
 -- transfers.
 sAPODataConnectorProfileProperties_privateLinkServiceName :: Lens.Lens' SAPODataConnectorProfileProperties (Prelude.Maybe Prelude.Text)
 sAPODataConnectorProfileProperties_privateLinkServiceName = Lens.lens (\SAPODataConnectorProfileProperties' {privateLinkServiceName} -> privateLinkServiceName) (\s@SAPODataConnectorProfileProperties' {} a -> s {privateLinkServiceName = a} :: SAPODataConnectorProfileProperties)
-
--- | The SAPOData OAuth properties required for OAuth type authentication.
-sAPODataConnectorProfileProperties_oAuthProperties :: Lens.Lens' SAPODataConnectorProfileProperties (Prelude.Maybe OAuthProperties)
-sAPODataConnectorProfileProperties_oAuthProperties = Lens.lens (\SAPODataConnectorProfileProperties' {oAuthProperties} -> oAuthProperties) (\s@SAPODataConnectorProfileProperties' {} a -> s {oAuthProperties = a} :: SAPODataConnectorProfileProperties)
 
 -- | The location of the SAPOData resource.
 sAPODataConnectorProfileProperties_applicationHostUrl :: Lens.Lens' SAPODataConnectorProfileProperties Prelude.Text
@@ -127,21 +128,21 @@ sAPODataConnectorProfileProperties_clientNumber :: Lens.Lens' SAPODataConnectorP
 sAPODataConnectorProfileProperties_clientNumber = Lens.lens (\SAPODataConnectorProfileProperties' {clientNumber} -> clientNumber) (\s@SAPODataConnectorProfileProperties' {} a -> s {clientNumber = a} :: SAPODataConnectorProfileProperties)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     SAPODataConnectorProfileProperties
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SAPODataConnectorProfileProperties"
       ( \x ->
           SAPODataConnectorProfileProperties'
-            Prelude.<$> (x Core..:? "logonLanguage")
-            Prelude.<*> (x Core..:? "privateLinkServiceName")
-            Prelude.<*> (x Core..:? "oAuthProperties")
-            Prelude.<*> (x Core..: "applicationHostUrl")
-            Prelude.<*> (x Core..: "applicationServicePath")
-            Prelude.<*> (x Core..: "portNumber")
-            Prelude.<*> (x Core..: "clientNumber")
+            Prelude.<$> (x Data..:? "logonLanguage")
+            Prelude.<*> (x Data..:? "oAuthProperties")
+            Prelude.<*> (x Data..:? "privateLinkServiceName")
+            Prelude.<*> (x Data..: "applicationHostUrl")
+            Prelude.<*> (x Data..: "applicationServicePath")
+            Prelude.<*> (x Data..: "portNumber")
+            Prelude.<*> (x Data..: "clientNumber")
       )
 
 instance
@@ -152,8 +153,8 @@ instance
     _salt
     SAPODataConnectorProfileProperties' {..} =
       _salt `Prelude.hashWithSalt` logonLanguage
-        `Prelude.hashWithSalt` privateLinkServiceName
         `Prelude.hashWithSalt` oAuthProperties
+        `Prelude.hashWithSalt` privateLinkServiceName
         `Prelude.hashWithSalt` applicationHostUrl
         `Prelude.hashWithSalt` applicationServicePath
         `Prelude.hashWithSalt` portNumber
@@ -165,32 +166,32 @@ instance
   where
   rnf SAPODataConnectorProfileProperties' {..} =
     Prelude.rnf logonLanguage
-      `Prelude.seq` Prelude.rnf privateLinkServiceName
       `Prelude.seq` Prelude.rnf oAuthProperties
+      `Prelude.seq` Prelude.rnf privateLinkServiceName
       `Prelude.seq` Prelude.rnf applicationHostUrl
       `Prelude.seq` Prelude.rnf applicationServicePath
       `Prelude.seq` Prelude.rnf portNumber
       `Prelude.seq` Prelude.rnf clientNumber
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     SAPODataConnectorProfileProperties
   where
   toJSON SAPODataConnectorProfileProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("logonLanguage" Core..=) Prelude.<$> logonLanguage,
-            ("privateLinkServiceName" Core..=)
-              Prelude.<$> privateLinkServiceName,
-            ("oAuthProperties" Core..=)
+          [ ("logonLanguage" Data..=) Prelude.<$> logonLanguage,
+            ("oAuthProperties" Data..=)
               Prelude.<$> oAuthProperties,
+            ("privateLinkServiceName" Data..=)
+              Prelude.<$> privateLinkServiceName,
             Prelude.Just
-              ("applicationHostUrl" Core..= applicationHostUrl),
+              ("applicationHostUrl" Data..= applicationHostUrl),
             Prelude.Just
               ( "applicationServicePath"
-                  Core..= applicationServicePath
+                  Data..= applicationServicePath
               ),
-            Prelude.Just ("portNumber" Core..= portNumber),
-            Prelude.Just ("clientNumber" Core..= clientNumber)
+            Prelude.Just ("portNumber" Data..= portNumber),
+            Prelude.Just ("clientNumber" Data..= clientNumber)
           ]
       )

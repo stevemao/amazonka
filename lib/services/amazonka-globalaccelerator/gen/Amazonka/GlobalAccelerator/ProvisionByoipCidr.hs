@@ -14,21 +14,21 @@
 
 -- |
 -- Module      : Amazonka.GlobalAccelerator.ProvisionByoipCidr
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Provisions an IP address range to use with your AWS resources through
--- bring your own IP addresses (BYOIP) and creates a corresponding address
--- pool. After the address range is provisioned, it is ready to be
--- advertised using
+-- Provisions an IP address range to use with your Amazon Web Services
+-- resources through bring your own IP addresses (BYOIP) and creates a
+-- corresponding address pool. After the address range is provisioned, it
+-- is ready to be advertised using
 -- <https://docs.aws.amazon.com/global-accelerator/latest/api/AdvertiseByoipCidr.html AdvertiseByoipCidr>.
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html Bring Your Own IP Addresses (BYOIP)>
--- in the /AWS Global Accelerator Developer Guide/.
+-- <https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html Bring your own IP addresses (BYOIP)>
+-- in the /Global Accelerator Developer Guide/.
 module Amazonka.GlobalAccelerator.ProvisionByoipCidr
   ( -- * Creating a Request
     ProvisionByoipCidr (..),
@@ -49,8 +49,9 @@ module Amazonka.GlobalAccelerator.ProvisionByoipCidr
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GlobalAccelerator.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -114,12 +115,13 @@ instance Core.AWSRequest ProvisionByoipCidr where
   type
     AWSResponse ProvisionByoipCidr =
       ProvisionByoipCidrResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ProvisionByoipCidrResponse'
-            Prelude.<$> (x Core..?> "ByoipCidr")
+            Prelude.<$> (x Data..?> "ByoipCidr")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -133,37 +135,37 @@ instance Prelude.NFData ProvisionByoipCidr where
     Prelude.rnf cidr
       `Prelude.seq` Prelude.rnf cidrAuthorizationContext
 
-instance Core.ToHeaders ProvisionByoipCidr where
+instance Data.ToHeaders ProvisionByoipCidr where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GlobalAccelerator_V20180706.ProvisionByoipCidr" ::
+              Data.=# ( "GlobalAccelerator_V20180706.ProvisionByoipCidr" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ProvisionByoipCidr where
+instance Data.ToJSON ProvisionByoipCidr where
   toJSON ProvisionByoipCidr' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Cidr" Core..= cidr),
+          [ Prelude.Just ("Cidr" Data..= cidr),
             Prelude.Just
               ( "CidrAuthorizationContext"
-                  Core..= cidrAuthorizationContext
+                  Data..= cidrAuthorizationContext
               )
           ]
       )
 
-instance Core.ToPath ProvisionByoipCidr where
+instance Data.ToPath ProvisionByoipCidr where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ProvisionByoipCidr where
+instance Data.ToQuery ProvisionByoipCidr where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newProvisionByoipCidrResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MemoryDb.UpdateParameterGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.MemoryDb.UpdateParameterGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MemoryDb.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -98,12 +99,13 @@ instance Core.AWSRequest UpdateParameterGroup where
   type
     AWSResponse UpdateParameterGroup =
       UpdateParameterGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateParameterGroupResponse'
-            Prelude.<$> (x Core..?> "ParameterGroup")
+            Prelude.<$> (x Data..?> "ParameterGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,36 +119,36 @@ instance Prelude.NFData UpdateParameterGroup where
     Prelude.rnf parameterGroupName
       `Prelude.seq` Prelude.rnf parameterNameValues
 
-instance Core.ToHeaders UpdateParameterGroup where
+instance Data.ToHeaders UpdateParameterGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonMemoryDB.UpdateParameterGroup" ::
+              Data.=# ( "AmazonMemoryDB.UpdateParameterGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateParameterGroup where
+instance Data.ToJSON UpdateParameterGroup where
   toJSON UpdateParameterGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ParameterGroupName" Core..= parameterGroupName),
+              ("ParameterGroupName" Data..= parameterGroupName),
             Prelude.Just
-              ("ParameterNameValues" Core..= parameterNameValues)
+              ("ParameterNameValues" Data..= parameterNameValues)
           ]
       )
 
-instance Core.ToPath UpdateParameterGroup where
+instance Data.ToPath UpdateParameterGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateParameterGroup where
+instance Data.ToQuery UpdateParameterGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateParameterGroupResponse' smart constructor.

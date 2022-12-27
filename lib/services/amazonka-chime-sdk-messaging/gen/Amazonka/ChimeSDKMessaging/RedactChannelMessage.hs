@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ChimeSDKMessaging.RedactChannelMessage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,6 +33,7 @@ module Amazonka.ChimeSDKMessaging.RedactChannelMessage
     newRedactChannelMessage,
 
     -- * Request Lenses
+    redactChannelMessage_subChannelId,
     redactChannelMessage_channelArn,
     redactChannelMessage_messageId,
     redactChannelMessage_chimeBearer,
@@ -44,20 +45,24 @@ module Amazonka.ChimeSDKMessaging.RedactChannelMessage
     -- * Response Lenses
     redactChannelMessageResponse_channelArn,
     redactChannelMessageResponse_messageId,
+    redactChannelMessageResponse_subChannelId,
     redactChannelMessageResponse_httpStatus,
   )
 where
 
 import Amazonka.ChimeSDKMessaging.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newRedactChannelMessage' smart constructor.
 data RedactChannelMessage = RedactChannelMessage'
-  { -- | The ARN of the channel containing the messages that you want to redact.
+  { -- | The ID of the SubChannel in the request.
+    subChannelId :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the channel containing the messages that you want to redact.
     channelArn :: Prelude.Text,
     -- | The ID of the message being redacted.
     messageId :: Prelude.Text,
@@ -73,6 +78,8 @@ data RedactChannelMessage = RedactChannelMessage'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'subChannelId', 'redactChannelMessage_subChannelId' - The ID of the SubChannel in the request.
 --
 -- 'channelArn', 'redactChannelMessage_channelArn' - The ARN of the channel containing the messages that you want to redact.
 --
@@ -92,10 +99,16 @@ newRedactChannelMessage
   pMessageId_
   pChimeBearer_ =
     RedactChannelMessage'
-      { channelArn = pChannelArn_,
+      { subChannelId =
+          Prelude.Nothing,
+        channelArn = pChannelArn_,
         messageId = pMessageId_,
         chimeBearer = pChimeBearer_
       }
+
+-- | The ID of the SubChannel in the request.
+redactChannelMessage_subChannelId :: Lens.Lens' RedactChannelMessage (Prelude.Maybe Prelude.Text)
+redactChannelMessage_subChannelId = Lens.lens (\RedactChannelMessage' {subChannelId} -> subChannelId) (\s@RedactChannelMessage' {} a -> s {subChannelId = a} :: RedactChannelMessage)
 
 -- | The ARN of the channel containing the messages that you want to redact.
 redactChannelMessage_channelArn :: Lens.Lens' RedactChannelMessage Prelude.Text
@@ -113,46 +126,54 @@ instance Core.AWSRequest RedactChannelMessage where
   type
     AWSResponse RedactChannelMessage =
       RedactChannelMessageResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RedactChannelMessageResponse'
-            Prelude.<$> (x Core..?> "ChannelArn")
-            Prelude.<*> (x Core..?> "MessageId")
+            Prelude.<$> (x Data..?> "ChannelArn")
+            Prelude.<*> (x Data..?> "MessageId")
+            Prelude.<*> (x Data..?> "SubChannelId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable RedactChannelMessage where
   hashWithSalt _salt RedactChannelMessage' {..} =
-    _salt `Prelude.hashWithSalt` channelArn
+    _salt `Prelude.hashWithSalt` subChannelId
+      `Prelude.hashWithSalt` channelArn
       `Prelude.hashWithSalt` messageId
       `Prelude.hashWithSalt` chimeBearer
 
 instance Prelude.NFData RedactChannelMessage where
   rnf RedactChannelMessage' {..} =
-    Prelude.rnf channelArn
+    Prelude.rnf subChannelId
+      `Prelude.seq` Prelude.rnf channelArn
       `Prelude.seq` Prelude.rnf messageId
       `Prelude.seq` Prelude.rnf chimeBearer
 
-instance Core.ToHeaders RedactChannelMessage where
+instance Data.ToHeaders RedactChannelMessage where
   toHeaders RedactChannelMessage' {..} =
     Prelude.mconcat
-      ["x-amz-chime-bearer" Core.=# chimeBearer]
+      ["x-amz-chime-bearer" Data.=# chimeBearer]
 
-instance Core.ToJSON RedactChannelMessage where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON RedactChannelMessage where
+  toJSON RedactChannelMessage' {..} =
+    Data.object
+      ( Prelude.catMaybes
+          [("SubChannelId" Data..=) Prelude.<$> subChannelId]
+      )
 
-instance Core.ToPath RedactChannelMessage where
+instance Data.ToPath RedactChannelMessage where
   toPath RedactChannelMessage' {..} =
     Prelude.mconcat
       [ "/channels/",
-        Core.toBS channelArn,
+        Data.toBS channelArn,
         "/messages/",
-        Core.toBS messageId
+        Data.toBS messageId
       ]
 
-instance Core.ToQuery RedactChannelMessage where
+instance Data.ToQuery RedactChannelMessage where
   toQuery =
     Prelude.const
       (Prelude.mconcat ["operation=redact"])
@@ -163,6 +184,11 @@ data RedactChannelMessageResponse = RedactChannelMessageResponse'
     channelArn :: Prelude.Maybe Prelude.Text,
     -- | The ID of the message being redacted.
     messageId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the SubChannel in the response.
+    --
+    -- Only required when redacting messages in a SubChannel that the user
+    -- belongs to.
+    subChannelId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -180,6 +206,11 @@ data RedactChannelMessageResponse = RedactChannelMessageResponse'
 --
 -- 'messageId', 'redactChannelMessageResponse_messageId' - The ID of the message being redacted.
 --
+-- 'subChannelId', 'redactChannelMessageResponse_subChannelId' - The ID of the SubChannel in the response.
+--
+-- Only required when redacting messages in a SubChannel that the user
+-- belongs to.
+--
 -- 'httpStatus', 'redactChannelMessageResponse_httpStatus' - The response's http status code.
 newRedactChannelMessageResponse ::
   -- | 'httpStatus'
@@ -190,6 +221,7 @@ newRedactChannelMessageResponse pHttpStatus_ =
     { channelArn =
         Prelude.Nothing,
       messageId = Prelude.Nothing,
+      subChannelId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
@@ -201,6 +233,13 @@ redactChannelMessageResponse_channelArn = Lens.lens (\RedactChannelMessageRespon
 redactChannelMessageResponse_messageId :: Lens.Lens' RedactChannelMessageResponse (Prelude.Maybe Prelude.Text)
 redactChannelMessageResponse_messageId = Lens.lens (\RedactChannelMessageResponse' {messageId} -> messageId) (\s@RedactChannelMessageResponse' {} a -> s {messageId = a} :: RedactChannelMessageResponse)
 
+-- | The ID of the SubChannel in the response.
+--
+-- Only required when redacting messages in a SubChannel that the user
+-- belongs to.
+redactChannelMessageResponse_subChannelId :: Lens.Lens' RedactChannelMessageResponse (Prelude.Maybe Prelude.Text)
+redactChannelMessageResponse_subChannelId = Lens.lens (\RedactChannelMessageResponse' {subChannelId} -> subChannelId) (\s@RedactChannelMessageResponse' {} a -> s {subChannelId = a} :: RedactChannelMessageResponse)
+
 -- | The response's http status code.
 redactChannelMessageResponse_httpStatus :: Lens.Lens' RedactChannelMessageResponse Prelude.Int
 redactChannelMessageResponse_httpStatus = Lens.lens (\RedactChannelMessageResponse' {httpStatus} -> httpStatus) (\s@RedactChannelMessageResponse' {} a -> s {httpStatus = a} :: RedactChannelMessageResponse)
@@ -209,4 +248,5 @@ instance Prelude.NFData RedactChannelMessageResponse where
   rnf RedactChannelMessageResponse' {..} =
     Prelude.rnf channelArn
       `Prelude.seq` Prelude.rnf messageId
+      `Prelude.seq` Prelude.rnf subChannelId
       `Prelude.seq` Prelude.rnf httpStatus

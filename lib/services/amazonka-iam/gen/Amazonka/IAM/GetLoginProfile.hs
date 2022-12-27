@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.GetLoginProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -53,8 +53,9 @@ module Amazonka.IAM.GetLoginProfile
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -105,14 +106,15 @@ instance Core.AWSRequest GetLoginProfile where
   type
     AWSResponse GetLoginProfile =
       GetLoginProfileResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GetLoginProfileResult"
       ( \s h x ->
           GetLoginProfileResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "LoginProfile")
+            Prelude.<*> (x Data..@ "LoginProfile")
       )
 
 instance Prelude.Hashable GetLoginProfile where
@@ -122,20 +124,20 @@ instance Prelude.Hashable GetLoginProfile where
 instance Prelude.NFData GetLoginProfile where
   rnf GetLoginProfile' {..} = Prelude.rnf userName
 
-instance Core.ToHeaders GetLoginProfile where
+instance Data.ToHeaders GetLoginProfile where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetLoginProfile where
+instance Data.ToPath GetLoginProfile where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetLoginProfile where
+instance Data.ToQuery GetLoginProfile where
   toQuery GetLoginProfile' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("GetLoginProfile" :: Prelude.ByteString),
+          Data.=: ("GetLoginProfile" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "UserName" Core.=: userName
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "UserName" Data.=: userName
       ]
 
 -- | Contains the response to a successful GetLoginProfile request.

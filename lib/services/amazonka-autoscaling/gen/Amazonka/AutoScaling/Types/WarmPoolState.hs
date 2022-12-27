@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.Types.WarmPoolState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,6 +20,7 @@
 module Amazonka.AutoScaling.Types.WarmPoolState
   ( WarmPoolState
       ( ..,
+        WarmPoolState_Hibernated,
         WarmPoolState_Running,
         WarmPoolState_Stopped
       ),
@@ -27,11 +28,12 @@ module Amazonka.AutoScaling.Types.WarmPoolState
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype WarmPoolState = WarmPoolState'
   { fromWarmPoolState ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -43,19 +45,22 @@ newtype WarmPoolState = WarmPoolState'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
+
+pattern WarmPoolState_Hibernated :: WarmPoolState
+pattern WarmPoolState_Hibernated = WarmPoolState' "Hibernated"
 
 pattern WarmPoolState_Running :: WarmPoolState
 pattern WarmPoolState_Running = WarmPoolState' "Running"
@@ -64,6 +69,7 @@ pattern WarmPoolState_Stopped :: WarmPoolState
 pattern WarmPoolState_Stopped = WarmPoolState' "Stopped"
 
 {-# COMPLETE
+  WarmPoolState_Hibernated,
   WarmPoolState_Running,
   WarmPoolState_Stopped,
   WarmPoolState'

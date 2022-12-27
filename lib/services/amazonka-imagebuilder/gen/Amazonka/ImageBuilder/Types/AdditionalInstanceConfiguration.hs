@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ImageBuilder.Types.AdditionalInstanceConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ImageBuilder.Types.AdditionalInstanceConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ImageBuilder.Types.SystemsManagerAgent
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | In addition to your infrastruction configuration, these settings provide
@@ -42,6 +43,16 @@ data AdditionalInstanceConfiguration = AdditionalInstanceConfiguration'
     -- Linux build instance. If you override the user data, make sure that you
     -- add commands to install Systems Manager, if it is not pre-installed on
     -- your base image.
+    --
+    -- The user data is always base 64 encoded. For example, the following
+    -- commands are encoded as
+    -- @IyEvYmluL2Jhc2gKbWtkaXIgLXAgL3Zhci9iYi8KdG91Y2ggL3Zhci$@:
+    --
+    -- /#!\/bin\/bash/
+    --
+    -- mkdir -p \/var\/bb\/
+    --
+    -- touch \/var
     userDataOverride :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -64,6 +75,16 @@ data AdditionalInstanceConfiguration = AdditionalInstanceConfiguration'
 -- Linux build instance. If you override the user data, make sure that you
 -- add commands to install Systems Manager, if it is not pre-installed on
 -- your base image.
+--
+-- The user data is always base 64 encoded. For example, the following
+-- commands are encoded as
+-- @IyEvYmluL2Jhc2gKbWtkaXIgLXAgL3Zhci9iYi8KdG91Y2ggL3Zhci$@:
+--
+-- /#!\/bin\/bash/
+--
+-- mkdir -p \/var\/bb\/
+--
+-- touch \/var
 newAdditionalInstanceConfiguration ::
   AdditionalInstanceConfiguration
 newAdditionalInstanceConfiguration =
@@ -85,20 +106,30 @@ additionalInstanceConfiguration_systemsManagerAgent = Lens.lens (\AdditionalInst
 -- Linux build instance. If you override the user data, make sure that you
 -- add commands to install Systems Manager, if it is not pre-installed on
 -- your base image.
+--
+-- The user data is always base 64 encoded. For example, the following
+-- commands are encoded as
+-- @IyEvYmluL2Jhc2gKbWtkaXIgLXAgL3Zhci9iYi8KdG91Y2ggL3Zhci$@:
+--
+-- /#!\/bin\/bash/
+--
+-- mkdir -p \/var\/bb\/
+--
+-- touch \/var
 additionalInstanceConfiguration_userDataOverride :: Lens.Lens' AdditionalInstanceConfiguration (Prelude.Maybe Prelude.Text)
 additionalInstanceConfiguration_userDataOverride = Lens.lens (\AdditionalInstanceConfiguration' {userDataOverride} -> userDataOverride) (\s@AdditionalInstanceConfiguration' {} a -> s {userDataOverride = a} :: AdditionalInstanceConfiguration)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AdditionalInstanceConfiguration
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AdditionalInstanceConfiguration"
       ( \x ->
           AdditionalInstanceConfiguration'
-            Prelude.<$> (x Core..:? "systemsManagerAgent")
-            Prelude.<*> (x Core..:? "userDataOverride")
+            Prelude.<$> (x Data..:? "systemsManagerAgent")
+            Prelude.<*> (x Data..:? "userDataOverride")
       )
 
 instance
@@ -119,13 +150,13 @@ instance
     Prelude.rnf systemsManagerAgent
       `Prelude.seq` Prelude.rnf userDataOverride
 
-instance Core.ToJSON AdditionalInstanceConfiguration where
+instance Data.ToJSON AdditionalInstanceConfiguration where
   toJSON AdditionalInstanceConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("systemsManagerAgent" Core..=)
+          [ ("systemsManagerAgent" Data..=)
               Prelude.<$> systemsManagerAgent,
-            ("userDataOverride" Core..=)
+            ("userDataOverride" Data..=)
               Prelude.<$> userDataOverride
           ]
       )

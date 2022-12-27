@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.Types.InstanceRefresh
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,14 +24,38 @@ import Amazonka.AutoScaling.Types.InstanceRefreshProgressDetails
 import Amazonka.AutoScaling.Types.InstanceRefreshStatus
 import Amazonka.AutoScaling.Types.RefreshPreferences
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an instance refresh for an Auto Scaling group.
 --
 -- /See:/ 'newInstanceRefresh' smart constructor.
 data InstanceRefresh = InstanceRefresh'
-  { -- | The current status for the instance refresh operation:
+  { -- | The name of the Auto Scaling group.
+    autoScalingGroupName :: Prelude.Maybe Prelude.Text,
+    -- | Describes the specific update you want to deploy.
+    desiredConfiguration :: Prelude.Maybe DesiredConfiguration,
+    -- | The date and time at which the instance refresh ended.
+    endTime :: Prelude.Maybe Data.ISO8601,
+    -- | The instance refresh ID.
+    instanceRefreshId :: Prelude.Maybe Prelude.Text,
+    -- | The number of instances remaining to update before the instance refresh
+    -- is complete.
+    instancesToUpdate :: Prelude.Maybe Prelude.Natural,
+    -- | The percentage of the instance refresh that is complete. For each
+    -- instance replacement, Amazon EC2 Auto Scaling tracks the instance\'s
+    -- health status and warm-up time. When the instance\'s health status
+    -- changes to healthy and the specified warm-up time passes, the instance
+    -- is considered updated and is added to the percentage complete.
+    percentageComplete :: Prelude.Maybe Prelude.Natural,
+    preferences :: Prelude.Maybe RefreshPreferences,
+    -- | Additional progress details for an Auto Scaling group that has a warm
+    -- pool.
+    progressDetails :: Prelude.Maybe InstanceRefreshProgressDetails,
+    -- | The date and time at which the instance refresh began.
+    startTime :: Prelude.Maybe Data.ISO8601,
+    -- | The current status for the instance refresh operation:
     --
     -- -   @Pending@ - The request was created, but the operation has not
     --     started.
@@ -49,31 +73,8 @@ data InstanceRefresh = InstanceRefresh'
     --
     -- -   @Cancelled@ - The operation is cancelled.
     status :: Prelude.Maybe InstanceRefreshStatus,
-    -- | Additional progress details for an Auto Scaling group that has a warm
-    -- pool.
-    progressDetails :: Prelude.Maybe InstanceRefreshProgressDetails,
-    -- | The date and time at which the instance refresh began.
-    startTime :: Prelude.Maybe Core.ISO8601,
-    preferences :: Prelude.Maybe RefreshPreferences,
-    -- | The number of instances remaining to update before the instance refresh
-    -- is complete.
-    instancesToUpdate :: Prelude.Maybe Prelude.Natural,
-    -- | The percentage of the instance refresh that is complete. For each
-    -- instance replacement, Amazon EC2 Auto Scaling tracks the instance\'s
-    -- health status and warm-up time. When the instance\'s health status
-    -- changes to healthy and the specified warm-up time passes, the instance
-    -- is considered updated and is added to the percentage complete.
-    percentageComplete :: Prelude.Maybe Prelude.Natural,
-    -- | The name of the Auto Scaling group.
-    autoScalingGroupName :: Prelude.Maybe Prelude.Text,
-    -- | The date and time at which the instance refresh ended.
-    endTime :: Prelude.Maybe Core.ISO8601,
     -- | Provides more details about the current status of the instance refresh.
-    statusReason :: Prelude.Maybe Prelude.Text,
-    -- | Describes the specific update you want to deploy.
-    desiredConfiguration :: Prelude.Maybe DesiredConfiguration,
-    -- | The instance refresh ID.
-    instanceRefreshId :: Prelude.Maybe Prelude.Text
+    statusReason :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -84,6 +85,30 @@ data InstanceRefresh = InstanceRefresh'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'autoScalingGroupName', 'instanceRefresh_autoScalingGroupName' - The name of the Auto Scaling group.
+--
+-- 'desiredConfiguration', 'instanceRefresh_desiredConfiguration' - Describes the specific update you want to deploy.
+--
+-- 'endTime', 'instanceRefresh_endTime' - The date and time at which the instance refresh ended.
+--
+-- 'instanceRefreshId', 'instanceRefresh_instanceRefreshId' - The instance refresh ID.
+--
+-- 'instancesToUpdate', 'instanceRefresh_instancesToUpdate' - The number of instances remaining to update before the instance refresh
+-- is complete.
+--
+-- 'percentageComplete', 'instanceRefresh_percentageComplete' - The percentage of the instance refresh that is complete. For each
+-- instance replacement, Amazon EC2 Auto Scaling tracks the instance\'s
+-- health status and warm-up time. When the instance\'s health status
+-- changes to healthy and the specified warm-up time passes, the instance
+-- is considered updated and is added to the percentage complete.
+--
+-- 'preferences', 'instanceRefresh_preferences' - Undocumented member.
+--
+-- 'progressDetails', 'instanceRefresh_progressDetails' - Additional progress details for an Auto Scaling group that has a warm
+-- pool.
+--
+-- 'startTime', 'instanceRefresh_startTime' - The date and time at which the instance refresh began.
 --
 -- 'status', 'instanceRefresh_status' - The current status for the instance refresh operation:
 --
@@ -103,47 +128,66 @@ data InstanceRefresh = InstanceRefresh'
 --
 -- -   @Cancelled@ - The operation is cancelled.
 --
--- 'progressDetails', 'instanceRefresh_progressDetails' - Additional progress details for an Auto Scaling group that has a warm
--- pool.
---
--- 'startTime', 'instanceRefresh_startTime' - The date and time at which the instance refresh began.
---
--- 'preferences', 'instanceRefresh_preferences' - Undocumented member.
---
--- 'instancesToUpdate', 'instanceRefresh_instancesToUpdate' - The number of instances remaining to update before the instance refresh
--- is complete.
---
--- 'percentageComplete', 'instanceRefresh_percentageComplete' - The percentage of the instance refresh that is complete. For each
--- instance replacement, Amazon EC2 Auto Scaling tracks the instance\'s
--- health status and warm-up time. When the instance\'s health status
--- changes to healthy and the specified warm-up time passes, the instance
--- is considered updated and is added to the percentage complete.
---
--- 'autoScalingGroupName', 'instanceRefresh_autoScalingGroupName' - The name of the Auto Scaling group.
---
--- 'endTime', 'instanceRefresh_endTime' - The date and time at which the instance refresh ended.
---
 -- 'statusReason', 'instanceRefresh_statusReason' - Provides more details about the current status of the instance refresh.
---
--- 'desiredConfiguration', 'instanceRefresh_desiredConfiguration' - Describes the specific update you want to deploy.
---
--- 'instanceRefreshId', 'instanceRefresh_instanceRefreshId' - The instance refresh ID.
 newInstanceRefresh ::
   InstanceRefresh
 newInstanceRefresh =
   InstanceRefresh'
-    { status = Prelude.Nothing,
-      progressDetails = Prelude.Nothing,
-      startTime = Prelude.Nothing,
-      preferences = Prelude.Nothing,
+    { autoScalingGroupName =
+        Prelude.Nothing,
+      desiredConfiguration = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      instanceRefreshId = Prelude.Nothing,
       instancesToUpdate = Prelude.Nothing,
       percentageComplete = Prelude.Nothing,
-      autoScalingGroupName = Prelude.Nothing,
-      endTime = Prelude.Nothing,
-      statusReason = Prelude.Nothing,
-      desiredConfiguration = Prelude.Nothing,
-      instanceRefreshId = Prelude.Nothing
+      preferences = Prelude.Nothing,
+      progressDetails = Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      status = Prelude.Nothing,
+      statusReason = Prelude.Nothing
     }
+
+-- | The name of the Auto Scaling group.
+instanceRefresh_autoScalingGroupName :: Lens.Lens' InstanceRefresh (Prelude.Maybe Prelude.Text)
+instanceRefresh_autoScalingGroupName = Lens.lens (\InstanceRefresh' {autoScalingGroupName} -> autoScalingGroupName) (\s@InstanceRefresh' {} a -> s {autoScalingGroupName = a} :: InstanceRefresh)
+
+-- | Describes the specific update you want to deploy.
+instanceRefresh_desiredConfiguration :: Lens.Lens' InstanceRefresh (Prelude.Maybe DesiredConfiguration)
+instanceRefresh_desiredConfiguration = Lens.lens (\InstanceRefresh' {desiredConfiguration} -> desiredConfiguration) (\s@InstanceRefresh' {} a -> s {desiredConfiguration = a} :: InstanceRefresh)
+
+-- | The date and time at which the instance refresh ended.
+instanceRefresh_endTime :: Lens.Lens' InstanceRefresh (Prelude.Maybe Prelude.UTCTime)
+instanceRefresh_endTime = Lens.lens (\InstanceRefresh' {endTime} -> endTime) (\s@InstanceRefresh' {} a -> s {endTime = a} :: InstanceRefresh) Prelude.. Lens.mapping Data._Time
+
+-- | The instance refresh ID.
+instanceRefresh_instanceRefreshId :: Lens.Lens' InstanceRefresh (Prelude.Maybe Prelude.Text)
+instanceRefresh_instanceRefreshId = Lens.lens (\InstanceRefresh' {instanceRefreshId} -> instanceRefreshId) (\s@InstanceRefresh' {} a -> s {instanceRefreshId = a} :: InstanceRefresh)
+
+-- | The number of instances remaining to update before the instance refresh
+-- is complete.
+instanceRefresh_instancesToUpdate :: Lens.Lens' InstanceRefresh (Prelude.Maybe Prelude.Natural)
+instanceRefresh_instancesToUpdate = Lens.lens (\InstanceRefresh' {instancesToUpdate} -> instancesToUpdate) (\s@InstanceRefresh' {} a -> s {instancesToUpdate = a} :: InstanceRefresh)
+
+-- | The percentage of the instance refresh that is complete. For each
+-- instance replacement, Amazon EC2 Auto Scaling tracks the instance\'s
+-- health status and warm-up time. When the instance\'s health status
+-- changes to healthy and the specified warm-up time passes, the instance
+-- is considered updated and is added to the percentage complete.
+instanceRefresh_percentageComplete :: Lens.Lens' InstanceRefresh (Prelude.Maybe Prelude.Natural)
+instanceRefresh_percentageComplete = Lens.lens (\InstanceRefresh' {percentageComplete} -> percentageComplete) (\s@InstanceRefresh' {} a -> s {percentageComplete = a} :: InstanceRefresh)
+
+-- | Undocumented member.
+instanceRefresh_preferences :: Lens.Lens' InstanceRefresh (Prelude.Maybe RefreshPreferences)
+instanceRefresh_preferences = Lens.lens (\InstanceRefresh' {preferences} -> preferences) (\s@InstanceRefresh' {} a -> s {preferences = a} :: InstanceRefresh)
+
+-- | Additional progress details for an Auto Scaling group that has a warm
+-- pool.
+instanceRefresh_progressDetails :: Lens.Lens' InstanceRefresh (Prelude.Maybe InstanceRefreshProgressDetails)
+instanceRefresh_progressDetails = Lens.lens (\InstanceRefresh' {progressDetails} -> progressDetails) (\s@InstanceRefresh' {} a -> s {progressDetails = a} :: InstanceRefresh)
+
+-- | The date and time at which the instance refresh began.
+instanceRefresh_startTime :: Lens.Lens' InstanceRefresh (Prelude.Maybe Prelude.UTCTime)
+instanceRefresh_startTime = Lens.lens (\InstanceRefresh' {startTime} -> startTime) (\s@InstanceRefresh' {} a -> s {startTime = a} :: InstanceRefresh) Prelude.. Lens.mapping Data._Time
 
 -- | The current status for the instance refresh operation:
 --
@@ -165,91 +209,49 @@ newInstanceRefresh =
 instanceRefresh_status :: Lens.Lens' InstanceRefresh (Prelude.Maybe InstanceRefreshStatus)
 instanceRefresh_status = Lens.lens (\InstanceRefresh' {status} -> status) (\s@InstanceRefresh' {} a -> s {status = a} :: InstanceRefresh)
 
--- | Additional progress details for an Auto Scaling group that has a warm
--- pool.
-instanceRefresh_progressDetails :: Lens.Lens' InstanceRefresh (Prelude.Maybe InstanceRefreshProgressDetails)
-instanceRefresh_progressDetails = Lens.lens (\InstanceRefresh' {progressDetails} -> progressDetails) (\s@InstanceRefresh' {} a -> s {progressDetails = a} :: InstanceRefresh)
-
--- | The date and time at which the instance refresh began.
-instanceRefresh_startTime :: Lens.Lens' InstanceRefresh (Prelude.Maybe Prelude.UTCTime)
-instanceRefresh_startTime = Lens.lens (\InstanceRefresh' {startTime} -> startTime) (\s@InstanceRefresh' {} a -> s {startTime = a} :: InstanceRefresh) Prelude.. Lens.mapping Core._Time
-
--- | Undocumented member.
-instanceRefresh_preferences :: Lens.Lens' InstanceRefresh (Prelude.Maybe RefreshPreferences)
-instanceRefresh_preferences = Lens.lens (\InstanceRefresh' {preferences} -> preferences) (\s@InstanceRefresh' {} a -> s {preferences = a} :: InstanceRefresh)
-
--- | The number of instances remaining to update before the instance refresh
--- is complete.
-instanceRefresh_instancesToUpdate :: Lens.Lens' InstanceRefresh (Prelude.Maybe Prelude.Natural)
-instanceRefresh_instancesToUpdate = Lens.lens (\InstanceRefresh' {instancesToUpdate} -> instancesToUpdate) (\s@InstanceRefresh' {} a -> s {instancesToUpdate = a} :: InstanceRefresh)
-
--- | The percentage of the instance refresh that is complete. For each
--- instance replacement, Amazon EC2 Auto Scaling tracks the instance\'s
--- health status and warm-up time. When the instance\'s health status
--- changes to healthy and the specified warm-up time passes, the instance
--- is considered updated and is added to the percentage complete.
-instanceRefresh_percentageComplete :: Lens.Lens' InstanceRefresh (Prelude.Maybe Prelude.Natural)
-instanceRefresh_percentageComplete = Lens.lens (\InstanceRefresh' {percentageComplete} -> percentageComplete) (\s@InstanceRefresh' {} a -> s {percentageComplete = a} :: InstanceRefresh)
-
--- | The name of the Auto Scaling group.
-instanceRefresh_autoScalingGroupName :: Lens.Lens' InstanceRefresh (Prelude.Maybe Prelude.Text)
-instanceRefresh_autoScalingGroupName = Lens.lens (\InstanceRefresh' {autoScalingGroupName} -> autoScalingGroupName) (\s@InstanceRefresh' {} a -> s {autoScalingGroupName = a} :: InstanceRefresh)
-
--- | The date and time at which the instance refresh ended.
-instanceRefresh_endTime :: Lens.Lens' InstanceRefresh (Prelude.Maybe Prelude.UTCTime)
-instanceRefresh_endTime = Lens.lens (\InstanceRefresh' {endTime} -> endTime) (\s@InstanceRefresh' {} a -> s {endTime = a} :: InstanceRefresh) Prelude.. Lens.mapping Core._Time
-
 -- | Provides more details about the current status of the instance refresh.
 instanceRefresh_statusReason :: Lens.Lens' InstanceRefresh (Prelude.Maybe Prelude.Text)
 instanceRefresh_statusReason = Lens.lens (\InstanceRefresh' {statusReason} -> statusReason) (\s@InstanceRefresh' {} a -> s {statusReason = a} :: InstanceRefresh)
 
--- | Describes the specific update you want to deploy.
-instanceRefresh_desiredConfiguration :: Lens.Lens' InstanceRefresh (Prelude.Maybe DesiredConfiguration)
-instanceRefresh_desiredConfiguration = Lens.lens (\InstanceRefresh' {desiredConfiguration} -> desiredConfiguration) (\s@InstanceRefresh' {} a -> s {desiredConfiguration = a} :: InstanceRefresh)
-
--- | The instance refresh ID.
-instanceRefresh_instanceRefreshId :: Lens.Lens' InstanceRefresh (Prelude.Maybe Prelude.Text)
-instanceRefresh_instanceRefreshId = Lens.lens (\InstanceRefresh' {instanceRefreshId} -> instanceRefreshId) (\s@InstanceRefresh' {} a -> s {instanceRefreshId = a} :: InstanceRefresh)
-
-instance Core.FromXML InstanceRefresh where
+instance Data.FromXML InstanceRefresh where
   parseXML x =
     InstanceRefresh'
-      Prelude.<$> (x Core..@? "Status")
-      Prelude.<*> (x Core..@? "ProgressDetails")
-      Prelude.<*> (x Core..@? "StartTime")
-      Prelude.<*> (x Core..@? "Preferences")
-      Prelude.<*> (x Core..@? "InstancesToUpdate")
-      Prelude.<*> (x Core..@? "PercentageComplete")
-      Prelude.<*> (x Core..@? "AutoScalingGroupName")
-      Prelude.<*> (x Core..@? "EndTime")
-      Prelude.<*> (x Core..@? "StatusReason")
-      Prelude.<*> (x Core..@? "DesiredConfiguration")
-      Prelude.<*> (x Core..@? "InstanceRefreshId")
+      Prelude.<$> (x Data..@? "AutoScalingGroupName")
+      Prelude.<*> (x Data..@? "DesiredConfiguration")
+      Prelude.<*> (x Data..@? "EndTime")
+      Prelude.<*> (x Data..@? "InstanceRefreshId")
+      Prelude.<*> (x Data..@? "InstancesToUpdate")
+      Prelude.<*> (x Data..@? "PercentageComplete")
+      Prelude.<*> (x Data..@? "Preferences")
+      Prelude.<*> (x Data..@? "ProgressDetails")
+      Prelude.<*> (x Data..@? "StartTime")
+      Prelude.<*> (x Data..@? "Status")
+      Prelude.<*> (x Data..@? "StatusReason")
 
 instance Prelude.Hashable InstanceRefresh where
   hashWithSalt _salt InstanceRefresh' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` progressDetails
-      `Prelude.hashWithSalt` startTime
-      `Prelude.hashWithSalt` preferences
+    _salt `Prelude.hashWithSalt` autoScalingGroupName
+      `Prelude.hashWithSalt` desiredConfiguration
+      `Prelude.hashWithSalt` endTime
+      `Prelude.hashWithSalt` instanceRefreshId
       `Prelude.hashWithSalt` instancesToUpdate
       `Prelude.hashWithSalt` percentageComplete
-      `Prelude.hashWithSalt` autoScalingGroupName
-      `Prelude.hashWithSalt` endTime
+      `Prelude.hashWithSalt` preferences
+      `Prelude.hashWithSalt` progressDetails
+      `Prelude.hashWithSalt` startTime
+      `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` statusReason
-      `Prelude.hashWithSalt` desiredConfiguration
-      `Prelude.hashWithSalt` instanceRefreshId
 
 instance Prelude.NFData InstanceRefresh where
   rnf InstanceRefresh' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf progressDetails
-      `Prelude.seq` Prelude.rnf startTime
-      `Prelude.seq` Prelude.rnf preferences
+    Prelude.rnf autoScalingGroupName
+      `Prelude.seq` Prelude.rnf desiredConfiguration
+      `Prelude.seq` Prelude.rnf endTime
+      `Prelude.seq` Prelude.rnf instanceRefreshId
       `Prelude.seq` Prelude.rnf instancesToUpdate
       `Prelude.seq` Prelude.rnf percentageComplete
-      `Prelude.seq` Prelude.rnf autoScalingGroupName
-      `Prelude.seq` Prelude.rnf endTime
+      `Prelude.seq` Prelude.rnf preferences
+      `Prelude.seq` Prelude.rnf progressDetails
+      `Prelude.seq` Prelude.rnf startTime
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf statusReason
-      `Prelude.seq` Prelude.rnf desiredConfiguration
-      `Prelude.seq` Prelude.rnf instanceRefreshId

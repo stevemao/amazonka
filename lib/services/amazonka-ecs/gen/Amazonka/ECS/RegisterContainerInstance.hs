@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.RegisterContainerInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,15 +31,15 @@ module Amazonka.ECS.RegisterContainerInstance
     newRegisterContainerInstance,
 
     -- * Request Lenses
-    registerContainerInstance_platformDevices,
-    registerContainerInstance_instanceIdentityDocumentSignature,
-    registerContainerInstance_cluster,
-    registerContainerInstance_instanceIdentityDocument,
-    registerContainerInstance_containerInstanceArn,
-    registerContainerInstance_versionInfo,
     registerContainerInstance_attributes,
-    registerContainerInstance_totalResources,
+    registerContainerInstance_cluster,
+    registerContainerInstance_containerInstanceArn,
+    registerContainerInstance_instanceIdentityDocument,
+    registerContainerInstance_instanceIdentityDocumentSignature,
+    registerContainerInstance_platformDevices,
     registerContainerInstance_tags,
+    registerContainerInstance_totalResources,
+    registerContainerInstance_versionInfo,
 
     -- * Destructuring the Response
     RegisterContainerInstanceResponse (..),
@@ -52,43 +52,39 @@ module Amazonka.ECS.RegisterContainerInstance
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newRegisterContainerInstance' smart constructor.
 data RegisterContainerInstance = RegisterContainerInstance'
-  { -- | The devices that are available on the container instance. The only
-    -- supported device type is a GPU.
-    platformDevices :: Prelude.Maybe [PlatformDevice],
-    -- | The instance identity document signature for the EC2 instance to
-    -- register. This signature can be found by running the following command
-    -- from the instance:
-    -- @curl http:\/\/169.254.169.254\/latest\/dynamic\/instance-identity\/signature\/@
-    instanceIdentityDocumentSignature :: Prelude.Maybe Prelude.Text,
-    -- | The short name or full Amazon Resource Name (ARN) of the cluster with
-    -- which to register your container instance. If you do not specify a
-    -- cluster, the default cluster is assumed.
+  { -- | The container instance attributes that this container instance supports.
+    attributes :: Prelude.Maybe [Attribute],
+    -- | The short name or full Amazon Resource Name (ARN) of the cluster to
+    -- register your container instance with. If you do not specify a cluster,
+    -- the default cluster is assumed.
     cluster :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the container instance (if it was previously registered).
+    containerInstanceArn :: Prelude.Maybe Prelude.Text,
     -- | The instance identity document for the EC2 instance to register. This
     -- document can be found by running the following command from the
     -- instance:
     -- @curl http:\/\/169.254.169.254\/latest\/dynamic\/instance-identity\/document\/@
     instanceIdentityDocument :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the container instance (if it was previously registered).
-    containerInstanceArn :: Prelude.Maybe Prelude.Text,
-    -- | The version information for the Amazon ECS container agent and Docker
-    -- daemon running on the container instance.
-    versionInfo :: Prelude.Maybe VersionInfo,
-    -- | The container instance attributes that this container instance supports.
-    attributes :: Prelude.Maybe [Attribute],
-    -- | The resources available on the instance.
-    totalResources :: Prelude.Maybe [Resource],
+    -- | The instance identity document signature for the EC2 instance to
+    -- register. This signature can be found by running the following command
+    -- from the instance:
+    -- @curl http:\/\/169.254.169.254\/latest\/dynamic\/instance-identity\/signature\/@
+    instanceIdentityDocumentSignature :: Prelude.Maybe Prelude.Text,
+    -- | The devices that are available on the container instance. The only
+    -- supported device type is a GPU.
+    platformDevices :: Prelude.Maybe [PlatformDevice],
     -- | The metadata that you apply to the container instance to help you
     -- categorize and organize them. Each tag consists of a key and an optional
-    -- value, both of which you define.
+    -- value. You define both.
     --
     -- The following basic restrictions apply to tags:
     --
@@ -114,7 +110,12 @@ data RegisterContainerInstance = RegisterContainerInstance'
     --     Amazon Web Services use. You cannot edit or delete tag keys or
     --     values with this prefix. Tags with this prefix do not count against
     --     your tags per resource limit.
-    tags :: Prelude.Maybe [Tag]
+    tags :: Prelude.Maybe [Tag],
+    -- | The resources available on the instance.
+    totalResources :: Prelude.Maybe [Resource],
+    -- | The version information for the Amazon ECS container agent and Docker
+    -- daemon that runs on the container instance.
+    versionInfo :: Prelude.Maybe VersionInfo
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -126,35 +127,30 @@ data RegisterContainerInstance = RegisterContainerInstance'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'platformDevices', 'registerContainerInstance_platformDevices' - The devices that are available on the container instance. The only
--- supported device type is a GPU.
+-- 'attributes', 'registerContainerInstance_attributes' - The container instance attributes that this container instance supports.
 --
--- 'instanceIdentityDocumentSignature', 'registerContainerInstance_instanceIdentityDocumentSignature' - The instance identity document signature for the EC2 instance to
--- register. This signature can be found by running the following command
--- from the instance:
--- @curl http:\/\/169.254.169.254\/latest\/dynamic\/instance-identity\/signature\/@
+-- 'cluster', 'registerContainerInstance_cluster' - The short name or full Amazon Resource Name (ARN) of the cluster to
+-- register your container instance with. If you do not specify a cluster,
+-- the default cluster is assumed.
 --
--- 'cluster', 'registerContainerInstance_cluster' - The short name or full Amazon Resource Name (ARN) of the cluster with
--- which to register your container instance. If you do not specify a
--- cluster, the default cluster is assumed.
+-- 'containerInstanceArn', 'registerContainerInstance_containerInstanceArn' - The ARN of the container instance (if it was previously registered).
 --
 -- 'instanceIdentityDocument', 'registerContainerInstance_instanceIdentityDocument' - The instance identity document for the EC2 instance to register. This
 -- document can be found by running the following command from the
 -- instance:
 -- @curl http:\/\/169.254.169.254\/latest\/dynamic\/instance-identity\/document\/@
 --
--- 'containerInstanceArn', 'registerContainerInstance_containerInstanceArn' - The ARN of the container instance (if it was previously registered).
+-- 'instanceIdentityDocumentSignature', 'registerContainerInstance_instanceIdentityDocumentSignature' - The instance identity document signature for the EC2 instance to
+-- register. This signature can be found by running the following command
+-- from the instance:
+-- @curl http:\/\/169.254.169.254\/latest\/dynamic\/instance-identity\/signature\/@
 --
--- 'versionInfo', 'registerContainerInstance_versionInfo' - The version information for the Amazon ECS container agent and Docker
--- daemon running on the container instance.
---
--- 'attributes', 'registerContainerInstance_attributes' - The container instance attributes that this container instance supports.
---
--- 'totalResources', 'registerContainerInstance_totalResources' - The resources available on the instance.
+-- 'platformDevices', 'registerContainerInstance_platformDevices' - The devices that are available on the container instance. The only
+-- supported device type is a GPU.
 --
 -- 'tags', 'registerContainerInstance_tags' - The metadata that you apply to the container instance to help you
 -- categorize and organize them. Each tag consists of a key and an optional
--- value, both of which you define.
+-- value. You define both.
 --
 -- The following basic restrictions apply to tags:
 --
@@ -180,40 +176,41 @@ data RegisterContainerInstance = RegisterContainerInstance'
 --     Amazon Web Services use. You cannot edit or delete tag keys or
 --     values with this prefix. Tags with this prefix do not count against
 --     your tags per resource limit.
+--
+-- 'totalResources', 'registerContainerInstance_totalResources' - The resources available on the instance.
+--
+-- 'versionInfo', 'registerContainerInstance_versionInfo' - The version information for the Amazon ECS container agent and Docker
+-- daemon that runs on the container instance.
 newRegisterContainerInstance ::
   RegisterContainerInstance
 newRegisterContainerInstance =
   RegisterContainerInstance'
-    { platformDevices =
-        Prelude.Nothing,
-      instanceIdentityDocumentSignature =
+    { attributes =
         Prelude.Nothing,
       cluster = Prelude.Nothing,
-      instanceIdentityDocument = Prelude.Nothing,
       containerInstanceArn = Prelude.Nothing,
-      versionInfo = Prelude.Nothing,
-      attributes = Prelude.Nothing,
+      instanceIdentityDocument = Prelude.Nothing,
+      instanceIdentityDocumentSignature =
+        Prelude.Nothing,
+      platformDevices = Prelude.Nothing,
+      tags = Prelude.Nothing,
       totalResources = Prelude.Nothing,
-      tags = Prelude.Nothing
+      versionInfo = Prelude.Nothing
     }
 
--- | The devices that are available on the container instance. The only
--- supported device type is a GPU.
-registerContainerInstance_platformDevices :: Lens.Lens' RegisterContainerInstance (Prelude.Maybe [PlatformDevice])
-registerContainerInstance_platformDevices = Lens.lens (\RegisterContainerInstance' {platformDevices} -> platformDevices) (\s@RegisterContainerInstance' {} a -> s {platformDevices = a} :: RegisterContainerInstance) Prelude.. Lens.mapping Lens.coerced
+-- | The container instance attributes that this container instance supports.
+registerContainerInstance_attributes :: Lens.Lens' RegisterContainerInstance (Prelude.Maybe [Attribute])
+registerContainerInstance_attributes = Lens.lens (\RegisterContainerInstance' {attributes} -> attributes) (\s@RegisterContainerInstance' {} a -> s {attributes = a} :: RegisterContainerInstance) Prelude.. Lens.mapping Lens.coerced
 
--- | The instance identity document signature for the EC2 instance to
--- register. This signature can be found by running the following command
--- from the instance:
--- @curl http:\/\/169.254.169.254\/latest\/dynamic\/instance-identity\/signature\/@
-registerContainerInstance_instanceIdentityDocumentSignature :: Lens.Lens' RegisterContainerInstance (Prelude.Maybe Prelude.Text)
-registerContainerInstance_instanceIdentityDocumentSignature = Lens.lens (\RegisterContainerInstance' {instanceIdentityDocumentSignature} -> instanceIdentityDocumentSignature) (\s@RegisterContainerInstance' {} a -> s {instanceIdentityDocumentSignature = a} :: RegisterContainerInstance)
-
--- | The short name or full Amazon Resource Name (ARN) of the cluster with
--- which to register your container instance. If you do not specify a
--- cluster, the default cluster is assumed.
+-- | The short name or full Amazon Resource Name (ARN) of the cluster to
+-- register your container instance with. If you do not specify a cluster,
+-- the default cluster is assumed.
 registerContainerInstance_cluster :: Lens.Lens' RegisterContainerInstance (Prelude.Maybe Prelude.Text)
 registerContainerInstance_cluster = Lens.lens (\RegisterContainerInstance' {cluster} -> cluster) (\s@RegisterContainerInstance' {} a -> s {cluster = a} :: RegisterContainerInstance)
+
+-- | The ARN of the container instance (if it was previously registered).
+registerContainerInstance_containerInstanceArn :: Lens.Lens' RegisterContainerInstance (Prelude.Maybe Prelude.Text)
+registerContainerInstance_containerInstanceArn = Lens.lens (\RegisterContainerInstance' {containerInstanceArn} -> containerInstanceArn) (\s@RegisterContainerInstance' {} a -> s {containerInstanceArn = a} :: RegisterContainerInstance)
 
 -- | The instance identity document for the EC2 instance to register. This
 -- document can be found by running the following command from the
@@ -222,26 +219,21 @@ registerContainerInstance_cluster = Lens.lens (\RegisterContainerInstance' {clus
 registerContainerInstance_instanceIdentityDocument :: Lens.Lens' RegisterContainerInstance (Prelude.Maybe Prelude.Text)
 registerContainerInstance_instanceIdentityDocument = Lens.lens (\RegisterContainerInstance' {instanceIdentityDocument} -> instanceIdentityDocument) (\s@RegisterContainerInstance' {} a -> s {instanceIdentityDocument = a} :: RegisterContainerInstance)
 
--- | The ARN of the container instance (if it was previously registered).
-registerContainerInstance_containerInstanceArn :: Lens.Lens' RegisterContainerInstance (Prelude.Maybe Prelude.Text)
-registerContainerInstance_containerInstanceArn = Lens.lens (\RegisterContainerInstance' {containerInstanceArn} -> containerInstanceArn) (\s@RegisterContainerInstance' {} a -> s {containerInstanceArn = a} :: RegisterContainerInstance)
+-- | The instance identity document signature for the EC2 instance to
+-- register. This signature can be found by running the following command
+-- from the instance:
+-- @curl http:\/\/169.254.169.254\/latest\/dynamic\/instance-identity\/signature\/@
+registerContainerInstance_instanceIdentityDocumentSignature :: Lens.Lens' RegisterContainerInstance (Prelude.Maybe Prelude.Text)
+registerContainerInstance_instanceIdentityDocumentSignature = Lens.lens (\RegisterContainerInstance' {instanceIdentityDocumentSignature} -> instanceIdentityDocumentSignature) (\s@RegisterContainerInstance' {} a -> s {instanceIdentityDocumentSignature = a} :: RegisterContainerInstance)
 
--- | The version information for the Amazon ECS container agent and Docker
--- daemon running on the container instance.
-registerContainerInstance_versionInfo :: Lens.Lens' RegisterContainerInstance (Prelude.Maybe VersionInfo)
-registerContainerInstance_versionInfo = Lens.lens (\RegisterContainerInstance' {versionInfo} -> versionInfo) (\s@RegisterContainerInstance' {} a -> s {versionInfo = a} :: RegisterContainerInstance)
-
--- | The container instance attributes that this container instance supports.
-registerContainerInstance_attributes :: Lens.Lens' RegisterContainerInstance (Prelude.Maybe [Attribute])
-registerContainerInstance_attributes = Lens.lens (\RegisterContainerInstance' {attributes} -> attributes) (\s@RegisterContainerInstance' {} a -> s {attributes = a} :: RegisterContainerInstance) Prelude.. Lens.mapping Lens.coerced
-
--- | The resources available on the instance.
-registerContainerInstance_totalResources :: Lens.Lens' RegisterContainerInstance (Prelude.Maybe [Resource])
-registerContainerInstance_totalResources = Lens.lens (\RegisterContainerInstance' {totalResources} -> totalResources) (\s@RegisterContainerInstance' {} a -> s {totalResources = a} :: RegisterContainerInstance) Prelude.. Lens.mapping Lens.coerced
+-- | The devices that are available on the container instance. The only
+-- supported device type is a GPU.
+registerContainerInstance_platformDevices :: Lens.Lens' RegisterContainerInstance (Prelude.Maybe [PlatformDevice])
+registerContainerInstance_platformDevices = Lens.lens (\RegisterContainerInstance' {platformDevices} -> platformDevices) (\s@RegisterContainerInstance' {} a -> s {platformDevices = a} :: RegisterContainerInstance) Prelude.. Lens.mapping Lens.coerced
 
 -- | The metadata that you apply to the container instance to help you
 -- categorize and organize them. Each tag consists of a key and an optional
--- value, both of which you define.
+-- value. You define both.
 --
 -- The following basic restrictions apply to tags:
 --
@@ -270,83 +262,93 @@ registerContainerInstance_totalResources = Lens.lens (\RegisterContainerInstance
 registerContainerInstance_tags :: Lens.Lens' RegisterContainerInstance (Prelude.Maybe [Tag])
 registerContainerInstance_tags = Lens.lens (\RegisterContainerInstance' {tags} -> tags) (\s@RegisterContainerInstance' {} a -> s {tags = a} :: RegisterContainerInstance) Prelude.. Lens.mapping Lens.coerced
 
+-- | The resources available on the instance.
+registerContainerInstance_totalResources :: Lens.Lens' RegisterContainerInstance (Prelude.Maybe [Resource])
+registerContainerInstance_totalResources = Lens.lens (\RegisterContainerInstance' {totalResources} -> totalResources) (\s@RegisterContainerInstance' {} a -> s {totalResources = a} :: RegisterContainerInstance) Prelude.. Lens.mapping Lens.coerced
+
+-- | The version information for the Amazon ECS container agent and Docker
+-- daemon that runs on the container instance.
+registerContainerInstance_versionInfo :: Lens.Lens' RegisterContainerInstance (Prelude.Maybe VersionInfo)
+registerContainerInstance_versionInfo = Lens.lens (\RegisterContainerInstance' {versionInfo} -> versionInfo) (\s@RegisterContainerInstance' {} a -> s {versionInfo = a} :: RegisterContainerInstance)
+
 instance Core.AWSRequest RegisterContainerInstance where
   type
     AWSResponse RegisterContainerInstance =
       RegisterContainerInstanceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RegisterContainerInstanceResponse'
-            Prelude.<$> (x Core..?> "containerInstance")
+            Prelude.<$> (x Data..?> "containerInstance")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable RegisterContainerInstance where
   hashWithSalt _salt RegisterContainerInstance' {..} =
-    _salt `Prelude.hashWithSalt` platformDevices
-      `Prelude.hashWithSalt` instanceIdentityDocumentSignature
+    _salt `Prelude.hashWithSalt` attributes
       `Prelude.hashWithSalt` cluster
-      `Prelude.hashWithSalt` instanceIdentityDocument
       `Prelude.hashWithSalt` containerInstanceArn
-      `Prelude.hashWithSalt` versionInfo
-      `Prelude.hashWithSalt` attributes
-      `Prelude.hashWithSalt` totalResources
+      `Prelude.hashWithSalt` instanceIdentityDocument
+      `Prelude.hashWithSalt` instanceIdentityDocumentSignature
+      `Prelude.hashWithSalt` platformDevices
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` totalResources
+      `Prelude.hashWithSalt` versionInfo
 
 instance Prelude.NFData RegisterContainerInstance where
   rnf RegisterContainerInstance' {..} =
-    Prelude.rnf platformDevices
-      `Prelude.seq` Prelude.rnf instanceIdentityDocumentSignature
+    Prelude.rnf attributes
       `Prelude.seq` Prelude.rnf cluster
-      `Prelude.seq` Prelude.rnf instanceIdentityDocument
       `Prelude.seq` Prelude.rnf containerInstanceArn
-      `Prelude.seq` Prelude.rnf versionInfo
-      `Prelude.seq` Prelude.rnf attributes
-      `Prelude.seq` Prelude.rnf totalResources
+      `Prelude.seq` Prelude.rnf instanceIdentityDocument
+      `Prelude.seq` Prelude.rnf instanceIdentityDocumentSignature
+      `Prelude.seq` Prelude.rnf platformDevices
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf totalResources
+      `Prelude.seq` Prelude.rnf versionInfo
 
-instance Core.ToHeaders RegisterContainerInstance where
+instance Data.ToHeaders RegisterContainerInstance where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerServiceV20141113.RegisterContainerInstance" ::
+              Data.=# ( "AmazonEC2ContainerServiceV20141113.RegisterContainerInstance" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RegisterContainerInstance where
+instance Data.ToJSON RegisterContainerInstance where
   toJSON RegisterContainerInstance' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("platformDevices" Core..=)
-              Prelude.<$> platformDevices,
-            ("instanceIdentityDocumentSignature" Core..=)
-              Prelude.<$> instanceIdentityDocumentSignature,
-            ("cluster" Core..=) Prelude.<$> cluster,
-            ("instanceIdentityDocument" Core..=)
-              Prelude.<$> instanceIdentityDocument,
-            ("containerInstanceArn" Core..=)
+          [ ("attributes" Data..=) Prelude.<$> attributes,
+            ("cluster" Data..=) Prelude.<$> cluster,
+            ("containerInstanceArn" Data..=)
               Prelude.<$> containerInstanceArn,
-            ("versionInfo" Core..=) Prelude.<$> versionInfo,
-            ("attributes" Core..=) Prelude.<$> attributes,
-            ("totalResources" Core..=)
+            ("instanceIdentityDocument" Data..=)
+              Prelude.<$> instanceIdentityDocument,
+            ("instanceIdentityDocumentSignature" Data..=)
+              Prelude.<$> instanceIdentityDocumentSignature,
+            ("platformDevices" Data..=)
+              Prelude.<$> platformDevices,
+            ("tags" Data..=) Prelude.<$> tags,
+            ("totalResources" Data..=)
               Prelude.<$> totalResources,
-            ("tags" Core..=) Prelude.<$> tags
+            ("versionInfo" Data..=) Prelude.<$> versionInfo
           ]
       )
 
-instance Core.ToPath RegisterContainerInstance where
+instance Data.ToPath RegisterContainerInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RegisterContainerInstance where
+instance Data.ToQuery RegisterContainerInstance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRegisterContainerInstanceResponse' smart constructor.

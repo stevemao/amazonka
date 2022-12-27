@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.Put
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,21 @@
 module Amazonka.DynamoDB.Types.Put where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.ReturnValuesOnConditionCheckFailure
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a request to perform a @PutItem@ operation.
 --
 -- /See:/ 'newPut' smart constructor.
 data Put = Put'
-  { -- | One or more substitution tokens for attribute names in an expression.
+  { -- | A condition that must be satisfied in order for a conditional update to
+    -- succeed.
+    conditionExpression :: Prelude.Maybe Prelude.Text,
+    -- | One or more substitution tokens for attribute names in an expression.
     expressionAttributeNames :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | One or more values that can be substituted in an expression.
     expressionAttributeValues :: Prelude.Maybe (Prelude.HashMap Prelude.Text AttributeValue),
@@ -37,9 +42,6 @@ data Put = Put'
     -- the @Put@ condition fails. For @ReturnValuesOnConditionCheckFailure@,
     -- the valid values are: NONE and ALL_OLD.
     returnValuesOnConditionCheckFailure :: Prelude.Maybe ReturnValuesOnConditionCheckFailure,
-    -- | A condition that must be satisfied in order for a conditional update to
-    -- succeed.
-    conditionExpression :: Prelude.Maybe Prelude.Text,
     -- | A map of attribute name to attribute values, representing the primary
     -- key of the item to be written by @PutItem@. All of the table\'s primary
     -- key attributes must be specified, and their data types must match those
@@ -60,6 +62,9 @@ data Put = Put'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'conditionExpression', 'put_conditionExpression' - A condition that must be satisfied in order for a conditional update to
+-- succeed.
+--
 -- 'expressionAttributeNames', 'put_expressionAttributeNames' - One or more substitution tokens for attribute names in an expression.
 --
 -- 'expressionAttributeValues', 'put_expressionAttributeValues' - One or more values that can be substituted in an expression.
@@ -67,9 +72,6 @@ data Put = Put'
 -- 'returnValuesOnConditionCheckFailure', 'put_returnValuesOnConditionCheckFailure' - Use @ReturnValuesOnConditionCheckFailure@ to get the item attributes if
 -- the @Put@ condition fails. For @ReturnValuesOnConditionCheckFailure@,
 -- the valid values are: NONE and ALL_OLD.
---
--- 'conditionExpression', 'put_conditionExpression' - A condition that must be satisfied in order for a conditional update to
--- succeed.
 --
 -- 'item', 'put_item' - A map of attribute name to attribute values, representing the primary
 -- key of the item to be written by @PutItem@. All of the table\'s primary
@@ -85,14 +87,19 @@ newPut ::
   Put
 newPut pTableName_ =
   Put'
-    { expressionAttributeNames = Prelude.Nothing,
+    { conditionExpression = Prelude.Nothing,
+      expressionAttributeNames = Prelude.Nothing,
       expressionAttributeValues = Prelude.Nothing,
       returnValuesOnConditionCheckFailure =
         Prelude.Nothing,
-      conditionExpression = Prelude.Nothing,
       item = Prelude.mempty,
       tableName = pTableName_
     }
+
+-- | A condition that must be satisfied in order for a conditional update to
+-- succeed.
+put_conditionExpression :: Lens.Lens' Put (Prelude.Maybe Prelude.Text)
+put_conditionExpression = Lens.lens (\Put' {conditionExpression} -> conditionExpression) (\s@Put' {} a -> s {conditionExpression = a} :: Put)
 
 -- | One or more substitution tokens for attribute names in an expression.
 put_expressionAttributeNames :: Lens.Lens' Put (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -107,11 +114,6 @@ put_expressionAttributeValues = Lens.lens (\Put' {expressionAttributeValues} -> 
 -- the valid values are: NONE and ALL_OLD.
 put_returnValuesOnConditionCheckFailure :: Lens.Lens' Put (Prelude.Maybe ReturnValuesOnConditionCheckFailure)
 put_returnValuesOnConditionCheckFailure = Lens.lens (\Put' {returnValuesOnConditionCheckFailure} -> returnValuesOnConditionCheckFailure) (\s@Put' {} a -> s {returnValuesOnConditionCheckFailure = a} :: Put)
-
--- | A condition that must be satisfied in order for a conditional update to
--- succeed.
-put_conditionExpression :: Lens.Lens' Put (Prelude.Maybe Prelude.Text)
-put_conditionExpression = Lens.lens (\Put' {conditionExpression} -> conditionExpression) (\s@Put' {} a -> s {conditionExpression = a} :: Put)
 
 -- | A map of attribute name to attribute values, representing the primary
 -- key of the item to be written by @PutItem@. All of the table\'s primary
@@ -128,36 +130,35 @@ put_tableName = Lens.lens (\Put' {tableName} -> tableName) (\s@Put' {} a -> s {t
 
 instance Prelude.Hashable Put where
   hashWithSalt _salt Put' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` conditionExpression
       `Prelude.hashWithSalt` expressionAttributeNames
       `Prelude.hashWithSalt` expressionAttributeValues
       `Prelude.hashWithSalt` returnValuesOnConditionCheckFailure
-      `Prelude.hashWithSalt` conditionExpression
       `Prelude.hashWithSalt` item
       `Prelude.hashWithSalt` tableName
 
 instance Prelude.NFData Put where
   rnf Put' {..} =
-    Prelude.rnf expressionAttributeNames
+    Prelude.rnf conditionExpression
+      `Prelude.seq` Prelude.rnf expressionAttributeNames
       `Prelude.seq` Prelude.rnf expressionAttributeValues
       `Prelude.seq` Prelude.rnf returnValuesOnConditionCheckFailure
-      `Prelude.seq` Prelude.rnf conditionExpression
       `Prelude.seq` Prelude.rnf item
       `Prelude.seq` Prelude.rnf tableName
 
-instance Core.ToJSON Put where
+instance Data.ToJSON Put where
   toJSON Put' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ExpressionAttributeNames" Core..=)
-              Prelude.<$> expressionAttributeNames,
-            ("ExpressionAttributeValues" Core..=)
-              Prelude.<$> expressionAttributeValues,
-            ("ReturnValuesOnConditionCheckFailure" Core..=)
-              Prelude.<$> returnValuesOnConditionCheckFailure,
-            ("ConditionExpression" Core..=)
+          [ ("ConditionExpression" Data..=)
               Prelude.<$> conditionExpression,
-            Prelude.Just ("Item" Core..= item),
-            Prelude.Just ("TableName" Core..= tableName)
+            ("ExpressionAttributeNames" Data..=)
+              Prelude.<$> expressionAttributeNames,
+            ("ExpressionAttributeValues" Data..=)
+              Prelude.<$> expressionAttributeValues,
+            ("ReturnValuesOnConditionCheckFailure" Data..=)
+              Prelude.<$> returnValuesOnConditionCheckFailure,
+            Prelude.Just ("Item" Data..= item),
+            Prelude.Just ("TableName" Data..= tableName)
           ]
       )

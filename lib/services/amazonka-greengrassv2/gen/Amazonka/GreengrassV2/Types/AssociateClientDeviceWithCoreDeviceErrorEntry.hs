@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GreengrassV2.Types.AssociateClientDeviceWithCoreDeviceErrorEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.GreengrassV2.Types.AssociateClientDeviceWithCoreDeviceErrorEntry where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains an error that occurs from a request to associate a client
@@ -75,17 +76,17 @@ associateClientDeviceWithCoreDeviceErrorEntry_thingName :: Lens.Lens' AssociateC
 associateClientDeviceWithCoreDeviceErrorEntry_thingName = Lens.lens (\AssociateClientDeviceWithCoreDeviceErrorEntry' {thingName} -> thingName) (\s@AssociateClientDeviceWithCoreDeviceErrorEntry' {} a -> s {thingName = a} :: AssociateClientDeviceWithCoreDeviceErrorEntry)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AssociateClientDeviceWithCoreDeviceErrorEntry
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AssociateClientDeviceWithCoreDeviceErrorEntry"
       ( \x ->
           AssociateClientDeviceWithCoreDeviceErrorEntry'
-            Prelude.<$> (x Core..:? "code")
-              Prelude.<*> (x Core..:? "message")
-              Prelude.<*> (x Core..:? "thingName")
+            Prelude.<$> (x Data..:? "code")
+              Prelude.<*> (x Data..:? "message")
+              Prelude.<*> (x Data..:? "thingName")
       )
 
 instance

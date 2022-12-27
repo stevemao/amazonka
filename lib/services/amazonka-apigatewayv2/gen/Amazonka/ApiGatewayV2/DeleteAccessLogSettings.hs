@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApiGatewayV2.DeleteAccessLogSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ where
 
 import Amazonka.ApiGatewayV2.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,7 +92,8 @@ instance Core.AWSRequest DeleteAccessLogSettings where
   type
     AWSResponse DeleteAccessLogSettings =
       DeleteAccessLogSettingsResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteAccessLogSettingsResponse'
@@ -106,28 +108,28 @@ instance Prelude.NFData DeleteAccessLogSettings where
     Prelude.rnf stageName
       `Prelude.seq` Prelude.rnf apiId
 
-instance Core.ToHeaders DeleteAccessLogSettings where
+instance Data.ToHeaders DeleteAccessLogSettings where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteAccessLogSettings where
+instance Data.ToPath DeleteAccessLogSettings where
   toPath DeleteAccessLogSettings' {..} =
     Prelude.mconcat
       [ "/v2/apis/",
-        Core.toBS apiId,
+        Data.toBS apiId,
         "/stages/",
-        Core.toBS stageName,
+        Data.toBS stageName,
         "/accesslogsettings"
       ]
 
-instance Core.ToQuery DeleteAccessLogSettings where
+instance Data.ToQuery DeleteAccessLogSettings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAccessLogSettingsResponse' smart constructor.

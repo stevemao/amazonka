@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.GetKeyPair
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.Lightsail.GetKeyPair
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -75,12 +76,13 @@ getKeyPair_keyPairName = Lens.lens (\GetKeyPair' {keyPairName} -> keyPairName) (
 
 instance Core.AWSRequest GetKeyPair where
   type AWSResponse GetKeyPair = GetKeyPairResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetKeyPairResponse'
-            Prelude.<$> (x Core..?> "keyPair")
+            Prelude.<$> (x Data..?> "keyPair")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -91,32 +93,32 @@ instance Prelude.Hashable GetKeyPair where
 instance Prelude.NFData GetKeyPair where
   rnf GetKeyPair' {..} = Prelude.rnf keyPairName
 
-instance Core.ToHeaders GetKeyPair where
+instance Data.ToHeaders GetKeyPair where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.GetKeyPair" ::
+              Data.=# ( "Lightsail_20161128.GetKeyPair" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetKeyPair where
+instance Data.ToJSON GetKeyPair where
   toJSON GetKeyPair' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("keyPairName" Core..= keyPairName)]
+          [Prelude.Just ("keyPairName" Data..= keyPairName)]
       )
 
-instance Core.ToPath GetKeyPair where
+instance Data.ToPath GetKeyPair where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetKeyPair where
+instance Data.ToQuery GetKeyPair where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetKeyPairResponse' smart constructor.

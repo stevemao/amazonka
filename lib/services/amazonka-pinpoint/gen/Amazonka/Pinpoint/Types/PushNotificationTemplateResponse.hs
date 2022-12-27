@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.PushNotificationTemplateResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.PushNotificationTemplateResponse where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types.APNSPushNotificationTemplate
 import Amazonka.Pinpoint.Types.AndroidPushNotificationTemplate
 import Amazonka.Pinpoint.Types.DefaultPushNotificationTemplate
@@ -33,43 +34,43 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newPushNotificationTemplateResponse' smart constructor.
 data PushNotificationTemplateResponse = PushNotificationTemplateResponse'
-  { -- | The Amazon Resource Name (ARN) of the message template.
+  { -- | The message template that\'s used for the ADM (Amazon Device Messaging)
+    -- channel. This message template overrides the default template for push
+    -- notification channels (DefaultPushNotificationTemplate).
+    adm :: Prelude.Maybe AndroidPushNotificationTemplate,
+    -- | The message template that\'s used for the APNs (Apple Push Notification
+    -- service) channel. This message template overrides the default template
+    -- for push notification channels (DefaultPushNotificationTemplate).
+    apns :: Prelude.Maybe APNSPushNotificationTemplate,
+    -- | The Amazon Resource Name (ARN) of the message template.
     arn :: Prelude.Maybe Prelude.Text,
+    -- | The message template that\'s used for the Baidu (Baidu Cloud Push)
+    -- channel. This message template overrides the default template for push
+    -- notification channels (DefaultPushNotificationTemplate).
+    baidu :: Prelude.Maybe AndroidPushNotificationTemplate,
     -- | The default message template that\'s used for push notification
     -- channels.
     default' :: Prelude.Maybe DefaultPushNotificationTemplate,
-    -- | The custom description of the message template.
-    templateDescription :: Prelude.Maybe Prelude.Text,
+    -- | The JSON object that specifies the default values that are used for
+    -- message variables in the message template. This object is a set of
+    -- key-value pairs. Each key defines a message variable in the template.
+    -- The corresponding value defines the default value for that variable.
+    defaultSubstitutions :: Prelude.Maybe Prelude.Text,
     -- | The message template that\'s used for the GCM channel, which is used to
     -- send notifications through the Firebase Cloud Messaging (FCM), formerly
     -- Google Cloud Messaging (GCM), service. This message template overrides
     -- the default template for push notification channels
     -- (DefaultPushNotificationTemplate).
     gcm :: Prelude.Maybe AndroidPushNotificationTemplate,
-    -- | The message template that\'s used for the APNs (Apple Push Notification
-    -- service) channel. This message template overrides the default template
-    -- for push notification channels (DefaultPushNotificationTemplate).
-    apns :: Prelude.Maybe APNSPushNotificationTemplate,
-    -- | The JSON object that specifies the default values that are used for
-    -- message variables in the message template. This object is a set of
-    -- key-value pairs. Each key defines a message variable in the template.
-    -- The corresponding value defines the default value for that variable.
-    defaultSubstitutions :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the recommender model that\'s used by the
+    -- message template.
+    recommenderId :: Prelude.Maybe Prelude.Text,
+    -- | The custom description of the message template.
+    templateDescription :: Prelude.Maybe Prelude.Text,
     -- | The unique identifier, as an integer, for the active version of the
     -- message template, or the version of the template that you specified by
     -- using the version parameter in your request.
     version :: Prelude.Maybe Prelude.Text,
-    -- | The message template that\'s used for the ADM (Amazon Device Messaging)
-    -- channel. This message template overrides the default template for push
-    -- notification channels (DefaultPushNotificationTemplate).
-    adm :: Prelude.Maybe AndroidPushNotificationTemplate,
-    -- | The message template that\'s used for the Baidu (Baidu Cloud Push)
-    -- channel. This message template overrides the default template for push
-    -- notification channels (DefaultPushNotificationTemplate).
-    baidu :: Prelude.Maybe AndroidPushNotificationTemplate,
-    -- | The unique identifier for the recommender model that\'s used by the
-    -- message template.
-    recommenderId :: Prelude.Maybe Prelude.Text,
     -- | A string-to-string map of key-value pairs that identifies the tags that
     -- are associated with the message template. Each tag consists of a
     -- required tag key and an associated tag value.
@@ -95,12 +96,27 @@ data PushNotificationTemplateResponse = PushNotificationTemplateResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'adm', 'pushNotificationTemplateResponse_adm' - The message template that\'s used for the ADM (Amazon Device Messaging)
+-- channel. This message template overrides the default template for push
+-- notification channels (DefaultPushNotificationTemplate).
+--
+-- 'apns', 'pushNotificationTemplateResponse_apns' - The message template that\'s used for the APNs (Apple Push Notification
+-- service) channel. This message template overrides the default template
+-- for push notification channels (DefaultPushNotificationTemplate).
+--
 -- 'arn', 'pushNotificationTemplateResponse_arn' - The Amazon Resource Name (ARN) of the message template.
+--
+-- 'baidu', 'pushNotificationTemplateResponse_baidu' - The message template that\'s used for the Baidu (Baidu Cloud Push)
+-- channel. This message template overrides the default template for push
+-- notification channels (DefaultPushNotificationTemplate).
 --
 -- 'default'', 'pushNotificationTemplateResponse_default' - The default message template that\'s used for push notification
 -- channels.
 --
--- 'templateDescription', 'pushNotificationTemplateResponse_templateDescription' - The custom description of the message template.
+-- 'defaultSubstitutions', 'pushNotificationTemplateResponse_defaultSubstitutions' - The JSON object that specifies the default values that are used for
+-- message variables in the message template. This object is a set of
+-- key-value pairs. Each key defines a message variable in the template.
+-- The corresponding value defines the default value for that variable.
 --
 -- 'gcm', 'pushNotificationTemplateResponse_gcm' - The message template that\'s used for the GCM channel, which is used to
 -- send notifications through the Firebase Cloud Messaging (FCM), formerly
@@ -108,29 +124,14 @@ data PushNotificationTemplateResponse = PushNotificationTemplateResponse'
 -- the default template for push notification channels
 -- (DefaultPushNotificationTemplate).
 --
--- 'apns', 'pushNotificationTemplateResponse_apns' - The message template that\'s used for the APNs (Apple Push Notification
--- service) channel. This message template overrides the default template
--- for push notification channels (DefaultPushNotificationTemplate).
+-- 'recommenderId', 'pushNotificationTemplateResponse_recommenderId' - The unique identifier for the recommender model that\'s used by the
+-- message template.
 --
--- 'defaultSubstitutions', 'pushNotificationTemplateResponse_defaultSubstitutions' - The JSON object that specifies the default values that are used for
--- message variables in the message template. This object is a set of
--- key-value pairs. Each key defines a message variable in the template.
--- The corresponding value defines the default value for that variable.
+-- 'templateDescription', 'pushNotificationTemplateResponse_templateDescription' - The custom description of the message template.
 --
 -- 'version', 'pushNotificationTemplateResponse_version' - The unique identifier, as an integer, for the active version of the
 -- message template, or the version of the template that you specified by
 -- using the version parameter in your request.
---
--- 'adm', 'pushNotificationTemplateResponse_adm' - The message template that\'s used for the ADM (Amazon Device Messaging)
--- channel. This message template overrides the default template for push
--- notification channels (DefaultPushNotificationTemplate).
---
--- 'baidu', 'pushNotificationTemplateResponse_baidu' - The message template that\'s used for the Baidu (Baidu Cloud Push)
--- channel. This message template overrides the default template for push
--- notification channels (DefaultPushNotificationTemplate).
---
--- 'recommenderId', 'pushNotificationTemplateResponse_recommenderId' - The unique identifier for the recommender model that\'s used by the
--- message template.
 --
 -- 'tags', 'pushNotificationTemplateResponse_tags' - A string-to-string map of key-value pairs that identifies the tags that
 -- are associated with the message template. Each tag consists of a
@@ -161,17 +162,17 @@ newPushNotificationTemplateResponse
   pTemplateType_
   pTemplateName_ =
     PushNotificationTemplateResponse'
-      { arn =
+      { adm =
           Prelude.Nothing,
-        default' = Prelude.Nothing,
-        templateDescription = Prelude.Nothing,
-        gcm = Prelude.Nothing,
         apns = Prelude.Nothing,
-        defaultSubstitutions = Prelude.Nothing,
-        version = Prelude.Nothing,
-        adm = Prelude.Nothing,
+        arn = Prelude.Nothing,
         baidu = Prelude.Nothing,
+        default' = Prelude.Nothing,
+        defaultSubstitutions = Prelude.Nothing,
+        gcm = Prelude.Nothing,
         recommenderId = Prelude.Nothing,
+        templateDescription = Prelude.Nothing,
+        version = Prelude.Nothing,
         tags = Prelude.Nothing,
         lastModifiedDate = pLastModifiedDate_,
         creationDate = pCreationDate_,
@@ -179,18 +180,39 @@ newPushNotificationTemplateResponse
         templateName = pTemplateName_
       }
 
+-- | The message template that\'s used for the ADM (Amazon Device Messaging)
+-- channel. This message template overrides the default template for push
+-- notification channels (DefaultPushNotificationTemplate).
+pushNotificationTemplateResponse_adm :: Lens.Lens' PushNotificationTemplateResponse (Prelude.Maybe AndroidPushNotificationTemplate)
+pushNotificationTemplateResponse_adm = Lens.lens (\PushNotificationTemplateResponse' {adm} -> adm) (\s@PushNotificationTemplateResponse' {} a -> s {adm = a} :: PushNotificationTemplateResponse)
+
+-- | The message template that\'s used for the APNs (Apple Push Notification
+-- service) channel. This message template overrides the default template
+-- for push notification channels (DefaultPushNotificationTemplate).
+pushNotificationTemplateResponse_apns :: Lens.Lens' PushNotificationTemplateResponse (Prelude.Maybe APNSPushNotificationTemplate)
+pushNotificationTemplateResponse_apns = Lens.lens (\PushNotificationTemplateResponse' {apns} -> apns) (\s@PushNotificationTemplateResponse' {} a -> s {apns = a} :: PushNotificationTemplateResponse)
+
 -- | The Amazon Resource Name (ARN) of the message template.
 pushNotificationTemplateResponse_arn :: Lens.Lens' PushNotificationTemplateResponse (Prelude.Maybe Prelude.Text)
 pushNotificationTemplateResponse_arn = Lens.lens (\PushNotificationTemplateResponse' {arn} -> arn) (\s@PushNotificationTemplateResponse' {} a -> s {arn = a} :: PushNotificationTemplateResponse)
+
+-- | The message template that\'s used for the Baidu (Baidu Cloud Push)
+-- channel. This message template overrides the default template for push
+-- notification channels (DefaultPushNotificationTemplate).
+pushNotificationTemplateResponse_baidu :: Lens.Lens' PushNotificationTemplateResponse (Prelude.Maybe AndroidPushNotificationTemplate)
+pushNotificationTemplateResponse_baidu = Lens.lens (\PushNotificationTemplateResponse' {baidu} -> baidu) (\s@PushNotificationTemplateResponse' {} a -> s {baidu = a} :: PushNotificationTemplateResponse)
 
 -- | The default message template that\'s used for push notification
 -- channels.
 pushNotificationTemplateResponse_default :: Lens.Lens' PushNotificationTemplateResponse (Prelude.Maybe DefaultPushNotificationTemplate)
 pushNotificationTemplateResponse_default = Lens.lens (\PushNotificationTemplateResponse' {default'} -> default') (\s@PushNotificationTemplateResponse' {} a -> s {default' = a} :: PushNotificationTemplateResponse)
 
--- | The custom description of the message template.
-pushNotificationTemplateResponse_templateDescription :: Lens.Lens' PushNotificationTemplateResponse (Prelude.Maybe Prelude.Text)
-pushNotificationTemplateResponse_templateDescription = Lens.lens (\PushNotificationTemplateResponse' {templateDescription} -> templateDescription) (\s@PushNotificationTemplateResponse' {} a -> s {templateDescription = a} :: PushNotificationTemplateResponse)
+-- | The JSON object that specifies the default values that are used for
+-- message variables in the message template. This object is a set of
+-- key-value pairs. Each key defines a message variable in the template.
+-- The corresponding value defines the default value for that variable.
+pushNotificationTemplateResponse_defaultSubstitutions :: Lens.Lens' PushNotificationTemplateResponse (Prelude.Maybe Prelude.Text)
+pushNotificationTemplateResponse_defaultSubstitutions = Lens.lens (\PushNotificationTemplateResponse' {defaultSubstitutions} -> defaultSubstitutions) (\s@PushNotificationTemplateResponse' {} a -> s {defaultSubstitutions = a} :: PushNotificationTemplateResponse)
 
 -- | The message template that\'s used for the GCM channel, which is used to
 -- send notifications through the Firebase Cloud Messaging (FCM), formerly
@@ -200,41 +222,20 @@ pushNotificationTemplateResponse_templateDescription = Lens.lens (\PushNotificat
 pushNotificationTemplateResponse_gcm :: Lens.Lens' PushNotificationTemplateResponse (Prelude.Maybe AndroidPushNotificationTemplate)
 pushNotificationTemplateResponse_gcm = Lens.lens (\PushNotificationTemplateResponse' {gcm} -> gcm) (\s@PushNotificationTemplateResponse' {} a -> s {gcm = a} :: PushNotificationTemplateResponse)
 
--- | The message template that\'s used for the APNs (Apple Push Notification
--- service) channel. This message template overrides the default template
--- for push notification channels (DefaultPushNotificationTemplate).
-pushNotificationTemplateResponse_apns :: Lens.Lens' PushNotificationTemplateResponse (Prelude.Maybe APNSPushNotificationTemplate)
-pushNotificationTemplateResponse_apns = Lens.lens (\PushNotificationTemplateResponse' {apns} -> apns) (\s@PushNotificationTemplateResponse' {} a -> s {apns = a} :: PushNotificationTemplateResponse)
+-- | The unique identifier for the recommender model that\'s used by the
+-- message template.
+pushNotificationTemplateResponse_recommenderId :: Lens.Lens' PushNotificationTemplateResponse (Prelude.Maybe Prelude.Text)
+pushNotificationTemplateResponse_recommenderId = Lens.lens (\PushNotificationTemplateResponse' {recommenderId} -> recommenderId) (\s@PushNotificationTemplateResponse' {} a -> s {recommenderId = a} :: PushNotificationTemplateResponse)
 
--- | The JSON object that specifies the default values that are used for
--- message variables in the message template. This object is a set of
--- key-value pairs. Each key defines a message variable in the template.
--- The corresponding value defines the default value for that variable.
-pushNotificationTemplateResponse_defaultSubstitutions :: Lens.Lens' PushNotificationTemplateResponse (Prelude.Maybe Prelude.Text)
-pushNotificationTemplateResponse_defaultSubstitutions = Lens.lens (\PushNotificationTemplateResponse' {defaultSubstitutions} -> defaultSubstitutions) (\s@PushNotificationTemplateResponse' {} a -> s {defaultSubstitutions = a} :: PushNotificationTemplateResponse)
+-- | The custom description of the message template.
+pushNotificationTemplateResponse_templateDescription :: Lens.Lens' PushNotificationTemplateResponse (Prelude.Maybe Prelude.Text)
+pushNotificationTemplateResponse_templateDescription = Lens.lens (\PushNotificationTemplateResponse' {templateDescription} -> templateDescription) (\s@PushNotificationTemplateResponse' {} a -> s {templateDescription = a} :: PushNotificationTemplateResponse)
 
 -- | The unique identifier, as an integer, for the active version of the
 -- message template, or the version of the template that you specified by
 -- using the version parameter in your request.
 pushNotificationTemplateResponse_version :: Lens.Lens' PushNotificationTemplateResponse (Prelude.Maybe Prelude.Text)
 pushNotificationTemplateResponse_version = Lens.lens (\PushNotificationTemplateResponse' {version} -> version) (\s@PushNotificationTemplateResponse' {} a -> s {version = a} :: PushNotificationTemplateResponse)
-
--- | The message template that\'s used for the ADM (Amazon Device Messaging)
--- channel. This message template overrides the default template for push
--- notification channels (DefaultPushNotificationTemplate).
-pushNotificationTemplateResponse_adm :: Lens.Lens' PushNotificationTemplateResponse (Prelude.Maybe AndroidPushNotificationTemplate)
-pushNotificationTemplateResponse_adm = Lens.lens (\PushNotificationTemplateResponse' {adm} -> adm) (\s@PushNotificationTemplateResponse' {} a -> s {adm = a} :: PushNotificationTemplateResponse)
-
--- | The message template that\'s used for the Baidu (Baidu Cloud Push)
--- channel. This message template overrides the default template for push
--- notification channels (DefaultPushNotificationTemplate).
-pushNotificationTemplateResponse_baidu :: Lens.Lens' PushNotificationTemplateResponse (Prelude.Maybe AndroidPushNotificationTemplate)
-pushNotificationTemplateResponse_baidu = Lens.lens (\PushNotificationTemplateResponse' {baidu} -> baidu) (\s@PushNotificationTemplateResponse' {} a -> s {baidu = a} :: PushNotificationTemplateResponse)
-
--- | The unique identifier for the recommender model that\'s used by the
--- message template.
-pushNotificationTemplateResponse_recommenderId :: Lens.Lens' PushNotificationTemplateResponse (Prelude.Maybe Prelude.Text)
-pushNotificationTemplateResponse_recommenderId = Lens.lens (\PushNotificationTemplateResponse' {recommenderId} -> recommenderId) (\s@PushNotificationTemplateResponse' {} a -> s {recommenderId = a} :: PushNotificationTemplateResponse)
 
 -- | A string-to-string map of key-value pairs that identifies the tags that
 -- are associated with the message template. Each tag consists of a
@@ -261,29 +262,29 @@ pushNotificationTemplateResponse_templateName :: Lens.Lens' PushNotificationTemp
 pushNotificationTemplateResponse_templateName = Lens.lens (\PushNotificationTemplateResponse' {templateName} -> templateName) (\s@PushNotificationTemplateResponse' {} a -> s {templateName = a} :: PushNotificationTemplateResponse)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     PushNotificationTemplateResponse
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PushNotificationTemplateResponse"
       ( \x ->
           PushNotificationTemplateResponse'
-            Prelude.<$> (x Core..:? "Arn")
-            Prelude.<*> (x Core..:? "Default")
-            Prelude.<*> (x Core..:? "TemplateDescription")
-            Prelude.<*> (x Core..:? "GCM")
-            Prelude.<*> (x Core..:? "APNS")
-            Prelude.<*> (x Core..:? "DefaultSubstitutions")
-            Prelude.<*> (x Core..:? "Version")
-            Prelude.<*> (x Core..:? "ADM")
-            Prelude.<*> (x Core..:? "Baidu")
-            Prelude.<*> (x Core..:? "RecommenderId")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "LastModifiedDate")
-            Prelude.<*> (x Core..: "CreationDate")
-            Prelude.<*> (x Core..: "TemplateType")
-            Prelude.<*> (x Core..: "TemplateName")
+            Prelude.<$> (x Data..:? "ADM")
+            Prelude.<*> (x Data..:? "APNS")
+            Prelude.<*> (x Data..:? "Arn")
+            Prelude.<*> (x Data..:? "Baidu")
+            Prelude.<*> (x Data..:? "Default")
+            Prelude.<*> (x Data..:? "DefaultSubstitutions")
+            Prelude.<*> (x Data..:? "GCM")
+            Prelude.<*> (x Data..:? "RecommenderId")
+            Prelude.<*> (x Data..:? "TemplateDescription")
+            Prelude.<*> (x Data..:? "Version")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "LastModifiedDate")
+            Prelude.<*> (x Data..: "CreationDate")
+            Prelude.<*> (x Data..: "TemplateType")
+            Prelude.<*> (x Data..: "TemplateName")
       )
 
 instance
@@ -293,16 +294,16 @@ instance
   hashWithSalt
     _salt
     PushNotificationTemplateResponse' {..} =
-      _salt `Prelude.hashWithSalt` arn
-        `Prelude.hashWithSalt` default'
-        `Prelude.hashWithSalt` templateDescription
-        `Prelude.hashWithSalt` gcm
+      _salt `Prelude.hashWithSalt` adm
         `Prelude.hashWithSalt` apns
-        `Prelude.hashWithSalt` defaultSubstitutions
-        `Prelude.hashWithSalt` version
-        `Prelude.hashWithSalt` adm
+        `Prelude.hashWithSalt` arn
         `Prelude.hashWithSalt` baidu
+        `Prelude.hashWithSalt` default'
+        `Prelude.hashWithSalt` defaultSubstitutions
+        `Prelude.hashWithSalt` gcm
         `Prelude.hashWithSalt` recommenderId
+        `Prelude.hashWithSalt` templateDescription
+        `Prelude.hashWithSalt` version
         `Prelude.hashWithSalt` tags
         `Prelude.hashWithSalt` lastModifiedDate
         `Prelude.hashWithSalt` creationDate
@@ -314,16 +315,16 @@ instance
     PushNotificationTemplateResponse
   where
   rnf PushNotificationTemplateResponse' {..} =
-    Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf default'
-      `Prelude.seq` Prelude.rnf templateDescription
-      `Prelude.seq` Prelude.rnf gcm
+    Prelude.rnf adm
       `Prelude.seq` Prelude.rnf apns
-      `Prelude.seq` Prelude.rnf defaultSubstitutions
-      `Prelude.seq` Prelude.rnf version
-      `Prelude.seq` Prelude.rnf adm
+      `Prelude.seq` Prelude.rnf arn
       `Prelude.seq` Prelude.rnf baidu
+      `Prelude.seq` Prelude.rnf default'
+      `Prelude.seq` Prelude.rnf defaultSubstitutions
+      `Prelude.seq` Prelude.rnf gcm
       `Prelude.seq` Prelude.rnf recommenderId
+      `Prelude.seq` Prelude.rnf templateDescription
+      `Prelude.seq` Prelude.rnf version
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf lastModifiedDate
       `Prelude.seq` Prelude.rnf creationDate

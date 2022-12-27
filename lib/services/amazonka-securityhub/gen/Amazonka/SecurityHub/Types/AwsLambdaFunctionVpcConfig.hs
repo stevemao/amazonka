@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsLambdaFunctionVpcConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsLambdaFunctionVpcConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The VPC security groups and subnets that are attached to a Lambda
@@ -72,17 +73,17 @@ awsLambdaFunctionVpcConfig_subnetIds = Lens.lens (\AwsLambdaFunctionVpcConfig' {
 awsLambdaFunctionVpcConfig_vpcId :: Lens.Lens' AwsLambdaFunctionVpcConfig (Prelude.Maybe Prelude.Text)
 awsLambdaFunctionVpcConfig_vpcId = Lens.lens (\AwsLambdaFunctionVpcConfig' {vpcId} -> vpcId) (\s@AwsLambdaFunctionVpcConfig' {} a -> s {vpcId = a} :: AwsLambdaFunctionVpcConfig)
 
-instance Core.FromJSON AwsLambdaFunctionVpcConfig where
+instance Data.FromJSON AwsLambdaFunctionVpcConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsLambdaFunctionVpcConfig"
       ( \x ->
           AwsLambdaFunctionVpcConfig'
-            Prelude.<$> ( x Core..:? "SecurityGroupIds"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "SecurityGroupIds"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "SubnetIds" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "VpcId")
+            Prelude.<*> (x Data..:? "SubnetIds" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "VpcId")
       )
 
 instance Prelude.Hashable AwsLambdaFunctionVpcConfig where
@@ -97,13 +98,13 @@ instance Prelude.NFData AwsLambdaFunctionVpcConfig where
       `Prelude.seq` Prelude.rnf subnetIds
       `Prelude.seq` Prelude.rnf vpcId
 
-instance Core.ToJSON AwsLambdaFunctionVpcConfig where
+instance Data.ToJSON AwsLambdaFunctionVpcConfig where
   toJSON AwsLambdaFunctionVpcConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SecurityGroupIds" Core..=)
+          [ ("SecurityGroupIds" Data..=)
               Prelude.<$> securityGroupIds,
-            ("SubnetIds" Core..=) Prelude.<$> subnetIds,
-            ("VpcId" Core..=) Prelude.<$> vpcId
+            ("SubnetIds" Data..=) Prelude.<$> subnetIds,
+            ("VpcId" Data..=) Prelude.<$> vpcId
           ]
       )

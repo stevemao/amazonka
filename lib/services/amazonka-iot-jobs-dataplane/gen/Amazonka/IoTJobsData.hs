@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.IoTJobsData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,20 +36,11 @@ module Amazonka.IoTJobsData
     -- * Errors
     -- $errors
 
-    -- ** TerminalStateException
-    _TerminalStateException,
-
-    -- ** InvalidRequestException
-    _InvalidRequestException,
-
     -- ** CertificateValidationException
     _CertificateValidationException,
 
-    -- ** ThrottlingException
-    _ThrottlingException,
-
-    -- ** ServiceUnavailableException
-    _ServiceUnavailableException,
+    -- ** InvalidRequestException
+    _InvalidRequestException,
 
     -- ** InvalidStateTransitionException
     _InvalidStateTransitionException,
@@ -57,23 +48,20 @@ module Amazonka.IoTJobsData
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
 
+    -- ** ServiceUnavailableException
+    _ServiceUnavailableException,
+
+    -- ** TerminalStateException
+    _TerminalStateException,
+
+    -- ** ThrottlingException
+    _ThrottlingException,
+
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
-
-    -- ** UpdateJobExecution
-    UpdateJobExecution (UpdateJobExecution'),
-    newUpdateJobExecution,
-    UpdateJobExecutionResponse (UpdateJobExecutionResponse'),
-    newUpdateJobExecutionResponse,
-
-    -- ** StartNextPendingJobExecution
-    StartNextPendingJobExecution (StartNextPendingJobExecution'),
-    newStartNextPendingJobExecution,
-    StartNextPendingJobExecutionResponse (StartNextPendingJobExecutionResponse'),
-    newStartNextPendingJobExecutionResponse,
 
     -- ** DescribeJobExecution
     DescribeJobExecution (DescribeJobExecution'),
@@ -86,6 +74,18 @@ module Amazonka.IoTJobsData
     newGetPendingJobExecutions,
     GetPendingJobExecutionsResponse (GetPendingJobExecutionsResponse'),
     newGetPendingJobExecutionsResponse,
+
+    -- ** StartNextPendingJobExecution
+    StartNextPendingJobExecution (StartNextPendingJobExecution'),
+    newStartNextPendingJobExecution,
+    StartNextPendingJobExecutionResponse (StartNextPendingJobExecutionResponse'),
+    newStartNextPendingJobExecutionResponse,
+
+    -- ** UpdateJobExecution
+    UpdateJobExecution (UpdateJobExecution'),
+    newUpdateJobExecution,
+    UpdateJobExecutionResponse (UpdateJobExecutionResponse'),
+    newUpdateJobExecutionResponse,
 
     -- * Types
 

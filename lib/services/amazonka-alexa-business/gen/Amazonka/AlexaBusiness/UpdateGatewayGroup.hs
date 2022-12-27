@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.UpdateGatewayGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.AlexaBusiness.UpdateGatewayGroup
     newUpdateGatewayGroup,
 
     -- * Request Lenses
-    updateGatewayGroup_name,
     updateGatewayGroup_description,
+    updateGatewayGroup_name,
     updateGatewayGroup_gatewayGroupArn,
 
     -- * Destructuring the Response
@@ -43,17 +43,18 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateGatewayGroup' smart constructor.
 data UpdateGatewayGroup = UpdateGatewayGroup'
-  { -- | The updated name of the gateway group.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The updated description of the gateway group.
+  { -- | The updated description of the gateway group.
     description :: Prelude.Maybe Prelude.Text,
+    -- | The updated name of the gateway group.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The ARN of the gateway group to update.
     gatewayGroupArn :: Prelude.Text
   }
@@ -67,9 +68,9 @@ data UpdateGatewayGroup = UpdateGatewayGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'updateGatewayGroup_name' - The updated name of the gateway group.
---
 -- 'description', 'updateGatewayGroup_description' - The updated description of the gateway group.
+--
+-- 'name', 'updateGatewayGroup_name' - The updated name of the gateway group.
 --
 -- 'gatewayGroupArn', 'updateGatewayGroup_gatewayGroupArn' - The ARN of the gateway group to update.
 newUpdateGatewayGroup ::
@@ -78,18 +79,18 @@ newUpdateGatewayGroup ::
   UpdateGatewayGroup
 newUpdateGatewayGroup pGatewayGroupArn_ =
   UpdateGatewayGroup'
-    { name = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      name = Prelude.Nothing,
       gatewayGroupArn = pGatewayGroupArn_
     }
-
--- | The updated name of the gateway group.
-updateGatewayGroup_name :: Lens.Lens' UpdateGatewayGroup (Prelude.Maybe Prelude.Text)
-updateGatewayGroup_name = Lens.lens (\UpdateGatewayGroup' {name} -> name) (\s@UpdateGatewayGroup' {} a -> s {name = a} :: UpdateGatewayGroup)
 
 -- | The updated description of the gateway group.
 updateGatewayGroup_description :: Lens.Lens' UpdateGatewayGroup (Prelude.Maybe Prelude.Text)
 updateGatewayGroup_description = Lens.lens (\UpdateGatewayGroup' {description} -> description) (\s@UpdateGatewayGroup' {} a -> s {description = a} :: UpdateGatewayGroup)
+
+-- | The updated name of the gateway group.
+updateGatewayGroup_name :: Lens.Lens' UpdateGatewayGroup (Prelude.Maybe Prelude.Text)
+updateGatewayGroup_name = Lens.lens (\UpdateGatewayGroup' {name} -> name) (\s@UpdateGatewayGroup' {} a -> s {name = a} :: UpdateGatewayGroup)
 
 -- | The ARN of the gateway group to update.
 updateGatewayGroup_gatewayGroupArn :: Lens.Lens' UpdateGatewayGroup Prelude.Text
@@ -99,7 +100,8 @@ instance Core.AWSRequest UpdateGatewayGroup where
   type
     AWSResponse UpdateGatewayGroup =
       UpdateGatewayGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -109,46 +111,46 @@ instance Core.AWSRequest UpdateGatewayGroup where
 
 instance Prelude.Hashable UpdateGatewayGroup where
   hashWithSalt _salt UpdateGatewayGroup' {..} =
-    _salt `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` gatewayGroupArn
 
 instance Prelude.NFData UpdateGatewayGroup where
   rnf UpdateGatewayGroup' {..} =
-    Prelude.rnf name
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf gatewayGroupArn
 
-instance Core.ToHeaders UpdateGatewayGroup where
+instance Data.ToHeaders UpdateGatewayGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.UpdateGatewayGroup" ::
+              Data.=# ( "AlexaForBusiness.UpdateGatewayGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateGatewayGroup where
+instance Data.ToJSON UpdateGatewayGroup where
   toJSON UpdateGatewayGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Name" Core..=) Prelude.<$> name,
-            ("Description" Core..=) Prelude.<$> description,
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Name" Data..=) Prelude.<$> name,
             Prelude.Just
-              ("GatewayGroupArn" Core..= gatewayGroupArn)
+              ("GatewayGroupArn" Data..= gatewayGroupArn)
           ]
       )
 
-instance Core.ToPath UpdateGatewayGroup where
+instance Data.ToPath UpdateGatewayGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateGatewayGroup where
+instance Data.ToQuery UpdateGatewayGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateGatewayGroupResponse' smart constructor.

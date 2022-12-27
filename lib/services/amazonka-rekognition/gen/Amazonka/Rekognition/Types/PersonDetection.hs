@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.PersonDetection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.PersonDetection where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types.PersonDetail
 
@@ -37,7 +38,9 @@ data PersonDetection = PersonDetection'
   { -- | Details about a person whose path was tracked in a video.
     person :: Prelude.Maybe PersonDetail,
     -- | The time, in milliseconds from the start of the video, that the
-    -- person\'s path was tracked.
+    -- person\'s path was tracked. Note that @Timestamp@ is not guaranteed to
+    -- be accurate to the individual frame where the person\'s path first
+    -- appears.
     timestamp :: Prelude.Maybe Prelude.Integer
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -53,7 +56,9 @@ data PersonDetection = PersonDetection'
 -- 'person', 'personDetection_person' - Details about a person whose path was tracked in a video.
 --
 -- 'timestamp', 'personDetection_timestamp' - The time, in milliseconds from the start of the video, that the
--- person\'s path was tracked.
+-- person\'s path was tracked. Note that @Timestamp@ is not guaranteed to
+-- be accurate to the individual frame where the person\'s path first
+-- appears.
 newPersonDetection ::
   PersonDetection
 newPersonDetection =
@@ -67,18 +72,20 @@ personDetection_person :: Lens.Lens' PersonDetection (Prelude.Maybe PersonDetail
 personDetection_person = Lens.lens (\PersonDetection' {person} -> person) (\s@PersonDetection' {} a -> s {person = a} :: PersonDetection)
 
 -- | The time, in milliseconds from the start of the video, that the
--- person\'s path was tracked.
+-- person\'s path was tracked. Note that @Timestamp@ is not guaranteed to
+-- be accurate to the individual frame where the person\'s path first
+-- appears.
 personDetection_timestamp :: Lens.Lens' PersonDetection (Prelude.Maybe Prelude.Integer)
 personDetection_timestamp = Lens.lens (\PersonDetection' {timestamp} -> timestamp) (\s@PersonDetection' {} a -> s {timestamp = a} :: PersonDetection)
 
-instance Core.FromJSON PersonDetection where
+instance Data.FromJSON PersonDetection where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PersonDetection"
       ( \x ->
           PersonDetection'
-            Prelude.<$> (x Core..:? "Person")
-            Prelude.<*> (x Core..:? "Timestamp")
+            Prelude.<$> (x Data..:? "Person")
+            Prelude.<*> (x Data..:? "Timestamp")
       )
 
 instance Prelude.Hashable PersonDetection where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.DeleteMobileDeviceAccessOverride
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.WorkMail.DeleteMobileDeviceAccessOverride
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,8 +55,7 @@ import Amazonka.WorkMail.Types
 
 -- | /See:/ 'newDeleteMobileDeviceAccessOverride' smart constructor.
 data DeleteMobileDeviceAccessOverride = DeleteMobileDeviceAccessOverride'
-  { -- | The Amazon WorkMail organization for which the access override will be
-    -- deleted.
+  { -- | The WorkMail organization for which the access override will be deleted.
     organizationId :: Prelude.Text,
     -- | The WorkMail user for which you want to delete the override. Accepts the
     -- following types of user identities:
@@ -81,8 +81,7 @@ data DeleteMobileDeviceAccessOverride = DeleteMobileDeviceAccessOverride'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'organizationId', 'deleteMobileDeviceAccessOverride_organizationId' - The Amazon WorkMail organization for which the access override will be
--- deleted.
+-- 'organizationId', 'deleteMobileDeviceAccessOverride_organizationId' - The WorkMail organization for which the access override will be deleted.
 --
 -- 'userId', 'deleteMobileDeviceAccessOverride_userId' - The WorkMail user for which you want to delete the override. Accepts the
 -- following types of user identities:
@@ -115,8 +114,7 @@ newDeleteMobileDeviceAccessOverride
         deviceId = pDeviceId_
       }
 
--- | The Amazon WorkMail organization for which the access override will be
--- deleted.
+-- | The WorkMail organization for which the access override will be deleted.
 deleteMobileDeviceAccessOverride_organizationId :: Lens.Lens' DeleteMobileDeviceAccessOverride Prelude.Text
 deleteMobileDeviceAccessOverride_organizationId = Lens.lens (\DeleteMobileDeviceAccessOverride' {organizationId} -> organizationId) (\s@DeleteMobileDeviceAccessOverride' {} a -> s {organizationId = a} :: DeleteMobileDeviceAccessOverride)
 
@@ -144,7 +142,8 @@ instance
   type
     AWSResponse DeleteMobileDeviceAccessOverride =
       DeleteMobileDeviceAccessOverrideResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -173,39 +172,39 @@ instance
       `Prelude.seq` Prelude.rnf deviceId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteMobileDeviceAccessOverride
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkMailService.DeleteMobileDeviceAccessOverride" ::
+              Data.=# ( "WorkMailService.DeleteMobileDeviceAccessOverride" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteMobileDeviceAccessOverride where
+instance Data.ToJSON DeleteMobileDeviceAccessOverride where
   toJSON DeleteMobileDeviceAccessOverride' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("OrganizationId" Core..= organizationId),
-            Prelude.Just ("UserId" Core..= userId),
-            Prelude.Just ("DeviceId" Core..= deviceId)
+              ("OrganizationId" Data..= organizationId),
+            Prelude.Just ("UserId" Data..= userId),
+            Prelude.Just ("DeviceId" Data..= deviceId)
           ]
       )
 
-instance Core.ToPath DeleteMobileDeviceAccessOverride where
+instance Data.ToPath DeleteMobileDeviceAccessOverride where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DeleteMobileDeviceAccessOverride
   where
   toQuery = Prelude.const Prelude.mempty

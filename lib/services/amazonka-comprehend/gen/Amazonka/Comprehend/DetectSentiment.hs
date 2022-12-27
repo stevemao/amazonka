@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.DetectSentiment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,16 +44,20 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDetectSentiment' smart constructor.
 data DetectSentiment = DetectSentiment'
-  { -- | A UTF-8 text string. Each string must contain fewer that 5,000 bytes of
-    -- UTF-8 encoded characters.
-    text :: Core.Sensitive Prelude.Text,
+  { -- | A UTF-8 text string. The maximum string size is 5 KB.
+    --
+    -- Amazon Comprehend performs real-time sentiment analysis on the first 500
+    -- characters of the input text and ignores any additional text in the
+    -- input.
+    text :: Data.Sensitive Prelude.Text,
     -- | The language of the input documents. You can specify any of the primary
     -- languages supported by Amazon Comprehend. All documents must be in the
     -- same language.
@@ -69,8 +73,11 @@ data DetectSentiment = DetectSentiment'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'text', 'detectSentiment_text' - A UTF-8 text string. Each string must contain fewer that 5,000 bytes of
--- UTF-8 encoded characters.
+-- 'text', 'detectSentiment_text' - A UTF-8 text string. The maximum string size is 5 KB.
+--
+-- Amazon Comprehend performs real-time sentiment analysis on the first 500
+-- characters of the input text and ignores any additional text in the
+-- input.
 --
 -- 'languageCode', 'detectSentiment_languageCode' - The language of the input documents. You can specify any of the primary
 -- languages supported by Amazon Comprehend. All documents must be in the
@@ -84,14 +91,17 @@ newDetectSentiment ::
 newDetectSentiment pText_ pLanguageCode_ =
   DetectSentiment'
     { text =
-        Core._Sensitive Lens.# pText_,
+        Data._Sensitive Lens.# pText_,
       languageCode = pLanguageCode_
     }
 
--- | A UTF-8 text string. Each string must contain fewer that 5,000 bytes of
--- UTF-8 encoded characters.
+-- | A UTF-8 text string. The maximum string size is 5 KB.
+--
+-- Amazon Comprehend performs real-time sentiment analysis on the first 500
+-- characters of the input text and ignores any additional text in the
+-- input.
 detectSentiment_text :: Lens.Lens' DetectSentiment Prelude.Text
-detectSentiment_text = Lens.lens (\DetectSentiment' {text} -> text) (\s@DetectSentiment' {} a -> s {text = a} :: DetectSentiment) Prelude.. Core._Sensitive
+detectSentiment_text = Lens.lens (\DetectSentiment' {text} -> text) (\s@DetectSentiment' {} a -> s {text = a} :: DetectSentiment) Prelude.. Data._Sensitive
 
 -- | The language of the input documents. You can specify any of the primary
 -- languages supported by Amazon Comprehend. All documents must be in the
@@ -103,13 +113,14 @@ instance Core.AWSRequest DetectSentiment where
   type
     AWSResponse DetectSentiment =
       DetectSentimentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DetectSentimentResponse'
-            Prelude.<$> (x Core..?> "Sentiment")
-            Prelude.<*> (x Core..?> "SentimentScore")
+            Prelude.<$> (x Data..?> "Sentiment")
+            Prelude.<*> (x Data..?> "SentimentScore")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -123,34 +134,34 @@ instance Prelude.NFData DetectSentiment where
     Prelude.rnf text
       `Prelude.seq` Prelude.rnf languageCode
 
-instance Core.ToHeaders DetectSentiment where
+instance Data.ToHeaders DetectSentiment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.DetectSentiment" ::
+              Data.=# ( "Comprehend_20171127.DetectSentiment" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DetectSentiment where
+instance Data.ToJSON DetectSentiment where
   toJSON DetectSentiment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Text" Core..= text),
-            Prelude.Just ("LanguageCode" Core..= languageCode)
+          [ Prelude.Just ("Text" Data..= text),
+            Prelude.Just ("LanguageCode" Data..= languageCode)
           ]
       )
 
-instance Core.ToPath DetectSentiment where
+instance Data.ToPath DetectSentiment where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DetectSentiment where
+instance Data.ToQuery DetectSentiment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDetectSentimentResponse' smart constructor.

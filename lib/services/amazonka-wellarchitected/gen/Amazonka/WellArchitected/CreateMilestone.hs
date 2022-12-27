@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WellArchitected.CreateMilestone
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.WellArchitected.CreateMilestone
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,13 +107,14 @@ instance Core.AWSRequest CreateMilestone where
   type
     AWSResponse CreateMilestone =
       CreateMilestoneResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateMilestoneResponse'
-            Prelude.<$> (x Core..?> "MilestoneNumber")
-            Prelude.<*> (x Core..?> "WorkloadId")
+            Prelude.<$> (x Data..?> "MilestoneNumber")
+            Prelude.<*> (x Data..?> "WorkloadId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -128,34 +130,34 @@ instance Prelude.NFData CreateMilestone where
       `Prelude.seq` Prelude.rnf milestoneName
       `Prelude.seq` Prelude.rnf clientRequestToken
 
-instance Core.ToHeaders CreateMilestone where
+instance Data.ToHeaders CreateMilestone where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateMilestone where
+instance Data.ToJSON CreateMilestone where
   toJSON CreateMilestone' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("MilestoneName" Core..= milestoneName),
+              ("MilestoneName" Data..= milestoneName),
             Prelude.Just
-              ("ClientRequestToken" Core..= clientRequestToken)
+              ("ClientRequestToken" Data..= clientRequestToken)
           ]
       )
 
-instance Core.ToPath CreateMilestone where
+instance Data.ToPath CreateMilestone where
   toPath CreateMilestone' {..} =
     Prelude.mconcat
-      ["/workloads/", Core.toBS workloadId, "/milestones"]
+      ["/workloads/", Data.toBS workloadId, "/milestones"]
 
-instance Core.ToQuery CreateMilestone where
+instance Data.ToQuery CreateMilestone where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Output of a create milestone call.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MechanicalTurk.NotifyWorkers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.MechanicalTurk.NotifyWorkers
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MechanicalTurk.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -114,12 +115,13 @@ instance Core.AWSRequest NotifyWorkers where
   type
     AWSResponse NotifyWorkers =
       NotifyWorkersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           NotifyWorkersResponse'
-            Prelude.<$> ( x Core..?> "NotifyWorkersFailureStatuses"
+            Prelude.<$> ( x Data..?> "NotifyWorkersFailureStatuses"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -137,35 +139,35 @@ instance Prelude.NFData NotifyWorkers where
       `Prelude.seq` Prelude.rnf messageText
       `Prelude.seq` Prelude.rnf workerIds
 
-instance Core.ToHeaders NotifyWorkers where
+instance Data.ToHeaders NotifyWorkers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "MTurkRequesterServiceV20170117.NotifyWorkers" ::
+              Data.=# ( "MTurkRequesterServiceV20170117.NotifyWorkers" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON NotifyWorkers where
+instance Data.ToJSON NotifyWorkers where
   toJSON NotifyWorkers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Subject" Core..= subject),
-            Prelude.Just ("MessageText" Core..= messageText),
-            Prelude.Just ("WorkerIds" Core..= workerIds)
+          [ Prelude.Just ("Subject" Data..= subject),
+            Prelude.Just ("MessageText" Data..= messageText),
+            Prelude.Just ("WorkerIds" Data..= workerIds)
           ]
       )
 
-instance Core.ToPath NotifyWorkers where
+instance Data.ToPath NotifyWorkers where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery NotifyWorkers where
+instance Data.ToQuery NotifyWorkers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newNotifyWorkersResponse' smart constructor.

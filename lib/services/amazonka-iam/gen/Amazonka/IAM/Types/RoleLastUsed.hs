@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.Types.RoleLastUsed
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IAM.Types.RoleLastUsed where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the last time that an IAM role was used. This
@@ -45,7 +46,7 @@ data RoleLastUsed = RoleLastUsed'
     -- period. For more information about the tracking period, see
     -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period Regions where data is tracked>
     -- in the /IAM User Guide/.
-    lastUsedDate :: Prelude.Maybe Core.ISO8601,
+    lastUsedDate :: Prelude.Maybe Data.ISO8601,
     -- | The name of the Amazon Web Services Region in which the role was last
     -- used.
     region :: Prelude.Maybe Prelude.Text
@@ -88,18 +89,18 @@ newRoleLastUsed =
 -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period Regions where data is tracked>
 -- in the /IAM User Guide/.
 roleLastUsed_lastUsedDate :: Lens.Lens' RoleLastUsed (Prelude.Maybe Prelude.UTCTime)
-roleLastUsed_lastUsedDate = Lens.lens (\RoleLastUsed' {lastUsedDate} -> lastUsedDate) (\s@RoleLastUsed' {} a -> s {lastUsedDate = a} :: RoleLastUsed) Prelude.. Lens.mapping Core._Time
+roleLastUsed_lastUsedDate = Lens.lens (\RoleLastUsed' {lastUsedDate} -> lastUsedDate) (\s@RoleLastUsed' {} a -> s {lastUsedDate = a} :: RoleLastUsed) Prelude.. Lens.mapping Data._Time
 
 -- | The name of the Amazon Web Services Region in which the role was last
 -- used.
 roleLastUsed_region :: Lens.Lens' RoleLastUsed (Prelude.Maybe Prelude.Text)
 roleLastUsed_region = Lens.lens (\RoleLastUsed' {region} -> region) (\s@RoleLastUsed' {} a -> s {region = a} :: RoleLastUsed)
 
-instance Core.FromXML RoleLastUsed where
+instance Data.FromXML RoleLastUsed where
   parseXML x =
     RoleLastUsed'
-      Prelude.<$> (x Core..@? "LastUsedDate")
-      Prelude.<*> (x Core..@? "Region")
+      Prelude.<$> (x Data..@? "LastUsedDate")
+      Prelude.<*> (x Data..@? "Region")
 
 instance Prelude.Hashable RoleLastUsed where
   hashWithSalt _salt RoleLastUsed' {..} =

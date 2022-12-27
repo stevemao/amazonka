@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.Types.Policy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Organizations.Types.Policy where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types.PolicySummary
 import qualified Amazonka.Prelude as Prelude
 
@@ -64,14 +65,14 @@ policy_content = Lens.lens (\Policy' {content} -> content) (\s@Policy' {} a -> s
 policy_policySummary :: Lens.Lens' Policy (Prelude.Maybe PolicySummary)
 policy_policySummary = Lens.lens (\Policy' {policySummary} -> policySummary) (\s@Policy' {} a -> s {policySummary = a} :: Policy)
 
-instance Core.FromJSON Policy where
+instance Data.FromJSON Policy where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Policy"
       ( \x ->
           Policy'
-            Prelude.<$> (x Core..:? "Content")
-            Prelude.<*> (x Core..:? "PolicySummary")
+            Prelude.<$> (x Data..:? "Content")
+            Prelude.<*> (x Data..:? "PolicySummary")
       )
 
 instance Prelude.Hashable Policy where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.XRay.DeleteGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.XRay.DeleteGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,7 +85,8 @@ deleteGroup_groupName = Lens.lens (\DeleteGroup' {groupName} -> groupName) (\s@D
 
 instance Core.AWSRequest DeleteGroup where
   type AWSResponse DeleteGroup = DeleteGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -102,22 +104,22 @@ instance Prelude.NFData DeleteGroup where
     Prelude.rnf groupARN
       `Prelude.seq` Prelude.rnf groupName
 
-instance Core.ToHeaders DeleteGroup where
+instance Data.ToHeaders DeleteGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON DeleteGroup where
+instance Data.ToJSON DeleteGroup where
   toJSON DeleteGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("GroupARN" Core..=) Prelude.<$> groupARN,
-            ("GroupName" Core..=) Prelude.<$> groupName
+          [ ("GroupARN" Data..=) Prelude.<$> groupARN,
+            ("GroupName" Data..=) Prelude.<$> groupName
           ]
       )
 
-instance Core.ToPath DeleteGroup where
+instance Data.ToPath DeleteGroup where
   toPath = Prelude.const "/DeleteGroup"
 
-instance Core.ToQuery DeleteGroup where
+instance Data.ToQuery DeleteGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteGroupResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.SetV2LoggingLevel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.IoT.SetV2LoggingLevel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,7 +92,8 @@ instance Core.AWSRequest SetV2LoggingLevel where
   type
     AWSResponse SetV2LoggingLevel =
       SetV2LoggingLevelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull SetV2LoggingLevelResponse'
 
@@ -105,22 +107,22 @@ instance Prelude.NFData SetV2LoggingLevel where
     Prelude.rnf logTarget
       `Prelude.seq` Prelude.rnf logLevel
 
-instance Core.ToHeaders SetV2LoggingLevel where
+instance Data.ToHeaders SetV2LoggingLevel where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON SetV2LoggingLevel where
+instance Data.ToJSON SetV2LoggingLevel where
   toJSON SetV2LoggingLevel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("logTarget" Core..= logTarget),
-            Prelude.Just ("logLevel" Core..= logLevel)
+          [ Prelude.Just ("logTarget" Data..= logTarget),
+            Prelude.Just ("logLevel" Data..= logLevel)
           ]
       )
 
-instance Core.ToPath SetV2LoggingLevel where
+instance Data.ToPath SetV2LoggingLevel where
   toPath = Prelude.const "/v2LoggingLevel"
 
-instance Core.ToQuery SetV2LoggingLevel where
+instance Data.ToQuery SetV2LoggingLevel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSetV2LoggingLevelResponse' smart constructor.

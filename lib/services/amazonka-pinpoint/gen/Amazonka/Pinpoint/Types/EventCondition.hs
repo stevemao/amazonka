@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.EventCondition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.EventCondition where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types.EventDimensions
 import qualified Amazonka.Prelude as Prelude
 
@@ -66,14 +67,14 @@ eventCondition_dimensions = Lens.lens (\EventCondition' {dimensions} -> dimensio
 eventCondition_messageActivity :: Lens.Lens' EventCondition (Prelude.Maybe Prelude.Text)
 eventCondition_messageActivity = Lens.lens (\EventCondition' {messageActivity} -> messageActivity) (\s@EventCondition' {} a -> s {messageActivity = a} :: EventCondition)
 
-instance Core.FromJSON EventCondition where
+instance Data.FromJSON EventCondition where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EventCondition"
       ( \x ->
           EventCondition'
-            Prelude.<$> (x Core..:? "Dimensions")
-            Prelude.<*> (x Core..:? "MessageActivity")
+            Prelude.<$> (x Data..:? "Dimensions")
+            Prelude.<*> (x Data..:? "MessageActivity")
       )
 
 instance Prelude.Hashable EventCondition where
@@ -86,12 +87,12 @@ instance Prelude.NFData EventCondition where
     Prelude.rnf dimensions
       `Prelude.seq` Prelude.rnf messageActivity
 
-instance Core.ToJSON EventCondition where
+instance Data.ToJSON EventCondition where
   toJSON EventCondition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Dimensions" Core..=) Prelude.<$> dimensions,
-            ("MessageActivity" Core..=)
+          [ ("Dimensions" Data..=) Prelude.<$> dimensions,
+            ("MessageActivity" Data..=)
               Prelude.<$> messageActivity
           ]
       )

@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.SSMIncidents.GetIncidentRecord
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the details of the specified incident record.
+-- Returns the details for the specified incident record.
 module Amazonka.SSMIncidents.GetIncidentRecord
   ( -- * Creating a Request
     GetIncidentRecord (..),
@@ -40,7 +40,8 @@ module Amazonka.SSMIncidents.GetIncidentRecord
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,13 +78,14 @@ instance Core.AWSRequest GetIncidentRecord where
   type
     AWSResponse GetIncidentRecord =
       GetIncidentRecordResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetIncidentRecordResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "incidentRecord")
+            Prelude.<*> (x Data..:> "incidentRecord")
       )
 
 instance Prelude.Hashable GetIncidentRecord where
@@ -93,29 +95,29 @@ instance Prelude.Hashable GetIncidentRecord where
 instance Prelude.NFData GetIncidentRecord where
   rnf GetIncidentRecord' {..} = Prelude.rnf arn
 
-instance Core.ToHeaders GetIncidentRecord where
+instance Data.ToHeaders GetIncidentRecord where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetIncidentRecord where
+instance Data.ToPath GetIncidentRecord where
   toPath = Prelude.const "/getIncidentRecord"
 
-instance Core.ToQuery GetIncidentRecord where
+instance Data.ToQuery GetIncidentRecord where
   toQuery GetIncidentRecord' {..} =
-    Prelude.mconcat ["arn" Core.=: arn]
+    Prelude.mconcat ["arn" Data.=: arn]
 
 -- | /See:/ 'newGetIncidentRecordResponse' smart constructor.
 data GetIncidentRecordResponse = GetIncidentRecordResponse'
   { -- | The response's http status code.
     httpStatus :: Prelude.Int,
-    -- | Details structure of the incident record.
+    -- | Details the structure of the incident record.
     incidentRecord :: IncidentRecord
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -130,7 +132,7 @@ data GetIncidentRecordResponse = GetIncidentRecordResponse'
 --
 -- 'httpStatus', 'getIncidentRecordResponse_httpStatus' - The response's http status code.
 --
--- 'incidentRecord', 'getIncidentRecordResponse_incidentRecord' - Details structure of the incident record.
+-- 'incidentRecord', 'getIncidentRecordResponse_incidentRecord' - Details the structure of the incident record.
 newGetIncidentRecordResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
@@ -150,7 +152,7 @@ newGetIncidentRecordResponse
 getIncidentRecordResponse_httpStatus :: Lens.Lens' GetIncidentRecordResponse Prelude.Int
 getIncidentRecordResponse_httpStatus = Lens.lens (\GetIncidentRecordResponse' {httpStatus} -> httpStatus) (\s@GetIncidentRecordResponse' {} a -> s {httpStatus = a} :: GetIncidentRecordResponse)
 
--- | Details structure of the incident record.
+-- | Details the structure of the incident record.
 getIncidentRecordResponse_incidentRecord :: Lens.Lens' GetIncidentRecordResponse IncidentRecord
 getIncidentRecordResponse_incidentRecord = Lens.lens (\GetIncidentRecordResponse' {incidentRecord} -> incidentRecord) (\s@GetIncidentRecordResponse' {} a -> s {incidentRecord = a} :: GetIncidentRecordResponse)
 

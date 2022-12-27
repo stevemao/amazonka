@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DeleteClientVpnRoute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.EC2.DeleteClientVpnRoute
     newDeleteClientVpnRoute,
 
     -- * Request Lenses
-    deleteClientVpnRoute_targetVpcSubnetId,
     deleteClientVpnRoute_dryRun,
+    deleteClientVpnRoute_targetVpcSubnetId,
     deleteClientVpnRoute_clientVpnEndpointId,
     deleteClientVpnRoute_destinationCidrBlock,
 
@@ -47,21 +47,22 @@ module Amazonka.EC2.DeleteClientVpnRoute
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteClientVpnRoute' smart constructor.
 data DeleteClientVpnRoute = DeleteClientVpnRoute'
-  { -- | The ID of the target subnet used by the route.
-    targetVpcSubnetId :: Prelude.Maybe Prelude.Text,
-    -- | Checks whether you have the required permissions for the action, without
+  { -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the target subnet used by the route.
+    targetVpcSubnetId :: Prelude.Maybe Prelude.Text,
     -- | The ID of the Client VPN endpoint from which the route is to be deleted.
     clientVpnEndpointId :: Prelude.Text,
     -- | The IPv4 address range, in CIDR notation, of the route to be deleted.
@@ -77,12 +78,12 @@ data DeleteClientVpnRoute = DeleteClientVpnRoute'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'targetVpcSubnetId', 'deleteClientVpnRoute_targetVpcSubnetId' - The ID of the target subnet used by the route.
---
 -- 'dryRun', 'deleteClientVpnRoute_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'targetVpcSubnetId', 'deleteClientVpnRoute_targetVpcSubnetId' - The ID of the target subnet used by the route.
 --
 -- 'clientVpnEndpointId', 'deleteClientVpnRoute_clientVpnEndpointId' - The ID of the Client VPN endpoint from which the route is to be deleted.
 --
@@ -97,16 +98,11 @@ newDeleteClientVpnRoute
   pClientVpnEndpointId_
   pDestinationCidrBlock_ =
     DeleteClientVpnRoute'
-      { targetVpcSubnetId =
-          Prelude.Nothing,
-        dryRun = Prelude.Nothing,
+      { dryRun = Prelude.Nothing,
+        targetVpcSubnetId = Prelude.Nothing,
         clientVpnEndpointId = pClientVpnEndpointId_,
         destinationCidrBlock = pDestinationCidrBlock_
       }
-
--- | The ID of the target subnet used by the route.
-deleteClientVpnRoute_targetVpcSubnetId :: Lens.Lens' DeleteClientVpnRoute (Prelude.Maybe Prelude.Text)
-deleteClientVpnRoute_targetVpcSubnetId = Lens.lens (\DeleteClientVpnRoute' {targetVpcSubnetId} -> targetVpcSubnetId) (\s@DeleteClientVpnRoute' {} a -> s {targetVpcSubnetId = a} :: DeleteClientVpnRoute)
 
 -- | Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
@@ -114,6 +110,10 @@ deleteClientVpnRoute_targetVpcSubnetId = Lens.lens (\DeleteClientVpnRoute' {targ
 -- Otherwise, it is @UnauthorizedOperation@.
 deleteClientVpnRoute_dryRun :: Lens.Lens' DeleteClientVpnRoute (Prelude.Maybe Prelude.Bool)
 deleteClientVpnRoute_dryRun = Lens.lens (\DeleteClientVpnRoute' {dryRun} -> dryRun) (\s@DeleteClientVpnRoute' {} a -> s {dryRun = a} :: DeleteClientVpnRoute)
+
+-- | The ID of the target subnet used by the route.
+deleteClientVpnRoute_targetVpcSubnetId :: Lens.Lens' DeleteClientVpnRoute (Prelude.Maybe Prelude.Text)
+deleteClientVpnRoute_targetVpcSubnetId = Lens.lens (\DeleteClientVpnRoute' {targetVpcSubnetId} -> targetVpcSubnetId) (\s@DeleteClientVpnRoute' {} a -> s {targetVpcSubnetId = a} :: DeleteClientVpnRoute)
 
 -- | The ID of the Client VPN endpoint from which the route is to be deleted.
 deleteClientVpnRoute_clientVpnEndpointId :: Lens.Lens' DeleteClientVpnRoute Prelude.Text
@@ -127,46 +127,47 @@ instance Core.AWSRequest DeleteClientVpnRoute where
   type
     AWSResponse DeleteClientVpnRoute =
       DeleteClientVpnRouteResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DeleteClientVpnRouteResponse'
-            Prelude.<$> (x Core..@? "status")
+            Prelude.<$> (x Data..@? "status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DeleteClientVpnRoute where
   hashWithSalt _salt DeleteClientVpnRoute' {..} =
-    _salt `Prelude.hashWithSalt` targetVpcSubnetId
-      `Prelude.hashWithSalt` dryRun
+    _salt `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` targetVpcSubnetId
       `Prelude.hashWithSalt` clientVpnEndpointId
       `Prelude.hashWithSalt` destinationCidrBlock
 
 instance Prelude.NFData DeleteClientVpnRoute where
   rnf DeleteClientVpnRoute' {..} =
-    Prelude.rnf targetVpcSubnetId
-      `Prelude.seq` Prelude.rnf dryRun
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf targetVpcSubnetId
       `Prelude.seq` Prelude.rnf clientVpnEndpointId
       `Prelude.seq` Prelude.rnf destinationCidrBlock
 
-instance Core.ToHeaders DeleteClientVpnRoute where
+instance Data.ToHeaders DeleteClientVpnRoute where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteClientVpnRoute where
+instance Data.ToPath DeleteClientVpnRoute where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteClientVpnRoute where
+instance Data.ToQuery DeleteClientVpnRoute where
   toQuery DeleteClientVpnRoute' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteClientVpnRoute" :: Prelude.ByteString),
+          Data.=: ("DeleteClientVpnRoute" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "TargetVpcSubnetId" Core.=: targetVpcSubnetId,
-        "DryRun" Core.=: dryRun,
-        "ClientVpnEndpointId" Core.=: clientVpnEndpointId,
-        "DestinationCidrBlock" Core.=: destinationCidrBlock
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "TargetVpcSubnetId" Data.=: targetVpcSubnetId,
+        "ClientVpnEndpointId" Data.=: clientVpnEndpointId,
+        "DestinationCidrBlock" Data.=: destinationCidrBlock
       ]
 
 -- | /See:/ 'newDeleteClientVpnRouteResponse' smart constructor.

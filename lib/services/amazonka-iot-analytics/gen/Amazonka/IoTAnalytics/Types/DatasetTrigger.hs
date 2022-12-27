@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.Types.DatasetTrigger
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.IoTAnalytics.Types.DatasetTrigger where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types.Schedule
 import Amazonka.IoTAnalytics.Types.TriggeringDataset
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The @DatasetTrigger@ that specifies when the dataset is automatically
@@ -67,14 +68,14 @@ datasetTrigger_dataset = Lens.lens (\DatasetTrigger' {dataset} -> dataset) (\s@D
 datasetTrigger_schedule :: Lens.Lens' DatasetTrigger (Prelude.Maybe Schedule)
 datasetTrigger_schedule = Lens.lens (\DatasetTrigger' {schedule} -> schedule) (\s@DatasetTrigger' {} a -> s {schedule = a} :: DatasetTrigger)
 
-instance Core.FromJSON DatasetTrigger where
+instance Data.FromJSON DatasetTrigger where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DatasetTrigger"
       ( \x ->
           DatasetTrigger'
-            Prelude.<$> (x Core..:? "dataset")
-            Prelude.<*> (x Core..:? "schedule")
+            Prelude.<$> (x Data..:? "dataset")
+            Prelude.<*> (x Data..:? "schedule")
       )
 
 instance Prelude.Hashable DatasetTrigger where
@@ -87,11 +88,11 @@ instance Prelude.NFData DatasetTrigger where
     Prelude.rnf dataset
       `Prelude.seq` Prelude.rnf schedule
 
-instance Core.ToJSON DatasetTrigger where
+instance Data.ToJSON DatasetTrigger where
   toJSON DatasetTrigger' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("dataset" Core..=) Prelude.<$> dataset,
-            ("schedule" Core..=) Prelude.<$> schedule
+          [ ("dataset" Data..=) Prelude.<$> dataset,
+            ("schedule" Data..=) Prelude.<$> schedule
           ]
       )

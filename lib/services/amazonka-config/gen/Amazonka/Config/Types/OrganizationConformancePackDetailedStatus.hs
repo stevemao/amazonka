@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Config.Types.OrganizationConformancePackDetailedStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Config.Types.OrganizationConformancePackDetailedStatus where
 
 import Amazonka.Config.Types.OrganizationResourceDetailedStatus
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Organization conformance pack creation or deletion status in each member
@@ -38,17 +39,17 @@ data OrganizationConformancePackDetailedStatus = OrganizationConformancePackDeta
     -- deletion has failed due to an error in the member account.
     errorMessage :: Prelude.Maybe Prelude.Text,
     -- | The timestamp of the last status update.
-    lastUpdateTime :: Prelude.Maybe Core.POSIX,
+    lastUpdateTime :: Prelude.Maybe Data.POSIX,
     -- | The 12-digit account ID of a member account.
     accountId :: Prelude.Text,
     -- | The name of conformance pack deployed in the member account.
     conformancePackName :: Prelude.Text,
     -- | Indicates deployment status for conformance pack in a member account.
-    -- When master account calls @PutOrganizationConformancePack@ action for
-    -- the first time, conformance pack status is created in the member
-    -- account. When master account calls @PutOrganizationConformancePack@
+    -- When management account calls @PutOrganizationConformancePack@ action
+    -- for the first time, conformance pack status is created in the member
+    -- account. When management account calls @PutOrganizationConformancePack@
     -- action for the second time, conformance pack status is updated in the
-    -- member account. Conformance pack status is deleted when the master
+    -- member account. Conformance pack status is deleted when the management
     -- account deletes @OrganizationConformancePack@ and disables service
     -- access for @config-multiaccountsetup.amazonaws.com@.
     --
@@ -105,11 +106,11 @@ data OrganizationConformancePackDetailedStatus = OrganizationConformancePackDeta
 -- 'conformancePackName', 'organizationConformancePackDetailedStatus_conformancePackName' - The name of conformance pack deployed in the member account.
 --
 -- 'status', 'organizationConformancePackDetailedStatus_status' - Indicates deployment status for conformance pack in a member account.
--- When master account calls @PutOrganizationConformancePack@ action for
--- the first time, conformance pack status is created in the member
--- account. When master account calls @PutOrganizationConformancePack@
+-- When management account calls @PutOrganizationConformancePack@ action
+-- for the first time, conformance pack status is created in the member
+-- account. When management account calls @PutOrganizationConformancePack@
 -- action for the second time, conformance pack status is updated in the
--- member account. Conformance pack status is deleted when the master
+-- member account. Conformance pack status is deleted when the management
 -- account deletes @OrganizationConformancePack@ and disables service
 -- access for @config-multiaccountsetup.amazonaws.com@.
 --
@@ -176,7 +177,7 @@ organizationConformancePackDetailedStatus_errorMessage = Lens.lens (\Organizatio
 
 -- | The timestamp of the last status update.
 organizationConformancePackDetailedStatus_lastUpdateTime :: Lens.Lens' OrganizationConformancePackDetailedStatus (Prelude.Maybe Prelude.UTCTime)
-organizationConformancePackDetailedStatus_lastUpdateTime = Lens.lens (\OrganizationConformancePackDetailedStatus' {lastUpdateTime} -> lastUpdateTime) (\s@OrganizationConformancePackDetailedStatus' {} a -> s {lastUpdateTime = a} :: OrganizationConformancePackDetailedStatus) Prelude.. Lens.mapping Core._Time
+organizationConformancePackDetailedStatus_lastUpdateTime = Lens.lens (\OrganizationConformancePackDetailedStatus' {lastUpdateTime} -> lastUpdateTime) (\s@OrganizationConformancePackDetailedStatus' {} a -> s {lastUpdateTime = a} :: OrganizationConformancePackDetailedStatus) Prelude.. Lens.mapping Data._Time
 
 -- | The 12-digit account ID of a member account.
 organizationConformancePackDetailedStatus_accountId :: Lens.Lens' OrganizationConformancePackDetailedStatus Prelude.Text
@@ -187,11 +188,11 @@ organizationConformancePackDetailedStatus_conformancePackName :: Lens.Lens' Orga
 organizationConformancePackDetailedStatus_conformancePackName = Lens.lens (\OrganizationConformancePackDetailedStatus' {conformancePackName} -> conformancePackName) (\s@OrganizationConformancePackDetailedStatus' {} a -> s {conformancePackName = a} :: OrganizationConformancePackDetailedStatus)
 
 -- | Indicates deployment status for conformance pack in a member account.
--- When master account calls @PutOrganizationConformancePack@ action for
--- the first time, conformance pack status is created in the member
--- account. When master account calls @PutOrganizationConformancePack@
+-- When management account calls @PutOrganizationConformancePack@ action
+-- for the first time, conformance pack status is created in the member
+-- account. When management account calls @PutOrganizationConformancePack@
 -- action for the second time, conformance pack status is updated in the
--- member account. Conformance pack status is deleted when the master
+-- member account. Conformance pack status is deleted when the management
 -- account deletes @OrganizationConformancePack@ and disables service
 -- access for @config-multiaccountsetup.amazonaws.com@.
 --
@@ -227,20 +228,20 @@ organizationConformancePackDetailedStatus_status :: Lens.Lens' OrganizationConfo
 organizationConformancePackDetailedStatus_status = Lens.lens (\OrganizationConformancePackDetailedStatus' {status} -> status) (\s@OrganizationConformancePackDetailedStatus' {} a -> s {status = a} :: OrganizationConformancePackDetailedStatus)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     OrganizationConformancePackDetailedStatus
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OrganizationConformancePackDetailedStatus"
       ( \x ->
           OrganizationConformancePackDetailedStatus'
-            Prelude.<$> (x Core..:? "ErrorCode")
-              Prelude.<*> (x Core..:? "ErrorMessage")
-              Prelude.<*> (x Core..:? "LastUpdateTime")
-              Prelude.<*> (x Core..: "AccountId")
-              Prelude.<*> (x Core..: "ConformancePackName")
-              Prelude.<*> (x Core..: "Status")
+            Prelude.<$> (x Data..:? "ErrorCode")
+              Prelude.<*> (x Data..:? "ErrorMessage")
+              Prelude.<*> (x Data..:? "LastUpdateTime")
+              Prelude.<*> (x Data..: "AccountId")
+              Prelude.<*> (x Data..: "ConformancePackName")
+              Prelude.<*> (x Data..: "Status")
       )
 
 instance

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.CreateUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,9 +33,9 @@ module Amazonka.Connect.CreateUser
 
     -- * Request Lenses
     createUser_directoryUserId,
+    createUser_hierarchyGroupId,
     createUser_identityInfo,
     createUser_password,
-    createUser_hierarchyGroupId,
     createUser_tags,
     createUser_username,
     createUser_phoneConfig,
@@ -48,15 +48,16 @@ module Amazonka.Connect.CreateUser
     newCreateUserResponse,
 
     -- * Response Lenses
-    createUserResponse_userId,
     createUserResponse_userArn,
+    createUserResponse_userId,
     createUserResponse_httpStatus,
   )
 where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -75,15 +76,16 @@ data CreateUser = CreateUser'
     -- your directory to authenticate users. If you are using SAML for identity
     -- management and include this parameter, an error is returned.
     directoryUserId :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the hierarchy group for the user.
+    hierarchyGroupId :: Prelude.Maybe Prelude.Text,
     -- | The information about the identity of the user.
     identityInfo :: Prelude.Maybe UserIdentityInfo,
     -- | The password for the user account. A password is required if you are
     -- using Amazon Connect for identity management. Otherwise, it is an error
     -- to include a password.
     password :: Prelude.Maybe Prelude.Text,
-    -- | The identifier of the hierarchy group for the user.
-    hierarchyGroupId :: Prelude.Maybe Prelude.Text,
-    -- | One or more tags.
+    -- | The tags used to organize, track, or control access for this resource.
+    -- For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The user name for the account. For instances not using SAML for identity
     -- management, the user name can include up to 20 characters. If you are
@@ -122,15 +124,16 @@ data CreateUser = CreateUser'
 -- your directory to authenticate users. If you are using SAML for identity
 -- management and include this parameter, an error is returned.
 --
+-- 'hierarchyGroupId', 'createUser_hierarchyGroupId' - The identifier of the hierarchy group for the user.
+--
 -- 'identityInfo', 'createUser_identityInfo' - The information about the identity of the user.
 --
 -- 'password', 'createUser_password' - The password for the user account. A password is required if you are
 -- using Amazon Connect for identity management. Otherwise, it is an error
 -- to include a password.
 --
--- 'hierarchyGroupId', 'createUser_hierarchyGroupId' - The identifier of the hierarchy group for the user.
---
--- 'tags', 'createUser_tags' - One or more tags.
+-- 'tags', 'createUser_tags' - The tags used to organize, track, or control access for this resource.
+-- For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.
 --
 -- 'username', 'createUser_username' - The user name for the account. For instances not using SAML for identity
 -- management, the user name can include up to 20 characters. If you are
@@ -165,9 +168,9 @@ newCreateUser
   pInstanceId_ =
     CreateUser'
       { directoryUserId = Prelude.Nothing,
+        hierarchyGroupId = Prelude.Nothing,
         identityInfo = Prelude.Nothing,
         password = Prelude.Nothing,
-        hierarchyGroupId = Prelude.Nothing,
         tags = Prelude.Nothing,
         username = pUsername_,
         phoneConfig = pPhoneConfig_,
@@ -191,6 +194,10 @@ newCreateUser
 createUser_directoryUserId :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
 createUser_directoryUserId = Lens.lens (\CreateUser' {directoryUserId} -> directoryUserId) (\s@CreateUser' {} a -> s {directoryUserId = a} :: CreateUser)
 
+-- | The identifier of the hierarchy group for the user.
+createUser_hierarchyGroupId :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
+createUser_hierarchyGroupId = Lens.lens (\CreateUser' {hierarchyGroupId} -> hierarchyGroupId) (\s@CreateUser' {} a -> s {hierarchyGroupId = a} :: CreateUser)
+
 -- | The information about the identity of the user.
 createUser_identityInfo :: Lens.Lens' CreateUser (Prelude.Maybe UserIdentityInfo)
 createUser_identityInfo = Lens.lens (\CreateUser' {identityInfo} -> identityInfo) (\s@CreateUser' {} a -> s {identityInfo = a} :: CreateUser)
@@ -201,11 +208,8 @@ createUser_identityInfo = Lens.lens (\CreateUser' {identityInfo} -> identityInfo
 createUser_password :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
 createUser_password = Lens.lens (\CreateUser' {password} -> password) (\s@CreateUser' {} a -> s {password = a} :: CreateUser)
 
--- | The identifier of the hierarchy group for the user.
-createUser_hierarchyGroupId :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
-createUser_hierarchyGroupId = Lens.lens (\CreateUser' {hierarchyGroupId} -> hierarchyGroupId) (\s@CreateUser' {} a -> s {hierarchyGroupId = a} :: CreateUser)
-
--- | One or more tags.
+-- | The tags used to organize, track, or control access for this resource.
+-- For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.
 createUser_tags :: Lens.Lens' CreateUser (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createUser_tags = Lens.lens (\CreateUser' {tags} -> tags) (\s@CreateUser' {} a -> s {tags = a} :: CreateUser) Prelude.. Lens.mapping Lens.coerced
 
@@ -235,22 +239,23 @@ createUser_instanceId = Lens.lens (\CreateUser' {instanceId} -> instanceId) (\s@
 
 instance Core.AWSRequest CreateUser where
   type AWSResponse CreateUser = CreateUserResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateUserResponse'
-            Prelude.<$> (x Core..?> "UserId")
-            Prelude.<*> (x Core..?> "UserArn")
+            Prelude.<$> (x Data..?> "UserArn")
+            Prelude.<*> (x Data..?> "UserId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateUser where
   hashWithSalt _salt CreateUser' {..} =
     _salt `Prelude.hashWithSalt` directoryUserId
+      `Prelude.hashWithSalt` hierarchyGroupId
       `Prelude.hashWithSalt` identityInfo
       `Prelude.hashWithSalt` password
-      `Prelude.hashWithSalt` hierarchyGroupId
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` username
       `Prelude.hashWithSalt` phoneConfig
@@ -261,9 +266,9 @@ instance Prelude.Hashable CreateUser where
 instance Prelude.NFData CreateUser where
   rnf CreateUser' {..} =
     Prelude.rnf directoryUserId
+      `Prelude.seq` Prelude.rnf hierarchyGroupId
       `Prelude.seq` Prelude.rnf identityInfo
       `Prelude.seq` Prelude.rnf password
-      `Prelude.seq` Prelude.rnf hierarchyGroupId
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf username
       `Prelude.seq` Prelude.rnf phoneConfig
@@ -271,50 +276,50 @@ instance Prelude.NFData CreateUser where
       `Prelude.seq` Prelude.rnf routingProfileId
       `Prelude.seq` Prelude.rnf instanceId
 
-instance Core.ToHeaders CreateUser where
+instance Data.ToHeaders CreateUser where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateUser where
+instance Data.ToJSON CreateUser where
   toJSON CreateUser' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DirectoryUserId" Core..=)
+          [ ("DirectoryUserId" Data..=)
               Prelude.<$> directoryUserId,
-            ("IdentityInfo" Core..=) Prelude.<$> identityInfo,
-            ("Password" Core..=) Prelude.<$> password,
-            ("HierarchyGroupId" Core..=)
+            ("HierarchyGroupId" Data..=)
               Prelude.<$> hierarchyGroupId,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Username" Core..= username),
-            Prelude.Just ("PhoneConfig" Core..= phoneConfig),
+            ("IdentityInfo" Data..=) Prelude.<$> identityInfo,
+            ("Password" Data..=) Prelude.<$> password,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Username" Data..= username),
+            Prelude.Just ("PhoneConfig" Data..= phoneConfig),
             Prelude.Just
-              ("SecurityProfileIds" Core..= securityProfileIds),
+              ("SecurityProfileIds" Data..= securityProfileIds),
             Prelude.Just
-              ("RoutingProfileId" Core..= routingProfileId)
+              ("RoutingProfileId" Data..= routingProfileId)
           ]
       )
 
-instance Core.ToPath CreateUser where
+instance Data.ToPath CreateUser where
   toPath CreateUser' {..} =
-    Prelude.mconcat ["/users/", Core.toBS instanceId]
+    Prelude.mconcat ["/users/", Data.toBS instanceId]
 
-instance Core.ToQuery CreateUser where
+instance Data.ToQuery CreateUser where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateUserResponse' smart constructor.
 data CreateUserResponse = CreateUserResponse'
-  { -- | The identifier of the user account.
-    userId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the user account.
+  { -- | The Amazon Resource Name (ARN) of the user account.
     userArn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the user account.
+    userId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -328,9 +333,9 @@ data CreateUserResponse = CreateUserResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'userId', 'createUserResponse_userId' - The identifier of the user account.
---
 -- 'userArn', 'createUserResponse_userArn' - The Amazon Resource Name (ARN) of the user account.
+--
+-- 'userId', 'createUserResponse_userId' - The identifier of the user account.
 --
 -- 'httpStatus', 'createUserResponse_httpStatus' - The response's http status code.
 newCreateUserResponse ::
@@ -339,18 +344,18 @@ newCreateUserResponse ::
   CreateUserResponse
 newCreateUserResponse pHttpStatus_ =
   CreateUserResponse'
-    { userId = Prelude.Nothing,
-      userArn = Prelude.Nothing,
+    { userArn = Prelude.Nothing,
+      userId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The identifier of the user account.
-createUserResponse_userId :: Lens.Lens' CreateUserResponse (Prelude.Maybe Prelude.Text)
-createUserResponse_userId = Lens.lens (\CreateUserResponse' {userId} -> userId) (\s@CreateUserResponse' {} a -> s {userId = a} :: CreateUserResponse)
 
 -- | The Amazon Resource Name (ARN) of the user account.
 createUserResponse_userArn :: Lens.Lens' CreateUserResponse (Prelude.Maybe Prelude.Text)
 createUserResponse_userArn = Lens.lens (\CreateUserResponse' {userArn} -> userArn) (\s@CreateUserResponse' {} a -> s {userArn = a} :: CreateUserResponse)
+
+-- | The identifier of the user account.
+createUserResponse_userId :: Lens.Lens' CreateUserResponse (Prelude.Maybe Prelude.Text)
+createUserResponse_userId = Lens.lens (\CreateUserResponse' {userId} -> userId) (\s@CreateUserResponse' {} a -> s {userId = a} :: CreateUserResponse)
 
 -- | The response's http status code.
 createUserResponse_httpStatus :: Lens.Lens' CreateUserResponse Prelude.Int
@@ -358,6 +363,6 @@ createUserResponse_httpStatus = Lens.lens (\CreateUserResponse' {httpStatus} -> 
 
 instance Prelude.NFData CreateUserResponse where
   rnf CreateUserResponse' {..} =
-    Prelude.rnf userId
-      `Prelude.seq` Prelude.rnf userArn
+    Prelude.rnf userArn
+      `Prelude.seq` Prelude.rnf userId
       `Prelude.seq` Prelude.rnf httpStatus

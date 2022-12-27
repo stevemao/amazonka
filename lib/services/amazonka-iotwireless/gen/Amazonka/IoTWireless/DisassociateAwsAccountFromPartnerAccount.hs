@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.DisassociateAwsAccountFromPartnerAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.IoTWireless.DisassociateAwsAccountFromPartnerAccount
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,7 +100,8 @@ instance
     AWSResponse
       DisassociateAwsAccountFromPartnerAccount =
       DisassociateAwsAccountFromPartnerAccountResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -126,25 +128,25 @@ instance
       `Prelude.seq` Prelude.rnf partnerType
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DisassociateAwsAccountFromPartnerAccount
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     DisassociateAwsAccountFromPartnerAccount
   where
   toPath DisassociateAwsAccountFromPartnerAccount' {..} =
     Prelude.mconcat
-      ["/partner-accounts/", Core.toBS partnerAccountId]
+      ["/partner-accounts/", Data.toBS partnerAccountId]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DisassociateAwsAccountFromPartnerAccount
   where
   toQuery DisassociateAwsAccountFromPartnerAccount' {..} =
-    Prelude.mconcat ["partnerType" Core.=: partnerType]
+    Prelude.mconcat ["partnerType" Data.=: partnerType]
 
 -- | /See:/ 'newDisassociateAwsAccountFromPartnerAccountResponse' smart constructor.
 data DisassociateAwsAccountFromPartnerAccountResponse = DisassociateAwsAccountFromPartnerAccountResponse'

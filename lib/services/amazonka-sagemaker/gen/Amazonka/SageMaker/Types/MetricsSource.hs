@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.MetricsSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,19 @@
 module Amazonka.SageMaker.Types.MetricsSource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- |
+-- | Details about the metrics source.
 --
 -- /See:/ 'newMetricsSource' smart constructor.
 data MetricsSource = MetricsSource'
-  { contentDigest :: Prelude.Maybe Prelude.Text,
+  { -- | The hash key used for the metrics source.
+    contentDigest :: Prelude.Maybe Prelude.Text,
+    -- | The metric source content type.
     contentType :: Prelude.Text,
+    -- | The S3 URI for the metrics source.
     s3Uri :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -41,11 +45,11 @@ data MetricsSource = MetricsSource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'contentDigest', 'metricsSource_contentDigest' -
+-- 'contentDigest', 'metricsSource_contentDigest' - The hash key used for the metrics source.
 --
--- 'contentType', 'metricsSource_contentType' -
+-- 'contentType', 'metricsSource_contentType' - The metric source content type.
 --
--- 's3Uri', 'metricsSource_s3Uri' -
+-- 's3Uri', 'metricsSource_s3Uri' - The S3 URI for the metrics source.
 newMetricsSource ::
   -- | 'contentType'
   Prelude.Text ->
@@ -59,27 +63,27 @@ newMetricsSource pContentType_ pS3Uri_ =
       s3Uri = pS3Uri_
     }
 
--- |
+-- | The hash key used for the metrics source.
 metricsSource_contentDigest :: Lens.Lens' MetricsSource (Prelude.Maybe Prelude.Text)
 metricsSource_contentDigest = Lens.lens (\MetricsSource' {contentDigest} -> contentDigest) (\s@MetricsSource' {} a -> s {contentDigest = a} :: MetricsSource)
 
--- |
+-- | The metric source content type.
 metricsSource_contentType :: Lens.Lens' MetricsSource Prelude.Text
 metricsSource_contentType = Lens.lens (\MetricsSource' {contentType} -> contentType) (\s@MetricsSource' {} a -> s {contentType = a} :: MetricsSource)
 
--- |
+-- | The S3 URI for the metrics source.
 metricsSource_s3Uri :: Lens.Lens' MetricsSource Prelude.Text
 metricsSource_s3Uri = Lens.lens (\MetricsSource' {s3Uri} -> s3Uri) (\s@MetricsSource' {} a -> s {s3Uri = a} :: MetricsSource)
 
-instance Core.FromJSON MetricsSource where
+instance Data.FromJSON MetricsSource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MetricsSource"
       ( \x ->
           MetricsSource'
-            Prelude.<$> (x Core..:? "ContentDigest")
-            Prelude.<*> (x Core..: "ContentType")
-            Prelude.<*> (x Core..: "S3Uri")
+            Prelude.<$> (x Data..:? "ContentDigest")
+            Prelude.<*> (x Data..: "ContentType")
+            Prelude.<*> (x Data..: "S3Uri")
       )
 
 instance Prelude.Hashable MetricsSource where
@@ -94,12 +98,12 @@ instance Prelude.NFData MetricsSource where
       `Prelude.seq` Prelude.rnf contentType
       `Prelude.seq` Prelude.rnf s3Uri
 
-instance Core.ToJSON MetricsSource where
+instance Data.ToJSON MetricsSource where
   toJSON MetricsSource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ContentDigest" Core..=) Prelude.<$> contentDigest,
-            Prelude.Just ("ContentType" Core..= contentType),
-            Prelude.Just ("S3Uri" Core..= s3Uri)
+          [ ("ContentDigest" Data..=) Prelude.<$> contentDigest,
+            Prelude.Just ("ContentType" Data..= contentType),
+            Prelude.Just ("S3Uri" Data..= s3Uri)
           ]
       )

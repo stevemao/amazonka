@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.ListStackInstancesForProvisionedProduct
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,8 +22,8 @@
 --
 -- Returns summary information about stack instances that are associated
 -- with the specified @CFN_STACKSET@ type provisioned product. You can
--- filter for stack instances that are associated with a specific AWS
--- account name or region.
+-- filter for stack instances that are associated with a specific Amazon
+-- Web Services account name or Region.
 module Amazonka.ServiceCatalog.ListStackInstancesForProvisionedProduct
   ( -- * Creating a Request
     ListStackInstancesForProvisionedProduct (..),
@@ -31,8 +31,8 @@ module Amazonka.ServiceCatalog.ListStackInstancesForProvisionedProduct
 
     -- * Request Lenses
     listStackInstancesForProvisionedProduct_acceptLanguage,
-    listStackInstancesForProvisionedProduct_pageToken,
     listStackInstancesForProvisionedProduct_pageSize,
+    listStackInstancesForProvisionedProduct_pageToken,
     listStackInstancesForProvisionedProduct_provisionedProductId,
 
     -- * Destructuring the Response
@@ -47,7 +47,8 @@ module Amazonka.ServiceCatalog.ListStackInstancesForProvisionedProduct
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -63,11 +64,11 @@ data ListStackInstancesForProvisionedProduct = ListStackInstancesForProvisionedP
     --
     -- -   @zh@ - Chinese
     acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return with this call.
+    pageSize :: Prelude.Maybe Prelude.Natural,
     -- | The page token for the next set of results. To retrieve the first set of
     -- results, use null.
     pageToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return with this call.
-    pageSize :: Prelude.Maybe Prelude.Natural,
     -- | The identifier of the provisioned product.
     provisionedProductId :: Prelude.Text
   }
@@ -89,10 +90,10 @@ data ListStackInstancesForProvisionedProduct = ListStackInstancesForProvisionedP
 --
 -- -   @zh@ - Chinese
 --
+-- 'pageSize', 'listStackInstancesForProvisionedProduct_pageSize' - The maximum number of items to return with this call.
+--
 -- 'pageToken', 'listStackInstancesForProvisionedProduct_pageToken' - The page token for the next set of results. To retrieve the first set of
 -- results, use null.
---
--- 'pageSize', 'listStackInstancesForProvisionedProduct_pageSize' - The maximum number of items to return with this call.
 --
 -- 'provisionedProductId', 'listStackInstancesForProvisionedProduct_provisionedProductId' - The identifier of the provisioned product.
 newListStackInstancesForProvisionedProduct ::
@@ -104,8 +105,8 @@ newListStackInstancesForProvisionedProduct
     ListStackInstancesForProvisionedProduct'
       { acceptLanguage =
           Prelude.Nothing,
-        pageToken = Prelude.Nothing,
         pageSize = Prelude.Nothing,
+        pageToken = Prelude.Nothing,
         provisionedProductId =
           pProvisionedProductId_
       }
@@ -120,14 +121,14 @@ newListStackInstancesForProvisionedProduct
 listStackInstancesForProvisionedProduct_acceptLanguage :: Lens.Lens' ListStackInstancesForProvisionedProduct (Prelude.Maybe Prelude.Text)
 listStackInstancesForProvisionedProduct_acceptLanguage = Lens.lens (\ListStackInstancesForProvisionedProduct' {acceptLanguage} -> acceptLanguage) (\s@ListStackInstancesForProvisionedProduct' {} a -> s {acceptLanguage = a} :: ListStackInstancesForProvisionedProduct)
 
+-- | The maximum number of items to return with this call.
+listStackInstancesForProvisionedProduct_pageSize :: Lens.Lens' ListStackInstancesForProvisionedProduct (Prelude.Maybe Prelude.Natural)
+listStackInstancesForProvisionedProduct_pageSize = Lens.lens (\ListStackInstancesForProvisionedProduct' {pageSize} -> pageSize) (\s@ListStackInstancesForProvisionedProduct' {} a -> s {pageSize = a} :: ListStackInstancesForProvisionedProduct)
+
 -- | The page token for the next set of results. To retrieve the first set of
 -- results, use null.
 listStackInstancesForProvisionedProduct_pageToken :: Lens.Lens' ListStackInstancesForProvisionedProduct (Prelude.Maybe Prelude.Text)
 listStackInstancesForProvisionedProduct_pageToken = Lens.lens (\ListStackInstancesForProvisionedProduct' {pageToken} -> pageToken) (\s@ListStackInstancesForProvisionedProduct' {} a -> s {pageToken = a} :: ListStackInstancesForProvisionedProduct)
-
--- | The maximum number of items to return with this call.
-listStackInstancesForProvisionedProduct_pageSize :: Lens.Lens' ListStackInstancesForProvisionedProduct (Prelude.Maybe Prelude.Natural)
-listStackInstancesForProvisionedProduct_pageSize = Lens.lens (\ListStackInstancesForProvisionedProduct' {pageSize} -> pageSize) (\s@ListStackInstancesForProvisionedProduct' {} a -> s {pageSize = a} :: ListStackInstancesForProvisionedProduct)
 
 -- | The identifier of the provisioned product.
 listStackInstancesForProvisionedProduct_provisionedProductId :: Lens.Lens' ListStackInstancesForProvisionedProduct Prelude.Text
@@ -141,13 +142,14 @@ instance
     AWSResponse
       ListStackInstancesForProvisionedProduct =
       ListStackInstancesForProvisionedProductResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListStackInstancesForProvisionedProductResponse'
-            Prelude.<$> (x Core..?> "NextPageToken")
-              Prelude.<*> (x Core..?> "StackInstances" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextPageToken")
+              Prelude.<*> (x Data..?> "StackInstances" Core..!@ Prelude.mempty)
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -159,8 +161,8 @@ instance
     _salt
     ListStackInstancesForProvisionedProduct' {..} =
       _salt `Prelude.hashWithSalt` acceptLanguage
-        `Prelude.hashWithSalt` pageToken
         `Prelude.hashWithSalt` pageSize
+        `Prelude.hashWithSalt` pageToken
         `Prelude.hashWithSalt` provisionedProductId
 
 instance
@@ -169,54 +171,54 @@ instance
   where
   rnf ListStackInstancesForProvisionedProduct' {..} =
     Prelude.rnf acceptLanguage
-      `Prelude.seq` Prelude.rnf pageToken
       `Prelude.seq` Prelude.rnf pageSize
+      `Prelude.seq` Prelude.rnf pageToken
       `Prelude.seq` Prelude.rnf provisionedProductId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListStackInstancesForProvisionedProduct
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.ListStackInstancesForProvisionedProduct" ::
+              Data.=# ( "AWS242ServiceCatalogService.ListStackInstancesForProvisionedProduct" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ListStackInstancesForProvisionedProduct
   where
   toJSON ListStackInstancesForProvisionedProduct' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            ("PageToken" Core..=) Prelude.<$> pageToken,
-            ("PageSize" Core..=) Prelude.<$> pageSize,
+            ("PageSize" Data..=) Prelude.<$> pageSize,
+            ("PageToken" Data..=) Prelude.<$> pageToken,
             Prelude.Just
               ( "ProvisionedProductId"
-                  Core..= provisionedProductId
+                  Data..= provisionedProductId
               )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     ListStackInstancesForProvisionedProduct
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ListStackInstancesForProvisionedProduct
   where
   toQuery = Prelude.const Prelude.mempty

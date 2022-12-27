@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.PutResourcePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.CodeBuild.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,12 +108,13 @@ instance Core.AWSRequest PutResourcePolicy where
   type
     AWSResponse PutResourcePolicy =
       PutResourcePolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutResourcePolicyResponse'
-            Prelude.<$> (x Core..?> "resourceArn")
+            Prelude.<$> (x Data..?> "resourceArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -126,34 +128,34 @@ instance Prelude.NFData PutResourcePolicy where
     Prelude.rnf policy
       `Prelude.seq` Prelude.rnf resourceArn
 
-instance Core.ToHeaders PutResourcePolicy where
+instance Data.ToHeaders PutResourcePolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeBuild_20161006.PutResourcePolicy" ::
+              Data.=# ( "CodeBuild_20161006.PutResourcePolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutResourcePolicy where
+instance Data.ToJSON PutResourcePolicy where
   toJSON PutResourcePolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("policy" Core..= policy),
-            Prelude.Just ("resourceArn" Core..= resourceArn)
+          [ Prelude.Just ("policy" Data..= policy),
+            Prelude.Just ("resourceArn" Data..= resourceArn)
           ]
       )
 
-instance Core.ToPath PutResourcePolicy where
+instance Data.ToPath PutResourcePolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutResourcePolicy where
+instance Data.ToQuery PutResourcePolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutResourcePolicyResponse' smart constructor.

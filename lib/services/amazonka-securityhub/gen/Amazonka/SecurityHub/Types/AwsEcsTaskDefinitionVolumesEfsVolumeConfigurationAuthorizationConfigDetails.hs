@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.SecurityHub.Types.AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- |
 --
 -- /See:/ 'newAwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails' smart constructor.
 data AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails = AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails'
-  { -- | Whether to use the Amazon ECS task IAM role defined in a task definition
+  { -- | The Amazon EFS access point identifier to use.
+    accessPointId :: Prelude.Maybe Prelude.Text,
+    -- | Whether to use the Amazon ECS task IAM role defined in a task definition
     -- when mounting the Amazon EFS file system.
-    iam :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon EFS access point identifier to use.
-    accessPointId :: Prelude.Maybe Prelude.Text
+    iam :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,40 +44,40 @@ data AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'accessPointId', 'awsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails_accessPointId' - The Amazon EFS access point identifier to use.
+--
 -- 'iam', 'awsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails_iam' - Whether to use the Amazon ECS task IAM role defined in a task definition
 -- when mounting the Amazon EFS file system.
---
--- 'accessPointId', 'awsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails_accessPointId' - The Amazon EFS access point identifier to use.
 newAwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails ::
   AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails
 newAwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails =
   AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails'
-    { iam =
+    { accessPointId =
         Prelude.Nothing,
-      accessPointId =
+      iam =
         Prelude.Nothing
     }
+
+-- | The Amazon EFS access point identifier to use.
+awsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails_accessPointId :: Lens.Lens' AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails (Prelude.Maybe Prelude.Text)
+awsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails_accessPointId = Lens.lens (\AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails' {accessPointId} -> accessPointId) (\s@AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails' {} a -> s {accessPointId = a} :: AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails)
 
 -- | Whether to use the Amazon ECS task IAM role defined in a task definition
 -- when mounting the Amazon EFS file system.
 awsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails_iam :: Lens.Lens' AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails (Prelude.Maybe Prelude.Text)
 awsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails_iam = Lens.lens (\AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails' {iam} -> iam) (\s@AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails' {} a -> s {iam = a} :: AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails)
 
--- | The Amazon EFS access point identifier to use.
-awsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails_accessPointId :: Lens.Lens' AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails (Prelude.Maybe Prelude.Text)
-awsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails_accessPointId = Lens.lens (\AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails' {accessPointId} -> accessPointId) (\s@AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails' {} a -> s {accessPointId = a} :: AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails)
-
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails"
       ( \x ->
           AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails'
-            Prelude.<$> (x Core..:? "Iam")
-              Prelude.<*> (x Core..:? "AccessPointId")
+            Prelude.<$> (x Data..:? "AccessPointId")
+              Prelude.<*> (x Data..:? "Iam")
       )
 
 instance
@@ -86,8 +87,8 @@ instance
   hashWithSalt
     _salt
     AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails' {..} =
-      _salt `Prelude.hashWithSalt` iam
-        `Prelude.hashWithSalt` accessPointId
+      _salt `Prelude.hashWithSalt` accessPointId
+        `Prelude.hashWithSalt` iam
 
 instance
   Prelude.NFData
@@ -95,18 +96,18 @@ instance
   where
   rnf
     AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails' {..} =
-      Prelude.rnf iam
-        `Prelude.seq` Prelude.rnf accessPointId
+      Prelude.rnf accessPointId
+        `Prelude.seq` Prelude.rnf iam
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails
   where
   toJSON
     AwsEcsTaskDefinitionVolumesEfsVolumeConfigurationAuthorizationConfigDetails' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("Iam" Core..=) Prelude.<$> iam,
-              ("AccessPointId" Core..=) Prelude.<$> accessPointId
+            [ ("AccessPointId" Data..=) Prelude.<$> accessPointId,
+              ("Iam" Data..=) Prelude.<$> iam
             ]
         )

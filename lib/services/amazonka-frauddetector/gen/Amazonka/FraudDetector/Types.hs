@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,13 +18,13 @@ module Amazonka.FraudDetector.Types
     defaultService,
 
     -- * Errors
-    _ValidationException,
     _AccessDeniedException,
-    _ResourceUnavailableException,
     _ConflictException,
-    _ThrottlingException,
     _InternalServerException,
     _ResourceNotFoundException,
+    _ResourceUnavailableException,
+    _ThrottlingException,
+    _ValidationException,
 
     -- * AsyncJobStatus
     AsyncJobStatus (..),
@@ -70,55 +71,92 @@ module Amazonka.FraudDetector.Types
     -- * UnlabeledEventsTreatment
     UnlabeledEventsTreatment (..),
 
+    -- * ATIMetricDataPoint
+    ATIMetricDataPoint (..),
+    newATIMetricDataPoint,
+    aTIMetricDataPoint_adr,
+    aTIMetricDataPoint_atodr,
+    aTIMetricDataPoint_cr,
+    aTIMetricDataPoint_threshold,
+
+    -- * ATIModelPerformance
+    ATIModelPerformance (..),
+    newATIModelPerformance,
+    aTIModelPerformance_asi,
+
+    -- * ATITrainingMetricsValue
+    ATITrainingMetricsValue (..),
+    newATITrainingMetricsValue,
+    aTITrainingMetricsValue_metricDataPoints,
+    aTITrainingMetricsValue_modelPerformance,
+
+    -- * AggregatedLogOddsMetric
+    AggregatedLogOddsMetric (..),
+    newAggregatedLogOddsMetric,
+    aggregatedLogOddsMetric_variableNames,
+    aggregatedLogOddsMetric_aggregatedVariablesImportance,
+
+    -- * AggregatedVariablesImpactExplanation
+    AggregatedVariablesImpactExplanation (..),
+    newAggregatedVariablesImpactExplanation,
+    aggregatedVariablesImpactExplanation_eventVariableNames,
+    aggregatedVariablesImpactExplanation_logOddsImpact,
+    aggregatedVariablesImpactExplanation_relativeImpact,
+
+    -- * AggregatedVariablesImportanceMetrics
+    AggregatedVariablesImportanceMetrics (..),
+    newAggregatedVariablesImportanceMetrics,
+    aggregatedVariablesImportanceMetrics_logOddsMetrics,
+
     -- * BatchCreateVariableError
     BatchCreateVariableError (..),
     newBatchCreateVariableError,
-    batchCreateVariableError_name,
     batchCreateVariableError_code,
     batchCreateVariableError_message,
+    batchCreateVariableError_name,
 
     -- * BatchGetVariableError
     BatchGetVariableError (..),
     newBatchGetVariableError,
-    batchGetVariableError_name,
     batchGetVariableError_code,
     batchGetVariableError_message,
+    batchGetVariableError_name,
 
     -- * BatchImport
     BatchImport (..),
     newBatchImport,
+    batchImport_arn,
+    batchImport_completionTime,
+    batchImport_eventTypeName,
+    batchImport_failedRecordsCount,
     batchImport_failureReason,
     batchImport_iamRoleArn,
-    batchImport_status,
-    batchImport_processedRecordsCount,
-    batchImport_totalRecordsCount,
-    batchImport_jobId,
-    batchImport_arn,
-    batchImport_startTime,
-    batchImport_eventTypeName,
-    batchImport_completionTime,
-    batchImport_outputPath,
     batchImport_inputPath,
-    batchImport_failedRecordsCount,
+    batchImport_jobId,
+    batchImport_outputPath,
+    batchImport_processedRecordsCount,
+    batchImport_startTime,
+    batchImport_status,
+    batchImport_totalRecordsCount,
 
     -- * BatchPrediction
     BatchPrediction (..),
     newBatchPrediction,
-    batchPrediction_failureReason,
-    batchPrediction_iamRoleArn,
-    batchPrediction_status,
-    batchPrediction_processedRecordsCount,
-    batchPrediction_totalRecordsCount,
-    batchPrediction_lastHeartbeatTime,
-    batchPrediction_jobId,
     batchPrediction_arn,
-    batchPrediction_startTime,
-    batchPrediction_eventTypeName,
     batchPrediction_completionTime,
-    batchPrediction_outputPath,
     batchPrediction_detectorName,
     batchPrediction_detectorVersion,
+    batchPrediction_eventTypeName,
+    batchPrediction_failureReason,
+    batchPrediction_iamRoleArn,
     batchPrediction_inputPath,
+    batchPrediction_jobId,
+    batchPrediction_lastHeartbeatTime,
+    batchPrediction_outputPath,
+    batchPrediction_processedRecordsCount,
+    batchPrediction_startTime,
+    batchPrediction_status,
+    batchPrediction_totalRecordsCount,
 
     -- * DataValidationMetrics
     DataValidationMetrics (..),
@@ -129,20 +167,20 @@ module Amazonka.FraudDetector.Types
     -- * Detector
     Detector (..),
     newDetector,
-    detector_lastUpdatedTime,
     detector_arn,
     detector_createdTime,
-    detector_eventTypeName,
-    detector_detectorId,
     detector_description,
+    detector_detectorId,
+    detector_eventTypeName,
+    detector_lastUpdatedTime,
 
     -- * DetectorVersionSummary
     DetectorVersionSummary (..),
     newDetectorVersionSummary,
-    detectorVersionSummary_status,
-    detectorVersionSummary_lastUpdatedTime,
-    detectorVersionSummary_detectorVersionId,
     detectorVersionSummary_description,
+    detectorVersionSummary_detectorVersionId,
+    detectorVersionSummary_lastUpdatedTime,
+    detectorVersionSummary_status,
 
     -- * Entity
     Entity (..),
@@ -153,36 +191,80 @@ module Amazonka.FraudDetector.Types
     -- * EntityType
     EntityType (..),
     newEntityType,
-    entityType_lastUpdatedTime,
     entityType_arn,
     entityType_createdTime,
-    entityType_name,
     entityType_description,
+    entityType_lastUpdatedTime,
+    entityType_name,
+
+    -- * EvaluatedExternalModel
+    EvaluatedExternalModel (..),
+    newEvaluatedExternalModel,
+    evaluatedExternalModel_inputVariables,
+    evaluatedExternalModel_modelEndpoint,
+    evaluatedExternalModel_outputVariables,
+    evaluatedExternalModel_useEventVariables,
+
+    -- * EvaluatedModelVersion
+    EvaluatedModelVersion (..),
+    newEvaluatedModelVersion,
+    evaluatedModelVersion_evaluations,
+    evaluatedModelVersion_modelId,
+    evaluatedModelVersion_modelType,
+    evaluatedModelVersion_modelVersion,
+
+    -- * EvaluatedRule
+    EvaluatedRule (..),
+    newEvaluatedRule,
+    evaluatedRule_evaluated,
+    evaluatedRule_expression,
+    evaluatedRule_expressionWithValues,
+    evaluatedRule_matched,
+    evaluatedRule_outcomes,
+    evaluatedRule_ruleId,
+    evaluatedRule_ruleVersion,
 
     -- * Event
     Event (..),
     newEvent,
-    event_eventTimestamp,
+    event_currentLabel,
     event_entities,
-    event_labelTimestamp,
+    event_eventId,
+    event_eventTimestamp,
     event_eventTypeName,
     event_eventVariables,
-    event_currentLabel,
-    event_eventId,
+    event_labelTimestamp,
+
+    -- * EventPredictionSummary
+    EventPredictionSummary (..),
+    newEventPredictionSummary,
+    eventPredictionSummary_detectorId,
+    eventPredictionSummary_detectorVersionId,
+    eventPredictionSummary_eventId,
+    eventPredictionSummary_eventTimestamp,
+    eventPredictionSummary_eventTypeName,
+    eventPredictionSummary_predictionTimestamp,
 
     -- * EventType
     EventType (..),
     newEventType,
-    eventType_lastUpdatedTime,
     eventType_arn,
     eventType_createdTime,
+    eventType_description,
     eventType_entityTypes,
+    eventType_eventIngestion,
     eventType_eventVariables,
-    eventType_name,
     eventType_ingestedEventStatistics,
     eventType_labels,
-    eventType_eventIngestion,
-    eventType_description,
+    eventType_lastUpdatedTime,
+    eventType_name,
+
+    -- * EventVariableSummary
+    EventVariableSummary (..),
+    newEventVariableSummary,
+    eventVariableSummary_name,
+    eventVariableSummary_source,
+    eventVariableSummary_value,
 
     -- * ExternalEventsDetail
     ExternalEventsDetail (..),
@@ -193,15 +275,15 @@ module Amazonka.FraudDetector.Types
     -- * ExternalModel
     ExternalModel (..),
     newExternalModel,
-    externalModel_modelEndpoint,
-    externalModel_modelSource,
-    externalModel_lastUpdatedTime,
     externalModel_arn,
     externalModel_createdTime,
-    externalModel_modelEndpointStatus,
-    externalModel_outputConfiguration,
-    externalModel_invokeModelEndpointRoleArn,
     externalModel_inputConfiguration,
+    externalModel_invokeModelEndpointRoleArn,
+    externalModel_lastUpdatedTime,
+    externalModel_modelEndpoint,
+    externalModel_modelEndpointStatus,
+    externalModel_modelSource,
+    externalModel_outputConfiguration,
 
     -- * ExternalModelOutputs
     ExternalModelOutputs (..),
@@ -218,9 +300,9 @@ module Amazonka.FraudDetector.Types
     -- * FieldValidationMessage
     FieldValidationMessage (..),
     newFieldValidationMessage,
-    fieldValidationMessage_identifier,
     fieldValidationMessage_content,
     fieldValidationMessage_fieldName,
+    fieldValidationMessage_identifier,
     fieldValidationMessage_title,
     fieldValidationMessage_type,
 
@@ -231,14 +313,19 @@ module Amazonka.FraudDetector.Types
     fileValidationMessage_title,
     fileValidationMessage_type,
 
+    -- * FilterCondition
+    FilterCondition (..),
+    newFilterCondition,
+    filterCondition_value,
+
     -- * IngestedEventStatistics
     IngestedEventStatistics (..),
     newIngestedEventStatistics,
     ingestedEventStatistics_eventDataSizeInBytes,
-    ingestedEventStatistics_mostRecentEvent,
     ingestedEventStatistics_lastUpdatedTime,
-    ingestedEventStatistics_numberOfEvents,
     ingestedEventStatistics_leastRecentEvent,
+    ingestedEventStatistics_mostRecentEvent,
+    ingestedEventStatistics_numberOfEvents,
 
     -- * IngestedEventsDetail
     IngestedEventsDetail (..),
@@ -259,17 +346,17 @@ module Amazonka.FraudDetector.Types
     -- * Label
     Label (..),
     newLabel,
-    label_lastUpdatedTime,
     label_arn,
     label_createdTime,
-    label_name,
     label_description,
+    label_lastUpdatedTime,
+    label_name,
 
     -- * LabelSchema
     LabelSchema (..),
     newLabelSchema,
-    labelSchema_unlabeledEventsTreatment,
     labelSchema_labelMapper,
+    labelSchema_unlabeledEventsTreatment,
 
     -- * LogOddsMetric
     LogOddsMetric (..),
@@ -281,21 +368,21 @@ module Amazonka.FraudDetector.Types
     -- * MetricDataPoint
     MetricDataPoint (..),
     newMetricDataPoint,
-    metricDataPoint_precision,
     metricDataPoint_fpr,
+    metricDataPoint_precision,
     metricDataPoint_threshold,
     metricDataPoint_tpr,
 
     -- * Model
     Model (..),
     newModel,
-    model_modelType,
-    model_lastUpdatedTime,
-    model_modelId,
     model_arn,
     model_createdTime,
-    model_eventTypeName,
     model_description,
+    model_eventTypeName,
+    model_lastUpdatedTime,
+    model_modelId,
+    model_modelType,
 
     -- * ModelEndpointDataBlob
     ModelEndpointDataBlob (..),
@@ -306,17 +393,17 @@ module Amazonka.FraudDetector.Types
     -- * ModelInputConfiguration
     ModelInputConfiguration (..),
     newModelInputConfiguration,
-    modelInputConfiguration_format,
-    modelInputConfiguration_eventTypeName,
     modelInputConfiguration_csvInputTemplate,
+    modelInputConfiguration_eventTypeName,
+    modelInputConfiguration_format,
     modelInputConfiguration_jsonInputTemplate,
     modelInputConfiguration_useEventVariables,
 
     -- * ModelOutputConfiguration
     ModelOutputConfiguration (..),
     newModelOutputConfiguration,
-    modelOutputConfiguration_jsonKeyToVariableMap,
     modelOutputConfiguration_csvIndexToVariableMap,
+    modelOutputConfiguration_jsonKeyToVariableMap,
     modelOutputConfiguration_format,
 
     -- * ModelScores
@@ -336,27 +423,66 @@ module Amazonka.FraudDetector.Types
     -- * ModelVersionDetail
     ModelVersionDetail (..),
     newModelVersionDetail,
-    modelVersionDetail_status,
-    modelVersionDetail_modelType,
-    modelVersionDetail_lastUpdatedTime,
-    modelVersionDetail_modelId,
     modelVersionDetail_arn,
-    modelVersionDetail_trainingDataSource,
     modelVersionDetail_createdTime,
     modelVersionDetail_externalEventsDetail,
     modelVersionDetail_ingestedEventsDetail,
+    modelVersionDetail_lastUpdatedTime,
+    modelVersionDetail_modelId,
+    modelVersionDetail_modelType,
     modelVersionDetail_modelVersionNumber,
-    modelVersionDetail_trainingResult,
+    modelVersionDetail_status,
     modelVersionDetail_trainingDataSchema,
+    modelVersionDetail_trainingDataSource,
+    modelVersionDetail_trainingResult,
+    modelVersionDetail_trainingResultV2,
+
+    -- * ModelVersionEvaluation
+    ModelVersionEvaluation (..),
+    newModelVersionEvaluation,
+    modelVersionEvaluation_evaluationScore,
+    modelVersionEvaluation_outputVariableName,
+    modelVersionEvaluation_predictionExplanations,
+
+    -- * OFIMetricDataPoint
+    OFIMetricDataPoint (..),
+    newOFIMetricDataPoint,
+    oFIMetricDataPoint_fpr,
+    oFIMetricDataPoint_precision,
+    oFIMetricDataPoint_threshold,
+    oFIMetricDataPoint_tpr,
+
+    -- * OFIModelPerformance
+    OFIModelPerformance (..),
+    newOFIModelPerformance,
+    oFIModelPerformance_auc,
+
+    -- * OFITrainingMetricsValue
+    OFITrainingMetricsValue (..),
+    newOFITrainingMetricsValue,
+    oFITrainingMetricsValue_metricDataPoints,
+    oFITrainingMetricsValue_modelPerformance,
 
     -- * Outcome
     Outcome (..),
     newOutcome,
-    outcome_lastUpdatedTime,
     outcome_arn,
     outcome_createdTime,
-    outcome_name,
     outcome_description,
+    outcome_lastUpdatedTime,
+    outcome_name,
+
+    -- * PredictionExplanations
+    PredictionExplanations (..),
+    newPredictionExplanations,
+    predictionExplanations_aggregatedVariablesImpactExplanations,
+    predictionExplanations_variableImpactExplanations,
+
+    -- * PredictionTimeRange
+    PredictionTimeRange (..),
+    newPredictionTimeRange,
+    predictionTimeRange_startTime,
+    predictionTimeRange_endTime,
 
     -- * Rule
     Rule (..),
@@ -368,22 +494,41 @@ module Amazonka.FraudDetector.Types
     -- * RuleDetail
     RuleDetail (..),
     newRuleDetail,
-    ruleDetail_ruleVersion,
-    ruleDetail_lastUpdatedTime,
     ruleDetail_arn,
     ruleDetail_createdTime,
-    ruleDetail_ruleId,
-    ruleDetail_outcomes,
+    ruleDetail_description,
     ruleDetail_detectorId,
     ruleDetail_expression,
     ruleDetail_language,
-    ruleDetail_description,
+    ruleDetail_lastUpdatedTime,
+    ruleDetail_outcomes,
+    ruleDetail_ruleId,
+    ruleDetail_ruleVersion,
 
     -- * RuleResult
     RuleResult (..),
     newRuleResult,
-    ruleResult_ruleId,
     ruleResult_outcomes,
+    ruleResult_ruleId,
+
+    -- * TFIMetricDataPoint
+    TFIMetricDataPoint (..),
+    newTFIMetricDataPoint,
+    tFIMetricDataPoint_fpr,
+    tFIMetricDataPoint_precision,
+    tFIMetricDataPoint_threshold,
+    tFIMetricDataPoint_tpr,
+
+    -- * TFIModelPerformance
+    TFIModelPerformance (..),
+    newTFIModelPerformance,
+    tFIModelPerformance_auc,
+
+    -- * TFITrainingMetricsValue
+    TFITrainingMetricsValue (..),
+    newTFITrainingMetricsValue,
+    tFITrainingMetricsValue_metricDataPoints,
+    tFITrainingMetricsValue_modelPerformance,
 
     -- * Tag
     Tag (..),
@@ -394,14 +539,21 @@ module Amazonka.FraudDetector.Types
     -- * TrainingDataSchema
     TrainingDataSchema (..),
     newTrainingDataSchema,
-    trainingDataSchema_modelVariables,
     trainingDataSchema_labelSchema,
+    trainingDataSchema_modelVariables,
 
     -- * TrainingMetrics
     TrainingMetrics (..),
     newTrainingMetrics,
     trainingMetrics_auc,
     trainingMetrics_metricDataPoints,
+
+    -- * TrainingMetricsV2
+    TrainingMetricsV2 (..),
+    newTrainingMetricsV2,
+    trainingMetricsV2_ati,
+    trainingMetricsV2_ofi,
+    trainingMetricsV2_tfi,
 
     -- * TrainingResult
     TrainingResult (..),
@@ -410,28 +562,43 @@ module Amazonka.FraudDetector.Types
     trainingResult_trainingMetrics,
     trainingResult_variableImportanceMetrics,
 
+    -- * TrainingResultV2
+    TrainingResultV2 (..),
+    newTrainingResultV2,
+    trainingResultV2_aggregatedVariablesImportanceMetrics,
+    trainingResultV2_dataValidationMetrics,
+    trainingResultV2_trainingMetricsV2,
+    trainingResultV2_variableImportanceMetrics,
+
     -- * Variable
     Variable (..),
     newVariable,
-    variable_lastUpdatedTime,
     variable_arn,
     variable_createdTime,
-    variable_name,
     variable_dataSource,
     variable_dataType,
     variable_defaultValue,
-    variable_variableType,
     variable_description,
+    variable_lastUpdatedTime,
+    variable_name,
+    variable_variableType,
 
     -- * VariableEntry
     VariableEntry (..),
     newVariableEntry,
-    variableEntry_name,
     variableEntry_dataSource,
     variableEntry_dataType,
     variableEntry_defaultValue,
-    variableEntry_variableType,
     variableEntry_description,
+    variableEntry_name,
+    variableEntry_variableType,
+
+    -- * VariableImpactExplanation
+    VariableImpactExplanation (..),
+    newVariableImpactExplanation,
+    variableImpactExplanation_eventVariableName,
+    variableImpactExplanation_logOddsImpact,
+    variableImpactExplanation_relativeImpact,
 
     -- * VariableImportanceMetrics
     VariableImportanceMetrics (..),
@@ -441,6 +608,13 @@ module Amazonka.FraudDetector.Types
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import Amazonka.FraudDetector.Types.ATIMetricDataPoint
+import Amazonka.FraudDetector.Types.ATIModelPerformance
+import Amazonka.FraudDetector.Types.ATITrainingMetricsValue
+import Amazonka.FraudDetector.Types.AggregatedLogOddsMetric
+import Amazonka.FraudDetector.Types.AggregatedVariablesImpactExplanation
+import Amazonka.FraudDetector.Types.AggregatedVariablesImportanceMetrics
 import Amazonka.FraudDetector.Types.AsyncJobStatus
 import Amazonka.FraudDetector.Types.BatchCreateVariableError
 import Amazonka.FraudDetector.Types.BatchGetVariableError
@@ -454,15 +628,21 @@ import Amazonka.FraudDetector.Types.DetectorVersionStatus
 import Amazonka.FraudDetector.Types.DetectorVersionSummary
 import Amazonka.FraudDetector.Types.Entity
 import Amazonka.FraudDetector.Types.EntityType
+import Amazonka.FraudDetector.Types.EvaluatedExternalModel
+import Amazonka.FraudDetector.Types.EvaluatedModelVersion
+import Amazonka.FraudDetector.Types.EvaluatedRule
 import Amazonka.FraudDetector.Types.Event
 import Amazonka.FraudDetector.Types.EventIngestion
+import Amazonka.FraudDetector.Types.EventPredictionSummary
 import Amazonka.FraudDetector.Types.EventType
+import Amazonka.FraudDetector.Types.EventVariableSummary
 import Amazonka.FraudDetector.Types.ExternalEventsDetail
 import Amazonka.FraudDetector.Types.ExternalModel
 import Amazonka.FraudDetector.Types.ExternalModelOutputs
 import Amazonka.FraudDetector.Types.ExternalModelSummary
 import Amazonka.FraudDetector.Types.FieldValidationMessage
 import Amazonka.FraudDetector.Types.FileValidationMessage
+import Amazonka.FraudDetector.Types.FilterCondition
 import Amazonka.FraudDetector.Types.IngestedEventStatistics
 import Amazonka.FraudDetector.Types.IngestedEventsDetail
 import Amazonka.FraudDetector.Types.IngestedEventsTimeWindow
@@ -484,22 +664,33 @@ import Amazonka.FraudDetector.Types.ModelSource
 import Amazonka.FraudDetector.Types.ModelTypeEnum
 import Amazonka.FraudDetector.Types.ModelVersion
 import Amazonka.FraudDetector.Types.ModelVersionDetail
+import Amazonka.FraudDetector.Types.ModelVersionEvaluation
 import Amazonka.FraudDetector.Types.ModelVersionStatus
+import Amazonka.FraudDetector.Types.OFIMetricDataPoint
+import Amazonka.FraudDetector.Types.OFIModelPerformance
+import Amazonka.FraudDetector.Types.OFITrainingMetricsValue
 import Amazonka.FraudDetector.Types.Outcome
+import Amazonka.FraudDetector.Types.PredictionExplanations
+import Amazonka.FraudDetector.Types.PredictionTimeRange
 import Amazonka.FraudDetector.Types.Rule
 import Amazonka.FraudDetector.Types.RuleDetail
 import Amazonka.FraudDetector.Types.RuleExecutionMode
 import Amazonka.FraudDetector.Types.RuleResult
+import Amazonka.FraudDetector.Types.TFIMetricDataPoint
+import Amazonka.FraudDetector.Types.TFIModelPerformance
+import Amazonka.FraudDetector.Types.TFITrainingMetricsValue
 import Amazonka.FraudDetector.Types.Tag
 import Amazonka.FraudDetector.Types.TrainingDataSchema
 import Amazonka.FraudDetector.Types.TrainingDataSourceEnum
 import Amazonka.FraudDetector.Types.TrainingMetrics
+import Amazonka.FraudDetector.Types.TrainingMetricsV2
 import Amazonka.FraudDetector.Types.TrainingResult
+import Amazonka.FraudDetector.Types.TrainingResultV2
 import Amazonka.FraudDetector.Types.UnlabeledEventsTreatment
 import Amazonka.FraudDetector.Types.Variable
 import Amazonka.FraudDetector.Types.VariableEntry
+import Amazonka.FraudDetector.Types.VariableImpactExplanation
 import Amazonka.FraudDetector.Types.VariableImportanceMetrics
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 
@@ -507,42 +698,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "FraudDetector",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "frauddetector",
-      Core._serviceSigningName = "frauddetector",
-      Core._serviceVersion = "2019-11-15",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
-        Core.parseJSONError "FraudDetector",
-      Core._serviceRetry = retry
+    { Core.abbrev = "FraudDetector",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "frauddetector",
+      Core.signingName = "frauddetector",
+      Core.version = "2019-11-15",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "FraudDetector",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -550,36 +748,21 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
-
--- | An exception indicating a specified value is not allowed.
-_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ValidationException =
-  Core._MatchServiceError
-    defaultService
-    "ValidationException"
 
 -- | An exception indicating Amazon Fraud Detector does not have the needed
 -- permissions. This can occur if you submit a request, such as
@@ -590,27 +773,12 @@ _AccessDeniedException =
     defaultService
     "AccessDeniedException"
 
--- | An exception indicating that the attached customer-owned (external)
--- model threw an exception when Amazon Fraud Detector invoked the model.
-_ResourceUnavailableException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ResourceUnavailableException =
-  Core._MatchServiceError
-    defaultService
-    "ResourceUnavailableException"
-
 -- | An exception indicating there was a conflict during a delete operation.
 _ConflictException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
 _ConflictException =
   Core._MatchServiceError
     defaultService
     "ConflictException"
-
--- | An exception indicating a throttling error.
-_ThrottlingException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ThrottlingException =
-  Core._MatchServiceError
-    defaultService
-    "ThrottlingException"
 
 -- | An exception indicating an internal server error.
 _InternalServerException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -625,3 +793,25 @@ _ResourceNotFoundException =
   Core._MatchServiceError
     defaultService
     "ResourceNotFoundException"
+
+-- | An exception indicating that the attached customer-owned (external)
+-- model threw an exception when Amazon Fraud Detector invoked the model.
+_ResourceUnavailableException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ResourceUnavailableException =
+  Core._MatchServiceError
+    defaultService
+    "ResourceUnavailableException"
+
+-- | An exception indicating a throttling error.
+_ThrottlingException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ThrottlingException =
+  Core._MatchServiceError
+    defaultService
+    "ThrottlingException"
+
+-- | An exception indicating a specified value is not allowed.
+_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ValidationException =
+  Core._MatchServiceError
+    defaultService
+    "ValidationException"

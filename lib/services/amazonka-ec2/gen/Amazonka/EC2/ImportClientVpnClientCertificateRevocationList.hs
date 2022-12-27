@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ImportClientVpnClientCertificateRevocationList
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.EC2.ImportClientVpnClientCertificateRevocationList
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -133,12 +134,13 @@ instance
     AWSResponse
       ImportClientVpnClientCertificateRevocationList =
       ImportClientVpnClientCertificateRevocationListResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ImportClientVpnClientCertificateRevocationListResponse'
-            Prelude.<$> (x Core..@? "return")
+            Prelude.<$> (x Data..@? "return")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -164,34 +166,34 @@ instance
         `Prelude.seq` Prelude.rnf certificateRevocationList
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ImportClientVpnClientCertificateRevocationList
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     ImportClientVpnClientCertificateRevocationList
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ImportClientVpnClientCertificateRevocationList
   where
   toQuery
     ImportClientVpnClientCertificateRevocationList' {..} =
       Prelude.mconcat
         [ "Action"
-            Core.=: ( "ImportClientVpnClientCertificateRevocationList" ::
+            Data.=: ( "ImportClientVpnClientCertificateRevocationList" ::
                         Prelude.ByteString
                     ),
           "Version"
-            Core.=: ("2016-11-15" :: Prelude.ByteString),
-          "DryRun" Core.=: dryRun,
-          "ClientVpnEndpointId" Core.=: clientVpnEndpointId,
+            Data.=: ("2016-11-15" :: Prelude.ByteString),
+          "DryRun" Data.=: dryRun,
+          "ClientVpnEndpointId" Data.=: clientVpnEndpointId,
           "CertificateRevocationList"
-            Core.=: certificateRevocationList
+            Data.=: certificateRevocationList
         ]
 
 -- | /See:/ 'newImportClientVpnClientCertificateRevocationListResponse' smart constructor.

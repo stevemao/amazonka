@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.GetThingRuntimeConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.Greengrass.GetThingRuntimeConfiguration
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,12 +81,13 @@ instance Core.AWSRequest GetThingRuntimeConfiguration where
   type
     AWSResponse GetThingRuntimeConfiguration =
       GetThingRuntimeConfigurationResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetThingRuntimeConfigurationResponse'
-            Prelude.<$> (x Core..?> "RuntimeConfiguration")
+            Prelude.<$> (x Data..?> "RuntimeConfiguration")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -100,26 +102,26 @@ instance Prelude.NFData GetThingRuntimeConfiguration where
   rnf GetThingRuntimeConfiguration' {..} =
     Prelude.rnf thingName
 
-instance Core.ToHeaders GetThingRuntimeConfiguration where
+instance Data.ToHeaders GetThingRuntimeConfiguration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetThingRuntimeConfiguration where
+instance Data.ToPath GetThingRuntimeConfiguration where
   toPath GetThingRuntimeConfiguration' {..} =
     Prelude.mconcat
       [ "/greengrass/things/",
-        Core.toBS thingName,
+        Data.toBS thingName,
         "/runtimeconfig"
       ]
 
-instance Core.ToQuery GetThingRuntimeConfiguration where
+instance Data.ToQuery GetThingRuntimeConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetThingRuntimeConfigurationResponse' smart constructor.

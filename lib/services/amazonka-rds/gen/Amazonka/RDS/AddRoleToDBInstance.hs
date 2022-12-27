@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.AddRoleToDBInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,6 +25,8 @@
 --
 -- To add a role to a DB instance, the status of the DB instance must be
 -- @available@.
+--
+-- This command doesn\'t apply to RDS Custom.
 module Amazonka.RDS.AddRoleToDBInstance
   ( -- * Creating a Request
     AddRoleToDBInstance (..),
@@ -42,7 +44,8 @@ module Amazonka.RDS.AddRoleToDBInstance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -56,7 +59,7 @@ data AddRoleToDBInstance = AddRoleToDBInstance'
     -- instance, for example @arn:aws:iam::123456789012:role\/AccessRole@.
     roleArn :: Prelude.Text,
     -- | The name of the feature for the DB instance that the IAM role is to be
-    -- associated with. For the list of supported feature names, see
+    -- associated with. For information about supported feature names, see
     -- DBEngineVersion.
     featureName :: Prelude.Text
   }
@@ -76,7 +79,7 @@ data AddRoleToDBInstance = AddRoleToDBInstance'
 -- instance, for example @arn:aws:iam::123456789012:role\/AccessRole@.
 --
 -- 'featureName', 'addRoleToDBInstance_featureName' - The name of the feature for the DB instance that the IAM role is to be
--- associated with. For the list of supported feature names, see
+-- associated with. For information about supported feature names, see
 -- DBEngineVersion.
 newAddRoleToDBInstance ::
   -- | 'dbInstanceIdentifier'
@@ -107,7 +110,7 @@ addRoleToDBInstance_roleArn :: Lens.Lens' AddRoleToDBInstance Prelude.Text
 addRoleToDBInstance_roleArn = Lens.lens (\AddRoleToDBInstance' {roleArn} -> roleArn) (\s@AddRoleToDBInstance' {} a -> s {roleArn = a} :: AddRoleToDBInstance)
 
 -- | The name of the feature for the DB instance that the IAM role is to be
--- associated with. For the list of supported feature names, see
+-- associated with. For information about supported feature names, see
 -- DBEngineVersion.
 addRoleToDBInstance_featureName :: Lens.Lens' AddRoleToDBInstance Prelude.Text
 addRoleToDBInstance_featureName = Lens.lens (\AddRoleToDBInstance' {featureName} -> featureName) (\s@AddRoleToDBInstance' {} a -> s {featureName = a} :: AddRoleToDBInstance)
@@ -116,7 +119,8 @@ instance Core.AWSRequest AddRoleToDBInstance where
   type
     AWSResponse AddRoleToDBInstance =
       AddRoleToDBInstanceResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull AddRoleToDBInstanceResponse'
 
@@ -132,22 +136,22 @@ instance Prelude.NFData AddRoleToDBInstance where
       `Prelude.seq` Prelude.rnf roleArn
       `Prelude.seq` Prelude.rnf featureName
 
-instance Core.ToHeaders AddRoleToDBInstance where
+instance Data.ToHeaders AddRoleToDBInstance where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath AddRoleToDBInstance where
+instance Data.ToPath AddRoleToDBInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AddRoleToDBInstance where
+instance Data.ToQuery AddRoleToDBInstance where
   toQuery AddRoleToDBInstance' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("AddRoleToDBInstance" :: Prelude.ByteString),
+          Data.=: ("AddRoleToDBInstance" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "DBInstanceIdentifier" Core.=: dbInstanceIdentifier,
-        "RoleArn" Core.=: roleArn,
-        "FeatureName" Core.=: featureName
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBInstanceIdentifier" Data.=: dbInstanceIdentifier,
+        "RoleArn" Data.=: roleArn,
+        "FeatureName" Data.=: featureName
       ]
 
 -- | /See:/ 'newAddRoleToDBInstanceResponse' smart constructor.

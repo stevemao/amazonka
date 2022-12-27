@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.Certificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.Certificate where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types.CertificateStatus
 import Amazonka.Lightsail.Types.DomainValidationRecord
 import Amazonka.Lightsail.Types.RenewalSummary
@@ -36,18 +37,35 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newCertificate' smart constructor.
 data Certificate = Certificate'
-  { -- | The validation status of the certificate.
-    status :: Prelude.Maybe CertificateStatus,
-    -- | An array of strings that specify the alternate domains (e.g.,
-    -- @example2.com@) and subdomains (e.g., @blog.example.com@) of the
-    -- certificate.
-    subjectAlternativeNames :: Prelude.Maybe [Prelude.Text],
-    -- | The Amazon Resource Name (ARN) of the certificate.
+  { -- | The Amazon Resource Name (ARN) of the certificate.
     arn :: Prelude.Maybe Prelude.Text,
     -- | The timestamp when the certificate was created.
-    createdAt :: Prelude.Maybe Core.POSIX,
+    createdAt :: Prelude.Maybe Data.POSIX,
+    -- | The domain name of the certificate.
+    domainName :: Prelude.Maybe Prelude.Text,
+    -- | An array of objects that describe the domain validation records of the
+    -- certificate.
+    domainValidationRecords :: Prelude.Maybe [DomainValidationRecord],
     -- | The renewal eligibility of the certificate.
     eligibleToRenew :: Prelude.Maybe Prelude.Text,
+    -- | The number of Lightsail resources that the certificate is attached to.
+    inUseResourceCount :: Prelude.Maybe Prelude.Int,
+    -- | The timestamp when the certificate was issued.
+    issuedAt :: Prelude.Maybe Data.POSIX,
+    -- | The certificate authority that issued the certificate.
+    issuerCA :: Prelude.Maybe Prelude.Text,
+    -- | The algorithm used to generate the key pair (the public and private key)
+    -- of the certificate.
+    keyAlgorithm :: Prelude.Maybe Prelude.Text,
+    -- | The name of the certificate (e.g., @my-certificate@).
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The timestamp when the certificate expires.
+    notAfter :: Prelude.Maybe Data.POSIX,
+    -- | The timestamp when the certificate is first valid.
+    notBefore :: Prelude.Maybe Data.POSIX,
+    -- | An object that describes the status of the certificate renewal managed
+    -- by Lightsail.
+    renewalSummary :: Prelude.Maybe RenewalSummary,
     -- | The validation failure reason, if any, of the certificate.
     --
     -- The following failure reasons are possible:
@@ -60,8 +78,8 @@ data Certificate = Certificate'
     --     happen as a fraud-protection measure, such as when the domain ranks
     --     within the Alexa top 1000 websites. To provide the required
     --     information, use the
-    --     <https://console.aws.amazon.com/support/home AWS Support Center> to
-    --     contact AWS Support.
+    --     <https://console.aws.amazon.com/support/home Amazon Web Services Support Center>
+    --     to contact Amazon Web Services Support.
     --
     --     You cannot request a certificate for Amazon-owned domain names such
     --     as those ending in amazonaws.com, cloudfront.net, or
@@ -85,8 +103,8 @@ data Certificate = Certificate'
     --
     --     If you see this error and your domain is not included in the
     --     VirusTotal list, visit the
-    --     <https://console.aws.amazon.com/support/home AWS Support Center> and
-    --     create a case.
+    --     <https://console.aws.amazon.com/support/home Amazon Web Services Support Center>
+    --     and create a case.
     --
     -- -   __@INVALID_PUBLIC_DOMAIN@__ - One or more of the domain names in the
     --     certificate request is not valid. Typically, this is because a
@@ -102,45 +120,28 @@ data Certificate = Certificate'
     --     certificate request. Try to request a certificate again, correcting
     --     any spelling errors or typos that were in the failed request.
     requestFailureReason :: Prelude.Maybe Prelude.Text,
-    -- | The timestamp when the certificate was revoked. This value is present
-    -- only when the certificate status is @REVOKED@.
-    revokedAt :: Prelude.Maybe Core.POSIX,
-    -- | The timestamp when the certificate is first valid.
-    notBefore :: Prelude.Maybe Core.POSIX,
     -- | The reason the certificate was revoked. This value is present only when
     -- the certificate status is @REVOKED@.
     revocationReason :: Prelude.Maybe Prelude.Text,
-    -- | The domain name of the certificate.
-    domainName :: Prelude.Maybe Prelude.Text,
-    -- | The name of the certificate (e.g., @my-certificate@).
-    name :: Prelude.Maybe Prelude.Text,
-    -- | An object that describes the status of the certificate renewal managed
-    -- by Lightsail.
-    renewalSummary :: Prelude.Maybe RenewalSummary,
+    -- | The timestamp when the certificate was revoked. This value is present
+    -- only when the certificate status is @REVOKED@.
+    revokedAt :: Prelude.Maybe Data.POSIX,
+    -- | The serial number of the certificate.
+    serialNumber :: Prelude.Maybe Prelude.Text,
+    -- | The validation status of the certificate.
+    status :: Prelude.Maybe CertificateStatus,
+    -- | An array of strings that specify the alternate domains (e.g.,
+    -- @example2.com@) and subdomains (e.g., @blog.example.com@) of the
+    -- certificate.
+    subjectAlternativeNames :: Prelude.Maybe [Prelude.Text],
     -- | The support code. Include this code in your email to support when you
     -- have questions about your Lightsail certificate. This code enables our
     -- support team to look up your Lightsail information more easily.
     supportCode :: Prelude.Maybe Prelude.Text,
-    -- | An array of objects that describe the domain validation records of the
-    -- certificate.
-    domainValidationRecords :: Prelude.Maybe [DomainValidationRecord],
-    -- | The number of Lightsail resources that the certificate is attached to.
-    inUseResourceCount :: Prelude.Maybe Prelude.Int,
-    -- | The timestamp when the certificate was issued.
-    issuedAt :: Prelude.Maybe Core.POSIX,
-    -- | The algorithm used to generate the key pair (the public and private key)
-    -- of the certificate.
-    keyAlgorithm :: Prelude.Maybe Prelude.Text,
-    -- | The serial number of the certificate.
-    serialNumber :: Prelude.Maybe Prelude.Text,
-    -- | The certificate authority that issued the certificate.
-    issuerCA :: Prelude.Maybe Prelude.Text,
     -- | The tag keys and optional values for the resource. For more information
     -- about tags in Lightsail, see the
     -- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags Amazon Lightsail Developer Guide>.
-    tags :: Prelude.Maybe [Tag],
-    -- | The timestamp when the certificate expires.
-    notAfter :: Prelude.Maybe Core.POSIX
+    tags :: Prelude.Maybe [Tag]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -152,17 +153,34 @@ data Certificate = Certificate'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'certificate_status' - The validation status of the certificate.
---
--- 'subjectAlternativeNames', 'certificate_subjectAlternativeNames' - An array of strings that specify the alternate domains (e.g.,
--- @example2.com@) and subdomains (e.g., @blog.example.com@) of the
--- certificate.
---
 -- 'arn', 'certificate_arn' - The Amazon Resource Name (ARN) of the certificate.
 --
 -- 'createdAt', 'certificate_createdAt' - The timestamp when the certificate was created.
 --
+-- 'domainName', 'certificate_domainName' - The domain name of the certificate.
+--
+-- 'domainValidationRecords', 'certificate_domainValidationRecords' - An array of objects that describe the domain validation records of the
+-- certificate.
+--
 -- 'eligibleToRenew', 'certificate_eligibleToRenew' - The renewal eligibility of the certificate.
+--
+-- 'inUseResourceCount', 'certificate_inUseResourceCount' - The number of Lightsail resources that the certificate is attached to.
+--
+-- 'issuedAt', 'certificate_issuedAt' - The timestamp when the certificate was issued.
+--
+-- 'issuerCA', 'certificate_issuerCA' - The certificate authority that issued the certificate.
+--
+-- 'keyAlgorithm', 'certificate_keyAlgorithm' - The algorithm used to generate the key pair (the public and private key)
+-- of the certificate.
+--
+-- 'name', 'certificate_name' - The name of the certificate (e.g., @my-certificate@).
+--
+-- 'notAfter', 'certificate_notAfter' - The timestamp when the certificate expires.
+--
+-- 'notBefore', 'certificate_notBefore' - The timestamp when the certificate is first valid.
+--
+-- 'renewalSummary', 'certificate_renewalSummary' - An object that describes the status of the certificate renewal managed
+-- by Lightsail.
 --
 -- 'requestFailureReason', 'certificate_requestFailureReason' - The validation failure reason, if any, of the certificate.
 --
@@ -176,8 +194,8 @@ data Certificate = Certificate'
 --     happen as a fraud-protection measure, such as when the domain ranks
 --     within the Alexa top 1000 websites. To provide the required
 --     information, use the
---     <https://console.aws.amazon.com/support/home AWS Support Center> to
---     contact AWS Support.
+--     <https://console.aws.amazon.com/support/home Amazon Web Services Support Center>
+--     to contact Amazon Web Services Support.
 --
 --     You cannot request a certificate for Amazon-owned domain names such
 --     as those ending in amazonaws.com, cloudfront.net, or
@@ -201,8 +219,8 @@ data Certificate = Certificate'
 --
 --     If you see this error and your domain is not included in the
 --     VirusTotal list, visit the
---     <https://console.aws.amazon.com/support/home AWS Support Center> and
---     create a case.
+--     <https://console.aws.amazon.com/support/home Amazon Web Services Support Center>
+--     and create a case.
 --
 -- -   __@INVALID_PUBLIC_DOMAIN@__ - One or more of the domain names in the
 --     certificate request is not valid. Typically, this is because a
@@ -218,80 +236,53 @@ data Certificate = Certificate'
 --     certificate request. Try to request a certificate again, correcting
 --     any spelling errors or typos that were in the failed request.
 --
--- 'revokedAt', 'certificate_revokedAt' - The timestamp when the certificate was revoked. This value is present
--- only when the certificate status is @REVOKED@.
---
--- 'notBefore', 'certificate_notBefore' - The timestamp when the certificate is first valid.
---
 -- 'revocationReason', 'certificate_revocationReason' - The reason the certificate was revoked. This value is present only when
 -- the certificate status is @REVOKED@.
 --
--- 'domainName', 'certificate_domainName' - The domain name of the certificate.
+-- 'revokedAt', 'certificate_revokedAt' - The timestamp when the certificate was revoked. This value is present
+-- only when the certificate status is @REVOKED@.
 --
--- 'name', 'certificate_name' - The name of the certificate (e.g., @my-certificate@).
+-- 'serialNumber', 'certificate_serialNumber' - The serial number of the certificate.
 --
--- 'renewalSummary', 'certificate_renewalSummary' - An object that describes the status of the certificate renewal managed
--- by Lightsail.
+-- 'status', 'certificate_status' - The validation status of the certificate.
+--
+-- 'subjectAlternativeNames', 'certificate_subjectAlternativeNames' - An array of strings that specify the alternate domains (e.g.,
+-- @example2.com@) and subdomains (e.g., @blog.example.com@) of the
+-- certificate.
 --
 -- 'supportCode', 'certificate_supportCode' - The support code. Include this code in your email to support when you
 -- have questions about your Lightsail certificate. This code enables our
 -- support team to look up your Lightsail information more easily.
 --
--- 'domainValidationRecords', 'certificate_domainValidationRecords' - An array of objects that describe the domain validation records of the
--- certificate.
---
--- 'inUseResourceCount', 'certificate_inUseResourceCount' - The number of Lightsail resources that the certificate is attached to.
---
--- 'issuedAt', 'certificate_issuedAt' - The timestamp when the certificate was issued.
---
--- 'keyAlgorithm', 'certificate_keyAlgorithm' - The algorithm used to generate the key pair (the public and private key)
--- of the certificate.
---
--- 'serialNumber', 'certificate_serialNumber' - The serial number of the certificate.
---
--- 'issuerCA', 'certificate_issuerCA' - The certificate authority that issued the certificate.
---
 -- 'tags', 'certificate_tags' - The tag keys and optional values for the resource. For more information
 -- about tags in Lightsail, see the
 -- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags Amazon Lightsail Developer Guide>.
---
--- 'notAfter', 'certificate_notAfter' - The timestamp when the certificate expires.
 newCertificate ::
   Certificate
 newCertificate =
   Certificate'
-    { status = Prelude.Nothing,
-      subjectAlternativeNames = Prelude.Nothing,
-      arn = Prelude.Nothing,
+    { arn = Prelude.Nothing,
       createdAt = Prelude.Nothing,
-      eligibleToRenew = Prelude.Nothing,
-      requestFailureReason = Prelude.Nothing,
-      revokedAt = Prelude.Nothing,
-      notBefore = Prelude.Nothing,
-      revocationReason = Prelude.Nothing,
       domainName = Prelude.Nothing,
-      name = Prelude.Nothing,
-      renewalSummary = Prelude.Nothing,
-      supportCode = Prelude.Nothing,
       domainValidationRecords = Prelude.Nothing,
+      eligibleToRenew = Prelude.Nothing,
       inUseResourceCount = Prelude.Nothing,
       issuedAt = Prelude.Nothing,
-      keyAlgorithm = Prelude.Nothing,
-      serialNumber = Prelude.Nothing,
       issuerCA = Prelude.Nothing,
-      tags = Prelude.Nothing,
-      notAfter = Prelude.Nothing
+      keyAlgorithm = Prelude.Nothing,
+      name = Prelude.Nothing,
+      notAfter = Prelude.Nothing,
+      notBefore = Prelude.Nothing,
+      renewalSummary = Prelude.Nothing,
+      requestFailureReason = Prelude.Nothing,
+      revocationReason = Prelude.Nothing,
+      revokedAt = Prelude.Nothing,
+      serialNumber = Prelude.Nothing,
+      status = Prelude.Nothing,
+      subjectAlternativeNames = Prelude.Nothing,
+      supportCode = Prelude.Nothing,
+      tags = Prelude.Nothing
     }
-
--- | The validation status of the certificate.
-certificate_status :: Lens.Lens' Certificate (Prelude.Maybe CertificateStatus)
-certificate_status = Lens.lens (\Certificate' {status} -> status) (\s@Certificate' {} a -> s {status = a} :: Certificate)
-
--- | An array of strings that specify the alternate domains (e.g.,
--- @example2.com@) and subdomains (e.g., @blog.example.com@) of the
--- certificate.
-certificate_subjectAlternativeNames :: Lens.Lens' Certificate (Prelude.Maybe [Prelude.Text])
-certificate_subjectAlternativeNames = Lens.lens (\Certificate' {subjectAlternativeNames} -> subjectAlternativeNames) (\s@Certificate' {} a -> s {subjectAlternativeNames = a} :: Certificate) Prelude.. Lens.mapping Lens.coerced
 
 -- | The Amazon Resource Name (ARN) of the certificate.
 certificate_arn :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Text)
@@ -299,11 +290,54 @@ certificate_arn = Lens.lens (\Certificate' {arn} -> arn) (\s@Certificate' {} a -
 
 -- | The timestamp when the certificate was created.
 certificate_createdAt :: Lens.Lens' Certificate (Prelude.Maybe Prelude.UTCTime)
-certificate_createdAt = Lens.lens (\Certificate' {createdAt} -> createdAt) (\s@Certificate' {} a -> s {createdAt = a} :: Certificate) Prelude.. Lens.mapping Core._Time
+certificate_createdAt = Lens.lens (\Certificate' {createdAt} -> createdAt) (\s@Certificate' {} a -> s {createdAt = a} :: Certificate) Prelude.. Lens.mapping Data._Time
+
+-- | The domain name of the certificate.
+certificate_domainName :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Text)
+certificate_domainName = Lens.lens (\Certificate' {domainName} -> domainName) (\s@Certificate' {} a -> s {domainName = a} :: Certificate)
+
+-- | An array of objects that describe the domain validation records of the
+-- certificate.
+certificate_domainValidationRecords :: Lens.Lens' Certificate (Prelude.Maybe [DomainValidationRecord])
+certificate_domainValidationRecords = Lens.lens (\Certificate' {domainValidationRecords} -> domainValidationRecords) (\s@Certificate' {} a -> s {domainValidationRecords = a} :: Certificate) Prelude.. Lens.mapping Lens.coerced
 
 -- | The renewal eligibility of the certificate.
 certificate_eligibleToRenew :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Text)
 certificate_eligibleToRenew = Lens.lens (\Certificate' {eligibleToRenew} -> eligibleToRenew) (\s@Certificate' {} a -> s {eligibleToRenew = a} :: Certificate)
+
+-- | The number of Lightsail resources that the certificate is attached to.
+certificate_inUseResourceCount :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Int)
+certificate_inUseResourceCount = Lens.lens (\Certificate' {inUseResourceCount} -> inUseResourceCount) (\s@Certificate' {} a -> s {inUseResourceCount = a} :: Certificate)
+
+-- | The timestamp when the certificate was issued.
+certificate_issuedAt :: Lens.Lens' Certificate (Prelude.Maybe Prelude.UTCTime)
+certificate_issuedAt = Lens.lens (\Certificate' {issuedAt} -> issuedAt) (\s@Certificate' {} a -> s {issuedAt = a} :: Certificate) Prelude.. Lens.mapping Data._Time
+
+-- | The certificate authority that issued the certificate.
+certificate_issuerCA :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Text)
+certificate_issuerCA = Lens.lens (\Certificate' {issuerCA} -> issuerCA) (\s@Certificate' {} a -> s {issuerCA = a} :: Certificate)
+
+-- | The algorithm used to generate the key pair (the public and private key)
+-- of the certificate.
+certificate_keyAlgorithm :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Text)
+certificate_keyAlgorithm = Lens.lens (\Certificate' {keyAlgorithm} -> keyAlgorithm) (\s@Certificate' {} a -> s {keyAlgorithm = a} :: Certificate)
+
+-- | The name of the certificate (e.g., @my-certificate@).
+certificate_name :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Text)
+certificate_name = Lens.lens (\Certificate' {name} -> name) (\s@Certificate' {} a -> s {name = a} :: Certificate)
+
+-- | The timestamp when the certificate expires.
+certificate_notAfter :: Lens.Lens' Certificate (Prelude.Maybe Prelude.UTCTime)
+certificate_notAfter = Lens.lens (\Certificate' {notAfter} -> notAfter) (\s@Certificate' {} a -> s {notAfter = a} :: Certificate) Prelude.. Lens.mapping Data._Time
+
+-- | The timestamp when the certificate is first valid.
+certificate_notBefore :: Lens.Lens' Certificate (Prelude.Maybe Prelude.UTCTime)
+certificate_notBefore = Lens.lens (\Certificate' {notBefore} -> notBefore) (\s@Certificate' {} a -> s {notBefore = a} :: Certificate) Prelude.. Lens.mapping Data._Time
+
+-- | An object that describes the status of the certificate renewal managed
+-- by Lightsail.
+certificate_renewalSummary :: Lens.Lens' Certificate (Prelude.Maybe RenewalSummary)
+certificate_renewalSummary = Lens.lens (\Certificate' {renewalSummary} -> renewalSummary) (\s@Certificate' {} a -> s {renewalSummary = a} :: Certificate)
 
 -- | The validation failure reason, if any, of the certificate.
 --
@@ -317,8 +351,8 @@ certificate_eligibleToRenew = Lens.lens (\Certificate' {eligibleToRenew} -> elig
 --     happen as a fraud-protection measure, such as when the domain ranks
 --     within the Alexa top 1000 websites. To provide the required
 --     information, use the
---     <https://console.aws.amazon.com/support/home AWS Support Center> to
---     contact AWS Support.
+--     <https://console.aws.amazon.com/support/home Amazon Web Services Support Center>
+--     to contact Amazon Web Services Support.
 --
 --     You cannot request a certificate for Amazon-owned domain names such
 --     as those ending in amazonaws.com, cloudfront.net, or
@@ -342,8 +376,8 @@ certificate_eligibleToRenew = Lens.lens (\Certificate' {eligibleToRenew} -> elig
 --
 --     If you see this error and your domain is not included in the
 --     VirusTotal list, visit the
---     <https://console.aws.amazon.com/support/home AWS Support Center> and
---     create a case.
+--     <https://console.aws.amazon.com/support/home Amazon Web Services Support Center>
+--     and create a case.
 --
 -- -   __@INVALID_PUBLIC_DOMAIN@__ - One or more of the domain names in the
 --     certificate request is not valid. Typically, this is because a
@@ -361,32 +395,29 @@ certificate_eligibleToRenew = Lens.lens (\Certificate' {eligibleToRenew} -> elig
 certificate_requestFailureReason :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Text)
 certificate_requestFailureReason = Lens.lens (\Certificate' {requestFailureReason} -> requestFailureReason) (\s@Certificate' {} a -> s {requestFailureReason = a} :: Certificate)
 
--- | The timestamp when the certificate was revoked. This value is present
--- only when the certificate status is @REVOKED@.
-certificate_revokedAt :: Lens.Lens' Certificate (Prelude.Maybe Prelude.UTCTime)
-certificate_revokedAt = Lens.lens (\Certificate' {revokedAt} -> revokedAt) (\s@Certificate' {} a -> s {revokedAt = a} :: Certificate) Prelude.. Lens.mapping Core._Time
-
--- | The timestamp when the certificate is first valid.
-certificate_notBefore :: Lens.Lens' Certificate (Prelude.Maybe Prelude.UTCTime)
-certificate_notBefore = Lens.lens (\Certificate' {notBefore} -> notBefore) (\s@Certificate' {} a -> s {notBefore = a} :: Certificate) Prelude.. Lens.mapping Core._Time
-
 -- | The reason the certificate was revoked. This value is present only when
 -- the certificate status is @REVOKED@.
 certificate_revocationReason :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Text)
 certificate_revocationReason = Lens.lens (\Certificate' {revocationReason} -> revocationReason) (\s@Certificate' {} a -> s {revocationReason = a} :: Certificate)
 
--- | The domain name of the certificate.
-certificate_domainName :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Text)
-certificate_domainName = Lens.lens (\Certificate' {domainName} -> domainName) (\s@Certificate' {} a -> s {domainName = a} :: Certificate)
+-- | The timestamp when the certificate was revoked. This value is present
+-- only when the certificate status is @REVOKED@.
+certificate_revokedAt :: Lens.Lens' Certificate (Prelude.Maybe Prelude.UTCTime)
+certificate_revokedAt = Lens.lens (\Certificate' {revokedAt} -> revokedAt) (\s@Certificate' {} a -> s {revokedAt = a} :: Certificate) Prelude.. Lens.mapping Data._Time
 
--- | The name of the certificate (e.g., @my-certificate@).
-certificate_name :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Text)
-certificate_name = Lens.lens (\Certificate' {name} -> name) (\s@Certificate' {} a -> s {name = a} :: Certificate)
+-- | The serial number of the certificate.
+certificate_serialNumber :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Text)
+certificate_serialNumber = Lens.lens (\Certificate' {serialNumber} -> serialNumber) (\s@Certificate' {} a -> s {serialNumber = a} :: Certificate)
 
--- | An object that describes the status of the certificate renewal managed
--- by Lightsail.
-certificate_renewalSummary :: Lens.Lens' Certificate (Prelude.Maybe RenewalSummary)
-certificate_renewalSummary = Lens.lens (\Certificate' {renewalSummary} -> renewalSummary) (\s@Certificate' {} a -> s {renewalSummary = a} :: Certificate)
+-- | The validation status of the certificate.
+certificate_status :: Lens.Lens' Certificate (Prelude.Maybe CertificateStatus)
+certificate_status = Lens.lens (\Certificate' {status} -> status) (\s@Certificate' {} a -> s {status = a} :: Certificate)
+
+-- | An array of strings that specify the alternate domains (e.g.,
+-- @example2.com@) and subdomains (e.g., @blog.example.com@) of the
+-- certificate.
+certificate_subjectAlternativeNames :: Lens.Lens' Certificate (Prelude.Maybe [Prelude.Text])
+certificate_subjectAlternativeNames = Lens.lens (\Certificate' {subjectAlternativeNames} -> subjectAlternativeNames) (\s@Certificate' {} a -> s {subjectAlternativeNames = a} :: Certificate) Prelude.. Lens.mapping Lens.coerced
 
 -- | The support code. Include this code in your email to support when you
 -- have questions about your Lightsail certificate. This code enables our
@@ -394,119 +425,90 @@ certificate_renewalSummary = Lens.lens (\Certificate' {renewalSummary} -> renewa
 certificate_supportCode :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Text)
 certificate_supportCode = Lens.lens (\Certificate' {supportCode} -> supportCode) (\s@Certificate' {} a -> s {supportCode = a} :: Certificate)
 
--- | An array of objects that describe the domain validation records of the
--- certificate.
-certificate_domainValidationRecords :: Lens.Lens' Certificate (Prelude.Maybe [DomainValidationRecord])
-certificate_domainValidationRecords = Lens.lens (\Certificate' {domainValidationRecords} -> domainValidationRecords) (\s@Certificate' {} a -> s {domainValidationRecords = a} :: Certificate) Prelude.. Lens.mapping Lens.coerced
-
--- | The number of Lightsail resources that the certificate is attached to.
-certificate_inUseResourceCount :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Int)
-certificate_inUseResourceCount = Lens.lens (\Certificate' {inUseResourceCount} -> inUseResourceCount) (\s@Certificate' {} a -> s {inUseResourceCount = a} :: Certificate)
-
--- | The timestamp when the certificate was issued.
-certificate_issuedAt :: Lens.Lens' Certificate (Prelude.Maybe Prelude.UTCTime)
-certificate_issuedAt = Lens.lens (\Certificate' {issuedAt} -> issuedAt) (\s@Certificate' {} a -> s {issuedAt = a} :: Certificate) Prelude.. Lens.mapping Core._Time
-
--- | The algorithm used to generate the key pair (the public and private key)
--- of the certificate.
-certificate_keyAlgorithm :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Text)
-certificate_keyAlgorithm = Lens.lens (\Certificate' {keyAlgorithm} -> keyAlgorithm) (\s@Certificate' {} a -> s {keyAlgorithm = a} :: Certificate)
-
--- | The serial number of the certificate.
-certificate_serialNumber :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Text)
-certificate_serialNumber = Lens.lens (\Certificate' {serialNumber} -> serialNumber) (\s@Certificate' {} a -> s {serialNumber = a} :: Certificate)
-
--- | The certificate authority that issued the certificate.
-certificate_issuerCA :: Lens.Lens' Certificate (Prelude.Maybe Prelude.Text)
-certificate_issuerCA = Lens.lens (\Certificate' {issuerCA} -> issuerCA) (\s@Certificate' {} a -> s {issuerCA = a} :: Certificate)
-
 -- | The tag keys and optional values for the resource. For more information
 -- about tags in Lightsail, see the
 -- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags Amazon Lightsail Developer Guide>.
 certificate_tags :: Lens.Lens' Certificate (Prelude.Maybe [Tag])
 certificate_tags = Lens.lens (\Certificate' {tags} -> tags) (\s@Certificate' {} a -> s {tags = a} :: Certificate) Prelude.. Lens.mapping Lens.coerced
 
--- | The timestamp when the certificate expires.
-certificate_notAfter :: Lens.Lens' Certificate (Prelude.Maybe Prelude.UTCTime)
-certificate_notAfter = Lens.lens (\Certificate' {notAfter} -> notAfter) (\s@Certificate' {} a -> s {notAfter = a} :: Certificate) Prelude.. Lens.mapping Core._Time
-
-instance Core.FromJSON Certificate where
+instance Data.FromJSON Certificate where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Certificate"
       ( \x ->
           Certificate'
-            Prelude.<$> (x Core..:? "status")
-            Prelude.<*> ( x Core..:? "subjectAlternativeNames"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "arn")
+            Prelude.<*> (x Data..:? "createdAt")
+            Prelude.<*> (x Data..:? "domainName")
+            Prelude.<*> ( x Data..:? "domainValidationRecords"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "arn")
-            Prelude.<*> (x Core..:? "createdAt")
-            Prelude.<*> (x Core..:? "eligibleToRenew")
-            Prelude.<*> (x Core..:? "requestFailureReason")
-            Prelude.<*> (x Core..:? "revokedAt")
-            Prelude.<*> (x Core..:? "notBefore")
-            Prelude.<*> (x Core..:? "revocationReason")
-            Prelude.<*> (x Core..:? "domainName")
-            Prelude.<*> (x Core..:? "name")
-            Prelude.<*> (x Core..:? "renewalSummary")
-            Prelude.<*> (x Core..:? "supportCode")
-            Prelude.<*> ( x Core..:? "domainValidationRecords"
-                            Core..!= Prelude.mempty
+            Prelude.<*> (x Data..:? "eligibleToRenew")
+            Prelude.<*> (x Data..:? "inUseResourceCount")
+            Prelude.<*> (x Data..:? "issuedAt")
+            Prelude.<*> (x Data..:? "issuerCA")
+            Prelude.<*> (x Data..:? "keyAlgorithm")
+            Prelude.<*> (x Data..:? "name")
+            Prelude.<*> (x Data..:? "notAfter")
+            Prelude.<*> (x Data..:? "notBefore")
+            Prelude.<*> (x Data..:? "renewalSummary")
+            Prelude.<*> (x Data..:? "requestFailureReason")
+            Prelude.<*> (x Data..:? "revocationReason")
+            Prelude.<*> (x Data..:? "revokedAt")
+            Prelude.<*> (x Data..:? "serialNumber")
+            Prelude.<*> (x Data..:? "status")
+            Prelude.<*> ( x Data..:? "subjectAlternativeNames"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "inUseResourceCount")
-            Prelude.<*> (x Core..:? "issuedAt")
-            Prelude.<*> (x Core..:? "keyAlgorithm")
-            Prelude.<*> (x Core..:? "serialNumber")
-            Prelude.<*> (x Core..:? "issuerCA")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "notAfter")
+            Prelude.<*> (x Data..:? "supportCode")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable Certificate where
   hashWithSalt _salt Certificate' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` subjectAlternativeNames
-      `Prelude.hashWithSalt` arn
+    _salt `Prelude.hashWithSalt` arn
       `Prelude.hashWithSalt` createdAt
-      `Prelude.hashWithSalt` eligibleToRenew
-      `Prelude.hashWithSalt` requestFailureReason
-      `Prelude.hashWithSalt` revokedAt
-      `Prelude.hashWithSalt` notBefore
-      `Prelude.hashWithSalt` revocationReason
       `Prelude.hashWithSalt` domainName
-      `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` renewalSummary
-      `Prelude.hashWithSalt` supportCode
       `Prelude.hashWithSalt` domainValidationRecords
+      `Prelude.hashWithSalt` eligibleToRenew
       `Prelude.hashWithSalt` inUseResourceCount
       `Prelude.hashWithSalt` issuedAt
-      `Prelude.hashWithSalt` keyAlgorithm
-      `Prelude.hashWithSalt` serialNumber
       `Prelude.hashWithSalt` issuerCA
-      `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` keyAlgorithm
+      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` notAfter
+      `Prelude.hashWithSalt` notBefore
+      `Prelude.hashWithSalt` renewalSummary
+      `Prelude.hashWithSalt` requestFailureReason
+      `Prelude.hashWithSalt` revocationReason
+      `Prelude.hashWithSalt` revokedAt
+      `Prelude.hashWithSalt` serialNumber
+      `Prelude.hashWithSalt` status
+      `Prelude.hashWithSalt` subjectAlternativeNames
+      `Prelude.hashWithSalt` supportCode
+      `Prelude.hashWithSalt` tags
 
 instance Prelude.NFData Certificate where
   rnf Certificate' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf subjectAlternativeNames
-      `Prelude.seq` Prelude.rnf arn
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf createdAt
-      `Prelude.seq` Prelude.rnf eligibleToRenew
-      `Prelude.seq` Prelude.rnf requestFailureReason
-      `Prelude.seq` Prelude.rnf revokedAt
-      `Prelude.seq` Prelude.rnf notBefore
-      `Prelude.seq` Prelude.rnf revocationReason
       `Prelude.seq` Prelude.rnf domainName
-      `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf renewalSummary
-      `Prelude.seq` Prelude.rnf supportCode
       `Prelude.seq` Prelude.rnf domainValidationRecords
+      `Prelude.seq` Prelude.rnf eligibleToRenew
       `Prelude.seq` Prelude.rnf inUseResourceCount
       `Prelude.seq` Prelude.rnf issuedAt
-      `Prelude.seq` Prelude.rnf keyAlgorithm
-      `Prelude.seq` Prelude.rnf serialNumber
       `Prelude.seq` Prelude.rnf issuerCA
-      `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf keyAlgorithm
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf notAfter
+      `Prelude.seq` Prelude.rnf notBefore
+      `Prelude.seq` Prelude.rnf renewalSummary
+      `Prelude.seq` Prelude.rnf requestFailureReason
+      `Prelude.seq` Prelude.rnf revocationReason
+      `Prelude.seq` Prelude.rnf revokedAt
+      `Prelude.seq` Prelude.rnf serialNumber
+      `Prelude.seq` Prelude.rnf status
+      `Prelude.seq` Prelude.rnf
+        subjectAlternativeNames
+      `Prelude.seq` Prelude.rnf supportCode
+      `Prelude.seq` Prelude.rnf tags

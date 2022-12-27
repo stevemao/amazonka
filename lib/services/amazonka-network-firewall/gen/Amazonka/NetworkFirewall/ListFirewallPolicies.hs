@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.ListFirewallPolicies
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.NetworkFirewall.ListFirewallPolicies
     newListFirewallPolicies,
 
     -- * Request Lenses
-    listFirewallPolicies_nextToken,
     listFirewallPolicies_maxResults,
+    listFirewallPolicies_nextToken,
 
     -- * Destructuring the Response
     ListFirewallPoliciesResponse (..),
@@ -46,7 +46,8 @@ module Amazonka.NetworkFirewall.ListFirewallPolicies
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkFirewall.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -54,17 +55,17 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListFirewallPolicies' smart constructor.
 data ListFirewallPolicies = ListFirewallPolicies'
-  { -- | When you request a list of objects with a @MaxResults@ setting, if the
+  { -- | The maximum number of objects that you want Network Firewall to return
+    -- for this request. If more objects are available, in the response,
+    -- Network Firewall provides a @NextToken@ value that you can use in a
+    -- subsequent call to get the next batch of objects.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | When you request a list of objects with a @MaxResults@ setting, if the
     -- number of objects that are still available for retrieval exceeds the
     -- maximum you requested, Network Firewall returns a @NextToken@ value in
     -- the response. To retrieve the next batch of objects, use the token
     -- returned from the prior request in your next request.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of objects that you want Network Firewall to return
-    -- for this request. If more objects are available, in the response,
-    -- Network Firewall provides a @NextToken@ value that you can use in a
-    -- subsequent call to get the next batch of objects.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -76,23 +77,30 @@ data ListFirewallPolicies = ListFirewallPolicies'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listFirewallPolicies_maxResults' - The maximum number of objects that you want Network Firewall to return
+-- for this request. If more objects are available, in the response,
+-- Network Firewall provides a @NextToken@ value that you can use in a
+-- subsequent call to get the next batch of objects.
+--
 -- 'nextToken', 'listFirewallPolicies_nextToken' - When you request a list of objects with a @MaxResults@ setting, if the
 -- number of objects that are still available for retrieval exceeds the
 -- maximum you requested, Network Firewall returns a @NextToken@ value in
 -- the response. To retrieve the next batch of objects, use the token
 -- returned from the prior request in your next request.
---
--- 'maxResults', 'listFirewallPolicies_maxResults' - The maximum number of objects that you want Network Firewall to return
--- for this request. If more objects are available, in the response,
--- Network Firewall provides a @NextToken@ value that you can use in a
--- subsequent call to get the next batch of objects.
 newListFirewallPolicies ::
   ListFirewallPolicies
 newListFirewallPolicies =
   ListFirewallPolicies'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of objects that you want Network Firewall to return
+-- for this request. If more objects are available, in the response,
+-- Network Firewall provides a @NextToken@ value that you can use in a
+-- subsequent call to get the next batch of objects.
+listFirewallPolicies_maxResults :: Lens.Lens' ListFirewallPolicies (Prelude.Maybe Prelude.Natural)
+listFirewallPolicies_maxResults = Lens.lens (\ListFirewallPolicies' {maxResults} -> maxResults) (\s@ListFirewallPolicies' {} a -> s {maxResults = a} :: ListFirewallPolicies)
 
 -- | When you request a list of objects with a @MaxResults@ setting, if the
 -- number of objects that are still available for retrieval exceeds the
@@ -101,13 +109,6 @@ newListFirewallPolicies =
 -- returned from the prior request in your next request.
 listFirewallPolicies_nextToken :: Lens.Lens' ListFirewallPolicies (Prelude.Maybe Prelude.Text)
 listFirewallPolicies_nextToken = Lens.lens (\ListFirewallPolicies' {nextToken} -> nextToken) (\s@ListFirewallPolicies' {} a -> s {nextToken = a} :: ListFirewallPolicies)
-
--- | The maximum number of objects that you want Network Firewall to return
--- for this request. If more objects are available, in the response,
--- Network Firewall provides a @NextToken@ value that you can use in a
--- subsequent call to get the next batch of objects.
-listFirewallPolicies_maxResults :: Lens.Lens' ListFirewallPolicies (Prelude.Maybe Prelude.Natural)
-listFirewallPolicies_maxResults = Lens.lens (\ListFirewallPolicies' {maxResults} -> maxResults) (\s@ListFirewallPolicies' {} a -> s {maxResults = a} :: ListFirewallPolicies)
 
 instance Core.AWSPager ListFirewallPolicies where
   page rq rs
@@ -135,56 +136,57 @@ instance Core.AWSRequest ListFirewallPolicies where
   type
     AWSResponse ListFirewallPolicies =
       ListFirewallPoliciesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListFirewallPoliciesResponse'
-            Prelude.<$> ( x Core..?> "FirewallPolicies"
+            Prelude.<$> ( x Data..?> "FirewallPolicies"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListFirewallPolicies where
   hashWithSalt _salt ListFirewallPolicies' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListFirewallPolicies where
   rnf ListFirewallPolicies' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListFirewallPolicies where
+instance Data.ToHeaders ListFirewallPolicies where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "NetworkFirewall_20201112.ListFirewallPolicies" ::
+              Data.=# ( "NetworkFirewall_20201112.ListFirewallPolicies" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListFirewallPolicies where
+instance Data.ToJSON ListFirewallPolicies where
   toJSON ListFirewallPolicies' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListFirewallPolicies where
+instance Data.ToPath ListFirewallPolicies where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListFirewallPolicies where
+instance Data.ToQuery ListFirewallPolicies where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListFirewallPoliciesResponse' smart constructor.

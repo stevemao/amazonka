@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Outposts.Types.InstanceTypeItem
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Outposts.Types.InstanceTypeItem where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about an instance type.
@@ -49,13 +50,13 @@ newInstanceTypeItem =
 instanceTypeItem_instanceType :: Lens.Lens' InstanceTypeItem (Prelude.Maybe Prelude.Text)
 instanceTypeItem_instanceType = Lens.lens (\InstanceTypeItem' {instanceType} -> instanceType) (\s@InstanceTypeItem' {} a -> s {instanceType = a} :: InstanceTypeItem)
 
-instance Core.FromJSON InstanceTypeItem where
+instance Data.FromJSON InstanceTypeItem where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InstanceTypeItem"
       ( \x ->
           InstanceTypeItem'
-            Prelude.<$> (x Core..:? "InstanceType")
+            Prelude.<$> (x Data..:? "InstanceType")
       )
 
 instance Prelude.Hashable InstanceTypeItem where

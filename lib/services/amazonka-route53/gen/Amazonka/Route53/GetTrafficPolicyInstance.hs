@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.GetTrafficPolicyInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ module Amazonka.Route53.GetTrafficPolicyInstance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,13 +92,14 @@ instance Core.AWSRequest GetTrafficPolicyInstance where
   type
     AWSResponse GetTrafficPolicyInstance =
       GetTrafficPolicyInstanceResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetTrafficPolicyInstanceResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "TrafficPolicyInstance")
+            Prelude.<*> (x Data..@ "TrafficPolicyInstance")
       )
 
 instance Prelude.Hashable GetTrafficPolicyInstance where
@@ -107,15 +109,15 @@ instance Prelude.Hashable GetTrafficPolicyInstance where
 instance Prelude.NFData GetTrafficPolicyInstance where
   rnf GetTrafficPolicyInstance' {..} = Prelude.rnf id
 
-instance Core.ToHeaders GetTrafficPolicyInstance where
+instance Data.ToHeaders GetTrafficPolicyInstance where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetTrafficPolicyInstance where
+instance Data.ToPath GetTrafficPolicyInstance where
   toPath GetTrafficPolicyInstance' {..} =
     Prelude.mconcat
-      ["/2013-04-01/trafficpolicyinstance/", Core.toBS id]
+      ["/2013-04-01/trafficpolicyinstance/", Data.toBS id]
 
-instance Core.ToQuery GetTrafficPolicyInstance where
+instance Data.ToQuery GetTrafficPolicyInstance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | A complex type that contains information about the resource record sets

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.Types.LoRaWANUpdateGatewayTaskEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTWireless.Types.LoRaWANUpdateGatewayTaskEntry where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types.LoRaWANGatewayVersion
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | LoRaWANUpdateGatewayTaskEntry object.
@@ -63,14 +64,14 @@ loRaWANUpdateGatewayTaskEntry_currentVersion = Lens.lens (\LoRaWANUpdateGatewayT
 loRaWANUpdateGatewayTaskEntry_updateVersion :: Lens.Lens' LoRaWANUpdateGatewayTaskEntry (Prelude.Maybe LoRaWANGatewayVersion)
 loRaWANUpdateGatewayTaskEntry_updateVersion = Lens.lens (\LoRaWANUpdateGatewayTaskEntry' {updateVersion} -> updateVersion) (\s@LoRaWANUpdateGatewayTaskEntry' {} a -> s {updateVersion = a} :: LoRaWANUpdateGatewayTaskEntry)
 
-instance Core.FromJSON LoRaWANUpdateGatewayTaskEntry where
+instance Data.FromJSON LoRaWANUpdateGatewayTaskEntry where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LoRaWANUpdateGatewayTaskEntry"
       ( \x ->
           LoRaWANUpdateGatewayTaskEntry'
-            Prelude.<$> (x Core..:? "CurrentVersion")
-            Prelude.<*> (x Core..:? "UpdateVersion")
+            Prelude.<$> (x Data..:? "CurrentVersion")
+            Prelude.<*> (x Data..:? "UpdateVersion")
       )
 
 instance

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.Types.ContactList
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SESV2.Types.ContactList where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A list that contains contacts that have subscribed to a particular topic
@@ -31,7 +32,7 @@ data ContactList = ContactList'
   { -- | The name of the contact list.
     contactListName :: Prelude.Maybe Prelude.Text,
     -- | A timestamp noting the last time the contact list was updated.
-    lastUpdatedTimestamp :: Prelude.Maybe Core.POSIX
+    lastUpdatedTimestamp :: Prelude.Maybe Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -60,16 +61,16 @@ contactList_contactListName = Lens.lens (\ContactList' {contactListName} -> cont
 
 -- | A timestamp noting the last time the contact list was updated.
 contactList_lastUpdatedTimestamp :: Lens.Lens' ContactList (Prelude.Maybe Prelude.UTCTime)
-contactList_lastUpdatedTimestamp = Lens.lens (\ContactList' {lastUpdatedTimestamp} -> lastUpdatedTimestamp) (\s@ContactList' {} a -> s {lastUpdatedTimestamp = a} :: ContactList) Prelude.. Lens.mapping Core._Time
+contactList_lastUpdatedTimestamp = Lens.lens (\ContactList' {lastUpdatedTimestamp} -> lastUpdatedTimestamp) (\s@ContactList' {} a -> s {lastUpdatedTimestamp = a} :: ContactList) Prelude.. Lens.mapping Data._Time
 
-instance Core.FromJSON ContactList where
+instance Data.FromJSON ContactList where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ContactList"
       ( \x ->
           ContactList'
-            Prelude.<$> (x Core..:? "ContactListName")
-            Prelude.<*> (x Core..:? "LastUpdatedTimestamp")
+            Prelude.<$> (x Data..:? "ContactListName")
+            Prelude.<*> (x Data..:? "LastUpdatedTimestamp")
       )
 
 instance Prelude.Hashable ContactList where

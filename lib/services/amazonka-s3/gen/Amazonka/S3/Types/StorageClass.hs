@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.StorageClass
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,6 +22,7 @@ module Amazonka.S3.Types.StorageClass
       ( ..,
         StorageClass_DEEP_ARCHIVE,
         StorageClass_GLACIER,
+        StorageClass_GLACIER_IR,
         StorageClass_INTELLIGENT_TIERING,
         StorageClass_ONEZONE_IA,
         StorageClass_OUTPOSTS,
@@ -33,12 +34,13 @@ module Amazonka.S3.Types.StorageClass
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 
 newtype StorageClass = StorageClass'
   { fromStorageClass ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -50,18 +52,18 @@ newtype StorageClass = StorageClass'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern StorageClass_DEEP_ARCHIVE :: StorageClass
@@ -69,6 +71,9 @@ pattern StorageClass_DEEP_ARCHIVE = StorageClass' "DEEP_ARCHIVE"
 
 pattern StorageClass_GLACIER :: StorageClass
 pattern StorageClass_GLACIER = StorageClass' "GLACIER"
+
+pattern StorageClass_GLACIER_IR :: StorageClass
+pattern StorageClass_GLACIER_IR = StorageClass' "GLACIER_IR"
 
 pattern StorageClass_INTELLIGENT_TIERING :: StorageClass
 pattern StorageClass_INTELLIGENT_TIERING = StorageClass' "INTELLIGENT_TIERING"
@@ -91,6 +96,7 @@ pattern StorageClass_STANDARD_IA = StorageClass' "STANDARD_IA"
 {-# COMPLETE
   StorageClass_DEEP_ARCHIVE,
   StorageClass_GLACIER,
+  StorageClass_GLACIER_IR,
   StorageClass_INTELLIGENT_TIERING,
   StorageClass_ONEZONE_IA,
   StorageClass_OUTPOSTS,

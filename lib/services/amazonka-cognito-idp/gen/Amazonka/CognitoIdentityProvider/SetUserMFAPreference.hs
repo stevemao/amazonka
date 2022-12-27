@@ -14,23 +14,23 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.SetUserMFAPreference
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Set the user\'s multi-factor authentication (MFA) method preference,
--- including which MFA factors are enabled and if any are preferred. Only
+-- including which MFA factors are activated and if any are preferred. Only
 -- one factor can be set as preferred. The preferred MFA factor will be
--- used to authenticate a user if multiple factors are enabled. If multiple
--- options are enabled and no preference is set, a challenge to choose an
--- MFA option will be returned during sign in. If an MFA type is enabled
--- for a user, the user will be prompted for MFA during all sign in
--- attempts, unless device tracking is turned on and the device has been
--- trusted. If you would like MFA to be applied selectively based on the
--- assessed risk level of sign in attempts, disable MFA for users and turn
--- on Adaptive Authentication for the user pool.
+-- used to authenticate a user if multiple factors are activated. If
+-- multiple options are activated and no preference is set, a challenge to
+-- choose an MFA option will be returned during sign-in. If an MFA type is
+-- activated for a user, the user will be prompted for MFA during all
+-- sign-in attempts unless device tracking is turned on and the device has
+-- been trusted. If you want MFA to be applied selectively based on the
+-- assessed risk level of sign-in attempts, deactivate MFA for users and
+-- turn on Adaptive Authentication for the user pool.
 module Amazonka.CognitoIdentityProvider.SetUserMFAPreference
   ( -- * Creating a Request
     SetUserMFAPreference (..),
@@ -52,7 +52,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,10 +62,11 @@ import qualified Amazonka.Response as Response
 data SetUserMFAPreference = SetUserMFAPreference'
   { -- | The SMS text message multi-factor authentication (MFA) settings.
     sMSMfaSettings :: Prelude.Maybe SMSMfaSettingsType,
-    -- | The time-based one-time password software token MFA settings.
+    -- | The time-based one-time password (TOTP) software token MFA settings.
     softwareTokenMfaSettings :: Prelude.Maybe SoftwareTokenMfaSettingsType,
-    -- | The access token for the user.
-    accessToken :: Core.Sensitive Prelude.Text
+    -- | A valid access token that Amazon Cognito issued to the user whose MFA
+    -- preference you want to set.
+    accessToken :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -78,9 +80,10 @@ data SetUserMFAPreference = SetUserMFAPreference'
 --
 -- 'sMSMfaSettings', 'setUserMFAPreference_sMSMfaSettings' - The SMS text message multi-factor authentication (MFA) settings.
 --
--- 'softwareTokenMfaSettings', 'setUserMFAPreference_softwareTokenMfaSettings' - The time-based one-time password software token MFA settings.
+-- 'softwareTokenMfaSettings', 'setUserMFAPreference_softwareTokenMfaSettings' - The time-based one-time password (TOTP) software token MFA settings.
 --
--- 'accessToken', 'setUserMFAPreference_accessToken' - The access token for the user.
+-- 'accessToken', 'setUserMFAPreference_accessToken' - A valid access token that Amazon Cognito issued to the user whose MFA
+-- preference you want to set.
 newSetUserMFAPreference ::
   -- | 'accessToken'
   Prelude.Text ->
@@ -90,26 +93,28 @@ newSetUserMFAPreference pAccessToken_ =
     { sMSMfaSettings =
         Prelude.Nothing,
       softwareTokenMfaSettings = Prelude.Nothing,
-      accessToken = Core._Sensitive Lens.# pAccessToken_
+      accessToken = Data._Sensitive Lens.# pAccessToken_
     }
 
 -- | The SMS text message multi-factor authentication (MFA) settings.
 setUserMFAPreference_sMSMfaSettings :: Lens.Lens' SetUserMFAPreference (Prelude.Maybe SMSMfaSettingsType)
 setUserMFAPreference_sMSMfaSettings = Lens.lens (\SetUserMFAPreference' {sMSMfaSettings} -> sMSMfaSettings) (\s@SetUserMFAPreference' {} a -> s {sMSMfaSettings = a} :: SetUserMFAPreference)
 
--- | The time-based one-time password software token MFA settings.
+-- | The time-based one-time password (TOTP) software token MFA settings.
 setUserMFAPreference_softwareTokenMfaSettings :: Lens.Lens' SetUserMFAPreference (Prelude.Maybe SoftwareTokenMfaSettingsType)
 setUserMFAPreference_softwareTokenMfaSettings = Lens.lens (\SetUserMFAPreference' {softwareTokenMfaSettings} -> softwareTokenMfaSettings) (\s@SetUserMFAPreference' {} a -> s {softwareTokenMfaSettings = a} :: SetUserMFAPreference)
 
--- | The access token for the user.
+-- | A valid access token that Amazon Cognito issued to the user whose MFA
+-- preference you want to set.
 setUserMFAPreference_accessToken :: Lens.Lens' SetUserMFAPreference Prelude.Text
-setUserMFAPreference_accessToken = Lens.lens (\SetUserMFAPreference' {accessToken} -> accessToken) (\s@SetUserMFAPreference' {} a -> s {accessToken = a} :: SetUserMFAPreference) Prelude.. Core._Sensitive
+setUserMFAPreference_accessToken = Lens.lens (\SetUserMFAPreference' {accessToken} -> accessToken) (\s@SetUserMFAPreference' {} a -> s {accessToken = a} :: SetUserMFAPreference) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest SetUserMFAPreference where
   type
     AWSResponse SetUserMFAPreference =
       SetUserMFAPreferenceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -129,37 +134,37 @@ instance Prelude.NFData SetUserMFAPreference where
       `Prelude.seq` Prelude.rnf softwareTokenMfaSettings
       `Prelude.seq` Prelude.rnf accessToken
 
-instance Core.ToHeaders SetUserMFAPreference where
+instance Data.ToHeaders SetUserMFAPreference where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.SetUserMFAPreference" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.SetUserMFAPreference" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SetUserMFAPreference where
+instance Data.ToJSON SetUserMFAPreference where
   toJSON SetUserMFAPreference' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SMSMfaSettings" Core..=)
+          [ ("SMSMfaSettings" Data..=)
               Prelude.<$> sMSMfaSettings,
-            ("SoftwareTokenMfaSettings" Core..=)
+            ("SoftwareTokenMfaSettings" Data..=)
               Prelude.<$> softwareTokenMfaSettings,
-            Prelude.Just ("AccessToken" Core..= accessToken)
+            Prelude.Just ("AccessToken" Data..= accessToken)
           ]
       )
 
-instance Core.ToPath SetUserMFAPreference where
+instance Data.ToPath SetUserMFAPreference where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SetUserMFAPreference where
+instance Data.ToQuery SetUserMFAPreference where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSetUserMFAPreferenceResponse' smart constructor.

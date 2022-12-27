@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.ListLicenseSpecificationsForResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.LicenseManager.ListLicenseSpecificationsForResource
     newListLicenseSpecificationsForResource,
 
     -- * Request Lenses
-    listLicenseSpecificationsForResource_nextToken,
     listLicenseSpecificationsForResource_maxResults,
+    listLicenseSpecificationsForResource_nextToken,
     listLicenseSpecificationsForResource_resourceArn,
 
     -- * Destructuring the Response
@@ -45,7 +45,8 @@ module Amazonka.LicenseManager.ListLicenseSpecificationsForResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LicenseManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -53,10 +54,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListLicenseSpecificationsForResource' smart constructor.
 data ListLicenseSpecificationsForResource = ListLicenseSpecificationsForResource'
-  { -- | Token for the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Maximum number of results to return in a single call.
+  { -- | Maximum number of results to return in a single call.
     maxResults :: Prelude.Maybe Prelude.Int,
+    -- | Token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | Amazon Resource Name (ARN) of a resource that has an associated license
     -- configuration.
     resourceArn :: Prelude.Text
@@ -71,9 +72,9 @@ data ListLicenseSpecificationsForResource = ListLicenseSpecificationsForResource
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listLicenseSpecificationsForResource_nextToken' - Token for the next set of results.
---
 -- 'maxResults', 'listLicenseSpecificationsForResource_maxResults' - Maximum number of results to return in a single call.
+--
+-- 'nextToken', 'listLicenseSpecificationsForResource_nextToken' - Token for the next set of results.
 --
 -- 'resourceArn', 'listLicenseSpecificationsForResource_resourceArn' - Amazon Resource Name (ARN) of a resource that has an associated license
 -- configuration.
@@ -83,19 +84,19 @@ newListLicenseSpecificationsForResource ::
   ListLicenseSpecificationsForResource
 newListLicenseSpecificationsForResource pResourceArn_ =
   ListLicenseSpecificationsForResource'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       resourceArn = pResourceArn_
     }
-
--- | Token for the next set of results.
-listLicenseSpecificationsForResource_nextToken :: Lens.Lens' ListLicenseSpecificationsForResource (Prelude.Maybe Prelude.Text)
-listLicenseSpecificationsForResource_nextToken = Lens.lens (\ListLicenseSpecificationsForResource' {nextToken} -> nextToken) (\s@ListLicenseSpecificationsForResource' {} a -> s {nextToken = a} :: ListLicenseSpecificationsForResource)
 
 -- | Maximum number of results to return in a single call.
 listLicenseSpecificationsForResource_maxResults :: Lens.Lens' ListLicenseSpecificationsForResource (Prelude.Maybe Prelude.Int)
 listLicenseSpecificationsForResource_maxResults = Lens.lens (\ListLicenseSpecificationsForResource' {maxResults} -> maxResults) (\s@ListLicenseSpecificationsForResource' {} a -> s {maxResults = a} :: ListLicenseSpecificationsForResource)
+
+-- | Token for the next set of results.
+listLicenseSpecificationsForResource_nextToken :: Lens.Lens' ListLicenseSpecificationsForResource (Prelude.Maybe Prelude.Text)
+listLicenseSpecificationsForResource_nextToken = Lens.lens (\ListLicenseSpecificationsForResource' {nextToken} -> nextToken) (\s@ListLicenseSpecificationsForResource' {} a -> s {nextToken = a} :: ListLicenseSpecificationsForResource)
 
 -- | Amazon Resource Name (ARN) of a resource that has an associated license
 -- configuration.
@@ -134,15 +135,16 @@ instance
   type
     AWSResponse ListLicenseSpecificationsForResource =
       ListLicenseSpecificationsForResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListLicenseSpecificationsForResourceResponse'
-            Prelude.<$> ( x Core..?> "LicenseSpecifications"
+            Prelude.<$> ( x Data..?> "LicenseSpecifications"
                             Core..!@ Prelude.mempty
                         )
-              Prelude.<*> (x Core..?> "NextToken")
+              Prelude.<*> (x Data..?> "NextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -153,8 +155,8 @@ instance
   hashWithSalt
     _salt
     ListLicenseSpecificationsForResource' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` resourceArn
 
 instance
@@ -162,49 +164,49 @@ instance
     ListLicenseSpecificationsForResource
   where
   rnf ListLicenseSpecificationsForResource' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf resourceArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListLicenseSpecificationsForResource
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSLicenseManager.ListLicenseSpecificationsForResource" ::
+              Data.=# ( "AWSLicenseManager.ListLicenseSpecificationsForResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ListLicenseSpecificationsForResource
   where
   toJSON ListLicenseSpecificationsForResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("ResourceArn" Core..= resourceArn)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("ResourceArn" Data..= resourceArn)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     ListLicenseSpecificationsForResource
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ListLicenseSpecificationsForResource
   where
   toQuery = Prelude.const Prelude.mempty

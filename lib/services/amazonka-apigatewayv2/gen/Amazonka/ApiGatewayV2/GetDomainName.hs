@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApiGatewayV2.GetDomainName
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,10 +34,10 @@ module Amazonka.ApiGatewayV2.GetDomainName
     newGetDomainNameResponse,
 
     -- * Response Lenses
-    getDomainNameResponse_domainNameConfigurations,
-    getDomainNameResponse_domainName,
-    getDomainNameResponse_mutualTlsAuthentication,
     getDomainNameResponse_apiMappingSelectionExpression,
+    getDomainNameResponse_domainName,
+    getDomainNameResponse_domainNameConfigurations,
+    getDomainNameResponse_mutualTlsAuthentication,
     getDomainNameResponse_tags,
     getDomainNameResponse_httpStatus,
   )
@@ -45,7 +45,8 @@ where
 
 import Amazonka.ApiGatewayV2.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,18 +82,19 @@ instance Core.AWSRequest GetDomainName where
   type
     AWSResponse GetDomainName =
       GetDomainNameResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDomainNameResponse'
-            Prelude.<$> ( x Core..?> "domainNameConfigurations"
+            Prelude.<$> (x Data..?> "apiMappingSelectionExpression")
+            Prelude.<*> (x Data..?> "domainName")
+            Prelude.<*> ( x Data..?> "domainNameConfigurations"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "domainName")
-            Prelude.<*> (x Core..?> "mutualTlsAuthentication")
-            Prelude.<*> (x Core..?> "apiMappingSelectionExpression")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "mutualTlsAuthentication")
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -103,35 +105,35 @@ instance Prelude.Hashable GetDomainName where
 instance Prelude.NFData GetDomainName where
   rnf GetDomainName' {..} = Prelude.rnf domainName
 
-instance Core.ToHeaders GetDomainName where
+instance Data.ToHeaders GetDomainName where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetDomainName where
+instance Data.ToPath GetDomainName where
   toPath GetDomainName' {..} =
     Prelude.mconcat
-      ["/v2/domainnames/", Core.toBS domainName]
+      ["/v2/domainnames/", Data.toBS domainName]
 
-instance Core.ToQuery GetDomainName where
+instance Data.ToQuery GetDomainName where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetDomainNameResponse' smart constructor.
 data GetDomainNameResponse = GetDomainNameResponse'
-  { -- | The domain name configurations.
-    domainNameConfigurations :: Prelude.Maybe [DomainNameConfiguration],
+  { -- | The API mapping selection expression.
+    apiMappingSelectionExpression :: Prelude.Maybe Prelude.Text,
     -- | The name of the DomainName resource.
     domainName :: Prelude.Maybe Prelude.Text,
+    -- | The domain name configurations.
+    domainNameConfigurations :: Prelude.Maybe [DomainNameConfiguration],
     -- | The mutual TLS authentication configuration for a custom domain name.
     mutualTlsAuthentication :: Prelude.Maybe MutualTlsAuthentication,
-    -- | The API mapping selection expression.
-    apiMappingSelectionExpression :: Prelude.Maybe Prelude.Text,
     -- | The collection of tags associated with a domain name.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The response's http status code.
@@ -147,13 +149,13 @@ data GetDomainNameResponse = GetDomainNameResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'domainNameConfigurations', 'getDomainNameResponse_domainNameConfigurations' - The domain name configurations.
+-- 'apiMappingSelectionExpression', 'getDomainNameResponse_apiMappingSelectionExpression' - The API mapping selection expression.
 --
 -- 'domainName', 'getDomainNameResponse_domainName' - The name of the DomainName resource.
 --
--- 'mutualTlsAuthentication', 'getDomainNameResponse_mutualTlsAuthentication' - The mutual TLS authentication configuration for a custom domain name.
+-- 'domainNameConfigurations', 'getDomainNameResponse_domainNameConfigurations' - The domain name configurations.
 --
--- 'apiMappingSelectionExpression', 'getDomainNameResponse_apiMappingSelectionExpression' - The API mapping selection expression.
+-- 'mutualTlsAuthentication', 'getDomainNameResponse_mutualTlsAuthentication' - The mutual TLS authentication configuration for a custom domain name.
 --
 -- 'tags', 'getDomainNameResponse_tags' - The collection of tags associated with a domain name.
 --
@@ -164,30 +166,30 @@ newGetDomainNameResponse ::
   GetDomainNameResponse
 newGetDomainNameResponse pHttpStatus_ =
   GetDomainNameResponse'
-    { domainNameConfigurations =
+    { apiMappingSelectionExpression =
         Prelude.Nothing,
       domainName = Prelude.Nothing,
+      domainNameConfigurations = Prelude.Nothing,
       mutualTlsAuthentication = Prelude.Nothing,
-      apiMappingSelectionExpression = Prelude.Nothing,
       tags = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The domain name configurations.
-getDomainNameResponse_domainNameConfigurations :: Lens.Lens' GetDomainNameResponse (Prelude.Maybe [DomainNameConfiguration])
-getDomainNameResponse_domainNameConfigurations = Lens.lens (\GetDomainNameResponse' {domainNameConfigurations} -> domainNameConfigurations) (\s@GetDomainNameResponse' {} a -> s {domainNameConfigurations = a} :: GetDomainNameResponse) Prelude.. Lens.mapping Lens.coerced
+-- | The API mapping selection expression.
+getDomainNameResponse_apiMappingSelectionExpression :: Lens.Lens' GetDomainNameResponse (Prelude.Maybe Prelude.Text)
+getDomainNameResponse_apiMappingSelectionExpression = Lens.lens (\GetDomainNameResponse' {apiMappingSelectionExpression} -> apiMappingSelectionExpression) (\s@GetDomainNameResponse' {} a -> s {apiMappingSelectionExpression = a} :: GetDomainNameResponse)
 
 -- | The name of the DomainName resource.
 getDomainNameResponse_domainName :: Lens.Lens' GetDomainNameResponse (Prelude.Maybe Prelude.Text)
 getDomainNameResponse_domainName = Lens.lens (\GetDomainNameResponse' {domainName} -> domainName) (\s@GetDomainNameResponse' {} a -> s {domainName = a} :: GetDomainNameResponse)
 
+-- | The domain name configurations.
+getDomainNameResponse_domainNameConfigurations :: Lens.Lens' GetDomainNameResponse (Prelude.Maybe [DomainNameConfiguration])
+getDomainNameResponse_domainNameConfigurations = Lens.lens (\GetDomainNameResponse' {domainNameConfigurations} -> domainNameConfigurations) (\s@GetDomainNameResponse' {} a -> s {domainNameConfigurations = a} :: GetDomainNameResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The mutual TLS authentication configuration for a custom domain name.
 getDomainNameResponse_mutualTlsAuthentication :: Lens.Lens' GetDomainNameResponse (Prelude.Maybe MutualTlsAuthentication)
 getDomainNameResponse_mutualTlsAuthentication = Lens.lens (\GetDomainNameResponse' {mutualTlsAuthentication} -> mutualTlsAuthentication) (\s@GetDomainNameResponse' {} a -> s {mutualTlsAuthentication = a} :: GetDomainNameResponse)
-
--- | The API mapping selection expression.
-getDomainNameResponse_apiMappingSelectionExpression :: Lens.Lens' GetDomainNameResponse (Prelude.Maybe Prelude.Text)
-getDomainNameResponse_apiMappingSelectionExpression = Lens.lens (\GetDomainNameResponse' {apiMappingSelectionExpression} -> apiMappingSelectionExpression) (\s@GetDomainNameResponse' {} a -> s {apiMappingSelectionExpression = a} :: GetDomainNameResponse)
 
 -- | The collection of tags associated with a domain name.
 getDomainNameResponse_tags :: Lens.Lens' GetDomainNameResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -199,9 +201,9 @@ getDomainNameResponse_httpStatus = Lens.lens (\GetDomainNameResponse' {httpStatu
 
 instance Prelude.NFData GetDomainNameResponse where
   rnf GetDomainNameResponse' {..} =
-    Prelude.rnf domainNameConfigurations
+    Prelude.rnf apiMappingSelectionExpression
       `Prelude.seq` Prelude.rnf domainName
+      `Prelude.seq` Prelude.rnf domainNameConfigurations
       `Prelude.seq` Prelude.rnf mutualTlsAuthentication
-      `Prelude.seq` Prelude.rnf apiMappingSelectionExpression
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus

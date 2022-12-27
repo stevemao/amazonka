@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutMetrics.Types.TimestampColumn
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LookoutMetrics.Types.TimestampColumn where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the column used to track time in a source
@@ -62,14 +63,14 @@ timestampColumn_columnFormat = Lens.lens (\TimestampColumn' {columnFormat} -> co
 timestampColumn_columnName :: Lens.Lens' TimestampColumn (Prelude.Maybe Prelude.Text)
 timestampColumn_columnName = Lens.lens (\TimestampColumn' {columnName} -> columnName) (\s@TimestampColumn' {} a -> s {columnName = a} :: TimestampColumn)
 
-instance Core.FromJSON TimestampColumn where
+instance Data.FromJSON TimestampColumn where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TimestampColumn"
       ( \x ->
           TimestampColumn'
-            Prelude.<$> (x Core..:? "ColumnFormat")
-            Prelude.<*> (x Core..:? "ColumnName")
+            Prelude.<$> (x Data..:? "ColumnFormat")
+            Prelude.<*> (x Data..:? "ColumnName")
       )
 
 instance Prelude.Hashable TimestampColumn where
@@ -82,11 +83,11 @@ instance Prelude.NFData TimestampColumn where
     Prelude.rnf columnFormat
       `Prelude.seq` Prelude.rnf columnName
 
-instance Core.ToJSON TimestampColumn where
+instance Data.ToJSON TimestampColumn where
   toJSON TimestampColumn' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ColumnFormat" Core..=) Prelude.<$> columnFormat,
-            ("ColumnName" Core..=) Prelude.<$> columnName
+          [ ("ColumnFormat" Data..=) Prelude.<$> columnFormat,
+            ("ColumnName" Data..=) Prelude.<$> columnName
           ]
       )

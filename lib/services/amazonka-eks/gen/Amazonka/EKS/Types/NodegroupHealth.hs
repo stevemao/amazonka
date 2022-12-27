@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.Types.NodegroupHealth
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EKS.Types.NodegroupHealth where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EKS.Types.Issue
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object representing the health status of the node group.
@@ -51,13 +52,13 @@ newNodegroupHealth =
 nodegroupHealth_issues :: Lens.Lens' NodegroupHealth (Prelude.Maybe [Issue])
 nodegroupHealth_issues = Lens.lens (\NodegroupHealth' {issues} -> issues) (\s@NodegroupHealth' {} a -> s {issues = a} :: NodegroupHealth) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON NodegroupHealth where
+instance Data.FromJSON NodegroupHealth where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NodegroupHealth"
       ( \x ->
           NodegroupHealth'
-            Prelude.<$> (x Core..:? "issues" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "issues" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable NodegroupHealth where

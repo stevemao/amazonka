@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.TagDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.TagDescription where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.ResourceType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a tag.
@@ -93,13 +94,13 @@ tagDescription_key = Lens.lens (\TagDescription' {key} -> key) (\s@TagDescriptio
 tagDescription_value :: Lens.Lens' TagDescription Prelude.Text
 tagDescription_value = Lens.lens (\TagDescription' {value} -> value) (\s@TagDescription' {} a -> s {value = a} :: TagDescription)
 
-instance Core.FromXML TagDescription where
+instance Data.FromXML TagDescription where
   parseXML x =
     TagDescription'
-      Prelude.<$> (x Core..@ "resourceId")
-      Prelude.<*> (x Core..@ "resourceType")
-      Prelude.<*> (x Core..@ "key")
-      Prelude.<*> (x Core..@ "value")
+      Prelude.<$> (x Data..@ "resourceId")
+      Prelude.<*> (x Data..@ "resourceType")
+      Prelude.<*> (x Data..@ "key")
+      Prelude.<*> (x Data..@ "value")
 
 instance Prelude.Hashable TagDescription where
   hashWithSalt _salt TagDescription' {..} =

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.HostInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.HostInstance where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an instance running on a Dedicated Host.
@@ -71,12 +72,12 @@ hostInstance_instanceType = Lens.lens (\HostInstance' {instanceType} -> instance
 hostInstance_ownerId :: Lens.Lens' HostInstance (Prelude.Maybe Prelude.Text)
 hostInstance_ownerId = Lens.lens (\HostInstance' {ownerId} -> ownerId) (\s@HostInstance' {} a -> s {ownerId = a} :: HostInstance)
 
-instance Core.FromXML HostInstance where
+instance Data.FromXML HostInstance where
   parseXML x =
     HostInstance'
-      Prelude.<$> (x Core..@? "instanceId")
-      Prelude.<*> (x Core..@? "instanceType")
-      Prelude.<*> (x Core..@? "ownerId")
+      Prelude.<$> (x Data..@? "instanceId")
+      Prelude.<*> (x Data..@? "instanceType")
+      Prelude.<*> (x Data..@? "ownerId")
 
 instance Prelude.Hashable HostInstance where
   hashWithSalt _salt HostInstance' {..} =

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.GetFaceSearch
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -58,8 +58,8 @@ module Amazonka.Rekognition.GetFaceSearch
     newGetFaceSearch,
 
     -- * Request Lenses
-    getFaceSearch_nextToken,
     getFaceSearch_maxResults,
+    getFaceSearch_nextToken,
     getFaceSearch_sortBy,
     getFaceSearch_jobId,
 
@@ -68,17 +68,18 @@ module Amazonka.Rekognition.GetFaceSearch
     newGetFaceSearchResponse,
 
     -- * Response Lenses
-    getFaceSearchResponse_nextToken,
-    getFaceSearchResponse_videoMetadata,
-    getFaceSearchResponse_statusMessage,
     getFaceSearchResponse_jobStatus,
+    getFaceSearchResponse_nextToken,
     getFaceSearchResponse_persons,
+    getFaceSearchResponse_statusMessage,
+    getFaceSearchResponse_videoMetadata,
     getFaceSearchResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types
 import qualified Amazonka.Request as Request
@@ -86,15 +87,15 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetFaceSearch' smart constructor.
 data GetFaceSearch = GetFaceSearch'
-  { -- | If the previous response was incomplete (because there is more search
+  { -- | Maximum number of results to return per paginated call. The largest
+    -- value you can specify is 1000. If you specify a value greater than 1000,
+    -- a maximum of 1000 results is returned. The default value is 1000.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | If the previous response was incomplete (because there is more search
     -- results to retrieve), Amazon Rekognition Video returns a pagination
     -- token in the response. You can use this pagination token to retrieve the
     -- next set of search results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Maximum number of results to return per paginated call. The largest
-    -- value you can specify is 1000. If you specify a value greater than 1000,
-    -- a maximum of 1000 results is returned. The default value is 1000.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | Sort to use for grouping faces in the response. Use @TIMESTAMP@ to group
     -- faces by the time that they are recognized. Use @INDEX@ to sort by
     -- recognized faces.
@@ -113,14 +114,14 @@ data GetFaceSearch = GetFaceSearch'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'getFaceSearch_maxResults' - Maximum number of results to return per paginated call. The largest
+-- value you can specify is 1000. If you specify a value greater than 1000,
+-- a maximum of 1000 results is returned. The default value is 1000.
+--
 -- 'nextToken', 'getFaceSearch_nextToken' - If the previous response was incomplete (because there is more search
 -- results to retrieve), Amazon Rekognition Video returns a pagination
 -- token in the response. You can use this pagination token to retrieve the
 -- next set of search results.
---
--- 'maxResults', 'getFaceSearch_maxResults' - Maximum number of results to return per paginated call. The largest
--- value you can specify is 1000. If you specify a value greater than 1000,
--- a maximum of 1000 results is returned. The default value is 1000.
 --
 -- 'sortBy', 'getFaceSearch_sortBy' - Sort to use for grouping faces in the response. Use @TIMESTAMP@ to group
 -- faces by the time that they are recognized. Use @INDEX@ to sort by
@@ -134,11 +135,17 @@ newGetFaceSearch ::
   GetFaceSearch
 newGetFaceSearch pJobId_ =
   GetFaceSearch'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       sortBy = Prelude.Nothing,
       jobId = pJobId_
     }
+
+-- | Maximum number of results to return per paginated call. The largest
+-- value you can specify is 1000. If you specify a value greater than 1000,
+-- a maximum of 1000 results is returned. The default value is 1000.
+getFaceSearch_maxResults :: Lens.Lens' GetFaceSearch (Prelude.Maybe Prelude.Natural)
+getFaceSearch_maxResults = Lens.lens (\GetFaceSearch' {maxResults} -> maxResults) (\s@GetFaceSearch' {} a -> s {maxResults = a} :: GetFaceSearch)
 
 -- | If the previous response was incomplete (because there is more search
 -- results to retrieve), Amazon Rekognition Video returns a pagination
@@ -146,12 +153,6 @@ newGetFaceSearch pJobId_ =
 -- next set of search results.
 getFaceSearch_nextToken :: Lens.Lens' GetFaceSearch (Prelude.Maybe Prelude.Text)
 getFaceSearch_nextToken = Lens.lens (\GetFaceSearch' {nextToken} -> nextToken) (\s@GetFaceSearch' {} a -> s {nextToken = a} :: GetFaceSearch)
-
--- | Maximum number of results to return per paginated call. The largest
--- value you can specify is 1000. If you specify a value greater than 1000,
--- a maximum of 1000 results is returned. The default value is 1000.
-getFaceSearch_maxResults :: Lens.Lens' GetFaceSearch (Prelude.Maybe Prelude.Natural)
-getFaceSearch_maxResults = Lens.lens (\GetFaceSearch' {maxResults} -> maxResults) (\s@GetFaceSearch' {} a -> s {maxResults = a} :: GetFaceSearch)
 
 -- | Sort to use for grouping faces in the response. Use @TIMESTAMP@ to group
 -- faces by the time that they are recognized. Use @INDEX@ to sort by
@@ -168,79 +169,74 @@ instance Core.AWSRequest GetFaceSearch where
   type
     AWSResponse GetFaceSearch =
       GetFaceSearchResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetFaceSearchResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "VideoMetadata")
-            Prelude.<*> (x Core..?> "StatusMessage")
-            Prelude.<*> (x Core..?> "JobStatus")
-            Prelude.<*> (x Core..?> "Persons" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "JobStatus")
+            Prelude.<*> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Persons" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "StatusMessage")
+            Prelude.<*> (x Data..?> "VideoMetadata")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetFaceSearch where
   hashWithSalt _salt GetFaceSearch' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` sortBy
       `Prelude.hashWithSalt` jobId
 
 instance Prelude.NFData GetFaceSearch where
   rnf GetFaceSearch' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf sortBy
       `Prelude.seq` Prelude.rnf jobId
 
-instance Core.ToHeaders GetFaceSearch where
+instance Data.ToHeaders GetFaceSearch where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "RekognitionService.GetFaceSearch" ::
+              Data.=# ( "RekognitionService.GetFaceSearch" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetFaceSearch where
+instance Data.ToJSON GetFaceSearch where
   toJSON GetFaceSearch' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            ("SortBy" Core..=) Prelude.<$> sortBy,
-            Prelude.Just ("JobId" Core..= jobId)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("SortBy" Data..=) Prelude.<$> sortBy,
+            Prelude.Just ("JobId" Data..= jobId)
           ]
       )
 
-instance Core.ToPath GetFaceSearch where
+instance Data.ToPath GetFaceSearch where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetFaceSearch where
+instance Data.ToQuery GetFaceSearch where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetFaceSearchResponse' smart constructor.
 data GetFaceSearchResponse = GetFaceSearchResponse'
-  { -- | If the response is truncated, Amazon Rekognition Video returns this
+  { -- | The current status of the face search job.
+    jobStatus :: Prelude.Maybe VideoJobStatus,
+    -- | If the response is truncated, Amazon Rekognition Video returns this
     -- token that you can use in the subsequent request to retrieve the next
     -- set of search results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Information about a video that Amazon Rekognition analyzed.
-    -- @Videometadata@ is returned in every page of paginated responses from a
-    -- Amazon Rekognition Video operation.
-    videoMetadata :: Prelude.Maybe VideoMetadata,
-    -- | If the job fails, @StatusMessage@ provides a descriptive error message.
-    statusMessage :: Prelude.Maybe Prelude.Text,
-    -- | The current status of the face search job.
-    jobStatus :: Prelude.Maybe VideoJobStatus,
     -- | An array of persons, PersonMatch, in the video whose face(s) match the
     -- face(s) in an Amazon Rekognition collection. It also includes time
     -- information for when persons are matched in the video. You specify the
@@ -249,6 +245,12 @@ data GetFaceSearchResponse = GetFaceSearchResponse'
     -- (@FaceMatches@) for matching faces in the collection, and person
     -- information (@Person@) for the matched person.
     persons :: Prelude.Maybe [PersonMatch],
+    -- | If the job fails, @StatusMessage@ provides a descriptive error message.
+    statusMessage :: Prelude.Maybe Prelude.Text,
+    -- | Information about a video that Amazon Rekognition analyzed.
+    -- @Videometadata@ is returned in every page of paginated responses from a
+    -- Amazon Rekognition Video operation.
+    videoMetadata :: Prelude.Maybe VideoMetadata,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -262,17 +264,11 @@ data GetFaceSearchResponse = GetFaceSearchResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'jobStatus', 'getFaceSearchResponse_jobStatus' - The current status of the face search job.
+--
 -- 'nextToken', 'getFaceSearchResponse_nextToken' - If the response is truncated, Amazon Rekognition Video returns this
 -- token that you can use in the subsequent request to retrieve the next
 -- set of search results.
---
--- 'videoMetadata', 'getFaceSearchResponse_videoMetadata' - Information about a video that Amazon Rekognition analyzed.
--- @Videometadata@ is returned in every page of paginated responses from a
--- Amazon Rekognition Video operation.
---
--- 'statusMessage', 'getFaceSearchResponse_statusMessage' - If the job fails, @StatusMessage@ provides a descriptive error message.
---
--- 'jobStatus', 'getFaceSearchResponse_jobStatus' - The current status of the face search job.
 --
 -- 'persons', 'getFaceSearchResponse_persons' - An array of persons, PersonMatch, in the video whose face(s) match the
 -- face(s) in an Amazon Rekognition collection. It also includes time
@@ -282,6 +278,12 @@ data GetFaceSearchResponse = GetFaceSearchResponse'
 -- (@FaceMatches@) for matching faces in the collection, and person
 -- information (@Person@) for the matched person.
 --
+-- 'statusMessage', 'getFaceSearchResponse_statusMessage' - If the job fails, @StatusMessage@ provides a descriptive error message.
+--
+-- 'videoMetadata', 'getFaceSearchResponse_videoMetadata' - Information about a video that Amazon Rekognition analyzed.
+-- @Videometadata@ is returned in every page of paginated responses from a
+-- Amazon Rekognition Video operation.
+--
 -- 'httpStatus', 'getFaceSearchResponse_httpStatus' - The response's http status code.
 newGetFaceSearchResponse ::
   -- | 'httpStatus'
@@ -289,33 +291,23 @@ newGetFaceSearchResponse ::
   GetFaceSearchResponse
 newGetFaceSearchResponse pHttpStatus_ =
   GetFaceSearchResponse'
-    { nextToken = Prelude.Nothing,
-      videoMetadata = Prelude.Nothing,
-      statusMessage = Prelude.Nothing,
-      jobStatus = Prelude.Nothing,
+    { jobStatus = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       persons = Prelude.Nothing,
+      statusMessage = Prelude.Nothing,
+      videoMetadata = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The current status of the face search job.
+getFaceSearchResponse_jobStatus :: Lens.Lens' GetFaceSearchResponse (Prelude.Maybe VideoJobStatus)
+getFaceSearchResponse_jobStatus = Lens.lens (\GetFaceSearchResponse' {jobStatus} -> jobStatus) (\s@GetFaceSearchResponse' {} a -> s {jobStatus = a} :: GetFaceSearchResponse)
 
 -- | If the response is truncated, Amazon Rekognition Video returns this
 -- token that you can use in the subsequent request to retrieve the next
 -- set of search results.
 getFaceSearchResponse_nextToken :: Lens.Lens' GetFaceSearchResponse (Prelude.Maybe Prelude.Text)
 getFaceSearchResponse_nextToken = Lens.lens (\GetFaceSearchResponse' {nextToken} -> nextToken) (\s@GetFaceSearchResponse' {} a -> s {nextToken = a} :: GetFaceSearchResponse)
-
--- | Information about a video that Amazon Rekognition analyzed.
--- @Videometadata@ is returned in every page of paginated responses from a
--- Amazon Rekognition Video operation.
-getFaceSearchResponse_videoMetadata :: Lens.Lens' GetFaceSearchResponse (Prelude.Maybe VideoMetadata)
-getFaceSearchResponse_videoMetadata = Lens.lens (\GetFaceSearchResponse' {videoMetadata} -> videoMetadata) (\s@GetFaceSearchResponse' {} a -> s {videoMetadata = a} :: GetFaceSearchResponse)
-
--- | If the job fails, @StatusMessage@ provides a descriptive error message.
-getFaceSearchResponse_statusMessage :: Lens.Lens' GetFaceSearchResponse (Prelude.Maybe Prelude.Text)
-getFaceSearchResponse_statusMessage = Lens.lens (\GetFaceSearchResponse' {statusMessage} -> statusMessage) (\s@GetFaceSearchResponse' {} a -> s {statusMessage = a} :: GetFaceSearchResponse)
-
--- | The current status of the face search job.
-getFaceSearchResponse_jobStatus :: Lens.Lens' GetFaceSearchResponse (Prelude.Maybe VideoJobStatus)
-getFaceSearchResponse_jobStatus = Lens.lens (\GetFaceSearchResponse' {jobStatus} -> jobStatus) (\s@GetFaceSearchResponse' {} a -> s {jobStatus = a} :: GetFaceSearchResponse)
 
 -- | An array of persons, PersonMatch, in the video whose face(s) match the
 -- face(s) in an Amazon Rekognition collection. It also includes time
@@ -327,15 +319,25 @@ getFaceSearchResponse_jobStatus = Lens.lens (\GetFaceSearchResponse' {jobStatus}
 getFaceSearchResponse_persons :: Lens.Lens' GetFaceSearchResponse (Prelude.Maybe [PersonMatch])
 getFaceSearchResponse_persons = Lens.lens (\GetFaceSearchResponse' {persons} -> persons) (\s@GetFaceSearchResponse' {} a -> s {persons = a} :: GetFaceSearchResponse) Prelude.. Lens.mapping Lens.coerced
 
+-- | If the job fails, @StatusMessage@ provides a descriptive error message.
+getFaceSearchResponse_statusMessage :: Lens.Lens' GetFaceSearchResponse (Prelude.Maybe Prelude.Text)
+getFaceSearchResponse_statusMessage = Lens.lens (\GetFaceSearchResponse' {statusMessage} -> statusMessage) (\s@GetFaceSearchResponse' {} a -> s {statusMessage = a} :: GetFaceSearchResponse)
+
+-- | Information about a video that Amazon Rekognition analyzed.
+-- @Videometadata@ is returned in every page of paginated responses from a
+-- Amazon Rekognition Video operation.
+getFaceSearchResponse_videoMetadata :: Lens.Lens' GetFaceSearchResponse (Prelude.Maybe VideoMetadata)
+getFaceSearchResponse_videoMetadata = Lens.lens (\GetFaceSearchResponse' {videoMetadata} -> videoMetadata) (\s@GetFaceSearchResponse' {} a -> s {videoMetadata = a} :: GetFaceSearchResponse)
+
 -- | The response's http status code.
 getFaceSearchResponse_httpStatus :: Lens.Lens' GetFaceSearchResponse Prelude.Int
 getFaceSearchResponse_httpStatus = Lens.lens (\GetFaceSearchResponse' {httpStatus} -> httpStatus) (\s@GetFaceSearchResponse' {} a -> s {httpStatus = a} :: GetFaceSearchResponse)
 
 instance Prelude.NFData GetFaceSearchResponse where
   rnf GetFaceSearchResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf videoMetadata
-      `Prelude.seq` Prelude.rnf statusMessage
-      `Prelude.seq` Prelude.rnf jobStatus
+    Prelude.rnf jobStatus
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf persons
+      `Prelude.seq` Prelude.rnf statusMessage
+      `Prelude.seq` Prelude.rnf videoMetadata
       `Prelude.seq` Prelude.rnf httpStatus

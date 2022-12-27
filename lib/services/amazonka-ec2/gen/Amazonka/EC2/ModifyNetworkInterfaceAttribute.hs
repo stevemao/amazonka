@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ModifyNetworkInterfaceAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,11 +29,12 @@ module Amazonka.EC2.ModifyNetworkInterfaceAttribute
     newModifyNetworkInterfaceAttribute,
 
     -- * Request Lenses
-    modifyNetworkInterfaceAttribute_groups,
-    modifyNetworkInterfaceAttribute_sourceDestCheck,
     modifyNetworkInterfaceAttribute_attachment,
     modifyNetworkInterfaceAttribute_description,
     modifyNetworkInterfaceAttribute_dryRun,
+    modifyNetworkInterfaceAttribute_enaSrdSpecification,
+    modifyNetworkInterfaceAttribute_groups,
+    modifyNetworkInterfaceAttribute_sourceDestCheck,
     modifyNetworkInterfaceAttribute_networkInterfaceId,
 
     -- * Destructuring the Response
@@ -43,8 +44,9 @@ module Amazonka.EC2.ModifyNetworkInterfaceAttribute
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,7 +55,21 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newModifyNetworkInterfaceAttribute' smart constructor.
 data ModifyNetworkInterfaceAttribute = ModifyNetworkInterfaceAttribute'
-  { -- | Changes the security groups for the network interface. The new set of
+  { -- | Information about the interface attachment. If modifying the
+    -- @delete on termination@ attribute, you must specify the ID of the
+    -- interface attachment.
+    attachment :: Prelude.Maybe NetworkInterfaceAttachmentChanges,
+    -- | A description for the network interface.
+    description :: Prelude.Maybe AttributeValue,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | Updates the ENA Express configuration for the network interface that’s
+    -- attached to the instance.
+    enaSrdSpecification :: Prelude.Maybe EnaSrdSpecification,
+    -- | Changes the security groups for the network interface. The new set of
     -- groups you specify replaces the current set. You must specify at least
     -- one group, even if it\'s just the default security group in the VPC. You
     -- must specify the ID of the security group, not the name.
@@ -65,17 +81,6 @@ data ModifyNetworkInterfaceAttribute = ModifyNetworkInterfaceAttribute'
     -- must disable source\/destination checks if the instance runs services
     -- such as network address translation, routing, or firewalls.
     sourceDestCheck :: Prelude.Maybe AttributeBooleanValue,
-    -- | Information about the interface attachment. If modifying the \'delete on
-    -- termination\' attribute, you must specify the ID of the interface
-    -- attachment.
-    attachment :: Prelude.Maybe NetworkInterfaceAttachmentChanges,
-    -- | A description for the network interface.
-    description :: Prelude.Maybe AttributeValue,
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | The ID of the network interface.
     networkInterfaceId :: Prelude.Text
   }
@@ -89,6 +94,20 @@ data ModifyNetworkInterfaceAttribute = ModifyNetworkInterfaceAttribute'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'attachment', 'modifyNetworkInterfaceAttribute_attachment' - Information about the interface attachment. If modifying the
+-- @delete on termination@ attribute, you must specify the ID of the
+-- interface attachment.
+--
+-- 'description', 'modifyNetworkInterfaceAttribute_description' - A description for the network interface.
+--
+-- 'dryRun', 'modifyNetworkInterfaceAttribute_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'enaSrdSpecification', 'modifyNetworkInterfaceAttribute_enaSrdSpecification' - Updates the ENA Express configuration for the network interface that’s
+-- attached to the instance.
+--
 -- 'groups', 'modifyNetworkInterfaceAttribute_groups' - Changes the security groups for the network interface. The new set of
 -- groups you specify replaces the current set. You must specify at least
 -- one group, even if it\'s just the default security group in the VPC. You
@@ -101,17 +120,6 @@ data ModifyNetworkInterfaceAttribute = ModifyNetworkInterfaceAttribute'
 -- must disable source\/destination checks if the instance runs services
 -- such as network address translation, routing, or firewalls.
 --
--- 'attachment', 'modifyNetworkInterfaceAttribute_attachment' - Information about the interface attachment. If modifying the \'delete on
--- termination\' attribute, you must specify the ID of the interface
--- attachment.
---
--- 'description', 'modifyNetworkInterfaceAttribute_description' - A description for the network interface.
---
--- 'dryRun', 'modifyNetworkInterfaceAttribute_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
---
 -- 'networkInterfaceId', 'modifyNetworkInterfaceAttribute_networkInterfaceId' - The ID of the network interface.
 newModifyNetworkInterfaceAttribute ::
   -- | 'networkInterfaceId'
@@ -120,14 +128,37 @@ newModifyNetworkInterfaceAttribute ::
 newModifyNetworkInterfaceAttribute
   pNetworkInterfaceId_ =
     ModifyNetworkInterfaceAttribute'
-      { groups =
+      { attachment =
           Prelude.Nothing,
-        sourceDestCheck = Prelude.Nothing,
-        attachment = Prelude.Nothing,
         description = Prelude.Nothing,
         dryRun = Prelude.Nothing,
+        enaSrdSpecification = Prelude.Nothing,
+        groups = Prelude.Nothing,
+        sourceDestCheck = Prelude.Nothing,
         networkInterfaceId = pNetworkInterfaceId_
       }
+
+-- | Information about the interface attachment. If modifying the
+-- @delete on termination@ attribute, you must specify the ID of the
+-- interface attachment.
+modifyNetworkInterfaceAttribute_attachment :: Lens.Lens' ModifyNetworkInterfaceAttribute (Prelude.Maybe NetworkInterfaceAttachmentChanges)
+modifyNetworkInterfaceAttribute_attachment = Lens.lens (\ModifyNetworkInterfaceAttribute' {attachment} -> attachment) (\s@ModifyNetworkInterfaceAttribute' {} a -> s {attachment = a} :: ModifyNetworkInterfaceAttribute)
+
+-- | A description for the network interface.
+modifyNetworkInterfaceAttribute_description :: Lens.Lens' ModifyNetworkInterfaceAttribute (Prelude.Maybe AttributeValue)
+modifyNetworkInterfaceAttribute_description = Lens.lens (\ModifyNetworkInterfaceAttribute' {description} -> description) (\s@ModifyNetworkInterfaceAttribute' {} a -> s {description = a} :: ModifyNetworkInterfaceAttribute)
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+modifyNetworkInterfaceAttribute_dryRun :: Lens.Lens' ModifyNetworkInterfaceAttribute (Prelude.Maybe Prelude.Bool)
+modifyNetworkInterfaceAttribute_dryRun = Lens.lens (\ModifyNetworkInterfaceAttribute' {dryRun} -> dryRun) (\s@ModifyNetworkInterfaceAttribute' {} a -> s {dryRun = a} :: ModifyNetworkInterfaceAttribute)
+
+-- | Updates the ENA Express configuration for the network interface that’s
+-- attached to the instance.
+modifyNetworkInterfaceAttribute_enaSrdSpecification :: Lens.Lens' ModifyNetworkInterfaceAttribute (Prelude.Maybe EnaSrdSpecification)
+modifyNetworkInterfaceAttribute_enaSrdSpecification = Lens.lens (\ModifyNetworkInterfaceAttribute' {enaSrdSpecification} -> enaSrdSpecification) (\s@ModifyNetworkInterfaceAttribute' {} a -> s {enaSrdSpecification = a} :: ModifyNetworkInterfaceAttribute)
 
 -- | Changes the security groups for the network interface. The new set of
 -- groups you specify replaces the current set. You must specify at least
@@ -145,23 +176,6 @@ modifyNetworkInterfaceAttribute_groups = Lens.lens (\ModifyNetworkInterfaceAttri
 modifyNetworkInterfaceAttribute_sourceDestCheck :: Lens.Lens' ModifyNetworkInterfaceAttribute (Prelude.Maybe AttributeBooleanValue)
 modifyNetworkInterfaceAttribute_sourceDestCheck = Lens.lens (\ModifyNetworkInterfaceAttribute' {sourceDestCheck} -> sourceDestCheck) (\s@ModifyNetworkInterfaceAttribute' {} a -> s {sourceDestCheck = a} :: ModifyNetworkInterfaceAttribute)
 
--- | Information about the interface attachment. If modifying the \'delete on
--- termination\' attribute, you must specify the ID of the interface
--- attachment.
-modifyNetworkInterfaceAttribute_attachment :: Lens.Lens' ModifyNetworkInterfaceAttribute (Prelude.Maybe NetworkInterfaceAttachmentChanges)
-modifyNetworkInterfaceAttribute_attachment = Lens.lens (\ModifyNetworkInterfaceAttribute' {attachment} -> attachment) (\s@ModifyNetworkInterfaceAttribute' {} a -> s {attachment = a} :: ModifyNetworkInterfaceAttribute)
-
--- | A description for the network interface.
-modifyNetworkInterfaceAttribute_description :: Lens.Lens' ModifyNetworkInterfaceAttribute (Prelude.Maybe AttributeValue)
-modifyNetworkInterfaceAttribute_description = Lens.lens (\ModifyNetworkInterfaceAttribute' {description} -> description) (\s@ModifyNetworkInterfaceAttribute' {} a -> s {description = a} :: ModifyNetworkInterfaceAttribute)
-
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-modifyNetworkInterfaceAttribute_dryRun :: Lens.Lens' ModifyNetworkInterfaceAttribute (Prelude.Maybe Prelude.Bool)
-modifyNetworkInterfaceAttribute_dryRun = Lens.lens (\ModifyNetworkInterfaceAttribute' {dryRun} -> dryRun) (\s@ModifyNetworkInterfaceAttribute' {} a -> s {dryRun = a} :: ModifyNetworkInterfaceAttribute)
-
 -- | The ID of the network interface.
 modifyNetworkInterfaceAttribute_networkInterfaceId :: Lens.Lens' ModifyNetworkInterfaceAttribute Prelude.Text
 modifyNetworkInterfaceAttribute_networkInterfaceId = Lens.lens (\ModifyNetworkInterfaceAttribute' {networkInterfaceId} -> networkInterfaceId) (\s@ModifyNetworkInterfaceAttribute' {} a -> s {networkInterfaceId = a} :: ModifyNetworkInterfaceAttribute)
@@ -173,7 +187,8 @@ instance
   type
     AWSResponse ModifyNetworkInterfaceAttribute =
       ModifyNetworkInterfaceAttributeResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       ModifyNetworkInterfaceAttributeResponse'
@@ -185,11 +200,12 @@ instance
   hashWithSalt
     _salt
     ModifyNetworkInterfaceAttribute' {..} =
-      _salt `Prelude.hashWithSalt` groups
-        `Prelude.hashWithSalt` sourceDestCheck
-        `Prelude.hashWithSalt` attachment
+      _salt `Prelude.hashWithSalt` attachment
         `Prelude.hashWithSalt` description
         `Prelude.hashWithSalt` dryRun
+        `Prelude.hashWithSalt` enaSrdSpecification
+        `Prelude.hashWithSalt` groups
+        `Prelude.hashWithSalt` sourceDestCheck
         `Prelude.hashWithSalt` networkInterfaceId
 
 instance
@@ -197,40 +213,42 @@ instance
     ModifyNetworkInterfaceAttribute
   where
   rnf ModifyNetworkInterfaceAttribute' {..} =
-    Prelude.rnf groups
-      `Prelude.seq` Prelude.rnf sourceDestCheck
-      `Prelude.seq` Prelude.rnf attachment
+    Prelude.rnf attachment
       `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf enaSrdSpecification
+      `Prelude.seq` Prelude.rnf groups
+      `Prelude.seq` Prelude.rnf sourceDestCheck
       `Prelude.seq` Prelude.rnf networkInterfaceId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ModifyNetworkInterfaceAttribute
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyNetworkInterfaceAttribute where
+instance Data.ToPath ModifyNetworkInterfaceAttribute where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyNetworkInterfaceAttribute where
+instance Data.ToQuery ModifyNetworkInterfaceAttribute where
   toQuery ModifyNetworkInterfaceAttribute' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "ModifyNetworkInterfaceAttribute" ::
+          Data.=: ( "ModifyNetworkInterfaceAttribute" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          ( Core.toQueryList "SecurityGroupId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "Attachment" Data.=: attachment,
+        "Description" Data.=: description,
+        "DryRun" Data.=: dryRun,
+        "EnaSrdSpecification" Data.=: enaSrdSpecification,
+        Data.toQuery
+          ( Data.toQueryList "SecurityGroupId"
               Prelude.<$> groups
           ),
-        "SourceDestCheck" Core.=: sourceDestCheck,
-        "Attachment" Core.=: attachment,
-        "Description" Core.=: description,
-        "DryRun" Core.=: dryRun,
-        "NetworkInterfaceId" Core.=: networkInterfaceId
+        "SourceDestCheck" Data.=: sourceDestCheck,
+        "NetworkInterfaceId" Data.=: networkInterfaceId
       ]
 
 -- | /See:/ 'newModifyNetworkInterfaceAttributeResponse' smart constructor.

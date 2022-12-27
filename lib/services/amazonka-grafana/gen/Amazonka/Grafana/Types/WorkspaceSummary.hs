@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Grafana.Types.WorkspaceSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.Grafana.Types.WorkspaceSummary where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Grafana.Types.AuthenticationSummary
 import Amazonka.Grafana.Types.NotificationDestinationType
 import Amazonka.Grafana.Types.WorkspaceStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A structure that contains some information about one workspace in the
@@ -31,19 +32,21 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newWorkspaceSummary' smart constructor.
 data WorkspaceSummary = WorkspaceSummary'
-  { -- | The name of the workspace.
-    name :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+  { -- | The customer-entered description of the workspace.
+    description :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | The name of the workspace.
+    name :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The Amazon Web Services notification channels that Amazon Managed
     -- Grafana can automatically create IAM roles and permissions for, which
     -- allows Amazon Managed Grafana to use these channels.
     notificationDestinations :: Prelude.Maybe [NotificationDestinationType],
-    -- | The customer-entered description of the workspace.
-    description :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    -- | The list of tags associated with the workspace.
+    tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | A structure containing information about the authentication methods used
     -- in the workspace.
     authentication :: AuthenticationSummary,
     -- | The date that the workspace was created.
-    created :: Core.POSIX,
+    created :: Data.POSIX,
     -- | The URL endpoint to use to access the Grafana console in the workspace.
     endpoint :: Prelude.Text,
     -- | The Grafana version that the workspace is running.
@@ -51,7 +54,7 @@ data WorkspaceSummary = WorkspaceSummary'
     -- | The unique ID of the workspace.
     id :: Prelude.Text,
     -- | The most recent date that the workspace was modified.
-    modified :: Core.POSIX,
+    modified :: Data.POSIX,
     -- | The current status of the workspace.
     status :: WorkspaceStatus
   }
@@ -65,13 +68,15 @@ data WorkspaceSummary = WorkspaceSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'workspaceSummary_description' - The customer-entered description of the workspace.
+--
 -- 'name', 'workspaceSummary_name' - The name of the workspace.
 --
 -- 'notificationDestinations', 'workspaceSummary_notificationDestinations' - The Amazon Web Services notification channels that Amazon Managed
 -- Grafana can automatically create IAM roles and permissions for, which
 -- allows Amazon Managed Grafana to use these channels.
 --
--- 'description', 'workspaceSummary_description' - The customer-entered description of the workspace.
+-- 'tags', 'workspaceSummary_tags' - The list of tags associated with the workspace.
 --
 -- 'authentication', 'workspaceSummary_authentication' - A structure containing information about the authentication methods used
 -- in the workspace.
@@ -112,21 +117,26 @@ newWorkspaceSummary
   pModified_
   pStatus_ =
     WorkspaceSummary'
-      { name = Prelude.Nothing,
+      { description = Prelude.Nothing,
+        name = Prelude.Nothing,
         notificationDestinations = Prelude.Nothing,
-        description = Prelude.Nothing,
+        tags = Prelude.Nothing,
         authentication = pAuthentication_,
-        created = Core._Time Lens.# pCreated_,
+        created = Data._Time Lens.# pCreated_,
         endpoint = pEndpoint_,
         grafanaVersion = pGrafanaVersion_,
         id = pId_,
-        modified = Core._Time Lens.# pModified_,
+        modified = Data._Time Lens.# pModified_,
         status = pStatus_
       }
 
+-- | The customer-entered description of the workspace.
+workspaceSummary_description :: Lens.Lens' WorkspaceSummary (Prelude.Maybe Prelude.Text)
+workspaceSummary_description = Lens.lens (\WorkspaceSummary' {description} -> description) (\s@WorkspaceSummary' {} a -> s {description = a} :: WorkspaceSummary) Prelude.. Lens.mapping Data._Sensitive
+
 -- | The name of the workspace.
 workspaceSummary_name :: Lens.Lens' WorkspaceSummary (Prelude.Maybe Prelude.Text)
-workspaceSummary_name = Lens.lens (\WorkspaceSummary' {name} -> name) (\s@WorkspaceSummary' {} a -> s {name = a} :: WorkspaceSummary) Prelude.. Lens.mapping Core._Sensitive
+workspaceSummary_name = Lens.lens (\WorkspaceSummary' {name} -> name) (\s@WorkspaceSummary' {} a -> s {name = a} :: WorkspaceSummary) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The Amazon Web Services notification channels that Amazon Managed
 -- Grafana can automatically create IAM roles and permissions for, which
@@ -134,9 +144,9 @@ workspaceSummary_name = Lens.lens (\WorkspaceSummary' {name} -> name) (\s@Worksp
 workspaceSummary_notificationDestinations :: Lens.Lens' WorkspaceSummary (Prelude.Maybe [NotificationDestinationType])
 workspaceSummary_notificationDestinations = Lens.lens (\WorkspaceSummary' {notificationDestinations} -> notificationDestinations) (\s@WorkspaceSummary' {} a -> s {notificationDestinations = a} :: WorkspaceSummary) Prelude.. Lens.mapping Lens.coerced
 
--- | The customer-entered description of the workspace.
-workspaceSummary_description :: Lens.Lens' WorkspaceSummary (Prelude.Maybe Prelude.Text)
-workspaceSummary_description = Lens.lens (\WorkspaceSummary' {description} -> description) (\s@WorkspaceSummary' {} a -> s {description = a} :: WorkspaceSummary) Prelude.. Lens.mapping Core._Sensitive
+-- | The list of tags associated with the workspace.
+workspaceSummary_tags :: Lens.Lens' WorkspaceSummary (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+workspaceSummary_tags = Lens.lens (\WorkspaceSummary' {tags} -> tags) (\s@WorkspaceSummary' {} a -> s {tags = a} :: WorkspaceSummary) Prelude.. Lens.mapping Lens.coerced
 
 -- | A structure containing information about the authentication methods used
 -- in the workspace.
@@ -145,7 +155,7 @@ workspaceSummary_authentication = Lens.lens (\WorkspaceSummary' {authentication}
 
 -- | The date that the workspace was created.
 workspaceSummary_created :: Lens.Lens' WorkspaceSummary Prelude.UTCTime
-workspaceSummary_created = Lens.lens (\WorkspaceSummary' {created} -> created) (\s@WorkspaceSummary' {} a -> s {created = a} :: WorkspaceSummary) Prelude.. Core._Time
+workspaceSummary_created = Lens.lens (\WorkspaceSummary' {created} -> created) (\s@WorkspaceSummary' {} a -> s {created = a} :: WorkspaceSummary) Prelude.. Data._Time
 
 -- | The URL endpoint to use to access the Grafana console in the workspace.
 workspaceSummary_endpoint :: Lens.Lens' WorkspaceSummary Prelude.Text
@@ -161,37 +171,39 @@ workspaceSummary_id = Lens.lens (\WorkspaceSummary' {id} -> id) (\s@WorkspaceSum
 
 -- | The most recent date that the workspace was modified.
 workspaceSummary_modified :: Lens.Lens' WorkspaceSummary Prelude.UTCTime
-workspaceSummary_modified = Lens.lens (\WorkspaceSummary' {modified} -> modified) (\s@WorkspaceSummary' {} a -> s {modified = a} :: WorkspaceSummary) Prelude.. Core._Time
+workspaceSummary_modified = Lens.lens (\WorkspaceSummary' {modified} -> modified) (\s@WorkspaceSummary' {} a -> s {modified = a} :: WorkspaceSummary) Prelude.. Data._Time
 
 -- | The current status of the workspace.
 workspaceSummary_status :: Lens.Lens' WorkspaceSummary WorkspaceStatus
 workspaceSummary_status = Lens.lens (\WorkspaceSummary' {status} -> status) (\s@WorkspaceSummary' {} a -> s {status = a} :: WorkspaceSummary)
 
-instance Core.FromJSON WorkspaceSummary where
+instance Data.FromJSON WorkspaceSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "WorkspaceSummary"
       ( \x ->
           WorkspaceSummary'
-            Prelude.<$> (x Core..:? "name")
-            Prelude.<*> ( x Core..:? "notificationDestinations"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "description")
+            Prelude.<*> (x Data..:? "name")
+            Prelude.<*> ( x Data..:? "notificationDestinations"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "description")
-            Prelude.<*> (x Core..: "authentication")
-            Prelude.<*> (x Core..: "created")
-            Prelude.<*> (x Core..: "endpoint")
-            Prelude.<*> (x Core..: "grafanaVersion")
-            Prelude.<*> (x Core..: "id")
-            Prelude.<*> (x Core..: "modified")
-            Prelude.<*> (x Core..: "status")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "authentication")
+            Prelude.<*> (x Data..: "created")
+            Prelude.<*> (x Data..: "endpoint")
+            Prelude.<*> (x Data..: "grafanaVersion")
+            Prelude.<*> (x Data..: "id")
+            Prelude.<*> (x Data..: "modified")
+            Prelude.<*> (x Data..: "status")
       )
 
 instance Prelude.Hashable WorkspaceSummary where
   hashWithSalt _salt WorkspaceSummary' {..} =
-    _salt `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` notificationDestinations
-      `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` authentication
       `Prelude.hashWithSalt` created
       `Prelude.hashWithSalt` endpoint
@@ -202,9 +214,10 @@ instance Prelude.Hashable WorkspaceSummary where
 
 instance Prelude.NFData WorkspaceSummary where
   rnf WorkspaceSummary' {..} =
-    Prelude.rnf name
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf notificationDestinations
-      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf authentication
       `Prelude.seq` Prelude.rnf created
       `Prelude.seq` Prelude.rnf endpoint

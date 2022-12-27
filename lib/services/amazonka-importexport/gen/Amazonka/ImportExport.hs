@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.ImportExport
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,29 +25,38 @@ module Amazonka.ImportExport
     -- * Errors
     -- $errors
 
-    -- ** InvalidJobIdException
-    _InvalidJobIdException,
+    -- ** BucketPermissionException
+    _BucketPermissionException,
 
-    -- ** InvalidParameterException
-    _InvalidParameterException,
+    -- ** CanceledJobIdException
+    _CanceledJobIdException,
+
+    -- ** CreateJobQuotaExceededException
+    _CreateJobQuotaExceededException,
 
     -- ** ExpiredJobIdException
     _ExpiredJobIdException,
 
-    -- ** InvalidFileSystemException
-    _InvalidFileSystemException,
-
     -- ** InvalidAccessKeyIdException
     _InvalidAccessKeyIdException,
 
-    -- ** UnableToUpdateJobIdException
-    _UnableToUpdateJobIdException,
+    -- ** InvalidAddressException
+    _InvalidAddressException,
 
-    -- ** UnableToCancelJobIdException
-    _UnableToCancelJobIdException,
+    -- ** InvalidCustomsException
+    _InvalidCustomsException,
 
-    -- ** MultipleRegionsException
-    _MultipleRegionsException,
+    -- ** InvalidFileSystemException
+    _InvalidFileSystemException,
+
+    -- ** InvalidJobIdException
+    _InvalidJobIdException,
+
+    -- ** InvalidManifestFieldException
+    _InvalidManifestFieldException,
+
+    -- ** InvalidParameterException
+    _InvalidParameterException,
 
     -- ** InvalidVersionException
     _InvalidVersionException,
@@ -55,35 +64,26 @@ module Amazonka.ImportExport
     -- ** MalformedManifestException
     _MalformedManifestException,
 
-    -- ** MissingParameterException
-    _MissingParameterException,
-
-    -- ** CanceledJobIdException
-    _CanceledJobIdException,
-
-    -- ** BucketPermissionException
-    _BucketPermissionException,
-
-    -- ** NoSuchBucketException
-    _NoSuchBucketException,
-
-    -- ** InvalidAddressException
-    _InvalidAddressException,
-
     -- ** MissingCustomsException
     _MissingCustomsException,
-
-    -- ** InvalidManifestFieldException
-    _InvalidManifestFieldException,
-
-    -- ** InvalidCustomsException
-    _InvalidCustomsException,
 
     -- ** MissingManifestFieldException
     _MissingManifestFieldException,
 
-    -- ** CreateJobQuotaExceededException
-    _CreateJobQuotaExceededException,
+    -- ** MissingParameterException
+    _MissingParameterException,
+
+    -- ** MultipleRegionsException
+    _MultipleRegionsException,
+
+    -- ** NoSuchBucketException
+    _NoSuchBucketException,
+
+    -- ** UnableToCancelJobIdException
+    _UnableToCancelJobIdException,
+
+    -- ** UnableToUpdateJobIdException
+    _UnableToUpdateJobIdException,
 
     -- * Waiters
     -- $waiters
@@ -91,17 +91,29 @@ module Amazonka.ImportExport
     -- * Operations
     -- $operations
 
-    -- ** GetShippingLabel
-    GetShippingLabel (GetShippingLabel'),
-    newGetShippingLabel,
-    GetShippingLabelResponse (GetShippingLabelResponse'),
-    newGetShippingLabelResponse,
+    -- ** CancelJob
+    CancelJob (CancelJob'),
+    newCancelJob,
+    CancelJobResponse (CancelJobResponse'),
+    newCancelJobResponse,
 
     -- ** CreateJob
     CreateJob (CreateJob'),
     newCreateJob,
     CreateJobResponse (CreateJobResponse'),
     newCreateJobResponse,
+
+    -- ** GetShippingLabel
+    GetShippingLabel (GetShippingLabel'),
+    newGetShippingLabel,
+    GetShippingLabelResponse (GetShippingLabelResponse'),
+    newGetShippingLabelResponse,
+
+    -- ** GetStatus
+    GetStatus (GetStatus'),
+    newGetStatus,
+    GetStatusResponse (GetStatusResponse'),
+    newGetStatusResponse,
 
     -- ** ListJobs (Paginated)
     ListJobs (ListJobs'),
@@ -114,18 +126,6 @@ module Amazonka.ImportExport
     newUpdateJob,
     UpdateJobResponse (UpdateJobResponse'),
     newUpdateJobResponse,
-
-    -- ** GetStatus
-    GetStatus (GetStatus'),
-    newGetStatus,
-    GetStatusResponse (GetStatusResponse'),
-    newGetStatusResponse,
-
-    -- ** CancelJob
-    CancelJob (CancelJob'),
-    newCancelJob,
-    CancelJobResponse (CancelJobResponse'),
-    newCancelJobResponse,
 
     -- * Types
 

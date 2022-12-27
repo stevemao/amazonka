@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.MetricsFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.MetricsFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.MetricsAndOperator
@@ -34,17 +35,17 @@ import Amazonka.S3.Types.Tag
 --
 -- /See:/ 'newMetricsFilter' smart constructor.
 data MetricsFilter = MetricsFilter'
-  { -- | The tag used when evaluating a metrics filter.
-    tag :: Prelude.Maybe Tag,
-    -- | The prefix used when evaluating a metrics filter.
-    prefix :: Prelude.Maybe Prelude.Text,
+  { -- | The access point ARN used when evaluating a metrics filter.
+    accessPointArn :: Prelude.Maybe Prelude.Text,
     -- | A conjunction (logical AND) of predicates, which is used in evaluating a
     -- metrics filter. The operator must have at least two predicates, and an
     -- object must match all of the predicates in order for the filter to
     -- apply.
     and :: Prelude.Maybe MetricsAndOperator,
-    -- | The access point ARN used when evaluating a metrics filter.
-    accessPointArn :: Prelude.Maybe Prelude.Text
+    -- | The prefix used when evaluating a metrics filter.
+    prefix :: Prelude.Maybe Prelude.Text,
+    -- | The tag used when evaluating a metrics filter.
+    tag :: Prelude.Maybe Tag
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -56,33 +57,29 @@ data MetricsFilter = MetricsFilter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tag', 'metricsFilter_tag' - The tag used when evaluating a metrics filter.
---
--- 'prefix', 'metricsFilter_prefix' - The prefix used when evaluating a metrics filter.
+-- 'accessPointArn', 'metricsFilter_accessPointArn' - The access point ARN used when evaluating a metrics filter.
 --
 -- 'and', 'metricsFilter_and' - A conjunction (logical AND) of predicates, which is used in evaluating a
 -- metrics filter. The operator must have at least two predicates, and an
 -- object must match all of the predicates in order for the filter to
 -- apply.
 --
--- 'accessPointArn', 'metricsFilter_accessPointArn' - The access point ARN used when evaluating a metrics filter.
+-- 'prefix', 'metricsFilter_prefix' - The prefix used when evaluating a metrics filter.
+--
+-- 'tag', 'metricsFilter_tag' - The tag used when evaluating a metrics filter.
 newMetricsFilter ::
   MetricsFilter
 newMetricsFilter =
   MetricsFilter'
-    { tag = Prelude.Nothing,
-      prefix = Prelude.Nothing,
+    { accessPointArn = Prelude.Nothing,
       and = Prelude.Nothing,
-      accessPointArn = Prelude.Nothing
+      prefix = Prelude.Nothing,
+      tag = Prelude.Nothing
     }
 
--- | The tag used when evaluating a metrics filter.
-metricsFilter_tag :: Lens.Lens' MetricsFilter (Prelude.Maybe Tag)
-metricsFilter_tag = Lens.lens (\MetricsFilter' {tag} -> tag) (\s@MetricsFilter' {} a -> s {tag = a} :: MetricsFilter)
-
--- | The prefix used when evaluating a metrics filter.
-metricsFilter_prefix :: Lens.Lens' MetricsFilter (Prelude.Maybe Prelude.Text)
-metricsFilter_prefix = Lens.lens (\MetricsFilter' {prefix} -> prefix) (\s@MetricsFilter' {} a -> s {prefix = a} :: MetricsFilter)
+-- | The access point ARN used when evaluating a metrics filter.
+metricsFilter_accessPointArn :: Lens.Lens' MetricsFilter (Prelude.Maybe Prelude.Text)
+metricsFilter_accessPointArn = Lens.lens (\MetricsFilter' {accessPointArn} -> accessPointArn) (\s@MetricsFilter' {} a -> s {accessPointArn = a} :: MetricsFilter)
 
 -- | A conjunction (logical AND) of predicates, which is used in evaluating a
 -- metrics filter. The operator must have at least two predicates, and an
@@ -91,37 +88,41 @@ metricsFilter_prefix = Lens.lens (\MetricsFilter' {prefix} -> prefix) (\s@Metric
 metricsFilter_and :: Lens.Lens' MetricsFilter (Prelude.Maybe MetricsAndOperator)
 metricsFilter_and = Lens.lens (\MetricsFilter' {and} -> and) (\s@MetricsFilter' {} a -> s {and = a} :: MetricsFilter)
 
--- | The access point ARN used when evaluating a metrics filter.
-metricsFilter_accessPointArn :: Lens.Lens' MetricsFilter (Prelude.Maybe Prelude.Text)
-metricsFilter_accessPointArn = Lens.lens (\MetricsFilter' {accessPointArn} -> accessPointArn) (\s@MetricsFilter' {} a -> s {accessPointArn = a} :: MetricsFilter)
+-- | The prefix used when evaluating a metrics filter.
+metricsFilter_prefix :: Lens.Lens' MetricsFilter (Prelude.Maybe Prelude.Text)
+metricsFilter_prefix = Lens.lens (\MetricsFilter' {prefix} -> prefix) (\s@MetricsFilter' {} a -> s {prefix = a} :: MetricsFilter)
 
-instance Core.FromXML MetricsFilter where
+-- | The tag used when evaluating a metrics filter.
+metricsFilter_tag :: Lens.Lens' MetricsFilter (Prelude.Maybe Tag)
+metricsFilter_tag = Lens.lens (\MetricsFilter' {tag} -> tag) (\s@MetricsFilter' {} a -> s {tag = a} :: MetricsFilter)
+
+instance Data.FromXML MetricsFilter where
   parseXML x =
     MetricsFilter'
-      Prelude.<$> (x Core..@? "Tag")
-      Prelude.<*> (x Core..@? "Prefix")
-      Prelude.<*> (x Core..@? "And")
-      Prelude.<*> (x Core..@? "AccessPointArn")
+      Prelude.<$> (x Data..@? "AccessPointArn")
+      Prelude.<*> (x Data..@? "And")
+      Prelude.<*> (x Data..@? "Prefix")
+      Prelude.<*> (x Data..@? "Tag")
 
 instance Prelude.Hashable MetricsFilter where
   hashWithSalt _salt MetricsFilter' {..} =
-    _salt `Prelude.hashWithSalt` tag
-      `Prelude.hashWithSalt` prefix
+    _salt `Prelude.hashWithSalt` accessPointArn
       `Prelude.hashWithSalt` and
-      `Prelude.hashWithSalt` accessPointArn
+      `Prelude.hashWithSalt` prefix
+      `Prelude.hashWithSalt` tag
 
 instance Prelude.NFData MetricsFilter where
   rnf MetricsFilter' {..} =
-    Prelude.rnf tag
-      `Prelude.seq` Prelude.rnf prefix
+    Prelude.rnf accessPointArn
       `Prelude.seq` Prelude.rnf and
-      `Prelude.seq` Prelude.rnf accessPointArn
+      `Prelude.seq` Prelude.rnf prefix
+      `Prelude.seq` Prelude.rnf tag
 
-instance Core.ToXML MetricsFilter where
+instance Data.ToXML MetricsFilter where
   toXML MetricsFilter' {..} =
     Prelude.mconcat
-      [ "Tag" Core.@= tag,
-        "Prefix" Core.@= prefix,
-        "And" Core.@= and,
-        "AccessPointArn" Core.@= accessPointArn
+      [ "AccessPointArn" Data.@= accessPointArn,
+        "And" Data.@= and,
+        "Prefix" Data.@= prefix,
+        "Tag" Data.@= tag
       ]

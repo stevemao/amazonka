@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeInstanceEventWindows
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,11 +41,11 @@ module Amazonka.EC2.DescribeInstanceEventWindows
     newDescribeInstanceEventWindows,
 
     -- * Request Lenses
-    describeInstanceEventWindows_instanceEventWindowIds,
-    describeInstanceEventWindows_filters,
-    describeInstanceEventWindows_nextToken,
     describeInstanceEventWindows_dryRun,
+    describeInstanceEventWindows_filters,
+    describeInstanceEventWindows_instanceEventWindowIds,
     describeInstanceEventWindows_maxResults,
+    describeInstanceEventWindows_nextToken,
 
     -- * Destructuring the Response
     DescribeInstanceEventWindowsResponse (..),
@@ -59,8 +59,9 @@ module Amazonka.EC2.DescribeInstanceEventWindows
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -69,8 +70,11 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeInstanceEventWindows' smart constructor.
 data DescribeInstanceEventWindows = DescribeInstanceEventWindows'
-  { -- | The IDs of the event windows.
-    instanceEventWindowIds :: Prelude.Maybe [Prelude.Text],
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | One or more filters.
     --
     -- -   @dedicated-host-id@ - The event windows associated with the
@@ -105,18 +109,15 @@ data DescribeInstanceEventWindows = DescribeInstanceEventWindows'
     --     this filter to find all event windows that have a tag with a
     --     specific value, regardless of the tag key.
     filters :: Prelude.Maybe [Filter],
-    -- | The token to request the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The IDs of the event windows.
+    instanceEventWindowIds :: Prelude.Maybe [Prelude.Text],
     -- | The maximum number of results to return in a single call. To retrieve
     -- the remaining results, make another call with the returned @NextToken@
     -- value. This value can be between 20 and 500. You cannot specify this
     -- parameter and the event window IDs parameter in the same call.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to request the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -128,7 +129,10 @@ data DescribeInstanceEventWindows = DescribeInstanceEventWindows'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'instanceEventWindowIds', 'describeInstanceEventWindows_instanceEventWindowIds' - The IDs of the event windows.
+-- 'dryRun', 'describeInstanceEventWindows_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'filters', 'describeInstanceEventWindows_filters' - One or more filters.
 --
@@ -164,32 +168,32 @@ data DescribeInstanceEventWindows = DescribeInstanceEventWindows'
 --     this filter to find all event windows that have a tag with a
 --     specific value, regardless of the tag key.
 --
--- 'nextToken', 'describeInstanceEventWindows_nextToken' - The token to request the next page of results.
---
--- 'dryRun', 'describeInstanceEventWindows_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
+-- 'instanceEventWindowIds', 'describeInstanceEventWindows_instanceEventWindowIds' - The IDs of the event windows.
 --
 -- 'maxResults', 'describeInstanceEventWindows_maxResults' - The maximum number of results to return in a single call. To retrieve
 -- the remaining results, make another call with the returned @NextToken@
 -- value. This value can be between 20 and 500. You cannot specify this
 -- parameter and the event window IDs parameter in the same call.
+--
+-- 'nextToken', 'describeInstanceEventWindows_nextToken' - The token to request the next page of results.
 newDescribeInstanceEventWindows ::
   DescribeInstanceEventWindows
 newDescribeInstanceEventWindows =
   DescribeInstanceEventWindows'
-    { instanceEventWindowIds =
+    { dryRun =
         Prelude.Nothing,
       filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      instanceEventWindowIds = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
--- | The IDs of the event windows.
-describeInstanceEventWindows_instanceEventWindowIds :: Lens.Lens' DescribeInstanceEventWindows (Prelude.Maybe [Prelude.Text])
-describeInstanceEventWindows_instanceEventWindowIds = Lens.lens (\DescribeInstanceEventWindows' {instanceEventWindowIds} -> instanceEventWindowIds) (\s@DescribeInstanceEventWindows' {} a -> s {instanceEventWindowIds = a} :: DescribeInstanceEventWindows) Prelude.. Lens.mapping Lens.coerced
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeInstanceEventWindows_dryRun :: Lens.Lens' DescribeInstanceEventWindows (Prelude.Maybe Prelude.Bool)
+describeInstanceEventWindows_dryRun = Lens.lens (\DescribeInstanceEventWindows' {dryRun} -> dryRun) (\s@DescribeInstanceEventWindows' {} a -> s {dryRun = a} :: DescribeInstanceEventWindows)
 
 -- | One or more filters.
 --
@@ -227,16 +231,9 @@ describeInstanceEventWindows_instanceEventWindowIds = Lens.lens (\DescribeInstan
 describeInstanceEventWindows_filters :: Lens.Lens' DescribeInstanceEventWindows (Prelude.Maybe [Filter])
 describeInstanceEventWindows_filters = Lens.lens (\DescribeInstanceEventWindows' {filters} -> filters) (\s@DescribeInstanceEventWindows' {} a -> s {filters = a} :: DescribeInstanceEventWindows) Prelude.. Lens.mapping Lens.coerced
 
--- | The token to request the next page of results.
-describeInstanceEventWindows_nextToken :: Lens.Lens' DescribeInstanceEventWindows (Prelude.Maybe Prelude.Text)
-describeInstanceEventWindows_nextToken = Lens.lens (\DescribeInstanceEventWindows' {nextToken} -> nextToken) (\s@DescribeInstanceEventWindows' {} a -> s {nextToken = a} :: DescribeInstanceEventWindows)
-
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describeInstanceEventWindows_dryRun :: Lens.Lens' DescribeInstanceEventWindows (Prelude.Maybe Prelude.Bool)
-describeInstanceEventWindows_dryRun = Lens.lens (\DescribeInstanceEventWindows' {dryRun} -> dryRun) (\s@DescribeInstanceEventWindows' {} a -> s {dryRun = a} :: DescribeInstanceEventWindows)
+-- | The IDs of the event windows.
+describeInstanceEventWindows_instanceEventWindowIds :: Lens.Lens' DescribeInstanceEventWindows (Prelude.Maybe [Prelude.Text])
+describeInstanceEventWindows_instanceEventWindowIds = Lens.lens (\DescribeInstanceEventWindows' {instanceEventWindowIds} -> instanceEventWindowIds) (\s@DescribeInstanceEventWindows' {} a -> s {instanceEventWindowIds = a} :: DescribeInstanceEventWindows) Prelude.. Lens.mapping Lens.coerced
 
 -- | The maximum number of results to return in a single call. To retrieve
 -- the remaining results, make another call with the returned @NextToken@
@@ -244,6 +241,10 @@ describeInstanceEventWindows_dryRun = Lens.lens (\DescribeInstanceEventWindows' 
 -- parameter and the event window IDs parameter in the same call.
 describeInstanceEventWindows_maxResults :: Lens.Lens' DescribeInstanceEventWindows (Prelude.Maybe Prelude.Natural)
 describeInstanceEventWindows_maxResults = Lens.lens (\DescribeInstanceEventWindows' {maxResults} -> maxResults) (\s@DescribeInstanceEventWindows' {} a -> s {maxResults = a} :: DescribeInstanceEventWindows)
+
+-- | The token to request the next page of results.
+describeInstanceEventWindows_nextToken :: Lens.Lens' DescribeInstanceEventWindows (Prelude.Maybe Prelude.Text)
+describeInstanceEventWindows_nextToken = Lens.lens (\DescribeInstanceEventWindows' {nextToken} -> nextToken) (\s@DescribeInstanceEventWindows' {} a -> s {nextToken = a} :: DescribeInstanceEventWindows)
 
 instance Core.AWSPager DescribeInstanceEventWindows where
   page rq rs
@@ -271,16 +272,17 @@ instance Core.AWSRequest DescribeInstanceEventWindows where
   type
     AWSResponse DescribeInstanceEventWindows =
       DescribeInstanceEventWindowsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeInstanceEventWindowsResponse'
-            Prelude.<$> ( x Core..@? "instanceEventWindowSet"
+            Prelude.<$> ( x Data..@? "instanceEventWindowSet"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
-            Prelude.<*> (x Core..@? "nextToken")
+            Prelude.<*> (x Data..@? "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -289,44 +291,44 @@ instance
     DescribeInstanceEventWindows
   where
   hashWithSalt _salt DescribeInstanceEventWindows' {..} =
-    _salt `Prelude.hashWithSalt` instanceEventWindowIds
+    _salt `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` instanceEventWindowIds
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeInstanceEventWindows where
   rnf DescribeInstanceEventWindows' {..} =
-    Prelude.rnf instanceEventWindowIds
+    Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf instanceEventWindowIds
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeInstanceEventWindows where
+instance Data.ToHeaders DescribeInstanceEventWindows where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeInstanceEventWindows where
+instance Data.ToPath DescribeInstanceEventWindows where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeInstanceEventWindows where
+instance Data.ToQuery DescribeInstanceEventWindows where
   toQuery DescribeInstanceEventWindows' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeInstanceEventWindows" ::
+          Data.=: ( "DescribeInstanceEventWindows" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          ( Core.toQueryList "InstanceEventWindowId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        Data.toQuery
+          ( Data.toQueryList "InstanceEventWindowId"
               Prelude.<$> instanceEventWindowIds
           ),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newDescribeInstanceEventWindowsResponse' smart constructor.

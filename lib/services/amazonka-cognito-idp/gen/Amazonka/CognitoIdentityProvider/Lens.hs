@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,52 +14,97 @@
 module Amazonka.CognitoIdentityProvider.Lens
   ( -- * Operations
 
-    -- ** DeleteUserPool
-    deleteUserPool_userPoolId,
+    -- ** AddCustomAttributes
+    addCustomAttributes_userPoolId,
+    addCustomAttributes_customAttributes,
+    addCustomAttributesResponse_httpStatus,
 
-    -- ** UpdateUserPool
-    updateUserPool_userPoolTags,
-    updateUserPool_verificationMessageTemplate,
-    updateUserPool_emailVerificationMessage,
-    updateUserPool_smsAuthenticationMessage,
-    updateUserPool_userPoolAddOns,
-    updateUserPool_emailVerificationSubject,
-    updateUserPool_accountRecoverySetting,
-    updateUserPool_emailConfiguration,
-    updateUserPool_smsVerificationMessage,
-    updateUserPool_mfaConfiguration,
-    updateUserPool_lambdaConfig,
-    updateUserPool_smsConfiguration,
-    updateUserPool_adminCreateUserConfig,
-    updateUserPool_deviceConfiguration,
-    updateUserPool_autoVerifiedAttributes,
-    updateUserPool_policies,
-    updateUserPool_userPoolId,
-    updateUserPoolResponse_httpStatus,
+    -- ** AdminAddUserToGroup
+    adminAddUserToGroup_userPoolId,
+    adminAddUserToGroup_username,
+    adminAddUserToGroup_groupName,
 
-    -- ** UpdateUserPoolDomain
-    updateUserPoolDomain_domain,
-    updateUserPoolDomain_userPoolId,
-    updateUserPoolDomain_customDomainConfig,
-    updateUserPoolDomainResponse_cloudFrontDomain,
-    updateUserPoolDomainResponse_httpStatus,
+    -- ** AdminConfirmSignUp
+    adminConfirmSignUp_clientMetadata,
+    adminConfirmSignUp_userPoolId,
+    adminConfirmSignUp_username,
+    adminConfirmSignUpResponse_httpStatus,
 
-    -- ** DeleteUserPoolDomain
-    deleteUserPoolDomain_domain,
-    deleteUserPoolDomain_userPoolId,
-    deleteUserPoolDomainResponse_httpStatus,
+    -- ** AdminCreateUser
+    adminCreateUser_clientMetadata,
+    adminCreateUser_desiredDeliveryMediums,
+    adminCreateUser_forceAliasCreation,
+    adminCreateUser_messageAction,
+    adminCreateUser_temporaryPassword,
+    adminCreateUser_userAttributes,
+    adminCreateUser_validationData,
+    adminCreateUser_userPoolId,
+    adminCreateUser_username,
+    adminCreateUserResponse_user,
+    adminCreateUserResponse_httpStatus,
+
+    -- ** AdminDeleteUser
+    adminDeleteUser_userPoolId,
+    adminDeleteUser_username,
+
+    -- ** AdminDeleteUserAttributes
+    adminDeleteUserAttributes_userPoolId,
+    adminDeleteUserAttributes_username,
+    adminDeleteUserAttributes_userAttributeNames,
+    adminDeleteUserAttributesResponse_httpStatus,
+
+    -- ** AdminDisableProviderForUser
+    adminDisableProviderForUser_userPoolId,
+    adminDisableProviderForUser_user,
+    adminDisableProviderForUserResponse_httpStatus,
+
+    -- ** AdminDisableUser
+    adminDisableUser_userPoolId,
+    adminDisableUser_username,
+    adminDisableUserResponse_httpStatus,
+
+    -- ** AdminEnableUser
+    adminEnableUser_userPoolId,
+    adminEnableUser_username,
+    adminEnableUserResponse_httpStatus,
+
+    -- ** AdminForgetDevice
+    adminForgetDevice_userPoolId,
+    adminForgetDevice_username,
+    adminForgetDevice_deviceKey,
+
+    -- ** AdminGetDevice
+    adminGetDevice_deviceKey,
+    adminGetDevice_userPoolId,
+    adminGetDevice_username,
+    adminGetDeviceResponse_httpStatus,
+    adminGetDeviceResponse_device,
+
+    -- ** AdminGetUser
+    adminGetUser_userPoolId,
+    adminGetUser_username,
+    adminGetUserResponse_enabled,
+    adminGetUserResponse_mfaOptions,
+    adminGetUserResponse_preferredMfaSetting,
+    adminGetUserResponse_userAttributes,
+    adminGetUserResponse_userCreateDate,
+    adminGetUserResponse_userLastModifiedDate,
+    adminGetUserResponse_userMFASettingList,
+    adminGetUserResponse_userStatus,
+    adminGetUserResponse_httpStatus,
+    adminGetUserResponse_username,
 
     -- ** AdminInitiateAuth
-    adminInitiateAuth_clientMetadata,
-    adminInitiateAuth_contextData,
     adminInitiateAuth_analyticsMetadata,
     adminInitiateAuth_authParameters,
+    adminInitiateAuth_clientMetadata,
+    adminInitiateAuth_contextData,
     adminInitiateAuth_userPoolId,
     adminInitiateAuth_clientId,
     adminInitiateAuth_authFlow,
+    adminInitiateAuthResponse_authenticationResult,
     adminInitiateAuthResponse_challengeName,
     adminInitiateAuthResponse_challengeParameters,
-    adminInitiateAuthResponse_authenticationResult,
     adminInitiateAuthResponse_session,
     adminInitiateAuthResponse_httpStatus,
 
@@ -69,375 +114,37 @@ module Amazonka.CognitoIdentityProvider.Lens
     adminLinkProviderForUser_sourceUser,
     adminLinkProviderForUserResponse_httpStatus,
 
-    -- ** AdminEnableUser
-    adminEnableUser_userPoolId,
-    adminEnableUser_username,
-    adminEnableUserResponse_httpStatus,
-
-    -- ** GetUserAttributeVerificationCode
-    getUserAttributeVerificationCode_clientMetadata,
-    getUserAttributeVerificationCode_accessToken,
-    getUserAttributeVerificationCode_attributeName,
-    getUserAttributeVerificationCodeResponse_codeDeliveryDetails,
-    getUserAttributeVerificationCodeResponse_httpStatus,
-
-    -- ** SetUserPoolMfaConfig
-    setUserPoolMfaConfig_smsMfaConfiguration,
-    setUserPoolMfaConfig_softwareTokenMfaConfiguration,
-    setUserPoolMfaConfig_mfaConfiguration,
-    setUserPoolMfaConfig_userPoolId,
-    setUserPoolMfaConfigResponse_smsMfaConfiguration,
-    setUserPoolMfaConfigResponse_softwareTokenMfaConfiguration,
-    setUserPoolMfaConfigResponse_mfaConfiguration,
-    setUserPoolMfaConfigResponse_httpStatus,
-
-    -- ** UpdateUserAttributes
-    updateUserAttributes_clientMetadata,
-    updateUserAttributes_userAttributes,
-    updateUserAttributes_accessToken,
-    updateUserAttributesResponse_codeDeliveryDetailsList,
-    updateUserAttributesResponse_httpStatus,
-
-    -- ** DeleteUserAttributes
-    deleteUserAttributes_userAttributeNames,
-    deleteUserAttributes_accessToken,
-    deleteUserAttributesResponse_httpStatus,
-
-    -- ** VerifyUserAttribute
-    verifyUserAttribute_accessToken,
-    verifyUserAttribute_attributeName,
-    verifyUserAttribute_code,
-    verifyUserAttributeResponse_httpStatus,
-
-    -- ** AdminDisableUser
-    adminDisableUser_userPoolId,
-    adminDisableUser_username,
-    adminDisableUserResponse_httpStatus,
-
-    -- ** ConfirmDevice
-    confirmDevice_deviceSecretVerifierConfig,
-    confirmDevice_deviceName,
-    confirmDevice_accessToken,
-    confirmDevice_deviceKey,
-    confirmDeviceResponse_userConfirmationNecessary,
-    confirmDeviceResponse_httpStatus,
-
-    -- ** ConfirmForgotPassword
-    confirmForgotPassword_clientMetadata,
-    confirmForgotPassword_analyticsMetadata,
-    confirmForgotPassword_userContextData,
-    confirmForgotPassword_secretHash,
-    confirmForgotPassword_clientId,
-    confirmForgotPassword_username,
-    confirmForgotPassword_confirmationCode,
-    confirmForgotPassword_password,
-    confirmForgotPasswordResponse_httpStatus,
-
-    -- ** ListUserImportJobs
-    listUserImportJobs_paginationToken,
-    listUserImportJobs_userPoolId,
-    listUserImportJobs_maxResults,
-    listUserImportJobsResponse_paginationToken,
-    listUserImportJobsResponse_userImportJobs,
-    listUserImportJobsResponse_httpStatus,
-
-    -- ** ListTagsForResource
-    listTagsForResource_resourceArn,
-    listTagsForResourceResponse_tags,
-    listTagsForResourceResponse_httpStatus,
-
-    -- ** DescribeIdentityProvider
-    describeIdentityProvider_userPoolId,
-    describeIdentityProvider_providerName,
-    describeIdentityProviderResponse_httpStatus,
-    describeIdentityProviderResponse_identityProvider,
-
-    -- ** ListUsers
-    listUsers_paginationToken,
-    listUsers_attributesToGet,
-    listUsers_limit,
-    listUsers_filter,
-    listUsers_userPoolId,
-    listUsersResponse_paginationToken,
-    listUsersResponse_users,
-    listUsersResponse_httpStatus,
-
-    -- ** AdminDeleteUserAttributes
-    adminDeleteUserAttributes_userPoolId,
-    adminDeleteUserAttributes_username,
-    adminDeleteUserAttributes_userAttributeNames,
-    adminDeleteUserAttributesResponse_httpStatus,
-
-    -- ** DescribeUserPoolDomain
-    describeUserPoolDomain_domain,
-    describeUserPoolDomainResponse_domainDescription,
-    describeUserPoolDomainResponse_httpStatus,
-
-    -- ** AdminUpdateUserAttributes
-    adminUpdateUserAttributes_clientMetadata,
-    adminUpdateUserAttributes_userPoolId,
-    adminUpdateUserAttributes_username,
-    adminUpdateUserAttributes_userAttributes,
-    adminUpdateUserAttributesResponse_httpStatus,
-
-    -- ** AdminGetUser
-    adminGetUser_userPoolId,
-    adminGetUser_username,
-    adminGetUserResponse_enabled,
-    adminGetUserResponse_userStatus,
-    adminGetUserResponse_userAttributes,
-    adminGetUserResponse_userCreateDate,
-    adminGetUserResponse_userMFASettingList,
-    adminGetUserResponse_mfaOptions,
-    adminGetUserResponse_userLastModifiedDate,
-    adminGetUserResponse_preferredMfaSetting,
-    adminGetUserResponse_httpStatus,
-    adminGetUserResponse_username,
-
-    -- ** AdminUserGlobalSignOut
-    adminUserGlobalSignOut_userPoolId,
-    adminUserGlobalSignOut_username,
-    adminUserGlobalSignOutResponse_httpStatus,
-
-    -- ** ListUsersInGroup
-    listUsersInGroup_nextToken,
-    listUsersInGroup_limit,
-    listUsersInGroup_userPoolId,
-    listUsersInGroup_groupName,
-    listUsersInGroupResponse_users,
-    listUsersInGroupResponse_nextToken,
-    listUsersInGroupResponse_httpStatus,
-
-    -- ** AssociateSoftwareToken
-    associateSoftwareToken_accessToken,
-    associateSoftwareToken_session,
-    associateSoftwareTokenResponse_secretCode,
-    associateSoftwareTokenResponse_session,
-    associateSoftwareTokenResponse_httpStatus,
-
-    -- ** AdminDisableProviderForUser
-    adminDisableProviderForUser_userPoolId,
-    adminDisableProviderForUser_user,
-    adminDisableProviderForUserResponse_httpStatus,
-
-    -- ** ForgotPassword
-    forgotPassword_clientMetadata,
-    forgotPassword_analyticsMetadata,
-    forgotPassword_userContextData,
-    forgotPassword_secretHash,
-    forgotPassword_clientId,
-    forgotPassword_username,
-    forgotPasswordResponse_codeDeliveryDetails,
-    forgotPasswordResponse_httpStatus,
-
-    -- ** DescribeUserPool
-    describeUserPool_userPoolId,
-    describeUserPoolResponse_userPool,
-    describeUserPoolResponse_httpStatus,
-
-    -- ** InitiateAuth
-    initiateAuth_clientMetadata,
-    initiateAuth_analyticsMetadata,
-    initiateAuth_userContextData,
-    initiateAuth_authParameters,
-    initiateAuth_authFlow,
-    initiateAuth_clientId,
-    initiateAuthResponse_challengeName,
-    initiateAuthResponse_challengeParameters,
-    initiateAuthResponse_authenticationResult,
-    initiateAuthResponse_session,
-    initiateAuthResponse_httpStatus,
+    -- ** AdminListDevices
+    adminListDevices_limit,
+    adminListDevices_paginationToken,
+    adminListDevices_userPoolId,
+    adminListDevices_username,
+    adminListDevicesResponse_devices,
+    adminListDevicesResponse_paginationToken,
+    adminListDevicesResponse_httpStatus,
 
     -- ** AdminListGroupsForUser
-    adminListGroupsForUser_nextToken,
     adminListGroupsForUser_limit,
+    adminListGroupsForUser_nextToken,
     adminListGroupsForUser_username,
     adminListGroupsForUser_userPoolId,
     adminListGroupsForUserResponse_groups,
     adminListGroupsForUserResponse_nextToken,
     adminListGroupsForUserResponse_httpStatus,
 
-    -- ** AdminConfirmSignUp
-    adminConfirmSignUp_clientMetadata,
-    adminConfirmSignUp_userPoolId,
-    adminConfirmSignUp_username,
-    adminConfirmSignUpResponse_httpStatus,
-
-    -- ** AdminUpdateAuthEventFeedback
-    adminUpdateAuthEventFeedback_userPoolId,
-    adminUpdateAuthEventFeedback_username,
-    adminUpdateAuthEventFeedback_eventId,
-    adminUpdateAuthEventFeedback_feedbackValue,
-    adminUpdateAuthEventFeedbackResponse_httpStatus,
-
-    -- ** AdminSetUserPassword
-    adminSetUserPassword_permanent,
-    adminSetUserPassword_userPoolId,
-    adminSetUserPassword_username,
-    adminSetUserPassword_password,
-    adminSetUserPasswordResponse_httpStatus,
-
-    -- ** StartUserImportJob
-    startUserImportJob_userPoolId,
-    startUserImportJob_jobId,
-    startUserImportJobResponse_userImportJob,
-    startUserImportJobResponse_httpStatus,
-
-    -- ** CreateIdentityProvider
-    createIdentityProvider_idpIdentifiers,
-    createIdentityProvider_attributeMapping,
-    createIdentityProvider_userPoolId,
-    createIdentityProvider_providerName,
-    createIdentityProvider_providerType,
-    createIdentityProvider_providerDetails,
-    createIdentityProviderResponse_httpStatus,
-    createIdentityProviderResponse_identityProvider,
-
-    -- ** SetUICustomization
-    setUICustomization_clientId,
-    setUICustomization_css,
-    setUICustomization_imageFile,
-    setUICustomization_userPoolId,
-    setUICustomizationResponse_httpStatus,
-    setUICustomizationResponse_uICustomization,
-
-    -- ** ListIdentityProviders
-    listIdentityProviders_nextToken,
-    listIdentityProviders_maxResults,
-    listIdentityProviders_userPoolId,
-    listIdentityProvidersResponse_nextToken,
-    listIdentityProvidersResponse_httpStatus,
-    listIdentityProvidersResponse_providers,
-
-    -- ** GetDevice
-    getDevice_accessToken,
-    getDevice_deviceKey,
-    getDeviceResponse_httpStatus,
-    getDeviceResponse_device,
-
-    -- ** SignUp
-    signUp_clientMetadata,
-    signUp_analyticsMetadata,
-    signUp_userContextData,
-    signUp_userAttributes,
-    signUp_secretHash,
-    signUp_validationData,
-    signUp_clientId,
-    signUp_username,
-    signUp_password,
-    signUpResponse_codeDeliveryDetails,
-    signUpResponse_httpStatus,
-    signUpResponse_userConfirmed,
-    signUpResponse_userSub,
-
-    -- ** DeleteResourceServer
-    deleteResourceServer_userPoolId,
-    deleteResourceServer_identifier,
-
-    -- ** UpdateResourceServer
-    updateResourceServer_scopes,
-    updateResourceServer_userPoolId,
-    updateResourceServer_identifier,
-    updateResourceServer_name,
-    updateResourceServerResponse_httpStatus,
-    updateResourceServerResponse_resourceServer,
-
-    -- ** ChangePassword
-    changePassword_previousPassword,
-    changePassword_proposedPassword,
-    changePassword_accessToken,
-    changePasswordResponse_httpStatus,
-
-    -- ** CreateUserPoolDomain
-    createUserPoolDomain_customDomainConfig,
-    createUserPoolDomain_domain,
-    createUserPoolDomain_userPoolId,
-    createUserPoolDomainResponse_cloudFrontDomain,
-    createUserPoolDomainResponse_httpStatus,
-
-    -- ** RespondToAuthChallenge
-    respondToAuthChallenge_clientMetadata,
-    respondToAuthChallenge_analyticsMetadata,
-    respondToAuthChallenge_challengeResponses,
-    respondToAuthChallenge_userContextData,
-    respondToAuthChallenge_session,
-    respondToAuthChallenge_clientId,
-    respondToAuthChallenge_challengeName,
-    respondToAuthChallengeResponse_challengeName,
-    respondToAuthChallengeResponse_challengeParameters,
-    respondToAuthChallengeResponse_authenticationResult,
-    respondToAuthChallengeResponse_session,
-    respondToAuthChallengeResponse_httpStatus,
-
-    -- ** CreateUserPool
-    createUserPool_userPoolTags,
-    createUserPool_verificationMessageTemplate,
-    createUserPool_emailVerificationMessage,
-    createUserPool_smsAuthenticationMessage,
-    createUserPool_userPoolAddOns,
-    createUserPool_emailVerificationSubject,
-    createUserPool_usernameAttributes,
-    createUserPool_aliasAttributes,
-    createUserPool_schema,
-    createUserPool_accountRecoverySetting,
-    createUserPool_emailConfiguration,
-    createUserPool_smsVerificationMessage,
-    createUserPool_mfaConfiguration,
-    createUserPool_lambdaConfig,
-    createUserPool_smsConfiguration,
-    createUserPool_adminCreateUserConfig,
-    createUserPool_deviceConfiguration,
-    createUserPool_autoVerifiedAttributes,
-    createUserPool_policies,
-    createUserPool_usernameConfiguration,
-    createUserPool_poolName,
-    createUserPoolResponse_userPool,
-    createUserPoolResponse_httpStatus,
-
-    -- ** AdminGetDevice
-    adminGetDevice_deviceKey,
-    adminGetDevice_userPoolId,
-    adminGetDevice_username,
-    adminGetDeviceResponse_httpStatus,
-    adminGetDeviceResponse_device,
-
-    -- ** GetIdentityProviderByIdentifier
-    getIdentityProviderByIdentifier_userPoolId,
-    getIdentityProviderByIdentifier_idpIdentifier,
-    getIdentityProviderByIdentifierResponse_httpStatus,
-    getIdentityProviderByIdentifierResponse_identityProvider,
+    -- ** AdminListUserAuthEvents
+    adminListUserAuthEvents_maxResults,
+    adminListUserAuthEvents_nextToken,
+    adminListUserAuthEvents_userPoolId,
+    adminListUserAuthEvents_username,
+    adminListUserAuthEventsResponse_authEvents,
+    adminListUserAuthEventsResponse_nextToken,
+    adminListUserAuthEventsResponse_httpStatus,
 
     -- ** AdminRemoveUserFromGroup
     adminRemoveUserFromGroup_userPoolId,
     adminRemoveUserFromGroup_username,
     adminRemoveUserFromGroup_groupName,
-
-    -- ** SetRiskConfiguration
-    setRiskConfiguration_riskExceptionConfiguration,
-    setRiskConfiguration_clientId,
-    setRiskConfiguration_accountTakeoverRiskConfiguration,
-    setRiskConfiguration_compromisedCredentialsRiskConfiguration,
-    setRiskConfiguration_userPoolId,
-    setRiskConfigurationResponse_httpStatus,
-    setRiskConfigurationResponse_riskConfiguration,
-
-    -- ** ConfirmSignUp
-    confirmSignUp_clientMetadata,
-    confirmSignUp_forceAliasCreation,
-    confirmSignUp_analyticsMetadata,
-    confirmSignUp_userContextData,
-    confirmSignUp_secretHash,
-    confirmSignUp_clientId,
-    confirmSignUp_username,
-    confirmSignUp_confirmationCode,
-    confirmSignUpResponse_httpStatus,
-
-    -- ** ListUserPools
-    listUserPools_nextToken,
-    listUserPools_maxResults,
-    listUserPoolsResponse_userPools,
-    listUserPoolsResponse_nextToken,
-    listUserPoolsResponse_httpStatus,
 
     -- ** AdminResetUserPassword
     adminResetUserPassword_clientMetadata,
@@ -445,95 +152,20 @@ module Amazonka.CognitoIdentityProvider.Lens
     adminResetUserPassword_username,
     adminResetUserPasswordResponse_httpStatus,
 
-    -- ** UpdateAuthEventFeedback
-    updateAuthEventFeedback_userPoolId,
-    updateAuthEventFeedback_username,
-    updateAuthEventFeedback_eventId,
-    updateAuthEventFeedback_feedbackToken,
-    updateAuthEventFeedback_feedbackValue,
-    updateAuthEventFeedbackResponse_httpStatus,
-
-    -- ** CreateUserImportJob
-    createUserImportJob_jobName,
-    createUserImportJob_userPoolId,
-    createUserImportJob_cloudWatchLogsRoleArn,
-    createUserImportJobResponse_userImportJob,
-    createUserImportJobResponse_httpStatus,
-
-    -- ** GetUser
-    getUser_accessToken,
-    getUserResponse_userMFASettingList,
-    getUserResponse_mfaOptions,
-    getUserResponse_preferredMfaSetting,
-    getUserResponse_httpStatus,
-    getUserResponse_username,
-    getUserResponse_userAttributes,
-
-    -- ** GetUICustomization
-    getUICustomization_clientId,
-    getUICustomization_userPoolId,
-    getUICustomizationResponse_httpStatus,
-    getUICustomizationResponse_uICustomization,
-
-    -- ** GetCSVHeader
-    getCSVHeader_userPoolId,
-    getCSVHeaderResponse_userPoolId,
-    getCSVHeaderResponse_cSVHeader,
-    getCSVHeaderResponse_httpStatus,
-
-    -- ** AdminDeleteUser
-    adminDeleteUser_userPoolId,
-    adminDeleteUser_username,
-
-    -- ** AdminForgetDevice
-    adminForgetDevice_userPoolId,
-    adminForgetDevice_username,
-    adminForgetDevice_deviceKey,
-
-    -- ** DescribeResourceServer
-    describeResourceServer_userPoolId,
-    describeResourceServer_identifier,
-    describeResourceServerResponse_httpStatus,
-    describeResourceServerResponse_resourceServer,
-
-    -- ** SetUserMFAPreference
-    setUserMFAPreference_sMSMfaSettings,
-    setUserMFAPreference_softwareTokenMfaSettings,
-    setUserMFAPreference_accessToken,
-    setUserMFAPreferenceResponse_httpStatus,
-
-    -- ** AdminUpdateDeviceStatus
-    adminUpdateDeviceStatus_deviceRememberedStatus,
-    adminUpdateDeviceStatus_userPoolId,
-    adminUpdateDeviceStatus_username,
-    adminUpdateDeviceStatus_deviceKey,
-    adminUpdateDeviceStatusResponse_httpStatus,
-
-    -- ** AdminCreateUser
-    adminCreateUser_clientMetadata,
-    adminCreateUser_temporaryPassword,
-    adminCreateUser_forceAliasCreation,
-    adminCreateUser_desiredDeliveryMediums,
-    adminCreateUser_messageAction,
-    adminCreateUser_userAttributes,
-    adminCreateUser_validationData,
-    adminCreateUser_userPoolId,
-    adminCreateUser_username,
-    adminCreateUserResponse_user,
-    adminCreateUserResponse_httpStatus,
-
-    -- ** AddCustomAttributes
-    addCustomAttributes_userPoolId,
-    addCustomAttributes_customAttributes,
-    addCustomAttributesResponse_httpStatus,
-
-    -- ** ListUserPoolClients
-    listUserPoolClients_nextToken,
-    listUserPoolClients_maxResults,
-    listUserPoolClients_userPoolId,
-    listUserPoolClientsResponse_nextToken,
-    listUserPoolClientsResponse_userPoolClients,
-    listUserPoolClientsResponse_httpStatus,
+    -- ** AdminRespondToAuthChallenge
+    adminRespondToAuthChallenge_analyticsMetadata,
+    adminRespondToAuthChallenge_challengeResponses,
+    adminRespondToAuthChallenge_clientMetadata,
+    adminRespondToAuthChallenge_contextData,
+    adminRespondToAuthChallenge_session,
+    adminRespondToAuthChallenge_userPoolId,
+    adminRespondToAuthChallenge_clientId,
+    adminRespondToAuthChallenge_challengeName,
+    adminRespondToAuthChallengeResponse_authenticationResult,
+    adminRespondToAuthChallengeResponse_challengeName,
+    adminRespondToAuthChallengeResponse_challengeParameters,
+    adminRespondToAuthChallengeResponse_session,
+    adminRespondToAuthChallengeResponse_httpStatus,
 
     -- ** AdminSetUserMFAPreference
     adminSetUserMFAPreference_sMSMfaSettings,
@@ -542,87 +174,106 @@ module Amazonka.CognitoIdentityProvider.Lens
     adminSetUserMFAPreference_userPoolId,
     adminSetUserMFAPreferenceResponse_httpStatus,
 
-    -- ** UpdateUserPoolClient
-    updateUserPoolClient_refreshTokenValidity,
-    updateUserPoolClient_explicitAuthFlows,
-    updateUserPoolClient_supportedIdentityProviders,
-    updateUserPoolClient_logoutURLs,
-    updateUserPoolClient_allowedOAuthFlowsUserPoolClient,
-    updateUserPoolClient_idTokenValidity,
-    updateUserPoolClient_tokenValidityUnits,
-    updateUserPoolClient_defaultRedirectURI,
-    updateUserPoolClient_enableTokenRevocation,
-    updateUserPoolClient_writeAttributes,
-    updateUserPoolClient_preventUserExistenceErrors,
-    updateUserPoolClient_accessTokenValidity,
-    updateUserPoolClient_readAttributes,
-    updateUserPoolClient_allowedOAuthScopes,
-    updateUserPoolClient_allowedOAuthFlows,
-    updateUserPoolClient_analyticsConfiguration,
-    updateUserPoolClient_clientName,
-    updateUserPoolClient_callbackURLs,
-    updateUserPoolClient_userPoolId,
-    updateUserPoolClient_clientId,
-    updateUserPoolClientResponse_userPoolClient,
-    updateUserPoolClientResponse_httpStatus,
+    -- ** AdminSetUserPassword
+    adminSetUserPassword_permanent,
+    adminSetUserPassword_userPoolId,
+    adminSetUserPassword_username,
+    adminSetUserPassword_password,
+    adminSetUserPasswordResponse_httpStatus,
 
-    -- ** DeleteUserPoolClient
-    deleteUserPoolClient_userPoolId,
-    deleteUserPoolClient_clientId,
+    -- ** AdminSetUserSettings
+    adminSetUserSettings_userPoolId,
+    adminSetUserSettings_username,
+    adminSetUserSettings_mfaOptions,
+    adminSetUserSettingsResponse_httpStatus,
 
-    -- ** UpdateDeviceStatus
-    updateDeviceStatus_deviceRememberedStatus,
-    updateDeviceStatus_accessToken,
-    updateDeviceStatus_deviceKey,
-    updateDeviceStatusResponse_httpStatus,
+    -- ** AdminUpdateAuthEventFeedback
+    adminUpdateAuthEventFeedback_userPoolId,
+    adminUpdateAuthEventFeedback_username,
+    adminUpdateAuthEventFeedback_eventId,
+    adminUpdateAuthEventFeedback_feedbackValue,
+    adminUpdateAuthEventFeedbackResponse_httpStatus,
 
-    -- ** ForgetDevice
-    forgetDevice_accessToken,
-    forgetDevice_deviceKey,
+    -- ** AdminUpdateDeviceStatus
+    adminUpdateDeviceStatus_deviceRememberedStatus,
+    adminUpdateDeviceStatus_userPoolId,
+    adminUpdateDeviceStatus_username,
+    adminUpdateDeviceStatus_deviceKey,
+    adminUpdateDeviceStatusResponse_httpStatus,
 
-    -- ** GetSigningCertificate
-    getSigningCertificate_userPoolId,
-    getSigningCertificateResponse_certificate,
-    getSigningCertificateResponse_httpStatus,
+    -- ** AdminUpdateUserAttributes
+    adminUpdateUserAttributes_clientMetadata,
+    adminUpdateUserAttributes_userPoolId,
+    adminUpdateUserAttributes_username,
+    adminUpdateUserAttributes_userAttributes,
+    adminUpdateUserAttributesResponse_httpStatus,
 
-    -- ** DeleteUser
-    deleteUser_accessToken,
+    -- ** AdminUserGlobalSignOut
+    adminUserGlobalSignOut_userPoolId,
+    adminUserGlobalSignOut_username,
+    adminUserGlobalSignOutResponse_httpStatus,
 
-    -- ** TagResource
-    tagResource_resourceArn,
-    tagResource_tags,
-    tagResourceResponse_httpStatus,
+    -- ** AssociateSoftwareToken
+    associateSoftwareToken_accessToken,
+    associateSoftwareToken_session,
+    associateSoftwareTokenResponse_secretCode,
+    associateSoftwareTokenResponse_session,
+    associateSoftwareTokenResponse_httpStatus,
 
-    -- ** CreateUserPoolClient
-    createUserPoolClient_refreshTokenValidity,
-    createUserPoolClient_explicitAuthFlows,
-    createUserPoolClient_supportedIdentityProviders,
-    createUserPoolClient_logoutURLs,
-    createUserPoolClient_allowedOAuthFlowsUserPoolClient,
-    createUserPoolClient_generateSecret,
-    createUserPoolClient_idTokenValidity,
-    createUserPoolClient_tokenValidityUnits,
-    createUserPoolClient_defaultRedirectURI,
-    createUserPoolClient_enableTokenRevocation,
-    createUserPoolClient_writeAttributes,
-    createUserPoolClient_preventUserExistenceErrors,
-    createUserPoolClient_accessTokenValidity,
-    createUserPoolClient_readAttributes,
-    createUserPoolClient_allowedOAuthScopes,
-    createUserPoolClient_allowedOAuthFlows,
-    createUserPoolClient_analyticsConfiguration,
-    createUserPoolClient_callbackURLs,
-    createUserPoolClient_userPoolId,
-    createUserPoolClient_clientName,
-    createUserPoolClientResponse_userPoolClient,
-    createUserPoolClientResponse_httpStatus,
+    -- ** ChangePassword
+    changePassword_previousPassword,
+    changePassword_proposedPassword,
+    changePassword_accessToken,
+    changePasswordResponse_httpStatus,
 
-    -- ** GetUserPoolMfaConfig
-    getUserPoolMfaConfig_userPoolId,
-    getUserPoolMfaConfigResponse_smsMfaConfiguration,
-    getUserPoolMfaConfigResponse_softwareTokenMfaConfiguration,
-    getUserPoolMfaConfigResponse_mfaConfiguration,
-    getUserPoolMfaConfigResponse_httpStatus,
+    -- ** ConfirmDevice
+    confirmDevice_deviceName,
+    confirmDevice_deviceSecretVerifierConfig,
+    confirmDevice_accessToken,
+    confirmDevice_deviceKey,
+    confirmDeviceResponse_userConfirmationNecessary,
+    confirmDeviceResponse_httpStatus,
+
+    -- ** ConfirmForgotPassword
+    confirmForgotPassword_analyticsMetadata,
+    confirmForgotPassword_clientMetadata,
+    confirmForgotPassword_secretHash,
+    confirmForgotPassword_userContextData,
+    confirmForgotPassword_clientId,
+    confirmForgotPassword_username,
+    confirmForgotPassword_confirmationCode,
+    confirmForgotPassword_password,
+    confirmForgotPasswordResponse_httpStatus,
+
+    -- ** ConfirmSignUp
+    confirmSignUp_analyticsMetadata,
+    confirmSignUp_clientMetadata,
+    confirmSignUp_forceAliasCreation,
+    confirmSignUp_secretHash,
+    confirmSignUp_userContextData,
+    confirmSignUp_clientId,
+    confirmSignUp_username,
+    confirmSignUp_confirmationCode,
+    confirmSignUpResponse_httpStatus,
+
+    -- ** CreateGroup
+    createGroup_description,
+    createGroup_precedence,
+    createGroup_roleArn,
+    createGroup_groupName,
+    createGroup_userPoolId,
+    createGroupResponse_group,
+    createGroupResponse_httpStatus,
+
+    -- ** CreateIdentityProvider
+    createIdentityProvider_attributeMapping,
+    createIdentityProvider_idpIdentifiers,
+    createIdentityProvider_userPoolId,
+    createIdentityProvider_providerName,
+    createIdentityProvider_providerType,
+    createIdentityProvider_providerDetails,
+    createIdentityProviderResponse_httpStatus,
+    createIdentityProviderResponse_identityProvider,
 
     -- ** CreateResourceServer
     createResourceServer_scopes,
@@ -632,60 +283,116 @@ module Amazonka.CognitoIdentityProvider.Lens
     createResourceServerResponse_httpStatus,
     createResourceServerResponse_resourceServer,
 
-    -- ** AdminListUserAuthEvents
-    adminListUserAuthEvents_nextToken,
-    adminListUserAuthEvents_maxResults,
-    adminListUserAuthEvents_userPoolId,
-    adminListUserAuthEvents_username,
-    adminListUserAuthEventsResponse_nextToken,
-    adminListUserAuthEventsResponse_authEvents,
-    adminListUserAuthEventsResponse_httpStatus,
+    -- ** CreateUserImportJob
+    createUserImportJob_jobName,
+    createUserImportJob_userPoolId,
+    createUserImportJob_cloudWatchLogsRoleArn,
+    createUserImportJobResponse_userImportJob,
+    createUserImportJobResponse_httpStatus,
 
-    -- ** CreateGroup
-    createGroup_precedence,
-    createGroup_description,
-    createGroup_roleArn,
-    createGroup_groupName,
-    createGroup_userPoolId,
-    createGroupResponse_group,
-    createGroupResponse_httpStatus,
+    -- ** CreateUserPool
+    createUserPool_accountRecoverySetting,
+    createUserPool_adminCreateUserConfig,
+    createUserPool_aliasAttributes,
+    createUserPool_autoVerifiedAttributes,
+    createUserPool_deletionProtection,
+    createUserPool_deviceConfiguration,
+    createUserPool_emailConfiguration,
+    createUserPool_emailVerificationMessage,
+    createUserPool_emailVerificationSubject,
+    createUserPool_lambdaConfig,
+    createUserPool_mfaConfiguration,
+    createUserPool_policies,
+    createUserPool_schema,
+    createUserPool_smsAuthenticationMessage,
+    createUserPool_smsConfiguration,
+    createUserPool_smsVerificationMessage,
+    createUserPool_userAttributeUpdateSettings,
+    createUserPool_userPoolAddOns,
+    createUserPool_userPoolTags,
+    createUserPool_usernameAttributes,
+    createUserPool_usernameConfiguration,
+    createUserPool_verificationMessageTemplate,
+    createUserPool_poolName,
+    createUserPoolResponse_userPool,
+    createUserPoolResponse_httpStatus,
 
-    -- ** AdminAddUserToGroup
-    adminAddUserToGroup_userPoolId,
-    adminAddUserToGroup_username,
-    adminAddUserToGroup_groupName,
+    -- ** CreateUserPoolClient
+    createUserPoolClient_accessTokenValidity,
+    createUserPoolClient_allowedOAuthFlows,
+    createUserPoolClient_allowedOAuthFlowsUserPoolClient,
+    createUserPoolClient_allowedOAuthScopes,
+    createUserPoolClient_analyticsConfiguration,
+    createUserPoolClient_authSessionValidity,
+    createUserPoolClient_callbackURLs,
+    createUserPoolClient_defaultRedirectURI,
+    createUserPoolClient_enablePropagateAdditionalUserContextData,
+    createUserPoolClient_enableTokenRevocation,
+    createUserPoolClient_explicitAuthFlows,
+    createUserPoolClient_generateSecret,
+    createUserPoolClient_idTokenValidity,
+    createUserPoolClient_logoutURLs,
+    createUserPoolClient_preventUserExistenceErrors,
+    createUserPoolClient_readAttributes,
+    createUserPoolClient_refreshTokenValidity,
+    createUserPoolClient_supportedIdentityProviders,
+    createUserPoolClient_tokenValidityUnits,
+    createUserPoolClient_writeAttributes,
+    createUserPoolClient_userPoolId,
+    createUserPoolClient_clientName,
+    createUserPoolClientResponse_userPoolClient,
+    createUserPoolClientResponse_httpStatus,
 
-    -- ** VerifySoftwareToken
-    verifySoftwareToken_accessToken,
-    verifySoftwareToken_friendlyDeviceName,
-    verifySoftwareToken_session,
-    verifySoftwareToken_userCode,
-    verifySoftwareTokenResponse_status,
-    verifySoftwareTokenResponse_session,
-    verifySoftwareTokenResponse_httpStatus,
+    -- ** CreateUserPoolDomain
+    createUserPoolDomain_customDomainConfig,
+    createUserPoolDomain_domain,
+    createUserPoolDomain_userPoolId,
+    createUserPoolDomainResponse_cloudFrontDomain,
+    createUserPoolDomainResponse_httpStatus,
 
-    -- ** UntagResource
-    untagResource_resourceArn,
-    untagResource_tagKeys,
-    untagResourceResponse_httpStatus,
+    -- ** DeleteGroup
+    deleteGroup_groupName,
+    deleteGroup_userPoolId,
 
-    -- ** RevokeToken
-    revokeToken_clientSecret,
-    revokeToken_token,
-    revokeToken_clientId,
-    revokeTokenResponse_httpStatus,
+    -- ** DeleteIdentityProvider
+    deleteIdentityProvider_userPoolId,
+    deleteIdentityProvider_providerName,
 
-    -- ** StopUserImportJob
-    stopUserImportJob_userPoolId,
-    stopUserImportJob_jobId,
-    stopUserImportJobResponse_userImportJob,
-    stopUserImportJobResponse_httpStatus,
+    -- ** DeleteResourceServer
+    deleteResourceServer_userPoolId,
+    deleteResourceServer_identifier,
 
-    -- ** DescribeUserImportJob
-    describeUserImportJob_userPoolId,
-    describeUserImportJob_jobId,
-    describeUserImportJobResponse_userImportJob,
-    describeUserImportJobResponse_httpStatus,
+    -- ** DeleteUser
+    deleteUser_accessToken,
+
+    -- ** DeleteUserAttributes
+    deleteUserAttributes_userAttributeNames,
+    deleteUserAttributes_accessToken,
+    deleteUserAttributesResponse_httpStatus,
+
+    -- ** DeleteUserPool
+    deleteUserPool_userPoolId,
+
+    -- ** DeleteUserPoolClient
+    deleteUserPoolClient_userPoolId,
+    deleteUserPoolClient_clientId,
+
+    -- ** DeleteUserPoolDomain
+    deleteUserPoolDomain_domain,
+    deleteUserPoolDomain_userPoolId,
+    deleteUserPoolDomainResponse_httpStatus,
+
+    -- ** DescribeIdentityProvider
+    describeIdentityProvider_userPoolId,
+    describeIdentityProvider_providerName,
+    describeIdentityProviderResponse_httpStatus,
+    describeIdentityProviderResponse_identityProvider,
+
+    -- ** DescribeResourceServer
+    describeResourceServer_userPoolId,
+    describeResourceServer_identifier,
+    describeResourceServerResponse_httpStatus,
+    describeResourceServerResponse_resourceServer,
 
     -- ** DescribeRiskConfiguration
     describeRiskConfiguration_clientId,
@@ -693,80 +400,16 @@ module Amazonka.CognitoIdentityProvider.Lens
     describeRiskConfigurationResponse_httpStatus,
     describeRiskConfigurationResponse_riskConfiguration,
 
-    -- ** DeleteGroup
-    deleteGroup_groupName,
-    deleteGroup_userPoolId,
+    -- ** DescribeUserImportJob
+    describeUserImportJob_userPoolId,
+    describeUserImportJob_jobId,
+    describeUserImportJobResponse_userImportJob,
+    describeUserImportJobResponse_httpStatus,
 
-    -- ** UpdateGroup
-    updateGroup_precedence,
-    updateGroup_description,
-    updateGroup_roleArn,
-    updateGroup_groupName,
-    updateGroup_userPoolId,
-    updateGroupResponse_group,
-    updateGroupResponse_httpStatus,
-
-    -- ** GlobalSignOut
-    globalSignOut_accessToken,
-    globalSignOutResponse_httpStatus,
-
-    -- ** ListGroups
-    listGroups_nextToken,
-    listGroups_limit,
-    listGroups_userPoolId,
-    listGroupsResponse_groups,
-    listGroupsResponse_nextToken,
-    listGroupsResponse_httpStatus,
-
-    -- ** UpdateIdentityProvider
-    updateIdentityProvider_idpIdentifiers,
-    updateIdentityProvider_attributeMapping,
-    updateIdentityProvider_providerDetails,
-    updateIdentityProvider_userPoolId,
-    updateIdentityProvider_providerName,
-    updateIdentityProviderResponse_httpStatus,
-    updateIdentityProviderResponse_identityProvider,
-
-    -- ** DeleteIdentityProvider
-    deleteIdentityProvider_userPoolId,
-    deleteIdentityProvider_providerName,
-
-    -- ** ListResourceServers
-    listResourceServers_nextToken,
-    listResourceServers_maxResults,
-    listResourceServers_userPoolId,
-    listResourceServersResponse_nextToken,
-    listResourceServersResponse_httpStatus,
-    listResourceServersResponse_resourceServers,
-
-    -- ** AdminRespondToAuthChallenge
-    adminRespondToAuthChallenge_clientMetadata,
-    adminRespondToAuthChallenge_contextData,
-    adminRespondToAuthChallenge_analyticsMetadata,
-    adminRespondToAuthChallenge_challengeResponses,
-    adminRespondToAuthChallenge_session,
-    adminRespondToAuthChallenge_userPoolId,
-    adminRespondToAuthChallenge_clientId,
-    adminRespondToAuthChallenge_challengeName,
-    adminRespondToAuthChallengeResponse_challengeName,
-    adminRespondToAuthChallengeResponse_challengeParameters,
-    adminRespondToAuthChallengeResponse_authenticationResult,
-    adminRespondToAuthChallengeResponse_session,
-    adminRespondToAuthChallengeResponse_httpStatus,
-
-    -- ** SetUserSettings
-    setUserSettings_accessToken,
-    setUserSettings_mfaOptions,
-    setUserSettingsResponse_httpStatus,
-
-    -- ** AdminListDevices
-    adminListDevices_paginationToken,
-    adminListDevices_limit,
-    adminListDevices_userPoolId,
-    adminListDevices_username,
-    adminListDevicesResponse_paginationToken,
-    adminListDevicesResponse_devices,
-    adminListDevicesResponse_httpStatus,
+    -- ** DescribeUserPool
+    describeUserPool_userPoolId,
+    describeUserPoolResponse_userPool,
+    describeUserPoolResponse_httpStatus,
 
     -- ** DescribeUserPoolClient
     describeUserPoolClient_userPoolId,
@@ -774,15 +417,36 @@ module Amazonka.CognitoIdentityProvider.Lens
     describeUserPoolClientResponse_userPoolClient,
     describeUserPoolClientResponse_httpStatus,
 
-    -- ** ResendConfirmationCode
-    resendConfirmationCode_clientMetadata,
-    resendConfirmationCode_analyticsMetadata,
-    resendConfirmationCode_userContextData,
-    resendConfirmationCode_secretHash,
-    resendConfirmationCode_clientId,
-    resendConfirmationCode_username,
-    resendConfirmationCodeResponse_codeDeliveryDetails,
-    resendConfirmationCodeResponse_httpStatus,
+    -- ** DescribeUserPoolDomain
+    describeUserPoolDomain_domain,
+    describeUserPoolDomainResponse_domainDescription,
+    describeUserPoolDomainResponse_httpStatus,
+
+    -- ** ForgetDevice
+    forgetDevice_accessToken,
+    forgetDevice_deviceKey,
+
+    -- ** ForgotPassword
+    forgotPassword_analyticsMetadata,
+    forgotPassword_clientMetadata,
+    forgotPassword_secretHash,
+    forgotPassword_userContextData,
+    forgotPassword_clientId,
+    forgotPassword_username,
+    forgotPasswordResponse_codeDeliveryDetails,
+    forgotPasswordResponse_httpStatus,
+
+    -- ** GetCSVHeader
+    getCSVHeader_userPoolId,
+    getCSVHeaderResponse_cSVHeader,
+    getCSVHeaderResponse_userPoolId,
+    getCSVHeaderResponse_httpStatus,
+
+    -- ** GetDevice
+    getDevice_accessToken,
+    getDevice_deviceKey,
+    getDeviceResponse_httpStatus,
+    getDeviceResponse_device,
 
     -- ** GetGroup
     getGroup_groupName,
@@ -790,19 +454,363 @@ module Amazonka.CognitoIdentityProvider.Lens
     getGroupResponse_group,
     getGroupResponse_httpStatus,
 
-    -- ** AdminSetUserSettings
-    adminSetUserSettings_userPoolId,
-    adminSetUserSettings_username,
-    adminSetUserSettings_mfaOptions,
-    adminSetUserSettingsResponse_httpStatus,
+    -- ** GetIdentityProviderByIdentifier
+    getIdentityProviderByIdentifier_userPoolId,
+    getIdentityProviderByIdentifier_idpIdentifier,
+    getIdentityProviderByIdentifierResponse_httpStatus,
+    getIdentityProviderByIdentifierResponse_identityProvider,
+
+    -- ** GetSigningCertificate
+    getSigningCertificate_userPoolId,
+    getSigningCertificateResponse_certificate,
+    getSigningCertificateResponse_httpStatus,
+
+    -- ** GetUICustomization
+    getUICustomization_clientId,
+    getUICustomization_userPoolId,
+    getUICustomizationResponse_httpStatus,
+    getUICustomizationResponse_uICustomization,
+
+    -- ** GetUser
+    getUser_accessToken,
+    getUserResponse_mfaOptions,
+    getUserResponse_preferredMfaSetting,
+    getUserResponse_userMFASettingList,
+    getUserResponse_httpStatus,
+    getUserResponse_username,
+    getUserResponse_userAttributes,
+
+    -- ** GetUserAttributeVerificationCode
+    getUserAttributeVerificationCode_clientMetadata,
+    getUserAttributeVerificationCode_accessToken,
+    getUserAttributeVerificationCode_attributeName,
+    getUserAttributeVerificationCodeResponse_codeDeliveryDetails,
+    getUserAttributeVerificationCodeResponse_httpStatus,
+
+    -- ** GetUserPoolMfaConfig
+    getUserPoolMfaConfig_userPoolId,
+    getUserPoolMfaConfigResponse_mfaConfiguration,
+    getUserPoolMfaConfigResponse_smsMfaConfiguration,
+    getUserPoolMfaConfigResponse_softwareTokenMfaConfiguration,
+    getUserPoolMfaConfigResponse_httpStatus,
+
+    -- ** GlobalSignOut
+    globalSignOut_accessToken,
+    globalSignOutResponse_httpStatus,
+
+    -- ** InitiateAuth
+    initiateAuth_analyticsMetadata,
+    initiateAuth_authParameters,
+    initiateAuth_clientMetadata,
+    initiateAuth_userContextData,
+    initiateAuth_authFlow,
+    initiateAuth_clientId,
+    initiateAuthResponse_authenticationResult,
+    initiateAuthResponse_challengeName,
+    initiateAuthResponse_challengeParameters,
+    initiateAuthResponse_session,
+    initiateAuthResponse_httpStatus,
 
     -- ** ListDevices
-    listDevices_paginationToken,
     listDevices_limit,
+    listDevices_paginationToken,
     listDevices_accessToken,
-    listDevicesResponse_paginationToken,
     listDevicesResponse_devices,
+    listDevicesResponse_paginationToken,
     listDevicesResponse_httpStatus,
+
+    -- ** ListGroups
+    listGroups_limit,
+    listGroups_nextToken,
+    listGroups_userPoolId,
+    listGroupsResponse_groups,
+    listGroupsResponse_nextToken,
+    listGroupsResponse_httpStatus,
+
+    -- ** ListIdentityProviders
+    listIdentityProviders_maxResults,
+    listIdentityProviders_nextToken,
+    listIdentityProviders_userPoolId,
+    listIdentityProvidersResponse_nextToken,
+    listIdentityProvidersResponse_httpStatus,
+    listIdentityProvidersResponse_providers,
+
+    -- ** ListResourceServers
+    listResourceServers_maxResults,
+    listResourceServers_nextToken,
+    listResourceServers_userPoolId,
+    listResourceServersResponse_nextToken,
+    listResourceServersResponse_httpStatus,
+    listResourceServersResponse_resourceServers,
+
+    -- ** ListTagsForResource
+    listTagsForResource_resourceArn,
+    listTagsForResourceResponse_tags,
+    listTagsForResourceResponse_httpStatus,
+
+    -- ** ListUserImportJobs
+    listUserImportJobs_paginationToken,
+    listUserImportJobs_userPoolId,
+    listUserImportJobs_maxResults,
+    listUserImportJobsResponse_paginationToken,
+    listUserImportJobsResponse_userImportJobs,
+    listUserImportJobsResponse_httpStatus,
+
+    -- ** ListUserPoolClients
+    listUserPoolClients_maxResults,
+    listUserPoolClients_nextToken,
+    listUserPoolClients_userPoolId,
+    listUserPoolClientsResponse_nextToken,
+    listUserPoolClientsResponse_userPoolClients,
+    listUserPoolClientsResponse_httpStatus,
+
+    -- ** ListUserPools
+    listUserPools_nextToken,
+    listUserPools_maxResults,
+    listUserPoolsResponse_nextToken,
+    listUserPoolsResponse_userPools,
+    listUserPoolsResponse_httpStatus,
+
+    -- ** ListUsers
+    listUsers_attributesToGet,
+    listUsers_filter,
+    listUsers_limit,
+    listUsers_paginationToken,
+    listUsers_userPoolId,
+    listUsersResponse_paginationToken,
+    listUsersResponse_users,
+    listUsersResponse_httpStatus,
+
+    -- ** ListUsersInGroup
+    listUsersInGroup_limit,
+    listUsersInGroup_nextToken,
+    listUsersInGroup_userPoolId,
+    listUsersInGroup_groupName,
+    listUsersInGroupResponse_nextToken,
+    listUsersInGroupResponse_users,
+    listUsersInGroupResponse_httpStatus,
+
+    -- ** ResendConfirmationCode
+    resendConfirmationCode_analyticsMetadata,
+    resendConfirmationCode_clientMetadata,
+    resendConfirmationCode_secretHash,
+    resendConfirmationCode_userContextData,
+    resendConfirmationCode_clientId,
+    resendConfirmationCode_username,
+    resendConfirmationCodeResponse_codeDeliveryDetails,
+    resendConfirmationCodeResponse_httpStatus,
+
+    -- ** RespondToAuthChallenge
+    respondToAuthChallenge_analyticsMetadata,
+    respondToAuthChallenge_challengeResponses,
+    respondToAuthChallenge_clientMetadata,
+    respondToAuthChallenge_session,
+    respondToAuthChallenge_userContextData,
+    respondToAuthChallenge_clientId,
+    respondToAuthChallenge_challengeName,
+    respondToAuthChallengeResponse_authenticationResult,
+    respondToAuthChallengeResponse_challengeName,
+    respondToAuthChallengeResponse_challengeParameters,
+    respondToAuthChallengeResponse_session,
+    respondToAuthChallengeResponse_httpStatus,
+
+    -- ** RevokeToken
+    revokeToken_clientSecret,
+    revokeToken_token,
+    revokeToken_clientId,
+    revokeTokenResponse_httpStatus,
+
+    -- ** SetRiskConfiguration
+    setRiskConfiguration_accountTakeoverRiskConfiguration,
+    setRiskConfiguration_clientId,
+    setRiskConfiguration_compromisedCredentialsRiskConfiguration,
+    setRiskConfiguration_riskExceptionConfiguration,
+    setRiskConfiguration_userPoolId,
+    setRiskConfigurationResponse_httpStatus,
+    setRiskConfigurationResponse_riskConfiguration,
+
+    -- ** SetUICustomization
+    setUICustomization_css,
+    setUICustomization_clientId,
+    setUICustomization_imageFile,
+    setUICustomization_userPoolId,
+    setUICustomizationResponse_httpStatus,
+    setUICustomizationResponse_uICustomization,
+
+    -- ** SetUserMFAPreference
+    setUserMFAPreference_sMSMfaSettings,
+    setUserMFAPreference_softwareTokenMfaSettings,
+    setUserMFAPreference_accessToken,
+    setUserMFAPreferenceResponse_httpStatus,
+
+    -- ** SetUserPoolMfaConfig
+    setUserPoolMfaConfig_mfaConfiguration,
+    setUserPoolMfaConfig_smsMfaConfiguration,
+    setUserPoolMfaConfig_softwareTokenMfaConfiguration,
+    setUserPoolMfaConfig_userPoolId,
+    setUserPoolMfaConfigResponse_mfaConfiguration,
+    setUserPoolMfaConfigResponse_smsMfaConfiguration,
+    setUserPoolMfaConfigResponse_softwareTokenMfaConfiguration,
+    setUserPoolMfaConfigResponse_httpStatus,
+
+    -- ** SetUserSettings
+    setUserSettings_accessToken,
+    setUserSettings_mfaOptions,
+    setUserSettingsResponse_httpStatus,
+
+    -- ** SignUp
+    signUp_analyticsMetadata,
+    signUp_clientMetadata,
+    signUp_secretHash,
+    signUp_userAttributes,
+    signUp_userContextData,
+    signUp_validationData,
+    signUp_clientId,
+    signUp_username,
+    signUp_password,
+    signUpResponse_codeDeliveryDetails,
+    signUpResponse_httpStatus,
+    signUpResponse_userConfirmed,
+    signUpResponse_userSub,
+
+    -- ** StartUserImportJob
+    startUserImportJob_userPoolId,
+    startUserImportJob_jobId,
+    startUserImportJobResponse_userImportJob,
+    startUserImportJobResponse_httpStatus,
+
+    -- ** StopUserImportJob
+    stopUserImportJob_userPoolId,
+    stopUserImportJob_jobId,
+    stopUserImportJobResponse_userImportJob,
+    stopUserImportJobResponse_httpStatus,
+
+    -- ** TagResource
+    tagResource_resourceArn,
+    tagResource_tags,
+    tagResourceResponse_httpStatus,
+
+    -- ** UntagResource
+    untagResource_resourceArn,
+    untagResource_tagKeys,
+    untagResourceResponse_httpStatus,
+
+    -- ** UpdateAuthEventFeedback
+    updateAuthEventFeedback_userPoolId,
+    updateAuthEventFeedback_username,
+    updateAuthEventFeedback_eventId,
+    updateAuthEventFeedback_feedbackToken,
+    updateAuthEventFeedback_feedbackValue,
+    updateAuthEventFeedbackResponse_httpStatus,
+
+    -- ** UpdateDeviceStatus
+    updateDeviceStatus_deviceRememberedStatus,
+    updateDeviceStatus_accessToken,
+    updateDeviceStatus_deviceKey,
+    updateDeviceStatusResponse_httpStatus,
+
+    -- ** UpdateGroup
+    updateGroup_description,
+    updateGroup_precedence,
+    updateGroup_roleArn,
+    updateGroup_groupName,
+    updateGroup_userPoolId,
+    updateGroupResponse_group,
+    updateGroupResponse_httpStatus,
+
+    -- ** UpdateIdentityProvider
+    updateIdentityProvider_attributeMapping,
+    updateIdentityProvider_idpIdentifiers,
+    updateIdentityProvider_providerDetails,
+    updateIdentityProvider_userPoolId,
+    updateIdentityProvider_providerName,
+    updateIdentityProviderResponse_httpStatus,
+    updateIdentityProviderResponse_identityProvider,
+
+    -- ** UpdateResourceServer
+    updateResourceServer_scopes,
+    updateResourceServer_userPoolId,
+    updateResourceServer_identifier,
+    updateResourceServer_name,
+    updateResourceServerResponse_httpStatus,
+    updateResourceServerResponse_resourceServer,
+
+    -- ** UpdateUserAttributes
+    updateUserAttributes_clientMetadata,
+    updateUserAttributes_userAttributes,
+    updateUserAttributes_accessToken,
+    updateUserAttributesResponse_codeDeliveryDetailsList,
+    updateUserAttributesResponse_httpStatus,
+
+    -- ** UpdateUserPool
+    updateUserPool_accountRecoverySetting,
+    updateUserPool_adminCreateUserConfig,
+    updateUserPool_autoVerifiedAttributes,
+    updateUserPool_deletionProtection,
+    updateUserPool_deviceConfiguration,
+    updateUserPool_emailConfiguration,
+    updateUserPool_emailVerificationMessage,
+    updateUserPool_emailVerificationSubject,
+    updateUserPool_lambdaConfig,
+    updateUserPool_mfaConfiguration,
+    updateUserPool_policies,
+    updateUserPool_smsAuthenticationMessage,
+    updateUserPool_smsConfiguration,
+    updateUserPool_smsVerificationMessage,
+    updateUserPool_userAttributeUpdateSettings,
+    updateUserPool_userPoolAddOns,
+    updateUserPool_userPoolTags,
+    updateUserPool_verificationMessageTemplate,
+    updateUserPool_userPoolId,
+    updateUserPoolResponse_httpStatus,
+
+    -- ** UpdateUserPoolClient
+    updateUserPoolClient_accessTokenValidity,
+    updateUserPoolClient_allowedOAuthFlows,
+    updateUserPoolClient_allowedOAuthFlowsUserPoolClient,
+    updateUserPoolClient_allowedOAuthScopes,
+    updateUserPoolClient_analyticsConfiguration,
+    updateUserPoolClient_authSessionValidity,
+    updateUserPoolClient_callbackURLs,
+    updateUserPoolClient_clientName,
+    updateUserPoolClient_defaultRedirectURI,
+    updateUserPoolClient_enablePropagateAdditionalUserContextData,
+    updateUserPoolClient_enableTokenRevocation,
+    updateUserPoolClient_explicitAuthFlows,
+    updateUserPoolClient_idTokenValidity,
+    updateUserPoolClient_logoutURLs,
+    updateUserPoolClient_preventUserExistenceErrors,
+    updateUserPoolClient_readAttributes,
+    updateUserPoolClient_refreshTokenValidity,
+    updateUserPoolClient_supportedIdentityProviders,
+    updateUserPoolClient_tokenValidityUnits,
+    updateUserPoolClient_writeAttributes,
+    updateUserPoolClient_userPoolId,
+    updateUserPoolClient_clientId,
+    updateUserPoolClientResponse_userPoolClient,
+    updateUserPoolClientResponse_httpStatus,
+
+    -- ** UpdateUserPoolDomain
+    updateUserPoolDomain_domain,
+    updateUserPoolDomain_userPoolId,
+    updateUserPoolDomain_customDomainConfig,
+    updateUserPoolDomainResponse_cloudFrontDomain,
+    updateUserPoolDomainResponse_httpStatus,
+
+    -- ** VerifySoftwareToken
+    verifySoftwareToken_accessToken,
+    verifySoftwareToken_friendlyDeviceName,
+    verifySoftwareToken_session,
+    verifySoftwareToken_userCode,
+    verifySoftwareTokenResponse_session,
+    verifySoftwareTokenResponse_status,
+    verifySoftwareTokenResponse_httpStatus,
+
+    -- ** VerifyUserAttribute
+    verifyUserAttribute_accessToken,
+    verifyUserAttribute_attributeName,
+    verifyUserAttribute_code,
+    verifyUserAttributeResponse_httpStatus,
 
     -- * Types
 
@@ -814,8 +822,8 @@ module Amazonka.CognitoIdentityProvider.Lens
     accountTakeoverActionType_eventAction,
 
     -- ** AccountTakeoverActionsType
-    accountTakeoverActionsType_lowAction,
     accountTakeoverActionsType_highAction,
+    accountTakeoverActionsType_lowAction,
     accountTakeoverActionsType_mediumAction,
 
     -- ** AccountTakeoverRiskConfigurationType
@@ -824,15 +832,15 @@ module Amazonka.CognitoIdentityProvider.Lens
 
     -- ** AdminCreateUserConfigType
     adminCreateUserConfigType_allowAdminCreateUserOnly,
-    adminCreateUserConfigType_unusedAccountValidityDays,
     adminCreateUserConfigType_inviteMessageTemplate,
+    adminCreateUserConfigType_unusedAccountValidityDays,
 
     -- ** AnalyticsConfigurationType
     analyticsConfigurationType_applicationArn,
-    analyticsConfigurationType_userDataShared,
     analyticsConfigurationType_applicationId,
     analyticsConfigurationType_externalId,
     analyticsConfigurationType_roleArn,
+    analyticsConfigurationType_userDataShared,
 
     -- ** AnalyticsMetadataType
     analyticsMetadataType_analyticsEndpointId,
@@ -842,31 +850,31 @@ module Amazonka.CognitoIdentityProvider.Lens
     attributeType_name,
 
     -- ** AuthEventType
-    authEventType_eventRisk,
-    authEventType_eventResponse,
-    authEventType_eventContextData,
     authEventType_challengeResponses,
-    authEventType_eventType,
     authEventType_creationDate,
+    authEventType_eventContextData,
     authEventType_eventFeedback,
     authEventType_eventId,
+    authEventType_eventResponse,
+    authEventType_eventRisk,
+    authEventType_eventType,
 
     -- ** AuthenticationResultType
     authenticationResultType_accessToken,
-    authenticationResultType_refreshToken,
-    authenticationResultType_newDeviceMetadata,
     authenticationResultType_expiresIn,
-    authenticationResultType_tokenType,
     authenticationResultType_idToken,
+    authenticationResultType_newDeviceMetadata,
+    authenticationResultType_refreshToken,
+    authenticationResultType_tokenType,
 
     -- ** ChallengeResponseType
     challengeResponseType_challengeName,
     challengeResponseType_challengeResponse,
 
     -- ** CodeDeliveryDetailsType
-    codeDeliveryDetailsType_destination,
-    codeDeliveryDetailsType_deliveryMedium,
     codeDeliveryDetailsType_attributeName,
+    codeDeliveryDetailsType_deliveryMedium,
+    codeDeliveryDetailsType_destination,
 
     -- ** CompromisedCredentialsActionsType
     compromisedCredentialsActionsType_eventAction,
@@ -902,34 +910,34 @@ module Amazonka.CognitoIdentityProvider.Lens
     deviceSecretVerifierConfigType_salt,
 
     -- ** DeviceType
-    deviceType_deviceLastModifiedDate,
-    deviceType_deviceCreateDate,
     deviceType_deviceAttributes,
+    deviceType_deviceCreateDate,
     deviceType_deviceKey,
     deviceType_deviceLastAuthenticatedDate,
+    deviceType_deviceLastModifiedDate,
 
     -- ** DomainDescriptionType
-    domainDescriptionType_status,
-    domainDescriptionType_cloudFrontDistribution,
-    domainDescriptionType_userPoolId,
-    domainDescriptionType_domain,
     domainDescriptionType_aWSAccountId,
+    domainDescriptionType_cloudFrontDistribution,
     domainDescriptionType_customDomainConfig,
-    domainDescriptionType_version,
+    domainDescriptionType_domain,
     domainDescriptionType_s3Bucket,
+    domainDescriptionType_status,
+    domainDescriptionType_userPoolId,
+    domainDescriptionType_version,
 
     -- ** EmailConfigurationType
-    emailConfigurationType_sourceArn,
-    emailConfigurationType_from,
     emailConfigurationType_configurationSet,
-    emailConfigurationType_replyToEmailAddress,
     emailConfigurationType_emailSendingAccount,
+    emailConfigurationType_from,
+    emailConfigurationType_replyToEmailAddress,
+    emailConfigurationType_sourceArn,
 
     -- ** EventContextDataType
-    eventContextDataType_ipAddress,
-    eventContextDataType_country,
     eventContextDataType_city,
+    eventContextDataType_country,
     eventContextDataType_deviceName,
+    eventContextDataType_ipAddress,
     eventContextDataType_timezone,
 
     -- ** EventFeedbackType
@@ -939,71 +947,71 @@ module Amazonka.CognitoIdentityProvider.Lens
 
     -- ** EventRiskType
     eventRiskType_compromisedCredentialsDetected,
-    eventRiskType_riskLevel,
     eventRiskType_riskDecision,
+    eventRiskType_riskLevel,
 
     -- ** GroupType
-    groupType_lastModifiedDate,
-    groupType_userPoolId,
     groupType_creationDate,
-    groupType_precedence,
-    groupType_groupName,
     groupType_description,
+    groupType_groupName,
+    groupType_lastModifiedDate,
+    groupType_precedence,
     groupType_roleArn,
+    groupType_userPoolId,
 
     -- ** HttpHeader
-    httpHeader_headerValue,
     httpHeader_headerName,
+    httpHeader_headerValue,
 
     -- ** IdentityProviderType
-    identityProviderType_lastModifiedDate,
-    identityProviderType_userPoolId,
-    identityProviderType_providerType,
+    identityProviderType_attributeMapping,
     identityProviderType_creationDate,
     identityProviderType_idpIdentifiers,
-    identityProviderType_attributeMapping,
+    identityProviderType_lastModifiedDate,
     identityProviderType_providerDetails,
     identityProviderType_providerName,
+    identityProviderType_providerType,
+    identityProviderType_userPoolId,
 
     -- ** LambdaConfigType
-    lambdaConfigType_preAuthentication,
     lambdaConfigType_createAuthChallenge,
-    lambdaConfigType_verifyAuthChallengeResponse,
-    lambdaConfigType_customSMSSender,
-    lambdaConfigType_postAuthentication,
-    lambdaConfigType_customMessage,
-    lambdaConfigType_defineAuthChallenge,
     lambdaConfigType_customEmailSender,
+    lambdaConfigType_customMessage,
+    lambdaConfigType_customSMSSender,
+    lambdaConfigType_defineAuthChallenge,
     lambdaConfigType_kmsKeyID,
+    lambdaConfigType_postAuthentication,
     lambdaConfigType_postConfirmation,
+    lambdaConfigType_preAuthentication,
+    lambdaConfigType_preSignUp,
     lambdaConfigType_preTokenGeneration,
     lambdaConfigType_userMigration,
-    lambdaConfigType_preSignUp,
+    lambdaConfigType_verifyAuthChallengeResponse,
 
     -- ** MFAOptionType
-    mfaOptionType_deliveryMedium,
     mfaOptionType_attributeName,
+    mfaOptionType_deliveryMedium,
 
     -- ** MessageTemplateType
+    messageTemplateType_emailMessage,
     messageTemplateType_emailSubject,
     messageTemplateType_sMSMessage,
-    messageTemplateType_emailMessage,
 
     -- ** NewDeviceMetadataType
     newDeviceMetadataType_deviceGroupKey,
     newDeviceMetadataType_deviceKey,
 
     -- ** NotifyConfigurationType
-    notifyConfigurationType_noActionEmail,
-    notifyConfigurationType_from,
-    notifyConfigurationType_replyTo,
     notifyConfigurationType_blockEmail,
+    notifyConfigurationType_from,
     notifyConfigurationType_mfaEmail,
+    notifyConfigurationType_noActionEmail,
+    notifyConfigurationType_replyTo,
     notifyConfigurationType_sourceArn,
 
     -- ** NotifyEmailType
-    notifyEmailType_textBody,
     notifyEmailType_htmlBody,
+    notifyEmailType_textBody,
     notifyEmailType_subject,
 
     -- ** NumberAttributeConstraintsType
@@ -1011,22 +1019,22 @@ module Amazonka.CognitoIdentityProvider.Lens
     numberAttributeConstraintsType_minValue,
 
     -- ** PasswordPolicyType
-    passwordPolicyType_requireNumbers,
-    passwordPolicyType_requireUppercase,
-    passwordPolicyType_requireLowercase,
     passwordPolicyType_minimumLength,
+    passwordPolicyType_requireLowercase,
+    passwordPolicyType_requireNumbers,
     passwordPolicyType_requireSymbols,
+    passwordPolicyType_requireUppercase,
     passwordPolicyType_temporaryPasswordValidityDays,
 
     -- ** ProviderDescription
-    providerDescription_lastModifiedDate,
-    providerDescription_providerType,
     providerDescription_creationDate,
+    providerDescription_lastModifiedDate,
     providerDescription_providerName,
+    providerDescription_providerType,
 
     -- ** ProviderUserIdentifierType
-    providerUserIdentifierType_providerAttributeValue,
     providerUserIdentifierType_providerAttributeName,
+    providerUserIdentifierType_providerAttributeValue,
     providerUserIdentifierType_providerName,
 
     -- ** RecoveryOptionType
@@ -1038,38 +1046,39 @@ module Amazonka.CognitoIdentityProvider.Lens
     resourceServerScopeType_scopeDescription,
 
     -- ** ResourceServerType
-    resourceServerType_userPoolId,
     resourceServerType_identifier,
-    resourceServerType_scopes,
     resourceServerType_name,
+    resourceServerType_scopes,
+    resourceServerType_userPoolId,
 
     -- ** RiskConfigurationType
-    riskConfigurationType_riskExceptionConfiguration,
-    riskConfigurationType_clientId,
     riskConfigurationType_accountTakeoverRiskConfiguration,
-    riskConfigurationType_lastModifiedDate,
-    riskConfigurationType_userPoolId,
+    riskConfigurationType_clientId,
     riskConfigurationType_compromisedCredentialsRiskConfiguration,
+    riskConfigurationType_lastModifiedDate,
+    riskConfigurationType_riskExceptionConfiguration,
+    riskConfigurationType_userPoolId,
 
     -- ** RiskExceptionConfigurationType
-    riskExceptionConfigurationType_skippedIPRangeList,
     riskExceptionConfigurationType_blockedIPRangeList,
+    riskExceptionConfigurationType_skippedIPRangeList,
 
     -- ** SMSMfaSettingsType
     sMSMfaSettingsType_enabled,
     sMSMfaSettingsType_preferredMfa,
 
     -- ** SchemaAttributeType
-    schemaAttributeType_numberAttributeConstraints,
-    schemaAttributeType_required,
     schemaAttributeType_attributeDataType,
-    schemaAttributeType_stringAttributeConstraints,
-    schemaAttributeType_name,
     schemaAttributeType_developerOnlyAttribute,
     schemaAttributeType_mutable,
+    schemaAttributeType_name,
+    schemaAttributeType_numberAttributeConstraints,
+    schemaAttributeType_required,
+    schemaAttributeType_stringAttributeConstraints,
 
     -- ** SmsConfigurationType
     smsConfigurationType_externalId,
+    smsConfigurationType_snsRegion,
     smsConfigurationType_snsCallerArn,
 
     -- ** SmsMfaConfigType
@@ -1089,132 +1098,140 @@ module Amazonka.CognitoIdentityProvider.Lens
 
     -- ** TokenValidityUnitsType
     tokenValidityUnitsType_accessToken,
-    tokenValidityUnitsType_refreshToken,
     tokenValidityUnitsType_idToken,
+    tokenValidityUnitsType_refreshToken,
 
     -- ** UICustomizationType
-    uICustomizationType_clientId,
-    uICustomizationType_lastModifiedDate,
-    uICustomizationType_userPoolId,
     uICustomizationType_css,
     uICustomizationType_cSSVersion,
-    uICustomizationType_imageUrl,
+    uICustomizationType_clientId,
     uICustomizationType_creationDate,
+    uICustomizationType_imageUrl,
+    uICustomizationType_lastModifiedDate,
+    uICustomizationType_userPoolId,
+
+    -- ** UserAttributeUpdateSettingsType
+    userAttributeUpdateSettingsType_attributesRequireVerificationBeforeUpdate,
 
     -- ** UserContextDataType
     userContextDataType_encodedData,
+    userContextDataType_ipAddress,
 
     -- ** UserImportJobType
-    userImportJobType_status,
-    userImportJobType_skippedUsers,
-    userImportJobType_jobId,
-    userImportJobType_userPoolId,
-    userImportJobType_jobName,
-    userImportJobType_preSignedUrl,
-    userImportJobType_failedUsers,
-    userImportJobType_startDate,
+    userImportJobType_cloudWatchLogsRoleArn,
+    userImportJobType_completionDate,
     userImportJobType_completionMessage,
     userImportJobType_creationDate,
-    userImportJobType_completionDate,
-    userImportJobType_cloudWatchLogsRoleArn,
+    userImportJobType_failedUsers,
     userImportJobType_importedUsers,
+    userImportJobType_jobId,
+    userImportJobType_jobName,
+    userImportJobType_preSignedUrl,
+    userImportJobType_skippedUsers,
+    userImportJobType_startDate,
+    userImportJobType_status,
+    userImportJobType_userPoolId,
 
     -- ** UserPoolAddOnsType
     userPoolAddOnsType_advancedSecurityMode,
 
     -- ** UserPoolClientDescription
     userPoolClientDescription_clientId,
-    userPoolClientDescription_userPoolId,
     userPoolClientDescription_clientName,
+    userPoolClientDescription_userPoolId,
 
     -- ** UserPoolClientType
-    userPoolClientType_refreshTokenValidity,
-    userPoolClientType_clientId,
-    userPoolClientType_explicitAuthFlows,
-    userPoolClientType_clientSecret,
-    userPoolClientType_lastModifiedDate,
-    userPoolClientType_supportedIdentityProviders,
-    userPoolClientType_logoutURLs,
-    userPoolClientType_allowedOAuthFlowsUserPoolClient,
-    userPoolClientType_userPoolId,
-    userPoolClientType_idTokenValidity,
-    userPoolClientType_tokenValidityUnits,
-    userPoolClientType_defaultRedirectURI,
-    userPoolClientType_enableTokenRevocation,
-    userPoolClientType_writeAttributes,
-    userPoolClientType_preventUserExistenceErrors,
     userPoolClientType_accessTokenValidity,
-    userPoolClientType_creationDate,
-    userPoolClientType_readAttributes,
-    userPoolClientType_allowedOAuthScopes,
     userPoolClientType_allowedOAuthFlows,
+    userPoolClientType_allowedOAuthFlowsUserPoolClient,
+    userPoolClientType_allowedOAuthScopes,
     userPoolClientType_analyticsConfiguration,
-    userPoolClientType_clientName,
+    userPoolClientType_authSessionValidity,
     userPoolClientType_callbackURLs,
+    userPoolClientType_clientId,
+    userPoolClientType_clientName,
+    userPoolClientType_clientSecret,
+    userPoolClientType_creationDate,
+    userPoolClientType_defaultRedirectURI,
+    userPoolClientType_enablePropagateAdditionalUserContextData,
+    userPoolClientType_enableTokenRevocation,
+    userPoolClientType_explicitAuthFlows,
+    userPoolClientType_idTokenValidity,
+    userPoolClientType_lastModifiedDate,
+    userPoolClientType_logoutURLs,
+    userPoolClientType_preventUserExistenceErrors,
+    userPoolClientType_readAttributes,
+    userPoolClientType_refreshTokenValidity,
+    userPoolClientType_supportedIdentityProviders,
+    userPoolClientType_tokenValidityUnits,
+    userPoolClientType_userPoolId,
+    userPoolClientType_writeAttributes,
 
     -- ** UserPoolDescriptionType
-    userPoolDescriptionType_status,
+    userPoolDescriptionType_creationDate,
+    userPoolDescriptionType_id,
+    userPoolDescriptionType_lambdaConfig,
     userPoolDescriptionType_lastModifiedDate,
     userPoolDescriptionType_name,
-    userPoolDescriptionType_id,
-    userPoolDescriptionType_creationDate,
-    userPoolDescriptionType_lambdaConfig,
+    userPoolDescriptionType_status,
 
     -- ** UserPoolPolicyType
     userPoolPolicyType_passwordPolicy,
 
     -- ** UserPoolType
-    userPoolType_status,
-    userPoolType_userPoolTags,
-    userPoolType_emailConfigurationFailure,
-    userPoolType_lastModifiedDate,
-    userPoolType_verificationMessageTemplate,
-    userPoolType_estimatedNumberOfUsers,
-    userPoolType_arn,
-    userPoolType_domain,
-    userPoolType_customDomain,
-    userPoolType_emailVerificationMessage,
-    userPoolType_smsAuthenticationMessage,
-    userPoolType_userPoolAddOns,
-    userPoolType_schemaAttributes,
-    userPoolType_emailVerificationSubject,
-    userPoolType_usernameAttributes,
-    userPoolType_aliasAttributes,
     userPoolType_accountRecoverySetting,
-    userPoolType_emailConfiguration,
-    userPoolType_smsVerificationMessage,
-    userPoolType_name,
-    userPoolType_mfaConfiguration,
-    userPoolType_id,
-    userPoolType_smsConfigurationFailure,
-    userPoolType_creationDate,
-    userPoolType_lambdaConfig,
-    userPoolType_smsConfiguration,
     userPoolType_adminCreateUserConfig,
-    userPoolType_deviceConfiguration,
+    userPoolType_aliasAttributes,
+    userPoolType_arn,
     userPoolType_autoVerifiedAttributes,
+    userPoolType_creationDate,
+    userPoolType_customDomain,
+    userPoolType_deletionProtection,
+    userPoolType_deviceConfiguration,
+    userPoolType_domain,
+    userPoolType_emailConfiguration,
+    userPoolType_emailConfigurationFailure,
+    userPoolType_emailVerificationMessage,
+    userPoolType_emailVerificationSubject,
+    userPoolType_estimatedNumberOfUsers,
+    userPoolType_id,
+    userPoolType_lambdaConfig,
+    userPoolType_lastModifiedDate,
+    userPoolType_mfaConfiguration,
+    userPoolType_name,
     userPoolType_policies,
+    userPoolType_schemaAttributes,
+    userPoolType_smsAuthenticationMessage,
+    userPoolType_smsConfiguration,
+    userPoolType_smsConfigurationFailure,
+    userPoolType_smsVerificationMessage,
+    userPoolType_status,
+    userPoolType_userAttributeUpdateSettings,
+    userPoolType_userPoolAddOns,
+    userPoolType_userPoolTags,
+    userPoolType_usernameAttributes,
     userPoolType_usernameConfiguration,
+    userPoolType_verificationMessageTemplate,
 
     -- ** UserType
+    userType_attributes,
     userType_enabled,
+    userType_mfaOptions,
+    userType_userCreateDate,
+    userType_userLastModifiedDate,
     userType_userStatus,
     userType_username,
-    userType_userCreateDate,
-    userType_attributes,
-    userType_mfaOptions,
-    userType_userLastModifiedDate,
 
     -- ** UsernameConfigurationType
     usernameConfigurationType_caseSensitive,
 
     -- ** VerificationMessageTemplateType
     verificationMessageTemplateType_defaultEmailOption,
+    verificationMessageTemplateType_emailMessage,
+    verificationMessageTemplateType_emailMessageByLink,
     verificationMessageTemplateType_emailSubject,
     verificationMessageTemplateType_emailSubjectByLink,
     verificationMessageTemplateType_smsMessage,
-    verificationMessageTemplateType_emailMessageByLink,
-    verificationMessageTemplateType_emailMessage,
   )
 where
 
@@ -1360,6 +1377,7 @@ import Amazonka.CognitoIdentityProvider.Types.SoftwareTokenMfaSettingsType
 import Amazonka.CognitoIdentityProvider.Types.StringAttributeConstraintsType
 import Amazonka.CognitoIdentityProvider.Types.TokenValidityUnitsType
 import Amazonka.CognitoIdentityProvider.Types.UICustomizationType
+import Amazonka.CognitoIdentityProvider.Types.UserAttributeUpdateSettingsType
 import Amazonka.CognitoIdentityProvider.Types.UserContextDataType
 import Amazonka.CognitoIdentityProvider.Types.UserImportJobType
 import Amazonka.CognitoIdentityProvider.Types.UserPoolAddOnsType

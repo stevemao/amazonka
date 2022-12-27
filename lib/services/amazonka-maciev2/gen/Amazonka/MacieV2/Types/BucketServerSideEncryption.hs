@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.BucketServerSideEncryption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.BucketServerSideEncryption where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types.Type
 import qualified Amazonka.Prelude as Prelude
 
@@ -111,14 +112,14 @@ bucketServerSideEncryption_kmsMasterKeyId = Lens.lens (\BucketServerSideEncrypti
 bucketServerSideEncryption_type :: Lens.Lens' BucketServerSideEncryption (Prelude.Maybe Type)
 bucketServerSideEncryption_type = Lens.lens (\BucketServerSideEncryption' {type'} -> type') (\s@BucketServerSideEncryption' {} a -> s {type' = a} :: BucketServerSideEncryption)
 
-instance Core.FromJSON BucketServerSideEncryption where
+instance Data.FromJSON BucketServerSideEncryption where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BucketServerSideEncryption"
       ( \x ->
           BucketServerSideEncryption'
-            Prelude.<$> (x Core..:? "kmsMasterKeyId")
-            Prelude.<*> (x Core..:? "type")
+            Prelude.<$> (x Data..:? "kmsMasterKeyId")
+            Prelude.<*> (x Data..:? "type")
       )
 
 instance Prelude.Hashable BucketServerSideEncryption where

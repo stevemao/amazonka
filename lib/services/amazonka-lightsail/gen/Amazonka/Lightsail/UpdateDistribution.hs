@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.UpdateDistribution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,11 +31,11 @@ module Amazonka.Lightsail.UpdateDistribution
     newUpdateDistribution,
 
     -- * Request Lenses
-    updateDistribution_origin,
     updateDistribution_cacheBehaviorSettings,
-    updateDistribution_isEnabled,
-    updateDistribution_defaultCacheBehavior,
     updateDistribution_cacheBehaviors,
+    updateDistribution_defaultCacheBehavior,
+    updateDistribution_isEnabled,
+    updateDistribution_origin,
     updateDistribution_distributionName,
 
     -- * Destructuring the Response
@@ -49,7 +49,8 @@ module Amazonka.Lightsail.UpdateDistribution
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -57,26 +58,26 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateDistribution' smart constructor.
 data UpdateDistribution = UpdateDistribution'
-  { -- | An object that describes the origin resource for the distribution, such
-    -- as a Lightsail instance or load balancer.
-    --
-    -- The distribution pulls, caches, and serves content from the origin.
-    origin :: Prelude.Maybe InputOrigin,
-    -- | An object that describes the cache behavior settings for the
+  { -- | An object that describes the cache behavior settings for the
     -- distribution.
     --
     -- The @cacheBehaviorSettings@ specified in your
     -- @UpdateDistributionRequest@ will replace your distribution\'s existing
     -- settings.
     cacheBehaviorSettings :: Prelude.Maybe CacheSettings,
-    -- | Indicates whether to enable the distribution.
-    isEnabled :: Prelude.Maybe Prelude.Bool,
-    -- | An object that describes the default cache behavior for the
-    -- distribution.
-    defaultCacheBehavior :: Prelude.Maybe CacheBehavior,
     -- | An array of objects that describe the per-path cache behavior for the
     -- distribution.
     cacheBehaviors :: Prelude.Maybe [CacheBehaviorPerPath],
+    -- | An object that describes the default cache behavior for the
+    -- distribution.
+    defaultCacheBehavior :: Prelude.Maybe CacheBehavior,
+    -- | Indicates whether to enable the distribution.
+    isEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | An object that describes the origin resource for the distribution, such
+    -- as a Lightsail instance, bucket, or load balancer.
+    --
+    -- The distribution pulls, caches, and serves content from the origin.
+    origin :: Prelude.Maybe InputOrigin,
     -- | The name of the distribution to update.
     --
     -- Use the @GetDistributions@ action to get a list of distribution names
@@ -93,11 +94,6 @@ data UpdateDistribution = UpdateDistribution'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'origin', 'updateDistribution_origin' - An object that describes the origin resource for the distribution, such
--- as a Lightsail instance or load balancer.
---
--- The distribution pulls, caches, and serves content from the origin.
---
 -- 'cacheBehaviorSettings', 'updateDistribution_cacheBehaviorSettings' - An object that describes the cache behavior settings for the
 -- distribution.
 --
@@ -105,13 +101,18 @@ data UpdateDistribution = UpdateDistribution'
 -- @UpdateDistributionRequest@ will replace your distribution\'s existing
 -- settings.
 --
--- 'isEnabled', 'updateDistribution_isEnabled' - Indicates whether to enable the distribution.
+-- 'cacheBehaviors', 'updateDistribution_cacheBehaviors' - An array of objects that describe the per-path cache behavior for the
+-- distribution.
 --
 -- 'defaultCacheBehavior', 'updateDistribution_defaultCacheBehavior' - An object that describes the default cache behavior for the
 -- distribution.
 --
--- 'cacheBehaviors', 'updateDistribution_cacheBehaviors' - An array of objects that describe the per-path cache behavior for the
--- distribution.
+-- 'isEnabled', 'updateDistribution_isEnabled' - Indicates whether to enable the distribution.
+--
+-- 'origin', 'updateDistribution_origin' - An object that describes the origin resource for the distribution, such
+-- as a Lightsail instance, bucket, or load balancer.
+--
+-- The distribution pulls, caches, and serves content from the origin.
 --
 -- 'distributionName', 'updateDistribution_distributionName' - The name of the distribution to update.
 --
@@ -123,20 +124,14 @@ newUpdateDistribution ::
   UpdateDistribution
 newUpdateDistribution pDistributionName_ =
   UpdateDistribution'
-    { origin = Prelude.Nothing,
-      cacheBehaviorSettings = Prelude.Nothing,
-      isEnabled = Prelude.Nothing,
-      defaultCacheBehavior = Prelude.Nothing,
+    { cacheBehaviorSettings =
+        Prelude.Nothing,
       cacheBehaviors = Prelude.Nothing,
+      defaultCacheBehavior = Prelude.Nothing,
+      isEnabled = Prelude.Nothing,
+      origin = Prelude.Nothing,
       distributionName = pDistributionName_
     }
-
--- | An object that describes the origin resource for the distribution, such
--- as a Lightsail instance or load balancer.
---
--- The distribution pulls, caches, and serves content from the origin.
-updateDistribution_origin :: Lens.Lens' UpdateDistribution (Prelude.Maybe InputOrigin)
-updateDistribution_origin = Lens.lens (\UpdateDistribution' {origin} -> origin) (\s@UpdateDistribution' {} a -> s {origin = a} :: UpdateDistribution)
 
 -- | An object that describes the cache behavior settings for the
 -- distribution.
@@ -147,19 +142,26 @@ updateDistribution_origin = Lens.lens (\UpdateDistribution' {origin} -> origin) 
 updateDistribution_cacheBehaviorSettings :: Lens.Lens' UpdateDistribution (Prelude.Maybe CacheSettings)
 updateDistribution_cacheBehaviorSettings = Lens.lens (\UpdateDistribution' {cacheBehaviorSettings} -> cacheBehaviorSettings) (\s@UpdateDistribution' {} a -> s {cacheBehaviorSettings = a} :: UpdateDistribution)
 
--- | Indicates whether to enable the distribution.
-updateDistribution_isEnabled :: Lens.Lens' UpdateDistribution (Prelude.Maybe Prelude.Bool)
-updateDistribution_isEnabled = Lens.lens (\UpdateDistribution' {isEnabled} -> isEnabled) (\s@UpdateDistribution' {} a -> s {isEnabled = a} :: UpdateDistribution)
+-- | An array of objects that describe the per-path cache behavior for the
+-- distribution.
+updateDistribution_cacheBehaviors :: Lens.Lens' UpdateDistribution (Prelude.Maybe [CacheBehaviorPerPath])
+updateDistribution_cacheBehaviors = Lens.lens (\UpdateDistribution' {cacheBehaviors} -> cacheBehaviors) (\s@UpdateDistribution' {} a -> s {cacheBehaviors = a} :: UpdateDistribution) Prelude.. Lens.mapping Lens.coerced
 
 -- | An object that describes the default cache behavior for the
 -- distribution.
 updateDistribution_defaultCacheBehavior :: Lens.Lens' UpdateDistribution (Prelude.Maybe CacheBehavior)
 updateDistribution_defaultCacheBehavior = Lens.lens (\UpdateDistribution' {defaultCacheBehavior} -> defaultCacheBehavior) (\s@UpdateDistribution' {} a -> s {defaultCacheBehavior = a} :: UpdateDistribution)
 
--- | An array of objects that describe the per-path cache behavior for the
--- distribution.
-updateDistribution_cacheBehaviors :: Lens.Lens' UpdateDistribution (Prelude.Maybe [CacheBehaviorPerPath])
-updateDistribution_cacheBehaviors = Lens.lens (\UpdateDistribution' {cacheBehaviors} -> cacheBehaviors) (\s@UpdateDistribution' {} a -> s {cacheBehaviors = a} :: UpdateDistribution) Prelude.. Lens.mapping Lens.coerced
+-- | Indicates whether to enable the distribution.
+updateDistribution_isEnabled :: Lens.Lens' UpdateDistribution (Prelude.Maybe Prelude.Bool)
+updateDistribution_isEnabled = Lens.lens (\UpdateDistribution' {isEnabled} -> isEnabled) (\s@UpdateDistribution' {} a -> s {isEnabled = a} :: UpdateDistribution)
+
+-- | An object that describes the origin resource for the distribution, such
+-- as a Lightsail instance, bucket, or load balancer.
+--
+-- The distribution pulls, caches, and serves content from the origin.
+updateDistribution_origin :: Lens.Lens' UpdateDistribution (Prelude.Maybe InputOrigin)
+updateDistribution_origin = Lens.lens (\UpdateDistribution' {origin} -> origin) (\s@UpdateDistribution' {} a -> s {origin = a} :: UpdateDistribution)
 
 -- | The name of the distribution to update.
 --
@@ -172,69 +174,70 @@ instance Core.AWSRequest UpdateDistribution where
   type
     AWSResponse UpdateDistribution =
       UpdateDistributionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateDistributionResponse'
-            Prelude.<$> (x Core..?> "operation")
+            Prelude.<$> (x Data..?> "operation")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateDistribution where
   hashWithSalt _salt UpdateDistribution' {..} =
-    _salt `Prelude.hashWithSalt` origin
-      `Prelude.hashWithSalt` cacheBehaviorSettings
-      `Prelude.hashWithSalt` isEnabled
-      `Prelude.hashWithSalt` defaultCacheBehavior
+    _salt `Prelude.hashWithSalt` cacheBehaviorSettings
       `Prelude.hashWithSalt` cacheBehaviors
+      `Prelude.hashWithSalt` defaultCacheBehavior
+      `Prelude.hashWithSalt` isEnabled
+      `Prelude.hashWithSalt` origin
       `Prelude.hashWithSalt` distributionName
 
 instance Prelude.NFData UpdateDistribution where
   rnf UpdateDistribution' {..} =
-    Prelude.rnf origin
-      `Prelude.seq` Prelude.rnf cacheBehaviorSettings
-      `Prelude.seq` Prelude.rnf isEnabled
-      `Prelude.seq` Prelude.rnf defaultCacheBehavior
+    Prelude.rnf cacheBehaviorSettings
       `Prelude.seq` Prelude.rnf cacheBehaviors
+      `Prelude.seq` Prelude.rnf defaultCacheBehavior
+      `Prelude.seq` Prelude.rnf isEnabled
+      `Prelude.seq` Prelude.rnf origin
       `Prelude.seq` Prelude.rnf distributionName
 
-instance Core.ToHeaders UpdateDistribution where
+instance Data.ToHeaders UpdateDistribution where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.UpdateDistribution" ::
+              Data.=# ( "Lightsail_20161128.UpdateDistribution" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateDistribution where
+instance Data.ToJSON UpdateDistribution where
   toJSON UpdateDistribution' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("origin" Core..=) Prelude.<$> origin,
-            ("cacheBehaviorSettings" Core..=)
+          [ ("cacheBehaviorSettings" Data..=)
               Prelude.<$> cacheBehaviorSettings,
-            ("isEnabled" Core..=) Prelude.<$> isEnabled,
-            ("defaultCacheBehavior" Core..=)
-              Prelude.<$> defaultCacheBehavior,
-            ("cacheBehaviors" Core..=)
+            ("cacheBehaviors" Data..=)
               Prelude.<$> cacheBehaviors,
+            ("defaultCacheBehavior" Data..=)
+              Prelude.<$> defaultCacheBehavior,
+            ("isEnabled" Data..=) Prelude.<$> isEnabled,
+            ("origin" Data..=) Prelude.<$> origin,
             Prelude.Just
-              ("distributionName" Core..= distributionName)
+              ("distributionName" Data..= distributionName)
           ]
       )
 
-instance Core.ToPath UpdateDistribution where
+instance Data.ToPath UpdateDistribution where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateDistribution where
+instance Data.ToQuery UpdateDistribution where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateDistributionResponse' smart constructor.

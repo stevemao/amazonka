@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MechanicalTurk.CreateQualificationType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,13 +28,13 @@ module Amazonka.MechanicalTurk.CreateQualificationType
     newCreateQualificationType,
 
     -- * Request Lenses
-    createQualificationType_testDurationInSeconds,
     createQualificationType_answerKey,
-    createQualificationType_test,
-    createQualificationType_keywords,
     createQualificationType_autoGranted,
     createQualificationType_autoGrantedValue,
+    createQualificationType_keywords,
     createQualificationType_retryDelayInSeconds,
+    createQualificationType_test,
+    createQualificationType_testDurationInSeconds,
     createQualificationType_name,
     createQualificationType_description,
     createQualificationType_qualificationTypeStatus,
@@ -50,7 +50,8 @@ module Amazonka.MechanicalTurk.CreateQualificationType
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MechanicalTurk.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -58,10 +59,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateQualificationType' smart constructor.
 data CreateQualificationType = CreateQualificationType'
-  { -- | The number of seconds the Worker has to complete the Qualification test,
-    -- starting from the time the Worker requests the Qualification.
-    testDurationInSeconds :: Prelude.Maybe Prelude.Integer,
-    -- | The answers to the Qualification test specified in the Test parameter,
+  { -- | The answers to the Qualification test specified in the Test parameter,
     -- in the form of an AnswerKey data structure.
     --
     -- Constraints: Must not be longer than 65535 bytes.
@@ -69,21 +67,6 @@ data CreateQualificationType = CreateQualificationType'
     -- Constraints: None. If not specified, you must process Qualification
     -- requests manually.
     answerKey :: Prelude.Maybe Prelude.Text,
-    -- | The questions for the Qualification test a Worker must answer correctly
-    -- to obtain a Qualification of this type. If this parameter is specified,
-    -- @TestDurationInSeconds@ must also be specified.
-    --
-    -- Constraints: Must not be longer than 65535 bytes. Must be a QuestionForm
-    -- data structure. This parameter cannot be specified if AutoGranted is
-    -- true.
-    --
-    -- Constraints: None. If not specified, the Worker may request the
-    -- Qualification without answering any questions.
-    test :: Prelude.Maybe Prelude.Text,
-    -- | One or more words or phrases that describe the Qualification type,
-    -- separated by commas. The keywords of a type make the type easier to find
-    -- during a search.
-    keywords :: Prelude.Maybe Prelude.Text,
     -- | Specifies whether requests for the Qualification type are granted
     -- immediately, without prompting the Worker with a Qualification test.
     --
@@ -93,6 +76,10 @@ data CreateQualificationType = CreateQualificationType'
     -- | The Qualification value to use for automatically granted Qualifications.
     -- This parameter is used only if the AutoGranted parameter is true.
     autoGrantedValue :: Prelude.Maybe Prelude.Int,
+    -- | One or more words or phrases that describe the Qualification type,
+    -- separated by commas. The keywords of a type make the type easier to find
+    -- during a search.
+    keywords :: Prelude.Maybe Prelude.Text,
     -- | The number of seconds that a Worker must wait after requesting a
     -- Qualification of the Qualification type before the worker can retry the
     -- Qualification request.
@@ -105,6 +92,20 @@ data CreateQualificationType = CreateQualificationType'
     -- retry-enabled Qualification type and then create a new Qualification
     -- type with retries disabled.
     retryDelayInSeconds :: Prelude.Maybe Prelude.Integer,
+    -- | The questions for the Qualification test a Worker must answer correctly
+    -- to obtain a Qualification of this type. If this parameter is specified,
+    -- @TestDurationInSeconds@ must also be specified.
+    --
+    -- Constraints: Must not be longer than 65535 bytes. Must be a QuestionForm
+    -- data structure. This parameter cannot be specified if AutoGranted is
+    -- true.
+    --
+    -- Constraints: None. If not specified, the Worker may request the
+    -- Qualification without answering any questions.
+    test :: Prelude.Maybe Prelude.Text,
+    -- | The number of seconds the Worker has to complete the Qualification test,
+    -- starting from the time the Worker requests the Qualification.
+    testDurationInSeconds :: Prelude.Maybe Prelude.Integer,
     -- | The name you give to the Qualification type. The type name is used to
     -- represent the Qualification to Workers, and to find the type using a
     -- Qualification type search. It must be unique across all of your
@@ -129,9 +130,6 @@ data CreateQualificationType = CreateQualificationType'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'testDurationInSeconds', 'createQualificationType_testDurationInSeconds' - The number of seconds the Worker has to complete the Qualification test,
--- starting from the time the Worker requests the Qualification.
---
 -- 'answerKey', 'createQualificationType_answerKey' - The answers to the Qualification test specified in the Test parameter,
 -- in the form of an AnswerKey data structure.
 --
@@ -139,21 +137,6 @@ data CreateQualificationType = CreateQualificationType'
 --
 -- Constraints: None. If not specified, you must process Qualification
 -- requests manually.
---
--- 'test', 'createQualificationType_test' - The questions for the Qualification test a Worker must answer correctly
--- to obtain a Qualification of this type. If this parameter is specified,
--- @TestDurationInSeconds@ must also be specified.
---
--- Constraints: Must not be longer than 65535 bytes. Must be a QuestionForm
--- data structure. This parameter cannot be specified if AutoGranted is
--- true.
---
--- Constraints: None. If not specified, the Worker may request the
--- Qualification without answering any questions.
---
--- 'keywords', 'createQualificationType_keywords' - One or more words or phrases that describe the Qualification type,
--- separated by commas. The keywords of a type make the type easier to find
--- during a search.
 --
 -- 'autoGranted', 'createQualificationType_autoGranted' - Specifies whether requests for the Qualification type are granted
 -- immediately, without prompting the Worker with a Qualification test.
@@ -163,6 +146,10 @@ data CreateQualificationType = CreateQualificationType'
 --
 -- 'autoGrantedValue', 'createQualificationType_autoGrantedValue' - The Qualification value to use for automatically granted Qualifications.
 -- This parameter is used only if the AutoGranted parameter is true.
+--
+-- 'keywords', 'createQualificationType_keywords' - One or more words or phrases that describe the Qualification type,
+-- separated by commas. The keywords of a type make the type easier to find
+-- during a search.
 --
 -- 'retryDelayInSeconds', 'createQualificationType_retryDelayInSeconds' - The number of seconds that a Worker must wait after requesting a
 -- Qualification of the Qualification type before the worker can retry the
@@ -175,6 +162,20 @@ data CreateQualificationType = CreateQualificationType'
 -- enabled. If you want to disable retries, you must delete existing
 -- retry-enabled Qualification type and then create a new Qualification
 -- type with retries disabled.
+--
+-- 'test', 'createQualificationType_test' - The questions for the Qualification test a Worker must answer correctly
+-- to obtain a Qualification of this type. If this parameter is specified,
+-- @TestDurationInSeconds@ must also be specified.
+--
+-- Constraints: Must not be longer than 65535 bytes. Must be a QuestionForm
+-- data structure. This parameter cannot be specified if AutoGranted is
+-- true.
+--
+-- Constraints: None. If not specified, the Worker may request the
+-- Qualification without answering any questions.
+--
+-- 'testDurationInSeconds', 'createQualificationType_testDurationInSeconds' - The number of seconds the Worker has to complete the Qualification test,
+-- starting from the time the Worker requests the Qualification.
 --
 -- 'name', 'createQualificationType_name' - The name you give to the Qualification type. The type name is used to
 -- represent the Qualification to Workers, and to find the type using a
@@ -201,24 +202,19 @@ newCreateQualificationType
   pDescription_
   pQualificationTypeStatus_ =
     CreateQualificationType'
-      { testDurationInSeconds =
+      { answerKey =
           Prelude.Nothing,
-        answerKey = Prelude.Nothing,
-        test = Prelude.Nothing,
-        keywords = Prelude.Nothing,
         autoGranted = Prelude.Nothing,
         autoGrantedValue = Prelude.Nothing,
+        keywords = Prelude.Nothing,
         retryDelayInSeconds = Prelude.Nothing,
+        test = Prelude.Nothing,
+        testDurationInSeconds = Prelude.Nothing,
         name = pName_,
         description = pDescription_,
         qualificationTypeStatus =
           pQualificationTypeStatus_
       }
-
--- | The number of seconds the Worker has to complete the Qualification test,
--- starting from the time the Worker requests the Qualification.
-createQualificationType_testDurationInSeconds :: Lens.Lens' CreateQualificationType (Prelude.Maybe Prelude.Integer)
-createQualificationType_testDurationInSeconds = Lens.lens (\CreateQualificationType' {testDurationInSeconds} -> testDurationInSeconds) (\s@CreateQualificationType' {} a -> s {testDurationInSeconds = a} :: CreateQualificationType)
 
 -- | The answers to the Qualification test specified in the Test parameter,
 -- in the form of an AnswerKey data structure.
@@ -229,25 +225,6 @@ createQualificationType_testDurationInSeconds = Lens.lens (\CreateQualificationT
 -- requests manually.
 createQualificationType_answerKey :: Lens.Lens' CreateQualificationType (Prelude.Maybe Prelude.Text)
 createQualificationType_answerKey = Lens.lens (\CreateQualificationType' {answerKey} -> answerKey) (\s@CreateQualificationType' {} a -> s {answerKey = a} :: CreateQualificationType)
-
--- | The questions for the Qualification test a Worker must answer correctly
--- to obtain a Qualification of this type. If this parameter is specified,
--- @TestDurationInSeconds@ must also be specified.
---
--- Constraints: Must not be longer than 65535 bytes. Must be a QuestionForm
--- data structure. This parameter cannot be specified if AutoGranted is
--- true.
---
--- Constraints: None. If not specified, the Worker may request the
--- Qualification without answering any questions.
-createQualificationType_test :: Lens.Lens' CreateQualificationType (Prelude.Maybe Prelude.Text)
-createQualificationType_test = Lens.lens (\CreateQualificationType' {test} -> test) (\s@CreateQualificationType' {} a -> s {test = a} :: CreateQualificationType)
-
--- | One or more words or phrases that describe the Qualification type,
--- separated by commas. The keywords of a type make the type easier to find
--- during a search.
-createQualificationType_keywords :: Lens.Lens' CreateQualificationType (Prelude.Maybe Prelude.Text)
-createQualificationType_keywords = Lens.lens (\CreateQualificationType' {keywords} -> keywords) (\s@CreateQualificationType' {} a -> s {keywords = a} :: CreateQualificationType)
 
 -- | Specifies whether requests for the Qualification type are granted
 -- immediately, without prompting the Worker with a Qualification test.
@@ -262,6 +239,12 @@ createQualificationType_autoGranted = Lens.lens (\CreateQualificationType' {auto
 createQualificationType_autoGrantedValue :: Lens.Lens' CreateQualificationType (Prelude.Maybe Prelude.Int)
 createQualificationType_autoGrantedValue = Lens.lens (\CreateQualificationType' {autoGrantedValue} -> autoGrantedValue) (\s@CreateQualificationType' {} a -> s {autoGrantedValue = a} :: CreateQualificationType)
 
+-- | One or more words or phrases that describe the Qualification type,
+-- separated by commas. The keywords of a type make the type easier to find
+-- during a search.
+createQualificationType_keywords :: Lens.Lens' CreateQualificationType (Prelude.Maybe Prelude.Text)
+createQualificationType_keywords = Lens.lens (\CreateQualificationType' {keywords} -> keywords) (\s@CreateQualificationType' {} a -> s {keywords = a} :: CreateQualificationType)
+
 -- | The number of seconds that a Worker must wait after requesting a
 -- Qualification of the Qualification type before the worker can retry the
 -- Qualification request.
@@ -275,6 +258,24 @@ createQualificationType_autoGrantedValue = Lens.lens (\CreateQualificationType' 
 -- type with retries disabled.
 createQualificationType_retryDelayInSeconds :: Lens.Lens' CreateQualificationType (Prelude.Maybe Prelude.Integer)
 createQualificationType_retryDelayInSeconds = Lens.lens (\CreateQualificationType' {retryDelayInSeconds} -> retryDelayInSeconds) (\s@CreateQualificationType' {} a -> s {retryDelayInSeconds = a} :: CreateQualificationType)
+
+-- | The questions for the Qualification test a Worker must answer correctly
+-- to obtain a Qualification of this type. If this parameter is specified,
+-- @TestDurationInSeconds@ must also be specified.
+--
+-- Constraints: Must not be longer than 65535 bytes. Must be a QuestionForm
+-- data structure. This parameter cannot be specified if AutoGranted is
+-- true.
+--
+-- Constraints: None. If not specified, the Worker may request the
+-- Qualification without answering any questions.
+createQualificationType_test :: Lens.Lens' CreateQualificationType (Prelude.Maybe Prelude.Text)
+createQualificationType_test = Lens.lens (\CreateQualificationType' {test} -> test) (\s@CreateQualificationType' {} a -> s {test = a} :: CreateQualificationType)
+
+-- | The number of seconds the Worker has to complete the Qualification test,
+-- starting from the time the Worker requests the Qualification.
+createQualificationType_testDurationInSeconds :: Lens.Lens' CreateQualificationType (Prelude.Maybe Prelude.Integer)
+createQualificationType_testDurationInSeconds = Lens.lens (\CreateQualificationType' {testDurationInSeconds} -> testDurationInSeconds) (\s@CreateQualificationType' {} a -> s {testDurationInSeconds = a} :: CreateQualificationType)
 
 -- | The name you give to the Qualification type. The type name is used to
 -- represent the Qualification to Workers, and to find the type using a
@@ -299,83 +300,84 @@ instance Core.AWSRequest CreateQualificationType where
   type
     AWSResponse CreateQualificationType =
       CreateQualificationTypeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateQualificationTypeResponse'
-            Prelude.<$> (x Core..?> "QualificationType")
+            Prelude.<$> (x Data..?> "QualificationType")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateQualificationType where
   hashWithSalt _salt CreateQualificationType' {..} =
-    _salt `Prelude.hashWithSalt` testDurationInSeconds
-      `Prelude.hashWithSalt` answerKey
-      `Prelude.hashWithSalt` test
-      `Prelude.hashWithSalt` keywords
+    _salt `Prelude.hashWithSalt` answerKey
       `Prelude.hashWithSalt` autoGranted
       `Prelude.hashWithSalt` autoGrantedValue
+      `Prelude.hashWithSalt` keywords
       `Prelude.hashWithSalt` retryDelayInSeconds
+      `Prelude.hashWithSalt` test
+      `Prelude.hashWithSalt` testDurationInSeconds
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` qualificationTypeStatus
 
 instance Prelude.NFData CreateQualificationType where
   rnf CreateQualificationType' {..} =
-    Prelude.rnf testDurationInSeconds
-      `Prelude.seq` Prelude.rnf answerKey
-      `Prelude.seq` Prelude.rnf test
-      `Prelude.seq` Prelude.rnf keywords
+    Prelude.rnf answerKey
       `Prelude.seq` Prelude.rnf autoGranted
       `Prelude.seq` Prelude.rnf autoGrantedValue
+      `Prelude.seq` Prelude.rnf keywords
       `Prelude.seq` Prelude.rnf retryDelayInSeconds
+      `Prelude.seq` Prelude.rnf test
+      `Prelude.seq` Prelude.rnf testDurationInSeconds
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf qualificationTypeStatus
 
-instance Core.ToHeaders CreateQualificationType where
+instance Data.ToHeaders CreateQualificationType where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "MTurkRequesterServiceV20170117.CreateQualificationType" ::
+              Data.=# ( "MTurkRequesterServiceV20170117.CreateQualificationType" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateQualificationType where
+instance Data.ToJSON CreateQualificationType where
   toJSON CreateQualificationType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TestDurationInSeconds" Core..=)
-              Prelude.<$> testDurationInSeconds,
-            ("AnswerKey" Core..=) Prelude.<$> answerKey,
-            ("Test" Core..=) Prelude.<$> test,
-            ("Keywords" Core..=) Prelude.<$> keywords,
-            ("AutoGranted" Core..=) Prelude.<$> autoGranted,
-            ("AutoGrantedValue" Core..=)
+          [ ("AnswerKey" Data..=) Prelude.<$> answerKey,
+            ("AutoGranted" Data..=) Prelude.<$> autoGranted,
+            ("AutoGrantedValue" Data..=)
               Prelude.<$> autoGrantedValue,
-            ("RetryDelayInSeconds" Core..=)
+            ("Keywords" Data..=) Prelude.<$> keywords,
+            ("RetryDelayInSeconds" Data..=)
               Prelude.<$> retryDelayInSeconds,
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Description" Core..= description),
+            ("Test" Data..=) Prelude.<$> test,
+            ("TestDurationInSeconds" Data..=)
+              Prelude.<$> testDurationInSeconds,
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Description" Data..= description),
             Prelude.Just
               ( "QualificationTypeStatus"
-                  Core..= qualificationTypeStatus
+                  Data..= qualificationTypeStatus
               )
           ]
       )
 
-instance Core.ToPath CreateQualificationType where
+instance Data.ToPath CreateQualificationType where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateQualificationType where
+instance Data.ToQuery CreateQualificationType where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateQualificationTypeResponse' smart constructor.

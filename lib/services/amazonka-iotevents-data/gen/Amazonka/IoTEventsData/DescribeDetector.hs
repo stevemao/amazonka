@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEventsData.DescribeDetector
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.IoTEventsData.DescribeDetector
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEventsData.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,12 +96,13 @@ instance Core.AWSRequest DescribeDetector where
   type
     AWSResponse DescribeDetector =
       DescribeDetectorResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeDetectorResponse'
-            Prelude.<$> (x Core..?> "detector")
+            Prelude.<$> (x Data..?> "detector")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -114,20 +116,20 @@ instance Prelude.NFData DescribeDetector where
     Prelude.rnf keyValue
       `Prelude.seq` Prelude.rnf detectorModelName
 
-instance Core.ToHeaders DescribeDetector where
+instance Data.ToHeaders DescribeDetector where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeDetector where
+instance Data.ToPath DescribeDetector where
   toPath DescribeDetector' {..} =
     Prelude.mconcat
       [ "/detectors/",
-        Core.toBS detectorModelName,
+        Data.toBS detectorModelName,
         "/keyValues/"
       ]
 
-instance Core.ToQuery DescribeDetector where
+instance Data.ToQuery DescribeDetector where
   toQuery DescribeDetector' {..} =
-    Prelude.mconcat ["keyValue" Core.=: keyValue]
+    Prelude.mconcat ["keyValue" Data.=: keyValue]
 
 -- | /See:/ 'newDescribeDetectorResponse' smart constructor.
 data DescribeDetectorResponse = DescribeDetectorResponse'

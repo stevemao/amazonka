@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.UpdateConfigurationSetEventDestination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ module Amazonka.SESV2.UpdateConfigurationSetEventDestination
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -126,7 +127,8 @@ instance
     AWSResponse
       UpdateConfigurationSetEventDestination =
       UpdateConfigurationSetEventDestinationResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -155,45 +157,45 @@ instance
       `Prelude.seq` Prelude.rnf eventDestination
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateConfigurationSetEventDestination
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     UpdateConfigurationSetEventDestination
   where
   toJSON UpdateConfigurationSetEventDestination' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("EventDestination" Core..= eventDestination)
+              ("EventDestination" Data..= eventDestination)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     UpdateConfigurationSetEventDestination
   where
   toPath UpdateConfigurationSetEventDestination' {..} =
     Prelude.mconcat
       [ "/v2/email/configuration-sets/",
-        Core.toBS configurationSetName,
+        Data.toBS configurationSetName,
         "/event-destinations/",
-        Core.toBS eventDestinationName
+        Data.toBS eventDestinationName
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     UpdateConfigurationSetEventDestination
   where
   toQuery = Prelude.const Prelude.mempty

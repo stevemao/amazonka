@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.GetModels
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,10 +37,10 @@ module Amazonka.FraudDetector.GetModels
     newGetModels,
 
     -- * Request Lenses
-    getModels_modelType,
-    getModels_modelId,
-    getModels_nextToken,
     getModels_maxResults,
+    getModels_modelId,
+    getModels_modelType,
+    getModels_nextToken,
 
     -- * Destructuring the Response
     GetModelsResponse (..),
@@ -54,22 +54,23 @@ module Amazonka.FraudDetector.GetModels
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetModels' smart constructor.
 data GetModels = GetModels'
-  { -- | The model type.
-    modelType :: Prelude.Maybe ModelTypeEnum,
+  { -- | The maximum number of objects to return for the request.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The model ID.
     modelId :: Prelude.Maybe Prelude.Text,
+    -- | The model type.
+    modelType :: Prelude.Maybe ModelTypeEnum,
     -- | The next token for the subsequent request.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of objects to return for the request.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -81,95 +82,96 @@ data GetModels = GetModels'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'modelType', 'getModels_modelType' - The model type.
+-- 'maxResults', 'getModels_maxResults' - The maximum number of objects to return for the request.
 --
 -- 'modelId', 'getModels_modelId' - The model ID.
 --
--- 'nextToken', 'getModels_nextToken' - The next token for the subsequent request.
+-- 'modelType', 'getModels_modelType' - The model type.
 --
--- 'maxResults', 'getModels_maxResults' - The maximum number of objects to return for the request.
+-- 'nextToken', 'getModels_nextToken' - The next token for the subsequent request.
 newGetModels ::
   GetModels
 newGetModels =
   GetModels'
-    { modelType = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
       modelId = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      modelType = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The model type.
-getModels_modelType :: Lens.Lens' GetModels (Prelude.Maybe ModelTypeEnum)
-getModels_modelType = Lens.lens (\GetModels' {modelType} -> modelType) (\s@GetModels' {} a -> s {modelType = a} :: GetModels)
-
--- | The model ID.
-getModels_modelId :: Lens.Lens' GetModels (Prelude.Maybe Prelude.Text)
-getModels_modelId = Lens.lens (\GetModels' {modelId} -> modelId) (\s@GetModels' {} a -> s {modelId = a} :: GetModels)
-
--- | The next token for the subsequent request.
-getModels_nextToken :: Lens.Lens' GetModels (Prelude.Maybe Prelude.Text)
-getModels_nextToken = Lens.lens (\GetModels' {nextToken} -> nextToken) (\s@GetModels' {} a -> s {nextToken = a} :: GetModels)
 
 -- | The maximum number of objects to return for the request.
 getModels_maxResults :: Lens.Lens' GetModels (Prelude.Maybe Prelude.Natural)
 getModels_maxResults = Lens.lens (\GetModels' {maxResults} -> maxResults) (\s@GetModels' {} a -> s {maxResults = a} :: GetModels)
 
+-- | The model ID.
+getModels_modelId :: Lens.Lens' GetModels (Prelude.Maybe Prelude.Text)
+getModels_modelId = Lens.lens (\GetModels' {modelId} -> modelId) (\s@GetModels' {} a -> s {modelId = a} :: GetModels)
+
+-- | The model type.
+getModels_modelType :: Lens.Lens' GetModels (Prelude.Maybe ModelTypeEnum)
+getModels_modelType = Lens.lens (\GetModels' {modelType} -> modelType) (\s@GetModels' {} a -> s {modelType = a} :: GetModels)
+
+-- | The next token for the subsequent request.
+getModels_nextToken :: Lens.Lens' GetModels (Prelude.Maybe Prelude.Text)
+getModels_nextToken = Lens.lens (\GetModels' {nextToken} -> nextToken) (\s@GetModels' {} a -> s {nextToken = a} :: GetModels)
+
 instance Core.AWSRequest GetModels where
   type AWSResponse GetModels = GetModelsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetModelsResponse'
-            Prelude.<$> (x Core..?> "models" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "models" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetModels where
   hashWithSalt _salt GetModels' {..} =
-    _salt `Prelude.hashWithSalt` modelType
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` modelId
+      `Prelude.hashWithSalt` modelType
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
 
 instance Prelude.NFData GetModels where
   rnf GetModels' {..} =
-    Prelude.rnf modelType
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf modelId
+      `Prelude.seq` Prelude.rnf modelType
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders GetModels where
+instance Data.ToHeaders GetModels where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.GetModels" ::
+              Data.=# ( "AWSHawksNestServiceFacade.GetModels" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetModels where
+instance Data.ToJSON GetModels where
   toJSON GetModels' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("modelType" Core..=) Prelude.<$> modelType,
-            ("modelId" Core..=) Prelude.<$> modelId,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("modelId" Data..=) Prelude.<$> modelId,
+            ("modelType" Data..=) Prelude.<$> modelType,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath GetModels where
+instance Data.ToPath GetModels where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetModels where
+instance Data.ToQuery GetModels where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetModelsResponse' smart constructor.

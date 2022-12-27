@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataExchange.Types.AssetSourceEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,15 @@
 module Amazonka.DataExchange.Types.AssetSourceEntry where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The source of the assets.
 --
 -- /See:/ 'newAssetSourceEntry' smart constructor.
 data AssetSourceEntry = AssetSourceEntry'
-  { -- | The S3 bucket that\'s part of the source of the asset.
+  { -- | The Amazon S3 bucket that\'s part of the source of the asset.
     bucket :: Prelude.Text,
     -- | The name of the object in Amazon S3 for the asset.
     key :: Prelude.Text
@@ -42,7 +43,7 @@ data AssetSourceEntry = AssetSourceEntry'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'bucket', 'assetSourceEntry_bucket' - The S3 bucket that\'s part of the source of the asset.
+-- 'bucket', 'assetSourceEntry_bucket' - The Amazon S3 bucket that\'s part of the source of the asset.
 --
 -- 'key', 'assetSourceEntry_key' - The name of the object in Amazon S3 for the asset.
 newAssetSourceEntry ::
@@ -54,7 +55,7 @@ newAssetSourceEntry ::
 newAssetSourceEntry pBucket_ pKey_ =
   AssetSourceEntry' {bucket = pBucket_, key = pKey_}
 
--- | The S3 bucket that\'s part of the source of the asset.
+-- | The Amazon S3 bucket that\'s part of the source of the asset.
 assetSourceEntry_bucket :: Lens.Lens' AssetSourceEntry Prelude.Text
 assetSourceEntry_bucket = Lens.lens (\AssetSourceEntry' {bucket} -> bucket) (\s@AssetSourceEntry' {} a -> s {bucket = a} :: AssetSourceEntry)
 
@@ -62,13 +63,13 @@ assetSourceEntry_bucket = Lens.lens (\AssetSourceEntry' {bucket} -> bucket) (\s@
 assetSourceEntry_key :: Lens.Lens' AssetSourceEntry Prelude.Text
 assetSourceEntry_key = Lens.lens (\AssetSourceEntry' {key} -> key) (\s@AssetSourceEntry' {} a -> s {key = a} :: AssetSourceEntry)
 
-instance Core.FromJSON AssetSourceEntry where
+instance Data.FromJSON AssetSourceEntry where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AssetSourceEntry"
       ( \x ->
           AssetSourceEntry'
-            Prelude.<$> (x Core..: "Bucket") Prelude.<*> (x Core..: "Key")
+            Prelude.<$> (x Data..: "Bucket") Prelude.<*> (x Data..: "Key")
       )
 
 instance Prelude.Hashable AssetSourceEntry where
@@ -80,11 +81,11 @@ instance Prelude.NFData AssetSourceEntry where
   rnf AssetSourceEntry' {..} =
     Prelude.rnf bucket `Prelude.seq` Prelude.rnf key
 
-instance Core.ToJSON AssetSourceEntry where
+instance Data.ToJSON AssetSourceEntry where
   toJSON AssetSourceEntry' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Bucket" Core..= bucket),
-            Prelude.Just ("Key" Core..= key)
+          [ Prelude.Just ("Bucket" Data..= bucket),
+            Prelude.Just ("Key" Data..= key)
           ]
       )

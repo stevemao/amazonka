@@ -14,13 +14,17 @@
 
 -- |
 -- Module      : Amazonka.SSMContacts.PutContactPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds a resource to the specified contact or escalation plan.
+-- Adds a resource policy to the specified contact or escalation plan. The
+-- resource policy is used to share the contact or escalation plan using
+-- Resource Access Manager (RAM). For more information about cross-account
+-- sharing, see
+-- <https://docs.aws.amazon.com/incident-manager/latest/userguide/xa.html Setting up cross-account functionality>.
 module Amazonka.SSMContacts.PutContactPolicy
   ( -- * Creating a Request
     PutContactPolicy (..),
@@ -40,7 +44,8 @@ module Amazonka.SSMContacts.PutContactPolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,7 +95,8 @@ instance Core.AWSRequest PutContactPolicy where
   type
     AWSResponse PutContactPolicy =
       PutContactPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -108,34 +114,34 @@ instance Prelude.NFData PutContactPolicy where
     Prelude.rnf contactArn
       `Prelude.seq` Prelude.rnf policy
 
-instance Core.ToHeaders PutContactPolicy where
+instance Data.ToHeaders PutContactPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SSMContacts.PutContactPolicy" ::
+              Data.=# ( "SSMContacts.PutContactPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutContactPolicy where
+instance Data.ToJSON PutContactPolicy where
   toJSON PutContactPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ContactArn" Core..= contactArn),
-            Prelude.Just ("Policy" Core..= policy)
+          [ Prelude.Just ("ContactArn" Data..= contactArn),
+            Prelude.Just ("Policy" Data..= policy)
           ]
       )
 
-instance Core.ToPath PutContactPolicy where
+instance Data.ToPath PutContactPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutContactPolicy where
+instance Data.ToQuery PutContactPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutContactPolicyResponse' smart constructor.

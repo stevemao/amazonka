@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SES.Types.AddHeaderAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SES.Types.AddHeaderAction where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | When included in a receipt rule, this action adds a header to the
@@ -78,11 +79,11 @@ addHeaderAction_headerName = Lens.lens (\AddHeaderAction' {headerName} -> header
 addHeaderAction_headerValue :: Lens.Lens' AddHeaderAction Prelude.Text
 addHeaderAction_headerValue = Lens.lens (\AddHeaderAction' {headerValue} -> headerValue) (\s@AddHeaderAction' {} a -> s {headerValue = a} :: AddHeaderAction)
 
-instance Core.FromXML AddHeaderAction where
+instance Data.FromXML AddHeaderAction where
   parseXML x =
     AddHeaderAction'
-      Prelude.<$> (x Core..@ "HeaderName")
-      Prelude.<*> (x Core..@ "HeaderValue")
+      Prelude.<$> (x Data..@ "HeaderName")
+      Prelude.<*> (x Data..@ "HeaderValue")
 
 instance Prelude.Hashable AddHeaderAction where
   hashWithSalt _salt AddHeaderAction' {..} =
@@ -94,9 +95,9 @@ instance Prelude.NFData AddHeaderAction where
     Prelude.rnf headerName
       `Prelude.seq` Prelude.rnf headerValue
 
-instance Core.ToQuery AddHeaderAction where
+instance Data.ToQuery AddHeaderAction where
   toQuery AddHeaderAction' {..} =
     Prelude.mconcat
-      [ "HeaderName" Core.=: headerName,
-        "HeaderValue" Core.=: headerValue
+      [ "HeaderName" Data.=: headerName,
+        "HeaderValue" Data.=: headerValue
       ]

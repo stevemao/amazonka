@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.DeleteChannelMessage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -104,7 +105,8 @@ instance Core.AWSRequest DeleteChannelMessage where
   type
     AWSResponse DeleteChannelMessage =
       DeleteChannelMessageResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteChannelMessageResponse'
 
@@ -120,21 +122,21 @@ instance Prelude.NFData DeleteChannelMessage where
       `Prelude.seq` Prelude.rnf channelArn
       `Prelude.seq` Prelude.rnf messageId
 
-instance Core.ToHeaders DeleteChannelMessage where
+instance Data.ToHeaders DeleteChannelMessage where
   toHeaders DeleteChannelMessage' {..} =
     Prelude.mconcat
-      ["x-amz-chime-bearer" Core.=# chimeBearer]
+      ["x-amz-chime-bearer" Data.=# chimeBearer]
 
-instance Core.ToPath DeleteChannelMessage where
+instance Data.ToPath DeleteChannelMessage where
   toPath DeleteChannelMessage' {..} =
     Prelude.mconcat
       [ "/channels/",
-        Core.toBS channelArn,
+        Data.toBS channelArn,
         "/messages/",
-        Core.toBS messageId
+        Data.toBS messageId
       ]
 
-instance Core.ToQuery DeleteChannelMessage where
+instance Data.ToQuery DeleteChannelMessage where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteChannelMessageResponse' smart constructor.

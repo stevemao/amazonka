@@ -14,15 +14,19 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.EnableMetricsCollection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables group metrics for the specified Auto Scaling group. For more
+-- Enables group metrics collection for the specified Auto Scaling group.
+--
+-- You can use these metrics to track changes in an Auto Scaling group and
+-- to set alarms on threshold values. You can view group metrics using the
+-- Amazon EC2 Auto Scaling console or the CloudWatch console. For more
 -- information, see
--- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-monitoring.html Monitoring CloudWatch metrics for your Auto Scaling groups and instances>
+-- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-cloudwatch-monitoring.html Monitor CloudWatch metrics for your Auto Scaling groups and instances>
 -- in the /Amazon EC2 Auto Scaling User Guide/.
 module Amazonka.AutoScaling.EnableMetricsCollection
   ( -- * Creating a Request
@@ -42,15 +46,17 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newEnableMetricsCollection' smart constructor.
 data EnableMetricsCollection = EnableMetricsCollection'
-  { -- | Specifies which group-level metrics to start collecting. You can specify
-    -- one or more of the following metrics:
+  { -- | Identifies the metrics to enable.
+    --
+    -- You can specify one or more of the following metrics:
     --
     -- -   @GroupMinSize@
     --
@@ -68,9 +74,6 @@ data EnableMetricsCollection = EnableMetricsCollection'
     --
     -- -   @GroupTotalInstances@
     --
-    -- The instance weighting feature supports the following additional
-    -- metrics:
-    --
     -- -   @GroupInServiceCapacity@
     --
     -- -   @GroupPendingCapacity@
@@ -80,8 +83,6 @@ data EnableMetricsCollection = EnableMetricsCollection'
     -- -   @GroupTerminatingCapacity@
     --
     -- -   @GroupTotalCapacity@
-    --
-    -- The warm pools feature supports the following additional metrics:
     --
     -- -   @WarmPoolDesiredCapacity@
     --
@@ -97,12 +98,17 @@ data EnableMetricsCollection = EnableMetricsCollection'
     --
     -- -   @GroupAndWarmPoolTotalCapacity@
     --
-    -- If you omit this parameter, all metrics are enabled.
+    -- If you specify @Granularity@ and don\'t specify any metrics, all metrics
+    -- are enabled.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-cloudwatch-monitoring.html#as-group-metrics Auto Scaling group metrics>
+    -- in the /Amazon EC2 Auto Scaling User Guide/.
     metrics :: Prelude.Maybe [Prelude.Text],
     -- | The name of the Auto Scaling group.
     autoScalingGroupName :: Prelude.Text,
-    -- | The granularity to associate with the metrics to collect. The only valid
-    -- value is @1Minute@.
+    -- | The frequency at which Amazon EC2 Auto Scaling sends aggregated data to
+    -- CloudWatch. The only valid value is @1Minute@.
     granularity :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -115,8 +121,9 @@ data EnableMetricsCollection = EnableMetricsCollection'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'metrics', 'enableMetricsCollection_metrics' - Specifies which group-level metrics to start collecting. You can specify
--- one or more of the following metrics:
+-- 'metrics', 'enableMetricsCollection_metrics' - Identifies the metrics to enable.
+--
+-- You can specify one or more of the following metrics:
 --
 -- -   @GroupMinSize@
 --
@@ -134,9 +141,6 @@ data EnableMetricsCollection = EnableMetricsCollection'
 --
 -- -   @GroupTotalInstances@
 --
--- The instance weighting feature supports the following additional
--- metrics:
---
 -- -   @GroupInServiceCapacity@
 --
 -- -   @GroupPendingCapacity@
@@ -146,8 +150,6 @@ data EnableMetricsCollection = EnableMetricsCollection'
 -- -   @GroupTerminatingCapacity@
 --
 -- -   @GroupTotalCapacity@
---
--- The warm pools feature supports the following additional metrics:
 --
 -- -   @WarmPoolDesiredCapacity@
 --
@@ -163,12 +165,17 @@ data EnableMetricsCollection = EnableMetricsCollection'
 --
 -- -   @GroupAndWarmPoolTotalCapacity@
 --
--- If you omit this parameter, all metrics are enabled.
+-- If you specify @Granularity@ and don\'t specify any metrics, all metrics
+-- are enabled.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-cloudwatch-monitoring.html#as-group-metrics Auto Scaling group metrics>
+-- in the /Amazon EC2 Auto Scaling User Guide/.
 --
 -- 'autoScalingGroupName', 'enableMetricsCollection_autoScalingGroupName' - The name of the Auto Scaling group.
 --
--- 'granularity', 'enableMetricsCollection_granularity' - The granularity to associate with the metrics to collect. The only valid
--- value is @1Minute@.
+-- 'granularity', 'enableMetricsCollection_granularity' - The frequency at which Amazon EC2 Auto Scaling sends aggregated data to
+-- CloudWatch. The only valid value is @1Minute@.
 newEnableMetricsCollection ::
   -- | 'autoScalingGroupName'
   Prelude.Text ->
@@ -184,8 +191,9 @@ newEnableMetricsCollection
         granularity = pGranularity_
       }
 
--- | Specifies which group-level metrics to start collecting. You can specify
--- one or more of the following metrics:
+-- | Identifies the metrics to enable.
+--
+-- You can specify one or more of the following metrics:
 --
 -- -   @GroupMinSize@
 --
@@ -203,9 +211,6 @@ newEnableMetricsCollection
 --
 -- -   @GroupTotalInstances@
 --
--- The instance weighting feature supports the following additional
--- metrics:
---
 -- -   @GroupInServiceCapacity@
 --
 -- -   @GroupPendingCapacity@
@@ -215,8 +220,6 @@ newEnableMetricsCollection
 -- -   @GroupTerminatingCapacity@
 --
 -- -   @GroupTotalCapacity@
---
--- The warm pools feature supports the following additional metrics:
 --
 -- -   @WarmPoolDesiredCapacity@
 --
@@ -232,7 +235,12 @@ newEnableMetricsCollection
 --
 -- -   @GroupAndWarmPoolTotalCapacity@
 --
--- If you omit this parameter, all metrics are enabled.
+-- If you specify @Granularity@ and don\'t specify any metrics, all metrics
+-- are enabled.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-cloudwatch-monitoring.html#as-group-metrics Auto Scaling group metrics>
+-- in the /Amazon EC2 Auto Scaling User Guide/.
 enableMetricsCollection_metrics :: Lens.Lens' EnableMetricsCollection (Prelude.Maybe [Prelude.Text])
 enableMetricsCollection_metrics = Lens.lens (\EnableMetricsCollection' {metrics} -> metrics) (\s@EnableMetricsCollection' {} a -> s {metrics = a} :: EnableMetricsCollection) Prelude.. Lens.mapping Lens.coerced
 
@@ -240,8 +248,8 @@ enableMetricsCollection_metrics = Lens.lens (\EnableMetricsCollection' {metrics}
 enableMetricsCollection_autoScalingGroupName :: Lens.Lens' EnableMetricsCollection Prelude.Text
 enableMetricsCollection_autoScalingGroupName = Lens.lens (\EnableMetricsCollection' {autoScalingGroupName} -> autoScalingGroupName) (\s@EnableMetricsCollection' {} a -> s {autoScalingGroupName = a} :: EnableMetricsCollection)
 
--- | The granularity to associate with the metrics to collect. The only valid
--- value is @1Minute@.
+-- | The frequency at which Amazon EC2 Auto Scaling sends aggregated data to
+-- CloudWatch. The only valid value is @1Minute@.
 enableMetricsCollection_granularity :: Lens.Lens' EnableMetricsCollection Prelude.Text
 enableMetricsCollection_granularity = Lens.lens (\EnableMetricsCollection' {granularity} -> granularity) (\s@EnableMetricsCollection' {} a -> s {granularity = a} :: EnableMetricsCollection)
 
@@ -249,7 +257,8 @@ instance Core.AWSRequest EnableMetricsCollection where
   type
     AWSResponse EnableMetricsCollection =
       EnableMetricsCollectionResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       EnableMetricsCollectionResponse'
@@ -266,24 +275,24 @@ instance Prelude.NFData EnableMetricsCollection where
       `Prelude.seq` Prelude.rnf autoScalingGroupName
       `Prelude.seq` Prelude.rnf granularity
 
-instance Core.ToHeaders EnableMetricsCollection where
+instance Data.ToHeaders EnableMetricsCollection where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath EnableMetricsCollection where
+instance Data.ToPath EnableMetricsCollection where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery EnableMetricsCollection where
+instance Data.ToQuery EnableMetricsCollection where
   toQuery EnableMetricsCollection' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("EnableMetricsCollection" :: Prelude.ByteString),
+          Data.=: ("EnableMetricsCollection" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
         "Metrics"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> metrics),
-        "AutoScalingGroupName" Core.=: autoScalingGroupName,
-        "Granularity" Core.=: granularity
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> metrics),
+        "AutoScalingGroupName" Data.=: autoScalingGroupName,
+        "Granularity" Data.=: granularity
       ]
 
 -- | /See:/ 'newEnableMetricsCollectionResponse' smart constructor.

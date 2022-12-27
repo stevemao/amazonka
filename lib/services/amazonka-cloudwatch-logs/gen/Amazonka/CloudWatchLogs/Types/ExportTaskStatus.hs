@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchLogs.Types.ExportTaskStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudWatchLogs.Types.ExportTaskStatus where
 
 import Amazonka.CloudWatchLogs.Types.ExportTaskStatusCode
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the status of an export task.
@@ -62,14 +63,14 @@ exportTaskStatus_code = Lens.lens (\ExportTaskStatus' {code} -> code) (\s@Export
 exportTaskStatus_message :: Lens.Lens' ExportTaskStatus (Prelude.Maybe Prelude.Text)
 exportTaskStatus_message = Lens.lens (\ExportTaskStatus' {message} -> message) (\s@ExportTaskStatus' {} a -> s {message = a} :: ExportTaskStatus)
 
-instance Core.FromJSON ExportTaskStatus where
+instance Data.FromJSON ExportTaskStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ExportTaskStatus"
       ( \x ->
           ExportTaskStatus'
-            Prelude.<$> (x Core..:? "code")
-            Prelude.<*> (x Core..:? "message")
+            Prelude.<$> (x Data..:? "code")
+            Prelude.<*> (x Data..:? "message")
       )
 
 instance Prelude.Hashable ExportTaskStatus where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.CreateServiceProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,9 +27,9 @@ module Amazonka.IoTWireless.CreateServiceProfile
     newCreateServiceProfile,
 
     -- * Request Lenses
+    createServiceProfile_clientRequestToken,
     createServiceProfile_loRaWAN,
     createServiceProfile_name,
-    createServiceProfile_clientRequestToken,
     createServiceProfile_tags,
 
     -- * Destructuring the Response
@@ -44,23 +44,24 @@ module Amazonka.IoTWireless.CreateServiceProfile
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateServiceProfile' smart constructor.
 data CreateServiceProfile = CreateServiceProfile'
-  { -- | The service profile information to use to create the service profile.
-    loRaWAN :: Prelude.Maybe LoRaWANServiceProfile,
-    -- | The name of the new resource.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | Each resource must have a unique client request token. If you try to
+  { -- | Each resource must have a unique client request token. If you try to
     -- create a new resource with the same token as a resource that already
     -- exists, an exception occurs. If you omit this value, AWS SDKs will
     -- automatically generate a unique client request.
     clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | The service profile information to use to create the service profile.
+    loRaWAN :: Prelude.Maybe LoRaWANServiceProfile,
+    -- | The name of the new resource.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The tags to attach to the new service profile. Tags are metadata that
     -- you can use to manage a resource.
     tags :: Prelude.Maybe [Tag]
@@ -75,14 +76,14 @@ data CreateServiceProfile = CreateServiceProfile'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'loRaWAN', 'createServiceProfile_loRaWAN' - The service profile information to use to create the service profile.
---
--- 'name', 'createServiceProfile_name' - The name of the new resource.
---
 -- 'clientRequestToken', 'createServiceProfile_clientRequestToken' - Each resource must have a unique client request token. If you try to
 -- create a new resource with the same token as a resource that already
 -- exists, an exception occurs. If you omit this value, AWS SDKs will
 -- automatically generate a unique client request.
+--
+-- 'loRaWAN', 'createServiceProfile_loRaWAN' - The service profile information to use to create the service profile.
+--
+-- 'name', 'createServiceProfile_name' - The name of the new resource.
 --
 -- 'tags', 'createServiceProfile_tags' - The tags to attach to the new service profile. Tags are metadata that
 -- you can use to manage a resource.
@@ -90,11 +91,19 @@ newCreateServiceProfile ::
   CreateServiceProfile
 newCreateServiceProfile =
   CreateServiceProfile'
-    { loRaWAN = Prelude.Nothing,
+    { clientRequestToken =
+        Prelude.Nothing,
+      loRaWAN = Prelude.Nothing,
       name = Prelude.Nothing,
-      clientRequestToken = Prelude.Nothing,
       tags = Prelude.Nothing
     }
+
+-- | Each resource must have a unique client request token. If you try to
+-- create a new resource with the same token as a resource that already
+-- exists, an exception occurs. If you omit this value, AWS SDKs will
+-- automatically generate a unique client request.
+createServiceProfile_clientRequestToken :: Lens.Lens' CreateServiceProfile (Prelude.Maybe Prelude.Text)
+createServiceProfile_clientRequestToken = Lens.lens (\CreateServiceProfile' {clientRequestToken} -> clientRequestToken) (\s@CreateServiceProfile' {} a -> s {clientRequestToken = a} :: CreateServiceProfile)
 
 -- | The service profile information to use to create the service profile.
 createServiceProfile_loRaWAN :: Lens.Lens' CreateServiceProfile (Prelude.Maybe LoRaWANServiceProfile)
@@ -103,13 +112,6 @@ createServiceProfile_loRaWAN = Lens.lens (\CreateServiceProfile' {loRaWAN} -> lo
 -- | The name of the new resource.
 createServiceProfile_name :: Lens.Lens' CreateServiceProfile (Prelude.Maybe Prelude.Text)
 createServiceProfile_name = Lens.lens (\CreateServiceProfile' {name} -> name) (\s@CreateServiceProfile' {} a -> s {name = a} :: CreateServiceProfile)
-
--- | Each resource must have a unique client request token. If you try to
--- create a new resource with the same token as a resource that already
--- exists, an exception occurs. If you omit this value, AWS SDKs will
--- automatically generate a unique client request.
-createServiceProfile_clientRequestToken :: Lens.Lens' CreateServiceProfile (Prelude.Maybe Prelude.Text)
-createServiceProfile_clientRequestToken = Lens.lens (\CreateServiceProfile' {clientRequestToken} -> clientRequestToken) (\s@CreateServiceProfile' {} a -> s {clientRequestToken = a} :: CreateServiceProfile)
 
 -- | The tags to attach to the new service profile. Tags are metadata that
 -- you can use to manage a resource.
@@ -120,49 +122,50 @@ instance Core.AWSRequest CreateServiceProfile where
   type
     AWSResponse CreateServiceProfile =
       CreateServiceProfileResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateServiceProfileResponse'
-            Prelude.<$> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "Id")
+            Prelude.<$> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "Id")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateServiceProfile where
   hashWithSalt _salt CreateServiceProfile' {..} =
-    _salt `Prelude.hashWithSalt` loRaWAN
+    _salt `Prelude.hashWithSalt` clientRequestToken
+      `Prelude.hashWithSalt` loRaWAN
       `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` clientRequestToken
       `Prelude.hashWithSalt` tags
 
 instance Prelude.NFData CreateServiceProfile where
   rnf CreateServiceProfile' {..} =
-    Prelude.rnf loRaWAN
+    Prelude.rnf clientRequestToken
+      `Prelude.seq` Prelude.rnf loRaWAN
       `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf clientRequestToken
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders CreateServiceProfile where
+instance Data.ToHeaders CreateServiceProfile where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateServiceProfile where
+instance Data.ToJSON CreateServiceProfile where
   toJSON CreateServiceProfile' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("LoRaWAN" Core..=) Prelude.<$> loRaWAN,
-            ("Name" Core..=) Prelude.<$> name,
-            ("ClientRequestToken" Core..=)
+          [ ("ClientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
-            ("Tags" Core..=) Prelude.<$> tags
+            ("LoRaWAN" Data..=) Prelude.<$> loRaWAN,
+            ("Name" Data..=) Prelude.<$> name,
+            ("Tags" Data..=) Prelude.<$> tags
           ]
       )
 
-instance Core.ToPath CreateServiceProfile where
+instance Data.ToPath CreateServiceProfile where
   toPath = Prelude.const "/service-profiles"
 
-instance Core.ToQuery CreateServiceProfile where
+instance Data.ToQuery CreateServiceProfile where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateServiceProfileResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Proton.DeleteEnvironmentTemplateVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,13 +25,13 @@
 -- version. Delete the @Recommended@ version of the environment template if
 -- no other major versions or minor versions of the environment template
 -- exist. A major version of an environment template is a version that\'s
--- not backwards compatible.
+-- not backward compatible.
 --
 -- Delete a minor version of an environment template if it /isn\'t/ the
 -- @Recommended@ version. Delete a @Recommended@ minor version of the
 -- environment template if no other minor versions of the environment
 -- template exist. A minor version of an environment template is a version
--- that\'s backwards compatible.
+-- that\'s backward compatible.
 module Amazonka.Proton.DeleteEnvironmentTemplateVersion
   ( -- * Creating a Request
     DeleteEnvironmentTemplateVersion (..),
@@ -53,7 +53,8 @@ module Amazonka.Proton.DeleteEnvironmentTemplateVersion
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types
 import qualified Amazonka.Request as Request
@@ -121,12 +122,13 @@ instance
   type
     AWSResponse DeleteEnvironmentTemplateVersion =
       DeleteEnvironmentTemplateVersionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteEnvironmentTemplateVersionResponse'
-            Prelude.<$> (x Core..?> "environmentTemplateVersion")
+            Prelude.<$> (x Data..?> "environmentTemplateVersion")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -151,46 +153,45 @@ instance
       `Prelude.seq` Prelude.rnf templateName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteEnvironmentTemplateVersion
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AwsProton20200720.DeleteEnvironmentTemplateVersion" ::
+              Data.=# ( "AwsProton20200720.DeleteEnvironmentTemplateVersion" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteEnvironmentTemplateVersion where
+instance Data.ToJSON DeleteEnvironmentTemplateVersion where
   toJSON DeleteEnvironmentTemplateVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("majorVersion" Core..= majorVersion),
-            Prelude.Just ("minorVersion" Core..= minorVersion),
-            Prelude.Just ("templateName" Core..= templateName)
+          [ Prelude.Just ("majorVersion" Data..= majorVersion),
+            Prelude.Just ("minorVersion" Data..= minorVersion),
+            Prelude.Just ("templateName" Data..= templateName)
           ]
       )
 
-instance Core.ToPath DeleteEnvironmentTemplateVersion where
+instance Data.ToPath DeleteEnvironmentTemplateVersion where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DeleteEnvironmentTemplateVersion
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteEnvironmentTemplateVersionResponse' smart constructor.
 data DeleteEnvironmentTemplateVersionResponse = DeleteEnvironmentTemplateVersionResponse'
-  { -- | The environment template version detail data that\'s returned by AWS
-    -- Proton.
+  { -- | The detailed data of the environment template version being deleted.
     environmentTemplateVersion :: Prelude.Maybe EnvironmentTemplateVersion,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -205,8 +206,7 @@ data DeleteEnvironmentTemplateVersionResponse = DeleteEnvironmentTemplateVersion
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'environmentTemplateVersion', 'deleteEnvironmentTemplateVersionResponse_environmentTemplateVersion' - The environment template version detail data that\'s returned by AWS
--- Proton.
+-- 'environmentTemplateVersion', 'deleteEnvironmentTemplateVersionResponse_environmentTemplateVersion' - The detailed data of the environment template version being deleted.
 --
 -- 'httpStatus', 'deleteEnvironmentTemplateVersionResponse_httpStatus' - The response's http status code.
 newDeleteEnvironmentTemplateVersionResponse ::
@@ -221,8 +221,7 @@ newDeleteEnvironmentTemplateVersionResponse
         httpStatus = pHttpStatus_
       }
 
--- | The environment template version detail data that\'s returned by AWS
--- Proton.
+-- | The detailed data of the environment template version being deleted.
 deleteEnvironmentTemplateVersionResponse_environmentTemplateVersion :: Lens.Lens' DeleteEnvironmentTemplateVersionResponse (Prelude.Maybe EnvironmentTemplateVersion)
 deleteEnvironmentTemplateVersionResponse_environmentTemplateVersion = Lens.lens (\DeleteEnvironmentTemplateVersionResponse' {environmentTemplateVersion} -> environmentTemplateVersion) (\s@DeleteEnvironmentTemplateVersionResponse' {} a -> s {environmentTemplateVersion = a} :: DeleteEnvironmentTemplateVersionResponse)
 

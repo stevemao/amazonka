@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.Types.ApiPassthrough
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CertificateManagerPCA.Types.ApiPassthrough where
 import Amazonka.CertificateManagerPCA.Types.ASN1Subject
 import Amazonka.CertificateManagerPCA.Types.Extensions
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains X.509 certificate information to be placed in an issued
@@ -36,9 +37,9 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newApiPassthrough' smart constructor.
 data ApiPassthrough = ApiPassthrough'
-  { subject :: Prelude.Maybe ASN1Subject,
-    -- | Specifies X.509 extension information for a certificate.
-    extensions :: Prelude.Maybe Extensions
+  { -- | Specifies X.509 extension information for a certificate.
+    extensions :: Prelude.Maybe Extensions,
+    subject :: Prelude.Maybe ASN1Subject
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -50,40 +51,40 @@ data ApiPassthrough = ApiPassthrough'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'subject', 'apiPassthrough_subject' - Undocumented member.
---
 -- 'extensions', 'apiPassthrough_extensions' - Specifies X.509 extension information for a certificate.
+--
+-- 'subject', 'apiPassthrough_subject' - Undocumented member.
 newApiPassthrough ::
   ApiPassthrough
 newApiPassthrough =
   ApiPassthrough'
-    { subject = Prelude.Nothing,
-      extensions = Prelude.Nothing
+    { extensions = Prelude.Nothing,
+      subject = Prelude.Nothing
     }
-
--- | Undocumented member.
-apiPassthrough_subject :: Lens.Lens' ApiPassthrough (Prelude.Maybe ASN1Subject)
-apiPassthrough_subject = Lens.lens (\ApiPassthrough' {subject} -> subject) (\s@ApiPassthrough' {} a -> s {subject = a} :: ApiPassthrough)
 
 -- | Specifies X.509 extension information for a certificate.
 apiPassthrough_extensions :: Lens.Lens' ApiPassthrough (Prelude.Maybe Extensions)
 apiPassthrough_extensions = Lens.lens (\ApiPassthrough' {extensions} -> extensions) (\s@ApiPassthrough' {} a -> s {extensions = a} :: ApiPassthrough)
 
+-- | Undocumented member.
+apiPassthrough_subject :: Lens.Lens' ApiPassthrough (Prelude.Maybe ASN1Subject)
+apiPassthrough_subject = Lens.lens (\ApiPassthrough' {subject} -> subject) (\s@ApiPassthrough' {} a -> s {subject = a} :: ApiPassthrough)
+
 instance Prelude.Hashable ApiPassthrough where
   hashWithSalt _salt ApiPassthrough' {..} =
-    _salt `Prelude.hashWithSalt` subject
-      `Prelude.hashWithSalt` extensions
+    _salt `Prelude.hashWithSalt` extensions
+      `Prelude.hashWithSalt` subject
 
 instance Prelude.NFData ApiPassthrough where
   rnf ApiPassthrough' {..} =
-    Prelude.rnf subject
-      `Prelude.seq` Prelude.rnf extensions
+    Prelude.rnf extensions
+      `Prelude.seq` Prelude.rnf subject
 
-instance Core.ToJSON ApiPassthrough where
+instance Data.ToJSON ApiPassthrough where
   toJSON ApiPassthrough' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Subject" Core..=) Prelude.<$> subject,
-            ("Extensions" Core..=) Prelude.<$> extensions
+          [ ("Extensions" Data..=) Prelude.<$> extensions,
+            ("Subject" Data..=) Prelude.<$> subject
           ]
       )

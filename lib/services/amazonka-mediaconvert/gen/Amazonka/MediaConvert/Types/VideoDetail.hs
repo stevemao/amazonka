@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.VideoDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.VideoDetail where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains details about the output\'s video stream
@@ -61,14 +62,14 @@ videoDetail_heightInPx = Lens.lens (\VideoDetail' {heightInPx} -> heightInPx) (\
 videoDetail_widthInPx :: Lens.Lens' VideoDetail (Prelude.Maybe Prelude.Int)
 videoDetail_widthInPx = Lens.lens (\VideoDetail' {widthInPx} -> widthInPx) (\s@VideoDetail' {} a -> s {widthInPx = a} :: VideoDetail)
 
-instance Core.FromJSON VideoDetail where
+instance Data.FromJSON VideoDetail where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VideoDetail"
       ( \x ->
           VideoDetail'
-            Prelude.<$> (x Core..:? "heightInPx")
-            Prelude.<*> (x Core..:? "widthInPx")
+            Prelude.<$> (x Data..:? "heightInPx")
+            Prelude.<*> (x Data..:? "widthInPx")
       )
 
 instance Prelude.Hashable VideoDetail where

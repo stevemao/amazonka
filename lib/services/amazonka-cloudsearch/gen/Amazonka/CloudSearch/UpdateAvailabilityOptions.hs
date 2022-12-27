@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudSearch.UpdateAvailabilityOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ where
 
 import Amazonka.CloudSearch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -110,13 +111,14 @@ instance Core.AWSRequest UpdateAvailabilityOptions where
   type
     AWSResponse UpdateAvailabilityOptions =
       UpdateAvailabilityOptionsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "UpdateAvailabilityOptionsResult"
       ( \s h x ->
           UpdateAvailabilityOptionsResponse'
-            Prelude.<$> (x Core..@? "AvailabilityOptions")
+            Prelude.<$> (x Data..@? "AvailabilityOptions")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -130,21 +132,21 @@ instance Prelude.NFData UpdateAvailabilityOptions where
     Prelude.rnf domainName
       `Prelude.seq` Prelude.rnf multiAZ
 
-instance Core.ToHeaders UpdateAvailabilityOptions where
+instance Data.ToHeaders UpdateAvailabilityOptions where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath UpdateAvailabilityOptions where
+instance Data.ToPath UpdateAvailabilityOptions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateAvailabilityOptions where
+instance Data.ToQuery UpdateAvailabilityOptions where
   toQuery UpdateAvailabilityOptions' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("UpdateAvailabilityOptions" :: Prelude.ByteString),
+          Data.=: ("UpdateAvailabilityOptions" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2013-01-01" :: Prelude.ByteString),
-        "DomainName" Core.=: domainName,
-        "MultiAZ" Core.=: multiAZ
+          Data.=: ("2013-01-01" :: Prelude.ByteString),
+        "DomainName" Data.=: domainName,
+        "MultiAZ" Data.=: multiAZ
       ]
 
 -- | The result of a @UpdateAvailabilityOptions@ request. Contains the status

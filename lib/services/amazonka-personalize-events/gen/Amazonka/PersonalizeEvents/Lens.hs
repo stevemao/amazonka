@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.PersonalizeEvents.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,35 +14,39 @@
 module Amazonka.PersonalizeEvents.Lens
   ( -- * Operations
 
-    -- ** PutUsers
-    putUsers_datasetArn,
-    putUsers_users,
-
-    -- ** PutItems
-    putItems_datasetArn,
-    putItems_items,
-
     -- ** PutEvents
     putEvents_userId,
     putEvents_trackingId,
     putEvents_sessionId,
     putEvents_eventList,
 
+    -- ** PutItems
+    putItems_datasetArn,
+    putItems_items,
+
+    -- ** PutUsers
+    putUsers_datasetArn,
+    putUsers_users,
+
     -- * Types
 
     -- ** Event
-    event_recommendationId,
-    event_eventValue,
-    event_itemId,
-    event_impression,
     event_eventId,
+    event_eventValue,
+    event_impression,
+    event_itemId,
+    event_metricAttribution,
     event_properties,
+    event_recommendationId,
     event_eventType,
     event_sentAt,
 
     -- ** Item
     item_properties,
     item_itemId,
+
+    -- ** MetricAttribution
+    metricAttribution_eventAttributionSource,
 
     -- ** User
     user_properties,
@@ -55,4 +59,5 @@ import Amazonka.PersonalizeEvents.PutItems
 import Amazonka.PersonalizeEvents.PutUsers
 import Amazonka.PersonalizeEvents.Types.Event
 import Amazonka.PersonalizeEvents.Types.Item
+import Amazonka.PersonalizeEvents.Types.MetricAttribution
 import Amazonka.PersonalizeEvents.Types.User

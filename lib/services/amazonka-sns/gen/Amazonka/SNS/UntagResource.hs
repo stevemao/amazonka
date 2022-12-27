@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SNS.UntagResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.SNS.UntagResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,7 +91,8 @@ instance Core.AWSRequest UntagResource where
   type
     AWSResponse UntagResource =
       UntagResourceResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "UntagResourceResult"
@@ -109,21 +111,21 @@ instance Prelude.NFData UntagResource where
     Prelude.rnf resourceArn
       `Prelude.seq` Prelude.rnf tagKeys
 
-instance Core.ToHeaders UntagResource where
+instance Data.ToHeaders UntagResource where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath UntagResource where
+instance Data.ToPath UntagResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UntagResource where
+instance Data.ToQuery UntagResource where
   toQuery UntagResource' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("UntagResource" :: Prelude.ByteString),
+          Data.=: ("UntagResource" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-03-31" :: Prelude.ByteString),
-        "ResourceArn" Core.=: resourceArn,
-        "TagKeys" Core.=: Core.toQueryList "member" tagKeys
+          Data.=: ("2010-03-31" :: Prelude.ByteString),
+        "ResourceArn" Data.=: resourceArn,
+        "TagKeys" Data.=: Data.toQueryList "member" tagKeys
       ]
 
 -- | /See:/ 'newUntagResourceResponse' smart constructor.

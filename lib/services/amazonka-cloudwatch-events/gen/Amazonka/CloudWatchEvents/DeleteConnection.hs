@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.DeleteConnection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,18 +34,19 @@ module Amazonka.CloudWatchEvents.DeleteConnection
     newDeleteConnectionResponse,
 
     -- * Response Lenses
-    deleteConnectionResponse_creationTime,
-    deleteConnectionResponse_lastModifiedTime,
-    deleteConnectionResponse_lastAuthorizedTime,
     deleteConnectionResponse_connectionArn,
     deleteConnectionResponse_connectionState,
+    deleteConnectionResponse_creationTime,
+    deleteConnectionResponse_lastAuthorizedTime,
+    deleteConnectionResponse_lastModifiedTime,
     deleteConnectionResponse_httpStatus,
   )
 where
 
 import Amazonka.CloudWatchEvents.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,16 +82,17 @@ instance Core.AWSRequest DeleteConnection where
   type
     AWSResponse DeleteConnection =
       DeleteConnectionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteConnectionResponse'
-            Prelude.<$> (x Core..?> "CreationTime")
-            Prelude.<*> (x Core..?> "LastModifiedTime")
-            Prelude.<*> (x Core..?> "LastAuthorizedTime")
-            Prelude.<*> (x Core..?> "ConnectionArn")
-            Prelude.<*> (x Core..?> "ConnectionState")
+            Prelude.<$> (x Data..?> "ConnectionArn")
+            Prelude.<*> (x Data..?> "ConnectionState")
+            Prelude.<*> (x Data..?> "CreationTime")
+            Prelude.<*> (x Data..?> "LastAuthorizedTime")
+            Prelude.<*> (x Data..?> "LastModifiedTime")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -101,46 +103,46 @@ instance Prelude.Hashable DeleteConnection where
 instance Prelude.NFData DeleteConnection where
   rnf DeleteConnection' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DeleteConnection where
+instance Data.ToHeaders DeleteConnection where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSEvents.DeleteConnection" :: Prelude.ByteString),
+              Data.=# ("AWSEvents.DeleteConnection" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteConnection where
+instance Data.ToJSON DeleteConnection where
   toJSON DeleteConnection' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Name" Core..= name)]
+          [Prelude.Just ("Name" Data..= name)]
       )
 
-instance Core.ToPath DeleteConnection where
+instance Data.ToPath DeleteConnection where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteConnection where
+instance Data.ToQuery DeleteConnection where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteConnectionResponse' smart constructor.
 data DeleteConnectionResponse = DeleteConnectionResponse'
-  { -- | A time stamp for the time that the connection was created.
-    creationTime :: Prelude.Maybe Core.POSIX,
-    -- | A time stamp for the time that the connection was last modified before
-    -- it was deleted.
-    lastModifiedTime :: Prelude.Maybe Core.POSIX,
-    -- | A time stamp for the time that the connection was last authorized before
-    -- it wa deleted.
-    lastAuthorizedTime :: Prelude.Maybe Core.POSIX,
-    -- | The ARN of the connection that was deleted.
+  { -- | The ARN of the connection that was deleted.
     connectionArn :: Prelude.Maybe Prelude.Text,
     -- | The state of the connection before it was deleted.
     connectionState :: Prelude.Maybe ConnectionState,
+    -- | A time stamp for the time that the connection was created.
+    creationTime :: Prelude.Maybe Data.POSIX,
+    -- | A time stamp for the time that the connection was last authorized before
+    -- it wa deleted.
+    lastAuthorizedTime :: Prelude.Maybe Data.POSIX,
+    -- | A time stamp for the time that the connection was last modified before
+    -- it was deleted.
+    lastModifiedTime :: Prelude.Maybe Data.POSIX,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -154,17 +156,17 @@ data DeleteConnectionResponse = DeleteConnectionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'creationTime', 'deleteConnectionResponse_creationTime' - A time stamp for the time that the connection was created.
+-- 'connectionArn', 'deleteConnectionResponse_connectionArn' - The ARN of the connection that was deleted.
 --
--- 'lastModifiedTime', 'deleteConnectionResponse_lastModifiedTime' - A time stamp for the time that the connection was last modified before
--- it was deleted.
+-- 'connectionState', 'deleteConnectionResponse_connectionState' - The state of the connection before it was deleted.
+--
+-- 'creationTime', 'deleteConnectionResponse_creationTime' - A time stamp for the time that the connection was created.
 --
 -- 'lastAuthorizedTime', 'deleteConnectionResponse_lastAuthorizedTime' - A time stamp for the time that the connection was last authorized before
 -- it wa deleted.
 --
--- 'connectionArn', 'deleteConnectionResponse_connectionArn' - The ARN of the connection that was deleted.
---
--- 'connectionState', 'deleteConnectionResponse_connectionState' - The state of the connection before it was deleted.
+-- 'lastModifiedTime', 'deleteConnectionResponse_lastModifiedTime' - A time stamp for the time that the connection was last modified before
+-- it was deleted.
 --
 -- 'httpStatus', 'deleteConnectionResponse_httpStatus' - The response's http status code.
 newDeleteConnectionResponse ::
@@ -173,28 +175,14 @@ newDeleteConnectionResponse ::
   DeleteConnectionResponse
 newDeleteConnectionResponse pHttpStatus_ =
   DeleteConnectionResponse'
-    { creationTime =
+    { connectionArn =
         Prelude.Nothing,
-      lastModifiedTime = Prelude.Nothing,
-      lastAuthorizedTime = Prelude.Nothing,
-      connectionArn = Prelude.Nothing,
       connectionState = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      lastAuthorizedTime = Prelude.Nothing,
+      lastModifiedTime = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A time stamp for the time that the connection was created.
-deleteConnectionResponse_creationTime :: Lens.Lens' DeleteConnectionResponse (Prelude.Maybe Prelude.UTCTime)
-deleteConnectionResponse_creationTime = Lens.lens (\DeleteConnectionResponse' {creationTime} -> creationTime) (\s@DeleteConnectionResponse' {} a -> s {creationTime = a} :: DeleteConnectionResponse) Prelude.. Lens.mapping Core._Time
-
--- | A time stamp for the time that the connection was last modified before
--- it was deleted.
-deleteConnectionResponse_lastModifiedTime :: Lens.Lens' DeleteConnectionResponse (Prelude.Maybe Prelude.UTCTime)
-deleteConnectionResponse_lastModifiedTime = Lens.lens (\DeleteConnectionResponse' {lastModifiedTime} -> lastModifiedTime) (\s@DeleteConnectionResponse' {} a -> s {lastModifiedTime = a} :: DeleteConnectionResponse) Prelude.. Lens.mapping Core._Time
-
--- | A time stamp for the time that the connection was last authorized before
--- it wa deleted.
-deleteConnectionResponse_lastAuthorizedTime :: Lens.Lens' DeleteConnectionResponse (Prelude.Maybe Prelude.UTCTime)
-deleteConnectionResponse_lastAuthorizedTime = Lens.lens (\DeleteConnectionResponse' {lastAuthorizedTime} -> lastAuthorizedTime) (\s@DeleteConnectionResponse' {} a -> s {lastAuthorizedTime = a} :: DeleteConnectionResponse) Prelude.. Lens.mapping Core._Time
 
 -- | The ARN of the connection that was deleted.
 deleteConnectionResponse_connectionArn :: Lens.Lens' DeleteConnectionResponse (Prelude.Maybe Prelude.Text)
@@ -204,15 +192,29 @@ deleteConnectionResponse_connectionArn = Lens.lens (\DeleteConnectionResponse' {
 deleteConnectionResponse_connectionState :: Lens.Lens' DeleteConnectionResponse (Prelude.Maybe ConnectionState)
 deleteConnectionResponse_connectionState = Lens.lens (\DeleteConnectionResponse' {connectionState} -> connectionState) (\s@DeleteConnectionResponse' {} a -> s {connectionState = a} :: DeleteConnectionResponse)
 
+-- | A time stamp for the time that the connection was created.
+deleteConnectionResponse_creationTime :: Lens.Lens' DeleteConnectionResponse (Prelude.Maybe Prelude.UTCTime)
+deleteConnectionResponse_creationTime = Lens.lens (\DeleteConnectionResponse' {creationTime} -> creationTime) (\s@DeleteConnectionResponse' {} a -> s {creationTime = a} :: DeleteConnectionResponse) Prelude.. Lens.mapping Data._Time
+
+-- | A time stamp for the time that the connection was last authorized before
+-- it wa deleted.
+deleteConnectionResponse_lastAuthorizedTime :: Lens.Lens' DeleteConnectionResponse (Prelude.Maybe Prelude.UTCTime)
+deleteConnectionResponse_lastAuthorizedTime = Lens.lens (\DeleteConnectionResponse' {lastAuthorizedTime} -> lastAuthorizedTime) (\s@DeleteConnectionResponse' {} a -> s {lastAuthorizedTime = a} :: DeleteConnectionResponse) Prelude.. Lens.mapping Data._Time
+
+-- | A time stamp for the time that the connection was last modified before
+-- it was deleted.
+deleteConnectionResponse_lastModifiedTime :: Lens.Lens' DeleteConnectionResponse (Prelude.Maybe Prelude.UTCTime)
+deleteConnectionResponse_lastModifiedTime = Lens.lens (\DeleteConnectionResponse' {lastModifiedTime} -> lastModifiedTime) (\s@DeleteConnectionResponse' {} a -> s {lastModifiedTime = a} :: DeleteConnectionResponse) Prelude.. Lens.mapping Data._Time
+
 -- | The response's http status code.
 deleteConnectionResponse_httpStatus :: Lens.Lens' DeleteConnectionResponse Prelude.Int
 deleteConnectionResponse_httpStatus = Lens.lens (\DeleteConnectionResponse' {httpStatus} -> httpStatus) (\s@DeleteConnectionResponse' {} a -> s {httpStatus = a} :: DeleteConnectionResponse)
 
 instance Prelude.NFData DeleteConnectionResponse where
   rnf DeleteConnectionResponse' {..} =
-    Prelude.rnf creationTime
-      `Prelude.seq` Prelude.rnf lastModifiedTime
-      `Prelude.seq` Prelude.rnf lastAuthorizedTime
-      `Prelude.seq` Prelude.rnf connectionArn
+    Prelude.rnf connectionArn
       `Prelude.seq` Prelude.rnf connectionState
+      `Prelude.seq` Prelude.rnf creationTime
+      `Prelude.seq` Prelude.rnf lastAuthorizedTime
+      `Prelude.seq` Prelude.rnf lastModifiedTime
       `Prelude.seq` Prelude.rnf httpStatus

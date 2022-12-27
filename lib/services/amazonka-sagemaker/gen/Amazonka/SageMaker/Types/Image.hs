@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.Image
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.Image where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.ImageStatus
 
@@ -30,15 +31,15 @@ import Amazonka.SageMaker.Types.ImageStatus
 --
 -- /See:/ 'newImage' smart constructor.
 data Image = Image'
-  { -- | When a create, update, or delete operation fails, the reason for the
-    -- failure.
-    failureReason :: Prelude.Maybe Prelude.Text,
+  { -- | The description of the image.
+    description :: Prelude.Maybe Prelude.Text,
     -- | The name of the image as displayed.
     displayName :: Prelude.Maybe Prelude.Text,
-    -- | The description of the image.
-    description :: Prelude.Maybe Prelude.Text,
+    -- | When a create, update, or delete operation fails, the reason for the
+    -- failure.
+    failureReason :: Prelude.Maybe Prelude.Text,
     -- | When the image was created.
-    creationTime :: Core.POSIX,
+    creationTime :: Data.POSIX,
     -- | The Amazon Resource Name (ARN) of the image.
     imageArn :: Prelude.Text,
     -- | The name of the image.
@@ -46,7 +47,7 @@ data Image = Image'
     -- | The status of the image.
     imageStatus :: ImageStatus,
     -- | When the image was last modified.
-    lastModifiedTime :: Core.POSIX
+    lastModifiedTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -58,12 +59,12 @@ data Image = Image'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'failureReason', 'image_failureReason' - When a create, update, or delete operation fails, the reason for the
--- failure.
+-- 'description', 'image_description' - The description of the image.
 --
 -- 'displayName', 'image_displayName' - The name of the image as displayed.
 --
--- 'description', 'image_description' - The description of the image.
+-- 'failureReason', 'image_failureReason' - When a create, update, or delete operation fails, the reason for the
+-- failure.
 --
 -- 'creationTime', 'image_creationTime' - When the image was created.
 --
@@ -93,33 +94,33 @@ newImage
   pImageStatus_
   pLastModifiedTime_ =
     Image'
-      { failureReason = Prelude.Nothing,
+      { description = Prelude.Nothing,
         displayName = Prelude.Nothing,
-        description = Prelude.Nothing,
-        creationTime = Core._Time Lens.# pCreationTime_,
+        failureReason = Prelude.Nothing,
+        creationTime = Data._Time Lens.# pCreationTime_,
         imageArn = pImageArn_,
         imageName = pImageName_,
         imageStatus = pImageStatus_,
         lastModifiedTime =
-          Core._Time Lens.# pLastModifiedTime_
+          Data._Time Lens.# pLastModifiedTime_
       }
+
+-- | The description of the image.
+image_description :: Lens.Lens' Image (Prelude.Maybe Prelude.Text)
+image_description = Lens.lens (\Image' {description} -> description) (\s@Image' {} a -> s {description = a} :: Image)
+
+-- | The name of the image as displayed.
+image_displayName :: Lens.Lens' Image (Prelude.Maybe Prelude.Text)
+image_displayName = Lens.lens (\Image' {displayName} -> displayName) (\s@Image' {} a -> s {displayName = a} :: Image)
 
 -- | When a create, update, or delete operation fails, the reason for the
 -- failure.
 image_failureReason :: Lens.Lens' Image (Prelude.Maybe Prelude.Text)
 image_failureReason = Lens.lens (\Image' {failureReason} -> failureReason) (\s@Image' {} a -> s {failureReason = a} :: Image)
 
--- | The name of the image as displayed.
-image_displayName :: Lens.Lens' Image (Prelude.Maybe Prelude.Text)
-image_displayName = Lens.lens (\Image' {displayName} -> displayName) (\s@Image' {} a -> s {displayName = a} :: Image)
-
--- | The description of the image.
-image_description :: Lens.Lens' Image (Prelude.Maybe Prelude.Text)
-image_description = Lens.lens (\Image' {description} -> description) (\s@Image' {} a -> s {description = a} :: Image)
-
 -- | When the image was created.
 image_creationTime :: Lens.Lens' Image Prelude.UTCTime
-image_creationTime = Lens.lens (\Image' {creationTime} -> creationTime) (\s@Image' {} a -> s {creationTime = a} :: Image) Prelude.. Core._Time
+image_creationTime = Lens.lens (\Image' {creationTime} -> creationTime) (\s@Image' {} a -> s {creationTime = a} :: Image) Prelude.. Data._Time
 
 -- | The Amazon Resource Name (ARN) of the image.
 image_imageArn :: Lens.Lens' Image Prelude.Text
@@ -135,29 +136,29 @@ image_imageStatus = Lens.lens (\Image' {imageStatus} -> imageStatus) (\s@Image' 
 
 -- | When the image was last modified.
 image_lastModifiedTime :: Lens.Lens' Image Prelude.UTCTime
-image_lastModifiedTime = Lens.lens (\Image' {lastModifiedTime} -> lastModifiedTime) (\s@Image' {} a -> s {lastModifiedTime = a} :: Image) Prelude.. Core._Time
+image_lastModifiedTime = Lens.lens (\Image' {lastModifiedTime} -> lastModifiedTime) (\s@Image' {} a -> s {lastModifiedTime = a} :: Image) Prelude.. Data._Time
 
-instance Core.FromJSON Image where
+instance Data.FromJSON Image where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Image"
       ( \x ->
           Image'
-            Prelude.<$> (x Core..:? "FailureReason")
-            Prelude.<*> (x Core..:? "DisplayName")
-            Prelude.<*> (x Core..:? "Description")
-            Prelude.<*> (x Core..: "CreationTime")
-            Prelude.<*> (x Core..: "ImageArn")
-            Prelude.<*> (x Core..: "ImageName")
-            Prelude.<*> (x Core..: "ImageStatus")
-            Prelude.<*> (x Core..: "LastModifiedTime")
+            Prelude.<$> (x Data..:? "Description")
+            Prelude.<*> (x Data..:? "DisplayName")
+            Prelude.<*> (x Data..:? "FailureReason")
+            Prelude.<*> (x Data..: "CreationTime")
+            Prelude.<*> (x Data..: "ImageArn")
+            Prelude.<*> (x Data..: "ImageName")
+            Prelude.<*> (x Data..: "ImageStatus")
+            Prelude.<*> (x Data..: "LastModifiedTime")
       )
 
 instance Prelude.Hashable Image where
   hashWithSalt _salt Image' {..} =
-    _salt `Prelude.hashWithSalt` failureReason
+    _salt `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` displayName
-      `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` failureReason
       `Prelude.hashWithSalt` creationTime
       `Prelude.hashWithSalt` imageArn
       `Prelude.hashWithSalt` imageName
@@ -166,9 +167,9 @@ instance Prelude.Hashable Image where
 
 instance Prelude.NFData Image where
   rnf Image' {..} =
-    Prelude.rnf failureReason
+    Prelude.rnf description
       `Prelude.seq` Prelude.rnf displayName
-      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf failureReason
       `Prelude.seq` Prelude.rnf creationTime
       `Prelude.seq` Prelude.rnf imageArn
       `Prelude.seq` Prelude.rnf imageName

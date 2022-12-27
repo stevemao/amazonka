@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataPipeline.AddTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.DataPipeline.AddTags
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataPipeline.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,7 +89,8 @@ addTags_tags = Lens.lens (\AddTags' {tags} -> tags) (\s@AddTags' {} a -> s {tags
 
 instance Core.AWSRequest AddTags where
   type AWSResponse AddTags = AddTagsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -106,32 +108,32 @@ instance Prelude.NFData AddTags where
     Prelude.rnf pipelineId
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders AddTags where
+instance Data.ToHeaders AddTags where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("DataPipeline.AddTags" :: Prelude.ByteString),
+              Data.=# ("DataPipeline.AddTags" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AddTags where
+instance Data.ToJSON AddTags where
   toJSON AddTags' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("pipelineId" Core..= pipelineId),
-            Prelude.Just ("tags" Core..= tags)
+          [ Prelude.Just ("pipelineId" Data..= pipelineId),
+            Prelude.Just ("tags" Data..= tags)
           ]
       )
 
-instance Core.ToPath AddTags where
+instance Data.ToPath AddTags where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AddTags where
+instance Data.ToQuery AddTags where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the output of AddTags.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DeletePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -55,8 +55,9 @@ module Amazonka.IoT.DeletePolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,7 +93,8 @@ deletePolicy_policyName = Lens.lens (\DeletePolicy' {policyName} -> policyName) 
 
 instance Core.AWSRequest DeletePolicy where
   type AWSResponse DeletePolicy = DeletePolicyResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response = Response.receiveNull DeletePolicyResponse'
 
 instance Prelude.Hashable DeletePolicy where
@@ -102,15 +104,15 @@ instance Prelude.Hashable DeletePolicy where
 instance Prelude.NFData DeletePolicy where
   rnf DeletePolicy' {..} = Prelude.rnf policyName
 
-instance Core.ToHeaders DeletePolicy where
+instance Data.ToHeaders DeletePolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeletePolicy where
+instance Data.ToPath DeletePolicy where
   toPath DeletePolicy' {..} =
     Prelude.mconcat
-      ["/policies/", Core.toBS policyName]
+      ["/policies/", Data.toBS policyName]
 
-instance Core.ToQuery DeletePolicy where
+instance Data.ToQuery DeletePolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeletePolicyResponse' smart constructor.

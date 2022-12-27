@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.StartFlow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.AppFlow.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,14 +83,15 @@ startFlow_flowName = Lens.lens (\StartFlow' {flowName} -> flowName) (\s@StartFlo
 
 instance Core.AWSRequest StartFlow where
   type AWSResponse StartFlow = StartFlowResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartFlowResponse'
-            Prelude.<$> (x Core..?> "executionId")
-            Prelude.<*> (x Core..?> "flowArn")
-            Prelude.<*> (x Core..?> "flowStatus")
+            Prelude.<$> (x Data..?> "executionId")
+            Prelude.<*> (x Data..?> "flowArn")
+            Prelude.<*> (x Data..?> "flowStatus")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -100,28 +102,28 @@ instance Prelude.Hashable StartFlow where
 instance Prelude.NFData StartFlow where
   rnf StartFlow' {..} = Prelude.rnf flowName
 
-instance Core.ToHeaders StartFlow where
+instance Data.ToHeaders StartFlow where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartFlow where
+instance Data.ToJSON StartFlow where
   toJSON StartFlow' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("flowName" Core..= flowName)]
+          [Prelude.Just ("flowName" Data..= flowName)]
       )
 
-instance Core.ToPath StartFlow where
+instance Data.ToPath StartFlow where
   toPath = Prelude.const "/start-flow"
 
-instance Core.ToQuery StartFlow where
+instance Data.ToQuery StartFlow where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartFlowResponse' smart constructor.

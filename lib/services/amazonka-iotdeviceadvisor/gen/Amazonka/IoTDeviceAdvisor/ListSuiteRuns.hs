@@ -14,25 +14,29 @@
 
 -- |
 -- Module      : Amazonka.IoTDeviceAdvisor.ListSuiteRuns
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the runs of the specified Device Advisor test suite. You can list
--- all runs of the test suite, or the runs of a specific version of the
--- test suite.
+-- Lists runs of the specified Device Advisor test suite. You can list all
+-- runs of the test suite, or the runs of a specific version of the test
+-- suite.
+--
+-- Requires permission to access the
+-- <https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions ListSuiteRuns>
+-- action.
 module Amazonka.IoTDeviceAdvisor.ListSuiteRuns
   ( -- * Creating a Request
     ListSuiteRuns (..),
     newListSuiteRuns,
 
     -- * Request Lenses
+    listSuiteRuns_maxResults,
+    listSuiteRuns_nextToken,
     listSuiteRuns_suiteDefinitionId,
     listSuiteRuns_suiteDefinitionVersion,
-    listSuiteRuns_nextToken,
-    listSuiteRuns_maxResults,
 
     -- * Destructuring the Response
     ListSuiteRunsResponse (..),
@@ -46,24 +50,25 @@ module Amazonka.IoTDeviceAdvisor.ListSuiteRuns
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTDeviceAdvisor.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListSuiteRuns' smart constructor.
 data ListSuiteRuns = ListSuiteRuns'
-  { -- | Lists the test suite runs of the specified test suite based on suite
-    -- definition Id.
-    suiteDefinitionId :: Prelude.Maybe Prelude.Text,
-    -- | Must be passed along with suiteDefinitionId. Lists the test suite runs
-    -- of the specified test suite based on suite definition version.
-    suiteDefinitionVersion :: Prelude.Maybe Prelude.Text,
+  { -- | The maximum number of results to return at once.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | A token to retrieve the next set of results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return at once.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    -- | Lists the test suite runs of the specified test suite based on suite
+    -- definition ID.
+    suiteDefinitionId :: Prelude.Maybe Prelude.Text,
+    -- | Must be passed along with @suiteDefinitionId@. Lists the test suite runs
+    -- of the specified test suite based on suite definition version.
+    suiteDefinitionVersion :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -75,93 +80,94 @@ data ListSuiteRuns = ListSuiteRuns'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'suiteDefinitionId', 'listSuiteRuns_suiteDefinitionId' - Lists the test suite runs of the specified test suite based on suite
--- definition Id.
---
--- 'suiteDefinitionVersion', 'listSuiteRuns_suiteDefinitionVersion' - Must be passed along with suiteDefinitionId. Lists the test suite runs
--- of the specified test suite based on suite definition version.
+-- 'maxResults', 'listSuiteRuns_maxResults' - The maximum number of results to return at once.
 --
 -- 'nextToken', 'listSuiteRuns_nextToken' - A token to retrieve the next set of results.
 --
--- 'maxResults', 'listSuiteRuns_maxResults' - The maximum number of results to return at once.
+-- 'suiteDefinitionId', 'listSuiteRuns_suiteDefinitionId' - Lists the test suite runs of the specified test suite based on suite
+-- definition ID.
+--
+-- 'suiteDefinitionVersion', 'listSuiteRuns_suiteDefinitionVersion' - Must be passed along with @suiteDefinitionId@. Lists the test suite runs
+-- of the specified test suite based on suite definition version.
 newListSuiteRuns ::
   ListSuiteRuns
 newListSuiteRuns =
   ListSuiteRuns'
-    { suiteDefinitionId = Prelude.Nothing,
-      suiteDefinitionVersion = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      suiteDefinitionId = Prelude.Nothing,
+      suiteDefinitionVersion = Prelude.Nothing
     }
-
--- | Lists the test suite runs of the specified test suite based on suite
--- definition Id.
-listSuiteRuns_suiteDefinitionId :: Lens.Lens' ListSuiteRuns (Prelude.Maybe Prelude.Text)
-listSuiteRuns_suiteDefinitionId = Lens.lens (\ListSuiteRuns' {suiteDefinitionId} -> suiteDefinitionId) (\s@ListSuiteRuns' {} a -> s {suiteDefinitionId = a} :: ListSuiteRuns)
-
--- | Must be passed along with suiteDefinitionId. Lists the test suite runs
--- of the specified test suite based on suite definition version.
-listSuiteRuns_suiteDefinitionVersion :: Lens.Lens' ListSuiteRuns (Prelude.Maybe Prelude.Text)
-listSuiteRuns_suiteDefinitionVersion = Lens.lens (\ListSuiteRuns' {suiteDefinitionVersion} -> suiteDefinitionVersion) (\s@ListSuiteRuns' {} a -> s {suiteDefinitionVersion = a} :: ListSuiteRuns)
-
--- | A token to retrieve the next set of results.
-listSuiteRuns_nextToken :: Lens.Lens' ListSuiteRuns (Prelude.Maybe Prelude.Text)
-listSuiteRuns_nextToken = Lens.lens (\ListSuiteRuns' {nextToken} -> nextToken) (\s@ListSuiteRuns' {} a -> s {nextToken = a} :: ListSuiteRuns)
 
 -- | The maximum number of results to return at once.
 listSuiteRuns_maxResults :: Lens.Lens' ListSuiteRuns (Prelude.Maybe Prelude.Natural)
 listSuiteRuns_maxResults = Lens.lens (\ListSuiteRuns' {maxResults} -> maxResults) (\s@ListSuiteRuns' {} a -> s {maxResults = a} :: ListSuiteRuns)
 
+-- | A token to retrieve the next set of results.
+listSuiteRuns_nextToken :: Lens.Lens' ListSuiteRuns (Prelude.Maybe Prelude.Text)
+listSuiteRuns_nextToken = Lens.lens (\ListSuiteRuns' {nextToken} -> nextToken) (\s@ListSuiteRuns' {} a -> s {nextToken = a} :: ListSuiteRuns)
+
+-- | Lists the test suite runs of the specified test suite based on suite
+-- definition ID.
+listSuiteRuns_suiteDefinitionId :: Lens.Lens' ListSuiteRuns (Prelude.Maybe Prelude.Text)
+listSuiteRuns_suiteDefinitionId = Lens.lens (\ListSuiteRuns' {suiteDefinitionId} -> suiteDefinitionId) (\s@ListSuiteRuns' {} a -> s {suiteDefinitionId = a} :: ListSuiteRuns)
+
+-- | Must be passed along with @suiteDefinitionId@. Lists the test suite runs
+-- of the specified test suite based on suite definition version.
+listSuiteRuns_suiteDefinitionVersion :: Lens.Lens' ListSuiteRuns (Prelude.Maybe Prelude.Text)
+listSuiteRuns_suiteDefinitionVersion = Lens.lens (\ListSuiteRuns' {suiteDefinitionVersion} -> suiteDefinitionVersion) (\s@ListSuiteRuns' {} a -> s {suiteDefinitionVersion = a} :: ListSuiteRuns)
+
 instance Core.AWSRequest ListSuiteRuns where
   type
     AWSResponse ListSuiteRuns =
       ListSuiteRunsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListSuiteRunsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "suiteRunsList" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "suiteRunsList" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListSuiteRuns where
   hashWithSalt _salt ListSuiteRuns' {..} =
-    _salt `Prelude.hashWithSalt` suiteDefinitionId
-      `Prelude.hashWithSalt` suiteDefinitionVersion
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` suiteDefinitionId
+      `Prelude.hashWithSalt` suiteDefinitionVersion
 
 instance Prelude.NFData ListSuiteRuns where
   rnf ListSuiteRuns' {..} =
-    Prelude.rnf suiteDefinitionId
-      `Prelude.seq` Prelude.rnf suiteDefinitionVersion
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf suiteDefinitionId
+      `Prelude.seq` Prelude.rnf suiteDefinitionVersion
 
-instance Core.ToHeaders ListSuiteRuns where
+instance Data.ToHeaders ListSuiteRuns where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListSuiteRuns where
+instance Data.ToPath ListSuiteRuns where
   toPath = Prelude.const "/suiteRuns"
 
-instance Core.ToQuery ListSuiteRuns where
+instance Data.ToQuery ListSuiteRuns where
   toQuery ListSuiteRuns' {..} =
     Prelude.mconcat
-      [ "suiteDefinitionId" Core.=: suiteDefinitionId,
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "suiteDefinitionId" Data.=: suiteDefinitionId,
         "suiteDefinitionVersion"
-          Core.=: suiteDefinitionVersion,
-        "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+          Data.=: suiteDefinitionVersion
       ]
 
 -- | /See:/ 'newListSuiteRunsResponse' smart constructor.

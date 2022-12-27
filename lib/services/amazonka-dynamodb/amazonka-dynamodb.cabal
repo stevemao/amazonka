@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -60,6 +60,7 @@ library
     Amazonka.DynamoDB.DescribeExport
     Amazonka.DynamoDB.DescribeGlobalTable
     Amazonka.DynamoDB.DescribeGlobalTableSettings
+    Amazonka.DynamoDB.DescribeImport
     Amazonka.DynamoDB.DescribeKinesisStreamingDestination
     Amazonka.DynamoDB.DescribeLimits
     Amazonka.DynamoDB.DescribeTable
@@ -71,12 +72,13 @@ library
     Amazonka.DynamoDB.ExecuteTransaction
     Amazonka.DynamoDB.ExportTableToPointInTime
     Amazonka.DynamoDB.GetItem
-    Amazonka.DynamoDB.Internal
+    Amazonka.DynamoDB.ImportTable
     Amazonka.DynamoDB.Lens
     Amazonka.DynamoDB.ListBackups
     Amazonka.DynamoDB.ListContributorInsights
     Amazonka.DynamoDB.ListExports
     Amazonka.DynamoDB.ListGlobalTables
+    Amazonka.DynamoDB.ListImports
     Amazonka.DynamoDB.ListTables
     Amazonka.DynamoDB.ListTagsOfResource
     Amazonka.DynamoDB.PutItem
@@ -91,6 +93,7 @@ library
     Amazonka.DynamoDB.Types.ArchivalSummary
     Amazonka.DynamoDB.Types.AttributeAction
     Amazonka.DynamoDB.Types.AttributeDefinition
+    Amazonka.DynamoDB.Types.AttributeValue
     Amazonka.DynamoDB.Types.AttributeValueUpdate
     Amazonka.DynamoDB.Types.AutoScalingPolicyDescription
     Amazonka.DynamoDB.Types.AutoScalingPolicyUpdate
@@ -124,11 +127,11 @@ library
     Amazonka.DynamoDB.Types.CreateGlobalSecondaryIndexAction
     Amazonka.DynamoDB.Types.CreateReplicaAction
     Amazonka.DynamoDB.Types.CreateReplicationGroupMemberAction
+    Amazonka.DynamoDB.Types.CsvOptions
     Amazonka.DynamoDB.Types.Delete
     Amazonka.DynamoDB.Types.DeleteGlobalSecondaryIndexAction
     Amazonka.DynamoDB.Types.DeleteReplicaAction
     Amazonka.DynamoDB.Types.DeleteReplicationGroupMemberAction
-    Amazonka.DynamoDB.Types.DeleteRequest
     Amazonka.DynamoDB.Types.DestinationStatus
     Amazonka.DynamoDB.Types.Endpoint
     Amazonka.DynamoDB.Types.ExpectedAttributeValue
@@ -147,7 +150,13 @@ library
     Amazonka.DynamoDB.Types.GlobalTableDescription
     Amazonka.DynamoDB.Types.GlobalTableGlobalSecondaryIndexSettingsUpdate
     Amazonka.DynamoDB.Types.GlobalTableStatus
+    Amazonka.DynamoDB.Types.ImportStatus
+    Amazonka.DynamoDB.Types.ImportSummary
+    Amazonka.DynamoDB.Types.ImportTableDescription
     Amazonka.DynamoDB.Types.IndexStatus
+    Amazonka.DynamoDB.Types.InputCompressionType
+    Amazonka.DynamoDB.Types.InputFormat
+    Amazonka.DynamoDB.Types.InputFormatOptions
     Amazonka.DynamoDB.Types.ItemCollectionMetrics
     Amazonka.DynamoDB.Types.ItemResponse
     Amazonka.DynamoDB.Types.KeysAndAttributes
@@ -169,7 +178,6 @@ library
     Amazonka.DynamoDB.Types.ProvisionedThroughputDescription
     Amazonka.DynamoDB.Types.ProvisionedThroughputOverride
     Amazonka.DynamoDB.Types.Put
-    Amazonka.DynamoDB.Types.PutRequest
     Amazonka.DynamoDB.Types.Replica
     Amazonka.DynamoDB.Types.ReplicaAutoScalingDescription
     Amazonka.DynamoDB.Types.ReplicaAutoScalingUpdate
@@ -190,6 +198,7 @@ library
     Amazonka.DynamoDB.Types.ReturnItemCollectionMetrics
     Amazonka.DynamoDB.Types.ReturnValue
     Amazonka.DynamoDB.Types.ReturnValuesOnConditionCheckFailure
+    Amazonka.DynamoDB.Types.S3BucketSource
     Amazonka.DynamoDB.Types.S3SseAlgorithm
     Amazonka.DynamoDB.Types.ScalarAttributeType
     Amazonka.DynamoDB.Types.Select
@@ -202,6 +211,9 @@ library
     Amazonka.DynamoDB.Types.StreamSpecification
     Amazonka.DynamoDB.Types.StreamViewType
     Amazonka.DynamoDB.Types.TableAutoScalingDescription
+    Amazonka.DynamoDB.Types.TableClass
+    Amazonka.DynamoDB.Types.TableClassSummary
+    Amazonka.DynamoDB.Types.TableCreationParameters
     Amazonka.DynamoDB.Types.TableDescription
     Amazonka.DynamoDB.Types.TableStatus
     Amazonka.DynamoDB.Types.Tag
@@ -227,7 +239,7 @@ library
 
   build-depends:
     , aeson
-    , amazonka-core         ^>=2.0
+    , amazonka-core         >=2.0     && <2.1
     , base                  >=4.12    && <5
     , containers
     , hashable              >=1.3.4.0 && <1.5
@@ -250,9 +262,9 @@ test-suite amazonka-dynamodb-test
     Test.Amazonka.Gen.DynamoDB
 
   build-depends:
-    , amazonka-core         ^>=2.0
+    , amazonka-core         >=2.0 && <2.1
     , amazonka-dynamodb
-    , amazonka-test         ^>=2.0
+    , amazonka-test         >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

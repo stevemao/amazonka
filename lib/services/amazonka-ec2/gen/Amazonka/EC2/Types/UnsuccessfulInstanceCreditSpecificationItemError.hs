@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.UnsuccessfulInstanceCreditSpecificationItemError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.UnsuccessfulInstanceCreditSpecificationItemError where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.UnsuccessfulInstanceCreditSpecificationErrorCode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the error for the burstable performance instance whose
@@ -66,13 +67,13 @@ unsuccessfulInstanceCreditSpecificationItemError_message :: Lens.Lens' Unsuccess
 unsuccessfulInstanceCreditSpecificationItemError_message = Lens.lens (\UnsuccessfulInstanceCreditSpecificationItemError' {message} -> message) (\s@UnsuccessfulInstanceCreditSpecificationItemError' {} a -> s {message = a} :: UnsuccessfulInstanceCreditSpecificationItemError)
 
 instance
-  Core.FromXML
+  Data.FromXML
     UnsuccessfulInstanceCreditSpecificationItemError
   where
   parseXML x =
     UnsuccessfulInstanceCreditSpecificationItemError'
-      Prelude.<$> (x Core..@? "code")
-        Prelude.<*> (x Core..@? "message")
+      Prelude.<$> (x Data..@? "code")
+        Prelude.<*> (x Data..@? "message")
 
 instance
   Prelude.Hashable

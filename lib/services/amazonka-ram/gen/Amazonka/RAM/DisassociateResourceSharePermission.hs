@@ -14,13 +14,16 @@
 
 -- |
 -- Module      : Amazonka.RAM.DisassociateResourceSharePermission
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disassociates an RAM permission from a resource share.
+-- Disassociates an RAM permission from a resource share. Permission
+-- changes take effect immediately. You can remove a RAM permission from a
+-- resource share only if there are currently no resources of the relevant
+-- resource type currently attached to the resource share.
 module Amazonka.RAM.DisassociateResourceSharePermission
   ( -- * Creating a Request
     DisassociateResourceSharePermission (..),
@@ -43,7 +46,8 @@ module Amazonka.RAM.DisassociateResourceSharePermission
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RAM.Types
 import qualified Amazonka.Request as Request
@@ -51,13 +55,25 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDisassociateResourceSharePermission' smart constructor.
 data DisassociateResourceSharePermission = DisassociateResourceSharePermission'
-  { -- | A unique, case-sensitive identifier that you provide to ensure the
-    -- idempotency of the request.
+  { -- | Specifies a unique, case-sensitive identifier that you provide to ensure
+    -- the idempotency of the request. This lets you safely retry the request
+    -- without accidentally performing the same operation a second time.
+    -- Passing the same value to a later call to an operation requires that you
+    -- also pass the same value for all other parameters. We recommend that you
+    -- use a
+    -- <https://wikipedia.org/wiki/Universally_unique_identifier UUID type of value.>.
+    --
+    -- If you don\'t provide this value, then Amazon Web Services generates a
+    -- random one for you.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the resource share.
+    -- | The
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resoure Name (ARN)>
+    -- of the resource share from which you want to disassociate a permission.
     resourceShareArn :: Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the permission to disassociate from
-    -- the resource share.
+    -- | The
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resoure Name (ARN)>
+    -- of the permission to disassociate from the resource share. Changes to
+    -- permissions take effect immediately.
     permissionArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -70,13 +86,25 @@ data DisassociateResourceSharePermission = DisassociateResourceSharePermission'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'clientToken', 'disassociateResourceSharePermission_clientToken' - A unique, case-sensitive identifier that you provide to ensure the
--- idempotency of the request.
+-- 'clientToken', 'disassociateResourceSharePermission_clientToken' - Specifies a unique, case-sensitive identifier that you provide to ensure
+-- the idempotency of the request. This lets you safely retry the request
+-- without accidentally performing the same operation a second time.
+-- Passing the same value to a later call to an operation requires that you
+-- also pass the same value for all other parameters. We recommend that you
+-- use a
+-- <https://wikipedia.org/wiki/Universally_unique_identifier UUID type of value.>.
 --
--- 'resourceShareArn', 'disassociateResourceSharePermission_resourceShareArn' - The Amazon Resource Name (ARN) of the resource share.
+-- If you don\'t provide this value, then Amazon Web Services generates a
+-- random one for you.
 --
--- 'permissionArn', 'disassociateResourceSharePermission_permissionArn' - The Amazon Resource Name (ARN) of the permission to disassociate from
--- the resource share.
+-- 'resourceShareArn', 'disassociateResourceSharePermission_resourceShareArn' - The
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resoure Name (ARN)>
+-- of the resource share from which you want to disassociate a permission.
+--
+-- 'permissionArn', 'disassociateResourceSharePermission_permissionArn' - The
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resoure Name (ARN)>
+-- of the permission to disassociate from the resource share. Changes to
+-- permissions take effect immediately.
 newDisassociateResourceSharePermission ::
   -- | 'resourceShareArn'
   Prelude.Text ->
@@ -93,17 +121,29 @@ newDisassociateResourceSharePermission
         permissionArn = pPermissionArn_
       }
 
--- | A unique, case-sensitive identifier that you provide to ensure the
--- idempotency of the request.
+-- | Specifies a unique, case-sensitive identifier that you provide to ensure
+-- the idempotency of the request. This lets you safely retry the request
+-- without accidentally performing the same operation a second time.
+-- Passing the same value to a later call to an operation requires that you
+-- also pass the same value for all other parameters. We recommend that you
+-- use a
+-- <https://wikipedia.org/wiki/Universally_unique_identifier UUID type of value.>.
+--
+-- If you don\'t provide this value, then Amazon Web Services generates a
+-- random one for you.
 disassociateResourceSharePermission_clientToken :: Lens.Lens' DisassociateResourceSharePermission (Prelude.Maybe Prelude.Text)
 disassociateResourceSharePermission_clientToken = Lens.lens (\DisassociateResourceSharePermission' {clientToken} -> clientToken) (\s@DisassociateResourceSharePermission' {} a -> s {clientToken = a} :: DisassociateResourceSharePermission)
 
--- | The Amazon Resource Name (ARN) of the resource share.
+-- | The
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resoure Name (ARN)>
+-- of the resource share from which you want to disassociate a permission.
 disassociateResourceSharePermission_resourceShareArn :: Lens.Lens' DisassociateResourceSharePermission Prelude.Text
 disassociateResourceSharePermission_resourceShareArn = Lens.lens (\DisassociateResourceSharePermission' {resourceShareArn} -> resourceShareArn) (\s@DisassociateResourceSharePermission' {} a -> s {resourceShareArn = a} :: DisassociateResourceSharePermission)
 
--- | The Amazon Resource Name (ARN) of the permission to disassociate from
--- the resource share.
+-- | The
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resoure Name (ARN)>
+-- of the permission to disassociate from the resource share. Changes to
+-- permissions take effect immediately.
 disassociateResourceSharePermission_permissionArn :: Lens.Lens' DisassociateResourceSharePermission Prelude.Text
 disassociateResourceSharePermission_permissionArn = Lens.lens (\DisassociateResourceSharePermission' {permissionArn} -> permissionArn) (\s@DisassociateResourceSharePermission' {} a -> s {permissionArn = a} :: DisassociateResourceSharePermission)
 
@@ -114,13 +154,14 @@ instance
   type
     AWSResponse DisassociateResourceSharePermission =
       DisassociateResourceSharePermissionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DisassociateResourceSharePermissionResponse'
-            Prelude.<$> (x Core..?> "clientToken")
-              Prelude.<*> (x Core..?> "returnValue")
+            Prelude.<$> (x Data..?> "clientToken")
+              Prelude.<*> (x Data..?> "returnValue")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -145,36 +186,36 @@ instance
       `Prelude.seq` Prelude.rnf permissionArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DisassociateResourceSharePermission
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DisassociateResourceSharePermission
   where
   toJSON DisassociateResourceSharePermission' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
             Prelude.Just
-              ("resourceShareArn" Core..= resourceShareArn),
+              ("resourceShareArn" Data..= resourceShareArn),
             Prelude.Just
-              ("permissionArn" Core..= permissionArn)
+              ("permissionArn" Data..= permissionArn)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DisassociateResourceSharePermission
   where
   toPath =
@@ -182,17 +223,21 @@ instance
       "/disassociateresourcesharepermission"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DisassociateResourceSharePermission
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateResourceSharePermissionResponse' smart constructor.
 data DisassociateResourceSharePermissionResponse = DisassociateResourceSharePermissionResponse'
-  { -- | A unique, case-sensitive identifier that you provide to ensure the
-    -- idempotency of the request.
+  { -- | The idempotency identifier associated with this request. If you want to
+    -- repeat the same operation in an idempotent manner then you must include
+    -- this value in the @clientToken@ request parameter of that later call.
+    -- All other parameters must also have the same values that you used in the
+    -- first call.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | Indicates whether the request succeeded.
+    -- | A return value of @true@ indicates that the request succeeded. A value
+    -- of @false@ indicates that the request failed.
     returnValue :: Prelude.Maybe Prelude.Bool,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -207,10 +252,14 @@ data DisassociateResourceSharePermissionResponse = DisassociateResourceSharePerm
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'clientToken', 'disassociateResourceSharePermissionResponse_clientToken' - A unique, case-sensitive identifier that you provide to ensure the
--- idempotency of the request.
+-- 'clientToken', 'disassociateResourceSharePermissionResponse_clientToken' - The idempotency identifier associated with this request. If you want to
+-- repeat the same operation in an idempotent manner then you must include
+-- this value in the @clientToken@ request parameter of that later call.
+-- All other parameters must also have the same values that you used in the
+-- first call.
 --
--- 'returnValue', 'disassociateResourceSharePermissionResponse_returnValue' - Indicates whether the request succeeded.
+-- 'returnValue', 'disassociateResourceSharePermissionResponse_returnValue' - A return value of @true@ indicates that the request succeeded. A value
+-- of @false@ indicates that the request failed.
 --
 -- 'httpStatus', 'disassociateResourceSharePermissionResponse_httpStatus' - The response's http status code.
 newDisassociateResourceSharePermissionResponse ::
@@ -226,12 +275,16 @@ newDisassociateResourceSharePermissionResponse
         httpStatus = pHttpStatus_
       }
 
--- | A unique, case-sensitive identifier that you provide to ensure the
--- idempotency of the request.
+-- | The idempotency identifier associated with this request. If you want to
+-- repeat the same operation in an idempotent manner then you must include
+-- this value in the @clientToken@ request parameter of that later call.
+-- All other parameters must also have the same values that you used in the
+-- first call.
 disassociateResourceSharePermissionResponse_clientToken :: Lens.Lens' DisassociateResourceSharePermissionResponse (Prelude.Maybe Prelude.Text)
 disassociateResourceSharePermissionResponse_clientToken = Lens.lens (\DisassociateResourceSharePermissionResponse' {clientToken} -> clientToken) (\s@DisassociateResourceSharePermissionResponse' {} a -> s {clientToken = a} :: DisassociateResourceSharePermissionResponse)
 
--- | Indicates whether the request succeeded.
+-- | A return value of @true@ indicates that the request succeeded. A value
+-- of @false@ indicates that the request failed.
 disassociateResourceSharePermissionResponse_returnValue :: Lens.Lens' DisassociateResourceSharePermissionResponse (Prelude.Maybe Prelude.Bool)
 disassociateResourceSharePermissionResponse_returnValue = Lens.lens (\DisassociateResourceSharePermissionResponse' {returnValue} -> returnValue) (\s@DisassociateResourceSharePermissionResponse' {} a -> s {returnValue = a} :: DisassociateResourceSharePermissionResponse)
 

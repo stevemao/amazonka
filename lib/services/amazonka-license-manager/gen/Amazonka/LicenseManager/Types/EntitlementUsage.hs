@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.Types.EntitlementUsage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LicenseManager.Types.EntitlementUsage where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LicenseManager.Types.EntitlementDataUnit
 import qualified Amazonka.Prelude as Prelude
 
@@ -86,16 +87,16 @@ entitlementUsage_consumedValue = Lens.lens (\EntitlementUsage' {consumedValue} -
 entitlementUsage_unit :: Lens.Lens' EntitlementUsage EntitlementDataUnit
 entitlementUsage_unit = Lens.lens (\EntitlementUsage' {unit} -> unit) (\s@EntitlementUsage' {} a -> s {unit = a} :: EntitlementUsage)
 
-instance Core.FromJSON EntitlementUsage where
+instance Data.FromJSON EntitlementUsage where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EntitlementUsage"
       ( \x ->
           EntitlementUsage'
-            Prelude.<$> (x Core..:? "MaxCount")
-            Prelude.<*> (x Core..: "Name")
-            Prelude.<*> (x Core..: "ConsumedValue")
-            Prelude.<*> (x Core..: "Unit")
+            Prelude.<$> (x Data..:? "MaxCount")
+            Prelude.<*> (x Data..: "Name")
+            Prelude.<*> (x Data..: "ConsumedValue")
+            Prelude.<*> (x Data..: "Unit")
       )
 
 instance Prelude.Hashable EntitlementUsage where

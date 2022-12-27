@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkDocs.GetFolder
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.WorkDocs.GetFolder
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,7 +54,7 @@ import Amazonka.WorkDocs.Types
 data GetFolder = GetFolder'
   { -- | Amazon WorkDocs authentication token. Not required when using AWS
     -- administrator credentials to access the API.
-    authenticationToken :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    authenticationToken :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | Set to TRUE to include custom metadata in the response.
     includeCustomMetadata :: Prelude.Maybe Prelude.Bool,
     -- | The ID of the folder.
@@ -89,7 +90,7 @@ newGetFolder pFolderId_ =
 -- | Amazon WorkDocs authentication token. Not required when using AWS
 -- administrator credentials to access the API.
 getFolder_authenticationToken :: Lens.Lens' GetFolder (Prelude.Maybe Prelude.Text)
-getFolder_authenticationToken = Lens.lens (\GetFolder' {authenticationToken} -> authenticationToken) (\s@GetFolder' {} a -> s {authenticationToken = a} :: GetFolder) Prelude.. Lens.mapping Core._Sensitive
+getFolder_authenticationToken = Lens.lens (\GetFolder' {authenticationToken} -> authenticationToken) (\s@GetFolder' {} a -> s {authenticationToken = a} :: GetFolder) Prelude.. Lens.mapping Data._Sensitive
 
 -- | Set to TRUE to include custom metadata in the response.
 getFolder_includeCustomMetadata :: Lens.Lens' GetFolder (Prelude.Maybe Prelude.Bool)
@@ -101,13 +102,14 @@ getFolder_folderId = Lens.lens (\GetFolder' {folderId} -> folderId) (\s@GetFolde
 
 instance Core.AWSRequest GetFolder where
   type AWSResponse GetFolder = GetFolderResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetFolderResponse'
-            Prelude.<$> (x Core..?> "CustomMetadata" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "Metadata")
+            Prelude.<$> (x Data..?> "CustomMetadata" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Metadata")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -123,24 +125,24 @@ instance Prelude.NFData GetFolder where
       `Prelude.seq` Prelude.rnf includeCustomMetadata
       `Prelude.seq` Prelude.rnf folderId
 
-instance Core.ToHeaders GetFolder where
+instance Data.ToHeaders GetFolder where
   toHeaders GetFolder' {..} =
     Prelude.mconcat
-      [ "Authentication" Core.=# authenticationToken,
+      [ "Authentication" Data.=# authenticationToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToPath GetFolder where
+instance Data.ToPath GetFolder where
   toPath GetFolder' {..} =
     Prelude.mconcat
-      ["/api/v1/folders/", Core.toBS folderId]
+      ["/api/v1/folders/", Data.toBS folderId]
 
-instance Core.ToQuery GetFolder where
+instance Data.ToQuery GetFolder where
   toQuery GetFolder' {..} =
     Prelude.mconcat
       [ "includeCustomMetadata"
-          Core.=: includeCustomMetadata
+          Data.=: includeCustomMetadata
       ]
 
 -- | /See:/ 'newGetFolderResponse' smart constructor.

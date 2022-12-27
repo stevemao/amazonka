@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.ModelPackageContainerDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,39 +20,51 @@
 module Amazonka.SageMaker.Types.ModelPackageContainerDefinition where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
+import Amazonka.SageMaker.Types.ModelInput
 
 -- | Describes the Docker container for the model package.
 --
 -- /See:/ 'newModelPackageContainerDefinition' smart constructor.
 data ModelPackageContainerDefinition = ModelPackageContainerDefinition'
-  { -- | The Amazon S3 path where the model artifacts, which result from model
+  { -- | The DNS host name for the Docker container.
+    containerHostname :: Prelude.Maybe Prelude.Text,
+    -- | The environment variables to set in the Docker container. Each key and
+    -- value in the @Environment@ string to string map can have length of up to
+    -- 1024. We support up to 16 entries in the map.
+    environment :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | The machine learning framework of the model package container image.
+    framework :: Prelude.Maybe Prelude.Text,
+    -- | The framework version of the Model Package Container Image.
+    frameworkVersion :: Prelude.Maybe Prelude.Text,
+    -- | An MD5 hash of the training algorithm that identifies the Docker image
+    -- used for training.
+    imageDigest :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon S3 path where the model artifacts, which result from model
     -- training, are stored. This path must point to a single @gzip@ compressed
     -- tar archive (@.tar.gz@ suffix).
     --
     -- The model artifacts must be in an S3 bucket that is in the same region
     -- as the model package.
     modelDataUrl :: Prelude.Maybe Prelude.Text,
-    -- | The environment variables to set in the Docker container. Each key and
-    -- value in the @Environment@ string to string map can have length of up to
-    -- 1024. We support up to 16 entries in the map.
-    environment :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | An MD5 hash of the training algorithm that identifies the Docker image
-    -- used for training.
-    imageDigest :: Prelude.Maybe Prelude.Text,
-    -- | The DNS host name for the Docker container.
-    containerHostname :: Prelude.Maybe Prelude.Text,
+    -- | A structure with Model Input details.
+    modelInput :: Prelude.Maybe ModelInput,
+    -- | The name of a pre-trained machine learning benchmarked by Amazon
+    -- SageMaker Inference Recommender model that matches your model. You can
+    -- find a list of benchmarked models by calling @ListModelMetadata@.
+    nearestModelName :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Web Services Marketplace product ID of the model package.
     productId :: Prelude.Maybe Prelude.Text,
     -- | The Amazon EC2 Container Registry (Amazon ECR) path where inference code
     -- is stored.
     --
     -- If you are using your own custom algorithm instead of an algorithm
-    -- provided by Amazon SageMaker, the inference code must meet Amazon
-    -- SageMaker requirements. Amazon SageMaker supports both
-    -- @registry\/repository[:tag]@ and @registry\/repository[\@digest]@ image
-    -- path formats. For more information, see
+    -- provided by SageMaker, the inference code must meet SageMaker
+    -- requirements. SageMaker supports both @registry\/repository[:tag]@ and
+    -- @registry\/repository[\@digest]@ image path formats. For more
+    -- information, see
     -- <https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html Using Your Own Algorithms with Amazon SageMaker>.
     image :: Prelude.Text
   }
@@ -66,6 +78,19 @@ data ModelPackageContainerDefinition = ModelPackageContainerDefinition'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'containerHostname', 'modelPackageContainerDefinition_containerHostname' - The DNS host name for the Docker container.
+--
+-- 'environment', 'modelPackageContainerDefinition_environment' - The environment variables to set in the Docker container. Each key and
+-- value in the @Environment@ string to string map can have length of up to
+-- 1024. We support up to 16 entries in the map.
+--
+-- 'framework', 'modelPackageContainerDefinition_framework' - The machine learning framework of the model package container image.
+--
+-- 'frameworkVersion', 'modelPackageContainerDefinition_frameworkVersion' - The framework version of the Model Package Container Image.
+--
+-- 'imageDigest', 'modelPackageContainerDefinition_imageDigest' - An MD5 hash of the training algorithm that identifies the Docker image
+-- used for training.
+--
 -- 'modelDataUrl', 'modelPackageContainerDefinition_modelDataUrl' - The Amazon S3 path where the model artifacts, which result from model
 -- training, are stored. This path must point to a single @gzip@ compressed
 -- tar archive (@.tar.gz@ suffix).
@@ -73,14 +98,11 @@ data ModelPackageContainerDefinition = ModelPackageContainerDefinition'
 -- The model artifacts must be in an S3 bucket that is in the same region
 -- as the model package.
 --
--- 'environment', 'modelPackageContainerDefinition_environment' - The environment variables to set in the Docker container. Each key and
--- value in the @Environment@ string to string map can have length of up to
--- 1024. We support up to 16 entries in the map.
+-- 'modelInput', 'modelPackageContainerDefinition_modelInput' - A structure with Model Input details.
 --
--- 'imageDigest', 'modelPackageContainerDefinition_imageDigest' - An MD5 hash of the training algorithm that identifies the Docker image
--- used for training.
---
--- 'containerHostname', 'modelPackageContainerDefinition_containerHostname' - The DNS host name for the Docker container.
+-- 'nearestModelName', 'modelPackageContainerDefinition_nearestModelName' - The name of a pre-trained machine learning benchmarked by Amazon
+-- SageMaker Inference Recommender model that matches your model. You can
+-- find a list of benchmarked models by calling @ListModelMetadata@.
 --
 -- 'productId', 'modelPackageContainerDefinition_productId' - The Amazon Web Services Marketplace product ID of the model package.
 --
@@ -88,10 +110,10 @@ data ModelPackageContainerDefinition = ModelPackageContainerDefinition'
 -- is stored.
 --
 -- If you are using your own custom algorithm instead of an algorithm
--- provided by Amazon SageMaker, the inference code must meet Amazon
--- SageMaker requirements. Amazon SageMaker supports both
--- @registry\/repository[:tag]@ and @registry\/repository[\@digest]@ image
--- path formats. For more information, see
+-- provided by SageMaker, the inference code must meet SageMaker
+-- requirements. SageMaker supports both @registry\/repository[:tag]@ and
+-- @registry\/repository[\@digest]@ image path formats. For more
+-- information, see
 -- <https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html Using Your Own Algorithms with Amazon SageMaker>.
 newModelPackageContainerDefinition ::
   -- | 'image'
@@ -99,14 +121,41 @@ newModelPackageContainerDefinition ::
   ModelPackageContainerDefinition
 newModelPackageContainerDefinition pImage_ =
   ModelPackageContainerDefinition'
-    { modelDataUrl =
+    { containerHostname =
         Prelude.Nothing,
       environment = Prelude.Nothing,
+      framework = Prelude.Nothing,
+      frameworkVersion = Prelude.Nothing,
       imageDigest = Prelude.Nothing,
-      containerHostname = Prelude.Nothing,
+      modelDataUrl = Prelude.Nothing,
+      modelInput = Prelude.Nothing,
+      nearestModelName = Prelude.Nothing,
       productId = Prelude.Nothing,
       image = pImage_
     }
+
+-- | The DNS host name for the Docker container.
+modelPackageContainerDefinition_containerHostname :: Lens.Lens' ModelPackageContainerDefinition (Prelude.Maybe Prelude.Text)
+modelPackageContainerDefinition_containerHostname = Lens.lens (\ModelPackageContainerDefinition' {containerHostname} -> containerHostname) (\s@ModelPackageContainerDefinition' {} a -> s {containerHostname = a} :: ModelPackageContainerDefinition)
+
+-- | The environment variables to set in the Docker container. Each key and
+-- value in the @Environment@ string to string map can have length of up to
+-- 1024. We support up to 16 entries in the map.
+modelPackageContainerDefinition_environment :: Lens.Lens' ModelPackageContainerDefinition (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+modelPackageContainerDefinition_environment = Lens.lens (\ModelPackageContainerDefinition' {environment} -> environment) (\s@ModelPackageContainerDefinition' {} a -> s {environment = a} :: ModelPackageContainerDefinition) Prelude.. Lens.mapping Lens.coerced
+
+-- | The machine learning framework of the model package container image.
+modelPackageContainerDefinition_framework :: Lens.Lens' ModelPackageContainerDefinition (Prelude.Maybe Prelude.Text)
+modelPackageContainerDefinition_framework = Lens.lens (\ModelPackageContainerDefinition' {framework} -> framework) (\s@ModelPackageContainerDefinition' {} a -> s {framework = a} :: ModelPackageContainerDefinition)
+
+-- | The framework version of the Model Package Container Image.
+modelPackageContainerDefinition_frameworkVersion :: Lens.Lens' ModelPackageContainerDefinition (Prelude.Maybe Prelude.Text)
+modelPackageContainerDefinition_frameworkVersion = Lens.lens (\ModelPackageContainerDefinition' {frameworkVersion} -> frameworkVersion) (\s@ModelPackageContainerDefinition' {} a -> s {frameworkVersion = a} :: ModelPackageContainerDefinition)
+
+-- | An MD5 hash of the training algorithm that identifies the Docker image
+-- used for training.
+modelPackageContainerDefinition_imageDigest :: Lens.Lens' ModelPackageContainerDefinition (Prelude.Maybe Prelude.Text)
+modelPackageContainerDefinition_imageDigest = Lens.lens (\ModelPackageContainerDefinition' {imageDigest} -> imageDigest) (\s@ModelPackageContainerDefinition' {} a -> s {imageDigest = a} :: ModelPackageContainerDefinition)
 
 -- | The Amazon S3 path where the model artifacts, which result from model
 -- training, are stored. This path must point to a single @gzip@ compressed
@@ -117,20 +166,15 @@ newModelPackageContainerDefinition pImage_ =
 modelPackageContainerDefinition_modelDataUrl :: Lens.Lens' ModelPackageContainerDefinition (Prelude.Maybe Prelude.Text)
 modelPackageContainerDefinition_modelDataUrl = Lens.lens (\ModelPackageContainerDefinition' {modelDataUrl} -> modelDataUrl) (\s@ModelPackageContainerDefinition' {} a -> s {modelDataUrl = a} :: ModelPackageContainerDefinition)
 
--- | The environment variables to set in the Docker container. Each key and
--- value in the @Environment@ string to string map can have length of up to
--- 1024. We support up to 16 entries in the map.
-modelPackageContainerDefinition_environment :: Lens.Lens' ModelPackageContainerDefinition (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
-modelPackageContainerDefinition_environment = Lens.lens (\ModelPackageContainerDefinition' {environment} -> environment) (\s@ModelPackageContainerDefinition' {} a -> s {environment = a} :: ModelPackageContainerDefinition) Prelude.. Lens.mapping Lens.coerced
+-- | A structure with Model Input details.
+modelPackageContainerDefinition_modelInput :: Lens.Lens' ModelPackageContainerDefinition (Prelude.Maybe ModelInput)
+modelPackageContainerDefinition_modelInput = Lens.lens (\ModelPackageContainerDefinition' {modelInput} -> modelInput) (\s@ModelPackageContainerDefinition' {} a -> s {modelInput = a} :: ModelPackageContainerDefinition)
 
--- | An MD5 hash of the training algorithm that identifies the Docker image
--- used for training.
-modelPackageContainerDefinition_imageDigest :: Lens.Lens' ModelPackageContainerDefinition (Prelude.Maybe Prelude.Text)
-modelPackageContainerDefinition_imageDigest = Lens.lens (\ModelPackageContainerDefinition' {imageDigest} -> imageDigest) (\s@ModelPackageContainerDefinition' {} a -> s {imageDigest = a} :: ModelPackageContainerDefinition)
-
--- | The DNS host name for the Docker container.
-modelPackageContainerDefinition_containerHostname :: Lens.Lens' ModelPackageContainerDefinition (Prelude.Maybe Prelude.Text)
-modelPackageContainerDefinition_containerHostname = Lens.lens (\ModelPackageContainerDefinition' {containerHostname} -> containerHostname) (\s@ModelPackageContainerDefinition' {} a -> s {containerHostname = a} :: ModelPackageContainerDefinition)
+-- | The name of a pre-trained machine learning benchmarked by Amazon
+-- SageMaker Inference Recommender model that matches your model. You can
+-- find a list of benchmarked models by calling @ListModelMetadata@.
+modelPackageContainerDefinition_nearestModelName :: Lens.Lens' ModelPackageContainerDefinition (Prelude.Maybe Prelude.Text)
+modelPackageContainerDefinition_nearestModelName = Lens.lens (\ModelPackageContainerDefinition' {nearestModelName} -> nearestModelName) (\s@ModelPackageContainerDefinition' {} a -> s {nearestModelName = a} :: ModelPackageContainerDefinition)
 
 -- | The Amazon Web Services Marketplace product ID of the model package.
 modelPackageContainerDefinition_productId :: Lens.Lens' ModelPackageContainerDefinition (Prelude.Maybe Prelude.Text)
@@ -140,29 +184,33 @@ modelPackageContainerDefinition_productId = Lens.lens (\ModelPackageContainerDef
 -- is stored.
 --
 -- If you are using your own custom algorithm instead of an algorithm
--- provided by Amazon SageMaker, the inference code must meet Amazon
--- SageMaker requirements. Amazon SageMaker supports both
--- @registry\/repository[:tag]@ and @registry\/repository[\@digest]@ image
--- path formats. For more information, see
+-- provided by SageMaker, the inference code must meet SageMaker
+-- requirements. SageMaker supports both @registry\/repository[:tag]@ and
+-- @registry\/repository[\@digest]@ image path formats. For more
+-- information, see
 -- <https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html Using Your Own Algorithms with Amazon SageMaker>.
 modelPackageContainerDefinition_image :: Lens.Lens' ModelPackageContainerDefinition Prelude.Text
 modelPackageContainerDefinition_image = Lens.lens (\ModelPackageContainerDefinition' {image} -> image) (\s@ModelPackageContainerDefinition' {} a -> s {image = a} :: ModelPackageContainerDefinition)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ModelPackageContainerDefinition
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ModelPackageContainerDefinition"
       ( \x ->
           ModelPackageContainerDefinition'
-            Prelude.<$> (x Core..:? "ModelDataUrl")
-            Prelude.<*> (x Core..:? "Environment" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "ImageDigest")
-            Prelude.<*> (x Core..:? "ContainerHostname")
-            Prelude.<*> (x Core..:? "ProductId")
-            Prelude.<*> (x Core..: "Image")
+            Prelude.<$> (x Data..:? "ContainerHostname")
+            Prelude.<*> (x Data..:? "Environment" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Framework")
+            Prelude.<*> (x Data..:? "FrameworkVersion")
+            Prelude.<*> (x Data..:? "ImageDigest")
+            Prelude.<*> (x Data..:? "ModelDataUrl")
+            Prelude.<*> (x Data..:? "ModelInput")
+            Prelude.<*> (x Data..:? "NearestModelName")
+            Prelude.<*> (x Data..:? "ProductId")
+            Prelude.<*> (x Data..: "Image")
       )
 
 instance
@@ -172,10 +220,14 @@ instance
   hashWithSalt
     _salt
     ModelPackageContainerDefinition' {..} =
-      _salt `Prelude.hashWithSalt` modelDataUrl
+      _salt `Prelude.hashWithSalt` containerHostname
         `Prelude.hashWithSalt` environment
+        `Prelude.hashWithSalt` framework
+        `Prelude.hashWithSalt` frameworkVersion
         `Prelude.hashWithSalt` imageDigest
-        `Prelude.hashWithSalt` containerHostname
+        `Prelude.hashWithSalt` modelDataUrl
+        `Prelude.hashWithSalt` modelInput
+        `Prelude.hashWithSalt` nearestModelName
         `Prelude.hashWithSalt` productId
         `Prelude.hashWithSalt` image
 
@@ -184,23 +236,33 @@ instance
     ModelPackageContainerDefinition
   where
   rnf ModelPackageContainerDefinition' {..} =
-    Prelude.rnf modelDataUrl
+    Prelude.rnf containerHostname
       `Prelude.seq` Prelude.rnf environment
+      `Prelude.seq` Prelude.rnf framework
+      `Prelude.seq` Prelude.rnf frameworkVersion
       `Prelude.seq` Prelude.rnf imageDigest
-      `Prelude.seq` Prelude.rnf containerHostname
+      `Prelude.seq` Prelude.rnf modelDataUrl
+      `Prelude.seq` Prelude.rnf modelInput
+      `Prelude.seq` Prelude.rnf nearestModelName
       `Prelude.seq` Prelude.rnf productId
       `Prelude.seq` Prelude.rnf image
 
-instance Core.ToJSON ModelPackageContainerDefinition where
+instance Data.ToJSON ModelPackageContainerDefinition where
   toJSON ModelPackageContainerDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ModelDataUrl" Core..=) Prelude.<$> modelDataUrl,
-            ("Environment" Core..=) Prelude.<$> environment,
-            ("ImageDigest" Core..=) Prelude.<$> imageDigest,
-            ("ContainerHostname" Core..=)
+          [ ("ContainerHostname" Data..=)
               Prelude.<$> containerHostname,
-            ("ProductId" Core..=) Prelude.<$> productId,
-            Prelude.Just ("Image" Core..= image)
+            ("Environment" Data..=) Prelude.<$> environment,
+            ("Framework" Data..=) Prelude.<$> framework,
+            ("FrameworkVersion" Data..=)
+              Prelude.<$> frameworkVersion,
+            ("ImageDigest" Data..=) Prelude.<$> imageDigest,
+            ("ModelDataUrl" Data..=) Prelude.<$> modelDataUrl,
+            ("ModelInput" Data..=) Prelude.<$> modelInput,
+            ("NearestModelName" Data..=)
+              Prelude.<$> nearestModelName,
+            ("ProductId" Data..=) Prelude.<$> productId,
+            Prelude.Just ("Image" Data..= image)
           ]
       )

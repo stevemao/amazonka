@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.CloudSearchDomains
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,6 +42,12 @@ module Amazonka.CloudSearchDomains
     -- * Operations
     -- $operations
 
+    -- ** Search
+    Search (Search'),
+    newSearch,
+    SearchResponse (SearchResponse'),
+    newSearchResponse,
+
     -- ** Suggest
     Suggest (Suggest'),
     newSuggest,
@@ -53,12 +59,6 @@ module Amazonka.CloudSearchDomains
     newUploadDocuments,
     UploadDocumentsResponse (UploadDocumentsResponse'),
     newUploadDocumentsResponse,
-
-    -- ** Search
-    Search (Search'),
-    newSearch,
-    SearchResponse (SearchResponse'),
-    newSearchResponse,
 
     -- * Types
 

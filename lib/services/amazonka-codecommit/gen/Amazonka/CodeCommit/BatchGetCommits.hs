@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.BatchGetCommits
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,13 +101,14 @@ instance Core.AWSRequest BatchGetCommits where
   type
     AWSResponse BatchGetCommits =
       BatchGetCommitsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchGetCommitsResponse'
-            Prelude.<$> (x Core..?> "commits" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "errors" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "commits" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "errors" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -120,35 +122,35 @@ instance Prelude.NFData BatchGetCommits where
     Prelude.rnf commitIds
       `Prelude.seq` Prelude.rnf repositoryName
 
-instance Core.ToHeaders BatchGetCommits where
+instance Data.ToHeaders BatchGetCommits where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.BatchGetCommits" ::
+              Data.=# ( "CodeCommit_20150413.BatchGetCommits" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchGetCommits where
+instance Data.ToJSON BatchGetCommits where
   toJSON BatchGetCommits' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("commitIds" Core..= commitIds),
+          [ Prelude.Just ("commitIds" Data..= commitIds),
             Prelude.Just
-              ("repositoryName" Core..= repositoryName)
+              ("repositoryName" Data..= repositoryName)
           ]
       )
 
-instance Core.ToPath BatchGetCommits where
+instance Data.ToPath BatchGetCommits where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery BatchGetCommits where
+instance Data.ToQuery BatchGetCommits where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchGetCommitsResponse' smart constructor.

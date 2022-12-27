@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.DeleteInvitations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.MacieV2.DeleteInvitations
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -79,12 +80,13 @@ instance Core.AWSRequest DeleteInvitations where
   type
     AWSResponse DeleteInvitations =
       DeleteInvitationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteInvitationsResponse'
-            Prelude.<$> ( x Core..?> "unprocessedAccounts"
+            Prelude.<$> ( x Data..?> "unprocessedAccounts"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -97,28 +99,28 @@ instance Prelude.Hashable DeleteInvitations where
 instance Prelude.NFData DeleteInvitations where
   rnf DeleteInvitations' {..} = Prelude.rnf accountIds
 
-instance Core.ToHeaders DeleteInvitations where
+instance Data.ToHeaders DeleteInvitations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteInvitations where
+instance Data.ToJSON DeleteInvitations where
   toJSON DeleteInvitations' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("accountIds" Core..= accountIds)]
+          [Prelude.Just ("accountIds" Data..= accountIds)]
       )
 
-instance Core.ToPath DeleteInvitations where
+instance Data.ToPath DeleteInvitations where
   toPath = Prelude.const "/invitations/delete"
 
-instance Core.ToQuery DeleteInvitations where
+instance Data.ToQuery DeleteInvitations where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteInvitationsResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.AssociateTagOptionWithResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.ServiceCatalog.AssociateTagOptionWithResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,7 +98,8 @@ instance
   type
     AWSResponse AssociateTagOptionWithResource =
       AssociateTagOptionWithResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -124,36 +126,36 @@ instance
       `Prelude.seq` Prelude.rnf tagOptionId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     AssociateTagOptionWithResource
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.AssociateTagOptionWithResource" ::
+              Data.=# ( "AWS242ServiceCatalogService.AssociateTagOptionWithResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateTagOptionWithResource where
+instance Data.ToJSON AssociateTagOptionWithResource where
   toJSON AssociateTagOptionWithResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ResourceId" Core..= resourceId),
-            Prelude.Just ("TagOptionId" Core..= tagOptionId)
+          [ Prelude.Just ("ResourceId" Data..= resourceId),
+            Prelude.Just ("TagOptionId" Data..= tagOptionId)
           ]
       )
 
-instance Core.ToPath AssociateTagOptionWithResource where
+instance Data.ToPath AssociateTagOptionWithResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AssociateTagOptionWithResource where
+instance Data.ToQuery AssociateTagOptionWithResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateTagOptionWithResourceResponse' smart constructor.

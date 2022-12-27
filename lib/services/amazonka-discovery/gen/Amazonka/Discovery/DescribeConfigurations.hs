@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Discovery.DescribeConfigurations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,7 @@
 --
 -- For a complete list of outputs for each asset type, see
 -- <https://docs.aws.amazon.com/application-discovery/latest/userguide/discovery-api-queries.html#DescribeConfigurations Using the DescribeConfigurations Action>
--- in the /AWS Application Discovery Service User Guide/.
+-- in the /Amazon Web Services Application Discovery Service User Guide/.
 module Amazonka.Discovery.DescribeConfigurations
   ( -- * Creating a Request
     DescribeConfigurations (..),
@@ -60,8 +60,9 @@ module Amazonka.Discovery.DescribeConfigurations
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Discovery.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,12 +99,13 @@ instance Core.AWSRequest DescribeConfigurations where
   type
     AWSResponse DescribeConfigurations =
       DescribeConfigurationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeConfigurationsResponse'
-            Prelude.<$> (x Core..?> "configurations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "configurations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -115,34 +117,34 @@ instance Prelude.NFData DescribeConfigurations where
   rnf DescribeConfigurations' {..} =
     Prelude.rnf configurationIds
 
-instance Core.ToHeaders DescribeConfigurations where
+instance Data.ToHeaders DescribeConfigurations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSPoseidonService_V2015_11_01.DescribeConfigurations" ::
+              Data.=# ( "AWSPoseidonService_V2015_11_01.DescribeConfigurations" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeConfigurations where
+instance Data.ToJSON DescribeConfigurations where
   toJSON DescribeConfigurations' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("configurationIds" Core..= configurationIds)
+              ("configurationIds" Data..= configurationIds)
           ]
       )
 
-instance Core.ToPath DescribeConfigurations where
+instance Data.ToPath DescribeConfigurations where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeConfigurations where
+instance Data.ToQuery DescribeConfigurations where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeConfigurationsResponse' smart constructor.

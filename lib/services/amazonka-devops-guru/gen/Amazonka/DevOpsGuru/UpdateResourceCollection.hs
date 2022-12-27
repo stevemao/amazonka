@@ -14,18 +14,20 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.UpdateResourceCollection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the collection of resources that DevOps Guru analyzes. The one
--- type of AWS resource collection supported is AWS CloudFormation stacks.
--- DevOps Guru can be configured to analyze only the AWS resources that are
--- defined in the stacks. You can specify up to 500 AWS CloudFormation
--- stacks. This method also creates the IAM role required for you to use
--- DevOps Guru.
+-- Updates the collection of resources that DevOps Guru analyzes. The two
+-- types of Amazon Web Services resource collections supported are Amazon
+-- Web Services CloudFormation stacks and Amazon Web Services resources
+-- that contain the same Amazon Web Services tag. DevOps Guru can be
+-- configured to analyze the Amazon Web Services resources that are defined
+-- in the stacks or that are tagged using the same tag /key/. You can
+-- specify up to 500 Amazon Web Services CloudFormation stacks. This method
+-- also creates the IAM role required for you to use DevOps Guru.
 module Amazonka.DevOpsGuru.UpdateResourceCollection
   ( -- * Creating a Request
     UpdateResourceCollection (..),
@@ -45,8 +47,9 @@ module Amazonka.DevOpsGuru.UpdateResourceCollection
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DevOpsGuru.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,7 +102,8 @@ instance Core.AWSRequest UpdateResourceCollection where
   type
     AWSResponse UpdateResourceCollection =
       UpdateResourceCollectionResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -117,31 +121,31 @@ instance Prelude.NFData UpdateResourceCollection where
     Prelude.rnf action
       `Prelude.seq` Prelude.rnf resourceCollection
 
-instance Core.ToHeaders UpdateResourceCollection where
+instance Data.ToHeaders UpdateResourceCollection where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateResourceCollection where
+instance Data.ToJSON UpdateResourceCollection where
   toJSON UpdateResourceCollection' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Action" Core..= action),
+          [ Prelude.Just ("Action" Data..= action),
             Prelude.Just
-              ("ResourceCollection" Core..= resourceCollection)
+              ("ResourceCollection" Data..= resourceCollection)
           ]
       )
 
-instance Core.ToPath UpdateResourceCollection where
+instance Data.ToPath UpdateResourceCollection where
   toPath = Prelude.const "/resource-collections"
 
-instance Core.ToQuery UpdateResourceCollection where
+instance Data.ToQuery UpdateResourceCollection where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateResourceCollectionResponse' smart constructor.

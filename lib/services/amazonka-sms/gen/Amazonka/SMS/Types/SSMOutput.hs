@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SMS.Types.SSMOutput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SMS.Types.SSMOutput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SMS.Types.S3Location
 
@@ -50,12 +51,12 @@ newSSMOutput =
 sSMOutput_s3Location :: Lens.Lens' SSMOutput (Prelude.Maybe S3Location)
 sSMOutput_s3Location = Lens.lens (\SSMOutput' {s3Location} -> s3Location) (\s@SSMOutput' {} a -> s {s3Location = a} :: SSMOutput)
 
-instance Core.FromJSON SSMOutput where
+instance Data.FromJSON SSMOutput where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SSMOutput"
       ( \x ->
-          SSMOutput' Prelude.<$> (x Core..:? "s3Location")
+          SSMOutput' Prelude.<$> (x Data..:? "s3Location")
       )
 
 instance Prelude.Hashable SSMOutput where

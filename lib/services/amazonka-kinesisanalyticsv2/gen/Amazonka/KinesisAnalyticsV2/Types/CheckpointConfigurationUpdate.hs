@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.CheckpointConfigurationUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KinesisAnalyticsV2.Types.CheckpointConfigurationUpdate where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.ConfigurationType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes updates to the checkpointing parameters for a Flink-based
@@ -44,13 +45,6 @@ data CheckpointConfigurationUpdate = CheckpointConfigurationUpdate'
     -- this value is set to another value using this API or in application
     -- code.
     checkpointingEnabledUpdate :: Prelude.Maybe Prelude.Bool,
-    -- | Describes updates to the minimum time in milliseconds after a checkpoint
-    -- operation completes that a new checkpoint operation can start.
-    --
-    -- If @CheckpointConfiguration.ConfigurationType@ is @DEFAULT@, the
-    -- application will use a @MinPauseBetweenCheckpoints@ value of 5000, even
-    -- if this value is set using this API or in application code.
-    minPauseBetweenCheckpointsUpdate :: Prelude.Maybe Prelude.Natural,
     -- | Describes updates to whether the application uses the default
     -- checkpointing behavior of Kinesis Data Analytics. You must set this
     -- property to @CUSTOM@ in order to set the @CheckpointingEnabled@,
@@ -65,7 +59,14 @@ data CheckpointConfigurationUpdate = CheckpointConfigurationUpdate'
     -- -   __CheckpointInterval:__ 60000
     --
     -- -   __MinPauseBetweenCheckpoints:__ 5000
-    configurationTypeUpdate :: Prelude.Maybe ConfigurationType
+    configurationTypeUpdate :: Prelude.Maybe ConfigurationType,
+    -- | Describes updates to the minimum time in milliseconds after a checkpoint
+    -- operation completes that a new checkpoint operation can start.
+    --
+    -- If @CheckpointConfiguration.ConfigurationType@ is @DEFAULT@, the
+    -- application will use a @MinPauseBetweenCheckpoints@ value of 5000, even
+    -- if this value is set using this API or in application code.
+    minPauseBetweenCheckpointsUpdate :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -92,13 +93,6 @@ data CheckpointConfigurationUpdate = CheckpointConfigurationUpdate'
 -- this value is set to another value using this API or in application
 -- code.
 --
--- 'minPauseBetweenCheckpointsUpdate', 'checkpointConfigurationUpdate_minPauseBetweenCheckpointsUpdate' - Describes updates to the minimum time in milliseconds after a checkpoint
--- operation completes that a new checkpoint operation can start.
---
--- If @CheckpointConfiguration.ConfigurationType@ is @DEFAULT@, the
--- application will use a @MinPauseBetweenCheckpoints@ value of 5000, even
--- if this value is set using this API or in application code.
---
 -- 'configurationTypeUpdate', 'checkpointConfigurationUpdate_configurationTypeUpdate' - Describes updates to whether the application uses the default
 -- checkpointing behavior of Kinesis Data Analytics. You must set this
 -- property to @CUSTOM@ in order to set the @CheckpointingEnabled@,
@@ -113,6 +107,13 @@ data CheckpointConfigurationUpdate = CheckpointConfigurationUpdate'
 -- -   __CheckpointInterval:__ 60000
 --
 -- -   __MinPauseBetweenCheckpoints:__ 5000
+--
+-- 'minPauseBetweenCheckpointsUpdate', 'checkpointConfigurationUpdate_minPauseBetweenCheckpointsUpdate' - Describes updates to the minimum time in milliseconds after a checkpoint
+-- operation completes that a new checkpoint operation can start.
+--
+-- If @CheckpointConfiguration.ConfigurationType@ is @DEFAULT@, the
+-- application will use a @MinPauseBetweenCheckpoints@ value of 5000, even
+-- if this value is set using this API or in application code.
 newCheckpointConfigurationUpdate ::
   CheckpointConfigurationUpdate
 newCheckpointConfigurationUpdate =
@@ -120,9 +121,9 @@ newCheckpointConfigurationUpdate =
     { checkpointIntervalUpdate =
         Prelude.Nothing,
       checkpointingEnabledUpdate = Prelude.Nothing,
+      configurationTypeUpdate = Prelude.Nothing,
       minPauseBetweenCheckpointsUpdate =
-        Prelude.Nothing,
-      configurationTypeUpdate = Prelude.Nothing
+        Prelude.Nothing
     }
 
 -- | Describes updates to the interval in milliseconds between checkpoint
@@ -144,15 +145,6 @@ checkpointConfigurationUpdate_checkpointIntervalUpdate = Lens.lens (\CheckpointC
 checkpointConfigurationUpdate_checkpointingEnabledUpdate :: Lens.Lens' CheckpointConfigurationUpdate (Prelude.Maybe Prelude.Bool)
 checkpointConfigurationUpdate_checkpointingEnabledUpdate = Lens.lens (\CheckpointConfigurationUpdate' {checkpointingEnabledUpdate} -> checkpointingEnabledUpdate) (\s@CheckpointConfigurationUpdate' {} a -> s {checkpointingEnabledUpdate = a} :: CheckpointConfigurationUpdate)
 
--- | Describes updates to the minimum time in milliseconds after a checkpoint
--- operation completes that a new checkpoint operation can start.
---
--- If @CheckpointConfiguration.ConfigurationType@ is @DEFAULT@, the
--- application will use a @MinPauseBetweenCheckpoints@ value of 5000, even
--- if this value is set using this API or in application code.
-checkpointConfigurationUpdate_minPauseBetweenCheckpointsUpdate :: Lens.Lens' CheckpointConfigurationUpdate (Prelude.Maybe Prelude.Natural)
-checkpointConfigurationUpdate_minPauseBetweenCheckpointsUpdate = Lens.lens (\CheckpointConfigurationUpdate' {minPauseBetweenCheckpointsUpdate} -> minPauseBetweenCheckpointsUpdate) (\s@CheckpointConfigurationUpdate' {} a -> s {minPauseBetweenCheckpointsUpdate = a} :: CheckpointConfigurationUpdate)
-
 -- | Describes updates to whether the application uses the default
 -- checkpointing behavior of Kinesis Data Analytics. You must set this
 -- property to @CUSTOM@ in order to set the @CheckpointingEnabled@,
@@ -170,6 +162,15 @@ checkpointConfigurationUpdate_minPauseBetweenCheckpointsUpdate = Lens.lens (\Che
 checkpointConfigurationUpdate_configurationTypeUpdate :: Lens.Lens' CheckpointConfigurationUpdate (Prelude.Maybe ConfigurationType)
 checkpointConfigurationUpdate_configurationTypeUpdate = Lens.lens (\CheckpointConfigurationUpdate' {configurationTypeUpdate} -> configurationTypeUpdate) (\s@CheckpointConfigurationUpdate' {} a -> s {configurationTypeUpdate = a} :: CheckpointConfigurationUpdate)
 
+-- | Describes updates to the minimum time in milliseconds after a checkpoint
+-- operation completes that a new checkpoint operation can start.
+--
+-- If @CheckpointConfiguration.ConfigurationType@ is @DEFAULT@, the
+-- application will use a @MinPauseBetweenCheckpoints@ value of 5000, even
+-- if this value is set using this API or in application code.
+checkpointConfigurationUpdate_minPauseBetweenCheckpointsUpdate :: Lens.Lens' CheckpointConfigurationUpdate (Prelude.Maybe Prelude.Natural)
+checkpointConfigurationUpdate_minPauseBetweenCheckpointsUpdate = Lens.lens (\CheckpointConfigurationUpdate' {minPauseBetweenCheckpointsUpdate} -> minPauseBetweenCheckpointsUpdate) (\s@CheckpointConfigurationUpdate' {} a -> s {minPauseBetweenCheckpointsUpdate = a} :: CheckpointConfigurationUpdate)
+
 instance
   Prelude.Hashable
     CheckpointConfigurationUpdate
@@ -178,27 +179,27 @@ instance
     _salt
       `Prelude.hashWithSalt` checkpointIntervalUpdate
       `Prelude.hashWithSalt` checkpointingEnabledUpdate
-      `Prelude.hashWithSalt` minPauseBetweenCheckpointsUpdate
       `Prelude.hashWithSalt` configurationTypeUpdate
+      `Prelude.hashWithSalt` minPauseBetweenCheckpointsUpdate
 
 instance Prelude.NFData CheckpointConfigurationUpdate where
   rnf CheckpointConfigurationUpdate' {..} =
     Prelude.rnf checkpointIntervalUpdate
       `Prelude.seq` Prelude.rnf checkpointingEnabledUpdate
-      `Prelude.seq` Prelude.rnf minPauseBetweenCheckpointsUpdate
       `Prelude.seq` Prelude.rnf configurationTypeUpdate
+      `Prelude.seq` Prelude.rnf minPauseBetweenCheckpointsUpdate
 
-instance Core.ToJSON CheckpointConfigurationUpdate where
+instance Data.ToJSON CheckpointConfigurationUpdate where
   toJSON CheckpointConfigurationUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CheckpointIntervalUpdate" Core..=)
+          [ ("CheckpointIntervalUpdate" Data..=)
               Prelude.<$> checkpointIntervalUpdate,
-            ("CheckpointingEnabledUpdate" Core..=)
+            ("CheckpointingEnabledUpdate" Data..=)
               Prelude.<$> checkpointingEnabledUpdate,
-            ("MinPauseBetweenCheckpointsUpdate" Core..=)
-              Prelude.<$> minPauseBetweenCheckpointsUpdate,
-            ("ConfigurationTypeUpdate" Core..=)
-              Prelude.<$> configurationTypeUpdate
+            ("ConfigurationTypeUpdate" Data..=)
+              Prelude.<$> configurationTypeUpdate,
+            ("MinPauseBetweenCheckpointsUpdate" Data..=)
+              Prelude.<$> minPauseBetweenCheckpointsUpdate
           ]
       )

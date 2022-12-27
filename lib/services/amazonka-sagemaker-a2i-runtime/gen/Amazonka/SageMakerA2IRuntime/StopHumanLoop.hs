@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMakerA2IRuntime.StopHumanLoop
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.SageMakerA2IRuntime.StopHumanLoop
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ instance Core.AWSRequest StopHumanLoop where
   type
     AWSResponse StopHumanLoop =
       StopHumanLoopResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -91,30 +93,22 @@ instance Prelude.Hashable StopHumanLoop where
 instance Prelude.NFData StopHumanLoop where
   rnf StopHumanLoop' {..} = Prelude.rnf humanLoopName
 
-instance Core.ToHeaders StopHumanLoop where
-  toHeaders =
-    Prelude.const
-      ( Prelude.mconcat
-          [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
-                          Prelude.ByteString
-                      )
-          ]
-      )
+instance Data.ToHeaders StopHumanLoop where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON StopHumanLoop where
+instance Data.ToJSON StopHumanLoop where
   toJSON StopHumanLoop' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("HumanLoopName" Core..= humanLoopName)
+              ("HumanLoopName" Data..= humanLoopName)
           ]
       )
 
-instance Core.ToPath StopHumanLoop where
+instance Data.ToPath StopHumanLoop where
   toPath = Prelude.const "/human-loops/stop"
 
-instance Core.ToQuery StopHumanLoop where
+instance Data.ToQuery StopHumanLoop where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopHumanLoopResponse' smart constructor.

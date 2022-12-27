@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppConfig.StopDeployment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,30 +38,32 @@ module Amazonka.AppConfig.StopDeployment
     newDeployment,
 
     -- * Response Lenses
-    deployment_growthFactor,
-    deployment_configurationName,
-    deployment_state,
-    deployment_deploymentStrategyId,
-    deployment_deploymentNumber,
-    deployment_configurationVersion,
-    deployment_eventLog,
-    deployment_percentageComplete,
-    deployment_startedAt,
     deployment_applicationId,
-    deployment_deploymentDurationInMinutes,
-    deployment_environmentId,
+    deployment_appliedExtensions,
     deployment_completedAt,
     deployment_configurationLocationUri,
-    deployment_finalBakeTimeInMinutes,
-    deployment_description,
+    deployment_configurationName,
     deployment_configurationProfileId,
+    deployment_configurationVersion,
+    deployment_deploymentDurationInMinutes,
+    deployment_deploymentNumber,
+    deployment_deploymentStrategyId,
+    deployment_description,
+    deployment_environmentId,
+    deployment_eventLog,
+    deployment_finalBakeTimeInMinutes,
+    deployment_growthFactor,
     deployment_growthType,
+    deployment_percentageComplete,
+    deployment_startedAt,
+    deployment_state,
   )
 where
 
 import Amazonka.AppConfig.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -122,10 +124,11 @@ stopDeployment_deploymentNumber = Lens.lens (\StopDeployment' {deploymentNumber}
 
 instance Core.AWSRequest StopDeployment where
   type AWSResponse StopDeployment = Deployment
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable StopDeployment where
   hashWithSalt _salt StopDeployment' {..} =
@@ -139,27 +142,27 @@ instance Prelude.NFData StopDeployment where
       `Prelude.seq` Prelude.rnf environmentId
       `Prelude.seq` Prelude.rnf deploymentNumber
 
-instance Core.ToHeaders StopDeployment where
+instance Data.ToHeaders StopDeployment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath StopDeployment where
+instance Data.ToPath StopDeployment where
   toPath StopDeployment' {..} =
     Prelude.mconcat
       [ "/applications/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/environments/",
-        Core.toBS environmentId,
+        Data.toBS environmentId,
         "/deployments/",
-        Core.toBS deploymentNumber
+        Data.toBS deploymentNumber
       ]
 
-instance Core.ToQuery StopDeployment where
+instance Data.ToQuery StopDeployment where
   toQuery = Prelude.const Prelude.mempty

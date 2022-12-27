@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.Types.UserPoolAddOnsType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CognitoIdentityProvider.Types.UserPoolAddOnsType where
 
 import Amazonka.CognitoIdentityProvider.Types.AdvancedSecurityModeType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The user pool add-ons type.
@@ -56,13 +57,13 @@ newUserPoolAddOnsType pAdvancedSecurityMode_ =
 userPoolAddOnsType_advancedSecurityMode :: Lens.Lens' UserPoolAddOnsType AdvancedSecurityModeType
 userPoolAddOnsType_advancedSecurityMode = Lens.lens (\UserPoolAddOnsType' {advancedSecurityMode} -> advancedSecurityMode) (\s@UserPoolAddOnsType' {} a -> s {advancedSecurityMode = a} :: UserPoolAddOnsType)
 
-instance Core.FromJSON UserPoolAddOnsType where
+instance Data.FromJSON UserPoolAddOnsType where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UserPoolAddOnsType"
       ( \x ->
           UserPoolAddOnsType'
-            Prelude.<$> (x Core..: "AdvancedSecurityMode")
+            Prelude.<$> (x Data..: "AdvancedSecurityMode")
       )
 
 instance Prelude.Hashable UserPoolAddOnsType where
@@ -73,13 +74,13 @@ instance Prelude.NFData UserPoolAddOnsType where
   rnf UserPoolAddOnsType' {..} =
     Prelude.rnf advancedSecurityMode
 
-instance Core.ToJSON UserPoolAddOnsType where
+instance Data.ToJSON UserPoolAddOnsType where
   toJSON UserPoolAddOnsType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "AdvancedSecurityMode"
-                  Core..= advancedSecurityMode
+                  Data..= advancedSecurityMode
               )
           ]
       )

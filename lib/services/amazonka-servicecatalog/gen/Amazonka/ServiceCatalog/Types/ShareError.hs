@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.Types.ShareError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ServiceCatalog.Types.ShareError where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Errors that occurred during the portfolio share operation.
@@ -70,15 +71,15 @@ shareError_error = Lens.lens (\ShareError' {error} -> error) (\s@ShareError' {} 
 shareError_message :: Lens.Lens' ShareError (Prelude.Maybe Prelude.Text)
 shareError_message = Lens.lens (\ShareError' {message} -> message) (\s@ShareError' {} a -> s {message = a} :: ShareError)
 
-instance Core.FromJSON ShareError where
+instance Data.FromJSON ShareError where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ShareError"
       ( \x ->
           ShareError'
-            Prelude.<$> (x Core..:? "Accounts" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Error")
-            Prelude.<*> (x Core..:? "Message")
+            Prelude.<$> (x Data..:? "Accounts" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Error")
+            Prelude.<*> (x Data..:? "Message")
       )
 
 instance Prelude.Hashable ShareError where

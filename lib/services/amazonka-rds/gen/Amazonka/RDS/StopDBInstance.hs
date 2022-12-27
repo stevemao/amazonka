@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.StopDBInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@
 -- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_StopInstance.html Stopping an Amazon RDS DB Instance Temporarily>
 -- in the /Amazon RDS User Guide./
 --
--- This command doesn\'t apply to Aurora MySQL and Aurora PostgreSQL. For
--- Aurora clusters, use @StopDBCluster@ instead.
+-- This command doesn\'t apply to RDS Custom, Aurora MySQL, and Aurora
+-- PostgreSQL. For Aurora clusters, use @StopDBCluster@ instead.
 module Amazonka.RDS.StopDBInstance
   ( -- * Creating a Request
     StopDBInstance (..),
@@ -51,7 +51,8 @@ module Amazonka.RDS.StopDBInstance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -103,13 +104,14 @@ instance Core.AWSRequest StopDBInstance where
   type
     AWSResponse StopDBInstance =
       StopDBInstanceResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "StopDBInstanceResult"
       ( \s h x ->
           StopDBInstanceResponse'
-            Prelude.<$> (x Core..@? "DBInstance")
+            Prelude.<$> (x Data..@? "DBInstance")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -123,21 +125,21 @@ instance Prelude.NFData StopDBInstance where
     Prelude.rnf dbSnapshotIdentifier
       `Prelude.seq` Prelude.rnf dbInstanceIdentifier
 
-instance Core.ToHeaders StopDBInstance where
+instance Data.ToHeaders StopDBInstance where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath StopDBInstance where
+instance Data.ToPath StopDBInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopDBInstance where
+instance Data.ToQuery StopDBInstance where
   toQuery StopDBInstance' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("StopDBInstance" :: Prelude.ByteString),
+          Data.=: ("StopDBInstance" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "DBSnapshotIdentifier" Core.=: dbSnapshotIdentifier,
-        "DBInstanceIdentifier" Core.=: dbInstanceIdentifier
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBSnapshotIdentifier" Data.=: dbSnapshotIdentifier,
+        "DBInstanceIdentifier" Data.=: dbInstanceIdentifier
       ]
 
 -- | /See:/ 'newStopDBInstanceResponse' smart constructor.

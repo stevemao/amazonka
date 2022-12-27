@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DeleteFlowLogs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.EC2.DeleteFlowLogs
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,13 +103,14 @@ instance Core.AWSRequest DeleteFlowLogs where
   type
     AWSResponse DeleteFlowLogs =
       DeleteFlowLogsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DeleteFlowLogsResponse'
-            Prelude.<$> ( x Core..@? "unsuccessful" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> ( x Data..@? "unsuccessful" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -123,21 +125,21 @@ instance Prelude.NFData DeleteFlowLogs where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf flowLogIds
 
-instance Core.ToHeaders DeleteFlowLogs where
+instance Data.ToHeaders DeleteFlowLogs where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteFlowLogs where
+instance Data.ToPath DeleteFlowLogs where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteFlowLogs where
+instance Data.ToQuery DeleteFlowLogs where
   toQuery DeleteFlowLogs' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteFlowLogs" :: Prelude.ByteString),
+          Data.=: ("DeleteFlowLogs" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        Core.toQueryList "FlowLogId" flowLogIds
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQueryList "FlowLogId" flowLogIds
       ]
 
 -- | /See:/ 'newDeleteFlowLogsResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.ListEntitiesDetectionJobs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.Comprehend.ListEntitiesDetectionJobs
     newListEntitiesDetectionJobs,
 
     -- * Request Lenses
-    listEntitiesDetectionJobs_nextToken,
     listEntitiesDetectionJobs_filter,
     listEntitiesDetectionJobs_maxResults,
+    listEntitiesDetectionJobs_nextToken,
 
     -- * Destructuring the Response
     ListEntitiesDetectionJobsResponse (..),
@@ -46,22 +46,23 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListEntitiesDetectionJobs' smart constructor.
 data ListEntitiesDetectionJobs = ListEntitiesDetectionJobs'
-  { -- | Identifies the next page of results to return.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Filters the jobs that are returned. You can filter jobs on their name,
+  { -- | Filters the jobs that are returned. You can filter jobs on their name,
     -- status, or the date and time that they were submitted. You can only set
     -- one filter at a time.
     filter' :: Prelude.Maybe EntitiesDetectionJobFilter,
     -- | The maximum number of results to return in each page. The default is
     -- 100.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Identifies the next page of results to return.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,27 +74,23 @@ data ListEntitiesDetectionJobs = ListEntitiesDetectionJobs'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listEntitiesDetectionJobs_nextToken' - Identifies the next page of results to return.
---
 -- 'filter'', 'listEntitiesDetectionJobs_filter' - Filters the jobs that are returned. You can filter jobs on their name,
 -- status, or the date and time that they were submitted. You can only set
 -- one filter at a time.
 --
 -- 'maxResults', 'listEntitiesDetectionJobs_maxResults' - The maximum number of results to return in each page. The default is
 -- 100.
+--
+-- 'nextToken', 'listEntitiesDetectionJobs_nextToken' - Identifies the next page of results to return.
 newListEntitiesDetectionJobs ::
   ListEntitiesDetectionJobs
 newListEntitiesDetectionJobs =
   ListEntitiesDetectionJobs'
-    { nextToken =
+    { filter' =
         Prelude.Nothing,
-      filter' = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | Identifies the next page of results to return.
-listEntitiesDetectionJobs_nextToken :: Lens.Lens' ListEntitiesDetectionJobs (Prelude.Maybe Prelude.Text)
-listEntitiesDetectionJobs_nextToken = Lens.lens (\ListEntitiesDetectionJobs' {nextToken} -> nextToken) (\s@ListEntitiesDetectionJobs' {} a -> s {nextToken = a} :: ListEntitiesDetectionJobs)
 
 -- | Filters the jobs that are returned. You can filter jobs on their name,
 -- status, or the date and time that they were submitted. You can only set
@@ -105,6 +102,10 @@ listEntitiesDetectionJobs_filter = Lens.lens (\ListEntitiesDetectionJobs' {filte
 -- 100.
 listEntitiesDetectionJobs_maxResults :: Lens.Lens' ListEntitiesDetectionJobs (Prelude.Maybe Prelude.Natural)
 listEntitiesDetectionJobs_maxResults = Lens.lens (\ListEntitiesDetectionJobs' {maxResults} -> maxResults) (\s@ListEntitiesDetectionJobs' {} a -> s {maxResults = a} :: ListEntitiesDetectionJobs)
+
+-- | Identifies the next page of results to return.
+listEntitiesDetectionJobs_nextToken :: Lens.Lens' ListEntitiesDetectionJobs (Prelude.Maybe Prelude.Text)
+listEntitiesDetectionJobs_nextToken = Lens.lens (\ListEntitiesDetectionJobs' {nextToken} -> nextToken) (\s@ListEntitiesDetectionJobs' {} a -> s {nextToken = a} :: ListEntitiesDetectionJobs)
 
 instance Core.AWSPager ListEntitiesDetectionJobs where
   page rq rs
@@ -132,59 +133,60 @@ instance Core.AWSRequest ListEntitiesDetectionJobs where
   type
     AWSResponse ListEntitiesDetectionJobs =
       ListEntitiesDetectionJobsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListEntitiesDetectionJobsResponse'
-            Prelude.<$> ( x Core..?> "EntitiesDetectionJobPropertiesList"
+            Prelude.<$> ( x Data..?> "EntitiesDetectionJobPropertiesList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListEntitiesDetectionJobs where
   hashWithSalt _salt ListEntitiesDetectionJobs' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` filter'
+    _salt `Prelude.hashWithSalt` filter'
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListEntitiesDetectionJobs where
   rnf ListEntitiesDetectionJobs' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf filter'
+    Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListEntitiesDetectionJobs where
+instance Data.ToHeaders ListEntitiesDetectionJobs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.ListEntitiesDetectionJobs" ::
+              Data.=# ( "Comprehend_20171127.ListEntitiesDetectionJobs" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListEntitiesDetectionJobs where
+instance Data.ToJSON ListEntitiesDetectionJobs where
   toJSON ListEntitiesDetectionJobs' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Filter" Core..=) Prelude.<$> filter',
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filter" Data..=) Prelude.<$> filter',
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListEntitiesDetectionJobs where
+instance Data.ToPath ListEntitiesDetectionJobs where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListEntitiesDetectionJobs where
+instance Data.ToQuery ListEntitiesDetectionJobs where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListEntitiesDetectionJobsResponse' smart constructor.

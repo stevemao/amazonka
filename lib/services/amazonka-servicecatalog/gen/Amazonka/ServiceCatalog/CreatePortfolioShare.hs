@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.CreatePortfolioShare
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,16 +39,29 @@
 -- already exists, this action will have no effect and will not return an
 -- error. To update an existing share, you must use the
 -- @ UpdatePortfolioShare@ API instead.
+--
+-- When you associate a principal with portfolio, a potential privilege
+-- escalation path may occur when that portfolio is then shared with other
+-- accounts. For a user in a recipient account who is /not/ an Service
+-- Catalog Admin, but still has the ability to create Principals
+-- (Users\/Groups\/Roles), that user could create a role that matches a
+-- principal name association for the portfolio. Although this user may not
+-- know which principal names are associated through Service Catalog, they
+-- may be able to guess the user. If this potential escalation path is a
+-- concern, then Service Catalog recommends using @PrincipalType@ as @IAM@.
+-- With this configuration, the @PrincipalARN@ must already exist in the
+-- recipient account before it can be associated.
 module Amazonka.ServiceCatalog.CreatePortfolioShare
   ( -- * Creating a Request
     CreatePortfolioShare (..),
     newCreatePortfolioShare,
 
     -- * Request Lenses
-    createPortfolioShare_accountId,
-    createPortfolioShare_shareTagOptions,
     createPortfolioShare_acceptLanguage,
+    createPortfolioShare_accountId,
     createPortfolioShare_organizationNode,
+    createPortfolioShare_sharePrincipals,
+    createPortfolioShare_shareTagOptions,
     createPortfolioShare_portfolioId,
 
     -- * Destructuring the Response
@@ -62,7 +75,8 @@ module Amazonka.ServiceCatalog.CreatePortfolioShare
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -70,12 +84,7 @@ import Amazonka.ServiceCatalog.Types
 
 -- | /See:/ 'newCreatePortfolioShare' smart constructor.
 data CreatePortfolioShare = CreatePortfolioShare'
-  { -- | The AWS account ID. For example, @123456789012@.
-    accountId :: Prelude.Maybe Prelude.Text,
-    -- | Enables or disables @TagOptions @ sharing when creating the portfolio
-    -- share. If this flag is not provided, TagOptions sharing is disabled.
-    shareTagOptions :: Prelude.Maybe Prelude.Bool,
-    -- | The language code.
+  { -- | The language code.
     --
     -- -   @en@ - English (default)
     --
@@ -83,13 +92,27 @@ data CreatePortfolioShare = CreatePortfolioShare'
     --
     -- -   @zh@ - Chinese
     acceptLanguage :: Prelude.Maybe Prelude.Text,
-    -- | The organization node to whom you are going to share. If
-    -- @OrganizationNode@ is passed in, @PortfolioShare@ will be created for
-    -- the node an ListOrganizationPortfolioAccessd its children (when
-    -- applies), and a @PortfolioShareToken@ will be returned in the output in
-    -- order for the administrator to monitor the status of the
-    -- @PortfolioShare@ creation process.
+    -- | The Amazon Web Services account ID. For example, @123456789012@.
+    accountId :: Prelude.Maybe Prelude.Text,
+    -- | The organization node to whom you are going to share. When you pass
+    -- @OrganizationNode@, it creates @PortfolioShare@ for all of the Amazon
+    -- Web Services accounts that are associated to the @OrganizationNode@. The
+    -- output returns a @PortfolioShareToken@, which enables the administrator
+    -- to monitor the status of the @PortfolioShare@ creation process.
     organizationNode :: Prelude.Maybe OrganizationNode,
+    -- | Enables or disables @Principal@ sharing when creating the portfolio
+    -- share. If this flag is not provided, principal sharing is disabled.
+    --
+    -- When you enable Principal Name Sharing for a portfolio share, the share
+    -- recipient account end users with a principal that matches any of the
+    -- associated IAM patterns can provision products from the portfolio. Once
+    -- shared, the share recipient can view associations of @PrincipalType@:
+    -- @IAM_PATTERN@ on their portfolio. You can create the principals in the
+    -- recipient account before or after creating the share.
+    sharePrincipals :: Prelude.Maybe Prelude.Bool,
+    -- | Enables or disables @TagOptions @ sharing when creating the portfolio
+    -- share. If this flag is not provided, TagOptions sharing is disabled.
+    shareTagOptions :: Prelude.Maybe Prelude.Bool,
     -- | The portfolio identifier.
     portfolioId :: Prelude.Text
   }
@@ -103,11 +126,6 @@ data CreatePortfolioShare = CreatePortfolioShare'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'accountId', 'createPortfolioShare_accountId' - The AWS account ID. For example, @123456789012@.
---
--- 'shareTagOptions', 'createPortfolioShare_shareTagOptions' - Enables or disables @TagOptions @ sharing when creating the portfolio
--- share. If this flag is not provided, TagOptions sharing is disabled.
---
 -- 'acceptLanguage', 'createPortfolioShare_acceptLanguage' - The language code.
 --
 -- -   @en@ - English (default)
@@ -116,12 +134,26 @@ data CreatePortfolioShare = CreatePortfolioShare'
 --
 -- -   @zh@ - Chinese
 --
--- 'organizationNode', 'createPortfolioShare_organizationNode' - The organization node to whom you are going to share. If
--- @OrganizationNode@ is passed in, @PortfolioShare@ will be created for
--- the node an ListOrganizationPortfolioAccessd its children (when
--- applies), and a @PortfolioShareToken@ will be returned in the output in
--- order for the administrator to monitor the status of the
--- @PortfolioShare@ creation process.
+-- 'accountId', 'createPortfolioShare_accountId' - The Amazon Web Services account ID. For example, @123456789012@.
+--
+-- 'organizationNode', 'createPortfolioShare_organizationNode' - The organization node to whom you are going to share. When you pass
+-- @OrganizationNode@, it creates @PortfolioShare@ for all of the Amazon
+-- Web Services accounts that are associated to the @OrganizationNode@. The
+-- output returns a @PortfolioShareToken@, which enables the administrator
+-- to monitor the status of the @PortfolioShare@ creation process.
+--
+-- 'sharePrincipals', 'createPortfolioShare_sharePrincipals' - Enables or disables @Principal@ sharing when creating the portfolio
+-- share. If this flag is not provided, principal sharing is disabled.
+--
+-- When you enable Principal Name Sharing for a portfolio share, the share
+-- recipient account end users with a principal that matches any of the
+-- associated IAM patterns can provision products from the portfolio. Once
+-- shared, the share recipient can view associations of @PrincipalType@:
+-- @IAM_PATTERN@ on their portfolio. You can create the principals in the
+-- recipient account before or after creating the share.
+--
+-- 'shareTagOptions', 'createPortfolioShare_shareTagOptions' - Enables or disables @TagOptions @ sharing when creating the portfolio
+-- share. If this flag is not provided, TagOptions sharing is disabled.
 --
 -- 'portfolioId', 'createPortfolioShare_portfolioId' - The portfolio identifier.
 newCreatePortfolioShare ::
@@ -130,21 +162,14 @@ newCreatePortfolioShare ::
   CreatePortfolioShare
 newCreatePortfolioShare pPortfolioId_ =
   CreatePortfolioShare'
-    { accountId = Prelude.Nothing,
-      shareTagOptions = Prelude.Nothing,
-      acceptLanguage = Prelude.Nothing,
+    { acceptLanguage =
+        Prelude.Nothing,
+      accountId = Prelude.Nothing,
       organizationNode = Prelude.Nothing,
+      sharePrincipals = Prelude.Nothing,
+      shareTagOptions = Prelude.Nothing,
       portfolioId = pPortfolioId_
     }
-
--- | The AWS account ID. For example, @123456789012@.
-createPortfolioShare_accountId :: Lens.Lens' CreatePortfolioShare (Prelude.Maybe Prelude.Text)
-createPortfolioShare_accountId = Lens.lens (\CreatePortfolioShare' {accountId} -> accountId) (\s@CreatePortfolioShare' {} a -> s {accountId = a} :: CreatePortfolioShare)
-
--- | Enables or disables @TagOptions @ sharing when creating the portfolio
--- share. If this flag is not provided, TagOptions sharing is disabled.
-createPortfolioShare_shareTagOptions :: Lens.Lens' CreatePortfolioShare (Prelude.Maybe Prelude.Bool)
-createPortfolioShare_shareTagOptions = Lens.lens (\CreatePortfolioShare' {shareTagOptions} -> shareTagOptions) (\s@CreatePortfolioShare' {} a -> s {shareTagOptions = a} :: CreatePortfolioShare)
 
 -- | The language code.
 --
@@ -156,14 +181,34 @@ createPortfolioShare_shareTagOptions = Lens.lens (\CreatePortfolioShare' {shareT
 createPortfolioShare_acceptLanguage :: Lens.Lens' CreatePortfolioShare (Prelude.Maybe Prelude.Text)
 createPortfolioShare_acceptLanguage = Lens.lens (\CreatePortfolioShare' {acceptLanguage} -> acceptLanguage) (\s@CreatePortfolioShare' {} a -> s {acceptLanguage = a} :: CreatePortfolioShare)
 
--- | The organization node to whom you are going to share. If
--- @OrganizationNode@ is passed in, @PortfolioShare@ will be created for
--- the node an ListOrganizationPortfolioAccessd its children (when
--- applies), and a @PortfolioShareToken@ will be returned in the output in
--- order for the administrator to monitor the status of the
--- @PortfolioShare@ creation process.
+-- | The Amazon Web Services account ID. For example, @123456789012@.
+createPortfolioShare_accountId :: Lens.Lens' CreatePortfolioShare (Prelude.Maybe Prelude.Text)
+createPortfolioShare_accountId = Lens.lens (\CreatePortfolioShare' {accountId} -> accountId) (\s@CreatePortfolioShare' {} a -> s {accountId = a} :: CreatePortfolioShare)
+
+-- | The organization node to whom you are going to share. When you pass
+-- @OrganizationNode@, it creates @PortfolioShare@ for all of the Amazon
+-- Web Services accounts that are associated to the @OrganizationNode@. The
+-- output returns a @PortfolioShareToken@, which enables the administrator
+-- to monitor the status of the @PortfolioShare@ creation process.
 createPortfolioShare_organizationNode :: Lens.Lens' CreatePortfolioShare (Prelude.Maybe OrganizationNode)
 createPortfolioShare_organizationNode = Lens.lens (\CreatePortfolioShare' {organizationNode} -> organizationNode) (\s@CreatePortfolioShare' {} a -> s {organizationNode = a} :: CreatePortfolioShare)
+
+-- | Enables or disables @Principal@ sharing when creating the portfolio
+-- share. If this flag is not provided, principal sharing is disabled.
+--
+-- When you enable Principal Name Sharing for a portfolio share, the share
+-- recipient account end users with a principal that matches any of the
+-- associated IAM patterns can provision products from the portfolio. Once
+-- shared, the share recipient can view associations of @PrincipalType@:
+-- @IAM_PATTERN@ on their portfolio. You can create the principals in the
+-- recipient account before or after creating the share.
+createPortfolioShare_sharePrincipals :: Lens.Lens' CreatePortfolioShare (Prelude.Maybe Prelude.Bool)
+createPortfolioShare_sharePrincipals = Lens.lens (\CreatePortfolioShare' {sharePrincipals} -> sharePrincipals) (\s@CreatePortfolioShare' {} a -> s {sharePrincipals = a} :: CreatePortfolioShare)
+
+-- | Enables or disables @TagOptions @ sharing when creating the portfolio
+-- share. If this flag is not provided, TagOptions sharing is disabled.
+createPortfolioShare_shareTagOptions :: Lens.Lens' CreatePortfolioShare (Prelude.Maybe Prelude.Bool)
+createPortfolioShare_shareTagOptions = Lens.lens (\CreatePortfolioShare' {shareTagOptions} -> shareTagOptions) (\s@CreatePortfolioShare' {} a -> s {shareTagOptions = a} :: CreatePortfolioShare)
 
 -- | The portfolio identifier.
 createPortfolioShare_portfolioId :: Lens.Lens' CreatePortfolioShare Prelude.Text
@@ -173,65 +218,70 @@ instance Core.AWSRequest CreatePortfolioShare where
   type
     AWSResponse CreatePortfolioShare =
       CreatePortfolioShareResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreatePortfolioShareResponse'
-            Prelude.<$> (x Core..?> "PortfolioShareToken")
+            Prelude.<$> (x Data..?> "PortfolioShareToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreatePortfolioShare where
   hashWithSalt _salt CreatePortfolioShare' {..} =
-    _salt `Prelude.hashWithSalt` accountId
-      `Prelude.hashWithSalt` shareTagOptions
-      `Prelude.hashWithSalt` acceptLanguage
+    _salt `Prelude.hashWithSalt` acceptLanguage
+      `Prelude.hashWithSalt` accountId
       `Prelude.hashWithSalt` organizationNode
+      `Prelude.hashWithSalt` sharePrincipals
+      `Prelude.hashWithSalt` shareTagOptions
       `Prelude.hashWithSalt` portfolioId
 
 instance Prelude.NFData CreatePortfolioShare where
   rnf CreatePortfolioShare' {..} =
-    Prelude.rnf accountId
-      `Prelude.seq` Prelude.rnf shareTagOptions
-      `Prelude.seq` Prelude.rnf acceptLanguage
+    Prelude.rnf acceptLanguage
+      `Prelude.seq` Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf organizationNode
+      `Prelude.seq` Prelude.rnf sharePrincipals
+      `Prelude.seq` Prelude.rnf shareTagOptions
       `Prelude.seq` Prelude.rnf portfolioId
 
-instance Core.ToHeaders CreatePortfolioShare where
+instance Data.ToHeaders CreatePortfolioShare where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.CreatePortfolioShare" ::
+              Data.=# ( "AWS242ServiceCatalogService.CreatePortfolioShare" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreatePortfolioShare where
+instance Data.ToJSON CreatePortfolioShare where
   toJSON CreatePortfolioShare' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AccountId" Core..=) Prelude.<$> accountId,
-            ("ShareTagOptions" Core..=)
-              Prelude.<$> shareTagOptions,
-            ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            ("OrganizationNode" Core..=)
+            ("AccountId" Data..=) Prelude.<$> accountId,
+            ("OrganizationNode" Data..=)
               Prelude.<$> organizationNode,
-            Prelude.Just ("PortfolioId" Core..= portfolioId)
+            ("SharePrincipals" Data..=)
+              Prelude.<$> sharePrincipals,
+            ("ShareTagOptions" Data..=)
+              Prelude.<$> shareTagOptions,
+            Prelude.Just ("PortfolioId" Data..= portfolioId)
           ]
       )
 
-instance Core.ToPath CreatePortfolioShare where
+instance Data.ToPath CreatePortfolioShare where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreatePortfolioShare where
+instance Data.ToQuery CreatePortfolioShare where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreatePortfolioShareResponse' smart constructor.

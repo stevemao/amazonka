@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaTailor.GetChannelSchedule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.MediaTailor.GetChannelSchedule
     newGetChannelSchedule,
 
     -- * Request Lenses
-    getChannelSchedule_nextToken,
     getChannelSchedule_durationMinutes,
     getChannelSchedule_maxResults,
+    getChannelSchedule_nextToken,
     getChannelSchedule_channelName,
 
     -- * Destructuring the Response
@@ -46,7 +46,8 @@ module Amazonka.MediaTailor.GetChannelSchedule
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaTailor.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -54,16 +55,27 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetChannelSchedule' smart constructor.
 data GetChannelSchedule = GetChannelSchedule'
-  { -- | Pagination token from the GET list request. Use the token to fetch the
-    -- next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The schedule duration in minutes. The maximum duration is 4320 minutes
-    -- (three days).
+  { -- | The duration in minutes of the channel schedule.
     durationMinutes :: Prelude.Maybe Prelude.Text,
-    -- | Upper bound on number of records to return. The maximum number of
-    -- results is 100.
+    -- | The maximum number of channel schedules that you want MediaTailor to
+    -- return in response to the current request. If there are more than
+    -- @MaxResults@ channel schedules, use the value of @NextToken@ in the
+    -- response to get the next page of results.
     maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | The identifier for the channel you are working on.
+    -- | (Optional) If the playback configuration has more than @MaxResults@
+    -- channel schedules, use @NextToken@ to get the second and subsequent
+    -- pages of results.
+    --
+    -- For the first @GetChannelScheduleRequest@ request, omit this value.
+    --
+    -- For the second and subsequent requests, get the value of @NextToken@
+    -- from the previous response and specify that value for @NextToken@ in the
+    -- request.
+    --
+    -- If the previous response didn\'t include a @NextToken@ element, there
+    -- are no more channel schedules to get.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The name of the channel associated with this Channel Schedule.
     channelName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -76,44 +88,67 @@ data GetChannelSchedule = GetChannelSchedule'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'getChannelSchedule_nextToken' - Pagination token from the GET list request. Use the token to fetch the
--- next page of results.
+-- 'durationMinutes', 'getChannelSchedule_durationMinutes' - The duration in minutes of the channel schedule.
 --
--- 'durationMinutes', 'getChannelSchedule_durationMinutes' - The schedule duration in minutes. The maximum duration is 4320 minutes
--- (three days).
+-- 'maxResults', 'getChannelSchedule_maxResults' - The maximum number of channel schedules that you want MediaTailor to
+-- return in response to the current request. If there are more than
+-- @MaxResults@ channel schedules, use the value of @NextToken@ in the
+-- response to get the next page of results.
 --
--- 'maxResults', 'getChannelSchedule_maxResults' - Upper bound on number of records to return. The maximum number of
--- results is 100.
+-- 'nextToken', 'getChannelSchedule_nextToken' - (Optional) If the playback configuration has more than @MaxResults@
+-- channel schedules, use @NextToken@ to get the second and subsequent
+-- pages of results.
 --
--- 'channelName', 'getChannelSchedule_channelName' - The identifier for the channel you are working on.
+-- For the first @GetChannelScheduleRequest@ request, omit this value.
+--
+-- For the second and subsequent requests, get the value of @NextToken@
+-- from the previous response and specify that value for @NextToken@ in the
+-- request.
+--
+-- If the previous response didn\'t include a @NextToken@ element, there
+-- are no more channel schedules to get.
+--
+-- 'channelName', 'getChannelSchedule_channelName' - The name of the channel associated with this Channel Schedule.
 newGetChannelSchedule ::
   -- | 'channelName'
   Prelude.Text ->
   GetChannelSchedule
 newGetChannelSchedule pChannelName_ =
   GetChannelSchedule'
-    { nextToken = Prelude.Nothing,
-      durationMinutes = Prelude.Nothing,
+    { durationMinutes =
+        Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       channelName = pChannelName_
     }
 
--- | Pagination token from the GET list request. Use the token to fetch the
--- next page of results.
-getChannelSchedule_nextToken :: Lens.Lens' GetChannelSchedule (Prelude.Maybe Prelude.Text)
-getChannelSchedule_nextToken = Lens.lens (\GetChannelSchedule' {nextToken} -> nextToken) (\s@GetChannelSchedule' {} a -> s {nextToken = a} :: GetChannelSchedule)
-
--- | The schedule duration in minutes. The maximum duration is 4320 minutes
--- (three days).
+-- | The duration in minutes of the channel schedule.
 getChannelSchedule_durationMinutes :: Lens.Lens' GetChannelSchedule (Prelude.Maybe Prelude.Text)
 getChannelSchedule_durationMinutes = Lens.lens (\GetChannelSchedule' {durationMinutes} -> durationMinutes) (\s@GetChannelSchedule' {} a -> s {durationMinutes = a} :: GetChannelSchedule)
 
--- | Upper bound on number of records to return. The maximum number of
--- results is 100.
+-- | The maximum number of channel schedules that you want MediaTailor to
+-- return in response to the current request. If there are more than
+-- @MaxResults@ channel schedules, use the value of @NextToken@ in the
+-- response to get the next page of results.
 getChannelSchedule_maxResults :: Lens.Lens' GetChannelSchedule (Prelude.Maybe Prelude.Natural)
 getChannelSchedule_maxResults = Lens.lens (\GetChannelSchedule' {maxResults} -> maxResults) (\s@GetChannelSchedule' {} a -> s {maxResults = a} :: GetChannelSchedule)
 
--- | The identifier for the channel you are working on.
+-- | (Optional) If the playback configuration has more than @MaxResults@
+-- channel schedules, use @NextToken@ to get the second and subsequent
+-- pages of results.
+--
+-- For the first @GetChannelScheduleRequest@ request, omit this value.
+--
+-- For the second and subsequent requests, get the value of @NextToken@
+-- from the previous response and specify that value for @NextToken@ in the
+-- request.
+--
+-- If the previous response didn\'t include a @NextToken@ element, there
+-- are no more channel schedules to get.
+getChannelSchedule_nextToken :: Lens.Lens' GetChannelSchedule (Prelude.Maybe Prelude.Text)
+getChannelSchedule_nextToken = Lens.lens (\GetChannelSchedule' {nextToken} -> nextToken) (\s@GetChannelSchedule' {} a -> s {nextToken = a} :: GetChannelSchedule)
+
+-- | The name of the channel associated with this Channel Schedule.
 getChannelSchedule_channelName :: Lens.Lens' GetChannelSchedule Prelude.Text
 getChannelSchedule_channelName = Lens.lens (\GetChannelSchedule' {channelName} -> channelName) (\s@GetChannelSchedule' {} a -> s {channelName = a} :: GetChannelSchedule)
 
@@ -143,60 +178,61 @@ instance Core.AWSRequest GetChannelSchedule where
   type
     AWSResponse GetChannelSchedule =
       GetChannelScheduleResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetChannelScheduleResponse'
-            Prelude.<$> (x Core..?> "Items" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Items" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetChannelSchedule where
   hashWithSalt _salt GetChannelSchedule' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` durationMinutes
+    _salt `Prelude.hashWithSalt` durationMinutes
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` channelName
 
 instance Prelude.NFData GetChannelSchedule where
   rnf GetChannelSchedule' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf durationMinutes
+    Prelude.rnf durationMinutes
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf channelName
 
-instance Core.ToHeaders GetChannelSchedule where
+instance Data.ToHeaders GetChannelSchedule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetChannelSchedule where
+instance Data.ToPath GetChannelSchedule where
   toPath GetChannelSchedule' {..} =
     Prelude.mconcat
-      ["/channel/", Core.toBS channelName, "/schedule"]
+      ["/channel/", Data.toBS channelName, "/schedule"]
 
-instance Core.ToQuery GetChannelSchedule where
+instance Data.ToQuery GetChannelSchedule where
   toQuery GetChannelSchedule' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "durationMinutes" Core.=: durationMinutes,
-        "maxResults" Core.=: maxResults
+      [ "durationMinutes" Data.=: durationMinutes,
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newGetChannelScheduleResponse' smart constructor.
 data GetChannelScheduleResponse = GetChannelScheduleResponse'
-  { -- | An array of schedule entries for the channel.
+  { -- | A list of schedule entries for the channel.
     items :: Prelude.Maybe [ScheduleEntry],
-    -- | Pagination token from the GET list request. Use the token to fetch the
-    -- next page of results.
+    -- | Pagination token returned by the list request when results exceed the
+    -- maximum allowed. Use the token to fetch the next page of results.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -211,10 +247,10 @@ data GetChannelScheduleResponse = GetChannelScheduleResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'items', 'getChannelScheduleResponse_items' - An array of schedule entries for the channel.
+-- 'items', 'getChannelScheduleResponse_items' - A list of schedule entries for the channel.
 --
--- 'nextToken', 'getChannelScheduleResponse_nextToken' - Pagination token from the GET list request. Use the token to fetch the
--- next page of results.
+-- 'nextToken', 'getChannelScheduleResponse_nextToken' - Pagination token returned by the list request when results exceed the
+-- maximum allowed. Use the token to fetch the next page of results.
 --
 -- 'httpStatus', 'getChannelScheduleResponse_httpStatus' - The response's http status code.
 newGetChannelScheduleResponse ::
@@ -229,12 +265,12 @@ newGetChannelScheduleResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | An array of schedule entries for the channel.
+-- | A list of schedule entries for the channel.
 getChannelScheduleResponse_items :: Lens.Lens' GetChannelScheduleResponse (Prelude.Maybe [ScheduleEntry])
 getChannelScheduleResponse_items = Lens.lens (\GetChannelScheduleResponse' {items} -> items) (\s@GetChannelScheduleResponse' {} a -> s {items = a} :: GetChannelScheduleResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | Pagination token from the GET list request. Use the token to fetch the
--- next page of results.
+-- | Pagination token returned by the list request when results exceed the
+-- maximum allowed. Use the token to fetch the next page of results.
 getChannelScheduleResponse_nextToken :: Lens.Lens' GetChannelScheduleResponse (Prelude.Maybe Prelude.Text)
 getChannelScheduleResponse_nextToken = Lens.lens (\GetChannelScheduleResponse' {nextToken} -> nextToken) (\s@GetChannelScheduleResponse' {} a -> s {nextToken = a} :: GetChannelScheduleResponse)
 

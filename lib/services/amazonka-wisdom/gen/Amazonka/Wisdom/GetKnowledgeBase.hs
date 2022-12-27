@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.GetKnowledgeBase
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.Wisdom.GetKnowledgeBase
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -48,8 +49,8 @@ import Amazonka.Wisdom.Types
 
 -- | /See:/ 'newGetKnowledgeBase' smart constructor.
 data GetKnowledgeBase = GetKnowledgeBase'
-  { -- | The the identifier of the knowledge base. Can be either the ID or the
-    -- ARN. URLs cannot contain the ARN.
+  { -- | The identifier of the knowledge base. Can be either the ID or the ARN.
+    -- URLs cannot contain the ARN.
     knowledgeBaseId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -62,8 +63,8 @@ data GetKnowledgeBase = GetKnowledgeBase'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'knowledgeBaseId', 'getKnowledgeBase_knowledgeBaseId' - The the identifier of the knowledge base. Can be either the ID or the
--- ARN. URLs cannot contain the ARN.
+-- 'knowledgeBaseId', 'getKnowledgeBase_knowledgeBaseId' - The identifier of the knowledge base. Can be either the ID or the ARN.
+-- URLs cannot contain the ARN.
 newGetKnowledgeBase ::
   -- | 'knowledgeBaseId'
   Prelude.Text ->
@@ -74,8 +75,8 @@ newGetKnowledgeBase pKnowledgeBaseId_ =
         pKnowledgeBaseId_
     }
 
--- | The the identifier of the knowledge base. Can be either the ID or the
--- ARN. URLs cannot contain the ARN.
+-- | The identifier of the knowledge base. Can be either the ID or the ARN.
+-- URLs cannot contain the ARN.
 getKnowledgeBase_knowledgeBaseId :: Lens.Lens' GetKnowledgeBase Prelude.Text
 getKnowledgeBase_knowledgeBaseId = Lens.lens (\GetKnowledgeBase' {knowledgeBaseId} -> knowledgeBaseId) (\s@GetKnowledgeBase' {} a -> s {knowledgeBaseId = a} :: GetKnowledgeBase)
 
@@ -83,12 +84,13 @@ instance Core.AWSRequest GetKnowledgeBase where
   type
     AWSResponse GetKnowledgeBase =
       GetKnowledgeBaseResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetKnowledgeBaseResponse'
-            Prelude.<$> (x Core..?> "knowledgeBase")
+            Prelude.<$> (x Data..?> "knowledgeBase")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -100,23 +102,23 @@ instance Prelude.NFData GetKnowledgeBase where
   rnf GetKnowledgeBase' {..} =
     Prelude.rnf knowledgeBaseId
 
-instance Core.ToHeaders GetKnowledgeBase where
+instance Data.ToHeaders GetKnowledgeBase where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetKnowledgeBase where
+instance Data.ToPath GetKnowledgeBase where
   toPath GetKnowledgeBase' {..} =
     Prelude.mconcat
-      ["/knowledgeBases/", Core.toBS knowledgeBaseId]
+      ["/knowledgeBases/", Data.toBS knowledgeBaseId]
 
-instance Core.ToQuery GetKnowledgeBase where
+instance Data.ToQuery GetKnowledgeBase where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetKnowledgeBaseResponse' smart constructor.

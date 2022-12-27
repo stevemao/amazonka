@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.Types.PredictiveScalingPredefinedLoadMetric
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AutoScaling.Types.PredictiveScalingPredefinedLoadMetric where
 
 import Amazonka.AutoScaling.Types.PredefinedLoadMetricType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a load metric for a predictive scaling policy.
@@ -144,13 +145,13 @@ predictiveScalingPredefinedLoadMetric_predefinedMetricType :: Lens.Lens' Predict
 predictiveScalingPredefinedLoadMetric_predefinedMetricType = Lens.lens (\PredictiveScalingPredefinedLoadMetric' {predefinedMetricType} -> predefinedMetricType) (\s@PredictiveScalingPredefinedLoadMetric' {} a -> s {predefinedMetricType = a} :: PredictiveScalingPredefinedLoadMetric)
 
 instance
-  Core.FromXML
+  Data.FromXML
     PredictiveScalingPredefinedLoadMetric
   where
   parseXML x =
     PredictiveScalingPredefinedLoadMetric'
-      Prelude.<$> (x Core..@? "ResourceLabel")
-      Prelude.<*> (x Core..@ "PredefinedMetricType")
+      Prelude.<$> (x Data..@? "ResourceLabel")
+      Prelude.<*> (x Data..@ "PredefinedMetricType")
 
 instance
   Prelude.Hashable
@@ -171,11 +172,11 @@ instance
       `Prelude.seq` Prelude.rnf predefinedMetricType
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     PredictiveScalingPredefinedLoadMetric
   where
   toQuery PredictiveScalingPredefinedLoadMetric' {..} =
     Prelude.mconcat
-      [ "ResourceLabel" Core.=: resourceLabel,
-        "PredefinedMetricType" Core.=: predefinedMetricType
+      [ "ResourceLabel" Data.=: resourceLabel,
+        "PredefinedMetricType" Data.=: predefinedMetricType
       ]

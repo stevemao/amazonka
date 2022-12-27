@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSOAdmin.GetInlinePolicyForPermissionSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.SSOAdmin.GetInlinePolicyForPermissionSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,10 +50,10 @@ import Amazonka.SSOAdmin.Types
 
 -- | /See:/ 'newGetInlinePolicyForPermissionSet' smart constructor.
 data GetInlinePolicyForPermissionSet = GetInlinePolicyForPermissionSet'
-  { -- | The ARN of the SSO instance under which the operation will be executed.
-    -- For more information about ARNs, see
-    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
-    -- in the /Amazon Web Services General Reference/.
+  { -- | The ARN of the IAM Identity Center instance under which the operation
+    -- will be executed. For more information about ARNs, see
+    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+    -- in the /AWS General Reference/.
     instanceArn :: Prelude.Text,
     -- | The ARN of the permission set.
     permissionSetArn :: Prelude.Text
@@ -67,10 +68,10 @@ data GetInlinePolicyForPermissionSet = GetInlinePolicyForPermissionSet'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'instanceArn', 'getInlinePolicyForPermissionSet_instanceArn' - The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- 'instanceArn', 'getInlinePolicyForPermissionSet_instanceArn' - The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 --
 -- 'permissionSetArn', 'getInlinePolicyForPermissionSet_permissionSetArn' - The ARN of the permission set.
 newGetInlinePolicyForPermissionSet ::
@@ -88,10 +89,10 @@ newGetInlinePolicyForPermissionSet
         permissionSetArn = pPermissionSetArn_
       }
 
--- | The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- | The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 getInlinePolicyForPermissionSet_instanceArn :: Lens.Lens' GetInlinePolicyForPermissionSet Prelude.Text
 getInlinePolicyForPermissionSet_instanceArn = Lens.lens (\GetInlinePolicyForPermissionSet' {instanceArn} -> instanceArn) (\s@GetInlinePolicyForPermissionSet' {} a -> s {instanceArn = a} :: GetInlinePolicyForPermissionSet)
 
@@ -106,12 +107,13 @@ instance
   type
     AWSResponse GetInlinePolicyForPermissionSet =
       GetInlinePolicyForPermissionSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetInlinePolicyForPermissionSetResponse'
-            Prelude.<$> (x Core..?> "InlinePolicy")
+            Prelude.<$> (x Data..?> "InlinePolicy")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -134,47 +136,47 @@ instance
       `Prelude.seq` Prelude.rnf permissionSetArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetInlinePolicyForPermissionSet
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SWBExternalService.GetInlinePolicyForPermissionSet" ::
+              Data.=# ( "SWBExternalService.GetInlinePolicyForPermissionSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetInlinePolicyForPermissionSet where
+instance Data.ToJSON GetInlinePolicyForPermissionSet where
   toJSON GetInlinePolicyForPermissionSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("InstanceArn" Core..= instanceArn),
+          [ Prelude.Just ("InstanceArn" Data..= instanceArn),
             Prelude.Just
-              ("PermissionSetArn" Core..= permissionSetArn)
+              ("PermissionSetArn" Data..= permissionSetArn)
           ]
       )
 
-instance Core.ToPath GetInlinePolicyForPermissionSet where
+instance Data.ToPath GetInlinePolicyForPermissionSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetInlinePolicyForPermissionSet where
+instance Data.ToQuery GetInlinePolicyForPermissionSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetInlinePolicyForPermissionSetResponse' smart constructor.
 data GetInlinePolicyForPermissionSetResponse = GetInlinePolicyForPermissionSetResponse'
-  { -- | The IAM inline policy that is attached to the permission set.
-    inlinePolicy :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+  { -- | The inline policy that is attached to the permission set.
+    inlinePolicy :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
-  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'GetInlinePolicyForPermissionSetResponse' with all optional fields omitted.
@@ -184,7 +186,7 @@ data GetInlinePolicyForPermissionSetResponse = GetInlinePolicyForPermissionSetRe
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'inlinePolicy', 'getInlinePolicyForPermissionSetResponse_inlinePolicy' - The IAM inline policy that is attached to the permission set.
+-- 'inlinePolicy', 'getInlinePolicyForPermissionSetResponse_inlinePolicy' - The inline policy that is attached to the permission set.
 --
 -- 'httpStatus', 'getInlinePolicyForPermissionSetResponse_httpStatus' - The response's http status code.
 newGetInlinePolicyForPermissionSetResponse ::
@@ -199,9 +201,9 @@ newGetInlinePolicyForPermissionSetResponse
         httpStatus = pHttpStatus_
       }
 
--- | The IAM inline policy that is attached to the permission set.
+-- | The inline policy that is attached to the permission set.
 getInlinePolicyForPermissionSetResponse_inlinePolicy :: Lens.Lens' GetInlinePolicyForPermissionSetResponse (Prelude.Maybe Prelude.Text)
-getInlinePolicyForPermissionSetResponse_inlinePolicy = Lens.lens (\GetInlinePolicyForPermissionSetResponse' {inlinePolicy} -> inlinePolicy) (\s@GetInlinePolicyForPermissionSetResponse' {} a -> s {inlinePolicy = a} :: GetInlinePolicyForPermissionSetResponse) Prelude.. Lens.mapping Core._Sensitive
+getInlinePolicyForPermissionSetResponse_inlinePolicy = Lens.lens (\GetInlinePolicyForPermissionSetResponse' {inlinePolicy} -> inlinePolicy) (\s@GetInlinePolicyForPermissionSetResponse' {} a -> s {inlinePolicy = a} :: GetInlinePolicyForPermissionSetResponse)
 
 -- | The response's http status code.
 getInlinePolicyForPermissionSetResponse_httpStatus :: Lens.Lens' GetInlinePolicyForPermissionSetResponse Prelude.Int

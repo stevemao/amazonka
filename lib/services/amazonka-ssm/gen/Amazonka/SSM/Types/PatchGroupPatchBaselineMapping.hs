@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.PatchGroupPatchBaselineMapping
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.PatchGroupPatchBaselineMapping where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSM.Types.PatchBaselineIdentity
 
@@ -64,14 +65,14 @@ patchGroupPatchBaselineMapping_baselineIdentity = Lens.lens (\PatchGroupPatchBas
 patchGroupPatchBaselineMapping_patchGroup :: Lens.Lens' PatchGroupPatchBaselineMapping (Prelude.Maybe Prelude.Text)
 patchGroupPatchBaselineMapping_patchGroup = Lens.lens (\PatchGroupPatchBaselineMapping' {patchGroup} -> patchGroup) (\s@PatchGroupPatchBaselineMapping' {} a -> s {patchGroup = a} :: PatchGroupPatchBaselineMapping)
 
-instance Core.FromJSON PatchGroupPatchBaselineMapping where
+instance Data.FromJSON PatchGroupPatchBaselineMapping where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PatchGroupPatchBaselineMapping"
       ( \x ->
           PatchGroupPatchBaselineMapping'
-            Prelude.<$> (x Core..:? "BaselineIdentity")
-            Prelude.<*> (x Core..:? "PatchGroup")
+            Prelude.<$> (x Data..:? "BaselineIdentity")
+            Prelude.<*> (x Data..:? "PatchGroup")
       )
 
 instance

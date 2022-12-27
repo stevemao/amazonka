@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.PurchaseReservedInstancesOffering
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,15 +37,20 @@
 -- and
 -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-market-general.html Reserved Instance Marketplace>
 -- in the /Amazon EC2 User Guide/.
+--
+-- We are retiring EC2-Classic. We recommend that you migrate from
+-- EC2-Classic to a VPC. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html Migrate from EC2-Classic to a VPC>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
 module Amazonka.EC2.PurchaseReservedInstancesOffering
   ( -- * Creating a Request
     PurchaseReservedInstancesOffering (..),
     newPurchaseReservedInstancesOffering,
 
     -- * Request Lenses
-    purchaseReservedInstancesOffering_purchaseTime,
-    purchaseReservedInstancesOffering_limitPrice,
     purchaseReservedInstancesOffering_dryRun,
+    purchaseReservedInstancesOffering_limitPrice,
+    purchaseReservedInstancesOffering_purchaseTime,
     purchaseReservedInstancesOffering_instanceCount,
     purchaseReservedInstancesOffering_reservedInstancesOfferingId,
 
@@ -60,8 +65,9 @@ module Amazonka.EC2.PurchaseReservedInstancesOffering
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -70,18 +76,18 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newPurchaseReservedInstancesOffering' smart constructor.
 data PurchaseReservedInstancesOffering = PurchaseReservedInstancesOffering'
-  { -- | The time at which to purchase the Reserved Instance, in UTC format (for
-    -- example, /YYYY/-/MM/-/DD/T/HH/:/MM/:/SS/Z).
-    purchaseTime :: Prelude.Maybe Core.ISO8601,
-    -- | Specified for Reserved Instance Marketplace offerings to limit the total
-    -- order and ensure that the Reserved Instances are not purchased at
-    -- unexpected prices.
-    limitPrice :: Prelude.Maybe ReservedInstanceLimitPrice,
-    -- | Checks whether you have the required permissions for the action, without
+  { -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | Specified for Reserved Instance Marketplace offerings to limit the total
+    -- order and ensure that the Reserved Instances are not purchased at
+    -- unexpected prices.
+    limitPrice :: Prelude.Maybe ReservedInstanceLimitPrice,
+    -- | The time at which to purchase the Reserved Instance, in UTC format (for
+    -- example, /YYYY/-/MM/-/DD/T/HH/:/MM/:/SS/Z).
+    purchaseTime :: Prelude.Maybe Data.ISO8601,
     -- | The number of Reserved Instances to purchase.
     instanceCount :: Prelude.Int,
     -- | The ID of the Reserved Instance offering to purchase.
@@ -97,17 +103,17 @@ data PurchaseReservedInstancesOffering = PurchaseReservedInstancesOffering'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'purchaseTime', 'purchaseReservedInstancesOffering_purchaseTime' - The time at which to purchase the Reserved Instance, in UTC format (for
--- example, /YYYY/-/MM/-/DD/T/HH/:/MM/:/SS/Z).
+-- 'dryRun', 'purchaseReservedInstancesOffering_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'limitPrice', 'purchaseReservedInstancesOffering_limitPrice' - Specified for Reserved Instance Marketplace offerings to limit the total
 -- order and ensure that the Reserved Instances are not purchased at
 -- unexpected prices.
 --
--- 'dryRun', 'purchaseReservedInstancesOffering_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
+-- 'purchaseTime', 'purchaseReservedInstancesOffering_purchaseTime' - The time at which to purchase the Reserved Instance, in UTC format (for
+-- example, /YYYY/-/MM/-/DD/T/HH/:/MM/:/SS/Z).
 --
 -- 'instanceCount', 'purchaseReservedInstancesOffering_instanceCount' - The number of Reserved Instances to purchase.
 --
@@ -122,25 +128,14 @@ newPurchaseReservedInstancesOffering
   pInstanceCount_
   pReservedInstancesOfferingId_ =
     PurchaseReservedInstancesOffering'
-      { purchaseTime =
+      { dryRun =
           Prelude.Nothing,
         limitPrice = Prelude.Nothing,
-        dryRun = Prelude.Nothing,
+        purchaseTime = Prelude.Nothing,
         instanceCount = pInstanceCount_,
         reservedInstancesOfferingId =
           pReservedInstancesOfferingId_
       }
-
--- | The time at which to purchase the Reserved Instance, in UTC format (for
--- example, /YYYY/-/MM/-/DD/T/HH/:/MM/:/SS/Z).
-purchaseReservedInstancesOffering_purchaseTime :: Lens.Lens' PurchaseReservedInstancesOffering (Prelude.Maybe Prelude.UTCTime)
-purchaseReservedInstancesOffering_purchaseTime = Lens.lens (\PurchaseReservedInstancesOffering' {purchaseTime} -> purchaseTime) (\s@PurchaseReservedInstancesOffering' {} a -> s {purchaseTime = a} :: PurchaseReservedInstancesOffering) Prelude.. Lens.mapping Core._Time
-
--- | Specified for Reserved Instance Marketplace offerings to limit the total
--- order and ensure that the Reserved Instances are not purchased at
--- unexpected prices.
-purchaseReservedInstancesOffering_limitPrice :: Lens.Lens' PurchaseReservedInstancesOffering (Prelude.Maybe ReservedInstanceLimitPrice)
-purchaseReservedInstancesOffering_limitPrice = Lens.lens (\PurchaseReservedInstancesOffering' {limitPrice} -> limitPrice) (\s@PurchaseReservedInstancesOffering' {} a -> s {limitPrice = a} :: PurchaseReservedInstancesOffering)
 
 -- | Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
@@ -148,6 +143,17 @@ purchaseReservedInstancesOffering_limitPrice = Lens.lens (\PurchaseReservedInsta
 -- Otherwise, it is @UnauthorizedOperation@.
 purchaseReservedInstancesOffering_dryRun :: Lens.Lens' PurchaseReservedInstancesOffering (Prelude.Maybe Prelude.Bool)
 purchaseReservedInstancesOffering_dryRun = Lens.lens (\PurchaseReservedInstancesOffering' {dryRun} -> dryRun) (\s@PurchaseReservedInstancesOffering' {} a -> s {dryRun = a} :: PurchaseReservedInstancesOffering)
+
+-- | Specified for Reserved Instance Marketplace offerings to limit the total
+-- order and ensure that the Reserved Instances are not purchased at
+-- unexpected prices.
+purchaseReservedInstancesOffering_limitPrice :: Lens.Lens' PurchaseReservedInstancesOffering (Prelude.Maybe ReservedInstanceLimitPrice)
+purchaseReservedInstancesOffering_limitPrice = Lens.lens (\PurchaseReservedInstancesOffering' {limitPrice} -> limitPrice) (\s@PurchaseReservedInstancesOffering' {} a -> s {limitPrice = a} :: PurchaseReservedInstancesOffering)
+
+-- | The time at which to purchase the Reserved Instance, in UTC format (for
+-- example, /YYYY/-/MM/-/DD/T/HH/:/MM/:/SS/Z).
+purchaseReservedInstancesOffering_purchaseTime :: Lens.Lens' PurchaseReservedInstancesOffering (Prelude.Maybe Prelude.UTCTime)
+purchaseReservedInstancesOffering_purchaseTime = Lens.lens (\PurchaseReservedInstancesOffering' {purchaseTime} -> purchaseTime) (\s@PurchaseReservedInstancesOffering' {} a -> s {purchaseTime = a} :: PurchaseReservedInstancesOffering) Prelude.. Lens.mapping Data._Time
 
 -- | The number of Reserved Instances to purchase.
 purchaseReservedInstancesOffering_instanceCount :: Lens.Lens' PurchaseReservedInstancesOffering Prelude.Int
@@ -164,12 +170,13 @@ instance
   type
     AWSResponse PurchaseReservedInstancesOffering =
       PurchaseReservedInstancesOfferingResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           PurchaseReservedInstancesOfferingResponse'
-            Prelude.<$> (x Core..@? "reservedInstancesId")
+            Prelude.<$> (x Data..@? "reservedInstancesId")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -180,9 +187,9 @@ instance
   hashWithSalt
     _salt
     PurchaseReservedInstancesOffering' {..} =
-      _salt `Prelude.hashWithSalt` purchaseTime
+      _salt `Prelude.hashWithSalt` dryRun
         `Prelude.hashWithSalt` limitPrice
-        `Prelude.hashWithSalt` dryRun
+        `Prelude.hashWithSalt` purchaseTime
         `Prelude.hashWithSalt` instanceCount
         `Prelude.hashWithSalt` reservedInstancesOfferingId
 
@@ -191,42 +198,42 @@ instance
     PurchaseReservedInstancesOffering
   where
   rnf PurchaseReservedInstancesOffering' {..} =
-    Prelude.rnf purchaseTime
+    Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf limitPrice
-      `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf purchaseTime
       `Prelude.seq` Prelude.rnf instanceCount
       `Prelude.seq` Prelude.rnf reservedInstancesOfferingId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     PurchaseReservedInstancesOffering
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     PurchaseReservedInstancesOffering
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     PurchaseReservedInstancesOffering
   where
   toQuery PurchaseReservedInstancesOffering' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "PurchaseReservedInstancesOffering" ::
+          Data.=: ( "PurchaseReservedInstancesOffering" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "PurchaseTime" Core.=: purchaseTime,
-        "LimitPrice" Core.=: limitPrice,
-        "DryRun" Core.=: dryRun,
-        "InstanceCount" Core.=: instanceCount,
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "LimitPrice" Data.=: limitPrice,
+        "PurchaseTime" Data.=: purchaseTime,
+        "InstanceCount" Data.=: instanceCount,
         "ReservedInstancesOfferingId"
-          Core.=: reservedInstancesOfferingId
+          Data.=: reservedInstancesOfferingId
       ]
 
 -- | Contains the output of PurchaseReservedInstancesOffering.

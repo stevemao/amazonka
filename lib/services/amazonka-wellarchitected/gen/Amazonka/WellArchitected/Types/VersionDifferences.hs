@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WellArchitected.Types.VersionDifferences
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WellArchitected.Types.VersionDifferences where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.WellArchitected.Types.PillarDifference
 
@@ -54,14 +55,14 @@ newVersionDifferences =
 versionDifferences_pillarDifferences :: Lens.Lens' VersionDifferences (Prelude.Maybe [PillarDifference])
 versionDifferences_pillarDifferences = Lens.lens (\VersionDifferences' {pillarDifferences} -> pillarDifferences) (\s@VersionDifferences' {} a -> s {pillarDifferences = a} :: VersionDifferences) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON VersionDifferences where
+instance Data.FromJSON VersionDifferences where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VersionDifferences"
       ( \x ->
           VersionDifferences'
-            Prelude.<$> ( x Core..:? "PillarDifferences"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "PillarDifferences"
+                            Data..!= Prelude.mempty
                         )
       )
 

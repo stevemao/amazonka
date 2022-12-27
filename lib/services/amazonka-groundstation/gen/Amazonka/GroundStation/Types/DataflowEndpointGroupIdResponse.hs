@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GroundStation.Types.DataflowEndpointGroupIdResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.GroundStation.Types.DataflowEndpointGroupIdResponse where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- |
@@ -54,15 +55,15 @@ dataflowEndpointGroupIdResponse_dataflowEndpointGroupId :: Lens.Lens' DataflowEn
 dataflowEndpointGroupIdResponse_dataflowEndpointGroupId = Lens.lens (\DataflowEndpointGroupIdResponse' {dataflowEndpointGroupId} -> dataflowEndpointGroupId) (\s@DataflowEndpointGroupIdResponse' {} a -> s {dataflowEndpointGroupId = a} :: DataflowEndpointGroupIdResponse)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     DataflowEndpointGroupIdResponse
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DataflowEndpointGroupIdResponse"
       ( \x ->
           DataflowEndpointGroupIdResponse'
-            Prelude.<$> (x Core..:? "dataflowEndpointGroupId")
+            Prelude.<$> (x Data..:? "dataflowEndpointGroupId")
       )
 
 instance

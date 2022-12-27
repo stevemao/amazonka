@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.ThingGroupProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoT.Types.ThingGroupProperties where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.AttributePayload
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Thing group properties.
@@ -63,14 +64,14 @@ thingGroupProperties_attributePayload = Lens.lens (\ThingGroupProperties' {attri
 thingGroupProperties_thingGroupDescription :: Lens.Lens' ThingGroupProperties (Prelude.Maybe Prelude.Text)
 thingGroupProperties_thingGroupDescription = Lens.lens (\ThingGroupProperties' {thingGroupDescription} -> thingGroupDescription) (\s@ThingGroupProperties' {} a -> s {thingGroupDescription = a} :: ThingGroupProperties)
 
-instance Core.FromJSON ThingGroupProperties where
+instance Data.FromJSON ThingGroupProperties where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ThingGroupProperties"
       ( \x ->
           ThingGroupProperties'
-            Prelude.<$> (x Core..:? "attributePayload")
-            Prelude.<*> (x Core..:? "thingGroupDescription")
+            Prelude.<$> (x Data..:? "attributePayload")
+            Prelude.<*> (x Data..:? "thingGroupDescription")
       )
 
 instance Prelude.Hashable ThingGroupProperties where
@@ -83,13 +84,13 @@ instance Prelude.NFData ThingGroupProperties where
     Prelude.rnf attributePayload
       `Prelude.seq` Prelude.rnf thingGroupDescription
 
-instance Core.ToJSON ThingGroupProperties where
+instance Data.ToJSON ThingGroupProperties where
   toJSON ThingGroupProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("attributePayload" Core..=)
+          [ ("attributePayload" Data..=)
               Prelude.<$> attributePayload,
-            ("thingGroupDescription" Core..=)
+            ("thingGroupDescription" Data..=)
               Prelude.<$> thingGroupDescription
           ]
       )

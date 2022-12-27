@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.Types.CreateMeetingRoomConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,17 +23,18 @@ import Amazonka.AlexaBusiness.Types.CreateEndOfMeetingReminder
 import Amazonka.AlexaBusiness.Types.CreateInstantBooking
 import Amazonka.AlexaBusiness.Types.CreateRequireCheckIn
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Creates meeting room settings of a room profile.
 --
 -- /See:/ 'newCreateMeetingRoomConfiguration' smart constructor.
 data CreateMeetingRoomConfiguration = CreateMeetingRoomConfiguration'
-  { -- | Settings to automatically book a room for a configured duration if it\'s
+  { endOfMeetingReminder :: Prelude.Maybe CreateEndOfMeetingReminder,
+    -- | Settings to automatically book a room for a configured duration if it\'s
     -- free when joining a meeting with Alexa.
     instantBooking :: Prelude.Maybe CreateInstantBooking,
-    endOfMeetingReminder :: Prelude.Maybe CreateEndOfMeetingReminder,
     -- | Settings for requiring a check in when a room is reserved. Alexa can
     -- cancel a room reservation if it\'s not checked into to make the room
     -- available for others. Users can check in by joining the meeting with
@@ -52,10 +53,10 @@ data CreateMeetingRoomConfiguration = CreateMeetingRoomConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'endOfMeetingReminder', 'createMeetingRoomConfiguration_endOfMeetingReminder' - Undocumented member.
+--
 -- 'instantBooking', 'createMeetingRoomConfiguration_instantBooking' - Settings to automatically book a room for a configured duration if it\'s
 -- free when joining a meeting with Alexa.
---
--- 'endOfMeetingReminder', 'createMeetingRoomConfiguration_endOfMeetingReminder' - Undocumented member.
 --
 -- 'requireCheckIn', 'createMeetingRoomConfiguration_requireCheckIn' - Settings for requiring a check in when a room is reserved. Alexa can
 -- cancel a room reservation if it\'s not checked into to make the room
@@ -67,22 +68,22 @@ newCreateMeetingRoomConfiguration ::
   CreateMeetingRoomConfiguration
 newCreateMeetingRoomConfiguration =
   CreateMeetingRoomConfiguration'
-    { instantBooking =
+    { endOfMeetingReminder =
         Prelude.Nothing,
-      endOfMeetingReminder = Prelude.Nothing,
+      instantBooking = Prelude.Nothing,
       requireCheckIn = Prelude.Nothing,
       roomUtilizationMetricsEnabled =
         Prelude.Nothing
     }
 
+-- | Undocumented member.
+createMeetingRoomConfiguration_endOfMeetingReminder :: Lens.Lens' CreateMeetingRoomConfiguration (Prelude.Maybe CreateEndOfMeetingReminder)
+createMeetingRoomConfiguration_endOfMeetingReminder = Lens.lens (\CreateMeetingRoomConfiguration' {endOfMeetingReminder} -> endOfMeetingReminder) (\s@CreateMeetingRoomConfiguration' {} a -> s {endOfMeetingReminder = a} :: CreateMeetingRoomConfiguration)
+
 -- | Settings to automatically book a room for a configured duration if it\'s
 -- free when joining a meeting with Alexa.
 createMeetingRoomConfiguration_instantBooking :: Lens.Lens' CreateMeetingRoomConfiguration (Prelude.Maybe CreateInstantBooking)
 createMeetingRoomConfiguration_instantBooking = Lens.lens (\CreateMeetingRoomConfiguration' {instantBooking} -> instantBooking) (\s@CreateMeetingRoomConfiguration' {} a -> s {instantBooking = a} :: CreateMeetingRoomConfiguration)
-
--- | Undocumented member.
-createMeetingRoomConfiguration_endOfMeetingReminder :: Lens.Lens' CreateMeetingRoomConfiguration (Prelude.Maybe CreateEndOfMeetingReminder)
-createMeetingRoomConfiguration_endOfMeetingReminder = Lens.lens (\CreateMeetingRoomConfiguration' {endOfMeetingReminder} -> endOfMeetingReminder) (\s@CreateMeetingRoomConfiguration' {} a -> s {endOfMeetingReminder = a} :: CreateMeetingRoomConfiguration)
 
 -- | Settings for requiring a check in when a room is reserved. Alexa can
 -- cancel a room reservation if it\'s not checked into to make the room
@@ -102,8 +103,8 @@ instance
   hashWithSalt
     _salt
     CreateMeetingRoomConfiguration' {..} =
-      _salt `Prelude.hashWithSalt` instantBooking
-        `Prelude.hashWithSalt` endOfMeetingReminder
+      _salt `Prelude.hashWithSalt` endOfMeetingReminder
+        `Prelude.hashWithSalt` instantBooking
         `Prelude.hashWithSalt` requireCheckIn
         `Prelude.hashWithSalt` roomUtilizationMetricsEnabled
 
@@ -112,22 +113,22 @@ instance
     CreateMeetingRoomConfiguration
   where
   rnf CreateMeetingRoomConfiguration' {..} =
-    Prelude.rnf instantBooking
-      `Prelude.seq` Prelude.rnf endOfMeetingReminder
+    Prelude.rnf endOfMeetingReminder
+      `Prelude.seq` Prelude.rnf instantBooking
       `Prelude.seq` Prelude.rnf requireCheckIn
       `Prelude.seq` Prelude.rnf roomUtilizationMetricsEnabled
 
-instance Core.ToJSON CreateMeetingRoomConfiguration where
+instance Data.ToJSON CreateMeetingRoomConfiguration where
   toJSON CreateMeetingRoomConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("InstantBooking" Core..=)
-              Prelude.<$> instantBooking,
-            ("EndOfMeetingReminder" Core..=)
+          [ ("EndOfMeetingReminder" Data..=)
               Prelude.<$> endOfMeetingReminder,
-            ("RequireCheckIn" Core..=)
+            ("InstantBooking" Data..=)
+              Prelude.<$> instantBooking,
+            ("RequireCheckIn" Data..=)
               Prelude.<$> requireCheckIn,
-            ("RoomUtilizationMetricsEnabled" Core..=)
+            ("RoomUtilizationMetricsEnabled" Data..=)
               Prelude.<$> roomUtilizationMetricsEnabled
           ]
       )

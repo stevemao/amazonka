@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.GetGameSessionLogUrl
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,16 +26,10 @@
 -- to download the logs.
 --
 -- See the
--- <https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_gamelift AWS Service Limits>
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_gamelift Amazon Web Services Service Limits>
 -- page for maximum log file sizes. Log files that exceed this limit are
 -- not saved.
 --
--- __Related actions__
---
--- CreateGameSession | DescribeGameSessions | DescribeGameSessionDetails |
--- SearchGameSessions | UpdateGameSession | GetGameSessionLogUrl |
--- StartGameSessionPlacement | DescribeGameSessionPlacement |
--- StopGameSessionPlacement |
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.GetGameSessionLogUrl
   ( -- * Creating a Request
@@ -56,15 +50,14 @@ module Amazonka.GameLift.GetGameSessionLogUrl
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newGetGameSessionLogUrl' smart constructor.
+-- | /See:/ 'newGetGameSessionLogUrl' smart constructor.
 data GetGameSessionLogUrl = GetGameSessionLogUrl'
   { -- | A unique identifier for the game session to get logs for.
     gameSessionId :: Prelude.Text
@@ -98,12 +91,13 @@ instance Core.AWSRequest GetGameSessionLogUrl where
   type
     AWSResponse GetGameSessionLogUrl =
       GetGameSessionLogUrlResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetGameSessionLogUrlResponse'
-            Prelude.<$> (x Core..?> "PreSignedUrl")
+            Prelude.<$> (x Data..?> "PreSignedUrl")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -115,39 +109,37 @@ instance Prelude.NFData GetGameSessionLogUrl where
   rnf GetGameSessionLogUrl' {..} =
     Prelude.rnf gameSessionId
 
-instance Core.ToHeaders GetGameSessionLogUrl where
+instance Data.ToHeaders GetGameSessionLogUrl where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.GetGameSessionLogUrl" ::
+              Data.=# ( "GameLift.GetGameSessionLogUrl" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetGameSessionLogUrl where
+instance Data.ToJSON GetGameSessionLogUrl where
   toJSON GetGameSessionLogUrl' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("GameSessionId" Core..= gameSessionId)
+              ("GameSessionId" Data..= gameSessionId)
           ]
       )
 
-instance Core.ToPath GetGameSessionLogUrl where
+instance Data.ToPath GetGameSessionLogUrl where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetGameSessionLogUrl where
+instance Data.ToQuery GetGameSessionLogUrl where
   toQuery = Prelude.const Prelude.mempty
 
--- | Represents the returned data in response to a request operation.
---
--- /See:/ 'newGetGameSessionLogUrlResponse' smart constructor.
+-- | /See:/ 'newGetGameSessionLogUrlResponse' smart constructor.
 data GetGameSessionLogUrlResponse = GetGameSessionLogUrlResponse'
   { -- | Location of the requested game session logs, available for download.
     -- This URL is valid for 15 minutes, after which S3 will reject any

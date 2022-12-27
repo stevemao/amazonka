@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.AppConfig.GetDeployment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieve information about a configuration deployment.
+-- Retrieves information about a configuration deployment.
 module Amazonka.AppConfig.GetDeployment
   ( -- * Creating a Request
     GetDeployment (..),
@@ -36,30 +36,32 @@ module Amazonka.AppConfig.GetDeployment
     newDeployment,
 
     -- * Response Lenses
-    deployment_growthFactor,
-    deployment_configurationName,
-    deployment_state,
-    deployment_deploymentStrategyId,
-    deployment_deploymentNumber,
-    deployment_configurationVersion,
-    deployment_eventLog,
-    deployment_percentageComplete,
-    deployment_startedAt,
     deployment_applicationId,
-    deployment_deploymentDurationInMinutes,
-    deployment_environmentId,
+    deployment_appliedExtensions,
     deployment_completedAt,
     deployment_configurationLocationUri,
-    deployment_finalBakeTimeInMinutes,
-    deployment_description,
+    deployment_configurationName,
     deployment_configurationProfileId,
+    deployment_configurationVersion,
+    deployment_deploymentDurationInMinutes,
+    deployment_deploymentNumber,
+    deployment_deploymentStrategyId,
+    deployment_description,
+    deployment_environmentId,
+    deployment_eventLog,
+    deployment_finalBakeTimeInMinutes,
+    deployment_growthFactor,
     deployment_growthType,
+    deployment_percentageComplete,
+    deployment_startedAt,
+    deployment_state,
   )
 where
 
 import Amazonka.AppConfig.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -120,10 +122,11 @@ getDeployment_deploymentNumber = Lens.lens (\GetDeployment' {deploymentNumber} -
 
 instance Core.AWSRequest GetDeployment where
   type AWSResponse GetDeployment = Deployment
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetDeployment where
   hashWithSalt _salt GetDeployment' {..} =
@@ -137,27 +140,27 @@ instance Prelude.NFData GetDeployment where
       `Prelude.seq` Prelude.rnf environmentId
       `Prelude.seq` Prelude.rnf deploymentNumber
 
-instance Core.ToHeaders GetDeployment where
+instance Data.ToHeaders GetDeployment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetDeployment where
+instance Data.ToPath GetDeployment where
   toPath GetDeployment' {..} =
     Prelude.mconcat
       [ "/applications/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/environments/",
-        Core.toBS environmentId,
+        Data.toBS environmentId,
         "/deployments/",
-        Core.toBS deploymentNumber
+        Data.toBS deploymentNumber
       ]
 
-instance Core.ToQuery GetDeployment where
+instance Data.ToQuery GetDeployment where
   toQuery = Prelude.const Prelude.mempty

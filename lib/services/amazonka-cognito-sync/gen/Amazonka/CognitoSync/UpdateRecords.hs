@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoSync.UpdateRecords
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,9 +44,9 @@ module Amazonka.CognitoSync.UpdateRecords
     newUpdateRecords,
 
     -- * Request Lenses
-    updateRecords_recordPatches,
-    updateRecords_deviceId,
     updateRecords_clientContext,
+    updateRecords_deviceId,
+    updateRecords_recordPatches,
     updateRecords_identityPoolId,
     updateRecords_identityId,
     updateRecords_datasetName,
@@ -64,7 +64,8 @@ where
 
 import Amazonka.CognitoSync.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -74,14 +75,14 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newUpdateRecords' smart constructor.
 data UpdateRecords = UpdateRecords'
-  { -- | A list of patch operations.
-    recordPatches :: Prelude.Maybe [RecordPatch],
-    -- | The unique ID generated for this device by Cognito.
-    deviceId :: Prelude.Maybe Prelude.Text,
-    -- | Intended to supply a device ID that will populate the lastModifiedBy
+  { -- | Intended to supply a device ID that will populate the lastModifiedBy
     -- field referenced in other methods. The ClientContext field is not yet
     -- implemented.
     clientContext :: Prelude.Maybe Prelude.Text,
+    -- | The unique ID generated for this device by Cognito.
+    deviceId :: Prelude.Maybe Prelude.Text,
+    -- | A list of patch operations.
+    recordPatches :: Prelude.Maybe [RecordPatch],
     -- | A name-spaced GUID (for example,
     -- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
     -- Cognito. GUID generation is unique within a region.
@@ -107,13 +108,13 @@ data UpdateRecords = UpdateRecords'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'recordPatches', 'updateRecords_recordPatches' - A list of patch operations.
---
--- 'deviceId', 'updateRecords_deviceId' - The unique ID generated for this device by Cognito.
---
 -- 'clientContext', 'updateRecords_clientContext' - Intended to supply a device ID that will populate the lastModifiedBy
 -- field referenced in other methods. The ClientContext field is not yet
 -- implemented.
+--
+-- 'deviceId', 'updateRecords_deviceId' - The unique ID generated for this device by Cognito.
+--
+-- 'recordPatches', 'updateRecords_recordPatches' - A list of patch operations.
 --
 -- 'identityPoolId', 'updateRecords_identityPoolId' - A name-spaced GUID (for example,
 -- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
@@ -144,28 +145,28 @@ newUpdateRecords
   pDatasetName_
   pSyncSessionToken_ =
     UpdateRecords'
-      { recordPatches = Prelude.Nothing,
+      { clientContext = Prelude.Nothing,
         deviceId = Prelude.Nothing,
-        clientContext = Prelude.Nothing,
+        recordPatches = Prelude.Nothing,
         identityPoolId = pIdentityPoolId_,
         identityId = pIdentityId_,
         datasetName = pDatasetName_,
         syncSessionToken = pSyncSessionToken_
       }
 
--- | A list of patch operations.
-updateRecords_recordPatches :: Lens.Lens' UpdateRecords (Prelude.Maybe [RecordPatch])
-updateRecords_recordPatches = Lens.lens (\UpdateRecords' {recordPatches} -> recordPatches) (\s@UpdateRecords' {} a -> s {recordPatches = a} :: UpdateRecords) Prelude.. Lens.mapping Lens.coerced
-
--- | The unique ID generated for this device by Cognito.
-updateRecords_deviceId :: Lens.Lens' UpdateRecords (Prelude.Maybe Prelude.Text)
-updateRecords_deviceId = Lens.lens (\UpdateRecords' {deviceId} -> deviceId) (\s@UpdateRecords' {} a -> s {deviceId = a} :: UpdateRecords)
-
 -- | Intended to supply a device ID that will populate the lastModifiedBy
 -- field referenced in other methods. The ClientContext field is not yet
 -- implemented.
 updateRecords_clientContext :: Lens.Lens' UpdateRecords (Prelude.Maybe Prelude.Text)
 updateRecords_clientContext = Lens.lens (\UpdateRecords' {clientContext} -> clientContext) (\s@UpdateRecords' {} a -> s {clientContext = a} :: UpdateRecords)
+
+-- | The unique ID generated for this device by Cognito.
+updateRecords_deviceId :: Lens.Lens' UpdateRecords (Prelude.Maybe Prelude.Text)
+updateRecords_deviceId = Lens.lens (\UpdateRecords' {deviceId} -> deviceId) (\s@UpdateRecords' {} a -> s {deviceId = a} :: UpdateRecords)
+
+-- | A list of patch operations.
+updateRecords_recordPatches :: Lens.Lens' UpdateRecords (Prelude.Maybe [RecordPatch])
+updateRecords_recordPatches = Lens.lens (\UpdateRecords' {recordPatches} -> recordPatches) (\s@UpdateRecords' {} a -> s {recordPatches = a} :: UpdateRecords) Prelude.. Lens.mapping Lens.coerced
 
 -- | A name-spaced GUID (for example,
 -- us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon
@@ -193,20 +194,21 @@ instance Core.AWSRequest UpdateRecords where
   type
     AWSResponse UpdateRecords =
       UpdateRecordsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateRecordsResponse'
-            Prelude.<$> (x Core..?> "Records" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Records" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateRecords where
   hashWithSalt _salt UpdateRecords' {..} =
-    _salt `Prelude.hashWithSalt` recordPatches
+    _salt `Prelude.hashWithSalt` clientContext
       `Prelude.hashWithSalt` deviceId
-      `Prelude.hashWithSalt` clientContext
+      `Prelude.hashWithSalt` recordPatches
       `Prelude.hashWithSalt` identityPoolId
       `Prelude.hashWithSalt` identityId
       `Prelude.hashWithSalt` datasetName
@@ -214,45 +216,45 @@ instance Prelude.Hashable UpdateRecords where
 
 instance Prelude.NFData UpdateRecords where
   rnf UpdateRecords' {..} =
-    Prelude.rnf recordPatches
+    Prelude.rnf clientContext
       `Prelude.seq` Prelude.rnf deviceId
-      `Prelude.seq` Prelude.rnf clientContext
+      `Prelude.seq` Prelude.rnf recordPatches
       `Prelude.seq` Prelude.rnf identityPoolId
       `Prelude.seq` Prelude.rnf identityId
       `Prelude.seq` Prelude.rnf datasetName
       `Prelude.seq` Prelude.rnf syncSessionToken
 
-instance Core.ToHeaders UpdateRecords where
+instance Data.ToHeaders UpdateRecords where
   toHeaders UpdateRecords' {..} =
     Prelude.mconcat
-      [ "x-amz-Client-Context" Core.=# clientContext,
+      [ "x-amz-Client-Context" Data.=# clientContext,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToJSON UpdateRecords where
+instance Data.ToJSON UpdateRecords where
   toJSON UpdateRecords' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RecordPatches" Core..=) Prelude.<$> recordPatches,
-            ("DeviceId" Core..=) Prelude.<$> deviceId,
+          [ ("DeviceId" Data..=) Prelude.<$> deviceId,
+            ("RecordPatches" Data..=) Prelude.<$> recordPatches,
             Prelude.Just
-              ("SyncSessionToken" Core..= syncSessionToken)
+              ("SyncSessionToken" Data..= syncSessionToken)
           ]
       )
 
-instance Core.ToPath UpdateRecords where
+instance Data.ToPath UpdateRecords where
   toPath UpdateRecords' {..} =
     Prelude.mconcat
       [ "/identitypools/",
-        Core.toBS identityPoolId,
+        Data.toBS identityPoolId,
         "/identities/",
-        Core.toBS identityId,
+        Data.toBS identityId,
         "/datasets/",
-        Core.toBS datasetName
+        Data.toBS datasetName
       ]
 
-instance Core.ToQuery UpdateRecords where
+instance Data.ToQuery UpdateRecords where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Returned for a successful UpdateRecordsRequest.

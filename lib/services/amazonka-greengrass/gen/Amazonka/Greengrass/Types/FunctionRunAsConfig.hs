@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.Types.FunctionRunAsConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Greengrass.Types.FunctionRunAsConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the user and group whose permissions are used when running the
@@ -34,10 +35,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newFunctionRunAsConfig' smart constructor.
 data FunctionRunAsConfig = FunctionRunAsConfig'
-  { -- | The user ID whose permissions are used to run a Lambda function.
-    uid :: Prelude.Maybe Prelude.Int,
-    -- | The group ID whose permissions are used to run a Lambda function.
-    gid :: Prelude.Maybe Prelude.Int
+  { -- | The group ID whose permissions are used to run a Lambda function.
+    gid :: Prelude.Maybe Prelude.Int,
+    -- | The user ID whose permissions are used to run a Lambda function.
+    uid :: Prelude.Maybe Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -49,48 +50,48 @@ data FunctionRunAsConfig = FunctionRunAsConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'uid', 'functionRunAsConfig_uid' - The user ID whose permissions are used to run a Lambda function.
---
 -- 'gid', 'functionRunAsConfig_gid' - The group ID whose permissions are used to run a Lambda function.
+--
+-- 'uid', 'functionRunAsConfig_uid' - The user ID whose permissions are used to run a Lambda function.
 newFunctionRunAsConfig ::
   FunctionRunAsConfig
 newFunctionRunAsConfig =
   FunctionRunAsConfig'
-    { uid = Prelude.Nothing,
-      gid = Prelude.Nothing
+    { gid = Prelude.Nothing,
+      uid = Prelude.Nothing
     }
-
--- | The user ID whose permissions are used to run a Lambda function.
-functionRunAsConfig_uid :: Lens.Lens' FunctionRunAsConfig (Prelude.Maybe Prelude.Int)
-functionRunAsConfig_uid = Lens.lens (\FunctionRunAsConfig' {uid} -> uid) (\s@FunctionRunAsConfig' {} a -> s {uid = a} :: FunctionRunAsConfig)
 
 -- | The group ID whose permissions are used to run a Lambda function.
 functionRunAsConfig_gid :: Lens.Lens' FunctionRunAsConfig (Prelude.Maybe Prelude.Int)
 functionRunAsConfig_gid = Lens.lens (\FunctionRunAsConfig' {gid} -> gid) (\s@FunctionRunAsConfig' {} a -> s {gid = a} :: FunctionRunAsConfig)
 
-instance Core.FromJSON FunctionRunAsConfig where
+-- | The user ID whose permissions are used to run a Lambda function.
+functionRunAsConfig_uid :: Lens.Lens' FunctionRunAsConfig (Prelude.Maybe Prelude.Int)
+functionRunAsConfig_uid = Lens.lens (\FunctionRunAsConfig' {uid} -> uid) (\s@FunctionRunAsConfig' {} a -> s {uid = a} :: FunctionRunAsConfig)
+
+instance Data.FromJSON FunctionRunAsConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FunctionRunAsConfig"
       ( \x ->
           FunctionRunAsConfig'
-            Prelude.<$> (x Core..:? "Uid") Prelude.<*> (x Core..:? "Gid")
+            Prelude.<$> (x Data..:? "Gid") Prelude.<*> (x Data..:? "Uid")
       )
 
 instance Prelude.Hashable FunctionRunAsConfig where
   hashWithSalt _salt FunctionRunAsConfig' {..} =
-    _salt `Prelude.hashWithSalt` uid
-      `Prelude.hashWithSalt` gid
+    _salt `Prelude.hashWithSalt` gid
+      `Prelude.hashWithSalt` uid
 
 instance Prelude.NFData FunctionRunAsConfig where
   rnf FunctionRunAsConfig' {..} =
-    Prelude.rnf uid `Prelude.seq` Prelude.rnf gid
+    Prelude.rnf gid `Prelude.seq` Prelude.rnf uid
 
-instance Core.ToJSON FunctionRunAsConfig where
+instance Data.ToJSON FunctionRunAsConfig where
   toJSON FunctionRunAsConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Uid" Core..=) Prelude.<$> uid,
-            ("Gid" Core..=) Prelude.<$> gid
+          [ ("Gid" Data..=) Prelude.<$> gid,
+            ("Uid" Data..=) Prelude.<$> uid
           ]
       )

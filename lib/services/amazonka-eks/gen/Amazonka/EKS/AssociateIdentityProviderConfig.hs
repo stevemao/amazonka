@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.AssociateIdentityProviderConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,15 +46,16 @@ module Amazonka.EKS.AssociateIdentityProviderConfig
     newAssociateIdentityProviderConfigResponse,
 
     -- * Response Lenses
-    associateIdentityProviderConfigResponse_update,
     associateIdentityProviderConfigResponse_tags,
+    associateIdentityProviderConfigResponse_update,
     associateIdentityProviderConfigResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EKS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -65,12 +66,12 @@ data AssociateIdentityProviderConfig = AssociateIdentityProviderConfig'
     -- idempotency of the request.
     clientRequestToken :: Prelude.Maybe Prelude.Text,
     -- | The metadata to apply to the configuration to assist with categorization
-    -- and organization. Each tag consists of a key and an optional value, both
-    -- of which you define.
+    -- and organization. Each tag consists of a key and an optional value. You
+    -- define both.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The name of the cluster to associate the configuration to.
     clusterName :: Prelude.Text,
-    -- | An object that represents an OpenID Connect (OIDC) identity provider
+    -- | An object representing an OpenID Connect (OIDC) identity provider
     -- configuration.
     oidc :: OidcIdentityProviderConfigRequest
   }
@@ -88,12 +89,12 @@ data AssociateIdentityProviderConfig = AssociateIdentityProviderConfig'
 -- idempotency of the request.
 --
 -- 'tags', 'associateIdentityProviderConfig_tags' - The metadata to apply to the configuration to assist with categorization
--- and organization. Each tag consists of a key and an optional value, both
--- of which you define.
+-- and organization. Each tag consists of a key and an optional value. You
+-- define both.
 --
 -- 'clusterName', 'associateIdentityProviderConfig_clusterName' - The name of the cluster to associate the configuration to.
 --
--- 'oidc', 'associateIdentityProviderConfig_oidc' - An object that represents an OpenID Connect (OIDC) identity provider
+-- 'oidc', 'associateIdentityProviderConfig_oidc' - An object representing an OpenID Connect (OIDC) identity provider
 -- configuration.
 newAssociateIdentityProviderConfig ::
   -- | 'clusterName'
@@ -118,8 +119,8 @@ associateIdentityProviderConfig_clientRequestToken :: Lens.Lens' AssociateIdenti
 associateIdentityProviderConfig_clientRequestToken = Lens.lens (\AssociateIdentityProviderConfig' {clientRequestToken} -> clientRequestToken) (\s@AssociateIdentityProviderConfig' {} a -> s {clientRequestToken = a} :: AssociateIdentityProviderConfig)
 
 -- | The metadata to apply to the configuration to assist with categorization
--- and organization. Each tag consists of a key and an optional value, both
--- of which you define.
+-- and organization. Each tag consists of a key and an optional value. You
+-- define both.
 associateIdentityProviderConfig_tags :: Lens.Lens' AssociateIdentityProviderConfig (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 associateIdentityProviderConfig_tags = Lens.lens (\AssociateIdentityProviderConfig' {tags} -> tags) (\s@AssociateIdentityProviderConfig' {} a -> s {tags = a} :: AssociateIdentityProviderConfig) Prelude.. Lens.mapping Lens.coerced
 
@@ -127,7 +128,7 @@ associateIdentityProviderConfig_tags = Lens.lens (\AssociateIdentityProviderConf
 associateIdentityProviderConfig_clusterName :: Lens.Lens' AssociateIdentityProviderConfig Prelude.Text
 associateIdentityProviderConfig_clusterName = Lens.lens (\AssociateIdentityProviderConfig' {clusterName} -> clusterName) (\s@AssociateIdentityProviderConfig' {} a -> s {clusterName = a} :: AssociateIdentityProviderConfig)
 
--- | An object that represents an OpenID Connect (OIDC) identity provider
+-- | An object representing an OpenID Connect (OIDC) identity provider
 -- configuration.
 associateIdentityProviderConfig_oidc :: Lens.Lens' AssociateIdentityProviderConfig OidcIdentityProviderConfigRequest
 associateIdentityProviderConfig_oidc = Lens.lens (\AssociateIdentityProviderConfig' {oidc} -> oidc) (\s@AssociateIdentityProviderConfig' {} a -> s {oidc = a} :: AssociateIdentityProviderConfig)
@@ -139,13 +140,14 @@ instance
   type
     AWSResponse AssociateIdentityProviderConfig =
       AssociateIdentityProviderConfigResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AssociateIdentityProviderConfigResponse'
-            Prelude.<$> (x Core..?> "update")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "update")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -172,46 +174,46 @@ instance
       `Prelude.seq` Prelude.rnf oidc
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     AssociateIdentityProviderConfig
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateIdentityProviderConfig where
+instance Data.ToJSON AssociateIdentityProviderConfig where
   toJSON AssociateIdentityProviderConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientRequestToken" Core..=)
+          [ ("clientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("oidc" Core..= oidc)
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("oidc" Data..= oidc)
           ]
       )
 
-instance Core.ToPath AssociateIdentityProviderConfig where
+instance Data.ToPath AssociateIdentityProviderConfig where
   toPath AssociateIdentityProviderConfig' {..} =
     Prelude.mconcat
       [ "/clusters/",
-        Core.toBS clusterName,
+        Data.toBS clusterName,
         "/identity-provider-configs/associate"
       ]
 
-instance Core.ToQuery AssociateIdentityProviderConfig where
+instance Data.ToQuery AssociateIdentityProviderConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateIdentityProviderConfigResponse' smart constructor.
 data AssociateIdentityProviderConfigResponse = AssociateIdentityProviderConfigResponse'
-  { update :: Prelude.Maybe Update,
-    -- | The tags for the resource.
+  { -- | The tags for the resource.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    update :: Prelude.Maybe Update,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -225,9 +227,9 @@ data AssociateIdentityProviderConfigResponse = AssociateIdentityProviderConfigRe
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'update', 'associateIdentityProviderConfigResponse_update' - Undocumented member.
---
 -- 'tags', 'associateIdentityProviderConfigResponse_tags' - The tags for the resource.
+--
+-- 'update', 'associateIdentityProviderConfigResponse_update' - Undocumented member.
 --
 -- 'httpStatus', 'associateIdentityProviderConfigResponse_httpStatus' - The response's http status code.
 newAssociateIdentityProviderConfigResponse ::
@@ -237,19 +239,19 @@ newAssociateIdentityProviderConfigResponse ::
 newAssociateIdentityProviderConfigResponse
   pHttpStatus_ =
     AssociateIdentityProviderConfigResponse'
-      { update =
+      { tags =
           Prelude.Nothing,
-        tags = Prelude.Nothing,
+        update = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | Undocumented member.
-associateIdentityProviderConfigResponse_update :: Lens.Lens' AssociateIdentityProviderConfigResponse (Prelude.Maybe Update)
-associateIdentityProviderConfigResponse_update = Lens.lens (\AssociateIdentityProviderConfigResponse' {update} -> update) (\s@AssociateIdentityProviderConfigResponse' {} a -> s {update = a} :: AssociateIdentityProviderConfigResponse)
 
 -- | The tags for the resource.
 associateIdentityProviderConfigResponse_tags :: Lens.Lens' AssociateIdentityProviderConfigResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 associateIdentityProviderConfigResponse_tags = Lens.lens (\AssociateIdentityProviderConfigResponse' {tags} -> tags) (\s@AssociateIdentityProviderConfigResponse' {} a -> s {tags = a} :: AssociateIdentityProviderConfigResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | Undocumented member.
+associateIdentityProviderConfigResponse_update :: Lens.Lens' AssociateIdentityProviderConfigResponse (Prelude.Maybe Update)
+associateIdentityProviderConfigResponse_update = Lens.lens (\AssociateIdentityProviderConfigResponse' {update} -> update) (\s@AssociateIdentityProviderConfigResponse' {} a -> s {update = a} :: AssociateIdentityProviderConfigResponse)
 
 -- | The response's http status code.
 associateIdentityProviderConfigResponse_httpStatus :: Lens.Lens' AssociateIdentityProviderConfigResponse Prelude.Int
@@ -260,6 +262,6 @@ instance
     AssociateIdentityProviderConfigResponse
   where
   rnf AssociateIdentityProviderConfigResponse' {..} =
-    Prelude.rnf update
-      `Prelude.seq` Prelude.rnf tags
+    Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf update
       `Prelude.seq` Prelude.rnf httpStatus

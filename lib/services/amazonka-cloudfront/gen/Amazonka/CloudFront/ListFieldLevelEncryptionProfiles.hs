@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.ListFieldLevelEncryptionProfiles
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,12 +108,13 @@ instance
   type
     AWSResponse ListFieldLevelEncryptionProfiles =
       ListFieldLevelEncryptionProfilesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ListFieldLevelEncryptionProfilesResponse'
-            Prelude.<$> (Core.parseXML x)
+            Prelude.<$> (Data.parseXML x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -135,24 +137,24 @@ instance
       `Prelude.seq` Prelude.rnf maxItems
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListFieldLevelEncryptionProfiles
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListFieldLevelEncryptionProfiles where
+instance Data.ToPath ListFieldLevelEncryptionProfiles where
   toPath =
     Prelude.const
       "/2020-05-31/field-level-encryption-profile"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ListFieldLevelEncryptionProfiles
   where
   toQuery ListFieldLevelEncryptionProfiles' {..} =
     Prelude.mconcat
-      [ "Marker" Core.=: marker,
-        "MaxItems" Core.=: maxItems
+      [ "Marker" Data.=: marker,
+        "MaxItems" Data.=: maxItems
       ]
 
 -- | /See:/ 'newListFieldLevelEncryptionProfilesResponse' smart constructor.

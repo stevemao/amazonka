@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.DisableSso
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.DirectoryService.DisableSso
     newDisableSso,
 
     -- * Request Lenses
-    disableSso_userName,
     disableSso_password,
+    disableSso_userName,
     disableSso_directoryId,
 
     -- * Destructuring the Response
@@ -41,8 +41,9 @@ module Amazonka.DirectoryService.DisableSso
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -51,7 +52,11 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDisableSso' smart constructor.
 data DisableSso = DisableSso'
-  { -- | The username of an alternate account to use to disable single-sign on.
+  { -- | The password of an alternate account to use to disable single-sign on.
+    -- This is only used for AD Connector directories. For more information,
+    -- see the /UserName/ parameter.
+    password :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | The username of an alternate account to use to disable single-sign on.
     -- This is only used for AD Connector directories. This account must have
     -- privileges to remove a service principal name.
     --
@@ -61,10 +66,6 @@ data DisableSso = DisableSso'
     -- disable single sign-on and are not stored by the service. The AD
     -- Connector service account is not changed.
     userName :: Prelude.Maybe Prelude.Text,
-    -- | The password of an alternate account to use to disable single-sign on.
-    -- This is only used for AD Connector directories. For more information,
-    -- see the /UserName/ parameter.
-    password :: Prelude.Maybe (Core.Sensitive Prelude.Text),
     -- | The identifier of the directory for which to disable single-sign on.
     directoryId :: Prelude.Text
   }
@@ -78,6 +79,10 @@ data DisableSso = DisableSso'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'password', 'disableSso_password' - The password of an alternate account to use to disable single-sign on.
+-- This is only used for AD Connector directories. For more information,
+-- see the /UserName/ parameter.
+--
 -- 'userName', 'disableSso_userName' - The username of an alternate account to use to disable single-sign on.
 -- This is only used for AD Connector directories. This account must have
 -- privileges to remove a service principal name.
@@ -88,10 +93,6 @@ data DisableSso = DisableSso'
 -- disable single sign-on and are not stored by the service. The AD
 -- Connector service account is not changed.
 --
--- 'password', 'disableSso_password' - The password of an alternate account to use to disable single-sign on.
--- This is only used for AD Connector directories. For more information,
--- see the /UserName/ parameter.
---
 -- 'directoryId', 'disableSso_directoryId' - The identifier of the directory for which to disable single-sign on.
 newDisableSso ::
   -- | 'directoryId'
@@ -99,10 +100,16 @@ newDisableSso ::
   DisableSso
 newDisableSso pDirectoryId_ =
   DisableSso'
-    { userName = Prelude.Nothing,
-      password = Prelude.Nothing,
+    { password = Prelude.Nothing,
+      userName = Prelude.Nothing,
       directoryId = pDirectoryId_
     }
+
+-- | The password of an alternate account to use to disable single-sign on.
+-- This is only used for AD Connector directories. For more information,
+-- see the /UserName/ parameter.
+disableSso_password :: Lens.Lens' DisableSso (Prelude.Maybe Prelude.Text)
+disableSso_password = Lens.lens (\DisableSso' {password} -> password) (\s@DisableSso' {} a -> s {password = a} :: DisableSso) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The username of an alternate account to use to disable single-sign on.
 -- This is only used for AD Connector directories. This account must have
@@ -116,19 +123,14 @@ newDisableSso pDirectoryId_ =
 disableSso_userName :: Lens.Lens' DisableSso (Prelude.Maybe Prelude.Text)
 disableSso_userName = Lens.lens (\DisableSso' {userName} -> userName) (\s@DisableSso' {} a -> s {userName = a} :: DisableSso)
 
--- | The password of an alternate account to use to disable single-sign on.
--- This is only used for AD Connector directories. For more information,
--- see the /UserName/ parameter.
-disableSso_password :: Lens.Lens' DisableSso (Prelude.Maybe Prelude.Text)
-disableSso_password = Lens.lens (\DisableSso' {password} -> password) (\s@DisableSso' {} a -> s {password = a} :: DisableSso) Prelude.. Lens.mapping Core._Sensitive
-
 -- | The identifier of the directory for which to disable single-sign on.
 disableSso_directoryId :: Lens.Lens' DisableSso Prelude.Text
 disableSso_directoryId = Lens.lens (\DisableSso' {directoryId} -> directoryId) (\s@DisableSso' {} a -> s {directoryId = a} :: DisableSso)
 
 instance Core.AWSRequest DisableSso where
   type AWSResponse DisableSso = DisableSsoResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -138,45 +140,45 @@ instance Core.AWSRequest DisableSso where
 
 instance Prelude.Hashable DisableSso where
   hashWithSalt _salt DisableSso' {..} =
-    _salt `Prelude.hashWithSalt` userName
-      `Prelude.hashWithSalt` password
+    _salt `Prelude.hashWithSalt` password
+      `Prelude.hashWithSalt` userName
       `Prelude.hashWithSalt` directoryId
 
 instance Prelude.NFData DisableSso where
   rnf DisableSso' {..} =
-    Prelude.rnf userName
-      `Prelude.seq` Prelude.rnf password
+    Prelude.rnf password
+      `Prelude.seq` Prelude.rnf userName
       `Prelude.seq` Prelude.rnf directoryId
 
-instance Core.ToHeaders DisableSso where
+instance Data.ToHeaders DisableSso where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.DisableSso" ::
+              Data.=# ( "DirectoryService_20150416.DisableSso" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisableSso where
+instance Data.ToJSON DisableSso where
   toJSON DisableSso' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("UserName" Core..=) Prelude.<$> userName,
-            ("Password" Core..=) Prelude.<$> password,
-            Prelude.Just ("DirectoryId" Core..= directoryId)
+          [ ("Password" Data..=) Prelude.<$> password,
+            ("UserName" Data..=) Prelude.<$> userName,
+            Prelude.Just ("DirectoryId" Data..= directoryId)
           ]
       )
 
-instance Core.ToPath DisableSso where
+instance Data.ToPath DisableSso where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisableSso where
+instance Data.ToQuery DisableSso where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the results of the DisableSso operation.

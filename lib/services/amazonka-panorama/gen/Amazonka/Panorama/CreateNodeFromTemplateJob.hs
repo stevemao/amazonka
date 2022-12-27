@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Panorama.CreateNodeFromTemplateJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,11 +29,11 @@ module Amazonka.Panorama.CreateNodeFromTemplateJob
     -- * Request Lenses
     createNodeFromTemplateJob_jobTags,
     createNodeFromTemplateJob_nodeDescription,
-    createNodeFromTemplateJob_templateType,
+    createNodeFromTemplateJob_nodeName,
     createNodeFromTemplateJob_outputPackageName,
     createNodeFromTemplateJob_outputPackageVersion,
-    createNodeFromTemplateJob_nodeName,
     createNodeFromTemplateJob_templateParameters,
+    createNodeFromTemplateJob_templateType,
 
     -- * Destructuring the Response
     CreateNodeFromTemplateJobResponse (..),
@@ -46,7 +46,8 @@ module Amazonka.Panorama.CreateNodeFromTemplateJob
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Panorama.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -58,16 +59,16 @@ data CreateNodeFromTemplateJob = CreateNodeFromTemplateJob'
     jobTags :: Prelude.Maybe [JobResourceTags],
     -- | A description for the node.
     nodeDescription :: Prelude.Maybe Prelude.Text,
-    -- | The type of node.
-    templateType :: TemplateType,
+    -- | A name for the node.
+    nodeName :: Prelude.Text,
     -- | An output package name for the node.
     outputPackageName :: Prelude.Text,
     -- | An output package version for the node.
     outputPackageVersion :: Prelude.Text,
-    -- | A name for the node.
-    nodeName :: Prelude.Text,
     -- | Template parameters for the node.
-    templateParameters :: Prelude.HashMap Prelude.Text (Core.Sensitive Prelude.Text)
+    templateParameters :: Prelude.HashMap Prelude.Text (Data.Sensitive Prelude.Text),
+    -- | The type of node.
+    templateType :: TemplateType
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -83,39 +84,39 @@ data CreateNodeFromTemplateJob = CreateNodeFromTemplateJob'
 --
 -- 'nodeDescription', 'createNodeFromTemplateJob_nodeDescription' - A description for the node.
 --
--- 'templateType', 'createNodeFromTemplateJob_templateType' - The type of node.
+-- 'nodeName', 'createNodeFromTemplateJob_nodeName' - A name for the node.
 --
 -- 'outputPackageName', 'createNodeFromTemplateJob_outputPackageName' - An output package name for the node.
 --
 -- 'outputPackageVersion', 'createNodeFromTemplateJob_outputPackageVersion' - An output package version for the node.
 --
--- 'nodeName', 'createNodeFromTemplateJob_nodeName' - A name for the node.
---
 -- 'templateParameters', 'createNodeFromTemplateJob_templateParameters' - Template parameters for the node.
+--
+-- 'templateType', 'createNodeFromTemplateJob_templateType' - The type of node.
 newCreateNodeFromTemplateJob ::
-  -- | 'templateType'
-  TemplateType ->
+  -- | 'nodeName'
+  Prelude.Text ->
   -- | 'outputPackageName'
   Prelude.Text ->
   -- | 'outputPackageVersion'
   Prelude.Text ->
-  -- | 'nodeName'
-  Prelude.Text ->
+  -- | 'templateType'
+  TemplateType ->
   CreateNodeFromTemplateJob
 newCreateNodeFromTemplateJob
-  pTemplateType_
+  pNodeName_
   pOutputPackageName_
   pOutputPackageVersion_
-  pNodeName_ =
+  pTemplateType_ =
     CreateNodeFromTemplateJob'
       { jobTags =
           Prelude.Nothing,
         nodeDescription = Prelude.Nothing,
-        templateType = pTemplateType_,
+        nodeName = pNodeName_,
         outputPackageName = pOutputPackageName_,
         outputPackageVersion = pOutputPackageVersion_,
-        nodeName = pNodeName_,
-        templateParameters = Prelude.mempty
+        templateParameters = Prelude.mempty,
+        templateType = pTemplateType_
       }
 
 -- | Tags for the job.
@@ -126,9 +127,9 @@ createNodeFromTemplateJob_jobTags = Lens.lens (\CreateNodeFromTemplateJob' {jobT
 createNodeFromTemplateJob_nodeDescription :: Lens.Lens' CreateNodeFromTemplateJob (Prelude.Maybe Prelude.Text)
 createNodeFromTemplateJob_nodeDescription = Lens.lens (\CreateNodeFromTemplateJob' {nodeDescription} -> nodeDescription) (\s@CreateNodeFromTemplateJob' {} a -> s {nodeDescription = a} :: CreateNodeFromTemplateJob)
 
--- | The type of node.
-createNodeFromTemplateJob_templateType :: Lens.Lens' CreateNodeFromTemplateJob TemplateType
-createNodeFromTemplateJob_templateType = Lens.lens (\CreateNodeFromTemplateJob' {templateType} -> templateType) (\s@CreateNodeFromTemplateJob' {} a -> s {templateType = a} :: CreateNodeFromTemplateJob)
+-- | A name for the node.
+createNodeFromTemplateJob_nodeName :: Lens.Lens' CreateNodeFromTemplateJob Prelude.Text
+createNodeFromTemplateJob_nodeName = Lens.lens (\CreateNodeFromTemplateJob' {nodeName} -> nodeName) (\s@CreateNodeFromTemplateJob' {} a -> s {nodeName = a} :: CreateNodeFromTemplateJob)
 
 -- | An output package name for the node.
 createNodeFromTemplateJob_outputPackageName :: Lens.Lens' CreateNodeFromTemplateJob Prelude.Text
@@ -138,82 +139,83 @@ createNodeFromTemplateJob_outputPackageName = Lens.lens (\CreateNodeFromTemplate
 createNodeFromTemplateJob_outputPackageVersion :: Lens.Lens' CreateNodeFromTemplateJob Prelude.Text
 createNodeFromTemplateJob_outputPackageVersion = Lens.lens (\CreateNodeFromTemplateJob' {outputPackageVersion} -> outputPackageVersion) (\s@CreateNodeFromTemplateJob' {} a -> s {outputPackageVersion = a} :: CreateNodeFromTemplateJob)
 
--- | A name for the node.
-createNodeFromTemplateJob_nodeName :: Lens.Lens' CreateNodeFromTemplateJob Prelude.Text
-createNodeFromTemplateJob_nodeName = Lens.lens (\CreateNodeFromTemplateJob' {nodeName} -> nodeName) (\s@CreateNodeFromTemplateJob' {} a -> s {nodeName = a} :: CreateNodeFromTemplateJob)
-
 -- | Template parameters for the node.
 createNodeFromTemplateJob_templateParameters :: Lens.Lens' CreateNodeFromTemplateJob (Prelude.HashMap Prelude.Text Prelude.Text)
 createNodeFromTemplateJob_templateParameters = Lens.lens (\CreateNodeFromTemplateJob' {templateParameters} -> templateParameters) (\s@CreateNodeFromTemplateJob' {} a -> s {templateParameters = a} :: CreateNodeFromTemplateJob) Prelude.. Lens.coerced
+
+-- | The type of node.
+createNodeFromTemplateJob_templateType :: Lens.Lens' CreateNodeFromTemplateJob TemplateType
+createNodeFromTemplateJob_templateType = Lens.lens (\CreateNodeFromTemplateJob' {templateType} -> templateType) (\s@CreateNodeFromTemplateJob' {} a -> s {templateType = a} :: CreateNodeFromTemplateJob)
 
 instance Core.AWSRequest CreateNodeFromTemplateJob where
   type
     AWSResponse CreateNodeFromTemplateJob =
       CreateNodeFromTemplateJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateNodeFromTemplateJobResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "JobId")
+            Prelude.<*> (x Data..:> "JobId")
       )
 
 instance Prelude.Hashable CreateNodeFromTemplateJob where
   hashWithSalt _salt CreateNodeFromTemplateJob' {..} =
     _salt `Prelude.hashWithSalt` jobTags
       `Prelude.hashWithSalt` nodeDescription
-      `Prelude.hashWithSalt` templateType
+      `Prelude.hashWithSalt` nodeName
       `Prelude.hashWithSalt` outputPackageName
       `Prelude.hashWithSalt` outputPackageVersion
-      `Prelude.hashWithSalt` nodeName
       `Prelude.hashWithSalt` templateParameters
+      `Prelude.hashWithSalt` templateType
 
 instance Prelude.NFData CreateNodeFromTemplateJob where
   rnf CreateNodeFromTemplateJob' {..} =
     Prelude.rnf jobTags
       `Prelude.seq` Prelude.rnf nodeDescription
-      `Prelude.seq` Prelude.rnf templateType
+      `Prelude.seq` Prelude.rnf nodeName
       `Prelude.seq` Prelude.rnf outputPackageName
       `Prelude.seq` Prelude.rnf outputPackageVersion
-      `Prelude.seq` Prelude.rnf nodeName
       `Prelude.seq` Prelude.rnf templateParameters
+      `Prelude.seq` Prelude.rnf templateType
 
-instance Core.ToHeaders CreateNodeFromTemplateJob where
+instance Data.ToHeaders CreateNodeFromTemplateJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateNodeFromTemplateJob where
+instance Data.ToJSON CreateNodeFromTemplateJob where
   toJSON CreateNodeFromTemplateJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("JobTags" Core..=) Prelude.<$> jobTags,
-            ("NodeDescription" Core..=)
+          [ ("JobTags" Data..=) Prelude.<$> jobTags,
+            ("NodeDescription" Data..=)
               Prelude.<$> nodeDescription,
-            Prelude.Just ("TemplateType" Core..= templateType),
+            Prelude.Just ("NodeName" Data..= nodeName),
             Prelude.Just
-              ("OutputPackageName" Core..= outputPackageName),
+              ("OutputPackageName" Data..= outputPackageName),
             Prelude.Just
               ( "OutputPackageVersion"
-                  Core..= outputPackageVersion
+                  Data..= outputPackageVersion
               ),
-            Prelude.Just ("NodeName" Core..= nodeName),
             Prelude.Just
-              ("TemplateParameters" Core..= templateParameters)
+              ("TemplateParameters" Data..= templateParameters),
+            Prelude.Just ("TemplateType" Data..= templateType)
           ]
       )
 
-instance Core.ToPath CreateNodeFromTemplateJob where
+instance Data.ToPath CreateNodeFromTemplateJob where
   toPath = Prelude.const "/packages/template-job"
 
-instance Core.ToQuery CreateNodeFromTemplateJob where
+instance Data.ToQuery CreateNodeFromTemplateJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateNodeFromTemplateJobResponse' smart constructor.

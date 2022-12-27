@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.GetContextKeysForPrincipalPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -59,8 +59,9 @@ module Amazonka.IAM.GetContextKeysForPrincipalPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -183,11 +184,12 @@ instance
   type
     AWSResponse GetContextKeysForPrincipalPolicy =
       GetContextKeysForPolicyResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GetContextKeysForPrincipalPolicyResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance
   Prelude.Hashable
@@ -208,30 +210,30 @@ instance
       `Prelude.seq` Prelude.rnf policySourceArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetContextKeysForPrincipalPolicy
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetContextKeysForPrincipalPolicy where
+instance Data.ToPath GetContextKeysForPrincipalPolicy where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetContextKeysForPrincipalPolicy
   where
   toQuery GetContextKeysForPrincipalPolicy' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "GetContextKeysForPrincipalPolicy" ::
+          Data.=: ( "GetContextKeysForPrincipalPolicy" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
         "PolicyInputList"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> policyInputList
             ),
-        "PolicySourceArn" Core.=: policySourceArn
+        "PolicySourceArn" Data.=: policySourceArn
       ]

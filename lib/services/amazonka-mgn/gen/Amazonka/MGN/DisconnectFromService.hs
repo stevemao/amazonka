@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MGN.DisconnectFromService
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,14 +25,14 @@
 -- Application Migration Service for enabling the replication of these
 -- source servers will be terminated \/ deleted within 90 minutes. Launched
 -- Test or Cutover instances will NOT be terminated. If the agent on the
--- source server has not been prevented from communciating with the
+-- source server has not been prevented from communicating with the
 -- Application Migration Service service, then it will receive a command to
 -- uninstall itself (within approximately 10 minutes). The following
 -- properties of the SourceServer will be changed immediately:
 -- dataReplicationInfo.dataReplicationState will be set to DISCONNECTED;
 -- The totalStorageBytes property for each of
 -- dataReplicationInfo.replicatedDisks will be set to zero;
--- dataReplicationInfo.lagDuration and dataReplicationInfo.lagDurationwill
+-- dataReplicationInfo.lagDuration and dataReplicationInfo.lagDuration will
 -- be nullified.
 module Amazonka.MGN.DisconnectFromService
   ( -- * Creating a Request
@@ -47,19 +47,23 @@ module Amazonka.MGN.DisconnectFromService
     newSourceServer,
 
     -- * Response Lenses
-    sourceServer_sourceProperties,
+    sourceServer_applicationID,
     sourceServer_arn,
+    sourceServer_dataReplicationInfo,
+    sourceServer_isArchived,
     sourceServer_launchedInstance,
     sourceServer_lifeCycle,
-    sourceServer_isArchived,
-    sourceServer_dataReplicationInfo,
+    sourceServer_replicationType,
+    sourceServer_sourceProperties,
     sourceServer_sourceServerID,
     sourceServer_tags,
+    sourceServer_vcenterClientID,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MGN.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -97,10 +101,11 @@ disconnectFromService_sourceServerID = Lens.lens (\DisconnectFromService' {sourc
 
 instance Core.AWSRequest DisconnectFromService where
   type AWSResponse DisconnectFromService = SourceServer
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable DisconnectFromService where
   hashWithSalt _salt DisconnectFromService' {..} =
@@ -110,28 +115,28 @@ instance Prelude.NFData DisconnectFromService where
   rnf DisconnectFromService' {..} =
     Prelude.rnf sourceServerID
 
-instance Core.ToHeaders DisconnectFromService where
+instance Data.ToHeaders DisconnectFromService where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisconnectFromService where
+instance Data.ToJSON DisconnectFromService where
   toJSON DisconnectFromService' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("sourceServerID" Core..= sourceServerID)
+              ("sourceServerID" Data..= sourceServerID)
           ]
       )
 
-instance Core.ToPath DisconnectFromService where
+instance Data.ToPath DisconnectFromService where
   toPath = Prelude.const "/DisconnectFromService"
 
-instance Core.ToQuery DisconnectFromService where
+instance Data.ToQuery DisconnectFromService where
   toQuery = Prelude.const Prelude.mempty

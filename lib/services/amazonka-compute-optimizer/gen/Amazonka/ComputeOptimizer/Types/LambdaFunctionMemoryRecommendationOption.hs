@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ComputeOptimizer.Types.LambdaFunctionMemoryRecommendationOption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,10 @@
 module Amazonka.ComputeOptimizer.Types.LambdaFunctionMemoryRecommendationOption where
 
 import Amazonka.ComputeOptimizer.Types.LambdaFunctionMemoryProjectedMetric
+import Amazonka.ComputeOptimizer.Types.SavingsOpportunity
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a recommendation option for an Lambda function.
@@ -36,7 +38,11 @@ data LambdaFunctionMemoryRecommendationOption = LambdaFunctionMemoryRecommendati
     -- | The rank of the function recommendation option.
     --
     -- The top recommendation option is ranked as @1@.
-    rank :: Prelude.Maybe Prelude.Int
+    rank :: Prelude.Maybe Prelude.Int,
+    -- | An object that describes the savings opportunity for the Lambda function
+    -- recommendation option. Savings opportunity includes the estimated
+    -- monthly savings amount and percentage.
+    savingsOpportunity :: Prelude.Maybe SavingsOpportunity
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -56,6 +62,10 @@ data LambdaFunctionMemoryRecommendationOption = LambdaFunctionMemoryRecommendati
 -- 'rank', 'lambdaFunctionMemoryRecommendationOption_rank' - The rank of the function recommendation option.
 --
 -- The top recommendation option is ranked as @1@.
+--
+-- 'savingsOpportunity', 'lambdaFunctionMemoryRecommendationOption_savingsOpportunity' - An object that describes the savings opportunity for the Lambda function
+-- recommendation option. Savings opportunity includes the estimated
+-- monthly savings amount and percentage.
 newLambdaFunctionMemoryRecommendationOption ::
   LambdaFunctionMemoryRecommendationOption
 newLambdaFunctionMemoryRecommendationOption =
@@ -64,7 +74,9 @@ newLambdaFunctionMemoryRecommendationOption =
         Prelude.Nothing,
       projectedUtilizationMetrics =
         Prelude.Nothing,
-      rank = Prelude.Nothing
+      rank = Prelude.Nothing,
+      savingsOpportunity =
+        Prelude.Nothing
     }
 
 -- | The memory size, in MB, of the function recommendation option.
@@ -82,20 +94,27 @@ lambdaFunctionMemoryRecommendationOption_projectedUtilizationMetrics = Lens.lens
 lambdaFunctionMemoryRecommendationOption_rank :: Lens.Lens' LambdaFunctionMemoryRecommendationOption (Prelude.Maybe Prelude.Int)
 lambdaFunctionMemoryRecommendationOption_rank = Lens.lens (\LambdaFunctionMemoryRecommendationOption' {rank} -> rank) (\s@LambdaFunctionMemoryRecommendationOption' {} a -> s {rank = a} :: LambdaFunctionMemoryRecommendationOption)
 
+-- | An object that describes the savings opportunity for the Lambda function
+-- recommendation option. Savings opportunity includes the estimated
+-- monthly savings amount and percentage.
+lambdaFunctionMemoryRecommendationOption_savingsOpportunity :: Lens.Lens' LambdaFunctionMemoryRecommendationOption (Prelude.Maybe SavingsOpportunity)
+lambdaFunctionMemoryRecommendationOption_savingsOpportunity = Lens.lens (\LambdaFunctionMemoryRecommendationOption' {savingsOpportunity} -> savingsOpportunity) (\s@LambdaFunctionMemoryRecommendationOption' {} a -> s {savingsOpportunity = a} :: LambdaFunctionMemoryRecommendationOption)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     LambdaFunctionMemoryRecommendationOption
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LambdaFunctionMemoryRecommendationOption"
       ( \x ->
           LambdaFunctionMemoryRecommendationOption'
-            Prelude.<$> (x Core..:? "memorySize")
-            Prelude.<*> ( x Core..:? "projectedUtilizationMetrics"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "memorySize")
+            Prelude.<*> ( x Data..:? "projectedUtilizationMetrics"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "rank")
+            Prelude.<*> (x Data..:? "rank")
+            Prelude.<*> (x Data..:? "savingsOpportunity")
       )
 
 instance
@@ -108,6 +127,7 @@ instance
       _salt `Prelude.hashWithSalt` memorySize
         `Prelude.hashWithSalt` projectedUtilizationMetrics
         `Prelude.hashWithSalt` rank
+        `Prelude.hashWithSalt` savingsOpportunity
 
 instance
   Prelude.NFData
@@ -117,3 +137,4 @@ instance
     Prelude.rnf memorySize
       `Prelude.seq` Prelude.rnf projectedUtilizationMetrics
       `Prelude.seq` Prelude.rnf rank
+      `Prelude.seq` Prelude.rnf savingsOpportunity

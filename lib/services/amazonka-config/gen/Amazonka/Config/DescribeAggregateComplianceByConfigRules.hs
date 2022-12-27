@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.DescribeAggregateComplianceByConfigRules
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,8 +35,8 @@ module Amazonka.Config.DescribeAggregateComplianceByConfigRules
 
     -- * Request Lenses
     describeAggregateComplianceByConfigRules_filters,
-    describeAggregateComplianceByConfigRules_nextToken,
     describeAggregateComplianceByConfigRules_limit,
+    describeAggregateComplianceByConfigRules_nextToken,
     describeAggregateComplianceByConfigRules_configurationAggregatorName,
 
     -- * Destructuring the Response
@@ -44,15 +44,16 @@ module Amazonka.Config.DescribeAggregateComplianceByConfigRules
     newDescribeAggregateComplianceByConfigRulesResponse,
 
     -- * Response Lenses
-    describeAggregateComplianceByConfigRulesResponse_nextToken,
     describeAggregateComplianceByConfigRulesResponse_aggregateComplianceByConfigRules,
+    describeAggregateComplianceByConfigRulesResponse_nextToken,
     describeAggregateComplianceByConfigRulesResponse_httpStatus,
   )
 where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,12 +62,12 @@ import qualified Amazonka.Response as Response
 data DescribeAggregateComplianceByConfigRules = DescribeAggregateComplianceByConfigRules'
   { -- | Filters the results by ConfigRuleComplianceFilters object.
     filters :: Prelude.Maybe ConfigRuleComplianceFilters,
-    -- | The @nextToken@ string returned on a previous page that you use to get
-    -- the next page of results in a paginated response.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of evaluation results returned on each page. The
     -- default is maximum. If you specify 0, Config uses the default.
     limit :: Prelude.Maybe Prelude.Natural,
+    -- | The @nextToken@ string returned on a previous page that you use to get
+    -- the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the configuration aggregator.
     configurationAggregatorName :: Prelude.Text
   }
@@ -82,11 +83,11 @@ data DescribeAggregateComplianceByConfigRules = DescribeAggregateComplianceByCon
 --
 -- 'filters', 'describeAggregateComplianceByConfigRules_filters' - Filters the results by ConfigRuleComplianceFilters object.
 --
--- 'nextToken', 'describeAggregateComplianceByConfigRules_nextToken' - The @nextToken@ string returned on a previous page that you use to get
--- the next page of results in a paginated response.
---
 -- 'limit', 'describeAggregateComplianceByConfigRules_limit' - The maximum number of evaluation results returned on each page. The
 -- default is maximum. If you specify 0, Config uses the default.
+--
+-- 'nextToken', 'describeAggregateComplianceByConfigRules_nextToken' - The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
 --
 -- 'configurationAggregatorName', 'describeAggregateComplianceByConfigRules_configurationAggregatorName' - The name of the configuration aggregator.
 newDescribeAggregateComplianceByConfigRules ::
@@ -98,8 +99,8 @@ newDescribeAggregateComplianceByConfigRules
     DescribeAggregateComplianceByConfigRules'
       { filters =
           Prelude.Nothing,
-        nextToken = Prelude.Nothing,
         limit = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         configurationAggregatorName =
           pConfigurationAggregatorName_
       }
@@ -108,15 +109,15 @@ newDescribeAggregateComplianceByConfigRules
 describeAggregateComplianceByConfigRules_filters :: Lens.Lens' DescribeAggregateComplianceByConfigRules (Prelude.Maybe ConfigRuleComplianceFilters)
 describeAggregateComplianceByConfigRules_filters = Lens.lens (\DescribeAggregateComplianceByConfigRules' {filters} -> filters) (\s@DescribeAggregateComplianceByConfigRules' {} a -> s {filters = a} :: DescribeAggregateComplianceByConfigRules)
 
--- | The @nextToken@ string returned on a previous page that you use to get
--- the next page of results in a paginated response.
-describeAggregateComplianceByConfigRules_nextToken :: Lens.Lens' DescribeAggregateComplianceByConfigRules (Prelude.Maybe Prelude.Text)
-describeAggregateComplianceByConfigRules_nextToken = Lens.lens (\DescribeAggregateComplianceByConfigRules' {nextToken} -> nextToken) (\s@DescribeAggregateComplianceByConfigRules' {} a -> s {nextToken = a} :: DescribeAggregateComplianceByConfigRules)
-
 -- | The maximum number of evaluation results returned on each page. The
 -- default is maximum. If you specify 0, Config uses the default.
 describeAggregateComplianceByConfigRules_limit :: Lens.Lens' DescribeAggregateComplianceByConfigRules (Prelude.Maybe Prelude.Natural)
 describeAggregateComplianceByConfigRules_limit = Lens.lens (\DescribeAggregateComplianceByConfigRules' {limit} -> limit) (\s@DescribeAggregateComplianceByConfigRules' {} a -> s {limit = a} :: DescribeAggregateComplianceByConfigRules)
+
+-- | The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
+describeAggregateComplianceByConfigRules_nextToken :: Lens.Lens' DescribeAggregateComplianceByConfigRules (Prelude.Maybe Prelude.Text)
+describeAggregateComplianceByConfigRules_nextToken = Lens.lens (\DescribeAggregateComplianceByConfigRules' {nextToken} -> nextToken) (\s@DescribeAggregateComplianceByConfigRules' {} a -> s {nextToken = a} :: DescribeAggregateComplianceByConfigRules)
 
 -- | The name of the configuration aggregator.
 describeAggregateComplianceByConfigRules_configurationAggregatorName :: Lens.Lens' DescribeAggregateComplianceByConfigRules Prelude.Text
@@ -155,15 +156,16 @@ instance
     AWSResponse
       DescribeAggregateComplianceByConfigRules =
       DescribeAggregateComplianceByConfigRulesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAggregateComplianceByConfigRulesResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-              Prelude.<*> ( x Core..?> "AggregateComplianceByConfigRules"
-                              Core..!@ Prelude.mempty
-                          )
+            Prelude.<$> ( x Data..?> "AggregateComplianceByConfigRules"
+                            Core..!@ Prelude.mempty
+                        )
+              Prelude.<*> (x Data..?> "NextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -175,8 +177,8 @@ instance
     _salt
     DescribeAggregateComplianceByConfigRules' {..} =
       _salt `Prelude.hashWithSalt` filters
-        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` limit
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` configurationAggregatorName
 
 instance
@@ -185,64 +187,64 @@ instance
   where
   rnf DescribeAggregateComplianceByConfigRules' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf configurationAggregatorName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeAggregateComplianceByConfigRules
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.DescribeAggregateComplianceByConfigRules" ::
+              Data.=# ( "StarlingDoveService.DescribeAggregateComplianceByConfigRules" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DescribeAggregateComplianceByConfigRules
   where
   toJSON DescribeAggregateComplianceByConfigRules' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Limit" Core..=) Prelude.<$> limit,
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("Limit" Data..=) Prelude.<$> limit,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
               ( "ConfigurationAggregatorName"
-                  Core..= configurationAggregatorName
+                  Data..= configurationAggregatorName
               )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeAggregateComplianceByConfigRules
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeAggregateComplianceByConfigRules
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeAggregateComplianceByConfigRulesResponse' smart constructor.
 data DescribeAggregateComplianceByConfigRulesResponse = DescribeAggregateComplianceByConfigRulesResponse'
-  { -- | The @nextToken@ string returned on a previous page that you use to get
+  { -- | Returns a list of AggregateComplianceByConfigRule object.
+    aggregateComplianceByConfigRules :: Prelude.Maybe [AggregateComplianceByConfigRule],
+    -- | The @nextToken@ string returned on a previous page that you use to get
     -- the next page of results in a paginated response.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Returns a list of AggregateComplianceByConfigRule object.
-    aggregateComplianceByConfigRules :: Prelude.Maybe [AggregateComplianceByConfigRule],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -256,10 +258,10 @@ data DescribeAggregateComplianceByConfigRulesResponse = DescribeAggregateComplia
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'aggregateComplianceByConfigRules', 'describeAggregateComplianceByConfigRulesResponse_aggregateComplianceByConfigRules' - Returns a list of AggregateComplianceByConfigRule object.
+--
 -- 'nextToken', 'describeAggregateComplianceByConfigRulesResponse_nextToken' - The @nextToken@ string returned on a previous page that you use to get
 -- the next page of results in a paginated response.
---
--- 'aggregateComplianceByConfigRules', 'describeAggregateComplianceByConfigRulesResponse_aggregateComplianceByConfigRules' - Returns a list of AggregateComplianceByConfigRule object.
 --
 -- 'httpStatus', 'describeAggregateComplianceByConfigRulesResponse_httpStatus' - The response's http status code.
 newDescribeAggregateComplianceByConfigRulesResponse ::
@@ -269,21 +271,21 @@ newDescribeAggregateComplianceByConfigRulesResponse ::
 newDescribeAggregateComplianceByConfigRulesResponse
   pHttpStatus_ =
     DescribeAggregateComplianceByConfigRulesResponse'
-      { nextToken =
+      { aggregateComplianceByConfigRules =
           Prelude.Nothing,
-        aggregateComplianceByConfigRules =
+        nextToken =
           Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
+
+-- | Returns a list of AggregateComplianceByConfigRule object.
+describeAggregateComplianceByConfigRulesResponse_aggregateComplianceByConfigRules :: Lens.Lens' DescribeAggregateComplianceByConfigRulesResponse (Prelude.Maybe [AggregateComplianceByConfigRule])
+describeAggregateComplianceByConfigRulesResponse_aggregateComplianceByConfigRules = Lens.lens (\DescribeAggregateComplianceByConfigRulesResponse' {aggregateComplianceByConfigRules} -> aggregateComplianceByConfigRules) (\s@DescribeAggregateComplianceByConfigRulesResponse' {} a -> s {aggregateComplianceByConfigRules = a} :: DescribeAggregateComplianceByConfigRulesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The @nextToken@ string returned on a previous page that you use to get
 -- the next page of results in a paginated response.
 describeAggregateComplianceByConfigRulesResponse_nextToken :: Lens.Lens' DescribeAggregateComplianceByConfigRulesResponse (Prelude.Maybe Prelude.Text)
 describeAggregateComplianceByConfigRulesResponse_nextToken = Lens.lens (\DescribeAggregateComplianceByConfigRulesResponse' {nextToken} -> nextToken) (\s@DescribeAggregateComplianceByConfigRulesResponse' {} a -> s {nextToken = a} :: DescribeAggregateComplianceByConfigRulesResponse)
-
--- | Returns a list of AggregateComplianceByConfigRule object.
-describeAggregateComplianceByConfigRulesResponse_aggregateComplianceByConfigRules :: Lens.Lens' DescribeAggregateComplianceByConfigRulesResponse (Prelude.Maybe [AggregateComplianceByConfigRule])
-describeAggregateComplianceByConfigRulesResponse_aggregateComplianceByConfigRules = Lens.lens (\DescribeAggregateComplianceByConfigRulesResponse' {aggregateComplianceByConfigRules} -> aggregateComplianceByConfigRules) (\s@DescribeAggregateComplianceByConfigRulesResponse' {} a -> s {aggregateComplianceByConfigRules = a} :: DescribeAggregateComplianceByConfigRulesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeAggregateComplianceByConfigRulesResponse_httpStatus :: Lens.Lens' DescribeAggregateComplianceByConfigRulesResponse Prelude.Int
@@ -295,6 +297,6 @@ instance
   where
   rnf
     DescribeAggregateComplianceByConfigRulesResponse' {..} =
-      Prelude.rnf nextToken
-        `Prelude.seq` Prelude.rnf aggregateComplianceByConfigRules
+      Prelude.rnf aggregateComplianceByConfigRules
+        `Prelude.seq` Prelude.rnf nextToken
         `Prelude.seq` Prelude.rnf httpStatus

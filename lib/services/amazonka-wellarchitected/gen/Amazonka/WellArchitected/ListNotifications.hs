@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WellArchitected.ListNotifications
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,23 +27,24 @@ module Amazonka.WellArchitected.ListNotifications
     newListNotifications,
 
     -- * Request Lenses
+    listNotifications_maxResults,
     listNotifications_nextToken,
     listNotifications_workloadId,
-    listNotifications_maxResults,
 
     -- * Destructuring the Response
     ListNotificationsResponse (..),
     newListNotificationsResponse,
 
     -- * Response Lenses
-    listNotificationsResponse_notificationSummaries,
     listNotificationsResponse_nextToken,
+    listNotificationsResponse_notificationSummaries,
     listNotificationsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -51,10 +52,10 @@ import Amazonka.WellArchitected.Types
 
 -- | /See:/ 'newListNotifications' smart constructor.
 data ListNotifications = ListNotifications'
-  { nextToken :: Prelude.Maybe Prelude.Text,
-    workloadId :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return for this request.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | The maximum number of results to return for this request.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    nextToken :: Prelude.Maybe Prelude.Text,
+    workloadId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -66,19 +67,23 @@ data ListNotifications = ListNotifications'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listNotifications_maxResults' - The maximum number of results to return for this request.
+--
 -- 'nextToken', 'listNotifications_nextToken' - Undocumented member.
 --
 -- 'workloadId', 'listNotifications_workloadId' - Undocumented member.
---
--- 'maxResults', 'listNotifications_maxResults' - The maximum number of results to return for this request.
 newListNotifications ::
   ListNotifications
 newListNotifications =
   ListNotifications'
-    { nextToken = Prelude.Nothing,
-      workloadId = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      workloadId = Prelude.Nothing
     }
+
+-- | The maximum number of results to return for this request.
+listNotifications_maxResults :: Lens.Lens' ListNotifications (Prelude.Maybe Prelude.Natural)
+listNotifications_maxResults = Lens.lens (\ListNotifications' {maxResults} -> maxResults) (\s@ListNotifications' {} a -> s {maxResults = a} :: ListNotifications)
 
 -- | Undocumented member.
 listNotifications_nextToken :: Lens.Lens' ListNotifications (Prelude.Maybe Prelude.Text)
@@ -88,70 +93,67 @@ listNotifications_nextToken = Lens.lens (\ListNotifications' {nextToken} -> next
 listNotifications_workloadId :: Lens.Lens' ListNotifications (Prelude.Maybe Prelude.Text)
 listNotifications_workloadId = Lens.lens (\ListNotifications' {workloadId} -> workloadId) (\s@ListNotifications' {} a -> s {workloadId = a} :: ListNotifications)
 
--- | The maximum number of results to return for this request.
-listNotifications_maxResults :: Lens.Lens' ListNotifications (Prelude.Maybe Prelude.Natural)
-listNotifications_maxResults = Lens.lens (\ListNotifications' {maxResults} -> maxResults) (\s@ListNotifications' {} a -> s {maxResults = a} :: ListNotifications)
-
 instance Core.AWSRequest ListNotifications where
   type
     AWSResponse ListNotifications =
       ListNotificationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListNotificationsResponse'
-            Prelude.<$> ( x Core..?> "NotificationSummaries"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "NotificationSummaries"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListNotifications where
   hashWithSalt _salt ListNotifications' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` workloadId
-      `Prelude.hashWithSalt` maxResults
 
 instance Prelude.NFData ListNotifications where
   rnf ListNotifications' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf workloadId
-      `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders ListNotifications where
+instance Data.ToHeaders ListNotifications where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListNotifications where
+instance Data.ToJSON ListNotifications where
   toJSON ListNotifications' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("WorkloadId" Core..=) Prelude.<$> workloadId,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("WorkloadId" Data..=) Prelude.<$> workloadId
           ]
       )
 
-instance Core.ToPath ListNotifications where
+instance Data.ToPath ListNotifications where
   toPath = Prelude.const "/notifications"
 
-instance Core.ToQuery ListNotifications where
+instance Data.ToQuery ListNotifications where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListNotificationsResponse' smart constructor.
 data ListNotificationsResponse = ListNotificationsResponse'
-  { -- | List of lens notification summaries in a workload.
+  { nextToken :: Prelude.Maybe Prelude.Text,
+    -- | List of lens notification summaries in a workload.
     notificationSummaries :: Prelude.Maybe [NotificationSummary],
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -165,9 +167,9 @@ data ListNotificationsResponse = ListNotificationsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'notificationSummaries', 'listNotificationsResponse_notificationSummaries' - List of lens notification summaries in a workload.
---
 -- 'nextToken', 'listNotificationsResponse_nextToken' - Undocumented member.
+--
+-- 'notificationSummaries', 'listNotificationsResponse_notificationSummaries' - List of lens notification summaries in a workload.
 --
 -- 'httpStatus', 'listNotificationsResponse_httpStatus' - The response's http status code.
 newListNotificationsResponse ::
@@ -176,19 +178,19 @@ newListNotificationsResponse ::
   ListNotificationsResponse
 newListNotificationsResponse pHttpStatus_ =
   ListNotificationsResponse'
-    { notificationSummaries =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      notificationSummaries = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | List of lens notification summaries in a workload.
-listNotificationsResponse_notificationSummaries :: Lens.Lens' ListNotificationsResponse (Prelude.Maybe [NotificationSummary])
-listNotificationsResponse_notificationSummaries = Lens.lens (\ListNotificationsResponse' {notificationSummaries} -> notificationSummaries) (\s@ListNotificationsResponse' {} a -> s {notificationSummaries = a} :: ListNotificationsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | Undocumented member.
 listNotificationsResponse_nextToken :: Lens.Lens' ListNotificationsResponse (Prelude.Maybe Prelude.Text)
 listNotificationsResponse_nextToken = Lens.lens (\ListNotificationsResponse' {nextToken} -> nextToken) (\s@ListNotificationsResponse' {} a -> s {nextToken = a} :: ListNotificationsResponse)
+
+-- | List of lens notification summaries in a workload.
+listNotificationsResponse_notificationSummaries :: Lens.Lens' ListNotificationsResponse (Prelude.Maybe [NotificationSummary])
+listNotificationsResponse_notificationSummaries = Lens.lens (\ListNotificationsResponse' {notificationSummaries} -> notificationSummaries) (\s@ListNotificationsResponse' {} a -> s {notificationSummaries = a} :: ListNotificationsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listNotificationsResponse_httpStatus :: Lens.Lens' ListNotificationsResponse Prelude.Int
@@ -196,6 +198,6 @@ listNotificationsResponse_httpStatus = Lens.lens (\ListNotificationsResponse' {h
 
 instance Prelude.NFData ListNotificationsResponse where
   rnf ListNotificationsResponse' {..} =
-    Prelude.rnf notificationSummaries
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf notificationSummaries
       `Prelude.seq` Prelude.rnf httpStatus

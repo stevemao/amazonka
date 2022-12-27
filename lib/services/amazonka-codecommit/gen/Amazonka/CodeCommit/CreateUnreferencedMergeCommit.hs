@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.CreateUnreferencedMergeCommit
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,12 +35,12 @@ module Amazonka.CodeCommit.CreateUnreferencedMergeCommit
     newCreateUnreferencedMergeCommit,
 
     -- * Request Lenses
-    createUnreferencedMergeCommit_email,
     createUnreferencedMergeCommit_authorName,
-    createUnreferencedMergeCommit_conflictDetailLevel,
     createUnreferencedMergeCommit_commitMessage,
+    createUnreferencedMergeCommit_conflictDetailLevel,
     createUnreferencedMergeCommit_conflictResolution,
     createUnreferencedMergeCommit_conflictResolutionStrategy,
+    createUnreferencedMergeCommit_email,
     createUnreferencedMergeCommit_keepEmptyFolders,
     createUnreferencedMergeCommit_repositoryName,
     createUnreferencedMergeCommit_sourceCommitSpecifier,
@@ -60,26 +60,25 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateUnreferencedMergeCommit' smart constructor.
 data CreateUnreferencedMergeCommit = CreateUnreferencedMergeCommit'
-  { -- | The email address for the person who created the unreferenced commit.
-    email :: Prelude.Maybe Prelude.Text,
-    -- | The name of the author who created the unreferenced commit. This
+  { -- | The name of the author who created the unreferenced commit. This
     -- information is used as both the author and committer for the commit.
     authorName :: Prelude.Maybe Prelude.Text,
+    -- | The commit message for the unreferenced commit.
+    commitMessage :: Prelude.Maybe Prelude.Text,
     -- | The level of conflict detail to use. If unspecified, the default
     -- FILE_LEVEL is used, which returns a not-mergeable result if the same
     -- file has differences in both branches. If LINE_LEVEL is specified, a
     -- conflict is considered not mergeable if the same file in both branches
     -- has differences on the same line.
     conflictDetailLevel :: Prelude.Maybe ConflictDetailLevelTypeEnum,
-    -- | The commit message for the unreferenced commit.
-    commitMessage :: Prelude.Maybe Prelude.Text,
     -- | If AUTOMERGE is the conflict resolution strategy, a list of inputs to
     -- use when resolving conflicts during a merge.
     conflictResolution :: Prelude.Maybe ConflictResolution,
@@ -88,6 +87,8 @@ data CreateUnreferencedMergeCommit = CreateUnreferencedMergeCommit'
     -- NONE, which requires any conflicts to be resolved manually before the
     -- merge operation is successful.
     conflictResolutionStrategy :: Prelude.Maybe ConflictResolutionStrategyTypeEnum,
+    -- | The email address for the person who created the unreferenced commit.
+    email :: Prelude.Maybe Prelude.Text,
     -- | If the commit contains deletions, whether to keep a folder or folder
     -- structure if the changes leave the folders empty. If this is specified
     -- as true, a .gitkeep file is created for empty folders. The default is
@@ -115,18 +116,16 @@ data CreateUnreferencedMergeCommit = CreateUnreferencedMergeCommit'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'email', 'createUnreferencedMergeCommit_email' - The email address for the person who created the unreferenced commit.
---
 -- 'authorName', 'createUnreferencedMergeCommit_authorName' - The name of the author who created the unreferenced commit. This
 -- information is used as both the author and committer for the commit.
+--
+-- 'commitMessage', 'createUnreferencedMergeCommit_commitMessage' - The commit message for the unreferenced commit.
 --
 -- 'conflictDetailLevel', 'createUnreferencedMergeCommit_conflictDetailLevel' - The level of conflict detail to use. If unspecified, the default
 -- FILE_LEVEL is used, which returns a not-mergeable result if the same
 -- file has differences in both branches. If LINE_LEVEL is specified, a
 -- conflict is considered not mergeable if the same file in both branches
 -- has differences on the same line.
---
--- 'commitMessage', 'createUnreferencedMergeCommit_commitMessage' - The commit message for the unreferenced commit.
 --
 -- 'conflictResolution', 'createUnreferencedMergeCommit_conflictResolution' - If AUTOMERGE is the conflict resolution strategy, a list of inputs to
 -- use when resolving conflicts during a merge.
@@ -135,6 +134,8 @@ data CreateUnreferencedMergeCommit = CreateUnreferencedMergeCommit'
 -- attempt automatically merging two versions of a file. The default is
 -- NONE, which requires any conflicts to be resolved manually before the
 -- merge operation is successful.
+--
+-- 'email', 'createUnreferencedMergeCommit_email' - The email address for the person who created the unreferenced commit.
 --
 -- 'keepEmptyFolders', 'createUnreferencedMergeCommit_keepEmptyFolders' - If the commit contains deletions, whether to keep a folder or folder
 -- structure if the changes leave the folders empty. If this is specified
@@ -167,13 +168,13 @@ newCreateUnreferencedMergeCommit
   pDestinationCommitSpecifier_
   pMergeOption_ =
     CreateUnreferencedMergeCommit'
-      { email =
+      { authorName =
           Prelude.Nothing,
-        authorName = Prelude.Nothing,
-        conflictDetailLevel = Prelude.Nothing,
         commitMessage = Prelude.Nothing,
+        conflictDetailLevel = Prelude.Nothing,
         conflictResolution = Prelude.Nothing,
         conflictResolutionStrategy = Prelude.Nothing,
+        email = Prelude.Nothing,
         keepEmptyFolders = Prelude.Nothing,
         repositoryName = pRepositoryName_,
         sourceCommitSpecifier =
@@ -183,14 +184,14 @@ newCreateUnreferencedMergeCommit
         mergeOption = pMergeOption_
       }
 
--- | The email address for the person who created the unreferenced commit.
-createUnreferencedMergeCommit_email :: Lens.Lens' CreateUnreferencedMergeCommit (Prelude.Maybe Prelude.Text)
-createUnreferencedMergeCommit_email = Lens.lens (\CreateUnreferencedMergeCommit' {email} -> email) (\s@CreateUnreferencedMergeCommit' {} a -> s {email = a} :: CreateUnreferencedMergeCommit)
-
 -- | The name of the author who created the unreferenced commit. This
 -- information is used as both the author and committer for the commit.
 createUnreferencedMergeCommit_authorName :: Lens.Lens' CreateUnreferencedMergeCommit (Prelude.Maybe Prelude.Text)
 createUnreferencedMergeCommit_authorName = Lens.lens (\CreateUnreferencedMergeCommit' {authorName} -> authorName) (\s@CreateUnreferencedMergeCommit' {} a -> s {authorName = a} :: CreateUnreferencedMergeCommit)
+
+-- | The commit message for the unreferenced commit.
+createUnreferencedMergeCommit_commitMessage :: Lens.Lens' CreateUnreferencedMergeCommit (Prelude.Maybe Prelude.Text)
+createUnreferencedMergeCommit_commitMessage = Lens.lens (\CreateUnreferencedMergeCommit' {commitMessage} -> commitMessage) (\s@CreateUnreferencedMergeCommit' {} a -> s {commitMessage = a} :: CreateUnreferencedMergeCommit)
 
 -- | The level of conflict detail to use. If unspecified, the default
 -- FILE_LEVEL is used, which returns a not-mergeable result if the same
@@ -199,10 +200,6 @@ createUnreferencedMergeCommit_authorName = Lens.lens (\CreateUnreferencedMergeCo
 -- has differences on the same line.
 createUnreferencedMergeCommit_conflictDetailLevel :: Lens.Lens' CreateUnreferencedMergeCommit (Prelude.Maybe ConflictDetailLevelTypeEnum)
 createUnreferencedMergeCommit_conflictDetailLevel = Lens.lens (\CreateUnreferencedMergeCommit' {conflictDetailLevel} -> conflictDetailLevel) (\s@CreateUnreferencedMergeCommit' {} a -> s {conflictDetailLevel = a} :: CreateUnreferencedMergeCommit)
-
--- | The commit message for the unreferenced commit.
-createUnreferencedMergeCommit_commitMessage :: Lens.Lens' CreateUnreferencedMergeCommit (Prelude.Maybe Prelude.Text)
-createUnreferencedMergeCommit_commitMessage = Lens.lens (\CreateUnreferencedMergeCommit' {commitMessage} -> commitMessage) (\s@CreateUnreferencedMergeCommit' {} a -> s {commitMessage = a} :: CreateUnreferencedMergeCommit)
 
 -- | If AUTOMERGE is the conflict resolution strategy, a list of inputs to
 -- use when resolving conflicts during a merge.
@@ -215,6 +212,10 @@ createUnreferencedMergeCommit_conflictResolution = Lens.lens (\CreateUnreference
 -- merge operation is successful.
 createUnreferencedMergeCommit_conflictResolutionStrategy :: Lens.Lens' CreateUnreferencedMergeCommit (Prelude.Maybe ConflictResolutionStrategyTypeEnum)
 createUnreferencedMergeCommit_conflictResolutionStrategy = Lens.lens (\CreateUnreferencedMergeCommit' {conflictResolutionStrategy} -> conflictResolutionStrategy) (\s@CreateUnreferencedMergeCommit' {} a -> s {conflictResolutionStrategy = a} :: CreateUnreferencedMergeCommit)
+
+-- | The email address for the person who created the unreferenced commit.
+createUnreferencedMergeCommit_email :: Lens.Lens' CreateUnreferencedMergeCommit (Prelude.Maybe Prelude.Text)
+createUnreferencedMergeCommit_email = Lens.lens (\CreateUnreferencedMergeCommit' {email} -> email) (\s@CreateUnreferencedMergeCommit' {} a -> s {email = a} :: CreateUnreferencedMergeCommit)
 
 -- | If the commit contains deletions, whether to keep a folder or folder
 -- structure if the changes leave the folders empty. If this is specified
@@ -249,13 +250,14 @@ instance
   type
     AWSResponse CreateUnreferencedMergeCommit =
       CreateUnreferencedMergeCommitResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateUnreferencedMergeCommitResponse'
-            Prelude.<$> (x Core..?> "commitId")
-            Prelude.<*> (x Core..?> "treeId")
+            Prelude.<$> (x Data..?> "commitId")
+            Prelude.<*> (x Data..?> "treeId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -264,12 +266,12 @@ instance
     CreateUnreferencedMergeCommit
   where
   hashWithSalt _salt CreateUnreferencedMergeCommit' {..} =
-    _salt `Prelude.hashWithSalt` email
-      `Prelude.hashWithSalt` authorName
-      `Prelude.hashWithSalt` conflictDetailLevel
+    _salt `Prelude.hashWithSalt` authorName
       `Prelude.hashWithSalt` commitMessage
+      `Prelude.hashWithSalt` conflictDetailLevel
       `Prelude.hashWithSalt` conflictResolution
       `Prelude.hashWithSalt` conflictResolutionStrategy
+      `Prelude.hashWithSalt` email
       `Prelude.hashWithSalt` keepEmptyFolders
       `Prelude.hashWithSalt` repositoryName
       `Prelude.hashWithSalt` sourceCommitSpecifier
@@ -278,66 +280,66 @@ instance
 
 instance Prelude.NFData CreateUnreferencedMergeCommit where
   rnf CreateUnreferencedMergeCommit' {..} =
-    Prelude.rnf email
-      `Prelude.seq` Prelude.rnf authorName
-      `Prelude.seq` Prelude.rnf conflictDetailLevel
+    Prelude.rnf authorName
       `Prelude.seq` Prelude.rnf commitMessage
+      `Prelude.seq` Prelude.rnf conflictDetailLevel
       `Prelude.seq` Prelude.rnf conflictResolution
       `Prelude.seq` Prelude.rnf conflictResolutionStrategy
+      `Prelude.seq` Prelude.rnf email
       `Prelude.seq` Prelude.rnf keepEmptyFolders
       `Prelude.seq` Prelude.rnf repositoryName
       `Prelude.seq` Prelude.rnf sourceCommitSpecifier
       `Prelude.seq` Prelude.rnf destinationCommitSpecifier
       `Prelude.seq` Prelude.rnf mergeOption
 
-instance Core.ToHeaders CreateUnreferencedMergeCommit where
+instance Data.ToHeaders CreateUnreferencedMergeCommit where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.CreateUnreferencedMergeCommit" ::
+              Data.=# ( "CodeCommit_20150413.CreateUnreferencedMergeCommit" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateUnreferencedMergeCommit where
+instance Data.ToJSON CreateUnreferencedMergeCommit where
   toJSON CreateUnreferencedMergeCommit' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("email" Core..=) Prelude.<$> email,
-            ("authorName" Core..=) Prelude.<$> authorName,
-            ("conflictDetailLevel" Core..=)
+          [ ("authorName" Data..=) Prelude.<$> authorName,
+            ("commitMessage" Data..=) Prelude.<$> commitMessage,
+            ("conflictDetailLevel" Data..=)
               Prelude.<$> conflictDetailLevel,
-            ("commitMessage" Core..=) Prelude.<$> commitMessage,
-            ("conflictResolution" Core..=)
+            ("conflictResolution" Data..=)
               Prelude.<$> conflictResolution,
-            ("conflictResolutionStrategy" Core..=)
+            ("conflictResolutionStrategy" Data..=)
               Prelude.<$> conflictResolutionStrategy,
-            ("keepEmptyFolders" Core..=)
+            ("email" Data..=) Prelude.<$> email,
+            ("keepEmptyFolders" Data..=)
               Prelude.<$> keepEmptyFolders,
             Prelude.Just
-              ("repositoryName" Core..= repositoryName),
+              ("repositoryName" Data..= repositoryName),
             Prelude.Just
               ( "sourceCommitSpecifier"
-                  Core..= sourceCommitSpecifier
+                  Data..= sourceCommitSpecifier
               ),
             Prelude.Just
               ( "destinationCommitSpecifier"
-                  Core..= destinationCommitSpecifier
+                  Data..= destinationCommitSpecifier
               ),
-            Prelude.Just ("mergeOption" Core..= mergeOption)
+            Prelude.Just ("mergeOption" Data..= mergeOption)
           ]
       )
 
-instance Core.ToPath CreateUnreferencedMergeCommit where
+instance Data.ToPath CreateUnreferencedMergeCommit where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateUnreferencedMergeCommit where
+instance Data.ToQuery CreateUnreferencedMergeCommit where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateUnreferencedMergeCommitResponse' smart constructor.

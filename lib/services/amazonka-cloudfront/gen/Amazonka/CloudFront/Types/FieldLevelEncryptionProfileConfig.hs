@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.FieldLevelEncryptionProfileConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudFront.Types.FieldLevelEncryptionProfileConfig where
 
 import Amazonka.CloudFront.Types.EncryptionEntities
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A complex data type of profiles for the field-level encryption.
@@ -101,15 +102,15 @@ fieldLevelEncryptionProfileConfig_encryptionEntities :: Lens.Lens' FieldLevelEnc
 fieldLevelEncryptionProfileConfig_encryptionEntities = Lens.lens (\FieldLevelEncryptionProfileConfig' {encryptionEntities} -> encryptionEntities) (\s@FieldLevelEncryptionProfileConfig' {} a -> s {encryptionEntities = a} :: FieldLevelEncryptionProfileConfig)
 
 instance
-  Core.FromXML
+  Data.FromXML
     FieldLevelEncryptionProfileConfig
   where
   parseXML x =
     FieldLevelEncryptionProfileConfig'
-      Prelude.<$> (x Core..@? "Comment")
-      Prelude.<*> (x Core..@ "Name")
-      Prelude.<*> (x Core..@ "CallerReference")
-      Prelude.<*> (x Core..@ "EncryptionEntities")
+      Prelude.<$> (x Data..@? "Comment")
+      Prelude.<*> (x Data..@ "Name")
+      Prelude.<*> (x Data..@ "CallerReference")
+      Prelude.<*> (x Data..@ "EncryptionEntities")
 
 instance
   Prelude.Hashable
@@ -133,11 +134,11 @@ instance
       `Prelude.seq` Prelude.rnf callerReference
       `Prelude.seq` Prelude.rnf encryptionEntities
 
-instance Core.ToXML FieldLevelEncryptionProfileConfig where
+instance Data.ToXML FieldLevelEncryptionProfileConfig where
   toXML FieldLevelEncryptionProfileConfig' {..} =
     Prelude.mconcat
-      [ "Comment" Core.@= comment,
-        "Name" Core.@= name,
-        "CallerReference" Core.@= callerReference,
-        "EncryptionEntities" Core.@= encryptionEntities
+      [ "Comment" Data.@= comment,
+        "Name" Data.@= name,
+        "CallerReference" Data.@= callerReference,
+        "EncryptionEntities" Data.@= encryptionEntities
       ]

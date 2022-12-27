@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.DetectText
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,9 +34,8 @@
 -- information about a single word or line of text that was detected in the
 -- image.
 --
--- A word is one or more ISO basic latin script characters that are not
--- separated by spaces. @DetectText@ can detect up to 100 words in an
--- image.
+-- A word is one or more script characters that are not separated by
+-- spaces. @DetectText@ can detect up to 100 words in an image.
 --
 -- A line is a string of equally spaced words. A line isn\'t necessarily a
 -- complete sentence. For example, a driver\'s license number is detected
@@ -53,8 +52,8 @@
 -- To be detected, text must be within +\/- 90 degrees orientation of the
 -- horizontal axis.
 --
--- For more information, see DetectText in the Amazon Rekognition Developer
--- Guide.
+-- For more information, see Detecting text in the Amazon Rekognition
+-- Developer Guide.
 module Amazonka.Rekognition.DetectText
   ( -- * Creating a Request
     DetectText (..),
@@ -76,7 +75,8 @@ module Amazonka.Rekognition.DetectText
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types
 import qualified Amazonka.Request as Request
@@ -143,13 +143,14 @@ detectText_image = Lens.lens (\DetectText' {image} -> image) (\s@DetectText' {} 
 
 instance Core.AWSRequest DetectText where
   type AWSResponse DetectText = DetectTextResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DetectTextResponse'
-            Prelude.<$> (x Core..?> "TextDetections" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "TextModelVersion")
+            Prelude.<$> (x Data..?> "TextDetections" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "TextModelVersion")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -162,34 +163,34 @@ instance Prelude.NFData DetectText where
   rnf DetectText' {..} =
     Prelude.rnf filters `Prelude.seq` Prelude.rnf image
 
-instance Core.ToHeaders DetectText where
+instance Data.ToHeaders DetectText where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "RekognitionService.DetectText" ::
+              Data.=# ( "RekognitionService.DetectText" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DetectText where
+instance Data.ToJSON DetectText where
   toJSON DetectText' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            Prelude.Just ("Image" Core..= image)
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            Prelude.Just ("Image" Data..= image)
           ]
       )
 
-instance Core.ToPath DetectText where
+instance Data.ToPath DetectText where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DetectText where
+instance Data.ToQuery DetectText where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDetectTextResponse' smart constructor.

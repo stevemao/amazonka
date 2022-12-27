@@ -14,13 +14,14 @@
 
 -- |
 -- Module      : Amazonka.Glue.UpdateJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates an existing job definition.
+-- Updates an existing job definition. The previous job definition is
+-- completely overwritten by this information.
 module Amazonka.Glue.UpdateJob
   ( -- * Creating a Request
     UpdateJob (..),
@@ -41,8 +42,9 @@ module Amazonka.Glue.UpdateJob
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,9 +54,10 @@ data UpdateJob = UpdateJob'
   { -- | The name of the job definition to update.
     jobName :: Prelude.Text,
     -- | Specifies the values with which to update the job definition.
+    -- Unspecified configuration is removed or reset to default values.
     jobUpdate :: JobUpdate
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'UpdateJob' with all optional fields omitted.
@@ -67,6 +70,7 @@ data UpdateJob = UpdateJob'
 -- 'jobName', 'updateJob_jobName' - The name of the job definition to update.
 --
 -- 'jobUpdate', 'updateJob_jobUpdate' - Specifies the values with which to update the job definition.
+-- Unspecified configuration is removed or reset to default values.
 newUpdateJob ::
   -- | 'jobName'
   Prelude.Text ->
@@ -84,17 +88,19 @@ updateJob_jobName :: Lens.Lens' UpdateJob Prelude.Text
 updateJob_jobName = Lens.lens (\UpdateJob' {jobName} -> jobName) (\s@UpdateJob' {} a -> s {jobName = a} :: UpdateJob)
 
 -- | Specifies the values with which to update the job definition.
+-- Unspecified configuration is removed or reset to default values.
 updateJob_jobUpdate :: Lens.Lens' UpdateJob JobUpdate
 updateJob_jobUpdate = Lens.lens (\UpdateJob' {jobUpdate} -> jobUpdate) (\s@UpdateJob' {} a -> s {jobUpdate = a} :: UpdateJob)
 
 instance Core.AWSRequest UpdateJob where
   type AWSResponse UpdateJob = UpdateJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateJobResponse'
-            Prelude.<$> (x Core..?> "JobName")
+            Prelude.<$> (x Data..?> "JobName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -108,32 +114,32 @@ instance Prelude.NFData UpdateJob where
     Prelude.rnf jobName
       `Prelude.seq` Prelude.rnf jobUpdate
 
-instance Core.ToHeaders UpdateJob where
+instance Data.ToHeaders UpdateJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.UpdateJob" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.UpdateJob" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateJob where
+instance Data.ToJSON UpdateJob where
   toJSON UpdateJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("JobName" Core..= jobName),
-            Prelude.Just ("JobUpdate" Core..= jobUpdate)
+          [ Prelude.Just ("JobName" Data..= jobName),
+            Prelude.Just ("JobUpdate" Data..= jobUpdate)
           ]
       )
 
-instance Core.ToPath UpdateJob where
+instance Data.ToPath UpdateJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateJob where
+instance Data.ToQuery UpdateJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateJobResponse' smart constructor.

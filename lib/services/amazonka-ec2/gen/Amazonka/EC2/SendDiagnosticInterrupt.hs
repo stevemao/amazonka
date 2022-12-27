@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.SendDiagnosticInterrupt
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,9 +36,9 @@
 --
 -- For more information about configuring your operating system to generate
 -- a crash dump when a kernel panic or stop error occurs, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/diagnostic-interrupt.html Send a diagnostic interrupt>
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/diagnostic-interrupt.html Send a diagnostic interrupt (for advanced users)>
 -- (Linux instances) or
--- <https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/diagnostic-interrupt.html Send a Diagnostic Interrupt>
+-- <https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/diagnostic-interrupt.html Send a diagnostic interrupt (for advanced users)>
 -- (Windows instances).
 module Amazonka.EC2.SendDiagnosticInterrupt
   ( -- * Creating a Request
@@ -56,8 +56,9 @@ module Amazonka.EC2.SendDiagnosticInterrupt
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -113,7 +114,8 @@ instance Core.AWSRequest SendDiagnosticInterrupt where
   type
     AWSResponse SendDiagnosticInterrupt =
       SendDiagnosticInterruptResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       SendDiagnosticInterruptResponse'
@@ -128,21 +130,21 @@ instance Prelude.NFData SendDiagnosticInterrupt where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf instanceId
 
-instance Core.ToHeaders SendDiagnosticInterrupt where
+instance Data.ToHeaders SendDiagnosticInterrupt where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath SendDiagnosticInterrupt where
+instance Data.ToPath SendDiagnosticInterrupt where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SendDiagnosticInterrupt where
+instance Data.ToQuery SendDiagnosticInterrupt where
   toQuery SendDiagnosticInterrupt' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("SendDiagnosticInterrupt" :: Prelude.ByteString),
+          Data.=: ("SendDiagnosticInterrupt" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "InstanceId" Core.=: instanceId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "InstanceId" Data.=: instanceId
       ]
 
 -- | /See:/ 'newSendDiagnosticInterruptResponse' smart constructor.

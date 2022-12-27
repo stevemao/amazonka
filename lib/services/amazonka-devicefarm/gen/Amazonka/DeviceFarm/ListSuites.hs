@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.ListSuites
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.DeviceFarm.ListSuites
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -117,13 +118,14 @@ instance Core.AWSPager ListSuites where
 
 instance Core.AWSRequest ListSuites where
   type AWSResponse ListSuites = ListSuitesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListSuitesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "suites" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "suites" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -136,34 +138,34 @@ instance Prelude.NFData ListSuites where
   rnf ListSuites' {..} =
     Prelude.rnf nextToken `Prelude.seq` Prelude.rnf arn
 
-instance Core.ToHeaders ListSuites where
+instance Data.ToHeaders ListSuites where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.ListSuites" ::
+              Data.=# ( "DeviceFarm_20150623.ListSuites" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListSuites where
+instance Data.ToJSON ListSuites where
   toJSON ListSuites' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            Prelude.Just ("arn" Core..= arn)
+          [ ("nextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("arn" Data..= arn)
           ]
       )
 
-instance Core.ToPath ListSuites where
+instance Data.ToPath ListSuites where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListSuites where
+instance Data.ToQuery ListSuites where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a list suites request.

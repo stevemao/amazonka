@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ComputeOptimizer.Types.ExportableLambdaFunctionField
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,6 +25,7 @@ module Amazonka.ComputeOptimizer.Types.ExportableLambdaFunctionField
         ExportableLambdaFunctionField_CurrentConfigurationTimeout,
         ExportableLambdaFunctionField_CurrentCostAverage,
         ExportableLambdaFunctionField_CurrentCostTotal,
+        ExportableLambdaFunctionField_CurrentPerformanceRisk,
         ExportableLambdaFunctionField_Finding,
         ExportableLambdaFunctionField_FindingReasonCodes,
         ExportableLambdaFunctionField_FunctionArn,
@@ -35,9 +36,12 @@ module Amazonka.ComputeOptimizer.Types.ExportableLambdaFunctionField
         ExportableLambdaFunctionField_RecommendationOptionsConfigurationMemorySize,
         ExportableLambdaFunctionField_RecommendationOptionsCostHigh,
         ExportableLambdaFunctionField_RecommendationOptionsCostLow,
+        ExportableLambdaFunctionField_RecommendationOptionsEstimatedMonthlySavingsCurrency,
+        ExportableLambdaFunctionField_RecommendationOptionsEstimatedMonthlySavingsValue,
         ExportableLambdaFunctionField_RecommendationOptionsProjectedUtilizationMetricsDurationExpected,
         ExportableLambdaFunctionField_RecommendationOptionsProjectedUtilizationMetricsDurationLowerBound,
         ExportableLambdaFunctionField_RecommendationOptionsProjectedUtilizationMetricsDurationUpperBound,
+        ExportableLambdaFunctionField_RecommendationOptionsSavingsOpportunityPercentage,
         ExportableLambdaFunctionField_UtilizationMetricsDurationAverage,
         ExportableLambdaFunctionField_UtilizationMetricsDurationMaximum,
         ExportableLambdaFunctionField_UtilizationMetricsMemoryAverage,
@@ -47,11 +51,12 @@ module Amazonka.ComputeOptimizer.Types.ExportableLambdaFunctionField
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype ExportableLambdaFunctionField = ExportableLambdaFunctionField'
   { fromExportableLambdaFunctionField ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -63,18 +68,18 @@ newtype ExportableLambdaFunctionField = ExportableLambdaFunctionField'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern ExportableLambdaFunctionField_AccountId :: ExportableLambdaFunctionField
@@ -91,6 +96,9 @@ pattern ExportableLambdaFunctionField_CurrentCostAverage = ExportableLambdaFunct
 
 pattern ExportableLambdaFunctionField_CurrentCostTotal :: ExportableLambdaFunctionField
 pattern ExportableLambdaFunctionField_CurrentCostTotal = ExportableLambdaFunctionField' "CurrentCostTotal"
+
+pattern ExportableLambdaFunctionField_CurrentPerformanceRisk :: ExportableLambdaFunctionField
+pattern ExportableLambdaFunctionField_CurrentPerformanceRisk = ExportableLambdaFunctionField' "CurrentPerformanceRisk"
 
 pattern ExportableLambdaFunctionField_Finding :: ExportableLambdaFunctionField
 pattern ExportableLambdaFunctionField_Finding = ExportableLambdaFunctionField' "Finding"
@@ -122,6 +130,12 @@ pattern ExportableLambdaFunctionField_RecommendationOptionsCostHigh = Exportable
 pattern ExportableLambdaFunctionField_RecommendationOptionsCostLow :: ExportableLambdaFunctionField
 pattern ExportableLambdaFunctionField_RecommendationOptionsCostLow = ExportableLambdaFunctionField' "RecommendationOptionsCostLow"
 
+pattern ExportableLambdaFunctionField_RecommendationOptionsEstimatedMonthlySavingsCurrency :: ExportableLambdaFunctionField
+pattern ExportableLambdaFunctionField_RecommendationOptionsEstimatedMonthlySavingsCurrency = ExportableLambdaFunctionField' "RecommendationOptionsEstimatedMonthlySavingsCurrency"
+
+pattern ExportableLambdaFunctionField_RecommendationOptionsEstimatedMonthlySavingsValue :: ExportableLambdaFunctionField
+pattern ExportableLambdaFunctionField_RecommendationOptionsEstimatedMonthlySavingsValue = ExportableLambdaFunctionField' "RecommendationOptionsEstimatedMonthlySavingsValue"
+
 pattern ExportableLambdaFunctionField_RecommendationOptionsProjectedUtilizationMetricsDurationExpected :: ExportableLambdaFunctionField
 pattern ExportableLambdaFunctionField_RecommendationOptionsProjectedUtilizationMetricsDurationExpected = ExportableLambdaFunctionField' "RecommendationOptionsProjectedUtilizationMetricsDurationExpected"
 
@@ -130,6 +144,9 @@ pattern ExportableLambdaFunctionField_RecommendationOptionsProjectedUtilizationM
 
 pattern ExportableLambdaFunctionField_RecommendationOptionsProjectedUtilizationMetricsDurationUpperBound :: ExportableLambdaFunctionField
 pattern ExportableLambdaFunctionField_RecommendationOptionsProjectedUtilizationMetricsDurationUpperBound = ExportableLambdaFunctionField' "RecommendationOptionsProjectedUtilizationMetricsDurationUpperBound"
+
+pattern ExportableLambdaFunctionField_RecommendationOptionsSavingsOpportunityPercentage :: ExportableLambdaFunctionField
+pattern ExportableLambdaFunctionField_RecommendationOptionsSavingsOpportunityPercentage = ExportableLambdaFunctionField' "RecommendationOptionsSavingsOpportunityPercentage"
 
 pattern ExportableLambdaFunctionField_UtilizationMetricsDurationAverage :: ExportableLambdaFunctionField
 pattern ExportableLambdaFunctionField_UtilizationMetricsDurationAverage = ExportableLambdaFunctionField' "UtilizationMetricsDurationAverage"
@@ -149,6 +166,7 @@ pattern ExportableLambdaFunctionField_UtilizationMetricsMemoryMaximum = Exportab
   ExportableLambdaFunctionField_CurrentConfigurationTimeout,
   ExportableLambdaFunctionField_CurrentCostAverage,
   ExportableLambdaFunctionField_CurrentCostTotal,
+  ExportableLambdaFunctionField_CurrentPerformanceRisk,
   ExportableLambdaFunctionField_Finding,
   ExportableLambdaFunctionField_FindingReasonCodes,
   ExportableLambdaFunctionField_FunctionArn,
@@ -159,9 +177,12 @@ pattern ExportableLambdaFunctionField_UtilizationMetricsMemoryMaximum = Exportab
   ExportableLambdaFunctionField_RecommendationOptionsConfigurationMemorySize,
   ExportableLambdaFunctionField_RecommendationOptionsCostHigh,
   ExportableLambdaFunctionField_RecommendationOptionsCostLow,
+  ExportableLambdaFunctionField_RecommendationOptionsEstimatedMonthlySavingsCurrency,
+  ExportableLambdaFunctionField_RecommendationOptionsEstimatedMonthlySavingsValue,
   ExportableLambdaFunctionField_RecommendationOptionsProjectedUtilizationMetricsDurationExpected,
   ExportableLambdaFunctionField_RecommendationOptionsProjectedUtilizationMetricsDurationLowerBound,
   ExportableLambdaFunctionField_RecommendationOptionsProjectedUtilizationMetricsDurationUpperBound,
+  ExportableLambdaFunctionField_RecommendationOptionsSavingsOpportunityPercentage,
   ExportableLambdaFunctionField_UtilizationMetricsDurationAverage,
   ExportableLambdaFunctionField_UtilizationMetricsDurationMaximum,
   ExportableLambdaFunctionField_UtilizationMetricsMemoryAverage,

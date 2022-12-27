@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.DeleteClientCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,7 +37,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -46,8 +47,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDeleteClientCertificate' smart constructor.
 data DeleteClientCertificate = DeleteClientCertificate'
-  { -- | [Required] The identifier of the ClientCertificate resource to be
-    -- deleted.
+  { -- | The identifier of the ClientCertificate resource to be deleted.
     clientCertificateId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -60,8 +60,7 @@ data DeleteClientCertificate = DeleteClientCertificate'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'clientCertificateId', 'deleteClientCertificate_clientCertificateId' - [Required] The identifier of the ClientCertificate resource to be
--- deleted.
+-- 'clientCertificateId', 'deleteClientCertificate_clientCertificateId' - The identifier of the ClientCertificate resource to be deleted.
 newDeleteClientCertificate ::
   -- | 'clientCertificateId'
   Prelude.Text ->
@@ -72,8 +71,7 @@ newDeleteClientCertificate pClientCertificateId_ =
         pClientCertificateId_
     }
 
--- | [Required] The identifier of the ClientCertificate resource to be
--- deleted.
+-- | The identifier of the ClientCertificate resource to be deleted.
 deleteClientCertificate_clientCertificateId :: Lens.Lens' DeleteClientCertificate Prelude.Text
 deleteClientCertificate_clientCertificateId = Lens.lens (\DeleteClientCertificate' {clientCertificateId} -> clientCertificateId) (\s@DeleteClientCertificate' {} a -> s {clientCertificateId = a} :: DeleteClientCertificate)
 
@@ -81,7 +79,8 @@ instance Core.AWSRequest DeleteClientCertificate where
   type
     AWSResponse DeleteClientCertificate =
       DeleteClientCertificateResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteClientCertificateResponse'
@@ -94,23 +93,23 @@ instance Prelude.NFData DeleteClientCertificate where
   rnf DeleteClientCertificate' {..} =
     Prelude.rnf clientCertificateId
 
-instance Core.ToHeaders DeleteClientCertificate where
+instance Data.ToHeaders DeleteClientCertificate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath DeleteClientCertificate where
+instance Data.ToPath DeleteClientCertificate where
   toPath DeleteClientCertificate' {..} =
     Prelude.mconcat
       [ "/clientcertificates/",
-        Core.toBS clientCertificateId
+        Data.toBS clientCertificateId
       ]
 
-instance Core.ToQuery DeleteClientCertificate where
+instance Data.ToQuery DeleteClientCertificate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteClientCertificateResponse' smart constructor.

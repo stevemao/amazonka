@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MQ.Types.BrokerEngineType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MQ.Types.BrokerEngineType where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MQ.Types.EngineType
 import Amazonka.MQ.Types.EngineVersion
 import qualified Amazonka.Prelude as Prelude
@@ -29,10 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newBrokerEngineType' smart constructor.
 data BrokerEngineType = BrokerEngineType'
-  { -- | The list of engine versions.
-    engineVersions :: Prelude.Maybe [EngineVersion],
-    -- | The broker\'s engine type.
-    engineType :: Prelude.Maybe EngineType
+  { -- | The broker\'s engine type.
+    engineType :: Prelude.Maybe EngineType,
+    -- | The list of engine versions.
+    engineVersions :: Prelude.Maybe [EngineVersion]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,41 +45,43 @@ data BrokerEngineType = BrokerEngineType'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'engineVersions', 'brokerEngineType_engineVersions' - The list of engine versions.
---
 -- 'engineType', 'brokerEngineType_engineType' - The broker\'s engine type.
+--
+-- 'engineVersions', 'brokerEngineType_engineVersions' - The list of engine versions.
 newBrokerEngineType ::
   BrokerEngineType
 newBrokerEngineType =
   BrokerEngineType'
-    { engineVersions = Prelude.Nothing,
-      engineType = Prelude.Nothing
+    { engineType = Prelude.Nothing,
+      engineVersions = Prelude.Nothing
     }
-
--- | The list of engine versions.
-brokerEngineType_engineVersions :: Lens.Lens' BrokerEngineType (Prelude.Maybe [EngineVersion])
-brokerEngineType_engineVersions = Lens.lens (\BrokerEngineType' {engineVersions} -> engineVersions) (\s@BrokerEngineType' {} a -> s {engineVersions = a} :: BrokerEngineType) Prelude.. Lens.mapping Lens.coerced
 
 -- | The broker\'s engine type.
 brokerEngineType_engineType :: Lens.Lens' BrokerEngineType (Prelude.Maybe EngineType)
 brokerEngineType_engineType = Lens.lens (\BrokerEngineType' {engineType} -> engineType) (\s@BrokerEngineType' {} a -> s {engineType = a} :: BrokerEngineType)
 
-instance Core.FromJSON BrokerEngineType where
+-- | The list of engine versions.
+brokerEngineType_engineVersions :: Lens.Lens' BrokerEngineType (Prelude.Maybe [EngineVersion])
+brokerEngineType_engineVersions = Lens.lens (\BrokerEngineType' {engineVersions} -> engineVersions) (\s@BrokerEngineType' {} a -> s {engineVersions = a} :: BrokerEngineType) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON BrokerEngineType where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BrokerEngineType"
       ( \x ->
           BrokerEngineType'
-            Prelude.<$> (x Core..:? "engineVersions" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "engineType")
+            Prelude.<$> (x Data..:? "engineType")
+            Prelude.<*> ( x Data..:? "engineVersions"
+                            Data..!= Prelude.mempty
+                        )
       )
 
 instance Prelude.Hashable BrokerEngineType where
   hashWithSalt _salt BrokerEngineType' {..} =
-    _salt `Prelude.hashWithSalt` engineVersions
-      `Prelude.hashWithSalt` engineType
+    _salt `Prelude.hashWithSalt` engineType
+      `Prelude.hashWithSalt` engineVersions
 
 instance Prelude.NFData BrokerEngineType where
   rnf BrokerEngineType' {..} =
-    Prelude.rnf engineVersions
-      `Prelude.seq` Prelude.rnf engineType
+    Prelude.rnf engineType
+      `Prelude.seq` Prelude.rnf engineVersions

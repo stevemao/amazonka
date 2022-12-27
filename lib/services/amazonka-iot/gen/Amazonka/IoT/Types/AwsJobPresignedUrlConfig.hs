@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.AwsJobPresignedUrlConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoT.Types.AwsJobPresignedUrlConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration information for pre-signed URLs. Valid when @protocols@
@@ -60,13 +61,13 @@ newAwsJobPresignedUrlConfig =
 awsJobPresignedUrlConfig_expiresInSec :: Lens.Lens' AwsJobPresignedUrlConfig (Prelude.Maybe Prelude.Integer)
 awsJobPresignedUrlConfig_expiresInSec = Lens.lens (\AwsJobPresignedUrlConfig' {expiresInSec} -> expiresInSec) (\s@AwsJobPresignedUrlConfig' {} a -> s {expiresInSec = a} :: AwsJobPresignedUrlConfig)
 
-instance Core.FromJSON AwsJobPresignedUrlConfig where
+instance Data.FromJSON AwsJobPresignedUrlConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsJobPresignedUrlConfig"
       ( \x ->
           AwsJobPresignedUrlConfig'
-            Prelude.<$> (x Core..:? "expiresInSec")
+            Prelude.<$> (x Data..:? "expiresInSec")
       )
 
 instance Prelude.Hashable AwsJobPresignedUrlConfig where
@@ -77,9 +78,9 @@ instance Prelude.NFData AwsJobPresignedUrlConfig where
   rnf AwsJobPresignedUrlConfig' {..} =
     Prelude.rnf expiresInSec
 
-instance Core.ToJSON AwsJobPresignedUrlConfig where
+instance Data.ToJSON AwsJobPresignedUrlConfig where
   toJSON AwsJobPresignedUrlConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("expiresInSec" Core..=) Prelude.<$> expiresInSec]
+          [("expiresInSec" Data..=) Prelude.<$> expiresInSec]
       )

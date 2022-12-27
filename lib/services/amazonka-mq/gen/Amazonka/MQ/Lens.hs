@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.MQ.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,32 +14,18 @@
 module Amazonka.MQ.Lens
   ( -- * Operations
 
-    -- ** CreateConfiguration
-    createConfiguration_authenticationStrategy,
-    createConfiguration_tags,
-    createConfiguration_engineVersion,
-    createConfiguration_engineType,
-    createConfiguration_name,
-    createConfigurationResponse_arn,
-    createConfigurationResponse_latestRevision,
-    createConfigurationResponse_created,
-    createConfigurationResponse_authenticationStrategy,
-    createConfigurationResponse_name,
-    createConfigurationResponse_id,
-    createConfigurationResponse_httpStatus,
-
     -- ** CreateBroker
-    createBroker_securityGroups,
-    createBroker_subnetIds,
-    createBroker_creatorRequestId,
     createBroker_authenticationStrategy,
-    createBroker_ldapServerMetadata,
-    createBroker_maintenanceWindowStartTime,
-    createBroker_logs,
-    createBroker_encryptionOptions,
     createBroker_configuration,
-    createBroker_tags,
+    createBroker_creatorRequestId,
+    createBroker_encryptionOptions,
+    createBroker_ldapServerMetadata,
+    createBroker_logs,
+    createBroker_maintenanceWindowStartTime,
+    createBroker_securityGroups,
     createBroker_storageType,
+    createBroker_subnetIds,
+    createBroker_tags,
     createBroker_engineVersion,
     createBroker_hostInstanceType,
     createBroker_autoMinorVersionUpgrade,
@@ -48,236 +34,255 @@ module Amazonka.MQ.Lens
     createBroker_deploymentMode,
     createBroker_engineType,
     createBroker_publiclyAccessible,
-    createBrokerResponse_brokerId,
     createBrokerResponse_brokerArn,
+    createBrokerResponse_brokerId,
     createBrokerResponse_httpStatus,
+
+    -- ** CreateConfiguration
+    createConfiguration_authenticationStrategy,
+    createConfiguration_tags,
+    createConfiguration_engineVersion,
+    createConfiguration_engineType,
+    createConfiguration_name,
+    createConfigurationResponse_arn,
+    createConfigurationResponse_authenticationStrategy,
+    createConfigurationResponse_created,
+    createConfigurationResponse_id,
+    createConfigurationResponse_latestRevision,
+    createConfigurationResponse_name,
+    createConfigurationResponse_httpStatus,
+
+    -- ** CreateTags
+    createTags_tags,
+    createTags_resourceArn,
+
+    -- ** CreateUser
+    createUser_consoleAccess,
+    createUser_groups,
+    createUser_username,
+    createUser_brokerId,
+    createUser_password,
+    createUserResponse_httpStatus,
 
     -- ** DeleteBroker
     deleteBroker_brokerId,
     deleteBrokerResponse_brokerId,
     deleteBrokerResponse_httpStatus,
 
-    -- ** UpdateBroker
-    updateBroker_engineVersion,
-    updateBroker_autoMinorVersionUpgrade,
-    updateBroker_securityGroups,
-    updateBroker_authenticationStrategy,
-    updateBroker_ldapServerMetadata,
-    updateBroker_maintenanceWindowStartTime,
-    updateBroker_logs,
-    updateBroker_configuration,
-    updateBroker_hostInstanceType,
-    updateBroker_brokerId,
-    updateBrokerResponse_engineVersion,
-    updateBrokerResponse_autoMinorVersionUpgrade,
-    updateBrokerResponse_securityGroups,
-    updateBrokerResponse_authenticationStrategy,
-    updateBrokerResponse_ldapServerMetadata,
-    updateBrokerResponse_maintenanceWindowStartTime,
-    updateBrokerResponse_logs,
-    updateBrokerResponse_configuration,
-    updateBrokerResponse_brokerId,
-    updateBrokerResponse_hostInstanceType,
-    updateBrokerResponse_httpStatus,
-
-    -- ** RebootBroker
-    rebootBroker_brokerId,
-    rebootBrokerResponse_httpStatus,
-
-    -- ** ListConfigurationRevisions
-    listConfigurationRevisions_nextToken,
-    listConfigurationRevisions_maxResults,
-    listConfigurationRevisions_configurationId,
-    listConfigurationRevisionsResponse_configurationId,
-    listConfigurationRevisionsResponse_nextToken,
-    listConfigurationRevisionsResponse_revisions,
-    listConfigurationRevisionsResponse_maxResults,
-    listConfigurationRevisionsResponse_httpStatus,
-
-    -- ** CreateTags
-    createTags_tags,
-    createTags_resourceArn,
-
-    -- ** ListUsers
-    listUsers_nextToken,
-    listUsers_maxResults,
-    listUsers_brokerId,
-    listUsersResponse_users,
-    listUsersResponse_nextToken,
-    listUsersResponse_brokerId,
-    listUsersResponse_maxResults,
-    listUsersResponse_httpStatus,
-
     -- ** DeleteTags
     deleteTags_tagKeys,
     deleteTags_resourceArn,
-
-    -- ** ListConfigurations
-    listConfigurations_nextToken,
-    listConfigurations_maxResults,
-    listConfigurationsResponse_configurations,
-    listConfigurationsResponse_nextToken,
-    listConfigurationsResponse_maxResults,
-    listConfigurationsResponse_httpStatus,
-
-    -- ** DescribeUser
-    describeUser_username,
-    describeUser_brokerId,
-    describeUserResponse_groups,
-    describeUserResponse_pending,
-    describeUserResponse_consoleAccess,
-    describeUserResponse_username,
-    describeUserResponse_brokerId,
-    describeUserResponse_httpStatus,
-
-    -- ** DescribeBrokerInstanceOptions
-    describeBrokerInstanceOptions_nextToken,
-    describeBrokerInstanceOptions_engineType,
-    describeBrokerInstanceOptions_maxResults,
-    describeBrokerInstanceOptions_hostInstanceType,
-    describeBrokerInstanceOptions_storageType,
-    describeBrokerInstanceOptionsResponse_nextToken,
-    describeBrokerInstanceOptionsResponse_brokerInstanceOptions,
-    describeBrokerInstanceOptionsResponse_maxResults,
-    describeBrokerInstanceOptionsResponse_httpStatus,
-
-    -- ** ListBrokers
-    listBrokers_nextToken,
-    listBrokers_maxResults,
-    listBrokersResponse_nextToken,
-    listBrokersResponse_brokerSummaries,
-    listBrokersResponse_httpStatus,
-
-    -- ** CreateUser
-    createUser_groups,
-    createUser_consoleAccess,
-    createUser_username,
-    createUser_brokerId,
-    createUser_password,
-    createUserResponse_httpStatus,
-
-    -- ** DescribeConfiguration
-    describeConfiguration_configurationId,
-    describeConfigurationResponse_engineVersion,
-    describeConfigurationResponse_arn,
-    describeConfigurationResponse_latestRevision,
-    describeConfigurationResponse_created,
-    describeConfigurationResponse_authenticationStrategy,
-    describeConfigurationResponse_name,
-    describeConfigurationResponse_id,
-    describeConfigurationResponse_description,
-    describeConfigurationResponse_engineType,
-    describeConfigurationResponse_tags,
-    describeConfigurationResponse_httpStatus,
-
-    -- ** UpdateUser
-    updateUser_groups,
-    updateUser_consoleAccess,
-    updateUser_password,
-    updateUser_username,
-    updateUser_brokerId,
-    updateUserResponse_httpStatus,
 
     -- ** DeleteUser
     deleteUser_username,
     deleteUser_brokerId,
     deleteUserResponse_httpStatus,
 
-    -- ** ListTags
-    listTags_resourceArn,
-    listTagsResponse_tags,
-    listTagsResponse_httpStatus,
+    -- ** DescribeBroker
+    describeBroker_brokerId,
+    describeBrokerResponse_actionsRequired,
+    describeBrokerResponse_authenticationStrategy,
+    describeBrokerResponse_autoMinorVersionUpgrade,
+    describeBrokerResponse_brokerArn,
+    describeBrokerResponse_brokerId,
+    describeBrokerResponse_brokerInstances,
+    describeBrokerResponse_brokerName,
+    describeBrokerResponse_brokerState,
+    describeBrokerResponse_configurations,
+    describeBrokerResponse_created,
+    describeBrokerResponse_deploymentMode,
+    describeBrokerResponse_encryptionOptions,
+    describeBrokerResponse_engineType,
+    describeBrokerResponse_engineVersion,
+    describeBrokerResponse_hostInstanceType,
+    describeBrokerResponse_ldapServerMetadata,
+    describeBrokerResponse_logs,
+    describeBrokerResponse_maintenanceWindowStartTime,
+    describeBrokerResponse_pendingAuthenticationStrategy,
+    describeBrokerResponse_pendingEngineVersion,
+    describeBrokerResponse_pendingHostInstanceType,
+    describeBrokerResponse_pendingLdapServerMetadata,
+    describeBrokerResponse_pendingSecurityGroups,
+    describeBrokerResponse_publiclyAccessible,
+    describeBrokerResponse_securityGroups,
+    describeBrokerResponse_storageType,
+    describeBrokerResponse_subnetIds,
+    describeBrokerResponse_tags,
+    describeBrokerResponse_users,
+    describeBrokerResponse_httpStatus,
 
     -- ** DescribeBrokerEngineTypes
-    describeBrokerEngineTypes_nextToken,
     describeBrokerEngineTypes_engineType,
     describeBrokerEngineTypes_maxResults,
+    describeBrokerEngineTypes_nextToken,
     describeBrokerEngineTypesResponse_brokerEngineTypes,
-    describeBrokerEngineTypesResponse_nextToken,
     describeBrokerEngineTypesResponse_maxResults,
+    describeBrokerEngineTypesResponse_nextToken,
     describeBrokerEngineTypesResponse_httpStatus,
+
+    -- ** DescribeBrokerInstanceOptions
+    describeBrokerInstanceOptions_engineType,
+    describeBrokerInstanceOptions_hostInstanceType,
+    describeBrokerInstanceOptions_maxResults,
+    describeBrokerInstanceOptions_nextToken,
+    describeBrokerInstanceOptions_storageType,
+    describeBrokerInstanceOptionsResponse_brokerInstanceOptions,
+    describeBrokerInstanceOptionsResponse_maxResults,
+    describeBrokerInstanceOptionsResponse_nextToken,
+    describeBrokerInstanceOptionsResponse_httpStatus,
+
+    -- ** DescribeConfiguration
+    describeConfiguration_configurationId,
+    describeConfigurationResponse_arn,
+    describeConfigurationResponse_authenticationStrategy,
+    describeConfigurationResponse_created,
+    describeConfigurationResponse_description,
+    describeConfigurationResponse_engineType,
+    describeConfigurationResponse_engineVersion,
+    describeConfigurationResponse_id,
+    describeConfigurationResponse_latestRevision,
+    describeConfigurationResponse_name,
+    describeConfigurationResponse_tags,
+    describeConfigurationResponse_httpStatus,
 
     -- ** DescribeConfigurationRevision
     describeConfigurationRevision_configurationRevision,
     describeConfigurationRevision_configurationId,
     describeConfigurationRevisionResponse_configurationId,
-    describeConfigurationRevisionResponse_data,
     describeConfigurationRevisionResponse_created,
+    describeConfigurationRevisionResponse_data,
     describeConfigurationRevisionResponse_description,
     describeConfigurationRevisionResponse_httpStatus,
 
-    -- ** DescribeBroker
-    describeBroker_brokerId,
-    describeBrokerResponse_brokerName,
-    describeBrokerResponse_engineVersion,
-    describeBrokerResponse_pendingAuthenticationStrategy,
-    describeBrokerResponse_brokerState,
-    describeBrokerResponse_publiclyAccessible,
-    describeBrokerResponse_autoMinorVersionUpgrade,
-    describeBrokerResponse_securityGroups,
-    describeBrokerResponse_users,
-    describeBrokerResponse_pendingSecurityGroups,
-    describeBrokerResponse_subnetIds,
-    describeBrokerResponse_created,
-    describeBrokerResponse_configurations,
-    describeBrokerResponse_authenticationStrategy,
-    describeBrokerResponse_pendingHostInstanceType,
-    describeBrokerResponse_ldapServerMetadata,
-    describeBrokerResponse_maintenanceWindowStartTime,
-    describeBrokerResponse_logs,
-    describeBrokerResponse_encryptionOptions,
-    describeBrokerResponse_deploymentMode,
-    describeBrokerResponse_pendingEngineVersion,
-    describeBrokerResponse_brokerId,
-    describeBrokerResponse_pendingLdapServerMetadata,
-    describeBrokerResponse_engineType,
-    describeBrokerResponse_brokerArn,
-    describeBrokerResponse_tags,
-    describeBrokerResponse_brokerInstances,
-    describeBrokerResponse_hostInstanceType,
-    describeBrokerResponse_storageType,
-    describeBrokerResponse_httpStatus,
+    -- ** DescribeUser
+    describeUser_username,
+    describeUser_brokerId,
+    describeUserResponse_brokerId,
+    describeUserResponse_consoleAccess,
+    describeUserResponse_groups,
+    describeUserResponse_pending,
+    describeUserResponse_username,
+    describeUserResponse_httpStatus,
+
+    -- ** ListBrokers
+    listBrokers_maxResults,
+    listBrokers_nextToken,
+    listBrokersResponse_brokerSummaries,
+    listBrokersResponse_nextToken,
+    listBrokersResponse_httpStatus,
+
+    -- ** ListConfigurationRevisions
+    listConfigurationRevisions_maxResults,
+    listConfigurationRevisions_nextToken,
+    listConfigurationRevisions_configurationId,
+    listConfigurationRevisionsResponse_configurationId,
+    listConfigurationRevisionsResponse_maxResults,
+    listConfigurationRevisionsResponse_nextToken,
+    listConfigurationRevisionsResponse_revisions,
+    listConfigurationRevisionsResponse_httpStatus,
+
+    -- ** ListConfigurations
+    listConfigurations_maxResults,
+    listConfigurations_nextToken,
+    listConfigurationsResponse_configurations,
+    listConfigurationsResponse_maxResults,
+    listConfigurationsResponse_nextToken,
+    listConfigurationsResponse_httpStatus,
+
+    -- ** ListTags
+    listTags_resourceArn,
+    listTagsResponse_tags,
+    listTagsResponse_httpStatus,
+
+    -- ** ListUsers
+    listUsers_maxResults,
+    listUsers_nextToken,
+    listUsers_brokerId,
+    listUsersResponse_brokerId,
+    listUsersResponse_maxResults,
+    listUsersResponse_nextToken,
+    listUsersResponse_users,
+    listUsersResponse_httpStatus,
+
+    -- ** RebootBroker
+    rebootBroker_brokerId,
+    rebootBrokerResponse_httpStatus,
+
+    -- ** UpdateBroker
+    updateBroker_authenticationStrategy,
+    updateBroker_autoMinorVersionUpgrade,
+    updateBroker_configuration,
+    updateBroker_engineVersion,
+    updateBroker_hostInstanceType,
+    updateBroker_ldapServerMetadata,
+    updateBroker_logs,
+    updateBroker_maintenanceWindowStartTime,
+    updateBroker_securityGroups,
+    updateBroker_brokerId,
+    updateBrokerResponse_authenticationStrategy,
+    updateBrokerResponse_autoMinorVersionUpgrade,
+    updateBrokerResponse_brokerId,
+    updateBrokerResponse_configuration,
+    updateBrokerResponse_engineVersion,
+    updateBrokerResponse_hostInstanceType,
+    updateBrokerResponse_ldapServerMetadata,
+    updateBrokerResponse_logs,
+    updateBrokerResponse_maintenanceWindowStartTime,
+    updateBrokerResponse_securityGroups,
+    updateBrokerResponse_httpStatus,
 
     -- ** UpdateConfiguration
     updateConfiguration_description,
     updateConfiguration_configurationId,
     updateConfiguration_data,
     updateConfigurationResponse_arn,
-    updateConfigurationResponse_latestRevision,
     updateConfigurationResponse_created,
-    updateConfigurationResponse_warnings,
-    updateConfigurationResponse_name,
     updateConfigurationResponse_id,
+    updateConfigurationResponse_latestRevision,
+    updateConfigurationResponse_name,
+    updateConfigurationResponse_warnings,
     updateConfigurationResponse_httpStatus,
 
+    -- ** UpdateUser
+    updateUser_consoleAccess,
+    updateUser_groups,
+    updateUser_password,
+    updateUser_username,
+    updateUser_brokerId,
+    updateUserResponse_httpStatus,
+
     -- * Types
+
+    -- ** ActionRequired
+    actionRequired_actionRequiredCode,
+    actionRequired_actionRequiredInfo,
 
     -- ** AvailabilityZone
     availabilityZone_name,
 
     -- ** BrokerEngineType
-    brokerEngineType_engineVersions,
     brokerEngineType_engineType,
+    brokerEngineType_engineVersions,
 
     -- ** BrokerInstance
-    brokerInstance_ipAddress,
     brokerInstance_consoleURL,
     brokerInstance_endpoints,
+    brokerInstance_ipAddress,
 
     -- ** BrokerInstanceOption
-    brokerInstanceOption_supportedEngineVersions,
     brokerInstanceOption_availabilityZones,
-    brokerInstanceOption_supportedDeploymentModes,
     brokerInstanceOption_engineType,
     brokerInstanceOption_hostInstanceType,
     brokerInstanceOption_storageType,
+    brokerInstanceOption_supportedDeploymentModes,
+    brokerInstanceOption_supportedEngineVersions,
 
     -- ** BrokerSummary
+    brokerSummary_brokerArn,
+    brokerSummary_brokerId,
     brokerSummary_brokerName,
     brokerSummary_brokerState,
     brokerSummary_created,
-    brokerSummary_brokerId,
-    brokerSummary_brokerArn,
     brokerSummary_hostInstanceType,
     brokerSummary_deploymentMode,
     brokerSummary_engineType,
@@ -304,9 +309,9 @@ module Amazonka.MQ.Lens
     configurationRevision_created,
 
     -- ** Configurations
-    configurations_pending,
-    configurations_history,
     configurations_current,
+    configurations_history,
+    configurations_pending,
 
     -- ** EncryptionOptions
     encryptionOptions_kmsKeyId,
@@ -316,10 +321,10 @@ module Amazonka.MQ.Lens
     engineVersion_name,
 
     -- ** LdapServerMetadataInput
+    ldapServerMetadataInput_roleName,
+    ldapServerMetadataInput_roleSearchSubtree,
     ldapServerMetadataInput_userRoleName,
     ldapServerMetadataInput_userSearchSubtree,
-    ldapServerMetadataInput_roleSearchSubtree,
-    ldapServerMetadataInput_roleName,
     ldapServerMetadataInput_hosts,
     ldapServerMetadataInput_userSearchMatching,
     ldapServerMetadataInput_userBase,
@@ -329,10 +334,10 @@ module Amazonka.MQ.Lens
     ldapServerMetadataInput_serviceAccountPassword,
 
     -- ** LdapServerMetadataOutput
+    ldapServerMetadataOutput_roleName,
+    ldapServerMetadataOutput_roleSearchSubtree,
     ldapServerMetadataOutput_userRoleName,
     ldapServerMetadataOutput_userSearchSubtree,
-    ldapServerMetadataOutput_roleSearchSubtree,
-    ldapServerMetadataOutput_roleName,
     ldapServerMetadataOutput_hosts,
     ldapServerMetadataOutput_userSearchMatching,
     ldapServerMetadataOutput_userBase,
@@ -345,9 +350,9 @@ module Amazonka.MQ.Lens
     logs_general,
 
     -- ** LogsSummary
-    logsSummary_pending,
     logsSummary_audit,
     logsSummary_auditLogGroup,
+    logsSummary_pending,
     logsSummary_generalLogGroup,
     logsSummary_general,
 
@@ -361,14 +366,14 @@ module Amazonka.MQ.Lens
     sanitizationWarning_reason,
 
     -- ** User
-    user_groups,
     user_consoleAccess,
+    user_groups,
     user_username,
     user_password,
 
     -- ** UserPendingChanges
-    userPendingChanges_groups,
     userPendingChanges_consoleAccess,
+    userPendingChanges_groups,
     userPendingChanges_pendingChange,
 
     -- ** UserSummary
@@ -401,6 +406,7 @@ import Amazonka.MQ.ListConfigurations
 import Amazonka.MQ.ListTags
 import Amazonka.MQ.ListUsers
 import Amazonka.MQ.RebootBroker
+import Amazonka.MQ.Types.ActionRequired
 import Amazonka.MQ.Types.AvailabilityZone
 import Amazonka.MQ.Types.BrokerEngineType
 import Amazonka.MQ.Types.BrokerInstance

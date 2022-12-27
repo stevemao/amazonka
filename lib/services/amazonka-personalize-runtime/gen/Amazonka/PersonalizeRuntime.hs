@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.PersonalizeRuntime
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,23 +29,27 @@ module Amazonka.PersonalizeRuntime
     -- * Operations
     -- $operations
 
-    -- ** GetRecommendations
-    GetRecommendations (GetRecommendations'),
-    newGetRecommendations,
-    GetRecommendationsResponse (GetRecommendationsResponse'),
-    newGetRecommendationsResponse,
-
     -- ** GetPersonalizedRanking
     GetPersonalizedRanking (GetPersonalizedRanking'),
     newGetPersonalizedRanking,
     GetPersonalizedRankingResponse (GetPersonalizedRankingResponse'),
     newGetPersonalizedRankingResponse,
 
+    -- ** GetRecommendations
+    GetRecommendations (GetRecommendations'),
+    newGetRecommendations,
+    GetRecommendationsResponse (GetRecommendationsResponse'),
+    newGetRecommendationsResponse,
+
     -- * Types
 
     -- ** PredictedItem
     PredictedItem (PredictedItem'),
     newPredictedItem,
+
+    -- ** Promotion
+    Promotion (Promotion'),
+    newPromotion,
   )
 where
 

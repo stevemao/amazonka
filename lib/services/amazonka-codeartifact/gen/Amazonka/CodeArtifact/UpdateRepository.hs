@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeArtifact.UpdateRepository
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,9 +27,9 @@ module Amazonka.CodeArtifact.UpdateRepository
     newUpdateRepository,
 
     -- * Request Lenses
-    updateRepository_upstreams,
-    updateRepository_domainOwner,
     updateRepository_description,
+    updateRepository_domainOwner,
+    updateRepository_upstreams,
     updateRepository_domain,
     updateRepository_repository,
 
@@ -45,24 +45,25 @@ where
 
 import Amazonka.CodeArtifact.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateRepository' smart constructor.
 data UpdateRepository = UpdateRepository'
-  { -- | A list of upstream repositories to associate with the repository. The
+  { -- | An updated repository description.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The 12-digit account number of the Amazon Web Services account that owns
+    -- the domain. It does not include dashes or spaces.
+    domainOwner :: Prelude.Maybe Prelude.Text,
+    -- | A list of upstream repositories to associate with the repository. The
     -- order of the upstream repositories in the list determines their priority
-    -- order when AWS CodeArtifact looks for a requested package version. For
-    -- more information, see
+    -- order when CodeArtifact looks for a requested package version. For more
+    -- information, see
     -- <https://docs.aws.amazon.com/codeartifact/latest/ug/repos-upstream.html Working with upstream repositories>.
     upstreams :: Prelude.Maybe [UpstreamRepository],
-    -- | The 12-digit account number of the AWS account that owns the domain. It
-    -- does not include dashes or spaces.
-    domainOwner :: Prelude.Maybe Prelude.Text,
-    -- | An updated repository description.
-    description :: Prelude.Maybe Prelude.Text,
     -- | The name of the domain associated with the repository to update.
     domain :: Prelude.Text,
     -- | The name of the repository to update.
@@ -78,16 +79,16 @@ data UpdateRepository = UpdateRepository'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'updateRepository_description' - An updated repository description.
+--
+-- 'domainOwner', 'updateRepository_domainOwner' - The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
+--
 -- 'upstreams', 'updateRepository_upstreams' - A list of upstream repositories to associate with the repository. The
 -- order of the upstream repositories in the list determines their priority
--- order when AWS CodeArtifact looks for a requested package version. For
--- more information, see
+-- order when CodeArtifact looks for a requested package version. For more
+-- information, see
 -- <https://docs.aws.amazon.com/codeartifact/latest/ug/repos-upstream.html Working with upstream repositories>.
---
--- 'domainOwner', 'updateRepository_domainOwner' - The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
---
--- 'description', 'updateRepository_description' - An updated repository description.
 --
 -- 'domain', 'updateRepository_domain' - The name of the domain associated with the repository to update.
 --
@@ -100,29 +101,29 @@ newUpdateRepository ::
   UpdateRepository
 newUpdateRepository pDomain_ pRepository_ =
   UpdateRepository'
-    { upstreams = Prelude.Nothing,
+    { description = Prelude.Nothing,
       domainOwner = Prelude.Nothing,
-      description = Prelude.Nothing,
+      upstreams = Prelude.Nothing,
       domain = pDomain_,
       repository = pRepository_
     }
 
--- | A list of upstream repositories to associate with the repository. The
--- order of the upstream repositories in the list determines their priority
--- order when AWS CodeArtifact looks for a requested package version. For
--- more information, see
--- <https://docs.aws.amazon.com/codeartifact/latest/ug/repos-upstream.html Working with upstream repositories>.
-updateRepository_upstreams :: Lens.Lens' UpdateRepository (Prelude.Maybe [UpstreamRepository])
-updateRepository_upstreams = Lens.lens (\UpdateRepository' {upstreams} -> upstreams) (\s@UpdateRepository' {} a -> s {upstreams = a} :: UpdateRepository) Prelude.. Lens.mapping Lens.coerced
-
--- | The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
-updateRepository_domainOwner :: Lens.Lens' UpdateRepository (Prelude.Maybe Prelude.Text)
-updateRepository_domainOwner = Lens.lens (\UpdateRepository' {domainOwner} -> domainOwner) (\s@UpdateRepository' {} a -> s {domainOwner = a} :: UpdateRepository)
-
 -- | An updated repository description.
 updateRepository_description :: Lens.Lens' UpdateRepository (Prelude.Maybe Prelude.Text)
 updateRepository_description = Lens.lens (\UpdateRepository' {description} -> description) (\s@UpdateRepository' {} a -> s {description = a} :: UpdateRepository)
+
+-- | The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
+updateRepository_domainOwner :: Lens.Lens' UpdateRepository (Prelude.Maybe Prelude.Text)
+updateRepository_domainOwner = Lens.lens (\UpdateRepository' {domainOwner} -> domainOwner) (\s@UpdateRepository' {} a -> s {domainOwner = a} :: UpdateRepository)
+
+-- | A list of upstream repositories to associate with the repository. The
+-- order of the upstream repositories in the list determines their priority
+-- order when CodeArtifact looks for a requested package version. For more
+-- information, see
+-- <https://docs.aws.amazon.com/codeartifact/latest/ug/repos-upstream.html Working with upstream repositories>.
+updateRepository_upstreams :: Lens.Lens' UpdateRepository (Prelude.Maybe [UpstreamRepository])
+updateRepository_upstreams = Lens.lens (\UpdateRepository' {upstreams} -> upstreams) (\s@UpdateRepository' {} a -> s {upstreams = a} :: UpdateRepository) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the domain associated with the repository to update.
 updateRepository_domain :: Lens.Lens' UpdateRepository Prelude.Text
@@ -136,60 +137,61 @@ instance Core.AWSRequest UpdateRepository where
   type
     AWSResponse UpdateRepository =
       UpdateRepositoryResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateRepositoryResponse'
-            Prelude.<$> (x Core..?> "repository")
+            Prelude.<$> (x Data..?> "repository")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateRepository where
   hashWithSalt _salt UpdateRepository' {..} =
-    _salt `Prelude.hashWithSalt` upstreams
+    _salt `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` domainOwner
-      `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` upstreams
       `Prelude.hashWithSalt` domain
       `Prelude.hashWithSalt` repository
 
 instance Prelude.NFData UpdateRepository where
   rnf UpdateRepository' {..} =
-    Prelude.rnf upstreams
+    Prelude.rnf description
       `Prelude.seq` Prelude.rnf domainOwner
-      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf upstreams
       `Prelude.seq` Prelude.rnf domain
       `Prelude.seq` Prelude.rnf repository
 
-instance Core.ToHeaders UpdateRepository where
+instance Data.ToHeaders UpdateRepository where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateRepository where
+instance Data.ToJSON UpdateRepository where
   toJSON UpdateRepository' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("upstreams" Core..=) Prelude.<$> upstreams,
-            ("description" Core..=) Prelude.<$> description
+          [ ("description" Data..=) Prelude.<$> description,
+            ("upstreams" Data..=) Prelude.<$> upstreams
           ]
       )
 
-instance Core.ToPath UpdateRepository where
+instance Data.ToPath UpdateRepository where
   toPath = Prelude.const "/v1/repository"
 
-instance Core.ToQuery UpdateRepository where
+instance Data.ToQuery UpdateRepository where
   toQuery UpdateRepository' {..} =
     Prelude.mconcat
-      [ "domain-owner" Core.=: domainOwner,
-        "domain" Core.=: domain,
-        "repository" Core.=: repository
+      [ "domain-owner" Data.=: domainOwner,
+        "domain" Data.=: domain,
+        "repository" Data.=: repository
       ]
 
 -- | /See:/ 'newUpdateRepositoryResponse' smart constructor.

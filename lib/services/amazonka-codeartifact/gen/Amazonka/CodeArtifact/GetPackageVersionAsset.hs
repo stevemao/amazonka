@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeArtifact.GetPackageVersionAsset
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.CodeArtifact.GetPackageVersionAsset
     newGetPackageVersionAsset,
 
     -- * Request Lenses
-    getPackageVersionAsset_namespace,
     getPackageVersionAsset_domainOwner,
+    getPackageVersionAsset_namespace,
     getPackageVersionAsset_packageVersionRevision,
     getPackageVersionAsset_domain,
     getPackageVersionAsset_repository,
@@ -44,8 +44,8 @@ module Amazonka.CodeArtifact.GetPackageVersionAsset
     newGetPackageVersionAssetResponse,
 
     -- * Response Lenses
-    getPackageVersionAssetResponse_packageVersion,
     getPackageVersionAssetResponse_assetName,
+    getPackageVersionAssetResponse_packageVersion,
     getPackageVersionAssetResponse_packageVersionRevision,
     getPackageVersionAssetResponse_httpStatus,
     getPackageVersionAssetResponse_asset,
@@ -54,26 +54,29 @@ where
 
 import Amazonka.CodeArtifact.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetPackageVersionAsset' smart constructor.
 data GetPackageVersionAsset = GetPackageVersionAsset'
-  { -- | The namespace of the package. The package component that specifies its
-    -- namespace depends on its type. For example:
-    --
-    -- -   The namespace of a Maven package is its @groupId@.
-    --
-    -- -   The namespace of an npm package is its @scope@.
-    --
-    -- -   A Python package does not contain a corresponding component, so
-    --     Python packages do not have a namespace.
-    namespace :: Prelude.Maybe Prelude.Text,
-    -- | The 12-digit account number of the AWS account that owns the domain. It
-    -- does not include dashes or spaces.
+  { -- | The 12-digit account number of the Amazon Web Services account that owns
+    -- the domain. It does not include dashes or spaces.
     domainOwner :: Prelude.Maybe Prelude.Text,
+    -- | The namespace of the package version with the requested asset file. The
+    -- package version component that specifies its namespace depends on its
+    -- type. For example:
+    --
+    -- -   The namespace of a Maven package version is its @groupId@.
+    --
+    -- -   The namespace of an npm package version is its @scope@.
+    --
+    -- -   Python and NuGet package versions do not contain a corresponding
+    --     component, package versions of those formats do not have a
+    --     namespace.
+    namespace :: Prelude.Maybe Prelude.Text,
     -- | The name of the package version revision that contains the requested
     -- asset.
     packageVersionRevision :: Prelude.Maybe Prelude.Text,
@@ -84,13 +87,7 @@ data GetPackageVersionAsset = GetPackageVersionAsset'
     -- asset.
     repository :: Prelude.Text,
     -- | A format that specifies the type of the package version with the
-    -- requested asset file. The valid values are:
-    --
-    -- -   @npm@
-    --
-    -- -   @pypi@
-    --
-    -- -   @maven@
+    -- requested asset file.
     format :: PackageFormat,
     -- | The name of the package that contains the requested asset.
     package :: Prelude.Text,
@@ -109,18 +106,20 @@ data GetPackageVersionAsset = GetPackageVersionAsset'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'namespace', 'getPackageVersionAsset_namespace' - The namespace of the package. The package component that specifies its
--- namespace depends on its type. For example:
+-- 'domainOwner', 'getPackageVersionAsset_domainOwner' - The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
 --
--- -   The namespace of a Maven package is its @groupId@.
+-- 'namespace', 'getPackageVersionAsset_namespace' - The namespace of the package version with the requested asset file. The
+-- package version component that specifies its namespace depends on its
+-- type. For example:
 --
--- -   The namespace of an npm package is its @scope@.
+-- -   The namespace of a Maven package version is its @groupId@.
 --
--- -   A Python package does not contain a corresponding component, so
---     Python packages do not have a namespace.
+-- -   The namespace of an npm package version is its @scope@.
 --
--- 'domainOwner', 'getPackageVersionAsset_domainOwner' - The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
+-- -   Python and NuGet package versions do not contain a corresponding
+--     component, package versions of those formats do not have a
+--     namespace.
 --
 -- 'packageVersionRevision', 'getPackageVersionAsset_packageVersionRevision' - The name of the package version revision that contains the requested
 -- asset.
@@ -132,13 +131,7 @@ data GetPackageVersionAsset = GetPackageVersionAsset'
 -- asset.
 --
 -- 'format', 'getPackageVersionAsset_format' - A format that specifies the type of the package version with the
--- requested asset file. The valid values are:
---
--- -   @npm@
---
--- -   @pypi@
---
--- -   @maven@
+-- requested asset file.
 --
 -- 'package', 'getPackageVersionAsset_package' - The name of the package that contains the requested asset.
 --
@@ -167,9 +160,9 @@ newGetPackageVersionAsset
   pPackageVersion_
   pAsset_ =
     GetPackageVersionAsset'
-      { namespace =
+      { domainOwner =
           Prelude.Nothing,
-        domainOwner = Prelude.Nothing,
+        namespace = Prelude.Nothing,
         packageVersionRevision = Prelude.Nothing,
         domain = pDomain_,
         repository = pRepository_,
@@ -179,22 +172,24 @@ newGetPackageVersionAsset
         asset = pAsset_
       }
 
--- | The namespace of the package. The package component that specifies its
--- namespace depends on its type. For example:
---
--- -   The namespace of a Maven package is its @groupId@.
---
--- -   The namespace of an npm package is its @scope@.
---
--- -   A Python package does not contain a corresponding component, so
---     Python packages do not have a namespace.
-getPackageVersionAsset_namespace :: Lens.Lens' GetPackageVersionAsset (Prelude.Maybe Prelude.Text)
-getPackageVersionAsset_namespace = Lens.lens (\GetPackageVersionAsset' {namespace} -> namespace) (\s@GetPackageVersionAsset' {} a -> s {namespace = a} :: GetPackageVersionAsset)
-
--- | The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
+-- | The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
 getPackageVersionAsset_domainOwner :: Lens.Lens' GetPackageVersionAsset (Prelude.Maybe Prelude.Text)
 getPackageVersionAsset_domainOwner = Lens.lens (\GetPackageVersionAsset' {domainOwner} -> domainOwner) (\s@GetPackageVersionAsset' {} a -> s {domainOwner = a} :: GetPackageVersionAsset)
+
+-- | The namespace of the package version with the requested asset file. The
+-- package version component that specifies its namespace depends on its
+-- type. For example:
+--
+-- -   The namespace of a Maven package version is its @groupId@.
+--
+-- -   The namespace of an npm package version is its @scope@.
+--
+-- -   Python and NuGet package versions do not contain a corresponding
+--     component, package versions of those formats do not have a
+--     namespace.
+getPackageVersionAsset_namespace :: Lens.Lens' GetPackageVersionAsset (Prelude.Maybe Prelude.Text)
+getPackageVersionAsset_namespace = Lens.lens (\GetPackageVersionAsset' {namespace} -> namespace) (\s@GetPackageVersionAsset' {} a -> s {namespace = a} :: GetPackageVersionAsset)
 
 -- | The name of the package version revision that contains the requested
 -- asset.
@@ -212,13 +207,7 @@ getPackageVersionAsset_repository :: Lens.Lens' GetPackageVersionAsset Prelude.T
 getPackageVersionAsset_repository = Lens.lens (\GetPackageVersionAsset' {repository} -> repository) (\s@GetPackageVersionAsset' {} a -> s {repository = a} :: GetPackageVersionAsset)
 
 -- | A format that specifies the type of the package version with the
--- requested asset file. The valid values are:
---
--- -   @npm@
---
--- -   @pypi@
---
--- -   @maven@
+-- requested asset file.
 getPackageVersionAsset_format :: Lens.Lens' GetPackageVersionAsset PackageFormat
 getPackageVersionAsset_format = Lens.lens (\GetPackageVersionAsset' {format} -> format) (\s@GetPackageVersionAsset' {} a -> s {format = a} :: GetPackageVersionAsset)
 
@@ -238,22 +227,23 @@ instance Core.AWSRequest GetPackageVersionAsset where
   type
     AWSResponse GetPackageVersionAsset =
       GetPackageVersionAssetResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveBody
       ( \s h x ->
           GetPackageVersionAssetResponse'
-            Prelude.<$> (h Core..#? "X-PackageVersion")
-            Prelude.<*> (h Core..#? "X-AssetName")
-            Prelude.<*> (h Core..#? "X-PackageVersionRevision")
+            Prelude.<$> (h Data..#? "X-AssetName")
+            Prelude.<*> (h Data..#? "X-PackageVersion")
+            Prelude.<*> (h Data..#? "X-PackageVersionRevision")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
             Prelude.<*> (Prelude.pure x)
       )
 
 instance Prelude.Hashable GetPackageVersionAsset where
   hashWithSalt _salt GetPackageVersionAsset' {..} =
-    _salt `Prelude.hashWithSalt` namespace
-      `Prelude.hashWithSalt` domainOwner
+    _salt `Prelude.hashWithSalt` domainOwner
+      `Prelude.hashWithSalt` namespace
       `Prelude.hashWithSalt` packageVersionRevision
       `Prelude.hashWithSalt` domain
       `Prelude.hashWithSalt` repository
@@ -264,8 +254,8 @@ instance Prelude.Hashable GetPackageVersionAsset where
 
 instance Prelude.NFData GetPackageVersionAsset where
   rnf GetPackageVersionAsset' {..} =
-    Prelude.rnf namespace
-      `Prelude.seq` Prelude.rnf domainOwner
+    Prelude.rnf domainOwner
+      `Prelude.seq` Prelude.rnf namespace
       `Prelude.seq` Prelude.rnf packageVersionRevision
       `Prelude.seq` Prelude.rnf domain
       `Prelude.seq` Prelude.rnf repository
@@ -274,47 +264,47 @@ instance Prelude.NFData GetPackageVersionAsset where
       `Prelude.seq` Prelude.rnf packageVersion
       `Prelude.seq` Prelude.rnf asset
 
-instance Core.ToHeaders GetPackageVersionAsset where
+instance Data.ToHeaders GetPackageVersionAsset where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetPackageVersionAsset where
+instance Data.ToPath GetPackageVersionAsset where
   toPath = Prelude.const "/v1/package/version/asset"
 
-instance Core.ToQuery GetPackageVersionAsset where
+instance Data.ToQuery GetPackageVersionAsset where
   toQuery GetPackageVersionAsset' {..} =
     Prelude.mconcat
-      [ "namespace" Core.=: namespace,
-        "domain-owner" Core.=: domainOwner,
-        "revision" Core.=: packageVersionRevision,
-        "domain" Core.=: domain,
-        "repository" Core.=: repository,
-        "format" Core.=: format,
-        "package" Core.=: package,
-        "version" Core.=: packageVersion,
-        "asset" Core.=: asset
+      [ "domain-owner" Data.=: domainOwner,
+        "namespace" Data.=: namespace,
+        "revision" Data.=: packageVersionRevision,
+        "domain" Data.=: domain,
+        "repository" Data.=: repository,
+        "format" Data.=: format,
+        "package" Data.=: package,
+        "version" Data.=: packageVersion,
+        "asset" Data.=: asset
       ]
 
 -- | /See:/ 'newGetPackageVersionAssetResponse' smart constructor.
 data GetPackageVersionAssetResponse = GetPackageVersionAssetResponse'
-  { -- | A string that contains the package version (for example, @3.5.2@).
-    packageVersion :: Prelude.Maybe Prelude.Text,
-    -- | The name of the asset that is downloaded.
+  { -- | The name of the asset that is downloaded.
     assetName :: Prelude.Maybe Prelude.Text,
+    -- | A string that contains the package version (for example, @3.5.2@).
+    packageVersion :: Prelude.Maybe Prelude.Text,
     -- | The name of the package version revision that contains the downloaded
     -- asset.
     packageVersionRevision :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | The binary file, or asset, that is downloaded.
-    asset :: Core.ResponseBody
+    asset :: Data.ResponseBody
   }
   deriving (Prelude.Show, Prelude.Generic)
 
@@ -326,9 +316,9 @@ data GetPackageVersionAssetResponse = GetPackageVersionAssetResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'packageVersion', 'getPackageVersionAssetResponse_packageVersion' - A string that contains the package version (for example, @3.5.2@).
---
 -- 'assetName', 'getPackageVersionAssetResponse_assetName' - The name of the asset that is downloaded.
+--
+-- 'packageVersion', 'getPackageVersionAssetResponse_packageVersion' - A string that contains the package version (for example, @3.5.2@).
 --
 -- 'packageVersionRevision', 'getPackageVersionAssetResponse_packageVersionRevision' - The name of the package version revision that contains the downloaded
 -- asset.
@@ -340,27 +330,27 @@ newGetPackageVersionAssetResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
   -- | 'asset'
-  Core.ResponseBody ->
+  Data.ResponseBody ->
   GetPackageVersionAssetResponse
 newGetPackageVersionAssetResponse
   pHttpStatus_
   pAsset_ =
     GetPackageVersionAssetResponse'
-      { packageVersion =
+      { assetName =
           Prelude.Nothing,
-        assetName = Prelude.Nothing,
+        packageVersion = Prelude.Nothing,
         packageVersionRevision = Prelude.Nothing,
         httpStatus = pHttpStatus_,
         asset = pAsset_
       }
 
--- | A string that contains the package version (for example, @3.5.2@).
-getPackageVersionAssetResponse_packageVersion :: Lens.Lens' GetPackageVersionAssetResponse (Prelude.Maybe Prelude.Text)
-getPackageVersionAssetResponse_packageVersion = Lens.lens (\GetPackageVersionAssetResponse' {packageVersion} -> packageVersion) (\s@GetPackageVersionAssetResponse' {} a -> s {packageVersion = a} :: GetPackageVersionAssetResponse)
-
 -- | The name of the asset that is downloaded.
 getPackageVersionAssetResponse_assetName :: Lens.Lens' GetPackageVersionAssetResponse (Prelude.Maybe Prelude.Text)
 getPackageVersionAssetResponse_assetName = Lens.lens (\GetPackageVersionAssetResponse' {assetName} -> assetName) (\s@GetPackageVersionAssetResponse' {} a -> s {assetName = a} :: GetPackageVersionAssetResponse)
+
+-- | A string that contains the package version (for example, @3.5.2@).
+getPackageVersionAssetResponse_packageVersion :: Lens.Lens' GetPackageVersionAssetResponse (Prelude.Maybe Prelude.Text)
+getPackageVersionAssetResponse_packageVersion = Lens.lens (\GetPackageVersionAssetResponse' {packageVersion} -> packageVersion) (\s@GetPackageVersionAssetResponse' {} a -> s {packageVersion = a} :: GetPackageVersionAssetResponse)
 
 -- | The name of the package version revision that contains the downloaded
 -- asset.
@@ -372,5 +362,5 @@ getPackageVersionAssetResponse_httpStatus :: Lens.Lens' GetPackageVersionAssetRe
 getPackageVersionAssetResponse_httpStatus = Lens.lens (\GetPackageVersionAssetResponse' {httpStatus} -> httpStatus) (\s@GetPackageVersionAssetResponse' {} a -> s {httpStatus = a} :: GetPackageVersionAssetResponse)
 
 -- | The binary file, or asset, that is downloaded.
-getPackageVersionAssetResponse_asset :: Lens.Lens' GetPackageVersionAssetResponse Core.ResponseBody
+getPackageVersionAssetResponse_asset :: Lens.Lens' GetPackageVersionAssetResponse Data.ResponseBody
 getPackageVersionAssetResponse_asset = Lens.lens (\GetPackageVersionAssetResponse' {asset} -> asset) (\s@GetPackageVersionAssetResponse' {} a -> s {asset = a} :: GetPackageVersionAssetResponse)

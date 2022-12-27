@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.Types.UserQuickConnectConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Connect.Types.UserQuickConnectConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the quick connect configuration settings for
@@ -30,7 +31,7 @@ import qualified Amazonka.Prelude as Prelude
 data UserQuickConnectConfig = UserQuickConnectConfig'
   { -- | The identifier of the user.
     userId :: Prelude.Text,
-    -- | The identifier of the contact flow.
+    -- | The identifier of the flow.
     contactFlowId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -45,7 +46,7 @@ data UserQuickConnectConfig = UserQuickConnectConfig'
 --
 -- 'userId', 'userQuickConnectConfig_userId' - The identifier of the user.
 --
--- 'contactFlowId', 'userQuickConnectConfig_contactFlowId' - The identifier of the contact flow.
+-- 'contactFlowId', 'userQuickConnectConfig_contactFlowId' - The identifier of the flow.
 newUserQuickConnectConfig ::
   -- | 'userId'
   Prelude.Text ->
@@ -62,18 +63,18 @@ newUserQuickConnectConfig pUserId_ pContactFlowId_ =
 userQuickConnectConfig_userId :: Lens.Lens' UserQuickConnectConfig Prelude.Text
 userQuickConnectConfig_userId = Lens.lens (\UserQuickConnectConfig' {userId} -> userId) (\s@UserQuickConnectConfig' {} a -> s {userId = a} :: UserQuickConnectConfig)
 
--- | The identifier of the contact flow.
+-- | The identifier of the flow.
 userQuickConnectConfig_contactFlowId :: Lens.Lens' UserQuickConnectConfig Prelude.Text
 userQuickConnectConfig_contactFlowId = Lens.lens (\UserQuickConnectConfig' {contactFlowId} -> contactFlowId) (\s@UserQuickConnectConfig' {} a -> s {contactFlowId = a} :: UserQuickConnectConfig)
 
-instance Core.FromJSON UserQuickConnectConfig where
+instance Data.FromJSON UserQuickConnectConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UserQuickConnectConfig"
       ( \x ->
           UserQuickConnectConfig'
-            Prelude.<$> (x Core..: "UserId")
-            Prelude.<*> (x Core..: "ContactFlowId")
+            Prelude.<$> (x Data..: "UserId")
+            Prelude.<*> (x Data..: "ContactFlowId")
       )
 
 instance Prelude.Hashable UserQuickConnectConfig where
@@ -86,12 +87,12 @@ instance Prelude.NFData UserQuickConnectConfig where
     Prelude.rnf userId
       `Prelude.seq` Prelude.rnf contactFlowId
 
-instance Core.ToJSON UserQuickConnectConfig where
+instance Data.ToJSON UserQuickConnectConfig where
   toJSON UserQuickConnectConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("UserId" Core..= userId),
+          [ Prelude.Just ("UserId" Data..= userId),
             Prelude.Just
-              ("ContactFlowId" Core..= contactFlowId)
+              ("ContactFlowId" Data..= contactFlowId)
           ]
       )

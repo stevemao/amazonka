@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Cloud9.ListEnvironments
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Cloud9.ListEnvironments
     newListEnvironments,
 
     -- * Request Lenses
-    listEnvironments_nextToken,
     listEnvironments_maxResults,
+    listEnvironments_nextToken,
 
     -- * Destructuring the Response
     ListEnvironmentsResponse (..),
@@ -45,22 +45,23 @@ where
 
 import Amazonka.Cloud9.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListEnvironments' smart constructor.
 data ListEnvironments = ListEnvironments'
-  { -- | During a previous call, if there are more than 25 items in the list,
+  { -- | The maximum number of environments to get identifiers for.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | During a previous call, if there are more than 25 items in the list,
     -- only the first 25 items are returned, along with a unique string called
     -- a /next token/. To get the next batch of items in the list, call this
     -- operation again, adding the next token to the call. To get all of the
     -- items in the list, keep calling this operation with each subsequent next
     -- token that is returned, until no more next tokens are returned.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of environments to get identifiers for.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -72,21 +73,25 @@ data ListEnvironments = ListEnvironments'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listEnvironments_maxResults' - The maximum number of environments to get identifiers for.
+--
 -- 'nextToken', 'listEnvironments_nextToken' - During a previous call, if there are more than 25 items in the list,
 -- only the first 25 items are returned, along with a unique string called
 -- a /next token/. To get the next batch of items in the list, call this
 -- operation again, adding the next token to the call. To get all of the
 -- items in the list, keep calling this operation with each subsequent next
 -- token that is returned, until no more next tokens are returned.
---
--- 'maxResults', 'listEnvironments_maxResults' - The maximum number of environments to get identifiers for.
 newListEnvironments ::
   ListEnvironments
 newListEnvironments =
   ListEnvironments'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of environments to get identifiers for.
+listEnvironments_maxResults :: Lens.Lens' ListEnvironments (Prelude.Maybe Prelude.Natural)
+listEnvironments_maxResults = Lens.lens (\ListEnvironments' {maxResults} -> maxResults) (\s@ListEnvironments' {} a -> s {maxResults = a} :: ListEnvironments)
 
 -- | During a previous call, if there are more than 25 items in the list,
 -- only the first 25 items are returned, along with a unique string called
@@ -96,10 +101,6 @@ newListEnvironments =
 -- token that is returned, until no more next tokens are returned.
 listEnvironments_nextToken :: Lens.Lens' ListEnvironments (Prelude.Maybe Prelude.Text)
 listEnvironments_nextToken = Lens.lens (\ListEnvironments' {nextToken} -> nextToken) (\s@ListEnvironments' {} a -> s {nextToken = a} :: ListEnvironments)
-
--- | The maximum number of environments to get identifiers for.
-listEnvironments_maxResults :: Lens.Lens' ListEnvironments (Prelude.Maybe Prelude.Natural)
-listEnvironments_maxResults = Lens.lens (\ListEnvironments' {maxResults} -> maxResults) (\s@ListEnvironments' {} a -> s {maxResults = a} :: ListEnvironments)
 
 instance Core.AWSPager ListEnvironments where
   page rq rs
@@ -127,54 +128,55 @@ instance Core.AWSRequest ListEnvironments where
   type
     AWSResponse ListEnvironments =
       ListEnvironmentsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListEnvironmentsResponse'
-            Prelude.<$> (x Core..?> "environmentIds" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "environmentIds" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListEnvironments where
   hashWithSalt _salt ListEnvironments' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListEnvironments where
   rnf ListEnvironments' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListEnvironments where
+instance Data.ToHeaders ListEnvironments where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCloud9WorkspaceManagementService.ListEnvironments" ::
+              Data.=# ( "AWSCloud9WorkspaceManagementService.ListEnvironments" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListEnvironments where
+instance Data.ToJSON ListEnvironments where
   toJSON ListEnvironments' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListEnvironments where
+instance Data.ToPath ListEnvironments where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListEnvironments where
+instance Data.ToQuery ListEnvironments where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListEnvironmentsResponse' smart constructor.

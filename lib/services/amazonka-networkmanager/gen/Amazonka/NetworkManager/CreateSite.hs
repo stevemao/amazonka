@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkManager.CreateSite
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.NetworkManager.CreateSite
     newCreateSite,
 
     -- * Request Lenses
-    createSite_location,
     createSite_description,
+    createSite_location,
     createSite_tags,
     createSite_globalNetworkId,
 
@@ -43,7 +43,8 @@ module Amazonka.NetworkManager.CreateSite
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -51,7 +52,11 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateSite' smart constructor.
 data CreateSite = CreateSite'
-  { -- | The site location. This information is used for visualization in the
+  { -- | A description of your site.
+    --
+    -- Constraints: Maximum length of 256 characters.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The site location. This information is used for visualization in the
     -- Network Manager console. If you specify the address, the latitude and
     -- longitude are automatically calculated.
     --
@@ -60,11 +65,7 @@ data CreateSite = CreateSite'
     -- -   @Latitude@: The latitude of the site.
     --
     -- -   @Longitude@: The longitude of the site.
-    location :: Prelude.Maybe (Core.Sensitive Location),
-    -- | A description of your site.
-    --
-    -- Length Constraints: Maximum length of 256 characters.
-    description :: Prelude.Maybe Prelude.Text,
+    location :: Prelude.Maybe (Data.Sensitive Location),
     -- | The tags to apply to the resource during creation.
     tags :: Prelude.Maybe [Tag],
     -- | The ID of the global network.
@@ -80,6 +81,10 @@ data CreateSite = CreateSite'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'createSite_description' - A description of your site.
+--
+-- Constraints: Maximum length of 256 characters.
+--
 -- 'location', 'createSite_location' - The site location. This information is used for visualization in the
 -- Network Manager console. If you specify the address, the latitude and
 -- longitude are automatically calculated.
@@ -90,10 +95,6 @@ data CreateSite = CreateSite'
 --
 -- -   @Longitude@: The longitude of the site.
 --
--- 'description', 'createSite_description' - A description of your site.
---
--- Length Constraints: Maximum length of 256 characters.
---
 -- 'tags', 'createSite_tags' - The tags to apply to the resource during creation.
 --
 -- 'globalNetworkId', 'createSite_globalNetworkId' - The ID of the global network.
@@ -103,11 +104,17 @@ newCreateSite ::
   CreateSite
 newCreateSite pGlobalNetworkId_ =
   CreateSite'
-    { location = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      location = Prelude.Nothing,
       tags = Prelude.Nothing,
       globalNetworkId = pGlobalNetworkId_
     }
+
+-- | A description of your site.
+--
+-- Constraints: Maximum length of 256 characters.
+createSite_description :: Lens.Lens' CreateSite (Prelude.Maybe Prelude.Text)
+createSite_description = Lens.lens (\CreateSite' {description} -> description) (\s@CreateSite' {} a -> s {description = a} :: CreateSite)
 
 -- | The site location. This information is used for visualization in the
 -- Network Manager console. If you specify the address, the latitude and
@@ -119,13 +126,7 @@ newCreateSite pGlobalNetworkId_ =
 --
 -- -   @Longitude@: The longitude of the site.
 createSite_location :: Lens.Lens' CreateSite (Prelude.Maybe Location)
-createSite_location = Lens.lens (\CreateSite' {location} -> location) (\s@CreateSite' {} a -> s {location = a} :: CreateSite) Prelude.. Lens.mapping Core._Sensitive
-
--- | A description of your site.
---
--- Length Constraints: Maximum length of 256 characters.
-createSite_description :: Lens.Lens' CreateSite (Prelude.Maybe Prelude.Text)
-createSite_description = Lens.lens (\CreateSite' {description} -> description) (\s@CreateSite' {} a -> s {description = a} :: CreateSite)
+createSite_location = Lens.lens (\CreateSite' {location} -> location) (\s@CreateSite' {} a -> s {location = a} :: CreateSite) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The tags to apply to the resource during creation.
 createSite_tags :: Lens.Lens' CreateSite (Prelude.Maybe [Tag])
@@ -137,59 +138,60 @@ createSite_globalNetworkId = Lens.lens (\CreateSite' {globalNetworkId} -> global
 
 instance Core.AWSRequest CreateSite where
   type AWSResponse CreateSite = CreateSiteResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateSiteResponse'
-            Prelude.<$> (x Core..?> "Site")
+            Prelude.<$> (x Data..?> "Site")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateSite where
   hashWithSalt _salt CreateSite' {..} =
-    _salt `Prelude.hashWithSalt` location
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` location
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` globalNetworkId
 
 instance Prelude.NFData CreateSite where
   rnf CreateSite' {..} =
-    Prelude.rnf location
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf location
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf globalNetworkId
 
-instance Core.ToHeaders CreateSite where
+instance Data.ToHeaders CreateSite where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateSite where
+instance Data.ToJSON CreateSite where
   toJSON CreateSite' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Location" Core..=) Prelude.<$> location,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Location" Data..=) Prelude.<$> location,
+            ("Tags" Data..=) Prelude.<$> tags
           ]
       )
 
-instance Core.ToPath CreateSite where
+instance Data.ToPath CreateSite where
   toPath CreateSite' {..} =
     Prelude.mconcat
       [ "/global-networks/",
-        Core.toBS globalNetworkId,
+        Data.toBS globalNetworkId,
         "/sites"
       ]
 
-instance Core.ToQuery CreateSite where
+instance Data.ToQuery CreateSite where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateSiteResponse' smart constructor.

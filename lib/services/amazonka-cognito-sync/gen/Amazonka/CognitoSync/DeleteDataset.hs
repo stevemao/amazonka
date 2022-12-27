@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoSync.DeleteDataset
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ where
 
 import Amazonka.CognitoSync.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -129,12 +130,13 @@ instance Core.AWSRequest DeleteDataset where
   type
     AWSResponse DeleteDataset =
       DeleteDatasetResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteDatasetResponse'
-            Prelude.<$> (x Core..?> "Dataset")
+            Prelude.<$> (x Data..?> "Dataset")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -150,29 +152,29 @@ instance Prelude.NFData DeleteDataset where
       `Prelude.seq` Prelude.rnf identityId
       `Prelude.seq` Prelude.rnf datasetName
 
-instance Core.ToHeaders DeleteDataset where
+instance Data.ToHeaders DeleteDataset where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteDataset where
+instance Data.ToPath DeleteDataset where
   toPath DeleteDataset' {..} =
     Prelude.mconcat
       [ "/identitypools/",
-        Core.toBS identityPoolId,
+        Data.toBS identityPoolId,
         "/identities/",
-        Core.toBS identityId,
+        Data.toBS identityId,
         "/datasets/",
-        Core.toBS datasetName
+        Data.toBS datasetName
       ]
 
-instance Core.ToQuery DeleteDataset where
+instance Data.ToQuery DeleteDataset where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Response to a successful DeleteDataset request.

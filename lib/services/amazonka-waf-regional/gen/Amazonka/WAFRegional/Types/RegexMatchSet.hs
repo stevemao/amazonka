@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.Types.RegexMatchSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WAFRegional.Types.RegexMatchSet where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.WAFRegional.Types.RegexMatchTuple
 
@@ -49,6 +50,16 @@ data RegexMatchSet = RegexMatchSet'
   { -- | A friendly name or description of the RegexMatchSet. You can\'t change
     -- @Name@ after you create a @RegexMatchSet@.
     name :: Prelude.Maybe Prelude.Text,
+    -- | The @RegexMatchSetId@ for a @RegexMatchSet@. You use @RegexMatchSetId@
+    -- to get information about a @RegexMatchSet@ (see GetRegexMatchSet),
+    -- update a @RegexMatchSet@ (see UpdateRegexMatchSet), insert a
+    -- @RegexMatchSet@ into a @Rule@ or delete one from a @Rule@ (see
+    -- UpdateRule), and delete a @RegexMatchSet@ from AWS WAF (see
+    -- DeleteRegexMatchSet).
+    --
+    -- @RegexMatchSetId@ is returned by CreateRegexMatchSet and by
+    -- ListRegexMatchSets.
+    regexMatchSetId :: Prelude.Maybe Prelude.Text,
     -- | Contains an array of RegexMatchTuple objects. Each @RegexMatchTuple@
     -- object contains:
     --
@@ -61,17 +72,7 @@ data RegexMatchSet = RegexMatchSet'
     -- -   Whether to perform any conversions on the request, such as
     --     converting it to lowercase, before inspecting it for the specified
     --     string.
-    regexMatchTuples :: Prelude.Maybe [RegexMatchTuple],
-    -- | The @RegexMatchSetId@ for a @RegexMatchSet@. You use @RegexMatchSetId@
-    -- to get information about a @RegexMatchSet@ (see GetRegexMatchSet),
-    -- update a @RegexMatchSet@ (see UpdateRegexMatchSet), insert a
-    -- @RegexMatchSet@ into a @Rule@ or delete one from a @Rule@ (see
-    -- UpdateRule), and delete a @RegexMatchSet@ from AWS WAF (see
-    -- DeleteRegexMatchSet).
-    --
-    -- @RegexMatchSetId@ is returned by CreateRegexMatchSet and by
-    -- ListRegexMatchSets.
-    regexMatchSetId :: Prelude.Maybe Prelude.Text
+    regexMatchTuples :: Prelude.Maybe [RegexMatchTuple]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -86,6 +87,16 @@ data RegexMatchSet = RegexMatchSet'
 -- 'name', 'regexMatchSet_name' - A friendly name or description of the RegexMatchSet. You can\'t change
 -- @Name@ after you create a @RegexMatchSet@.
 --
+-- 'regexMatchSetId', 'regexMatchSet_regexMatchSetId' - The @RegexMatchSetId@ for a @RegexMatchSet@. You use @RegexMatchSetId@
+-- to get information about a @RegexMatchSet@ (see GetRegexMatchSet),
+-- update a @RegexMatchSet@ (see UpdateRegexMatchSet), insert a
+-- @RegexMatchSet@ into a @Rule@ or delete one from a @Rule@ (see
+-- UpdateRule), and delete a @RegexMatchSet@ from AWS WAF (see
+-- DeleteRegexMatchSet).
+--
+-- @RegexMatchSetId@ is returned by CreateRegexMatchSet and by
+-- ListRegexMatchSets.
+--
 -- 'regexMatchTuples', 'regexMatchSet_regexMatchTuples' - Contains an array of RegexMatchTuple objects. Each @RegexMatchTuple@
 -- object contains:
 --
@@ -98,8 +109,21 @@ data RegexMatchSet = RegexMatchSet'
 -- -   Whether to perform any conversions on the request, such as
 --     converting it to lowercase, before inspecting it for the specified
 --     string.
---
--- 'regexMatchSetId', 'regexMatchSet_regexMatchSetId' - The @RegexMatchSetId@ for a @RegexMatchSet@. You use @RegexMatchSetId@
+newRegexMatchSet ::
+  RegexMatchSet
+newRegexMatchSet =
+  RegexMatchSet'
+    { name = Prelude.Nothing,
+      regexMatchSetId = Prelude.Nothing,
+      regexMatchTuples = Prelude.Nothing
+    }
+
+-- | A friendly name or description of the RegexMatchSet. You can\'t change
+-- @Name@ after you create a @RegexMatchSet@.
+regexMatchSet_name :: Lens.Lens' RegexMatchSet (Prelude.Maybe Prelude.Text)
+regexMatchSet_name = Lens.lens (\RegexMatchSet' {name} -> name) (\s@RegexMatchSet' {} a -> s {name = a} :: RegexMatchSet)
+
+-- | The @RegexMatchSetId@ for a @RegexMatchSet@. You use @RegexMatchSetId@
 -- to get information about a @RegexMatchSet@ (see GetRegexMatchSet),
 -- update a @RegexMatchSet@ (see UpdateRegexMatchSet), insert a
 -- @RegexMatchSet@ into a @Rule@ or delete one from a @Rule@ (see
@@ -108,19 +132,8 @@ data RegexMatchSet = RegexMatchSet'
 --
 -- @RegexMatchSetId@ is returned by CreateRegexMatchSet and by
 -- ListRegexMatchSets.
-newRegexMatchSet ::
-  RegexMatchSet
-newRegexMatchSet =
-  RegexMatchSet'
-    { name = Prelude.Nothing,
-      regexMatchTuples = Prelude.Nothing,
-      regexMatchSetId = Prelude.Nothing
-    }
-
--- | A friendly name or description of the RegexMatchSet. You can\'t change
--- @Name@ after you create a @RegexMatchSet@.
-regexMatchSet_name :: Lens.Lens' RegexMatchSet (Prelude.Maybe Prelude.Text)
-regexMatchSet_name = Lens.lens (\RegexMatchSet' {name} -> name) (\s@RegexMatchSet' {} a -> s {name = a} :: RegexMatchSet)
+regexMatchSet_regexMatchSetId :: Lens.Lens' RegexMatchSet (Prelude.Maybe Prelude.Text)
+regexMatchSet_regexMatchSetId = Lens.lens (\RegexMatchSet' {regexMatchSetId} -> regexMatchSetId) (\s@RegexMatchSet' {} a -> s {regexMatchSetId = a} :: RegexMatchSet)
 
 -- | Contains an array of RegexMatchTuple objects. Each @RegexMatchTuple@
 -- object contains:
@@ -137,39 +150,27 @@ regexMatchSet_name = Lens.lens (\RegexMatchSet' {name} -> name) (\s@RegexMatchSe
 regexMatchSet_regexMatchTuples :: Lens.Lens' RegexMatchSet (Prelude.Maybe [RegexMatchTuple])
 regexMatchSet_regexMatchTuples = Lens.lens (\RegexMatchSet' {regexMatchTuples} -> regexMatchTuples) (\s@RegexMatchSet' {} a -> s {regexMatchTuples = a} :: RegexMatchSet) Prelude.. Lens.mapping Lens.coerced
 
--- | The @RegexMatchSetId@ for a @RegexMatchSet@. You use @RegexMatchSetId@
--- to get information about a @RegexMatchSet@ (see GetRegexMatchSet),
--- update a @RegexMatchSet@ (see UpdateRegexMatchSet), insert a
--- @RegexMatchSet@ into a @Rule@ or delete one from a @Rule@ (see
--- UpdateRule), and delete a @RegexMatchSet@ from AWS WAF (see
--- DeleteRegexMatchSet).
---
--- @RegexMatchSetId@ is returned by CreateRegexMatchSet and by
--- ListRegexMatchSets.
-regexMatchSet_regexMatchSetId :: Lens.Lens' RegexMatchSet (Prelude.Maybe Prelude.Text)
-regexMatchSet_regexMatchSetId = Lens.lens (\RegexMatchSet' {regexMatchSetId} -> regexMatchSetId) (\s@RegexMatchSet' {} a -> s {regexMatchSetId = a} :: RegexMatchSet)
-
-instance Core.FromJSON RegexMatchSet where
+instance Data.FromJSON RegexMatchSet where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RegexMatchSet"
       ( \x ->
           RegexMatchSet'
-            Prelude.<$> (x Core..:? "Name")
-            Prelude.<*> ( x Core..:? "RegexMatchTuples"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "RegexMatchSetId")
+            Prelude.<*> ( x Data..:? "RegexMatchTuples"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "RegexMatchSetId")
       )
 
 instance Prelude.Hashable RegexMatchSet where
   hashWithSalt _salt RegexMatchSet' {..} =
     _salt `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` regexMatchTuples
       `Prelude.hashWithSalt` regexMatchSetId
+      `Prelude.hashWithSalt` regexMatchTuples
 
 instance Prelude.NFData RegexMatchSet where
   rnf RegexMatchSet' {..} =
     Prelude.rnf name
-      `Prelude.seq` Prelude.rnf regexMatchTuples
       `Prelude.seq` Prelude.rnf regexMatchSetId
+      `Prelude.seq` Prelude.rnf regexMatchTuples

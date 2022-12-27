@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.DeleteTrafficPolicyInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.Route53.DeleteTrafficPolicyInstance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,7 +95,8 @@ instance Core.AWSRequest DeleteTrafficPolicyInstance where
   type
     AWSResponse DeleteTrafficPolicyInstance =
       DeleteTrafficPolicyInstanceResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -109,15 +111,15 @@ instance Prelude.Hashable DeleteTrafficPolicyInstance where
 instance Prelude.NFData DeleteTrafficPolicyInstance where
   rnf DeleteTrafficPolicyInstance' {..} = Prelude.rnf id
 
-instance Core.ToHeaders DeleteTrafficPolicyInstance where
+instance Data.ToHeaders DeleteTrafficPolicyInstance where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteTrafficPolicyInstance where
+instance Data.ToPath DeleteTrafficPolicyInstance where
   toPath DeleteTrafficPolicyInstance' {..} =
     Prelude.mconcat
-      ["/2013-04-01/trafficpolicyinstance/", Core.toBS id]
+      ["/2013-04-01/trafficpolicyinstance/", Data.toBS id]
 
-instance Core.ToQuery DeleteTrafficPolicyInstance where
+instance Data.ToQuery DeleteTrafficPolicyInstance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | An empty element.

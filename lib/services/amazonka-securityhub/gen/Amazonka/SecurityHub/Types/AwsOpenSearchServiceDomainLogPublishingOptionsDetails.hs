@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsOpenSearchServiceDomainLogPublishingOptionsDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsOpenSearchServiceDomainLogPublishingOptionsDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.AwsOpenSearchServiceDomainLogPublishingOption
 
@@ -28,12 +29,12 @@ import Amazonka.SecurityHub.Types.AwsOpenSearchServiceDomainLogPublishingOption
 --
 -- /See:/ 'newAwsOpenSearchServiceDomainLogPublishingOptionsDetails' smart constructor.
 data AwsOpenSearchServiceDomainLogPublishingOptionsDetails = AwsOpenSearchServiceDomainLogPublishingOptionsDetails'
-  { -- | Configures the OpenSearch index logs publishing.
+  { -- | Configures the OpenSearch audit logs publishing.
+    auditLogs :: Prelude.Maybe AwsOpenSearchServiceDomainLogPublishingOption,
+    -- | Configures the OpenSearch index logs publishing.
     indexSlowLogs :: Prelude.Maybe AwsOpenSearchServiceDomainLogPublishingOption,
     -- | Configures the OpenSearch search slow log publishing.
-    searchSlowLogs :: Prelude.Maybe AwsOpenSearchServiceDomainLogPublishingOption,
-    -- | Configures the OpenSearch audit logs publishing.
-    auditLogs :: Prelude.Maybe AwsOpenSearchServiceDomainLogPublishingOption
+    searchSlowLogs :: Prelude.Maybe AwsOpenSearchServiceDomainLogPublishingOption
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,22 +46,26 @@ data AwsOpenSearchServiceDomainLogPublishingOptionsDetails = AwsOpenSearchServic
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'auditLogs', 'awsOpenSearchServiceDomainLogPublishingOptionsDetails_auditLogs' - Configures the OpenSearch audit logs publishing.
+--
 -- 'indexSlowLogs', 'awsOpenSearchServiceDomainLogPublishingOptionsDetails_indexSlowLogs' - Configures the OpenSearch index logs publishing.
 --
 -- 'searchSlowLogs', 'awsOpenSearchServiceDomainLogPublishingOptionsDetails_searchSlowLogs' - Configures the OpenSearch search slow log publishing.
---
--- 'auditLogs', 'awsOpenSearchServiceDomainLogPublishingOptionsDetails_auditLogs' - Configures the OpenSearch audit logs publishing.
 newAwsOpenSearchServiceDomainLogPublishingOptionsDetails ::
   AwsOpenSearchServiceDomainLogPublishingOptionsDetails
 newAwsOpenSearchServiceDomainLogPublishingOptionsDetails =
   AwsOpenSearchServiceDomainLogPublishingOptionsDetails'
-    { indexSlowLogs =
+    { auditLogs =
+        Prelude.Nothing,
+      indexSlowLogs =
         Prelude.Nothing,
       searchSlowLogs =
-        Prelude.Nothing,
-      auditLogs =
         Prelude.Nothing
     }
+
+-- | Configures the OpenSearch audit logs publishing.
+awsOpenSearchServiceDomainLogPublishingOptionsDetails_auditLogs :: Lens.Lens' AwsOpenSearchServiceDomainLogPublishingOptionsDetails (Prelude.Maybe AwsOpenSearchServiceDomainLogPublishingOption)
+awsOpenSearchServiceDomainLogPublishingOptionsDetails_auditLogs = Lens.lens (\AwsOpenSearchServiceDomainLogPublishingOptionsDetails' {auditLogs} -> auditLogs) (\s@AwsOpenSearchServiceDomainLogPublishingOptionsDetails' {} a -> s {auditLogs = a} :: AwsOpenSearchServiceDomainLogPublishingOptionsDetails)
 
 -- | Configures the OpenSearch index logs publishing.
 awsOpenSearchServiceDomainLogPublishingOptionsDetails_indexSlowLogs :: Lens.Lens' AwsOpenSearchServiceDomainLogPublishingOptionsDetails (Prelude.Maybe AwsOpenSearchServiceDomainLogPublishingOption)
@@ -70,22 +75,18 @@ awsOpenSearchServiceDomainLogPublishingOptionsDetails_indexSlowLogs = Lens.lens 
 awsOpenSearchServiceDomainLogPublishingOptionsDetails_searchSlowLogs :: Lens.Lens' AwsOpenSearchServiceDomainLogPublishingOptionsDetails (Prelude.Maybe AwsOpenSearchServiceDomainLogPublishingOption)
 awsOpenSearchServiceDomainLogPublishingOptionsDetails_searchSlowLogs = Lens.lens (\AwsOpenSearchServiceDomainLogPublishingOptionsDetails' {searchSlowLogs} -> searchSlowLogs) (\s@AwsOpenSearchServiceDomainLogPublishingOptionsDetails' {} a -> s {searchSlowLogs = a} :: AwsOpenSearchServiceDomainLogPublishingOptionsDetails)
 
--- | Configures the OpenSearch audit logs publishing.
-awsOpenSearchServiceDomainLogPublishingOptionsDetails_auditLogs :: Lens.Lens' AwsOpenSearchServiceDomainLogPublishingOptionsDetails (Prelude.Maybe AwsOpenSearchServiceDomainLogPublishingOption)
-awsOpenSearchServiceDomainLogPublishingOptionsDetails_auditLogs = Lens.lens (\AwsOpenSearchServiceDomainLogPublishingOptionsDetails' {auditLogs} -> auditLogs) (\s@AwsOpenSearchServiceDomainLogPublishingOptionsDetails' {} a -> s {auditLogs = a} :: AwsOpenSearchServiceDomainLogPublishingOptionsDetails)
-
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsOpenSearchServiceDomainLogPublishingOptionsDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsOpenSearchServiceDomainLogPublishingOptionsDetails"
       ( \x ->
           AwsOpenSearchServiceDomainLogPublishingOptionsDetails'
-            Prelude.<$> (x Core..:? "IndexSlowLogs")
-              Prelude.<*> (x Core..:? "SearchSlowLogs")
-              Prelude.<*> (x Core..:? "AuditLogs")
+            Prelude.<$> (x Data..:? "AuditLogs")
+              Prelude.<*> (x Data..:? "IndexSlowLogs")
+              Prelude.<*> (x Data..:? "SearchSlowLogs")
       )
 
 instance
@@ -95,9 +96,9 @@ instance
   hashWithSalt
     _salt
     AwsOpenSearchServiceDomainLogPublishingOptionsDetails' {..} =
-      _salt `Prelude.hashWithSalt` indexSlowLogs
+      _salt `Prelude.hashWithSalt` auditLogs
+        `Prelude.hashWithSalt` indexSlowLogs
         `Prelude.hashWithSalt` searchSlowLogs
-        `Prelude.hashWithSalt` auditLogs
 
 instance
   Prelude.NFData
@@ -105,21 +106,21 @@ instance
   where
   rnf
     AwsOpenSearchServiceDomainLogPublishingOptionsDetails' {..} =
-      Prelude.rnf indexSlowLogs
+      Prelude.rnf auditLogs
+        `Prelude.seq` Prelude.rnf indexSlowLogs
         `Prelude.seq` Prelude.rnf searchSlowLogs
-        `Prelude.seq` Prelude.rnf auditLogs
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsOpenSearchServiceDomainLogPublishingOptionsDetails
   where
   toJSON
     AwsOpenSearchServiceDomainLogPublishingOptionsDetails' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("IndexSlowLogs" Core..=) Prelude.<$> indexSlowLogs,
-              ("SearchSlowLogs" Core..=)
-                Prelude.<$> searchSlowLogs,
-              ("AuditLogs" Core..=) Prelude.<$> auditLogs
+            [ ("AuditLogs" Data..=) Prelude.<$> auditLogs,
+              ("IndexSlowLogs" Data..=) Prelude.<$> indexSlowLogs,
+              ("SearchSlowLogs" Data..=)
+                Prelude.<$> searchSlowLogs
             ]
         )

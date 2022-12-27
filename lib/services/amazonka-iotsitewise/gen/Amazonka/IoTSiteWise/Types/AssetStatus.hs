@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.AssetStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.IoTSiteWise.Types.AssetStatus where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types.AssetState
 import Amazonka.IoTSiteWise.Types.ErrorDetails
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the current status of an asset. For more
@@ -68,13 +69,13 @@ assetStatus_error = Lens.lens (\AssetStatus' {error} -> error) (\s@AssetStatus' 
 assetStatus_state :: Lens.Lens' AssetStatus AssetState
 assetStatus_state = Lens.lens (\AssetStatus' {state} -> state) (\s@AssetStatus' {} a -> s {state = a} :: AssetStatus)
 
-instance Core.FromJSON AssetStatus where
+instance Data.FromJSON AssetStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AssetStatus"
       ( \x ->
           AssetStatus'
-            Prelude.<$> (x Core..:? "error") Prelude.<*> (x Core..: "state")
+            Prelude.<$> (x Data..:? "error") Prelude.<*> (x Data..: "state")
       )
 
 instance Prelude.Hashable AssetStatus where

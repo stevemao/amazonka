@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WorkSpaces.Types.RootStorage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WorkSpaces.Types.RootStorage where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the root volume for a WorkSpace bundle.
@@ -50,12 +51,12 @@ newRootStorage =
 rootStorage_capacity :: Lens.Lens' RootStorage (Prelude.Maybe Prelude.Text)
 rootStorage_capacity = Lens.lens (\RootStorage' {capacity} -> capacity) (\s@RootStorage' {} a -> s {capacity = a} :: RootStorage)
 
-instance Core.FromJSON RootStorage where
+instance Data.FromJSON RootStorage where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RootStorage"
       ( \x ->
-          RootStorage' Prelude.<$> (x Core..:? "Capacity")
+          RootStorage' Prelude.<$> (x Data..:? "Capacity")
       )
 
 instance Prelude.Hashable RootStorage where
@@ -65,9 +66,9 @@ instance Prelude.Hashable RootStorage where
 instance Prelude.NFData RootStorage where
   rnf RootStorage' {..} = Prelude.rnf capacity
 
-instance Core.ToJSON RootStorage where
+instance Data.ToJSON RootStorage where
   toJSON RootStorage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Capacity" Core..=) Prelude.<$> capacity]
+          [("Capacity" Data..=) Prelude.<$> capacity]
       )

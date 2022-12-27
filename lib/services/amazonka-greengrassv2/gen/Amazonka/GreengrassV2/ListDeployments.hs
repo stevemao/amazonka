@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GreengrassV2.ListDeployments
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,38 +29,34 @@ module Amazonka.GreengrassV2.ListDeployments
     newListDeployments,
 
     -- * Request Lenses
-    listDeployments_targetArn,
-    listDeployments_nextToken,
     listDeployments_historyFilter,
     listDeployments_maxResults,
+    listDeployments_nextToken,
+    listDeployments_parentTargetArn,
+    listDeployments_targetArn,
 
     -- * Destructuring the Response
     ListDeploymentsResponse (..),
     newListDeploymentsResponse,
 
     -- * Response Lenses
-    listDeploymentsResponse_nextToken,
     listDeploymentsResponse_deployments,
+    listDeploymentsResponse_nextToken,
     listDeploymentsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GreengrassV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListDeployments' smart constructor.
 data ListDeployments = ListDeployments'
-  { -- | The
-    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
-    -- of the target IoT thing or thing group.
-    targetArn :: Prelude.Maybe Prelude.Text,
-    -- | The token to be used for the next set of paginated results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The filter for the list of deployments. Choose one of the following
+  { -- | The filter for the list of deployments. Choose one of the following
     -- options:
     --
     -- -   @ALL@ – The list includes all deployments.
@@ -71,7 +67,17 @@ data ListDeployments = ListDeployments'
     -- Default: @LATEST_ONLY@
     historyFilter :: Prelude.Maybe DeploymentHistoryFilter,
     -- | The maximum number of results to be returned per paginated request.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to be used for the next set of paginated results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The parent deployment\'s target
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
+    -- within a subdeployment.
+    parentTargetArn :: Prelude.Maybe Prelude.Text,
+    -- | The
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
+    -- of the target IoT thing or thing group.
+    targetArn :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -82,12 +88,6 @@ data ListDeployments = ListDeployments'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'targetArn', 'listDeployments_targetArn' - The
--- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
--- of the target IoT thing or thing group.
---
--- 'nextToken', 'listDeployments_nextToken' - The token to be used for the next set of paginated results.
 --
 -- 'historyFilter', 'listDeployments_historyFilter' - The filter for the list of deployments. Choose one of the following
 -- options:
@@ -100,25 +100,26 @@ data ListDeployments = ListDeployments'
 -- Default: @LATEST_ONLY@
 --
 -- 'maxResults', 'listDeployments_maxResults' - The maximum number of results to be returned per paginated request.
+--
+-- 'nextToken', 'listDeployments_nextToken' - The token to be used for the next set of paginated results.
+--
+-- 'parentTargetArn', 'listDeployments_parentTargetArn' - The parent deployment\'s target
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
+-- within a subdeployment.
+--
+-- 'targetArn', 'listDeployments_targetArn' - The
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
+-- of the target IoT thing or thing group.
 newListDeployments ::
   ListDeployments
 newListDeployments =
   ListDeployments'
-    { targetArn = Prelude.Nothing,
+    { historyFilter = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      historyFilter = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      parentTargetArn = Prelude.Nothing,
+      targetArn = Prelude.Nothing
     }
-
--- | The
--- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
--- of the target IoT thing or thing group.
-listDeployments_targetArn :: Lens.Lens' ListDeployments (Prelude.Maybe Prelude.Text)
-listDeployments_targetArn = Lens.lens (\ListDeployments' {targetArn} -> targetArn) (\s@ListDeployments' {} a -> s {targetArn = a} :: ListDeployments)
-
--- | The token to be used for the next set of paginated results.
-listDeployments_nextToken :: Lens.Lens' ListDeployments (Prelude.Maybe Prelude.Text)
-listDeployments_nextToken = Lens.lens (\ListDeployments' {nextToken} -> nextToken) (\s@ListDeployments' {} a -> s {nextToken = a} :: ListDeployments)
 
 -- | The filter for the list of deployments. Choose one of the following
 -- options:
@@ -135,6 +136,22 @@ listDeployments_historyFilter = Lens.lens (\ListDeployments' {historyFilter} -> 
 -- | The maximum number of results to be returned per paginated request.
 listDeployments_maxResults :: Lens.Lens' ListDeployments (Prelude.Maybe Prelude.Natural)
 listDeployments_maxResults = Lens.lens (\ListDeployments' {maxResults} -> maxResults) (\s@ListDeployments' {} a -> s {maxResults = a} :: ListDeployments)
+
+-- | The token to be used for the next set of paginated results.
+listDeployments_nextToken :: Lens.Lens' ListDeployments (Prelude.Maybe Prelude.Text)
+listDeployments_nextToken = Lens.lens (\ListDeployments' {nextToken} -> nextToken) (\s@ListDeployments' {} a -> s {nextToken = a} :: ListDeployments)
+
+-- | The parent deployment\'s target
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
+-- within a subdeployment.
+listDeployments_parentTargetArn :: Lens.Lens' ListDeployments (Prelude.Maybe Prelude.Text)
+listDeployments_parentTargetArn = Lens.lens (\ListDeployments' {parentTargetArn} -> parentTargetArn) (\s@ListDeployments' {} a -> s {parentTargetArn = a} :: ListDeployments)
+
+-- | The
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
+-- of the target IoT thing or thing group.
+listDeployments_targetArn :: Lens.Lens' ListDeployments (Prelude.Maybe Prelude.Text)
+listDeployments_targetArn = Lens.lens (\ListDeployments' {targetArn} -> targetArn) (\s@ListDeployments' {} a -> s {targetArn = a} :: ListDeployments)
 
 instance Core.AWSPager ListDeployments where
   page rq rs
@@ -162,60 +179,56 @@ instance Core.AWSRequest ListDeployments where
   type
     AWSResponse ListDeployments =
       ListDeploymentsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDeploymentsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "deployments" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "deployments" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListDeployments where
   hashWithSalt _salt ListDeployments' {..} =
-    _salt `Prelude.hashWithSalt` targetArn
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` historyFilter
+    _salt `Prelude.hashWithSalt` historyFilter
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` parentTargetArn
+      `Prelude.hashWithSalt` targetArn
 
 instance Prelude.NFData ListDeployments where
   rnf ListDeployments' {..} =
-    Prelude.rnf targetArn
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf historyFilter
+    Prelude.rnf historyFilter
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf parentTargetArn
+      `Prelude.seq` Prelude.rnf targetArn
 
-instance Core.ToHeaders ListDeployments where
-  toHeaders =
-    Prelude.const
-      ( Prelude.mconcat
-          [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
-                          Prelude.ByteString
-                      )
-          ]
-      )
+instance Data.ToHeaders ListDeployments where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListDeployments where
+instance Data.ToPath ListDeployments where
   toPath = Prelude.const "/greengrass/v2/deployments"
 
-instance Core.ToQuery ListDeployments where
+instance Data.ToQuery ListDeployments where
   toQuery ListDeployments' {..} =
     Prelude.mconcat
-      [ "targetArn" Core.=: targetArn,
-        "nextToken" Core.=: nextToken,
-        "historyFilter" Core.=: historyFilter,
-        "maxResults" Core.=: maxResults
+      [ "historyFilter" Data.=: historyFilter,
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "parentTargetArn" Data.=: parentTargetArn,
+        "targetArn" Data.=: targetArn
       ]
 
 -- | /See:/ 'newListDeploymentsResponse' smart constructor.
 data ListDeploymentsResponse = ListDeploymentsResponse'
-  { -- | The token for the next set of results, or null if there are no
+  { -- | A list that summarizes each deployment.
+    deployments :: Prelude.Maybe [Deployment],
+    -- | The token for the next set of results, or null if there are no
     -- additional results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | A list that summarizes each deployment.
-    deployments :: Prelude.Maybe [Deployment],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -229,10 +242,10 @@ data ListDeploymentsResponse = ListDeploymentsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'deployments', 'listDeploymentsResponse_deployments' - A list that summarizes each deployment.
+--
 -- 'nextToken', 'listDeploymentsResponse_nextToken' - The token for the next set of results, or null if there are no
 -- additional results.
---
--- 'deployments', 'listDeploymentsResponse_deployments' - A list that summarizes each deployment.
 --
 -- 'httpStatus', 'listDeploymentsResponse_httpStatus' - The response's http status code.
 newListDeploymentsResponse ::
@@ -241,20 +254,20 @@ newListDeploymentsResponse ::
   ListDeploymentsResponse
 newListDeploymentsResponse pHttpStatus_ =
   ListDeploymentsResponse'
-    { nextToken =
+    { deployments =
         Prelude.Nothing,
-      deployments = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | A list that summarizes each deployment.
+listDeploymentsResponse_deployments :: Lens.Lens' ListDeploymentsResponse (Prelude.Maybe [Deployment])
+listDeploymentsResponse_deployments = Lens.lens (\ListDeploymentsResponse' {deployments} -> deployments) (\s@ListDeploymentsResponse' {} a -> s {deployments = a} :: ListDeploymentsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token for the next set of results, or null if there are no
 -- additional results.
 listDeploymentsResponse_nextToken :: Lens.Lens' ListDeploymentsResponse (Prelude.Maybe Prelude.Text)
 listDeploymentsResponse_nextToken = Lens.lens (\ListDeploymentsResponse' {nextToken} -> nextToken) (\s@ListDeploymentsResponse' {} a -> s {nextToken = a} :: ListDeploymentsResponse)
-
--- | A list that summarizes each deployment.
-listDeploymentsResponse_deployments :: Lens.Lens' ListDeploymentsResponse (Prelude.Maybe [Deployment])
-listDeploymentsResponse_deployments = Lens.lens (\ListDeploymentsResponse' {deployments} -> deployments) (\s@ListDeploymentsResponse' {} a -> s {deployments = a} :: ListDeploymentsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listDeploymentsResponse_httpStatus :: Lens.Lens' ListDeploymentsResponse Prelude.Int
@@ -262,6 +275,6 @@ listDeploymentsResponse_httpStatus = Lens.lens (\ListDeploymentsResponse' {httpS
 
 instance Prelude.NFData ListDeploymentsResponse where
   rnf ListDeploymentsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf deployments
+    Prelude.rnf deployments
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

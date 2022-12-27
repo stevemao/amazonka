@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.TargetDevice
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,6 +21,7 @@ module Amazonka.SageMaker.Types.TargetDevice
   ( TargetDevice
       ( ..,
         TargetDevice_Aisage,
+        TargetDevice_Amba_cv2,
         TargetDevice_Amba_cv22,
         TargetDevice_Amba_cv25,
         TargetDevice_Coreml,
@@ -56,11 +57,12 @@ module Amazonka.SageMaker.Types.TargetDevice
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype TargetDevice = TargetDevice'
   { fromTargetDevice ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -72,22 +74,25 @@ newtype TargetDevice = TargetDevice'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern TargetDevice_Aisage :: TargetDevice
 pattern TargetDevice_Aisage = TargetDevice' "aisage"
+
+pattern TargetDevice_Amba_cv2 :: TargetDevice
+pattern TargetDevice_Amba_cv2 = TargetDevice' "amba_cv2"
 
 pattern TargetDevice_Amba_cv22 :: TargetDevice
 pattern TargetDevice_Amba_cv22 = TargetDevice' "amba_cv22"
@@ -181,6 +186,7 @@ pattern TargetDevice_X86_win64 = TargetDevice' "x86_win64"
 
 {-# COMPLETE
   TargetDevice_Aisage,
+  TargetDevice_Amba_cv2,
   TargetDevice_Amba_cv22,
   TargetDevice_Amba_cv25,
   TargetDevice_Coreml,

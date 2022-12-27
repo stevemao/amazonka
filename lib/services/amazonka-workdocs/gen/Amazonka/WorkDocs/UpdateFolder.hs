@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkDocs.UpdateFolder
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,9 +28,9 @@ module Amazonka.WorkDocs.UpdateFolder
     newUpdateFolder,
 
     -- * Request Lenses
-    updateFolder_parentFolderId,
     updateFolder_authenticationToken,
     updateFolder_name,
+    updateFolder_parentFolderId,
     updateFolder_resourceState,
     updateFolder_folderId,
 
@@ -41,7 +41,8 @@ module Amazonka.WorkDocs.UpdateFolder
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,13 +50,13 @@ import Amazonka.WorkDocs.Types
 
 -- | /See:/ 'newUpdateFolder' smart constructor.
 data UpdateFolder = UpdateFolder'
-  { -- | The ID of the parent folder.
-    parentFolderId :: Prelude.Maybe Prelude.Text,
-    -- | Amazon WorkDocs authentication token. Not required when using AWS
+  { -- | Amazon WorkDocs authentication token. Not required when using AWS
     -- administrator credentials to access the API.
-    authenticationToken :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    authenticationToken :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The name of the folder.
     name :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the parent folder.
+    parentFolderId :: Prelude.Maybe Prelude.Text,
     -- | The resource state of the folder. Only ACTIVE and RECYCLED are accepted
     -- values from the API.
     resourceState :: Prelude.Maybe ResourceStateType,
@@ -72,12 +73,12 @@ data UpdateFolder = UpdateFolder'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'parentFolderId', 'updateFolder_parentFolderId' - The ID of the parent folder.
---
 -- 'authenticationToken', 'updateFolder_authenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS
 -- administrator credentials to access the API.
 --
 -- 'name', 'updateFolder_name' - The name of the folder.
+--
+-- 'parentFolderId', 'updateFolder_parentFolderId' - The ID of the parent folder.
 --
 -- 'resourceState', 'updateFolder_resourceState' - The resource state of the folder. Only ACTIVE and RECYCLED are accepted
 -- values from the API.
@@ -89,25 +90,26 @@ newUpdateFolder ::
   UpdateFolder
 newUpdateFolder pFolderId_ =
   UpdateFolder'
-    { parentFolderId = Prelude.Nothing,
-      authenticationToken = Prelude.Nothing,
+    { authenticationToken =
+        Prelude.Nothing,
       name = Prelude.Nothing,
+      parentFolderId = Prelude.Nothing,
       resourceState = Prelude.Nothing,
       folderId = pFolderId_
     }
 
--- | The ID of the parent folder.
-updateFolder_parentFolderId :: Lens.Lens' UpdateFolder (Prelude.Maybe Prelude.Text)
-updateFolder_parentFolderId = Lens.lens (\UpdateFolder' {parentFolderId} -> parentFolderId) (\s@UpdateFolder' {} a -> s {parentFolderId = a} :: UpdateFolder)
-
 -- | Amazon WorkDocs authentication token. Not required when using AWS
 -- administrator credentials to access the API.
 updateFolder_authenticationToken :: Lens.Lens' UpdateFolder (Prelude.Maybe Prelude.Text)
-updateFolder_authenticationToken = Lens.lens (\UpdateFolder' {authenticationToken} -> authenticationToken) (\s@UpdateFolder' {} a -> s {authenticationToken = a} :: UpdateFolder) Prelude.. Lens.mapping Core._Sensitive
+updateFolder_authenticationToken = Lens.lens (\UpdateFolder' {authenticationToken} -> authenticationToken) (\s@UpdateFolder' {} a -> s {authenticationToken = a} :: UpdateFolder) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The name of the folder.
 updateFolder_name :: Lens.Lens' UpdateFolder (Prelude.Maybe Prelude.Text)
 updateFolder_name = Lens.lens (\UpdateFolder' {name} -> name) (\s@UpdateFolder' {} a -> s {name = a} :: UpdateFolder)
+
+-- | The ID of the parent folder.
+updateFolder_parentFolderId :: Lens.Lens' UpdateFolder (Prelude.Maybe Prelude.Text)
+updateFolder_parentFolderId = Lens.lens (\UpdateFolder' {parentFolderId} -> parentFolderId) (\s@UpdateFolder' {} a -> s {parentFolderId = a} :: UpdateFolder)
 
 -- | The resource state of the folder. Only ACTIVE and RECYCLED are accepted
 -- values from the API.
@@ -120,50 +122,51 @@ updateFolder_folderId = Lens.lens (\UpdateFolder' {folderId} -> folderId) (\s@Up
 
 instance Core.AWSRequest UpdateFolder where
   type AWSResponse UpdateFolder = UpdateFolderResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response = Response.receiveNull UpdateFolderResponse'
 
 instance Prelude.Hashable UpdateFolder where
   hashWithSalt _salt UpdateFolder' {..} =
-    _salt `Prelude.hashWithSalt` parentFolderId
-      `Prelude.hashWithSalt` authenticationToken
+    _salt `Prelude.hashWithSalt` authenticationToken
       `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` parentFolderId
       `Prelude.hashWithSalt` resourceState
       `Prelude.hashWithSalt` folderId
 
 instance Prelude.NFData UpdateFolder where
   rnf UpdateFolder' {..} =
-    Prelude.rnf parentFolderId
-      `Prelude.seq` Prelude.rnf authenticationToken
+    Prelude.rnf authenticationToken
       `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf parentFolderId
       `Prelude.seq` Prelude.rnf resourceState
       `Prelude.seq` Prelude.rnf folderId
 
-instance Core.ToHeaders UpdateFolder where
+instance Data.ToHeaders UpdateFolder where
   toHeaders UpdateFolder' {..} =
     Prelude.mconcat
-      [ "Authentication" Core.=# authenticationToken,
+      [ "Authentication" Data.=# authenticationToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToJSON UpdateFolder where
+instance Data.ToJSON UpdateFolder where
   toJSON UpdateFolder' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ParentFolderId" Core..=)
+          [ ("Name" Data..=) Prelude.<$> name,
+            ("ParentFolderId" Data..=)
               Prelude.<$> parentFolderId,
-            ("Name" Core..=) Prelude.<$> name,
-            ("ResourceState" Core..=) Prelude.<$> resourceState
+            ("ResourceState" Data..=) Prelude.<$> resourceState
           ]
       )
 
-instance Core.ToPath UpdateFolder where
+instance Data.ToPath UpdateFolder where
   toPath UpdateFolder' {..} =
     Prelude.mconcat
-      ["/api/v1/folders/", Core.toBS folderId]
+      ["/api/v1/folders/", Data.toBS folderId]
 
-instance Core.ToQuery UpdateFolder where
+instance Data.ToQuery UpdateFolder where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateFolderResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Snowball.Types.SnowballCapacity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,6 +23,7 @@ module Amazonka.Snowball.Types.SnowballCapacity
         SnowballCapacity_NoPreference,
         SnowballCapacity_T100,
         SnowballCapacity_T14,
+        SnowballCapacity_T32,
         SnowballCapacity_T42,
         SnowballCapacity_T50,
         SnowballCapacity_T8,
@@ -33,11 +34,12 @@ module Amazonka.Snowball.Types.SnowballCapacity
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype SnowballCapacity = SnowballCapacity'
   { fromSnowballCapacity ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -49,18 +51,18 @@ newtype SnowballCapacity = SnowballCapacity'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern SnowballCapacity_NoPreference :: SnowballCapacity
@@ -71,6 +73,9 @@ pattern SnowballCapacity_T100 = SnowballCapacity' "T100"
 
 pattern SnowballCapacity_T14 :: SnowballCapacity
 pattern SnowballCapacity_T14 = SnowballCapacity' "T14"
+
+pattern SnowballCapacity_T32 :: SnowballCapacity
+pattern SnowballCapacity_T32 = SnowballCapacity' "T32"
 
 pattern SnowballCapacity_T42 :: SnowballCapacity
 pattern SnowballCapacity_T42 = SnowballCapacity' "T42"
@@ -91,6 +96,7 @@ pattern SnowballCapacity_T98 = SnowballCapacity' "T98"
   SnowballCapacity_NoPreference,
   SnowballCapacity_T100,
   SnowballCapacity_T14,
+  SnowballCapacity_T32,
   SnowballCapacity_T42,
   SnowballCapacity_T50,
   SnowballCapacity_T8,

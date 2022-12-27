@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.CreatePipeline
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,15 +40,16 @@ module Amazonka.IoTAnalytics.CreatePipeline
     newCreatePipelineResponse,
 
     -- * Response Lenses
-    createPipelineResponse_pipelineName,
     createPipelineResponse_pipelineArn,
+    createPipelineResponse_pipelineName,
     createPipelineResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -137,13 +138,14 @@ instance Core.AWSRequest CreatePipeline where
   type
     AWSResponse CreatePipeline =
       CreatePipelineResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreatePipelineResponse'
-            Prelude.<$> (x Core..?> "pipelineName")
-            Prelude.<*> (x Core..?> "pipelineArn")
+            Prelude.<$> (x Data..?> "pipelineArn")
+            Prelude.<*> (x Data..?> "pipelineName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -159,32 +161,32 @@ instance Prelude.NFData CreatePipeline where
       `Prelude.seq` Prelude.rnf pipelineName
       `Prelude.seq` Prelude.rnf pipelineActivities
 
-instance Core.ToHeaders CreatePipeline where
+instance Data.ToHeaders CreatePipeline where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreatePipeline where
+instance Data.ToJSON CreatePipeline where
   toJSON CreatePipeline' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("pipelineName" Core..= pipelineName),
+          [ ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("pipelineName" Data..= pipelineName),
             Prelude.Just
-              ("pipelineActivities" Core..= pipelineActivities)
+              ("pipelineActivities" Data..= pipelineActivities)
           ]
       )
 
-instance Core.ToPath CreatePipeline where
+instance Data.ToPath CreatePipeline where
   toPath = Prelude.const "/pipelines"
 
-instance Core.ToQuery CreatePipeline where
+instance Data.ToQuery CreatePipeline where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreatePipelineResponse' smart constructor.
 data CreatePipelineResponse = CreatePipelineResponse'
-  { -- | The name of the pipeline.
-    pipelineName :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the pipeline.
+  { -- | The ARN of the pipeline.
     pipelineArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the pipeline.
+    pipelineName :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -198,9 +200,9 @@ data CreatePipelineResponse = CreatePipelineResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'pipelineName', 'createPipelineResponse_pipelineName' - The name of the pipeline.
---
 -- 'pipelineArn', 'createPipelineResponse_pipelineArn' - The ARN of the pipeline.
+--
+-- 'pipelineName', 'createPipelineResponse_pipelineName' - The name of the pipeline.
 --
 -- 'httpStatus', 'createPipelineResponse_httpStatus' - The response's http status code.
 newCreatePipelineResponse ::
@@ -209,19 +211,19 @@ newCreatePipelineResponse ::
   CreatePipelineResponse
 newCreatePipelineResponse pHttpStatus_ =
   CreatePipelineResponse'
-    { pipelineName =
+    { pipelineArn =
         Prelude.Nothing,
-      pipelineArn = Prelude.Nothing,
+      pipelineName = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The name of the pipeline.
-createPipelineResponse_pipelineName :: Lens.Lens' CreatePipelineResponse (Prelude.Maybe Prelude.Text)
-createPipelineResponse_pipelineName = Lens.lens (\CreatePipelineResponse' {pipelineName} -> pipelineName) (\s@CreatePipelineResponse' {} a -> s {pipelineName = a} :: CreatePipelineResponse)
 
 -- | The ARN of the pipeline.
 createPipelineResponse_pipelineArn :: Lens.Lens' CreatePipelineResponse (Prelude.Maybe Prelude.Text)
 createPipelineResponse_pipelineArn = Lens.lens (\CreatePipelineResponse' {pipelineArn} -> pipelineArn) (\s@CreatePipelineResponse' {} a -> s {pipelineArn = a} :: CreatePipelineResponse)
+
+-- | The name of the pipeline.
+createPipelineResponse_pipelineName :: Lens.Lens' CreatePipelineResponse (Prelude.Maybe Prelude.Text)
+createPipelineResponse_pipelineName = Lens.lens (\CreatePipelineResponse' {pipelineName} -> pipelineName) (\s@CreatePipelineResponse' {} a -> s {pipelineName = a} :: CreatePipelineResponse)
 
 -- | The response's http status code.
 createPipelineResponse_httpStatus :: Lens.Lens' CreatePipelineResponse Prelude.Int
@@ -229,6 +231,6 @@ createPipelineResponse_httpStatus = Lens.lens (\CreatePipelineResponse' {httpSta
 
 instance Prelude.NFData CreatePipelineResponse where
   rnf CreatePipelineResponse' {..} =
-    Prelude.rnf pipelineName
-      `Prelude.seq` Prelude.rnf pipelineArn
+    Prelude.rnf pipelineArn
+      `Prelude.seq` Prelude.rnf pipelineName
       `Prelude.seq` Prelude.rnf httpStatus

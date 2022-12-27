@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.DescribeFolder
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,14 +35,15 @@ module Amazonka.QuickSight.DescribeFolder
     newDescribeFolderResponse,
 
     -- * Response Lenses
-    describeFolderResponse_requestId,
     describeFolderResponse_folder,
+    describeFolderResponse_requestId,
     describeFolderResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -50,9 +51,9 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeFolder' smart constructor.
 data DescribeFolder = DescribeFolder'
-  { -- | The AWS account ID.
+  { -- | The ID for the Amazon Web Services account that contains the folder.
     awsAccountId :: Prelude.Text,
-    -- | The folder ID.
+    -- | The ID of the folder.
     folderId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -65,9 +66,9 @@ data DescribeFolder = DescribeFolder'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'awsAccountId', 'describeFolder_awsAccountId' - The AWS account ID.
+-- 'awsAccountId', 'describeFolder_awsAccountId' - The ID for the Amazon Web Services account that contains the folder.
 --
--- 'folderId', 'describeFolder_folderId' - The folder ID.
+-- 'folderId', 'describeFolder_folderId' - The ID of the folder.
 newDescribeFolder ::
   -- | 'awsAccountId'
   Prelude.Text ->
@@ -80,11 +81,11 @@ newDescribeFolder pAwsAccountId_ pFolderId_ =
       folderId = pFolderId_
     }
 
--- | The AWS account ID.
+-- | The ID for the Amazon Web Services account that contains the folder.
 describeFolder_awsAccountId :: Lens.Lens' DescribeFolder Prelude.Text
 describeFolder_awsAccountId = Lens.lens (\DescribeFolder' {awsAccountId} -> awsAccountId) (\s@DescribeFolder' {} a -> s {awsAccountId = a} :: DescribeFolder)
 
--- | The folder ID.
+-- | The ID of the folder.
 describeFolder_folderId :: Lens.Lens' DescribeFolder Prelude.Text
 describeFolder_folderId = Lens.lens (\DescribeFolder' {folderId} -> folderId) (\s@DescribeFolder' {} a -> s {folderId = a} :: DescribeFolder)
 
@@ -92,13 +93,14 @@ instance Core.AWSRequest DescribeFolder where
   type
     AWSResponse DescribeFolder =
       DescribeFolderResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeFolderResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "Folder")
+            Prelude.<$> (x Data..?> "Folder")
+            Prelude.<*> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -112,36 +114,36 @@ instance Prelude.NFData DescribeFolder where
     Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf folderId
 
-instance Core.ToHeaders DescribeFolder where
+instance Data.ToHeaders DescribeFolder where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeFolder where
+instance Data.ToPath DescribeFolder where
   toPath DescribeFolder' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/folders/",
-        Core.toBS folderId
+        Data.toBS folderId
       ]
 
-instance Core.ToQuery DescribeFolder where
+instance Data.ToQuery DescribeFolder where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeFolderResponse' smart constructor.
 data DescribeFolderResponse = DescribeFolderResponse'
-  { -- | The request ID.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | Information about the folder.
+  { -- | Information about the folder.
     folder :: Prelude.Maybe Folder,
-    -- | The status. If succeeded, the status is @SC_OK (200)@.
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
+    -- | The HTTP status of the request.
     status :: Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -154,37 +156,36 @@ data DescribeFolderResponse = DescribeFolderResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'describeFolderResponse_requestId' - The request ID.
---
 -- 'folder', 'describeFolderResponse_folder' - Information about the folder.
 --
--- 'status', 'describeFolderResponse_status' - The status. If succeeded, the status is @SC_OK (200)@.
+-- 'requestId', 'describeFolderResponse_requestId' - The Amazon Web Services request ID for this operation.
+--
+-- 'status', 'describeFolderResponse_status' - The HTTP status of the request.
 newDescribeFolderResponse ::
   -- | 'status'
   Prelude.Int ->
   DescribeFolderResponse
 newDescribeFolderResponse pStatus_ =
   DescribeFolderResponse'
-    { requestId =
-        Prelude.Nothing,
-      folder = Prelude.Nothing,
+    { folder = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       status = pStatus_
     }
-
--- | The request ID.
-describeFolderResponse_requestId :: Lens.Lens' DescribeFolderResponse (Prelude.Maybe Prelude.Text)
-describeFolderResponse_requestId = Lens.lens (\DescribeFolderResponse' {requestId} -> requestId) (\s@DescribeFolderResponse' {} a -> s {requestId = a} :: DescribeFolderResponse)
 
 -- | Information about the folder.
 describeFolderResponse_folder :: Lens.Lens' DescribeFolderResponse (Prelude.Maybe Folder)
 describeFolderResponse_folder = Lens.lens (\DescribeFolderResponse' {folder} -> folder) (\s@DescribeFolderResponse' {} a -> s {folder = a} :: DescribeFolderResponse)
 
--- | The status. If succeeded, the status is @SC_OK (200)@.
+-- | The Amazon Web Services request ID for this operation.
+describeFolderResponse_requestId :: Lens.Lens' DescribeFolderResponse (Prelude.Maybe Prelude.Text)
+describeFolderResponse_requestId = Lens.lens (\DescribeFolderResponse' {requestId} -> requestId) (\s@DescribeFolderResponse' {} a -> s {requestId = a} :: DescribeFolderResponse)
+
+-- | The HTTP status of the request.
 describeFolderResponse_status :: Lens.Lens' DescribeFolderResponse Prelude.Int
 describeFolderResponse_status = Lens.lens (\DescribeFolderResponse' {status} -> status) (\s@DescribeFolderResponse' {} a -> s {status = a} :: DescribeFolderResponse)
 
 instance Prelude.NFData DescribeFolderResponse where
   rnf DescribeFolderResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf folder
+    Prelude.rnf folder
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf status

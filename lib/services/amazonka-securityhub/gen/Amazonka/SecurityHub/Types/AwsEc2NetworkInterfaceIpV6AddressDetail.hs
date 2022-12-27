@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsEc2NetworkInterfaceIpV6AddressDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsEc2NetworkInterfaceIpV6AddressDetail where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides information about an IPV6 address that is associated with the
@@ -55,15 +56,15 @@ awsEc2NetworkInterfaceIpV6AddressDetail_ipV6Address :: Lens.Lens' AwsEc2NetworkI
 awsEc2NetworkInterfaceIpV6AddressDetail_ipV6Address = Lens.lens (\AwsEc2NetworkInterfaceIpV6AddressDetail' {ipV6Address} -> ipV6Address) (\s@AwsEc2NetworkInterfaceIpV6AddressDetail' {} a -> s {ipV6Address = a} :: AwsEc2NetworkInterfaceIpV6AddressDetail)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsEc2NetworkInterfaceIpV6AddressDetail
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsEc2NetworkInterfaceIpV6AddressDetail"
       ( \x ->
           AwsEc2NetworkInterfaceIpV6AddressDetail'
-            Prelude.<$> (x Core..:? "IpV6Address")
+            Prelude.<$> (x Data..:? "IpV6Address")
       )
 
 instance
@@ -83,11 +84,11 @@ instance
     Prelude.rnf ipV6Address
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsEc2NetworkInterfaceIpV6AddressDetail
   where
   toJSON AwsEc2NetworkInterfaceIpV6AddressDetail' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("IpV6Address" Core..=) Prelude.<$> ipV6Address]
+          [("IpV6Address" Data..=) Prelude.<$> ipV6Address]
       )

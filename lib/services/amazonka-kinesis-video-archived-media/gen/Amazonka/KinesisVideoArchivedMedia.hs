@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideoArchivedMedia
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,32 +17,32 @@ module Amazonka.KinesisVideoArchivedMedia
     -- * Errors
     -- $errors
 
-    -- ** InvalidMediaFrameException
-    _InvalidMediaFrameException,
-
-    -- ** NoDataRetentionException
-    _NoDataRetentionException,
+    -- ** ClientLimitExceededException
+    _ClientLimitExceededException,
 
     -- ** InvalidArgumentException
     _InvalidArgumentException,
 
-    -- ** NotAuthorizedException
-    _NotAuthorizedException,
-
-    -- ** ClientLimitExceededException
-    _ClientLimitExceededException,
-
-    -- ** UnsupportedStreamMediaTypeException
-    _UnsupportedStreamMediaTypeException,
-
     -- ** InvalidCodecPrivateDataException
     _InvalidCodecPrivateDataException,
+
+    -- ** InvalidMediaFrameException
+    _InvalidMediaFrameException,
 
     -- ** MissingCodecPrivateDataException
     _MissingCodecPrivateDataException,
 
+    -- ** NoDataRetentionException
+    _NoDataRetentionException,
+
+    -- ** NotAuthorizedException
+    _NotAuthorizedException,
+
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
+
+    -- ** UnsupportedStreamMediaTypeException
+    _UnsupportedStreamMediaTypeException,
 
     -- * Waiters
     -- $waiters
@@ -50,17 +50,29 @@ module Amazonka.KinesisVideoArchivedMedia
     -- * Operations
     -- $operations
 
+    -- ** GetClip
+    GetClip (GetClip'),
+    newGetClip,
+    GetClipResponse (GetClipResponse'),
+    newGetClipResponse,
+
+    -- ** GetDASHStreamingSessionURL
+    GetDASHStreamingSessionURL (GetDASHStreamingSessionURL'),
+    newGetDASHStreamingSessionURL,
+    GetDASHStreamingSessionURLResponse (GetDASHStreamingSessionURLResponse'),
+    newGetDASHStreamingSessionURLResponse,
+
     -- ** GetHLSStreamingSessionURL
     GetHLSStreamingSessionURL (GetHLSStreamingSessionURL'),
     newGetHLSStreamingSessionURL,
     GetHLSStreamingSessionURLResponse (GetHLSStreamingSessionURLResponse'),
     newGetHLSStreamingSessionURLResponse,
 
-    -- ** GetClip
-    GetClip (GetClip'),
-    newGetClip,
-    GetClipResponse (GetClipResponse'),
-    newGetClipResponse,
+    -- ** GetImages (Paginated)
+    GetImages (GetImages'),
+    newGetImages,
+    GetImagesResponse (GetImagesResponse'),
+    newGetImagesResponse,
 
     -- ** GetMediaForFragmentList
     GetMediaForFragmentList (GetMediaForFragmentList'),
@@ -73,12 +85,6 @@ module Amazonka.KinesisVideoArchivedMedia
     newListFragments,
     ListFragmentsResponse (ListFragmentsResponse'),
     newListFragmentsResponse,
-
-    -- ** GetDASHStreamingSessionURL
-    GetDASHStreamingSessionURL (GetDASHStreamingSessionURL'),
-    newGetDASHStreamingSessionURL,
-    GetDASHStreamingSessionURLResponse (GetDASHStreamingSessionURLResponse'),
-    newGetDASHStreamingSessionURLResponse,
 
     -- * Types
 
@@ -100,6 +106,12 @@ module Amazonka.KinesisVideoArchivedMedia
     -- ** DASHPlaybackMode
     DASHPlaybackMode (..),
 
+    -- ** Format
+    Format (..),
+
+    -- ** FormatConfigKey
+    FormatConfigKey (..),
+
     -- ** FragmentSelectorType
     FragmentSelectorType (..),
 
@@ -114,6 +126,12 @@ module Amazonka.KinesisVideoArchivedMedia
 
     -- ** HLSPlaybackMode
     HLSPlaybackMode (..),
+
+    -- ** ImageError
+    ImageError (..),
+
+    -- ** ImageSelectorType
+    ImageSelectorType (..),
 
     -- ** ClipFragmentSelector
     ClipFragmentSelector (ClipFragmentSelector'),
@@ -147,6 +165,10 @@ module Amazonka.KinesisVideoArchivedMedia
     HLSTimestampRange (HLSTimestampRange'),
     newHLSTimestampRange,
 
+    -- ** Image
+    Image (Image'),
+    newImage,
+
     -- ** TimestampRange
     TimestampRange (TimestampRange'),
     newTimestampRange,
@@ -156,6 +178,7 @@ where
 import Amazonka.KinesisVideoArchivedMedia.GetClip
 import Amazonka.KinesisVideoArchivedMedia.GetDASHStreamingSessionURL
 import Amazonka.KinesisVideoArchivedMedia.GetHLSStreamingSessionURL
+import Amazonka.KinesisVideoArchivedMedia.GetImages
 import Amazonka.KinesisVideoArchivedMedia.GetMediaForFragmentList
 import Amazonka.KinesisVideoArchivedMedia.Lens
 import Amazonka.KinesisVideoArchivedMedia.ListFragments

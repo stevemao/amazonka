@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataSync.StartTaskExecution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,9 +35,9 @@ module Amazonka.DataSync.StartTaskExecution
     newStartTaskExecution,
 
     -- * Request Lenses
-    startTaskExecution_overrideOptions,
-    startTaskExecution_includes,
     startTaskExecution_excludes,
+    startTaskExecution_includes,
+    startTaskExecution_overrideOptions,
     startTaskExecution_taskArn,
 
     -- * Destructuring the Response
@@ -51,8 +51,9 @@ module Amazonka.DataSync.StartTaskExecution
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataSync.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,17 +62,17 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newStartTaskExecution' smart constructor.
 data StartTaskExecution = StartTaskExecution'
-  { overrideOptions :: Prelude.Maybe Options,
+  { -- | A list of filter rules that determines which files to exclude from a
+    -- task. The list contains a single filter string that consists of the
+    -- patterns to exclude. The patterns are delimited by \"|\" (that is, a
+    -- pipe), for example, @\"\/folder1|\/folder2\"@.
+    excludes :: Prelude.Maybe [FilterRule],
     -- | A list of filter rules that determines which files to include when
     -- running a task. The pattern should contain a single filter string that
     -- consists of the patterns to include. The patterns are delimited by \"|\"
-    -- (that is, a pipe). For example: @\"\/folder1|\/folder2\"@
+    -- (that is, a pipe), for example, @\"\/folder1|\/folder2\"@.
     includes :: Prelude.Maybe [FilterRule],
-    -- | A list of filter rules that determines which files to exclude from a
-    -- task. The list should contain a single filter string that consists of
-    -- the patterns to exclude. The patterns are delimited by \"|\" (that is, a
-    -- pipe), for example, @\"\/folder1|\/folder2\"@.
-    excludes :: Prelude.Maybe [FilterRule],
+    overrideOptions :: Prelude.Maybe Options,
     -- | The Amazon Resource Name (ARN) of the task to start.
     taskArn :: Prelude.Text
   }
@@ -85,17 +86,17 @@ data StartTaskExecution = StartTaskExecution'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'overrideOptions', 'startTaskExecution_overrideOptions' - Undocumented member.
+-- 'excludes', 'startTaskExecution_excludes' - A list of filter rules that determines which files to exclude from a
+-- task. The list contains a single filter string that consists of the
+-- patterns to exclude. The patterns are delimited by \"|\" (that is, a
+-- pipe), for example, @\"\/folder1|\/folder2\"@.
 --
 -- 'includes', 'startTaskExecution_includes' - A list of filter rules that determines which files to include when
 -- running a task. The pattern should contain a single filter string that
 -- consists of the patterns to include. The patterns are delimited by \"|\"
--- (that is, a pipe). For example: @\"\/folder1|\/folder2\"@
+-- (that is, a pipe), for example, @\"\/folder1|\/folder2\"@.
 --
--- 'excludes', 'startTaskExecution_excludes' - A list of filter rules that determines which files to exclude from a
--- task. The list should contain a single filter string that consists of
--- the patterns to exclude. The patterns are delimited by \"|\" (that is, a
--- pipe), for example, @\"\/folder1|\/folder2\"@.
+-- 'overrideOptions', 'startTaskExecution_overrideOptions' - Undocumented member.
 --
 -- 'taskArn', 'startTaskExecution_taskArn' - The Amazon Resource Name (ARN) of the task to start.
 newStartTaskExecution ::
@@ -104,30 +105,29 @@ newStartTaskExecution ::
   StartTaskExecution
 newStartTaskExecution pTaskArn_ =
   StartTaskExecution'
-    { overrideOptions =
-        Prelude.Nothing,
+    { excludes = Prelude.Nothing,
       includes = Prelude.Nothing,
-      excludes = Prelude.Nothing,
+      overrideOptions = Prelude.Nothing,
       taskArn = pTaskArn_
     }
 
--- | Undocumented member.
-startTaskExecution_overrideOptions :: Lens.Lens' StartTaskExecution (Prelude.Maybe Options)
-startTaskExecution_overrideOptions = Lens.lens (\StartTaskExecution' {overrideOptions} -> overrideOptions) (\s@StartTaskExecution' {} a -> s {overrideOptions = a} :: StartTaskExecution)
+-- | A list of filter rules that determines which files to exclude from a
+-- task. The list contains a single filter string that consists of the
+-- patterns to exclude. The patterns are delimited by \"|\" (that is, a
+-- pipe), for example, @\"\/folder1|\/folder2\"@.
+startTaskExecution_excludes :: Lens.Lens' StartTaskExecution (Prelude.Maybe [FilterRule])
+startTaskExecution_excludes = Lens.lens (\StartTaskExecution' {excludes} -> excludes) (\s@StartTaskExecution' {} a -> s {excludes = a} :: StartTaskExecution) Prelude.. Lens.mapping Lens.coerced
 
 -- | A list of filter rules that determines which files to include when
 -- running a task. The pattern should contain a single filter string that
 -- consists of the patterns to include. The patterns are delimited by \"|\"
--- (that is, a pipe). For example: @\"\/folder1|\/folder2\"@
+-- (that is, a pipe), for example, @\"\/folder1|\/folder2\"@.
 startTaskExecution_includes :: Lens.Lens' StartTaskExecution (Prelude.Maybe [FilterRule])
 startTaskExecution_includes = Lens.lens (\StartTaskExecution' {includes} -> includes) (\s@StartTaskExecution' {} a -> s {includes = a} :: StartTaskExecution) Prelude.. Lens.mapping Lens.coerced
 
--- | A list of filter rules that determines which files to exclude from a
--- task. The list should contain a single filter string that consists of
--- the patterns to exclude. The patterns are delimited by \"|\" (that is, a
--- pipe), for example, @\"\/folder1|\/folder2\"@.
-startTaskExecution_excludes :: Lens.Lens' StartTaskExecution (Prelude.Maybe [FilterRule])
-startTaskExecution_excludes = Lens.lens (\StartTaskExecution' {excludes} -> excludes) (\s@StartTaskExecution' {} a -> s {excludes = a} :: StartTaskExecution) Prelude.. Lens.mapping Lens.coerced
+-- | Undocumented member.
+startTaskExecution_overrideOptions :: Lens.Lens' StartTaskExecution (Prelude.Maybe Options)
+startTaskExecution_overrideOptions = Lens.lens (\StartTaskExecution' {overrideOptions} -> overrideOptions) (\s@StartTaskExecution' {} a -> s {overrideOptions = a} :: StartTaskExecution)
 
 -- | The Amazon Resource Name (ARN) of the task to start.
 startTaskExecution_taskArn :: Lens.Lens' StartTaskExecution Prelude.Text
@@ -137,60 +137,61 @@ instance Core.AWSRequest StartTaskExecution where
   type
     AWSResponse StartTaskExecution =
       StartTaskExecutionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartTaskExecutionResponse'
-            Prelude.<$> (x Core..?> "TaskExecutionArn")
+            Prelude.<$> (x Data..?> "TaskExecutionArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable StartTaskExecution where
   hashWithSalt _salt StartTaskExecution' {..} =
-    _salt `Prelude.hashWithSalt` overrideOptions
+    _salt `Prelude.hashWithSalt` excludes
       `Prelude.hashWithSalt` includes
-      `Prelude.hashWithSalt` excludes
+      `Prelude.hashWithSalt` overrideOptions
       `Prelude.hashWithSalt` taskArn
 
 instance Prelude.NFData StartTaskExecution where
   rnf StartTaskExecution' {..} =
-    Prelude.rnf overrideOptions
+    Prelude.rnf excludes
       `Prelude.seq` Prelude.rnf includes
-      `Prelude.seq` Prelude.rnf excludes
+      `Prelude.seq` Prelude.rnf overrideOptions
       `Prelude.seq` Prelude.rnf taskArn
 
-instance Core.ToHeaders StartTaskExecution where
+instance Data.ToHeaders StartTaskExecution where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "FmrsService.StartTaskExecution" ::
+              Data.=# ( "FmrsService.StartTaskExecution" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartTaskExecution where
+instance Data.ToJSON StartTaskExecution where
   toJSON StartTaskExecution' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("OverrideOptions" Core..=)
+          [ ("Excludes" Data..=) Prelude.<$> excludes,
+            ("Includes" Data..=) Prelude.<$> includes,
+            ("OverrideOptions" Data..=)
               Prelude.<$> overrideOptions,
-            ("Includes" Core..=) Prelude.<$> includes,
-            ("Excludes" Core..=) Prelude.<$> excludes,
-            Prelude.Just ("TaskArn" Core..= taskArn)
+            Prelude.Just ("TaskArn" Data..= taskArn)
           ]
       )
 
-instance Core.ToPath StartTaskExecution where
+instance Data.ToPath StartTaskExecution where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartTaskExecution where
+instance Data.ToQuery StartTaskExecution where
   toQuery = Prelude.const Prelude.mempty
 
 -- | StartTaskExecutionResponse

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.InputSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.MediaLive.Types.InputSource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The settings for a PULL type input.
 --
 -- /See:/ 'newInputSource' smart constructor.
 data InputSource = InputSource'
-  { -- | This represents the customer\'s source URL where stream is pulled from.
+  { -- | The key used to extract the password from EC2 Parameter store.
+    passwordParam :: Prelude.Maybe Prelude.Text,
+    -- | This represents the customer\'s source URL where stream is pulled from.
     url :: Prelude.Maybe Prelude.Text,
     -- | The username for the input source.
-    username :: Prelude.Maybe Prelude.Text,
-    -- | The key used to extract the password from EC2 Parameter store.
-    passwordParam :: Prelude.Maybe Prelude.Text
+    username :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,19 +45,23 @@ data InputSource = InputSource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'passwordParam', 'inputSource_passwordParam' - The key used to extract the password from EC2 Parameter store.
+--
 -- 'url', 'inputSource_url' - This represents the customer\'s source URL where stream is pulled from.
 --
 -- 'username', 'inputSource_username' - The username for the input source.
---
--- 'passwordParam', 'inputSource_passwordParam' - The key used to extract the password from EC2 Parameter store.
 newInputSource ::
   InputSource
 newInputSource =
   InputSource'
-    { url = Prelude.Nothing,
-      username = Prelude.Nothing,
-      passwordParam = Prelude.Nothing
+    { passwordParam = Prelude.Nothing,
+      url = Prelude.Nothing,
+      username = Prelude.Nothing
     }
+
+-- | The key used to extract the password from EC2 Parameter store.
+inputSource_passwordParam :: Lens.Lens' InputSource (Prelude.Maybe Prelude.Text)
+inputSource_passwordParam = Lens.lens (\InputSource' {passwordParam} -> passwordParam) (\s@InputSource' {} a -> s {passwordParam = a} :: InputSource)
 
 -- | This represents the customer\'s source URL where stream is pulled from.
 inputSource_url :: Lens.Lens' InputSource (Prelude.Maybe Prelude.Text)
@@ -66,29 +71,25 @@ inputSource_url = Lens.lens (\InputSource' {url} -> url) (\s@InputSource' {} a -
 inputSource_username :: Lens.Lens' InputSource (Prelude.Maybe Prelude.Text)
 inputSource_username = Lens.lens (\InputSource' {username} -> username) (\s@InputSource' {} a -> s {username = a} :: InputSource)
 
--- | The key used to extract the password from EC2 Parameter store.
-inputSource_passwordParam :: Lens.Lens' InputSource (Prelude.Maybe Prelude.Text)
-inputSource_passwordParam = Lens.lens (\InputSource' {passwordParam} -> passwordParam) (\s@InputSource' {} a -> s {passwordParam = a} :: InputSource)
-
-instance Core.FromJSON InputSource where
+instance Data.FromJSON InputSource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InputSource"
       ( \x ->
           InputSource'
-            Prelude.<$> (x Core..:? "url")
-            Prelude.<*> (x Core..:? "username")
-            Prelude.<*> (x Core..:? "passwordParam")
+            Prelude.<$> (x Data..:? "passwordParam")
+            Prelude.<*> (x Data..:? "url")
+            Prelude.<*> (x Data..:? "username")
       )
 
 instance Prelude.Hashable InputSource where
   hashWithSalt _salt InputSource' {..} =
-    _salt `Prelude.hashWithSalt` url
+    _salt `Prelude.hashWithSalt` passwordParam
+      `Prelude.hashWithSalt` url
       `Prelude.hashWithSalt` username
-      `Prelude.hashWithSalt` passwordParam
 
 instance Prelude.NFData InputSource where
   rnf InputSource' {..} =
-    Prelude.rnf url
+    Prelude.rnf passwordParam
+      `Prelude.seq` Prelude.rnf url
       `Prelude.seq` Prelude.rnf username
-      `Prelude.seq` Prelude.rnf passwordParam

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.GetBucketWebsite
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,16 +50,17 @@ module Amazonka.S3.GetBucketWebsite
     newGetBucketWebsiteResponse,
 
     -- * Response Lenses
-    getBucketWebsiteResponse_redirectAllRequestsTo,
     getBucketWebsiteResponse_errorDocument,
     getBucketWebsiteResponse_indexDocument,
+    getBucketWebsiteResponse_redirectAllRequestsTo,
     getBucketWebsiteResponse_routingRules,
     getBucketWebsiteResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -68,8 +69,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newGetBucketWebsite' smart constructor.
 data GetBucketWebsite = GetBucketWebsite'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The bucket name for which to get the website configuration.
     bucket :: BucketName
@@ -85,8 +86,8 @@ data GetBucketWebsite = GetBucketWebsite'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'getBucketWebsite_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'getBucketWebsite_bucket' - The bucket name for which to get the website configuration.
 newGetBucketWebsite ::
@@ -101,8 +102,8 @@ newGetBucketWebsite pBucket_ =
     }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 getBucketWebsite_expectedBucketOwner :: Lens.Lens' GetBucketWebsite (Prelude.Maybe Prelude.Text)
 getBucketWebsite_expectedBucketOwner = Lens.lens (\GetBucketWebsite' {expectedBucketOwner} -> expectedBucketOwner) (\s@GetBucketWebsite' {} a -> s {expectedBucketOwner = a} :: GetBucketWebsite)
 
@@ -114,18 +115,18 @@ instance Core.AWSRequest GetBucketWebsite where
   type
     AWSResponse GetBucketWebsite =
       GetBucketWebsiteResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.get defaultService
+      Prelude.. Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetBucketWebsiteResponse'
-            Prelude.<$> (x Core..@? "RedirectAllRequestsTo")
-            Prelude.<*> (x Core..@? "ErrorDocument")
-            Prelude.<*> (x Core..@? "IndexDocument")
-            Prelude.<*> ( x Core..@? "RoutingRules" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "RoutingRule")
+            Prelude.<$> (x Data..@? "ErrorDocument")
+            Prelude.<*> (x Data..@? "IndexDocument")
+            Prelude.<*> (x Data..@? "RedirectAllRequestsTo")
+            Prelude.<*> ( x Data..@? "RoutingRules" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "RoutingRule")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -140,31 +141,31 @@ instance Prelude.NFData GetBucketWebsite where
     Prelude.rnf expectedBucketOwner
       `Prelude.seq` Prelude.rnf bucket
 
-instance Core.ToHeaders GetBucketWebsite where
+instance Data.ToHeaders GetBucketWebsite where
   toHeaders GetBucketWebsite' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath GetBucketWebsite where
+instance Data.ToPath GetBucketWebsite where
   toPath GetBucketWebsite' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery GetBucketWebsite where
+instance Data.ToQuery GetBucketWebsite where
   toQuery = Prelude.const (Prelude.mconcat ["website"])
 
 -- | /See:/ 'newGetBucketWebsiteResponse' smart constructor.
 data GetBucketWebsiteResponse = GetBucketWebsiteResponse'
-  { -- | Specifies the redirect behavior of all requests to a website endpoint of
-    -- an Amazon S3 bucket.
-    redirectAllRequestsTo :: Prelude.Maybe RedirectAllRequestsTo,
-    -- | The object key name of the website error document to use for 4XX class
+  { -- | The object key name of the website error document to use for 4XX class
     -- errors.
     errorDocument :: Prelude.Maybe ErrorDocument,
     -- | The name of the index document for the website (for example
     -- @index.html@).
     indexDocument :: Prelude.Maybe IndexDocument,
+    -- | Specifies the redirect behavior of all requests to a website endpoint of
+    -- an Amazon S3 bucket.
+    redirectAllRequestsTo :: Prelude.Maybe RedirectAllRequestsTo,
     -- | Rules that define when a redirect is applied and the redirect behavior.
     routingRules :: Prelude.Maybe [RoutingRule],
     -- | The response's http status code.
@@ -180,14 +181,14 @@ data GetBucketWebsiteResponse = GetBucketWebsiteResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'redirectAllRequestsTo', 'getBucketWebsiteResponse_redirectAllRequestsTo' - Specifies the redirect behavior of all requests to a website endpoint of
--- an Amazon S3 bucket.
---
 -- 'errorDocument', 'getBucketWebsiteResponse_errorDocument' - The object key name of the website error document to use for 4XX class
 -- errors.
 --
 -- 'indexDocument', 'getBucketWebsiteResponse_indexDocument' - The name of the index document for the website (for example
 -- @index.html@).
+--
+-- 'redirectAllRequestsTo', 'getBucketWebsiteResponse_redirectAllRequestsTo' - Specifies the redirect behavior of all requests to a website endpoint of
+-- an Amazon S3 bucket.
 --
 -- 'routingRules', 'getBucketWebsiteResponse_routingRules' - Rules that define when a redirect is applied and the redirect behavior.
 --
@@ -198,18 +199,13 @@ newGetBucketWebsiteResponse ::
   GetBucketWebsiteResponse
 newGetBucketWebsiteResponse pHttpStatus_ =
   GetBucketWebsiteResponse'
-    { redirectAllRequestsTo =
+    { errorDocument =
         Prelude.Nothing,
-      errorDocument = Prelude.Nothing,
       indexDocument = Prelude.Nothing,
+      redirectAllRequestsTo = Prelude.Nothing,
       routingRules = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Specifies the redirect behavior of all requests to a website endpoint of
--- an Amazon S3 bucket.
-getBucketWebsiteResponse_redirectAllRequestsTo :: Lens.Lens' GetBucketWebsiteResponse (Prelude.Maybe RedirectAllRequestsTo)
-getBucketWebsiteResponse_redirectAllRequestsTo = Lens.lens (\GetBucketWebsiteResponse' {redirectAllRequestsTo} -> redirectAllRequestsTo) (\s@GetBucketWebsiteResponse' {} a -> s {redirectAllRequestsTo = a} :: GetBucketWebsiteResponse)
 
 -- | The object key name of the website error document to use for 4XX class
 -- errors.
@@ -221,6 +217,11 @@ getBucketWebsiteResponse_errorDocument = Lens.lens (\GetBucketWebsiteResponse' {
 getBucketWebsiteResponse_indexDocument :: Lens.Lens' GetBucketWebsiteResponse (Prelude.Maybe IndexDocument)
 getBucketWebsiteResponse_indexDocument = Lens.lens (\GetBucketWebsiteResponse' {indexDocument} -> indexDocument) (\s@GetBucketWebsiteResponse' {} a -> s {indexDocument = a} :: GetBucketWebsiteResponse)
 
+-- | Specifies the redirect behavior of all requests to a website endpoint of
+-- an Amazon S3 bucket.
+getBucketWebsiteResponse_redirectAllRequestsTo :: Lens.Lens' GetBucketWebsiteResponse (Prelude.Maybe RedirectAllRequestsTo)
+getBucketWebsiteResponse_redirectAllRequestsTo = Lens.lens (\GetBucketWebsiteResponse' {redirectAllRequestsTo} -> redirectAllRequestsTo) (\s@GetBucketWebsiteResponse' {} a -> s {redirectAllRequestsTo = a} :: GetBucketWebsiteResponse)
+
 -- | Rules that define when a redirect is applied and the redirect behavior.
 getBucketWebsiteResponse_routingRules :: Lens.Lens' GetBucketWebsiteResponse (Prelude.Maybe [RoutingRule])
 getBucketWebsiteResponse_routingRules = Lens.lens (\GetBucketWebsiteResponse' {routingRules} -> routingRules) (\s@GetBucketWebsiteResponse' {} a -> s {routingRules = a} :: GetBucketWebsiteResponse) Prelude.. Lens.mapping Lens.coerced
@@ -231,8 +232,8 @@ getBucketWebsiteResponse_httpStatus = Lens.lens (\GetBucketWebsiteResponse' {htt
 
 instance Prelude.NFData GetBucketWebsiteResponse where
   rnf GetBucketWebsiteResponse' {..} =
-    Prelude.rnf redirectAllRequestsTo
-      `Prelude.seq` Prelude.rnf errorDocument
+    Prelude.rnf errorDocument
       `Prelude.seq` Prelude.rnf indexDocument
+      `Prelude.seq` Prelude.rnf redirectAllRequestsTo
       `Prelude.seq` Prelude.rnf routingRules
       `Prelude.seq` Prelude.rnf httpStatus

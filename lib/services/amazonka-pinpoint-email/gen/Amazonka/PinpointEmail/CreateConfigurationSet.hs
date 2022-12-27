@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.PinpointEmail.CreateConfigurationSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,11 +32,11 @@ module Amazonka.PinpointEmail.CreateConfigurationSet
     newCreateConfigurationSet,
 
     -- * Request Lenses
-    createConfigurationSet_sendingOptions,
     createConfigurationSet_deliveryOptions,
-    createConfigurationSet_trackingOptions,
     createConfigurationSet_reputationOptions,
+    createConfigurationSet_sendingOptions,
     createConfigurationSet_tags,
+    createConfigurationSet_trackingOptions,
     createConfigurationSet_configurationSetName,
 
     -- * Destructuring the Response
@@ -49,7 +49,8 @@ module Amazonka.PinpointEmail.CreateConfigurationSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.PinpointEmail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -59,22 +60,22 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCreateConfigurationSet' smart constructor.
 data CreateConfigurationSet = CreateConfigurationSet'
-  { -- | An object that defines whether or not Amazon Pinpoint can send email
-    -- that you send using the configuration set.
-    sendingOptions :: Prelude.Maybe SendingOptions,
-    -- | An object that defines the dedicated IP pool that is used to send emails
+  { -- | An object that defines the dedicated IP pool that is used to send emails
     -- that you send using the configuration set.
     deliveryOptions :: Prelude.Maybe DeliveryOptions,
-    -- | An object that defines the open and click tracking options for emails
-    -- that you send using the configuration set.
-    trackingOptions :: Prelude.Maybe TrackingOptions,
     -- | An object that defines whether or not Amazon Pinpoint collects
     -- reputation metrics for the emails that you send that use the
     -- configuration set.
     reputationOptions :: Prelude.Maybe ReputationOptions,
+    -- | An object that defines whether or not Amazon Pinpoint can send email
+    -- that you send using the configuration set.
+    sendingOptions :: Prelude.Maybe SendingOptions,
     -- | An array of objects that define the tags (keys and values) that you want
     -- to associate with the configuration set.
     tags :: Prelude.Maybe [Tag],
+    -- | An object that defines the open and click tracking options for emails
+    -- that you send using the configuration set.
+    trackingOptions :: Prelude.Maybe TrackingOptions,
     -- | The name of the configuration set.
     configurationSetName :: Prelude.Text
   }
@@ -88,21 +89,21 @@ data CreateConfigurationSet = CreateConfigurationSet'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sendingOptions', 'createConfigurationSet_sendingOptions' - An object that defines whether or not Amazon Pinpoint can send email
--- that you send using the configuration set.
---
 -- 'deliveryOptions', 'createConfigurationSet_deliveryOptions' - An object that defines the dedicated IP pool that is used to send emails
--- that you send using the configuration set.
---
--- 'trackingOptions', 'createConfigurationSet_trackingOptions' - An object that defines the open and click tracking options for emails
 -- that you send using the configuration set.
 --
 -- 'reputationOptions', 'createConfigurationSet_reputationOptions' - An object that defines whether or not Amazon Pinpoint collects
 -- reputation metrics for the emails that you send that use the
 -- configuration set.
 --
+-- 'sendingOptions', 'createConfigurationSet_sendingOptions' - An object that defines whether or not Amazon Pinpoint can send email
+-- that you send using the configuration set.
+--
 -- 'tags', 'createConfigurationSet_tags' - An array of objects that define the tags (keys and values) that you want
 -- to associate with the configuration set.
+--
+-- 'trackingOptions', 'createConfigurationSet_trackingOptions' - An object that defines the open and click tracking options for emails
+-- that you send using the configuration set.
 --
 -- 'configurationSetName', 'createConfigurationSet_configurationSetName' - The name of the configuration set.
 newCreateConfigurationSet ::
@@ -111,29 +112,19 @@ newCreateConfigurationSet ::
   CreateConfigurationSet
 newCreateConfigurationSet pConfigurationSetName_ =
   CreateConfigurationSet'
-    { sendingOptions =
+    { deliveryOptions =
         Prelude.Nothing,
-      deliveryOptions = Prelude.Nothing,
-      trackingOptions = Prelude.Nothing,
       reputationOptions = Prelude.Nothing,
+      sendingOptions = Prelude.Nothing,
       tags = Prelude.Nothing,
+      trackingOptions = Prelude.Nothing,
       configurationSetName = pConfigurationSetName_
     }
-
--- | An object that defines whether or not Amazon Pinpoint can send email
--- that you send using the configuration set.
-createConfigurationSet_sendingOptions :: Lens.Lens' CreateConfigurationSet (Prelude.Maybe SendingOptions)
-createConfigurationSet_sendingOptions = Lens.lens (\CreateConfigurationSet' {sendingOptions} -> sendingOptions) (\s@CreateConfigurationSet' {} a -> s {sendingOptions = a} :: CreateConfigurationSet)
 
 -- | An object that defines the dedicated IP pool that is used to send emails
 -- that you send using the configuration set.
 createConfigurationSet_deliveryOptions :: Lens.Lens' CreateConfigurationSet (Prelude.Maybe DeliveryOptions)
 createConfigurationSet_deliveryOptions = Lens.lens (\CreateConfigurationSet' {deliveryOptions} -> deliveryOptions) (\s@CreateConfigurationSet' {} a -> s {deliveryOptions = a} :: CreateConfigurationSet)
-
--- | An object that defines the open and click tracking options for emails
--- that you send using the configuration set.
-createConfigurationSet_trackingOptions :: Lens.Lens' CreateConfigurationSet (Prelude.Maybe TrackingOptions)
-createConfigurationSet_trackingOptions = Lens.lens (\CreateConfigurationSet' {trackingOptions} -> trackingOptions) (\s@CreateConfigurationSet' {} a -> s {trackingOptions = a} :: CreateConfigurationSet)
 
 -- | An object that defines whether or not Amazon Pinpoint collects
 -- reputation metrics for the emails that you send that use the
@@ -141,10 +132,20 @@ createConfigurationSet_trackingOptions = Lens.lens (\CreateConfigurationSet' {tr
 createConfigurationSet_reputationOptions :: Lens.Lens' CreateConfigurationSet (Prelude.Maybe ReputationOptions)
 createConfigurationSet_reputationOptions = Lens.lens (\CreateConfigurationSet' {reputationOptions} -> reputationOptions) (\s@CreateConfigurationSet' {} a -> s {reputationOptions = a} :: CreateConfigurationSet)
 
+-- | An object that defines whether or not Amazon Pinpoint can send email
+-- that you send using the configuration set.
+createConfigurationSet_sendingOptions :: Lens.Lens' CreateConfigurationSet (Prelude.Maybe SendingOptions)
+createConfigurationSet_sendingOptions = Lens.lens (\CreateConfigurationSet' {sendingOptions} -> sendingOptions) (\s@CreateConfigurationSet' {} a -> s {sendingOptions = a} :: CreateConfigurationSet)
+
 -- | An array of objects that define the tags (keys and values) that you want
 -- to associate with the configuration set.
 createConfigurationSet_tags :: Lens.Lens' CreateConfigurationSet (Prelude.Maybe [Tag])
 createConfigurationSet_tags = Lens.lens (\CreateConfigurationSet' {tags} -> tags) (\s@CreateConfigurationSet' {} a -> s {tags = a} :: CreateConfigurationSet) Prelude.. Lens.mapping Lens.coerced
+
+-- | An object that defines the open and click tracking options for emails
+-- that you send using the configuration set.
+createConfigurationSet_trackingOptions :: Lens.Lens' CreateConfigurationSet (Prelude.Maybe TrackingOptions)
+createConfigurationSet_trackingOptions = Lens.lens (\CreateConfigurationSet' {trackingOptions} -> trackingOptions) (\s@CreateConfigurationSet' {} a -> s {trackingOptions = a} :: CreateConfigurationSet)
 
 -- | The name of the configuration set.
 createConfigurationSet_configurationSetName :: Lens.Lens' CreateConfigurationSet Prelude.Text
@@ -154,7 +155,8 @@ instance Core.AWSRequest CreateConfigurationSet where
   type
     AWSResponse CreateConfigurationSet =
       CreateConfigurationSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -164,57 +166,57 @@ instance Core.AWSRequest CreateConfigurationSet where
 
 instance Prelude.Hashable CreateConfigurationSet where
   hashWithSalt _salt CreateConfigurationSet' {..} =
-    _salt `Prelude.hashWithSalt` sendingOptions
-      `Prelude.hashWithSalt` deliveryOptions
-      `Prelude.hashWithSalt` trackingOptions
+    _salt `Prelude.hashWithSalt` deliveryOptions
       `Prelude.hashWithSalt` reputationOptions
+      `Prelude.hashWithSalt` sendingOptions
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` trackingOptions
       `Prelude.hashWithSalt` configurationSetName
 
 instance Prelude.NFData CreateConfigurationSet where
   rnf CreateConfigurationSet' {..} =
-    Prelude.rnf sendingOptions
-      `Prelude.seq` Prelude.rnf deliveryOptions
-      `Prelude.seq` Prelude.rnf trackingOptions
+    Prelude.rnf deliveryOptions
       `Prelude.seq` Prelude.rnf reputationOptions
+      `Prelude.seq` Prelude.rnf sendingOptions
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf trackingOptions
       `Prelude.seq` Prelude.rnf configurationSetName
 
-instance Core.ToHeaders CreateConfigurationSet where
+instance Data.ToHeaders CreateConfigurationSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateConfigurationSet where
+instance Data.ToJSON CreateConfigurationSet where
   toJSON CreateConfigurationSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SendingOptions" Core..=)
-              Prelude.<$> sendingOptions,
-            ("DeliveryOptions" Core..=)
+          [ ("DeliveryOptions" Data..=)
               Prelude.<$> deliveryOptions,
-            ("TrackingOptions" Core..=)
-              Prelude.<$> trackingOptions,
-            ("ReputationOptions" Core..=)
+            ("ReputationOptions" Data..=)
               Prelude.<$> reputationOptions,
-            ("Tags" Core..=) Prelude.<$> tags,
+            ("SendingOptions" Data..=)
+              Prelude.<$> sendingOptions,
+            ("Tags" Data..=) Prelude.<$> tags,
+            ("TrackingOptions" Data..=)
+              Prelude.<$> trackingOptions,
             Prelude.Just
               ( "ConfigurationSetName"
-                  Core..= configurationSetName
+                  Data..= configurationSetName
               )
           ]
       )
 
-instance Core.ToPath CreateConfigurationSet where
+instance Data.ToPath CreateConfigurationSet where
   toPath = Prelude.const "/v1/email/configuration-sets"
 
-instance Core.ToQuery CreateConfigurationSet where
+instance Data.ToQuery CreateConfigurationSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | An HTTP 200 response if the request succeeds, or an error message if the

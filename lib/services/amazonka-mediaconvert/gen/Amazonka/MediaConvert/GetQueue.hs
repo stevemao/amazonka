@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.GetQueue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.MediaConvert.GetQueue
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -74,12 +75,13 @@ getQueue_name = Lens.lens (\GetQueue' {name} -> name) (\s@GetQueue' {} a -> s {n
 
 instance Core.AWSRequest GetQueue where
   type AWSResponse GetQueue = GetQueueResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetQueueResponse'
-            Prelude.<$> (x Core..?> "queue")
+            Prelude.<$> (x Data..?> "queue")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -90,23 +92,23 @@ instance Prelude.Hashable GetQueue where
 instance Prelude.NFData GetQueue where
   rnf GetQueue' {..} = Prelude.rnf name
 
-instance Core.ToHeaders GetQueue where
+instance Data.ToHeaders GetQueue where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetQueue where
+instance Data.ToPath GetQueue where
   toPath GetQueue' {..} =
     Prelude.mconcat
-      ["/2017-08-29/queues/", Core.toBS name]
+      ["/2017-08-29/queues/", Data.toBS name]
 
-instance Core.ToQuery GetQueue where
+instance Data.ToQuery GetQueue where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetQueueResponse' smart constructor.

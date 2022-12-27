@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppSync.DeleteDataSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.AppSync.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -87,7 +88,8 @@ instance Core.AWSRequest DeleteDataSource where
   type
     AWSResponse DeleteDataSource =
       DeleteDataSourceResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -104,27 +106,27 @@ instance Prelude.NFData DeleteDataSource where
   rnf DeleteDataSource' {..} =
     Prelude.rnf apiId `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders DeleteDataSource where
+instance Data.ToHeaders DeleteDataSource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteDataSource where
+instance Data.ToPath DeleteDataSource where
   toPath DeleteDataSource' {..} =
     Prelude.mconcat
       [ "/v1/apis/",
-        Core.toBS apiId,
+        Data.toBS apiId,
         "/datasources/",
-        Core.toBS name
+        Data.toBS name
       ]
 
-instance Core.ToQuery DeleteDataSource where
+instance Data.ToQuery DeleteDataSource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteDataSourceResponse' smart constructor.

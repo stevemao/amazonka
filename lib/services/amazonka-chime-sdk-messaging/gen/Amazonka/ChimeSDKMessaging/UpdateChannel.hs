@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ChimeSDKMessaging.UpdateChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,9 +34,9 @@ module Amazonka.ChimeSDKMessaging.UpdateChannel
 
     -- * Request Lenses
     updateChannel_metadata,
-    updateChannel_channelArn,
-    updateChannel_name,
     updateChannel_mode,
+    updateChannel_name,
+    updateChannel_channelArn,
     updateChannel_chimeBearer,
 
     -- * Destructuring the Response
@@ -51,7 +51,8 @@ where
 
 import Amazonka.ChimeSDKMessaging.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,13 +60,13 @@ import qualified Amazonka.Response as Response
 -- | /See:/ 'newUpdateChannel' smart constructor.
 data UpdateChannel = UpdateChannel'
   { -- | The metadata for the update request.
-    metadata :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    metadata :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | The mode of the update request.
+    mode :: Prelude.Maybe ChannelMode,
+    -- | The name of the channel.
+    name :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The ARN of the channel.
     channelArn :: Prelude.Text,
-    -- | The name of the channel.
-    name :: Core.Sensitive Prelude.Text,
-    -- | The mode of the update request.
-    mode :: ChannelMode,
     -- | The @AppInstanceUserArn@ of the user that makes the API call.
     chimeBearer :: Prelude.Text
   }
@@ -81,51 +82,43 @@ data UpdateChannel = UpdateChannel'
 --
 -- 'metadata', 'updateChannel_metadata' - The metadata for the update request.
 --
--- 'channelArn', 'updateChannel_channelArn' - The ARN of the channel.
+-- 'mode', 'updateChannel_mode' - The mode of the update request.
 --
 -- 'name', 'updateChannel_name' - The name of the channel.
 --
--- 'mode', 'updateChannel_mode' - The mode of the update request.
+-- 'channelArn', 'updateChannel_channelArn' - The ARN of the channel.
 --
 -- 'chimeBearer', 'updateChannel_chimeBearer' - The @AppInstanceUserArn@ of the user that makes the API call.
 newUpdateChannel ::
   -- | 'channelArn'
   Prelude.Text ->
-  -- | 'name'
-  Prelude.Text ->
-  -- | 'mode'
-  ChannelMode ->
   -- | 'chimeBearer'
   Prelude.Text ->
   UpdateChannel
-newUpdateChannel
-  pChannelArn_
-  pName_
-  pMode_
-  pChimeBearer_ =
-    UpdateChannel'
-      { metadata = Prelude.Nothing,
-        channelArn = pChannelArn_,
-        name = Core._Sensitive Lens.# pName_,
-        mode = pMode_,
-        chimeBearer = pChimeBearer_
-      }
+newUpdateChannel pChannelArn_ pChimeBearer_ =
+  UpdateChannel'
+    { metadata = Prelude.Nothing,
+      mode = Prelude.Nothing,
+      name = Prelude.Nothing,
+      channelArn = pChannelArn_,
+      chimeBearer = pChimeBearer_
+    }
 
 -- | The metadata for the update request.
 updateChannel_metadata :: Lens.Lens' UpdateChannel (Prelude.Maybe Prelude.Text)
-updateChannel_metadata = Lens.lens (\UpdateChannel' {metadata} -> metadata) (\s@UpdateChannel' {} a -> s {metadata = a} :: UpdateChannel) Prelude.. Lens.mapping Core._Sensitive
+updateChannel_metadata = Lens.lens (\UpdateChannel' {metadata} -> metadata) (\s@UpdateChannel' {} a -> s {metadata = a} :: UpdateChannel) Prelude.. Lens.mapping Data._Sensitive
+
+-- | The mode of the update request.
+updateChannel_mode :: Lens.Lens' UpdateChannel (Prelude.Maybe ChannelMode)
+updateChannel_mode = Lens.lens (\UpdateChannel' {mode} -> mode) (\s@UpdateChannel' {} a -> s {mode = a} :: UpdateChannel)
+
+-- | The name of the channel.
+updateChannel_name :: Lens.Lens' UpdateChannel (Prelude.Maybe Prelude.Text)
+updateChannel_name = Lens.lens (\UpdateChannel' {name} -> name) (\s@UpdateChannel' {} a -> s {name = a} :: UpdateChannel) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The ARN of the channel.
 updateChannel_channelArn :: Lens.Lens' UpdateChannel Prelude.Text
 updateChannel_channelArn = Lens.lens (\UpdateChannel' {channelArn} -> channelArn) (\s@UpdateChannel' {} a -> s {channelArn = a} :: UpdateChannel)
-
--- | The name of the channel.
-updateChannel_name :: Lens.Lens' UpdateChannel Prelude.Text
-updateChannel_name = Lens.lens (\UpdateChannel' {name} -> name) (\s@UpdateChannel' {} a -> s {name = a} :: UpdateChannel) Prelude.. Core._Sensitive
-
--- | The mode of the update request.
-updateChannel_mode :: Lens.Lens' UpdateChannel ChannelMode
-updateChannel_mode = Lens.lens (\UpdateChannel' {mode} -> mode) (\s@UpdateChannel' {} a -> s {mode = a} :: UpdateChannel)
 
 -- | The @AppInstanceUserArn@ of the user that makes the API call.
 updateChannel_chimeBearer :: Lens.Lens' UpdateChannel Prelude.Text
@@ -135,52 +128,53 @@ instance Core.AWSRequest UpdateChannel where
   type
     AWSResponse UpdateChannel =
       UpdateChannelResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateChannelResponse'
-            Prelude.<$> (x Core..?> "ChannelArn")
+            Prelude.<$> (x Data..?> "ChannelArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateChannel where
   hashWithSalt _salt UpdateChannel' {..} =
     _salt `Prelude.hashWithSalt` metadata
-      `Prelude.hashWithSalt` channelArn
-      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` mode
+      `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` channelArn
       `Prelude.hashWithSalt` chimeBearer
 
 instance Prelude.NFData UpdateChannel where
   rnf UpdateChannel' {..} =
     Prelude.rnf metadata
-      `Prelude.seq` Prelude.rnf channelArn
-      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf mode
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf channelArn
       `Prelude.seq` Prelude.rnf chimeBearer
 
-instance Core.ToHeaders UpdateChannel where
+instance Data.ToHeaders UpdateChannel where
   toHeaders UpdateChannel' {..} =
     Prelude.mconcat
-      ["x-amz-chime-bearer" Core.=# chimeBearer]
+      ["x-amz-chime-bearer" Data.=# chimeBearer]
 
-instance Core.ToJSON UpdateChannel where
+instance Data.ToJSON UpdateChannel where
   toJSON UpdateChannel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Metadata" Core..=) Prelude.<$> metadata,
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Mode" Core..= mode)
+          [ ("Metadata" Data..=) Prelude.<$> metadata,
+            ("Mode" Data..=) Prelude.<$> mode,
+            ("Name" Data..=) Prelude.<$> name
           ]
       )
 
-instance Core.ToPath UpdateChannel where
+instance Data.ToPath UpdateChannel where
   toPath UpdateChannel' {..} =
     Prelude.mconcat
-      ["/channels/", Core.toBS channelArn]
+      ["/channels/", Data.toBS channelArn]
 
-instance Core.ToQuery UpdateChannel where
+instance Data.ToQuery UpdateChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateChannelResponse' smart constructor.

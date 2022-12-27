@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -50,6 +50,7 @@ library
     Amazonka.StepFunctions.DeleteStateMachine
     Amazonka.StepFunctions.DescribeActivity
     Amazonka.StepFunctions.DescribeExecution
+    Amazonka.StepFunctions.DescribeMapRun
     Amazonka.StepFunctions.DescribeStateMachine
     Amazonka.StepFunctions.DescribeStateMachineForExecution
     Amazonka.StepFunctions.GetActivityTask
@@ -57,6 +58,7 @@ library
     Amazonka.StepFunctions.Lens
     Amazonka.StepFunctions.ListActivities
     Amazonka.StepFunctions.ListExecutions
+    Amazonka.StepFunctions.ListMapRuns
     Amazonka.StepFunctions.ListStateMachines
     Amazonka.StepFunctions.ListTagsForResource
     Amazonka.StepFunctions.SendTaskFailure
@@ -97,6 +99,12 @@ library
     Amazonka.StepFunctions.Types.LoggingConfiguration
     Amazonka.StepFunctions.Types.LogLevel
     Amazonka.StepFunctions.Types.MapIterationEventDetails
+    Amazonka.StepFunctions.Types.MapRunExecutionCounts
+    Amazonka.StepFunctions.Types.MapRunFailedEventDetails
+    Amazonka.StepFunctions.Types.MapRunItemCounts
+    Amazonka.StepFunctions.Types.MapRunListItem
+    Amazonka.StepFunctions.Types.MapRunStartedEventDetails
+    Amazonka.StepFunctions.Types.MapRunStatus
     Amazonka.StepFunctions.Types.MapStateStartedEventDetails
     Amazonka.StepFunctions.Types.StateEnteredEventDetails
     Amazonka.StepFunctions.Types.StateExitedEventDetails
@@ -105,6 +113,7 @@ library
     Amazonka.StepFunctions.Types.StateMachineType
     Amazonka.StepFunctions.Types.SyncExecutionStatus
     Amazonka.StepFunctions.Types.Tag
+    Amazonka.StepFunctions.Types.TaskCredentials
     Amazonka.StepFunctions.Types.TaskFailedEventDetails
     Amazonka.StepFunctions.Types.TaskScheduledEventDetails
     Amazonka.StepFunctions.Types.TaskStartedEventDetails
@@ -115,11 +124,12 @@ library
     Amazonka.StepFunctions.Types.TaskTimedOutEventDetails
     Amazonka.StepFunctions.Types.TracingConfiguration
     Amazonka.StepFunctions.UntagResource
+    Amazonka.StepFunctions.UpdateMapRun
     Amazonka.StepFunctions.UpdateStateMachine
     Amazonka.StepFunctions.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-stepfunctions-test
@@ -138,9 +148,9 @@ test-suite amazonka-stepfunctions-test
     Test.Amazonka.StepFunctions.Internal
 
   build-depends:
-    , amazonka-core           ^>=2.0
+    , amazonka-core           >=2.0 && <2.1
     , amazonka-stepfunctions
-    , amazonka-test           ^>=2.0
+    , amazonka-test           >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.CreateInstanceProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,8 +52,9 @@ module Amazonka.IAM.CreateInstanceProfile
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -187,14 +188,15 @@ instance Core.AWSRequest CreateInstanceProfile where
   type
     AWSResponse CreateInstanceProfile =
       CreateInstanceProfileResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateInstanceProfileResult"
       ( \s h x ->
           CreateInstanceProfileResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "InstanceProfile")
+            Prelude.<*> (x Data..@ "InstanceProfile")
       )
 
 instance Prelude.Hashable CreateInstanceProfile where
@@ -209,24 +211,24 @@ instance Prelude.NFData CreateInstanceProfile where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf instanceProfileName
 
-instance Core.ToHeaders CreateInstanceProfile where
+instance Data.ToHeaders CreateInstanceProfile where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateInstanceProfile where
+instance Data.ToPath CreateInstanceProfile where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateInstanceProfile where
+instance Data.ToQuery CreateInstanceProfile where
   toQuery CreateInstanceProfile' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateInstanceProfile" :: Prelude.ByteString),
+          Data.=: ("CreateInstanceProfile" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "Path" Core.=: path,
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "Path" Data.=: path,
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> tags),
-        "InstanceProfileName" Core.=: instanceProfileName
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> tags),
+        "InstanceProfileName" Data.=: instanceProfileName
       ]
 
 -- | Contains the response to a successful CreateInstanceProfile request.

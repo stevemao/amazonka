@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.SearchProductsAsAdmin
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,14 +30,14 @@ module Amazonka.ServiceCatalog.SearchProductsAsAdmin
     newSearchProductsAsAdmin,
 
     -- * Request Lenses
-    searchProductsAsAdmin_portfolioId,
-    searchProductsAsAdmin_filters,
-    searchProductsAsAdmin_sortOrder,
     searchProductsAsAdmin_acceptLanguage,
-    searchProductsAsAdmin_pageToken,
+    searchProductsAsAdmin_filters,
     searchProductsAsAdmin_pageSize,
+    searchProductsAsAdmin_pageToken,
+    searchProductsAsAdmin_portfolioId,
     searchProductsAsAdmin_productSource,
     searchProductsAsAdmin_sortBy,
+    searchProductsAsAdmin_sortOrder,
 
     -- * Destructuring the Response
     SearchProductsAsAdminResponse (..),
@@ -51,7 +51,8 @@ module Amazonka.ServiceCatalog.SearchProductsAsAdmin
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,14 +60,7 @@ import Amazonka.ServiceCatalog.Types
 
 -- | /See:/ 'newSearchProductsAsAdmin' smart constructor.
 data SearchProductsAsAdmin = SearchProductsAsAdmin'
-  { -- | The portfolio identifier.
-    portfolioId :: Prelude.Maybe Prelude.Text,
-    -- | The search filters. If no search filters are specified, the output
-    -- includes all products to which the administrator has access.
-    filters :: Prelude.Maybe (Prelude.HashMap ProductViewFilterBy [Prelude.Text]),
-    -- | The sort order. If no value is specified, the results are not sorted.
-    sortOrder :: Prelude.Maybe SortOrder,
-    -- | The language code.
+  { -- | The language code.
     --
     -- -   @en@ - English (default)
     --
@@ -74,15 +68,22 @@ data SearchProductsAsAdmin = SearchProductsAsAdmin'
     --
     -- -   @zh@ - Chinese
     acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The search filters. If no search filters are specified, the output
+    -- includes all products to which the administrator has access.
+    filters :: Prelude.Maybe (Prelude.HashMap ProductViewFilterBy [Prelude.Text]),
+    -- | The maximum number of items to return with this call.
+    pageSize :: Prelude.Maybe Prelude.Natural,
     -- | The page token for the next set of results. To retrieve the first set of
     -- results, use null.
     pageToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return with this call.
-    pageSize :: Prelude.Maybe Prelude.Natural,
+    -- | The portfolio identifier.
+    portfolioId :: Prelude.Maybe Prelude.Text,
     -- | Access level of the source of the product.
     productSource :: Prelude.Maybe ProductSource,
     -- | The sort field. If no value is specified, the results are not sorted.
-    sortBy :: Prelude.Maybe ProductViewSortBy
+    sortBy :: Prelude.Maybe ProductViewSortBy,
+    -- | The sort order. If no value is specified, the results are not sorted.
+    sortOrder :: Prelude.Maybe SortOrder
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -94,13 +95,6 @@ data SearchProductsAsAdmin = SearchProductsAsAdmin'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'portfolioId', 'searchProductsAsAdmin_portfolioId' - The portfolio identifier.
---
--- 'filters', 'searchProductsAsAdmin_filters' - The search filters. If no search filters are specified, the output
--- includes all products to which the administrator has access.
---
--- 'sortOrder', 'searchProductsAsAdmin_sortOrder' - The sort order. If no value is specified, the results are not sorted.
---
 -- 'acceptLanguage', 'searchProductsAsAdmin_acceptLanguage' - The language code.
 --
 -- -   @en@ - English (default)
@@ -109,41 +103,35 @@ data SearchProductsAsAdmin = SearchProductsAsAdmin'
 --
 -- -   @zh@ - Chinese
 --
+-- 'filters', 'searchProductsAsAdmin_filters' - The search filters. If no search filters are specified, the output
+-- includes all products to which the administrator has access.
+--
+-- 'pageSize', 'searchProductsAsAdmin_pageSize' - The maximum number of items to return with this call.
+--
 -- 'pageToken', 'searchProductsAsAdmin_pageToken' - The page token for the next set of results. To retrieve the first set of
 -- results, use null.
 --
--- 'pageSize', 'searchProductsAsAdmin_pageSize' - The maximum number of items to return with this call.
+-- 'portfolioId', 'searchProductsAsAdmin_portfolioId' - The portfolio identifier.
 --
 -- 'productSource', 'searchProductsAsAdmin_productSource' - Access level of the source of the product.
 --
 -- 'sortBy', 'searchProductsAsAdmin_sortBy' - The sort field. If no value is specified, the results are not sorted.
+--
+-- 'sortOrder', 'searchProductsAsAdmin_sortOrder' - The sort order. If no value is specified, the results are not sorted.
 newSearchProductsAsAdmin ::
   SearchProductsAsAdmin
 newSearchProductsAsAdmin =
   SearchProductsAsAdmin'
-    { portfolioId =
+    { acceptLanguage =
         Prelude.Nothing,
       filters = Prelude.Nothing,
-      sortOrder = Prelude.Nothing,
-      acceptLanguage = Prelude.Nothing,
-      pageToken = Prelude.Nothing,
       pageSize = Prelude.Nothing,
+      pageToken = Prelude.Nothing,
+      portfolioId = Prelude.Nothing,
       productSource = Prelude.Nothing,
-      sortBy = Prelude.Nothing
+      sortBy = Prelude.Nothing,
+      sortOrder = Prelude.Nothing
     }
-
--- | The portfolio identifier.
-searchProductsAsAdmin_portfolioId :: Lens.Lens' SearchProductsAsAdmin (Prelude.Maybe Prelude.Text)
-searchProductsAsAdmin_portfolioId = Lens.lens (\SearchProductsAsAdmin' {portfolioId} -> portfolioId) (\s@SearchProductsAsAdmin' {} a -> s {portfolioId = a} :: SearchProductsAsAdmin)
-
--- | The search filters. If no search filters are specified, the output
--- includes all products to which the administrator has access.
-searchProductsAsAdmin_filters :: Lens.Lens' SearchProductsAsAdmin (Prelude.Maybe (Prelude.HashMap ProductViewFilterBy [Prelude.Text]))
-searchProductsAsAdmin_filters = Lens.lens (\SearchProductsAsAdmin' {filters} -> filters) (\s@SearchProductsAsAdmin' {} a -> s {filters = a} :: SearchProductsAsAdmin) Prelude.. Lens.mapping Lens.coerced
-
--- | The sort order. If no value is specified, the results are not sorted.
-searchProductsAsAdmin_sortOrder :: Lens.Lens' SearchProductsAsAdmin (Prelude.Maybe SortOrder)
-searchProductsAsAdmin_sortOrder = Lens.lens (\SearchProductsAsAdmin' {sortOrder} -> sortOrder) (\s@SearchProductsAsAdmin' {} a -> s {sortOrder = a} :: SearchProductsAsAdmin)
 
 -- | The language code.
 --
@@ -155,14 +143,23 @@ searchProductsAsAdmin_sortOrder = Lens.lens (\SearchProductsAsAdmin' {sortOrder}
 searchProductsAsAdmin_acceptLanguage :: Lens.Lens' SearchProductsAsAdmin (Prelude.Maybe Prelude.Text)
 searchProductsAsAdmin_acceptLanguage = Lens.lens (\SearchProductsAsAdmin' {acceptLanguage} -> acceptLanguage) (\s@SearchProductsAsAdmin' {} a -> s {acceptLanguage = a} :: SearchProductsAsAdmin)
 
+-- | The search filters. If no search filters are specified, the output
+-- includes all products to which the administrator has access.
+searchProductsAsAdmin_filters :: Lens.Lens' SearchProductsAsAdmin (Prelude.Maybe (Prelude.HashMap ProductViewFilterBy [Prelude.Text]))
+searchProductsAsAdmin_filters = Lens.lens (\SearchProductsAsAdmin' {filters} -> filters) (\s@SearchProductsAsAdmin' {} a -> s {filters = a} :: SearchProductsAsAdmin) Prelude.. Lens.mapping Lens.coerced
+
+-- | The maximum number of items to return with this call.
+searchProductsAsAdmin_pageSize :: Lens.Lens' SearchProductsAsAdmin (Prelude.Maybe Prelude.Natural)
+searchProductsAsAdmin_pageSize = Lens.lens (\SearchProductsAsAdmin' {pageSize} -> pageSize) (\s@SearchProductsAsAdmin' {} a -> s {pageSize = a} :: SearchProductsAsAdmin)
+
 -- | The page token for the next set of results. To retrieve the first set of
 -- results, use null.
 searchProductsAsAdmin_pageToken :: Lens.Lens' SearchProductsAsAdmin (Prelude.Maybe Prelude.Text)
 searchProductsAsAdmin_pageToken = Lens.lens (\SearchProductsAsAdmin' {pageToken} -> pageToken) (\s@SearchProductsAsAdmin' {} a -> s {pageToken = a} :: SearchProductsAsAdmin)
 
--- | The maximum number of items to return with this call.
-searchProductsAsAdmin_pageSize :: Lens.Lens' SearchProductsAsAdmin (Prelude.Maybe Prelude.Natural)
-searchProductsAsAdmin_pageSize = Lens.lens (\SearchProductsAsAdmin' {pageSize} -> pageSize) (\s@SearchProductsAsAdmin' {} a -> s {pageSize = a} :: SearchProductsAsAdmin)
+-- | The portfolio identifier.
+searchProductsAsAdmin_portfolioId :: Lens.Lens' SearchProductsAsAdmin (Prelude.Maybe Prelude.Text)
+searchProductsAsAdmin_portfolioId = Lens.lens (\SearchProductsAsAdmin' {portfolioId} -> portfolioId) (\s@SearchProductsAsAdmin' {} a -> s {portfolioId = a} :: SearchProductsAsAdmin)
 
 -- | Access level of the source of the product.
 searchProductsAsAdmin_productSource :: Lens.Lens' SearchProductsAsAdmin (Prelude.Maybe ProductSource)
@@ -171,6 +168,10 @@ searchProductsAsAdmin_productSource = Lens.lens (\SearchProductsAsAdmin' {produc
 -- | The sort field. If no value is specified, the results are not sorted.
 searchProductsAsAdmin_sortBy :: Lens.Lens' SearchProductsAsAdmin (Prelude.Maybe ProductViewSortBy)
 searchProductsAsAdmin_sortBy = Lens.lens (\SearchProductsAsAdmin' {sortBy} -> sortBy) (\s@SearchProductsAsAdmin' {} a -> s {sortBy = a} :: SearchProductsAsAdmin)
+
+-- | The sort order. If no value is specified, the results are not sorted.
+searchProductsAsAdmin_sortOrder :: Lens.Lens' SearchProductsAsAdmin (Prelude.Maybe SortOrder)
+searchProductsAsAdmin_sortOrder = Lens.lens (\SearchProductsAsAdmin' {sortOrder} -> sortOrder) (\s@SearchProductsAsAdmin' {} a -> s {sortOrder = a} :: SearchProductsAsAdmin)
 
 instance Core.AWSPager SearchProductsAsAdmin where
   page rq rs
@@ -198,13 +199,14 @@ instance Core.AWSRequest SearchProductsAsAdmin where
   type
     AWSResponse SearchProductsAsAdmin =
       SearchProductsAsAdminResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SearchProductsAsAdminResponse'
-            Prelude.<$> (x Core..?> "NextPageToken")
-            Prelude.<*> ( x Core..?> "ProductViewDetails"
+            Prelude.<$> (x Data..?> "NextPageToken")
+            Prelude.<*> ( x Data..?> "ProductViewDetails"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -212,61 +214,61 @@ instance Core.AWSRequest SearchProductsAsAdmin where
 
 instance Prelude.Hashable SearchProductsAsAdmin where
   hashWithSalt _salt SearchProductsAsAdmin' {..} =
-    _salt `Prelude.hashWithSalt` portfolioId
+    _salt `Prelude.hashWithSalt` acceptLanguage
       `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` sortOrder
-      `Prelude.hashWithSalt` acceptLanguage
-      `Prelude.hashWithSalt` pageToken
       `Prelude.hashWithSalt` pageSize
+      `Prelude.hashWithSalt` pageToken
+      `Prelude.hashWithSalt` portfolioId
       `Prelude.hashWithSalt` productSource
       `Prelude.hashWithSalt` sortBy
+      `Prelude.hashWithSalt` sortOrder
 
 instance Prelude.NFData SearchProductsAsAdmin where
   rnf SearchProductsAsAdmin' {..} =
-    Prelude.rnf portfolioId
+    Prelude.rnf acceptLanguage
       `Prelude.seq` Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf sortOrder
-      `Prelude.seq` Prelude.rnf acceptLanguage
-      `Prelude.seq` Prelude.rnf pageToken
       `Prelude.seq` Prelude.rnf pageSize
+      `Prelude.seq` Prelude.rnf pageToken
+      `Prelude.seq` Prelude.rnf portfolioId
       `Prelude.seq` Prelude.rnf productSource
       `Prelude.seq` Prelude.rnf sortBy
+      `Prelude.seq` Prelude.rnf sortOrder
 
-instance Core.ToHeaders SearchProductsAsAdmin where
+instance Data.ToHeaders SearchProductsAsAdmin where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.SearchProductsAsAdmin" ::
+              Data.=# ( "AWS242ServiceCatalogService.SearchProductsAsAdmin" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SearchProductsAsAdmin where
+instance Data.ToJSON SearchProductsAsAdmin where
   toJSON SearchProductsAsAdmin' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PortfolioId" Core..=) Prelude.<$> portfolioId,
-            ("Filters" Core..=) Prelude.<$> filters,
-            ("SortOrder" Core..=) Prelude.<$> sortOrder,
-            ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            ("PageToken" Core..=) Prelude.<$> pageToken,
-            ("PageSize" Core..=) Prelude.<$> pageSize,
-            ("ProductSource" Core..=) Prelude.<$> productSource,
-            ("SortBy" Core..=) Prelude.<$> sortBy
+            ("Filters" Data..=) Prelude.<$> filters,
+            ("PageSize" Data..=) Prelude.<$> pageSize,
+            ("PageToken" Data..=) Prelude.<$> pageToken,
+            ("PortfolioId" Data..=) Prelude.<$> portfolioId,
+            ("ProductSource" Data..=) Prelude.<$> productSource,
+            ("SortBy" Data..=) Prelude.<$> sortBy,
+            ("SortOrder" Data..=) Prelude.<$> sortOrder
           ]
       )
 
-instance Core.ToPath SearchProductsAsAdmin where
+instance Data.ToPath SearchProductsAsAdmin where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SearchProductsAsAdmin where
+instance Data.ToQuery SearchProductsAsAdmin where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSearchProductsAsAdminResponse' smart constructor.

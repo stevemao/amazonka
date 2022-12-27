@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.CreateEventTracker
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,24 +42,26 @@
 --
 -- -   DELETE PENDING > DELETE IN_PROGRESS
 --
--- To get the status of the event tracker, call DescribeEventTracker.
+-- To get the status of the event tracker, call
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeEventTracker.html DescribeEventTracker>.
 --
 -- The event tracker must be in the ACTIVE state before using the tracking
 -- ID.
 --
 -- __Related APIs__
 --
--- -   ListEventTrackers
+-- -   <https://docs.aws.amazon.com/personalize/latest/dg/API_ListEventTrackers.html ListEventTrackers>
 --
--- -   DescribeEventTracker
+-- -   <https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeEventTracker.html DescribeEventTracker>
 --
--- -   DeleteEventTracker
+-- -   <https://docs.aws.amazon.com/personalize/latest/dg/API_DeleteEventTracker.html DeleteEventTracker>
 module Amazonka.Personalize.CreateEventTracker
   ( -- * Creating a Request
     CreateEventTracker (..),
     newCreateEventTracker,
 
     -- * Request Lenses
+    createEventTracker_tags,
     createEventTracker_name,
     createEventTracker_datasetGroupArn,
 
@@ -68,14 +70,15 @@ module Amazonka.Personalize.CreateEventTracker
     newCreateEventTrackerResponse,
 
     -- * Response Lenses
-    createEventTrackerResponse_trackingId,
     createEventTrackerResponse_eventTrackerArn,
+    createEventTrackerResponse_trackingId,
     createEventTrackerResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -83,7 +86,11 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateEventTracker' smart constructor.
 data CreateEventTracker = CreateEventTracker'
-  { -- | The name for the event tracker.
+  { -- | A list of
+    -- <https://docs.aws.amazon.com/personalize/latest/dev/tagging-resources.html tags>
+    -- to apply to the event tracker.
+    tags :: Prelude.Maybe [Tag],
+    -- | The name for the event tracker.
     name :: Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the dataset group that receives the
     -- event data.
@@ -99,6 +106,10 @@ data CreateEventTracker = CreateEventTracker'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'tags', 'createEventTracker_tags' - A list of
+-- <https://docs.aws.amazon.com/personalize/latest/dev/tagging-resources.html tags>
+-- to apply to the event tracker.
+--
 -- 'name', 'createEventTracker_name' - The name for the event tracker.
 --
 -- 'datasetGroupArn', 'createEventTracker_datasetGroupArn' - The Amazon Resource Name (ARN) of the dataset group that receives the
@@ -111,9 +122,16 @@ newCreateEventTracker ::
   CreateEventTracker
 newCreateEventTracker pName_ pDatasetGroupArn_ =
   CreateEventTracker'
-    { name = pName_,
+    { tags = Prelude.Nothing,
+      name = pName_,
       datasetGroupArn = pDatasetGroupArn_
     }
+
+-- | A list of
+-- <https://docs.aws.amazon.com/personalize/latest/dev/tagging-resources.html tags>
+-- to apply to the event tracker.
+createEventTracker_tags :: Lens.Lens' CreateEventTracker (Prelude.Maybe [Tag])
+createEventTracker_tags = Lens.lens (\CreateEventTracker' {tags} -> tags) (\s@CreateEventTracker' {} a -> s {tags = a} :: CreateEventTracker) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name for the event tracker.
 createEventTracker_name :: Lens.Lens' CreateEventTracker Prelude.Text
@@ -128,65 +146,69 @@ instance Core.AWSRequest CreateEventTracker where
   type
     AWSResponse CreateEventTracker =
       CreateEventTrackerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateEventTrackerResponse'
-            Prelude.<$> (x Core..?> "trackingId")
-            Prelude.<*> (x Core..?> "eventTrackerArn")
+            Prelude.<$> (x Data..?> "eventTrackerArn")
+            Prelude.<*> (x Data..?> "trackingId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateEventTracker where
   hashWithSalt _salt CreateEventTracker' {..} =
-    _salt `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` datasetGroupArn
 
 instance Prelude.NFData CreateEventTracker where
   rnf CreateEventTracker' {..} =
-    Prelude.rnf name
+    Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf datasetGroupArn
 
-instance Core.ToHeaders CreateEventTracker where
+instance Data.ToHeaders CreateEventTracker where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.CreateEventTracker" ::
+              Data.=# ( "AmazonPersonalize.CreateEventTracker" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateEventTracker where
+instance Data.ToJSON CreateEventTracker where
   toJSON CreateEventTracker' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("name" Core..= name),
+          [ ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("name" Data..= name),
             Prelude.Just
-              ("datasetGroupArn" Core..= datasetGroupArn)
+              ("datasetGroupArn" Data..= datasetGroupArn)
           ]
       )
 
-instance Core.ToPath CreateEventTracker where
+instance Data.ToPath CreateEventTracker where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateEventTracker where
+instance Data.ToQuery CreateEventTracker where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateEventTrackerResponse' smart constructor.
 data CreateEventTrackerResponse = CreateEventTrackerResponse'
-  { -- | The ID of the event tracker. Include this ID in requests to the
+  { -- | The ARN of the event tracker.
+    eventTrackerArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the event tracker. Include this ID in requests to the
     -- <https://docs.aws.amazon.com/personalize/latest/dg/API_UBS_PutEvents.html PutEvents>
     -- API.
     trackingId :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the event tracker.
-    eventTrackerArn :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -200,11 +222,11 @@ data CreateEventTrackerResponse = CreateEventTrackerResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'eventTrackerArn', 'createEventTrackerResponse_eventTrackerArn' - The ARN of the event tracker.
+--
 -- 'trackingId', 'createEventTrackerResponse_trackingId' - The ID of the event tracker. Include this ID in requests to the
 -- <https://docs.aws.amazon.com/personalize/latest/dg/API_UBS_PutEvents.html PutEvents>
 -- API.
---
--- 'eventTrackerArn', 'createEventTrackerResponse_eventTrackerArn' - The ARN of the event tracker.
 --
 -- 'httpStatus', 'createEventTrackerResponse_httpStatus' - The response's http status code.
 newCreateEventTrackerResponse ::
@@ -213,11 +235,15 @@ newCreateEventTrackerResponse ::
   CreateEventTrackerResponse
 newCreateEventTrackerResponse pHttpStatus_ =
   CreateEventTrackerResponse'
-    { trackingId =
+    { eventTrackerArn =
         Prelude.Nothing,
-      eventTrackerArn = Prelude.Nothing,
+      trackingId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The ARN of the event tracker.
+createEventTrackerResponse_eventTrackerArn :: Lens.Lens' CreateEventTrackerResponse (Prelude.Maybe Prelude.Text)
+createEventTrackerResponse_eventTrackerArn = Lens.lens (\CreateEventTrackerResponse' {eventTrackerArn} -> eventTrackerArn) (\s@CreateEventTrackerResponse' {} a -> s {eventTrackerArn = a} :: CreateEventTrackerResponse)
 
 -- | The ID of the event tracker. Include this ID in requests to the
 -- <https://docs.aws.amazon.com/personalize/latest/dg/API_UBS_PutEvents.html PutEvents>
@@ -225,16 +251,12 @@ newCreateEventTrackerResponse pHttpStatus_ =
 createEventTrackerResponse_trackingId :: Lens.Lens' CreateEventTrackerResponse (Prelude.Maybe Prelude.Text)
 createEventTrackerResponse_trackingId = Lens.lens (\CreateEventTrackerResponse' {trackingId} -> trackingId) (\s@CreateEventTrackerResponse' {} a -> s {trackingId = a} :: CreateEventTrackerResponse)
 
--- | The ARN of the event tracker.
-createEventTrackerResponse_eventTrackerArn :: Lens.Lens' CreateEventTrackerResponse (Prelude.Maybe Prelude.Text)
-createEventTrackerResponse_eventTrackerArn = Lens.lens (\CreateEventTrackerResponse' {eventTrackerArn} -> eventTrackerArn) (\s@CreateEventTrackerResponse' {} a -> s {eventTrackerArn = a} :: CreateEventTrackerResponse)
-
 -- | The response's http status code.
 createEventTrackerResponse_httpStatus :: Lens.Lens' CreateEventTrackerResponse Prelude.Int
 createEventTrackerResponse_httpStatus = Lens.lens (\CreateEventTrackerResponse' {httpStatus} -> httpStatus) (\s@CreateEventTrackerResponse' {} a -> s {httpStatus = a} :: CreateEventTrackerResponse)
 
 instance Prelude.NFData CreateEventTrackerResponse where
   rnf CreateEventTrackerResponse' {..} =
-    Prelude.rnf trackingId
-      `Prelude.seq` Prelude.rnf eventTrackerArn
+    Prelude.rnf eventTrackerArn
+      `Prelude.seq` Prelude.rnf trackingId
       `Prelude.seq` Prelude.rnf httpStatus

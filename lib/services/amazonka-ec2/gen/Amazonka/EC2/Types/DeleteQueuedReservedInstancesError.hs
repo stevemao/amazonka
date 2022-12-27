@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.DeleteQueuedReservedInstancesError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.DeleteQueuedReservedInstancesError where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.DeleteQueuedReservedInstancesErrorCode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the error for a Reserved Instance whose queued purchase could
@@ -66,13 +67,13 @@ deleteQueuedReservedInstancesError_message :: Lens.Lens' DeleteQueuedReservedIns
 deleteQueuedReservedInstancesError_message = Lens.lens (\DeleteQueuedReservedInstancesError' {message} -> message) (\s@DeleteQueuedReservedInstancesError' {} a -> s {message = a} :: DeleteQueuedReservedInstancesError)
 
 instance
-  Core.FromXML
+  Data.FromXML
     DeleteQueuedReservedInstancesError
   where
   parseXML x =
     DeleteQueuedReservedInstancesError'
-      Prelude.<$> (x Core..@? "code")
-      Prelude.<*> (x Core..@? "message")
+      Prelude.<$> (x Data..@? "code")
+      Prelude.<*> (x Data..@? "message")
 
 instance
   Prelude.Hashable

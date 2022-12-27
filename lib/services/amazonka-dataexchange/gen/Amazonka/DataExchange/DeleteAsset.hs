@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataExchange.DeleteAsset
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,9 +27,9 @@ module Amazonka.DataExchange.DeleteAsset
     newDeleteAsset,
 
     -- * Request Lenses
-    deleteAsset_revisionId,
     deleteAsset_assetId,
     deleteAsset_dataSetId,
+    deleteAsset_revisionId,
 
     -- * Destructuring the Response
     DeleteAssetResponse (..),
@@ -38,20 +38,21 @@ module Amazonka.DataExchange.DeleteAsset
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataExchange.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteAsset' smart constructor.
 data DeleteAsset = DeleteAsset'
-  { -- | The unique identifier for a revision.
-    revisionId :: Prelude.Text,
-    -- | The unique identifier for an asset.
+  { -- | The unique identifier for an asset.
     assetId :: Prelude.Text,
     -- | The unique identifier for a data set.
-    dataSetId :: Prelude.Text
+    dataSetId :: Prelude.Text,
+    -- | The unique identifier for a revision.
+    revisionId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -63,29 +64,25 @@ data DeleteAsset = DeleteAsset'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'revisionId', 'deleteAsset_revisionId' - The unique identifier for a revision.
---
 -- 'assetId', 'deleteAsset_assetId' - The unique identifier for an asset.
 --
 -- 'dataSetId', 'deleteAsset_dataSetId' - The unique identifier for a data set.
+--
+-- 'revisionId', 'deleteAsset_revisionId' - The unique identifier for a revision.
 newDeleteAsset ::
-  -- | 'revisionId'
-  Prelude.Text ->
   -- | 'assetId'
   Prelude.Text ->
   -- | 'dataSetId'
   Prelude.Text ->
+  -- | 'revisionId'
+  Prelude.Text ->
   DeleteAsset
-newDeleteAsset pRevisionId_ pAssetId_ pDataSetId_ =
+newDeleteAsset pAssetId_ pDataSetId_ pRevisionId_ =
   DeleteAsset'
-    { revisionId = pRevisionId_,
-      assetId = pAssetId_,
-      dataSetId = pDataSetId_
+    { assetId = pAssetId_,
+      dataSetId = pDataSetId_,
+      revisionId = pRevisionId_
     }
-
--- | The unique identifier for a revision.
-deleteAsset_revisionId :: Lens.Lens' DeleteAsset Prelude.Text
-deleteAsset_revisionId = Lens.lens (\DeleteAsset' {revisionId} -> revisionId) (\s@DeleteAsset' {} a -> s {revisionId = a} :: DeleteAsset)
 
 -- | The unique identifier for an asset.
 deleteAsset_assetId :: Lens.Lens' DeleteAsset Prelude.Text
@@ -95,46 +92,51 @@ deleteAsset_assetId = Lens.lens (\DeleteAsset' {assetId} -> assetId) (\s@DeleteA
 deleteAsset_dataSetId :: Lens.Lens' DeleteAsset Prelude.Text
 deleteAsset_dataSetId = Lens.lens (\DeleteAsset' {dataSetId} -> dataSetId) (\s@DeleteAsset' {} a -> s {dataSetId = a} :: DeleteAsset)
 
+-- | The unique identifier for a revision.
+deleteAsset_revisionId :: Lens.Lens' DeleteAsset Prelude.Text
+deleteAsset_revisionId = Lens.lens (\DeleteAsset' {revisionId} -> revisionId) (\s@DeleteAsset' {} a -> s {revisionId = a} :: DeleteAsset)
+
 instance Core.AWSRequest DeleteAsset where
   type AWSResponse DeleteAsset = DeleteAssetResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response = Response.receiveNull DeleteAssetResponse'
 
 instance Prelude.Hashable DeleteAsset where
   hashWithSalt _salt DeleteAsset' {..} =
-    _salt `Prelude.hashWithSalt` revisionId
-      `Prelude.hashWithSalt` assetId
+    _salt `Prelude.hashWithSalt` assetId
       `Prelude.hashWithSalt` dataSetId
+      `Prelude.hashWithSalt` revisionId
 
 instance Prelude.NFData DeleteAsset where
   rnf DeleteAsset' {..} =
-    Prelude.rnf revisionId
-      `Prelude.seq` Prelude.rnf assetId
+    Prelude.rnf assetId
       `Prelude.seq` Prelude.rnf dataSetId
+      `Prelude.seq` Prelude.rnf revisionId
 
-instance Core.ToHeaders DeleteAsset where
+instance Data.ToHeaders DeleteAsset where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteAsset where
+instance Data.ToPath DeleteAsset where
   toPath DeleteAsset' {..} =
     Prelude.mconcat
       [ "/v1/data-sets/",
-        Core.toBS dataSetId,
+        Data.toBS dataSetId,
         "/revisions/",
-        Core.toBS revisionId,
+        Data.toBS revisionId,
         "/assets/",
-        Core.toBS assetId
+        Data.toBS assetId
       ]
 
-instance Core.ToQuery DeleteAsset where
+instance Data.ToQuery DeleteAsset where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAssetResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSOAdmin.TagResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.SSOAdmin.TagResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,10 +50,10 @@ import Amazonka.SSOAdmin.Types
 
 -- | /See:/ 'newTagResource' smart constructor.
 data TagResource = TagResource'
-  { -- | The ARN of the SSO instance under which the operation will be executed.
-    -- For more information about ARNs, see
-    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
-    -- in the /Amazon Web Services General Reference/.
+  { -- | The ARN of the IAM Identity Center instance under which the operation
+    -- will be executed. For more information about ARNs, see
+    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+    -- in the /AWS General Reference/.
     instanceArn :: Prelude.Text,
     -- | The ARN of the resource with the tags to be listed.
     resourceArn :: Prelude.Text,
@@ -69,10 +70,10 @@ data TagResource = TagResource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'instanceArn', 'tagResource_instanceArn' - The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- 'instanceArn', 'tagResource_instanceArn' - The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 --
 -- 'resourceArn', 'tagResource_resourceArn' - The ARN of the resource with the tags to be listed.
 --
@@ -90,10 +91,10 @@ newTagResource pInstanceArn_ pResourceArn_ =
       tags = Prelude.mempty
     }
 
--- | The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- | The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 tagResource_instanceArn :: Lens.Lens' TagResource Prelude.Text
 tagResource_instanceArn = Lens.lens (\TagResource' {instanceArn} -> instanceArn) (\s@TagResource' {} a -> s {instanceArn = a} :: TagResource)
 
@@ -107,7 +108,8 @@ tagResource_tags = Lens.lens (\TagResource' {tags} -> tags) (\s@TagResource' {} 
 
 instance Core.AWSRequest TagResource where
   type AWSResponse TagResource = TagResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -127,35 +129,35 @@ instance Prelude.NFData TagResource where
       `Prelude.seq` Prelude.rnf resourceArn
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders TagResource where
+instance Data.ToHeaders TagResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SWBExternalService.TagResource" ::
+              Data.=# ( "SWBExternalService.TagResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON TagResource where
+instance Data.ToJSON TagResource where
   toJSON TagResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("InstanceArn" Core..= instanceArn),
-            Prelude.Just ("ResourceArn" Core..= resourceArn),
-            Prelude.Just ("Tags" Core..= tags)
+          [ Prelude.Just ("InstanceArn" Data..= instanceArn),
+            Prelude.Just ("ResourceArn" Data..= resourceArn),
+            Prelude.Just ("Tags" Data..= tags)
           ]
       )
 
-instance Core.ToPath TagResource where
+instance Data.ToPath TagResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery TagResource where
+instance Data.ToQuery TagResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newTagResourceResponse' smart constructor.

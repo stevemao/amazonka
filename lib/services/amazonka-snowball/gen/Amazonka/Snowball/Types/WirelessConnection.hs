@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Snowball.Types.WirelessConnection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,15 @@
 module Amazonka.Snowball.Types.WirelessConnection where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Configures the wireless connection on an AWS Snowcone device.
+-- | Configures the wireless connection on an Snowcone device.
 --
 -- /See:/ 'newWirelessConnection' smart constructor.
 data WirelessConnection = WirelessConnection'
-  { -- | Enables the Wi-Fi adapter on an AWS Snowcone device.
+  { -- | Enables the Wi-Fi adapter on an Snowcone device.
     isWifiEnabled :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -40,7 +41,7 @@ data WirelessConnection = WirelessConnection'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'isWifiEnabled', 'wirelessConnection_isWifiEnabled' - Enables the Wi-Fi adapter on an AWS Snowcone device.
+-- 'isWifiEnabled', 'wirelessConnection_isWifiEnabled' - Enables the Wi-Fi adapter on an Snowcone device.
 newWirelessConnection ::
   WirelessConnection
 newWirelessConnection =
@@ -49,17 +50,17 @@ newWirelessConnection =
         Prelude.Nothing
     }
 
--- | Enables the Wi-Fi adapter on an AWS Snowcone device.
+-- | Enables the Wi-Fi adapter on an Snowcone device.
 wirelessConnection_isWifiEnabled :: Lens.Lens' WirelessConnection (Prelude.Maybe Prelude.Bool)
 wirelessConnection_isWifiEnabled = Lens.lens (\WirelessConnection' {isWifiEnabled} -> isWifiEnabled) (\s@WirelessConnection' {} a -> s {isWifiEnabled = a} :: WirelessConnection)
 
-instance Core.FromJSON WirelessConnection where
+instance Data.FromJSON WirelessConnection where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "WirelessConnection"
       ( \x ->
           WirelessConnection'
-            Prelude.<$> (x Core..:? "IsWifiEnabled")
+            Prelude.<$> (x Data..:? "IsWifiEnabled")
       )
 
 instance Prelude.Hashable WirelessConnection where
@@ -70,11 +71,11 @@ instance Prelude.NFData WirelessConnection where
   rnf WirelessConnection' {..} =
     Prelude.rnf isWifiEnabled
 
-instance Core.ToJSON WirelessConnection where
+instance Data.ToJSON WirelessConnection where
   toJSON WirelessConnection' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("IsWifiEnabled" Core..=)
+          [ ("IsWifiEnabled" Data..=)
               Prelude.<$> isWifiEnabled
           ]
       )

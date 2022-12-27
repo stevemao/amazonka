@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.DhcpConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.EC2.Types.DhcpConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.AttributeValue
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a DHCP configuration option.
 --
 -- /See:/ 'newDhcpConfiguration' smart constructor.
 data DhcpConfiguration = DhcpConfiguration'
-  { -- | One or more values for the DHCP option.
-    values :: Prelude.Maybe [AttributeValue],
-    -- | The name of a DHCP option.
-    key :: Prelude.Maybe Prelude.Text
+  { -- | The name of a DHCP option.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | One or more values for the DHCP option.
+    values :: Prelude.Maybe [AttributeValue]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,38 +45,38 @@ data DhcpConfiguration = DhcpConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'values', 'dhcpConfiguration_values' - One or more values for the DHCP option.
---
 -- 'key', 'dhcpConfiguration_key' - The name of a DHCP option.
+--
+-- 'values', 'dhcpConfiguration_values' - One or more values for the DHCP option.
 newDhcpConfiguration ::
   DhcpConfiguration
 newDhcpConfiguration =
   DhcpConfiguration'
-    { values = Prelude.Nothing,
-      key = Prelude.Nothing
+    { key = Prelude.Nothing,
+      values = Prelude.Nothing
     }
-
--- | One or more values for the DHCP option.
-dhcpConfiguration_values :: Lens.Lens' DhcpConfiguration (Prelude.Maybe [AttributeValue])
-dhcpConfiguration_values = Lens.lens (\DhcpConfiguration' {values} -> values) (\s@DhcpConfiguration' {} a -> s {values = a} :: DhcpConfiguration) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of a DHCP option.
 dhcpConfiguration_key :: Lens.Lens' DhcpConfiguration (Prelude.Maybe Prelude.Text)
 dhcpConfiguration_key = Lens.lens (\DhcpConfiguration' {key} -> key) (\s@DhcpConfiguration' {} a -> s {key = a} :: DhcpConfiguration)
 
-instance Core.FromXML DhcpConfiguration where
+-- | One or more values for the DHCP option.
+dhcpConfiguration_values :: Lens.Lens' DhcpConfiguration (Prelude.Maybe [AttributeValue])
+dhcpConfiguration_values = Lens.lens (\DhcpConfiguration' {values} -> values) (\s@DhcpConfiguration' {} a -> s {values = a} :: DhcpConfiguration) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromXML DhcpConfiguration where
   parseXML x =
     DhcpConfiguration'
-      Prelude.<$> ( x Core..@? "valueSet" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+      Prelude.<$> (x Data..@? "key")
+      Prelude.<*> ( x Data..@? "valueSet" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
-      Prelude.<*> (x Core..@? "key")
 
 instance Prelude.Hashable DhcpConfiguration where
   hashWithSalt _salt DhcpConfiguration' {..} =
-    _salt `Prelude.hashWithSalt` values
-      `Prelude.hashWithSalt` key
+    _salt `Prelude.hashWithSalt` key
+      `Prelude.hashWithSalt` values
 
 instance Prelude.NFData DhcpConfiguration where
   rnf DhcpConfiguration' {..} =
-    Prelude.rnf values `Prelude.seq` Prelude.rnf key
+    Prelude.rnf key `Prelude.seq` Prelude.rnf values

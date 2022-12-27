@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.Types.OnExitLifecycle
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTEvents.Types.OnExitLifecycle where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types.Event
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | When exiting this state, perform these @actions@ if the specified
@@ -55,13 +56,13 @@ newOnExitLifecycle =
 onExitLifecycle_events :: Lens.Lens' OnExitLifecycle (Prelude.Maybe [Event])
 onExitLifecycle_events = Lens.lens (\OnExitLifecycle' {events} -> events) (\s@OnExitLifecycle' {} a -> s {events = a} :: OnExitLifecycle) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON OnExitLifecycle where
+instance Data.FromJSON OnExitLifecycle where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OnExitLifecycle"
       ( \x ->
           OnExitLifecycle'
-            Prelude.<$> (x Core..:? "events" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "events" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable OnExitLifecycle where
@@ -71,9 +72,9 @@ instance Prelude.Hashable OnExitLifecycle where
 instance Prelude.NFData OnExitLifecycle where
   rnf OnExitLifecycle' {..} = Prelude.rnf events
 
-instance Core.ToJSON OnExitLifecycle where
+instance Data.ToJSON OnExitLifecycle where
   toJSON OnExitLifecycle' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("events" Core..=) Prelude.<$> events]
+          [("events" Data..=) Prelude.<$> events]
       )

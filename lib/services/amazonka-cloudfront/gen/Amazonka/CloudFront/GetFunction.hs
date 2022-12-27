@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.GetFunction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,16 +39,17 @@ module Amazonka.CloudFront.GetFunction
     newGetFunctionResponse,
 
     -- * Response Lenses
+    getFunctionResponse_contentType,
     getFunctionResponse_eTag,
     getFunctionResponse_functionCode,
-    getFunctionResponse_contentType,
     getFunctionResponse_httpStatus,
   )
 where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,14 +94,15 @@ getFunction_name = Lens.lens (\GetFunction' {name} -> name) (\s@GetFunction' {} 
 
 instance Core.AWSRequest GetFunction where
   type AWSResponse GetFunction = GetFunctionResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveBytes
       ( \s h x ->
           GetFunctionResponse'
-            Prelude.<$> (h Core..#? "ETag")
+            Prelude.<$> (h Data..#? "Content-Type")
+            Prelude.<*> (h Data..#? "ETag")
             Prelude.<*> (Prelude.pure (Prelude.Just (Prelude.coerce x)))
-            Prelude.<*> (h Core..#? "Content-Type")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -113,27 +115,27 @@ instance Prelude.NFData GetFunction where
   rnf GetFunction' {..} =
     Prelude.rnf stage `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders GetFunction where
+instance Data.ToHeaders GetFunction where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetFunction where
+instance Data.ToPath GetFunction where
   toPath GetFunction' {..} =
     Prelude.mconcat
-      ["/2020-05-31/function/", Core.toBS name]
+      ["/2020-05-31/function/", Data.toBS name]
 
-instance Core.ToQuery GetFunction where
+instance Data.ToQuery GetFunction where
   toQuery GetFunction' {..} =
-    Prelude.mconcat ["Stage" Core.=: stage]
+    Prelude.mconcat ["Stage" Data.=: stage]
 
 -- | /See:/ 'newGetFunctionResponse' smart constructor.
 data GetFunctionResponse = GetFunctionResponse'
-  { -- | The version identifier for the current version of the CloudFront
+  { -- | The content type (media type) of the response.
+    contentType :: Prelude.Maybe Prelude.Text,
+    -- | The version identifier for the current version of the CloudFront
     -- function.
     eTag :: Prelude.Maybe Prelude.Text,
     -- | The function code of a CloudFront function.
-    functionCode :: Prelude.Maybe (Core.Sensitive Prelude.ByteString),
-    -- | The content type (media type) of the response.
-    contentType :: Prelude.Maybe Prelude.Text,
+    functionCode :: Prelude.Maybe (Data.Sensitive Prelude.ByteString),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -147,12 +149,12 @@ data GetFunctionResponse = GetFunctionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'contentType', 'getFunctionResponse_contentType' - The content type (media type) of the response.
+--
 -- 'eTag', 'getFunctionResponse_eTag' - The version identifier for the current version of the CloudFront
 -- function.
 --
 -- 'functionCode', 'getFunctionResponse_functionCode' - The function code of a CloudFront function.
---
--- 'contentType', 'getFunctionResponse_contentType' - The content type (media type) of the response.
 --
 -- 'httpStatus', 'getFunctionResponse_httpStatus' - The response's http status code.
 newGetFunctionResponse ::
@@ -161,11 +163,15 @@ newGetFunctionResponse ::
   GetFunctionResponse
 newGetFunctionResponse pHttpStatus_ =
   GetFunctionResponse'
-    { eTag = Prelude.Nothing,
+    { contentType = Prelude.Nothing,
+      eTag = Prelude.Nothing,
       functionCode = Prelude.Nothing,
-      contentType = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The content type (media type) of the response.
+getFunctionResponse_contentType :: Lens.Lens' GetFunctionResponse (Prelude.Maybe Prelude.Text)
+getFunctionResponse_contentType = Lens.lens (\GetFunctionResponse' {contentType} -> contentType) (\s@GetFunctionResponse' {} a -> s {contentType = a} :: GetFunctionResponse)
 
 -- | The version identifier for the current version of the CloudFront
 -- function.
@@ -174,11 +180,7 @@ getFunctionResponse_eTag = Lens.lens (\GetFunctionResponse' {eTag} -> eTag) (\s@
 
 -- | The function code of a CloudFront function.
 getFunctionResponse_functionCode :: Lens.Lens' GetFunctionResponse (Prelude.Maybe Prelude.ByteString)
-getFunctionResponse_functionCode = Lens.lens (\GetFunctionResponse' {functionCode} -> functionCode) (\s@GetFunctionResponse' {} a -> s {functionCode = a} :: GetFunctionResponse) Prelude.. Lens.mapping Core._Sensitive
-
--- | The content type (media type) of the response.
-getFunctionResponse_contentType :: Lens.Lens' GetFunctionResponse (Prelude.Maybe Prelude.Text)
-getFunctionResponse_contentType = Lens.lens (\GetFunctionResponse' {contentType} -> contentType) (\s@GetFunctionResponse' {} a -> s {contentType = a} :: GetFunctionResponse)
+getFunctionResponse_functionCode = Lens.lens (\GetFunctionResponse' {functionCode} -> functionCode) (\s@GetFunctionResponse' {} a -> s {functionCode = a} :: GetFunctionResponse) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The response's http status code.
 getFunctionResponse_httpStatus :: Lens.Lens' GetFunctionResponse Prelude.Int
@@ -186,7 +188,7 @@ getFunctionResponse_httpStatus = Lens.lens (\GetFunctionResponse' {httpStatus} -
 
 instance Prelude.NFData GetFunctionResponse where
   rnf GetFunctionResponse' {..} =
-    Prelude.rnf eTag
+    Prelude.rnf contentType
+      `Prelude.seq` Prelude.rnf eTag
       `Prelude.seq` Prelude.rnf functionCode
-      `Prelude.seq` Prelude.rnf contentType
       `Prelude.seq` Prelude.rnf httpStatus

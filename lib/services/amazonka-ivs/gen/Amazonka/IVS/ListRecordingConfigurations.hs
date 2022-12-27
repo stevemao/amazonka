@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IVS.ListRecordingConfigurations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.IVS.ListRecordingConfigurations
     newListRecordingConfigurations,
 
     -- * Request Lenses
-    listRecordingConfigurations_nextToken,
     listRecordingConfigurations_maxResults,
+    listRecordingConfigurations_nextToken,
 
     -- * Destructuring the Response
     ListRecordingConfigurationsResponse (..),
@@ -46,19 +46,21 @@ module Amazonka.IVS.ListRecordingConfigurations
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IVS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListRecordingConfigurations' smart constructor.
 data ListRecordingConfigurations = ListRecordingConfigurations'
-  { -- | The first recording configuration to retrieve. This is used for
+  { -- | Maximum number of recording configurations to return. Default: your
+    -- service quota or 100, whichever is smaller.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The first recording configuration to retrieve. This is used for
     -- pagination; see the @nextToken@ response field.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Maximum number of recording configurations to return. Default: 50.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -70,27 +72,29 @@ data ListRecordingConfigurations = ListRecordingConfigurations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listRecordingConfigurations_maxResults' - Maximum number of recording configurations to return. Default: your
+-- service quota or 100, whichever is smaller.
+--
 -- 'nextToken', 'listRecordingConfigurations_nextToken' - The first recording configuration to retrieve. This is used for
 -- pagination; see the @nextToken@ response field.
---
--- 'maxResults', 'listRecordingConfigurations_maxResults' - Maximum number of recording configurations to return. Default: 50.
 newListRecordingConfigurations ::
   ListRecordingConfigurations
 newListRecordingConfigurations =
   ListRecordingConfigurations'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
+
+-- | Maximum number of recording configurations to return. Default: your
+-- service quota or 100, whichever is smaller.
+listRecordingConfigurations_maxResults :: Lens.Lens' ListRecordingConfigurations (Prelude.Maybe Prelude.Natural)
+listRecordingConfigurations_maxResults = Lens.lens (\ListRecordingConfigurations' {maxResults} -> maxResults) (\s@ListRecordingConfigurations' {} a -> s {maxResults = a} :: ListRecordingConfigurations)
 
 -- | The first recording configuration to retrieve. This is used for
 -- pagination; see the @nextToken@ response field.
 listRecordingConfigurations_nextToken :: Lens.Lens' ListRecordingConfigurations (Prelude.Maybe Prelude.Text)
 listRecordingConfigurations_nextToken = Lens.lens (\ListRecordingConfigurations' {nextToken} -> nextToken) (\s@ListRecordingConfigurations' {} a -> s {nextToken = a} :: ListRecordingConfigurations)
-
--- | Maximum number of recording configurations to return. Default: 50.
-listRecordingConfigurations_maxResults :: Lens.Lens' ListRecordingConfigurations (Prelude.Maybe Prelude.Natural)
-listRecordingConfigurations_maxResults = Lens.lens (\ListRecordingConfigurations' {maxResults} -> maxResults) (\s@ListRecordingConfigurations' {} a -> s {maxResults = a} :: ListRecordingConfigurations)
 
 instance Core.AWSPager ListRecordingConfigurations where
   page rq rs
@@ -117,52 +121,53 @@ instance Core.AWSRequest ListRecordingConfigurations where
   type
     AWSResponse ListRecordingConfigurations =
       ListRecordingConfigurationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListRecordingConfigurationsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "recordingConfigurations"
+            Prelude.<*> ( x Data..?> "recordingConfigurations"
                             Core..!@ Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable ListRecordingConfigurations where
   hashWithSalt _salt ListRecordingConfigurations' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListRecordingConfigurations where
   rnf ListRecordingConfigurations' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListRecordingConfigurations where
+instance Data.ToHeaders ListRecordingConfigurations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListRecordingConfigurations where
+instance Data.ToJSON ListRecordingConfigurations where
   toJSON ListRecordingConfigurations' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListRecordingConfigurations where
+instance Data.ToPath ListRecordingConfigurations where
   toPath = Prelude.const "/ListRecordingConfigurations"
 
-instance Core.ToQuery ListRecordingConfigurations where
+instance Data.ToQuery ListRecordingConfigurations where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListRecordingConfigurationsResponse' smart constructor.

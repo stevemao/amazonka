@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.ListTapes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,8 @@ module Amazonka.StorageGateway.ListTapes
     newListTapes,
 
     -- * Request Lenses
-    listTapes_marker,
     listTapes_limit,
+    listTapes_marker,
     listTapes_tapeARNs,
 
     -- * Destructuring the Response
@@ -56,7 +56,8 @@ module Amazonka.StorageGateway.ListTapes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -72,12 +73,12 @@ import Amazonka.StorageGateway.Types
 --
 -- /See:/ 'newListTapes' smart constructor.
 data ListTapes = ListTapes'
-  { -- | A string that indicates the position at which to begin the returned list
-    -- of tapes.
-    marker :: Prelude.Maybe Prelude.Text,
-    -- | An optional number limit for the tapes in the list returned by this
+  { -- | An optional number limit for the tapes in the list returned by this
     -- call.
     limit :: Prelude.Maybe Prelude.Natural,
+    -- | A string that indicates the position at which to begin the returned list
+    -- of tapes.
+    marker :: Prelude.Maybe Prelude.Text,
     tapeARNs :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -90,31 +91,31 @@ data ListTapes = ListTapes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'marker', 'listTapes_marker' - A string that indicates the position at which to begin the returned list
--- of tapes.
---
 -- 'limit', 'listTapes_limit' - An optional number limit for the tapes in the list returned by this
 -- call.
+--
+-- 'marker', 'listTapes_marker' - A string that indicates the position at which to begin the returned list
+-- of tapes.
 --
 -- 'tapeARNs', 'listTapes_tapeARNs' - Undocumented member.
 newListTapes ::
   ListTapes
 newListTapes =
   ListTapes'
-    { marker = Prelude.Nothing,
-      limit = Prelude.Nothing,
+    { limit = Prelude.Nothing,
+      marker = Prelude.Nothing,
       tapeARNs = Prelude.Nothing
     }
-
--- | A string that indicates the position at which to begin the returned list
--- of tapes.
-listTapes_marker :: Lens.Lens' ListTapes (Prelude.Maybe Prelude.Text)
-listTapes_marker = Lens.lens (\ListTapes' {marker} -> marker) (\s@ListTapes' {} a -> s {marker = a} :: ListTapes)
 
 -- | An optional number limit for the tapes in the list returned by this
 -- call.
 listTapes_limit :: Lens.Lens' ListTapes (Prelude.Maybe Prelude.Natural)
 listTapes_limit = Lens.lens (\ListTapes' {limit} -> limit) (\s@ListTapes' {} a -> s {limit = a} :: ListTapes)
+
+-- | A string that indicates the position at which to begin the returned list
+-- of tapes.
+listTapes_marker :: Lens.Lens' ListTapes (Prelude.Maybe Prelude.Text)
+listTapes_marker = Lens.lens (\ListTapes' {marker} -> marker) (\s@ListTapes' {} a -> s {marker = a} :: ListTapes)
 
 -- | Undocumented member.
 listTapes_tapeARNs :: Lens.Lens' ListTapes (Prelude.Maybe [Prelude.Text])
@@ -141,57 +142,58 @@ instance Core.AWSPager ListTapes where
 
 instance Core.AWSRequest ListTapes where
   type AWSResponse ListTapes = ListTapesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTapesResponse'
-            Prelude.<$> (x Core..?> "Marker")
-            Prelude.<*> (x Core..?> "TapeInfos" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Marker")
+            Prelude.<*> (x Data..?> "TapeInfos" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListTapes where
   hashWithSalt _salt ListTapes' {..} =
-    _salt `Prelude.hashWithSalt` marker
-      `Prelude.hashWithSalt` limit
+    _salt `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` tapeARNs
 
 instance Prelude.NFData ListTapes where
   rnf ListTapes' {..} =
-    Prelude.rnf marker
-      `Prelude.seq` Prelude.rnf limit
+    Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf tapeARNs
 
-instance Core.ToHeaders ListTapes where
+instance Data.ToHeaders ListTapes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.ListTapes" ::
+              Data.=# ( "StorageGateway_20130630.ListTapes" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTapes where
+instance Data.ToJSON ListTapes where
   toJSON ListTapes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Marker" Core..=) Prelude.<$> marker,
-            ("Limit" Core..=) Prelude.<$> limit,
-            ("TapeARNs" Core..=) Prelude.<$> tapeARNs
+          [ ("Limit" Data..=) Prelude.<$> limit,
+            ("Marker" Data..=) Prelude.<$> marker,
+            ("TapeARNs" Data..=) Prelude.<$> tapeARNs
           ]
       )
 
-instance Core.ToPath ListTapes where
+instance Data.ToPath ListTapes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTapes where
+instance Data.ToQuery ListTapes where
   toQuery = Prelude.const Prelude.mempty
 
 -- | A JSON object containing the following fields:

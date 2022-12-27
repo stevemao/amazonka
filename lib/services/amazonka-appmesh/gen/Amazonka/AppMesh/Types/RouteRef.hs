@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.RouteRef
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppMesh.Types.RouteRef where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents a route returned by a list operation.
@@ -30,20 +31,21 @@ data RouteRef = RouteRef'
   { -- | The full Amazon Resource Name (ARN) for the route.
     arn :: Prelude.Text,
     -- | The Unix epoch timestamp in seconds for when the resource was created.
-    createdAt :: Core.POSIX,
+    createdAt :: Data.POSIX,
     -- | The Unix epoch timestamp in seconds for when the resource was last
     -- updated.
-    lastUpdatedAt :: Core.POSIX,
+    lastUpdatedAt :: Data.POSIX,
     -- | The name of the service mesh that the route resides in.
     meshName :: Prelude.Text,
-    -- | The AWS IAM account ID of the service mesh owner. If the account ID is
-    -- not your own, then it\'s the ID of the account that shared the mesh with
-    -- your account. For more information about mesh sharing, see
+    -- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+    -- account ID is not your own, then it\'s the ID of the account that shared
+    -- the mesh with your account. For more information about mesh sharing, see
     -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
     meshOwner :: Prelude.Text,
-    -- | The AWS IAM account ID of the resource owner. If the account ID is not
-    -- your own, then it\'s the ID of the mesh owner or of another account that
-    -- the mesh is shared with. For more information about mesh sharing, see
+    -- | The Amazon Web Services IAM account ID of the resource owner. If the
+    -- account ID is not your own, then it\'s the ID of the mesh owner or of
+    -- another account that the mesh is shared with. For more information about
+    -- mesh sharing, see
     -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
     resourceOwner :: Prelude.Text,
     -- | The name of the route.
@@ -73,14 +75,15 @@ data RouteRef = RouteRef'
 --
 -- 'meshName', 'routeRef_meshName' - The name of the service mesh that the route resides in.
 --
--- 'meshOwner', 'routeRef_meshOwner' - The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
+-- 'meshOwner', 'routeRef_meshOwner' - The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 --
--- 'resourceOwner', 'routeRef_resourceOwner' - The AWS IAM account ID of the resource owner. If the account ID is not
--- your own, then it\'s the ID of the mesh owner or of another account that
--- the mesh is shared with. For more information about mesh sharing, see
+-- 'resourceOwner', 'routeRef_resourceOwner' - The Amazon Web Services IAM account ID of the resource owner. If the
+-- account ID is not your own, then it\'s the ID of the mesh owner or of
+-- another account that the mesh is shared with. For more information about
+-- mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 --
 -- 'routeName', 'routeRef_routeName' - The name of the route.
@@ -121,8 +124,8 @@ newRouteRef
   pVirtualRouterName_ =
     RouteRef'
       { arn = pArn_,
-        createdAt = Core._Time Lens.# pCreatedAt_,
-        lastUpdatedAt = Core._Time Lens.# pLastUpdatedAt_,
+        createdAt = Data._Time Lens.# pCreatedAt_,
+        lastUpdatedAt = Data._Time Lens.# pLastUpdatedAt_,
         meshName = pMeshName_,
         meshOwner = pMeshOwner_,
         resourceOwner = pResourceOwner_,
@@ -137,27 +140,28 @@ routeRef_arn = Lens.lens (\RouteRef' {arn} -> arn) (\s@RouteRef' {} a -> s {arn 
 
 -- | The Unix epoch timestamp in seconds for when the resource was created.
 routeRef_createdAt :: Lens.Lens' RouteRef Prelude.UTCTime
-routeRef_createdAt = Lens.lens (\RouteRef' {createdAt} -> createdAt) (\s@RouteRef' {} a -> s {createdAt = a} :: RouteRef) Prelude.. Core._Time
+routeRef_createdAt = Lens.lens (\RouteRef' {createdAt} -> createdAt) (\s@RouteRef' {} a -> s {createdAt = a} :: RouteRef) Prelude.. Data._Time
 
 -- | The Unix epoch timestamp in seconds for when the resource was last
 -- updated.
 routeRef_lastUpdatedAt :: Lens.Lens' RouteRef Prelude.UTCTime
-routeRef_lastUpdatedAt = Lens.lens (\RouteRef' {lastUpdatedAt} -> lastUpdatedAt) (\s@RouteRef' {} a -> s {lastUpdatedAt = a} :: RouteRef) Prelude.. Core._Time
+routeRef_lastUpdatedAt = Lens.lens (\RouteRef' {lastUpdatedAt} -> lastUpdatedAt) (\s@RouteRef' {} a -> s {lastUpdatedAt = a} :: RouteRef) Prelude.. Data._Time
 
 -- | The name of the service mesh that the route resides in.
 routeRef_meshName :: Lens.Lens' RouteRef Prelude.Text
 routeRef_meshName = Lens.lens (\RouteRef' {meshName} -> meshName) (\s@RouteRef' {} a -> s {meshName = a} :: RouteRef)
 
--- | The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
+-- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 routeRef_meshOwner :: Lens.Lens' RouteRef Prelude.Text
 routeRef_meshOwner = Lens.lens (\RouteRef' {meshOwner} -> meshOwner) (\s@RouteRef' {} a -> s {meshOwner = a} :: RouteRef)
 
--- | The AWS IAM account ID of the resource owner. If the account ID is not
--- your own, then it\'s the ID of the mesh owner or of another account that
--- the mesh is shared with. For more information about mesh sharing, see
+-- | The Amazon Web Services IAM account ID of the resource owner. If the
+-- account ID is not your own, then it\'s the ID of the mesh owner or of
+-- another account that the mesh is shared with. For more information about
+-- mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 routeRef_resourceOwner :: Lens.Lens' RouteRef Prelude.Text
 routeRef_resourceOwner = Lens.lens (\RouteRef' {resourceOwner} -> resourceOwner) (\s@RouteRef' {} a -> s {resourceOwner = a} :: RouteRef)
@@ -175,21 +179,21 @@ routeRef_version = Lens.lens (\RouteRef' {version} -> version) (\s@RouteRef' {} 
 routeRef_virtualRouterName :: Lens.Lens' RouteRef Prelude.Text
 routeRef_virtualRouterName = Lens.lens (\RouteRef' {virtualRouterName} -> virtualRouterName) (\s@RouteRef' {} a -> s {virtualRouterName = a} :: RouteRef)
 
-instance Core.FromJSON RouteRef where
+instance Data.FromJSON RouteRef where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RouteRef"
       ( \x ->
           RouteRef'
-            Prelude.<$> (x Core..: "arn")
-            Prelude.<*> (x Core..: "createdAt")
-            Prelude.<*> (x Core..: "lastUpdatedAt")
-            Prelude.<*> (x Core..: "meshName")
-            Prelude.<*> (x Core..: "meshOwner")
-            Prelude.<*> (x Core..: "resourceOwner")
-            Prelude.<*> (x Core..: "routeName")
-            Prelude.<*> (x Core..: "version")
-            Prelude.<*> (x Core..: "virtualRouterName")
+            Prelude.<$> (x Data..: "arn")
+            Prelude.<*> (x Data..: "createdAt")
+            Prelude.<*> (x Data..: "lastUpdatedAt")
+            Prelude.<*> (x Data..: "meshName")
+            Prelude.<*> (x Data..: "meshOwner")
+            Prelude.<*> (x Data..: "resourceOwner")
+            Prelude.<*> (x Data..: "routeName")
+            Prelude.<*> (x Data..: "version")
+            Prelude.<*> (x Data..: "virtualRouterName")
       )
 
 instance Prelude.Hashable RouteRef where

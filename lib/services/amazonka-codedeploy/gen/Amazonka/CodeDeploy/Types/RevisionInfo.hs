@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.Types.RevisionInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CodeDeploy.Types.RevisionInfo where
 import Amazonka.CodeDeploy.Types.GenericRevisionInfo
 import Amazonka.CodeDeploy.Types.RevisionLocation
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about an application revision.
@@ -67,14 +68,14 @@ revisionInfo_genericRevisionInfo = Lens.lens (\RevisionInfo' {genericRevisionInf
 revisionInfo_revisionLocation :: Lens.Lens' RevisionInfo (Prelude.Maybe RevisionLocation)
 revisionInfo_revisionLocation = Lens.lens (\RevisionInfo' {revisionLocation} -> revisionLocation) (\s@RevisionInfo' {} a -> s {revisionLocation = a} :: RevisionInfo)
 
-instance Core.FromJSON RevisionInfo where
+instance Data.FromJSON RevisionInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RevisionInfo"
       ( \x ->
           RevisionInfo'
-            Prelude.<$> (x Core..:? "genericRevisionInfo")
-            Prelude.<*> (x Core..:? "revisionLocation")
+            Prelude.<$> (x Data..:? "genericRevisionInfo")
+            Prelude.<*> (x Data..:? "revisionLocation")
       )
 
 instance Prelude.Hashable RevisionInfo where

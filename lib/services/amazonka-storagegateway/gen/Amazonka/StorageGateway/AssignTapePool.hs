@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.AssignTapePool
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,8 +25,6 @@
 -- When you use your backup application to eject the tape, the tape is
 -- archived directly into the S3 storage class (S3 Glacier or S3 Glacier
 -- Deep Archive) that corresponds to the pool.
---
--- Valid Values: @GLACIER@ | @DEEP_ARCHIVE@
 module Amazonka.StorageGateway.AssignTapePool
   ( -- * Creating a Request
     AssignTapePool (..),
@@ -48,7 +46,8 @@ module Amazonka.StorageGateway.AssignTapePool
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -73,8 +72,6 @@ data AssignTapePool = AssignTapePool'
     -- with the pool. When you use your backup application to eject the tape,
     -- the tape is archived directly into the storage class (S3 Glacier or S3
     -- Glacier Deep Archive) that corresponds to the pool.
-    --
-    -- Valid Values: @GLACIER@ | @DEEP_ARCHIVE@
     poolId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -104,8 +101,6 @@ data AssignTapePool = AssignTapePool'
 -- with the pool. When you use your backup application to eject the tape,
 -- the tape is archived directly into the storage class (S3 Glacier or S3
 -- Glacier Deep Archive) that corresponds to the pool.
---
--- Valid Values: @GLACIER@ | @DEEP_ARCHIVE@
 newAssignTapePool ::
   -- | 'tapeARN'
   Prelude.Text ->
@@ -141,8 +136,6 @@ assignTapePool_tapeARN = Lens.lens (\AssignTapePool' {tapeARN} -> tapeARN) (\s@A
 -- with the pool. When you use your backup application to eject the tape,
 -- the tape is archived directly into the storage class (S3 Glacier or S3
 -- Glacier Deep Archive) that corresponds to the pool.
---
--- Valid Values: @GLACIER@ | @DEEP_ARCHIVE@
 assignTapePool_poolId :: Lens.Lens' AssignTapePool Prelude.Text
 assignTapePool_poolId = Lens.lens (\AssignTapePool' {poolId} -> poolId) (\s@AssignTapePool' {} a -> s {poolId = a} :: AssignTapePool)
 
@@ -150,12 +143,13 @@ instance Core.AWSRequest AssignTapePool where
   type
     AWSResponse AssignTapePool =
       AssignTapePoolResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AssignTapePoolResponse'
-            Prelude.<$> (x Core..?> "TapeARN")
+            Prelude.<$> (x Data..?> "TapeARN")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -172,36 +166,36 @@ instance Prelude.NFData AssignTapePool where
       `Prelude.seq` Prelude.rnf tapeARN
       `Prelude.seq` Prelude.rnf poolId
 
-instance Core.ToHeaders AssignTapePool where
+instance Data.ToHeaders AssignTapePool where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.AssignTapePool" ::
+              Data.=# ( "StorageGateway_20130630.AssignTapePool" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssignTapePool where
+instance Data.ToJSON AssignTapePool where
   toJSON AssignTapePool' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("BypassGovernanceRetention" Core..=)
+          [ ("BypassGovernanceRetention" Data..=)
               Prelude.<$> bypassGovernanceRetention,
-            Prelude.Just ("TapeARN" Core..= tapeARN),
-            Prelude.Just ("PoolId" Core..= poolId)
+            Prelude.Just ("TapeARN" Data..= tapeARN),
+            Prelude.Just ("PoolId" Data..= poolId)
           ]
       )
 
-instance Core.ToPath AssignTapePool where
+instance Data.ToPath AssignTapePool where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AssignTapePool where
+instance Data.ToQuery AssignTapePool where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssignTapePoolResponse' smart constructor.

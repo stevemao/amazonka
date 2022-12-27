@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.Types.IPRange
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Redshift.Types.IPRange where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Internal
 import Amazonka.Redshift.Types.Tag
@@ -29,10 +30,10 @@ import Amazonka.Redshift.Types.Tag
 --
 -- /See:/ 'newIPRange' smart constructor.
 data IPRange = IPRange'
-  { -- | The status of the IP range, for example, \"authorized\".
-    status :: Prelude.Maybe Prelude.Text,
-    -- | The IP range in Classless Inter-Domain Routing (CIDR) notation.
+  { -- | The IP range in Classless Inter-Domain Routing (CIDR) notation.
     cidrip :: Prelude.Maybe Prelude.Text,
+    -- | The status of the IP range, for example, \"authorized\".
+    status :: Prelude.Maybe Prelude.Text,
     -- | The list of tags for the IP range.
     tags :: Prelude.Maybe [Tag]
   }
@@ -46,49 +47,49 @@ data IPRange = IPRange'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'iPRange_status' - The status of the IP range, for example, \"authorized\".
---
 -- 'cidrip', 'iPRange_cidrip' - The IP range in Classless Inter-Domain Routing (CIDR) notation.
+--
+-- 'status', 'iPRange_status' - The status of the IP range, for example, \"authorized\".
 --
 -- 'tags', 'iPRange_tags' - The list of tags for the IP range.
 newIPRange ::
   IPRange
 newIPRange =
   IPRange'
-    { status = Prelude.Nothing,
-      cidrip = Prelude.Nothing,
+    { cidrip = Prelude.Nothing,
+      status = Prelude.Nothing,
       tags = Prelude.Nothing
     }
-
--- | The status of the IP range, for example, \"authorized\".
-iPRange_status :: Lens.Lens' IPRange (Prelude.Maybe Prelude.Text)
-iPRange_status = Lens.lens (\IPRange' {status} -> status) (\s@IPRange' {} a -> s {status = a} :: IPRange)
 
 -- | The IP range in Classless Inter-Domain Routing (CIDR) notation.
 iPRange_cidrip :: Lens.Lens' IPRange (Prelude.Maybe Prelude.Text)
 iPRange_cidrip = Lens.lens (\IPRange' {cidrip} -> cidrip) (\s@IPRange' {} a -> s {cidrip = a} :: IPRange)
 
+-- | The status of the IP range, for example, \"authorized\".
+iPRange_status :: Lens.Lens' IPRange (Prelude.Maybe Prelude.Text)
+iPRange_status = Lens.lens (\IPRange' {status} -> status) (\s@IPRange' {} a -> s {status = a} :: IPRange)
+
 -- | The list of tags for the IP range.
 iPRange_tags :: Lens.Lens' IPRange (Prelude.Maybe [Tag])
 iPRange_tags = Lens.lens (\IPRange' {tags} -> tags) (\s@IPRange' {} a -> s {tags = a} :: IPRange) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML IPRange where
+instance Data.FromXML IPRange where
   parseXML x =
     IPRange'
-      Prelude.<$> (x Core..@? "Status")
-      Prelude.<*> (x Core..@? "CIDRIP")
-      Prelude.<*> ( x Core..@? "Tags" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "Tag")
+      Prelude.<$> (x Data..@? "CIDRIP")
+      Prelude.<*> (x Data..@? "Status")
+      Prelude.<*> ( x Data..@? "Tags" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "Tag")
                   )
 
 instance Prelude.Hashable IPRange where
   hashWithSalt _salt IPRange' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` cidrip
+    _salt `Prelude.hashWithSalt` cidrip
+      `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` tags
 
 instance Prelude.NFData IPRange where
   rnf IPRange' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf cidrip
+    Prelude.rnf cidrip
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf tags

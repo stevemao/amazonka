@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECR.Types.ImageScanStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.ECR.Types.ImageScanStatus where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECR.Types.ScanStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The current status of an image scan.
 --
 -- /See:/ 'newImageScanStatus' smart constructor.
 data ImageScanStatus = ImageScanStatus'
-  { -- | The current state of an image scan.
-    status :: Prelude.Maybe ScanStatus,
-    -- | The description of the image scan status.
-    description :: Prelude.Maybe Prelude.Text
+  { -- | The description of the image scan status.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The current state of an image scan.
+    status :: Prelude.Maybe ScanStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,41 +44,41 @@ data ImageScanStatus = ImageScanStatus'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'imageScanStatus_status' - The current state of an image scan.
---
 -- 'description', 'imageScanStatus_description' - The description of the image scan status.
+--
+-- 'status', 'imageScanStatus_status' - The current state of an image scan.
 newImageScanStatus ::
   ImageScanStatus
 newImageScanStatus =
   ImageScanStatus'
-    { status = Prelude.Nothing,
-      description = Prelude.Nothing
+    { description = Prelude.Nothing,
+      status = Prelude.Nothing
     }
-
--- | The current state of an image scan.
-imageScanStatus_status :: Lens.Lens' ImageScanStatus (Prelude.Maybe ScanStatus)
-imageScanStatus_status = Lens.lens (\ImageScanStatus' {status} -> status) (\s@ImageScanStatus' {} a -> s {status = a} :: ImageScanStatus)
 
 -- | The description of the image scan status.
 imageScanStatus_description :: Lens.Lens' ImageScanStatus (Prelude.Maybe Prelude.Text)
 imageScanStatus_description = Lens.lens (\ImageScanStatus' {description} -> description) (\s@ImageScanStatus' {} a -> s {description = a} :: ImageScanStatus)
 
-instance Core.FromJSON ImageScanStatus where
+-- | The current state of an image scan.
+imageScanStatus_status :: Lens.Lens' ImageScanStatus (Prelude.Maybe ScanStatus)
+imageScanStatus_status = Lens.lens (\ImageScanStatus' {status} -> status) (\s@ImageScanStatus' {} a -> s {status = a} :: ImageScanStatus)
+
+instance Data.FromJSON ImageScanStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ImageScanStatus"
       ( \x ->
           ImageScanStatus'
-            Prelude.<$> (x Core..:? "status")
-            Prelude.<*> (x Core..:? "description")
+            Prelude.<$> (x Data..:? "description")
+            Prelude.<*> (x Data..:? "status")
       )
 
 instance Prelude.Hashable ImageScanStatus where
   hashWithSalt _salt ImageScanStatus' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData ImageScanStatus where
   rnf ImageScanStatus' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf status

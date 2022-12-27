@@ -14,18 +14,18 @@
 
 -- |
 -- Module      : Amazonka.Organizations.ListDelegatedAdministrators
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the AWS accounts that are designated as delegated administrators
--- in this organization.
+-- Lists the Amazon Web Services accounts that are designated as delegated
+-- administrators in this organization.
 --
 -- This operation can be called only from the organization\'s management
 -- account or by a member account that is a delegated administrator for an
--- AWS service.
+-- Amazon Web Services service.
 --
 -- This operation returns paginated results.
 module Amazonka.Organizations.ListDelegatedAdministrators
@@ -34,9 +34,9 @@ module Amazonka.Organizations.ListDelegatedAdministrators
     newListDelegatedAdministrators,
 
     -- * Request Lenses
-    listDelegatedAdministrators_servicePrincipal,
-    listDelegatedAdministrators_nextToken,
     listDelegatedAdministrators_maxResults,
+    listDelegatedAdministrators_nextToken,
+    listDelegatedAdministrators_servicePrincipal,
 
     -- * Destructuring the Response
     ListDelegatedAdministratorsResponse (..),
@@ -50,7 +50,8 @@ module Amazonka.Organizations.ListDelegatedAdministrators
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -58,19 +59,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListDelegatedAdministrators' smart constructor.
 data ListDelegatedAdministrators = ListDelegatedAdministrators'
-  { -- | Specifies a service principal name. If specified, then the operation
-    -- lists the delegated administrators only for the specified service.
-    --
-    -- If you don\'t specify a service principal, the operation lists all
-    -- delegated administrators for all services in your organization.
-    servicePrincipal :: Prelude.Maybe Prelude.Text,
-    -- | The parameter for receiving additional results if you receive a
-    -- @NextToken@ response in a previous request. A @NextToken@ response
-    -- indicates that more output is available. Set this parameter to the value
-    -- of the previous call\'s @NextToken@ response to indicate where the
-    -- output should continue from.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The total number of results that you want included on each page of the
+  { -- | The total number of results that you want included on each page of the
     -- response. If you do not include this parameter, it defaults to a value
     -- that is specific to the operation. If additional items exist beyond the
     -- maximum you specify, the @NextToken@ response element is present and has
@@ -80,7 +69,19 @@ data ListDelegatedAdministrators = ListDelegatedAdministrators'
     -- maximum even when there are more results available. You should check
     -- @NextToken@ after every operation to ensure that you receive all of the
     -- results.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The parameter for receiving additional results if you receive a
+    -- @NextToken@ response in a previous request. A @NextToken@ response
+    -- indicates that more output is available. Set this parameter to the value
+    -- of the previous call\'s @NextToken@ response to indicate where the
+    -- output should continue from.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Specifies a service principal name. If specified, then the operation
+    -- lists the delegated administrators only for the specified service.
+    --
+    -- If you don\'t specify a service principal, the operation lists all
+    -- delegated administrators for all services in your organization.
+    servicePrincipal :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -92,18 +93,6 @@ data ListDelegatedAdministrators = ListDelegatedAdministrators'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'servicePrincipal', 'listDelegatedAdministrators_servicePrincipal' - Specifies a service principal name. If specified, then the operation
--- lists the delegated administrators only for the specified service.
---
--- If you don\'t specify a service principal, the operation lists all
--- delegated administrators for all services in your organization.
---
--- 'nextToken', 'listDelegatedAdministrators_nextToken' - The parameter for receiving additional results if you receive a
--- @NextToken@ response in a previous request. A @NextToken@ response
--- indicates that more output is available. Set this parameter to the value
--- of the previous call\'s @NextToken@ response to indicate where the
--- output should continue from.
---
 -- 'maxResults', 'listDelegatedAdministrators_maxResults' - The total number of results that you want included on each page of the
 -- response. If you do not include this parameter, it defaults to a value
 -- that is specific to the operation. If additional items exist beyond the
@@ -114,31 +103,27 @@ data ListDelegatedAdministrators = ListDelegatedAdministrators'
 -- maximum even when there are more results available. You should check
 -- @NextToken@ after every operation to ensure that you receive all of the
 -- results.
-newListDelegatedAdministrators ::
-  ListDelegatedAdministrators
-newListDelegatedAdministrators =
-  ListDelegatedAdministrators'
-    { servicePrincipal =
-        Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
-    }
-
--- | Specifies a service principal name. If specified, then the operation
--- lists the delegated administrators only for the specified service.
 --
--- If you don\'t specify a service principal, the operation lists all
--- delegated administrators for all services in your organization.
-listDelegatedAdministrators_servicePrincipal :: Lens.Lens' ListDelegatedAdministrators (Prelude.Maybe Prelude.Text)
-listDelegatedAdministrators_servicePrincipal = Lens.lens (\ListDelegatedAdministrators' {servicePrincipal} -> servicePrincipal) (\s@ListDelegatedAdministrators' {} a -> s {servicePrincipal = a} :: ListDelegatedAdministrators)
-
--- | The parameter for receiving additional results if you receive a
+-- 'nextToken', 'listDelegatedAdministrators_nextToken' - The parameter for receiving additional results if you receive a
 -- @NextToken@ response in a previous request. A @NextToken@ response
 -- indicates that more output is available. Set this parameter to the value
 -- of the previous call\'s @NextToken@ response to indicate where the
 -- output should continue from.
-listDelegatedAdministrators_nextToken :: Lens.Lens' ListDelegatedAdministrators (Prelude.Maybe Prelude.Text)
-listDelegatedAdministrators_nextToken = Lens.lens (\ListDelegatedAdministrators' {nextToken} -> nextToken) (\s@ListDelegatedAdministrators' {} a -> s {nextToken = a} :: ListDelegatedAdministrators)
+--
+-- 'servicePrincipal', 'listDelegatedAdministrators_servicePrincipal' - Specifies a service principal name. If specified, then the operation
+-- lists the delegated administrators only for the specified service.
+--
+-- If you don\'t specify a service principal, the operation lists all
+-- delegated administrators for all services in your organization.
+newListDelegatedAdministrators ::
+  ListDelegatedAdministrators
+newListDelegatedAdministrators =
+  ListDelegatedAdministrators'
+    { maxResults =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      servicePrincipal = Prelude.Nothing
+    }
 
 -- | The total number of results that you want included on each page of the
 -- response. If you do not include this parameter, it defaults to a value
@@ -152,6 +137,22 @@ listDelegatedAdministrators_nextToken = Lens.lens (\ListDelegatedAdministrators'
 -- results.
 listDelegatedAdministrators_maxResults :: Lens.Lens' ListDelegatedAdministrators (Prelude.Maybe Prelude.Natural)
 listDelegatedAdministrators_maxResults = Lens.lens (\ListDelegatedAdministrators' {maxResults} -> maxResults) (\s@ListDelegatedAdministrators' {} a -> s {maxResults = a} :: ListDelegatedAdministrators)
+
+-- | The parameter for receiving additional results if you receive a
+-- @NextToken@ response in a previous request. A @NextToken@ response
+-- indicates that more output is available. Set this parameter to the value
+-- of the previous call\'s @NextToken@ response to indicate where the
+-- output should continue from.
+listDelegatedAdministrators_nextToken :: Lens.Lens' ListDelegatedAdministrators (Prelude.Maybe Prelude.Text)
+listDelegatedAdministrators_nextToken = Lens.lens (\ListDelegatedAdministrators' {nextToken} -> nextToken) (\s@ListDelegatedAdministrators' {} a -> s {nextToken = a} :: ListDelegatedAdministrators)
+
+-- | Specifies a service principal name. If specified, then the operation
+-- lists the delegated administrators only for the specified service.
+--
+-- If you don\'t specify a service principal, the operation lists all
+-- delegated administrators for all services in your organization.
+listDelegatedAdministrators_servicePrincipal :: Lens.Lens' ListDelegatedAdministrators (Prelude.Maybe Prelude.Text)
+listDelegatedAdministrators_servicePrincipal = Lens.lens (\ListDelegatedAdministrators' {servicePrincipal} -> servicePrincipal) (\s@ListDelegatedAdministrators' {} a -> s {servicePrincipal = a} :: ListDelegatedAdministrators)
 
 instance Core.AWSPager ListDelegatedAdministrators where
   page rq rs
@@ -179,60 +180,61 @@ instance Core.AWSRequest ListDelegatedAdministrators where
   type
     AWSResponse ListDelegatedAdministrators =
       ListDelegatedAdministratorsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDelegatedAdministratorsResponse'
-            Prelude.<$> ( x Core..?> "DelegatedAdministrators"
+            Prelude.<$> ( x Data..?> "DelegatedAdministrators"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListDelegatedAdministrators where
   hashWithSalt _salt ListDelegatedAdministrators' {..} =
-    _salt `Prelude.hashWithSalt` servicePrincipal
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` servicePrincipal
 
 instance Prelude.NFData ListDelegatedAdministrators where
   rnf ListDelegatedAdministrators' {..} =
-    Prelude.rnf servicePrincipal
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf servicePrincipal
 
-instance Core.ToHeaders ListDelegatedAdministrators where
+instance Data.ToHeaders ListDelegatedAdministrators where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.ListDelegatedAdministrators" ::
+              Data.=# ( "AWSOrganizationsV20161128.ListDelegatedAdministrators" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListDelegatedAdministrators where
+instance Data.ToJSON ListDelegatedAdministrators where
   toJSON ListDelegatedAdministrators' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ServicePrincipal" Core..=)
-              Prelude.<$> servicePrincipal,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("ServicePrincipal" Data..=)
+              Prelude.<$> servicePrincipal
           ]
       )
 
-instance Core.ToPath ListDelegatedAdministrators where
+instance Data.ToPath ListDelegatedAdministrators where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListDelegatedAdministrators where
+instance Data.ToQuery ListDelegatedAdministrators where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListDelegatedAdministratorsResponse' smart constructor.

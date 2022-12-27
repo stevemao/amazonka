@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.Types.MacSecKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,22 @@
 module Amazonka.DirectConnect.Types.MacSecKey where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the MAC Security (MACsec) secret key.
 --
 -- /See:/ 'newMacSecKey' smart constructor.
 data MacSecKey = MacSecKey'
-  { -- | The state of the MAC Security (MACsec) secret key.
+  { -- | The Connection Key Name (CKN) for the MAC Security secret key.
+    ckn :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the MAC Security (MACsec) secret key.
+    secretARN :: Prelude.Maybe Prelude.Text,
+    -- | The date that the MAC Security (MACsec) secret key takes effect. The
+    -- value is displayed in UTC format.
+    startOn :: Prelude.Maybe Prelude.Text,
+    -- | The state of the MAC Security (MACsec) secret key.
     --
     -- The possible values are:
     --
@@ -42,14 +50,7 @@ data MacSecKey = MacSecKey'
     --
     -- -   @disassociated@: The MAC Security (MACsec) secret key is no longer
     --     associated with the connection or LAG.
-    state :: Prelude.Maybe Prelude.Text,
-    -- | The Connection Key Name (CKN) for the MAC Security secret key.
-    ckn :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the MAC Security (MACsec) secret key.
-    secretARN :: Prelude.Maybe Prelude.Text,
-    -- | The date that the MAC Security (MACsec) secret key takes effect. The
-    -- value is displayed in UTC format.
-    startOn :: Prelude.Maybe Prelude.Text
+    state :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -60,6 +61,13 @@ data MacSecKey = MacSecKey'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'ckn', 'macSecKey_ckn' - The Connection Key Name (CKN) for the MAC Security secret key.
+--
+-- 'secretARN', 'macSecKey_secretARN' - The Amazon Resource Name (ARN) of the MAC Security (MACsec) secret key.
+--
+-- 'startOn', 'macSecKey_startOn' - The date that the MAC Security (MACsec) secret key takes effect. The
+-- value is displayed in UTC format.
 --
 -- 'state', 'macSecKey_state' - The state of the MAC Security (MACsec) secret key.
 --
@@ -76,22 +84,28 @@ data MacSecKey = MacSecKey'
 --
 -- -   @disassociated@: The MAC Security (MACsec) secret key is no longer
 --     associated with the connection or LAG.
---
--- 'ckn', 'macSecKey_ckn' - The Connection Key Name (CKN) for the MAC Security secret key.
---
--- 'secretARN', 'macSecKey_secretARN' - The Amazon Resource Name (ARN) of the MAC Security (MACsec) secret key.
---
--- 'startOn', 'macSecKey_startOn' - The date that the MAC Security (MACsec) secret key takes effect. The
--- value is displayed in UTC format.
 newMacSecKey ::
   MacSecKey
 newMacSecKey =
   MacSecKey'
-    { state = Prelude.Nothing,
-      ckn = Prelude.Nothing,
+    { ckn = Prelude.Nothing,
       secretARN = Prelude.Nothing,
-      startOn = Prelude.Nothing
+      startOn = Prelude.Nothing,
+      state = Prelude.Nothing
     }
+
+-- | The Connection Key Name (CKN) for the MAC Security secret key.
+macSecKey_ckn :: Lens.Lens' MacSecKey (Prelude.Maybe Prelude.Text)
+macSecKey_ckn = Lens.lens (\MacSecKey' {ckn} -> ckn) (\s@MacSecKey' {} a -> s {ckn = a} :: MacSecKey)
+
+-- | The Amazon Resource Name (ARN) of the MAC Security (MACsec) secret key.
+macSecKey_secretARN :: Lens.Lens' MacSecKey (Prelude.Maybe Prelude.Text)
+macSecKey_secretARN = Lens.lens (\MacSecKey' {secretARN} -> secretARN) (\s@MacSecKey' {} a -> s {secretARN = a} :: MacSecKey)
+
+-- | The date that the MAC Security (MACsec) secret key takes effect. The
+-- value is displayed in UTC format.
+macSecKey_startOn :: Lens.Lens' MacSecKey (Prelude.Maybe Prelude.Text)
+macSecKey_startOn = Lens.lens (\MacSecKey' {startOn} -> startOn) (\s@MacSecKey' {} a -> s {startOn = a} :: MacSecKey)
 
 -- | The state of the MAC Security (MACsec) secret key.
 --
@@ -111,41 +125,28 @@ newMacSecKey =
 macSecKey_state :: Lens.Lens' MacSecKey (Prelude.Maybe Prelude.Text)
 macSecKey_state = Lens.lens (\MacSecKey' {state} -> state) (\s@MacSecKey' {} a -> s {state = a} :: MacSecKey)
 
--- | The Connection Key Name (CKN) for the MAC Security secret key.
-macSecKey_ckn :: Lens.Lens' MacSecKey (Prelude.Maybe Prelude.Text)
-macSecKey_ckn = Lens.lens (\MacSecKey' {ckn} -> ckn) (\s@MacSecKey' {} a -> s {ckn = a} :: MacSecKey)
-
--- | The Amazon Resource Name (ARN) of the MAC Security (MACsec) secret key.
-macSecKey_secretARN :: Lens.Lens' MacSecKey (Prelude.Maybe Prelude.Text)
-macSecKey_secretARN = Lens.lens (\MacSecKey' {secretARN} -> secretARN) (\s@MacSecKey' {} a -> s {secretARN = a} :: MacSecKey)
-
--- | The date that the MAC Security (MACsec) secret key takes effect. The
--- value is displayed in UTC format.
-macSecKey_startOn :: Lens.Lens' MacSecKey (Prelude.Maybe Prelude.Text)
-macSecKey_startOn = Lens.lens (\MacSecKey' {startOn} -> startOn) (\s@MacSecKey' {} a -> s {startOn = a} :: MacSecKey)
-
-instance Core.FromJSON MacSecKey where
+instance Data.FromJSON MacSecKey where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MacSecKey"
       ( \x ->
           MacSecKey'
-            Prelude.<$> (x Core..:? "state")
-            Prelude.<*> (x Core..:? "ckn")
-            Prelude.<*> (x Core..:? "secretARN")
-            Prelude.<*> (x Core..:? "startOn")
+            Prelude.<$> (x Data..:? "ckn")
+            Prelude.<*> (x Data..:? "secretARN")
+            Prelude.<*> (x Data..:? "startOn")
+            Prelude.<*> (x Data..:? "state")
       )
 
 instance Prelude.Hashable MacSecKey where
   hashWithSalt _salt MacSecKey' {..} =
-    _salt `Prelude.hashWithSalt` state
-      `Prelude.hashWithSalt` ckn
+    _salt `Prelude.hashWithSalt` ckn
       `Prelude.hashWithSalt` secretARN
       `Prelude.hashWithSalt` startOn
+      `Prelude.hashWithSalt` state
 
 instance Prelude.NFData MacSecKey where
   rnf MacSecKey' {..} =
-    Prelude.rnf state
-      `Prelude.seq` Prelude.rnf ckn
+    Prelude.rnf ckn
       `Prelude.seq` Prelude.rnf secretARN
       `Prelude.seq` Prelude.rnf startOn
+      `Prelude.seq` Prelude.rnf state

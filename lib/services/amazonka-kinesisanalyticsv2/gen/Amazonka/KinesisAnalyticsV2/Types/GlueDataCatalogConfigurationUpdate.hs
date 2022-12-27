@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.GlueDataCatalogConfigurationUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KinesisAnalyticsV2.Types.GlueDataCatalogConfigurationUpdate where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Updates to the configuration of the Glue Data Catalog that you use for
@@ -74,13 +75,13 @@ instance
     Prelude.rnf databaseARNUpdate
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     GlueDataCatalogConfigurationUpdate
   where
   toJSON GlueDataCatalogConfigurationUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("DatabaseARNUpdate" Core..= databaseARNUpdate)
+              ("DatabaseARNUpdate" Data..= databaseARNUpdate)
           ]
       )

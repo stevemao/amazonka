@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.GetSerialConsoleAccessStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.EC2.GetSerialConsoleAccessStatus
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,12 +92,13 @@ instance Core.AWSRequest GetSerialConsoleAccessStatus where
   type
     AWSResponse GetSerialConsoleAccessStatus =
       GetSerialConsoleAccessStatusResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetSerialConsoleAccessStatusResponse'
-            Prelude.<$> (x Core..@? "serialConsoleAccessEnabled")
+            Prelude.<$> (x Data..@? "serialConsoleAccessEnabled")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -111,22 +113,22 @@ instance Prelude.NFData GetSerialConsoleAccessStatus where
   rnf GetSerialConsoleAccessStatus' {..} =
     Prelude.rnf dryRun
 
-instance Core.ToHeaders GetSerialConsoleAccessStatus where
+instance Data.ToHeaders GetSerialConsoleAccessStatus where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetSerialConsoleAccessStatus where
+instance Data.ToPath GetSerialConsoleAccessStatus where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetSerialConsoleAccessStatus where
+instance Data.ToQuery GetSerialConsoleAccessStatus where
   toQuery GetSerialConsoleAccessStatus' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "GetSerialConsoleAccessStatus" ::
+          Data.=: ( "GetSerialConsoleAccessStatus" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun
       ]
 
 -- | /See:/ 'newGetSerialConsoleAccessStatusResponse' smart constructor.

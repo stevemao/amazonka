@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.MotionImageInserter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.MotionImageInserter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types.MotionImageInsertionFramerate
 import Amazonka.MediaConvert.Types.MotionImageInsertionMode
 import Amazonka.MediaConvert.Types.MotionImageInsertionOffset
@@ -43,26 +44,6 @@ data MotionImageInserter = MotionImageInserter'
     -- fps, you should have 900 .png images. This overlay frame rate doesn\'t
     -- need to match the frame rate of the underlying video.
     framerate :: Prelude.Maybe MotionImageInsertionFramerate,
-    -- | Specify when the motion overlay begins. Use timecode format (HH:MM:SS:FF
-    -- or HH:MM:SS;FF). Make sure that the timecode you provide here takes into
-    -- account how you have set up your timecode configuration under both job
-    -- settings and input settings. The simplest way to do that is to set both
-    -- to start at 0. If you need to set up your job to follow timecodes
-    -- embedded in your source that don\'t start at zero, make sure that you
-    -- specify a start time that is after the first embedded timecode. For more
-    -- information, see
-    -- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/setting-up-timecode.html
-    -- Find job-wide and input timecode configuration settings in your JSON job
-    -- settings specification at settings>timecodeConfig>source and
-    -- settings>inputs>timecodeSource.
-    startTime :: Prelude.Maybe Prelude.Text,
-    -- | Use Offset to specify the placement of your motion graphic overlay on
-    -- the video frame. Specify in pixels, from the upper-left corner of the
-    -- frame. If you don\'t specify an offset, the service scales your overlay
-    -- to the full size of the frame. Otherwise, the service inserts the
-    -- overlay at its native resolution and scales the size up or down with any
-    -- video scaling.
-    offset :: Prelude.Maybe MotionImageInsertionOffset,
     -- | Specify the .mov file or series of .png files that you want to overlay
     -- on your video. For .png files, provide the file name of the first file
     -- in the series. Make sure that the names of the .png files end with
@@ -78,9 +59,29 @@ data MotionImageInserter = MotionImageInserter'
     -- | Choose the type of motion graphic asset that you are providing for your
     -- overlay. You can choose either a .mov file or a series of .png files.
     insertionMode :: Prelude.Maybe MotionImageInsertionMode,
+    -- | Use Offset to specify the placement of your motion graphic overlay on
+    -- the video frame. Specify in pixels, from the upper-left corner of the
+    -- frame. If you don\'t specify an offset, the service scales your overlay
+    -- to the full size of the frame. Otherwise, the service inserts the
+    -- overlay at its native resolution and scales the size up or down with any
+    -- video scaling.
+    offset :: Prelude.Maybe MotionImageInsertionOffset,
     -- | Specify whether your motion graphic overlay repeats on a loop or plays
     -- only once.
-    playback :: Prelude.Maybe MotionImagePlayback
+    playback :: Prelude.Maybe MotionImagePlayback,
+    -- | Specify when the motion overlay begins. Use timecode format (HH:MM:SS:FF
+    -- or HH:MM:SS;FF). Make sure that the timecode you provide here takes into
+    -- account how you have set up your timecode configuration under both job
+    -- settings and input settings. The simplest way to do that is to set both
+    -- to start at 0. If you need to set up your job to follow timecodes
+    -- embedded in your source that don\'t start at zero, make sure that you
+    -- specify a start time that is after the first embedded timecode. For more
+    -- information, see
+    -- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/setting-up-timecode.html
+    -- Find job-wide and input timecode configuration settings in your JSON job
+    -- settings specification at settings>timecodeConfig>source and
+    -- settings>inputs>timecodeSource.
+    startTime :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -101,26 +102,6 @@ data MotionImageInserter = MotionImageInserter'
 -- fps, you should have 900 .png images. This overlay frame rate doesn\'t
 -- need to match the frame rate of the underlying video.
 --
--- 'startTime', 'motionImageInserter_startTime' - Specify when the motion overlay begins. Use timecode format (HH:MM:SS:FF
--- or HH:MM:SS;FF). Make sure that the timecode you provide here takes into
--- account how you have set up your timecode configuration under both job
--- settings and input settings. The simplest way to do that is to set both
--- to start at 0. If you need to set up your job to follow timecodes
--- embedded in your source that don\'t start at zero, make sure that you
--- specify a start time that is after the first embedded timecode. For more
--- information, see
--- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/setting-up-timecode.html
--- Find job-wide and input timecode configuration settings in your JSON job
--- settings specification at settings>timecodeConfig>source and
--- settings>inputs>timecodeSource.
---
--- 'offset', 'motionImageInserter_offset' - Use Offset to specify the placement of your motion graphic overlay on
--- the video frame. Specify in pixels, from the upper-left corner of the
--- frame. If you don\'t specify an offset, the service scales your overlay
--- to the full size of the frame. Otherwise, the service inserts the
--- overlay at its native resolution and scales the size up or down with any
--- video scaling.
---
 -- 'input', 'motionImageInserter_input' - Specify the .mov file or series of .png files that you want to overlay
 -- on your video. For .png files, provide the file name of the first file
 -- in the series. Make sure that the names of the .png files end with
@@ -136,18 +117,38 @@ data MotionImageInserter = MotionImageInserter'
 -- 'insertionMode', 'motionImageInserter_insertionMode' - Choose the type of motion graphic asset that you are providing for your
 -- overlay. You can choose either a .mov file or a series of .png files.
 --
+-- 'offset', 'motionImageInserter_offset' - Use Offset to specify the placement of your motion graphic overlay on
+-- the video frame. Specify in pixels, from the upper-left corner of the
+-- frame. If you don\'t specify an offset, the service scales your overlay
+-- to the full size of the frame. Otherwise, the service inserts the
+-- overlay at its native resolution and scales the size up or down with any
+-- video scaling.
+--
 -- 'playback', 'motionImageInserter_playback' - Specify whether your motion graphic overlay repeats on a loop or plays
 -- only once.
+--
+-- 'startTime', 'motionImageInserter_startTime' - Specify when the motion overlay begins. Use timecode format (HH:MM:SS:FF
+-- or HH:MM:SS;FF). Make sure that the timecode you provide here takes into
+-- account how you have set up your timecode configuration under both job
+-- settings and input settings. The simplest way to do that is to set both
+-- to start at 0. If you need to set up your job to follow timecodes
+-- embedded in your source that don\'t start at zero, make sure that you
+-- specify a start time that is after the first embedded timecode. For more
+-- information, see
+-- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/setting-up-timecode.html
+-- Find job-wide and input timecode configuration settings in your JSON job
+-- settings specification at settings>timecodeConfig>source and
+-- settings>inputs>timecodeSource.
 newMotionImageInserter ::
   MotionImageInserter
 newMotionImageInserter =
   MotionImageInserter'
     { framerate = Prelude.Nothing,
-      startTime = Prelude.Nothing,
-      offset = Prelude.Nothing,
       input = Prelude.Nothing,
       insertionMode = Prelude.Nothing,
-      playback = Prelude.Nothing
+      offset = Prelude.Nothing,
+      playback = Prelude.Nothing,
+      startTime = Prelude.Nothing
     }
 
 -- | If your motion graphic asset is a .mov file, keep this setting
@@ -160,30 +161,6 @@ newMotionImageInserter =
 -- need to match the frame rate of the underlying video.
 motionImageInserter_framerate :: Lens.Lens' MotionImageInserter (Prelude.Maybe MotionImageInsertionFramerate)
 motionImageInserter_framerate = Lens.lens (\MotionImageInserter' {framerate} -> framerate) (\s@MotionImageInserter' {} a -> s {framerate = a} :: MotionImageInserter)
-
--- | Specify when the motion overlay begins. Use timecode format (HH:MM:SS:FF
--- or HH:MM:SS;FF). Make sure that the timecode you provide here takes into
--- account how you have set up your timecode configuration under both job
--- settings and input settings. The simplest way to do that is to set both
--- to start at 0. If you need to set up your job to follow timecodes
--- embedded in your source that don\'t start at zero, make sure that you
--- specify a start time that is after the first embedded timecode. For more
--- information, see
--- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/setting-up-timecode.html
--- Find job-wide and input timecode configuration settings in your JSON job
--- settings specification at settings>timecodeConfig>source and
--- settings>inputs>timecodeSource.
-motionImageInserter_startTime :: Lens.Lens' MotionImageInserter (Prelude.Maybe Prelude.Text)
-motionImageInserter_startTime = Lens.lens (\MotionImageInserter' {startTime} -> startTime) (\s@MotionImageInserter' {} a -> s {startTime = a} :: MotionImageInserter)
-
--- | Use Offset to specify the placement of your motion graphic overlay on
--- the video frame. Specify in pixels, from the upper-left corner of the
--- frame. If you don\'t specify an offset, the service scales your overlay
--- to the full size of the frame. Otherwise, the service inserts the
--- overlay at its native resolution and scales the size up or down with any
--- video scaling.
-motionImageInserter_offset :: Lens.Lens' MotionImageInserter (Prelude.Maybe MotionImageInsertionOffset)
-motionImageInserter_offset = Lens.lens (\MotionImageInserter' {offset} -> offset) (\s@MotionImageInserter' {} a -> s {offset = a} :: MotionImageInserter)
 
 -- | Specify the .mov file or series of .png files that you want to overlay
 -- on your video. For .png files, provide the file name of the first file
@@ -204,52 +181,76 @@ motionImageInserter_input = Lens.lens (\MotionImageInserter' {input} -> input) (
 motionImageInserter_insertionMode :: Lens.Lens' MotionImageInserter (Prelude.Maybe MotionImageInsertionMode)
 motionImageInserter_insertionMode = Lens.lens (\MotionImageInserter' {insertionMode} -> insertionMode) (\s@MotionImageInserter' {} a -> s {insertionMode = a} :: MotionImageInserter)
 
+-- | Use Offset to specify the placement of your motion graphic overlay on
+-- the video frame. Specify in pixels, from the upper-left corner of the
+-- frame. If you don\'t specify an offset, the service scales your overlay
+-- to the full size of the frame. Otherwise, the service inserts the
+-- overlay at its native resolution and scales the size up or down with any
+-- video scaling.
+motionImageInserter_offset :: Lens.Lens' MotionImageInserter (Prelude.Maybe MotionImageInsertionOffset)
+motionImageInserter_offset = Lens.lens (\MotionImageInserter' {offset} -> offset) (\s@MotionImageInserter' {} a -> s {offset = a} :: MotionImageInserter)
+
 -- | Specify whether your motion graphic overlay repeats on a loop or plays
 -- only once.
 motionImageInserter_playback :: Lens.Lens' MotionImageInserter (Prelude.Maybe MotionImagePlayback)
 motionImageInserter_playback = Lens.lens (\MotionImageInserter' {playback} -> playback) (\s@MotionImageInserter' {} a -> s {playback = a} :: MotionImageInserter)
 
-instance Core.FromJSON MotionImageInserter where
+-- | Specify when the motion overlay begins. Use timecode format (HH:MM:SS:FF
+-- or HH:MM:SS;FF). Make sure that the timecode you provide here takes into
+-- account how you have set up your timecode configuration under both job
+-- settings and input settings. The simplest way to do that is to set both
+-- to start at 0. If you need to set up your job to follow timecodes
+-- embedded in your source that don\'t start at zero, make sure that you
+-- specify a start time that is after the first embedded timecode. For more
+-- information, see
+-- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/setting-up-timecode.html
+-- Find job-wide and input timecode configuration settings in your JSON job
+-- settings specification at settings>timecodeConfig>source and
+-- settings>inputs>timecodeSource.
+motionImageInserter_startTime :: Lens.Lens' MotionImageInserter (Prelude.Maybe Prelude.Text)
+motionImageInserter_startTime = Lens.lens (\MotionImageInserter' {startTime} -> startTime) (\s@MotionImageInserter' {} a -> s {startTime = a} :: MotionImageInserter)
+
+instance Data.FromJSON MotionImageInserter where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MotionImageInserter"
       ( \x ->
           MotionImageInserter'
-            Prelude.<$> (x Core..:? "framerate")
-            Prelude.<*> (x Core..:? "startTime")
-            Prelude.<*> (x Core..:? "offset")
-            Prelude.<*> (x Core..:? "input")
-            Prelude.<*> (x Core..:? "insertionMode")
-            Prelude.<*> (x Core..:? "playback")
+            Prelude.<$> (x Data..:? "framerate")
+            Prelude.<*> (x Data..:? "input")
+            Prelude.<*> (x Data..:? "insertionMode")
+            Prelude.<*> (x Data..:? "offset")
+            Prelude.<*> (x Data..:? "playback")
+            Prelude.<*> (x Data..:? "startTime")
       )
 
 instance Prelude.Hashable MotionImageInserter where
   hashWithSalt _salt MotionImageInserter' {..} =
     _salt `Prelude.hashWithSalt` framerate
-      `Prelude.hashWithSalt` startTime
-      `Prelude.hashWithSalt` offset
       `Prelude.hashWithSalt` input
       `Prelude.hashWithSalt` insertionMode
+      `Prelude.hashWithSalt` offset
       `Prelude.hashWithSalt` playback
+      `Prelude.hashWithSalt` startTime
 
 instance Prelude.NFData MotionImageInserter where
   rnf MotionImageInserter' {..} =
     Prelude.rnf framerate
-      `Prelude.seq` Prelude.rnf startTime
-      `Prelude.seq` Prelude.rnf offset
       `Prelude.seq` Prelude.rnf input
       `Prelude.seq` Prelude.rnf insertionMode
+      `Prelude.seq` Prelude.rnf offset
       `Prelude.seq` Prelude.rnf playback
+      `Prelude.seq` Prelude.rnf startTime
 
-instance Core.ToJSON MotionImageInserter where
+instance Data.ToJSON MotionImageInserter where
   toJSON MotionImageInserter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("framerate" Core..=) Prelude.<$> framerate,
-            ("startTime" Core..=) Prelude.<$> startTime,
-            ("offset" Core..=) Prelude.<$> offset,
-            ("input" Core..=) Prelude.<$> input,
-            ("insertionMode" Core..=) Prelude.<$> insertionMode,
-            ("playback" Core..=) Prelude.<$> playback
+          [ ("framerate" Data..=) Prelude.<$> framerate,
+            ("input" Data..=) Prelude.<$> input,
+            ("insertionMode" Data..=) Prelude.<$> insertionMode,
+            ("offset" Data..=) Prelude.<$> offset,
+            ("playback" Data..=) Prelude.<$> playback,
+            ("startTime" Data..=) Prelude.<$> startTime
           ]
       )

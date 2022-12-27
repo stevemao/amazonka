@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.DeregisterTaskDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,16 +27,16 @@
 -- @INACTIVE@ task definition can still scale up or down by modifying the
 -- service\'s desired count.
 --
--- You cannot use an @INACTIVE@ task definition to run new tasks or create
--- new services, and you cannot update an existing service to reference an
+-- You can\'t use an @INACTIVE@ task definition to run new tasks or create
+-- new services, and you can\'t update an existing service to reference an
 -- @INACTIVE@ task definition. However, there may be up to a 10-minute
 -- window following deregistration where these restrictions have not yet
 -- taken effect.
 --
 -- At this time, @INACTIVE@ task definitions remain discoverable in your
 -- account indefinitely. However, this behavior is subject to change in the
--- future, so you should not rely on @INACTIVE@ task definitions persisting
--- beyond the lifecycle of any associated tasks and services.
+-- future. We don\'t recommend that you rely on @INACTIVE@ task definitions
+-- persisting beyond the lifecycle of any associated tasks and services.
 module Amazonka.ECS.DeregisterTaskDefinition
   ( -- * Creating a Request
     DeregisterTaskDefinition (..),
@@ -56,8 +56,9 @@ module Amazonka.ECS.DeregisterTaskDefinition
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,12 +103,13 @@ instance Core.AWSRequest DeregisterTaskDefinition where
   type
     AWSResponse DeregisterTaskDefinition =
       DeregisterTaskDefinitionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeregisterTaskDefinitionResponse'
-            Prelude.<$> (x Core..?> "taskDefinition")
+            Prelude.<$> (x Data..?> "taskDefinition")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -119,34 +121,34 @@ instance Prelude.NFData DeregisterTaskDefinition where
   rnf DeregisterTaskDefinition' {..} =
     Prelude.rnf taskDefinition
 
-instance Core.ToHeaders DeregisterTaskDefinition where
+instance Data.ToHeaders DeregisterTaskDefinition where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerServiceV20141113.DeregisterTaskDefinition" ::
+              Data.=# ( "AmazonEC2ContainerServiceV20141113.DeregisterTaskDefinition" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeregisterTaskDefinition where
+instance Data.ToJSON DeregisterTaskDefinition where
   toJSON DeregisterTaskDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("taskDefinition" Core..= taskDefinition)
+              ("taskDefinition" Data..= taskDefinition)
           ]
       )
 
-instance Core.ToPath DeregisterTaskDefinition where
+instance Data.ToPath DeregisterTaskDefinition where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeregisterTaskDefinition where
+instance Data.ToQuery DeregisterTaskDefinition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeregisterTaskDefinitionResponse' smart constructor.

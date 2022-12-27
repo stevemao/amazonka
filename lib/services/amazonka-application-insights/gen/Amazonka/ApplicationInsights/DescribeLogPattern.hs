@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApplicationInsights.DescribeLogPattern
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.ApplicationInsights.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -108,13 +109,14 @@ instance Core.AWSRequest DescribeLogPattern where
   type
     AWSResponse DescribeLogPattern =
       DescribeLogPatternResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeLogPatternResponse'
-            Prelude.<$> (x Core..?> "LogPattern")
-            Prelude.<*> (x Core..?> "ResourceGroupName")
+            Prelude.<$> (x Data..?> "LogPattern")
+            Prelude.<*> (x Data..?> "ResourceGroupName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -130,37 +132,37 @@ instance Prelude.NFData DescribeLogPattern where
       `Prelude.seq` Prelude.rnf patternSetName
       `Prelude.seq` Prelude.rnf patternName
 
-instance Core.ToHeaders DescribeLogPattern where
+instance Data.ToHeaders DescribeLogPattern where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "EC2WindowsBarleyService.DescribeLogPattern" ::
+              Data.=# ( "EC2WindowsBarleyService.DescribeLogPattern" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeLogPattern where
+instance Data.ToJSON DescribeLogPattern where
   toJSON DescribeLogPattern' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ResourceGroupName" Core..= resourceGroupName),
+              ("ResourceGroupName" Data..= resourceGroupName),
             Prelude.Just
-              ("PatternSetName" Core..= patternSetName),
-            Prelude.Just ("PatternName" Core..= patternName)
+              ("PatternSetName" Data..= patternSetName),
+            Prelude.Just ("PatternName" Data..= patternName)
           ]
       )
 
-instance Core.ToPath DescribeLogPattern where
+instance Data.ToPath DescribeLogPattern where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeLogPattern where
+instance Data.ToQuery DescribeLogPattern where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeLogPatternResponse' smart constructor.

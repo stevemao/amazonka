@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.DescribeCommands
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,9 +35,9 @@ module Amazonka.OpsWorks.DescribeCommands
     newDescribeCommands,
 
     -- * Request Lenses
+    describeCommands_commandIds,
     describeCommands_deploymentId,
     describeCommands_instanceId,
-    describeCommands_commandIds,
 
     -- * Destructuring the Response
     DescribeCommandsResponse (..),
@@ -50,7 +50,8 @@ module Amazonka.OpsWorks.DescribeCommands
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -58,18 +59,18 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeCommands' smart constructor.
 data DescribeCommands = DescribeCommands'
-  { -- | The deployment ID. If you include this parameter, @DescribeCommands@
+  { -- | An array of command IDs. If you include this parameter,
+    -- @DescribeCommands@ returns a description of the specified commands.
+    -- Otherwise, it returns a description of every command.
+    commandIds :: Prelude.Maybe [Prelude.Text],
+    -- | The deployment ID. If you include this parameter, @DescribeCommands@
     -- returns a description of the commands associated with the specified
     -- deployment.
     deploymentId :: Prelude.Maybe Prelude.Text,
     -- | The instance ID. If you include this parameter, @DescribeCommands@
     -- returns a description of the commands associated with the specified
     -- instance.
-    instanceId :: Prelude.Maybe Prelude.Text,
-    -- | An array of command IDs. If you include this parameter,
-    -- @DescribeCommands@ returns a description of the specified commands.
-    -- Otherwise, it returns a description of every command.
-    commandIds :: Prelude.Maybe [Prelude.Text]
+    instanceId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -81,6 +82,10 @@ data DescribeCommands = DescribeCommands'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'commandIds', 'describeCommands_commandIds' - An array of command IDs. If you include this parameter,
+-- @DescribeCommands@ returns a description of the specified commands.
+-- Otherwise, it returns a description of every command.
+--
 -- 'deploymentId', 'describeCommands_deploymentId' - The deployment ID. If you include this parameter, @DescribeCommands@
 -- returns a description of the commands associated with the specified
 -- deployment.
@@ -88,18 +93,20 @@ data DescribeCommands = DescribeCommands'
 -- 'instanceId', 'describeCommands_instanceId' - The instance ID. If you include this parameter, @DescribeCommands@
 -- returns a description of the commands associated with the specified
 -- instance.
---
--- 'commandIds', 'describeCommands_commandIds' - An array of command IDs. If you include this parameter,
--- @DescribeCommands@ returns a description of the specified commands.
--- Otherwise, it returns a description of every command.
 newDescribeCommands ::
   DescribeCommands
 newDescribeCommands =
   DescribeCommands'
-    { deploymentId = Prelude.Nothing,
-      instanceId = Prelude.Nothing,
-      commandIds = Prelude.Nothing
+    { commandIds = Prelude.Nothing,
+      deploymentId = Prelude.Nothing,
+      instanceId = Prelude.Nothing
     }
+
+-- | An array of command IDs. If you include this parameter,
+-- @DescribeCommands@ returns a description of the specified commands.
+-- Otherwise, it returns a description of every command.
+describeCommands_commandIds :: Lens.Lens' DescribeCommands (Prelude.Maybe [Prelude.Text])
+describeCommands_commandIds = Lens.lens (\DescribeCommands' {commandIds} -> commandIds) (\s@DescribeCommands' {} a -> s {commandIds = a} :: DescribeCommands) Prelude.. Lens.mapping Lens.coerced
 
 -- | The deployment ID. If you include this parameter, @DescribeCommands@
 -- returns a description of the commands associated with the specified
@@ -113,66 +120,61 @@ describeCommands_deploymentId = Lens.lens (\DescribeCommands' {deploymentId} -> 
 describeCommands_instanceId :: Lens.Lens' DescribeCommands (Prelude.Maybe Prelude.Text)
 describeCommands_instanceId = Lens.lens (\DescribeCommands' {instanceId} -> instanceId) (\s@DescribeCommands' {} a -> s {instanceId = a} :: DescribeCommands)
 
--- | An array of command IDs. If you include this parameter,
--- @DescribeCommands@ returns a description of the specified commands.
--- Otherwise, it returns a description of every command.
-describeCommands_commandIds :: Lens.Lens' DescribeCommands (Prelude.Maybe [Prelude.Text])
-describeCommands_commandIds = Lens.lens (\DescribeCommands' {commandIds} -> commandIds) (\s@DescribeCommands' {} a -> s {commandIds = a} :: DescribeCommands) Prelude.. Lens.mapping Lens.coerced
-
 instance Core.AWSRequest DescribeCommands where
   type
     AWSResponse DescribeCommands =
       DescribeCommandsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeCommandsResponse'
-            Prelude.<$> (x Core..?> "Commands" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Commands" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeCommands where
   hashWithSalt _salt DescribeCommands' {..} =
-    _salt `Prelude.hashWithSalt` deploymentId
+    _salt `Prelude.hashWithSalt` commandIds
+      `Prelude.hashWithSalt` deploymentId
       `Prelude.hashWithSalt` instanceId
-      `Prelude.hashWithSalt` commandIds
 
 instance Prelude.NFData DescribeCommands where
   rnf DescribeCommands' {..} =
-    Prelude.rnf deploymentId
+    Prelude.rnf commandIds
+      `Prelude.seq` Prelude.rnf deploymentId
       `Prelude.seq` Prelude.rnf instanceId
-      `Prelude.seq` Prelude.rnf commandIds
 
-instance Core.ToHeaders DescribeCommands where
+instance Data.ToHeaders DescribeCommands where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.DescribeCommands" ::
+              Data.=# ( "OpsWorks_20130218.DescribeCommands" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeCommands where
+instance Data.ToJSON DescribeCommands where
   toJSON DescribeCommands' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DeploymentId" Core..=) Prelude.<$> deploymentId,
-            ("InstanceId" Core..=) Prelude.<$> instanceId,
-            ("CommandIds" Core..=) Prelude.<$> commandIds
+          [ ("CommandIds" Data..=) Prelude.<$> commandIds,
+            ("DeploymentId" Data..=) Prelude.<$> deploymentId,
+            ("InstanceId" Data..=) Prelude.<$> instanceId
           ]
       )
 
-instance Core.ToPath DescribeCommands where
+instance Data.ToPath DescribeCommands where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeCommands where
+instance Data.ToQuery DescribeCommands where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the response to a @DescribeCommands@ request.

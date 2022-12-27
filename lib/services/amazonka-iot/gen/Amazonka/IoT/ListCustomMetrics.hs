@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.ListCustomMetrics
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,8 @@ module Amazonka.IoT.ListCustomMetrics
     newListCustomMetrics,
 
     -- * Request Lenses
-    listCustomMetrics_nextToken,
     listCustomMetrics_maxResults,
+    listCustomMetrics_nextToken,
 
     -- * Destructuring the Response
     ListCustomMetricsResponse (..),
@@ -48,18 +48,19 @@ module Amazonka.IoT.ListCustomMetrics
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListCustomMetrics' smart constructor.
 data ListCustomMetrics = ListCustomMetrics'
-  { -- | The token for the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return at one time. The default is 25.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | The maximum number of results to return at one time. The default is 25.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -71,24 +72,24 @@ data ListCustomMetrics = ListCustomMetrics'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listCustomMetrics_nextToken' - The token for the next set of results.
---
 -- 'maxResults', 'listCustomMetrics_maxResults' - The maximum number of results to return at one time. The default is 25.
+--
+-- 'nextToken', 'listCustomMetrics_nextToken' - The token for the next set of results.
 newListCustomMetrics ::
   ListCustomMetrics
 newListCustomMetrics =
   ListCustomMetrics'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The token for the next set of results.
-listCustomMetrics_nextToken :: Lens.Lens' ListCustomMetrics (Prelude.Maybe Prelude.Text)
-listCustomMetrics_nextToken = Lens.lens (\ListCustomMetrics' {nextToken} -> nextToken) (\s@ListCustomMetrics' {} a -> s {nextToken = a} :: ListCustomMetrics)
 
 -- | The maximum number of results to return at one time. The default is 25.
 listCustomMetrics_maxResults :: Lens.Lens' ListCustomMetrics (Prelude.Maybe Prelude.Natural)
 listCustomMetrics_maxResults = Lens.lens (\ListCustomMetrics' {maxResults} -> maxResults) (\s@ListCustomMetrics' {} a -> s {maxResults = a} :: ListCustomMetrics)
+
+-- | The token for the next set of results.
+listCustomMetrics_nextToken :: Lens.Lens' ListCustomMetrics (Prelude.Maybe Prelude.Text)
+listCustomMetrics_nextToken = Lens.lens (\ListCustomMetrics' {nextToken} -> nextToken) (\s@ListCustomMetrics' {} a -> s {nextToken = a} :: ListCustomMetrics)
 
 instance Core.AWSPager ListCustomMetrics where
   page rq rs
@@ -116,37 +117,38 @@ instance Core.AWSRequest ListCustomMetrics where
   type
     AWSResponse ListCustomMetrics =
       ListCustomMetricsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListCustomMetricsResponse'
-            Prelude.<$> (x Core..?> "metricNames" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "metricNames" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListCustomMetrics where
   hashWithSalt _salt ListCustomMetrics' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListCustomMetrics where
   rnf ListCustomMetrics' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListCustomMetrics where
+instance Data.ToHeaders ListCustomMetrics where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListCustomMetrics where
+instance Data.ToPath ListCustomMetrics where
   toPath = Prelude.const "/custom-metrics"
 
-instance Core.ToQuery ListCustomMetrics where
+instance Data.ToQuery ListCustomMetrics where
   toQuery ListCustomMetrics' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListCustomMetricsResponse' smart constructor.

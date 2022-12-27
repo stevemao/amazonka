@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideo.UpdateSignalingChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.KinesisVideo.UpdateSignalingChannel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisVideo.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -115,7 +116,8 @@ instance Core.AWSRequest UpdateSignalingChannel where
   type
     AWSResponse UpdateSignalingChannel =
       UpdateSignalingChannelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -136,25 +138,25 @@ instance Prelude.NFData UpdateSignalingChannel where
       `Prelude.seq` Prelude.rnf channelARN
       `Prelude.seq` Prelude.rnf currentVersion
 
-instance Core.ToHeaders UpdateSignalingChannel where
+instance Data.ToHeaders UpdateSignalingChannel where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateSignalingChannel where
+instance Data.ToJSON UpdateSignalingChannel where
   toJSON UpdateSignalingChannel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SingleMasterConfiguration" Core..=)
+          [ ("SingleMasterConfiguration" Data..=)
               Prelude.<$> singleMasterConfiguration,
-            Prelude.Just ("ChannelARN" Core..= channelARN),
+            Prelude.Just ("ChannelARN" Data..= channelARN),
             Prelude.Just
-              ("CurrentVersion" Core..= currentVersion)
+              ("CurrentVersion" Data..= currentVersion)
           ]
       )
 
-instance Core.ToPath UpdateSignalingChannel where
+instance Data.ToPath UpdateSignalingChannel where
   toPath = Prelude.const "/updateSignalingChannel"
 
-instance Core.ToQuery UpdateSignalingChannel where
+instance Data.ToQuery UpdateSignalingChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateSignalingChannelResponse' smart constructor.

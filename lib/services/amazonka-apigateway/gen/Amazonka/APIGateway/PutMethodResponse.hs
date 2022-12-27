@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.PutMethodResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,14 +40,15 @@ module Amazonka.APIGateway.PutMethodResponse
 
     -- * Response Lenses
     methodResponse_responseModels,
-    methodResponse_statusCode,
     methodResponse_responseParameters,
+    methodResponse_statusCode,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -74,13 +75,13 @@ data PutMethodResponse = PutMethodResponse'
     -- @integration.response.body.{JSON-expression}@, where @JSON-expression@
     -- is a valid JSON expression without the @$@ prefix.)
     responseParameters :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Bool),
-    -- | [Required] The string identifier of the associated RestApi.
+    -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] The Resource identifier for the Method resource.
+    -- | The Resource identifier for the Method resource.
     resourceId :: Prelude.Text,
-    -- | [Required] The HTTP verb of the Method resource.
+    -- | The HTTP verb of the Method resource.
     httpMethod :: Prelude.Text,
-    -- | [Required] The method response\'s status code.
+    -- | The method response\'s status code.
     statusCode :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -111,13 +112,13 @@ data PutMethodResponse = PutMethodResponse'
 -- @integration.response.body.{JSON-expression}@, where @JSON-expression@
 -- is a valid JSON expression without the @$@ prefix.)
 --
--- 'restApiId', 'putMethodResponse_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'putMethodResponse_restApiId' - The string identifier of the associated RestApi.
 --
--- 'resourceId', 'putMethodResponse_resourceId' - [Required] The Resource identifier for the Method resource.
+-- 'resourceId', 'putMethodResponse_resourceId' - The Resource identifier for the Method resource.
 --
--- 'httpMethod', 'putMethodResponse_httpMethod' - [Required] The HTTP verb of the Method resource.
+-- 'httpMethod', 'putMethodResponse_httpMethod' - The HTTP verb of the Method resource.
 --
--- 'statusCode', 'putMethodResponse_statusCode' - [Required] The method response\'s status code.
+-- 'statusCode', 'putMethodResponse_statusCode' - The method response\'s status code.
 newPutMethodResponse ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -165,28 +166,29 @@ putMethodResponse_responseModels = Lens.lens (\PutMethodResponse' {responseModel
 putMethodResponse_responseParameters :: Lens.Lens' PutMethodResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Bool))
 putMethodResponse_responseParameters = Lens.lens (\PutMethodResponse' {responseParameters} -> responseParameters) (\s@PutMethodResponse' {} a -> s {responseParameters = a} :: PutMethodResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 putMethodResponse_restApiId :: Lens.Lens' PutMethodResponse Prelude.Text
 putMethodResponse_restApiId = Lens.lens (\PutMethodResponse' {restApiId} -> restApiId) (\s@PutMethodResponse' {} a -> s {restApiId = a} :: PutMethodResponse)
 
--- | [Required] The Resource identifier for the Method resource.
+-- | The Resource identifier for the Method resource.
 putMethodResponse_resourceId :: Lens.Lens' PutMethodResponse Prelude.Text
 putMethodResponse_resourceId = Lens.lens (\PutMethodResponse' {resourceId} -> resourceId) (\s@PutMethodResponse' {} a -> s {resourceId = a} :: PutMethodResponse)
 
--- | [Required] The HTTP verb of the Method resource.
+-- | The HTTP verb of the Method resource.
 putMethodResponse_httpMethod :: Lens.Lens' PutMethodResponse Prelude.Text
 putMethodResponse_httpMethod = Lens.lens (\PutMethodResponse' {httpMethod} -> httpMethod) (\s@PutMethodResponse' {} a -> s {httpMethod = a} :: PutMethodResponse)
 
--- | [Required] The method response\'s status code.
+-- | The method response\'s status code.
 putMethodResponse_statusCode :: Lens.Lens' PutMethodResponse Prelude.Text
 putMethodResponse_statusCode = Lens.lens (\PutMethodResponse' {statusCode} -> statusCode) (\s@PutMethodResponse' {} a -> s {statusCode = a} :: PutMethodResponse)
 
 instance Core.AWSRequest PutMethodResponse where
   type AWSResponse PutMethodResponse = MethodResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable PutMethodResponse where
   hashWithSalt _salt PutMethodResponse' {..} =
@@ -206,38 +208,38 @@ instance Prelude.NFData PutMethodResponse where
       `Prelude.seq` Prelude.rnf httpMethod
       `Prelude.seq` Prelude.rnf statusCode
 
-instance Core.ToHeaders PutMethodResponse where
+instance Data.ToHeaders PutMethodResponse where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToJSON PutMethodResponse where
+instance Data.ToJSON PutMethodResponse where
   toJSON PutMethodResponse' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("responseModels" Core..=)
+          [ ("responseModels" Data..=)
               Prelude.<$> responseModels,
-            ("responseParameters" Core..=)
+            ("responseParameters" Data..=)
               Prelude.<$> responseParameters
           ]
       )
 
-instance Core.ToPath PutMethodResponse where
+instance Data.ToPath PutMethodResponse where
   toPath PutMethodResponse' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/resources/",
-        Core.toBS resourceId,
+        Data.toBS resourceId,
         "/methods/",
-        Core.toBS httpMethod,
+        Data.toBS httpMethod,
         "/responses/",
-        Core.toBS statusCode
+        Data.toBS statusCode
       ]
 
-instance Core.ToQuery PutMethodResponse where
+instance Data.ToQuery PutMethodResponse where
   toQuery = Prelude.const Prelude.mempty

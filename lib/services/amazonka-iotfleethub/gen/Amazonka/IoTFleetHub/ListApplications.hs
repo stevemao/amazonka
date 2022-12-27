@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTFleetHub.ListApplications
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,15 +40,16 @@ module Amazonka.IoTFleetHub.ListApplications
     newListApplicationsResponse,
 
     -- * Response Lenses
-    listApplicationsResponse_nextToken,
     listApplicationsResponse_applicationSummaries,
+    listApplicationsResponse_nextToken,
     listApplicationsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTFleetHub.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -104,15 +105,16 @@ instance Core.AWSRequest ListApplications where
   type
     AWSResponse ListApplications =
       ListApplicationsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListApplicationsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> ( x Core..?> "applicationSummaries"
+            Prelude.<$> ( x Data..?> "applicationSummaries"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -123,31 +125,31 @@ instance Prelude.Hashable ListApplications where
 instance Prelude.NFData ListApplications where
   rnf ListApplications' {..} = Prelude.rnf nextToken
 
-instance Core.ToHeaders ListApplications where
+instance Data.ToHeaders ListApplications where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListApplications where
+instance Data.ToPath ListApplications where
   toPath = Prelude.const "/applications"
 
-instance Core.ToQuery ListApplications where
+instance Data.ToQuery ListApplications where
   toQuery ListApplications' {..} =
-    Prelude.mconcat ["nextToken" Core.=: nextToken]
+    Prelude.mconcat ["nextToken" Data.=: nextToken]
 
 -- | /See:/ 'newListApplicationsResponse' smart constructor.
 data ListApplicationsResponse = ListApplicationsResponse'
-  { -- | A token used to get the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | An array of objects that provide summaries of information about the web
+  { -- | An array of objects that provide summaries of information about the web
     -- applications in the list.
     applicationSummaries :: Prelude.Maybe [ApplicationSummary],
+    -- | A token used to get the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -161,10 +163,10 @@ data ListApplicationsResponse = ListApplicationsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listApplicationsResponse_nextToken' - A token used to get the next set of results.
---
 -- 'applicationSummaries', 'listApplicationsResponse_applicationSummaries' - An array of objects that provide summaries of information about the web
 -- applications in the list.
+--
+-- 'nextToken', 'listApplicationsResponse_nextToken' - A token used to get the next set of results.
 --
 -- 'httpStatus', 'listApplicationsResponse_httpStatus' - The response's http status code.
 newListApplicationsResponse ::
@@ -173,20 +175,20 @@ newListApplicationsResponse ::
   ListApplicationsResponse
 newListApplicationsResponse pHttpStatus_ =
   ListApplicationsResponse'
-    { nextToken =
+    { applicationSummaries =
         Prelude.Nothing,
-      applicationSummaries = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A token used to get the next set of results.
-listApplicationsResponse_nextToken :: Lens.Lens' ListApplicationsResponse (Prelude.Maybe Prelude.Text)
-listApplicationsResponse_nextToken = Lens.lens (\ListApplicationsResponse' {nextToken} -> nextToken) (\s@ListApplicationsResponse' {} a -> s {nextToken = a} :: ListApplicationsResponse)
 
 -- | An array of objects that provide summaries of information about the web
 -- applications in the list.
 listApplicationsResponse_applicationSummaries :: Lens.Lens' ListApplicationsResponse (Prelude.Maybe [ApplicationSummary])
 listApplicationsResponse_applicationSummaries = Lens.lens (\ListApplicationsResponse' {applicationSummaries} -> applicationSummaries) (\s@ListApplicationsResponse' {} a -> s {applicationSummaries = a} :: ListApplicationsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | A token used to get the next set of results.
+listApplicationsResponse_nextToken :: Lens.Lens' ListApplicationsResponse (Prelude.Maybe Prelude.Text)
+listApplicationsResponse_nextToken = Lens.lens (\ListApplicationsResponse' {nextToken} -> nextToken) (\s@ListApplicationsResponse' {} a -> s {nextToken = a} :: ListApplicationsResponse)
 
 -- | The response's http status code.
 listApplicationsResponse_httpStatus :: Lens.Lens' ListApplicationsResponse Prelude.Int
@@ -194,6 +196,6 @@ listApplicationsResponse_httpStatus = Lens.lens (\ListApplicationsResponse' {htt
 
 instance Prelude.NFData ListApplicationsResponse where
   rnf ListApplicationsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf applicationSummaries
+    Prelude.rnf applicationSummaries
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

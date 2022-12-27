@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.Types.ServerCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.IAM.Types.ServerCertificate where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types.ServerCertificateMetadata
 import Amazonka.IAM.Types.Tag
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about a server certificate.
@@ -104,15 +105,15 @@ serverCertificate_serverCertificateMetadata = Lens.lens (\ServerCertificate' {se
 serverCertificate_certificateBody :: Lens.Lens' ServerCertificate Prelude.Text
 serverCertificate_certificateBody = Lens.lens (\ServerCertificate' {certificateBody} -> certificateBody) (\s@ServerCertificate' {} a -> s {certificateBody = a} :: ServerCertificate)
 
-instance Core.FromXML ServerCertificate where
+instance Data.FromXML ServerCertificate where
   parseXML x =
     ServerCertificate'
-      Prelude.<$> (x Core..@? "CertificateChain")
-      Prelude.<*> ( x Core..@? "Tags" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "member")
+      Prelude.<$> (x Data..@? "CertificateChain")
+      Prelude.<*> ( x Data..@? "Tags" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "member")
                   )
-      Prelude.<*> (x Core..@ "ServerCertificateMetadata")
-      Prelude.<*> (x Core..@ "CertificateBody")
+      Prelude.<*> (x Data..@ "ServerCertificateMetadata")
+      Prelude.<*> (x Data..@ "CertificateBody")
 
 instance Prelude.Hashable ServerCertificate where
   hashWithSalt _salt ServerCertificate' {..} =

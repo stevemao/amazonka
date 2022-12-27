@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.DescribeSessions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.SSM.DescribeSessions
 
     -- * Request Lenses
     describeSessions_filters,
-    describeSessions_nextToken,
     describeSessions_maxResults,
+    describeSessions_nextToken,
     describeSessions_state,
 
     -- * Destructuring the Response
@@ -47,7 +47,8 @@ module Amazonka.SSM.DescribeSessions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,13 +59,13 @@ data DescribeSessions = DescribeSessions'
   { -- | One or more filters to limit the type of sessions returned by the
     -- request.
     filters :: Prelude.Maybe (Prelude.NonEmpty SessionFilter),
-    -- | The token for the next set of items to return. (You received this token
-    -- from a previous call.)
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of items to return for this call. The call also
     -- returns a token that you can specify in a subsequent call to get the
     -- next set of results.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The session status to retrieve a list of sessions for. For example,
     -- \"Active\".
     state :: SessionState
@@ -82,12 +83,12 @@ data DescribeSessions = DescribeSessions'
 -- 'filters', 'describeSessions_filters' - One or more filters to limit the type of sessions returned by the
 -- request.
 --
--- 'nextToken', 'describeSessions_nextToken' - The token for the next set of items to return. (You received this token
--- from a previous call.)
---
 -- 'maxResults', 'describeSessions_maxResults' - The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results.
+--
+-- 'nextToken', 'describeSessions_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 --
 -- 'state', 'describeSessions_state' - The session status to retrieve a list of sessions for. For example,
 -- \"Active\".
@@ -98,8 +99,8 @@ newDescribeSessions ::
 newDescribeSessions pState_ =
   DescribeSessions'
     { filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       state = pState_
     }
 
@@ -108,16 +109,16 @@ newDescribeSessions pState_ =
 describeSessions_filters :: Lens.Lens' DescribeSessions (Prelude.Maybe (Prelude.NonEmpty SessionFilter))
 describeSessions_filters = Lens.lens (\DescribeSessions' {filters} -> filters) (\s@DescribeSessions' {} a -> s {filters = a} :: DescribeSessions) Prelude.. Lens.mapping Lens.coerced
 
--- | The token for the next set of items to return. (You received this token
--- from a previous call.)
-describeSessions_nextToken :: Lens.Lens' DescribeSessions (Prelude.Maybe Prelude.Text)
-describeSessions_nextToken = Lens.lens (\DescribeSessions' {nextToken} -> nextToken) (\s@DescribeSessions' {} a -> s {nextToken = a} :: DescribeSessions)
-
 -- | The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results.
 describeSessions_maxResults :: Lens.Lens' DescribeSessions (Prelude.Maybe Prelude.Natural)
 describeSessions_maxResults = Lens.lens (\DescribeSessions' {maxResults} -> maxResults) (\s@DescribeSessions' {} a -> s {maxResults = a} :: DescribeSessions)
+
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+describeSessions_nextToken :: Lens.Lens' DescribeSessions (Prelude.Maybe Prelude.Text)
+describeSessions_nextToken = Lens.lens (\DescribeSessions' {nextToken} -> nextToken) (\s@DescribeSessions' {} a -> s {nextToken = a} :: DescribeSessions)
 
 -- | The session status to retrieve a list of sessions for. For example,
 -- \"Active\".
@@ -150,58 +151,59 @@ instance Core.AWSRequest DescribeSessions where
   type
     AWSResponse DescribeSessions =
       DescribeSessionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeSessionsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Sessions" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Sessions" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeSessions where
   hashWithSalt _salt DescribeSessions' {..} =
     _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` state
 
 instance Prelude.NFData DescribeSessions where
   rnf DescribeSessions' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf state
 
-instance Core.ToHeaders DescribeSessions where
+instance Data.ToHeaders DescribeSessions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AmazonSSM.DescribeSessions" :: Prelude.ByteString),
+              Data.=# ("AmazonSSM.DescribeSessions" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeSessions where
+instance Data.ToJSON DescribeSessions where
   toJSON DescribeSessions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("State" Core..= state)
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("State" Data..= state)
           ]
       )
 
-instance Core.ToPath DescribeSessions where
+instance Data.ToPath DescribeSessions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeSessions where
+instance Data.ToQuery DescribeSessions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeSessionsResponse' smart constructor.

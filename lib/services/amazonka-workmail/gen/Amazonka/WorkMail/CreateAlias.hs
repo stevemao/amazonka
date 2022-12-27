@@ -14,14 +14,13 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.CreateAlias
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds an alias to the set of a given member (user or group) of Amazon
--- WorkMail.
+-- Adds an alias to the set of a given member (user or group) of WorkMail.
 module Amazonka.WorkMail.CreateAlias
   ( -- * Creating a Request
     CreateAlias (..),
@@ -42,7 +41,8 @@ module Amazonka.WorkMail.CreateAlias
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -101,7 +101,8 @@ createAlias_alias = Lens.lens (\CreateAlias' {alias} -> alias) (\s@CreateAlias' 
 
 instance Core.AWSRequest CreateAlias where
   type AWSResponse CreateAlias = CreateAliasResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -121,36 +122,36 @@ instance Prelude.NFData CreateAlias where
       `Prelude.seq` Prelude.rnf entityId
       `Prelude.seq` Prelude.rnf alias
 
-instance Core.ToHeaders CreateAlias where
+instance Data.ToHeaders CreateAlias where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkMailService.CreateAlias" ::
+              Data.=# ( "WorkMailService.CreateAlias" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateAlias where
+instance Data.ToJSON CreateAlias where
   toJSON CreateAlias' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("OrganizationId" Core..= organizationId),
-            Prelude.Just ("EntityId" Core..= entityId),
-            Prelude.Just ("Alias" Core..= alias)
+              ("OrganizationId" Data..= organizationId),
+            Prelude.Just ("EntityId" Data..= entityId),
+            Prelude.Just ("Alias" Data..= alias)
           ]
       )
 
-instance Core.ToPath CreateAlias where
+instance Data.ToPath CreateAlias where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateAlias where
+instance Data.ToQuery CreateAlias where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateAliasResponse' smart constructor.

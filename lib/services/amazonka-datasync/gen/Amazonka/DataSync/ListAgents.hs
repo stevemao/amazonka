@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataSync.ListAgents
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,8 @@ module Amazonka.DataSync.ListAgents
     newListAgents,
 
     -- * Request Lenses
-    listAgents_nextToken,
     listAgents_maxResults,
+    listAgents_nextToken,
 
     -- * Destructuring the Response
     ListAgentsResponse (..),
@@ -55,8 +55,9 @@ module Amazonka.DataSync.ListAgents
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataSync.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -65,11 +66,11 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListAgents' smart constructor.
 data ListAgents = ListAgents'
-  { -- | An opaque string that indicates the position at which to begin the next
+  { -- | The maximum number of agents to list.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | An opaque string that indicates the position at which to begin the next
     -- list of agents.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of agents to list.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -81,26 +82,26 @@ data ListAgents = ListAgents'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listAgents_maxResults' - The maximum number of agents to list.
+--
 -- 'nextToken', 'listAgents_nextToken' - An opaque string that indicates the position at which to begin the next
 -- list of agents.
---
--- 'maxResults', 'listAgents_maxResults' - The maximum number of agents to list.
 newListAgents ::
   ListAgents
 newListAgents =
   ListAgents'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of agents to list.
+listAgents_maxResults :: Lens.Lens' ListAgents (Prelude.Maybe Prelude.Natural)
+listAgents_maxResults = Lens.lens (\ListAgents' {maxResults} -> maxResults) (\s@ListAgents' {} a -> s {maxResults = a} :: ListAgents)
 
 -- | An opaque string that indicates the position at which to begin the next
 -- list of agents.
 listAgents_nextToken :: Lens.Lens' ListAgents (Prelude.Maybe Prelude.Text)
 listAgents_nextToken = Lens.lens (\ListAgents' {nextToken} -> nextToken) (\s@ListAgents' {} a -> s {nextToken = a} :: ListAgents)
-
--- | The maximum number of agents to list.
-listAgents_maxResults :: Lens.Lens' ListAgents (Prelude.Maybe Prelude.Natural)
-listAgents_maxResults = Lens.lens (\ListAgents' {maxResults} -> maxResults) (\s@ListAgents' {} a -> s {maxResults = a} :: ListAgents)
 
 instance Core.AWSPager ListAgents where
   page rq rs
@@ -123,52 +124,53 @@ instance Core.AWSPager ListAgents where
 
 instance Core.AWSRequest ListAgents where
   type AWSResponse ListAgents = ListAgentsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAgentsResponse'
-            Prelude.<$> (x Core..?> "Agents" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Agents" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListAgents where
   hashWithSalt _salt ListAgents' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListAgents where
   rnf ListAgents' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListAgents where
+instance Data.ToHeaders ListAgents where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("FmrsService.ListAgents" :: Prelude.ByteString),
+              Data.=# ("FmrsService.ListAgents" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListAgents where
+instance Data.ToJSON ListAgents where
   toJSON ListAgents' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListAgents where
+instance Data.ToPath ListAgents where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListAgents where
+instance Data.ToQuery ListAgents where
   toQuery = Prelude.const Prelude.mempty
 
 -- | ListAgentsResponse

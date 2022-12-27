@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DescribeAuditSuppression
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,17 +36,18 @@ module Amazonka.IoT.DescribeAuditSuppression
 
     -- * Response Lenses
     describeAuditSuppressionResponse_checkName,
-    describeAuditSuppressionResponse_expirationDate,
-    describeAuditSuppressionResponse_suppressIndefinitely,
     describeAuditSuppressionResponse_description,
+    describeAuditSuppressionResponse_expirationDate,
     describeAuditSuppressionResponse_resourceIdentifier,
+    describeAuditSuppressionResponse_suppressIndefinitely,
     describeAuditSuppressionResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,16 +96,17 @@ instance Core.AWSRequest DescribeAuditSuppression where
   type
     AWSResponse DescribeAuditSuppression =
       DescribeAuditSuppressionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAuditSuppressionResponse'
-            Prelude.<$> (x Core..?> "checkName")
-            Prelude.<*> (x Core..?> "expirationDate")
-            Prelude.<*> (x Core..?> "suppressIndefinitely")
-            Prelude.<*> (x Core..?> "description")
-            Prelude.<*> (x Core..?> "resourceIdentifier")
+            Prelude.<$> (x Data..?> "checkName")
+            Prelude.<*> (x Data..?> "description")
+            Prelude.<*> (x Data..?> "expirationDate")
+            Prelude.<*> (x Data..?> "resourceIdentifier")
+            Prelude.<*> (x Data..?> "suppressIndefinitely")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -118,35 +120,35 @@ instance Prelude.NFData DescribeAuditSuppression where
     Prelude.rnf checkName
       `Prelude.seq` Prelude.rnf resourceIdentifier
 
-instance Core.ToHeaders DescribeAuditSuppression where
+instance Data.ToHeaders DescribeAuditSuppression where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON DescribeAuditSuppression where
+instance Data.ToJSON DescribeAuditSuppression where
   toJSON DescribeAuditSuppression' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("checkName" Core..= checkName),
+          [ Prelude.Just ("checkName" Data..= checkName),
             Prelude.Just
-              ("resourceIdentifier" Core..= resourceIdentifier)
+              ("resourceIdentifier" Data..= resourceIdentifier)
           ]
       )
 
-instance Core.ToPath DescribeAuditSuppression where
+instance Data.ToPath DescribeAuditSuppression where
   toPath = Prelude.const "/audit/suppressions/describe"
 
-instance Core.ToQuery DescribeAuditSuppression where
+instance Data.ToQuery DescribeAuditSuppression where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeAuditSuppressionResponse' smart constructor.
 data DescribeAuditSuppressionResponse = DescribeAuditSuppressionResponse'
   { checkName :: Prelude.Maybe Prelude.Text,
-    -- | The epoch timestamp in seconds at which this suppression expires.
-    expirationDate :: Prelude.Maybe Core.POSIX,
-    -- | Indicates whether a suppression should exist indefinitely or not.
-    suppressIndefinitely :: Prelude.Maybe Prelude.Bool,
     -- | The description of the audit suppression.
     description :: Prelude.Maybe Prelude.Text,
+    -- | The epoch timestamp in seconds at which this suppression expires.
+    expirationDate :: Prelude.Maybe Data.POSIX,
     resourceIdentifier :: Prelude.Maybe ResourceIdentifier,
+    -- | Indicates whether a suppression should exist indefinitely or not.
+    suppressIndefinitely :: Prelude.Maybe Prelude.Bool,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -162,13 +164,13 @@ data DescribeAuditSuppressionResponse = DescribeAuditSuppressionResponse'
 --
 -- 'checkName', 'describeAuditSuppressionResponse_checkName' - Undocumented member.
 --
--- 'expirationDate', 'describeAuditSuppressionResponse_expirationDate' - The epoch timestamp in seconds at which this suppression expires.
---
--- 'suppressIndefinitely', 'describeAuditSuppressionResponse_suppressIndefinitely' - Indicates whether a suppression should exist indefinitely or not.
---
 -- 'description', 'describeAuditSuppressionResponse_description' - The description of the audit suppression.
 --
+-- 'expirationDate', 'describeAuditSuppressionResponse_expirationDate' - The epoch timestamp in seconds at which this suppression expires.
+--
 -- 'resourceIdentifier', 'describeAuditSuppressionResponse_resourceIdentifier' - Undocumented member.
+--
+-- 'suppressIndefinitely', 'describeAuditSuppressionResponse_suppressIndefinitely' - Indicates whether a suppression should exist indefinitely or not.
 --
 -- 'httpStatus', 'describeAuditSuppressionResponse_httpStatus' - The response's http status code.
 newDescribeAuditSuppressionResponse ::
@@ -179,10 +181,10 @@ newDescribeAuditSuppressionResponse pHttpStatus_ =
   DescribeAuditSuppressionResponse'
     { checkName =
         Prelude.Nothing,
-      expirationDate = Prelude.Nothing,
-      suppressIndefinitely = Prelude.Nothing,
       description = Prelude.Nothing,
+      expirationDate = Prelude.Nothing,
       resourceIdentifier = Prelude.Nothing,
+      suppressIndefinitely = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
@@ -190,21 +192,21 @@ newDescribeAuditSuppressionResponse pHttpStatus_ =
 describeAuditSuppressionResponse_checkName :: Lens.Lens' DescribeAuditSuppressionResponse (Prelude.Maybe Prelude.Text)
 describeAuditSuppressionResponse_checkName = Lens.lens (\DescribeAuditSuppressionResponse' {checkName} -> checkName) (\s@DescribeAuditSuppressionResponse' {} a -> s {checkName = a} :: DescribeAuditSuppressionResponse)
 
--- | The epoch timestamp in seconds at which this suppression expires.
-describeAuditSuppressionResponse_expirationDate :: Lens.Lens' DescribeAuditSuppressionResponse (Prelude.Maybe Prelude.UTCTime)
-describeAuditSuppressionResponse_expirationDate = Lens.lens (\DescribeAuditSuppressionResponse' {expirationDate} -> expirationDate) (\s@DescribeAuditSuppressionResponse' {} a -> s {expirationDate = a} :: DescribeAuditSuppressionResponse) Prelude.. Lens.mapping Core._Time
-
--- | Indicates whether a suppression should exist indefinitely or not.
-describeAuditSuppressionResponse_suppressIndefinitely :: Lens.Lens' DescribeAuditSuppressionResponse (Prelude.Maybe Prelude.Bool)
-describeAuditSuppressionResponse_suppressIndefinitely = Lens.lens (\DescribeAuditSuppressionResponse' {suppressIndefinitely} -> suppressIndefinitely) (\s@DescribeAuditSuppressionResponse' {} a -> s {suppressIndefinitely = a} :: DescribeAuditSuppressionResponse)
-
 -- | The description of the audit suppression.
 describeAuditSuppressionResponse_description :: Lens.Lens' DescribeAuditSuppressionResponse (Prelude.Maybe Prelude.Text)
 describeAuditSuppressionResponse_description = Lens.lens (\DescribeAuditSuppressionResponse' {description} -> description) (\s@DescribeAuditSuppressionResponse' {} a -> s {description = a} :: DescribeAuditSuppressionResponse)
 
+-- | The epoch timestamp in seconds at which this suppression expires.
+describeAuditSuppressionResponse_expirationDate :: Lens.Lens' DescribeAuditSuppressionResponse (Prelude.Maybe Prelude.UTCTime)
+describeAuditSuppressionResponse_expirationDate = Lens.lens (\DescribeAuditSuppressionResponse' {expirationDate} -> expirationDate) (\s@DescribeAuditSuppressionResponse' {} a -> s {expirationDate = a} :: DescribeAuditSuppressionResponse) Prelude.. Lens.mapping Data._Time
+
 -- | Undocumented member.
 describeAuditSuppressionResponse_resourceIdentifier :: Lens.Lens' DescribeAuditSuppressionResponse (Prelude.Maybe ResourceIdentifier)
 describeAuditSuppressionResponse_resourceIdentifier = Lens.lens (\DescribeAuditSuppressionResponse' {resourceIdentifier} -> resourceIdentifier) (\s@DescribeAuditSuppressionResponse' {} a -> s {resourceIdentifier = a} :: DescribeAuditSuppressionResponse)
+
+-- | Indicates whether a suppression should exist indefinitely or not.
+describeAuditSuppressionResponse_suppressIndefinitely :: Lens.Lens' DescribeAuditSuppressionResponse (Prelude.Maybe Prelude.Bool)
+describeAuditSuppressionResponse_suppressIndefinitely = Lens.lens (\DescribeAuditSuppressionResponse' {suppressIndefinitely} -> suppressIndefinitely) (\s@DescribeAuditSuppressionResponse' {} a -> s {suppressIndefinitely = a} :: DescribeAuditSuppressionResponse)
 
 -- | The response's http status code.
 describeAuditSuppressionResponse_httpStatus :: Lens.Lens' DescribeAuditSuppressionResponse Prelude.Int
@@ -216,8 +218,8 @@ instance
   where
   rnf DescribeAuditSuppressionResponse' {..} =
     Prelude.rnf checkName
-      `Prelude.seq` Prelude.rnf expirationDate
-      `Prelude.seq` Prelude.rnf suppressIndefinitely
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf expirationDate
       `Prelude.seq` Prelude.rnf resourceIdentifier
+      `Prelude.seq` Prelude.rnf suppressIndefinitely
       `Prelude.seq` Prelude.rnf httpStatus

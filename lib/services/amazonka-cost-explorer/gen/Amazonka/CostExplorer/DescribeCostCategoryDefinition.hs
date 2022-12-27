@@ -14,20 +14,20 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.DescribeCostCategoryDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the name, ARN, rules, definition, and effective dates of a Cost
--- Category that\'s defined in the account.
+-- Returns the name, Amazon Resource Name (ARN), rules, definition, and
+-- effective dates of a Cost Category that\'s defined in the account.
 --
--- You have the option to use @EffectiveOn@ to return a Cost Category that
--- is active on a specific date. If there is no @EffectiveOn@ specified,
--- you’ll see a Cost Category that is effective on the current date. If
--- Cost Category is still effective, @EffectiveEnd@ is omitted in the
--- response.
+-- You have the option to use @EffectiveOn@ to return a Cost Category
+-- that\'s active on a specific date. If there\'s no @EffectiveOn@
+-- specified, you see a Cost Category that\'s effective on the current
+-- date. If Cost Category is still effective, @EffectiveEnd@ is omitted in
+-- the response.
 module Amazonka.CostExplorer.DescribeCostCategoryDefinition
   ( -- * Creating a Request
     DescribeCostCategoryDefinition (..),
@@ -48,8 +48,9 @@ module Amazonka.CostExplorer.DescribeCostCategoryDefinition
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostExplorer.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,12 +101,13 @@ instance
   type
     AWSResponse DescribeCostCategoryDefinition =
       DescribeCostCategoryDefinitionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeCostCategoryDefinitionResponse'
-            Prelude.<$> (x Core..?> "CostCategory")
+            Prelude.<$> (x Data..?> "CostCategory")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -128,37 +130,37 @@ instance
       `Prelude.seq` Prelude.rnf costCategoryArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeCostCategoryDefinition
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSInsightsIndexService.DescribeCostCategoryDefinition" ::
+              Data.=# ( "AWSInsightsIndexService.DescribeCostCategoryDefinition" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeCostCategoryDefinition where
+instance Data.ToJSON DescribeCostCategoryDefinition where
   toJSON DescribeCostCategoryDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EffectiveOn" Core..=) Prelude.<$> effectiveOn,
+          [ ("EffectiveOn" Data..=) Prelude.<$> effectiveOn,
             Prelude.Just
-              ("CostCategoryArn" Core..= costCategoryArn)
+              ("CostCategoryArn" Data..= costCategoryArn)
           ]
       )
 
-instance Core.ToPath DescribeCostCategoryDefinition where
+instance Data.ToPath DescribeCostCategoryDefinition where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeCostCategoryDefinition where
+instance Data.ToQuery DescribeCostCategoryDefinition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeCostCategoryDefinitionResponse' smart constructor.

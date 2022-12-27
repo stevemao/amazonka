@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.Types.ShareDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ServiceCatalog.Types.ShareDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.ServiceCatalog.Types.ShareError
 
@@ -62,15 +63,15 @@ shareDetails_shareErrors = Lens.lens (\ShareDetails' {shareErrors} -> shareError
 shareDetails_successfulShares :: Lens.Lens' ShareDetails (Prelude.Maybe [Prelude.Text])
 shareDetails_successfulShares = Lens.lens (\ShareDetails' {successfulShares} -> successfulShares) (\s@ShareDetails' {} a -> s {successfulShares = a} :: ShareDetails) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON ShareDetails where
+instance Data.FromJSON ShareDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ShareDetails"
       ( \x ->
           ShareDetails'
-            Prelude.<$> (x Core..:? "ShareErrors" Core..!= Prelude.mempty)
-            Prelude.<*> ( x Core..:? "SuccessfulShares"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "ShareErrors" Data..!= Prelude.mempty)
+            Prelude.<*> ( x Data..:? "SuccessfulShares"
+                            Data..!= Prelude.mempty
                         )
       )
 

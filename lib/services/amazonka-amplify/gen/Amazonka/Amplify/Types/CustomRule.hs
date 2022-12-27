@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Amplify.Types.CustomRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,18 @@
 module Amazonka.Amplify.Types.CustomRule where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a custom rewrite or redirect rule.
 --
 -- /See:/ 'newCustomRule' smart constructor.
 data CustomRule = CustomRule'
-  { -- | The status code for a URL rewrite or redirect rule.
+  { -- | The condition for a URL rewrite or redirect rule, such as a country
+    -- code.
+    condition :: Prelude.Maybe Prelude.Text,
+    -- | The status code for a URL rewrite or redirect rule.
     --
     -- [200]
     --     Represents a 200 rewrite rule.
@@ -45,9 +49,6 @@ data CustomRule = CustomRule'
     -- [404-200]
     --     Represents a 404 rewrite rule.
     status :: Prelude.Maybe Prelude.Text,
-    -- | The condition for a URL rewrite or redirect rule, such as a country
-    -- code.
-    condition :: Prelude.Maybe Prelude.Text,
     -- | The source pattern for a URL rewrite or redirect rule.
     source :: Prelude.Text,
     -- | The target pattern for a URL rewrite or redirect rule.
@@ -62,6 +63,9 @@ data CustomRule = CustomRule'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'condition', 'customRule_condition' - The condition for a URL rewrite or redirect rule, such as a country
+-- code.
 --
 -- 'status', 'customRule_status' - The status code for a URL rewrite or redirect rule.
 --
@@ -81,9 +85,6 @@ data CustomRule = CustomRule'
 -- [404-200]
 --     Represents a 404 rewrite rule.
 --
--- 'condition', 'customRule_condition' - The condition for a URL rewrite or redirect rule, such as a country
--- code.
---
 -- 'source', 'customRule_source' - The source pattern for a URL rewrite or redirect rule.
 --
 -- 'target', 'customRule_target' - The target pattern for a URL rewrite or redirect rule.
@@ -95,11 +96,16 @@ newCustomRule ::
   CustomRule
 newCustomRule pSource_ pTarget_ =
   CustomRule'
-    { status = Prelude.Nothing,
-      condition = Prelude.Nothing,
+    { condition = Prelude.Nothing,
+      status = Prelude.Nothing,
       source = pSource_,
       target = pTarget_
     }
+
+-- | The condition for a URL rewrite or redirect rule, such as a country
+-- code.
+customRule_condition :: Lens.Lens' CustomRule (Prelude.Maybe Prelude.Text)
+customRule_condition = Lens.lens (\CustomRule' {condition} -> condition) (\s@CustomRule' {} a -> s {condition = a} :: CustomRule)
 
 -- | The status code for a URL rewrite or redirect rule.
 --
@@ -121,11 +127,6 @@ newCustomRule pSource_ pTarget_ =
 customRule_status :: Lens.Lens' CustomRule (Prelude.Maybe Prelude.Text)
 customRule_status = Lens.lens (\CustomRule' {status} -> status) (\s@CustomRule' {} a -> s {status = a} :: CustomRule)
 
--- | The condition for a URL rewrite or redirect rule, such as a country
--- code.
-customRule_condition :: Lens.Lens' CustomRule (Prelude.Maybe Prelude.Text)
-customRule_condition = Lens.lens (\CustomRule' {condition} -> condition) (\s@CustomRule' {} a -> s {condition = a} :: CustomRule)
-
 -- | The source pattern for a URL rewrite or redirect rule.
 customRule_source :: Lens.Lens' CustomRule Prelude.Text
 customRule_source = Lens.lens (\CustomRule' {source} -> source) (\s@CustomRule' {} a -> s {source = a} :: CustomRule)
@@ -134,39 +135,39 @@ customRule_source = Lens.lens (\CustomRule' {source} -> source) (\s@CustomRule' 
 customRule_target :: Lens.Lens' CustomRule Prelude.Text
 customRule_target = Lens.lens (\CustomRule' {target} -> target) (\s@CustomRule' {} a -> s {target = a} :: CustomRule)
 
-instance Core.FromJSON CustomRule where
+instance Data.FromJSON CustomRule where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CustomRule"
       ( \x ->
           CustomRule'
-            Prelude.<$> (x Core..:? "status")
-            Prelude.<*> (x Core..:? "condition")
-            Prelude.<*> (x Core..: "source")
-            Prelude.<*> (x Core..: "target")
+            Prelude.<$> (x Data..:? "condition")
+            Prelude.<*> (x Data..:? "status")
+            Prelude.<*> (x Data..: "source")
+            Prelude.<*> (x Data..: "target")
       )
 
 instance Prelude.Hashable CustomRule where
   hashWithSalt _salt CustomRule' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` condition
+    _salt `Prelude.hashWithSalt` condition
+      `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` source
       `Prelude.hashWithSalt` target
 
 instance Prelude.NFData CustomRule where
   rnf CustomRule' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf condition
+    Prelude.rnf condition
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf source
       `Prelude.seq` Prelude.rnf target
 
-instance Core.ToJSON CustomRule where
+instance Data.ToJSON CustomRule where
   toJSON CustomRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("status" Core..=) Prelude.<$> status,
-            ("condition" Core..=) Prelude.<$> condition,
-            Prelude.Just ("source" Core..= source),
-            Prelude.Just ("target" Core..= target)
+          [ ("condition" Data..=) Prelude.<$> condition,
+            ("status" Data..=) Prelude.<$> status,
+            Prelude.Just ("source" Data..= source),
+            Prelude.Just ("target" Data..= target)
           ]
       )

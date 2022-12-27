@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.IssueCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,8 +35,8 @@ module Amazonka.CertificateManagerPCA.IssueCertificate
     newIssueCertificate,
 
     -- * Request Lenses
-    issueCertificate_idempotencyToken,
     issueCertificate_apiPassthrough,
+    issueCertificate_idempotencyToken,
     issueCertificate_templateArn,
     issueCertificate_validityNotBefore,
     issueCertificate_certificateAuthorityArn,
@@ -56,22 +56,15 @@ where
 
 import Amazonka.CertificateManagerPCA.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newIssueCertificate' smart constructor.
 data IssueCertificate = IssueCertificate'
-  { -- | Alphanumeric string that can be used to distinguish between calls to the
-    -- __IssueCertificate__ action. Idempotency tokens for __IssueCertificate__
-    -- time out after one minute. Therefore, if you call __IssueCertificate__
-    -- multiple times with the same idempotency token within one minute, ACM
-    -- Private CA recognizes that you are requesting only one certificate and
-    -- will issue only one. If you change the idempotency token for each call,
-    -- PCA recognizes that you are requesting multiple certificates.
-    idempotencyToken :: Prelude.Maybe Prelude.Text,
-    -- | Specifies X.509 certificate information to be included in the issued
+  { -- | Specifies X.509 certificate information to be included in the issued
     -- certificate. An @APIPassthrough@ or @APICSRPassthrough@ template variant
     -- must be selected, or else this parameter is ignored. For more
     -- information about using these templates, see
@@ -82,6 +75,14 @@ data IssueCertificate = IssueCertificate'
     -- <https://docs.aws.amazon.com/acm-pca/latest/userguide/UsingTemplates.html#template-order-of-operations order of operation rules>
     -- to determine what information is used.
     apiPassthrough :: Prelude.Maybe ApiPassthrough,
+    -- | Alphanumeric string that can be used to distinguish between calls to the
+    -- __IssueCertificate__ action. Idempotency tokens for __IssueCertificate__
+    -- time out after one minute. Therefore, if you call __IssueCertificate__
+    -- multiple times with the same idempotency token within one minute, ACM
+    -- Private CA recognizes that you are requesting only one certificate and
+    -- will issue only one. If you change the idempotency token for each call,
+    -- PCA recognizes that you are requesting multiple certificates.
+    idempotencyToken :: Prelude.Maybe Prelude.Text,
     -- | Specifies a custom configuration template to use when issuing a
     -- certificate. If this parameter is not provided, ACM Private CA defaults
     -- to the @EndEntityCertificate\/V1@ template. For CA certificates, you
@@ -113,8 +114,8 @@ data IssueCertificate = IssueCertificate'
     -- using the @Validity@ type value @ABSOLUTE@. For more information, see
     -- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_Validity.html Validity>
     -- in this API reference and
-    -- <https://tools.ietf.org/html/rfc5280#section-4.1.2.5 Validity> in RFC
-    -- 5280.
+    -- <https://datatracker.ietf.org/doc/html/rfc5280#section-4.1.2.5 Validity>
+    -- in RFC 5280.
     validityNotBefore :: Prelude.Maybe Validity,
     -- | The Amazon Resource Name (ARN) that was returned when you called
     -- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreateCertificateAuthority.html CreateCertificateAuthority>.
@@ -132,16 +133,19 @@ data IssueCertificate = IssueCertificate'
     -- command. The @usr_cert@ block in the configuration file contains your
     -- X509 version 3 extensions.
     --
-    -- @openssl req -new -config openssl_rsa.cnf -extensions usr_cert -newkey rsa:2048 -days -365 -keyout private\/test_cert_priv_key.pem -out csr\/test_cert_.csr@
+    -- @openssl req -new -config openssl_rsa.cnf -extensions usr_cert -newkey rsa:2048 -days 365 -keyout private\/test_cert_priv_key.pem -out csr\/test_cert_.csr@
     --
     -- Note: A CSR must provide either a /subject name/ or a /subject
     -- alternative name/ or the request will be rejected.
-    csr :: Core.Base64,
+    csr :: Data.Base64,
     -- | The name of the algorithm that will be used to sign the certificate to
     -- be issued.
     --
     -- This parameter should not be confused with the @SigningAlgorithm@
     -- parameter used to sign a CSR in the @CreateCertificateAuthority@ action.
+    --
+    -- The specified signing algorithm family (RSA or ECDSA) much match the
+    -- algorithm family of the CA\'s secret key.
     signingAlgorithm :: SigningAlgorithm,
     -- | Information describing the end of the validity period of the
     -- certificate. This parameter sets the “Not After” date for the
@@ -151,8 +155,8 @@ data IssueCertificate = IssueCertificate'
     -- valid. Validity can be expressed as an explicit date and time when the
     -- certificate expires, or as a span of time after issuance, stated in
     -- days, months, or years. For more information, see
-    -- <https://tools.ietf.org/html/rfc5280#section-4.1.2.5 Validity> in RFC
-    -- 5280.
+    -- <https://datatracker.ietf.org/doc/html/rfc5280#section-4.1.2.5 Validity>
+    -- in RFC 5280.
     --
     -- This value is unaffected when @ValidityNotBefore@ is also specified. For
     -- example, if @Validity@ is set to 20 days in the future, the certificate
@@ -173,14 +177,6 @@ data IssueCertificate = IssueCertificate'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'idempotencyToken', 'issueCertificate_idempotencyToken' - Alphanumeric string that can be used to distinguish between calls to the
--- __IssueCertificate__ action. Idempotency tokens for __IssueCertificate__
--- time out after one minute. Therefore, if you call __IssueCertificate__
--- multiple times with the same idempotency token within one minute, ACM
--- Private CA recognizes that you are requesting only one certificate and
--- will issue only one. If you change the idempotency token for each call,
--- PCA recognizes that you are requesting multiple certificates.
---
 -- 'apiPassthrough', 'issueCertificate_apiPassthrough' - Specifies X.509 certificate information to be included in the issued
 -- certificate. An @APIPassthrough@ or @APICSRPassthrough@ template variant
 -- must be selected, or else this parameter is ignored. For more
@@ -191,6 +187,14 @@ data IssueCertificate = IssueCertificate'
 -- certificate issuance, ACM Private CA applies
 -- <https://docs.aws.amazon.com/acm-pca/latest/userguide/UsingTemplates.html#template-order-of-operations order of operation rules>
 -- to determine what information is used.
+--
+-- 'idempotencyToken', 'issueCertificate_idempotencyToken' - Alphanumeric string that can be used to distinguish between calls to the
+-- __IssueCertificate__ action. Idempotency tokens for __IssueCertificate__
+-- time out after one minute. Therefore, if you call __IssueCertificate__
+-- multiple times with the same idempotency token within one minute, ACM
+-- Private CA recognizes that you are requesting only one certificate and
+-- will issue only one. If you change the idempotency token for each call,
+-- PCA recognizes that you are requesting multiple certificates.
 --
 -- 'templateArn', 'issueCertificate_templateArn' - Specifies a custom configuration template to use when issuing a
 -- certificate. If this parameter is not provided, ACM Private CA defaults
@@ -223,8 +227,8 @@ data IssueCertificate = IssueCertificate'
 -- using the @Validity@ type value @ABSOLUTE@. For more information, see
 -- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_Validity.html Validity>
 -- in this API reference and
--- <https://tools.ietf.org/html/rfc5280#section-4.1.2.5 Validity> in RFC
--- 5280.
+-- <https://datatracker.ietf.org/doc/html/rfc5280#section-4.1.2.5 Validity>
+-- in RFC 5280.
 --
 -- 'certificateAuthorityArn', 'issueCertificate_certificateAuthorityArn' - The Amazon Resource Name (ARN) that was returned when you called
 -- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreateCertificateAuthority.html CreateCertificateAuthority>.
@@ -242,7 +246,7 @@ data IssueCertificate = IssueCertificate'
 -- command. The @usr_cert@ block in the configuration file contains your
 -- X509 version 3 extensions.
 --
--- @openssl req -new -config openssl_rsa.cnf -extensions usr_cert -newkey rsa:2048 -days -365 -keyout private\/test_cert_priv_key.pem -out csr\/test_cert_.csr@
+-- @openssl req -new -config openssl_rsa.cnf -extensions usr_cert -newkey rsa:2048 -days 365 -keyout private\/test_cert_priv_key.pem -out csr\/test_cert_.csr@
 --
 -- Note: A CSR must provide either a /subject name/ or a /subject
 -- alternative name/ or the request will be rejected.--
@@ -257,6 +261,9 @@ data IssueCertificate = IssueCertificate'
 -- This parameter should not be confused with the @SigningAlgorithm@
 -- parameter used to sign a CSR in the @CreateCertificateAuthority@ action.
 --
+-- The specified signing algorithm family (RSA or ECDSA) much match the
+-- algorithm family of the CA\'s secret key.
+--
 -- 'validity', 'issueCertificate_validity' - Information describing the end of the validity period of the
 -- certificate. This parameter sets the “Not After” date for the
 -- certificate.
@@ -265,8 +272,8 @@ data IssueCertificate = IssueCertificate'
 -- valid. Validity can be expressed as an explicit date and time when the
 -- certificate expires, or as a span of time after issuance, stated in
 -- days, months, or years. For more information, see
--- <https://tools.ietf.org/html/rfc5280#section-4.1.2.5 Validity> in RFC
--- 5280.
+-- <https://datatracker.ietf.org/doc/html/rfc5280#section-4.1.2.5 Validity>
+-- in RFC 5280.
 --
 -- This value is unaffected when @ValidityNotBefore@ is also specified. For
 -- example, if @Validity@ is set to 20 days in the future, the certificate
@@ -291,26 +298,15 @@ newIssueCertificate
   pSigningAlgorithm_
   pValidity_ =
     IssueCertificate'
-      { idempotencyToken =
-          Prelude.Nothing,
-        apiPassthrough = Prelude.Nothing,
+      { apiPassthrough = Prelude.Nothing,
+        idempotencyToken = Prelude.Nothing,
         templateArn = Prelude.Nothing,
         validityNotBefore = Prelude.Nothing,
         certificateAuthorityArn = pCertificateAuthorityArn_,
-        csr = Core._Base64 Lens.# pCsr_,
+        csr = Data._Base64 Lens.# pCsr_,
         signingAlgorithm = pSigningAlgorithm_,
         validity = pValidity_
       }
-
--- | Alphanumeric string that can be used to distinguish between calls to the
--- __IssueCertificate__ action. Idempotency tokens for __IssueCertificate__
--- time out after one minute. Therefore, if you call __IssueCertificate__
--- multiple times with the same idempotency token within one minute, ACM
--- Private CA recognizes that you are requesting only one certificate and
--- will issue only one. If you change the idempotency token for each call,
--- PCA recognizes that you are requesting multiple certificates.
-issueCertificate_idempotencyToken :: Lens.Lens' IssueCertificate (Prelude.Maybe Prelude.Text)
-issueCertificate_idempotencyToken = Lens.lens (\IssueCertificate' {idempotencyToken} -> idempotencyToken) (\s@IssueCertificate' {} a -> s {idempotencyToken = a} :: IssueCertificate)
 
 -- | Specifies X.509 certificate information to be included in the issued
 -- certificate. An @APIPassthrough@ or @APICSRPassthrough@ template variant
@@ -324,6 +320,16 @@ issueCertificate_idempotencyToken = Lens.lens (\IssueCertificate' {idempotencyTo
 -- to determine what information is used.
 issueCertificate_apiPassthrough :: Lens.Lens' IssueCertificate (Prelude.Maybe ApiPassthrough)
 issueCertificate_apiPassthrough = Lens.lens (\IssueCertificate' {apiPassthrough} -> apiPassthrough) (\s@IssueCertificate' {} a -> s {apiPassthrough = a} :: IssueCertificate)
+
+-- | Alphanumeric string that can be used to distinguish between calls to the
+-- __IssueCertificate__ action. Idempotency tokens for __IssueCertificate__
+-- time out after one minute. Therefore, if you call __IssueCertificate__
+-- multiple times with the same idempotency token within one minute, ACM
+-- Private CA recognizes that you are requesting only one certificate and
+-- will issue only one. If you change the idempotency token for each call,
+-- PCA recognizes that you are requesting multiple certificates.
+issueCertificate_idempotencyToken :: Lens.Lens' IssueCertificate (Prelude.Maybe Prelude.Text)
+issueCertificate_idempotencyToken = Lens.lens (\IssueCertificate' {idempotencyToken} -> idempotencyToken) (\s@IssueCertificate' {} a -> s {idempotencyToken = a} :: IssueCertificate)
 
 -- | Specifies a custom configuration template to use when issuing a
 -- certificate. If this parameter is not provided, ACM Private CA defaults
@@ -358,8 +364,8 @@ issueCertificate_templateArn = Lens.lens (\IssueCertificate' {templateArn} -> te
 -- using the @Validity@ type value @ABSOLUTE@. For more information, see
 -- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_Validity.html Validity>
 -- in this API reference and
--- <https://tools.ietf.org/html/rfc5280#section-4.1.2.5 Validity> in RFC
--- 5280.
+-- <https://datatracker.ietf.org/doc/html/rfc5280#section-4.1.2.5 Validity>
+-- in RFC 5280.
 issueCertificate_validityNotBefore :: Lens.Lens' IssueCertificate (Prelude.Maybe Validity)
 issueCertificate_validityNotBefore = Lens.lens (\IssueCertificate' {validityNotBefore} -> validityNotBefore) (\s@IssueCertificate' {} a -> s {validityNotBefore = a} :: IssueCertificate)
 
@@ -381,7 +387,7 @@ issueCertificate_certificateAuthorityArn = Lens.lens (\IssueCertificate' {certif
 -- command. The @usr_cert@ block in the configuration file contains your
 -- X509 version 3 extensions.
 --
--- @openssl req -new -config openssl_rsa.cnf -extensions usr_cert -newkey rsa:2048 -days -365 -keyout private\/test_cert_priv_key.pem -out csr\/test_cert_.csr@
+-- @openssl req -new -config openssl_rsa.cnf -extensions usr_cert -newkey rsa:2048 -days 365 -keyout private\/test_cert_priv_key.pem -out csr\/test_cert_.csr@
 --
 -- Note: A CSR must provide either a /subject name/ or a /subject
 -- alternative name/ or the request will be rejected.--
@@ -390,13 +396,16 @@ issueCertificate_certificateAuthorityArn = Lens.lens (\IssueCertificate' {certif
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 issueCertificate_csr :: Lens.Lens' IssueCertificate Prelude.ByteString
-issueCertificate_csr = Lens.lens (\IssueCertificate' {csr} -> csr) (\s@IssueCertificate' {} a -> s {csr = a} :: IssueCertificate) Prelude.. Core._Base64
+issueCertificate_csr = Lens.lens (\IssueCertificate' {csr} -> csr) (\s@IssueCertificate' {} a -> s {csr = a} :: IssueCertificate) Prelude.. Data._Base64
 
 -- | The name of the algorithm that will be used to sign the certificate to
 -- be issued.
 --
 -- This parameter should not be confused with the @SigningAlgorithm@
 -- parameter used to sign a CSR in the @CreateCertificateAuthority@ action.
+--
+-- The specified signing algorithm family (RSA or ECDSA) much match the
+-- algorithm family of the CA\'s secret key.
 issueCertificate_signingAlgorithm :: Lens.Lens' IssueCertificate SigningAlgorithm
 issueCertificate_signingAlgorithm = Lens.lens (\IssueCertificate' {signingAlgorithm} -> signingAlgorithm) (\s@IssueCertificate' {} a -> s {signingAlgorithm = a} :: IssueCertificate)
 
@@ -408,8 +417,8 @@ issueCertificate_signingAlgorithm = Lens.lens (\IssueCertificate' {signingAlgori
 -- valid. Validity can be expressed as an explicit date and time when the
 -- certificate expires, or as a span of time after issuance, stated in
 -- days, months, or years. For more information, see
--- <https://tools.ietf.org/html/rfc5280#section-4.1.2.5 Validity> in RFC
--- 5280.
+-- <https://datatracker.ietf.org/doc/html/rfc5280#section-4.1.2.5 Validity>
+-- in RFC 5280.
 --
 -- This value is unaffected when @ValidityNotBefore@ is also specified. For
 -- example, if @Validity@ is set to 20 days in the future, the certificate
@@ -425,19 +434,20 @@ instance Core.AWSRequest IssueCertificate where
   type
     AWSResponse IssueCertificate =
       IssueCertificateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           IssueCertificateResponse'
-            Prelude.<$> (x Core..?> "CertificateArn")
+            Prelude.<$> (x Data..?> "CertificateArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable IssueCertificate where
   hashWithSalt _salt IssueCertificate' {..} =
-    _salt `Prelude.hashWithSalt` idempotencyToken
-      `Prelude.hashWithSalt` apiPassthrough
+    _salt `Prelude.hashWithSalt` apiPassthrough
+      `Prelude.hashWithSalt` idempotencyToken
       `Prelude.hashWithSalt` templateArn
       `Prelude.hashWithSalt` validityNotBefore
       `Prelude.hashWithSalt` certificateAuthorityArn
@@ -447,8 +457,8 @@ instance Prelude.Hashable IssueCertificate where
 
 instance Prelude.NFData IssueCertificate where
   rnf IssueCertificate' {..} =
-    Prelude.rnf idempotencyToken
-      `Prelude.seq` Prelude.rnf apiPassthrough
+    Prelude.rnf apiPassthrough
+      `Prelude.seq` Prelude.rnf idempotencyToken
       `Prelude.seq` Prelude.rnf templateArn
       `Prelude.seq` Prelude.rnf validityNotBefore
       `Prelude.seq` Prelude.rnf certificateAuthorityArn
@@ -456,47 +466,47 @@ instance Prelude.NFData IssueCertificate where
       `Prelude.seq` Prelude.rnf signingAlgorithm
       `Prelude.seq` Prelude.rnf validity
 
-instance Core.ToHeaders IssueCertificate where
+instance Data.ToHeaders IssueCertificate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ACMPrivateCA.IssueCertificate" ::
+              Data.=# ( "ACMPrivateCA.IssueCertificate" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON IssueCertificate where
+instance Data.ToJSON IssueCertificate where
   toJSON IssueCertificate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("IdempotencyToken" Core..=)
-              Prelude.<$> idempotencyToken,
-            ("ApiPassthrough" Core..=)
+          [ ("ApiPassthrough" Data..=)
               Prelude.<$> apiPassthrough,
-            ("TemplateArn" Core..=) Prelude.<$> templateArn,
-            ("ValidityNotBefore" Core..=)
+            ("IdempotencyToken" Data..=)
+              Prelude.<$> idempotencyToken,
+            ("TemplateArn" Data..=) Prelude.<$> templateArn,
+            ("ValidityNotBefore" Data..=)
               Prelude.<$> validityNotBefore,
             Prelude.Just
               ( "CertificateAuthorityArn"
-                  Core..= certificateAuthorityArn
+                  Data..= certificateAuthorityArn
               ),
-            Prelude.Just ("Csr" Core..= csr),
+            Prelude.Just ("Csr" Data..= csr),
             Prelude.Just
-              ("SigningAlgorithm" Core..= signingAlgorithm),
-            Prelude.Just ("Validity" Core..= validity)
+              ("SigningAlgorithm" Data..= signingAlgorithm),
+            Prelude.Just ("Validity" Data..= validity)
           ]
       )
 
-instance Core.ToPath IssueCertificate where
+instance Data.ToPath IssueCertificate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery IssueCertificate where
+instance Data.ToQuery IssueCertificate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newIssueCertificateResponse' smart constructor.

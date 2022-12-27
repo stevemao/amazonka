@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ResourceGroups.GetGroupConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.ResourceGroups.GetGroupConfiguration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import Amazonka.ResourceGroups.Types
@@ -83,12 +84,13 @@ instance Core.AWSRequest GetGroupConfiguration where
   type
     AWSResponse GetGroupConfiguration =
       GetGroupConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetGroupConfigurationResponse'
-            Prelude.<$> (x Core..?> "GroupConfiguration")
+            Prelude.<$> (x Data..?> "GroupConfiguration")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -99,20 +101,20 @@ instance Prelude.Hashable GetGroupConfiguration where
 instance Prelude.NFData GetGroupConfiguration where
   rnf GetGroupConfiguration' {..} = Prelude.rnf group'
 
-instance Core.ToHeaders GetGroupConfiguration where
+instance Data.ToHeaders GetGroupConfiguration where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON GetGroupConfiguration where
+instance Data.ToJSON GetGroupConfiguration where
   toJSON GetGroupConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Group" Core..=) Prelude.<$> group']
+          [("Group" Data..=) Prelude.<$> group']
       )
 
-instance Core.ToPath GetGroupConfiguration where
+instance Data.ToPath GetGroupConfiguration where
   toPath = Prelude.const "/get-group-configuration"
 
-instance Core.ToQuery GetGroupConfiguration where
+instance Data.ToQuery GetGroupConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetGroupConfigurationResponse' smart constructor.

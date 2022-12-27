@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.DescribeMultiplexProgram
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,17 +35,18 @@ module Amazonka.MediaLive.DescribeMultiplexProgram
     newDescribeMultiplexProgramResponse,
 
     -- * Response Lenses
+    describeMultiplexProgramResponse_channelId,
+    describeMultiplexProgramResponse_multiplexProgramSettings,
     describeMultiplexProgramResponse_packetIdentifiersMap,
     describeMultiplexProgramResponse_pipelineDetails,
     describeMultiplexProgramResponse_programName,
-    describeMultiplexProgramResponse_channelId,
-    describeMultiplexProgramResponse_multiplexProgramSettings,
     describeMultiplexProgramResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -100,18 +101,19 @@ instance Core.AWSRequest DescribeMultiplexProgram where
   type
     AWSResponse DescribeMultiplexProgram =
       DescribeMultiplexProgramResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeMultiplexProgramResponse'
-            Prelude.<$> (x Core..?> "packetIdentifiersMap")
-            Prelude.<*> ( x Core..?> "pipelineDetails"
+            Prelude.<$> (x Data..?> "channelId")
+            Prelude.<*> (x Data..?> "multiplexProgramSettings")
+            Prelude.<*> (x Data..?> "packetIdentifiersMap")
+            Prelude.<*> ( x Data..?> "pipelineDetails"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "programName")
-            Prelude.<*> (x Core..?> "channelId")
-            Prelude.<*> (x Core..?> "multiplexProgramSettings")
+            Prelude.<*> (x Data..?> "programName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -125,34 +127,38 @@ instance Prelude.NFData DescribeMultiplexProgram where
     Prelude.rnf multiplexId
       `Prelude.seq` Prelude.rnf programName
 
-instance Core.ToHeaders DescribeMultiplexProgram where
+instance Data.ToHeaders DescribeMultiplexProgram where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeMultiplexProgram where
+instance Data.ToPath DescribeMultiplexProgram where
   toPath DescribeMultiplexProgram' {..} =
     Prelude.mconcat
       [ "/prod/multiplexes/",
-        Core.toBS multiplexId,
+        Data.toBS multiplexId,
         "/programs/",
-        Core.toBS programName
+        Data.toBS programName
       ]
 
-instance Core.ToQuery DescribeMultiplexProgram where
+instance Data.ToQuery DescribeMultiplexProgram where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for DescribeMultiplexProgramResponse
 --
 -- /See:/ 'newDescribeMultiplexProgramResponse' smart constructor.
 data DescribeMultiplexProgramResponse = DescribeMultiplexProgramResponse'
-  { -- | The packet identifier map for this multiplex program.
+  { -- | The MediaLive channel associated with the program.
+    channelId :: Prelude.Maybe Prelude.Text,
+    -- | The settings for this multiplex program.
+    multiplexProgramSettings :: Prelude.Maybe MultiplexProgramSettings,
+    -- | The packet identifier map for this multiplex program.
     packetIdentifiersMap :: Prelude.Maybe MultiplexProgramPacketIdentifiersMap,
     -- | Contains information about the current sources for the specified program
     -- in the specified multiplex. Keep in mind that each multiplex pipeline
@@ -162,10 +168,6 @@ data DescribeMultiplexProgramResponse = DescribeMultiplexProgramResponse'
     pipelineDetails :: Prelude.Maybe [MultiplexProgramPipelineDetail],
     -- | The name of the multiplex program.
     programName :: Prelude.Maybe Prelude.Text,
-    -- | The MediaLive channel associated with the program.
-    channelId :: Prelude.Maybe Prelude.Text,
-    -- | The settings for this multiplex program.
-    multiplexProgramSettings :: Prelude.Maybe MultiplexProgramSettings,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -179,6 +181,10 @@ data DescribeMultiplexProgramResponse = DescribeMultiplexProgramResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'channelId', 'describeMultiplexProgramResponse_channelId' - The MediaLive channel associated with the program.
+--
+-- 'multiplexProgramSettings', 'describeMultiplexProgramResponse_multiplexProgramSettings' - The settings for this multiplex program.
+--
 -- 'packetIdentifiersMap', 'describeMultiplexProgramResponse_packetIdentifiersMap' - The packet identifier map for this multiplex program.
 --
 -- 'pipelineDetails', 'describeMultiplexProgramResponse_pipelineDetails' - Contains information about the current sources for the specified program
@@ -189,10 +195,6 @@ data DescribeMultiplexProgramResponse = DescribeMultiplexProgramResponse'
 --
 -- 'programName', 'describeMultiplexProgramResponse_programName' - The name of the multiplex program.
 --
--- 'channelId', 'describeMultiplexProgramResponse_channelId' - The MediaLive channel associated with the program.
---
--- 'multiplexProgramSettings', 'describeMultiplexProgramResponse_multiplexProgramSettings' - The settings for this multiplex program.
---
 -- 'httpStatus', 'describeMultiplexProgramResponse_httpStatus' - The response's http status code.
 newDescribeMultiplexProgramResponse ::
   -- | 'httpStatus'
@@ -200,15 +202,23 @@ newDescribeMultiplexProgramResponse ::
   DescribeMultiplexProgramResponse
 newDescribeMultiplexProgramResponse pHttpStatus_ =
   DescribeMultiplexProgramResponse'
-    { packetIdentifiersMap =
+    { channelId =
         Prelude.Nothing,
-      pipelineDetails = Prelude.Nothing,
-      programName = Prelude.Nothing,
-      channelId = Prelude.Nothing,
       multiplexProgramSettings =
         Prelude.Nothing,
+      packetIdentifiersMap = Prelude.Nothing,
+      pipelineDetails = Prelude.Nothing,
+      programName = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The MediaLive channel associated with the program.
+describeMultiplexProgramResponse_channelId :: Lens.Lens' DescribeMultiplexProgramResponse (Prelude.Maybe Prelude.Text)
+describeMultiplexProgramResponse_channelId = Lens.lens (\DescribeMultiplexProgramResponse' {channelId} -> channelId) (\s@DescribeMultiplexProgramResponse' {} a -> s {channelId = a} :: DescribeMultiplexProgramResponse)
+
+-- | The settings for this multiplex program.
+describeMultiplexProgramResponse_multiplexProgramSettings :: Lens.Lens' DescribeMultiplexProgramResponse (Prelude.Maybe MultiplexProgramSettings)
+describeMultiplexProgramResponse_multiplexProgramSettings = Lens.lens (\DescribeMultiplexProgramResponse' {multiplexProgramSettings} -> multiplexProgramSettings) (\s@DescribeMultiplexProgramResponse' {} a -> s {multiplexProgramSettings = a} :: DescribeMultiplexProgramResponse)
 
 -- | The packet identifier map for this multiplex program.
 describeMultiplexProgramResponse_packetIdentifiersMap :: Lens.Lens' DescribeMultiplexProgramResponse (Prelude.Maybe MultiplexProgramPacketIdentifiersMap)
@@ -226,14 +236,6 @@ describeMultiplexProgramResponse_pipelineDetails = Lens.lens (\DescribeMultiplex
 describeMultiplexProgramResponse_programName :: Lens.Lens' DescribeMultiplexProgramResponse (Prelude.Maybe Prelude.Text)
 describeMultiplexProgramResponse_programName = Lens.lens (\DescribeMultiplexProgramResponse' {programName} -> programName) (\s@DescribeMultiplexProgramResponse' {} a -> s {programName = a} :: DescribeMultiplexProgramResponse)
 
--- | The MediaLive channel associated with the program.
-describeMultiplexProgramResponse_channelId :: Lens.Lens' DescribeMultiplexProgramResponse (Prelude.Maybe Prelude.Text)
-describeMultiplexProgramResponse_channelId = Lens.lens (\DescribeMultiplexProgramResponse' {channelId} -> channelId) (\s@DescribeMultiplexProgramResponse' {} a -> s {channelId = a} :: DescribeMultiplexProgramResponse)
-
--- | The settings for this multiplex program.
-describeMultiplexProgramResponse_multiplexProgramSettings :: Lens.Lens' DescribeMultiplexProgramResponse (Prelude.Maybe MultiplexProgramSettings)
-describeMultiplexProgramResponse_multiplexProgramSettings = Lens.lens (\DescribeMultiplexProgramResponse' {multiplexProgramSettings} -> multiplexProgramSettings) (\s@DescribeMultiplexProgramResponse' {} a -> s {multiplexProgramSettings = a} :: DescribeMultiplexProgramResponse)
-
 -- | The response's http status code.
 describeMultiplexProgramResponse_httpStatus :: Lens.Lens' DescribeMultiplexProgramResponse Prelude.Int
 describeMultiplexProgramResponse_httpStatus = Lens.lens (\DescribeMultiplexProgramResponse' {httpStatus} -> httpStatus) (\s@DescribeMultiplexProgramResponse' {} a -> s {httpStatus = a} :: DescribeMultiplexProgramResponse)
@@ -243,9 +245,9 @@ instance
     DescribeMultiplexProgramResponse
   where
   rnf DescribeMultiplexProgramResponse' {..} =
-    Prelude.rnf packetIdentifiersMap
+    Prelude.rnf channelId
+      `Prelude.seq` Prelude.rnf multiplexProgramSettings
+      `Prelude.seq` Prelude.rnf packetIdentifiersMap
       `Prelude.seq` Prelude.rnf pipelineDetails
       `Prelude.seq` Prelude.rnf programName
-      `Prelude.seq` Prelude.rnf channelId
-      `Prelude.seq` Prelude.rnf multiplexProgramSettings
       `Prelude.seq` Prelude.rnf httpStatus

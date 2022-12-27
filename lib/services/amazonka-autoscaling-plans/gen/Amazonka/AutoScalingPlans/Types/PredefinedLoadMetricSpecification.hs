@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScalingPlans.Types.PredefinedLoadMetricSpecification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AutoScalingPlans.Types.PredefinedLoadMetricSpecification where
 
 import Amazonka.AutoScalingPlans.Types.LoadMetricType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a predefined metric that can be used for predictive scaling.
@@ -146,16 +147,16 @@ predefinedLoadMetricSpecification_predefinedLoadMetricType :: Lens.Lens' Predefi
 predefinedLoadMetricSpecification_predefinedLoadMetricType = Lens.lens (\PredefinedLoadMetricSpecification' {predefinedLoadMetricType} -> predefinedLoadMetricType) (\s@PredefinedLoadMetricSpecification' {} a -> s {predefinedLoadMetricType = a} :: PredefinedLoadMetricSpecification)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     PredefinedLoadMetricSpecification
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PredefinedLoadMetricSpecification"
       ( \x ->
           PredefinedLoadMetricSpecification'
-            Prelude.<$> (x Core..:? "ResourceLabel")
-            Prelude.<*> (x Core..: "PredefinedLoadMetricType")
+            Prelude.<$> (x Data..:? "ResourceLabel")
+            Prelude.<*> (x Data..: "PredefinedLoadMetricType")
       )
 
 instance
@@ -177,16 +178,16 @@ instance
       `Prelude.seq` Prelude.rnf predefinedLoadMetricType
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     PredefinedLoadMetricSpecification
   where
   toJSON PredefinedLoadMetricSpecification' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ResourceLabel" Core..=) Prelude.<$> resourceLabel,
+          [ ("ResourceLabel" Data..=) Prelude.<$> resourceLabel,
             Prelude.Just
               ( "PredefinedLoadMetricType"
-                  Core..= predefinedLoadMetricType
+                  Data..= predefinedLoadMetricType
               )
           ]
       )

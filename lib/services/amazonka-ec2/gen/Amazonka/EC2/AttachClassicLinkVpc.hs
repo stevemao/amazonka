@@ -14,11 +14,16 @@
 
 -- |
 -- Module      : Amazonka.EC2.AttachClassicLinkVpc
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
+--
+-- We are retiring EC2-Classic. We recommend that you migrate from
+-- EC2-Classic to a VPC. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html Migrate from EC2-Classic to a VPC>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
 --
 -- Links an EC2-Classic instance to a ClassicLink-enabled VPC through one
 -- or more of the VPC\'s security groups. You cannot link an EC2-Classic
@@ -55,8 +60,9 @@ module Amazonka.EC2.AttachClassicLinkVpc
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -138,12 +144,13 @@ instance Core.AWSRequest AttachClassicLinkVpc where
   type
     AWSResponse AttachClassicLinkVpc =
       AttachClassicLinkVpcResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           AttachClassicLinkVpcResponse'
-            Prelude.<$> (x Core..@? "return")
+            Prelude.<$> (x Data..@? "return")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -161,23 +168,23 @@ instance Prelude.NFData AttachClassicLinkVpc where
       `Prelude.seq` Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf vpcId
 
-instance Core.ToHeaders AttachClassicLinkVpc where
+instance Data.ToHeaders AttachClassicLinkVpc where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath AttachClassicLinkVpc where
+instance Data.ToPath AttachClassicLinkVpc where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AttachClassicLinkVpc where
+instance Data.ToQuery AttachClassicLinkVpc where
   toQuery AttachClassicLinkVpc' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("AttachClassicLinkVpc" :: Prelude.ByteString),
+          Data.=: ("AttachClassicLinkVpc" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        Core.toQueryList "SecurityGroupId" groups,
-        "InstanceId" Core.=: instanceId,
-        "VpcId" Core.=: vpcId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQueryList "SecurityGroupId" groups,
+        "InstanceId" Data.=: instanceId,
+        "VpcId" Data.=: vpcId
       ]
 
 -- | /See:/ 'newAttachClassicLinkVpcResponse' smart constructor.

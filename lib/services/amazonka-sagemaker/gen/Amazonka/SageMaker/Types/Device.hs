@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.Device
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.Device where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information of a particular device.
@@ -84,12 +85,12 @@ instance Prelude.NFData Device where
       `Prelude.seq` Prelude.rnf iotThingName
       `Prelude.seq` Prelude.rnf deviceName
 
-instance Core.ToJSON Device where
+instance Data.ToJSON Device where
   toJSON Device' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Description" Core..=) Prelude.<$> description,
-            ("IotThingName" Core..=) Prelude.<$> iotThingName,
-            Prelude.Just ("DeviceName" Core..= deviceName)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("IotThingName" Data..=) Prelude.<$> iotThingName,
+            Prelude.Just ("DeviceName" Data..= deviceName)
           ]
       )

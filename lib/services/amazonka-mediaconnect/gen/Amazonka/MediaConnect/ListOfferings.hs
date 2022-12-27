@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConnect.ListOfferings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,8 +32,8 @@ module Amazonka.MediaConnect.ListOfferings
     newListOfferings,
 
     -- * Request Lenses
-    listOfferings_nextToken,
     listOfferings_maxResults,
+    listOfferings_nextToken,
 
     -- * Destructuring the Response
     ListOfferingsResponse (..),
@@ -47,7 +47,8 @@ module Amazonka.MediaConnect.ListOfferings
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConnect.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -55,13 +56,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListOfferings' smart constructor.
 data ListOfferings = ListOfferings'
-  { -- | The token that identifies which batch of results that you want to see.
-    -- For example, you submit a ListOfferings request with MaxResults set at
-    -- 5. The service returns the first batch of results (up to 5) and a
-    -- NextToken value. To see the next batch of results, you can submit the
-    -- ListOfferings request a second time and specify the NextToken value.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return per API request. For example,
+  { -- | The maximum number of results to return per API request. For example,
     -- you submit a ListOfferings request with MaxResults set at 5. Although 20
     -- items match your request, the service returns no more than the first 5
     -- items. (The service also returns a NextToken value that you can use to
@@ -69,7 +64,13 @@ data ListOfferings = ListOfferings'
     -- than the MaxResults value. If MaxResults is not included in the request,
     -- the service defaults to pagination with a maximum of 10 results per
     -- page.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token that identifies which batch of results that you want to see.
+    -- For example, you submit a ListOfferings request with MaxResults set at
+    -- 5. The service returns the first batch of results (up to 5) and a
+    -- NextToken value. To see the next batch of results, you can submit the
+    -- ListOfferings request a second time and specify the NextToken value.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -81,12 +82,6 @@ data ListOfferings = ListOfferings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listOfferings_nextToken' - The token that identifies which batch of results that you want to see.
--- For example, you submit a ListOfferings request with MaxResults set at
--- 5. The service returns the first batch of results (up to 5) and a
--- NextToken value. To see the next batch of results, you can submit the
--- ListOfferings request a second time and specify the NextToken value.
---
 -- 'maxResults', 'listOfferings_maxResults' - The maximum number of results to return per API request. For example,
 -- you submit a ListOfferings request with MaxResults set at 5. Although 20
 -- items match your request, the service returns no more than the first 5
@@ -95,21 +90,19 @@ data ListOfferings = ListOfferings'
 -- than the MaxResults value. If MaxResults is not included in the request,
 -- the service defaults to pagination with a maximum of 10 results per
 -- page.
-newListOfferings ::
-  ListOfferings
-newListOfferings =
-  ListOfferings'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
-    }
-
--- | The token that identifies which batch of results that you want to see.
+--
+-- 'nextToken', 'listOfferings_nextToken' - The token that identifies which batch of results that you want to see.
 -- For example, you submit a ListOfferings request with MaxResults set at
 -- 5. The service returns the first batch of results (up to 5) and a
 -- NextToken value. To see the next batch of results, you can submit the
 -- ListOfferings request a second time and specify the NextToken value.
-listOfferings_nextToken :: Lens.Lens' ListOfferings (Prelude.Maybe Prelude.Text)
-listOfferings_nextToken = Lens.lens (\ListOfferings' {nextToken} -> nextToken) (\s@ListOfferings' {} a -> s {nextToken = a} :: ListOfferings)
+newListOfferings ::
+  ListOfferings
+newListOfferings =
+  ListOfferings'
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
+    }
 
 -- | The maximum number of results to return per API request. For example,
 -- you submit a ListOfferings request with MaxResults set at 5. Although 20
@@ -121,6 +114,14 @@ listOfferings_nextToken = Lens.lens (\ListOfferings' {nextToken} -> nextToken) (
 -- page.
 listOfferings_maxResults :: Lens.Lens' ListOfferings (Prelude.Maybe Prelude.Natural)
 listOfferings_maxResults = Lens.lens (\ListOfferings' {maxResults} -> maxResults) (\s@ListOfferings' {} a -> s {maxResults = a} :: ListOfferings)
+
+-- | The token that identifies which batch of results that you want to see.
+-- For example, you submit a ListOfferings request with MaxResults set at
+-- 5. The service returns the first batch of results (up to 5) and a
+-- NextToken value. To see the next batch of results, you can submit the
+-- ListOfferings request a second time and specify the NextToken value.
+listOfferings_nextToken :: Lens.Lens' ListOfferings (Prelude.Maybe Prelude.Text)
+listOfferings_nextToken = Lens.lens (\ListOfferings' {nextToken} -> nextToken) (\s@ListOfferings' {} a -> s {nextToken = a} :: ListOfferings)
 
 instance Core.AWSPager ListOfferings where
   page rq rs
@@ -145,45 +146,46 @@ instance Core.AWSRequest ListOfferings where
   type
     AWSResponse ListOfferings =
       ListOfferingsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListOfferingsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "offerings" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "offerings" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListOfferings where
   hashWithSalt _salt ListOfferings' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListOfferings where
   rnf ListOfferings' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListOfferings where
+instance Data.ToHeaders ListOfferings where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListOfferings where
+instance Data.ToPath ListOfferings where
   toPath = Prelude.const "/v1/offerings"
 
-instance Core.ToQuery ListOfferings where
+instance Data.ToQuery ListOfferings where
   toQuery ListOfferings' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListOfferingsResponse' smart constructor.

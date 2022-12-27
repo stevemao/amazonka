@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudSearchDomains.Types.BucketInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudSearchDomains.Types.BucketInfo where
 
 import Amazonka.CloudSearchDomains.Types.Bucket
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A container for the calculated facet values and counts.
@@ -51,13 +52,13 @@ newBucketInfo =
 bucketInfo_buckets :: Lens.Lens' BucketInfo (Prelude.Maybe [Bucket])
 bucketInfo_buckets = Lens.lens (\BucketInfo' {buckets} -> buckets) (\s@BucketInfo' {} a -> s {buckets = a} :: BucketInfo) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON BucketInfo where
+instance Data.FromJSON BucketInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BucketInfo"
       ( \x ->
           BucketInfo'
-            Prelude.<$> (x Core..:? "buckets" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "buckets" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable BucketInfo where

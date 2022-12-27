@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStarConnections.UpdateHost
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CodeStarConnections.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,7 +103,8 @@ updateHost_hostArn = Lens.lens (\UpdateHost' {hostArn} -> hostArn) (\s@UpdateHos
 
 instance Core.AWSRequest UpdateHost where
   type AWSResponse UpdateHost = UpdateHostResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -122,37 +124,37 @@ instance Prelude.NFData UpdateHost where
       `Prelude.seq` Prelude.rnf vpcConfiguration
       `Prelude.seq` Prelude.rnf hostArn
 
-instance Core.ToHeaders UpdateHost where
+instance Data.ToHeaders UpdateHost where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "com.amazonaws.codestar.connections.CodeStar_connections_20191201.UpdateHost" ::
+              Data.=# ( "com.amazonaws.codestar.connections.CodeStar_connections_20191201.UpdateHost" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateHost where
+instance Data.ToJSON UpdateHost where
   toJSON UpdateHost' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ProviderEndpoint" Core..=)
+          [ ("ProviderEndpoint" Data..=)
               Prelude.<$> providerEndpoint,
-            ("VpcConfiguration" Core..=)
+            ("VpcConfiguration" Data..=)
               Prelude.<$> vpcConfiguration,
-            Prelude.Just ("HostArn" Core..= hostArn)
+            Prelude.Just ("HostArn" Data..= hostArn)
           ]
       )
 
-instance Core.ToPath UpdateHost where
+instance Data.ToPath UpdateHost where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateHost where
+instance Data.ToQuery UpdateHost where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateHostResponse' smart constructor.

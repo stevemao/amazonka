@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AvailabilityZone
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AvailabilityZone where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about an Availability Zone.
@@ -61,14 +62,14 @@ availabilityZone_subnetId = Lens.lens (\AvailabilityZone' {subnetId} -> subnetId
 availabilityZone_zoneName :: Lens.Lens' AvailabilityZone (Prelude.Maybe Prelude.Text)
 availabilityZone_zoneName = Lens.lens (\AvailabilityZone' {zoneName} -> zoneName) (\s@AvailabilityZone' {} a -> s {zoneName = a} :: AvailabilityZone)
 
-instance Core.FromJSON AvailabilityZone where
+instance Data.FromJSON AvailabilityZone where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AvailabilityZone"
       ( \x ->
           AvailabilityZone'
-            Prelude.<$> (x Core..:? "SubnetId")
-            Prelude.<*> (x Core..:? "ZoneName")
+            Prelude.<$> (x Data..:? "SubnetId")
+            Prelude.<*> (x Data..:? "ZoneName")
       )
 
 instance Prelude.Hashable AvailabilityZone where
@@ -81,11 +82,11 @@ instance Prelude.NFData AvailabilityZone where
     Prelude.rnf subnetId
       `Prelude.seq` Prelude.rnf zoneName
 
-instance Core.ToJSON AvailabilityZone where
+instance Data.ToJSON AvailabilityZone where
   toJSON AvailabilityZone' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SubnetId" Core..=) Prelude.<$> subnetId,
-            ("ZoneName" Core..=) Prelude.<$> zoneName
+          [ ("SubnetId" Data..=) Prelude.<$> subnetId,
+            ("ZoneName" Data..=) Prelude.<$> zoneName
           ]
       )

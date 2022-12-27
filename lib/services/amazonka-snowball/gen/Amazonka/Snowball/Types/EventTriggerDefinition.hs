@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Snowball.Types.EventTriggerDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Snowball.Types.EventTriggerDefinition where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The container for the EventTriggerDefinition$EventResourceARN.
@@ -28,7 +29,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newEventTriggerDefinition' smart constructor.
 data EventTriggerDefinition = EventTriggerDefinition'
   { -- | The Amazon Resource Name (ARN) for any local Amazon S3 resource that is
-    -- an AWS Lambda function\'s event trigger associated with this job.
+    -- an Lambda function\'s event trigger associated with this job.
     eventResourceARN :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -42,7 +43,7 @@ data EventTriggerDefinition = EventTriggerDefinition'
 -- for backwards compatibility:
 --
 -- 'eventResourceARN', 'eventTriggerDefinition_eventResourceARN' - The Amazon Resource Name (ARN) for any local Amazon S3 resource that is
--- an AWS Lambda function\'s event trigger associated with this job.
+-- an Lambda function\'s event trigger associated with this job.
 newEventTriggerDefinition ::
   EventTriggerDefinition
 newEventTriggerDefinition =
@@ -52,17 +53,17 @@ newEventTriggerDefinition =
     }
 
 -- | The Amazon Resource Name (ARN) for any local Amazon S3 resource that is
--- an AWS Lambda function\'s event trigger associated with this job.
+-- an Lambda function\'s event trigger associated with this job.
 eventTriggerDefinition_eventResourceARN :: Lens.Lens' EventTriggerDefinition (Prelude.Maybe Prelude.Text)
 eventTriggerDefinition_eventResourceARN = Lens.lens (\EventTriggerDefinition' {eventResourceARN} -> eventResourceARN) (\s@EventTriggerDefinition' {} a -> s {eventResourceARN = a} :: EventTriggerDefinition)
 
-instance Core.FromJSON EventTriggerDefinition where
+instance Data.FromJSON EventTriggerDefinition where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EventTriggerDefinition"
       ( \x ->
           EventTriggerDefinition'
-            Prelude.<$> (x Core..:? "EventResourceARN")
+            Prelude.<$> (x Data..:? "EventResourceARN")
       )
 
 instance Prelude.Hashable EventTriggerDefinition where
@@ -73,11 +74,11 @@ instance Prelude.NFData EventTriggerDefinition where
   rnf EventTriggerDefinition' {..} =
     Prelude.rnf eventResourceARN
 
-instance Core.ToJSON EventTriggerDefinition where
+instance Data.ToJSON EventTriggerDefinition where
   toJSON EventTriggerDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EventResourceARN" Core..=)
+          [ ("EventResourceARN" Data..=)
               Prelude.<$> eventResourceARN
           ]
       )

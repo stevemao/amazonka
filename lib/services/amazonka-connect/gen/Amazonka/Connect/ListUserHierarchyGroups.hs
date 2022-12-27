@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.ListUserHierarchyGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,8 +34,8 @@ module Amazonka.Connect.ListUserHierarchyGroups
     newListUserHierarchyGroups,
 
     -- * Request Lenses
-    listUserHierarchyGroups_nextToken,
     listUserHierarchyGroups_maxResults,
+    listUserHierarchyGroups_nextToken,
     listUserHierarchyGroups_instanceId,
 
     -- * Destructuring the Response
@@ -51,19 +51,21 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListUserHierarchyGroups' smart constructor.
 data ListUserHierarchyGroups = ListUserHierarchyGroups'
-  { -- | The token for the next set of results. Use the value returned in the
+  { -- | The maximum number of results to return per page. The default MaxResult
+    -- size is 100.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results. Use the value returned in the
     -- previous response in the next request to retrieve the next set of
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return per page.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The identifier of the Amazon Connect instance. You can find the
     -- instanceId in the ARN of the instance.
     instanceId :: Prelude.Text
@@ -78,11 +80,12 @@ data ListUserHierarchyGroups = ListUserHierarchyGroups'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listUserHierarchyGroups_maxResults' - The maximum number of results to return per page. The default MaxResult
+-- size is 100.
+--
 -- 'nextToken', 'listUserHierarchyGroups_nextToken' - The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
---
--- 'maxResults', 'listUserHierarchyGroups_maxResults' - The maximum number of results to return per page.
 --
 -- 'instanceId', 'listUserHierarchyGroups_instanceId' - The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -92,21 +95,22 @@ newListUserHierarchyGroups ::
   ListUserHierarchyGroups
 newListUserHierarchyGroups pInstanceId_ =
   ListUserHierarchyGroups'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       instanceId = pInstanceId_
     }
+
+-- | The maximum number of results to return per page. The default MaxResult
+-- size is 100.
+listUserHierarchyGroups_maxResults :: Lens.Lens' ListUserHierarchyGroups (Prelude.Maybe Prelude.Natural)
+listUserHierarchyGroups_maxResults = Lens.lens (\ListUserHierarchyGroups' {maxResults} -> maxResults) (\s@ListUserHierarchyGroups' {} a -> s {maxResults = a} :: ListUserHierarchyGroups)
 
 -- | The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
 listUserHierarchyGroups_nextToken :: Lens.Lens' ListUserHierarchyGroups (Prelude.Maybe Prelude.Text)
 listUserHierarchyGroups_nextToken = Lens.lens (\ListUserHierarchyGroups' {nextToken} -> nextToken) (\s@ListUserHierarchyGroups' {} a -> s {nextToken = a} :: ListUserHierarchyGroups)
-
--- | The maximum number of results to return per page.
-listUserHierarchyGroups_maxResults :: Lens.Lens' ListUserHierarchyGroups (Prelude.Maybe Prelude.Natural)
-listUserHierarchyGroups_maxResults = Lens.lens (\ListUserHierarchyGroups' {maxResults} -> maxResults) (\s@ListUserHierarchyGroups' {} a -> s {maxResults = a} :: ListUserHierarchyGroups)
 
 -- | The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -139,13 +143,14 @@ instance Core.AWSRequest ListUserHierarchyGroups where
   type
     AWSResponse ListUserHierarchyGroups =
       ListUserHierarchyGroupsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListUserHierarchyGroupsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "UserHierarchyGroupSummaryList"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "UserHierarchyGroupSummaryList"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -153,39 +158,39 @@ instance Core.AWSRequest ListUserHierarchyGroups where
 
 instance Prelude.Hashable ListUserHierarchyGroups where
   hashWithSalt _salt ListUserHierarchyGroups' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` instanceId
 
 instance Prelude.NFData ListUserHierarchyGroups where
   rnf ListUserHierarchyGroups' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf instanceId
 
-instance Core.ToHeaders ListUserHierarchyGroups where
+instance Data.ToHeaders ListUserHierarchyGroups where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListUserHierarchyGroups where
+instance Data.ToPath ListUserHierarchyGroups where
   toPath ListUserHierarchyGroups' {..} =
     Prelude.mconcat
       [ "/user-hierarchy-groups-summary/",
-        Core.toBS instanceId
+        Data.toBS instanceId
       ]
 
-instance Core.ToQuery ListUserHierarchyGroups where
+instance Data.ToQuery ListUserHierarchyGroups where
   toQuery ListUserHierarchyGroups' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListUserHierarchyGroupsResponse' smart constructor.

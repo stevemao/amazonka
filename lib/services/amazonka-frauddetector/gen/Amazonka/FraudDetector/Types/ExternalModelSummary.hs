@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.Types.ExternalModelSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.FraudDetector.Types.ExternalModelSummary where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types.ModelSource
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The Amazon SageMaker model.
@@ -63,14 +64,14 @@ externalModelSummary_modelEndpoint = Lens.lens (\ExternalModelSummary' {modelEnd
 externalModelSummary_modelSource :: Lens.Lens' ExternalModelSummary (Prelude.Maybe ModelSource)
 externalModelSummary_modelSource = Lens.lens (\ExternalModelSummary' {modelSource} -> modelSource) (\s@ExternalModelSummary' {} a -> s {modelSource = a} :: ExternalModelSummary)
 
-instance Core.FromJSON ExternalModelSummary where
+instance Data.FromJSON ExternalModelSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ExternalModelSummary"
       ( \x ->
           ExternalModelSummary'
-            Prelude.<$> (x Core..:? "modelEndpoint")
-            Prelude.<*> (x Core..:? "modelSource")
+            Prelude.<$> (x Data..:? "modelEndpoint")
+            Prelude.<*> (x Data..:? "modelSource")
       )
 
 instance Prelude.Hashable ExternalModelSummary where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.DescribeDataSharesForProducer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,30 +22,33 @@
 --
 -- Returns a list of datashares when the account identifier being called is
 -- a producer account identifier.
+--
+-- This operation returns paginated results.
 module Amazonka.Redshift.DescribeDataSharesForProducer
   ( -- * Creating a Request
     DescribeDataSharesForProducer (..),
     newDescribeDataSharesForProducer,
 
     -- * Request Lenses
-    describeDataSharesForProducer_status,
-    describeDataSharesForProducer_producerArn,
     describeDataSharesForProducer_marker,
     describeDataSharesForProducer_maxRecords,
+    describeDataSharesForProducer_producerArn,
+    describeDataSharesForProducer_status,
 
     -- * Destructuring the Response
     DescribeDataSharesForProducerResponse (..),
     newDescribeDataSharesForProducerResponse,
 
     -- * Response Lenses
-    describeDataSharesForProducerResponse_marker,
     describeDataSharesForProducerResponse_dataShares,
+    describeDataSharesForProducerResponse_marker,
     describeDataSharesForProducerResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -53,26 +56,26 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeDataSharesForProducer' smart constructor.
 data DescribeDataSharesForProducer = DescribeDataSharesForProducer'
-  { -- | An identifier giving the status of a datashare in the producer. If this
-    -- field is specified, Amazon Redshift returns the list of datashares that
-    -- have the specified status.
-    status :: Prelude.Maybe DataShareStatusForProducer,
-    -- | The Amazon Resource Name (ARN) of the producer that returns in the list
-    -- of datashares.
-    producerArn :: Prelude.Maybe Prelude.Text,
-    -- | An optional parameter that specifies the starting point to return a set
+  { -- | An optional parameter that specifies the starting point to return a set
     -- of response records. When the results of a DescribeDataSharesForProducer
-    -- request exceed the value specified in @MaxRecords@, AWS returns a value
-    -- in the @Marker@ field of the response. You can retrieve the next set of
-    -- response records by providing the returned marker value in the @Marker@
-    -- parameter and retrying the request.
+    -- request exceed the value specified in @MaxRecords@, Amazon Web Services
+    -- returns a value in the @Marker@ field of the response. You can retrieve
+    -- the next set of response records by providing the returned marker value
+    -- in the @Marker@ parameter and retrying the request.
     marker :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of response records to return in each call. If the
     -- number of remaining response records exceeds the specified @MaxRecords@
     -- value, a value is returned in a @marker@ field of the response. You can
     -- retrieve the next set of records by retrying the command with the
     -- returned marker value.
-    maxRecords :: Prelude.Maybe Prelude.Int
+    maxRecords :: Prelude.Maybe Prelude.Int,
+    -- | The Amazon Resource Name (ARN) of the producer that returns in the list
+    -- of datashares.
+    producerArn :: Prelude.Maybe Prelude.Text,
+    -- | An identifier giving the status of a datashare in the producer. If this
+    -- field is specified, Amazon Redshift returns the list of datashares that
+    -- have the specified status.
+    status :: Prelude.Maybe DataShareStatusForProducer
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -84,53 +87,42 @@ data DescribeDataSharesForProducer = DescribeDataSharesForProducer'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'describeDataSharesForProducer_status' - An identifier giving the status of a datashare in the producer. If this
--- field is specified, Amazon Redshift returns the list of datashares that
--- have the specified status.
---
--- 'producerArn', 'describeDataSharesForProducer_producerArn' - The Amazon Resource Name (ARN) of the producer that returns in the list
--- of datashares.
---
 -- 'marker', 'describeDataSharesForProducer_marker' - An optional parameter that specifies the starting point to return a set
 -- of response records. When the results of a DescribeDataSharesForProducer
--- request exceed the value specified in @MaxRecords@, AWS returns a value
--- in the @Marker@ field of the response. You can retrieve the next set of
--- response records by providing the returned marker value in the @Marker@
--- parameter and retrying the request.
+-- request exceed the value specified in @MaxRecords@, Amazon Web Services
+-- returns a value in the @Marker@ field of the response. You can retrieve
+-- the next set of response records by providing the returned marker value
+-- in the @Marker@ parameter and retrying the request.
 --
 -- 'maxRecords', 'describeDataSharesForProducer_maxRecords' - The maximum number of response records to return in each call. If the
 -- number of remaining response records exceeds the specified @MaxRecords@
 -- value, a value is returned in a @marker@ field of the response. You can
 -- retrieve the next set of records by retrying the command with the
 -- returned marker value.
+--
+-- 'producerArn', 'describeDataSharesForProducer_producerArn' - The Amazon Resource Name (ARN) of the producer that returns in the list
+-- of datashares.
+--
+-- 'status', 'describeDataSharesForProducer_status' - An identifier giving the status of a datashare in the producer. If this
+-- field is specified, Amazon Redshift returns the list of datashares that
+-- have the specified status.
 newDescribeDataSharesForProducer ::
   DescribeDataSharesForProducer
 newDescribeDataSharesForProducer =
   DescribeDataSharesForProducer'
-    { status =
+    { marker =
         Prelude.Nothing,
+      maxRecords = Prelude.Nothing,
       producerArn = Prelude.Nothing,
-      marker = Prelude.Nothing,
-      maxRecords = Prelude.Nothing
+      status = Prelude.Nothing
     }
-
--- | An identifier giving the status of a datashare in the producer. If this
--- field is specified, Amazon Redshift returns the list of datashares that
--- have the specified status.
-describeDataSharesForProducer_status :: Lens.Lens' DescribeDataSharesForProducer (Prelude.Maybe DataShareStatusForProducer)
-describeDataSharesForProducer_status = Lens.lens (\DescribeDataSharesForProducer' {status} -> status) (\s@DescribeDataSharesForProducer' {} a -> s {status = a} :: DescribeDataSharesForProducer)
-
--- | The Amazon Resource Name (ARN) of the producer that returns in the list
--- of datashares.
-describeDataSharesForProducer_producerArn :: Lens.Lens' DescribeDataSharesForProducer (Prelude.Maybe Prelude.Text)
-describeDataSharesForProducer_producerArn = Lens.lens (\DescribeDataSharesForProducer' {producerArn} -> producerArn) (\s@DescribeDataSharesForProducer' {} a -> s {producerArn = a} :: DescribeDataSharesForProducer)
 
 -- | An optional parameter that specifies the starting point to return a set
 -- of response records. When the results of a DescribeDataSharesForProducer
--- request exceed the value specified in @MaxRecords@, AWS returns a value
--- in the @Marker@ field of the response. You can retrieve the next set of
--- response records by providing the returned marker value in the @Marker@
--- parameter and retrying the request.
+-- request exceed the value specified in @MaxRecords@, Amazon Web Services
+-- returns a value in the @Marker@ field of the response. You can retrieve
+-- the next set of response records by providing the returned marker value
+-- in the @Marker@ parameter and retrying the request.
 describeDataSharesForProducer_marker :: Lens.Lens' DescribeDataSharesForProducer (Prelude.Maybe Prelude.Text)
 describeDataSharesForProducer_marker = Lens.lens (\DescribeDataSharesForProducer' {marker} -> marker) (\s@DescribeDataSharesForProducer' {} a -> s {marker = a} :: DescribeDataSharesForProducer)
 
@@ -142,6 +134,39 @@ describeDataSharesForProducer_marker = Lens.lens (\DescribeDataSharesForProducer
 describeDataSharesForProducer_maxRecords :: Lens.Lens' DescribeDataSharesForProducer (Prelude.Maybe Prelude.Int)
 describeDataSharesForProducer_maxRecords = Lens.lens (\DescribeDataSharesForProducer' {maxRecords} -> maxRecords) (\s@DescribeDataSharesForProducer' {} a -> s {maxRecords = a} :: DescribeDataSharesForProducer)
 
+-- | The Amazon Resource Name (ARN) of the producer that returns in the list
+-- of datashares.
+describeDataSharesForProducer_producerArn :: Lens.Lens' DescribeDataSharesForProducer (Prelude.Maybe Prelude.Text)
+describeDataSharesForProducer_producerArn = Lens.lens (\DescribeDataSharesForProducer' {producerArn} -> producerArn) (\s@DescribeDataSharesForProducer' {} a -> s {producerArn = a} :: DescribeDataSharesForProducer)
+
+-- | An identifier giving the status of a datashare in the producer. If this
+-- field is specified, Amazon Redshift returns the list of datashares that
+-- have the specified status.
+describeDataSharesForProducer_status :: Lens.Lens' DescribeDataSharesForProducer (Prelude.Maybe DataShareStatusForProducer)
+describeDataSharesForProducer_status = Lens.lens (\DescribeDataSharesForProducer' {status} -> status) (\s@DescribeDataSharesForProducer' {} a -> s {status = a} :: DescribeDataSharesForProducer)
+
+instance Core.AWSPager DescribeDataSharesForProducer where
+  page rq rs
+    | Core.stop
+        ( rs
+            Lens.^? describeDataSharesForProducerResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Core.stop
+        ( rs
+            Lens.^? describeDataSharesForProducerResponse_dataShares
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Prelude.& describeDataSharesForProducer_marker
+          Lens..~ rs
+          Lens.^? describeDataSharesForProducerResponse_marker
+            Prelude.. Lens._Just
+
 instance
   Core.AWSRequest
     DescribeDataSharesForProducer
@@ -149,16 +174,17 @@ instance
   type
     AWSResponse DescribeDataSharesForProducer =
       DescribeDataSharesForProducerResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeDataSharesForProducerResult"
       ( \s h x ->
           DescribeDataSharesForProducerResponse'
-            Prelude.<$> (x Core..@? "Marker")
-            Prelude.<*> ( x Core..@? "DataShares" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> ( x Data..@? "DataShares" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -167,50 +193,50 @@ instance
     DescribeDataSharesForProducer
   where
   hashWithSalt _salt DescribeDataSharesForProducer' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` producerArn
-      `Prelude.hashWithSalt` marker
+    _salt `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
+      `Prelude.hashWithSalt` producerArn
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData DescribeDataSharesForProducer where
   rnf DescribeDataSharesForProducer' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf producerArn
-      `Prelude.seq` Prelude.rnf marker
+    Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
+      `Prelude.seq` Prelude.rnf producerArn
+      `Prelude.seq` Prelude.rnf status
 
-instance Core.ToHeaders DescribeDataSharesForProducer where
+instance Data.ToHeaders DescribeDataSharesForProducer where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeDataSharesForProducer where
+instance Data.ToPath DescribeDataSharesForProducer where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeDataSharesForProducer where
+instance Data.ToQuery DescribeDataSharesForProducer where
   toQuery DescribeDataSharesForProducer' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeDataSharesForProducer" ::
+          Data.=: ( "DescribeDataSharesForProducer" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "Status" Core.=: status,
-        "ProducerArn" Core.=: producerArn,
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
+        "ProducerArn" Data.=: producerArn,
+        "Status" Data.=: status
       ]
 
 -- | /See:/ 'newDescribeDataSharesForProducerResponse' smart constructor.
 data DescribeDataSharesForProducerResponse = DescribeDataSharesForProducerResponse'
-  { -- | An optional parameter that specifies the starting point to return a set
-    -- of response records. When the results of a DescribeDataSharesForProducer
-    -- request exceed the value specified in @MaxRecords@, AWS returns a value
-    -- in the @Marker@ field of the response. You can retrieve the next set of
-    -- response records by providing the returned marker value in the @Marker@
-    -- parameter and retrying the request.
-    marker :: Prelude.Maybe Prelude.Text,
-    -- | Shows the results of datashares available for producers.
+  { -- | Shows the results of datashares available for producers.
     dataShares :: Prelude.Maybe [DataShare],
+    -- | An optional parameter that specifies the starting point to return a set
+    -- of response records. When the results of a DescribeDataSharesForProducer
+    -- request exceed the value specified in @MaxRecords@, Amazon Web Services
+    -- returns a value in the @Marker@ field of the response. You can retrieve
+    -- the next set of response records by providing the returned marker value
+    -- in the @Marker@ parameter and retrying the request.
+    marker :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -224,14 +250,14 @@ data DescribeDataSharesForProducerResponse = DescribeDataSharesForProducerRespon
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'dataShares', 'describeDataSharesForProducerResponse_dataShares' - Shows the results of datashares available for producers.
+--
 -- 'marker', 'describeDataSharesForProducerResponse_marker' - An optional parameter that specifies the starting point to return a set
 -- of response records. When the results of a DescribeDataSharesForProducer
--- request exceed the value specified in @MaxRecords@, AWS returns a value
--- in the @Marker@ field of the response. You can retrieve the next set of
--- response records by providing the returned marker value in the @Marker@
--- parameter and retrying the request.
---
--- 'dataShares', 'describeDataSharesForProducerResponse_dataShares' - Shows the results of datashares available for producers.
+-- request exceed the value specified in @MaxRecords@, Amazon Web Services
+-- returns a value in the @Marker@ field of the response. You can retrieve
+-- the next set of response records by providing the returned marker value
+-- in the @Marker@ parameter and retrying the request.
 --
 -- 'httpStatus', 'describeDataSharesForProducerResponse_httpStatus' - The response's http status code.
 newDescribeDataSharesForProducerResponse ::
@@ -240,24 +266,24 @@ newDescribeDataSharesForProducerResponse ::
   DescribeDataSharesForProducerResponse
 newDescribeDataSharesForProducerResponse pHttpStatus_ =
   DescribeDataSharesForProducerResponse'
-    { marker =
+    { dataShares =
         Prelude.Nothing,
-      dataShares = Prelude.Nothing,
+      marker = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | An optional parameter that specifies the starting point to return a set
--- of response records. When the results of a DescribeDataSharesForProducer
--- request exceed the value specified in @MaxRecords@, AWS returns a value
--- in the @Marker@ field of the response. You can retrieve the next set of
--- response records by providing the returned marker value in the @Marker@
--- parameter and retrying the request.
-describeDataSharesForProducerResponse_marker :: Lens.Lens' DescribeDataSharesForProducerResponse (Prelude.Maybe Prelude.Text)
-describeDataSharesForProducerResponse_marker = Lens.lens (\DescribeDataSharesForProducerResponse' {marker} -> marker) (\s@DescribeDataSharesForProducerResponse' {} a -> s {marker = a} :: DescribeDataSharesForProducerResponse)
 
 -- | Shows the results of datashares available for producers.
 describeDataSharesForProducerResponse_dataShares :: Lens.Lens' DescribeDataSharesForProducerResponse (Prelude.Maybe [DataShare])
 describeDataSharesForProducerResponse_dataShares = Lens.lens (\DescribeDataSharesForProducerResponse' {dataShares} -> dataShares) (\s@DescribeDataSharesForProducerResponse' {} a -> s {dataShares = a} :: DescribeDataSharesForProducerResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | An optional parameter that specifies the starting point to return a set
+-- of response records. When the results of a DescribeDataSharesForProducer
+-- request exceed the value specified in @MaxRecords@, Amazon Web Services
+-- returns a value in the @Marker@ field of the response. You can retrieve
+-- the next set of response records by providing the returned marker value
+-- in the @Marker@ parameter and retrying the request.
+describeDataSharesForProducerResponse_marker :: Lens.Lens' DescribeDataSharesForProducerResponse (Prelude.Maybe Prelude.Text)
+describeDataSharesForProducerResponse_marker = Lens.lens (\DescribeDataSharesForProducerResponse' {marker} -> marker) (\s@DescribeDataSharesForProducerResponse' {} a -> s {marker = a} :: DescribeDataSharesForProducerResponse)
 
 -- | The response's http status code.
 describeDataSharesForProducerResponse_httpStatus :: Lens.Lens' DescribeDataSharesForProducerResponse Prelude.Int
@@ -268,6 +294,6 @@ instance
     DescribeDataSharesForProducerResponse
   where
   rnf DescribeDataSharesForProducerResponse' {..} =
-    Prelude.rnf marker
-      `Prelude.seq` Prelude.rnf dataShares
+    Prelude.rnf dataShares
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf httpStatus

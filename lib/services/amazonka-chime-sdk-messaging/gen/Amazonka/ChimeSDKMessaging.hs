@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.ChimeSDKMessaging
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -16,7 +16,7 @@
 -- applications. These APIs depend on the frameworks provided by the Amazon
 -- Chime SDK Identity APIs. For more information about the messaging APIs,
 -- see
--- <https://docs.aws.amazon.com/chime/latest/APIReference/API_Operations_Amazon_Chime_SDK_Messaging Amazon Chime SDK messaging>
+-- <https://docs.aws.amazon.com/chime/latest/APIReference/API_Operations_Amazon_Chime_SDK_Messaging.html Amazon Chime SDK messaging>.
 module Amazonka.ChimeSDKMessaging
   ( -- * Service Configuration
     defaultService,
@@ -24,11 +24,8 @@ module Amazonka.ChimeSDKMessaging
     -- * Errors
     -- $errors
 
-    -- ** ThrottledClientException
-    _ThrottledClientException,
-
-    -- ** ResourceLimitExceededException
-    _ResourceLimitExceededException,
+    -- ** BadRequestException
+    _BadRequestException,
 
     -- ** ConflictException
     _ConflictException,
@@ -39,17 +36,20 @@ module Amazonka.ChimeSDKMessaging
     -- ** NotFoundException
     _NotFoundException,
 
+    -- ** ResourceLimitExceededException
+    _ResourceLimitExceededException,
+
     -- ** ServiceFailureException
     _ServiceFailureException,
-
-    -- ** UnauthorizedClientException
-    _UnauthorizedClientException,
 
     -- ** ServiceUnavailableException
     _ServiceUnavailableException,
 
-    -- ** BadRequestException
-    _BadRequestException,
+    -- ** ThrottledClientException
+    _ThrottledClientException,
+
+    -- ** UnauthorizedClientException
+    _UnauthorizedClientException,
 
     -- * Waiters
     -- $waiters
@@ -57,143 +57,23 @@ module Amazonka.ChimeSDKMessaging
     -- * Operations
     -- $operations
 
-    -- ** DescribeChannelMembership
-    DescribeChannelMembership (DescribeChannelMembership'),
-    newDescribeChannelMembership,
-    DescribeChannelMembershipResponse (DescribeChannelMembershipResponse'),
-    newDescribeChannelMembershipResponse,
-
-    -- ** DescribeChannelFlow
-    DescribeChannelFlow (DescribeChannelFlow'),
-    newDescribeChannelFlow,
-    DescribeChannelFlowResponse (DescribeChannelFlowResponse'),
-    newDescribeChannelFlowResponse,
-
-    -- ** ListChannels
-    ListChannels (ListChannels'),
-    newListChannels,
-    ListChannelsResponse (ListChannelsResponse'),
-    newListChannelsResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** DeleteChannel
-    DeleteChannel (DeleteChannel'),
-    newDeleteChannel,
-    DeleteChannelResponse (DeleteChannelResponse'),
-    newDeleteChannelResponse,
-
-    -- ** UpdateChannel
-    UpdateChannel (UpdateChannel'),
-    newUpdateChannel,
-    UpdateChannelResponse (UpdateChannelResponse'),
-    newUpdateChannelResponse,
-
     -- ** AssociateChannelFlow
     AssociateChannelFlow (AssociateChannelFlow'),
     newAssociateChannelFlow,
     AssociateChannelFlowResponse (AssociateChannelFlowResponse'),
     newAssociateChannelFlowResponse,
 
-    -- ** GetMessagingSessionEndpoint
-    GetMessagingSessionEndpoint (GetMessagingSessionEndpoint'),
-    newGetMessagingSessionEndpoint,
-    GetMessagingSessionEndpointResponse (GetMessagingSessionEndpointResponse'),
-    newGetMessagingSessionEndpointResponse,
+    -- ** BatchCreateChannelMembership
+    BatchCreateChannelMembership (BatchCreateChannelMembership'),
+    newBatchCreateChannelMembership,
+    BatchCreateChannelMembershipResponse (BatchCreateChannelMembershipResponse'),
+    newBatchCreateChannelMembershipResponse,
 
-    -- ** ListChannelsModeratedByAppInstanceUser
-    ListChannelsModeratedByAppInstanceUser (ListChannelsModeratedByAppInstanceUser'),
-    newListChannelsModeratedByAppInstanceUser,
-    ListChannelsModeratedByAppInstanceUserResponse (ListChannelsModeratedByAppInstanceUserResponse'),
-    newListChannelsModeratedByAppInstanceUserResponse,
-
-    -- ** RedactChannelMessage
-    RedactChannelMessage (RedactChannelMessage'),
-    newRedactChannelMessage,
-    RedactChannelMessageResponse (RedactChannelMessageResponse'),
-    newRedactChannelMessageResponse,
-
-    -- ** ListChannelFlows
-    ListChannelFlows (ListChannelFlows'),
-    newListChannelFlows,
-    ListChannelFlowsResponse (ListChannelFlowsResponse'),
-    newListChannelFlowsResponse,
-
-    -- ** DeleteChannelFlow
-    DeleteChannelFlow (DeleteChannelFlow'),
-    newDeleteChannelFlow,
-    DeleteChannelFlowResponse (DeleteChannelFlowResponse'),
-    newDeleteChannelFlowResponse,
-
-    -- ** UpdateChannelFlow
-    UpdateChannelFlow (UpdateChannelFlow'),
-    newUpdateChannelFlow,
-    UpdateChannelFlowResponse (UpdateChannelFlowResponse'),
-    newUpdateChannelFlowResponse,
-
-    -- ** DeleteChannelMembership
-    DeleteChannelMembership (DeleteChannelMembership'),
-    newDeleteChannelMembership,
-    DeleteChannelMembershipResponse (DeleteChannelMembershipResponse'),
-    newDeleteChannelMembershipResponse,
-
-    -- ** ListChannelMemberships
-    ListChannelMemberships (ListChannelMemberships'),
-    newListChannelMemberships,
-    ListChannelMembershipsResponse (ListChannelMembershipsResponse'),
-    newListChannelMembershipsResponse,
-
-    -- ** DisassociateChannelFlow
-    DisassociateChannelFlow (DisassociateChannelFlow'),
-    newDisassociateChannelFlow,
-    DisassociateChannelFlowResponse (DisassociateChannelFlowResponse'),
-    newDisassociateChannelFlowResponse,
-
-    -- ** GetChannelMessage
-    GetChannelMessage (GetChannelMessage'),
-    newGetChannelMessage,
-    GetChannelMessageResponse (GetChannelMessageResponse'),
-    newGetChannelMessageResponse,
-
-    -- ** DescribeChannelMembershipForAppInstanceUser
-    DescribeChannelMembershipForAppInstanceUser (DescribeChannelMembershipForAppInstanceUser'),
-    newDescribeChannelMembershipForAppInstanceUser,
-    DescribeChannelMembershipForAppInstanceUserResponse (DescribeChannelMembershipForAppInstanceUserResponse'),
-    newDescribeChannelMembershipForAppInstanceUserResponse,
-
-    -- ** CreateChannelModerator
-    CreateChannelModerator (CreateChannelModerator'),
-    newCreateChannelModerator,
-    CreateChannelModeratorResponse (CreateChannelModeratorResponse'),
-    newCreateChannelModeratorResponse,
-
-    -- ** DescribeChannelModeratedByAppInstanceUser
-    DescribeChannelModeratedByAppInstanceUser (DescribeChannelModeratedByAppInstanceUser'),
-    newDescribeChannelModeratedByAppInstanceUser,
-    DescribeChannelModeratedByAppInstanceUserResponse (DescribeChannelModeratedByAppInstanceUserResponse'),
-    newDescribeChannelModeratedByAppInstanceUserResponse,
-
-    -- ** SendChannelMessage
-    SendChannelMessage (SendChannelMessage'),
-    newSendChannelMessage,
-    SendChannelMessageResponse (SendChannelMessageResponse'),
-    newSendChannelMessageResponse,
-
-    -- ** DeleteChannelBan
-    DeleteChannelBan (DeleteChannelBan'),
-    newDeleteChannelBan,
-    DeleteChannelBanResponse (DeleteChannelBanResponse'),
-    newDeleteChannelBanResponse,
-
-    -- ** ListChannelBans
-    ListChannelBans (ListChannelBans'),
-    newListChannelBans,
-    ListChannelBansResponse (ListChannelBansResponse'),
-    newListChannelBansResponse,
+    -- ** ChannelFlowCallback
+    ChannelFlowCallback (ChannelFlowCallback'),
+    newChannelFlowCallback,
+    ChannelFlowCallbackResponse (ChannelFlowCallbackResponse'),
+    newChannelFlowCallbackResponse,
 
     -- ** CreateChannel
     CreateChannel (CreateChannel'),
@@ -201,35 +81,11 @@ module Amazonka.ChimeSDKMessaging
     CreateChannelResponse (CreateChannelResponse'),
     newCreateChannelResponse,
 
-    -- ** DescribeChannelModerator
-    DescribeChannelModerator (DescribeChannelModerator'),
-    newDescribeChannelModerator,
-    DescribeChannelModeratorResponse (DescribeChannelModeratorResponse'),
-    newDescribeChannelModeratorResponse,
-
     -- ** CreateChannelBan
     CreateChannelBan (CreateChannelBan'),
     newCreateChannelBan,
     CreateChannelBanResponse (CreateChannelBanResponse'),
     newCreateChannelBanResponse,
-
-    -- ** ListChannelMembershipsForAppInstanceUser
-    ListChannelMembershipsForAppInstanceUser (ListChannelMembershipsForAppInstanceUser'),
-    newListChannelMembershipsForAppInstanceUser,
-    ListChannelMembershipsForAppInstanceUserResponse (ListChannelMembershipsForAppInstanceUserResponse'),
-    newListChannelMembershipsForAppInstanceUserResponse,
-
-    -- ** UpdateChannelReadMarker
-    UpdateChannelReadMarker (UpdateChannelReadMarker'),
-    newUpdateChannelReadMarker,
-    UpdateChannelReadMarkerResponse (UpdateChannelReadMarkerResponse'),
-    newUpdateChannelReadMarkerResponse,
-
-    -- ** GetChannelMessageStatus
-    GetChannelMessageStatus (GetChannelMessageStatus'),
-    newGetChannelMessageStatus,
-    GetChannelMessageStatusResponse (GetChannelMessageStatusResponse'),
-    newGetChannelMessageStatusResponse,
 
     -- ** CreateChannelFlow
     CreateChannelFlow (CreateChannelFlow'),
@@ -243,47 +99,35 @@ module Amazonka.ChimeSDKMessaging
     CreateChannelMembershipResponse (CreateChannelMembershipResponse'),
     newCreateChannelMembershipResponse,
 
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
+    -- ** CreateChannelModerator
+    CreateChannelModerator (CreateChannelModerator'),
+    newCreateChannelModerator,
+    CreateChannelModeratorResponse (CreateChannelModeratorResponse'),
+    newCreateChannelModeratorResponse,
 
-    -- ** ChannelFlowCallback
-    ChannelFlowCallback (ChannelFlowCallback'),
-    newChannelFlowCallback,
-    ChannelFlowCallbackResponse (ChannelFlowCallbackResponse'),
-    newChannelFlowCallbackResponse,
+    -- ** DeleteChannel
+    DeleteChannel (DeleteChannel'),
+    newDeleteChannel,
+    DeleteChannelResponse (DeleteChannelResponse'),
+    newDeleteChannelResponse,
 
-    -- ** DeleteChannelModerator
-    DeleteChannelModerator (DeleteChannelModerator'),
-    newDeleteChannelModerator,
-    DeleteChannelModeratorResponse (DeleteChannelModeratorResponse'),
-    newDeleteChannelModeratorResponse,
+    -- ** DeleteChannelBan
+    DeleteChannelBan (DeleteChannelBan'),
+    newDeleteChannelBan,
+    DeleteChannelBanResponse (DeleteChannelBanResponse'),
+    newDeleteChannelBanResponse,
 
-    -- ** DescribeChannelBan
-    DescribeChannelBan (DescribeChannelBan'),
-    newDescribeChannelBan,
-    DescribeChannelBanResponse (DescribeChannelBanResponse'),
-    newDescribeChannelBanResponse,
+    -- ** DeleteChannelFlow
+    DeleteChannelFlow (DeleteChannelFlow'),
+    newDeleteChannelFlow,
+    DeleteChannelFlowResponse (DeleteChannelFlowResponse'),
+    newDeleteChannelFlowResponse,
 
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
-
-    -- ** ListChannelModerators
-    ListChannelModerators (ListChannelModerators'),
-    newListChannelModerators,
-    ListChannelModeratorsResponse (ListChannelModeratorsResponse'),
-    newListChannelModeratorsResponse,
-
-    -- ** DescribeChannel
-    DescribeChannel (DescribeChannel'),
-    newDescribeChannel,
-    DescribeChannelResponse (DescribeChannelResponse'),
-    newDescribeChannelResponse,
+    -- ** DeleteChannelMembership
+    DeleteChannelMembership (DeleteChannelMembership'),
+    newDeleteChannelMembership,
+    DeleteChannelMembershipResponse (DeleteChannelMembershipResponse'),
+    newDeleteChannelMembershipResponse,
 
     -- ** DeleteChannelMessage
     DeleteChannelMessage (DeleteChannelMessage'),
@@ -291,11 +135,107 @@ module Amazonka.ChimeSDKMessaging
     DeleteChannelMessageResponse (DeleteChannelMessageResponse'),
     newDeleteChannelMessageResponse,
 
-    -- ** UpdateChannelMessage
-    UpdateChannelMessage (UpdateChannelMessage'),
-    newUpdateChannelMessage,
-    UpdateChannelMessageResponse (UpdateChannelMessageResponse'),
-    newUpdateChannelMessageResponse,
+    -- ** DeleteChannelModerator
+    DeleteChannelModerator (DeleteChannelModerator'),
+    newDeleteChannelModerator,
+    DeleteChannelModeratorResponse (DeleteChannelModeratorResponse'),
+    newDeleteChannelModeratorResponse,
+
+    -- ** DescribeChannel
+    DescribeChannel (DescribeChannel'),
+    newDescribeChannel,
+    DescribeChannelResponse (DescribeChannelResponse'),
+    newDescribeChannelResponse,
+
+    -- ** DescribeChannelBan
+    DescribeChannelBan (DescribeChannelBan'),
+    newDescribeChannelBan,
+    DescribeChannelBanResponse (DescribeChannelBanResponse'),
+    newDescribeChannelBanResponse,
+
+    -- ** DescribeChannelFlow
+    DescribeChannelFlow (DescribeChannelFlow'),
+    newDescribeChannelFlow,
+    DescribeChannelFlowResponse (DescribeChannelFlowResponse'),
+    newDescribeChannelFlowResponse,
+
+    -- ** DescribeChannelMembership
+    DescribeChannelMembership (DescribeChannelMembership'),
+    newDescribeChannelMembership,
+    DescribeChannelMembershipResponse (DescribeChannelMembershipResponse'),
+    newDescribeChannelMembershipResponse,
+
+    -- ** DescribeChannelMembershipForAppInstanceUser
+    DescribeChannelMembershipForAppInstanceUser (DescribeChannelMembershipForAppInstanceUser'),
+    newDescribeChannelMembershipForAppInstanceUser,
+    DescribeChannelMembershipForAppInstanceUserResponse (DescribeChannelMembershipForAppInstanceUserResponse'),
+    newDescribeChannelMembershipForAppInstanceUserResponse,
+
+    -- ** DescribeChannelModeratedByAppInstanceUser
+    DescribeChannelModeratedByAppInstanceUser (DescribeChannelModeratedByAppInstanceUser'),
+    newDescribeChannelModeratedByAppInstanceUser,
+    DescribeChannelModeratedByAppInstanceUserResponse (DescribeChannelModeratedByAppInstanceUserResponse'),
+    newDescribeChannelModeratedByAppInstanceUserResponse,
+
+    -- ** DescribeChannelModerator
+    DescribeChannelModerator (DescribeChannelModerator'),
+    newDescribeChannelModerator,
+    DescribeChannelModeratorResponse (DescribeChannelModeratorResponse'),
+    newDescribeChannelModeratorResponse,
+
+    -- ** DisassociateChannelFlow
+    DisassociateChannelFlow (DisassociateChannelFlow'),
+    newDisassociateChannelFlow,
+    DisassociateChannelFlowResponse (DisassociateChannelFlowResponse'),
+    newDisassociateChannelFlowResponse,
+
+    -- ** GetChannelMembershipPreferences
+    GetChannelMembershipPreferences (GetChannelMembershipPreferences'),
+    newGetChannelMembershipPreferences,
+    GetChannelMembershipPreferencesResponse (GetChannelMembershipPreferencesResponse'),
+    newGetChannelMembershipPreferencesResponse,
+
+    -- ** GetChannelMessage
+    GetChannelMessage (GetChannelMessage'),
+    newGetChannelMessage,
+    GetChannelMessageResponse (GetChannelMessageResponse'),
+    newGetChannelMessageResponse,
+
+    -- ** GetChannelMessageStatus
+    GetChannelMessageStatus (GetChannelMessageStatus'),
+    newGetChannelMessageStatus,
+    GetChannelMessageStatusResponse (GetChannelMessageStatusResponse'),
+    newGetChannelMessageStatusResponse,
+
+    -- ** GetMessagingSessionEndpoint
+    GetMessagingSessionEndpoint (GetMessagingSessionEndpoint'),
+    newGetMessagingSessionEndpoint,
+    GetMessagingSessionEndpointResponse (GetMessagingSessionEndpointResponse'),
+    newGetMessagingSessionEndpointResponse,
+
+    -- ** ListChannelBans
+    ListChannelBans (ListChannelBans'),
+    newListChannelBans,
+    ListChannelBansResponse (ListChannelBansResponse'),
+    newListChannelBansResponse,
+
+    -- ** ListChannelFlows
+    ListChannelFlows (ListChannelFlows'),
+    newListChannelFlows,
+    ListChannelFlowsResponse (ListChannelFlowsResponse'),
+    newListChannelFlowsResponse,
+
+    -- ** ListChannelMemberships
+    ListChannelMemberships (ListChannelMemberships'),
+    newListChannelMemberships,
+    ListChannelMembershipsResponse (ListChannelMembershipsResponse'),
+    newListChannelMembershipsResponse,
+
+    -- ** ListChannelMembershipsForAppInstanceUser
+    ListChannelMembershipsForAppInstanceUser (ListChannelMembershipsForAppInstanceUser'),
+    newListChannelMembershipsForAppInstanceUser,
+    ListChannelMembershipsForAppInstanceUserResponse (ListChannelMembershipsForAppInstanceUserResponse'),
+    newListChannelMembershipsForAppInstanceUserResponse,
 
     -- ** ListChannelMessages
     ListChannelMessages (ListChannelMessages'),
@@ -303,19 +243,106 @@ module Amazonka.ChimeSDKMessaging
     ListChannelMessagesResponse (ListChannelMessagesResponse'),
     newListChannelMessagesResponse,
 
+    -- ** ListChannelModerators
+    ListChannelModerators (ListChannelModerators'),
+    newListChannelModerators,
+    ListChannelModeratorsResponse (ListChannelModeratorsResponse'),
+    newListChannelModeratorsResponse,
+
+    -- ** ListChannels
+    ListChannels (ListChannels'),
+    newListChannels,
+    ListChannelsResponse (ListChannelsResponse'),
+    newListChannelsResponse,
+
     -- ** ListChannelsAssociatedWithChannelFlow
     ListChannelsAssociatedWithChannelFlow (ListChannelsAssociatedWithChannelFlow'),
     newListChannelsAssociatedWithChannelFlow,
     ListChannelsAssociatedWithChannelFlowResponse (ListChannelsAssociatedWithChannelFlowResponse'),
     newListChannelsAssociatedWithChannelFlowResponse,
 
-    -- ** BatchCreateChannelMembership
-    BatchCreateChannelMembership (BatchCreateChannelMembership'),
-    newBatchCreateChannelMembership,
-    BatchCreateChannelMembershipResponse (BatchCreateChannelMembershipResponse'),
-    newBatchCreateChannelMembershipResponse,
+    -- ** ListChannelsModeratedByAppInstanceUser
+    ListChannelsModeratedByAppInstanceUser (ListChannelsModeratedByAppInstanceUser'),
+    newListChannelsModeratedByAppInstanceUser,
+    ListChannelsModeratedByAppInstanceUserResponse (ListChannelsModeratedByAppInstanceUserResponse'),
+    newListChannelsModeratedByAppInstanceUserResponse,
+
+    -- ** ListSubChannels
+    ListSubChannels (ListSubChannels'),
+    newListSubChannels,
+    ListSubChannelsResponse (ListSubChannelsResponse'),
+    newListSubChannelsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** PutChannelMembershipPreferences
+    PutChannelMembershipPreferences (PutChannelMembershipPreferences'),
+    newPutChannelMembershipPreferences,
+    PutChannelMembershipPreferencesResponse (PutChannelMembershipPreferencesResponse'),
+    newPutChannelMembershipPreferencesResponse,
+
+    -- ** RedactChannelMessage
+    RedactChannelMessage (RedactChannelMessage'),
+    newRedactChannelMessage,
+    RedactChannelMessageResponse (RedactChannelMessageResponse'),
+    newRedactChannelMessageResponse,
+
+    -- ** SearchChannels
+    SearchChannels (SearchChannels'),
+    newSearchChannels,
+    SearchChannelsResponse (SearchChannelsResponse'),
+    newSearchChannelsResponse,
+
+    -- ** SendChannelMessage
+    SendChannelMessage (SendChannelMessage'),
+    newSendChannelMessage,
+    SendChannelMessageResponse (SendChannelMessageResponse'),
+    newSendChannelMessageResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UpdateChannel
+    UpdateChannel (UpdateChannel'),
+    newUpdateChannel,
+    UpdateChannelResponse (UpdateChannelResponse'),
+    newUpdateChannelResponse,
+
+    -- ** UpdateChannelFlow
+    UpdateChannelFlow (UpdateChannelFlow'),
+    newUpdateChannelFlow,
+    UpdateChannelFlowResponse (UpdateChannelFlowResponse'),
+    newUpdateChannelFlowResponse,
+
+    -- ** UpdateChannelMessage
+    UpdateChannelMessage (UpdateChannelMessage'),
+    newUpdateChannelMessage,
+    UpdateChannelMessageResponse (UpdateChannelMessageResponse'),
+    newUpdateChannelMessageResponse,
+
+    -- ** UpdateChannelReadMarker
+    UpdateChannelReadMarker (UpdateChannelReadMarker'),
+    newUpdateChannelReadMarker,
+    UpdateChannelReadMarkerResponse (UpdateChannelReadMarkerResponse'),
+    newUpdateChannelReadMarkerResponse,
 
     -- * Types
+
+    -- ** AllowNotifications
+    AllowNotifications (..),
 
     -- ** ChannelMembershipType
     ChannelMembershipType (..),
@@ -343,6 +370,15 @@ module Amazonka.ChimeSDKMessaging
 
     -- ** InvocationType
     InvocationType (..),
+
+    -- ** PushNotificationType
+    PushNotificationType (..),
+
+    -- ** SearchFieldKey
+    SearchFieldKey (..),
+
+    -- ** SearchFieldOperator
+    SearchFieldOperator (..),
 
     -- ** SortOrder
     SortOrder (..),
@@ -391,6 +427,10 @@ module Amazonka.ChimeSDKMessaging
     ChannelMembershipForAppInstanceUserSummary (ChannelMembershipForAppInstanceUserSummary'),
     newChannelMembershipForAppInstanceUserSummary,
 
+    -- ** ChannelMembershipPreferences
+    ChannelMembershipPreferences (ChannelMembershipPreferences'),
+    newChannelMembershipPreferences,
+
     -- ** ChannelMembershipSummary
     ChannelMembershipSummary (ChannelMembershipSummary'),
     newChannelMembershipSummary,
@@ -427,6 +467,10 @@ module Amazonka.ChimeSDKMessaging
     ChannelSummary (ChannelSummary'),
     newChannelSummary,
 
+    -- ** ElasticChannelConfiguration
+    ElasticChannelConfiguration (ElasticChannelConfiguration'),
+    newElasticChannelConfiguration,
+
     -- ** Identity
     Identity (Identity'),
     newIdentity,
@@ -434,6 +478,10 @@ module Amazonka.ChimeSDKMessaging
     -- ** LambdaConfiguration
     LambdaConfiguration (LambdaConfiguration'),
     newLambdaConfiguration,
+
+    -- ** MessageAttributeValue
+    MessageAttributeValue (MessageAttributeValue'),
+    newMessageAttributeValue,
 
     -- ** MessagingSessionEndpoint
     MessagingSessionEndpoint (MessagingSessionEndpoint'),
@@ -446,6 +494,22 @@ module Amazonka.ChimeSDKMessaging
     -- ** ProcessorConfiguration
     ProcessorConfiguration (ProcessorConfiguration'),
     newProcessorConfiguration,
+
+    -- ** PushNotificationConfiguration
+    PushNotificationConfiguration (PushNotificationConfiguration'),
+    newPushNotificationConfiguration,
+
+    -- ** PushNotificationPreferences
+    PushNotificationPreferences (PushNotificationPreferences'),
+    newPushNotificationPreferences,
+
+    -- ** SearchField
+    SearchField (SearchField'),
+    newSearchField,
+
+    -- ** SubChannelSummary
+    SubChannelSummary (SubChannelSummary'),
+    newSubChannelSummary,
 
     -- ** Tag
     Tag (Tag'),
@@ -475,6 +539,7 @@ import Amazonka.ChimeSDKMessaging.DescribeChannelMembershipForAppInstanceUser
 import Amazonka.ChimeSDKMessaging.DescribeChannelModeratedByAppInstanceUser
 import Amazonka.ChimeSDKMessaging.DescribeChannelModerator
 import Amazonka.ChimeSDKMessaging.DisassociateChannelFlow
+import Amazonka.ChimeSDKMessaging.GetChannelMembershipPreferences
 import Amazonka.ChimeSDKMessaging.GetChannelMessage
 import Amazonka.ChimeSDKMessaging.GetChannelMessageStatus
 import Amazonka.ChimeSDKMessaging.GetMessagingSessionEndpoint
@@ -488,8 +553,11 @@ import Amazonka.ChimeSDKMessaging.ListChannelModerators
 import Amazonka.ChimeSDKMessaging.ListChannels
 import Amazonka.ChimeSDKMessaging.ListChannelsAssociatedWithChannelFlow
 import Amazonka.ChimeSDKMessaging.ListChannelsModeratedByAppInstanceUser
+import Amazonka.ChimeSDKMessaging.ListSubChannels
 import Amazonka.ChimeSDKMessaging.ListTagsForResource
+import Amazonka.ChimeSDKMessaging.PutChannelMembershipPreferences
 import Amazonka.ChimeSDKMessaging.RedactChannelMessage
+import Amazonka.ChimeSDKMessaging.SearchChannels
 import Amazonka.ChimeSDKMessaging.SendChannelMessage
 import Amazonka.ChimeSDKMessaging.TagResource
 import Amazonka.ChimeSDKMessaging.Types

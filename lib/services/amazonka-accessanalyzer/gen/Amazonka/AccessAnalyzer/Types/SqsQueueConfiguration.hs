@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AccessAnalyzer.Types.SqsQueueConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AccessAnalyzer.Types.SqsQueueConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The proposed access control configuration for an Amazon SQS queue. You
@@ -63,13 +64,13 @@ newSqsQueueConfiguration =
 sqsQueueConfiguration_queuePolicy :: Lens.Lens' SqsQueueConfiguration (Prelude.Maybe Prelude.Text)
 sqsQueueConfiguration_queuePolicy = Lens.lens (\SqsQueueConfiguration' {queuePolicy} -> queuePolicy) (\s@SqsQueueConfiguration' {} a -> s {queuePolicy = a} :: SqsQueueConfiguration)
 
-instance Core.FromJSON SqsQueueConfiguration where
+instance Data.FromJSON SqsQueueConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SqsQueueConfiguration"
       ( \x ->
           SqsQueueConfiguration'
-            Prelude.<$> (x Core..:? "queuePolicy")
+            Prelude.<$> (x Data..:? "queuePolicy")
       )
 
 instance Prelude.Hashable SqsQueueConfiguration where
@@ -80,9 +81,9 @@ instance Prelude.NFData SqsQueueConfiguration where
   rnf SqsQueueConfiguration' {..} =
     Prelude.rnf queuePolicy
 
-instance Core.ToJSON SqsQueueConfiguration where
+instance Data.ToJSON SqsQueueConfiguration where
   toJSON SqsQueueConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("queuePolicy" Core..=) Prelude.<$> queuePolicy]
+          [("queuePolicy" Data..=) Prelude.<$> queuePolicy]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.DisassociateWebACL
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ module Amazonka.WAFRegional.DisassociateWebACL
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -117,7 +118,8 @@ instance Core.AWSRequest DisassociateWebACL where
   type
     AWSResponse DisassociateWebACL =
       DisassociateWebACLResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -132,32 +134,32 @@ instance Prelude.Hashable DisassociateWebACL where
 instance Prelude.NFData DisassociateWebACL where
   rnf DisassociateWebACL' {..} = Prelude.rnf resourceArn
 
-instance Core.ToHeaders DisassociateWebACL where
+instance Data.ToHeaders DisassociateWebACL where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_Regional_20161128.DisassociateWebACL" ::
+              Data.=# ( "AWSWAF_Regional_20161128.DisassociateWebACL" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisassociateWebACL where
+instance Data.ToJSON DisassociateWebACL where
   toJSON DisassociateWebACL' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ResourceArn" Core..= resourceArn)]
+          [Prelude.Just ("ResourceArn" Data..= resourceArn)]
       )
 
-instance Core.ToPath DisassociateWebACL where
+instance Data.ToPath DisassociateWebACL where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisassociateWebACL where
+instance Data.ToQuery DisassociateWebACL where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateWebACLResponse' smart constructor.

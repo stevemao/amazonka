@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.Types.PullRequestCreatedEventMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeCommit.Types.PullRequestCreatedEventMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Metadata about the pull request that is used when comparing the pull
@@ -91,18 +92,18 @@ pullRequestCreatedEventMetadata_sourceCommitId :: Lens.Lens' PullRequestCreatedE
 pullRequestCreatedEventMetadata_sourceCommitId = Lens.lens (\PullRequestCreatedEventMetadata' {sourceCommitId} -> sourceCommitId) (\s@PullRequestCreatedEventMetadata' {} a -> s {sourceCommitId = a} :: PullRequestCreatedEventMetadata)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     PullRequestCreatedEventMetadata
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PullRequestCreatedEventMetadata"
       ( \x ->
           PullRequestCreatedEventMetadata'
-            Prelude.<$> (x Core..:? "destinationCommitId")
-            Prelude.<*> (x Core..:? "mergeBase")
-            Prelude.<*> (x Core..:? "repositoryName")
-            Prelude.<*> (x Core..:? "sourceCommitId")
+            Prelude.<$> (x Data..:? "destinationCommitId")
+            Prelude.<*> (x Data..:? "mergeBase")
+            Prelude.<*> (x Data..:? "repositoryName")
+            Prelude.<*> (x Data..:? "sourceCommitId")
       )
 
 instance

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.Types.DeploymentReadyOption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CodeDeploy.Types.DeploymentReadyOption where
 
 import Amazonka.CodeDeploy.Types.DeploymentReadyAction
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about how traffic is rerouted to instances in a replacement
@@ -100,14 +101,14 @@ deploymentReadyOption_actionOnTimeout = Lens.lens (\DeploymentReadyOption' {acti
 deploymentReadyOption_waitTimeInMinutes :: Lens.Lens' DeploymentReadyOption (Prelude.Maybe Prelude.Int)
 deploymentReadyOption_waitTimeInMinutes = Lens.lens (\DeploymentReadyOption' {waitTimeInMinutes} -> waitTimeInMinutes) (\s@DeploymentReadyOption' {} a -> s {waitTimeInMinutes = a} :: DeploymentReadyOption)
 
-instance Core.FromJSON DeploymentReadyOption where
+instance Data.FromJSON DeploymentReadyOption where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DeploymentReadyOption"
       ( \x ->
           DeploymentReadyOption'
-            Prelude.<$> (x Core..:? "actionOnTimeout")
-            Prelude.<*> (x Core..:? "waitTimeInMinutes")
+            Prelude.<$> (x Data..:? "actionOnTimeout")
+            Prelude.<*> (x Data..:? "waitTimeInMinutes")
       )
 
 instance Prelude.Hashable DeploymentReadyOption where
@@ -120,13 +121,13 @@ instance Prelude.NFData DeploymentReadyOption where
     Prelude.rnf actionOnTimeout
       `Prelude.seq` Prelude.rnf waitTimeInMinutes
 
-instance Core.ToJSON DeploymentReadyOption where
+instance Data.ToJSON DeploymentReadyOption where
   toJSON DeploymentReadyOption' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("actionOnTimeout" Core..=)
+          [ ("actionOnTimeout" Data..=)
               Prelude.<$> actionOnTimeout,
-            ("waitTimeInMinutes" Core..=)
+            ("waitTimeInMinutes" Data..=)
               Prelude.<$> waitTimeInMinutes
           ]
       )

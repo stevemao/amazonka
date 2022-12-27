@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.ListNotificationChannels
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.DevOpsGuru.ListNotificationChannels
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DevOpsGuru.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -110,13 +111,14 @@ instance Core.AWSRequest ListNotificationChannels where
   type
     AWSResponse ListNotificationChannels =
       ListNotificationChannelsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListNotificationChannelsResponse'
-            Prelude.<$> (x Core..?> "Channels" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Channels" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -128,28 +130,28 @@ instance Prelude.NFData ListNotificationChannels where
   rnf ListNotificationChannels' {..} =
     Prelude.rnf nextToken
 
-instance Core.ToHeaders ListNotificationChannels where
+instance Data.ToHeaders ListNotificationChannels where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListNotificationChannels where
+instance Data.ToJSON ListNotificationChannels where
   toJSON ListNotificationChannels' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("NextToken" Core..=) Prelude.<$> nextToken]
+          [("NextToken" Data..=) Prelude.<$> nextToken]
       )
 
-instance Core.ToPath ListNotificationChannels where
+instance Data.ToPath ListNotificationChannels where
   toPath = Prelude.const "/channels"
 
-instance Core.ToQuery ListNotificationChannels where
+instance Data.ToQuery ListNotificationChannels where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListNotificationChannelsResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.VirtualNodeRef
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppMesh.Types.VirtualNodeRef where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents a virtual node returned by a list operation.
@@ -30,20 +31,21 @@ data VirtualNodeRef = VirtualNodeRef'
   { -- | The full Amazon Resource Name (ARN) for the virtual node.
     arn :: Prelude.Text,
     -- | The Unix epoch timestamp in seconds for when the resource was created.
-    createdAt :: Core.POSIX,
+    createdAt :: Data.POSIX,
     -- | The Unix epoch timestamp in seconds for when the resource was last
     -- updated.
-    lastUpdatedAt :: Core.POSIX,
+    lastUpdatedAt :: Data.POSIX,
     -- | The name of the service mesh that the virtual node resides in.
     meshName :: Prelude.Text,
-    -- | The AWS IAM account ID of the service mesh owner. If the account ID is
-    -- not your own, then it\'s the ID of the account that shared the mesh with
-    -- your account. For more information about mesh sharing, see
+    -- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+    -- account ID is not your own, then it\'s the ID of the account that shared
+    -- the mesh with your account. For more information about mesh sharing, see
     -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
     meshOwner :: Prelude.Text,
-    -- | The AWS IAM account ID of the resource owner. If the account ID is not
-    -- your own, then it\'s the ID of the mesh owner or of another account that
-    -- the mesh is shared with. For more information about mesh sharing, see
+    -- | The Amazon Web Services IAM account ID of the resource owner. If the
+    -- account ID is not your own, then it\'s the ID of the mesh owner or of
+    -- another account that the mesh is shared with. For more information about
+    -- mesh sharing, see
     -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
     resourceOwner :: Prelude.Text,
     -- | The version of the resource. Resources are created at version 1, and
@@ -71,14 +73,15 @@ data VirtualNodeRef = VirtualNodeRef'
 --
 -- 'meshName', 'virtualNodeRef_meshName' - The name of the service mesh that the virtual node resides in.
 --
--- 'meshOwner', 'virtualNodeRef_meshOwner' - The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
+-- 'meshOwner', 'virtualNodeRef_meshOwner' - The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 --
--- 'resourceOwner', 'virtualNodeRef_resourceOwner' - The AWS IAM account ID of the resource owner. If the account ID is not
--- your own, then it\'s the ID of the mesh owner or of another account that
--- the mesh is shared with. For more information about mesh sharing, see
+-- 'resourceOwner', 'virtualNodeRef_resourceOwner' - The Amazon Web Services IAM account ID of the resource owner. If the
+-- account ID is not your own, then it\'s the ID of the mesh owner or of
+-- another account that the mesh is shared with. For more information about
+-- mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 --
 -- 'version', 'virtualNodeRef_version' - The version of the resource. Resources are created at version 1, and
@@ -114,8 +117,8 @@ newVirtualNodeRef
   pVirtualNodeName_ =
     VirtualNodeRef'
       { arn = pArn_,
-        createdAt = Core._Time Lens.# pCreatedAt_,
-        lastUpdatedAt = Core._Time Lens.# pLastUpdatedAt_,
+        createdAt = Data._Time Lens.# pCreatedAt_,
+        lastUpdatedAt = Data._Time Lens.# pLastUpdatedAt_,
         meshName = pMeshName_,
         meshOwner = pMeshOwner_,
         resourceOwner = pResourceOwner_,
@@ -129,27 +132,28 @@ virtualNodeRef_arn = Lens.lens (\VirtualNodeRef' {arn} -> arn) (\s@VirtualNodeRe
 
 -- | The Unix epoch timestamp in seconds for when the resource was created.
 virtualNodeRef_createdAt :: Lens.Lens' VirtualNodeRef Prelude.UTCTime
-virtualNodeRef_createdAt = Lens.lens (\VirtualNodeRef' {createdAt} -> createdAt) (\s@VirtualNodeRef' {} a -> s {createdAt = a} :: VirtualNodeRef) Prelude.. Core._Time
+virtualNodeRef_createdAt = Lens.lens (\VirtualNodeRef' {createdAt} -> createdAt) (\s@VirtualNodeRef' {} a -> s {createdAt = a} :: VirtualNodeRef) Prelude.. Data._Time
 
 -- | The Unix epoch timestamp in seconds for when the resource was last
 -- updated.
 virtualNodeRef_lastUpdatedAt :: Lens.Lens' VirtualNodeRef Prelude.UTCTime
-virtualNodeRef_lastUpdatedAt = Lens.lens (\VirtualNodeRef' {lastUpdatedAt} -> lastUpdatedAt) (\s@VirtualNodeRef' {} a -> s {lastUpdatedAt = a} :: VirtualNodeRef) Prelude.. Core._Time
+virtualNodeRef_lastUpdatedAt = Lens.lens (\VirtualNodeRef' {lastUpdatedAt} -> lastUpdatedAt) (\s@VirtualNodeRef' {} a -> s {lastUpdatedAt = a} :: VirtualNodeRef) Prelude.. Data._Time
 
 -- | The name of the service mesh that the virtual node resides in.
 virtualNodeRef_meshName :: Lens.Lens' VirtualNodeRef Prelude.Text
 virtualNodeRef_meshName = Lens.lens (\VirtualNodeRef' {meshName} -> meshName) (\s@VirtualNodeRef' {} a -> s {meshName = a} :: VirtualNodeRef)
 
--- | The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
+-- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 virtualNodeRef_meshOwner :: Lens.Lens' VirtualNodeRef Prelude.Text
 virtualNodeRef_meshOwner = Lens.lens (\VirtualNodeRef' {meshOwner} -> meshOwner) (\s@VirtualNodeRef' {} a -> s {meshOwner = a} :: VirtualNodeRef)
 
--- | The AWS IAM account ID of the resource owner. If the account ID is not
--- your own, then it\'s the ID of the mesh owner or of another account that
--- the mesh is shared with. For more information about mesh sharing, see
+-- | The Amazon Web Services IAM account ID of the resource owner. If the
+-- account ID is not your own, then it\'s the ID of the mesh owner or of
+-- another account that the mesh is shared with. For more information about
+-- mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 virtualNodeRef_resourceOwner :: Lens.Lens' VirtualNodeRef Prelude.Text
 virtualNodeRef_resourceOwner = Lens.lens (\VirtualNodeRef' {resourceOwner} -> resourceOwner) (\s@VirtualNodeRef' {} a -> s {resourceOwner = a} :: VirtualNodeRef)
@@ -163,20 +167,20 @@ virtualNodeRef_version = Lens.lens (\VirtualNodeRef' {version} -> version) (\s@V
 virtualNodeRef_virtualNodeName :: Lens.Lens' VirtualNodeRef Prelude.Text
 virtualNodeRef_virtualNodeName = Lens.lens (\VirtualNodeRef' {virtualNodeName} -> virtualNodeName) (\s@VirtualNodeRef' {} a -> s {virtualNodeName = a} :: VirtualNodeRef)
 
-instance Core.FromJSON VirtualNodeRef where
+instance Data.FromJSON VirtualNodeRef where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VirtualNodeRef"
       ( \x ->
           VirtualNodeRef'
-            Prelude.<$> (x Core..: "arn")
-            Prelude.<*> (x Core..: "createdAt")
-            Prelude.<*> (x Core..: "lastUpdatedAt")
-            Prelude.<*> (x Core..: "meshName")
-            Prelude.<*> (x Core..: "meshOwner")
-            Prelude.<*> (x Core..: "resourceOwner")
-            Prelude.<*> (x Core..: "version")
-            Prelude.<*> (x Core..: "virtualNodeName")
+            Prelude.<$> (x Data..: "arn")
+            Prelude.<*> (x Data..: "createdAt")
+            Prelude.<*> (x Data..: "lastUpdatedAt")
+            Prelude.<*> (x Data..: "meshName")
+            Prelude.<*> (x Data..: "meshOwner")
+            Prelude.<*> (x Data..: "resourceOwner")
+            Prelude.<*> (x Data..: "version")
+            Prelude.<*> (x Data..: "virtualNodeName")
       )
 
 instance Prelude.Hashable VirtualNodeRef where

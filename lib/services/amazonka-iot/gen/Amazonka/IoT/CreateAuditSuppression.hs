@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.CreateAuditSuppression
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,9 +31,9 @@ module Amazonka.IoT.CreateAuditSuppression
     newCreateAuditSuppression,
 
     -- * Request Lenses
+    createAuditSuppression_description,
     createAuditSuppression_expirationDate,
     createAuditSuppression_suppressIndefinitely,
-    createAuditSuppression_description,
     createAuditSuppression_checkName,
     createAuditSuppression_resourceIdentifier,
     createAuditSuppression_clientRequestToken,
@@ -48,20 +48,21 @@ module Amazonka.IoT.CreateAuditSuppression
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateAuditSuppression' smart constructor.
 data CreateAuditSuppression = CreateAuditSuppression'
-  { -- | The epoch timestamp in seconds at which this suppression expires.
-    expirationDate :: Prelude.Maybe Core.POSIX,
+  { -- | The description of the audit suppression.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The epoch timestamp in seconds at which this suppression expires.
+    expirationDate :: Prelude.Maybe Data.POSIX,
     -- | Indicates whether a suppression should exist indefinitely or not.
     suppressIndefinitely :: Prelude.Maybe Prelude.Bool,
-    -- | The description of the audit suppression.
-    description :: Prelude.Maybe Prelude.Text,
     checkName :: Prelude.Text,
     resourceIdentifier :: ResourceIdentifier,
     -- | Each audit supression must have a unique client request token. If you
@@ -80,11 +81,11 @@ data CreateAuditSuppression = CreateAuditSuppression'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'createAuditSuppression_description' - The description of the audit suppression.
+--
 -- 'expirationDate', 'createAuditSuppression_expirationDate' - The epoch timestamp in seconds at which this suppression expires.
 --
 -- 'suppressIndefinitely', 'createAuditSuppression_suppressIndefinitely' - Indicates whether a suppression should exist indefinitely or not.
---
--- 'description', 'createAuditSuppression_description' - The description of the audit suppression.
 --
 -- 'checkName', 'createAuditSuppression_checkName' - Undocumented member.
 --
@@ -107,26 +108,26 @@ newCreateAuditSuppression
   pResourceIdentifier_
   pClientRequestToken_ =
     CreateAuditSuppression'
-      { expirationDate =
+      { description =
           Prelude.Nothing,
+        expirationDate = Prelude.Nothing,
         suppressIndefinitely = Prelude.Nothing,
-        description = Prelude.Nothing,
         checkName = pCheckName_,
         resourceIdentifier = pResourceIdentifier_,
         clientRequestToken = pClientRequestToken_
       }
 
+-- | The description of the audit suppression.
+createAuditSuppression_description :: Lens.Lens' CreateAuditSuppression (Prelude.Maybe Prelude.Text)
+createAuditSuppression_description = Lens.lens (\CreateAuditSuppression' {description} -> description) (\s@CreateAuditSuppression' {} a -> s {description = a} :: CreateAuditSuppression)
+
 -- | The epoch timestamp in seconds at which this suppression expires.
 createAuditSuppression_expirationDate :: Lens.Lens' CreateAuditSuppression (Prelude.Maybe Prelude.UTCTime)
-createAuditSuppression_expirationDate = Lens.lens (\CreateAuditSuppression' {expirationDate} -> expirationDate) (\s@CreateAuditSuppression' {} a -> s {expirationDate = a} :: CreateAuditSuppression) Prelude.. Lens.mapping Core._Time
+createAuditSuppression_expirationDate = Lens.lens (\CreateAuditSuppression' {expirationDate} -> expirationDate) (\s@CreateAuditSuppression' {} a -> s {expirationDate = a} :: CreateAuditSuppression) Prelude.. Lens.mapping Data._Time
 
 -- | Indicates whether a suppression should exist indefinitely or not.
 createAuditSuppression_suppressIndefinitely :: Lens.Lens' CreateAuditSuppression (Prelude.Maybe Prelude.Bool)
 createAuditSuppression_suppressIndefinitely = Lens.lens (\CreateAuditSuppression' {suppressIndefinitely} -> suppressIndefinitely) (\s@CreateAuditSuppression' {} a -> s {suppressIndefinitely = a} :: CreateAuditSuppression)
-
--- | The description of the audit suppression.
-createAuditSuppression_description :: Lens.Lens' CreateAuditSuppression (Prelude.Maybe Prelude.Text)
-createAuditSuppression_description = Lens.lens (\CreateAuditSuppression' {description} -> description) (\s@CreateAuditSuppression' {} a -> s {description = a} :: CreateAuditSuppression)
 
 -- | Undocumented member.
 createAuditSuppression_checkName :: Lens.Lens' CreateAuditSuppression Prelude.Text
@@ -147,7 +148,8 @@ instance Core.AWSRequest CreateAuditSuppression where
   type
     AWSResponse CreateAuditSuppression =
       CreateAuditSuppressionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -157,46 +159,46 @@ instance Core.AWSRequest CreateAuditSuppression where
 
 instance Prelude.Hashable CreateAuditSuppression where
   hashWithSalt _salt CreateAuditSuppression' {..} =
-    _salt `Prelude.hashWithSalt` expirationDate
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` expirationDate
       `Prelude.hashWithSalt` suppressIndefinitely
-      `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` checkName
       `Prelude.hashWithSalt` resourceIdentifier
       `Prelude.hashWithSalt` clientRequestToken
 
 instance Prelude.NFData CreateAuditSuppression where
   rnf CreateAuditSuppression' {..} =
-    Prelude.rnf expirationDate
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf expirationDate
       `Prelude.seq` Prelude.rnf suppressIndefinitely
-      `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf checkName
       `Prelude.seq` Prelude.rnf resourceIdentifier
       `Prelude.seq` Prelude.rnf clientRequestToken
 
-instance Core.ToHeaders CreateAuditSuppression where
+instance Data.ToHeaders CreateAuditSuppression where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateAuditSuppression where
+instance Data.ToJSON CreateAuditSuppression where
   toJSON CreateAuditSuppression' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("expirationDate" Core..=)
+          [ ("description" Data..=) Prelude.<$> description,
+            ("expirationDate" Data..=)
               Prelude.<$> expirationDate,
-            ("suppressIndefinitely" Core..=)
+            ("suppressIndefinitely" Data..=)
               Prelude.<$> suppressIndefinitely,
-            ("description" Core..=) Prelude.<$> description,
-            Prelude.Just ("checkName" Core..= checkName),
+            Prelude.Just ("checkName" Data..= checkName),
             Prelude.Just
-              ("resourceIdentifier" Core..= resourceIdentifier),
+              ("resourceIdentifier" Data..= resourceIdentifier),
             Prelude.Just
-              ("clientRequestToken" Core..= clientRequestToken)
+              ("clientRequestToken" Data..= clientRequestToken)
           ]
       )
 
-instance Core.ToPath CreateAuditSuppression where
+instance Data.ToPath CreateAuditSuppression where
   toPath = Prelude.const "/audit/suppressions/create"
 
-instance Core.ToQuery CreateAuditSuppression where
+instance Data.ToQuery CreateAuditSuppression where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateAuditSuppressionResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.Types.TimeBasedCanary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,13 +20,14 @@
 module Amazonka.CodeDeploy.Types.TimeBasedCanary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A configuration that shifts traffic from one version of a Lambda
--- function or ECS task set to another in two increments. The original and
--- target Lambda function versions or ECS task sets are specified in the
--- deployment\'s AppSpec file.
+-- function or Amazon ECS task set to another in two increments. The
+-- original and target Lambda function versions or ECS task sets are
+-- specified in the deployment\'s AppSpec file.
 --
 -- /See:/ 'newTimeBasedCanary' smart constructor.
 data TimeBasedCanary = TimeBasedCanary'
@@ -70,14 +71,14 @@ timeBasedCanary_canaryInterval = Lens.lens (\TimeBasedCanary' {canaryInterval} -
 timeBasedCanary_canaryPercentage :: Lens.Lens' TimeBasedCanary (Prelude.Maybe Prelude.Int)
 timeBasedCanary_canaryPercentage = Lens.lens (\TimeBasedCanary' {canaryPercentage} -> canaryPercentage) (\s@TimeBasedCanary' {} a -> s {canaryPercentage = a} :: TimeBasedCanary)
 
-instance Core.FromJSON TimeBasedCanary where
+instance Data.FromJSON TimeBasedCanary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TimeBasedCanary"
       ( \x ->
           TimeBasedCanary'
-            Prelude.<$> (x Core..:? "canaryInterval")
-            Prelude.<*> (x Core..:? "canaryPercentage")
+            Prelude.<$> (x Data..:? "canaryInterval")
+            Prelude.<*> (x Data..:? "canaryPercentage")
       )
 
 instance Prelude.Hashable TimeBasedCanary where
@@ -90,13 +91,13 @@ instance Prelude.NFData TimeBasedCanary where
     Prelude.rnf canaryInterval
       `Prelude.seq` Prelude.rnf canaryPercentage
 
-instance Core.ToJSON TimeBasedCanary where
+instance Data.ToJSON TimeBasedCanary where
   toJSON TimeBasedCanary' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("canaryInterval" Core..=)
+          [ ("canaryInterval" Data..=)
               Prelude.<$> canaryInterval,
-            ("canaryPercentage" Core..=)
+            ("canaryPercentage" Data..=)
               Prelude.<$> canaryPercentage
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.GetVoiceConnectorTermination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,12 +82,13 @@ instance Core.AWSRequest GetVoiceConnectorTermination where
   type
     AWSResponse GetVoiceConnectorTermination =
       GetVoiceConnectorTerminationResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetVoiceConnectorTerminationResponse'
-            Prelude.<$> (x Core..?> "Termination")
+            Prelude.<$> (x Data..?> "Termination")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -101,18 +103,18 @@ instance Prelude.NFData GetVoiceConnectorTermination where
   rnf GetVoiceConnectorTermination' {..} =
     Prelude.rnf voiceConnectorId
 
-instance Core.ToHeaders GetVoiceConnectorTermination where
+instance Data.ToHeaders GetVoiceConnectorTermination where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetVoiceConnectorTermination where
+instance Data.ToPath GetVoiceConnectorTermination where
   toPath GetVoiceConnectorTermination' {..} =
     Prelude.mconcat
       [ "/voice-connectors/",
-        Core.toBS voiceConnectorId,
+        Data.toBS voiceConnectorId,
         "/termination"
       ]
 
-instance Core.ToQuery GetVoiceConnectorTermination where
+instance Data.ToQuery GetVoiceConnectorTermination where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetVoiceConnectorTerminationResponse' smart constructor.

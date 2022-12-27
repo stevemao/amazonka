@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.MergeBranchesBySquash
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,14 +27,14 @@ module Amazonka.CodeCommit.MergeBranchesBySquash
     newMergeBranchesBySquash,
 
     -- * Request Lenses
-    mergeBranchesBySquash_email,
     mergeBranchesBySquash_authorName,
-    mergeBranchesBySquash_targetBranch,
-    mergeBranchesBySquash_conflictDetailLevel,
     mergeBranchesBySquash_commitMessage,
+    mergeBranchesBySquash_conflictDetailLevel,
     mergeBranchesBySquash_conflictResolution,
     mergeBranchesBySquash_conflictResolutionStrategy,
+    mergeBranchesBySquash_email,
     mergeBranchesBySquash_keepEmptyFolders,
+    mergeBranchesBySquash_targetBranch,
     mergeBranchesBySquash_repositoryName,
     mergeBranchesBySquash_sourceCommitSpecifier,
     mergeBranchesBySquash_destinationCommitSpecifier,
@@ -52,29 +52,25 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newMergeBranchesBySquash' smart constructor.
 data MergeBranchesBySquash = MergeBranchesBySquash'
-  { -- | The email address of the person merging the branches. This information
-    -- is used in the commit information for the merge.
-    email :: Prelude.Maybe Prelude.Text,
-    -- | The name of the author who created the commit. This information is used
+  { -- | The name of the author who created the commit. This information is used
     -- as both the author and committer for the commit.
     authorName :: Prelude.Maybe Prelude.Text,
-    -- | The branch where the merge is applied.
-    targetBranch :: Prelude.Maybe Prelude.Text,
+    -- | The commit message for the merge.
+    commitMessage :: Prelude.Maybe Prelude.Text,
     -- | The level of conflict detail to use. If unspecified, the default
     -- FILE_LEVEL is used, which returns a not-mergeable result if the same
     -- file has differences in both branches. If LINE_LEVEL is specified, a
     -- conflict is considered not mergeable if the same file in both branches
     -- has differences on the same line.
     conflictDetailLevel :: Prelude.Maybe ConflictDetailLevelTypeEnum,
-    -- | The commit message for the merge.
-    commitMessage :: Prelude.Maybe Prelude.Text,
     -- | If AUTOMERGE is the conflict resolution strategy, a list of inputs to
     -- use when resolving conflicts during a merge.
     conflictResolution :: Prelude.Maybe ConflictResolution,
@@ -83,11 +79,16 @@ data MergeBranchesBySquash = MergeBranchesBySquash'
     -- NONE, which requires any conflicts to be resolved manually before the
     -- merge operation is successful.
     conflictResolutionStrategy :: Prelude.Maybe ConflictResolutionStrategyTypeEnum,
+    -- | The email address of the person merging the branches. This information
+    -- is used in the commit information for the merge.
+    email :: Prelude.Maybe Prelude.Text,
     -- | If the commit contains deletions, whether to keep a folder or folder
     -- structure if the changes leave the folders empty. If this is specified
     -- as true, a .gitkeep file is created for empty folders. The default is
     -- false.
     keepEmptyFolders :: Prelude.Maybe Prelude.Bool,
+    -- | The branch where the merge is applied.
+    targetBranch :: Prelude.Maybe Prelude.Text,
     -- | The name of the repository where you want to merge two branches.
     repositoryName :: Prelude.Text,
     -- | The branch, tag, HEAD, or other fully qualified reference used to
@@ -107,21 +108,16 @@ data MergeBranchesBySquash = MergeBranchesBySquash'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'email', 'mergeBranchesBySquash_email' - The email address of the person merging the branches. This information
--- is used in the commit information for the merge.
---
 -- 'authorName', 'mergeBranchesBySquash_authorName' - The name of the author who created the commit. This information is used
 -- as both the author and committer for the commit.
 --
--- 'targetBranch', 'mergeBranchesBySquash_targetBranch' - The branch where the merge is applied.
+-- 'commitMessage', 'mergeBranchesBySquash_commitMessage' - The commit message for the merge.
 --
 -- 'conflictDetailLevel', 'mergeBranchesBySquash_conflictDetailLevel' - The level of conflict detail to use. If unspecified, the default
 -- FILE_LEVEL is used, which returns a not-mergeable result if the same
 -- file has differences in both branches. If LINE_LEVEL is specified, a
 -- conflict is considered not mergeable if the same file in both branches
 -- has differences on the same line.
---
--- 'commitMessage', 'mergeBranchesBySquash_commitMessage' - The commit message for the merge.
 --
 -- 'conflictResolution', 'mergeBranchesBySquash_conflictResolution' - If AUTOMERGE is the conflict resolution strategy, a list of inputs to
 -- use when resolving conflicts during a merge.
@@ -131,10 +127,15 @@ data MergeBranchesBySquash = MergeBranchesBySquash'
 -- NONE, which requires any conflicts to be resolved manually before the
 -- merge operation is successful.
 --
+-- 'email', 'mergeBranchesBySquash_email' - The email address of the person merging the branches. This information
+-- is used in the commit information for the merge.
+--
 -- 'keepEmptyFolders', 'mergeBranchesBySquash_keepEmptyFolders' - If the commit contains deletions, whether to keep a folder or folder
 -- structure if the changes leave the folders empty. If this is specified
 -- as true, a .gitkeep file is created for empty folders. The default is
 -- false.
+--
+-- 'targetBranch', 'mergeBranchesBySquash_targetBranch' - The branch where the merge is applied.
 --
 -- 'repositoryName', 'mergeBranchesBySquash_repositoryName' - The name of the repository where you want to merge two branches.
 --
@@ -156,33 +157,29 @@ newMergeBranchesBySquash
   pSourceCommitSpecifier_
   pDestinationCommitSpecifier_ =
     MergeBranchesBySquash'
-      { email = Prelude.Nothing,
-        authorName = Prelude.Nothing,
-        targetBranch = Prelude.Nothing,
-        conflictDetailLevel = Prelude.Nothing,
+      { authorName =
+          Prelude.Nothing,
         commitMessage = Prelude.Nothing,
+        conflictDetailLevel = Prelude.Nothing,
         conflictResolution = Prelude.Nothing,
         conflictResolutionStrategy = Prelude.Nothing,
+        email = Prelude.Nothing,
         keepEmptyFolders = Prelude.Nothing,
+        targetBranch = Prelude.Nothing,
         repositoryName = pRepositoryName_,
         sourceCommitSpecifier = pSourceCommitSpecifier_,
         destinationCommitSpecifier =
           pDestinationCommitSpecifier_
       }
 
--- | The email address of the person merging the branches. This information
--- is used in the commit information for the merge.
-mergeBranchesBySquash_email :: Lens.Lens' MergeBranchesBySquash (Prelude.Maybe Prelude.Text)
-mergeBranchesBySquash_email = Lens.lens (\MergeBranchesBySquash' {email} -> email) (\s@MergeBranchesBySquash' {} a -> s {email = a} :: MergeBranchesBySquash)
-
 -- | The name of the author who created the commit. This information is used
 -- as both the author and committer for the commit.
 mergeBranchesBySquash_authorName :: Lens.Lens' MergeBranchesBySquash (Prelude.Maybe Prelude.Text)
 mergeBranchesBySquash_authorName = Lens.lens (\MergeBranchesBySquash' {authorName} -> authorName) (\s@MergeBranchesBySquash' {} a -> s {authorName = a} :: MergeBranchesBySquash)
 
--- | The branch where the merge is applied.
-mergeBranchesBySquash_targetBranch :: Lens.Lens' MergeBranchesBySquash (Prelude.Maybe Prelude.Text)
-mergeBranchesBySquash_targetBranch = Lens.lens (\MergeBranchesBySquash' {targetBranch} -> targetBranch) (\s@MergeBranchesBySquash' {} a -> s {targetBranch = a} :: MergeBranchesBySquash)
+-- | The commit message for the merge.
+mergeBranchesBySquash_commitMessage :: Lens.Lens' MergeBranchesBySquash (Prelude.Maybe Prelude.Text)
+mergeBranchesBySquash_commitMessage = Lens.lens (\MergeBranchesBySquash' {commitMessage} -> commitMessage) (\s@MergeBranchesBySquash' {} a -> s {commitMessage = a} :: MergeBranchesBySquash)
 
 -- | The level of conflict detail to use. If unspecified, the default
 -- FILE_LEVEL is used, which returns a not-mergeable result if the same
@@ -191,10 +188,6 @@ mergeBranchesBySquash_targetBranch = Lens.lens (\MergeBranchesBySquash' {targetB
 -- has differences on the same line.
 mergeBranchesBySquash_conflictDetailLevel :: Lens.Lens' MergeBranchesBySquash (Prelude.Maybe ConflictDetailLevelTypeEnum)
 mergeBranchesBySquash_conflictDetailLevel = Lens.lens (\MergeBranchesBySquash' {conflictDetailLevel} -> conflictDetailLevel) (\s@MergeBranchesBySquash' {} a -> s {conflictDetailLevel = a} :: MergeBranchesBySquash)
-
--- | The commit message for the merge.
-mergeBranchesBySquash_commitMessage :: Lens.Lens' MergeBranchesBySquash (Prelude.Maybe Prelude.Text)
-mergeBranchesBySquash_commitMessage = Lens.lens (\MergeBranchesBySquash' {commitMessage} -> commitMessage) (\s@MergeBranchesBySquash' {} a -> s {commitMessage = a} :: MergeBranchesBySquash)
 
 -- | If AUTOMERGE is the conflict resolution strategy, a list of inputs to
 -- use when resolving conflicts during a merge.
@@ -208,12 +201,21 @@ mergeBranchesBySquash_conflictResolution = Lens.lens (\MergeBranchesBySquash' {c
 mergeBranchesBySquash_conflictResolutionStrategy :: Lens.Lens' MergeBranchesBySquash (Prelude.Maybe ConflictResolutionStrategyTypeEnum)
 mergeBranchesBySquash_conflictResolutionStrategy = Lens.lens (\MergeBranchesBySquash' {conflictResolutionStrategy} -> conflictResolutionStrategy) (\s@MergeBranchesBySquash' {} a -> s {conflictResolutionStrategy = a} :: MergeBranchesBySquash)
 
+-- | The email address of the person merging the branches. This information
+-- is used in the commit information for the merge.
+mergeBranchesBySquash_email :: Lens.Lens' MergeBranchesBySquash (Prelude.Maybe Prelude.Text)
+mergeBranchesBySquash_email = Lens.lens (\MergeBranchesBySquash' {email} -> email) (\s@MergeBranchesBySquash' {} a -> s {email = a} :: MergeBranchesBySquash)
+
 -- | If the commit contains deletions, whether to keep a folder or folder
 -- structure if the changes leave the folders empty. If this is specified
 -- as true, a .gitkeep file is created for empty folders. The default is
 -- false.
 mergeBranchesBySquash_keepEmptyFolders :: Lens.Lens' MergeBranchesBySquash (Prelude.Maybe Prelude.Bool)
 mergeBranchesBySquash_keepEmptyFolders = Lens.lens (\MergeBranchesBySquash' {keepEmptyFolders} -> keepEmptyFolders) (\s@MergeBranchesBySquash' {} a -> s {keepEmptyFolders = a} :: MergeBranchesBySquash)
+
+-- | The branch where the merge is applied.
+mergeBranchesBySquash_targetBranch :: Lens.Lens' MergeBranchesBySquash (Prelude.Maybe Prelude.Text)
+mergeBranchesBySquash_targetBranch = Lens.lens (\MergeBranchesBySquash' {targetBranch} -> targetBranch) (\s@MergeBranchesBySquash' {} a -> s {targetBranch = a} :: MergeBranchesBySquash)
 
 -- | The name of the repository where you want to merge two branches.
 mergeBranchesBySquash_repositoryName :: Lens.Lens' MergeBranchesBySquash Prelude.Text
@@ -233,92 +235,93 @@ instance Core.AWSRequest MergeBranchesBySquash where
   type
     AWSResponse MergeBranchesBySquash =
       MergeBranchesBySquashResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           MergeBranchesBySquashResponse'
-            Prelude.<$> (x Core..?> "commitId")
-            Prelude.<*> (x Core..?> "treeId")
+            Prelude.<$> (x Data..?> "commitId")
+            Prelude.<*> (x Data..?> "treeId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable MergeBranchesBySquash where
   hashWithSalt _salt MergeBranchesBySquash' {..} =
-    _salt `Prelude.hashWithSalt` email
-      `Prelude.hashWithSalt` authorName
-      `Prelude.hashWithSalt` targetBranch
-      `Prelude.hashWithSalt` conflictDetailLevel
+    _salt `Prelude.hashWithSalt` authorName
       `Prelude.hashWithSalt` commitMessage
+      `Prelude.hashWithSalt` conflictDetailLevel
       `Prelude.hashWithSalt` conflictResolution
       `Prelude.hashWithSalt` conflictResolutionStrategy
+      `Prelude.hashWithSalt` email
       `Prelude.hashWithSalt` keepEmptyFolders
+      `Prelude.hashWithSalt` targetBranch
       `Prelude.hashWithSalt` repositoryName
       `Prelude.hashWithSalt` sourceCommitSpecifier
       `Prelude.hashWithSalt` destinationCommitSpecifier
 
 instance Prelude.NFData MergeBranchesBySquash where
   rnf MergeBranchesBySquash' {..} =
-    Prelude.rnf email
-      `Prelude.seq` Prelude.rnf authorName
-      `Prelude.seq` Prelude.rnf targetBranch
-      `Prelude.seq` Prelude.rnf conflictDetailLevel
+    Prelude.rnf authorName
       `Prelude.seq` Prelude.rnf commitMessage
+      `Prelude.seq` Prelude.rnf conflictDetailLevel
       `Prelude.seq` Prelude.rnf conflictResolution
       `Prelude.seq` Prelude.rnf conflictResolutionStrategy
+      `Prelude.seq` Prelude.rnf email
       `Prelude.seq` Prelude.rnf keepEmptyFolders
+      `Prelude.seq` Prelude.rnf targetBranch
       `Prelude.seq` Prelude.rnf repositoryName
       `Prelude.seq` Prelude.rnf sourceCommitSpecifier
       `Prelude.seq` Prelude.rnf destinationCommitSpecifier
 
-instance Core.ToHeaders MergeBranchesBySquash where
+instance Data.ToHeaders MergeBranchesBySquash where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.MergeBranchesBySquash" ::
+              Data.=# ( "CodeCommit_20150413.MergeBranchesBySquash" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON MergeBranchesBySquash where
+instance Data.ToJSON MergeBranchesBySquash where
   toJSON MergeBranchesBySquash' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("email" Core..=) Prelude.<$> email,
-            ("authorName" Core..=) Prelude.<$> authorName,
-            ("targetBranch" Core..=) Prelude.<$> targetBranch,
-            ("conflictDetailLevel" Core..=)
+          [ ("authorName" Data..=) Prelude.<$> authorName,
+            ("commitMessage" Data..=) Prelude.<$> commitMessage,
+            ("conflictDetailLevel" Data..=)
               Prelude.<$> conflictDetailLevel,
-            ("commitMessage" Core..=) Prelude.<$> commitMessage,
-            ("conflictResolution" Core..=)
+            ("conflictResolution" Data..=)
               Prelude.<$> conflictResolution,
-            ("conflictResolutionStrategy" Core..=)
+            ("conflictResolutionStrategy" Data..=)
               Prelude.<$> conflictResolutionStrategy,
-            ("keepEmptyFolders" Core..=)
+            ("email" Data..=) Prelude.<$> email,
+            ("keepEmptyFolders" Data..=)
               Prelude.<$> keepEmptyFolders,
+            ("targetBranch" Data..=) Prelude.<$> targetBranch,
             Prelude.Just
-              ("repositoryName" Core..= repositoryName),
+              ("repositoryName" Data..= repositoryName),
             Prelude.Just
               ( "sourceCommitSpecifier"
-                  Core..= sourceCommitSpecifier
+                  Data..= sourceCommitSpecifier
               ),
             Prelude.Just
               ( "destinationCommitSpecifier"
-                  Core..= destinationCommitSpecifier
+                  Data..= destinationCommitSpecifier
               )
           ]
       )
 
-instance Core.ToPath MergeBranchesBySquash where
+instance Data.ToPath MergeBranchesBySquash where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery MergeBranchesBySquash where
+instance Data.ToQuery MergeBranchesBySquash where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newMergeBranchesBySquashResponse' smart constructor.

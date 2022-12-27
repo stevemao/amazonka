@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.PutStoredQuery
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,12 +108,13 @@ instance Core.AWSRequest PutStoredQuery where
   type
     AWSResponse PutStoredQuery =
       PutStoredQueryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutStoredQueryResponse'
-            Prelude.<$> (x Core..?> "QueryArn")
+            Prelude.<$> (x Data..?> "QueryArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -126,34 +128,34 @@ instance Prelude.NFData PutStoredQuery where
     Prelude.rnf tags
       `Prelude.seq` Prelude.rnf storedQuery
 
-instance Core.ToHeaders PutStoredQuery where
+instance Data.ToHeaders PutStoredQuery where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.PutStoredQuery" ::
+              Data.=# ( "StarlingDoveService.PutStoredQuery" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutStoredQuery where
+instance Data.ToJSON PutStoredQuery where
   toJSON PutStoredQuery' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("StoredQuery" Core..= storedQuery)
+          [ ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("StoredQuery" Data..= storedQuery)
           ]
       )
 
-instance Core.ToPath PutStoredQuery where
+instance Data.ToPath PutStoredQuery where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutStoredQuery where
+instance Data.ToQuery PutStoredQuery where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutStoredQueryResponse' smart constructor.

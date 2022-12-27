@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppRunner.ListServices
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.AppRunner.ListServices
     newListServices,
 
     -- * Request Lenses
-    listServices_nextToken,
     listServices_maxResults,
+    listServices_nextToken,
 
     -- * Destructuring the Response
     ListServicesResponse (..),
@@ -44,26 +44,27 @@ where
 
 import Amazonka.AppRunner.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListServices' smart constructor.
 data ListServices = ListServices'
-  { -- | A token from a previous result page. Used for a paginated request. The
+  { -- | The maximum number of results to include in each response (result page).
+    -- It\'s used for a paginated request.
+    --
+    -- If you don\'t specify @MaxResults@, the request retrieves all available
+    -- results in a single response.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token from a previous result page. Used for a paginated request. The
     -- request retrieves the next result page. All other parameter values must
     -- be identical to the ones specified in the initial request.
     --
     -- If you don\'t specify @NextToken@, the request retrieves the first
     -- result page.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to include in each response (result page).
-    -- It\'s used for a paginated request.
-    --
-    -- If you don\'t specify @MaxResults@, the request retrieves all available
-    -- results in a single response.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -75,25 +76,33 @@ data ListServices = ListServices'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listServices_maxResults' - The maximum number of results to include in each response (result page).
+-- It\'s used for a paginated request.
+--
+-- If you don\'t specify @MaxResults@, the request retrieves all available
+-- results in a single response.
+--
 -- 'nextToken', 'listServices_nextToken' - A token from a previous result page. Used for a paginated request. The
 -- request retrieves the next result page. All other parameter values must
 -- be identical to the ones specified in the initial request.
 --
 -- If you don\'t specify @NextToken@, the request retrieves the first
 -- result page.
---
--- 'maxResults', 'listServices_maxResults' - The maximum number of results to include in each response (result page).
--- It\'s used for a paginated request.
---
--- If you don\'t specify @MaxResults@, the request retrieves all available
--- results in a single response.
 newListServices ::
   ListServices
 newListServices =
   ListServices'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of results to include in each response (result page).
+-- It\'s used for a paginated request.
+--
+-- If you don\'t specify @MaxResults@, the request retrieves all available
+-- results in a single response.
+listServices_maxResults :: Lens.Lens' ListServices (Prelude.Maybe Prelude.Natural)
+listServices_maxResults = Lens.lens (\ListServices' {maxResults} -> maxResults) (\s@ListServices' {} a -> s {maxResults = a} :: ListServices)
 
 -- | A token from a previous result page. Used for a paginated request. The
 -- request retrieves the next result page. All other parameter values must
@@ -104,64 +113,57 @@ newListServices =
 listServices_nextToken :: Lens.Lens' ListServices (Prelude.Maybe Prelude.Text)
 listServices_nextToken = Lens.lens (\ListServices' {nextToken} -> nextToken) (\s@ListServices' {} a -> s {nextToken = a} :: ListServices)
 
--- | The maximum number of results to include in each response (result page).
--- It\'s used for a paginated request.
---
--- If you don\'t specify @MaxResults@, the request retrieves all available
--- results in a single response.
-listServices_maxResults :: Lens.Lens' ListServices (Prelude.Maybe Prelude.Natural)
-listServices_maxResults = Lens.lens (\ListServices' {maxResults} -> maxResults) (\s@ListServices' {} a -> s {maxResults = a} :: ListServices)
-
 instance Core.AWSRequest ListServices where
   type AWSResponse ListServices = ListServicesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListServicesResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "ServiceSummaryList"
+            Prelude.<*> ( x Data..?> "ServiceSummaryList"
                             Core..!@ Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable ListServices where
   hashWithSalt _salt ListServices' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListServices where
   rnf ListServices' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListServices where
+instance Data.ToHeaders ListServices where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AppRunner.ListServices" :: Prelude.ByteString),
+              Data.=# ("AppRunner.ListServices" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListServices where
+instance Data.ToJSON ListServices where
   toJSON ListServices' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListServices where
+instance Data.ToPath ListServices where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListServices where
+instance Data.ToQuery ListServices where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListServicesResponse' smart constructor.

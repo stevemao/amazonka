@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.DescribeSchedule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.MediaLive.DescribeSchedule
     newDescribeSchedule,
 
     -- * Request Lenses
-    describeSchedule_nextToken,
     describeSchedule_maxResults,
+    describeSchedule_nextToken,
     describeSchedule_channelId,
 
     -- * Destructuring the Response
@@ -45,7 +45,8 @@ module Amazonka.MediaLive.DescribeSchedule
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -55,8 +56,8 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeSchedule' smart constructor.
 data DescribeSchedule = DescribeSchedule'
-  { nextToken :: Prelude.Maybe Prelude.Text,
-    maxResults :: Prelude.Maybe Prelude.Natural,
+  { maxResults :: Prelude.Maybe Prelude.Natural,
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | Id of the channel whose schedule is being updated.
     channelId :: Prelude.Text
   }
@@ -70,9 +71,9 @@ data DescribeSchedule = DescribeSchedule'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeSchedule_nextToken' - Undocumented member.
---
 -- 'maxResults', 'describeSchedule_maxResults' - Undocumented member.
+--
+-- 'nextToken', 'describeSchedule_nextToken' - Undocumented member.
 --
 -- 'channelId', 'describeSchedule_channelId' - Id of the channel whose schedule is being updated.
 newDescribeSchedule ::
@@ -81,18 +82,18 @@ newDescribeSchedule ::
   DescribeSchedule
 newDescribeSchedule pChannelId_ =
   DescribeSchedule'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       channelId = pChannelId_
     }
 
 -- | Undocumented member.
-describeSchedule_nextToken :: Lens.Lens' DescribeSchedule (Prelude.Maybe Prelude.Text)
-describeSchedule_nextToken = Lens.lens (\DescribeSchedule' {nextToken} -> nextToken) (\s@DescribeSchedule' {} a -> s {nextToken = a} :: DescribeSchedule)
-
--- | Undocumented member.
 describeSchedule_maxResults :: Lens.Lens' DescribeSchedule (Prelude.Maybe Prelude.Natural)
 describeSchedule_maxResults = Lens.lens (\DescribeSchedule' {maxResults} -> maxResults) (\s@DescribeSchedule' {} a -> s {maxResults = a} :: DescribeSchedule)
+
+-- | Undocumented member.
+describeSchedule_nextToken :: Lens.Lens' DescribeSchedule (Prelude.Maybe Prelude.Text)
+describeSchedule_nextToken = Lens.lens (\DescribeSchedule' {nextToken} -> nextToken) (\s@DescribeSchedule' {} a -> s {nextToken = a} :: DescribeSchedule)
 
 -- | Id of the channel whose schedule is being updated.
 describeSchedule_channelId :: Lens.Lens' DescribeSchedule Prelude.Text
@@ -124,13 +125,14 @@ instance Core.AWSRequest DescribeSchedule where
   type
     AWSResponse DescribeSchedule =
       DescribeScheduleResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeScheduleResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> ( x Core..?> "scheduleActions"
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> ( x Data..?> "scheduleActions"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -138,37 +140,37 @@ instance Core.AWSRequest DescribeSchedule where
 
 instance Prelude.Hashable DescribeSchedule where
   hashWithSalt _salt DescribeSchedule' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` channelId
 
 instance Prelude.NFData DescribeSchedule where
   rnf DescribeSchedule' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf channelId
 
-instance Core.ToHeaders DescribeSchedule where
+instance Data.ToHeaders DescribeSchedule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeSchedule where
+instance Data.ToPath DescribeSchedule where
   toPath DescribeSchedule' {..} =
     Prelude.mconcat
-      ["/prod/channels/", Core.toBS channelId, "/schedule"]
+      ["/prod/channels/", Data.toBS channelId, "/schedule"]
 
-instance Core.ToQuery DescribeSchedule where
+instance Data.ToQuery DescribeSchedule where
   toQuery DescribeSchedule' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | Placeholder documentation for DescribeScheduleResponse

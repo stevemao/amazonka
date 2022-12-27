@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.CreateOpsMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.SSM.CreateOpsMetadata
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -128,12 +129,13 @@ instance Core.AWSRequest CreateOpsMetadata where
   type
     AWSResponse CreateOpsMetadata =
       CreateOpsMetadataResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateOpsMetadataResponse'
-            Prelude.<$> (x Core..?> "OpsMetadataArn")
+            Prelude.<$> (x Data..?> "OpsMetadataArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -149,35 +151,35 @@ instance Prelude.NFData CreateOpsMetadata where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf resourceId
 
-instance Core.ToHeaders CreateOpsMetadata where
+instance Data.ToHeaders CreateOpsMetadata where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.CreateOpsMetadata" ::
+              Data.=# ( "AmazonSSM.CreateOpsMetadata" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateOpsMetadata where
+instance Data.ToJSON CreateOpsMetadata where
   toJSON CreateOpsMetadata' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Metadata" Core..=) Prelude.<$> metadata,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("ResourceId" Core..= resourceId)
+          [ ("Metadata" Data..=) Prelude.<$> metadata,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("ResourceId" Data..= resourceId)
           ]
       )
 
-instance Core.ToPath CreateOpsMetadata where
+instance Data.ToPath CreateOpsMetadata where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateOpsMetadata where
+instance Data.ToQuery CreateOpsMetadata where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateOpsMetadataResponse' smart constructor.

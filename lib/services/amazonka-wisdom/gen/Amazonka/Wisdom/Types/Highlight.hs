@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.Types.Highlight
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Wisdom.Types.Highlight where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Offset specification to describe highlighting of document excerpts for
@@ -28,10 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newHighlight' smart constructor.
 data Highlight = Highlight'
-  { -- | The offset for the end of the highlight.
-    endOffsetExclusive :: Prelude.Maybe Prelude.Int,
-    -- | The offset for the start of the highlight.
-    beginOffsetInclusive :: Prelude.Maybe Prelude.Int
+  { -- | The offset for the start of the highlight.
+    beginOffsetInclusive :: Prelude.Maybe Prelude.Int,
+    -- | The offset for the end of the highlight.
+    endOffsetExclusive :: Prelude.Maybe Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,41 +44,41 @@ data Highlight = Highlight'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'endOffsetExclusive', 'highlight_endOffsetExclusive' - The offset for the end of the highlight.
---
 -- 'beginOffsetInclusive', 'highlight_beginOffsetInclusive' - The offset for the start of the highlight.
+--
+-- 'endOffsetExclusive', 'highlight_endOffsetExclusive' - The offset for the end of the highlight.
 newHighlight ::
   Highlight
 newHighlight =
   Highlight'
-    { endOffsetExclusive = Prelude.Nothing,
-      beginOffsetInclusive = Prelude.Nothing
+    { beginOffsetInclusive = Prelude.Nothing,
+      endOffsetExclusive = Prelude.Nothing
     }
-
--- | The offset for the end of the highlight.
-highlight_endOffsetExclusive :: Lens.Lens' Highlight (Prelude.Maybe Prelude.Int)
-highlight_endOffsetExclusive = Lens.lens (\Highlight' {endOffsetExclusive} -> endOffsetExclusive) (\s@Highlight' {} a -> s {endOffsetExclusive = a} :: Highlight)
 
 -- | The offset for the start of the highlight.
 highlight_beginOffsetInclusive :: Lens.Lens' Highlight (Prelude.Maybe Prelude.Int)
 highlight_beginOffsetInclusive = Lens.lens (\Highlight' {beginOffsetInclusive} -> beginOffsetInclusive) (\s@Highlight' {} a -> s {beginOffsetInclusive = a} :: Highlight)
 
-instance Core.FromJSON Highlight where
+-- | The offset for the end of the highlight.
+highlight_endOffsetExclusive :: Lens.Lens' Highlight (Prelude.Maybe Prelude.Int)
+highlight_endOffsetExclusive = Lens.lens (\Highlight' {endOffsetExclusive} -> endOffsetExclusive) (\s@Highlight' {} a -> s {endOffsetExclusive = a} :: Highlight)
+
+instance Data.FromJSON Highlight where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Highlight"
       ( \x ->
           Highlight'
-            Prelude.<$> (x Core..:? "endOffsetExclusive")
-            Prelude.<*> (x Core..:? "beginOffsetInclusive")
+            Prelude.<$> (x Data..:? "beginOffsetInclusive")
+            Prelude.<*> (x Data..:? "endOffsetExclusive")
       )
 
 instance Prelude.Hashable Highlight where
   hashWithSalt _salt Highlight' {..} =
-    _salt `Prelude.hashWithSalt` endOffsetExclusive
-      `Prelude.hashWithSalt` beginOffsetInclusive
+    _salt `Prelude.hashWithSalt` beginOffsetInclusive
+      `Prelude.hashWithSalt` endOffsetExclusive
 
 instance Prelude.NFData Highlight where
   rnf Highlight' {..} =
-    Prelude.rnf endOffsetExclusive
-      `Prelude.seq` Prelude.rnf beginOffsetInclusive
+    Prelude.rnf beginOffsetInclusive
+      `Prelude.seq` Prelude.rnf endOffsetExclusive

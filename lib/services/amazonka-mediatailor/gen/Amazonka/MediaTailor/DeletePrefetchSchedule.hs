@@ -14,15 +14,18 @@
 
 -- |
 -- Module      : Amazonka.MediaTailor.DeletePrefetchSchedule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Deletes a prefetch schedule for a specific playback configuration. If
--- you call DeletePrefetchSchedule on an expired prefetch schedule,
--- MediaTailor returns an HTTP 404 status code.
+-- you call @DeletePrefetchSchedule@ on an expired prefetch schedule,
+-- MediaTailor returns an HTTP 404 status code. For more information about
+-- ad prefetching, see
+-- <https://docs.aws.amazon.com/mediatailor/latest/ug/prefetching-ads.html Using ad prefetching>
+-- in the /MediaTailor User Guide/.
 module Amazonka.MediaTailor.DeletePrefetchSchedule
   ( -- * Creating a Request
     DeletePrefetchSchedule (..),
@@ -42,7 +45,8 @@ module Amazonka.MediaTailor.DeletePrefetchSchedule
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaTailor.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -50,9 +54,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeletePrefetchSchedule' smart constructor.
 data DeletePrefetchSchedule = DeletePrefetchSchedule'
-  { -- | The identifier for the playback configuration.
+  { -- | The name of the prefetch schedule. If the action is successful, the
+    -- service sends back an HTTP 204 response with an empty HTTP body.
     name :: Prelude.Text,
-    -- | The name of the playback configuration.
+    -- | The name of the playback configuration for this prefetch schedule.
     playbackConfigurationName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -65,9 +70,10 @@ data DeletePrefetchSchedule = DeletePrefetchSchedule'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'deletePrefetchSchedule_name' - The identifier for the playback configuration.
+-- 'name', 'deletePrefetchSchedule_name' - The name of the prefetch schedule. If the action is successful, the
+-- service sends back an HTTP 204 response with an empty HTTP body.
 --
--- 'playbackConfigurationName', 'deletePrefetchSchedule_playbackConfigurationName' - The name of the playback configuration.
+-- 'playbackConfigurationName', 'deletePrefetchSchedule_playbackConfigurationName' - The name of the playback configuration for this prefetch schedule.
 newDeletePrefetchSchedule ::
   -- | 'name'
   Prelude.Text ->
@@ -83,11 +89,12 @@ newDeletePrefetchSchedule
           pPlaybackConfigurationName_
       }
 
--- | The identifier for the playback configuration.
+-- | The name of the prefetch schedule. If the action is successful, the
+-- service sends back an HTTP 204 response with an empty HTTP body.
 deletePrefetchSchedule_name :: Lens.Lens' DeletePrefetchSchedule Prelude.Text
 deletePrefetchSchedule_name = Lens.lens (\DeletePrefetchSchedule' {name} -> name) (\s@DeletePrefetchSchedule' {} a -> s {name = a} :: DeletePrefetchSchedule)
 
--- | The name of the playback configuration.
+-- | The name of the playback configuration for this prefetch schedule.
 deletePrefetchSchedule_playbackConfigurationName :: Lens.Lens' DeletePrefetchSchedule Prelude.Text
 deletePrefetchSchedule_playbackConfigurationName = Lens.lens (\DeletePrefetchSchedule' {playbackConfigurationName} -> playbackConfigurationName) (\s@DeletePrefetchSchedule' {} a -> s {playbackConfigurationName = a} :: DeletePrefetchSchedule)
 
@@ -95,7 +102,8 @@ instance Core.AWSRequest DeletePrefetchSchedule where
   type
     AWSResponse DeletePrefetchSchedule =
       DeletePrefetchScheduleResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -113,27 +121,27 @@ instance Prelude.NFData DeletePrefetchSchedule where
     Prelude.rnf name
       `Prelude.seq` Prelude.rnf playbackConfigurationName
 
-instance Core.ToHeaders DeletePrefetchSchedule where
+instance Data.ToHeaders DeletePrefetchSchedule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeletePrefetchSchedule where
+instance Data.ToPath DeletePrefetchSchedule where
   toPath DeletePrefetchSchedule' {..} =
     Prelude.mconcat
       [ "/prefetchSchedule/",
-        Core.toBS playbackConfigurationName,
+        Data.toBS playbackConfigurationName,
         "/",
-        Core.toBS name
+        Data.toBS name
       ]
 
-instance Core.ToQuery DeletePrefetchSchedule where
+instance Data.ToQuery DeletePrefetchSchedule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeletePrefetchScheduleResponse' smart constructor.

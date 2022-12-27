@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,426 +14,117 @@
 module Amazonka.ElasticBeanstalk.Lens
   ( -- * Operations
 
-    -- ** DescribeApplications
-    describeApplications_applicationNames,
-    describeApplicationsResponse_applications,
-    describeApplicationsResponse_httpStatus,
-
-    -- ** UpdateEnvironment
-    updateEnvironment_templateName,
-    updateEnvironment_optionsToRemove,
-    updateEnvironment_optionSettings,
-    updateEnvironment_versionLabel,
-    updateEnvironment_platformArn,
-    updateEnvironment_tier,
-    updateEnvironment_environmentName,
-    updateEnvironment_applicationName,
-    updateEnvironment_solutionStackName,
-    updateEnvironment_environmentId,
-    updateEnvironment_groupName,
-    updateEnvironment_description,
-    environmentDescription_status,
-    environmentDescription_cname,
-    environmentDescription_templateName,
-    environmentDescription_abortableOperationInProgress,
-    environmentDescription_endpointURL,
-    environmentDescription_resources,
-    environmentDescription_dateUpdated,
-    environmentDescription_dateCreated,
-    environmentDescription_health,
-    environmentDescription_versionLabel,
-    environmentDescription_operationsRole,
-    environmentDescription_platformArn,
-    environmentDescription_tier,
-    environmentDescription_environmentName,
-    environmentDescription_applicationName,
-    environmentDescription_environmentArn,
-    environmentDescription_solutionStackName,
-    environmentDescription_environmentId,
-    environmentDescription_healthStatus,
-    environmentDescription_environmentLinks,
-    environmentDescription_description,
-
-    -- ** TerminateEnvironment
-    terminateEnvironment_forceTerminate,
-    terminateEnvironment_terminateResources,
-    terminateEnvironment_environmentName,
-    terminateEnvironment_environmentId,
-    environmentDescription_status,
-    environmentDescription_cname,
-    environmentDescription_templateName,
-    environmentDescription_abortableOperationInProgress,
-    environmentDescription_endpointURL,
-    environmentDescription_resources,
-    environmentDescription_dateUpdated,
-    environmentDescription_dateCreated,
-    environmentDescription_health,
-    environmentDescription_versionLabel,
-    environmentDescription_operationsRole,
-    environmentDescription_platformArn,
-    environmentDescription_tier,
-    environmentDescription_environmentName,
-    environmentDescription_applicationName,
-    environmentDescription_environmentArn,
-    environmentDescription_solutionStackName,
-    environmentDescription_environmentId,
-    environmentDescription_healthStatus,
-    environmentDescription_environmentLinks,
-    environmentDescription_description,
-
-    -- ** ListPlatformVersions
-    listPlatformVersions_filters,
-    listPlatformVersions_nextToken,
-    listPlatformVersions_maxRecords,
-    listPlatformVersionsResponse_nextToken,
-    listPlatformVersionsResponse_platformSummaryList,
-    listPlatformVersionsResponse_httpStatus,
-
-    -- ** DeletePlatformVersion
-    deletePlatformVersion_platformArn,
-    deletePlatformVersionResponse_platformSummary,
-    deletePlatformVersionResponse_httpStatus,
-
-    -- ** CreateApplicationVersion
-    createApplicationVersion_process,
-    createApplicationVersion_sourceBundle,
-    createApplicationVersion_autoCreateApplication,
-    createApplicationVersion_sourceBuildInformation,
-    createApplicationVersion_description,
-    createApplicationVersion_buildConfiguration,
-    createApplicationVersion_tags,
-    createApplicationVersion_applicationName,
-    createApplicationVersion_versionLabel,
-    applicationVersionDescriptionMessage_applicationVersion,
-
-    -- ** ListPlatformBranches
-    listPlatformBranches_filters,
-    listPlatformBranches_nextToken,
-    listPlatformBranches_maxRecords,
-    listPlatformBranchesResponse_platformBranchSummaryList,
-    listPlatformBranchesResponse_nextToken,
-    listPlatformBranchesResponse_httpStatus,
-
-    -- ** DescribeEvents
-    describeEvents_requestId,
-    describeEvents_templateName,
-    describeEvents_startTime,
-    describeEvents_severity,
-    describeEvents_nextToken,
-    describeEvents_versionLabel,
-    describeEvents_platformArn,
-    describeEvents_environmentName,
-    describeEvents_maxRecords,
-    describeEvents_endTime,
-    describeEvents_applicationName,
-    describeEvents_environmentId,
-    describeEventsResponse_nextToken,
-    describeEventsResponse_events,
-    describeEventsResponse_httpStatus,
-
-    -- ** RequestEnvironmentInfo
-    requestEnvironmentInfo_environmentName,
-    requestEnvironmentInfo_environmentId,
-    requestEnvironmentInfo_infoType,
-
-    -- ** ListTagsForResource
-    listTagsForResource_resourceArn,
-    listTagsForResourceResponse_resourceTags,
-    listTagsForResourceResponse_resourceArn,
-    listTagsForResourceResponse_httpStatus,
-
-    -- ** RetrieveEnvironmentInfo
-    retrieveEnvironmentInfo_environmentName,
-    retrieveEnvironmentInfo_environmentId,
-    retrieveEnvironmentInfo_infoType,
-    retrieveEnvironmentInfoResponse_environmentInfo,
-    retrieveEnvironmentInfoResponse_httpStatus,
-
-    -- ** DescribePlatformVersion
-    describePlatformVersion_platformArn,
-    describePlatformVersionResponse_platformDescription,
-    describePlatformVersionResponse_httpStatus,
-
-    -- ** DeleteApplication
-    deleteApplication_terminateEnvByForce,
-    deleteApplication_applicationName,
-
-    -- ** UpdateApplication
-    updateApplication_description,
-    updateApplication_applicationName,
-    applicationDescriptionMessage_application,
-
-    -- ** DescribeInstancesHealth
-    describeInstancesHealth_nextToken,
-    describeInstancesHealth_environmentName,
-    describeInstancesHealth_attributeNames,
-    describeInstancesHealth_environmentId,
-    describeInstancesHealthResponse_instanceHealthList,
-    describeInstancesHealthResponse_nextToken,
-    describeInstancesHealthResponse_refreshedAt,
-    describeInstancesHealthResponse_httpStatus,
-
-    -- ** CreateApplication
-    createApplication_resourceLifecycleConfig,
-    createApplication_description,
-    createApplication_tags,
-    createApplication_applicationName,
-    applicationDescriptionMessage_application,
-
-    -- ** ComposeEnvironments
-    composeEnvironments_versionLabels,
-    composeEnvironments_applicationName,
-    composeEnvironments_groupName,
-    environmentDescriptionsMessage_nextToken,
-    environmentDescriptionsMessage_environments,
-
     -- ** AbortEnvironmentUpdate
-    abortEnvironmentUpdate_environmentName,
     abortEnvironmentUpdate_environmentId,
-
-    -- ** DeleteConfigurationTemplate
-    deleteConfigurationTemplate_applicationName,
-    deleteConfigurationTemplate_templateName,
-
-    -- ** UpdateConfigurationTemplate
-    updateConfigurationTemplate_optionsToRemove,
-    updateConfigurationTemplate_optionSettings,
-    updateConfigurationTemplate_description,
-    updateConfigurationTemplate_applicationName,
-    updateConfigurationTemplate_templateName,
-    configurationSettingsDescription_templateName,
-    configurationSettingsDescription_optionSettings,
-    configurationSettingsDescription_dateUpdated,
-    configurationSettingsDescription_dateCreated,
-    configurationSettingsDescription_platformArn,
-    configurationSettingsDescription_environmentName,
-    configurationSettingsDescription_applicationName,
-    configurationSettingsDescription_deploymentStatus,
-    configurationSettingsDescription_solutionStackName,
-    configurationSettingsDescription_description,
-
-    -- ** UpdateTagsForResource
-    updateTagsForResource_tagsToRemove,
-    updateTagsForResource_tagsToAdd,
-    updateTagsForResource_resourceArn,
-
-    -- ** DescribeEnvironmentResources
-    describeEnvironmentResources_environmentName,
-    describeEnvironmentResources_environmentId,
-    describeEnvironmentResourcesResponse_environmentResources,
-    describeEnvironmentResourcesResponse_httpStatus,
-
-    -- ** DescribeEnvironmentManagedActionHistory
-    describeEnvironmentManagedActionHistory_nextToken,
-    describeEnvironmentManagedActionHistory_environmentName,
-    describeEnvironmentManagedActionHistory_maxItems,
-    describeEnvironmentManagedActionHistory_environmentId,
-    describeEnvironmentManagedActionHistoryResponse_managedActionHistoryItems,
-    describeEnvironmentManagedActionHistoryResponse_nextToken,
-    describeEnvironmentManagedActionHistoryResponse_httpStatus,
-
-    -- ** DeleteApplicationVersion
-    deleteApplicationVersion_deleteSourceBundle,
-    deleteApplicationVersion_applicationName,
-    deleteApplicationVersion_versionLabel,
-
-    -- ** UpdateApplicationVersion
-    updateApplicationVersion_description,
-    updateApplicationVersion_applicationName,
-    updateApplicationVersion_versionLabel,
-    applicationVersionDescriptionMessage_applicationVersion,
-
-    -- ** CreateConfigurationTemplate
-    createConfigurationTemplate_optionSettings,
-    createConfigurationTemplate_platformArn,
-    createConfigurationTemplate_sourceConfiguration,
-    createConfigurationTemplate_solutionStackName,
-    createConfigurationTemplate_environmentId,
-    createConfigurationTemplate_description,
-    createConfigurationTemplate_tags,
-    createConfigurationTemplate_applicationName,
-    createConfigurationTemplate_templateName,
-    configurationSettingsDescription_templateName,
-    configurationSettingsDescription_optionSettings,
-    configurationSettingsDescription_dateUpdated,
-    configurationSettingsDescription_dateCreated,
-    configurationSettingsDescription_platformArn,
-    configurationSettingsDescription_environmentName,
-    configurationSettingsDescription_applicationName,
-    configurationSettingsDescription_deploymentStatus,
-    configurationSettingsDescription_solutionStackName,
-    configurationSettingsDescription_description,
-
-    -- ** DescribeEnvironmentHealth
-    describeEnvironmentHealth_environmentName,
-    describeEnvironmentHealth_attributeNames,
-    describeEnvironmentHealth_environmentId,
-    describeEnvironmentHealthResponse_status,
-    describeEnvironmentHealthResponse_causes,
-    describeEnvironmentHealthResponse_applicationMetrics,
-    describeEnvironmentHealthResponse_color,
-    describeEnvironmentHealthResponse_environmentName,
-    describeEnvironmentHealthResponse_healthStatus,
-    describeEnvironmentHealthResponse_instancesHealth,
-    describeEnvironmentHealthResponse_refreshedAt,
-    describeEnvironmentHealthResponse_httpStatus,
-
-    -- ** RebuildEnvironment
-    rebuildEnvironment_environmentName,
-    rebuildEnvironment_environmentId,
-
-    -- ** DeleteEnvironmentConfiguration
-    deleteEnvironmentConfiguration_applicationName,
-    deleteEnvironmentConfiguration_environmentName,
-
-    -- ** UpdateApplicationResourceLifecycle
-    updateApplicationResourceLifecycle_applicationName,
-    updateApplicationResourceLifecycle_resourceLifecycleConfig,
-    updateApplicationResourceLifecycleResponse_applicationName,
-    updateApplicationResourceLifecycleResponse_resourceLifecycleConfig,
-    updateApplicationResourceLifecycleResponse_httpStatus,
-
-    -- ** SwapEnvironmentCNAMEs
-    swapEnvironmentCNAMEs_destinationEnvironmentName,
-    swapEnvironmentCNAMEs_destinationEnvironmentId,
-    swapEnvironmentCNAMEs_sourceEnvironmentName,
-    swapEnvironmentCNAMEs_sourceEnvironmentId,
-
-    -- ** ListAvailableSolutionStacks
-    listAvailableSolutionStacksResponse_solutionStacks,
-    listAvailableSolutionStacksResponse_solutionStackDetails,
-    listAvailableSolutionStacksResponse_httpStatus,
+    abortEnvironmentUpdate_environmentName,
 
     -- ** ApplyEnvironmentManagedAction
-    applyEnvironmentManagedAction_environmentName,
     applyEnvironmentManagedAction_environmentId,
+    applyEnvironmentManagedAction_environmentName,
     applyEnvironmentManagedAction_actionId,
-    applyEnvironmentManagedActionResponse_status,
-    applyEnvironmentManagedActionResponse_actionId,
     applyEnvironmentManagedActionResponse_actionDescription,
+    applyEnvironmentManagedActionResponse_actionId,
     applyEnvironmentManagedActionResponse_actionType,
+    applyEnvironmentManagedActionResponse_status,
     applyEnvironmentManagedActionResponse_httpStatus,
-
-    -- ** DescribeConfigurationOptions
-    describeConfigurationOptions_templateName,
-    describeConfigurationOptions_platformArn,
-    describeConfigurationOptions_environmentName,
-    describeConfigurationOptions_applicationName,
-    describeConfigurationOptions_solutionStackName,
-    describeConfigurationOptions_options,
-    describeConfigurationOptionsResponse_platformArn,
-    describeConfigurationOptionsResponse_solutionStackName,
-    describeConfigurationOptionsResponse_options,
-    describeConfigurationOptionsResponse_httpStatus,
-
-    -- ** DisassociateEnvironmentOperationsRole
-    disassociateEnvironmentOperationsRole_environmentName,
-
-    -- ** CreateStorageLocation
-    createStorageLocationResponse_s3Bucket,
-    createStorageLocationResponse_httpStatus,
-
-    -- ** DescribeEnvironmentManagedActions
-    describeEnvironmentManagedActions_status,
-    describeEnvironmentManagedActions_environmentName,
-    describeEnvironmentManagedActions_environmentId,
-    describeEnvironmentManagedActionsResponse_managedActions,
-    describeEnvironmentManagedActionsResponse_httpStatus,
-
-    -- ** DescribeConfigurationSettings
-    describeConfigurationSettings_templateName,
-    describeConfigurationSettings_environmentName,
-    describeConfigurationSettings_applicationName,
-    describeConfigurationSettingsResponse_configurationSettings,
-    describeConfigurationSettingsResponse_httpStatus,
-
-    -- ** ValidateConfigurationSettings
-    validateConfigurationSettings_templateName,
-    validateConfigurationSettings_environmentName,
-    validateConfigurationSettings_applicationName,
-    validateConfigurationSettings_optionSettings,
-    validateConfigurationSettingsResponse_messages,
-    validateConfigurationSettingsResponse_httpStatus,
-
-    -- ** DescribeAccountAttributes
-    describeAccountAttributesResponse_resourceQuotas,
-    describeAccountAttributesResponse_httpStatus,
 
     -- ** AssociateEnvironmentOperationsRole
     associateEnvironmentOperationsRole_environmentName,
     associateEnvironmentOperationsRole_operationsRole,
 
-    -- ** RestartAppServer
-    restartAppServer_environmentName,
-    restartAppServer_environmentId,
-
-    -- ** DescribeEnvironments
-    describeEnvironments_environmentIds,
-    describeEnvironments_environmentNames,
-    describeEnvironments_nextToken,
-    describeEnvironments_versionLabel,
-    describeEnvironments_maxRecords,
-    describeEnvironments_applicationName,
-    describeEnvironments_includedDeletedBackTo,
-    describeEnvironments_includeDeleted,
-    environmentDescriptionsMessage_nextToken,
-    environmentDescriptionsMessage_environments,
-
     -- ** CheckDNSAvailability
     checkDNSAvailability_cNAMEPrefix,
-    checkDNSAvailabilityResponse_fullyQualifiedCNAME,
     checkDNSAvailabilityResponse_available,
+    checkDNSAvailabilityResponse_fullyQualifiedCNAME,
     checkDNSAvailabilityResponse_httpStatus,
 
-    -- ** DescribeApplicationVersions
-    describeApplicationVersions_versionLabels,
-    describeApplicationVersions_nextToken,
-    describeApplicationVersions_maxRecords,
-    describeApplicationVersions_applicationName,
-    describeApplicationVersionsResponse_applicationVersions,
-    describeApplicationVersionsResponse_nextToken,
-    describeApplicationVersionsResponse_httpStatus,
+    -- ** ComposeEnvironments
+    composeEnvironments_applicationName,
+    composeEnvironments_groupName,
+    composeEnvironments_versionLabels,
+    environmentDescriptionsMessage_environments,
+    environmentDescriptionsMessage_nextToken,
+
+    -- ** CreateApplication
+    createApplication_description,
+    createApplication_resourceLifecycleConfig,
+    createApplication_tags,
+    createApplication_applicationName,
+    applicationDescriptionMessage_application,
+
+    -- ** CreateApplicationVersion
+    createApplicationVersion_autoCreateApplication,
+    createApplicationVersion_buildConfiguration,
+    createApplicationVersion_description,
+    createApplicationVersion_process,
+    createApplicationVersion_sourceBuildInformation,
+    createApplicationVersion_sourceBundle,
+    createApplicationVersion_tags,
+    createApplicationVersion_applicationName,
+    createApplicationVersion_versionLabel,
+    applicationVersionDescriptionMessage_applicationVersion,
+
+    -- ** CreateConfigurationTemplate
+    createConfigurationTemplate_description,
+    createConfigurationTemplate_environmentId,
+    createConfigurationTemplate_optionSettings,
+    createConfigurationTemplate_platformArn,
+    createConfigurationTemplate_solutionStackName,
+    createConfigurationTemplate_sourceConfiguration,
+    createConfigurationTemplate_tags,
+    createConfigurationTemplate_applicationName,
+    createConfigurationTemplate_templateName,
+    configurationSettingsDescription_applicationName,
+    configurationSettingsDescription_dateCreated,
+    configurationSettingsDescription_dateUpdated,
+    configurationSettingsDescription_deploymentStatus,
+    configurationSettingsDescription_description,
+    configurationSettingsDescription_environmentName,
+    configurationSettingsDescription_optionSettings,
+    configurationSettingsDescription_platformArn,
+    configurationSettingsDescription_solutionStackName,
+    configurationSettingsDescription_templateName,
 
     -- ** CreateEnvironment
     createEnvironment_cNAMEPrefix,
-    createEnvironment_templateName,
-    createEnvironment_optionsToRemove,
-    createEnvironment_optionSettings,
-    createEnvironment_versionLabel,
-    createEnvironment_operationsRole,
-    createEnvironment_platformArn,
-    createEnvironment_tier,
-    createEnvironment_environmentName,
-    createEnvironment_solutionStackName,
-    createEnvironment_groupName,
     createEnvironment_description,
+    createEnvironment_environmentName,
+    createEnvironment_groupName,
+    createEnvironment_operationsRole,
+    createEnvironment_optionSettings,
+    createEnvironment_optionsToRemove,
+    createEnvironment_platformArn,
+    createEnvironment_solutionStackName,
     createEnvironment_tags,
+    createEnvironment_templateName,
+    createEnvironment_tier,
+    createEnvironment_versionLabel,
     createEnvironment_applicationName,
-    environmentDescription_status,
-    environmentDescription_cname,
-    environmentDescription_templateName,
     environmentDescription_abortableOperationInProgress,
-    environmentDescription_endpointURL,
-    environmentDescription_resources,
-    environmentDescription_dateUpdated,
+    environmentDescription_applicationName,
+    environmentDescription_cname,
     environmentDescription_dateCreated,
+    environmentDescription_dateUpdated,
+    environmentDescription_description,
+    environmentDescription_endpointURL,
+    environmentDescription_environmentArn,
+    environmentDescription_environmentId,
+    environmentDescription_environmentLinks,
+    environmentDescription_environmentName,
     environmentDescription_health,
-    environmentDescription_versionLabel,
+    environmentDescription_healthStatus,
     environmentDescription_operationsRole,
     environmentDescription_platformArn,
-    environmentDescription_tier,
-    environmentDescription_environmentName,
-    environmentDescription_applicationName,
-    environmentDescription_environmentArn,
+    environmentDescription_resources,
     environmentDescription_solutionStackName,
-    environmentDescription_environmentId,
-    environmentDescription_healthStatus,
-    environmentDescription_environmentLinks,
-    environmentDescription_description,
+    environmentDescription_status,
+    environmentDescription_templateName,
+    environmentDescription_tier,
+    environmentDescription_versionLabel,
 
     -- ** CreatePlatformVersion
-    createPlatformVersion_optionSettings,
     createPlatformVersion_environmentName,
+    createPlatformVersion_optionSettings,
     createPlatformVersion_tags,
     createPlatformVersion_platformName,
     createPlatformVersion_platformVersion,
@@ -442,42 +133,351 @@ module Amazonka.ElasticBeanstalk.Lens
     createPlatformVersionResponse_platformSummary,
     createPlatformVersionResponse_httpStatus,
 
+    -- ** CreateStorageLocation
+    createStorageLocationResponse_s3Bucket,
+    createStorageLocationResponse_httpStatus,
+
+    -- ** DeleteApplication
+    deleteApplication_terminateEnvByForce,
+    deleteApplication_applicationName,
+
+    -- ** DeleteApplicationVersion
+    deleteApplicationVersion_deleteSourceBundle,
+    deleteApplicationVersion_applicationName,
+    deleteApplicationVersion_versionLabel,
+
+    -- ** DeleteConfigurationTemplate
+    deleteConfigurationTemplate_applicationName,
+    deleteConfigurationTemplate_templateName,
+
+    -- ** DeleteEnvironmentConfiguration
+    deleteEnvironmentConfiguration_applicationName,
+    deleteEnvironmentConfiguration_environmentName,
+
+    -- ** DeletePlatformVersion
+    deletePlatformVersion_platformArn,
+    deletePlatformVersionResponse_platformSummary,
+    deletePlatformVersionResponse_httpStatus,
+
+    -- ** DescribeAccountAttributes
+    describeAccountAttributesResponse_resourceQuotas,
+    describeAccountAttributesResponse_httpStatus,
+
+    -- ** DescribeApplicationVersions
+    describeApplicationVersions_applicationName,
+    describeApplicationVersions_maxRecords,
+    describeApplicationVersions_nextToken,
+    describeApplicationVersions_versionLabels,
+    describeApplicationVersionsResponse_applicationVersions,
+    describeApplicationVersionsResponse_nextToken,
+    describeApplicationVersionsResponse_httpStatus,
+
+    -- ** DescribeApplications
+    describeApplications_applicationNames,
+    describeApplicationsResponse_applications,
+    describeApplicationsResponse_httpStatus,
+
+    -- ** DescribeConfigurationOptions
+    describeConfigurationOptions_applicationName,
+    describeConfigurationOptions_environmentName,
+    describeConfigurationOptions_options,
+    describeConfigurationOptions_platformArn,
+    describeConfigurationOptions_solutionStackName,
+    describeConfigurationOptions_templateName,
+    describeConfigurationOptionsResponse_options,
+    describeConfigurationOptionsResponse_platformArn,
+    describeConfigurationOptionsResponse_solutionStackName,
+    describeConfigurationOptionsResponse_httpStatus,
+
+    -- ** DescribeConfigurationSettings
+    describeConfigurationSettings_environmentName,
+    describeConfigurationSettings_templateName,
+    describeConfigurationSettings_applicationName,
+    describeConfigurationSettingsResponse_configurationSettings,
+    describeConfigurationSettingsResponse_httpStatus,
+
+    -- ** DescribeEnvironmentHealth
+    describeEnvironmentHealth_attributeNames,
+    describeEnvironmentHealth_environmentId,
+    describeEnvironmentHealth_environmentName,
+    describeEnvironmentHealthResponse_applicationMetrics,
+    describeEnvironmentHealthResponse_causes,
+    describeEnvironmentHealthResponse_color,
+    describeEnvironmentHealthResponse_environmentName,
+    describeEnvironmentHealthResponse_healthStatus,
+    describeEnvironmentHealthResponse_instancesHealth,
+    describeEnvironmentHealthResponse_refreshedAt,
+    describeEnvironmentHealthResponse_status,
+    describeEnvironmentHealthResponse_httpStatus,
+
+    -- ** DescribeEnvironmentManagedActionHistory
+    describeEnvironmentManagedActionHistory_environmentId,
+    describeEnvironmentManagedActionHistory_environmentName,
+    describeEnvironmentManagedActionHistory_maxItems,
+    describeEnvironmentManagedActionHistory_nextToken,
+    describeEnvironmentManagedActionHistoryResponse_managedActionHistoryItems,
+    describeEnvironmentManagedActionHistoryResponse_nextToken,
+    describeEnvironmentManagedActionHistoryResponse_httpStatus,
+
+    -- ** DescribeEnvironmentManagedActions
+    describeEnvironmentManagedActions_environmentId,
+    describeEnvironmentManagedActions_environmentName,
+    describeEnvironmentManagedActions_status,
+    describeEnvironmentManagedActionsResponse_managedActions,
+    describeEnvironmentManagedActionsResponse_httpStatus,
+
+    -- ** DescribeEnvironmentResources
+    describeEnvironmentResources_environmentId,
+    describeEnvironmentResources_environmentName,
+    describeEnvironmentResourcesResponse_environmentResources,
+    describeEnvironmentResourcesResponse_httpStatus,
+
+    -- ** DescribeEnvironments
+    describeEnvironments_applicationName,
+    describeEnvironments_environmentIds,
+    describeEnvironments_environmentNames,
+    describeEnvironments_includeDeleted,
+    describeEnvironments_includedDeletedBackTo,
+    describeEnvironments_maxRecords,
+    describeEnvironments_nextToken,
+    describeEnvironments_versionLabel,
+    environmentDescriptionsMessage_environments,
+    environmentDescriptionsMessage_nextToken,
+
+    -- ** DescribeEvents
+    describeEvents_applicationName,
+    describeEvents_endTime,
+    describeEvents_environmentId,
+    describeEvents_environmentName,
+    describeEvents_maxRecords,
+    describeEvents_nextToken,
+    describeEvents_platformArn,
+    describeEvents_requestId,
+    describeEvents_severity,
+    describeEvents_startTime,
+    describeEvents_templateName,
+    describeEvents_versionLabel,
+    describeEventsResponse_events,
+    describeEventsResponse_nextToken,
+    describeEventsResponse_httpStatus,
+
+    -- ** DescribeInstancesHealth
+    describeInstancesHealth_attributeNames,
+    describeInstancesHealth_environmentId,
+    describeInstancesHealth_environmentName,
+    describeInstancesHealth_nextToken,
+    describeInstancesHealthResponse_instanceHealthList,
+    describeInstancesHealthResponse_nextToken,
+    describeInstancesHealthResponse_refreshedAt,
+    describeInstancesHealthResponse_httpStatus,
+
+    -- ** DescribePlatformVersion
+    describePlatformVersion_platformArn,
+    describePlatformVersionResponse_platformDescription,
+    describePlatformVersionResponse_httpStatus,
+
+    -- ** DisassociateEnvironmentOperationsRole
+    disassociateEnvironmentOperationsRole_environmentName,
+
+    -- ** ListAvailableSolutionStacks
+    listAvailableSolutionStacksResponse_solutionStackDetails,
+    listAvailableSolutionStacksResponse_solutionStacks,
+    listAvailableSolutionStacksResponse_httpStatus,
+
+    -- ** ListPlatformBranches
+    listPlatformBranches_filters,
+    listPlatformBranches_maxRecords,
+    listPlatformBranches_nextToken,
+    listPlatformBranchesResponse_nextToken,
+    listPlatformBranchesResponse_platformBranchSummaryList,
+    listPlatformBranchesResponse_httpStatus,
+
+    -- ** ListPlatformVersions
+    listPlatformVersions_filters,
+    listPlatformVersions_maxRecords,
+    listPlatformVersions_nextToken,
+    listPlatformVersionsResponse_nextToken,
+    listPlatformVersionsResponse_platformSummaryList,
+    listPlatformVersionsResponse_httpStatus,
+
+    -- ** ListTagsForResource
+    listTagsForResource_resourceArn,
+    listTagsForResourceResponse_resourceArn,
+    listTagsForResourceResponse_resourceTags,
+    listTagsForResourceResponse_httpStatus,
+
+    -- ** RebuildEnvironment
+    rebuildEnvironment_environmentId,
+    rebuildEnvironment_environmentName,
+
+    -- ** RequestEnvironmentInfo
+    requestEnvironmentInfo_environmentId,
+    requestEnvironmentInfo_environmentName,
+    requestEnvironmentInfo_infoType,
+
+    -- ** RestartAppServer
+    restartAppServer_environmentId,
+    restartAppServer_environmentName,
+
+    -- ** RetrieveEnvironmentInfo
+    retrieveEnvironmentInfo_environmentId,
+    retrieveEnvironmentInfo_environmentName,
+    retrieveEnvironmentInfo_infoType,
+    retrieveEnvironmentInfoResponse_environmentInfo,
+    retrieveEnvironmentInfoResponse_httpStatus,
+
+    -- ** SwapEnvironmentCNAMEs
+    swapEnvironmentCNAMEs_destinationEnvironmentId,
+    swapEnvironmentCNAMEs_destinationEnvironmentName,
+    swapEnvironmentCNAMEs_sourceEnvironmentId,
+    swapEnvironmentCNAMEs_sourceEnvironmentName,
+
+    -- ** TerminateEnvironment
+    terminateEnvironment_environmentId,
+    terminateEnvironment_environmentName,
+    terminateEnvironment_forceTerminate,
+    terminateEnvironment_terminateResources,
+    environmentDescription_abortableOperationInProgress,
+    environmentDescription_applicationName,
+    environmentDescription_cname,
+    environmentDescription_dateCreated,
+    environmentDescription_dateUpdated,
+    environmentDescription_description,
+    environmentDescription_endpointURL,
+    environmentDescription_environmentArn,
+    environmentDescription_environmentId,
+    environmentDescription_environmentLinks,
+    environmentDescription_environmentName,
+    environmentDescription_health,
+    environmentDescription_healthStatus,
+    environmentDescription_operationsRole,
+    environmentDescription_platformArn,
+    environmentDescription_resources,
+    environmentDescription_solutionStackName,
+    environmentDescription_status,
+    environmentDescription_templateName,
+    environmentDescription_tier,
+    environmentDescription_versionLabel,
+
+    -- ** UpdateApplication
+    updateApplication_description,
+    updateApplication_applicationName,
+    applicationDescriptionMessage_application,
+
+    -- ** UpdateApplicationResourceLifecycle
+    updateApplicationResourceLifecycle_applicationName,
+    updateApplicationResourceLifecycle_resourceLifecycleConfig,
+    updateApplicationResourceLifecycleResponse_applicationName,
+    updateApplicationResourceLifecycleResponse_resourceLifecycleConfig,
+    updateApplicationResourceLifecycleResponse_httpStatus,
+
+    -- ** UpdateApplicationVersion
+    updateApplicationVersion_description,
+    updateApplicationVersion_applicationName,
+    updateApplicationVersion_versionLabel,
+    applicationVersionDescriptionMessage_applicationVersion,
+
+    -- ** UpdateConfigurationTemplate
+    updateConfigurationTemplate_description,
+    updateConfigurationTemplate_optionSettings,
+    updateConfigurationTemplate_optionsToRemove,
+    updateConfigurationTemplate_applicationName,
+    updateConfigurationTemplate_templateName,
+    configurationSettingsDescription_applicationName,
+    configurationSettingsDescription_dateCreated,
+    configurationSettingsDescription_dateUpdated,
+    configurationSettingsDescription_deploymentStatus,
+    configurationSettingsDescription_description,
+    configurationSettingsDescription_environmentName,
+    configurationSettingsDescription_optionSettings,
+    configurationSettingsDescription_platformArn,
+    configurationSettingsDescription_solutionStackName,
+    configurationSettingsDescription_templateName,
+
+    -- ** UpdateEnvironment
+    updateEnvironment_applicationName,
+    updateEnvironment_description,
+    updateEnvironment_environmentId,
+    updateEnvironment_environmentName,
+    updateEnvironment_groupName,
+    updateEnvironment_optionSettings,
+    updateEnvironment_optionsToRemove,
+    updateEnvironment_platformArn,
+    updateEnvironment_solutionStackName,
+    updateEnvironment_templateName,
+    updateEnvironment_tier,
+    updateEnvironment_versionLabel,
+    environmentDescription_abortableOperationInProgress,
+    environmentDescription_applicationName,
+    environmentDescription_cname,
+    environmentDescription_dateCreated,
+    environmentDescription_dateUpdated,
+    environmentDescription_description,
+    environmentDescription_endpointURL,
+    environmentDescription_environmentArn,
+    environmentDescription_environmentId,
+    environmentDescription_environmentLinks,
+    environmentDescription_environmentName,
+    environmentDescription_health,
+    environmentDescription_healthStatus,
+    environmentDescription_operationsRole,
+    environmentDescription_platformArn,
+    environmentDescription_resources,
+    environmentDescription_solutionStackName,
+    environmentDescription_status,
+    environmentDescription_templateName,
+    environmentDescription_tier,
+    environmentDescription_versionLabel,
+
+    -- ** UpdateTagsForResource
+    updateTagsForResource_tagsToAdd,
+    updateTagsForResource_tagsToRemove,
+    updateTagsForResource_resourceArn,
+
+    -- ** ValidateConfigurationSettings
+    validateConfigurationSettings_environmentName,
+    validateConfigurationSettings_templateName,
+    validateConfigurationSettings_applicationName,
+    validateConfigurationSettings_optionSettings,
+    validateConfigurationSettingsResponse_messages,
+    validateConfigurationSettingsResponse_httpStatus,
+
     -- * Types
 
     -- ** ApplicationDescription
     applicationDescription_applicationArn,
-    applicationDescription_versions,
-    applicationDescription_dateUpdated,
-    applicationDescription_dateCreated,
     applicationDescription_applicationName,
     applicationDescription_configurationTemplates,
-    applicationDescription_resourceLifecycleConfig,
+    applicationDescription_dateCreated,
+    applicationDescription_dateUpdated,
     applicationDescription_description,
+    applicationDescription_resourceLifecycleConfig,
+    applicationDescription_versions,
 
     -- ** ApplicationDescriptionMessage
     applicationDescriptionMessage_application,
 
     -- ** ApplicationMetrics
-    applicationMetrics_requestCount,
-    applicationMetrics_latency,
-    applicationMetrics_statusCodes,
     applicationMetrics_duration,
+    applicationMetrics_latency,
+    applicationMetrics_requestCount,
+    applicationMetrics_statusCodes,
 
     -- ** ApplicationResourceLifecycleConfig
-    applicationResourceLifecycleConfig_versionLifecycleConfig,
     applicationResourceLifecycleConfig_serviceRole,
+    applicationResourceLifecycleConfig_versionLifecycleConfig,
 
     -- ** ApplicationVersionDescription
-    applicationVersionDescription_status,
-    applicationVersionDescription_sourceBundle,
-    applicationVersionDescription_dateUpdated,
-    applicationVersionDescription_dateCreated,
-    applicationVersionDescription_versionLabel,
-    applicationVersionDescription_sourceBuildInformation,
     applicationVersionDescription_applicationName,
     applicationVersionDescription_applicationVersionArn,
     applicationVersionDescription_buildArn,
+    applicationVersionDescription_dateCreated,
+    applicationVersionDescription_dateUpdated,
     applicationVersionDescription_description,
+    applicationVersionDescription_sourceBuildInformation,
+    applicationVersionDescription_sourceBundle,
+    applicationVersionDescription_status,
+    applicationVersionDescription_versionLabel,
 
     -- ** ApplicationVersionDescriptionMessage
     applicationVersionDescriptionMessage_applicationVersion,
@@ -500,144 +500,144 @@ module Amazonka.ElasticBeanstalk.Lens
     builder_arn,
 
     -- ** CPUUtilization
-    cPUUtilization_softIRQ,
-    cPUUtilization_idle,
-    cPUUtilization_irq,
-    cPUUtilization_system,
-    cPUUtilization_privileged,
-    cPUUtilization_user,
     cPUUtilization_iOWait,
+    cPUUtilization_irq,
+    cPUUtilization_idle,
     cPUUtilization_nice,
+    cPUUtilization_privileged,
+    cPUUtilization_softIRQ,
+    cPUUtilization_system,
+    cPUUtilization_user,
 
     -- ** ConfigurationOptionDescription
-    configurationOptionDescription_maxValue,
-    configurationOptionDescription_regex,
-    configurationOptionDescription_maxLength,
-    configurationOptionDescription_userDefined,
-    configurationOptionDescription_namespace,
-    configurationOptionDescription_valueOptions,
-    configurationOptionDescription_name,
     configurationOptionDescription_changeSeverity,
     configurationOptionDescription_defaultValue,
-    configurationOptionDescription_valueType,
+    configurationOptionDescription_maxLength,
+    configurationOptionDescription_maxValue,
     configurationOptionDescription_minValue,
+    configurationOptionDescription_name,
+    configurationOptionDescription_namespace,
+    configurationOptionDescription_regex,
+    configurationOptionDescription_userDefined,
+    configurationOptionDescription_valueOptions,
+    configurationOptionDescription_valueType,
 
     -- ** ConfigurationOptionSetting
+    configurationOptionSetting_namespace,
     configurationOptionSetting_optionName,
     configurationOptionSetting_resourceName,
-    configurationOptionSetting_namespace,
     configurationOptionSetting_value,
 
     -- ** ConfigurationSettingsDescription
-    configurationSettingsDescription_templateName,
-    configurationSettingsDescription_optionSettings,
-    configurationSettingsDescription_dateUpdated,
-    configurationSettingsDescription_dateCreated,
-    configurationSettingsDescription_platformArn,
-    configurationSettingsDescription_environmentName,
     configurationSettingsDescription_applicationName,
+    configurationSettingsDescription_dateCreated,
+    configurationSettingsDescription_dateUpdated,
     configurationSettingsDescription_deploymentStatus,
-    configurationSettingsDescription_solutionStackName,
     configurationSettingsDescription_description,
+    configurationSettingsDescription_environmentName,
+    configurationSettingsDescription_optionSettings,
+    configurationSettingsDescription_platformArn,
+    configurationSettingsDescription_solutionStackName,
+    configurationSettingsDescription_templateName,
 
     -- ** CustomAmi
-    customAmi_virtualizationType,
     customAmi_imageId,
+    customAmi_virtualizationType,
 
     -- ** Deployment
     deployment_deploymentId,
-    deployment_status,
     deployment_deploymentTime,
+    deployment_status,
     deployment_versionLabel,
 
     -- ** EnvironmentDescription
-    environmentDescription_status,
-    environmentDescription_cname,
-    environmentDescription_templateName,
     environmentDescription_abortableOperationInProgress,
-    environmentDescription_endpointURL,
-    environmentDescription_resources,
-    environmentDescription_dateUpdated,
+    environmentDescription_applicationName,
+    environmentDescription_cname,
     environmentDescription_dateCreated,
+    environmentDescription_dateUpdated,
+    environmentDescription_description,
+    environmentDescription_endpointURL,
+    environmentDescription_environmentArn,
+    environmentDescription_environmentId,
+    environmentDescription_environmentLinks,
+    environmentDescription_environmentName,
     environmentDescription_health,
-    environmentDescription_versionLabel,
+    environmentDescription_healthStatus,
     environmentDescription_operationsRole,
     environmentDescription_platformArn,
-    environmentDescription_tier,
-    environmentDescription_environmentName,
-    environmentDescription_applicationName,
-    environmentDescription_environmentArn,
+    environmentDescription_resources,
     environmentDescription_solutionStackName,
-    environmentDescription_environmentId,
-    environmentDescription_healthStatus,
-    environmentDescription_environmentLinks,
-    environmentDescription_description,
+    environmentDescription_status,
+    environmentDescription_templateName,
+    environmentDescription_tier,
+    environmentDescription_versionLabel,
 
     -- ** EnvironmentDescriptionsMessage
-    environmentDescriptionsMessage_nextToken,
     environmentDescriptionsMessage_environments,
+    environmentDescriptionsMessage_nextToken,
 
     -- ** EnvironmentInfoDescription
-    environmentInfoDescription_sampleTimestamp,
     environmentInfoDescription_ec2InstanceId,
     environmentInfoDescription_infoType,
     environmentInfoDescription_message,
+    environmentInfoDescription_sampleTimestamp,
 
     -- ** EnvironmentLink
-    environmentLink_linkName,
     environmentLink_environmentName,
+    environmentLink_linkName,
 
     -- ** EnvironmentResourceDescription
-    environmentResourceDescription_queues,
-    environmentResourceDescription_triggers,
-    environmentResourceDescription_launchTemplates,
-    environmentResourceDescription_loadBalancers,
+    environmentResourceDescription_autoScalingGroups,
     environmentResourceDescription_environmentName,
     environmentResourceDescription_instances,
     environmentResourceDescription_launchConfigurations,
-    environmentResourceDescription_autoScalingGroups,
+    environmentResourceDescription_launchTemplates,
+    environmentResourceDescription_loadBalancers,
+    environmentResourceDescription_queues,
+    environmentResourceDescription_triggers,
 
     -- ** EnvironmentResourcesDescription
     environmentResourcesDescription_loadBalancer,
 
     -- ** EnvironmentTier
     environmentTier_name,
-    environmentTier_version,
     environmentTier_type,
+    environmentTier_version,
 
     -- ** EventDescription
-    eventDescription_requestId,
-    eventDescription_templateName,
-    eventDescription_severity,
-    eventDescription_versionLabel,
-    eventDescription_platformArn,
-    eventDescription_environmentName,
     eventDescription_applicationName,
+    eventDescription_environmentName,
     eventDescription_eventDate,
     eventDescription_message,
+    eventDescription_platformArn,
+    eventDescription_requestId,
+    eventDescription_severity,
+    eventDescription_templateName,
+    eventDescription_versionLabel,
 
     -- ** Instance
     instance_id,
 
     -- ** InstanceHealthSummary
+    instanceHealthSummary_degraded,
+    instanceHealthSummary_info,
+    instanceHealthSummary_noData,
     instanceHealthSummary_ok,
     instanceHealthSummary_pending,
     instanceHealthSummary_severe,
     instanceHealthSummary_unknown,
-    instanceHealthSummary_noData,
     instanceHealthSummary_warning,
-    instanceHealthSummary_degraded,
-    instanceHealthSummary_info,
 
     -- ** Latency
-    latency_p75,
+    latency_p10,
     latency_p50,
+    latency_p75,
     latency_p85,
-    latency_p999,
     latency_p90,
     latency_p95,
     latency_p99,
-    latency_p10,
+    latency_p999,
 
     -- ** LaunchConfiguration
     launchConfiguration_name,
@@ -646,33 +646,33 @@ module Amazonka.ElasticBeanstalk.Lens
     launchTemplate_id,
 
     -- ** Listener
-    listener_protocol,
     listener_port,
+    listener_protocol,
 
     -- ** LoadBalancer
     loadBalancer_name,
 
     -- ** LoadBalancerDescription
-    loadBalancerDescription_loadBalancerName,
     loadBalancerDescription_domain,
     loadBalancerDescription_listeners,
+    loadBalancerDescription_loadBalancerName,
 
     -- ** ManagedAction
-    managedAction_status,
-    managedAction_actionId,
-    managedAction_windowStartTime,
     managedAction_actionDescription,
+    managedAction_actionId,
     managedAction_actionType,
+    managedAction_status,
+    managedAction_windowStartTime,
 
     -- ** ManagedActionHistoryItem
-    managedActionHistoryItem_status,
-    managedActionHistoryItem_failureType,
-    managedActionHistoryItem_actionId,
-    managedActionHistoryItem_failureDescription,
-    managedActionHistoryItem_finishedTime,
     managedActionHistoryItem_actionDescription,
-    managedActionHistoryItem_executedTime,
+    managedActionHistoryItem_actionId,
     managedActionHistoryItem_actionType,
+    managedActionHistoryItem_executedTime,
+    managedActionHistoryItem_failureDescription,
+    managedActionHistoryItem_failureType,
+    managedActionHistoryItem_finishedTime,
+    managedActionHistoryItem_status,
 
     -- ** MaxAgeRule
     maxAgeRule_deleteSourceFromS3,
@@ -680,53 +680,53 @@ module Amazonka.ElasticBeanstalk.Lens
     maxAgeRule_enabled,
 
     -- ** MaxCountRule
-    maxCountRule_maxCount,
     maxCountRule_deleteSourceFromS3,
+    maxCountRule_maxCount,
     maxCountRule_enabled,
 
     -- ** OptionRestrictionRegex
-    optionRestrictionRegex_pattern,
     optionRestrictionRegex_label,
+    optionRestrictionRegex_pattern,
 
     -- ** OptionSpecification
+    optionSpecification_namespace,
     optionSpecification_optionName,
     optionSpecification_resourceName,
-    optionSpecification_namespace,
 
     -- ** PlatformBranchSummary
     platformBranchSummary_branchName,
     platformBranchSummary_branchOrder,
+    platformBranchSummary_lifecycleState,
     platformBranchSummary_platformName,
     platformBranchSummary_supportedTierList,
-    platformBranchSummary_lifecycleState,
 
     -- ** PlatformDescription
-    platformDescription_platformBranchName,
-    platformDescription_supportedAddonList,
-    platformDescription_platformCategory,
-    platformDescription_platformBranchLifecycleState,
-    platformDescription_platformVersion,
-    platformDescription_platformStatus,
-    platformDescription_maintainer,
-    platformDescription_platformLifecycleState,
-    platformDescription_platformOwner,
-    platformDescription_dateUpdated,
     platformDescription_customAmiList,
     platformDescription_dateCreated,
-    platformDescription_operatingSystemName,
+    platformDescription_dateUpdated,
+    platformDescription_description,
     platformDescription_frameworks,
-    platformDescription_platformArn,
+    platformDescription_maintainer,
+    platformDescription_operatingSystemName,
     platformDescription_operatingSystemVersion,
+    platformDescription_platformArn,
+    platformDescription_platformBranchLifecycleState,
+    platformDescription_platformBranchName,
+    platformDescription_platformCategory,
+    platformDescription_platformLifecycleState,
+    platformDescription_platformName,
+    platformDescription_platformOwner,
+    platformDescription_platformStatus,
+    platformDescription_platformVersion,
     platformDescription_programmingLanguages,
     platformDescription_solutionStackName,
-    platformDescription_platformName,
-    platformDescription_description,
+    platformDescription_supportedAddonList,
     platformDescription_supportedTierList,
 
     -- ** PlatformFilter
-    platformFilter_values,
     platformFilter_operator,
     platformFilter_type,
+    platformFilter_values,
 
     -- ** PlatformFramework
     platformFramework_name,
@@ -737,53 +737,53 @@ module Amazonka.ElasticBeanstalk.Lens
     platformProgrammingLanguage_version,
 
     -- ** PlatformSummary
-    platformSummary_platformBranchName,
-    platformSummary_supportedAddonList,
-    platformSummary_platformCategory,
+    platformSummary_operatingSystemName,
+    platformSummary_operatingSystemVersion,
+    platformSummary_platformArn,
     platformSummary_platformBranchLifecycleState,
-    platformSummary_platformVersion,
-    platformSummary_platformStatus,
+    platformSummary_platformBranchName,
+    platformSummary_platformCategory,
     platformSummary_platformLifecycleState,
     platformSummary_platformOwner,
-    platformSummary_operatingSystemName,
-    platformSummary_platformArn,
-    platformSummary_operatingSystemVersion,
+    platformSummary_platformStatus,
+    platformSummary_platformVersion,
+    platformSummary_supportedAddonList,
     platformSummary_supportedTierList,
 
     -- ** Queue
-    queue_url,
     queue_name,
+    queue_url,
 
     -- ** ResourceQuota
     resourceQuota_maximum,
 
     -- ** ResourceQuotas
     resourceQuotas_applicationQuota,
-    resourceQuotas_customPlatformQuota,
     resourceQuotas_applicationVersionQuota,
-    resourceQuotas_environmentQuota,
     resourceQuotas_configurationTemplateQuota,
+    resourceQuotas_customPlatformQuota,
+    resourceQuotas_environmentQuota,
 
     -- ** S3Location
-    s3Location_s3Key,
     s3Location_s3Bucket,
+    s3Location_s3Key,
 
     -- ** SearchFilter
     searchFilter_attribute,
-    searchFilter_values,
     searchFilter_operator,
+    searchFilter_values,
 
     -- ** SingleInstanceHealth
-    singleInstanceHealth_instanceId,
-    singleInstanceHealth_causes,
-    singleInstanceHealth_system,
     singleInstanceHealth_applicationMetrics,
-    singleInstanceHealth_color,
-    singleInstanceHealth_instanceType,
     singleInstanceHealth_availabilityZone,
-    singleInstanceHealth_healthStatus,
+    singleInstanceHealth_causes,
+    singleInstanceHealth_color,
     singleInstanceHealth_deployment,
+    singleInstanceHealth_healthStatus,
+    singleInstanceHealth_instanceId,
+    singleInstanceHealth_instanceType,
     singleInstanceHealth_launchedAt,
+    singleInstanceHealth_system,
 
     -- ** SolutionStackDescription
     solutionStackDescription_permittedFileTypes,
@@ -795,8 +795,8 @@ module Amazonka.ElasticBeanstalk.Lens
     sourceBuildInformation_sourceLocation,
 
     -- ** SourceConfiguration
-    sourceConfiguration_templateName,
     sourceConfiguration_applicationName,
+    sourceConfiguration_templateName,
 
     -- ** StatusCodes
     statusCodes_status2xx,
@@ -809,17 +809,17 @@ module Amazonka.ElasticBeanstalk.Lens
     systemStatus_loadAverage,
 
     -- ** Tag
-    tag_value,
     tag_key,
+    tag_value,
 
     -- ** Trigger
     trigger_name,
 
     -- ** ValidationMessage
+    validationMessage_message,
+    validationMessage_namespace,
     validationMessage_optionName,
     validationMessage_severity,
-    validationMessage_namespace,
-    validationMessage_message,
   )
 where
 

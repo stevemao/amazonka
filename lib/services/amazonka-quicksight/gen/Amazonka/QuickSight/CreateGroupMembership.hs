@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.CreateGroupMembership
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,14 +37,15 @@ module Amazonka.QuickSight.CreateGroupMembership
     newCreateGroupMembershipResponse,
 
     -- * Response Lenses
-    createGroupMembershipResponse_requestId,
     createGroupMembershipResponse_groupMember,
+    createGroupMembershipResponse_requestId,
     createGroupMembershipResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -60,7 +61,7 @@ data CreateGroupMembership = CreateGroupMembership'
     -- Currently, you use the ID for the Amazon Web Services account that
     -- contains your Amazon QuickSight account.
     awsAccountId :: Prelude.Text,
-    -- | The namespace. Currently, you should set this to @default@.
+    -- | The namespace that you want the user to be a part of.
     namespace :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -81,7 +82,7 @@ data CreateGroupMembership = CreateGroupMembership'
 -- Currently, you use the ID for the Amazon Web Services account that
 -- contains your Amazon QuickSight account.
 --
--- 'namespace', 'createGroupMembership_namespace' - The namespace. Currently, you should set this to @default@.
+-- 'namespace', 'createGroupMembership_namespace' - The namespace that you want the user to be a part of.
 newCreateGroupMembership ::
   -- | 'memberName'
   Prelude.Text ->
@@ -118,7 +119,7 @@ createGroupMembership_groupName = Lens.lens (\CreateGroupMembership' {groupName}
 createGroupMembership_awsAccountId :: Lens.Lens' CreateGroupMembership Prelude.Text
 createGroupMembership_awsAccountId = Lens.lens (\CreateGroupMembership' {awsAccountId} -> awsAccountId) (\s@CreateGroupMembership' {} a -> s {awsAccountId = a} :: CreateGroupMembership)
 
--- | The namespace. Currently, you should set this to @default@.
+-- | The namespace that you want the user to be a part of.
 createGroupMembership_namespace :: Lens.Lens' CreateGroupMembership Prelude.Text
 createGroupMembership_namespace = Lens.lens (\CreateGroupMembership' {namespace} -> namespace) (\s@CreateGroupMembership' {} a -> s {namespace = a} :: CreateGroupMembership)
 
@@ -126,13 +127,14 @@ instance Core.AWSRequest CreateGroupMembership where
   type
     AWSResponse CreateGroupMembership =
       CreateGroupMembershipResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateGroupMembershipResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "GroupMember")
+            Prelude.<$> (x Data..?> "GroupMember")
+            Prelude.<*> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -150,42 +152,42 @@ instance Prelude.NFData CreateGroupMembership where
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf namespace
 
-instance Core.ToHeaders CreateGroupMembership where
+instance Data.ToHeaders CreateGroupMembership where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateGroupMembership where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON CreateGroupMembership where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath CreateGroupMembership where
+instance Data.ToPath CreateGroupMembership where
   toPath CreateGroupMembership' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/namespaces/",
-        Core.toBS namespace,
+        Data.toBS namespace,
         "/groups/",
-        Core.toBS groupName,
+        Data.toBS groupName,
         "/members/",
-        Core.toBS memberName
+        Data.toBS memberName
       ]
 
-instance Core.ToQuery CreateGroupMembership where
+instance Data.ToQuery CreateGroupMembership where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateGroupMembershipResponse' smart constructor.
 data CreateGroupMembershipResponse = CreateGroupMembershipResponse'
-  { -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The group member.
+  { -- | The group member.
     groupMember :: Prelude.Maybe GroupMember,
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -199,9 +201,9 @@ data CreateGroupMembershipResponse = CreateGroupMembershipResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'createGroupMembershipResponse_requestId' - The Amazon Web Services request ID for this operation.
---
 -- 'groupMember', 'createGroupMembershipResponse_groupMember' - The group member.
+--
+-- 'requestId', 'createGroupMembershipResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'status', 'createGroupMembershipResponse_status' - The HTTP status of the request.
 newCreateGroupMembershipResponse ::
@@ -210,19 +212,19 @@ newCreateGroupMembershipResponse ::
   CreateGroupMembershipResponse
 newCreateGroupMembershipResponse pStatus_ =
   CreateGroupMembershipResponse'
-    { requestId =
+    { groupMember =
         Prelude.Nothing,
-      groupMember = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       status = pStatus_
     }
-
--- | The Amazon Web Services request ID for this operation.
-createGroupMembershipResponse_requestId :: Lens.Lens' CreateGroupMembershipResponse (Prelude.Maybe Prelude.Text)
-createGroupMembershipResponse_requestId = Lens.lens (\CreateGroupMembershipResponse' {requestId} -> requestId) (\s@CreateGroupMembershipResponse' {} a -> s {requestId = a} :: CreateGroupMembershipResponse)
 
 -- | The group member.
 createGroupMembershipResponse_groupMember :: Lens.Lens' CreateGroupMembershipResponse (Prelude.Maybe GroupMember)
 createGroupMembershipResponse_groupMember = Lens.lens (\CreateGroupMembershipResponse' {groupMember} -> groupMember) (\s@CreateGroupMembershipResponse' {} a -> s {groupMember = a} :: CreateGroupMembershipResponse)
+
+-- | The Amazon Web Services request ID for this operation.
+createGroupMembershipResponse_requestId :: Lens.Lens' CreateGroupMembershipResponse (Prelude.Maybe Prelude.Text)
+createGroupMembershipResponse_requestId = Lens.lens (\CreateGroupMembershipResponse' {requestId} -> requestId) (\s@CreateGroupMembershipResponse' {} a -> s {requestId = a} :: CreateGroupMembershipResponse)
 
 -- | The HTTP status of the request.
 createGroupMembershipResponse_status :: Lens.Lens' CreateGroupMembershipResponse Prelude.Int
@@ -230,6 +232,6 @@ createGroupMembershipResponse_status = Lens.lens (\CreateGroupMembershipResponse
 
 instance Prelude.NFData CreateGroupMembershipResponse where
   rnf CreateGroupMembershipResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf groupMember
+    Prelude.rnf groupMember
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf status

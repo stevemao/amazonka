@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SDB.ListDomains
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ module Amazonka.SDB.ListDomains
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -119,14 +120,15 @@ instance Core.AWSPager ListDomains where
 
 instance Core.AWSRequest ListDomains where
   type AWSResponse ListDomains = ListDomainsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListDomainsResult"
       ( \s h x ->
           ListDomainsResponse'
-            Prelude.<$> (Core.may (Core.parseXMLList "DomainName") x)
-            Prelude.<*> (x Core..@? "NextToken")
+            Prelude.<$> (Core.may (Data.parseXMLList "DomainName") x)
+            Prelude.<*> (x Data..@? "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -140,21 +142,21 @@ instance Prelude.NFData ListDomains where
     Prelude.rnf maxNumberOfDomains
       `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListDomains where
+instance Data.ToHeaders ListDomains where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListDomains where
+instance Data.ToPath ListDomains where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListDomains where
+instance Data.ToQuery ListDomains where
   toQuery ListDomains' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ListDomains" :: Prelude.ByteString),
+          Data.=: ("ListDomains" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2009-04-15" :: Prelude.ByteString),
-        "MaxNumberOfDomains" Core.=: maxNumberOfDomains,
-        "NextToken" Core.=: nextToken
+          Data.=: ("2009-04-15" :: Prelude.ByteString),
+        "MaxNumberOfDomains" Data.=: maxNumberOfDomains,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListDomainsResponse' smart constructor.

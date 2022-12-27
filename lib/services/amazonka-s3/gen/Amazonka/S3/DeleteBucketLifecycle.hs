@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.DeleteBucketLifecycle
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -58,7 +58,8 @@ module Amazonka.S3.DeleteBucketLifecycle
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -67,8 +68,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newDeleteBucketLifecycle' smart constructor.
 data DeleteBucketLifecycle = DeleteBucketLifecycle'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The bucket name of the lifecycle to delete.
     bucket :: BucketName
@@ -84,8 +85,8 @@ data DeleteBucketLifecycle = DeleteBucketLifecycle'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'deleteBucketLifecycle_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'deleteBucketLifecycle_bucket' - The bucket name of the lifecycle to delete.
 newDeleteBucketLifecycle ::
@@ -100,8 +101,8 @@ newDeleteBucketLifecycle pBucket_ =
     }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 deleteBucketLifecycle_expectedBucketOwner :: Lens.Lens' DeleteBucketLifecycle (Prelude.Maybe Prelude.Text)
 deleteBucketLifecycle_expectedBucketOwner = Lens.lens (\DeleteBucketLifecycle' {expectedBucketOwner} -> expectedBucketOwner) (\s@DeleteBucketLifecycle' {} a -> s {expectedBucketOwner = a} :: DeleteBucketLifecycle)
 
@@ -113,9 +114,9 @@ instance Core.AWSRequest DeleteBucketLifecycle where
   type
     AWSResponse DeleteBucketLifecycle =
       DeleteBucketLifecycleResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.delete defaultService
+      Prelude.. Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteBucketLifecycleResponse'
 
@@ -129,18 +130,18 @@ instance Prelude.NFData DeleteBucketLifecycle where
     Prelude.rnf expectedBucketOwner
       `Prelude.seq` Prelude.rnf bucket
 
-instance Core.ToHeaders DeleteBucketLifecycle where
+instance Data.ToHeaders DeleteBucketLifecycle where
   toHeaders DeleteBucketLifecycle' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath DeleteBucketLifecycle where
+instance Data.ToPath DeleteBucketLifecycle where
   toPath DeleteBucketLifecycle' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery DeleteBucketLifecycle where
+instance Data.ToQuery DeleteBucketLifecycle where
   toQuery =
     Prelude.const (Prelude.mconcat ["lifecycle"])
 

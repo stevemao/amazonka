@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.Types.NodegroupScalingConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.EKS.Types.NodegroupScalingConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object representing the scaling configuration details for the Auto
@@ -31,6 +32,26 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newNodegroupScalingConfig' smart constructor.
 data NodegroupScalingConfig = NodegroupScalingConfig'
   { -- | The current number of nodes that the managed node group should maintain.
+    --
+    -- If you use Cluster Autoscaler, you shouldn\'t change the desiredSize
+    -- value directly, as this can cause the Cluster Autoscaler to suddenly
+    -- scale up or scale down.
+    --
+    -- Whenever this parameter changes, the number of worker nodes in the node
+    -- group is updated to the specified size. If this parameter is given a
+    -- value that is smaller than the current number of running worker nodes,
+    -- the necessary number of worker nodes are terminated to match the given
+    -- value. When using CloudFormation, no action occurs if you remove this
+    -- parameter from your CFN template.
+    --
+    -- This parameter can be different from minSize in some cases, such as when
+    -- starting with extra hosts for testing. This parameter can also be
+    -- different when you want to start with an estimated number of needed
+    -- hosts, but let Cluster Autoscaler reduce the number if there are too
+    -- many. When Cluster Autoscaler is used, the desiredSize parameter is
+    -- altered by Cluster Autoscaler (but can be out-of-date for short periods
+    -- of time). Cluster Autoscaler doesn\'t scale a managed node group lower
+    -- than minSize or higher than maxSize.
     desiredSize :: Prelude.Maybe Prelude.Natural,
     -- | The maximum number of nodes that the managed node group can scale out
     -- to. For information about the maximum number that you can specify, see
@@ -52,6 +73,26 @@ data NodegroupScalingConfig = NodegroupScalingConfig'
 --
 -- 'desiredSize', 'nodegroupScalingConfig_desiredSize' - The current number of nodes that the managed node group should maintain.
 --
+-- If you use Cluster Autoscaler, you shouldn\'t change the desiredSize
+-- value directly, as this can cause the Cluster Autoscaler to suddenly
+-- scale up or scale down.
+--
+-- Whenever this parameter changes, the number of worker nodes in the node
+-- group is updated to the specified size. If this parameter is given a
+-- value that is smaller than the current number of running worker nodes,
+-- the necessary number of worker nodes are terminated to match the given
+-- value. When using CloudFormation, no action occurs if you remove this
+-- parameter from your CFN template.
+--
+-- This parameter can be different from minSize in some cases, such as when
+-- starting with extra hosts for testing. This parameter can also be
+-- different when you want to start with an estimated number of needed
+-- hosts, but let Cluster Autoscaler reduce the number if there are too
+-- many. When Cluster Autoscaler is used, the desiredSize parameter is
+-- altered by Cluster Autoscaler (but can be out-of-date for short periods
+-- of time). Cluster Autoscaler doesn\'t scale a managed node group lower
+-- than minSize or higher than maxSize.
+--
 -- 'maxSize', 'nodegroupScalingConfig_maxSize' - The maximum number of nodes that the managed node group can scale out
 -- to. For information about the maximum number that you can specify, see
 -- <https://docs.aws.amazon.com/eks/latest/userguide/service-quotas.html Amazon EKS service quotas>
@@ -69,6 +110,26 @@ newNodegroupScalingConfig =
     }
 
 -- | The current number of nodes that the managed node group should maintain.
+--
+-- If you use Cluster Autoscaler, you shouldn\'t change the desiredSize
+-- value directly, as this can cause the Cluster Autoscaler to suddenly
+-- scale up or scale down.
+--
+-- Whenever this parameter changes, the number of worker nodes in the node
+-- group is updated to the specified size. If this parameter is given a
+-- value that is smaller than the current number of running worker nodes,
+-- the necessary number of worker nodes are terminated to match the given
+-- value. When using CloudFormation, no action occurs if you remove this
+-- parameter from your CFN template.
+--
+-- This parameter can be different from minSize in some cases, such as when
+-- starting with extra hosts for testing. This parameter can also be
+-- different when you want to start with an estimated number of needed
+-- hosts, but let Cluster Autoscaler reduce the number if there are too
+-- many. When Cluster Autoscaler is used, the desiredSize parameter is
+-- altered by Cluster Autoscaler (but can be out-of-date for short periods
+-- of time). Cluster Autoscaler doesn\'t scale a managed node group lower
+-- than minSize or higher than maxSize.
 nodegroupScalingConfig_desiredSize :: Lens.Lens' NodegroupScalingConfig (Prelude.Maybe Prelude.Natural)
 nodegroupScalingConfig_desiredSize = Lens.lens (\NodegroupScalingConfig' {desiredSize} -> desiredSize) (\s@NodegroupScalingConfig' {} a -> s {desiredSize = a} :: NodegroupScalingConfig)
 
@@ -83,15 +144,15 @@ nodegroupScalingConfig_maxSize = Lens.lens (\NodegroupScalingConfig' {maxSize} -
 nodegroupScalingConfig_minSize :: Lens.Lens' NodegroupScalingConfig (Prelude.Maybe Prelude.Natural)
 nodegroupScalingConfig_minSize = Lens.lens (\NodegroupScalingConfig' {minSize} -> minSize) (\s@NodegroupScalingConfig' {} a -> s {minSize = a} :: NodegroupScalingConfig)
 
-instance Core.FromJSON NodegroupScalingConfig where
+instance Data.FromJSON NodegroupScalingConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NodegroupScalingConfig"
       ( \x ->
           NodegroupScalingConfig'
-            Prelude.<$> (x Core..:? "desiredSize")
-            Prelude.<*> (x Core..:? "maxSize")
-            Prelude.<*> (x Core..:? "minSize")
+            Prelude.<$> (x Data..:? "desiredSize")
+            Prelude.<*> (x Data..:? "maxSize")
+            Prelude.<*> (x Data..:? "minSize")
       )
 
 instance Prelude.Hashable NodegroupScalingConfig where
@@ -106,12 +167,12 @@ instance Prelude.NFData NodegroupScalingConfig where
       `Prelude.seq` Prelude.rnf maxSize
       `Prelude.seq` Prelude.rnf minSize
 
-instance Core.ToJSON NodegroupScalingConfig where
+instance Data.ToJSON NodegroupScalingConfig where
   toJSON NodegroupScalingConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("desiredSize" Core..=) Prelude.<$> desiredSize,
-            ("maxSize" Core..=) Prelude.<$> maxSize,
-            ("minSize" Core..=) Prelude.<$> minSize
+          [ ("desiredSize" Data..=) Prelude.<$> desiredSize,
+            ("maxSize" Data..=) Prelude.<$> maxSize,
+            ("minSize" Data..=) Prelude.<$> minSize
           ]
       )

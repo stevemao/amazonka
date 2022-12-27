@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.SrtDestinationSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.SrtDestinationSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types.SrtStylePassthrough
 import qualified Amazonka.Prelude as Prelude
 
@@ -74,13 +75,13 @@ newSrtDestinationSettings =
 srtDestinationSettings_stylePassthrough :: Lens.Lens' SrtDestinationSettings (Prelude.Maybe SrtStylePassthrough)
 srtDestinationSettings_stylePassthrough = Lens.lens (\SrtDestinationSettings' {stylePassthrough} -> stylePassthrough) (\s@SrtDestinationSettings' {} a -> s {stylePassthrough = a} :: SrtDestinationSettings)
 
-instance Core.FromJSON SrtDestinationSettings where
+instance Data.FromJSON SrtDestinationSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SrtDestinationSettings"
       ( \x ->
           SrtDestinationSettings'
-            Prelude.<$> (x Core..:? "stylePassthrough")
+            Prelude.<$> (x Data..:? "stylePassthrough")
       )
 
 instance Prelude.Hashable SrtDestinationSettings where
@@ -91,11 +92,11 @@ instance Prelude.NFData SrtDestinationSettings where
   rnf SrtDestinationSettings' {..} =
     Prelude.rnf stylePassthrough
 
-instance Core.ToJSON SrtDestinationSettings where
+instance Data.ToJSON SrtDestinationSettings where
   toJSON SrtDestinationSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("stylePassthrough" Core..=)
+          [ ("stylePassthrough" Data..=)
               Prelude.<$> stylePassthrough
           ]
       )

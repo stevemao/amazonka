@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MechanicalTurk.ListQualificationRequests
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,24 +32,25 @@ module Amazonka.MechanicalTurk.ListQualificationRequests
     newListQualificationRequests,
 
     -- * Request Lenses
+    listQualificationRequests_maxResults,
     listQualificationRequests_nextToken,
     listQualificationRequests_qualificationTypeId,
-    listQualificationRequests_maxResults,
 
     -- * Destructuring the Response
     ListQualificationRequestsResponse (..),
     newListQualificationRequestsResponse,
 
     -- * Response Lenses
-    listQualificationRequestsResponse_qualificationRequests,
     listQualificationRequestsResponse_nextToken,
     listQualificationRequestsResponse_numResults,
+    listQualificationRequestsResponse_qualificationRequests,
     listQualificationRequestsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MechanicalTurk.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -57,11 +58,11 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListQualificationRequests' smart constructor.
 data ListQualificationRequests = ListQualificationRequests'
-  { nextToken :: Prelude.Maybe Prelude.Text,
+  { -- | The maximum number of results to return in a single call.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ID of the QualificationType.
-    qualificationTypeId :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in a single call.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    qualificationTypeId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,20 +74,24 @@ data ListQualificationRequests = ListQualificationRequests'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listQualificationRequests_maxResults' - The maximum number of results to return in a single call.
+--
 -- 'nextToken', 'listQualificationRequests_nextToken' - Undocumented member.
 --
 -- 'qualificationTypeId', 'listQualificationRequests_qualificationTypeId' - The ID of the QualificationType.
---
--- 'maxResults', 'listQualificationRequests_maxResults' - The maximum number of results to return in a single call.
 newListQualificationRequests ::
   ListQualificationRequests
 newListQualificationRequests =
   ListQualificationRequests'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      qualificationTypeId = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing,
+      qualificationTypeId = Prelude.Nothing
     }
+
+-- | The maximum number of results to return in a single call.
+listQualificationRequests_maxResults :: Lens.Lens' ListQualificationRequests (Prelude.Maybe Prelude.Natural)
+listQualificationRequests_maxResults = Lens.lens (\ListQualificationRequests' {maxResults} -> maxResults) (\s@ListQualificationRequests' {} a -> s {maxResults = a} :: ListQualificationRequests)
 
 -- | Undocumented member.
 listQualificationRequests_nextToken :: Lens.Lens' ListQualificationRequests (Prelude.Maybe Prelude.Text)
@@ -95,10 +100,6 @@ listQualificationRequests_nextToken = Lens.lens (\ListQualificationRequests' {ne
 -- | The ID of the QualificationType.
 listQualificationRequests_qualificationTypeId :: Lens.Lens' ListQualificationRequests (Prelude.Maybe Prelude.Text)
 listQualificationRequests_qualificationTypeId = Lens.lens (\ListQualificationRequests' {qualificationTypeId} -> qualificationTypeId) (\s@ListQualificationRequests' {} a -> s {qualificationTypeId = a} :: ListQualificationRequests)
-
--- | The maximum number of results to return in a single call.
-listQualificationRequests_maxResults :: Lens.Lens' ListQualificationRequests (Prelude.Maybe Prelude.Natural)
-listQualificationRequests_maxResults = Lens.lens (\ListQualificationRequests' {maxResults} -> maxResults) (\s@ListQualificationRequests' {} a -> s {maxResults = a} :: ListQualificationRequests)
 
 instance Core.AWSPager ListQualificationRequests where
   page rq rs
@@ -126,74 +127,75 @@ instance Core.AWSRequest ListQualificationRequests where
   type
     AWSResponse ListQualificationRequests =
       ListQualificationRequestsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListQualificationRequestsResponse'
-            Prelude.<$> ( x Core..?> "QualificationRequests"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "NumResults")
+            Prelude.<*> ( x Data..?> "QualificationRequests"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "NumResults")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListQualificationRequests where
   hashWithSalt _salt ListQualificationRequests' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` qualificationTypeId
-      `Prelude.hashWithSalt` maxResults
 
 instance Prelude.NFData ListQualificationRequests where
   rnf ListQualificationRequests' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf qualificationTypeId
-      `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders ListQualificationRequests where
+instance Data.ToHeaders ListQualificationRequests where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "MTurkRequesterServiceV20170117.ListQualificationRequests" ::
+              Data.=# ( "MTurkRequesterServiceV20170117.ListQualificationRequests" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListQualificationRequests where
+instance Data.ToJSON ListQualificationRequests where
   toJSON ListQualificationRequests' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("QualificationTypeId" Core..=)
-              Prelude.<$> qualificationTypeId,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("QualificationTypeId" Data..=)
+              Prelude.<$> qualificationTypeId
           ]
       )
 
-instance Core.ToPath ListQualificationRequests where
+instance Data.ToPath ListQualificationRequests where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListQualificationRequests where
+instance Data.ToQuery ListQualificationRequests where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListQualificationRequestsResponse' smart constructor.
 data ListQualificationRequestsResponse = ListQualificationRequestsResponse'
-  { -- | The Qualification request. The response includes one
-    -- QualificationRequest element for each Qualification request returned by
-    -- the query.
-    qualificationRequests :: Prelude.Maybe [QualificationRequest],
-    nextToken :: Prelude.Maybe Prelude.Text,
+  { nextToken :: Prelude.Maybe Prelude.Text,
     -- | The number of Qualification requests on this page in the filtered
     -- results list, equivalent to the number of Qualification requests being
     -- returned by this call.
     numResults :: Prelude.Maybe Prelude.Int,
+    -- | The Qualification request. The response includes one
+    -- QualificationRequest element for each Qualification request returned by
+    -- the query.
+    qualificationRequests :: Prelude.Maybe [QualificationRequest],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -207,15 +209,15 @@ data ListQualificationRequestsResponse = ListQualificationRequestsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'qualificationRequests', 'listQualificationRequestsResponse_qualificationRequests' - The Qualification request. The response includes one
--- QualificationRequest element for each Qualification request returned by
--- the query.
---
 -- 'nextToken', 'listQualificationRequestsResponse_nextToken' - Undocumented member.
 --
 -- 'numResults', 'listQualificationRequestsResponse_numResults' - The number of Qualification requests on this page in the filtered
 -- results list, equivalent to the number of Qualification requests being
 -- returned by this call.
+--
+-- 'qualificationRequests', 'listQualificationRequestsResponse_qualificationRequests' - The Qualification request. The response includes one
+-- QualificationRequest element for each Qualification request returned by
+-- the query.
 --
 -- 'httpStatus', 'listQualificationRequestsResponse_httpStatus' - The response's http status code.
 newListQualificationRequestsResponse ::
@@ -224,18 +226,12 @@ newListQualificationRequestsResponse ::
   ListQualificationRequestsResponse
 newListQualificationRequestsResponse pHttpStatus_ =
   ListQualificationRequestsResponse'
-    { qualificationRequests =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       numResults = Prelude.Nothing,
+      qualificationRequests = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The Qualification request. The response includes one
--- QualificationRequest element for each Qualification request returned by
--- the query.
-listQualificationRequestsResponse_qualificationRequests :: Lens.Lens' ListQualificationRequestsResponse (Prelude.Maybe [QualificationRequest])
-listQualificationRequestsResponse_qualificationRequests = Lens.lens (\ListQualificationRequestsResponse' {qualificationRequests} -> qualificationRequests) (\s@ListQualificationRequestsResponse' {} a -> s {qualificationRequests = a} :: ListQualificationRequestsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | Undocumented member.
 listQualificationRequestsResponse_nextToken :: Lens.Lens' ListQualificationRequestsResponse (Prelude.Maybe Prelude.Text)
@@ -247,6 +243,12 @@ listQualificationRequestsResponse_nextToken = Lens.lens (\ListQualificationReque
 listQualificationRequestsResponse_numResults :: Lens.Lens' ListQualificationRequestsResponse (Prelude.Maybe Prelude.Int)
 listQualificationRequestsResponse_numResults = Lens.lens (\ListQualificationRequestsResponse' {numResults} -> numResults) (\s@ListQualificationRequestsResponse' {} a -> s {numResults = a} :: ListQualificationRequestsResponse)
 
+-- | The Qualification request. The response includes one
+-- QualificationRequest element for each Qualification request returned by
+-- the query.
+listQualificationRequestsResponse_qualificationRequests :: Lens.Lens' ListQualificationRequestsResponse (Prelude.Maybe [QualificationRequest])
+listQualificationRequestsResponse_qualificationRequests = Lens.lens (\ListQualificationRequestsResponse' {qualificationRequests} -> qualificationRequests) (\s@ListQualificationRequestsResponse' {} a -> s {qualificationRequests = a} :: ListQualificationRequestsResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The response's http status code.
 listQualificationRequestsResponse_httpStatus :: Lens.Lens' ListQualificationRequestsResponse Prelude.Int
 listQualificationRequestsResponse_httpStatus = Lens.lens (\ListQualificationRequestsResponse' {httpStatus} -> httpStatus) (\s@ListQualificationRequestsResponse' {} a -> s {httpStatus = a} :: ListQualificationRequestsResponse)
@@ -256,7 +258,7 @@ instance
     ListQualificationRequestsResponse
   where
   rnf ListQualificationRequestsResponse' {..} =
-    Prelude.rnf qualificationRequests
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf numResults
+      `Prelude.seq` Prelude.rnf qualificationRequests
       `Prelude.seq` Prelude.rnf httpStatus

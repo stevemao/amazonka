@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSMIncidents.Types.RegionMapInputValue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.SSMIncidents.Types.RegionMapInputValue where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The mapping between a Region and the key that\'s used to encrypt the
--- data.
+-- | The mapping between a Amazon Web Services Region and the key that\'s
+-- used to encrypt the data.
 --
 -- /See:/ 'newRegionMapInputValue' smart constructor.
 data RegionMapInputValue = RegionMapInputValue'
@@ -59,9 +60,9 @@ instance Prelude.NFData RegionMapInputValue where
   rnf RegionMapInputValue' {..} =
     Prelude.rnf sseKmsKeyId
 
-instance Core.ToJSON RegionMapInputValue where
+instance Data.ToJSON RegionMapInputValue where
   toJSON RegionMapInputValue' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("sseKmsKeyId" Core..=) Prelude.<$> sseKmsKeyId]
+          [("sseKmsKeyId" Data..=) Prelude.<$> sseKmsKeyId]
       )

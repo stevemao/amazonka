@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53AutoNaming.Types.DnsProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,17 @@
 module Amazonka.Route53AutoNaming.Types.DnsProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53AutoNaming.Types.SOA
 
--- | A complex type that contains the ID for the Route 53 hosted zone that
+-- | A complex type that contains the ID for the Route 53 hosted zone that
 -- Cloud Map creates when you create a namespace.
 --
 -- /See:/ 'newDnsProperties' smart constructor.
 data DnsProperties = DnsProperties'
-  { -- | The ID for the Route 53 hosted zone that Cloud Map creates when you
+  { -- | The ID for the Route 53 hosted zone that Cloud Map creates when you
     -- create a namespace.
     hostedZoneId :: Prelude.Maybe Prelude.Text,
     -- | Start of Authority (SOA) record for the hosted zone.
@@ -45,7 +46,7 @@ data DnsProperties = DnsProperties'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'hostedZoneId', 'dnsProperties_hostedZoneId' - The ID for the Route 53 hosted zone that Cloud Map creates when you
+-- 'hostedZoneId', 'dnsProperties_hostedZoneId' - The ID for the Route 53 hosted zone that Cloud Map creates when you
 -- create a namespace.
 --
 -- 'soa', 'dnsProperties_soa' - Start of Authority (SOA) record for the hosted zone.
@@ -57,7 +58,7 @@ newDnsProperties =
       soa = Prelude.Nothing
     }
 
--- | The ID for the Route 53 hosted zone that Cloud Map creates when you
+-- | The ID for the Route 53 hosted zone that Cloud Map creates when you
 -- create a namespace.
 dnsProperties_hostedZoneId :: Lens.Lens' DnsProperties (Prelude.Maybe Prelude.Text)
 dnsProperties_hostedZoneId = Lens.lens (\DnsProperties' {hostedZoneId} -> hostedZoneId) (\s@DnsProperties' {} a -> s {hostedZoneId = a} :: DnsProperties)
@@ -66,14 +67,14 @@ dnsProperties_hostedZoneId = Lens.lens (\DnsProperties' {hostedZoneId} -> hosted
 dnsProperties_soa :: Lens.Lens' DnsProperties (Prelude.Maybe SOA)
 dnsProperties_soa = Lens.lens (\DnsProperties' {soa} -> soa) (\s@DnsProperties' {} a -> s {soa = a} :: DnsProperties)
 
-instance Core.FromJSON DnsProperties where
+instance Data.FromJSON DnsProperties where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DnsProperties"
       ( \x ->
           DnsProperties'
-            Prelude.<$> (x Core..:? "HostedZoneId")
-            Prelude.<*> (x Core..:? "SOA")
+            Prelude.<$> (x Data..:? "HostedZoneId")
+            Prelude.<*> (x Data..:? "SOA")
       )
 
 instance Prelude.Hashable DnsProperties where

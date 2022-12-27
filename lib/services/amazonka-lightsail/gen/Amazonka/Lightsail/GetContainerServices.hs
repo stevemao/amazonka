@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.GetContainerServices
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Lightsail.GetContainerServices
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,7 +53,7 @@ data GetContainerServices = GetContainerServices'
   { -- | The name of the container service for which to return information.
     --
     -- When omitted, the response includes all of your container services in
-    -- the AWS Region where the request is made.
+    -- the Amazon Web Services Region where the request is made.
     serviceName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -68,7 +69,7 @@ data GetContainerServices = GetContainerServices'
 -- 'serviceName', 'getContainerServices_serviceName' - The name of the container service for which to return information.
 --
 -- When omitted, the response includes all of your container services in
--- the AWS Region where the request is made.
+-- the Amazon Web Services Region where the request is made.
 newGetContainerServices ::
   GetContainerServices
 newGetContainerServices =
@@ -80,7 +81,7 @@ newGetContainerServices =
 -- | The name of the container service for which to return information.
 --
 -- When omitted, the response includes all of your container services in
--- the AWS Region where the request is made.
+-- the Amazon Web Services Region where the request is made.
 getContainerServices_serviceName :: Lens.Lens' GetContainerServices (Prelude.Maybe Prelude.Text)
 getContainerServices_serviceName = Lens.lens (\GetContainerServices' {serviceName} -> serviceName) (\s@GetContainerServices' {} a -> s {serviceName = a} :: GetContainerServices)
 
@@ -88,12 +89,13 @@ instance Core.AWSRequest GetContainerServices where
   type
     AWSResponse GetContainerServices =
       GetContainerServicesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetContainerServicesResponse'
-            Prelude.<$> ( x Core..?> "containerServices"
+            Prelude.<$> ( x Data..?> "containerServices"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -107,32 +109,32 @@ instance Prelude.NFData GetContainerServices where
   rnf GetContainerServices' {..} =
     Prelude.rnf serviceName
 
-instance Core.ToHeaders GetContainerServices where
+instance Data.ToHeaders GetContainerServices where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.GetContainerServices" ::
+              Data.=# ( "Lightsail_20161128.GetContainerServices" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetContainerServices where
+instance Data.ToJSON GetContainerServices where
   toJSON GetContainerServices' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("serviceName" Core..=) Prelude.<$> serviceName]
+          [("serviceName" Data..=) Prelude.<$> serviceName]
       )
 
-instance Core.ToPath GetContainerServices where
+instance Data.ToPath GetContainerServices where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetContainerServices where
+instance Data.ToQuery GetContainerServices where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetContainerServicesResponse' smart constructor.

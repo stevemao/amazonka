@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -134,6 +134,8 @@ library
     Amazonka.AppMesh.Types.HttpRouteMatch
     Amazonka.AppMesh.Types.HttpScheme
     Amazonka.AppMesh.Types.HttpTimeout
+    Amazonka.AppMesh.Types.IpPreference
+    Amazonka.AppMesh.Types.JsonFormatRef
     Amazonka.AppMesh.Types.Listener
     Amazonka.AppMesh.Types.ListenerTimeout
     Amazonka.AppMesh.Types.ListenerTls
@@ -145,9 +147,11 @@ library
     Amazonka.AppMesh.Types.ListenerTlsValidationContext
     Amazonka.AppMesh.Types.ListenerTlsValidationContextTrust
     Amazonka.AppMesh.Types.Logging
+    Amazonka.AppMesh.Types.LoggingFormat
     Amazonka.AppMesh.Types.MatchRange
     Amazonka.AppMesh.Types.MeshData
     Amazonka.AppMesh.Types.MeshRef
+    Amazonka.AppMesh.Types.MeshServiceDiscovery
     Amazonka.AppMesh.Types.MeshSpec
     Amazonka.AppMesh.Types.MeshStatus
     Amazonka.AppMesh.Types.MeshStatusCode
@@ -168,6 +172,7 @@ library
     Amazonka.AppMesh.Types.TcpRetryPolicyEvent
     Amazonka.AppMesh.Types.TcpRoute
     Amazonka.AppMesh.Types.TcpRouteAction
+    Amazonka.AppMesh.Types.TcpRouteMatch
     Amazonka.AppMesh.Types.TcpTimeout
     Amazonka.AppMesh.Types.TlsValidationContext
     Amazonka.AppMesh.Types.TlsValidationContextAcmTrust
@@ -244,7 +249,7 @@ library
     Amazonka.AppMesh.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-appmesh-test
@@ -264,8 +269,8 @@ test-suite amazonka-appmesh-test
 
   build-depends:
     , amazonka-appmesh
-    , amazonka-core         ^>=2.0
-    , amazonka-test         ^>=2.0
+    , amazonka-core         >=2.0 && <2.1
+    , amazonka-test         >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

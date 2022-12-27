@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.GetBehaviorModelTrainingSummaries
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,9 +34,9 @@ module Amazonka.IoT.GetBehaviorModelTrainingSummaries
     newGetBehaviorModelTrainingSummaries,
 
     -- * Request Lenses
+    getBehaviorModelTrainingSummaries_maxResults,
     getBehaviorModelTrainingSummaries_nextToken,
     getBehaviorModelTrainingSummaries_securityProfileName,
-    getBehaviorModelTrainingSummaries_maxResults,
 
     -- * Destructuring the Response
     GetBehaviorModelTrainingSummariesResponse (..),
@@ -50,20 +50,21 @@ module Amazonka.IoT.GetBehaviorModelTrainingSummaries
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetBehaviorModelTrainingSummaries' smart constructor.
 data GetBehaviorModelTrainingSummaries = GetBehaviorModelTrainingSummaries'
-  { -- | The token for the next set of results.
+  { -- | The maximum number of results to return at one time. The default is 10.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the security profile.
-    securityProfileName :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return at one time. The default is 25.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    securityProfileName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -75,20 +76,24 @@ data GetBehaviorModelTrainingSummaries = GetBehaviorModelTrainingSummaries'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'getBehaviorModelTrainingSummaries_maxResults' - The maximum number of results to return at one time. The default is 10.
+--
 -- 'nextToken', 'getBehaviorModelTrainingSummaries_nextToken' - The token for the next set of results.
 --
 -- 'securityProfileName', 'getBehaviorModelTrainingSummaries_securityProfileName' - The name of the security profile.
---
--- 'maxResults', 'getBehaviorModelTrainingSummaries_maxResults' - The maximum number of results to return at one time. The default is 25.
 newGetBehaviorModelTrainingSummaries ::
   GetBehaviorModelTrainingSummaries
 newGetBehaviorModelTrainingSummaries =
   GetBehaviorModelTrainingSummaries'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      securityProfileName = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing,
+      securityProfileName = Prelude.Nothing
     }
+
+-- | The maximum number of results to return at one time. The default is 10.
+getBehaviorModelTrainingSummaries_maxResults :: Lens.Lens' GetBehaviorModelTrainingSummaries (Prelude.Maybe Prelude.Natural)
+getBehaviorModelTrainingSummaries_maxResults = Lens.lens (\GetBehaviorModelTrainingSummaries' {maxResults} -> maxResults) (\s@GetBehaviorModelTrainingSummaries' {} a -> s {maxResults = a} :: GetBehaviorModelTrainingSummaries)
 
 -- | The token for the next set of results.
 getBehaviorModelTrainingSummaries_nextToken :: Lens.Lens' GetBehaviorModelTrainingSummaries (Prelude.Maybe Prelude.Text)
@@ -97,10 +102,6 @@ getBehaviorModelTrainingSummaries_nextToken = Lens.lens (\GetBehaviorModelTraini
 -- | The name of the security profile.
 getBehaviorModelTrainingSummaries_securityProfileName :: Lens.Lens' GetBehaviorModelTrainingSummaries (Prelude.Maybe Prelude.Text)
 getBehaviorModelTrainingSummaries_securityProfileName = Lens.lens (\GetBehaviorModelTrainingSummaries' {securityProfileName} -> securityProfileName) (\s@GetBehaviorModelTrainingSummaries' {} a -> s {securityProfileName = a} :: GetBehaviorModelTrainingSummaries)
-
--- | The maximum number of results to return at one time. The default is 25.
-getBehaviorModelTrainingSummaries_maxResults :: Lens.Lens' GetBehaviorModelTrainingSummaries (Prelude.Maybe Prelude.Natural)
-getBehaviorModelTrainingSummaries_maxResults = Lens.lens (\GetBehaviorModelTrainingSummaries' {maxResults} -> maxResults) (\s@GetBehaviorModelTrainingSummaries' {} a -> s {maxResults = a} :: GetBehaviorModelTrainingSummaries)
 
 instance
   Core.AWSPager
@@ -134,13 +135,14 @@ instance
   type
     AWSResponse GetBehaviorModelTrainingSummaries =
       GetBehaviorModelTrainingSummariesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetBehaviorModelTrainingSummariesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-              Prelude.<*> (x Core..?> "summaries" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "nextToken")
+              Prelude.<*> (x Data..?> "summaries" Core..!@ Prelude.mempty)
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -151,41 +153,41 @@ instance
   hashWithSalt
     _salt
     GetBehaviorModelTrainingSummaries' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` securityProfileName
-        `Prelude.hashWithSalt` maxResults
 
 instance
   Prelude.NFData
     GetBehaviorModelTrainingSummaries
   where
   rnf GetBehaviorModelTrainingSummaries' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf securityProfileName
-      `Prelude.seq` Prelude.rnf maxResults
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetBehaviorModelTrainingSummaries
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     GetBehaviorModelTrainingSummaries
   where
   toPath =
     Prelude.const "/behavior-model-training/summaries"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetBehaviorModelTrainingSummaries
   where
   toQuery GetBehaviorModelTrainingSummaries' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "securityProfileName" Core.=: securityProfileName,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "securityProfileName" Data.=: securityProfileName
       ]
 
 -- | /See:/ 'newGetBehaviorModelTrainingSummariesResponse' smart constructor.

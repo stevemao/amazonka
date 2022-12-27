@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.UpdateAdmChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.Pinpoint.UpdateAdmChannel
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -96,13 +97,14 @@ instance Core.AWSRequest UpdateAdmChannel where
   type
     AWSResponse UpdateAdmChannel =
       UpdateAdmChannelResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateAdmChannelResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable UpdateAdmChannel where
@@ -115,35 +117,30 @@ instance Prelude.NFData UpdateAdmChannel where
     Prelude.rnf applicationId
       `Prelude.seq` Prelude.rnf aDMChannelRequest
 
-instance Core.ToHeaders UpdateAdmChannel where
+instance Data.ToHeaders UpdateAdmChannel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateAdmChannel where
+instance Data.ToJSON UpdateAdmChannel where
   toJSON UpdateAdmChannel' {..} =
-    Core.object
-      ( Prelude.catMaybes
-          [ Prelude.Just
-              ("ADMChannelRequest" Core..= aDMChannelRequest)
-          ]
-      )
+    Data.toJSON aDMChannelRequest
 
-instance Core.ToPath UpdateAdmChannel where
+instance Data.ToPath UpdateAdmChannel where
   toPath UpdateAdmChannel' {..} =
     Prelude.mconcat
       [ "/v1/apps/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/channels/adm"
       ]
 
-instance Core.ToQuery UpdateAdmChannel where
+instance Data.ToQuery UpdateAdmChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateAdmChannelResponse' smart constructor.

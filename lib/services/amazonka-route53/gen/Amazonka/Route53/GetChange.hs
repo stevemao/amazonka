@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.GetChange
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.Route53.GetChange
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,7 +62,7 @@ data GetChange = GetChange'
   { -- | The ID of the change batch request. The value that you specify here is
     -- the value that @ChangeResourceRecordSets@ returned in the @Id@ element
     -- when you submitted the request.
-    id :: ResourceId
+    id :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -78,25 +79,26 @@ data GetChange = GetChange'
 -- when you submitted the request.
 newGetChange ::
   -- | 'id'
-  ResourceId ->
+  Prelude.Text ->
   GetChange
 newGetChange pId_ = GetChange' {id = pId_}
 
 -- | The ID of the change batch request. The value that you specify here is
 -- the value that @ChangeResourceRecordSets@ returned in the @Id@ element
 -- when you submitted the request.
-getChange_id :: Lens.Lens' GetChange ResourceId
+getChange_id :: Lens.Lens' GetChange Prelude.Text
 getChange_id = Lens.lens (\GetChange' {id} -> id) (\s@GetChange' {} a -> s {id = a} :: GetChange)
 
 instance Core.AWSRequest GetChange where
   type AWSResponse GetChange = GetChangeResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetChangeResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "ChangeInfo")
+            Prelude.<*> (x Data..@ "ChangeInfo")
       )
 
 instance Prelude.Hashable GetChange where
@@ -106,15 +108,15 @@ instance Prelude.Hashable GetChange where
 instance Prelude.NFData GetChange where
   rnf GetChange' {..} = Prelude.rnf id
 
-instance Core.ToHeaders GetChange where
+instance Data.ToHeaders GetChange where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetChange where
+instance Data.ToPath GetChange where
   toPath GetChange' {..} =
     Prelude.mconcat
-      ["/2013-04-01/change/", Core.toBS id]
+      ["/2013-04-01/change/", Data.toBS id]
 
-instance Core.ToQuery GetChange where
+instance Data.ToQuery GetChange where
   toQuery = Prelude.const Prelude.mempty
 
 -- | A complex type that contains the @ChangeInfo@ element.

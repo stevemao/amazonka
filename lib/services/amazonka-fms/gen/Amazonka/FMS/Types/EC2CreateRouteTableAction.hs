@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.Types.EC2CreateRouteTableAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.FMS.Types.EC2CreateRouteTableAction where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FMS.Types.ActionTarget
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the CreateRouteTable action in Amazon EC2.
@@ -65,14 +66,14 @@ eC2CreateRouteTableAction_description = Lens.lens (\EC2CreateRouteTableAction' {
 eC2CreateRouteTableAction_vpcId :: Lens.Lens' EC2CreateRouteTableAction ActionTarget
 eC2CreateRouteTableAction_vpcId = Lens.lens (\EC2CreateRouteTableAction' {vpcId} -> vpcId) (\s@EC2CreateRouteTableAction' {} a -> s {vpcId = a} :: EC2CreateRouteTableAction)
 
-instance Core.FromJSON EC2CreateRouteTableAction where
+instance Data.FromJSON EC2CreateRouteTableAction where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EC2CreateRouteTableAction"
       ( \x ->
           EC2CreateRouteTableAction'
-            Prelude.<$> (x Core..:? "Description")
-            Prelude.<*> (x Core..: "VpcId")
+            Prelude.<$> (x Data..:? "Description")
+            Prelude.<*> (x Data..: "VpcId")
       )
 
 instance Prelude.Hashable EC2CreateRouteTableAction where

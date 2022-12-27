@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.CreateDatasetExportJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,9 +33,10 @@
 --
 -- -   CREATE PENDING > CREATE IN_PROGRESS > ACTIVE -or- CREATE FAILED
 --
--- To get the status of the export job, call DescribeDatasetExportJob, and
--- specify the Amazon Resource Name (ARN) of the dataset export job. The
--- dataset export is complete when the status shows as ACTIVE. If the
+-- To get the status of the export job, call
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeDatasetExportJob.html DescribeDatasetExportJob>,
+-- and specify the Amazon Resource Name (ARN) of the dataset export job.
+-- The dataset export is complete when the status shows as ACTIVE. If the
 -- status shows as CREATE FAILED, the response includes a @failureReason@
 -- key, which describes why the job failed.
 module Amazonka.Personalize.CreateDatasetExportJob
@@ -45,6 +46,7 @@ module Amazonka.Personalize.CreateDatasetExportJob
 
     -- * Request Lenses
     createDatasetExportJob_ingestionMode,
+    createDatasetExportJob_tags,
     createDatasetExportJob_jobName,
     createDatasetExportJob_datasetArn,
     createDatasetExportJob_roleArn,
@@ -61,7 +63,8 @@ module Amazonka.Personalize.CreateDatasetExportJob
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -75,6 +78,10 @@ data CreateDatasetExportJob = CreateDatasetExportJob'
     -- PutEvents, PutUsers and PutItems operations), or @ALL@ for both types.
     -- The default value is @PUT@.
     ingestionMode :: Prelude.Maybe IngestionMode,
+    -- | A list of
+    -- <https://docs.aws.amazon.com/personalize/latest/dev/tagging-resources.html tags>
+    -- to apply to the dataset export job.
+    tags :: Prelude.Maybe [Tag],
     -- | The name for the dataset export job.
     jobName :: Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the dataset that contains the data to
@@ -101,6 +108,10 @@ data CreateDatasetExportJob = CreateDatasetExportJob'
 -- only @PUT@ data that you imported incrementally (using the console,
 -- PutEvents, PutUsers and PutItems operations), or @ALL@ for both types.
 -- The default value is @PUT@.
+--
+-- 'tags', 'createDatasetExportJob_tags' - A list of
+-- <https://docs.aws.amazon.com/personalize/latest/dev/tagging-resources.html tags>
+-- to apply to the dataset export job.
 --
 -- 'jobName', 'createDatasetExportJob_jobName' - The name for the dataset export job.
 --
@@ -129,6 +140,7 @@ newCreateDatasetExportJob
     CreateDatasetExportJob'
       { ingestionMode =
           Prelude.Nothing,
+        tags = Prelude.Nothing,
         jobName = pJobName_,
         datasetArn = pDatasetArn_,
         roleArn = pRoleArn_,
@@ -142,6 +154,12 @@ newCreateDatasetExportJob
 -- The default value is @PUT@.
 createDatasetExportJob_ingestionMode :: Lens.Lens' CreateDatasetExportJob (Prelude.Maybe IngestionMode)
 createDatasetExportJob_ingestionMode = Lens.lens (\CreateDatasetExportJob' {ingestionMode} -> ingestionMode) (\s@CreateDatasetExportJob' {} a -> s {ingestionMode = a} :: CreateDatasetExportJob)
+
+-- | A list of
+-- <https://docs.aws.amazon.com/personalize/latest/dev/tagging-resources.html tags>
+-- to apply to the dataset export job.
+createDatasetExportJob_tags :: Lens.Lens' CreateDatasetExportJob (Prelude.Maybe [Tag])
+createDatasetExportJob_tags = Lens.lens (\CreateDatasetExportJob' {tags} -> tags) (\s@CreateDatasetExportJob' {} a -> s {tags = a} :: CreateDatasetExportJob) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name for the dataset export job.
 createDatasetExportJob_jobName :: Lens.Lens' CreateDatasetExportJob Prelude.Text
@@ -165,18 +183,20 @@ instance Core.AWSRequest CreateDatasetExportJob where
   type
     AWSResponse CreateDatasetExportJob =
       CreateDatasetExportJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateDatasetExportJobResponse'
-            Prelude.<$> (x Core..?> "datasetExportJobArn")
+            Prelude.<$> (x Data..?> "datasetExportJobArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateDatasetExportJob where
   hashWithSalt _salt CreateDatasetExportJob' {..} =
     _salt `Prelude.hashWithSalt` ingestionMode
+      `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` jobName
       `Prelude.hashWithSalt` datasetArn
       `Prelude.hashWithSalt` roleArn
@@ -185,42 +205,44 @@ instance Prelude.Hashable CreateDatasetExportJob where
 instance Prelude.NFData CreateDatasetExportJob where
   rnf CreateDatasetExportJob' {..} =
     Prelude.rnf ingestionMode
+      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf jobName
       `Prelude.seq` Prelude.rnf datasetArn
       `Prelude.seq` Prelude.rnf roleArn
       `Prelude.seq` Prelude.rnf jobOutput
 
-instance Core.ToHeaders CreateDatasetExportJob where
+instance Data.ToHeaders CreateDatasetExportJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.CreateDatasetExportJob" ::
+              Data.=# ( "AmazonPersonalize.CreateDatasetExportJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateDatasetExportJob where
+instance Data.ToJSON CreateDatasetExportJob where
   toJSON CreateDatasetExportJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ingestionMode" Core..=) Prelude.<$> ingestionMode,
-            Prelude.Just ("jobName" Core..= jobName),
-            Prelude.Just ("datasetArn" Core..= datasetArn),
-            Prelude.Just ("roleArn" Core..= roleArn),
-            Prelude.Just ("jobOutput" Core..= jobOutput)
+          [ ("ingestionMode" Data..=) Prelude.<$> ingestionMode,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("jobName" Data..= jobName),
+            Prelude.Just ("datasetArn" Data..= datasetArn),
+            Prelude.Just ("roleArn" Data..= roleArn),
+            Prelude.Just ("jobOutput" Data..= jobOutput)
           ]
       )
 
-instance Core.ToPath CreateDatasetExportJob where
+instance Data.ToPath CreateDatasetExportJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateDatasetExportJob where
+instance Data.ToQuery CreateDatasetExportJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateDatasetExportJobResponse' smart constructor.

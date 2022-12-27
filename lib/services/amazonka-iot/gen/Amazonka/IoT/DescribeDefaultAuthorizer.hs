@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DescribeDefaultAuthorizer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.IoT.DescribeDefaultAuthorizer
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,12 +67,13 @@ instance Core.AWSRequest DescribeDefaultAuthorizer where
   type
     AWSResponse DescribeDefaultAuthorizer =
       DescribeDefaultAuthorizerResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeDefaultAuthorizerResponse'
-            Prelude.<$> (x Core..?> "authorizerDescription")
+            Prelude.<$> (x Data..?> "authorizerDescription")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -82,13 +84,13 @@ instance Prelude.Hashable DescribeDefaultAuthorizer where
 instance Prelude.NFData DescribeDefaultAuthorizer where
   rnf _ = ()
 
-instance Core.ToHeaders DescribeDefaultAuthorizer where
+instance Data.ToHeaders DescribeDefaultAuthorizer where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeDefaultAuthorizer where
+instance Data.ToPath DescribeDefaultAuthorizer where
   toPath = Prelude.const "/default-authorizer"
 
-instance Core.ToQuery DescribeDefaultAuthorizer where
+instance Data.ToQuery DescribeDefaultAuthorizer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeDefaultAuthorizerResponse' smart constructor.

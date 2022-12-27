@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,35 +33,41 @@ module Amazonka.CostExplorer
     -- * Errors
     -- $errors
 
-    -- ** UnknownSubscriptionException
-    _UnknownSubscriptionException,
-
     -- ** BillExpirationException
     _BillExpirationException,
-
-    -- ** RequestChangedException
-    _RequestChangedException,
-
-    -- ** UnresolvableUsageUnitException
-    _UnresolvableUsageUnitException,
-
-    -- ** ServiceQuotaExceededException
-    _ServiceQuotaExceededException,
-
-    -- ** InvalidNextTokenException
-    _InvalidNextTokenException,
 
     -- ** DataUnavailableException
     _DataUnavailableException,
 
-    -- ** UnknownMonitorException
-    _UnknownMonitorException,
+    -- ** GenerationExistsException
+    _GenerationExistsException,
+
+    -- ** InvalidNextTokenException
+    _InvalidNextTokenException,
+
+    -- ** LimitExceededException
+    _LimitExceededException,
+
+    -- ** RequestChangedException
+    _RequestChangedException,
 
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
 
-    -- ** LimitExceededException
-    _LimitExceededException,
+    -- ** ServiceQuotaExceededException
+    _ServiceQuotaExceededException,
+
+    -- ** TooManyTagsException
+    _TooManyTagsException,
+
+    -- ** UnknownMonitorException
+    _UnknownMonitorException,
+
+    -- ** UnknownSubscriptionException
+    _UnknownSubscriptionException,
+
+    -- ** UnresolvableUsageUnitException
+    _UnresolvableUsageUnitException,
 
     -- * Waiters
     -- $waiters
@@ -69,47 +75,77 @@ module Amazonka.CostExplorer
     -- * Operations
     -- $operations
 
-    -- ** GetReservationUtilization
-    GetReservationUtilization (GetReservationUtilization'),
-    newGetReservationUtilization,
-    GetReservationUtilizationResponse (GetReservationUtilizationResponse'),
-    newGetReservationUtilizationResponse,
+    -- ** CreateAnomalyMonitor
+    CreateAnomalyMonitor (CreateAnomalyMonitor'),
+    newCreateAnomalyMonitor,
+    CreateAnomalyMonitorResponse (CreateAnomalyMonitorResponse'),
+    newCreateAnomalyMonitorResponse,
 
-    -- ** GetSavingsPlansCoverage
-    GetSavingsPlansCoverage (GetSavingsPlansCoverage'),
-    newGetSavingsPlansCoverage,
-    GetSavingsPlansCoverageResponse (GetSavingsPlansCoverageResponse'),
-    newGetSavingsPlansCoverageResponse,
+    -- ** CreateAnomalySubscription
+    CreateAnomalySubscription (CreateAnomalySubscription'),
+    newCreateAnomalySubscription,
+    CreateAnomalySubscriptionResponse (CreateAnomalySubscriptionResponse'),
+    newCreateAnomalySubscriptionResponse,
 
-    -- ** GetTags
-    GetTags (GetTags'),
-    newGetTags,
-    GetTagsResponse (GetTagsResponse'),
-    newGetTagsResponse,
+    -- ** CreateCostCategoryDefinition
+    CreateCostCategoryDefinition (CreateCostCategoryDefinition'),
+    newCreateCostCategoryDefinition,
+    CreateCostCategoryDefinitionResponse (CreateCostCategoryDefinitionResponse'),
+    newCreateCostCategoryDefinitionResponse,
 
-    -- ** GetRightsizingRecommendation
-    GetRightsizingRecommendation (GetRightsizingRecommendation'),
-    newGetRightsizingRecommendation,
-    GetRightsizingRecommendationResponse (GetRightsizingRecommendationResponse'),
-    newGetRightsizingRecommendationResponse,
+    -- ** DeleteAnomalyMonitor
+    DeleteAnomalyMonitor (DeleteAnomalyMonitor'),
+    newDeleteAnomalyMonitor,
+    DeleteAnomalyMonitorResponse (DeleteAnomalyMonitorResponse'),
+    newDeleteAnomalyMonitorResponse,
+
+    -- ** DeleteAnomalySubscription
+    DeleteAnomalySubscription (DeleteAnomalySubscription'),
+    newDeleteAnomalySubscription,
+    DeleteAnomalySubscriptionResponse (DeleteAnomalySubscriptionResponse'),
+    newDeleteAnomalySubscriptionResponse,
+
+    -- ** DeleteCostCategoryDefinition
+    DeleteCostCategoryDefinition (DeleteCostCategoryDefinition'),
+    newDeleteCostCategoryDefinition,
+    DeleteCostCategoryDefinitionResponse (DeleteCostCategoryDefinitionResponse'),
+    newDeleteCostCategoryDefinitionResponse,
+
+    -- ** DescribeCostCategoryDefinition
+    DescribeCostCategoryDefinition (DescribeCostCategoryDefinition'),
+    newDescribeCostCategoryDefinition,
+    DescribeCostCategoryDefinitionResponse (DescribeCostCategoryDefinitionResponse'),
+    newDescribeCostCategoryDefinitionResponse,
+
+    -- ** GetAnomalies
+    GetAnomalies (GetAnomalies'),
+    newGetAnomalies,
+    GetAnomaliesResponse (GetAnomaliesResponse'),
+    newGetAnomaliesResponse,
+
+    -- ** GetAnomalyMonitors
+    GetAnomalyMonitors (GetAnomalyMonitors'),
+    newGetAnomalyMonitors,
+    GetAnomalyMonitorsResponse (GetAnomalyMonitorsResponse'),
+    newGetAnomalyMonitorsResponse,
+
+    -- ** GetAnomalySubscriptions
+    GetAnomalySubscriptions (GetAnomalySubscriptions'),
+    newGetAnomalySubscriptions,
+    GetAnomalySubscriptionsResponse (GetAnomalySubscriptionsResponse'),
+    newGetAnomalySubscriptionsResponse,
+
+    -- ** GetCostAndUsage
+    GetCostAndUsage (GetCostAndUsage'),
+    newGetCostAndUsage,
+    GetCostAndUsageResponse (GetCostAndUsageResponse'),
+    newGetCostAndUsageResponse,
 
     -- ** GetCostAndUsageWithResources
     GetCostAndUsageWithResources (GetCostAndUsageWithResources'),
     newGetCostAndUsageWithResources,
     GetCostAndUsageWithResourcesResponse (GetCostAndUsageWithResourcesResponse'),
     newGetCostAndUsageWithResourcesResponse,
-
-    -- ** GetUsageForecast
-    GetUsageForecast (GetUsageForecast'),
-    newGetUsageForecast,
-    GetUsageForecastResponse (GetUsageForecastResponse'),
-    newGetUsageForecastResponse,
-
-    -- ** GetReservationCoverage
-    GetReservationCoverage (GetReservationCoverage'),
-    newGetReservationCoverage,
-    GetReservationCoverageResponse (GetReservationCoverageResponse'),
-    newGetReservationCoverageResponse,
 
     -- ** GetCostCategories
     GetCostCategories (GetCostCategories'),
@@ -129,11 +165,11 @@ module Amazonka.CostExplorer
     GetDimensionValuesResponse (GetDimensionValuesResponse'),
     newGetDimensionValuesResponse,
 
-    -- ** GetAnomalies
-    GetAnomalies (GetAnomalies'),
-    newGetAnomalies,
-    GetAnomaliesResponse (GetAnomaliesResponse'),
-    newGetAnomaliesResponse,
+    -- ** GetReservationCoverage
+    GetReservationCoverage (GetReservationCoverage'),
+    newGetReservationCoverage,
+    GetReservationCoverageResponse (GetReservationCoverageResponse'),
+    newGetReservationCoverageResponse,
 
     -- ** GetReservationPurchaseRecommendation
     GetReservationPurchaseRecommendation (GetReservationPurchaseRecommendation'),
@@ -141,71 +177,23 @@ module Amazonka.CostExplorer
     GetReservationPurchaseRecommendationResponse (GetReservationPurchaseRecommendationResponse'),
     newGetReservationPurchaseRecommendationResponse,
 
-    -- ** DeleteAnomalyMonitor
-    DeleteAnomalyMonitor (DeleteAnomalyMonitor'),
-    newDeleteAnomalyMonitor,
-    DeleteAnomalyMonitorResponse (DeleteAnomalyMonitorResponse'),
-    newDeleteAnomalyMonitorResponse,
+    -- ** GetReservationUtilization
+    GetReservationUtilization (GetReservationUtilization'),
+    newGetReservationUtilization,
+    GetReservationUtilizationResponse (GetReservationUtilizationResponse'),
+    newGetReservationUtilizationResponse,
 
-    -- ** UpdateAnomalyMonitor
-    UpdateAnomalyMonitor (UpdateAnomalyMonitor'),
-    newUpdateAnomalyMonitor,
-    UpdateAnomalyMonitorResponse (UpdateAnomalyMonitorResponse'),
-    newUpdateAnomalyMonitorResponse,
+    -- ** GetRightsizingRecommendation
+    GetRightsizingRecommendation (GetRightsizingRecommendation'),
+    newGetRightsizingRecommendation,
+    GetRightsizingRecommendationResponse (GetRightsizingRecommendationResponse'),
+    newGetRightsizingRecommendationResponse,
 
-    -- ** ListCostCategoryDefinitions
-    ListCostCategoryDefinitions (ListCostCategoryDefinitions'),
-    newListCostCategoryDefinitions,
-    ListCostCategoryDefinitionsResponse (ListCostCategoryDefinitionsResponse'),
-    newListCostCategoryDefinitionsResponse,
-
-    -- ** UpdateCostCategoryDefinition
-    UpdateCostCategoryDefinition (UpdateCostCategoryDefinition'),
-    newUpdateCostCategoryDefinition,
-    UpdateCostCategoryDefinitionResponse (UpdateCostCategoryDefinitionResponse'),
-    newUpdateCostCategoryDefinitionResponse,
-
-    -- ** DeleteCostCategoryDefinition
-    DeleteCostCategoryDefinition (DeleteCostCategoryDefinition'),
-    newDeleteCostCategoryDefinition,
-    DeleteCostCategoryDefinitionResponse (DeleteCostCategoryDefinitionResponse'),
-    newDeleteCostCategoryDefinitionResponse,
-
-    -- ** GetAnomalySubscriptions
-    GetAnomalySubscriptions (GetAnomalySubscriptions'),
-    newGetAnomalySubscriptions,
-    GetAnomalySubscriptionsResponse (GetAnomalySubscriptionsResponse'),
-    newGetAnomalySubscriptionsResponse,
-
-    -- ** CreateCostCategoryDefinition
-    CreateCostCategoryDefinition (CreateCostCategoryDefinition'),
-    newCreateCostCategoryDefinition,
-    CreateCostCategoryDefinitionResponse (CreateCostCategoryDefinitionResponse'),
-    newCreateCostCategoryDefinitionResponse,
-
-    -- ** GetAnomalyMonitors
-    GetAnomalyMonitors (GetAnomalyMonitors'),
-    newGetAnomalyMonitors,
-    GetAnomalyMonitorsResponse (GetAnomalyMonitorsResponse'),
-    newGetAnomalyMonitorsResponse,
-
-    -- ** DeleteAnomalySubscription
-    DeleteAnomalySubscription (DeleteAnomalySubscription'),
-    newDeleteAnomalySubscription,
-    DeleteAnomalySubscriptionResponse (DeleteAnomalySubscriptionResponse'),
-    newDeleteAnomalySubscriptionResponse,
-
-    -- ** UpdateAnomalySubscription
-    UpdateAnomalySubscription (UpdateAnomalySubscription'),
-    newUpdateAnomalySubscription,
-    UpdateAnomalySubscriptionResponse (UpdateAnomalySubscriptionResponse'),
-    newUpdateAnomalySubscriptionResponse,
-
-    -- ** GetCostAndUsage
-    GetCostAndUsage (GetCostAndUsage'),
-    newGetCostAndUsage,
-    GetCostAndUsageResponse (GetCostAndUsageResponse'),
-    newGetCostAndUsageResponse,
+    -- ** GetSavingsPlansCoverage
+    GetSavingsPlansCoverage (GetSavingsPlansCoverage'),
+    newGetSavingsPlansCoverage,
+    GetSavingsPlansCoverageResponse (GetSavingsPlansCoverageResponse'),
+    newGetSavingsPlansCoverageResponse,
 
     -- ** GetSavingsPlansPurchaseRecommendation
     GetSavingsPlansPurchaseRecommendation (GetSavingsPlansPurchaseRecommendation'),
@@ -213,41 +201,101 @@ module Amazonka.CostExplorer
     GetSavingsPlansPurchaseRecommendationResponse (GetSavingsPlansPurchaseRecommendationResponse'),
     newGetSavingsPlansPurchaseRecommendationResponse,
 
-    -- ** ProvideAnomalyFeedback
-    ProvideAnomalyFeedback (ProvideAnomalyFeedback'),
-    newProvideAnomalyFeedback,
-    ProvideAnomalyFeedbackResponse (ProvideAnomalyFeedbackResponse'),
-    newProvideAnomalyFeedbackResponse,
-
     -- ** GetSavingsPlansUtilization
     GetSavingsPlansUtilization (GetSavingsPlansUtilization'),
     newGetSavingsPlansUtilization,
     GetSavingsPlansUtilizationResponse (GetSavingsPlansUtilizationResponse'),
     newGetSavingsPlansUtilizationResponse,
 
-    -- ** DescribeCostCategoryDefinition
-    DescribeCostCategoryDefinition (DescribeCostCategoryDefinition'),
-    newDescribeCostCategoryDefinition,
-    DescribeCostCategoryDefinitionResponse (DescribeCostCategoryDefinitionResponse'),
-    newDescribeCostCategoryDefinitionResponse,
-
-    -- ** CreateAnomalySubscription
-    CreateAnomalySubscription (CreateAnomalySubscription'),
-    newCreateAnomalySubscription,
-    CreateAnomalySubscriptionResponse (CreateAnomalySubscriptionResponse'),
-    newCreateAnomalySubscriptionResponse,
-
-    -- ** CreateAnomalyMonitor
-    CreateAnomalyMonitor (CreateAnomalyMonitor'),
-    newCreateAnomalyMonitor,
-    CreateAnomalyMonitorResponse (CreateAnomalyMonitorResponse'),
-    newCreateAnomalyMonitorResponse,
-
     -- ** GetSavingsPlansUtilizationDetails
     GetSavingsPlansUtilizationDetails (GetSavingsPlansUtilizationDetails'),
     newGetSavingsPlansUtilizationDetails,
     GetSavingsPlansUtilizationDetailsResponse (GetSavingsPlansUtilizationDetailsResponse'),
     newGetSavingsPlansUtilizationDetailsResponse,
+
+    -- ** GetTags
+    GetTags (GetTags'),
+    newGetTags,
+    GetTagsResponse (GetTagsResponse'),
+    newGetTagsResponse,
+
+    -- ** GetUsageForecast
+    GetUsageForecast (GetUsageForecast'),
+    newGetUsageForecast,
+    GetUsageForecastResponse (GetUsageForecastResponse'),
+    newGetUsageForecastResponse,
+
+    -- ** ListCostAllocationTags
+    ListCostAllocationTags (ListCostAllocationTags'),
+    newListCostAllocationTags,
+    ListCostAllocationTagsResponse (ListCostAllocationTagsResponse'),
+    newListCostAllocationTagsResponse,
+
+    -- ** ListCostCategoryDefinitions
+    ListCostCategoryDefinitions (ListCostCategoryDefinitions'),
+    newListCostCategoryDefinitions,
+    ListCostCategoryDefinitionsResponse (ListCostCategoryDefinitionsResponse'),
+    newListCostCategoryDefinitionsResponse,
+
+    -- ** ListSavingsPlansPurchaseRecommendationGeneration
+    ListSavingsPlansPurchaseRecommendationGeneration (ListSavingsPlansPurchaseRecommendationGeneration'),
+    newListSavingsPlansPurchaseRecommendationGeneration,
+    ListSavingsPlansPurchaseRecommendationGenerationResponse (ListSavingsPlansPurchaseRecommendationGenerationResponse'),
+    newListSavingsPlansPurchaseRecommendationGenerationResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** ProvideAnomalyFeedback
+    ProvideAnomalyFeedback (ProvideAnomalyFeedback'),
+    newProvideAnomalyFeedback,
+    ProvideAnomalyFeedbackResponse (ProvideAnomalyFeedbackResponse'),
+    newProvideAnomalyFeedbackResponse,
+
+    -- ** StartSavingsPlansPurchaseRecommendationGeneration
+    StartSavingsPlansPurchaseRecommendationGeneration (StartSavingsPlansPurchaseRecommendationGeneration'),
+    newStartSavingsPlansPurchaseRecommendationGeneration,
+    StartSavingsPlansPurchaseRecommendationGenerationResponse (StartSavingsPlansPurchaseRecommendationGenerationResponse'),
+    newStartSavingsPlansPurchaseRecommendationGenerationResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UpdateAnomalyMonitor
+    UpdateAnomalyMonitor (UpdateAnomalyMonitor'),
+    newUpdateAnomalyMonitor,
+    UpdateAnomalyMonitorResponse (UpdateAnomalyMonitorResponse'),
+    newUpdateAnomalyMonitorResponse,
+
+    -- ** UpdateAnomalySubscription
+    UpdateAnomalySubscription (UpdateAnomalySubscription'),
+    newUpdateAnomalySubscription,
+    UpdateAnomalySubscriptionResponse (UpdateAnomalySubscriptionResponse'),
+    newUpdateAnomalySubscriptionResponse,
+
+    -- ** UpdateCostAllocationTagsStatus
+    UpdateCostAllocationTagsStatus (UpdateCostAllocationTagsStatus'),
+    newUpdateCostAllocationTagsStatus,
+    UpdateCostAllocationTagsStatusResponse (UpdateCostAllocationTagsStatusResponse'),
+    newUpdateCostAllocationTagsStatusResponse,
+
+    -- ** UpdateCostCategoryDefinition
+    UpdateCostCategoryDefinition (UpdateCostCategoryDefinition'),
+    newUpdateCostCategoryDefinition,
+    UpdateCostCategoryDefinitionResponse (UpdateCostCategoryDefinitionResponse'),
+    newUpdateCostCategoryDefinitionResponse,
 
     -- * Types
 
@@ -262,6 +310,12 @@ module Amazonka.CostExplorer
 
     -- ** Context
     Context (..),
+
+    -- ** CostAllocationTagStatus
+    CostAllocationTagStatus (..),
+
+    -- ** CostAllocationTagType
+    CostAllocationTagType (..),
 
     -- ** CostCategoryInheritedValueDimensionName
     CostCategoryInheritedValueDimensionName (..),
@@ -289,6 +343,9 @@ module Amazonka.CostExplorer
 
     -- ** FindingReasonCode
     FindingReasonCode (..),
+
+    -- ** GenerationStatus
+    GenerationStatus (..),
 
     -- ** Granularity
     Granularity (..),
@@ -366,6 +423,14 @@ module Amazonka.CostExplorer
     -- ** AnomalySubscription
     AnomalySubscription (AnomalySubscription'),
     newAnomalySubscription,
+
+    -- ** CostAllocationTag
+    CostAllocationTag (CostAllocationTag'),
+    newCostAllocationTag,
+
+    -- ** CostAllocationTagStatusEntry
+    CostAllocationTagStatusEntry (CostAllocationTagStatusEntry'),
+    newCostAllocationTagStatusEntry,
 
     -- ** CostCategory
     CostCategory (CostCategory'),
@@ -475,6 +540,10 @@ module Amazonka.CostExplorer
     ForecastResult (ForecastResult'),
     newForecastResult,
 
+    -- ** GenerationSummary
+    GenerationSummary (GenerationSummary'),
+    newGenerationSummary,
+
     -- ** Group
     Group (Group'),
     newGroup,
@@ -542,6 +611,10 @@ module Amazonka.CostExplorer
     -- ** ResourceDetails
     ResourceDetails (ResourceDetails'),
     newResourceDetails,
+
+    -- ** ResourceTag
+    ResourceTag (ResourceTag'),
+    newResourceTag,
 
     -- ** ResourceUtilization
     ResourceUtilization (ResourceUtilization'),
@@ -651,6 +724,10 @@ module Amazonka.CostExplorer
     TotalImpactFilter (TotalImpactFilter'),
     newTotalImpactFilter,
 
+    -- ** UpdateCostAllocationTagsStatusError
+    UpdateCostAllocationTagsStatusError (UpdateCostAllocationTagsStatusError'),
+    newUpdateCostAllocationTagsStatusError,
+
     -- ** UtilizationByTime
     UtilizationByTime (UtilizationByTime'),
     newUtilizationByTime,
@@ -683,11 +760,18 @@ import Amazonka.CostExplorer.GetSavingsPlansUtilizationDetails
 import Amazonka.CostExplorer.GetTags
 import Amazonka.CostExplorer.GetUsageForecast
 import Amazonka.CostExplorer.Lens
+import Amazonka.CostExplorer.ListCostAllocationTags
 import Amazonka.CostExplorer.ListCostCategoryDefinitions
+import Amazonka.CostExplorer.ListSavingsPlansPurchaseRecommendationGeneration
+import Amazonka.CostExplorer.ListTagsForResource
 import Amazonka.CostExplorer.ProvideAnomalyFeedback
+import Amazonka.CostExplorer.StartSavingsPlansPurchaseRecommendationGeneration
+import Amazonka.CostExplorer.TagResource
 import Amazonka.CostExplorer.Types
+import Amazonka.CostExplorer.UntagResource
 import Amazonka.CostExplorer.UpdateAnomalyMonitor
 import Amazonka.CostExplorer.UpdateAnomalySubscription
+import Amazonka.CostExplorer.UpdateCostAllocationTagsStatus
 import Amazonka.CostExplorer.UpdateCostCategoryDefinition
 import Amazonka.CostExplorer.Waiters
 

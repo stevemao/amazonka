@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.TagRef
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppMesh.Types.TagRef where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Optional metadata that you apply to a resource to assist with
@@ -72,13 +73,13 @@ tagRef_key = Lens.lens (\TagRef' {key} -> key) (\s@TagRef' {} a -> s {key = a} :
 tagRef_value :: Lens.Lens' TagRef Prelude.Text
 tagRef_value = Lens.lens (\TagRef' {value} -> value) (\s@TagRef' {} a -> s {value = a} :: TagRef)
 
-instance Core.FromJSON TagRef where
+instance Data.FromJSON TagRef where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TagRef"
       ( \x ->
           TagRef'
-            Prelude.<$> (x Core..: "key") Prelude.<*> (x Core..: "value")
+            Prelude.<$> (x Data..: "key") Prelude.<*> (x Data..: "value")
       )
 
 instance Prelude.Hashable TagRef where
@@ -90,11 +91,11 @@ instance Prelude.NFData TagRef where
   rnf TagRef' {..} =
     Prelude.rnf key `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON TagRef where
+instance Data.ToJSON TagRef where
   toJSON TagRef' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("key" Core..= key),
-            Prelude.Just ("value" Core..= value)
+          [ Prelude.Just ("key" Data..= key),
+            Prelude.Just ("value" Data..= value)
           ]
       )

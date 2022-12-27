@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.ErrorInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoT.Types.ErrorInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Error information.
@@ -61,14 +62,14 @@ errorInfo_code = Lens.lens (\ErrorInfo' {code} -> code) (\s@ErrorInfo' {} a -> s
 errorInfo_message :: Lens.Lens' ErrorInfo (Prelude.Maybe Prelude.Text)
 errorInfo_message = Lens.lens (\ErrorInfo' {message} -> message) (\s@ErrorInfo' {} a -> s {message = a} :: ErrorInfo)
 
-instance Core.FromJSON ErrorInfo where
+instance Data.FromJSON ErrorInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ErrorInfo"
       ( \x ->
           ErrorInfo'
-            Prelude.<$> (x Core..:? "code")
-            Prelude.<*> (x Core..:? "message")
+            Prelude.<$> (x Data..:? "code")
+            Prelude.<*> (x Data..:? "message")
       )
 
 instance Prelude.Hashable ErrorInfo where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ManagedBlockChain.Types.MemberLogPublishingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ManagedBlockChain.Types.MemberLogPublishingConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ManagedBlockChain.Types.MemberFabricLogPublishingConfiguration
 import qualified Amazonka.Prelude as Prelude
 
@@ -59,15 +60,15 @@ memberLogPublishingConfiguration_fabric :: Lens.Lens' MemberLogPublishingConfigu
 memberLogPublishingConfiguration_fabric = Lens.lens (\MemberLogPublishingConfiguration' {fabric} -> fabric) (\s@MemberLogPublishingConfiguration' {} a -> s {fabric = a} :: MemberLogPublishingConfiguration)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     MemberLogPublishingConfiguration
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MemberLogPublishingConfiguration"
       ( \x ->
           MemberLogPublishingConfiguration'
-            Prelude.<$> (x Core..:? "Fabric")
+            Prelude.<$> (x Data..:? "Fabric")
       )
 
 instance
@@ -86,9 +87,9 @@ instance
   rnf MemberLogPublishingConfiguration' {..} =
     Prelude.rnf fabric
 
-instance Core.ToJSON MemberLogPublishingConfiguration where
+instance Data.ToJSON MemberLogPublishingConfiguration where
   toJSON MemberLogPublishingConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Fabric" Core..=) Prelude.<$> fabric]
+          [("Fabric" Data..=) Prelude.<$> fabric]
       )

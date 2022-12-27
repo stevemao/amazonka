@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.Phase2DHGroupNumbersListValue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.Phase2DHGroupNumbersListValue where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The Diffie-Hellmann group number for phase 2 IKE negotiations.
@@ -54,10 +55,10 @@ newPhase2DHGroupNumbersListValue =
 phase2DHGroupNumbersListValue_value :: Lens.Lens' Phase2DHGroupNumbersListValue (Prelude.Maybe Prelude.Int)
 phase2DHGroupNumbersListValue_value = Lens.lens (\Phase2DHGroupNumbersListValue' {value} -> value) (\s@Phase2DHGroupNumbersListValue' {} a -> s {value = a} :: Phase2DHGroupNumbersListValue)
 
-instance Core.FromXML Phase2DHGroupNumbersListValue where
+instance Data.FromXML Phase2DHGroupNumbersListValue where
   parseXML x =
     Phase2DHGroupNumbersListValue'
-      Prelude.<$> (x Core..@? "value")
+      Prelude.<$> (x Data..@? "value")
 
 instance
   Prelude.Hashable

@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.CodeArtifact.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,13 +18,19 @@ module Amazonka.CodeArtifact.Types
     defaultService,
 
     -- * Errors
-    _ValidationException,
     _AccessDeniedException,
     _ConflictException,
-    _ServiceQuotaExceededException,
-    _ThrottlingException,
     _InternalServerException,
     _ResourceNotFoundException,
+    _ServiceQuotaExceededException,
+    _ThrottlingException,
+    _ValidationException,
+
+    -- * AllowPublish
+    AllowPublish (..),
+
+    -- * AllowUpstream
+    AllowUpstream (..),
 
     -- * DomainStatus
     DomainStatus (..),
@@ -40,6 +47,9 @@ module Amazonka.CodeArtifact.Types
     -- * PackageVersionErrorCode
     PackageVersionErrorCode (..),
 
+    -- * PackageVersionOriginType
+    PackageVersionOriginType (..),
+
     -- * PackageVersionSortType
     PackageVersionSortType (..),
 
@@ -49,38 +59,44 @@ module Amazonka.CodeArtifact.Types
     -- * AssetSummary
     AssetSummary (..),
     newAssetSummary,
-    assetSummary_size,
     assetSummary_hashes,
+    assetSummary_size,
     assetSummary_name,
 
     -- * DomainDescription
     DomainDescription (..),
     newDomainDescription,
-    domainDescription_assetSizeBytes,
-    domainDescription_status,
     domainDescription_arn,
+    domainDescription_assetSizeBytes,
     domainDescription_createdTime,
-    domainDescription_s3BucketArn,
+    domainDescription_encryptionKey,
+    domainDescription_name,
     domainDescription_owner,
     domainDescription_repositoryCount,
-    domainDescription_name,
-    domainDescription_encryptionKey,
+    domainDescription_s3BucketArn,
+    domainDescription_status,
+
+    -- * DomainEntryPoint
+    DomainEntryPoint (..),
+    newDomainEntryPoint,
+    domainEntryPoint_externalConnectionName,
+    domainEntryPoint_repositoryName,
 
     -- * DomainSummary
     DomainSummary (..),
     newDomainSummary,
-    domainSummary_status,
     domainSummary_arn,
     domainSummary_createdTime,
-    domainSummary_owner,
-    domainSummary_name,
     domainSummary_encryptionKey,
+    domainSummary_name,
+    domainSummary_owner,
+    domainSummary_status,
 
     -- * LicenseInfo
     LicenseInfo (..),
     newLicenseInfo,
-    licenseInfo_url,
     licenseInfo_name,
+    licenseInfo_url,
 
     -- * PackageDependency
     PackageDependency (..),
@@ -90,28 +106,49 @@ module Amazonka.CodeArtifact.Types
     packageDependency_package,
     packageDependency_versionRequirement,
 
+    -- * PackageDescription
+    PackageDescription (..),
+    newPackageDescription,
+    packageDescription_format,
+    packageDescription_name,
+    packageDescription_namespace,
+    packageDescription_originConfiguration,
+
+    -- * PackageOriginConfiguration
+    PackageOriginConfiguration (..),
+    newPackageOriginConfiguration,
+    packageOriginConfiguration_restrictions,
+
+    -- * PackageOriginRestrictions
+    PackageOriginRestrictions (..),
+    newPackageOriginRestrictions,
+    packageOriginRestrictions_publish,
+    packageOriginRestrictions_upstream,
+
     -- * PackageSummary
     PackageSummary (..),
     newPackageSummary,
     packageSummary_format,
     packageSummary_namespace,
+    packageSummary_originConfiguration,
     packageSummary_package,
 
     -- * PackageVersionDescription
     PackageVersionDescription (..),
     newPackageVersionDescription,
-    packageVersionDescription_summary,
+    packageVersionDescription_displayName,
+    packageVersionDescription_format,
     packageVersionDescription_homePage,
-    packageVersionDescription_status,
-    packageVersionDescription_sourceCodeRepository,
+    packageVersionDescription_licenses,
+    packageVersionDescription_namespace,
+    packageVersionDescription_origin,
     packageVersionDescription_packageName,
     packageVersionDescription_publishedTime,
-    packageVersionDescription_format,
-    packageVersionDescription_namespace,
-    packageVersionDescription_version,
-    packageVersionDescription_displayName,
-    packageVersionDescription_licenses,
     packageVersionDescription_revision,
+    packageVersionDescription_sourceCodeRepository,
+    packageVersionDescription_status,
+    packageVersionDescription_summary,
+    packageVersionDescription_version,
 
     -- * PackageVersionError
     PackageVersionError (..),
@@ -119,9 +156,16 @@ module Amazonka.CodeArtifact.Types
     packageVersionError_errorCode,
     packageVersionError_errorMessage,
 
+    -- * PackageVersionOrigin
+    PackageVersionOrigin (..),
+    newPackageVersionOrigin,
+    packageVersionOrigin_domainEntryPoint,
+    packageVersionOrigin_originType,
+
     -- * PackageVersionSummary
     PackageVersionSummary (..),
     newPackageVersionSummary,
+    packageVersionSummary_origin,
     packageVersionSummary_revision,
     packageVersionSummary_version,
     packageVersionSummary_status,
@@ -129,44 +173,44 @@ module Amazonka.CodeArtifact.Types
     -- * RepositoryDescription
     RepositoryDescription (..),
     newRepositoryDescription,
-    repositoryDescription_upstreams,
-    repositoryDescription_arn,
-    repositoryDescription_domainOwner,
-    repositoryDescription_domainName,
-    repositoryDescription_name,
     repositoryDescription_administratorAccount,
-    repositoryDescription_externalConnections,
+    repositoryDescription_arn,
     repositoryDescription_description,
+    repositoryDescription_domainName,
+    repositoryDescription_domainOwner,
+    repositoryDescription_externalConnections,
+    repositoryDescription_name,
+    repositoryDescription_upstreams,
 
     -- * RepositoryExternalConnectionInfo
     RepositoryExternalConnectionInfo (..),
     newRepositoryExternalConnectionInfo,
     repositoryExternalConnectionInfo_externalConnectionName,
-    repositoryExternalConnectionInfo_status,
     repositoryExternalConnectionInfo_packageFormat,
+    repositoryExternalConnectionInfo_status,
 
     -- * RepositorySummary
     RepositorySummary (..),
     newRepositorySummary,
-    repositorySummary_arn,
-    repositorySummary_domainOwner,
-    repositorySummary_domainName,
-    repositorySummary_name,
     repositorySummary_administratorAccount,
+    repositorySummary_arn,
     repositorySummary_description,
+    repositorySummary_domainName,
+    repositorySummary_domainOwner,
+    repositorySummary_name,
 
     -- * ResourcePolicy
     ResourcePolicy (..),
     newResourcePolicy,
-    resourcePolicy_resourceArn,
     resourcePolicy_document,
+    resourcePolicy_resourceArn,
     resourcePolicy_revision,
 
     -- * SuccessfulPackageVersionInfo
     SuccessfulPackageVersionInfo (..),
     newSuccessfulPackageVersionInfo,
-    successfulPackageVersionInfo_status,
     successfulPackageVersionInfo_revision,
+    successfulPackageVersionInfo_status,
 
     -- * Tag
     Tag (..),
@@ -186,19 +230,27 @@ module Amazonka.CodeArtifact.Types
   )
 where
 
+import Amazonka.CodeArtifact.Types.AllowPublish
+import Amazonka.CodeArtifact.Types.AllowUpstream
 import Amazonka.CodeArtifact.Types.AssetSummary
 import Amazonka.CodeArtifact.Types.DomainDescription
+import Amazonka.CodeArtifact.Types.DomainEntryPoint
 import Amazonka.CodeArtifact.Types.DomainStatus
 import Amazonka.CodeArtifact.Types.DomainSummary
 import Amazonka.CodeArtifact.Types.ExternalConnectionStatus
 import Amazonka.CodeArtifact.Types.HashAlgorithm
 import Amazonka.CodeArtifact.Types.LicenseInfo
 import Amazonka.CodeArtifact.Types.PackageDependency
+import Amazonka.CodeArtifact.Types.PackageDescription
 import Amazonka.CodeArtifact.Types.PackageFormat
+import Amazonka.CodeArtifact.Types.PackageOriginConfiguration
+import Amazonka.CodeArtifact.Types.PackageOriginRestrictions
 import Amazonka.CodeArtifact.Types.PackageSummary
 import Amazonka.CodeArtifact.Types.PackageVersionDescription
 import Amazonka.CodeArtifact.Types.PackageVersionError
 import Amazonka.CodeArtifact.Types.PackageVersionErrorCode
+import Amazonka.CodeArtifact.Types.PackageVersionOrigin
+import Amazonka.CodeArtifact.Types.PackageVersionOriginType
 import Amazonka.CodeArtifact.Types.PackageVersionSortType
 import Amazonka.CodeArtifact.Types.PackageVersionStatus
 import Amazonka.CodeArtifact.Types.PackageVersionSummary
@@ -211,7 +263,7 @@ import Amazonka.CodeArtifact.Types.Tag
 import Amazonka.CodeArtifact.Types.UpstreamRepository
 import Amazonka.CodeArtifact.Types.UpstreamRepositoryInfo
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 
@@ -219,42 +271,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "CodeArtifact",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "codeartifact",
-      Core._serviceSigningName = "codeartifact",
-      Core._serviceVersion = "2018-09-22",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
-        Core.parseJSONError "CodeArtifact",
-      Core._serviceRetry = retry
+    { Core.abbrev = "CodeArtifact",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "codeartifact",
+      Core.signingName = "codeartifact",
+      Core.version = "2018-09-22",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "CodeArtifact",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -262,38 +321,21 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
-
--- | The operation did not succeed because a parameter in the request was
--- sent with an invalid value.
-_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ValidationException =
-  Core._MatchServiceError
-    defaultService
-    "ValidationException"
-    Prelude.. Core.hasStatus 400
 
 -- | The operation did not succeed because of an unauthorized access attempt.
 _AccessDeniedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -310,6 +352,24 @@ _ConflictException =
     defaultService
     "ConflictException"
     Prelude.. Core.hasStatus 409
+
+-- | The operation did not succeed because of an error that occurred inside
+-- CodeArtifact.
+_InternalServerException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InternalServerException =
+  Core._MatchServiceError
+    defaultService
+    "InternalServerException"
+    Prelude.. Core.hasStatus 500
+
+-- | The operation did not succeed because the resource requested is not
+-- found in the service.
+_ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ResourceNotFoundException =
+  Core._MatchServiceError
+    defaultService
+    "ResourceNotFoundException"
+    Prelude.. Core.hasStatus 404
 
 -- | The operation did not succeed because it would have exceeded a service
 -- limit for your account.
@@ -329,20 +389,11 @@ _ThrottlingException =
     "ThrottlingException"
     Prelude.. Core.hasStatus 429
 
--- | The operation did not succeed because of an error that occurred inside
--- AWS CodeArtifact.
-_InternalServerException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InternalServerException =
+-- | The operation did not succeed because a parameter in the request was
+-- sent with an invalid value.
+_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ValidationException =
   Core._MatchServiceError
     defaultService
-    "InternalServerException"
-    Prelude.. Core.hasStatus 500
-
--- | The operation did not succeed because the resource requested is not
--- found in the service.
-_ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ResourceNotFoundException =
-  Core._MatchServiceError
-    defaultService
-    "ResourceNotFoundException"
-    Prelude.. Core.hasStatus 404
+    "ValidationException"
+    Prelude.. Core.hasStatus 400

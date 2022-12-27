@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAF.DeleteByteMatchSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -65,7 +65,8 @@ module Amazonka.WAF.DeleteByteMatchSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -122,12 +123,13 @@ instance Core.AWSRequest DeleteByteMatchSet where
   type
     AWSResponse DeleteByteMatchSet =
       DeleteByteMatchSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteByteMatchSetResponse'
-            Prelude.<$> (x Core..?> "ChangeToken")
+            Prelude.<$> (x Data..?> "ChangeToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -141,35 +143,35 @@ instance Prelude.NFData DeleteByteMatchSet where
     Prelude.rnf byteMatchSetId
       `Prelude.seq` Prelude.rnf changeToken
 
-instance Core.ToHeaders DeleteByteMatchSet where
+instance Data.ToHeaders DeleteByteMatchSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_20150824.DeleteByteMatchSet" ::
+              Data.=# ( "AWSWAF_20150824.DeleteByteMatchSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteByteMatchSet where
+instance Data.ToJSON DeleteByteMatchSet where
   toJSON DeleteByteMatchSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ByteMatchSetId" Core..= byteMatchSetId),
-            Prelude.Just ("ChangeToken" Core..= changeToken)
+              ("ByteMatchSetId" Data..= byteMatchSetId),
+            Prelude.Just ("ChangeToken" Data..= changeToken)
           ]
       )
 
-instance Core.ToPath DeleteByteMatchSet where
+instance Data.ToPath DeleteByteMatchSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteByteMatchSet where
+instance Data.ToQuery DeleteByteMatchSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteByteMatchSetResponse' smart constructor.

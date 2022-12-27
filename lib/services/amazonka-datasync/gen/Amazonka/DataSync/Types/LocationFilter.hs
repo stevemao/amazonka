@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataSync.Types.LocationFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,19 @@
 module Amazonka.DataSync.Types.LocationFilter where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataSync.Types.LocationFilterName
 import Amazonka.DataSync.Types.Operator
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
--- | You can use API filters to narrow down the list of resources returned by
--- @ListLocations@. For example, to retrieve all your Amazon S3 locations,
--- you can use @ListLocations@ with filter name @LocationType S3@ and
--- @Operator Equals@.
+-- | Narrow down the list of resources returned by @ListLocations@. For
+-- example, to see all your Amazon S3 locations, create a filter using
+-- @\"Name\": \"LocationType\"@, @\"Operator\": \"Equals\"@, and
+-- @\"Values\": \"S3\"@.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/datasync/latest/userguide/query-resources.html filtering resources>.
 --
 -- /See:/ 'newLocationFilter' smart constructor.
 data LocationFilter = LocationFilter'
@@ -40,8 +44,7 @@ data LocationFilter = LocationFilter'
     -- display only Amazon S3 locations.
     values :: [Prelude.Text],
     -- | The operator that is used to compare filter values (for example,
-    -- @Equals@ or @Contains@). For more about API filtering operators, see
-    -- <https://docs.aws.amazon.com/datasync/latest/userguide/query-resources.html API filters for ListTasks and ListLocations>.
+    -- @Equals@ or @Contains@).
     operator :: Operator
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -62,8 +65,7 @@ data LocationFilter = LocationFilter'
 -- display only Amazon S3 locations.
 --
 -- 'operator', 'locationFilter_operator' - The operator that is used to compare filter values (for example,
--- @Equals@ or @Contains@). For more about API filtering operators, see
--- <https://docs.aws.amazon.com/datasync/latest/userguide/query-resources.html API filters for ListTasks and ListLocations>.
+-- @Equals@ or @Contains@).
 newLocationFilter ::
   -- | 'name'
   LocationFilterName ->
@@ -89,8 +91,7 @@ locationFilter_values :: Lens.Lens' LocationFilter [Prelude.Text]
 locationFilter_values = Lens.lens (\LocationFilter' {values} -> values) (\s@LocationFilter' {} a -> s {values = a} :: LocationFilter) Prelude.. Lens.coerced
 
 -- | The operator that is used to compare filter values (for example,
--- @Equals@ or @Contains@). For more about API filtering operators, see
--- <https://docs.aws.amazon.com/datasync/latest/userguide/query-resources.html API filters for ListTasks and ListLocations>.
+-- @Equals@ or @Contains@).
 locationFilter_operator :: Lens.Lens' LocationFilter Operator
 locationFilter_operator = Lens.lens (\LocationFilter' {operator} -> operator) (\s@LocationFilter' {} a -> s {operator = a} :: LocationFilter)
 
@@ -106,12 +107,12 @@ instance Prelude.NFData LocationFilter where
       `Prelude.seq` Prelude.rnf values
       `Prelude.seq` Prelude.rnf operator
 
-instance Core.ToJSON LocationFilter where
+instance Data.ToJSON LocationFilter where
   toJSON LocationFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Values" Core..= values),
-            Prelude.Just ("Operator" Core..= operator)
+          [ Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Values" Data..= values),
+            Prelude.Just ("Operator" Data..= operator)
           ]
       )

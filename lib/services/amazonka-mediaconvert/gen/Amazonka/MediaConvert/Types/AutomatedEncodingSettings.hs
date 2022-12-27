@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.AutomatedEncodingSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.AutomatedEncodingSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types.AutomatedAbrSettings
 import qualified Amazonka.Prelude as Prelude
 
@@ -64,13 +65,13 @@ newAutomatedEncodingSettings =
 automatedEncodingSettings_abrSettings :: Lens.Lens' AutomatedEncodingSettings (Prelude.Maybe AutomatedAbrSettings)
 automatedEncodingSettings_abrSettings = Lens.lens (\AutomatedEncodingSettings' {abrSettings} -> abrSettings) (\s@AutomatedEncodingSettings' {} a -> s {abrSettings = a} :: AutomatedEncodingSettings)
 
-instance Core.FromJSON AutomatedEncodingSettings where
+instance Data.FromJSON AutomatedEncodingSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AutomatedEncodingSettings"
       ( \x ->
           AutomatedEncodingSettings'
-            Prelude.<$> (x Core..:? "abrSettings")
+            Prelude.<$> (x Data..:? "abrSettings")
       )
 
 instance Prelude.Hashable AutomatedEncodingSettings where
@@ -81,9 +82,9 @@ instance Prelude.NFData AutomatedEncodingSettings where
   rnf AutomatedEncodingSettings' {..} =
     Prelude.rnf abrSettings
 
-instance Core.ToJSON AutomatedEncodingSettings where
+instance Data.ToJSON AutomatedEncodingSettings where
   toJSON AutomatedEncodingSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("abrSettings" Core..=) Prelude.<$> abrSettings]
+          [("abrSettings" Data..=) Prelude.<$> abrSettings]
       )

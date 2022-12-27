@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.ManagedAgentStateChange
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ECS.Types.ManagedAgentStateChange where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types.ManagedAgentName
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object representing a change in state for a managed agent.
@@ -30,7 +31,7 @@ import qualified Amazonka.Prelude as Prelude
 data ManagedAgentStateChange = ManagedAgentStateChange'
   { -- | The reason for the status of the managed agent.
     reason :: Prelude.Maybe Prelude.Text,
-    -- | The name of the container associated with the managed agent.
+    -- | The name of the container that\'s associated with the managed agent.
     containerName :: Prelude.Text,
     -- | The name of the managed agent.
     managedAgentName :: ManagedAgentName,
@@ -49,7 +50,7 @@ data ManagedAgentStateChange = ManagedAgentStateChange'
 --
 -- 'reason', 'managedAgentStateChange_reason' - The reason for the status of the managed agent.
 --
--- 'containerName', 'managedAgentStateChange_containerName' - The name of the container associated with the managed agent.
+-- 'containerName', 'managedAgentStateChange_containerName' - The name of the container that\'s associated with the managed agent.
 --
 -- 'managedAgentName', 'managedAgentStateChange_managedAgentName' - The name of the managed agent.
 --
@@ -77,7 +78,7 @@ newManagedAgentStateChange
 managedAgentStateChange_reason :: Lens.Lens' ManagedAgentStateChange (Prelude.Maybe Prelude.Text)
 managedAgentStateChange_reason = Lens.lens (\ManagedAgentStateChange' {reason} -> reason) (\s@ManagedAgentStateChange' {} a -> s {reason = a} :: ManagedAgentStateChange)
 
--- | The name of the container associated with the managed agent.
+-- | The name of the container that\'s associated with the managed agent.
 managedAgentStateChange_containerName :: Lens.Lens' ManagedAgentStateChange Prelude.Text
 managedAgentStateChange_containerName = Lens.lens (\ManagedAgentStateChange' {containerName} -> containerName) (\s@ManagedAgentStateChange' {} a -> s {containerName = a} :: ManagedAgentStateChange)
 
@@ -103,14 +104,14 @@ instance Prelude.NFData ManagedAgentStateChange where
       `Prelude.seq` Prelude.rnf managedAgentName
       `Prelude.seq` Prelude.rnf status
 
-instance Core.ToJSON ManagedAgentStateChange where
+instance Data.ToJSON ManagedAgentStateChange where
   toJSON ManagedAgentStateChange' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("reason" Core..=) Prelude.<$> reason,
-            Prelude.Just ("containerName" Core..= containerName),
+          [ ("reason" Data..=) Prelude.<$> reason,
+            Prelude.Just ("containerName" Data..= containerName),
             Prelude.Just
-              ("managedAgentName" Core..= managedAgentName),
-            Prelude.Just ("status" Core..= status)
+              ("managedAgentName" Data..= managedAgentName),
+            Prelude.Just ("status" Data..= status)
           ]
       )

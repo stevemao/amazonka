@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.UpdateClusterConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.Kafka.UpdateClusterConfiguration
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kafka.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -112,13 +113,14 @@ instance Core.AWSRequest UpdateClusterConfiguration where
   type
     AWSResponse UpdateClusterConfiguration =
       UpdateClusterConfigurationResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateClusterConfigurationResponse'
-            Prelude.<$> (x Core..?> "clusterArn")
-            Prelude.<*> (x Core..?> "clusterOperationArn")
+            Prelude.<$> (x Data..?> "clusterArn")
+            Prelude.<*> (x Data..?> "clusterOperationArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -134,37 +136,37 @@ instance Prelude.NFData UpdateClusterConfiguration where
       `Prelude.seq` Prelude.rnf currentVersion
       `Prelude.seq` Prelude.rnf configurationInfo
 
-instance Core.ToHeaders UpdateClusterConfiguration where
+instance Data.ToHeaders UpdateClusterConfiguration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateClusterConfiguration where
+instance Data.ToJSON UpdateClusterConfiguration where
   toJSON UpdateClusterConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("currentVersion" Core..= currentVersion),
+              ("currentVersion" Data..= currentVersion),
             Prelude.Just
-              ("configurationInfo" Core..= configurationInfo)
+              ("configurationInfo" Data..= configurationInfo)
           ]
       )
 
-instance Core.ToPath UpdateClusterConfiguration where
+instance Data.ToPath UpdateClusterConfiguration where
   toPath UpdateClusterConfiguration' {..} =
     Prelude.mconcat
       [ "/v1/clusters/",
-        Core.toBS clusterArn,
+        Data.toBS clusterArn,
         "/configuration"
       ]
 
-instance Core.ToQuery UpdateClusterConfiguration where
+instance Data.ToQuery UpdateClusterConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateClusterConfigurationResponse' smart constructor.

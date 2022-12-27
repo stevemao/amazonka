@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SQS.PurgeQueue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.SQS.PurgeQueue
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,7 +95,8 @@ purgeQueue_queueUrl = Lens.lens (\PurgeQueue' {queueUrl} -> queueUrl) (\s@PurgeQ
 
 instance Core.AWSRequest PurgeQueue where
   type AWSResponse PurgeQueue = PurgeQueueResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response = Response.receiveNull PurgeQueueResponse'
 
 instance Prelude.Hashable PurgeQueue where
@@ -104,20 +106,20 @@ instance Prelude.Hashable PurgeQueue where
 instance Prelude.NFData PurgeQueue where
   rnf PurgeQueue' {..} = Prelude.rnf queueUrl
 
-instance Core.ToHeaders PurgeQueue where
+instance Data.ToHeaders PurgeQueue where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath PurgeQueue where
+instance Data.ToPath PurgeQueue where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PurgeQueue where
+instance Data.ToQuery PurgeQueue where
   toQuery PurgeQueue' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("PurgeQueue" :: Prelude.ByteString),
+          Data.=: ("PurgeQueue" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-11-05" :: Prelude.ByteString),
-        "QueueUrl" Core.=: queueUrl
+          Data.=: ("2012-11-05" :: Prelude.ByteString),
+        "QueueUrl" Data.=: queueUrl
       ]
 
 -- | /See:/ 'newPurgeQueueResponse' smart constructor.

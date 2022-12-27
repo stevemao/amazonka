@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.ModelBiasJobInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,10 @@
 module Amazonka.SageMaker.Types.ModelBiasJobInput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
+import Amazonka.SageMaker.Types.BatchTransformInput
 import Amazonka.SageMaker.Types.EndpointInput
 import Amazonka.SageMaker.Types.MonitoringGroundTruthS3Input
 
@@ -29,7 +31,9 @@ import Amazonka.SageMaker.Types.MonitoringGroundTruthS3Input
 --
 -- /See:/ 'newModelBiasJobInput' smart constructor.
 data ModelBiasJobInput = ModelBiasJobInput'
-  { endpointInput :: EndpointInput,
+  { -- | Input object for the batch transform job.
+    batchTransformInput :: Prelude.Maybe BatchTransformInput,
+    endpointInput :: Prelude.Maybe EndpointInput,
     -- | Location of ground truth labels to use in model bias job.
     groundTruthS3Input :: MonitoringGroundTruthS3Input
   }
@@ -43,58 +47,66 @@ data ModelBiasJobInput = ModelBiasJobInput'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'batchTransformInput', 'modelBiasJobInput_batchTransformInput' - Input object for the batch transform job.
+--
 -- 'endpointInput', 'modelBiasJobInput_endpointInput' - Undocumented member.
 --
 -- 'groundTruthS3Input', 'modelBiasJobInput_groundTruthS3Input' - Location of ground truth labels to use in model bias job.
 newModelBiasJobInput ::
-  -- | 'endpointInput'
-  EndpointInput ->
   -- | 'groundTruthS3Input'
   MonitoringGroundTruthS3Input ->
   ModelBiasJobInput
-newModelBiasJobInput
-  pEndpointInput_
-  pGroundTruthS3Input_ =
-    ModelBiasJobInput'
-      { endpointInput = pEndpointInput_,
-        groundTruthS3Input = pGroundTruthS3Input_
-      }
+newModelBiasJobInput pGroundTruthS3Input_ =
+  ModelBiasJobInput'
+    { batchTransformInput =
+        Prelude.Nothing,
+      endpointInput = Prelude.Nothing,
+      groundTruthS3Input = pGroundTruthS3Input_
+    }
+
+-- | Input object for the batch transform job.
+modelBiasJobInput_batchTransformInput :: Lens.Lens' ModelBiasJobInput (Prelude.Maybe BatchTransformInput)
+modelBiasJobInput_batchTransformInput = Lens.lens (\ModelBiasJobInput' {batchTransformInput} -> batchTransformInput) (\s@ModelBiasJobInput' {} a -> s {batchTransformInput = a} :: ModelBiasJobInput)
 
 -- | Undocumented member.
-modelBiasJobInput_endpointInput :: Lens.Lens' ModelBiasJobInput EndpointInput
+modelBiasJobInput_endpointInput :: Lens.Lens' ModelBiasJobInput (Prelude.Maybe EndpointInput)
 modelBiasJobInput_endpointInput = Lens.lens (\ModelBiasJobInput' {endpointInput} -> endpointInput) (\s@ModelBiasJobInput' {} a -> s {endpointInput = a} :: ModelBiasJobInput)
 
 -- | Location of ground truth labels to use in model bias job.
 modelBiasJobInput_groundTruthS3Input :: Lens.Lens' ModelBiasJobInput MonitoringGroundTruthS3Input
 modelBiasJobInput_groundTruthS3Input = Lens.lens (\ModelBiasJobInput' {groundTruthS3Input} -> groundTruthS3Input) (\s@ModelBiasJobInput' {} a -> s {groundTruthS3Input = a} :: ModelBiasJobInput)
 
-instance Core.FromJSON ModelBiasJobInput where
+instance Data.FromJSON ModelBiasJobInput where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ModelBiasJobInput"
       ( \x ->
           ModelBiasJobInput'
-            Prelude.<$> (x Core..: "EndpointInput")
-            Prelude.<*> (x Core..: "GroundTruthS3Input")
+            Prelude.<$> (x Data..:? "BatchTransformInput")
+            Prelude.<*> (x Data..:? "EndpointInput")
+            Prelude.<*> (x Data..: "GroundTruthS3Input")
       )
 
 instance Prelude.Hashable ModelBiasJobInput where
   hashWithSalt _salt ModelBiasJobInput' {..} =
-    _salt `Prelude.hashWithSalt` endpointInput
+    _salt `Prelude.hashWithSalt` batchTransformInput
+      `Prelude.hashWithSalt` endpointInput
       `Prelude.hashWithSalt` groundTruthS3Input
 
 instance Prelude.NFData ModelBiasJobInput where
   rnf ModelBiasJobInput' {..} =
-    Prelude.rnf endpointInput
+    Prelude.rnf batchTransformInput
+      `Prelude.seq` Prelude.rnf endpointInput
       `Prelude.seq` Prelude.rnf groundTruthS3Input
 
-instance Core.ToJSON ModelBiasJobInput where
+instance Data.ToJSON ModelBiasJobInput where
   toJSON ModelBiasJobInput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just
-              ("EndpointInput" Core..= endpointInput),
+          [ ("BatchTransformInput" Data..=)
+              Prelude.<$> batchTransformInput,
+            ("EndpointInput" Data..=) Prelude.<$> endpointInput,
             Prelude.Just
-              ("GroundTruthS3Input" Core..= groundTruthS3Input)
+              ("GroundTruthS3Input" Data..= groundTruthS3Input)
           ]
       )

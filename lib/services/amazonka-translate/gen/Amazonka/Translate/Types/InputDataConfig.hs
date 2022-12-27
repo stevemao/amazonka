@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Translate.Types.InputDataConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Translate.Types.InputDataConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The input configuration properties for requesting a batch translation
@@ -28,8 +29,15 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newInputDataConfig' smart constructor.
 data InputDataConfig = InputDataConfig'
-  { -- | The URI of the AWS S3 folder that contains the input file. The folder
-    -- must be in the same Region as the API endpoint you are calling.
+  { -- | The URI of the AWS S3 folder that contains the input files. Amazon
+    -- Translate translates all the files in the folder. The folder must be in
+    -- the same Region as the API endpoint you are calling.
+    --
+    -- The URI can also point to a single input document, or it can provide the
+    -- prefix for a collection of input documents. For example. if you use the
+    -- URI @S3:\/\/bucketName\/prefix@ and the prefix is a single file, Amazon
+    -- Translate uses that files as input. If more than one file begins with
+    -- the prefix, Amazon Translate uses all of them as input.
     s3Uri :: Prelude.Text,
     -- | Describes the format of the data that you submit to Amazon Translate as
     -- input. You can specify one of the following multipurpose internet mail
@@ -53,6 +61,10 @@ data InputDataConfig = InputDataConfig'
     -- -   @application\/vnd.openxmlformats-officedocument.spreadsheetml.sheet@:
     --     The input data consists of one or more Excel Workbook files (.xlsx).
     --
+    -- -   @application\/x-xliff+xml@: The input data consists of one or more
+    --     XML Localization Interchange File Format (XLIFF) files (.xlf).
+    --     Amazon Translate supports only XLIFF version 1.2.
+    --
     -- If you structure your input data as HTML, ensure that you set this
     -- parameter to @text\/html@. By doing so, you cut costs by limiting the
     -- translation to the contents of the @html@ element in each file.
@@ -70,8 +82,15 @@ data InputDataConfig = InputDataConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 's3Uri', 'inputDataConfig_s3Uri' - The URI of the AWS S3 folder that contains the input file. The folder
--- must be in the same Region as the API endpoint you are calling.
+-- 's3Uri', 'inputDataConfig_s3Uri' - The URI of the AWS S3 folder that contains the input files. Amazon
+-- Translate translates all the files in the folder. The folder must be in
+-- the same Region as the API endpoint you are calling.
+--
+-- The URI can also point to a single input document, or it can provide the
+-- prefix for a collection of input documents. For example. if you use the
+-- URI @S3:\/\/bucketName\/prefix@ and the prefix is a single file, Amazon
+-- Translate uses that files as input. If more than one file begins with
+-- the prefix, Amazon Translate uses all of them as input.
 --
 -- 'contentType', 'inputDataConfig_contentType' - Describes the format of the data that you submit to Amazon Translate as
 -- input. You can specify one of the following multipurpose internet mail
@@ -95,6 +114,10 @@ data InputDataConfig = InputDataConfig'
 -- -   @application\/vnd.openxmlformats-officedocument.spreadsheetml.sheet@:
 --     The input data consists of one or more Excel Workbook files (.xlsx).
 --
+-- -   @application\/x-xliff+xml@: The input data consists of one or more
+--     XML Localization Interchange File Format (XLIFF) files (.xlf).
+--     Amazon Translate supports only XLIFF version 1.2.
+--
 -- If you structure your input data as HTML, ensure that you set this
 -- parameter to @text\/html@. By doing so, you cut costs by limiting the
 -- translation to the contents of the @html@ element in each file.
@@ -112,8 +135,15 @@ newInputDataConfig pS3Uri_ pContentType_ =
       contentType = pContentType_
     }
 
--- | The URI of the AWS S3 folder that contains the input file. The folder
--- must be in the same Region as the API endpoint you are calling.
+-- | The URI of the AWS S3 folder that contains the input files. Amazon
+-- Translate translates all the files in the folder. The folder must be in
+-- the same Region as the API endpoint you are calling.
+--
+-- The URI can also point to a single input document, or it can provide the
+-- prefix for a collection of input documents. For example. if you use the
+-- URI @S3:\/\/bucketName\/prefix@ and the prefix is a single file, Amazon
+-- Translate uses that files as input. If more than one file begins with
+-- the prefix, Amazon Translate uses all of them as input.
 inputDataConfig_s3Uri :: Lens.Lens' InputDataConfig Prelude.Text
 inputDataConfig_s3Uri = Lens.lens (\InputDataConfig' {s3Uri} -> s3Uri) (\s@InputDataConfig' {} a -> s {s3Uri = a} :: InputDataConfig)
 
@@ -139,6 +169,10 @@ inputDataConfig_s3Uri = Lens.lens (\InputDataConfig' {s3Uri} -> s3Uri) (\s@Input
 -- -   @application\/vnd.openxmlformats-officedocument.spreadsheetml.sheet@:
 --     The input data consists of one or more Excel Workbook files (.xlsx).
 --
+-- -   @application\/x-xliff+xml@: The input data consists of one or more
+--     XML Localization Interchange File Format (XLIFF) files (.xlf).
+--     Amazon Translate supports only XLIFF version 1.2.
+--
 -- If you structure your input data as HTML, ensure that you set this
 -- parameter to @text\/html@. By doing so, you cut costs by limiting the
 -- translation to the contents of the @html@ element in each file.
@@ -147,14 +181,14 @@ inputDataConfig_s3Uri = Lens.lens (\InputDataConfig' {s3Uri} -> s3Uri) (\s@Input
 inputDataConfig_contentType :: Lens.Lens' InputDataConfig Prelude.Text
 inputDataConfig_contentType = Lens.lens (\InputDataConfig' {contentType} -> contentType) (\s@InputDataConfig' {} a -> s {contentType = a} :: InputDataConfig)
 
-instance Core.FromJSON InputDataConfig where
+instance Data.FromJSON InputDataConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InputDataConfig"
       ( \x ->
           InputDataConfig'
-            Prelude.<$> (x Core..: "S3Uri")
-            Prelude.<*> (x Core..: "ContentType")
+            Prelude.<$> (x Data..: "S3Uri")
+            Prelude.<*> (x Data..: "ContentType")
       )
 
 instance Prelude.Hashable InputDataConfig where
@@ -167,11 +201,11 @@ instance Prelude.NFData InputDataConfig where
     Prelude.rnf s3Uri
       `Prelude.seq` Prelude.rnf contentType
 
-instance Core.ToJSON InputDataConfig where
+instance Data.ToJSON InputDataConfig where
   toJSON InputDataConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("S3Uri" Core..= s3Uri),
-            Prelude.Just ("ContentType" Core..= contentType)
+          [ Prelude.Just ("S3Uri" Data..= s3Uri),
+            Prelude.Just ("ContentType" Data..= contentType)
           ]
       )

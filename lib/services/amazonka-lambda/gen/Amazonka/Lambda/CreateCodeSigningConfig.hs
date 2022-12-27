@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.Lambda.CreateCodeSigningConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Creates a code signing configuration. A
--- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-trustedcode.html code signing configuration>
+-- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-codesigning.html code signing configuration>
 -- defines a list of allowed signing profiles and defines the code-signing
 -- validation policy (action to be taken if deployment validation checks
 -- fail).
@@ -46,8 +46,9 @@ module Amazonka.Lambda.CreateCodeSigningConfig
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,13 +108,14 @@ instance Core.AWSRequest CreateCodeSigningConfig where
   type
     AWSResponse CreateCodeSigningConfig =
       CreateCodeSigningConfigResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateCodeSigningConfigResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "CodeSigningConfig")
+            Prelude.<*> (x Data..:> "CodeSigningConfig")
       )
 
 instance Prelude.Hashable CreateCodeSigningConfig where
@@ -128,26 +130,26 @@ instance Prelude.NFData CreateCodeSigningConfig where
       `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf allowedPublishers
 
-instance Core.ToHeaders CreateCodeSigningConfig where
+instance Data.ToHeaders CreateCodeSigningConfig where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateCodeSigningConfig where
+instance Data.ToJSON CreateCodeSigningConfig where
   toJSON CreateCodeSigningConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CodeSigningPolicies" Core..=)
+          [ ("CodeSigningPolicies" Data..=)
               Prelude.<$> codeSigningPolicies,
-            ("Description" Core..=) Prelude.<$> description,
+            ("Description" Data..=) Prelude.<$> description,
             Prelude.Just
-              ("AllowedPublishers" Core..= allowedPublishers)
+              ("AllowedPublishers" Data..= allowedPublishers)
           ]
       )
 
-instance Core.ToPath CreateCodeSigningConfig where
+instance Data.ToPath CreateCodeSigningConfig where
   toPath =
     Prelude.const "/2020-04-22/code-signing-configs/"
 
-instance Core.ToQuery CreateCodeSigningConfig where
+instance Data.ToQuery CreateCodeSigningConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateCodeSigningConfigResponse' smart constructor.

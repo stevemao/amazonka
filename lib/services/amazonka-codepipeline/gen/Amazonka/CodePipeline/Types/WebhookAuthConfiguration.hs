@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.Types.WebhookAuthConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodePipeline.Types.WebhookAuthConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The authentication applied to incoming webhook trigger requests.
@@ -71,14 +72,14 @@ webhookAuthConfiguration_allowedIPRange = Lens.lens (\WebhookAuthConfiguration' 
 webhookAuthConfiguration_secretToken :: Lens.Lens' WebhookAuthConfiguration (Prelude.Maybe Prelude.Text)
 webhookAuthConfiguration_secretToken = Lens.lens (\WebhookAuthConfiguration' {secretToken} -> secretToken) (\s@WebhookAuthConfiguration' {} a -> s {secretToken = a} :: WebhookAuthConfiguration)
 
-instance Core.FromJSON WebhookAuthConfiguration where
+instance Data.FromJSON WebhookAuthConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "WebhookAuthConfiguration"
       ( \x ->
           WebhookAuthConfiguration'
-            Prelude.<$> (x Core..:? "AllowedIPRange")
-            Prelude.<*> (x Core..:? "SecretToken")
+            Prelude.<$> (x Data..:? "AllowedIPRange")
+            Prelude.<*> (x Data..:? "SecretToken")
       )
 
 instance Prelude.Hashable WebhookAuthConfiguration where
@@ -91,12 +92,12 @@ instance Prelude.NFData WebhookAuthConfiguration where
     Prelude.rnf allowedIPRange
       `Prelude.seq` Prelude.rnf secretToken
 
-instance Core.ToJSON WebhookAuthConfiguration where
+instance Data.ToJSON WebhookAuthConfiguration where
   toJSON WebhookAuthConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AllowedIPRange" Core..=)
+          [ ("AllowedIPRange" Data..=)
               Prelude.<$> allowedIPRange,
-            ("SecretToken" Core..=) Prelude.<$> secretToken
+            ("SecretToken" Data..=) Prelude.<$> secretToken
           ]
       )

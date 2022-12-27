@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutEquipment.CreateModel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,16 +40,16 @@ module Amazonka.LookoutEquipment.CreateModel
 
     -- * Request Lenses
     createModel_dataPreProcessingConfiguration,
-    createModel_trainingDataEndTime,
     createModel_datasetSchema,
-    createModel_evaluationDataStartTime,
-    createModel_offCondition,
     createModel_evaluationDataEndTime,
-    createModel_trainingDataStartTime,
+    createModel_evaluationDataStartTime,
     createModel_labelsInputConfiguration,
-    createModel_tags,
-    createModel_serverSideKmsKeyId,
+    createModel_offCondition,
     createModel_roleArn,
+    createModel_serverSideKmsKeyId,
+    createModel_tags,
+    createModel_trainingDataEndTime,
+    createModel_trainingDataStartTime,
     createModel_modelName,
     createModel_datasetName,
     createModel_clientToken,
@@ -59,14 +59,15 @@ module Amazonka.LookoutEquipment.CreateModel
     newCreateModelResponse,
 
     -- * Response Lenses
-    createModelResponse_status,
     createModelResponse_modelArn,
+    createModelResponse_status,
     createModelResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LookoutEquipment.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -85,35 +86,35 @@ data CreateModel = CreateModel'
     -- therefore /PT1S/, the value for a 15 minute rate is /PT15M/, and the
     -- value for a 1 hour rate is /PT1H/
     dataPreProcessingConfiguration :: Prelude.Maybe DataPreProcessingConfiguration,
-    -- | Indicates the time reference in the dataset that should be used to end
-    -- the subset of training data for the ML model.
-    trainingDataEndTime :: Prelude.Maybe Core.POSIX,
     -- | The data schema for the ML model being created.
     datasetSchema :: Prelude.Maybe DatasetSchema,
+    -- | Indicates the time reference in the dataset that should be used to end
+    -- the subset of evaluation data for the ML model.
+    evaluationDataEndTime :: Prelude.Maybe Data.POSIX,
     -- | Indicates the time reference in the dataset that should be used to begin
     -- the subset of evaluation data for the ML model.
-    evaluationDataStartTime :: Prelude.Maybe Core.POSIX,
+    evaluationDataStartTime :: Prelude.Maybe Data.POSIX,
+    -- | The input configuration for the labels being used for the ML model
+    -- that\'s being created.
+    labelsInputConfiguration :: Prelude.Maybe LabelsInputConfiguration,
     -- | Indicates that the asset associated with this sensor has been shut off.
     -- As long as this condition is met, Lookout for Equipment will not use
     -- data from this asset for training, evaluation, or inference.
     offCondition :: Prelude.Maybe Prelude.Text,
-    -- | Indicates the time reference in the dataset that should be used to end
-    -- the subset of evaluation data for the ML model.
-    evaluationDataEndTime :: Prelude.Maybe Core.POSIX,
-    -- | Indicates the time reference in the dataset that should be used to begin
-    -- the subset of training data for the ML model.
-    trainingDataStartTime :: Prelude.Maybe Core.POSIX,
-    -- | The input configuration for the labels being used for the ML model
-    -- that\'s being created.
-    labelsInputConfiguration :: Prelude.Maybe LabelsInputConfiguration,
-    -- | Any tags associated with the ML model being created.
-    tags :: Prelude.Maybe [Tag],
-    -- | Provides the identifier of the KMS key used to encrypt model data by
-    -- Amazon Lookout for Equipment.
-    serverSideKmsKeyId :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of a role with permission to access the
     -- data source being used to create the ML model.
     roleArn :: Prelude.Maybe Prelude.Text,
+    -- | Provides the identifier of the KMS key used to encrypt model data by
+    -- Amazon Lookout for Equipment.
+    serverSideKmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | Any tags associated with the ML model being created.
+    tags :: Prelude.Maybe [Tag],
+    -- | Indicates the time reference in the dataset that should be used to end
+    -- the subset of training data for the ML model.
+    trainingDataEndTime :: Prelude.Maybe Data.POSIX,
+    -- | Indicates the time reference in the dataset that should be used to begin
+    -- the subset of training data for the ML model.
+    trainingDataStartTime :: Prelude.Maybe Data.POSIX,
     -- | The name for the ML model to be created.
     modelName :: Prelude.Text,
     -- | The name of the dataset for the ML model being created.
@@ -143,34 +144,34 @@ data CreateModel = CreateModel'
 -- therefore /PT1S/, the value for a 15 minute rate is /PT15M/, and the
 -- value for a 1 hour rate is /PT1H/
 --
--- 'trainingDataEndTime', 'createModel_trainingDataEndTime' - Indicates the time reference in the dataset that should be used to end
--- the subset of training data for the ML model.
---
 -- 'datasetSchema', 'createModel_datasetSchema' - The data schema for the ML model being created.
+--
+-- 'evaluationDataEndTime', 'createModel_evaluationDataEndTime' - Indicates the time reference in the dataset that should be used to end
+-- the subset of evaluation data for the ML model.
 --
 -- 'evaluationDataStartTime', 'createModel_evaluationDataStartTime' - Indicates the time reference in the dataset that should be used to begin
 -- the subset of evaluation data for the ML model.
+--
+-- 'labelsInputConfiguration', 'createModel_labelsInputConfiguration' - The input configuration for the labels being used for the ML model
+-- that\'s being created.
 --
 -- 'offCondition', 'createModel_offCondition' - Indicates that the asset associated with this sensor has been shut off.
 -- As long as this condition is met, Lookout for Equipment will not use
 -- data from this asset for training, evaluation, or inference.
 --
--- 'evaluationDataEndTime', 'createModel_evaluationDataEndTime' - Indicates the time reference in the dataset that should be used to end
--- the subset of evaluation data for the ML model.
---
--- 'trainingDataStartTime', 'createModel_trainingDataStartTime' - Indicates the time reference in the dataset that should be used to begin
--- the subset of training data for the ML model.
---
--- 'labelsInputConfiguration', 'createModel_labelsInputConfiguration' - The input configuration for the labels being used for the ML model
--- that\'s being created.
---
--- 'tags', 'createModel_tags' - Any tags associated with the ML model being created.
+-- 'roleArn', 'createModel_roleArn' - The Amazon Resource Name (ARN) of a role with permission to access the
+-- data source being used to create the ML model.
 --
 -- 'serverSideKmsKeyId', 'createModel_serverSideKmsKeyId' - Provides the identifier of the KMS key used to encrypt model data by
 -- Amazon Lookout for Equipment.
 --
--- 'roleArn', 'createModel_roleArn' - The Amazon Resource Name (ARN) of a role with permission to access the
--- data source being used to create the ML model.
+-- 'tags', 'createModel_tags' - Any tags associated with the ML model being created.
+--
+-- 'trainingDataEndTime', 'createModel_trainingDataEndTime' - Indicates the time reference in the dataset that should be used to end
+-- the subset of training data for the ML model.
+--
+-- 'trainingDataStartTime', 'createModel_trainingDataStartTime' - Indicates the time reference in the dataset that should be used to begin
+-- the subset of training data for the ML model.
 --
 -- 'modelName', 'createModel_modelName' - The name for the ML model to be created.
 --
@@ -193,16 +194,16 @@ newCreateModel
     CreateModel'
       { dataPreProcessingConfiguration =
           Prelude.Nothing,
-        trainingDataEndTime = Prelude.Nothing,
         datasetSchema = Prelude.Nothing,
-        evaluationDataStartTime = Prelude.Nothing,
-        offCondition = Prelude.Nothing,
         evaluationDataEndTime = Prelude.Nothing,
-        trainingDataStartTime = Prelude.Nothing,
+        evaluationDataStartTime = Prelude.Nothing,
         labelsInputConfiguration = Prelude.Nothing,
-        tags = Prelude.Nothing,
-        serverSideKmsKeyId = Prelude.Nothing,
+        offCondition = Prelude.Nothing,
         roleArn = Prelude.Nothing,
+        serverSideKmsKeyId = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        trainingDataEndTime = Prelude.Nothing,
+        trainingDataStartTime = Prelude.Nothing,
         modelName = pModelName_,
         datasetName = pDatasetName_,
         clientToken = pClientToken_
@@ -221,19 +222,24 @@ newCreateModel
 createModel_dataPreProcessingConfiguration :: Lens.Lens' CreateModel (Prelude.Maybe DataPreProcessingConfiguration)
 createModel_dataPreProcessingConfiguration = Lens.lens (\CreateModel' {dataPreProcessingConfiguration} -> dataPreProcessingConfiguration) (\s@CreateModel' {} a -> s {dataPreProcessingConfiguration = a} :: CreateModel)
 
--- | Indicates the time reference in the dataset that should be used to end
--- the subset of training data for the ML model.
-createModel_trainingDataEndTime :: Lens.Lens' CreateModel (Prelude.Maybe Prelude.UTCTime)
-createModel_trainingDataEndTime = Lens.lens (\CreateModel' {trainingDataEndTime} -> trainingDataEndTime) (\s@CreateModel' {} a -> s {trainingDataEndTime = a} :: CreateModel) Prelude.. Lens.mapping Core._Time
-
 -- | The data schema for the ML model being created.
 createModel_datasetSchema :: Lens.Lens' CreateModel (Prelude.Maybe DatasetSchema)
 createModel_datasetSchema = Lens.lens (\CreateModel' {datasetSchema} -> datasetSchema) (\s@CreateModel' {} a -> s {datasetSchema = a} :: CreateModel)
 
+-- | Indicates the time reference in the dataset that should be used to end
+-- the subset of evaluation data for the ML model.
+createModel_evaluationDataEndTime :: Lens.Lens' CreateModel (Prelude.Maybe Prelude.UTCTime)
+createModel_evaluationDataEndTime = Lens.lens (\CreateModel' {evaluationDataEndTime} -> evaluationDataEndTime) (\s@CreateModel' {} a -> s {evaluationDataEndTime = a} :: CreateModel) Prelude.. Lens.mapping Data._Time
+
 -- | Indicates the time reference in the dataset that should be used to begin
 -- the subset of evaluation data for the ML model.
 createModel_evaluationDataStartTime :: Lens.Lens' CreateModel (Prelude.Maybe Prelude.UTCTime)
-createModel_evaluationDataStartTime = Lens.lens (\CreateModel' {evaluationDataStartTime} -> evaluationDataStartTime) (\s@CreateModel' {} a -> s {evaluationDataStartTime = a} :: CreateModel) Prelude.. Lens.mapping Core._Time
+createModel_evaluationDataStartTime = Lens.lens (\CreateModel' {evaluationDataStartTime} -> evaluationDataStartTime) (\s@CreateModel' {} a -> s {evaluationDataStartTime = a} :: CreateModel) Prelude.. Lens.mapping Data._Time
+
+-- | The input configuration for the labels being used for the ML model
+-- that\'s being created.
+createModel_labelsInputConfiguration :: Lens.Lens' CreateModel (Prelude.Maybe LabelsInputConfiguration)
+createModel_labelsInputConfiguration = Lens.lens (\CreateModel' {labelsInputConfiguration} -> labelsInputConfiguration) (\s@CreateModel' {} a -> s {labelsInputConfiguration = a} :: CreateModel)
 
 -- | Indicates that the asset associated with this sensor has been shut off.
 -- As long as this condition is met, Lookout for Equipment will not use
@@ -241,34 +247,29 @@ createModel_evaluationDataStartTime = Lens.lens (\CreateModel' {evaluationDataSt
 createModel_offCondition :: Lens.Lens' CreateModel (Prelude.Maybe Prelude.Text)
 createModel_offCondition = Lens.lens (\CreateModel' {offCondition} -> offCondition) (\s@CreateModel' {} a -> s {offCondition = a} :: CreateModel)
 
--- | Indicates the time reference in the dataset that should be used to end
--- the subset of evaluation data for the ML model.
-createModel_evaluationDataEndTime :: Lens.Lens' CreateModel (Prelude.Maybe Prelude.UTCTime)
-createModel_evaluationDataEndTime = Lens.lens (\CreateModel' {evaluationDataEndTime} -> evaluationDataEndTime) (\s@CreateModel' {} a -> s {evaluationDataEndTime = a} :: CreateModel) Prelude.. Lens.mapping Core._Time
-
--- | Indicates the time reference in the dataset that should be used to begin
--- the subset of training data for the ML model.
-createModel_trainingDataStartTime :: Lens.Lens' CreateModel (Prelude.Maybe Prelude.UTCTime)
-createModel_trainingDataStartTime = Lens.lens (\CreateModel' {trainingDataStartTime} -> trainingDataStartTime) (\s@CreateModel' {} a -> s {trainingDataStartTime = a} :: CreateModel) Prelude.. Lens.mapping Core._Time
-
--- | The input configuration for the labels being used for the ML model
--- that\'s being created.
-createModel_labelsInputConfiguration :: Lens.Lens' CreateModel (Prelude.Maybe LabelsInputConfiguration)
-createModel_labelsInputConfiguration = Lens.lens (\CreateModel' {labelsInputConfiguration} -> labelsInputConfiguration) (\s@CreateModel' {} a -> s {labelsInputConfiguration = a} :: CreateModel)
-
--- | Any tags associated with the ML model being created.
-createModel_tags :: Lens.Lens' CreateModel (Prelude.Maybe [Tag])
-createModel_tags = Lens.lens (\CreateModel' {tags} -> tags) (\s@CreateModel' {} a -> s {tags = a} :: CreateModel) Prelude.. Lens.mapping Lens.coerced
+-- | The Amazon Resource Name (ARN) of a role with permission to access the
+-- data source being used to create the ML model.
+createModel_roleArn :: Lens.Lens' CreateModel (Prelude.Maybe Prelude.Text)
+createModel_roleArn = Lens.lens (\CreateModel' {roleArn} -> roleArn) (\s@CreateModel' {} a -> s {roleArn = a} :: CreateModel)
 
 -- | Provides the identifier of the KMS key used to encrypt model data by
 -- Amazon Lookout for Equipment.
 createModel_serverSideKmsKeyId :: Lens.Lens' CreateModel (Prelude.Maybe Prelude.Text)
 createModel_serverSideKmsKeyId = Lens.lens (\CreateModel' {serverSideKmsKeyId} -> serverSideKmsKeyId) (\s@CreateModel' {} a -> s {serverSideKmsKeyId = a} :: CreateModel)
 
--- | The Amazon Resource Name (ARN) of a role with permission to access the
--- data source being used to create the ML model.
-createModel_roleArn :: Lens.Lens' CreateModel (Prelude.Maybe Prelude.Text)
-createModel_roleArn = Lens.lens (\CreateModel' {roleArn} -> roleArn) (\s@CreateModel' {} a -> s {roleArn = a} :: CreateModel)
+-- | Any tags associated with the ML model being created.
+createModel_tags :: Lens.Lens' CreateModel (Prelude.Maybe [Tag])
+createModel_tags = Lens.lens (\CreateModel' {tags} -> tags) (\s@CreateModel' {} a -> s {tags = a} :: CreateModel) Prelude.. Lens.mapping Lens.coerced
+
+-- | Indicates the time reference in the dataset that should be used to end
+-- the subset of training data for the ML model.
+createModel_trainingDataEndTime :: Lens.Lens' CreateModel (Prelude.Maybe Prelude.UTCTime)
+createModel_trainingDataEndTime = Lens.lens (\CreateModel' {trainingDataEndTime} -> trainingDataEndTime) (\s@CreateModel' {} a -> s {trainingDataEndTime = a} :: CreateModel) Prelude.. Lens.mapping Data._Time
+
+-- | Indicates the time reference in the dataset that should be used to begin
+-- the subset of training data for the ML model.
+createModel_trainingDataStartTime :: Lens.Lens' CreateModel (Prelude.Maybe Prelude.UTCTime)
+createModel_trainingDataStartTime = Lens.lens (\CreateModel' {trainingDataStartTime} -> trainingDataStartTime) (\s@CreateModel' {} a -> s {trainingDataStartTime = a} :: CreateModel) Prelude.. Lens.mapping Data._Time
 
 -- | The name for the ML model to be created.
 createModel_modelName :: Lens.Lens' CreateModel Prelude.Text
@@ -285,13 +286,14 @@ createModel_clientToken = Lens.lens (\CreateModel' {clientToken} -> clientToken)
 
 instance Core.AWSRequest CreateModel where
   type AWSResponse CreateModel = CreateModelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateModelResponse'
-            Prelude.<$> (x Core..?> "Status")
-            Prelude.<*> (x Core..?> "ModelArn")
+            Prelude.<$> (x Data..?> "ModelArn")
+            Prelude.<*> (x Data..?> "Status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -299,16 +301,16 @@ instance Prelude.Hashable CreateModel where
   hashWithSalt _salt CreateModel' {..} =
     _salt
       `Prelude.hashWithSalt` dataPreProcessingConfiguration
-      `Prelude.hashWithSalt` trainingDataEndTime
       `Prelude.hashWithSalt` datasetSchema
-      `Prelude.hashWithSalt` evaluationDataStartTime
-      `Prelude.hashWithSalt` offCondition
       `Prelude.hashWithSalt` evaluationDataEndTime
-      `Prelude.hashWithSalt` trainingDataStartTime
+      `Prelude.hashWithSalt` evaluationDataStartTime
       `Prelude.hashWithSalt` labelsInputConfiguration
-      `Prelude.hashWithSalt` tags
-      `Prelude.hashWithSalt` serverSideKmsKeyId
+      `Prelude.hashWithSalt` offCondition
       `Prelude.hashWithSalt` roleArn
+      `Prelude.hashWithSalt` serverSideKmsKeyId
+      `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` trainingDataEndTime
+      `Prelude.hashWithSalt` trainingDataStartTime
       `Prelude.hashWithSalt` modelName
       `Prelude.hashWithSalt` datasetName
       `Prelude.hashWithSalt` clientToken
@@ -316,75 +318,75 @@ instance Prelude.Hashable CreateModel where
 instance Prelude.NFData CreateModel where
   rnf CreateModel' {..} =
     Prelude.rnf dataPreProcessingConfiguration
-      `Prelude.seq` Prelude.rnf trainingDataEndTime
       `Prelude.seq` Prelude.rnf datasetSchema
-      `Prelude.seq` Prelude.rnf evaluationDataStartTime
-      `Prelude.seq` Prelude.rnf offCondition
       `Prelude.seq` Prelude.rnf evaluationDataEndTime
-      `Prelude.seq` Prelude.rnf trainingDataStartTime
+      `Prelude.seq` Prelude.rnf evaluationDataStartTime
       `Prelude.seq` Prelude.rnf labelsInputConfiguration
-      `Prelude.seq` Prelude.rnf tags
-      `Prelude.seq` Prelude.rnf serverSideKmsKeyId
+      `Prelude.seq` Prelude.rnf offCondition
       `Prelude.seq` Prelude.rnf roleArn
+      `Prelude.seq` Prelude.rnf serverSideKmsKeyId
+      `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf trainingDataEndTime
+      `Prelude.seq` Prelude.rnf trainingDataStartTime
       `Prelude.seq` Prelude.rnf modelName
       `Prelude.seq` Prelude.rnf datasetName
       `Prelude.seq` Prelude.rnf clientToken
 
-instance Core.ToHeaders CreateModel where
+instance Data.ToHeaders CreateModel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSLookoutEquipmentFrontendService.CreateModel" ::
+              Data.=# ( "AWSLookoutEquipmentFrontendService.CreateModel" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateModel where
+instance Data.ToJSON CreateModel where
   toJSON CreateModel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DataPreProcessingConfiguration" Core..=)
+          [ ("DataPreProcessingConfiguration" Data..=)
               Prelude.<$> dataPreProcessingConfiguration,
-            ("TrainingDataEndTime" Core..=)
-              Prelude.<$> trainingDataEndTime,
-            ("DatasetSchema" Core..=) Prelude.<$> datasetSchema,
-            ("EvaluationDataStartTime" Core..=)
-              Prelude.<$> evaluationDataStartTime,
-            ("OffCondition" Core..=) Prelude.<$> offCondition,
-            ("EvaluationDataEndTime" Core..=)
+            ("DatasetSchema" Data..=) Prelude.<$> datasetSchema,
+            ("EvaluationDataEndTime" Data..=)
               Prelude.<$> evaluationDataEndTime,
-            ("TrainingDataStartTime" Core..=)
-              Prelude.<$> trainingDataStartTime,
-            ("LabelsInputConfiguration" Core..=)
+            ("EvaluationDataStartTime" Data..=)
+              Prelude.<$> evaluationDataStartTime,
+            ("LabelsInputConfiguration" Data..=)
               Prelude.<$> labelsInputConfiguration,
-            ("Tags" Core..=) Prelude.<$> tags,
-            ("ServerSideKmsKeyId" Core..=)
+            ("OffCondition" Data..=) Prelude.<$> offCondition,
+            ("RoleArn" Data..=) Prelude.<$> roleArn,
+            ("ServerSideKmsKeyId" Data..=)
               Prelude.<$> serverSideKmsKeyId,
-            ("RoleArn" Core..=) Prelude.<$> roleArn,
-            Prelude.Just ("ModelName" Core..= modelName),
-            Prelude.Just ("DatasetName" Core..= datasetName),
-            Prelude.Just ("ClientToken" Core..= clientToken)
+            ("Tags" Data..=) Prelude.<$> tags,
+            ("TrainingDataEndTime" Data..=)
+              Prelude.<$> trainingDataEndTime,
+            ("TrainingDataStartTime" Data..=)
+              Prelude.<$> trainingDataStartTime,
+            Prelude.Just ("ModelName" Data..= modelName),
+            Prelude.Just ("DatasetName" Data..= datasetName),
+            Prelude.Just ("ClientToken" Data..= clientToken)
           ]
       )
 
-instance Core.ToPath CreateModel where
+instance Data.ToPath CreateModel where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateModel where
+instance Data.ToQuery CreateModel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateModelResponse' smart constructor.
 data CreateModelResponse = CreateModelResponse'
-  { -- | Indicates the status of the @CreateModel@ operation.
-    status :: Prelude.Maybe ModelStatus,
-    -- | The Amazon Resource Name (ARN) of the model being created.
+  { -- | The Amazon Resource Name (ARN) of the model being created.
     modelArn :: Prelude.Maybe Prelude.Text,
+    -- | Indicates the status of the @CreateModel@ operation.
+    status :: Prelude.Maybe ModelStatus,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -398,9 +400,9 @@ data CreateModelResponse = CreateModelResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'createModelResponse_status' - Indicates the status of the @CreateModel@ operation.
---
 -- 'modelArn', 'createModelResponse_modelArn' - The Amazon Resource Name (ARN) of the model being created.
+--
+-- 'status', 'createModelResponse_status' - Indicates the status of the @CreateModel@ operation.
 --
 -- 'httpStatus', 'createModelResponse_httpStatus' - The response's http status code.
 newCreateModelResponse ::
@@ -409,18 +411,18 @@ newCreateModelResponse ::
   CreateModelResponse
 newCreateModelResponse pHttpStatus_ =
   CreateModelResponse'
-    { status = Prelude.Nothing,
-      modelArn = Prelude.Nothing,
+    { modelArn = Prelude.Nothing,
+      status = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Indicates the status of the @CreateModel@ operation.
-createModelResponse_status :: Lens.Lens' CreateModelResponse (Prelude.Maybe ModelStatus)
-createModelResponse_status = Lens.lens (\CreateModelResponse' {status} -> status) (\s@CreateModelResponse' {} a -> s {status = a} :: CreateModelResponse)
 
 -- | The Amazon Resource Name (ARN) of the model being created.
 createModelResponse_modelArn :: Lens.Lens' CreateModelResponse (Prelude.Maybe Prelude.Text)
 createModelResponse_modelArn = Lens.lens (\CreateModelResponse' {modelArn} -> modelArn) (\s@CreateModelResponse' {} a -> s {modelArn = a} :: CreateModelResponse)
+
+-- | Indicates the status of the @CreateModel@ operation.
+createModelResponse_status :: Lens.Lens' CreateModelResponse (Prelude.Maybe ModelStatus)
+createModelResponse_status = Lens.lens (\CreateModelResponse' {status} -> status) (\s@CreateModelResponse' {} a -> s {status = a} :: CreateModelResponse)
 
 -- | The response's http status code.
 createModelResponse_httpStatus :: Lens.Lens' CreateModelResponse Prelude.Int
@@ -428,6 +430,6 @@ createModelResponse_httpStatus = Lens.lens (\CreateModelResponse' {httpStatus} -
 
 instance Prelude.NFData CreateModelResponse where
   rnf CreateModelResponse' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf modelArn
+    Prelude.rnf modelArn
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf httpStatus

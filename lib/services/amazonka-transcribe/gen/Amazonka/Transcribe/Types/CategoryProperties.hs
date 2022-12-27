@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Transcribe.Types.CategoryProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,24 +20,42 @@
 module Amazonka.Transcribe.Types.CategoryProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
+import Amazonka.Transcribe.Types.InputType
 import Amazonka.Transcribe.Types.Rule
 
--- | An object that contains the rules and additional information about a
--- call analytics category.
+-- | Provides you with the properties of the Call Analytics category you
+-- specified in your request. This includes the list of rules that define
+-- the specified category.
 --
 -- /See:/ 'newCategoryProperties' smart constructor.
 data CategoryProperties = CategoryProperties'
-  { -- | The rules used to create a call analytics category.
-    rules :: Prelude.Maybe (Prelude.NonEmpty Rule),
-    -- | The name of the call analytics category.
+  { -- | The name of the Call Analytics category. Category names are case
+    -- sensitive and must be unique within an Amazon Web Services account.
     categoryName :: Prelude.Maybe Prelude.Text,
-    -- | A timestamp that shows when the call analytics category was most
-    -- recently updated.
-    lastUpdateTime :: Prelude.Maybe Core.POSIX,
-    -- | A timestamp that shows when the call analytics category was created.
-    createTime :: Prelude.Maybe Core.POSIX
+    -- | The date and time the specified Call Analytics category was created.
+    --
+    -- Timestamps are in the format @YYYY-MM-DD\'T\'HH:MM:SS.SSSSSS-UTC@. For
+    -- example, @2022-05-04T12:32:58.761000-07:00@ represents 12:32 PM UTC-7 on
+    -- May 4, 2022.
+    createTime :: Prelude.Maybe Data.POSIX,
+    -- | The input type associated with the specified category. @POST_CALL@
+    -- refers to a category that is applied to batch transcriptions;
+    -- @REAL_TIME@ refers to a category that is applied to streaming
+    -- transcriptions.
+    inputType :: Prelude.Maybe InputType,
+    -- | The date and time the specified Call Analytics category was last
+    -- updated.
+    --
+    -- Timestamps are in the format @YYYY-MM-DD\'T\'HH:MM:SS.SSSSSS-UTC@. For
+    -- example, @2022-05-05T12:45:32.691000-07:00@ represents 12:45 PM UTC-7 on
+    -- May 5, 2022.
+    lastUpdateTime :: Prelude.Maybe Data.POSIX,
+    -- | The rules used to define a Call Analytics category. Each category can
+    -- have between 1 and 20 rules.
+    rules :: Prelude.Maybe (Prelude.NonEmpty Rule)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -49,63 +67,99 @@ data CategoryProperties = CategoryProperties'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'rules', 'categoryProperties_rules' - The rules used to create a call analytics category.
+-- 'categoryName', 'categoryProperties_categoryName' - The name of the Call Analytics category. Category names are case
+-- sensitive and must be unique within an Amazon Web Services account.
 --
--- 'categoryName', 'categoryProperties_categoryName' - The name of the call analytics category.
+-- 'createTime', 'categoryProperties_createTime' - The date and time the specified Call Analytics category was created.
 --
--- 'lastUpdateTime', 'categoryProperties_lastUpdateTime' - A timestamp that shows when the call analytics category was most
--- recently updated.
+-- Timestamps are in the format @YYYY-MM-DD\'T\'HH:MM:SS.SSSSSS-UTC@. For
+-- example, @2022-05-04T12:32:58.761000-07:00@ represents 12:32 PM UTC-7 on
+-- May 4, 2022.
 --
--- 'createTime', 'categoryProperties_createTime' - A timestamp that shows when the call analytics category was created.
+-- 'inputType', 'categoryProperties_inputType' - The input type associated with the specified category. @POST_CALL@
+-- refers to a category that is applied to batch transcriptions;
+-- @REAL_TIME@ refers to a category that is applied to streaming
+-- transcriptions.
+--
+-- 'lastUpdateTime', 'categoryProperties_lastUpdateTime' - The date and time the specified Call Analytics category was last
+-- updated.
+--
+-- Timestamps are in the format @YYYY-MM-DD\'T\'HH:MM:SS.SSSSSS-UTC@. For
+-- example, @2022-05-05T12:45:32.691000-07:00@ represents 12:45 PM UTC-7 on
+-- May 5, 2022.
+--
+-- 'rules', 'categoryProperties_rules' - The rules used to define a Call Analytics category. Each category can
+-- have between 1 and 20 rules.
 newCategoryProperties ::
   CategoryProperties
 newCategoryProperties =
   CategoryProperties'
-    { rules = Prelude.Nothing,
-      categoryName = Prelude.Nothing,
+    { categoryName = Prelude.Nothing,
+      createTime = Prelude.Nothing,
+      inputType = Prelude.Nothing,
       lastUpdateTime = Prelude.Nothing,
-      createTime = Prelude.Nothing
+      rules = Prelude.Nothing
     }
 
--- | The rules used to create a call analytics category.
-categoryProperties_rules :: Lens.Lens' CategoryProperties (Prelude.Maybe (Prelude.NonEmpty Rule))
-categoryProperties_rules = Lens.lens (\CategoryProperties' {rules} -> rules) (\s@CategoryProperties' {} a -> s {rules = a} :: CategoryProperties) Prelude.. Lens.mapping Lens.coerced
-
--- | The name of the call analytics category.
+-- | The name of the Call Analytics category. Category names are case
+-- sensitive and must be unique within an Amazon Web Services account.
 categoryProperties_categoryName :: Lens.Lens' CategoryProperties (Prelude.Maybe Prelude.Text)
 categoryProperties_categoryName = Lens.lens (\CategoryProperties' {categoryName} -> categoryName) (\s@CategoryProperties' {} a -> s {categoryName = a} :: CategoryProperties)
 
--- | A timestamp that shows when the call analytics category was most
--- recently updated.
-categoryProperties_lastUpdateTime :: Lens.Lens' CategoryProperties (Prelude.Maybe Prelude.UTCTime)
-categoryProperties_lastUpdateTime = Lens.lens (\CategoryProperties' {lastUpdateTime} -> lastUpdateTime) (\s@CategoryProperties' {} a -> s {lastUpdateTime = a} :: CategoryProperties) Prelude.. Lens.mapping Core._Time
-
--- | A timestamp that shows when the call analytics category was created.
+-- | The date and time the specified Call Analytics category was created.
+--
+-- Timestamps are in the format @YYYY-MM-DD\'T\'HH:MM:SS.SSSSSS-UTC@. For
+-- example, @2022-05-04T12:32:58.761000-07:00@ represents 12:32 PM UTC-7 on
+-- May 4, 2022.
 categoryProperties_createTime :: Lens.Lens' CategoryProperties (Prelude.Maybe Prelude.UTCTime)
-categoryProperties_createTime = Lens.lens (\CategoryProperties' {createTime} -> createTime) (\s@CategoryProperties' {} a -> s {createTime = a} :: CategoryProperties) Prelude.. Lens.mapping Core._Time
+categoryProperties_createTime = Lens.lens (\CategoryProperties' {createTime} -> createTime) (\s@CategoryProperties' {} a -> s {createTime = a} :: CategoryProperties) Prelude.. Lens.mapping Data._Time
 
-instance Core.FromJSON CategoryProperties where
+-- | The input type associated with the specified category. @POST_CALL@
+-- refers to a category that is applied to batch transcriptions;
+-- @REAL_TIME@ refers to a category that is applied to streaming
+-- transcriptions.
+categoryProperties_inputType :: Lens.Lens' CategoryProperties (Prelude.Maybe InputType)
+categoryProperties_inputType = Lens.lens (\CategoryProperties' {inputType} -> inputType) (\s@CategoryProperties' {} a -> s {inputType = a} :: CategoryProperties)
+
+-- | The date and time the specified Call Analytics category was last
+-- updated.
+--
+-- Timestamps are in the format @YYYY-MM-DD\'T\'HH:MM:SS.SSSSSS-UTC@. For
+-- example, @2022-05-05T12:45:32.691000-07:00@ represents 12:45 PM UTC-7 on
+-- May 5, 2022.
+categoryProperties_lastUpdateTime :: Lens.Lens' CategoryProperties (Prelude.Maybe Prelude.UTCTime)
+categoryProperties_lastUpdateTime = Lens.lens (\CategoryProperties' {lastUpdateTime} -> lastUpdateTime) (\s@CategoryProperties' {} a -> s {lastUpdateTime = a} :: CategoryProperties) Prelude.. Lens.mapping Data._Time
+
+-- | The rules used to define a Call Analytics category. Each category can
+-- have between 1 and 20 rules.
+categoryProperties_rules :: Lens.Lens' CategoryProperties (Prelude.Maybe (Prelude.NonEmpty Rule))
+categoryProperties_rules = Lens.lens (\CategoryProperties' {rules} -> rules) (\s@CategoryProperties' {} a -> s {rules = a} :: CategoryProperties) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON CategoryProperties where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CategoryProperties"
       ( \x ->
           CategoryProperties'
-            Prelude.<$> (x Core..:? "Rules")
-            Prelude.<*> (x Core..:? "CategoryName")
-            Prelude.<*> (x Core..:? "LastUpdateTime")
-            Prelude.<*> (x Core..:? "CreateTime")
+            Prelude.<$> (x Data..:? "CategoryName")
+            Prelude.<*> (x Data..:? "CreateTime")
+            Prelude.<*> (x Data..:? "InputType")
+            Prelude.<*> (x Data..:? "LastUpdateTime")
+            Prelude.<*> (x Data..:? "Rules")
       )
 
 instance Prelude.Hashable CategoryProperties where
   hashWithSalt _salt CategoryProperties' {..} =
-    _salt `Prelude.hashWithSalt` rules
-      `Prelude.hashWithSalt` categoryName
-      `Prelude.hashWithSalt` lastUpdateTime
+    _salt `Prelude.hashWithSalt` categoryName
       `Prelude.hashWithSalt` createTime
+      `Prelude.hashWithSalt` inputType
+      `Prelude.hashWithSalt` lastUpdateTime
+      `Prelude.hashWithSalt` rules
 
 instance Prelude.NFData CategoryProperties where
   rnf CategoryProperties' {..} =
-    Prelude.rnf rules
-      `Prelude.seq` Prelude.rnf categoryName
-      `Prelude.seq` Prelude.rnf lastUpdateTime
+    Prelude.rnf categoryName
       `Prelude.seq` Prelude.rnf createTime
+      `Prelude.seq` Prelude.rnf inputType
+      `Prelude.seq` Prelude.rnf lastUpdateTime
+      `Prelude.seq` Prelude.rnf rules

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.Types.ConnectionOAuthClientResponseParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudWatchEvents.Types.ConnectionOAuthClientResponseParameters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the client response parameters for the connection when OAuth is
@@ -55,15 +56,15 @@ connectionOAuthClientResponseParameters_clientID :: Lens.Lens' ConnectionOAuthCl
 connectionOAuthClientResponseParameters_clientID = Lens.lens (\ConnectionOAuthClientResponseParameters' {clientID} -> clientID) (\s@ConnectionOAuthClientResponseParameters' {} a -> s {clientID = a} :: ConnectionOAuthClientResponseParameters)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ConnectionOAuthClientResponseParameters
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ConnectionOAuthClientResponseParameters"
       ( \x ->
           ConnectionOAuthClientResponseParameters'
-            Prelude.<$> (x Core..:? "ClientID")
+            Prelude.<$> (x Data..:? "ClientID")
       )
 
 instance

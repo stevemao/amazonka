@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -71,6 +71,7 @@ library
     Amazonka.MediaPackageVOD.Types.DashPackage
     Amazonka.MediaPackageVOD.Types.EgressAccessLogs
     Amazonka.MediaPackageVOD.Types.EgressEndpoint
+    Amazonka.MediaPackageVOD.Types.EncryptionContractConfiguration
     Amazonka.MediaPackageVOD.Types.EncryptionMethod
     Amazonka.MediaPackageVOD.Types.HlsEncryption
     Amazonka.MediaPackageVOD.Types.HlsManifest
@@ -82,7 +83,10 @@ library
     Amazonka.MediaPackageVOD.Types.PackagingConfiguration
     Amazonka.MediaPackageVOD.Types.PackagingGroup
     Amazonka.MediaPackageVOD.Types.PeriodTriggersElement
+    Amazonka.MediaPackageVOD.Types.PresetSpeke20Audio
+    Amazonka.MediaPackageVOD.Types.PresetSpeke20Video
     Amazonka.MediaPackageVOD.Types.Profile
+    Amazonka.MediaPackageVOD.Types.ScteMarkersSource
     Amazonka.MediaPackageVOD.Types.SegmentTemplateFormat
     Amazonka.MediaPackageVOD.Types.SpekeKeyProvider
     Amazonka.MediaPackageVOD.Types.StreamOrder
@@ -92,7 +96,7 @@ library
     Amazonka.MediaPackageVOD.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-mediapackage-vod-test
@@ -111,9 +115,9 @@ test-suite amazonka-mediapackage-vod-test
     Test.Amazonka.MediaPackageVOD.Internal
 
   build-depends:
-    , amazonka-core              ^>=2.0
+    , amazonka-core              >=2.0 && <2.1
     , amazonka-mediapackage-vod
-    , amazonka-test              ^>=2.0
+    , amazonka-test              >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

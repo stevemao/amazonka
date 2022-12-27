@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.DeleteGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -87,7 +88,8 @@ deleteGroup_userPoolId = Lens.lens (\DeleteGroup' {userPoolId} -> userPoolId) (\
 
 instance Core.AWSRequest DeleteGroup where
   type AWSResponse DeleteGroup = DeleteGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull DeleteGroupResponse'
 
 instance Prelude.Hashable DeleteGroup where
@@ -100,34 +102,34 @@ instance Prelude.NFData DeleteGroup where
     Prelude.rnf groupName
       `Prelude.seq` Prelude.rnf userPoolId
 
-instance Core.ToHeaders DeleteGroup where
+instance Data.ToHeaders DeleteGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.DeleteGroup" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.DeleteGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteGroup where
+instance Data.ToJSON DeleteGroup where
   toJSON DeleteGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("GroupName" Core..= groupName),
-            Prelude.Just ("UserPoolId" Core..= userPoolId)
+          [ Prelude.Just ("GroupName" Data..= groupName),
+            Prelude.Just ("UserPoolId" Data..= userPoolId)
           ]
       )
 
-instance Core.ToPath DeleteGroup where
+instance Data.ToPath DeleteGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteGroup where
+instance Data.ToQuery DeleteGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteGroupResponse' smart constructor.

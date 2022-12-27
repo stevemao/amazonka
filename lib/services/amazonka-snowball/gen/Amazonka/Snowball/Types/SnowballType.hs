@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Snowball.Types.SnowballType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,17 +26,19 @@ module Amazonka.Snowball.Types.SnowballType
         SnowballType_EDGE_S,
         SnowballType_SNC1_HDD,
         SnowballType_SNC1_SSD,
-        SnowballType_STANDARD
+        SnowballType_STANDARD,
+        SnowballType_V3_5C
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype SnowballType = SnowballType'
   { fromSnowballType ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -48,18 +50,18 @@ newtype SnowballType = SnowballType'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern SnowballType_EDGE :: SnowballType
@@ -83,6 +85,9 @@ pattern SnowballType_SNC1_SSD = SnowballType' "SNC1_SSD"
 pattern SnowballType_STANDARD :: SnowballType
 pattern SnowballType_STANDARD = SnowballType' "STANDARD"
 
+pattern SnowballType_V3_5C :: SnowballType
+pattern SnowballType_V3_5C = SnowballType' "V3_5C"
+
 {-# COMPLETE
   SnowballType_EDGE,
   SnowballType_EDGE_C,
@@ -91,5 +96,6 @@ pattern SnowballType_STANDARD = SnowballType' "STANDARD"
   SnowballType_SNC1_HDD,
   SnowballType_SNC1_SSD,
   SnowballType_STANDARD,
+  SnowballType_V3_5C,
   SnowballType'
   #-}

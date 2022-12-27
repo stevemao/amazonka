@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.DeleteSuppressedDestination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.SESV2.DeleteSuppressedDestination
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,7 +86,8 @@ instance Core.AWSRequest DeleteSuppressedDestination where
   type
     AWSResponse DeleteSuppressedDestination =
       DeleteSuppressedDestinationResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -101,25 +103,25 @@ instance Prelude.NFData DeleteSuppressedDestination where
   rnf DeleteSuppressedDestination' {..} =
     Prelude.rnf emailAddress
 
-instance Core.ToHeaders DeleteSuppressedDestination where
+instance Data.ToHeaders DeleteSuppressedDestination where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteSuppressedDestination where
+instance Data.ToPath DeleteSuppressedDestination where
   toPath DeleteSuppressedDestination' {..} =
     Prelude.mconcat
       [ "/v2/email/suppression/addresses/",
-        Core.toBS emailAddress
+        Data.toBS emailAddress
       ]
 
-instance Core.ToQuery DeleteSuppressedDestination where
+instance Data.ToQuery DeleteSuppressedDestination where
   toQuery = Prelude.const Prelude.mempty
 
 -- | An HTTP 200 response if the request succeeds, or an error message if the

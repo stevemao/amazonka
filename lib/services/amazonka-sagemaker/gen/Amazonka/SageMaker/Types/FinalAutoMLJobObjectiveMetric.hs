@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.FinalAutoMLJobObjectiveMetric
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.FinalAutoMLJobObjectiveMetric where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.AutoMLJobObjectiveType
 import Amazonka.SageMaker.Types.AutoMLMetricEnum
@@ -80,15 +81,15 @@ finalAutoMLJobObjectiveMetric_metricName = Lens.lens (\FinalAutoMLJobObjectiveMe
 finalAutoMLJobObjectiveMetric_value :: Lens.Lens' FinalAutoMLJobObjectiveMetric Prelude.Double
 finalAutoMLJobObjectiveMetric_value = Lens.lens (\FinalAutoMLJobObjectiveMetric' {value} -> value) (\s@FinalAutoMLJobObjectiveMetric' {} a -> s {value = a} :: FinalAutoMLJobObjectiveMetric)
 
-instance Core.FromJSON FinalAutoMLJobObjectiveMetric where
+instance Data.FromJSON FinalAutoMLJobObjectiveMetric where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FinalAutoMLJobObjectiveMetric"
       ( \x ->
           FinalAutoMLJobObjectiveMetric'
-            Prelude.<$> (x Core..:? "Type")
-            Prelude.<*> (x Core..: "MetricName")
-            Prelude.<*> (x Core..: "Value")
+            Prelude.<$> (x Data..:? "Type")
+            Prelude.<*> (x Data..: "MetricName")
+            Prelude.<*> (x Data..: "Value")
       )
 
 instance

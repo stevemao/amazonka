@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT1ClickProjects.Types.ProjectDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoT1ClickProjects.Types.ProjectDescription where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT1ClickProjects.Types.PlacementTemplate
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object providing detailed information for a particular project
@@ -31,21 +32,21 @@ import qualified Amazonka.Prelude as Prelude
 data ProjectDescription = ProjectDescription'
   { -- | The ARN of the project.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | An object describing the project\'s placement specifications.
-    placementTemplate :: Prelude.Maybe PlacementTemplate,
     -- | The description of the project.
     description :: Prelude.Maybe Prelude.Text,
+    -- | An object describing the project\'s placement specifications.
+    placementTemplate :: Prelude.Maybe PlacementTemplate,
     -- | The tags (metadata key\/value pairs) associated with the project.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The name of the project for which to obtain information from.
     projectName :: Prelude.Text,
     -- | The date when the project was originally created, in UNIX epoch time
     -- format.
-    createdDate :: Core.POSIX,
+    createdDate :: Data.POSIX,
     -- | The date when the project was last updated, in UNIX epoch time format.
     -- If the project was not updated, then @createdDate@ and @updatedDate@ are
     -- the same.
-    updatedDate :: Core.POSIX
+    updatedDate :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -59,9 +60,9 @@ data ProjectDescription = ProjectDescription'
 --
 -- 'arn', 'projectDescription_arn' - The ARN of the project.
 --
--- 'placementTemplate', 'projectDescription_placementTemplate' - An object describing the project\'s placement specifications.
---
 -- 'description', 'projectDescription_description' - The description of the project.
+--
+-- 'placementTemplate', 'projectDescription_placementTemplate' - An object describing the project\'s placement specifications.
 --
 -- 'tags', 'projectDescription_tags' - The tags (metadata key\/value pairs) associated with the project.
 --
@@ -87,25 +88,25 @@ newProjectDescription
   pUpdatedDate_ =
     ProjectDescription'
       { arn = Prelude.Nothing,
-        placementTemplate = Prelude.Nothing,
         description = Prelude.Nothing,
+        placementTemplate = Prelude.Nothing,
         tags = Prelude.Nothing,
         projectName = pProjectName_,
-        createdDate = Core._Time Lens.# pCreatedDate_,
-        updatedDate = Core._Time Lens.# pUpdatedDate_
+        createdDate = Data._Time Lens.# pCreatedDate_,
+        updatedDate = Data._Time Lens.# pUpdatedDate_
       }
 
 -- | The ARN of the project.
 projectDescription_arn :: Lens.Lens' ProjectDescription (Prelude.Maybe Prelude.Text)
 projectDescription_arn = Lens.lens (\ProjectDescription' {arn} -> arn) (\s@ProjectDescription' {} a -> s {arn = a} :: ProjectDescription)
 
--- | An object describing the project\'s placement specifications.
-projectDescription_placementTemplate :: Lens.Lens' ProjectDescription (Prelude.Maybe PlacementTemplate)
-projectDescription_placementTemplate = Lens.lens (\ProjectDescription' {placementTemplate} -> placementTemplate) (\s@ProjectDescription' {} a -> s {placementTemplate = a} :: ProjectDescription)
-
 -- | The description of the project.
 projectDescription_description :: Lens.Lens' ProjectDescription (Prelude.Maybe Prelude.Text)
 projectDescription_description = Lens.lens (\ProjectDescription' {description} -> description) (\s@ProjectDescription' {} a -> s {description = a} :: ProjectDescription)
+
+-- | An object describing the project\'s placement specifications.
+projectDescription_placementTemplate :: Lens.Lens' ProjectDescription (Prelude.Maybe PlacementTemplate)
+projectDescription_placementTemplate = Lens.lens (\ProjectDescription' {placementTemplate} -> placementTemplate) (\s@ProjectDescription' {} a -> s {placementTemplate = a} :: ProjectDescription)
 
 -- | The tags (metadata key\/value pairs) associated with the project.
 projectDescription_tags :: Lens.Lens' ProjectDescription (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -118,34 +119,34 @@ projectDescription_projectName = Lens.lens (\ProjectDescription' {projectName} -
 -- | The date when the project was originally created, in UNIX epoch time
 -- format.
 projectDescription_createdDate :: Lens.Lens' ProjectDescription Prelude.UTCTime
-projectDescription_createdDate = Lens.lens (\ProjectDescription' {createdDate} -> createdDate) (\s@ProjectDescription' {} a -> s {createdDate = a} :: ProjectDescription) Prelude.. Core._Time
+projectDescription_createdDate = Lens.lens (\ProjectDescription' {createdDate} -> createdDate) (\s@ProjectDescription' {} a -> s {createdDate = a} :: ProjectDescription) Prelude.. Data._Time
 
 -- | The date when the project was last updated, in UNIX epoch time format.
 -- If the project was not updated, then @createdDate@ and @updatedDate@ are
 -- the same.
 projectDescription_updatedDate :: Lens.Lens' ProjectDescription Prelude.UTCTime
-projectDescription_updatedDate = Lens.lens (\ProjectDescription' {updatedDate} -> updatedDate) (\s@ProjectDescription' {} a -> s {updatedDate = a} :: ProjectDescription) Prelude.. Core._Time
+projectDescription_updatedDate = Lens.lens (\ProjectDescription' {updatedDate} -> updatedDate) (\s@ProjectDescription' {} a -> s {updatedDate = a} :: ProjectDescription) Prelude.. Data._Time
 
-instance Core.FromJSON ProjectDescription where
+instance Data.FromJSON ProjectDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ProjectDescription"
       ( \x ->
           ProjectDescription'
-            Prelude.<$> (x Core..:? "arn")
-            Prelude.<*> (x Core..:? "placementTemplate")
-            Prelude.<*> (x Core..:? "description")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "projectName")
-            Prelude.<*> (x Core..: "createdDate")
-            Prelude.<*> (x Core..: "updatedDate")
+            Prelude.<$> (x Data..:? "arn")
+            Prelude.<*> (x Data..:? "description")
+            Prelude.<*> (x Data..:? "placementTemplate")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "projectName")
+            Prelude.<*> (x Data..: "createdDate")
+            Prelude.<*> (x Data..: "updatedDate")
       )
 
 instance Prelude.Hashable ProjectDescription where
   hashWithSalt _salt ProjectDescription' {..} =
     _salt `Prelude.hashWithSalt` arn
-      `Prelude.hashWithSalt` placementTemplate
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` placementTemplate
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` projectName
       `Prelude.hashWithSalt` createdDate
@@ -154,8 +155,8 @@ instance Prelude.Hashable ProjectDescription where
 instance Prelude.NFData ProjectDescription where
   rnf ProjectDescription' {..} =
     Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf placementTemplate
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf placementTemplate
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf projectName
       `Prelude.seq` Prelude.rnf createdDate

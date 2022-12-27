@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MemoryDb.ResetParameterGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.MemoryDb.ResetParameterGroup
     newResetParameterGroup,
 
     -- * Request Lenses
-    resetParameterGroup_parameterNames,
     resetParameterGroup_allParameters,
+    resetParameterGroup_parameterNames,
     resetParameterGroup_parameterGroupName,
 
     -- * Destructuring the Response
@@ -45,7 +45,8 @@ module Amazonka.MemoryDb.ResetParameterGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MemoryDb.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -53,14 +54,14 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newResetParameterGroup' smart constructor.
 data ResetParameterGroup = ResetParameterGroup'
-  { -- | An array of parameter names to reset to their default values. If
-    -- AllParameters is true, do not use ParameterNames. If AllParameters is
-    -- false, you must specify the name of at least one parameter to reset.
-    parameterNames :: Prelude.Maybe [Prelude.Text],
-    -- | If true, all parameters in the parameter group are reset to their
+  { -- | If true, all parameters in the parameter group are reset to their
     -- default values. If false, only the parameters listed by ParameterNames
     -- are reset to their default values.
     allParameters :: Prelude.Maybe Prelude.Bool,
+    -- | An array of parameter names to reset to their default values. If
+    -- AllParameters is true, do not use ParameterNames. If AllParameters is
+    -- false, you must specify the name of at least one parameter to reset.
+    parameterNames :: Prelude.Maybe [Prelude.Text],
     -- | The name of the parameter group to reset.
     parameterGroupName :: Prelude.Text
   }
@@ -74,13 +75,13 @@ data ResetParameterGroup = ResetParameterGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'parameterNames', 'resetParameterGroup_parameterNames' - An array of parameter names to reset to their default values. If
--- AllParameters is true, do not use ParameterNames. If AllParameters is
--- false, you must specify the name of at least one parameter to reset.
---
 -- 'allParameters', 'resetParameterGroup_allParameters' - If true, all parameters in the parameter group are reset to their
 -- default values. If false, only the parameters listed by ParameterNames
 -- are reset to their default values.
+--
+-- 'parameterNames', 'resetParameterGroup_parameterNames' - An array of parameter names to reset to their default values. If
+-- AllParameters is true, do not use ParameterNames. If AllParameters is
+-- false, you must specify the name of at least one parameter to reset.
 --
 -- 'parameterGroupName', 'resetParameterGroup_parameterGroupName' - The name of the parameter group to reset.
 newResetParameterGroup ::
@@ -89,23 +90,23 @@ newResetParameterGroup ::
   ResetParameterGroup
 newResetParameterGroup pParameterGroupName_ =
   ResetParameterGroup'
-    { parameterNames =
+    { allParameters =
         Prelude.Nothing,
-      allParameters = Prelude.Nothing,
+      parameterNames = Prelude.Nothing,
       parameterGroupName = pParameterGroupName_
     }
-
--- | An array of parameter names to reset to their default values. If
--- AllParameters is true, do not use ParameterNames. If AllParameters is
--- false, you must specify the name of at least one parameter to reset.
-resetParameterGroup_parameterNames :: Lens.Lens' ResetParameterGroup (Prelude.Maybe [Prelude.Text])
-resetParameterGroup_parameterNames = Lens.lens (\ResetParameterGroup' {parameterNames} -> parameterNames) (\s@ResetParameterGroup' {} a -> s {parameterNames = a} :: ResetParameterGroup) Prelude.. Lens.mapping Lens.coerced
 
 -- | If true, all parameters in the parameter group are reset to their
 -- default values. If false, only the parameters listed by ParameterNames
 -- are reset to their default values.
 resetParameterGroup_allParameters :: Lens.Lens' ResetParameterGroup (Prelude.Maybe Prelude.Bool)
 resetParameterGroup_allParameters = Lens.lens (\ResetParameterGroup' {allParameters} -> allParameters) (\s@ResetParameterGroup' {} a -> s {allParameters = a} :: ResetParameterGroup)
+
+-- | An array of parameter names to reset to their default values. If
+-- AllParameters is true, do not use ParameterNames. If AllParameters is
+-- false, you must specify the name of at least one parameter to reset.
+resetParameterGroup_parameterNames :: Lens.Lens' ResetParameterGroup (Prelude.Maybe [Prelude.Text])
+resetParameterGroup_parameterNames = Lens.lens (\ResetParameterGroup' {parameterNames} -> parameterNames) (\s@ResetParameterGroup' {} a -> s {parameterNames = a} :: ResetParameterGroup) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the parameter group to reset.
 resetParameterGroup_parameterGroupName :: Lens.Lens' ResetParameterGroup Prelude.Text
@@ -115,58 +116,59 @@ instance Core.AWSRequest ResetParameterGroup where
   type
     AWSResponse ResetParameterGroup =
       ResetParameterGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ResetParameterGroupResponse'
-            Prelude.<$> (x Core..?> "ParameterGroup")
+            Prelude.<$> (x Data..?> "ParameterGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ResetParameterGroup where
   hashWithSalt _salt ResetParameterGroup' {..} =
-    _salt `Prelude.hashWithSalt` parameterNames
-      `Prelude.hashWithSalt` allParameters
+    _salt `Prelude.hashWithSalt` allParameters
+      `Prelude.hashWithSalt` parameterNames
       `Prelude.hashWithSalt` parameterGroupName
 
 instance Prelude.NFData ResetParameterGroup where
   rnf ResetParameterGroup' {..} =
-    Prelude.rnf parameterNames
-      `Prelude.seq` Prelude.rnf allParameters
+    Prelude.rnf allParameters
+      `Prelude.seq` Prelude.rnf parameterNames
       `Prelude.seq` Prelude.rnf parameterGroupName
 
-instance Core.ToHeaders ResetParameterGroup where
+instance Data.ToHeaders ResetParameterGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonMemoryDB.ResetParameterGroup" ::
+              Data.=# ( "AmazonMemoryDB.ResetParameterGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ResetParameterGroup where
+instance Data.ToJSON ResetParameterGroup where
   toJSON ResetParameterGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ParameterNames" Core..=)
+          [ ("AllParameters" Data..=) Prelude.<$> allParameters,
+            ("ParameterNames" Data..=)
               Prelude.<$> parameterNames,
-            ("AllParameters" Core..=) Prelude.<$> allParameters,
             Prelude.Just
-              ("ParameterGroupName" Core..= parameterGroupName)
+              ("ParameterGroupName" Data..= parameterGroupName)
           ]
       )
 
-instance Core.ToPath ResetParameterGroup where
+instance Data.ToPath ResetParameterGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ResetParameterGroup where
+instance Data.ToQuery ResetParameterGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newResetParameterGroupResponse' smart constructor.

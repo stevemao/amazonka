@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.DeleteConfigurationTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.ElasticBeanstalk.DeleteConfigurationTemplate
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticBeanstalk.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,7 +98,8 @@ instance Core.AWSRequest DeleteConfigurationTemplate where
   type
     AWSResponse DeleteConfigurationTemplate =
       DeleteConfigurationTemplateResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       DeleteConfigurationTemplateResponse'
@@ -112,23 +114,23 @@ instance Prelude.NFData DeleteConfigurationTemplate where
     Prelude.rnf applicationName
       `Prelude.seq` Prelude.rnf templateName
 
-instance Core.ToHeaders DeleteConfigurationTemplate where
+instance Data.ToHeaders DeleteConfigurationTemplate where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteConfigurationTemplate where
+instance Data.ToPath DeleteConfigurationTemplate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteConfigurationTemplate where
+instance Data.ToQuery DeleteConfigurationTemplate where
   toQuery DeleteConfigurationTemplate' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DeleteConfigurationTemplate" ::
+          Data.=: ( "DeleteConfigurationTemplate" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "ApplicationName" Core.=: applicationName,
-        "TemplateName" Core.=: templateName
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "ApplicationName" Data.=: applicationName,
+        "TemplateName" Data.=: templateName
       ]
 
 -- | /See:/ 'newDeleteConfigurationTemplateResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.DeleteModelVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,8 +48,9 @@ module Amazonka.FraudDetector.DeleteModelVersion
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -112,7 +113,8 @@ instance Core.AWSRequest DeleteModelVersion where
   type
     AWSResponse DeleteModelVersion =
       DeleteModelVersionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -132,36 +134,36 @@ instance Prelude.NFData DeleteModelVersion where
       `Prelude.seq` Prelude.rnf modelType
       `Prelude.seq` Prelude.rnf modelVersionNumber
 
-instance Core.ToHeaders DeleteModelVersion where
+instance Data.ToHeaders DeleteModelVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.DeleteModelVersion" ::
+              Data.=# ( "AWSHawksNestServiceFacade.DeleteModelVersion" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteModelVersion where
+instance Data.ToJSON DeleteModelVersion where
   toJSON DeleteModelVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("modelId" Core..= modelId),
-            Prelude.Just ("modelType" Core..= modelType),
+          [ Prelude.Just ("modelId" Data..= modelId),
+            Prelude.Just ("modelType" Data..= modelType),
             Prelude.Just
-              ("modelVersionNumber" Core..= modelVersionNumber)
+              ("modelVersionNumber" Data..= modelVersionNumber)
           ]
       )
 
-instance Core.ToPath DeleteModelVersion where
+instance Data.ToPath DeleteModelVersion where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteModelVersion where
+instance Data.ToQuery DeleteModelVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteModelVersionResponse' smart constructor.

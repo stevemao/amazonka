@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.ListChannelMemberships
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,9 +32,9 @@ module Amazonka.Chime.ListChannelMemberships
 
     -- * Request Lenses
     listChannelMemberships_chimeBearer,
+    listChannelMemberships_maxResults,
     listChannelMemberships_nextToken,
     listChannelMemberships_type,
-    listChannelMemberships_maxResults,
     listChannelMemberships_channelArn,
 
     -- * Destructuring the Response
@@ -42,8 +42,8 @@ module Amazonka.Chime.ListChannelMemberships
     newListChannelMembershipsResponse,
 
     -- * Response Lenses
-    listChannelMembershipsResponse_channelMemberships,
     listChannelMembershipsResponse_channelArn,
+    listChannelMembershipsResponse_channelMemberships,
     listChannelMembershipsResponse_nextToken,
     listChannelMembershipsResponse_httpStatus,
   )
@@ -51,7 +51,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,16 +61,16 @@ import qualified Amazonka.Response as Response
 data ListChannelMemberships = ListChannelMemberships'
   { -- | The @AppInstanceUserArn@ of the user that makes the API call.
     chimeBearer :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of channel memberships that you want returned.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The token passed by previous API calls until all requested channel
     -- memberships are returned.
-    nextToken :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    nextToken :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The membership type of a user, @DEFAULT@ or @HIDDEN@. Default members
     -- are always returned as part of @ListChannelMemberships@. Hidden members
     -- are only returned if the type filter in @ListChannelMemberships@ equals
     -- @HIDDEN@. Otherwise hidden members are not returned.
     type' :: Prelude.Maybe ChannelMembershipType,
-    -- | The maximum number of channel memberships that you want returned.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The maximum number of channel memberships that you want returned.
     channelArn :: Prelude.Text
   }
@@ -85,6 +86,8 @@ data ListChannelMemberships = ListChannelMemberships'
 --
 -- 'chimeBearer', 'listChannelMemberships_chimeBearer' - The @AppInstanceUserArn@ of the user that makes the API call.
 --
+-- 'maxResults', 'listChannelMemberships_maxResults' - The maximum number of channel memberships that you want returned.
+--
 -- 'nextToken', 'listChannelMemberships_nextToken' - The token passed by previous API calls until all requested channel
 -- memberships are returned.
 --
@@ -92,8 +95,6 @@ data ListChannelMemberships = ListChannelMemberships'
 -- are always returned as part of @ListChannelMemberships@. Hidden members
 -- are only returned if the type filter in @ListChannelMemberships@ equals
 -- @HIDDEN@. Otherwise hidden members are not returned.
---
--- 'maxResults', 'listChannelMemberships_maxResults' - The maximum number of channel memberships that you want returned.
 --
 -- 'channelArn', 'listChannelMemberships_channelArn' - The maximum number of channel memberships that you want returned.
 newListChannelMemberships ::
@@ -104,9 +105,9 @@ newListChannelMemberships pChannelArn_ =
   ListChannelMemberships'
     { chimeBearer =
         Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
       type' = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
       channelArn = pChannelArn_
     }
 
@@ -114,10 +115,14 @@ newListChannelMemberships pChannelArn_ =
 listChannelMemberships_chimeBearer :: Lens.Lens' ListChannelMemberships (Prelude.Maybe Prelude.Text)
 listChannelMemberships_chimeBearer = Lens.lens (\ListChannelMemberships' {chimeBearer} -> chimeBearer) (\s@ListChannelMemberships' {} a -> s {chimeBearer = a} :: ListChannelMemberships)
 
+-- | The maximum number of channel memberships that you want returned.
+listChannelMemberships_maxResults :: Lens.Lens' ListChannelMemberships (Prelude.Maybe Prelude.Natural)
+listChannelMemberships_maxResults = Lens.lens (\ListChannelMemberships' {maxResults} -> maxResults) (\s@ListChannelMemberships' {} a -> s {maxResults = a} :: ListChannelMemberships)
+
 -- | The token passed by previous API calls until all requested channel
 -- memberships are returned.
 listChannelMemberships_nextToken :: Lens.Lens' ListChannelMemberships (Prelude.Maybe Prelude.Text)
-listChannelMemberships_nextToken = Lens.lens (\ListChannelMemberships' {nextToken} -> nextToken) (\s@ListChannelMemberships' {} a -> s {nextToken = a} :: ListChannelMemberships) Prelude.. Lens.mapping Core._Sensitive
+listChannelMemberships_nextToken = Lens.lens (\ListChannelMemberships' {nextToken} -> nextToken) (\s@ListChannelMemberships' {} a -> s {nextToken = a} :: ListChannelMemberships) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The membership type of a user, @DEFAULT@ or @HIDDEN@. Default members
 -- are always returned as part of @ListChannelMemberships@. Hidden members
@@ -127,10 +132,6 @@ listChannelMemberships_type :: Lens.Lens' ListChannelMemberships (Prelude.Maybe 
 listChannelMemberships_type = Lens.lens (\ListChannelMemberships' {type'} -> type') (\s@ListChannelMemberships' {} a -> s {type' = a} :: ListChannelMemberships)
 
 -- | The maximum number of channel memberships that you want returned.
-listChannelMemberships_maxResults :: Lens.Lens' ListChannelMemberships (Prelude.Maybe Prelude.Natural)
-listChannelMemberships_maxResults = Lens.lens (\ListChannelMemberships' {maxResults} -> maxResults) (\s@ListChannelMemberships' {} a -> s {maxResults = a} :: ListChannelMemberships)
-
--- | The maximum number of channel memberships that you want returned.
 listChannelMemberships_channelArn :: Lens.Lens' ListChannelMemberships Prelude.Text
 listChannelMemberships_channelArn = Lens.lens (\ListChannelMemberships' {channelArn} -> channelArn) (\s@ListChannelMemberships' {} a -> s {channelArn = a} :: ListChannelMemberships)
 
@@ -138,62 +139,63 @@ instance Core.AWSRequest ListChannelMemberships where
   type
     AWSResponse ListChannelMemberships =
       ListChannelMembershipsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListChannelMembershipsResponse'
-            Prelude.<$> ( x Core..?> "ChannelMemberships"
+            Prelude.<$> (x Data..?> "ChannelArn")
+            Prelude.<*> ( x Data..?> "ChannelMemberships"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "ChannelArn")
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListChannelMemberships where
   hashWithSalt _salt ListChannelMemberships' {..} =
     _salt `Prelude.hashWithSalt` chimeBearer
+      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` type'
-      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` channelArn
 
 instance Prelude.NFData ListChannelMemberships where
   rnf ListChannelMemberships' {..} =
     Prelude.rnf chimeBearer
+      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf type'
-      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf channelArn
 
-instance Core.ToHeaders ListChannelMemberships where
+instance Data.ToHeaders ListChannelMemberships where
   toHeaders ListChannelMemberships' {..} =
     Prelude.mconcat
-      ["x-amz-chime-bearer" Core.=# chimeBearer]
+      ["x-amz-chime-bearer" Data.=# chimeBearer]
 
-instance Core.ToPath ListChannelMemberships where
+instance Data.ToPath ListChannelMemberships where
   toPath ListChannelMemberships' {..} =
     Prelude.mconcat
-      ["/channels/", Core.toBS channelArn, "/memberships"]
+      ["/channels/", Data.toBS channelArn, "/memberships"]
 
-instance Core.ToQuery ListChannelMemberships where
+instance Data.ToQuery ListChannelMemberships where
   toQuery ListChannelMemberships' {..} =
     Prelude.mconcat
-      [ "next-token" Core.=: nextToken,
-        "type" Core.=: type',
-        "max-results" Core.=: maxResults
+      [ "max-results" Data.=: maxResults,
+        "next-token" Data.=: nextToken,
+        "type" Data.=: type'
       ]
 
 -- | /See:/ 'newListChannelMembershipsResponse' smart constructor.
 data ListChannelMembershipsResponse = ListChannelMembershipsResponse'
-  { -- | The information for the requested channel memberships.
-    channelMemberships :: Prelude.Maybe [ChannelMembershipSummary],
-    -- | The ARN of the channel.
+  { -- | The ARN of the channel.
     channelArn :: Prelude.Maybe Prelude.Text,
+    -- | The information for the requested channel memberships.
+    channelMemberships :: Prelude.Maybe [ChannelMembershipSummary],
     -- | The token passed by previous API calls until all requested channel
     -- memberships are returned.
-    nextToken :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    nextToken :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -207,9 +209,9 @@ data ListChannelMembershipsResponse = ListChannelMembershipsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'channelMemberships', 'listChannelMembershipsResponse_channelMemberships' - The information for the requested channel memberships.
---
 -- 'channelArn', 'listChannelMembershipsResponse_channelArn' - The ARN of the channel.
+--
+-- 'channelMemberships', 'listChannelMembershipsResponse_channelMemberships' - The information for the requested channel memberships.
 --
 -- 'nextToken', 'listChannelMembershipsResponse_nextToken' - The token passed by previous API calls until all requested channel
 -- memberships are returned.
@@ -221,25 +223,25 @@ newListChannelMembershipsResponse ::
   ListChannelMembershipsResponse
 newListChannelMembershipsResponse pHttpStatus_ =
   ListChannelMembershipsResponse'
-    { channelMemberships =
+    { channelArn =
         Prelude.Nothing,
-      channelArn = Prelude.Nothing,
+      channelMemberships = Prelude.Nothing,
       nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The information for the requested channel memberships.
-listChannelMembershipsResponse_channelMemberships :: Lens.Lens' ListChannelMembershipsResponse (Prelude.Maybe [ChannelMembershipSummary])
-listChannelMembershipsResponse_channelMemberships = Lens.lens (\ListChannelMembershipsResponse' {channelMemberships} -> channelMemberships) (\s@ListChannelMembershipsResponse' {} a -> s {channelMemberships = a} :: ListChannelMembershipsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The ARN of the channel.
 listChannelMembershipsResponse_channelArn :: Lens.Lens' ListChannelMembershipsResponse (Prelude.Maybe Prelude.Text)
 listChannelMembershipsResponse_channelArn = Lens.lens (\ListChannelMembershipsResponse' {channelArn} -> channelArn) (\s@ListChannelMembershipsResponse' {} a -> s {channelArn = a} :: ListChannelMembershipsResponse)
 
+-- | The information for the requested channel memberships.
+listChannelMembershipsResponse_channelMemberships :: Lens.Lens' ListChannelMembershipsResponse (Prelude.Maybe [ChannelMembershipSummary])
+listChannelMembershipsResponse_channelMemberships = Lens.lens (\ListChannelMembershipsResponse' {channelMemberships} -> channelMemberships) (\s@ListChannelMembershipsResponse' {} a -> s {channelMemberships = a} :: ListChannelMembershipsResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The token passed by previous API calls until all requested channel
 -- memberships are returned.
 listChannelMembershipsResponse_nextToken :: Lens.Lens' ListChannelMembershipsResponse (Prelude.Maybe Prelude.Text)
-listChannelMembershipsResponse_nextToken = Lens.lens (\ListChannelMembershipsResponse' {nextToken} -> nextToken) (\s@ListChannelMembershipsResponse' {} a -> s {nextToken = a} :: ListChannelMembershipsResponse) Prelude.. Lens.mapping Core._Sensitive
+listChannelMembershipsResponse_nextToken = Lens.lens (\ListChannelMembershipsResponse' {nextToken} -> nextToken) (\s@ListChannelMembershipsResponse' {} a -> s {nextToken = a} :: ListChannelMembershipsResponse) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The response's http status code.
 listChannelMembershipsResponse_httpStatus :: Lens.Lens' ListChannelMembershipsResponse Prelude.Int
@@ -250,7 +252,7 @@ instance
     ListChannelMembershipsResponse
   where
   rnf ListChannelMembershipsResponse' {..} =
-    Prelude.rnf channelMemberships
-      `Prelude.seq` Prelude.rnf channelArn
+    Prelude.rnf channelArn
+      `Prelude.seq` Prelude.rnf channelMemberships
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

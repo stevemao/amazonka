@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IVS.GetStreamKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.IVS.GetStreamKey
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IVS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -74,12 +75,13 @@ getStreamKey_arn = Lens.lens (\GetStreamKey' {arn} -> arn) (\s@GetStreamKey' {} 
 
 instance Core.AWSRequest GetStreamKey where
   type AWSResponse GetStreamKey = GetStreamKeyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetStreamKeyResponse'
-            Prelude.<$> (x Core..?> "streamKey")
+            Prelude.<$> (x Data..?> "streamKey")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -90,28 +92,28 @@ instance Prelude.Hashable GetStreamKey where
 instance Prelude.NFData GetStreamKey where
   rnf GetStreamKey' {..} = Prelude.rnf arn
 
-instance Core.ToHeaders GetStreamKey where
+instance Data.ToHeaders GetStreamKey where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetStreamKey where
+instance Data.ToJSON GetStreamKey where
   toJSON GetStreamKey' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("arn" Core..= arn)]
+          [Prelude.Just ("arn" Data..= arn)]
       )
 
-instance Core.ToPath GetStreamKey where
+instance Data.ToPath GetStreamKey where
   toPath = Prelude.const "/GetStreamKey"
 
-instance Core.ToQuery GetStreamKey where
+instance Data.ToQuery GetStreamKey where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetStreamKeyResponse' smart constructor.

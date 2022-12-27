@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.RenewalSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.RenewalSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types.DomainValidationRecord
 import Amazonka.Lightsail.Types.RenewalStatus
 import qualified Amazonka.Prelude as Prelude
@@ -30,7 +31,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newRenewalSummary' smart constructor.
 data RenewalSummary = RenewalSummary'
-  { -- | The renewal status of the certificate.
+  { -- | An array of objects that describe the domain validation records of the
+    -- certificate.
+    domainValidationRecords :: Prelude.Maybe [DomainValidationRecord],
+    -- | The renewal status of the certificate.
     --
     -- The following renewal status are possible:
     --
@@ -54,13 +58,10 @@ data RenewalSummary = RenewalSummary'
     --     certificate. You can request a new certificate using the
     --     @CreateCertificate@ action.
     renewalStatus :: Prelude.Maybe RenewalStatus,
-    -- | An array of objects that describe the domain validation records of the
-    -- certificate.
-    domainValidationRecords :: Prelude.Maybe [DomainValidationRecord],
-    -- | The timestamp when the certificate was last updated.
-    updatedAt :: Prelude.Maybe Core.POSIX,
     -- | The reason for the renewal status of the certificate.
-    renewalStatusReason :: Prelude.Maybe Prelude.Text
+    renewalStatusReason :: Prelude.Maybe Prelude.Text,
+    -- | The timestamp when the certificate was last updated.
+    updatedAt :: Prelude.Maybe Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -71,6 +72,9 @@ data RenewalSummary = RenewalSummary'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'domainValidationRecords', 'renewalSummary_domainValidationRecords' - An array of objects that describe the domain validation records of the
+-- certificate.
 --
 -- 'renewalStatus', 'renewalSummary_renewalStatus' - The renewal status of the certificate.
 --
@@ -96,21 +100,24 @@ data RenewalSummary = RenewalSummary'
 --     certificate. You can request a new certificate using the
 --     @CreateCertificate@ action.
 --
--- 'domainValidationRecords', 'renewalSummary_domainValidationRecords' - An array of objects that describe the domain validation records of the
--- certificate.
+-- 'renewalStatusReason', 'renewalSummary_renewalStatusReason' - The reason for the renewal status of the certificate.
 --
 -- 'updatedAt', 'renewalSummary_updatedAt' - The timestamp when the certificate was last updated.
---
--- 'renewalStatusReason', 'renewalSummary_renewalStatusReason' - The reason for the renewal status of the certificate.
 newRenewalSummary ::
   RenewalSummary
 newRenewalSummary =
   RenewalSummary'
-    { renewalStatus = Prelude.Nothing,
-      domainValidationRecords = Prelude.Nothing,
-      updatedAt = Prelude.Nothing,
-      renewalStatusReason = Prelude.Nothing
+    { domainValidationRecords =
+        Prelude.Nothing,
+      renewalStatus = Prelude.Nothing,
+      renewalStatusReason = Prelude.Nothing,
+      updatedAt = Prelude.Nothing
     }
+
+-- | An array of objects that describe the domain validation records of the
+-- certificate.
+renewalSummary_domainValidationRecords :: Lens.Lens' RenewalSummary (Prelude.Maybe [DomainValidationRecord])
+renewalSummary_domainValidationRecords = Lens.lens (\RenewalSummary' {domainValidationRecords} -> domainValidationRecords) (\s@RenewalSummary' {} a -> s {domainValidationRecords = a} :: RenewalSummary) Prelude.. Lens.mapping Lens.coerced
 
 -- | The renewal status of the certificate.
 --
@@ -138,43 +145,39 @@ newRenewalSummary =
 renewalSummary_renewalStatus :: Lens.Lens' RenewalSummary (Prelude.Maybe RenewalStatus)
 renewalSummary_renewalStatus = Lens.lens (\RenewalSummary' {renewalStatus} -> renewalStatus) (\s@RenewalSummary' {} a -> s {renewalStatus = a} :: RenewalSummary)
 
--- | An array of objects that describe the domain validation records of the
--- certificate.
-renewalSummary_domainValidationRecords :: Lens.Lens' RenewalSummary (Prelude.Maybe [DomainValidationRecord])
-renewalSummary_domainValidationRecords = Lens.lens (\RenewalSummary' {domainValidationRecords} -> domainValidationRecords) (\s@RenewalSummary' {} a -> s {domainValidationRecords = a} :: RenewalSummary) Prelude.. Lens.mapping Lens.coerced
-
--- | The timestamp when the certificate was last updated.
-renewalSummary_updatedAt :: Lens.Lens' RenewalSummary (Prelude.Maybe Prelude.UTCTime)
-renewalSummary_updatedAt = Lens.lens (\RenewalSummary' {updatedAt} -> updatedAt) (\s@RenewalSummary' {} a -> s {updatedAt = a} :: RenewalSummary) Prelude.. Lens.mapping Core._Time
-
 -- | The reason for the renewal status of the certificate.
 renewalSummary_renewalStatusReason :: Lens.Lens' RenewalSummary (Prelude.Maybe Prelude.Text)
 renewalSummary_renewalStatusReason = Lens.lens (\RenewalSummary' {renewalStatusReason} -> renewalStatusReason) (\s@RenewalSummary' {} a -> s {renewalStatusReason = a} :: RenewalSummary)
 
-instance Core.FromJSON RenewalSummary where
+-- | The timestamp when the certificate was last updated.
+renewalSummary_updatedAt :: Lens.Lens' RenewalSummary (Prelude.Maybe Prelude.UTCTime)
+renewalSummary_updatedAt = Lens.lens (\RenewalSummary' {updatedAt} -> updatedAt) (\s@RenewalSummary' {} a -> s {updatedAt = a} :: RenewalSummary) Prelude.. Lens.mapping Data._Time
+
+instance Data.FromJSON RenewalSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RenewalSummary"
       ( \x ->
           RenewalSummary'
-            Prelude.<$> (x Core..:? "renewalStatus")
-            Prelude.<*> ( x Core..:? "domainValidationRecords"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "domainValidationRecords"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "updatedAt")
-            Prelude.<*> (x Core..:? "renewalStatusReason")
+            Prelude.<*> (x Data..:? "renewalStatus")
+            Prelude.<*> (x Data..:? "renewalStatusReason")
+            Prelude.<*> (x Data..:? "updatedAt")
       )
 
 instance Prelude.Hashable RenewalSummary where
   hashWithSalt _salt RenewalSummary' {..} =
-    _salt `Prelude.hashWithSalt` renewalStatus
+    _salt
       `Prelude.hashWithSalt` domainValidationRecords
-      `Prelude.hashWithSalt` updatedAt
+      `Prelude.hashWithSalt` renewalStatus
       `Prelude.hashWithSalt` renewalStatusReason
+      `Prelude.hashWithSalt` updatedAt
 
 instance Prelude.NFData RenewalSummary where
   rnf RenewalSummary' {..} =
-    Prelude.rnf renewalStatus
-      `Prelude.seq` Prelude.rnf domainValidationRecords
-      `Prelude.seq` Prelude.rnf updatedAt
+    Prelude.rnf domainValidationRecords
+      `Prelude.seq` Prelude.rnf renewalStatus
       `Prelude.seq` Prelude.rnf renewalStatusReason
+      `Prelude.seq` Prelude.rnf updatedAt

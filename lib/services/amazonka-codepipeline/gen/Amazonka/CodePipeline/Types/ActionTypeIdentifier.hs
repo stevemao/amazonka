@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.Types.ActionTypeIdentifier
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CodePipeline.Types.ActionTypeIdentifier where
 
 import Amazonka.CodePipeline.Types.ActionCategory
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the category, owner, provider, and version of the action type.
@@ -134,16 +135,16 @@ actionTypeIdentifier_provider = Lens.lens (\ActionTypeIdentifier' {provider} -> 
 actionTypeIdentifier_version :: Lens.Lens' ActionTypeIdentifier Prelude.Text
 actionTypeIdentifier_version = Lens.lens (\ActionTypeIdentifier' {version} -> version) (\s@ActionTypeIdentifier' {} a -> s {version = a} :: ActionTypeIdentifier)
 
-instance Core.FromJSON ActionTypeIdentifier where
+instance Data.FromJSON ActionTypeIdentifier where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ActionTypeIdentifier"
       ( \x ->
           ActionTypeIdentifier'
-            Prelude.<$> (x Core..: "category")
-            Prelude.<*> (x Core..: "owner")
-            Prelude.<*> (x Core..: "provider")
-            Prelude.<*> (x Core..: "version")
+            Prelude.<$> (x Data..: "category")
+            Prelude.<*> (x Data..: "owner")
+            Prelude.<*> (x Data..: "provider")
+            Prelude.<*> (x Data..: "version")
       )
 
 instance Prelude.Hashable ActionTypeIdentifier where
@@ -160,13 +161,13 @@ instance Prelude.NFData ActionTypeIdentifier where
       `Prelude.seq` Prelude.rnf provider
       `Prelude.seq` Prelude.rnf version
 
-instance Core.ToJSON ActionTypeIdentifier where
+instance Data.ToJSON ActionTypeIdentifier where
   toJSON ActionTypeIdentifier' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("category" Core..= category),
-            Prelude.Just ("owner" Core..= owner),
-            Prelude.Just ("provider" Core..= provider),
-            Prelude.Just ("version" Core..= version)
+          [ Prelude.Just ("category" Data..= category),
+            Prelude.Just ("owner" Data..= owner),
+            Prelude.Just ("provider" Data..= provider),
+            Prelude.Just ("version" Data..= version)
           ]
       )

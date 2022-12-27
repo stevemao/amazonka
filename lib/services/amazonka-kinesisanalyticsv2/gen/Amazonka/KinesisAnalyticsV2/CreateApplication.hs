@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.CreateApplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,10 +29,10 @@ module Amazonka.KinesisAnalyticsV2.CreateApplication
     newCreateApplication,
 
     -- * Request Lenses
-    createApplication_applicationDescription,
-    createApplication_cloudWatchLoggingOptions,
-    createApplication_applicationMode,
     createApplication_applicationConfiguration,
+    createApplication_applicationDescription,
+    createApplication_applicationMode,
+    createApplication_cloudWatchLoggingOptions,
     createApplication_tags,
     createApplication_applicationName,
     createApplication_runtimeEnvironment,
@@ -49,25 +49,26 @@ module Amazonka.KinesisAnalyticsV2.CreateApplication
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateApplication' smart constructor.
 data CreateApplication = CreateApplication'
-  { -- | A summary description of the application.
+  { -- | Use this parameter to configure the application.
+    applicationConfiguration :: Prelude.Maybe ApplicationConfiguration,
+    -- | A summary description of the application.
     applicationDescription :: Prelude.Maybe Prelude.Text,
+    -- | Use the @STREAMING@ mode to create a Kinesis Data Analytics For Flink
+    -- application. To create a Kinesis Data Analytics Studio notebook, use the
+    -- @INTERACTIVE@ mode.
+    applicationMode :: Prelude.Maybe ApplicationMode,
     -- | Use this parameter to configure an Amazon CloudWatch log stream to
     -- monitor application configuration errors.
     cloudWatchLoggingOptions :: Prelude.Maybe [CloudWatchLoggingOption],
-    -- | Use the @STREAMING@ mode to create a Kinesis Data Analytics Studio
-    -- notebook. To create a Kinesis Data Analytics Studio notebook, use the
-    -- @INTERACTIVE@ mode.
-    applicationMode :: Prelude.Maybe ApplicationMode,
-    -- | Use this parameter to configure the application.
-    applicationConfiguration :: Prelude.Maybe ApplicationConfiguration,
     -- | A list of one or more tags to assign to the application. A tag is a
     -- key-value pair that identifies an application. Note that the maximum
     -- number of application tags includes system tags. The maximum number of
@@ -76,8 +77,7 @@ data CreateApplication = CreateApplication'
     tags :: Prelude.Maybe (Prelude.NonEmpty Tag),
     -- | The name of your application (for example, @sample-app@).
     applicationName :: Prelude.Text,
-    -- | The runtime environment for the application (@SQL-1_0@, @FLINK-1_6@,
-    -- @FLINK-1_8@, or @FLINK-1_11@).
+    -- | The runtime environment for the application.
     runtimeEnvironment :: RuntimeEnvironment,
     -- | The IAM role used by the application to access Kinesis data streams,
     -- Kinesis Data Firehose delivery streams, Amazon S3 objects, and other
@@ -94,16 +94,16 @@ data CreateApplication = CreateApplication'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'applicationConfiguration', 'createApplication_applicationConfiguration' - Use this parameter to configure the application.
+--
 -- 'applicationDescription', 'createApplication_applicationDescription' - A summary description of the application.
+--
+-- 'applicationMode', 'createApplication_applicationMode' - Use the @STREAMING@ mode to create a Kinesis Data Analytics For Flink
+-- application. To create a Kinesis Data Analytics Studio notebook, use the
+-- @INTERACTIVE@ mode.
 --
 -- 'cloudWatchLoggingOptions', 'createApplication_cloudWatchLoggingOptions' - Use this parameter to configure an Amazon CloudWatch log stream to
 -- monitor application configuration errors.
---
--- 'applicationMode', 'createApplication_applicationMode' - Use the @STREAMING@ mode to create a Kinesis Data Analytics Studio
--- notebook. To create a Kinesis Data Analytics Studio notebook, use the
--- @INTERACTIVE@ mode.
---
--- 'applicationConfiguration', 'createApplication_applicationConfiguration' - Use this parameter to configure the application.
 --
 -- 'tags', 'createApplication_tags' - A list of one or more tags to assign to the application. A tag is a
 -- key-value pair that identifies an application. Note that the maximum
@@ -113,8 +113,7 @@ data CreateApplication = CreateApplication'
 --
 -- 'applicationName', 'createApplication_applicationName' - The name of your application (for example, @sample-app@).
 --
--- 'runtimeEnvironment', 'createApplication_runtimeEnvironment' - The runtime environment for the application (@SQL-1_0@, @FLINK-1_6@,
--- @FLINK-1_8@, or @FLINK-1_11@).
+-- 'runtimeEnvironment', 'createApplication_runtimeEnvironment' - The runtime environment for the application.
 --
 -- 'serviceExecutionRole', 'createApplication_serviceExecutionRole' - The IAM role used by the application to access Kinesis data streams,
 -- Kinesis Data Firehose delivery streams, Amazon S3 objects, and other
@@ -132,35 +131,35 @@ newCreateApplication
   pRuntimeEnvironment_
   pServiceExecutionRole_ =
     CreateApplication'
-      { applicationDescription =
+      { applicationConfiguration =
           Prelude.Nothing,
-        cloudWatchLoggingOptions = Prelude.Nothing,
+        applicationDescription = Prelude.Nothing,
         applicationMode = Prelude.Nothing,
-        applicationConfiguration = Prelude.Nothing,
+        cloudWatchLoggingOptions = Prelude.Nothing,
         tags = Prelude.Nothing,
         applicationName = pApplicationName_,
         runtimeEnvironment = pRuntimeEnvironment_,
         serviceExecutionRole = pServiceExecutionRole_
       }
 
+-- | Use this parameter to configure the application.
+createApplication_applicationConfiguration :: Lens.Lens' CreateApplication (Prelude.Maybe ApplicationConfiguration)
+createApplication_applicationConfiguration = Lens.lens (\CreateApplication' {applicationConfiguration} -> applicationConfiguration) (\s@CreateApplication' {} a -> s {applicationConfiguration = a} :: CreateApplication)
+
 -- | A summary description of the application.
 createApplication_applicationDescription :: Lens.Lens' CreateApplication (Prelude.Maybe Prelude.Text)
 createApplication_applicationDescription = Lens.lens (\CreateApplication' {applicationDescription} -> applicationDescription) (\s@CreateApplication' {} a -> s {applicationDescription = a} :: CreateApplication)
+
+-- | Use the @STREAMING@ mode to create a Kinesis Data Analytics For Flink
+-- application. To create a Kinesis Data Analytics Studio notebook, use the
+-- @INTERACTIVE@ mode.
+createApplication_applicationMode :: Lens.Lens' CreateApplication (Prelude.Maybe ApplicationMode)
+createApplication_applicationMode = Lens.lens (\CreateApplication' {applicationMode} -> applicationMode) (\s@CreateApplication' {} a -> s {applicationMode = a} :: CreateApplication)
 
 -- | Use this parameter to configure an Amazon CloudWatch log stream to
 -- monitor application configuration errors.
 createApplication_cloudWatchLoggingOptions :: Lens.Lens' CreateApplication (Prelude.Maybe [CloudWatchLoggingOption])
 createApplication_cloudWatchLoggingOptions = Lens.lens (\CreateApplication' {cloudWatchLoggingOptions} -> cloudWatchLoggingOptions) (\s@CreateApplication' {} a -> s {cloudWatchLoggingOptions = a} :: CreateApplication) Prelude.. Lens.mapping Lens.coerced
-
--- | Use the @STREAMING@ mode to create a Kinesis Data Analytics Studio
--- notebook. To create a Kinesis Data Analytics Studio notebook, use the
--- @INTERACTIVE@ mode.
-createApplication_applicationMode :: Lens.Lens' CreateApplication (Prelude.Maybe ApplicationMode)
-createApplication_applicationMode = Lens.lens (\CreateApplication' {applicationMode} -> applicationMode) (\s@CreateApplication' {} a -> s {applicationMode = a} :: CreateApplication)
-
--- | Use this parameter to configure the application.
-createApplication_applicationConfiguration :: Lens.Lens' CreateApplication (Prelude.Maybe ApplicationConfiguration)
-createApplication_applicationConfiguration = Lens.lens (\CreateApplication' {applicationConfiguration} -> applicationConfiguration) (\s@CreateApplication' {} a -> s {applicationConfiguration = a} :: CreateApplication)
 
 -- | A list of one or more tags to assign to the application. A tag is a
 -- key-value pair that identifies an application. Note that the maximum
@@ -174,8 +173,7 @@ createApplication_tags = Lens.lens (\CreateApplication' {tags} -> tags) (\s@Crea
 createApplication_applicationName :: Lens.Lens' CreateApplication Prelude.Text
 createApplication_applicationName = Lens.lens (\CreateApplication' {applicationName} -> applicationName) (\s@CreateApplication' {} a -> s {applicationName = a} :: CreateApplication)
 
--- | The runtime environment for the application (@SQL-1_0@, @FLINK-1_6@,
--- @FLINK-1_8@, or @FLINK-1_11@).
+-- | The runtime environment for the application.
 createApplication_runtimeEnvironment :: Lens.Lens' CreateApplication RuntimeEnvironment
 createApplication_runtimeEnvironment = Lens.lens (\CreateApplication' {runtimeEnvironment} -> runtimeEnvironment) (\s@CreateApplication' {} a -> s {runtimeEnvironment = a} :: CreateApplication)
 
@@ -189,21 +187,23 @@ instance Core.AWSRequest CreateApplication where
   type
     AWSResponse CreateApplication =
       CreateApplicationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateApplicationResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "ApplicationDetail")
+            Prelude.<*> (x Data..:> "ApplicationDetail")
       )
 
 instance Prelude.Hashable CreateApplication where
   hashWithSalt _salt CreateApplication' {..} =
-    _salt `Prelude.hashWithSalt` applicationDescription
-      `Prelude.hashWithSalt` cloudWatchLoggingOptions
-      `Prelude.hashWithSalt` applicationMode
+    _salt
       `Prelude.hashWithSalt` applicationConfiguration
+      `Prelude.hashWithSalt` applicationDescription
+      `Prelude.hashWithSalt` applicationMode
+      `Prelude.hashWithSalt` cloudWatchLoggingOptions
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` applicationName
       `Prelude.hashWithSalt` runtimeEnvironment
@@ -211,58 +211,58 @@ instance Prelude.Hashable CreateApplication where
 
 instance Prelude.NFData CreateApplication where
   rnf CreateApplication' {..} =
-    Prelude.rnf applicationDescription
-      `Prelude.seq` Prelude.rnf cloudWatchLoggingOptions
+    Prelude.rnf applicationConfiguration
+      `Prelude.seq` Prelude.rnf applicationDescription
       `Prelude.seq` Prelude.rnf applicationMode
-      `Prelude.seq` Prelude.rnf applicationConfiguration
+      `Prelude.seq` Prelude.rnf cloudWatchLoggingOptions
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf applicationName
       `Prelude.seq` Prelude.rnf runtimeEnvironment
       `Prelude.seq` Prelude.rnf serviceExecutionRole
 
-instance Core.ToHeaders CreateApplication where
+instance Data.ToHeaders CreateApplication where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "KinesisAnalytics_20180523.CreateApplication" ::
+              Data.=# ( "KinesisAnalytics_20180523.CreateApplication" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateApplication where
+instance Data.ToJSON CreateApplication where
   toJSON CreateApplication' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ApplicationDescription" Core..=)
-              Prelude.<$> applicationDescription,
-            ("CloudWatchLoggingOptions" Core..=)
-              Prelude.<$> cloudWatchLoggingOptions,
-            ("ApplicationMode" Core..=)
-              Prelude.<$> applicationMode,
-            ("ApplicationConfiguration" Core..=)
+          [ ("ApplicationConfiguration" Data..=)
               Prelude.<$> applicationConfiguration,
-            ("Tags" Core..=) Prelude.<$> tags,
+            ("ApplicationDescription" Data..=)
+              Prelude.<$> applicationDescription,
+            ("ApplicationMode" Data..=)
+              Prelude.<$> applicationMode,
+            ("CloudWatchLoggingOptions" Data..=)
+              Prelude.<$> cloudWatchLoggingOptions,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("ApplicationName" Core..= applicationName),
+              ("ApplicationName" Data..= applicationName),
             Prelude.Just
-              ("RuntimeEnvironment" Core..= runtimeEnvironment),
+              ("RuntimeEnvironment" Data..= runtimeEnvironment),
             Prelude.Just
               ( "ServiceExecutionRole"
-                  Core..= serviceExecutionRole
+                  Data..= serviceExecutionRole
               )
           ]
       )
 
-instance Core.ToPath CreateApplication where
+instance Data.ToPath CreateApplication where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateApplication where
+instance Data.ToQuery CreateApplication where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateApplicationResponse' smart constructor.

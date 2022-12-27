@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.DetachDisk
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ module Amazonka.Lightsail.DetachDisk
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -85,12 +86,13 @@ detachDisk_diskName = Lens.lens (\DetachDisk' {diskName} -> diskName) (\s@Detach
 
 instance Core.AWSRequest DetachDisk where
   type AWSResponse DetachDisk = DetachDiskResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DetachDiskResponse'
-            Prelude.<$> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -101,32 +103,32 @@ instance Prelude.Hashable DetachDisk where
 instance Prelude.NFData DetachDisk where
   rnf DetachDisk' {..} = Prelude.rnf diskName
 
-instance Core.ToHeaders DetachDisk where
+instance Data.ToHeaders DetachDisk where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.DetachDisk" ::
+              Data.=# ( "Lightsail_20161128.DetachDisk" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DetachDisk where
+instance Data.ToJSON DetachDisk where
   toJSON DetachDisk' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("diskName" Core..= diskName)]
+          [Prelude.Just ("diskName" Data..= diskName)]
       )
 
-instance Core.ToPath DetachDisk where
+instance Data.ToPath DetachDisk where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DetachDisk where
+instance Data.ToQuery DetachDisk where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDetachDiskResponse' smart constructor.

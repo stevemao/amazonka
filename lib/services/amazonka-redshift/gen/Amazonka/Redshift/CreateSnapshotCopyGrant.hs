@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.Redshift.CreateSnapshotCopyGrant
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a snapshot copy grant that permits Amazon Redshift to use a
--- customer master key (CMK) from Key Management Service (KMS) to encrypt
+-- Creates a snapshot copy grant that permits Amazon Redshift to use an
+-- encrypted symmetric key from Key Management Service (KMS) to encrypt
 -- copied snapshots in a destination region.
 --
 -- For more information about managing snapshot copy grants, go to
@@ -48,7 +48,8 @@ module Amazonka.Redshift.CreateSnapshotCopyGrant
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -58,7 +59,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCreateSnapshotCopyGrant' smart constructor.
 data CreateSnapshotCopyGrant = CreateSnapshotCopyGrant'
-  { -- | The unique identifier of the customer master key (CMK) to which to grant
+  { -- | The unique identifier of the encrypted symmetric key to which to grant
     -- Amazon Redshift permission. If no key is specified, the default key is
     -- used.
     kmsKeyId :: Prelude.Maybe Prelude.Text,
@@ -91,7 +92,7 @@ data CreateSnapshotCopyGrant = CreateSnapshotCopyGrant'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'kmsKeyId', 'createSnapshotCopyGrant_kmsKeyId' - The unique identifier of the customer master key (CMK) to which to grant
+-- 'kmsKeyId', 'createSnapshotCopyGrant_kmsKeyId' - The unique identifier of the encrypted symmetric key to which to grant
 -- Amazon Redshift permission. If no key is specified, the default key is
 -- used.
 --
@@ -124,7 +125,7 @@ newCreateSnapshotCopyGrant pSnapshotCopyGrantName_ =
       snapshotCopyGrantName = pSnapshotCopyGrantName_
     }
 
--- | The unique identifier of the customer master key (CMK) to which to grant
+-- | The unique identifier of the encrypted symmetric key to which to grant
 -- Amazon Redshift permission. If no key is specified, the default key is
 -- used.
 createSnapshotCopyGrant_kmsKeyId :: Lens.Lens' CreateSnapshotCopyGrant (Prelude.Maybe Prelude.Text)
@@ -156,13 +157,14 @@ instance Core.AWSRequest CreateSnapshotCopyGrant where
   type
     AWSResponse CreateSnapshotCopyGrant =
       CreateSnapshotCopyGrantResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateSnapshotCopyGrantResult"
       ( \s h x ->
           CreateSnapshotCopyGrantResponse'
-            Prelude.<$> (x Core..@? "SnapshotCopyGrant")
+            Prelude.<$> (x Data..@? "SnapshotCopyGrant")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -178,25 +180,25 @@ instance Prelude.NFData CreateSnapshotCopyGrant where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf snapshotCopyGrantName
 
-instance Core.ToHeaders CreateSnapshotCopyGrant where
+instance Data.ToHeaders CreateSnapshotCopyGrant where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateSnapshotCopyGrant where
+instance Data.ToPath CreateSnapshotCopyGrant where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateSnapshotCopyGrant where
+instance Data.ToQuery CreateSnapshotCopyGrant where
   toQuery CreateSnapshotCopyGrant' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateSnapshotCopyGrant" :: Prelude.ByteString),
+          Data.=: ("CreateSnapshotCopyGrant" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "KmsKeyId" Core.=: kmsKeyId,
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "KmsKeyId" Data.=: kmsKeyId,
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Tag" Prelude.<$> tags),
+          Data.=: Data.toQuery
+            (Data.toQueryList "Tag" Prelude.<$> tags),
         "SnapshotCopyGrantName"
-          Core.=: snapshotCopyGrantName
+          Data.=: snapshotCopyGrantName
       ]
 
 -- | /See:/ 'newCreateSnapshotCopyGrantResponse' smart constructor.

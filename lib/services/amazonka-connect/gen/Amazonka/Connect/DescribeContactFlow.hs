@@ -14,15 +14,15 @@
 
 -- |
 -- Module      : Amazonka.Connect.DescribeContactFlow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the specified contact flow.
+-- Describes the specified flow.
 --
--- You can also create and update contact flows using the
+-- You can also create and update flows using the
 -- <https://docs.aws.amazon.com/connect/latest/adminguide/flow-language.html Amazon Connect Flow language>.
 module Amazonka.Connect.DescribeContactFlow
   ( -- * Creating a Request
@@ -45,7 +45,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,7 +55,7 @@ import qualified Amazonka.Response as Response
 data DescribeContactFlow = DescribeContactFlow'
   { -- | The identifier of the Amazon Connect instance.
     instanceId :: Prelude.Text,
-    -- | The identifier of the contact flow.
+    -- | The identifier of the flow.
     contactFlowId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -69,7 +70,7 @@ data DescribeContactFlow = DescribeContactFlow'
 --
 -- 'instanceId', 'describeContactFlow_instanceId' - The identifier of the Amazon Connect instance.
 --
--- 'contactFlowId', 'describeContactFlow_contactFlowId' - The identifier of the contact flow.
+-- 'contactFlowId', 'describeContactFlow_contactFlowId' - The identifier of the flow.
 newDescribeContactFlow ::
   -- | 'instanceId'
   Prelude.Text ->
@@ -86,7 +87,7 @@ newDescribeContactFlow pInstanceId_ pContactFlowId_ =
 describeContactFlow_instanceId :: Lens.Lens' DescribeContactFlow Prelude.Text
 describeContactFlow_instanceId = Lens.lens (\DescribeContactFlow' {instanceId} -> instanceId) (\s@DescribeContactFlow' {} a -> s {instanceId = a} :: DescribeContactFlow)
 
--- | The identifier of the contact flow.
+-- | The identifier of the flow.
 describeContactFlow_contactFlowId :: Lens.Lens' DescribeContactFlow Prelude.Text
 describeContactFlow_contactFlowId = Lens.lens (\DescribeContactFlow' {contactFlowId} -> contactFlowId) (\s@DescribeContactFlow' {} a -> s {contactFlowId = a} :: DescribeContactFlow)
 
@@ -94,12 +95,13 @@ instance Core.AWSRequest DescribeContactFlow where
   type
     AWSResponse DescribeContactFlow =
       DescribeContactFlowResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeContactFlowResponse'
-            Prelude.<$> (x Core..?> "ContactFlow")
+            Prelude.<$> (x Data..?> "ContactFlow")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -113,32 +115,32 @@ instance Prelude.NFData DescribeContactFlow where
     Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf contactFlowId
 
-instance Core.ToHeaders DescribeContactFlow where
+instance Data.ToHeaders DescribeContactFlow where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeContactFlow where
+instance Data.ToPath DescribeContactFlow where
   toPath DescribeContactFlow' {..} =
     Prelude.mconcat
       [ "/contact-flows/",
-        Core.toBS instanceId,
+        Data.toBS instanceId,
         "/",
-        Core.toBS contactFlowId
+        Data.toBS contactFlowId
       ]
 
-instance Core.ToQuery DescribeContactFlow where
+instance Data.ToQuery DescribeContactFlow where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeContactFlowResponse' smart constructor.
 data DescribeContactFlowResponse = DescribeContactFlowResponse'
-  { -- | Information about the contact flow.
+  { -- | Information about the flow.
     contactFlow :: Prelude.Maybe ContactFlow,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -153,7 +155,7 @@ data DescribeContactFlowResponse = DescribeContactFlowResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'contactFlow', 'describeContactFlowResponse_contactFlow' - Information about the contact flow.
+-- 'contactFlow', 'describeContactFlowResponse_contactFlow' - Information about the flow.
 --
 -- 'httpStatus', 'describeContactFlowResponse_httpStatus' - The response's http status code.
 newDescribeContactFlowResponse ::
@@ -167,7 +169,7 @@ newDescribeContactFlowResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | Information about the contact flow.
+-- | Information about the flow.
 describeContactFlowResponse_contactFlow :: Lens.Lens' DescribeContactFlowResponse (Prelude.Maybe ContactFlow)
 describeContactFlowResponse_contactFlow = Lens.lens (\DescribeContactFlowResponse' {contactFlow} -> contactFlow) (\s@DescribeContactFlowResponse' {} a -> s {contactFlow = a} :: DescribeContactFlowResponse)
 

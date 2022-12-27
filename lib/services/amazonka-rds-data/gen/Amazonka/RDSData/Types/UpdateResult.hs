@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RDSData.Types.UpdateResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.RDSData.Types.UpdateResult where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDSData.Types.Field
 
@@ -51,14 +52,14 @@ newUpdateResult =
 updateResult_generatedFields :: Lens.Lens' UpdateResult (Prelude.Maybe [Field])
 updateResult_generatedFields = Lens.lens (\UpdateResult' {generatedFields} -> generatedFields) (\s@UpdateResult' {} a -> s {generatedFields = a} :: UpdateResult) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON UpdateResult where
+instance Data.FromJSON UpdateResult where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UpdateResult"
       ( \x ->
           UpdateResult'
-            Prelude.<$> ( x Core..:? "generatedFields"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "generatedFields"
+                            Data..!= Prelude.mempty
                         )
       )
 

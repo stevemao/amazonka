@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.OriginCustomHeader
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudFront.Types.OriginCustomHeader where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A complex type that contains @HeaderName@ and @HeaderValue@ elements, if
@@ -34,9 +35,9 @@ data OriginCustomHeader = OriginCustomHeader'
     -- in the /Amazon CloudFront Developer Guide/.
     headerName :: Prelude.Text,
     -- | The value for the header that you specified in the @HeaderName@ field.
-    headerValue :: Prelude.Text
+    headerValue :: Data.Sensitive Prelude.Text
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'OriginCustomHeader' with all optional fields omitted.
@@ -61,7 +62,7 @@ newOriginCustomHeader ::
 newOriginCustomHeader pHeaderName_ pHeaderValue_ =
   OriginCustomHeader'
     { headerName = pHeaderName_,
-      headerValue = pHeaderValue_
+      headerValue = Data._Sensitive Lens.# pHeaderValue_
     }
 
 -- | The name of a header that you want CloudFront to send to your origin.
@@ -73,13 +74,13 @@ originCustomHeader_headerName = Lens.lens (\OriginCustomHeader' {headerName} -> 
 
 -- | The value for the header that you specified in the @HeaderName@ field.
 originCustomHeader_headerValue :: Lens.Lens' OriginCustomHeader Prelude.Text
-originCustomHeader_headerValue = Lens.lens (\OriginCustomHeader' {headerValue} -> headerValue) (\s@OriginCustomHeader' {} a -> s {headerValue = a} :: OriginCustomHeader)
+originCustomHeader_headerValue = Lens.lens (\OriginCustomHeader' {headerValue} -> headerValue) (\s@OriginCustomHeader' {} a -> s {headerValue = a} :: OriginCustomHeader) Prelude.. Data._Sensitive
 
-instance Core.FromXML OriginCustomHeader where
+instance Data.FromXML OriginCustomHeader where
   parseXML x =
     OriginCustomHeader'
-      Prelude.<$> (x Core..@ "HeaderName")
-      Prelude.<*> (x Core..@ "HeaderValue")
+      Prelude.<$> (x Data..@ "HeaderName")
+      Prelude.<*> (x Data..@ "HeaderValue")
 
 instance Prelude.Hashable OriginCustomHeader where
   hashWithSalt _salt OriginCustomHeader' {..} =
@@ -91,9 +92,9 @@ instance Prelude.NFData OriginCustomHeader where
     Prelude.rnf headerName
       `Prelude.seq` Prelude.rnf headerValue
 
-instance Core.ToXML OriginCustomHeader where
+instance Data.ToXML OriginCustomHeader where
   toXML OriginCustomHeader' {..} =
     Prelude.mconcat
-      [ "HeaderName" Core.@= headerName,
-        "HeaderValue" Core.@= headerValue
+      [ "HeaderName" Data.@= headerName,
+        "HeaderValue" Data.@= headerValue
       ]

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glacier.DescribeJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -59,33 +59,34 @@ module Amazonka.Glacier.DescribeJob
     newGlacierJobDescription,
 
     -- * Response Lenses
-    glacierJobDescription_sHA256TreeHash,
-    glacierJobDescription_archiveId,
-    glacierJobDescription_selectParameters,
-    glacierJobDescription_jobId,
-    glacierJobDescription_jobOutputPath,
-    glacierJobDescription_retrievalByteRange,
-    glacierJobDescription_inventoryRetrievalParameters,
     glacierJobDescription_action,
-    glacierJobDescription_jobDescription,
-    glacierJobDescription_sNSTopic,
-    glacierJobDescription_statusMessage,
-    glacierJobDescription_vaultARN,
-    glacierJobDescription_outputLocation,
-    glacierJobDescription_tier,
+    glacierJobDescription_archiveId,
     glacierJobDescription_archiveSHA256TreeHash,
-    glacierJobDescription_creationDate,
+    glacierJobDescription_archiveSizeInBytes,
     glacierJobDescription_completed,
     glacierJobDescription_completionDate,
+    glacierJobDescription_creationDate,
+    glacierJobDescription_inventoryRetrievalParameters,
     glacierJobDescription_inventorySizeInBytes,
-    glacierJobDescription_archiveSizeInBytes,
+    glacierJobDescription_jobDescription,
+    glacierJobDescription_jobId,
+    glacierJobDescription_jobOutputPath,
+    glacierJobDescription_outputLocation,
+    glacierJobDescription_retrievalByteRange,
+    glacierJobDescription_sHA256TreeHash,
+    glacierJobDescription_sNSTopic,
+    glacierJobDescription_selectParameters,
     glacierJobDescription_statusCode,
+    glacierJobDescription_statusMessage,
+    glacierJobDescription_tier,
+    glacierJobDescription_vaultARN,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glacier.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -157,12 +158,12 @@ describeJob_jobId = Lens.lens (\DescribeJob' {jobId} -> jobId) (\s@DescribeJob' 
 
 instance Core.AWSRequest DescribeJob where
   type AWSResponse DescribeJob = GlacierJobDescription
-  request =
-    Request.glacierVersionHeader (Core._serviceVersion defaultService)
-      Prelude.. Request.get defaultService
+  request overrides =
+    Request.glacierVersionHeader (Core.version defaultService)
+      Prelude.. Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable DescribeJob where
   hashWithSalt _salt DescribeJob' {..} =
@@ -176,19 +177,19 @@ instance Prelude.NFData DescribeJob where
       `Prelude.seq` Prelude.rnf vaultName
       `Prelude.seq` Prelude.rnf jobId
 
-instance Core.ToHeaders DescribeJob where
+instance Data.ToHeaders DescribeJob where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeJob where
+instance Data.ToPath DescribeJob where
   toPath DescribeJob' {..} =
     Prelude.mconcat
       [ "/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/vaults/",
-        Core.toBS vaultName,
+        Data.toBS vaultName,
         "/jobs/",
-        Core.toBS jobId
+        Data.toBS jobId
       ]
 
-instance Core.ToQuery DescribeJob where
+instance Data.ToQuery DescribeJob where
   toQuery = Prelude.const Prelude.mempty

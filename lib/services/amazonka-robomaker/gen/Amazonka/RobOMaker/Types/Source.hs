@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RobOMaker.Types.Source
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.RobOMaker.Types.Source where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RobOMaker.Types.Architecture
 
@@ -28,14 +29,14 @@ import Amazonka.RobOMaker.Types.Architecture
 --
 -- /See:/ 'newSource' smart constructor.
 data Source = Source'
-  { -- | A hash of the object specified by @s3Bucket@ and @s3Key@.
-    etag :: Prelude.Maybe Prelude.Text,
-    -- | The s3 object key.
-    s3Key :: Prelude.Maybe Prelude.Text,
-    -- | The taget processor architecture for the application.
+  { -- | The taget processor architecture for the application.
     architecture :: Prelude.Maybe Architecture,
+    -- | A hash of the object specified by @s3Bucket@ and @s3Key@.
+    etag :: Prelude.Maybe Prelude.Text,
     -- | The s3 bucket name.
-    s3Bucket :: Prelude.Maybe Prelude.Text
+    s3Bucket :: Prelude.Maybe Prelude.Text,
+    -- | The s3 object key.
+    s3Key :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,61 +48,61 @@ data Source = Source'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'etag', 'source_etag' - A hash of the object specified by @s3Bucket@ and @s3Key@.
---
--- 's3Key', 'source_s3Key' - The s3 object key.
---
 -- 'architecture', 'source_architecture' - The taget processor architecture for the application.
 --
+-- 'etag', 'source_etag' - A hash of the object specified by @s3Bucket@ and @s3Key@.
+--
 -- 's3Bucket', 'source_s3Bucket' - The s3 bucket name.
+--
+-- 's3Key', 'source_s3Key' - The s3 object key.
 newSource ::
   Source
 newSource =
   Source'
-    { etag = Prelude.Nothing,
-      s3Key = Prelude.Nothing,
-      architecture = Prelude.Nothing,
-      s3Bucket = Prelude.Nothing
+    { architecture = Prelude.Nothing,
+      etag = Prelude.Nothing,
+      s3Bucket = Prelude.Nothing,
+      s3Key = Prelude.Nothing
     }
-
--- | A hash of the object specified by @s3Bucket@ and @s3Key@.
-source_etag :: Lens.Lens' Source (Prelude.Maybe Prelude.Text)
-source_etag = Lens.lens (\Source' {etag} -> etag) (\s@Source' {} a -> s {etag = a} :: Source)
-
--- | The s3 object key.
-source_s3Key :: Lens.Lens' Source (Prelude.Maybe Prelude.Text)
-source_s3Key = Lens.lens (\Source' {s3Key} -> s3Key) (\s@Source' {} a -> s {s3Key = a} :: Source)
 
 -- | The taget processor architecture for the application.
 source_architecture :: Lens.Lens' Source (Prelude.Maybe Architecture)
 source_architecture = Lens.lens (\Source' {architecture} -> architecture) (\s@Source' {} a -> s {architecture = a} :: Source)
 
+-- | A hash of the object specified by @s3Bucket@ and @s3Key@.
+source_etag :: Lens.Lens' Source (Prelude.Maybe Prelude.Text)
+source_etag = Lens.lens (\Source' {etag} -> etag) (\s@Source' {} a -> s {etag = a} :: Source)
+
 -- | The s3 bucket name.
 source_s3Bucket :: Lens.Lens' Source (Prelude.Maybe Prelude.Text)
 source_s3Bucket = Lens.lens (\Source' {s3Bucket} -> s3Bucket) (\s@Source' {} a -> s {s3Bucket = a} :: Source)
 
-instance Core.FromJSON Source where
+-- | The s3 object key.
+source_s3Key :: Lens.Lens' Source (Prelude.Maybe Prelude.Text)
+source_s3Key = Lens.lens (\Source' {s3Key} -> s3Key) (\s@Source' {} a -> s {s3Key = a} :: Source)
+
+instance Data.FromJSON Source where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Source"
       ( \x ->
           Source'
-            Prelude.<$> (x Core..:? "etag")
-            Prelude.<*> (x Core..:? "s3Key")
-            Prelude.<*> (x Core..:? "architecture")
-            Prelude.<*> (x Core..:? "s3Bucket")
+            Prelude.<$> (x Data..:? "architecture")
+            Prelude.<*> (x Data..:? "etag")
+            Prelude.<*> (x Data..:? "s3Bucket")
+            Prelude.<*> (x Data..:? "s3Key")
       )
 
 instance Prelude.Hashable Source where
   hashWithSalt _salt Source' {..} =
-    _salt `Prelude.hashWithSalt` etag
-      `Prelude.hashWithSalt` s3Key
-      `Prelude.hashWithSalt` architecture
+    _salt `Prelude.hashWithSalt` architecture
+      `Prelude.hashWithSalt` etag
       `Prelude.hashWithSalt` s3Bucket
+      `Prelude.hashWithSalt` s3Key
 
 instance Prelude.NFData Source where
   rnf Source' {..} =
-    Prelude.rnf etag
-      `Prelude.seq` Prelude.rnf s3Key
-      `Prelude.seq` Prelude.rnf architecture
+    Prelude.rnf architecture
+      `Prelude.seq` Prelude.rnf etag
       `Prelude.seq` Prelude.rnf s3Bucket
+      `Prelude.seq` Prelude.rnf s3Key

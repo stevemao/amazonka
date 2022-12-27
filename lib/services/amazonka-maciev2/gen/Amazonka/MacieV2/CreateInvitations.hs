@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.CreateInvitations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.MacieV2.CreateInvitations
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -50,14 +51,14 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateInvitations' smart constructor.
 data CreateInvitations = CreateInvitations'
-  { -- | Specifies whether to send an email notification to the root user of each
-    -- account that the invitation will be sent to. This notification is in
-    -- addition to an alert that the root user receives in Personal Health
-    -- Dashboard. To send an email notification to the root user of each
-    -- account, set this value to true.
+  { -- | Specifies whether to send the invitation as an email message. If this
+    -- value is false, Amazon Macie sends the invitation (as an email message)
+    -- to the email address that you specified for the recipient\'s account
+    -- when you associated the account with your account. The default value is
+    -- false.
     disableEmailNotification :: Prelude.Maybe Prelude.Bool,
-    -- | A custom message to include in the invitation. Amazon Macie adds this
-    -- message to the standard content that it sends for an invitation.
+    -- | Custom text to include in the email message that contains the
+    -- invitation. The text can contain as many as 80 alphanumeric characters.
     message :: Prelude.Maybe Prelude.Text,
     -- | An array that lists Amazon Web Services account IDs, one for each
     -- account to send the invitation to.
@@ -73,14 +74,14 @@ data CreateInvitations = CreateInvitations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'disableEmailNotification', 'createInvitations_disableEmailNotification' - Specifies whether to send an email notification to the root user of each
--- account that the invitation will be sent to. This notification is in
--- addition to an alert that the root user receives in Personal Health
--- Dashboard. To send an email notification to the root user of each
--- account, set this value to true.
+-- 'disableEmailNotification', 'createInvitations_disableEmailNotification' - Specifies whether to send the invitation as an email message. If this
+-- value is false, Amazon Macie sends the invitation (as an email message)
+-- to the email address that you specified for the recipient\'s account
+-- when you associated the account with your account. The default value is
+-- false.
 --
--- 'message', 'createInvitations_message' - A custom message to include in the invitation. Amazon Macie adds this
--- message to the standard content that it sends for an invitation.
+-- 'message', 'createInvitations_message' - Custom text to include in the email message that contains the
+-- invitation. The text can contain as many as 80 alphanumeric characters.
 --
 -- 'accountIds', 'createInvitations_accountIds' - An array that lists Amazon Web Services account IDs, one for each
 -- account to send the invitation to.
@@ -94,16 +95,16 @@ newCreateInvitations =
       accountIds = Prelude.mempty
     }
 
--- | Specifies whether to send an email notification to the root user of each
--- account that the invitation will be sent to. This notification is in
--- addition to an alert that the root user receives in Personal Health
--- Dashboard. To send an email notification to the root user of each
--- account, set this value to true.
+-- | Specifies whether to send the invitation as an email message. If this
+-- value is false, Amazon Macie sends the invitation (as an email message)
+-- to the email address that you specified for the recipient\'s account
+-- when you associated the account with your account. The default value is
+-- false.
 createInvitations_disableEmailNotification :: Lens.Lens' CreateInvitations (Prelude.Maybe Prelude.Bool)
 createInvitations_disableEmailNotification = Lens.lens (\CreateInvitations' {disableEmailNotification} -> disableEmailNotification) (\s@CreateInvitations' {} a -> s {disableEmailNotification = a} :: CreateInvitations)
 
--- | A custom message to include in the invitation. Amazon Macie adds this
--- message to the standard content that it sends for an invitation.
+-- | Custom text to include in the email message that contains the
+-- invitation. The text can contain as many as 80 alphanumeric characters.
 createInvitations_message :: Lens.Lens' CreateInvitations (Prelude.Maybe Prelude.Text)
 createInvitations_message = Lens.lens (\CreateInvitations' {message} -> message) (\s@CreateInvitations' {} a -> s {message = a} :: CreateInvitations)
 
@@ -116,12 +117,13 @@ instance Core.AWSRequest CreateInvitations where
   type
     AWSResponse CreateInvitations =
       CreateInvitationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateInvitationsResponse'
-            Prelude.<$> ( x Core..?> "unprocessedAccounts"
+            Prelude.<$> ( x Data..?> "unprocessedAccounts"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -140,32 +142,32 @@ instance Prelude.NFData CreateInvitations where
       `Prelude.seq` Prelude.rnf message
       `Prelude.seq` Prelude.rnf accountIds
 
-instance Core.ToHeaders CreateInvitations where
+instance Data.ToHeaders CreateInvitations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateInvitations where
+instance Data.ToJSON CreateInvitations where
   toJSON CreateInvitations' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("disableEmailNotification" Core..=)
+          [ ("disableEmailNotification" Data..=)
               Prelude.<$> disableEmailNotification,
-            ("message" Core..=) Prelude.<$> message,
-            Prelude.Just ("accountIds" Core..= accountIds)
+            ("message" Data..=) Prelude.<$> message,
+            Prelude.Just ("accountIds" Data..= accountIds)
           ]
       )
 
-instance Core.ToPath CreateInvitations where
+instance Data.ToPath CreateInvitations where
   toPath = Prelude.const "/invitations"
 
-instance Core.ToQuery CreateInvitations where
+instance Data.ToQuery CreateInvitations where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateInvitationsResponse' smart constructor.

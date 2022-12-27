@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.ListSchemas
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@
 --
 -- Returns the list of schemas associated with the account. The response
 -- provides the properties for each schema, including the Amazon Resource
--- Name (ARN). For more information on schemas, see CreateSchema.
+-- Name (ARN). For more information on schemas, see
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSchema.html CreateSchema>.
 --
 -- This operation returns paginated results.
 module Amazonka.Personalize.ListSchemas
@@ -31,22 +32,23 @@ module Amazonka.Personalize.ListSchemas
     newListSchemas,
 
     -- * Request Lenses
-    listSchemas_nextToken,
     listSchemas_maxResults,
+    listSchemas_nextToken,
 
     -- * Destructuring the Response
     ListSchemasResponse (..),
     newListSchemasResponse,
 
     -- * Response Lenses
-    listSchemasResponse_schemas,
     listSchemasResponse_nextToken,
+    listSchemasResponse_schemas,
     listSchemasResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -54,11 +56,11 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListSchemas' smart constructor.
 data ListSchemas = ListSchemas'
-  { -- | A token returned from the previous call to @ListSchemas@ for getting the
+  { -- | The maximum number of schemas to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token returned from the previous call to @ListSchemas@ for getting the
     -- next set of schemas (if they exist).
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of schemas to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -70,26 +72,26 @@ data ListSchemas = ListSchemas'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listSchemas_maxResults' - The maximum number of schemas to return.
+--
 -- 'nextToken', 'listSchemas_nextToken' - A token returned from the previous call to @ListSchemas@ for getting the
 -- next set of schemas (if they exist).
---
--- 'maxResults', 'listSchemas_maxResults' - The maximum number of schemas to return.
 newListSchemas ::
   ListSchemas
 newListSchemas =
   ListSchemas'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of schemas to return.
+listSchemas_maxResults :: Lens.Lens' ListSchemas (Prelude.Maybe Prelude.Natural)
+listSchemas_maxResults = Lens.lens (\ListSchemas' {maxResults} -> maxResults) (\s@ListSchemas' {} a -> s {maxResults = a} :: ListSchemas)
 
 -- | A token returned from the previous call to @ListSchemas@ for getting the
 -- next set of schemas (if they exist).
 listSchemas_nextToken :: Lens.Lens' ListSchemas (Prelude.Maybe Prelude.Text)
 listSchemas_nextToken = Lens.lens (\ListSchemas' {nextToken} -> nextToken) (\s@ListSchemas' {} a -> s {nextToken = a} :: ListSchemas)
-
--- | The maximum number of schemas to return.
-listSchemas_maxResults :: Lens.Lens' ListSchemas (Prelude.Maybe Prelude.Natural)
-listSchemas_maxResults = Lens.lens (\ListSchemas' {maxResults} -> maxResults) (\s@ListSchemas' {} a -> s {maxResults = a} :: ListSchemas)
 
 instance Core.AWSPager ListSchemas where
   page rq rs
@@ -112,62 +114,63 @@ instance Core.AWSPager ListSchemas where
 
 instance Core.AWSRequest ListSchemas where
   type AWSResponse ListSchemas = ListSchemasResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListSchemasResponse'
-            Prelude.<$> (x Core..?> "schemas" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "schemas" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListSchemas where
   hashWithSalt _salt ListSchemas' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListSchemas where
   rnf ListSchemas' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListSchemas where
+instance Data.ToHeaders ListSchemas where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.ListSchemas" ::
+              Data.=# ( "AmazonPersonalize.ListSchemas" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListSchemas where
+instance Data.ToJSON ListSchemas where
   toJSON ListSchemas' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListSchemas where
+instance Data.ToPath ListSchemas where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListSchemas where
+instance Data.ToQuery ListSchemas where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListSchemasResponse' smart constructor.
 data ListSchemasResponse = ListSchemasResponse'
-  { -- | A list of schemas.
-    schemas :: Prelude.Maybe [DatasetSchemaSummary],
-    -- | A token used to get the next set of schemas (if they exist).
+  { -- | A token used to get the next set of schemas (if they exist).
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of schemas.
+    schemas :: Prelude.Maybe [DatasetSchemaSummary],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -181,9 +184,9 @@ data ListSchemasResponse = ListSchemasResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'schemas', 'listSchemasResponse_schemas' - A list of schemas.
---
 -- 'nextToken', 'listSchemasResponse_nextToken' - A token used to get the next set of schemas (if they exist).
+--
+-- 'schemas', 'listSchemasResponse_schemas' - A list of schemas.
 --
 -- 'httpStatus', 'listSchemasResponse_httpStatus' - The response's http status code.
 newListSchemasResponse ::
@@ -192,18 +195,18 @@ newListSchemasResponse ::
   ListSchemasResponse
 newListSchemasResponse pHttpStatus_ =
   ListSchemasResponse'
-    { schemas = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { nextToken = Prelude.Nothing,
+      schemas = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A list of schemas.
-listSchemasResponse_schemas :: Lens.Lens' ListSchemasResponse (Prelude.Maybe [DatasetSchemaSummary])
-listSchemasResponse_schemas = Lens.lens (\ListSchemasResponse' {schemas} -> schemas) (\s@ListSchemasResponse' {} a -> s {schemas = a} :: ListSchemasResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A token used to get the next set of schemas (if they exist).
 listSchemasResponse_nextToken :: Lens.Lens' ListSchemasResponse (Prelude.Maybe Prelude.Text)
 listSchemasResponse_nextToken = Lens.lens (\ListSchemasResponse' {nextToken} -> nextToken) (\s@ListSchemasResponse' {} a -> s {nextToken = a} :: ListSchemasResponse)
+
+-- | A list of schemas.
+listSchemasResponse_schemas :: Lens.Lens' ListSchemasResponse (Prelude.Maybe [DatasetSchemaSummary])
+listSchemasResponse_schemas = Lens.lens (\ListSchemasResponse' {schemas} -> schemas) (\s@ListSchemasResponse' {} a -> s {schemas = a} :: ListSchemasResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listSchemasResponse_httpStatus :: Lens.Lens' ListSchemasResponse Prelude.Int
@@ -211,6 +214,6 @@ listSchemasResponse_httpStatus = Lens.lens (\ListSchemasResponse' {httpStatus} -
 
 instance Prelude.NFData ListSchemasResponse where
   rnf ListSchemasResponse' {..} =
-    Prelude.rnf schemas
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf schemas
       `Prelude.seq` Prelude.rnf httpStatus

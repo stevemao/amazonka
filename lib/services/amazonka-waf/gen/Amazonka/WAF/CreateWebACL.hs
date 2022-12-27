@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAF.CreateWebACL
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -79,14 +79,15 @@ module Amazonka.WAF.CreateWebACL
     newCreateWebACLResponse,
 
     -- * Response Lenses
-    createWebACLResponse_webACL,
     createWebACLResponse_changeToken,
+    createWebACLResponse_webACL,
     createWebACLResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -192,13 +193,14 @@ createWebACL_changeToken = Lens.lens (\CreateWebACL' {changeToken} -> changeToke
 
 instance Core.AWSRequest CreateWebACL where
   type AWSResponse CreateWebACL = CreateWebACLResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateWebACLResponse'
-            Prelude.<$> (x Core..?> "WebACL")
-            Prelude.<*> (x Core..?> "ChangeToken")
+            Prelude.<$> (x Data..?> "ChangeToken")
+            Prelude.<*> (x Data..?> "WebACL")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -218,47 +220,47 @@ instance Prelude.NFData CreateWebACL where
       `Prelude.seq` Prelude.rnf defaultAction
       `Prelude.seq` Prelude.rnf changeToken
 
-instance Core.ToHeaders CreateWebACL where
+instance Data.ToHeaders CreateWebACL where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_20150824.CreateWebACL" ::
+              Data.=# ( "AWSWAF_20150824.CreateWebACL" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateWebACL where
+instance Data.ToJSON CreateWebACL where
   toJSON CreateWebACL' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("MetricName" Core..= metricName),
-            Prelude.Just ("DefaultAction" Core..= defaultAction),
-            Prelude.Just ("ChangeToken" Core..= changeToken)
+          [ ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("MetricName" Data..= metricName),
+            Prelude.Just ("DefaultAction" Data..= defaultAction),
+            Prelude.Just ("ChangeToken" Data..= changeToken)
           ]
       )
 
-instance Core.ToPath CreateWebACL where
+instance Data.ToPath CreateWebACL where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateWebACL where
+instance Data.ToQuery CreateWebACL where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateWebACLResponse' smart constructor.
 data CreateWebACLResponse = CreateWebACLResponse'
-  { -- | The WebACL returned in the @CreateWebACL@ response.
-    webACL :: Prelude.Maybe WebACL,
-    -- | The @ChangeToken@ that you used to submit the @CreateWebACL@ request.
+  { -- | The @ChangeToken@ that you used to submit the @CreateWebACL@ request.
     -- You can also use this value to query the status of the request. For more
     -- information, see GetChangeTokenStatus.
     changeToken :: Prelude.Maybe Prelude.Text,
+    -- | The WebACL returned in the @CreateWebACL@ response.
+    webACL :: Prelude.Maybe WebACL,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -272,11 +274,11 @@ data CreateWebACLResponse = CreateWebACLResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'webACL', 'createWebACLResponse_webACL' - The WebACL returned in the @CreateWebACL@ response.
---
 -- 'changeToken', 'createWebACLResponse_changeToken' - The @ChangeToken@ that you used to submit the @CreateWebACL@ request.
 -- You can also use this value to query the status of the request. For more
 -- information, see GetChangeTokenStatus.
+--
+-- 'webACL', 'createWebACLResponse_webACL' - The WebACL returned in the @CreateWebACL@ response.
 --
 -- 'httpStatus', 'createWebACLResponse_httpStatus' - The response's http status code.
 newCreateWebACLResponse ::
@@ -285,14 +287,11 @@ newCreateWebACLResponse ::
   CreateWebACLResponse
 newCreateWebACLResponse pHttpStatus_ =
   CreateWebACLResponse'
-    { webACL = Prelude.Nothing,
-      changeToken = Prelude.Nothing,
+    { changeToken =
+        Prelude.Nothing,
+      webACL = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The WebACL returned in the @CreateWebACL@ response.
-createWebACLResponse_webACL :: Lens.Lens' CreateWebACLResponse (Prelude.Maybe WebACL)
-createWebACLResponse_webACL = Lens.lens (\CreateWebACLResponse' {webACL} -> webACL) (\s@CreateWebACLResponse' {} a -> s {webACL = a} :: CreateWebACLResponse)
 
 -- | The @ChangeToken@ that you used to submit the @CreateWebACL@ request.
 -- You can also use this value to query the status of the request. For more
@@ -300,12 +299,16 @@ createWebACLResponse_webACL = Lens.lens (\CreateWebACLResponse' {webACL} -> webA
 createWebACLResponse_changeToken :: Lens.Lens' CreateWebACLResponse (Prelude.Maybe Prelude.Text)
 createWebACLResponse_changeToken = Lens.lens (\CreateWebACLResponse' {changeToken} -> changeToken) (\s@CreateWebACLResponse' {} a -> s {changeToken = a} :: CreateWebACLResponse)
 
+-- | The WebACL returned in the @CreateWebACL@ response.
+createWebACLResponse_webACL :: Lens.Lens' CreateWebACLResponse (Prelude.Maybe WebACL)
+createWebACLResponse_webACL = Lens.lens (\CreateWebACLResponse' {webACL} -> webACL) (\s@CreateWebACLResponse' {} a -> s {webACL = a} :: CreateWebACLResponse)
+
 -- | The response's http status code.
 createWebACLResponse_httpStatus :: Lens.Lens' CreateWebACLResponse Prelude.Int
 createWebACLResponse_httpStatus = Lens.lens (\CreateWebACLResponse' {httpStatus} -> httpStatus) (\s@CreateWebACLResponse' {} a -> s {httpStatus = a} :: CreateWebACLResponse)
 
 instance Prelude.NFData CreateWebACLResponse where
   rnf CreateWebACLResponse' {..} =
-    Prelude.rnf webACL
-      `Prelude.seq` Prelude.rnf changeToken
+    Prelude.rnf changeToken
+      `Prelude.seq` Prelude.rnf webACL
       `Prelude.seq` Prelude.rnf httpStatus

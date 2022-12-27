@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.Types.TestGridSessionArtifact
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.DeviceFarm.Types.TestGridSessionArtifact where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types.TestGridSessionArtifactType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Artifacts are video and other files that are produced in the process of
@@ -32,12 +33,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newTestGridSessionArtifact' smart constructor.
 data TestGridSessionArtifact = TestGridSessionArtifact'
-  { -- | A semi-stable URL to the content of the object.
-    url :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+  { -- | The file name of the artifact.
+    filename :: Prelude.Maybe Prelude.Text,
     -- | The kind of artifact.
     type' :: Prelude.Maybe TestGridSessionArtifactType,
-    -- | The file name of the artifact.
-    filename :: Prelude.Maybe Prelude.Text
+    -- | A semi-stable URL to the content of the object.
+    url :: Prelude.Maybe (Data.Sensitive Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -49,51 +50,52 @@ data TestGridSessionArtifact = TestGridSessionArtifact'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'url', 'testGridSessionArtifact_url' - A semi-stable URL to the content of the object.
+-- 'filename', 'testGridSessionArtifact_filename' - The file name of the artifact.
 --
 -- 'type'', 'testGridSessionArtifact_type' - The kind of artifact.
 --
--- 'filename', 'testGridSessionArtifact_filename' - The file name of the artifact.
+-- 'url', 'testGridSessionArtifact_url' - A semi-stable URL to the content of the object.
 newTestGridSessionArtifact ::
   TestGridSessionArtifact
 newTestGridSessionArtifact =
   TestGridSessionArtifact'
-    { url = Prelude.Nothing,
+    { filename =
+        Prelude.Nothing,
       type' = Prelude.Nothing,
-      filename = Prelude.Nothing
+      url = Prelude.Nothing
     }
-
--- | A semi-stable URL to the content of the object.
-testGridSessionArtifact_url :: Lens.Lens' TestGridSessionArtifact (Prelude.Maybe Prelude.Text)
-testGridSessionArtifact_url = Lens.lens (\TestGridSessionArtifact' {url} -> url) (\s@TestGridSessionArtifact' {} a -> s {url = a} :: TestGridSessionArtifact) Prelude.. Lens.mapping Core._Sensitive
-
--- | The kind of artifact.
-testGridSessionArtifact_type :: Lens.Lens' TestGridSessionArtifact (Prelude.Maybe TestGridSessionArtifactType)
-testGridSessionArtifact_type = Lens.lens (\TestGridSessionArtifact' {type'} -> type') (\s@TestGridSessionArtifact' {} a -> s {type' = a} :: TestGridSessionArtifact)
 
 -- | The file name of the artifact.
 testGridSessionArtifact_filename :: Lens.Lens' TestGridSessionArtifact (Prelude.Maybe Prelude.Text)
 testGridSessionArtifact_filename = Lens.lens (\TestGridSessionArtifact' {filename} -> filename) (\s@TestGridSessionArtifact' {} a -> s {filename = a} :: TestGridSessionArtifact)
 
-instance Core.FromJSON TestGridSessionArtifact where
+-- | The kind of artifact.
+testGridSessionArtifact_type :: Lens.Lens' TestGridSessionArtifact (Prelude.Maybe TestGridSessionArtifactType)
+testGridSessionArtifact_type = Lens.lens (\TestGridSessionArtifact' {type'} -> type') (\s@TestGridSessionArtifact' {} a -> s {type' = a} :: TestGridSessionArtifact)
+
+-- | A semi-stable URL to the content of the object.
+testGridSessionArtifact_url :: Lens.Lens' TestGridSessionArtifact (Prelude.Maybe Prelude.Text)
+testGridSessionArtifact_url = Lens.lens (\TestGridSessionArtifact' {url} -> url) (\s@TestGridSessionArtifact' {} a -> s {url = a} :: TestGridSessionArtifact) Prelude.. Lens.mapping Data._Sensitive
+
+instance Data.FromJSON TestGridSessionArtifact where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TestGridSessionArtifact"
       ( \x ->
           TestGridSessionArtifact'
-            Prelude.<$> (x Core..:? "url")
-            Prelude.<*> (x Core..:? "type")
-            Prelude.<*> (x Core..:? "filename")
+            Prelude.<$> (x Data..:? "filename")
+            Prelude.<*> (x Data..:? "type")
+            Prelude.<*> (x Data..:? "url")
       )
 
 instance Prelude.Hashable TestGridSessionArtifact where
   hashWithSalt _salt TestGridSessionArtifact' {..} =
-    _salt `Prelude.hashWithSalt` url
+    _salt `Prelude.hashWithSalt` filename
       `Prelude.hashWithSalt` type'
-      `Prelude.hashWithSalt` filename
+      `Prelude.hashWithSalt` url
 
 instance Prelude.NFData TestGridSessionArtifact where
   rnf TestGridSessionArtifact' {..} =
-    Prelude.rnf url
+    Prelude.rnf filename
       `Prelude.seq` Prelude.rnf type'
-      `Prelude.seq` Prelude.rnf filename
+      `Prelude.seq` Prelude.rnf url

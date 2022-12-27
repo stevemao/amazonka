@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.VoiceId.Types.FraudRiskDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,11 @@
 module Amazonka.VoiceId.Types.FraudRiskDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.VoiceId.Types.KnownFraudsterRisk
+import Amazonka.VoiceId.Types.VoiceSpoofingRisk
 
 -- | Details regarding various fraud risk analyses performed against the
 -- current session state and streamed audio of the speaker.
@@ -31,7 +33,10 @@ import Amazonka.VoiceId.Types.KnownFraudsterRisk
 data FraudRiskDetails = FraudRiskDetails'
   { -- | The details resulting from \'Known Fraudster Risk\' analysis of the
     -- speaker.
-    knownFraudsterRisk :: KnownFraudsterRisk
+    knownFraudsterRisk :: KnownFraudsterRisk,
+    -- | The details resulting from \'Voice Spoofing Risk\' analysis of the
+    -- speaker.
+    voiceSpoofingRisk :: VoiceSpoofingRisk
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,34 +50,50 @@ data FraudRiskDetails = FraudRiskDetails'
 --
 -- 'knownFraudsterRisk', 'fraudRiskDetails_knownFraudsterRisk' - The details resulting from \'Known Fraudster Risk\' analysis of the
 -- speaker.
+--
+-- 'voiceSpoofingRisk', 'fraudRiskDetails_voiceSpoofingRisk' - The details resulting from \'Voice Spoofing Risk\' analysis of the
+-- speaker.
 newFraudRiskDetails ::
   -- | 'knownFraudsterRisk'
   KnownFraudsterRisk ->
+  -- | 'voiceSpoofingRisk'
+  VoiceSpoofingRisk ->
   FraudRiskDetails
-newFraudRiskDetails pKnownFraudsterRisk_ =
-  FraudRiskDetails'
-    { knownFraudsterRisk =
-        pKnownFraudsterRisk_
-    }
+newFraudRiskDetails
+  pKnownFraudsterRisk_
+  pVoiceSpoofingRisk_ =
+    FraudRiskDetails'
+      { knownFraudsterRisk =
+          pKnownFraudsterRisk_,
+        voiceSpoofingRisk = pVoiceSpoofingRisk_
+      }
 
 -- | The details resulting from \'Known Fraudster Risk\' analysis of the
 -- speaker.
 fraudRiskDetails_knownFraudsterRisk :: Lens.Lens' FraudRiskDetails KnownFraudsterRisk
 fraudRiskDetails_knownFraudsterRisk = Lens.lens (\FraudRiskDetails' {knownFraudsterRisk} -> knownFraudsterRisk) (\s@FraudRiskDetails' {} a -> s {knownFraudsterRisk = a} :: FraudRiskDetails)
 
-instance Core.FromJSON FraudRiskDetails where
+-- | The details resulting from \'Voice Spoofing Risk\' analysis of the
+-- speaker.
+fraudRiskDetails_voiceSpoofingRisk :: Lens.Lens' FraudRiskDetails VoiceSpoofingRisk
+fraudRiskDetails_voiceSpoofingRisk = Lens.lens (\FraudRiskDetails' {voiceSpoofingRisk} -> voiceSpoofingRisk) (\s@FraudRiskDetails' {} a -> s {voiceSpoofingRisk = a} :: FraudRiskDetails)
+
+instance Data.FromJSON FraudRiskDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FraudRiskDetails"
       ( \x ->
           FraudRiskDetails'
-            Prelude.<$> (x Core..: "KnownFraudsterRisk")
+            Prelude.<$> (x Data..: "KnownFraudsterRisk")
+            Prelude.<*> (x Data..: "VoiceSpoofingRisk")
       )
 
 instance Prelude.Hashable FraudRiskDetails where
   hashWithSalt _salt FraudRiskDetails' {..} =
     _salt `Prelude.hashWithSalt` knownFraudsterRisk
+      `Prelude.hashWithSalt` voiceSpoofingRisk
 
 instance Prelude.NFData FraudRiskDetails where
   rnf FraudRiskDetails' {..} =
     Prelude.rnf knownFraudsterRisk
+      `Prelude.seq` Prelude.rnf voiceSpoofingRisk

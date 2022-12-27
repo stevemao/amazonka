@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MarketplaceCatalog.Types.Entity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MarketplaceCatalog.Types.Entity where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An entity contains data that describes your product, its supported
@@ -64,14 +65,14 @@ entity_identifier = Lens.lens (\Entity' {identifier} -> identifier) (\s@Entity' 
 entity_type :: Lens.Lens' Entity Prelude.Text
 entity_type = Lens.lens (\Entity' {type'} -> type') (\s@Entity' {} a -> s {type' = a} :: Entity)
 
-instance Core.FromJSON Entity where
+instance Data.FromJSON Entity where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Entity"
       ( \x ->
           Entity'
-            Prelude.<$> (x Core..:? "Identifier")
-            Prelude.<*> (x Core..: "Type")
+            Prelude.<$> (x Data..:? "Identifier")
+            Prelude.<*> (x Data..: "Type")
       )
 
 instance Prelude.Hashable Entity where
@@ -84,11 +85,11 @@ instance Prelude.NFData Entity where
     Prelude.rnf identifier
       `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON Entity where
+instance Data.ToJSON Entity where
   toJSON Entity' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Identifier" Core..=) Prelude.<$> identifier,
-            Prelude.Just ("Type" Core..= type')
+          [ ("Identifier" Data..=) Prelude.<$> identifier,
+            Prelude.Just ("Type" Data..= type')
           ]
       )

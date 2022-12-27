@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Neptune.Types.DBClusterParameterGroupNameMessage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Neptune.Types.DBClusterParameterGroupNameMessage where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | /See:/ 'newDBClusterParameterGroupNameMessage' smart constructor.
@@ -82,12 +83,12 @@ dbClusterParameterGroupNameMessage_dbClusterParameterGroupName :: Lens.Lens' DBC
 dbClusterParameterGroupNameMessage_dbClusterParameterGroupName = Lens.lens (\DBClusterParameterGroupNameMessage' {dbClusterParameterGroupName} -> dbClusterParameterGroupName) (\s@DBClusterParameterGroupNameMessage' {} a -> s {dbClusterParameterGroupName = a} :: DBClusterParameterGroupNameMessage)
 
 instance
-  Core.FromXML
+  Data.FromXML
     DBClusterParameterGroupNameMessage
   where
   parseXML x =
     DBClusterParameterGroupNameMessage'
-      Prelude.<$> (x Core..@? "DBClusterParameterGroupName")
+      Prelude.<$> (x Data..@? "DBClusterParameterGroupName")
 
 instance
   Prelude.Hashable

@@ -14,15 +14,21 @@
 
 -- |
 -- Module      : Amazonka.Route53Domains.AcceptDomainTransferFromAnotherAwsAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Accepts the transfer of a domain from another AWS account to the current
--- AWS account. You initiate a transfer between AWS accounts using
+-- Accepts the transfer of a domain from another Amazon Web Services
+-- account to the currentAmazon Web Services account. You initiate a
+-- transfer between Amazon Web Services accounts using
 -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_TransferDomainToAnotherAwsAccount.html TransferDomainToAnotherAwsAccount>.
+--
+-- If you use the CLI command at
+-- <https://docs.aws.amazon.com/cli/latest/reference/route53domains/accept-domain-transfer-from-another-aws-account.html accept-domain-transfer-from-another-aws-account>,
+-- use JSON format as input instead of text because otherwise CLI will
+-- throw an error from domain transfer input that includes single quotes.
 --
 -- Use either
 -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_ListOperations.html ListOperations>
@@ -52,7 +58,8 @@ module Amazonka.Route53Domains.AcceptDomainTransferFromAnotherAwsAccount
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -63,8 +70,8 @@ import Amazonka.Route53Domains.Types
 --
 -- /See:/ 'newAcceptDomainTransferFromAnotherAwsAccount' smart constructor.
 data AcceptDomainTransferFromAnotherAwsAccount = AcceptDomainTransferFromAnotherAwsAccount'
-  { -- | The name of the domain that was specified when another AWS account
-    -- submitted a
+  { -- | The name of the domain that was specified when another Amazon Web
+    -- Services account submitted a
     -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_TransferDomainToAnotherAwsAccount.html TransferDomainToAnotherAwsAccount>
     -- request.
     domainName :: Prelude.Text,
@@ -83,8 +90,8 @@ data AcceptDomainTransferFromAnotherAwsAccount = AcceptDomainTransferFromAnother
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'domainName', 'acceptDomainTransferFromAnotherAwsAccount_domainName' - The name of the domain that was specified when another AWS account
--- submitted a
+-- 'domainName', 'acceptDomainTransferFromAnotherAwsAccount_domainName' - The name of the domain that was specified when another Amazon Web
+-- Services account submitted a
 -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_TransferDomainToAnotherAwsAccount.html TransferDomainToAnotherAwsAccount>
 -- request.
 --
@@ -106,8 +113,8 @@ newAcceptDomainTransferFromAnotherAwsAccount
         password = pPassword_
       }
 
--- | The name of the domain that was specified when another AWS account
--- submitted a
+-- | The name of the domain that was specified when another Amazon Web
+-- Services account submitted a
 -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_TransferDomainToAnotherAwsAccount.html TransferDomainToAnotherAwsAccount>
 -- request.
 acceptDomainTransferFromAnotherAwsAccount_domainName :: Lens.Lens' AcceptDomainTransferFromAnotherAwsAccount Prelude.Text
@@ -127,12 +134,13 @@ instance
     AWSResponse
       AcceptDomainTransferFromAnotherAwsAccount =
       AcceptDomainTransferFromAnotherAwsAccountResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AcceptDomainTransferFromAnotherAwsAccountResponse'
-            Prelude.<$> (x Core..?> "OperationId")
+            Prelude.<$> (x Data..?> "OperationId")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -155,43 +163,43 @@ instance
       `Prelude.seq` Prelude.rnf password
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     AcceptDomainTransferFromAnotherAwsAccount
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53Domains_v20140515.AcceptDomainTransferFromAnotherAwsAccount" ::
+              Data.=# ( "Route53Domains_v20140515.AcceptDomainTransferFromAnotherAwsAccount" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AcceptDomainTransferFromAnotherAwsAccount
   where
   toJSON AcceptDomainTransferFromAnotherAwsAccount' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("DomainName" Core..= domainName),
-            Prelude.Just ("Password" Core..= password)
+          [ Prelude.Just ("DomainName" Data..= domainName),
+            Prelude.Just ("Password" Data..= password)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     AcceptDomainTransferFromAnotherAwsAccount
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     AcceptDomainTransferFromAnotherAwsAccount
   where
   toQuery = Prelude.const Prelude.mempty

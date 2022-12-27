@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.MonitoringConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.KinesisAnalyticsV2.Types.MonitoringConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.ConfigurationType
 import Amazonka.KinesisAnalyticsV2.Types.LogLevel
 import Amazonka.KinesisAnalyticsV2.Types.MetricsLevel
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes configuration parameters for Amazon CloudWatch logging for an
@@ -102,13 +103,13 @@ instance Prelude.NFData MonitoringConfiguration where
       `Prelude.seq` Prelude.rnf metricsLevel
       `Prelude.seq` Prelude.rnf configurationType
 
-instance Core.ToJSON MonitoringConfiguration where
+instance Data.ToJSON MonitoringConfiguration where
   toJSON MonitoringConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("LogLevel" Core..=) Prelude.<$> logLevel,
-            ("MetricsLevel" Core..=) Prelude.<$> metricsLevel,
+          [ ("LogLevel" Data..=) Prelude.<$> logLevel,
+            ("MetricsLevel" Data..=) Prelude.<$> metricsLevel,
             Prelude.Just
-              ("ConfigurationType" Core..= configurationType)
+              ("ConfigurationType" Data..= configurationType)
           ]
       )

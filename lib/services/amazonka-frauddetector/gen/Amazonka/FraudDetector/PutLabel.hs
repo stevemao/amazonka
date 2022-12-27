@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.PutLabel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.FraudDetector.PutLabel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,7 +98,8 @@ putLabel_name = Lens.lens (\PutLabel' {name} -> name) (\s@PutLabel' {} a -> s {n
 
 instance Core.AWSRequest PutLabel where
   type AWSResponse PutLabel = PutLabelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -117,35 +119,35 @@ instance Prelude.NFData PutLabel where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders PutLabel where
+instance Data.ToHeaders PutLabel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.PutLabel" ::
+              Data.=# ( "AWSHawksNestServiceFacade.PutLabel" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutLabel where
+instance Data.ToJSON PutLabel where
   toJSON PutLabel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("description" Core..=) Prelude.<$> description,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("name" Core..= name)
+          [ ("description" Data..=) Prelude.<$> description,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("name" Data..= name)
           ]
       )
 
-instance Core.ToPath PutLabel where
+instance Data.ToPath PutLabel where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutLabel where
+instance Data.ToQuery PutLabel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutLabelResponse' smart constructor.

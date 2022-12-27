@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.ListOrganizationPortfolioAccess
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,8 +35,8 @@ module Amazonka.ServiceCatalog.ListOrganizationPortfolioAccess
 
     -- * Request Lenses
     listOrganizationPortfolioAccess_acceptLanguage,
-    listOrganizationPortfolioAccess_pageToken,
     listOrganizationPortfolioAccess_pageSize,
+    listOrganizationPortfolioAccess_pageToken,
     listOrganizationPortfolioAccess_portfolioId,
     listOrganizationPortfolioAccess_organizationNodeType,
 
@@ -52,7 +52,8 @@ module Amazonka.ServiceCatalog.ListOrganizationPortfolioAccess
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -68,11 +69,11 @@ data ListOrganizationPortfolioAccess = ListOrganizationPortfolioAccess'
     --
     -- -   @zh@ - Chinese
     acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return with this call.
+    pageSize :: Prelude.Maybe Prelude.Natural,
     -- | The page token for the next set of results. To retrieve the first set of
     -- results, use null.
     pageToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return with this call.
-    pageSize :: Prelude.Maybe Prelude.Natural,
     -- | The portfolio identifier. For example, @port-2abcdext3y5fk@.
     portfolioId :: Prelude.Text,
     -- | The organization node type that will be returned in the output.
@@ -104,10 +105,10 @@ data ListOrganizationPortfolioAccess = ListOrganizationPortfolioAccess'
 --
 -- -   @zh@ - Chinese
 --
+-- 'pageSize', 'listOrganizationPortfolioAccess_pageSize' - The maximum number of items to return with this call.
+--
 -- 'pageToken', 'listOrganizationPortfolioAccess_pageToken' - The page token for the next set of results. To retrieve the first set of
 -- results, use null.
---
--- 'pageSize', 'listOrganizationPortfolioAccess_pageSize' - The maximum number of items to return with this call.
 --
 -- 'portfolioId', 'listOrganizationPortfolioAccess_portfolioId' - The portfolio identifier. For example, @port-2abcdext3y5fk@.
 --
@@ -132,8 +133,8 @@ newListOrganizationPortfolioAccess
     ListOrganizationPortfolioAccess'
       { acceptLanguage =
           Prelude.Nothing,
-        pageToken = Prelude.Nothing,
         pageSize = Prelude.Nothing,
+        pageToken = Prelude.Nothing,
         portfolioId = pPortfolioId_,
         organizationNodeType =
           pOrganizationNodeType_
@@ -149,14 +150,14 @@ newListOrganizationPortfolioAccess
 listOrganizationPortfolioAccess_acceptLanguage :: Lens.Lens' ListOrganizationPortfolioAccess (Prelude.Maybe Prelude.Text)
 listOrganizationPortfolioAccess_acceptLanguage = Lens.lens (\ListOrganizationPortfolioAccess' {acceptLanguage} -> acceptLanguage) (\s@ListOrganizationPortfolioAccess' {} a -> s {acceptLanguage = a} :: ListOrganizationPortfolioAccess)
 
+-- | The maximum number of items to return with this call.
+listOrganizationPortfolioAccess_pageSize :: Lens.Lens' ListOrganizationPortfolioAccess (Prelude.Maybe Prelude.Natural)
+listOrganizationPortfolioAccess_pageSize = Lens.lens (\ListOrganizationPortfolioAccess' {pageSize} -> pageSize) (\s@ListOrganizationPortfolioAccess' {} a -> s {pageSize = a} :: ListOrganizationPortfolioAccess)
+
 -- | The page token for the next set of results. To retrieve the first set of
 -- results, use null.
 listOrganizationPortfolioAccess_pageToken :: Lens.Lens' ListOrganizationPortfolioAccess (Prelude.Maybe Prelude.Text)
 listOrganizationPortfolioAccess_pageToken = Lens.lens (\ListOrganizationPortfolioAccess' {pageToken} -> pageToken) (\s@ListOrganizationPortfolioAccess' {} a -> s {pageToken = a} :: ListOrganizationPortfolioAccess)
-
--- | The maximum number of items to return with this call.
-listOrganizationPortfolioAccess_pageSize :: Lens.Lens' ListOrganizationPortfolioAccess (Prelude.Maybe Prelude.Natural)
-listOrganizationPortfolioAccess_pageSize = Lens.lens (\ListOrganizationPortfolioAccess' {pageSize} -> pageSize) (\s@ListOrganizationPortfolioAccess' {} a -> s {pageSize = a} :: ListOrganizationPortfolioAccess)
 
 -- | The portfolio identifier. For example, @port-2abcdext3y5fk@.
 listOrganizationPortfolioAccess_portfolioId :: Lens.Lens' ListOrganizationPortfolioAccess Prelude.Text
@@ -206,13 +207,14 @@ instance
   type
     AWSResponse ListOrganizationPortfolioAccess =
       ListOrganizationPortfolioAccessResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListOrganizationPortfolioAccessResponse'
-            Prelude.<$> (x Core..?> "NextPageToken")
-            Prelude.<*> ( x Core..?> "OrganizationNodes"
+            Prelude.<$> (x Data..?> "NextPageToken")
+            Prelude.<*> ( x Data..?> "OrganizationNodes"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -226,8 +228,8 @@ instance
     _salt
     ListOrganizationPortfolioAccess' {..} =
       _salt `Prelude.hashWithSalt` acceptLanguage
-        `Prelude.hashWithSalt` pageToken
         `Prelude.hashWithSalt` pageSize
+        `Prelude.hashWithSalt` pageToken
         `Prelude.hashWithSalt` portfolioId
         `Prelude.hashWithSalt` organizationNodeType
 
@@ -237,49 +239,49 @@ instance
   where
   rnf ListOrganizationPortfolioAccess' {..} =
     Prelude.rnf acceptLanguage
-      `Prelude.seq` Prelude.rnf pageToken
       `Prelude.seq` Prelude.rnf pageSize
+      `Prelude.seq` Prelude.rnf pageToken
       `Prelude.seq` Prelude.rnf portfolioId
       `Prelude.seq` Prelude.rnf organizationNodeType
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListOrganizationPortfolioAccess
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.ListOrganizationPortfolioAccess" ::
+              Data.=# ( "AWS242ServiceCatalogService.ListOrganizationPortfolioAccess" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListOrganizationPortfolioAccess where
+instance Data.ToJSON ListOrganizationPortfolioAccess where
   toJSON ListOrganizationPortfolioAccess' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            ("PageToken" Core..=) Prelude.<$> pageToken,
-            ("PageSize" Core..=) Prelude.<$> pageSize,
-            Prelude.Just ("PortfolioId" Core..= portfolioId),
+            ("PageSize" Data..=) Prelude.<$> pageSize,
+            ("PageToken" Data..=) Prelude.<$> pageToken,
+            Prelude.Just ("PortfolioId" Data..= portfolioId),
             Prelude.Just
               ( "OrganizationNodeType"
-                  Core..= organizationNodeType
+                  Data..= organizationNodeType
               )
           ]
       )
 
-instance Core.ToPath ListOrganizationPortfolioAccess where
+instance Data.ToPath ListOrganizationPortfolioAccess where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListOrganizationPortfolioAccess where
+instance Data.ToQuery ListOrganizationPortfolioAccess where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListOrganizationPortfolioAccessResponse' smart constructor.

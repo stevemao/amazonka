@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ModifyVpnTunnelCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.EC2.ModifyVpnTunnelCertificate
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -114,12 +115,13 @@ instance Core.AWSRequest ModifyVpnTunnelCertificate where
   type
     AWSResponse ModifyVpnTunnelCertificate =
       ModifyVpnTunnelCertificateResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ModifyVpnTunnelCertificateResponse'
-            Prelude.<$> (x Core..@? "vpnConnection")
+            Prelude.<$> (x Data..@? "vpnConnection")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -135,28 +137,29 @@ instance Prelude.NFData ModifyVpnTunnelCertificate where
       `Prelude.seq` Prelude.rnf vpnConnectionId
       `Prelude.seq` Prelude.rnf vpnTunnelOutsideIpAddress
 
-instance Core.ToHeaders ModifyVpnTunnelCertificate where
+instance Data.ToHeaders ModifyVpnTunnelCertificate where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyVpnTunnelCertificate where
+instance Data.ToPath ModifyVpnTunnelCertificate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyVpnTunnelCertificate where
+instance Data.ToQuery ModifyVpnTunnelCertificate where
   toQuery ModifyVpnTunnelCertificate' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyVpnTunnelCertificate" :: Prelude.ByteString),
+          Data.=: ("ModifyVpnTunnelCertificate" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "VpnConnectionId" Core.=: vpnConnectionId,
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "VpnConnectionId" Data.=: vpnConnectionId,
         "VpnTunnelOutsideIpAddress"
-          Core.=: vpnTunnelOutsideIpAddress
+          Data.=: vpnTunnelOutsideIpAddress
       ]
 
 -- | /See:/ 'newModifyVpnTunnelCertificateResponse' smart constructor.
 data ModifyVpnTunnelCertificateResponse = ModifyVpnTunnelCertificateResponse'
-  { vpnConnection :: Prelude.Maybe VpnConnection,
+  { -- | Information about the VPN connection.
+    vpnConnection :: Prelude.Maybe VpnConnection,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -170,7 +173,7 @@ data ModifyVpnTunnelCertificateResponse = ModifyVpnTunnelCertificateResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'vpnConnection', 'modifyVpnTunnelCertificateResponse_vpnConnection' - Undocumented member.
+-- 'vpnConnection', 'modifyVpnTunnelCertificateResponse_vpnConnection' - Information about the VPN connection.
 --
 -- 'httpStatus', 'modifyVpnTunnelCertificateResponse_httpStatus' - The response's http status code.
 newModifyVpnTunnelCertificateResponse ::
@@ -184,7 +187,7 @@ newModifyVpnTunnelCertificateResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | Undocumented member.
+-- | Information about the VPN connection.
 modifyVpnTunnelCertificateResponse_vpnConnection :: Lens.Lens' ModifyVpnTunnelCertificateResponse (Prelude.Maybe VpnConnection)
 modifyVpnTunnelCertificateResponse_vpnConnection = Lens.lens (\ModifyVpnTunnelCertificateResponse' {vpnConnection} -> vpnConnection) (\s@ModifyVpnTunnelCertificateResponse' {} a -> s {vpnConnection = a} :: ModifyVpnTunnelCertificateResponse)
 

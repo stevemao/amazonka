@@ -6,64 +6,13 @@
 
 -- |
 -- Module      : Amazonka.Mobile.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 module Amazonka.Mobile.Lens
   ( -- * Operations
-
-    -- ** ListProjects
-    listProjects_nextToken,
-    listProjects_maxResults,
-    listProjectsResponse_nextToken,
-    listProjectsResponse_projects,
-    listProjectsResponse_httpStatus,
-
-    -- ** DeleteProject
-    deleteProject_projectId,
-    deleteProjectResponse_deletedResources,
-    deleteProjectResponse_orphanedResources,
-    deleteProjectResponse_httpStatus,
-
-    -- ** UpdateProject
-    updateProject_contents,
-    updateProject_projectId,
-    updateProjectResponse_details,
-    updateProjectResponse_httpStatus,
-
-    -- ** ListBundles
-    listBundles_nextToken,
-    listBundles_maxResults,
-    listBundlesResponse_bundleList,
-    listBundlesResponse_nextToken,
-    listBundlesResponse_httpStatus,
-
-    -- ** DescribeProject
-    describeProject_syncFromResources,
-    describeProject_projectId,
-    describeProjectResponse_details,
-    describeProjectResponse_httpStatus,
-
-    -- ** ExportProject
-    exportProject_projectId,
-    exportProjectResponse_shareUrl,
-    exportProjectResponse_downloadUrl,
-    exportProjectResponse_snapshotId,
-    exportProjectResponse_httpStatus,
-
-    -- ** DescribeBundle
-    describeBundle_bundleId,
-    describeBundleResponse_details,
-    describeBundleResponse_httpStatus,
-
-    -- ** ExportBundle
-    exportBundle_platform,
-    exportBundle_projectId,
-    exportBundle_bundleId,
-    exportBundleResponse_downloadUrl,
-    exportBundleResponse_httpStatus,
 
     -- ** CreateProject
     createProject_contents,
@@ -73,35 +22,86 @@ module Amazonka.Mobile.Lens
     createProjectResponse_details,
     createProjectResponse_httpStatus,
 
+    -- ** DeleteProject
+    deleteProject_projectId,
+    deleteProjectResponse_deletedResources,
+    deleteProjectResponse_orphanedResources,
+    deleteProjectResponse_httpStatus,
+
+    -- ** DescribeBundle
+    describeBundle_bundleId,
+    describeBundleResponse_details,
+    describeBundleResponse_httpStatus,
+
+    -- ** DescribeProject
+    describeProject_syncFromResources,
+    describeProject_projectId,
+    describeProjectResponse_details,
+    describeProjectResponse_httpStatus,
+
+    -- ** ExportBundle
+    exportBundle_platform,
+    exportBundle_projectId,
+    exportBundle_bundleId,
+    exportBundleResponse_downloadUrl,
+    exportBundleResponse_httpStatus,
+
+    -- ** ExportProject
+    exportProject_projectId,
+    exportProjectResponse_downloadUrl,
+    exportProjectResponse_shareUrl,
+    exportProjectResponse_snapshotId,
+    exportProjectResponse_httpStatus,
+
+    -- ** ListBundles
+    listBundles_maxResults,
+    listBundles_nextToken,
+    listBundlesResponse_bundleList,
+    listBundlesResponse_nextToken,
+    listBundlesResponse_httpStatus,
+
+    -- ** ListProjects
+    listProjects_maxResults,
+    listProjects_nextToken,
+    listProjectsResponse_nextToken,
+    listProjectsResponse_projects,
+    listProjectsResponse_httpStatus,
+
+    -- ** UpdateProject
+    updateProject_contents,
+    updateProject_projectId,
+    updateProjectResponse_details,
+    updateProjectResponse_httpStatus,
+
     -- * Types
 
     -- ** BundleDetails
     bundleDetails_availablePlatforms,
     bundleDetails_bundleId,
-    bundleDetails_version,
+    bundleDetails_description,
     bundleDetails_iconUrl,
     bundleDetails_title,
-    bundleDetails_description,
+    bundleDetails_version,
 
     -- ** ProjectDetails
-    projectDetails_state,
-    projectDetails_resources,
-    projectDetails_createdDate,
     projectDetails_consoleUrl,
-    projectDetails_name,
-    projectDetails_region,
-    projectDetails_projectId,
+    projectDetails_createdDate,
     projectDetails_lastUpdatedDate,
+    projectDetails_name,
+    projectDetails_projectId,
+    projectDetails_region,
+    projectDetails_resources,
+    projectDetails_state,
 
     -- ** ProjectSummary
     projectSummary_name,
     projectSummary_projectId,
 
     -- ** Resource
-    resource_feature,
     resource_arn,
-    resource_name,
     resource_attributes,
+    resource_feature,
+    resource_name,
     resource_type,
   )
 where

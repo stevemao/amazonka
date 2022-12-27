@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.Types.TrainingDataSchema
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.FraudDetector.Types.TrainingDataSchema where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types.LabelSchema
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The training data schema.
 --
 -- /See:/ 'newTrainingDataSchema' smart constructor.
 data TrainingDataSchema = TrainingDataSchema'
-  { -- | The training data schema variables.
-    modelVariables :: [Prelude.Text],
-    labelSchema :: LabelSchema
+  { labelSchema :: Prelude.Maybe LabelSchema,
+    -- | The training data schema variables.
+    modelVariables :: [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,54 +43,53 @@ data TrainingDataSchema = TrainingDataSchema'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'modelVariables', 'trainingDataSchema_modelVariables' - The training data schema variables.
---
 -- 'labelSchema', 'trainingDataSchema_labelSchema' - Undocumented member.
+--
+-- 'modelVariables', 'trainingDataSchema_modelVariables' - The training data schema variables.
 newTrainingDataSchema ::
-  -- | 'labelSchema'
-  LabelSchema ->
   TrainingDataSchema
-newTrainingDataSchema pLabelSchema_ =
+newTrainingDataSchema =
   TrainingDataSchema'
-    { modelVariables =
-        Prelude.mempty,
-      labelSchema = pLabelSchema_
+    { labelSchema = Prelude.Nothing,
+      modelVariables = Prelude.mempty
     }
+
+-- | Undocumented member.
+trainingDataSchema_labelSchema :: Lens.Lens' TrainingDataSchema (Prelude.Maybe LabelSchema)
+trainingDataSchema_labelSchema = Lens.lens (\TrainingDataSchema' {labelSchema} -> labelSchema) (\s@TrainingDataSchema' {} a -> s {labelSchema = a} :: TrainingDataSchema)
 
 -- | The training data schema variables.
 trainingDataSchema_modelVariables :: Lens.Lens' TrainingDataSchema [Prelude.Text]
 trainingDataSchema_modelVariables = Lens.lens (\TrainingDataSchema' {modelVariables} -> modelVariables) (\s@TrainingDataSchema' {} a -> s {modelVariables = a} :: TrainingDataSchema) Prelude.. Lens.coerced
 
--- | Undocumented member.
-trainingDataSchema_labelSchema :: Lens.Lens' TrainingDataSchema LabelSchema
-trainingDataSchema_labelSchema = Lens.lens (\TrainingDataSchema' {labelSchema} -> labelSchema) (\s@TrainingDataSchema' {} a -> s {labelSchema = a} :: TrainingDataSchema)
-
-instance Core.FromJSON TrainingDataSchema where
+instance Data.FromJSON TrainingDataSchema where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TrainingDataSchema"
       ( \x ->
           TrainingDataSchema'
-            Prelude.<$> (x Core..:? "modelVariables" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "labelSchema")
+            Prelude.<$> (x Data..:? "labelSchema")
+            Prelude.<*> ( x Data..:? "modelVariables"
+                            Data..!= Prelude.mempty
+                        )
       )
 
 instance Prelude.Hashable TrainingDataSchema where
   hashWithSalt _salt TrainingDataSchema' {..} =
-    _salt `Prelude.hashWithSalt` modelVariables
-      `Prelude.hashWithSalt` labelSchema
+    _salt `Prelude.hashWithSalt` labelSchema
+      `Prelude.hashWithSalt` modelVariables
 
 instance Prelude.NFData TrainingDataSchema where
   rnf TrainingDataSchema' {..} =
-    Prelude.rnf modelVariables
-      `Prelude.seq` Prelude.rnf labelSchema
+    Prelude.rnf labelSchema
+      `Prelude.seq` Prelude.rnf modelVariables
 
-instance Core.ToJSON TrainingDataSchema where
+instance Data.ToJSON TrainingDataSchema where
   toJSON TrainingDataSchema' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just
-              ("modelVariables" Core..= modelVariables),
-            Prelude.Just ("labelSchema" Core..= labelSchema)
+          [ ("labelSchema" Data..=) Prelude.<$> labelSchema,
+            Prelude.Just
+              ("modelVariables" Data..= modelVariables)
           ]
       )

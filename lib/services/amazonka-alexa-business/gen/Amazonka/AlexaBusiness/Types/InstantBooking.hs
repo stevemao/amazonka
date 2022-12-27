@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.Types.InstantBooking
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AlexaBusiness.Types.InstantBooking where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Settings for the instant booking feature that are applied to a room
@@ -29,11 +30,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newInstantBooking' smart constructor.
 data InstantBooking = InstantBooking'
-  { -- | Whether instant booking is enabled or not.
-    enabled :: Prelude.Maybe Prelude.Bool,
-    -- | Duration between 15 and 240 minutes at increments of 15 that determines
+  { -- | Duration between 15 and 240 minutes at increments of 15 that determines
     -- how long to book an available room when a meeting is started with Alexa.
-    durationInMinutes :: Prelude.Maybe Prelude.Int
+    durationInMinutes :: Prelude.Maybe Prelude.Int,
+    -- | Whether instant booking is enabled or not.
+    enabled :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,43 +46,44 @@ data InstantBooking = InstantBooking'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'enabled', 'instantBooking_enabled' - Whether instant booking is enabled or not.
---
 -- 'durationInMinutes', 'instantBooking_durationInMinutes' - Duration between 15 and 240 minutes at increments of 15 that determines
 -- how long to book an available room when a meeting is started with Alexa.
+--
+-- 'enabled', 'instantBooking_enabled' - Whether instant booking is enabled or not.
 newInstantBooking ::
   InstantBooking
 newInstantBooking =
   InstantBooking'
-    { enabled = Prelude.Nothing,
-      durationInMinutes = Prelude.Nothing
+    { durationInMinutes =
+        Prelude.Nothing,
+      enabled = Prelude.Nothing
     }
-
--- | Whether instant booking is enabled or not.
-instantBooking_enabled :: Lens.Lens' InstantBooking (Prelude.Maybe Prelude.Bool)
-instantBooking_enabled = Lens.lens (\InstantBooking' {enabled} -> enabled) (\s@InstantBooking' {} a -> s {enabled = a} :: InstantBooking)
 
 -- | Duration between 15 and 240 minutes at increments of 15 that determines
 -- how long to book an available room when a meeting is started with Alexa.
 instantBooking_durationInMinutes :: Lens.Lens' InstantBooking (Prelude.Maybe Prelude.Int)
 instantBooking_durationInMinutes = Lens.lens (\InstantBooking' {durationInMinutes} -> durationInMinutes) (\s@InstantBooking' {} a -> s {durationInMinutes = a} :: InstantBooking)
 
-instance Core.FromJSON InstantBooking where
+-- | Whether instant booking is enabled or not.
+instantBooking_enabled :: Lens.Lens' InstantBooking (Prelude.Maybe Prelude.Bool)
+instantBooking_enabled = Lens.lens (\InstantBooking' {enabled} -> enabled) (\s@InstantBooking' {} a -> s {enabled = a} :: InstantBooking)
+
+instance Data.FromJSON InstantBooking where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InstantBooking"
       ( \x ->
           InstantBooking'
-            Prelude.<$> (x Core..:? "Enabled")
-            Prelude.<*> (x Core..:? "DurationInMinutes")
+            Prelude.<$> (x Data..:? "DurationInMinutes")
+            Prelude.<*> (x Data..:? "Enabled")
       )
 
 instance Prelude.Hashable InstantBooking where
   hashWithSalt _salt InstantBooking' {..} =
-    _salt `Prelude.hashWithSalt` enabled
-      `Prelude.hashWithSalt` durationInMinutes
+    _salt `Prelude.hashWithSalt` durationInMinutes
+      `Prelude.hashWithSalt` enabled
 
 instance Prelude.NFData InstantBooking where
   rnf InstantBooking' {..} =
-    Prelude.rnf enabled
-      `Prelude.seq` Prelude.rnf durationInMinutes
+    Prelude.rnf durationInMinutes
+      `Prelude.seq` Prelude.rnf enabled

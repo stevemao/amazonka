@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.DescribeSourceRegions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,8 +22,17 @@
 --
 -- Returns a list of the source Amazon Web Services Regions where the
 -- current Amazon Web Services Region can create a read replica, copy a DB
--- snapshot from, or replicate automated backups from. This API action
+-- snapshot from, or replicate automated backups from.
+--
+-- Use this operation to determine whether cross-Region features are
+-- supported between other Regions and your current Region. This operation
 -- supports pagination.
+--
+-- To return information about the Regions that are enabled for your
+-- account, or all Regions, use the EC2 operation @DescribeRegions@. For
+-- more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeRegions.html DescribeRegions>
+-- in the /Amazon EC2 API Reference/.
 --
 -- This operation returns paginated results.
 module Amazonka.RDS.DescribeSourceRegions
@@ -32,10 +41,10 @@ module Amazonka.RDS.DescribeSourceRegions
     newDescribeSourceRegions,
 
     -- * Request Lenses
-    describeSourceRegions_regionName,
     describeSourceRegions_filters,
     describeSourceRegions_marker,
     describeSourceRegions_maxRecords,
+    describeSourceRegions_regionName,
 
     -- * Destructuring the Response
     DescribeSourceRegionsResponse (..),
@@ -49,7 +58,8 @@ module Amazonka.RDS.DescribeSourceRegions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -59,13 +69,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeSourceRegions' smart constructor.
 data DescribeSourceRegions = DescribeSourceRegions'
-  { -- | The source Amazon Web Services Region name. For example, @us-east-1@.
-    --
-    -- Constraints:
-    --
-    -- -   Must specify a valid Amazon Web Services Region name.
-    regionName :: Prelude.Maybe Prelude.Text,
-    -- | This parameter isn\'t currently supported.
+  { -- | This parameter isn\'t currently supported.
     filters :: Prelude.Maybe [Filter],
     -- | An optional pagination token provided by a previous
     -- @DescribeSourceRegions@ request. If this parameter is specified, the
@@ -80,7 +84,13 @@ data DescribeSourceRegions = DescribeSourceRegions'
     -- Default: 100
     --
     -- Constraints: Minimum 20, maximum 100.
-    maxRecords :: Prelude.Maybe Prelude.Int
+    maxRecords :: Prelude.Maybe Prelude.Int,
+    -- | The source Amazon Web Services Region name. For example, @us-east-1@.
+    --
+    -- Constraints:
+    --
+    -- -   Must specify a valid Amazon Web Services Region name.
+    regionName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -91,12 +101,6 @@ data DescribeSourceRegions = DescribeSourceRegions'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'regionName', 'describeSourceRegions_regionName' - The source Amazon Web Services Region name. For example, @us-east-1@.
---
--- Constraints:
---
--- -   Must specify a valid Amazon Web Services Region name.
 --
 -- 'filters', 'describeSourceRegions_filters' - This parameter isn\'t currently supported.
 --
@@ -113,24 +117,21 @@ data DescribeSourceRegions = DescribeSourceRegions'
 -- Default: 100
 --
 -- Constraints: Minimum 20, maximum 100.
-newDescribeSourceRegions ::
-  DescribeSourceRegions
-newDescribeSourceRegions =
-  DescribeSourceRegions'
-    { regionName =
-        Prelude.Nothing,
-      filters = Prelude.Nothing,
-      marker = Prelude.Nothing,
-      maxRecords = Prelude.Nothing
-    }
-
--- | The source Amazon Web Services Region name. For example, @us-east-1@.
+--
+-- 'regionName', 'describeSourceRegions_regionName' - The source Amazon Web Services Region name. For example, @us-east-1@.
 --
 -- Constraints:
 --
 -- -   Must specify a valid Amazon Web Services Region name.
-describeSourceRegions_regionName :: Lens.Lens' DescribeSourceRegions (Prelude.Maybe Prelude.Text)
-describeSourceRegions_regionName = Lens.lens (\DescribeSourceRegions' {regionName} -> regionName) (\s@DescribeSourceRegions' {} a -> s {regionName = a} :: DescribeSourceRegions)
+newDescribeSourceRegions ::
+  DescribeSourceRegions
+newDescribeSourceRegions =
+  DescribeSourceRegions'
+    { filters = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing,
+      regionName = Prelude.Nothing
+    }
 
 -- | This parameter isn\'t currently supported.
 describeSourceRegions_filters :: Lens.Lens' DescribeSourceRegions (Prelude.Maybe [Filter])
@@ -153,6 +154,14 @@ describeSourceRegions_marker = Lens.lens (\DescribeSourceRegions' {marker} -> ma
 -- Constraints: Minimum 20, maximum 100.
 describeSourceRegions_maxRecords :: Lens.Lens' DescribeSourceRegions (Prelude.Maybe Prelude.Int)
 describeSourceRegions_maxRecords = Lens.lens (\DescribeSourceRegions' {maxRecords} -> maxRecords) (\s@DescribeSourceRegions' {} a -> s {maxRecords = a} :: DescribeSourceRegions)
+
+-- | The source Amazon Web Services Region name. For example, @us-east-1@.
+--
+-- Constraints:
+--
+-- -   Must specify a valid Amazon Web Services Region name.
+describeSourceRegions_regionName :: Lens.Lens' DescribeSourceRegions (Prelude.Maybe Prelude.Text)
+describeSourceRegions_regionName = Lens.lens (\DescribeSourceRegions' {regionName} -> regionName) (\s@DescribeSourceRegions' {} a -> s {regionName = a} :: DescribeSourceRegions)
 
 instance Core.AWSPager DescribeSourceRegions where
   page rq rs
@@ -180,52 +189,53 @@ instance Core.AWSRequest DescribeSourceRegions where
   type
     AWSResponse DescribeSourceRegions =
       DescribeSourceRegionsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeSourceRegionsResult"
       ( \s h x ->
           DescribeSourceRegionsResponse'
-            Prelude.<$> (x Core..@? "Marker")
-            Prelude.<*> ( x Core..@? "SourceRegions" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "SourceRegion")
+            Prelude.<$> (x Data..@? "Marker")
+            Prelude.<*> ( x Data..@? "SourceRegions" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "SourceRegion")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeSourceRegions where
   hashWithSalt _salt DescribeSourceRegions' {..} =
-    _salt `Prelude.hashWithSalt` regionName
-      `Prelude.hashWithSalt` filters
+    _salt `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
+      `Prelude.hashWithSalt` regionName
 
 instance Prelude.NFData DescribeSourceRegions where
   rnf DescribeSourceRegions' {..} =
-    Prelude.rnf regionName
-      `Prelude.seq` Prelude.rnf filters
+    Prelude.rnf filters
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
+      `Prelude.seq` Prelude.rnf regionName
 
-instance Core.ToHeaders DescribeSourceRegions where
+instance Data.ToHeaders DescribeSourceRegions where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeSourceRegions where
+instance Data.ToPath DescribeSourceRegions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeSourceRegions where
+instance Data.ToQuery DescribeSourceRegions where
   toQuery DescribeSourceRegions' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeSourceRegions" :: Prelude.ByteString),
+          Data.=: ("DescribeSourceRegions" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "RegionName" Core.=: regionName,
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "Filters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Filter" Prelude.<$> filters),
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords
+          Data.=: Data.toQuery
+            (Data.toQueryList "Filter" Prelude.<$> filters),
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
+        "RegionName" Data.=: regionName
       ]
 
 -- | Contains the result of a successful invocation of the
@@ -237,7 +247,7 @@ data DescribeSourceRegionsResponse = DescribeSourceRegionsResponse'
     -- parameter is specified, the response includes only records beyond the
     -- marker, up to the value specified by @MaxRecords@.
     marker :: Prelude.Maybe Prelude.Text,
-    -- | A list of SourceRegion instances that contains each source Amazon Web
+    -- | A list of @SourceRegion@ instances that contains each source Amazon Web
     -- Services Region that the current Amazon Web Services Region can get a
     -- read replica or a DB snapshot from.
     sourceRegions :: Prelude.Maybe [SourceRegion],
@@ -258,7 +268,7 @@ data DescribeSourceRegionsResponse = DescribeSourceRegionsResponse'
 -- parameter is specified, the response includes only records beyond the
 -- marker, up to the value specified by @MaxRecords@.
 --
--- 'sourceRegions', 'describeSourceRegionsResponse_sourceRegions' - A list of SourceRegion instances that contains each source Amazon Web
+-- 'sourceRegions', 'describeSourceRegionsResponse_sourceRegions' - A list of @SourceRegion@ instances that contains each source Amazon Web
 -- Services Region that the current Amazon Web Services Region can get a
 -- read replica or a DB snapshot from.
 --
@@ -281,7 +291,7 @@ newDescribeSourceRegionsResponse pHttpStatus_ =
 describeSourceRegionsResponse_marker :: Lens.Lens' DescribeSourceRegionsResponse (Prelude.Maybe Prelude.Text)
 describeSourceRegionsResponse_marker = Lens.lens (\DescribeSourceRegionsResponse' {marker} -> marker) (\s@DescribeSourceRegionsResponse' {} a -> s {marker = a} :: DescribeSourceRegionsResponse)
 
--- | A list of SourceRegion instances that contains each source Amazon Web
+-- | A list of @SourceRegion@ instances that contains each source Amazon Web
 -- Services Region that the current Amazon Web Services Region can get a
 -- read replica or a DB snapshot from.
 describeSourceRegionsResponse_sourceRegions :: Lens.Lens' DescribeSourceRegionsResponse (Prelude.Maybe [SourceRegion])

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.XRay.Types.ResponseTimeRootCause
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.XRay.Types.ResponseTimeRootCause where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.XRay.Types.ResponseTimeRootCauseService
 
@@ -66,14 +67,14 @@ responseTimeRootCause_clientImpacting = Lens.lens (\ResponseTimeRootCause' {clie
 responseTimeRootCause_services :: Lens.Lens' ResponseTimeRootCause (Prelude.Maybe [ResponseTimeRootCauseService])
 responseTimeRootCause_services = Lens.lens (\ResponseTimeRootCause' {services} -> services) (\s@ResponseTimeRootCause' {} a -> s {services = a} :: ResponseTimeRootCause) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON ResponseTimeRootCause where
+instance Data.FromJSON ResponseTimeRootCause where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResponseTimeRootCause"
       ( \x ->
           ResponseTimeRootCause'
-            Prelude.<$> (x Core..:? "ClientImpacting")
-            Prelude.<*> (x Core..:? "Services" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "ClientImpacting")
+            Prelude.<*> (x Data..:? "Services" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable ResponseTimeRootCause where

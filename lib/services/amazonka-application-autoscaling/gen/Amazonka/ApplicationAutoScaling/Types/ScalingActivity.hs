@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ApplicationAutoScaling.Types.ScalingActivity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,19 +23,20 @@ import Amazonka.ApplicationAutoScaling.Types.ScalableDimension
 import Amazonka.ApplicationAutoScaling.Types.ScalingActivityStatusCode
 import Amazonka.ApplicationAutoScaling.Types.ServiceNamespace
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a scaling activity.
 --
 -- /See:/ 'newScalingActivity' smart constructor.
 data ScalingActivity = ScalingActivity'
-  { -- | A simple message about the current status of the scaling activity.
-    statusMessage :: Prelude.Maybe Prelude.Text,
-    -- | The Unix timestamp for when the scaling activity ended.
-    endTime :: Prelude.Maybe Core.POSIX,
-    -- | The details about the scaling activity.
+  { -- | The details about the scaling activity.
     details :: Prelude.Maybe Prelude.Text,
+    -- | The Unix timestamp for when the scaling activity ended.
+    endTime :: Prelude.Maybe Data.POSIX,
+    -- | A simple message about the current status of the scaling activity.
+    statusMessage :: Prelude.Maybe Prelude.Text,
     -- | The unique identifier of the scaling activity.
     activityId :: Prelude.Text,
     -- | The namespace of the Amazon Web Services service that provides the
@@ -181,7 +182,7 @@ data ScalingActivity = ScalingActivity'
     -- | A simple description of what caused the scaling activity to happen.
     cause :: Prelude.Text,
     -- | The Unix timestamp for when the scaling activity began.
-    startTime :: Core.POSIX,
+    startTime :: Data.POSIX,
     -- | Indicates the status of the scaling activity.
     statusCode :: ScalingActivityStatusCode
   }
@@ -195,11 +196,11 @@ data ScalingActivity = ScalingActivity'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'statusMessage', 'scalingActivity_statusMessage' - A simple message about the current status of the scaling activity.
+-- 'details', 'scalingActivity_details' - The details about the scaling activity.
 --
 -- 'endTime', 'scalingActivity_endTime' - The Unix timestamp for when the scaling activity ended.
 --
--- 'details', 'scalingActivity_details' - The details about the scaling activity.
+-- 'statusMessage', 'scalingActivity_statusMessage' - A simple message about the current status of the scaling activity.
 --
 -- 'activityId', 'scalingActivity_activityId' - The unique identifier of the scaling activity.
 --
@@ -376,30 +377,30 @@ newScalingActivity
   pStartTime_
   pStatusCode_ =
     ScalingActivity'
-      { statusMessage = Prelude.Nothing,
+      { details = Prelude.Nothing,
         endTime = Prelude.Nothing,
-        details = Prelude.Nothing,
+        statusMessage = Prelude.Nothing,
         activityId = pActivityId_,
         serviceNamespace = pServiceNamespace_,
         resourceId = pResourceId_,
         scalableDimension = pScalableDimension_,
         description = pDescription_,
         cause = pCause_,
-        startTime = Core._Time Lens.# pStartTime_,
+        startTime = Data._Time Lens.# pStartTime_,
         statusCode = pStatusCode_
       }
-
--- | A simple message about the current status of the scaling activity.
-scalingActivity_statusMessage :: Lens.Lens' ScalingActivity (Prelude.Maybe Prelude.Text)
-scalingActivity_statusMessage = Lens.lens (\ScalingActivity' {statusMessage} -> statusMessage) (\s@ScalingActivity' {} a -> s {statusMessage = a} :: ScalingActivity)
-
--- | The Unix timestamp for when the scaling activity ended.
-scalingActivity_endTime :: Lens.Lens' ScalingActivity (Prelude.Maybe Prelude.UTCTime)
-scalingActivity_endTime = Lens.lens (\ScalingActivity' {endTime} -> endTime) (\s@ScalingActivity' {} a -> s {endTime = a} :: ScalingActivity) Prelude.. Lens.mapping Core._Time
 
 -- | The details about the scaling activity.
 scalingActivity_details :: Lens.Lens' ScalingActivity (Prelude.Maybe Prelude.Text)
 scalingActivity_details = Lens.lens (\ScalingActivity' {details} -> details) (\s@ScalingActivity' {} a -> s {details = a} :: ScalingActivity)
+
+-- | The Unix timestamp for when the scaling activity ended.
+scalingActivity_endTime :: Lens.Lens' ScalingActivity (Prelude.Maybe Prelude.UTCTime)
+scalingActivity_endTime = Lens.lens (\ScalingActivity' {endTime} -> endTime) (\s@ScalingActivity' {} a -> s {endTime = a} :: ScalingActivity) Prelude.. Lens.mapping Data._Time
+
+-- | A simple message about the current status of the scaling activity.
+scalingActivity_statusMessage :: Lens.Lens' ScalingActivity (Prelude.Maybe Prelude.Text)
+scalingActivity_statusMessage = Lens.lens (\ScalingActivity' {statusMessage} -> statusMessage) (\s@ScalingActivity' {} a -> s {statusMessage = a} :: ScalingActivity)
 
 -- | The unique identifier of the scaling activity.
 scalingActivity_activityId :: Lens.Lens' ScalingActivity Prelude.Text
@@ -559,36 +560,36 @@ scalingActivity_cause = Lens.lens (\ScalingActivity' {cause} -> cause) (\s@Scali
 
 -- | The Unix timestamp for when the scaling activity began.
 scalingActivity_startTime :: Lens.Lens' ScalingActivity Prelude.UTCTime
-scalingActivity_startTime = Lens.lens (\ScalingActivity' {startTime} -> startTime) (\s@ScalingActivity' {} a -> s {startTime = a} :: ScalingActivity) Prelude.. Core._Time
+scalingActivity_startTime = Lens.lens (\ScalingActivity' {startTime} -> startTime) (\s@ScalingActivity' {} a -> s {startTime = a} :: ScalingActivity) Prelude.. Data._Time
 
 -- | Indicates the status of the scaling activity.
 scalingActivity_statusCode :: Lens.Lens' ScalingActivity ScalingActivityStatusCode
 scalingActivity_statusCode = Lens.lens (\ScalingActivity' {statusCode} -> statusCode) (\s@ScalingActivity' {} a -> s {statusCode = a} :: ScalingActivity)
 
-instance Core.FromJSON ScalingActivity where
+instance Data.FromJSON ScalingActivity where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ScalingActivity"
       ( \x ->
           ScalingActivity'
-            Prelude.<$> (x Core..:? "StatusMessage")
-            Prelude.<*> (x Core..:? "EndTime")
-            Prelude.<*> (x Core..:? "Details")
-            Prelude.<*> (x Core..: "ActivityId")
-            Prelude.<*> (x Core..: "ServiceNamespace")
-            Prelude.<*> (x Core..: "ResourceId")
-            Prelude.<*> (x Core..: "ScalableDimension")
-            Prelude.<*> (x Core..: "Description")
-            Prelude.<*> (x Core..: "Cause")
-            Prelude.<*> (x Core..: "StartTime")
-            Prelude.<*> (x Core..: "StatusCode")
+            Prelude.<$> (x Data..:? "Details")
+            Prelude.<*> (x Data..:? "EndTime")
+            Prelude.<*> (x Data..:? "StatusMessage")
+            Prelude.<*> (x Data..: "ActivityId")
+            Prelude.<*> (x Data..: "ServiceNamespace")
+            Prelude.<*> (x Data..: "ResourceId")
+            Prelude.<*> (x Data..: "ScalableDimension")
+            Prelude.<*> (x Data..: "Description")
+            Prelude.<*> (x Data..: "Cause")
+            Prelude.<*> (x Data..: "StartTime")
+            Prelude.<*> (x Data..: "StatusCode")
       )
 
 instance Prelude.Hashable ScalingActivity where
   hashWithSalt _salt ScalingActivity' {..} =
-    _salt `Prelude.hashWithSalt` statusMessage
+    _salt `Prelude.hashWithSalt` details
       `Prelude.hashWithSalt` endTime
-      `Prelude.hashWithSalt` details
+      `Prelude.hashWithSalt` statusMessage
       `Prelude.hashWithSalt` activityId
       `Prelude.hashWithSalt` serviceNamespace
       `Prelude.hashWithSalt` resourceId
@@ -600,9 +601,9 @@ instance Prelude.Hashable ScalingActivity where
 
 instance Prelude.NFData ScalingActivity where
   rnf ScalingActivity' {..} =
-    Prelude.rnf statusMessage
+    Prelude.rnf details
       `Prelude.seq` Prelude.rnf endTime
-      `Prelude.seq` Prelude.rnf details
+      `Prelude.seq` Prelude.rnf statusMessage
       `Prelude.seq` Prelude.rnf activityId
       `Prelude.seq` Prelude.rnf serviceNamespace
       `Prelude.seq` Prelude.rnf resourceId

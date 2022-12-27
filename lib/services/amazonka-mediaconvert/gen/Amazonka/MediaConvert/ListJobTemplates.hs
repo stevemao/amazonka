@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.ListJobTemplates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,9 +34,9 @@ module Amazonka.MediaConvert.ListJobTemplates
     -- * Request Lenses
     listJobTemplates_category,
     listJobTemplates_listBy,
+    listJobTemplates_maxResults,
     listJobTemplates_nextToken,
     listJobTemplates_order,
-    listJobTemplates_maxResults,
 
     -- * Destructuring the Response
     ListJobTemplatesResponse (..),
@@ -50,7 +50,8 @@ module Amazonka.MediaConvert.ListJobTemplates
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -65,16 +66,16 @@ data ListJobTemplates = ListJobTemplates'
     -- list them alphabetically by NAME or chronologically by CREATION_DATE. If
     -- you don\'t specify, the service will list them by name.
     listBy :: Prelude.Maybe JobTemplateListBy,
+    -- | Optional. Number of job templates, up to twenty, that will be returned
+    -- at one time.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | Use this string, provided with the response to a previous request, to
     -- request the next batch of job templates.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | Optional. When you request lists of resources, you can specify whether
     -- they are sorted in ASCENDING or DESCENDING order. Default varies by
     -- resource.
-    order :: Prelude.Maybe Order,
-    -- | Optional. Number of job templates, up to twenty, that will be returned
-    -- at one time.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    order :: Prelude.Maybe Order
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -93,24 +94,24 @@ data ListJobTemplates = ListJobTemplates'
 -- list them alphabetically by NAME or chronologically by CREATION_DATE. If
 -- you don\'t specify, the service will list them by name.
 --
+-- 'maxResults', 'listJobTemplates_maxResults' - Optional. Number of job templates, up to twenty, that will be returned
+-- at one time.
+--
 -- 'nextToken', 'listJobTemplates_nextToken' - Use this string, provided with the response to a previous request, to
 -- request the next batch of job templates.
 --
 -- 'order', 'listJobTemplates_order' - Optional. When you request lists of resources, you can specify whether
 -- they are sorted in ASCENDING or DESCENDING order. Default varies by
 -- resource.
---
--- 'maxResults', 'listJobTemplates_maxResults' - Optional. Number of job templates, up to twenty, that will be returned
--- at one time.
 newListJobTemplates ::
   ListJobTemplates
 newListJobTemplates =
   ListJobTemplates'
     { category = Prelude.Nothing,
       listBy = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      order = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      order = Prelude.Nothing
     }
 
 -- | Optionally, specify a job template category to limit responses to only
@@ -124,6 +125,11 @@ listJobTemplates_category = Lens.lens (\ListJobTemplates' {category} -> category
 listJobTemplates_listBy :: Lens.Lens' ListJobTemplates (Prelude.Maybe JobTemplateListBy)
 listJobTemplates_listBy = Lens.lens (\ListJobTemplates' {listBy} -> listBy) (\s@ListJobTemplates' {} a -> s {listBy = a} :: ListJobTemplates)
 
+-- | Optional. Number of job templates, up to twenty, that will be returned
+-- at one time.
+listJobTemplates_maxResults :: Lens.Lens' ListJobTemplates (Prelude.Maybe Prelude.Natural)
+listJobTemplates_maxResults = Lens.lens (\ListJobTemplates' {maxResults} -> maxResults) (\s@ListJobTemplates' {} a -> s {maxResults = a} :: ListJobTemplates)
+
 -- | Use this string, provided with the response to a previous request, to
 -- request the next batch of job templates.
 listJobTemplates_nextToken :: Lens.Lens' ListJobTemplates (Prelude.Maybe Prelude.Text)
@@ -134,11 +140,6 @@ listJobTemplates_nextToken = Lens.lens (\ListJobTemplates' {nextToken} -> nextTo
 -- resource.
 listJobTemplates_order :: Lens.Lens' ListJobTemplates (Prelude.Maybe Order)
 listJobTemplates_order = Lens.lens (\ListJobTemplates' {order} -> order) (\s@ListJobTemplates' {} a -> s {order = a} :: ListJobTemplates)
-
--- | Optional. Number of job templates, up to twenty, that will be returned
--- at one time.
-listJobTemplates_maxResults :: Lens.Lens' ListJobTemplates (Prelude.Maybe Prelude.Natural)
-listJobTemplates_maxResults = Lens.lens (\ListJobTemplates' {maxResults} -> maxResults) (\s@ListJobTemplates' {} a -> s {maxResults = a} :: ListJobTemplates)
 
 instance Core.AWSPager ListJobTemplates where
   page rq rs
@@ -166,13 +167,14 @@ instance Core.AWSRequest ListJobTemplates where
   type
     AWSResponse ListJobTemplates =
       ListJobTemplatesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListJobTemplatesResponse'
-            Prelude.<$> (x Core..?> "jobTemplates" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "jobTemplates" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -180,40 +182,40 @@ instance Prelude.Hashable ListJobTemplates where
   hashWithSalt _salt ListJobTemplates' {..} =
     _salt `Prelude.hashWithSalt` category
       `Prelude.hashWithSalt` listBy
+      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` order
-      `Prelude.hashWithSalt` maxResults
 
 instance Prelude.NFData ListJobTemplates where
   rnf ListJobTemplates' {..} =
     Prelude.rnf category
       `Prelude.seq` Prelude.rnf listBy
+      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf order
-      `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders ListJobTemplates where
+instance Data.ToHeaders ListJobTemplates where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListJobTemplates where
+instance Data.ToPath ListJobTemplates where
   toPath = Prelude.const "/2017-08-29/jobTemplates"
 
-instance Core.ToQuery ListJobTemplates where
+instance Data.ToQuery ListJobTemplates where
   toQuery ListJobTemplates' {..} =
     Prelude.mconcat
-      [ "category" Core.=: category,
-        "listBy" Core.=: listBy,
-        "nextToken" Core.=: nextToken,
-        "order" Core.=: order,
-        "maxResults" Core.=: maxResults
+      [ "category" Data.=: category,
+        "listBy" Data.=: listBy,
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "order" Data.=: order
       ]
 
 -- | /See:/ 'newListJobTemplatesResponse' smart constructor.

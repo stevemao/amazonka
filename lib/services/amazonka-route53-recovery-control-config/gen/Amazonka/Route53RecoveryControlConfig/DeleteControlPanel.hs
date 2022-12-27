@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryControlConfig.DeleteControlPanel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.Route53RecoveryControlConfig.DeleteControlPanel
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -47,8 +48,7 @@ import Amazonka.Route53RecoveryControlConfig.Types
 
 -- | /See:/ 'newDeleteControlPanel' smart constructor.
 data DeleteControlPanel = DeleteControlPanel'
-  { -- | The Amazon Resource Name (ARN) of the control panel that you\'re
-    -- deleting.
+  { -- | The Amazon Resource Name (ARN) of the control panel.
     controlPanelArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -61,8 +61,7 @@ data DeleteControlPanel = DeleteControlPanel'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'controlPanelArn', 'deleteControlPanel_controlPanelArn' - The Amazon Resource Name (ARN) of the control panel that you\'re
--- deleting.
+-- 'controlPanelArn', 'deleteControlPanel_controlPanelArn' - The Amazon Resource Name (ARN) of the control panel.
 newDeleteControlPanel ::
   -- | 'controlPanelArn'
   Prelude.Text ->
@@ -73,8 +72,7 @@ newDeleteControlPanel pControlPanelArn_ =
         pControlPanelArn_
     }
 
--- | The Amazon Resource Name (ARN) of the control panel that you\'re
--- deleting.
+-- | The Amazon Resource Name (ARN) of the control panel.
 deleteControlPanel_controlPanelArn :: Lens.Lens' DeleteControlPanel Prelude.Text
 deleteControlPanel_controlPanelArn = Lens.lens (\DeleteControlPanel' {controlPanelArn} -> controlPanelArn) (\s@DeleteControlPanel' {} a -> s {controlPanelArn = a} :: DeleteControlPanel)
 
@@ -82,7 +80,8 @@ instance Core.AWSRequest DeleteControlPanel where
   type
     AWSResponse DeleteControlPanel =
       DeleteControlPanelResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -98,23 +97,23 @@ instance Prelude.NFData DeleteControlPanel where
   rnf DeleteControlPanel' {..} =
     Prelude.rnf controlPanelArn
 
-instance Core.ToHeaders DeleteControlPanel where
+instance Data.ToHeaders DeleteControlPanel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteControlPanel where
+instance Data.ToPath DeleteControlPanel where
   toPath DeleteControlPanel' {..} =
     Prelude.mconcat
-      ["/controlpanel/", Core.toBS controlPanelArn]
+      ["/controlpanel/", Data.toBS controlPanelArn]
 
-instance Core.ToQuery DeleteControlPanel where
+instance Data.ToQuery DeleteControlPanel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteControlPanelResponse' smart constructor.

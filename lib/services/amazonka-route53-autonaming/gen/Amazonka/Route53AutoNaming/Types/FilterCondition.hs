@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53AutoNaming.Types.FilterCondition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,6 +20,7 @@
 module Amazonka.Route53AutoNaming.Types.FilterCondition
   ( FilterCondition
       ( ..,
+        FilterCondition_BEGINS_WITH,
         FilterCondition_BETWEEN,
         FilterCondition_EQ,
         FilterCondition_IN
@@ -28,11 +29,12 @@ module Amazonka.Route53AutoNaming.Types.FilterCondition
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype FilterCondition = FilterCondition'
   { fromFilterCondition ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -44,19 +46,22 @@ newtype FilterCondition = FilterCondition'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
+
+pattern FilterCondition_BEGINS_WITH :: FilterCondition
+pattern FilterCondition_BEGINS_WITH = FilterCondition' "BEGINS_WITH"
 
 pattern FilterCondition_BETWEEN :: FilterCondition
 pattern FilterCondition_BETWEEN = FilterCondition' "BETWEEN"
@@ -68,6 +73,7 @@ pattern FilterCondition_IN :: FilterCondition
 pattern FilterCondition_IN = FilterCondition' "IN"
 
 {-# COMPLETE
+  FilterCondition_BEGINS_WITH,
   FilterCondition_BETWEEN,
   FilterCondition_EQ,
   FilterCondition_IN,

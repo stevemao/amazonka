@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.UpdateClusterKafkaVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.Kafka.UpdateClusterKafkaVersion
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kafka.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -121,13 +122,14 @@ instance Core.AWSRequest UpdateClusterKafkaVersion where
   type
     AWSResponse UpdateClusterKafkaVersion =
       UpdateClusterKafkaVersionResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateClusterKafkaVersionResponse'
-            Prelude.<$> (x Core..?> "clusterArn")
-            Prelude.<*> (x Core..?> "clusterOperationArn")
+            Prelude.<$> (x Data..?> "clusterArn")
+            Prelude.<*> (x Data..?> "clusterOperationArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -145,36 +147,36 @@ instance Prelude.NFData UpdateClusterKafkaVersion where
       `Prelude.seq` Prelude.rnf targetKafkaVersion
       `Prelude.seq` Prelude.rnf currentVersion
 
-instance Core.ToHeaders UpdateClusterKafkaVersion where
+instance Data.ToHeaders UpdateClusterKafkaVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateClusterKafkaVersion where
+instance Data.ToJSON UpdateClusterKafkaVersion where
   toJSON UpdateClusterKafkaVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("configurationInfo" Core..=)
+          [ ("configurationInfo" Data..=)
               Prelude.<$> configurationInfo,
             Prelude.Just
-              ("targetKafkaVersion" Core..= targetKafkaVersion),
+              ("targetKafkaVersion" Data..= targetKafkaVersion),
             Prelude.Just
-              ("currentVersion" Core..= currentVersion)
+              ("currentVersion" Data..= currentVersion)
           ]
       )
 
-instance Core.ToPath UpdateClusterKafkaVersion where
+instance Data.ToPath UpdateClusterKafkaVersion where
   toPath UpdateClusterKafkaVersion' {..} =
     Prelude.mconcat
-      ["/v1/clusters/", Core.toBS clusterArn, "/version"]
+      ["/v1/clusters/", Data.toBS clusterArn, "/version"]
 
-instance Core.ToQuery UpdateClusterKafkaVersion where
+instance Data.ToQuery UpdateClusterKafkaVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateClusterKafkaVersionResponse' smart constructor.

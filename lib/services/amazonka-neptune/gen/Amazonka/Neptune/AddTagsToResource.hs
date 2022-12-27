@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Neptune.AddTagsToResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.Neptune.AddTagsToResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Neptune.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -94,7 +95,8 @@ instance Core.AWSRequest AddTagsToResource where
   type
     AWSResponse AddTagsToResource =
       AddTagsToResourceResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull AddTagsToResourceResponse'
 
@@ -108,21 +110,21 @@ instance Prelude.NFData AddTagsToResource where
     Prelude.rnf resourceName
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders AddTagsToResource where
+instance Data.ToHeaders AddTagsToResource where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath AddTagsToResource where
+instance Data.ToPath AddTagsToResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AddTagsToResource where
+instance Data.ToQuery AddTagsToResource where
   toQuery AddTagsToResource' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("AddTagsToResource" :: Prelude.ByteString),
+          Data.=: ("AddTagsToResource" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "ResourceName" Core.=: resourceName,
-        "Tags" Core.=: Core.toQueryList "Tag" tags
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "ResourceName" Data.=: resourceName,
+        "Tags" Data.=: Data.toQueryList "Tag" tags
       ]
 
 -- | /See:/ 'newAddTagsToResourceResponse' smart constructor.

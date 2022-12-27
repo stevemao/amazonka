@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.DeleteVirtualMFADevice
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.IAM.DeleteVirtualMFADevice
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,7 +99,8 @@ instance Core.AWSRequest DeleteVirtualMFADevice where
   type
     AWSResponse DeleteVirtualMFADevice =
       DeleteVirtualMFADeviceResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       DeleteVirtualMFADeviceResponse'
@@ -111,20 +113,20 @@ instance Prelude.NFData DeleteVirtualMFADevice where
   rnf DeleteVirtualMFADevice' {..} =
     Prelude.rnf serialNumber
 
-instance Core.ToHeaders DeleteVirtualMFADevice where
+instance Data.ToHeaders DeleteVirtualMFADevice where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteVirtualMFADevice where
+instance Data.ToPath DeleteVirtualMFADevice where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteVirtualMFADevice where
+instance Data.ToQuery DeleteVirtualMFADevice where
   toQuery DeleteVirtualMFADevice' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteVirtualMFADevice" :: Prelude.ByteString),
+          Data.=: ("DeleteVirtualMFADevice" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "SerialNumber" Core.=: serialNumber
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "SerialNumber" Data.=: serialNumber
       ]
 
 -- | /See:/ 'newDeleteVirtualMFADeviceResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.Types.SuppressedDestinationAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SESV2.Types.SuppressedDestinationAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that contains additional attributes that are related an email
@@ -70,16 +71,16 @@ suppressedDestinationAttributes_messageId :: Lens.Lens' SuppressedDestinationAtt
 suppressedDestinationAttributes_messageId = Lens.lens (\SuppressedDestinationAttributes' {messageId} -> messageId) (\s@SuppressedDestinationAttributes' {} a -> s {messageId = a} :: SuppressedDestinationAttributes)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     SuppressedDestinationAttributes
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SuppressedDestinationAttributes"
       ( \x ->
           SuppressedDestinationAttributes'
-            Prelude.<$> (x Core..:? "FeedbackId")
-            Prelude.<*> (x Core..:? "MessageId")
+            Prelude.<$> (x Data..:? "FeedbackId")
+            Prelude.<*> (x Data..:? "MessageId")
       )
 
 instance

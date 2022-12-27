@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Batch.Types.Secret
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.Batch.Types.Secret where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | An object representing the secret to expose to your container. Secrets
--- can be exposed to a container in the following ways:
+-- | An object that represents the secret to expose to your container.
+-- Secrets can be exposed to a container in the following ways:
 --
 -- -   To inject sensitive data into your containers as environment
 --     variables, use the @secrets@ container definition parameter.
@@ -41,13 +42,15 @@ data Secret = Secret'
   { -- | The name of the secret.
     name :: Prelude.Text,
     -- | The secret to expose to the container. The supported values are either
-    -- the full ARN of the Secrets Manager secret or the full ARN of the
-    -- parameter in the Amazon Web Services Systems Manager Parameter Store.
+    -- the full Amazon Resource Name (ARN) of the Secrets Manager secret or the
+    -- full ARN of the parameter in the Amazon Web Services Systems Manager
+    -- Parameter Store.
     --
     -- If the Amazon Web Services Systems Manager Parameter Store parameter
     -- exists in the same Region as the job you\'re launching, then you can use
-    -- either the full ARN or name of the parameter. If the parameter exists in
-    -- a different Region, then the full ARN must be specified.
+    -- either the full Amazon Resource Name (ARN) or name of the parameter. If
+    -- the parameter exists in a different Region, then the full ARN must be
+    -- specified.
     valueFrom :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -63,13 +66,15 @@ data Secret = Secret'
 -- 'name', 'secret_name' - The name of the secret.
 --
 -- 'valueFrom', 'secret_valueFrom' - The secret to expose to the container. The supported values are either
--- the full ARN of the Secrets Manager secret or the full ARN of the
--- parameter in the Amazon Web Services Systems Manager Parameter Store.
+-- the full Amazon Resource Name (ARN) of the Secrets Manager secret or the
+-- full ARN of the parameter in the Amazon Web Services Systems Manager
+-- Parameter Store.
 --
 -- If the Amazon Web Services Systems Manager Parameter Store parameter
 -- exists in the same Region as the job you\'re launching, then you can use
--- either the full ARN or name of the parameter. If the parameter exists in
--- a different Region, then the full ARN must be specified.
+-- either the full Amazon Resource Name (ARN) or name of the parameter. If
+-- the parameter exists in a different Region, then the full ARN must be
+-- specified.
 newSecret ::
   -- | 'name'
   Prelude.Text ->
@@ -84,24 +89,26 @@ secret_name :: Lens.Lens' Secret Prelude.Text
 secret_name = Lens.lens (\Secret' {name} -> name) (\s@Secret' {} a -> s {name = a} :: Secret)
 
 -- | The secret to expose to the container. The supported values are either
--- the full ARN of the Secrets Manager secret or the full ARN of the
--- parameter in the Amazon Web Services Systems Manager Parameter Store.
+-- the full Amazon Resource Name (ARN) of the Secrets Manager secret or the
+-- full ARN of the parameter in the Amazon Web Services Systems Manager
+-- Parameter Store.
 --
 -- If the Amazon Web Services Systems Manager Parameter Store parameter
 -- exists in the same Region as the job you\'re launching, then you can use
--- either the full ARN or name of the parameter. If the parameter exists in
--- a different Region, then the full ARN must be specified.
+-- either the full Amazon Resource Name (ARN) or name of the parameter. If
+-- the parameter exists in a different Region, then the full ARN must be
+-- specified.
 secret_valueFrom :: Lens.Lens' Secret Prelude.Text
 secret_valueFrom = Lens.lens (\Secret' {valueFrom} -> valueFrom) (\s@Secret' {} a -> s {valueFrom = a} :: Secret)
 
-instance Core.FromJSON Secret where
+instance Data.FromJSON Secret where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Secret"
       ( \x ->
           Secret'
-            Prelude.<$> (x Core..: "name")
-            Prelude.<*> (x Core..: "valueFrom")
+            Prelude.<$> (x Data..: "name")
+            Prelude.<*> (x Data..: "valueFrom")
       )
 
 instance Prelude.Hashable Secret where
@@ -114,11 +121,11 @@ instance Prelude.NFData Secret where
     Prelude.rnf name
       `Prelude.seq` Prelude.rnf valueFrom
 
-instance Core.ToJSON Secret where
+instance Data.ToJSON Secret where
   toJSON Secret' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("name" Core..= name),
-            Prelude.Just ("valueFrom" Core..= valueFrom)
+          [ Prelude.Just ("name" Data..= name),
+            Prelude.Just ("valueFrom" Data..= valueFrom)
           ]
       )

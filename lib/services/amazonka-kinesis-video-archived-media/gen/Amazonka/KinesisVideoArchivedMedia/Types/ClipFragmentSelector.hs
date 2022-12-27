@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideoArchivedMedia.Types.ClipFragmentSelector
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.KinesisVideoArchivedMedia.Types.ClipFragmentSelector where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisVideoArchivedMedia.Types.ClipFragmentSelectorType
 import Amazonka.KinesisVideoArchivedMedia.Types.ClipTimestampRange
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the timestamp range and timestamp origin of a range of
@@ -89,15 +90,15 @@ instance Prelude.NFData ClipFragmentSelector where
     Prelude.rnf fragmentSelectorType
       `Prelude.seq` Prelude.rnf timestampRange
 
-instance Core.ToJSON ClipFragmentSelector where
+instance Data.ToJSON ClipFragmentSelector where
   toJSON ClipFragmentSelector' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "FragmentSelectorType"
-                  Core..= fragmentSelectorType
+                  Data..= fragmentSelectorType
               ),
             Prelude.Just
-              ("TimestampRange" Core..= timestampRange)
+              ("TimestampRange" Data..= timestampRange)
           ]
       )

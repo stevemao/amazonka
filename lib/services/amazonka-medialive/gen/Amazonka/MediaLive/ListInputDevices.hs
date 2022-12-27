@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.ListInputDevices
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.MediaLive.ListInputDevices
     newListInputDevices,
 
     -- * Request Lenses
-    listInputDevices_nextToken,
     listInputDevices_maxResults,
+    listInputDevices_nextToken,
 
     -- * Destructuring the Response
     ListInputDevicesResponse (..),
@@ -44,7 +44,8 @@ module Amazonka.MediaLive.ListInputDevices
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -54,8 +55,8 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListInputDevices' smart constructor.
 data ListInputDevices = ListInputDevices'
-  { nextToken :: Prelude.Maybe Prelude.Text,
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { maxResults :: Prelude.Maybe Prelude.Natural,
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,24 +68,24 @@ data ListInputDevices = ListInputDevices'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listInputDevices_nextToken' - Undocumented member.
---
 -- 'maxResults', 'listInputDevices_maxResults' - Undocumented member.
+--
+-- 'nextToken', 'listInputDevices_nextToken' - Undocumented member.
 newListInputDevices ::
   ListInputDevices
 newListInputDevices =
   ListInputDevices'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | Undocumented member.
-listInputDevices_nextToken :: Lens.Lens' ListInputDevices (Prelude.Maybe Prelude.Text)
-listInputDevices_nextToken = Lens.lens (\ListInputDevices' {nextToken} -> nextToken) (\s@ListInputDevices' {} a -> s {nextToken = a} :: ListInputDevices)
 
 -- | Undocumented member.
 listInputDevices_maxResults :: Lens.Lens' ListInputDevices (Prelude.Maybe Prelude.Natural)
 listInputDevices_maxResults = Lens.lens (\ListInputDevices' {maxResults} -> maxResults) (\s@ListInputDevices' {} a -> s {maxResults = a} :: ListInputDevices)
+
+-- | Undocumented member.
+listInputDevices_nextToken :: Lens.Lens' ListInputDevices (Prelude.Maybe Prelude.Text)
+listInputDevices_nextToken = Lens.lens (\ListInputDevices' {nextToken} -> nextToken) (\s@ListInputDevices' {} a -> s {nextToken = a} :: ListInputDevices)
 
 instance Core.AWSPager ListInputDevices where
   page rq rs
@@ -112,45 +113,46 @@ instance Core.AWSRequest ListInputDevices where
   type
     AWSResponse ListInputDevices =
       ListInputDevicesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListInputDevicesResponse'
-            Prelude.<$> (x Core..?> "inputDevices" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "inputDevices" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListInputDevices where
   hashWithSalt _salt ListInputDevices' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListInputDevices where
   rnf ListInputDevices' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListInputDevices where
+instance Data.ToHeaders ListInputDevices where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListInputDevices where
+instance Data.ToPath ListInputDevices where
   toPath = Prelude.const "/prod/inputDevices"
 
-instance Core.ToQuery ListInputDevices where
+instance Data.ToQuery ListInputDevices where
   toQuery ListInputDevices' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | Placeholder documentation for ListInputDevicesResponse

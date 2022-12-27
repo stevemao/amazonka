@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Transcribe.Types.MedicalTranscript
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,20 @@
 module Amazonka.Transcribe.Types.MedicalTranscript where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Identifies the location of a medical transcript.
+-- | Provides you with the Amazon S3 URI you can use to access your
+-- transcript.
 --
 -- /See:/ 'newMedicalTranscript' smart constructor.
 data MedicalTranscript = MedicalTranscript'
-  { -- | The S3 object location of the medical transcript.
+  { -- | The Amazon S3 location of your transcript. You can use this URI to
+    -- access or download your transcript.
     --
-    -- Use this URI to access the medical transcript. This URI points to the S3
-    -- bucket you created to store the medical transcript.
+    -- Note that this is the Amazon S3 location you specified in your request
+    -- using the @OutputBucketName@ parameter.
     transcriptFileUri :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -43,10 +46,11 @@ data MedicalTranscript = MedicalTranscript'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'transcriptFileUri', 'medicalTranscript_transcriptFileUri' - The S3 object location of the medical transcript.
+-- 'transcriptFileUri', 'medicalTranscript_transcriptFileUri' - The Amazon S3 location of your transcript. You can use this URI to
+-- access or download your transcript.
 --
--- Use this URI to access the medical transcript. This URI points to the S3
--- bucket you created to store the medical transcript.
+-- Note that this is the Amazon S3 location you specified in your request
+-- using the @OutputBucketName@ parameter.
 newMedicalTranscript ::
   MedicalTranscript
 newMedicalTranscript =
@@ -55,20 +59,21 @@ newMedicalTranscript =
         Prelude.Nothing
     }
 
--- | The S3 object location of the medical transcript.
+-- | The Amazon S3 location of your transcript. You can use this URI to
+-- access or download your transcript.
 --
--- Use this URI to access the medical transcript. This URI points to the S3
--- bucket you created to store the medical transcript.
+-- Note that this is the Amazon S3 location you specified in your request
+-- using the @OutputBucketName@ parameter.
 medicalTranscript_transcriptFileUri :: Lens.Lens' MedicalTranscript (Prelude.Maybe Prelude.Text)
 medicalTranscript_transcriptFileUri = Lens.lens (\MedicalTranscript' {transcriptFileUri} -> transcriptFileUri) (\s@MedicalTranscript' {} a -> s {transcriptFileUri = a} :: MedicalTranscript)
 
-instance Core.FromJSON MedicalTranscript where
+instance Data.FromJSON MedicalTranscript where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MedicalTranscript"
       ( \x ->
           MedicalTranscript'
-            Prelude.<$> (x Core..:? "TranscriptFileUri")
+            Prelude.<$> (x Data..:? "TranscriptFileUri")
       )
 
 instance Prelude.Hashable MedicalTranscript where

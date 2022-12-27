@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.StorageLocation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.StorageLocation where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a storage location in Amazon S3.
@@ -71,7 +72,7 @@ instance Prelude.NFData StorageLocation where
   rnf StorageLocation' {..} =
     Prelude.rnf bucket `Prelude.seq` Prelude.rnf key
 
-instance Core.ToQuery StorageLocation where
+instance Data.ToQuery StorageLocation where
   toQuery StorageLocation' {..} =
     Prelude.mconcat
-      ["Bucket" Core.=: bucket, "Key" Core.=: key]
+      ["Bucket" Data.=: bucket, "Key" Data.=: key]

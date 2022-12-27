@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.CreateDeployment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Greengrass.CreateDeployment
     newCreateDeployment,
 
     -- * Request Lenses
-    createDeployment_deploymentId,
     createDeployment_amznClientToken,
+    createDeployment_deploymentId,
     createDeployment_groupVersionId,
     createDeployment_groupId,
     createDeployment_deploymentType,
@@ -40,25 +40,26 @@ module Amazonka.Greengrass.CreateDeployment
     newCreateDeploymentResponse,
 
     -- * Response Lenses
-    createDeploymentResponse_deploymentId,
     createDeploymentResponse_deploymentArn,
+    createDeploymentResponse_deploymentId,
     createDeploymentResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateDeployment' smart constructor.
 data CreateDeployment = CreateDeployment'
-  { -- | The ID of the deployment if you wish to redeploy a previous deployment.
-    deploymentId :: Prelude.Maybe Prelude.Text,
-    -- | A client token used to correlate requests and responses.
+  { -- | A client token used to correlate requests and responses.
     amznClientToken :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the deployment if you wish to redeploy a previous deployment.
+    deploymentId :: Prelude.Maybe Prelude.Text,
     -- | The ID of the group version to be deployed.
     groupVersionId :: Prelude.Maybe Prelude.Text,
     -- | The ID of the Greengrass group.
@@ -77,9 +78,9 @@ data CreateDeployment = CreateDeployment'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'deploymentId', 'createDeployment_deploymentId' - The ID of the deployment if you wish to redeploy a previous deployment.
---
 -- 'amznClientToken', 'createDeployment_amznClientToken' - A client token used to correlate requests and responses.
+--
+-- 'deploymentId', 'createDeployment_deploymentId' - The ID of the deployment if you wish to redeploy a previous deployment.
 --
 -- 'groupVersionId', 'createDeployment_groupVersionId' - The ID of the group version to be deployed.
 --
@@ -95,20 +96,21 @@ newCreateDeployment ::
   CreateDeployment
 newCreateDeployment pGroupId_ pDeploymentType_ =
   CreateDeployment'
-    { deploymentId = Prelude.Nothing,
-      amznClientToken = Prelude.Nothing,
+    { amznClientToken =
+        Prelude.Nothing,
+      deploymentId = Prelude.Nothing,
       groupVersionId = Prelude.Nothing,
       groupId = pGroupId_,
       deploymentType = pDeploymentType_
     }
 
--- | The ID of the deployment if you wish to redeploy a previous deployment.
-createDeployment_deploymentId :: Lens.Lens' CreateDeployment (Prelude.Maybe Prelude.Text)
-createDeployment_deploymentId = Lens.lens (\CreateDeployment' {deploymentId} -> deploymentId) (\s@CreateDeployment' {} a -> s {deploymentId = a} :: CreateDeployment)
-
 -- | A client token used to correlate requests and responses.
 createDeployment_amznClientToken :: Lens.Lens' CreateDeployment (Prelude.Maybe Prelude.Text)
 createDeployment_amznClientToken = Lens.lens (\CreateDeployment' {amznClientToken} -> amznClientToken) (\s@CreateDeployment' {} a -> s {amznClientToken = a} :: CreateDeployment)
+
+-- | The ID of the deployment if you wish to redeploy a previous deployment.
+createDeployment_deploymentId :: Lens.Lens' CreateDeployment (Prelude.Maybe Prelude.Text)
+createDeployment_deploymentId = Lens.lens (\CreateDeployment' {deploymentId} -> deploymentId) (\s@CreateDeployment' {} a -> s {deploymentId = a} :: CreateDeployment)
 
 -- | The ID of the group version to be deployed.
 createDeployment_groupVersionId :: Lens.Lens' CreateDeployment (Prelude.Maybe Prelude.Text)
@@ -127,69 +129,70 @@ instance Core.AWSRequest CreateDeployment where
   type
     AWSResponse CreateDeployment =
       CreateDeploymentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateDeploymentResponse'
-            Prelude.<$> (x Core..?> "DeploymentId")
-            Prelude.<*> (x Core..?> "DeploymentArn")
+            Prelude.<$> (x Data..?> "DeploymentArn")
+            Prelude.<*> (x Data..?> "DeploymentId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateDeployment where
   hashWithSalt _salt CreateDeployment' {..} =
-    _salt `Prelude.hashWithSalt` deploymentId
-      `Prelude.hashWithSalt` amznClientToken
+    _salt `Prelude.hashWithSalt` amznClientToken
+      `Prelude.hashWithSalt` deploymentId
       `Prelude.hashWithSalt` groupVersionId
       `Prelude.hashWithSalt` groupId
       `Prelude.hashWithSalt` deploymentType
 
 instance Prelude.NFData CreateDeployment where
   rnf CreateDeployment' {..} =
-    Prelude.rnf deploymentId
-      `Prelude.seq` Prelude.rnf amznClientToken
+    Prelude.rnf amznClientToken
+      `Prelude.seq` Prelude.rnf deploymentId
       `Prelude.seq` Prelude.rnf groupVersionId
       `Prelude.seq` Prelude.rnf groupId
       `Prelude.seq` Prelude.rnf deploymentType
 
-instance Core.ToHeaders CreateDeployment where
+instance Data.ToHeaders CreateDeployment where
   toHeaders CreateDeployment' {..} =
     Prelude.mconcat
-      [ "X-Amzn-Client-Token" Core.=# amznClientToken,
+      [ "X-Amzn-Client-Token" Data.=# amznClientToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToJSON CreateDeployment where
+instance Data.ToJSON CreateDeployment where
   toJSON CreateDeployment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DeploymentId" Core..=) Prelude.<$> deploymentId,
-            ("GroupVersionId" Core..=)
+          [ ("DeploymentId" Data..=) Prelude.<$> deploymentId,
+            ("GroupVersionId" Data..=)
               Prelude.<$> groupVersionId,
             Prelude.Just
-              ("DeploymentType" Core..= deploymentType)
+              ("DeploymentType" Data..= deploymentType)
           ]
       )
 
-instance Core.ToPath CreateDeployment where
+instance Data.ToPath CreateDeployment where
   toPath CreateDeployment' {..} =
     Prelude.mconcat
       [ "/greengrass/groups/",
-        Core.toBS groupId,
+        Data.toBS groupId,
         "/deployments"
       ]
 
-instance Core.ToQuery CreateDeployment where
+instance Data.ToQuery CreateDeployment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateDeploymentResponse' smart constructor.
 data CreateDeploymentResponse = CreateDeploymentResponse'
-  { -- | The ID of the deployment.
-    deploymentId :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the deployment.
+  { -- | The ARN of the deployment.
     deploymentArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the deployment.
+    deploymentId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -203,9 +206,9 @@ data CreateDeploymentResponse = CreateDeploymentResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'deploymentId', 'createDeploymentResponse_deploymentId' - The ID of the deployment.
---
 -- 'deploymentArn', 'createDeploymentResponse_deploymentArn' - The ARN of the deployment.
+--
+-- 'deploymentId', 'createDeploymentResponse_deploymentId' - The ID of the deployment.
 --
 -- 'httpStatus', 'createDeploymentResponse_httpStatus' - The response's http status code.
 newCreateDeploymentResponse ::
@@ -214,19 +217,19 @@ newCreateDeploymentResponse ::
   CreateDeploymentResponse
 newCreateDeploymentResponse pHttpStatus_ =
   CreateDeploymentResponse'
-    { deploymentId =
+    { deploymentArn =
         Prelude.Nothing,
-      deploymentArn = Prelude.Nothing,
+      deploymentId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The ID of the deployment.
-createDeploymentResponse_deploymentId :: Lens.Lens' CreateDeploymentResponse (Prelude.Maybe Prelude.Text)
-createDeploymentResponse_deploymentId = Lens.lens (\CreateDeploymentResponse' {deploymentId} -> deploymentId) (\s@CreateDeploymentResponse' {} a -> s {deploymentId = a} :: CreateDeploymentResponse)
 
 -- | The ARN of the deployment.
 createDeploymentResponse_deploymentArn :: Lens.Lens' CreateDeploymentResponse (Prelude.Maybe Prelude.Text)
 createDeploymentResponse_deploymentArn = Lens.lens (\CreateDeploymentResponse' {deploymentArn} -> deploymentArn) (\s@CreateDeploymentResponse' {} a -> s {deploymentArn = a} :: CreateDeploymentResponse)
+
+-- | The ID of the deployment.
+createDeploymentResponse_deploymentId :: Lens.Lens' CreateDeploymentResponse (Prelude.Maybe Prelude.Text)
+createDeploymentResponse_deploymentId = Lens.lens (\CreateDeploymentResponse' {deploymentId} -> deploymentId) (\s@CreateDeploymentResponse' {} a -> s {deploymentId = a} :: CreateDeploymentResponse)
 
 -- | The response's http status code.
 createDeploymentResponse_httpStatus :: Lens.Lens' CreateDeploymentResponse Prelude.Int
@@ -234,6 +237,6 @@ createDeploymentResponse_httpStatus = Lens.lens (\CreateDeploymentResponse' {htt
 
 instance Prelude.NFData CreateDeploymentResponse where
   rnf CreateDeploymentResponse' {..} =
-    Prelude.rnf deploymentId
-      `Prelude.seq` Prelude.rnf deploymentArn
+    Prelude.rnf deploymentArn
+      `Prelude.seq` Prelude.rnf deploymentId
       `Prelude.seq` Prelude.rnf httpStatus

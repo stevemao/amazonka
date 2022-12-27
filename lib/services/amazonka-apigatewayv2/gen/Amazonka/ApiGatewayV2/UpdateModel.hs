@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApiGatewayV2.UpdateModel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,10 +27,10 @@ module Amazonka.ApiGatewayV2.UpdateModel
     newUpdateModel,
 
     -- * Request Lenses
-    updateModel_schema,
-    updateModel_name,
-    updateModel_description,
     updateModel_contentType,
+    updateModel_description,
+    updateModel_name,
+    updateModel_schema,
     updateModel_modelId,
     updateModel_apiId,
 
@@ -39,18 +39,19 @@ module Amazonka.ApiGatewayV2.UpdateModel
     newUpdateModelResponse,
 
     -- * Response Lenses
-    updateModelResponse_modelId,
-    updateModelResponse_schema,
-    updateModelResponse_name,
-    updateModelResponse_description,
     updateModelResponse_contentType,
+    updateModelResponse_description,
+    updateModelResponse_modelId,
+    updateModelResponse_name,
+    updateModelResponse_schema,
     updateModelResponse_httpStatus,
   )
 where
 
 import Amazonka.ApiGatewayV2.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,15 +60,15 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newUpdateModel' smart constructor.
 data UpdateModel = UpdateModel'
-  { -- | The schema for the model. For application\/json models, this should be
-    -- JSON schema draft 4 model.
-    schema :: Prelude.Maybe Prelude.Text,
-    -- | The name of the model.
-    name :: Prelude.Maybe Prelude.Text,
+  { -- | The content-type for the model, for example, \"application\/json\".
+    contentType :: Prelude.Maybe Prelude.Text,
     -- | The description of the model.
     description :: Prelude.Maybe Prelude.Text,
-    -- | The content-type for the model, for example, \"application\/json\".
-    contentType :: Prelude.Maybe Prelude.Text,
+    -- | The name of the model.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The schema for the model. For application\/json models, this should be
+    -- JSON schema draft 4 model.
+    schema :: Prelude.Maybe Prelude.Text,
     -- | The model ID.
     modelId :: Prelude.Text,
     -- | The API identifier.
@@ -83,14 +84,14 @@ data UpdateModel = UpdateModel'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'schema', 'updateModel_schema' - The schema for the model. For application\/json models, this should be
--- JSON schema draft 4 model.
---
--- 'name', 'updateModel_name' - The name of the model.
+-- 'contentType', 'updateModel_contentType' - The content-type for the model, for example, \"application\/json\".
 --
 -- 'description', 'updateModel_description' - The description of the model.
 --
--- 'contentType', 'updateModel_contentType' - The content-type for the model, for example, \"application\/json\".
+-- 'name', 'updateModel_name' - The name of the model.
+--
+-- 'schema', 'updateModel_schema' - The schema for the model. For application\/json models, this should be
+-- JSON schema draft 4 model.
 --
 -- 'modelId', 'updateModel_modelId' - The model ID.
 --
@@ -103,30 +104,30 @@ newUpdateModel ::
   UpdateModel
 newUpdateModel pModelId_ pApiId_ =
   UpdateModel'
-    { schema = Prelude.Nothing,
-      name = Prelude.Nothing,
+    { contentType = Prelude.Nothing,
       description = Prelude.Nothing,
-      contentType = Prelude.Nothing,
+      name = Prelude.Nothing,
+      schema = Prelude.Nothing,
       modelId = pModelId_,
       apiId = pApiId_
     }
 
--- | The schema for the model. For application\/json models, this should be
--- JSON schema draft 4 model.
-updateModel_schema :: Lens.Lens' UpdateModel (Prelude.Maybe Prelude.Text)
-updateModel_schema = Lens.lens (\UpdateModel' {schema} -> schema) (\s@UpdateModel' {} a -> s {schema = a} :: UpdateModel)
-
--- | The name of the model.
-updateModel_name :: Lens.Lens' UpdateModel (Prelude.Maybe Prelude.Text)
-updateModel_name = Lens.lens (\UpdateModel' {name} -> name) (\s@UpdateModel' {} a -> s {name = a} :: UpdateModel)
+-- | The content-type for the model, for example, \"application\/json\".
+updateModel_contentType :: Lens.Lens' UpdateModel (Prelude.Maybe Prelude.Text)
+updateModel_contentType = Lens.lens (\UpdateModel' {contentType} -> contentType) (\s@UpdateModel' {} a -> s {contentType = a} :: UpdateModel)
 
 -- | The description of the model.
 updateModel_description :: Lens.Lens' UpdateModel (Prelude.Maybe Prelude.Text)
 updateModel_description = Lens.lens (\UpdateModel' {description} -> description) (\s@UpdateModel' {} a -> s {description = a} :: UpdateModel)
 
--- | The content-type for the model, for example, \"application\/json\".
-updateModel_contentType :: Lens.Lens' UpdateModel (Prelude.Maybe Prelude.Text)
-updateModel_contentType = Lens.lens (\UpdateModel' {contentType} -> contentType) (\s@UpdateModel' {} a -> s {contentType = a} :: UpdateModel)
+-- | The name of the model.
+updateModel_name :: Lens.Lens' UpdateModel (Prelude.Maybe Prelude.Text)
+updateModel_name = Lens.lens (\UpdateModel' {name} -> name) (\s@UpdateModel' {} a -> s {name = a} :: UpdateModel)
+
+-- | The schema for the model. For application\/json models, this should be
+-- JSON schema draft 4 model.
+updateModel_schema :: Lens.Lens' UpdateModel (Prelude.Maybe Prelude.Text)
+updateModel_schema = Lens.lens (\UpdateModel' {schema} -> schema) (\s@UpdateModel' {} a -> s {schema = a} :: UpdateModel)
 
 -- | The model ID.
 updateModel_modelId :: Lens.Lens' UpdateModel Prelude.Text
@@ -138,84 +139,85 @@ updateModel_apiId = Lens.lens (\UpdateModel' {apiId} -> apiId) (\s@UpdateModel' 
 
 instance Core.AWSRequest UpdateModel where
   type AWSResponse UpdateModel = UpdateModelResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateModelResponse'
-            Prelude.<$> (x Core..?> "modelId")
-            Prelude.<*> (x Core..?> "schema")
-            Prelude.<*> (x Core..?> "name")
-            Prelude.<*> (x Core..?> "description")
-            Prelude.<*> (x Core..?> "contentType")
+            Prelude.<$> (x Data..?> "contentType")
+            Prelude.<*> (x Data..?> "description")
+            Prelude.<*> (x Data..?> "modelId")
+            Prelude.<*> (x Data..?> "name")
+            Prelude.<*> (x Data..?> "schema")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateModel where
   hashWithSalt _salt UpdateModel' {..} =
-    _salt `Prelude.hashWithSalt` schema
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` contentType
       `Prelude.hashWithSalt` description
-      `Prelude.hashWithSalt` contentType
+      `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` schema
       `Prelude.hashWithSalt` modelId
       `Prelude.hashWithSalt` apiId
 
 instance Prelude.NFData UpdateModel where
   rnf UpdateModel' {..} =
-    Prelude.rnf schema
-      `Prelude.seq` Prelude.rnf name
+    Prelude.rnf contentType
       `Prelude.seq` Prelude.rnf description
-      `Prelude.seq` Prelude.rnf contentType
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf schema
       `Prelude.seq` Prelude.rnf modelId
       `Prelude.seq` Prelude.rnf apiId
 
-instance Core.ToHeaders UpdateModel where
+instance Data.ToHeaders UpdateModel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateModel where
+instance Data.ToJSON UpdateModel where
   toJSON UpdateModel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("schema" Core..=) Prelude.<$> schema,
-            ("name" Core..=) Prelude.<$> name,
-            ("description" Core..=) Prelude.<$> description,
-            ("contentType" Core..=) Prelude.<$> contentType
+          [ ("contentType" Data..=) Prelude.<$> contentType,
+            ("description" Data..=) Prelude.<$> description,
+            ("name" Data..=) Prelude.<$> name,
+            ("schema" Data..=) Prelude.<$> schema
           ]
       )
 
-instance Core.ToPath UpdateModel where
+instance Data.ToPath UpdateModel where
   toPath UpdateModel' {..} =
     Prelude.mconcat
       [ "/v2/apis/",
-        Core.toBS apiId,
+        Data.toBS apiId,
         "/models/",
-        Core.toBS modelId
+        Data.toBS modelId
       ]
 
-instance Core.ToQuery UpdateModel where
+instance Data.ToQuery UpdateModel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateModelResponse' smart constructor.
 data UpdateModelResponse = UpdateModelResponse'
-  { -- | The model identifier.
+  { -- | The content-type for the model, for example, \"application\/json\".
+    contentType :: Prelude.Maybe Prelude.Text,
+    -- | The description of the model.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The model identifier.
     modelId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the model. Must be alphanumeric.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The schema for the model. For application\/json models, this should be
     -- JSON schema draft 4 model.
     schema :: Prelude.Maybe Prelude.Text,
-    -- | The name of the model. Must be alphanumeric.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The description of the model.
-    description :: Prelude.Maybe Prelude.Text,
-    -- | The content-type for the model, for example, \"application\/json\".
-    contentType :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -229,16 +231,16 @@ data UpdateModelResponse = UpdateModelResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'modelId', 'updateModelResponse_modelId' - The model identifier.
---
--- 'schema', 'updateModelResponse_schema' - The schema for the model. For application\/json models, this should be
--- JSON schema draft 4 model.
---
--- 'name', 'updateModelResponse_name' - The name of the model. Must be alphanumeric.
+-- 'contentType', 'updateModelResponse_contentType' - The content-type for the model, for example, \"application\/json\".
 --
 -- 'description', 'updateModelResponse_description' - The description of the model.
 --
--- 'contentType', 'updateModelResponse_contentType' - The content-type for the model, for example, \"application\/json\".
+-- 'modelId', 'updateModelResponse_modelId' - The model identifier.
+--
+-- 'name', 'updateModelResponse_name' - The name of the model. Must be alphanumeric.
+--
+-- 'schema', 'updateModelResponse_schema' - The schema for the model. For application\/json models, this should be
+-- JSON schema draft 4 model.
 --
 -- 'httpStatus', 'updateModelResponse_httpStatus' - The response's http status code.
 newUpdateModelResponse ::
@@ -247,34 +249,34 @@ newUpdateModelResponse ::
   UpdateModelResponse
 newUpdateModelResponse pHttpStatus_ =
   UpdateModelResponse'
-    { modelId = Prelude.Nothing,
-      schema = Prelude.Nothing,
-      name = Prelude.Nothing,
+    { contentType = Prelude.Nothing,
       description = Prelude.Nothing,
-      contentType = Prelude.Nothing,
+      modelId = Prelude.Nothing,
+      name = Prelude.Nothing,
+      schema = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The model identifier.
-updateModelResponse_modelId :: Lens.Lens' UpdateModelResponse (Prelude.Maybe Prelude.Text)
-updateModelResponse_modelId = Lens.lens (\UpdateModelResponse' {modelId} -> modelId) (\s@UpdateModelResponse' {} a -> s {modelId = a} :: UpdateModelResponse)
-
--- | The schema for the model. For application\/json models, this should be
--- JSON schema draft 4 model.
-updateModelResponse_schema :: Lens.Lens' UpdateModelResponse (Prelude.Maybe Prelude.Text)
-updateModelResponse_schema = Lens.lens (\UpdateModelResponse' {schema} -> schema) (\s@UpdateModelResponse' {} a -> s {schema = a} :: UpdateModelResponse)
-
--- | The name of the model. Must be alphanumeric.
-updateModelResponse_name :: Lens.Lens' UpdateModelResponse (Prelude.Maybe Prelude.Text)
-updateModelResponse_name = Lens.lens (\UpdateModelResponse' {name} -> name) (\s@UpdateModelResponse' {} a -> s {name = a} :: UpdateModelResponse)
+-- | The content-type for the model, for example, \"application\/json\".
+updateModelResponse_contentType :: Lens.Lens' UpdateModelResponse (Prelude.Maybe Prelude.Text)
+updateModelResponse_contentType = Lens.lens (\UpdateModelResponse' {contentType} -> contentType) (\s@UpdateModelResponse' {} a -> s {contentType = a} :: UpdateModelResponse)
 
 -- | The description of the model.
 updateModelResponse_description :: Lens.Lens' UpdateModelResponse (Prelude.Maybe Prelude.Text)
 updateModelResponse_description = Lens.lens (\UpdateModelResponse' {description} -> description) (\s@UpdateModelResponse' {} a -> s {description = a} :: UpdateModelResponse)
 
--- | The content-type for the model, for example, \"application\/json\".
-updateModelResponse_contentType :: Lens.Lens' UpdateModelResponse (Prelude.Maybe Prelude.Text)
-updateModelResponse_contentType = Lens.lens (\UpdateModelResponse' {contentType} -> contentType) (\s@UpdateModelResponse' {} a -> s {contentType = a} :: UpdateModelResponse)
+-- | The model identifier.
+updateModelResponse_modelId :: Lens.Lens' UpdateModelResponse (Prelude.Maybe Prelude.Text)
+updateModelResponse_modelId = Lens.lens (\UpdateModelResponse' {modelId} -> modelId) (\s@UpdateModelResponse' {} a -> s {modelId = a} :: UpdateModelResponse)
+
+-- | The name of the model. Must be alphanumeric.
+updateModelResponse_name :: Lens.Lens' UpdateModelResponse (Prelude.Maybe Prelude.Text)
+updateModelResponse_name = Lens.lens (\UpdateModelResponse' {name} -> name) (\s@UpdateModelResponse' {} a -> s {name = a} :: UpdateModelResponse)
+
+-- | The schema for the model. For application\/json models, this should be
+-- JSON schema draft 4 model.
+updateModelResponse_schema :: Lens.Lens' UpdateModelResponse (Prelude.Maybe Prelude.Text)
+updateModelResponse_schema = Lens.lens (\UpdateModelResponse' {schema} -> schema) (\s@UpdateModelResponse' {} a -> s {schema = a} :: UpdateModelResponse)
 
 -- | The response's http status code.
 updateModelResponse_httpStatus :: Lens.Lens' UpdateModelResponse Prelude.Int
@@ -282,9 +284,9 @@ updateModelResponse_httpStatus = Lens.lens (\UpdateModelResponse' {httpStatus} -
 
 instance Prelude.NFData UpdateModelResponse where
   rnf UpdateModelResponse' {..} =
-    Prelude.rnf modelId
-      `Prelude.seq` Prelude.rnf schema
-      `Prelude.seq` Prelude.rnf name
+    Prelude.rnf contentType
       `Prelude.seq` Prelude.rnf description
-      `Prelude.seq` Prelude.rnf contentType
+      `Prelude.seq` Prelude.rnf modelId
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf schema
       `Prelude.seq` Prelude.rnf httpStatus

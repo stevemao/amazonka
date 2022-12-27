@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.DeregisterEventTopic
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.DirectoryService.DeregisterEventTopic
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,7 +101,8 @@ instance Core.AWSRequest DeregisterEventTopic where
   type
     AWSResponse DeregisterEventTopic =
       DeregisterEventTopicResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -118,34 +120,34 @@ instance Prelude.NFData DeregisterEventTopic where
     Prelude.rnf directoryId
       `Prelude.seq` Prelude.rnf topicName
 
-instance Core.ToHeaders DeregisterEventTopic where
+instance Data.ToHeaders DeregisterEventTopic where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.DeregisterEventTopic" ::
+              Data.=# ( "DirectoryService_20150416.DeregisterEventTopic" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeregisterEventTopic where
+instance Data.ToJSON DeregisterEventTopic where
   toJSON DeregisterEventTopic' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("DirectoryId" Core..= directoryId),
-            Prelude.Just ("TopicName" Core..= topicName)
+          [ Prelude.Just ("DirectoryId" Data..= directoryId),
+            Prelude.Just ("TopicName" Data..= topicName)
           ]
       )
 
-instance Core.ToPath DeregisterEventTopic where
+instance Data.ToPath DeregisterEventTopic where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeregisterEventTopic where
+instance Data.ToQuery DeregisterEventTopic where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The result of a DeregisterEventTopic request.

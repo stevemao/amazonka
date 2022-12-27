@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LakeFormation.BatchGrantPermissions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.LakeFormation.BatchGrantPermissions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LakeFormation.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,7 +53,7 @@ data BatchGrantPermissions = BatchGrantPermissions'
   { -- | The identifier for the Data Catalog. By default, the account ID. The
     -- Data Catalog is the persistent metadata store. It contains database
     -- definitions, table definitions, and other control information to manage
-    -- your AWS Lake Formation environment.
+    -- your Lake Formation environment.
     catalogId :: Prelude.Maybe Prelude.Text,
     -- | A list of up to 20 entries for resource permissions to be granted by
     -- batch operation to the principal.
@@ -71,7 +72,7 @@ data BatchGrantPermissions = BatchGrantPermissions'
 -- 'catalogId', 'batchGrantPermissions_catalogId' - The identifier for the Data Catalog. By default, the account ID. The
 -- Data Catalog is the persistent metadata store. It contains database
 -- definitions, table definitions, and other control information to manage
--- your AWS Lake Formation environment.
+-- your Lake Formation environment.
 --
 -- 'entries', 'batchGrantPermissions_entries' - A list of up to 20 entries for resource permissions to be granted by
 -- batch operation to the principal.
@@ -86,7 +87,7 @@ newBatchGrantPermissions =
 -- | The identifier for the Data Catalog. By default, the account ID. The
 -- Data Catalog is the persistent metadata store. It contains database
 -- definitions, table definitions, and other control information to manage
--- your AWS Lake Formation environment.
+-- your Lake Formation environment.
 batchGrantPermissions_catalogId :: Lens.Lens' BatchGrantPermissions (Prelude.Maybe Prelude.Text)
 batchGrantPermissions_catalogId = Lens.lens (\BatchGrantPermissions' {catalogId} -> catalogId) (\s@BatchGrantPermissions' {} a -> s {catalogId = a} :: BatchGrantPermissions)
 
@@ -99,12 +100,13 @@ instance Core.AWSRequest BatchGrantPermissions where
   type
     AWSResponse BatchGrantPermissions =
       BatchGrantPermissionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchGrantPermissionsResponse'
-            Prelude.<$> (x Core..?> "Failures" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Failures" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -118,34 +120,30 @@ instance Prelude.NFData BatchGrantPermissions where
     Prelude.rnf catalogId
       `Prelude.seq` Prelude.rnf entries
 
-instance Core.ToHeaders BatchGrantPermissions where
+instance Data.ToHeaders BatchGrantPermissions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
-          [ "X-Amz-Target"
-              Core.=# ( "AWSLakeFormation.BatchGrantPermissions" ::
-                          Prelude.ByteString
-                      ),
-            "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+          [ "Content-Type"
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchGrantPermissions where
+instance Data.ToJSON BatchGrantPermissions where
   toJSON BatchGrantPermissions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            Prelude.Just ("Entries" Core..= entries)
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            Prelude.Just ("Entries" Data..= entries)
           ]
       )
 
-instance Core.ToPath BatchGrantPermissions where
-  toPath = Prelude.const "/"
+instance Data.ToPath BatchGrantPermissions where
+  toPath = Prelude.const "/BatchGrantPermissions"
 
-instance Core.ToQuery BatchGrantPermissions where
+instance Data.ToQuery BatchGrantPermissions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchGrantPermissionsResponse' smart constructor.

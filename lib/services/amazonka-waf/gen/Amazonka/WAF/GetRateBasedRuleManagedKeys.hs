@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAF.GetRateBasedRuleManagedKeys
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,14 +50,15 @@ module Amazonka.WAF.GetRateBasedRuleManagedKeys
     newGetRateBasedRuleManagedKeysResponse,
 
     -- * Response Lenses
-    getRateBasedRuleManagedKeysResponse_nextMarker,
     getRateBasedRuleManagedKeysResponse_managedKeys,
+    getRateBasedRuleManagedKeysResponse_nextMarker,
     getRateBasedRuleManagedKeysResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -137,13 +138,14 @@ instance Core.AWSRequest GetRateBasedRuleManagedKeys where
   type
     AWSResponse GetRateBasedRuleManagedKeys =
       GetRateBasedRuleManagedKeysResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetRateBasedRuleManagedKeysResponse'
-            Prelude.<$> (x Core..?> "NextMarker")
-            Prelude.<*> (x Core..?> "ManagedKeys" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "ManagedKeys" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextMarker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -157,43 +159,43 @@ instance Prelude.NFData GetRateBasedRuleManagedKeys where
     Prelude.rnf nextMarker
       `Prelude.seq` Prelude.rnf ruleId
 
-instance Core.ToHeaders GetRateBasedRuleManagedKeys where
+instance Data.ToHeaders GetRateBasedRuleManagedKeys where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_20150824.GetRateBasedRuleManagedKeys" ::
+              Data.=# ( "AWSWAF_20150824.GetRateBasedRuleManagedKeys" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetRateBasedRuleManagedKeys where
+instance Data.ToJSON GetRateBasedRuleManagedKeys where
   toJSON GetRateBasedRuleManagedKeys' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextMarker" Core..=) Prelude.<$> nextMarker,
-            Prelude.Just ("RuleId" Core..= ruleId)
+          [ ("NextMarker" Data..=) Prelude.<$> nextMarker,
+            Prelude.Just ("RuleId" Data..= ruleId)
           ]
       )
 
-instance Core.ToPath GetRateBasedRuleManagedKeys where
+instance Data.ToPath GetRateBasedRuleManagedKeys where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetRateBasedRuleManagedKeys where
+instance Data.ToQuery GetRateBasedRuleManagedKeys where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetRateBasedRuleManagedKeysResponse' smart constructor.
 data GetRateBasedRuleManagedKeysResponse = GetRateBasedRuleManagedKeysResponse'
-  { -- | A null value and not currently used.
-    nextMarker :: Prelude.Maybe Prelude.Text,
-    -- | An array of IP addresses that currently are blocked by the specified
+  { -- | An array of IP addresses that currently are blocked by the specified
     -- RateBasedRule.
     managedKeys :: Prelude.Maybe [Prelude.Text],
+    -- | A null value and not currently used.
+    nextMarker :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -207,10 +209,10 @@ data GetRateBasedRuleManagedKeysResponse = GetRateBasedRuleManagedKeysResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextMarker', 'getRateBasedRuleManagedKeysResponse_nextMarker' - A null value and not currently used.
---
 -- 'managedKeys', 'getRateBasedRuleManagedKeysResponse_managedKeys' - An array of IP addresses that currently are blocked by the specified
 -- RateBasedRule.
+--
+-- 'nextMarker', 'getRateBasedRuleManagedKeysResponse_nextMarker' - A null value and not currently used.
 --
 -- 'httpStatus', 'getRateBasedRuleManagedKeysResponse_httpStatus' - The response's http status code.
 newGetRateBasedRuleManagedKeysResponse ::
@@ -219,20 +221,20 @@ newGetRateBasedRuleManagedKeysResponse ::
   GetRateBasedRuleManagedKeysResponse
 newGetRateBasedRuleManagedKeysResponse pHttpStatus_ =
   GetRateBasedRuleManagedKeysResponse'
-    { nextMarker =
+    { managedKeys =
         Prelude.Nothing,
-      managedKeys = Prelude.Nothing,
+      nextMarker = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A null value and not currently used.
-getRateBasedRuleManagedKeysResponse_nextMarker :: Lens.Lens' GetRateBasedRuleManagedKeysResponse (Prelude.Maybe Prelude.Text)
-getRateBasedRuleManagedKeysResponse_nextMarker = Lens.lens (\GetRateBasedRuleManagedKeysResponse' {nextMarker} -> nextMarker) (\s@GetRateBasedRuleManagedKeysResponse' {} a -> s {nextMarker = a} :: GetRateBasedRuleManagedKeysResponse)
 
 -- | An array of IP addresses that currently are blocked by the specified
 -- RateBasedRule.
 getRateBasedRuleManagedKeysResponse_managedKeys :: Lens.Lens' GetRateBasedRuleManagedKeysResponse (Prelude.Maybe [Prelude.Text])
 getRateBasedRuleManagedKeysResponse_managedKeys = Lens.lens (\GetRateBasedRuleManagedKeysResponse' {managedKeys} -> managedKeys) (\s@GetRateBasedRuleManagedKeysResponse' {} a -> s {managedKeys = a} :: GetRateBasedRuleManagedKeysResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | A null value and not currently used.
+getRateBasedRuleManagedKeysResponse_nextMarker :: Lens.Lens' GetRateBasedRuleManagedKeysResponse (Prelude.Maybe Prelude.Text)
+getRateBasedRuleManagedKeysResponse_nextMarker = Lens.lens (\GetRateBasedRuleManagedKeysResponse' {nextMarker} -> nextMarker) (\s@GetRateBasedRuleManagedKeysResponse' {} a -> s {nextMarker = a} :: GetRateBasedRuleManagedKeysResponse)
 
 -- | The response's http status code.
 getRateBasedRuleManagedKeysResponse_httpStatus :: Lens.Lens' GetRateBasedRuleManagedKeysResponse Prelude.Int
@@ -243,6 +245,6 @@ instance
     GetRateBasedRuleManagedKeysResponse
   where
   rnf GetRateBasedRuleManagedKeysResponse' {..} =
-    Prelude.rnf nextMarker
-      `Prelude.seq` Prelude.rnf managedKeys
+    Prelude.rnf managedKeys
+      `Prelude.seq` Prelude.rnf nextMarker
       `Prelude.seq` Prelude.rnf httpStatus

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.ListTagsForResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,11 +24,11 @@
 -- key:value pairs that you can use to categorize and manage your
 -- resources, for purposes like billing. For example, you might set the tag
 -- key to \"customer\" and the value to the customer name or ID. You can
--- specify one or more tags to add to each AWS resource, up to 50 tags for
--- a resource.
+-- specify one or more tags to add to each Amazon Web Services resource, up
+-- to 50 tags for a resource.
 --
--- You can tag the AWS resources that you manage through AWS Network
--- Firewall: firewalls, firewall policies, and rule groups.
+-- You can tag the Amazon Web Services resources that you manage through
+-- Network Firewall: firewalls, firewall policies, and rule groups.
 --
 -- This operation returns paginated results.
 module Amazonka.NetworkFirewall.ListTagsForResource
@@ -37,8 +37,8 @@ module Amazonka.NetworkFirewall.ListTagsForResource
     newListTagsForResource,
 
     -- * Request Lenses
-    listTagsForResource_nextToken,
     listTagsForResource_maxResults,
+    listTagsForResource_nextToken,
     listTagsForResource_resourceArn,
 
     -- * Destructuring the Response
@@ -53,7 +53,8 @@ module Amazonka.NetworkFirewall.ListTagsForResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkFirewall.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -61,17 +62,17 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListTagsForResource' smart constructor.
 data ListTagsForResource = ListTagsForResource'
-  { -- | When you request a list of objects with a @MaxResults@ setting, if the
+  { -- | The maximum number of objects that you want Network Firewall to return
+    -- for this request. If more objects are available, in the response,
+    -- Network Firewall provides a @NextToken@ value that you can use in a
+    -- subsequent call to get the next batch of objects.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | When you request a list of objects with a @MaxResults@ setting, if the
     -- number of objects that are still available for retrieval exceeds the
     -- maximum you requested, Network Firewall returns a @NextToken@ value in
     -- the response. To retrieve the next batch of objects, use the token
     -- returned from the prior request in your next request.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of objects that you want Network Firewall to return
-    -- for this request. If more objects are available, in the response,
-    -- Network Firewall provides a @NextToken@ value that you can use in a
-    -- subsequent call to get the next batch of objects.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The Amazon Resource Name (ARN) of the resource.
     resourceArn :: Prelude.Text
   }
@@ -85,16 +86,16 @@ data ListTagsForResource = ListTagsForResource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listTagsForResource_maxResults' - The maximum number of objects that you want Network Firewall to return
+-- for this request. If more objects are available, in the response,
+-- Network Firewall provides a @NextToken@ value that you can use in a
+-- subsequent call to get the next batch of objects.
+--
 -- 'nextToken', 'listTagsForResource_nextToken' - When you request a list of objects with a @MaxResults@ setting, if the
 -- number of objects that are still available for retrieval exceeds the
 -- maximum you requested, Network Firewall returns a @NextToken@ value in
 -- the response. To retrieve the next batch of objects, use the token
 -- returned from the prior request in your next request.
---
--- 'maxResults', 'listTagsForResource_maxResults' - The maximum number of objects that you want Network Firewall to return
--- for this request. If more objects are available, in the response,
--- Network Firewall provides a @NextToken@ value that you can use in a
--- subsequent call to get the next batch of objects.
 --
 -- 'resourceArn', 'listTagsForResource_resourceArn' - The Amazon Resource Name (ARN) of the resource.
 newListTagsForResource ::
@@ -103,10 +104,17 @@ newListTagsForResource ::
   ListTagsForResource
 newListTagsForResource pResourceArn_ =
   ListTagsForResource'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       resourceArn = pResourceArn_
     }
+
+-- | The maximum number of objects that you want Network Firewall to return
+-- for this request. If more objects are available, in the response,
+-- Network Firewall provides a @NextToken@ value that you can use in a
+-- subsequent call to get the next batch of objects.
+listTagsForResource_maxResults :: Lens.Lens' ListTagsForResource (Prelude.Maybe Prelude.Natural)
+listTagsForResource_maxResults = Lens.lens (\ListTagsForResource' {maxResults} -> maxResults) (\s@ListTagsForResource' {} a -> s {maxResults = a} :: ListTagsForResource)
 
 -- | When you request a list of objects with a @MaxResults@ setting, if the
 -- number of objects that are still available for retrieval exceeds the
@@ -115,13 +123,6 @@ newListTagsForResource pResourceArn_ =
 -- returned from the prior request in your next request.
 listTagsForResource_nextToken :: Lens.Lens' ListTagsForResource (Prelude.Maybe Prelude.Text)
 listTagsForResource_nextToken = Lens.lens (\ListTagsForResource' {nextToken} -> nextToken) (\s@ListTagsForResource' {} a -> s {nextToken = a} :: ListTagsForResource)
-
--- | The maximum number of objects that you want Network Firewall to return
--- for this request. If more objects are available, in the response,
--- Network Firewall provides a @NextToken@ value that you can use in a
--- subsequent call to get the next batch of objects.
-listTagsForResource_maxResults :: Lens.Lens' ListTagsForResource (Prelude.Maybe Prelude.Natural)
-listTagsForResource_maxResults = Lens.lens (\ListTagsForResource' {maxResults} -> maxResults) (\s@ListTagsForResource' {} a -> s {maxResults = a} :: ListTagsForResource)
 
 -- | The Amazon Resource Name (ARN) of the resource.
 listTagsForResource_resourceArn :: Lens.Lens' ListTagsForResource Prelude.Text
@@ -153,57 +154,58 @@ instance Core.AWSRequest ListTagsForResource where
   type
     AWSResponse ListTagsForResource =
       ListTagsForResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTagsForResourceResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Tags")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Tags")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListTagsForResource where
   hashWithSalt _salt ListTagsForResource' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` resourceArn
 
 instance Prelude.NFData ListTagsForResource where
   rnf ListTagsForResource' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf resourceArn
 
-instance Core.ToHeaders ListTagsForResource where
+instance Data.ToHeaders ListTagsForResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "NetworkFirewall_20201112.ListTagsForResource" ::
+              Data.=# ( "NetworkFirewall_20201112.ListTagsForResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTagsForResource where
+instance Data.ToJSON ListTagsForResource where
   toJSON ListTagsForResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("ResourceArn" Core..= resourceArn)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("ResourceArn" Data..= resourceArn)
           ]
       )
 
-instance Core.ToPath ListTagsForResource where
+instance Data.ToPath ListTagsForResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTagsForResource where
+instance Data.ToQuery ListTagsForResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTagsForResourceResponse' smart constructor.

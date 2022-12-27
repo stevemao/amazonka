@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppRunner.DescribeCustomDomains
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.AppRunner.DescribeCustomDomains
     newDescribeCustomDomains,
 
     -- * Request Lenses
-    describeCustomDomains_nextToken,
     describeCustomDomains_maxResults,
+    describeCustomDomains_nextToken,
     describeCustomDomains_serviceArn,
 
     -- * Destructuring the Response
@@ -42,31 +42,33 @@ module Amazonka.AppRunner.DescribeCustomDomains
     describeCustomDomainsResponse_dNSTarget,
     describeCustomDomainsResponse_serviceArn,
     describeCustomDomainsResponse_customDomains,
+    describeCustomDomainsResponse_vpcDNSTargets,
   )
 where
 
 import Amazonka.AppRunner.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeCustomDomains' smart constructor.
 data DescribeCustomDomains = DescribeCustomDomains'
-  { -- | A token from a previous result page. It\'s used for a paginated request.
+  { -- | The maximum number of results that each response (result page) can
+    -- include. It\'s used for a paginated request.
+    --
+    -- If you don\'t specify @MaxResults@, the request retrieves all available
+    -- results in a single response.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token from a previous result page. It\'s used for a paginated request.
     -- The request retrieves the next result page. All other parameter values
     -- must be identical to the ones that are specified in the initial request.
     --
     -- If you don\'t specify @NextToken@, the request retrieves the first
     -- result page.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results that each response (result page) can
-    -- include. It\'s used for a paginated request.
-    --
-    -- If you don\'t specify @MaxResults@, the request retrieves all available
-    -- results in a single response.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The Amazon Resource Name (ARN) of the App Runner service that you want
     -- associated custom domain names to be described for.
     serviceArn :: Prelude.Text
@@ -81,18 +83,18 @@ data DescribeCustomDomains = DescribeCustomDomains'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'describeCustomDomains_maxResults' - The maximum number of results that each response (result page) can
+-- include. It\'s used for a paginated request.
+--
+-- If you don\'t specify @MaxResults@, the request retrieves all available
+-- results in a single response.
+--
 -- 'nextToken', 'describeCustomDomains_nextToken' - A token from a previous result page. It\'s used for a paginated request.
 -- The request retrieves the next result page. All other parameter values
 -- must be identical to the ones that are specified in the initial request.
 --
 -- If you don\'t specify @NextToken@, the request retrieves the first
 -- result page.
---
--- 'maxResults', 'describeCustomDomains_maxResults' - The maximum number of results that each response (result page) can
--- include. It\'s used for a paginated request.
---
--- If you don\'t specify @MaxResults@, the request retrieves all available
--- results in a single response.
 --
 -- 'serviceArn', 'describeCustomDomains_serviceArn' - The Amazon Resource Name (ARN) of the App Runner service that you want
 -- associated custom domain names to be described for.
@@ -102,10 +104,19 @@ newDescribeCustomDomains ::
   DescribeCustomDomains
 newDescribeCustomDomains pServiceArn_ =
   DescribeCustomDomains'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       serviceArn = pServiceArn_
     }
+
+-- | The maximum number of results that each response (result page) can
+-- include. It\'s used for a paginated request.
+--
+-- If you don\'t specify @MaxResults@, the request retrieves all available
+-- results in a single response.
+describeCustomDomains_maxResults :: Lens.Lens' DescribeCustomDomains (Prelude.Maybe Prelude.Natural)
+describeCustomDomains_maxResults = Lens.lens (\DescribeCustomDomains' {maxResults} -> maxResults) (\s@DescribeCustomDomains' {} a -> s {maxResults = a} :: DescribeCustomDomains)
 
 -- | A token from a previous result page. It\'s used for a paginated request.
 -- The request retrieves the next result page. All other parameter values
@@ -116,14 +127,6 @@ newDescribeCustomDomains pServiceArn_ =
 describeCustomDomains_nextToken :: Lens.Lens' DescribeCustomDomains (Prelude.Maybe Prelude.Text)
 describeCustomDomains_nextToken = Lens.lens (\DescribeCustomDomains' {nextToken} -> nextToken) (\s@DescribeCustomDomains' {} a -> s {nextToken = a} :: DescribeCustomDomains)
 
--- | The maximum number of results that each response (result page) can
--- include. It\'s used for a paginated request.
---
--- If you don\'t specify @MaxResults@, the request retrieves all available
--- results in a single response.
-describeCustomDomains_maxResults :: Lens.Lens' DescribeCustomDomains (Prelude.Maybe Prelude.Natural)
-describeCustomDomains_maxResults = Lens.lens (\DescribeCustomDomains' {maxResults} -> maxResults) (\s@DescribeCustomDomains' {} a -> s {maxResults = a} :: DescribeCustomDomains)
-
 -- | The Amazon Resource Name (ARN) of the App Runner service that you want
 -- associated custom domain names to be described for.
 describeCustomDomains_serviceArn :: Lens.Lens' DescribeCustomDomains Prelude.Text
@@ -133,59 +136,61 @@ instance Core.AWSRequest DescribeCustomDomains where
   type
     AWSResponse DescribeCustomDomains =
       DescribeCustomDomainsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeCustomDomainsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "DNSTarget")
-            Prelude.<*> (x Core..:> "ServiceArn")
-            Prelude.<*> (x Core..?> "CustomDomains" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..:> "DNSTarget")
+            Prelude.<*> (x Data..:> "ServiceArn")
+            Prelude.<*> (x Data..?> "CustomDomains" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "VpcDNSTargets" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable DescribeCustomDomains where
   hashWithSalt _salt DescribeCustomDomains' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` serviceArn
 
 instance Prelude.NFData DescribeCustomDomains where
   rnf DescribeCustomDomains' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf serviceArn
 
-instance Core.ToHeaders DescribeCustomDomains where
+instance Data.ToHeaders DescribeCustomDomains where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AppRunner.DescribeCustomDomains" ::
+              Data.=# ( "AppRunner.DescribeCustomDomains" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeCustomDomains where
+instance Data.ToJSON DescribeCustomDomains where
   toJSON DescribeCustomDomains' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("ServiceArn" Core..= serviceArn)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("ServiceArn" Data..= serviceArn)
           ]
       )
 
-instance Core.ToPath DescribeCustomDomains where
+instance Data.ToPath DescribeCustomDomains where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeCustomDomains where
+instance Data.ToQuery DescribeCustomDomains where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeCustomDomainsResponse' smart constructor.
@@ -204,7 +209,9 @@ data DescribeCustomDomainsResponse = DescribeCustomDomainsResponse'
     -- | A list of descriptions of custom domain names that are associated with
     -- the service. In a paginated request, the request returns up to
     -- @MaxResults@ records per call.
-    customDomains :: [CustomDomain]
+    customDomains :: [CustomDomain],
+    -- | DNS Target records for the custom domains of this Amazon VPC.
+    vpcDNSTargets :: [VpcDNSTarget]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -230,6 +237,8 @@ data DescribeCustomDomainsResponse = DescribeCustomDomainsResponse'
 -- 'customDomains', 'describeCustomDomainsResponse_customDomains' - A list of descriptions of custom domain names that are associated with
 -- the service. In a paginated request, the request returns up to
 -- @MaxResults@ records per call.
+--
+-- 'vpcDNSTargets', 'describeCustomDomainsResponse_vpcDNSTargets' - DNS Target records for the custom domains of this Amazon VPC.
 newDescribeCustomDomainsResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
@@ -248,7 +257,8 @@ newDescribeCustomDomainsResponse
         httpStatus = pHttpStatus_,
         dNSTarget = pDNSTarget_,
         serviceArn = pServiceArn_,
-        customDomains = Prelude.mempty
+        customDomains = Prelude.mempty,
+        vpcDNSTargets = Prelude.mempty
       }
 
 -- | The token that you can pass in a subsequent request to get the next
@@ -276,6 +286,10 @@ describeCustomDomainsResponse_serviceArn = Lens.lens (\DescribeCustomDomainsResp
 describeCustomDomainsResponse_customDomains :: Lens.Lens' DescribeCustomDomainsResponse [CustomDomain]
 describeCustomDomainsResponse_customDomains = Lens.lens (\DescribeCustomDomainsResponse' {customDomains} -> customDomains) (\s@DescribeCustomDomainsResponse' {} a -> s {customDomains = a} :: DescribeCustomDomainsResponse) Prelude.. Lens.coerced
 
+-- | DNS Target records for the custom domains of this Amazon VPC.
+describeCustomDomainsResponse_vpcDNSTargets :: Lens.Lens' DescribeCustomDomainsResponse [VpcDNSTarget]
+describeCustomDomainsResponse_vpcDNSTargets = Lens.lens (\DescribeCustomDomainsResponse' {vpcDNSTargets} -> vpcDNSTargets) (\s@DescribeCustomDomainsResponse' {} a -> s {vpcDNSTargets = a} :: DescribeCustomDomainsResponse) Prelude.. Lens.coerced
+
 instance Prelude.NFData DescribeCustomDomainsResponse where
   rnf DescribeCustomDomainsResponse' {..} =
     Prelude.rnf nextToken
@@ -283,3 +297,4 @@ instance Prelude.NFData DescribeCustomDomainsResponse where
       `Prelude.seq` Prelude.rnf dNSTarget
       `Prelude.seq` Prelude.rnf serviceArn
       `Prelude.seq` Prelude.rnf customDomains
+      `Prelude.seq` Prelude.rnf vpcDNSTargets

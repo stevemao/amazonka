@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MechanicalTurk.Types.NotifyWorkersFailureStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MechanicalTurk.Types.NotifyWorkersFailureStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MechanicalTurk.Types.NotifyWorkersFailureCode
 import qualified Amazonka.Prelude as Prelude
 
@@ -29,10 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newNotifyWorkersFailureStatus' smart constructor.
 data NotifyWorkersFailureStatus = NotifyWorkersFailureStatus'
-  { -- | A message detailing the reason the Worker could not be notified.
-    notifyWorkersFailureMessage :: Prelude.Maybe Prelude.Text,
-    -- | Encoded value for the failure type.
+  { -- | Encoded value for the failure type.
     notifyWorkersFailureCode :: Prelude.Maybe NotifyWorkersFailureCode,
+    -- | A message detailing the reason the Worker could not be notified.
+    notifyWorkersFailureMessage :: Prelude.Maybe Prelude.Text,
     -- | The ID of the Worker.
     workerId :: Prelude.Maybe Prelude.Text
   }
@@ -46,53 +47,53 @@ data NotifyWorkersFailureStatus = NotifyWorkersFailureStatus'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'notifyWorkersFailureMessage', 'notifyWorkersFailureStatus_notifyWorkersFailureMessage' - A message detailing the reason the Worker could not be notified.
---
 -- 'notifyWorkersFailureCode', 'notifyWorkersFailureStatus_notifyWorkersFailureCode' - Encoded value for the failure type.
+--
+-- 'notifyWorkersFailureMessage', 'notifyWorkersFailureStatus_notifyWorkersFailureMessage' - A message detailing the reason the Worker could not be notified.
 --
 -- 'workerId', 'notifyWorkersFailureStatus_workerId' - The ID of the Worker.
 newNotifyWorkersFailureStatus ::
   NotifyWorkersFailureStatus
 newNotifyWorkersFailureStatus =
   NotifyWorkersFailureStatus'
-    { notifyWorkersFailureMessage =
+    { notifyWorkersFailureCode =
         Prelude.Nothing,
-      notifyWorkersFailureCode = Prelude.Nothing,
+      notifyWorkersFailureMessage = Prelude.Nothing,
       workerId = Prelude.Nothing
     }
-
--- | A message detailing the reason the Worker could not be notified.
-notifyWorkersFailureStatus_notifyWorkersFailureMessage :: Lens.Lens' NotifyWorkersFailureStatus (Prelude.Maybe Prelude.Text)
-notifyWorkersFailureStatus_notifyWorkersFailureMessage = Lens.lens (\NotifyWorkersFailureStatus' {notifyWorkersFailureMessage} -> notifyWorkersFailureMessage) (\s@NotifyWorkersFailureStatus' {} a -> s {notifyWorkersFailureMessage = a} :: NotifyWorkersFailureStatus)
 
 -- | Encoded value for the failure type.
 notifyWorkersFailureStatus_notifyWorkersFailureCode :: Lens.Lens' NotifyWorkersFailureStatus (Prelude.Maybe NotifyWorkersFailureCode)
 notifyWorkersFailureStatus_notifyWorkersFailureCode = Lens.lens (\NotifyWorkersFailureStatus' {notifyWorkersFailureCode} -> notifyWorkersFailureCode) (\s@NotifyWorkersFailureStatus' {} a -> s {notifyWorkersFailureCode = a} :: NotifyWorkersFailureStatus)
 
+-- | A message detailing the reason the Worker could not be notified.
+notifyWorkersFailureStatus_notifyWorkersFailureMessage :: Lens.Lens' NotifyWorkersFailureStatus (Prelude.Maybe Prelude.Text)
+notifyWorkersFailureStatus_notifyWorkersFailureMessage = Lens.lens (\NotifyWorkersFailureStatus' {notifyWorkersFailureMessage} -> notifyWorkersFailureMessage) (\s@NotifyWorkersFailureStatus' {} a -> s {notifyWorkersFailureMessage = a} :: NotifyWorkersFailureStatus)
+
 -- | The ID of the Worker.
 notifyWorkersFailureStatus_workerId :: Lens.Lens' NotifyWorkersFailureStatus (Prelude.Maybe Prelude.Text)
 notifyWorkersFailureStatus_workerId = Lens.lens (\NotifyWorkersFailureStatus' {workerId} -> workerId) (\s@NotifyWorkersFailureStatus' {} a -> s {workerId = a} :: NotifyWorkersFailureStatus)
 
-instance Core.FromJSON NotifyWorkersFailureStatus where
+instance Data.FromJSON NotifyWorkersFailureStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NotifyWorkersFailureStatus"
       ( \x ->
           NotifyWorkersFailureStatus'
-            Prelude.<$> (x Core..:? "NotifyWorkersFailureMessage")
-            Prelude.<*> (x Core..:? "NotifyWorkersFailureCode")
-            Prelude.<*> (x Core..:? "WorkerId")
+            Prelude.<$> (x Data..:? "NotifyWorkersFailureCode")
+            Prelude.<*> (x Data..:? "NotifyWorkersFailureMessage")
+            Prelude.<*> (x Data..:? "WorkerId")
       )
 
 instance Prelude.Hashable NotifyWorkersFailureStatus where
   hashWithSalt _salt NotifyWorkersFailureStatus' {..} =
     _salt
-      `Prelude.hashWithSalt` notifyWorkersFailureMessage
       `Prelude.hashWithSalt` notifyWorkersFailureCode
+      `Prelude.hashWithSalt` notifyWorkersFailureMessage
       `Prelude.hashWithSalt` workerId
 
 instance Prelude.NFData NotifyWorkersFailureStatus where
   rnf NotifyWorkersFailureStatus' {..} =
-    Prelude.rnf notifyWorkersFailureMessage
-      `Prelude.seq` Prelude.rnf notifyWorkersFailureCode
+    Prelude.rnf notifyWorkersFailureCode
+      `Prelude.seq` Prelude.rnf notifyWorkersFailureMessage
       `Prelude.seq` Prelude.rnf workerId

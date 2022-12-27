@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.CachedMethods
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudFront.Types.CachedMethods where
 
 import Amazonka.CloudFront.Types.Method
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A complex type that controls whether CloudFront caches the response to
@@ -86,12 +87,12 @@ cachedMethods_quantity = Lens.lens (\CachedMethods' {quantity} -> quantity) (\s@
 cachedMethods_items :: Lens.Lens' CachedMethods [Method]
 cachedMethods_items = Lens.lens (\CachedMethods' {items} -> items) (\s@CachedMethods' {} a -> s {items = a} :: CachedMethods) Prelude.. Lens.coerced
 
-instance Core.FromXML CachedMethods where
+instance Data.FromXML CachedMethods where
   parseXML x =
     CachedMethods'
-      Prelude.<$> (x Core..@ "Quantity")
-      Prelude.<*> ( x Core..@? "Items" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.parseXMLList "Method"
+      Prelude.<$> (x Data..@ "Quantity")
+      Prelude.<*> ( x Data..@? "Items" Core..!@ Prelude.mempty
+                      Prelude.>>= Data.parseXMLList "Method"
                   )
 
 instance Prelude.Hashable CachedMethods where
@@ -104,9 +105,9 @@ instance Prelude.NFData CachedMethods where
     Prelude.rnf quantity
       `Prelude.seq` Prelude.rnf items
 
-instance Core.ToXML CachedMethods where
+instance Data.ToXML CachedMethods where
   toXML CachedMethods' {..} =
     Prelude.mconcat
-      [ "Quantity" Core.@= quantity,
-        "Items" Core.@= Core.toXMLList "Method" items
+      [ "Quantity" Data.@= quantity,
+        "Items" Data.@= Data.toXMLList "Method" items
       ]

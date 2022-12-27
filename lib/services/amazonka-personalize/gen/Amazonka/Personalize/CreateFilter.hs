@@ -14,19 +14,21 @@
 
 -- |
 -- Module      : Amazonka.Personalize.CreateFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a recommendation filter. For more information, see filter.
+-- Creates a recommendation filter. For more information, see
+-- <https://docs.aws.amazon.com/personalize/latest/dg/filter.html Filtering recommendations and user segments>.
 module Amazonka.Personalize.CreateFilter
   ( -- * Creating a Request
     CreateFilter (..),
     newCreateFilter,
 
     -- * Request Lenses
+    createFilter_tags,
     createFilter_name,
     createFilter_datasetGroupArn,
     createFilter_filterExpression,
@@ -42,7 +44,8 @@ module Amazonka.Personalize.CreateFilter
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -50,15 +53,19 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateFilter' smart constructor.
 data CreateFilter = CreateFilter'
-  { -- | The name of the filter to create.
+  { -- | A list of
+    -- <https://docs.aws.amazon.com/personalize/latest/dev/tagging-resources.html tags>
+    -- to apply to the filter.
+    tags :: Prelude.Maybe [Tag],
+    -- | The name of the filter to create.
     name :: Prelude.Text,
     -- | The ARN of the dataset group that the filter will belong to.
     datasetGroupArn :: Prelude.Text,
     -- | The filter expression defines which items are included or excluded from
     -- recommendations. Filter expression must follow specific format rules.
     -- For information about filter expression structure and syntax, see
-    -- filter-expressions.
-    filterExpression :: Core.Sensitive Prelude.Text
+    -- <https://docs.aws.amazon.com/personalize/latest/dg/filter-expressions.html Filter expressions>.
+    filterExpression :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -70,6 +77,10 @@ data CreateFilter = CreateFilter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'tags', 'createFilter_tags' - A list of
+-- <https://docs.aws.amazon.com/personalize/latest/dev/tagging-resources.html tags>
+-- to apply to the filter.
+--
 -- 'name', 'createFilter_name' - The name of the filter to create.
 --
 -- 'datasetGroupArn', 'createFilter_datasetGroupArn' - The ARN of the dataset group that the filter will belong to.
@@ -77,7 +88,7 @@ data CreateFilter = CreateFilter'
 -- 'filterExpression', 'createFilter_filterExpression' - The filter expression defines which items are included or excluded from
 -- recommendations. Filter expression must follow specific format rules.
 -- For information about filter expression structure and syntax, see
--- filter-expressions.
+-- <https://docs.aws.amazon.com/personalize/latest/dg/filter-expressions.html Filter expressions>.
 newCreateFilter ::
   -- | 'name'
   Prelude.Text ->
@@ -91,11 +102,18 @@ newCreateFilter
   pDatasetGroupArn_
   pFilterExpression_ =
     CreateFilter'
-      { name = pName_,
+      { tags = Prelude.Nothing,
+        name = pName_,
         datasetGroupArn = pDatasetGroupArn_,
         filterExpression =
-          Core._Sensitive Lens.# pFilterExpression_
+          Data._Sensitive Lens.# pFilterExpression_
       }
+
+-- | A list of
+-- <https://docs.aws.amazon.com/personalize/latest/dev/tagging-resources.html tags>
+-- to apply to the filter.
+createFilter_tags :: Lens.Lens' CreateFilter (Prelude.Maybe [Tag])
+createFilter_tags = Lens.lens (\CreateFilter' {tags} -> tags) (\s@CreateFilter' {} a -> s {tags = a} :: CreateFilter) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the filter to create.
 createFilter_name :: Lens.Lens' CreateFilter Prelude.Text
@@ -108,64 +126,68 @@ createFilter_datasetGroupArn = Lens.lens (\CreateFilter' {datasetGroupArn} -> da
 -- | The filter expression defines which items are included or excluded from
 -- recommendations. Filter expression must follow specific format rules.
 -- For information about filter expression structure and syntax, see
--- filter-expressions.
+-- <https://docs.aws.amazon.com/personalize/latest/dg/filter-expressions.html Filter expressions>.
 createFilter_filterExpression :: Lens.Lens' CreateFilter Prelude.Text
-createFilter_filterExpression = Lens.lens (\CreateFilter' {filterExpression} -> filterExpression) (\s@CreateFilter' {} a -> s {filterExpression = a} :: CreateFilter) Prelude.. Core._Sensitive
+createFilter_filterExpression = Lens.lens (\CreateFilter' {filterExpression} -> filterExpression) (\s@CreateFilter' {} a -> s {filterExpression = a} :: CreateFilter) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest CreateFilter where
   type AWSResponse CreateFilter = CreateFilterResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateFilterResponse'
-            Prelude.<$> (x Core..?> "filterArn")
+            Prelude.<$> (x Data..?> "filterArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateFilter where
   hashWithSalt _salt CreateFilter' {..} =
-    _salt `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` datasetGroupArn
       `Prelude.hashWithSalt` filterExpression
 
 instance Prelude.NFData CreateFilter where
   rnf CreateFilter' {..} =
-    Prelude.rnf name
+    Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf datasetGroupArn
       `Prelude.seq` Prelude.rnf filterExpression
 
-instance Core.ToHeaders CreateFilter where
+instance Data.ToHeaders CreateFilter where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.CreateFilter" ::
+              Data.=# ( "AmazonPersonalize.CreateFilter" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateFilter where
+instance Data.ToJSON CreateFilter where
   toJSON CreateFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("name" Core..= name),
+          [ ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("name" Data..= name),
             Prelude.Just
-              ("datasetGroupArn" Core..= datasetGroupArn),
+              ("datasetGroupArn" Data..= datasetGroupArn),
             Prelude.Just
-              ("filterExpression" Core..= filterExpression)
+              ("filterExpression" Data..= filterExpression)
           ]
       )
 
-instance Core.ToPath CreateFilter where
+instance Data.ToPath CreateFilter where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateFilter where
+instance Data.ToQuery CreateFilter where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateFilterResponse' smart constructor.

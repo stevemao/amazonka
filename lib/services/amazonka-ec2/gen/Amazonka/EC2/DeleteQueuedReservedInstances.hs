@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DeleteQueuedReservedInstances
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.EC2.DeleteQueuedReservedInstances
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -105,18 +106,19 @@ instance
   type
     AWSResponse DeleteQueuedReservedInstances =
       DeleteQueuedReservedInstancesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DeleteQueuedReservedInstancesResponse'
-            Prelude.<$> ( x Core..@? "failedQueuedPurchaseDeletionSet"
+            Prelude.<$> ( x Data..@? "failedQueuedPurchaseDeletionSet"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
-            Prelude.<*> ( x Core..@? "successfulQueuedPurchaseDeletionSet"
+            Prelude.<*> ( x Data..@? "successfulQueuedPurchaseDeletionSet"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -134,23 +136,23 @@ instance Prelude.NFData DeleteQueuedReservedInstances where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf reservedInstancesIds
 
-instance Core.ToHeaders DeleteQueuedReservedInstances where
+instance Data.ToHeaders DeleteQueuedReservedInstances where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteQueuedReservedInstances where
+instance Data.ToPath DeleteQueuedReservedInstances where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteQueuedReservedInstances where
+instance Data.ToQuery DeleteQueuedReservedInstances where
   toQuery DeleteQueuedReservedInstances' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DeleteQueuedReservedInstances" ::
+          Data.=: ( "DeleteQueuedReservedInstances" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        Core.toQueryList
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQueryList
           "ReservedInstancesId"
           reservedInstancesIds
       ]

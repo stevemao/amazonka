@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApplicationInsights.CreateApplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,11 +27,14 @@ module Amazonka.ApplicationInsights.CreateApplication
     newCreateApplication,
 
     -- * Request Lenses
+    createApplication_autoConfigEnabled,
+    createApplication_autoCreate,
     createApplication_cWEMonitorEnabled,
-    createApplication_opsItemSNSTopicArn,
+    createApplication_groupingType,
     createApplication_opsCenterEnabled,
-    createApplication_tags,
+    createApplication_opsItemSNSTopicArn,
     createApplication_resourceGroupName,
+    createApplication_tags,
 
     -- * Destructuring the Response
     CreateApplicationResponse (..),
@@ -45,30 +48,41 @@ where
 
 import Amazonka.ApplicationInsights.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateApplication' smart constructor.
 data CreateApplication = CreateApplication'
-  { -- | Indicates whether Application Insights can listen to CloudWatch events
+  { -- | Indicates whether Application Insights automatically configures
+    -- unmonitored resources in the resource group.
+    autoConfigEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | Configures all of the resources in the resource group by applying the
+    -- recommended configurations.
+    autoCreate :: Prelude.Maybe Prelude.Bool,
+    -- | Indicates whether Application Insights can listen to CloudWatch events
     -- for the application resources, such as @instance terminated@,
     -- @failed deployment@, and others.
     cWEMonitorEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | Application Insights can create applications based on a resource group
+    -- or on an account. To create an account-based application using all of
+    -- the resources in the account, set this parameter to @ACCOUNT_BASED@.
+    groupingType :: Prelude.Maybe GroupingType,
+    -- | When set to @true@, creates opsItems for any problems detected on an
+    -- application.
+    opsCenterEnabled :: Prelude.Maybe Prelude.Bool,
     -- | The SNS topic provided to Application Insights that is associated to the
     -- created opsItem. Allows you to receive notifications for updates to the
     -- opsItem.
     opsItemSNSTopicArn :: Prelude.Maybe Prelude.Text,
-    -- | When set to @true@, creates opsItems for any problems detected on an
-    -- application.
-    opsCenterEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the resource group.
+    resourceGroupName :: Prelude.Maybe Prelude.Text,
     -- | List of tags to add to the application. tag key (@Key@) and an
     -- associated tag value (@Value@). The maximum length of a tag key is 128
     -- characters. The maximum length of a tag value is 256 characters.
-    tags :: Prelude.Maybe [Tag],
-    -- | The name of the resource group.
-    resourceGroupName :: Prelude.Text
+    tags :: Prelude.Maybe [Tag]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -80,35 +94,56 @@ data CreateApplication = CreateApplication'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'autoConfigEnabled', 'createApplication_autoConfigEnabled' - Indicates whether Application Insights automatically configures
+-- unmonitored resources in the resource group.
+--
+-- 'autoCreate', 'createApplication_autoCreate' - Configures all of the resources in the resource group by applying the
+-- recommended configurations.
+--
 -- 'cWEMonitorEnabled', 'createApplication_cWEMonitorEnabled' - Indicates whether Application Insights can listen to CloudWatch events
 -- for the application resources, such as @instance terminated@,
 -- @failed deployment@, and others.
+--
+-- 'groupingType', 'createApplication_groupingType' - Application Insights can create applications based on a resource group
+-- or on an account. To create an account-based application using all of
+-- the resources in the account, set this parameter to @ACCOUNT_BASED@.
+--
+-- 'opsCenterEnabled', 'createApplication_opsCenterEnabled' - When set to @true@, creates opsItems for any problems detected on an
+-- application.
 --
 -- 'opsItemSNSTopicArn', 'createApplication_opsItemSNSTopicArn' - The SNS topic provided to Application Insights that is associated to the
 -- created opsItem. Allows you to receive notifications for updates to the
 -- opsItem.
 --
--- 'opsCenterEnabled', 'createApplication_opsCenterEnabled' - When set to @true@, creates opsItems for any problems detected on an
--- application.
+-- 'resourceGroupName', 'createApplication_resourceGroupName' - The name of the resource group.
 --
 -- 'tags', 'createApplication_tags' - List of tags to add to the application. tag key (@Key@) and an
 -- associated tag value (@Value@). The maximum length of a tag key is 128
 -- characters. The maximum length of a tag value is 256 characters.
---
--- 'resourceGroupName', 'createApplication_resourceGroupName' - The name of the resource group.
 newCreateApplication ::
-  -- | 'resourceGroupName'
-  Prelude.Text ->
   CreateApplication
-newCreateApplication pResourceGroupName_ =
+newCreateApplication =
   CreateApplication'
-    { cWEMonitorEnabled =
+    { autoConfigEnabled =
         Prelude.Nothing,
-      opsItemSNSTopicArn = Prelude.Nothing,
+      autoCreate = Prelude.Nothing,
+      cWEMonitorEnabled = Prelude.Nothing,
+      groupingType = Prelude.Nothing,
       opsCenterEnabled = Prelude.Nothing,
-      tags = Prelude.Nothing,
-      resourceGroupName = pResourceGroupName_
+      opsItemSNSTopicArn = Prelude.Nothing,
+      resourceGroupName = Prelude.Nothing,
+      tags = Prelude.Nothing
     }
+
+-- | Indicates whether Application Insights automatically configures
+-- unmonitored resources in the resource group.
+createApplication_autoConfigEnabled :: Lens.Lens' CreateApplication (Prelude.Maybe Prelude.Bool)
+createApplication_autoConfigEnabled = Lens.lens (\CreateApplication' {autoConfigEnabled} -> autoConfigEnabled) (\s@CreateApplication' {} a -> s {autoConfigEnabled = a} :: CreateApplication)
+
+-- | Configures all of the resources in the resource group by applying the
+-- recommended configurations.
+createApplication_autoCreate :: Lens.Lens' CreateApplication (Prelude.Maybe Prelude.Bool)
+createApplication_autoCreate = Lens.lens (\CreateApplication' {autoCreate} -> autoCreate) (\s@CreateApplication' {} a -> s {autoCreate = a} :: CreateApplication)
 
 -- | Indicates whether Application Insights can listen to CloudWatch events
 -- for the application resources, such as @instance terminated@,
@@ -116,16 +151,26 @@ newCreateApplication pResourceGroupName_ =
 createApplication_cWEMonitorEnabled :: Lens.Lens' CreateApplication (Prelude.Maybe Prelude.Bool)
 createApplication_cWEMonitorEnabled = Lens.lens (\CreateApplication' {cWEMonitorEnabled} -> cWEMonitorEnabled) (\s@CreateApplication' {} a -> s {cWEMonitorEnabled = a} :: CreateApplication)
 
+-- | Application Insights can create applications based on a resource group
+-- or on an account. To create an account-based application using all of
+-- the resources in the account, set this parameter to @ACCOUNT_BASED@.
+createApplication_groupingType :: Lens.Lens' CreateApplication (Prelude.Maybe GroupingType)
+createApplication_groupingType = Lens.lens (\CreateApplication' {groupingType} -> groupingType) (\s@CreateApplication' {} a -> s {groupingType = a} :: CreateApplication)
+
+-- | When set to @true@, creates opsItems for any problems detected on an
+-- application.
+createApplication_opsCenterEnabled :: Lens.Lens' CreateApplication (Prelude.Maybe Prelude.Bool)
+createApplication_opsCenterEnabled = Lens.lens (\CreateApplication' {opsCenterEnabled} -> opsCenterEnabled) (\s@CreateApplication' {} a -> s {opsCenterEnabled = a} :: CreateApplication)
+
 -- | The SNS topic provided to Application Insights that is associated to the
 -- created opsItem. Allows you to receive notifications for updates to the
 -- opsItem.
 createApplication_opsItemSNSTopicArn :: Lens.Lens' CreateApplication (Prelude.Maybe Prelude.Text)
 createApplication_opsItemSNSTopicArn = Lens.lens (\CreateApplication' {opsItemSNSTopicArn} -> opsItemSNSTopicArn) (\s@CreateApplication' {} a -> s {opsItemSNSTopicArn = a} :: CreateApplication)
 
--- | When set to @true@, creates opsItems for any problems detected on an
--- application.
-createApplication_opsCenterEnabled :: Lens.Lens' CreateApplication (Prelude.Maybe Prelude.Bool)
-createApplication_opsCenterEnabled = Lens.lens (\CreateApplication' {opsCenterEnabled} -> opsCenterEnabled) (\s@CreateApplication' {} a -> s {opsCenterEnabled = a} :: CreateApplication)
+-- | The name of the resource group.
+createApplication_resourceGroupName :: Lens.Lens' CreateApplication (Prelude.Maybe Prelude.Text)
+createApplication_resourceGroupName = Lens.lens (\CreateApplication' {resourceGroupName} -> resourceGroupName) (\s@CreateApplication' {} a -> s {resourceGroupName = a} :: CreateApplication)
 
 -- | List of tags to add to the application. tag key (@Key@) and an
 -- associated tag value (@Value@). The maximum length of a tag key is 128
@@ -133,74 +178,81 @@ createApplication_opsCenterEnabled = Lens.lens (\CreateApplication' {opsCenterEn
 createApplication_tags :: Lens.Lens' CreateApplication (Prelude.Maybe [Tag])
 createApplication_tags = Lens.lens (\CreateApplication' {tags} -> tags) (\s@CreateApplication' {} a -> s {tags = a} :: CreateApplication) Prelude.. Lens.mapping Lens.coerced
 
--- | The name of the resource group.
-createApplication_resourceGroupName :: Lens.Lens' CreateApplication Prelude.Text
-createApplication_resourceGroupName = Lens.lens (\CreateApplication' {resourceGroupName} -> resourceGroupName) (\s@CreateApplication' {} a -> s {resourceGroupName = a} :: CreateApplication)
-
 instance Core.AWSRequest CreateApplication where
   type
     AWSResponse CreateApplication =
       CreateApplicationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateApplicationResponse'
-            Prelude.<$> (x Core..?> "ApplicationInfo")
+            Prelude.<$> (x Data..?> "ApplicationInfo")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateApplication where
   hashWithSalt _salt CreateApplication' {..} =
-    _salt `Prelude.hashWithSalt` cWEMonitorEnabled
-      `Prelude.hashWithSalt` opsItemSNSTopicArn
+    _salt `Prelude.hashWithSalt` autoConfigEnabled
+      `Prelude.hashWithSalt` autoCreate
+      `Prelude.hashWithSalt` cWEMonitorEnabled
+      `Prelude.hashWithSalt` groupingType
       `Prelude.hashWithSalt` opsCenterEnabled
-      `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` opsItemSNSTopicArn
       `Prelude.hashWithSalt` resourceGroupName
+      `Prelude.hashWithSalt` tags
 
 instance Prelude.NFData CreateApplication where
   rnf CreateApplication' {..} =
-    Prelude.rnf cWEMonitorEnabled
-      `Prelude.seq` Prelude.rnf opsItemSNSTopicArn
+    Prelude.rnf autoConfigEnabled
+      `Prelude.seq` Prelude.rnf autoCreate
+      `Prelude.seq` Prelude.rnf cWEMonitorEnabled
+      `Prelude.seq` Prelude.rnf groupingType
       `Prelude.seq` Prelude.rnf opsCenterEnabled
-      `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf opsItemSNSTopicArn
       `Prelude.seq` Prelude.rnf resourceGroupName
+      `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders CreateApplication where
+instance Data.ToHeaders CreateApplication where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "EC2WindowsBarleyService.CreateApplication" ::
+              Data.=# ( "EC2WindowsBarleyService.CreateApplication" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateApplication where
+instance Data.ToJSON CreateApplication where
   toJSON CreateApplication' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CWEMonitorEnabled" Core..=)
+          [ ("AutoConfigEnabled" Data..=)
+              Prelude.<$> autoConfigEnabled,
+            ("AutoCreate" Data..=) Prelude.<$> autoCreate,
+            ("CWEMonitorEnabled" Data..=)
               Prelude.<$> cWEMonitorEnabled,
-            ("OpsItemSNSTopicArn" Core..=)
-              Prelude.<$> opsItemSNSTopicArn,
-            ("OpsCenterEnabled" Core..=)
+            ("GroupingType" Data..=) Prelude.<$> groupingType,
+            ("OpsCenterEnabled" Data..=)
               Prelude.<$> opsCenterEnabled,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just
-              ("ResourceGroupName" Core..= resourceGroupName)
+            ("OpsItemSNSTopicArn" Data..=)
+              Prelude.<$> opsItemSNSTopicArn,
+            ("ResourceGroupName" Data..=)
+              Prelude.<$> resourceGroupName,
+            ("Tags" Data..=) Prelude.<$> tags
           ]
       )
 
-instance Core.ToPath CreateApplication where
+instance Data.ToPath CreateApplication where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateApplication where
+instance Data.ToQuery CreateApplication where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateApplicationResponse' smart constructor.

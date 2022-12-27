@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.HoneyCode.GetScreenData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.HoneyCode.GetScreenData
     newGetScreenData,
 
     -- * Request Lenses
-    getScreenData_variables,
-    getScreenData_nextToken,
     getScreenData_maxResults,
+    getScreenData_nextToken,
+    getScreenData_variables,
     getScreenData_workbookId,
     getScreenData_appId,
     getScreenData_screenId,
@@ -49,35 +49,36 @@ module Amazonka.HoneyCode.GetScreenData
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.HoneyCode.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetScreenData' smart constructor.
 data GetScreenData = GetScreenData'
-  { -- | Variables are optional and are needed only if the screen requires them
-    -- to render correctly. Variables are specified as a map where the key is
-    -- the name of the variable as defined on the screen. The value is an
-    -- object which currently has only one property, rawValue, which holds the
-    -- value of the variable to be passed to the screen.
-    variables :: Prelude.Maybe (Core.Sensitive (Prelude.HashMap Prelude.Text (Core.Sensitive VariableValue))),
+  { -- | The number of results to be returned on a single page. Specify a number
+    -- between 1 and 100. The maximum value is 100.
+    --
+    -- This parameter is optional. If you don\'t specify this parameter, the
+    -- default page size is 100.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | This parameter is optional. If a nextToken is not specified, the API
     -- returns the first page of data.
     --
     -- Pagination tokens expire after 1 hour. If you use a token that was
     -- returned more than an hour back, the API will throw ValidationException.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The number of results to be returned on a single page. Specify a number
-    -- between 1 and 100. The maximum value is 100.
-    --
-    -- This parameter is optional. If you don\'t specify this parameter, the
-    -- default page size is 100.
-    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Variables are optional and are needed only if the screen requires them
+    -- to render correctly. Variables are specified as a map where the key is
+    -- the name of the variable as defined on the screen. The value is an
+    -- object which currently has only one property, rawValue, which holds the
+    -- value of the variable to be passed to the screen.
+    variables :: Prelude.Maybe (Data.Sensitive (Prelude.HashMap Prelude.Text (Data.Sensitive VariableValue))),
     -- | The ID of the workbook that contains the screen.
     workbookId :: Prelude.Text,
-    -- | The ID of the app that contains the screem.
+    -- | The ID of the app that contains the screen.
     appId :: Prelude.Text,
     -- | The ID of the screen.
     screenId :: Prelude.Text
@@ -92,11 +93,11 @@ data GetScreenData = GetScreenData'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'variables', 'getScreenData_variables' - Variables are optional and are needed only if the screen requires them
--- to render correctly. Variables are specified as a map where the key is
--- the name of the variable as defined on the screen. The value is an
--- object which currently has only one property, rawValue, which holds the
--- value of the variable to be passed to the screen.
+-- 'maxResults', 'getScreenData_maxResults' - The number of results to be returned on a single page. Specify a number
+-- between 1 and 100. The maximum value is 100.
+--
+-- This parameter is optional. If you don\'t specify this parameter, the
+-- default page size is 100.
 --
 -- 'nextToken', 'getScreenData_nextToken' - This parameter is optional. If a nextToken is not specified, the API
 -- returns the first page of data.
@@ -104,15 +105,15 @@ data GetScreenData = GetScreenData'
 -- Pagination tokens expire after 1 hour. If you use a token that was
 -- returned more than an hour back, the API will throw ValidationException.
 --
--- 'maxResults', 'getScreenData_maxResults' - The number of results to be returned on a single page. Specify a number
--- between 1 and 100. The maximum value is 100.
---
--- This parameter is optional. If you don\'t specify this parameter, the
--- default page size is 100.
+-- 'variables', 'getScreenData_variables' - Variables are optional and are needed only if the screen requires them
+-- to render correctly. Variables are specified as a map where the key is
+-- the name of the variable as defined on the screen. The value is an
+-- object which currently has only one property, rawValue, which holds the
+-- value of the variable to be passed to the screen.
 --
 -- 'workbookId', 'getScreenData_workbookId' - The ID of the workbook that contains the screen.
 --
--- 'appId', 'getScreenData_appId' - The ID of the app that contains the screem.
+-- 'appId', 'getScreenData_appId' - The ID of the app that contains the screen.
 --
 -- 'screenId', 'getScreenData_screenId' - The ID of the screen.
 newGetScreenData ::
@@ -125,29 +126,13 @@ newGetScreenData ::
   GetScreenData
 newGetScreenData pWorkbookId_ pAppId_ pScreenId_ =
   GetScreenData'
-    { variables = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      variables = Prelude.Nothing,
       workbookId = pWorkbookId_,
       appId = pAppId_,
       screenId = pScreenId_
     }
-
--- | Variables are optional and are needed only if the screen requires them
--- to render correctly. Variables are specified as a map where the key is
--- the name of the variable as defined on the screen. The value is an
--- object which currently has only one property, rawValue, which holds the
--- value of the variable to be passed to the screen.
-getScreenData_variables :: Lens.Lens' GetScreenData (Prelude.Maybe (Prelude.HashMap Prelude.Text VariableValue))
-getScreenData_variables = Lens.lens (\GetScreenData' {variables} -> variables) (\s@GetScreenData' {} a -> s {variables = a} :: GetScreenData) Prelude.. Lens.mapping (Core._Sensitive Prelude.. Lens.coerced)
-
--- | This parameter is optional. If a nextToken is not specified, the API
--- returns the first page of data.
---
--- Pagination tokens expire after 1 hour. If you use a token that was
--- returned more than an hour back, the API will throw ValidationException.
-getScreenData_nextToken :: Lens.Lens' GetScreenData (Prelude.Maybe Prelude.Text)
-getScreenData_nextToken = Lens.lens (\GetScreenData' {nextToken} -> nextToken) (\s@GetScreenData' {} a -> s {nextToken = a} :: GetScreenData)
 
 -- | The number of results to be returned on a single page. Specify a number
 -- between 1 and 100. The maximum value is 100.
@@ -157,11 +142,27 @@ getScreenData_nextToken = Lens.lens (\GetScreenData' {nextToken} -> nextToken) (
 getScreenData_maxResults :: Lens.Lens' GetScreenData (Prelude.Maybe Prelude.Natural)
 getScreenData_maxResults = Lens.lens (\GetScreenData' {maxResults} -> maxResults) (\s@GetScreenData' {} a -> s {maxResults = a} :: GetScreenData)
 
+-- | This parameter is optional. If a nextToken is not specified, the API
+-- returns the first page of data.
+--
+-- Pagination tokens expire after 1 hour. If you use a token that was
+-- returned more than an hour back, the API will throw ValidationException.
+getScreenData_nextToken :: Lens.Lens' GetScreenData (Prelude.Maybe Prelude.Text)
+getScreenData_nextToken = Lens.lens (\GetScreenData' {nextToken} -> nextToken) (\s@GetScreenData' {} a -> s {nextToken = a} :: GetScreenData)
+
+-- | Variables are optional and are needed only if the screen requires them
+-- to render correctly. Variables are specified as a map where the key is
+-- the name of the variable as defined on the screen. The value is an
+-- object which currently has only one property, rawValue, which holds the
+-- value of the variable to be passed to the screen.
+getScreenData_variables :: Lens.Lens' GetScreenData (Prelude.Maybe (Prelude.HashMap Prelude.Text VariableValue))
+getScreenData_variables = Lens.lens (\GetScreenData' {variables} -> variables) (\s@GetScreenData' {} a -> s {variables = a} :: GetScreenData) Prelude.. Lens.mapping (Data._Sensitive Prelude.. Lens.coerced)
+
 -- | The ID of the workbook that contains the screen.
 getScreenData_workbookId :: Lens.Lens' GetScreenData Prelude.Text
 getScreenData_workbookId = Lens.lens (\GetScreenData' {workbookId} -> workbookId) (\s@GetScreenData' {} a -> s {workbookId = a} :: GetScreenData)
 
--- | The ID of the app that contains the screem.
+-- | The ID of the app that contains the screen.
 getScreenData_appId :: Lens.Lens' GetScreenData Prelude.Text
 getScreenData_appId = Lens.lens (\GetScreenData' {appId} -> appId) (\s@GetScreenData' {} a -> s {appId = a} :: GetScreenData)
 
@@ -173,63 +174,64 @@ instance Core.AWSRequest GetScreenData where
   type
     AWSResponse GetScreenData =
       GetScreenDataResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetScreenDataResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "results" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..:> "workbookCursor")
+            Prelude.<*> (x Data..?> "results" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..:> "workbookCursor")
       )
 
 instance Prelude.Hashable GetScreenData where
   hashWithSalt _salt GetScreenData' {..} =
-    _salt `Prelude.hashWithSalt` variables
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` variables
       `Prelude.hashWithSalt` workbookId
       `Prelude.hashWithSalt` appId
       `Prelude.hashWithSalt` screenId
 
 instance Prelude.NFData GetScreenData where
   rnf GetScreenData' {..} =
-    Prelude.rnf variables
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf variables
       `Prelude.seq` Prelude.rnf workbookId
       `Prelude.seq` Prelude.rnf appId
       `Prelude.seq` Prelude.rnf screenId
 
-instance Core.ToHeaders GetScreenData where
+instance Data.ToHeaders GetScreenData where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetScreenData where
+instance Data.ToJSON GetScreenData where
   toJSON GetScreenData' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("variables" Core..=) Prelude.<$> variables,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("workbookId" Core..= workbookId),
-            Prelude.Just ("appId" Core..= appId),
-            Prelude.Just ("screenId" Core..= screenId)
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            ("variables" Data..=) Prelude.<$> variables,
+            Prelude.Just ("workbookId" Data..= workbookId),
+            Prelude.Just ("appId" Data..= appId),
+            Prelude.Just ("screenId" Data..= screenId)
           ]
       )
 
-instance Core.ToPath GetScreenData where
+instance Data.ToPath GetScreenData where
   toPath = Prelude.const "/screendata"
 
-instance Core.ToQuery GetScreenData where
+instance Data.ToQuery GetScreenData where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetScreenDataResponse' smart constructor.

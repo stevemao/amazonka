@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.GatewayRouteStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppMesh.Types.GatewayRouteStatus where
 
 import Amazonka.AppMesh.Types.GatewayRouteStatusCode
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents the current status of a gateway route.
@@ -53,12 +54,12 @@ newGatewayRouteStatus pStatus_ =
 gatewayRouteStatus_status :: Lens.Lens' GatewayRouteStatus GatewayRouteStatusCode
 gatewayRouteStatus_status = Lens.lens (\GatewayRouteStatus' {status} -> status) (\s@GatewayRouteStatus' {} a -> s {status = a} :: GatewayRouteStatus)
 
-instance Core.FromJSON GatewayRouteStatus where
+instance Data.FromJSON GatewayRouteStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GatewayRouteStatus"
       ( \x ->
-          GatewayRouteStatus' Prelude.<$> (x Core..: "status")
+          GatewayRouteStatus' Prelude.<$> (x Data..: "status")
       )
 
 instance Prelude.Hashable GatewayRouteStatus where

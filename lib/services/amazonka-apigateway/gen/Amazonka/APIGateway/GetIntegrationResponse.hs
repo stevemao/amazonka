@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetIntegrationResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,16 +38,17 @@ module Amazonka.APIGateway.GetIntegrationResponse
 
     -- * Response Lenses
     integrationResponse_contentHandling,
+    integrationResponse_responseParameters,
     integrationResponse_responseTemplates,
     integrationResponse_selectionPattern,
     integrationResponse_statusCode,
-    integrationResponse_responseParameters,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,14 +57,13 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newGetIntegrationResponse' smart constructor.
 data GetIntegrationResponse = GetIntegrationResponse'
-  { -- | [Required] The string identifier of the associated RestApi.
+  { -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] Specifies a get integration response request\'s resource
-    -- identifier.
+    -- | Specifies a get integration response request\'s resource identifier.
     resourceId :: Prelude.Text,
-    -- | [Required] Specifies a get integration response request\'s HTTP method.
+    -- | Specifies a get integration response request\'s HTTP method.
     httpMethod :: Prelude.Text,
-    -- | [Required] Specifies a get integration response request\'s status code.
+    -- | Specifies a get integration response request\'s status code.
     statusCode :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -76,14 +76,13 @@ data GetIntegrationResponse = GetIntegrationResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'restApiId', 'getIntegrationResponse_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'getIntegrationResponse_restApiId' - The string identifier of the associated RestApi.
 --
--- 'resourceId', 'getIntegrationResponse_resourceId' - [Required] Specifies a get integration response request\'s resource
--- identifier.
+-- 'resourceId', 'getIntegrationResponse_resourceId' - Specifies a get integration response request\'s resource identifier.
 --
--- 'httpMethod', 'getIntegrationResponse_httpMethod' - [Required] Specifies a get integration response request\'s HTTP method.
+-- 'httpMethod', 'getIntegrationResponse_httpMethod' - Specifies a get integration response request\'s HTTP method.
 --
--- 'statusCode', 'getIntegrationResponse_statusCode' - [Required] Specifies a get integration response request\'s status code.
+-- 'statusCode', 'getIntegrationResponse_statusCode' - Specifies a get integration response request\'s status code.
 newGetIntegrationResponse ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -106,20 +105,19 @@ newGetIntegrationResponse
         statusCode = pStatusCode_
       }
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 getIntegrationResponse_restApiId :: Lens.Lens' GetIntegrationResponse Prelude.Text
 getIntegrationResponse_restApiId = Lens.lens (\GetIntegrationResponse' {restApiId} -> restApiId) (\s@GetIntegrationResponse' {} a -> s {restApiId = a} :: GetIntegrationResponse)
 
--- | [Required] Specifies a get integration response request\'s resource
--- identifier.
+-- | Specifies a get integration response request\'s resource identifier.
 getIntegrationResponse_resourceId :: Lens.Lens' GetIntegrationResponse Prelude.Text
 getIntegrationResponse_resourceId = Lens.lens (\GetIntegrationResponse' {resourceId} -> resourceId) (\s@GetIntegrationResponse' {} a -> s {resourceId = a} :: GetIntegrationResponse)
 
--- | [Required] Specifies a get integration response request\'s HTTP method.
+-- | Specifies a get integration response request\'s HTTP method.
 getIntegrationResponse_httpMethod :: Lens.Lens' GetIntegrationResponse Prelude.Text
 getIntegrationResponse_httpMethod = Lens.lens (\GetIntegrationResponse' {httpMethod} -> httpMethod) (\s@GetIntegrationResponse' {} a -> s {httpMethod = a} :: GetIntegrationResponse)
 
--- | [Required] Specifies a get integration response request\'s status code.
+-- | Specifies a get integration response request\'s status code.
 getIntegrationResponse_statusCode :: Lens.Lens' GetIntegrationResponse Prelude.Text
 getIntegrationResponse_statusCode = Lens.lens (\GetIntegrationResponse' {statusCode} -> statusCode) (\s@GetIntegrationResponse' {} a -> s {statusCode = a} :: GetIntegrationResponse)
 
@@ -127,10 +125,11 @@ instance Core.AWSRequest GetIntegrationResponse where
   type
     AWSResponse GetIntegrationResponse =
       IntegrationResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetIntegrationResponse where
   hashWithSalt _salt GetIntegrationResponse' {..} =
@@ -146,27 +145,27 @@ instance Prelude.NFData GetIntegrationResponse where
       `Prelude.seq` Prelude.rnf httpMethod
       `Prelude.seq` Prelude.rnf statusCode
 
-instance Core.ToHeaders GetIntegrationResponse where
+instance Data.ToHeaders GetIntegrationResponse where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetIntegrationResponse where
+instance Data.ToPath GetIntegrationResponse where
   toPath GetIntegrationResponse' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/resources/",
-        Core.toBS resourceId,
+        Data.toBS resourceId,
         "/methods/",
-        Core.toBS httpMethod,
+        Data.toBS httpMethod,
         "/integration/responses/",
-        Core.toBS statusCode
+        Data.toBS statusCode
       ]
 
-instance Core.ToQuery GetIntegrationResponse where
+instance Data.ToQuery GetIntegrationResponse where
   toQuery = Prelude.const Prelude.mempty

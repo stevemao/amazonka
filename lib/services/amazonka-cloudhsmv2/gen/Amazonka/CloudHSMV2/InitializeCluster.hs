@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudHSMV2.InitializeCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,15 +40,16 @@ module Amazonka.CloudHSMV2.InitializeCluster
     newInitializeClusterResponse,
 
     -- * Response Lenses
-    initializeClusterResponse_stateMessage,
     initializeClusterResponse_state,
+    initializeClusterResponse_stateMessage,
     initializeClusterResponse_httpStatus,
   )
 where
 
 import Amazonka.CloudHSMV2.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -132,13 +133,14 @@ instance Core.AWSRequest InitializeCluster where
   type
     AWSResponse InitializeCluster =
       InitializeClusterResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           InitializeClusterResponse'
-            Prelude.<$> (x Core..?> "StateMessage")
-            Prelude.<*> (x Core..?> "State")
+            Prelude.<$> (x Data..?> "State")
+            Prelude.<*> (x Data..?> "StateMessage")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -154,43 +156,43 @@ instance Prelude.NFData InitializeCluster where
       `Prelude.seq` Prelude.rnf signedCert
       `Prelude.seq` Prelude.rnf trustAnchor
 
-instance Core.ToHeaders InitializeCluster where
+instance Data.ToHeaders InitializeCluster where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "BaldrApiService.InitializeCluster" ::
+              Data.=# ( "BaldrApiService.InitializeCluster" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON InitializeCluster where
+instance Data.ToJSON InitializeCluster where
   toJSON InitializeCluster' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ClusterId" Core..= clusterId),
-            Prelude.Just ("SignedCert" Core..= signedCert),
-            Prelude.Just ("TrustAnchor" Core..= trustAnchor)
+          [ Prelude.Just ("ClusterId" Data..= clusterId),
+            Prelude.Just ("SignedCert" Data..= signedCert),
+            Prelude.Just ("TrustAnchor" Data..= trustAnchor)
           ]
       )
 
-instance Core.ToPath InitializeCluster where
+instance Data.ToPath InitializeCluster where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery InitializeCluster where
+instance Data.ToQuery InitializeCluster where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newInitializeClusterResponse' smart constructor.
 data InitializeClusterResponse = InitializeClusterResponse'
-  { -- | A description of the cluster\'s state.
-    stateMessage :: Prelude.Maybe Prelude.Text,
-    -- | The cluster\'s state.
+  { -- | The cluster\'s state.
     state :: Prelude.Maybe ClusterState,
+    -- | A description of the cluster\'s state.
+    stateMessage :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -204,9 +206,9 @@ data InitializeClusterResponse = InitializeClusterResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'stateMessage', 'initializeClusterResponse_stateMessage' - A description of the cluster\'s state.
---
 -- 'state', 'initializeClusterResponse_state' - The cluster\'s state.
+--
+-- 'stateMessage', 'initializeClusterResponse_stateMessage' - A description of the cluster\'s state.
 --
 -- 'httpStatus', 'initializeClusterResponse_httpStatus' - The response's http status code.
 newInitializeClusterResponse ::
@@ -215,19 +217,18 @@ newInitializeClusterResponse ::
   InitializeClusterResponse
 newInitializeClusterResponse pHttpStatus_ =
   InitializeClusterResponse'
-    { stateMessage =
-        Prelude.Nothing,
-      state = Prelude.Nothing,
+    { state = Prelude.Nothing,
+      stateMessage = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A description of the cluster\'s state.
-initializeClusterResponse_stateMessage :: Lens.Lens' InitializeClusterResponse (Prelude.Maybe Prelude.Text)
-initializeClusterResponse_stateMessage = Lens.lens (\InitializeClusterResponse' {stateMessage} -> stateMessage) (\s@InitializeClusterResponse' {} a -> s {stateMessage = a} :: InitializeClusterResponse)
 
 -- | The cluster\'s state.
 initializeClusterResponse_state :: Lens.Lens' InitializeClusterResponse (Prelude.Maybe ClusterState)
 initializeClusterResponse_state = Lens.lens (\InitializeClusterResponse' {state} -> state) (\s@InitializeClusterResponse' {} a -> s {state = a} :: InitializeClusterResponse)
+
+-- | A description of the cluster\'s state.
+initializeClusterResponse_stateMessage :: Lens.Lens' InitializeClusterResponse (Prelude.Maybe Prelude.Text)
+initializeClusterResponse_stateMessage = Lens.lens (\InitializeClusterResponse' {stateMessage} -> stateMessage) (\s@InitializeClusterResponse' {} a -> s {stateMessage = a} :: InitializeClusterResponse)
 
 -- | The response's http status code.
 initializeClusterResponse_httpStatus :: Lens.Lens' InitializeClusterResponse Prelude.Int
@@ -235,6 +236,6 @@ initializeClusterResponse_httpStatus = Lens.lens (\InitializeClusterResponse' {h
 
 instance Prelude.NFData InitializeClusterResponse where
   rnf InitializeClusterResponse' {..} =
-    Prelude.rnf stateMessage
-      `Prelude.seq` Prelude.rnf state
+    Prelude.rnf state
+      `Prelude.seq` Prelude.rnf stateMessage
       `Prelude.seq` Prelude.rnf httpStatus

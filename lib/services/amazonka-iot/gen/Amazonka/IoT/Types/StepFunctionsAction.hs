@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.StepFunctionsAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoT.Types.StepFunctionsAction where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Starts execution of a Step Functions state machine.
@@ -90,15 +91,15 @@ stepFunctionsAction_stateMachineName = Lens.lens (\StepFunctionsAction' {stateMa
 stepFunctionsAction_roleArn :: Lens.Lens' StepFunctionsAction Prelude.Text
 stepFunctionsAction_roleArn = Lens.lens (\StepFunctionsAction' {roleArn} -> roleArn) (\s@StepFunctionsAction' {} a -> s {roleArn = a} :: StepFunctionsAction)
 
-instance Core.FromJSON StepFunctionsAction where
+instance Data.FromJSON StepFunctionsAction where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StepFunctionsAction"
       ( \x ->
           StepFunctionsAction'
-            Prelude.<$> (x Core..:? "executionNamePrefix")
-            Prelude.<*> (x Core..: "stateMachineName")
-            Prelude.<*> (x Core..: "roleArn")
+            Prelude.<$> (x Data..:? "executionNamePrefix")
+            Prelude.<*> (x Data..: "stateMachineName")
+            Prelude.<*> (x Data..: "roleArn")
       )
 
 instance Prelude.Hashable StepFunctionsAction where
@@ -113,14 +114,14 @@ instance Prelude.NFData StepFunctionsAction where
       `Prelude.seq` Prelude.rnf stateMachineName
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToJSON StepFunctionsAction where
+instance Data.ToJSON StepFunctionsAction where
   toJSON StepFunctionsAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("executionNamePrefix" Core..=)
+          [ ("executionNamePrefix" Data..=)
               Prelude.<$> executionNamePrefix,
             Prelude.Just
-              ("stateMachineName" Core..= stateMachineName),
-            Prelude.Just ("roleArn" Core..= roleArn)
+              ("stateMachineName" Data..= stateMachineName),
+            Prelude.Just ("roleArn" Data..= roleArn)
           ]
       )

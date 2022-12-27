@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.GetSecurityConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.Glue.GetSecurityConfiguration
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,12 +78,13 @@ instance Core.AWSRequest GetSecurityConfiguration where
   type
     AWSResponse GetSecurityConfiguration =
       GetSecurityConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSecurityConfigurationResponse'
-            Prelude.<$> (x Core..?> "SecurityConfiguration")
+            Prelude.<$> (x Data..?> "SecurityConfiguration")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -93,32 +95,32 @@ instance Prelude.Hashable GetSecurityConfiguration where
 instance Prelude.NFData GetSecurityConfiguration where
   rnf GetSecurityConfiguration' {..} = Prelude.rnf name
 
-instance Core.ToHeaders GetSecurityConfiguration where
+instance Data.ToHeaders GetSecurityConfiguration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSGlue.GetSecurityConfiguration" ::
+              Data.=# ( "AWSGlue.GetSecurityConfiguration" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetSecurityConfiguration where
+instance Data.ToJSON GetSecurityConfiguration where
   toJSON GetSecurityConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Name" Core..= name)]
+          [Prelude.Just ("Name" Data..= name)]
       )
 
-instance Core.ToPath GetSecurityConfiguration where
+instance Data.ToPath GetSecurityConfiguration where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetSecurityConfiguration where
+instance Data.ToQuery GetSecurityConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetSecurityConfigurationResponse' smart constructor.

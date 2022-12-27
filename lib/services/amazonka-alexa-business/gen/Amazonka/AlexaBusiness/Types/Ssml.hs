@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.Types.Ssml
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AlexaBusiness.Types.Ssml where
 
 import Amazonka.AlexaBusiness.Types.Locale
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The SSML message. For more information, see
@@ -76,11 +77,11 @@ instance Prelude.NFData Ssml where
   rnf Ssml' {..} =
     Prelude.rnf locale `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON Ssml where
+instance Data.ToJSON Ssml where
   toJSON Ssml' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Locale" Core..= locale),
-            Prelude.Just ("Value" Core..= value)
+          [ Prelude.Just ("Locale" Data..= locale),
+            Prelude.Just ("Value" Data..= value)
           ]
       )

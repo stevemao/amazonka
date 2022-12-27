@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticTranscoder.CreatePipeline
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,10 +28,10 @@ module Amazonka.ElasticTranscoder.CreatePipeline
     newCreatePipeline,
 
     -- * Request Lenses
-    createPipeline_contentConfig,
-    createPipeline_outputBucket,
     createPipeline_awsKmsKeyArn,
+    createPipeline_contentConfig,
     createPipeline_notifications,
+    createPipeline_outputBucket,
     createPipeline_thumbnailConfig,
     createPipeline_name,
     createPipeline_inputBucket,
@@ -42,15 +42,16 @@ module Amazonka.ElasticTranscoder.CreatePipeline
     newCreatePipelineResponse,
 
     -- * Response Lenses
-    createPipelineResponse_warnings,
     createPipelineResponse_pipeline,
+    createPipelineResponse_warnings,
     createPipelineResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticTranscoder.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,7 +60,17 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCreatePipeline' smart constructor.
 data CreatePipeline = CreatePipeline'
-  { -- | The optional @ContentConfig@ object specifies information about the
+  { -- | The AWS Key Management Service (AWS KMS) key that you want to use with
+    -- this pipeline.
+    --
+    -- If you use either @s3@ or @s3-aws-kms@ as your @Encryption:Mode@, you
+    -- don\'t need to provide a key with your job because a default key, known
+    -- as an AWS-KMS key, is created for you automatically. You need to provide
+    -- an AWS-KMS key only if you want to use a non-default AWS-KMS key, or if
+    -- you are using an @Encryption:Mode@ of @aes-cbc-pkcs7@, @aes-ctr@, or
+    -- @aes-gcm@.
+    awsKmsKeyArn :: Prelude.Maybe Prelude.Text,
+    -- | The optional @ContentConfig@ object specifies information about the
     -- Amazon S3 bucket in which you want Elastic Transcoder to save transcoded
     -- files and playlists: which bucket to use, which users you want to have
     -- access to the files, the type of access you want users to have, and the
@@ -130,44 +141,6 @@ data CreatePipeline = CreatePipeline'
     --     the video files and playlists that it stores in your Amazon S3
     --     bucket.
     contentConfig :: Prelude.Maybe PipelineOutputConfig,
-    -- | The Amazon S3 bucket in which you want Elastic Transcoder to save the
-    -- transcoded files. (Use this, or use ContentConfig:Bucket plus
-    -- ThumbnailConfig:Bucket.)
-    --
-    -- Specify this value when all of the following are true:
-    --
-    -- -   You want to save transcoded files, thumbnails (if any), and
-    --     playlists (if any) together in one bucket.
-    --
-    -- -   You do not want to specify the users or groups who have access to
-    --     the transcoded files, thumbnails, and playlists.
-    --
-    -- -   You do not want to specify the permissions that Elastic Transcoder
-    --     grants to the files.
-    --
-    --     When Elastic Transcoder saves files in @OutputBucket@, it grants
-    --     full control over the files only to the AWS account that owns the
-    --     role that is specified by @Role@.
-    --
-    -- -   You want to associate the transcoded files and thumbnails with the
-    --     Amazon S3 Standard storage class.
-    --
-    -- If you want to save transcoded files and playlists in one bucket and
-    -- thumbnails in another bucket, specify which users can access the
-    -- transcoded files or the permissions the users have, or change the Amazon
-    -- S3 storage class, omit @OutputBucket@ and specify values for
-    -- @ContentConfig@ and @ThumbnailConfig@ instead.
-    outputBucket :: Prelude.Maybe Prelude.Text,
-    -- | The AWS Key Management Service (AWS KMS) key that you want to use with
-    -- this pipeline.
-    --
-    -- If you use either @s3@ or @s3-aws-kms@ as your @Encryption:Mode@, you
-    -- don\'t need to provide a key with your job because a default key, known
-    -- as an AWS-KMS key, is created for you automatically. You need to provide
-    -- an AWS-KMS key only if you want to use a non-default AWS-KMS key, or if
-    -- you are using an @Encryption:Mode@ of @aes-cbc-pkcs7@, @aes-ctr@, or
-    -- @aes-gcm@.
-    awsKmsKeyArn :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Simple Notification Service (Amazon SNS) topic that you want
     -- to notify to report job status.
     --
@@ -196,6 +169,34 @@ data CreatePipeline = CreatePipeline'
     --     processing a job in this pipeline. This is the ARN that Amazon SNS
     --     returned when you created the topic.
     notifications :: Prelude.Maybe Notifications,
+    -- | The Amazon S3 bucket in which you want Elastic Transcoder to save the
+    -- transcoded files. (Use this, or use ContentConfig:Bucket plus
+    -- ThumbnailConfig:Bucket.)
+    --
+    -- Specify this value when all of the following are true:
+    --
+    -- -   You want to save transcoded files, thumbnails (if any), and
+    --     playlists (if any) together in one bucket.
+    --
+    -- -   You do not want to specify the users or groups who have access to
+    --     the transcoded files, thumbnails, and playlists.
+    --
+    -- -   You do not want to specify the permissions that Elastic Transcoder
+    --     grants to the files.
+    --
+    --     When Elastic Transcoder saves files in @OutputBucket@, it grants
+    --     full control over the files only to the AWS account that owns the
+    --     role that is specified by @Role@.
+    --
+    -- -   You want to associate the transcoded files and thumbnails with the
+    --     Amazon S3 Standard storage class.
+    --
+    -- If you want to save transcoded files and playlists in one bucket and
+    -- thumbnails in another bucket, specify which users can access the
+    -- transcoded files or the permissions the users have, or change the Amazon
+    -- S3 storage class, omit @OutputBucket@ and specify values for
+    -- @ContentConfig@ and @ThumbnailConfig@ instead.
+    outputBucket :: Prelude.Maybe Prelude.Text,
     -- | The @ThumbnailConfig@ object specifies several values, including the
     -- Amazon S3 bucket in which you want Elastic Transcoder to save thumbnail
     -- files, which users you want to have access to the files, the type of
@@ -283,6 +284,16 @@ data CreatePipeline = CreatePipeline'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'awsKmsKeyArn', 'createPipeline_awsKmsKeyArn' - The AWS Key Management Service (AWS KMS) key that you want to use with
+-- this pipeline.
+--
+-- If you use either @s3@ or @s3-aws-kms@ as your @Encryption:Mode@, you
+-- don\'t need to provide a key with your job because a default key, known
+-- as an AWS-KMS key, is created for you automatically. You need to provide
+-- an AWS-KMS key only if you want to use a non-default AWS-KMS key, or if
+-- you are using an @Encryption:Mode@ of @aes-cbc-pkcs7@, @aes-ctr@, or
+-- @aes-gcm@.
+--
 -- 'contentConfig', 'createPipeline_contentConfig' - The optional @ContentConfig@ object specifies information about the
 -- Amazon S3 bucket in which you want Elastic Transcoder to save transcoded
 -- files and playlists: which bucket to use, which users you want to have
@@ -354,44 +365,6 @@ data CreatePipeline = CreatePipeline'
 --     the video files and playlists that it stores in your Amazon S3
 --     bucket.
 --
--- 'outputBucket', 'createPipeline_outputBucket' - The Amazon S3 bucket in which you want Elastic Transcoder to save the
--- transcoded files. (Use this, or use ContentConfig:Bucket plus
--- ThumbnailConfig:Bucket.)
---
--- Specify this value when all of the following are true:
---
--- -   You want to save transcoded files, thumbnails (if any), and
---     playlists (if any) together in one bucket.
---
--- -   You do not want to specify the users or groups who have access to
---     the transcoded files, thumbnails, and playlists.
---
--- -   You do not want to specify the permissions that Elastic Transcoder
---     grants to the files.
---
---     When Elastic Transcoder saves files in @OutputBucket@, it grants
---     full control over the files only to the AWS account that owns the
---     role that is specified by @Role@.
---
--- -   You want to associate the transcoded files and thumbnails with the
---     Amazon S3 Standard storage class.
---
--- If you want to save transcoded files and playlists in one bucket and
--- thumbnails in another bucket, specify which users can access the
--- transcoded files or the permissions the users have, or change the Amazon
--- S3 storage class, omit @OutputBucket@ and specify values for
--- @ContentConfig@ and @ThumbnailConfig@ instead.
---
--- 'awsKmsKeyArn', 'createPipeline_awsKmsKeyArn' - The AWS Key Management Service (AWS KMS) key that you want to use with
--- this pipeline.
---
--- If you use either @s3@ or @s3-aws-kms@ as your @Encryption:Mode@, you
--- don\'t need to provide a key with your job because a default key, known
--- as an AWS-KMS key, is created for you automatically. You need to provide
--- an AWS-KMS key only if you want to use a non-default AWS-KMS key, or if
--- you are using an @Encryption:Mode@ of @aes-cbc-pkcs7@, @aes-ctr@, or
--- @aes-gcm@.
---
 -- 'notifications', 'createPipeline_notifications' - The Amazon Simple Notification Service (Amazon SNS) topic that you want
 -- to notify to report job status.
 --
@@ -419,6 +392,34 @@ data CreatePipeline = CreatePipeline'
 --     notify when Elastic Transcoder encounters an error condition while
 --     processing a job in this pipeline. This is the ARN that Amazon SNS
 --     returned when you created the topic.
+--
+-- 'outputBucket', 'createPipeline_outputBucket' - The Amazon S3 bucket in which you want Elastic Transcoder to save the
+-- transcoded files. (Use this, or use ContentConfig:Bucket plus
+-- ThumbnailConfig:Bucket.)
+--
+-- Specify this value when all of the following are true:
+--
+-- -   You want to save transcoded files, thumbnails (if any), and
+--     playlists (if any) together in one bucket.
+--
+-- -   You do not want to specify the users or groups who have access to
+--     the transcoded files, thumbnails, and playlists.
+--
+-- -   You do not want to specify the permissions that Elastic Transcoder
+--     grants to the files.
+--
+--     When Elastic Transcoder saves files in @OutputBucket@, it grants
+--     full control over the files only to the AWS account that owns the
+--     role that is specified by @Role@.
+--
+-- -   You want to associate the transcoded files and thumbnails with the
+--     Amazon S3 Standard storage class.
+--
+-- If you want to save transcoded files and playlists in one bucket and
+-- thumbnails in another bucket, specify which users can access the
+-- transcoded files or the permissions the users have, or change the Amazon
+-- S3 storage class, omit @OutputBucket@ and specify values for
+-- @ContentConfig@ and @ThumbnailConfig@ instead.
 --
 -- 'thumbnailConfig', 'createPipeline_thumbnailConfig' - The @ThumbnailConfig@ object specifies several values, including the
 -- Amazon S3 bucket in which you want Elastic Transcoder to save thumbnail
@@ -505,15 +506,27 @@ newCreatePipeline ::
   CreatePipeline
 newCreatePipeline pName_ pInputBucket_ pRole_ =
   CreatePipeline'
-    { contentConfig = Prelude.Nothing,
-      outputBucket = Prelude.Nothing,
-      awsKmsKeyArn = Prelude.Nothing,
+    { awsKmsKeyArn = Prelude.Nothing,
+      contentConfig = Prelude.Nothing,
       notifications = Prelude.Nothing,
+      outputBucket = Prelude.Nothing,
       thumbnailConfig = Prelude.Nothing,
       name = pName_,
       inputBucket = pInputBucket_,
       role' = pRole_
     }
+
+-- | The AWS Key Management Service (AWS KMS) key that you want to use with
+-- this pipeline.
+--
+-- If you use either @s3@ or @s3-aws-kms@ as your @Encryption:Mode@, you
+-- don\'t need to provide a key with your job because a default key, known
+-- as an AWS-KMS key, is created for you automatically. You need to provide
+-- an AWS-KMS key only if you want to use a non-default AWS-KMS key, or if
+-- you are using an @Encryption:Mode@ of @aes-cbc-pkcs7@, @aes-ctr@, or
+-- @aes-gcm@.
+createPipeline_awsKmsKeyArn :: Lens.Lens' CreatePipeline (Prelude.Maybe Prelude.Text)
+createPipeline_awsKmsKeyArn = Lens.lens (\CreatePipeline' {awsKmsKeyArn} -> awsKmsKeyArn) (\s@CreatePipeline' {} a -> s {awsKmsKeyArn = a} :: CreatePipeline)
 
 -- | The optional @ContentConfig@ object specifies information about the
 -- Amazon S3 bucket in which you want Elastic Transcoder to save transcoded
@@ -588,48 +601,6 @@ newCreatePipeline pName_ pInputBucket_ pRole_ =
 createPipeline_contentConfig :: Lens.Lens' CreatePipeline (Prelude.Maybe PipelineOutputConfig)
 createPipeline_contentConfig = Lens.lens (\CreatePipeline' {contentConfig} -> contentConfig) (\s@CreatePipeline' {} a -> s {contentConfig = a} :: CreatePipeline)
 
--- | The Amazon S3 bucket in which you want Elastic Transcoder to save the
--- transcoded files. (Use this, or use ContentConfig:Bucket plus
--- ThumbnailConfig:Bucket.)
---
--- Specify this value when all of the following are true:
---
--- -   You want to save transcoded files, thumbnails (if any), and
---     playlists (if any) together in one bucket.
---
--- -   You do not want to specify the users or groups who have access to
---     the transcoded files, thumbnails, and playlists.
---
--- -   You do not want to specify the permissions that Elastic Transcoder
---     grants to the files.
---
---     When Elastic Transcoder saves files in @OutputBucket@, it grants
---     full control over the files only to the AWS account that owns the
---     role that is specified by @Role@.
---
--- -   You want to associate the transcoded files and thumbnails with the
---     Amazon S3 Standard storage class.
---
--- If you want to save transcoded files and playlists in one bucket and
--- thumbnails in another bucket, specify which users can access the
--- transcoded files or the permissions the users have, or change the Amazon
--- S3 storage class, omit @OutputBucket@ and specify values for
--- @ContentConfig@ and @ThumbnailConfig@ instead.
-createPipeline_outputBucket :: Lens.Lens' CreatePipeline (Prelude.Maybe Prelude.Text)
-createPipeline_outputBucket = Lens.lens (\CreatePipeline' {outputBucket} -> outputBucket) (\s@CreatePipeline' {} a -> s {outputBucket = a} :: CreatePipeline)
-
--- | The AWS Key Management Service (AWS KMS) key that you want to use with
--- this pipeline.
---
--- If you use either @s3@ or @s3-aws-kms@ as your @Encryption:Mode@, you
--- don\'t need to provide a key with your job because a default key, known
--- as an AWS-KMS key, is created for you automatically. You need to provide
--- an AWS-KMS key only if you want to use a non-default AWS-KMS key, or if
--- you are using an @Encryption:Mode@ of @aes-cbc-pkcs7@, @aes-ctr@, or
--- @aes-gcm@.
-createPipeline_awsKmsKeyArn :: Lens.Lens' CreatePipeline (Prelude.Maybe Prelude.Text)
-createPipeline_awsKmsKeyArn = Lens.lens (\CreatePipeline' {awsKmsKeyArn} -> awsKmsKeyArn) (\s@CreatePipeline' {} a -> s {awsKmsKeyArn = a} :: CreatePipeline)
-
 -- | The Amazon Simple Notification Service (Amazon SNS) topic that you want
 -- to notify to report job status.
 --
@@ -659,6 +630,36 @@ createPipeline_awsKmsKeyArn = Lens.lens (\CreatePipeline' {awsKmsKeyArn} -> awsK
 --     returned when you created the topic.
 createPipeline_notifications :: Lens.Lens' CreatePipeline (Prelude.Maybe Notifications)
 createPipeline_notifications = Lens.lens (\CreatePipeline' {notifications} -> notifications) (\s@CreatePipeline' {} a -> s {notifications = a} :: CreatePipeline)
+
+-- | The Amazon S3 bucket in which you want Elastic Transcoder to save the
+-- transcoded files. (Use this, or use ContentConfig:Bucket plus
+-- ThumbnailConfig:Bucket.)
+--
+-- Specify this value when all of the following are true:
+--
+-- -   You want to save transcoded files, thumbnails (if any), and
+--     playlists (if any) together in one bucket.
+--
+-- -   You do not want to specify the users or groups who have access to
+--     the transcoded files, thumbnails, and playlists.
+--
+-- -   You do not want to specify the permissions that Elastic Transcoder
+--     grants to the files.
+--
+--     When Elastic Transcoder saves files in @OutputBucket@, it grants
+--     full control over the files only to the AWS account that owns the
+--     role that is specified by @Role@.
+--
+-- -   You want to associate the transcoded files and thumbnails with the
+--     Amazon S3 Standard storage class.
+--
+-- If you want to save transcoded files and playlists in one bucket and
+-- thumbnails in another bucket, specify which users can access the
+-- transcoded files or the permissions the users have, or change the Amazon
+-- S3 storage class, omit @OutputBucket@ and specify values for
+-- @ContentConfig@ and @ThumbnailConfig@ instead.
+createPipeline_outputBucket :: Lens.Lens' CreatePipeline (Prelude.Maybe Prelude.Text)
+createPipeline_outputBucket = Lens.lens (\CreatePipeline' {outputBucket} -> outputBucket) (\s@CreatePipeline' {} a -> s {outputBucket = a} :: CreatePipeline)
 
 -- | The @ThumbnailConfig@ object specifies several values, including the
 -- Amazon S3 bucket in which you want Elastic Transcoder to save thumbnail
@@ -748,22 +749,23 @@ instance Core.AWSRequest CreatePipeline where
   type
     AWSResponse CreatePipeline =
       CreatePipelineResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreatePipelineResponse'
-            Prelude.<$> (x Core..?> "Warnings" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "Pipeline")
+            Prelude.<$> (x Data..?> "Pipeline")
+            Prelude.<*> (x Data..?> "Warnings" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreatePipeline where
   hashWithSalt _salt CreatePipeline' {..} =
-    _salt `Prelude.hashWithSalt` contentConfig
-      `Prelude.hashWithSalt` outputBucket
-      `Prelude.hashWithSalt` awsKmsKeyArn
+    _salt `Prelude.hashWithSalt` awsKmsKeyArn
+      `Prelude.hashWithSalt` contentConfig
       `Prelude.hashWithSalt` notifications
+      `Prelude.hashWithSalt` outputBucket
       `Prelude.hashWithSalt` thumbnailConfig
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` inputBucket
@@ -771,38 +773,38 @@ instance Prelude.Hashable CreatePipeline where
 
 instance Prelude.NFData CreatePipeline where
   rnf CreatePipeline' {..} =
-    Prelude.rnf contentConfig
-      `Prelude.seq` Prelude.rnf outputBucket
-      `Prelude.seq` Prelude.rnf awsKmsKeyArn
+    Prelude.rnf awsKmsKeyArn
+      `Prelude.seq` Prelude.rnf contentConfig
       `Prelude.seq` Prelude.rnf notifications
+      `Prelude.seq` Prelude.rnf outputBucket
       `Prelude.seq` Prelude.rnf thumbnailConfig
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf inputBucket
       `Prelude.seq` Prelude.rnf role'
 
-instance Core.ToHeaders CreatePipeline where
+instance Data.ToHeaders CreatePipeline where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreatePipeline where
+instance Data.ToJSON CreatePipeline where
   toJSON CreatePipeline' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ContentConfig" Core..=) Prelude.<$> contentConfig,
-            ("OutputBucket" Core..=) Prelude.<$> outputBucket,
-            ("AwsKmsKeyArn" Core..=) Prelude.<$> awsKmsKeyArn,
-            ("Notifications" Core..=) Prelude.<$> notifications,
-            ("ThumbnailConfig" Core..=)
+          [ ("AwsKmsKeyArn" Data..=) Prelude.<$> awsKmsKeyArn,
+            ("ContentConfig" Data..=) Prelude.<$> contentConfig,
+            ("Notifications" Data..=) Prelude.<$> notifications,
+            ("OutputBucket" Data..=) Prelude.<$> outputBucket,
+            ("ThumbnailConfig" Data..=)
               Prelude.<$> thumbnailConfig,
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("InputBucket" Core..= inputBucket),
-            Prelude.Just ("Role" Core..= role')
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("InputBucket" Data..= inputBucket),
+            Prelude.Just ("Role" Data..= role')
           ]
       )
 
-instance Core.ToPath CreatePipeline where
+instance Data.ToPath CreatePipeline where
   toPath = Prelude.const "/2012-09-25/pipelines"
 
-instance Core.ToQuery CreatePipeline where
+instance Data.ToQuery CreatePipeline where
   toQuery = Prelude.const Prelude.mempty
 
 -- | When you create a pipeline, Elastic Transcoder returns the values that
@@ -810,16 +812,16 @@ instance Core.ToQuery CreatePipeline where
 --
 -- /See:/ 'newCreatePipelineResponse' smart constructor.
 data CreatePipelineResponse = CreatePipelineResponse'
-  { -- | Elastic Transcoder returns a warning if the resources used by your
+  { -- | A section of the response body that provides information about the
+    -- pipeline that is created.
+    pipeline :: Prelude.Maybe Pipeline,
+    -- | Elastic Transcoder returns a warning if the resources used by your
     -- pipeline are not in the same region as the pipeline.
     --
     -- Using resources in the same region, such as your Amazon S3 buckets,
     -- Amazon SNS notification topics, and AWS KMS key, reduces processing time
     -- and prevents cross-regional charges.
     warnings :: Prelude.Maybe [Warning],
-    -- | A section of the response body that provides information about the
-    -- pipeline that is created.
-    pipeline :: Prelude.Maybe Pipeline,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -833,15 +835,15 @@ data CreatePipelineResponse = CreatePipelineResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'pipeline', 'createPipelineResponse_pipeline' - A section of the response body that provides information about the
+-- pipeline that is created.
+--
 -- 'warnings', 'createPipelineResponse_warnings' - Elastic Transcoder returns a warning if the resources used by your
 -- pipeline are not in the same region as the pipeline.
 --
 -- Using resources in the same region, such as your Amazon S3 buckets,
 -- Amazon SNS notification topics, and AWS KMS key, reduces processing time
 -- and prevents cross-regional charges.
---
--- 'pipeline', 'createPipelineResponse_pipeline' - A section of the response body that provides information about the
--- pipeline that is created.
 --
 -- 'httpStatus', 'createPipelineResponse_httpStatus' - The response's http status code.
 newCreatePipelineResponse ::
@@ -850,10 +852,15 @@ newCreatePipelineResponse ::
   CreatePipelineResponse
 newCreatePipelineResponse pHttpStatus_ =
   CreatePipelineResponse'
-    { warnings = Prelude.Nothing,
-      pipeline = Prelude.Nothing,
+    { pipeline = Prelude.Nothing,
+      warnings = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | A section of the response body that provides information about the
+-- pipeline that is created.
+createPipelineResponse_pipeline :: Lens.Lens' CreatePipelineResponse (Prelude.Maybe Pipeline)
+createPipelineResponse_pipeline = Lens.lens (\CreatePipelineResponse' {pipeline} -> pipeline) (\s@CreatePipelineResponse' {} a -> s {pipeline = a} :: CreatePipelineResponse)
 
 -- | Elastic Transcoder returns a warning if the resources used by your
 -- pipeline are not in the same region as the pipeline.
@@ -864,17 +871,12 @@ newCreatePipelineResponse pHttpStatus_ =
 createPipelineResponse_warnings :: Lens.Lens' CreatePipelineResponse (Prelude.Maybe [Warning])
 createPipelineResponse_warnings = Lens.lens (\CreatePipelineResponse' {warnings} -> warnings) (\s@CreatePipelineResponse' {} a -> s {warnings = a} :: CreatePipelineResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | A section of the response body that provides information about the
--- pipeline that is created.
-createPipelineResponse_pipeline :: Lens.Lens' CreatePipelineResponse (Prelude.Maybe Pipeline)
-createPipelineResponse_pipeline = Lens.lens (\CreatePipelineResponse' {pipeline} -> pipeline) (\s@CreatePipelineResponse' {} a -> s {pipeline = a} :: CreatePipelineResponse)
-
 -- | The response's http status code.
 createPipelineResponse_httpStatus :: Lens.Lens' CreatePipelineResponse Prelude.Int
 createPipelineResponse_httpStatus = Lens.lens (\CreatePipelineResponse' {httpStatus} -> httpStatus) (\s@CreatePipelineResponse' {} a -> s {httpStatus = a} :: CreatePipelineResponse)
 
 instance Prelude.NFData CreatePipelineResponse where
   rnf CreatePipelineResponse' {..} =
-    Prelude.rnf warnings
-      `Prelude.seq` Prelude.rnf pipeline
+    Prelude.rnf pipeline
+      `Prelude.seq` Prelude.rnf warnings
       `Prelude.seq` Prelude.rnf httpStatus

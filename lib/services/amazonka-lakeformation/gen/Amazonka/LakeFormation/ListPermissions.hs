@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LakeFormation.ListPermissions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,12 +36,13 @@ module Amazonka.LakeFormation.ListPermissions
     newListPermissions,
 
     -- * Request Lenses
-    listPermissions_resourceType,
     listPermissions_catalogId,
+    listPermissions_includeRelated,
+    listPermissions_maxResults,
     listPermissions_nextToken,
     listPermissions_principal,
     listPermissions_resource,
-    listPermissions_maxResults,
+    listPermissions_resourceType,
 
     -- * Destructuring the Response
     ListPermissionsResponse (..),
@@ -55,21 +56,24 @@ module Amazonka.LakeFormation.ListPermissions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LakeFormation.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListPermissions' smart constructor.
 data ListPermissions = ListPermissions'
-  { -- | Specifies a resource type to filter the permissions returned.
-    resourceType :: Prelude.Maybe DataLakeResourceType,
-    -- | The identifier for the Data Catalog. By default, the account ID. The
+  { -- | The identifier for the Data Catalog. By default, the account ID. The
     -- Data Catalog is the persistent metadata store. It contains database
     -- definitions, table definitions, and other control information to manage
-    -- your AWS Lake Formation environment.
+    -- your Lake Formation environment.
     catalogId :: Prelude.Maybe Prelude.Text,
+    -- | Indicates that related permissions should be included in the results.
+    includeRelated :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | A continuation token, if this is not the first call to retrieve this
     -- list.
     nextToken :: Prelude.Maybe Prelude.Text,
@@ -81,8 +85,8 @@ data ListPermissions = ListPermissions'
     -- columns. Instead, call this operation on the table, and the operation
     -- returns the table and the table w columns.
     resource :: Prelude.Maybe Resource,
-    -- | The maximum number of results to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    -- | Specifies a resource type to filter the permissions returned.
+    resourceType :: Prelude.Maybe DataLakeResourceType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -94,12 +98,14 @@ data ListPermissions = ListPermissions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceType', 'listPermissions_resourceType' - Specifies a resource type to filter the permissions returned.
---
 -- 'catalogId', 'listPermissions_catalogId' - The identifier for the Data Catalog. By default, the account ID. The
 -- Data Catalog is the persistent metadata store. It contains database
 -- definitions, table definitions, and other control information to manage
--- your AWS Lake Formation environment.
+-- your Lake Formation environment.
+--
+-- 'includeRelated', 'listPermissions_includeRelated' - Indicates that related permissions should be included in the results.
+--
+-- 'maxResults', 'listPermissions_maxResults' - The maximum number of results to return.
 --
 -- 'nextToken', 'listPermissions_nextToken' - A continuation token, if this is not the first call to retrieve this
 -- list.
@@ -112,29 +118,34 @@ data ListPermissions = ListPermissions'
 -- columns. Instead, call this operation on the table, and the operation
 -- returns the table and the table w columns.
 --
--- 'maxResults', 'listPermissions_maxResults' - The maximum number of results to return.
+-- 'resourceType', 'listPermissions_resourceType' - Specifies a resource type to filter the permissions returned.
 newListPermissions ::
   ListPermissions
 newListPermissions =
   ListPermissions'
-    { resourceType = Prelude.Nothing,
-      catalogId = Prelude.Nothing,
+    { catalogId = Prelude.Nothing,
+      includeRelated = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
       principal = Prelude.Nothing,
       resource = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      resourceType = Prelude.Nothing
     }
-
--- | Specifies a resource type to filter the permissions returned.
-listPermissions_resourceType :: Lens.Lens' ListPermissions (Prelude.Maybe DataLakeResourceType)
-listPermissions_resourceType = Lens.lens (\ListPermissions' {resourceType} -> resourceType) (\s@ListPermissions' {} a -> s {resourceType = a} :: ListPermissions)
 
 -- | The identifier for the Data Catalog. By default, the account ID. The
 -- Data Catalog is the persistent metadata store. It contains database
 -- definitions, table definitions, and other control information to manage
--- your AWS Lake Formation environment.
+-- your Lake Formation environment.
 listPermissions_catalogId :: Lens.Lens' ListPermissions (Prelude.Maybe Prelude.Text)
 listPermissions_catalogId = Lens.lens (\ListPermissions' {catalogId} -> catalogId) (\s@ListPermissions' {} a -> s {catalogId = a} :: ListPermissions)
+
+-- | Indicates that related permissions should be included in the results.
+listPermissions_includeRelated :: Lens.Lens' ListPermissions (Prelude.Maybe Prelude.Text)
+listPermissions_includeRelated = Lens.lens (\ListPermissions' {includeRelated} -> includeRelated) (\s@ListPermissions' {} a -> s {includeRelated = a} :: ListPermissions)
+
+-- | The maximum number of results to return.
+listPermissions_maxResults :: Lens.Lens' ListPermissions (Prelude.Maybe Prelude.Natural)
+listPermissions_maxResults = Lens.lens (\ListPermissions' {maxResults} -> maxResults) (\s@ListPermissions' {} a -> s {maxResults = a} :: ListPermissions)
 
 -- | A continuation token, if this is not the first call to retrieve this
 -- list.
@@ -153,21 +164,22 @@ listPermissions_principal = Lens.lens (\ListPermissions' {principal} -> principa
 listPermissions_resource :: Lens.Lens' ListPermissions (Prelude.Maybe Resource)
 listPermissions_resource = Lens.lens (\ListPermissions' {resource} -> resource) (\s@ListPermissions' {} a -> s {resource = a} :: ListPermissions)
 
--- | The maximum number of results to return.
-listPermissions_maxResults :: Lens.Lens' ListPermissions (Prelude.Maybe Prelude.Natural)
-listPermissions_maxResults = Lens.lens (\ListPermissions' {maxResults} -> maxResults) (\s@ListPermissions' {} a -> s {maxResults = a} :: ListPermissions)
+-- | Specifies a resource type to filter the permissions returned.
+listPermissions_resourceType :: Lens.Lens' ListPermissions (Prelude.Maybe DataLakeResourceType)
+listPermissions_resourceType = Lens.lens (\ListPermissions' {resourceType} -> resourceType) (\s@ListPermissions' {} a -> s {resourceType = a} :: ListPermissions)
 
 instance Core.AWSRequest ListPermissions where
   type
     AWSResponse ListPermissions =
       ListPermissionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPermissionsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "PrincipalResourcePermissions"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "PrincipalResourcePermissions"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -175,54 +187,54 @@ instance Core.AWSRequest ListPermissions where
 
 instance Prelude.Hashable ListPermissions where
   hashWithSalt _salt ListPermissions' {..} =
-    _salt `Prelude.hashWithSalt` resourceType
-      `Prelude.hashWithSalt` catalogId
+    _salt `Prelude.hashWithSalt` catalogId
+      `Prelude.hashWithSalt` includeRelated
+      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` principal
       `Prelude.hashWithSalt` resource
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` resourceType
 
 instance Prelude.NFData ListPermissions where
   rnf ListPermissions' {..} =
-    Prelude.rnf resourceType
-      `Prelude.seq` Prelude.rnf catalogId
+    Prelude.rnf catalogId
+      `Prelude.seq` Prelude.rnf includeRelated
+      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf principal
       `Prelude.seq` Prelude.rnf resource
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf resourceType
 
-instance Core.ToHeaders ListPermissions where
+instance Data.ToHeaders ListPermissions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
-          [ "X-Amz-Target"
-              Core.=# ( "AWSLakeFormation.ListPermissions" ::
-                          Prelude.ByteString
-                      ),
-            "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+          [ "Content-Type"
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListPermissions where
+instance Data.ToJSON ListPermissions where
   toJSON ListPermissions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ResourceType" Core..=) Prelude.<$> resourceType,
-            ("CatalogId" Core..=) Prelude.<$> catalogId,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Principal" Core..=) Prelude.<$> principal,
-            ("Resource" Core..=) Prelude.<$> resource,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            ("IncludeRelated" Data..=)
+              Prelude.<$> includeRelated,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("Principal" Data..=) Prelude.<$> principal,
+            ("Resource" Data..=) Prelude.<$> resource,
+            ("ResourceType" Data..=) Prelude.<$> resourceType
           ]
       )
 
-instance Core.ToPath ListPermissions where
-  toPath = Prelude.const "/"
+instance Data.ToPath ListPermissions where
+  toPath = Prelude.const "/ListPermissions"
 
-instance Core.ToQuery ListPermissions where
+instance Data.ToQuery ListPermissions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListPermissionsResponse' smart constructor.

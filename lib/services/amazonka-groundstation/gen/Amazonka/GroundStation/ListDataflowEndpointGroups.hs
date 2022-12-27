@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GroundStation.ListDataflowEndpointGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.GroundStation.ListDataflowEndpointGroups
     newListDataflowEndpointGroups,
 
     -- * Request Lenses
-    listDataflowEndpointGroups_nextToken,
     listDataflowEndpointGroups_maxResults,
+    listDataflowEndpointGroups_nextToken,
 
     -- * Destructuring the Response
     ListDataflowEndpointGroupsResponse (..),
@@ -44,8 +44,9 @@ module Amazonka.GroundStation.ListDataflowEndpointGroups
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GroundStation.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,11 +55,11 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListDataflowEndpointGroups' smart constructor.
 data ListDataflowEndpointGroups = ListDataflowEndpointGroups'
-  { -- | Next token returned in the request of a previous
+  { -- | Maximum number of dataflow endpoint groups returned.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Next token returned in the request of a previous
     -- @ListDataflowEndpointGroups@ call. Used to get the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Maximum number of dataflow endpoint groups returned.
-    maxResults :: Prelude.Maybe Prelude.Int
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -70,27 +71,27 @@ data ListDataflowEndpointGroups = ListDataflowEndpointGroups'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listDataflowEndpointGroups_maxResults' - Maximum number of dataflow endpoint groups returned.
+--
 -- 'nextToken', 'listDataflowEndpointGroups_nextToken' - Next token returned in the request of a previous
 -- @ListDataflowEndpointGroups@ call. Used to get the next page of results.
---
--- 'maxResults', 'listDataflowEndpointGroups_maxResults' - Maximum number of dataflow endpoint groups returned.
 newListDataflowEndpointGroups ::
   ListDataflowEndpointGroups
 newListDataflowEndpointGroups =
   ListDataflowEndpointGroups'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
+
+-- | Maximum number of dataflow endpoint groups returned.
+listDataflowEndpointGroups_maxResults :: Lens.Lens' ListDataflowEndpointGroups (Prelude.Maybe Prelude.Natural)
+listDataflowEndpointGroups_maxResults = Lens.lens (\ListDataflowEndpointGroups' {maxResults} -> maxResults) (\s@ListDataflowEndpointGroups' {} a -> s {maxResults = a} :: ListDataflowEndpointGroups)
 
 -- | Next token returned in the request of a previous
 -- @ListDataflowEndpointGroups@ call. Used to get the next page of results.
 listDataflowEndpointGroups_nextToken :: Lens.Lens' ListDataflowEndpointGroups (Prelude.Maybe Prelude.Text)
 listDataflowEndpointGroups_nextToken = Lens.lens (\ListDataflowEndpointGroups' {nextToken} -> nextToken) (\s@ListDataflowEndpointGroups' {} a -> s {nextToken = a} :: ListDataflowEndpointGroups)
-
--- | Maximum number of dataflow endpoint groups returned.
-listDataflowEndpointGroups_maxResults :: Lens.Lens' ListDataflowEndpointGroups (Prelude.Maybe Prelude.Int)
-listDataflowEndpointGroups_maxResults = Lens.lens (\ListDataflowEndpointGroups' {maxResults} -> maxResults) (\s@ListDataflowEndpointGroups' {} a -> s {maxResults = a} :: ListDataflowEndpointGroups)
 
 instance Core.AWSPager ListDataflowEndpointGroups where
   page rq rs
@@ -118,47 +119,48 @@ instance Core.AWSRequest ListDataflowEndpointGroups where
   type
     AWSResponse ListDataflowEndpointGroups =
       ListDataflowEndpointGroupsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDataflowEndpointGroupsResponse'
-            Prelude.<$> ( x Core..?> "dataflowEndpointGroupList"
+            Prelude.<$> ( x Data..?> "dataflowEndpointGroupList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListDataflowEndpointGroups where
   hashWithSalt _salt ListDataflowEndpointGroups' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListDataflowEndpointGroups where
   rnf ListDataflowEndpointGroups' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListDataflowEndpointGroups where
+instance Data.ToHeaders ListDataflowEndpointGroups where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListDataflowEndpointGroups where
+instance Data.ToPath ListDataflowEndpointGroups where
   toPath = Prelude.const "/dataflowEndpointGroup"
 
-instance Core.ToQuery ListDataflowEndpointGroups where
+instance Data.ToQuery ListDataflowEndpointGroups where
   toQuery ListDataflowEndpointGroups' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- |

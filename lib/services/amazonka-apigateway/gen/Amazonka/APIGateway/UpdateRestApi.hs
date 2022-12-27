@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.UpdateRestApi
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,25 +35,26 @@ module Amazonka.APIGateway.UpdateRestApi
     newRestApi,
 
     -- * Response Lenses
-    restApi_minimumCompressionSize,
-    restApi_disableExecuteApiEndpoint,
-    restApi_binaryMediaTypes,
-    restApi_warnings,
-    restApi_createdDate,
-    restApi_name,
-    restApi_version,
     restApi_apiKeySource,
-    restApi_id,
-    restApi_policy,
-    restApi_endpointConfiguration,
+    restApi_binaryMediaTypes,
+    restApi_createdDate,
     restApi_description,
+    restApi_disableExecuteApiEndpoint,
+    restApi_endpointConfiguration,
+    restApi_id,
+    restApi_minimumCompressionSize,
+    restApi_name,
+    restApi_policy,
     restApi_tags,
+    restApi_version,
+    restApi_warnings,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,10 +63,10 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newUpdateRestApi' smart constructor.
 data UpdateRestApi = UpdateRestApi'
-  { -- | A list of update operations to be applied to the specified resource and
-    -- in the order specified in this list.
+  { -- | For more information about supported patch operations, see
+    -- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
     patchOperations :: Prelude.Maybe [PatchOperation],
-    -- | [Required] The string identifier of the associated RestApi.
+    -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -78,10 +79,10 @@ data UpdateRestApi = UpdateRestApi'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'patchOperations', 'updateRestApi_patchOperations' - A list of update operations to be applied to the specified resource and
--- in the order specified in this list.
+-- 'patchOperations', 'updateRestApi_patchOperations' - For more information about supported patch operations, see
+-- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
 --
--- 'restApiId', 'updateRestApi_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'updateRestApi_restApiId' - The string identifier of the associated RestApi.
 newUpdateRestApi ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -92,21 +93,22 @@ newUpdateRestApi pRestApiId_ =
       restApiId = pRestApiId_
     }
 
--- | A list of update operations to be applied to the specified resource and
--- in the order specified in this list.
+-- | For more information about supported patch operations, see
+-- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
 updateRestApi_patchOperations :: Lens.Lens' UpdateRestApi (Prelude.Maybe [PatchOperation])
 updateRestApi_patchOperations = Lens.lens (\UpdateRestApi' {patchOperations} -> patchOperations) (\s@UpdateRestApi' {} a -> s {patchOperations = a} :: UpdateRestApi) Prelude.. Lens.mapping Lens.coerced
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 updateRestApi_restApiId :: Lens.Lens' UpdateRestApi Prelude.Text
 updateRestApi_restApiId = Lens.lens (\UpdateRestApi' {restApiId} -> restApiId) (\s@UpdateRestApi' {} a -> s {restApiId = a} :: UpdateRestApi)
 
 instance Core.AWSRequest UpdateRestApi where
   type AWSResponse UpdateRestApi = RestApi
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable UpdateRestApi where
   hashWithSalt _salt UpdateRestApi' {..} =
@@ -118,27 +120,27 @@ instance Prelude.NFData UpdateRestApi where
     Prelude.rnf patchOperations
       `Prelude.seq` Prelude.rnf restApiId
 
-instance Core.ToHeaders UpdateRestApi where
+instance Data.ToHeaders UpdateRestApi where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToJSON UpdateRestApi where
+instance Data.ToJSON UpdateRestApi where
   toJSON UpdateRestApi' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("patchOperations" Core..=)
+          [ ("patchOperations" Data..=)
               Prelude.<$> patchOperations
           ]
       )
 
-instance Core.ToPath UpdateRestApi where
+instance Data.ToPath UpdateRestApi where
   toPath UpdateRestApi' {..} =
-    Prelude.mconcat ["/restapis/", Core.toBS restApiId]
+    Prelude.mconcat ["/restapis/", Data.toBS restApiId]
 
-instance Core.ToQuery UpdateRestApi where
+instance Data.ToQuery UpdateRestApi where
   toQuery = Prelude.const Prelude.mempty

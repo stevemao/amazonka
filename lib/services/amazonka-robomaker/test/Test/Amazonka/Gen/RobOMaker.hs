@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.RobOMaker
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,361 +27,265 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestDescribeWorldExportJob $
---             newDescribeWorldExportJob
---
---         , requestBatchDeleteWorlds $
+--         [ requestBatchDeleteWorlds $
 --             newBatchDeleteWorlds
---
---         , requestGetWorldTemplateBody $
---             newGetWorldTemplateBody
---
---         , requestDeleteFleet $
---             newDeleteFleet
---
---         , requestCreateWorldGenerationJob $
---             newCreateWorldGenerationJob
---
---         , requestListRobotApplications $
---             newListRobotApplications
---
---         , requestUpdateRobotApplication $
---             newUpdateRobotApplication
---
---         , requestDeleteRobotApplication $
---             newDeleteRobotApplication
---
---         , requestCreateSimulationApplicationVersion $
---             newCreateSimulationApplicationVersion
---
---         , requestListDeploymentJobs $
---             newListDeploymentJobs
---
---         , requestDescribeWorld $
---             newDescribeWorld
---
---         , requestCancelSimulationJob $
---             newCancelSimulationJob
---
---         , requestCreateRobotApplication $
---             newCreateRobotApplication
---
---         , requestListTagsForResource $
---             newListTagsForResource
---
---         , requestCreateDeploymentJob $
---             newCreateDeploymentJob
---
---         , requestRegisterRobot $
---             newRegisterRobot
---
---         , requestListRobots $
---             newListRobots
---
---         , requestCreateWorldExportJob $
---             newCreateWorldExportJob
 --
 --         , requestBatchDescribeSimulationJob $
 --             newBatchDescribeSimulationJob
 --
---         , requestCreateSimulationApplication $
---             newCreateSimulationApplication
---
---         , requestStartSimulationJobBatch $
---             newStartSimulationJobBatch
---
---         , requestCreateRobot $
---             newCreateRobot
---
---         , requestDescribeFleet $
---             newDescribeFleet
---
---         , requestListWorldTemplates $
---             newListWorldTemplates
---
---         , requestDescribeRobotApplication $
---             newDescribeRobotApplication
---
---         , requestRestartSimulationJob $
---             newRestartSimulationJob
---
---         , requestDescribeSimulationJob $
---             newDescribeSimulationJob
---
---         , requestDeregisterRobot $
---             newDeregisterRobot
---
---         , requestDescribeSimulationApplication $
---             newDescribeSimulationApplication
---
---         , requestListSimulationJobBatches $
---             newListSimulationJobBatches
---
---         , requestListFleets $
---             newListFleets
---
---         , requestDescribeWorldTemplate $
---             newDescribeWorldTemplate
---
---         , requestCancelWorldExportJob $
---             newCancelWorldExportJob
---
---         , requestListWorldGenerationJobs $
---             newListWorldGenerationJobs
---
---         , requestCreateFleet $
---             newCreateFleet
---
---         , requestCancelWorldGenerationJob $
---             newCancelWorldGenerationJob
---
---         , requestDescribeSimulationJobBatch $
---             newDescribeSimulationJobBatch
---
---         , requestListSimulationJobs $
---             newListSimulationJobs
---
---         , requestDeleteRobot $
---             newDeleteRobot
---
---         , requestDeleteSimulationApplication $
---             newDeleteSimulationApplication
---
---         , requestUpdateSimulationApplication $
---             newUpdateSimulationApplication
---
---         , requestCreateSimulationJob $
---             newCreateSimulationJob
---
---         , requestListWorldExportJobs $
---             newListWorldExportJobs
---
---         , requestListSimulationApplications $
---             newListSimulationApplications
---
---         , requestCreateRobotApplicationVersion $
---             newCreateRobotApplicationVersion
---
---         , requestCancelDeploymentJob $
---             newCancelDeploymentJob
---
---         , requestTagResource $
---             newTagResource
---
---         , requestListWorlds $
---             newListWorlds
---
---         , requestUntagResource $
---             newUntagResource
---
---         , requestDescribeDeploymentJob $
---             newDescribeDeploymentJob
---
---         , requestDeleteWorldTemplate $
---             newDeleteWorldTemplate
---
---         , requestUpdateWorldTemplate $
---             newUpdateWorldTemplate
---
---         , requestDescribeWorldGenerationJob $
---             newDescribeWorldGenerationJob
---
---         , requestCreateWorldTemplate $
---             newCreateWorldTemplate
+--         , requestCancelSimulationJob $
+--             newCancelSimulationJob
 --
 --         , requestCancelSimulationJobBatch $
 --             newCancelSimulationJobBatch
 --
---         , requestDescribeRobot $
---             newDescribeRobot
+--         , requestCancelWorldExportJob $
+--             newCancelWorldExportJob
 --
---         , requestSyncDeploymentJob $
---             newSyncDeploymentJob
+--         , requestCancelWorldGenerationJob $
+--             newCancelWorldGenerationJob
+--
+--         , requestCreateRobotApplication $
+--             newCreateRobotApplication
+--
+--         , requestCreateRobotApplicationVersion $
+--             newCreateRobotApplicationVersion
+--
+--         , requestCreateSimulationApplication $
+--             newCreateSimulationApplication
+--
+--         , requestCreateSimulationApplicationVersion $
+--             newCreateSimulationApplicationVersion
+--
+--         , requestCreateSimulationJob $
+--             newCreateSimulationJob
+--
+--         , requestCreateWorldExportJob $
+--             newCreateWorldExportJob
+--
+--         , requestCreateWorldGenerationJob $
+--             newCreateWorldGenerationJob
+--
+--         , requestCreateWorldTemplate $
+--             newCreateWorldTemplate
+--
+--         , requestDeleteRobotApplication $
+--             newDeleteRobotApplication
+--
+--         , requestDeleteSimulationApplication $
+--             newDeleteSimulationApplication
+--
+--         , requestDeleteWorldTemplate $
+--             newDeleteWorldTemplate
+--
+--         , requestDescribeRobotApplication $
+--             newDescribeRobotApplication
+--
+--         , requestDescribeSimulationApplication $
+--             newDescribeSimulationApplication
+--
+--         , requestDescribeSimulationJob $
+--             newDescribeSimulationJob
+--
+--         , requestDescribeSimulationJobBatch $
+--             newDescribeSimulationJobBatch
+--
+--         , requestDescribeWorld $
+--             newDescribeWorld
+--
+--         , requestDescribeWorldExportJob $
+--             newDescribeWorldExportJob
+--
+--         , requestDescribeWorldGenerationJob $
+--             newDescribeWorldGenerationJob
+--
+--         , requestDescribeWorldTemplate $
+--             newDescribeWorldTemplate
+--
+--         , requestGetWorldTemplateBody $
+--             newGetWorldTemplateBody
+--
+--         , requestListRobotApplications $
+--             newListRobotApplications
+--
+--         , requestListSimulationApplications $
+--             newListSimulationApplications
+--
+--         , requestListSimulationJobBatches $
+--             newListSimulationJobBatches
+--
+--         , requestListSimulationJobs $
+--             newListSimulationJobs
+--
+--         , requestListTagsForResource $
+--             newListTagsForResource
+--
+--         , requestListWorldExportJobs $
+--             newListWorldExportJobs
+--
+--         , requestListWorldGenerationJobs $
+--             newListWorldGenerationJobs
+--
+--         , requestListWorldTemplates $
+--             newListWorldTemplates
+--
+--         , requestListWorlds $
+--             newListWorlds
+--
+--         , requestRestartSimulationJob $
+--             newRestartSimulationJob
+--
+--         , requestStartSimulationJobBatch $
+--             newStartSimulationJobBatch
+--
+--         , requestTagResource $
+--             newTagResource
+--
+--         , requestUntagResource $
+--             newUntagResource
+--
+--         , requestUpdateRobotApplication $
+--             newUpdateRobotApplication
+--
+--         , requestUpdateSimulationApplication $
+--             newUpdateSimulationApplication
+--
+--         , requestUpdateWorldTemplate $
+--             newUpdateWorldTemplate
 --
 --           ]
 
 --     , testGroup "response"
---         [ responseDescribeWorldExportJob $
---             newDescribeWorldExportJobResponse
---
---         , responseBatchDeleteWorlds $
+--         [ responseBatchDeleteWorlds $
 --             newBatchDeleteWorldsResponse
---
---         , responseGetWorldTemplateBody $
---             newGetWorldTemplateBodyResponse
---
---         , responseDeleteFleet $
---             newDeleteFleetResponse
---
---         , responseCreateWorldGenerationJob $
---             newCreateWorldGenerationJobResponse
---
---         , responseListRobotApplications $
---             newListRobotApplicationsResponse
---
---         , responseUpdateRobotApplication $
---             newUpdateRobotApplicationResponse
---
---         , responseDeleteRobotApplication $
---             newDeleteRobotApplicationResponse
---
---         , responseCreateSimulationApplicationVersion $
---             newCreateSimulationApplicationVersionResponse
---
---         , responseListDeploymentJobs $
---             newListDeploymentJobsResponse
---
---         , responseDescribeWorld $
---             newDescribeWorldResponse
---
---         , responseCancelSimulationJob $
---             newCancelSimulationJobResponse
---
---         , responseCreateRobotApplication $
---             newCreateRobotApplicationResponse
---
---         , responseListTagsForResource $
---             newListTagsForResourceResponse
---
---         , responseCreateDeploymentJob $
---             newCreateDeploymentJobResponse
---
---         , responseRegisterRobot $
---             newRegisterRobotResponse
---
---         , responseListRobots $
---             newListRobotsResponse
---
---         , responseCreateWorldExportJob $
---             newCreateWorldExportJobResponse
 --
 --         , responseBatchDescribeSimulationJob $
 --             newBatchDescribeSimulationJobResponse
 --
---         , responseCreateSimulationApplication $
---             newCreateSimulationApplicationResponse
---
---         , responseStartSimulationJobBatch $
---             newStartSimulationJobBatchResponse
---
---         , responseCreateRobot $
---             newCreateRobotResponse
---
---         , responseDescribeFleet $
---             newDescribeFleetResponse
---
---         , responseListWorldTemplates $
---             newListWorldTemplatesResponse
---
---         , responseDescribeRobotApplication $
---             newDescribeRobotApplicationResponse
---
---         , responseRestartSimulationJob $
---             newRestartSimulationJobResponse
---
---         , responseDescribeSimulationJob $
---             newDescribeSimulationJobResponse
---
---         , responseDeregisterRobot $
---             newDeregisterRobotResponse
---
---         , responseDescribeSimulationApplication $
---             newDescribeSimulationApplicationResponse
---
---         , responseListSimulationJobBatches $
---             newListSimulationJobBatchesResponse
---
---         , responseListFleets $
---             newListFleetsResponse
---
---         , responseDescribeWorldTemplate $
---             newDescribeWorldTemplateResponse
---
---         , responseCancelWorldExportJob $
---             newCancelWorldExportJobResponse
---
---         , responseListWorldGenerationJobs $
---             newListWorldGenerationJobsResponse
---
---         , responseCreateFleet $
---             newCreateFleetResponse
---
---         , responseCancelWorldGenerationJob $
---             newCancelWorldGenerationJobResponse
---
---         , responseDescribeSimulationJobBatch $
---             newDescribeSimulationJobBatchResponse
---
---         , responseListSimulationJobs $
---             newListSimulationJobsResponse
---
---         , responseDeleteRobot $
---             newDeleteRobotResponse
---
---         , responseDeleteSimulationApplication $
---             newDeleteSimulationApplicationResponse
---
---         , responseUpdateSimulationApplication $
---             newUpdateSimulationApplicationResponse
---
---         , responseCreateSimulationJob $
---             newCreateSimulationJobResponse
---
---         , responseListWorldExportJobs $
---             newListWorldExportJobsResponse
---
---         , responseListSimulationApplications $
---             newListSimulationApplicationsResponse
---
---         , responseCreateRobotApplicationVersion $
---             newCreateRobotApplicationVersionResponse
---
---         , responseCancelDeploymentJob $
---             newCancelDeploymentJobResponse
---
---         , responseTagResource $
---             newTagResourceResponse
---
---         , responseListWorlds $
---             newListWorldsResponse
---
---         , responseUntagResource $
---             newUntagResourceResponse
---
---         , responseDescribeDeploymentJob $
---             newDescribeDeploymentJobResponse
---
---         , responseDeleteWorldTemplate $
---             newDeleteWorldTemplateResponse
---
---         , responseUpdateWorldTemplate $
---             newUpdateWorldTemplateResponse
---
---         , responseDescribeWorldGenerationJob $
---             newDescribeWorldGenerationJobResponse
---
---         , responseCreateWorldTemplate $
---             newCreateWorldTemplateResponse
+--         , responseCancelSimulationJob $
+--             newCancelSimulationJobResponse
 --
 --         , responseCancelSimulationJobBatch $
 --             newCancelSimulationJobBatchResponse
 --
---         , responseDescribeRobot $
---             newDescribeRobotResponse
+--         , responseCancelWorldExportJob $
+--             newCancelWorldExportJobResponse
 --
---         , responseSyncDeploymentJob $
---             newSyncDeploymentJobResponse
+--         , responseCancelWorldGenerationJob $
+--             newCancelWorldGenerationJobResponse
+--
+--         , responseCreateRobotApplication $
+--             newCreateRobotApplicationResponse
+--
+--         , responseCreateRobotApplicationVersion $
+--             newCreateRobotApplicationVersionResponse
+--
+--         , responseCreateSimulationApplication $
+--             newCreateSimulationApplicationResponse
+--
+--         , responseCreateSimulationApplicationVersion $
+--             newCreateSimulationApplicationVersionResponse
+--
+--         , responseCreateSimulationJob $
+--             newCreateSimulationJobResponse
+--
+--         , responseCreateWorldExportJob $
+--             newCreateWorldExportJobResponse
+--
+--         , responseCreateWorldGenerationJob $
+--             newCreateWorldGenerationJobResponse
+--
+--         , responseCreateWorldTemplate $
+--             newCreateWorldTemplateResponse
+--
+--         , responseDeleteRobotApplication $
+--             newDeleteRobotApplicationResponse
+--
+--         , responseDeleteSimulationApplication $
+--             newDeleteSimulationApplicationResponse
+--
+--         , responseDeleteWorldTemplate $
+--             newDeleteWorldTemplateResponse
+--
+--         , responseDescribeRobotApplication $
+--             newDescribeRobotApplicationResponse
+--
+--         , responseDescribeSimulationApplication $
+--             newDescribeSimulationApplicationResponse
+--
+--         , responseDescribeSimulationJob $
+--             newDescribeSimulationJobResponse
+--
+--         , responseDescribeSimulationJobBatch $
+--             newDescribeSimulationJobBatchResponse
+--
+--         , responseDescribeWorld $
+--             newDescribeWorldResponse
+--
+--         , responseDescribeWorldExportJob $
+--             newDescribeWorldExportJobResponse
+--
+--         , responseDescribeWorldGenerationJob $
+--             newDescribeWorldGenerationJobResponse
+--
+--         , responseDescribeWorldTemplate $
+--             newDescribeWorldTemplateResponse
+--
+--         , responseGetWorldTemplateBody $
+--             newGetWorldTemplateBodyResponse
+--
+--         , responseListRobotApplications $
+--             newListRobotApplicationsResponse
+--
+--         , responseListSimulationApplications $
+--             newListSimulationApplicationsResponse
+--
+--         , responseListSimulationJobBatches $
+--             newListSimulationJobBatchesResponse
+--
+--         , responseListSimulationJobs $
+--             newListSimulationJobsResponse
+--
+--         , responseListTagsForResource $
+--             newListTagsForResourceResponse
+--
+--         , responseListWorldExportJobs $
+--             newListWorldExportJobsResponse
+--
+--         , responseListWorldGenerationJobs $
+--             newListWorldGenerationJobsResponse
+--
+--         , responseListWorldTemplates $
+--             newListWorldTemplatesResponse
+--
+--         , responseListWorlds $
+--             newListWorldsResponse
+--
+--         , responseRestartSimulationJob $
+--             newRestartSimulationJobResponse
+--
+--         , responseStartSimulationJobBatch $
+--             newStartSimulationJobBatchResponse
+--
+--         , responseTagResource $
+--             newTagResourceResponse
+--
+--         , responseUntagResource $
+--             newUntagResourceResponse
+--
+--         , responseUpdateRobotApplication $
+--             newUpdateRobotApplicationResponse
+--
+--         , responseUpdateSimulationApplication $
+--             newUpdateSimulationApplicationResponse
+--
+--         , responseUpdateWorldTemplate $
+--             newUpdateWorldTemplateResponse
 --
 --           ]
 --     ]
 
 -- Requests
-
-requestDescribeWorldExportJob :: DescribeWorldExportJob -> TestTree
-requestDescribeWorldExportJob =
-  req
-    "DescribeWorldExportJob"
-    "fixture/DescribeWorldExportJob.yaml"
 
 requestBatchDeleteWorlds :: BatchDeleteWorlds -> TestTree
 requestBatchDeleteWorlds =
@@ -389,59 +293,11 @@ requestBatchDeleteWorlds =
     "BatchDeleteWorlds"
     "fixture/BatchDeleteWorlds.yaml"
 
-requestGetWorldTemplateBody :: GetWorldTemplateBody -> TestTree
-requestGetWorldTemplateBody =
+requestBatchDescribeSimulationJob :: BatchDescribeSimulationJob -> TestTree
+requestBatchDescribeSimulationJob =
   req
-    "GetWorldTemplateBody"
-    "fixture/GetWorldTemplateBody.yaml"
-
-requestDeleteFleet :: DeleteFleet -> TestTree
-requestDeleteFleet =
-  req
-    "DeleteFleet"
-    "fixture/DeleteFleet.yaml"
-
-requestCreateWorldGenerationJob :: CreateWorldGenerationJob -> TestTree
-requestCreateWorldGenerationJob =
-  req
-    "CreateWorldGenerationJob"
-    "fixture/CreateWorldGenerationJob.yaml"
-
-requestListRobotApplications :: ListRobotApplications -> TestTree
-requestListRobotApplications =
-  req
-    "ListRobotApplications"
-    "fixture/ListRobotApplications.yaml"
-
-requestUpdateRobotApplication :: UpdateRobotApplication -> TestTree
-requestUpdateRobotApplication =
-  req
-    "UpdateRobotApplication"
-    "fixture/UpdateRobotApplication.yaml"
-
-requestDeleteRobotApplication :: DeleteRobotApplication -> TestTree
-requestDeleteRobotApplication =
-  req
-    "DeleteRobotApplication"
-    "fixture/DeleteRobotApplication.yaml"
-
-requestCreateSimulationApplicationVersion :: CreateSimulationApplicationVersion -> TestTree
-requestCreateSimulationApplicationVersion =
-  req
-    "CreateSimulationApplicationVersion"
-    "fixture/CreateSimulationApplicationVersion.yaml"
-
-requestListDeploymentJobs :: ListDeploymentJobs -> TestTree
-requestListDeploymentJobs =
-  req
-    "ListDeploymentJobs"
-    "fixture/ListDeploymentJobs.yaml"
-
-requestDescribeWorld :: DescribeWorld -> TestTree
-requestDescribeWorld =
-  req
-    "DescribeWorld"
-    "fixture/DescribeWorld.yaml"
+    "BatchDescribeSimulationJob"
+    "fixture/BatchDescribeSimulationJob.yaml"
 
 requestCancelSimulationJob :: CancelSimulationJob -> TestTree
 requestCancelSimulationJob =
@@ -449,125 +305,11 @@ requestCancelSimulationJob =
     "CancelSimulationJob"
     "fixture/CancelSimulationJob.yaml"
 
-requestCreateRobotApplication :: CreateRobotApplication -> TestTree
-requestCreateRobotApplication =
+requestCancelSimulationJobBatch :: CancelSimulationJobBatch -> TestTree
+requestCancelSimulationJobBatch =
   req
-    "CreateRobotApplication"
-    "fixture/CreateRobotApplication.yaml"
-
-requestListTagsForResource :: ListTagsForResource -> TestTree
-requestListTagsForResource =
-  req
-    "ListTagsForResource"
-    "fixture/ListTagsForResource.yaml"
-
-requestCreateDeploymentJob :: CreateDeploymentJob -> TestTree
-requestCreateDeploymentJob =
-  req
-    "CreateDeploymentJob"
-    "fixture/CreateDeploymentJob.yaml"
-
-requestRegisterRobot :: RegisterRobot -> TestTree
-requestRegisterRobot =
-  req
-    "RegisterRobot"
-    "fixture/RegisterRobot.yaml"
-
-requestListRobots :: ListRobots -> TestTree
-requestListRobots =
-  req
-    "ListRobots"
-    "fixture/ListRobots.yaml"
-
-requestCreateWorldExportJob :: CreateWorldExportJob -> TestTree
-requestCreateWorldExportJob =
-  req
-    "CreateWorldExportJob"
-    "fixture/CreateWorldExportJob.yaml"
-
-requestBatchDescribeSimulationJob :: BatchDescribeSimulationJob -> TestTree
-requestBatchDescribeSimulationJob =
-  req
-    "BatchDescribeSimulationJob"
-    "fixture/BatchDescribeSimulationJob.yaml"
-
-requestCreateSimulationApplication :: CreateSimulationApplication -> TestTree
-requestCreateSimulationApplication =
-  req
-    "CreateSimulationApplication"
-    "fixture/CreateSimulationApplication.yaml"
-
-requestStartSimulationJobBatch :: StartSimulationJobBatch -> TestTree
-requestStartSimulationJobBatch =
-  req
-    "StartSimulationJobBatch"
-    "fixture/StartSimulationJobBatch.yaml"
-
-requestCreateRobot :: CreateRobot -> TestTree
-requestCreateRobot =
-  req
-    "CreateRobot"
-    "fixture/CreateRobot.yaml"
-
-requestDescribeFleet :: DescribeFleet -> TestTree
-requestDescribeFleet =
-  req
-    "DescribeFleet"
-    "fixture/DescribeFleet.yaml"
-
-requestListWorldTemplates :: ListWorldTemplates -> TestTree
-requestListWorldTemplates =
-  req
-    "ListWorldTemplates"
-    "fixture/ListWorldTemplates.yaml"
-
-requestDescribeRobotApplication :: DescribeRobotApplication -> TestTree
-requestDescribeRobotApplication =
-  req
-    "DescribeRobotApplication"
-    "fixture/DescribeRobotApplication.yaml"
-
-requestRestartSimulationJob :: RestartSimulationJob -> TestTree
-requestRestartSimulationJob =
-  req
-    "RestartSimulationJob"
-    "fixture/RestartSimulationJob.yaml"
-
-requestDescribeSimulationJob :: DescribeSimulationJob -> TestTree
-requestDescribeSimulationJob =
-  req
-    "DescribeSimulationJob"
-    "fixture/DescribeSimulationJob.yaml"
-
-requestDeregisterRobot :: DeregisterRobot -> TestTree
-requestDeregisterRobot =
-  req
-    "DeregisterRobot"
-    "fixture/DeregisterRobot.yaml"
-
-requestDescribeSimulationApplication :: DescribeSimulationApplication -> TestTree
-requestDescribeSimulationApplication =
-  req
-    "DescribeSimulationApplication"
-    "fixture/DescribeSimulationApplication.yaml"
-
-requestListSimulationJobBatches :: ListSimulationJobBatches -> TestTree
-requestListSimulationJobBatches =
-  req
-    "ListSimulationJobBatches"
-    "fixture/ListSimulationJobBatches.yaml"
-
-requestListFleets :: ListFleets -> TestTree
-requestListFleets =
-  req
-    "ListFleets"
-    "fixture/ListFleets.yaml"
-
-requestDescribeWorldTemplate :: DescribeWorldTemplate -> TestTree
-requestDescribeWorldTemplate =
-  req
-    "DescribeWorldTemplate"
-    "fixture/DescribeWorldTemplate.yaml"
+    "CancelSimulationJobBatch"
+    "fixture/CancelSimulationJobBatch.yaml"
 
 requestCancelWorldExportJob :: CancelWorldExportJob -> TestTree
 requestCancelWorldExportJob =
@@ -575,71 +317,17 @@ requestCancelWorldExportJob =
     "CancelWorldExportJob"
     "fixture/CancelWorldExportJob.yaml"
 
-requestListWorldGenerationJobs :: ListWorldGenerationJobs -> TestTree
-requestListWorldGenerationJobs =
-  req
-    "ListWorldGenerationJobs"
-    "fixture/ListWorldGenerationJobs.yaml"
-
-requestCreateFleet :: CreateFleet -> TestTree
-requestCreateFleet =
-  req
-    "CreateFleet"
-    "fixture/CreateFleet.yaml"
-
 requestCancelWorldGenerationJob :: CancelWorldGenerationJob -> TestTree
 requestCancelWorldGenerationJob =
   req
     "CancelWorldGenerationJob"
     "fixture/CancelWorldGenerationJob.yaml"
 
-requestDescribeSimulationJobBatch :: DescribeSimulationJobBatch -> TestTree
-requestDescribeSimulationJobBatch =
+requestCreateRobotApplication :: CreateRobotApplication -> TestTree
+requestCreateRobotApplication =
   req
-    "DescribeSimulationJobBatch"
-    "fixture/DescribeSimulationJobBatch.yaml"
-
-requestListSimulationJobs :: ListSimulationJobs -> TestTree
-requestListSimulationJobs =
-  req
-    "ListSimulationJobs"
-    "fixture/ListSimulationJobs.yaml"
-
-requestDeleteRobot :: DeleteRobot -> TestTree
-requestDeleteRobot =
-  req
-    "DeleteRobot"
-    "fixture/DeleteRobot.yaml"
-
-requestDeleteSimulationApplication :: DeleteSimulationApplication -> TestTree
-requestDeleteSimulationApplication =
-  req
-    "DeleteSimulationApplication"
-    "fixture/DeleteSimulationApplication.yaml"
-
-requestUpdateSimulationApplication :: UpdateSimulationApplication -> TestTree
-requestUpdateSimulationApplication =
-  req
-    "UpdateSimulationApplication"
-    "fixture/UpdateSimulationApplication.yaml"
-
-requestCreateSimulationJob :: CreateSimulationJob -> TestTree
-requestCreateSimulationJob =
-  req
-    "CreateSimulationJob"
-    "fixture/CreateSimulationJob.yaml"
-
-requestListWorldExportJobs :: ListWorldExportJobs -> TestTree
-requestListWorldExportJobs =
-  req
-    "ListWorldExportJobs"
-    "fixture/ListWorldExportJobs.yaml"
-
-requestListSimulationApplications :: ListSimulationApplications -> TestTree
-requestListSimulationApplications =
-  req
-    "ListSimulationApplications"
-    "fixture/ListSimulationApplications.yaml"
+    "CreateRobotApplication"
+    "fixture/CreateRobotApplication.yaml"
 
 requestCreateRobotApplicationVersion :: CreateRobotApplicationVersion -> TestTree
 requestCreateRobotApplicationVersion =
@@ -647,53 +335,35 @@ requestCreateRobotApplicationVersion =
     "CreateRobotApplicationVersion"
     "fixture/CreateRobotApplicationVersion.yaml"
 
-requestCancelDeploymentJob :: CancelDeploymentJob -> TestTree
-requestCancelDeploymentJob =
+requestCreateSimulationApplication :: CreateSimulationApplication -> TestTree
+requestCreateSimulationApplication =
   req
-    "CancelDeploymentJob"
-    "fixture/CancelDeploymentJob.yaml"
+    "CreateSimulationApplication"
+    "fixture/CreateSimulationApplication.yaml"
 
-requestTagResource :: TagResource -> TestTree
-requestTagResource =
+requestCreateSimulationApplicationVersion :: CreateSimulationApplicationVersion -> TestTree
+requestCreateSimulationApplicationVersion =
   req
-    "TagResource"
-    "fixture/TagResource.yaml"
+    "CreateSimulationApplicationVersion"
+    "fixture/CreateSimulationApplicationVersion.yaml"
 
-requestListWorlds :: ListWorlds -> TestTree
-requestListWorlds =
+requestCreateSimulationJob :: CreateSimulationJob -> TestTree
+requestCreateSimulationJob =
   req
-    "ListWorlds"
-    "fixture/ListWorlds.yaml"
+    "CreateSimulationJob"
+    "fixture/CreateSimulationJob.yaml"
 
-requestUntagResource :: UntagResource -> TestTree
-requestUntagResource =
+requestCreateWorldExportJob :: CreateWorldExportJob -> TestTree
+requestCreateWorldExportJob =
   req
-    "UntagResource"
-    "fixture/UntagResource.yaml"
+    "CreateWorldExportJob"
+    "fixture/CreateWorldExportJob.yaml"
 
-requestDescribeDeploymentJob :: DescribeDeploymentJob -> TestTree
-requestDescribeDeploymentJob =
+requestCreateWorldGenerationJob :: CreateWorldGenerationJob -> TestTree
+requestCreateWorldGenerationJob =
   req
-    "DescribeDeploymentJob"
-    "fixture/DescribeDeploymentJob.yaml"
-
-requestDeleteWorldTemplate :: DeleteWorldTemplate -> TestTree
-requestDeleteWorldTemplate =
-  req
-    "DeleteWorldTemplate"
-    "fixture/DeleteWorldTemplate.yaml"
-
-requestUpdateWorldTemplate :: UpdateWorldTemplate -> TestTree
-requestUpdateWorldTemplate =
-  req
-    "UpdateWorldTemplate"
-    "fixture/UpdateWorldTemplate.yaml"
-
-requestDescribeWorldGenerationJob :: DescribeWorldGenerationJob -> TestTree
-requestDescribeWorldGenerationJob =
-  req
-    "DescribeWorldGenerationJob"
-    "fixture/DescribeWorldGenerationJob.yaml"
+    "CreateWorldGenerationJob"
+    "fixture/CreateWorldGenerationJob.yaml"
 
 requestCreateWorldTemplate :: CreateWorldTemplate -> TestTree
 requestCreateWorldTemplate =
@@ -701,33 +371,175 @@ requestCreateWorldTemplate =
     "CreateWorldTemplate"
     "fixture/CreateWorldTemplate.yaml"
 
-requestCancelSimulationJobBatch :: CancelSimulationJobBatch -> TestTree
-requestCancelSimulationJobBatch =
+requestDeleteRobotApplication :: DeleteRobotApplication -> TestTree
+requestDeleteRobotApplication =
   req
-    "CancelSimulationJobBatch"
-    "fixture/CancelSimulationJobBatch.yaml"
+    "DeleteRobotApplication"
+    "fixture/DeleteRobotApplication.yaml"
 
-requestDescribeRobot :: DescribeRobot -> TestTree
-requestDescribeRobot =
+requestDeleteSimulationApplication :: DeleteSimulationApplication -> TestTree
+requestDeleteSimulationApplication =
   req
-    "DescribeRobot"
-    "fixture/DescribeRobot.yaml"
+    "DeleteSimulationApplication"
+    "fixture/DeleteSimulationApplication.yaml"
 
-requestSyncDeploymentJob :: SyncDeploymentJob -> TestTree
-requestSyncDeploymentJob =
+requestDeleteWorldTemplate :: DeleteWorldTemplate -> TestTree
+requestDeleteWorldTemplate =
   req
-    "SyncDeploymentJob"
-    "fixture/SyncDeploymentJob.yaml"
+    "DeleteWorldTemplate"
+    "fixture/DeleteWorldTemplate.yaml"
+
+requestDescribeRobotApplication :: DescribeRobotApplication -> TestTree
+requestDescribeRobotApplication =
+  req
+    "DescribeRobotApplication"
+    "fixture/DescribeRobotApplication.yaml"
+
+requestDescribeSimulationApplication :: DescribeSimulationApplication -> TestTree
+requestDescribeSimulationApplication =
+  req
+    "DescribeSimulationApplication"
+    "fixture/DescribeSimulationApplication.yaml"
+
+requestDescribeSimulationJob :: DescribeSimulationJob -> TestTree
+requestDescribeSimulationJob =
+  req
+    "DescribeSimulationJob"
+    "fixture/DescribeSimulationJob.yaml"
+
+requestDescribeSimulationJobBatch :: DescribeSimulationJobBatch -> TestTree
+requestDescribeSimulationJobBatch =
+  req
+    "DescribeSimulationJobBatch"
+    "fixture/DescribeSimulationJobBatch.yaml"
+
+requestDescribeWorld :: DescribeWorld -> TestTree
+requestDescribeWorld =
+  req
+    "DescribeWorld"
+    "fixture/DescribeWorld.yaml"
+
+requestDescribeWorldExportJob :: DescribeWorldExportJob -> TestTree
+requestDescribeWorldExportJob =
+  req
+    "DescribeWorldExportJob"
+    "fixture/DescribeWorldExportJob.yaml"
+
+requestDescribeWorldGenerationJob :: DescribeWorldGenerationJob -> TestTree
+requestDescribeWorldGenerationJob =
+  req
+    "DescribeWorldGenerationJob"
+    "fixture/DescribeWorldGenerationJob.yaml"
+
+requestDescribeWorldTemplate :: DescribeWorldTemplate -> TestTree
+requestDescribeWorldTemplate =
+  req
+    "DescribeWorldTemplate"
+    "fixture/DescribeWorldTemplate.yaml"
+
+requestGetWorldTemplateBody :: GetWorldTemplateBody -> TestTree
+requestGetWorldTemplateBody =
+  req
+    "GetWorldTemplateBody"
+    "fixture/GetWorldTemplateBody.yaml"
+
+requestListRobotApplications :: ListRobotApplications -> TestTree
+requestListRobotApplications =
+  req
+    "ListRobotApplications"
+    "fixture/ListRobotApplications.yaml"
+
+requestListSimulationApplications :: ListSimulationApplications -> TestTree
+requestListSimulationApplications =
+  req
+    "ListSimulationApplications"
+    "fixture/ListSimulationApplications.yaml"
+
+requestListSimulationJobBatches :: ListSimulationJobBatches -> TestTree
+requestListSimulationJobBatches =
+  req
+    "ListSimulationJobBatches"
+    "fixture/ListSimulationJobBatches.yaml"
+
+requestListSimulationJobs :: ListSimulationJobs -> TestTree
+requestListSimulationJobs =
+  req
+    "ListSimulationJobs"
+    "fixture/ListSimulationJobs.yaml"
+
+requestListTagsForResource :: ListTagsForResource -> TestTree
+requestListTagsForResource =
+  req
+    "ListTagsForResource"
+    "fixture/ListTagsForResource.yaml"
+
+requestListWorldExportJobs :: ListWorldExportJobs -> TestTree
+requestListWorldExportJobs =
+  req
+    "ListWorldExportJobs"
+    "fixture/ListWorldExportJobs.yaml"
+
+requestListWorldGenerationJobs :: ListWorldGenerationJobs -> TestTree
+requestListWorldGenerationJobs =
+  req
+    "ListWorldGenerationJobs"
+    "fixture/ListWorldGenerationJobs.yaml"
+
+requestListWorldTemplates :: ListWorldTemplates -> TestTree
+requestListWorldTemplates =
+  req
+    "ListWorldTemplates"
+    "fixture/ListWorldTemplates.yaml"
+
+requestListWorlds :: ListWorlds -> TestTree
+requestListWorlds =
+  req
+    "ListWorlds"
+    "fixture/ListWorlds.yaml"
+
+requestRestartSimulationJob :: RestartSimulationJob -> TestTree
+requestRestartSimulationJob =
+  req
+    "RestartSimulationJob"
+    "fixture/RestartSimulationJob.yaml"
+
+requestStartSimulationJobBatch :: StartSimulationJobBatch -> TestTree
+requestStartSimulationJobBatch =
+  req
+    "StartSimulationJobBatch"
+    "fixture/StartSimulationJobBatch.yaml"
+
+requestTagResource :: TagResource -> TestTree
+requestTagResource =
+  req
+    "TagResource"
+    "fixture/TagResource.yaml"
+
+requestUntagResource :: UntagResource -> TestTree
+requestUntagResource =
+  req
+    "UntagResource"
+    "fixture/UntagResource.yaml"
+
+requestUpdateRobotApplication :: UpdateRobotApplication -> TestTree
+requestUpdateRobotApplication =
+  req
+    "UpdateRobotApplication"
+    "fixture/UpdateRobotApplication.yaml"
+
+requestUpdateSimulationApplication :: UpdateSimulationApplication -> TestTree
+requestUpdateSimulationApplication =
+  req
+    "UpdateSimulationApplication"
+    "fixture/UpdateSimulationApplication.yaml"
+
+requestUpdateWorldTemplate :: UpdateWorldTemplate -> TestTree
+requestUpdateWorldTemplate =
+  req
+    "UpdateWorldTemplate"
+    "fixture/UpdateWorldTemplate.yaml"
 
 -- Responses
-
-responseDescribeWorldExportJob :: DescribeWorldExportJobResponse -> TestTree
-responseDescribeWorldExportJob =
-  res
-    "DescribeWorldExportJobResponse"
-    "fixture/DescribeWorldExportJobResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeWorldExportJob)
 
 responseBatchDeleteWorlds :: BatchDeleteWorldsResponse -> TestTree
 responseBatchDeleteWorlds =
@@ -737,77 +549,13 @@ responseBatchDeleteWorlds =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy BatchDeleteWorlds)
 
-responseGetWorldTemplateBody :: GetWorldTemplateBodyResponse -> TestTree
-responseGetWorldTemplateBody =
+responseBatchDescribeSimulationJob :: BatchDescribeSimulationJobResponse -> TestTree
+responseBatchDescribeSimulationJob =
   res
-    "GetWorldTemplateBodyResponse"
-    "fixture/GetWorldTemplateBodyResponse.proto"
+    "BatchDescribeSimulationJobResponse"
+    "fixture/BatchDescribeSimulationJobResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetWorldTemplateBody)
-
-responseDeleteFleet :: DeleteFleetResponse -> TestTree
-responseDeleteFleet =
-  res
-    "DeleteFleetResponse"
-    "fixture/DeleteFleetResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteFleet)
-
-responseCreateWorldGenerationJob :: CreateWorldGenerationJobResponse -> TestTree
-responseCreateWorldGenerationJob =
-  res
-    "CreateWorldGenerationJobResponse"
-    "fixture/CreateWorldGenerationJobResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateWorldGenerationJob)
-
-responseListRobotApplications :: ListRobotApplicationsResponse -> TestTree
-responseListRobotApplications =
-  res
-    "ListRobotApplicationsResponse"
-    "fixture/ListRobotApplicationsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListRobotApplications)
-
-responseUpdateRobotApplication :: UpdateRobotApplicationResponse -> TestTree
-responseUpdateRobotApplication =
-  res
-    "UpdateRobotApplicationResponse"
-    "fixture/UpdateRobotApplicationResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateRobotApplication)
-
-responseDeleteRobotApplication :: DeleteRobotApplicationResponse -> TestTree
-responseDeleteRobotApplication =
-  res
-    "DeleteRobotApplicationResponse"
-    "fixture/DeleteRobotApplicationResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteRobotApplication)
-
-responseCreateSimulationApplicationVersion :: CreateSimulationApplicationVersionResponse -> TestTree
-responseCreateSimulationApplicationVersion =
-  res
-    "CreateSimulationApplicationVersionResponse"
-    "fixture/CreateSimulationApplicationVersionResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateSimulationApplicationVersion)
-
-responseListDeploymentJobs :: ListDeploymentJobsResponse -> TestTree
-responseListDeploymentJobs =
-  res
-    "ListDeploymentJobsResponse"
-    "fixture/ListDeploymentJobsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListDeploymentJobs)
-
-responseDescribeWorld :: DescribeWorldResponse -> TestTree
-responseDescribeWorld =
-  res
-    "DescribeWorldResponse"
-    "fixture/DescribeWorldResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeWorld)
+    (Proxy.Proxy :: Proxy.Proxy BatchDescribeSimulationJob)
 
 responseCancelSimulationJob :: CancelSimulationJobResponse -> TestTree
 responseCancelSimulationJob =
@@ -817,165 +565,13 @@ responseCancelSimulationJob =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CancelSimulationJob)
 
-responseCreateRobotApplication :: CreateRobotApplicationResponse -> TestTree
-responseCreateRobotApplication =
+responseCancelSimulationJobBatch :: CancelSimulationJobBatchResponse -> TestTree
+responseCancelSimulationJobBatch =
   res
-    "CreateRobotApplicationResponse"
-    "fixture/CreateRobotApplicationResponse.proto"
+    "CancelSimulationJobBatchResponse"
+    "fixture/CancelSimulationJobBatchResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateRobotApplication)
-
-responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
-responseListTagsForResource =
-  res
-    "ListTagsForResourceResponse"
-    "fixture/ListTagsForResourceResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
-
-responseCreateDeploymentJob :: CreateDeploymentJobResponse -> TestTree
-responseCreateDeploymentJob =
-  res
-    "CreateDeploymentJobResponse"
-    "fixture/CreateDeploymentJobResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateDeploymentJob)
-
-responseRegisterRobot :: RegisterRobotResponse -> TestTree
-responseRegisterRobot =
-  res
-    "RegisterRobotResponse"
-    "fixture/RegisterRobotResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy RegisterRobot)
-
-responseListRobots :: ListRobotsResponse -> TestTree
-responseListRobots =
-  res
-    "ListRobotsResponse"
-    "fixture/ListRobotsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListRobots)
-
-responseCreateWorldExportJob :: CreateWorldExportJobResponse -> TestTree
-responseCreateWorldExportJob =
-  res
-    "CreateWorldExportJobResponse"
-    "fixture/CreateWorldExportJobResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateWorldExportJob)
-
-responseBatchDescribeSimulationJob :: BatchDescribeSimulationJobResponse -> TestTree
-responseBatchDescribeSimulationJob =
-  res
-    "BatchDescribeSimulationJobResponse"
-    "fixture/BatchDescribeSimulationJobResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy BatchDescribeSimulationJob)
-
-responseCreateSimulationApplication :: CreateSimulationApplicationResponse -> TestTree
-responseCreateSimulationApplication =
-  res
-    "CreateSimulationApplicationResponse"
-    "fixture/CreateSimulationApplicationResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateSimulationApplication)
-
-responseStartSimulationJobBatch :: StartSimulationJobBatchResponse -> TestTree
-responseStartSimulationJobBatch =
-  res
-    "StartSimulationJobBatchResponse"
-    "fixture/StartSimulationJobBatchResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy StartSimulationJobBatch)
-
-responseCreateRobot :: CreateRobotResponse -> TestTree
-responseCreateRobot =
-  res
-    "CreateRobotResponse"
-    "fixture/CreateRobotResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateRobot)
-
-responseDescribeFleet :: DescribeFleetResponse -> TestTree
-responseDescribeFleet =
-  res
-    "DescribeFleetResponse"
-    "fixture/DescribeFleetResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeFleet)
-
-responseListWorldTemplates :: ListWorldTemplatesResponse -> TestTree
-responseListWorldTemplates =
-  res
-    "ListWorldTemplatesResponse"
-    "fixture/ListWorldTemplatesResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListWorldTemplates)
-
-responseDescribeRobotApplication :: DescribeRobotApplicationResponse -> TestTree
-responseDescribeRobotApplication =
-  res
-    "DescribeRobotApplicationResponse"
-    "fixture/DescribeRobotApplicationResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeRobotApplication)
-
-responseRestartSimulationJob :: RestartSimulationJobResponse -> TestTree
-responseRestartSimulationJob =
-  res
-    "RestartSimulationJobResponse"
-    "fixture/RestartSimulationJobResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy RestartSimulationJob)
-
-responseDescribeSimulationJob :: DescribeSimulationJobResponse -> TestTree
-responseDescribeSimulationJob =
-  res
-    "DescribeSimulationJobResponse"
-    "fixture/DescribeSimulationJobResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeSimulationJob)
-
-responseDeregisterRobot :: DeregisterRobotResponse -> TestTree
-responseDeregisterRobot =
-  res
-    "DeregisterRobotResponse"
-    "fixture/DeregisterRobotResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeregisterRobot)
-
-responseDescribeSimulationApplication :: DescribeSimulationApplicationResponse -> TestTree
-responseDescribeSimulationApplication =
-  res
-    "DescribeSimulationApplicationResponse"
-    "fixture/DescribeSimulationApplicationResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeSimulationApplication)
-
-responseListSimulationJobBatches :: ListSimulationJobBatchesResponse -> TestTree
-responseListSimulationJobBatches =
-  res
-    "ListSimulationJobBatchesResponse"
-    "fixture/ListSimulationJobBatchesResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListSimulationJobBatches)
-
-responseListFleets :: ListFleetsResponse -> TestTree
-responseListFleets =
-  res
-    "ListFleetsResponse"
-    "fixture/ListFleetsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListFleets)
-
-responseDescribeWorldTemplate :: DescribeWorldTemplateResponse -> TestTree
-responseDescribeWorldTemplate =
-  res
-    "DescribeWorldTemplateResponse"
-    "fixture/DescribeWorldTemplateResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeWorldTemplate)
+    (Proxy.Proxy :: Proxy.Proxy CancelSimulationJobBatch)
 
 responseCancelWorldExportJob :: CancelWorldExportJobResponse -> TestTree
 responseCancelWorldExportJob =
@@ -985,22 +581,6 @@ responseCancelWorldExportJob =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CancelWorldExportJob)
 
-responseListWorldGenerationJobs :: ListWorldGenerationJobsResponse -> TestTree
-responseListWorldGenerationJobs =
-  res
-    "ListWorldGenerationJobsResponse"
-    "fixture/ListWorldGenerationJobsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListWorldGenerationJobs)
-
-responseCreateFleet :: CreateFleetResponse -> TestTree
-responseCreateFleet =
-  res
-    "CreateFleetResponse"
-    "fixture/CreateFleetResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateFleet)
-
 responseCancelWorldGenerationJob :: CancelWorldGenerationJobResponse -> TestTree
 responseCancelWorldGenerationJob =
   res
@@ -1009,69 +589,13 @@ responseCancelWorldGenerationJob =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CancelWorldGenerationJob)
 
-responseDescribeSimulationJobBatch :: DescribeSimulationJobBatchResponse -> TestTree
-responseDescribeSimulationJobBatch =
+responseCreateRobotApplication :: CreateRobotApplicationResponse -> TestTree
+responseCreateRobotApplication =
   res
-    "DescribeSimulationJobBatchResponse"
-    "fixture/DescribeSimulationJobBatchResponse.proto"
+    "CreateRobotApplicationResponse"
+    "fixture/CreateRobotApplicationResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeSimulationJobBatch)
-
-responseListSimulationJobs :: ListSimulationJobsResponse -> TestTree
-responseListSimulationJobs =
-  res
-    "ListSimulationJobsResponse"
-    "fixture/ListSimulationJobsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListSimulationJobs)
-
-responseDeleteRobot :: DeleteRobotResponse -> TestTree
-responseDeleteRobot =
-  res
-    "DeleteRobotResponse"
-    "fixture/DeleteRobotResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteRobot)
-
-responseDeleteSimulationApplication :: DeleteSimulationApplicationResponse -> TestTree
-responseDeleteSimulationApplication =
-  res
-    "DeleteSimulationApplicationResponse"
-    "fixture/DeleteSimulationApplicationResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteSimulationApplication)
-
-responseUpdateSimulationApplication :: UpdateSimulationApplicationResponse -> TestTree
-responseUpdateSimulationApplication =
-  res
-    "UpdateSimulationApplicationResponse"
-    "fixture/UpdateSimulationApplicationResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateSimulationApplication)
-
-responseCreateSimulationJob :: CreateSimulationJobResponse -> TestTree
-responseCreateSimulationJob =
-  res
-    "CreateSimulationJobResponse"
-    "fixture/CreateSimulationJobResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateSimulationJob)
-
-responseListWorldExportJobs :: ListWorldExportJobsResponse -> TestTree
-responseListWorldExportJobs =
-  res
-    "ListWorldExportJobsResponse"
-    "fixture/ListWorldExportJobsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListWorldExportJobs)
-
-responseListSimulationApplications :: ListSimulationApplicationsResponse -> TestTree
-responseListSimulationApplications =
-  res
-    "ListSimulationApplicationsResponse"
-    "fixture/ListSimulationApplicationsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListSimulationApplications)
+    (Proxy.Proxy :: Proxy.Proxy CreateRobotApplication)
 
 responseCreateRobotApplicationVersion :: CreateRobotApplicationVersionResponse -> TestTree
 responseCreateRobotApplicationVersion =
@@ -1081,69 +605,45 @@ responseCreateRobotApplicationVersion =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CreateRobotApplicationVersion)
 
-responseCancelDeploymentJob :: CancelDeploymentJobResponse -> TestTree
-responseCancelDeploymentJob =
+responseCreateSimulationApplication :: CreateSimulationApplicationResponse -> TestTree
+responseCreateSimulationApplication =
   res
-    "CancelDeploymentJobResponse"
-    "fixture/CancelDeploymentJobResponse.proto"
+    "CreateSimulationApplicationResponse"
+    "fixture/CreateSimulationApplicationResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy CancelDeploymentJob)
+    (Proxy.Proxy :: Proxy.Proxy CreateSimulationApplication)
 
-responseTagResource :: TagResourceResponse -> TestTree
-responseTagResource =
+responseCreateSimulationApplicationVersion :: CreateSimulationApplicationVersionResponse -> TestTree
+responseCreateSimulationApplicationVersion =
   res
-    "TagResourceResponse"
-    "fixture/TagResourceResponse.proto"
+    "CreateSimulationApplicationVersionResponse"
+    "fixture/CreateSimulationApplicationVersionResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy TagResource)
+    (Proxy.Proxy :: Proxy.Proxy CreateSimulationApplicationVersion)
 
-responseListWorlds :: ListWorldsResponse -> TestTree
-responseListWorlds =
+responseCreateSimulationJob :: CreateSimulationJobResponse -> TestTree
+responseCreateSimulationJob =
   res
-    "ListWorldsResponse"
-    "fixture/ListWorldsResponse.proto"
+    "CreateSimulationJobResponse"
+    "fixture/CreateSimulationJobResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListWorlds)
+    (Proxy.Proxy :: Proxy.Proxy CreateSimulationJob)
 
-responseUntagResource :: UntagResourceResponse -> TestTree
-responseUntagResource =
+responseCreateWorldExportJob :: CreateWorldExportJobResponse -> TestTree
+responseCreateWorldExportJob =
   res
-    "UntagResourceResponse"
-    "fixture/UntagResourceResponse.proto"
+    "CreateWorldExportJobResponse"
+    "fixture/CreateWorldExportJobResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy UntagResource)
+    (Proxy.Proxy :: Proxy.Proxy CreateWorldExportJob)
 
-responseDescribeDeploymentJob :: DescribeDeploymentJobResponse -> TestTree
-responseDescribeDeploymentJob =
+responseCreateWorldGenerationJob :: CreateWorldGenerationJobResponse -> TestTree
+responseCreateWorldGenerationJob =
   res
-    "DescribeDeploymentJobResponse"
-    "fixture/DescribeDeploymentJobResponse.proto"
+    "CreateWorldGenerationJobResponse"
+    "fixture/CreateWorldGenerationJobResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeDeploymentJob)
-
-responseDeleteWorldTemplate :: DeleteWorldTemplateResponse -> TestTree
-responseDeleteWorldTemplate =
-  res
-    "DeleteWorldTemplateResponse"
-    "fixture/DeleteWorldTemplateResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteWorldTemplate)
-
-responseUpdateWorldTemplate :: UpdateWorldTemplateResponse -> TestTree
-responseUpdateWorldTemplate =
-  res
-    "UpdateWorldTemplateResponse"
-    "fixture/UpdateWorldTemplateResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateWorldTemplate)
-
-responseDescribeWorldGenerationJob :: DescribeWorldGenerationJobResponse -> TestTree
-responseDescribeWorldGenerationJob =
-  res
-    "DescribeWorldGenerationJobResponse"
-    "fixture/DescribeWorldGenerationJobResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeWorldGenerationJob)
+    (Proxy.Proxy :: Proxy.Proxy CreateWorldGenerationJob)
 
 responseCreateWorldTemplate :: CreateWorldTemplateResponse -> TestTree
 responseCreateWorldTemplate =
@@ -1153,26 +653,226 @@ responseCreateWorldTemplate =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CreateWorldTemplate)
 
-responseCancelSimulationJobBatch :: CancelSimulationJobBatchResponse -> TestTree
-responseCancelSimulationJobBatch =
+responseDeleteRobotApplication :: DeleteRobotApplicationResponse -> TestTree
+responseDeleteRobotApplication =
   res
-    "CancelSimulationJobBatchResponse"
-    "fixture/CancelSimulationJobBatchResponse.proto"
+    "DeleteRobotApplicationResponse"
+    "fixture/DeleteRobotApplicationResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy CancelSimulationJobBatch)
+    (Proxy.Proxy :: Proxy.Proxy DeleteRobotApplication)
 
-responseDescribeRobot :: DescribeRobotResponse -> TestTree
-responseDescribeRobot =
+responseDeleteSimulationApplication :: DeleteSimulationApplicationResponse -> TestTree
+responseDeleteSimulationApplication =
   res
-    "DescribeRobotResponse"
-    "fixture/DescribeRobotResponse.proto"
+    "DeleteSimulationApplicationResponse"
+    "fixture/DeleteSimulationApplicationResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeRobot)
+    (Proxy.Proxy :: Proxy.Proxy DeleteSimulationApplication)
 
-responseSyncDeploymentJob :: SyncDeploymentJobResponse -> TestTree
-responseSyncDeploymentJob =
+responseDeleteWorldTemplate :: DeleteWorldTemplateResponse -> TestTree
+responseDeleteWorldTemplate =
   res
-    "SyncDeploymentJobResponse"
-    "fixture/SyncDeploymentJobResponse.proto"
+    "DeleteWorldTemplateResponse"
+    "fixture/DeleteWorldTemplateResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy SyncDeploymentJob)
+    (Proxy.Proxy :: Proxy.Proxy DeleteWorldTemplate)
+
+responseDescribeRobotApplication :: DescribeRobotApplicationResponse -> TestTree
+responseDescribeRobotApplication =
+  res
+    "DescribeRobotApplicationResponse"
+    "fixture/DescribeRobotApplicationResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeRobotApplication)
+
+responseDescribeSimulationApplication :: DescribeSimulationApplicationResponse -> TestTree
+responseDescribeSimulationApplication =
+  res
+    "DescribeSimulationApplicationResponse"
+    "fixture/DescribeSimulationApplicationResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeSimulationApplication)
+
+responseDescribeSimulationJob :: DescribeSimulationJobResponse -> TestTree
+responseDescribeSimulationJob =
+  res
+    "DescribeSimulationJobResponse"
+    "fixture/DescribeSimulationJobResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeSimulationJob)
+
+responseDescribeSimulationJobBatch :: DescribeSimulationJobBatchResponse -> TestTree
+responseDescribeSimulationJobBatch =
+  res
+    "DescribeSimulationJobBatchResponse"
+    "fixture/DescribeSimulationJobBatchResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeSimulationJobBatch)
+
+responseDescribeWorld :: DescribeWorldResponse -> TestTree
+responseDescribeWorld =
+  res
+    "DescribeWorldResponse"
+    "fixture/DescribeWorldResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeWorld)
+
+responseDescribeWorldExportJob :: DescribeWorldExportJobResponse -> TestTree
+responseDescribeWorldExportJob =
+  res
+    "DescribeWorldExportJobResponse"
+    "fixture/DescribeWorldExportJobResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeWorldExportJob)
+
+responseDescribeWorldGenerationJob :: DescribeWorldGenerationJobResponse -> TestTree
+responseDescribeWorldGenerationJob =
+  res
+    "DescribeWorldGenerationJobResponse"
+    "fixture/DescribeWorldGenerationJobResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeWorldGenerationJob)
+
+responseDescribeWorldTemplate :: DescribeWorldTemplateResponse -> TestTree
+responseDescribeWorldTemplate =
+  res
+    "DescribeWorldTemplateResponse"
+    "fixture/DescribeWorldTemplateResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeWorldTemplate)
+
+responseGetWorldTemplateBody :: GetWorldTemplateBodyResponse -> TestTree
+responseGetWorldTemplateBody =
+  res
+    "GetWorldTemplateBodyResponse"
+    "fixture/GetWorldTemplateBodyResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetWorldTemplateBody)
+
+responseListRobotApplications :: ListRobotApplicationsResponse -> TestTree
+responseListRobotApplications =
+  res
+    "ListRobotApplicationsResponse"
+    "fixture/ListRobotApplicationsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListRobotApplications)
+
+responseListSimulationApplications :: ListSimulationApplicationsResponse -> TestTree
+responseListSimulationApplications =
+  res
+    "ListSimulationApplicationsResponse"
+    "fixture/ListSimulationApplicationsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListSimulationApplications)
+
+responseListSimulationJobBatches :: ListSimulationJobBatchesResponse -> TestTree
+responseListSimulationJobBatches =
+  res
+    "ListSimulationJobBatchesResponse"
+    "fixture/ListSimulationJobBatchesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListSimulationJobBatches)
+
+responseListSimulationJobs :: ListSimulationJobsResponse -> TestTree
+responseListSimulationJobs =
+  res
+    "ListSimulationJobsResponse"
+    "fixture/ListSimulationJobsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListSimulationJobs)
+
+responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
+responseListTagsForResource =
+  res
+    "ListTagsForResourceResponse"
+    "fixture/ListTagsForResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
+
+responseListWorldExportJobs :: ListWorldExportJobsResponse -> TestTree
+responseListWorldExportJobs =
+  res
+    "ListWorldExportJobsResponse"
+    "fixture/ListWorldExportJobsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListWorldExportJobs)
+
+responseListWorldGenerationJobs :: ListWorldGenerationJobsResponse -> TestTree
+responseListWorldGenerationJobs =
+  res
+    "ListWorldGenerationJobsResponse"
+    "fixture/ListWorldGenerationJobsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListWorldGenerationJobs)
+
+responseListWorldTemplates :: ListWorldTemplatesResponse -> TestTree
+responseListWorldTemplates =
+  res
+    "ListWorldTemplatesResponse"
+    "fixture/ListWorldTemplatesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListWorldTemplates)
+
+responseListWorlds :: ListWorldsResponse -> TestTree
+responseListWorlds =
+  res
+    "ListWorldsResponse"
+    "fixture/ListWorldsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListWorlds)
+
+responseRestartSimulationJob :: RestartSimulationJobResponse -> TestTree
+responseRestartSimulationJob =
+  res
+    "RestartSimulationJobResponse"
+    "fixture/RestartSimulationJobResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy RestartSimulationJob)
+
+responseStartSimulationJobBatch :: StartSimulationJobBatchResponse -> TestTree
+responseStartSimulationJobBatch =
+  res
+    "StartSimulationJobBatchResponse"
+    "fixture/StartSimulationJobBatchResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy StartSimulationJobBatch)
+
+responseTagResource :: TagResourceResponse -> TestTree
+responseTagResource =
+  res
+    "TagResourceResponse"
+    "fixture/TagResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy TagResource)
+
+responseUntagResource :: UntagResourceResponse -> TestTree
+responseUntagResource =
+  res
+    "UntagResourceResponse"
+    "fixture/UntagResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UntagResource)
+
+responseUpdateRobotApplication :: UpdateRobotApplicationResponse -> TestTree
+responseUpdateRobotApplication =
+  res
+    "UpdateRobotApplicationResponse"
+    "fixture/UpdateRobotApplicationResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateRobotApplication)
+
+responseUpdateSimulationApplication :: UpdateSimulationApplicationResponse -> TestTree
+responseUpdateSimulationApplication =
+  res
+    "UpdateSimulationApplicationResponse"
+    "fixture/UpdateSimulationApplicationResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateSimulationApplication)
+
+responseUpdateWorldTemplate :: UpdateWorldTemplateResponse -> TestTree
+responseUpdateWorldTemplate =
+  res
+    "UpdateWorldTemplateResponse"
+    "fixture/UpdateWorldTemplateResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateWorldTemplate)

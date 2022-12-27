@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.AddTagsToResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -58,7 +58,8 @@ module Amazonka.StorageGateway.AddTagsToResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -126,12 +127,13 @@ instance Core.AWSRequest AddTagsToResource where
   type
     AWSResponse AddTagsToResource =
       AddTagsToResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AddTagsToResourceResponse'
-            Prelude.<$> (x Core..?> "ResourceARN")
+            Prelude.<$> (x Data..?> "ResourceARN")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -145,34 +147,34 @@ instance Prelude.NFData AddTagsToResource where
     Prelude.rnf resourceARN
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders AddTagsToResource where
+instance Data.ToHeaders AddTagsToResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.AddTagsToResource" ::
+              Data.=# ( "StorageGateway_20130630.AddTagsToResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AddTagsToResource where
+instance Data.ToJSON AddTagsToResource where
   toJSON AddTagsToResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ResourceARN" Core..= resourceARN),
-            Prelude.Just ("Tags" Core..= tags)
+          [ Prelude.Just ("ResourceARN" Data..= resourceARN),
+            Prelude.Just ("Tags" Data..= tags)
           ]
       )
 
-instance Core.ToPath AddTagsToResource where
+instance Data.ToPath AddTagsToResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AddTagsToResource where
+instance Data.ToQuery AddTagsToResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | AddTagsToResourceOutput

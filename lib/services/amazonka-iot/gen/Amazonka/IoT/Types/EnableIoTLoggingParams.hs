@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.EnableIoTLoggingParams
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoT.Types.EnableIoTLoggingParams where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.LogLevel
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Parameters used when defining a mitigation action that enable Amazon Web
@@ -70,14 +71,14 @@ enableIoTLoggingParams_roleArnForLogging = Lens.lens (\EnableIoTLoggingParams' {
 enableIoTLoggingParams_logLevel :: Lens.Lens' EnableIoTLoggingParams LogLevel
 enableIoTLoggingParams_logLevel = Lens.lens (\EnableIoTLoggingParams' {logLevel} -> logLevel) (\s@EnableIoTLoggingParams' {} a -> s {logLevel = a} :: EnableIoTLoggingParams)
 
-instance Core.FromJSON EnableIoTLoggingParams where
+instance Data.FromJSON EnableIoTLoggingParams where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EnableIoTLoggingParams"
       ( \x ->
           EnableIoTLoggingParams'
-            Prelude.<$> (x Core..: "roleArnForLogging")
-            Prelude.<*> (x Core..: "logLevel")
+            Prelude.<$> (x Data..: "roleArnForLogging")
+            Prelude.<*> (x Data..: "logLevel")
       )
 
 instance Prelude.Hashable EnableIoTLoggingParams where
@@ -90,12 +91,12 @@ instance Prelude.NFData EnableIoTLoggingParams where
     Prelude.rnf roleArnForLogging
       `Prelude.seq` Prelude.rnf logLevel
 
-instance Core.ToJSON EnableIoTLoggingParams where
+instance Data.ToJSON EnableIoTLoggingParams where
   toJSON EnableIoTLoggingParams' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("roleArnForLogging" Core..= roleArnForLogging),
-            Prelude.Just ("logLevel" Core..= logLevel)
+              ("roleArnForLogging" Data..= roleArnForLogging),
+            Prelude.Just ("logLevel" Data..= logLevel)
           ]
       )

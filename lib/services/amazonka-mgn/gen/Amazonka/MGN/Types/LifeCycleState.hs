@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MGN.Types.LifeCycleState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,6 +23,7 @@ module Amazonka.MGN.Types.LifeCycleState
         LifeCycleState_CUTOVER,
         LifeCycleState_CUTTING_OVER,
         LifeCycleState_DISCONNECTED,
+        LifeCycleState_DISCOVERED,
         LifeCycleState_NOT_READY,
         LifeCycleState_READY_FOR_CUTOVER,
         LifeCycleState_READY_FOR_TEST,
@@ -33,11 +34,12 @@ module Amazonka.MGN.Types.LifeCycleState
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype LifeCycleState = LifeCycleState'
   { fromLifeCycleState ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -49,18 +51,18 @@ newtype LifeCycleState = LifeCycleState'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern LifeCycleState_CUTOVER :: LifeCycleState
@@ -71,6 +73,9 @@ pattern LifeCycleState_CUTTING_OVER = LifeCycleState' "CUTTING_OVER"
 
 pattern LifeCycleState_DISCONNECTED :: LifeCycleState
 pattern LifeCycleState_DISCONNECTED = LifeCycleState' "DISCONNECTED"
+
+pattern LifeCycleState_DISCOVERED :: LifeCycleState
+pattern LifeCycleState_DISCOVERED = LifeCycleState' "DISCOVERED"
 
 pattern LifeCycleState_NOT_READY :: LifeCycleState
 pattern LifeCycleState_NOT_READY = LifeCycleState' "NOT_READY"
@@ -91,6 +96,7 @@ pattern LifeCycleState_TESTING = LifeCycleState' "TESTING"
   LifeCycleState_CUTOVER,
   LifeCycleState_CUTTING_OVER,
   LifeCycleState_DISCONNECTED,
+  LifeCycleState_DISCOVERED,
   LifeCycleState_NOT_READY,
   LifeCycleState_READY_FOR_CUTOVER,
   LifeCycleState_READY_FOR_TEST,

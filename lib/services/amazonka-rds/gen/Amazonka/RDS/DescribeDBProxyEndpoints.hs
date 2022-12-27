@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.DescribeDBProxyEndpoints
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,11 +29,11 @@ module Amazonka.RDS.DescribeDBProxyEndpoints
     newDescribeDBProxyEndpoints,
 
     -- * Request Lenses
+    describeDBProxyEndpoints_dbProxyEndpointName,
+    describeDBProxyEndpoints_dbProxyName,
     describeDBProxyEndpoints_filters,
     describeDBProxyEndpoints_marker,
     describeDBProxyEndpoints_maxRecords,
-    describeDBProxyEndpoints_dbProxyName,
-    describeDBProxyEndpoints_dbProxyEndpointName,
 
     -- * Destructuring the Response
     DescribeDBProxyEndpointsResponse (..),
@@ -47,7 +47,8 @@ module Amazonka.RDS.DescribeDBProxyEndpoints
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -55,7 +56,15 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeDBProxyEndpoints' smart constructor.
 data DescribeDBProxyEndpoints = DescribeDBProxyEndpoints'
-  { -- | This parameter is not currently supported.
+  { -- | The name of a DB proxy endpoint to describe. If you omit this parameter,
+    -- the output includes information about all DB proxy endpoints associated
+    -- with the specified proxy.
+    dbProxyEndpointName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the DB proxy whose endpoints you want to describe. If you
+    -- omit this parameter, the output includes information about all DB proxy
+    -- endpoints associated with all your DB proxies.
+    dbProxyName :: Prelude.Maybe Prelude.Text,
+    -- | This parameter is not currently supported.
     filters :: Prelude.Maybe [Filter],
     -- | An optional pagination token provided by a previous request. If this
     -- parameter is specified, the response includes only records beyond the
@@ -69,15 +78,7 @@ data DescribeDBProxyEndpoints = DescribeDBProxyEndpoints'
     -- Default: 100
     --
     -- Constraints: Minimum 20, maximum 100.
-    maxRecords :: Prelude.Maybe Prelude.Natural,
-    -- | The name of the DB proxy whose endpoints you want to describe. If you
-    -- omit this parameter, the output includes information about all DB proxy
-    -- endpoints associated with all your DB proxies.
-    dbProxyName :: Prelude.Maybe Prelude.Text,
-    -- | The name of a DB proxy endpoint to describe. If you omit this parameter,
-    -- the output includes information about all DB proxy endpoints associated
-    -- with the specified proxy.
-    dbProxyEndpointName :: Prelude.Maybe Prelude.Text
+    maxRecords :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -88,6 +89,14 @@ data DescribeDBProxyEndpoints = DescribeDBProxyEndpoints'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'dbProxyEndpointName', 'describeDBProxyEndpoints_dbProxyEndpointName' - The name of a DB proxy endpoint to describe. If you omit this parameter,
+-- the output includes information about all DB proxy endpoints associated
+-- with the specified proxy.
+--
+-- 'dbProxyName', 'describeDBProxyEndpoints_dbProxyName' - The name of the DB proxy whose endpoints you want to describe. If you
+-- omit this parameter, the output includes information about all DB proxy
+-- endpoints associated with all your DB proxies.
 --
 -- 'filters', 'describeDBProxyEndpoints_filters' - This parameter is not currently supported.
 --
@@ -103,25 +112,29 @@ data DescribeDBProxyEndpoints = DescribeDBProxyEndpoints'
 -- Default: 100
 --
 -- Constraints: Minimum 20, maximum 100.
---
--- 'dbProxyName', 'describeDBProxyEndpoints_dbProxyName' - The name of the DB proxy whose endpoints you want to describe. If you
--- omit this parameter, the output includes information about all DB proxy
--- endpoints associated with all your DB proxies.
---
--- 'dbProxyEndpointName', 'describeDBProxyEndpoints_dbProxyEndpointName' - The name of a DB proxy endpoint to describe. If you omit this parameter,
--- the output includes information about all DB proxy endpoints associated
--- with the specified proxy.
 newDescribeDBProxyEndpoints ::
   DescribeDBProxyEndpoints
 newDescribeDBProxyEndpoints =
   DescribeDBProxyEndpoints'
-    { filters =
+    { dbProxyEndpointName =
         Prelude.Nothing,
-      marker = Prelude.Nothing,
-      maxRecords = Prelude.Nothing,
       dbProxyName = Prelude.Nothing,
-      dbProxyEndpointName = Prelude.Nothing
+      filters = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing
     }
+
+-- | The name of a DB proxy endpoint to describe. If you omit this parameter,
+-- the output includes information about all DB proxy endpoints associated
+-- with the specified proxy.
+describeDBProxyEndpoints_dbProxyEndpointName :: Lens.Lens' DescribeDBProxyEndpoints (Prelude.Maybe Prelude.Text)
+describeDBProxyEndpoints_dbProxyEndpointName = Lens.lens (\DescribeDBProxyEndpoints' {dbProxyEndpointName} -> dbProxyEndpointName) (\s@DescribeDBProxyEndpoints' {} a -> s {dbProxyEndpointName = a} :: DescribeDBProxyEndpoints)
+
+-- | The name of the DB proxy whose endpoints you want to describe. If you
+-- omit this parameter, the output includes information about all DB proxy
+-- endpoints associated with all your DB proxies.
+describeDBProxyEndpoints_dbProxyName :: Lens.Lens' DescribeDBProxyEndpoints (Prelude.Maybe Prelude.Text)
+describeDBProxyEndpoints_dbProxyName = Lens.lens (\DescribeDBProxyEndpoints' {dbProxyName} -> dbProxyName) (\s@DescribeDBProxyEndpoints' {} a -> s {dbProxyName = a} :: DescribeDBProxyEndpoints)
 
 -- | This parameter is not currently supported.
 describeDBProxyEndpoints_filters :: Lens.Lens' DescribeDBProxyEndpoints (Prelude.Maybe [Filter])
@@ -143,18 +156,6 @@ describeDBProxyEndpoints_marker = Lens.lens (\DescribeDBProxyEndpoints' {marker}
 -- Constraints: Minimum 20, maximum 100.
 describeDBProxyEndpoints_maxRecords :: Lens.Lens' DescribeDBProxyEndpoints (Prelude.Maybe Prelude.Natural)
 describeDBProxyEndpoints_maxRecords = Lens.lens (\DescribeDBProxyEndpoints' {maxRecords} -> maxRecords) (\s@DescribeDBProxyEndpoints' {} a -> s {maxRecords = a} :: DescribeDBProxyEndpoints)
-
--- | The name of the DB proxy whose endpoints you want to describe. If you
--- omit this parameter, the output includes information about all DB proxy
--- endpoints associated with all your DB proxies.
-describeDBProxyEndpoints_dbProxyName :: Lens.Lens' DescribeDBProxyEndpoints (Prelude.Maybe Prelude.Text)
-describeDBProxyEndpoints_dbProxyName = Lens.lens (\DescribeDBProxyEndpoints' {dbProxyName} -> dbProxyName) (\s@DescribeDBProxyEndpoints' {} a -> s {dbProxyName = a} :: DescribeDBProxyEndpoints)
-
--- | The name of a DB proxy endpoint to describe. If you omit this parameter,
--- the output includes information about all DB proxy endpoints associated
--- with the specified proxy.
-describeDBProxyEndpoints_dbProxyEndpointName :: Lens.Lens' DescribeDBProxyEndpoints (Prelude.Maybe Prelude.Text)
-describeDBProxyEndpoints_dbProxyEndpointName = Lens.lens (\DescribeDBProxyEndpoints' {dbProxyEndpointName} -> dbProxyEndpointName) (\s@DescribeDBProxyEndpoints' {} a -> s {dbProxyEndpointName = a} :: DescribeDBProxyEndpoints)
 
 instance Core.AWSPager DescribeDBProxyEndpoints where
   page rq rs
@@ -182,56 +183,57 @@ instance Core.AWSRequest DescribeDBProxyEndpoints where
   type
     AWSResponse DescribeDBProxyEndpoints =
       DescribeDBProxyEndpointsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeDBProxyEndpointsResult"
       ( \s h x ->
           DescribeDBProxyEndpointsResponse'
-            Prelude.<$> ( x Core..@? "DBProxyEndpoints"
+            Prelude.<$> ( x Data..@? "DBProxyEndpoints"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> (x Core..@? "Marker")
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeDBProxyEndpoints where
   hashWithSalt _salt DescribeDBProxyEndpoints' {..} =
-    _salt `Prelude.hashWithSalt` filters
+    _salt `Prelude.hashWithSalt` dbProxyEndpointName
+      `Prelude.hashWithSalt` dbProxyName
+      `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
-      `Prelude.hashWithSalt` dbProxyName
-      `Prelude.hashWithSalt` dbProxyEndpointName
 
 instance Prelude.NFData DescribeDBProxyEndpoints where
   rnf DescribeDBProxyEndpoints' {..} =
-    Prelude.rnf filters
+    Prelude.rnf dbProxyEndpointName
+      `Prelude.seq` Prelude.rnf dbProxyName
+      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
-      `Prelude.seq` Prelude.rnf dbProxyName
-      `Prelude.seq` Prelude.rnf dbProxyEndpointName
 
-instance Core.ToHeaders DescribeDBProxyEndpoints where
+instance Data.ToHeaders DescribeDBProxyEndpoints where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeDBProxyEndpoints where
+instance Data.ToPath DescribeDBProxyEndpoints where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeDBProxyEndpoints where
+instance Data.ToQuery DescribeDBProxyEndpoints where
   toQuery DescribeDBProxyEndpoints' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeDBProxyEndpoints" :: Prelude.ByteString),
+          Data.=: ("DescribeDBProxyEndpoints" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBProxyEndpointName" Data.=: dbProxyEndpointName,
+        "DBProxyName" Data.=: dbProxyName,
         "Filters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Filter" Prelude.<$> filters),
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords,
-        "DBProxyName" Core.=: dbProxyName,
-        "DBProxyEndpointName" Core.=: dbProxyEndpointName
+          Data.=: Data.toQuery
+            (Data.toQueryList "Filter" Prelude.<$> filters),
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords
       ]
 
 -- | /See:/ 'newDescribeDBProxyEndpointsResponse' smart constructor.

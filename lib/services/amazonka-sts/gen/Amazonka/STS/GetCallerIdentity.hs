@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.STS.GetCallerIdentity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,15 +41,16 @@ module Amazonka.STS.GetCallerIdentity
     newGetCallerIdentityResponse,
 
     -- * Response Lenses
-    getCallerIdentityResponse_arn,
     getCallerIdentityResponse_account,
+    getCallerIdentityResponse_arn,
     getCallerIdentityResponse_userId,
     getCallerIdentityResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -73,15 +74,16 @@ instance Core.AWSRequest GetCallerIdentity where
   type
     AWSResponse GetCallerIdentity =
       GetCallerIdentityResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GetCallerIdentityResult"
       ( \s h x ->
           GetCallerIdentityResponse'
-            Prelude.<$> (x Core..@? "Arn")
-            Prelude.<*> (x Core..@? "Account")
-            Prelude.<*> (x Core..@? "UserId")
+            Prelude.<$> (x Data..@? "Account")
+            Prelude.<*> (x Data..@? "Arn")
+            Prelude.<*> (x Data..@? "UserId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -92,20 +94,20 @@ instance Prelude.Hashable GetCallerIdentity where
 instance Prelude.NFData GetCallerIdentity where
   rnf _ = ()
 
-instance Core.ToHeaders GetCallerIdentity where
+instance Data.ToHeaders GetCallerIdentity where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetCallerIdentity where
+instance Data.ToPath GetCallerIdentity where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetCallerIdentity where
+instance Data.ToQuery GetCallerIdentity where
   toQuery =
     Prelude.const
       ( Prelude.mconcat
           [ "Action"
-              Core.=: ("GetCallerIdentity" :: Prelude.ByteString),
+              Data.=: ("GetCallerIdentity" :: Prelude.ByteString),
             "Version"
-              Core.=: ("2011-06-15" :: Prelude.ByteString)
+              Data.=: ("2011-06-15" :: Prelude.ByteString)
           ]
       )
 
@@ -114,11 +116,11 @@ instance Core.ToQuery GetCallerIdentity where
 --
 -- /See:/ 'newGetCallerIdentityResponse' smart constructor.
 data GetCallerIdentityResponse = GetCallerIdentityResponse'
-  { -- | The Amazon Web Services ARN associated with the calling entity.
-    arn :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Web Services account ID number of the account that owns or
+  { -- | The Amazon Web Services account ID number of the account that owns or
     -- contains the calling entity.
     account :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Web Services ARN associated with the calling entity.
+    arn :: Prelude.Maybe Prelude.Text,
     -- | The unique identifier of the calling entity. The exact value depends on
     -- the type of entity that is making the call. The values returned are
     -- those listed in the __aws:userid__ column in the
@@ -139,10 +141,10 @@ data GetCallerIdentityResponse = GetCallerIdentityResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'arn', 'getCallerIdentityResponse_arn' - The Amazon Web Services ARN associated with the calling entity.
---
 -- 'account', 'getCallerIdentityResponse_account' - The Amazon Web Services account ID number of the account that owns or
 -- contains the calling entity.
+--
+-- 'arn', 'getCallerIdentityResponse_arn' - The Amazon Web Services ARN associated with the calling entity.
 --
 -- 'userId', 'getCallerIdentityResponse_userId' - The unique identifier of the calling entity. The exact value depends on
 -- the type of entity that is making the call. The values returned are
@@ -158,20 +160,21 @@ newGetCallerIdentityResponse ::
   GetCallerIdentityResponse
 newGetCallerIdentityResponse pHttpStatus_ =
   GetCallerIdentityResponse'
-    { arn = Prelude.Nothing,
-      account = Prelude.Nothing,
+    { account =
+        Prelude.Nothing,
+      arn = Prelude.Nothing,
       userId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The Amazon Web Services ARN associated with the calling entity.
-getCallerIdentityResponse_arn :: Lens.Lens' GetCallerIdentityResponse (Prelude.Maybe Prelude.Text)
-getCallerIdentityResponse_arn = Lens.lens (\GetCallerIdentityResponse' {arn} -> arn) (\s@GetCallerIdentityResponse' {} a -> s {arn = a} :: GetCallerIdentityResponse)
 
 -- | The Amazon Web Services account ID number of the account that owns or
 -- contains the calling entity.
 getCallerIdentityResponse_account :: Lens.Lens' GetCallerIdentityResponse (Prelude.Maybe Prelude.Text)
 getCallerIdentityResponse_account = Lens.lens (\GetCallerIdentityResponse' {account} -> account) (\s@GetCallerIdentityResponse' {} a -> s {account = a} :: GetCallerIdentityResponse)
+
+-- | The Amazon Web Services ARN associated with the calling entity.
+getCallerIdentityResponse_arn :: Lens.Lens' GetCallerIdentityResponse (Prelude.Maybe Prelude.Text)
+getCallerIdentityResponse_arn = Lens.lens (\GetCallerIdentityResponse' {arn} -> arn) (\s@GetCallerIdentityResponse' {} a -> s {arn = a} :: GetCallerIdentityResponse)
 
 -- | The unique identifier of the calling entity. The exact value depends on
 -- the type of entity that is making the call. The values returned are
@@ -188,7 +191,7 @@ getCallerIdentityResponse_httpStatus = Lens.lens (\GetCallerIdentityResponse' {h
 
 instance Prelude.NFData GetCallerIdentityResponse where
   rnf GetCallerIdentityResponse' {..} =
-    Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf account
+    Prelude.rnf account
+      `Prelude.seq` Prelude.rnf arn
       `Prelude.seq` Prelude.rnf userId
       `Prelude.seq` Prelude.rnf httpStatus

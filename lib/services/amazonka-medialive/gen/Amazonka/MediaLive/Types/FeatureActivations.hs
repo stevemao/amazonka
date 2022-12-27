@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.FeatureActivations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.FeatureActivations where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.FeatureActivationsInputPrepareScheduleActions
 import qualified Amazonka.Prelude as Prelude
 
@@ -63,13 +64,13 @@ newFeatureActivations =
 featureActivations_inputPrepareScheduleActions :: Lens.Lens' FeatureActivations (Prelude.Maybe FeatureActivationsInputPrepareScheduleActions)
 featureActivations_inputPrepareScheduleActions = Lens.lens (\FeatureActivations' {inputPrepareScheduleActions} -> inputPrepareScheduleActions) (\s@FeatureActivations' {} a -> s {inputPrepareScheduleActions = a} :: FeatureActivations)
 
-instance Core.FromJSON FeatureActivations where
+instance Data.FromJSON FeatureActivations where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FeatureActivations"
       ( \x ->
           FeatureActivations'
-            Prelude.<$> (x Core..:? "inputPrepareScheduleActions")
+            Prelude.<$> (x Data..:? "inputPrepareScheduleActions")
       )
 
 instance Prelude.Hashable FeatureActivations where
@@ -81,11 +82,11 @@ instance Prelude.NFData FeatureActivations where
   rnf FeatureActivations' {..} =
     Prelude.rnf inputPrepareScheduleActions
 
-instance Core.ToJSON FeatureActivations where
+instance Data.ToJSON FeatureActivations where
   toJSON FeatureActivations' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("inputPrepareScheduleActions" Core..=)
+          [ ("inputPrepareScheduleActions" Data..=)
               Prelude.<$> inputPrepareScheduleActions
           ]
       )

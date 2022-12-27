@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.ScalingAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EMR.Types.ScalingAction where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types.MarketType
 import Amazonka.EMR.Types.SimpleScalingPolicyConfiguration
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The type of adjustment the automatic scaling activity makes when
@@ -73,14 +74,14 @@ scalingAction_market = Lens.lens (\ScalingAction' {market} -> market) (\s@Scalin
 scalingAction_simpleScalingPolicyConfiguration :: Lens.Lens' ScalingAction SimpleScalingPolicyConfiguration
 scalingAction_simpleScalingPolicyConfiguration = Lens.lens (\ScalingAction' {simpleScalingPolicyConfiguration} -> simpleScalingPolicyConfiguration) (\s@ScalingAction' {} a -> s {simpleScalingPolicyConfiguration = a} :: ScalingAction)
 
-instance Core.FromJSON ScalingAction where
+instance Data.FromJSON ScalingAction where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ScalingAction"
       ( \x ->
           ScalingAction'
-            Prelude.<$> (x Core..:? "Market")
-            Prelude.<*> (x Core..: "SimpleScalingPolicyConfiguration")
+            Prelude.<$> (x Data..:? "Market")
+            Prelude.<*> (x Data..: "SimpleScalingPolicyConfiguration")
       )
 
 instance Prelude.Hashable ScalingAction where
@@ -93,14 +94,14 @@ instance Prelude.NFData ScalingAction where
     Prelude.rnf market
       `Prelude.seq` Prelude.rnf simpleScalingPolicyConfiguration
 
-instance Core.ToJSON ScalingAction where
+instance Data.ToJSON ScalingAction where
   toJSON ScalingAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Market" Core..=) Prelude.<$> market,
+          [ ("Market" Data..=) Prelude.<$> market,
             Prelude.Just
               ( "SimpleScalingPolicyConfiguration"
-                  Core..= simpleScalingPolicyConfiguration
+                  Data..= simpleScalingPolicyConfiguration
               )
           ]
       )

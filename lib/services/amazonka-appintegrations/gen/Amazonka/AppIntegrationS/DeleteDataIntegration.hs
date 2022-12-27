@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppIntegrationS.DeleteDataIntegration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ where
 
 import Amazonka.AppIntegrationS.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -87,7 +88,8 @@ instance Core.AWSRequest DeleteDataIntegration where
   type
     AWSResponse DeleteDataIntegration =
       DeleteDataIntegrationResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -104,25 +106,25 @@ instance Prelude.NFData DeleteDataIntegration where
   rnf DeleteDataIntegration' {..} =
     Prelude.rnf dataIntegrationIdentifier
 
-instance Core.ToHeaders DeleteDataIntegration where
+instance Data.ToHeaders DeleteDataIntegration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteDataIntegration where
+instance Data.ToPath DeleteDataIntegration where
   toPath DeleteDataIntegration' {..} =
     Prelude.mconcat
       [ "/dataIntegrations/",
-        Core.toBS dataIntegrationIdentifier
+        Data.toBS dataIntegrationIdentifier
       ]
 
-instance Core.ToQuery DeleteDataIntegration where
+instance Data.ToQuery DeleteDataIntegration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteDataIntegrationResponse' smart constructor.

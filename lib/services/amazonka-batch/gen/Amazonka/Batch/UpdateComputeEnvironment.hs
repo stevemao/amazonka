@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Batch.UpdateComputeEnvironment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,9 +27,11 @@ module Amazonka.Batch.UpdateComputeEnvironment
     newUpdateComputeEnvironment,
 
     -- * Request Lenses
-    updateComputeEnvironment_state,
     updateComputeEnvironment_computeResources,
     updateComputeEnvironment_serviceRole,
+    updateComputeEnvironment_state,
+    updateComputeEnvironment_unmanagedvCpus,
+    updateComputeEnvironment_updatePolicy,
     updateComputeEnvironment_computeEnvironment,
 
     -- * Destructuring the Response
@@ -37,15 +39,16 @@ module Amazonka.Batch.UpdateComputeEnvironment
     newUpdateComputeEnvironmentResponse,
 
     -- * Response Lenses
-    updateComputeEnvironmentResponse_computeEnvironmentName,
     updateComputeEnvironmentResponse_computeEnvironmentArn,
+    updateComputeEnvironmentResponse_computeEnvironmentName,
     updateComputeEnvironmentResponse_httpStatus,
   )
 where
 
 import Amazonka.Batch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,7 +57,38 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newUpdateComputeEnvironment' smart constructor.
 data UpdateComputeEnvironment = UpdateComputeEnvironment'
-  { -- | The state of the compute environment. Compute environments in the
+  { -- | Details of the compute resources managed by the compute environment.
+    -- Required for a managed compute environment. For more information, see
+    -- <https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html Compute Environments>
+    -- in the /Batch User Guide/.
+    computeResources :: Prelude.Maybe ComputeResourceUpdate,
+    -- | The full Amazon Resource Name (ARN) of the IAM role that allows Batch to
+    -- make calls to other Amazon Web Services services on your behalf. For
+    -- more information, see
+    -- <https://docs.aws.amazon.com/batch/latest/userguide/service_IAM_role.html Batch service IAM role>
+    -- in the /Batch User Guide/.
+    --
+    -- If the compute environment has a service-linked role, it can\'t be
+    -- changed to use a regular IAM role. Likewise, if the compute environment
+    -- has a regular IAM role, it can\'t be changed to use a service-linked
+    -- role. To update the parameters for the compute environment that require
+    -- an infrastructure update to change, the __AWSServiceRoleForBatch__
+    -- service-linked role must be used. For more information, see
+    -- <https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html Updating compute environments>
+    -- in the /Batch User Guide/.
+    --
+    -- If your specified role has a path other than @\/@, then you must either
+    -- specify the full role ARN (recommended) or prefix the role name with the
+    -- path.
+    --
+    -- Depending on how you created your Batch service role, its ARN might
+    -- contain the @service-role@ path prefix. When you only specify the name
+    -- of the service role, Batch assumes that your ARN doesn\'t use the
+    -- @service-role@ path prefix. Because of this, we recommend that you
+    -- specify the full ARN of your service role when you create compute
+    -- environments.
+    serviceRole :: Prelude.Maybe Prelude.Text,
+    -- | The state of the compute environment. Compute environments in the
     -- @ENABLED@ state can accept jobs from a queue and scale in or out
     -- automatically based on the workload demand of its associated queues.
     --
@@ -69,33 +103,18 @@ data UpdateComputeEnvironment = UpdateComputeEnvironment'
     -- @DISABLED@ state don\'t scale out. However, they scale in to @minvCpus@
     -- value after instances become idle.
     state :: Prelude.Maybe CEState,
-    -- | Details of the compute resources managed by the compute environment.
-    -- Required for a managed compute environment. For more information, see
-    -- <https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html Compute Environments>
+    -- | The maximum number of vCPUs expected to be used for an unmanaged compute
+    -- environment. Don\'t specify this parameter for a managed compute
+    -- environment. This parameter is only used for fair share scheduling to
+    -- reserve vCPU capacity for new share identifiers. If this parameter
+    -- isn\'t provided for a fair share job queue, no vCPU capacity is
+    -- reserved.
+    unmanagedvCpus :: Prelude.Maybe Prelude.Int,
+    -- | Specifies the updated infrastructure update policy for the compute
+    -- environment. For more information about infrastructure updates, see
+    -- <https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html Updating compute environments>
     -- in the /Batch User Guide/.
-    computeResources :: Prelude.Maybe ComputeResourceUpdate,
-    -- | The full Amazon Resource Name (ARN) of the IAM role that allows Batch to
-    -- make calls to other Amazon Web Services services on your behalf. For
-    -- more information, see
-    -- <https://docs.aws.amazon.com/batch/latest/userguide/service_IAM_role.html Batch service IAM role>
-    -- in the /Batch User Guide/.
-    --
-    -- If the compute environment has a service-linked role, it can\'t be
-    -- changed to use a regular IAM role. Likewise, if the compute environment
-    -- has a regular IAM role, it can\'t be changed to use a service-linked
-    -- role.
-    --
-    -- If your specified role has a path other than @\/@, then you must either
-    -- specify the full role ARN (this is recommended) or prefix the role name
-    -- with the path.
-    --
-    -- Depending on how you created your Batch service role, its ARN might
-    -- contain the @service-role@ path prefix. When you only specify the name
-    -- of the service role, Batch assumes that your ARN doesn\'t use the
-    -- @service-role@ path prefix. Because of this, we recommend that you
-    -- specify the full ARN of your service role when you create compute
-    -- environments.
-    serviceRole :: Prelude.Maybe Prelude.Text,
+    updatePolicy :: Prelude.Maybe UpdatePolicy,
     -- | The name or full Amazon Resource Name (ARN) of the compute environment
     -- to update.
     computeEnvironment :: Prelude.Text
@@ -109,6 +128,37 @@ data UpdateComputeEnvironment = UpdateComputeEnvironment'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'computeResources', 'updateComputeEnvironment_computeResources' - Details of the compute resources managed by the compute environment.
+-- Required for a managed compute environment. For more information, see
+-- <https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html Compute Environments>
+-- in the /Batch User Guide/.
+--
+-- 'serviceRole', 'updateComputeEnvironment_serviceRole' - The full Amazon Resource Name (ARN) of the IAM role that allows Batch to
+-- make calls to other Amazon Web Services services on your behalf. For
+-- more information, see
+-- <https://docs.aws.amazon.com/batch/latest/userguide/service_IAM_role.html Batch service IAM role>
+-- in the /Batch User Guide/.
+--
+-- If the compute environment has a service-linked role, it can\'t be
+-- changed to use a regular IAM role. Likewise, if the compute environment
+-- has a regular IAM role, it can\'t be changed to use a service-linked
+-- role. To update the parameters for the compute environment that require
+-- an infrastructure update to change, the __AWSServiceRoleForBatch__
+-- service-linked role must be used. For more information, see
+-- <https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html Updating compute environments>
+-- in the /Batch User Guide/.
+--
+-- If your specified role has a path other than @\/@, then you must either
+-- specify the full role ARN (recommended) or prefix the role name with the
+-- path.
+--
+-- Depending on how you created your Batch service role, its ARN might
+-- contain the @service-role@ path prefix. When you only specify the name
+-- of the service role, Batch assumes that your ARN doesn\'t use the
+-- @service-role@ path prefix. Because of this, we recommend that you
+-- specify the full ARN of your service role when you create compute
+-- environments.
 --
 -- 'state', 'updateComputeEnvironment_state' - The state of the compute environment. Compute environments in the
 -- @ENABLED@ state can accept jobs from a queue and scale in or out
@@ -125,32 +175,17 @@ data UpdateComputeEnvironment = UpdateComputeEnvironment'
 -- @DISABLED@ state don\'t scale out. However, they scale in to @minvCpus@
 -- value after instances become idle.
 --
--- 'computeResources', 'updateComputeEnvironment_computeResources' - Details of the compute resources managed by the compute environment.
--- Required for a managed compute environment. For more information, see
--- <https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html Compute Environments>
+-- 'unmanagedvCpus', 'updateComputeEnvironment_unmanagedvCpus' - The maximum number of vCPUs expected to be used for an unmanaged compute
+-- environment. Don\'t specify this parameter for a managed compute
+-- environment. This parameter is only used for fair share scheduling to
+-- reserve vCPU capacity for new share identifiers. If this parameter
+-- isn\'t provided for a fair share job queue, no vCPU capacity is
+-- reserved.
+--
+-- 'updatePolicy', 'updateComputeEnvironment_updatePolicy' - Specifies the updated infrastructure update policy for the compute
+-- environment. For more information about infrastructure updates, see
+-- <https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html Updating compute environments>
 -- in the /Batch User Guide/.
---
--- 'serviceRole', 'updateComputeEnvironment_serviceRole' - The full Amazon Resource Name (ARN) of the IAM role that allows Batch to
--- make calls to other Amazon Web Services services on your behalf. For
--- more information, see
--- <https://docs.aws.amazon.com/batch/latest/userguide/service_IAM_role.html Batch service IAM role>
--- in the /Batch User Guide/.
---
--- If the compute environment has a service-linked role, it can\'t be
--- changed to use a regular IAM role. Likewise, if the compute environment
--- has a regular IAM role, it can\'t be changed to use a service-linked
--- role.
---
--- If your specified role has a path other than @\/@, then you must either
--- specify the full role ARN (this is recommended) or prefix the role name
--- with the path.
---
--- Depending on how you created your Batch service role, its ARN might
--- contain the @service-role@ path prefix. When you only specify the name
--- of the service role, Batch assumes that your ARN doesn\'t use the
--- @service-role@ path prefix. Because of this, we recommend that you
--- specify the full ARN of your service role when you create compute
--- environments.
 --
 -- 'computeEnvironment', 'updateComputeEnvironment_computeEnvironment' - The name or full Amazon Resource Name (ARN) of the compute environment
 -- to update.
@@ -160,11 +195,49 @@ newUpdateComputeEnvironment ::
   UpdateComputeEnvironment
 newUpdateComputeEnvironment pComputeEnvironment_ =
   UpdateComputeEnvironment'
-    { state = Prelude.Nothing,
-      computeResources = Prelude.Nothing,
+    { computeResources =
+        Prelude.Nothing,
       serviceRole = Prelude.Nothing,
+      state = Prelude.Nothing,
+      unmanagedvCpus = Prelude.Nothing,
+      updatePolicy = Prelude.Nothing,
       computeEnvironment = pComputeEnvironment_
     }
+
+-- | Details of the compute resources managed by the compute environment.
+-- Required for a managed compute environment. For more information, see
+-- <https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html Compute Environments>
+-- in the /Batch User Guide/.
+updateComputeEnvironment_computeResources :: Lens.Lens' UpdateComputeEnvironment (Prelude.Maybe ComputeResourceUpdate)
+updateComputeEnvironment_computeResources = Lens.lens (\UpdateComputeEnvironment' {computeResources} -> computeResources) (\s@UpdateComputeEnvironment' {} a -> s {computeResources = a} :: UpdateComputeEnvironment)
+
+-- | The full Amazon Resource Name (ARN) of the IAM role that allows Batch to
+-- make calls to other Amazon Web Services services on your behalf. For
+-- more information, see
+-- <https://docs.aws.amazon.com/batch/latest/userguide/service_IAM_role.html Batch service IAM role>
+-- in the /Batch User Guide/.
+--
+-- If the compute environment has a service-linked role, it can\'t be
+-- changed to use a regular IAM role. Likewise, if the compute environment
+-- has a regular IAM role, it can\'t be changed to use a service-linked
+-- role. To update the parameters for the compute environment that require
+-- an infrastructure update to change, the __AWSServiceRoleForBatch__
+-- service-linked role must be used. For more information, see
+-- <https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html Updating compute environments>
+-- in the /Batch User Guide/.
+--
+-- If your specified role has a path other than @\/@, then you must either
+-- specify the full role ARN (recommended) or prefix the role name with the
+-- path.
+--
+-- Depending on how you created your Batch service role, its ARN might
+-- contain the @service-role@ path prefix. When you only specify the name
+-- of the service role, Batch assumes that your ARN doesn\'t use the
+-- @service-role@ path prefix. Because of this, we recommend that you
+-- specify the full ARN of your service role when you create compute
+-- environments.
+updateComputeEnvironment_serviceRole :: Lens.Lens' UpdateComputeEnvironment (Prelude.Maybe Prelude.Text)
+updateComputeEnvironment_serviceRole = Lens.lens (\UpdateComputeEnvironment' {serviceRole} -> serviceRole) (\s@UpdateComputeEnvironment' {} a -> s {serviceRole = a} :: UpdateComputeEnvironment)
 
 -- | The state of the compute environment. Compute environments in the
 -- @ENABLED@ state can accept jobs from a queue and scale in or out
@@ -183,36 +256,21 @@ newUpdateComputeEnvironment pComputeEnvironment_ =
 updateComputeEnvironment_state :: Lens.Lens' UpdateComputeEnvironment (Prelude.Maybe CEState)
 updateComputeEnvironment_state = Lens.lens (\UpdateComputeEnvironment' {state} -> state) (\s@UpdateComputeEnvironment' {} a -> s {state = a} :: UpdateComputeEnvironment)
 
--- | Details of the compute resources managed by the compute environment.
--- Required for a managed compute environment. For more information, see
--- <https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html Compute Environments>
--- in the /Batch User Guide/.
-updateComputeEnvironment_computeResources :: Lens.Lens' UpdateComputeEnvironment (Prelude.Maybe ComputeResourceUpdate)
-updateComputeEnvironment_computeResources = Lens.lens (\UpdateComputeEnvironment' {computeResources} -> computeResources) (\s@UpdateComputeEnvironment' {} a -> s {computeResources = a} :: UpdateComputeEnvironment)
+-- | The maximum number of vCPUs expected to be used for an unmanaged compute
+-- environment. Don\'t specify this parameter for a managed compute
+-- environment. This parameter is only used for fair share scheduling to
+-- reserve vCPU capacity for new share identifiers. If this parameter
+-- isn\'t provided for a fair share job queue, no vCPU capacity is
+-- reserved.
+updateComputeEnvironment_unmanagedvCpus :: Lens.Lens' UpdateComputeEnvironment (Prelude.Maybe Prelude.Int)
+updateComputeEnvironment_unmanagedvCpus = Lens.lens (\UpdateComputeEnvironment' {unmanagedvCpus} -> unmanagedvCpus) (\s@UpdateComputeEnvironment' {} a -> s {unmanagedvCpus = a} :: UpdateComputeEnvironment)
 
--- | The full Amazon Resource Name (ARN) of the IAM role that allows Batch to
--- make calls to other Amazon Web Services services on your behalf. For
--- more information, see
--- <https://docs.aws.amazon.com/batch/latest/userguide/service_IAM_role.html Batch service IAM role>
+-- | Specifies the updated infrastructure update policy for the compute
+-- environment. For more information about infrastructure updates, see
+-- <https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html Updating compute environments>
 -- in the /Batch User Guide/.
---
--- If the compute environment has a service-linked role, it can\'t be
--- changed to use a regular IAM role. Likewise, if the compute environment
--- has a regular IAM role, it can\'t be changed to use a service-linked
--- role.
---
--- If your specified role has a path other than @\/@, then you must either
--- specify the full role ARN (this is recommended) or prefix the role name
--- with the path.
---
--- Depending on how you created your Batch service role, its ARN might
--- contain the @service-role@ path prefix. When you only specify the name
--- of the service role, Batch assumes that your ARN doesn\'t use the
--- @service-role@ path prefix. Because of this, we recommend that you
--- specify the full ARN of your service role when you create compute
--- environments.
-updateComputeEnvironment_serviceRole :: Lens.Lens' UpdateComputeEnvironment (Prelude.Maybe Prelude.Text)
-updateComputeEnvironment_serviceRole = Lens.lens (\UpdateComputeEnvironment' {serviceRole} -> serviceRole) (\s@UpdateComputeEnvironment' {} a -> s {serviceRole = a} :: UpdateComputeEnvironment)
+updateComputeEnvironment_updatePolicy :: Lens.Lens' UpdateComputeEnvironment (Prelude.Maybe UpdatePolicy)
+updateComputeEnvironment_updatePolicy = Lens.lens (\UpdateComputeEnvironment' {updatePolicy} -> updatePolicy) (\s@UpdateComputeEnvironment' {} a -> s {updatePolicy = a} :: UpdateComputeEnvironment)
 
 -- | The name or full Amazon Resource Name (ARN) of the compute environment
 -- to update.
@@ -223,67 +281,76 @@ instance Core.AWSRequest UpdateComputeEnvironment where
   type
     AWSResponse UpdateComputeEnvironment =
       UpdateComputeEnvironmentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateComputeEnvironmentResponse'
-            Prelude.<$> (x Core..?> "computeEnvironmentName")
-            Prelude.<*> (x Core..?> "computeEnvironmentArn")
+            Prelude.<$> (x Data..?> "computeEnvironmentArn")
+            Prelude.<*> (x Data..?> "computeEnvironmentName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateComputeEnvironment where
   hashWithSalt _salt UpdateComputeEnvironment' {..} =
-    _salt `Prelude.hashWithSalt` state
-      `Prelude.hashWithSalt` computeResources
+    _salt `Prelude.hashWithSalt` computeResources
       `Prelude.hashWithSalt` serviceRole
+      `Prelude.hashWithSalt` state
+      `Prelude.hashWithSalt` unmanagedvCpus
+      `Prelude.hashWithSalt` updatePolicy
       `Prelude.hashWithSalt` computeEnvironment
 
 instance Prelude.NFData UpdateComputeEnvironment where
   rnf UpdateComputeEnvironment' {..} =
-    Prelude.rnf state
-      `Prelude.seq` Prelude.rnf computeResources
+    Prelude.rnf computeResources
       `Prelude.seq` Prelude.rnf serviceRole
+      `Prelude.seq` Prelude.rnf state
+      `Prelude.seq` Prelude.rnf unmanagedvCpus
+      `Prelude.seq` Prelude.rnf updatePolicy
       `Prelude.seq` Prelude.rnf computeEnvironment
 
-instance Core.ToHeaders UpdateComputeEnvironment where
+instance Data.ToHeaders UpdateComputeEnvironment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateComputeEnvironment where
+instance Data.ToJSON UpdateComputeEnvironment where
   toJSON UpdateComputeEnvironment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("state" Core..=) Prelude.<$> state,
-            ("computeResources" Core..=)
+          [ ("computeResources" Data..=)
               Prelude.<$> computeResources,
-            ("serviceRole" Core..=) Prelude.<$> serviceRole,
+            ("serviceRole" Data..=) Prelude.<$> serviceRole,
+            ("state" Data..=) Prelude.<$> state,
+            ("unmanagedvCpus" Data..=)
+              Prelude.<$> unmanagedvCpus,
+            ("updatePolicy" Data..=) Prelude.<$> updatePolicy,
             Prelude.Just
-              ("computeEnvironment" Core..= computeEnvironment)
+              ("computeEnvironment" Data..= computeEnvironment)
           ]
       )
 
-instance Core.ToPath UpdateComputeEnvironment where
+instance Data.ToPath UpdateComputeEnvironment where
   toPath = Prelude.const "/v1/updatecomputeenvironment"
 
-instance Core.ToQuery UpdateComputeEnvironment where
+instance Data.ToQuery UpdateComputeEnvironment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateComputeEnvironmentResponse' smart constructor.
 data UpdateComputeEnvironmentResponse = UpdateComputeEnvironmentResponse'
-  { -- | The name of the compute environment. Up to 128 letters (uppercase and
-    -- lowercase), numbers, hyphens, and underscores are allowed.
-    computeEnvironmentName :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the compute environment.
+  { -- | The Amazon Resource Name (ARN) of the compute environment.
     computeEnvironmentArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the compute environment. It can be up to 128 characters
+    -- long. It can contain uppercase and lowercase letters, numbers, hyphens
+    -- (-), and underscores (_).
+    computeEnvironmentName :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -297,10 +364,11 @@ data UpdateComputeEnvironmentResponse = UpdateComputeEnvironmentResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'computeEnvironmentName', 'updateComputeEnvironmentResponse_computeEnvironmentName' - The name of the compute environment. Up to 128 letters (uppercase and
--- lowercase), numbers, hyphens, and underscores are allowed.
---
 -- 'computeEnvironmentArn', 'updateComputeEnvironmentResponse_computeEnvironmentArn' - The Amazon Resource Name (ARN) of the compute environment.
+--
+-- 'computeEnvironmentName', 'updateComputeEnvironmentResponse_computeEnvironmentName' - The name of the compute environment. It can be up to 128 characters
+-- long. It can contain uppercase and lowercase letters, numbers, hyphens
+-- (-), and underscores (_).
 --
 -- 'httpStatus', 'updateComputeEnvironmentResponse_httpStatus' - The response's http status code.
 newUpdateComputeEnvironmentResponse ::
@@ -309,20 +377,21 @@ newUpdateComputeEnvironmentResponse ::
   UpdateComputeEnvironmentResponse
 newUpdateComputeEnvironmentResponse pHttpStatus_ =
   UpdateComputeEnvironmentResponse'
-    { computeEnvironmentName =
+    { computeEnvironmentArn =
         Prelude.Nothing,
-      computeEnvironmentArn = Prelude.Nothing,
+      computeEnvironmentName = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The name of the compute environment. Up to 128 letters (uppercase and
--- lowercase), numbers, hyphens, and underscores are allowed.
-updateComputeEnvironmentResponse_computeEnvironmentName :: Lens.Lens' UpdateComputeEnvironmentResponse (Prelude.Maybe Prelude.Text)
-updateComputeEnvironmentResponse_computeEnvironmentName = Lens.lens (\UpdateComputeEnvironmentResponse' {computeEnvironmentName} -> computeEnvironmentName) (\s@UpdateComputeEnvironmentResponse' {} a -> s {computeEnvironmentName = a} :: UpdateComputeEnvironmentResponse)
 
 -- | The Amazon Resource Name (ARN) of the compute environment.
 updateComputeEnvironmentResponse_computeEnvironmentArn :: Lens.Lens' UpdateComputeEnvironmentResponse (Prelude.Maybe Prelude.Text)
 updateComputeEnvironmentResponse_computeEnvironmentArn = Lens.lens (\UpdateComputeEnvironmentResponse' {computeEnvironmentArn} -> computeEnvironmentArn) (\s@UpdateComputeEnvironmentResponse' {} a -> s {computeEnvironmentArn = a} :: UpdateComputeEnvironmentResponse)
+
+-- | The name of the compute environment. It can be up to 128 characters
+-- long. It can contain uppercase and lowercase letters, numbers, hyphens
+-- (-), and underscores (_).
+updateComputeEnvironmentResponse_computeEnvironmentName :: Lens.Lens' UpdateComputeEnvironmentResponse (Prelude.Maybe Prelude.Text)
+updateComputeEnvironmentResponse_computeEnvironmentName = Lens.lens (\UpdateComputeEnvironmentResponse' {computeEnvironmentName} -> computeEnvironmentName) (\s@UpdateComputeEnvironmentResponse' {} a -> s {computeEnvironmentName = a} :: UpdateComputeEnvironmentResponse)
 
 -- | The response's http status code.
 updateComputeEnvironmentResponse_httpStatus :: Lens.Lens' UpdateComputeEnvironmentResponse Prelude.Int
@@ -333,6 +402,6 @@ instance
     UpdateComputeEnvironmentResponse
   where
   rnf UpdateComputeEnvironmentResponse' {..} =
-    Prelude.rnf computeEnvironmentName
-      `Prelude.seq` Prelude.rnf computeEnvironmentArn
+    Prelude.rnf computeEnvironmentArn
+      `Prelude.seq` Prelude.rnf computeEnvironmentName
       `Prelude.seq` Prelude.rnf httpStatus

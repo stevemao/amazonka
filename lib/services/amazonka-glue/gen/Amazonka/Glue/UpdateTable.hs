@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.UpdateTable
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,10 @@ module Amazonka.Glue.UpdateTable
     newUpdateTable,
 
     -- * Request Lenses
-    updateTable_skipArchive,
     updateTable_catalogId,
+    updateTable_skipArchive,
+    updateTable_transactionId,
+    updateTable_versionId,
     updateTable_databaseName,
     updateTable_tableInput,
 
@@ -42,21 +44,26 @@ module Amazonka.Glue.UpdateTable
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateTable' smart constructor.
 data UpdateTable = UpdateTable'
-  { -- | By default, @UpdateTable@ always creates an archived version of the
+  { -- | The ID of the Data Catalog where the table resides. If none is provided,
+    -- the Amazon Web Services account ID is used by default.
+    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | By default, @UpdateTable@ always creates an archived version of the
     -- table before updating it. However, if @skipArchive@ is set to true,
     -- @UpdateTable@ does not create the archived version.
     skipArchive :: Prelude.Maybe Prelude.Bool,
-    -- | The ID of the Data Catalog where the table resides. If none is provided,
-    -- the Amazon Web Services account ID is used by default.
-    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The transaction ID at which to update the table contents.
+    transactionId :: Prelude.Maybe Prelude.Text,
+    -- | The version ID at which to update the table contents.
+    versionId :: Prelude.Maybe Prelude.Text,
     -- | The name of the catalog database in which the table resides. For Hive
     -- compatibility, this name is entirely lowercase.
     databaseName :: Prelude.Text,
@@ -74,12 +81,16 @@ data UpdateTable = UpdateTable'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'catalogId', 'updateTable_catalogId' - The ID of the Data Catalog where the table resides. If none is provided,
+-- the Amazon Web Services account ID is used by default.
+--
 -- 'skipArchive', 'updateTable_skipArchive' - By default, @UpdateTable@ always creates an archived version of the
 -- table before updating it. However, if @skipArchive@ is set to true,
 -- @UpdateTable@ does not create the archived version.
 --
--- 'catalogId', 'updateTable_catalogId' - The ID of the Data Catalog where the table resides. If none is provided,
--- the Amazon Web Services account ID is used by default.
+-- 'transactionId', 'updateTable_transactionId' - The transaction ID at which to update the table contents.
+--
+-- 'versionId', 'updateTable_versionId' - The version ID at which to update the table contents.
 --
 -- 'databaseName', 'updateTable_databaseName' - The name of the catalog database in which the table resides. For Hive
 -- compatibility, this name is entirely lowercase.
@@ -94,11 +105,18 @@ newUpdateTable ::
   UpdateTable
 newUpdateTable pDatabaseName_ pTableInput_ =
   UpdateTable'
-    { skipArchive = Prelude.Nothing,
-      catalogId = Prelude.Nothing,
+    { catalogId = Prelude.Nothing,
+      skipArchive = Prelude.Nothing,
+      transactionId = Prelude.Nothing,
+      versionId = Prelude.Nothing,
       databaseName = pDatabaseName_,
       tableInput = pTableInput_
     }
+
+-- | The ID of the Data Catalog where the table resides. If none is provided,
+-- the Amazon Web Services account ID is used by default.
+updateTable_catalogId :: Lens.Lens' UpdateTable (Prelude.Maybe Prelude.Text)
+updateTable_catalogId = Lens.lens (\UpdateTable' {catalogId} -> catalogId) (\s@UpdateTable' {} a -> s {catalogId = a} :: UpdateTable)
 
 -- | By default, @UpdateTable@ always creates an archived version of the
 -- table before updating it. However, if @skipArchive@ is set to true,
@@ -106,10 +124,13 @@ newUpdateTable pDatabaseName_ pTableInput_ =
 updateTable_skipArchive :: Lens.Lens' UpdateTable (Prelude.Maybe Prelude.Bool)
 updateTable_skipArchive = Lens.lens (\UpdateTable' {skipArchive} -> skipArchive) (\s@UpdateTable' {} a -> s {skipArchive = a} :: UpdateTable)
 
--- | The ID of the Data Catalog where the table resides. If none is provided,
--- the Amazon Web Services account ID is used by default.
-updateTable_catalogId :: Lens.Lens' UpdateTable (Prelude.Maybe Prelude.Text)
-updateTable_catalogId = Lens.lens (\UpdateTable' {catalogId} -> catalogId) (\s@UpdateTable' {} a -> s {catalogId = a} :: UpdateTable)
+-- | The transaction ID at which to update the table contents.
+updateTable_transactionId :: Lens.Lens' UpdateTable (Prelude.Maybe Prelude.Text)
+updateTable_transactionId = Lens.lens (\UpdateTable' {transactionId} -> transactionId) (\s@UpdateTable' {} a -> s {transactionId = a} :: UpdateTable)
+
+-- | The version ID at which to update the table contents.
+updateTable_versionId :: Lens.Lens' UpdateTable (Prelude.Maybe Prelude.Text)
+updateTable_versionId = Lens.lens (\UpdateTable' {versionId} -> versionId) (\s@UpdateTable' {} a -> s {versionId = a} :: UpdateTable)
 
 -- | The name of the catalog database in which the table resides. For Hive
 -- compatibility, this name is entirely lowercase.
@@ -123,7 +144,8 @@ updateTable_tableInput = Lens.lens (\UpdateTable' {tableInput} -> tableInput) (\
 
 instance Core.AWSRequest UpdateTable where
   type AWSResponse UpdateTable = UpdateTableResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -133,46 +155,52 @@ instance Core.AWSRequest UpdateTable where
 
 instance Prelude.Hashable UpdateTable where
   hashWithSalt _salt UpdateTable' {..} =
-    _salt `Prelude.hashWithSalt` skipArchive
-      `Prelude.hashWithSalt` catalogId
+    _salt `Prelude.hashWithSalt` catalogId
+      `Prelude.hashWithSalt` skipArchive
+      `Prelude.hashWithSalt` transactionId
+      `Prelude.hashWithSalt` versionId
       `Prelude.hashWithSalt` databaseName
       `Prelude.hashWithSalt` tableInput
 
 instance Prelude.NFData UpdateTable where
   rnf UpdateTable' {..} =
-    Prelude.rnf skipArchive
-      `Prelude.seq` Prelude.rnf catalogId
+    Prelude.rnf catalogId
+      `Prelude.seq` Prelude.rnf skipArchive
+      `Prelude.seq` Prelude.rnf transactionId
+      `Prelude.seq` Prelude.rnf versionId
       `Prelude.seq` Prelude.rnf databaseName
       `Prelude.seq` Prelude.rnf tableInput
 
-instance Core.ToHeaders UpdateTable where
+instance Data.ToHeaders UpdateTable where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.UpdateTable" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.UpdateTable" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateTable where
+instance Data.ToJSON UpdateTable where
   toJSON UpdateTable' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SkipArchive" Core..=) Prelude.<$> skipArchive,
-            ("CatalogId" Core..=) Prelude.<$> catalogId,
-            Prelude.Just ("DatabaseName" Core..= databaseName),
-            Prelude.Just ("TableInput" Core..= tableInput)
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            ("SkipArchive" Data..=) Prelude.<$> skipArchive,
+            ("TransactionId" Data..=) Prelude.<$> transactionId,
+            ("VersionId" Data..=) Prelude.<$> versionId,
+            Prelude.Just ("DatabaseName" Data..= databaseName),
+            Prelude.Just ("TableInput" Data..= tableInput)
           ]
       )
 
-instance Core.ToPath UpdateTable where
+instance Data.ToPath UpdateTable where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateTable where
+instance Data.ToQuery UpdateTable where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateTableResponse' smart constructor.

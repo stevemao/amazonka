@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.DescribeDataQualityJobDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,8 +35,8 @@ module Amazonka.SageMaker.DescribeDataQualityJobDefinition
 
     -- * Response Lenses
     describeDataQualityJobDefinitionResponse_dataQualityBaselineConfig,
-    describeDataQualityJobDefinitionResponse_stoppingCondition,
     describeDataQualityJobDefinitionResponse_networkConfig,
+    describeDataQualityJobDefinitionResponse_stoppingCondition,
     describeDataQualityJobDefinitionResponse_httpStatus,
     describeDataQualityJobDefinitionResponse_jobDefinitionArn,
     describeDataQualityJobDefinitionResponse_jobDefinitionName,
@@ -50,7 +50,8 @@ module Amazonka.SageMaker.DescribeDataQualityJobDefinition
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,23 +95,24 @@ instance
   type
     AWSResponse DescribeDataQualityJobDefinition =
       DescribeDataQualityJobDefinitionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeDataQualityJobDefinitionResponse'
-            Prelude.<$> (x Core..?> "DataQualityBaselineConfig")
-            Prelude.<*> (x Core..?> "StoppingCondition")
-            Prelude.<*> (x Core..?> "NetworkConfig")
+            Prelude.<$> (x Data..?> "DataQualityBaselineConfig")
+            Prelude.<*> (x Data..?> "NetworkConfig")
+            Prelude.<*> (x Data..?> "StoppingCondition")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "JobDefinitionArn")
-            Prelude.<*> (x Core..:> "JobDefinitionName")
-            Prelude.<*> (x Core..:> "CreationTime")
-            Prelude.<*> (x Core..:> "DataQualityAppSpecification")
-            Prelude.<*> (x Core..:> "DataQualityJobInput")
-            Prelude.<*> (x Core..:> "DataQualityJobOutputConfig")
-            Prelude.<*> (x Core..:> "JobResources")
-            Prelude.<*> (x Core..:> "RoleArn")
+            Prelude.<*> (x Data..:> "JobDefinitionArn")
+            Prelude.<*> (x Data..:> "JobDefinitionName")
+            Prelude.<*> (x Data..:> "CreationTime")
+            Prelude.<*> (x Data..:> "DataQualityAppSpecification")
+            Prelude.<*> (x Data..:> "DataQualityJobInput")
+            Prelude.<*> (x Data..:> "DataQualityJobOutputConfig")
+            Prelude.<*> (x Data..:> "JobResources")
+            Prelude.<*> (x Data..:> "RoleArn")
       )
 
 instance
@@ -130,37 +132,37 @@ instance
     Prelude.rnf jobDefinitionName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeDataQualityJobDefinition
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.DescribeDataQualityJobDefinition" ::
+              Data.=# ( "SageMaker.DescribeDataQualityJobDefinition" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeDataQualityJobDefinition where
+instance Data.ToJSON DescribeDataQualityJobDefinition where
   toJSON DescribeDataQualityJobDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("JobDefinitionName" Core..= jobDefinitionName)
+              ("JobDefinitionName" Data..= jobDefinitionName)
           ]
       )
 
-instance Core.ToPath DescribeDataQualityJobDefinition where
+instance Data.ToPath DescribeDataQualityJobDefinition where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeDataQualityJobDefinition
   where
   toQuery = Prelude.const Prelude.mempty
@@ -170,9 +172,9 @@ data DescribeDataQualityJobDefinitionResponse = DescribeDataQualityJobDefinition
   { -- | The constraints and baselines for the data quality monitoring job
     -- definition.
     dataQualityBaselineConfig :: Prelude.Maybe DataQualityBaselineConfig,
-    stoppingCondition :: Prelude.Maybe MonitoringStoppingCondition,
     -- | The networking configuration for the data quality monitoring job.
     networkConfig :: Prelude.Maybe MonitoringNetworkConfig,
+    stoppingCondition :: Prelude.Maybe MonitoringStoppingCondition,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | The Amazon Resource Name (ARN) of the data quality monitoring job
@@ -181,7 +183,7 @@ data DescribeDataQualityJobDefinitionResponse = DescribeDataQualityJobDefinition
     -- | The name of the data quality monitoring job definition.
     jobDefinitionName :: Prelude.Text,
     -- | The time that the data quality monitoring job definition was created.
-    creationTime :: Core.POSIX,
+    creationTime :: Data.POSIX,
     -- | Information about the container that runs the data quality monitoring
     -- job.
     dataQualityAppSpecification :: DataQualityAppSpecification,
@@ -207,9 +209,9 @@ data DescribeDataQualityJobDefinitionResponse = DescribeDataQualityJobDefinition
 -- 'dataQualityBaselineConfig', 'describeDataQualityJobDefinitionResponse_dataQualityBaselineConfig' - The constraints and baselines for the data quality monitoring job
 -- definition.
 --
--- 'stoppingCondition', 'describeDataQualityJobDefinitionResponse_stoppingCondition' - Undocumented member.
---
 -- 'networkConfig', 'describeDataQualityJobDefinitionResponse_networkConfig' - The networking configuration for the data quality monitoring job.
+--
+-- 'stoppingCondition', 'describeDataQualityJobDefinitionResponse_stoppingCondition' - Undocumented member.
 --
 -- 'httpStatus', 'describeDataQualityJobDefinitionResponse_httpStatus' - The response's http status code.
 --
@@ -265,16 +267,16 @@ newDescribeDataQualityJobDefinitionResponse
     DescribeDataQualityJobDefinitionResponse'
       { dataQualityBaselineConfig =
           Prelude.Nothing,
+        networkConfig = Prelude.Nothing,
         stoppingCondition =
           Prelude.Nothing,
-        networkConfig = Prelude.Nothing,
         httpStatus = pHttpStatus_,
         jobDefinitionArn =
           pJobDefinitionArn_,
         jobDefinitionName =
           pJobDefinitionName_,
         creationTime =
-          Core._Time
+          Data._Time
             Lens.# pCreationTime_,
         dataQualityAppSpecification =
           pDataQualityAppSpecification_,
@@ -291,13 +293,13 @@ newDescribeDataQualityJobDefinitionResponse
 describeDataQualityJobDefinitionResponse_dataQualityBaselineConfig :: Lens.Lens' DescribeDataQualityJobDefinitionResponse (Prelude.Maybe DataQualityBaselineConfig)
 describeDataQualityJobDefinitionResponse_dataQualityBaselineConfig = Lens.lens (\DescribeDataQualityJobDefinitionResponse' {dataQualityBaselineConfig} -> dataQualityBaselineConfig) (\s@DescribeDataQualityJobDefinitionResponse' {} a -> s {dataQualityBaselineConfig = a} :: DescribeDataQualityJobDefinitionResponse)
 
--- | Undocumented member.
-describeDataQualityJobDefinitionResponse_stoppingCondition :: Lens.Lens' DescribeDataQualityJobDefinitionResponse (Prelude.Maybe MonitoringStoppingCondition)
-describeDataQualityJobDefinitionResponse_stoppingCondition = Lens.lens (\DescribeDataQualityJobDefinitionResponse' {stoppingCondition} -> stoppingCondition) (\s@DescribeDataQualityJobDefinitionResponse' {} a -> s {stoppingCondition = a} :: DescribeDataQualityJobDefinitionResponse)
-
 -- | The networking configuration for the data quality monitoring job.
 describeDataQualityJobDefinitionResponse_networkConfig :: Lens.Lens' DescribeDataQualityJobDefinitionResponse (Prelude.Maybe MonitoringNetworkConfig)
 describeDataQualityJobDefinitionResponse_networkConfig = Lens.lens (\DescribeDataQualityJobDefinitionResponse' {networkConfig} -> networkConfig) (\s@DescribeDataQualityJobDefinitionResponse' {} a -> s {networkConfig = a} :: DescribeDataQualityJobDefinitionResponse)
+
+-- | Undocumented member.
+describeDataQualityJobDefinitionResponse_stoppingCondition :: Lens.Lens' DescribeDataQualityJobDefinitionResponse (Prelude.Maybe MonitoringStoppingCondition)
+describeDataQualityJobDefinitionResponse_stoppingCondition = Lens.lens (\DescribeDataQualityJobDefinitionResponse' {stoppingCondition} -> stoppingCondition) (\s@DescribeDataQualityJobDefinitionResponse' {} a -> s {stoppingCondition = a} :: DescribeDataQualityJobDefinitionResponse)
 
 -- | The response's http status code.
 describeDataQualityJobDefinitionResponse_httpStatus :: Lens.Lens' DescribeDataQualityJobDefinitionResponse Prelude.Int
@@ -314,7 +316,7 @@ describeDataQualityJobDefinitionResponse_jobDefinitionName = Lens.lens (\Describ
 
 -- | The time that the data quality monitoring job definition was created.
 describeDataQualityJobDefinitionResponse_creationTime :: Lens.Lens' DescribeDataQualityJobDefinitionResponse Prelude.UTCTime
-describeDataQualityJobDefinitionResponse_creationTime = Lens.lens (\DescribeDataQualityJobDefinitionResponse' {creationTime} -> creationTime) (\s@DescribeDataQualityJobDefinitionResponse' {} a -> s {creationTime = a} :: DescribeDataQualityJobDefinitionResponse) Prelude.. Core._Time
+describeDataQualityJobDefinitionResponse_creationTime = Lens.lens (\DescribeDataQualityJobDefinitionResponse' {creationTime} -> creationTime) (\s@DescribeDataQualityJobDefinitionResponse' {} a -> s {creationTime = a} :: DescribeDataQualityJobDefinitionResponse) Prelude.. Data._Time
 
 -- | Information about the container that runs the data quality monitoring
 -- job.
@@ -345,8 +347,8 @@ instance
   where
   rnf DescribeDataQualityJobDefinitionResponse' {..} =
     Prelude.rnf dataQualityBaselineConfig
-      `Prelude.seq` Prelude.rnf stoppingCondition
       `Prelude.seq` Prelude.rnf networkConfig
+      `Prelude.seq` Prelude.rnf stoppingCondition
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf jobDefinitionArn
       `Prelude.seq` Prelude.rnf jobDefinitionName

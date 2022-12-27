@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatch.StartMetricStreams
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ where
 
 import Amazonka.CloudWatch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,7 +87,8 @@ instance Core.AWSRequest StartMetricStreams where
   type
     AWSResponse StartMetricStreams =
       StartMetricStreamsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "StartMetricStreamsResult"
@@ -102,20 +104,20 @@ instance Prelude.Hashable StartMetricStreams where
 instance Prelude.NFData StartMetricStreams where
   rnf StartMetricStreams' {..} = Prelude.rnf names
 
-instance Core.ToHeaders StartMetricStreams where
+instance Data.ToHeaders StartMetricStreams where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath StartMetricStreams where
+instance Data.ToPath StartMetricStreams where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartMetricStreams where
+instance Data.ToQuery StartMetricStreams where
   toQuery StartMetricStreams' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("StartMetricStreams" :: Prelude.ByteString),
+          Data.=: ("StartMetricStreams" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-08-01" :: Prelude.ByteString),
-        "Names" Core.=: Core.toQueryList "member" names
+          Data.=: ("2010-08-01" :: Prelude.ByteString),
+        "Names" Data.=: Data.toQueryList "member" names
       ]
 
 -- | /See:/ 'newStartMetricStreamsResponse' smart constructor.

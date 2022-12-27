@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LakeFormation.Types.ColumnLFTag
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.LakeFormation.Types.ColumnLFTag where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LakeFormation.Types.LFTagPair
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
--- | A structure containing the name of a column resource and the tags
+-- | A structure containing the name of a column resource and the LF-tags
 -- attached to it.
 --
 -- /See:/ 'newColumnLFTag' smart constructor.
 data ColumnLFTag = ColumnLFTag'
-  { -- | The name of a column resource.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The tags attached to a column resource.
-    lFTags :: Prelude.Maybe (Prelude.NonEmpty LFTagPair)
+  { -- | The LF-tags attached to a column resource.
+    lFTags :: Prelude.Maybe (Prelude.NonEmpty LFTagPair),
+    -- | The name of a column resource.
+    name :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,40 +45,40 @@ data ColumnLFTag = ColumnLFTag'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'columnLFTag_name' - The name of a column resource.
+-- 'lFTags', 'columnLFTag_lFTags' - The LF-tags attached to a column resource.
 --
--- 'lFTags', 'columnLFTag_lFTags' - The tags attached to a column resource.
+-- 'name', 'columnLFTag_name' - The name of a column resource.
 newColumnLFTag ::
   ColumnLFTag
 newColumnLFTag =
   ColumnLFTag'
-    { name = Prelude.Nothing,
-      lFTags = Prelude.Nothing
+    { lFTags = Prelude.Nothing,
+      name = Prelude.Nothing
     }
+
+-- | The LF-tags attached to a column resource.
+columnLFTag_lFTags :: Lens.Lens' ColumnLFTag (Prelude.Maybe (Prelude.NonEmpty LFTagPair))
+columnLFTag_lFTags = Lens.lens (\ColumnLFTag' {lFTags} -> lFTags) (\s@ColumnLFTag' {} a -> s {lFTags = a} :: ColumnLFTag) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of a column resource.
 columnLFTag_name :: Lens.Lens' ColumnLFTag (Prelude.Maybe Prelude.Text)
 columnLFTag_name = Lens.lens (\ColumnLFTag' {name} -> name) (\s@ColumnLFTag' {} a -> s {name = a} :: ColumnLFTag)
 
--- | The tags attached to a column resource.
-columnLFTag_lFTags :: Lens.Lens' ColumnLFTag (Prelude.Maybe (Prelude.NonEmpty LFTagPair))
-columnLFTag_lFTags = Lens.lens (\ColumnLFTag' {lFTags} -> lFTags) (\s@ColumnLFTag' {} a -> s {lFTags = a} :: ColumnLFTag) Prelude.. Lens.mapping Lens.coerced
-
-instance Core.FromJSON ColumnLFTag where
+instance Data.FromJSON ColumnLFTag where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ColumnLFTag"
       ( \x ->
           ColumnLFTag'
-            Prelude.<$> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "LFTags")
+            Prelude.<$> (x Data..:? "LFTags")
+            Prelude.<*> (x Data..:? "Name")
       )
 
 instance Prelude.Hashable ColumnLFTag where
   hashWithSalt _salt ColumnLFTag' {..} =
-    _salt `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` lFTags
+    _salt `Prelude.hashWithSalt` lFTags
+      `Prelude.hashWithSalt` name
 
 instance Prelude.NFData ColumnLFTag where
   rnf ColumnLFTag' {..} =
-    Prelude.rnf name `Prelude.seq` Prelude.rnf lFTags
+    Prelude.rnf lFTags `Prelude.seq` Prelude.rnf name

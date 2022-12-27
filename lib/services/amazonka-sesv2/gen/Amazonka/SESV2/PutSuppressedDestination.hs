@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.PutSuppressedDestination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.SESV2.PutSuppressedDestination
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,7 +101,8 @@ instance Core.AWSRequest PutSuppressedDestination where
   type
     AWSResponse PutSuppressedDestination =
       PutSuppressedDestinationResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -118,31 +120,31 @@ instance Prelude.NFData PutSuppressedDestination where
     Prelude.rnf emailAddress
       `Prelude.seq` Prelude.rnf reason
 
-instance Core.ToHeaders PutSuppressedDestination where
+instance Data.ToHeaders PutSuppressedDestination where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutSuppressedDestination where
+instance Data.ToJSON PutSuppressedDestination where
   toJSON PutSuppressedDestination' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("EmailAddress" Core..= emailAddress),
-            Prelude.Just ("Reason" Core..= reason)
+          [ Prelude.Just ("EmailAddress" Data..= emailAddress),
+            Prelude.Just ("Reason" Data..= reason)
           ]
       )
 
-instance Core.ToPath PutSuppressedDestination where
+instance Data.ToPath PutSuppressedDestination where
   toPath =
     Prelude.const "/v2/email/suppression/addresses"
 
-instance Core.ToQuery PutSuppressedDestination where
+instance Data.ToQuery PutSuppressedDestination where
   toQuery = Prelude.const Prelude.mempty
 
 -- | An HTTP 200 response if the request succeeds, or an error message if the

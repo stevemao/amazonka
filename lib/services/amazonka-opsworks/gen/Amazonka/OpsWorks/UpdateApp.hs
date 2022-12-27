@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.UpdateApp
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,16 +33,16 @@ module Amazonka.OpsWorks.UpdateApp
     newUpdateApp,
 
     -- * Request Lenses
-    updateApp_sslConfiguration,
-    updateApp_environment,
-    updateApp_enableSsl,
-    updateApp_dataSources,
     updateApp_appSource,
     updateApp_attributes,
-    updateApp_name,
-    updateApp_type,
-    updateApp_domains,
+    updateApp_dataSources,
     updateApp_description,
+    updateApp_domains,
+    updateApp_enableSsl,
+    updateApp_environment,
+    updateApp_name,
+    updateApp_sslConfiguration,
+    updateApp_type,
     updateApp_appId,
 
     -- * Destructuring the Response
@@ -52,7 +52,8 @@ module Amazonka.OpsWorks.UpdateApp
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -60,8 +61,20 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateApp' smart constructor.
 data UpdateApp = UpdateApp'
-  { -- | An @SslConfiguration@ object with the SSL configuration.
-    sslConfiguration :: Prelude.Maybe SslConfiguration,
+  { -- | A @Source@ object that specifies the app repository.
+    appSource :: Prelude.Maybe Source,
+    -- | One or more user-defined key\/value pairs to be added to the stack
+    -- attributes.
+    attributes :: Prelude.Maybe (Prelude.HashMap AppAttributesKeys Prelude.Text),
+    -- | The app\'s data sources.
+    dataSources :: Prelude.Maybe [DataSource],
+    -- | A description of the app.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The app\'s virtual host settings, with multiple domains separated by
+    -- commas. For example: @\'www.example.com, example.com\'@
+    domains :: Prelude.Maybe [Prelude.Text],
+    -- | Whether SSL is enabled for the app.
+    enableSsl :: Prelude.Maybe Prelude.Bool,
     -- | An array of @EnvironmentVariable@ objects that specify environment
     -- variables to be associated with the app. After you deploy the app, these
     -- variables are defined on the associated app server instances.For more
@@ -78,24 +91,12 @@ data UpdateApp = UpdateApp'
     -- If you have specified one or more environment variables, you cannot
     -- modify the stack\'s Chef version.
     environment :: Prelude.Maybe [EnvironmentVariable],
-    -- | Whether SSL is enabled for the app.
-    enableSsl :: Prelude.Maybe Prelude.Bool,
-    -- | The app\'s data sources.
-    dataSources :: Prelude.Maybe [DataSource],
-    -- | A @Source@ object that specifies the app repository.
-    appSource :: Prelude.Maybe Source,
-    -- | One or more user-defined key\/value pairs to be added to the stack
-    -- attributes.
-    attributes :: Prelude.Maybe (Prelude.HashMap AppAttributesKeys Prelude.Text),
     -- | The app name.
     name :: Prelude.Maybe Prelude.Text,
+    -- | An @SslConfiguration@ object with the SSL configuration.
+    sslConfiguration :: Prelude.Maybe SslConfiguration,
     -- | The app type.
     type' :: Prelude.Maybe AppType,
-    -- | The app\'s virtual host settings, with multiple domains separated by
-    -- commas. For example: @\'www.example.com, example.com\'@
-    domains :: Prelude.Maybe [Prelude.Text],
-    -- | A description of the app.
-    description :: Prelude.Maybe Prelude.Text,
     -- | The app ID.
     appId :: Prelude.Text
   }
@@ -109,7 +110,19 @@ data UpdateApp = UpdateApp'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sslConfiguration', 'updateApp_sslConfiguration' - An @SslConfiguration@ object with the SSL configuration.
+-- 'appSource', 'updateApp_appSource' - A @Source@ object that specifies the app repository.
+--
+-- 'attributes', 'updateApp_attributes' - One or more user-defined key\/value pairs to be added to the stack
+-- attributes.
+--
+-- 'dataSources', 'updateApp_dataSources' - The app\'s data sources.
+--
+-- 'description', 'updateApp_description' - A description of the app.
+--
+-- 'domains', 'updateApp_domains' - The app\'s virtual host settings, with multiple domains separated by
+-- commas. For example: @\'www.example.com, example.com\'@
+--
+-- 'enableSsl', 'updateApp_enableSsl' - Whether SSL is enabled for the app.
 --
 -- 'environment', 'updateApp_environment' - An array of @EnvironmentVariable@ objects that specify environment
 -- variables to be associated with the app. After you deploy the app, these
@@ -127,23 +140,11 @@ data UpdateApp = UpdateApp'
 -- If you have specified one or more environment variables, you cannot
 -- modify the stack\'s Chef version.
 --
--- 'enableSsl', 'updateApp_enableSsl' - Whether SSL is enabled for the app.
---
--- 'dataSources', 'updateApp_dataSources' - The app\'s data sources.
---
--- 'appSource', 'updateApp_appSource' - A @Source@ object that specifies the app repository.
---
--- 'attributes', 'updateApp_attributes' - One or more user-defined key\/value pairs to be added to the stack
--- attributes.
---
 -- 'name', 'updateApp_name' - The app name.
 --
+-- 'sslConfiguration', 'updateApp_sslConfiguration' - An @SslConfiguration@ object with the SSL configuration.
+--
 -- 'type'', 'updateApp_type' - The app type.
---
--- 'domains', 'updateApp_domains' - The app\'s virtual host settings, with multiple domains separated by
--- commas. For example: @\'www.example.com, example.com\'@
---
--- 'description', 'updateApp_description' - A description of the app.
 --
 -- 'appId', 'updateApp_appId' - The app ID.
 newUpdateApp ::
@@ -152,22 +153,44 @@ newUpdateApp ::
   UpdateApp
 newUpdateApp pAppId_ =
   UpdateApp'
-    { sslConfiguration = Prelude.Nothing,
-      environment = Prelude.Nothing,
-      enableSsl = Prelude.Nothing,
-      dataSources = Prelude.Nothing,
-      appSource = Prelude.Nothing,
+    { appSource = Prelude.Nothing,
       attributes = Prelude.Nothing,
-      name = Prelude.Nothing,
-      type' = Prelude.Nothing,
-      domains = Prelude.Nothing,
+      dataSources = Prelude.Nothing,
       description = Prelude.Nothing,
+      domains = Prelude.Nothing,
+      enableSsl = Prelude.Nothing,
+      environment = Prelude.Nothing,
+      name = Prelude.Nothing,
+      sslConfiguration = Prelude.Nothing,
+      type' = Prelude.Nothing,
       appId = pAppId_
     }
 
--- | An @SslConfiguration@ object with the SSL configuration.
-updateApp_sslConfiguration :: Lens.Lens' UpdateApp (Prelude.Maybe SslConfiguration)
-updateApp_sslConfiguration = Lens.lens (\UpdateApp' {sslConfiguration} -> sslConfiguration) (\s@UpdateApp' {} a -> s {sslConfiguration = a} :: UpdateApp)
+-- | A @Source@ object that specifies the app repository.
+updateApp_appSource :: Lens.Lens' UpdateApp (Prelude.Maybe Source)
+updateApp_appSource = Lens.lens (\UpdateApp' {appSource} -> appSource) (\s@UpdateApp' {} a -> s {appSource = a} :: UpdateApp)
+
+-- | One or more user-defined key\/value pairs to be added to the stack
+-- attributes.
+updateApp_attributes :: Lens.Lens' UpdateApp (Prelude.Maybe (Prelude.HashMap AppAttributesKeys Prelude.Text))
+updateApp_attributes = Lens.lens (\UpdateApp' {attributes} -> attributes) (\s@UpdateApp' {} a -> s {attributes = a} :: UpdateApp) Prelude.. Lens.mapping Lens.coerced
+
+-- | The app\'s data sources.
+updateApp_dataSources :: Lens.Lens' UpdateApp (Prelude.Maybe [DataSource])
+updateApp_dataSources = Lens.lens (\UpdateApp' {dataSources} -> dataSources) (\s@UpdateApp' {} a -> s {dataSources = a} :: UpdateApp) Prelude.. Lens.mapping Lens.coerced
+
+-- | A description of the app.
+updateApp_description :: Lens.Lens' UpdateApp (Prelude.Maybe Prelude.Text)
+updateApp_description = Lens.lens (\UpdateApp' {description} -> description) (\s@UpdateApp' {} a -> s {description = a} :: UpdateApp)
+
+-- | The app\'s virtual host settings, with multiple domains separated by
+-- commas. For example: @\'www.example.com, example.com\'@
+updateApp_domains :: Lens.Lens' UpdateApp (Prelude.Maybe [Prelude.Text])
+updateApp_domains = Lens.lens (\UpdateApp' {domains} -> domains) (\s@UpdateApp' {} a -> s {domains = a} :: UpdateApp) Prelude.. Lens.mapping Lens.coerced
+
+-- | Whether SSL is enabled for the app.
+updateApp_enableSsl :: Lens.Lens' UpdateApp (Prelude.Maybe Prelude.Bool)
+updateApp_enableSsl = Lens.lens (\UpdateApp' {enableSsl} -> enableSsl) (\s@UpdateApp' {} a -> s {enableSsl = a} :: UpdateApp)
 
 -- | An array of @EnvironmentVariable@ objects that specify environment
 -- variables to be associated with the app. After you deploy the app, these
@@ -187,39 +210,17 @@ updateApp_sslConfiguration = Lens.lens (\UpdateApp' {sslConfiguration} -> sslCon
 updateApp_environment :: Lens.Lens' UpdateApp (Prelude.Maybe [EnvironmentVariable])
 updateApp_environment = Lens.lens (\UpdateApp' {environment} -> environment) (\s@UpdateApp' {} a -> s {environment = a} :: UpdateApp) Prelude.. Lens.mapping Lens.coerced
 
--- | Whether SSL is enabled for the app.
-updateApp_enableSsl :: Lens.Lens' UpdateApp (Prelude.Maybe Prelude.Bool)
-updateApp_enableSsl = Lens.lens (\UpdateApp' {enableSsl} -> enableSsl) (\s@UpdateApp' {} a -> s {enableSsl = a} :: UpdateApp)
-
--- | The app\'s data sources.
-updateApp_dataSources :: Lens.Lens' UpdateApp (Prelude.Maybe [DataSource])
-updateApp_dataSources = Lens.lens (\UpdateApp' {dataSources} -> dataSources) (\s@UpdateApp' {} a -> s {dataSources = a} :: UpdateApp) Prelude.. Lens.mapping Lens.coerced
-
--- | A @Source@ object that specifies the app repository.
-updateApp_appSource :: Lens.Lens' UpdateApp (Prelude.Maybe Source)
-updateApp_appSource = Lens.lens (\UpdateApp' {appSource} -> appSource) (\s@UpdateApp' {} a -> s {appSource = a} :: UpdateApp)
-
--- | One or more user-defined key\/value pairs to be added to the stack
--- attributes.
-updateApp_attributes :: Lens.Lens' UpdateApp (Prelude.Maybe (Prelude.HashMap AppAttributesKeys Prelude.Text))
-updateApp_attributes = Lens.lens (\UpdateApp' {attributes} -> attributes) (\s@UpdateApp' {} a -> s {attributes = a} :: UpdateApp) Prelude.. Lens.mapping Lens.coerced
-
 -- | The app name.
 updateApp_name :: Lens.Lens' UpdateApp (Prelude.Maybe Prelude.Text)
 updateApp_name = Lens.lens (\UpdateApp' {name} -> name) (\s@UpdateApp' {} a -> s {name = a} :: UpdateApp)
 
+-- | An @SslConfiguration@ object with the SSL configuration.
+updateApp_sslConfiguration :: Lens.Lens' UpdateApp (Prelude.Maybe SslConfiguration)
+updateApp_sslConfiguration = Lens.lens (\UpdateApp' {sslConfiguration} -> sslConfiguration) (\s@UpdateApp' {} a -> s {sslConfiguration = a} :: UpdateApp)
+
 -- | The app type.
 updateApp_type :: Lens.Lens' UpdateApp (Prelude.Maybe AppType)
 updateApp_type = Lens.lens (\UpdateApp' {type'} -> type') (\s@UpdateApp' {} a -> s {type' = a} :: UpdateApp)
-
--- | The app\'s virtual host settings, with multiple domains separated by
--- commas. For example: @\'www.example.com, example.com\'@
-updateApp_domains :: Lens.Lens' UpdateApp (Prelude.Maybe [Prelude.Text])
-updateApp_domains = Lens.lens (\UpdateApp' {domains} -> domains) (\s@UpdateApp' {} a -> s {domains = a} :: UpdateApp) Prelude.. Lens.mapping Lens.coerced
-
--- | A description of the app.
-updateApp_description :: Lens.Lens' UpdateApp (Prelude.Maybe Prelude.Text)
-updateApp_description = Lens.lens (\UpdateApp' {description} -> description) (\s@UpdateApp' {} a -> s {description = a} :: UpdateApp)
 
 -- | The app ID.
 updateApp_appId :: Lens.Lens' UpdateApp Prelude.Text
@@ -227,75 +228,76 @@ updateApp_appId = Lens.lens (\UpdateApp' {appId} -> appId) (\s@UpdateApp' {} a -
 
 instance Core.AWSRequest UpdateApp where
   type AWSResponse UpdateApp = UpdateAppResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull UpdateAppResponse'
 
 instance Prelude.Hashable UpdateApp where
   hashWithSalt _salt UpdateApp' {..} =
-    _salt `Prelude.hashWithSalt` sslConfiguration
-      `Prelude.hashWithSalt` environment
-      `Prelude.hashWithSalt` enableSsl
-      `Prelude.hashWithSalt` dataSources
-      `Prelude.hashWithSalt` appSource
+    _salt `Prelude.hashWithSalt` appSource
       `Prelude.hashWithSalt` attributes
-      `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` type'
-      `Prelude.hashWithSalt` domains
+      `Prelude.hashWithSalt` dataSources
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` domains
+      `Prelude.hashWithSalt` enableSsl
+      `Prelude.hashWithSalt` environment
+      `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` sslConfiguration
+      `Prelude.hashWithSalt` type'
       `Prelude.hashWithSalt` appId
 
 instance Prelude.NFData UpdateApp where
   rnf UpdateApp' {..} =
-    Prelude.rnf sslConfiguration
-      `Prelude.seq` Prelude.rnf environment
-      `Prelude.seq` Prelude.rnf enableSsl
-      `Prelude.seq` Prelude.rnf dataSources
-      `Prelude.seq` Prelude.rnf appSource
+    Prelude.rnf appSource
       `Prelude.seq` Prelude.rnf attributes
-      `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf type'
-      `Prelude.seq` Prelude.rnf domains
+      `Prelude.seq` Prelude.rnf dataSources
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf domains
+      `Prelude.seq` Prelude.rnf enableSsl
+      `Prelude.seq` Prelude.rnf environment
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf sslConfiguration
+      `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf appId
 
-instance Core.ToHeaders UpdateApp where
+instance Data.ToHeaders UpdateApp where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.UpdateApp" ::
+              Data.=# ( "OpsWorks_20130218.UpdateApp" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateApp where
+instance Data.ToJSON UpdateApp where
   toJSON UpdateApp' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SslConfiguration" Core..=)
+          [ ("AppSource" Data..=) Prelude.<$> appSource,
+            ("Attributes" Data..=) Prelude.<$> attributes,
+            ("DataSources" Data..=) Prelude.<$> dataSources,
+            ("Description" Data..=) Prelude.<$> description,
+            ("Domains" Data..=) Prelude.<$> domains,
+            ("EnableSsl" Data..=) Prelude.<$> enableSsl,
+            ("Environment" Data..=) Prelude.<$> environment,
+            ("Name" Data..=) Prelude.<$> name,
+            ("SslConfiguration" Data..=)
               Prelude.<$> sslConfiguration,
-            ("Environment" Core..=) Prelude.<$> environment,
-            ("EnableSsl" Core..=) Prelude.<$> enableSsl,
-            ("DataSources" Core..=) Prelude.<$> dataSources,
-            ("AppSource" Core..=) Prelude.<$> appSource,
-            ("Attributes" Core..=) Prelude.<$> attributes,
-            ("Name" Core..=) Prelude.<$> name,
-            ("Type" Core..=) Prelude.<$> type',
-            ("Domains" Core..=) Prelude.<$> domains,
-            ("Description" Core..=) Prelude.<$> description,
-            Prelude.Just ("AppId" Core..= appId)
+            ("Type" Data..=) Prelude.<$> type',
+            Prelude.Just ("AppId" Data..= appId)
           ]
       )
 
-instance Core.ToPath UpdateApp where
+instance Data.ToPath UpdateApp where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateApp where
+instance Data.ToQuery UpdateApp where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateAppResponse' smart constructor.

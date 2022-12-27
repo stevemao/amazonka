@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.GetBots
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,9 +38,9 @@ module Amazonka.LexModels.GetBots
     newGetBots,
 
     -- * Request Lenses
+    getBots_maxResults,
     getBots_nameContains,
     getBots_nextToken,
-    getBots_maxResults,
 
     -- * Destructuring the Response
     GetBotsResponse (..),
@@ -54,7 +54,8 @@ module Amazonka.LexModels.GetBots
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LexModels.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -62,7 +63,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetBots' smart constructor.
 data GetBots = GetBots'
-  { -- | Substring to match in bot names. A bot will be returned if any part of
+  { -- | The maximum number of bots to return in the response that the request
+    -- will return. The default is 10.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Substring to match in bot names. A bot will be returned if any part of
     -- its name matches the substring. For example, \"xyz\" matches both
     -- \"xyzabc\" and \"abcxyz.\"
     nameContains :: Prelude.Maybe Prelude.Text,
@@ -70,10 +74,7 @@ data GetBots = GetBots'
     -- to this call is truncated, Amazon Lex returns a pagination token in the
     -- response. To fetch the next page of bots, specify the pagination token
     -- in the next request.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of bots to return in the response that the request
-    -- will return. The default is 10.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -85,6 +86,9 @@ data GetBots = GetBots'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'getBots_maxResults' - The maximum number of bots to return in the response that the request
+-- will return. The default is 10.
+--
 -- 'nameContains', 'getBots_nameContains' - Substring to match in bot names. A bot will be returned if any part of
 -- its name matches the substring. For example, \"xyz\" matches both
 -- \"xyzabc\" and \"abcxyz.\"
@@ -93,17 +97,19 @@ data GetBots = GetBots'
 -- to this call is truncated, Amazon Lex returns a pagination token in the
 -- response. To fetch the next page of bots, specify the pagination token
 -- in the next request.
---
--- 'maxResults', 'getBots_maxResults' - The maximum number of bots to return in the response that the request
--- will return. The default is 10.
 newGetBots ::
   GetBots
 newGetBots =
   GetBots'
-    { nameContains = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nameContains = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of bots to return in the response that the request
+-- will return. The default is 10.
+getBots_maxResults :: Lens.Lens' GetBots (Prelude.Maybe Prelude.Natural)
+getBots_maxResults = Lens.lens (\GetBots' {maxResults} -> maxResults) (\s@GetBots' {} a -> s {maxResults = a} :: GetBots)
 
 -- | Substring to match in bot names. A bot will be returned if any part of
 -- its name matches the substring. For example, \"xyz\" matches both
@@ -117,11 +123,6 @@ getBots_nameContains = Lens.lens (\GetBots' {nameContains} -> nameContains) (\s@
 -- in the next request.
 getBots_nextToken :: Lens.Lens' GetBots (Prelude.Maybe Prelude.Text)
 getBots_nextToken = Lens.lens (\GetBots' {nextToken} -> nextToken) (\s@GetBots' {} a -> s {nextToken = a} :: GetBots)
-
--- | The maximum number of bots to return in the response that the request
--- will return. The default is 10.
-getBots_maxResults :: Lens.Lens' GetBots (Prelude.Maybe Prelude.Natural)
-getBots_maxResults = Lens.lens (\GetBots' {maxResults} -> maxResults) (\s@GetBots' {} a -> s {maxResults = a} :: GetBots)
 
 instance Core.AWSPager GetBots where
   page rq rs
@@ -144,48 +145,49 @@ instance Core.AWSPager GetBots where
 
 instance Core.AWSRequest GetBots where
   type AWSResponse GetBots = GetBotsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetBotsResponse'
-            Prelude.<$> (x Core..?> "bots" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "bots" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetBots where
   hashWithSalt _salt GetBots' {..} =
-    _salt `Prelude.hashWithSalt` nameContains
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nameContains
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
 
 instance Prelude.NFData GetBots where
   rnf GetBots' {..} =
-    Prelude.rnf nameContains
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nameContains
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders GetBots where
+instance Data.ToHeaders GetBots where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetBots where
+instance Data.ToPath GetBots where
   toPath = Prelude.const "/bots/"
 
-instance Core.ToQuery GetBots where
+instance Data.ToQuery GetBots where
   toQuery GetBots' {..} =
     Prelude.mconcat
-      [ "nameContains" Core.=: nameContains,
-        "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nameContains" Data.=: nameContains,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newGetBotsResponse' smart constructor.

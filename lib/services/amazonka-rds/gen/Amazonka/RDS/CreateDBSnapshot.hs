@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.CreateDBSnapshot
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.RDS.CreateDBSnapshot
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -156,13 +157,14 @@ instance Core.AWSRequest CreateDBSnapshot where
   type
     AWSResponse CreateDBSnapshot =
       CreateDBSnapshotResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateDBSnapshotResult"
       ( \s h x ->
           CreateDBSnapshotResponse'
-            Prelude.<$> (x Core..@? "DBSnapshot")
+            Prelude.<$> (x Data..@? "DBSnapshot")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -178,24 +180,24 @@ instance Prelude.NFData CreateDBSnapshot where
       `Prelude.seq` Prelude.rnf dbSnapshotIdentifier
       `Prelude.seq` Prelude.rnf dbInstanceIdentifier
 
-instance Core.ToHeaders CreateDBSnapshot where
+instance Data.ToHeaders CreateDBSnapshot where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateDBSnapshot where
+instance Data.ToPath CreateDBSnapshot where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateDBSnapshot where
+instance Data.ToQuery CreateDBSnapshot where
   toQuery CreateDBSnapshot' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateDBSnapshot" :: Prelude.ByteString),
+          Data.=: ("CreateDBSnapshot" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Tag" Prelude.<$> tags),
-        "DBSnapshotIdentifier" Core.=: dbSnapshotIdentifier,
-        "DBInstanceIdentifier" Core.=: dbInstanceIdentifier
+          Data.=: Data.toQuery
+            (Data.toQueryList "Tag" Prelude.<$> tags),
+        "DBSnapshotIdentifier" Data.=: dbSnapshotIdentifier,
+        "DBInstanceIdentifier" Data.=: dbInstanceIdentifier
       ]
 
 -- | /See:/ 'newCreateDBSnapshotResponse' smart constructor.

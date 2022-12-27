@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -100,7 +100,13 @@ library
     Amazonka.Wisdom.Types.KnowledgeBaseSummary
     Amazonka.Wisdom.Types.KnowledgeBaseType
     Amazonka.Wisdom.Types.NotifyRecommendationsReceivedError
+    Amazonka.Wisdom.Types.QueryRecommendationTriggerData
     Amazonka.Wisdom.Types.RecommendationData
+    Amazonka.Wisdom.Types.RecommendationSourceType
+    Amazonka.Wisdom.Types.RecommendationTrigger
+    Amazonka.Wisdom.Types.RecommendationTriggerData
+    Amazonka.Wisdom.Types.RecommendationTriggerType
+    Amazonka.Wisdom.Types.RecommendationType
     Amazonka.Wisdom.Types.RelevanceLevel
     Amazonka.Wisdom.Types.RenderingConfiguration
     Amazonka.Wisdom.Types.ResultData
@@ -115,7 +121,7 @@ library
     Amazonka.Wisdom.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-wisdom-test
@@ -134,8 +140,8 @@ test-suite amazonka-wisdom-test
     Test.Amazonka.Wisdom.Internal
 
   build-depends:
-    , amazonka-core         ^>=2.0
-    , amazonka-test         ^>=2.0
+    , amazonka-core         >=2.0 && <2.1
+    , amazonka-test         >=2.0 && <2.1
     , amazonka-wisdom
     , base
     , bytestring

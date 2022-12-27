@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsDynamoDbTableReplicaGlobalSecondaryIndex
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsDynamoDbTableReplicaGlobalSecondaryIndex where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.AwsDynamoDbTableProvisionedThroughputOverride
 
@@ -28,11 +29,11 @@ import Amazonka.SecurityHub.Types.AwsDynamoDbTableProvisionedThroughputOverride
 --
 -- /See:/ 'newAwsDynamoDbTableReplicaGlobalSecondaryIndex' smart constructor.
 data AwsDynamoDbTableReplicaGlobalSecondaryIndex = AwsDynamoDbTableReplicaGlobalSecondaryIndex'
-  { -- | Replica-specific configuration for the provisioned throughput for the
+  { -- | The name of the index.
+    indexName :: Prelude.Maybe Prelude.Text,
+    -- | Replica-specific configuration for the provisioned throughput for the
     -- index.
-    provisionedThroughputOverride :: Prelude.Maybe AwsDynamoDbTableProvisionedThroughputOverride,
-    -- | The name of the index.
-    indexName :: Prelude.Maybe Prelude.Text
+    provisionedThroughputOverride :: Prelude.Maybe AwsDynamoDbTableProvisionedThroughputOverride
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,39 +45,40 @@ data AwsDynamoDbTableReplicaGlobalSecondaryIndex = AwsDynamoDbTableReplicaGlobal
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'indexName', 'awsDynamoDbTableReplicaGlobalSecondaryIndex_indexName' - The name of the index.
+--
 -- 'provisionedThroughputOverride', 'awsDynamoDbTableReplicaGlobalSecondaryIndex_provisionedThroughputOverride' - Replica-specific configuration for the provisioned throughput for the
 -- index.
---
--- 'indexName', 'awsDynamoDbTableReplicaGlobalSecondaryIndex_indexName' - The name of the index.
 newAwsDynamoDbTableReplicaGlobalSecondaryIndex ::
   AwsDynamoDbTableReplicaGlobalSecondaryIndex
 newAwsDynamoDbTableReplicaGlobalSecondaryIndex =
   AwsDynamoDbTableReplicaGlobalSecondaryIndex'
-    { provisionedThroughputOverride =
+    { indexName =
         Prelude.Nothing,
-      indexName = Prelude.Nothing
+      provisionedThroughputOverride =
+        Prelude.Nothing
     }
+
+-- | The name of the index.
+awsDynamoDbTableReplicaGlobalSecondaryIndex_indexName :: Lens.Lens' AwsDynamoDbTableReplicaGlobalSecondaryIndex (Prelude.Maybe Prelude.Text)
+awsDynamoDbTableReplicaGlobalSecondaryIndex_indexName = Lens.lens (\AwsDynamoDbTableReplicaGlobalSecondaryIndex' {indexName} -> indexName) (\s@AwsDynamoDbTableReplicaGlobalSecondaryIndex' {} a -> s {indexName = a} :: AwsDynamoDbTableReplicaGlobalSecondaryIndex)
 
 -- | Replica-specific configuration for the provisioned throughput for the
 -- index.
 awsDynamoDbTableReplicaGlobalSecondaryIndex_provisionedThroughputOverride :: Lens.Lens' AwsDynamoDbTableReplicaGlobalSecondaryIndex (Prelude.Maybe AwsDynamoDbTableProvisionedThroughputOverride)
 awsDynamoDbTableReplicaGlobalSecondaryIndex_provisionedThroughputOverride = Lens.lens (\AwsDynamoDbTableReplicaGlobalSecondaryIndex' {provisionedThroughputOverride} -> provisionedThroughputOverride) (\s@AwsDynamoDbTableReplicaGlobalSecondaryIndex' {} a -> s {provisionedThroughputOverride = a} :: AwsDynamoDbTableReplicaGlobalSecondaryIndex)
 
--- | The name of the index.
-awsDynamoDbTableReplicaGlobalSecondaryIndex_indexName :: Lens.Lens' AwsDynamoDbTableReplicaGlobalSecondaryIndex (Prelude.Maybe Prelude.Text)
-awsDynamoDbTableReplicaGlobalSecondaryIndex_indexName = Lens.lens (\AwsDynamoDbTableReplicaGlobalSecondaryIndex' {indexName} -> indexName) (\s@AwsDynamoDbTableReplicaGlobalSecondaryIndex' {} a -> s {indexName = a} :: AwsDynamoDbTableReplicaGlobalSecondaryIndex)
-
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsDynamoDbTableReplicaGlobalSecondaryIndex
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsDynamoDbTableReplicaGlobalSecondaryIndex"
       ( \x ->
           AwsDynamoDbTableReplicaGlobalSecondaryIndex'
-            Prelude.<$> (x Core..:? "ProvisionedThroughputOverride")
-              Prelude.<*> (x Core..:? "IndexName")
+            Prelude.<$> (x Data..:? "IndexName")
+              Prelude.<*> (x Data..:? "ProvisionedThroughputOverride")
       )
 
 instance
@@ -86,28 +88,27 @@ instance
   hashWithSalt
     _salt
     AwsDynamoDbTableReplicaGlobalSecondaryIndex' {..} =
-      _salt
+      _salt `Prelude.hashWithSalt` indexName
         `Prelude.hashWithSalt` provisionedThroughputOverride
-        `Prelude.hashWithSalt` indexName
 
 instance
   Prelude.NFData
     AwsDynamoDbTableReplicaGlobalSecondaryIndex
   where
   rnf AwsDynamoDbTableReplicaGlobalSecondaryIndex' {..} =
-    Prelude.rnf provisionedThroughputOverride
-      `Prelude.seq` Prelude.rnf indexName
+    Prelude.rnf indexName
+      `Prelude.seq` Prelude.rnf provisionedThroughputOverride
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsDynamoDbTableReplicaGlobalSecondaryIndex
   where
   toJSON
     AwsDynamoDbTableReplicaGlobalSecondaryIndex' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("ProvisionedThroughputOverride" Core..=)
-                Prelude.<$> provisionedThroughputOverride,
-              ("IndexName" Core..=) Prelude.<$> indexName
+            [ ("IndexName" Data..=) Prelude.<$> indexName,
+              ("ProvisionedThroughputOverride" Data..=)
+                Prelude.<$> provisionedThroughputOverride
             ]
         )

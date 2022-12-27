@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ManagedBlockChain.Types.NodeFabricAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ManagedBlockChain.Types.NodeFabricAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Attributes of Hyperledger Fabric for a peer node on a Hyperledger Fabric
@@ -28,12 +29,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newNodeFabricAttributes' smart constructor.
 data NodeFabricAttributes = NodeFabricAttributes'
-  { -- | The endpoint that identifies the peer node for peer channel-based event
-    -- services.
-    peerEventEndpoint :: Prelude.Maybe Prelude.Text,
-    -- | The endpoint that identifies the peer node for all services except peer
+  { -- | The endpoint that identifies the peer node for all services except peer
     -- channel-based event services.
-    peerEndpoint :: Prelude.Maybe Prelude.Text
+    peerEndpoint :: Prelude.Maybe Prelude.Text,
+    -- | The endpoint that identifies the peer node for peer channel-based event
+    -- services.
+    peerEventEndpoint :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,46 +46,46 @@ data NodeFabricAttributes = NodeFabricAttributes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'peerEventEndpoint', 'nodeFabricAttributes_peerEventEndpoint' - The endpoint that identifies the peer node for peer channel-based event
--- services.
---
 -- 'peerEndpoint', 'nodeFabricAttributes_peerEndpoint' - The endpoint that identifies the peer node for all services except peer
 -- channel-based event services.
+--
+-- 'peerEventEndpoint', 'nodeFabricAttributes_peerEventEndpoint' - The endpoint that identifies the peer node for peer channel-based event
+-- services.
 newNodeFabricAttributes ::
   NodeFabricAttributes
 newNodeFabricAttributes =
   NodeFabricAttributes'
-    { peerEventEndpoint =
+    { peerEndpoint =
         Prelude.Nothing,
-      peerEndpoint = Prelude.Nothing
+      peerEventEndpoint = Prelude.Nothing
     }
-
--- | The endpoint that identifies the peer node for peer channel-based event
--- services.
-nodeFabricAttributes_peerEventEndpoint :: Lens.Lens' NodeFabricAttributes (Prelude.Maybe Prelude.Text)
-nodeFabricAttributes_peerEventEndpoint = Lens.lens (\NodeFabricAttributes' {peerEventEndpoint} -> peerEventEndpoint) (\s@NodeFabricAttributes' {} a -> s {peerEventEndpoint = a} :: NodeFabricAttributes)
 
 -- | The endpoint that identifies the peer node for all services except peer
 -- channel-based event services.
 nodeFabricAttributes_peerEndpoint :: Lens.Lens' NodeFabricAttributes (Prelude.Maybe Prelude.Text)
 nodeFabricAttributes_peerEndpoint = Lens.lens (\NodeFabricAttributes' {peerEndpoint} -> peerEndpoint) (\s@NodeFabricAttributes' {} a -> s {peerEndpoint = a} :: NodeFabricAttributes)
 
-instance Core.FromJSON NodeFabricAttributes where
+-- | The endpoint that identifies the peer node for peer channel-based event
+-- services.
+nodeFabricAttributes_peerEventEndpoint :: Lens.Lens' NodeFabricAttributes (Prelude.Maybe Prelude.Text)
+nodeFabricAttributes_peerEventEndpoint = Lens.lens (\NodeFabricAttributes' {peerEventEndpoint} -> peerEventEndpoint) (\s@NodeFabricAttributes' {} a -> s {peerEventEndpoint = a} :: NodeFabricAttributes)
+
+instance Data.FromJSON NodeFabricAttributes where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NodeFabricAttributes"
       ( \x ->
           NodeFabricAttributes'
-            Prelude.<$> (x Core..:? "PeerEventEndpoint")
-            Prelude.<*> (x Core..:? "PeerEndpoint")
+            Prelude.<$> (x Data..:? "PeerEndpoint")
+            Prelude.<*> (x Data..:? "PeerEventEndpoint")
       )
 
 instance Prelude.Hashable NodeFabricAttributes where
   hashWithSalt _salt NodeFabricAttributes' {..} =
-    _salt `Prelude.hashWithSalt` peerEventEndpoint
-      `Prelude.hashWithSalt` peerEndpoint
+    _salt `Prelude.hashWithSalt` peerEndpoint
+      `Prelude.hashWithSalt` peerEventEndpoint
 
 instance Prelude.NFData NodeFabricAttributes where
   rnf NodeFabricAttributes' {..} =
-    Prelude.rnf peerEventEndpoint
-      `Prelude.seq` Prelude.rnf peerEndpoint
+    Prelude.rnf peerEndpoint
+      `Prelude.seq` Prelude.rnf peerEventEndpoint

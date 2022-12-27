@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.ListServiceActionsForProvisioningArtifact
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.ServiceCatalog.ListServiceActionsForProvisioningArtifact
 
     -- * Request Lenses
     listServiceActionsForProvisioningArtifact_acceptLanguage,
-    listServiceActionsForProvisioningArtifact_pageToken,
     listServiceActionsForProvisioningArtifact_pageSize,
+    listServiceActionsForProvisioningArtifact_pageToken,
     listServiceActionsForProvisioningArtifact_productId,
     listServiceActionsForProvisioningArtifact_provisioningArtifactId,
 
@@ -48,7 +48,8 @@ module Amazonka.ServiceCatalog.ListServiceActionsForProvisioningArtifact
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -64,11 +65,11 @@ data ListServiceActionsForProvisioningArtifact = ListServiceActionsForProvisioni
     --
     -- -   @zh@ - Chinese
     acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return with this call.
+    pageSize :: Prelude.Maybe Prelude.Natural,
     -- | The page token for the next set of results. To retrieve the first set of
     -- results, use null.
     pageToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return with this call.
-    pageSize :: Prelude.Maybe Prelude.Natural,
     -- | The product identifier. For example, @prod-abcdzk7xy33qa@.
     productId :: Prelude.Text,
     -- | The identifier of the provisioning artifact. For example,
@@ -93,10 +94,10 @@ data ListServiceActionsForProvisioningArtifact = ListServiceActionsForProvisioni
 --
 -- -   @zh@ - Chinese
 --
+-- 'pageSize', 'listServiceActionsForProvisioningArtifact_pageSize' - The maximum number of items to return with this call.
+--
 -- 'pageToken', 'listServiceActionsForProvisioningArtifact_pageToken' - The page token for the next set of results. To retrieve the first set of
 -- results, use null.
---
--- 'pageSize', 'listServiceActionsForProvisioningArtifact_pageSize' - The maximum number of items to return with this call.
 --
 -- 'productId', 'listServiceActionsForProvisioningArtifact_productId' - The product identifier. For example, @prod-abcdzk7xy33qa@.
 --
@@ -114,8 +115,8 @@ newListServiceActionsForProvisioningArtifact
     ListServiceActionsForProvisioningArtifact'
       { acceptLanguage =
           Prelude.Nothing,
-        pageToken = Prelude.Nothing,
         pageSize = Prelude.Nothing,
+        pageToken = Prelude.Nothing,
         productId = pProductId_,
         provisioningArtifactId =
           pProvisioningArtifactId_
@@ -131,14 +132,14 @@ newListServiceActionsForProvisioningArtifact
 listServiceActionsForProvisioningArtifact_acceptLanguage :: Lens.Lens' ListServiceActionsForProvisioningArtifact (Prelude.Maybe Prelude.Text)
 listServiceActionsForProvisioningArtifact_acceptLanguage = Lens.lens (\ListServiceActionsForProvisioningArtifact' {acceptLanguage} -> acceptLanguage) (\s@ListServiceActionsForProvisioningArtifact' {} a -> s {acceptLanguage = a} :: ListServiceActionsForProvisioningArtifact)
 
+-- | The maximum number of items to return with this call.
+listServiceActionsForProvisioningArtifact_pageSize :: Lens.Lens' ListServiceActionsForProvisioningArtifact (Prelude.Maybe Prelude.Natural)
+listServiceActionsForProvisioningArtifact_pageSize = Lens.lens (\ListServiceActionsForProvisioningArtifact' {pageSize} -> pageSize) (\s@ListServiceActionsForProvisioningArtifact' {} a -> s {pageSize = a} :: ListServiceActionsForProvisioningArtifact)
+
 -- | The page token for the next set of results. To retrieve the first set of
 -- results, use null.
 listServiceActionsForProvisioningArtifact_pageToken :: Lens.Lens' ListServiceActionsForProvisioningArtifact (Prelude.Maybe Prelude.Text)
 listServiceActionsForProvisioningArtifact_pageToken = Lens.lens (\ListServiceActionsForProvisioningArtifact' {pageToken} -> pageToken) (\s@ListServiceActionsForProvisioningArtifact' {} a -> s {pageToken = a} :: ListServiceActionsForProvisioningArtifact)
-
--- | The maximum number of items to return with this call.
-listServiceActionsForProvisioningArtifact_pageSize :: Lens.Lens' ListServiceActionsForProvisioningArtifact (Prelude.Maybe Prelude.Natural)
-listServiceActionsForProvisioningArtifact_pageSize = Lens.lens (\ListServiceActionsForProvisioningArtifact' {pageSize} -> pageSize) (\s@ListServiceActionsForProvisioningArtifact' {} a -> s {pageSize = a} :: ListServiceActionsForProvisioningArtifact)
 
 -- | The product identifier. For example, @prod-abcdzk7xy33qa@.
 listServiceActionsForProvisioningArtifact_productId :: Lens.Lens' ListServiceActionsForProvisioningArtifact Prelude.Text
@@ -182,13 +183,14 @@ instance
     AWSResponse
       ListServiceActionsForProvisioningArtifact =
       ListServiceActionsForProvisioningArtifactResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListServiceActionsForProvisioningArtifactResponse'
-            Prelude.<$> (x Core..?> "NextPageToken")
-              Prelude.<*> ( x Core..?> "ServiceActionSummaries"
+            Prelude.<$> (x Data..?> "NextPageToken")
+              Prelude.<*> ( x Data..?> "ServiceActionSummaries"
                               Core..!@ Prelude.mempty
                           )
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -202,8 +204,8 @@ instance
     _salt
     ListServiceActionsForProvisioningArtifact' {..} =
       _salt `Prelude.hashWithSalt` acceptLanguage
-        `Prelude.hashWithSalt` pageToken
         `Prelude.hashWithSalt` pageSize
+        `Prelude.hashWithSalt` pageToken
         `Prelude.hashWithSalt` productId
         `Prelude.hashWithSalt` provisioningArtifactId
 
@@ -213,56 +215,56 @@ instance
   where
   rnf ListServiceActionsForProvisioningArtifact' {..} =
     Prelude.rnf acceptLanguage
-      `Prelude.seq` Prelude.rnf pageToken
       `Prelude.seq` Prelude.rnf pageSize
+      `Prelude.seq` Prelude.rnf pageToken
       `Prelude.seq` Prelude.rnf productId
       `Prelude.seq` Prelude.rnf provisioningArtifactId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListServiceActionsForProvisioningArtifact
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.ListServiceActionsForProvisioningArtifact" ::
+              Data.=# ( "AWS242ServiceCatalogService.ListServiceActionsForProvisioningArtifact" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ListServiceActionsForProvisioningArtifact
   where
   toJSON ListServiceActionsForProvisioningArtifact' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            ("PageToken" Core..=) Prelude.<$> pageToken,
-            ("PageSize" Core..=) Prelude.<$> pageSize,
-            Prelude.Just ("ProductId" Core..= productId),
+            ("PageSize" Data..=) Prelude.<$> pageSize,
+            ("PageToken" Data..=) Prelude.<$> pageToken,
+            Prelude.Just ("ProductId" Data..= productId),
             Prelude.Just
               ( "ProvisioningArtifactId"
-                  Core..= provisioningArtifactId
+                  Data..= provisioningArtifactId
               )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     ListServiceActionsForProvisioningArtifact
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ListServiceActionsForProvisioningArtifact
   where
   toQuery = Prelude.const Prelude.mempty

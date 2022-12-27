@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.DescribeDBInstances
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,8 @@ module Amazonka.RDS.DescribeDBInstances
     newDescribeDBInstances,
 
     -- * Request Lenses
-    describeDBInstances_filters,
     describeDBInstances_dbInstanceIdentifier,
+    describeDBInstances_filters,
     describeDBInstances_marker,
     describeDBInstances_maxRecords,
 
@@ -50,7 +50,8 @@ module Amazonka.RDS.DescribeDBInstances
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -60,17 +61,26 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeDBInstances' smart constructor.
 data DescribeDBInstances = DescribeDBInstances'
-  { -- | A filter that specifies one or more DB instances to describe.
+  { -- | The user-supplied instance identifier or the Amazon Resource Name (ARN)
+    -- of the DB instance. If this parameter is specified, information from
+    -- only the specific DB instance is returned. This parameter isn\'t
+    -- case-sensitive.
+    --
+    -- Constraints:
+    --
+    -- -   If supplied, must match the identifier of an existing DBInstance.
+    dbInstanceIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | A filter that specifies one or more DB instances to describe.
     --
     -- Supported filters:
     --
     -- -   @db-cluster-id@ - Accepts DB cluster identifiers and DB cluster
-    --     Amazon Resource Names (ARNs). The results list will only include
+    --     Amazon Resource Names (ARNs). The results list only includes
     --     information about the DB instances associated with the DB clusters
     --     identified by these ARNs.
     --
     -- -   @db-instance-id@ - Accepts DB instance identifiers and DB instance
-    --     Amazon Resource Names (ARNs). The results list will only include
+    --     Amazon Resource Names (ARNs). The results list only includes
     --     information about the DB instances identified by these ARNs.
     --
     -- -   @dbi-resource-id@ - Accepts DB instance resource identifiers. The
@@ -78,20 +88,12 @@ data DescribeDBInstances = DescribeDBInstances'
     --     identified by these DB instance resource identifiers.
     --
     -- -   @domain@ - Accepts Active Directory directory IDs. The results list
-    --     will only include information about the DB instances associated with
+    --     only includes information about the DB instances associated with
     --     these domains.
     --
-    -- -   @engine@ - Accepts engine names. The results list will only include
+    -- -   @engine@ - Accepts engine names. The results list only includes
     --     information about the DB instances for these engines.
     filters :: Prelude.Maybe [Filter],
-    -- | The user-supplied instance identifier. If this parameter is specified,
-    -- information from only the specific DB instance is returned. This
-    -- parameter isn\'t case-sensitive.
-    --
-    -- Constraints:
-    --
-    -- -   If supplied, must match the identifier of an existing DBInstance.
-    dbInstanceIdentifier :: Prelude.Maybe Prelude.Text,
     -- | An optional pagination token provided by a previous
     -- @DescribeDBInstances@ request. If this parameter is specified, the
     -- response includes only records beyond the marker, up to the value
@@ -117,17 +119,26 @@ data DescribeDBInstances = DescribeDBInstances'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'dbInstanceIdentifier', 'describeDBInstances_dbInstanceIdentifier' - The user-supplied instance identifier or the Amazon Resource Name (ARN)
+-- of the DB instance. If this parameter is specified, information from
+-- only the specific DB instance is returned. This parameter isn\'t
+-- case-sensitive.
+--
+-- Constraints:
+--
+-- -   If supplied, must match the identifier of an existing DBInstance.
+--
 -- 'filters', 'describeDBInstances_filters' - A filter that specifies one or more DB instances to describe.
 --
 -- Supported filters:
 --
 -- -   @db-cluster-id@ - Accepts DB cluster identifiers and DB cluster
---     Amazon Resource Names (ARNs). The results list will only include
+--     Amazon Resource Names (ARNs). The results list only includes
 --     information about the DB instances associated with the DB clusters
 --     identified by these ARNs.
 --
 -- -   @db-instance-id@ - Accepts DB instance identifiers and DB instance
---     Amazon Resource Names (ARNs). The results list will only include
+--     Amazon Resource Names (ARNs). The results list only includes
 --     information about the DB instances identified by these ARNs.
 --
 -- -   @dbi-resource-id@ - Accepts DB instance resource identifiers. The
@@ -135,19 +146,11 @@ data DescribeDBInstances = DescribeDBInstances'
 --     identified by these DB instance resource identifiers.
 --
 -- -   @domain@ - Accepts Active Directory directory IDs. The results list
---     will only include information about the DB instances associated with
+--     only includes information about the DB instances associated with
 --     these domains.
 --
--- -   @engine@ - Accepts engine names. The results list will only include
+-- -   @engine@ - Accepts engine names. The results list only includes
 --     information about the DB instances for these engines.
---
--- 'dbInstanceIdentifier', 'describeDBInstances_dbInstanceIdentifier' - The user-supplied instance identifier. If this parameter is specified,
--- information from only the specific DB instance is returned. This
--- parameter isn\'t case-sensitive.
---
--- Constraints:
---
--- -   If supplied, must match the identifier of an existing DBInstance.
 --
 -- 'marker', 'describeDBInstances_marker' - An optional pagination token provided by a previous
 -- @DescribeDBInstances@ request. If this parameter is specified, the
@@ -166,23 +169,35 @@ newDescribeDBInstances ::
   DescribeDBInstances
 newDescribeDBInstances =
   DescribeDBInstances'
-    { filters = Prelude.Nothing,
-      dbInstanceIdentifier = Prelude.Nothing,
+    { dbInstanceIdentifier =
+        Prelude.Nothing,
+      filters = Prelude.Nothing,
       marker = Prelude.Nothing,
       maxRecords = Prelude.Nothing
     }
+
+-- | The user-supplied instance identifier or the Amazon Resource Name (ARN)
+-- of the DB instance. If this parameter is specified, information from
+-- only the specific DB instance is returned. This parameter isn\'t
+-- case-sensitive.
+--
+-- Constraints:
+--
+-- -   If supplied, must match the identifier of an existing DBInstance.
+describeDBInstances_dbInstanceIdentifier :: Lens.Lens' DescribeDBInstances (Prelude.Maybe Prelude.Text)
+describeDBInstances_dbInstanceIdentifier = Lens.lens (\DescribeDBInstances' {dbInstanceIdentifier} -> dbInstanceIdentifier) (\s@DescribeDBInstances' {} a -> s {dbInstanceIdentifier = a} :: DescribeDBInstances)
 
 -- | A filter that specifies one or more DB instances to describe.
 --
 -- Supported filters:
 --
 -- -   @db-cluster-id@ - Accepts DB cluster identifiers and DB cluster
---     Amazon Resource Names (ARNs). The results list will only include
+--     Amazon Resource Names (ARNs). The results list only includes
 --     information about the DB instances associated with the DB clusters
 --     identified by these ARNs.
 --
 -- -   @db-instance-id@ - Accepts DB instance identifiers and DB instance
---     Amazon Resource Names (ARNs). The results list will only include
+--     Amazon Resource Names (ARNs). The results list only includes
 --     information about the DB instances identified by these ARNs.
 --
 -- -   @dbi-resource-id@ - Accepts DB instance resource identifiers. The
@@ -190,23 +205,13 @@ newDescribeDBInstances =
 --     identified by these DB instance resource identifiers.
 --
 -- -   @domain@ - Accepts Active Directory directory IDs. The results list
---     will only include information about the DB instances associated with
+--     only includes information about the DB instances associated with
 --     these domains.
 --
--- -   @engine@ - Accepts engine names. The results list will only include
+-- -   @engine@ - Accepts engine names. The results list only includes
 --     information about the DB instances for these engines.
 describeDBInstances_filters :: Lens.Lens' DescribeDBInstances (Prelude.Maybe [Filter])
 describeDBInstances_filters = Lens.lens (\DescribeDBInstances' {filters} -> filters) (\s@DescribeDBInstances' {} a -> s {filters = a} :: DescribeDBInstances) Prelude.. Lens.mapping Lens.coerced
-
--- | The user-supplied instance identifier. If this parameter is specified,
--- information from only the specific DB instance is returned. This
--- parameter isn\'t case-sensitive.
---
--- Constraints:
---
--- -   If supplied, must match the identifier of an existing DBInstance.
-describeDBInstances_dbInstanceIdentifier :: Lens.Lens' DescribeDBInstances (Prelude.Maybe Prelude.Text)
-describeDBInstances_dbInstanceIdentifier = Lens.lens (\DescribeDBInstances' {dbInstanceIdentifier} -> dbInstanceIdentifier) (\s@DescribeDBInstances' {} a -> s {dbInstanceIdentifier = a} :: DescribeDBInstances)
 
 -- | An optional pagination token provided by a previous
 -- @DescribeDBInstances@ request. If this parameter is specified, the
@@ -252,52 +257,53 @@ instance Core.AWSRequest DescribeDBInstances where
   type
     AWSResponse DescribeDBInstances =
       DescribeDBInstancesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeDBInstancesResult"
       ( \s h x ->
           DescribeDBInstancesResponse'
-            Prelude.<$> ( x Core..@? "DBInstances" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "DBInstance")
+            Prelude.<$> ( x Data..@? "DBInstances" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "DBInstance")
                         )
-            Prelude.<*> (x Core..@? "Marker")
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeDBInstances where
   hashWithSalt _salt DescribeDBInstances' {..} =
-    _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` dbInstanceIdentifier
+    _salt `Prelude.hashWithSalt` dbInstanceIdentifier
+      `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
 
 instance Prelude.NFData DescribeDBInstances where
   rnf DescribeDBInstances' {..} =
-    Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf dbInstanceIdentifier
+    Prelude.rnf dbInstanceIdentifier
+      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
 
-instance Core.ToHeaders DescribeDBInstances where
+instance Data.ToHeaders DescribeDBInstances where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeDBInstances where
+instance Data.ToPath DescribeDBInstances where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeDBInstances where
+instance Data.ToQuery DescribeDBInstances where
   toQuery DescribeDBInstances' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeDBInstances" :: Prelude.ByteString),
+          Data.=: ("DescribeDBInstances" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBInstanceIdentifier" Data.=: dbInstanceIdentifier,
         "Filters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Filter" Prelude.<$> filters),
-        "DBInstanceIdentifier" Core.=: dbInstanceIdentifier,
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords
+          Data.=: Data.toQuery
+            (Data.toQueryList "Filter" Prelude.<$> filters),
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords
       ]
 
 -- | Contains the result of a successful invocation of the

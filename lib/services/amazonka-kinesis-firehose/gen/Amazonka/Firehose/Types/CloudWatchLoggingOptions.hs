@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Firehose.Types.CloudWatchLoggingOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Firehose.Types.CloudWatchLoggingOptions where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the Amazon CloudWatch logging options for your delivery
@@ -78,15 +79,15 @@ cloudWatchLoggingOptions_logGroupName = Lens.lens (\CloudWatchLoggingOptions' {l
 cloudWatchLoggingOptions_logStreamName :: Lens.Lens' CloudWatchLoggingOptions (Prelude.Maybe Prelude.Text)
 cloudWatchLoggingOptions_logStreamName = Lens.lens (\CloudWatchLoggingOptions' {logStreamName} -> logStreamName) (\s@CloudWatchLoggingOptions' {} a -> s {logStreamName = a} :: CloudWatchLoggingOptions)
 
-instance Core.FromJSON CloudWatchLoggingOptions where
+instance Data.FromJSON CloudWatchLoggingOptions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CloudWatchLoggingOptions"
       ( \x ->
           CloudWatchLoggingOptions'
-            Prelude.<$> (x Core..:? "Enabled")
-            Prelude.<*> (x Core..:? "LogGroupName")
-            Prelude.<*> (x Core..:? "LogStreamName")
+            Prelude.<$> (x Data..:? "Enabled")
+            Prelude.<*> (x Data..:? "LogGroupName")
+            Prelude.<*> (x Data..:? "LogStreamName")
       )
 
 instance Prelude.Hashable CloudWatchLoggingOptions where
@@ -101,12 +102,12 @@ instance Prelude.NFData CloudWatchLoggingOptions where
       `Prelude.seq` Prelude.rnf logGroupName
       `Prelude.seq` Prelude.rnf logStreamName
 
-instance Core.ToJSON CloudWatchLoggingOptions where
+instance Data.ToJSON CloudWatchLoggingOptions where
   toJSON CloudWatchLoggingOptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Enabled" Core..=) Prelude.<$> enabled,
-            ("LogGroupName" Core..=) Prelude.<$> logGroupName,
-            ("LogStreamName" Core..=) Prelude.<$> logStreamName
+          [ ("Enabled" Data..=) Prelude.<$> enabled,
+            ("LogGroupName" Data..=) Prelude.<$> logGroupName,
+            ("LogStreamName" Data..=) Prelude.<$> logStreamName
           ]
       )

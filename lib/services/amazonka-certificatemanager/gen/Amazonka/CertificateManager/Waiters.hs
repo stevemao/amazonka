@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -8,7 +9,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManager.Waiters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -19,17 +20,18 @@ import Amazonka.CertificateManager.DescribeCertificate
 import Amazonka.CertificateManager.Lens
 import Amazonka.CertificateManager.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Polls 'Amazonka.CertificateManager.DescribeCertificate' every 60 seconds until a successful state is reached. An error is returned after 40 failed checks.
 newCertificateValidated :: Core.Wait DescribeCertificate
 newCertificateValidated =
   Core.Wait
-    { Core._waitName = "CertificateValidated",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 60,
-      Core._waitAcceptors =
+    { Core.name = "CertificateValidated",
+      Core.attempts = 40,
+      Core.delay = 60,
+      Core.acceptors =
         [ Core.matchAll
             "SUCCESS"
             Core.AcceptSuccess
@@ -44,7 +46,7 @@ newCertificateValidated =
                   )
                 Prelude.. domainValidation_validationStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "PENDING_VALIDATION"
@@ -60,7 +62,7 @@ newCertificateValidated =
                   )
                 Prelude.. domainValidation_validationStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAll
             "FAILED"
@@ -69,7 +71,7 @@ newCertificateValidated =
                 Prelude.. Lens._Just
                 Prelude.. certificateDetail_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchError
             "ResourceNotFoundException"

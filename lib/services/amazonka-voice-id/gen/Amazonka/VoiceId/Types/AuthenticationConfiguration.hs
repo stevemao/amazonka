@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.VoiceId.Types.AuthenticationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.VoiceId.Types.AuthenticationConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configuration used to authenticate a speaker during a session.
@@ -55,13 +56,13 @@ newAuthenticationConfiguration pAcceptanceThreshold_ =
 authenticationConfiguration_acceptanceThreshold :: Lens.Lens' AuthenticationConfiguration Prelude.Natural
 authenticationConfiguration_acceptanceThreshold = Lens.lens (\AuthenticationConfiguration' {acceptanceThreshold} -> acceptanceThreshold) (\s@AuthenticationConfiguration' {} a -> s {acceptanceThreshold = a} :: AuthenticationConfiguration)
 
-instance Core.FromJSON AuthenticationConfiguration where
+instance Data.FromJSON AuthenticationConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AuthenticationConfiguration"
       ( \x ->
           AuthenticationConfiguration'
-            Prelude.<$> (x Core..: "AcceptanceThreshold")
+            Prelude.<$> (x Data..: "AcceptanceThreshold")
       )
 
 instance Prelude.Hashable AuthenticationConfiguration where

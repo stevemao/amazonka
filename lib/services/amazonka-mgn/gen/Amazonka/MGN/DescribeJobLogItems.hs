@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.MGN.DescribeJobLogItems
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves detailed Job log with paging.
+-- Retrieves detailed job log items with paging.
 --
 -- This operation returns paginated results.
 module Amazonka.MGN.DescribeJobLogItems
@@ -29,8 +29,8 @@ module Amazonka.MGN.DescribeJobLogItems
     newDescribeJobLogItems,
 
     -- * Request Lenses
-    describeJobLogItems_nextToken,
     describeJobLogItems_maxResults,
+    describeJobLogItems_nextToken,
     describeJobLogItems_jobID,
 
     -- * Destructuring the Response
@@ -45,7 +45,8 @@ module Amazonka.MGN.DescribeJobLogItems
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MGN.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -53,10 +54,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeJobLogItems' smart constructor.
 data DescribeJobLogItems = DescribeJobLogItems'
-  { -- | Request to describe Job log next token.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Request to describe Job log item maximum results.
+  { -- | Request to describe Job log item maximum results.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Request to describe Job log next token.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | Request to describe Job log job ID.
     jobID :: Prelude.Text
   }
@@ -70,9 +71,9 @@ data DescribeJobLogItems = DescribeJobLogItems'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeJobLogItems_nextToken' - Request to describe Job log next token.
---
 -- 'maxResults', 'describeJobLogItems_maxResults' - Request to describe Job log item maximum results.
+--
+-- 'nextToken', 'describeJobLogItems_nextToken' - Request to describe Job log next token.
 --
 -- 'jobID', 'describeJobLogItems_jobID' - Request to describe Job log job ID.
 newDescribeJobLogItems ::
@@ -81,18 +82,18 @@ newDescribeJobLogItems ::
   DescribeJobLogItems
 newDescribeJobLogItems pJobID_ =
   DescribeJobLogItems'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       jobID = pJobID_
     }
-
--- | Request to describe Job log next token.
-describeJobLogItems_nextToken :: Lens.Lens' DescribeJobLogItems (Prelude.Maybe Prelude.Text)
-describeJobLogItems_nextToken = Lens.lens (\DescribeJobLogItems' {nextToken} -> nextToken) (\s@DescribeJobLogItems' {} a -> s {nextToken = a} :: DescribeJobLogItems)
 
 -- | Request to describe Job log item maximum results.
 describeJobLogItems_maxResults :: Lens.Lens' DescribeJobLogItems (Prelude.Maybe Prelude.Natural)
 describeJobLogItems_maxResults = Lens.lens (\DescribeJobLogItems' {maxResults} -> maxResults) (\s@DescribeJobLogItems' {} a -> s {maxResults = a} :: DescribeJobLogItems)
+
+-- | Request to describe Job log next token.
+describeJobLogItems_nextToken :: Lens.Lens' DescribeJobLogItems (Prelude.Maybe Prelude.Text)
+describeJobLogItems_nextToken = Lens.lens (\DescribeJobLogItems' {nextToken} -> nextToken) (\s@DescribeJobLogItems' {} a -> s {nextToken = a} :: DescribeJobLogItems)
 
 -- | Request to describe Job log job ID.
 describeJobLogItems_jobID :: Lens.Lens' DescribeJobLogItems Prelude.Text
@@ -124,53 +125,54 @@ instance Core.AWSRequest DescribeJobLogItems where
   type
     AWSResponse DescribeJobLogItems =
       DescribeJobLogItemsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeJobLogItemsResponse'
-            Prelude.<$> (x Core..?> "items" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "items" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeJobLogItems where
   hashWithSalt _salt DescribeJobLogItems' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` jobID
 
 instance Prelude.NFData DescribeJobLogItems where
   rnf DescribeJobLogItems' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf jobID
 
-instance Core.ToHeaders DescribeJobLogItems where
+instance Data.ToHeaders DescribeJobLogItems where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeJobLogItems where
+instance Data.ToJSON DescribeJobLogItems where
   toJSON DescribeJobLogItems' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("jobID" Core..= jobID)
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("jobID" Data..= jobID)
           ]
       )
 
-instance Core.ToPath DescribeJobLogItems where
+instance Data.ToPath DescribeJobLogItems where
   toPath = Prelude.const "/DescribeJobLogItems"
 
-instance Core.ToQuery DescribeJobLogItems where
+instance Data.ToQuery DescribeJobLogItems where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeJobLogItemsResponse' smart constructor.

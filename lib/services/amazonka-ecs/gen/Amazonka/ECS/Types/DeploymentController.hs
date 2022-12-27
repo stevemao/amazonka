@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.DeploymentController
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,13 +20,14 @@
 module Amazonka.ECS.Types.DeploymentController where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types.DeploymentControllerType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The deployment controller to use for the service. For more information,
 -- see
--- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html Amazon ECS Deployment Types>
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html Amazon ECS deployment types>
 -- in the /Amazon Elastic Container Service Developer Guide/.
 --
 -- /See:/ 'newDeploymentController' smart constructor.
@@ -116,12 +117,12 @@ newDeploymentController pType_ =
 deploymentController_type :: Lens.Lens' DeploymentController DeploymentControllerType
 deploymentController_type = Lens.lens (\DeploymentController' {type'} -> type') (\s@DeploymentController' {} a -> s {type' = a} :: DeploymentController)
 
-instance Core.FromJSON DeploymentController where
+instance Data.FromJSON DeploymentController where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DeploymentController"
       ( \x ->
-          DeploymentController' Prelude.<$> (x Core..: "type")
+          DeploymentController' Prelude.<$> (x Data..: "type")
       )
 
 instance Prelude.Hashable DeploymentController where
@@ -131,9 +132,9 @@ instance Prelude.Hashable DeploymentController where
 instance Prelude.NFData DeploymentController where
   rnf DeploymentController' {..} = Prelude.rnf type'
 
-instance Core.ToJSON DeploymentController where
+instance Data.ToJSON DeploymentController where
   toJSON DeploymentController' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("type" Core..= type')]
+          [Prelude.Just ("type" Data..= type')]
       )

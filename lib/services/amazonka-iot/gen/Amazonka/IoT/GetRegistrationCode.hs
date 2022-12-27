@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.GetRegistrationCode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.IoT.GetRegistrationCode
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -67,12 +68,13 @@ instance Core.AWSRequest GetRegistrationCode where
   type
     AWSResponse GetRegistrationCode =
       GetRegistrationCodeResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetRegistrationCodeResponse'
-            Prelude.<$> (x Core..?> "registrationCode")
+            Prelude.<$> (x Data..?> "registrationCode")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -83,13 +85,13 @@ instance Prelude.Hashable GetRegistrationCode where
 instance Prelude.NFData GetRegistrationCode where
   rnf _ = ()
 
-instance Core.ToHeaders GetRegistrationCode where
+instance Data.ToHeaders GetRegistrationCode where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetRegistrationCode where
+instance Data.ToPath GetRegistrationCode where
   toPath = Prelude.const "/registrationcode"
 
-instance Core.ToQuery GetRegistrationCode where
+instance Data.ToQuery GetRegistrationCode where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The output from the GetRegistrationCode operation.

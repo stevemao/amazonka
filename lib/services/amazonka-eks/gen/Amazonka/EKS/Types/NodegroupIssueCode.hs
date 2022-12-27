@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.Types.NodegroupIssueCode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,6 +30,7 @@ module Amazonka.EKS.Types.NodegroupIssueCode
         NodegroupIssueCode_Ec2SecurityGroupDeletionFailure,
         NodegroupIssueCode_Ec2SecurityGroupNotFound,
         NodegroupIssueCode_Ec2SubnetInvalidConfiguration,
+        NodegroupIssueCode_Ec2SubnetMissingIpv6Assignment,
         NodegroupIssueCode_Ec2SubnetNotFound,
         NodegroupIssueCode_IamInstanceProfileNotFound,
         NodegroupIssueCode_IamLimitExceeded,
@@ -43,11 +44,12 @@ module Amazonka.EKS.Types.NodegroupIssueCode
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype NodegroupIssueCode = NodegroupIssueCode'
   { fromNodegroupIssueCode ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -59,18 +61,18 @@ newtype NodegroupIssueCode = NodegroupIssueCode'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern NodegroupIssueCode_AccessDenied :: NodegroupIssueCode
@@ -102,6 +104,9 @@ pattern NodegroupIssueCode_Ec2SecurityGroupNotFound = NodegroupIssueCode' "Ec2Se
 
 pattern NodegroupIssueCode_Ec2SubnetInvalidConfiguration :: NodegroupIssueCode
 pattern NodegroupIssueCode_Ec2SubnetInvalidConfiguration = NodegroupIssueCode' "Ec2SubnetInvalidConfiguration"
+
+pattern NodegroupIssueCode_Ec2SubnetMissingIpv6Assignment :: NodegroupIssueCode
+pattern NodegroupIssueCode_Ec2SubnetMissingIpv6Assignment = NodegroupIssueCode' "Ec2SubnetMissingIpv6Assignment"
 
 pattern NodegroupIssueCode_Ec2SubnetNotFound :: NodegroupIssueCode
 pattern NodegroupIssueCode_Ec2SubnetNotFound = NodegroupIssueCode' "Ec2SubnetNotFound"
@@ -138,6 +143,7 @@ pattern NodegroupIssueCode_NodeCreationFailure = NodegroupIssueCode' "NodeCreati
   NodegroupIssueCode_Ec2SecurityGroupDeletionFailure,
   NodegroupIssueCode_Ec2SecurityGroupNotFound,
   NodegroupIssueCode_Ec2SubnetInvalidConfiguration,
+  NodegroupIssueCode_Ec2SubnetMissingIpv6Assignment,
   NodegroupIssueCode_Ec2SubnetNotFound,
   NodegroupIssueCode_IamInstanceProfileNotFound,
   NodegroupIssueCode_IamLimitExceeded,

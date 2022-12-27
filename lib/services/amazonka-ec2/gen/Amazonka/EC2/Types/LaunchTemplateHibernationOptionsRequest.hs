@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.LaunchTemplateHibernationOptionsRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,13 +20,14 @@
 module Amazonka.EC2.Types.LaunchTemplateHibernationOptionsRequest where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Indicates whether the instance is configured for hibernation. This
 -- parameter is valid only if the instance meets the
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#hibernating-prerequisites hibernation prerequisites>.
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/hibernating-prerequisites.html hibernation prerequisites>.
 --
 -- /See:/ 'newLaunchTemplateHibernationOptionsRequest' smart constructor.
 data LaunchTemplateHibernationOptionsRequest = LaunchTemplateHibernationOptionsRequest'
@@ -82,8 +83,8 @@ instance
     Prelude.rnf configured
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     LaunchTemplateHibernationOptionsRequest
   where
   toQuery LaunchTemplateHibernationOptionsRequest' {..} =
-    Prelude.mconcat ["Configured" Core.=: configured]
+    Prelude.mconcat ["Configured" Data.=: configured]

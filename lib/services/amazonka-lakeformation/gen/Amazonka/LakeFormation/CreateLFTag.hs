@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.LakeFormation.CreateLFTag
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a tag with the specified name and values.
+-- Creates an LF-tag with the specified name and values.
 module Amazonka.LakeFormation.CreateLFTag
   ( -- * Creating a Request
     CreateLFTag (..),
@@ -41,8 +41,9 @@ module Amazonka.LakeFormation.CreateLFTag
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LakeFormation.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,9 +53,9 @@ data CreateLFTag = CreateLFTag'
   { -- | The identifier for the Data Catalog. By default, the account ID. The
     -- Data Catalog is the persistent metadata store. It contains database
     -- definitions, table definitions, and other control information to manage
-    -- your AWS Lake Formation environment.
+    -- your Lake Formation environment.
     catalogId :: Prelude.Maybe Prelude.Text,
-    -- | The key-name for the tag.
+    -- | The key-name for the LF-tag.
     tagKey :: Prelude.Text,
     -- | A list of possible values an attribute can take.
     tagValues :: Prelude.NonEmpty Prelude.Text
@@ -72,9 +73,9 @@ data CreateLFTag = CreateLFTag'
 -- 'catalogId', 'createLFTag_catalogId' - The identifier for the Data Catalog. By default, the account ID. The
 -- Data Catalog is the persistent metadata store. It contains database
 -- definitions, table definitions, and other control information to manage
--- your AWS Lake Formation environment.
+-- your Lake Formation environment.
 --
--- 'tagKey', 'createLFTag_tagKey' - The key-name for the tag.
+-- 'tagKey', 'createLFTag_tagKey' - The key-name for the LF-tag.
 --
 -- 'tagValues', 'createLFTag_tagValues' - A list of possible values an attribute can take.
 newCreateLFTag ::
@@ -93,11 +94,11 @@ newCreateLFTag pTagKey_ pTagValues_ =
 -- | The identifier for the Data Catalog. By default, the account ID. The
 -- Data Catalog is the persistent metadata store. It contains database
 -- definitions, table definitions, and other control information to manage
--- your AWS Lake Formation environment.
+-- your Lake Formation environment.
 createLFTag_catalogId :: Lens.Lens' CreateLFTag (Prelude.Maybe Prelude.Text)
 createLFTag_catalogId = Lens.lens (\CreateLFTag' {catalogId} -> catalogId) (\s@CreateLFTag' {} a -> s {catalogId = a} :: CreateLFTag)
 
--- | The key-name for the tag.
+-- | The key-name for the LF-tag.
 createLFTag_tagKey :: Lens.Lens' CreateLFTag Prelude.Text
 createLFTag_tagKey = Lens.lens (\CreateLFTag' {tagKey} -> tagKey) (\s@CreateLFTag' {} a -> s {tagKey = a} :: CreateLFTag)
 
@@ -107,7 +108,8 @@ createLFTag_tagValues = Lens.lens (\CreateLFTag' {tagValues} -> tagValues) (\s@C
 
 instance Core.AWSRequest CreateLFTag where
   type AWSResponse CreateLFTag = CreateLFTagResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -127,35 +129,31 @@ instance Prelude.NFData CreateLFTag where
       `Prelude.seq` Prelude.rnf tagKey
       `Prelude.seq` Prelude.rnf tagValues
 
-instance Core.ToHeaders CreateLFTag where
+instance Data.ToHeaders CreateLFTag where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
-          [ "X-Amz-Target"
-              Core.=# ( "AWSLakeFormation.CreateLFTag" ::
-                          Prelude.ByteString
-                      ),
-            "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+          [ "Content-Type"
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateLFTag where
+instance Data.ToJSON CreateLFTag where
   toJSON CreateLFTag' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            Prelude.Just ("TagKey" Core..= tagKey),
-            Prelude.Just ("TagValues" Core..= tagValues)
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            Prelude.Just ("TagKey" Data..= tagKey),
+            Prelude.Just ("TagValues" Data..= tagValues)
           ]
       )
 
-instance Core.ToPath CreateLFTag where
-  toPath = Prelude.const "/"
+instance Data.ToPath CreateLFTag where
+  toPath = Prelude.const "/CreateLFTag"
 
-instance Core.ToQuery CreateLFTag where
+instance Data.ToQuery CreateLFTag where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateLFTagResponse' smart constructor.

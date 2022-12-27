@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.GetApps
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.Pinpoint.GetApps
     newGetApps,
 
     -- * Request Lenses
-    getApps_token,
     getApps_pageSize,
+    getApps_token,
 
     -- * Destructuring the Response
     GetAppsResponse (..),
@@ -42,7 +42,8 @@ module Amazonka.Pinpoint.GetApps
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -50,13 +51,13 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetApps' smart constructor.
 data GetApps = GetApps'
-  { -- | The NextToken string that specifies which page of results to return in a
-    -- paginated response.
-    token :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to include in each page of a paginated
+  { -- | The maximum number of items to include in each page of a paginated
     -- response. This parameter is not supported for application, campaign, and
     -- journey metrics.
-    pageSize :: Prelude.Maybe Prelude.Text
+    pageSize :: Prelude.Maybe Prelude.Text,
+    -- | The NextToken string that specifies which page of results to return in a
+    -- paginated response.
+    token :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -68,24 +69,19 @@ data GetApps = GetApps'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'token', 'getApps_token' - The NextToken string that specifies which page of results to return in a
--- paginated response.
---
 -- 'pageSize', 'getApps_pageSize' - The maximum number of items to include in each page of a paginated
 -- response. This parameter is not supported for application, campaign, and
 -- journey metrics.
+--
+-- 'token', 'getApps_token' - The NextToken string that specifies which page of results to return in a
+-- paginated response.
 newGetApps ::
   GetApps
 newGetApps =
   GetApps'
-    { token = Prelude.Nothing,
-      pageSize = Prelude.Nothing
+    { pageSize = Prelude.Nothing,
+      token = Prelude.Nothing
     }
-
--- | The NextToken string that specifies which page of results to return in a
--- paginated response.
-getApps_token :: Lens.Lens' GetApps (Prelude.Maybe Prelude.Text)
-getApps_token = Lens.lens (\GetApps' {token} -> token) (\s@GetApps' {} a -> s {token = a} :: GetApps)
 
 -- | The maximum number of items to include in each page of a paginated
 -- response. This parameter is not supported for application, campaign, and
@@ -93,45 +89,51 @@ getApps_token = Lens.lens (\GetApps' {token} -> token) (\s@GetApps' {} a -> s {t
 getApps_pageSize :: Lens.Lens' GetApps (Prelude.Maybe Prelude.Text)
 getApps_pageSize = Lens.lens (\GetApps' {pageSize} -> pageSize) (\s@GetApps' {} a -> s {pageSize = a} :: GetApps)
 
+-- | The NextToken string that specifies which page of results to return in a
+-- paginated response.
+getApps_token :: Lens.Lens' GetApps (Prelude.Maybe Prelude.Text)
+getApps_token = Lens.lens (\GetApps' {token} -> token) (\s@GetApps' {} a -> s {token = a} :: GetApps)
+
 instance Core.AWSRequest GetApps where
   type AWSResponse GetApps = GetAppsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAppsResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable GetApps where
   hashWithSalt _salt GetApps' {..} =
-    _salt `Prelude.hashWithSalt` token
-      `Prelude.hashWithSalt` pageSize
+    _salt `Prelude.hashWithSalt` pageSize
+      `Prelude.hashWithSalt` token
 
 instance Prelude.NFData GetApps where
   rnf GetApps' {..} =
-    Prelude.rnf token
-      `Prelude.seq` Prelude.rnf pageSize
+    Prelude.rnf pageSize
+      `Prelude.seq` Prelude.rnf token
 
-instance Core.ToHeaders GetApps where
+instance Data.ToHeaders GetApps where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetApps where
+instance Data.ToPath GetApps where
   toPath = Prelude.const "/v1/apps"
 
-instance Core.ToQuery GetApps where
+instance Data.ToQuery GetApps where
   toQuery GetApps' {..} =
     Prelude.mconcat
-      ["token" Core.=: token, "page-size" Core.=: pageSize]
+      ["page-size" Data.=: pageSize, "token" Data.=: token]
 
 -- | /See:/ 'newGetAppsResponse' smart constructor.
 data GetAppsResponse = GetAppsResponse'

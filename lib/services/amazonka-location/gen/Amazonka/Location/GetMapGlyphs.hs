@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Location.GetMapGlyphs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.Location.GetMapGlyphs
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -77,7 +78,12 @@ data GetMapGlyphs = GetMapGlyphs'
     -- <https://docs.aws.amazon.com/location/latest/developerguide/HERE.html HERE Technologies>
     -- styles:
     --
-    -- -   VectorHereBerlin – @Fira GO Regular@ | @Fira GO Bold@
+    -- -   VectorHereContrast – @Fira GO Regular@ | @Fira GO Bold@
+    --
+    -- -   VectorHereExplore, VectorHereExploreTruck,
+    --     HybridHereExploreSatellite – @Fira GO Italic@ | @Fira GO Map@ |
+    --     @Fira GO Map Bold@ | @Noto Sans CJK JP Bold@ |
+    --     @Noto Sans CJK JP Light@ | @Noto Sans CJK JP Regular@
     fontStack :: Prelude.Text,
     -- | A Unicode range of characters to download glyphs for. Each response will
     -- contain 256 characters. For example, 0–255 includes all characters from
@@ -122,7 +128,12 @@ data GetMapGlyphs = GetMapGlyphs'
 -- <https://docs.aws.amazon.com/location/latest/developerguide/HERE.html HERE Technologies>
 -- styles:
 --
--- -   VectorHereBerlin – @Fira GO Regular@ | @Fira GO Bold@
+-- -   VectorHereContrast – @Fira GO Regular@ | @Fira GO Bold@
+--
+-- -   VectorHereExplore, VectorHereExploreTruck,
+--     HybridHereExploreSatellite – @Fira GO Italic@ | @Fira GO Map@ |
+--     @Fira GO Map Bold@ | @Noto Sans CJK JP Bold@ |
+--     @Noto Sans CJK JP Light@ | @Noto Sans CJK JP Regular@
 --
 -- 'fontUnicodeRange', 'getMapGlyphs_fontUnicodeRange' - A Unicode range of characters to download glyphs for. Each response will
 -- contain 256 characters. For example, 0–255 includes all characters from
@@ -173,7 +184,12 @@ newGetMapGlyphs
 -- <https://docs.aws.amazon.com/location/latest/developerguide/HERE.html HERE Technologies>
 -- styles:
 --
--- -   VectorHereBerlin – @Fira GO Regular@ | @Fira GO Bold@
+-- -   VectorHereContrast – @Fira GO Regular@ | @Fira GO Bold@
+--
+-- -   VectorHereExplore, VectorHereExploreTruck,
+--     HybridHereExploreSatellite – @Fira GO Italic@ | @Fira GO Map@ |
+--     @Fira GO Map Bold@ | @Noto Sans CJK JP Bold@ |
+--     @Noto Sans CJK JP Light@ | @Noto Sans CJK JP Regular@
 getMapGlyphs_fontStack :: Lens.Lens' GetMapGlyphs Prelude.Text
 getMapGlyphs_fontStack = Lens.lens (\GetMapGlyphs' {fontStack} -> fontStack) (\s@GetMapGlyphs' {} a -> s {fontStack = a} :: GetMapGlyphs)
 
@@ -189,13 +205,14 @@ getMapGlyphs_mapName = Lens.lens (\GetMapGlyphs' {mapName} -> mapName) (\s@GetMa
 
 instance Core.AWSRequest GetMapGlyphs where
   type AWSResponse GetMapGlyphs = GetMapGlyphsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveBytes
       ( \s h x ->
           GetMapGlyphsResponse'
             Prelude.<$> (Prelude.pure (Prelude.Just (Prelude.coerce x)))
-            Prelude.<*> (h Core..#? "Content-Type")
+            Prelude.<*> (h Data..#? "Content-Type")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -211,29 +228,29 @@ instance Prelude.NFData GetMapGlyphs where
       `Prelude.seq` Prelude.rnf fontUnicodeRange
       `Prelude.seq` Prelude.rnf mapName
 
-instance Core.ToHeaders GetMapGlyphs where
+instance Data.ToHeaders GetMapGlyphs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetMapGlyphs where
+instance Data.ToPath GetMapGlyphs where
   toPath GetMapGlyphs' {..} =
     Prelude.mconcat
       [ "/maps/v0/maps/",
-        Core.toBS mapName,
+        Data.toBS mapName,
         "/glyphs/",
-        Core.toBS fontStack,
+        Data.toBS fontStack,
         "/",
-        Core.toBS fontUnicodeRange
+        Data.toBS fontUnicodeRange
       ]
 
-instance Core.ToQuery GetMapGlyphs where
+instance Data.ToQuery GetMapGlyphs where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetMapGlyphsResponse' smart constructor.

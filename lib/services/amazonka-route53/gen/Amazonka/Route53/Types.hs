@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,69 +18,75 @@ module Amazonka.Route53.Types
     defaultService,
 
     -- * Errors
-    _HealthCheckVersionMismatch,
-    _NoSuchQueryLoggingConfig,
-    _DNSSECNotFound,
-    _KeySigningKeyInUse,
-    _TooManyKeySigningKeys,
-    _HostedZoneNotPrivate,
-    _InvalidInput,
-    _HostedZoneNotEmpty,
-    _InvalidArgument,
-    _KeySigningKeyWithActiveStatusNotFound,
-    _TrafficPolicyInstanceAlreadyExists,
-    _ConflictingTypes,
-    _QueryLoggingConfigAlreadyExists,
+    _CidrBlockInUseException,
+    _CidrCollectionAlreadyExistsException,
+    _CidrCollectionInUseException,
+    _CidrCollectionVersionMismatchException,
     _ConcurrentModification,
+    _ConflictingDomainExists,
+    _ConflictingTypes,
+    _DNSSECNotFound,
+    _DelegationSetAlreadyCreated,
     _DelegationSetAlreadyReusable,
-    _NotAuthorizedException,
+    _DelegationSetInUse,
+    _DelegationSetNotAvailable,
+    _DelegationSetNotReusable,
+    _HealthCheckAlreadyExists,
+    _HealthCheckInUse,
+    _HealthCheckVersionMismatch,
+    _HostedZoneAlreadyExists,
+    _HostedZoneNotEmpty,
+    _HostedZoneNotFound,
+    _HostedZoneNotPrivate,
+    _HostedZonePartiallyDelegated,
+    _IncompatibleVersion,
     _InsufficientCloudWatchLogsResourcePolicy,
-    _NoSuchCloudWatchLogsLogGroup,
-    _PriorRequestNotComplete,
+    _InvalidArgument,
     _InvalidChangeBatch,
+    _InvalidDomainName,
+    _InvalidInput,
+    _InvalidKMSArn,
+    _InvalidKeySigningKeyName,
+    _InvalidKeySigningKeyStatus,
+    _InvalidPaginationToken,
+    _InvalidSigningStatus,
+    _InvalidTrafficPolicyDocument,
+    _InvalidVPCId,
+    _KeySigningKeyAlreadyExists,
+    _KeySigningKeyInParentDSRecord,
+    _KeySigningKeyInUse,
+    _KeySigningKeyWithActiveStatusNotFound,
+    _LastVPCAssociation,
+    _LimitsExceeded,
+    _NoSuchChange,
+    _NoSuchCidrCollectionException,
+    _NoSuchCidrLocationException,
+    _NoSuchCloudWatchLogsLogGroup,
+    _NoSuchDelegationSet,
+    _NoSuchGeoLocation,
+    _NoSuchHealthCheck,
+    _NoSuchHostedZone,
+    _NoSuchKeySigningKey,
+    _NoSuchQueryLoggingConfig,
+    _NoSuchTrafficPolicy,
+    _NoSuchTrafficPolicyInstance,
+    _NotAuthorizedException,
+    _PriorRequestNotComplete,
+    _PublicZoneVPCAssociation,
+    _QueryLoggingConfigAlreadyExists,
+    _ThrottlingException,
+    _TooManyHealthChecks,
+    _TooManyHostedZones,
+    _TooManyKeySigningKeys,
+    _TooManyTrafficPolicies,
+    _TooManyTrafficPolicyInstances,
+    _TooManyTrafficPolicyVersionsForCurrentPolicy,
     _TooManyVPCAssociationAuthorizations,
     _TrafficPolicyAlreadyExists,
-    _InvalidTrafficPolicyDocument,
-    _InvalidSigningStatus,
-    _InvalidPaginationToken,
-    _DelegationSetNotReusable,
-    _InvalidDomainName,
-    _NoSuchTrafficPolicy,
-    _HostedZoneNotFound,
-    _DelegationSetInUse,
-    _NoSuchDelegationSet,
-    _HealthCheckAlreadyExists,
-    _TooManyTrafficPolicies,
-    _VPCAssociationAuthorizationNotFound,
-    _NoSuchGeoLocation,
-    _DelegationSetNotAvailable,
-    _NoSuchKeySigningKey,
-    _VPCAssociationNotFound,
-    _ThrottlingException,
-    _HostedZonePartiallyDelegated,
-    _KeySigningKeyInParentDSRecord,
-    _NoSuchChange,
-    _InvalidKeySigningKeyName,
-    _LimitsExceeded,
-    _KeySigningKeyAlreadyExists,
-    _TooManyTrafficPolicyInstances,
-    _NoSuchTrafficPolicyInstance,
-    _IncompatibleVersion,
-    _PublicZoneVPCAssociation,
-    _NoSuchHostedZone,
-    _TooManyHostedZones,
-    _HealthCheckInUse,
-    _InvalidKeySigningKeyStatus,
-    _DelegationSetAlreadyCreated,
-    _ConflictingDomainExists,
-    _LastVPCAssociation,
-    _TooManyHealthChecks,
-    _NoSuchHealthCheck,
-    _InvalidKMSArn,
     _TrafficPolicyInUse,
-    _InvalidVPCId,
-    _HostedZoneAlreadyExists,
-    _TooManyTrafficPolicyVersionsForCurrentPolicy,
+    _TrafficPolicyInstanceAlreadyExists,
+    _VPCAssociationAuthorizationNotFound,
+    _VPCAssociationNotFound,
 
     -- * Re-exported Types
     module Amazonka.Route53.Internal,
@@ -92,6 +99,9 @@ module Amazonka.Route53.Types
 
     -- * ChangeStatus
     ChangeStatus (..),
+
+    -- * CidrCollectionChangeAction
+    CidrCollectionChangeAction (..),
 
     -- * CloudWatchRegion
     CloudWatchRegion (..),
@@ -171,6 +181,33 @@ module Amazonka.Route53.Types
     changeInfo_status,
     changeInfo_submittedAt,
 
+    -- * CidrBlockSummary
+    CidrBlockSummary (..),
+    newCidrBlockSummary,
+    cidrBlockSummary_cidrBlock,
+    cidrBlockSummary_locationName,
+
+    -- * CidrCollection
+    CidrCollection (..),
+    newCidrCollection,
+    cidrCollection_arn,
+    cidrCollection_id,
+    cidrCollection_name,
+    cidrCollection_version,
+
+    -- * CidrCollectionChange
+    CidrCollectionChange (..),
+    newCidrCollectionChange,
+    cidrCollectionChange_locationName,
+    cidrCollectionChange_action,
+    cidrCollectionChange_cidrList,
+
+    -- * CidrRoutingConfig
+    CidrRoutingConfig (..),
+    newCidrRoutingConfig,
+    cidrRoutingConfig_collectionId,
+    cidrRoutingConfig_locationName,
+
     -- * CloudWatchAlarmConfiguration
     CloudWatchAlarmConfiguration (..),
     newCloudWatchAlarmConfiguration,
@@ -183,6 +220,14 @@ module Amazonka.Route53.Types
     cloudWatchAlarmConfiguration_namespace,
     cloudWatchAlarmConfiguration_statistic,
 
+    -- * CollectionSummary
+    CollectionSummary (..),
+    newCollectionSummary,
+    collectionSummary_arn,
+    collectionSummary_id,
+    collectionSummary_name,
+    collectionSummary_version,
+
     -- * DNSSECStatus
     DNSSECStatus (..),
     newDNSSECStatus,
@@ -192,8 +237,8 @@ module Amazonka.Route53.Types
     -- * DelegationSet
     DelegationSet (..),
     newDelegationSet,
-    delegationSet_id,
     delegationSet_callerReference,
+    delegationSet_id,
     delegationSet_nameServers,
 
     -- * Dimension
@@ -205,25 +250,25 @@ module Amazonka.Route53.Types
     -- * GeoLocation
     GeoLocation (..),
     newGeoLocation,
-    geoLocation_subdivisionCode,
-    geoLocation_countryCode,
     geoLocation_continentCode,
+    geoLocation_countryCode,
+    geoLocation_subdivisionCode,
 
     -- * GeoLocationDetails
     GeoLocationDetails (..),
     newGeoLocationDetails,
-    geoLocationDetails_subdivisionName,
-    geoLocationDetails_subdivisionCode,
-    geoLocationDetails_countryName,
-    geoLocationDetails_countryCode,
     geoLocationDetails_continentCode,
     geoLocationDetails_continentName,
+    geoLocationDetails_countryCode,
+    geoLocationDetails_countryName,
+    geoLocationDetails_subdivisionCode,
+    geoLocationDetails_subdivisionName,
 
     -- * HealthCheck
     HealthCheck (..),
     newHealthCheck,
-    healthCheck_linkedService,
     healthCheck_cloudWatchAlarmConfiguration,
+    healthCheck_linkedService,
     healthCheck_id,
     healthCheck_callerReference,
     healthCheck_healthCheckConfig,
@@ -232,37 +277,37 @@ module Amazonka.Route53.Types
     -- * HealthCheckConfig
     HealthCheckConfig (..),
     newHealthCheckConfig,
-    healthCheckConfig_failureThreshold,
-    healthCheckConfig_iPAddress,
-    healthCheckConfig_enableSNI,
-    healthCheckConfig_disabled,
-    healthCheckConfig_searchString,
-    healthCheckConfig_healthThreshold,
-    healthCheckConfig_regions,
-    healthCheckConfig_resourcePath,
-    healthCheckConfig_insufficientDataHealthStatus,
     healthCheckConfig_alarmIdentifier,
-    healthCheckConfig_measureLatency,
-    healthCheckConfig_inverted,
-    healthCheckConfig_fullyQualifiedDomainName,
     healthCheckConfig_childHealthChecks,
-    healthCheckConfig_routingControlArn,
-    healthCheckConfig_requestInterval,
+    healthCheckConfig_disabled,
+    healthCheckConfig_enableSNI,
+    healthCheckConfig_failureThreshold,
+    healthCheckConfig_fullyQualifiedDomainName,
+    healthCheckConfig_healthThreshold,
+    healthCheckConfig_iPAddress,
+    healthCheckConfig_insufficientDataHealthStatus,
+    healthCheckConfig_inverted,
+    healthCheckConfig_measureLatency,
     healthCheckConfig_port,
+    healthCheckConfig_regions,
+    healthCheckConfig_requestInterval,
+    healthCheckConfig_resourcePath,
+    healthCheckConfig_routingControlArn,
+    healthCheckConfig_searchString,
     healthCheckConfig_type,
 
     -- * HealthCheckObservation
     HealthCheckObservation (..),
     newHealthCheckObservation,
     healthCheckObservation_iPAddress,
-    healthCheckObservation_statusReport,
     healthCheckObservation_region,
+    healthCheckObservation_statusReport,
 
     -- * HostedZone
     HostedZone (..),
     newHostedZone,
-    hostedZone_linkedService,
     hostedZone_config,
+    hostedZone_linkedService,
     hostedZone_resourceRecordSetCount,
     hostedZone_id,
     hostedZone_name,
@@ -271,8 +316,8 @@ module Amazonka.Route53.Types
     -- * HostedZoneConfig
     HostedZoneConfig (..),
     newHostedZoneConfig,
-    hostedZoneConfig_privateZone,
     hostedZoneConfig_comment,
+    hostedZoneConfig_privateZone,
 
     -- * HostedZoneLimit
     HostedZoneLimit (..),
@@ -296,28 +341,33 @@ module Amazonka.Route53.Types
     -- * KeySigningKey
     KeySigningKey (..),
     newKeySigningKey,
-    keySigningKey_status,
-    keySigningKey_signingAlgorithmMnemonic,
-    keySigningKey_digestAlgorithmMnemonic,
-    keySigningKey_lastModifiedDate,
-    keySigningKey_keyTag,
-    keySigningKey_dNSKEYRecord,
-    keySigningKey_publicKey,
-    keySigningKey_signingAlgorithmType,
     keySigningKey_createdDate,
-    keySigningKey_flag,
-    keySigningKey_digestAlgorithmType,
-    keySigningKey_statusMessage,
-    keySigningKey_name,
+    keySigningKey_dNSKEYRecord,
     keySigningKey_dSRecord,
-    keySigningKey_kmsArn,
+    keySigningKey_digestAlgorithmMnemonic,
+    keySigningKey_digestAlgorithmType,
     keySigningKey_digestValue,
+    keySigningKey_flag,
+    keySigningKey_keyTag,
+    keySigningKey_kmsArn,
+    keySigningKey_lastModifiedDate,
+    keySigningKey_name,
+    keySigningKey_publicKey,
+    keySigningKey_signingAlgorithmMnemonic,
+    keySigningKey_signingAlgorithmType,
+    keySigningKey_status,
+    keySigningKey_statusMessage,
 
     -- * LinkedService
     LinkedService (..),
     newLinkedService,
-    linkedService_servicePrincipal,
     linkedService_description,
+    linkedService_servicePrincipal,
+
+    -- * LocationSummary
+    LocationSummary (..),
+    newLocationSummary,
+    locationSummary_locationName,
 
     -- * QueryLoggingConfig
     QueryLoggingConfig (..),
@@ -334,17 +384,18 @@ module Amazonka.Route53.Types
     -- * ResourceRecordSet
     ResourceRecordSet (..),
     newResourceRecordSet,
-    resourceRecordSet_ttl,
-    resourceRecordSet_resourceRecords,
     resourceRecordSet_aliasTarget,
-    resourceRecordSet_weight,
-    resourceRecordSet_trafficPolicyInstanceId,
-    resourceRecordSet_setIdentifier,
+    resourceRecordSet_cidrRoutingConfig,
     resourceRecordSet_failover,
-    resourceRecordSet_healthCheckId,
-    resourceRecordSet_region,
     resourceRecordSet_geoLocation,
+    resourceRecordSet_healthCheckId,
     resourceRecordSet_multiValueAnswer,
+    resourceRecordSet_region,
+    resourceRecordSet_resourceRecords,
+    resourceRecordSet_setIdentifier,
+    resourceRecordSet_ttl,
+    resourceRecordSet_trafficPolicyInstanceId,
+    resourceRecordSet_weight,
     resourceRecordSet_name,
     resourceRecordSet_type,
 
@@ -364,14 +415,14 @@ module Amazonka.Route53.Types
     -- * StatusReport
     StatusReport (..),
     newStatusReport,
-    statusReport_status,
     statusReport_checkedTime,
+    statusReport_status,
 
     -- * Tag
     Tag (..),
     newTag,
-    tag_value,
     tag_key,
+    tag_value,
 
     -- * TrafficPolicy
     TrafficPolicy (..),
@@ -408,13 +459,13 @@ module Amazonka.Route53.Types
     -- * VPC
     VPC (..),
     newVPC,
-    vpc_vPCRegion,
     vpc_vPCId,
+    vpc_vPCRegion,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53.Internal
 import Amazonka.Route53.Types.AccountLimit
@@ -426,8 +477,14 @@ import Amazonka.Route53.Types.ChangeAction
 import Amazonka.Route53.Types.ChangeBatch
 import Amazonka.Route53.Types.ChangeInfo
 import Amazonka.Route53.Types.ChangeStatus
+import Amazonka.Route53.Types.CidrBlockSummary
+import Amazonka.Route53.Types.CidrCollection
+import Amazonka.Route53.Types.CidrCollectionChange
+import Amazonka.Route53.Types.CidrCollectionChangeAction
+import Amazonka.Route53.Types.CidrRoutingConfig
 import Amazonka.Route53.Types.CloudWatchAlarmConfiguration
 import Amazonka.Route53.Types.CloudWatchRegion
+import Amazonka.Route53.Types.CollectionSummary
 import Amazonka.Route53.Types.ComparisonOperator
 import Amazonka.Route53.Types.DNSSECStatus
 import Amazonka.Route53.Types.DelegationSet
@@ -448,6 +505,7 @@ import Amazonka.Route53.Types.HostedZoneSummary
 import Amazonka.Route53.Types.InsufficientDataHealthStatus
 import Amazonka.Route53.Types.KeySigningKey
 import Amazonka.Route53.Types.LinkedService
+import Amazonka.Route53.Types.LocationSummary
 import Amazonka.Route53.Types.QueryLoggingConfig
 import Amazonka.Route53.Types.RRType
 import Amazonka.Route53.Types.ResettableElementName
@@ -472,27 +530,55 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "Route53",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "route53",
-      Core._serviceSigningName = "route53",
-      Core._serviceVersion = "2013-04-01",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError = Core.parseXMLError "Route53",
-      Core._serviceRetry = retry
+    { Core.abbrev = "Route53",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "route53",
+      Core.signingName = "route53",
+      Core.version = "2013-04-01",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseXMLError "Route53",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "Throttling"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has
+          ( Core.hasCode "PriorRequestNotComplete"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "still_processing"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
@@ -504,9 +590,7 @@ defaultService =
               Prelude.. Core.hasStatus 400
           )
           e =
-        Prelude.Just "request_limit_exceeded"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
+        Prelude.Just "throttling"
       | Lens.has
           ( Core.hasCode "ThrottlingException"
               Prelude.. Core.hasStatus 400
@@ -514,130 +598,82 @@ defaultService =
           e =
         Prelude.Just "throttling_exception"
       | Lens.has
-          ( Core.hasCode "Throttling"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling"
-      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "PriorRequestNotComplete"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "still_processing"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
 
--- | The value of @HealthCheckVersion@ in the request doesn\'t match the
--- value of @HealthCheckVersion@ in the health check.
-_HealthCheckVersionMismatch :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_HealthCheckVersionMismatch =
+-- | This CIDR block is already in use.
+_CidrBlockInUseException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_CidrBlockInUseException =
   Core._MatchServiceError
     defaultService
-    "HealthCheckVersionMismatch"
+    "CidrBlockInUseException"
+    Prelude.. Core.hasStatus 400
+
+-- | A CIDR collection with this name and a different caller reference
+-- already exists in this account.
+_CidrCollectionAlreadyExistsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_CidrCollectionAlreadyExistsException =
+  Core._MatchServiceError
+    defaultService
+    "CidrCollectionAlreadyExistsException"
+
+-- | This CIDR collection is in use, and isn\'t empty.
+_CidrCollectionInUseException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_CidrCollectionInUseException =
+  Core._MatchServiceError
+    defaultService
+    "CidrCollectionInUseException"
+    Prelude.. Core.hasStatus 400
+
+-- | The CIDR collection version you provided, doesn\'t match the one in the
+-- @ListCidrCollections@ operation.
+_CidrCollectionVersionMismatchException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_CidrCollectionVersionMismatchException =
+  Core._MatchServiceError
+    defaultService
+    "CidrCollectionVersionMismatchException"
     Prelude.. Core.hasStatus 409
 
--- | There is no DNS query logging configuration with the specified ID.
-_NoSuchQueryLoggingConfig :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_NoSuchQueryLoggingConfig =
+-- | Another user submitted a request to create, update, or delete the object
+-- at the same time that you did. Retry the request.
+_ConcurrentModification :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ConcurrentModification =
   Core._MatchServiceError
     defaultService
-    "NoSuchQueryLoggingConfig"
-    Prelude.. Core.hasStatus 404
-
--- | The hosted zone doesn\'t have any DNSSEC resources.
-_DNSSECNotFound :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DNSSECNotFound =
-  Core._MatchServiceError
-    defaultService
-    "DNSSECNotFound"
+    "ConcurrentModification"
     Prelude.. Core.hasStatus 400
 
--- | The key-signing key (KSK) that you specified can\'t be deactivated
--- because it\'s the only KSK for a currently-enabled DNSSEC. Disable
--- DNSSEC signing, or add or enable another KSK.
-_KeySigningKeyInUse :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_KeySigningKeyInUse =
+-- | The cause of this error depends on the operation that you\'re
+-- performing:
+--
+-- -   __Create a public hosted zone:__ Two hosted zones that have the same
+--     name or that have a parent\/child relationship (example.com and
+--     test.example.com) can\'t have any common name servers. You tried to
+--     create a hosted zone that has the same name as an existing hosted
+--     zone or that\'s the parent or child of an existing hosted zone, and
+--     you specified a delegation set that shares one or more name servers
+--     with the existing hosted zone. For more information, see
+--     <https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateReusableDelegationSet.html CreateReusableDelegationSet>.
+--
+-- -   __Create a private hosted zone:__ A hosted zone with the specified
+--     name already exists and is already associated with the Amazon VPC
+--     that you specified.
+--
+-- -   __Associate VPCs with a private hosted zone:__ The VPC that you
+--     specified is already associated with another hosted zone that has
+--     the same name.
+_ConflictingDomainExists :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ConflictingDomainExists =
   Core._MatchServiceError
     defaultService
-    "KeySigningKeyInUse"
-
--- | You\'ve reached the limit for the number of key-signing keys (KSKs).
--- Remove at least one KSK, and then try again.
-_TooManyKeySigningKeys :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TooManyKeySigningKeys =
-  Core._MatchServiceError
-    defaultService
-    "TooManyKeySigningKeys"
-
--- | The specified hosted zone is a public hosted zone, not a private hosted
--- zone.
-_HostedZoneNotPrivate :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_HostedZoneNotPrivate =
-  Core._MatchServiceError
-    defaultService
-    "HostedZoneNotPrivate"
-
--- | The input is not valid.
-_InvalidInput :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidInput =
-  Core._MatchServiceError
-    defaultService
-    "InvalidInput"
-    Prelude.. Core.hasStatus 400
-
--- | The hosted zone contains resource records that are not SOA or NS
--- records.
-_HostedZoneNotEmpty :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_HostedZoneNotEmpty =
-  Core._MatchServiceError
-    defaultService
-    "HostedZoneNotEmpty"
-    Prelude.. Core.hasStatus 400
-
--- | Parameter name is not valid.
-_InvalidArgument :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidArgument =
-  Core._MatchServiceError
-    defaultService
-    "InvalidArgument"
-
--- | A key-signing key (KSK) with @ACTIVE@ status wasn\'t found.
-_KeySigningKeyWithActiveStatusNotFound :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_KeySigningKeyWithActiveStatusNotFound =
-  Core._MatchServiceError
-    defaultService
-    "KeySigningKeyWithActiveStatusNotFound"
-
--- | There is already a traffic policy instance with the specified ID.
-_TrafficPolicyInstanceAlreadyExists :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TrafficPolicyInstanceAlreadyExists =
-  Core._MatchServiceError
-    defaultService
-    "TrafficPolicyInstanceAlreadyExists"
-    Prelude.. Core.hasStatus 409
+    "ConflictingDomainExists"
 
 -- | You tried to update a traffic policy instance by using a traffic policy
 -- version that has a different DNS type than the current type for the
@@ -650,23 +686,21 @@ _ConflictingTypes =
     "ConflictingTypes"
     Prelude.. Core.hasStatus 400
 
--- | You can create only one query logging configuration for a hosted zone,
--- and a query logging configuration already exists for this hosted zone.
-_QueryLoggingConfigAlreadyExists :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_QueryLoggingConfigAlreadyExists =
+-- | The hosted zone doesn\'t have any DNSSEC resources.
+_DNSSECNotFound :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DNSSECNotFound =
   Core._MatchServiceError
     defaultService
-    "QueryLoggingConfigAlreadyExists"
-    Prelude.. Core.hasStatus 409
-
--- | Another user submitted a request to create, update, or delete the object
--- at the same time that you did. Retry the request.
-_ConcurrentModification :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ConcurrentModification =
-  Core._MatchServiceError
-    defaultService
-    "ConcurrentModification"
+    "DNSSECNotFound"
     Prelude.. Core.hasStatus 400
+
+-- | A delegation set with the same owner and caller reference combination
+-- has already been created.
+_DelegationSetAlreadyCreated :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DelegationSetAlreadyCreated =
+  Core._MatchServiceError
+    defaultService
+    "DelegationSetAlreadyCreated"
 
 -- | The specified delegation set has already been marked as reusable.
 _DelegationSetAlreadyReusable :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -674,143 +708,6 @@ _DelegationSetAlreadyReusable =
   Core._MatchServiceError
     defaultService
     "DelegationSetAlreadyReusable"
-
--- | Associating the specified VPC with the specified hosted zone has not
--- been authorized.
-_NotAuthorizedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_NotAuthorizedException =
-  Core._MatchServiceError
-    defaultService
-    "NotAuthorizedException"
-    Prelude.. Core.hasStatus 401
-
--- | Amazon Route 53 doesn\'t have the permissions required to create log
--- streams and send query logs to log streams. Possible causes include the
--- following:
---
--- -   There is no resource policy that specifies the log group ARN in the
---     value for @Resource@.
---
--- -   The resource policy that includes the log group ARN in the value for
---     @Resource@ doesn\'t have the necessary permissions.
---
--- -   The resource policy hasn\'t finished propagating yet.
---
--- -   The Key management service (KMS) key you specified doesn’t exist or
---     it can’t be used with the log group associated with query log.
---     Update or provide a resource policy to grant permissions for the KMS
---     key.
-_InsufficientCloudWatchLogsResourcePolicy :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InsufficientCloudWatchLogsResourcePolicy =
-  Core._MatchServiceError
-    defaultService
-    "InsufficientCloudWatchLogsResourcePolicy"
-    Prelude.. Core.hasStatus 400
-
--- | There is no CloudWatch Logs log group with the specified ARN.
-_NoSuchCloudWatchLogsLogGroup :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_NoSuchCloudWatchLogsLogGroup =
-  Core._MatchServiceError
-    defaultService
-    "NoSuchCloudWatchLogsLogGroup"
-    Prelude.. Core.hasStatus 404
-
--- | If Amazon Route 53 can\'t process a request before the next request
--- arrives, it will reject subsequent requests for the same hosted zone and
--- return an @HTTP 400 error@ (@Bad request@). If Route 53 returns this
--- error repeatedly for the same request, we recommend that you wait, in
--- intervals of increasing duration, before you try the request again.
-_PriorRequestNotComplete :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_PriorRequestNotComplete =
-  Core._MatchServiceError
-    defaultService
-    "PriorRequestNotComplete"
-    Prelude.. Core.hasStatus 400
-
--- | This exception contains a list of messages that might contain one or
--- more error messages. Each error message indicates one error in the
--- change batch.
-_InvalidChangeBatch :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidChangeBatch =
-  Core._MatchServiceError
-    defaultService
-    "InvalidChangeBatch"
-
--- | You\'ve created the maximum number of authorizations that can be created
--- for the specified hosted zone. To authorize another VPC to be associated
--- with the hosted zone, submit a @DeleteVPCAssociationAuthorization@
--- request to remove an existing authorization. To get a list of existing
--- authorizations, submit a @ListVPCAssociationAuthorizations@ request.
-_TooManyVPCAssociationAuthorizations :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TooManyVPCAssociationAuthorizations =
-  Core._MatchServiceError
-    defaultService
-    "TooManyVPCAssociationAuthorizations"
-    Prelude.. Core.hasStatus 400
-
--- | A traffic policy that has the same value for @Name@ already exists.
-_TrafficPolicyAlreadyExists :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TrafficPolicyAlreadyExists =
-  Core._MatchServiceError
-    defaultService
-    "TrafficPolicyAlreadyExists"
-    Prelude.. Core.hasStatus 409
-
--- | The format of the traffic policy document that you specified in the
--- @Document@ element is not valid.
-_InvalidTrafficPolicyDocument :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidTrafficPolicyDocument =
-  Core._MatchServiceError
-    defaultService
-    "InvalidTrafficPolicyDocument"
-    Prelude.. Core.hasStatus 400
-
--- | Your hosted zone status isn\'t valid for this operation. In the hosted
--- zone, change the status to enable @DNSSEC@ or disable @DNSSEC@.
-_InvalidSigningStatus :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidSigningStatus =
-  Core._MatchServiceError
-    defaultService
-    "InvalidSigningStatus"
-
--- | The value that you specified to get the second or subsequent page of
--- results is invalid.
-_InvalidPaginationToken :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidPaginationToken =
-  Core._MatchServiceError
-    defaultService
-    "InvalidPaginationToken"
-    Prelude.. Core.hasStatus 400
-
--- | A reusable delegation set with the specified ID does not exist.
-_DelegationSetNotReusable :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DelegationSetNotReusable =
-  Core._MatchServiceError
-    defaultService
-    "DelegationSetNotReusable"
-
--- | The specified domain name is not valid.
-_InvalidDomainName :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidDomainName =
-  Core._MatchServiceError
-    defaultService
-    "InvalidDomainName"
-    Prelude.. Core.hasStatus 400
-
--- | No traffic policy exists with the specified ID.
-_NoSuchTrafficPolicy :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_NoSuchTrafficPolicy =
-  Core._MatchServiceError
-    defaultService
-    "NoSuchTrafficPolicy"
-    Prelude.. Core.hasStatus 404
-
--- | The specified HostedZone can\'t be found.
-_HostedZoneNotFound :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_HostedZoneNotFound =
-  Core._MatchServiceError
-    defaultService
-    "HostedZoneNotFound"
 
 -- | The specified delegation contains associated hosted zones which must be
 -- deleted before the reusable delegation set can be deleted.
@@ -820,12 +717,23 @@ _DelegationSetInUse =
     defaultService
     "DelegationSetInUse"
 
--- | A reusable delegation set with the specified ID does not exist.
-_NoSuchDelegationSet :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_NoSuchDelegationSet =
+-- | You can create a hosted zone that has the same name as an existing
+-- hosted zone (example.com is common), but there is a limit to the number
+-- of hosted zones that have the same name. If you get this error, Amazon
+-- Route 53 has reached that limit. If you own the domain name and Route 53
+-- generates this error, contact Customer Support.
+_DelegationSetNotAvailable :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DelegationSetNotAvailable =
   Core._MatchServiceError
     defaultService
-    "NoSuchDelegationSet"
+    "DelegationSetNotAvailable"
+
+-- | A reusable delegation set with the specified ID does not exist.
+_DelegationSetNotReusable :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DelegationSetNotReusable =
+  Core._MatchServiceError
+    defaultService
+    "DelegationSetNotReusable"
 
 -- | The health check you\'re attempting to create already exists. Amazon
 -- Route 53 returns this error when you submit a request that has the
@@ -845,34 +753,285 @@ _HealthCheckAlreadyExists =
     "HealthCheckAlreadyExists"
     Prelude.. Core.hasStatus 409
 
--- | This traffic policy can\'t be created because the current account has
--- reached the limit on the number of traffic policies.
---
--- For information about default limits, see
--- <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html Limits>
--- in the /Amazon Route 53 Developer Guide/.
---
--- To get the current limit for an account, see
--- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetAccountLimit.html GetAccountLimit>.
---
--- To request a higher limit,
--- <http://aws.amazon.com/route53-request create a case> with the Amazon
--- Web Services Support Center.
-_TooManyTrafficPolicies :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TooManyTrafficPolicies =
+-- | This error code is not in use.
+_HealthCheckInUse :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_HealthCheckInUse =
   Core._MatchServiceError
     defaultService
-    "TooManyTrafficPolicies"
+    "HealthCheckInUse"
     Prelude.. Core.hasStatus 400
 
--- | The VPC that you specified is not authorized to be associated with the
--- hosted zone.
-_VPCAssociationAuthorizationNotFound :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_VPCAssociationAuthorizationNotFound =
+-- | The value of @HealthCheckVersion@ in the request doesn\'t match the
+-- value of @HealthCheckVersion@ in the health check.
+_HealthCheckVersionMismatch :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_HealthCheckVersionMismatch =
   Core._MatchServiceError
     defaultService
-    "VPCAssociationAuthorizationNotFound"
+    "HealthCheckVersionMismatch"
+    Prelude.. Core.hasStatus 409
+
+-- | The hosted zone you\'re trying to create already exists. Amazon Route 53
+-- returns this error when a hosted zone has already been created with the
+-- specified @CallerReference@.
+_HostedZoneAlreadyExists :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_HostedZoneAlreadyExists =
+  Core._MatchServiceError
+    defaultService
+    "HostedZoneAlreadyExists"
+    Prelude.. Core.hasStatus 409
+
+-- | The hosted zone contains resource records that are not SOA or NS
+-- records.
+_HostedZoneNotEmpty :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_HostedZoneNotEmpty =
+  Core._MatchServiceError
+    defaultService
+    "HostedZoneNotEmpty"
+    Prelude.. Core.hasStatus 400
+
+-- | The specified HostedZone can\'t be found.
+_HostedZoneNotFound :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_HostedZoneNotFound =
+  Core._MatchServiceError
+    defaultService
+    "HostedZoneNotFound"
+
+-- | The specified hosted zone is a public hosted zone, not a private hosted
+-- zone.
+_HostedZoneNotPrivate :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_HostedZoneNotPrivate =
+  Core._MatchServiceError
+    defaultService
+    "HostedZoneNotPrivate"
+
+-- | The hosted zone nameservers don\'t match the parent nameservers. The
+-- hosted zone and parent must have the same nameservers.
+_HostedZonePartiallyDelegated :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_HostedZonePartiallyDelegated =
+  Core._MatchServiceError
+    defaultService
+    "HostedZonePartiallyDelegated"
+
+-- | The resource you\'re trying to access is unsupported on this Amazon
+-- Route 53 endpoint.
+_IncompatibleVersion :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_IncompatibleVersion =
+  Core._MatchServiceError
+    defaultService
+    "IncompatibleVersion"
+    Prelude.. Core.hasStatus 400
+
+-- | Amazon Route 53 doesn\'t have the permissions required to create log
+-- streams and send query logs to log streams. Possible causes include the
+-- following:
+--
+-- -   There is no resource policy that specifies the log group ARN in the
+--     value for @Resource@.
+--
+-- -   The resource policy that includes the log group ARN in the value for
+--     @Resource@ doesn\'t have the necessary permissions.
+--
+-- -   The resource policy hasn\'t finished propagating yet.
+--
+-- -   The Key management service (KMS) key you specified doesn’t exist or
+--     it can’t be used with the log group associated with query log.
+--     Update or provide a resource policy to grant permissions for the KMS
+--     key.
+--
+-- -   The Key management service (KMS) key you specified is marked as
+--     disabled for the log group associated with query log. Update or
+--     provide a resource policy to grant permissions for the KMS key.
+_InsufficientCloudWatchLogsResourcePolicy :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InsufficientCloudWatchLogsResourcePolicy =
+  Core._MatchServiceError
+    defaultService
+    "InsufficientCloudWatchLogsResourcePolicy"
+    Prelude.. Core.hasStatus 400
+
+-- | Parameter name is not valid.
+_InvalidArgument :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidArgument =
+  Core._MatchServiceError
+    defaultService
+    "InvalidArgument"
+
+-- | This exception contains a list of messages that might contain one or
+-- more error messages. Each error message indicates one error in the
+-- change batch.
+_InvalidChangeBatch :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidChangeBatch =
+  Core._MatchServiceError
+    defaultService
+    "InvalidChangeBatch"
+
+-- | The specified domain name is not valid.
+_InvalidDomainName :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidDomainName =
+  Core._MatchServiceError
+    defaultService
+    "InvalidDomainName"
+    Prelude.. Core.hasStatus 400
+
+-- | The input is not valid.
+_InvalidInput :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidInput =
+  Core._MatchServiceError
+    defaultService
+    "InvalidInput"
+    Prelude.. Core.hasStatus 400
+
+-- | The KeyManagementServiceArn that you specified isn\'t valid to use with
+-- DNSSEC signing.
+_InvalidKMSArn :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidKMSArn =
+  Core._MatchServiceError
+    defaultService
+    "InvalidKMSArn"
+
+-- | The key-signing key (KSK) name that you specified isn\'t a valid name.
+_InvalidKeySigningKeyName :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidKeySigningKeyName =
+  Core._MatchServiceError
+    defaultService
+    "InvalidKeySigningKeyName"
+    Prelude.. Core.hasStatus 400
+
+-- | The key-signing key (KSK) status isn\'t valid or another KSK has the
+-- status @INTERNAL_FAILURE@.
+_InvalidKeySigningKeyStatus :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidKeySigningKeyStatus =
+  Core._MatchServiceError
+    defaultService
+    "InvalidKeySigningKeyStatus"
+    Prelude.. Core.hasStatus 400
+
+-- | The value that you specified to get the second or subsequent page of
+-- results is invalid.
+_InvalidPaginationToken :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidPaginationToken =
+  Core._MatchServiceError
+    defaultService
+    "InvalidPaginationToken"
+    Prelude.. Core.hasStatus 400
+
+-- | Your hosted zone status isn\'t valid for this operation. In the hosted
+-- zone, change the status to enable @DNSSEC@ or disable @DNSSEC@.
+_InvalidSigningStatus :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidSigningStatus =
+  Core._MatchServiceError
+    defaultService
+    "InvalidSigningStatus"
+
+-- | The format of the traffic policy document that you specified in the
+-- @Document@ element is not valid.
+_InvalidTrafficPolicyDocument :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidTrafficPolicyDocument =
+  Core._MatchServiceError
+    defaultService
+    "InvalidTrafficPolicyDocument"
+    Prelude.. Core.hasStatus 400
+
+-- | The VPC ID that you specified either isn\'t a valid ID or the current
+-- account is not authorized to access this VPC.
+_InvalidVPCId :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidVPCId =
+  Core._MatchServiceError
+    defaultService
+    "InvalidVPCId"
+    Prelude.. Core.hasStatus 400
+
+-- | You\'ve already created a key-signing key (KSK) with this name or with
+-- the same customer managed key ARN.
+_KeySigningKeyAlreadyExists :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_KeySigningKeyAlreadyExists =
+  Core._MatchServiceError
+    defaultService
+    "KeySigningKeyAlreadyExists"
+    Prelude.. Core.hasStatus 409
+
+-- | The key-signing key (KSK) is specified in a parent DS record.
+_KeySigningKeyInParentDSRecord :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_KeySigningKeyInParentDSRecord =
+  Core._MatchServiceError
+    defaultService
+    "KeySigningKeyInParentDSRecord"
+    Prelude.. Core.hasStatus 400
+
+-- | The key-signing key (KSK) that you specified can\'t be deactivated
+-- because it\'s the only KSK for a currently-enabled DNSSEC. Disable
+-- DNSSEC signing, or add or enable another KSK.
+_KeySigningKeyInUse :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_KeySigningKeyInUse =
+  Core._MatchServiceError
+    defaultService
+    "KeySigningKeyInUse"
+
+-- | A key-signing key (KSK) with @ACTIVE@ status wasn\'t found.
+_KeySigningKeyWithActiveStatusNotFound :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_KeySigningKeyWithActiveStatusNotFound =
+  Core._MatchServiceError
+    defaultService
+    "KeySigningKeyWithActiveStatusNotFound"
+
+-- | The VPC that you\'re trying to disassociate from the private hosted zone
+-- is the last VPC that is associated with the hosted zone. Amazon Route 53
+-- doesn\'t support disassociating the last VPC from a hosted zone.
+_LastVPCAssociation :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_LastVPCAssociation =
+  Core._MatchServiceError
+    defaultService
+    "LastVPCAssociation"
+    Prelude.. Core.hasStatus 400
+
+-- | This operation can\'t be completed because the current account has
+-- reached the limit on the resource you are trying to create. To request a
+-- higher limit, <http://aws.amazon.com/route53-request create a case> with
+-- the Amazon Web Services Support Center.
+_LimitsExceeded :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_LimitsExceeded =
+  Core._MatchServiceError
+    defaultService
+    "LimitsExceeded"
+
+-- | A change with the specified change ID does not exist.
+_NoSuchChange :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_NoSuchChange =
+  Core._MatchServiceError
+    defaultService
+    "NoSuchChange"
     Prelude.. Core.hasStatus 404
+
+-- | The CIDR collection you specified, doesn\'t exist.
+_NoSuchCidrCollectionException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_NoSuchCidrCollectionException =
+  Core._MatchServiceError
+    defaultService
+    "NoSuchCidrCollectionException"
+    Prelude.. Core.hasStatus 404
+
+-- | The CIDR collection location doesn\'t match any locations in your
+-- account.
+_NoSuchCidrLocationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_NoSuchCidrLocationException =
+  Core._MatchServiceError
+    defaultService
+    "NoSuchCidrLocationException"
+    Prelude.. Core.hasStatus 404
+
+-- | There is no CloudWatch Logs log group with the specified ARN.
+_NoSuchCloudWatchLogsLogGroup :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_NoSuchCloudWatchLogsLogGroup =
+  Core._MatchServiceError
+    defaultService
+    "NoSuchCloudWatchLogsLogGroup"
+    Prelude.. Core.hasStatus 404
+
+-- | A reusable delegation set with the specified ID does not exist.
+_NoSuchDelegationSet :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_NoSuchDelegationSet =
+  Core._MatchServiceError
+    defaultService
+    "NoSuchDelegationSet"
 
 -- | Amazon Route 53 doesn\'t support the specified geographic location. For
 -- a list of supported geolocation codes, see the
@@ -885,16 +1044,21 @@ _NoSuchGeoLocation =
     "NoSuchGeoLocation"
     Prelude.. Core.hasStatus 404
 
--- | You can create a hosted zone that has the same name as an existing
--- hosted zone (example.com is common), but there is a limit to the number
--- of hosted zones that have the same name. If you get this error, Amazon
--- Route 53 has reached that limit. If you own the domain name and Route 53
--- generates this error, contact Customer Support.
-_DelegationSetNotAvailable :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DelegationSetNotAvailable =
+-- | No health check exists with the specified ID.
+_NoSuchHealthCheck :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_NoSuchHealthCheck =
   Core._MatchServiceError
     defaultService
-    "DelegationSetNotAvailable"
+    "NoSuchHealthCheck"
+    Prelude.. Core.hasStatus 404
+
+-- | No hosted zone exists with the ID that you specified.
+_NoSuchHostedZone :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_NoSuchHostedZone =
+  Core._MatchServiceError
+    defaultService
+    "NoSuchHostedZone"
+    Prelude.. Core.hasStatus 404
 
 -- | The specified key-signing key (KSK) doesn\'t exist.
 _NoSuchKeySigningKey :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -904,100 +1068,21 @@ _NoSuchKeySigningKey =
     "NoSuchKeySigningKey"
     Prelude.. Core.hasStatus 404
 
--- | The specified VPC and hosted zone are not currently associated.
-_VPCAssociationNotFound :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_VPCAssociationNotFound =
+-- | There is no DNS query logging configuration with the specified ID.
+_NoSuchQueryLoggingConfig :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_NoSuchQueryLoggingConfig =
   Core._MatchServiceError
     defaultService
-    "VPCAssociationNotFound"
+    "NoSuchQueryLoggingConfig"
     Prelude.. Core.hasStatus 404
 
--- | The limit on the number of requests per second was exceeded.
-_ThrottlingException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ThrottlingException =
+-- | No traffic policy exists with the specified ID.
+_NoSuchTrafficPolicy :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_NoSuchTrafficPolicy =
   Core._MatchServiceError
     defaultService
-    "ThrottlingException"
-    Prelude.. Core.hasStatus 400
-
--- | The hosted zone nameservers don\'t match the parent nameservers. The
--- hosted zone and parent must have the same nameservers.
-_HostedZonePartiallyDelegated :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_HostedZonePartiallyDelegated =
-  Core._MatchServiceError
-    defaultService
-    "HostedZonePartiallyDelegated"
-
--- | The key-signing key (KSK) is specified in a parent DS record.
-_KeySigningKeyInParentDSRecord :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_KeySigningKeyInParentDSRecord =
-  Core._MatchServiceError
-    defaultService
-    "KeySigningKeyInParentDSRecord"
-    Prelude.. Core.hasStatus 400
-
--- | A change with the specified change ID does not exist.
-_NoSuchChange :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_NoSuchChange =
-  Core._MatchServiceError
-    defaultService
-    "NoSuchChange"
+    "NoSuchTrafficPolicy"
     Prelude.. Core.hasStatus 404
-
--- | The key-signing key (KSK) name that you specified isn\'t a valid name.
-_InvalidKeySigningKeyName :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidKeySigningKeyName =
-  Core._MatchServiceError
-    defaultService
-    "InvalidKeySigningKeyName"
-    Prelude.. Core.hasStatus 400
-
--- | This operation can\'t be completed either because the current account
--- has reached the limit on reusable delegation sets that it can create or
--- because you\'ve reached the limit on the number of Amazon VPCs that you
--- can associate with a private hosted zone. To get the current limit on
--- the number of reusable delegation sets, see
--- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetAccountLimit.html GetAccountLimit>.
--- To get the current limit on the number of Amazon VPCs that you can
--- associate with a private hosted zone, see
--- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetHostedZoneLimit.html GetHostedZoneLimit>.
--- To request a higher limit,
--- <http://aws.amazon.com/route53-request create a case> with the Amazon
--- Web Services Support Center.
-_LimitsExceeded :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_LimitsExceeded =
-  Core._MatchServiceError
-    defaultService
-    "LimitsExceeded"
-
--- | You\'ve already created a key-signing key (KSK) with this name or with
--- the same customer managed customer master key (CMK) ARN.
-_KeySigningKeyAlreadyExists :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_KeySigningKeyAlreadyExists =
-  Core._MatchServiceError
-    defaultService
-    "KeySigningKeyAlreadyExists"
-    Prelude.. Core.hasStatus 409
-
--- | This traffic policy instance can\'t be created because the current
--- account has reached the limit on the number of traffic policy instances.
---
--- For information about default limits, see
--- <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html Limits>
--- in the /Amazon Route 53 Developer Guide/.
---
--- For information about how to get the current limit for an account, see
--- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetAccountLimit.html GetAccountLimit>.
---
--- To request a higher limit,
--- <http://aws.amazon.com/route53-request create a case> with the Amazon
--- Web Services Support Center.
-_TooManyTrafficPolicyInstances :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TooManyTrafficPolicyInstances =
-  Core._MatchServiceError
-    defaultService
-    "TooManyTrafficPolicyInstances"
-    Prelude.. Core.hasStatus 400
 
 -- | No traffic policy instance exists with the specified ID.
 _NoSuchTrafficPolicyInstance :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -1007,13 +1092,25 @@ _NoSuchTrafficPolicyInstance =
     "NoSuchTrafficPolicyInstance"
     Prelude.. Core.hasStatus 404
 
--- | The resource you\'re trying to access is unsupported on this Amazon
--- Route 53 endpoint.
-_IncompatibleVersion :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_IncompatibleVersion =
+-- | Associating the specified VPC with the specified hosted zone has not
+-- been authorized.
+_NotAuthorizedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_NotAuthorizedException =
   Core._MatchServiceError
     defaultService
-    "IncompatibleVersion"
+    "NotAuthorizedException"
+    Prelude.. Core.hasStatus 401
+
+-- | If Amazon Route 53 can\'t process a request before the next request
+-- arrives, it will reject subsequent requests for the same hosted zone and
+-- return an @HTTP 400 error@ (@Bad request@). If Route 53 returns this
+-- error repeatedly for the same request, we recommend that you wait, in
+-- intervals of increasing duration, before you try the request again.
+_PriorRequestNotComplete :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_PriorRequestNotComplete =
+  Core._MatchServiceError
+    defaultService
+    "PriorRequestNotComplete"
     Prelude.. Core.hasStatus 400
 
 -- | You\'re trying to associate a VPC with a public hosted zone. Amazon
@@ -1025,13 +1122,45 @@ _PublicZoneVPCAssociation =
     "PublicZoneVPCAssociation"
     Prelude.. Core.hasStatus 400
 
--- | No hosted zone exists with the ID that you specified.
-_NoSuchHostedZone :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_NoSuchHostedZone =
+-- | You can create only one query logging configuration for a hosted zone,
+-- and a query logging configuration already exists for this hosted zone.
+_QueryLoggingConfigAlreadyExists :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_QueryLoggingConfigAlreadyExists =
   Core._MatchServiceError
     defaultService
-    "NoSuchHostedZone"
-    Prelude.. Core.hasStatus 404
+    "QueryLoggingConfigAlreadyExists"
+    Prelude.. Core.hasStatus 409
+
+-- | The limit on the number of requests per second was exceeded.
+_ThrottlingException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ThrottlingException =
+  Core._MatchServiceError
+    defaultService
+    "ThrottlingException"
+    Prelude.. Core.hasStatus 400
+
+-- | This health check can\'t be created because the current account has
+-- reached the limit on the number of active health checks.
+--
+-- For information about default limits, see
+-- <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html Limits>
+-- in the /Amazon Route 53 Developer Guide/.
+--
+-- For information about how to get the current limit for an account, see
+-- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetAccountLimit.html GetAccountLimit>.
+-- To request a higher limit,
+-- <http://aws.amazon.com/route53-request create a case> with the Amazon
+-- Web Services Support Center.
+--
+-- You have reached the maximum number of active health checks for an
+-- Amazon Web Services account. To request a higher limit,
+-- <http://aws.amazon.com/route53-request create a case> with the Amazon
+-- Web Services Support Center.
+_TooManyHealthChecks :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TooManyHealthChecks =
+  Core._MatchServiceError
+    defaultService
+    "TooManyHealthChecks"
 
 -- | This operation can\'t be completed either because the current account
 -- has reached the limit on the number of hosted zones or because you\'ve
@@ -1060,68 +1189,36 @@ _TooManyHostedZones =
     "TooManyHostedZones"
     Prelude.. Core.hasStatus 400
 
--- | This error code is not in use.
-_HealthCheckInUse :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_HealthCheckInUse =
+-- | You\'ve reached the limit for the number of key-signing keys (KSKs).
+-- Remove at least one KSK, and then try again.
+_TooManyKeySigningKeys :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TooManyKeySigningKeys =
   Core._MatchServiceError
     defaultService
-    "HealthCheckInUse"
+    "TooManyKeySigningKeys"
+
+-- | This traffic policy can\'t be created because the current account has
+-- reached the limit on the number of traffic policies.
+--
+-- For information about default limits, see
+-- <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html Limits>
+-- in the /Amazon Route 53 Developer Guide/.
+--
+-- To get the current limit for an account, see
+-- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetAccountLimit.html GetAccountLimit>.
+--
+-- To request a higher limit,
+-- <http://aws.amazon.com/route53-request create a case> with the Amazon
+-- Web Services Support Center.
+_TooManyTrafficPolicies :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TooManyTrafficPolicies =
+  Core._MatchServiceError
+    defaultService
+    "TooManyTrafficPolicies"
     Prelude.. Core.hasStatus 400
 
--- | The key-signing key (KSK) status isn\'t valid or another KSK has the
--- status @INTERNAL_FAILURE@.
-_InvalidKeySigningKeyStatus :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidKeySigningKeyStatus =
-  Core._MatchServiceError
-    defaultService
-    "InvalidKeySigningKeyStatus"
-    Prelude.. Core.hasStatus 400
-
--- | A delegation set with the same owner and caller reference combination
--- has already been created.
-_DelegationSetAlreadyCreated :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DelegationSetAlreadyCreated =
-  Core._MatchServiceError
-    defaultService
-    "DelegationSetAlreadyCreated"
-
--- | The cause of this error depends on the operation that you\'re
--- performing:
---
--- -   __Create a public hosted zone:__ Two hosted zones that have the same
---     name or that have a parent\/child relationship (example.com and
---     test.example.com) can\'t have any common name servers. You tried to
---     create a hosted zone that has the same name as an existing hosted
---     zone or that\'s the parent or child of an existing hosted zone, and
---     you specified a delegation set that shares one or more name servers
---     with the existing hosted zone. For more information, see
---     <https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateReusableDelegationSet.html CreateReusableDelegationSet>.
---
--- -   __Create a private hosted zone:__ A hosted zone with the specified
---     name already exists and is already associated with the Amazon VPC
---     that you specified.
---
--- -   __Associate VPCs with a private hosted zone:__ The VPC that you
---     specified is already associated with another hosted zone that has
---     the same name.
-_ConflictingDomainExists :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ConflictingDomainExists =
-  Core._MatchServiceError
-    defaultService
-    "ConflictingDomainExists"
-
--- | The VPC that you\'re trying to disassociate from the private hosted zone
--- is the last VPC that is associated with the hosted zone. Amazon Route 53
--- doesn\'t support disassociating the last VPC from a hosted zone.
-_LastVPCAssociation :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_LastVPCAssociation =
-  Core._MatchServiceError
-    defaultService
-    "LastVPCAssociation"
-    Prelude.. Core.hasStatus 400
-
--- | This health check can\'t be created because the current account has
--- reached the limit on the number of active health checks.
+-- | This traffic policy instance can\'t be created because the current
+-- account has reached the limit on the number of traffic policy instances.
 --
 -- For information about default limits, see
 -- <https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html Limits>
@@ -1129,63 +1226,16 @@ _LastVPCAssociation =
 --
 -- For information about how to get the current limit for an account, see
 -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetAccountLimit.html GetAccountLimit>.
+--
 -- To request a higher limit,
 -- <http://aws.amazon.com/route53-request create a case> with the Amazon
 -- Web Services Support Center.
---
--- You have reached the maximum number of active health checks for an
--- Amazon Web Services account. To request a higher limit,
--- <http://aws.amazon.com/route53-request create a case> with the Amazon
--- Web Services Support Center.
-_TooManyHealthChecks :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TooManyHealthChecks =
+_TooManyTrafficPolicyInstances :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TooManyTrafficPolicyInstances =
   Core._MatchServiceError
     defaultService
-    "TooManyHealthChecks"
-
--- | No health check exists with the specified ID.
-_NoSuchHealthCheck :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_NoSuchHealthCheck =
-  Core._MatchServiceError
-    defaultService
-    "NoSuchHealthCheck"
-    Prelude.. Core.hasStatus 404
-
--- | The KeyManagementServiceArn that you specified isn\'t valid to use with
--- DNSSEC signing.
-_InvalidKMSArn :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidKMSArn =
-  Core._MatchServiceError
-    defaultService
-    "InvalidKMSArn"
-
--- | One or more traffic policy instances were created by using the specified
--- traffic policy.
-_TrafficPolicyInUse :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TrafficPolicyInUse =
-  Core._MatchServiceError
-    defaultService
-    "TrafficPolicyInUse"
+    "TooManyTrafficPolicyInstances"
     Prelude.. Core.hasStatus 400
-
--- | The VPC ID that you specified either isn\'t a valid ID or the current
--- account is not authorized to access this VPC.
-_InvalidVPCId :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidVPCId =
-  Core._MatchServiceError
-    defaultService
-    "InvalidVPCId"
-    Prelude.. Core.hasStatus 400
-
--- | The hosted zone you\'re trying to create already exists. Amazon Route 53
--- returns this error when a hosted zone has already been created with the
--- specified @CallerReference@.
-_HostedZoneAlreadyExists :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_HostedZoneAlreadyExists =
-  Core._MatchServiceError
-    defaultService
-    "HostedZoneAlreadyExists"
-    Prelude.. Core.hasStatus 409
 
 -- | This traffic policy version can\'t be created because you\'ve reached
 -- the limit of 1000 on the number of versions that you can create for the
@@ -1203,3 +1253,57 @@ _TooManyTrafficPolicyVersionsForCurrentPolicy =
     defaultService
     "TooManyTrafficPolicyVersionsForCurrentPolicy"
     Prelude.. Core.hasStatus 400
+
+-- | You\'ve created the maximum number of authorizations that can be created
+-- for the specified hosted zone. To authorize another VPC to be associated
+-- with the hosted zone, submit a @DeleteVPCAssociationAuthorization@
+-- request to remove an existing authorization. To get a list of existing
+-- authorizations, submit a @ListVPCAssociationAuthorizations@ request.
+_TooManyVPCAssociationAuthorizations :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TooManyVPCAssociationAuthorizations =
+  Core._MatchServiceError
+    defaultService
+    "TooManyVPCAssociationAuthorizations"
+    Prelude.. Core.hasStatus 400
+
+-- | A traffic policy that has the same value for @Name@ already exists.
+_TrafficPolicyAlreadyExists :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TrafficPolicyAlreadyExists =
+  Core._MatchServiceError
+    defaultService
+    "TrafficPolicyAlreadyExists"
+    Prelude.. Core.hasStatus 409
+
+-- | One or more traffic policy instances were created by using the specified
+-- traffic policy.
+_TrafficPolicyInUse :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TrafficPolicyInUse =
+  Core._MatchServiceError
+    defaultService
+    "TrafficPolicyInUse"
+    Prelude.. Core.hasStatus 400
+
+-- | There is already a traffic policy instance with the specified ID.
+_TrafficPolicyInstanceAlreadyExists :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TrafficPolicyInstanceAlreadyExists =
+  Core._MatchServiceError
+    defaultService
+    "TrafficPolicyInstanceAlreadyExists"
+    Prelude.. Core.hasStatus 409
+
+-- | The VPC that you specified is not authorized to be associated with the
+-- hosted zone.
+_VPCAssociationAuthorizationNotFound :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_VPCAssociationAuthorizationNotFound =
+  Core._MatchServiceError
+    defaultService
+    "VPCAssociationAuthorizationNotFound"
+    Prelude.. Core.hasStatus 404
+
+-- | The specified VPC and hosted zone are not currently associated.
+_VPCAssociationNotFound :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_VPCAssociationNotFound =
+  Core._MatchServiceError
+    defaultService
+    "VPCAssociationNotFound"
+    Prelude.. Core.hasStatus 404

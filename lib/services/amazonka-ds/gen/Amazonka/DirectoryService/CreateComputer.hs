@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.CreateComputer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.DirectoryService.CreateComputer
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,7 +67,7 @@ data CreateComputer = CreateComputer'
     computerName :: Prelude.Text,
     -- | A one-time password that is used to join the computer to the directory.
     -- You should generate a random, strong password to use for this parameter.
-    password :: Core.Sensitive Prelude.Text
+    password :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -109,7 +110,7 @@ newCreateComputer
           Prelude.Nothing,
         directoryId = pDirectoryId_,
         computerName = pComputerName_,
-        password = Core._Sensitive Lens.# pPassword_
+        password = Data._Sensitive Lens.# pPassword_
       }
 
 -- | An array of Attribute objects that contain any LDAP attributes to apply
@@ -133,18 +134,19 @@ createComputer_computerName = Lens.lens (\CreateComputer' {computerName} -> comp
 -- | A one-time password that is used to join the computer to the directory.
 -- You should generate a random, strong password to use for this parameter.
 createComputer_password :: Lens.Lens' CreateComputer Prelude.Text
-createComputer_password = Lens.lens (\CreateComputer' {password} -> password) (\s@CreateComputer' {} a -> s {password = a} :: CreateComputer) Prelude.. Core._Sensitive
+createComputer_password = Lens.lens (\CreateComputer' {password} -> password) (\s@CreateComputer' {} a -> s {password = a} :: CreateComputer) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest CreateComputer where
   type
     AWSResponse CreateComputer =
       CreateComputerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateComputerResponse'
-            Prelude.<$> (x Core..?> "Computer")
+            Prelude.<$> (x Data..?> "Computer")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -164,39 +166,39 @@ instance Prelude.NFData CreateComputer where
       `Prelude.seq` Prelude.rnf computerName
       `Prelude.seq` Prelude.rnf password
 
-instance Core.ToHeaders CreateComputer where
+instance Data.ToHeaders CreateComputer where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.CreateComputer" ::
+              Data.=# ( "DirectoryService_20150416.CreateComputer" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateComputer where
+instance Data.ToJSON CreateComputer where
   toJSON CreateComputer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ComputerAttributes" Core..=)
+          [ ("ComputerAttributes" Data..=)
               Prelude.<$> computerAttributes,
-            ("OrganizationalUnitDistinguishedName" Core..=)
+            ("OrganizationalUnitDistinguishedName" Data..=)
               Prelude.<$> organizationalUnitDistinguishedName,
-            Prelude.Just ("DirectoryId" Core..= directoryId),
-            Prelude.Just ("ComputerName" Core..= computerName),
-            Prelude.Just ("Password" Core..= password)
+            Prelude.Just ("DirectoryId" Data..= directoryId),
+            Prelude.Just ("ComputerName" Data..= computerName),
+            Prelude.Just ("Password" Data..= password)
           ]
       )
 
-instance Core.ToPath CreateComputer where
+instance Data.ToPath CreateComputer where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateComputer where
+instance Data.ToQuery CreateComputer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the results for the CreateComputer operation.

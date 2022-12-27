@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryControlConfig.DescribeCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Route53RecoveryControlConfig.DescribeCluster
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,8 +50,7 @@ import Amazonka.Route53RecoveryControlConfig.Types
 
 -- | /See:/ 'newDescribeCluster' smart constructor.
 data DescribeCluster = DescribeCluster'
-  { -- | The Amazon Resource Name (ARN) of the cluster that you\'re getting
-    -- details for.
+  { -- | The Amazon Resource Name (ARN) of the cluster.
     clusterArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -63,8 +63,7 @@ data DescribeCluster = DescribeCluster'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'clusterArn', 'describeCluster_clusterArn' - The Amazon Resource Name (ARN) of the cluster that you\'re getting
--- details for.
+-- 'clusterArn', 'describeCluster_clusterArn' - The Amazon Resource Name (ARN) of the cluster.
 newDescribeCluster ::
   -- | 'clusterArn'
   Prelude.Text ->
@@ -72,8 +71,7 @@ newDescribeCluster ::
 newDescribeCluster pClusterArn_ =
   DescribeCluster' {clusterArn = pClusterArn_}
 
--- | The Amazon Resource Name (ARN) of the cluster that you\'re getting
--- details for.
+-- | The Amazon Resource Name (ARN) of the cluster.
 describeCluster_clusterArn :: Lens.Lens' DescribeCluster Prelude.Text
 describeCluster_clusterArn = Lens.lens (\DescribeCluster' {clusterArn} -> clusterArn) (\s@DescribeCluster' {} a -> s {clusterArn = a} :: DescribeCluster)
 
@@ -81,12 +79,13 @@ instance Core.AWSRequest DescribeCluster where
   type
     AWSResponse DescribeCluster =
       DescribeClusterResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeClusterResponse'
-            Prelude.<$> (x Core..?> "Cluster")
+            Prelude.<$> (x Data..?> "Cluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,22 +96,22 @@ instance Prelude.Hashable DescribeCluster where
 instance Prelude.NFData DescribeCluster where
   rnf DescribeCluster' {..} = Prelude.rnf clusterArn
 
-instance Core.ToHeaders DescribeCluster where
+instance Data.ToHeaders DescribeCluster where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeCluster where
+instance Data.ToPath DescribeCluster where
   toPath DescribeCluster' {..} =
-    Prelude.mconcat ["/cluster/", Core.toBS clusterArn]
+    Prelude.mconcat ["/cluster/", Data.toBS clusterArn]
 
-instance Core.ToQuery DescribeCluster where
+instance Data.ToQuery DescribeCluster where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeClusterResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.SetIdentityDkimEnabled
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -57,7 +57,8 @@ module Amazonka.SES.SetIdentityDkimEnabled
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -115,7 +116,8 @@ instance Core.AWSRequest SetIdentityDkimEnabled where
   type
     AWSResponse SetIdentityDkimEnabled =
       SetIdentityDkimEnabledResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "SetIdentityDkimEnabledResult"
@@ -134,21 +136,21 @@ instance Prelude.NFData SetIdentityDkimEnabled where
     Prelude.rnf identity
       `Prelude.seq` Prelude.rnf dkimEnabled
 
-instance Core.ToHeaders SetIdentityDkimEnabled where
+instance Data.ToHeaders SetIdentityDkimEnabled where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath SetIdentityDkimEnabled where
+instance Data.ToPath SetIdentityDkimEnabled where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SetIdentityDkimEnabled where
+instance Data.ToQuery SetIdentityDkimEnabled where
   toQuery SetIdentityDkimEnabled' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("SetIdentityDkimEnabled" :: Prelude.ByteString),
+          Data.=: ("SetIdentityDkimEnabled" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "Identity" Core.=: identity,
-        "DkimEnabled" Core.=: dkimEnabled
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "Identity" Data.=: identity,
+        "DkimEnabled" Data.=: dkimEnabled
       ]
 
 -- | An empty element returned on a successful request.

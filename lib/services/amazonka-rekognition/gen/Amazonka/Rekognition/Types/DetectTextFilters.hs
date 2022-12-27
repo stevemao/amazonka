@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.DetectTextFilters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.DetectTextFilters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types.DetectionFilter
 import Amazonka.Rekognition.Types.RegionOfInterest
@@ -79,12 +80,12 @@ instance Prelude.NFData DetectTextFilters where
     Prelude.rnf regionsOfInterest
       `Prelude.seq` Prelude.rnf wordFilter
 
-instance Core.ToJSON DetectTextFilters where
+instance Data.ToJSON DetectTextFilters where
   toJSON DetectTextFilters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RegionsOfInterest" Core..=)
+          [ ("RegionsOfInterest" Data..=)
               Prelude.<$> regionsOfInterest,
-            ("WordFilter" Core..=) Prelude.<$> wordFilter
+            ("WordFilter" Data..=) Prelude.<$> wordFilter
           ]
       )

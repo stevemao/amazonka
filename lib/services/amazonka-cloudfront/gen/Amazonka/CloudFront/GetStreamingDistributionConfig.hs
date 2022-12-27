@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.GetStreamingDistributionConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,15 +34,16 @@ module Amazonka.CloudFront.GetStreamingDistributionConfig
     newGetStreamingDistributionConfigResponse,
 
     -- * Response Lenses
-    getStreamingDistributionConfigResponse_streamingDistributionConfig,
     getStreamingDistributionConfigResponse_eTag,
+    getStreamingDistributionConfigResponse_streamingDistributionConfig,
     getStreamingDistributionConfigResponse_httpStatus,
   )
 where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,13 +84,14 @@ instance
   type
     AWSResponse GetStreamingDistributionConfig =
       GetStreamingDistributionConfigResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetStreamingDistributionConfigResponse'
-            Prelude.<$> (Core.parseXML x)
-            Prelude.<*> (h Core..#? "ETag")
+            Prelude.<$> (h Data..#? "ETag")
+            Prelude.<*> (Data.parseXML x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -110,30 +112,30 @@ instance
     Prelude.rnf id
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetStreamingDistributionConfig
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetStreamingDistributionConfig where
+instance Data.ToPath GetStreamingDistributionConfig where
   toPath GetStreamingDistributionConfig' {..} =
     Prelude.mconcat
       [ "/2020-05-31/streaming-distribution/",
-        Core.toBS id,
+        Data.toBS id,
         "/config"
       ]
 
-instance Core.ToQuery GetStreamingDistributionConfig where
+instance Data.ToQuery GetStreamingDistributionConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The returned result of the corresponding request.
 --
 -- /See:/ 'newGetStreamingDistributionConfigResponse' smart constructor.
 data GetStreamingDistributionConfigResponse = GetStreamingDistributionConfigResponse'
-  { -- | The streaming distribution\'s configuration information.
-    streamingDistributionConfig :: Prelude.Maybe StreamingDistributionConfig,
-    -- | The current version of the configuration. For example: @E2QWRUHAPOMQZL@.
+  { -- | The current version of the configuration. For example: @E2QWRUHAPOMQZL@.
     eTag :: Prelude.Maybe Prelude.Text,
+    -- | The streaming distribution\'s configuration information.
+    streamingDistributionConfig :: Prelude.Maybe StreamingDistributionConfig,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -147,9 +149,9 @@ data GetStreamingDistributionConfigResponse = GetStreamingDistributionConfigResp
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'streamingDistributionConfig', 'getStreamingDistributionConfigResponse_streamingDistributionConfig' - The streaming distribution\'s configuration information.
---
 -- 'eTag', 'getStreamingDistributionConfigResponse_eTag' - The current version of the configuration. For example: @E2QWRUHAPOMQZL@.
+--
+-- 'streamingDistributionConfig', 'getStreamingDistributionConfigResponse_streamingDistributionConfig' - The streaming distribution\'s configuration information.
 --
 -- 'httpStatus', 'getStreamingDistributionConfigResponse_httpStatus' - The response's http status code.
 newGetStreamingDistributionConfigResponse ::
@@ -159,19 +161,20 @@ newGetStreamingDistributionConfigResponse ::
 newGetStreamingDistributionConfigResponse
   pHttpStatus_ =
     GetStreamingDistributionConfigResponse'
-      { streamingDistributionConfig =
+      { eTag =
           Prelude.Nothing,
-        eTag = Prelude.Nothing,
+        streamingDistributionConfig =
+          Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | The streaming distribution\'s configuration information.
-getStreamingDistributionConfigResponse_streamingDistributionConfig :: Lens.Lens' GetStreamingDistributionConfigResponse (Prelude.Maybe StreamingDistributionConfig)
-getStreamingDistributionConfigResponse_streamingDistributionConfig = Lens.lens (\GetStreamingDistributionConfigResponse' {streamingDistributionConfig} -> streamingDistributionConfig) (\s@GetStreamingDistributionConfigResponse' {} a -> s {streamingDistributionConfig = a} :: GetStreamingDistributionConfigResponse)
 
 -- | The current version of the configuration. For example: @E2QWRUHAPOMQZL@.
 getStreamingDistributionConfigResponse_eTag :: Lens.Lens' GetStreamingDistributionConfigResponse (Prelude.Maybe Prelude.Text)
 getStreamingDistributionConfigResponse_eTag = Lens.lens (\GetStreamingDistributionConfigResponse' {eTag} -> eTag) (\s@GetStreamingDistributionConfigResponse' {} a -> s {eTag = a} :: GetStreamingDistributionConfigResponse)
+
+-- | The streaming distribution\'s configuration information.
+getStreamingDistributionConfigResponse_streamingDistributionConfig :: Lens.Lens' GetStreamingDistributionConfigResponse (Prelude.Maybe StreamingDistributionConfig)
+getStreamingDistributionConfigResponse_streamingDistributionConfig = Lens.lens (\GetStreamingDistributionConfigResponse' {streamingDistributionConfig} -> streamingDistributionConfig) (\s@GetStreamingDistributionConfigResponse' {} a -> s {streamingDistributionConfig = a} :: GetStreamingDistributionConfigResponse)
 
 -- | The response's http status code.
 getStreamingDistributionConfigResponse_httpStatus :: Lens.Lens' GetStreamingDistributionConfigResponse Prelude.Int
@@ -182,6 +185,6 @@ instance
     GetStreamingDistributionConfigResponse
   where
   rnf GetStreamingDistributionConfigResponse' {..} =
-    Prelude.rnf streamingDistributionConfig
-      `Prelude.seq` Prelude.rnf eTag
+    Prelude.rnf eTag
+      `Prelude.seq` Prelude.rnf streamingDistributionConfig
       `Prelude.seq` Prelude.rnf httpStatus

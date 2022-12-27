@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.Types.EngineFamily
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,17 +21,19 @@ module Amazonka.RDS.Types.EngineFamily
   ( EngineFamily
       ( ..,
         EngineFamily_MYSQL,
-        EngineFamily_POSTGRESQL
+        EngineFamily_POSTGRESQL,
+        EngineFamily_SQLSERVER
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype EngineFamily = EngineFamily'
   { fromEngineFamily ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -43,18 +45,18 @@ newtype EngineFamily = EngineFamily'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern EngineFamily_MYSQL :: EngineFamily
@@ -63,8 +65,12 @@ pattern EngineFamily_MYSQL = EngineFamily' "MYSQL"
 pattern EngineFamily_POSTGRESQL :: EngineFamily
 pattern EngineFamily_POSTGRESQL = EngineFamily' "POSTGRESQL"
 
+pattern EngineFamily_SQLSERVER :: EngineFamily
+pattern EngineFamily_SQLSERVER = EngineFamily' "SQLSERVER"
+
 {-# COMPLETE
   EngineFamily_MYSQL,
   EngineFamily_POSTGRESQL,
+  EngineFamily_SQLSERVER,
   EngineFamily'
   #-}

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.Types.KafkaClusterEncryptionInTransitDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KafkaConnect.Types.KafkaClusterEncryptionInTransitDescription where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KafkaConnect.Types.KafkaClusterEncryptionInTransitType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The description of the encryption in transit to the Apache Kafka
@@ -56,15 +57,15 @@ kafkaClusterEncryptionInTransitDescription_encryptionType :: Lens.Lens' KafkaClu
 kafkaClusterEncryptionInTransitDescription_encryptionType = Lens.lens (\KafkaClusterEncryptionInTransitDescription' {encryptionType} -> encryptionType) (\s@KafkaClusterEncryptionInTransitDescription' {} a -> s {encryptionType = a} :: KafkaClusterEncryptionInTransitDescription)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     KafkaClusterEncryptionInTransitDescription
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "KafkaClusterEncryptionInTransitDescription"
       ( \x ->
           KafkaClusterEncryptionInTransitDescription'
-            Prelude.<$> (x Core..:? "encryptionType")
+            Prelude.<$> (x Data..:? "encryptionType")
       )
 
 instance

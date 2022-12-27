@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEventsData.Types.EnableActionConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTEventsData.Types.EnableActionConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the configuration information of an enable action.
@@ -50,13 +51,13 @@ newEnableActionConfiguration =
 enableActionConfiguration_note :: Lens.Lens' EnableActionConfiguration (Prelude.Maybe Prelude.Text)
 enableActionConfiguration_note = Lens.lens (\EnableActionConfiguration' {note} -> note) (\s@EnableActionConfiguration' {} a -> s {note = a} :: EnableActionConfiguration)
 
-instance Core.FromJSON EnableActionConfiguration where
+instance Data.FromJSON EnableActionConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EnableActionConfiguration"
       ( \x ->
           EnableActionConfiguration'
-            Prelude.<$> (x Core..:? "note")
+            Prelude.<$> (x Data..:? "note")
       )
 
 instance Prelude.Hashable EnableActionConfiguration where

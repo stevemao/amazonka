@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GlobalAccelerator.CreateCustomRoutingListener
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.GlobalAccelerator.CreateCustomRoutingListener
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GlobalAccelerator.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -127,12 +128,13 @@ instance Core.AWSRequest CreateCustomRoutingListener where
   type
     AWSResponse CreateCustomRoutingListener =
       CreateCustomRoutingListenerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateCustomRoutingListenerResponse'
-            Prelude.<$> (x Core..?> "Listener")
+            Prelude.<$> (x Data..?> "Listener")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -148,37 +150,37 @@ instance Prelude.NFData CreateCustomRoutingListener where
       `Prelude.seq` Prelude.rnf portRanges
       `Prelude.seq` Prelude.rnf idempotencyToken
 
-instance Core.ToHeaders CreateCustomRoutingListener where
+instance Data.ToHeaders CreateCustomRoutingListener where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GlobalAccelerator_V20180706.CreateCustomRoutingListener" ::
+              Data.=# ( "GlobalAccelerator_V20180706.CreateCustomRoutingListener" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateCustomRoutingListener where
+instance Data.ToJSON CreateCustomRoutingListener where
   toJSON CreateCustomRoutingListener' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("AcceleratorArn" Core..= acceleratorArn),
-            Prelude.Just ("PortRanges" Core..= portRanges),
+              ("AcceleratorArn" Data..= acceleratorArn),
+            Prelude.Just ("PortRanges" Data..= portRanges),
             Prelude.Just
-              ("IdempotencyToken" Core..= idempotencyToken)
+              ("IdempotencyToken" Data..= idempotencyToken)
           ]
       )
 
-instance Core.ToPath CreateCustomRoutingListener where
+instance Data.ToPath CreateCustomRoutingListener where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateCustomRoutingListener where
+instance Data.ToQuery CreateCustomRoutingListener where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateCustomRoutingListenerResponse' smart constructor.

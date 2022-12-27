@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.Types.CloudTrailConfigurationResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.GuardDuty.Types.CloudTrailConfigurationResult where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types.DataSourceStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information on the status of CloudTrail as a data source for
@@ -57,13 +58,13 @@ newCloudTrailConfigurationResult pStatus_ =
 cloudTrailConfigurationResult_status :: Lens.Lens' CloudTrailConfigurationResult DataSourceStatus
 cloudTrailConfigurationResult_status = Lens.lens (\CloudTrailConfigurationResult' {status} -> status) (\s@CloudTrailConfigurationResult' {} a -> s {status = a} :: CloudTrailConfigurationResult)
 
-instance Core.FromJSON CloudTrailConfigurationResult where
+instance Data.FromJSON CloudTrailConfigurationResult where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CloudTrailConfigurationResult"
       ( \x ->
           CloudTrailConfigurationResult'
-            Prelude.<$> (x Core..: "status")
+            Prelude.<$> (x Data..: "status")
       )
 
 instance

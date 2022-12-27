@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.AsyncInferenceClientConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.SageMaker.Types.AsyncInferenceClientConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Configures the behavior of the client used by Amazon SageMaker to
--- interact with the model container during asynchronous inference.
+-- | Configures the behavior of the client used by SageMaker to interact with
+-- the model container during asynchronous inference.
 --
 -- /See:/ 'newAsyncInferenceClientConfig' smart constructor.
 data AsyncInferenceClientConfig = AsyncInferenceClientConfig'
   { -- | The maximum number of concurrent requests sent by the SageMaker client
-    -- to the model container. If no value is provided, Amazon SageMaker will
-    -- choose an optimal value for you.
+    -- to the model container. If no value is provided, SageMaker chooses an
+    -- optimal value.
     maxConcurrentInvocationsPerInstance :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -44,8 +45,8 @@ data AsyncInferenceClientConfig = AsyncInferenceClientConfig'
 -- for backwards compatibility:
 --
 -- 'maxConcurrentInvocationsPerInstance', 'asyncInferenceClientConfig_maxConcurrentInvocationsPerInstance' - The maximum number of concurrent requests sent by the SageMaker client
--- to the model container. If no value is provided, Amazon SageMaker will
--- choose an optimal value for you.
+-- to the model container. If no value is provided, SageMaker chooses an
+-- optimal value.
 newAsyncInferenceClientConfig ::
   AsyncInferenceClientConfig
 newAsyncInferenceClientConfig =
@@ -55,18 +56,18 @@ newAsyncInferenceClientConfig =
     }
 
 -- | The maximum number of concurrent requests sent by the SageMaker client
--- to the model container. If no value is provided, Amazon SageMaker will
--- choose an optimal value for you.
+-- to the model container. If no value is provided, SageMaker chooses an
+-- optimal value.
 asyncInferenceClientConfig_maxConcurrentInvocationsPerInstance :: Lens.Lens' AsyncInferenceClientConfig (Prelude.Maybe Prelude.Natural)
 asyncInferenceClientConfig_maxConcurrentInvocationsPerInstance = Lens.lens (\AsyncInferenceClientConfig' {maxConcurrentInvocationsPerInstance} -> maxConcurrentInvocationsPerInstance) (\s@AsyncInferenceClientConfig' {} a -> s {maxConcurrentInvocationsPerInstance = a} :: AsyncInferenceClientConfig)
 
-instance Core.FromJSON AsyncInferenceClientConfig where
+instance Data.FromJSON AsyncInferenceClientConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AsyncInferenceClientConfig"
       ( \x ->
           AsyncInferenceClientConfig'
-            Prelude.<$> (x Core..:? "MaxConcurrentInvocationsPerInstance")
+            Prelude.<$> (x Data..:? "MaxConcurrentInvocationsPerInstance")
       )
 
 instance Prelude.Hashable AsyncInferenceClientConfig where
@@ -78,11 +79,11 @@ instance Prelude.NFData AsyncInferenceClientConfig where
   rnf AsyncInferenceClientConfig' {..} =
     Prelude.rnf maxConcurrentInvocationsPerInstance
 
-instance Core.ToJSON AsyncInferenceClientConfig where
+instance Data.ToJSON AsyncInferenceClientConfig where
   toJSON AsyncInferenceClientConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MaxConcurrentInvocationsPerInstance" Core..=)
+          [ ("MaxConcurrentInvocationsPerInstance" Data..=)
               Prelude.<$> maxConcurrentInvocationsPerInstance
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.GenerateEmbedUrlForRegisteredUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,8 @@
 --     session lifetime that can be customized using the
 --     @ SessionLifetimeInMinutes @ parameter.
 --
---     The resulting user session is valid for 15 minutes (default) to 10
---     hours (maximum).
+--     The resulting user session is valid for 15 minutes (minimum) to 10
+--     hours (maximum). The default session duration is 10 hours.
 --
 -- -   You are charged only when the URL is used or there is interaction
 --     with Amazon QuickSight.
@@ -55,6 +55,7 @@ module Amazonka.QuickSight.GenerateEmbedUrlForRegisteredUser
     newGenerateEmbedUrlForRegisteredUser,
 
     -- * Request Lenses
+    generateEmbedUrlForRegisteredUser_allowedDomains,
     generateEmbedUrlForRegisteredUser_sessionLifetimeInMinutes,
     generateEmbedUrlForRegisteredUser_awsAccountId,
     generateEmbedUrlForRegisteredUser_userArn,
@@ -72,7 +73,8 @@ module Amazonka.QuickSight.GenerateEmbedUrlForRegisteredUser
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -80,7 +82,18 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGenerateEmbedUrlForRegisteredUser' smart constructor.
 data GenerateEmbedUrlForRegisteredUser = GenerateEmbedUrlForRegisteredUser'
-  { -- | How many minutes the session is valid. The session lifetime must be in
+  { -- | The domains that you want to add to the allow list for access to the
+    -- generated URL that is then embedded. This optional parameter overrides
+    -- the static domains that are configured in the Manage QuickSight menu in
+    -- the Amazon QuickSight console. Instead, it allows only the domains that
+    -- you include in this parameter. You can list up to three domains or
+    -- subdomains in each API call.
+    --
+    -- To include all subdomains under a specific domain to the allow list, use
+    -- @*@. For example, @https:\/\/*.sapp.amazon.com@ includes all subdomains
+    -- under @https:\/\/sapp.amazon.com@.
+    allowedDomains :: Prelude.Maybe [Prelude.Text],
+    -- | How many minutes the session is valid. The session lifetime must be in
     -- [15-600] minutes range.
     sessionLifetimeInMinutes :: Prelude.Maybe Prelude.Natural,
     -- | The ID for the Amazon Web Services account that contains the dashboard
@@ -89,8 +102,8 @@ data GenerateEmbedUrlForRegisteredUser = GenerateEmbedUrlForRegisteredUser'
     -- | The Amazon Resource Name for the registered user.
     userArn :: Prelude.Text,
     -- | The experience you are embedding. For registered users, you can embed
-    -- Amazon QuickSight dashboards, the entire Amazon QuickSight console, or
-    -- the Amazon QuickSight Q search bar.
+    -- Amazon QuickSight dashboards, Amazon QuickSight visuals, the Amazon
+    -- QuickSight Q search bar, or the entire Amazon QuickSight console.
     experienceConfiguration :: RegisteredUserEmbeddingExperienceConfiguration
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -103,6 +116,17 @@ data GenerateEmbedUrlForRegisteredUser = GenerateEmbedUrlForRegisteredUser'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'allowedDomains', 'generateEmbedUrlForRegisteredUser_allowedDomains' - The domains that you want to add to the allow list for access to the
+-- generated URL that is then embedded. This optional parameter overrides
+-- the static domains that are configured in the Manage QuickSight menu in
+-- the Amazon QuickSight console. Instead, it allows only the domains that
+-- you include in this parameter. You can list up to three domains or
+-- subdomains in each API call.
+--
+-- To include all subdomains under a specific domain to the allow list, use
+-- @*@. For example, @https:\/\/*.sapp.amazon.com@ includes all subdomains
+-- under @https:\/\/sapp.amazon.com@.
+--
 -- 'sessionLifetimeInMinutes', 'generateEmbedUrlForRegisteredUser_sessionLifetimeInMinutes' - How many minutes the session is valid. The session lifetime must be in
 -- [15-600] minutes range.
 --
@@ -112,8 +136,8 @@ data GenerateEmbedUrlForRegisteredUser = GenerateEmbedUrlForRegisteredUser'
 -- 'userArn', 'generateEmbedUrlForRegisteredUser_userArn' - The Amazon Resource Name for the registered user.
 --
 -- 'experienceConfiguration', 'generateEmbedUrlForRegisteredUser_experienceConfiguration' - The experience you are embedding. For registered users, you can embed
--- Amazon QuickSight dashboards, the entire Amazon QuickSight console, or
--- the Amazon QuickSight Q search bar.
+-- Amazon QuickSight dashboards, Amazon QuickSight visuals, the Amazon
+-- QuickSight Q search bar, or the entire Amazon QuickSight console.
 newGenerateEmbedUrlForRegisteredUser ::
   -- | 'awsAccountId'
   Prelude.Text ->
@@ -127,13 +151,28 @@ newGenerateEmbedUrlForRegisteredUser
   pUserArn_
   pExperienceConfiguration_ =
     GenerateEmbedUrlForRegisteredUser'
-      { sessionLifetimeInMinutes =
+      { allowedDomains =
+          Prelude.Nothing,
+        sessionLifetimeInMinutes =
           Prelude.Nothing,
         awsAccountId = pAwsAccountId_,
         userArn = pUserArn_,
         experienceConfiguration =
           pExperienceConfiguration_
       }
+
+-- | The domains that you want to add to the allow list for access to the
+-- generated URL that is then embedded. This optional parameter overrides
+-- the static domains that are configured in the Manage QuickSight menu in
+-- the Amazon QuickSight console. Instead, it allows only the domains that
+-- you include in this parameter. You can list up to three domains or
+-- subdomains in each API call.
+--
+-- To include all subdomains under a specific domain to the allow list, use
+-- @*@. For example, @https:\/\/*.sapp.amazon.com@ includes all subdomains
+-- under @https:\/\/sapp.amazon.com@.
+generateEmbedUrlForRegisteredUser_allowedDomains :: Lens.Lens' GenerateEmbedUrlForRegisteredUser (Prelude.Maybe [Prelude.Text])
+generateEmbedUrlForRegisteredUser_allowedDomains = Lens.lens (\GenerateEmbedUrlForRegisteredUser' {allowedDomains} -> allowedDomains) (\s@GenerateEmbedUrlForRegisteredUser' {} a -> s {allowedDomains = a} :: GenerateEmbedUrlForRegisteredUser) Prelude.. Lens.mapping Lens.coerced
 
 -- | How many minutes the session is valid. The session lifetime must be in
 -- [15-600] minutes range.
@@ -150,8 +189,8 @@ generateEmbedUrlForRegisteredUser_userArn :: Lens.Lens' GenerateEmbedUrlForRegis
 generateEmbedUrlForRegisteredUser_userArn = Lens.lens (\GenerateEmbedUrlForRegisteredUser' {userArn} -> userArn) (\s@GenerateEmbedUrlForRegisteredUser' {} a -> s {userArn = a} :: GenerateEmbedUrlForRegisteredUser)
 
 -- | The experience you are embedding. For registered users, you can embed
--- Amazon QuickSight dashboards, the entire Amazon QuickSight console, or
--- the Amazon QuickSight Q search bar.
+-- Amazon QuickSight dashboards, Amazon QuickSight visuals, the Amazon
+-- QuickSight Q search bar, or the entire Amazon QuickSight console.
 generateEmbedUrlForRegisteredUser_experienceConfiguration :: Lens.Lens' GenerateEmbedUrlForRegisteredUser RegisteredUserEmbeddingExperienceConfiguration
 generateEmbedUrlForRegisteredUser_experienceConfiguration = Lens.lens (\GenerateEmbedUrlForRegisteredUser' {experienceConfiguration} -> experienceConfiguration) (\s@GenerateEmbedUrlForRegisteredUser' {} a -> s {experienceConfiguration = a} :: GenerateEmbedUrlForRegisteredUser)
 
@@ -162,14 +201,15 @@ instance
   type
     AWSResponse GenerateEmbedUrlForRegisteredUser =
       GenerateEmbedUrlForRegisteredUserResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GenerateEmbedUrlForRegisteredUserResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-              Prelude.<*> (x Core..:> "EmbedUrl")
-              Prelude.<*> (x Core..:> "RequestId")
+              Prelude.<*> (x Data..:> "EmbedUrl")
+              Prelude.<*> (x Data..:> "RequestId")
       )
 
 instance
@@ -179,7 +219,7 @@ instance
   hashWithSalt
     _salt
     GenerateEmbedUrlForRegisteredUser' {..} =
-      _salt
+      _salt `Prelude.hashWithSalt` allowedDomains
         `Prelude.hashWithSalt` sessionLifetimeInMinutes
         `Prelude.hashWithSalt` awsAccountId
         `Prelude.hashWithSalt` userArn
@@ -190,55 +230,58 @@ instance
     GenerateEmbedUrlForRegisteredUser
   where
   rnf GenerateEmbedUrlForRegisteredUser' {..} =
-    Prelude.rnf sessionLifetimeInMinutes
+    Prelude.rnf allowedDomains
+      `Prelude.seq` Prelude.rnf sessionLifetimeInMinutes
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf userArn
       `Prelude.seq` Prelude.rnf experienceConfiguration
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GenerateEmbedUrlForRegisteredUser
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     GenerateEmbedUrlForRegisteredUser
   where
   toJSON GenerateEmbedUrlForRegisteredUser' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SessionLifetimeInMinutes" Core..=)
+          [ ("AllowedDomains" Data..=)
+              Prelude.<$> allowedDomains,
+            ("SessionLifetimeInMinutes" Data..=)
               Prelude.<$> sessionLifetimeInMinutes,
-            Prelude.Just ("UserArn" Core..= userArn),
+            Prelude.Just ("UserArn" Data..= userArn),
             Prelude.Just
               ( "ExperienceConfiguration"
-                  Core..= experienceConfiguration
+                  Data..= experienceConfiguration
               )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     GenerateEmbedUrlForRegisteredUser
   where
   toPath GenerateEmbedUrlForRegisteredUser' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/embed-url/registered-user"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GenerateEmbedUrlForRegisteredUser
   where
   toQuery = Prelude.const Prelude.mempty
@@ -247,9 +290,9 @@ instance
 data GenerateEmbedUrlForRegisteredUserResponse = GenerateEmbedUrlForRegisteredUserResponse'
   { -- | The HTTP status of the request.
     status :: Prelude.Int,
-    -- | The embed URL for the Amazon QuickSight dashboard, console, or Q search
-    -- bar.
-    embedUrl :: Core.Sensitive Prelude.Text,
+    -- | The embed URL for the Amazon QuickSight dashboard, visual, Q search bar,
+    -- or console.
+    embedUrl :: Data.Sensitive Prelude.Text,
     -- | The Amazon Web Services request ID for this operation.
     requestId :: Prelude.Text
   }
@@ -265,8 +308,8 @@ data GenerateEmbedUrlForRegisteredUserResponse = GenerateEmbedUrlForRegisteredUs
 --
 -- 'status', 'generateEmbedUrlForRegisteredUserResponse_status' - The HTTP status of the request.
 --
--- 'embedUrl', 'generateEmbedUrlForRegisteredUserResponse_embedUrl' - The embed URL for the Amazon QuickSight dashboard, console, or Q search
--- bar.
+-- 'embedUrl', 'generateEmbedUrlForRegisteredUserResponse_embedUrl' - The embed URL for the Amazon QuickSight dashboard, visual, Q search bar,
+-- or console.
 --
 -- 'requestId', 'generateEmbedUrlForRegisteredUserResponse_requestId' - The Amazon Web Services request ID for this operation.
 newGenerateEmbedUrlForRegisteredUserResponse ::
@@ -285,7 +328,7 @@ newGenerateEmbedUrlForRegisteredUserResponse
       { status =
           pStatus_,
         embedUrl =
-          Core._Sensitive
+          Data._Sensitive
             Lens.# pEmbedUrl_,
         requestId = pRequestId_
       }
@@ -294,10 +337,10 @@ newGenerateEmbedUrlForRegisteredUserResponse
 generateEmbedUrlForRegisteredUserResponse_status :: Lens.Lens' GenerateEmbedUrlForRegisteredUserResponse Prelude.Int
 generateEmbedUrlForRegisteredUserResponse_status = Lens.lens (\GenerateEmbedUrlForRegisteredUserResponse' {status} -> status) (\s@GenerateEmbedUrlForRegisteredUserResponse' {} a -> s {status = a} :: GenerateEmbedUrlForRegisteredUserResponse)
 
--- | The embed URL for the Amazon QuickSight dashboard, console, or Q search
--- bar.
+-- | The embed URL for the Amazon QuickSight dashboard, visual, Q search bar,
+-- or console.
 generateEmbedUrlForRegisteredUserResponse_embedUrl :: Lens.Lens' GenerateEmbedUrlForRegisteredUserResponse Prelude.Text
-generateEmbedUrlForRegisteredUserResponse_embedUrl = Lens.lens (\GenerateEmbedUrlForRegisteredUserResponse' {embedUrl} -> embedUrl) (\s@GenerateEmbedUrlForRegisteredUserResponse' {} a -> s {embedUrl = a} :: GenerateEmbedUrlForRegisteredUserResponse) Prelude.. Core._Sensitive
+generateEmbedUrlForRegisteredUserResponse_embedUrl = Lens.lens (\GenerateEmbedUrlForRegisteredUserResponse' {embedUrl} -> embedUrl) (\s@GenerateEmbedUrlForRegisteredUserResponse' {} a -> s {embedUrl = a} :: GenerateEmbedUrlForRegisteredUserResponse) Prelude.. Data._Sensitive
 
 -- | The Amazon Web Services request ID for this operation.
 generateEmbedUrlForRegisteredUserResponse_requestId :: Lens.Lens' GenerateEmbedUrlForRegisteredUserResponse Prelude.Text

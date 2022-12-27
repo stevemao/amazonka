@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.DescribeEventTracker
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@
 --
 -- Describes an event tracker. The response includes the @trackingId@ and
 -- @status@ of the event tracker. For more information on event trackers,
--- see CreateEventTracker.
+-- see
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_CreateEventTracker.html CreateEventTracker>.
 module Amazonka.Personalize.DescribeEventTracker
   ( -- * Creating a Request
     DescribeEventTracker (..),
@@ -42,7 +43,8 @@ module Amazonka.Personalize.DescribeEventTracker
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -82,12 +84,13 @@ instance Core.AWSRequest DescribeEventTracker where
   type
     AWSResponse DescribeEventTracker =
       DescribeEventTrackerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeEventTrackerResponse'
-            Prelude.<$> (x Core..?> "eventTracker")
+            Prelude.<$> (x Data..?> "eventTracker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -99,34 +102,34 @@ instance Prelude.NFData DescribeEventTracker where
   rnf DescribeEventTracker' {..} =
     Prelude.rnf eventTrackerArn
 
-instance Core.ToHeaders DescribeEventTracker where
+instance Data.ToHeaders DescribeEventTracker where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.DescribeEventTracker" ::
+              Data.=# ( "AmazonPersonalize.DescribeEventTracker" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeEventTracker where
+instance Data.ToJSON DescribeEventTracker where
   toJSON DescribeEventTracker' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("eventTrackerArn" Core..= eventTrackerArn)
+              ("eventTrackerArn" Data..= eventTrackerArn)
           ]
       )
 
-instance Core.ToPath DescribeEventTracker where
+instance Data.ToPath DescribeEventTracker where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeEventTracker where
+instance Data.ToQuery DescribeEventTracker where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeEventTrackerResponse' smart constructor.

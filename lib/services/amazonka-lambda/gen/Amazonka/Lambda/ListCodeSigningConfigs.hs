@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.ListCodeSigningConfigs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.Lambda.ListCodeSigningConfigs
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -118,15 +119,16 @@ instance Core.AWSRequest ListCodeSigningConfigs where
   type
     AWSResponse ListCodeSigningConfigs =
       ListCodeSigningConfigsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListCodeSigningConfigsResponse'
-            Prelude.<$> ( x Core..?> "CodeSigningConfigs"
+            Prelude.<$> ( x Data..?> "CodeSigningConfigs"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextMarker")
+            Prelude.<*> (x Data..?> "NextMarker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -140,18 +142,18 @@ instance Prelude.NFData ListCodeSigningConfigs where
     Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxItems
 
-instance Core.ToHeaders ListCodeSigningConfigs where
+instance Data.ToHeaders ListCodeSigningConfigs where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListCodeSigningConfigs where
+instance Data.ToPath ListCodeSigningConfigs where
   toPath =
     Prelude.const "/2020-04-22/code-signing-configs/"
 
-instance Core.ToQuery ListCodeSigningConfigs where
+instance Data.ToQuery ListCodeSigningConfigs where
   toQuery ListCodeSigningConfigs' {..} =
     Prelude.mconcat
-      [ "Marker" Core.=: marker,
-        "MaxItems" Core.=: maxItems
+      [ "Marker" Data.=: marker,
+        "MaxItems" Data.=: maxItems
       ]
 
 -- | /See:/ 'newListCodeSigningConfigsResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.GetOperationsForResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.Lightsail.GetOperationsForResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -108,14 +109,15 @@ instance Core.AWSRequest GetOperationsForResource where
   type
     AWSResponse GetOperationsForResource =
       GetOperationsForResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetOperationsForResourceResponse'
-            Prelude.<$> (x Core..?> "nextPageCount")
-            Prelude.<*> (x Core..?> "nextPageToken")
-            Prelude.<*> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "nextPageCount")
+            Prelude.<*> (x Data..?> "nextPageToken")
+            Prelude.<*> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -129,34 +131,34 @@ instance Prelude.NFData GetOperationsForResource where
     Prelude.rnf pageToken
       `Prelude.seq` Prelude.rnf resourceName
 
-instance Core.ToHeaders GetOperationsForResource where
+instance Data.ToHeaders GetOperationsForResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.GetOperationsForResource" ::
+              Data.=# ( "Lightsail_20161128.GetOperationsForResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetOperationsForResource where
+instance Data.ToJSON GetOperationsForResource where
   toJSON GetOperationsForResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("pageToken" Core..=) Prelude.<$> pageToken,
-            Prelude.Just ("resourceName" Core..= resourceName)
+          [ ("pageToken" Data..=) Prelude.<$> pageToken,
+            Prelude.Just ("resourceName" Data..= resourceName)
           ]
       )
 
-instance Core.ToPath GetOperationsForResource where
+instance Data.ToPath GetOperationsForResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetOperationsForResource where
+instance Data.ToQuery GetOperationsForResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetOperationsForResourceResponse' smart constructor.

@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.ForecastQuery
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,11 +30,17 @@ import Test.Tasty
 --         [ requestQueryForecast $
 --             newQueryForecast
 --
+--         , requestQueryWhatIfForecast $
+--             newQueryWhatIfForecast
+--
 --           ]
 
 --     , testGroup "response"
 --         [ responseQueryForecast $
 --             newQueryForecastResponse
+--
+--         , responseQueryWhatIfForecast $
+--             newQueryWhatIfForecastResponse
 --
 --           ]
 --     ]
@@ -47,6 +53,12 @@ requestQueryForecast =
     "QueryForecast"
     "fixture/QueryForecast.yaml"
 
+requestQueryWhatIfForecast :: QueryWhatIfForecast -> TestTree
+requestQueryWhatIfForecast =
+  req
+    "QueryWhatIfForecast"
+    "fixture/QueryWhatIfForecast.yaml"
+
 -- Responses
 
 responseQueryForecast :: QueryForecastResponse -> TestTree
@@ -56,3 +68,11 @@ responseQueryForecast =
     "fixture/QueryForecastResponse.proto"
     defaultService
     (Proxy.Proxy :: Proxy.Proxy QueryForecast)
+
+responseQueryWhatIfForecast :: QueryWhatIfForecastResponse -> TestTree
+responseQueryWhatIfForecast =
+  res
+    "QueryWhatIfForecastResponse"
+    "fixture/QueryWhatIfForecastResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy QueryWhatIfForecast)

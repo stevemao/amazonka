@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.DeleteProjectVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.Rekognition.DeleteProjectVersion
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types
 import qualified Amazonka.Request as Request
@@ -91,12 +92,13 @@ instance Core.AWSRequest DeleteProjectVersion where
   type
     AWSResponse DeleteProjectVersion =
       DeleteProjectVersionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteProjectVersionResponse'
-            Prelude.<$> (x Core..?> "Status")
+            Prelude.<$> (x Data..?> "Status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -108,34 +110,34 @@ instance Prelude.NFData DeleteProjectVersion where
   rnf DeleteProjectVersion' {..} =
     Prelude.rnf projectVersionArn
 
-instance Core.ToHeaders DeleteProjectVersion where
+instance Data.ToHeaders DeleteProjectVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "RekognitionService.DeleteProjectVersion" ::
+              Data.=# ( "RekognitionService.DeleteProjectVersion" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteProjectVersion where
+instance Data.ToJSON DeleteProjectVersion where
   toJSON DeleteProjectVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ProjectVersionArn" Core..= projectVersionArn)
+              ("ProjectVersionArn" Data..= projectVersionArn)
           ]
       )
 
-instance Core.ToPath DeleteProjectVersion where
+instance Data.ToPath DeleteProjectVersion where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteProjectVersion where
+instance Data.ToQuery DeleteProjectVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteProjectVersionResponse' smart constructor.

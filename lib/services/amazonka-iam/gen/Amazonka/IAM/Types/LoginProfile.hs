@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.Types.LoginProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IAM.Types.LoginProfile where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the user name and password create date for a user.
@@ -37,7 +38,7 @@ data LoginProfile = LoginProfile'
     -- Services Management Console.
     userName :: Prelude.Text,
     -- | The date when the password for the user was created.
-    createDate :: Core.ISO8601
+    createDate :: Data.ISO8601
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,7 +68,7 @@ newLoginProfile pUserName_ pCreateDate_ =
     { passwordResetRequired =
         Prelude.Nothing,
       userName = pUserName_,
-      createDate = Core._Time Lens.# pCreateDate_
+      createDate = Data._Time Lens.# pCreateDate_
     }
 
 -- | Specifies whether the user is required to set a new password on next
@@ -82,14 +83,14 @@ loginProfile_userName = Lens.lens (\LoginProfile' {userName} -> userName) (\s@Lo
 
 -- | The date when the password for the user was created.
 loginProfile_createDate :: Lens.Lens' LoginProfile Prelude.UTCTime
-loginProfile_createDate = Lens.lens (\LoginProfile' {createDate} -> createDate) (\s@LoginProfile' {} a -> s {createDate = a} :: LoginProfile) Prelude.. Core._Time
+loginProfile_createDate = Lens.lens (\LoginProfile' {createDate} -> createDate) (\s@LoginProfile' {} a -> s {createDate = a} :: LoginProfile) Prelude.. Data._Time
 
-instance Core.FromXML LoginProfile where
+instance Data.FromXML LoginProfile where
   parseXML x =
     LoginProfile'
-      Prelude.<$> (x Core..@? "PasswordResetRequired")
-      Prelude.<*> (x Core..@ "UserName")
-      Prelude.<*> (x Core..@ "CreateDate")
+      Prelude.<$> (x Data..@? "PasswordResetRequired")
+      Prelude.<*> (x Data..@ "UserName")
+      Prelude.<*> (x Data..@ "CreateDate")
 
 instance Prelude.Hashable LoginProfile where
   hashWithSalt _salt LoginProfile' {..} =

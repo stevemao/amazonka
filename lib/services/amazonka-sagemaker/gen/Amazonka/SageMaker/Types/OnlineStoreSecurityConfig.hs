@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.OnlineStoreSecurityConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.OnlineStoreSecurityConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The security configuration for @OnlineStore@.
@@ -152,13 +153,13 @@ newOnlineStoreSecurityConfig =
 onlineStoreSecurityConfig_kmsKeyId :: Lens.Lens' OnlineStoreSecurityConfig (Prelude.Maybe Prelude.Text)
 onlineStoreSecurityConfig_kmsKeyId = Lens.lens (\OnlineStoreSecurityConfig' {kmsKeyId} -> kmsKeyId) (\s@OnlineStoreSecurityConfig' {} a -> s {kmsKeyId = a} :: OnlineStoreSecurityConfig)
 
-instance Core.FromJSON OnlineStoreSecurityConfig where
+instance Data.FromJSON OnlineStoreSecurityConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OnlineStoreSecurityConfig"
       ( \x ->
           OnlineStoreSecurityConfig'
-            Prelude.<$> (x Core..:? "KmsKeyId")
+            Prelude.<$> (x Data..:? "KmsKeyId")
       )
 
 instance Prelude.Hashable OnlineStoreSecurityConfig where
@@ -169,9 +170,9 @@ instance Prelude.NFData OnlineStoreSecurityConfig where
   rnf OnlineStoreSecurityConfig' {..} =
     Prelude.rnf kmsKeyId
 
-instance Core.ToJSON OnlineStoreSecurityConfig where
+instance Data.ToJSON OnlineStoreSecurityConfig where
   toJSON OnlineStoreSecurityConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("KmsKeyId" Core..=) Prelude.<$> kmsKeyId]
+          [("KmsKeyId" Data..=) Prelude.<$> kmsKeyId]
       )

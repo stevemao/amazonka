@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Forecast.Types.PredictorExecutionDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Forecast.Types.PredictorExecutionDetails where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Forecast.Types.PredictorExecution
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains details on the backtests performed to evaluate the accuracy of
@@ -63,13 +64,13 @@ newPredictorExecutionDetails =
 predictorExecutionDetails_predictorExecutions :: Lens.Lens' PredictorExecutionDetails (Prelude.Maybe (Prelude.NonEmpty PredictorExecution))
 predictorExecutionDetails_predictorExecutions = Lens.lens (\PredictorExecutionDetails' {predictorExecutions} -> predictorExecutions) (\s@PredictorExecutionDetails' {} a -> s {predictorExecutions = a} :: PredictorExecutionDetails) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON PredictorExecutionDetails where
+instance Data.FromJSON PredictorExecutionDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PredictorExecutionDetails"
       ( \x ->
           PredictorExecutionDetails'
-            Prelude.<$> (x Core..:? "PredictorExecutions")
+            Prelude.<$> (x Data..:? "PredictorExecutions")
       )
 
 instance Prelude.Hashable PredictorExecutionDetails where

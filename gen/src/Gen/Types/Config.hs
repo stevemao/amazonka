@@ -46,7 +46,7 @@ data Override = Override
     -- | Optional fields
     _optionalFields :: [Id],
     -- | Rename fields
-    _renamedFields :: HashMap Id Id
+    _renamedFields :: Map Id Id
   }
   deriving (Eq, Show)
 
@@ -99,9 +99,9 @@ data Config = Config
     -- Using a wildcard key of @*@ in the configuration results in the plugins
     -- being applied to _all_ operations. The wildcard is only applied if no
     -- matching operation name is found in the map.
-    _operationPlugins :: HashMap Id [Text],
+    _operationPlugins :: Map Id [Text],
     _typeModules :: [NS],
-    _typeOverrides :: HashMap Id Override,
+    _typeOverrides :: Map Id Override,
     _ignoredWaiters :: HashSet Id,
     _ignoredPaginators :: HashSet Id,
     _extraDependencies :: [Text]
@@ -126,6 +126,10 @@ data Library = Library
   { _versions' :: Versions,
     _config' :: Config,
     _service' :: Service Identity SData SData WData,
+    -- | @(x, y)@ in cuts' means that:
+    -- * The module for @x@ should @import {-# SOURCE #-} y@, and
+    -- * We should generate a @.hs-boot@ for @y@.
+    _cuts' :: Set (Text, Text),
     _instance' :: Fun
   }
 
@@ -206,12 +210,14 @@ data Templates = Templates
   { cabalTemplate :: Template,
     tocTemplate :: Template,
     waitersTemplate :: Template,
+    licenseTemplate :: Template,
     readmeTemplate :: Template,
     operationTemplate :: Template,
     typesTemplate :: Template,
     lensTemplate :: Template,
     sumTemplate :: Template,
     productTemplate :: Template,
+    bootProductTemplate :: Template,
     testMainTemplate :: Template,
     testNamespaceTemplate :: Template,
     testInternalTemplate :: Template,

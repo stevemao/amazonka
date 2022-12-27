@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.UpdatePipeline
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.IoTAnalytics.UpdatePipeline
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -120,7 +121,8 @@ instance Core.AWSRequest UpdatePipeline where
   type
     AWSResponse UpdatePipeline =
       UpdatePipelineResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveNull UpdatePipelineResponse'
 
@@ -134,24 +136,24 @@ instance Prelude.NFData UpdatePipeline where
     Prelude.rnf pipelineName
       `Prelude.seq` Prelude.rnf pipelineActivities
 
-instance Core.ToHeaders UpdatePipeline where
+instance Data.ToHeaders UpdatePipeline where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdatePipeline where
+instance Data.ToJSON UpdatePipeline where
   toJSON UpdatePipeline' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("pipelineActivities" Core..= pipelineActivities)
+              ("pipelineActivities" Data..= pipelineActivities)
           ]
       )
 
-instance Core.ToPath UpdatePipeline where
+instance Data.ToPath UpdatePipeline where
   toPath UpdatePipeline' {..} =
     Prelude.mconcat
-      ["/pipelines/", Core.toBS pipelineName]
+      ["/pipelines/", Data.toBS pipelineName]
 
-instance Core.ToQuery UpdatePipeline where
+instance Data.ToQuery UpdatePipeline where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdatePipelineResponse' smart constructor.

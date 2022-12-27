@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsRdsDbClusterOptionGroupMembership
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.SecurityHub.Types.AwsRdsDbClusterOptionGroupMembership where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about an option group membership for a DB cluster.
 --
 -- /See:/ 'newAwsRdsDbClusterOptionGroupMembership' smart constructor.
 data AwsRdsDbClusterOptionGroupMembership = AwsRdsDbClusterOptionGroupMembership'
-  { -- | The status of the DB cluster option group.
-    status :: Prelude.Maybe Prelude.Text,
-    -- | The name of the DB cluster option group.
-    dbClusterOptionGroupName :: Prelude.Maybe Prelude.Text
+  { -- | The name of the DB cluster option group.
+    dbClusterOptionGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The status of the DB cluster option group.
+    status :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,38 +43,37 @@ data AwsRdsDbClusterOptionGroupMembership = AwsRdsDbClusterOptionGroupMembership
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'awsRdsDbClusterOptionGroupMembership_status' - The status of the DB cluster option group.
---
 -- 'dbClusterOptionGroupName', 'awsRdsDbClusterOptionGroupMembership_dbClusterOptionGroupName' - The name of the DB cluster option group.
+--
+-- 'status', 'awsRdsDbClusterOptionGroupMembership_status' - The status of the DB cluster option group.
 newAwsRdsDbClusterOptionGroupMembership ::
   AwsRdsDbClusterOptionGroupMembership
 newAwsRdsDbClusterOptionGroupMembership =
   AwsRdsDbClusterOptionGroupMembership'
-    { status =
+    { dbClusterOptionGroupName =
         Prelude.Nothing,
-      dbClusterOptionGroupName =
-        Prelude.Nothing
+      status = Prelude.Nothing
     }
-
--- | The status of the DB cluster option group.
-awsRdsDbClusterOptionGroupMembership_status :: Lens.Lens' AwsRdsDbClusterOptionGroupMembership (Prelude.Maybe Prelude.Text)
-awsRdsDbClusterOptionGroupMembership_status = Lens.lens (\AwsRdsDbClusterOptionGroupMembership' {status} -> status) (\s@AwsRdsDbClusterOptionGroupMembership' {} a -> s {status = a} :: AwsRdsDbClusterOptionGroupMembership)
 
 -- | The name of the DB cluster option group.
 awsRdsDbClusterOptionGroupMembership_dbClusterOptionGroupName :: Lens.Lens' AwsRdsDbClusterOptionGroupMembership (Prelude.Maybe Prelude.Text)
 awsRdsDbClusterOptionGroupMembership_dbClusterOptionGroupName = Lens.lens (\AwsRdsDbClusterOptionGroupMembership' {dbClusterOptionGroupName} -> dbClusterOptionGroupName) (\s@AwsRdsDbClusterOptionGroupMembership' {} a -> s {dbClusterOptionGroupName = a} :: AwsRdsDbClusterOptionGroupMembership)
 
+-- | The status of the DB cluster option group.
+awsRdsDbClusterOptionGroupMembership_status :: Lens.Lens' AwsRdsDbClusterOptionGroupMembership (Prelude.Maybe Prelude.Text)
+awsRdsDbClusterOptionGroupMembership_status = Lens.lens (\AwsRdsDbClusterOptionGroupMembership' {status} -> status) (\s@AwsRdsDbClusterOptionGroupMembership' {} a -> s {status = a} :: AwsRdsDbClusterOptionGroupMembership)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsRdsDbClusterOptionGroupMembership
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsRdsDbClusterOptionGroupMembership"
       ( \x ->
           AwsRdsDbClusterOptionGroupMembership'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "DbClusterOptionGroupName")
+            Prelude.<$> (x Data..:? "DbClusterOptionGroupName")
+            Prelude.<*> (x Data..:? "Status")
       )
 
 instance
@@ -83,26 +83,27 @@ instance
   hashWithSalt
     _salt
     AwsRdsDbClusterOptionGroupMembership' {..} =
-      _salt `Prelude.hashWithSalt` status
+      _salt
         `Prelude.hashWithSalt` dbClusterOptionGroupName
+        `Prelude.hashWithSalt` status
 
 instance
   Prelude.NFData
     AwsRdsDbClusterOptionGroupMembership
   where
   rnf AwsRdsDbClusterOptionGroupMembership' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf dbClusterOptionGroupName
+    Prelude.rnf dbClusterOptionGroupName
+      `Prelude.seq` Prelude.rnf status
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsRdsDbClusterOptionGroupMembership
   where
   toJSON AwsRdsDbClusterOptionGroupMembership' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Status" Core..=) Prelude.<$> status,
-            ("DbClusterOptionGroupName" Core..=)
-              Prelude.<$> dbClusterOptionGroupName
+          [ ("DbClusterOptionGroupName" Data..=)
+              Prelude.<$> dbClusterOptionGroupName,
+            ("Status" Data..=) Prelude.<$> status
           ]
       )

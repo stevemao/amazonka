@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaTailor.Types.ScheduleAdBreak
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,22 +20,23 @@
 module Amazonka.MediaTailor.Types.ScheduleAdBreak where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The schedule\'s ad break properties.
 --
 -- /See:/ 'newScheduleAdBreak' smart constructor.
 data ScheduleAdBreak = ScheduleAdBreak'
-  { -- | The name of the source location containing the VOD source used for the
+  { -- | The approximate duration of the ad break, in seconds.
+    approximateDurationSeconds :: Prelude.Maybe Prelude.Integer,
+    -- | The approximate time that the ad will start playing.
+    approximateStartTime :: Prelude.Maybe Data.POSIX,
+    -- | The name of the source location containing the VOD source used for the
     -- ad break.
     sourceLocationName :: Prelude.Maybe Prelude.Text,
-    -- | The approximate duration of the ad break, in seconds.
-    approximateDurationSeconds :: Prelude.Maybe Prelude.Integer,
     -- | The name of the VOD source used for the ad break.
-    vodSourceName :: Prelude.Maybe Prelude.Text,
-    -- | The approximate time that the ad will start playing.
-    approximateStartTime :: Prelude.Maybe Core.POSIX
+    vodSourceName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,64 +48,65 @@ data ScheduleAdBreak = ScheduleAdBreak'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'approximateDurationSeconds', 'scheduleAdBreak_approximateDurationSeconds' - The approximate duration of the ad break, in seconds.
+--
+-- 'approximateStartTime', 'scheduleAdBreak_approximateStartTime' - The approximate time that the ad will start playing.
+--
 -- 'sourceLocationName', 'scheduleAdBreak_sourceLocationName' - The name of the source location containing the VOD source used for the
 -- ad break.
 --
--- 'approximateDurationSeconds', 'scheduleAdBreak_approximateDurationSeconds' - The approximate duration of the ad break, in seconds.
---
 -- 'vodSourceName', 'scheduleAdBreak_vodSourceName' - The name of the VOD source used for the ad break.
---
--- 'approximateStartTime', 'scheduleAdBreak_approximateStartTime' - The approximate time that the ad will start playing.
 newScheduleAdBreak ::
   ScheduleAdBreak
 newScheduleAdBreak =
   ScheduleAdBreak'
-    { sourceLocationName =
+    { approximateDurationSeconds =
         Prelude.Nothing,
-      approximateDurationSeconds = Prelude.Nothing,
-      vodSourceName = Prelude.Nothing,
-      approximateStartTime = Prelude.Nothing
+      approximateStartTime = Prelude.Nothing,
+      sourceLocationName = Prelude.Nothing,
+      vodSourceName = Prelude.Nothing
     }
+
+-- | The approximate duration of the ad break, in seconds.
+scheduleAdBreak_approximateDurationSeconds :: Lens.Lens' ScheduleAdBreak (Prelude.Maybe Prelude.Integer)
+scheduleAdBreak_approximateDurationSeconds = Lens.lens (\ScheduleAdBreak' {approximateDurationSeconds} -> approximateDurationSeconds) (\s@ScheduleAdBreak' {} a -> s {approximateDurationSeconds = a} :: ScheduleAdBreak)
+
+-- | The approximate time that the ad will start playing.
+scheduleAdBreak_approximateStartTime :: Lens.Lens' ScheduleAdBreak (Prelude.Maybe Prelude.UTCTime)
+scheduleAdBreak_approximateStartTime = Lens.lens (\ScheduleAdBreak' {approximateStartTime} -> approximateStartTime) (\s@ScheduleAdBreak' {} a -> s {approximateStartTime = a} :: ScheduleAdBreak) Prelude.. Lens.mapping Data._Time
 
 -- | The name of the source location containing the VOD source used for the
 -- ad break.
 scheduleAdBreak_sourceLocationName :: Lens.Lens' ScheduleAdBreak (Prelude.Maybe Prelude.Text)
 scheduleAdBreak_sourceLocationName = Lens.lens (\ScheduleAdBreak' {sourceLocationName} -> sourceLocationName) (\s@ScheduleAdBreak' {} a -> s {sourceLocationName = a} :: ScheduleAdBreak)
 
--- | The approximate duration of the ad break, in seconds.
-scheduleAdBreak_approximateDurationSeconds :: Lens.Lens' ScheduleAdBreak (Prelude.Maybe Prelude.Integer)
-scheduleAdBreak_approximateDurationSeconds = Lens.lens (\ScheduleAdBreak' {approximateDurationSeconds} -> approximateDurationSeconds) (\s@ScheduleAdBreak' {} a -> s {approximateDurationSeconds = a} :: ScheduleAdBreak)
-
 -- | The name of the VOD source used for the ad break.
 scheduleAdBreak_vodSourceName :: Lens.Lens' ScheduleAdBreak (Prelude.Maybe Prelude.Text)
 scheduleAdBreak_vodSourceName = Lens.lens (\ScheduleAdBreak' {vodSourceName} -> vodSourceName) (\s@ScheduleAdBreak' {} a -> s {vodSourceName = a} :: ScheduleAdBreak)
 
--- | The approximate time that the ad will start playing.
-scheduleAdBreak_approximateStartTime :: Lens.Lens' ScheduleAdBreak (Prelude.Maybe Prelude.UTCTime)
-scheduleAdBreak_approximateStartTime = Lens.lens (\ScheduleAdBreak' {approximateStartTime} -> approximateStartTime) (\s@ScheduleAdBreak' {} a -> s {approximateStartTime = a} :: ScheduleAdBreak) Prelude.. Lens.mapping Core._Time
-
-instance Core.FromJSON ScheduleAdBreak where
+instance Data.FromJSON ScheduleAdBreak where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ScheduleAdBreak"
       ( \x ->
           ScheduleAdBreak'
-            Prelude.<$> (x Core..:? "SourceLocationName")
-            Prelude.<*> (x Core..:? "ApproximateDurationSeconds")
-            Prelude.<*> (x Core..:? "VodSourceName")
-            Prelude.<*> (x Core..:? "ApproximateStartTime")
+            Prelude.<$> (x Data..:? "ApproximateDurationSeconds")
+            Prelude.<*> (x Data..:? "ApproximateStartTime")
+            Prelude.<*> (x Data..:? "SourceLocationName")
+            Prelude.<*> (x Data..:? "VodSourceName")
       )
 
 instance Prelude.Hashable ScheduleAdBreak where
   hashWithSalt _salt ScheduleAdBreak' {..} =
-    _salt `Prelude.hashWithSalt` sourceLocationName
+    _salt
       `Prelude.hashWithSalt` approximateDurationSeconds
-      `Prelude.hashWithSalt` vodSourceName
       `Prelude.hashWithSalt` approximateStartTime
+      `Prelude.hashWithSalt` sourceLocationName
+      `Prelude.hashWithSalt` vodSourceName
 
 instance Prelude.NFData ScheduleAdBreak where
   rnf ScheduleAdBreak' {..} =
-    Prelude.rnf sourceLocationName
-      `Prelude.seq` Prelude.rnf approximateDurationSeconds
-      `Prelude.seq` Prelude.rnf vodSourceName
+    Prelude.rnf approximateDurationSeconds
       `Prelude.seq` Prelude.rnf approximateStartTime
+      `Prelude.seq` Prelude.rnf sourceLocationName
+      `Prelude.seq` Prelude.rnf vodSourceName

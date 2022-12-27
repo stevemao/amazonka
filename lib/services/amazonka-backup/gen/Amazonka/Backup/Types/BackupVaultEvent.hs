@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Backup.Types.BackupVaultEvent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,17 +34,20 @@ module Amazonka.Backup.Types.BackupVaultEvent
         BackupVaultEvent_RESTORE_JOB_COMPLETED,
         BackupVaultEvent_RESTORE_JOB_FAILED,
         BackupVaultEvent_RESTORE_JOB_STARTED,
-        BackupVaultEvent_RESTORE_JOB_SUCCESSFUL
+        BackupVaultEvent_RESTORE_JOB_SUCCESSFUL,
+        BackupVaultEvent_S3_BACKUP_OBJECT_FAILED,
+        BackupVaultEvent_S3_RESTORE_OBJECT_FAILED
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype BackupVaultEvent = BackupVaultEvent'
   { fromBackupVaultEvent ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -56,18 +59,18 @@ newtype BackupVaultEvent = BackupVaultEvent'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern BackupVaultEvent_BACKUP_JOB_COMPLETED :: BackupVaultEvent
@@ -115,6 +118,12 @@ pattern BackupVaultEvent_RESTORE_JOB_STARTED = BackupVaultEvent' "RESTORE_JOB_ST
 pattern BackupVaultEvent_RESTORE_JOB_SUCCESSFUL :: BackupVaultEvent
 pattern BackupVaultEvent_RESTORE_JOB_SUCCESSFUL = BackupVaultEvent' "RESTORE_JOB_SUCCESSFUL"
 
+pattern BackupVaultEvent_S3_BACKUP_OBJECT_FAILED :: BackupVaultEvent
+pattern BackupVaultEvent_S3_BACKUP_OBJECT_FAILED = BackupVaultEvent' "S3_BACKUP_OBJECT_FAILED"
+
+pattern BackupVaultEvent_S3_RESTORE_OBJECT_FAILED :: BackupVaultEvent
+pattern BackupVaultEvent_S3_RESTORE_OBJECT_FAILED = BackupVaultEvent' "S3_RESTORE_OBJECT_FAILED"
+
 {-# COMPLETE
   BackupVaultEvent_BACKUP_JOB_COMPLETED,
   BackupVaultEvent_BACKUP_JOB_EXPIRED,
@@ -131,5 +140,7 @@ pattern BackupVaultEvent_RESTORE_JOB_SUCCESSFUL = BackupVaultEvent' "RESTORE_JOB
   BackupVaultEvent_RESTORE_JOB_FAILED,
   BackupVaultEvent_RESTORE_JOB_STARTED,
   BackupVaultEvent_RESTORE_JOB_SUCCESSFUL,
+  BackupVaultEvent_S3_BACKUP_OBJECT_FAILED,
+  BackupVaultEvent_S3_RESTORE_OBJECT_FAILED,
   BackupVaultEvent'
   #-}

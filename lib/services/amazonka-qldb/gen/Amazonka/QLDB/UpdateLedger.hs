@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QLDB.UpdateLedger
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,18 +36,19 @@ module Amazonka.QLDB.UpdateLedger
     newUpdateLedgerResponse,
 
     -- * Response Lenses
-    updateLedgerResponse_state,
-    updateLedgerResponse_deletionProtection,
     updateLedgerResponse_arn,
+    updateLedgerResponse_creationDateTime,
+    updateLedgerResponse_deletionProtection,
     updateLedgerResponse_encryptionDescription,
     updateLedgerResponse_name,
-    updateLedgerResponse_creationDateTime,
+    updateLedgerResponse_state,
     updateLedgerResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QLDB.Types
 import qualified Amazonka.Request as Request
@@ -85,8 +86,8 @@ data UpdateLedger = UpdateLedger'
     --
     -- To specify a customer managed KMS key, you can use its key ID, Amazon
     -- Resource Name (ARN), alias name, or alias ARN. When using an alias name,
-    -- prefix it with @\"alias\/\"@. To specify a key in a different account,
-    -- you must use the key ARN or alias ARN.
+    -- prefix it with @\"alias\/\"@. To specify a key in a different Amazon Web
+    -- Services account, you must use the key ARN or alias ARN.
     --
     -- For example:
     --
@@ -146,8 +147,8 @@ data UpdateLedger = UpdateLedger'
 --
 -- To specify a customer managed KMS key, you can use its key ID, Amazon
 -- Resource Name (ARN), alias name, or alias ARN. When using an alias name,
--- prefix it with @\"alias\/\"@. To specify a key in a different account,
--- you must use the key ARN or alias ARN.
+-- prefix it with @\"alias\/\"@. To specify a key in a different Amazon Web
+-- Services account, you must use the key ARN or alias ARN.
 --
 -- For example:
 --
@@ -208,8 +209,8 @@ updateLedger_deletionProtection = Lens.lens (\UpdateLedger' {deletionProtection}
 --
 -- To specify a customer managed KMS key, you can use its key ID, Amazon
 -- Resource Name (ARN), alias name, or alias ARN. When using an alias name,
--- prefix it with @\"alias\/\"@. To specify a key in a different account,
--- you must use the key ARN or alias ARN.
+-- prefix it with @\"alias\/\"@. To specify a key in a different Amazon Web
+-- Services account, you must use the key ARN or alias ARN.
 --
 -- For example:
 --
@@ -234,17 +235,18 @@ updateLedger_name = Lens.lens (\UpdateLedger' {name} -> name) (\s@UpdateLedger' 
 
 instance Core.AWSRequest UpdateLedger where
   type AWSResponse UpdateLedger = UpdateLedgerResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateLedgerResponse'
-            Prelude.<$> (x Core..?> "State")
-            Prelude.<*> (x Core..?> "DeletionProtection")
-            Prelude.<*> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "EncryptionDescription")
-            Prelude.<*> (x Core..?> "Name")
-            Prelude.<*> (x Core..?> "CreationDateTime")
+            Prelude.<$> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "CreationDateTime")
+            Prelude.<*> (x Data..?> "DeletionProtection")
+            Prelude.<*> (x Data..?> "EncryptionDescription")
+            Prelude.<*> (x Data..?> "Name")
+            Prelude.<*> (x Data..?> "State")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -260,38 +262,42 @@ instance Prelude.NFData UpdateLedger where
       `Prelude.seq` Prelude.rnf kmsKey
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders UpdateLedger where
+instance Data.ToHeaders UpdateLedger where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateLedger where
+instance Data.ToJSON UpdateLedger where
   toJSON UpdateLedger' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DeletionProtection" Core..=)
+          [ ("DeletionProtection" Data..=)
               Prelude.<$> deletionProtection,
-            ("KmsKey" Core..=) Prelude.<$> kmsKey
+            ("KmsKey" Data..=) Prelude.<$> kmsKey
           ]
       )
 
-instance Core.ToPath UpdateLedger where
+instance Data.ToPath UpdateLedger where
   toPath UpdateLedger' {..} =
-    Prelude.mconcat ["/ledgers/", Core.toBS name]
+    Prelude.mconcat ["/ledgers/", Data.toBS name]
 
-instance Core.ToQuery UpdateLedger where
+instance Data.ToQuery UpdateLedger where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateLedgerResponse' smart constructor.
 data UpdateLedgerResponse = UpdateLedgerResponse'
-  { -- | The current status of the ledger.
-    state :: Prelude.Maybe LedgerState,
+  { -- | The Amazon Resource Name (ARN) for the ledger.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The date and time, in epoch time format, when the ledger was created.
+    -- (Epoch time format is the number of seconds elapsed since 12:00:00 AM
+    -- January 1, 1970 UTC.)
+    creationDateTime :: Prelude.Maybe Data.POSIX,
     -- | The flag that prevents a ledger from being deleted by any user. If not
     -- provided on ledger creation, this feature is enabled (@true@) by
     -- default.
@@ -300,18 +306,14 @@ data UpdateLedgerResponse = UpdateLedgerResponse'
     -- can delete the ledger. You can disable it by calling the @UpdateLedger@
     -- operation to set the flag to @false@.
     deletionProtection :: Prelude.Maybe Prelude.Bool,
-    -- | The Amazon Resource Name (ARN) for the ledger.
-    arn :: Prelude.Maybe Prelude.Text,
     -- | Information about the encryption of data at rest in the ledger. This
     -- includes the current status, the KMS key, and when the key became
     -- inaccessible (in the case of an error).
     encryptionDescription :: Prelude.Maybe LedgerEncryptionDescription,
     -- | The name of the ledger.
     name :: Prelude.Maybe Prelude.Text,
-    -- | The date and time, in epoch time format, when the ledger was created.
-    -- (Epoch time format is the number of seconds elapsed since 12:00:00 AM
-    -- January 1, 1970 UTC.)
-    creationDateTime :: Prelude.Maybe Core.POSIX,
+    -- | The current status of the ledger.
+    state :: Prelude.Maybe LedgerState,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -325,7 +327,11 @@ data UpdateLedgerResponse = UpdateLedgerResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'state', 'updateLedgerResponse_state' - The current status of the ledger.
+-- 'arn', 'updateLedgerResponse_arn' - The Amazon Resource Name (ARN) for the ledger.
+--
+-- 'creationDateTime', 'updateLedgerResponse_creationDateTime' - The date and time, in epoch time format, when the ledger was created.
+-- (Epoch time format is the number of seconds elapsed since 12:00:00 AM
+-- January 1, 1970 UTC.)
 --
 -- 'deletionProtection', 'updateLedgerResponse_deletionProtection' - The flag that prevents a ledger from being deleted by any user. If not
 -- provided on ledger creation, this feature is enabled (@true@) by
@@ -335,17 +341,13 @@ data UpdateLedgerResponse = UpdateLedgerResponse'
 -- can delete the ledger. You can disable it by calling the @UpdateLedger@
 -- operation to set the flag to @false@.
 --
--- 'arn', 'updateLedgerResponse_arn' - The Amazon Resource Name (ARN) for the ledger.
---
 -- 'encryptionDescription', 'updateLedgerResponse_encryptionDescription' - Information about the encryption of data at rest in the ledger. This
 -- includes the current status, the KMS key, and when the key became
 -- inaccessible (in the case of an error).
 --
 -- 'name', 'updateLedgerResponse_name' - The name of the ledger.
 --
--- 'creationDateTime', 'updateLedgerResponse_creationDateTime' - The date and time, in epoch time format, when the ledger was created.
--- (Epoch time format is the number of seconds elapsed since 12:00:00 AM
--- January 1, 1970 UTC.)
+-- 'state', 'updateLedgerResponse_state' - The current status of the ledger.
 --
 -- 'httpStatus', 'updateLedgerResponse_httpStatus' - The response's http status code.
 newUpdateLedgerResponse ::
@@ -354,18 +356,24 @@ newUpdateLedgerResponse ::
   UpdateLedgerResponse
 newUpdateLedgerResponse pHttpStatus_ =
   UpdateLedgerResponse'
-    { state = Prelude.Nothing,
+    { arn = Prelude.Nothing,
+      creationDateTime = Prelude.Nothing,
       deletionProtection = Prelude.Nothing,
-      arn = Prelude.Nothing,
       encryptionDescription = Prelude.Nothing,
       name = Prelude.Nothing,
-      creationDateTime = Prelude.Nothing,
+      state = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The current status of the ledger.
-updateLedgerResponse_state :: Lens.Lens' UpdateLedgerResponse (Prelude.Maybe LedgerState)
-updateLedgerResponse_state = Lens.lens (\UpdateLedgerResponse' {state} -> state) (\s@UpdateLedgerResponse' {} a -> s {state = a} :: UpdateLedgerResponse)
+-- | The Amazon Resource Name (ARN) for the ledger.
+updateLedgerResponse_arn :: Lens.Lens' UpdateLedgerResponse (Prelude.Maybe Prelude.Text)
+updateLedgerResponse_arn = Lens.lens (\UpdateLedgerResponse' {arn} -> arn) (\s@UpdateLedgerResponse' {} a -> s {arn = a} :: UpdateLedgerResponse)
+
+-- | The date and time, in epoch time format, when the ledger was created.
+-- (Epoch time format is the number of seconds elapsed since 12:00:00 AM
+-- January 1, 1970 UTC.)
+updateLedgerResponse_creationDateTime :: Lens.Lens' UpdateLedgerResponse (Prelude.Maybe Prelude.UTCTime)
+updateLedgerResponse_creationDateTime = Lens.lens (\UpdateLedgerResponse' {creationDateTime} -> creationDateTime) (\s@UpdateLedgerResponse' {} a -> s {creationDateTime = a} :: UpdateLedgerResponse) Prelude.. Lens.mapping Data._Time
 
 -- | The flag that prevents a ledger from being deleted by any user. If not
 -- provided on ledger creation, this feature is enabled (@true@) by
@@ -377,10 +385,6 @@ updateLedgerResponse_state = Lens.lens (\UpdateLedgerResponse' {state} -> state)
 updateLedgerResponse_deletionProtection :: Lens.Lens' UpdateLedgerResponse (Prelude.Maybe Prelude.Bool)
 updateLedgerResponse_deletionProtection = Lens.lens (\UpdateLedgerResponse' {deletionProtection} -> deletionProtection) (\s@UpdateLedgerResponse' {} a -> s {deletionProtection = a} :: UpdateLedgerResponse)
 
--- | The Amazon Resource Name (ARN) for the ledger.
-updateLedgerResponse_arn :: Lens.Lens' UpdateLedgerResponse (Prelude.Maybe Prelude.Text)
-updateLedgerResponse_arn = Lens.lens (\UpdateLedgerResponse' {arn} -> arn) (\s@UpdateLedgerResponse' {} a -> s {arn = a} :: UpdateLedgerResponse)
-
 -- | Information about the encryption of data at rest in the ledger. This
 -- includes the current status, the KMS key, and when the key became
 -- inaccessible (in the case of an error).
@@ -391,11 +395,9 @@ updateLedgerResponse_encryptionDescription = Lens.lens (\UpdateLedgerResponse' {
 updateLedgerResponse_name :: Lens.Lens' UpdateLedgerResponse (Prelude.Maybe Prelude.Text)
 updateLedgerResponse_name = Lens.lens (\UpdateLedgerResponse' {name} -> name) (\s@UpdateLedgerResponse' {} a -> s {name = a} :: UpdateLedgerResponse)
 
--- | The date and time, in epoch time format, when the ledger was created.
--- (Epoch time format is the number of seconds elapsed since 12:00:00 AM
--- January 1, 1970 UTC.)
-updateLedgerResponse_creationDateTime :: Lens.Lens' UpdateLedgerResponse (Prelude.Maybe Prelude.UTCTime)
-updateLedgerResponse_creationDateTime = Lens.lens (\UpdateLedgerResponse' {creationDateTime} -> creationDateTime) (\s@UpdateLedgerResponse' {} a -> s {creationDateTime = a} :: UpdateLedgerResponse) Prelude.. Lens.mapping Core._Time
+-- | The current status of the ledger.
+updateLedgerResponse_state :: Lens.Lens' UpdateLedgerResponse (Prelude.Maybe LedgerState)
+updateLedgerResponse_state = Lens.lens (\UpdateLedgerResponse' {state} -> state) (\s@UpdateLedgerResponse' {} a -> s {state = a} :: UpdateLedgerResponse)
 
 -- | The response's http status code.
 updateLedgerResponse_httpStatus :: Lens.Lens' UpdateLedgerResponse Prelude.Int
@@ -403,10 +405,10 @@ updateLedgerResponse_httpStatus = Lens.lens (\UpdateLedgerResponse' {httpStatus}
 
 instance Prelude.NFData UpdateLedgerResponse where
   rnf UpdateLedgerResponse' {..} =
-    Prelude.rnf state
+    Prelude.rnf arn
+      `Prelude.seq` Prelude.rnf creationDateTime
       `Prelude.seq` Prelude.rnf deletionProtection
-      `Prelude.seq` Prelude.rnf arn
       `Prelude.seq` Prelude.rnf encryptionDescription
       `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf creationDateTime
+      `Prelude.seq` Prelude.rnf state
       `Prelude.seq` Prelude.rnf httpStatus

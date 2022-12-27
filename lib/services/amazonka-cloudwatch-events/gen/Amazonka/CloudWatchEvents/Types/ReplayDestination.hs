@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.Types.ReplayDestination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudWatchEvents.Types.ReplayDestination where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A @ReplayDestination@ object that contains details about a replay.
@@ -66,14 +67,14 @@ replayDestination_filterArns = Lens.lens (\ReplayDestination' {filterArns} -> fi
 replayDestination_arn :: Lens.Lens' ReplayDestination Prelude.Text
 replayDestination_arn = Lens.lens (\ReplayDestination' {arn} -> arn) (\s@ReplayDestination' {} a -> s {arn = a} :: ReplayDestination)
 
-instance Core.FromJSON ReplayDestination where
+instance Data.FromJSON ReplayDestination where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ReplayDestination"
       ( \x ->
           ReplayDestination'
-            Prelude.<$> (x Core..:? "FilterArns" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "Arn")
+            Prelude.<$> (x Data..:? "FilterArns" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "Arn")
       )
 
 instance Prelude.Hashable ReplayDestination where
@@ -86,11 +87,11 @@ instance Prelude.NFData ReplayDestination where
     Prelude.rnf filterArns
       `Prelude.seq` Prelude.rnf arn
 
-instance Core.ToJSON ReplayDestination where
+instance Data.ToJSON ReplayDestination where
   toJSON ReplayDestination' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("FilterArns" Core..=) Prelude.<$> filterArns,
-            Prelude.Just ("Arn" Core..= arn)
+          [ ("FilterArns" Data..=) Prelude.<$> filterArns,
+            Prelude.Just ("Arn" Data..= arn)
           ]
       )

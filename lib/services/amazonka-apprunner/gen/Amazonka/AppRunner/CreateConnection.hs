@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppRunner.CreateConnection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ where
 
 import Amazonka.AppRunner.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -117,13 +118,14 @@ instance Core.AWSRequest CreateConnection where
   type
     AWSResponse CreateConnection =
       CreateConnectionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateConnectionResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Connection")
+            Prelude.<*> (x Data..:> "Connection")
       )
 
 instance Prelude.Hashable CreateConnection where
@@ -138,34 +140,34 @@ instance Prelude.NFData CreateConnection where
       `Prelude.seq` Prelude.rnf connectionName
       `Prelude.seq` Prelude.rnf providerType
 
-instance Core.ToHeaders CreateConnection where
+instance Data.ToHeaders CreateConnection where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AppRunner.CreateConnection" :: Prelude.ByteString),
+              Data.=# ("AppRunner.CreateConnection" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateConnection where
+instance Data.ToJSON CreateConnection where
   toJSON CreateConnection' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Tags" Core..=) Prelude.<$> tags,
+          [ ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("ConnectionName" Core..= connectionName),
-            Prelude.Just ("ProviderType" Core..= providerType)
+              ("ConnectionName" Data..= connectionName),
+            Prelude.Just ("ProviderType" Data..= providerType)
           ]
       )
 
-instance Core.ToPath CreateConnection where
+instance Data.ToPath CreateConnection where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateConnection where
+instance Data.ToQuery CreateConnection where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateConnectionResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.CustomOriginConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CloudFront.Types.CustomOriginConfig where
 import Amazonka.CloudFront.Types.OriginProtocolPolicy
 import Amazonka.CloudFront.Types.OriginSslProtocols
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A custom origin. A custom origin is any origin that is /not/ an Amazon
@@ -202,15 +203,15 @@ customOriginConfig_hTTPSPort = Lens.lens (\CustomOriginConfig' {hTTPSPort} -> hT
 customOriginConfig_originProtocolPolicy :: Lens.Lens' CustomOriginConfig OriginProtocolPolicy
 customOriginConfig_originProtocolPolicy = Lens.lens (\CustomOriginConfig' {originProtocolPolicy} -> originProtocolPolicy) (\s@CustomOriginConfig' {} a -> s {originProtocolPolicy = a} :: CustomOriginConfig)
 
-instance Core.FromXML CustomOriginConfig where
+instance Data.FromXML CustomOriginConfig where
   parseXML x =
     CustomOriginConfig'
-      Prelude.<$> (x Core..@? "OriginKeepaliveTimeout")
-      Prelude.<*> (x Core..@? "OriginReadTimeout")
-      Prelude.<*> (x Core..@? "OriginSslProtocols")
-      Prelude.<*> (x Core..@ "HTTPPort")
-      Prelude.<*> (x Core..@ "HTTPSPort")
-      Prelude.<*> (x Core..@ "OriginProtocolPolicy")
+      Prelude.<$> (x Data..@? "OriginKeepaliveTimeout")
+      Prelude.<*> (x Data..@? "OriginReadTimeout")
+      Prelude.<*> (x Data..@? "OriginSslProtocols")
+      Prelude.<*> (x Data..@ "HTTPPort")
+      Prelude.<*> (x Data..@ "HTTPSPort")
+      Prelude.<*> (x Data..@ "OriginProtocolPolicy")
 
 instance Prelude.Hashable CustomOriginConfig where
   hashWithSalt _salt CustomOriginConfig' {..} =
@@ -230,14 +231,14 @@ instance Prelude.NFData CustomOriginConfig where
       `Prelude.seq` Prelude.rnf hTTPSPort
       `Prelude.seq` Prelude.rnf originProtocolPolicy
 
-instance Core.ToXML CustomOriginConfig where
+instance Data.ToXML CustomOriginConfig where
   toXML CustomOriginConfig' {..} =
     Prelude.mconcat
       [ "OriginKeepaliveTimeout"
-          Core.@= originKeepaliveTimeout,
-        "OriginReadTimeout" Core.@= originReadTimeout,
-        "OriginSslProtocols" Core.@= originSslProtocols,
-        "HTTPPort" Core.@= hTTPPort,
-        "HTTPSPort" Core.@= hTTPSPort,
-        "OriginProtocolPolicy" Core.@= originProtocolPolicy
+          Data.@= originKeepaliveTimeout,
+        "OriginReadTimeout" Data.@= originReadTimeout,
+        "OriginSslProtocols" Data.@= originSslProtocols,
+        "HTTPPort" Data.@= hTTPPort,
+        "HTTPSPort" Data.@= hTTPSPort,
+        "OriginProtocolPolicy" Data.@= originProtocolPolicy
       ]

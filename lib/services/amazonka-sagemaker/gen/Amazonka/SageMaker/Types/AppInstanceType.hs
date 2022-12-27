@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.AppInstanceType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,6 +34,14 @@ module Amazonka.SageMaker.Types.AppInstanceType
         AppInstanceType_Ml_g4dn_4xlarge,
         AppInstanceType_Ml_g4dn_8xlarge,
         AppInstanceType_Ml_g4dn_xlarge,
+        AppInstanceType_Ml_g5_12xlarge,
+        AppInstanceType_Ml_g5_16xlarge,
+        AppInstanceType_Ml_g5_24xlarge,
+        AppInstanceType_Ml_g5_2xlarge,
+        AppInstanceType_Ml_g5_48xlarge,
+        AppInstanceType_Ml_g5_4xlarge,
+        AppInstanceType_Ml_g5_8xlarge,
+        AppInstanceType_Ml_g5_xlarge,
         AppInstanceType_Ml_m5_12xlarge,
         AppInstanceType_Ml_m5_16xlarge,
         AppInstanceType_Ml_m5_24xlarge,
@@ -74,11 +82,12 @@ module Amazonka.SageMaker.Types.AppInstanceType
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype AppInstanceType = AppInstanceType'
   { fromAppInstanceType ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -90,18 +99,18 @@ newtype AppInstanceType = AppInstanceType'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern AppInstanceType_Ml_c5_12xlarge :: AppInstanceType
@@ -145,6 +154,30 @@ pattern AppInstanceType_Ml_g4dn_8xlarge = AppInstanceType' "ml.g4dn.8xlarge"
 
 pattern AppInstanceType_Ml_g4dn_xlarge :: AppInstanceType
 pattern AppInstanceType_Ml_g4dn_xlarge = AppInstanceType' "ml.g4dn.xlarge"
+
+pattern AppInstanceType_Ml_g5_12xlarge :: AppInstanceType
+pattern AppInstanceType_Ml_g5_12xlarge = AppInstanceType' "ml.g5.12xlarge"
+
+pattern AppInstanceType_Ml_g5_16xlarge :: AppInstanceType
+pattern AppInstanceType_Ml_g5_16xlarge = AppInstanceType' "ml.g5.16xlarge"
+
+pattern AppInstanceType_Ml_g5_24xlarge :: AppInstanceType
+pattern AppInstanceType_Ml_g5_24xlarge = AppInstanceType' "ml.g5.24xlarge"
+
+pattern AppInstanceType_Ml_g5_2xlarge :: AppInstanceType
+pattern AppInstanceType_Ml_g5_2xlarge = AppInstanceType' "ml.g5.2xlarge"
+
+pattern AppInstanceType_Ml_g5_48xlarge :: AppInstanceType
+pattern AppInstanceType_Ml_g5_48xlarge = AppInstanceType' "ml.g5.48xlarge"
+
+pattern AppInstanceType_Ml_g5_4xlarge :: AppInstanceType
+pattern AppInstanceType_Ml_g5_4xlarge = AppInstanceType' "ml.g5.4xlarge"
+
+pattern AppInstanceType_Ml_g5_8xlarge :: AppInstanceType
+pattern AppInstanceType_Ml_g5_8xlarge = AppInstanceType' "ml.g5.8xlarge"
+
+pattern AppInstanceType_Ml_g5_xlarge :: AppInstanceType
+pattern AppInstanceType_Ml_g5_xlarge = AppInstanceType' "ml.g5.xlarge"
 
 pattern AppInstanceType_Ml_m5_12xlarge :: AppInstanceType
 pattern AppInstanceType_Ml_m5_12xlarge = AppInstanceType' "ml.m5.12xlarge"
@@ -266,6 +299,14 @@ pattern AppInstanceType_System = AppInstanceType' "system"
   AppInstanceType_Ml_g4dn_4xlarge,
   AppInstanceType_Ml_g4dn_8xlarge,
   AppInstanceType_Ml_g4dn_xlarge,
+  AppInstanceType_Ml_g5_12xlarge,
+  AppInstanceType_Ml_g5_16xlarge,
+  AppInstanceType_Ml_g5_24xlarge,
+  AppInstanceType_Ml_g5_2xlarge,
+  AppInstanceType_Ml_g5_48xlarge,
+  AppInstanceType_Ml_g5_4xlarge,
+  AppInstanceType_Ml_g5_8xlarge,
+  AppInstanceType_Ml_g5_xlarge,
   AppInstanceType_Ml_m5_12xlarge,
   AppInstanceType_Ml_m5_16xlarge,
   AppInstanceType_Ml_m5_24xlarge,

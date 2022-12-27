@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.Types.Group
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.CostExplorer.Types.Group where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostExplorer.Types.MetricValue
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | One level of grouped data in the results.
 --
 -- /See:/ 'newGroup' smart constructor.
 data Group = Group'
-  { -- | The metrics that are included in this group.
-    metrics :: Prelude.Maybe (Prelude.HashMap Prelude.Text MetricValue),
-    -- | The keys that are included in this group.
-    keys :: Prelude.Maybe [Prelude.Text]
+  { -- | The keys that are included in this group.
+    keys :: Prelude.Maybe [Prelude.Text],
+    -- | The metrics that are included in this group.
+    metrics :: Prelude.Maybe (Prelude.HashMap Prelude.Text MetricValue)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,40 +44,40 @@ data Group = Group'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'metrics', 'group_metrics' - The metrics that are included in this group.
---
 -- 'keys', 'group_keys' - The keys that are included in this group.
+--
+-- 'metrics', 'group_metrics' - The metrics that are included in this group.
 newGroup ::
   Group
 newGroup =
   Group'
-    { metrics = Prelude.Nothing,
-      keys = Prelude.Nothing
+    { keys = Prelude.Nothing,
+      metrics = Prelude.Nothing
     }
-
--- | The metrics that are included in this group.
-group_metrics :: Lens.Lens' Group (Prelude.Maybe (Prelude.HashMap Prelude.Text MetricValue))
-group_metrics = Lens.lens (\Group' {metrics} -> metrics) (\s@Group' {} a -> s {metrics = a} :: Group) Prelude.. Lens.mapping Lens.coerced
 
 -- | The keys that are included in this group.
 group_keys :: Lens.Lens' Group (Prelude.Maybe [Prelude.Text])
 group_keys = Lens.lens (\Group' {keys} -> keys) (\s@Group' {} a -> s {keys = a} :: Group) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON Group where
+-- | The metrics that are included in this group.
+group_metrics :: Lens.Lens' Group (Prelude.Maybe (Prelude.HashMap Prelude.Text MetricValue))
+group_metrics = Lens.lens (\Group' {metrics} -> metrics) (\s@Group' {} a -> s {metrics = a} :: Group) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON Group where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Group"
       ( \x ->
           Group'
-            Prelude.<$> (x Core..:? "Metrics" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Keys" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Keys" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Metrics" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable Group where
   hashWithSalt _salt Group' {..} =
-    _salt `Prelude.hashWithSalt` metrics
-      `Prelude.hashWithSalt` keys
+    _salt `Prelude.hashWithSalt` keys
+      `Prelude.hashWithSalt` metrics
 
 instance Prelude.NFData Group where
   rnf Group' {..} =
-    Prelude.rnf metrics `Prelude.seq` Prelude.rnf keys
+    Prelude.rnf keys `Prelude.seq` Prelude.rnf metrics

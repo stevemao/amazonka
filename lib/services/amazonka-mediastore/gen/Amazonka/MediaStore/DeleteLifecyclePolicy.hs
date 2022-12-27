@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaStore.DeleteLifecyclePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.MediaStore.DeleteLifecyclePolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaStore.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -80,7 +81,8 @@ instance Core.AWSRequest DeleteLifecyclePolicy where
   type
     AWSResponse DeleteLifecyclePolicy =
       DeleteLifecyclePolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -96,34 +98,34 @@ instance Prelude.NFData DeleteLifecyclePolicy where
   rnf DeleteLifecyclePolicy' {..} =
     Prelude.rnf containerName
 
-instance Core.ToHeaders DeleteLifecyclePolicy where
+instance Data.ToHeaders DeleteLifecyclePolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "MediaStore_20170901.DeleteLifecyclePolicy" ::
+              Data.=# ( "MediaStore_20170901.DeleteLifecyclePolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteLifecyclePolicy where
+instance Data.ToJSON DeleteLifecyclePolicy where
   toJSON DeleteLifecyclePolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ContainerName" Core..= containerName)
+              ("ContainerName" Data..= containerName)
           ]
       )
 
-instance Core.ToPath DeleteLifecyclePolicy where
+instance Data.ToPath DeleteLifecyclePolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteLifecyclePolicy where
+instance Data.ToQuery DeleteLifecyclePolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteLifecyclePolicyResponse' smart constructor.

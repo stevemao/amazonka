@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.ListEvents
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,9 @@ module Amazonka.DevOpsGuru.ListEvents
     newListEvents,
 
     -- * Request Lenses
-    listEvents_nextToken,
+    listEvents_accountId,
     listEvents_maxResults,
+    listEvents_nextToken,
     listEvents_filters,
 
     -- * Destructuring the Response
@@ -47,21 +48,24 @@ module Amazonka.DevOpsGuru.ListEvents
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DevOpsGuru.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListEvents' smart constructor.
 data ListEvents = ListEvents'
-  { -- | The pagination token to use to retrieve the next page of results for
-    -- this operation. If this value is null, it retrieves the first page.
-    nextToken :: Prelude.Maybe Prelude.Text,
+  { -- | The ID of the Amazon Web Services account.
+    accountId :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of results to return with a single call. To retrieve
     -- the remaining results, make another call with the returned @nextToken@
     -- value.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token to use to retrieve the next page of results for
+    -- this operation. If this value is null, it retrieves the first page.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | A @ListEventsFilters@ object used to specify which events to return.
     filters :: ListEventsFilters
   }
@@ -75,12 +79,14 @@ data ListEvents = ListEvents'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listEvents_nextToken' - The pagination token to use to retrieve the next page of results for
--- this operation. If this value is null, it retrieves the first page.
+-- 'accountId', 'listEvents_accountId' - The ID of the Amazon Web Services account.
 --
 -- 'maxResults', 'listEvents_maxResults' - The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
+--
+-- 'nextToken', 'listEvents_nextToken' - The pagination token to use to retrieve the next page of results for
+-- this operation. If this value is null, it retrieves the first page.
 --
 -- 'filters', 'listEvents_filters' - A @ListEventsFilters@ object used to specify which events to return.
 newListEvents ::
@@ -89,21 +95,26 @@ newListEvents ::
   ListEvents
 newListEvents pFilters_ =
   ListEvents'
-    { nextToken = Prelude.Nothing,
+    { accountId = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       filters = pFilters_
     }
 
--- | The pagination token to use to retrieve the next page of results for
--- this operation. If this value is null, it retrieves the first page.
-listEvents_nextToken :: Lens.Lens' ListEvents (Prelude.Maybe Prelude.Text)
-listEvents_nextToken = Lens.lens (\ListEvents' {nextToken} -> nextToken) (\s@ListEvents' {} a -> s {nextToken = a} :: ListEvents)
+-- | The ID of the Amazon Web Services account.
+listEvents_accountId :: Lens.Lens' ListEvents (Prelude.Maybe Prelude.Text)
+listEvents_accountId = Lens.lens (\ListEvents' {accountId} -> accountId) (\s@ListEvents' {} a -> s {accountId = a} :: ListEvents)
 
 -- | The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
 listEvents_maxResults :: Lens.Lens' ListEvents (Prelude.Maybe Prelude.Natural)
 listEvents_maxResults = Lens.lens (\ListEvents' {maxResults} -> maxResults) (\s@ListEvents' {} a -> s {maxResults = a} :: ListEvents)
+
+-- | The pagination token to use to retrieve the next page of results for
+-- this operation. If this value is null, it retrieves the first page.
+listEvents_nextToken :: Lens.Lens' ListEvents (Prelude.Maybe Prelude.Text)
+listEvents_nextToken = Lens.lens (\ListEvents' {nextToken} -> nextToken) (\s@ListEvents' {} a -> s {nextToken = a} :: ListEvents)
 
 -- | A @ListEventsFilters@ object used to specify which events to return.
 listEvents_filters :: Lens.Lens' ListEvents ListEventsFilters
@@ -127,53 +138,57 @@ instance Core.AWSPager ListEvents where
 
 instance Core.AWSRequest ListEvents where
   type AWSResponse ListEvents = ListEventsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListEventsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Events" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Events" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListEvents where
   hashWithSalt _salt ListEvents' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` accountId
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` filters
 
 instance Prelude.NFData ListEvents where
   rnf ListEvents' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf filters
 
-instance Core.ToHeaders ListEvents where
+instance Data.ToHeaders ListEvents where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListEvents where
+instance Data.ToJSON ListEvents where
   toJSON ListEvents' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("Filters" Core..= filters)
+          [ ("AccountId" Data..=) Prelude.<$> accountId,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("Filters" Data..= filters)
           ]
       )
 
-instance Core.ToPath ListEvents where
+instance Data.ToPath ListEvents where
   toPath = Prelude.const "/events"
 
-instance Core.ToQuery ListEvents where
+instance Data.ToQuery ListEvents where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListEventsResponse' smart constructor.

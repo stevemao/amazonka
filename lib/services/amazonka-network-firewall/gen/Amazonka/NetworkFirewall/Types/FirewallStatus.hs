@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.Types.FirewallStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,9 @@
 module Amazonka.NetworkFirewall.Types.FirewallStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.NetworkFirewall.Types.CapacityUsageSummary
 import Amazonka.NetworkFirewall.Types.ConfigurationSyncState
 import Amazonka.NetworkFirewall.Types.FirewallStatusValue
 import Amazonka.NetworkFirewall.Types.SyncState
@@ -32,7 +34,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newFirewallStatus' smart constructor.
 data FirewallStatus = FirewallStatus'
-  { -- | The subnets that you\'ve configured for use by the Network Firewall
+  { -- | Describes the capacity usage of the resources contained in a firewall\'s
+    -- reference sets. Network Firewall calclulates the capacity usage by
+    -- taking an aggregated count of all of the resources used by all of the
+    -- reference sets in a firewall.
+    capacityUsageSummary :: Prelude.Maybe CapacityUsageSummary,
+    -- | The subnets that you\'ve configured for use by the Network Firewall
     -- firewall. This contains one array element per Availability Zone where
     -- you\'ve configured a subnet. These objects provide details of the
     -- information that is summarized in the @ConfigurationSyncStateSummary@
@@ -69,6 +76,11 @@ data FirewallStatus = FirewallStatus'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'capacityUsageSummary', 'firewallStatus_capacityUsageSummary' - Describes the capacity usage of the resources contained in a firewall\'s
+-- reference sets. Network Firewall calclulates the capacity usage by
+-- taking an aggregated count of all of the resources used by all of the
+-- reference sets in a firewall.
+--
 -- 'syncStates', 'firewallStatus_syncStates' - The subnets that you\'ve configured for use by the Network Firewall
 -- firewall. This contains one array element per Availability Zone where
 -- you\'ve configured a subnet. These objects provide details of the
@@ -104,11 +116,20 @@ newFirewallStatus
   pStatus_
   pConfigurationSyncStateSummary_ =
     FirewallStatus'
-      { syncStates = Prelude.Nothing,
+      { capacityUsageSummary =
+          Prelude.Nothing,
+        syncStates = Prelude.Nothing,
         status = pStatus_,
         configurationSyncStateSummary =
           pConfigurationSyncStateSummary_
       }
+
+-- | Describes the capacity usage of the resources contained in a firewall\'s
+-- reference sets. Network Firewall calclulates the capacity usage by
+-- taking an aggregated count of all of the resources used by all of the
+-- reference sets in a firewall.
+firewallStatus_capacityUsageSummary :: Lens.Lens' FirewallStatus (Prelude.Maybe CapacityUsageSummary)
+firewallStatus_capacityUsageSummary = Lens.lens (\FirewallStatus' {capacityUsageSummary} -> capacityUsageSummary) (\s@FirewallStatus' {} a -> s {capacityUsageSummary = a} :: FirewallStatus)
 
 -- | The subnets that you\'ve configured for use by the Network Firewall
 -- firewall. This contains one array element per Availability Zone where
@@ -142,25 +163,28 @@ firewallStatus_status = Lens.lens (\FirewallStatus' {status} -> status) (\s@Fire
 firewallStatus_configurationSyncStateSummary :: Lens.Lens' FirewallStatus ConfigurationSyncState
 firewallStatus_configurationSyncStateSummary = Lens.lens (\FirewallStatus' {configurationSyncStateSummary} -> configurationSyncStateSummary) (\s@FirewallStatus' {} a -> s {configurationSyncStateSummary = a} :: FirewallStatus)
 
-instance Core.FromJSON FirewallStatus where
+instance Data.FromJSON FirewallStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FirewallStatus"
       ( \x ->
           FirewallStatus'
-            Prelude.<$> (x Core..:? "SyncStates" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "Status")
-            Prelude.<*> (x Core..: "ConfigurationSyncStateSummary")
+            Prelude.<$> (x Data..:? "CapacityUsageSummary")
+            Prelude.<*> (x Data..:? "SyncStates" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "Status")
+            Prelude.<*> (x Data..: "ConfigurationSyncStateSummary")
       )
 
 instance Prelude.Hashable FirewallStatus where
   hashWithSalt _salt FirewallStatus' {..} =
-    _salt `Prelude.hashWithSalt` syncStates
+    _salt `Prelude.hashWithSalt` capacityUsageSummary
+      `Prelude.hashWithSalt` syncStates
       `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` configurationSyncStateSummary
 
 instance Prelude.NFData FirewallStatus where
   rnf FirewallStatus' {..} =
-    Prelude.rnf syncStates
+    Prelude.rnf capacityUsageSummary
+      `Prelude.seq` Prelude.rnf syncStates
       `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf configurationSyncStateSummary

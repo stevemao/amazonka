@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.UpdateCapacityProvider
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.ECS.UpdateCapacityProvider
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -51,7 +52,7 @@ import qualified Amazonka.Response as Response
 data UpdateCapacityProvider = UpdateCapacityProvider'
   { -- | The name of the capacity provider to update.
     name :: Prelude.Text,
-    -- | An object representing the parameters to update for the Auto Scaling
+    -- | An object that represent the parameters to update for the Auto Scaling
     -- group capacity provider.
     autoScalingGroupProvider :: AutoScalingGroupProviderUpdate
   }
@@ -67,7 +68,7 @@ data UpdateCapacityProvider = UpdateCapacityProvider'
 --
 -- 'name', 'updateCapacityProvider_name' - The name of the capacity provider to update.
 --
--- 'autoScalingGroupProvider', 'updateCapacityProvider_autoScalingGroupProvider' - An object representing the parameters to update for the Auto Scaling
+-- 'autoScalingGroupProvider', 'updateCapacityProvider_autoScalingGroupProvider' - An object that represent the parameters to update for the Auto Scaling
 -- group capacity provider.
 newUpdateCapacityProvider ::
   -- | 'name'
@@ -88,7 +89,7 @@ newUpdateCapacityProvider
 updateCapacityProvider_name :: Lens.Lens' UpdateCapacityProvider Prelude.Text
 updateCapacityProvider_name = Lens.lens (\UpdateCapacityProvider' {name} -> name) (\s@UpdateCapacityProvider' {} a -> s {name = a} :: UpdateCapacityProvider)
 
--- | An object representing the parameters to update for the Auto Scaling
+-- | An object that represent the parameters to update for the Auto Scaling
 -- group capacity provider.
 updateCapacityProvider_autoScalingGroupProvider :: Lens.Lens' UpdateCapacityProvider AutoScalingGroupProviderUpdate
 updateCapacityProvider_autoScalingGroupProvider = Lens.lens (\UpdateCapacityProvider' {autoScalingGroupProvider} -> autoScalingGroupProvider) (\s@UpdateCapacityProvider' {} a -> s {autoScalingGroupProvider = a} :: UpdateCapacityProvider)
@@ -97,12 +98,13 @@ instance Core.AWSRequest UpdateCapacityProvider where
   type
     AWSResponse UpdateCapacityProvider =
       UpdateCapacityProviderResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateCapacityProviderResponse'
-            Prelude.<$> (x Core..?> "capacityProvider")
+            Prelude.<$> (x Data..?> "capacityProvider")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,37 +118,37 @@ instance Prelude.NFData UpdateCapacityProvider where
     Prelude.rnf name
       `Prelude.seq` Prelude.rnf autoScalingGroupProvider
 
-instance Core.ToHeaders UpdateCapacityProvider where
+instance Data.ToHeaders UpdateCapacityProvider where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerServiceV20141113.UpdateCapacityProvider" ::
+              Data.=# ( "AmazonEC2ContainerServiceV20141113.UpdateCapacityProvider" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateCapacityProvider where
+instance Data.ToJSON UpdateCapacityProvider where
   toJSON UpdateCapacityProvider' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("name" Core..= name),
+          [ Prelude.Just ("name" Data..= name),
             Prelude.Just
               ( "autoScalingGroupProvider"
-                  Core..= autoScalingGroupProvider
+                  Data..= autoScalingGroupProvider
               )
           ]
       )
 
-instance Core.ToPath UpdateCapacityProvider where
+instance Data.ToPath UpdateCapacityProvider where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateCapacityProvider where
+instance Data.ToQuery UpdateCapacityProvider where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateCapacityProviderResponse' smart constructor.

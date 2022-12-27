@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeVpnGateways
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,9 +31,9 @@ module Amazonka.EC2.DescribeVpnGateways
     newDescribeVpnGateways,
 
     -- * Request Lenses
+    describeVpnGateways_dryRun,
     describeVpnGateways_filters,
     describeVpnGateways_vpnGatewayIds,
-    describeVpnGateways_dryRun,
 
     -- * Destructuring the Response
     DescribeVpnGatewaysResponse (..),
@@ -46,8 +46,9 @@ module Amazonka.EC2.DescribeVpnGateways
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,7 +57,12 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeVpnGateways' smart constructor.
 data DescribeVpnGateways = DescribeVpnGateways'
-  { -- | One or more filters.
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | One or more filters.
     --
     -- -   @amazon-side-asn@ - The Autonomous System Number (ASN) for the
     --     Amazon side of the gateway.
@@ -91,12 +97,7 @@ data DescribeVpnGateways = DescribeVpnGateways'
     -- | One or more virtual private gateway IDs.
     --
     -- Default: Describes all your virtual private gateways.
-    vpnGatewayIds :: Prelude.Maybe [Prelude.Text],
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool
+    vpnGatewayIds :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -107,6 +108,11 @@ data DescribeVpnGateways = DescribeVpnGateways'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'dryRun', 'describeVpnGateways_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'filters', 'describeVpnGateways_filters' - One or more filters.
 --
@@ -143,19 +149,21 @@ data DescribeVpnGateways = DescribeVpnGateways'
 -- 'vpnGatewayIds', 'describeVpnGateways_vpnGatewayIds' - One or more virtual private gateway IDs.
 --
 -- Default: Describes all your virtual private gateways.
---
--- 'dryRun', 'describeVpnGateways_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
 newDescribeVpnGateways ::
   DescribeVpnGateways
 newDescribeVpnGateways =
   DescribeVpnGateways'
-    { filters = Prelude.Nothing,
-      vpnGatewayIds = Prelude.Nothing,
-      dryRun = Prelude.Nothing
+    { dryRun = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      vpnGatewayIds = Prelude.Nothing
     }
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeVpnGateways_dryRun :: Lens.Lens' DescribeVpnGateways (Prelude.Maybe Prelude.Bool)
+describeVpnGateways_dryRun = Lens.lens (\DescribeVpnGateways' {dryRun} -> dryRun) (\s@DescribeVpnGateways' {} a -> s {dryRun = a} :: DescribeVpnGateways)
 
 -- | One or more filters.
 --
@@ -197,60 +205,54 @@ describeVpnGateways_filters = Lens.lens (\DescribeVpnGateways' {filters} -> filt
 describeVpnGateways_vpnGatewayIds :: Lens.Lens' DescribeVpnGateways (Prelude.Maybe [Prelude.Text])
 describeVpnGateways_vpnGatewayIds = Lens.lens (\DescribeVpnGateways' {vpnGatewayIds} -> vpnGatewayIds) (\s@DescribeVpnGateways' {} a -> s {vpnGatewayIds = a} :: DescribeVpnGateways) Prelude.. Lens.mapping Lens.coerced
 
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describeVpnGateways_dryRun :: Lens.Lens' DescribeVpnGateways (Prelude.Maybe Prelude.Bool)
-describeVpnGateways_dryRun = Lens.lens (\DescribeVpnGateways' {dryRun} -> dryRun) (\s@DescribeVpnGateways' {} a -> s {dryRun = a} :: DescribeVpnGateways)
-
 instance Core.AWSRequest DescribeVpnGateways where
   type
     AWSResponse DescribeVpnGateways =
       DescribeVpnGatewaysResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeVpnGatewaysResponse'
-            Prelude.<$> ( x Core..@? "vpnGatewaySet" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> ( x Data..@? "vpnGatewaySet" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeVpnGateways where
   hashWithSalt _salt DescribeVpnGateways' {..} =
-    _salt `Prelude.hashWithSalt` filters
+    _salt `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` vpnGatewayIds
-      `Prelude.hashWithSalt` dryRun
 
 instance Prelude.NFData DescribeVpnGateways where
   rnf DescribeVpnGateways' {..} =
-    Prelude.rnf filters
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf vpnGatewayIds
-      `Prelude.seq` Prelude.rnf dryRun
 
-instance Core.ToHeaders DescribeVpnGateways where
+instance Data.ToHeaders DescribeVpnGateways where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeVpnGateways where
+instance Data.ToPath DescribeVpnGateways where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeVpnGateways where
+instance Data.ToQuery DescribeVpnGateways where
   toQuery DescribeVpnGateways' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeVpnGateways" :: Prelude.ByteString),
+          Data.=: ("DescribeVpnGateways" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        Core.toQuery
-          ( Core.toQueryList "VpnGatewayId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        Data.toQuery
+          ( Data.toQueryList "VpnGatewayId"
               Prelude.<$> vpnGatewayIds
-          ),
-        "DryRun" Core.=: dryRun
+          )
       ]
 
 -- | Contains the output of DescribeVpnGateways.

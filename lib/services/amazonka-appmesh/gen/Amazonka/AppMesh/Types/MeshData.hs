@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.MeshData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,8 @@ import Amazonka.AppMesh.Types.MeshSpec
 import Amazonka.AppMesh.Types.MeshStatus
 import Amazonka.AppMesh.Types.ResourceMetadata
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents a service mesh returned by a describe
@@ -91,16 +92,16 @@ meshData_spec = Lens.lens (\MeshData' {spec} -> spec) (\s@MeshData' {} a -> s {s
 meshData_status :: Lens.Lens' MeshData MeshStatus
 meshData_status = Lens.lens (\MeshData' {status} -> status) (\s@MeshData' {} a -> s {status = a} :: MeshData)
 
-instance Core.FromJSON MeshData where
+instance Data.FromJSON MeshData where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MeshData"
       ( \x ->
           MeshData'
-            Prelude.<$> (x Core..: "meshName")
-            Prelude.<*> (x Core..: "metadata")
-            Prelude.<*> (x Core..: "spec")
-            Prelude.<*> (x Core..: "status")
+            Prelude.<$> (x Data..: "meshName")
+            Prelude.<*> (x Data..: "metadata")
+            Prelude.<*> (x Data..: "spec")
+            Prelude.<*> (x Data..: "status")
       )
 
 instance Prelude.Hashable MeshData where

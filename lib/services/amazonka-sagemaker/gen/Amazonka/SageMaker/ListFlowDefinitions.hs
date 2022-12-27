@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.ListFlowDefinitions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,10 +30,10 @@ module Amazonka.SageMaker.ListFlowDefinitions
 
     -- * Request Lenses
     listFlowDefinitions_creationTimeAfter,
-    listFlowDefinitions_nextToken,
-    listFlowDefinitions_sortOrder,
     listFlowDefinitions_creationTimeBefore,
     listFlowDefinitions_maxResults,
+    listFlowDefinitions_nextToken,
+    listFlowDefinitions_sortOrder,
 
     -- * Destructuring the Response
     ListFlowDefinitionsResponse (..),
@@ -47,7 +47,8 @@ module Amazonka.SageMaker.ListFlowDefinitions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,20 +58,20 @@ import Amazonka.SageMaker.Types
 data ListFlowDefinitions = ListFlowDefinitions'
   { -- | A filter that returns only flow definitions with a creation time greater
     -- than or equal to the specified timestamp.
-    creationTimeAfter :: Prelude.Maybe Core.POSIX,
-    -- | A token to resume pagination.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | An optional value that specifies whether you want the results sorted in
-    -- @Ascending@ or @Descending@ order.
-    sortOrder :: Prelude.Maybe SortOrder,
+    creationTimeAfter :: Prelude.Maybe Data.POSIX,
     -- | A filter that returns only flow definitions that were created before the
     -- specified timestamp.
-    creationTimeBefore :: Prelude.Maybe Core.POSIX,
+    creationTimeBefore :: Prelude.Maybe Data.POSIX,
     -- | The total number of items to return. If the total number of available
     -- items is more than the value specified in @MaxResults@, then a
     -- @NextToken@ will be provided in the output that you can use to resume
     -- pagination.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token to resume pagination.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An optional value that specifies whether you want the results sorted in
+    -- @Ascending@ or @Descending@ order.
+    sortOrder :: Prelude.Maybe SortOrder
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -85,11 +86,6 @@ data ListFlowDefinitions = ListFlowDefinitions'
 -- 'creationTimeAfter', 'listFlowDefinitions_creationTimeAfter' - A filter that returns only flow definitions with a creation time greater
 -- than or equal to the specified timestamp.
 --
--- 'nextToken', 'listFlowDefinitions_nextToken' - A token to resume pagination.
---
--- 'sortOrder', 'listFlowDefinitions_sortOrder' - An optional value that specifies whether you want the results sorted in
--- @Ascending@ or @Descending@ order.
---
 -- 'creationTimeBefore', 'listFlowDefinitions_creationTimeBefore' - A filter that returns only flow definitions that were created before the
 -- specified timestamp.
 --
@@ -97,22 +93,39 @@ data ListFlowDefinitions = ListFlowDefinitions'
 -- items is more than the value specified in @MaxResults@, then a
 -- @NextToken@ will be provided in the output that you can use to resume
 -- pagination.
+--
+-- 'nextToken', 'listFlowDefinitions_nextToken' - A token to resume pagination.
+--
+-- 'sortOrder', 'listFlowDefinitions_sortOrder' - An optional value that specifies whether you want the results sorted in
+-- @Ascending@ or @Descending@ order.
 newListFlowDefinitions ::
   ListFlowDefinitions
 newListFlowDefinitions =
   ListFlowDefinitions'
     { creationTimeAfter =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      sortOrder = Prelude.Nothing,
       creationTimeBefore = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      sortOrder = Prelude.Nothing
     }
 
 -- | A filter that returns only flow definitions with a creation time greater
 -- than or equal to the specified timestamp.
 listFlowDefinitions_creationTimeAfter :: Lens.Lens' ListFlowDefinitions (Prelude.Maybe Prelude.UTCTime)
-listFlowDefinitions_creationTimeAfter = Lens.lens (\ListFlowDefinitions' {creationTimeAfter} -> creationTimeAfter) (\s@ListFlowDefinitions' {} a -> s {creationTimeAfter = a} :: ListFlowDefinitions) Prelude.. Lens.mapping Core._Time
+listFlowDefinitions_creationTimeAfter = Lens.lens (\ListFlowDefinitions' {creationTimeAfter} -> creationTimeAfter) (\s@ListFlowDefinitions' {} a -> s {creationTimeAfter = a} :: ListFlowDefinitions) Prelude.. Lens.mapping Data._Time
+
+-- | A filter that returns only flow definitions that were created before the
+-- specified timestamp.
+listFlowDefinitions_creationTimeBefore :: Lens.Lens' ListFlowDefinitions (Prelude.Maybe Prelude.UTCTime)
+listFlowDefinitions_creationTimeBefore = Lens.lens (\ListFlowDefinitions' {creationTimeBefore} -> creationTimeBefore) (\s@ListFlowDefinitions' {} a -> s {creationTimeBefore = a} :: ListFlowDefinitions) Prelude.. Lens.mapping Data._Time
+
+-- | The total number of items to return. If the total number of available
+-- items is more than the value specified in @MaxResults@, then a
+-- @NextToken@ will be provided in the output that you can use to resume
+-- pagination.
+listFlowDefinitions_maxResults :: Lens.Lens' ListFlowDefinitions (Prelude.Maybe Prelude.Natural)
+listFlowDefinitions_maxResults = Lens.lens (\ListFlowDefinitions' {maxResults} -> maxResults) (\s@ListFlowDefinitions' {} a -> s {maxResults = a} :: ListFlowDefinitions)
 
 -- | A token to resume pagination.
 listFlowDefinitions_nextToken :: Lens.Lens' ListFlowDefinitions (Prelude.Maybe Prelude.Text)
@@ -122,18 +135,6 @@ listFlowDefinitions_nextToken = Lens.lens (\ListFlowDefinitions' {nextToken} -> 
 -- @Ascending@ or @Descending@ order.
 listFlowDefinitions_sortOrder :: Lens.Lens' ListFlowDefinitions (Prelude.Maybe SortOrder)
 listFlowDefinitions_sortOrder = Lens.lens (\ListFlowDefinitions' {sortOrder} -> sortOrder) (\s@ListFlowDefinitions' {} a -> s {sortOrder = a} :: ListFlowDefinitions)
-
--- | A filter that returns only flow definitions that were created before the
--- specified timestamp.
-listFlowDefinitions_creationTimeBefore :: Lens.Lens' ListFlowDefinitions (Prelude.Maybe Prelude.UTCTime)
-listFlowDefinitions_creationTimeBefore = Lens.lens (\ListFlowDefinitions' {creationTimeBefore} -> creationTimeBefore) (\s@ListFlowDefinitions' {} a -> s {creationTimeBefore = a} :: ListFlowDefinitions) Prelude.. Lens.mapping Core._Time
-
--- | The total number of items to return. If the total number of available
--- items is more than the value specified in @MaxResults@, then a
--- @NextToken@ will be provided in the output that you can use to resume
--- pagination.
-listFlowDefinitions_maxResults :: Lens.Lens' ListFlowDefinitions (Prelude.Maybe Prelude.Natural)
-listFlowDefinitions_maxResults = Lens.lens (\ListFlowDefinitions' {maxResults} -> maxResults) (\s@ListFlowDefinitions' {} a -> s {maxResults = a} :: ListFlowDefinitions)
 
 instance Core.AWSPager ListFlowDefinitions where
   page rq rs
@@ -160,14 +161,15 @@ instance Core.AWSRequest ListFlowDefinitions where
   type
     AWSResponse ListFlowDefinitions =
       ListFlowDefinitionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListFlowDefinitionsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "FlowDefinitionSummaries"
+            Prelude.<*> ( x Data..?> "FlowDefinitionSummaries"
                             Core..!@ Prelude.mempty
                         )
       )
@@ -175,52 +177,52 @@ instance Core.AWSRequest ListFlowDefinitions where
 instance Prelude.Hashable ListFlowDefinitions where
   hashWithSalt _salt ListFlowDefinitions' {..} =
     _salt `Prelude.hashWithSalt` creationTimeAfter
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` sortOrder
       `Prelude.hashWithSalt` creationTimeBefore
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` sortOrder
 
 instance Prelude.NFData ListFlowDefinitions where
   rnf ListFlowDefinitions' {..} =
     Prelude.rnf creationTimeAfter
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf sortOrder
       `Prelude.seq` Prelude.rnf creationTimeBefore
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf sortOrder
 
-instance Core.ToHeaders ListFlowDefinitions where
+instance Data.ToHeaders ListFlowDefinitions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.ListFlowDefinitions" ::
+              Data.=# ( "SageMaker.ListFlowDefinitions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListFlowDefinitions where
+instance Data.ToJSON ListFlowDefinitions where
   toJSON ListFlowDefinitions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CreationTimeAfter" Core..=)
+          [ ("CreationTimeAfter" Data..=)
               Prelude.<$> creationTimeAfter,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("SortOrder" Core..=) Prelude.<$> sortOrder,
-            ("CreationTimeBefore" Core..=)
+            ("CreationTimeBefore" Data..=)
               Prelude.<$> creationTimeBefore,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("SortOrder" Data..=) Prelude.<$> sortOrder
           ]
       )
 
-instance Core.ToPath ListFlowDefinitions where
+instance Data.ToPath ListFlowDefinitions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListFlowDefinitions where
+instance Data.ToQuery ListFlowDefinitions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListFlowDefinitionsResponse' smart constructor.

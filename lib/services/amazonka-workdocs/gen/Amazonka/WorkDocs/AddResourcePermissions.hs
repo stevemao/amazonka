@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkDocs.AddResourcePermissions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.WorkDocs.AddResourcePermissions
     newAddResourcePermissions,
 
     -- * Request Lenses
-    addResourcePermissions_notificationOptions,
     addResourcePermissions_authenticationToken,
+    addResourcePermissions_notificationOptions,
     addResourcePermissions_resourceId,
     addResourcePermissions_principals,
 
@@ -45,7 +45,8 @@ module Amazonka.WorkDocs.AddResourcePermissions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,11 +54,11 @@ import Amazonka.WorkDocs.Types
 
 -- | /See:/ 'newAddResourcePermissions' smart constructor.
 data AddResourcePermissions = AddResourcePermissions'
-  { -- | The notification options.
-    notificationOptions :: Prelude.Maybe NotificationOptions,
-    -- | Amazon WorkDocs authentication token. Not required when using AWS
+  { -- | Amazon WorkDocs authentication token. Not required when using AWS
     -- administrator credentials to access the API.
-    authenticationToken :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    authenticationToken :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | The notification options.
+    notificationOptions :: Prelude.Maybe NotificationOptions,
     -- | The ID of the resource.
     resourceId :: Prelude.Text,
     -- | The users, groups, or organization being granted permission.
@@ -73,10 +74,10 @@ data AddResourcePermissions = AddResourcePermissions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'notificationOptions', 'addResourcePermissions_notificationOptions' - The notification options.
---
 -- 'authenticationToken', 'addResourcePermissions_authenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS
 -- administrator credentials to access the API.
+--
+-- 'notificationOptions', 'addResourcePermissions_notificationOptions' - The notification options.
 --
 -- 'resourceId', 'addResourcePermissions_resourceId' - The ID of the resource.
 --
@@ -87,21 +88,21 @@ newAddResourcePermissions ::
   AddResourcePermissions
 newAddResourcePermissions pResourceId_ =
   AddResourcePermissions'
-    { notificationOptions =
+    { authenticationToken =
         Prelude.Nothing,
-      authenticationToken = Prelude.Nothing,
+      notificationOptions = Prelude.Nothing,
       resourceId = pResourceId_,
       principals = Prelude.mempty
     }
 
--- | The notification options.
-addResourcePermissions_notificationOptions :: Lens.Lens' AddResourcePermissions (Prelude.Maybe NotificationOptions)
-addResourcePermissions_notificationOptions = Lens.lens (\AddResourcePermissions' {notificationOptions} -> notificationOptions) (\s@AddResourcePermissions' {} a -> s {notificationOptions = a} :: AddResourcePermissions)
-
 -- | Amazon WorkDocs authentication token. Not required when using AWS
 -- administrator credentials to access the API.
 addResourcePermissions_authenticationToken :: Lens.Lens' AddResourcePermissions (Prelude.Maybe Prelude.Text)
-addResourcePermissions_authenticationToken = Lens.lens (\AddResourcePermissions' {authenticationToken} -> authenticationToken) (\s@AddResourcePermissions' {} a -> s {authenticationToken = a} :: AddResourcePermissions) Prelude.. Lens.mapping Core._Sensitive
+addResourcePermissions_authenticationToken = Lens.lens (\AddResourcePermissions' {authenticationToken} -> authenticationToken) (\s@AddResourcePermissions' {} a -> s {authenticationToken = a} :: AddResourcePermissions) Prelude.. Lens.mapping Data._Sensitive
+
+-- | The notification options.
+addResourcePermissions_notificationOptions :: Lens.Lens' AddResourcePermissions (Prelude.Maybe NotificationOptions)
+addResourcePermissions_notificationOptions = Lens.lens (\AddResourcePermissions' {notificationOptions} -> notificationOptions) (\s@AddResourcePermissions' {} a -> s {notificationOptions = a} :: AddResourcePermissions)
 
 -- | The ID of the resource.
 addResourcePermissions_resourceId :: Lens.Lens' AddResourcePermissions Prelude.Text
@@ -115,56 +116,57 @@ instance Core.AWSRequest AddResourcePermissions where
   type
     AWSResponse AddResourcePermissions =
       AddResourcePermissionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AddResourcePermissionsResponse'
-            Prelude.<$> (x Core..?> "ShareResults" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "ShareResults" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable AddResourcePermissions where
   hashWithSalt _salt AddResourcePermissions' {..} =
-    _salt `Prelude.hashWithSalt` notificationOptions
-      `Prelude.hashWithSalt` authenticationToken
+    _salt `Prelude.hashWithSalt` authenticationToken
+      `Prelude.hashWithSalt` notificationOptions
       `Prelude.hashWithSalt` resourceId
       `Prelude.hashWithSalt` principals
 
 instance Prelude.NFData AddResourcePermissions where
   rnf AddResourcePermissions' {..} =
-    Prelude.rnf notificationOptions
-      `Prelude.seq` Prelude.rnf authenticationToken
+    Prelude.rnf authenticationToken
+      `Prelude.seq` Prelude.rnf notificationOptions
       `Prelude.seq` Prelude.rnf resourceId
       `Prelude.seq` Prelude.rnf principals
 
-instance Core.ToHeaders AddResourcePermissions where
+instance Data.ToHeaders AddResourcePermissions where
   toHeaders AddResourcePermissions' {..} =
     Prelude.mconcat
-      [ "Authentication" Core.=# authenticationToken,
+      [ "Authentication" Data.=# authenticationToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToJSON AddResourcePermissions where
+instance Data.ToJSON AddResourcePermissions where
   toJSON AddResourcePermissions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NotificationOptions" Core..=)
+          [ ("NotificationOptions" Data..=)
               Prelude.<$> notificationOptions,
-            Prelude.Just ("Principals" Core..= principals)
+            Prelude.Just ("Principals" Data..= principals)
           ]
       )
 
-instance Core.ToPath AddResourcePermissions where
+instance Data.ToPath AddResourcePermissions where
   toPath AddResourcePermissions' {..} =
     Prelude.mconcat
       [ "/api/v1/resources/",
-        Core.toBS resourceId,
+        Data.toBS resourceId,
         "/permissions"
       ]
 
-instance Core.ToQuery AddResourcePermissions where
+instance Data.ToQuery AddResourcePermissions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAddResourcePermissionsResponse' smart constructor.

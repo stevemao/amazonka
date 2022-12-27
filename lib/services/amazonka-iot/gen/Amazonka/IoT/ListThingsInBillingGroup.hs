@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.ListThingsInBillingGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,8 @@ module Amazonka.IoT.ListThingsInBillingGroup
     newListThingsInBillingGroup,
 
     -- * Request Lenses
-    listThingsInBillingGroup_nextToken,
     listThingsInBillingGroup_maxResults,
+    listThingsInBillingGroup_nextToken,
     listThingsInBillingGroup_billingGroupName,
 
     -- * Destructuring the Response
@@ -49,20 +49,21 @@ module Amazonka.IoT.ListThingsInBillingGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListThingsInBillingGroup' smart constructor.
 data ListThingsInBillingGroup = ListThingsInBillingGroup'
-  { -- | To retrieve the next set of results, the @nextToken@ value from a
+  { -- | The maximum number of results to return per request.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | To retrieve the next set of results, the @nextToken@ value from a
     -- previous response; otherwise __null__ to receive the first set of
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return per request.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The name of the billing group.
     billingGroupName :: Prelude.Text
   }
@@ -76,11 +77,11 @@ data ListThingsInBillingGroup = ListThingsInBillingGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listThingsInBillingGroup_maxResults' - The maximum number of results to return per request.
+--
 -- 'nextToken', 'listThingsInBillingGroup_nextToken' - To retrieve the next set of results, the @nextToken@ value from a
 -- previous response; otherwise __null__ to receive the first set of
 -- results.
---
--- 'maxResults', 'listThingsInBillingGroup_maxResults' - The maximum number of results to return per request.
 --
 -- 'billingGroupName', 'listThingsInBillingGroup_billingGroupName' - The name of the billing group.
 newListThingsInBillingGroup ::
@@ -89,21 +90,21 @@ newListThingsInBillingGroup ::
   ListThingsInBillingGroup
 newListThingsInBillingGroup pBillingGroupName_ =
   ListThingsInBillingGroup'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       billingGroupName = pBillingGroupName_
     }
+
+-- | The maximum number of results to return per request.
+listThingsInBillingGroup_maxResults :: Lens.Lens' ListThingsInBillingGroup (Prelude.Maybe Prelude.Natural)
+listThingsInBillingGroup_maxResults = Lens.lens (\ListThingsInBillingGroup' {maxResults} -> maxResults) (\s@ListThingsInBillingGroup' {} a -> s {maxResults = a} :: ListThingsInBillingGroup)
 
 -- | To retrieve the next set of results, the @nextToken@ value from a
 -- previous response; otherwise __null__ to receive the first set of
 -- results.
 listThingsInBillingGroup_nextToken :: Lens.Lens' ListThingsInBillingGroup (Prelude.Maybe Prelude.Text)
 listThingsInBillingGroup_nextToken = Lens.lens (\ListThingsInBillingGroup' {nextToken} -> nextToken) (\s@ListThingsInBillingGroup' {} a -> s {nextToken = a} :: ListThingsInBillingGroup)
-
--- | The maximum number of results to return per request.
-listThingsInBillingGroup_maxResults :: Lens.Lens' ListThingsInBillingGroup (Prelude.Maybe Prelude.Natural)
-listThingsInBillingGroup_maxResults = Lens.lens (\ListThingsInBillingGroup' {maxResults} -> maxResults) (\s@ListThingsInBillingGroup' {} a -> s {maxResults = a} :: ListThingsInBillingGroup)
 
 -- | The name of the billing group.
 listThingsInBillingGroup_billingGroupName :: Lens.Lens' ListThingsInBillingGroup Prelude.Text
@@ -135,44 +136,45 @@ instance Core.AWSRequest ListThingsInBillingGroup where
   type
     AWSResponse ListThingsInBillingGroup =
       ListThingsInBillingGroupResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListThingsInBillingGroupResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "things" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "things" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListThingsInBillingGroup where
   hashWithSalt _salt ListThingsInBillingGroup' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` billingGroupName
 
 instance Prelude.NFData ListThingsInBillingGroup where
   rnf ListThingsInBillingGroup' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf billingGroupName
 
-instance Core.ToHeaders ListThingsInBillingGroup where
+instance Data.ToHeaders ListThingsInBillingGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListThingsInBillingGroup where
+instance Data.ToPath ListThingsInBillingGroup where
   toPath ListThingsInBillingGroup' {..} =
     Prelude.mconcat
       [ "/billing-groups/",
-        Core.toBS billingGroupName,
+        Data.toBS billingGroupName,
         "/things"
       ]
 
-instance Core.ToQuery ListThingsInBillingGroup where
+instance Data.ToQuery ListThingsInBillingGroup where
   toQuery ListThingsInBillingGroup' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListThingsInBillingGroupResponse' smart constructor.

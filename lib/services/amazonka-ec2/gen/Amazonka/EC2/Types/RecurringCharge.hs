@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.RecurringCharge
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.RecurringCharge where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.RecurringChargeFrequency
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a recurring charge.
@@ -63,11 +64,11 @@ recurringCharge_amount = Lens.lens (\RecurringCharge' {amount} -> amount) (\s@Re
 recurringCharge_frequency :: Lens.Lens' RecurringCharge (Prelude.Maybe RecurringChargeFrequency)
 recurringCharge_frequency = Lens.lens (\RecurringCharge' {frequency} -> frequency) (\s@RecurringCharge' {} a -> s {frequency = a} :: RecurringCharge)
 
-instance Core.FromXML RecurringCharge where
+instance Data.FromXML RecurringCharge where
   parseXML x =
     RecurringCharge'
-      Prelude.<$> (x Core..@? "amount")
-      Prelude.<*> (x Core..@? "frequency")
+      Prelude.<$> (x Data..@? "amount")
+      Prelude.<*> (x Data..@? "frequency")
 
 instance Prelude.Hashable RecurringCharge where
   hashWithSalt _salt RecurringCharge' {..} =

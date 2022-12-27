@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.Snowball.DescribeReturnShippingLabel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Information on the shipping label of a Snow device that is being
--- returned to AWS.
+-- returned to Amazon Web Services.
 module Amazonka.Snowball.DescribeReturnShippingLabel
   ( -- * Creating a Request
     DescribeReturnShippingLabel (..),
@@ -35,14 +35,16 @@ module Amazonka.Snowball.DescribeReturnShippingLabel
     newDescribeReturnShippingLabelResponse,
 
     -- * Response Lenses
-    describeReturnShippingLabelResponse_status,
     describeReturnShippingLabelResponse_expirationDate,
+    describeReturnShippingLabelResponse_returnShippingLabelURI,
+    describeReturnShippingLabelResponse_status,
     describeReturnShippingLabelResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,13 +84,15 @@ instance Core.AWSRequest DescribeReturnShippingLabel where
   type
     AWSResponse DescribeReturnShippingLabel =
       DescribeReturnShippingLabelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeReturnShippingLabelResponse'
-            Prelude.<$> (x Core..?> "Status")
-            Prelude.<*> (x Core..?> "ExpirationDate")
+            Prelude.<$> (x Data..?> "ExpirationDate")
+            Prelude.<*> (x Data..?> "ReturnShippingLabelURI")
+            Prelude.<*> (x Data..?> "Status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -100,41 +104,43 @@ instance Prelude.NFData DescribeReturnShippingLabel where
   rnf DescribeReturnShippingLabel' {..} =
     Prelude.rnf jobId
 
-instance Core.ToHeaders DescribeReturnShippingLabel where
+instance Data.ToHeaders DescribeReturnShippingLabel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSIESnowballJobManagementService.DescribeReturnShippingLabel" ::
+              Data.=# ( "AWSIESnowballJobManagementService.DescribeReturnShippingLabel" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeReturnShippingLabel where
+instance Data.ToJSON DescribeReturnShippingLabel where
   toJSON DescribeReturnShippingLabel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("JobId" Core..= jobId)]
+          [Prelude.Just ("JobId" Data..= jobId)]
       )
 
-instance Core.ToPath DescribeReturnShippingLabel where
+instance Data.ToPath DescribeReturnShippingLabel where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeReturnShippingLabel where
+instance Data.ToQuery DescribeReturnShippingLabel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeReturnShippingLabelResponse' smart constructor.
 data DescribeReturnShippingLabelResponse = DescribeReturnShippingLabelResponse'
-  { -- | The status information of the task on a Snow device that is being
-    -- returned to AWS.
+  { -- | The expiration date of the current return shipping label.
+    expirationDate :: Prelude.Maybe Data.POSIX,
+    -- | The pre-signed Amazon S3 URI used to download the return shipping label.
+    returnShippingLabelURI :: Prelude.Maybe Prelude.Text,
+    -- | The status information of the task on a Snow device that is being
+    -- returned to Amazon Web Services.
     status :: Prelude.Maybe ShippingLabelStatus,
-    -- | The expiration date of the current return shipping label.
-    expirationDate :: Prelude.Maybe Core.POSIX,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -148,10 +154,12 @@ data DescribeReturnShippingLabelResponse = DescribeReturnShippingLabelResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'describeReturnShippingLabelResponse_status' - The status information of the task on a Snow device that is being
--- returned to AWS.
---
 -- 'expirationDate', 'describeReturnShippingLabelResponse_expirationDate' - The expiration date of the current return shipping label.
+--
+-- 'returnShippingLabelURI', 'describeReturnShippingLabelResponse_returnShippingLabelURI' - The pre-signed Amazon S3 URI used to download the return shipping label.
+--
+-- 'status', 'describeReturnShippingLabelResponse_status' - The status information of the task on a Snow device that is being
+-- returned to Amazon Web Services.
 --
 -- 'httpStatus', 'describeReturnShippingLabelResponse_httpStatus' - The response's http status code.
 newDescribeReturnShippingLabelResponse ::
@@ -160,20 +168,26 @@ newDescribeReturnShippingLabelResponse ::
   DescribeReturnShippingLabelResponse
 newDescribeReturnShippingLabelResponse pHttpStatus_ =
   DescribeReturnShippingLabelResponse'
-    { status =
+    { expirationDate =
         Prelude.Nothing,
-      expirationDate = Prelude.Nothing,
+      returnShippingLabelURI =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The status information of the task on a Snow device that is being
--- returned to AWS.
-describeReturnShippingLabelResponse_status :: Lens.Lens' DescribeReturnShippingLabelResponse (Prelude.Maybe ShippingLabelStatus)
-describeReturnShippingLabelResponse_status = Lens.lens (\DescribeReturnShippingLabelResponse' {status} -> status) (\s@DescribeReturnShippingLabelResponse' {} a -> s {status = a} :: DescribeReturnShippingLabelResponse)
-
 -- | The expiration date of the current return shipping label.
 describeReturnShippingLabelResponse_expirationDate :: Lens.Lens' DescribeReturnShippingLabelResponse (Prelude.Maybe Prelude.UTCTime)
-describeReturnShippingLabelResponse_expirationDate = Lens.lens (\DescribeReturnShippingLabelResponse' {expirationDate} -> expirationDate) (\s@DescribeReturnShippingLabelResponse' {} a -> s {expirationDate = a} :: DescribeReturnShippingLabelResponse) Prelude.. Lens.mapping Core._Time
+describeReturnShippingLabelResponse_expirationDate = Lens.lens (\DescribeReturnShippingLabelResponse' {expirationDate} -> expirationDate) (\s@DescribeReturnShippingLabelResponse' {} a -> s {expirationDate = a} :: DescribeReturnShippingLabelResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The pre-signed Amazon S3 URI used to download the return shipping label.
+describeReturnShippingLabelResponse_returnShippingLabelURI :: Lens.Lens' DescribeReturnShippingLabelResponse (Prelude.Maybe Prelude.Text)
+describeReturnShippingLabelResponse_returnShippingLabelURI = Lens.lens (\DescribeReturnShippingLabelResponse' {returnShippingLabelURI} -> returnShippingLabelURI) (\s@DescribeReturnShippingLabelResponse' {} a -> s {returnShippingLabelURI = a} :: DescribeReturnShippingLabelResponse)
+
+-- | The status information of the task on a Snow device that is being
+-- returned to Amazon Web Services.
+describeReturnShippingLabelResponse_status :: Lens.Lens' DescribeReturnShippingLabelResponse (Prelude.Maybe ShippingLabelStatus)
+describeReturnShippingLabelResponse_status = Lens.lens (\DescribeReturnShippingLabelResponse' {status} -> status) (\s@DescribeReturnShippingLabelResponse' {} a -> s {status = a} :: DescribeReturnShippingLabelResponse)
 
 -- | The response's http status code.
 describeReturnShippingLabelResponse_httpStatus :: Lens.Lens' DescribeReturnShippingLabelResponse Prelude.Int
@@ -184,6 +198,7 @@ instance
     DescribeReturnShippingLabelResponse
   where
   rnf DescribeReturnShippingLabelResponse' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf expirationDate
+    Prelude.rnf expirationDate
+      `Prelude.seq` Prelude.rnf returnShippingLabelURI
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf httpStatus

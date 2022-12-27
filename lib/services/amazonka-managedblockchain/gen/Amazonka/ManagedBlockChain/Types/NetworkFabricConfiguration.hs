@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ManagedBlockChain.Types.NetworkFabricConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ManagedBlockChain.Types.NetworkFabricConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ManagedBlockChain.Types.Edition
 import qualified Amazonka.Prelude as Prelude
 
@@ -67,9 +68,9 @@ instance Prelude.NFData NetworkFabricConfiguration where
   rnf NetworkFabricConfiguration' {..} =
     Prelude.rnf edition
 
-instance Core.ToJSON NetworkFabricConfiguration where
+instance Data.ToJSON NetworkFabricConfiguration where
   toJSON NetworkFabricConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Edition" Core..= edition)]
+          [Prelude.Just ("Edition" Data..= edition)]
       )

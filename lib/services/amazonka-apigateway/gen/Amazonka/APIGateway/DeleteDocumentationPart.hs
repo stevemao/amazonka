@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.DeleteDocumentationPart
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- -- | Undocumented operation.
+-- Deletes a documentation part
 module Amazonka.APIGateway.DeleteDocumentationPart
   ( -- * Creating a Request
     DeleteDocumentationPart (..),
@@ -38,7 +38,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -47,9 +48,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDeleteDocumentationPart' smart constructor.
 data DeleteDocumentationPart = DeleteDocumentationPart'
-  { -- | [Required] The string identifier of the associated RestApi.
+  { -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] The identifier of the to-be-deleted documentation part.
+    -- | The identifier of the to-be-deleted documentation part.
     documentationPartId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -62,9 +63,9 @@ data DeleteDocumentationPart = DeleteDocumentationPart'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'restApiId', 'deleteDocumentationPart_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'deleteDocumentationPart_restApiId' - The string identifier of the associated RestApi.
 --
--- 'documentationPartId', 'deleteDocumentationPart_documentationPartId' - [Required] The identifier of the to-be-deleted documentation part.
+-- 'documentationPartId', 'deleteDocumentationPart_documentationPartId' - The identifier of the to-be-deleted documentation part.
 newDeleteDocumentationPart ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -79,11 +80,11 @@ newDeleteDocumentationPart
         documentationPartId = pDocumentationPartId_
       }
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 deleteDocumentationPart_restApiId :: Lens.Lens' DeleteDocumentationPart Prelude.Text
 deleteDocumentationPart_restApiId = Lens.lens (\DeleteDocumentationPart' {restApiId} -> restApiId) (\s@DeleteDocumentationPart' {} a -> s {restApiId = a} :: DeleteDocumentationPart)
 
--- | [Required] The identifier of the to-be-deleted documentation part.
+-- | The identifier of the to-be-deleted documentation part.
 deleteDocumentationPart_documentationPartId :: Lens.Lens' DeleteDocumentationPart Prelude.Text
 deleteDocumentationPart_documentationPartId = Lens.lens (\DeleteDocumentationPart' {documentationPartId} -> documentationPartId) (\s@DeleteDocumentationPart' {} a -> s {documentationPartId = a} :: DeleteDocumentationPart)
 
@@ -91,7 +92,8 @@ instance Core.AWSRequest DeleteDocumentationPart where
   type
     AWSResponse DeleteDocumentationPart =
       DeleteDocumentationPartResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteDocumentationPartResponse'
@@ -106,25 +108,25 @@ instance Prelude.NFData DeleteDocumentationPart where
     Prelude.rnf restApiId
       `Prelude.seq` Prelude.rnf documentationPartId
 
-instance Core.ToHeaders DeleteDocumentationPart where
+instance Data.ToHeaders DeleteDocumentationPart where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath DeleteDocumentationPart where
+instance Data.ToPath DeleteDocumentationPart where
   toPath DeleteDocumentationPart' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/documentation/parts/",
-        Core.toBS documentationPartId
+        Data.toBS documentationPartId
       ]
 
-instance Core.ToQuery DeleteDocumentationPart where
+instance Data.ToQuery DeleteDocumentationPart where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteDocumentationPartResponse' smart constructor.

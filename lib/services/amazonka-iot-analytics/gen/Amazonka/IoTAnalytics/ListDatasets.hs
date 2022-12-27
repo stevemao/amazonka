@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.ListDatasets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,35 +29,36 @@ module Amazonka.IoTAnalytics.ListDatasets
     newListDatasets,
 
     -- * Request Lenses
-    listDatasets_nextToken,
     listDatasets_maxResults,
+    listDatasets_nextToken,
 
     -- * Destructuring the Response
     ListDatasetsResponse (..),
     newListDatasetsResponse,
 
     -- * Response Lenses
-    listDatasetsResponse_nextToken,
     listDatasetsResponse_datasetSummaries,
+    listDatasetsResponse_nextToken,
     listDatasetsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListDatasets' smart constructor.
 data ListDatasets = ListDatasets'
-  { -- | The token for the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in this request.
+  { -- | The maximum number of results to return in this request.
     --
     -- The default value is 100.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -69,28 +70,28 @@ data ListDatasets = ListDatasets'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listDatasets_nextToken' - The token for the next set of results.
---
 -- 'maxResults', 'listDatasets_maxResults' - The maximum number of results to return in this request.
 --
 -- The default value is 100.
+--
+-- 'nextToken', 'listDatasets_nextToken' - The token for the next set of results.
 newListDatasets ::
   ListDatasets
 newListDatasets =
   ListDatasets'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The token for the next set of results.
-listDatasets_nextToken :: Lens.Lens' ListDatasets (Prelude.Maybe Prelude.Text)
-listDatasets_nextToken = Lens.lens (\ListDatasets' {nextToken} -> nextToken) (\s@ListDatasets' {} a -> s {nextToken = a} :: ListDatasets)
 
 -- | The maximum number of results to return in this request.
 --
 -- The default value is 100.
 listDatasets_maxResults :: Lens.Lens' ListDatasets (Prelude.Maybe Prelude.Natural)
 listDatasets_maxResults = Lens.lens (\ListDatasets' {maxResults} -> maxResults) (\s@ListDatasets' {} a -> s {maxResults = a} :: ListDatasets)
+
+-- | The token for the next set of results.
+listDatasets_nextToken :: Lens.Lens' ListDatasets (Prelude.Maybe Prelude.Text)
+listDatasets_nextToken = Lens.lens (\ListDatasets' {nextToken} -> nextToken) (\s@ListDatasets' {} a -> s {nextToken = a} :: ListDatasets)
 
 instance Core.AWSPager ListDatasets where
   page rq rs
@@ -114,48 +115,49 @@ instance Core.AWSPager ListDatasets where
 
 instance Core.AWSRequest ListDatasets where
   type AWSResponse ListDatasets = ListDatasetsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDatasetsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> ( x Core..?> "datasetSummaries"
+            Prelude.<$> ( x Data..?> "datasetSummaries"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListDatasets where
   hashWithSalt _salt ListDatasets' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListDatasets where
   rnf ListDatasets' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListDatasets where
+instance Data.ToHeaders ListDatasets where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListDatasets where
+instance Data.ToPath ListDatasets where
   toPath = Prelude.const "/datasets"
 
-instance Core.ToQuery ListDatasets where
+instance Data.ToQuery ListDatasets where
   toQuery ListDatasets' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListDatasetsResponse' smart constructor.
 data ListDatasetsResponse = ListDatasetsResponse'
-  { -- | The token to retrieve the next set of results, or @null@ if there are no
+  { -- | A list of @DatasetSummary@ objects.
+    datasetSummaries :: Prelude.Maybe [DatasetSummary],
+    -- | The token to retrieve the next set of results, or @null@ if there are no
     -- more results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | A list of @DatasetSummary@ objects.
-    datasetSummaries :: Prelude.Maybe [DatasetSummary],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -169,10 +171,10 @@ data ListDatasetsResponse = ListDatasetsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'datasetSummaries', 'listDatasetsResponse_datasetSummaries' - A list of @DatasetSummary@ objects.
+--
 -- 'nextToken', 'listDatasetsResponse_nextToken' - The token to retrieve the next set of results, or @null@ if there are no
 -- more results.
---
--- 'datasetSummaries', 'listDatasetsResponse_datasetSummaries' - A list of @DatasetSummary@ objects.
 --
 -- 'httpStatus', 'listDatasetsResponse_httpStatus' - The response's http status code.
 newListDatasetsResponse ::
@@ -181,19 +183,20 @@ newListDatasetsResponse ::
   ListDatasetsResponse
 newListDatasetsResponse pHttpStatus_ =
   ListDatasetsResponse'
-    { nextToken = Prelude.Nothing,
-      datasetSummaries = Prelude.Nothing,
+    { datasetSummaries =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | A list of @DatasetSummary@ objects.
+listDatasetsResponse_datasetSummaries :: Lens.Lens' ListDatasetsResponse (Prelude.Maybe [DatasetSummary])
+listDatasetsResponse_datasetSummaries = Lens.lens (\ListDatasetsResponse' {datasetSummaries} -> datasetSummaries) (\s@ListDatasetsResponse' {} a -> s {datasetSummaries = a} :: ListDatasetsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token to retrieve the next set of results, or @null@ if there are no
 -- more results.
 listDatasetsResponse_nextToken :: Lens.Lens' ListDatasetsResponse (Prelude.Maybe Prelude.Text)
 listDatasetsResponse_nextToken = Lens.lens (\ListDatasetsResponse' {nextToken} -> nextToken) (\s@ListDatasetsResponse' {} a -> s {nextToken = a} :: ListDatasetsResponse)
-
--- | A list of @DatasetSummary@ objects.
-listDatasetsResponse_datasetSummaries :: Lens.Lens' ListDatasetsResponse (Prelude.Maybe [DatasetSummary])
-listDatasetsResponse_datasetSummaries = Lens.lens (\ListDatasetsResponse' {datasetSummaries} -> datasetSummaries) (\s@ListDatasetsResponse' {} a -> s {datasetSummaries = a} :: ListDatasetsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listDatasetsResponse_httpStatus :: Lens.Lens' ListDatasetsResponse Prelude.Int
@@ -201,6 +204,6 @@ listDatasetsResponse_httpStatus = Lens.lens (\ListDatasetsResponse' {httpStatus}
 
 instance Prelude.NFData ListDatasetsResponse where
   rnf ListDatasetsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf datasetSummaries
+    Prelude.rnf datasetSummaries
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

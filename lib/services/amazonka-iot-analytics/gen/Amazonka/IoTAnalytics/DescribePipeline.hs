@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.DescribePipeline
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.IoTAnalytics.DescribePipeline
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,12 +78,13 @@ instance Core.AWSRequest DescribePipeline where
   type
     AWSResponse DescribePipeline =
       DescribePipelineResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribePipelineResponse'
-            Prelude.<$> (x Core..?> "pipeline")
+            Prelude.<$> (x Data..?> "pipeline")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -93,15 +95,15 @@ instance Prelude.Hashable DescribePipeline where
 instance Prelude.NFData DescribePipeline where
   rnf DescribePipeline' {..} = Prelude.rnf pipelineName
 
-instance Core.ToHeaders DescribePipeline where
+instance Data.ToHeaders DescribePipeline where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribePipeline where
+instance Data.ToPath DescribePipeline where
   toPath DescribePipeline' {..} =
     Prelude.mconcat
-      ["/pipelines/", Core.toBS pipelineName]
+      ["/pipelines/", Data.toBS pipelineName]
 
-instance Core.ToQuery DescribePipeline where
+instance Data.ToQuery DescribePipeline where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribePipelineResponse' smart constructor.

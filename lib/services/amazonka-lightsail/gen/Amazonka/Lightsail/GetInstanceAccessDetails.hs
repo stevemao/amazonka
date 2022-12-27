@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.GetInstanceAccessDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ module Amazonka.Lightsail.GetInstanceAccessDetails
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -96,12 +97,13 @@ instance Core.AWSRequest GetInstanceAccessDetails where
   type
     AWSResponse GetInstanceAccessDetails =
       GetInstanceAccessDetailsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetInstanceAccessDetailsResponse'
-            Prelude.<$> (x Core..?> "accessDetails")
+            Prelude.<$> (x Data..?> "accessDetails")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -115,34 +117,34 @@ instance Prelude.NFData GetInstanceAccessDetails where
     Prelude.rnf protocol
       `Prelude.seq` Prelude.rnf instanceName
 
-instance Core.ToHeaders GetInstanceAccessDetails where
+instance Data.ToHeaders GetInstanceAccessDetails where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.GetInstanceAccessDetails" ::
+              Data.=# ( "Lightsail_20161128.GetInstanceAccessDetails" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetInstanceAccessDetails where
+instance Data.ToJSON GetInstanceAccessDetails where
   toJSON GetInstanceAccessDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("protocol" Core..=) Prelude.<$> protocol,
-            Prelude.Just ("instanceName" Core..= instanceName)
+          [ ("protocol" Data..=) Prelude.<$> protocol,
+            Prelude.Just ("instanceName" Data..= instanceName)
           ]
       )
 
-instance Core.ToPath GetInstanceAccessDetails where
+instance Data.ToPath GetInstanceAccessDetails where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetInstanceAccessDetails where
+instance Data.ToQuery GetInstanceAccessDetails where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetInstanceAccessDetailsResponse' smart constructor.

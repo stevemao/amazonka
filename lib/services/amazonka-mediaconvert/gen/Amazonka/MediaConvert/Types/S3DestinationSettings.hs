@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.S3DestinationSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.S3DestinationSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types.S3DestinationAccessControl
 import Amazonka.MediaConvert.Types.S3EncryptionSettings
 import qualified Amazonka.Prelude as Prelude
@@ -73,14 +74,14 @@ s3DestinationSettings_accessControl = Lens.lens (\S3DestinationSettings' {access
 s3DestinationSettings_encryption :: Lens.Lens' S3DestinationSettings (Prelude.Maybe S3EncryptionSettings)
 s3DestinationSettings_encryption = Lens.lens (\S3DestinationSettings' {encryption} -> encryption) (\s@S3DestinationSettings' {} a -> s {encryption = a} :: S3DestinationSettings)
 
-instance Core.FromJSON S3DestinationSettings where
+instance Data.FromJSON S3DestinationSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "S3DestinationSettings"
       ( \x ->
           S3DestinationSettings'
-            Prelude.<$> (x Core..:? "accessControl")
-            Prelude.<*> (x Core..:? "encryption")
+            Prelude.<$> (x Data..:? "accessControl")
+            Prelude.<*> (x Data..:? "encryption")
       )
 
 instance Prelude.Hashable S3DestinationSettings where
@@ -93,11 +94,11 @@ instance Prelude.NFData S3DestinationSettings where
     Prelude.rnf accessControl
       `Prelude.seq` Prelude.rnf encryption
 
-instance Core.ToJSON S3DestinationSettings where
+instance Data.ToJSON S3DestinationSettings where
   toJSON S3DestinationSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("accessControl" Core..=) Prelude.<$> accessControl,
-            ("encryption" Core..=) Prelude.<$> encryption
+          [ ("accessControl" Data..=) Prelude.<$> accessControl,
+            ("encryption" Data..=) Prelude.<$> encryption
           ]
       )

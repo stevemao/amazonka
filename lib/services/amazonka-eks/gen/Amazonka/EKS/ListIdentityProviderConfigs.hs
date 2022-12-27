@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.ListIdentityProviderConfigs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.EKS.ListIdentityProviderConfigs
     newListIdentityProviderConfigs,
 
     -- * Request Lenses
-    listIdentityProviderConfigs_nextToken,
     listIdentityProviderConfigs_maxResults,
+    listIdentityProviderConfigs_nextToken,
     listIdentityProviderConfigs_clusterName,
 
     -- * Destructuring the Response
@@ -45,20 +45,16 @@ module Amazonka.EKS.ListIdentityProviderConfigs
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EKS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListIdentityProviderConfigs' smart constructor.
 data ListIdentityProviderConfigs = ListIdentityProviderConfigs'
-  { -- | The @nextToken@ value returned from a previous paginated
-    -- @IdentityProviderConfigsRequest@ where @maxResults@ was used and the
-    -- results exceeded the value of that parameter. Pagination continues from
-    -- the end of the previous results that returned the @nextToken@ value.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of identity provider configurations returned by
+  { -- | The maximum number of identity provider configurations returned by
     -- @ListIdentityProviderConfigs@ in paginated output. When you use this
     -- parameter, @ListIdentityProviderConfigs@ returns only @maxResults@
     -- results in a single page along with a @nextToken@ response element. You
@@ -68,6 +64,11 @@ data ListIdentityProviderConfigs = ListIdentityProviderConfigs'
     -- parameter, @ListIdentityProviderConfigs@ returns up to 100 results and a
     -- @nextToken@ value, if applicable.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The @nextToken@ value returned from a previous paginated
+    -- @IdentityProviderConfigsRequest@ where @maxResults@ was used and the
+    -- results exceeded the value of that parameter. Pagination continues from
+    -- the end of the previous results that returned the @nextToken@ value.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The cluster name that you want to list identity provider configurations
     -- for.
     clusterName :: Prelude.Text
@@ -82,11 +83,6 @@ data ListIdentityProviderConfigs = ListIdentityProviderConfigs'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listIdentityProviderConfigs_nextToken' - The @nextToken@ value returned from a previous paginated
--- @IdentityProviderConfigsRequest@ where @maxResults@ was used and the
--- results exceeded the value of that parameter. Pagination continues from
--- the end of the previous results that returned the @nextToken@ value.
---
 -- 'maxResults', 'listIdentityProviderConfigs_maxResults' - The maximum number of identity provider configurations returned by
 -- @ListIdentityProviderConfigs@ in paginated output. When you use this
 -- parameter, @ListIdentityProviderConfigs@ returns only @maxResults@
@@ -97,6 +93,11 @@ data ListIdentityProviderConfigs = ListIdentityProviderConfigs'
 -- parameter, @ListIdentityProviderConfigs@ returns up to 100 results and a
 -- @nextToken@ value, if applicable.
 --
+-- 'nextToken', 'listIdentityProviderConfigs_nextToken' - The @nextToken@ value returned from a previous paginated
+-- @IdentityProviderConfigsRequest@ where @maxResults@ was used and the
+-- results exceeded the value of that parameter. Pagination continues from
+-- the end of the previous results that returned the @nextToken@ value.
+--
 -- 'clusterName', 'listIdentityProviderConfigs_clusterName' - The cluster name that you want to list identity provider configurations
 -- for.
 newListIdentityProviderConfigs ::
@@ -105,18 +106,11 @@ newListIdentityProviderConfigs ::
   ListIdentityProviderConfigs
 newListIdentityProviderConfigs pClusterName_ =
   ListIdentityProviderConfigs'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       clusterName = pClusterName_
     }
-
--- | The @nextToken@ value returned from a previous paginated
--- @IdentityProviderConfigsRequest@ where @maxResults@ was used and the
--- results exceeded the value of that parameter. Pagination continues from
--- the end of the previous results that returned the @nextToken@ value.
-listIdentityProviderConfigs_nextToken :: Lens.Lens' ListIdentityProviderConfigs (Prelude.Maybe Prelude.Text)
-listIdentityProviderConfigs_nextToken = Lens.lens (\ListIdentityProviderConfigs' {nextToken} -> nextToken) (\s@ListIdentityProviderConfigs' {} a -> s {nextToken = a} :: ListIdentityProviderConfigs)
 
 -- | The maximum number of identity provider configurations returned by
 -- @ListIdentityProviderConfigs@ in paginated output. When you use this
@@ -129,6 +123,13 @@ listIdentityProviderConfigs_nextToken = Lens.lens (\ListIdentityProviderConfigs'
 -- @nextToken@ value, if applicable.
 listIdentityProviderConfigs_maxResults :: Lens.Lens' ListIdentityProviderConfigs (Prelude.Maybe Prelude.Natural)
 listIdentityProviderConfigs_maxResults = Lens.lens (\ListIdentityProviderConfigs' {maxResults} -> maxResults) (\s@ListIdentityProviderConfigs' {} a -> s {maxResults = a} :: ListIdentityProviderConfigs)
+
+-- | The @nextToken@ value returned from a previous paginated
+-- @IdentityProviderConfigsRequest@ where @maxResults@ was used and the
+-- results exceeded the value of that parameter. Pagination continues from
+-- the end of the previous results that returned the @nextToken@ value.
+listIdentityProviderConfigs_nextToken :: Lens.Lens' ListIdentityProviderConfigs (Prelude.Maybe Prelude.Text)
+listIdentityProviderConfigs_nextToken = Lens.lens (\ListIdentityProviderConfigs' {nextToken} -> nextToken) (\s@ListIdentityProviderConfigs' {} a -> s {nextToken = a} :: ListIdentityProviderConfigs)
 
 -- | The cluster name that you want to list identity provider configurations
 -- for.
@@ -161,54 +162,55 @@ instance Core.AWSRequest ListIdentityProviderConfigs where
   type
     AWSResponse ListIdentityProviderConfigs =
       ListIdentityProviderConfigsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListIdentityProviderConfigsResponse'
-            Prelude.<$> ( x Core..?> "identityProviderConfigs"
+            Prelude.<$> ( x Data..?> "identityProviderConfigs"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListIdentityProviderConfigs where
   hashWithSalt _salt ListIdentityProviderConfigs' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` clusterName
 
 instance Prelude.NFData ListIdentityProviderConfigs where
   rnf ListIdentityProviderConfigs' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf clusterName
 
-instance Core.ToHeaders ListIdentityProviderConfigs where
+instance Data.ToHeaders ListIdentityProviderConfigs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListIdentityProviderConfigs where
+instance Data.ToPath ListIdentityProviderConfigs where
   toPath ListIdentityProviderConfigs' {..} =
     Prelude.mconcat
       [ "/clusters/",
-        Core.toBS clusterName,
+        Data.toBS clusterName,
         "/identity-provider-configs"
       ]
 
-instance Core.ToQuery ListIdentityProviderConfigs where
+instance Data.ToQuery ListIdentityProviderConfigs where
   toQuery ListIdentityProviderConfigs' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListIdentityProviderConfigsResponse' smart constructor.

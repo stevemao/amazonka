@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.Types.CampaignConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.Personalize.Types.CampaignConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configuration details of a campaign.
 --
 -- /See:/ 'newCampaignConfig' smart constructor.
 data CampaignConfig = CampaignConfig'
-  { -- | A string to string map specifying the exploration configuration
-    -- hyperparameters, including @explorationWeight@ and
-    -- @explorationItemAgeCutOff@, you want to use to configure the amount of
-    -- item exploration Amazon Personalize uses when recommending items.
-    -- Provide @itemExplorationConfig@ data only if your solution uses the
+  { -- | Specifies the exploration configuration hyperparameters, including
+    -- @explorationWeight@ and @explorationItemAgeCutOff@, you want to use to
+    -- configure the amount of item exploration Amazon Personalize uses when
+    -- recommending items. Provide @itemExplorationConfig@ data only if your
+    -- solution uses the
     -- <https://docs.aws.amazon.com/personalize/latest/dg/native-recipe-new-item-USER_PERSONALIZATION.html User-Personalization>
     -- recipe.
     itemExplorationConfig :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text)
@@ -46,11 +47,11 @@ data CampaignConfig = CampaignConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'itemExplorationConfig', 'campaignConfig_itemExplorationConfig' - A string to string map specifying the exploration configuration
--- hyperparameters, including @explorationWeight@ and
--- @explorationItemAgeCutOff@, you want to use to configure the amount of
--- item exploration Amazon Personalize uses when recommending items.
--- Provide @itemExplorationConfig@ data only if your solution uses the
+-- 'itemExplorationConfig', 'campaignConfig_itemExplorationConfig' - Specifies the exploration configuration hyperparameters, including
+-- @explorationWeight@ and @explorationItemAgeCutOff@, you want to use to
+-- configure the amount of item exploration Amazon Personalize uses when
+-- recommending items. Provide @itemExplorationConfig@ data only if your
+-- solution uses the
 -- <https://docs.aws.amazon.com/personalize/latest/dg/native-recipe-new-item-USER_PERSONALIZATION.html User-Personalization>
 -- recipe.
 newCampaignConfig ::
@@ -61,24 +62,24 @@ newCampaignConfig =
         Prelude.Nothing
     }
 
--- | A string to string map specifying the exploration configuration
--- hyperparameters, including @explorationWeight@ and
--- @explorationItemAgeCutOff@, you want to use to configure the amount of
--- item exploration Amazon Personalize uses when recommending items.
--- Provide @itemExplorationConfig@ data only if your solution uses the
+-- | Specifies the exploration configuration hyperparameters, including
+-- @explorationWeight@ and @explorationItemAgeCutOff@, you want to use to
+-- configure the amount of item exploration Amazon Personalize uses when
+-- recommending items. Provide @itemExplorationConfig@ data only if your
+-- solution uses the
 -- <https://docs.aws.amazon.com/personalize/latest/dg/native-recipe-new-item-USER_PERSONALIZATION.html User-Personalization>
 -- recipe.
 campaignConfig_itemExplorationConfig :: Lens.Lens' CampaignConfig (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 campaignConfig_itemExplorationConfig = Lens.lens (\CampaignConfig' {itemExplorationConfig} -> itemExplorationConfig) (\s@CampaignConfig' {} a -> s {itemExplorationConfig = a} :: CampaignConfig) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON CampaignConfig where
+instance Data.FromJSON CampaignConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CampaignConfig"
       ( \x ->
           CampaignConfig'
-            Prelude.<$> ( x Core..:? "itemExplorationConfig"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "itemExplorationConfig"
+                            Data..!= Prelude.mempty
                         )
       )
 
@@ -90,11 +91,11 @@ instance Prelude.NFData CampaignConfig where
   rnf CampaignConfig' {..} =
     Prelude.rnf itemExplorationConfig
 
-instance Core.ToJSON CampaignConfig where
+instance Data.ToJSON CampaignConfig where
   toJSON CampaignConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("itemExplorationConfig" Core..=)
+          [ ("itemExplorationConfig" Data..=)
               Prelude.<$> itemExplorationConfig
           ]
       )

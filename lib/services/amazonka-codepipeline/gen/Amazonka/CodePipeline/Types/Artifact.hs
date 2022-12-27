@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.Types.Artifact
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CodePipeline.Types.Artifact where
 
 import Amazonka.CodePipeline.Types.ArtifactLocation
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents information about an artifact that is worked on by actions in
@@ -75,15 +76,15 @@ artifact_name = Lens.lens (\Artifact' {name} -> name) (\s@Artifact' {} a -> s {n
 artifact_revision :: Lens.Lens' Artifact (Prelude.Maybe Prelude.Text)
 artifact_revision = Lens.lens (\Artifact' {revision} -> revision) (\s@Artifact' {} a -> s {revision = a} :: Artifact)
 
-instance Core.FromJSON Artifact where
+instance Data.FromJSON Artifact where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Artifact"
       ( \x ->
           Artifact'
-            Prelude.<$> (x Core..:? "location")
-            Prelude.<*> (x Core..:? "name")
-            Prelude.<*> (x Core..:? "revision")
+            Prelude.<$> (x Data..:? "location")
+            Prelude.<*> (x Data..:? "name")
+            Prelude.<*> (x Data..:? "revision")
       )
 
 instance Prelude.Hashable Artifact where

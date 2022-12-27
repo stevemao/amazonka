@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WellArchitected.ListLensReviews
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,9 +27,9 @@ module Amazonka.WellArchitected.ListLensReviews
     newListLensReviews,
 
     -- * Request Lenses
+    listLensReviews_maxResults,
     listLensReviews_milestoneNumber,
     listLensReviews_nextToken,
-    listLensReviews_maxResults,
     listLensReviews_workloadId,
 
     -- * Destructuring the Response
@@ -37,16 +37,17 @@ module Amazonka.WellArchitected.ListLensReviews
     newListLensReviewsResponse,
 
     -- * Response Lenses
+    listLensReviewsResponse_lensReviewSummaries,
     listLensReviewsResponse_milestoneNumber,
     listLensReviewsResponse_nextToken,
-    listLensReviewsResponse_lensReviewSummaries,
     listLensReviewsResponse_workloadId,
     listLensReviewsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,9 +57,9 @@ import Amazonka.WellArchitected.Types
 --
 -- /See:/ 'newListLensReviews' smart constructor.
 data ListLensReviews = ListLensReviews'
-  { milestoneNumber :: Prelude.Maybe Prelude.Natural,
+  { maxResults :: Prelude.Maybe Prelude.Natural,
+    milestoneNumber :: Prelude.Maybe Prelude.Natural,
     nextToken :: Prelude.Maybe Prelude.Text,
-    maxResults :: Prelude.Maybe Prelude.Natural,
     workloadId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -71,11 +72,11 @@ data ListLensReviews = ListLensReviews'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listLensReviews_maxResults' - Undocumented member.
+--
 -- 'milestoneNumber', 'listLensReviews_milestoneNumber' - Undocumented member.
 --
 -- 'nextToken', 'listLensReviews_nextToken' - Undocumented member.
---
--- 'maxResults', 'listLensReviews_maxResults' - Undocumented member.
 --
 -- 'workloadId', 'listLensReviews_workloadId' - Undocumented member.
 newListLensReviews ::
@@ -84,11 +85,15 @@ newListLensReviews ::
   ListLensReviews
 newListLensReviews pWorkloadId_ =
   ListLensReviews'
-    { milestoneNumber = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      milestoneNumber = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
       workloadId = pWorkloadId_
     }
+
+-- | Undocumented member.
+listLensReviews_maxResults :: Lens.Lens' ListLensReviews (Prelude.Maybe Prelude.Natural)
+listLensReviews_maxResults = Lens.lens (\ListLensReviews' {maxResults} -> maxResults) (\s@ListLensReviews' {} a -> s {maxResults = a} :: ListLensReviews)
 
 -- | Undocumented member.
 listLensReviews_milestoneNumber :: Lens.Lens' ListLensReviews (Prelude.Maybe Prelude.Natural)
@@ -99,10 +104,6 @@ listLensReviews_nextToken :: Lens.Lens' ListLensReviews (Prelude.Maybe Prelude.T
 listLensReviews_nextToken = Lens.lens (\ListLensReviews' {nextToken} -> nextToken) (\s@ListLensReviews' {} a -> s {nextToken = a} :: ListLensReviews)
 
 -- | Undocumented member.
-listLensReviews_maxResults :: Lens.Lens' ListLensReviews (Prelude.Maybe Prelude.Natural)
-listLensReviews_maxResults = Lens.lens (\ListLensReviews' {maxResults} -> maxResults) (\s@ListLensReviews' {} a -> s {maxResults = a} :: ListLensReviews)
-
--- | Undocumented member.
 listLensReviews_workloadId :: Lens.Lens' ListLensReviews Prelude.Text
 listLensReviews_workloadId = Lens.lens (\ListLensReviews' {workloadId} -> workloadId) (\s@ListLensReviews' {} a -> s {workloadId = a} :: ListLensReviews)
 
@@ -110,65 +111,66 @@ instance Core.AWSRequest ListLensReviews where
   type
     AWSResponse ListLensReviews =
       ListLensReviewsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListLensReviewsResponse'
-            Prelude.<$> (x Core..?> "MilestoneNumber")
-            Prelude.<*> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "LensReviewSummaries"
+            Prelude.<$> ( x Data..?> "LensReviewSummaries"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "WorkloadId")
+            Prelude.<*> (x Data..?> "MilestoneNumber")
+            Prelude.<*> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "WorkloadId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListLensReviews where
   hashWithSalt _salt ListLensReviews' {..} =
-    _salt `Prelude.hashWithSalt` milestoneNumber
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` milestoneNumber
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` workloadId
 
 instance Prelude.NFData ListLensReviews where
   rnf ListLensReviews' {..} =
-    Prelude.rnf milestoneNumber
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf milestoneNumber
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf workloadId
 
-instance Core.ToHeaders ListLensReviews where
+instance Data.ToHeaders ListLensReviews where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListLensReviews where
+instance Data.ToPath ListLensReviews where
   toPath ListLensReviews' {..} =
     Prelude.mconcat
-      ["/workloads/", Core.toBS workloadId, "/lensReviews"]
+      ["/workloads/", Data.toBS workloadId, "/lensReviews"]
 
-instance Core.ToQuery ListLensReviews where
+instance Data.ToQuery ListLensReviews where
   toQuery ListLensReviews' {..} =
     Prelude.mconcat
-      [ "MilestoneNumber" Core.=: milestoneNumber,
-        "NextToken" Core.=: nextToken,
-        "MaxResults" Core.=: maxResults
+      [ "MaxResults" Data.=: maxResults,
+        "MilestoneNumber" Data.=: milestoneNumber,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | Output of a list lens reviews call.
 --
 -- /See:/ 'newListLensReviewsResponse' smart constructor.
 data ListLensReviewsResponse = ListLensReviewsResponse'
-  { milestoneNumber :: Prelude.Maybe Prelude.Natural,
+  { lensReviewSummaries :: Prelude.Maybe [LensReviewSummary],
+    milestoneNumber :: Prelude.Maybe Prelude.Natural,
     nextToken :: Prelude.Maybe Prelude.Text,
-    lensReviewSummaries :: Prelude.Maybe [LensReviewSummary],
     workloadId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -183,11 +185,11 @@ data ListLensReviewsResponse = ListLensReviewsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'lensReviewSummaries', 'listLensReviewsResponse_lensReviewSummaries' - Undocumented member.
+--
 -- 'milestoneNumber', 'listLensReviewsResponse_milestoneNumber' - Undocumented member.
 --
 -- 'nextToken', 'listLensReviewsResponse_nextToken' - Undocumented member.
---
--- 'lensReviewSummaries', 'listLensReviewsResponse_lensReviewSummaries' - Undocumented member.
 --
 -- 'workloadId', 'listLensReviewsResponse_workloadId' - Undocumented member.
 --
@@ -198,13 +200,17 @@ newListLensReviewsResponse ::
   ListLensReviewsResponse
 newListLensReviewsResponse pHttpStatus_ =
   ListLensReviewsResponse'
-    { milestoneNumber =
+    { lensReviewSummaries =
         Prelude.Nothing,
+      milestoneNumber = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      lensReviewSummaries = Prelude.Nothing,
       workloadId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | Undocumented member.
+listLensReviewsResponse_lensReviewSummaries :: Lens.Lens' ListLensReviewsResponse (Prelude.Maybe [LensReviewSummary])
+listLensReviewsResponse_lensReviewSummaries = Lens.lens (\ListLensReviewsResponse' {lensReviewSummaries} -> lensReviewSummaries) (\s@ListLensReviewsResponse' {} a -> s {lensReviewSummaries = a} :: ListLensReviewsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | Undocumented member.
 listLensReviewsResponse_milestoneNumber :: Lens.Lens' ListLensReviewsResponse (Prelude.Maybe Prelude.Natural)
@@ -213,10 +219,6 @@ listLensReviewsResponse_milestoneNumber = Lens.lens (\ListLensReviewsResponse' {
 -- | Undocumented member.
 listLensReviewsResponse_nextToken :: Lens.Lens' ListLensReviewsResponse (Prelude.Maybe Prelude.Text)
 listLensReviewsResponse_nextToken = Lens.lens (\ListLensReviewsResponse' {nextToken} -> nextToken) (\s@ListLensReviewsResponse' {} a -> s {nextToken = a} :: ListLensReviewsResponse)
-
--- | Undocumented member.
-listLensReviewsResponse_lensReviewSummaries :: Lens.Lens' ListLensReviewsResponse (Prelude.Maybe [LensReviewSummary])
-listLensReviewsResponse_lensReviewSummaries = Lens.lens (\ListLensReviewsResponse' {lensReviewSummaries} -> lensReviewSummaries) (\s@ListLensReviewsResponse' {} a -> s {lensReviewSummaries = a} :: ListLensReviewsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | Undocumented member.
 listLensReviewsResponse_workloadId :: Lens.Lens' ListLensReviewsResponse (Prelude.Maybe Prelude.Text)
@@ -228,8 +230,8 @@ listLensReviewsResponse_httpStatus = Lens.lens (\ListLensReviewsResponse' {httpS
 
 instance Prelude.NFData ListLensReviewsResponse where
   rnf ListLensReviewsResponse' {..} =
-    Prelude.rnf milestoneNumber
+    Prelude.rnf lensReviewSummaries
+      `Prelude.seq` Prelude.rnf milestoneNumber
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf lensReviewSummaries
       `Prelude.seq` Prelude.rnf workloadId
       `Prelude.seq` Prelude.rnf httpStatus

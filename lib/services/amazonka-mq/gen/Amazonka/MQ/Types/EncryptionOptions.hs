@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MQ.Types.EncryptionOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MQ.Types.EncryptionOptions where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Does not apply to RabbitMQ brokers.
@@ -77,14 +78,14 @@ encryptionOptions_kmsKeyId = Lens.lens (\EncryptionOptions' {kmsKeyId} -> kmsKey
 encryptionOptions_useAwsOwnedKey :: Lens.Lens' EncryptionOptions Prelude.Bool
 encryptionOptions_useAwsOwnedKey = Lens.lens (\EncryptionOptions' {useAwsOwnedKey} -> useAwsOwnedKey) (\s@EncryptionOptions' {} a -> s {useAwsOwnedKey = a} :: EncryptionOptions)
 
-instance Core.FromJSON EncryptionOptions where
+instance Data.FromJSON EncryptionOptions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EncryptionOptions"
       ( \x ->
           EncryptionOptions'
-            Prelude.<$> (x Core..:? "kmsKeyId")
-            Prelude.<*> (x Core..: "useAwsOwnedKey")
+            Prelude.<$> (x Data..:? "kmsKeyId")
+            Prelude.<*> (x Data..: "useAwsOwnedKey")
       )
 
 instance Prelude.Hashable EncryptionOptions where
@@ -97,12 +98,12 @@ instance Prelude.NFData EncryptionOptions where
     Prelude.rnf kmsKeyId
       `Prelude.seq` Prelude.rnf useAwsOwnedKey
 
-instance Core.ToJSON EncryptionOptions where
+instance Data.ToJSON EncryptionOptions where
   toJSON EncryptionOptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("kmsKeyId" Core..=) Prelude.<$> kmsKeyId,
+          [ ("kmsKeyId" Data..=) Prelude.<$> kmsKeyId,
             Prelude.Just
-              ("useAwsOwnedKey" Core..= useAwsOwnedKey)
+              ("useAwsOwnedKey" Data..= useAwsOwnedKey)
           ]
       )

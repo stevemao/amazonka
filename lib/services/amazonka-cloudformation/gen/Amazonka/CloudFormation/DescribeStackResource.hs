@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.DescribeStackResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,8 +55,8 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeStackResource' smart constructor.
 data DescribeStackResource = DescribeStackResource'
-  { -- | The name or the unique stack ID that is associated with the stack, which
-    -- are not always interchangeable:
+  { -- | The name or the unique stack ID that\'s associated with the stack, which
+    -- aren\'t always interchangeable:
     --
     -- -   Running stacks: You can specify either the stack\'s name or its
     --     unique stack ID.
@@ -79,8 +80,8 @@ data DescribeStackResource = DescribeStackResource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'stackName', 'describeStackResource_stackName' - The name or the unique stack ID that is associated with the stack, which
--- are not always interchangeable:
+-- 'stackName', 'describeStackResource_stackName' - The name or the unique stack ID that\'s associated with the stack, which
+-- aren\'t always interchangeable:
 --
 -- -   Running stacks: You can specify either the stack\'s name or its
 --     unique stack ID.
@@ -106,8 +107,8 @@ newDescribeStackResource
         logicalResourceId = pLogicalResourceId_
       }
 
--- | The name or the unique stack ID that is associated with the stack, which
--- are not always interchangeable:
+-- | The name or the unique stack ID that\'s associated with the stack, which
+-- aren\'t always interchangeable:
 --
 -- -   Running stacks: You can specify either the stack\'s name or its
 --     unique stack ID.
@@ -128,13 +129,14 @@ instance Core.AWSRequest DescribeStackResource where
   type
     AWSResponse DescribeStackResource =
       DescribeStackResourceResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeStackResourceResult"
       ( \s h x ->
           DescribeStackResourceResponse'
-            Prelude.<$> (x Core..@? "StackResourceDetail")
+            Prelude.<$> (x Data..@? "StackResourceDetail")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -148,21 +150,21 @@ instance Prelude.NFData DescribeStackResource where
     Prelude.rnf stackName
       `Prelude.seq` Prelude.rnf logicalResourceId
 
-instance Core.ToHeaders DescribeStackResource where
+instance Data.ToHeaders DescribeStackResource where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeStackResource where
+instance Data.ToPath DescribeStackResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeStackResource where
+instance Data.ToQuery DescribeStackResource where
   toQuery DescribeStackResource' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeStackResource" :: Prelude.ByteString),
+          Data.=: ("DescribeStackResource" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
-        "StackName" Core.=: stackName,
-        "LogicalResourceId" Core.=: logicalResourceId
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "StackName" Data.=: stackName,
+        "LogicalResourceId" Data.=: logicalResourceId
       ]
 
 -- | The output for a DescribeStackResource action.

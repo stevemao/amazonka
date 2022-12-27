@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.StepFunctions.Types.CloudWatchLogsLogGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.StepFunctions.Types.CloudWatchLogsLogGroup where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- |
@@ -56,13 +57,13 @@ newCloudWatchLogsLogGroup =
 cloudWatchLogsLogGroup_logGroupArn :: Lens.Lens' CloudWatchLogsLogGroup (Prelude.Maybe Prelude.Text)
 cloudWatchLogsLogGroup_logGroupArn = Lens.lens (\CloudWatchLogsLogGroup' {logGroupArn} -> logGroupArn) (\s@CloudWatchLogsLogGroup' {} a -> s {logGroupArn = a} :: CloudWatchLogsLogGroup)
 
-instance Core.FromJSON CloudWatchLogsLogGroup where
+instance Data.FromJSON CloudWatchLogsLogGroup where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CloudWatchLogsLogGroup"
       ( \x ->
           CloudWatchLogsLogGroup'
-            Prelude.<$> (x Core..:? "logGroupArn")
+            Prelude.<$> (x Data..:? "logGroupArn")
       )
 
 instance Prelude.Hashable CloudWatchLogsLogGroup where
@@ -73,9 +74,9 @@ instance Prelude.NFData CloudWatchLogsLogGroup where
   rnf CloudWatchLogsLogGroup' {..} =
     Prelude.rnf logGroupArn
 
-instance Core.ToJSON CloudWatchLogsLogGroup where
+instance Data.ToJSON CloudWatchLogsLogGroup where
   toJSON CloudWatchLogsLogGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("logGroupArn" Core..=) Prelude.<$> logGroupArn]
+          [("logGroupArn" Data..=) Prelude.<$> logGroupArn]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MechanicalTurk.Types.ReviewReport
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MechanicalTurk.Types.ReviewReport where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MechanicalTurk.Types.ReviewActionDetail
 import Amazonka.MechanicalTurk.Types.ReviewResultDetail
 import qualified Amazonka.Prelude as Prelude
@@ -70,14 +71,14 @@ reviewReport_reviewActions = Lens.lens (\ReviewReport' {reviewActions} -> review
 reviewReport_reviewResults :: Lens.Lens' ReviewReport (Prelude.Maybe [ReviewResultDetail])
 reviewReport_reviewResults = Lens.lens (\ReviewReport' {reviewResults} -> reviewResults) (\s@ReviewReport' {} a -> s {reviewResults = a} :: ReviewReport) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON ReviewReport where
+instance Data.FromJSON ReviewReport where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ReviewReport"
       ( \x ->
           ReviewReport'
-            Prelude.<$> (x Core..:? "ReviewActions" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "ReviewResults" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "ReviewActions" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "ReviewResults" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable ReviewReport where

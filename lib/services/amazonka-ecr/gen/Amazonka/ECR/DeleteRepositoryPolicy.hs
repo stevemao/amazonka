@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECR.DeleteRepositoryPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,16 +35,17 @@ module Amazonka.ECR.DeleteRepositoryPolicy
     newDeleteRepositoryPolicyResponse,
 
     -- * Response Lenses
+    deleteRepositoryPolicyResponse_policyText,
     deleteRepositoryPolicyResponse_registryId,
     deleteRepositoryPolicyResponse_repositoryName,
-    deleteRepositoryPolicyResponse_policyText,
     deleteRepositoryPolicyResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -101,14 +102,15 @@ instance Core.AWSRequest DeleteRepositoryPolicy where
   type
     AWSResponse DeleteRepositoryPolicy =
       DeleteRepositoryPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteRepositoryPolicyResponse'
-            Prelude.<$> (x Core..?> "registryId")
-            Prelude.<*> (x Core..?> "repositoryName")
-            Prelude.<*> (x Core..?> "policyText")
+            Prelude.<$> (x Data..?> "policyText")
+            Prelude.<*> (x Data..?> "registryId")
+            Prelude.<*> (x Data..?> "repositoryName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -122,45 +124,45 @@ instance Prelude.NFData DeleteRepositoryPolicy where
     Prelude.rnf registryId
       `Prelude.seq` Prelude.rnf repositoryName
 
-instance Core.ToHeaders DeleteRepositoryPolicy where
+instance Data.ToHeaders DeleteRepositoryPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerRegistry_V20150921.DeleteRepositoryPolicy" ::
+              Data.=# ( "AmazonEC2ContainerRegistry_V20150921.DeleteRepositoryPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteRepositoryPolicy where
+instance Data.ToJSON DeleteRepositoryPolicy where
   toJSON DeleteRepositoryPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("registryId" Core..=) Prelude.<$> registryId,
+          [ ("registryId" Data..=) Prelude.<$> registryId,
             Prelude.Just
-              ("repositoryName" Core..= repositoryName)
+              ("repositoryName" Data..= repositoryName)
           ]
       )
 
-instance Core.ToPath DeleteRepositoryPolicy where
+instance Data.ToPath DeleteRepositoryPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteRepositoryPolicy where
+instance Data.ToQuery DeleteRepositoryPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteRepositoryPolicyResponse' smart constructor.
 data DeleteRepositoryPolicyResponse = DeleteRepositoryPolicyResponse'
-  { -- | The registry ID associated with the request.
+  { -- | The JSON repository policy that was deleted from the repository.
+    policyText :: Prelude.Maybe Prelude.Text,
+    -- | The registry ID associated with the request.
     registryId :: Prelude.Maybe Prelude.Text,
     -- | The repository name associated with the request.
     repositoryName :: Prelude.Maybe Prelude.Text,
-    -- | The JSON repository policy that was deleted from the repository.
-    policyText :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -174,11 +176,11 @@ data DeleteRepositoryPolicyResponse = DeleteRepositoryPolicyResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'policyText', 'deleteRepositoryPolicyResponse_policyText' - The JSON repository policy that was deleted from the repository.
+--
 -- 'registryId', 'deleteRepositoryPolicyResponse_registryId' - The registry ID associated with the request.
 --
 -- 'repositoryName', 'deleteRepositoryPolicyResponse_repositoryName' - The repository name associated with the request.
---
--- 'policyText', 'deleteRepositoryPolicyResponse_policyText' - The JSON repository policy that was deleted from the repository.
 --
 -- 'httpStatus', 'deleteRepositoryPolicyResponse_httpStatus' - The response's http status code.
 newDeleteRepositoryPolicyResponse ::
@@ -187,12 +189,16 @@ newDeleteRepositoryPolicyResponse ::
   DeleteRepositoryPolicyResponse
 newDeleteRepositoryPolicyResponse pHttpStatus_ =
   DeleteRepositoryPolicyResponse'
-    { registryId =
+    { policyText =
         Prelude.Nothing,
+      registryId = Prelude.Nothing,
       repositoryName = Prelude.Nothing,
-      policyText = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The JSON repository policy that was deleted from the repository.
+deleteRepositoryPolicyResponse_policyText :: Lens.Lens' DeleteRepositoryPolicyResponse (Prelude.Maybe Prelude.Text)
+deleteRepositoryPolicyResponse_policyText = Lens.lens (\DeleteRepositoryPolicyResponse' {policyText} -> policyText) (\s@DeleteRepositoryPolicyResponse' {} a -> s {policyText = a} :: DeleteRepositoryPolicyResponse)
 
 -- | The registry ID associated with the request.
 deleteRepositoryPolicyResponse_registryId :: Lens.Lens' DeleteRepositoryPolicyResponse (Prelude.Maybe Prelude.Text)
@@ -201,10 +207,6 @@ deleteRepositoryPolicyResponse_registryId = Lens.lens (\DeleteRepositoryPolicyRe
 -- | The repository name associated with the request.
 deleteRepositoryPolicyResponse_repositoryName :: Lens.Lens' DeleteRepositoryPolicyResponse (Prelude.Maybe Prelude.Text)
 deleteRepositoryPolicyResponse_repositoryName = Lens.lens (\DeleteRepositoryPolicyResponse' {repositoryName} -> repositoryName) (\s@DeleteRepositoryPolicyResponse' {} a -> s {repositoryName = a} :: DeleteRepositoryPolicyResponse)
-
--- | The JSON repository policy that was deleted from the repository.
-deleteRepositoryPolicyResponse_policyText :: Lens.Lens' DeleteRepositoryPolicyResponse (Prelude.Maybe Prelude.Text)
-deleteRepositoryPolicyResponse_policyText = Lens.lens (\DeleteRepositoryPolicyResponse' {policyText} -> policyText) (\s@DeleteRepositoryPolicyResponse' {} a -> s {policyText = a} :: DeleteRepositoryPolicyResponse)
 
 -- | The response's http status code.
 deleteRepositoryPolicyResponse_httpStatus :: Lens.Lens' DeleteRepositoryPolicyResponse Prelude.Int
@@ -215,7 +217,7 @@ instance
     DeleteRepositoryPolicyResponse
   where
   rnf DeleteRepositoryPolicyResponse' {..} =
-    Prelude.rnf registryId
+    Prelude.rnf policyText
+      `Prelude.seq` Prelude.rnf registryId
       `Prelude.seq` Prelude.rnf repositoryName
-      `Prelude.seq` Prelude.rnf policyText
       `Prelude.seq` Prelude.rnf httpStatus

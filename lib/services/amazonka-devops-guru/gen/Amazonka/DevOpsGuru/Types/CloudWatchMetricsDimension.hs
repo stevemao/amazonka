@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.Types.CloudWatchMetricsDimension
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.DevOpsGuru.Types.CloudWatchMetricsDimension where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The dimension of a Amazon CloudWatch metric that is used when DevOps
+-- | The dimension of an Amazon CloudWatch metric that is used when DevOps
 -- Guru analyzes the resources in your account for operational problems and
 -- anomalous behavior. A dimension is a name\/value pair that is part of
 -- the identity of a metric. A metric can have up to 10 dimensions. For
@@ -33,10 +34,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newCloudWatchMetricsDimension' smart constructor.
 data CloudWatchMetricsDimension = CloudWatchMetricsDimension'
-  { -- | The value of the CloudWatch dimension.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The name of the CloudWatch dimension.
-    name :: Prelude.Maybe Prelude.Text
+  { -- | The name of the CloudWatch dimension.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The value of the CloudWatch dimension.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,40 +49,39 @@ data CloudWatchMetricsDimension = CloudWatchMetricsDimension'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'cloudWatchMetricsDimension_value' - The value of the CloudWatch dimension.
---
 -- 'name', 'cloudWatchMetricsDimension_name' - The name of the CloudWatch dimension.
+--
+-- 'value', 'cloudWatchMetricsDimension_value' - The value of the CloudWatch dimension.
 newCloudWatchMetricsDimension ::
   CloudWatchMetricsDimension
 newCloudWatchMetricsDimension =
   CloudWatchMetricsDimension'
-    { value =
-        Prelude.Nothing,
-      name = Prelude.Nothing
+    { name = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The value of the CloudWatch dimension.
-cloudWatchMetricsDimension_value :: Lens.Lens' CloudWatchMetricsDimension (Prelude.Maybe Prelude.Text)
-cloudWatchMetricsDimension_value = Lens.lens (\CloudWatchMetricsDimension' {value} -> value) (\s@CloudWatchMetricsDimension' {} a -> s {value = a} :: CloudWatchMetricsDimension)
 
 -- | The name of the CloudWatch dimension.
 cloudWatchMetricsDimension_name :: Lens.Lens' CloudWatchMetricsDimension (Prelude.Maybe Prelude.Text)
 cloudWatchMetricsDimension_name = Lens.lens (\CloudWatchMetricsDimension' {name} -> name) (\s@CloudWatchMetricsDimension' {} a -> s {name = a} :: CloudWatchMetricsDimension)
 
-instance Core.FromJSON CloudWatchMetricsDimension where
+-- | The value of the CloudWatch dimension.
+cloudWatchMetricsDimension_value :: Lens.Lens' CloudWatchMetricsDimension (Prelude.Maybe Prelude.Text)
+cloudWatchMetricsDimension_value = Lens.lens (\CloudWatchMetricsDimension' {value} -> value) (\s@CloudWatchMetricsDimension' {} a -> s {value = a} :: CloudWatchMetricsDimension)
+
+instance Data.FromJSON CloudWatchMetricsDimension where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CloudWatchMetricsDimension"
       ( \x ->
           CloudWatchMetricsDimension'
-            Prelude.<$> (x Core..:? "Value") Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Name") Prelude.<*> (x Data..:? "Value")
       )
 
 instance Prelude.Hashable CloudWatchMetricsDimension where
   hashWithSalt _salt CloudWatchMetricsDimension' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData CloudWatchMetricsDimension where
   rnf CloudWatchMetricsDimension' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name `Prelude.seq` Prelude.rnf value

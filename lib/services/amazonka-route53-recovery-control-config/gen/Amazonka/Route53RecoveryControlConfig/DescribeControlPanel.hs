@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryControlConfig.DescribeControlPanel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.Route53RecoveryControlConfig.DescribeControlPanel
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -48,8 +49,7 @@ import Amazonka.Route53RecoveryControlConfig.Types
 
 -- | /See:/ 'newDescribeControlPanel' smart constructor.
 data DescribeControlPanel = DescribeControlPanel'
-  { -- | The Amazon Resource Name (ARN) of the control panel that you\'re getting
-    -- details for.
+  { -- | The Amazon Resource Name (ARN) of the control panel.
     controlPanelArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -62,8 +62,7 @@ data DescribeControlPanel = DescribeControlPanel'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'controlPanelArn', 'describeControlPanel_controlPanelArn' - The Amazon Resource Name (ARN) of the control panel that you\'re getting
--- details for.
+-- 'controlPanelArn', 'describeControlPanel_controlPanelArn' - The Amazon Resource Name (ARN) of the control panel.
 newDescribeControlPanel ::
   -- | 'controlPanelArn'
   Prelude.Text ->
@@ -74,8 +73,7 @@ newDescribeControlPanel pControlPanelArn_ =
         pControlPanelArn_
     }
 
--- | The Amazon Resource Name (ARN) of the control panel that you\'re getting
--- details for.
+-- | The Amazon Resource Name (ARN) of the control panel.
 describeControlPanel_controlPanelArn :: Lens.Lens' DescribeControlPanel Prelude.Text
 describeControlPanel_controlPanelArn = Lens.lens (\DescribeControlPanel' {controlPanelArn} -> controlPanelArn) (\s@DescribeControlPanel' {} a -> s {controlPanelArn = a} :: DescribeControlPanel)
 
@@ -83,12 +81,13 @@ instance Core.AWSRequest DescribeControlPanel where
   type
     AWSResponse DescribeControlPanel =
       DescribeControlPanelResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeControlPanelResponse'
-            Prelude.<$> (x Core..?> "ControlPanel")
+            Prelude.<$> (x Data..?> "ControlPanel")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -100,23 +99,23 @@ instance Prelude.NFData DescribeControlPanel where
   rnf DescribeControlPanel' {..} =
     Prelude.rnf controlPanelArn
 
-instance Core.ToHeaders DescribeControlPanel where
+instance Data.ToHeaders DescribeControlPanel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeControlPanel where
+instance Data.ToPath DescribeControlPanel where
   toPath DescribeControlPanel' {..} =
     Prelude.mconcat
-      ["/controlpanel/", Core.toBS controlPanelArn]
+      ["/controlpanel/", Data.toBS controlPanelArn]
 
-instance Core.ToQuery DescribeControlPanel where
+instance Data.ToQuery DescribeControlPanel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeControlPanelResponse' smart constructor.

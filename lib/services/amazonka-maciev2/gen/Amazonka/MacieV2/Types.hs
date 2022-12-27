@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,25 +18,44 @@ module Amazonka.MacieV2.Types
     defaultService,
 
     -- * Errors
-    _ValidationException,
     _AccessDeniedException,
     _ConflictException,
-    _ServiceQuotaExceededException,
-    _ThrottlingException,
     _InternalServerException,
     _ResourceNotFoundException,
+    _ServiceQuotaExceededException,
+    _ThrottlingException,
+    _UnprocessableEntityException,
+    _ValidationException,
 
     -- * AdminStatus
     AdminStatus (..),
 
+    -- * AllowListStatusCode
+    AllowListStatusCode (..),
+
     -- * AllowsUnencryptedObjectUploads
     AllowsUnencryptedObjectUploads (..),
+
+    -- * AutomatedDiscoveryStatus
+    AutomatedDiscoveryStatus (..),
+
+    -- * AvailabilityCode
+    AvailabilityCode (..),
 
     -- * BucketMetadataErrorCode
     BucketMetadataErrorCode (..),
 
+    -- * ClassificationScopeUpdateOperation
+    ClassificationScopeUpdateOperation (..),
+
     -- * Currency
     Currency (..),
+
+    -- * DataIdentifierSeverity
+    DataIdentifierSeverity (..),
+
+    -- * DataIdentifierType
+    DataIdentifierType (..),
 
     -- * DayOfWeek
     DayOfWeek (..),
@@ -103,8 +123,17 @@ module Amazonka.MacieV2.Types
     -- * OrderBy
     OrderBy (..),
 
+    -- * OriginType
+    OriginType (..),
+
     -- * RelationshipStatus
     RelationshipStatus (..),
+
+    -- * RevealRequestStatus
+    RevealRequestStatus (..),
+
+    -- * RevealStatus
+    RevealStatus (..),
 
     -- * ScopeFilterKey
     ScopeFilterKey (..),
@@ -142,6 +171,9 @@ module Amazonka.MacieV2.Types
     -- * Type
     Type (..),
 
+    -- * UnavailabilityReasonCode
+    UnavailabilityReasonCode (..),
+
     -- * Unit
     Unit (..),
 
@@ -163,8 +195,8 @@ module Amazonka.MacieV2.Types
     -- * AccessControlList
     AccessControlList (..),
     newAccessControlList,
-    accessControlList_allowsPublicWriteAccess,
     accessControlList_allowsPublicReadAccess,
+    accessControlList_allowsPublicWriteAccess,
 
     -- * AccountDetail
     AccountDetail (..),
@@ -180,31 +212,53 @@ module Amazonka.MacieV2.Types
     -- * AdminAccount
     AdminAccount (..),
     newAdminAccount,
-    adminAccount_status,
     adminAccount_accountId,
+    adminAccount_status,
+
+    -- * AllowListCriteria
+    AllowListCriteria (..),
+    newAllowListCriteria,
+    allowListCriteria_regex,
+    allowListCriteria_s3WordsList,
+
+    -- * AllowListStatus
+    AllowListStatus (..),
+    newAllowListStatus,
+    allowListStatus_description,
+    allowListStatus_code,
+
+    -- * AllowListSummary
+    AllowListSummary (..),
+    newAllowListSummary,
+    allowListSummary_arn,
+    allowListSummary_createdAt,
+    allowListSummary_description,
+    allowListSummary_id,
+    allowListSummary_name,
+    allowListSummary_updatedAt,
 
     -- * ApiCallDetails
     ApiCallDetails (..),
     newApiCallDetails,
-    apiCallDetails_firstSeen,
-    apiCallDetails_apiServiceName,
-    apiCallDetails_lastSeen,
     apiCallDetails_api,
+    apiCallDetails_apiServiceName,
+    apiCallDetails_firstSeen,
+    apiCallDetails_lastSeen,
 
     -- * AssumedRole
     AssumedRole (..),
     newAssumedRole,
-    assumedRole_principalId,
-    assumedRole_arn,
-    assumedRole_sessionContext,
-    assumedRole_accountId,
     assumedRole_accessKeyId,
+    assumedRole_accountId,
+    assumedRole_arn,
+    assumedRole_principalId,
+    assumedRole_sessionContext,
 
     -- * AwsAccount
     AwsAccount (..),
     newAwsAccount,
-    awsAccount_principalId,
     awsAccount_accountId,
+    awsAccount_principalId,
 
     -- * AwsService
     AwsService (..),
@@ -216,60 +270,60 @@ module Amazonka.MacieV2.Types
     newBatchGetCustomDataIdentifierSummary,
     batchGetCustomDataIdentifierSummary_arn,
     batchGetCustomDataIdentifierSummary_createdAt,
-    batchGetCustomDataIdentifierSummary_name,
-    batchGetCustomDataIdentifierSummary_id,
     batchGetCustomDataIdentifierSummary_deleted,
     batchGetCustomDataIdentifierSummary_description,
+    batchGetCustomDataIdentifierSummary_id,
+    batchGetCustomDataIdentifierSummary_name,
 
     -- * BlockPublicAccess
     BlockPublicAccess (..),
     newBlockPublicAccess,
-    blockPublicAccess_ignorePublicAcls,
     blockPublicAccess_blockPublicAcls,
-    blockPublicAccess_restrictPublicBuckets,
     blockPublicAccess_blockPublicPolicy,
+    blockPublicAccess_ignorePublicAcls,
+    blockPublicAccess_restrictPublicBuckets,
 
     -- * BucketCountByEffectivePermission
     BucketCountByEffectivePermission (..),
     newBucketCountByEffectivePermission,
     bucketCountByEffectivePermission_publiclyAccessible,
-    bucketCountByEffectivePermission_unknown,
     bucketCountByEffectivePermission_publiclyReadable,
     bucketCountByEffectivePermission_publiclyWritable,
+    bucketCountByEffectivePermission_unknown,
 
     -- * BucketCountByEncryptionType
     BucketCountByEncryptionType (..),
     newBucketCountByEncryptionType,
-    bucketCountByEncryptionType_unknown,
+    bucketCountByEncryptionType_kmsManaged,
     bucketCountByEncryptionType_s3Managed,
     bucketCountByEncryptionType_unencrypted,
-    bucketCountByEncryptionType_kmsManaged,
+    bucketCountByEncryptionType_unknown,
 
     -- * BucketCountBySharedAccessType
     BucketCountBySharedAccessType (..),
     newBucketCountBySharedAccessType,
-    bucketCountBySharedAccessType_notShared,
-    bucketCountBySharedAccessType_internal,
     bucketCountBySharedAccessType_external,
+    bucketCountBySharedAccessType_internal,
+    bucketCountBySharedAccessType_notShared,
     bucketCountBySharedAccessType_unknown,
 
     -- * BucketCountPolicyAllowsUnencryptedObjectUploads
     BucketCountPolicyAllowsUnencryptedObjectUploads (..),
     newBucketCountPolicyAllowsUnencryptedObjectUploads,
+    bucketCountPolicyAllowsUnencryptedObjectUploads_allowsUnencryptedObjectUploads,
     bucketCountPolicyAllowsUnencryptedObjectUploads_deniesUnencryptedObjectUploads,
     bucketCountPolicyAllowsUnencryptedObjectUploads_unknown,
-    bucketCountPolicyAllowsUnencryptedObjectUploads_allowsUnencryptedObjectUploads,
 
     -- * BucketCriteriaAdditionalProperties
     BucketCriteriaAdditionalProperties (..),
     newBucketCriteriaAdditionalProperties,
     bucketCriteriaAdditionalProperties_eq,
-    bucketCriteriaAdditionalProperties_lte,
-    bucketCriteriaAdditionalProperties_prefix,
     bucketCriteriaAdditionalProperties_gt,
-    bucketCriteriaAdditionalProperties_neq,
-    bucketCriteriaAdditionalProperties_lt,
     bucketCriteriaAdditionalProperties_gte,
+    bucketCriteriaAdditionalProperties_lt,
+    bucketCriteriaAdditionalProperties_lte,
+    bucketCriteriaAdditionalProperties_neq,
+    bucketCriteriaAdditionalProperties_prefix,
 
     -- * BucketLevelPermissions
     BucketLevelPermissions (..),
@@ -281,48 +335,50 @@ module Amazonka.MacieV2.Types
     -- * BucketMetadata
     BucketMetadata (..),
     newBucketMetadata,
-    bucketMetadata_sizeInBytesCompressed,
-    bucketMetadata_lastUpdated,
-    bucketMetadata_objectCountByEncryptionType,
-    bucketMetadata_sharedAccess,
-    bucketMetadata_sizeInBytes,
+    bucketMetadata_accountId,
+    bucketMetadata_allowsUnencryptedObjectUploads,
+    bucketMetadata_bucketArn,
+    bucketMetadata_bucketCreatedAt,
     bucketMetadata_bucketName,
     bucketMetadata_classifiableObjectCount,
-    bucketMetadata_accountId,
-    bucketMetadata_unclassifiableObjectSizeInBytes,
-    bucketMetadata_unclassifiableObjectCount,
-    bucketMetadata_versioning,
-    bucketMetadata_allowsUnencryptedObjectUploads,
-    bucketMetadata_publicAccess,
-    bucketMetadata_errorCode,
-    bucketMetadata_jobDetails,
-    bucketMetadata_region,
-    bucketMetadata_bucketCreatedAt,
-    bucketMetadata_errorMessage,
-    bucketMetadata_bucketArn,
-    bucketMetadata_objectCount,
-    bucketMetadata_replicationDetails,
-    bucketMetadata_serverSideEncryption,
-    bucketMetadata_tags,
     bucketMetadata_classifiableSizeInBytes,
+    bucketMetadata_errorCode,
+    bucketMetadata_errorMessage,
+    bucketMetadata_jobDetails,
+    bucketMetadata_lastAutomatedDiscoveryTime,
+    bucketMetadata_lastUpdated,
+    bucketMetadata_objectCount,
+    bucketMetadata_objectCountByEncryptionType,
+    bucketMetadata_publicAccess,
+    bucketMetadata_region,
+    bucketMetadata_replicationDetails,
+    bucketMetadata_sensitivityScore,
+    bucketMetadata_serverSideEncryption,
+    bucketMetadata_sharedAccess,
+    bucketMetadata_sizeInBytes,
+    bucketMetadata_sizeInBytesCompressed,
+    bucketMetadata_tags,
+    bucketMetadata_unclassifiableObjectCount,
+    bucketMetadata_unclassifiableObjectSizeInBytes,
+    bucketMetadata_versioning,
 
     -- * BucketPermissionConfiguration
     BucketPermissionConfiguration (..),
     newBucketPermissionConfiguration,
-    bucketPermissionConfiguration_bucketLevelPermissions,
     bucketPermissionConfiguration_accountLevelPermissions,
+    bucketPermissionConfiguration_bucketLevelPermissions,
 
     -- * BucketPolicy
     BucketPolicy (..),
     newBucketPolicy,
-    bucketPolicy_allowsPublicWriteAccess,
     bucketPolicy_allowsPublicReadAccess,
+    bucketPolicy_allowsPublicWriteAccess,
 
     -- * BucketPublicAccess
     BucketPublicAccess (..),
     newBucketPublicAccess,
-    bucketPublicAccess_permissionConfiguration,
     bucketPublicAccess_effectivePermission,
+    bucketPublicAccess_permissionConfiguration,
 
     -- * BucketServerSideEncryption
     BucketServerSideEncryption (..),
@@ -333,23 +389,32 @@ module Amazonka.MacieV2.Types
     -- * BucketSortCriteria
     BucketSortCriteria (..),
     newBucketSortCriteria,
-    bucketSortCriteria_orderBy,
     bucketSortCriteria_attributeName,
+    bucketSortCriteria_orderBy,
+
+    -- * BucketStatisticsBySensitivity
+    BucketStatisticsBySensitivity (..),
+    newBucketStatisticsBySensitivity,
+    bucketStatisticsBySensitivity_classificationError,
+    bucketStatisticsBySensitivity_notClassified,
+    bucketStatisticsBySensitivity_notSensitive,
+    bucketStatisticsBySensitivity_sensitive,
 
     -- * Cell
     Cell (..),
     newCell,
-    cell_row,
     cell_cellReference,
     cell_column,
     cell_columnName,
+    cell_row,
 
     -- * ClassificationDetails
     ClassificationDetails (..),
     newClassificationDetails,
     classificationDetails_detailedResultsLocation,
-    classificationDetails_jobId,
     classificationDetails_jobArn,
+    classificationDetails_jobId,
+    classificationDetails_originType,
     classificationDetails_result,
 
     -- * ClassificationExportConfiguration
@@ -360,18 +425,24 @@ module Amazonka.MacieV2.Types
     -- * ClassificationResult
     ClassificationResult (..),
     newClassificationResult,
-    classificationResult_sensitiveData,
-    classificationResult_status,
-    classificationResult_mimeType,
-    classificationResult_sizeClassified,
     classificationResult_additionalOccurrences,
     classificationResult_customDataIdentifiers,
+    classificationResult_mimeType,
+    classificationResult_sensitiveData,
+    classificationResult_sizeClassified,
+    classificationResult_status,
 
     -- * ClassificationResultStatus
     ClassificationResultStatus (..),
     newClassificationResultStatus,
-    classificationResultStatus_reason,
     classificationResultStatus_code,
+    classificationResultStatus_reason,
+
+    -- * ClassificationScopeSummary
+    ClassificationScopeSummary (..),
+    newClassificationScopeSummary,
+    classificationScopeSummary_id,
+    classificationScopeSummary_name,
 
     -- * CriteriaBlockForJob
     CriteriaBlockForJob (..),
@@ -381,28 +452,28 @@ module Amazonka.MacieV2.Types
     -- * CriteriaForJob
     CriteriaForJob (..),
     newCriteriaForJob,
-    criteriaForJob_tagCriterion,
     criteriaForJob_simpleCriterion,
+    criteriaForJob_tagCriterion,
 
     -- * CriterionAdditionalProperties
     CriterionAdditionalProperties (..),
     newCriterionAdditionalProperties,
     criterionAdditionalProperties_eq,
-    criterionAdditionalProperties_lte,
-    criterionAdditionalProperties_gt,
     criterionAdditionalProperties_eqExactMatch,
-    criterionAdditionalProperties_neq,
-    criterionAdditionalProperties_lt,
+    criterionAdditionalProperties_gt,
     criterionAdditionalProperties_gte,
+    criterionAdditionalProperties_lt,
+    criterionAdditionalProperties_lte,
+    criterionAdditionalProperties_neq,
 
     -- * CustomDataIdentifierSummary
     CustomDataIdentifierSummary (..),
     newCustomDataIdentifierSummary,
     customDataIdentifierSummary_arn,
     customDataIdentifierSummary_createdAt,
-    customDataIdentifierSummary_name,
-    customDataIdentifierSummary_id,
     customDataIdentifierSummary_description,
+    customDataIdentifierSummary_id,
+    customDataIdentifierSummary_name,
 
     -- * CustomDataIdentifiers
     CustomDataIdentifiers (..),
@@ -413,10 +484,10 @@ module Amazonka.MacieV2.Types
     -- * CustomDetection
     CustomDetection (..),
     newCustomDetection,
-    customDetection_occurrences,
     customDetection_arn,
     customDetection_count,
     customDetection_name,
+    customDetection_occurrences,
 
     -- * DailySchedule
     DailySchedule (..),
@@ -425,9 +496,24 @@ module Amazonka.MacieV2.Types
     -- * DefaultDetection
     DefaultDetection (..),
     newDefaultDetection,
-    defaultDetection_occurrences,
     defaultDetection_count,
+    defaultDetection_occurrences,
     defaultDetection_type,
+
+    -- * DetectedDataDetails
+    DetectedDataDetails (..),
+    newDetectedDataDetails,
+    detectedDataDetails_value,
+
+    -- * Detection
+    Detection (..),
+    newDetection,
+    detection_arn,
+    detection_count,
+    detection_id,
+    detection_name,
+    detection_suppressed,
+    detection_type,
 
     -- * DomainDetails
     DomainDetails (..),
@@ -437,46 +523,46 @@ module Amazonka.MacieV2.Types
     -- * FederatedUser
     FederatedUser (..),
     newFederatedUser,
-    federatedUser_principalId,
-    federatedUser_arn,
-    federatedUser_sessionContext,
-    federatedUser_accountId,
     federatedUser_accessKeyId,
+    federatedUser_accountId,
+    federatedUser_arn,
+    federatedUser_principalId,
+    federatedUser_sessionContext,
 
     -- * Finding
     Finding (..),
     newFinding,
-    finding_classificationDetails,
-    finding_policyDetails,
-    finding_createdAt,
-    finding_category,
-    finding_severity,
-    finding_count,
-    finding_schemaVersion,
-    finding_resourcesAffected,
     finding_accountId,
-    finding_partition,
+    finding_archived,
+    finding_category,
+    finding_classificationDetails,
+    finding_count,
+    finding_createdAt,
+    finding_description,
     finding_id,
+    finding_partition,
+    finding_policyDetails,
     finding_region,
-    finding_updatedAt,
+    finding_resourcesAffected,
+    finding_sample,
+    finding_schemaVersion,
+    finding_severity,
     finding_title,
     finding_type,
-    finding_archived,
-    finding_description,
-    finding_sample,
+    finding_updatedAt,
 
     -- * FindingAction
     FindingAction (..),
     newFindingAction,
-    findingAction_apiCallDetails,
     findingAction_actionType,
+    findingAction_apiCallDetails,
 
     -- * FindingActor
     FindingActor (..),
     newFindingActor,
-    findingActor_userIdentity,
-    findingActor_ipAddressDetails,
     findingActor_domainDetails,
+    findingActor_ipAddressDetails,
+    findingActor_userIdentity,
 
     -- * FindingCriteria
     FindingCriteria (..),
@@ -486,48 +572,48 @@ module Amazonka.MacieV2.Types
     -- * FindingStatisticsSortCriteria
     FindingStatisticsSortCriteria (..),
     newFindingStatisticsSortCriteria,
-    findingStatisticsSortCriteria_orderBy,
     findingStatisticsSortCriteria_attributeName,
+    findingStatisticsSortCriteria_orderBy,
 
     -- * FindingsFilterListItem
     FindingsFilterListItem (..),
     newFindingsFilterListItem,
-    findingsFilterListItem_arn,
     findingsFilterListItem_action,
-    findingsFilterListItem_name,
+    findingsFilterListItem_arn,
     findingsFilterListItem_id,
+    findingsFilterListItem_name,
     findingsFilterListItem_tags,
 
     -- * GroupCount
     GroupCount (..),
     newGroupCount,
-    groupCount_groupKey,
     groupCount_count,
+    groupCount_groupKey,
 
     -- * IamUser
     IamUser (..),
     newIamUser,
-    iamUser_principalId,
-    iamUser_arn,
-    iamUser_userName,
     iamUser_accountId,
+    iamUser_arn,
+    iamUser_principalId,
+    iamUser_userName,
 
     -- * Invitation
     Invitation (..),
     newInvitation,
-    invitation_relationshipStatus,
-    invitation_invitedAt,
-    invitation_invitationId,
     invitation_accountId,
+    invitation_invitationId,
+    invitation_invitedAt,
+    invitation_relationshipStatus,
 
     -- * IpAddressDetails
     IpAddressDetails (..),
     newIpAddressDetails,
-    ipAddressDetails_ipCity,
-    ipAddressDetails_ipGeoLocation,
     ipAddressDetails_ipAddressV4,
-    ipAddressDetails_ipOwner,
+    ipAddressDetails_ipCity,
     ipAddressDetails_ipCountry,
+    ipAddressDetails_ipGeoLocation,
+    ipAddressDetails_ipOwner,
 
     -- * IpCity
     IpCity (..),
@@ -537,8 +623,8 @@ module Amazonka.MacieV2.Types
     -- * IpCountry
     IpCountry (..),
     newIpCountry,
-    ipCountry_name,
     ipCountry_code,
+    ipCountry_name,
 
     -- * IpGeoLocation
     IpGeoLocation (..),
@@ -549,16 +635,16 @@ module Amazonka.MacieV2.Types
     -- * IpOwner
     IpOwner (..),
     newIpOwner,
-    ipOwner_org,
-    ipOwner_asnOrg,
     ipOwner_asn,
+    ipOwner_asnOrg,
     ipOwner_isp,
+    ipOwner_org,
 
     -- * JobDetails
     JobDetails (..),
     newJobDetails,
-    jobDetails_isMonitoredByJob,
     jobDetails_isDefinedInJob,
+    jobDetails_isMonitoredByJob,
     jobDetails_lastJobId,
     jobDetails_lastJobRunTime,
 
@@ -583,21 +669,21 @@ module Amazonka.MacieV2.Types
     -- * JobSummary
     JobSummary (..),
     newJobSummary,
-    jobSummary_lastRunErrorStatus,
-    jobSummary_jobType,
-    jobSummary_jobId,
-    jobSummary_createdAt,
-    jobSummary_userPausedDetails,
     jobSummary_bucketCriteria,
-    jobSummary_name,
     jobSummary_bucketDefinitions,
+    jobSummary_createdAt,
+    jobSummary_jobId,
     jobSummary_jobStatus,
+    jobSummary_jobType,
+    jobSummary_lastRunErrorStatus,
+    jobSummary_name,
+    jobSummary_userPausedDetails,
 
     -- * KeyValuePair
     KeyValuePair (..),
     newKeyValuePair,
-    keyValuePair_value,
     keyValuePair_key,
+    keyValuePair_value,
 
     -- * LastRunErrorStatus
     LastRunErrorStatus (..),
@@ -607,21 +693,21 @@ module Amazonka.MacieV2.Types
     -- * ListJobsFilterCriteria
     ListJobsFilterCriteria (..),
     newListJobsFilterCriteria,
-    listJobsFilterCriteria_includes,
     listJobsFilterCriteria_excludes,
+    listJobsFilterCriteria_includes,
 
     -- * ListJobsFilterTerm
     ListJobsFilterTerm (..),
     newListJobsFilterTerm,
-    listJobsFilterTerm_values,
-    listJobsFilterTerm_key,
     listJobsFilterTerm_comparator,
+    listJobsFilterTerm_key,
+    listJobsFilterTerm_values,
 
     -- * ListJobsSortCriteria
     ListJobsSortCriteria (..),
     newListJobsSortCriteria,
-    listJobsSortCriteria_orderBy,
     listJobsSortCriteria_attributeName,
+    listJobsSortCriteria_orderBy,
 
     -- * ManagedDataIdentifierSummary
     ManagedDataIdentifierSummary (..),
@@ -632,19 +718,21 @@ module Amazonka.MacieV2.Types
     -- * MatchingBucket
     MatchingBucket (..),
     newMatchingBucket,
-    matchingBucket_sizeInBytesCompressed,
-    matchingBucket_objectCountByEncryptionType,
-    matchingBucket_sizeInBytes,
+    matchingBucket_accountId,
     matchingBucket_bucketName,
     matchingBucket_classifiableObjectCount,
-    matchingBucket_accountId,
-    matchingBucket_unclassifiableObjectSizeInBytes,
-    matchingBucket_unclassifiableObjectCount,
-    matchingBucket_errorCode,
-    matchingBucket_jobDetails,
-    matchingBucket_errorMessage,
-    matchingBucket_objectCount,
     matchingBucket_classifiableSizeInBytes,
+    matchingBucket_errorCode,
+    matchingBucket_errorMessage,
+    matchingBucket_jobDetails,
+    matchingBucket_lastAutomatedDiscoveryTime,
+    matchingBucket_objectCount,
+    matchingBucket_objectCountByEncryptionType,
+    matchingBucket_sensitivityScore,
+    matchingBucket_sizeInBytes,
+    matchingBucket_sizeInBytesCompressed,
+    matchingBucket_unclassifiableObjectCount,
+    matchingBucket_unclassifiableObjectSizeInBytes,
 
     -- * MatchingResource
     MatchingResource (..),
@@ -654,15 +742,15 @@ module Amazonka.MacieV2.Types
     -- * Member
     Member (..),
     newMember,
-    member_email,
+    member_accountId,
     member_administratorAccountId,
     member_arn,
-    member_relationshipStatus,
-    member_masterAccountId,
+    member_email,
     member_invitedAt,
-    member_accountId,
-    member_updatedAt,
+    member_masterAccountId,
+    member_relationshipStatus,
     member_tags,
+    member_updatedAt,
 
     -- * MonthlySchedule
     MonthlySchedule (..),
@@ -672,11 +760,11 @@ module Amazonka.MacieV2.Types
     -- * ObjectCountByEncryptionType
     ObjectCountByEncryptionType (..),
     newObjectCountByEncryptionType,
-    objectCountByEncryptionType_unknown,
+    objectCountByEncryptionType_customerManaged,
+    objectCountByEncryptionType_kmsManaged,
     objectCountByEncryptionType_s3Managed,
     objectCountByEncryptionType_unencrypted,
-    objectCountByEncryptionType_kmsManaged,
-    objectCountByEncryptionType_customerManaged,
+    objectCountByEncryptionType_unknown,
 
     -- * ObjectLevelStatistics
     ObjectLevelStatistics (..),
@@ -688,30 +776,30 @@ module Amazonka.MacieV2.Types
     -- * Occurrences
     Occurrences (..),
     newOccurrences,
-    occurrences_lineRanges,
     occurrences_cells,
+    occurrences_lineRanges,
+    occurrences_offsetRanges,
     occurrences_pages,
     occurrences_records,
-    occurrences_offsetRanges,
 
     -- * Page
     Page (..),
     newPage,
-    page_offsetRange,
     page_lineRange,
+    page_offsetRange,
     page_pageNumber,
 
     -- * PolicyDetails
     PolicyDetails (..),
     newPolicyDetails,
-    policyDetails_actor,
     policyDetails_action,
+    policyDetails_actor,
 
     -- * Range
     Range (..),
     newRange,
-    range_start,
     range_end,
+    range_start,
     range_startColumn,
 
     -- * Record
@@ -724,32 +812,58 @@ module Amazonka.MacieV2.Types
     ReplicationDetails (..),
     newReplicationDetails,
     replicationDetails_replicated,
-    replicationDetails_replicationAccounts,
     replicationDetails_replicatedExternally,
+    replicationDetails_replicationAccounts,
+
+    -- * ResourceProfileArtifact
+    ResourceProfileArtifact (..),
+    newResourceProfileArtifact,
+    resourceProfileArtifact_sensitive,
+    resourceProfileArtifact_classificationResultStatus,
+    resourceProfileArtifact_arn,
+
+    -- * ResourceStatistics
+    ResourceStatistics (..),
+    newResourceStatistics,
+    resourceStatistics_totalBytesClassified,
+    resourceStatistics_totalDetections,
+    resourceStatistics_totalDetectionsSuppressed,
+    resourceStatistics_totalItemsClassified,
+    resourceStatistics_totalItemsSensitive,
+    resourceStatistics_totalItemsSkipped,
+    resourceStatistics_totalItemsSkippedInvalidEncryption,
+    resourceStatistics_totalItemsSkippedInvalidKms,
+    resourceStatistics_totalItemsSkippedPermissionDenied,
 
     -- * ResourcesAffected
     ResourcesAffected (..),
     newResourcesAffected,
-    resourcesAffected_s3Object,
     resourcesAffected_s3Bucket,
+    resourcesAffected_s3Object,
+
+    -- * RevealConfiguration
+    RevealConfiguration (..),
+    newRevealConfiguration,
+    revealConfiguration_kmsKeyId,
+    revealConfiguration_status,
 
     -- * S3Bucket
     S3Bucket (..),
     newS3Bucket,
+    s3Bucket_allowsUnencryptedObjectUploads,
     s3Bucket_arn,
     s3Bucket_createdAt,
-    s3Bucket_owner,
-    s3Bucket_name,
     s3Bucket_defaultServerSideEncryption,
-    s3Bucket_allowsUnencryptedObjectUploads,
+    s3Bucket_name,
+    s3Bucket_owner,
     s3Bucket_publicAccess,
     s3Bucket_tags,
 
     -- * S3BucketCriteriaForJob
     S3BucketCriteriaForJob (..),
     newS3BucketCriteriaForJob,
-    s3BucketCriteriaForJob_includes,
     s3BucketCriteriaForJob_excludes,
+    s3BucketCriteriaForJob_includes,
 
     -- * S3BucketDefinitionForJob
     S3BucketDefinitionForJob (..),
@@ -763,6 +877,27 @@ module Amazonka.MacieV2.Types
     s3BucketOwner_displayName,
     s3BucketOwner_id,
 
+    -- * S3ClassificationScope
+    S3ClassificationScope (..),
+    newS3ClassificationScope,
+    s3ClassificationScope_excludes,
+
+    -- * S3ClassificationScopeExclusion
+    S3ClassificationScopeExclusion (..),
+    newS3ClassificationScopeExclusion,
+    s3ClassificationScopeExclusion_bucketNames,
+
+    -- * S3ClassificationScopeExclusionUpdate
+    S3ClassificationScopeExclusionUpdate (..),
+    newS3ClassificationScopeExclusionUpdate,
+    s3ClassificationScopeExclusionUpdate_bucketNames,
+    s3ClassificationScopeExclusionUpdate_operation,
+
+    -- * S3ClassificationScopeUpdate
+    S3ClassificationScopeUpdate (..),
+    newS3ClassificationScopeUpdate,
+    s3ClassificationScopeUpdate_excludes,
+
     -- * S3Destination
     S3Destination (..),
     newS3Destination,
@@ -773,43 +908,49 @@ module Amazonka.MacieV2.Types
     -- * S3JobDefinition
     S3JobDefinition (..),
     newS3JobDefinition,
-    s3JobDefinition_scoping,
     s3JobDefinition_bucketCriteria,
     s3JobDefinition_bucketDefinitions,
+    s3JobDefinition_scoping,
 
     -- * S3Object
     S3Object (..),
     newS3Object,
+    s3Object_bucketArn,
     s3Object_eTag,
-    s3Object_versionId,
-    s3Object_path,
-    s3Object_size,
     s3Object_extension,
     s3Object_key,
-    s3Object_storageClass,
-    s3Object_publicAccess,
     s3Object_lastModified,
-    s3Object_bucketArn,
+    s3Object_path,
+    s3Object_publicAccess,
     s3Object_serverSideEncryption,
+    s3Object_size,
+    s3Object_storageClass,
     s3Object_tags,
+    s3Object_versionId,
+
+    -- * S3WordsList
+    S3WordsList (..),
+    newS3WordsList,
+    s3WordsList_bucketName,
+    s3WordsList_objectKey,
 
     -- * Scoping
     Scoping (..),
     newScoping,
-    scoping_includes,
     scoping_excludes,
+    scoping_includes,
 
     -- * SearchResourcesBucketCriteria
     SearchResourcesBucketCriteria (..),
     newSearchResourcesBucketCriteria,
-    searchResourcesBucketCriteria_includes,
     searchResourcesBucketCriteria_excludes,
+    searchResourcesBucketCriteria_includes,
 
     -- * SearchResourcesCriteria
     SearchResourcesCriteria (..),
     newSearchResourcesCriteria,
-    searchResourcesCriteria_tagCriterion,
     searchResourcesCriteria_simpleCriterion,
+    searchResourcesCriteria_tagCriterion,
 
     -- * SearchResourcesCriteriaBlock
     SearchResourcesCriteriaBlock (..),
@@ -819,27 +960,27 @@ module Amazonka.MacieV2.Types
     -- * SearchResourcesSimpleCriterion
     SearchResourcesSimpleCriterion (..),
     newSearchResourcesSimpleCriterion,
-    searchResourcesSimpleCriterion_values,
-    searchResourcesSimpleCriterion_key,
     searchResourcesSimpleCriterion_comparator,
+    searchResourcesSimpleCriterion_key,
+    searchResourcesSimpleCriterion_values,
 
     -- * SearchResourcesSortCriteria
     SearchResourcesSortCriteria (..),
     newSearchResourcesSortCriteria,
-    searchResourcesSortCriteria_orderBy,
     searchResourcesSortCriteria_attributeName,
+    searchResourcesSortCriteria_orderBy,
 
     -- * SearchResourcesTagCriterion
     SearchResourcesTagCriterion (..),
     newSearchResourcesTagCriterion,
-    searchResourcesTagCriterion_tagValues,
     searchResourcesTagCriterion_comparator,
+    searchResourcesTagCriterion_tagValues,
 
     -- * SearchResourcesTagCriterionPair
     SearchResourcesTagCriterionPair (..),
     newSearchResourcesTagCriterionPair,
-    searchResourcesTagCriterionPair_value,
     searchResourcesTagCriterionPair_key,
+    searchResourcesTagCriterionPair_value,
 
     -- * SecurityHubConfiguration
     SecurityHubConfiguration (..),
@@ -850,9 +991,35 @@ module Amazonka.MacieV2.Types
     -- * SensitiveDataItem
     SensitiveDataItem (..),
     newSensitiveDataItem,
-    sensitiveDataItem_detections,
     sensitiveDataItem_category,
+    sensitiveDataItem_detections,
     sensitiveDataItem_totalCount,
+
+    -- * SensitivityAggregations
+    SensitivityAggregations (..),
+    newSensitivityAggregations,
+    sensitivityAggregations_classifiableSizeInBytes,
+    sensitivityAggregations_publiclyAccessibleCount,
+    sensitivityAggregations_totalCount,
+    sensitivityAggregations_totalSizeInBytes,
+
+    -- * SensitivityInspectionTemplateExcludes
+    SensitivityInspectionTemplateExcludes (..),
+    newSensitivityInspectionTemplateExcludes,
+    sensitivityInspectionTemplateExcludes_managedDataIdentifierIds,
+
+    -- * SensitivityInspectionTemplateIncludes
+    SensitivityInspectionTemplateIncludes (..),
+    newSensitivityInspectionTemplateIncludes,
+    sensitivityInspectionTemplateIncludes_allowListIds,
+    sensitivityInspectionTemplateIncludes_customDataIdentifierIds,
+    sensitivityInspectionTemplateIncludes_managedDataIdentifierIds,
+
+    -- * SensitivityInspectionTemplatesEntry
+    SensitivityInspectionTemplatesEntry (..),
+    newSensitivityInspectionTemplatesEntry,
+    sensitivityInspectionTemplatesEntry_id,
+    sensitivityInspectionTemplatesEntry_name,
 
     -- * ServerSideEncryption
     ServerSideEncryption (..),
@@ -864,8 +1031,8 @@ module Amazonka.MacieV2.Types
     ServiceLimit (..),
     newServiceLimit,
     serviceLimit_isServiceLimited,
-    serviceLimit_value,
     serviceLimit_unit,
+    serviceLimit_value,
 
     -- * SessionContext
     SessionContext (..),
@@ -882,37 +1049,43 @@ module Amazonka.MacieV2.Types
     -- * SessionIssuer
     SessionIssuer (..),
     newSessionIssuer,
-    sessionIssuer_principalId,
-    sessionIssuer_arn,
-    sessionIssuer_userName,
     sessionIssuer_accountId,
+    sessionIssuer_arn,
+    sessionIssuer_principalId,
     sessionIssuer_type,
+    sessionIssuer_userName,
 
     -- * Severity
     Severity (..),
     newSeverity,
-    severity_score,
     severity_description,
+    severity_score,
+
+    -- * SeverityLevel
+    SeverityLevel (..),
+    newSeverityLevel,
+    severityLevel_occurrencesThreshold,
+    severityLevel_severity,
 
     -- * SimpleCriterionForJob
     SimpleCriterionForJob (..),
     newSimpleCriterionForJob,
-    simpleCriterionForJob_values,
-    simpleCriterionForJob_key,
     simpleCriterionForJob_comparator,
+    simpleCriterionForJob_key,
+    simpleCriterionForJob_values,
 
     -- * SimpleScopeTerm
     SimpleScopeTerm (..),
     newSimpleScopeTerm,
-    simpleScopeTerm_values,
-    simpleScopeTerm_key,
     simpleScopeTerm_comparator,
+    simpleScopeTerm_key,
+    simpleScopeTerm_values,
 
     -- * SortCriteria
     SortCriteria (..),
     newSortCriteria,
-    sortCriteria_orderBy,
     sortCriteria_attributeName,
+    sortCriteria_orderBy,
 
     -- * Statistics
     Statistics (..),
@@ -920,31 +1093,37 @@ module Amazonka.MacieV2.Types
     statistics_approximateNumberOfObjectsToProcess,
     statistics_numberOfRuns,
 
+    -- * SuppressDataIdentifier
+    SuppressDataIdentifier (..),
+    newSuppressDataIdentifier,
+    suppressDataIdentifier_id,
+    suppressDataIdentifier_type,
+
     -- * TagCriterionForJob
     TagCriterionForJob (..),
     newTagCriterionForJob,
-    tagCriterionForJob_tagValues,
     tagCriterionForJob_comparator,
+    tagCriterionForJob_tagValues,
 
     -- * TagCriterionPairForJob
     TagCriterionPairForJob (..),
     newTagCriterionPairForJob,
-    tagCriterionPairForJob_value,
     tagCriterionPairForJob_key,
+    tagCriterionPairForJob_value,
 
     -- * TagScopeTerm
     TagScopeTerm (..),
     newTagScopeTerm,
-    tagScopeTerm_tagValues,
-    tagScopeTerm_key,
     tagScopeTerm_comparator,
+    tagScopeTerm_key,
+    tagScopeTerm_tagValues,
     tagScopeTerm_target,
 
     -- * TagValuePair
     TagValuePair (..),
     newTagValuePair,
-    tagValuePair_value,
     tagValuePair_key,
+    tagValuePair_value,
 
     -- * UnprocessedAccount
     UnprocessedAccount (..),
@@ -956,55 +1135,56 @@ module Amazonka.MacieV2.Types
     -- * UsageByAccount
     UsageByAccount (..),
     newUsageByAccount,
-    usageByAccount_serviceLimit,
     usageByAccount_currency,
-    usageByAccount_type,
     usageByAccount_estimatedCost,
+    usageByAccount_serviceLimit,
+    usageByAccount_type,
 
     -- * UsageRecord
     UsageRecord (..),
     newUsageRecord,
     usageRecord_accountId,
+    usageRecord_automatedDiscoveryFreeTrialStartDate,
     usageRecord_freeTrialStartDate,
     usageRecord_usage,
 
     -- * UsageStatisticsFilter
     UsageStatisticsFilter (..),
     newUsageStatisticsFilter,
-    usageStatisticsFilter_values,
-    usageStatisticsFilter_key,
     usageStatisticsFilter_comparator,
+    usageStatisticsFilter_key,
+    usageStatisticsFilter_values,
 
     -- * UsageStatisticsSortBy
     UsageStatisticsSortBy (..),
     newUsageStatisticsSortBy,
-    usageStatisticsSortBy_orderBy,
     usageStatisticsSortBy_key,
+    usageStatisticsSortBy_orderBy,
 
     -- * UsageTotal
     UsageTotal (..),
     newUsageTotal,
     usageTotal_currency,
-    usageTotal_type,
     usageTotal_estimatedCost,
+    usageTotal_type,
 
     -- * UserIdentity
     UserIdentity (..),
     newUserIdentity,
+    userIdentity_assumedRole,
+    userIdentity_awsAccount,
+    userIdentity_awsService,
+    userIdentity_federatedUser,
     userIdentity_iamUser,
     userIdentity_root,
-    userIdentity_awsAccount,
-    userIdentity_assumedRole,
-    userIdentity_federatedUser,
-    userIdentity_awsService,
     userIdentity_type,
 
     -- * UserIdentityRoot
     UserIdentityRoot (..),
     newUserIdentityRoot,
-    userIdentityRoot_principalId,
-    userIdentityRoot_arn,
     userIdentityRoot_accountId,
+    userIdentityRoot_arn,
+    userIdentityRoot_principalId,
 
     -- * UserPausedDetails
     UserPausedDetails (..),
@@ -1021,15 +1201,21 @@ module Amazonka.MacieV2.Types
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.MacieV2.Types.AccessControlList
 import Amazonka.MacieV2.Types.AccountDetail
 import Amazonka.MacieV2.Types.AccountLevelPermissions
 import Amazonka.MacieV2.Types.AdminAccount
 import Amazonka.MacieV2.Types.AdminStatus
+import Amazonka.MacieV2.Types.AllowListCriteria
+import Amazonka.MacieV2.Types.AllowListStatus
+import Amazonka.MacieV2.Types.AllowListStatusCode
+import Amazonka.MacieV2.Types.AllowListSummary
 import Amazonka.MacieV2.Types.AllowsUnencryptedObjectUploads
 import Amazonka.MacieV2.Types.ApiCallDetails
 import Amazonka.MacieV2.Types.AssumedRole
+import Amazonka.MacieV2.Types.AutomatedDiscoveryStatus
+import Amazonka.MacieV2.Types.AvailabilityCode
 import Amazonka.MacieV2.Types.AwsAccount
 import Amazonka.MacieV2.Types.AwsService
 import Amazonka.MacieV2.Types.BatchGetCustomDataIdentifierSummary
@@ -1047,11 +1233,14 @@ import Amazonka.MacieV2.Types.BucketPolicy
 import Amazonka.MacieV2.Types.BucketPublicAccess
 import Amazonka.MacieV2.Types.BucketServerSideEncryption
 import Amazonka.MacieV2.Types.BucketSortCriteria
+import Amazonka.MacieV2.Types.BucketStatisticsBySensitivity
 import Amazonka.MacieV2.Types.Cell
 import Amazonka.MacieV2.Types.ClassificationDetails
 import Amazonka.MacieV2.Types.ClassificationExportConfiguration
 import Amazonka.MacieV2.Types.ClassificationResult
 import Amazonka.MacieV2.Types.ClassificationResultStatus
+import Amazonka.MacieV2.Types.ClassificationScopeSummary
+import Amazonka.MacieV2.Types.ClassificationScopeUpdateOperation
 import Amazonka.MacieV2.Types.CriteriaBlockForJob
 import Amazonka.MacieV2.Types.CriteriaForJob
 import Amazonka.MacieV2.Types.CriterionAdditionalProperties
@@ -1060,8 +1249,12 @@ import Amazonka.MacieV2.Types.CustomDataIdentifierSummary
 import Amazonka.MacieV2.Types.CustomDataIdentifiers
 import Amazonka.MacieV2.Types.CustomDetection
 import Amazonka.MacieV2.Types.DailySchedule
+import Amazonka.MacieV2.Types.DataIdentifierSeverity
+import Amazonka.MacieV2.Types.DataIdentifierType
 import Amazonka.MacieV2.Types.DayOfWeek
 import Amazonka.MacieV2.Types.DefaultDetection
+import Amazonka.MacieV2.Types.DetectedDataDetails
+import Amazonka.MacieV2.Types.Detection
 import Amazonka.MacieV2.Types.DomainDetails
 import Amazonka.MacieV2.Types.EffectivePermission
 import Amazonka.MacieV2.Types.EncryptionType
@@ -1117,20 +1310,31 @@ import Amazonka.MacieV2.Types.ObjectCountByEncryptionType
 import Amazonka.MacieV2.Types.ObjectLevelStatistics
 import Amazonka.MacieV2.Types.Occurrences
 import Amazonka.MacieV2.Types.OrderBy
+import Amazonka.MacieV2.Types.OriginType
 import Amazonka.MacieV2.Types.Page
 import Amazonka.MacieV2.Types.PolicyDetails
 import Amazonka.MacieV2.Types.Range
 import Amazonka.MacieV2.Types.Record
 import Amazonka.MacieV2.Types.RelationshipStatus
 import Amazonka.MacieV2.Types.ReplicationDetails
+import Amazonka.MacieV2.Types.ResourceProfileArtifact
+import Amazonka.MacieV2.Types.ResourceStatistics
 import Amazonka.MacieV2.Types.ResourcesAffected
+import Amazonka.MacieV2.Types.RevealConfiguration
+import Amazonka.MacieV2.Types.RevealRequestStatus
+import Amazonka.MacieV2.Types.RevealStatus
 import Amazonka.MacieV2.Types.S3Bucket
 import Amazonka.MacieV2.Types.S3BucketCriteriaForJob
 import Amazonka.MacieV2.Types.S3BucketDefinitionForJob
 import Amazonka.MacieV2.Types.S3BucketOwner
+import Amazonka.MacieV2.Types.S3ClassificationScope
+import Amazonka.MacieV2.Types.S3ClassificationScopeExclusion
+import Amazonka.MacieV2.Types.S3ClassificationScopeExclusionUpdate
+import Amazonka.MacieV2.Types.S3ClassificationScopeUpdate
 import Amazonka.MacieV2.Types.S3Destination
 import Amazonka.MacieV2.Types.S3JobDefinition
 import Amazonka.MacieV2.Types.S3Object
+import Amazonka.MacieV2.Types.S3WordsList
 import Amazonka.MacieV2.Types.ScopeFilterKey
 import Amazonka.MacieV2.Types.Scoping
 import Amazonka.MacieV2.Types.SearchResourcesBucketCriteria
@@ -1146,6 +1350,10 @@ import Amazonka.MacieV2.Types.SearchResourcesTagCriterionPair
 import Amazonka.MacieV2.Types.SecurityHubConfiguration
 import Amazonka.MacieV2.Types.SensitiveDataItem
 import Amazonka.MacieV2.Types.SensitiveDataItemCategory
+import Amazonka.MacieV2.Types.SensitivityAggregations
+import Amazonka.MacieV2.Types.SensitivityInspectionTemplateExcludes
+import Amazonka.MacieV2.Types.SensitivityInspectionTemplateIncludes
+import Amazonka.MacieV2.Types.SensitivityInspectionTemplatesEntry
 import Amazonka.MacieV2.Types.ServerSideEncryption
 import Amazonka.MacieV2.Types.ServiceLimit
 import Amazonka.MacieV2.Types.SessionContext
@@ -1153,6 +1361,7 @@ import Amazonka.MacieV2.Types.SessionContextAttributes
 import Amazonka.MacieV2.Types.SessionIssuer
 import Amazonka.MacieV2.Types.Severity
 import Amazonka.MacieV2.Types.SeverityDescription
+import Amazonka.MacieV2.Types.SeverityLevel
 import Amazonka.MacieV2.Types.SharedAccess
 import Amazonka.MacieV2.Types.SimpleCriterionForJob
 import Amazonka.MacieV2.Types.SimpleCriterionKeyForJob
@@ -1160,6 +1369,7 @@ import Amazonka.MacieV2.Types.SimpleScopeTerm
 import Amazonka.MacieV2.Types.SortCriteria
 import Amazonka.MacieV2.Types.Statistics
 import Amazonka.MacieV2.Types.StorageClass
+import Amazonka.MacieV2.Types.SuppressDataIdentifier
 import Amazonka.MacieV2.Types.TagCriterionForJob
 import Amazonka.MacieV2.Types.TagCriterionPairForJob
 import Amazonka.MacieV2.Types.TagScopeTerm
@@ -1167,6 +1377,7 @@ import Amazonka.MacieV2.Types.TagTarget
 import Amazonka.MacieV2.Types.TagValuePair
 import Amazonka.MacieV2.Types.TimeRange
 import Amazonka.MacieV2.Types.Type
+import Amazonka.MacieV2.Types.UnavailabilityReasonCode
 import Amazonka.MacieV2.Types.Unit
 import Amazonka.MacieV2.Types.UnprocessedAccount
 import Amazonka.MacieV2.Types.UsageByAccount
@@ -1190,41 +1401,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "MacieV2",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "macie2",
-      Core._serviceSigningName = "macie2",
-      Core._serviceVersion = "2020-01-01",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError = Core.parseJSONError "MacieV2",
-      Core._serviceRetry = retry
+    { Core.abbrev = "MacieV2",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "macie2",
+      Core.signingName = "macie2",
+      Core.version = "2020-01-01",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "MacieV2",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -1232,38 +1451,21 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
-
--- | Provides information about an error that occurred due to a syntax error
--- in a request.
-_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ValidationException =
-  Core._MatchServiceError
-    defaultService
-    "ValidationException"
-    Prelude.. Core.hasStatus 400
 
 -- | Provides information about an error that occurred due to insufficient
 -- access to a specified resource.
@@ -1283,6 +1485,24 @@ _ConflictException =
     "ConflictException"
     Prelude.. Core.hasStatus 409
 
+-- | Provides information about an error that occurred due to an unknown
+-- internal server error, exception, or failure.
+_InternalServerException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InternalServerException =
+  Core._MatchServiceError
+    defaultService
+    "InternalServerException"
+    Prelude.. Core.hasStatus 500
+
+-- | Provides information about an error that occurred because a specified
+-- resource wasn\'t found.
+_ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ResourceNotFoundException =
+  Core._MatchServiceError
+    defaultService
+    "ResourceNotFoundException"
+    Prelude.. Core.hasStatus 404
+
 -- | Provides information about an error that occurred due to one or more
 -- service quotas for an account.
 _ServiceQuotaExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -1301,20 +1521,20 @@ _ThrottlingException =
     "ThrottlingException"
     Prelude.. Core.hasStatus 429
 
--- | Provides information about an error that occurred due to an unknown
--- internal server error, exception, or failure.
-_InternalServerException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InternalServerException =
+-- | Provides information about an error that occurred due to an
+-- unprocessable entity.
+_UnprocessableEntityException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_UnprocessableEntityException =
   Core._MatchServiceError
     defaultService
-    "InternalServerException"
-    Prelude.. Core.hasStatus 500
+    "UnprocessableEntityException"
+    Prelude.. Core.hasStatus 422
 
--- | Provides information about an error that occurred because a specified
--- resource wasn\'t found.
-_ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ResourceNotFoundException =
+-- | Provides information about an error that occurred due to a syntax error
+-- in a request.
+_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ValidationException =
   Core._MatchServiceError
     defaultService
-    "ResourceNotFoundException"
-    Prelude.. Core.hasStatus 404
+    "ValidationException"
+    Prelude.. Core.hasStatus 400

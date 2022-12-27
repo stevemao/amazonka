@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.Types.PullRequestMergedStateChangedEventMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CodeCommit.Types.PullRequestMergedStateChangedEventMetadata wher
 
 import Amazonka.CodeCommit.Types.MergeMetadata
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Returns information about the change in the merge state for a pull
@@ -75,17 +76,17 @@ pullRequestMergedStateChangedEventMetadata_repositoryName :: Lens.Lens' PullRequ
 pullRequestMergedStateChangedEventMetadata_repositoryName = Lens.lens (\PullRequestMergedStateChangedEventMetadata' {repositoryName} -> repositoryName) (\s@PullRequestMergedStateChangedEventMetadata' {} a -> s {repositoryName = a} :: PullRequestMergedStateChangedEventMetadata)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     PullRequestMergedStateChangedEventMetadata
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PullRequestMergedStateChangedEventMetadata"
       ( \x ->
           PullRequestMergedStateChangedEventMetadata'
-            Prelude.<$> (x Core..:? "destinationReference")
-              Prelude.<*> (x Core..:? "mergeMetadata")
-              Prelude.<*> (x Core..:? "repositoryName")
+            Prelude.<$> (x Data..:? "destinationReference")
+              Prelude.<*> (x Data..:? "mergeMetadata")
+              Prelude.<*> (x Data..:? "repositoryName")
       )
 
 instance

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.MetadataEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.MetadataEntry where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 
@@ -28,10 +29,10 @@ import Amazonka.S3.Internal
 --
 -- /See:/ 'newMetadataEntry' smart constructor.
 data MetadataEntry = MetadataEntry'
-  { -- | Value of the Object.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | Name of the Object.
-    name :: Prelude.Maybe Prelude.Text
+  { -- | Name of the Object.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Value of the Object.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,35 +44,35 @@ data MetadataEntry = MetadataEntry'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'metadataEntry_value' - Value of the Object.
---
 -- 'name', 'metadataEntry_name' - Name of the Object.
+--
+-- 'value', 'metadataEntry_value' - Value of the Object.
 newMetadataEntry ::
   MetadataEntry
 newMetadataEntry =
   MetadataEntry'
-    { value = Prelude.Nothing,
-      name = Prelude.Nothing
+    { name = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | Value of the Object.
-metadataEntry_value :: Lens.Lens' MetadataEntry (Prelude.Maybe Prelude.Text)
-metadataEntry_value = Lens.lens (\MetadataEntry' {value} -> value) (\s@MetadataEntry' {} a -> s {value = a} :: MetadataEntry)
 
 -- | Name of the Object.
 metadataEntry_name :: Lens.Lens' MetadataEntry (Prelude.Maybe Prelude.Text)
 metadataEntry_name = Lens.lens (\MetadataEntry' {name} -> name) (\s@MetadataEntry' {} a -> s {name = a} :: MetadataEntry)
 
+-- | Value of the Object.
+metadataEntry_value :: Lens.Lens' MetadataEntry (Prelude.Maybe Prelude.Text)
+metadataEntry_value = Lens.lens (\MetadataEntry' {value} -> value) (\s@MetadataEntry' {} a -> s {value = a} :: MetadataEntry)
+
 instance Prelude.Hashable MetadataEntry where
   hashWithSalt _salt MetadataEntry' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData MetadataEntry where
   rnf MetadataEntry' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name `Prelude.seq` Prelude.rnf value
 
-instance Core.ToXML MetadataEntry where
+instance Data.ToXML MetadataEntry where
   toXML MetadataEntry' {..} =
     Prelude.mconcat
-      ["Value" Core.@= value, "Name" Core.@= name]
+      ["Name" Data.@= name, "Value" Data.@= value]

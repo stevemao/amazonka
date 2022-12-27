@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -50,7 +50,9 @@ library
     Amazonka.MarketplaceCatalog.Lens
     Amazonka.MarketplaceCatalog.ListChangeSets
     Amazonka.MarketplaceCatalog.ListEntities
+    Amazonka.MarketplaceCatalog.ListTagsForResource
     Amazonka.MarketplaceCatalog.StartChangeSet
+    Amazonka.MarketplaceCatalog.TagResource
     Amazonka.MarketplaceCatalog.Types
     Amazonka.MarketplaceCatalog.Types.Change
     Amazonka.MarketplaceCatalog.Types.ChangeSetSummaryListItem
@@ -63,10 +65,12 @@ library
     Amazonka.MarketplaceCatalog.Types.Filter
     Amazonka.MarketplaceCatalog.Types.Sort
     Amazonka.MarketplaceCatalog.Types.SortOrder
+    Amazonka.MarketplaceCatalog.Types.Tag
+    Amazonka.MarketplaceCatalog.UntagResource
     Amazonka.MarketplaceCatalog.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-marketplace-catalog-test
@@ -85,9 +89,9 @@ test-suite amazonka-marketplace-catalog-test
     Test.Amazonka.MarketplaceCatalog.Internal
 
   build-depends:
-    , amazonka-core                 ^>=2.0
+    , amazonka-core                 >=2.0 && <2.1
     , amazonka-marketplace-catalog
-    , amazonka-test                 ^>=2.0
+    , amazonka-test                 >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

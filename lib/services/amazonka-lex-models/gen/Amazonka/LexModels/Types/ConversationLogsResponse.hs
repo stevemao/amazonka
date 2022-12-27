@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.Types.ConversationLogsResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LexModels.Types.ConversationLogsResponse where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LexModels.Types.LogSettingsResponse
 import qualified Amazonka.Prelude as Prelude
 
@@ -69,14 +70,14 @@ conversationLogsResponse_iamRoleArn = Lens.lens (\ConversationLogsResponse' {iam
 conversationLogsResponse_logSettings :: Lens.Lens' ConversationLogsResponse (Prelude.Maybe [LogSettingsResponse])
 conversationLogsResponse_logSettings = Lens.lens (\ConversationLogsResponse' {logSettings} -> logSettings) (\s@ConversationLogsResponse' {} a -> s {logSettings = a} :: ConversationLogsResponse) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON ConversationLogsResponse where
+instance Data.FromJSON ConversationLogsResponse where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ConversationLogsResponse"
       ( \x ->
           ConversationLogsResponse'
-            Prelude.<$> (x Core..:? "iamRoleArn")
-            Prelude.<*> (x Core..:? "logSettings" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "iamRoleArn")
+            Prelude.<*> (x Data..:? "logSettings" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable ConversationLogsResponse where

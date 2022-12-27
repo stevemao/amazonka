@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Inspector.DescribeRulesPackages
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.Inspector.DescribeRulesPackages
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Inspector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,14 +93,15 @@ instance Core.AWSRequest DescribeRulesPackages where
   type
     AWSResponse DescribeRulesPackages =
       DescribeRulesPackagesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeRulesPackagesResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "rulesPackages" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "failedItems" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "rulesPackages" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "failedItems" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable DescribeRulesPackages where
@@ -112,35 +114,35 @@ instance Prelude.NFData DescribeRulesPackages where
     Prelude.rnf locale
       `Prelude.seq` Prelude.rnf rulesPackageArns
 
-instance Core.ToHeaders DescribeRulesPackages where
+instance Data.ToHeaders DescribeRulesPackages where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "InspectorService.DescribeRulesPackages" ::
+              Data.=# ( "InspectorService.DescribeRulesPackages" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeRulesPackages where
+instance Data.ToJSON DescribeRulesPackages where
   toJSON DescribeRulesPackages' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("locale" Core..=) Prelude.<$> locale,
+          [ ("locale" Data..=) Prelude.<$> locale,
             Prelude.Just
-              ("rulesPackageArns" Core..= rulesPackageArns)
+              ("rulesPackageArns" Data..= rulesPackageArns)
           ]
       )
 
-instance Core.ToPath DescribeRulesPackages where
+instance Data.ToPath DescribeRulesPackages where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeRulesPackages where
+instance Data.ToQuery DescribeRulesPackages where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeRulesPackagesResponse' smart constructor.

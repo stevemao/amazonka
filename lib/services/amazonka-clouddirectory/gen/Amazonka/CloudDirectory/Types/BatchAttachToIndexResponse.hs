@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.BatchAttachToIndexResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudDirectory.Types.BatchAttachToIndexResponse where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the output of a AttachToIndex response operation.
@@ -53,13 +54,13 @@ newBatchAttachToIndexResponse =
 batchAttachToIndexResponse_attachedObjectIdentifier :: Lens.Lens' BatchAttachToIndexResponse (Prelude.Maybe Prelude.Text)
 batchAttachToIndexResponse_attachedObjectIdentifier = Lens.lens (\BatchAttachToIndexResponse' {attachedObjectIdentifier} -> attachedObjectIdentifier) (\s@BatchAttachToIndexResponse' {} a -> s {attachedObjectIdentifier = a} :: BatchAttachToIndexResponse)
 
-instance Core.FromJSON BatchAttachToIndexResponse where
+instance Data.FromJSON BatchAttachToIndexResponse where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchAttachToIndexResponse"
       ( \x ->
           BatchAttachToIndexResponse'
-            Prelude.<$> (x Core..:? "AttachedObjectIdentifier")
+            Prelude.<$> (x Data..:? "AttachedObjectIdentifier")
       )
 
 instance Prelude.Hashable BatchAttachToIndexResponse where

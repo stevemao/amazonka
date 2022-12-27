@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DMS.StartReplicationTaskAssessment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,6 +22,20 @@
 --
 -- Starts the replication task assessment for unsupported data types in the
 -- source database.
+--
+-- You can only use this operation for a task if the following conditions
+-- are true:
+--
+-- -   The task must be in the @stopped@ state.
+--
+-- -   The task must have successful connections to the source and target.
+--
+-- If either of these conditions are not met, an
+-- @InvalidResourceStateFault@ error will result.
+--
+-- For information about DMS task assessments, see
+-- <https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.AssessmentReport.html Creating a task assessment report>
+-- in the /Database Migration Service User Guide/.
 module Amazonka.DMS.StartReplicationTaskAssessment
   ( -- * Creating a Request
     StartReplicationTaskAssessment (..),
@@ -41,8 +55,9 @@ module Amazonka.DMS.StartReplicationTaskAssessment
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DMS.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -87,12 +102,13 @@ instance
   type
     AWSResponse StartReplicationTaskAssessment =
       StartReplicationTaskAssessmentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartReplicationTaskAssessmentResponse'
-            Prelude.<$> (x Core..?> "ReplicationTask")
+            Prelude.<$> (x Data..?> "ReplicationTask")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -113,36 +129,36 @@ instance
     Prelude.rnf replicationTaskArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     StartReplicationTaskAssessment
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonDMSv20160101.StartReplicationTaskAssessment" ::
+              Data.=# ( "AmazonDMSv20160101.StartReplicationTaskAssessment" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartReplicationTaskAssessment where
+instance Data.ToJSON StartReplicationTaskAssessment where
   toJSON StartReplicationTaskAssessment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ReplicationTaskArn" Core..= replicationTaskArn)
+              ("ReplicationTaskArn" Data..= replicationTaskArn)
           ]
       )
 
-instance Core.ToPath StartReplicationTaskAssessment where
+instance Data.ToPath StartReplicationTaskAssessment where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartReplicationTaskAssessment where
+instance Data.ToQuery StartReplicationTaskAssessment where
   toQuery = Prelude.const Prelude.mempty
 
 -- |

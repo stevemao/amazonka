@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalogAppRegistry.Types.Resource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ServiceCatalogAppRegistry.Types.Resource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.ServiceCatalogAppRegistry.Types.ResourceIntegrations
 
@@ -30,10 +31,10 @@ import Amazonka.ServiceCatalogAppRegistry.Types.ResourceIntegrations
 data Resource = Resource'
   { -- | The Amazon resource name (ARN) of the resource.
     arn :: Prelude.Maybe Prelude.Text,
+    -- | The time the resource was associated with the application.
+    associationTime :: Prelude.Maybe Data.POSIX,
     -- | The service integration information about the resource.
     integrations :: Prelude.Maybe ResourceIntegrations,
-    -- | The time the resource was associated with the application.
-    associationTime :: Prelude.Maybe Core.POSIX,
     -- | The name of the resource.
     name :: Prelude.Maybe Prelude.Text
   }
@@ -49,9 +50,9 @@ data Resource = Resource'
 --
 -- 'arn', 'resource_arn' - The Amazon resource name (ARN) of the resource.
 --
--- 'integrations', 'resource_integrations' - The service integration information about the resource.
---
 -- 'associationTime', 'resource_associationTime' - The time the resource was associated with the application.
+--
+-- 'integrations', 'resource_integrations' - The service integration information about the resource.
 --
 -- 'name', 'resource_name' - The name of the resource.
 newResource ::
@@ -59,8 +60,8 @@ newResource ::
 newResource =
   Resource'
     { arn = Prelude.Nothing,
-      integrations = Prelude.Nothing,
       associationTime = Prelude.Nothing,
+      integrations = Prelude.Nothing,
       name = Prelude.Nothing
     }
 
@@ -68,40 +69,40 @@ newResource =
 resource_arn :: Lens.Lens' Resource (Prelude.Maybe Prelude.Text)
 resource_arn = Lens.lens (\Resource' {arn} -> arn) (\s@Resource' {} a -> s {arn = a} :: Resource)
 
+-- | The time the resource was associated with the application.
+resource_associationTime :: Lens.Lens' Resource (Prelude.Maybe Prelude.UTCTime)
+resource_associationTime = Lens.lens (\Resource' {associationTime} -> associationTime) (\s@Resource' {} a -> s {associationTime = a} :: Resource) Prelude.. Lens.mapping Data._Time
+
 -- | The service integration information about the resource.
 resource_integrations :: Lens.Lens' Resource (Prelude.Maybe ResourceIntegrations)
 resource_integrations = Lens.lens (\Resource' {integrations} -> integrations) (\s@Resource' {} a -> s {integrations = a} :: Resource)
-
--- | The time the resource was associated with the application.
-resource_associationTime :: Lens.Lens' Resource (Prelude.Maybe Prelude.UTCTime)
-resource_associationTime = Lens.lens (\Resource' {associationTime} -> associationTime) (\s@Resource' {} a -> s {associationTime = a} :: Resource) Prelude.. Lens.mapping Core._Time
 
 -- | The name of the resource.
 resource_name :: Lens.Lens' Resource (Prelude.Maybe Prelude.Text)
 resource_name = Lens.lens (\Resource' {name} -> name) (\s@Resource' {} a -> s {name = a} :: Resource)
 
-instance Core.FromJSON Resource where
+instance Data.FromJSON Resource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Resource"
       ( \x ->
           Resource'
-            Prelude.<$> (x Core..:? "arn")
-            Prelude.<*> (x Core..:? "integrations")
-            Prelude.<*> (x Core..:? "associationTime")
-            Prelude.<*> (x Core..:? "name")
+            Prelude.<$> (x Data..:? "arn")
+            Prelude.<*> (x Data..:? "associationTime")
+            Prelude.<*> (x Data..:? "integrations")
+            Prelude.<*> (x Data..:? "name")
       )
 
 instance Prelude.Hashable Resource where
   hashWithSalt _salt Resource' {..} =
     _salt `Prelude.hashWithSalt` arn
-      `Prelude.hashWithSalt` integrations
       `Prelude.hashWithSalt` associationTime
+      `Prelude.hashWithSalt` integrations
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData Resource where
   rnf Resource' {..} =
     Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf integrations
       `Prelude.seq` Prelude.rnf associationTime
+      `Prelude.seq` Prelude.rnf integrations
       `Prelude.seq` Prelude.rnf name

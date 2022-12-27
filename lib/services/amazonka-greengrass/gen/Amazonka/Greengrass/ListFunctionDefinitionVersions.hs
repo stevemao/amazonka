@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.ListFunctionDefinitionVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Greengrass.ListFunctionDefinitionVersions
     newListFunctionDefinitionVersions,
 
     -- * Request Lenses
-    listFunctionDefinitionVersions_nextToken,
     listFunctionDefinitionVersions_maxResults,
+    listFunctionDefinitionVersions_nextToken,
     listFunctionDefinitionVersions_functionDefinitionId,
 
     -- * Destructuring the Response
@@ -38,26 +38,27 @@ module Amazonka.Greengrass.ListFunctionDefinitionVersions
     newListFunctionDefinitionVersionsResponse,
 
     -- * Response Lenses
-    listFunctionDefinitionVersionsResponse_versions,
     listFunctionDefinitionVersionsResponse_nextToken,
+    listFunctionDefinitionVersionsResponse_versions,
     listFunctionDefinitionVersionsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListFunctionDefinitionVersions' smart constructor.
 data ListFunctionDefinitionVersions = ListFunctionDefinitionVersions'
-  { -- | The token for the next set of results, or \'\'null\'\' if there are no
+  { -- | The maximum number of results to be returned per request.
+    maxResults :: Prelude.Maybe Prelude.Text,
+    -- | The token for the next set of results, or \'\'null\'\' if there are no
     -- additional results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to be returned per request.
-    maxResults :: Prelude.Maybe Prelude.Text,
     -- | The ID of the Lambda function definition.
     functionDefinitionId :: Prelude.Text
   }
@@ -71,10 +72,10 @@ data ListFunctionDefinitionVersions = ListFunctionDefinitionVersions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listFunctionDefinitionVersions_maxResults' - The maximum number of results to be returned per request.
+--
 -- 'nextToken', 'listFunctionDefinitionVersions_nextToken' - The token for the next set of results, or \'\'null\'\' if there are no
 -- additional results.
---
--- 'maxResults', 'listFunctionDefinitionVersions_maxResults' - The maximum number of results to be returned per request.
 --
 -- 'functionDefinitionId', 'listFunctionDefinitionVersions_functionDefinitionId' - The ID of the Lambda function definition.
 newListFunctionDefinitionVersions ::
@@ -84,21 +85,21 @@ newListFunctionDefinitionVersions ::
 newListFunctionDefinitionVersions
   pFunctionDefinitionId_ =
     ListFunctionDefinitionVersions'
-      { nextToken =
+      { maxResults =
           Prelude.Nothing,
-        maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         functionDefinitionId =
           pFunctionDefinitionId_
       }
+
+-- | The maximum number of results to be returned per request.
+listFunctionDefinitionVersions_maxResults :: Lens.Lens' ListFunctionDefinitionVersions (Prelude.Maybe Prelude.Text)
+listFunctionDefinitionVersions_maxResults = Lens.lens (\ListFunctionDefinitionVersions' {maxResults} -> maxResults) (\s@ListFunctionDefinitionVersions' {} a -> s {maxResults = a} :: ListFunctionDefinitionVersions)
 
 -- | The token for the next set of results, or \'\'null\'\' if there are no
 -- additional results.
 listFunctionDefinitionVersions_nextToken :: Lens.Lens' ListFunctionDefinitionVersions (Prelude.Maybe Prelude.Text)
 listFunctionDefinitionVersions_nextToken = Lens.lens (\ListFunctionDefinitionVersions' {nextToken} -> nextToken) (\s@ListFunctionDefinitionVersions' {} a -> s {nextToken = a} :: ListFunctionDefinitionVersions)
-
--- | The maximum number of results to be returned per request.
-listFunctionDefinitionVersions_maxResults :: Lens.Lens' ListFunctionDefinitionVersions (Prelude.Maybe Prelude.Text)
-listFunctionDefinitionVersions_maxResults = Lens.lens (\ListFunctionDefinitionVersions' {maxResults} -> maxResults) (\s@ListFunctionDefinitionVersions' {} a -> s {maxResults = a} :: ListFunctionDefinitionVersions)
 
 -- | The ID of the Lambda function definition.
 listFunctionDefinitionVersions_functionDefinitionId :: Lens.Lens' ListFunctionDefinitionVersions Prelude.Text
@@ -133,13 +134,14 @@ instance
   type
     AWSResponse ListFunctionDefinitionVersions =
       ListFunctionDefinitionVersionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListFunctionDefinitionVersionsResponse'
-            Prelude.<$> (x Core..?> "Versions" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Versions" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -150,8 +152,8 @@ instance
   hashWithSalt
     _salt
     ListFunctionDefinitionVersions' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` functionDefinitionId
 
 instance
@@ -159,46 +161,46 @@ instance
     ListFunctionDefinitionVersions
   where
   rnf ListFunctionDefinitionVersions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf functionDefinitionId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListFunctionDefinitionVersions
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListFunctionDefinitionVersions where
+instance Data.ToPath ListFunctionDefinitionVersions where
   toPath ListFunctionDefinitionVersions' {..} =
     Prelude.mconcat
       [ "/greengrass/definition/functions/",
-        Core.toBS functionDefinitionId,
+        Data.toBS functionDefinitionId,
         "/versions"
       ]
 
-instance Core.ToQuery ListFunctionDefinitionVersions where
+instance Data.ToQuery ListFunctionDefinitionVersions where
   toQuery ListFunctionDefinitionVersions' {..} =
     Prelude.mconcat
-      [ "NextToken" Core.=: nextToken,
-        "MaxResults" Core.=: maxResults
+      [ "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListFunctionDefinitionVersionsResponse' smart constructor.
 data ListFunctionDefinitionVersionsResponse = ListFunctionDefinitionVersionsResponse'
-  { -- | Information about a version.
-    versions :: Prelude.Maybe [VersionInformation],
-    -- | The token for the next set of results, or \'\'null\'\' if there are no
+  { -- | The token for the next set of results, or \'\'null\'\' if there are no
     -- additional results.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about a version.
+    versions :: Prelude.Maybe [VersionInformation],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -212,10 +214,10 @@ data ListFunctionDefinitionVersionsResponse = ListFunctionDefinitionVersionsResp
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'versions', 'listFunctionDefinitionVersionsResponse_versions' - Information about a version.
---
 -- 'nextToken', 'listFunctionDefinitionVersionsResponse_nextToken' - The token for the next set of results, or \'\'null\'\' if there are no
 -- additional results.
+--
+-- 'versions', 'listFunctionDefinitionVersionsResponse_versions' - Information about a version.
 --
 -- 'httpStatus', 'listFunctionDefinitionVersionsResponse_httpStatus' - The response's http status code.
 newListFunctionDefinitionVersionsResponse ::
@@ -225,20 +227,20 @@ newListFunctionDefinitionVersionsResponse ::
 newListFunctionDefinitionVersionsResponse
   pHttpStatus_ =
     ListFunctionDefinitionVersionsResponse'
-      { versions =
+      { nextToken =
           Prelude.Nothing,
-        nextToken = Prelude.Nothing,
+        versions = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | Information about a version.
-listFunctionDefinitionVersionsResponse_versions :: Lens.Lens' ListFunctionDefinitionVersionsResponse (Prelude.Maybe [VersionInformation])
-listFunctionDefinitionVersionsResponse_versions = Lens.lens (\ListFunctionDefinitionVersionsResponse' {versions} -> versions) (\s@ListFunctionDefinitionVersionsResponse' {} a -> s {versions = a} :: ListFunctionDefinitionVersionsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token for the next set of results, or \'\'null\'\' if there are no
 -- additional results.
 listFunctionDefinitionVersionsResponse_nextToken :: Lens.Lens' ListFunctionDefinitionVersionsResponse (Prelude.Maybe Prelude.Text)
 listFunctionDefinitionVersionsResponse_nextToken = Lens.lens (\ListFunctionDefinitionVersionsResponse' {nextToken} -> nextToken) (\s@ListFunctionDefinitionVersionsResponse' {} a -> s {nextToken = a} :: ListFunctionDefinitionVersionsResponse)
+
+-- | Information about a version.
+listFunctionDefinitionVersionsResponse_versions :: Lens.Lens' ListFunctionDefinitionVersionsResponse (Prelude.Maybe [VersionInformation])
+listFunctionDefinitionVersionsResponse_versions = Lens.lens (\ListFunctionDefinitionVersionsResponse' {versions} -> versions) (\s@ListFunctionDefinitionVersionsResponse' {} a -> s {versions = a} :: ListFunctionDefinitionVersionsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listFunctionDefinitionVersionsResponse_httpStatus :: Lens.Lens' ListFunctionDefinitionVersionsResponse Prelude.Int
@@ -249,6 +251,6 @@ instance
     ListFunctionDefinitionVersionsResponse
   where
   rnf ListFunctionDefinitionVersionsResponse' {..} =
-    Prelude.rnf versions
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf versions
       `Prelude.seq` Prelude.rnf httpStatus

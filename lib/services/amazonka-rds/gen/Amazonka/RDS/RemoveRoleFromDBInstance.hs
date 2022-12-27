@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.RemoveRoleFromDBInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.RDS.RemoveRoleFromDBInstance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -53,7 +54,7 @@ data RemoveRoleFromDBInstance = RemoveRoleFromDBInstance'
     -- DB instance, for example, @arn:aws:iam::123456789012:role\/AccessRole@.
     roleArn :: Prelude.Text,
     -- | The name of the feature for the DB instance that the IAM role is to be
-    -- disassociated from. For the list of supported feature names, see
+    -- disassociated from. For information about supported feature names, see
     -- @DBEngineVersion@.
     featureName :: Prelude.Text
   }
@@ -73,7 +74,7 @@ data RemoveRoleFromDBInstance = RemoveRoleFromDBInstance'
 -- DB instance, for example, @arn:aws:iam::123456789012:role\/AccessRole@.
 --
 -- 'featureName', 'removeRoleFromDBInstance_featureName' - The name of the feature for the DB instance that the IAM role is to be
--- disassociated from. For the list of supported feature names, see
+-- disassociated from. For information about supported feature names, see
 -- @DBEngineVersion@.
 newRemoveRoleFromDBInstance ::
   -- | 'dbInstanceIdentifier'
@@ -104,7 +105,7 @@ removeRoleFromDBInstance_roleArn :: Lens.Lens' RemoveRoleFromDBInstance Prelude.
 removeRoleFromDBInstance_roleArn = Lens.lens (\RemoveRoleFromDBInstance' {roleArn} -> roleArn) (\s@RemoveRoleFromDBInstance' {} a -> s {roleArn = a} :: RemoveRoleFromDBInstance)
 
 -- | The name of the feature for the DB instance that the IAM role is to be
--- disassociated from. For the list of supported feature names, see
+-- disassociated from. For information about supported feature names, see
 -- @DBEngineVersion@.
 removeRoleFromDBInstance_featureName :: Lens.Lens' RemoveRoleFromDBInstance Prelude.Text
 removeRoleFromDBInstance_featureName = Lens.lens (\RemoveRoleFromDBInstance' {featureName} -> featureName) (\s@RemoveRoleFromDBInstance' {} a -> s {featureName = a} :: RemoveRoleFromDBInstance)
@@ -113,7 +114,8 @@ instance Core.AWSRequest RemoveRoleFromDBInstance where
   type
     AWSResponse RemoveRoleFromDBInstance =
       RemoveRoleFromDBInstanceResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       RemoveRoleFromDBInstanceResponse'
@@ -130,22 +132,22 @@ instance Prelude.NFData RemoveRoleFromDBInstance where
       `Prelude.seq` Prelude.rnf roleArn
       `Prelude.seq` Prelude.rnf featureName
 
-instance Core.ToHeaders RemoveRoleFromDBInstance where
+instance Data.ToHeaders RemoveRoleFromDBInstance where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath RemoveRoleFromDBInstance where
+instance Data.ToPath RemoveRoleFromDBInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RemoveRoleFromDBInstance where
+instance Data.ToQuery RemoveRoleFromDBInstance where
   toQuery RemoveRoleFromDBInstance' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("RemoveRoleFromDBInstance" :: Prelude.ByteString),
+          Data.=: ("RemoveRoleFromDBInstance" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "DBInstanceIdentifier" Core.=: dbInstanceIdentifier,
-        "RoleArn" Core.=: roleArn,
-        "FeatureName" Core.=: featureName
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBInstanceIdentifier" Data.=: dbInstanceIdentifier,
+        "RoleArn" Data.=: roleArn,
+        "FeatureName" Data.=: featureName
       ]
 
 -- | /See:/ 'newRemoveRoleFromDBInstanceResponse' smart constructor.

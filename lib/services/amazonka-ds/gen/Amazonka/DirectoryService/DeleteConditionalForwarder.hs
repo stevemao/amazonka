@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.DeleteConditionalForwarder
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.DirectoryService.DeleteConditionalForwarder
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,7 +100,8 @@ instance Core.AWSRequest DeleteConditionalForwarder where
   type
     AWSResponse DeleteConditionalForwarder =
       DeleteConditionalForwarderResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -117,35 +119,35 @@ instance Prelude.NFData DeleteConditionalForwarder where
     Prelude.rnf directoryId
       `Prelude.seq` Prelude.rnf remoteDomainName
 
-instance Core.ToHeaders DeleteConditionalForwarder where
+instance Data.ToHeaders DeleteConditionalForwarder where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.DeleteConditionalForwarder" ::
+              Data.=# ( "DirectoryService_20150416.DeleteConditionalForwarder" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteConditionalForwarder where
+instance Data.ToJSON DeleteConditionalForwarder where
   toJSON DeleteConditionalForwarder' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("DirectoryId" Core..= directoryId),
+          [ Prelude.Just ("DirectoryId" Data..= directoryId),
             Prelude.Just
-              ("RemoteDomainName" Core..= remoteDomainName)
+              ("RemoteDomainName" Data..= remoteDomainName)
           ]
       )
 
-instance Core.ToPath DeleteConditionalForwarder where
+instance Data.ToPath DeleteConditionalForwarder where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteConditionalForwarder where
+instance Data.ToQuery DeleteConditionalForwarder where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The result of a DeleteConditionalForwarder request.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.TestFailover
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,6 +23,12 @@
 -- Represents the input of a @TestFailover@ operation which test automatic
 -- failover on a specified node group (called shard in the console) in a
 -- replication group (called cluster in the console).
+--
+-- This API is designed for testing the behavior of your application in
+-- case of ElastiCache failover. It is not designed to be an operational
+-- tool for initiating a failover to overcome a problem you may have with
+-- the cluster. Moreover, in certain conditions such as large-scale
+-- operational events, Amazon may block this API.
 --
 -- __Note the following__
 --
@@ -88,8 +94,9 @@ module Amazonka.ElastiCache.TestFailover
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -149,13 +156,14 @@ testFailover_nodeGroupId = Lens.lens (\TestFailover' {nodeGroupId} -> nodeGroupI
 
 instance Core.AWSRequest TestFailover where
   type AWSResponse TestFailover = TestFailoverResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "TestFailoverResult"
       ( \s h x ->
           TestFailoverResponse'
-            Prelude.<$> (x Core..@? "ReplicationGroup")
+            Prelude.<$> (x Data..@? "ReplicationGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -169,21 +177,21 @@ instance Prelude.NFData TestFailover where
     Prelude.rnf replicationGroupId
       `Prelude.seq` Prelude.rnf nodeGroupId
 
-instance Core.ToHeaders TestFailover where
+instance Data.ToHeaders TestFailover where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath TestFailover where
+instance Data.ToPath TestFailover where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery TestFailover where
+instance Data.ToQuery TestFailover where
   toQuery TestFailover' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("TestFailover" :: Prelude.ByteString),
+          Data.=: ("TestFailover" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
-        "ReplicationGroupId" Core.=: replicationGroupId,
-        "NodeGroupId" Core.=: nodeGroupId
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
+        "ReplicationGroupId" Data.=: replicationGroupId,
+        "NodeGroupId" Data.=: nodeGroupId
       ]
 
 -- | /See:/ 'newTestFailoverResponse' smart constructor.

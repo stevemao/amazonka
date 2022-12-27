@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.Types.TagOptionSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.ServiceCatalog.Types.TagOptionSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Summary information about a TagOption.
 --
 -- /See:/ 'newTagOptionSummary' smart constructor.
 data TagOptionSummary = TagOptionSummary'
-  { -- | The TagOption value.
-    values :: Prelude.Maybe [Prelude.Text],
-    -- | The TagOption key.
-    key :: Prelude.Maybe Prelude.Text
+  { -- | The TagOption key.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The TagOption value.
+    values :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,40 +43,40 @@ data TagOptionSummary = TagOptionSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'values', 'tagOptionSummary_values' - The TagOption value.
---
 -- 'key', 'tagOptionSummary_key' - The TagOption key.
+--
+-- 'values', 'tagOptionSummary_values' - The TagOption value.
 newTagOptionSummary ::
   TagOptionSummary
 newTagOptionSummary =
   TagOptionSummary'
-    { values = Prelude.Nothing,
-      key = Prelude.Nothing
+    { key = Prelude.Nothing,
+      values = Prelude.Nothing
     }
-
--- | The TagOption value.
-tagOptionSummary_values :: Lens.Lens' TagOptionSummary (Prelude.Maybe [Prelude.Text])
-tagOptionSummary_values = Lens.lens (\TagOptionSummary' {values} -> values) (\s@TagOptionSummary' {} a -> s {values = a} :: TagOptionSummary) Prelude.. Lens.mapping Lens.coerced
 
 -- | The TagOption key.
 tagOptionSummary_key :: Lens.Lens' TagOptionSummary (Prelude.Maybe Prelude.Text)
 tagOptionSummary_key = Lens.lens (\TagOptionSummary' {key} -> key) (\s@TagOptionSummary' {} a -> s {key = a} :: TagOptionSummary)
 
-instance Core.FromJSON TagOptionSummary where
+-- | The TagOption value.
+tagOptionSummary_values :: Lens.Lens' TagOptionSummary (Prelude.Maybe [Prelude.Text])
+tagOptionSummary_values = Lens.lens (\TagOptionSummary' {values} -> values) (\s@TagOptionSummary' {} a -> s {values = a} :: TagOptionSummary) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON TagOptionSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TagOptionSummary"
       ( \x ->
           TagOptionSummary'
-            Prelude.<$> (x Core..:? "Values" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Key")
+            Prelude.<$> (x Data..:? "Key")
+            Prelude.<*> (x Data..:? "Values" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable TagOptionSummary where
   hashWithSalt _salt TagOptionSummary' {..} =
-    _salt `Prelude.hashWithSalt` values
-      `Prelude.hashWithSalt` key
+    _salt `Prelude.hashWithSalt` key
+      `Prelude.hashWithSalt` values
 
 instance Prelude.NFData TagOptionSummary where
   rnf TagOptionSummary' {..} =
-    Prelude.rnf values `Prelude.seq` Prelude.rnf key
+    Prelude.rnf key `Prelude.seq` Prelude.rnf values

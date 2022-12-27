@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.ZendeskMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppFlow.Types.ZendeskMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The connector metadata specific to Zendesk.
@@ -50,13 +51,13 @@ newZendeskMetadata =
 zendeskMetadata_oAuthScopes :: Lens.Lens' ZendeskMetadata (Prelude.Maybe [Prelude.Text])
 zendeskMetadata_oAuthScopes = Lens.lens (\ZendeskMetadata' {oAuthScopes} -> oAuthScopes) (\s@ZendeskMetadata' {} a -> s {oAuthScopes = a} :: ZendeskMetadata) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON ZendeskMetadata where
+instance Data.FromJSON ZendeskMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ZendeskMetadata"
       ( \x ->
           ZendeskMetadata'
-            Prelude.<$> (x Core..:? "oAuthScopes" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "oAuthScopes" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable ZendeskMetadata where

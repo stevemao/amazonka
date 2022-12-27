@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.PutExternalModel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.FraudDetector.PutExternalModel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -157,7 +158,8 @@ instance Core.AWSRequest PutExternalModel where
   type
     AWSResponse PutExternalModel =
       PutExternalModelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -185,45 +187,45 @@ instance Prelude.NFData PutExternalModel where
       `Prelude.seq` Prelude.rnf outputConfiguration
       `Prelude.seq` Prelude.rnf modelEndpointStatus
 
-instance Core.ToHeaders PutExternalModel where
+instance Data.ToHeaders PutExternalModel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.PutExternalModel" ::
+              Data.=# ( "AWSHawksNestServiceFacade.PutExternalModel" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutExternalModel where
+instance Data.ToJSON PutExternalModel where
   toJSON PutExternalModel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("modelEndpoint" Core..= modelEndpoint),
-            Prelude.Just ("modelSource" Core..= modelSource),
+          [ ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("modelEndpoint" Data..= modelEndpoint),
+            Prelude.Just ("modelSource" Data..= modelSource),
             Prelude.Just
               ( "invokeModelEndpointRoleArn"
-                  Core..= invokeModelEndpointRoleArn
+                  Data..= invokeModelEndpointRoleArn
               ),
             Prelude.Just
-              ("inputConfiguration" Core..= inputConfiguration),
+              ("inputConfiguration" Data..= inputConfiguration),
             Prelude.Just
-              ("outputConfiguration" Core..= outputConfiguration),
+              ("outputConfiguration" Data..= outputConfiguration),
             Prelude.Just
-              ("modelEndpointStatus" Core..= modelEndpointStatus)
+              ("modelEndpointStatus" Data..= modelEndpointStatus)
           ]
       )
 
-instance Core.ToPath PutExternalModel where
+instance Data.ToPath PutExternalModel where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutExternalModel where
+instance Data.ToQuery PutExternalModel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutExternalModelResponse' smart constructor.

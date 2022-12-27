@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.FailureException
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,20 @@
 module Amazonka.DynamoDB.Types.FailureException where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a failure a contributor insights operation.
 --
 -- /See:/ 'newFailureException' smart constructor.
 data FailureException = FailureException'
-  { -- | Exception name.
-    exceptionName :: Prelude.Maybe Prelude.Text,
-    -- | Description of the failure.
-    exceptionDescription :: Prelude.Maybe Prelude.Text
+  { -- | Description of the failure.
+    exceptionDescription :: Prelude.Maybe Prelude.Text,
+    -- | Exception name.
+    exceptionName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,41 +45,42 @@ data FailureException = FailureException'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'exceptionName', 'failureException_exceptionName' - Exception name.
---
 -- 'exceptionDescription', 'failureException_exceptionDescription' - Description of the failure.
+--
+-- 'exceptionName', 'failureException_exceptionName' - Exception name.
 newFailureException ::
   FailureException
 newFailureException =
   FailureException'
-    { exceptionName = Prelude.Nothing,
-      exceptionDescription = Prelude.Nothing
+    { exceptionDescription =
+        Prelude.Nothing,
+      exceptionName = Prelude.Nothing
     }
-
--- | Exception name.
-failureException_exceptionName :: Lens.Lens' FailureException (Prelude.Maybe Prelude.Text)
-failureException_exceptionName = Lens.lens (\FailureException' {exceptionName} -> exceptionName) (\s@FailureException' {} a -> s {exceptionName = a} :: FailureException)
 
 -- | Description of the failure.
 failureException_exceptionDescription :: Lens.Lens' FailureException (Prelude.Maybe Prelude.Text)
 failureException_exceptionDescription = Lens.lens (\FailureException' {exceptionDescription} -> exceptionDescription) (\s@FailureException' {} a -> s {exceptionDescription = a} :: FailureException)
 
-instance Core.FromJSON FailureException where
+-- | Exception name.
+failureException_exceptionName :: Lens.Lens' FailureException (Prelude.Maybe Prelude.Text)
+failureException_exceptionName = Lens.lens (\FailureException' {exceptionName} -> exceptionName) (\s@FailureException' {} a -> s {exceptionName = a} :: FailureException)
+
+instance Data.FromJSON FailureException where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FailureException"
       ( \x ->
           FailureException'
-            Prelude.<$> (x Core..:? "ExceptionName")
-            Prelude.<*> (x Core..:? "ExceptionDescription")
+            Prelude.<$> (x Data..:? "ExceptionDescription")
+            Prelude.<*> (x Data..:? "ExceptionName")
       )
 
 instance Prelude.Hashable FailureException where
   hashWithSalt _salt FailureException' {..} =
-    _salt `Prelude.hashWithSalt` exceptionName
-      `Prelude.hashWithSalt` exceptionDescription
+    _salt `Prelude.hashWithSalt` exceptionDescription
+      `Prelude.hashWithSalt` exceptionName
 
 instance Prelude.NFData FailureException where
   rnf FailureException' {..} =
-    Prelude.rnf exceptionName
-      `Prelude.seq` Prelude.rnf exceptionDescription
+    Prelude.rnf exceptionDescription
+      `Prelude.seq` Prelude.rnf exceptionName

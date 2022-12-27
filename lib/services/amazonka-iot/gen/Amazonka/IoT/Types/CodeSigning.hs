@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.CodeSigning
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,21 +20,22 @@
 module Amazonka.IoT.Types.CodeSigning where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.CustomCodeSigning
 import Amazonka.IoT.Types.StartSigningJobParameter
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the method to use when code signing a file.
 --
 -- /See:/ 'newCodeSigning' smart constructor.
 data CodeSigning = CodeSigning'
-  { -- | A custom method for code signing a file.
+  { -- | The ID of the @AWSSignerJob@ which was created to sign the file.
+    awsSignerJobId :: Prelude.Maybe Prelude.Text,
+    -- | A custom method for code signing a file.
     customCodeSigning :: Prelude.Maybe CustomCodeSigning,
     -- | Describes the code-signing job.
-    startSigningJobParameter :: Prelude.Maybe StartSigningJobParameter,
-    -- | The ID of the @AWSSignerJob@ which was created to sign the file.
-    awsSignerJobId :: Prelude.Maybe Prelude.Text
+    startSigningJobParameter :: Prelude.Maybe StartSigningJobParameter
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,19 +47,23 @@ data CodeSigning = CodeSigning'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'awsSignerJobId', 'codeSigning_awsSignerJobId' - The ID of the @AWSSignerJob@ which was created to sign the file.
+--
 -- 'customCodeSigning', 'codeSigning_customCodeSigning' - A custom method for code signing a file.
 --
 -- 'startSigningJobParameter', 'codeSigning_startSigningJobParameter' - Describes the code-signing job.
---
--- 'awsSignerJobId', 'codeSigning_awsSignerJobId' - The ID of the @AWSSignerJob@ which was created to sign the file.
 newCodeSigning ::
   CodeSigning
 newCodeSigning =
   CodeSigning'
-    { customCodeSigning = Prelude.Nothing,
-      startSigningJobParameter = Prelude.Nothing,
-      awsSignerJobId = Prelude.Nothing
+    { awsSignerJobId = Prelude.Nothing,
+      customCodeSigning = Prelude.Nothing,
+      startSigningJobParameter = Prelude.Nothing
     }
+
+-- | The ID of the @AWSSignerJob@ which was created to sign the file.
+codeSigning_awsSignerJobId :: Lens.Lens' CodeSigning (Prelude.Maybe Prelude.Text)
+codeSigning_awsSignerJobId = Lens.lens (\CodeSigning' {awsSignerJobId} -> awsSignerJobId) (\s@CodeSigning' {} a -> s {awsSignerJobId = a} :: CodeSigning)
 
 -- | A custom method for code signing a file.
 codeSigning_customCodeSigning :: Lens.Lens' CodeSigning (Prelude.Maybe CustomCodeSigning)
@@ -68,42 +73,38 @@ codeSigning_customCodeSigning = Lens.lens (\CodeSigning' {customCodeSigning} -> 
 codeSigning_startSigningJobParameter :: Lens.Lens' CodeSigning (Prelude.Maybe StartSigningJobParameter)
 codeSigning_startSigningJobParameter = Lens.lens (\CodeSigning' {startSigningJobParameter} -> startSigningJobParameter) (\s@CodeSigning' {} a -> s {startSigningJobParameter = a} :: CodeSigning)
 
--- | The ID of the @AWSSignerJob@ which was created to sign the file.
-codeSigning_awsSignerJobId :: Lens.Lens' CodeSigning (Prelude.Maybe Prelude.Text)
-codeSigning_awsSignerJobId = Lens.lens (\CodeSigning' {awsSignerJobId} -> awsSignerJobId) (\s@CodeSigning' {} a -> s {awsSignerJobId = a} :: CodeSigning)
-
-instance Core.FromJSON CodeSigning where
+instance Data.FromJSON CodeSigning where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CodeSigning"
       ( \x ->
           CodeSigning'
-            Prelude.<$> (x Core..:? "customCodeSigning")
-            Prelude.<*> (x Core..:? "startSigningJobParameter")
-            Prelude.<*> (x Core..:? "awsSignerJobId")
+            Prelude.<$> (x Data..:? "awsSignerJobId")
+            Prelude.<*> (x Data..:? "customCodeSigning")
+            Prelude.<*> (x Data..:? "startSigningJobParameter")
       )
 
 instance Prelude.Hashable CodeSigning where
   hashWithSalt _salt CodeSigning' {..} =
-    _salt `Prelude.hashWithSalt` customCodeSigning
+    _salt `Prelude.hashWithSalt` awsSignerJobId
+      `Prelude.hashWithSalt` customCodeSigning
       `Prelude.hashWithSalt` startSigningJobParameter
-      `Prelude.hashWithSalt` awsSignerJobId
 
 instance Prelude.NFData CodeSigning where
   rnf CodeSigning' {..} =
-    Prelude.rnf customCodeSigning
+    Prelude.rnf awsSignerJobId
+      `Prelude.seq` Prelude.rnf customCodeSigning
       `Prelude.seq` Prelude.rnf startSigningJobParameter
-      `Prelude.seq` Prelude.rnf awsSignerJobId
 
-instance Core.ToJSON CodeSigning where
+instance Data.ToJSON CodeSigning where
   toJSON CodeSigning' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("customCodeSigning" Core..=)
+          [ ("awsSignerJobId" Data..=)
+              Prelude.<$> awsSignerJobId,
+            ("customCodeSigning" Data..=)
               Prelude.<$> customCodeSigning,
-            ("startSigningJobParameter" Core..=)
-              Prelude.<$> startSigningJobParameter,
-            ("awsSignerJobId" Core..=)
-              Prelude.<$> awsSignerJobId
+            ("startSigningJobParameter" Data..=)
+              Prelude.<$> startSigningJobParameter
           ]
       )

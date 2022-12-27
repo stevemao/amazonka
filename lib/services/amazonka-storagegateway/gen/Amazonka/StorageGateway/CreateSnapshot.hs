@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.CreateSnapshot
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -65,14 +65,15 @@ module Amazonka.StorageGateway.CreateSnapshot
     newCreateSnapshotResponse,
 
     -- * Response Lenses
-    createSnapshotResponse_volumeARN,
     createSnapshotResponse_snapshotId,
+    createSnapshotResponse_volumeARN,
     createSnapshotResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -167,13 +168,14 @@ instance Core.AWSRequest CreateSnapshot where
   type
     AWSResponse CreateSnapshot =
       CreateSnapshotResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateSnapshotResponse'
-            Prelude.<$> (x Core..?> "VolumeARN")
-            Prelude.<*> (x Core..?> "SnapshotId")
+            Prelude.<$> (x Data..?> "SnapshotId")
+            Prelude.<*> (x Data..?> "VolumeARN")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -189,50 +191,50 @@ instance Prelude.NFData CreateSnapshot where
       `Prelude.seq` Prelude.rnf volumeARN
       `Prelude.seq` Prelude.rnf snapshotDescription
 
-instance Core.ToHeaders CreateSnapshot where
+instance Data.ToHeaders CreateSnapshot where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.CreateSnapshot" ::
+              Data.=# ( "StorageGateway_20130630.CreateSnapshot" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateSnapshot where
+instance Data.ToJSON CreateSnapshot where
   toJSON CreateSnapshot' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("VolumeARN" Core..= volumeARN),
+          [ ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("VolumeARN" Data..= volumeARN),
             Prelude.Just
-              ("SnapshotDescription" Core..= snapshotDescription)
+              ("SnapshotDescription" Data..= snapshotDescription)
           ]
       )
 
-instance Core.ToPath CreateSnapshot where
+instance Data.ToPath CreateSnapshot where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateSnapshot where
+instance Data.ToQuery CreateSnapshot where
   toQuery = Prelude.const Prelude.mempty
 
 -- | A JSON object containing the following fields:
 --
 -- /See:/ 'newCreateSnapshotResponse' smart constructor.
 data CreateSnapshotResponse = CreateSnapshotResponse'
-  { -- | The Amazon Resource Name (ARN) of the volume of which the snapshot was
-    -- taken.
-    volumeARN :: Prelude.Maybe Prelude.Text,
-    -- | The snapshot ID that is used to refer to the snapshot in future
+  { -- | The snapshot ID that is used to refer to the snapshot in future
     -- operations such as describing snapshots (Amazon Elastic Compute Cloud
     -- API @DescribeSnapshots@) or creating a volume from a snapshot
     -- (CreateStorediSCSIVolume).
     snapshotId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the volume of which the snapshot was
+    -- taken.
+    volumeARN :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -246,13 +248,13 @@ data CreateSnapshotResponse = CreateSnapshotResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'volumeARN', 'createSnapshotResponse_volumeARN' - The Amazon Resource Name (ARN) of the volume of which the snapshot was
--- taken.
---
 -- 'snapshotId', 'createSnapshotResponse_snapshotId' - The snapshot ID that is used to refer to the snapshot in future
 -- operations such as describing snapshots (Amazon Elastic Compute Cloud
 -- API @DescribeSnapshots@) or creating a volume from a snapshot
 -- (CreateStorediSCSIVolume).
+--
+-- 'volumeARN', 'createSnapshotResponse_volumeARN' - The Amazon Resource Name (ARN) of the volume of which the snapshot was
+-- taken.
 --
 -- 'httpStatus', 'createSnapshotResponse_httpStatus' - The response's http status code.
 newCreateSnapshotResponse ::
@@ -261,16 +263,11 @@ newCreateSnapshotResponse ::
   CreateSnapshotResponse
 newCreateSnapshotResponse pHttpStatus_ =
   CreateSnapshotResponse'
-    { volumeARN =
+    { snapshotId =
         Prelude.Nothing,
-      snapshotId = Prelude.Nothing,
+      volumeARN = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The Amazon Resource Name (ARN) of the volume of which the snapshot was
--- taken.
-createSnapshotResponse_volumeARN :: Lens.Lens' CreateSnapshotResponse (Prelude.Maybe Prelude.Text)
-createSnapshotResponse_volumeARN = Lens.lens (\CreateSnapshotResponse' {volumeARN} -> volumeARN) (\s@CreateSnapshotResponse' {} a -> s {volumeARN = a} :: CreateSnapshotResponse)
 
 -- | The snapshot ID that is used to refer to the snapshot in future
 -- operations such as describing snapshots (Amazon Elastic Compute Cloud
@@ -279,12 +276,17 @@ createSnapshotResponse_volumeARN = Lens.lens (\CreateSnapshotResponse' {volumeAR
 createSnapshotResponse_snapshotId :: Lens.Lens' CreateSnapshotResponse (Prelude.Maybe Prelude.Text)
 createSnapshotResponse_snapshotId = Lens.lens (\CreateSnapshotResponse' {snapshotId} -> snapshotId) (\s@CreateSnapshotResponse' {} a -> s {snapshotId = a} :: CreateSnapshotResponse)
 
+-- | The Amazon Resource Name (ARN) of the volume of which the snapshot was
+-- taken.
+createSnapshotResponse_volumeARN :: Lens.Lens' CreateSnapshotResponse (Prelude.Maybe Prelude.Text)
+createSnapshotResponse_volumeARN = Lens.lens (\CreateSnapshotResponse' {volumeARN} -> volumeARN) (\s@CreateSnapshotResponse' {} a -> s {volumeARN = a} :: CreateSnapshotResponse)
+
 -- | The response's http status code.
 createSnapshotResponse_httpStatus :: Lens.Lens' CreateSnapshotResponse Prelude.Int
 createSnapshotResponse_httpStatus = Lens.lens (\CreateSnapshotResponse' {httpStatus} -> httpStatus) (\s@CreateSnapshotResponse' {} a -> s {httpStatus = a} :: CreateSnapshotResponse)
 
 instance Prelude.NFData CreateSnapshotResponse where
   rnf CreateSnapshotResponse' {..} =
-    Prelude.rnf volumeARN
-      `Prelude.seq` Prelude.rnf snapshotId
+    Prelude.rnf snapshotId
+      `Prelude.seq` Prelude.rnf volumeARN
       `Prelude.seq` Prelude.rnf httpStatus

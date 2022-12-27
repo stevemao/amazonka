@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.ListUserTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,16 +42,17 @@ module Amazonka.IAM.ListUserTags
     newListUserTagsResponse,
 
     -- * Response Lenses
-    listUserTagsResponse_marker,
     listUserTagsResponse_isTruncated,
+    listUserTagsResponse_marker,
     listUserTagsResponse_httpStatus,
     listUserTagsResponse_tags,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -173,17 +174,18 @@ instance Core.AWSPager ListUserTags where
 
 instance Core.AWSRequest ListUserTags where
   type AWSResponse ListUserTags = ListUserTagsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListUserTagsResult"
       ( \s h x ->
           ListUserTagsResponse'
-            Prelude.<$> (x Core..@? "Marker")
-            Prelude.<*> (x Core..@? "IsTruncated")
+            Prelude.<$> (x Data..@? "IsTruncated")
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..@? "Tags" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.parseXMLList "member"
+            Prelude.<*> ( x Data..@? "Tags" Core..!@ Prelude.mempty
+                            Prelude.>>= Data.parseXMLList "member"
                         )
       )
 
@@ -199,31 +201,27 @@ instance Prelude.NFData ListUserTags where
       `Prelude.seq` Prelude.rnf maxItems
       `Prelude.seq` Prelude.rnf userName
 
-instance Core.ToHeaders ListUserTags where
+instance Data.ToHeaders ListUserTags where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListUserTags where
+instance Data.ToPath ListUserTags where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListUserTags where
+instance Data.ToQuery ListUserTags where
   toQuery ListUserTags' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ListUserTags" :: Prelude.ByteString),
+          Data.=: ("ListUserTags" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "Marker" Core.=: marker,
-        "MaxItems" Core.=: maxItems,
-        "UserName" Core.=: userName
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "Marker" Data.=: marker,
+        "MaxItems" Data.=: maxItems,
+        "UserName" Data.=: userName
       ]
 
 -- | /See:/ 'newListUserTagsResponse' smart constructor.
 data ListUserTagsResponse = ListUserTagsResponse'
-  { -- | When @IsTruncated@ is @true@, this element is present and contains the
-    -- value to use for the @Marker@ parameter in a subsequent pagination
-    -- request.
-    marker :: Prelude.Maybe Prelude.Text,
-    -- | A flag that indicates whether there are more items to return. If your
+  { -- | A flag that indicates whether there are more items to return. If your
     -- results were truncated, you can make a subsequent pagination request
     -- using the @Marker@ request parameter to retrieve more items. Note that
     -- IAM might return fewer than the @MaxItems@ number of results even when
@@ -231,6 +229,10 @@ data ListUserTagsResponse = ListUserTagsResponse'
     -- @IsTruncated@ after every call to ensure that you receive all your
     -- results.
     isTruncated :: Prelude.Maybe Prelude.Bool,
+    -- | When @IsTruncated@ is @true@, this element is present and contains the
+    -- value to use for the @Marker@ parameter in a subsequent pagination
+    -- request.
+    marker :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | The list of tags that are currently attached to the user. Each tag
@@ -248,10 +250,6 @@ data ListUserTagsResponse = ListUserTagsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'marker', 'listUserTagsResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
--- value to use for the @Marker@ parameter in a subsequent pagination
--- request.
---
 -- 'isTruncated', 'listUserTagsResponse_isTruncated' - A flag that indicates whether there are more items to return. If your
 -- results were truncated, you can make a subsequent pagination request
 -- using the @Marker@ request parameter to retrieve more items. Note that
@@ -259,6 +257,10 @@ data ListUserTagsResponse = ListUserTagsResponse'
 -- there are more results available. We recommend that you check
 -- @IsTruncated@ after every call to ensure that you receive all your
 -- results.
+--
+-- 'marker', 'listUserTagsResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
 --
 -- 'httpStatus', 'listUserTagsResponse_httpStatus' - The response's http status code.
 --
@@ -271,17 +273,12 @@ newListUserTagsResponse ::
   ListUserTagsResponse
 newListUserTagsResponse pHttpStatus_ =
   ListUserTagsResponse'
-    { marker = Prelude.Nothing,
-      isTruncated = Prelude.Nothing,
+    { isTruncated =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
       httpStatus = pHttpStatus_,
       tags = Prelude.mempty
     }
-
--- | When @IsTruncated@ is @true@, this element is present and contains the
--- value to use for the @Marker@ parameter in a subsequent pagination
--- request.
-listUserTagsResponse_marker :: Lens.Lens' ListUserTagsResponse (Prelude.Maybe Prelude.Text)
-listUserTagsResponse_marker = Lens.lens (\ListUserTagsResponse' {marker} -> marker) (\s@ListUserTagsResponse' {} a -> s {marker = a} :: ListUserTagsResponse)
 
 -- | A flag that indicates whether there are more items to return. If your
 -- results were truncated, you can make a subsequent pagination request
@@ -292,6 +289,12 @@ listUserTagsResponse_marker = Lens.lens (\ListUserTagsResponse' {marker} -> mark
 -- results.
 listUserTagsResponse_isTruncated :: Lens.Lens' ListUserTagsResponse (Prelude.Maybe Prelude.Bool)
 listUserTagsResponse_isTruncated = Lens.lens (\ListUserTagsResponse' {isTruncated} -> isTruncated) (\s@ListUserTagsResponse' {} a -> s {isTruncated = a} :: ListUserTagsResponse)
+
+-- | When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
+listUserTagsResponse_marker :: Lens.Lens' ListUserTagsResponse (Prelude.Maybe Prelude.Text)
+listUserTagsResponse_marker = Lens.lens (\ListUserTagsResponse' {marker} -> marker) (\s@ListUserTagsResponse' {} a -> s {marker = a} :: ListUserTagsResponse)
 
 -- | The response's http status code.
 listUserTagsResponse_httpStatus :: Lens.Lens' ListUserTagsResponse Prelude.Int
@@ -305,7 +308,7 @@ listUserTagsResponse_tags = Lens.lens (\ListUserTagsResponse' {tags} -> tags) (\
 
 instance Prelude.NFData ListUserTagsResponse where
   rnf ListUserTagsResponse' {..} =
-    Prelude.rnf marker
-      `Prelude.seq` Prelude.rnf isTruncated
+    Prelude.rnf isTruncated
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf tags

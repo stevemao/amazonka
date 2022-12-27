@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudControl.Types.ResourceDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudControl.Types.ResourceDescription where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents information about a provisioned resource.
@@ -34,7 +35,7 @@ data ResourceDescription = ResourceDescription'
     -- in the /Amazon Web Services Cloud Control API User Guide/.
     identifier :: Prelude.Maybe Prelude.Text,
     -- | A list of the resource properties and their current values.
-    properties :: Prelude.Maybe (Core.Sensitive Prelude.Text)
+    properties :: Prelude.Maybe (Data.Sensitive Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -71,16 +72,16 @@ resourceDescription_identifier = Lens.lens (\ResourceDescription' {identifier} -
 
 -- | A list of the resource properties and their current values.
 resourceDescription_properties :: Lens.Lens' ResourceDescription (Prelude.Maybe Prelude.Text)
-resourceDescription_properties = Lens.lens (\ResourceDescription' {properties} -> properties) (\s@ResourceDescription' {} a -> s {properties = a} :: ResourceDescription) Prelude.. Lens.mapping Core._Sensitive
+resourceDescription_properties = Lens.lens (\ResourceDescription' {properties} -> properties) (\s@ResourceDescription' {} a -> s {properties = a} :: ResourceDescription) Prelude.. Lens.mapping Data._Sensitive
 
-instance Core.FromJSON ResourceDescription where
+instance Data.FromJSON ResourceDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResourceDescription"
       ( \x ->
           ResourceDescription'
-            Prelude.<$> (x Core..:? "Identifier")
-            Prelude.<*> (x Core..:? "Properties")
+            Prelude.<$> (x Data..:? "Identifier")
+            Prelude.<*> (x Data..:? "Properties")
       )
 
 instance Prelude.Hashable ResourceDescription where

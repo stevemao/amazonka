@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.S3OriginConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudFront.Types.S3OriginConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A complex type that contains information about the Amazon S3 origin. If
@@ -129,10 +130,10 @@ newS3OriginConfig pOriginAccessIdentity_ =
 s3OriginConfig_originAccessIdentity :: Lens.Lens' S3OriginConfig Prelude.Text
 s3OriginConfig_originAccessIdentity = Lens.lens (\S3OriginConfig' {originAccessIdentity} -> originAccessIdentity) (\s@S3OriginConfig' {} a -> s {originAccessIdentity = a} :: S3OriginConfig)
 
-instance Core.FromXML S3OriginConfig where
+instance Data.FromXML S3OriginConfig where
   parseXML x =
     S3OriginConfig'
-      Prelude.<$> (x Core..@ "OriginAccessIdentity")
+      Prelude.<$> (x Data..@ "OriginAccessIdentity")
 
 instance Prelude.Hashable S3OriginConfig where
   hashWithSalt _salt S3OriginConfig' {..} =
@@ -142,7 +143,7 @@ instance Prelude.NFData S3OriginConfig where
   rnf S3OriginConfig' {..} =
     Prelude.rnf originAccessIdentity
 
-instance Core.ToXML S3OriginConfig where
+instance Data.ToXML S3OriginConfig where
   toXML S3OriginConfig' {..} =
     Prelude.mconcat
-      ["OriginAccessIdentity" Core.@= originAccessIdentity]
+      ["OriginAccessIdentity" Data.@= originAccessIdentity]

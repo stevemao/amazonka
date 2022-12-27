@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.ReplicationTimeValue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.ReplicationTimeValue where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 
@@ -58,10 +59,10 @@ newReplicationTimeValue =
 replicationTimeValue_minutes :: Lens.Lens' ReplicationTimeValue (Prelude.Maybe Prelude.Int)
 replicationTimeValue_minutes = Lens.lens (\ReplicationTimeValue' {minutes} -> minutes) (\s@ReplicationTimeValue' {} a -> s {minutes = a} :: ReplicationTimeValue)
 
-instance Core.FromXML ReplicationTimeValue where
+instance Data.FromXML ReplicationTimeValue where
   parseXML x =
     ReplicationTimeValue'
-      Prelude.<$> (x Core..@? "Minutes")
+      Prelude.<$> (x Data..@? "Minutes")
 
 instance Prelude.Hashable ReplicationTimeValue where
   hashWithSalt _salt ReplicationTimeValue' {..} =
@@ -70,6 +71,6 @@ instance Prelude.Hashable ReplicationTimeValue where
 instance Prelude.NFData ReplicationTimeValue where
   rnf ReplicationTimeValue' {..} = Prelude.rnf minutes
 
-instance Core.ToXML ReplicationTimeValue where
+instance Data.ToXML ReplicationTimeValue where
   toXML ReplicationTimeValue' {..} =
-    Prelude.mconcat ["Minutes" Core.@= minutes]
+    Prelude.mconcat ["Minutes" Data.@= minutes]

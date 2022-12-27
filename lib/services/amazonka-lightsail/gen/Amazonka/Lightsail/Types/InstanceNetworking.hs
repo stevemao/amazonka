@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.InstanceNetworking
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.InstanceNetworking where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types.InstancePortInfo
 import Amazonka.Lightsail.Types.MonthlyTransfer
 import qualified Amazonka.Prelude as Prelude
@@ -68,14 +69,14 @@ instanceNetworking_monthlyTransfer = Lens.lens (\InstanceNetworking' {monthlyTra
 instanceNetworking_ports :: Lens.Lens' InstanceNetworking (Prelude.Maybe [InstancePortInfo])
 instanceNetworking_ports = Lens.lens (\InstanceNetworking' {ports} -> ports) (\s@InstanceNetworking' {} a -> s {ports = a} :: InstanceNetworking) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON InstanceNetworking where
+instance Data.FromJSON InstanceNetworking where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InstanceNetworking"
       ( \x ->
           InstanceNetworking'
-            Prelude.<$> (x Core..:? "monthlyTransfer")
-            Prelude.<*> (x Core..:? "ports" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "monthlyTransfer")
+            Prelude.<*> (x Data..:? "ports" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable InstanceNetworking where

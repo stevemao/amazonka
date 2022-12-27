@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.UpdateDefaultMailDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.WorkMail.UpdateDefaultMailDomain
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -50,7 +51,7 @@ import Amazonka.WorkMail.Types
 
 -- | /See:/ 'newUpdateDefaultMailDomain' smart constructor.
 data UpdateDefaultMailDomain = UpdateDefaultMailDomain'
-  { -- | The Amazon WorkMail organization for which to list domains.
+  { -- | The WorkMail organization for which to list domains.
     organizationId :: Prelude.Text,
     -- | The domain name that will become the default domain.
     domainName :: Prelude.Text
@@ -65,7 +66,7 @@ data UpdateDefaultMailDomain = UpdateDefaultMailDomain'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'organizationId', 'updateDefaultMailDomain_organizationId' - The Amazon WorkMail organization for which to list domains.
+-- 'organizationId', 'updateDefaultMailDomain_organizationId' - The WorkMail organization for which to list domains.
 --
 -- 'domainName', 'updateDefaultMailDomain_domainName' - The domain name that will become the default domain.
 newUpdateDefaultMailDomain ::
@@ -83,7 +84,7 @@ newUpdateDefaultMailDomain
         domainName = pDomainName_
       }
 
--- | The Amazon WorkMail organization for which to list domains.
+-- | The WorkMail organization for which to list domains.
 updateDefaultMailDomain_organizationId :: Lens.Lens' UpdateDefaultMailDomain Prelude.Text
 updateDefaultMailDomain_organizationId = Lens.lens (\UpdateDefaultMailDomain' {organizationId} -> organizationId) (\s@UpdateDefaultMailDomain' {} a -> s {organizationId = a} :: UpdateDefaultMailDomain)
 
@@ -95,7 +96,8 @@ instance Core.AWSRequest UpdateDefaultMailDomain where
   type
     AWSResponse UpdateDefaultMailDomain =
       UpdateDefaultMailDomainResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -113,35 +115,35 @@ instance Prelude.NFData UpdateDefaultMailDomain where
     Prelude.rnf organizationId
       `Prelude.seq` Prelude.rnf domainName
 
-instance Core.ToHeaders UpdateDefaultMailDomain where
+instance Data.ToHeaders UpdateDefaultMailDomain where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkMailService.UpdateDefaultMailDomain" ::
+              Data.=# ( "WorkMailService.UpdateDefaultMailDomain" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateDefaultMailDomain where
+instance Data.ToJSON UpdateDefaultMailDomain where
   toJSON UpdateDefaultMailDomain' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("OrganizationId" Core..= organizationId),
-            Prelude.Just ("DomainName" Core..= domainName)
+              ("OrganizationId" Data..= organizationId),
+            Prelude.Just ("DomainName" Data..= domainName)
           ]
       )
 
-instance Core.ToPath UpdateDefaultMailDomain where
+instance Data.ToPath UpdateDefaultMailDomain where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateDefaultMailDomain where
+instance Data.ToQuery UpdateDefaultMailDomain where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateDefaultMailDomainResponse' smart constructor.

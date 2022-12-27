@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.SearchResourcesCriteriaBlock
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.SearchResourcesCriteriaBlock where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types.SearchResourcesCriteria
 import qualified Amazonka.Prelude as Prelude
 
@@ -76,7 +77,7 @@ instance Prelude.NFData SearchResourcesCriteriaBlock where
   rnf SearchResourcesCriteriaBlock' {..} =
     Prelude.rnf and
 
-instance Core.ToJSON SearchResourcesCriteriaBlock where
+instance Data.ToJSON SearchResourcesCriteriaBlock where
   toJSON SearchResourcesCriteriaBlock' {..} =
-    Core.object
-      (Prelude.catMaybes [("and" Core..=) Prelude.<$> and])
+    Data.object
+      (Prelude.catMaybes [("and" Data..=) Prelude.<$> and])

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.GetAssessment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,22 +34,23 @@ module Amazonka.AuditManager.GetAssessment
     newGetAssessmentResponse,
 
     -- * Response Lenses
-    getAssessmentResponse_userRole,
     getAssessmentResponse_assessment,
+    getAssessmentResponse_userRole,
     getAssessmentResponse_httpStatus,
   )
 where
 
 import Amazonka.AuditManager.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetAssessment' smart constructor.
 data GetAssessment = GetAssessment'
-  { -- | The identifier for the specified assessment.
+  { -- | The unique identifier for the assessment.
     assessmentId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -62,7 +63,7 @@ data GetAssessment = GetAssessment'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'assessmentId', 'getAssessment_assessmentId' - The identifier for the specified assessment.
+-- 'assessmentId', 'getAssessment_assessmentId' - The unique identifier for the assessment.
 newGetAssessment ::
   -- | 'assessmentId'
   Prelude.Text ->
@@ -70,7 +71,7 @@ newGetAssessment ::
 newGetAssessment pAssessmentId_ =
   GetAssessment' {assessmentId = pAssessmentId_}
 
--- | The identifier for the specified assessment.
+-- | The unique identifier for the assessment.
 getAssessment_assessmentId :: Lens.Lens' GetAssessment Prelude.Text
 getAssessment_assessmentId = Lens.lens (\GetAssessment' {assessmentId} -> assessmentId) (\s@GetAssessment' {} a -> s {assessmentId = a} :: GetAssessment)
 
@@ -78,13 +79,14 @@ instance Core.AWSRequest GetAssessment where
   type
     AWSResponse GetAssessment =
       GetAssessmentResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAssessmentResponse'
-            Prelude.<$> (x Core..?> "userRole")
-            Prelude.<*> (x Core..?> "assessment")
+            Prelude.<$> (x Data..?> "assessment")
+            Prelude.<*> (x Data..?> "userRole")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -95,29 +97,29 @@ instance Prelude.Hashable GetAssessment where
 instance Prelude.NFData GetAssessment where
   rnf GetAssessment' {..} = Prelude.rnf assessmentId
 
-instance Core.ToHeaders GetAssessment where
+instance Data.ToHeaders GetAssessment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetAssessment where
+instance Data.ToPath GetAssessment where
   toPath GetAssessment' {..} =
     Prelude.mconcat
-      ["/assessments/", Core.toBS assessmentId]
+      ["/assessments/", Data.toBS assessmentId]
 
-instance Core.ToQuery GetAssessment where
+instance Data.ToQuery GetAssessment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetAssessmentResponse' smart constructor.
 data GetAssessmentResponse = GetAssessmentResponse'
-  { userRole :: Prelude.Maybe Role,
-    assessment :: Prelude.Maybe Assessment,
+  { assessment :: Prelude.Maybe Assessment,
+    userRole :: Prelude.Maybe Role,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -131,9 +133,9 @@ data GetAssessmentResponse = GetAssessmentResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'userRole', 'getAssessmentResponse_userRole' - Undocumented member.
---
 -- 'assessment', 'getAssessmentResponse_assessment' - Undocumented member.
+--
+-- 'userRole', 'getAssessmentResponse_userRole' - Undocumented member.
 --
 -- 'httpStatus', 'getAssessmentResponse_httpStatus' - The response's http status code.
 newGetAssessmentResponse ::
@@ -142,18 +144,19 @@ newGetAssessmentResponse ::
   GetAssessmentResponse
 newGetAssessmentResponse pHttpStatus_ =
   GetAssessmentResponse'
-    { userRole = Prelude.Nothing,
-      assessment = Prelude.Nothing,
+    { assessment =
+        Prelude.Nothing,
+      userRole = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-getAssessmentResponse_userRole :: Lens.Lens' GetAssessmentResponse (Prelude.Maybe Role)
-getAssessmentResponse_userRole = Lens.lens (\GetAssessmentResponse' {userRole} -> userRole) (\s@GetAssessmentResponse' {} a -> s {userRole = a} :: GetAssessmentResponse)
-
--- | Undocumented member.
 getAssessmentResponse_assessment :: Lens.Lens' GetAssessmentResponse (Prelude.Maybe Assessment)
 getAssessmentResponse_assessment = Lens.lens (\GetAssessmentResponse' {assessment} -> assessment) (\s@GetAssessmentResponse' {} a -> s {assessment = a} :: GetAssessmentResponse)
+
+-- | Undocumented member.
+getAssessmentResponse_userRole :: Lens.Lens' GetAssessmentResponse (Prelude.Maybe Role)
+getAssessmentResponse_userRole = Lens.lens (\GetAssessmentResponse' {userRole} -> userRole) (\s@GetAssessmentResponse' {} a -> s {userRole = a} :: GetAssessmentResponse)
 
 -- | The response's http status code.
 getAssessmentResponse_httpStatus :: Lens.Lens' GetAssessmentResponse Prelude.Int
@@ -161,6 +164,6 @@ getAssessmentResponse_httpStatus = Lens.lens (\GetAssessmentResponse' {httpStatu
 
 instance Prelude.NFData GetAssessmentResponse where
   rnf GetAssessmentResponse' {..} =
-    Prelude.rnf userRole
-      `Prelude.seq` Prelude.rnf assessment
+    Prelude.rnf assessment
+      `Prelude.seq` Prelude.rnf userRole
       `Prelude.seq` Prelude.rnf httpStatus

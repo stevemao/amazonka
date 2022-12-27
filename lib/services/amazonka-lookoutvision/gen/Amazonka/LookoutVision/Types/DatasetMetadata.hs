@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutVision.Types.DatasetMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,22 +20,24 @@
 module Amazonka.LookoutVision.Types.DatasetMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LookoutVision.Types.DatasetStatus
 import qualified Amazonka.Prelude as Prelude
 
--- | Sumary information for an Amazon Lookout for Vision dataset.
+-- | Summary information for an Amazon Lookout for Vision dataset. For more
+-- information, see DescribeDataset and ProjectDescription.
 --
 -- /See:/ 'newDatasetMetadata' smart constructor.
 data DatasetMetadata = DatasetMetadata'
-  { -- | The status for the dataset.
+  { -- | The Unix timestamp for the date and time that the dataset was created.
+    creationTimestamp :: Prelude.Maybe Data.POSIX,
+    -- | The type of the dataset.
+    datasetType :: Prelude.Maybe Prelude.Text,
+    -- | The status for the dataset.
     status :: Prelude.Maybe DatasetStatus,
     -- | The status message for the dataset.
-    statusMessage :: Prelude.Maybe Prelude.Text,
-    -- | The Unix timestamp for the date and time that the dataset was created.
-    creationTimestamp :: Prelude.Maybe Core.POSIX,
-    -- | The type of the dataset.
-    datasetType :: Prelude.Maybe Prelude.Text
+    statusMessage :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,22 +49,31 @@ data DatasetMetadata = DatasetMetadata'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'datasetMetadata_status' - The status for the dataset.
---
--- 'statusMessage', 'datasetMetadata_statusMessage' - The status message for the dataset.
---
 -- 'creationTimestamp', 'datasetMetadata_creationTimestamp' - The Unix timestamp for the date and time that the dataset was created.
 --
 -- 'datasetType', 'datasetMetadata_datasetType' - The type of the dataset.
+--
+-- 'status', 'datasetMetadata_status' - The status for the dataset.
+--
+-- 'statusMessage', 'datasetMetadata_statusMessage' - The status message for the dataset.
 newDatasetMetadata ::
   DatasetMetadata
 newDatasetMetadata =
   DatasetMetadata'
-    { status = Prelude.Nothing,
-      statusMessage = Prelude.Nothing,
-      creationTimestamp = Prelude.Nothing,
-      datasetType = Prelude.Nothing
+    { creationTimestamp =
+        Prelude.Nothing,
+      datasetType = Prelude.Nothing,
+      status = Prelude.Nothing,
+      statusMessage = Prelude.Nothing
     }
+
+-- | The Unix timestamp for the date and time that the dataset was created.
+datasetMetadata_creationTimestamp :: Lens.Lens' DatasetMetadata (Prelude.Maybe Prelude.UTCTime)
+datasetMetadata_creationTimestamp = Lens.lens (\DatasetMetadata' {creationTimestamp} -> creationTimestamp) (\s@DatasetMetadata' {} a -> s {creationTimestamp = a} :: DatasetMetadata) Prelude.. Lens.mapping Data._Time
+
+-- | The type of the dataset.
+datasetMetadata_datasetType :: Lens.Lens' DatasetMetadata (Prelude.Maybe Prelude.Text)
+datasetMetadata_datasetType = Lens.lens (\DatasetMetadata' {datasetType} -> datasetType) (\s@DatasetMetadata' {} a -> s {datasetType = a} :: DatasetMetadata)
 
 -- | The status for the dataset.
 datasetMetadata_status :: Lens.Lens' DatasetMetadata (Prelude.Maybe DatasetStatus)
@@ -72,36 +83,28 @@ datasetMetadata_status = Lens.lens (\DatasetMetadata' {status} -> status) (\s@Da
 datasetMetadata_statusMessage :: Lens.Lens' DatasetMetadata (Prelude.Maybe Prelude.Text)
 datasetMetadata_statusMessage = Lens.lens (\DatasetMetadata' {statusMessage} -> statusMessage) (\s@DatasetMetadata' {} a -> s {statusMessage = a} :: DatasetMetadata)
 
--- | The Unix timestamp for the date and time that the dataset was created.
-datasetMetadata_creationTimestamp :: Lens.Lens' DatasetMetadata (Prelude.Maybe Prelude.UTCTime)
-datasetMetadata_creationTimestamp = Lens.lens (\DatasetMetadata' {creationTimestamp} -> creationTimestamp) (\s@DatasetMetadata' {} a -> s {creationTimestamp = a} :: DatasetMetadata) Prelude.. Lens.mapping Core._Time
-
--- | The type of the dataset.
-datasetMetadata_datasetType :: Lens.Lens' DatasetMetadata (Prelude.Maybe Prelude.Text)
-datasetMetadata_datasetType = Lens.lens (\DatasetMetadata' {datasetType} -> datasetType) (\s@DatasetMetadata' {} a -> s {datasetType = a} :: DatasetMetadata)
-
-instance Core.FromJSON DatasetMetadata where
+instance Data.FromJSON DatasetMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DatasetMetadata"
       ( \x ->
           DatasetMetadata'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "StatusMessage")
-            Prelude.<*> (x Core..:? "CreationTimestamp")
-            Prelude.<*> (x Core..:? "DatasetType")
+            Prelude.<$> (x Data..:? "CreationTimestamp")
+            Prelude.<*> (x Data..:? "DatasetType")
+            Prelude.<*> (x Data..:? "Status")
+            Prelude.<*> (x Data..:? "StatusMessage")
       )
 
 instance Prelude.Hashable DatasetMetadata where
   hashWithSalt _salt DatasetMetadata' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` statusMessage
-      `Prelude.hashWithSalt` creationTimestamp
+    _salt `Prelude.hashWithSalt` creationTimestamp
       `Prelude.hashWithSalt` datasetType
+      `Prelude.hashWithSalt` status
+      `Prelude.hashWithSalt` statusMessage
 
 instance Prelude.NFData DatasetMetadata where
   rnf DatasetMetadata' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf statusMessage
-      `Prelude.seq` Prelude.rnf creationTimestamp
+    Prelude.rnf creationTimestamp
       `Prelude.seq` Prelude.rnf datasetType
+      `Prelude.seq` Prelude.rnf status
+      `Prelude.seq` Prelude.rnf statusMessage

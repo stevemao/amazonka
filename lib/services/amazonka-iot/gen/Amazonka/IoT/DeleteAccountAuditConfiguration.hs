@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DeleteAccountAuditConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.IoT.DeleteAccountAuditConfiguration
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,7 +87,8 @@ instance
   type
     AWSResponse DeleteAccountAuditConfiguration =
       DeleteAccountAuditConfigurationResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -111,19 +113,19 @@ instance
     Prelude.rnf deleteScheduledAudits
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteAccountAuditConfiguration
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteAccountAuditConfiguration where
+instance Data.ToPath DeleteAccountAuditConfiguration where
   toPath = Prelude.const "/audit/configuration"
 
-instance Core.ToQuery DeleteAccountAuditConfiguration where
+instance Data.ToQuery DeleteAccountAuditConfiguration where
   toQuery DeleteAccountAuditConfiguration' {..} =
     Prelude.mconcat
       [ "deleteScheduledAudits"
-          Core.=: deleteScheduledAudits
+          Data.=: deleteScheduledAudits
       ]
 
 -- | /See:/ 'newDeleteAccountAuditConfigurationResponse' smart constructor.

@@ -14,14 +14,16 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.DeleteEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Deletes a model-specific endpoint for a previously-trained custom model.
--- All endpoints must be deleted in order for the model to be deleted.
+-- All endpoints must be deleted in order for the model to be deleted. For
+-- information about endpoints, see
+-- <https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints.html Managing endpoints>.
 module Amazonka.Comprehend.DeleteEndpoint
   ( -- * Creating a Request
     DeleteEndpoint (..),
@@ -41,7 +43,8 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,7 +80,8 @@ instance Core.AWSRequest DeleteEndpoint where
   type
     AWSResponse DeleteEndpoint =
       DeleteEndpointResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -92,32 +96,32 @@ instance Prelude.Hashable DeleteEndpoint where
 instance Prelude.NFData DeleteEndpoint where
   rnf DeleteEndpoint' {..} = Prelude.rnf endpointArn
 
-instance Core.ToHeaders DeleteEndpoint where
+instance Data.ToHeaders DeleteEndpoint where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.DeleteEndpoint" ::
+              Data.=# ( "Comprehend_20171127.DeleteEndpoint" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteEndpoint where
+instance Data.ToJSON DeleteEndpoint where
   toJSON DeleteEndpoint' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("EndpointArn" Core..= endpointArn)]
+          [Prelude.Just ("EndpointArn" Data..= endpointArn)]
       )
 
-instance Core.ToPath DeleteEndpoint where
+instance Data.ToPath DeleteEndpoint where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteEndpoint where
+instance Data.ToQuery DeleteEndpoint where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteEndpointResponse' smart constructor.

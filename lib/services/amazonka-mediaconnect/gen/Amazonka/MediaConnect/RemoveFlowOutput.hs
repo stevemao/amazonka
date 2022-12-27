@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConnect.RemoveFlowOutput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.MediaConnect.RemoveFlowOutput
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConnect.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -96,13 +97,14 @@ instance Core.AWSRequest RemoveFlowOutput where
   type
     AWSResponse RemoveFlowOutput =
       RemoveFlowOutputResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RemoveFlowOutputResponse'
-            Prelude.<$> (x Core..?> "flowArn")
-            Prelude.<*> (x Core..?> "outputArn")
+            Prelude.<$> (x Data..?> "flowArn")
+            Prelude.<*> (x Data..?> "outputArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,27 +118,27 @@ instance Prelude.NFData RemoveFlowOutput where
     Prelude.rnf flowArn
       `Prelude.seq` Prelude.rnf outputArn
 
-instance Core.ToHeaders RemoveFlowOutput where
+instance Data.ToHeaders RemoveFlowOutput where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath RemoveFlowOutput where
+instance Data.ToPath RemoveFlowOutput where
   toPath RemoveFlowOutput' {..} =
     Prelude.mconcat
       [ "/v1/flows/",
-        Core.toBS flowArn,
+        Data.toBS flowArn,
         "/outputs/",
-        Core.toBS outputArn
+        Data.toBS outputArn
       ]
 
-instance Core.ToQuery RemoveFlowOutput where
+instance Data.ToQuery RemoveFlowOutput where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRemoveFlowOutputResponse' smart constructor.

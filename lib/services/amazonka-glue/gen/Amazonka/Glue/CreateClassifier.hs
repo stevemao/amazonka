@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.CreateClassifier
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,10 +29,10 @@ module Amazonka.Glue.CreateClassifier
     newCreateClassifier,
 
     -- * Request Lenses
-    createClassifier_grokClassifier,
-    createClassifier_xMLClassifier,
     createClassifier_csvClassifier,
+    createClassifier_grokClassifier,
     createClassifier_jsonClassifier,
+    createClassifier_xMLClassifier,
 
     -- * Destructuring the Response
     CreateClassifierResponse (..),
@@ -44,22 +44,23 @@ module Amazonka.Glue.CreateClassifier
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateClassifier' smart constructor.
 data CreateClassifier = CreateClassifier'
-  { -- | A @GrokClassifier@ object specifying the classifier to create.
-    grokClassifier :: Prelude.Maybe CreateGrokClassifierRequest,
-    -- | An @XMLClassifier@ object specifying the classifier to create.
-    xMLClassifier :: Prelude.Maybe CreateXMLClassifierRequest,
-    -- | A @CsvClassifier@ object specifying the classifier to create.
+  { -- | A @CsvClassifier@ object specifying the classifier to create.
     csvClassifier :: Prelude.Maybe CreateCsvClassifierRequest,
+    -- | A @GrokClassifier@ object specifying the classifier to create.
+    grokClassifier :: Prelude.Maybe CreateGrokClassifierRequest,
     -- | A @JsonClassifier@ object specifying the classifier to create.
-    jsonClassifier :: Prelude.Maybe CreateJsonClassifierRequest
+    jsonClassifier :: Prelude.Maybe CreateJsonClassifierRequest,
+    -- | An @XMLClassifier@ object specifying the classifier to create.
+    xMLClassifier :: Prelude.Maybe CreateXMLClassifierRequest
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -71,44 +72,45 @@ data CreateClassifier = CreateClassifier'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'grokClassifier', 'createClassifier_grokClassifier' - A @GrokClassifier@ object specifying the classifier to create.
---
--- 'xMLClassifier', 'createClassifier_xMLClassifier' - An @XMLClassifier@ object specifying the classifier to create.
---
 -- 'csvClassifier', 'createClassifier_csvClassifier' - A @CsvClassifier@ object specifying the classifier to create.
 --
+-- 'grokClassifier', 'createClassifier_grokClassifier' - A @GrokClassifier@ object specifying the classifier to create.
+--
 -- 'jsonClassifier', 'createClassifier_jsonClassifier' - A @JsonClassifier@ object specifying the classifier to create.
+--
+-- 'xMLClassifier', 'createClassifier_xMLClassifier' - An @XMLClassifier@ object specifying the classifier to create.
 newCreateClassifier ::
   CreateClassifier
 newCreateClassifier =
   CreateClassifier'
-    { grokClassifier = Prelude.Nothing,
-      xMLClassifier = Prelude.Nothing,
-      csvClassifier = Prelude.Nothing,
-      jsonClassifier = Prelude.Nothing
+    { csvClassifier = Prelude.Nothing,
+      grokClassifier = Prelude.Nothing,
+      jsonClassifier = Prelude.Nothing,
+      xMLClassifier = Prelude.Nothing
     }
-
--- | A @GrokClassifier@ object specifying the classifier to create.
-createClassifier_grokClassifier :: Lens.Lens' CreateClassifier (Prelude.Maybe CreateGrokClassifierRequest)
-createClassifier_grokClassifier = Lens.lens (\CreateClassifier' {grokClassifier} -> grokClassifier) (\s@CreateClassifier' {} a -> s {grokClassifier = a} :: CreateClassifier)
-
--- | An @XMLClassifier@ object specifying the classifier to create.
-createClassifier_xMLClassifier :: Lens.Lens' CreateClassifier (Prelude.Maybe CreateXMLClassifierRequest)
-createClassifier_xMLClassifier = Lens.lens (\CreateClassifier' {xMLClassifier} -> xMLClassifier) (\s@CreateClassifier' {} a -> s {xMLClassifier = a} :: CreateClassifier)
 
 -- | A @CsvClassifier@ object specifying the classifier to create.
 createClassifier_csvClassifier :: Lens.Lens' CreateClassifier (Prelude.Maybe CreateCsvClassifierRequest)
 createClassifier_csvClassifier = Lens.lens (\CreateClassifier' {csvClassifier} -> csvClassifier) (\s@CreateClassifier' {} a -> s {csvClassifier = a} :: CreateClassifier)
 
+-- | A @GrokClassifier@ object specifying the classifier to create.
+createClassifier_grokClassifier :: Lens.Lens' CreateClassifier (Prelude.Maybe CreateGrokClassifierRequest)
+createClassifier_grokClassifier = Lens.lens (\CreateClassifier' {grokClassifier} -> grokClassifier) (\s@CreateClassifier' {} a -> s {grokClassifier = a} :: CreateClassifier)
+
 -- | A @JsonClassifier@ object specifying the classifier to create.
 createClassifier_jsonClassifier :: Lens.Lens' CreateClassifier (Prelude.Maybe CreateJsonClassifierRequest)
 createClassifier_jsonClassifier = Lens.lens (\CreateClassifier' {jsonClassifier} -> jsonClassifier) (\s@CreateClassifier' {} a -> s {jsonClassifier = a} :: CreateClassifier)
+
+-- | An @XMLClassifier@ object specifying the classifier to create.
+createClassifier_xMLClassifier :: Lens.Lens' CreateClassifier (Prelude.Maybe CreateXMLClassifierRequest)
+createClassifier_xMLClassifier = Lens.lens (\CreateClassifier' {xMLClassifier} -> xMLClassifier) (\s@CreateClassifier' {} a -> s {xMLClassifier = a} :: CreateClassifier)
 
 instance Core.AWSRequest CreateClassifier where
   type
     AWSResponse CreateClassifier =
       CreateClassifierResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -118,48 +120,48 @@ instance Core.AWSRequest CreateClassifier where
 
 instance Prelude.Hashable CreateClassifier where
   hashWithSalt _salt CreateClassifier' {..} =
-    _salt `Prelude.hashWithSalt` grokClassifier
-      `Prelude.hashWithSalt` xMLClassifier
-      `Prelude.hashWithSalt` csvClassifier
+    _salt `Prelude.hashWithSalt` csvClassifier
+      `Prelude.hashWithSalt` grokClassifier
       `Prelude.hashWithSalt` jsonClassifier
+      `Prelude.hashWithSalt` xMLClassifier
 
 instance Prelude.NFData CreateClassifier where
   rnf CreateClassifier' {..} =
-    Prelude.rnf grokClassifier
-      `Prelude.seq` Prelude.rnf xMLClassifier
-      `Prelude.seq` Prelude.rnf csvClassifier
+    Prelude.rnf csvClassifier
+      `Prelude.seq` Prelude.rnf grokClassifier
       `Prelude.seq` Prelude.rnf jsonClassifier
+      `Prelude.seq` Prelude.rnf xMLClassifier
 
-instance Core.ToHeaders CreateClassifier where
+instance Data.ToHeaders CreateClassifier where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.CreateClassifier" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.CreateClassifier" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateClassifier where
+instance Data.ToJSON CreateClassifier where
   toJSON CreateClassifier' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("GrokClassifier" Core..=)
+          [ ("CsvClassifier" Data..=) Prelude.<$> csvClassifier,
+            ("GrokClassifier" Data..=)
               Prelude.<$> grokClassifier,
-            ("XMLClassifier" Core..=) Prelude.<$> xMLClassifier,
-            ("CsvClassifier" Core..=) Prelude.<$> csvClassifier,
-            ("JsonClassifier" Core..=)
-              Prelude.<$> jsonClassifier
+            ("JsonClassifier" Data..=)
+              Prelude.<$> jsonClassifier,
+            ("XMLClassifier" Data..=) Prelude.<$> xMLClassifier
           ]
       )
 
-instance Core.ToPath CreateClassifier where
+instance Data.ToPath CreateClassifier where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateClassifier where
+instance Data.ToQuery CreateClassifier where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateClassifierResponse' smart constructor.

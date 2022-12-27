@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEventsData.Types.DisableAlarmActionRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTEventsData.Types.DisableAlarmActionRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information used to disable the alarm.
@@ -106,14 +107,14 @@ instance Prelude.NFData DisableAlarmActionRequest where
       `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf alarmModelName
 
-instance Core.ToJSON DisableAlarmActionRequest where
+instance Data.ToJSON DisableAlarmActionRequest where
   toJSON DisableAlarmActionRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("keyValue" Core..=) Prelude.<$> keyValue,
-            ("note" Core..=) Prelude.<$> note,
-            Prelude.Just ("requestId" Core..= requestId),
+          [ ("keyValue" Data..=) Prelude.<$> keyValue,
+            ("note" Data..=) Prelude.<$> note,
+            Prelude.Just ("requestId" Data..= requestId),
             Prelude.Just
-              ("alarmModelName" Core..= alarmModelName)
+              ("alarmModelName" Data..= alarmModelName)
           ]
       )

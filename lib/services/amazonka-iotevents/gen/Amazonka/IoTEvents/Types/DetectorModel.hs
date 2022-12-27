@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.Types.DetectorModel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.IoTEvents.Types.DetectorModel where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types.DetectorModelConfiguration
 import Amazonka.IoTEvents.Types.DetectorModelDefinition
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the detector model.
@@ -64,14 +65,14 @@ detectorModel_detectorModelConfiguration = Lens.lens (\DetectorModel' {detectorM
 detectorModel_detectorModelDefinition :: Lens.Lens' DetectorModel (Prelude.Maybe DetectorModelDefinition)
 detectorModel_detectorModelDefinition = Lens.lens (\DetectorModel' {detectorModelDefinition} -> detectorModelDefinition) (\s@DetectorModel' {} a -> s {detectorModelDefinition = a} :: DetectorModel)
 
-instance Core.FromJSON DetectorModel where
+instance Data.FromJSON DetectorModel where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DetectorModel"
       ( \x ->
           DetectorModel'
-            Prelude.<$> (x Core..:? "detectorModelConfiguration")
-            Prelude.<*> (x Core..:? "detectorModelDefinition")
+            Prelude.<$> (x Data..:? "detectorModelConfiguration")
+            Prelude.<*> (x Data..:? "detectorModelDefinition")
       )
 
 instance Prelude.Hashable DetectorModel where

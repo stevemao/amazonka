@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glacier.GetDataRetrievalPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.Glacier.GetDataRetrievalPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glacier.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,14 +98,14 @@ instance Core.AWSRequest GetDataRetrievalPolicy where
   type
     AWSResponse GetDataRetrievalPolicy =
       GetDataRetrievalPolicyResponse
-  request =
-    Request.glacierVersionHeader (Core._serviceVersion defaultService)
-      Prelude.. Request.get defaultService
+  request overrides =
+    Request.glacierVersionHeader (Core.version defaultService)
+      Prelude.. Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDataRetrievalPolicyResponse'
-            Prelude.<$> (x Core..?> "Policy")
+            Prelude.<$> (x Data..?> "Policy")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,18 +117,18 @@ instance Prelude.NFData GetDataRetrievalPolicy where
   rnf GetDataRetrievalPolicy' {..} =
     Prelude.rnf accountId
 
-instance Core.ToHeaders GetDataRetrievalPolicy where
+instance Data.ToHeaders GetDataRetrievalPolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetDataRetrievalPolicy where
+instance Data.ToPath GetDataRetrievalPolicy where
   toPath GetDataRetrievalPolicy' {..} =
     Prelude.mconcat
       [ "/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/policies/data-retrieval"
       ]
 
-instance Core.ToQuery GetDataRetrievalPolicy where
+instance Data.ToQuery GetDataRetrievalPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the Amazon S3 Glacier response to the @GetDataRetrievalPolicy@

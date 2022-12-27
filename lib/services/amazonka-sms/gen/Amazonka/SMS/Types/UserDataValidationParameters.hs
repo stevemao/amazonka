@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SMS.Types.UserDataValidationParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SMS.Types.UserDataValidationParameters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SMS.Types.ScriptType
 import Amazonka.SMS.Types.Source
@@ -64,14 +65,14 @@ userDataValidationParameters_scriptType = Lens.lens (\UserDataValidationParamete
 userDataValidationParameters_source :: Lens.Lens' UserDataValidationParameters (Prelude.Maybe Source)
 userDataValidationParameters_source = Lens.lens (\UserDataValidationParameters' {source} -> source) (\s@UserDataValidationParameters' {} a -> s {source = a} :: UserDataValidationParameters)
 
-instance Core.FromJSON UserDataValidationParameters where
+instance Data.FromJSON UserDataValidationParameters where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UserDataValidationParameters"
       ( \x ->
           UserDataValidationParameters'
-            Prelude.<$> (x Core..:? "scriptType")
-            Prelude.<*> (x Core..:? "source")
+            Prelude.<$> (x Data..:? "scriptType")
+            Prelude.<*> (x Data..:? "source")
       )
 
 instance
@@ -87,11 +88,11 @@ instance Prelude.NFData UserDataValidationParameters where
     Prelude.rnf scriptType
       `Prelude.seq` Prelude.rnf source
 
-instance Core.ToJSON UserDataValidationParameters where
+instance Data.ToJSON UserDataValidationParameters where
   toJSON UserDataValidationParameters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("scriptType" Core..=) Prelude.<$> scriptType,
-            ("source" Core..=) Prelude.<$> source
+          [ ("scriptType" Data..=) Prelude.<$> scriptType,
+            ("source" Data..=) Prelude.<$> source
           ]
       )

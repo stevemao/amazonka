@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.DeleteTagOption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.ServiceCatalog.DeleteTagOption
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,7 +79,8 @@ instance Core.AWSRequest DeleteTagOption where
   type
     AWSResponse DeleteTagOption =
       DeleteTagOptionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -93,30 +95,30 @@ instance Prelude.Hashable DeleteTagOption where
 instance Prelude.NFData DeleteTagOption where
   rnf DeleteTagOption' {..} = Prelude.rnf id
 
-instance Core.ToHeaders DeleteTagOption where
+instance Data.ToHeaders DeleteTagOption where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.DeleteTagOption" ::
+              Data.=# ( "AWS242ServiceCatalogService.DeleteTagOption" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteTagOption where
+instance Data.ToJSON DeleteTagOption where
   toJSON DeleteTagOption' {..} =
-    Core.object
-      (Prelude.catMaybes [Prelude.Just ("Id" Core..= id)])
+    Data.object
+      (Prelude.catMaybes [Prelude.Just ("Id" Data..= id)])
 
-instance Core.ToPath DeleteTagOption where
+instance Data.ToPath DeleteTagOption where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteTagOption where
+instance Data.ToQuery DeleteTagOption where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteTagOptionResponse' smart constructor.

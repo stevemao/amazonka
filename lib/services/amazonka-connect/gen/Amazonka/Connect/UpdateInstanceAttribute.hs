@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.UpdateInstanceAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,7 +56,7 @@ data UpdateInstanceAttribute = UpdateInstanceAttribute'
     -- | The type of attribute.
     --
     -- Only allowlisted customers can consume USE_CUSTOM_TTS_VOICES. To access
-    -- this feature, contact AWS Support for allowlisting.
+    -- this feature, contact Amazon Web Services Support for allowlisting.
     attributeType :: InstanceAttributeType,
     -- | The value for the attribute. Maximum character limit is 100.
     value :: Prelude.Text
@@ -76,7 +77,7 @@ data UpdateInstanceAttribute = UpdateInstanceAttribute'
 -- 'attributeType', 'updateInstanceAttribute_attributeType' - The type of attribute.
 --
 -- Only allowlisted customers can consume USE_CUSTOM_TTS_VOICES. To access
--- this feature, contact AWS Support for allowlisting.
+-- this feature, contact Amazon Web Services Support for allowlisting.
 --
 -- 'value', 'updateInstanceAttribute_value' - The value for the attribute. Maximum character limit is 100.
 newUpdateInstanceAttribute ::
@@ -105,7 +106,7 @@ updateInstanceAttribute_instanceId = Lens.lens (\UpdateInstanceAttribute' {insta
 -- | The type of attribute.
 --
 -- Only allowlisted customers can consume USE_CUSTOM_TTS_VOICES. To access
--- this feature, contact AWS Support for allowlisting.
+-- this feature, contact Amazon Web Services Support for allowlisting.
 updateInstanceAttribute_attributeType :: Lens.Lens' UpdateInstanceAttribute InstanceAttributeType
 updateInstanceAttribute_attributeType = Lens.lens (\UpdateInstanceAttribute' {attributeType} -> attributeType) (\s@UpdateInstanceAttribute' {} a -> s {attributeType = a} :: UpdateInstanceAttribute)
 
@@ -117,7 +118,8 @@ instance Core.AWSRequest UpdateInstanceAttribute where
   type
     AWSResponse UpdateInstanceAttribute =
       UpdateInstanceAttributeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       UpdateInstanceAttributeResponse'
@@ -134,34 +136,34 @@ instance Prelude.NFData UpdateInstanceAttribute where
       `Prelude.seq` Prelude.rnf attributeType
       `Prelude.seq` Prelude.rnf value
 
-instance Core.ToHeaders UpdateInstanceAttribute where
+instance Data.ToHeaders UpdateInstanceAttribute where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateInstanceAttribute where
+instance Data.ToJSON UpdateInstanceAttribute where
   toJSON UpdateInstanceAttribute' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Value" Core..= value)]
+          [Prelude.Just ("Value" Data..= value)]
       )
 
-instance Core.ToPath UpdateInstanceAttribute where
+instance Data.ToPath UpdateInstanceAttribute where
   toPath UpdateInstanceAttribute' {..} =
     Prelude.mconcat
       [ "/instance/",
-        Core.toBS instanceId,
+        Data.toBS instanceId,
         "/attribute/",
-        Core.toBS attributeType
+        Data.toBS attributeType
       ]
 
-instance Core.ToQuery UpdateInstanceAttribute where
+instance Data.ToQuery UpdateInstanceAttribute where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateInstanceAttributeResponse' smart constructor.

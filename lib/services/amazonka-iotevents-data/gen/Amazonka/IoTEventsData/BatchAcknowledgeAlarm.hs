@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEventsData.BatchAcknowledgeAlarm
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.IoTEventsData.BatchAcknowledgeAlarm
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEventsData.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,12 +85,13 @@ instance Core.AWSRequest BatchAcknowledgeAlarm where
   type
     AWSResponse BatchAcknowledgeAlarm =
       BatchAcknowledgeAlarmResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchAcknowledgeAlarmResponse'
-            Prelude.<$> (x Core..?> "errorEntries" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "errorEntries" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -102,24 +104,24 @@ instance Prelude.NFData BatchAcknowledgeAlarm where
   rnf BatchAcknowledgeAlarm' {..} =
     Prelude.rnf acknowledgeActionRequests
 
-instance Core.ToHeaders BatchAcknowledgeAlarm where
+instance Data.ToHeaders BatchAcknowledgeAlarm where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON BatchAcknowledgeAlarm where
+instance Data.ToJSON BatchAcknowledgeAlarm where
   toJSON BatchAcknowledgeAlarm' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "acknowledgeActionRequests"
-                  Core..= acknowledgeActionRequests
+                  Data..= acknowledgeActionRequests
               )
           ]
       )
 
-instance Core.ToPath BatchAcknowledgeAlarm where
+instance Data.ToPath BatchAcknowledgeAlarm where
   toPath = Prelude.const "/alarms/acknowledge"
 
-instance Core.ToQuery BatchAcknowledgeAlarm where
+instance Data.ToQuery BatchAcknowledgeAlarm where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchAcknowledgeAlarmResponse' smart constructor.

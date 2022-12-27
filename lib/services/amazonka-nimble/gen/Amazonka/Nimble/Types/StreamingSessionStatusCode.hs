@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.Types.StreamingSessionStatusCode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,6 +21,7 @@ module Amazonka.Nimble.Types.StreamingSessionStatusCode
   ( StreamingSessionStatusCode
       ( ..,
         StreamingSessionStatusCode_ACTIVE_DIRECTORY_DOMAIN_JOIN_ERROR,
+        StreamingSessionStatusCode_AMI_VALIDATION_ERROR,
         StreamingSessionStatusCode_DECRYPT_STREAMING_IMAGE_ERROR,
         StreamingSessionStatusCode_INITIALIZATION_SCRIPT_ERROR,
         StreamingSessionStatusCode_INSUFFICIENT_CAPACITY,
@@ -30,18 +31,22 @@ module Amazonka.Nimble.Types.StreamingSessionStatusCode
         StreamingSessionStatusCode_STREAMING_SESSION_CREATE_IN_PROGRESS,
         StreamingSessionStatusCode_STREAMING_SESSION_DELETED,
         StreamingSessionStatusCode_STREAMING_SESSION_DELETE_IN_PROGRESS,
-        StreamingSessionStatusCode_STREAMING_SESSION_READY
+        StreamingSessionStatusCode_STREAMING_SESSION_READY,
+        StreamingSessionStatusCode_STREAMING_SESSION_STARTED,
+        StreamingSessionStatusCode_STREAMING_SESSION_START_IN_PROGRESS,
+        StreamingSessionStatusCode_STREAMING_SESSION_STOPPED,
+        StreamingSessionStatusCode_STREAMING_SESSION_STOP_IN_PROGRESS
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- |
 newtype StreamingSessionStatusCode = StreamingSessionStatusCode'
   { fromStreamingSessionStatusCode ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -53,22 +58,25 @@ newtype StreamingSessionStatusCode = StreamingSessionStatusCode'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern StreamingSessionStatusCode_ACTIVE_DIRECTORY_DOMAIN_JOIN_ERROR :: StreamingSessionStatusCode
 pattern StreamingSessionStatusCode_ACTIVE_DIRECTORY_DOMAIN_JOIN_ERROR = StreamingSessionStatusCode' "ACTIVE_DIRECTORY_DOMAIN_JOIN_ERROR"
+
+pattern StreamingSessionStatusCode_AMI_VALIDATION_ERROR :: StreamingSessionStatusCode
+pattern StreamingSessionStatusCode_AMI_VALIDATION_ERROR = StreamingSessionStatusCode' "AMI_VALIDATION_ERROR"
 
 pattern StreamingSessionStatusCode_DECRYPT_STREAMING_IMAGE_ERROR :: StreamingSessionStatusCode
 pattern StreamingSessionStatusCode_DECRYPT_STREAMING_IMAGE_ERROR = StreamingSessionStatusCode' "DECRYPT_STREAMING_IMAGE_ERROR"
@@ -100,8 +108,21 @@ pattern StreamingSessionStatusCode_STREAMING_SESSION_DELETE_IN_PROGRESS = Stream
 pattern StreamingSessionStatusCode_STREAMING_SESSION_READY :: StreamingSessionStatusCode
 pattern StreamingSessionStatusCode_STREAMING_SESSION_READY = StreamingSessionStatusCode' "STREAMING_SESSION_READY"
 
+pattern StreamingSessionStatusCode_STREAMING_SESSION_STARTED :: StreamingSessionStatusCode
+pattern StreamingSessionStatusCode_STREAMING_SESSION_STARTED = StreamingSessionStatusCode' "STREAMING_SESSION_STARTED"
+
+pattern StreamingSessionStatusCode_STREAMING_SESSION_START_IN_PROGRESS :: StreamingSessionStatusCode
+pattern StreamingSessionStatusCode_STREAMING_SESSION_START_IN_PROGRESS = StreamingSessionStatusCode' "STREAMING_SESSION_START_IN_PROGRESS"
+
+pattern StreamingSessionStatusCode_STREAMING_SESSION_STOPPED :: StreamingSessionStatusCode
+pattern StreamingSessionStatusCode_STREAMING_SESSION_STOPPED = StreamingSessionStatusCode' "STREAMING_SESSION_STOPPED"
+
+pattern StreamingSessionStatusCode_STREAMING_SESSION_STOP_IN_PROGRESS :: StreamingSessionStatusCode
+pattern StreamingSessionStatusCode_STREAMING_SESSION_STOP_IN_PROGRESS = StreamingSessionStatusCode' "STREAMING_SESSION_STOP_IN_PROGRESS"
+
 {-# COMPLETE
   StreamingSessionStatusCode_ACTIVE_DIRECTORY_DOMAIN_JOIN_ERROR,
+  StreamingSessionStatusCode_AMI_VALIDATION_ERROR,
   StreamingSessionStatusCode_DECRYPT_STREAMING_IMAGE_ERROR,
   StreamingSessionStatusCode_INITIALIZATION_SCRIPT_ERROR,
   StreamingSessionStatusCode_INSUFFICIENT_CAPACITY,
@@ -112,5 +133,9 @@ pattern StreamingSessionStatusCode_STREAMING_SESSION_READY = StreamingSessionSta
   StreamingSessionStatusCode_STREAMING_SESSION_DELETED,
   StreamingSessionStatusCode_STREAMING_SESSION_DELETE_IN_PROGRESS,
   StreamingSessionStatusCode_STREAMING_SESSION_READY,
+  StreamingSessionStatusCode_STREAMING_SESSION_STARTED,
+  StreamingSessionStatusCode_STREAMING_SESSION_START_IN_PROGRESS,
+  StreamingSessionStatusCode_STREAMING_SESSION_STOPPED,
+  StreamingSessionStatusCode_STREAMING_SESSION_STOP_IN_PROGRESS,
   StreamingSessionStatusCode'
   #-}

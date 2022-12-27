@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.Types.DBParameterGroupStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.RDS.Types.DBParameterGroupStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The status of the DB parameter group.
@@ -76,11 +77,11 @@ dbParameterGroupStatus_dbParameterGroupName = Lens.lens (\DBParameterGroupStatus
 dbParameterGroupStatus_parameterApplyStatus :: Lens.Lens' DBParameterGroupStatus (Prelude.Maybe Prelude.Text)
 dbParameterGroupStatus_parameterApplyStatus = Lens.lens (\DBParameterGroupStatus' {parameterApplyStatus} -> parameterApplyStatus) (\s@DBParameterGroupStatus' {} a -> s {parameterApplyStatus = a} :: DBParameterGroupStatus)
 
-instance Core.FromXML DBParameterGroupStatus where
+instance Data.FromXML DBParameterGroupStatus where
   parseXML x =
     DBParameterGroupStatus'
-      Prelude.<$> (x Core..@? "DBParameterGroupName")
-      Prelude.<*> (x Core..@? "ParameterApplyStatus")
+      Prelude.<$> (x Data..@? "DBParameterGroupName")
+      Prelude.<*> (x Data..@? "ParameterApplyStatus")
 
 instance Prelude.Hashable DBParameterGroupStatus where
   hashWithSalt _salt DBParameterGroupStatus' {..} =

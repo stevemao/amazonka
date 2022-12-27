@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LakeFormation.Types.Permission
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,16 +22,13 @@ module Amazonka.LakeFormation.Types.Permission
       ( ..,
         Permission_ALL,
         Permission_ALTER,
-        Permission_ALTER_TAG,
-        Permission_ASSOCIATE_TAG,
+        Permission_ASSOCIATE,
         Permission_CREATE_DATABASE,
         Permission_CREATE_TABLE,
         Permission_CREATE_TAG,
         Permission_DATA_LOCATION_ACCESS,
         Permission_DELETE,
-        Permission_DELETE_TAG,
         Permission_DESCRIBE,
-        Permission_DESCRIBE_TAG,
         Permission_DROP,
         Permission_INSERT,
         Permission_SELECT
@@ -40,11 +37,12 @@ module Amazonka.LakeFormation.Types.Permission
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype Permission = Permission'
   { fromPermission ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -56,18 +54,18 @@ newtype Permission = Permission'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern Permission_ALL :: Permission
@@ -76,11 +74,8 @@ pattern Permission_ALL = Permission' "ALL"
 pattern Permission_ALTER :: Permission
 pattern Permission_ALTER = Permission' "ALTER"
 
-pattern Permission_ALTER_TAG :: Permission
-pattern Permission_ALTER_TAG = Permission' "ALTER_TAG"
-
-pattern Permission_ASSOCIATE_TAG :: Permission
-pattern Permission_ASSOCIATE_TAG = Permission' "ASSOCIATE_TAG"
+pattern Permission_ASSOCIATE :: Permission
+pattern Permission_ASSOCIATE = Permission' "ASSOCIATE"
 
 pattern Permission_CREATE_DATABASE :: Permission
 pattern Permission_CREATE_DATABASE = Permission' "CREATE_DATABASE"
@@ -97,14 +92,8 @@ pattern Permission_DATA_LOCATION_ACCESS = Permission' "DATA_LOCATION_ACCESS"
 pattern Permission_DELETE :: Permission
 pattern Permission_DELETE = Permission' "DELETE"
 
-pattern Permission_DELETE_TAG :: Permission
-pattern Permission_DELETE_TAG = Permission' "DELETE_TAG"
-
 pattern Permission_DESCRIBE :: Permission
 pattern Permission_DESCRIBE = Permission' "DESCRIBE"
-
-pattern Permission_DESCRIBE_TAG :: Permission
-pattern Permission_DESCRIBE_TAG = Permission' "DESCRIBE_TAG"
 
 pattern Permission_DROP :: Permission
 pattern Permission_DROP = Permission' "DROP"
@@ -118,16 +107,13 @@ pattern Permission_SELECT = Permission' "SELECT"
 {-# COMPLETE
   Permission_ALL,
   Permission_ALTER,
-  Permission_ALTER_TAG,
-  Permission_ASSOCIATE_TAG,
+  Permission_ASSOCIATE,
   Permission_CREATE_DATABASE,
   Permission_CREATE_TABLE,
   Permission_CREATE_TAG,
   Permission_DATA_LOCATION_ACCESS,
   Permission_DELETE,
-  Permission_DELETE_TAG,
   Permission_DESCRIBE,
-  Permission_DESCRIBE_TAG,
   Permission_DROP,
   Permission_INSERT,
   Permission_SELECT,

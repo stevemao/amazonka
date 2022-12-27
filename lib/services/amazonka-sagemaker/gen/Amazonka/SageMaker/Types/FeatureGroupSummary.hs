@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.FeatureGroupSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.FeatureGroupSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.FeatureGroupStatus
 import Amazonka.SageMaker.Types.OfflineStoreStatus
@@ -41,7 +42,7 @@ data FeatureGroupSummary = FeatureGroupSummary'
     -- | Unique identifier for the @FeatureGroup@.
     featureGroupArn :: Prelude.Text,
     -- | A timestamp indicating the time of creation time of the @FeatureGroup@.
-    creationTime :: Core.POSIX
+    creationTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -82,7 +83,7 @@ newFeatureGroupSummary
         offlineStoreStatus = Prelude.Nothing,
         featureGroupName = pFeatureGroupName_,
         featureGroupArn = pFeatureGroupArn_,
-        creationTime = Core._Time Lens.# pCreationTime_
+        creationTime = Data._Time Lens.# pCreationTime_
       }
 
 -- | The status of a FeatureGroup. The status can be any of the following:
@@ -105,19 +106,19 @@ featureGroupSummary_featureGroupArn = Lens.lens (\FeatureGroupSummary' {featureG
 
 -- | A timestamp indicating the time of creation time of the @FeatureGroup@.
 featureGroupSummary_creationTime :: Lens.Lens' FeatureGroupSummary Prelude.UTCTime
-featureGroupSummary_creationTime = Lens.lens (\FeatureGroupSummary' {creationTime} -> creationTime) (\s@FeatureGroupSummary' {} a -> s {creationTime = a} :: FeatureGroupSummary) Prelude.. Core._Time
+featureGroupSummary_creationTime = Lens.lens (\FeatureGroupSummary' {creationTime} -> creationTime) (\s@FeatureGroupSummary' {} a -> s {creationTime = a} :: FeatureGroupSummary) Prelude.. Data._Time
 
-instance Core.FromJSON FeatureGroupSummary where
+instance Data.FromJSON FeatureGroupSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FeatureGroupSummary"
       ( \x ->
           FeatureGroupSummary'
-            Prelude.<$> (x Core..:? "FeatureGroupStatus")
-            Prelude.<*> (x Core..:? "OfflineStoreStatus")
-            Prelude.<*> (x Core..: "FeatureGroupName")
-            Prelude.<*> (x Core..: "FeatureGroupArn")
-            Prelude.<*> (x Core..: "CreationTime")
+            Prelude.<$> (x Data..:? "FeatureGroupStatus")
+            Prelude.<*> (x Data..:? "OfflineStoreStatus")
+            Prelude.<*> (x Data..: "FeatureGroupName")
+            Prelude.<*> (x Data..: "FeatureGroupArn")
+            Prelude.<*> (x Data..: "CreationTime")
       )
 
 instance Prelude.Hashable FeatureGroupSummary where

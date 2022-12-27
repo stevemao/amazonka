@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.HttpGatewayRoute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.AppMesh.Types.HttpGatewayRoute where
 import Amazonka.AppMesh.Types.HttpGatewayRouteAction
 import Amazonka.AppMesh.Types.HttpGatewayRouteMatch
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents an HTTP gateway route.
@@ -67,13 +68,13 @@ httpGatewayRoute_action = Lens.lens (\HttpGatewayRoute' {action} -> action) (\s@
 httpGatewayRoute_match :: Lens.Lens' HttpGatewayRoute HttpGatewayRouteMatch
 httpGatewayRoute_match = Lens.lens (\HttpGatewayRoute' {match} -> match) (\s@HttpGatewayRoute' {} a -> s {match = a} :: HttpGatewayRoute)
 
-instance Core.FromJSON HttpGatewayRoute where
+instance Data.FromJSON HttpGatewayRoute where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HttpGatewayRoute"
       ( \x ->
           HttpGatewayRoute'
-            Prelude.<$> (x Core..: "action") Prelude.<*> (x Core..: "match")
+            Prelude.<$> (x Data..: "action") Prelude.<*> (x Data..: "match")
       )
 
 instance Prelude.Hashable HttpGatewayRoute where
@@ -85,11 +86,11 @@ instance Prelude.NFData HttpGatewayRoute where
   rnf HttpGatewayRoute' {..} =
     Prelude.rnf action `Prelude.seq` Prelude.rnf match
 
-instance Core.ToJSON HttpGatewayRoute where
+instance Data.ToJSON HttpGatewayRoute where
   toJSON HttpGatewayRoute' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("action" Core..= action),
-            Prelude.Just ("match" Core..= match)
+          [ Prelude.Just ("action" Data..= action),
+            Prelude.Just ("match" Data..= match)
           ]
       )

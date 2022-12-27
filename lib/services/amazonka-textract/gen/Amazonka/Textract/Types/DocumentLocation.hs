@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Textract.Types.DocumentLocation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,12 +20,13 @@
 module Amazonka.Textract.Types.DocumentLocation where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Textract.Types.S3Object
 
 -- | The Amazon S3 bucket that contains the document to be processed. It\'s
--- used by asynchronous operations such as StartDocumentTextDetection.
+-- used by asynchronous operations.
 --
 -- The input document can be an image file in JPEG or PNG format. It can
 -- also be a file in PDF format.
@@ -62,9 +63,9 @@ instance Prelude.Hashable DocumentLocation where
 instance Prelude.NFData DocumentLocation where
   rnf DocumentLocation' {..} = Prelude.rnf s3Object
 
-instance Core.ToJSON DocumentLocation where
+instance Data.ToJSON DocumentLocation where
   toJSON DocumentLocation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("S3Object" Core..=) Prelude.<$> s3Object]
+          [("S3Object" Data..=) Prelude.<$> s3Object]
       )

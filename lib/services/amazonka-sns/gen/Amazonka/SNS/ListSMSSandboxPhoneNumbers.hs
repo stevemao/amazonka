@@ -14,22 +14,23 @@
 
 -- |
 -- Module      : Amazonka.SNS.ListSMSSandboxPhoneNumbers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the calling account\'s current verified and pending destination
--- phone numbers in the SMS sandbox.
+-- Lists the calling Amazon Web Services account\'s current verified and
+-- pending destination phone numbers in the SMS sandbox.
 --
--- When you start using Amazon SNS to send SMS messages, your account is in
--- the /SMS sandbox/. The SMS sandbox provides a safe environment for you
--- to try Amazon SNS features without risking your reputation as an SMS
--- sender. While your account is in the SMS sandbox, you can use all of the
--- features of Amazon SNS. However, you can send SMS messages only to
--- verified destination phone numbers. For more information, including how
--- to move out of the sandbox to send messages without restrictions, see
+-- When you start using Amazon SNS to send SMS messages, your Amazon Web
+-- Services account is in the /SMS sandbox/. The SMS sandbox provides a
+-- safe environment for you to try Amazon SNS features without risking your
+-- reputation as an SMS sender. While your Amazon Web Services account is
+-- in the SMS sandbox, you can use all of the features of Amazon SNS.
+-- However, you can send SMS messages only to verified destination phone
+-- numbers. For more information, including how to move out of the sandbox
+-- to send messages without restrictions, see
 -- <https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html SMS sandbox>
 -- in the /Amazon SNS Developer Guide/.
 --
@@ -40,8 +41,8 @@ module Amazonka.SNS.ListSMSSandboxPhoneNumbers
     newListSMSSandboxPhoneNumbers,
 
     -- * Request Lenses
-    listSMSSandboxPhoneNumbers_nextToken,
     listSMSSandboxPhoneNumbers_maxResults,
+    listSMSSandboxPhoneNumbers_nextToken,
 
     -- * Destructuring the Response
     ListSMSSandboxPhoneNumbersResponse (..),
@@ -55,7 +56,8 @@ module Amazonka.SNS.ListSMSSandboxPhoneNumbers
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -63,11 +65,11 @@ import Amazonka.SNS.Types
 
 -- | /See:/ 'newListSMSSandboxPhoneNumbers' smart constructor.
 data ListSMSSandboxPhoneNumbers = ListSMSSandboxPhoneNumbers'
-  { -- | Token that the previous @ListSMSSandboxPhoneNumbersInput@ request
+  { -- | The maximum number of phone numbers to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Token that the previous @ListSMSSandboxPhoneNumbersInput@ request
     -- returns.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of phone numbers to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -79,27 +81,27 @@ data ListSMSSandboxPhoneNumbers = ListSMSSandboxPhoneNumbers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listSMSSandboxPhoneNumbers_maxResults' - The maximum number of phone numbers to return.
+--
 -- 'nextToken', 'listSMSSandboxPhoneNumbers_nextToken' - Token that the previous @ListSMSSandboxPhoneNumbersInput@ request
 -- returns.
---
--- 'maxResults', 'listSMSSandboxPhoneNumbers_maxResults' - The maximum number of phone numbers to return.
 newListSMSSandboxPhoneNumbers ::
   ListSMSSandboxPhoneNumbers
 newListSMSSandboxPhoneNumbers =
   ListSMSSandboxPhoneNumbers'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of phone numbers to return.
+listSMSSandboxPhoneNumbers_maxResults :: Lens.Lens' ListSMSSandboxPhoneNumbers (Prelude.Maybe Prelude.Natural)
+listSMSSandboxPhoneNumbers_maxResults = Lens.lens (\ListSMSSandboxPhoneNumbers' {maxResults} -> maxResults) (\s@ListSMSSandboxPhoneNumbers' {} a -> s {maxResults = a} :: ListSMSSandboxPhoneNumbers)
 
 -- | Token that the previous @ListSMSSandboxPhoneNumbersInput@ request
 -- returns.
 listSMSSandboxPhoneNumbers_nextToken :: Lens.Lens' ListSMSSandboxPhoneNumbers (Prelude.Maybe Prelude.Text)
 listSMSSandboxPhoneNumbers_nextToken = Lens.lens (\ListSMSSandboxPhoneNumbers' {nextToken} -> nextToken) (\s@ListSMSSandboxPhoneNumbers' {} a -> s {nextToken = a} :: ListSMSSandboxPhoneNumbers)
-
--- | The maximum number of phone numbers to return.
-listSMSSandboxPhoneNumbers_maxResults :: Lens.Lens' ListSMSSandboxPhoneNumbers (Prelude.Maybe Prelude.Natural)
-listSMSSandboxPhoneNumbers_maxResults = Lens.lens (\ListSMSSandboxPhoneNumbers' {maxResults} -> maxResults) (\s@ListSMSSandboxPhoneNumbers' {} a -> s {maxResults = a} :: ListSMSSandboxPhoneNumbers)
 
 instance Core.AWSPager ListSMSSandboxPhoneNumbers where
   page rq rs
@@ -126,44 +128,45 @@ instance Core.AWSRequest ListSMSSandboxPhoneNumbers where
   type
     AWSResponse ListSMSSandboxPhoneNumbers =
       ListSMSSandboxPhoneNumbersResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListSMSSandboxPhoneNumbersResult"
       ( \s h x ->
           ListSMSSandboxPhoneNumbersResponse'
-            Prelude.<$> (x Core..@? "NextToken")
+            Prelude.<$> (x Data..@? "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..@? "PhoneNumbers" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.parseXMLList "member"
+            Prelude.<*> ( x Data..@? "PhoneNumbers" Core..!@ Prelude.mempty
+                            Prelude.>>= Data.parseXMLList "member"
                         )
       )
 
 instance Prelude.Hashable ListSMSSandboxPhoneNumbers where
   hashWithSalt _salt ListSMSSandboxPhoneNumbers' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListSMSSandboxPhoneNumbers where
   rnf ListSMSSandboxPhoneNumbers' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListSMSSandboxPhoneNumbers where
+instance Data.ToHeaders ListSMSSandboxPhoneNumbers where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListSMSSandboxPhoneNumbers where
+instance Data.ToPath ListSMSSandboxPhoneNumbers where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListSMSSandboxPhoneNumbers where
+instance Data.ToQuery ListSMSSandboxPhoneNumbers where
   toQuery ListSMSSandboxPhoneNumbers' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ListSMSSandboxPhoneNumbers" :: Prelude.ByteString),
+          Data.=: ("ListSMSSandboxPhoneNumbers" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-03-31" :: Prelude.ByteString),
-        "NextToken" Core.=: nextToken,
-        "MaxResults" Core.=: maxResults
+          Data.=: ("2010-03-31" :: Prelude.ByteString),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListSMSSandboxPhoneNumbersResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.XRay.Types.InsightImpactGraphEdge
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.XRay.Types.InsightImpactGraphEdge where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The connection between two service in an insight impact graph.
@@ -53,13 +54,13 @@ newInsightImpactGraphEdge =
 insightImpactGraphEdge_referenceId :: Lens.Lens' InsightImpactGraphEdge (Prelude.Maybe Prelude.Int)
 insightImpactGraphEdge_referenceId = Lens.lens (\InsightImpactGraphEdge' {referenceId} -> referenceId) (\s@InsightImpactGraphEdge' {} a -> s {referenceId = a} :: InsightImpactGraphEdge)
 
-instance Core.FromJSON InsightImpactGraphEdge where
+instance Data.FromJSON InsightImpactGraphEdge where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InsightImpactGraphEdge"
       ( \x ->
           InsightImpactGraphEdge'
-            Prelude.<$> (x Core..:? "ReferenceId")
+            Prelude.<$> (x Data..:? "ReferenceId")
       )
 
 instance Prelude.Hashable InsightImpactGraphEdge where

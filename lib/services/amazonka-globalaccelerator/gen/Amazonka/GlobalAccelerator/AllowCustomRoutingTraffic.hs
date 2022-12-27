@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GlobalAccelerator.AllowCustomRoutingTraffic
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,9 +37,9 @@ module Amazonka.GlobalAccelerator.AllowCustomRoutingTraffic
     newAllowCustomRoutingTraffic,
 
     -- * Request Lenses
+    allowCustomRoutingTraffic_allowAllTrafficToEndpoint,
     allowCustomRoutingTraffic_destinationAddresses,
     allowCustomRoutingTraffic_destinationPorts,
-    allowCustomRoutingTraffic_allowAllTrafficToEndpoint,
     allowCustomRoutingTraffic_endpointGroupArn,
     allowCustomRoutingTraffic_endpointId,
 
@@ -50,26 +50,16 @@ module Amazonka.GlobalAccelerator.AllowCustomRoutingTraffic
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GlobalAccelerator.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newAllowCustomRoutingTraffic' smart constructor.
 data AllowCustomRoutingTraffic = AllowCustomRoutingTraffic'
-  { -- | A list of specific Amazon EC2 instance IP addresses (destination
-    -- addresses) in a subnet that you want to allow to receive traffic. The IP
-    -- addresses must be a subset of the IP addresses that you specified for
-    -- the endpoint group.
-    --
-    -- @DestinationAddresses@ is required if @AllowAllTrafficToEndpoint@ is
-    -- @FALSE@ or is not specified.
-    destinationAddresses :: Prelude.Maybe [Prelude.Text],
-    -- | A list of specific Amazon EC2 instance ports (destination ports) that
-    -- you want to allow to receive traffic.
-    destinationPorts :: Prelude.Maybe [Prelude.Natural],
-    -- | Indicates whether all destination IP addresses and ports for a specified
+  { -- | Indicates whether all destination IP addresses and ports for a specified
     -- VPC subnet endpoint can receive traffic from a custom routing
     -- accelerator. The value is TRUE or FALSE.
     --
@@ -85,6 +75,17 @@ data AllowCustomRoutingTraffic = AllowCustomRoutingTraffic'
     --
     -- The default value is FALSE.
     allowAllTrafficToEndpoint :: Prelude.Maybe Prelude.Bool,
+    -- | A list of specific Amazon EC2 instance IP addresses (destination
+    -- addresses) in a subnet that you want to allow to receive traffic. The IP
+    -- addresses must be a subset of the IP addresses that you specified for
+    -- the endpoint group.
+    --
+    -- @DestinationAddresses@ is required if @AllowAllTrafficToEndpoint@ is
+    -- @FALSE@ or is not specified.
+    destinationAddresses :: Prelude.Maybe [Prelude.Text],
+    -- | A list of specific Amazon EC2 instance ports (destination ports) that
+    -- you want to allow to receive traffic.
+    destinationPorts :: Prelude.Maybe [Prelude.Natural],
     -- | The Amazon Resource Name (ARN) of the endpoint group.
     endpointGroupArn :: Prelude.Text,
     -- | An ID for the endpoint. For custom routing accelerators, this is the
@@ -100,17 +101,6 @@ data AllowCustomRoutingTraffic = AllowCustomRoutingTraffic'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'destinationAddresses', 'allowCustomRoutingTraffic_destinationAddresses' - A list of specific Amazon EC2 instance IP addresses (destination
--- addresses) in a subnet that you want to allow to receive traffic. The IP
--- addresses must be a subset of the IP addresses that you specified for
--- the endpoint group.
---
--- @DestinationAddresses@ is required if @AllowAllTrafficToEndpoint@ is
--- @FALSE@ or is not specified.
---
--- 'destinationPorts', 'allowCustomRoutingTraffic_destinationPorts' - A list of specific Amazon EC2 instance ports (destination ports) that
--- you want to allow to receive traffic.
 --
 -- 'allowAllTrafficToEndpoint', 'allowCustomRoutingTraffic_allowAllTrafficToEndpoint' - Indicates whether all destination IP addresses and ports for a specified
 -- VPC subnet endpoint can receive traffic from a custom routing
@@ -128,6 +118,17 @@ data AllowCustomRoutingTraffic = AllowCustomRoutingTraffic'
 --
 -- The default value is FALSE.
 --
+-- 'destinationAddresses', 'allowCustomRoutingTraffic_destinationAddresses' - A list of specific Amazon EC2 instance IP addresses (destination
+-- addresses) in a subnet that you want to allow to receive traffic. The IP
+-- addresses must be a subset of the IP addresses that you specified for
+-- the endpoint group.
+--
+-- @DestinationAddresses@ is required if @AllowAllTrafficToEndpoint@ is
+-- @FALSE@ or is not specified.
+--
+-- 'destinationPorts', 'allowCustomRoutingTraffic_destinationPorts' - A list of specific Amazon EC2 instance ports (destination ports) that
+-- you want to allow to receive traffic.
+--
 -- 'endpointGroupArn', 'allowCustomRoutingTraffic_endpointGroupArn' - The Amazon Resource Name (ARN) of the endpoint group.
 --
 -- 'endpointId', 'allowCustomRoutingTraffic_endpointId' - An ID for the endpoint. For custom routing accelerators, this is the
@@ -142,28 +143,13 @@ newAllowCustomRoutingTraffic
   pEndpointGroupArn_
   pEndpointId_ =
     AllowCustomRoutingTraffic'
-      { destinationAddresses =
+      { allowAllTrafficToEndpoint =
           Prelude.Nothing,
+        destinationAddresses = Prelude.Nothing,
         destinationPorts = Prelude.Nothing,
-        allowAllTrafficToEndpoint = Prelude.Nothing,
         endpointGroupArn = pEndpointGroupArn_,
         endpointId = pEndpointId_
       }
-
--- | A list of specific Amazon EC2 instance IP addresses (destination
--- addresses) in a subnet that you want to allow to receive traffic. The IP
--- addresses must be a subset of the IP addresses that you specified for
--- the endpoint group.
---
--- @DestinationAddresses@ is required if @AllowAllTrafficToEndpoint@ is
--- @FALSE@ or is not specified.
-allowCustomRoutingTraffic_destinationAddresses :: Lens.Lens' AllowCustomRoutingTraffic (Prelude.Maybe [Prelude.Text])
-allowCustomRoutingTraffic_destinationAddresses = Lens.lens (\AllowCustomRoutingTraffic' {destinationAddresses} -> destinationAddresses) (\s@AllowCustomRoutingTraffic' {} a -> s {destinationAddresses = a} :: AllowCustomRoutingTraffic) Prelude.. Lens.mapping Lens.coerced
-
--- | A list of specific Amazon EC2 instance ports (destination ports) that
--- you want to allow to receive traffic.
-allowCustomRoutingTraffic_destinationPorts :: Lens.Lens' AllowCustomRoutingTraffic (Prelude.Maybe [Prelude.Natural])
-allowCustomRoutingTraffic_destinationPorts = Lens.lens (\AllowCustomRoutingTraffic' {destinationPorts} -> destinationPorts) (\s@AllowCustomRoutingTraffic' {} a -> s {destinationPorts = a} :: AllowCustomRoutingTraffic) Prelude.. Lens.mapping Lens.coerced
 
 -- | Indicates whether all destination IP addresses and ports for a specified
 -- VPC subnet endpoint can receive traffic from a custom routing
@@ -183,6 +169,21 @@ allowCustomRoutingTraffic_destinationPorts = Lens.lens (\AllowCustomRoutingTraff
 allowCustomRoutingTraffic_allowAllTrafficToEndpoint :: Lens.Lens' AllowCustomRoutingTraffic (Prelude.Maybe Prelude.Bool)
 allowCustomRoutingTraffic_allowAllTrafficToEndpoint = Lens.lens (\AllowCustomRoutingTraffic' {allowAllTrafficToEndpoint} -> allowAllTrafficToEndpoint) (\s@AllowCustomRoutingTraffic' {} a -> s {allowAllTrafficToEndpoint = a} :: AllowCustomRoutingTraffic)
 
+-- | A list of specific Amazon EC2 instance IP addresses (destination
+-- addresses) in a subnet that you want to allow to receive traffic. The IP
+-- addresses must be a subset of the IP addresses that you specified for
+-- the endpoint group.
+--
+-- @DestinationAddresses@ is required if @AllowAllTrafficToEndpoint@ is
+-- @FALSE@ or is not specified.
+allowCustomRoutingTraffic_destinationAddresses :: Lens.Lens' AllowCustomRoutingTraffic (Prelude.Maybe [Prelude.Text])
+allowCustomRoutingTraffic_destinationAddresses = Lens.lens (\AllowCustomRoutingTraffic' {destinationAddresses} -> destinationAddresses) (\s@AllowCustomRoutingTraffic' {} a -> s {destinationAddresses = a} :: AllowCustomRoutingTraffic) Prelude.. Lens.mapping Lens.coerced
+
+-- | A list of specific Amazon EC2 instance ports (destination ports) that
+-- you want to allow to receive traffic.
+allowCustomRoutingTraffic_destinationPorts :: Lens.Lens' AllowCustomRoutingTraffic (Prelude.Maybe [Prelude.Natural])
+allowCustomRoutingTraffic_destinationPorts = Lens.lens (\AllowCustomRoutingTraffic' {destinationPorts} -> destinationPorts) (\s@AllowCustomRoutingTraffic' {} a -> s {destinationPorts = a} :: AllowCustomRoutingTraffic) Prelude.. Lens.mapping Lens.coerced
+
 -- | The Amazon Resource Name (ARN) of the endpoint group.
 allowCustomRoutingTraffic_endpointGroupArn :: Lens.Lens' AllowCustomRoutingTraffic Prelude.Text
 allowCustomRoutingTraffic_endpointGroupArn = Lens.lens (\AllowCustomRoutingTraffic' {endpointGroupArn} -> endpointGroupArn) (\s@AllowCustomRoutingTraffic' {} a -> s {endpointGroupArn = a} :: AllowCustomRoutingTraffic)
@@ -196,62 +197,64 @@ instance Core.AWSRequest AllowCustomRoutingTraffic where
   type
     AWSResponse AllowCustomRoutingTraffic =
       AllowCustomRoutingTrafficResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       AllowCustomRoutingTrafficResponse'
 
 instance Prelude.Hashable AllowCustomRoutingTraffic where
   hashWithSalt _salt AllowCustomRoutingTraffic' {..} =
-    _salt `Prelude.hashWithSalt` destinationAddresses
-      `Prelude.hashWithSalt` destinationPorts
+    _salt
       `Prelude.hashWithSalt` allowAllTrafficToEndpoint
+      `Prelude.hashWithSalt` destinationAddresses
+      `Prelude.hashWithSalt` destinationPorts
       `Prelude.hashWithSalt` endpointGroupArn
       `Prelude.hashWithSalt` endpointId
 
 instance Prelude.NFData AllowCustomRoutingTraffic where
   rnf AllowCustomRoutingTraffic' {..} =
-    Prelude.rnf destinationAddresses
+    Prelude.rnf allowAllTrafficToEndpoint
+      `Prelude.seq` Prelude.rnf destinationAddresses
       `Prelude.seq` Prelude.rnf destinationPorts
-      `Prelude.seq` Prelude.rnf allowAllTrafficToEndpoint
       `Prelude.seq` Prelude.rnf endpointGroupArn
       `Prelude.seq` Prelude.rnf endpointId
 
-instance Core.ToHeaders AllowCustomRoutingTraffic where
+instance Data.ToHeaders AllowCustomRoutingTraffic where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GlobalAccelerator_V20180706.AllowCustomRoutingTraffic" ::
+              Data.=# ( "GlobalAccelerator_V20180706.AllowCustomRoutingTraffic" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AllowCustomRoutingTraffic where
+instance Data.ToJSON AllowCustomRoutingTraffic where
   toJSON AllowCustomRoutingTraffic' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DestinationAddresses" Core..=)
-              Prelude.<$> destinationAddresses,
-            ("DestinationPorts" Core..=)
-              Prelude.<$> destinationPorts,
-            ("AllowAllTrafficToEndpoint" Core..=)
+          [ ("AllowAllTrafficToEndpoint" Data..=)
               Prelude.<$> allowAllTrafficToEndpoint,
+            ("DestinationAddresses" Data..=)
+              Prelude.<$> destinationAddresses,
+            ("DestinationPorts" Data..=)
+              Prelude.<$> destinationPorts,
             Prelude.Just
-              ("EndpointGroupArn" Core..= endpointGroupArn),
-            Prelude.Just ("EndpointId" Core..= endpointId)
+              ("EndpointGroupArn" Data..= endpointGroupArn),
+            Prelude.Just ("EndpointId" Data..= endpointId)
           ]
       )
 
-instance Core.ToPath AllowCustomRoutingTraffic where
+instance Data.ToPath AllowCustomRoutingTraffic where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AllowCustomRoutingTraffic where
+instance Data.ToQuery AllowCustomRoutingTraffic where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAllowCustomRoutingTrafficResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.LifecycleRuleFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.LifecycleRuleFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.LifecycleRuleAndOperator
@@ -32,9 +33,11 @@ import Amazonka.S3.Types.Tag
 --
 -- /See:/ 'newLifecycleRuleFilter' smart constructor.
 data LifecycleRuleFilter = LifecycleRuleFilter'
-  { -- | This tag must exist in the object\'s tag set in order for the rule to
-    -- apply.
-    tag :: Prelude.Maybe Tag,
+  { and :: Prelude.Maybe LifecycleRuleAndOperator,
+    -- | Minimum object size to which the rule applies.
+    objectSizeGreaterThan :: Prelude.Maybe Prelude.Integer,
+    -- | Maximum object size to which the rule applies.
+    objectSizeLessThan :: Prelude.Maybe Prelude.Integer,
     -- | Prefix identifying one or more objects to which the rule applies.
     --
     -- Replacement must be made for object keys containing special characters
@@ -42,7 +45,9 @@ data LifecycleRuleFilter = LifecycleRuleFilter'
     -- information, see
     -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints XML related object key constraints>.
     prefix :: Prelude.Maybe Prelude.Text,
-    and :: Prelude.Maybe LifecycleRuleAndOperator
+    -- | This tag must exist in the object\'s tag set in order for the rule to
+    -- apply.
+    tag :: Prelude.Maybe Tag
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -54,8 +59,11 @@ data LifecycleRuleFilter = LifecycleRuleFilter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tag', 'lifecycleRuleFilter_tag' - This tag must exist in the object\'s tag set in order for the rule to
--- apply.
+-- 'and', 'lifecycleRuleFilter_and' - Undocumented member.
+--
+-- 'objectSizeGreaterThan', 'lifecycleRuleFilter_objectSizeGreaterThan' - Minimum object size to which the rule applies.
+--
+-- 'objectSizeLessThan', 'lifecycleRuleFilter_objectSizeLessThan' - Maximum object size to which the rule applies.
 --
 -- 'prefix', 'lifecycleRuleFilter_prefix' - Prefix identifying one or more objects to which the rule applies.
 --
@@ -64,20 +72,30 @@ data LifecycleRuleFilter = LifecycleRuleFilter'
 -- information, see
 -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints XML related object key constraints>.
 --
--- 'and', 'lifecycleRuleFilter_and' - Undocumented member.
+-- 'tag', 'lifecycleRuleFilter_tag' - This tag must exist in the object\'s tag set in order for the rule to
+-- apply.
 newLifecycleRuleFilter ::
   LifecycleRuleFilter
 newLifecycleRuleFilter =
   LifecycleRuleFilter'
-    { tag = Prelude.Nothing,
+    { and = Prelude.Nothing,
+      objectSizeGreaterThan = Prelude.Nothing,
+      objectSizeLessThan = Prelude.Nothing,
       prefix = Prelude.Nothing,
-      and = Prelude.Nothing
+      tag = Prelude.Nothing
     }
 
--- | This tag must exist in the object\'s tag set in order for the rule to
--- apply.
-lifecycleRuleFilter_tag :: Lens.Lens' LifecycleRuleFilter (Prelude.Maybe Tag)
-lifecycleRuleFilter_tag = Lens.lens (\LifecycleRuleFilter' {tag} -> tag) (\s@LifecycleRuleFilter' {} a -> s {tag = a} :: LifecycleRuleFilter)
+-- | Undocumented member.
+lifecycleRuleFilter_and :: Lens.Lens' LifecycleRuleFilter (Prelude.Maybe LifecycleRuleAndOperator)
+lifecycleRuleFilter_and = Lens.lens (\LifecycleRuleFilter' {and} -> and) (\s@LifecycleRuleFilter' {} a -> s {and = a} :: LifecycleRuleFilter)
+
+-- | Minimum object size to which the rule applies.
+lifecycleRuleFilter_objectSizeGreaterThan :: Lens.Lens' LifecycleRuleFilter (Prelude.Maybe Prelude.Integer)
+lifecycleRuleFilter_objectSizeGreaterThan = Lens.lens (\LifecycleRuleFilter' {objectSizeGreaterThan} -> objectSizeGreaterThan) (\s@LifecycleRuleFilter' {} a -> s {objectSizeGreaterThan = a} :: LifecycleRuleFilter)
+
+-- | Maximum object size to which the rule applies.
+lifecycleRuleFilter_objectSizeLessThan :: Lens.Lens' LifecycleRuleFilter (Prelude.Maybe Prelude.Integer)
+lifecycleRuleFilter_objectSizeLessThan = Lens.lens (\LifecycleRuleFilter' {objectSizeLessThan} -> objectSizeLessThan) (\s@LifecycleRuleFilter' {} a -> s {objectSizeLessThan = a} :: LifecycleRuleFilter)
 
 -- | Prefix identifying one or more objects to which the rule applies.
 --
@@ -88,33 +106,43 @@ lifecycleRuleFilter_tag = Lens.lens (\LifecycleRuleFilter' {tag} -> tag) (\s@Lif
 lifecycleRuleFilter_prefix :: Lens.Lens' LifecycleRuleFilter (Prelude.Maybe Prelude.Text)
 lifecycleRuleFilter_prefix = Lens.lens (\LifecycleRuleFilter' {prefix} -> prefix) (\s@LifecycleRuleFilter' {} a -> s {prefix = a} :: LifecycleRuleFilter)
 
--- | Undocumented member.
-lifecycleRuleFilter_and :: Lens.Lens' LifecycleRuleFilter (Prelude.Maybe LifecycleRuleAndOperator)
-lifecycleRuleFilter_and = Lens.lens (\LifecycleRuleFilter' {and} -> and) (\s@LifecycleRuleFilter' {} a -> s {and = a} :: LifecycleRuleFilter)
+-- | This tag must exist in the object\'s tag set in order for the rule to
+-- apply.
+lifecycleRuleFilter_tag :: Lens.Lens' LifecycleRuleFilter (Prelude.Maybe Tag)
+lifecycleRuleFilter_tag = Lens.lens (\LifecycleRuleFilter' {tag} -> tag) (\s@LifecycleRuleFilter' {} a -> s {tag = a} :: LifecycleRuleFilter)
 
-instance Core.FromXML LifecycleRuleFilter where
+instance Data.FromXML LifecycleRuleFilter where
   parseXML x =
     LifecycleRuleFilter'
-      Prelude.<$> (x Core..@? "Tag")
-      Prelude.<*> (x Core..@? "Prefix")
-      Prelude.<*> (x Core..@? "And")
+      Prelude.<$> (x Data..@? "And")
+      Prelude.<*> (x Data..@? "ObjectSizeGreaterThan")
+      Prelude.<*> (x Data..@? "ObjectSizeLessThan")
+      Prelude.<*> (x Data..@? "Prefix")
+      Prelude.<*> (x Data..@? "Tag")
 
 instance Prelude.Hashable LifecycleRuleFilter where
   hashWithSalt _salt LifecycleRuleFilter' {..} =
-    _salt `Prelude.hashWithSalt` tag
+    _salt `Prelude.hashWithSalt` and
+      `Prelude.hashWithSalt` objectSizeGreaterThan
+      `Prelude.hashWithSalt` objectSizeLessThan
       `Prelude.hashWithSalt` prefix
-      `Prelude.hashWithSalt` and
+      `Prelude.hashWithSalt` tag
 
 instance Prelude.NFData LifecycleRuleFilter where
   rnf LifecycleRuleFilter' {..} =
-    Prelude.rnf tag
+    Prelude.rnf and
+      `Prelude.seq` Prelude.rnf objectSizeGreaterThan
+      `Prelude.seq` Prelude.rnf objectSizeLessThan
       `Prelude.seq` Prelude.rnf prefix
-      `Prelude.seq` Prelude.rnf and
+      `Prelude.seq` Prelude.rnf tag
 
-instance Core.ToXML LifecycleRuleFilter where
+instance Data.ToXML LifecycleRuleFilter where
   toXML LifecycleRuleFilter' {..} =
     Prelude.mconcat
-      [ "Tag" Core.@= tag,
-        "Prefix" Core.@= prefix,
-        "And" Core.@= and
+      [ "And" Data.@= and,
+        "ObjectSizeGreaterThan"
+          Data.@= objectSizeGreaterThan,
+        "ObjectSizeLessThan" Data.@= objectSizeLessThan,
+        "Prefix" Data.@= prefix,
+        "Tag" Data.@= tag
       ]

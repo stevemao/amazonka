@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.CallbackStepMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.CallbackStepMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.OutputParameter
 
@@ -75,17 +76,17 @@ callbackStepMetadata_outputParameters = Lens.lens (\CallbackStepMetadata' {outpu
 callbackStepMetadata_sqsQueueUrl :: Lens.Lens' CallbackStepMetadata (Prelude.Maybe Prelude.Text)
 callbackStepMetadata_sqsQueueUrl = Lens.lens (\CallbackStepMetadata' {sqsQueueUrl} -> sqsQueueUrl) (\s@CallbackStepMetadata' {} a -> s {sqsQueueUrl = a} :: CallbackStepMetadata)
 
-instance Core.FromJSON CallbackStepMetadata where
+instance Data.FromJSON CallbackStepMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CallbackStepMetadata"
       ( \x ->
           CallbackStepMetadata'
-            Prelude.<$> (x Core..:? "CallbackToken")
-            Prelude.<*> ( x Core..:? "OutputParameters"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "CallbackToken")
+            Prelude.<*> ( x Data..:? "OutputParameters"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "SqsQueueUrl")
+            Prelude.<*> (x Data..:? "SqsQueueUrl")
       )
 
 instance Prelude.Hashable CallbackStepMetadata where

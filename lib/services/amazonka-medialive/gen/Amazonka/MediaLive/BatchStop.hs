@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.BatchStop
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,14 +35,15 @@ module Amazonka.MediaLive.BatchStop
     newBatchStopResponse,
 
     -- * Response Lenses
-    batchStopResponse_successful,
     batchStopResponse_failed,
+    batchStopResponse_successful,
     batchStopResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -88,13 +89,14 @@ batchStop'_multiplexIds = Lens.lens (\BatchStop'' {multiplexIds} -> multiplexIds
 
 instance Core.AWSRequest BatchStop' where
   type AWSResponse BatchStop' = BatchStopResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchStopResponse'
-            Prelude.<$> (x Core..?> "successful" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "failed" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "failed" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "successful" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -108,40 +110,40 @@ instance Prelude.NFData BatchStop' where
     Prelude.rnf channelIds
       `Prelude.seq` Prelude.rnf multiplexIds
 
-instance Core.ToHeaders BatchStop' where
+instance Data.ToHeaders BatchStop' where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchStop' where
+instance Data.ToJSON BatchStop' where
   toJSON BatchStop'' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("channelIds" Core..=) Prelude.<$> channelIds,
-            ("multiplexIds" Core..=) Prelude.<$> multiplexIds
+          [ ("channelIds" Data..=) Prelude.<$> channelIds,
+            ("multiplexIds" Data..=) Prelude.<$> multiplexIds
           ]
       )
 
-instance Core.ToPath BatchStop' where
+instance Data.ToPath BatchStop' where
   toPath = Prelude.const "/prod/batch/stop"
 
-instance Core.ToQuery BatchStop' where
+instance Data.ToQuery BatchStop' where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for BatchStopResponse
 --
 -- /See:/ 'newBatchStopResponse' smart constructor.
 data BatchStopResponse = BatchStopResponse'
-  { -- | List of successful operations
-    successful :: Prelude.Maybe [BatchSuccessfulResultModel],
-    -- | List of failed operations
+  { -- | List of failed operations
     failed :: Prelude.Maybe [BatchFailedResultModel],
+    -- | List of successful operations
+    successful :: Prelude.Maybe [BatchSuccessfulResultModel],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -155,9 +157,9 @@ data BatchStopResponse = BatchStopResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'successful', 'batchStopResponse_successful' - List of successful operations
---
 -- 'failed', 'batchStopResponse_failed' - List of failed operations
+--
+-- 'successful', 'batchStopResponse_successful' - List of successful operations
 --
 -- 'httpStatus', 'batchStopResponse_httpStatus' - The response's http status code.
 newBatchStopResponse ::
@@ -166,18 +168,18 @@ newBatchStopResponse ::
   BatchStopResponse
 newBatchStopResponse pHttpStatus_ =
   BatchStopResponse'
-    { successful = Prelude.Nothing,
-      failed = Prelude.Nothing,
+    { failed = Prelude.Nothing,
+      successful = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | List of successful operations
-batchStopResponse_successful :: Lens.Lens' BatchStopResponse (Prelude.Maybe [BatchSuccessfulResultModel])
-batchStopResponse_successful = Lens.lens (\BatchStopResponse' {successful} -> successful) (\s@BatchStopResponse' {} a -> s {successful = a} :: BatchStopResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | List of failed operations
 batchStopResponse_failed :: Lens.Lens' BatchStopResponse (Prelude.Maybe [BatchFailedResultModel])
 batchStopResponse_failed = Lens.lens (\BatchStopResponse' {failed} -> failed) (\s@BatchStopResponse' {} a -> s {failed = a} :: BatchStopResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | List of successful operations
+batchStopResponse_successful :: Lens.Lens' BatchStopResponse (Prelude.Maybe [BatchSuccessfulResultModel])
+batchStopResponse_successful = Lens.lens (\BatchStopResponse' {successful} -> successful) (\s@BatchStopResponse' {} a -> s {successful = a} :: BatchStopResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 batchStopResponse_httpStatus :: Lens.Lens' BatchStopResponse Prelude.Int
@@ -185,6 +187,6 @@ batchStopResponse_httpStatus = Lens.lens (\BatchStopResponse' {httpStatus} -> ht
 
 instance Prelude.NFData BatchStopResponse where
   rnf BatchStopResponse' {..} =
-    Prelude.rnf successful
-      `Prelude.seq` Prelude.rnf failed
+    Prelude.rnf failed
+      `Prelude.seq` Prelude.rnf successful
       `Prelude.seq` Prelude.rnf httpStatus

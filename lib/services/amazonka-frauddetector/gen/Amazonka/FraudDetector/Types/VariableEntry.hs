@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.Types.VariableEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.FraudDetector.Types.VariableEntry where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A variable in the list of variables for the batch create variable
@@ -28,22 +29,22 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newVariableEntry' smart constructor.
 data VariableEntry = VariableEntry'
-  { -- | The name of the variable.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The data source of the variable.
+  { -- | The data source of the variable.
     dataSource :: Prelude.Maybe Prelude.Text,
     -- | The data type of the variable.
     dataType :: Prelude.Maybe Prelude.Text,
     -- | The default value of the variable.
     defaultValue :: Prelude.Maybe Prelude.Text,
+    -- | The description of the variable.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the variable.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The type of the variable. For more information see
     -- <https://docs.aws.amazon.com/frauddetector/latest/ug/create-a-variable.html#variable-types Variable types>.
     --
     -- Valid Values:
     -- @AUTH_CODE | AVS | BILLING_ADDRESS_L1 | BILLING_ADDRESS_L2 | BILLING_CITY | BILLING_COUNTRY | BILLING_NAME | BILLING_PHONE | BILLING_STATE | BILLING_ZIP | CARD_BIN | CATEGORICAL | CURRENCY_CODE | EMAIL_ADDRESS | FINGERPRINT | FRAUD_LABEL | FREE_FORM_TEXT | IP_ADDRESS | NUMERIC | ORDER_ID | PAYMENT_TYPE | PHONE_NUMBER | PRICE | PRODUCT_CATEGORY | SHIPPING_ADDRESS_L1 | SHIPPING_ADDRESS_L2 | SHIPPING_CITY | SHIPPING_COUNTRY | SHIPPING_NAME | SHIPPING_PHONE | SHIPPING_STATE | SHIPPING_ZIP | USERAGENT @
-    variableType :: Prelude.Maybe Prelude.Text,
-    -- | The description of the variable.
-    description :: Prelude.Maybe Prelude.Text
+    variableType :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -55,36 +56,32 @@ data VariableEntry = VariableEntry'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'variableEntry_name' - The name of the variable.
---
 -- 'dataSource', 'variableEntry_dataSource' - The data source of the variable.
 --
 -- 'dataType', 'variableEntry_dataType' - The data type of the variable.
 --
 -- 'defaultValue', 'variableEntry_defaultValue' - The default value of the variable.
 --
+-- 'description', 'variableEntry_description' - The description of the variable.
+--
+-- 'name', 'variableEntry_name' - The name of the variable.
+--
 -- 'variableType', 'variableEntry_variableType' - The type of the variable. For more information see
 -- <https://docs.aws.amazon.com/frauddetector/latest/ug/create-a-variable.html#variable-types Variable types>.
 --
 -- Valid Values:
 -- @AUTH_CODE | AVS | BILLING_ADDRESS_L1 | BILLING_ADDRESS_L2 | BILLING_CITY | BILLING_COUNTRY | BILLING_NAME | BILLING_PHONE | BILLING_STATE | BILLING_ZIP | CARD_BIN | CATEGORICAL | CURRENCY_CODE | EMAIL_ADDRESS | FINGERPRINT | FRAUD_LABEL | FREE_FORM_TEXT | IP_ADDRESS | NUMERIC | ORDER_ID | PAYMENT_TYPE | PHONE_NUMBER | PRICE | PRODUCT_CATEGORY | SHIPPING_ADDRESS_L1 | SHIPPING_ADDRESS_L2 | SHIPPING_CITY | SHIPPING_COUNTRY | SHIPPING_NAME | SHIPPING_PHONE | SHIPPING_STATE | SHIPPING_ZIP | USERAGENT @
---
--- 'description', 'variableEntry_description' - The description of the variable.
 newVariableEntry ::
   VariableEntry
 newVariableEntry =
   VariableEntry'
-    { name = Prelude.Nothing,
-      dataSource = Prelude.Nothing,
+    { dataSource = Prelude.Nothing,
       dataType = Prelude.Nothing,
       defaultValue = Prelude.Nothing,
-      variableType = Prelude.Nothing,
-      description = Prelude.Nothing
+      description = Prelude.Nothing,
+      name = Prelude.Nothing,
+      variableType = Prelude.Nothing
     }
-
--- | The name of the variable.
-variableEntry_name :: Lens.Lens' VariableEntry (Prelude.Maybe Prelude.Text)
-variableEntry_name = Lens.lens (\VariableEntry' {name} -> name) (\s@VariableEntry' {} a -> s {name = a} :: VariableEntry)
 
 -- | The data source of the variable.
 variableEntry_dataSource :: Lens.Lens' VariableEntry (Prelude.Maybe Prelude.Text)
@@ -98,6 +95,14 @@ variableEntry_dataType = Lens.lens (\VariableEntry' {dataType} -> dataType) (\s@
 variableEntry_defaultValue :: Lens.Lens' VariableEntry (Prelude.Maybe Prelude.Text)
 variableEntry_defaultValue = Lens.lens (\VariableEntry' {defaultValue} -> defaultValue) (\s@VariableEntry' {} a -> s {defaultValue = a} :: VariableEntry)
 
+-- | The description of the variable.
+variableEntry_description :: Lens.Lens' VariableEntry (Prelude.Maybe Prelude.Text)
+variableEntry_description = Lens.lens (\VariableEntry' {description} -> description) (\s@VariableEntry' {} a -> s {description = a} :: VariableEntry)
+
+-- | The name of the variable.
+variableEntry_name :: Lens.Lens' VariableEntry (Prelude.Maybe Prelude.Text)
+variableEntry_name = Lens.lens (\VariableEntry' {name} -> name) (\s@VariableEntry' {} a -> s {name = a} :: VariableEntry)
+
 -- | The type of the variable. For more information see
 -- <https://docs.aws.amazon.com/frauddetector/latest/ug/create-a-variable.html#variable-types Variable types>.
 --
@@ -106,37 +111,33 @@ variableEntry_defaultValue = Lens.lens (\VariableEntry' {defaultValue} -> defaul
 variableEntry_variableType :: Lens.Lens' VariableEntry (Prelude.Maybe Prelude.Text)
 variableEntry_variableType = Lens.lens (\VariableEntry' {variableType} -> variableType) (\s@VariableEntry' {} a -> s {variableType = a} :: VariableEntry)
 
--- | The description of the variable.
-variableEntry_description :: Lens.Lens' VariableEntry (Prelude.Maybe Prelude.Text)
-variableEntry_description = Lens.lens (\VariableEntry' {description} -> description) (\s@VariableEntry' {} a -> s {description = a} :: VariableEntry)
-
 instance Prelude.Hashable VariableEntry where
   hashWithSalt _salt VariableEntry' {..} =
-    _salt `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` dataSource
+    _salt `Prelude.hashWithSalt` dataSource
       `Prelude.hashWithSalt` dataType
       `Prelude.hashWithSalt` defaultValue
-      `Prelude.hashWithSalt` variableType
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` variableType
 
 instance Prelude.NFData VariableEntry where
   rnf VariableEntry' {..} =
-    Prelude.rnf name
-      `Prelude.seq` Prelude.rnf dataSource
+    Prelude.rnf dataSource
       `Prelude.seq` Prelude.rnf dataType
       `Prelude.seq` Prelude.rnf defaultValue
-      `Prelude.seq` Prelude.rnf variableType
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf variableType
 
-instance Core.ToJSON VariableEntry where
+instance Data.ToJSON VariableEntry where
   toJSON VariableEntry' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("name" Core..=) Prelude.<$> name,
-            ("dataSource" Core..=) Prelude.<$> dataSource,
-            ("dataType" Core..=) Prelude.<$> dataType,
-            ("defaultValue" Core..=) Prelude.<$> defaultValue,
-            ("variableType" Core..=) Prelude.<$> variableType,
-            ("description" Core..=) Prelude.<$> description
+          [ ("dataSource" Data..=) Prelude.<$> dataSource,
+            ("dataType" Data..=) Prelude.<$> dataType,
+            ("defaultValue" Data..=) Prelude.<$> defaultValue,
+            ("description" Data..=) Prelude.<$> description,
+            ("name" Data..=) Prelude.<$> name,
+            ("variableType" Data..=) Prelude.<$> variableType
           ]
       )

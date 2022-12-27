@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.UpdateAssessmentStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,16 +42,17 @@ where
 
 import Amazonka.AuditManager.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateAssessmentStatus' smart constructor.
 data UpdateAssessmentStatus = UpdateAssessmentStatus'
-  { -- | The identifier for the specified assessment.
+  { -- | The unique identifier for the assessment.
     assessmentId :: Prelude.Text,
-    -- | The current status of the specified assessment.
+    -- | The current status of the assessment.
     status :: AssessmentStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -64,9 +65,9 @@ data UpdateAssessmentStatus = UpdateAssessmentStatus'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'assessmentId', 'updateAssessmentStatus_assessmentId' - The identifier for the specified assessment.
+-- 'assessmentId', 'updateAssessmentStatus_assessmentId' - The unique identifier for the assessment.
 --
--- 'status', 'updateAssessmentStatus_status' - The current status of the specified assessment.
+-- 'status', 'updateAssessmentStatus_status' - The current status of the assessment.
 newUpdateAssessmentStatus ::
   -- | 'assessmentId'
   Prelude.Text ->
@@ -80,11 +81,11 @@ newUpdateAssessmentStatus pAssessmentId_ pStatus_ =
       status = pStatus_
     }
 
--- | The identifier for the specified assessment.
+-- | The unique identifier for the assessment.
 updateAssessmentStatus_assessmentId :: Lens.Lens' UpdateAssessmentStatus Prelude.Text
 updateAssessmentStatus_assessmentId = Lens.lens (\UpdateAssessmentStatus' {assessmentId} -> assessmentId) (\s@UpdateAssessmentStatus' {} a -> s {assessmentId = a} :: UpdateAssessmentStatus)
 
--- | The current status of the specified assessment.
+-- | The current status of the assessment.
 updateAssessmentStatus_status :: Lens.Lens' UpdateAssessmentStatus AssessmentStatus
 updateAssessmentStatus_status = Lens.lens (\UpdateAssessmentStatus' {status} -> status) (\s@UpdateAssessmentStatus' {} a -> s {status = a} :: UpdateAssessmentStatus)
 
@@ -92,12 +93,13 @@ instance Core.AWSRequest UpdateAssessmentStatus where
   type
     AWSResponse UpdateAssessmentStatus =
       UpdateAssessmentStatusResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateAssessmentStatusResponse'
-            Prelude.<$> (x Core..?> "assessment")
+            Prelude.<$> (x Data..?> "assessment")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -111,36 +113,36 @@ instance Prelude.NFData UpdateAssessmentStatus where
     Prelude.rnf assessmentId
       `Prelude.seq` Prelude.rnf status
 
-instance Core.ToHeaders UpdateAssessmentStatus where
+instance Data.ToHeaders UpdateAssessmentStatus where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateAssessmentStatus where
+instance Data.ToJSON UpdateAssessmentStatus where
   toJSON UpdateAssessmentStatus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("status" Core..= status)]
+          [Prelude.Just ("status" Data..= status)]
       )
 
-instance Core.ToPath UpdateAssessmentStatus where
+instance Data.ToPath UpdateAssessmentStatus where
   toPath UpdateAssessmentStatus' {..} =
     Prelude.mconcat
-      ["/assessments/", Core.toBS assessmentId, "/status"]
+      ["/assessments/", Data.toBS assessmentId, "/status"]
 
-instance Core.ToQuery UpdateAssessmentStatus where
+instance Data.ToQuery UpdateAssessmentStatus where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateAssessmentStatusResponse' smart constructor.
 data UpdateAssessmentStatusResponse = UpdateAssessmentStatusResponse'
-  { -- | The name of the updated assessment returned by the
-    -- @UpdateAssessmentStatus@ API.
+  { -- | The name of the updated assessment that the @UpdateAssessmentStatus@ API
+    -- returned.
     assessment :: Prelude.Maybe Assessment,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -155,8 +157,8 @@ data UpdateAssessmentStatusResponse = UpdateAssessmentStatusResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'assessment', 'updateAssessmentStatusResponse_assessment' - The name of the updated assessment returned by the
--- @UpdateAssessmentStatus@ API.
+-- 'assessment', 'updateAssessmentStatusResponse_assessment' - The name of the updated assessment that the @UpdateAssessmentStatus@ API
+-- returned.
 --
 -- 'httpStatus', 'updateAssessmentStatusResponse_httpStatus' - The response's http status code.
 newUpdateAssessmentStatusResponse ::
@@ -170,8 +172,8 @@ newUpdateAssessmentStatusResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The name of the updated assessment returned by the
--- @UpdateAssessmentStatus@ API.
+-- | The name of the updated assessment that the @UpdateAssessmentStatus@ API
+-- returned.
 updateAssessmentStatusResponse_assessment :: Lens.Lens' UpdateAssessmentStatusResponse (Prelude.Maybe Assessment)
 updateAssessmentStatusResponse_assessment = Lens.lens (\UpdateAssessmentStatusResponse' {assessment} -> assessment) (\s@UpdateAssessmentStatusResponse' {} a -> s {assessment = a} :: UpdateAssessmentStatusResponse)
 

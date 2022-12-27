@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.DescribePortfolioShares
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,8 +34,8 @@ module Amazonka.ServiceCatalog.DescribePortfolioShares
     newDescribePortfolioShares,
 
     -- * Request Lenses
-    describePortfolioShares_pageToken,
     describePortfolioShares_pageSize,
+    describePortfolioShares_pageToken,
     describePortfolioShares_portfolioId,
     describePortfolioShares_type,
 
@@ -51,7 +51,8 @@ module Amazonka.ServiceCatalog.DescribePortfolioShares
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,11 +60,11 @@ import Amazonka.ServiceCatalog.Types
 
 -- | /See:/ 'newDescribePortfolioShares' smart constructor.
 data DescribePortfolioShares = DescribePortfolioShares'
-  { -- | The page token for the next set of results. To retrieve the first set of
+  { -- | The maximum number of items to return with this call.
+    pageSize :: Prelude.Maybe Prelude.Natural,
+    -- | The page token for the next set of results. To retrieve the first set of
     -- results, use null.
     pageToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return with this call.
-    pageSize :: Prelude.Maybe Prelude.Natural,
     -- | The unique identifier of the portfolio for which shares will be
     -- retrieved.
     portfolioId :: Prelude.Text,
@@ -91,10 +92,10 @@ data DescribePortfolioShares = DescribePortfolioShares'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'pageSize', 'describePortfolioShares_pageSize' - The maximum number of items to return with this call.
+--
 -- 'pageToken', 'describePortfolioShares_pageToken' - The page token for the next set of results. To retrieve the first set of
 -- results, use null.
---
--- 'pageSize', 'describePortfolioShares_pageSize' - The maximum number of items to return with this call.
 --
 -- 'portfolioId', 'describePortfolioShares_portfolioId' - The unique identifier of the portfolio for which shares will be
 -- retrieved.
@@ -119,21 +120,21 @@ newDescribePortfolioShares ::
   DescribePortfolioShares
 newDescribePortfolioShares pPortfolioId_ pType_ =
   DescribePortfolioShares'
-    { pageToken =
+    { pageSize =
         Prelude.Nothing,
-      pageSize = Prelude.Nothing,
+      pageToken = Prelude.Nothing,
       portfolioId = pPortfolioId_,
       type' = pType_
     }
+
+-- | The maximum number of items to return with this call.
+describePortfolioShares_pageSize :: Lens.Lens' DescribePortfolioShares (Prelude.Maybe Prelude.Natural)
+describePortfolioShares_pageSize = Lens.lens (\DescribePortfolioShares' {pageSize} -> pageSize) (\s@DescribePortfolioShares' {} a -> s {pageSize = a} :: DescribePortfolioShares)
 
 -- | The page token for the next set of results. To retrieve the first set of
 -- results, use null.
 describePortfolioShares_pageToken :: Lens.Lens' DescribePortfolioShares (Prelude.Maybe Prelude.Text)
 describePortfolioShares_pageToken = Lens.lens (\DescribePortfolioShares' {pageToken} -> pageToken) (\s@DescribePortfolioShares' {} a -> s {pageToken = a} :: DescribePortfolioShares)
-
--- | The maximum number of items to return with this call.
-describePortfolioShares_pageSize :: Lens.Lens' DescribePortfolioShares (Prelude.Maybe Prelude.Natural)
-describePortfolioShares_pageSize = Lens.lens (\DescribePortfolioShares' {pageSize} -> pageSize) (\s@DescribePortfolioShares' {} a -> s {pageSize = a} :: DescribePortfolioShares)
 
 -- | The unique identifier of the portfolio for which shares will be
 -- retrieved.
@@ -159,13 +160,14 @@ instance Core.AWSRequest DescribePortfolioShares where
   type
     AWSResponse DescribePortfolioShares =
       DescribePortfolioSharesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribePortfolioSharesResponse'
-            Prelude.<$> (x Core..?> "NextPageToken")
-            Prelude.<*> ( x Core..?> "PortfolioShareDetails"
+            Prelude.<$> (x Data..?> "NextPageToken")
+            Prelude.<*> ( x Data..?> "PortfolioShareDetails"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -173,48 +175,48 @@ instance Core.AWSRequest DescribePortfolioShares where
 
 instance Prelude.Hashable DescribePortfolioShares where
   hashWithSalt _salt DescribePortfolioShares' {..} =
-    _salt `Prelude.hashWithSalt` pageToken
-      `Prelude.hashWithSalt` pageSize
+    _salt `Prelude.hashWithSalt` pageSize
+      `Prelude.hashWithSalt` pageToken
       `Prelude.hashWithSalt` portfolioId
       `Prelude.hashWithSalt` type'
 
 instance Prelude.NFData DescribePortfolioShares where
   rnf DescribePortfolioShares' {..} =
-    Prelude.rnf pageToken
-      `Prelude.seq` Prelude.rnf pageSize
+    Prelude.rnf pageSize
+      `Prelude.seq` Prelude.rnf pageToken
       `Prelude.seq` Prelude.rnf portfolioId
       `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToHeaders DescribePortfolioShares where
+instance Data.ToHeaders DescribePortfolioShares where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.DescribePortfolioShares" ::
+              Data.=# ( "AWS242ServiceCatalogService.DescribePortfolioShares" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribePortfolioShares where
+instance Data.ToJSON DescribePortfolioShares where
   toJSON DescribePortfolioShares' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PageToken" Core..=) Prelude.<$> pageToken,
-            ("PageSize" Core..=) Prelude.<$> pageSize,
-            Prelude.Just ("PortfolioId" Core..= portfolioId),
-            Prelude.Just ("Type" Core..= type')
+          [ ("PageSize" Data..=) Prelude.<$> pageSize,
+            ("PageToken" Data..=) Prelude.<$> pageToken,
+            Prelude.Just ("PortfolioId" Data..= portfolioId),
+            Prelude.Just ("Type" Data..= type')
           ]
       )
 
-instance Core.ToPath DescribePortfolioShares where
+instance Data.ToPath DescribePortfolioShares where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribePortfolioShares where
+instance Data.ToQuery DescribePortfolioShares where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribePortfolioSharesResponse' smart constructor.

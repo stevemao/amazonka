@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.DescribeAccountOverview
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.DevOpsGuru.DescribeAccountOverview
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DevOpsGuru.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,11 +59,11 @@ data DescribeAccountOverview = DescribeAccountOverview'
     -- the day level. The floor of the start time is used. Returned information
     -- occurred before this day. If this is not specified, then the current day
     -- is used.
-    toTime :: Prelude.Maybe Core.POSIX,
+    toTime :: Prelude.Maybe Data.POSIX,
     -- | The start of the time range passed in. The start time granularity is at
     -- the day level. The floor of the start time is used. Returned information
     -- occurred after this day.
-    fromTime :: Core.POSIX
+    fromTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -89,7 +90,7 @@ newDescribeAccountOverview ::
 newDescribeAccountOverview pFromTime_ =
   DescribeAccountOverview'
     { toTime = Prelude.Nothing,
-      fromTime = Core._Time Lens.# pFromTime_
+      fromTime = Data._Time Lens.# pFromTime_
     }
 
 -- | The end of the time range passed in. The start time granularity is at
@@ -97,27 +98,28 @@ newDescribeAccountOverview pFromTime_ =
 -- occurred before this day. If this is not specified, then the current day
 -- is used.
 describeAccountOverview_toTime :: Lens.Lens' DescribeAccountOverview (Prelude.Maybe Prelude.UTCTime)
-describeAccountOverview_toTime = Lens.lens (\DescribeAccountOverview' {toTime} -> toTime) (\s@DescribeAccountOverview' {} a -> s {toTime = a} :: DescribeAccountOverview) Prelude.. Lens.mapping Core._Time
+describeAccountOverview_toTime = Lens.lens (\DescribeAccountOverview' {toTime} -> toTime) (\s@DescribeAccountOverview' {} a -> s {toTime = a} :: DescribeAccountOverview) Prelude.. Lens.mapping Data._Time
 
 -- | The start of the time range passed in. The start time granularity is at
 -- the day level. The floor of the start time is used. Returned information
 -- occurred after this day.
 describeAccountOverview_fromTime :: Lens.Lens' DescribeAccountOverview Prelude.UTCTime
-describeAccountOverview_fromTime = Lens.lens (\DescribeAccountOverview' {fromTime} -> fromTime) (\s@DescribeAccountOverview' {} a -> s {fromTime = a} :: DescribeAccountOverview) Prelude.. Core._Time
+describeAccountOverview_fromTime = Lens.lens (\DescribeAccountOverview' {fromTime} -> fromTime) (\s@DescribeAccountOverview' {} a -> s {fromTime = a} :: DescribeAccountOverview) Prelude.. Data._Time
 
 instance Core.AWSRequest DescribeAccountOverview where
   type
     AWSResponse DescribeAccountOverview =
       DescribeAccountOverviewResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAccountOverviewResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "ReactiveInsights")
-            Prelude.<*> (x Core..:> "ProactiveInsights")
-            Prelude.<*> (x Core..:> "MeanTimeToRecoverInMilliseconds")
+            Prelude.<*> (x Data..:> "ReactiveInsights")
+            Prelude.<*> (x Data..:> "ProactiveInsights")
+            Prelude.<*> (x Data..:> "MeanTimeToRecoverInMilliseconds")
       )
 
 instance Prelude.Hashable DescribeAccountOverview where
@@ -130,30 +132,30 @@ instance Prelude.NFData DescribeAccountOverview where
     Prelude.rnf toTime
       `Prelude.seq` Prelude.rnf fromTime
 
-instance Core.ToHeaders DescribeAccountOverview where
+instance Data.ToHeaders DescribeAccountOverview where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeAccountOverview where
+instance Data.ToJSON DescribeAccountOverview where
   toJSON DescribeAccountOverview' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ToTime" Core..=) Prelude.<$> toTime,
-            Prelude.Just ("FromTime" Core..= fromTime)
+          [ ("ToTime" Data..=) Prelude.<$> toTime,
+            Prelude.Just ("FromTime" Data..= fromTime)
           ]
       )
 
-instance Core.ToPath DescribeAccountOverview where
+instance Data.ToPath DescribeAccountOverview where
   toPath = Prelude.const "/accounts/overview"
 
-instance Core.ToQuery DescribeAccountOverview where
+instance Data.ToQuery DescribeAccountOverview where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeAccountOverviewResponse' smart constructor.
@@ -161,10 +163,12 @@ data DescribeAccountOverviewResponse = DescribeAccountOverviewResponse'
   { -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | An integer that specifies the number of open reactive insights in your
-    -- AWS account that were created during the time range passed in.
+    -- Amazon Web Services account that were created during the time range
+    -- passed in.
     reactiveInsights :: Prelude.Int,
     -- | An integer that specifies the number of open proactive insights in your
-    -- AWS account that were created during the time range passed in.
+    -- Amazon Web Services account that were created during the time range
+    -- passed in.
     proactiveInsights :: Prelude.Int,
     -- | The Mean Time to Recover (MTTR) for all closed insights that were
     -- created during the time range passed in.
@@ -183,10 +187,12 @@ data DescribeAccountOverviewResponse = DescribeAccountOverviewResponse'
 -- 'httpStatus', 'describeAccountOverviewResponse_httpStatus' - The response's http status code.
 --
 -- 'reactiveInsights', 'describeAccountOverviewResponse_reactiveInsights' - An integer that specifies the number of open reactive insights in your
--- AWS account that were created during the time range passed in.
+-- Amazon Web Services account that were created during the time range
+-- passed in.
 --
 -- 'proactiveInsights', 'describeAccountOverviewResponse_proactiveInsights' - An integer that specifies the number of open proactive insights in your
--- AWS account that were created during the time range passed in.
+-- Amazon Web Services account that were created during the time range
+-- passed in.
 --
 -- 'meanTimeToRecoverInMilliseconds', 'describeAccountOverviewResponse_meanTimeToRecoverInMilliseconds' - The Mean Time to Recover (MTTR) for all closed insights that were
 -- created during the time range passed in.
@@ -219,12 +225,14 @@ describeAccountOverviewResponse_httpStatus :: Lens.Lens' DescribeAccountOverview
 describeAccountOverviewResponse_httpStatus = Lens.lens (\DescribeAccountOverviewResponse' {httpStatus} -> httpStatus) (\s@DescribeAccountOverviewResponse' {} a -> s {httpStatus = a} :: DescribeAccountOverviewResponse)
 
 -- | An integer that specifies the number of open reactive insights in your
--- AWS account that were created during the time range passed in.
+-- Amazon Web Services account that were created during the time range
+-- passed in.
 describeAccountOverviewResponse_reactiveInsights :: Lens.Lens' DescribeAccountOverviewResponse Prelude.Int
 describeAccountOverviewResponse_reactiveInsights = Lens.lens (\DescribeAccountOverviewResponse' {reactiveInsights} -> reactiveInsights) (\s@DescribeAccountOverviewResponse' {} a -> s {reactiveInsights = a} :: DescribeAccountOverviewResponse)
 
 -- | An integer that specifies the number of open proactive insights in your
--- AWS account that were created during the time range passed in.
+-- Amazon Web Services account that were created during the time range
+-- passed in.
 describeAccountOverviewResponse_proactiveInsights :: Lens.Lens' DescribeAccountOverviewResponse Prelude.Int
 describeAccountOverviewResponse_proactiveInsights = Lens.lens (\DescribeAccountOverviewResponse' {proactiveInsights} -> proactiveInsights) (\s@DescribeAccountOverviewResponse' {} a -> s {proactiveInsights = a} :: DescribeAccountOverviewResponse)
 

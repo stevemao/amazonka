@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.DeregisterElasticIp
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.OpsWorks.DeregisterElasticIp
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -81,7 +82,8 @@ instance Core.AWSRequest DeregisterElasticIp where
   type
     AWSResponse DeregisterElasticIp =
       DeregisterElasticIpResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeregisterElasticIpResponse'
 
@@ -92,32 +94,32 @@ instance Prelude.Hashable DeregisterElasticIp where
 instance Prelude.NFData DeregisterElasticIp where
   rnf DeregisterElasticIp' {..} = Prelude.rnf elasticIp
 
-instance Core.ToHeaders DeregisterElasticIp where
+instance Data.ToHeaders DeregisterElasticIp where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.DeregisterElasticIp" ::
+              Data.=# ( "OpsWorks_20130218.DeregisterElasticIp" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeregisterElasticIp where
+instance Data.ToJSON DeregisterElasticIp where
   toJSON DeregisterElasticIp' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ElasticIp" Core..= elasticIp)]
+          [Prelude.Just ("ElasticIp" Data..= elasticIp)]
       )
 
-instance Core.ToPath DeregisterElasticIp where
+instance Data.ToPath DeregisterElasticIp where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeregisterElasticIp where
+instance Data.ToQuery DeregisterElasticIp where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeregisterElasticIpResponse' smart constructor.

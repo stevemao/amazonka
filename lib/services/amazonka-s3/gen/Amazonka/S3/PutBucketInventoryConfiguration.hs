@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.PutBucketInventoryConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -101,7 +101,8 @@ module Amazonka.S3.PutBucketInventoryConfiguration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -110,8 +111,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newPutBucketInventoryConfiguration' smart constructor.
 data PutBucketInventoryConfiguration = PutBucketInventoryConfiguration'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the bucket where the inventory configuration will be stored.
     bucket :: BucketName,
@@ -131,8 +132,8 @@ data PutBucketInventoryConfiguration = PutBucketInventoryConfiguration'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'putBucketInventoryConfiguration_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'putBucketInventoryConfiguration_bucket' - The name of the bucket where the inventory configuration will be stored.
 --
@@ -161,8 +162,8 @@ newPutBucketInventoryConfiguration
       }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 putBucketInventoryConfiguration_expectedBucketOwner :: Lens.Lens' PutBucketInventoryConfiguration (Prelude.Maybe Prelude.Text)
 putBucketInventoryConfiguration_expectedBucketOwner = Lens.lens (\PutBucketInventoryConfiguration' {expectedBucketOwner} -> expectedBucketOwner) (\s@PutBucketInventoryConfiguration' {} a -> s {expectedBucketOwner = a} :: PutBucketInventoryConfiguration)
 
@@ -185,9 +186,9 @@ instance
   type
     AWSResponse PutBucketInventoryConfiguration =
       PutBucketInventoryConfigurationResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.putXML defaultService
+      Prelude.. Request.putXML (overrides defaultService)
   response =
     Response.receiveNull
       PutBucketInventoryConfigurationResponse'
@@ -215,31 +216,31 @@ instance
       `Prelude.seq` Prelude.rnf inventoryConfiguration
 
 instance
-  Core.ToElement
+  Data.ToElement
     PutBucketInventoryConfiguration
   where
   toElement PutBucketInventoryConfiguration' {..} =
-    Core.mkElement
+    Data.mkElement
       "{http://s3.amazonaws.com/doc/2006-03-01/}InventoryConfiguration"
       inventoryConfiguration
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     PutBucketInventoryConfiguration
   where
   toHeaders PutBucketInventoryConfiguration' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath PutBucketInventoryConfiguration where
+instance Data.ToPath PutBucketInventoryConfiguration where
   toPath PutBucketInventoryConfiguration' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery PutBucketInventoryConfiguration where
+instance Data.ToQuery PutBucketInventoryConfiguration where
   toQuery PutBucketInventoryConfiguration' {..} =
-    Prelude.mconcat ["id" Core.=: id, "inventory"]
+    Prelude.mconcat ["id" Data.=: id, "inventory"]
 
 -- | /See:/ 'newPutBucketInventoryConfigurationResponse' smart constructor.
 data PutBucketInventoryConfigurationResponse = PutBucketInventoryConfigurationResponse'

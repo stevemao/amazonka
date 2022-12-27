@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.Types.EncryptionInTransit
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Kafka.Types.EncryptionInTransit where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kafka.Types.ClientBroker
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The settings for encrypting data in transit.
@@ -108,14 +109,14 @@ encryptionInTransit_clientBroker = Lens.lens (\EncryptionInTransit' {clientBroke
 encryptionInTransit_inCluster :: Lens.Lens' EncryptionInTransit (Prelude.Maybe Prelude.Bool)
 encryptionInTransit_inCluster = Lens.lens (\EncryptionInTransit' {inCluster} -> inCluster) (\s@EncryptionInTransit' {} a -> s {inCluster = a} :: EncryptionInTransit)
 
-instance Core.FromJSON EncryptionInTransit where
+instance Data.FromJSON EncryptionInTransit where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EncryptionInTransit"
       ( \x ->
           EncryptionInTransit'
-            Prelude.<$> (x Core..:? "clientBroker")
-            Prelude.<*> (x Core..:? "inCluster")
+            Prelude.<$> (x Data..:? "clientBroker")
+            Prelude.<*> (x Data..:? "inCluster")
       )
 
 instance Prelude.Hashable EncryptionInTransit where
@@ -128,11 +129,11 @@ instance Prelude.NFData EncryptionInTransit where
     Prelude.rnf clientBroker
       `Prelude.seq` Prelude.rnf inCluster
 
-instance Core.ToJSON EncryptionInTransit where
+instance Data.ToJSON EncryptionInTransit where
   toJSON EncryptionInTransit' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientBroker" Core..=) Prelude.<$> clientBroker,
-            ("inCluster" Core..=) Prelude.<$> inCluster
+          [ ("clientBroker" Data..=) Prelude.<$> clientBroker,
+            ("inCluster" Data..=) Prelude.<$> inCluster
           ]
       )

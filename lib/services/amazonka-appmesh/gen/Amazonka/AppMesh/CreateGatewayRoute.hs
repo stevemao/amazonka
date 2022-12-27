@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.CreateGatewayRoute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,7 +54,8 @@ where
 
 import Amazonka.AppMesh.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -65,10 +66,10 @@ data CreateGatewayRoute = CreateGatewayRoute'
     -- idempotency of the request. Up to 36 letters, numbers, hyphens, and
     -- underscores are allowed.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | The AWS IAM account ID of the service mesh owner. If the account ID is
-    -- not your own, then the account that you specify must share the mesh with
-    -- your account before you can create the resource in the service mesh. For
-    -- more information about mesh sharing, see
+    -- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+    -- account ID is not your own, then the account that you specify must share
+    -- the mesh with your account before you can create the resource in the
+    -- service mesh. For more information about mesh sharing, see
     -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
     meshOwner :: Prelude.Maybe Prelude.Text,
     -- | Optional metadata that you can apply to the gateway route to assist with
@@ -102,10 +103,10 @@ data CreateGatewayRoute = CreateGatewayRoute'
 -- idempotency of the request. Up to 36 letters, numbers, hyphens, and
 -- underscores are allowed.
 --
--- 'meshOwner', 'createGatewayRoute_meshOwner' - The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then the account that you specify must share the mesh with
--- your account before you can create the resource in the service mesh. For
--- more information about mesh sharing, see
+-- 'meshOwner', 'createGatewayRoute_meshOwner' - The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then the account that you specify must share
+-- the mesh with your account before you can create the resource in the
+-- service mesh. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 --
 -- 'tags', 'createGatewayRoute_tags' - Optional metadata that you can apply to the gateway route to assist with
@@ -154,10 +155,10 @@ newCreateGatewayRoute
 createGatewayRoute_clientToken :: Lens.Lens' CreateGatewayRoute (Prelude.Maybe Prelude.Text)
 createGatewayRoute_clientToken = Lens.lens (\CreateGatewayRoute' {clientToken} -> clientToken) (\s@CreateGatewayRoute' {} a -> s {clientToken = a} :: CreateGatewayRoute)
 
--- | The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then the account that you specify must share the mesh with
--- your account before you can create the resource in the service mesh. For
--- more information about mesh sharing, see
+-- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then the account that you specify must share
+-- the mesh with your account before you can create the resource in the
+-- service mesh. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 createGatewayRoute_meshOwner :: Lens.Lens' CreateGatewayRoute (Prelude.Maybe Prelude.Text)
 createGatewayRoute_meshOwner = Lens.lens (\CreateGatewayRoute' {meshOwner} -> meshOwner) (\s@CreateGatewayRoute' {} a -> s {meshOwner = a} :: CreateGatewayRoute)
@@ -192,13 +193,14 @@ instance Core.AWSRequest CreateGatewayRoute where
   type
     AWSResponse CreateGatewayRoute =
       CreateGatewayRouteResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateGatewayRouteResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable CreateGatewayRoute where
@@ -221,42 +223,42 @@ instance Prelude.NFData CreateGatewayRoute where
       `Prelude.seq` Prelude.rnf spec
       `Prelude.seq` Prelude.rnf virtualGatewayName
 
-instance Core.ToHeaders CreateGatewayRoute where
+instance Data.ToHeaders CreateGatewayRoute where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateGatewayRoute where
+instance Data.ToJSON CreateGatewayRoute where
   toJSON CreateGatewayRoute' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("tags" Core..=) Prelude.<$> tags,
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("gatewayRouteName" Core..= gatewayRouteName),
-            Prelude.Just ("spec" Core..= spec)
+              ("gatewayRouteName" Data..= gatewayRouteName),
+            Prelude.Just ("spec" Data..= spec)
           ]
       )
 
-instance Core.ToPath CreateGatewayRoute where
+instance Data.ToPath CreateGatewayRoute where
   toPath CreateGatewayRoute' {..} =
     Prelude.mconcat
       [ "/v20190125/meshes/",
-        Core.toBS meshName,
+        Data.toBS meshName,
         "/virtualGateway/",
-        Core.toBS virtualGatewayName,
+        Data.toBS virtualGatewayName,
         "/gatewayRoutes"
       ]
 
-instance Core.ToQuery CreateGatewayRoute where
+instance Data.ToQuery CreateGatewayRoute where
   toQuery CreateGatewayRoute' {..} =
-    Prelude.mconcat ["meshOwner" Core.=: meshOwner]
+    Prelude.mconcat ["meshOwner" Data.=: meshOwner]
 
 -- | /See:/ 'newCreateGatewayRouteResponse' smart constructor.
 data CreateGatewayRouteResponse = CreateGatewayRouteResponse'

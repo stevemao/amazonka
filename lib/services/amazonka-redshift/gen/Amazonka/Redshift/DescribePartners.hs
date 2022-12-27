@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.DescribePartners
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.Redshift.DescribePartners
     newDescribePartners,
 
     -- * Request Lenses
-    describePartners_partnerName,
     describePartners_databaseName,
+    describePartners_partnerName,
     describePartners_accountId,
     describePartners_clusterIdentifier,
 
@@ -44,7 +44,8 @@ module Amazonka.Redshift.DescribePartners
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -52,13 +53,13 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribePartners' smart constructor.
 data DescribePartners = DescribePartners'
-  { -- | The name of the partner that is being described. If partner name is not
-    -- specified, then all partner integrations are described.
-    partnerName :: Prelude.Maybe Prelude.Text,
-    -- | The name of the database whose partner integration is being described.
+  { -- | The name of the database whose partner integration is being described.
     -- If database name is not specified, then all databases in the cluster are
     -- described.
     databaseName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the partner that is being described. If partner name is not
+    -- specified, then all partner integrations are described.
+    partnerName :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Web Services account ID that owns the cluster.
     accountId :: Prelude.Text,
     -- | The cluster identifier of the cluster whose partner integration is being
@@ -75,12 +76,12 @@ data DescribePartners = DescribePartners'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'partnerName', 'describePartners_partnerName' - The name of the partner that is being described. If partner name is not
--- specified, then all partner integrations are described.
---
 -- 'databaseName', 'describePartners_databaseName' - The name of the database whose partner integration is being described.
 -- If database name is not specified, then all databases in the cluster are
 -- described.
+--
+-- 'partnerName', 'describePartners_partnerName' - The name of the partner that is being described. If partner name is not
+-- specified, then all partner integrations are described.
 --
 -- 'accountId', 'describePartners_accountId' - The Amazon Web Services account ID that owns the cluster.
 --
@@ -94,22 +95,22 @@ newDescribePartners ::
   DescribePartners
 newDescribePartners pAccountId_ pClusterIdentifier_ =
   DescribePartners'
-    { partnerName = Prelude.Nothing,
-      databaseName = Prelude.Nothing,
+    { databaseName = Prelude.Nothing,
+      partnerName = Prelude.Nothing,
       accountId = pAccountId_,
       clusterIdentifier = pClusterIdentifier_
     }
-
--- | The name of the partner that is being described. If partner name is not
--- specified, then all partner integrations are described.
-describePartners_partnerName :: Lens.Lens' DescribePartners (Prelude.Maybe Prelude.Text)
-describePartners_partnerName = Lens.lens (\DescribePartners' {partnerName} -> partnerName) (\s@DescribePartners' {} a -> s {partnerName = a} :: DescribePartners)
 
 -- | The name of the database whose partner integration is being described.
 -- If database name is not specified, then all databases in the cluster are
 -- described.
 describePartners_databaseName :: Lens.Lens' DescribePartners (Prelude.Maybe Prelude.Text)
 describePartners_databaseName = Lens.lens (\DescribePartners' {databaseName} -> databaseName) (\s@DescribePartners' {} a -> s {databaseName = a} :: DescribePartners)
+
+-- | The name of the partner that is being described. If partner name is not
+-- specified, then all partner integrations are described.
+describePartners_partnerName :: Lens.Lens' DescribePartners (Prelude.Maybe Prelude.Text)
+describePartners_partnerName = Lens.lens (\DescribePartners' {partnerName} -> partnerName) (\s@DescribePartners' {} a -> s {partnerName = a} :: DescribePartners)
 
 -- | The Amazon Web Services account ID that owns the cluster.
 describePartners_accountId :: Lens.Lens' DescribePartners Prelude.Text
@@ -124,51 +125,52 @@ instance Core.AWSRequest DescribePartners where
   type
     AWSResponse DescribePartners =
       DescribePartnersResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribePartnersResult"
       ( \s h x ->
           DescribePartnersResponse'
-            Prelude.<$> ( x Core..@? "PartnerIntegrationInfoList"
+            Prelude.<$> ( x Data..@? "PartnerIntegrationInfoList"
                             Core..!@ Prelude.mempty
                             Prelude.>>= Core.may
-                              (Core.parseXMLList "PartnerIntegrationInfo")
+                              (Data.parseXMLList "PartnerIntegrationInfo")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribePartners where
   hashWithSalt _salt DescribePartners' {..} =
-    _salt `Prelude.hashWithSalt` partnerName
-      `Prelude.hashWithSalt` databaseName
+    _salt `Prelude.hashWithSalt` databaseName
+      `Prelude.hashWithSalt` partnerName
       `Prelude.hashWithSalt` accountId
       `Prelude.hashWithSalt` clusterIdentifier
 
 instance Prelude.NFData DescribePartners where
   rnf DescribePartners' {..} =
-    Prelude.rnf partnerName
-      `Prelude.seq` Prelude.rnf databaseName
+    Prelude.rnf databaseName
+      `Prelude.seq` Prelude.rnf partnerName
       `Prelude.seq` Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf clusterIdentifier
 
-instance Core.ToHeaders DescribePartners where
+instance Data.ToHeaders DescribePartners where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribePartners where
+instance Data.ToPath DescribePartners where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribePartners where
+instance Data.ToQuery DescribePartners where
   toQuery DescribePartners' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribePartners" :: Prelude.ByteString),
+          Data.=: ("DescribePartners" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "PartnerName" Core.=: partnerName,
-        "DatabaseName" Core.=: databaseName,
-        "AccountId" Core.=: accountId,
-        "ClusterIdentifier" Core.=: clusterIdentifier
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "DatabaseName" Data.=: databaseName,
+        "PartnerName" Data.=: partnerName,
+        "AccountId" Data.=: accountId,
+        "ClusterIdentifier" Data.=: clusterIdentifier
       ]
 
 -- | /See:/ 'newDescribePartnersResponse' smart constructor.

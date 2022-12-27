@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.Adjustment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.SecurityHub.Types.Adjustment where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An adjustment to the CVSS metric.
 --
 -- /See:/ 'newAdjustment' smart constructor.
 data Adjustment = Adjustment'
-  { -- | The reason for the adjustment.
-    reason :: Prelude.Maybe Prelude.Text,
-    -- | The metric to adjust.
-    metric :: Prelude.Maybe Prelude.Text
+  { -- | The metric to adjust.
+    metric :: Prelude.Maybe Prelude.Text,
+    -- | The reason for the adjustment.
+    reason :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,49 +43,49 @@ data Adjustment = Adjustment'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'reason', 'adjustment_reason' - The reason for the adjustment.
---
 -- 'metric', 'adjustment_metric' - The metric to adjust.
+--
+-- 'reason', 'adjustment_reason' - The reason for the adjustment.
 newAdjustment ::
   Adjustment
 newAdjustment =
   Adjustment'
-    { reason = Prelude.Nothing,
-      metric = Prelude.Nothing
+    { metric = Prelude.Nothing,
+      reason = Prelude.Nothing
     }
-
--- | The reason for the adjustment.
-adjustment_reason :: Lens.Lens' Adjustment (Prelude.Maybe Prelude.Text)
-adjustment_reason = Lens.lens (\Adjustment' {reason} -> reason) (\s@Adjustment' {} a -> s {reason = a} :: Adjustment)
 
 -- | The metric to adjust.
 adjustment_metric :: Lens.Lens' Adjustment (Prelude.Maybe Prelude.Text)
 adjustment_metric = Lens.lens (\Adjustment' {metric} -> metric) (\s@Adjustment' {} a -> s {metric = a} :: Adjustment)
 
-instance Core.FromJSON Adjustment where
+-- | The reason for the adjustment.
+adjustment_reason :: Lens.Lens' Adjustment (Prelude.Maybe Prelude.Text)
+adjustment_reason = Lens.lens (\Adjustment' {reason} -> reason) (\s@Adjustment' {} a -> s {reason = a} :: Adjustment)
+
+instance Data.FromJSON Adjustment where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Adjustment"
       ( \x ->
           Adjustment'
-            Prelude.<$> (x Core..:? "Reason")
-            Prelude.<*> (x Core..:? "Metric")
+            Prelude.<$> (x Data..:? "Metric")
+            Prelude.<*> (x Data..:? "Reason")
       )
 
 instance Prelude.Hashable Adjustment where
   hashWithSalt _salt Adjustment' {..} =
-    _salt `Prelude.hashWithSalt` reason
-      `Prelude.hashWithSalt` metric
+    _salt `Prelude.hashWithSalt` metric
+      `Prelude.hashWithSalt` reason
 
 instance Prelude.NFData Adjustment where
   rnf Adjustment' {..} =
-    Prelude.rnf reason `Prelude.seq` Prelude.rnf metric
+    Prelude.rnf metric `Prelude.seq` Prelude.rnf reason
 
-instance Core.ToJSON Adjustment where
+instance Data.ToJSON Adjustment where
   toJSON Adjustment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Reason" Core..=) Prelude.<$> reason,
-            ("Metric" Core..=) Prelude.<$> metric
+          [ ("Metric" Data..=) Prelude.<$> metric,
+            ("Reason" Data..=) Prelude.<$> reason
           ]
       )

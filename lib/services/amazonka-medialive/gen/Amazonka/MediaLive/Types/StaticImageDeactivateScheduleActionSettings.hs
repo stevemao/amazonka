@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.StaticImageDeactivateScheduleActionSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.StaticImageDeactivateScheduleActionSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Settings for the action to deactivate the image in a specific layer.
@@ -66,16 +67,16 @@ staticImageDeactivateScheduleActionSettings_layer :: Lens.Lens' StaticImageDeact
 staticImageDeactivateScheduleActionSettings_layer = Lens.lens (\StaticImageDeactivateScheduleActionSettings' {layer} -> layer) (\s@StaticImageDeactivateScheduleActionSettings' {} a -> s {layer = a} :: StaticImageDeactivateScheduleActionSettings)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     StaticImageDeactivateScheduleActionSettings
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StaticImageDeactivateScheduleActionSettings"
       ( \x ->
           StaticImageDeactivateScheduleActionSettings'
-            Prelude.<$> (x Core..:? "fadeOut")
-              Prelude.<*> (x Core..:? "layer")
+            Prelude.<$> (x Data..:? "fadeOut")
+              Prelude.<*> (x Data..:? "layer")
       )
 
 instance
@@ -96,14 +97,14 @@ instance
     Prelude.rnf fadeOut `Prelude.seq` Prelude.rnf layer
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     StaticImageDeactivateScheduleActionSettings
   where
   toJSON
     StaticImageDeactivateScheduleActionSettings' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("fadeOut" Core..=) Prelude.<$> fadeOut,
-              ("layer" Core..=) Prelude.<$> layer
+            [ ("fadeOut" Data..=) Prelude.<$> fadeOut,
+              ("layer" Data..=) Prelude.<$> layer
             ]
         )

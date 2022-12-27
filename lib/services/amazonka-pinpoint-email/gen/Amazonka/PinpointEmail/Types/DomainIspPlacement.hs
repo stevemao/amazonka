@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.PinpointEmail.Types.DomainIspPlacement
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.PinpointEmail.Types.DomainIspPlacement where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that contains inbox placement data for email sent from one of
@@ -29,17 +30,17 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newDomainIspPlacement' smart constructor.
 data DomainIspPlacement = DomainIspPlacement'
   { -- | The percentage of messages that were sent from the selected domain to
-    -- the specified email provider that arrived in recipients\' spam or junk
-    -- mail folders.
-    spamPercentage :: Prelude.Maybe Prelude.Double,
+    -- the specified email provider that arrived in recipients\' inboxes.
+    inboxPercentage :: Prelude.Maybe Prelude.Double,
     -- | The total number of messages that were sent from the selected domain to
     -- the specified email provider that arrived in recipients\' inboxes.
     inboxRawCount :: Prelude.Maybe Prelude.Integer,
     -- | The name of the email provider that the inbox placement data applies to.
     ispName :: Prelude.Maybe Prelude.Text,
     -- | The percentage of messages that were sent from the selected domain to
-    -- the specified email provider that arrived in recipients\' inboxes.
-    inboxPercentage :: Prelude.Maybe Prelude.Double,
+    -- the specified email provider that arrived in recipients\' spam or junk
+    -- mail folders.
+    spamPercentage :: Prelude.Maybe Prelude.Double,
     -- | The total number of messages that were sent from the selected domain to
     -- the specified email provider that arrived in recipients\' spam or junk
     -- mail folders.
@@ -55,17 +56,17 @@ data DomainIspPlacement = DomainIspPlacement'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'spamPercentage', 'domainIspPlacement_spamPercentage' - The percentage of messages that were sent from the selected domain to
--- the specified email provider that arrived in recipients\' spam or junk
--- mail folders.
+-- 'inboxPercentage', 'domainIspPlacement_inboxPercentage' - The percentage of messages that were sent from the selected domain to
+-- the specified email provider that arrived in recipients\' inboxes.
 --
 -- 'inboxRawCount', 'domainIspPlacement_inboxRawCount' - The total number of messages that were sent from the selected domain to
 -- the specified email provider that arrived in recipients\' inboxes.
 --
 -- 'ispName', 'domainIspPlacement_ispName' - The name of the email provider that the inbox placement data applies to.
 --
--- 'inboxPercentage', 'domainIspPlacement_inboxPercentage' - The percentage of messages that were sent from the selected domain to
--- the specified email provider that arrived in recipients\' inboxes.
+-- 'spamPercentage', 'domainIspPlacement_spamPercentage' - The percentage of messages that were sent from the selected domain to
+-- the specified email provider that arrived in recipients\' spam or junk
+-- mail folders.
 --
 -- 'spamRawCount', 'domainIspPlacement_spamRawCount' - The total number of messages that were sent from the selected domain to
 -- the specified email provider that arrived in recipients\' spam or junk
@@ -74,19 +75,18 @@ newDomainIspPlacement ::
   DomainIspPlacement
 newDomainIspPlacement =
   DomainIspPlacement'
-    { spamPercentage =
+    { inboxPercentage =
         Prelude.Nothing,
       inboxRawCount = Prelude.Nothing,
       ispName = Prelude.Nothing,
-      inboxPercentage = Prelude.Nothing,
+      spamPercentage = Prelude.Nothing,
       spamRawCount = Prelude.Nothing
     }
 
 -- | The percentage of messages that were sent from the selected domain to
--- the specified email provider that arrived in recipients\' spam or junk
--- mail folders.
-domainIspPlacement_spamPercentage :: Lens.Lens' DomainIspPlacement (Prelude.Maybe Prelude.Double)
-domainIspPlacement_spamPercentage = Lens.lens (\DomainIspPlacement' {spamPercentage} -> spamPercentage) (\s@DomainIspPlacement' {} a -> s {spamPercentage = a} :: DomainIspPlacement)
+-- the specified email provider that arrived in recipients\' inboxes.
+domainIspPlacement_inboxPercentage :: Lens.Lens' DomainIspPlacement (Prelude.Maybe Prelude.Double)
+domainIspPlacement_inboxPercentage = Lens.lens (\DomainIspPlacement' {inboxPercentage} -> inboxPercentage) (\s@DomainIspPlacement' {} a -> s {inboxPercentage = a} :: DomainIspPlacement)
 
 -- | The total number of messages that were sent from the selected domain to
 -- the specified email provider that arrived in recipients\' inboxes.
@@ -98,9 +98,10 @@ domainIspPlacement_ispName :: Lens.Lens' DomainIspPlacement (Prelude.Maybe Prelu
 domainIspPlacement_ispName = Lens.lens (\DomainIspPlacement' {ispName} -> ispName) (\s@DomainIspPlacement' {} a -> s {ispName = a} :: DomainIspPlacement)
 
 -- | The percentage of messages that were sent from the selected domain to
--- the specified email provider that arrived in recipients\' inboxes.
-domainIspPlacement_inboxPercentage :: Lens.Lens' DomainIspPlacement (Prelude.Maybe Prelude.Double)
-domainIspPlacement_inboxPercentage = Lens.lens (\DomainIspPlacement' {inboxPercentage} -> inboxPercentage) (\s@DomainIspPlacement' {} a -> s {inboxPercentage = a} :: DomainIspPlacement)
+-- the specified email provider that arrived in recipients\' spam or junk
+-- mail folders.
+domainIspPlacement_spamPercentage :: Lens.Lens' DomainIspPlacement (Prelude.Maybe Prelude.Double)
+domainIspPlacement_spamPercentage = Lens.lens (\DomainIspPlacement' {spamPercentage} -> spamPercentage) (\s@DomainIspPlacement' {} a -> s {spamPercentage = a} :: DomainIspPlacement)
 
 -- | The total number of messages that were sent from the selected domain to
 -- the specified email provider that arrived in recipients\' spam or junk
@@ -108,31 +109,31 @@ domainIspPlacement_inboxPercentage = Lens.lens (\DomainIspPlacement' {inboxPerce
 domainIspPlacement_spamRawCount :: Lens.Lens' DomainIspPlacement (Prelude.Maybe Prelude.Integer)
 domainIspPlacement_spamRawCount = Lens.lens (\DomainIspPlacement' {spamRawCount} -> spamRawCount) (\s@DomainIspPlacement' {} a -> s {spamRawCount = a} :: DomainIspPlacement)
 
-instance Core.FromJSON DomainIspPlacement where
+instance Data.FromJSON DomainIspPlacement where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DomainIspPlacement"
       ( \x ->
           DomainIspPlacement'
-            Prelude.<$> (x Core..:? "SpamPercentage")
-            Prelude.<*> (x Core..:? "InboxRawCount")
-            Prelude.<*> (x Core..:? "IspName")
-            Prelude.<*> (x Core..:? "InboxPercentage")
-            Prelude.<*> (x Core..:? "SpamRawCount")
+            Prelude.<$> (x Data..:? "InboxPercentage")
+            Prelude.<*> (x Data..:? "InboxRawCount")
+            Prelude.<*> (x Data..:? "IspName")
+            Prelude.<*> (x Data..:? "SpamPercentage")
+            Prelude.<*> (x Data..:? "SpamRawCount")
       )
 
 instance Prelude.Hashable DomainIspPlacement where
   hashWithSalt _salt DomainIspPlacement' {..} =
-    _salt `Prelude.hashWithSalt` spamPercentage
+    _salt `Prelude.hashWithSalt` inboxPercentage
       `Prelude.hashWithSalt` inboxRawCount
       `Prelude.hashWithSalt` ispName
-      `Prelude.hashWithSalt` inboxPercentage
+      `Prelude.hashWithSalt` spamPercentage
       `Prelude.hashWithSalt` spamRawCount
 
 instance Prelude.NFData DomainIspPlacement where
   rnf DomainIspPlacement' {..} =
-    Prelude.rnf spamPercentage
+    Prelude.rnf inboxPercentage
       `Prelude.seq` Prelude.rnf inboxRawCount
       `Prelude.seq` Prelude.rnf ispName
-      `Prelude.seq` Prelude.rnf inboxPercentage
+      `Prelude.seq` Prelude.rnf spamPercentage
       `Prelude.seq` Prelude.rnf spamRawCount

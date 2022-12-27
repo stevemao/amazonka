@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDBStreams.Types.Identity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.DynamoDBStreams.Types.Identity where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DynamoDBStreams.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains details about the type of identity that made the request.
@@ -65,14 +66,14 @@ identity_principalId = Lens.lens (\Identity' {principalId} -> principalId) (\s@I
 identity_type :: Lens.Lens' Identity (Prelude.Maybe Prelude.Text)
 identity_type = Lens.lens (\Identity' {type'} -> type') (\s@Identity' {} a -> s {type' = a} :: Identity)
 
-instance Core.FromJSON Identity where
+instance Data.FromJSON Identity where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Identity"
       ( \x ->
           Identity'
-            Prelude.<$> (x Core..:? "PrincipalId")
-            Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "PrincipalId")
+            Prelude.<*> (x Data..:? "Type")
       )
 
 instance Prelude.Hashable Identity where

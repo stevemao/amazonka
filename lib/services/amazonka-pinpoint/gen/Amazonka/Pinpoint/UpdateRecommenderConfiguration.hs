@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.UpdateRecommenderConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Pinpoint.UpdateRecommenderConfiguration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -103,13 +104,14 @@ instance
   type
     AWSResponse UpdateRecommenderConfiguration' =
       UpdateRecommenderConfigurationResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateRecommenderConfigurationResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance
@@ -131,36 +133,29 @@ instance
       `Prelude.seq` Prelude.rnf updateRecommenderConfiguration
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateRecommenderConfiguration'
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateRecommenderConfiguration' where
+instance Data.ToJSON UpdateRecommenderConfiguration' where
   toJSON UpdateRecommenderConfiguration'' {..} =
-    Core.object
-      ( Prelude.catMaybes
-          [ Prelude.Just
-              ( "UpdateRecommenderConfiguration"
-                  Core..= updateRecommenderConfiguration
-              )
-          ]
-      )
+    Data.toJSON updateRecommenderConfiguration
 
-instance Core.ToPath UpdateRecommenderConfiguration' where
+instance Data.ToPath UpdateRecommenderConfiguration' where
   toPath UpdateRecommenderConfiguration'' {..} =
     Prelude.mconcat
-      ["/v1/recommenders/", Core.toBS recommenderId]
+      ["/v1/recommenders/", Data.toBS recommenderId]
 
-instance Core.ToQuery UpdateRecommenderConfiguration' where
+instance Data.ToQuery UpdateRecommenderConfiguration' where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateRecommenderConfigurationResponse' smart constructor.

@@ -14,13 +14,17 @@
 
 -- |
 -- Module      : Amazonka.IoTDeviceAdvisor.DeleteSuiteDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Deletes a Device Advisor test suite.
+--
+-- Requires permission to access the
+-- <https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions DeleteSuiteDefinition>
+-- action.
 module Amazonka.IoTDeviceAdvisor.DeleteSuiteDefinition
   ( -- * Creating a Request
     DeleteSuiteDefinition (..),
@@ -39,15 +43,16 @@ module Amazonka.IoTDeviceAdvisor.DeleteSuiteDefinition
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTDeviceAdvisor.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteSuiteDefinition' smart constructor.
 data DeleteSuiteDefinition = DeleteSuiteDefinition'
-  { -- | Suite definition Id of the test suite to be deleted.
+  { -- | Suite definition ID of the test suite to be deleted.
     suiteDefinitionId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -60,7 +65,7 @@ data DeleteSuiteDefinition = DeleteSuiteDefinition'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'suiteDefinitionId', 'deleteSuiteDefinition_suiteDefinitionId' - Suite definition Id of the test suite to be deleted.
+-- 'suiteDefinitionId', 'deleteSuiteDefinition_suiteDefinitionId' - Suite definition ID of the test suite to be deleted.
 newDeleteSuiteDefinition ::
   -- | 'suiteDefinitionId'
   Prelude.Text ->
@@ -71,7 +76,7 @@ newDeleteSuiteDefinition pSuiteDefinitionId_ =
         pSuiteDefinitionId_
     }
 
--- | Suite definition Id of the test suite to be deleted.
+-- | Suite definition ID of the test suite to be deleted.
 deleteSuiteDefinition_suiteDefinitionId :: Lens.Lens' DeleteSuiteDefinition Prelude.Text
 deleteSuiteDefinition_suiteDefinitionId = Lens.lens (\DeleteSuiteDefinition' {suiteDefinitionId} -> suiteDefinitionId) (\s@DeleteSuiteDefinition' {} a -> s {suiteDefinitionId = a} :: DeleteSuiteDefinition)
 
@@ -79,7 +84,8 @@ instance Core.AWSRequest DeleteSuiteDefinition where
   type
     AWSResponse DeleteSuiteDefinition =
       DeleteSuiteDefinitionResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -95,23 +101,23 @@ instance Prelude.NFData DeleteSuiteDefinition where
   rnf DeleteSuiteDefinition' {..} =
     Prelude.rnf suiteDefinitionId
 
-instance Core.ToHeaders DeleteSuiteDefinition where
+instance Data.ToHeaders DeleteSuiteDefinition where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteSuiteDefinition where
+instance Data.ToPath DeleteSuiteDefinition where
   toPath DeleteSuiteDefinition' {..} =
     Prelude.mconcat
-      ["/suiteDefinitions/", Core.toBS suiteDefinitionId]
+      ["/suiteDefinitions/", Data.toBS suiteDefinitionId]
 
-instance Core.ToQuery DeleteSuiteDefinition where
+instance Data.ToQuery DeleteSuiteDefinition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteSuiteDefinitionResponse' smart constructor.

@@ -14,14 +14,36 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.BatchImportEvidenceToAssessmentControl
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Uploads one or more pieces of evidence to the specified control in the
--- assessment in Audit Manager.
+-- Uploads one or more pieces of evidence to a control in an Audit Manager
+-- assessment. You can upload manual evidence from any Amazon Simple
+-- Storage Service (Amazon S3) bucket by specifying the S3 URI of the
+-- evidence.
+--
+-- You must upload manual evidence to your S3 bucket before you can upload
+-- it to your assessment. For instructions, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html CreateBucket>
+-- and
+-- <https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html PutObject>
+-- in the /Amazon Simple Storage Service API Reference./
+--
+-- The following restrictions apply to this action:
+--
+-- -   Maximum size of an individual evidence file: 100 MB
+--
+-- -   Number of daily manual evidence uploads per control: 100
+--
+-- -   Supported file formats: See
+--     <https://docs.aws.amazon.com/audit-manager/latest/userguide/upload-evidence.html#supported-manual-evidence-files Supported file types for manual evidence>
+--     in the /Audit Manager User Guide/
+--
+-- For more information about Audit Manager service restrictions, see
+-- <https://docs.aws.amazon.com/audit-manager/latest/userguide/service-quotas.html Quotas and restrictions for Audit Manager>.
 module Amazonka.AuditManager.BatchImportEvidenceToAssessmentControl
   ( -- * Creating a Request
     BatchImportEvidenceToAssessmentControl (..),
@@ -45,18 +67,19 @@ where
 
 import Amazonka.AuditManager.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newBatchImportEvidenceToAssessmentControl' smart constructor.
 data BatchImportEvidenceToAssessmentControl = BatchImportEvidenceToAssessmentControl'
-  { -- | The identifier for the specified assessment.
+  { -- | The identifier for the assessment.
     assessmentId :: Prelude.Text,
-    -- | The identifier for the specified control set.
+    -- | The identifier for the control set.
     controlSetId :: Prelude.Text,
-    -- | The identifier for the specified control.
+    -- | The identifier for the control.
     controlId :: Prelude.Text,
     -- | The list of manual evidence objects.
     manualEvidence :: Prelude.NonEmpty ManualEvidence
@@ -71,11 +94,11 @@ data BatchImportEvidenceToAssessmentControl = BatchImportEvidenceToAssessmentCon
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'assessmentId', 'batchImportEvidenceToAssessmentControl_assessmentId' - The identifier for the specified assessment.
+-- 'assessmentId', 'batchImportEvidenceToAssessmentControl_assessmentId' - The identifier for the assessment.
 --
--- 'controlSetId', 'batchImportEvidenceToAssessmentControl_controlSetId' - The identifier for the specified control set.
+-- 'controlSetId', 'batchImportEvidenceToAssessmentControl_controlSetId' - The identifier for the control set.
 --
--- 'controlId', 'batchImportEvidenceToAssessmentControl_controlId' - The identifier for the specified control.
+-- 'controlId', 'batchImportEvidenceToAssessmentControl_controlId' - The identifier for the control.
 --
 -- 'manualEvidence', 'batchImportEvidenceToAssessmentControl_manualEvidence' - The list of manual evidence objects.
 newBatchImportEvidenceToAssessmentControl ::
@@ -103,15 +126,15 @@ newBatchImportEvidenceToAssessmentControl
             Lens.# pManualEvidence_
       }
 
--- | The identifier for the specified assessment.
+-- | The identifier for the assessment.
 batchImportEvidenceToAssessmentControl_assessmentId :: Lens.Lens' BatchImportEvidenceToAssessmentControl Prelude.Text
 batchImportEvidenceToAssessmentControl_assessmentId = Lens.lens (\BatchImportEvidenceToAssessmentControl' {assessmentId} -> assessmentId) (\s@BatchImportEvidenceToAssessmentControl' {} a -> s {assessmentId = a} :: BatchImportEvidenceToAssessmentControl)
 
--- | The identifier for the specified control set.
+-- | The identifier for the control set.
 batchImportEvidenceToAssessmentControl_controlSetId :: Lens.Lens' BatchImportEvidenceToAssessmentControl Prelude.Text
 batchImportEvidenceToAssessmentControl_controlSetId = Lens.lens (\BatchImportEvidenceToAssessmentControl' {controlSetId} -> controlSetId) (\s@BatchImportEvidenceToAssessmentControl' {} a -> s {controlSetId = a} :: BatchImportEvidenceToAssessmentControl)
 
--- | The identifier for the specified control.
+-- | The identifier for the control.
 batchImportEvidenceToAssessmentControl_controlId :: Lens.Lens' BatchImportEvidenceToAssessmentControl Prelude.Text
 batchImportEvidenceToAssessmentControl_controlId = Lens.lens (\BatchImportEvidenceToAssessmentControl' {controlId} -> controlId) (\s@BatchImportEvidenceToAssessmentControl' {} a -> s {controlId = a} :: BatchImportEvidenceToAssessmentControl)
 
@@ -127,12 +150,13 @@ instance
     AWSResponse
       BatchImportEvidenceToAssessmentControl =
       BatchImportEvidenceToAssessmentControlResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchImportEvidenceToAssessmentControlResponse'
-            Prelude.<$> (x Core..?> "errors" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "errors" Core..!@ Prelude.mempty)
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -159,56 +183,56 @@ instance
       `Prelude.seq` Prelude.rnf manualEvidence
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     BatchImportEvidenceToAssessmentControl
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     BatchImportEvidenceToAssessmentControl
   where
   toJSON BatchImportEvidenceToAssessmentControl' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("manualEvidence" Core..= manualEvidence)
+              ("manualEvidence" Data..= manualEvidence)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     BatchImportEvidenceToAssessmentControl
   where
   toPath BatchImportEvidenceToAssessmentControl' {..} =
     Prelude.mconcat
       [ "/assessments/",
-        Core.toBS assessmentId,
+        Data.toBS assessmentId,
         "/controlSets/",
-        Core.toBS controlSetId,
+        Data.toBS controlSetId,
         "/controls/",
-        Core.toBS controlId,
+        Data.toBS controlId,
         "/evidence"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     BatchImportEvidenceToAssessmentControl
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchImportEvidenceToAssessmentControlResponse' smart constructor.
 data BatchImportEvidenceToAssessmentControlResponse = BatchImportEvidenceToAssessmentControlResponse'
-  { -- | A list of errors returned by the
-    -- @BatchImportEvidenceToAssessmentControl@ API.
+  { -- | A list of errors that the @BatchImportEvidenceToAssessmentControl@ API
+    -- returned.
     errors :: Prelude.Maybe [BatchImportEvidenceToAssessmentControlError],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -223,8 +247,8 @@ data BatchImportEvidenceToAssessmentControlResponse = BatchImportEvidenceToAsses
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'errors', 'batchImportEvidenceToAssessmentControlResponse_errors' - A list of errors returned by the
--- @BatchImportEvidenceToAssessmentControl@ API.
+-- 'errors', 'batchImportEvidenceToAssessmentControlResponse_errors' - A list of errors that the @BatchImportEvidenceToAssessmentControl@ API
+-- returned.
 --
 -- 'httpStatus', 'batchImportEvidenceToAssessmentControlResponse_httpStatus' - The response's http status code.
 newBatchImportEvidenceToAssessmentControlResponse ::
@@ -239,8 +263,8 @@ newBatchImportEvidenceToAssessmentControlResponse
         httpStatus = pHttpStatus_
       }
 
--- | A list of errors returned by the
--- @BatchImportEvidenceToAssessmentControl@ API.
+-- | A list of errors that the @BatchImportEvidenceToAssessmentControl@ API
+-- returned.
 batchImportEvidenceToAssessmentControlResponse_errors :: Lens.Lens' BatchImportEvidenceToAssessmentControlResponse (Prelude.Maybe [BatchImportEvidenceToAssessmentControlError])
 batchImportEvidenceToAssessmentControlResponse_errors = Lens.lens (\BatchImportEvidenceToAssessmentControlResponse' {errors} -> errors) (\s@BatchImportEvidenceToAssessmentControlResponse' {} a -> s {errors = a} :: BatchImportEvidenceToAssessmentControlResponse) Prelude.. Lens.mapping Lens.coerced
 

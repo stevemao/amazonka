@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.Types.ContentSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Wisdom.Types.ContentSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Wisdom.Types.ContentStatus
 
@@ -38,7 +39,7 @@ data ContentSummary = ContentSummary'
     contentType :: Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the knowledge base.
     knowledgeBaseArn :: Prelude.Text,
-    -- | The the identifier of the knowledge base.
+    -- | The identifier of the knowledge base.
     knowledgeBaseId :: Prelude.Text,
     -- | A key\/value map to store attributes without affecting tagging or
     -- recommendations. For example, when synchronizing data between an
@@ -74,7 +75,7 @@ data ContentSummary = ContentSummary'
 --
 -- 'knowledgeBaseArn', 'contentSummary_knowledgeBaseArn' - The Amazon Resource Name (ARN) of the knowledge base.
 --
--- 'knowledgeBaseId', 'contentSummary_knowledgeBaseId' - The the identifier of the knowledge base.
+-- 'knowledgeBaseId', 'contentSummary_knowledgeBaseId' - The identifier of the knowledge base.
 --
 -- 'metadata', 'contentSummary_metadata' - A key\/value map to store attributes without affecting tagging or
 -- recommendations. For example, when synchronizing data between an
@@ -152,7 +153,7 @@ contentSummary_contentType = Lens.lens (\ContentSummary' {contentType} -> conten
 contentSummary_knowledgeBaseArn :: Lens.Lens' ContentSummary Prelude.Text
 contentSummary_knowledgeBaseArn = Lens.lens (\ContentSummary' {knowledgeBaseArn} -> knowledgeBaseArn) (\s@ContentSummary' {} a -> s {knowledgeBaseArn = a} :: ContentSummary)
 
--- | The the identifier of the knowledge base.
+-- | The identifier of the knowledge base.
 contentSummary_knowledgeBaseId :: Lens.Lens' ContentSummary Prelude.Text
 contentSummary_knowledgeBaseId = Lens.lens (\ContentSummary' {knowledgeBaseId} -> knowledgeBaseId) (\s@ContentSummary' {} a -> s {knowledgeBaseId = a} :: ContentSummary)
 
@@ -179,23 +180,23 @@ contentSummary_status = Lens.lens (\ContentSummary' {status} -> status) (\s@Cont
 contentSummary_title :: Lens.Lens' ContentSummary Prelude.Text
 contentSummary_title = Lens.lens (\ContentSummary' {title} -> title) (\s@ContentSummary' {} a -> s {title = a} :: ContentSummary)
 
-instance Core.FromJSON ContentSummary where
+instance Data.FromJSON ContentSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ContentSummary"
       ( \x ->
           ContentSummary'
-            Prelude.<$> (x Core..:? "tags" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "contentArn")
-            Prelude.<*> (x Core..: "contentId")
-            Prelude.<*> (x Core..: "contentType")
-            Prelude.<*> (x Core..: "knowledgeBaseArn")
-            Prelude.<*> (x Core..: "knowledgeBaseId")
-            Prelude.<*> (x Core..:? "metadata" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "name")
-            Prelude.<*> (x Core..: "revisionId")
-            Prelude.<*> (x Core..: "status")
-            Prelude.<*> (x Core..: "title")
+            Prelude.<$> (x Data..:? "tags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "contentArn")
+            Prelude.<*> (x Data..: "contentId")
+            Prelude.<*> (x Data..: "contentType")
+            Prelude.<*> (x Data..: "knowledgeBaseArn")
+            Prelude.<*> (x Data..: "knowledgeBaseId")
+            Prelude.<*> (x Data..:? "metadata" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "name")
+            Prelude.<*> (x Data..: "revisionId")
+            Prelude.<*> (x Data..: "status")
+            Prelude.<*> (x Data..: "title")
       )
 
 instance Prelude.Hashable ContentSummary where

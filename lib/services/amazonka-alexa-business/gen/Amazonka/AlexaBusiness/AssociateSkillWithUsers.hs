@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.AssociateSkillWithUsers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,7 +78,8 @@ instance Core.AWSRequest AssociateSkillWithUsers where
   type
     AWSResponse AssociateSkillWithUsers =
       AssociateSkillWithUsersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -93,32 +95,32 @@ instance Prelude.NFData AssociateSkillWithUsers where
   rnf AssociateSkillWithUsers' {..} =
     Prelude.rnf skillId
 
-instance Core.ToHeaders AssociateSkillWithUsers where
+instance Data.ToHeaders AssociateSkillWithUsers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.AssociateSkillWithUsers" ::
+              Data.=# ( "AlexaForBusiness.AssociateSkillWithUsers" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateSkillWithUsers where
+instance Data.ToJSON AssociateSkillWithUsers where
   toJSON AssociateSkillWithUsers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("SkillId" Core..= skillId)]
+          [Prelude.Just ("SkillId" Data..= skillId)]
       )
 
-instance Core.ToPath AssociateSkillWithUsers where
+instance Data.ToPath AssociateSkillWithUsers where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AssociateSkillWithUsers where
+instance Data.ToQuery AssociateSkillWithUsers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateSkillWithUsersResponse' smart constructor.

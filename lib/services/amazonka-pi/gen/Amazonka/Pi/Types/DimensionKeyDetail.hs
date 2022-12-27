@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pi.Types.DimensionKeyDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pi.Types.DimensionKeyDetail where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pi.Types.DetailStatus
 import qualified Amazonka.Prelude as Prelude
 
@@ -28,25 +29,33 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newDimensionKeyDetail' smart constructor.
 data DimensionKeyDetail = DimensionKeyDetail'
-  { -- | The status of the dimension detail data. Possible values include the
+  { -- | The full name of the dimension. The full name includes the group name
+    -- and key name. The following values are valid:
+    --
+    -- -   @db.query.statement@ (Amazon DocumentDB)
+    --
+    -- -   @db.sql.statement@ (Amazon RDS and Aurora)
+    dimension :: Prelude.Maybe Prelude.Text,
+    -- | The status of the dimension detail data. Possible values include the
     -- following:
     --
     -- -   @AVAILABLE@ - The dimension detail data is ready to be retrieved.
     --
     -- -   @PROCESSING@ - The dimension detail data isn\'t ready to be
     --     retrieved because more processing time is required. If the requested
-    --     detail data for @db.sql.statement@ has the status @PROCESSING@,
-    --     Performance Insights returns the truncated query.
+    --     detail data has the status @PROCESSING@, Performance Insights
+    --     returns the truncated query.
     --
     -- -   @UNAVAILABLE@ - The dimension detail data could not be collected
     --     successfully.
     status :: Prelude.Maybe DetailStatus,
-    -- | The full name of the dimension. The full name includes the group name
-    -- and key name. The only valid value is @db.sql.statement@.
-    dimension :: Prelude.Maybe Prelude.Text,
-    -- | The value of the dimension detail data. For the @db.sql.statement@
-    -- dimension, this value is either the full or truncated SQL query,
-    -- depending on the return status.
+    -- | The value of the dimension detail data. Depending on the return status,
+    -- this value is either the full or truncated SQL query for the following
+    -- dimensions:
+    --
+    -- -   @db.query.statement@ (Amazon DocumentDB)
+    --
+    -- -   @db.sql.statement@ (Amazon RDS and Aurora)
     value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -59,6 +68,13 @@ data DimensionKeyDetail = DimensionKeyDetail'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'dimension', 'dimensionKeyDetail_dimension' - The full name of the dimension. The full name includes the group name
+-- and key name. The following values are valid:
+--
+-- -   @db.query.statement@ (Amazon DocumentDB)
+--
+-- -   @db.sql.statement@ (Amazon RDS and Aurora)
+--
 -- 'status', 'dimensionKeyDetail_status' - The status of the dimension detail data. Possible values include the
 -- following:
 --
@@ -66,26 +82,36 @@ data DimensionKeyDetail = DimensionKeyDetail'
 --
 -- -   @PROCESSING@ - The dimension detail data isn\'t ready to be
 --     retrieved because more processing time is required. If the requested
---     detail data for @db.sql.statement@ has the status @PROCESSING@,
---     Performance Insights returns the truncated query.
+--     detail data has the status @PROCESSING@, Performance Insights
+--     returns the truncated query.
 --
 -- -   @UNAVAILABLE@ - The dimension detail data could not be collected
 --     successfully.
 --
--- 'dimension', 'dimensionKeyDetail_dimension' - The full name of the dimension. The full name includes the group name
--- and key name. The only valid value is @db.sql.statement@.
+-- 'value', 'dimensionKeyDetail_value' - The value of the dimension detail data. Depending on the return status,
+-- this value is either the full or truncated SQL query for the following
+-- dimensions:
 --
--- 'value', 'dimensionKeyDetail_value' - The value of the dimension detail data. For the @db.sql.statement@
--- dimension, this value is either the full or truncated SQL query,
--- depending on the return status.
+-- -   @db.query.statement@ (Amazon DocumentDB)
+--
+-- -   @db.sql.statement@ (Amazon RDS and Aurora)
 newDimensionKeyDetail ::
   DimensionKeyDetail
 newDimensionKeyDetail =
   DimensionKeyDetail'
-    { status = Prelude.Nothing,
-      dimension = Prelude.Nothing,
+    { dimension = Prelude.Nothing,
+      status = Prelude.Nothing,
       value = Prelude.Nothing
     }
+
+-- | The full name of the dimension. The full name includes the group name
+-- and key name. The following values are valid:
+--
+-- -   @db.query.statement@ (Amazon DocumentDB)
+--
+-- -   @db.sql.statement@ (Amazon RDS and Aurora)
+dimensionKeyDetail_dimension :: Lens.Lens' DimensionKeyDetail (Prelude.Maybe Prelude.Text)
+dimensionKeyDetail_dimension = Lens.lens (\DimensionKeyDetail' {dimension} -> dimension) (\s@DimensionKeyDetail' {} a -> s {dimension = a} :: DimensionKeyDetail)
 
 -- | The status of the dimension detail data. Possible values include the
 -- following:
@@ -94,44 +120,43 @@ newDimensionKeyDetail =
 --
 -- -   @PROCESSING@ - The dimension detail data isn\'t ready to be
 --     retrieved because more processing time is required. If the requested
---     detail data for @db.sql.statement@ has the status @PROCESSING@,
---     Performance Insights returns the truncated query.
+--     detail data has the status @PROCESSING@, Performance Insights
+--     returns the truncated query.
 --
 -- -   @UNAVAILABLE@ - The dimension detail data could not be collected
 --     successfully.
 dimensionKeyDetail_status :: Lens.Lens' DimensionKeyDetail (Prelude.Maybe DetailStatus)
 dimensionKeyDetail_status = Lens.lens (\DimensionKeyDetail' {status} -> status) (\s@DimensionKeyDetail' {} a -> s {status = a} :: DimensionKeyDetail)
 
--- | The full name of the dimension. The full name includes the group name
--- and key name. The only valid value is @db.sql.statement@.
-dimensionKeyDetail_dimension :: Lens.Lens' DimensionKeyDetail (Prelude.Maybe Prelude.Text)
-dimensionKeyDetail_dimension = Lens.lens (\DimensionKeyDetail' {dimension} -> dimension) (\s@DimensionKeyDetail' {} a -> s {dimension = a} :: DimensionKeyDetail)
-
--- | The value of the dimension detail data. For the @db.sql.statement@
--- dimension, this value is either the full or truncated SQL query,
--- depending on the return status.
+-- | The value of the dimension detail data. Depending on the return status,
+-- this value is either the full or truncated SQL query for the following
+-- dimensions:
+--
+-- -   @db.query.statement@ (Amazon DocumentDB)
+--
+-- -   @db.sql.statement@ (Amazon RDS and Aurora)
 dimensionKeyDetail_value :: Lens.Lens' DimensionKeyDetail (Prelude.Maybe Prelude.Text)
 dimensionKeyDetail_value = Lens.lens (\DimensionKeyDetail' {value} -> value) (\s@DimensionKeyDetail' {} a -> s {value = a} :: DimensionKeyDetail)
 
-instance Core.FromJSON DimensionKeyDetail where
+instance Data.FromJSON DimensionKeyDetail where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DimensionKeyDetail"
       ( \x ->
           DimensionKeyDetail'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "Dimension")
-            Prelude.<*> (x Core..:? "Value")
+            Prelude.<$> (x Data..:? "Dimension")
+            Prelude.<*> (x Data..:? "Status")
+            Prelude.<*> (x Data..:? "Value")
       )
 
 instance Prelude.Hashable DimensionKeyDetail where
   hashWithSalt _salt DimensionKeyDetail' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` dimension
+    _salt `Prelude.hashWithSalt` dimension
+      `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` value
 
 instance Prelude.NFData DimensionKeyDetail where
   rnf DimensionKeyDetail' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf dimension
+    Prelude.rnf dimension
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf value

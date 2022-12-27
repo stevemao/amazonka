@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.BatchCreateIndex
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CloudDirectory.Types.BatchCreateIndex where
 import Amazonka.CloudDirectory.Types.AttributeKey
 import Amazonka.CloudDirectory.Types.ObjectReference
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Creates an index object inside of a BatchRead operation. For more
@@ -30,14 +31,14 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newBatchCreateIndex' smart constructor.
 data BatchCreateIndex = BatchCreateIndex'
-  { -- | A reference to the parent object that contains the index object.
-    parentReference :: Prelude.Maybe ObjectReference,
-    -- | The name of the link between the parent object and the index object.
-    linkName :: Prelude.Maybe Prelude.Text,
-    -- | The batch reference name. See
+  { -- | The batch reference name. See
     -- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html Transaction Support>
     -- for more information.
     batchReferenceName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the link between the parent object and the index object.
+    linkName :: Prelude.Maybe Prelude.Text,
+    -- | A reference to the parent object that contains the index object.
+    parentReference :: Prelude.Maybe ObjectReference,
     -- | Specifies the attributes that should be indexed on. Currently only a
     -- single attribute is supported.
     orderedIndexedAttributeList :: [AttributeKey],
@@ -55,13 +56,13 @@ data BatchCreateIndex = BatchCreateIndex'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'parentReference', 'batchCreateIndex_parentReference' - A reference to the parent object that contains the index object.
---
--- 'linkName', 'batchCreateIndex_linkName' - The name of the link between the parent object and the index object.
---
 -- 'batchReferenceName', 'batchCreateIndex_batchReferenceName' - The batch reference name. See
 -- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html Transaction Support>
 -- for more information.
+--
+-- 'linkName', 'batchCreateIndex_linkName' - The name of the link between the parent object and the index object.
+--
+-- 'parentReference', 'batchCreateIndex_parentReference' - A reference to the parent object that contains the index object.
 --
 -- 'orderedIndexedAttributeList', 'batchCreateIndex_orderedIndexedAttributeList' - Specifies the attributes that should be indexed on. Currently only a
 -- single attribute is supported.
@@ -74,27 +75,27 @@ newBatchCreateIndex ::
   BatchCreateIndex
 newBatchCreateIndex pIsUnique_ =
   BatchCreateIndex'
-    { parentReference =
+    { batchReferenceName =
         Prelude.Nothing,
       linkName = Prelude.Nothing,
-      batchReferenceName = Prelude.Nothing,
+      parentReference = Prelude.Nothing,
       orderedIndexedAttributeList = Prelude.mempty,
       isUnique = pIsUnique_
     }
-
--- | A reference to the parent object that contains the index object.
-batchCreateIndex_parentReference :: Lens.Lens' BatchCreateIndex (Prelude.Maybe ObjectReference)
-batchCreateIndex_parentReference = Lens.lens (\BatchCreateIndex' {parentReference} -> parentReference) (\s@BatchCreateIndex' {} a -> s {parentReference = a} :: BatchCreateIndex)
-
--- | The name of the link between the parent object and the index object.
-batchCreateIndex_linkName :: Lens.Lens' BatchCreateIndex (Prelude.Maybe Prelude.Text)
-batchCreateIndex_linkName = Lens.lens (\BatchCreateIndex' {linkName} -> linkName) (\s@BatchCreateIndex' {} a -> s {linkName = a} :: BatchCreateIndex)
 
 -- | The batch reference name. See
 -- <https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html Transaction Support>
 -- for more information.
 batchCreateIndex_batchReferenceName :: Lens.Lens' BatchCreateIndex (Prelude.Maybe Prelude.Text)
 batchCreateIndex_batchReferenceName = Lens.lens (\BatchCreateIndex' {batchReferenceName} -> batchReferenceName) (\s@BatchCreateIndex' {} a -> s {batchReferenceName = a} :: BatchCreateIndex)
+
+-- | The name of the link between the parent object and the index object.
+batchCreateIndex_linkName :: Lens.Lens' BatchCreateIndex (Prelude.Maybe Prelude.Text)
+batchCreateIndex_linkName = Lens.lens (\BatchCreateIndex' {linkName} -> linkName) (\s@BatchCreateIndex' {} a -> s {linkName = a} :: BatchCreateIndex)
+
+-- | A reference to the parent object that contains the index object.
+batchCreateIndex_parentReference :: Lens.Lens' BatchCreateIndex (Prelude.Maybe ObjectReference)
+batchCreateIndex_parentReference = Lens.lens (\BatchCreateIndex' {parentReference} -> parentReference) (\s@BatchCreateIndex' {} a -> s {parentReference = a} :: BatchCreateIndex)
 
 -- | Specifies the attributes that should be indexed on. Currently only a
 -- single attribute is supported.
@@ -108,33 +109,33 @@ batchCreateIndex_isUnique = Lens.lens (\BatchCreateIndex' {isUnique} -> isUnique
 
 instance Prelude.Hashable BatchCreateIndex where
   hashWithSalt _salt BatchCreateIndex' {..} =
-    _salt `Prelude.hashWithSalt` parentReference
+    _salt `Prelude.hashWithSalt` batchReferenceName
       `Prelude.hashWithSalt` linkName
-      `Prelude.hashWithSalt` batchReferenceName
+      `Prelude.hashWithSalt` parentReference
       `Prelude.hashWithSalt` orderedIndexedAttributeList
       `Prelude.hashWithSalt` isUnique
 
 instance Prelude.NFData BatchCreateIndex where
   rnf BatchCreateIndex' {..} =
-    Prelude.rnf parentReference
+    Prelude.rnf batchReferenceName
       `Prelude.seq` Prelude.rnf linkName
-      `Prelude.seq` Prelude.rnf batchReferenceName
+      `Prelude.seq` Prelude.rnf parentReference
       `Prelude.seq` Prelude.rnf orderedIndexedAttributeList
       `Prelude.seq` Prelude.rnf isUnique
 
-instance Core.ToJSON BatchCreateIndex where
+instance Data.ToJSON BatchCreateIndex where
   toJSON BatchCreateIndex' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ParentReference" Core..=)
-              Prelude.<$> parentReference,
-            ("LinkName" Core..=) Prelude.<$> linkName,
-            ("BatchReferenceName" Core..=)
+          [ ("BatchReferenceName" Data..=)
               Prelude.<$> batchReferenceName,
+            ("LinkName" Data..=) Prelude.<$> linkName,
+            ("ParentReference" Data..=)
+              Prelude.<$> parentReference,
             Prelude.Just
               ( "OrderedIndexedAttributeList"
-                  Core..= orderedIndexedAttributeList
+                  Data..= orderedIndexedAttributeList
               ),
-            Prelude.Just ("IsUnique" Core..= isUnique)
+            Prelude.Just ("IsUnique" Data..= isUnique)
           ]
       )

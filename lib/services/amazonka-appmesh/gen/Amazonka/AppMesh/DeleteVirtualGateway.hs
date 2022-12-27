@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.DeleteVirtualGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,16 +44,17 @@ where
 
 import Amazonka.AppMesh.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteVirtualGateway' smart constructor.
 data DeleteVirtualGateway = DeleteVirtualGateway'
-  { -- | The AWS IAM account ID of the service mesh owner. If the account ID is
-    -- not your own, then it\'s the ID of the account that shared the mesh with
-    -- your account. For more information about mesh sharing, see
+  { -- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+    -- account ID is not your own, then it\'s the ID of the account that shared
+    -- the mesh with your account. For more information about mesh sharing, see
     -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
     meshOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the service mesh to delete the virtual gateway from.
@@ -71,9 +72,9 @@ data DeleteVirtualGateway = DeleteVirtualGateway'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'meshOwner', 'deleteVirtualGateway_meshOwner' - The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
+-- 'meshOwner', 'deleteVirtualGateway_meshOwner' - The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 --
 -- 'meshName', 'deleteVirtualGateway_meshName' - The name of the service mesh to delete the virtual gateway from.
@@ -94,9 +95,9 @@ newDeleteVirtualGateway
         virtualGatewayName = pVirtualGatewayName_
       }
 
--- | The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
+-- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 deleteVirtualGateway_meshOwner :: Lens.Lens' DeleteVirtualGateway (Prelude.Maybe Prelude.Text)
 deleteVirtualGateway_meshOwner = Lens.lens (\DeleteVirtualGateway' {meshOwner} -> meshOwner) (\s@DeleteVirtualGateway' {} a -> s {meshOwner = a} :: DeleteVirtualGateway)
@@ -113,13 +114,14 @@ instance Core.AWSRequest DeleteVirtualGateway where
   type
     AWSResponse DeleteVirtualGateway =
       DeleteVirtualGatewayResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteVirtualGatewayResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable DeleteVirtualGateway where
@@ -134,29 +136,29 @@ instance Prelude.NFData DeleteVirtualGateway where
       `Prelude.seq` Prelude.rnf meshName
       `Prelude.seq` Prelude.rnf virtualGatewayName
 
-instance Core.ToHeaders DeleteVirtualGateway where
+instance Data.ToHeaders DeleteVirtualGateway where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteVirtualGateway where
+instance Data.ToPath DeleteVirtualGateway where
   toPath DeleteVirtualGateway' {..} =
     Prelude.mconcat
       [ "/v20190125/meshes/",
-        Core.toBS meshName,
+        Data.toBS meshName,
         "/virtualGateways/",
-        Core.toBS virtualGatewayName
+        Data.toBS virtualGatewayName
       ]
 
-instance Core.ToQuery DeleteVirtualGateway where
+instance Data.ToQuery DeleteVirtualGateway where
   toQuery DeleteVirtualGateway' {..} =
-    Prelude.mconcat ["meshOwner" Core.=: meshOwner]
+    Prelude.mconcat ["meshOwner" Data.=: meshOwner]
 
 -- | /See:/ 'newDeleteVirtualGatewayResponse' smart constructor.
 data DeleteVirtualGatewayResponse = DeleteVirtualGatewayResponse'

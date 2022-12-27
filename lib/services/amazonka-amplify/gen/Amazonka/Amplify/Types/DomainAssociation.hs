@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Amplify.Types.DomainAssociation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.Amplify.Types.DomainAssociation where
 import Amazonka.Amplify.Types.DomainStatus
 import Amazonka.Amplify.Types.SubDomain
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a domain association that associates a custom domain with an
@@ -30,13 +31,13 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newDomainAssociation' smart constructor.
 data DomainAssociation = DomainAssociation'
-  { -- | The DNS record for certificate verification.
-    certificateVerificationDNSRecord :: Prelude.Maybe Prelude.Text,
-    -- | Sets branch patterns for automatic subdomain creation.
+  { -- | Sets branch patterns for automatic subdomain creation.
     autoSubDomainCreationPatterns :: Prelude.Maybe [Prelude.Text],
     -- | The required AWS Identity and Access Management (IAM) service role for
     -- the Amazon Resource Name (ARN) for automatically creating subdomains.
     autoSubDomainIAMRole :: Prelude.Maybe Prelude.Text,
+    -- | The DNS record for certificate verification.
+    certificateVerificationDNSRecord :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) for the domain association.
     domainAssociationArn :: Prelude.Text,
     -- | The name of the domain.
@@ -60,12 +61,12 @@ data DomainAssociation = DomainAssociation'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'certificateVerificationDNSRecord', 'domainAssociation_certificateVerificationDNSRecord' - The DNS record for certificate verification.
---
 -- 'autoSubDomainCreationPatterns', 'domainAssociation_autoSubDomainCreationPatterns' - Sets branch patterns for automatic subdomain creation.
 --
 -- 'autoSubDomainIAMRole', 'domainAssociation_autoSubDomainIAMRole' - The required AWS Identity and Access Management (IAM) service role for
 -- the Amazon Resource Name (ARN) for automatically creating subdomains.
+--
+-- 'certificateVerificationDNSRecord', 'domainAssociation_certificateVerificationDNSRecord' - The DNS record for certificate verification.
 --
 -- 'domainAssociationArn', 'domainAssociation_domainAssociationArn' - The Amazon Resource Name (ARN) for the domain association.
 --
@@ -97,10 +98,10 @@ newDomainAssociation
   pDomainStatus_
   pStatusReason_ =
     DomainAssociation'
-      { certificateVerificationDNSRecord =
+      { autoSubDomainCreationPatterns =
           Prelude.Nothing,
-        autoSubDomainCreationPatterns = Prelude.Nothing,
         autoSubDomainIAMRole = Prelude.Nothing,
+        certificateVerificationDNSRecord = Prelude.Nothing,
         domainAssociationArn = pDomainAssociationArn_,
         domainName = pDomainName_,
         enableAutoSubDomain = pEnableAutoSubDomain_,
@@ -108,10 +109,6 @@ newDomainAssociation
         statusReason = pStatusReason_,
         subDomains = Prelude.mempty
       }
-
--- | The DNS record for certificate verification.
-domainAssociation_certificateVerificationDNSRecord :: Lens.Lens' DomainAssociation (Prelude.Maybe Prelude.Text)
-domainAssociation_certificateVerificationDNSRecord = Lens.lens (\DomainAssociation' {certificateVerificationDNSRecord} -> certificateVerificationDNSRecord) (\s@DomainAssociation' {} a -> s {certificateVerificationDNSRecord = a} :: DomainAssociation)
 
 -- | Sets branch patterns for automatic subdomain creation.
 domainAssociation_autoSubDomainCreationPatterns :: Lens.Lens' DomainAssociation (Prelude.Maybe [Prelude.Text])
@@ -121,6 +118,10 @@ domainAssociation_autoSubDomainCreationPatterns = Lens.lens (\DomainAssociation'
 -- the Amazon Resource Name (ARN) for automatically creating subdomains.
 domainAssociation_autoSubDomainIAMRole :: Lens.Lens' DomainAssociation (Prelude.Maybe Prelude.Text)
 domainAssociation_autoSubDomainIAMRole = Lens.lens (\DomainAssociation' {autoSubDomainIAMRole} -> autoSubDomainIAMRole) (\s@DomainAssociation' {} a -> s {autoSubDomainIAMRole = a} :: DomainAssociation)
+
+-- | The DNS record for certificate verification.
+domainAssociation_certificateVerificationDNSRecord :: Lens.Lens' DomainAssociation (Prelude.Maybe Prelude.Text)
+domainAssociation_certificateVerificationDNSRecord = Lens.lens (\DomainAssociation' {certificateVerificationDNSRecord} -> certificateVerificationDNSRecord) (\s@DomainAssociation' {} a -> s {certificateVerificationDNSRecord = a} :: DomainAssociation)
 
 -- | The Amazon Resource Name (ARN) for the domain association.
 domainAssociation_domainAssociationArn :: Lens.Lens' DomainAssociation Prelude.Text
@@ -146,31 +147,31 @@ domainAssociation_statusReason = Lens.lens (\DomainAssociation' {statusReason} -
 domainAssociation_subDomains :: Lens.Lens' DomainAssociation [SubDomain]
 domainAssociation_subDomains = Lens.lens (\DomainAssociation' {subDomains} -> subDomains) (\s@DomainAssociation' {} a -> s {subDomains = a} :: DomainAssociation) Prelude.. Lens.coerced
 
-instance Core.FromJSON DomainAssociation where
+instance Data.FromJSON DomainAssociation where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DomainAssociation"
       ( \x ->
           DomainAssociation'
-            Prelude.<$> (x Core..:? "certificateVerificationDNSRecord")
-            Prelude.<*> ( x Core..:? "autoSubDomainCreationPatterns"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "autoSubDomainCreationPatterns"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "autoSubDomainIAMRole")
-            Prelude.<*> (x Core..: "domainAssociationArn")
-            Prelude.<*> (x Core..: "domainName")
-            Prelude.<*> (x Core..: "enableAutoSubDomain")
-            Prelude.<*> (x Core..: "domainStatus")
-            Prelude.<*> (x Core..: "statusReason")
-            Prelude.<*> (x Core..:? "subDomains" Core..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "autoSubDomainIAMRole")
+            Prelude.<*> (x Data..:? "certificateVerificationDNSRecord")
+            Prelude.<*> (x Data..: "domainAssociationArn")
+            Prelude.<*> (x Data..: "domainName")
+            Prelude.<*> (x Data..: "enableAutoSubDomain")
+            Prelude.<*> (x Data..: "domainStatus")
+            Prelude.<*> (x Data..: "statusReason")
+            Prelude.<*> (x Data..:? "subDomains" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable DomainAssociation where
   hashWithSalt _salt DomainAssociation' {..} =
     _salt
-      `Prelude.hashWithSalt` certificateVerificationDNSRecord
       `Prelude.hashWithSalt` autoSubDomainCreationPatterns
       `Prelude.hashWithSalt` autoSubDomainIAMRole
+      `Prelude.hashWithSalt` certificateVerificationDNSRecord
       `Prelude.hashWithSalt` domainAssociationArn
       `Prelude.hashWithSalt` domainName
       `Prelude.hashWithSalt` enableAutoSubDomain
@@ -180,9 +181,9 @@ instance Prelude.Hashable DomainAssociation where
 
 instance Prelude.NFData DomainAssociation where
   rnf DomainAssociation' {..} =
-    Prelude.rnf certificateVerificationDNSRecord
-      `Prelude.seq` Prelude.rnf autoSubDomainCreationPatterns
+    Prelude.rnf autoSubDomainCreationPatterns
       `Prelude.seq` Prelude.rnf autoSubDomainIAMRole
+      `Prelude.seq` Prelude.rnf certificateVerificationDNSRecord
       `Prelude.seq` Prelude.rnf domainAssociationArn
       `Prelude.seq` Prelude.rnf domainName
       `Prelude.seq` Prelude.rnf enableAutoSubDomain

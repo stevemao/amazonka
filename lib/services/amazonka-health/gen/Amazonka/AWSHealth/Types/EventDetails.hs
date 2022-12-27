@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AWSHealth.Types.EventDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.AWSHealth.Types.EventDetails where
 import Amazonka.AWSHealth.Types.Event
 import Amazonka.AWSHealth.Types.EventDescription
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Detailed information about an event. A combination of an
@@ -78,15 +79,15 @@ eventDetails_eventDescription = Lens.lens (\EventDetails' {eventDescription} -> 
 eventDetails_eventMetadata :: Lens.Lens' EventDetails (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 eventDetails_eventMetadata = Lens.lens (\EventDetails' {eventMetadata} -> eventMetadata) (\s@EventDetails' {} a -> s {eventMetadata = a} :: EventDetails) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON EventDetails where
+instance Data.FromJSON EventDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EventDetails"
       ( \x ->
           EventDetails'
-            Prelude.<$> (x Core..:? "event")
-            Prelude.<*> (x Core..:? "eventDescription")
-            Prelude.<*> (x Core..:? "eventMetadata" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "event")
+            Prelude.<*> (x Data..:? "eventDescription")
+            Prelude.<*> (x Data..:? "eventMetadata" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable EventDetails where

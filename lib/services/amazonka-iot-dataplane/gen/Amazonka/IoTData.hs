@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.IoTData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,32 +36,32 @@ module Amazonka.IoTData
     -- * Errors
     -- $errors
 
-    -- ** InvalidRequestException
-    _InvalidRequestException,
-
     -- ** ConflictException
     _ConflictException,
-
-    -- ** RequestEntityTooLargeException
-    _RequestEntityTooLargeException,
-
-    -- ** ThrottlingException
-    _ThrottlingException,
-
-    -- ** MethodNotAllowedException
-    _MethodNotAllowedException,
 
     -- ** InternalFailureException
     _InternalFailureException,
 
-    -- ** ServiceUnavailableException
-    _ServiceUnavailableException,
+    -- ** InvalidRequestException
+    _InvalidRequestException,
 
-    -- ** UnauthorizedException
-    _UnauthorizedException,
+    -- ** MethodNotAllowedException
+    _MethodNotAllowedException,
+
+    -- ** RequestEntityTooLargeException
+    _RequestEntityTooLargeException,
 
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
+
+    -- ** ServiceUnavailableException
+    _ServiceUnavailableException,
+
+    -- ** ThrottlingException
+    _ThrottlingException,
+
+    -- ** UnauthorizedException
+    _UnauthorizedException,
 
     -- ** UnsupportedDocumentEncodingException
     _UnsupportedDocumentEncodingException,
@@ -71,6 +71,18 @@ module Amazonka.IoTData
 
     -- * Operations
     -- $operations
+
+    -- ** DeleteThingShadow
+    DeleteThingShadow (DeleteThingShadow'),
+    newDeleteThingShadow,
+    DeleteThingShadowResponse (DeleteThingShadowResponse'),
+    newDeleteThingShadowResponse,
+
+    -- ** GetRetainedMessage
+    GetRetainedMessage (GetRetainedMessage'),
+    newGetRetainedMessage,
+    GetRetainedMessageResponse (GetRetainedMessageResponse'),
+    newGetRetainedMessageResponse,
 
     -- ** GetThingShadow
     GetThingShadow (GetThingShadow'),
@@ -84,29 +96,11 @@ module Amazonka.IoTData
     ListNamedShadowsForThingResponse (ListNamedShadowsForThingResponse'),
     newListNamedShadowsForThingResponse,
 
-    -- ** DeleteThingShadow
-    DeleteThingShadow (DeleteThingShadow'),
-    newDeleteThingShadow,
-    DeleteThingShadowResponse (DeleteThingShadowResponse'),
-    newDeleteThingShadowResponse,
-
-    -- ** UpdateThingShadow
-    UpdateThingShadow (UpdateThingShadow'),
-    newUpdateThingShadow,
-    UpdateThingShadowResponse (UpdateThingShadowResponse'),
-    newUpdateThingShadowResponse,
-
     -- ** ListRetainedMessages (Paginated)
     ListRetainedMessages (ListRetainedMessages'),
     newListRetainedMessages,
     ListRetainedMessagesResponse (ListRetainedMessagesResponse'),
     newListRetainedMessagesResponse,
-
-    -- ** GetRetainedMessage
-    GetRetainedMessage (GetRetainedMessage'),
-    newGetRetainedMessage,
-    GetRetainedMessageResponse (GetRetainedMessageResponse'),
-    newGetRetainedMessageResponse,
 
     -- ** Publish
     Publish (Publish'),
@@ -114,7 +108,16 @@ module Amazonka.IoTData
     PublishResponse (PublishResponse'),
     newPublishResponse,
 
+    -- ** UpdateThingShadow
+    UpdateThingShadow (UpdateThingShadow'),
+    newUpdateThingShadow,
+    UpdateThingShadowResponse (UpdateThingShadowResponse'),
+    newUpdateThingShadowResponse,
+
     -- * Types
+
+    -- ** PayloadFormatIndicator
+    PayloadFormatIndicator (..),
 
     -- ** RetainedMessageSummary
     RetainedMessageSummary (RetainedMessageSummary'),

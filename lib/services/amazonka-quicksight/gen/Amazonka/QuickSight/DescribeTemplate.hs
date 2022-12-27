@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.DescribeTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.QuickSight.DescribeTemplate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -133,13 +134,14 @@ instance Core.AWSRequest DescribeTemplate where
   type
     AWSResponse DescribeTemplate =
       DescribeTemplateResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeTemplateResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "Template")
+            Prelude.<$> (x Data..?> "RequestId")
+            Prelude.<*> (x Data..?> "Template")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -157,31 +159,31 @@ instance Prelude.NFData DescribeTemplate where
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf templateId
 
-instance Core.ToHeaders DescribeTemplate where
+instance Data.ToHeaders DescribeTemplate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeTemplate where
+instance Data.ToPath DescribeTemplate where
   toPath DescribeTemplate' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/templates/",
-        Core.toBS templateId
+        Data.toBS templateId
       ]
 
-instance Core.ToQuery DescribeTemplate where
+instance Data.ToQuery DescribeTemplate where
   toQuery DescribeTemplate' {..} =
     Prelude.mconcat
-      [ "alias-name" Core.=: aliasName,
-        "version-number" Core.=: versionNumber
+      [ "alias-name" Data.=: aliasName,
+        "version-number" Data.=: versionNumber
       ]
 
 -- | /See:/ 'newDescribeTemplateResponse' smart constructor.

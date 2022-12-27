@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.QLDBSession
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,23 +34,23 @@ module Amazonka.QLDBSession
     -- * Errors
     -- $errors
 
-    -- ** InvalidSessionException
-    _InvalidSessionException,
+    -- ** BadRequestException
+    _BadRequestException,
 
     -- ** CapacityExceededException
     _CapacityExceededException,
+
+    -- ** InvalidSessionException
+    _InvalidSessionException,
+
+    -- ** LimitExceededException
+    _LimitExceededException,
 
     -- ** OccConflictException
     _OccConflictException,
 
     -- ** RateExceededException
     _RateExceededException,
-
-    -- ** BadRequestException
-    _BadRequestException,
-
-    -- ** LimitExceededException
-    _LimitExceededException,
 
     -- * Waiters
     -- $waiters

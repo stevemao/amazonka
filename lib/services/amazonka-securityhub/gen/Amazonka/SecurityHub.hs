@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -18,8 +18,8 @@
 -- security data from Amazon Web Services accounts, services, and
 -- integrated third-party products and helps you analyze security trends in
 -- your environment to identify the highest priority security issues. For
--- more information about Security Hub, see the /Security
--- Hub<https://docs.aws.amazon.com/securityhub/latest/userguide/what-is-securityhub.html User Guide>/
+-- more information about Security Hub, see the
+-- <https://docs.aws.amazon.com/securityhub/latest/userguide/what-is-securityhub.html Security HubUser Guide>
 -- .
 --
 -- When you use operations in the Security Hub API, the requests are
@@ -45,8 +45,11 @@
 -- -   @GetFindings@ - @RateLimit@ of 3 requests per second. @BurstLimit@
 --     of 6 requests per second.
 --
--- -   @UpdateFindings@ - @RateLimit@ of 1 request per second. @BurstLimit@
---     of 5 requests per second.
+-- -   @BatchImportFindings@ - @RateLimit@ of 10 requests per second.
+--     @BurstLimit@ of 30 requests per second.
+--
+-- -   @BatchUpdateFindings@ - @RateLimit@ of 10 requests per second.
+--     @BurstLimit@ of 30 requests per second.
 --
 -- -   @UpdateStandardsControl@ - @RateLimit@ of 1 request per second,
 --     @BurstLimit@ of 5 requests per second.
@@ -63,14 +66,17 @@ module Amazonka.SecurityHub
     -- ** AccessDeniedException
     _AccessDeniedException,
 
+    -- ** InternalException
+    _InternalException,
+
     -- ** InvalidAccessException
     _InvalidAccessException,
 
     -- ** InvalidInputException
     _InvalidInputException,
 
-    -- ** InternalException
-    _InternalException,
+    -- ** LimitExceededException
+    _LimitExceededException,
 
     -- ** ResourceConflictException
     _ResourceConflictException,
@@ -78,38 +84,11 @@ module Amazonka.SecurityHub
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
 
-    -- ** LimitExceededException
-    _LimitExceededException,
-
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
-
-    -- ** EnableOrganizationAdminAccount
-    EnableOrganizationAdminAccount (EnableOrganizationAdminAccount'),
-    newEnableOrganizationAdminAccount,
-    EnableOrganizationAdminAccountResponse (EnableOrganizationAdminAccountResponse'),
-    newEnableOrganizationAdminAccountResponse,
-
-    -- ** GetAdministratorAccount
-    GetAdministratorAccount (GetAdministratorAccount'),
-    newGetAdministratorAccount,
-    GetAdministratorAccountResponse (GetAdministratorAccountResponse'),
-    newGetAdministratorAccountResponse,
-
-    -- ** ListOrganizationAdminAccounts (Paginated)
-    ListOrganizationAdminAccounts (ListOrganizationAdminAccounts'),
-    newListOrganizationAdminAccounts,
-    ListOrganizationAdminAccountsResponse (ListOrganizationAdminAccountsResponse'),
-    newListOrganizationAdminAccountsResponse,
-
-    -- ** CreateInsight
-    CreateInsight (CreateInsight'),
-    newCreateInsight,
-    CreateInsightResponse (CreateInsightResponse'),
-    newCreateInsightResponse,
 
     -- ** AcceptAdministratorInvitation
     AcceptAdministratorInvitation (AcceptAdministratorInvitation'),
@@ -117,215 +96,11 @@ module Amazonka.SecurityHub
     AcceptAdministratorInvitationResponse (AcceptAdministratorInvitationResponse'),
     newAcceptAdministratorInvitationResponse,
 
-    -- ** DeleteMembers
-    DeleteMembers (DeleteMembers'),
-    newDeleteMembers,
-    DeleteMembersResponse (DeleteMembersResponse'),
-    newDeleteMembersResponse,
-
-    -- ** DescribeHub
-    DescribeHub (DescribeHub'),
-    newDescribeHub,
-    DescribeHubResponse (DescribeHubResponse'),
-    newDescribeHubResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** GetInsightResults
-    GetInsightResults (GetInsightResults'),
-    newGetInsightResults,
-    GetInsightResultsResponse (GetInsightResultsResponse'),
-    newGetInsightResultsResponse,
-
-    -- ** EnableImportFindingsForProduct
-    EnableImportFindingsForProduct (EnableImportFindingsForProduct'),
-    newEnableImportFindingsForProduct,
-    EnableImportFindingsForProductResponse (EnableImportFindingsForProductResponse'),
-    newEnableImportFindingsForProductResponse,
-
-    -- ** DescribeStandards (Paginated)
-    DescribeStandards (DescribeStandards'),
-    newDescribeStandards,
-    DescribeStandardsResponse (DescribeStandardsResponse'),
-    newDescribeStandardsResponse,
-
-    -- ** DescribeProducts (Paginated)
-    DescribeProducts (DescribeProducts'),
-    newDescribeProducts,
-    DescribeProductsResponse (DescribeProductsResponse'),
-    newDescribeProductsResponse,
-
-    -- ** DeleteFindingAggregator
-    DeleteFindingAggregator (DeleteFindingAggregator'),
-    newDeleteFindingAggregator,
-    DeleteFindingAggregatorResponse (DeleteFindingAggregatorResponse'),
-    newDeleteFindingAggregatorResponse,
-
-    -- ** UpdateFindingAggregator
-    UpdateFindingAggregator (UpdateFindingAggregator'),
-    newUpdateFindingAggregator,
-    UpdateFindingAggregatorResponse (UpdateFindingAggregatorResponse'),
-    newUpdateFindingAggregatorResponse,
-
-    -- ** ListInvitations (Paginated)
-    ListInvitations (ListInvitations'),
-    newListInvitations,
-    ListInvitationsResponse (ListInvitationsResponse'),
-    newListInvitationsResponse,
-
-    -- ** DeleteInvitations
-    DeleteInvitations (DeleteInvitations'),
-    newDeleteInvitations,
-    DeleteInvitationsResponse (DeleteInvitationsResponse'),
-    newDeleteInvitationsResponse,
-
-    -- ** GetEnabledStandards (Paginated)
-    GetEnabledStandards (GetEnabledStandards'),
-    newGetEnabledStandards,
-    GetEnabledStandardsResponse (GetEnabledStandardsResponse'),
-    newGetEnabledStandardsResponse,
-
-    -- ** DeclineInvitations
-    DeclineInvitations (DeclineInvitations'),
-    newDeclineInvitations,
-    DeclineInvitationsResponse (DeclineInvitationsResponse'),
-    newDeclineInvitationsResponse,
-
-    -- ** UpdateActionTarget
-    UpdateActionTarget (UpdateActionTarget'),
-    newUpdateActionTarget,
-    UpdateActionTargetResponse (UpdateActionTargetResponse'),
-    newUpdateActionTargetResponse,
-
-    -- ** DeleteActionTarget
-    DeleteActionTarget (DeleteActionTarget'),
-    newDeleteActionTarget,
-    DeleteActionTargetResponse (DeleteActionTargetResponse'),
-    newDeleteActionTargetResponse,
-
-    -- ** UpdateStandardsControl
-    UpdateStandardsControl (UpdateStandardsControl'),
-    newUpdateStandardsControl,
-    UpdateStandardsControlResponse (UpdateStandardsControlResponse'),
-    newUpdateStandardsControlResponse,
-
-    -- ** DescribeOrganizationConfiguration
-    DescribeOrganizationConfiguration (DescribeOrganizationConfiguration'),
-    newDescribeOrganizationConfiguration,
-    DescribeOrganizationConfigurationResponse (DescribeOrganizationConfigurationResponse'),
-    newDescribeOrganizationConfigurationResponse,
-
-    -- ** DescribeActionTargets (Paginated)
-    DescribeActionTargets (DescribeActionTargets'),
-    newDescribeActionTargets,
-    DescribeActionTargetsResponse (DescribeActionTargetsResponse'),
-    newDescribeActionTargetsResponse,
-
-    -- ** DisassociateMembers
-    DisassociateMembers (DisassociateMembers'),
-    newDisassociateMembers,
-    DisassociateMembersResponse (DisassociateMembersResponse'),
-    newDisassociateMembersResponse,
-
-    -- ** ListEnabledProductsForImport (Paginated)
-    ListEnabledProductsForImport (ListEnabledProductsForImport'),
-    newListEnabledProductsForImport,
-    ListEnabledProductsForImportResponse (ListEnabledProductsForImportResponse'),
-    newListEnabledProductsForImportResponse,
-
-    -- ** DescribeStandardsControls (Paginated)
-    DescribeStandardsControls (DescribeStandardsControls'),
-    newDescribeStandardsControls,
-    DescribeStandardsControlsResponse (DescribeStandardsControlsResponse'),
-    newDescribeStandardsControlsResponse,
-
-    -- ** ListMembers (Paginated)
-    ListMembers (ListMembers'),
-    newListMembers,
-    ListMembersResponse (ListMembersResponse'),
-    newListMembersResponse,
-
-    -- ** CreateMembers
-    CreateMembers (CreateMembers'),
-    newCreateMembers,
-    CreateMembersResponse (CreateMembersResponse'),
-    newCreateMembersResponse,
-
-    -- ** BatchImportFindings
-    BatchImportFindings (BatchImportFindings'),
-    newBatchImportFindings,
-    BatchImportFindingsResponse (BatchImportFindingsResponse'),
-    newBatchImportFindingsResponse,
-
-    -- ** GetInvitationsCount
-    GetInvitationsCount (GetInvitationsCount'),
-    newGetInvitationsCount,
-    GetInvitationsCountResponse (GetInvitationsCountResponse'),
-    newGetInvitationsCountResponse,
-
-    -- ** DeleteInsight
-    DeleteInsight (DeleteInsight'),
-    newDeleteInsight,
-    DeleteInsightResponse (DeleteInsightResponse'),
-    newDeleteInsightResponse,
-
-    -- ** UpdateInsight
-    UpdateInsight (UpdateInsight'),
-    newUpdateInsight,
-    UpdateInsightResponse (UpdateInsightResponse'),
-    newUpdateInsightResponse,
-
-    -- ** DisableImportFindingsForProduct
-    DisableImportFindingsForProduct (DisableImportFindingsForProduct'),
-    newDisableImportFindingsForProduct,
-    DisableImportFindingsForProductResponse (DisableImportFindingsForProductResponse'),
-    newDisableImportFindingsForProductResponse,
-
-    -- ** UpdateFindings
-    UpdateFindings (UpdateFindings'),
-    newUpdateFindings,
-    UpdateFindingsResponse (UpdateFindingsResponse'),
-    newUpdateFindingsResponse,
-
-    -- ** UpdateOrganizationConfiguration
-    UpdateOrganizationConfiguration (UpdateOrganizationConfiguration'),
-    newUpdateOrganizationConfiguration,
-    UpdateOrganizationConfigurationResponse (UpdateOrganizationConfigurationResponse'),
-    newUpdateOrganizationConfigurationResponse,
-
-    -- ** GetFindingAggregator
-    GetFindingAggregator (GetFindingAggregator'),
-    newGetFindingAggregator,
-    GetFindingAggregatorResponse (GetFindingAggregatorResponse'),
-    newGetFindingAggregatorResponse,
-
-    -- ** InviteMembers
-    InviteMembers (InviteMembers'),
-    newInviteMembers,
-    InviteMembersResponse (InviteMembersResponse'),
-    newInviteMembersResponse,
-
-    -- ** GetMembers
-    GetMembers (GetMembers'),
-    newGetMembers,
-    GetMembersResponse (GetMembersResponse'),
-    newGetMembersResponse,
-
-    -- ** DisableSecurityHub
-    DisableSecurityHub (DisableSecurityHub'),
-    newDisableSecurityHub,
-    DisableSecurityHubResponse (DisableSecurityHubResponse'),
-    newDisableSecurityHubResponse,
-
-    -- ** ListFindingAggregators (Paginated)
-    ListFindingAggregators (ListFindingAggregators'),
-    newListFindingAggregators,
-    ListFindingAggregatorsResponse (ListFindingAggregatorsResponse'),
-    newListFindingAggregatorsResponse,
+    -- ** BatchDisableStandards
+    BatchDisableStandards (BatchDisableStandards'),
+    newBatchDisableStandards,
+    BatchDisableStandardsResponse (BatchDisableStandardsResponse'),
+    newBatchDisableStandardsResponse,
 
     -- ** BatchEnableStandards
     BatchEnableStandards (BatchEnableStandards'),
@@ -333,53 +108,11 @@ module Amazonka.SecurityHub
     BatchEnableStandardsResponse (BatchEnableStandardsResponse'),
     newBatchEnableStandardsResponse,
 
-    -- ** CreateFindingAggregator
-    CreateFindingAggregator (CreateFindingAggregator'),
-    newCreateFindingAggregator,
-    CreateFindingAggregatorResponse (CreateFindingAggregatorResponse'),
-    newCreateFindingAggregatorResponse,
-
-    -- ** BatchDisableStandards
-    BatchDisableStandards (BatchDisableStandards'),
-    newBatchDisableStandards,
-    BatchDisableStandardsResponse (BatchDisableStandardsResponse'),
-    newBatchDisableStandardsResponse,
-
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
-
-    -- ** EnableSecurityHub
-    EnableSecurityHub (EnableSecurityHub'),
-    newEnableSecurityHub,
-    EnableSecurityHubResponse (EnableSecurityHubResponse'),
-    newEnableSecurityHubResponse,
-
-    -- ** UpdateSecurityHubConfiguration
-    UpdateSecurityHubConfiguration (UpdateSecurityHubConfiguration'),
-    newUpdateSecurityHubConfiguration,
-    UpdateSecurityHubConfigurationResponse (UpdateSecurityHubConfigurationResponse'),
-    newUpdateSecurityHubConfigurationResponse,
-
-    -- ** GetFindings (Paginated)
-    GetFindings (GetFindings'),
-    newGetFindings,
-    GetFindingsResponse (GetFindingsResponse'),
-    newGetFindingsResponse,
-
-    -- ** GetInsights (Paginated)
-    GetInsights (GetInsights'),
-    newGetInsights,
-    GetInsightsResponse (GetInsightsResponse'),
-    newGetInsightsResponse,
-
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
+    -- ** BatchImportFindings
+    BatchImportFindings (BatchImportFindings'),
+    newBatchImportFindings,
+    BatchImportFindingsResponse (BatchImportFindingsResponse'),
+    newBatchImportFindingsResponse,
 
     -- ** BatchUpdateFindings
     BatchUpdateFindings (BatchUpdateFindings'),
@@ -393,11 +126,101 @@ module Amazonka.SecurityHub
     CreateActionTargetResponse (CreateActionTargetResponse'),
     newCreateActionTargetResponse,
 
-    -- ** DisassociateFromAdministratorAccount
-    DisassociateFromAdministratorAccount (DisassociateFromAdministratorAccount'),
-    newDisassociateFromAdministratorAccount,
-    DisassociateFromAdministratorAccountResponse (DisassociateFromAdministratorAccountResponse'),
-    newDisassociateFromAdministratorAccountResponse,
+    -- ** CreateFindingAggregator
+    CreateFindingAggregator (CreateFindingAggregator'),
+    newCreateFindingAggregator,
+    CreateFindingAggregatorResponse (CreateFindingAggregatorResponse'),
+    newCreateFindingAggregatorResponse,
+
+    -- ** CreateInsight
+    CreateInsight (CreateInsight'),
+    newCreateInsight,
+    CreateInsightResponse (CreateInsightResponse'),
+    newCreateInsightResponse,
+
+    -- ** CreateMembers
+    CreateMembers (CreateMembers'),
+    newCreateMembers,
+    CreateMembersResponse (CreateMembersResponse'),
+    newCreateMembersResponse,
+
+    -- ** DeclineInvitations
+    DeclineInvitations (DeclineInvitations'),
+    newDeclineInvitations,
+    DeclineInvitationsResponse (DeclineInvitationsResponse'),
+    newDeclineInvitationsResponse,
+
+    -- ** DeleteActionTarget
+    DeleteActionTarget (DeleteActionTarget'),
+    newDeleteActionTarget,
+    DeleteActionTargetResponse (DeleteActionTargetResponse'),
+    newDeleteActionTargetResponse,
+
+    -- ** DeleteFindingAggregator
+    DeleteFindingAggregator (DeleteFindingAggregator'),
+    newDeleteFindingAggregator,
+    DeleteFindingAggregatorResponse (DeleteFindingAggregatorResponse'),
+    newDeleteFindingAggregatorResponse,
+
+    -- ** DeleteInsight
+    DeleteInsight (DeleteInsight'),
+    newDeleteInsight,
+    DeleteInsightResponse (DeleteInsightResponse'),
+    newDeleteInsightResponse,
+
+    -- ** DeleteInvitations
+    DeleteInvitations (DeleteInvitations'),
+    newDeleteInvitations,
+    DeleteInvitationsResponse (DeleteInvitationsResponse'),
+    newDeleteInvitationsResponse,
+
+    -- ** DeleteMembers
+    DeleteMembers (DeleteMembers'),
+    newDeleteMembers,
+    DeleteMembersResponse (DeleteMembersResponse'),
+    newDeleteMembersResponse,
+
+    -- ** DescribeActionTargets (Paginated)
+    DescribeActionTargets (DescribeActionTargets'),
+    newDescribeActionTargets,
+    DescribeActionTargetsResponse (DescribeActionTargetsResponse'),
+    newDescribeActionTargetsResponse,
+
+    -- ** DescribeHub
+    DescribeHub (DescribeHub'),
+    newDescribeHub,
+    DescribeHubResponse (DescribeHubResponse'),
+    newDescribeHubResponse,
+
+    -- ** DescribeOrganizationConfiguration
+    DescribeOrganizationConfiguration (DescribeOrganizationConfiguration'),
+    newDescribeOrganizationConfiguration,
+    DescribeOrganizationConfigurationResponse (DescribeOrganizationConfigurationResponse'),
+    newDescribeOrganizationConfigurationResponse,
+
+    -- ** DescribeProducts (Paginated)
+    DescribeProducts (DescribeProducts'),
+    newDescribeProducts,
+    DescribeProductsResponse (DescribeProductsResponse'),
+    newDescribeProductsResponse,
+
+    -- ** DescribeStandards (Paginated)
+    DescribeStandards (DescribeStandards'),
+    newDescribeStandards,
+    DescribeStandardsResponse (DescribeStandardsResponse'),
+    newDescribeStandardsResponse,
+
+    -- ** DescribeStandardsControls (Paginated)
+    DescribeStandardsControls (DescribeStandardsControls'),
+    newDescribeStandardsControls,
+    DescribeStandardsControlsResponse (DescribeStandardsControlsResponse'),
+    newDescribeStandardsControlsResponse,
+
+    -- ** DisableImportFindingsForProduct
+    DisableImportFindingsForProduct (DisableImportFindingsForProduct'),
+    newDisableImportFindingsForProduct,
+    DisableImportFindingsForProductResponse (DisableImportFindingsForProductResponse'),
+    newDisableImportFindingsForProductResponse,
 
     -- ** DisableOrganizationAdminAccount
     DisableOrganizationAdminAccount (DisableOrganizationAdminAccount'),
@@ -405,10 +228,193 @@ module Amazonka.SecurityHub
     DisableOrganizationAdminAccountResponse (DisableOrganizationAdminAccountResponse'),
     newDisableOrganizationAdminAccountResponse,
 
+    -- ** DisableSecurityHub
+    DisableSecurityHub (DisableSecurityHub'),
+    newDisableSecurityHub,
+    DisableSecurityHubResponse (DisableSecurityHubResponse'),
+    newDisableSecurityHubResponse,
+
+    -- ** DisassociateFromAdministratorAccount
+    DisassociateFromAdministratorAccount (DisassociateFromAdministratorAccount'),
+    newDisassociateFromAdministratorAccount,
+    DisassociateFromAdministratorAccountResponse (DisassociateFromAdministratorAccountResponse'),
+    newDisassociateFromAdministratorAccountResponse,
+
+    -- ** DisassociateMembers
+    DisassociateMembers (DisassociateMembers'),
+    newDisassociateMembers,
+    DisassociateMembersResponse (DisassociateMembersResponse'),
+    newDisassociateMembersResponse,
+
+    -- ** EnableImportFindingsForProduct
+    EnableImportFindingsForProduct (EnableImportFindingsForProduct'),
+    newEnableImportFindingsForProduct,
+    EnableImportFindingsForProductResponse (EnableImportFindingsForProductResponse'),
+    newEnableImportFindingsForProductResponse,
+
+    -- ** EnableOrganizationAdminAccount
+    EnableOrganizationAdminAccount (EnableOrganizationAdminAccount'),
+    newEnableOrganizationAdminAccount,
+    EnableOrganizationAdminAccountResponse (EnableOrganizationAdminAccountResponse'),
+    newEnableOrganizationAdminAccountResponse,
+
+    -- ** EnableSecurityHub
+    EnableSecurityHub (EnableSecurityHub'),
+    newEnableSecurityHub,
+    EnableSecurityHubResponse (EnableSecurityHubResponse'),
+    newEnableSecurityHubResponse,
+
+    -- ** GetAdministratorAccount
+    GetAdministratorAccount (GetAdministratorAccount'),
+    newGetAdministratorAccount,
+    GetAdministratorAccountResponse (GetAdministratorAccountResponse'),
+    newGetAdministratorAccountResponse,
+
+    -- ** GetEnabledStandards (Paginated)
+    GetEnabledStandards (GetEnabledStandards'),
+    newGetEnabledStandards,
+    GetEnabledStandardsResponse (GetEnabledStandardsResponse'),
+    newGetEnabledStandardsResponse,
+
+    -- ** GetFindingAggregator
+    GetFindingAggregator (GetFindingAggregator'),
+    newGetFindingAggregator,
+    GetFindingAggregatorResponse (GetFindingAggregatorResponse'),
+    newGetFindingAggregatorResponse,
+
+    -- ** GetFindings (Paginated)
+    GetFindings (GetFindings'),
+    newGetFindings,
+    GetFindingsResponse (GetFindingsResponse'),
+    newGetFindingsResponse,
+
+    -- ** GetInsightResults
+    GetInsightResults (GetInsightResults'),
+    newGetInsightResults,
+    GetInsightResultsResponse (GetInsightResultsResponse'),
+    newGetInsightResultsResponse,
+
+    -- ** GetInsights (Paginated)
+    GetInsights (GetInsights'),
+    newGetInsights,
+    GetInsightsResponse (GetInsightsResponse'),
+    newGetInsightsResponse,
+
+    -- ** GetInvitationsCount
+    GetInvitationsCount (GetInvitationsCount'),
+    newGetInvitationsCount,
+    GetInvitationsCountResponse (GetInvitationsCountResponse'),
+    newGetInvitationsCountResponse,
+
+    -- ** GetMembers
+    GetMembers (GetMembers'),
+    newGetMembers,
+    GetMembersResponse (GetMembersResponse'),
+    newGetMembersResponse,
+
+    -- ** InviteMembers
+    InviteMembers (InviteMembers'),
+    newInviteMembers,
+    InviteMembersResponse (InviteMembersResponse'),
+    newInviteMembersResponse,
+
+    -- ** ListEnabledProductsForImport (Paginated)
+    ListEnabledProductsForImport (ListEnabledProductsForImport'),
+    newListEnabledProductsForImport,
+    ListEnabledProductsForImportResponse (ListEnabledProductsForImportResponse'),
+    newListEnabledProductsForImportResponse,
+
+    -- ** ListFindingAggregators (Paginated)
+    ListFindingAggregators (ListFindingAggregators'),
+    newListFindingAggregators,
+    ListFindingAggregatorsResponse (ListFindingAggregatorsResponse'),
+    newListFindingAggregatorsResponse,
+
+    -- ** ListInvitations (Paginated)
+    ListInvitations (ListInvitations'),
+    newListInvitations,
+    ListInvitationsResponse (ListInvitationsResponse'),
+    newListInvitationsResponse,
+
+    -- ** ListMembers (Paginated)
+    ListMembers (ListMembers'),
+    newListMembers,
+    ListMembersResponse (ListMembersResponse'),
+    newListMembersResponse,
+
+    -- ** ListOrganizationAdminAccounts (Paginated)
+    ListOrganizationAdminAccounts (ListOrganizationAdminAccounts'),
+    newListOrganizationAdminAccounts,
+    ListOrganizationAdminAccountsResponse (ListOrganizationAdminAccountsResponse'),
+    newListOrganizationAdminAccountsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UpdateActionTarget
+    UpdateActionTarget (UpdateActionTarget'),
+    newUpdateActionTarget,
+    UpdateActionTargetResponse (UpdateActionTargetResponse'),
+    newUpdateActionTargetResponse,
+
+    -- ** UpdateFindingAggregator
+    UpdateFindingAggregator (UpdateFindingAggregator'),
+    newUpdateFindingAggregator,
+    UpdateFindingAggregatorResponse (UpdateFindingAggregatorResponse'),
+    newUpdateFindingAggregatorResponse,
+
+    -- ** UpdateFindings
+    UpdateFindings (UpdateFindings'),
+    newUpdateFindings,
+    UpdateFindingsResponse (UpdateFindingsResponse'),
+    newUpdateFindingsResponse,
+
+    -- ** UpdateInsight
+    UpdateInsight (UpdateInsight'),
+    newUpdateInsight,
+    UpdateInsightResponse (UpdateInsightResponse'),
+    newUpdateInsightResponse,
+
+    -- ** UpdateOrganizationConfiguration
+    UpdateOrganizationConfiguration (UpdateOrganizationConfiguration'),
+    newUpdateOrganizationConfiguration,
+    UpdateOrganizationConfigurationResponse (UpdateOrganizationConfigurationResponse'),
+    newUpdateOrganizationConfigurationResponse,
+
+    -- ** UpdateSecurityHubConfiguration
+    UpdateSecurityHubConfiguration (UpdateSecurityHubConfiguration'),
+    newUpdateSecurityHubConfiguration,
+    UpdateSecurityHubConfigurationResponse (UpdateSecurityHubConfigurationResponse'),
+    newUpdateSecurityHubConfigurationResponse,
+
+    -- ** UpdateStandardsControl
+    UpdateStandardsControl (UpdateStandardsControl'),
+    newUpdateStandardsControl,
+    UpdateStandardsControlResponse (UpdateStandardsControlResponse'),
+    newUpdateStandardsControlResponse,
+
     -- * Types
 
     -- ** AdminStatus
     AdminStatus (..),
+
+    -- ** AutoEnableStandards
+    AutoEnableStandards (..),
 
     -- ** AwsIamAccessKeyStatus
     AwsIamAccessKeyStatus (..),
@@ -458,6 +464,9 @@ module Amazonka.SecurityHub
     -- ** StandardsStatus
     StandardsStatus (..),
 
+    -- ** StatusReasonCode
+    StatusReasonCode (..),
+
     -- ** StringFilterComparison
     StringFilterComparison (..),
 
@@ -469,6 +478,9 @@ module Amazonka.SecurityHub
 
     -- ** VerificationState
     VerificationState (..),
+
+    -- ** VulnerabilityFixAvailable
+    VulnerabilityFixAvailable (..),
 
     -- ** WorkflowState
     WorkflowState (..),
@@ -560,9 +572,37 @@ module Amazonka.SecurityHub
     AwsApiGatewayV2StageDetails (AwsApiGatewayV2StageDetails'),
     newAwsApiGatewayV2StageDetails,
 
+    -- ** AwsAutoScalingAutoScalingGroupAvailabilityZonesListDetails
+    AwsAutoScalingAutoScalingGroupAvailabilityZonesListDetails (AwsAutoScalingAutoScalingGroupAvailabilityZonesListDetails'),
+    newAwsAutoScalingAutoScalingGroupAvailabilityZonesListDetails,
+
     -- ** AwsAutoScalingAutoScalingGroupDetails
     AwsAutoScalingAutoScalingGroupDetails (AwsAutoScalingAutoScalingGroupDetails'),
     newAwsAutoScalingAutoScalingGroupDetails,
+
+    -- ** AwsAutoScalingAutoScalingGroupLaunchTemplateLaunchTemplateSpecification
+    AwsAutoScalingAutoScalingGroupLaunchTemplateLaunchTemplateSpecification (AwsAutoScalingAutoScalingGroupLaunchTemplateLaunchTemplateSpecification'),
+    newAwsAutoScalingAutoScalingGroupLaunchTemplateLaunchTemplateSpecification,
+
+    -- ** AwsAutoScalingAutoScalingGroupMixedInstancesPolicyDetails
+    AwsAutoScalingAutoScalingGroupMixedInstancesPolicyDetails (AwsAutoScalingAutoScalingGroupMixedInstancesPolicyDetails'),
+    newAwsAutoScalingAutoScalingGroupMixedInstancesPolicyDetails,
+
+    -- ** AwsAutoScalingAutoScalingGroupMixedInstancesPolicyInstancesDistributionDetails
+    AwsAutoScalingAutoScalingGroupMixedInstancesPolicyInstancesDistributionDetails (AwsAutoScalingAutoScalingGroupMixedInstancesPolicyInstancesDistributionDetails'),
+    newAwsAutoScalingAutoScalingGroupMixedInstancesPolicyInstancesDistributionDetails,
+
+    -- ** AwsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateDetails
+    AwsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateDetails (AwsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateDetails'),
+    newAwsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateDetails,
+
+    -- ** AwsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateLaunchTemplateSpecification
+    AwsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateLaunchTemplateSpecification (AwsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateLaunchTemplateSpecification'),
+    newAwsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateLaunchTemplateSpecification,
+
+    -- ** AwsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateOverridesListDetails
+    AwsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateOverridesListDetails (AwsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateOverridesListDetails'),
+    newAwsAutoScalingAutoScalingGroupMixedInstancesPolicyLaunchTemplateOverridesListDetails,
 
     -- ** AwsAutoScalingLaunchConfigurationBlockDeviceMappingsDetails
     AwsAutoScalingLaunchConfigurationBlockDeviceMappingsDetails (AwsAutoScalingLaunchConfigurationBlockDeviceMappingsDetails'),
@@ -579,6 +619,58 @@ module Amazonka.SecurityHub
     -- ** AwsAutoScalingLaunchConfigurationInstanceMonitoringDetails
     AwsAutoScalingLaunchConfigurationInstanceMonitoringDetails (AwsAutoScalingLaunchConfigurationInstanceMonitoringDetails'),
     newAwsAutoScalingLaunchConfigurationInstanceMonitoringDetails,
+
+    -- ** AwsAutoScalingLaunchConfigurationMetadataOptions
+    AwsAutoScalingLaunchConfigurationMetadataOptions (AwsAutoScalingLaunchConfigurationMetadataOptions'),
+    newAwsAutoScalingLaunchConfigurationMetadataOptions,
+
+    -- ** AwsBackupBackupPlanAdvancedBackupSettingsDetails
+    AwsBackupBackupPlanAdvancedBackupSettingsDetails (AwsBackupBackupPlanAdvancedBackupSettingsDetails'),
+    newAwsBackupBackupPlanAdvancedBackupSettingsDetails,
+
+    -- ** AwsBackupBackupPlanBackupPlanDetails
+    AwsBackupBackupPlanBackupPlanDetails (AwsBackupBackupPlanBackupPlanDetails'),
+    newAwsBackupBackupPlanBackupPlanDetails,
+
+    -- ** AwsBackupBackupPlanDetails
+    AwsBackupBackupPlanDetails (AwsBackupBackupPlanDetails'),
+    newAwsBackupBackupPlanDetails,
+
+    -- ** AwsBackupBackupPlanLifecycleDetails
+    AwsBackupBackupPlanLifecycleDetails (AwsBackupBackupPlanLifecycleDetails'),
+    newAwsBackupBackupPlanLifecycleDetails,
+
+    -- ** AwsBackupBackupPlanRuleCopyActionsDetails
+    AwsBackupBackupPlanRuleCopyActionsDetails (AwsBackupBackupPlanRuleCopyActionsDetails'),
+    newAwsBackupBackupPlanRuleCopyActionsDetails,
+
+    -- ** AwsBackupBackupPlanRuleDetails
+    AwsBackupBackupPlanRuleDetails (AwsBackupBackupPlanRuleDetails'),
+    newAwsBackupBackupPlanRuleDetails,
+
+    -- ** AwsBackupBackupVaultDetails
+    AwsBackupBackupVaultDetails (AwsBackupBackupVaultDetails'),
+    newAwsBackupBackupVaultDetails,
+
+    -- ** AwsBackupBackupVaultNotificationsDetails
+    AwsBackupBackupVaultNotificationsDetails (AwsBackupBackupVaultNotificationsDetails'),
+    newAwsBackupBackupVaultNotificationsDetails,
+
+    -- ** AwsBackupRecoveryPointCalculatedLifecycleDetails
+    AwsBackupRecoveryPointCalculatedLifecycleDetails (AwsBackupRecoveryPointCalculatedLifecycleDetails'),
+    newAwsBackupRecoveryPointCalculatedLifecycleDetails,
+
+    -- ** AwsBackupRecoveryPointCreatedByDetails
+    AwsBackupRecoveryPointCreatedByDetails (AwsBackupRecoveryPointCreatedByDetails'),
+    newAwsBackupRecoveryPointCreatedByDetails,
+
+    -- ** AwsBackupRecoveryPointDetails
+    AwsBackupRecoveryPointDetails (AwsBackupRecoveryPointDetails'),
+    newAwsBackupRecoveryPointDetails,
+
+    -- ** AwsBackupRecoveryPointLifecycleDetails
+    AwsBackupRecoveryPointLifecycleDetails (AwsBackupRecoveryPointLifecycleDetails'),
+    newAwsBackupRecoveryPointLifecycleDetails,
 
     -- ** AwsCertificateManagerCertificateDetails
     AwsCertificateManagerCertificateDetails (AwsCertificateManagerCertificateDetails'),
@@ -608,6 +700,18 @@ module Amazonka.SecurityHub
     AwsCertificateManagerCertificateResourceRecord (AwsCertificateManagerCertificateResourceRecord'),
     newAwsCertificateManagerCertificateResourceRecord,
 
+    -- ** AwsCloudFormationStackDetails
+    AwsCloudFormationStackDetails (AwsCloudFormationStackDetails'),
+    newAwsCloudFormationStackDetails,
+
+    -- ** AwsCloudFormationStackDriftInformationDetails
+    AwsCloudFormationStackDriftInformationDetails (AwsCloudFormationStackDriftInformationDetails'),
+    newAwsCloudFormationStackDriftInformationDetails,
+
+    -- ** AwsCloudFormationStackOutputsDetails
+    AwsCloudFormationStackOutputsDetails (AwsCloudFormationStackOutputsDetails'),
+    newAwsCloudFormationStackOutputsDetails,
+
     -- ** AwsCloudFrontDistributionCacheBehavior
     AwsCloudFrontDistributionCacheBehavior (AwsCloudFrontDistributionCacheBehavior'),
     newAwsCloudFrontDistributionCacheBehavior,
@@ -627,6 +731,10 @@ module Amazonka.SecurityHub
     -- ** AwsCloudFrontDistributionLogging
     AwsCloudFrontDistributionLogging (AwsCloudFrontDistributionLogging'),
     newAwsCloudFrontDistributionLogging,
+
+    -- ** AwsCloudFrontDistributionOriginCustomOriginConfig
+    AwsCloudFrontDistributionOriginCustomOriginConfig (AwsCloudFrontDistributionOriginCustomOriginConfig'),
+    newAwsCloudFrontDistributionOriginCustomOriginConfig,
 
     -- ** AwsCloudFrontDistributionOriginGroup
     AwsCloudFrontDistributionOriginGroup (AwsCloudFrontDistributionOriginGroup'),
@@ -652,6 +760,10 @@ module Amazonka.SecurityHub
     AwsCloudFrontDistributionOriginS3OriginConfig (AwsCloudFrontDistributionOriginS3OriginConfig'),
     newAwsCloudFrontDistributionOriginS3OriginConfig,
 
+    -- ** AwsCloudFrontDistributionOriginSslProtocols
+    AwsCloudFrontDistributionOriginSslProtocols (AwsCloudFrontDistributionOriginSslProtocols'),
+    newAwsCloudFrontDistributionOriginSslProtocols,
+
     -- ** AwsCloudFrontDistributionOrigins
     AwsCloudFrontDistributionOrigins (AwsCloudFrontDistributionOrigins'),
     newAwsCloudFrontDistributionOrigins,
@@ -663,6 +775,14 @@ module Amazonka.SecurityHub
     -- ** AwsCloudTrailTrailDetails
     AwsCloudTrailTrailDetails (AwsCloudTrailTrailDetails'),
     newAwsCloudTrailTrailDetails,
+
+    -- ** AwsCloudWatchAlarmDetails
+    AwsCloudWatchAlarmDetails (AwsCloudWatchAlarmDetails'),
+    newAwsCloudWatchAlarmDetails,
+
+    -- ** AwsCloudWatchAlarmDimensionsDetails
+    AwsCloudWatchAlarmDimensionsDetails (AwsCloudWatchAlarmDimensionsDetails'),
+    newAwsCloudWatchAlarmDimensionsDetails,
 
     -- ** AwsCodeBuildProjectArtifactsDetails
     AwsCodeBuildProjectArtifactsDetails (AwsCodeBuildProjectArtifactsDetails'),
@@ -772,6 +892,10 @@ module Amazonka.SecurityHub
     AwsEc2InstanceDetails (AwsEc2InstanceDetails'),
     newAwsEc2InstanceDetails,
 
+    -- ** AwsEc2InstanceMetadataOptions
+    AwsEc2InstanceMetadataOptions (AwsEc2InstanceMetadataOptions'),
+    newAwsEc2InstanceMetadataOptions,
+
     -- ** AwsEc2InstanceNetworkInterfacesDetails
     AwsEc2InstanceNetworkInterfacesDetails (AwsEc2InstanceNetworkInterfacesDetails'),
     newAwsEc2InstanceNetworkInterfacesDetails,
@@ -836,6 +960,10 @@ module Amazonka.SecurityHub
     AwsEc2SubnetDetails (AwsEc2SubnetDetails'),
     newAwsEc2SubnetDetails,
 
+    -- ** AwsEc2TransitGatewayDetails
+    AwsEc2TransitGatewayDetails (AwsEc2TransitGatewayDetails'),
+    newAwsEc2TransitGatewayDetails,
+
     -- ** AwsEc2VolumeAttachment
     AwsEc2VolumeAttachment (AwsEc2VolumeAttachment'),
     newAwsEc2VolumeAttachment,
@@ -855,6 +983,18 @@ module Amazonka.SecurityHub
     -- ** AwsEc2VpcEndpointServiceServiceTypeDetails
     AwsEc2VpcEndpointServiceServiceTypeDetails (AwsEc2VpcEndpointServiceServiceTypeDetails'),
     newAwsEc2VpcEndpointServiceServiceTypeDetails,
+
+    -- ** AwsEc2VpcPeeringConnectionDetails
+    AwsEc2VpcPeeringConnectionDetails (AwsEc2VpcPeeringConnectionDetails'),
+    newAwsEc2VpcPeeringConnectionDetails,
+
+    -- ** AwsEc2VpcPeeringConnectionStatusDetails
+    AwsEc2VpcPeeringConnectionStatusDetails (AwsEc2VpcPeeringConnectionStatusDetails'),
+    newAwsEc2VpcPeeringConnectionStatusDetails,
+
+    -- ** AwsEc2VpcPeeringConnectionVpcInfoDetails
+    AwsEc2VpcPeeringConnectionVpcInfoDetails (AwsEc2VpcPeeringConnectionVpcInfoDetails'),
+    newAwsEc2VpcPeeringConnectionVpcInfoDetails,
 
     -- ** AwsEc2VpnConnectionDetails
     AwsEc2VpnConnectionDetails (AwsEc2VpnConnectionDetails'),
@@ -915,6 +1055,10 @@ module Amazonka.SecurityHub
     -- ** AwsEcsClusterDetails
     AwsEcsClusterDetails (AwsEcsClusterDetails'),
     newAwsEcsClusterDetails,
+
+    -- ** AwsEcsContainerDetails
+    AwsEcsContainerDetails (AwsEcsContainerDetails'),
+    newAwsEcsContainerDetails,
 
     -- ** AwsEcsServiceCapacityProviderStrategyDetails
     AwsEcsServiceCapacityProviderStrategyDetails (AwsEcsServiceCapacityProviderStrategyDetails'),
@@ -1084,6 +1228,34 @@ module Amazonka.SecurityHub
     AwsEcsTaskDefinitionVolumesHostDetails (AwsEcsTaskDefinitionVolumesHostDetails'),
     newAwsEcsTaskDefinitionVolumesHostDetails,
 
+    -- ** AwsEcsTaskDetails
+    AwsEcsTaskDetails (AwsEcsTaskDetails'),
+    newAwsEcsTaskDetails,
+
+    -- ** AwsEcsTaskVolumeDetails
+    AwsEcsTaskVolumeDetails (AwsEcsTaskVolumeDetails'),
+    newAwsEcsTaskVolumeDetails,
+
+    -- ** AwsEcsTaskVolumeHostDetails
+    AwsEcsTaskVolumeHostDetails (AwsEcsTaskVolumeHostDetails'),
+    newAwsEcsTaskVolumeHostDetails,
+
+    -- ** AwsEfsAccessPointDetails
+    AwsEfsAccessPointDetails (AwsEfsAccessPointDetails'),
+    newAwsEfsAccessPointDetails,
+
+    -- ** AwsEfsAccessPointPosixUserDetails
+    AwsEfsAccessPointPosixUserDetails (AwsEfsAccessPointPosixUserDetails'),
+    newAwsEfsAccessPointPosixUserDetails,
+
+    -- ** AwsEfsAccessPointRootDirectoryCreationInfoDetails
+    AwsEfsAccessPointRootDirectoryCreationInfoDetails (AwsEfsAccessPointRootDirectoryCreationInfoDetails'),
+    newAwsEfsAccessPointRootDirectoryCreationInfoDetails,
+
+    -- ** AwsEfsAccessPointRootDirectoryDetails
+    AwsEfsAccessPointRootDirectoryDetails (AwsEfsAccessPointRootDirectoryDetails'),
+    newAwsEfsAccessPointRootDirectoryDetails,
+
     -- ** AwsEksClusterDetails
     AwsEksClusterDetails (AwsEksClusterDetails'),
     newAwsEksClusterDetails,
@@ -1167,6 +1339,10 @@ module Amazonka.SecurityHub
     -- ** AwsElbLoadBalancerAccessLog
     AwsElbLoadBalancerAccessLog (AwsElbLoadBalancerAccessLog'),
     newAwsElbLoadBalancerAccessLog,
+
+    -- ** AwsElbLoadBalancerAdditionalAttribute
+    AwsElbLoadBalancerAdditionalAttribute (AwsElbLoadBalancerAdditionalAttribute'),
+    newAwsElbLoadBalancerAdditionalAttribute,
 
     -- ** AwsElbLoadBalancerAttributes
     AwsElbLoadBalancerAttributes (AwsElbLoadBalancerAttributes'),
@@ -1288,6 +1464,14 @@ module Amazonka.SecurityHub
     AwsIamUserPolicy (AwsIamUserPolicy'),
     newAwsIamUserPolicy,
 
+    -- ** AwsKinesisStreamDetails
+    AwsKinesisStreamDetails (AwsKinesisStreamDetails'),
+    newAwsKinesisStreamDetails,
+
+    -- ** AwsKinesisStreamStreamEncryptionDetails
+    AwsKinesisStreamStreamEncryptionDetails (AwsKinesisStreamStreamEncryptionDetails'),
+    newAwsKinesisStreamStreamEncryptionDetails,
+
     -- ** AwsKmsKeyDetails
     AwsKmsKeyDetails (AwsKmsKeyDetails'),
     newAwsKmsKeyDetails,
@@ -1328,6 +1512,30 @@ module Amazonka.SecurityHub
     AwsLambdaLayerVersionDetails (AwsLambdaLayerVersionDetails'),
     newAwsLambdaLayerVersionDetails,
 
+    -- ** AwsMountPoint
+    AwsMountPoint (AwsMountPoint'),
+    newAwsMountPoint,
+
+    -- ** AwsNetworkFirewallFirewallDetails
+    AwsNetworkFirewallFirewallDetails (AwsNetworkFirewallFirewallDetails'),
+    newAwsNetworkFirewallFirewallDetails,
+
+    -- ** AwsNetworkFirewallFirewallPolicyDetails
+    AwsNetworkFirewallFirewallPolicyDetails (AwsNetworkFirewallFirewallPolicyDetails'),
+    newAwsNetworkFirewallFirewallPolicyDetails,
+
+    -- ** AwsNetworkFirewallFirewallSubnetMappingsDetails
+    AwsNetworkFirewallFirewallSubnetMappingsDetails (AwsNetworkFirewallFirewallSubnetMappingsDetails'),
+    newAwsNetworkFirewallFirewallSubnetMappingsDetails,
+
+    -- ** AwsNetworkFirewallRuleGroupDetails
+    AwsNetworkFirewallRuleGroupDetails (AwsNetworkFirewallRuleGroupDetails'),
+    newAwsNetworkFirewallRuleGroupDetails,
+
+    -- ** AwsOpenSearchServiceDomainAdvancedSecurityOptionsDetails
+    AwsOpenSearchServiceDomainAdvancedSecurityOptionsDetails (AwsOpenSearchServiceDomainAdvancedSecurityOptionsDetails'),
+    newAwsOpenSearchServiceDomainAdvancedSecurityOptionsDetails,
+
     -- ** AwsOpenSearchServiceDomainClusterConfigDetails
     AwsOpenSearchServiceDomainClusterConfigDetails (AwsOpenSearchServiceDomainClusterConfigDetails'),
     newAwsOpenSearchServiceDomainClusterConfigDetails,
@@ -1355,6 +1563,10 @@ module Amazonka.SecurityHub
     -- ** AwsOpenSearchServiceDomainLogPublishingOptionsDetails
     AwsOpenSearchServiceDomainLogPublishingOptionsDetails (AwsOpenSearchServiceDomainLogPublishingOptionsDetails'),
     newAwsOpenSearchServiceDomainLogPublishingOptionsDetails,
+
+    -- ** AwsOpenSearchServiceDomainMasterUserOptionsDetails
+    AwsOpenSearchServiceDomainMasterUserOptionsDetails (AwsOpenSearchServiceDomainMasterUserOptionsDetails'),
+    newAwsOpenSearchServiceDomainMasterUserOptionsDetails,
 
     -- ** AwsOpenSearchServiceDomainNodeToNodeEncryptionOptionsDetails
     AwsOpenSearchServiceDomainNodeToNodeEncryptionOptionsDetails (AwsOpenSearchServiceDomainNodeToNodeEncryptionOptionsDetails'),
@@ -1423,6 +1635,18 @@ module Amazonka.SecurityHub
     -- ** AwsRdsDbProcessorFeature
     AwsRdsDbProcessorFeature (AwsRdsDbProcessorFeature'),
     newAwsRdsDbProcessorFeature,
+
+    -- ** AwsRdsDbSecurityGroupDetails
+    AwsRdsDbSecurityGroupDetails (AwsRdsDbSecurityGroupDetails'),
+    newAwsRdsDbSecurityGroupDetails,
+
+    -- ** AwsRdsDbSecurityGroupEc2SecurityGroup
+    AwsRdsDbSecurityGroupEc2SecurityGroup (AwsRdsDbSecurityGroupEc2SecurityGroup'),
+    newAwsRdsDbSecurityGroupEc2SecurityGroup,
+
+    -- ** AwsRdsDbSecurityGroupIpRange
+    AwsRdsDbSecurityGroupIpRange (AwsRdsDbSecurityGroupIpRange'),
+    newAwsRdsDbSecurityGroupIpRange,
 
     -- ** AwsRdsDbSnapshotDetails
     AwsRdsDbSnapshotDetails (AwsRdsDbSnapshotDetails'),
@@ -1496,6 +1720,10 @@ module Amazonka.SecurityHub
     AwsRedshiftClusterIamRole (AwsRedshiftClusterIamRole'),
     newAwsRedshiftClusterIamRole,
 
+    -- ** AwsRedshiftClusterLoggingStatus
+    AwsRedshiftClusterLoggingStatus (AwsRedshiftClusterLoggingStatus'),
+    newAwsRedshiftClusterLoggingStatus,
+
     -- ** AwsRedshiftClusterPendingModifiedValues
     AwsRedshiftClusterPendingModifiedValues (AwsRedshiftClusterPendingModifiedValues'),
     newAwsRedshiftClusterPendingModifiedValues,
@@ -1555,6 +1783,10 @@ module Amazonka.SecurityHub
     -- ** AwsS3BucketBucketLifecycleConfigurationRulesTransitionsDetails
     AwsS3BucketBucketLifecycleConfigurationRulesTransitionsDetails (AwsS3BucketBucketLifecycleConfigurationRulesTransitionsDetails'),
     newAwsS3BucketBucketLifecycleConfigurationRulesTransitionsDetails,
+
+    -- ** AwsS3BucketBucketVersioningConfiguration
+    AwsS3BucketBucketVersioningConfiguration (AwsS3BucketBucketVersioningConfiguration'),
+    newAwsS3BucketBucketVersioningConfiguration,
 
     -- ** AwsS3BucketDetails
     AwsS3BucketDetails (AwsS3BucketDetails'),
@@ -1680,6 +1912,62 @@ module Amazonka.SecurityHub
     AwsWafRegionalRateBasedRuleMatchPredicate (AwsWafRegionalRateBasedRuleMatchPredicate'),
     newAwsWafRegionalRateBasedRuleMatchPredicate,
 
+    -- ** AwsWafRegionalRuleDetails
+    AwsWafRegionalRuleDetails (AwsWafRegionalRuleDetails'),
+    newAwsWafRegionalRuleDetails,
+
+    -- ** AwsWafRegionalRuleGroupDetails
+    AwsWafRegionalRuleGroupDetails (AwsWafRegionalRuleGroupDetails'),
+    newAwsWafRegionalRuleGroupDetails,
+
+    -- ** AwsWafRegionalRuleGroupRulesActionDetails
+    AwsWafRegionalRuleGroupRulesActionDetails (AwsWafRegionalRuleGroupRulesActionDetails'),
+    newAwsWafRegionalRuleGroupRulesActionDetails,
+
+    -- ** AwsWafRegionalRuleGroupRulesDetails
+    AwsWafRegionalRuleGroupRulesDetails (AwsWafRegionalRuleGroupRulesDetails'),
+    newAwsWafRegionalRuleGroupRulesDetails,
+
+    -- ** AwsWafRegionalRulePredicateListDetails
+    AwsWafRegionalRulePredicateListDetails (AwsWafRegionalRulePredicateListDetails'),
+    newAwsWafRegionalRulePredicateListDetails,
+
+    -- ** AwsWafRegionalWebAclDetails
+    AwsWafRegionalWebAclDetails (AwsWafRegionalWebAclDetails'),
+    newAwsWafRegionalWebAclDetails,
+
+    -- ** AwsWafRegionalWebAclRulesListActionDetails
+    AwsWafRegionalWebAclRulesListActionDetails (AwsWafRegionalWebAclRulesListActionDetails'),
+    newAwsWafRegionalWebAclRulesListActionDetails,
+
+    -- ** AwsWafRegionalWebAclRulesListDetails
+    AwsWafRegionalWebAclRulesListDetails (AwsWafRegionalWebAclRulesListDetails'),
+    newAwsWafRegionalWebAclRulesListDetails,
+
+    -- ** AwsWafRegionalWebAclRulesListOverrideActionDetails
+    AwsWafRegionalWebAclRulesListOverrideActionDetails (AwsWafRegionalWebAclRulesListOverrideActionDetails'),
+    newAwsWafRegionalWebAclRulesListOverrideActionDetails,
+
+    -- ** AwsWafRuleDetails
+    AwsWafRuleDetails (AwsWafRuleDetails'),
+    newAwsWafRuleDetails,
+
+    -- ** AwsWafRuleGroupDetails
+    AwsWafRuleGroupDetails (AwsWafRuleGroupDetails'),
+    newAwsWafRuleGroupDetails,
+
+    -- ** AwsWafRuleGroupRulesActionDetails
+    AwsWafRuleGroupRulesActionDetails (AwsWafRuleGroupRulesActionDetails'),
+    newAwsWafRuleGroupRulesActionDetails,
+
+    -- ** AwsWafRuleGroupRulesDetails
+    AwsWafRuleGroupRulesDetails (AwsWafRuleGroupRulesDetails'),
+    newAwsWafRuleGroupRulesDetails,
+
+    -- ** AwsWafRulePredicateListDetails
+    AwsWafRulePredicateListDetails (AwsWafRulePredicateListDetails'),
+    newAwsWafRulePredicateListDetails,
+
     -- ** AwsWafWebAclDetails
     AwsWafWebAclDetails (AwsWafWebAclDetails'),
     newAwsWafWebAclDetails,
@@ -1695,6 +1983,10 @@ module Amazonka.SecurityHub
     -- ** BatchUpdateFindingsUnprocessedFinding
     BatchUpdateFindingsUnprocessedFinding (BatchUpdateFindingsUnprocessedFinding'),
     newBatchUpdateFindingsUnprocessedFinding,
+
+    -- ** BooleanFilter
+    BooleanFilter (BooleanFilter'),
+    newBooleanFilter,
 
     -- ** Cell
     Cell (Cell'),
@@ -1756,6 +2048,10 @@ module Amazonka.SecurityHub
     DnsRequestAction (DnsRequestAction'),
     newDnsRequestAction,
 
+    -- ** FilePaths
+    FilePaths (FilePaths'),
+    newFilePaths,
+
     -- ** FindingAggregator
     FindingAggregator (FindingAggregator'),
     newFindingAggregator,
@@ -1767,6 +2063,22 @@ module Amazonka.SecurityHub
     -- ** FindingProviderSeverity
     FindingProviderSeverity (FindingProviderSeverity'),
     newFindingProviderSeverity,
+
+    -- ** FirewallPolicyDetails
+    FirewallPolicyDetails (FirewallPolicyDetails'),
+    newFirewallPolicyDetails,
+
+    -- ** FirewallPolicyStatefulRuleGroupReferencesDetails
+    FirewallPolicyStatefulRuleGroupReferencesDetails (FirewallPolicyStatefulRuleGroupReferencesDetails'),
+    newFirewallPolicyStatefulRuleGroupReferencesDetails,
+
+    -- ** FirewallPolicyStatelessCustomActionsDetails
+    FirewallPolicyStatelessCustomActionsDetails (FirewallPolicyStatelessCustomActionsDetails'),
+    newFirewallPolicyStatelessCustomActionsDetails,
+
+    -- ** FirewallPolicyStatelessRuleGroupReferencesDetails
+    FirewallPolicyStatelessRuleGroupReferencesDetails (FirewallPolicyStatelessRuleGroupReferencesDetails'),
+    newFirewallPolicyStatelessRuleGroupReferencesDetails,
 
     -- ** GeoLocation
     GeoLocation (GeoLocation'),
@@ -1928,6 +2240,82 @@ module Amazonka.SecurityHub
     Result (Result'),
     newResult,
 
+    -- ** RuleGroupDetails
+    RuleGroupDetails (RuleGroupDetails'),
+    newRuleGroupDetails,
+
+    -- ** RuleGroupSource
+    RuleGroupSource (RuleGroupSource'),
+    newRuleGroupSource,
+
+    -- ** RuleGroupSourceCustomActionsDetails
+    RuleGroupSourceCustomActionsDetails (RuleGroupSourceCustomActionsDetails'),
+    newRuleGroupSourceCustomActionsDetails,
+
+    -- ** RuleGroupSourceListDetails
+    RuleGroupSourceListDetails (RuleGroupSourceListDetails'),
+    newRuleGroupSourceListDetails,
+
+    -- ** RuleGroupSourceStatefulRulesDetails
+    RuleGroupSourceStatefulRulesDetails (RuleGroupSourceStatefulRulesDetails'),
+    newRuleGroupSourceStatefulRulesDetails,
+
+    -- ** RuleGroupSourceStatefulRulesHeaderDetails
+    RuleGroupSourceStatefulRulesHeaderDetails (RuleGroupSourceStatefulRulesHeaderDetails'),
+    newRuleGroupSourceStatefulRulesHeaderDetails,
+
+    -- ** RuleGroupSourceStatefulRulesOptionsDetails
+    RuleGroupSourceStatefulRulesOptionsDetails (RuleGroupSourceStatefulRulesOptionsDetails'),
+    newRuleGroupSourceStatefulRulesOptionsDetails,
+
+    -- ** RuleGroupSourceStatelessRuleDefinition
+    RuleGroupSourceStatelessRuleDefinition (RuleGroupSourceStatelessRuleDefinition'),
+    newRuleGroupSourceStatelessRuleDefinition,
+
+    -- ** RuleGroupSourceStatelessRuleMatchAttributes
+    RuleGroupSourceStatelessRuleMatchAttributes (RuleGroupSourceStatelessRuleMatchAttributes'),
+    newRuleGroupSourceStatelessRuleMatchAttributes,
+
+    -- ** RuleGroupSourceStatelessRuleMatchAttributesDestinationPorts
+    RuleGroupSourceStatelessRuleMatchAttributesDestinationPorts (RuleGroupSourceStatelessRuleMatchAttributesDestinationPorts'),
+    newRuleGroupSourceStatelessRuleMatchAttributesDestinationPorts,
+
+    -- ** RuleGroupSourceStatelessRuleMatchAttributesDestinations
+    RuleGroupSourceStatelessRuleMatchAttributesDestinations (RuleGroupSourceStatelessRuleMatchAttributesDestinations'),
+    newRuleGroupSourceStatelessRuleMatchAttributesDestinations,
+
+    -- ** RuleGroupSourceStatelessRuleMatchAttributesSourcePorts
+    RuleGroupSourceStatelessRuleMatchAttributesSourcePorts (RuleGroupSourceStatelessRuleMatchAttributesSourcePorts'),
+    newRuleGroupSourceStatelessRuleMatchAttributesSourcePorts,
+
+    -- ** RuleGroupSourceStatelessRuleMatchAttributesSources
+    RuleGroupSourceStatelessRuleMatchAttributesSources (RuleGroupSourceStatelessRuleMatchAttributesSources'),
+    newRuleGroupSourceStatelessRuleMatchAttributesSources,
+
+    -- ** RuleGroupSourceStatelessRuleMatchAttributesTcpFlags
+    RuleGroupSourceStatelessRuleMatchAttributesTcpFlags (RuleGroupSourceStatelessRuleMatchAttributesTcpFlags'),
+    newRuleGroupSourceStatelessRuleMatchAttributesTcpFlags,
+
+    -- ** RuleGroupSourceStatelessRulesAndCustomActionsDetails
+    RuleGroupSourceStatelessRulesAndCustomActionsDetails (RuleGroupSourceStatelessRulesAndCustomActionsDetails'),
+    newRuleGroupSourceStatelessRulesAndCustomActionsDetails,
+
+    -- ** RuleGroupSourceStatelessRulesDetails
+    RuleGroupSourceStatelessRulesDetails (RuleGroupSourceStatelessRulesDetails'),
+    newRuleGroupSourceStatelessRulesDetails,
+
+    -- ** RuleGroupVariables
+    RuleGroupVariables (RuleGroupVariables'),
+    newRuleGroupVariables,
+
+    -- ** RuleGroupVariablesIpSetsDetails
+    RuleGroupVariablesIpSetsDetails (RuleGroupVariablesIpSetsDetails'),
+    newRuleGroupVariablesIpSetsDetails,
+
+    -- ** RuleGroupVariablesPortSetsDetails
+    RuleGroupVariablesPortSetsDetails (RuleGroupVariablesPortSetsDetails'),
+    newRuleGroupVariablesPortSetsDetails,
+
     -- ** SensitiveDataDetections
     SensitiveDataDetections (SensitiveDataDetections'),
     newSensitiveDataDetections,
@@ -1960,6 +2348,14 @@ module Amazonka.SecurityHub
     StandardsControl (StandardsControl'),
     newStandardsControl,
 
+    -- ** StandardsManagedBy
+    StandardsManagedBy (StandardsManagedBy'),
+    newStandardsManagedBy,
+
+    -- ** StandardsStatusReason
+    StandardsStatusReason (StandardsStatusReason'),
+    newStandardsStatusReason,
+
     -- ** StandardsSubscription
     StandardsSubscription (StandardsSubscription'),
     newStandardsSubscription,
@@ -1967,6 +2363,18 @@ module Amazonka.SecurityHub
     -- ** StandardsSubscriptionRequest
     StandardsSubscriptionRequest (StandardsSubscriptionRequest'),
     newStandardsSubscriptionRequest,
+
+    -- ** StatelessCustomActionDefinition
+    StatelessCustomActionDefinition (StatelessCustomActionDefinition'),
+    newStatelessCustomActionDefinition,
+
+    -- ** StatelessCustomPublishMetricAction
+    StatelessCustomPublishMetricAction (StatelessCustomPublishMetricAction'),
+    newStatelessCustomPublishMetricAction,
+
+    -- ** StatelessCustomPublishMetricActionDimension
+    StatelessCustomPublishMetricActionDimension (StatelessCustomPublishMetricActionDimension'),
+    newStatelessCustomPublishMetricActionDimension,
 
     -- ** StatusReason
     StatusReason (StatusReason'),
@@ -1976,9 +2384,29 @@ module Amazonka.SecurityHub
     StringFilter (StringFilter'),
     newStringFilter,
 
+    -- ** Threat
+    Threat (Threat'),
+    newThreat,
+
     -- ** ThreatIntelIndicator
     ThreatIntelIndicator (ThreatIntelIndicator'),
     newThreatIntelIndicator,
+
+    -- ** VolumeMount
+    VolumeMount (VolumeMount'),
+    newVolumeMount,
+
+    -- ** VpcInfoCidrBlockSetDetails
+    VpcInfoCidrBlockSetDetails (VpcInfoCidrBlockSetDetails'),
+    newVpcInfoCidrBlockSetDetails,
+
+    -- ** VpcInfoIpv6CidrBlockSetDetails
+    VpcInfoIpv6CidrBlockSetDetails (VpcInfoIpv6CidrBlockSetDetails'),
+    newVpcInfoIpv6CidrBlockSetDetails,
+
+    -- ** VpcInfoPeeringOptionsDetails
+    VpcInfoPeeringOptionsDetails (VpcInfoPeeringOptionsDetails'),
+    newVpcInfoPeeringOptionsDetails,
 
     -- ** Vulnerability
     Vulnerability (Vulnerability'),

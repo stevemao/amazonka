@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.DeleteSnapshotCopyGrant
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,7 +36,8 @@ module Amazonka.Redshift.DeleteSnapshotCopyGrant
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -78,7 +79,8 @@ instance Core.AWSRequest DeleteSnapshotCopyGrant where
   type
     AWSResponse DeleteSnapshotCopyGrant =
       DeleteSnapshotCopyGrantResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       DeleteSnapshotCopyGrantResponse'
@@ -91,21 +93,21 @@ instance Prelude.NFData DeleteSnapshotCopyGrant where
   rnf DeleteSnapshotCopyGrant' {..} =
     Prelude.rnf snapshotCopyGrantName
 
-instance Core.ToHeaders DeleteSnapshotCopyGrant where
+instance Data.ToHeaders DeleteSnapshotCopyGrant where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteSnapshotCopyGrant where
+instance Data.ToPath DeleteSnapshotCopyGrant where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteSnapshotCopyGrant where
+instance Data.ToQuery DeleteSnapshotCopyGrant where
   toQuery DeleteSnapshotCopyGrant' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteSnapshotCopyGrant" :: Prelude.ByteString),
+          Data.=: ("DeleteSnapshotCopyGrant" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
         "SnapshotCopyGrantName"
-          Core.=: snapshotCopyGrantName
+          Data.=: snapshotCopyGrantName
       ]
 
 -- | /See:/ 'newDeleteSnapshotCopyGrantResponse' smart constructor.

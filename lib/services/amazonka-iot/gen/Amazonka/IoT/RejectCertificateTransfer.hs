@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.RejectCertificateTransfer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,8 +50,9 @@ module Amazonka.IoT.RejectCertificateTransfer
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -104,7 +105,8 @@ instance Core.AWSRequest RejectCertificateTransfer where
   type
     AWSResponse RejectCertificateTransfer =
       RejectCertificateTransferResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveNull
       RejectCertificateTransferResponse'
@@ -119,24 +121,24 @@ instance Prelude.NFData RejectCertificateTransfer where
     Prelude.rnf rejectReason
       `Prelude.seq` Prelude.rnf certificateId
 
-instance Core.ToHeaders RejectCertificateTransfer where
+instance Data.ToHeaders RejectCertificateTransfer where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON RejectCertificateTransfer where
+instance Data.ToJSON RejectCertificateTransfer where
   toJSON RejectCertificateTransfer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("rejectReason" Core..=) Prelude.<$> rejectReason]
+          [("rejectReason" Data..=) Prelude.<$> rejectReason]
       )
 
-instance Core.ToPath RejectCertificateTransfer where
+instance Data.ToPath RejectCertificateTransfer where
   toPath RejectCertificateTransfer' {..} =
     Prelude.mconcat
       [ "/reject-certificate-transfer/",
-        Core.toBS certificateId
+        Data.toBS certificateId
       ]
 
-instance Core.ToQuery RejectCertificateTransfer where
+instance Data.ToQuery RejectCertificateTransfer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRejectCertificateTransferResponse' smart constructor.

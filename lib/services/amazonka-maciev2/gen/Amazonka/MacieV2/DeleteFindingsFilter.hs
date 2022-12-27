@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.DeleteFindingsFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.MacieV2.DeleteFindingsFilter
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -47,8 +48,8 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteFindingsFilter' smart constructor.
 data DeleteFindingsFilter = DeleteFindingsFilter'
-  { -- | The unique identifier for the Amazon Macie resource or account that the
-    -- request applies to.
+  { -- | The unique identifier for the Amazon Macie resource that the request
+    -- applies to.
     id :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -61,8 +62,8 @@ data DeleteFindingsFilter = DeleteFindingsFilter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'id', 'deleteFindingsFilter_id' - The unique identifier for the Amazon Macie resource or account that the
--- request applies to.
+-- 'id', 'deleteFindingsFilter_id' - The unique identifier for the Amazon Macie resource that the request
+-- applies to.
 newDeleteFindingsFilter ::
   -- | 'id'
   Prelude.Text ->
@@ -70,8 +71,8 @@ newDeleteFindingsFilter ::
 newDeleteFindingsFilter pId_ =
   DeleteFindingsFilter' {id = pId_}
 
--- | The unique identifier for the Amazon Macie resource or account that the
--- request applies to.
+-- | The unique identifier for the Amazon Macie resource that the request
+-- applies to.
 deleteFindingsFilter_id :: Lens.Lens' DeleteFindingsFilter Prelude.Text
 deleteFindingsFilter_id = Lens.lens (\DeleteFindingsFilter' {id} -> id) (\s@DeleteFindingsFilter' {} a -> s {id = a} :: DeleteFindingsFilter)
 
@@ -79,7 +80,8 @@ instance Core.AWSRequest DeleteFindingsFilter where
   type
     AWSResponse DeleteFindingsFilter =
       DeleteFindingsFilterResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -94,22 +96,22 @@ instance Prelude.Hashable DeleteFindingsFilter where
 instance Prelude.NFData DeleteFindingsFilter where
   rnf DeleteFindingsFilter' {..} = Prelude.rnf id
 
-instance Core.ToHeaders DeleteFindingsFilter where
+instance Data.ToHeaders DeleteFindingsFilter where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteFindingsFilter where
+instance Data.ToPath DeleteFindingsFilter where
   toPath DeleteFindingsFilter' {..} =
-    Prelude.mconcat ["/findingsfilters/", Core.toBS id]
+    Prelude.mconcat ["/findingsfilters/", Data.toBS id]
 
-instance Core.ToQuery DeleteFindingsFilter where
+instance Data.ToQuery DeleteFindingsFilter where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteFindingsFilterResponse' smart constructor.

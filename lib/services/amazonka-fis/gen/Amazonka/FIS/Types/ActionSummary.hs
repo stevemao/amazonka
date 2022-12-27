@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FIS.Types.ActionSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,22 +20,23 @@
 module Amazonka.FIS.Types.ActionSummary where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FIS.Types.ActionTarget
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides a summary of an action.
 --
 -- /See:/ 'newActionSummary' smart constructor.
 data ActionSummary = ActionSummary'
-  { -- | The targets for the action.
-    targets :: Prelude.Maybe (Prelude.HashMap Prelude.Text ActionTarget),
+  { -- | The description for the action.
+    description :: Prelude.Maybe Prelude.Text,
     -- | The ID of the action.
     id :: Prelude.Maybe Prelude.Text,
-    -- | The description for the action.
-    description :: Prelude.Maybe Prelude.Text,
     -- | The tags for the action.
-    tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text)
+    tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | The targets for the action.
+    targets :: Prelude.Maybe (Prelude.HashMap Prelude.Text ActionTarget)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,61 +48,61 @@ data ActionSummary = ActionSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'targets', 'actionSummary_targets' - The targets for the action.
+-- 'description', 'actionSummary_description' - The description for the action.
 --
 -- 'id', 'actionSummary_id' - The ID of the action.
 --
--- 'description', 'actionSummary_description' - The description for the action.
---
 -- 'tags', 'actionSummary_tags' - The tags for the action.
+--
+-- 'targets', 'actionSummary_targets' - The targets for the action.
 newActionSummary ::
   ActionSummary
 newActionSummary =
   ActionSummary'
-    { targets = Prelude.Nothing,
+    { description = Prelude.Nothing,
       id = Prelude.Nothing,
-      description = Prelude.Nothing,
-      tags = Prelude.Nothing
+      tags = Prelude.Nothing,
+      targets = Prelude.Nothing
     }
-
--- | The targets for the action.
-actionSummary_targets :: Lens.Lens' ActionSummary (Prelude.Maybe (Prelude.HashMap Prelude.Text ActionTarget))
-actionSummary_targets = Lens.lens (\ActionSummary' {targets} -> targets) (\s@ActionSummary' {} a -> s {targets = a} :: ActionSummary) Prelude.. Lens.mapping Lens.coerced
-
--- | The ID of the action.
-actionSummary_id :: Lens.Lens' ActionSummary (Prelude.Maybe Prelude.Text)
-actionSummary_id = Lens.lens (\ActionSummary' {id} -> id) (\s@ActionSummary' {} a -> s {id = a} :: ActionSummary)
 
 -- | The description for the action.
 actionSummary_description :: Lens.Lens' ActionSummary (Prelude.Maybe Prelude.Text)
 actionSummary_description = Lens.lens (\ActionSummary' {description} -> description) (\s@ActionSummary' {} a -> s {description = a} :: ActionSummary)
 
+-- | The ID of the action.
+actionSummary_id :: Lens.Lens' ActionSummary (Prelude.Maybe Prelude.Text)
+actionSummary_id = Lens.lens (\ActionSummary' {id} -> id) (\s@ActionSummary' {} a -> s {id = a} :: ActionSummary)
+
 -- | The tags for the action.
 actionSummary_tags :: Lens.Lens' ActionSummary (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 actionSummary_tags = Lens.lens (\ActionSummary' {tags} -> tags) (\s@ActionSummary' {} a -> s {tags = a} :: ActionSummary) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON ActionSummary where
+-- | The targets for the action.
+actionSummary_targets :: Lens.Lens' ActionSummary (Prelude.Maybe (Prelude.HashMap Prelude.Text ActionTarget))
+actionSummary_targets = Lens.lens (\ActionSummary' {targets} -> targets) (\s@ActionSummary' {} a -> s {targets = a} :: ActionSummary) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON ActionSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ActionSummary"
       ( \x ->
           ActionSummary'
-            Prelude.<$> (x Core..:? "targets" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "id")
-            Prelude.<*> (x Core..:? "description")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "description")
+            Prelude.<*> (x Data..:? "id")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "targets" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable ActionSummary where
   hashWithSalt _salt ActionSummary' {..} =
-    _salt `Prelude.hashWithSalt` targets
+    _salt `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` id
-      `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` targets
 
 instance Prelude.NFData ActionSummary where
   rnf ActionSummary' {..} =
-    Prelude.rnf targets
+    Prelude.rnf description
       `Prelude.seq` Prelude.rnf id
-      `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf targets

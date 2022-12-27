@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.UpdateProvisionedProductProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,16 +37,17 @@ module Amazonka.ServiceCatalog.UpdateProvisionedProductProperties
     newUpdateProvisionedProductPropertiesResponse,
 
     -- * Response Lenses
-    updateProvisionedProductPropertiesResponse_status,
+    updateProvisionedProductPropertiesResponse_provisionedProductId,
     updateProvisionedProductPropertiesResponse_provisionedProductProperties,
     updateProvisionedProductPropertiesResponse_recordId,
-    updateProvisionedProductPropertiesResponse_provisionedProductId,
+    updateProvisionedProductPropertiesResponse_status,
     updateProvisionedProductPropertiesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -74,13 +75,14 @@ data UpdateProvisionedProductProperties = UpdateProvisionedProductProperties'
     -- @ExecuteProvisionedProductServiceAction@. Only a role ARN is valid. A
     -- user ARN is invalid.
     --
-    -- The @OWNER@ key accepts user ARNs and role ARNs. The owner is the user
-    -- that has permission to see, update, terminate, and execute service
-    -- actions in the provisioned product.
+    -- The @OWNER@ key accepts IAM user ARNs, IAM role ARNs, and STS
+    -- assumed-role ARNs. The owner is the user that has permission to see,
+    -- update, terminate, and execute service actions in the provisioned
+    -- product.
     --
     -- The administrator can change the owner of a provisioned product to
-    -- another IAM user within the same account. Both end user owners and
-    -- administrators can see ownership history of the provisioned product
+    -- another IAM or STS entity within the same account. Both end user owners
+    -- and administrators can see ownership history of the provisioned product
     -- using the @ListRecordHistory@ API. The new owner can describe all past
     -- records for the provisioned product using the @DescribeRecord@ API. The
     -- previous owner can no longer use @DescribeRecord@, but can still see the
@@ -127,13 +129,14 @@ data UpdateProvisionedProductProperties = UpdateProvisionedProductProperties'
 -- @ExecuteProvisionedProductServiceAction@. Only a role ARN is valid. A
 -- user ARN is invalid.
 --
--- The @OWNER@ key accepts user ARNs and role ARNs. The owner is the user
--- that has permission to see, update, terminate, and execute service
--- actions in the provisioned product.
+-- The @OWNER@ key accepts IAM user ARNs, IAM role ARNs, and STS
+-- assumed-role ARNs. The owner is the user that has permission to see,
+-- update, terminate, and execute service actions in the provisioned
+-- product.
 --
 -- The administrator can change the owner of a provisioned product to
--- another IAM user within the same account. Both end user owners and
--- administrators can see ownership history of the provisioned product
+-- another IAM or STS entity within the same account. Both end user owners
+-- and administrators can see ownership history of the provisioned product
 -- using the @ListRecordHistory@ API. The new owner can describe all past
 -- records for the provisioned product using the @DescribeRecord@ API. The
 -- previous owner can no longer use @DescribeRecord@, but can still see the
@@ -191,13 +194,14 @@ updateProvisionedProductProperties_provisionedProductId = Lens.lens (\UpdateProv
 -- @ExecuteProvisionedProductServiceAction@. Only a role ARN is valid. A
 -- user ARN is invalid.
 --
--- The @OWNER@ key accepts user ARNs and role ARNs. The owner is the user
--- that has permission to see, update, terminate, and execute service
--- actions in the provisioned product.
+-- The @OWNER@ key accepts IAM user ARNs, IAM role ARNs, and STS
+-- assumed-role ARNs. The owner is the user that has permission to see,
+-- update, terminate, and execute service actions in the provisioned
+-- product.
 --
 -- The administrator can change the owner of a provisioned product to
--- another IAM user within the same account. Both end user owners and
--- administrators can see ownership history of the provisioned product
+-- another IAM or STS entity within the same account. Both end user owners
+-- and administrators can see ownership history of the provisioned product
 -- using the @ListRecordHistory@ API. The new owner can describe all past
 -- records for the provisioned product using the @DescribeRecord@ API. The
 -- previous owner can no longer use @DescribeRecord@, but can still see the
@@ -224,17 +228,18 @@ instance
   type
     AWSResponse UpdateProvisionedProductProperties =
       UpdateProvisionedProductPropertiesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateProvisionedProductPropertiesResponse'
-            Prelude.<$> (x Core..?> "Status")
-              Prelude.<*> ( x Core..?> "ProvisionedProductProperties"
+            Prelude.<$> (x Data..?> "ProvisionedProductId")
+              Prelude.<*> ( x Data..?> "ProvisionedProductProperties"
                               Core..!@ Prelude.mempty
                           )
-              Prelude.<*> (x Core..?> "RecordId")
-              Prelude.<*> (x Core..?> "ProvisionedProductId")
+              Prelude.<*> (x Data..?> "RecordId")
+              Prelude.<*> (x Data..?> "Status")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -261,67 +266,67 @@ instance
       `Prelude.seq` Prelude.rnf idempotencyToken
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateProvisionedProductProperties
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.UpdateProvisionedProductProperties" ::
+              Data.=# ( "AWS242ServiceCatalogService.UpdateProvisionedProductProperties" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     UpdateProvisionedProductProperties
   where
   toJSON UpdateProvisionedProductProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
             Prelude.Just
               ( "ProvisionedProductId"
-                  Core..= provisionedProductId
+                  Data..= provisionedProductId
               ),
             Prelude.Just
               ( "ProvisionedProductProperties"
-                  Core..= provisionedProductProperties
+                  Data..= provisionedProductProperties
               ),
             Prelude.Just
-              ("IdempotencyToken" Core..= idempotencyToken)
+              ("IdempotencyToken" Data..= idempotencyToken)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     UpdateProvisionedProductProperties
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     UpdateProvisionedProductProperties
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateProvisionedProductPropertiesResponse' smart constructor.
 data UpdateProvisionedProductPropertiesResponse = UpdateProvisionedProductPropertiesResponse'
-  { -- | The status of the request.
-    status :: Prelude.Maybe RecordStatus,
+  { -- | The provisioned product identifier.
+    provisionedProductId :: Prelude.Maybe Prelude.Text,
     -- | A map that contains the properties updated.
     provisionedProductProperties :: Prelude.Maybe (Prelude.HashMap PropertyKey Prelude.Text),
     -- | The identifier of the record.
     recordId :: Prelude.Maybe Prelude.Text,
-    -- | The provisioned product identifier.
-    provisionedProductId :: Prelude.Maybe Prelude.Text,
+    -- | The status of the request.
+    status :: Prelude.Maybe RecordStatus,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -335,13 +340,13 @@ data UpdateProvisionedProductPropertiesResponse = UpdateProvisionedProductProper
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'updateProvisionedProductPropertiesResponse_status' - The status of the request.
+-- 'provisionedProductId', 'updateProvisionedProductPropertiesResponse_provisionedProductId' - The provisioned product identifier.
 --
 -- 'provisionedProductProperties', 'updateProvisionedProductPropertiesResponse_provisionedProductProperties' - A map that contains the properties updated.
 --
 -- 'recordId', 'updateProvisionedProductPropertiesResponse_recordId' - The identifier of the record.
 --
--- 'provisionedProductId', 'updateProvisionedProductPropertiesResponse_provisionedProductId' - The provisioned product identifier.
+-- 'status', 'updateProvisionedProductPropertiesResponse_status' - The status of the request.
 --
 -- 'httpStatus', 'updateProvisionedProductPropertiesResponse_httpStatus' - The response's http status code.
 newUpdateProvisionedProductPropertiesResponse ::
@@ -351,19 +356,18 @@ newUpdateProvisionedProductPropertiesResponse ::
 newUpdateProvisionedProductPropertiesResponse
   pHttpStatus_ =
     UpdateProvisionedProductPropertiesResponse'
-      { status =
+      { provisionedProductId =
           Prelude.Nothing,
         provisionedProductProperties =
           Prelude.Nothing,
         recordId = Prelude.Nothing,
-        provisionedProductId =
-          Prelude.Nothing,
+        status = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
 
--- | The status of the request.
-updateProvisionedProductPropertiesResponse_status :: Lens.Lens' UpdateProvisionedProductPropertiesResponse (Prelude.Maybe RecordStatus)
-updateProvisionedProductPropertiesResponse_status = Lens.lens (\UpdateProvisionedProductPropertiesResponse' {status} -> status) (\s@UpdateProvisionedProductPropertiesResponse' {} a -> s {status = a} :: UpdateProvisionedProductPropertiesResponse)
+-- | The provisioned product identifier.
+updateProvisionedProductPropertiesResponse_provisionedProductId :: Lens.Lens' UpdateProvisionedProductPropertiesResponse (Prelude.Maybe Prelude.Text)
+updateProvisionedProductPropertiesResponse_provisionedProductId = Lens.lens (\UpdateProvisionedProductPropertiesResponse' {provisionedProductId} -> provisionedProductId) (\s@UpdateProvisionedProductPropertiesResponse' {} a -> s {provisionedProductId = a} :: UpdateProvisionedProductPropertiesResponse)
 
 -- | A map that contains the properties updated.
 updateProvisionedProductPropertiesResponse_provisionedProductProperties :: Lens.Lens' UpdateProvisionedProductPropertiesResponse (Prelude.Maybe (Prelude.HashMap PropertyKey Prelude.Text))
@@ -373,9 +377,9 @@ updateProvisionedProductPropertiesResponse_provisionedProductProperties = Lens.l
 updateProvisionedProductPropertiesResponse_recordId :: Lens.Lens' UpdateProvisionedProductPropertiesResponse (Prelude.Maybe Prelude.Text)
 updateProvisionedProductPropertiesResponse_recordId = Lens.lens (\UpdateProvisionedProductPropertiesResponse' {recordId} -> recordId) (\s@UpdateProvisionedProductPropertiesResponse' {} a -> s {recordId = a} :: UpdateProvisionedProductPropertiesResponse)
 
--- | The provisioned product identifier.
-updateProvisionedProductPropertiesResponse_provisionedProductId :: Lens.Lens' UpdateProvisionedProductPropertiesResponse (Prelude.Maybe Prelude.Text)
-updateProvisionedProductPropertiesResponse_provisionedProductId = Lens.lens (\UpdateProvisionedProductPropertiesResponse' {provisionedProductId} -> provisionedProductId) (\s@UpdateProvisionedProductPropertiesResponse' {} a -> s {provisionedProductId = a} :: UpdateProvisionedProductPropertiesResponse)
+-- | The status of the request.
+updateProvisionedProductPropertiesResponse_status :: Lens.Lens' UpdateProvisionedProductPropertiesResponse (Prelude.Maybe RecordStatus)
+updateProvisionedProductPropertiesResponse_status = Lens.lens (\UpdateProvisionedProductPropertiesResponse' {status} -> status) (\s@UpdateProvisionedProductPropertiesResponse' {} a -> s {status = a} :: UpdateProvisionedProductPropertiesResponse)
 
 -- | The response's http status code.
 updateProvisionedProductPropertiesResponse_httpStatus :: Lens.Lens' UpdateProvisionedProductPropertiesResponse Prelude.Int
@@ -386,8 +390,8 @@ instance
     UpdateProvisionedProductPropertiesResponse
   where
   rnf UpdateProvisionedProductPropertiesResponse' {..} =
-    Prelude.rnf status
+    Prelude.rnf provisionedProductId
       `Prelude.seq` Prelude.rnf provisionedProductProperties
       `Prelude.seq` Prelude.rnf recordId
-      `Prelude.seq` Prelude.rnf provisionedProductId
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf httpStatus

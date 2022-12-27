@@ -14,15 +14,15 @@
 
 -- |
 -- Module      : Amazonka.IoT.AttachThingPrincipal
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Attaches the specified principal to the specified thing. A principal can
--- be X.509 certificates, IAM users, groups, and roles, Amazon Cognito
--- identities or federated identities.
+-- be X.509 certificates, Amazon Cognito identities or federated
+-- identities.
 --
 -- Requires permission to access the
 -- <https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions AttachThingPrincipal>
@@ -46,8 +46,9 @@ module Amazonka.IoT.AttachThingPrincipal
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -101,7 +102,8 @@ instance Core.AWSRequest AttachThingPrincipal where
   type
     AWSResponse AttachThingPrincipal =
       AttachThingPrincipalResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -119,20 +121,20 @@ instance Prelude.NFData AttachThingPrincipal where
     Prelude.rnf thingName
       `Prelude.seq` Prelude.rnf principal
 
-instance Core.ToHeaders AttachThingPrincipal where
+instance Data.ToHeaders AttachThingPrincipal where
   toHeaders AttachThingPrincipal' {..} =
     Prelude.mconcat
-      ["x-amzn-principal" Core.=# principal]
+      ["x-amzn-principal" Data.=# principal]
 
-instance Core.ToJSON AttachThingPrincipal where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON AttachThingPrincipal where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath AttachThingPrincipal where
+instance Data.ToPath AttachThingPrincipal where
   toPath AttachThingPrincipal' {..} =
     Prelude.mconcat
-      ["/things/", Core.toBS thingName, "/principals"]
+      ["/things/", Data.toBS thingName, "/principals"]
 
-instance Core.ToQuery AttachThingPrincipal where
+instance Data.ToQuery AttachThingPrincipal where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The output from the AttachThingPrincipal operation.

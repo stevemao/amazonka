@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.Types.NewLaunchProfileMember
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.Nimble.Types.NewLaunchProfileMember where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types.LaunchProfilePersona
 import qualified Amazonka.Prelude as Prelude
 
--- |
+-- | A new member that is added to a launch profile.
 --
 -- /See:/ 'newNewLaunchProfileMember' smart constructor.
 data NewLaunchProfileMember = NewLaunchProfileMember'
@@ -76,11 +77,11 @@ instance Prelude.NFData NewLaunchProfileMember where
     Prelude.rnf persona
       `Prelude.seq` Prelude.rnf principalId
 
-instance Core.ToJSON NewLaunchProfileMember where
+instance Data.ToJSON NewLaunchProfileMember where
   toJSON NewLaunchProfileMember' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("persona" Core..= persona),
-            Prelude.Just ("principalId" Core..= principalId)
+          [ Prelude.Just ("persona" Data..= persona),
+            Prelude.Just ("principalId" Data..= principalId)
           ]
       )

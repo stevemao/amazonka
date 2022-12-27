@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Batch.Types.Tmpfs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.Batch.Types.Tmpfs where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The container path, mount options, and size of the tmpfs mount.
+-- | The container path, mount options, and size of the @tmpfs@ mount.
 --
 -- This object isn\'t applicable to jobs that are running on Fargate
 -- resources.
 --
 -- /See:/ 'newTmpfs' smart constructor.
 data Tmpfs = Tmpfs'
-  { -- | The list of tmpfs volume mount options.
+  { -- | The list of @tmpfs@ volume mount options.
     --
     -- Valid values: \"@defaults@\" | \"@ro@\" | \"@rw@\" | \"@suid@\" |
     -- \"@nosuid@\" | \"@dev@\" | \"@nodev@\" | \"@exec@\" | \"@noexec@\" |
@@ -42,10 +43,10 @@ data Tmpfs = Tmpfs'
     -- \"@mode@\" | \"@uid@\" | \"@gid@\" | \"@nr_inodes@\" | \"@nr_blocks@\" |
     -- \"@mpol@\"
     mountOptions :: Prelude.Maybe [Prelude.Text],
-    -- | The absolute file path in the container where the tmpfs volume is
+    -- | The absolute file path in the container where the @tmpfs@ volume is
     -- mounted.
     containerPath :: Prelude.Text,
-    -- | The size (in MiB) of the tmpfs volume.
+    -- | The size (in MiB) of the @tmpfs@ volume.
     size :: Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -58,7 +59,7 @@ data Tmpfs = Tmpfs'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'mountOptions', 'tmpfs_mountOptions' - The list of tmpfs volume mount options.
+-- 'mountOptions', 'tmpfs_mountOptions' - The list of @tmpfs@ volume mount options.
 --
 -- Valid values: \"@defaults@\" | \"@ro@\" | \"@rw@\" | \"@suid@\" |
 -- \"@nosuid@\" | \"@dev@\" | \"@nodev@\" | \"@exec@\" | \"@noexec@\" |
@@ -70,10 +71,10 @@ data Tmpfs = Tmpfs'
 -- \"@mode@\" | \"@uid@\" | \"@gid@\" | \"@nr_inodes@\" | \"@nr_blocks@\" |
 -- \"@mpol@\"
 --
--- 'containerPath', 'tmpfs_containerPath' - The absolute file path in the container where the tmpfs volume is
+-- 'containerPath', 'tmpfs_containerPath' - The absolute file path in the container where the @tmpfs@ volume is
 -- mounted.
 --
--- 'size', 'tmpfs_size' - The size (in MiB) of the tmpfs volume.
+-- 'size', 'tmpfs_size' - The size (in MiB) of the @tmpfs@ volume.
 newTmpfs ::
   -- | 'containerPath'
   Prelude.Text ->
@@ -87,7 +88,7 @@ newTmpfs pContainerPath_ pSize_ =
       size = pSize_
     }
 
--- | The list of tmpfs volume mount options.
+-- | The list of @tmpfs@ volume mount options.
 --
 -- Valid values: \"@defaults@\" | \"@ro@\" | \"@rw@\" | \"@suid@\" |
 -- \"@nosuid@\" | \"@dev@\" | \"@nodev@\" | \"@exec@\" | \"@noexec@\" |
@@ -101,24 +102,24 @@ newTmpfs pContainerPath_ pSize_ =
 tmpfs_mountOptions :: Lens.Lens' Tmpfs (Prelude.Maybe [Prelude.Text])
 tmpfs_mountOptions = Lens.lens (\Tmpfs' {mountOptions} -> mountOptions) (\s@Tmpfs' {} a -> s {mountOptions = a} :: Tmpfs) Prelude.. Lens.mapping Lens.coerced
 
--- | The absolute file path in the container where the tmpfs volume is
+-- | The absolute file path in the container where the @tmpfs@ volume is
 -- mounted.
 tmpfs_containerPath :: Lens.Lens' Tmpfs Prelude.Text
 tmpfs_containerPath = Lens.lens (\Tmpfs' {containerPath} -> containerPath) (\s@Tmpfs' {} a -> s {containerPath = a} :: Tmpfs)
 
--- | The size (in MiB) of the tmpfs volume.
+-- | The size (in MiB) of the @tmpfs@ volume.
 tmpfs_size :: Lens.Lens' Tmpfs Prelude.Int
 tmpfs_size = Lens.lens (\Tmpfs' {size} -> size) (\s@Tmpfs' {} a -> s {size = a} :: Tmpfs)
 
-instance Core.FromJSON Tmpfs where
+instance Data.FromJSON Tmpfs where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Tmpfs"
       ( \x ->
           Tmpfs'
-            Prelude.<$> (x Core..:? "mountOptions" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "containerPath")
-            Prelude.<*> (x Core..: "size")
+            Prelude.<$> (x Data..:? "mountOptions" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "containerPath")
+            Prelude.<*> (x Data..: "size")
       )
 
 instance Prelude.Hashable Tmpfs where
@@ -133,12 +134,12 @@ instance Prelude.NFData Tmpfs where
       `Prelude.seq` Prelude.rnf containerPath
       `Prelude.seq` Prelude.rnf size
 
-instance Core.ToJSON Tmpfs where
+instance Data.ToJSON Tmpfs where
   toJSON Tmpfs' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("mountOptions" Core..=) Prelude.<$> mountOptions,
-            Prelude.Just ("containerPath" Core..= containerPath),
-            Prelude.Just ("size" Core..= size)
+          [ ("mountOptions" Data..=) Prelude.<$> mountOptions,
+            Prelude.Just ("containerPath" Data..= containerPath),
+            Prelude.Just ("size" Data..= size)
           ]
       )

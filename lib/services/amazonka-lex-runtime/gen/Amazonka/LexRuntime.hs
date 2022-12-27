@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.LexRuntime
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,17 +30,29 @@ module Amazonka.LexRuntime
     -- * Errors
     -- $errors
 
-    -- ** NotAcceptableException
-    _NotAcceptableException,
+    -- ** BadGatewayException
+    _BadGatewayException,
+
+    -- ** BadRequestException
+    _BadRequestException,
+
+    -- ** ConflictException
+    _ConflictException,
 
     -- ** DependencyFailedException
     _DependencyFailedException,
 
-    -- ** UnsupportedMediaTypeException
-    _UnsupportedMediaTypeException,
+    -- ** InternalFailureException
+    _InternalFailureException,
 
-    -- ** ConflictException
-    _ConflictException,
+    -- ** LimitExceededException
+    _LimitExceededException,
+
+    -- ** LoopDetectedException
+    _LoopDetectedException,
+
+    -- ** NotAcceptableException
+    _NotAcceptableException,
 
     -- ** NotFoundException
     _NotFoundException,
@@ -48,20 +60,8 @@ module Amazonka.LexRuntime
     -- ** RequestTimeoutException
     _RequestTimeoutException,
 
-    -- ** LoopDetectedException
-    _LoopDetectedException,
-
-    -- ** InternalFailureException
-    _InternalFailureException,
-
-    -- ** BadGatewayException
-    _BadGatewayException,
-
-    -- ** BadRequestException
-    _BadRequestException,
-
-    -- ** LimitExceededException
-    _LimitExceededException,
+    -- ** UnsupportedMediaTypeException
+    _UnsupportedMediaTypeException,
 
     -- * Waiters
     -- $waiters
@@ -69,23 +69,17 @@ module Amazonka.LexRuntime
     -- * Operations
     -- $operations
 
-    -- ** PutSession
-    PutSession (PutSession'),
-    newPutSession,
-    PutSessionResponse (PutSessionResponse'),
-    newPutSessionResponse,
-
     -- ** DeleteSession
     DeleteSession (DeleteSession'),
     newDeleteSession,
     DeleteSessionResponse (DeleteSessionResponse'),
     newDeleteSessionResponse,
 
-    -- ** PostText
-    PostText (PostText'),
-    newPostText,
-    PostTextResponse (PostTextResponse'),
-    newPostTextResponse,
+    -- ** GetSession
+    GetSession (GetSession'),
+    newGetSession,
+    GetSessionResponse (GetSessionResponse'),
+    newGetSessionResponse,
 
     -- ** PostContent
     PostContent (PostContent'),
@@ -93,11 +87,17 @@ module Amazonka.LexRuntime
     PostContentResponse (PostContentResponse'),
     newPostContentResponse,
 
-    -- ** GetSession
-    GetSession (GetSession'),
-    newGetSession,
-    GetSessionResponse (GetSessionResponse'),
-    newGetSessionResponse,
+    -- ** PostText
+    PostText (PostText'),
+    newPostText,
+    PostTextResponse (PostTextResponse'),
+    newPostTextResponse,
+
+    -- ** PutSession
+    PutSession (PutSession'),
+    newPutSession,
+    PutSessionResponse (PutSessionResponse'),
+    newPutSessionResponse,
 
     -- * Types
 

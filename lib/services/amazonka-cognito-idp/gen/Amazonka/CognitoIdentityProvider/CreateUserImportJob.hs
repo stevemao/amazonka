@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.CreateUserImportJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,8 +58,8 @@ data CreateUserImportJob = CreateUserImportJob'
     -- | The user pool ID for the user pool that the users are being imported
     -- into.
     userPoolId :: Prelude.Text,
-    -- | The role ARN for the Amazon CloudWatch Logging role for the user import
-    -- job.
+    -- | The role ARN for the Amazon CloudWatch Logs Logging role for the user
+    -- import job.
     cloudWatchLogsRoleArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -76,8 +77,8 @@ data CreateUserImportJob = CreateUserImportJob'
 -- 'userPoolId', 'createUserImportJob_userPoolId' - The user pool ID for the user pool that the users are being imported
 -- into.
 --
--- 'cloudWatchLogsRoleArn', 'createUserImportJob_cloudWatchLogsRoleArn' - The role ARN for the Amazon CloudWatch Logging role for the user import
--- job.
+-- 'cloudWatchLogsRoleArn', 'createUserImportJob_cloudWatchLogsRoleArn' - The role ARN for the Amazon CloudWatch Logs Logging role for the user
+-- import job.
 newCreateUserImportJob ::
   -- | 'jobName'
   Prelude.Text ->
@@ -105,8 +106,8 @@ createUserImportJob_jobName = Lens.lens (\CreateUserImportJob' {jobName} -> jobN
 createUserImportJob_userPoolId :: Lens.Lens' CreateUserImportJob Prelude.Text
 createUserImportJob_userPoolId = Lens.lens (\CreateUserImportJob' {userPoolId} -> userPoolId) (\s@CreateUserImportJob' {} a -> s {userPoolId = a} :: CreateUserImportJob)
 
--- | The role ARN for the Amazon CloudWatch Logging role for the user import
--- job.
+-- | The role ARN for the Amazon CloudWatch Logs Logging role for the user
+-- import job.
 createUserImportJob_cloudWatchLogsRoleArn :: Lens.Lens' CreateUserImportJob Prelude.Text
 createUserImportJob_cloudWatchLogsRoleArn = Lens.lens (\CreateUserImportJob' {cloudWatchLogsRoleArn} -> cloudWatchLogsRoleArn) (\s@CreateUserImportJob' {} a -> s {cloudWatchLogsRoleArn = a} :: CreateUserImportJob)
 
@@ -114,12 +115,13 @@ instance Core.AWSRequest CreateUserImportJob where
   type
     AWSResponse CreateUserImportJob =
       CreateUserImportJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateUserImportJobResponse'
-            Prelude.<$> (x Core..?> "UserImportJob")
+            Prelude.<$> (x Data..?> "UserImportJob")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -135,38 +137,38 @@ instance Prelude.NFData CreateUserImportJob where
       `Prelude.seq` Prelude.rnf userPoolId
       `Prelude.seq` Prelude.rnf cloudWatchLogsRoleArn
 
-instance Core.ToHeaders CreateUserImportJob where
+instance Data.ToHeaders CreateUserImportJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.CreateUserImportJob" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.CreateUserImportJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateUserImportJob where
+instance Data.ToJSON CreateUserImportJob where
   toJSON CreateUserImportJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("JobName" Core..= jobName),
-            Prelude.Just ("UserPoolId" Core..= userPoolId),
+          [ Prelude.Just ("JobName" Data..= jobName),
+            Prelude.Just ("UserPoolId" Data..= userPoolId),
             Prelude.Just
               ( "CloudWatchLogsRoleArn"
-                  Core..= cloudWatchLogsRoleArn
+                  Data..= cloudWatchLogsRoleArn
               )
           ]
       )
 
-instance Core.ToPath CreateUserImportJob where
+instance Data.ToPath CreateUserImportJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateUserImportJob where
+instance Data.ToQuery CreateUserImportJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the response from the server to the request to create the

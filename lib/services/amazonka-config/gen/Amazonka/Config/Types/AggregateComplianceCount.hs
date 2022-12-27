@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Config.Types.AggregateComplianceCount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Config.Types.AggregateComplianceCount where
 
 import Amazonka.Config.Types.ComplianceSummary
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Returns the number of compliant and noncompliant rules for one or more
@@ -29,10 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAggregateComplianceCount' smart constructor.
 data AggregateComplianceCount = AggregateComplianceCount'
-  { -- | The 12-digit account ID or region based on the GroupByKey value.
-    groupName :: Prelude.Maybe Prelude.Text,
-    -- | The number of compliant and noncompliant Config rules.
-    complianceSummary :: Prelude.Maybe ComplianceSummary
+  { -- | The number of compliant and noncompliant Config rules.
+    complianceSummary :: Prelude.Maybe ComplianceSummary,
+    -- | The 12-digit account ID or region based on the GroupByKey value.
+    groupName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,42 +45,42 @@ data AggregateComplianceCount = AggregateComplianceCount'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'groupName', 'aggregateComplianceCount_groupName' - The 12-digit account ID or region based on the GroupByKey value.
---
 -- 'complianceSummary', 'aggregateComplianceCount_complianceSummary' - The number of compliant and noncompliant Config rules.
+--
+-- 'groupName', 'aggregateComplianceCount_groupName' - The 12-digit account ID or region based on the GroupByKey value.
 newAggregateComplianceCount ::
   AggregateComplianceCount
 newAggregateComplianceCount =
   AggregateComplianceCount'
-    { groupName =
+    { complianceSummary =
         Prelude.Nothing,
-      complianceSummary = Prelude.Nothing
+      groupName = Prelude.Nothing
     }
-
--- | The 12-digit account ID or region based on the GroupByKey value.
-aggregateComplianceCount_groupName :: Lens.Lens' AggregateComplianceCount (Prelude.Maybe Prelude.Text)
-aggregateComplianceCount_groupName = Lens.lens (\AggregateComplianceCount' {groupName} -> groupName) (\s@AggregateComplianceCount' {} a -> s {groupName = a} :: AggregateComplianceCount)
 
 -- | The number of compliant and noncompliant Config rules.
 aggregateComplianceCount_complianceSummary :: Lens.Lens' AggregateComplianceCount (Prelude.Maybe ComplianceSummary)
 aggregateComplianceCount_complianceSummary = Lens.lens (\AggregateComplianceCount' {complianceSummary} -> complianceSummary) (\s@AggregateComplianceCount' {} a -> s {complianceSummary = a} :: AggregateComplianceCount)
 
-instance Core.FromJSON AggregateComplianceCount where
+-- | The 12-digit account ID or region based on the GroupByKey value.
+aggregateComplianceCount_groupName :: Lens.Lens' AggregateComplianceCount (Prelude.Maybe Prelude.Text)
+aggregateComplianceCount_groupName = Lens.lens (\AggregateComplianceCount' {groupName} -> groupName) (\s@AggregateComplianceCount' {} a -> s {groupName = a} :: AggregateComplianceCount)
+
+instance Data.FromJSON AggregateComplianceCount where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AggregateComplianceCount"
       ( \x ->
           AggregateComplianceCount'
-            Prelude.<$> (x Core..:? "GroupName")
-            Prelude.<*> (x Core..:? "ComplianceSummary")
+            Prelude.<$> (x Data..:? "ComplianceSummary")
+            Prelude.<*> (x Data..:? "GroupName")
       )
 
 instance Prelude.Hashable AggregateComplianceCount where
   hashWithSalt _salt AggregateComplianceCount' {..} =
-    _salt `Prelude.hashWithSalt` groupName
-      `Prelude.hashWithSalt` complianceSummary
+    _salt `Prelude.hashWithSalt` complianceSummary
+      `Prelude.hashWithSalt` groupName
 
 instance Prelude.NFData AggregateComplianceCount where
   rnf AggregateComplianceCount' {..} =
-    Prelude.rnf groupName
-      `Prelude.seq` Prelude.rnf complianceSummary
+    Prelude.rnf complianceSummary
+      `Prelude.seq` Prelude.rnf groupName

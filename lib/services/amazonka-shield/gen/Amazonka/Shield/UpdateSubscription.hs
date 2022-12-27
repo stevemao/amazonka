@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Shield.UpdateSubscription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,6 +22,10 @@
 --
 -- Updates the details of an existing subscription. Only enter values for
 -- parameters you want to change. Empty parameters are not updated.
+--
+-- For accounts that are members of an Organizations organization, Shield
+-- Advanced subscriptions are billed against the organization\'s payer
+-- account, regardless of whether the payer account itself is subscribed.
 module Amazonka.Shield.UpdateSubscription
   ( -- * Creating a Request
     UpdateSubscription (..),
@@ -40,7 +44,8 @@ module Amazonka.Shield.UpdateSubscription
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,7 +95,8 @@ instance Core.AWSRequest UpdateSubscription where
   type
     AWSResponse UpdateSubscription =
       UpdateSubscriptionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -105,32 +111,32 @@ instance Prelude.Hashable UpdateSubscription where
 instance Prelude.NFData UpdateSubscription where
   rnf UpdateSubscription' {..} = Prelude.rnf autoRenew
 
-instance Core.ToHeaders UpdateSubscription where
+instance Data.ToHeaders UpdateSubscription where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSShield_20160616.UpdateSubscription" ::
+              Data.=# ( "AWSShield_20160616.UpdateSubscription" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateSubscription where
+instance Data.ToJSON UpdateSubscription where
   toJSON UpdateSubscription' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("AutoRenew" Core..=) Prelude.<$> autoRenew]
+          [("AutoRenew" Data..=) Prelude.<$> autoRenew]
       )
 
-instance Core.ToPath UpdateSubscription where
+instance Data.ToPath UpdateSubscription where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateSubscription where
+instance Data.ToQuery UpdateSubscription where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateSubscriptionResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.TagCriterionForJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.TagCriterionForJob where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types.JobComparator
 import Amazonka.MacieV2.Types.TagCriterionPairForJob
 import qualified Amazonka.Prelude as Prelude
@@ -30,12 +31,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newTagCriterionForJob' smart constructor.
 data TagCriterionForJob = TagCriterionForJob'
-  { -- | The tag keys, tag values, or tag key and value pairs to use in the
-    -- condition.
-    tagValues :: Prelude.Maybe [TagCriterionPairForJob],
-    -- | The operator to use in the condition. Valid values are EQ (equals) and
+  { -- | The operator to use in the condition. Valid values are EQ (equals) and
     -- NE (not equals).
-    comparator :: Prelude.Maybe JobComparator
+    comparator :: Prelude.Maybe JobComparator,
+    -- | The tag keys, tag values, or tag key and value pairs to use in the
+    -- condition.
+    tagValues :: Prelude.Maybe [TagCriterionPairForJob]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,54 +48,54 @@ data TagCriterionForJob = TagCriterionForJob'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tagValues', 'tagCriterionForJob_tagValues' - The tag keys, tag values, or tag key and value pairs to use in the
--- condition.
---
 -- 'comparator', 'tagCriterionForJob_comparator' - The operator to use in the condition. Valid values are EQ (equals) and
 -- NE (not equals).
+--
+-- 'tagValues', 'tagCriterionForJob_tagValues' - The tag keys, tag values, or tag key and value pairs to use in the
+-- condition.
 newTagCriterionForJob ::
   TagCriterionForJob
 newTagCriterionForJob =
   TagCriterionForJob'
-    { tagValues = Prelude.Nothing,
-      comparator = Prelude.Nothing
+    { comparator = Prelude.Nothing,
+      tagValues = Prelude.Nothing
     }
-
--- | The tag keys, tag values, or tag key and value pairs to use in the
--- condition.
-tagCriterionForJob_tagValues :: Lens.Lens' TagCriterionForJob (Prelude.Maybe [TagCriterionPairForJob])
-tagCriterionForJob_tagValues = Lens.lens (\TagCriterionForJob' {tagValues} -> tagValues) (\s@TagCriterionForJob' {} a -> s {tagValues = a} :: TagCriterionForJob) Prelude.. Lens.mapping Lens.coerced
 
 -- | The operator to use in the condition. Valid values are EQ (equals) and
 -- NE (not equals).
 tagCriterionForJob_comparator :: Lens.Lens' TagCriterionForJob (Prelude.Maybe JobComparator)
 tagCriterionForJob_comparator = Lens.lens (\TagCriterionForJob' {comparator} -> comparator) (\s@TagCriterionForJob' {} a -> s {comparator = a} :: TagCriterionForJob)
 
-instance Core.FromJSON TagCriterionForJob where
+-- | The tag keys, tag values, or tag key and value pairs to use in the
+-- condition.
+tagCriterionForJob_tagValues :: Lens.Lens' TagCriterionForJob (Prelude.Maybe [TagCriterionPairForJob])
+tagCriterionForJob_tagValues = Lens.lens (\TagCriterionForJob' {tagValues} -> tagValues) (\s@TagCriterionForJob' {} a -> s {tagValues = a} :: TagCriterionForJob) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON TagCriterionForJob where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TagCriterionForJob"
       ( \x ->
           TagCriterionForJob'
-            Prelude.<$> (x Core..:? "tagValues" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "comparator")
+            Prelude.<$> (x Data..:? "comparator")
+            Prelude.<*> (x Data..:? "tagValues" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable TagCriterionForJob where
   hashWithSalt _salt TagCriterionForJob' {..} =
-    _salt `Prelude.hashWithSalt` tagValues
-      `Prelude.hashWithSalt` comparator
+    _salt `Prelude.hashWithSalt` comparator
+      `Prelude.hashWithSalt` tagValues
 
 instance Prelude.NFData TagCriterionForJob where
   rnf TagCriterionForJob' {..} =
-    Prelude.rnf tagValues
-      `Prelude.seq` Prelude.rnf comparator
+    Prelude.rnf comparator
+      `Prelude.seq` Prelude.rnf tagValues
 
-instance Core.ToJSON TagCriterionForJob where
+instance Data.ToJSON TagCriterionForJob where
   toJSON TagCriterionForJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("tagValues" Core..=) Prelude.<$> tagValues,
-            ("comparator" Core..=) Prelude.<$> comparator
+          [ ("comparator" Data..=) Prelude.<$> comparator,
+            ("tagValues" Data..=) Prelude.<$> tagValues
           ]
       )

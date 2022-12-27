@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.Types.UserGroupPendingChanges
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElastiCache.Types.UserGroupPendingChanges where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Returns the updates being applied to the user group.
@@ -62,14 +63,14 @@ userGroupPendingChanges_userIdsToAdd = Lens.lens (\UserGroupPendingChanges' {use
 userGroupPendingChanges_userIdsToRemove :: Lens.Lens' UserGroupPendingChanges (Prelude.Maybe [Prelude.Text])
 userGroupPendingChanges_userIdsToRemove = Lens.lens (\UserGroupPendingChanges' {userIdsToRemove} -> userIdsToRemove) (\s@UserGroupPendingChanges' {} a -> s {userIdsToRemove = a} :: UserGroupPendingChanges) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML UserGroupPendingChanges where
+instance Data.FromXML UserGroupPendingChanges where
   parseXML x =
     UserGroupPendingChanges'
-      Prelude.<$> ( x Core..@? "UserIdsToAdd" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "member")
+      Prelude.<$> ( x Data..@? "UserIdsToAdd" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "member")
                   )
-      Prelude.<*> ( x Core..@? "UserIdsToRemove" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "member")
+      Prelude.<*> ( x Data..@? "UserIdsToRemove" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "member")
                   )
 
 instance Prelude.Hashable UserGroupPendingChanges where

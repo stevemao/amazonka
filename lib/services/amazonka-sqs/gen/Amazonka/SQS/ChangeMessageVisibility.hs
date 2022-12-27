@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SQS.ChangeMessageVisibility
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -94,7 +94,8 @@ module Amazonka.SQS.ChangeMessageVisibility
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -170,7 +171,8 @@ instance Core.AWSRequest ChangeMessageVisibility where
   type
     AWSResponse ChangeMessageVisibility =
       ChangeMessageVisibilityResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       ChangeMessageVisibilityResponse'
@@ -187,22 +189,22 @@ instance Prelude.NFData ChangeMessageVisibility where
       `Prelude.seq` Prelude.rnf receiptHandle
       `Prelude.seq` Prelude.rnf visibilityTimeout
 
-instance Core.ToHeaders ChangeMessageVisibility where
+instance Data.ToHeaders ChangeMessageVisibility where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ChangeMessageVisibility where
+instance Data.ToPath ChangeMessageVisibility where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ChangeMessageVisibility where
+instance Data.ToQuery ChangeMessageVisibility where
   toQuery ChangeMessageVisibility' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ChangeMessageVisibility" :: Prelude.ByteString),
+          Data.=: ("ChangeMessageVisibility" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-11-05" :: Prelude.ByteString),
-        "QueueUrl" Core.=: queueUrl,
-        "ReceiptHandle" Core.=: receiptHandle,
-        "VisibilityTimeout" Core.=: visibilityTimeout
+          Data.=: ("2012-11-05" :: Prelude.ByteString),
+        "QueueUrl" Data.=: queueUrl,
+        "ReceiptHandle" Data.=: receiptHandle,
+        "VisibilityTimeout" Data.=: visibilityTimeout
       ]
 
 -- | /See:/ 'newChangeMessageVisibilityResponse' smart constructor.

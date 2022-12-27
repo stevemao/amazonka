@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStar.DisassociateTeamMember
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.CodeStar.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,7 +101,8 @@ instance Core.AWSRequest DisassociateTeamMember where
   type
     AWSResponse DisassociateTeamMember =
       DisassociateTeamMemberResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -118,34 +120,34 @@ instance Prelude.NFData DisassociateTeamMember where
     Prelude.rnf projectId
       `Prelude.seq` Prelude.rnf userArn
 
-instance Core.ToHeaders DisassociateTeamMember where
+instance Data.ToHeaders DisassociateTeamMember where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeStar_20170419.DisassociateTeamMember" ::
+              Data.=# ( "CodeStar_20170419.DisassociateTeamMember" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisassociateTeamMember where
+instance Data.ToJSON DisassociateTeamMember where
   toJSON DisassociateTeamMember' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("projectId" Core..= projectId),
-            Prelude.Just ("userArn" Core..= userArn)
+          [ Prelude.Just ("projectId" Data..= projectId),
+            Prelude.Just ("userArn" Data..= userArn)
           ]
       )
 
-instance Core.ToPath DisassociateTeamMember where
+instance Data.ToPath DisassociateTeamMember where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisassociateTeamMember where
+instance Data.ToQuery DisassociateTeamMember where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateTeamMemberResponse' smart constructor.

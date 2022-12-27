@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MechanicalTurk.Types.WorkerBlock
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MechanicalTurk.Types.WorkerBlock where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The WorkerBlock data structure represents a Worker who has been blocked.
@@ -62,14 +63,14 @@ workerBlock_reason = Lens.lens (\WorkerBlock' {reason} -> reason) (\s@WorkerBloc
 workerBlock_workerId :: Lens.Lens' WorkerBlock (Prelude.Maybe Prelude.Text)
 workerBlock_workerId = Lens.lens (\WorkerBlock' {workerId} -> workerId) (\s@WorkerBlock' {} a -> s {workerId = a} :: WorkerBlock)
 
-instance Core.FromJSON WorkerBlock where
+instance Data.FromJSON WorkerBlock where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "WorkerBlock"
       ( \x ->
           WorkerBlock'
-            Prelude.<$> (x Core..:? "Reason")
-            Prelude.<*> (x Core..:? "WorkerId")
+            Prelude.<$> (x Data..:? "Reason")
+            Prelude.<*> (x Data..:? "WorkerId")
       )
 
 instance Prelude.Hashable WorkerBlock where

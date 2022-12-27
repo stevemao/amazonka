@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSOAdmin.Types.InstanceMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,21 @@
 module Amazonka.SSOAdmin.Types.InstanceMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Provides information about the SSO instance.
+-- | Provides information about the IAM Identity Center instance.
 --
 -- /See:/ 'newInstanceMetadata' smart constructor.
 data InstanceMetadata = InstanceMetadata'
-  { -- | The identifier of the identity store that is connected to the SSO
-    -- instance.
+  { -- | The identifier of the identity store that is connected to the IAM
+    -- Identity Center instance.
     identityStoreId :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the SSO instance under which the operation will be executed.
-    -- For more information about ARNs, see
-    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
-    -- in the /Amazon Web Services General Reference/.
+    -- | The ARN of the IAM Identity Center instance under which the operation
+    -- will be executed. For more information about ARNs, see
+    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+    -- in the /AWS General Reference/.
     instanceArn :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -46,13 +47,13 @@ data InstanceMetadata = InstanceMetadata'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'identityStoreId', 'instanceMetadata_identityStoreId' - The identifier of the identity store that is connected to the SSO
--- instance.
+-- 'identityStoreId', 'instanceMetadata_identityStoreId' - The identifier of the identity store that is connected to the IAM
+-- Identity Center instance.
 --
--- 'instanceArn', 'instanceMetadata_instanceArn' - The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- 'instanceArn', 'instanceMetadata_instanceArn' - The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 newInstanceMetadata ::
   InstanceMetadata
 newInstanceMetadata =
@@ -62,26 +63,26 @@ newInstanceMetadata =
       instanceArn = Prelude.Nothing
     }
 
--- | The identifier of the identity store that is connected to the SSO
--- instance.
+-- | The identifier of the identity store that is connected to the IAM
+-- Identity Center instance.
 instanceMetadata_identityStoreId :: Lens.Lens' InstanceMetadata (Prelude.Maybe Prelude.Text)
 instanceMetadata_identityStoreId = Lens.lens (\InstanceMetadata' {identityStoreId} -> identityStoreId) (\s@InstanceMetadata' {} a -> s {identityStoreId = a} :: InstanceMetadata)
 
--- | The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- | The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 instanceMetadata_instanceArn :: Lens.Lens' InstanceMetadata (Prelude.Maybe Prelude.Text)
 instanceMetadata_instanceArn = Lens.lens (\InstanceMetadata' {instanceArn} -> instanceArn) (\s@InstanceMetadata' {} a -> s {instanceArn = a} :: InstanceMetadata)
 
-instance Core.FromJSON InstanceMetadata where
+instance Data.FromJSON InstanceMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InstanceMetadata"
       ( \x ->
           InstanceMetadata'
-            Prelude.<$> (x Core..:? "IdentityStoreId")
-            Prelude.<*> (x Core..:? "InstanceArn")
+            Prelude.<$> (x Data..:? "IdentityStoreId")
+            Prelude.<*> (x Data..:? "InstanceArn")
       )
 
 instance Prelude.Hashable InstanceMetadata where

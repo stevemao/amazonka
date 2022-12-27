@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.ListFindings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,9 +30,9 @@ module Amazonka.GuardDuty.ListFindings
 
     -- * Request Lenses
     listFindings_findingCriteria,
-    listFindings_sortCriteria,
-    listFindings_nextToken,
     listFindings_maxResults,
+    listFindings_nextToken,
+    listFindings_sortCriteria,
     listFindings_detectorId,
 
     -- * Destructuring the Response
@@ -47,8 +47,9 @@ module Amazonka.GuardDuty.ListFindings
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -132,8 +133,6 @@ data ListFindings = ListFindings'
     --
     -- -   service.action.networkConnectionAction.protocol
     --
-    -- -   service.action.networkConnectionAction.remoteIpDetails.city.cityName
-    --
     -- -   service.action.networkConnectionAction.remoteIpDetails.country.countryName
     --
     -- -   service.action.networkConnectionAction.remoteIpDetails.ipAddressV4
@@ -163,16 +162,16 @@ data ListFindings = ListFindings'
     --
     --     Type: Timestamp in Unix Epoch millisecond format: 1486685375000
     findingCriteria :: Prelude.Maybe FindingCriteria,
-    -- | Represents the criteria used for sorting findings.
-    sortCriteria :: Prelude.Maybe SortCriteria,
+    -- | You can use this parameter to indicate the maximum number of items you
+    -- want in the response. The default value is 50. The maximum value is 50.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | You can use this parameter when paginating results. Set the value of
     -- this parameter to null on your first call to the list action. For
     -- subsequent calls to the action, fill nextToken in the request with the
     -- value of NextToken from the previous response to continue listing data.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | You can use this parameter to indicate the maximum number of items you
-    -- want in the response. The default value is 50. The maximum value is 50.
-    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Represents the criteria used for sorting findings.
+    sortCriteria :: Prelude.Maybe SortCriteria,
     -- | The ID of the detector that specifies the GuardDuty service whose
     -- findings you want to list.
     detectorId :: Prelude.Text
@@ -264,8 +263,6 @@ data ListFindings = ListFindings'
 --
 -- -   service.action.networkConnectionAction.protocol
 --
--- -   service.action.networkConnectionAction.remoteIpDetails.city.cityName
---
 -- -   service.action.networkConnectionAction.remoteIpDetails.country.countryName
 --
 -- -   service.action.networkConnectionAction.remoteIpDetails.ipAddressV4
@@ -295,15 +292,15 @@ data ListFindings = ListFindings'
 --
 --     Type: Timestamp in Unix Epoch millisecond format: 1486685375000
 --
--- 'sortCriteria', 'listFindings_sortCriteria' - Represents the criteria used for sorting findings.
+-- 'maxResults', 'listFindings_maxResults' - You can use this parameter to indicate the maximum number of items you
+-- want in the response. The default value is 50. The maximum value is 50.
 --
 -- 'nextToken', 'listFindings_nextToken' - You can use this parameter when paginating results. Set the value of
 -- this parameter to null on your first call to the list action. For
 -- subsequent calls to the action, fill nextToken in the request with the
 -- value of NextToken from the previous response to continue listing data.
 --
--- 'maxResults', 'listFindings_maxResults' - You can use this parameter to indicate the maximum number of items you
--- want in the response. The default value is 50. The maximum value is 50.
+-- 'sortCriteria', 'listFindings_sortCriteria' - Represents the criteria used for sorting findings.
 --
 -- 'detectorId', 'listFindings_detectorId' - The ID of the detector that specifies the GuardDuty service whose
 -- findings you want to list.
@@ -314,9 +311,9 @@ newListFindings ::
 newListFindings pDetectorId_ =
   ListFindings'
     { findingCriteria = Prelude.Nothing,
-      sortCriteria = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      sortCriteria = Prelude.Nothing,
       detectorId = pDetectorId_
     }
 
@@ -397,8 +394,6 @@ newListFindings pDetectorId_ =
 --
 -- -   service.action.networkConnectionAction.protocol
 --
--- -   service.action.networkConnectionAction.remoteIpDetails.city.cityName
---
 -- -   service.action.networkConnectionAction.remoteIpDetails.country.countryName
 --
 -- -   service.action.networkConnectionAction.remoteIpDetails.ipAddressV4
@@ -430,9 +425,10 @@ newListFindings pDetectorId_ =
 listFindings_findingCriteria :: Lens.Lens' ListFindings (Prelude.Maybe FindingCriteria)
 listFindings_findingCriteria = Lens.lens (\ListFindings' {findingCriteria} -> findingCriteria) (\s@ListFindings' {} a -> s {findingCriteria = a} :: ListFindings)
 
--- | Represents the criteria used for sorting findings.
-listFindings_sortCriteria :: Lens.Lens' ListFindings (Prelude.Maybe SortCriteria)
-listFindings_sortCriteria = Lens.lens (\ListFindings' {sortCriteria} -> sortCriteria) (\s@ListFindings' {} a -> s {sortCriteria = a} :: ListFindings)
+-- | You can use this parameter to indicate the maximum number of items you
+-- want in the response. The default value is 50. The maximum value is 50.
+listFindings_maxResults :: Lens.Lens' ListFindings (Prelude.Maybe Prelude.Natural)
+listFindings_maxResults = Lens.lens (\ListFindings' {maxResults} -> maxResults) (\s@ListFindings' {} a -> s {maxResults = a} :: ListFindings)
 
 -- | You can use this parameter when paginating results. Set the value of
 -- this parameter to null on your first call to the list action. For
@@ -441,10 +437,9 @@ listFindings_sortCriteria = Lens.lens (\ListFindings' {sortCriteria} -> sortCrit
 listFindings_nextToken :: Lens.Lens' ListFindings (Prelude.Maybe Prelude.Text)
 listFindings_nextToken = Lens.lens (\ListFindings' {nextToken} -> nextToken) (\s@ListFindings' {} a -> s {nextToken = a} :: ListFindings)
 
--- | You can use this parameter to indicate the maximum number of items you
--- want in the response. The default value is 50. The maximum value is 50.
-listFindings_maxResults :: Lens.Lens' ListFindings (Prelude.Maybe Prelude.Natural)
-listFindings_maxResults = Lens.lens (\ListFindings' {maxResults} -> maxResults) (\s@ListFindings' {} a -> s {maxResults = a} :: ListFindings)
+-- | Represents the criteria used for sorting findings.
+listFindings_sortCriteria :: Lens.Lens' ListFindings (Prelude.Maybe SortCriteria)
+listFindings_sortCriteria = Lens.lens (\ListFindings' {sortCriteria} -> sortCriteria) (\s@ListFindings' {} a -> s {sortCriteria = a} :: ListFindings)
 
 -- | The ID of the detector that specifies the GuardDuty service whose
 -- findings you want to list.
@@ -470,61 +465,62 @@ instance Core.AWSPager ListFindings where
 
 instance Core.AWSRequest ListFindings where
   type AWSResponse ListFindings = ListFindingsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListFindingsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "findingIds" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "findingIds" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListFindings where
   hashWithSalt _salt ListFindings' {..} =
     _salt `Prelude.hashWithSalt` findingCriteria
-      `Prelude.hashWithSalt` sortCriteria
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` sortCriteria
       `Prelude.hashWithSalt` detectorId
 
 instance Prelude.NFData ListFindings where
   rnf ListFindings' {..} =
     Prelude.rnf findingCriteria
-      `Prelude.seq` Prelude.rnf sortCriteria
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf sortCriteria
       `Prelude.seq` Prelude.rnf detectorId
 
-instance Core.ToHeaders ListFindings where
+instance Data.ToHeaders ListFindings where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListFindings where
+instance Data.ToJSON ListFindings where
   toJSON ListFindings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("findingCriteria" Core..=)
+          [ ("findingCriteria" Data..=)
               Prelude.<$> findingCriteria,
-            ("sortCriteria" Core..=) Prelude.<$> sortCriteria,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            ("sortCriteria" Data..=) Prelude.<$> sortCriteria
           ]
       )
 
-instance Core.ToPath ListFindings where
+instance Data.ToPath ListFindings where
   toPath ListFindings' {..} =
     Prelude.mconcat
-      ["/detector/", Core.toBS detectorId, "/findings"]
+      ["/detector/", Data.toBS detectorId, "/findings"]
 
-instance Core.ToQuery ListFindings where
+instance Data.ToQuery ListFindings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListFindingsResponse' smart constructor.

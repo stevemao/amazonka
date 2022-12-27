@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudSearch.DescribeDomainEndpointOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.CloudSearch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,13 +108,14 @@ instance
   type
     AWSResponse DescribeDomainEndpointOptions =
       DescribeDomainEndpointOptionsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeDomainEndpointOptionsResult"
       ( \s h x ->
           DescribeDomainEndpointOptionsResponse'
-            Prelude.<$> (x Core..@? "DomainEndpointOptions")
+            Prelude.<$> (x Data..@? "DomainEndpointOptions")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -130,23 +132,23 @@ instance Prelude.NFData DescribeDomainEndpointOptions where
     Prelude.rnf deployed
       `Prelude.seq` Prelude.rnf domainName
 
-instance Core.ToHeaders DescribeDomainEndpointOptions where
+instance Data.ToHeaders DescribeDomainEndpointOptions where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeDomainEndpointOptions where
+instance Data.ToPath DescribeDomainEndpointOptions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeDomainEndpointOptions where
+instance Data.ToQuery DescribeDomainEndpointOptions where
   toQuery DescribeDomainEndpointOptions' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeDomainEndpointOptions" ::
+          Data.=: ( "DescribeDomainEndpointOptions" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2013-01-01" :: Prelude.ByteString),
-        "Deployed" Core.=: deployed,
-        "DomainName" Core.=: domainName
+          Data.=: ("2013-01-01" :: Prelude.ByteString),
+        "Deployed" Data.=: deployed,
+        "DomainName" Data.=: domainName
       ]
 
 -- | The result of a @DescribeDomainEndpointOptions@ request. Contains the

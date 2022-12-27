@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.Types.PullRequestSourceReferenceUpdatedEventMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeCommit.Types.PullRequestSourceReferenceUpdatedEventMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about an update to the source branch of a pull request.
@@ -92,18 +93,18 @@ pullRequestSourceReferenceUpdatedEventMetadata_repositoryName :: Lens.Lens' Pull
 pullRequestSourceReferenceUpdatedEventMetadata_repositoryName = Lens.lens (\PullRequestSourceReferenceUpdatedEventMetadata' {repositoryName} -> repositoryName) (\s@PullRequestSourceReferenceUpdatedEventMetadata' {} a -> s {repositoryName = a} :: PullRequestSourceReferenceUpdatedEventMetadata)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     PullRequestSourceReferenceUpdatedEventMetadata
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PullRequestSourceReferenceUpdatedEventMetadata"
       ( \x ->
           PullRequestSourceReferenceUpdatedEventMetadata'
-            Prelude.<$> (x Core..:? "afterCommitId")
-              Prelude.<*> (x Core..:? "beforeCommitId")
-              Prelude.<*> (x Core..:? "mergeBase")
-              Prelude.<*> (x Core..:? "repositoryName")
+            Prelude.<$> (x Data..:? "afterCommitId")
+              Prelude.<*> (x Data..:? "beforeCommitId")
+              Prelude.<*> (x Data..:? "mergeBase")
+              Prelude.<*> (x Data..:? "repositoryName")
       )
 
 instance

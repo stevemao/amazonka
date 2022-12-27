@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApiGatewayV2.DeleteApiMapping
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ where
 
 import Amazonka.ApiGatewayV2.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -87,7 +88,8 @@ instance Core.AWSRequest DeleteApiMapping where
   type
     AWSResponse DeleteApiMapping =
       DeleteApiMappingResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteApiMappingResponse'
 
@@ -101,27 +103,27 @@ instance Prelude.NFData DeleteApiMapping where
     Prelude.rnf apiMappingId
       `Prelude.seq` Prelude.rnf domainName
 
-instance Core.ToHeaders DeleteApiMapping where
+instance Data.ToHeaders DeleteApiMapping where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteApiMapping where
+instance Data.ToPath DeleteApiMapping where
   toPath DeleteApiMapping' {..} =
     Prelude.mconcat
       [ "/v2/domainnames/",
-        Core.toBS domainName,
+        Data.toBS domainName,
         "/apimappings/",
-        Core.toBS apiMappingId
+        Data.toBS apiMappingId
       ]
 
-instance Core.ToQuery DeleteApiMapping where
+instance Data.ToQuery DeleteApiMapping where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteApiMappingResponse' smart constructor.

@@ -14,15 +14,17 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeFlowLogs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes one or more flow logs. To view the information in your flow
--- logs (the log streams for the network interfaces), you must use the
--- CloudWatch Logs console or the CloudWatch Logs API.
+-- Describes one or more flow logs.
+--
+-- To view the published flow log records, you must view the log
+-- destination. For example, the CloudWatch Logs log group, the Amazon S3
+-- bucket, or the Kinesis Data Firehose delivery stream.
 --
 -- This operation returns paginated results.
 module Amazonka.EC2.DescribeFlowLogs
@@ -31,46 +33,45 @@ module Amazonka.EC2.DescribeFlowLogs
     newDescribeFlowLogs,
 
     -- * Request Lenses
-    describeFlowLogs_nextToken,
-    describeFlowLogs_flowLogIds,
-    describeFlowLogs_filter,
     describeFlowLogs_dryRun,
+    describeFlowLogs_filter,
+    describeFlowLogs_flowLogIds,
     describeFlowLogs_maxResults,
+    describeFlowLogs_nextToken,
 
     -- * Destructuring the Response
     DescribeFlowLogsResponse (..),
     newDescribeFlowLogsResponse,
 
     -- * Response Lenses
-    describeFlowLogsResponse_nextToken,
     describeFlowLogsResponse_flowLogs,
+    describeFlowLogsResponse_nextToken,
     describeFlowLogsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeFlowLogs' smart constructor.
 data DescribeFlowLogs = DescribeFlowLogs'
-  { -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | One or more flow log IDs.
-    --
-    -- Constraint: Maximum of 1000 flow log IDs.
-    flowLogIds :: Prelude.Maybe [Prelude.Text],
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | One or more filters.
     --
     -- -   @deliver-log-status@ - The status of the logs delivery (@SUCCESS@ |
     --     @FAILED@).
     --
-    -- -   @log-destination-type@ - The type of destination to which the flow
-    --     log publishes data. Possible destination types include
-    --     @cloud-watch-logs@ and @s3@.
+    -- -   @log-destination-type@ - The type of destination for the flow log
+    --     data (@cloud-watch-logs@ | @s3@ | @kinesis-data-firehose@).
     --
     -- -   @flow-log-id@ - The ID of the flow log.
     --
@@ -90,15 +91,16 @@ data DescribeFlowLogs = DescribeFlowLogs'
     --     filter to find all resources assigned a tag with a specific key,
     --     regardless of the tag value.
     filter' :: Prelude.Maybe [Filter],
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | One or more flow log IDs.
+    --
+    -- Constraint: Maximum of 1000 flow log IDs.
+    flowLogIds :: Prelude.Maybe [Prelude.Text],
     -- | The maximum number of results to return with a single call. To retrieve
     -- the remaining results, make another call with the returned @nextToken@
     -- value.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -110,20 +112,18 @@ data DescribeFlowLogs = DescribeFlowLogs'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeFlowLogs_nextToken' - The token for the next page of results.
---
--- 'flowLogIds', 'describeFlowLogs_flowLogIds' - One or more flow log IDs.
---
--- Constraint: Maximum of 1000 flow log IDs.
+-- 'dryRun', 'describeFlowLogs_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'filter'', 'describeFlowLogs_filter' - One or more filters.
 --
 -- -   @deliver-log-status@ - The status of the logs delivery (@SUCCESS@ |
 --     @FAILED@).
 --
--- -   @log-destination-type@ - The type of destination to which the flow
---     log publishes data. Possible destination types include
---     @cloud-watch-logs@ and @s3@.
+-- -   @log-destination-type@ - The type of destination for the flow log
+--     data (@cloud-watch-logs@ | @s3@ | @kinesis-data-firehose@).
 --
 -- -   @flow-log-id@ - The ID of the flow log.
 --
@@ -143,43 +143,40 @@ data DescribeFlowLogs = DescribeFlowLogs'
 --     filter to find all resources assigned a tag with a specific key,
 --     regardless of the tag value.
 --
--- 'dryRun', 'describeFlowLogs_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
+-- 'flowLogIds', 'describeFlowLogs_flowLogIds' - One or more flow log IDs.
+--
+-- Constraint: Maximum of 1000 flow log IDs.
 --
 -- 'maxResults', 'describeFlowLogs_maxResults' - The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
+--
+-- 'nextToken', 'describeFlowLogs_nextToken' - The token for the next page of results.
 newDescribeFlowLogs ::
   DescribeFlowLogs
 newDescribeFlowLogs =
   DescribeFlowLogs'
-    { nextToken = Prelude.Nothing,
-      flowLogIds = Prelude.Nothing,
+    { dryRun = Prelude.Nothing,
       filter' = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      flowLogIds = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
--- | The token for the next page of results.
-describeFlowLogs_nextToken :: Lens.Lens' DescribeFlowLogs (Prelude.Maybe Prelude.Text)
-describeFlowLogs_nextToken = Lens.lens (\DescribeFlowLogs' {nextToken} -> nextToken) (\s@DescribeFlowLogs' {} a -> s {nextToken = a} :: DescribeFlowLogs)
-
--- | One or more flow log IDs.
---
--- Constraint: Maximum of 1000 flow log IDs.
-describeFlowLogs_flowLogIds :: Lens.Lens' DescribeFlowLogs (Prelude.Maybe [Prelude.Text])
-describeFlowLogs_flowLogIds = Lens.lens (\DescribeFlowLogs' {flowLogIds} -> flowLogIds) (\s@DescribeFlowLogs' {} a -> s {flowLogIds = a} :: DescribeFlowLogs) Prelude.. Lens.mapping Lens.coerced
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeFlowLogs_dryRun :: Lens.Lens' DescribeFlowLogs (Prelude.Maybe Prelude.Bool)
+describeFlowLogs_dryRun = Lens.lens (\DescribeFlowLogs' {dryRun} -> dryRun) (\s@DescribeFlowLogs' {} a -> s {dryRun = a} :: DescribeFlowLogs)
 
 -- | One or more filters.
 --
 -- -   @deliver-log-status@ - The status of the logs delivery (@SUCCESS@ |
 --     @FAILED@).
 --
--- -   @log-destination-type@ - The type of destination to which the flow
---     log publishes data. Possible destination types include
---     @cloud-watch-logs@ and @s3@.
+-- -   @log-destination-type@ - The type of destination for the flow log
+--     data (@cloud-watch-logs@ | @s3@ | @kinesis-data-firehose@).
 --
 -- -   @flow-log-id@ - The ID of the flow log.
 --
@@ -201,18 +198,21 @@ describeFlowLogs_flowLogIds = Lens.lens (\DescribeFlowLogs' {flowLogIds} -> flow
 describeFlowLogs_filter :: Lens.Lens' DescribeFlowLogs (Prelude.Maybe [Filter])
 describeFlowLogs_filter = Lens.lens (\DescribeFlowLogs' {filter'} -> filter') (\s@DescribeFlowLogs' {} a -> s {filter' = a} :: DescribeFlowLogs) Prelude.. Lens.mapping Lens.coerced
 
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describeFlowLogs_dryRun :: Lens.Lens' DescribeFlowLogs (Prelude.Maybe Prelude.Bool)
-describeFlowLogs_dryRun = Lens.lens (\DescribeFlowLogs' {dryRun} -> dryRun) (\s@DescribeFlowLogs' {} a -> s {dryRun = a} :: DescribeFlowLogs)
+-- | One or more flow log IDs.
+--
+-- Constraint: Maximum of 1000 flow log IDs.
+describeFlowLogs_flowLogIds :: Lens.Lens' DescribeFlowLogs (Prelude.Maybe [Prelude.Text])
+describeFlowLogs_flowLogIds = Lens.lens (\DescribeFlowLogs' {flowLogIds} -> flowLogIds) (\s@DescribeFlowLogs' {} a -> s {flowLogIds = a} :: DescribeFlowLogs) Prelude.. Lens.mapping Lens.coerced
 
 -- | The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
 describeFlowLogs_maxResults :: Lens.Lens' DescribeFlowLogs (Prelude.Maybe Prelude.Int)
 describeFlowLogs_maxResults = Lens.lens (\DescribeFlowLogs' {maxResults} -> maxResults) (\s@DescribeFlowLogs' {} a -> s {maxResults = a} :: DescribeFlowLogs)
+
+-- | The token for the next page of results.
+describeFlowLogs_nextToken :: Lens.Lens' DescribeFlowLogs (Prelude.Maybe Prelude.Text)
+describeFlowLogs_nextToken = Lens.lens (\DescribeFlowLogs' {nextToken} -> nextToken) (\s@DescribeFlowLogs' {} a -> s {nextToken = a} :: DescribeFlowLogs)
 
 instance Core.AWSPager DescribeFlowLogs where
   page rq rs
@@ -240,65 +240,66 @@ instance Core.AWSRequest DescribeFlowLogs where
   type
     AWSResponse DescribeFlowLogs =
       DescribeFlowLogsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeFlowLogsResponse'
-            Prelude.<$> (x Core..@? "nextToken")
-            Prelude.<*> ( x Core..@? "flowLogSet" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> ( x Data..@? "flowLogSet" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
+            Prelude.<*> (x Data..@? "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeFlowLogs where
   hashWithSalt _salt DescribeFlowLogs' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` flowLogIds
+    _salt `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` filter'
-      `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` flowLogIds
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeFlowLogs where
   rnf DescribeFlowLogs' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf flowLogIds
+    Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf filter'
-      `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf flowLogIds
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeFlowLogs where
+instance Data.ToHeaders DescribeFlowLogs where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeFlowLogs where
+instance Data.ToPath DescribeFlowLogs where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeFlowLogs where
+instance Data.ToQuery DescribeFlowLogs where
   toQuery DescribeFlowLogs' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeFlowLogs" :: Prelude.ByteString),
+          Data.=: ("DescribeFlowLogs" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "NextToken" Core.=: nextToken,
-        Core.toQuery
-          ( Core.toQueryList "FlowLogId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filter'),
+        Data.toQuery
+          ( Data.toQueryList "FlowLogId"
               Prelude.<$> flowLogIds
           ),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filter'),
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newDescribeFlowLogsResponse' smart constructor.
 data DescribeFlowLogsResponse = DescribeFlowLogsResponse'
-  { -- | The token to use to retrieve the next page of results. This value is
+  { -- | Information about the flow logs.
+    flowLogs :: Prelude.Maybe [FlowLog],
+    -- | The token to use to retrieve the next page of results. This value is
     -- @null@ when there are no more results to return.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Information about the flow logs.
-    flowLogs :: Prelude.Maybe [FlowLog],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -312,10 +313,10 @@ data DescribeFlowLogsResponse = DescribeFlowLogsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'flowLogs', 'describeFlowLogsResponse_flowLogs' - Information about the flow logs.
+--
 -- 'nextToken', 'describeFlowLogsResponse_nextToken' - The token to use to retrieve the next page of results. This value is
 -- @null@ when there are no more results to return.
---
--- 'flowLogs', 'describeFlowLogsResponse_flowLogs' - Information about the flow logs.
 --
 -- 'httpStatus', 'describeFlowLogsResponse_httpStatus' - The response's http status code.
 newDescribeFlowLogsResponse ::
@@ -324,20 +325,20 @@ newDescribeFlowLogsResponse ::
   DescribeFlowLogsResponse
 newDescribeFlowLogsResponse pHttpStatus_ =
   DescribeFlowLogsResponse'
-    { nextToken =
+    { flowLogs =
         Prelude.Nothing,
-      flowLogs = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | Information about the flow logs.
+describeFlowLogsResponse_flowLogs :: Lens.Lens' DescribeFlowLogsResponse (Prelude.Maybe [FlowLog])
+describeFlowLogsResponse_flowLogs = Lens.lens (\DescribeFlowLogsResponse' {flowLogs} -> flowLogs) (\s@DescribeFlowLogsResponse' {} a -> s {flowLogs = a} :: DescribeFlowLogsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token to use to retrieve the next page of results. This value is
 -- @null@ when there are no more results to return.
 describeFlowLogsResponse_nextToken :: Lens.Lens' DescribeFlowLogsResponse (Prelude.Maybe Prelude.Text)
 describeFlowLogsResponse_nextToken = Lens.lens (\DescribeFlowLogsResponse' {nextToken} -> nextToken) (\s@DescribeFlowLogsResponse' {} a -> s {nextToken = a} :: DescribeFlowLogsResponse)
-
--- | Information about the flow logs.
-describeFlowLogsResponse_flowLogs :: Lens.Lens' DescribeFlowLogsResponse (Prelude.Maybe [FlowLog])
-describeFlowLogsResponse_flowLogs = Lens.lens (\DescribeFlowLogsResponse' {flowLogs} -> flowLogs) (\s@DescribeFlowLogsResponse' {} a -> s {flowLogs = a} :: DescribeFlowLogsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeFlowLogsResponse_httpStatus :: Lens.Lens' DescribeFlowLogsResponse Prelude.Int
@@ -345,6 +346,6 @@ describeFlowLogsResponse_httpStatus = Lens.lens (\DescribeFlowLogsResponse' {htt
 
 instance Prelude.NFData DescribeFlowLogsResponse where
   rnf DescribeFlowLogsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf flowLogs
+    Prelude.rnf flowLogs
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

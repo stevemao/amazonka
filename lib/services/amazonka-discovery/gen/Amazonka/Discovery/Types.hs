@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.Discovery.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -18,14 +19,14 @@ module Amazonka.Discovery.Types
 
     -- * Errors
     _AuthorizationErrorException,
+    _ConflictErrorException,
     _HomeRegionNotSetException,
     _InvalidParameterException,
-    _ConflictErrorException,
     _InvalidParameterValueException,
-    _ServerInternalErrorException,
     _OperationNotPermittedException,
-    _ResourceNotFoundException,
     _ResourceInUseException,
+    _ResourceNotFoundException,
+    _ServerInternalErrorException,
 
     -- * AgentStatus
     AgentStatus (..),
@@ -61,22 +62,22 @@ module Amazonka.Discovery.Types
     AgentConfigurationStatus (..),
     newAgentConfigurationStatus,
     agentConfigurationStatus_agentId,
-    agentConfigurationStatus_operationSucceeded,
     agentConfigurationStatus_description,
+    agentConfigurationStatus_operationSucceeded,
 
     -- * AgentInfo
     AgentInfo (..),
     newAgentInfo,
-    agentInfo_hostName,
-    agentInfo_lastHealthPingTime,
+    agentInfo_agentId,
     agentInfo_agentNetworkInfoList,
+    agentInfo_agentType,
+    agentInfo_collectionStatus,
     agentInfo_connectorId,
     agentInfo_health,
-    agentInfo_agentId,
-    agentInfo_version,
-    agentInfo_collectionStatus,
+    agentInfo_hostName,
+    agentInfo_lastHealthPingTime,
     agentInfo_registeredTime,
-    agentInfo_agentType,
+    agentInfo_version,
 
     -- * AgentNetworkInfo
     AgentNetworkInfo (..),
@@ -87,30 +88,30 @@ module Amazonka.Discovery.Types
     -- * BatchDeleteImportDataError
     BatchDeleteImportDataError (..),
     newBatchDeleteImportDataError,
-    batchDeleteImportDataError_importTaskId,
     batchDeleteImportDataError_errorCode,
     batchDeleteImportDataError_errorDescription,
+    batchDeleteImportDataError_importTaskId,
 
     -- * ConfigurationTag
     ConfigurationTag (..),
     newConfigurationTag,
-    configurationTag_timeOfCreation,
     configurationTag_configurationId,
     configurationTag_configurationType,
-    configurationTag_value,
     configurationTag_key,
+    configurationTag_timeOfCreation,
+    configurationTag_value,
 
     -- * ContinuousExportDescription
     ContinuousExportDescription (..),
     newContinuousExportDescription,
-    continuousExportDescription_status,
-    continuousExportDescription_startTime,
+    continuousExportDescription_dataSource,
+    continuousExportDescription_exportId,
+    continuousExportDescription_s3Bucket,
     continuousExportDescription_schemaStorageConfig,
+    continuousExportDescription_startTime,
+    continuousExportDescription_status,
     continuousExportDescription_statusDetail,
     continuousExportDescription_stopTime,
-    continuousExportDescription_dataSource,
-    continuousExportDescription_s3Bucket,
-    continuousExportDescription_exportId,
 
     -- * CustomerAgentInfo
     CustomerAgentInfo (..),
@@ -123,6 +124,17 @@ module Amazonka.Discovery.Types
     customerAgentInfo_totalAgents,
     customerAgentInfo_unknownAgents,
 
+    -- * CustomerAgentlessCollectorInfo
+    CustomerAgentlessCollectorInfo (..),
+    newCustomerAgentlessCollectorInfo,
+    customerAgentlessCollectorInfo_activeAgentlessCollectors,
+    customerAgentlessCollectorInfo_healthyAgentlessCollectors,
+    customerAgentlessCollectorInfo_denyListedAgentlessCollectors,
+    customerAgentlessCollectorInfo_shutdownAgentlessCollectors,
+    customerAgentlessCollectorInfo_unhealthyAgentlessCollectors,
+    customerAgentlessCollectorInfo_totalAgentlessCollectors,
+    customerAgentlessCollectorInfo_unknownAgentlessCollectors,
+
     -- * CustomerConnectorInfo
     CustomerConnectorInfo (..),
     newCustomerConnectorInfo,
@@ -133,6 +145,17 @@ module Amazonka.Discovery.Types
     customerConnectorInfo_unhealthyConnectors,
     customerConnectorInfo_totalConnectors,
     customerConnectorInfo_unknownConnectors,
+
+    -- * CustomerMeCollectorInfo
+    CustomerMeCollectorInfo (..),
+    newCustomerMeCollectorInfo,
+    customerMeCollectorInfo_activeMeCollectors,
+    customerMeCollectorInfo_healthyMeCollectors,
+    customerMeCollectorInfo_denyListedMeCollectors,
+    customerMeCollectorInfo_shutdownMeCollectors,
+    customerMeCollectorInfo_unhealthyMeCollectors,
+    customerMeCollectorInfo_totalMeCollectors,
+    customerMeCollectorInfo_unknownMeCollectors,
 
     -- * ExportFilter
     ExportFilter (..),
@@ -145,9 +168,9 @@ module Amazonka.Discovery.Types
     ExportInfo (..),
     newExportInfo,
     exportInfo_configurationsDownloadUrl,
-    exportInfo_requestedStartTime,
-    exportInfo_requestedEndTime,
     exportInfo_isTruncated,
+    exportInfo_requestedEndTime,
+    exportInfo_requestedStartTime,
     exportInfo_exportId,
     exportInfo_exportStatus,
     exportInfo_statusMessage,
@@ -163,31 +186,31 @@ module Amazonka.Discovery.Types
     -- * ImportTask
     ImportTask (..),
     newImportTask,
-    importTask_applicationImportSuccess,
-    importTask_status,
-    importTask_serverImportSuccess,
-    importTask_importCompletionTime,
-    importTask_name,
     importTask_applicationImportFailure,
-    importTask_errorsAndFailedEntriesZip,
-    importTask_importTaskId,
-    importTask_importDeletedTime,
-    importTask_serverImportFailure,
+    importTask_applicationImportSuccess,
     importTask_clientRequestToken,
-    importTask_importUrl,
+    importTask_errorsAndFailedEntriesZip,
+    importTask_importCompletionTime,
+    importTask_importDeletedTime,
     importTask_importRequestTime,
+    importTask_importTaskId,
+    importTask_importUrl,
+    importTask_name,
+    importTask_serverImportFailure,
+    importTask_serverImportSuccess,
+    importTask_status,
 
     -- * ImportTaskFilter
     ImportTaskFilter (..),
     newImportTaskFilter,
-    importTaskFilter_values,
     importTaskFilter_name,
+    importTaskFilter_values,
 
     -- * NeighborConnectionDetail
     NeighborConnectionDetail (..),
     newNeighborConnectionDetail,
-    neighborConnectionDetail_transportProtocol,
     neighborConnectionDetail_destinationPort,
+    neighborConnectionDetail_transportProtocol,
     neighborConnectionDetail_sourceServerId,
     neighborConnectionDetail_destinationServerId,
     neighborConnectionDetail_connectionsCount,
@@ -213,6 +236,7 @@ module Amazonka.Discovery.Types
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.Discovery.Types.AgentConfigurationStatus
 import Amazonka.Discovery.Types.AgentInfo
 import Amazonka.Discovery.Types.AgentNetworkInfo
@@ -224,7 +248,9 @@ import Amazonka.Discovery.Types.ConfigurationTag
 import Amazonka.Discovery.Types.ContinuousExportDescription
 import Amazonka.Discovery.Types.ContinuousExportStatus
 import Amazonka.Discovery.Types.CustomerAgentInfo
+import Amazonka.Discovery.Types.CustomerAgentlessCollectorInfo
 import Amazonka.Discovery.Types.CustomerConnectorInfo
+import Amazonka.Discovery.Types.CustomerMeCollectorInfo
 import Amazonka.Discovery.Types.DataSource
 import Amazonka.Discovery.Types.ExportDataFormat
 import Amazonka.Discovery.Types.ExportFilter
@@ -240,7 +266,6 @@ import Amazonka.Discovery.Types.OrderByElement
 import Amazonka.Discovery.Types.OrderString
 import Amazonka.Discovery.Types.Tag
 import Amazonka.Discovery.Types.TagFilter
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 
@@ -248,41 +273,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "Discovery",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "discovery",
-      Core._serviceSigningName = "discovery",
-      Core._serviceVersion = "2015-11-01",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError = Core.parseJSONError "Discovery",
-      Core._serviceRetry = retry
+    { Core.abbrev = "Discovery",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "discovery",
+      Core.signingName = "discovery",
+      Core.version = "2015-11-01",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "Discovery",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -290,37 +323,36 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
 
--- | The AWS user account does not have permission to perform the action.
--- Check the IAM policy associated with this account.
+-- | The Amazon Web Services user account does not have permission to perform
+-- the action. Check the IAM policy associated with this account.
 _AuthorizationErrorException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
 _AuthorizationErrorException =
   Core._MatchServiceError
     defaultService
     "AuthorizationErrorException"
+
+-- |
+_ConflictErrorException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ConflictErrorException =
+  Core._MatchServiceError
+    defaultService
+    "ConflictErrorException"
 
 -- | The home region is not set. Set the home region to continue.
 _HomeRegionNotSetException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -337,13 +369,6 @@ _InvalidParameterException =
     defaultService
     "InvalidParameterException"
 
--- |
-_ConflictErrorException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ConflictErrorException =
-  Core._MatchServiceError
-    defaultService
-    "ConflictErrorException"
-
 -- | The value of one or more parameters are either invalid or out of range.
 -- Verify the parameter values and try again.
 _InvalidParameterValueException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -352,27 +377,12 @@ _InvalidParameterValueException =
     defaultService
     "InvalidParameterValueException"
 
--- | The server experienced an internal error. Try again.
-_ServerInternalErrorException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ServerInternalErrorException =
-  Core._MatchServiceError
-    defaultService
-    "ServerInternalErrorException"
-
 -- | This operation is not permitted.
 _OperationNotPermittedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
 _OperationNotPermittedException =
   Core._MatchServiceError
     defaultService
     "OperationNotPermittedException"
-
--- | The specified configuration ID was not located. Verify the configuration
--- ID and try again.
-_ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ResourceNotFoundException =
-  Core._MatchServiceError
-    defaultService
-    "ResourceNotFoundException"
 
 -- | This issue occurs when the same @clientRequestToken@ is used with the
 -- @StartImportTask@ action, but with different parameters. For example,
@@ -384,3 +394,18 @@ _ResourceInUseException =
   Core._MatchServiceError
     defaultService
     "ResourceInUseException"
+
+-- | The specified configuration ID was not located. Verify the configuration
+-- ID and try again.
+_ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ResourceNotFoundException =
+  Core._MatchServiceError
+    defaultService
+    "ResourceNotFoundException"
+
+-- | The server experienced an internal error. Try again.
+_ServerInternalErrorException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ServerInternalErrorException =
+  Core._MatchServiceError
+    defaultService
+    "ServerInternalErrorException"

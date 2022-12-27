@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ModifyTrafficMirrorFilterNetworkServices
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,8 @@ module Amazonka.EC2.ModifyTrafficMirrorFilterNetworkServices
 
     -- * Request Lenses
     modifyTrafficMirrorFilterNetworkServices_addNetworkServices,
-    modifyTrafficMirrorFilterNetworkServices_removeNetworkServices,
     modifyTrafficMirrorFilterNetworkServices_dryRun,
+    modifyTrafficMirrorFilterNetworkServices_removeNetworkServices,
     modifyTrafficMirrorFilterNetworkServices_trafficMirrorFilterId,
 
     -- * Destructuring the Response
@@ -51,8 +51,9 @@ module Amazonka.EC2.ModifyTrafficMirrorFilterNetworkServices
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,14 +62,14 @@ import qualified Amazonka.Response as Response
 data ModifyTrafficMirrorFilterNetworkServices = ModifyTrafficMirrorFilterNetworkServices'
   { -- | The network service, for example Amazon DNS, that you want to mirror.
     addNetworkServices :: Prelude.Maybe [TrafficMirrorNetworkService],
-    -- | The network service, for example Amazon DNS, that you no longer want to
-    -- mirror.
-    removeNetworkServices :: Prelude.Maybe [TrafficMirrorNetworkService],
     -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The network service, for example Amazon DNS, that you no longer want to
+    -- mirror.
+    removeNetworkServices :: Prelude.Maybe [TrafficMirrorNetworkService],
     -- | The ID of the Traffic Mirror filter.
     trafficMirrorFilterId :: Prelude.Text
   }
@@ -84,13 +85,13 @@ data ModifyTrafficMirrorFilterNetworkServices = ModifyTrafficMirrorFilterNetwork
 --
 -- 'addNetworkServices', 'modifyTrafficMirrorFilterNetworkServices_addNetworkServices' - The network service, for example Amazon DNS, that you want to mirror.
 --
--- 'removeNetworkServices', 'modifyTrafficMirrorFilterNetworkServices_removeNetworkServices' - The network service, for example Amazon DNS, that you no longer want to
--- mirror.
---
 -- 'dryRun', 'modifyTrafficMirrorFilterNetworkServices_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'removeNetworkServices', 'modifyTrafficMirrorFilterNetworkServices_removeNetworkServices' - The network service, for example Amazon DNS, that you no longer want to
+-- mirror.
 --
 -- 'trafficMirrorFilterId', 'modifyTrafficMirrorFilterNetworkServices_trafficMirrorFilterId' - The ID of the Traffic Mirror filter.
 newModifyTrafficMirrorFilterNetworkServices ::
@@ -102,9 +103,9 @@ newModifyTrafficMirrorFilterNetworkServices
     ModifyTrafficMirrorFilterNetworkServices'
       { addNetworkServices =
           Prelude.Nothing,
+        dryRun = Prelude.Nothing,
         removeNetworkServices =
           Prelude.Nothing,
-        dryRun = Prelude.Nothing,
         trafficMirrorFilterId =
           pTrafficMirrorFilterId_
       }
@@ -113,17 +114,17 @@ newModifyTrafficMirrorFilterNetworkServices
 modifyTrafficMirrorFilterNetworkServices_addNetworkServices :: Lens.Lens' ModifyTrafficMirrorFilterNetworkServices (Prelude.Maybe [TrafficMirrorNetworkService])
 modifyTrafficMirrorFilterNetworkServices_addNetworkServices = Lens.lens (\ModifyTrafficMirrorFilterNetworkServices' {addNetworkServices} -> addNetworkServices) (\s@ModifyTrafficMirrorFilterNetworkServices' {} a -> s {addNetworkServices = a} :: ModifyTrafficMirrorFilterNetworkServices) Prelude.. Lens.mapping Lens.coerced
 
--- | The network service, for example Amazon DNS, that you no longer want to
--- mirror.
-modifyTrafficMirrorFilterNetworkServices_removeNetworkServices :: Lens.Lens' ModifyTrafficMirrorFilterNetworkServices (Prelude.Maybe [TrafficMirrorNetworkService])
-modifyTrafficMirrorFilterNetworkServices_removeNetworkServices = Lens.lens (\ModifyTrafficMirrorFilterNetworkServices' {removeNetworkServices} -> removeNetworkServices) (\s@ModifyTrafficMirrorFilterNetworkServices' {} a -> s {removeNetworkServices = a} :: ModifyTrafficMirrorFilterNetworkServices) Prelude.. Lens.mapping Lens.coerced
-
 -- | Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
 modifyTrafficMirrorFilterNetworkServices_dryRun :: Lens.Lens' ModifyTrafficMirrorFilterNetworkServices (Prelude.Maybe Prelude.Bool)
 modifyTrafficMirrorFilterNetworkServices_dryRun = Lens.lens (\ModifyTrafficMirrorFilterNetworkServices' {dryRun} -> dryRun) (\s@ModifyTrafficMirrorFilterNetworkServices' {} a -> s {dryRun = a} :: ModifyTrafficMirrorFilterNetworkServices)
+
+-- | The network service, for example Amazon DNS, that you no longer want to
+-- mirror.
+modifyTrafficMirrorFilterNetworkServices_removeNetworkServices :: Lens.Lens' ModifyTrafficMirrorFilterNetworkServices (Prelude.Maybe [TrafficMirrorNetworkService])
+modifyTrafficMirrorFilterNetworkServices_removeNetworkServices = Lens.lens (\ModifyTrafficMirrorFilterNetworkServices' {removeNetworkServices} -> removeNetworkServices) (\s@ModifyTrafficMirrorFilterNetworkServices' {} a -> s {removeNetworkServices = a} :: ModifyTrafficMirrorFilterNetworkServices) Prelude.. Lens.mapping Lens.coerced
 
 -- | The ID of the Traffic Mirror filter.
 modifyTrafficMirrorFilterNetworkServices_trafficMirrorFilterId :: Lens.Lens' ModifyTrafficMirrorFilterNetworkServices Prelude.Text
@@ -137,12 +138,13 @@ instance
     AWSResponse
       ModifyTrafficMirrorFilterNetworkServices =
       ModifyTrafficMirrorFilterNetworkServicesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ModifyTrafficMirrorFilterNetworkServicesResponse'
-            Prelude.<$> (x Core..@? "trafficMirrorFilter")
+            Prelude.<$> (x Data..@? "trafficMirrorFilter")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -154,8 +156,8 @@ instance
     _salt
     ModifyTrafficMirrorFilterNetworkServices' {..} =
       _salt `Prelude.hashWithSalt` addNetworkServices
-        `Prelude.hashWithSalt` removeNetworkServices
         `Prelude.hashWithSalt` dryRun
+        `Prelude.hashWithSalt` removeNetworkServices
         `Prelude.hashWithSalt` trafficMirrorFilterId
 
 instance
@@ -164,45 +166,45 @@ instance
   where
   rnf ModifyTrafficMirrorFilterNetworkServices' {..} =
     Prelude.rnf addNetworkServices
-      `Prelude.seq` Prelude.rnf removeNetworkServices
       `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf removeNetworkServices
       `Prelude.seq` Prelude.rnf trafficMirrorFilterId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ModifyTrafficMirrorFilterNetworkServices
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     ModifyTrafficMirrorFilterNetworkServices
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ModifyTrafficMirrorFilterNetworkServices
   where
   toQuery ModifyTrafficMirrorFilterNetworkServices' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "ModifyTrafficMirrorFilterNetworkServices" ::
+          Data.=: ( "ModifyTrafficMirrorFilterNetworkServices" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          ( Core.toQueryList "AddNetworkService"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        Data.toQuery
+          ( Data.toQueryList "AddNetworkService"
               Prelude.<$> addNetworkServices
           ),
-        Core.toQuery
-          ( Core.toQueryList "RemoveNetworkService"
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          ( Data.toQueryList "RemoveNetworkService"
               Prelude.<$> removeNetworkServices
           ),
-        "DryRun" Core.=: dryRun,
         "TrafficMirrorFilterId"
-          Core.=: trafficMirrorFilterId
+          Data.=: trafficMirrorFilterId
       ]
 
 -- | /See:/ 'newModifyTrafficMirrorFilterNetworkServicesResponse' smart constructor.

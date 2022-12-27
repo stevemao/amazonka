@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSMContacts.Types.ContactChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSMContacts.Types.ContactChannel where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSMContacts.Types.ActivationStatus
 import Amazonka.SSMContacts.Types.ChannelType
@@ -145,18 +146,18 @@ contactChannel_deliveryAddress = Lens.lens (\ContactChannel' {deliveryAddress} -
 contactChannel_activationStatus :: Lens.Lens' ContactChannel ActivationStatus
 contactChannel_activationStatus = Lens.lens (\ContactChannel' {activationStatus} -> activationStatus) (\s@ContactChannel' {} a -> s {activationStatus = a} :: ContactChannel)
 
-instance Core.FromJSON ContactChannel where
+instance Data.FromJSON ContactChannel where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ContactChannel"
       ( \x ->
           ContactChannel'
-            Prelude.<$> (x Core..:? "Type")
-            Prelude.<*> (x Core..: "ContactChannelArn")
-            Prelude.<*> (x Core..: "ContactArn")
-            Prelude.<*> (x Core..: "Name")
-            Prelude.<*> (x Core..: "DeliveryAddress")
-            Prelude.<*> (x Core..: "ActivationStatus")
+            Prelude.<$> (x Data..:? "Type")
+            Prelude.<*> (x Data..: "ContactChannelArn")
+            Prelude.<*> (x Data..: "ContactArn")
+            Prelude.<*> (x Data..: "Name")
+            Prelude.<*> (x Data..: "DeliveryAddress")
+            Prelude.<*> (x Data..: "ActivationStatus")
       )
 
 instance Prelude.Hashable ContactChannel where

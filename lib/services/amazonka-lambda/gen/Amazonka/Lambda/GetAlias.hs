@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.GetAlias
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,18 +36,19 @@ module Amazonka.Lambda.GetAlias
     newAliasConfiguration,
 
     -- * Response Lenses
-    aliasConfiguration_routingConfig,
-    aliasConfiguration_name,
-    aliasConfiguration_functionVersion,
     aliasConfiguration_aliasArn,
     aliasConfiguration_description,
+    aliasConfiguration_functionVersion,
+    aliasConfiguration_name,
     aliasConfiguration_revisionId,
+    aliasConfiguration_routingConfig,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -130,10 +131,11 @@ getAlias_name = Lens.lens (\GetAlias' {name} -> name) (\s@GetAlias' {} a -> s {n
 
 instance Core.AWSRequest GetAlias where
   type AWSResponse GetAlias = AliasConfiguration
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetAlias where
   hashWithSalt _salt GetAlias' {..} =
@@ -145,17 +147,17 @@ instance Prelude.NFData GetAlias where
     Prelude.rnf functionName
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders GetAlias where
+instance Data.ToHeaders GetAlias where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetAlias where
+instance Data.ToPath GetAlias where
   toPath GetAlias' {..} =
     Prelude.mconcat
       [ "/2015-03-31/functions/",
-        Core.toBS functionName,
+        Data.toBS functionName,
         "/aliases/",
-        Core.toBS name
+        Data.toBS name
       ]
 
-instance Core.ToQuery GetAlias where
+instance Data.ToQuery GetAlias where
   toQuery = Prelude.const Prelude.mempty

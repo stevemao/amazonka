@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.GetTopicRuleDestination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.IoT.GetTopicRuleDestination
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,12 +82,13 @@ instance Core.AWSRequest GetTopicRuleDestination where
   type
     AWSResponse GetTopicRuleDestination =
       GetTopicRuleDestinationResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetTopicRuleDestinationResponse'
-            Prelude.<$> (x Core..?> "topicRuleDestination")
+            Prelude.<$> (x Data..?> "topicRuleDestination")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,14 +99,14 @@ instance Prelude.Hashable GetTopicRuleDestination where
 instance Prelude.NFData GetTopicRuleDestination where
   rnf GetTopicRuleDestination' {..} = Prelude.rnf arn
 
-instance Core.ToHeaders GetTopicRuleDestination where
+instance Data.ToHeaders GetTopicRuleDestination where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetTopicRuleDestination where
+instance Data.ToPath GetTopicRuleDestination where
   toPath GetTopicRuleDestination' {..} =
-    Prelude.mconcat ["/destinations/", Core.toBS arn]
+    Prelude.mconcat ["/destinations/", Data.toBS arn]
 
-instance Core.ToQuery GetTopicRuleDestination where
+instance Data.ToQuery GetTopicRuleDestination where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetTopicRuleDestinationResponse' smart constructor.

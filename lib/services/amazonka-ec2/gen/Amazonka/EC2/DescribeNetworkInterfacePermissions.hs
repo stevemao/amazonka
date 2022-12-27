@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeNetworkInterfacePermissions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,9 +30,9 @@ module Amazonka.EC2.DescribeNetworkInterfacePermissions
 
     -- * Request Lenses
     describeNetworkInterfacePermissions_filters,
-    describeNetworkInterfacePermissions_nextToken,
-    describeNetworkInterfacePermissions_networkInterfacePermissionIds,
     describeNetworkInterfacePermissions_maxResults,
+    describeNetworkInterfacePermissions_networkInterfacePermissionIds,
+    describeNetworkInterfacePermissions_nextToken,
 
     -- * Destructuring the Response
     DescribeNetworkInterfacePermissionsResponse (..),
@@ -46,8 +46,9 @@ module Amazonka.EC2.DescribeNetworkInterfacePermissions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -72,15 +73,15 @@ data DescribeNetworkInterfacePermissions = DescribeNetworkInterfacePermissions'
     -- -   @network-interface-permission.permission@ - The type of permission
     --     (@INSTANCE-ATTACH@ | @EIP-ASSOCIATE@).
     filters :: Prelude.Maybe [Filter],
-    -- | The token to request the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | One or more network interface permission IDs.
-    networkInterfacePermissionIds :: Prelude.Maybe [Prelude.Text],
     -- | The maximum number of results to return in a single call. To retrieve
     -- the remaining results, make another call with the returned @NextToken@
     -- value. If this parameter is not specified, up to 50 results are returned
     -- by default.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The network interface permission IDs.
+    networkInterfacePermissionIds :: Prelude.Maybe [Prelude.Text],
+    -- | The token to request the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -108,24 +109,24 @@ data DescribeNetworkInterfacePermissions = DescribeNetworkInterfacePermissions'
 -- -   @network-interface-permission.permission@ - The type of permission
 --     (@INSTANCE-ATTACH@ | @EIP-ASSOCIATE@).
 --
--- 'nextToken', 'describeNetworkInterfacePermissions_nextToken' - The token to request the next page of results.
---
--- 'networkInterfacePermissionIds', 'describeNetworkInterfacePermissions_networkInterfacePermissionIds' - One or more network interface permission IDs.
---
 -- 'maxResults', 'describeNetworkInterfacePermissions_maxResults' - The maximum number of results to return in a single call. To retrieve
 -- the remaining results, make another call with the returned @NextToken@
 -- value. If this parameter is not specified, up to 50 results are returned
 -- by default.
+--
+-- 'networkInterfacePermissionIds', 'describeNetworkInterfacePermissions_networkInterfacePermissionIds' - The network interface permission IDs.
+--
+-- 'nextToken', 'describeNetworkInterfacePermissions_nextToken' - The token to request the next page of results.
 newDescribeNetworkInterfacePermissions ::
   DescribeNetworkInterfacePermissions
 newDescribeNetworkInterfacePermissions =
   DescribeNetworkInterfacePermissions'
     { filters =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       networkInterfacePermissionIds =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
 
 -- | One or more filters.
@@ -146,20 +147,20 @@ newDescribeNetworkInterfacePermissions =
 describeNetworkInterfacePermissions_filters :: Lens.Lens' DescribeNetworkInterfacePermissions (Prelude.Maybe [Filter])
 describeNetworkInterfacePermissions_filters = Lens.lens (\DescribeNetworkInterfacePermissions' {filters} -> filters) (\s@DescribeNetworkInterfacePermissions' {} a -> s {filters = a} :: DescribeNetworkInterfacePermissions) Prelude.. Lens.mapping Lens.coerced
 
--- | The token to request the next page of results.
-describeNetworkInterfacePermissions_nextToken :: Lens.Lens' DescribeNetworkInterfacePermissions (Prelude.Maybe Prelude.Text)
-describeNetworkInterfacePermissions_nextToken = Lens.lens (\DescribeNetworkInterfacePermissions' {nextToken} -> nextToken) (\s@DescribeNetworkInterfacePermissions' {} a -> s {nextToken = a} :: DescribeNetworkInterfacePermissions)
-
--- | One or more network interface permission IDs.
-describeNetworkInterfacePermissions_networkInterfacePermissionIds :: Lens.Lens' DescribeNetworkInterfacePermissions (Prelude.Maybe [Prelude.Text])
-describeNetworkInterfacePermissions_networkInterfacePermissionIds = Lens.lens (\DescribeNetworkInterfacePermissions' {networkInterfacePermissionIds} -> networkInterfacePermissionIds) (\s@DescribeNetworkInterfacePermissions' {} a -> s {networkInterfacePermissionIds = a} :: DescribeNetworkInterfacePermissions) Prelude.. Lens.mapping Lens.coerced
-
 -- | The maximum number of results to return in a single call. To retrieve
 -- the remaining results, make another call with the returned @NextToken@
 -- value. If this parameter is not specified, up to 50 results are returned
 -- by default.
 describeNetworkInterfacePermissions_maxResults :: Lens.Lens' DescribeNetworkInterfacePermissions (Prelude.Maybe Prelude.Natural)
 describeNetworkInterfacePermissions_maxResults = Lens.lens (\DescribeNetworkInterfacePermissions' {maxResults} -> maxResults) (\s@DescribeNetworkInterfacePermissions' {} a -> s {maxResults = a} :: DescribeNetworkInterfacePermissions)
+
+-- | The network interface permission IDs.
+describeNetworkInterfacePermissions_networkInterfacePermissionIds :: Lens.Lens' DescribeNetworkInterfacePermissions (Prelude.Maybe [Prelude.Text])
+describeNetworkInterfacePermissions_networkInterfacePermissionIds = Lens.lens (\DescribeNetworkInterfacePermissions' {networkInterfacePermissionIds} -> networkInterfacePermissionIds) (\s@DescribeNetworkInterfacePermissions' {} a -> s {networkInterfacePermissionIds = a} :: DescribeNetworkInterfacePermissions) Prelude.. Lens.mapping Lens.coerced
+
+-- | The token to request the next page of results.
+describeNetworkInterfacePermissions_nextToken :: Lens.Lens' DescribeNetworkInterfacePermissions (Prelude.Maybe Prelude.Text)
+describeNetworkInterfacePermissions_nextToken = Lens.lens (\DescribeNetworkInterfacePermissions' {nextToken} -> nextToken) (\s@DescribeNetworkInterfacePermissions' {} a -> s {nextToken = a} :: DescribeNetworkInterfacePermissions)
 
 instance
   Core.AWSPager
@@ -193,16 +194,17 @@ instance
   type
     AWSResponse DescribeNetworkInterfacePermissions =
       DescribeNetworkInterfacePermissionsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeNetworkInterfacePermissionsResponse'
-            Prelude.<$> ( x Core..@? "networkInterfacePermissions"
+            Prelude.<$> ( x Data..@? "networkInterfacePermissions"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
-              Prelude.<*> (x Core..@? "nextToken")
+              Prelude.<*> (x Data..@? "nextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -214,9 +216,9 @@ instance
     _salt
     DescribeNetworkInterfacePermissions' {..} =
       _salt `Prelude.hashWithSalt` filters
-        `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` networkInterfacePermissionIds
         `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` networkInterfacePermissionIds
+        `Prelude.hashWithSalt` nextToken
 
 instance
   Prelude.NFData
@@ -224,42 +226,42 @@ instance
   where
   rnf DescribeNetworkInterfacePermissions' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf networkInterfacePermissionIds
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf networkInterfacePermissionIds
+      `Prelude.seq` Prelude.rnf nextToken
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeNetworkInterfacePermissions
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeNetworkInterfacePermissions
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeNetworkInterfacePermissions
   where
   toQuery DescribeNetworkInterfacePermissions' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeNetworkInterfacePermissions" ::
+          Data.=: ( "DescribeNetworkInterfacePermissions" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        Core.toQuery
-          ( Core.toQueryList "NetworkInterfacePermissionId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        "MaxResults" Data.=: maxResults,
+        Data.toQuery
+          ( Data.toQueryList "NetworkInterfacePermissionId"
               Prelude.<$> networkInterfacePermissionIds
           ),
-        "MaxResults" Core.=: maxResults
+        "NextToken" Data.=: nextToken
       ]
 
 -- | Contains the output for DescribeNetworkInterfacePermissions.

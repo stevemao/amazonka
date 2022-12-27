@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.AdminUpdateUserAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,23 +30,22 @@
 -- mark phone and email as verified.
 --
 -- This action might generate an SMS text message. Starting June 1, 2021,
--- U.S. telecom carriers require that you register an origination phone
--- number before you can send SMS messages to U.S. phone numbers. If you
--- use SMS text messages in Amazon Cognito, you must register a phone
--- number with
--- <https://console.aws.amazon.com/pinpoint/home/ Amazon Pinpoint>. Cognito
--- will use the the registered number automatically. Otherwise, Cognito
--- users that must receive SMS messages might be unable to sign up,
--- activate their accounts, or sign in.
+-- US telecom carriers require you to register an origination phone number
+-- before you can send SMS messages to US phone numbers. If you use SMS
+-- text messages in Amazon Cognito, you must register a phone number with
+-- <https://console.aws.amazon.com/pinpoint/home/ Amazon Pinpoint>. Amazon
+-- Cognito uses the registered number automatically. Otherwise, Amazon
+-- Cognito users who must receive SMS messages might not be able to sign
+-- up, activate their accounts, or sign in.
 --
 -- If you have never used SMS text messages with Amazon Cognito or any
--- other Amazon Web Service, Amazon SNS might place your account in SMS
--- sandbox. In
+-- other Amazon Web Service, Amazon Simple Notification Service might place
+-- your account in the SMS sandbox. In
 -- /<https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html sandbox mode>/
--- , you’ll have limitations, such as sending messages to only verified
--- phone numbers. After testing in the sandbox environment, you can move
--- out of the SMS sandbox and into production. For more information, see
--- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-sms-userpool-settings.html SMS message settings for Cognito User Pools>
+-- , you can send messages only to verified phone numbers. After you test
+-- your app while in the sandbox environment, you can move out of the
+-- sandbox and into production. For more information, see
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-sms-userpool-settings.html SMS message settings for Amazon Cognito user pools>
 -- in the /Amazon Cognito Developer Guide/.
 --
 -- Calling this action requires developer credentials.
@@ -72,7 +71,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,32 +96,46 @@ data AdminUpdateUserAttributes = AdminUpdateUserAttributes'
     -- value to enhance your workflow for your specific needs.
     --
     -- For more information, see
-    -- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers>
+    -- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing user pool Workflows with Lambda Triggers>
     -- in the /Amazon Cognito Developer Guide/.
     --
-    -- Take the following limitations into consideration when you use the
-    -- ClientMetadata parameter:
+    -- When you use the ClientMetadata parameter, remember that Amazon Cognito
+    -- won\'t do the following:
     --
-    -- -   Amazon Cognito does not store the ClientMetadata value. This data is
-    --     available only to Lambda triggers that are assigned to a user pool
-    --     to support custom workflows. If your user pool configuration does
-    --     not include triggers, the ClientMetadata parameter serves no
-    --     purpose.
+    -- -   Store the ClientMetadata value. This data is available only to
+    --     Lambda triggers that are assigned to a user pool to support custom
+    --     workflows. If your user pool configuration doesn\'t include
+    --     triggers, the ClientMetadata parameter serves no purpose.
     --
-    -- -   Amazon Cognito does not validate the ClientMetadata value.
+    -- -   Validate the ClientMetadata value.
     --
-    -- -   Amazon Cognito does not encrypt the the ClientMetadata value, so
-    --     don\'t use it to provide sensitive information.
+    -- -   Encrypt the ClientMetadata value. Don\'t use Amazon Cognito to
+    --     provide sensitive information.
     clientMetadata :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The user pool ID for the user pool where you want to update user
     -- attributes.
     userPoolId :: Prelude.Text,
     -- | The user name of the user for whom you want to update user attributes.
-    username :: Core.Sensitive Prelude.Text,
+    username :: Data.Sensitive Prelude.Text,
     -- | An array of name-value pairs representing user attributes.
     --
     -- For custom attributes, you must prepend the @custom:@ prefix to the
     -- attribute name.
+    --
+    -- If your user pool requires verification before Amazon Cognito updates an
+    -- attribute value that you specify in this request, Amazon Cognito doesn’t
+    -- immediately update the value of that attribute. After your user receives
+    -- and responds to a verification message to verify the new value, Amazon
+    -- Cognito updates the attribute value. Your user can sign in and receive
+    -- messages with the original attribute value until they verify the new
+    -- value.
+    --
+    -- To update the value of an attribute that requires verification in the
+    -- same API request, include the @email_verified@ or
+    -- @phone_number_verified@ attribute, with a value of @true@. If you set
+    -- the @email_verified@ or @phone_number_verified@ value for an @email@ or
+    -- @phone_number@ attribute that requires verification to @true@, Amazon
+    -- Cognito doesn’t send a verification message to your user.
     userAttributes :: [AttributeType]
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
@@ -148,22 +162,21 @@ data AdminUpdateUserAttributes = AdminUpdateUserAttributes'
 -- value to enhance your workflow for your specific needs.
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers>
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing user pool Workflows with Lambda Triggers>
 -- in the /Amazon Cognito Developer Guide/.
 --
--- Take the following limitations into consideration when you use the
--- ClientMetadata parameter:
+-- When you use the ClientMetadata parameter, remember that Amazon Cognito
+-- won\'t do the following:
 --
--- -   Amazon Cognito does not store the ClientMetadata value. This data is
---     available only to Lambda triggers that are assigned to a user pool
---     to support custom workflows. If your user pool configuration does
---     not include triggers, the ClientMetadata parameter serves no
---     purpose.
+-- -   Store the ClientMetadata value. This data is available only to
+--     Lambda triggers that are assigned to a user pool to support custom
+--     workflows. If your user pool configuration doesn\'t include
+--     triggers, the ClientMetadata parameter serves no purpose.
 --
--- -   Amazon Cognito does not validate the ClientMetadata value.
+-- -   Validate the ClientMetadata value.
 --
--- -   Amazon Cognito does not encrypt the the ClientMetadata value, so
---     don\'t use it to provide sensitive information.
+-- -   Encrypt the ClientMetadata value. Don\'t use Amazon Cognito to
+--     provide sensitive information.
 --
 -- 'userPoolId', 'adminUpdateUserAttributes_userPoolId' - The user pool ID for the user pool where you want to update user
 -- attributes.
@@ -174,6 +187,21 @@ data AdminUpdateUserAttributes = AdminUpdateUserAttributes'
 --
 -- For custom attributes, you must prepend the @custom:@ prefix to the
 -- attribute name.
+--
+-- If your user pool requires verification before Amazon Cognito updates an
+-- attribute value that you specify in this request, Amazon Cognito doesn’t
+-- immediately update the value of that attribute. After your user receives
+-- and responds to a verification message to verify the new value, Amazon
+-- Cognito updates the attribute value. Your user can sign in and receive
+-- messages with the original attribute value until they verify the new
+-- value.
+--
+-- To update the value of an attribute that requires verification in the
+-- same API request, include the @email_verified@ or
+-- @phone_number_verified@ attribute, with a value of @true@. If you set
+-- the @email_verified@ or @phone_number_verified@ value for an @email@ or
+-- @phone_number@ attribute that requires verification to @true@, Amazon
+-- Cognito doesn’t send a verification message to your user.
 newAdminUpdateUserAttributes ::
   -- | 'userPoolId'
   Prelude.Text ->
@@ -185,7 +213,7 @@ newAdminUpdateUserAttributes pUserPoolId_ pUsername_ =
     { clientMetadata =
         Prelude.Nothing,
       userPoolId = pUserPoolId_,
-      username = Core._Sensitive Lens.# pUsername_,
+      username = Data._Sensitive Lens.# pUsername_,
       userAttributes = Prelude.mempty
     }
 
@@ -203,22 +231,21 @@ newAdminUpdateUserAttributes pUserPoolId_ pUsername_ =
 -- value to enhance your workflow for your specific needs.
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers>
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing user pool Workflows with Lambda Triggers>
 -- in the /Amazon Cognito Developer Guide/.
 --
--- Take the following limitations into consideration when you use the
--- ClientMetadata parameter:
+-- When you use the ClientMetadata parameter, remember that Amazon Cognito
+-- won\'t do the following:
 --
--- -   Amazon Cognito does not store the ClientMetadata value. This data is
---     available only to Lambda triggers that are assigned to a user pool
---     to support custom workflows. If your user pool configuration does
---     not include triggers, the ClientMetadata parameter serves no
---     purpose.
+-- -   Store the ClientMetadata value. This data is available only to
+--     Lambda triggers that are assigned to a user pool to support custom
+--     workflows. If your user pool configuration doesn\'t include
+--     triggers, the ClientMetadata parameter serves no purpose.
 --
--- -   Amazon Cognito does not validate the ClientMetadata value.
+-- -   Validate the ClientMetadata value.
 --
--- -   Amazon Cognito does not encrypt the the ClientMetadata value, so
---     don\'t use it to provide sensitive information.
+-- -   Encrypt the ClientMetadata value. Don\'t use Amazon Cognito to
+--     provide sensitive information.
 adminUpdateUserAttributes_clientMetadata :: Lens.Lens' AdminUpdateUserAttributes (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 adminUpdateUserAttributes_clientMetadata = Lens.lens (\AdminUpdateUserAttributes' {clientMetadata} -> clientMetadata) (\s@AdminUpdateUserAttributes' {} a -> s {clientMetadata = a} :: AdminUpdateUserAttributes) Prelude.. Lens.mapping Lens.coerced
 
@@ -229,12 +256,27 @@ adminUpdateUserAttributes_userPoolId = Lens.lens (\AdminUpdateUserAttributes' {u
 
 -- | The user name of the user for whom you want to update user attributes.
 adminUpdateUserAttributes_username :: Lens.Lens' AdminUpdateUserAttributes Prelude.Text
-adminUpdateUserAttributes_username = Lens.lens (\AdminUpdateUserAttributes' {username} -> username) (\s@AdminUpdateUserAttributes' {} a -> s {username = a} :: AdminUpdateUserAttributes) Prelude.. Core._Sensitive
+adminUpdateUserAttributes_username = Lens.lens (\AdminUpdateUserAttributes' {username} -> username) (\s@AdminUpdateUserAttributes' {} a -> s {username = a} :: AdminUpdateUserAttributes) Prelude.. Data._Sensitive
 
 -- | An array of name-value pairs representing user attributes.
 --
 -- For custom attributes, you must prepend the @custom:@ prefix to the
 -- attribute name.
+--
+-- If your user pool requires verification before Amazon Cognito updates an
+-- attribute value that you specify in this request, Amazon Cognito doesn’t
+-- immediately update the value of that attribute. After your user receives
+-- and responds to a verification message to verify the new value, Amazon
+-- Cognito updates the attribute value. Your user can sign in and receive
+-- messages with the original attribute value until they verify the new
+-- value.
+--
+-- To update the value of an attribute that requires verification in the
+-- same API request, include the @email_verified@ or
+-- @phone_number_verified@ attribute, with a value of @true@. If you set
+-- the @email_verified@ or @phone_number_verified@ value for an @email@ or
+-- @phone_number@ attribute that requires verification to @true@, Amazon
+-- Cognito doesn’t send a verification message to your user.
 adminUpdateUserAttributes_userAttributes :: Lens.Lens' AdminUpdateUserAttributes [AttributeType]
 adminUpdateUserAttributes_userAttributes = Lens.lens (\AdminUpdateUserAttributes' {userAttributes} -> userAttributes) (\s@AdminUpdateUserAttributes' {} a -> s {userAttributes = a} :: AdminUpdateUserAttributes) Prelude.. Lens.coerced
 
@@ -242,7 +284,8 @@ instance Core.AWSRequest AdminUpdateUserAttributes where
   type
     AWSResponse AdminUpdateUserAttributes =
       AdminUpdateUserAttributesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -264,38 +307,38 @@ instance Prelude.NFData AdminUpdateUserAttributes where
       `Prelude.seq` Prelude.rnf username
       `Prelude.seq` Prelude.rnf userAttributes
 
-instance Core.ToHeaders AdminUpdateUserAttributes where
+instance Data.ToHeaders AdminUpdateUserAttributes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.AdminUpdateUserAttributes" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.AdminUpdateUserAttributes" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AdminUpdateUserAttributes where
+instance Data.ToJSON AdminUpdateUserAttributes where
   toJSON AdminUpdateUserAttributes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ClientMetadata" Core..=)
+          [ ("ClientMetadata" Data..=)
               Prelude.<$> clientMetadata,
-            Prelude.Just ("UserPoolId" Core..= userPoolId),
-            Prelude.Just ("Username" Core..= username),
+            Prelude.Just ("UserPoolId" Data..= userPoolId),
+            Prelude.Just ("Username" Data..= username),
             Prelude.Just
-              ("UserAttributes" Core..= userAttributes)
+              ("UserAttributes" Data..= userAttributes)
           ]
       )
 
-instance Core.ToPath AdminUpdateUserAttributes where
+instance Data.ToPath AdminUpdateUserAttributes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AdminUpdateUserAttributes where
+instance Data.ToQuery AdminUpdateUserAttributes where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the response from the server for the request to update user

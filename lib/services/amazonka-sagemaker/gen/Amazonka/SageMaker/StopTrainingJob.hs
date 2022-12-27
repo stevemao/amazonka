@@ -14,20 +14,20 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.StopTrainingJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Stops a training job. To stop a job, Amazon SageMaker sends the
--- algorithm the @SIGTERM@ signal, which delays job termination for 120
--- seconds. Algorithms might use this 120-second window to save the model
--- artifacts, so the results of the training is not lost.
+-- Stops a training job. To stop a job, SageMaker sends the algorithm the
+-- @SIGTERM@ signal, which delays job termination for 120 seconds.
+-- Algorithms might use this 120-second window to save the model artifacts,
+-- so the results of the training is not lost.
 --
--- When it receives a @StopTrainingJob@ request, Amazon SageMaker changes
--- the status of the job to @Stopping@. After Amazon SageMaker stops the
--- job, it sets the status to @Stopped@.
+-- When it receives a @StopTrainingJob@ request, SageMaker changes the
+-- status of the job to @Stopping@. After SageMaker stops the job, it sets
+-- the status to @Stopped@.
 module Amazonka.SageMaker.StopTrainingJob
   ( -- * Creating a Request
     StopTrainingJob (..),
@@ -43,7 +43,8 @@ module Amazonka.SageMaker.StopTrainingJob
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,7 +84,8 @@ instance Core.AWSRequest StopTrainingJob where
   type
     AWSResponse StopTrainingJob =
       StopTrainingJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull StopTrainingJobResponse'
 
@@ -95,32 +97,32 @@ instance Prelude.NFData StopTrainingJob where
   rnf StopTrainingJob' {..} =
     Prelude.rnf trainingJobName
 
-instance Core.ToHeaders StopTrainingJob where
+instance Data.ToHeaders StopTrainingJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.StopTrainingJob" :: Prelude.ByteString),
+              Data.=# ("SageMaker.StopTrainingJob" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopTrainingJob where
+instance Data.ToJSON StopTrainingJob where
   toJSON StopTrainingJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("TrainingJobName" Core..= trainingJobName)
+              ("TrainingJobName" Data..= trainingJobName)
           ]
       )
 
-instance Core.ToPath StopTrainingJob where
+instance Data.ToPath StopTrainingJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopTrainingJob where
+instance Data.ToQuery StopTrainingJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopTrainingJobResponse' smart constructor.

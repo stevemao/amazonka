@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DMS.Types.SupportedEndpointType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.DMS.Types.SupportedEndpointType where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DMS.Types.ReplicationEndpointTypeValue
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides information about types of supported endpoints in response to a
@@ -31,17 +32,17 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSupportedEndpointType' smart constructor.
 data SupportedEndpointType = SupportedEndpointType'
-  { -- | The expanded name for the engine name. For example, if the @EngineName@
-    -- parameter is \"aurora,\" this value would be \"Amazon Aurora MySQL.\"
-    engineDisplayName :: Prelude.Maybe Prelude.Text,
-    -- | The type of endpoint. Valid values are @source@ and @target@.
+  { -- | The type of endpoint. Valid values are @source@ and @target@.
     endpointType :: Prelude.Maybe ReplicationEndpointTypeValue,
+    -- | The expanded name for the engine name. For example, if the @EngineName@
+    -- parameter is \"aurora\", this value would be \"Amazon Aurora MySQL\".
+    engineDisplayName :: Prelude.Maybe Prelude.Text,
     -- | The database engine name. Valid values, depending on the EndpointType,
     -- include @\"mysql\"@, @\"oracle\"@, @\"postgres\"@, @\"mariadb\"@,
     -- @\"aurora\"@, @\"aurora-postgresql\"@, @\"redshift\"@, @\"s3\"@,
-    -- @\"db2\"@, @\"azuredb\"@, @\"sybase\"@, @\"dynamodb\"@, @\"mongodb\"@,
-    -- @\"kinesis\"@, @\"kafka\"@, @\"elasticsearch\"@, @\"documentdb\"@,
-    -- @\"sqlserver\"@, and @\"neptune\"@.
+    -- @\"db2\"@, @\"db2-zos\"@, @\"azuredb\"@, @\"sybase\"@, @\"dynamodb\"@,
+    -- @\"mongodb\"@, @\"kinesis\"@, @\"kafka\"@, @\"elasticsearch\"@,
+    -- @\"documentdb\"@, @\"sqlserver\"@, @\"neptune\"@, and @\"babelfish\"@.
     engineName :: Prelude.Maybe Prelude.Text,
     -- | The earliest DMS engine version that supports this endpoint engine. Note
     -- that endpoint engines released with DMS versions earlier than 3.1.1 do
@@ -60,17 +61,17 @@ data SupportedEndpointType = SupportedEndpointType'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'engineDisplayName', 'supportedEndpointType_engineDisplayName' - The expanded name for the engine name. For example, if the @EngineName@
--- parameter is \"aurora,\" this value would be \"Amazon Aurora MySQL.\"
---
 -- 'endpointType', 'supportedEndpointType_endpointType' - The type of endpoint. Valid values are @source@ and @target@.
+--
+-- 'engineDisplayName', 'supportedEndpointType_engineDisplayName' - The expanded name for the engine name. For example, if the @EngineName@
+-- parameter is \"aurora\", this value would be \"Amazon Aurora MySQL\".
 --
 -- 'engineName', 'supportedEndpointType_engineName' - The database engine name. Valid values, depending on the EndpointType,
 -- include @\"mysql\"@, @\"oracle\"@, @\"postgres\"@, @\"mariadb\"@,
 -- @\"aurora\"@, @\"aurora-postgresql\"@, @\"redshift\"@, @\"s3\"@,
--- @\"db2\"@, @\"azuredb\"@, @\"sybase\"@, @\"dynamodb\"@, @\"mongodb\"@,
--- @\"kinesis\"@, @\"kafka\"@, @\"elasticsearch\"@, @\"documentdb\"@,
--- @\"sqlserver\"@, and @\"neptune\"@.
+-- @\"db2\"@, @\"db2-zos\"@, @\"azuredb\"@, @\"sybase\"@, @\"dynamodb\"@,
+-- @\"mongodb\"@, @\"kinesis\"@, @\"kafka\"@, @\"elasticsearch\"@,
+-- @\"documentdb\"@, @\"sqlserver\"@, @\"neptune\"@, and @\"babelfish\"@.
 --
 -- 'replicationInstanceEngineMinimumVersion', 'supportedEndpointType_replicationInstanceEngineMinimumVersion' - The earliest DMS engine version that supports this endpoint engine. Note
 -- that endpoint engines released with DMS versions earlier than 3.1.1 do
@@ -81,30 +82,30 @@ newSupportedEndpointType ::
   SupportedEndpointType
 newSupportedEndpointType =
   SupportedEndpointType'
-    { engineDisplayName =
+    { endpointType =
         Prelude.Nothing,
-      endpointType = Prelude.Nothing,
+      engineDisplayName = Prelude.Nothing,
       engineName = Prelude.Nothing,
       replicationInstanceEngineMinimumVersion =
         Prelude.Nothing,
       supportsCDC = Prelude.Nothing
     }
 
--- | The expanded name for the engine name. For example, if the @EngineName@
--- parameter is \"aurora,\" this value would be \"Amazon Aurora MySQL.\"
-supportedEndpointType_engineDisplayName :: Lens.Lens' SupportedEndpointType (Prelude.Maybe Prelude.Text)
-supportedEndpointType_engineDisplayName = Lens.lens (\SupportedEndpointType' {engineDisplayName} -> engineDisplayName) (\s@SupportedEndpointType' {} a -> s {engineDisplayName = a} :: SupportedEndpointType)
-
 -- | The type of endpoint. Valid values are @source@ and @target@.
 supportedEndpointType_endpointType :: Lens.Lens' SupportedEndpointType (Prelude.Maybe ReplicationEndpointTypeValue)
 supportedEndpointType_endpointType = Lens.lens (\SupportedEndpointType' {endpointType} -> endpointType) (\s@SupportedEndpointType' {} a -> s {endpointType = a} :: SupportedEndpointType)
 
+-- | The expanded name for the engine name. For example, if the @EngineName@
+-- parameter is \"aurora\", this value would be \"Amazon Aurora MySQL\".
+supportedEndpointType_engineDisplayName :: Lens.Lens' SupportedEndpointType (Prelude.Maybe Prelude.Text)
+supportedEndpointType_engineDisplayName = Lens.lens (\SupportedEndpointType' {engineDisplayName} -> engineDisplayName) (\s@SupportedEndpointType' {} a -> s {engineDisplayName = a} :: SupportedEndpointType)
+
 -- | The database engine name. Valid values, depending on the EndpointType,
 -- include @\"mysql\"@, @\"oracle\"@, @\"postgres\"@, @\"mariadb\"@,
 -- @\"aurora\"@, @\"aurora-postgresql\"@, @\"redshift\"@, @\"s3\"@,
--- @\"db2\"@, @\"azuredb\"@, @\"sybase\"@, @\"dynamodb\"@, @\"mongodb\"@,
--- @\"kinesis\"@, @\"kafka\"@, @\"elasticsearch\"@, @\"documentdb\"@,
--- @\"sqlserver\"@, and @\"neptune\"@.
+-- @\"db2\"@, @\"db2-zos\"@, @\"azuredb\"@, @\"sybase\"@, @\"dynamodb\"@,
+-- @\"mongodb\"@, @\"kinesis\"@, @\"kafka\"@, @\"elasticsearch\"@,
+-- @\"documentdb\"@, @\"sqlserver\"@, @\"neptune\"@, and @\"babelfish\"@.
 supportedEndpointType_engineName :: Lens.Lens' SupportedEndpointType (Prelude.Maybe Prelude.Text)
 supportedEndpointType_engineName = Lens.lens (\SupportedEndpointType' {engineName} -> engineName) (\s@SupportedEndpointType' {} a -> s {engineName = a} :: SupportedEndpointType)
 
@@ -118,33 +119,33 @@ supportedEndpointType_replicationInstanceEngineMinimumVersion = Lens.lens (\Supp
 supportedEndpointType_supportsCDC :: Lens.Lens' SupportedEndpointType (Prelude.Maybe Prelude.Bool)
 supportedEndpointType_supportsCDC = Lens.lens (\SupportedEndpointType' {supportsCDC} -> supportsCDC) (\s@SupportedEndpointType' {} a -> s {supportsCDC = a} :: SupportedEndpointType)
 
-instance Core.FromJSON SupportedEndpointType where
+instance Data.FromJSON SupportedEndpointType where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SupportedEndpointType"
       ( \x ->
           SupportedEndpointType'
-            Prelude.<$> (x Core..:? "EngineDisplayName")
-            Prelude.<*> (x Core..:? "EndpointType")
-            Prelude.<*> (x Core..:? "EngineName")
+            Prelude.<$> (x Data..:? "EndpointType")
+            Prelude.<*> (x Data..:? "EngineDisplayName")
+            Prelude.<*> (x Data..:? "EngineName")
             Prelude.<*> ( x
-                            Core..:? "ReplicationInstanceEngineMinimumVersion"
+                            Data..:? "ReplicationInstanceEngineMinimumVersion"
                         )
-            Prelude.<*> (x Core..:? "SupportsCDC")
+            Prelude.<*> (x Data..:? "SupportsCDC")
       )
 
 instance Prelude.Hashable SupportedEndpointType where
   hashWithSalt _salt SupportedEndpointType' {..} =
-    _salt `Prelude.hashWithSalt` engineDisplayName
-      `Prelude.hashWithSalt` endpointType
+    _salt `Prelude.hashWithSalt` endpointType
+      `Prelude.hashWithSalt` engineDisplayName
       `Prelude.hashWithSalt` engineName
       `Prelude.hashWithSalt` replicationInstanceEngineMinimumVersion
       `Prelude.hashWithSalt` supportsCDC
 
 instance Prelude.NFData SupportedEndpointType where
   rnf SupportedEndpointType' {..} =
-    Prelude.rnf engineDisplayName
-      `Prelude.seq` Prelude.rnf endpointType
+    Prelude.rnf endpointType
+      `Prelude.seq` Prelude.rnf engineDisplayName
       `Prelude.seq` Prelude.rnf engineName
       `Prelude.seq` Prelude.rnf replicationInstanceEngineMinimumVersion
       `Prelude.seq` Prelude.rnf supportsCDC

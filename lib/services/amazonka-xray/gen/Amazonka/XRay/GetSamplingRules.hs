@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.XRay.GetSamplingRules
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,14 +36,15 @@ module Amazonka.XRay.GetSamplingRules
     newGetSamplingRulesResponse,
 
     -- * Response Lenses
-    getSamplingRulesResponse_samplingRuleRecords,
     getSamplingRulesResponse_nextToken,
+    getSamplingRulesResponse_samplingRuleRecords,
     getSamplingRulesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,15 +101,16 @@ instance Core.AWSRequest GetSamplingRules where
   type
     AWSResponse GetSamplingRules =
       GetSamplingRulesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSamplingRulesResponse'
-            Prelude.<$> ( x Core..?> "SamplingRuleRecords"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "SamplingRuleRecords"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -119,28 +121,28 @@ instance Prelude.Hashable GetSamplingRules where
 instance Prelude.NFData GetSamplingRules where
   rnf GetSamplingRules' {..} = Prelude.rnf nextToken
 
-instance Core.ToHeaders GetSamplingRules where
+instance Data.ToHeaders GetSamplingRules where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON GetSamplingRules where
+instance Data.ToJSON GetSamplingRules where
   toJSON GetSamplingRules' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("NextToken" Core..=) Prelude.<$> nextToken]
+          [("NextToken" Data..=) Prelude.<$> nextToken]
       )
 
-instance Core.ToPath GetSamplingRules where
+instance Data.ToPath GetSamplingRules where
   toPath = Prelude.const "/GetSamplingRules"
 
-instance Core.ToQuery GetSamplingRules where
+instance Data.ToQuery GetSamplingRules where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetSamplingRulesResponse' smart constructor.
 data GetSamplingRulesResponse = GetSamplingRulesResponse'
-  { -- | Rule definitions and metadata.
-    samplingRuleRecords :: Prelude.Maybe [SamplingRuleRecord],
-    -- | Pagination token.
+  { -- | Pagination token.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Rule definitions and metadata.
+    samplingRuleRecords :: Prelude.Maybe [SamplingRuleRecord],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -154,9 +156,9 @@ data GetSamplingRulesResponse = GetSamplingRulesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'samplingRuleRecords', 'getSamplingRulesResponse_samplingRuleRecords' - Rule definitions and metadata.
---
 -- 'nextToken', 'getSamplingRulesResponse_nextToken' - Pagination token.
+--
+-- 'samplingRuleRecords', 'getSamplingRulesResponse_samplingRuleRecords' - Rule definitions and metadata.
 --
 -- 'httpStatus', 'getSamplingRulesResponse_httpStatus' - The response's http status code.
 newGetSamplingRulesResponse ::
@@ -165,19 +167,19 @@ newGetSamplingRulesResponse ::
   GetSamplingRulesResponse
 newGetSamplingRulesResponse pHttpStatus_ =
   GetSamplingRulesResponse'
-    { samplingRuleRecords =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      samplingRuleRecords = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Rule definitions and metadata.
-getSamplingRulesResponse_samplingRuleRecords :: Lens.Lens' GetSamplingRulesResponse (Prelude.Maybe [SamplingRuleRecord])
-getSamplingRulesResponse_samplingRuleRecords = Lens.lens (\GetSamplingRulesResponse' {samplingRuleRecords} -> samplingRuleRecords) (\s@GetSamplingRulesResponse' {} a -> s {samplingRuleRecords = a} :: GetSamplingRulesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | Pagination token.
 getSamplingRulesResponse_nextToken :: Lens.Lens' GetSamplingRulesResponse (Prelude.Maybe Prelude.Text)
 getSamplingRulesResponse_nextToken = Lens.lens (\GetSamplingRulesResponse' {nextToken} -> nextToken) (\s@GetSamplingRulesResponse' {} a -> s {nextToken = a} :: GetSamplingRulesResponse)
+
+-- | Rule definitions and metadata.
+getSamplingRulesResponse_samplingRuleRecords :: Lens.Lens' GetSamplingRulesResponse (Prelude.Maybe [SamplingRuleRecord])
+getSamplingRulesResponse_samplingRuleRecords = Lens.lens (\GetSamplingRulesResponse' {samplingRuleRecords} -> samplingRuleRecords) (\s@GetSamplingRulesResponse' {} a -> s {samplingRuleRecords = a} :: GetSamplingRulesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 getSamplingRulesResponse_httpStatus :: Lens.Lens' GetSamplingRulesResponse Prelude.Int
@@ -185,6 +187,6 @@ getSamplingRulesResponse_httpStatus = Lens.lens (\GetSamplingRulesResponse' {htt
 
 instance Prelude.NFData GetSamplingRulesResponse where
   rnf GetSamplingRulesResponse' {..} =
-    Prelude.rnf samplingRuleRecords
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf samplingRuleRecords
       `Prelude.seq` Prelude.rnf httpStatus

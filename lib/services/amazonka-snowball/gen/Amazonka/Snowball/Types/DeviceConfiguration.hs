@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Snowball.Types.DeviceConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Snowball.Types.DeviceConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Snowball.Types.SnowconeDeviceConfiguration
 
@@ -28,8 +29,7 @@ import Amazonka.Snowball.Types.SnowconeDeviceConfiguration
 --
 -- /See:/ 'newDeviceConfiguration' smart constructor.
 data DeviceConfiguration = DeviceConfiguration'
-  { -- | Returns information about the device configuration for an AWS Snowcone
-    -- job.
+  { -- | Returns information about the device configuration for an Snowcone job.
     snowconeDeviceConfiguration :: Prelude.Maybe SnowconeDeviceConfiguration
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -42,8 +42,7 @@ data DeviceConfiguration = DeviceConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'snowconeDeviceConfiguration', 'deviceConfiguration_snowconeDeviceConfiguration' - Returns information about the device configuration for an AWS Snowcone
--- job.
+-- 'snowconeDeviceConfiguration', 'deviceConfiguration_snowconeDeviceConfiguration' - Returns information about the device configuration for an Snowcone job.
 newDeviceConfiguration ::
   DeviceConfiguration
 newDeviceConfiguration =
@@ -52,18 +51,17 @@ newDeviceConfiguration =
         Prelude.Nothing
     }
 
--- | Returns information about the device configuration for an AWS Snowcone
--- job.
+-- | Returns information about the device configuration for an Snowcone job.
 deviceConfiguration_snowconeDeviceConfiguration :: Lens.Lens' DeviceConfiguration (Prelude.Maybe SnowconeDeviceConfiguration)
 deviceConfiguration_snowconeDeviceConfiguration = Lens.lens (\DeviceConfiguration' {snowconeDeviceConfiguration} -> snowconeDeviceConfiguration) (\s@DeviceConfiguration' {} a -> s {snowconeDeviceConfiguration = a} :: DeviceConfiguration)
 
-instance Core.FromJSON DeviceConfiguration where
+instance Data.FromJSON DeviceConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DeviceConfiguration"
       ( \x ->
           DeviceConfiguration'
-            Prelude.<$> (x Core..:? "SnowconeDeviceConfiguration")
+            Prelude.<$> (x Data..:? "SnowconeDeviceConfiguration")
       )
 
 instance Prelude.Hashable DeviceConfiguration where
@@ -75,11 +73,11 @@ instance Prelude.NFData DeviceConfiguration where
   rnf DeviceConfiguration' {..} =
     Prelude.rnf snowconeDeviceConfiguration
 
-instance Core.ToJSON DeviceConfiguration where
+instance Data.ToJSON DeviceConfiguration where
   toJSON DeviceConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SnowconeDeviceConfiguration" Core..=)
+          [ ("SnowconeDeviceConfiguration" Data..=)
               Prelude.<$> snowconeDeviceConfiguration
           ]
       )

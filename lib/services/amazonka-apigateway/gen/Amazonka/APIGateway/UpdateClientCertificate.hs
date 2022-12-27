@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.UpdateClientCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,18 +35,19 @@ module Amazonka.APIGateway.UpdateClientCertificate
     newClientCertificate,
 
     -- * Response Lenses
-    clientCertificate_pemEncodedCertificate,
     clientCertificate_clientCertificateId,
     clientCertificate_createdDate,
-    clientCertificate_expirationDate,
     clientCertificate_description,
+    clientCertificate_expirationDate,
+    clientCertificate_pemEncodedCertificate,
     clientCertificate_tags,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,11 +56,10 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newUpdateClientCertificate' smart constructor.
 data UpdateClientCertificate = UpdateClientCertificate'
-  { -- | A list of update operations to be applied to the specified resource and
-    -- in the order specified in this list.
+  { -- | For more information about supported patch operations, see
+    -- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
     patchOperations :: Prelude.Maybe [PatchOperation],
-    -- | [Required] The identifier of the ClientCertificate resource to be
-    -- updated.
+    -- | The identifier of the ClientCertificate resource to be updated.
     clientCertificateId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -72,11 +72,10 @@ data UpdateClientCertificate = UpdateClientCertificate'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'patchOperations', 'updateClientCertificate_patchOperations' - A list of update operations to be applied to the specified resource and
--- in the order specified in this list.
+-- 'patchOperations', 'updateClientCertificate_patchOperations' - For more information about supported patch operations, see
+-- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
 --
--- 'clientCertificateId', 'updateClientCertificate_clientCertificateId' - [Required] The identifier of the ClientCertificate resource to be
--- updated.
+-- 'clientCertificateId', 'updateClientCertificate_clientCertificateId' - The identifier of the ClientCertificate resource to be updated.
 newUpdateClientCertificate ::
   -- | 'clientCertificateId'
   Prelude.Text ->
@@ -88,13 +87,12 @@ newUpdateClientCertificate pClientCertificateId_ =
       clientCertificateId = pClientCertificateId_
     }
 
--- | A list of update operations to be applied to the specified resource and
--- in the order specified in this list.
+-- | For more information about supported patch operations, see
+-- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
 updateClientCertificate_patchOperations :: Lens.Lens' UpdateClientCertificate (Prelude.Maybe [PatchOperation])
 updateClientCertificate_patchOperations = Lens.lens (\UpdateClientCertificate' {patchOperations} -> patchOperations) (\s@UpdateClientCertificate' {} a -> s {patchOperations = a} :: UpdateClientCertificate) Prelude.. Lens.mapping Lens.coerced
 
--- | [Required] The identifier of the ClientCertificate resource to be
--- updated.
+-- | The identifier of the ClientCertificate resource to be updated.
 updateClientCertificate_clientCertificateId :: Lens.Lens' UpdateClientCertificate Prelude.Text
 updateClientCertificate_clientCertificateId = Lens.lens (\UpdateClientCertificate' {clientCertificateId} -> clientCertificateId) (\s@UpdateClientCertificate' {} a -> s {clientCertificateId = a} :: UpdateClientCertificate)
 
@@ -102,10 +100,11 @@ instance Core.AWSRequest UpdateClientCertificate where
   type
     AWSResponse UpdateClientCertificate =
       ClientCertificate
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable UpdateClientCertificate where
   hashWithSalt _salt UpdateClientCertificate' {..} =
@@ -117,30 +116,30 @@ instance Prelude.NFData UpdateClientCertificate where
     Prelude.rnf patchOperations
       `Prelude.seq` Prelude.rnf clientCertificateId
 
-instance Core.ToHeaders UpdateClientCertificate where
+instance Data.ToHeaders UpdateClientCertificate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToJSON UpdateClientCertificate where
+instance Data.ToJSON UpdateClientCertificate where
   toJSON UpdateClientCertificate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("patchOperations" Core..=)
+          [ ("patchOperations" Data..=)
               Prelude.<$> patchOperations
           ]
       )
 
-instance Core.ToPath UpdateClientCertificate where
+instance Data.ToPath UpdateClientCertificate where
   toPath UpdateClientCertificate' {..} =
     Prelude.mconcat
       [ "/clientcertificates/",
-        Core.toBS clientCertificateId
+        Data.toBS clientCertificateId
       ]
 
-instance Core.ToQuery UpdateClientCertificate where
+instance Data.ToQuery UpdateClientCertificate where
   toQuery = Prelude.const Prelude.mempty

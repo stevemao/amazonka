@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pricing.Types.AttributeValue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pricing.Types.AttributeValue where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The values of a given attribute, such as @Throughput Optimized HDD@ or
@@ -51,12 +52,12 @@ newAttributeValue =
 attributeValue_value :: Lens.Lens' AttributeValue (Prelude.Maybe Prelude.Text)
 attributeValue_value = Lens.lens (\AttributeValue' {value} -> value) (\s@AttributeValue' {} a -> s {value = a} :: AttributeValue)
 
-instance Core.FromJSON AttributeValue where
+instance Data.FromJSON AttributeValue where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AttributeValue"
       ( \x ->
-          AttributeValue' Prelude.<$> (x Core..:? "Value")
+          AttributeValue' Prelude.<$> (x Data..:? "Value")
       )
 
 instance Prelude.Hashable AttributeValue where

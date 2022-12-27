@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutVision.Types.OutputS3Object
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LookoutVision.Types.OutputS3Object where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The S3 location where Amazon Lookout for Vision saves training output.
@@ -62,13 +63,13 @@ outputS3Object_bucket = Lens.lens (\OutputS3Object' {bucket} -> bucket) (\s@Outp
 outputS3Object_key :: Lens.Lens' OutputS3Object Prelude.Text
 outputS3Object_key = Lens.lens (\OutputS3Object' {key} -> key) (\s@OutputS3Object' {} a -> s {key = a} :: OutputS3Object)
 
-instance Core.FromJSON OutputS3Object where
+instance Data.FromJSON OutputS3Object where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OutputS3Object"
       ( \x ->
           OutputS3Object'
-            Prelude.<$> (x Core..: "Bucket") Prelude.<*> (x Core..: "Key")
+            Prelude.<$> (x Data..: "Bucket") Prelude.<*> (x Data..: "Key")
       )
 
 instance Prelude.Hashable OutputS3Object where

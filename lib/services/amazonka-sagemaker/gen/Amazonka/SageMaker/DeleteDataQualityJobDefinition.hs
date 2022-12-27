@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.DeleteDataQualityJobDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,7 +36,8 @@ module Amazonka.SageMaker.DeleteDataQualityJobDefinition
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,7 +80,8 @@ instance
   type
     AWSResponse DeleteDataQualityJobDefinition =
       DeleteDataQualityJobDefinitionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       DeleteDataQualityJobDefinitionResponse'
@@ -101,36 +103,36 @@ instance
     Prelude.rnf jobDefinitionName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteDataQualityJobDefinition
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.DeleteDataQualityJobDefinition" ::
+              Data.=# ( "SageMaker.DeleteDataQualityJobDefinition" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteDataQualityJobDefinition where
+instance Data.ToJSON DeleteDataQualityJobDefinition where
   toJSON DeleteDataQualityJobDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("JobDefinitionName" Core..= jobDefinitionName)
+              ("JobDefinitionName" Data..= jobDefinitionName)
           ]
       )
 
-instance Core.ToPath DeleteDataQualityJobDefinition where
+instance Data.ToPath DeleteDataQualityJobDefinition where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDataQualityJobDefinition where
+instance Data.ToQuery DeleteDataQualityJobDefinition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteDataQualityJobDefinitionResponse' smart constructor.

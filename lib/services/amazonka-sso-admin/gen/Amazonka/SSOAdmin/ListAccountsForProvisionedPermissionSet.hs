@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.SSOAdmin.ListAccountsForProvisionedPermissionSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists all the Amazon Web Services accounts where the specified
--- permission set is provisioned.
+-- Lists all the AWS accounts where the specified permission set is
+-- provisioned.
 --
 -- This operation returns paginated results.
 module Amazonka.SSOAdmin.ListAccountsForProvisionedPermissionSet
@@ -30,9 +30,9 @@ module Amazonka.SSOAdmin.ListAccountsForProvisionedPermissionSet
     newListAccountsForProvisionedPermissionSet,
 
     -- * Request Lenses
-    listAccountsForProvisionedPermissionSet_provisioningStatus,
-    listAccountsForProvisionedPermissionSet_nextToken,
     listAccountsForProvisionedPermissionSet_maxResults,
+    listAccountsForProvisionedPermissionSet_nextToken,
+    listAccountsForProvisionedPermissionSet_provisioningStatus,
     listAccountsForProvisionedPermissionSet_instanceArn,
     listAccountsForProvisionedPermissionSet_permissionSetArn,
 
@@ -48,7 +48,8 @@ module Amazonka.SSOAdmin.ListAccountsForProvisionedPermissionSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,21 +57,20 @@ import Amazonka.SSOAdmin.Types
 
 -- | /See:/ 'newListAccountsForProvisionedPermissionSet' smart constructor.
 data ListAccountsForProvisionedPermissionSet = ListAccountsForProvisionedPermissionSet'
-  { -- | The permission set provisioning status for an Amazon Web Services
-    -- account.
-    provisioningStatus :: Prelude.Maybe ProvisioningStatus,
+  { -- | The maximum number of results to display for the PermissionSet.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The pagination token for the list API. Initially the value is null. Use
     -- the output of previous API calls to make subsequent calls.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to display for the PermissionSet.
-    maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | The ARN of the SSO instance under which the operation will be executed.
-    -- For more information about ARNs, see
-    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
-    -- in the /Amazon Web Services General Reference/.
+    -- | The permission set provisioning status for an AWS account.
+    provisioningStatus :: Prelude.Maybe ProvisioningStatus,
+    -- | The ARN of the IAM Identity Center instance under which the operation
+    -- will be executed. For more information about ARNs, see
+    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+    -- in the /AWS General Reference/.
     instanceArn :: Prelude.Text,
-    -- | The ARN of the PermissionSet from which the associated Amazon Web
-    -- Services accounts will be listed.
+    -- | The ARN of the PermissionSet from which the associated AWS accounts will
+    -- be listed.
     permissionSetArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -83,21 +83,20 @@ data ListAccountsForProvisionedPermissionSet = ListAccountsForProvisionedPermiss
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'provisioningStatus', 'listAccountsForProvisionedPermissionSet_provisioningStatus' - The permission set provisioning status for an Amazon Web Services
--- account.
+-- 'maxResults', 'listAccountsForProvisionedPermissionSet_maxResults' - The maximum number of results to display for the PermissionSet.
 --
 -- 'nextToken', 'listAccountsForProvisionedPermissionSet_nextToken' - The pagination token for the list API. Initially the value is null. Use
 -- the output of previous API calls to make subsequent calls.
 --
--- 'maxResults', 'listAccountsForProvisionedPermissionSet_maxResults' - The maximum number of results to display for the PermissionSet.
+-- 'provisioningStatus', 'listAccountsForProvisionedPermissionSet_provisioningStatus' - The permission set provisioning status for an AWS account.
 --
--- 'instanceArn', 'listAccountsForProvisionedPermissionSet_instanceArn' - The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- 'instanceArn', 'listAccountsForProvisionedPermissionSet_instanceArn' - The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 --
--- 'permissionSetArn', 'listAccountsForProvisionedPermissionSet_permissionSetArn' - The ARN of the PermissionSet from which the associated Amazon Web
--- Services accounts will be listed.
+-- 'permissionSetArn', 'listAccountsForProvisionedPermissionSet_permissionSetArn' - The ARN of the PermissionSet from which the associated AWS accounts will
+-- be listed.
 newListAccountsForProvisionedPermissionSet ::
   -- | 'instanceArn'
   Prelude.Text ->
@@ -108,38 +107,38 @@ newListAccountsForProvisionedPermissionSet
   pInstanceArn_
   pPermissionSetArn_ =
     ListAccountsForProvisionedPermissionSet'
-      { provisioningStatus =
+      { maxResults =
           Prelude.Nothing,
         nextToken = Prelude.Nothing,
-        maxResults = Prelude.Nothing,
+        provisioningStatus =
+          Prelude.Nothing,
         instanceArn = pInstanceArn_,
         permissionSetArn =
           pPermissionSetArn_
       }
 
--- | The permission set provisioning status for an Amazon Web Services
--- account.
-listAccountsForProvisionedPermissionSet_provisioningStatus :: Lens.Lens' ListAccountsForProvisionedPermissionSet (Prelude.Maybe ProvisioningStatus)
-listAccountsForProvisionedPermissionSet_provisioningStatus = Lens.lens (\ListAccountsForProvisionedPermissionSet' {provisioningStatus} -> provisioningStatus) (\s@ListAccountsForProvisionedPermissionSet' {} a -> s {provisioningStatus = a} :: ListAccountsForProvisionedPermissionSet)
+-- | The maximum number of results to display for the PermissionSet.
+listAccountsForProvisionedPermissionSet_maxResults :: Lens.Lens' ListAccountsForProvisionedPermissionSet (Prelude.Maybe Prelude.Natural)
+listAccountsForProvisionedPermissionSet_maxResults = Lens.lens (\ListAccountsForProvisionedPermissionSet' {maxResults} -> maxResults) (\s@ListAccountsForProvisionedPermissionSet' {} a -> s {maxResults = a} :: ListAccountsForProvisionedPermissionSet)
 
 -- | The pagination token for the list API. Initially the value is null. Use
 -- the output of previous API calls to make subsequent calls.
 listAccountsForProvisionedPermissionSet_nextToken :: Lens.Lens' ListAccountsForProvisionedPermissionSet (Prelude.Maybe Prelude.Text)
 listAccountsForProvisionedPermissionSet_nextToken = Lens.lens (\ListAccountsForProvisionedPermissionSet' {nextToken} -> nextToken) (\s@ListAccountsForProvisionedPermissionSet' {} a -> s {nextToken = a} :: ListAccountsForProvisionedPermissionSet)
 
--- | The maximum number of results to display for the PermissionSet.
-listAccountsForProvisionedPermissionSet_maxResults :: Lens.Lens' ListAccountsForProvisionedPermissionSet (Prelude.Maybe Prelude.Natural)
-listAccountsForProvisionedPermissionSet_maxResults = Lens.lens (\ListAccountsForProvisionedPermissionSet' {maxResults} -> maxResults) (\s@ListAccountsForProvisionedPermissionSet' {} a -> s {maxResults = a} :: ListAccountsForProvisionedPermissionSet)
+-- | The permission set provisioning status for an AWS account.
+listAccountsForProvisionedPermissionSet_provisioningStatus :: Lens.Lens' ListAccountsForProvisionedPermissionSet (Prelude.Maybe ProvisioningStatus)
+listAccountsForProvisionedPermissionSet_provisioningStatus = Lens.lens (\ListAccountsForProvisionedPermissionSet' {provisioningStatus} -> provisioningStatus) (\s@ListAccountsForProvisionedPermissionSet' {} a -> s {provisioningStatus = a} :: ListAccountsForProvisionedPermissionSet)
 
--- | The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- | The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 listAccountsForProvisionedPermissionSet_instanceArn :: Lens.Lens' ListAccountsForProvisionedPermissionSet Prelude.Text
 listAccountsForProvisionedPermissionSet_instanceArn = Lens.lens (\ListAccountsForProvisionedPermissionSet' {instanceArn} -> instanceArn) (\s@ListAccountsForProvisionedPermissionSet' {} a -> s {instanceArn = a} :: ListAccountsForProvisionedPermissionSet)
 
--- | The ARN of the PermissionSet from which the associated Amazon Web
--- Services accounts will be listed.
+-- | The ARN of the PermissionSet from which the associated AWS accounts will
+-- be listed.
 listAccountsForProvisionedPermissionSet_permissionSetArn :: Lens.Lens' ListAccountsForProvisionedPermissionSet Prelude.Text
 listAccountsForProvisionedPermissionSet_permissionSetArn = Lens.lens (\ListAccountsForProvisionedPermissionSet' {permissionSetArn} -> permissionSetArn) (\s@ListAccountsForProvisionedPermissionSet' {} a -> s {permissionSetArn = a} :: ListAccountsForProvisionedPermissionSet)
 
@@ -176,13 +175,14 @@ instance
     AWSResponse
       ListAccountsForProvisionedPermissionSet =
       ListAccountsForProvisionedPermissionSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAccountsForProvisionedPermissionSetResponse'
-            Prelude.<$> (x Core..?> "AccountIds" Core..!@ Prelude.mempty)
-              Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "AccountIds" Core..!@ Prelude.mempty)
+              Prelude.<*> (x Data..?> "NextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -193,9 +193,9 @@ instance
   hashWithSalt
     _salt
     ListAccountsForProvisionedPermissionSet' {..} =
-      _salt `Prelude.hashWithSalt` provisioningStatus
+      _salt `Prelude.hashWithSalt` maxResults
         `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` provisioningStatus
         `Prelude.hashWithSalt` instanceArn
         `Prelude.hashWithSalt` permissionSetArn
 
@@ -204,62 +204,62 @@ instance
     ListAccountsForProvisionedPermissionSet
   where
   rnf ListAccountsForProvisionedPermissionSet' {..} =
-    Prelude.rnf provisioningStatus
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf provisioningStatus
       `Prelude.seq` Prelude.rnf instanceArn
       `Prelude.seq` Prelude.rnf permissionSetArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListAccountsForProvisionedPermissionSet
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SWBExternalService.ListAccountsForProvisionedPermissionSet" ::
+              Data.=# ( "SWBExternalService.ListAccountsForProvisionedPermissionSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ListAccountsForProvisionedPermissionSet
   where
   toJSON ListAccountsForProvisionedPermissionSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ProvisioningStatus" Core..=)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("ProvisioningStatus" Data..=)
               Prelude.<$> provisioningStatus,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("InstanceArn" Core..= instanceArn),
+            Prelude.Just ("InstanceArn" Data..= instanceArn),
             Prelude.Just
-              ("PermissionSetArn" Core..= permissionSetArn)
+              ("PermissionSetArn" Data..= permissionSetArn)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     ListAccountsForProvisionedPermissionSet
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ListAccountsForProvisionedPermissionSet
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListAccountsForProvisionedPermissionSetResponse' smart constructor.
 data ListAccountsForProvisionedPermissionSetResponse = ListAccountsForProvisionedPermissionSetResponse'
-  { -- | The list of Amazon Web Services @AccountIds@.
+  { -- | The list of AWS @AccountIds@.
     accountIds :: Prelude.Maybe [Prelude.Text],
     -- | The pagination token for the list API. Initially the value is null. Use
     -- the output of previous API calls to make subsequent calls.
@@ -277,7 +277,7 @@ data ListAccountsForProvisionedPermissionSetResponse = ListAccountsForProvisione
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'accountIds', 'listAccountsForProvisionedPermissionSetResponse_accountIds' - The list of Amazon Web Services @AccountIds@.
+-- 'accountIds', 'listAccountsForProvisionedPermissionSetResponse_accountIds' - The list of AWS @AccountIds@.
 --
 -- 'nextToken', 'listAccountsForProvisionedPermissionSetResponse_nextToken' - The pagination token for the list API. Initially the value is null. Use
 -- the output of previous API calls to make subsequent calls.
@@ -297,7 +297,7 @@ newListAccountsForProvisionedPermissionSetResponse
         httpStatus = pHttpStatus_
       }
 
--- | The list of Amazon Web Services @AccountIds@.
+-- | The list of AWS @AccountIds@.
 listAccountsForProvisionedPermissionSetResponse_accountIds :: Lens.Lens' ListAccountsForProvisionedPermissionSetResponse (Prelude.Maybe [Prelude.Text])
 listAccountsForProvisionedPermissionSetResponse_accountIds = Lens.lens (\ListAccountsForProvisionedPermissionSetResponse' {accountIds} -> accountIds) (\s@ListAccountsForProvisionedPermissionSetResponse' {} a -> s {accountIds = a} :: ListAccountsForProvisionedPermissionSetResponse) Prelude.. Lens.mapping Lens.coerced
 

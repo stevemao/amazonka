@@ -1,6 +1,6 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_library", "haskell_test")
 
-# rule generated from amazonka-iot/amazonka-iot.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-iot/amazonka-iot.cabal by gazelle_cabal
 haskell_library(
     name = "amazonka-iot",
     srcs = [
@@ -101,6 +101,7 @@ haskell_library(
         "gen/Amazonka/IoT/DescribeJob.hs",
         "gen/Amazonka/IoT/DescribeJobExecution.hs",
         "gen/Amazonka/IoT/DescribeJobTemplate.hs",
+        "gen/Amazonka/IoT/DescribeManagedJobTemplate.hs",
         "gen/Amazonka/IoT/DescribeMitigationAction.hs",
         "gen/Amazonka/IoT/DescribeProvisioningTemplate.hs",
         "gen/Amazonka/IoT/DescribeProvisioningTemplateVersion.hs",
@@ -157,6 +158,8 @@ haskell_library(
         "gen/Amazonka/IoT/ListJobExecutionsForThing.hs",
         "gen/Amazonka/IoT/ListJobTemplates.hs",
         "gen/Amazonka/IoT/ListJobs.hs",
+        "gen/Amazonka/IoT/ListManagedJobTemplates.hs",
+        "gen/Amazonka/IoT/ListMetricValues.hs",
         "gen/Amazonka/IoT/ListMitigationActions.hs",
         "gen/Amazonka/IoT/ListOTAUpdates.hs",
         "gen/Amazonka/IoT/ListOutgoingCertificates.hs",
@@ -165,6 +168,7 @@ haskell_library(
         "gen/Amazonka/IoT/ListPrincipalThings.hs",
         "gen/Amazonka/IoT/ListProvisioningTemplateVersions.hs",
         "gen/Amazonka/IoT/ListProvisioningTemplates.hs",
+        "gen/Amazonka/IoT/ListRelatedResourcesForAuditFinding.hs",
         "gen/Amazonka/IoT/ListRoleAliases.hs",
         "gen/Amazonka/IoT/ListScheduledAudits.hs",
         "gen/Amazonka/IoT/ListSecurityProfiles.hs",
@@ -300,8 +304,10 @@ haskell_library(
         "gen/Amazonka/IoT/Types/DetectMitigationActionsTaskSummary.hs",
         "gen/Amazonka/IoT/Types/DetectMitigationActionsTaskTarget.hs",
         "gen/Amazonka/IoT/Types/DeviceCertificateUpdateAction.hs",
+        "gen/Amazonka/IoT/Types/DeviceDefenderIndexingMode.hs",
         "gen/Amazonka/IoT/Types/DimensionType.hs",
         "gen/Amazonka/IoT/Types/DimensionValueOperator.hs",
+        "gen/Amazonka/IoT/Types/DocumentParameter.hs",
         "gen/Amazonka/IoT/Types/DomainConfigurationStatus.hs",
         "gen/Amazonka/IoT/Types/DomainConfigurationSummary.hs",
         "gen/Amazonka/IoT/Types/DomainType.hs",
@@ -332,10 +338,13 @@ haskell_library(
         "gen/Amazonka/IoT/Types/HttpUrlDestinationSummary.hs",
         "gen/Amazonka/IoT/Types/ImplicitDeny.hs",
         "gen/Amazonka/IoT/Types/IndexStatus.hs",
+        "gen/Amazonka/IoT/Types/IndexingFilter.hs",
         "gen/Amazonka/IoT/Types/IotAnalyticsAction.hs",
         "gen/Amazonka/IoT/Types/IotEventsAction.hs",
         "gen/Amazonka/IoT/Types/IotSiteWiseAction.hs",
+        "gen/Amazonka/IoT/Types/IssuerCertificateIdentifier.hs",
         "gen/Amazonka/IoT/Types/Job.hs",
+        "gen/Amazonka/IoT/Types/JobEndBehavior.hs",
         "gen/Amazonka/IoT/Types/JobExecution.hs",
         "gen/Amazonka/IoT/Types/JobExecutionFailureType.hs",
         "gen/Amazonka/IoT/Types/JobExecutionStatus.hs",
@@ -343,6 +352,7 @@ haskell_library(
         "gen/Amazonka/IoT/Types/JobExecutionSummary.hs",
         "gen/Amazonka/IoT/Types/JobExecutionSummaryForJob.hs",
         "gen/Amazonka/IoT/Types/JobExecutionSummaryForThing.hs",
+        "gen/Amazonka/IoT/Types/JobExecutionsRetryConfig.hs",
         "gen/Amazonka/IoT/Types/JobExecutionsRolloutConfig.hs",
         "gen/Amazonka/IoT/Types/JobProcessDetails.hs",
         "gen/Amazonka/IoT/Types/JobStatus.hs",
@@ -352,13 +362,17 @@ haskell_library(
         "gen/Amazonka/IoT/Types/KeyPair.hs",
         "gen/Amazonka/IoT/Types/KinesisAction.hs",
         "gen/Amazonka/IoT/Types/LambdaAction.hs",
+        "gen/Amazonka/IoT/Types/LocationAction.hs",
+        "gen/Amazonka/IoT/Types/LocationTimestamp.hs",
         "gen/Amazonka/IoT/Types/LogLevel.hs",
         "gen/Amazonka/IoT/Types/LogTarget.hs",
         "gen/Amazonka/IoT/Types/LogTargetConfiguration.hs",
         "gen/Amazonka/IoT/Types/LogTargetType.hs",
         "gen/Amazonka/IoT/Types/LoggingOptionsPayload.hs",
         "gen/Amazonka/IoT/Types/MachineLearningDetectionConfig.hs",
+        "gen/Amazonka/IoT/Types/ManagedJobTemplateSummary.hs",
         "gen/Amazonka/IoT/Types/MessageFormat.hs",
+        "gen/Amazonka/IoT/Types/MetricDatum.hs",
         "gen/Amazonka/IoT/Types/MetricDimension.hs",
         "gen/Amazonka/IoT/Types/MetricToRetain.hs",
         "gen/Amazonka/IoT/Types/MetricValue.hs",
@@ -368,6 +382,8 @@ haskell_library(
         "gen/Amazonka/IoT/Types/MitigationActionType.hs",
         "gen/Amazonka/IoT/Types/ModelStatus.hs",
         "gen/Amazonka/IoT/Types/MqttContext.hs",
+        "gen/Amazonka/IoT/Types/MqttHeaders.hs",
+        "gen/Amazonka/IoT/Types/NamedShadowIndexingMode.hs",
         "gen/Amazonka/IoT/Types/NonCompliantResource.hs",
         "gen/Amazonka/IoT/Types/OTAUpdateFile.hs",
         "gen/Amazonka/IoT/Types/OTAUpdateInfo.hs",
@@ -396,12 +412,15 @@ haskell_library(
         "gen/Amazonka/IoT/Types/RepublishAction.hs",
         "gen/Amazonka/IoT/Types/ResourceIdentifier.hs",
         "gen/Amazonka/IoT/Types/ResourceType.hs",
+        "gen/Amazonka/IoT/Types/RetryCriteria.hs",
+        "gen/Amazonka/IoT/Types/RetryableFailureType.hs",
         "gen/Amazonka/IoT/Types/RoleAliasDescription.hs",
         "gen/Amazonka/IoT/Types/S3Action.hs",
         "gen/Amazonka/IoT/Types/S3Destination.hs",
         "gen/Amazonka/IoT/Types/S3Location.hs",
         "gen/Amazonka/IoT/Types/SalesforceAction.hs",
         "gen/Amazonka/IoT/Types/ScheduledAuditMetadata.hs",
+        "gen/Amazonka/IoT/Types/SchedulingConfig.hs",
         "gen/Amazonka/IoT/Types/SecurityProfileIdentifier.hs",
         "gen/Amazonka/IoT/Types/SecurityProfileTarget.hs",
         "gen/Amazonka/IoT/Types/SecurityProfileTargetMapping.hs",
@@ -425,6 +444,7 @@ haskell_library(
         "gen/Amazonka/IoT/Types/TaskStatistics.hs",
         "gen/Amazonka/IoT/Types/TaskStatisticsForAuditCheck.hs",
         "gen/Amazonka/IoT/Types/TaskStatus.hs",
+        "gen/Amazonka/IoT/Types/TemplateType.hs",
         "gen/Amazonka/IoT/Types/TermsAggregation.hs",
         "gen/Amazonka/IoT/Types/ThingAttribute.hs",
         "gen/Amazonka/IoT/Types/ThingConnectivity.hs",
@@ -455,6 +475,7 @@ haskell_library(
         "gen/Amazonka/IoT/Types/TransferData.hs",
         "gen/Amazonka/IoT/Types/UpdateCACertificateParams.hs",
         "gen/Amazonka/IoT/Types/UpdateDeviceCertificateParams.hs",
+        "gen/Amazonka/IoT/Types/UserProperty.hs",
         "gen/Amazonka/IoT/Types/ValidationError.hs",
         "gen/Amazonka/IoT/Types/VerificationState.hs",
         "gen/Amazonka/IoT/Types/ViolationEvent.hs",
@@ -492,14 +513,13 @@ haskell_library(
         "gen/Amazonka/IoT/ValidateSecurityProfileBehaviors.hs",
         "gen/Amazonka/IoT/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_iot=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
-        "-DVERSION_amazonka_iot=\"2.0\"",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -508,7 +528,7 @@ haskell_library(
     ],
 )
 
-# rule generated from amazonka-iot/amazonka-iot.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-iot/amazonka-iot.cabal by gazelle_cabal
 haskell_test(
     name = "amazonka-iot-test",
     srcs = [
@@ -517,11 +537,12 @@ haskell_test(
         "test/Test/Amazonka/IoT.hs",
         "test/Test/Amazonka/IoT/Internal.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_iot=\"2.0\"",
         "-Wall",
         "-threaded",
-        "-DVERSION_amazonka_iot=\"2.0\"",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

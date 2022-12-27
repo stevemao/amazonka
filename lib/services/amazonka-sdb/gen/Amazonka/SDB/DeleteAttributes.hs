@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SDB.DeleteAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.SDB.DeleteAttributes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -131,7 +132,8 @@ instance Core.AWSRequest DeleteAttributes where
   type
     AWSResponse DeleteAttributes =
       DeleteAttributesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull DeleteAttributesResponse'
 
@@ -149,26 +151,26 @@ instance Prelude.NFData DeleteAttributes where
       `Prelude.seq` Prelude.rnf domainName
       `Prelude.seq` Prelude.rnf itemName
 
-instance Core.ToHeaders DeleteAttributes where
+instance Data.ToHeaders DeleteAttributes where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteAttributes where
+instance Data.ToPath DeleteAttributes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteAttributes where
+instance Data.ToQuery DeleteAttributes where
   toQuery DeleteAttributes' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteAttributes" :: Prelude.ByteString),
+          Data.=: ("DeleteAttributes" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2009-04-15" :: Prelude.ByteString),
-        Core.toQuery
-          ( Core.toQueryList "Attribute"
+          Data.=: ("2009-04-15" :: Prelude.ByteString),
+        Data.toQuery
+          ( Data.toQueryList "Attribute"
               Prelude.<$> attributes
           ),
-        "Expected" Core.=: expected,
-        "DomainName" Core.=: domainName,
-        "ItemName" Core.=: itemName
+        "Expected" Data.=: expected,
+        "DomainName" Data.=: domainName,
+        "ItemName" Data.=: itemName
       ]
 
 -- | /See:/ 'newDeleteAttributesResponse' smart constructor.

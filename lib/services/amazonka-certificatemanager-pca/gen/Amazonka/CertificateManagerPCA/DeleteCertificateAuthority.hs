@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.DeleteCertificateAuthority
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -70,7 +70,8 @@ where
 
 import Amazonka.CertificateManagerPCA.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -135,7 +136,8 @@ instance Core.AWSRequest DeleteCertificateAuthority where
   type
     AWSResponse DeleteCertificateAuthority =
       DeleteCertificateAuthorityResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       DeleteCertificateAuthorityResponse'
@@ -151,38 +153,38 @@ instance Prelude.NFData DeleteCertificateAuthority where
     Prelude.rnf permanentDeletionTimeInDays
       `Prelude.seq` Prelude.rnf certificateAuthorityArn
 
-instance Core.ToHeaders DeleteCertificateAuthority where
+instance Data.ToHeaders DeleteCertificateAuthority where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ACMPrivateCA.DeleteCertificateAuthority" ::
+              Data.=# ( "ACMPrivateCA.DeleteCertificateAuthority" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteCertificateAuthority where
+instance Data.ToJSON DeleteCertificateAuthority where
   toJSON DeleteCertificateAuthority' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PermanentDeletionTimeInDays" Core..=)
+          [ ("PermanentDeletionTimeInDays" Data..=)
               Prelude.<$> permanentDeletionTimeInDays,
             Prelude.Just
               ( "CertificateAuthorityArn"
-                  Core..= certificateAuthorityArn
+                  Data..= certificateAuthorityArn
               )
           ]
       )
 
-instance Core.ToPath DeleteCertificateAuthority where
+instance Data.ToPath DeleteCertificateAuthority where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteCertificateAuthority where
+instance Data.ToQuery DeleteCertificateAuthority where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteCertificateAuthorityResponse' smart constructor.

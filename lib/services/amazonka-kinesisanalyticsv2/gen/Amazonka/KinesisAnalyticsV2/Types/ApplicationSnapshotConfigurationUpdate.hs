@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.ApplicationSnapshotConfigurationUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KinesisAnalyticsV2.Types.ApplicationSnapshotConfigurationUpdate where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes updates to whether snapshots are enabled for a Flink-based
@@ -74,15 +75,15 @@ instance
     Prelude.rnf snapshotsEnabledUpdate
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ApplicationSnapshotConfigurationUpdate
   where
   toJSON ApplicationSnapshotConfigurationUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "SnapshotsEnabledUpdate"
-                  Core..= snapshotsEnabledUpdate
+                  Data..= snapshotsEnabledUpdate
               )
           ]
       )

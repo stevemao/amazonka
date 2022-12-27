@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.Types.InstanceCredentials
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,21 +20,20 @@
 module Amazonka.GameLift.Types.InstanceCredentials where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Set of credentials required to remotely access a fleet instance. Access
--- credentials are requested by calling GetInstanceAccess and returned in
--- an InstanceAccess object.
+-- | Set of credentials required to remotely access a fleet instance.
 --
 -- /See:/ 'newInstanceCredentials' smart constructor.
 data InstanceCredentials = InstanceCredentials'
-  { -- | User login string.
-    userName :: Prelude.Maybe Prelude.Text,
-    -- | Secret string. For Windows instances, the secret is a password for use
+  { -- | Secret string. For Windows instances, the secret is a password for use
     -- with Windows Remote Desktop. For Linux instances, it is a private key
     -- (which must be saved as a @.pem@ file) for use with SSH.
-    secret :: Prelude.Maybe Prelude.Text
+    secret :: Prelude.Maybe Prelude.Text,
+    -- | User login string.
+    userName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -46,22 +45,18 @@ data InstanceCredentials = InstanceCredentials'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'userName', 'instanceCredentials_userName' - User login string.
---
 -- 'secret', 'instanceCredentials_secret' - Secret string. For Windows instances, the secret is a password for use
 -- with Windows Remote Desktop. For Linux instances, it is a private key
 -- (which must be saved as a @.pem@ file) for use with SSH.
+--
+-- 'userName', 'instanceCredentials_userName' - User login string.
 newInstanceCredentials ::
   InstanceCredentials
 newInstanceCredentials =
   InstanceCredentials'
-    { userName = Prelude.Nothing,
-      secret = Prelude.Nothing
+    { secret = Prelude.Nothing,
+      userName = Prelude.Nothing
     }
-
--- | User login string.
-instanceCredentials_userName :: Lens.Lens' InstanceCredentials (Prelude.Maybe Prelude.Text)
-instanceCredentials_userName = Lens.lens (\InstanceCredentials' {userName} -> userName) (\s@InstanceCredentials' {} a -> s {userName = a} :: InstanceCredentials)
 
 -- | Secret string. For Windows instances, the secret is a password for use
 -- with Windows Remote Desktop. For Linux instances, it is a private key
@@ -69,22 +64,26 @@ instanceCredentials_userName = Lens.lens (\InstanceCredentials' {userName} -> us
 instanceCredentials_secret :: Lens.Lens' InstanceCredentials (Prelude.Maybe Prelude.Text)
 instanceCredentials_secret = Lens.lens (\InstanceCredentials' {secret} -> secret) (\s@InstanceCredentials' {} a -> s {secret = a} :: InstanceCredentials)
 
-instance Core.FromJSON InstanceCredentials where
+-- | User login string.
+instanceCredentials_userName :: Lens.Lens' InstanceCredentials (Prelude.Maybe Prelude.Text)
+instanceCredentials_userName = Lens.lens (\InstanceCredentials' {userName} -> userName) (\s@InstanceCredentials' {} a -> s {userName = a} :: InstanceCredentials)
+
+instance Data.FromJSON InstanceCredentials where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InstanceCredentials"
       ( \x ->
           InstanceCredentials'
-            Prelude.<$> (x Core..:? "UserName")
-            Prelude.<*> (x Core..:? "Secret")
+            Prelude.<$> (x Data..:? "Secret")
+            Prelude.<*> (x Data..:? "UserName")
       )
 
 instance Prelude.Hashable InstanceCredentials where
   hashWithSalt _salt InstanceCredentials' {..} =
-    _salt `Prelude.hashWithSalt` userName
-      `Prelude.hashWithSalt` secret
+    _salt `Prelude.hashWithSalt` secret
+      `Prelude.hashWithSalt` userName
 
 instance Prelude.NFData InstanceCredentials where
   rnf InstanceCredentials' {..} =
-    Prelude.rnf userName
-      `Prelude.seq` Prelude.rnf secret
+    Prelude.rnf secret
+      `Prelude.seq` Prelude.rnf userName

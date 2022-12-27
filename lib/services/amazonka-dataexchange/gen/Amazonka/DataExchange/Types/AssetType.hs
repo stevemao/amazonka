@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataExchange.Types.AssetType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,22 @@
 module Amazonka.DataExchange.Types.AssetType
   ( AssetType
       ( ..,
+        AssetType_API_GATEWAY_API,
+        AssetType_LAKE_FORMATION_DATA_PERMISSION,
         AssetType_REDSHIFT_DATA_SHARE,
+        AssetType_S3_DATA_ACCESS,
         AssetType_S3_SNAPSHOT
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The type of asset that is added to a data set.
 newtype AssetType = AssetType'
   { fromAssetType ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -44,28 +47,40 @@ newtype AssetType = AssetType'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
+
+pattern AssetType_API_GATEWAY_API :: AssetType
+pattern AssetType_API_GATEWAY_API = AssetType' "API_GATEWAY_API"
+
+pattern AssetType_LAKE_FORMATION_DATA_PERMISSION :: AssetType
+pattern AssetType_LAKE_FORMATION_DATA_PERMISSION = AssetType' "LAKE_FORMATION_DATA_PERMISSION"
 
 pattern AssetType_REDSHIFT_DATA_SHARE :: AssetType
 pattern AssetType_REDSHIFT_DATA_SHARE = AssetType' "REDSHIFT_DATA_SHARE"
+
+pattern AssetType_S3_DATA_ACCESS :: AssetType
+pattern AssetType_S3_DATA_ACCESS = AssetType' "S3_DATA_ACCESS"
 
 pattern AssetType_S3_SNAPSHOT :: AssetType
 pattern AssetType_S3_SNAPSHOT = AssetType' "S3_SNAPSHOT"
 
 {-# COMPLETE
+  AssetType_API_GATEWAY_API,
+  AssetType_LAKE_FORMATION_DATA_PERMISSION,
   AssetType_REDSHIFT_DATA_SHARE,
+  AssetType_S3_DATA_ACCESS,
   AssetType_S3_SNAPSHOT,
   AssetType'
   #-}

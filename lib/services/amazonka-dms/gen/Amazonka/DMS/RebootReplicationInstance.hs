@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DMS.RebootReplicationInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.DMS.RebootReplicationInstance
     newRebootReplicationInstance,
 
     -- * Request Lenses
-    rebootReplicationInstance_forcePlannedFailover,
     rebootReplicationInstance_forceFailover,
+    rebootReplicationInstance_forcePlannedFailover,
     rebootReplicationInstance_replicationInstanceArn,
 
     -- * Destructuring the Response
@@ -43,25 +43,26 @@ module Amazonka.DMS.RebootReplicationInstance
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DMS.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newRebootReplicationInstance' smart constructor.
 data RebootReplicationInstance = RebootReplicationInstance'
-  { -- | If this parameter is @true@, the reboot is conducted through a planned
+  { -- | If this parameter is @true@, the reboot is conducted through a Multi-AZ
+    -- failover. If the instance isn\'t configured for Multi-AZ, then you
+    -- can\'t specify @true@. ( @--force-planned-failover@ and
+    -- @--force-failover@ can\'t both be set to @true@.)
+    forceFailover :: Prelude.Maybe Prelude.Bool,
+    -- | If this parameter is @true@, the reboot is conducted through a planned
     -- Multi-AZ failover where resources are released and cleaned up prior to
     -- conducting the failover. If the instance isn\'\'t configured for
     -- Multi-AZ, then you can\'t specify @true@. ( @--force-planned-failover@
     -- and @--force-failover@ can\'t both be set to @true@.)
     forcePlannedFailover :: Prelude.Maybe Prelude.Bool,
-    -- | If this parameter is @true@, the reboot is conducted through a Multi-AZ
-    -- failover. If the instance isn\'t configured for Multi-AZ, then you
-    -- can\'t specify @true@. ( @--force-planned-failover@ and
-    -- @--force-failover@ can\'t both be set to @true@.)
-    forceFailover :: Prelude.Maybe Prelude.Bool,
     -- | The Amazon Resource Name (ARN) of the replication instance.
     replicationInstanceArn :: Prelude.Text
   }
@@ -75,16 +76,16 @@ data RebootReplicationInstance = RebootReplicationInstance'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'forceFailover', 'rebootReplicationInstance_forceFailover' - If this parameter is @true@, the reboot is conducted through a Multi-AZ
+-- failover. If the instance isn\'t configured for Multi-AZ, then you
+-- can\'t specify @true@. ( @--force-planned-failover@ and
+-- @--force-failover@ can\'t both be set to @true@.)
+--
 -- 'forcePlannedFailover', 'rebootReplicationInstance_forcePlannedFailover' - If this parameter is @true@, the reboot is conducted through a planned
 -- Multi-AZ failover where resources are released and cleaned up prior to
 -- conducting the failover. If the instance isn\'\'t configured for
 -- Multi-AZ, then you can\'t specify @true@. ( @--force-planned-failover@
 -- and @--force-failover@ can\'t both be set to @true@.)
---
--- 'forceFailover', 'rebootReplicationInstance_forceFailover' - If this parameter is @true@, the reboot is conducted through a Multi-AZ
--- failover. If the instance isn\'t configured for Multi-AZ, then you
--- can\'t specify @true@. ( @--force-planned-failover@ and
--- @--force-failover@ can\'t both be set to @true@.)
 --
 -- 'replicationInstanceArn', 'rebootReplicationInstance_replicationInstanceArn' - The Amazon Resource Name (ARN) of the replication instance.
 newRebootReplicationInstance ::
@@ -93,12 +94,19 @@ newRebootReplicationInstance ::
   RebootReplicationInstance
 newRebootReplicationInstance pReplicationInstanceArn_ =
   RebootReplicationInstance'
-    { forcePlannedFailover =
+    { forceFailover =
         Prelude.Nothing,
-      forceFailover = Prelude.Nothing,
+      forcePlannedFailover = Prelude.Nothing,
       replicationInstanceArn =
         pReplicationInstanceArn_
     }
+
+-- | If this parameter is @true@, the reboot is conducted through a Multi-AZ
+-- failover. If the instance isn\'t configured for Multi-AZ, then you
+-- can\'t specify @true@. ( @--force-planned-failover@ and
+-- @--force-failover@ can\'t both be set to @true@.)
+rebootReplicationInstance_forceFailover :: Lens.Lens' RebootReplicationInstance (Prelude.Maybe Prelude.Bool)
+rebootReplicationInstance_forceFailover = Lens.lens (\RebootReplicationInstance' {forceFailover} -> forceFailover) (\s@RebootReplicationInstance' {} a -> s {forceFailover = a} :: RebootReplicationInstance)
 
 -- | If this parameter is @true@, the reboot is conducted through a planned
 -- Multi-AZ failover where resources are released and cleaned up prior to
@@ -108,13 +116,6 @@ newRebootReplicationInstance pReplicationInstanceArn_ =
 rebootReplicationInstance_forcePlannedFailover :: Lens.Lens' RebootReplicationInstance (Prelude.Maybe Prelude.Bool)
 rebootReplicationInstance_forcePlannedFailover = Lens.lens (\RebootReplicationInstance' {forcePlannedFailover} -> forcePlannedFailover) (\s@RebootReplicationInstance' {} a -> s {forcePlannedFailover = a} :: RebootReplicationInstance)
 
--- | If this parameter is @true@, the reboot is conducted through a Multi-AZ
--- failover. If the instance isn\'t configured for Multi-AZ, then you
--- can\'t specify @true@. ( @--force-planned-failover@ and
--- @--force-failover@ can\'t both be set to @true@.)
-rebootReplicationInstance_forceFailover :: Lens.Lens' RebootReplicationInstance (Prelude.Maybe Prelude.Bool)
-rebootReplicationInstance_forceFailover = Lens.lens (\RebootReplicationInstance' {forceFailover} -> forceFailover) (\s@RebootReplicationInstance' {} a -> s {forceFailover = a} :: RebootReplicationInstance)
-
 -- | The Amazon Resource Name (ARN) of the replication instance.
 rebootReplicationInstance_replicationInstanceArn :: Lens.Lens' RebootReplicationInstance Prelude.Text
 rebootReplicationInstance_replicationInstanceArn = Lens.lens (\RebootReplicationInstance' {replicationInstanceArn} -> replicationInstanceArn) (\s@RebootReplicationInstance' {} a -> s {replicationInstanceArn = a} :: RebootReplicationInstance)
@@ -123,60 +124,61 @@ instance Core.AWSRequest RebootReplicationInstance where
   type
     AWSResponse RebootReplicationInstance =
       RebootReplicationInstanceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RebootReplicationInstanceResponse'
-            Prelude.<$> (x Core..?> "ReplicationInstance")
+            Prelude.<$> (x Data..?> "ReplicationInstance")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable RebootReplicationInstance where
   hashWithSalt _salt RebootReplicationInstance' {..} =
-    _salt `Prelude.hashWithSalt` forcePlannedFailover
-      `Prelude.hashWithSalt` forceFailover
+    _salt `Prelude.hashWithSalt` forceFailover
+      `Prelude.hashWithSalt` forcePlannedFailover
       `Prelude.hashWithSalt` replicationInstanceArn
 
 instance Prelude.NFData RebootReplicationInstance where
   rnf RebootReplicationInstance' {..} =
-    Prelude.rnf forcePlannedFailover
-      `Prelude.seq` Prelude.rnf forceFailover
+    Prelude.rnf forceFailover
+      `Prelude.seq` Prelude.rnf forcePlannedFailover
       `Prelude.seq` Prelude.rnf replicationInstanceArn
 
-instance Core.ToHeaders RebootReplicationInstance where
+instance Data.ToHeaders RebootReplicationInstance where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonDMSv20160101.RebootReplicationInstance" ::
+              Data.=# ( "AmazonDMSv20160101.RebootReplicationInstance" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RebootReplicationInstance where
+instance Data.ToJSON RebootReplicationInstance where
   toJSON RebootReplicationInstance' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ForcePlannedFailover" Core..=)
+          [ ("ForceFailover" Data..=) Prelude.<$> forceFailover,
+            ("ForcePlannedFailover" Data..=)
               Prelude.<$> forcePlannedFailover,
-            ("ForceFailover" Core..=) Prelude.<$> forceFailover,
             Prelude.Just
               ( "ReplicationInstanceArn"
-                  Core..= replicationInstanceArn
+                  Data..= replicationInstanceArn
               )
           ]
       )
 
-instance Core.ToPath RebootReplicationInstance where
+instance Data.ToPath RebootReplicationInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RebootReplicationInstance where
+instance Data.ToQuery RebootReplicationInstance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRebootReplicationInstanceResponse' smart constructor.

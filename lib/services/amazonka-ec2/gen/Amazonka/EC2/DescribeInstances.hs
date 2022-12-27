@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeInstances
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,11 +50,11 @@ module Amazonka.EC2.DescribeInstances
     newDescribeInstances,
 
     -- * Request Lenses
-    describeInstances_filters,
-    describeInstances_nextToken,
-    describeInstances_instanceIds,
     describeInstances_dryRun,
+    describeInstances_filters,
+    describeInstances_instanceIds,
     describeInstances_maxResults,
+    describeInstances_nextToken,
 
     -- * Destructuring the Response
     DescribeInstancesResponse (..),
@@ -68,15 +68,21 @@ module Amazonka.EC2.DescribeInstances
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeInstances' smart constructor.
 data DescribeInstances = DescribeInstances'
-  { -- | The filters.
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The filters.
     --
     -- -   @affinity@ - The affinity setting for an instance running on a
     --     Dedicated Host (@default@ | @host@).
@@ -100,6 +106,9 @@ data DescribeInstances = DescribeInstances'
     --     (@attaching@ | @attached@ | @detaching@ | @detached@).
     --
     -- -   @block-device-mapping.volume-id@ - The volume ID of the EBS volume.
+    --
+    -- -   @capacity-reservation-id@ - The ID of the Capacity Reservation into
+    --     which the instance was launched.
     --
     -- -   @client-token@ - The idempotency token you provided when you
     --     launched the instance.
@@ -160,7 +169,10 @@ data DescribeInstances = DescribeInstances'
     --     index for the instance in the launch group (for example, 0, 1, 2,
     --     and so on).
     --
-    -- -   @launch-time@ - The time when the instance was launched.
+    -- -   @launch-time@ - The time when the instance was launched, in the ISO
+    --     8601 format in the UTC time zone (YYYY-MM-DDThh:mm:ss.sssZ), for
+    --     example, @2021-09-29T11:04:43.305Z@. You can use a wildcard (@*@),
+    --     for example, @2021-09-29T*@, which matches an entire day.
     --
     -- -   @metadata-options.http-tokens@ - The metadata request authorization
     --     state (@optional@ | @required@)
@@ -353,22 +365,17 @@ data DescribeInstances = DescribeInstances'
     --
     -- -   @vpc-id@ - The ID of the VPC that the instance is running in.
     filters :: Prelude.Maybe [Filter],
-    -- | The token to request the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The instance IDs.
     --
     -- Default: Describes all your instances.
     instanceIds :: Prelude.Maybe [Prelude.Text],
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | The maximum number of results to return in a single call. To retrieve
     -- the remaining results, make another call with the returned @NextToken@
     -- value. This value can be between 5 and 1000. You cannot specify this
     -- parameter and the instance IDs parameter in the same call.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The token to request the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -379,6 +386,11 @@ data DescribeInstances = DescribeInstances'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'dryRun', 'describeInstances_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'filters', 'describeInstances_filters' - The filters.
 --
@@ -404,6 +416,9 @@ data DescribeInstances = DescribeInstances'
 --     (@attaching@ | @attached@ | @detaching@ | @detached@).
 --
 -- -   @block-device-mapping.volume-id@ - The volume ID of the EBS volume.
+--
+-- -   @capacity-reservation-id@ - The ID of the Capacity Reservation into
+--     which the instance was launched.
 --
 -- -   @client-token@ - The idempotency token you provided when you
 --     launched the instance.
@@ -464,7 +479,10 @@ data DescribeInstances = DescribeInstances'
 --     index for the instance in the launch group (for example, 0, 1, 2,
 --     and so on).
 --
--- -   @launch-time@ - The time when the instance was launched.
+-- -   @launch-time@ - The time when the instance was launched, in the ISO
+--     8601 format in the UTC time zone (YYYY-MM-DDThh:mm:ss.sssZ), for
+--     example, @2021-09-29T11:04:43.305Z@. You can use a wildcard (@*@),
+--     for example, @2021-09-29T*@, which matches an entire day.
 --
 -- -   @metadata-options.http-tokens@ - The metadata request authorization
 --     state (@optional@ | @required@)
@@ -657,31 +675,33 @@ data DescribeInstances = DescribeInstances'
 --
 -- -   @vpc-id@ - The ID of the VPC that the instance is running in.
 --
--- 'nextToken', 'describeInstances_nextToken' - The token to request the next page of results.
---
 -- 'instanceIds', 'describeInstances_instanceIds' - The instance IDs.
 --
 -- Default: Describes all your instances.
---
--- 'dryRun', 'describeInstances_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'maxResults', 'describeInstances_maxResults' - The maximum number of results to return in a single call. To retrieve
 -- the remaining results, make another call with the returned @NextToken@
 -- value. This value can be between 5 and 1000. You cannot specify this
 -- parameter and the instance IDs parameter in the same call.
+--
+-- 'nextToken', 'describeInstances_nextToken' - The token to request the next page of results.
 newDescribeInstances ::
   DescribeInstances
 newDescribeInstances =
   DescribeInstances'
-    { filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { dryRun = Prelude.Nothing,
+      filters = Prelude.Nothing,
       instanceIds = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeInstances_dryRun :: Lens.Lens' DescribeInstances (Prelude.Maybe Prelude.Bool)
+describeInstances_dryRun = Lens.lens (\DescribeInstances' {dryRun} -> dryRun) (\s@DescribeInstances' {} a -> s {dryRun = a} :: DescribeInstances)
 
 -- | The filters.
 --
@@ -707,6 +727,9 @@ newDescribeInstances =
 --     (@attaching@ | @attached@ | @detaching@ | @detached@).
 --
 -- -   @block-device-mapping.volume-id@ - The volume ID of the EBS volume.
+--
+-- -   @capacity-reservation-id@ - The ID of the Capacity Reservation into
+--     which the instance was launched.
 --
 -- -   @client-token@ - The idempotency token you provided when you
 --     launched the instance.
@@ -767,7 +790,10 @@ newDescribeInstances =
 --     index for the instance in the launch group (for example, 0, 1, 2,
 --     and so on).
 --
--- -   @launch-time@ - The time when the instance was launched.
+-- -   @launch-time@ - The time when the instance was launched, in the ISO
+--     8601 format in the UTC time zone (YYYY-MM-DDThh:mm:ss.sssZ), for
+--     example, @2021-09-29T11:04:43.305Z@. You can use a wildcard (@*@),
+--     for example, @2021-09-29T*@, which matches an entire day.
 --
 -- -   @metadata-options.http-tokens@ - The metadata request authorization
 --     state (@optional@ | @required@)
@@ -962,22 +988,11 @@ newDescribeInstances =
 describeInstances_filters :: Lens.Lens' DescribeInstances (Prelude.Maybe [Filter])
 describeInstances_filters = Lens.lens (\DescribeInstances' {filters} -> filters) (\s@DescribeInstances' {} a -> s {filters = a} :: DescribeInstances) Prelude.. Lens.mapping Lens.coerced
 
--- | The token to request the next page of results.
-describeInstances_nextToken :: Lens.Lens' DescribeInstances (Prelude.Maybe Prelude.Text)
-describeInstances_nextToken = Lens.lens (\DescribeInstances' {nextToken} -> nextToken) (\s@DescribeInstances' {} a -> s {nextToken = a} :: DescribeInstances)
-
 -- | The instance IDs.
 --
 -- Default: Describes all your instances.
 describeInstances_instanceIds :: Lens.Lens' DescribeInstances (Prelude.Maybe [Prelude.Text])
 describeInstances_instanceIds = Lens.lens (\DescribeInstances' {instanceIds} -> instanceIds) (\s@DescribeInstances' {} a -> s {instanceIds = a} :: DescribeInstances) Prelude.. Lens.mapping Lens.coerced
-
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describeInstances_dryRun :: Lens.Lens' DescribeInstances (Prelude.Maybe Prelude.Bool)
-describeInstances_dryRun = Lens.lens (\DescribeInstances' {dryRun} -> dryRun) (\s@DescribeInstances' {} a -> s {dryRun = a} :: DescribeInstances)
 
 -- | The maximum number of results to return in a single call. To retrieve
 -- the remaining results, make another call with the returned @NextToken@
@@ -985,6 +1000,10 @@ describeInstances_dryRun = Lens.lens (\DescribeInstances' {dryRun} -> dryRun) (\
 -- parameter and the instance IDs parameter in the same call.
 describeInstances_maxResults :: Lens.Lens' DescribeInstances (Prelude.Maybe Prelude.Int)
 describeInstances_maxResults = Lens.lens (\DescribeInstances' {maxResults} -> maxResults) (\s@DescribeInstances' {} a -> s {maxResults = a} :: DescribeInstances)
+
+-- | The token to request the next page of results.
+describeInstances_nextToken :: Lens.Lens' DescribeInstances (Prelude.Maybe Prelude.Text)
+describeInstances_nextToken = Lens.lens (\DescribeInstances' {nextToken} -> nextToken) (\s@DescribeInstances' {} a -> s {nextToken = a} :: DescribeInstances)
 
 instance Core.AWSPager DescribeInstances where
   page rq rs
@@ -1012,56 +1031,57 @@ instance Core.AWSRequest DescribeInstances where
   type
     AWSResponse DescribeInstances =
       DescribeInstancesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeInstancesResponse'
-            Prelude.<$> (x Core..@? "nextToken")
-            Prelude.<*> ( x Core..@? "reservationSet" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> (x Data..@? "nextToken")
+            Prelude.<*> ( x Data..@? "reservationSet" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeInstances where
   hashWithSalt _salt DescribeInstances' {..} =
-    _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` instanceIds
-      `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeInstances where
   rnf DescribeInstances' {..} =
-    Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf instanceIds
-      `Prelude.seq` Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeInstances where
+instance Data.ToHeaders DescribeInstances where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeInstances where
+instance Data.ToPath DescribeInstances where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeInstances where
+instance Data.ToQuery DescribeInstances where
   toQuery DescribeInstances' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeInstances" :: Prelude.ByteString),
+          Data.=: ("DescribeInstances" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        Core.toQuery
-          ( Core.toQueryList "InstanceId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        Data.toQuery
+          ( Data.toQueryList "InstanceId"
               Prelude.<$> instanceIds
           ),
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newDescribeInstancesResponse' smart constructor.

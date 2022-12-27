@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MigrationHub.ListCreatedArtifacts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,8 +38,8 @@ module Amazonka.MigrationHub.ListCreatedArtifacts
     newListCreatedArtifacts,
 
     -- * Request Lenses
-    listCreatedArtifacts_nextToken,
     listCreatedArtifacts_maxResults,
+    listCreatedArtifacts_nextToken,
     listCreatedArtifacts_progressUpdateStream,
     listCreatedArtifacts_migrationTaskName,
 
@@ -48,14 +48,15 @@ module Amazonka.MigrationHub.ListCreatedArtifacts
     newListCreatedArtifactsResponse,
 
     -- * Response Lenses
-    listCreatedArtifactsResponse_nextToken,
     listCreatedArtifactsResponse_createdArtifactList,
+    listCreatedArtifactsResponse_nextToken,
     listCreatedArtifactsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MigrationHub.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -63,12 +64,12 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListCreatedArtifacts' smart constructor.
 data ListCreatedArtifacts = ListCreatedArtifacts'
-  { -- | If a @NextToken@ was returned by a previous call, there are more results
+  { -- | Maximum number of results to be returned per page.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | If a @NextToken@ was returned by a previous call, there are more results
     -- available. To retrieve the next page of results, make the call again
     -- using the returned token in @NextToken@.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Maximum number of results to be returned per page.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The name of the ProgressUpdateStream.
     progressUpdateStream :: Prelude.Text,
     -- | Unique identifier that references the migration task. /Do not store
@@ -85,11 +86,11 @@ data ListCreatedArtifacts = ListCreatedArtifacts'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listCreatedArtifacts_maxResults' - Maximum number of results to be returned per page.
+--
 -- 'nextToken', 'listCreatedArtifacts_nextToken' - If a @NextToken@ was returned by a previous call, there are more results
 -- available. To retrieve the next page of results, make the call again
 -- using the returned token in @NextToken@.
---
--- 'maxResults', 'listCreatedArtifacts_maxResults' - Maximum number of results to be returned per page.
 --
 -- 'progressUpdateStream', 'listCreatedArtifacts_progressUpdateStream' - The name of the ProgressUpdateStream.
 --
@@ -105,21 +106,21 @@ newListCreatedArtifacts
   pProgressUpdateStream_
   pMigrationTaskName_ =
     ListCreatedArtifacts'
-      { nextToken = Prelude.Nothing,
-        maxResults = Prelude.Nothing,
+      { maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         progressUpdateStream = pProgressUpdateStream_,
         migrationTaskName = pMigrationTaskName_
       }
+
+-- | Maximum number of results to be returned per page.
+listCreatedArtifacts_maxResults :: Lens.Lens' ListCreatedArtifacts (Prelude.Maybe Prelude.Natural)
+listCreatedArtifacts_maxResults = Lens.lens (\ListCreatedArtifacts' {maxResults} -> maxResults) (\s@ListCreatedArtifacts' {} a -> s {maxResults = a} :: ListCreatedArtifacts)
 
 -- | If a @NextToken@ was returned by a previous call, there are more results
 -- available. To retrieve the next page of results, make the call again
 -- using the returned token in @NextToken@.
 listCreatedArtifacts_nextToken :: Lens.Lens' ListCreatedArtifacts (Prelude.Maybe Prelude.Text)
 listCreatedArtifacts_nextToken = Lens.lens (\ListCreatedArtifacts' {nextToken} -> nextToken) (\s@ListCreatedArtifacts' {} a -> s {nextToken = a} :: ListCreatedArtifacts)
-
--- | Maximum number of results to be returned per page.
-listCreatedArtifacts_maxResults :: Lens.Lens' ListCreatedArtifacts (Prelude.Maybe Prelude.Natural)
-listCreatedArtifacts_maxResults = Lens.lens (\ListCreatedArtifacts' {maxResults} -> maxResults) (\s@ListCreatedArtifacts' {} a -> s {maxResults = a} :: ListCreatedArtifacts)
 
 -- | The name of the ProgressUpdateStream.
 listCreatedArtifacts_progressUpdateStream :: Lens.Lens' ListCreatedArtifacts Prelude.Text
@@ -156,77 +157,78 @@ instance Core.AWSRequest ListCreatedArtifacts where
   type
     AWSResponse ListCreatedArtifacts =
       ListCreatedArtifactsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListCreatedArtifactsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "CreatedArtifactList"
+            Prelude.<$> ( x Data..?> "CreatedArtifactList"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListCreatedArtifacts where
   hashWithSalt _salt ListCreatedArtifacts' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` progressUpdateStream
       `Prelude.hashWithSalt` migrationTaskName
 
 instance Prelude.NFData ListCreatedArtifacts where
   rnf ListCreatedArtifacts' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf progressUpdateStream
       `Prelude.seq` Prelude.rnf migrationTaskName
 
-instance Core.ToHeaders ListCreatedArtifacts where
+instance Data.ToHeaders ListCreatedArtifacts where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSMigrationHub.ListCreatedArtifacts" ::
+              Data.=# ( "AWSMigrationHub.ListCreatedArtifacts" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListCreatedArtifacts where
+instance Data.ToJSON ListCreatedArtifacts where
   toJSON ListCreatedArtifacts' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
               ( "ProgressUpdateStream"
-                  Core..= progressUpdateStream
+                  Data..= progressUpdateStream
               ),
             Prelude.Just
-              ("MigrationTaskName" Core..= migrationTaskName)
+              ("MigrationTaskName" Data..= migrationTaskName)
           ]
       )
 
-instance Core.ToPath ListCreatedArtifacts where
+instance Data.ToPath ListCreatedArtifacts where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListCreatedArtifacts where
+instance Data.ToQuery ListCreatedArtifacts where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListCreatedArtifactsResponse' smart constructor.
 data ListCreatedArtifactsResponse = ListCreatedArtifactsResponse'
-  { -- | If there are more created artifacts than the max result, return the next
+  { -- | List of created artifacts up to the maximum number of results specified
+    -- in the request.
+    createdArtifactList :: Prelude.Maybe [CreatedArtifact],
+    -- | If there are more created artifacts than the max result, return the next
     -- token to be passed to the next call as a bookmark of where to start
     -- from.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | List of created artifacts up to the maximum number of results specified
-    -- in the request.
-    createdArtifactList :: Prelude.Maybe [CreatedArtifact],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -240,12 +242,12 @@ data ListCreatedArtifactsResponse = ListCreatedArtifactsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'createdArtifactList', 'listCreatedArtifactsResponse_createdArtifactList' - List of created artifacts up to the maximum number of results specified
+-- in the request.
+--
 -- 'nextToken', 'listCreatedArtifactsResponse_nextToken' - If there are more created artifacts than the max result, return the next
 -- token to be passed to the next call as a bookmark of where to start
 -- from.
---
--- 'createdArtifactList', 'listCreatedArtifactsResponse_createdArtifactList' - List of created artifacts up to the maximum number of results specified
--- in the request.
 --
 -- 'httpStatus', 'listCreatedArtifactsResponse_httpStatus' - The response's http status code.
 newListCreatedArtifactsResponse ::
@@ -254,11 +256,16 @@ newListCreatedArtifactsResponse ::
   ListCreatedArtifactsResponse
 newListCreatedArtifactsResponse pHttpStatus_ =
   ListCreatedArtifactsResponse'
-    { nextToken =
+    { createdArtifactList =
         Prelude.Nothing,
-      createdArtifactList = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | List of created artifacts up to the maximum number of results specified
+-- in the request.
+listCreatedArtifactsResponse_createdArtifactList :: Lens.Lens' ListCreatedArtifactsResponse (Prelude.Maybe [CreatedArtifact])
+listCreatedArtifactsResponse_createdArtifactList = Lens.lens (\ListCreatedArtifactsResponse' {createdArtifactList} -> createdArtifactList) (\s@ListCreatedArtifactsResponse' {} a -> s {createdArtifactList = a} :: ListCreatedArtifactsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | If there are more created artifacts than the max result, return the next
 -- token to be passed to the next call as a bookmark of where to start
@@ -266,17 +273,12 @@ newListCreatedArtifactsResponse pHttpStatus_ =
 listCreatedArtifactsResponse_nextToken :: Lens.Lens' ListCreatedArtifactsResponse (Prelude.Maybe Prelude.Text)
 listCreatedArtifactsResponse_nextToken = Lens.lens (\ListCreatedArtifactsResponse' {nextToken} -> nextToken) (\s@ListCreatedArtifactsResponse' {} a -> s {nextToken = a} :: ListCreatedArtifactsResponse)
 
--- | List of created artifacts up to the maximum number of results specified
--- in the request.
-listCreatedArtifactsResponse_createdArtifactList :: Lens.Lens' ListCreatedArtifactsResponse (Prelude.Maybe [CreatedArtifact])
-listCreatedArtifactsResponse_createdArtifactList = Lens.lens (\ListCreatedArtifactsResponse' {createdArtifactList} -> createdArtifactList) (\s@ListCreatedArtifactsResponse' {} a -> s {createdArtifactList = a} :: ListCreatedArtifactsResponse) Prelude.. Lens.mapping Lens.coerced
-
 -- | The response's http status code.
 listCreatedArtifactsResponse_httpStatus :: Lens.Lens' ListCreatedArtifactsResponse Prelude.Int
 listCreatedArtifactsResponse_httpStatus = Lens.lens (\ListCreatedArtifactsResponse' {httpStatus} -> httpStatus) (\s@ListCreatedArtifactsResponse' {} a -> s {httpStatus = a} :: ListCreatedArtifactsResponse)
 
 instance Prelude.NFData ListCreatedArtifactsResponse where
   rnf ListCreatedArtifactsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf createdArtifactList
+    Prelude.rnf createdArtifactList
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

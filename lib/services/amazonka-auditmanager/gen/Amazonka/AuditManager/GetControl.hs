@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.GetControl
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,14 +41,15 @@ where
 
 import Amazonka.AuditManager.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetControl' smart constructor.
 data GetControl = GetControl'
-  { -- | The identifier for the specified control.
+  { -- | The identifier for the control.
     controlId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -61,7 +62,7 @@ data GetControl = GetControl'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'controlId', 'getControl_controlId' - The identifier for the specified control.
+-- 'controlId', 'getControl_controlId' - The identifier for the control.
 newGetControl ::
   -- | 'controlId'
   Prelude.Text ->
@@ -69,18 +70,19 @@ newGetControl ::
 newGetControl pControlId_ =
   GetControl' {controlId = pControlId_}
 
--- | The identifier for the specified control.
+-- | The identifier for the control.
 getControl_controlId :: Lens.Lens' GetControl Prelude.Text
 getControl_controlId = Lens.lens (\GetControl' {controlId} -> controlId) (\s@GetControl' {} a -> s {controlId = a} :: GetControl)
 
 instance Core.AWSRequest GetControl where
   type AWSResponse GetControl = GetControlResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetControlResponse'
-            Prelude.<$> (x Core..?> "control")
+            Prelude.<$> (x Data..?> "control")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -91,27 +93,27 @@ instance Prelude.Hashable GetControl where
 instance Prelude.NFData GetControl where
   rnf GetControl' {..} = Prelude.rnf controlId
 
-instance Core.ToHeaders GetControl where
+instance Data.ToHeaders GetControl where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetControl where
+instance Data.ToPath GetControl where
   toPath GetControl' {..} =
-    Prelude.mconcat ["/controls/", Core.toBS controlId]
+    Prelude.mconcat ["/controls/", Data.toBS controlId]
 
-instance Core.ToQuery GetControl where
+instance Data.ToQuery GetControl where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetControlResponse' smart constructor.
 data GetControlResponse = GetControlResponse'
-  { -- | The name of the control returned by the @GetControl@ API.
+  { -- | The name of the control that the @GetControl@ API returned.
     control :: Prelude.Maybe Control,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -126,7 +128,7 @@ data GetControlResponse = GetControlResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'control', 'getControlResponse_control' - The name of the control returned by the @GetControl@ API.
+-- 'control', 'getControlResponse_control' - The name of the control that the @GetControl@ API returned.
 --
 -- 'httpStatus', 'getControlResponse_httpStatus' - The response's http status code.
 newGetControlResponse ::
@@ -139,7 +141,7 @@ newGetControlResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The name of the control returned by the @GetControl@ API.
+-- | The name of the control that the @GetControl@ API returned.
 getControlResponse_control :: Lens.Lens' GetControlResponse (Prelude.Maybe Control)
 getControlResponse_control = Lens.lens (\GetControlResponse' {control} -> control) (\s@GetControlResponse' {} a -> s {control = a} :: GetControlResponse)
 

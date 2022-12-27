@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Shield.UpdateProtectionGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.Shield.UpdateProtectionGroup
     newUpdateProtectionGroup,
 
     -- * Request Lenses
-    updateProtectionGroup_resourceType,
     updateProtectionGroup_members,
+    updateProtectionGroup_resourceType,
     updateProtectionGroup_protectionGroupId,
     updateProtectionGroup_aggregation,
     updateProtectionGroup_pattern,
@@ -46,7 +46,8 @@ module Amazonka.Shield.UpdateProtectionGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,15 +55,15 @@ import Amazonka.Shield.Types
 
 -- | /See:/ 'newUpdateProtectionGroup' smart constructor.
 data UpdateProtectionGroup = UpdateProtectionGroup'
-  { -- | The resource type to include in the protection group. All protected
+  { -- | The Amazon Resource Names (ARNs) of the resources to include in the
+    -- protection group. You must set this when you set @Pattern@ to
+    -- @ARBITRARY@ and you must not set it for any other @Pattern@ setting.
+    members :: Prelude.Maybe [Prelude.Text],
+    -- | The resource type to include in the protection group. All protected
     -- resources of this type are included in the protection group. You must
     -- set this when you set @Pattern@ to @BY_RESOURCE_TYPE@ and you must not
     -- set it for any other @Pattern@ setting.
     resourceType :: Prelude.Maybe ProtectedResourceType,
-    -- | The Amazon Resource Names (ARNs) of the resources to include in the
-    -- protection group. You must set this when you set @Pattern@ to
-    -- @ARBITRARY@ and you must not set it for any other @Pattern@ setting.
-    members :: Prelude.Maybe [Prelude.Text],
     -- | The name of the protection group. You use this to identify the
     -- protection group in lists and to manage the protection group, for
     -- example to update, delete, or describe it.
@@ -100,14 +101,14 @@ data UpdateProtectionGroup = UpdateProtectionGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'members', 'updateProtectionGroup_members' - The Amazon Resource Names (ARNs) of the resources to include in the
+-- protection group. You must set this when you set @Pattern@ to
+-- @ARBITRARY@ and you must not set it for any other @Pattern@ setting.
+--
 -- 'resourceType', 'updateProtectionGroup_resourceType' - The resource type to include in the protection group. All protected
 -- resources of this type are included in the protection group. You must
 -- set this when you set @Pattern@ to @BY_RESOURCE_TYPE@ and you must not
 -- set it for any other @Pattern@ setting.
---
--- 'members', 'updateProtectionGroup_members' - The Amazon Resource Names (ARNs) of the resources to include in the
--- protection group. You must set this when you set @Pattern@ to
--- @ARBITRARY@ and you must not set it for any other @Pattern@ setting.
 --
 -- 'protectionGroupId', 'updateProtectionGroup_protectionGroupId' - The name of the protection group. You use this to identify the
 -- protection group in lists and to manage the protection group, for
@@ -147,13 +148,18 @@ newUpdateProtectionGroup
   pAggregation_
   pPattern_ =
     UpdateProtectionGroup'
-      { resourceType =
-          Prelude.Nothing,
-        members = Prelude.Nothing,
+      { members = Prelude.Nothing,
+        resourceType = Prelude.Nothing,
         protectionGroupId = pProtectionGroupId_,
         aggregation = pAggregation_,
         pattern' = pPattern_
       }
+
+-- | The Amazon Resource Names (ARNs) of the resources to include in the
+-- protection group. You must set this when you set @Pattern@ to
+-- @ARBITRARY@ and you must not set it for any other @Pattern@ setting.
+updateProtectionGroup_members :: Lens.Lens' UpdateProtectionGroup (Prelude.Maybe [Prelude.Text])
+updateProtectionGroup_members = Lens.lens (\UpdateProtectionGroup' {members} -> members) (\s@UpdateProtectionGroup' {} a -> s {members = a} :: UpdateProtectionGroup) Prelude.. Lens.mapping Lens.coerced
 
 -- | The resource type to include in the protection group. All protected
 -- resources of this type are included in the protection group. You must
@@ -161,12 +167,6 @@ newUpdateProtectionGroup
 -- set it for any other @Pattern@ setting.
 updateProtectionGroup_resourceType :: Lens.Lens' UpdateProtectionGroup (Prelude.Maybe ProtectedResourceType)
 updateProtectionGroup_resourceType = Lens.lens (\UpdateProtectionGroup' {resourceType} -> resourceType) (\s@UpdateProtectionGroup' {} a -> s {resourceType = a} :: UpdateProtectionGroup)
-
--- | The Amazon Resource Names (ARNs) of the resources to include in the
--- protection group. You must set this when you set @Pattern@ to
--- @ARBITRARY@ and you must not set it for any other @Pattern@ setting.
-updateProtectionGroup_members :: Lens.Lens' UpdateProtectionGroup (Prelude.Maybe [Prelude.Text])
-updateProtectionGroup_members = Lens.lens (\UpdateProtectionGroup' {members} -> members) (\s@UpdateProtectionGroup' {} a -> s {members = a} :: UpdateProtectionGroup) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the protection group. You use this to identify the
 -- protection group in lists and to manage the protection group, for
@@ -204,7 +204,8 @@ instance Core.AWSRequest UpdateProtectionGroup where
   type
     AWSResponse UpdateProtectionGroup =
       UpdateProtectionGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -214,52 +215,52 @@ instance Core.AWSRequest UpdateProtectionGroup where
 
 instance Prelude.Hashable UpdateProtectionGroup where
   hashWithSalt _salt UpdateProtectionGroup' {..} =
-    _salt `Prelude.hashWithSalt` resourceType
-      `Prelude.hashWithSalt` members
+    _salt `Prelude.hashWithSalt` members
+      `Prelude.hashWithSalt` resourceType
       `Prelude.hashWithSalt` protectionGroupId
       `Prelude.hashWithSalt` aggregation
       `Prelude.hashWithSalt` pattern'
 
 instance Prelude.NFData UpdateProtectionGroup where
   rnf UpdateProtectionGroup' {..} =
-    Prelude.rnf resourceType
-      `Prelude.seq` Prelude.rnf members
+    Prelude.rnf members
+      `Prelude.seq` Prelude.rnf resourceType
       `Prelude.seq` Prelude.rnf protectionGroupId
       `Prelude.seq` Prelude.rnf aggregation
       `Prelude.seq` Prelude.rnf pattern'
 
-instance Core.ToHeaders UpdateProtectionGroup where
+instance Data.ToHeaders UpdateProtectionGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSShield_20160616.UpdateProtectionGroup" ::
+              Data.=# ( "AWSShield_20160616.UpdateProtectionGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateProtectionGroup where
+instance Data.ToJSON UpdateProtectionGroup where
   toJSON UpdateProtectionGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ResourceType" Core..=) Prelude.<$> resourceType,
-            ("Members" Core..=) Prelude.<$> members,
+          [ ("Members" Data..=) Prelude.<$> members,
+            ("ResourceType" Data..=) Prelude.<$> resourceType,
             Prelude.Just
-              ("ProtectionGroupId" Core..= protectionGroupId),
-            Prelude.Just ("Aggregation" Core..= aggregation),
-            Prelude.Just ("Pattern" Core..= pattern')
+              ("ProtectionGroupId" Data..= protectionGroupId),
+            Prelude.Just ("Aggregation" Data..= aggregation),
+            Prelude.Just ("Pattern" Data..= pattern')
           ]
       )
 
-instance Core.ToPath UpdateProtectionGroup where
+instance Data.ToPath UpdateProtectionGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateProtectionGroup where
+instance Data.ToQuery UpdateProtectionGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateProtectionGroupResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.ListVolumes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,8 @@ module Amazonka.StorageGateway.ListVolumes
 
     -- * Request Lenses
     listVolumes_gatewayARN,
-    listVolumes_marker,
     listVolumes_limit,
+    listVolumes_marker,
 
     -- * Destructuring the Response
     ListVolumesResponse (..),
@@ -57,7 +57,8 @@ module Amazonka.StorageGateway.ListVolumes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -72,13 +73,13 @@ import Amazonka.StorageGateway.Types
 -- /See:/ 'newListVolumes' smart constructor.
 data ListVolumes = ListVolumes'
   { gatewayARN :: Prelude.Maybe Prelude.Text,
+    -- | Specifies that the list of volumes returned be limited to the specified
+    -- number of items.
+    limit :: Prelude.Maybe Prelude.Natural,
     -- | A string that indicates the position at which to begin the returned list
     -- of volumes. Obtain the marker from the response of a previous List iSCSI
     -- Volumes request.
-    marker :: Prelude.Maybe Prelude.Text,
-    -- | Specifies that the list of volumes returned be limited to the specified
-    -- number of items.
-    limit :: Prelude.Maybe Prelude.Natural
+    marker :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -92,35 +93,35 @@ data ListVolumes = ListVolumes'
 --
 -- 'gatewayARN', 'listVolumes_gatewayARN' - Undocumented member.
 --
+-- 'limit', 'listVolumes_limit' - Specifies that the list of volumes returned be limited to the specified
+-- number of items.
+--
 -- 'marker', 'listVolumes_marker' - A string that indicates the position at which to begin the returned list
 -- of volumes. Obtain the marker from the response of a previous List iSCSI
 -- Volumes request.
---
--- 'limit', 'listVolumes_limit' - Specifies that the list of volumes returned be limited to the specified
--- number of items.
 newListVolumes ::
   ListVolumes
 newListVolumes =
   ListVolumes'
     { gatewayARN = Prelude.Nothing,
-      marker = Prelude.Nothing,
-      limit = Prelude.Nothing
+      limit = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
 -- | Undocumented member.
 listVolumes_gatewayARN :: Lens.Lens' ListVolumes (Prelude.Maybe Prelude.Text)
 listVolumes_gatewayARN = Lens.lens (\ListVolumes' {gatewayARN} -> gatewayARN) (\s@ListVolumes' {} a -> s {gatewayARN = a} :: ListVolumes)
 
+-- | Specifies that the list of volumes returned be limited to the specified
+-- number of items.
+listVolumes_limit :: Lens.Lens' ListVolumes (Prelude.Maybe Prelude.Natural)
+listVolumes_limit = Lens.lens (\ListVolumes' {limit} -> limit) (\s@ListVolumes' {} a -> s {limit = a} :: ListVolumes)
+
 -- | A string that indicates the position at which to begin the returned list
 -- of volumes. Obtain the marker from the response of a previous List iSCSI
 -- Volumes request.
 listVolumes_marker :: Lens.Lens' ListVolumes (Prelude.Maybe Prelude.Text)
 listVolumes_marker = Lens.lens (\ListVolumes' {marker} -> marker) (\s@ListVolumes' {} a -> s {marker = a} :: ListVolumes)
-
--- | Specifies that the list of volumes returned be limited to the specified
--- number of items.
-listVolumes_limit :: Lens.Lens' ListVolumes (Prelude.Maybe Prelude.Natural)
-listVolumes_limit = Lens.lens (\ListVolumes' {limit} -> limit) (\s@ListVolumes' {} a -> s {limit = a} :: ListVolumes)
 
 instance Core.AWSPager ListVolumes where
   page rq rs
@@ -143,58 +144,59 @@ instance Core.AWSPager ListVolumes where
 
 instance Core.AWSRequest ListVolumes where
   type AWSResponse ListVolumes = ListVolumesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListVolumesResponse'
-            Prelude.<$> (x Core..?> "GatewayARN")
-            Prelude.<*> (x Core..?> "Marker")
-            Prelude.<*> (x Core..?> "VolumeInfos" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "GatewayARN")
+            Prelude.<*> (x Data..?> "Marker")
+            Prelude.<*> (x Data..?> "VolumeInfos" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListVolumes where
   hashWithSalt _salt ListVolumes' {..} =
     _salt `Prelude.hashWithSalt` gatewayARN
-      `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` marker
 
 instance Prelude.NFData ListVolumes where
   rnf ListVolumes' {..} =
     Prelude.rnf gatewayARN
-      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf marker
 
-instance Core.ToHeaders ListVolumes where
+instance Data.ToHeaders ListVolumes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.ListVolumes" ::
+              Data.=# ( "StorageGateway_20130630.ListVolumes" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListVolumes where
+instance Data.ToJSON ListVolumes where
   toJSON ListVolumes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("GatewayARN" Core..=) Prelude.<$> gatewayARN,
-            ("Marker" Core..=) Prelude.<$> marker,
-            ("Limit" Core..=) Prelude.<$> limit
+          [ ("GatewayARN" Data..=) Prelude.<$> gatewayARN,
+            ("Limit" Data..=) Prelude.<$> limit,
+            ("Marker" Data..=) Prelude.<$> marker
           ]
       )
 
-instance Core.ToPath ListVolumes where
+instance Data.ToPath ListVolumes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListVolumes where
+instance Data.ToQuery ListVolumes where
   toQuery = Prelude.const Prelude.mempty
 
 -- | A JSON object containing the following fields:

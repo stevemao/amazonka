@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatch.EnableAlarmActions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,7 +37,8 @@ where
 
 import Amazonka.CloudWatch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -71,7 +72,8 @@ instance Core.AWSRequest EnableAlarmActions where
   type
     AWSResponse EnableAlarmActions =
       EnableAlarmActionsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull EnableAlarmActionsResponse'
 
@@ -82,21 +84,21 @@ instance Prelude.Hashable EnableAlarmActions where
 instance Prelude.NFData EnableAlarmActions where
   rnf EnableAlarmActions' {..} = Prelude.rnf alarmNames
 
-instance Core.ToHeaders EnableAlarmActions where
+instance Data.ToHeaders EnableAlarmActions where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath EnableAlarmActions where
+instance Data.ToPath EnableAlarmActions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery EnableAlarmActions where
+instance Data.ToQuery EnableAlarmActions where
   toQuery EnableAlarmActions' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("EnableAlarmActions" :: Prelude.ByteString),
+          Data.=: ("EnableAlarmActions" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-08-01" :: Prelude.ByteString),
+          Data.=: ("2010-08-01" :: Prelude.ByteString),
         "AlarmNames"
-          Core.=: Core.toQueryList "member" alarmNames
+          Data.=: Data.toQueryList "member" alarmNames
       ]
 
 -- | /See:/ 'newEnableAlarmActionsResponse' smart constructor.

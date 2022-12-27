@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.GetBucketLogging
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.S3.GetBucketLogging
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,8 +58,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newGetBucketLogging' smart constructor.
 data GetBucketLogging = GetBucketLogging'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The bucket name for which to get the logging information.
     bucket :: BucketName
@@ -74,8 +75,8 @@ data GetBucketLogging = GetBucketLogging'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'getBucketLogging_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'getBucketLogging_bucket' - The bucket name for which to get the logging information.
 newGetBucketLogging ::
@@ -90,8 +91,8 @@ newGetBucketLogging pBucket_ =
     }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 getBucketLogging_expectedBucketOwner :: Lens.Lens' GetBucketLogging (Prelude.Maybe Prelude.Text)
 getBucketLogging_expectedBucketOwner = Lens.lens (\GetBucketLogging' {expectedBucketOwner} -> expectedBucketOwner) (\s@GetBucketLogging' {} a -> s {expectedBucketOwner = a} :: GetBucketLogging)
 
@@ -103,14 +104,14 @@ instance Core.AWSRequest GetBucketLogging where
   type
     AWSResponse GetBucketLogging =
       GetBucketLoggingResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.get defaultService
+      Prelude.. Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetBucketLoggingResponse'
-            Prelude.<$> (x Core..@? "LoggingEnabled")
+            Prelude.<$> (x Data..@? "LoggingEnabled")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -124,18 +125,18 @@ instance Prelude.NFData GetBucketLogging where
     Prelude.rnf expectedBucketOwner
       `Prelude.seq` Prelude.rnf bucket
 
-instance Core.ToHeaders GetBucketLogging where
+instance Data.ToHeaders GetBucketLogging where
   toHeaders GetBucketLogging' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath GetBucketLogging where
+instance Data.ToPath GetBucketLogging where
   toPath GetBucketLogging' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery GetBucketLogging where
+instance Data.ToQuery GetBucketLogging where
   toQuery = Prelude.const (Prelude.mconcat ["logging"])
 
 -- | /See:/ 'newGetBucketLoggingResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53AutoNaming.CreateHttpNamespace
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,7 +25,7 @@
 -- can\'t be discovered using DNS.
 --
 -- For the current quota on the number of namespaces that you can create
--- using the same account, see
+-- using the same Amazon Web Services account, see
 -- <https://docs.aws.amazon.com/cloud-map/latest/dg/cloud-map-limits.html Cloud Map quotas>
 -- in the /Cloud Map Developer Guide/.
 module Amazonka.Route53AutoNaming.CreateHttpNamespace
@@ -50,7 +50,8 @@ module Amazonka.Route53AutoNaming.CreateHttpNamespace
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -132,12 +133,13 @@ instance Core.AWSRequest CreateHttpNamespace where
   type
     AWSResponse CreateHttpNamespace =
       CreateHttpNamespaceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateHttpNamespaceResponse'
-            Prelude.<$> (x Core..?> "OperationId")
+            Prelude.<$> (x Data..?> "OperationId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -155,37 +157,37 @@ instance Prelude.NFData CreateHttpNamespace where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreateHttpNamespace where
+instance Data.ToHeaders CreateHttpNamespace where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53AutoNaming_v20170314.CreateHttpNamespace" ::
+              Data.=# ( "Route53AutoNaming_v20170314.CreateHttpNamespace" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateHttpNamespace where
+instance Data.ToJSON CreateHttpNamespace where
   toJSON CreateHttpNamespace' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CreatorRequestId" Core..=)
+          [ ("CreatorRequestId" Data..=)
               Prelude.<$> creatorRequestId,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name)
+            ("Description" Data..=) Prelude.<$> description,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateHttpNamespace where
+instance Data.ToPath CreateHttpNamespace where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateHttpNamespace where
+instance Data.ToQuery CreateHttpNamespace where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateHttpNamespaceResponse' smart constructor.

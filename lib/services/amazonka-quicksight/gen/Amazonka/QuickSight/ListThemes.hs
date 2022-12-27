@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.ListThemes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.QuickSight.ListThemes
     newListThemes,
 
     -- * Request Lenses
+    listThemes_maxResults,
     listThemes_nextToken,
     listThemes_type,
-    listThemes_maxResults,
     listThemes_awsAccountId,
 
     -- * Destructuring the Response
@@ -39,15 +39,16 @@ module Amazonka.QuickSight.ListThemes
     newListThemesResponse,
 
     -- * Response Lenses
+    listThemesResponse_nextToken,
     listThemesResponse_requestId,
     listThemesResponse_themeSummaryList,
-    listThemesResponse_nextToken,
     listThemesResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -55,7 +56,9 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListThemes' smart constructor.
 data ListThemes = ListThemes'
-  { -- | The token for the next set of results, or null if there are no more
+  { -- | The maximum number of results to be returned per request.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results, or null if there are no more
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The type of themes that you want to list. Valid options include the
@@ -69,8 +72,6 @@ data ListThemes = ListThemes'
     -- -   @QUICKSIGHT@ - Display only the starting themes defined by Amazon
     --     QuickSight.
     type' :: Prelude.Maybe ThemeType,
-    -- | The maximum number of results to be returned per request.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The ID of the Amazon Web Services account that contains the themes that
     -- you\'re listing.
     awsAccountId :: Prelude.Text
@@ -84,6 +85,8 @@ data ListThemes = ListThemes'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'maxResults', 'listThemes_maxResults' - The maximum number of results to be returned per request.
 --
 -- 'nextToken', 'listThemes_nextToken' - The token for the next set of results, or null if there are no more
 -- results.
@@ -99,8 +102,6 @@ data ListThemes = ListThemes'
 -- -   @QUICKSIGHT@ - Display only the starting themes defined by Amazon
 --     QuickSight.
 --
--- 'maxResults', 'listThemes_maxResults' - The maximum number of results to be returned per request.
---
 -- 'awsAccountId', 'listThemes_awsAccountId' - The ID of the Amazon Web Services account that contains the themes that
 -- you\'re listing.
 newListThemes ::
@@ -109,11 +110,15 @@ newListThemes ::
   ListThemes
 newListThemes pAwsAccountId_ =
   ListThemes'
-    { nextToken = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       type' = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
       awsAccountId = pAwsAccountId_
     }
+
+-- | The maximum number of results to be returned per request.
+listThemes_maxResults :: Lens.Lens' ListThemes (Prelude.Maybe Prelude.Natural)
+listThemes_maxResults = Lens.lens (\ListThemes' {maxResults} -> maxResults) (\s@ListThemes' {} a -> s {maxResults = a} :: ListThemes)
 
 -- | The token for the next set of results, or null if there are no more
 -- results.
@@ -132,10 +137,6 @@ listThemes_nextToken = Lens.lens (\ListThemes' {nextToken} -> nextToken) (\s@Lis
 --     QuickSight.
 listThemes_type :: Lens.Lens' ListThemes (Prelude.Maybe ThemeType)
 listThemes_type = Lens.lens (\ListThemes' {type'} -> type') (\s@ListThemes' {} a -> s {type' = a} :: ListThemes)
-
--- | The maximum number of results to be returned per request.
-listThemes_maxResults :: Lens.Lens' ListThemes (Prelude.Maybe Prelude.Natural)
-listThemes_maxResults = Lens.lens (\ListThemes' {maxResults} -> maxResults) (\s@ListThemes' {} a -> s {maxResults = a} :: ListThemes)
 
 -- | The ID of the Amazon Web Services account that contains the themes that
 -- you\'re listing.
@@ -164,66 +165,67 @@ instance Core.AWSPager ListThemes where
 
 instance Core.AWSRequest ListThemes where
   type AWSResponse ListThemes = ListThemesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListThemesResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> ( x Core..?> "ThemeSummaryList"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "RequestId")
+            Prelude.<*> ( x Data..?> "ThemeSummaryList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListThemes where
   hashWithSalt _salt ListThemes' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` type'
-      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` awsAccountId
 
 instance Prelude.NFData ListThemes where
   rnf ListThemes' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf type'
-      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf awsAccountId
 
-instance Core.ToHeaders ListThemes where
+instance Data.ToHeaders ListThemes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListThemes where
+instance Data.ToPath ListThemes where
   toPath ListThemes' {..} =
     Prelude.mconcat
-      ["/accounts/", Core.toBS awsAccountId, "/themes"]
+      ["/accounts/", Data.toBS awsAccountId, "/themes"]
 
-instance Core.ToQuery ListThemes where
+instance Data.ToQuery ListThemes where
   toQuery ListThemes' {..} =
     Prelude.mconcat
-      [ "next-token" Core.=: nextToken,
-        "type" Core.=: type',
-        "max-results" Core.=: maxResults
+      [ "max-results" Data.=: maxResults,
+        "next-token" Data.=: nextToken,
+        "type" Data.=: type'
       ]
 
 -- | /See:/ 'newListThemesResponse' smart constructor.
 data ListThemesResponse = ListThemesResponse'
-  { -- | The Amazon Web Services request ID for this operation.
+  { -- | The token for the next set of results, or null if there are no more
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Web Services request ID for this operation.
     requestId :: Prelude.Maybe Prelude.Text,
     -- | Information about the themes in the list.
     themeSummaryList :: Prelude.Maybe [ThemeSummary],
-    -- | The token for the next set of results, or null if there are no more
-    -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -237,12 +239,12 @@ data ListThemesResponse = ListThemesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'nextToken', 'listThemesResponse_nextToken' - The token for the next set of results, or null if there are no more
+-- results.
+--
 -- 'requestId', 'listThemesResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'themeSummaryList', 'listThemesResponse_themeSummaryList' - Information about the themes in the list.
---
--- 'nextToken', 'listThemesResponse_nextToken' - The token for the next set of results, or null if there are no more
--- results.
 --
 -- 'status', 'listThemesResponse_status' - The HTTP status of the request.
 newListThemesResponse ::
@@ -251,11 +253,16 @@ newListThemesResponse ::
   ListThemesResponse
 newListThemesResponse pStatus_ =
   ListThemesResponse'
-    { requestId = Prelude.Nothing,
+    { nextToken = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       themeSummaryList = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       status = pStatus_
     }
+
+-- | The token for the next set of results, or null if there are no more
+-- results.
+listThemesResponse_nextToken :: Lens.Lens' ListThemesResponse (Prelude.Maybe Prelude.Text)
+listThemesResponse_nextToken = Lens.lens (\ListThemesResponse' {nextToken} -> nextToken) (\s@ListThemesResponse' {} a -> s {nextToken = a} :: ListThemesResponse)
 
 -- | The Amazon Web Services request ID for this operation.
 listThemesResponse_requestId :: Lens.Lens' ListThemesResponse (Prelude.Maybe Prelude.Text)
@@ -265,18 +272,13 @@ listThemesResponse_requestId = Lens.lens (\ListThemesResponse' {requestId} -> re
 listThemesResponse_themeSummaryList :: Lens.Lens' ListThemesResponse (Prelude.Maybe [ThemeSummary])
 listThemesResponse_themeSummaryList = Lens.lens (\ListThemesResponse' {themeSummaryList} -> themeSummaryList) (\s@ListThemesResponse' {} a -> s {themeSummaryList = a} :: ListThemesResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | The token for the next set of results, or null if there are no more
--- results.
-listThemesResponse_nextToken :: Lens.Lens' ListThemesResponse (Prelude.Maybe Prelude.Text)
-listThemesResponse_nextToken = Lens.lens (\ListThemesResponse' {nextToken} -> nextToken) (\s@ListThemesResponse' {} a -> s {nextToken = a} :: ListThemesResponse)
-
 -- | The HTTP status of the request.
 listThemesResponse_status :: Lens.Lens' ListThemesResponse Prelude.Int
 listThemesResponse_status = Lens.lens (\ListThemesResponse' {status} -> status) (\s@ListThemesResponse' {} a -> s {status = a} :: ListThemesResponse)
 
 instance Prelude.NFData ListThemesResponse where
   rnf ListThemesResponse' {..} =
-    Prelude.rnf requestId
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf themeSummaryList
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf status

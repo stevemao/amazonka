@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECRPublic.Types.AuthorizationData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ECRPublic.Types.AuthorizationData where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An authorization token data object that corresponds to a public
@@ -28,14 +29,14 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAuthorizationData' smart constructor.
 data AuthorizationData = AuthorizationData'
-  { -- | The Unix time in seconds and milliseconds when the authorization token
-    -- expires. Authorization tokens are valid for 12 hours.
-    expiresAt :: Prelude.Maybe Core.POSIX,
-    -- | A base64-encoded string that contains authorization data for a public
+  { -- | A base64-encoded string that contains authorization data for a public
     -- Amazon ECR registry. When the string is decoded, it is presented in the
     -- format @user:password@ for public registry authentication using
     -- @docker login@.
-    authorizationToken :: Prelude.Maybe Prelude.Text
+    authorizationToken :: Prelude.Maybe Prelude.Text,
+    -- | The Unix time in seconds and milliseconds when the authorization token
+    -- expires. Authorization tokens are valid for 12 hours.
+    expiresAt :: Prelude.Maybe Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,25 +48,21 @@ data AuthorizationData = AuthorizationData'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'expiresAt', 'authorizationData_expiresAt' - The Unix time in seconds and milliseconds when the authorization token
--- expires. Authorization tokens are valid for 12 hours.
---
 -- 'authorizationToken', 'authorizationData_authorizationToken' - A base64-encoded string that contains authorization data for a public
 -- Amazon ECR registry. When the string is decoded, it is presented in the
 -- format @user:password@ for public registry authentication using
 -- @docker login@.
+--
+-- 'expiresAt', 'authorizationData_expiresAt' - The Unix time in seconds and milliseconds when the authorization token
+-- expires. Authorization tokens are valid for 12 hours.
 newAuthorizationData ::
   AuthorizationData
 newAuthorizationData =
   AuthorizationData'
-    { expiresAt = Prelude.Nothing,
-      authorizationToken = Prelude.Nothing
+    { authorizationToken =
+        Prelude.Nothing,
+      expiresAt = Prelude.Nothing
     }
-
--- | The Unix time in seconds and milliseconds when the authorization token
--- expires. Authorization tokens are valid for 12 hours.
-authorizationData_expiresAt :: Lens.Lens' AuthorizationData (Prelude.Maybe Prelude.UTCTime)
-authorizationData_expiresAt = Lens.lens (\AuthorizationData' {expiresAt} -> expiresAt) (\s@AuthorizationData' {} a -> s {expiresAt = a} :: AuthorizationData) Prelude.. Lens.mapping Core._Time
 
 -- | A base64-encoded string that contains authorization data for a public
 -- Amazon ECR registry. When the string is decoded, it is presented in the
@@ -74,22 +71,27 @@ authorizationData_expiresAt = Lens.lens (\AuthorizationData' {expiresAt} -> expi
 authorizationData_authorizationToken :: Lens.Lens' AuthorizationData (Prelude.Maybe Prelude.Text)
 authorizationData_authorizationToken = Lens.lens (\AuthorizationData' {authorizationToken} -> authorizationToken) (\s@AuthorizationData' {} a -> s {authorizationToken = a} :: AuthorizationData)
 
-instance Core.FromJSON AuthorizationData where
+-- | The Unix time in seconds and milliseconds when the authorization token
+-- expires. Authorization tokens are valid for 12 hours.
+authorizationData_expiresAt :: Lens.Lens' AuthorizationData (Prelude.Maybe Prelude.UTCTime)
+authorizationData_expiresAt = Lens.lens (\AuthorizationData' {expiresAt} -> expiresAt) (\s@AuthorizationData' {} a -> s {expiresAt = a} :: AuthorizationData) Prelude.. Lens.mapping Data._Time
+
+instance Data.FromJSON AuthorizationData where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AuthorizationData"
       ( \x ->
           AuthorizationData'
-            Prelude.<$> (x Core..:? "expiresAt")
-            Prelude.<*> (x Core..:? "authorizationToken")
+            Prelude.<$> (x Data..:? "authorizationToken")
+            Prelude.<*> (x Data..:? "expiresAt")
       )
 
 instance Prelude.Hashable AuthorizationData where
   hashWithSalt _salt AuthorizationData' {..} =
-    _salt `Prelude.hashWithSalt` expiresAt
-      `Prelude.hashWithSalt` authorizationToken
+    _salt `Prelude.hashWithSalt` authorizationToken
+      `Prelude.hashWithSalt` expiresAt
 
 instance Prelude.NFData AuthorizationData where
   rnf AuthorizationData' {..} =
-    Prelude.rnf expiresAt
-      `Prelude.seq` Prelude.rnf authorizationToken
+    Prelude.rnf authorizationToken
+      `Prelude.seq` Prelude.rnf expiresAt

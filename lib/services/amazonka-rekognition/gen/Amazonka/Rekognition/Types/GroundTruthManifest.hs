@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.GroundTruthManifest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.GroundTruthManifest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types.S3Object
 
@@ -51,13 +52,13 @@ newGroundTruthManifest =
 groundTruthManifest_s3Object :: Lens.Lens' GroundTruthManifest (Prelude.Maybe S3Object)
 groundTruthManifest_s3Object = Lens.lens (\GroundTruthManifest' {s3Object} -> s3Object) (\s@GroundTruthManifest' {} a -> s {s3Object = a} :: GroundTruthManifest)
 
-instance Core.FromJSON GroundTruthManifest where
+instance Data.FromJSON GroundTruthManifest where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GroundTruthManifest"
       ( \x ->
           GroundTruthManifest'
-            Prelude.<$> (x Core..:? "S3Object")
+            Prelude.<$> (x Data..:? "S3Object")
       )
 
 instance Prelude.Hashable GroundTruthManifest where
@@ -67,9 +68,9 @@ instance Prelude.Hashable GroundTruthManifest where
 instance Prelude.NFData GroundTruthManifest where
   rnf GroundTruthManifest' {..} = Prelude.rnf s3Object
 
-instance Core.ToJSON GroundTruthManifest where
+instance Data.ToJSON GroundTruthManifest where
   toJSON GroundTruthManifest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("S3Object" Core..=) Prelude.<$> s3Object]
+          [("S3Object" Data..=) Prelude.<$> s3Object]
       )

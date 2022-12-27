@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.ParentHyperParameterTuningJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.ParentHyperParameterTuningJob where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A previously completed or stopped hyperparameter tuning job to be used
@@ -57,13 +58,13 @@ newParentHyperParameterTuningJob =
 parentHyperParameterTuningJob_hyperParameterTuningJobName :: Lens.Lens' ParentHyperParameterTuningJob (Prelude.Maybe Prelude.Text)
 parentHyperParameterTuningJob_hyperParameterTuningJobName = Lens.lens (\ParentHyperParameterTuningJob' {hyperParameterTuningJobName} -> hyperParameterTuningJobName) (\s@ParentHyperParameterTuningJob' {} a -> s {hyperParameterTuningJobName = a} :: ParentHyperParameterTuningJob)
 
-instance Core.FromJSON ParentHyperParameterTuningJob where
+instance Data.FromJSON ParentHyperParameterTuningJob where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ParentHyperParameterTuningJob"
       ( \x ->
           ParentHyperParameterTuningJob'
-            Prelude.<$> (x Core..:? "HyperParameterTuningJobName")
+            Prelude.<$> (x Data..:? "HyperParameterTuningJobName")
       )
 
 instance
@@ -78,11 +79,11 @@ instance Prelude.NFData ParentHyperParameterTuningJob where
   rnf ParentHyperParameterTuningJob' {..} =
     Prelude.rnf hyperParameterTuningJobName
 
-instance Core.ToJSON ParentHyperParameterTuningJob where
+instance Data.ToJSON ParentHyperParameterTuningJob where
   toJSON ParentHyperParameterTuningJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("HyperParameterTuningJobName" Core..=)
+          [ ("HyperParameterTuningJobName" Data..=)
               Prelude.<$> hyperParameterTuningJobName
           ]
       )

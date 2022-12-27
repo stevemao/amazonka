@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.Types.MathActivity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTAnalytics.Types.MathActivity where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An activity that computes an arithmetic expression using the message\'s
@@ -92,16 +93,16 @@ mathActivity_attribute = Lens.lens (\MathActivity' {attribute} -> attribute) (\s
 mathActivity_math :: Lens.Lens' MathActivity Prelude.Text
 mathActivity_math = Lens.lens (\MathActivity' {math} -> math) (\s@MathActivity' {} a -> s {math = a} :: MathActivity)
 
-instance Core.FromJSON MathActivity where
+instance Data.FromJSON MathActivity where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MathActivity"
       ( \x ->
           MathActivity'
-            Prelude.<$> (x Core..:? "next")
-            Prelude.<*> (x Core..: "name")
-            Prelude.<*> (x Core..: "attribute")
-            Prelude.<*> (x Core..: "math")
+            Prelude.<$> (x Data..:? "next")
+            Prelude.<*> (x Data..: "name")
+            Prelude.<*> (x Data..: "attribute")
+            Prelude.<*> (x Data..: "math")
       )
 
 instance Prelude.Hashable MathActivity where
@@ -118,13 +119,13 @@ instance Prelude.NFData MathActivity where
       `Prelude.seq` Prelude.rnf attribute
       `Prelude.seq` Prelude.rnf math
 
-instance Core.ToJSON MathActivity where
+instance Data.ToJSON MathActivity where
   toJSON MathActivity' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("next" Core..=) Prelude.<$> next,
-            Prelude.Just ("name" Core..= name),
-            Prelude.Just ("attribute" Core..= attribute),
-            Prelude.Just ("math" Core..= math)
+          [ ("next" Data..=) Prelude.<$> next,
+            Prelude.Just ("name" Data..= name),
+            Prelude.Just ("attribute" Data..= attribute),
+            Prelude.Just ("math" Data..= math)
           ]
       )

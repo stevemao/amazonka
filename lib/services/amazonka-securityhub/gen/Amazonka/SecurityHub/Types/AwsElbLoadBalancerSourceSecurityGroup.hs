@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsElbLoadBalancerSourceSecurityGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.SecurityHub.Types.AwsElbLoadBalancerSourceSecurityGroup where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the security group for the load balancer.
 --
 -- /See:/ 'newAwsElbLoadBalancerSourceSecurityGroup' smart constructor.
 data AwsElbLoadBalancerSourceSecurityGroup = AwsElbLoadBalancerSourceSecurityGroup'
-  { -- | The owner of the security group.
-    ownerAlias :: Prelude.Maybe Prelude.Text,
-    -- | The name of the security group.
-    groupName :: Prelude.Maybe Prelude.Text
+  { -- | The name of the security group.
+    groupName :: Prelude.Maybe Prelude.Text,
+    -- | The owner of the security group.
+    ownerAlias :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,37 +43,37 @@ data AwsElbLoadBalancerSourceSecurityGroup = AwsElbLoadBalancerSourceSecurityGro
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'ownerAlias', 'awsElbLoadBalancerSourceSecurityGroup_ownerAlias' - The owner of the security group.
---
 -- 'groupName', 'awsElbLoadBalancerSourceSecurityGroup_groupName' - The name of the security group.
+--
+-- 'ownerAlias', 'awsElbLoadBalancerSourceSecurityGroup_ownerAlias' - The owner of the security group.
 newAwsElbLoadBalancerSourceSecurityGroup ::
   AwsElbLoadBalancerSourceSecurityGroup
 newAwsElbLoadBalancerSourceSecurityGroup =
   AwsElbLoadBalancerSourceSecurityGroup'
-    { ownerAlias =
+    { groupName =
         Prelude.Nothing,
-      groupName = Prelude.Nothing
+      ownerAlias = Prelude.Nothing
     }
-
--- | The owner of the security group.
-awsElbLoadBalancerSourceSecurityGroup_ownerAlias :: Lens.Lens' AwsElbLoadBalancerSourceSecurityGroup (Prelude.Maybe Prelude.Text)
-awsElbLoadBalancerSourceSecurityGroup_ownerAlias = Lens.lens (\AwsElbLoadBalancerSourceSecurityGroup' {ownerAlias} -> ownerAlias) (\s@AwsElbLoadBalancerSourceSecurityGroup' {} a -> s {ownerAlias = a} :: AwsElbLoadBalancerSourceSecurityGroup)
 
 -- | The name of the security group.
 awsElbLoadBalancerSourceSecurityGroup_groupName :: Lens.Lens' AwsElbLoadBalancerSourceSecurityGroup (Prelude.Maybe Prelude.Text)
 awsElbLoadBalancerSourceSecurityGroup_groupName = Lens.lens (\AwsElbLoadBalancerSourceSecurityGroup' {groupName} -> groupName) (\s@AwsElbLoadBalancerSourceSecurityGroup' {} a -> s {groupName = a} :: AwsElbLoadBalancerSourceSecurityGroup)
 
+-- | The owner of the security group.
+awsElbLoadBalancerSourceSecurityGroup_ownerAlias :: Lens.Lens' AwsElbLoadBalancerSourceSecurityGroup (Prelude.Maybe Prelude.Text)
+awsElbLoadBalancerSourceSecurityGroup_ownerAlias = Lens.lens (\AwsElbLoadBalancerSourceSecurityGroup' {ownerAlias} -> ownerAlias) (\s@AwsElbLoadBalancerSourceSecurityGroup' {} a -> s {ownerAlias = a} :: AwsElbLoadBalancerSourceSecurityGroup)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsElbLoadBalancerSourceSecurityGroup
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsElbLoadBalancerSourceSecurityGroup"
       ( \x ->
           AwsElbLoadBalancerSourceSecurityGroup'
-            Prelude.<$> (x Core..:? "OwnerAlias")
-            Prelude.<*> (x Core..:? "GroupName")
+            Prelude.<$> (x Data..:? "GroupName")
+            Prelude.<*> (x Data..:? "OwnerAlias")
       )
 
 instance
@@ -82,25 +83,25 @@ instance
   hashWithSalt
     _salt
     AwsElbLoadBalancerSourceSecurityGroup' {..} =
-      _salt `Prelude.hashWithSalt` ownerAlias
-        `Prelude.hashWithSalt` groupName
+      _salt `Prelude.hashWithSalt` groupName
+        `Prelude.hashWithSalt` ownerAlias
 
 instance
   Prelude.NFData
     AwsElbLoadBalancerSourceSecurityGroup
   where
   rnf AwsElbLoadBalancerSourceSecurityGroup' {..} =
-    Prelude.rnf ownerAlias
-      `Prelude.seq` Prelude.rnf groupName
+    Prelude.rnf groupName
+      `Prelude.seq` Prelude.rnf ownerAlias
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsElbLoadBalancerSourceSecurityGroup
   where
   toJSON AwsElbLoadBalancerSourceSecurityGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("OwnerAlias" Core..=) Prelude.<$> ownerAlias,
-            ("GroupName" Core..=) Prelude.<$> groupName
+          [ ("GroupName" Data..=) Prelude.<$> groupName,
+            ("OwnerAlias" Data..=) Prelude.<$> ownerAlias
           ]
       )

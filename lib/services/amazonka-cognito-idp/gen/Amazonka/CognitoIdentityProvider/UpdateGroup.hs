@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.UpdateGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.CognitoIdentityProvider.UpdateGroup
     newUpdateGroup,
 
     -- * Request Lenses
-    updateGroup_precedence,
     updateGroup_description,
+    updateGroup_precedence,
     updateGroup_roleArn,
     updateGroup_groupName,
     updateGroup_userPoolId,
@@ -47,21 +47,23 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateGroup' smart constructor.
 data UpdateGroup = UpdateGroup'
-  { -- | The new precedence value for the group. For more information about this
+  { -- | A string containing the new description of the group.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The new precedence value for the group. For more information about this
     -- parameter, see
     -- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateGroup.html CreateGroup>.
     precedence :: Prelude.Maybe Prelude.Natural,
-    -- | A string containing the new description of the group.
-    description :: Prelude.Maybe Prelude.Text,
-    -- | The new role ARN for the group. This is used for setting the
-    -- @cognito:roles@ and @cognito:preferred_role@ claims in the token.
+    -- | The new role Amazon Resource Name (ARN) for the group. This is used for
+    -- setting the @cognito:roles@ and @cognito:preferred_role@ claims in the
+    -- token.
     roleArn :: Prelude.Maybe Prelude.Text,
     -- | The name of the group.
     groupName :: Prelude.Text,
@@ -78,14 +80,15 @@ data UpdateGroup = UpdateGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'updateGroup_description' - A string containing the new description of the group.
+--
 -- 'precedence', 'updateGroup_precedence' - The new precedence value for the group. For more information about this
 -- parameter, see
 -- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateGroup.html CreateGroup>.
 --
--- 'description', 'updateGroup_description' - A string containing the new description of the group.
---
--- 'roleArn', 'updateGroup_roleArn' - The new role ARN for the group. This is used for setting the
--- @cognito:roles@ and @cognito:preferred_role@ claims in the token.
+-- 'roleArn', 'updateGroup_roleArn' - The new role Amazon Resource Name (ARN) for the group. This is used for
+-- setting the @cognito:roles@ and @cognito:preferred_role@ claims in the
+-- token.
 --
 -- 'groupName', 'updateGroup_groupName' - The name of the group.
 --
@@ -98,12 +101,16 @@ newUpdateGroup ::
   UpdateGroup
 newUpdateGroup pGroupName_ pUserPoolId_ =
   UpdateGroup'
-    { precedence = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      precedence = Prelude.Nothing,
       roleArn = Prelude.Nothing,
       groupName = pGroupName_,
       userPoolId = pUserPoolId_
     }
+
+-- | A string containing the new description of the group.
+updateGroup_description :: Lens.Lens' UpdateGroup (Prelude.Maybe Prelude.Text)
+updateGroup_description = Lens.lens (\UpdateGroup' {description} -> description) (\s@UpdateGroup' {} a -> s {description = a} :: UpdateGroup)
 
 -- | The new precedence value for the group. For more information about this
 -- parameter, see
@@ -111,12 +118,9 @@ newUpdateGroup pGroupName_ pUserPoolId_ =
 updateGroup_precedence :: Lens.Lens' UpdateGroup (Prelude.Maybe Prelude.Natural)
 updateGroup_precedence = Lens.lens (\UpdateGroup' {precedence} -> precedence) (\s@UpdateGroup' {} a -> s {precedence = a} :: UpdateGroup)
 
--- | A string containing the new description of the group.
-updateGroup_description :: Lens.Lens' UpdateGroup (Prelude.Maybe Prelude.Text)
-updateGroup_description = Lens.lens (\UpdateGroup' {description} -> description) (\s@UpdateGroup' {} a -> s {description = a} :: UpdateGroup)
-
--- | The new role ARN for the group. This is used for setting the
--- @cognito:roles@ and @cognito:preferred_role@ claims in the token.
+-- | The new role Amazon Resource Name (ARN) for the group. This is used for
+-- setting the @cognito:roles@ and @cognito:preferred_role@ claims in the
+-- token.
 updateGroup_roleArn :: Lens.Lens' UpdateGroup (Prelude.Maybe Prelude.Text)
 updateGroup_roleArn = Lens.lens (\UpdateGroup' {roleArn} -> roleArn) (\s@UpdateGroup' {} a -> s {roleArn = a} :: UpdateGroup)
 
@@ -130,62 +134,63 @@ updateGroup_userPoolId = Lens.lens (\UpdateGroup' {userPoolId} -> userPoolId) (\
 
 instance Core.AWSRequest UpdateGroup where
   type AWSResponse UpdateGroup = UpdateGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateGroupResponse'
-            Prelude.<$> (x Core..?> "Group")
+            Prelude.<$> (x Data..?> "Group")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateGroup where
   hashWithSalt _salt UpdateGroup' {..} =
-    _salt `Prelude.hashWithSalt` precedence
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` precedence
       `Prelude.hashWithSalt` roleArn
       `Prelude.hashWithSalt` groupName
       `Prelude.hashWithSalt` userPoolId
 
 instance Prelude.NFData UpdateGroup where
   rnf UpdateGroup' {..} =
-    Prelude.rnf precedence
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf precedence
       `Prelude.seq` Prelude.rnf roleArn
       `Prelude.seq` Prelude.rnf groupName
       `Prelude.seq` Prelude.rnf userPoolId
 
-instance Core.ToHeaders UpdateGroup where
+instance Data.ToHeaders UpdateGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.UpdateGroup" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.UpdateGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateGroup where
+instance Data.ToJSON UpdateGroup where
   toJSON UpdateGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Precedence" Core..=) Prelude.<$> precedence,
-            ("Description" Core..=) Prelude.<$> description,
-            ("RoleArn" Core..=) Prelude.<$> roleArn,
-            Prelude.Just ("GroupName" Core..= groupName),
-            Prelude.Just ("UserPoolId" Core..= userPoolId)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Precedence" Data..=) Prelude.<$> precedence,
+            ("RoleArn" Data..=) Prelude.<$> roleArn,
+            Prelude.Just ("GroupName" Data..= groupName),
+            Prelude.Just ("UserPoolId" Data..= userPoolId)
           ]
       )
 
-instance Core.ToPath UpdateGroup where
+instance Data.ToPath UpdateGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateGroup where
+instance Data.ToQuery UpdateGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateGroupResponse' smart constructor.

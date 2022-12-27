@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.DomainConfigurationSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoT.Types.DomainConfigurationSummary where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.ServiceType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The summary of a domain configuration. A domain configuration specifies
@@ -38,11 +39,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newDomainConfigurationSummary' smart constructor.
 data DomainConfigurationSummary = DomainConfigurationSummary'
-  { -- | The name of the domain configuration. This value must be unique to a
+  { -- | The ARN of the domain configuration.
+    domainConfigurationArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the domain configuration. This value must be unique to a
     -- region.
     domainConfigurationName :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the domain configuration.
-    domainConfigurationArn :: Prelude.Maybe Prelude.Text,
     -- | The type of service delivered by the endpoint.
     serviceType :: Prelude.Maybe ServiceType
   }
@@ -56,55 +57,54 @@ data DomainConfigurationSummary = DomainConfigurationSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'domainConfigurationArn', 'domainConfigurationSummary_domainConfigurationArn' - The ARN of the domain configuration.
+--
 -- 'domainConfigurationName', 'domainConfigurationSummary_domainConfigurationName' - The name of the domain configuration. This value must be unique to a
 -- region.
---
--- 'domainConfigurationArn', 'domainConfigurationSummary_domainConfigurationArn' - The ARN of the domain configuration.
 --
 -- 'serviceType', 'domainConfigurationSummary_serviceType' - The type of service delivered by the endpoint.
 newDomainConfigurationSummary ::
   DomainConfigurationSummary
 newDomainConfigurationSummary =
   DomainConfigurationSummary'
-    { domainConfigurationName =
+    { domainConfigurationArn =
         Prelude.Nothing,
-      domainConfigurationArn = Prelude.Nothing,
+      domainConfigurationName = Prelude.Nothing,
       serviceType = Prelude.Nothing
     }
+
+-- | The ARN of the domain configuration.
+domainConfigurationSummary_domainConfigurationArn :: Lens.Lens' DomainConfigurationSummary (Prelude.Maybe Prelude.Text)
+domainConfigurationSummary_domainConfigurationArn = Lens.lens (\DomainConfigurationSummary' {domainConfigurationArn} -> domainConfigurationArn) (\s@DomainConfigurationSummary' {} a -> s {domainConfigurationArn = a} :: DomainConfigurationSummary)
 
 -- | The name of the domain configuration. This value must be unique to a
 -- region.
 domainConfigurationSummary_domainConfigurationName :: Lens.Lens' DomainConfigurationSummary (Prelude.Maybe Prelude.Text)
 domainConfigurationSummary_domainConfigurationName = Lens.lens (\DomainConfigurationSummary' {domainConfigurationName} -> domainConfigurationName) (\s@DomainConfigurationSummary' {} a -> s {domainConfigurationName = a} :: DomainConfigurationSummary)
 
--- | The ARN of the domain configuration.
-domainConfigurationSummary_domainConfigurationArn :: Lens.Lens' DomainConfigurationSummary (Prelude.Maybe Prelude.Text)
-domainConfigurationSummary_domainConfigurationArn = Lens.lens (\DomainConfigurationSummary' {domainConfigurationArn} -> domainConfigurationArn) (\s@DomainConfigurationSummary' {} a -> s {domainConfigurationArn = a} :: DomainConfigurationSummary)
-
 -- | The type of service delivered by the endpoint.
 domainConfigurationSummary_serviceType :: Lens.Lens' DomainConfigurationSummary (Prelude.Maybe ServiceType)
 domainConfigurationSummary_serviceType = Lens.lens (\DomainConfigurationSummary' {serviceType} -> serviceType) (\s@DomainConfigurationSummary' {} a -> s {serviceType = a} :: DomainConfigurationSummary)
 
-instance Core.FromJSON DomainConfigurationSummary where
+instance Data.FromJSON DomainConfigurationSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DomainConfigurationSummary"
       ( \x ->
           DomainConfigurationSummary'
-            Prelude.<$> (x Core..:? "domainConfigurationName")
-            Prelude.<*> (x Core..:? "domainConfigurationArn")
-            Prelude.<*> (x Core..:? "serviceType")
+            Prelude.<$> (x Data..:? "domainConfigurationArn")
+            Prelude.<*> (x Data..:? "domainConfigurationName")
+            Prelude.<*> (x Data..:? "serviceType")
       )
 
 instance Prelude.Hashable DomainConfigurationSummary where
   hashWithSalt _salt DomainConfigurationSummary' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` domainConfigurationArn
       `Prelude.hashWithSalt` domainConfigurationName
-      `Prelude.hashWithSalt` domainConfigurationArn
       `Prelude.hashWithSalt` serviceType
 
 instance Prelude.NFData DomainConfigurationSummary where
   rnf DomainConfigurationSummary' {..} =
-    Prelude.rnf domainConfigurationName
-      `Prelude.seq` Prelude.rnf domainConfigurationArn
+    Prelude.rnf domainConfigurationArn
+      `Prelude.seq` Prelude.rnf domainConfigurationName
       `Prelude.seq` Prelude.rnf serviceType

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.ListParents
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,7 +33,7 @@
 --
 -- This operation can be called only from the organization\'s management
 -- account or by a member account that is a delegated administrator for an
--- AWS service.
+-- Amazon Web Services service.
 --
 -- In the current release, a child can have only a single parent.
 --
@@ -44,8 +44,8 @@ module Amazonka.Organizations.ListParents
     newListParents,
 
     -- * Request Lenses
-    listParents_nextToken,
     listParents_maxResults,
+    listParents_nextToken,
     listParents_childId,
 
     -- * Destructuring the Response
@@ -60,7 +60,8 @@ module Amazonka.Organizations.ListParents
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -68,13 +69,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListParents' smart constructor.
 data ListParents = ListParents'
-  { -- | The parameter for receiving additional results if you receive a
-    -- @NextToken@ response in a previous request. A @NextToken@ response
-    -- indicates that more output is available. Set this parameter to the value
-    -- of the previous call\'s @NextToken@ response to indicate where the
-    -- output should continue from.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The total number of results that you want included on each page of the
+  { -- | The total number of results that you want included on each page of the
     -- response. If you do not include this parameter, it defaults to a value
     -- that is specific to the operation. If additional items exist beyond the
     -- maximum you specify, the @NextToken@ response element is present and has
@@ -85,6 +80,12 @@ data ListParents = ListParents'
     -- @NextToken@ after every operation to ensure that you receive all of the
     -- results.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The parameter for receiving additional results if you receive a
+    -- @NextToken@ response in a previous request. A @NextToken@ response
+    -- indicates that more output is available. Set this parameter to the value
+    -- of the previous call\'s @NextToken@ response to indicate where the
+    -- output should continue from.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The unique identifier (ID) of the OU or account whose parent containers
     -- you want to list. Don\'t specify a root.
     --
@@ -109,12 +110,6 @@ data ListParents = ListParents'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listParents_nextToken' - The parameter for receiving additional results if you receive a
--- @NextToken@ response in a previous request. A @NextToken@ response
--- indicates that more output is available. Set this parameter to the value
--- of the previous call\'s @NextToken@ response to indicate where the
--- output should continue from.
---
 -- 'maxResults', 'listParents_maxResults' - The total number of results that you want included on each page of the
 -- response. If you do not include this parameter, it defaults to a value
 -- that is specific to the operation. If additional items exist beyond the
@@ -125,6 +120,12 @@ data ListParents = ListParents'
 -- maximum even when there are more results available. You should check
 -- @NextToken@ after every operation to ensure that you receive all of the
 -- results.
+--
+-- 'nextToken', 'listParents_nextToken' - The parameter for receiving additional results if you receive a
+-- @NextToken@ response in a previous request. A @NextToken@ response
+-- indicates that more output is available. Set this parameter to the value
+-- of the previous call\'s @NextToken@ response to indicate where the
+-- output should continue from.
 --
 -- 'childId', 'listParents_childId' - The unique identifier (ID) of the OU or account whose parent containers
 -- you want to list. Don\'t specify a root.
@@ -144,18 +145,10 @@ newListParents ::
   ListParents
 newListParents pChildId_ =
   ListParents'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       childId = pChildId_
     }
-
--- | The parameter for receiving additional results if you receive a
--- @NextToken@ response in a previous request. A @NextToken@ response
--- indicates that more output is available. Set this parameter to the value
--- of the previous call\'s @NextToken@ response to indicate where the
--- output should continue from.
-listParents_nextToken :: Lens.Lens' ListParents (Prelude.Maybe Prelude.Text)
-listParents_nextToken = Lens.lens (\ListParents' {nextToken} -> nextToken) (\s@ListParents' {} a -> s {nextToken = a} :: ListParents)
 
 -- | The total number of results that you want included on each page of the
 -- response. If you do not include this parameter, it defaults to a value
@@ -169,6 +162,14 @@ listParents_nextToken = Lens.lens (\ListParents' {nextToken} -> nextToken) (\s@L
 -- results.
 listParents_maxResults :: Lens.Lens' ListParents (Prelude.Maybe Prelude.Natural)
 listParents_maxResults = Lens.lens (\ListParents' {maxResults} -> maxResults) (\s@ListParents' {} a -> s {maxResults = a} :: ListParents)
+
+-- | The parameter for receiving additional results if you receive a
+-- @NextToken@ response in a previous request. A @NextToken@ response
+-- indicates that more output is available. Set this parameter to the value
+-- of the previous call\'s @NextToken@ response to indicate where the
+-- output should continue from.
+listParents_nextToken :: Lens.Lens' ListParents (Prelude.Maybe Prelude.Text)
+listParents_nextToken = Lens.lens (\ListParents' {nextToken} -> nextToken) (\s@ListParents' {} a -> s {nextToken = a} :: ListParents)
 
 -- | The unique identifier (ID) of the OU or account whose parent containers
 -- you want to list. Don\'t specify a root.
@@ -206,57 +207,58 @@ instance Core.AWSPager ListParents where
 
 instance Core.AWSRequest ListParents where
   type AWSResponse ListParents = ListParentsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListParentsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Parents" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Parents" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListParents where
   hashWithSalt _salt ListParents' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` childId
 
 instance Prelude.NFData ListParents where
   rnf ListParents' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf childId
 
-instance Core.ToHeaders ListParents where
+instance Data.ToHeaders ListParents where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.ListParents" ::
+              Data.=# ( "AWSOrganizationsV20161128.ListParents" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListParents where
+instance Data.ToJSON ListParents where
   toJSON ListParents' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("ChildId" Core..= childId)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("ChildId" Data..= childId)
           ]
       )
 
-instance Core.ToPath ListParents where
+instance Data.ToPath ListParents where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListParents where
+instance Data.ToQuery ListParents where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListParentsResponse' smart constructor.

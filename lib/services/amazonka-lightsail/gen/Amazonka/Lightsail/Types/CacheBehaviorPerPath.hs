@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.CacheBehaviorPerPath
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.CacheBehaviorPerPath where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types.BehaviorEnum
 import qualified Amazonka.Prelude as Prelude
 
@@ -35,11 +36,17 @@ import qualified Amazonka.Prelude as Prelude
 -- @dont-cache@, then a per-path cache behavior can be used to specify a
 -- directory, file, or file type that your distribution will not cache.
 --
--- if the cacheBehavior\'s behavior is set to \'cache\', then
---
 -- /See:/ 'newCacheBehaviorPerPath' smart constructor.
 data CacheBehaviorPerPath = CacheBehaviorPerPath'
-  { -- | The path to a directory or file to cached, or not cache. Use an asterisk
+  { -- | The cache behavior for the specified path.
+    --
+    -- You can specify one of the following per-path cache behaviors:
+    --
+    -- -   __@cache@__ - This behavior caches the specified path.
+    --
+    -- -   __@dont-cache@__ - This behavior doesn\'t cache the specified path.
+    behavior :: Prelude.Maybe BehaviorEnum,
+    -- | The path to a directory or file to cached, or not cache. Use an asterisk
     -- symbol to specify wildcard directories (@path\/to\/assets\/*@), and file
     -- types (@*.html, *jpg, *js@). Directories and file paths are
     -- case-sensitive.
@@ -75,15 +82,7 @@ data CacheBehaviorPerPath = CacheBehaviorPerPath'
     --     of the document root of an Apache web server.
     --
     --     @var\/www\/html\/images\/@
-    path :: Prelude.Maybe Prelude.Text,
-    -- | The cache behavior for the specified path.
-    --
-    -- You can specify one of the following per-path cache behaviors:
-    --
-    -- -   __@cache@__ - This behavior caches the specified path.
-    --
-    -- -   __@dont-cache@__ - This behavior doesn\'t cache the specified path.
-    behavior :: Prelude.Maybe BehaviorEnum
+    path :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -94,6 +93,14 @@ data CacheBehaviorPerPath = CacheBehaviorPerPath'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'behavior', 'cacheBehaviorPerPath_behavior' - The cache behavior for the specified path.
+--
+-- You can specify one of the following per-path cache behaviors:
+--
+-- -   __@cache@__ - This behavior caches the specified path.
+--
+-- -   __@dont-cache@__ - This behavior doesn\'t cache the specified path.
 --
 -- 'path', 'cacheBehaviorPerPath_path' - The path to a directory or file to cached, or not cache. Use an asterisk
 -- symbol to specify wildcard directories (@path\/to\/assets\/*@), and file
@@ -131,21 +138,23 @@ data CacheBehaviorPerPath = CacheBehaviorPerPath'
 --     of the document root of an Apache web server.
 --
 --     @var\/www\/html\/images\/@
---
--- 'behavior', 'cacheBehaviorPerPath_behavior' - The cache behavior for the specified path.
+newCacheBehaviorPerPath ::
+  CacheBehaviorPerPath
+newCacheBehaviorPerPath =
+  CacheBehaviorPerPath'
+    { behavior = Prelude.Nothing,
+      path = Prelude.Nothing
+    }
+
+-- | The cache behavior for the specified path.
 --
 -- You can specify one of the following per-path cache behaviors:
 --
 -- -   __@cache@__ - This behavior caches the specified path.
 --
 -- -   __@dont-cache@__ - This behavior doesn\'t cache the specified path.
-newCacheBehaviorPerPath ::
-  CacheBehaviorPerPath
-newCacheBehaviorPerPath =
-  CacheBehaviorPerPath'
-    { path = Prelude.Nothing,
-      behavior = Prelude.Nothing
-    }
+cacheBehaviorPerPath_behavior :: Lens.Lens' CacheBehaviorPerPath (Prelude.Maybe BehaviorEnum)
+cacheBehaviorPerPath_behavior = Lens.lens (\CacheBehaviorPerPath' {behavior} -> behavior) (\s@CacheBehaviorPerPath' {} a -> s {behavior = a} :: CacheBehaviorPerPath)
 
 -- | The path to a directory or file to cached, or not cache. Use an asterisk
 -- symbol to specify wildcard directories (@path\/to\/assets\/*@), and file
@@ -186,40 +195,30 @@ newCacheBehaviorPerPath =
 cacheBehaviorPerPath_path :: Lens.Lens' CacheBehaviorPerPath (Prelude.Maybe Prelude.Text)
 cacheBehaviorPerPath_path = Lens.lens (\CacheBehaviorPerPath' {path} -> path) (\s@CacheBehaviorPerPath' {} a -> s {path = a} :: CacheBehaviorPerPath)
 
--- | The cache behavior for the specified path.
---
--- You can specify one of the following per-path cache behaviors:
---
--- -   __@cache@__ - This behavior caches the specified path.
---
--- -   __@dont-cache@__ - This behavior doesn\'t cache the specified path.
-cacheBehaviorPerPath_behavior :: Lens.Lens' CacheBehaviorPerPath (Prelude.Maybe BehaviorEnum)
-cacheBehaviorPerPath_behavior = Lens.lens (\CacheBehaviorPerPath' {behavior} -> behavior) (\s@CacheBehaviorPerPath' {} a -> s {behavior = a} :: CacheBehaviorPerPath)
-
-instance Core.FromJSON CacheBehaviorPerPath where
+instance Data.FromJSON CacheBehaviorPerPath where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CacheBehaviorPerPath"
       ( \x ->
           CacheBehaviorPerPath'
-            Prelude.<$> (x Core..:? "path")
-            Prelude.<*> (x Core..:? "behavior")
+            Prelude.<$> (x Data..:? "behavior")
+            Prelude.<*> (x Data..:? "path")
       )
 
 instance Prelude.Hashable CacheBehaviorPerPath where
   hashWithSalt _salt CacheBehaviorPerPath' {..} =
-    _salt `Prelude.hashWithSalt` path
-      `Prelude.hashWithSalt` behavior
+    _salt `Prelude.hashWithSalt` behavior
+      `Prelude.hashWithSalt` path
 
 instance Prelude.NFData CacheBehaviorPerPath where
   rnf CacheBehaviorPerPath' {..} =
-    Prelude.rnf path `Prelude.seq` Prelude.rnf behavior
+    Prelude.rnf behavior `Prelude.seq` Prelude.rnf path
 
-instance Core.ToJSON CacheBehaviorPerPath where
+instance Data.ToJSON CacheBehaviorPerPath where
   toJSON CacheBehaviorPerPath' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("path" Core..=) Prelude.<$> path,
-            ("behavior" Core..=) Prelude.<$> behavior
+          [ ("behavior" Data..=) Prelude.<$> behavior,
+            ("path" Data..=) Prelude.<$> path
           ]
       )

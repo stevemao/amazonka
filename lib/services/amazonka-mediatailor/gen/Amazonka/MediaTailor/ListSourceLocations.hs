@@ -14,13 +14,14 @@
 
 -- |
 -- Module      : Amazonka.MediaTailor.ListSourceLocations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves a list of source locations.
+-- Lists the source locations for a channel. A source location defines the
+-- host server URL, and contains a list of sources.
 --
 -- This operation returns paginated results.
 module Amazonka.MediaTailor.ListSourceLocations
@@ -29,8 +30,8 @@ module Amazonka.MediaTailor.ListSourceLocations
     newListSourceLocations,
 
     -- * Request Lenses
-    listSourceLocations_nextToken,
     listSourceLocations_maxResults,
+    listSourceLocations_nextToken,
 
     -- * Destructuring the Response
     ListSourceLocationsResponse (..),
@@ -44,7 +45,8 @@ module Amazonka.MediaTailor.ListSourceLocations
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaTailor.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,12 +54,14 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListSourceLocations' smart constructor.
 data ListSourceLocations = ListSourceLocations'
-  { -- | Pagination token from the GET list request. Use the token to fetch the
-    -- next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Upper bound on number of records to return. The maximum number of
-    -- results is 100.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | The maximum number of source locations that you want MediaTailor to
+    -- return in response to the current request. If there are more than
+    -- @MaxResults@ source locations, use the value of @NextToken@ in the
+    -- response to get the next page of results.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Pagination token returned by the list request when results exceed the
+    -- maximum allowed. Use the token to fetch the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -69,28 +73,32 @@ data ListSourceLocations = ListSourceLocations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listSourceLocations_nextToken' - Pagination token from the GET list request. Use the token to fetch the
--- next page of results.
+-- 'maxResults', 'listSourceLocations_maxResults' - The maximum number of source locations that you want MediaTailor to
+-- return in response to the current request. If there are more than
+-- @MaxResults@ source locations, use the value of @NextToken@ in the
+-- response to get the next page of results.
 --
--- 'maxResults', 'listSourceLocations_maxResults' - Upper bound on number of records to return. The maximum number of
--- results is 100.
+-- 'nextToken', 'listSourceLocations_nextToken' - Pagination token returned by the list request when results exceed the
+-- maximum allowed. Use the token to fetch the next page of results.
 newListSourceLocations ::
   ListSourceLocations
 newListSourceLocations =
   ListSourceLocations'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
--- | Pagination token from the GET list request. Use the token to fetch the
--- next page of results.
-listSourceLocations_nextToken :: Lens.Lens' ListSourceLocations (Prelude.Maybe Prelude.Text)
-listSourceLocations_nextToken = Lens.lens (\ListSourceLocations' {nextToken} -> nextToken) (\s@ListSourceLocations' {} a -> s {nextToken = a} :: ListSourceLocations)
-
--- | Upper bound on number of records to return. The maximum number of
--- results is 100.
+-- | The maximum number of source locations that you want MediaTailor to
+-- return in response to the current request. If there are more than
+-- @MaxResults@ source locations, use the value of @NextToken@ in the
+-- response to get the next page of results.
 listSourceLocations_maxResults :: Lens.Lens' ListSourceLocations (Prelude.Maybe Prelude.Natural)
 listSourceLocations_maxResults = Lens.lens (\ListSourceLocations' {maxResults} -> maxResults) (\s@ListSourceLocations' {} a -> s {maxResults = a} :: ListSourceLocations)
+
+-- | Pagination token returned by the list request when results exceed the
+-- maximum allowed. Use the token to fetch the next page of results.
+listSourceLocations_nextToken :: Lens.Lens' ListSourceLocations (Prelude.Maybe Prelude.Text)
+listSourceLocations_nextToken = Lens.lens (\ListSourceLocations' {nextToken} -> nextToken) (\s@ListSourceLocations' {} a -> s {nextToken = a} :: ListSourceLocations)
 
 instance Core.AWSPager ListSourceLocations where
   page rq rs
@@ -118,53 +126,54 @@ instance Core.AWSRequest ListSourceLocations where
   type
     AWSResponse ListSourceLocations =
       ListSourceLocationsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListSourceLocationsResponse'
-            Prelude.<$> (x Core..?> "Items" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Items" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListSourceLocations where
   hashWithSalt _salt ListSourceLocations' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListSourceLocations where
   rnf ListSourceLocations' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListSourceLocations where
+instance Data.ToHeaders ListSourceLocations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListSourceLocations where
+instance Data.ToPath ListSourceLocations where
   toPath = Prelude.const "/sourceLocations"
 
-instance Core.ToQuery ListSourceLocations where
+instance Data.ToQuery ListSourceLocations where
   toQuery ListSourceLocations' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListSourceLocationsResponse' smart constructor.
 data ListSourceLocationsResponse = ListSourceLocationsResponse'
-  { -- | An array of source locations.
+  { -- | A list of source locations.
     items :: Prelude.Maybe [SourceLocation],
-    -- | Pagination token from the list request. Use the token to fetch the next
-    -- page of results.
+    -- | Pagination token returned by the list request when results exceed the
+    -- maximum allowed. Use the token to fetch the next page of results.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -179,10 +188,10 @@ data ListSourceLocationsResponse = ListSourceLocationsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'items', 'listSourceLocationsResponse_items' - An array of source locations.
+-- 'items', 'listSourceLocationsResponse_items' - A list of source locations.
 --
--- 'nextToken', 'listSourceLocationsResponse_nextToken' - Pagination token from the list request. Use the token to fetch the next
--- page of results.
+-- 'nextToken', 'listSourceLocationsResponse_nextToken' - Pagination token returned by the list request when results exceed the
+-- maximum allowed. Use the token to fetch the next page of results.
 --
 -- 'httpStatus', 'listSourceLocationsResponse_httpStatus' - The response's http status code.
 newListSourceLocationsResponse ::
@@ -197,12 +206,12 @@ newListSourceLocationsResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | An array of source locations.
+-- | A list of source locations.
 listSourceLocationsResponse_items :: Lens.Lens' ListSourceLocationsResponse (Prelude.Maybe [SourceLocation])
 listSourceLocationsResponse_items = Lens.lens (\ListSourceLocationsResponse' {items} -> items) (\s@ListSourceLocationsResponse' {} a -> s {items = a} :: ListSourceLocationsResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | Pagination token from the list request. Use the token to fetch the next
--- page of results.
+-- | Pagination token returned by the list request when results exceed the
+-- maximum allowed. Use the token to fetch the next page of results.
 listSourceLocationsResponse_nextToken :: Lens.Lens' ListSourceLocationsResponse (Prelude.Maybe Prelude.Text)
 listSourceLocationsResponse_nextToken = Lens.lens (\ListSourceLocationsResponse' {nextToken} -> nextToken) (\s@ListSourceLocationsResponse' {} a -> s {nextToken = a} :: ListSourceLocationsResponse)
 

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.Types.ClusterConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,48 +20,50 @@
 module Amazonka.OpenSearch.Types.ClusterConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpenSearch.Types.ColdStorageOptions
 import Amazonka.OpenSearch.Types.OpenSearchPartitionInstanceType
 import Amazonka.OpenSearch.Types.OpenSearchWarmPartitionInstanceType
 import Amazonka.OpenSearch.Types.ZoneAwarenessConfig
 import qualified Amazonka.Prelude as Prelude
 
--- | The configuration for the domain cluster, such as the type and number of
--- instances.
+-- | Container for the cluster configuration of an OpenSearch Service domain.
+-- For more information, see
+-- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/createupdatedomains.html Creating and managing Amazon OpenSearch Service domains>.
 --
 -- /See:/ 'newClusterConfig' smart constructor.
 data ClusterConfig = ClusterConfig'
-  { -- | Total number of dedicated master nodes, active and on standby, for the
-    -- cluster.
-    dedicatedMasterCount :: Prelude.Maybe Prelude.Int,
-    -- | The instance type for a dedicated master node.
-    dedicatedMasterType :: Prelude.Maybe OpenSearchPartitionInstanceType,
-    -- | A boolean value to indicate whether a dedicated master node is enabled.
-    -- See
-    -- <http://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains.html#managedomains-dedicatedmasternodes Dedicated master nodes in Amazon OpenSearch Service>
-    -- for more information.
-    dedicatedMasterEnabled :: Prelude.Maybe Prelude.Bool,
-    -- | The number of instances in the specified domain cluster.
-    instanceCount :: Prelude.Maybe Prelude.Int,
-    -- | Specifies the @ColdStorageOptions@ config for a Domain
+  { -- | Container for cold storage configuration options.
     coldStorageOptions :: Prelude.Maybe ColdStorageOptions,
-    -- | A boolean value to indicate whether zone awareness is enabled. See
-    -- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-multiaz.html Configuring a multi-AZ domain in Amazon OpenSearch Service>
-    -- for more information.
-    zoneAwarenessEnabled :: Prelude.Maybe Prelude.Bool,
-    -- | The instance type for an OpenSearch cluster. UltraWarm instance types
-    -- are not supported for data instances.
+    -- | Number of dedicated master nodes in the cluster. This number must be
+    -- greater than 1, otherwise you receive a validation exception.
+    dedicatedMasterCount :: Prelude.Maybe Prelude.Int,
+    -- | Indicates whether dedicated master nodes are enabled for the
+    -- cluster.@True@ if the cluster will use a dedicated master node.@False@
+    -- if the cluster will not.
+    dedicatedMasterEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | OpenSearch Service instance type of the dedicated master nodes in the
+    -- cluster.
+    dedicatedMasterType :: Prelude.Maybe OpenSearchPartitionInstanceType,
+    -- | Number of dedicated master nodes in the cluster. This number must be
+    -- greater than 1, otherwise you receive a validation exception.
+    instanceCount :: Prelude.Maybe Prelude.Int,
+    -- | Instance type of data nodes in the cluster.
     instanceType :: Prelude.Maybe OpenSearchPartitionInstanceType,
-    -- | True to enable UltraWarm storage.
-    warmEnabled :: Prelude.Maybe Prelude.Bool,
-    -- | The zone awareness configuration for a domain when zone awareness is
-    -- enabled.
-    zoneAwarenessConfig :: Prelude.Maybe ZoneAwarenessConfig,
-    -- | The number of UltraWarm nodes in the cluster.
+    -- | The number of warm nodes in the cluster.
     warmCount :: Prelude.Maybe Prelude.Int,
-    -- | The instance type for the OpenSearch cluster\'s warm nodes.
-    warmType :: Prelude.Maybe OpenSearchWarmPartitionInstanceType
+    -- | Whether to enable warm storage for the cluster.
+    warmEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The instance type for the cluster\'s warm nodes.
+    warmType :: Prelude.Maybe OpenSearchWarmPartitionInstanceType,
+    -- | Container for zone awareness configuration options. Only required if
+    -- @ZoneAwarenessEnabled@ is @true@.
+    zoneAwarenessConfig :: Prelude.Maybe ZoneAwarenessConfig,
+    -- | Indicates whether multiple Availability Zones are enabled. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-multiaz.html Configuring a multi-AZ domain in Amazon OpenSearch Service>.
+    zoneAwarenessEnabled :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,172 +75,172 @@ data ClusterConfig = ClusterConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'dedicatedMasterCount', 'clusterConfig_dedicatedMasterCount' - Total number of dedicated master nodes, active and on standby, for the
+-- 'coldStorageOptions', 'clusterConfig_coldStorageOptions' - Container for cold storage configuration options.
+--
+-- 'dedicatedMasterCount', 'clusterConfig_dedicatedMasterCount' - Number of dedicated master nodes in the cluster. This number must be
+-- greater than 1, otherwise you receive a validation exception.
+--
+-- 'dedicatedMasterEnabled', 'clusterConfig_dedicatedMasterEnabled' - Indicates whether dedicated master nodes are enabled for the
+-- cluster.@True@ if the cluster will use a dedicated master node.@False@
+-- if the cluster will not.
+--
+-- 'dedicatedMasterType', 'clusterConfig_dedicatedMasterType' - OpenSearch Service instance type of the dedicated master nodes in the
 -- cluster.
 --
--- 'dedicatedMasterType', 'clusterConfig_dedicatedMasterType' - The instance type for a dedicated master node.
+-- 'instanceCount', 'clusterConfig_instanceCount' - Number of dedicated master nodes in the cluster. This number must be
+-- greater than 1, otherwise you receive a validation exception.
 --
--- 'dedicatedMasterEnabled', 'clusterConfig_dedicatedMasterEnabled' - A boolean value to indicate whether a dedicated master node is enabled.
--- See
--- <http://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains.html#managedomains-dedicatedmasternodes Dedicated master nodes in Amazon OpenSearch Service>
--- for more information.
+-- 'instanceType', 'clusterConfig_instanceType' - Instance type of data nodes in the cluster.
 --
--- 'instanceCount', 'clusterConfig_instanceCount' - The number of instances in the specified domain cluster.
+-- 'warmCount', 'clusterConfig_warmCount' - The number of warm nodes in the cluster.
 --
--- 'coldStorageOptions', 'clusterConfig_coldStorageOptions' - Specifies the @ColdStorageOptions@ config for a Domain
+-- 'warmEnabled', 'clusterConfig_warmEnabled' - Whether to enable warm storage for the cluster.
 --
--- 'zoneAwarenessEnabled', 'clusterConfig_zoneAwarenessEnabled' - A boolean value to indicate whether zone awareness is enabled. See
--- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-multiaz.html Configuring a multi-AZ domain in Amazon OpenSearch Service>
--- for more information.
+-- 'warmType', 'clusterConfig_warmType' - The instance type for the cluster\'s warm nodes.
 --
--- 'instanceType', 'clusterConfig_instanceType' - The instance type for an OpenSearch cluster. UltraWarm instance types
--- are not supported for data instances.
+-- 'zoneAwarenessConfig', 'clusterConfig_zoneAwarenessConfig' - Container for zone awareness configuration options. Only required if
+-- @ZoneAwarenessEnabled@ is @true@.
 --
--- 'warmEnabled', 'clusterConfig_warmEnabled' - True to enable UltraWarm storage.
---
--- 'zoneAwarenessConfig', 'clusterConfig_zoneAwarenessConfig' - The zone awareness configuration for a domain when zone awareness is
--- enabled.
---
--- 'warmCount', 'clusterConfig_warmCount' - The number of UltraWarm nodes in the cluster.
---
--- 'warmType', 'clusterConfig_warmType' - The instance type for the OpenSearch cluster\'s warm nodes.
+-- 'zoneAwarenessEnabled', 'clusterConfig_zoneAwarenessEnabled' - Indicates whether multiple Availability Zones are enabled. For more
+-- information, see
+-- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-multiaz.html Configuring a multi-AZ domain in Amazon OpenSearch Service>.
 newClusterConfig ::
   ClusterConfig
 newClusterConfig =
   ClusterConfig'
-    { dedicatedMasterCount =
+    { coldStorageOptions =
         Prelude.Nothing,
-      dedicatedMasterType = Prelude.Nothing,
+      dedicatedMasterCount = Prelude.Nothing,
       dedicatedMasterEnabled = Prelude.Nothing,
+      dedicatedMasterType = Prelude.Nothing,
       instanceCount = Prelude.Nothing,
-      coldStorageOptions = Prelude.Nothing,
-      zoneAwarenessEnabled = Prelude.Nothing,
       instanceType = Prelude.Nothing,
-      warmEnabled = Prelude.Nothing,
-      zoneAwarenessConfig = Prelude.Nothing,
       warmCount = Prelude.Nothing,
-      warmType = Prelude.Nothing
+      warmEnabled = Prelude.Nothing,
+      warmType = Prelude.Nothing,
+      zoneAwarenessConfig = Prelude.Nothing,
+      zoneAwarenessEnabled = Prelude.Nothing
     }
 
--- | Total number of dedicated master nodes, active and on standby, for the
--- cluster.
-clusterConfig_dedicatedMasterCount :: Lens.Lens' ClusterConfig (Prelude.Maybe Prelude.Int)
-clusterConfig_dedicatedMasterCount = Lens.lens (\ClusterConfig' {dedicatedMasterCount} -> dedicatedMasterCount) (\s@ClusterConfig' {} a -> s {dedicatedMasterCount = a} :: ClusterConfig)
-
--- | The instance type for a dedicated master node.
-clusterConfig_dedicatedMasterType :: Lens.Lens' ClusterConfig (Prelude.Maybe OpenSearchPartitionInstanceType)
-clusterConfig_dedicatedMasterType = Lens.lens (\ClusterConfig' {dedicatedMasterType} -> dedicatedMasterType) (\s@ClusterConfig' {} a -> s {dedicatedMasterType = a} :: ClusterConfig)
-
--- | A boolean value to indicate whether a dedicated master node is enabled.
--- See
--- <http://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains.html#managedomains-dedicatedmasternodes Dedicated master nodes in Amazon OpenSearch Service>
--- for more information.
-clusterConfig_dedicatedMasterEnabled :: Lens.Lens' ClusterConfig (Prelude.Maybe Prelude.Bool)
-clusterConfig_dedicatedMasterEnabled = Lens.lens (\ClusterConfig' {dedicatedMasterEnabled} -> dedicatedMasterEnabled) (\s@ClusterConfig' {} a -> s {dedicatedMasterEnabled = a} :: ClusterConfig)
-
--- | The number of instances in the specified domain cluster.
-clusterConfig_instanceCount :: Lens.Lens' ClusterConfig (Prelude.Maybe Prelude.Int)
-clusterConfig_instanceCount = Lens.lens (\ClusterConfig' {instanceCount} -> instanceCount) (\s@ClusterConfig' {} a -> s {instanceCount = a} :: ClusterConfig)
-
--- | Specifies the @ColdStorageOptions@ config for a Domain
+-- | Container for cold storage configuration options.
 clusterConfig_coldStorageOptions :: Lens.Lens' ClusterConfig (Prelude.Maybe ColdStorageOptions)
 clusterConfig_coldStorageOptions = Lens.lens (\ClusterConfig' {coldStorageOptions} -> coldStorageOptions) (\s@ClusterConfig' {} a -> s {coldStorageOptions = a} :: ClusterConfig)
 
--- | A boolean value to indicate whether zone awareness is enabled. See
--- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-multiaz.html Configuring a multi-AZ domain in Amazon OpenSearch Service>
--- for more information.
-clusterConfig_zoneAwarenessEnabled :: Lens.Lens' ClusterConfig (Prelude.Maybe Prelude.Bool)
-clusterConfig_zoneAwarenessEnabled = Lens.lens (\ClusterConfig' {zoneAwarenessEnabled} -> zoneAwarenessEnabled) (\s@ClusterConfig' {} a -> s {zoneAwarenessEnabled = a} :: ClusterConfig)
+-- | Number of dedicated master nodes in the cluster. This number must be
+-- greater than 1, otherwise you receive a validation exception.
+clusterConfig_dedicatedMasterCount :: Lens.Lens' ClusterConfig (Prelude.Maybe Prelude.Int)
+clusterConfig_dedicatedMasterCount = Lens.lens (\ClusterConfig' {dedicatedMasterCount} -> dedicatedMasterCount) (\s@ClusterConfig' {} a -> s {dedicatedMasterCount = a} :: ClusterConfig)
 
--- | The instance type for an OpenSearch cluster. UltraWarm instance types
--- are not supported for data instances.
+-- | Indicates whether dedicated master nodes are enabled for the
+-- cluster.@True@ if the cluster will use a dedicated master node.@False@
+-- if the cluster will not.
+clusterConfig_dedicatedMasterEnabled :: Lens.Lens' ClusterConfig (Prelude.Maybe Prelude.Bool)
+clusterConfig_dedicatedMasterEnabled = Lens.lens (\ClusterConfig' {dedicatedMasterEnabled} -> dedicatedMasterEnabled) (\s@ClusterConfig' {} a -> s {dedicatedMasterEnabled = a} :: ClusterConfig)
+
+-- | OpenSearch Service instance type of the dedicated master nodes in the
+-- cluster.
+clusterConfig_dedicatedMasterType :: Lens.Lens' ClusterConfig (Prelude.Maybe OpenSearchPartitionInstanceType)
+clusterConfig_dedicatedMasterType = Lens.lens (\ClusterConfig' {dedicatedMasterType} -> dedicatedMasterType) (\s@ClusterConfig' {} a -> s {dedicatedMasterType = a} :: ClusterConfig)
+
+-- | Number of dedicated master nodes in the cluster. This number must be
+-- greater than 1, otherwise you receive a validation exception.
+clusterConfig_instanceCount :: Lens.Lens' ClusterConfig (Prelude.Maybe Prelude.Int)
+clusterConfig_instanceCount = Lens.lens (\ClusterConfig' {instanceCount} -> instanceCount) (\s@ClusterConfig' {} a -> s {instanceCount = a} :: ClusterConfig)
+
+-- | Instance type of data nodes in the cluster.
 clusterConfig_instanceType :: Lens.Lens' ClusterConfig (Prelude.Maybe OpenSearchPartitionInstanceType)
 clusterConfig_instanceType = Lens.lens (\ClusterConfig' {instanceType} -> instanceType) (\s@ClusterConfig' {} a -> s {instanceType = a} :: ClusterConfig)
 
--- | True to enable UltraWarm storage.
-clusterConfig_warmEnabled :: Lens.Lens' ClusterConfig (Prelude.Maybe Prelude.Bool)
-clusterConfig_warmEnabled = Lens.lens (\ClusterConfig' {warmEnabled} -> warmEnabled) (\s@ClusterConfig' {} a -> s {warmEnabled = a} :: ClusterConfig)
-
--- | The zone awareness configuration for a domain when zone awareness is
--- enabled.
-clusterConfig_zoneAwarenessConfig :: Lens.Lens' ClusterConfig (Prelude.Maybe ZoneAwarenessConfig)
-clusterConfig_zoneAwarenessConfig = Lens.lens (\ClusterConfig' {zoneAwarenessConfig} -> zoneAwarenessConfig) (\s@ClusterConfig' {} a -> s {zoneAwarenessConfig = a} :: ClusterConfig)
-
--- | The number of UltraWarm nodes in the cluster.
+-- | The number of warm nodes in the cluster.
 clusterConfig_warmCount :: Lens.Lens' ClusterConfig (Prelude.Maybe Prelude.Int)
 clusterConfig_warmCount = Lens.lens (\ClusterConfig' {warmCount} -> warmCount) (\s@ClusterConfig' {} a -> s {warmCount = a} :: ClusterConfig)
 
--- | The instance type for the OpenSearch cluster\'s warm nodes.
+-- | Whether to enable warm storage for the cluster.
+clusterConfig_warmEnabled :: Lens.Lens' ClusterConfig (Prelude.Maybe Prelude.Bool)
+clusterConfig_warmEnabled = Lens.lens (\ClusterConfig' {warmEnabled} -> warmEnabled) (\s@ClusterConfig' {} a -> s {warmEnabled = a} :: ClusterConfig)
+
+-- | The instance type for the cluster\'s warm nodes.
 clusterConfig_warmType :: Lens.Lens' ClusterConfig (Prelude.Maybe OpenSearchWarmPartitionInstanceType)
 clusterConfig_warmType = Lens.lens (\ClusterConfig' {warmType} -> warmType) (\s@ClusterConfig' {} a -> s {warmType = a} :: ClusterConfig)
 
-instance Core.FromJSON ClusterConfig where
+-- | Container for zone awareness configuration options. Only required if
+-- @ZoneAwarenessEnabled@ is @true@.
+clusterConfig_zoneAwarenessConfig :: Lens.Lens' ClusterConfig (Prelude.Maybe ZoneAwarenessConfig)
+clusterConfig_zoneAwarenessConfig = Lens.lens (\ClusterConfig' {zoneAwarenessConfig} -> zoneAwarenessConfig) (\s@ClusterConfig' {} a -> s {zoneAwarenessConfig = a} :: ClusterConfig)
+
+-- | Indicates whether multiple Availability Zones are enabled. For more
+-- information, see
+-- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-multiaz.html Configuring a multi-AZ domain in Amazon OpenSearch Service>.
+clusterConfig_zoneAwarenessEnabled :: Lens.Lens' ClusterConfig (Prelude.Maybe Prelude.Bool)
+clusterConfig_zoneAwarenessEnabled = Lens.lens (\ClusterConfig' {zoneAwarenessEnabled} -> zoneAwarenessEnabled) (\s@ClusterConfig' {} a -> s {zoneAwarenessEnabled = a} :: ClusterConfig)
+
+instance Data.FromJSON ClusterConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ClusterConfig"
       ( \x ->
           ClusterConfig'
-            Prelude.<$> (x Core..:? "DedicatedMasterCount")
-            Prelude.<*> (x Core..:? "DedicatedMasterType")
-            Prelude.<*> (x Core..:? "DedicatedMasterEnabled")
-            Prelude.<*> (x Core..:? "InstanceCount")
-            Prelude.<*> (x Core..:? "ColdStorageOptions")
-            Prelude.<*> (x Core..:? "ZoneAwarenessEnabled")
-            Prelude.<*> (x Core..:? "InstanceType")
-            Prelude.<*> (x Core..:? "WarmEnabled")
-            Prelude.<*> (x Core..:? "ZoneAwarenessConfig")
-            Prelude.<*> (x Core..:? "WarmCount")
-            Prelude.<*> (x Core..:? "WarmType")
+            Prelude.<$> (x Data..:? "ColdStorageOptions")
+            Prelude.<*> (x Data..:? "DedicatedMasterCount")
+            Prelude.<*> (x Data..:? "DedicatedMasterEnabled")
+            Prelude.<*> (x Data..:? "DedicatedMasterType")
+            Prelude.<*> (x Data..:? "InstanceCount")
+            Prelude.<*> (x Data..:? "InstanceType")
+            Prelude.<*> (x Data..:? "WarmCount")
+            Prelude.<*> (x Data..:? "WarmEnabled")
+            Prelude.<*> (x Data..:? "WarmType")
+            Prelude.<*> (x Data..:? "ZoneAwarenessConfig")
+            Prelude.<*> (x Data..:? "ZoneAwarenessEnabled")
       )
 
 instance Prelude.Hashable ClusterConfig where
   hashWithSalt _salt ClusterConfig' {..} =
-    _salt `Prelude.hashWithSalt` dedicatedMasterCount
-      `Prelude.hashWithSalt` dedicatedMasterType
+    _salt `Prelude.hashWithSalt` coldStorageOptions
+      `Prelude.hashWithSalt` dedicatedMasterCount
       `Prelude.hashWithSalt` dedicatedMasterEnabled
+      `Prelude.hashWithSalt` dedicatedMasterType
       `Prelude.hashWithSalt` instanceCount
-      `Prelude.hashWithSalt` coldStorageOptions
-      `Prelude.hashWithSalt` zoneAwarenessEnabled
       `Prelude.hashWithSalt` instanceType
-      `Prelude.hashWithSalt` warmEnabled
-      `Prelude.hashWithSalt` zoneAwarenessConfig
       `Prelude.hashWithSalt` warmCount
+      `Prelude.hashWithSalt` warmEnabled
       `Prelude.hashWithSalt` warmType
+      `Prelude.hashWithSalt` zoneAwarenessConfig
+      `Prelude.hashWithSalt` zoneAwarenessEnabled
 
 instance Prelude.NFData ClusterConfig where
   rnf ClusterConfig' {..} =
-    Prelude.rnf dedicatedMasterCount
-      `Prelude.seq` Prelude.rnf dedicatedMasterType
+    Prelude.rnf coldStorageOptions
+      `Prelude.seq` Prelude.rnf dedicatedMasterCount
       `Prelude.seq` Prelude.rnf dedicatedMasterEnabled
+      `Prelude.seq` Prelude.rnf dedicatedMasterType
       `Prelude.seq` Prelude.rnf instanceCount
-      `Prelude.seq` Prelude.rnf coldStorageOptions
-      `Prelude.seq` Prelude.rnf zoneAwarenessEnabled
       `Prelude.seq` Prelude.rnf instanceType
-      `Prelude.seq` Prelude.rnf warmEnabled
-      `Prelude.seq` Prelude.rnf zoneAwarenessConfig
       `Prelude.seq` Prelude.rnf warmCount
+      `Prelude.seq` Prelude.rnf warmEnabled
       `Prelude.seq` Prelude.rnf warmType
+      `Prelude.seq` Prelude.rnf zoneAwarenessConfig
+      `Prelude.seq` Prelude.rnf zoneAwarenessEnabled
 
-instance Core.ToJSON ClusterConfig where
+instance Data.ToJSON ClusterConfig where
   toJSON ClusterConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DedicatedMasterCount" Core..=)
-              Prelude.<$> dedicatedMasterCount,
-            ("DedicatedMasterType" Core..=)
-              Prelude.<$> dedicatedMasterType,
-            ("DedicatedMasterEnabled" Core..=)
-              Prelude.<$> dedicatedMasterEnabled,
-            ("InstanceCount" Core..=) Prelude.<$> instanceCount,
-            ("ColdStorageOptions" Core..=)
+          [ ("ColdStorageOptions" Data..=)
               Prelude.<$> coldStorageOptions,
-            ("ZoneAwarenessEnabled" Core..=)
-              Prelude.<$> zoneAwarenessEnabled,
-            ("InstanceType" Core..=) Prelude.<$> instanceType,
-            ("WarmEnabled" Core..=) Prelude.<$> warmEnabled,
-            ("ZoneAwarenessConfig" Core..=)
+            ("DedicatedMasterCount" Data..=)
+              Prelude.<$> dedicatedMasterCount,
+            ("DedicatedMasterEnabled" Data..=)
+              Prelude.<$> dedicatedMasterEnabled,
+            ("DedicatedMasterType" Data..=)
+              Prelude.<$> dedicatedMasterType,
+            ("InstanceCount" Data..=) Prelude.<$> instanceCount,
+            ("InstanceType" Data..=) Prelude.<$> instanceType,
+            ("WarmCount" Data..=) Prelude.<$> warmCount,
+            ("WarmEnabled" Data..=) Prelude.<$> warmEnabled,
+            ("WarmType" Data..=) Prelude.<$> warmType,
+            ("ZoneAwarenessConfig" Data..=)
               Prelude.<$> zoneAwarenessConfig,
-            ("WarmCount" Core..=) Prelude.<$> warmCount,
-            ("WarmType" Core..=) Prelude.<$> warmType
+            ("ZoneAwarenessEnabled" Data..=)
+              Prelude.<$> zoneAwarenessEnabled
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glacier.RemoveTagsFromVault
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.Glacier.RemoveTagsFromVault
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glacier.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -115,9 +116,9 @@ instance Core.AWSRequest RemoveTagsFromVault where
   type
     AWSResponse RemoveTagsFromVault =
       RemoveTagsFromVaultResponse
-  request =
-    Request.glacierVersionHeader (Core._serviceVersion defaultService)
-      Prelude.. Request.postJSON defaultService
+  request overrides =
+    Request.glacierVersionHeader (Core.version defaultService)
+      Prelude.. Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull RemoveTagsFromVaultResponse'
 
@@ -133,27 +134,27 @@ instance Prelude.NFData RemoveTagsFromVault where
       `Prelude.seq` Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf vaultName
 
-instance Core.ToHeaders RemoveTagsFromVault where
+instance Data.ToHeaders RemoveTagsFromVault where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON RemoveTagsFromVault where
+instance Data.ToJSON RemoveTagsFromVault where
   toJSON RemoveTagsFromVault' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("TagKeys" Core..=) Prelude.<$> tagKeys]
+          [("TagKeys" Data..=) Prelude.<$> tagKeys]
       )
 
-instance Core.ToPath RemoveTagsFromVault where
+instance Data.ToPath RemoveTagsFromVault where
   toPath RemoveTagsFromVault' {..} =
     Prelude.mconcat
       [ "/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/vaults/",
-        Core.toBS vaultName,
+        Data.toBS vaultName,
         "/tags"
       ]
 
-instance Core.ToQuery RemoveTagsFromVault where
+instance Data.ToQuery RemoveTagsFromVault where
   toQuery =
     Prelude.const
       (Prelude.mconcat ["operation=remove"])

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.FirelensConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,13 +20,14 @@
 module Amazonka.ECS.Types.FirelensConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types.FirelensConfigurationType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The FireLens configuration for the container. This is used to specify
 -- and configure a log router for container logs. For more information, see
--- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_firelens.html Custom Log Routing>
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_firelens.html Custom log routing>
 -- in the /Amazon Elastic Container Service Developer Guide/.
 --
 -- /See:/ 'newFirelensConfiguration' smart constructor.
@@ -38,7 +39,7 @@ data FirelensConfiguration = FirelensConfiguration'
     -- use is
     -- @\"options\":{\"enable-ecs-log-metadata\":\"true|false\",\"config-file-type:\"s3|file\",\"config-file-value\":\"arn:aws:s3:::mybucket\/fluent.conf|filepath\"}@.
     -- For more information, see
-    -- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_firelens.html#firelens-taskdef Creating a Task Definition that Uses a FireLens Configuration>
+    -- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_firelens.html#firelens-taskdef Creating a task definition that uses a FireLens configuration>
     -- in the /Amazon Elastic Container Service Developer Guide/.
     --
     -- Tasks hosted on Fargate only support the @file@ configuration file type.
@@ -63,7 +64,7 @@ data FirelensConfiguration = FirelensConfiguration'
 -- use is
 -- @\"options\":{\"enable-ecs-log-metadata\":\"true|false\",\"config-file-type:\"s3|file\",\"config-file-value\":\"arn:aws:s3:::mybucket\/fluent.conf|filepath\"}@.
 -- For more information, see
--- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_firelens.html#firelens-taskdef Creating a Task Definition that Uses a FireLens Configuration>
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_firelens.html#firelens-taskdef Creating a task definition that uses a FireLens configuration>
 -- in the /Amazon Elastic Container Service Developer Guide/.
 --
 -- Tasks hosted on Fargate only support the @file@ configuration file type.
@@ -86,7 +87,7 @@ newFirelensConfiguration pType_ =
 -- use is
 -- @\"options\":{\"enable-ecs-log-metadata\":\"true|false\",\"config-file-type:\"s3|file\",\"config-file-value\":\"arn:aws:s3:::mybucket\/fluent.conf|filepath\"}@.
 -- For more information, see
--- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_firelens.html#firelens-taskdef Creating a Task Definition that Uses a FireLens Configuration>
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_firelens.html#firelens-taskdef Creating a task definition that uses a FireLens configuration>
 -- in the /Amazon Elastic Container Service Developer Guide/.
 --
 -- Tasks hosted on Fargate only support the @file@ configuration file type.
@@ -97,14 +98,14 @@ firelensConfiguration_options = Lens.lens (\FirelensConfiguration' {options} -> 
 firelensConfiguration_type :: Lens.Lens' FirelensConfiguration FirelensConfigurationType
 firelensConfiguration_type = Lens.lens (\FirelensConfiguration' {type'} -> type') (\s@FirelensConfiguration' {} a -> s {type' = a} :: FirelensConfiguration)
 
-instance Core.FromJSON FirelensConfiguration where
+instance Data.FromJSON FirelensConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FirelensConfiguration"
       ( \x ->
           FirelensConfiguration'
-            Prelude.<$> (x Core..:? "options" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "type")
+            Prelude.<$> (x Data..:? "options" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "type")
       )
 
 instance Prelude.Hashable FirelensConfiguration where
@@ -116,11 +117,11 @@ instance Prelude.NFData FirelensConfiguration where
   rnf FirelensConfiguration' {..} =
     Prelude.rnf options `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON FirelensConfiguration where
+instance Data.ToJSON FirelensConfiguration where
   toJSON FirelensConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("options" Core..=) Prelude.<$> options,
-            Prelude.Just ("type" Core..= type')
+          [ ("options" Data..=) Prelude.<$> options,
+            Prelude.Just ("type" Data..= type')
           ]
       )

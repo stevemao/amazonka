@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.Types.Policy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,34 +20,29 @@
 module Amazonka.FMS.Types.Policy where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FMS.Types.CustomerPolicyScopeIdType
 import Amazonka.FMS.Types.ResourceTag
 import Amazonka.FMS.Types.SecurityServicePolicyData
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An Firewall Manager policy.
 --
 -- /See:/ 'newPolicy' smart constructor.
 data Policy = Policy'
-  { -- | The ID of the Firewall Manager policy.
-    policyId :: Prelude.Maybe Prelude.Text,
-    -- | An array of @ResourceType@ objects. Use this only to specify multiple
-    -- resource types. To specify a single resource type, use @ResourceType@.
-    resourceTypeList :: Prelude.Maybe [Prelude.Text],
-    -- | An array of @ResourceTag@ objects.
-    resourceTags :: Prelude.Maybe [ResourceTag],
-    -- | A unique identifier for each update to the policy. When issuing a
-    -- @PutPolicy@ request, the @PolicyUpdateToken@ in the request must match
-    -- the @PolicyUpdateToken@ of the current policy version. To get the
-    -- @PolicyUpdateToken@ of the current policy version, use a @GetPolicy@
-    -- request.
-    policyUpdateToken :: Prelude.Maybe Prelude.Text,
-    -- | Indicates whether Firewall Manager should delete Firewall Manager
-    -- managed resources, such as web ACLs and security groups, when they are
-    -- not in use by the Firewall Manager policy. By default, Firewall Manager
-    -- doesn\'t delete unused Firewall Manager managed resources. This option
-    -- is not available for Shield Advanced or WAF Classic policies.
+  { -- | Indicates whether Firewall Manager should automatically remove
+    -- protections from resources that leave the policy scope and clean up
+    -- resources that Firewall Manager is managing for accounts when those
+    -- accounts leave policy scope. For example, Firewall Manager will
+    -- disassociate a Firewall Manager managed web ACL from a protected
+    -- customer resource when the customer resource leaves policy scope.
+    --
+    -- By default, Firewall Manager doesn\'t remove protections or delete
+    -- Firewall Manager managed resources.
+    --
+    -- This option is not available for Shield Advanced or WAF Classic
+    -- policies.
     deleteUnusedFMManagedResources :: Prelude.Maybe Prelude.Bool,
     -- | Specifies the Amazon Web Services account IDs and Organizations
     -- organizational units (OUs) to exclude from the policy. Specifying an OU
@@ -101,6 +96,23 @@ data Policy = Policy'
     --     comma. For example, the following is a valid map:
     --     @{“ACCOUNT” : [“accountID1”, “accountID2”], “ORG_UNIT” : [“ouid111”, “ouid112”]}@.
     includeMap :: Prelude.Maybe (Prelude.HashMap CustomerPolicyScopeIdType [Prelude.Text]),
+    -- | The definition of the Network Firewall firewall policy.
+    policyDescription :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Firewall Manager policy.
+    policyId :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for each update to the policy. When issuing a
+    -- @PutPolicy@ request, the @PolicyUpdateToken@ in the request must match
+    -- the @PolicyUpdateToken@ of the current policy version. To get the
+    -- @PolicyUpdateToken@ of the current policy version, use a @GetPolicy@
+    -- request.
+    policyUpdateToken :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifiers of the resource sets used by the policy.
+    resourceSetIds :: Prelude.Maybe [Prelude.Text],
+    -- | An array of @ResourceTag@ objects.
+    resourceTags :: Prelude.Maybe [ResourceTag],
+    -- | An array of @ResourceType@ objects. Use this only to specify multiple
+    -- resource types. To specify a single resource type, use @ResourceType@.
+    resourceTypeList :: Prelude.Maybe [Prelude.Text],
     -- | The name of the Firewall Manager policy.
     policyName :: Prelude.Text,
     -- | Details about the security service that is being used to protect the
@@ -113,8 +125,9 @@ data Policy = Policy'
     -- of @ResourceTypeList@ and then specify the resource types in a
     -- @ResourceTypeList@.
     --
-    -- For WAF and Shield Advanced, example resource types include
-    -- @AWS::ElasticLoadBalancingV2::LoadBalancer@ and
+    -- For WAF and Shield Advanced, resource types include
+    -- @AWS::ElasticLoadBalancingV2::LoadBalancer@,
+    -- @AWS::ElasticLoadBalancing::LoadBalancer@, @AWS::EC2::EIP@, and
     -- @AWS::CloudFront::Distribution@. For a security group common policy,
     -- valid values are @AWS::EC2::NetworkInterface@ and @AWS::EC2::Instance@.
     -- For a security group content audit policy, valid values are
@@ -142,24 +155,18 @@ data Policy = Policy'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'policyId', 'policy_policyId' - The ID of the Firewall Manager policy.
+-- 'deleteUnusedFMManagedResources', 'policy_deleteUnusedFMManagedResources' - Indicates whether Firewall Manager should automatically remove
+-- protections from resources that leave the policy scope and clean up
+-- resources that Firewall Manager is managing for accounts when those
+-- accounts leave policy scope. For example, Firewall Manager will
+-- disassociate a Firewall Manager managed web ACL from a protected
+-- customer resource when the customer resource leaves policy scope.
 --
--- 'resourceTypeList', 'policy_resourceTypeList' - An array of @ResourceType@ objects. Use this only to specify multiple
--- resource types. To specify a single resource type, use @ResourceType@.
+-- By default, Firewall Manager doesn\'t remove protections or delete
+-- Firewall Manager managed resources.
 --
--- 'resourceTags', 'policy_resourceTags' - An array of @ResourceTag@ objects.
---
--- 'policyUpdateToken', 'policy_policyUpdateToken' - A unique identifier for each update to the policy. When issuing a
--- @PutPolicy@ request, the @PolicyUpdateToken@ in the request must match
--- the @PolicyUpdateToken@ of the current policy version. To get the
--- @PolicyUpdateToken@ of the current policy version, use a @GetPolicy@
--- request.
---
--- 'deleteUnusedFMManagedResources', 'policy_deleteUnusedFMManagedResources' - Indicates whether Firewall Manager should delete Firewall Manager
--- managed resources, such as web ACLs and security groups, when they are
--- not in use by the Firewall Manager policy. By default, Firewall Manager
--- doesn\'t delete unused Firewall Manager managed resources. This option
--- is not available for Shield Advanced or WAF Classic policies.
+-- This option is not available for Shield Advanced or WAF Classic
+-- policies.
 --
 -- 'excludeMap', 'policy_excludeMap' - Specifies the Amazon Web Services account IDs and Organizations
 -- organizational units (OUs) to exclude from the policy. Specifying an OU
@@ -213,6 +220,23 @@ data Policy = Policy'
 --     comma. For example, the following is a valid map:
 --     @{“ACCOUNT” : [“accountID1”, “accountID2”], “ORG_UNIT” : [“ouid111”, “ouid112”]}@.
 --
+-- 'policyDescription', 'policy_policyDescription' - The definition of the Network Firewall firewall policy.
+--
+-- 'policyId', 'policy_policyId' - The ID of the Firewall Manager policy.
+--
+-- 'policyUpdateToken', 'policy_policyUpdateToken' - A unique identifier for each update to the policy. When issuing a
+-- @PutPolicy@ request, the @PolicyUpdateToken@ in the request must match
+-- the @PolicyUpdateToken@ of the current policy version. To get the
+-- @PolicyUpdateToken@ of the current policy version, use a @GetPolicy@
+-- request.
+--
+-- 'resourceSetIds', 'policy_resourceSetIds' - The unique identifiers of the resource sets used by the policy.
+--
+-- 'resourceTags', 'policy_resourceTags' - An array of @ResourceTag@ objects.
+--
+-- 'resourceTypeList', 'policy_resourceTypeList' - An array of @ResourceType@ objects. Use this only to specify multiple
+-- resource types. To specify a single resource type, use @ResourceType@.
+--
 -- 'policyName', 'policy_policyName' - The name of the Firewall Manager policy.
 --
 -- 'securityServicePolicyData', 'policy_securityServicePolicyData' - Details about the security service that is being used to protect the
@@ -225,8 +249,9 @@ data Policy = Policy'
 -- of @ResourceTypeList@ and then specify the resource types in a
 -- @ResourceTypeList@.
 --
--- For WAF and Shield Advanced, example resource types include
--- @AWS::ElasticLoadBalancingV2::LoadBalancer@ and
+-- For WAF and Shield Advanced, resource types include
+-- @AWS::ElasticLoadBalancingV2::LoadBalancer@,
+-- @AWS::ElasticLoadBalancing::LoadBalancer@, @AWS::EC2::EIP@, and
 -- @AWS::CloudFront::Distribution@. For a security group common policy,
 -- valid values are @AWS::EC2::NetworkInterface@ and @AWS::EC2::Instance@.
 -- For a security group content audit policy, valid values are
@@ -261,13 +286,16 @@ newPolicy
   pExcludeResourceTags_
   pRemediationEnabled_ =
     Policy'
-      { policyId = Prelude.Nothing,
-        resourceTypeList = Prelude.Nothing,
-        resourceTags = Prelude.Nothing,
-        policyUpdateToken = Prelude.Nothing,
-        deleteUnusedFMManagedResources = Prelude.Nothing,
+      { deleteUnusedFMManagedResources =
+          Prelude.Nothing,
         excludeMap = Prelude.Nothing,
         includeMap = Prelude.Nothing,
+        policyDescription = Prelude.Nothing,
+        policyId = Prelude.Nothing,
+        policyUpdateToken = Prelude.Nothing,
+        resourceSetIds = Prelude.Nothing,
+        resourceTags = Prelude.Nothing,
+        resourceTypeList = Prelude.Nothing,
         policyName = pPolicyName_,
         securityServicePolicyData =
           pSecurityServicePolicyData_,
@@ -276,32 +304,18 @@ newPolicy
         remediationEnabled = pRemediationEnabled_
       }
 
--- | The ID of the Firewall Manager policy.
-policy_policyId :: Lens.Lens' Policy (Prelude.Maybe Prelude.Text)
-policy_policyId = Lens.lens (\Policy' {policyId} -> policyId) (\s@Policy' {} a -> s {policyId = a} :: Policy)
-
--- | An array of @ResourceType@ objects. Use this only to specify multiple
--- resource types. To specify a single resource type, use @ResourceType@.
-policy_resourceTypeList :: Lens.Lens' Policy (Prelude.Maybe [Prelude.Text])
-policy_resourceTypeList = Lens.lens (\Policy' {resourceTypeList} -> resourceTypeList) (\s@Policy' {} a -> s {resourceTypeList = a} :: Policy) Prelude.. Lens.mapping Lens.coerced
-
--- | An array of @ResourceTag@ objects.
-policy_resourceTags :: Lens.Lens' Policy (Prelude.Maybe [ResourceTag])
-policy_resourceTags = Lens.lens (\Policy' {resourceTags} -> resourceTags) (\s@Policy' {} a -> s {resourceTags = a} :: Policy) Prelude.. Lens.mapping Lens.coerced
-
--- | A unique identifier for each update to the policy. When issuing a
--- @PutPolicy@ request, the @PolicyUpdateToken@ in the request must match
--- the @PolicyUpdateToken@ of the current policy version. To get the
--- @PolicyUpdateToken@ of the current policy version, use a @GetPolicy@
--- request.
-policy_policyUpdateToken :: Lens.Lens' Policy (Prelude.Maybe Prelude.Text)
-policy_policyUpdateToken = Lens.lens (\Policy' {policyUpdateToken} -> policyUpdateToken) (\s@Policy' {} a -> s {policyUpdateToken = a} :: Policy)
-
--- | Indicates whether Firewall Manager should delete Firewall Manager
--- managed resources, such as web ACLs and security groups, when they are
--- not in use by the Firewall Manager policy. By default, Firewall Manager
--- doesn\'t delete unused Firewall Manager managed resources. This option
--- is not available for Shield Advanced or WAF Classic policies.
+-- | Indicates whether Firewall Manager should automatically remove
+-- protections from resources that leave the policy scope and clean up
+-- resources that Firewall Manager is managing for accounts when those
+-- accounts leave policy scope. For example, Firewall Manager will
+-- disassociate a Firewall Manager managed web ACL from a protected
+-- customer resource when the customer resource leaves policy scope.
+--
+-- By default, Firewall Manager doesn\'t remove protections or delete
+-- Firewall Manager managed resources.
+--
+-- This option is not available for Shield Advanced or WAF Classic
+-- policies.
 policy_deleteUnusedFMManagedResources :: Lens.Lens' Policy (Prelude.Maybe Prelude.Bool)
 policy_deleteUnusedFMManagedResources = Lens.lens (\Policy' {deleteUnusedFMManagedResources} -> deleteUnusedFMManagedResources) (\s@Policy' {} a -> s {deleteUnusedFMManagedResources = a} :: Policy)
 
@@ -361,6 +375,35 @@ policy_excludeMap = Lens.lens (\Policy' {excludeMap} -> excludeMap) (\s@Policy' 
 policy_includeMap :: Lens.Lens' Policy (Prelude.Maybe (Prelude.HashMap CustomerPolicyScopeIdType [Prelude.Text]))
 policy_includeMap = Lens.lens (\Policy' {includeMap} -> includeMap) (\s@Policy' {} a -> s {includeMap = a} :: Policy) Prelude.. Lens.mapping Lens.coerced
 
+-- | The definition of the Network Firewall firewall policy.
+policy_policyDescription :: Lens.Lens' Policy (Prelude.Maybe Prelude.Text)
+policy_policyDescription = Lens.lens (\Policy' {policyDescription} -> policyDescription) (\s@Policy' {} a -> s {policyDescription = a} :: Policy)
+
+-- | The ID of the Firewall Manager policy.
+policy_policyId :: Lens.Lens' Policy (Prelude.Maybe Prelude.Text)
+policy_policyId = Lens.lens (\Policy' {policyId} -> policyId) (\s@Policy' {} a -> s {policyId = a} :: Policy)
+
+-- | A unique identifier for each update to the policy. When issuing a
+-- @PutPolicy@ request, the @PolicyUpdateToken@ in the request must match
+-- the @PolicyUpdateToken@ of the current policy version. To get the
+-- @PolicyUpdateToken@ of the current policy version, use a @GetPolicy@
+-- request.
+policy_policyUpdateToken :: Lens.Lens' Policy (Prelude.Maybe Prelude.Text)
+policy_policyUpdateToken = Lens.lens (\Policy' {policyUpdateToken} -> policyUpdateToken) (\s@Policy' {} a -> s {policyUpdateToken = a} :: Policy)
+
+-- | The unique identifiers of the resource sets used by the policy.
+policy_resourceSetIds :: Lens.Lens' Policy (Prelude.Maybe [Prelude.Text])
+policy_resourceSetIds = Lens.lens (\Policy' {resourceSetIds} -> resourceSetIds) (\s@Policy' {} a -> s {resourceSetIds = a} :: Policy) Prelude.. Lens.mapping Lens.coerced
+
+-- | An array of @ResourceTag@ objects.
+policy_resourceTags :: Lens.Lens' Policy (Prelude.Maybe [ResourceTag])
+policy_resourceTags = Lens.lens (\Policy' {resourceTags} -> resourceTags) (\s@Policy' {} a -> s {resourceTags = a} :: Policy) Prelude.. Lens.mapping Lens.coerced
+
+-- | An array of @ResourceType@ objects. Use this only to specify multiple
+-- resource types. To specify a single resource type, use @ResourceType@.
+policy_resourceTypeList :: Lens.Lens' Policy (Prelude.Maybe [Prelude.Text])
+policy_resourceTypeList = Lens.lens (\Policy' {resourceTypeList} -> resourceTypeList) (\s@Policy' {} a -> s {resourceTypeList = a} :: Policy) Prelude.. Lens.mapping Lens.coerced
+
 -- | The name of the Firewall Manager policy.
 policy_policyName :: Lens.Lens' Policy Prelude.Text
 policy_policyName = Lens.lens (\Policy' {policyName} -> policyName) (\s@Policy' {} a -> s {policyName = a} :: Policy)
@@ -377,8 +420,9 @@ policy_securityServicePolicyData = Lens.lens (\Policy' {securityServicePolicyDat
 -- of @ResourceTypeList@ and then specify the resource types in a
 -- @ResourceTypeList@.
 --
--- For WAF and Shield Advanced, example resource types include
--- @AWS::ElasticLoadBalancingV2::LoadBalancer@ and
+-- For WAF and Shield Advanced, resource types include
+-- @AWS::ElasticLoadBalancingV2::LoadBalancer@,
+-- @AWS::ElasticLoadBalancing::LoadBalancer@, @AWS::EC2::EIP@, and
 -- @AWS::CloudFront::Distribution@. For a security group common policy,
 -- valid values are @AWS::EC2::NetworkInterface@ and @AWS::EC2::Instance@.
 -- For a security group content audit policy, valid values are
@@ -401,37 +445,42 @@ policy_excludeResourceTags = Lens.lens (\Policy' {excludeResourceTags} -> exclud
 policy_remediationEnabled :: Lens.Lens' Policy Prelude.Bool
 policy_remediationEnabled = Lens.lens (\Policy' {remediationEnabled} -> remediationEnabled) (\s@Policy' {} a -> s {remediationEnabled = a} :: Policy)
 
-instance Core.FromJSON Policy where
+instance Data.FromJSON Policy where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Policy"
       ( \x ->
           Policy'
-            Prelude.<$> (x Core..:? "PolicyId")
-            Prelude.<*> ( x Core..:? "ResourceTypeList"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "DeleteUnusedFMManagedResources")
+            Prelude.<*> (x Data..:? "ExcludeMap" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "IncludeMap" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "PolicyDescription")
+            Prelude.<*> (x Data..:? "PolicyId")
+            Prelude.<*> (x Data..:? "PolicyUpdateToken")
+            Prelude.<*> (x Data..:? "ResourceSetIds" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "ResourceTags" Data..!= Prelude.mempty)
+            Prelude.<*> ( x Data..:? "ResourceTypeList"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "ResourceTags" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "PolicyUpdateToken")
-            Prelude.<*> (x Core..:? "DeleteUnusedFMManagedResources")
-            Prelude.<*> (x Core..:? "ExcludeMap" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "IncludeMap" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "PolicyName")
-            Prelude.<*> (x Core..: "SecurityServicePolicyData")
-            Prelude.<*> (x Core..: "ResourceType")
-            Prelude.<*> (x Core..: "ExcludeResourceTags")
-            Prelude.<*> (x Core..: "RemediationEnabled")
+            Prelude.<*> (x Data..: "PolicyName")
+            Prelude.<*> (x Data..: "SecurityServicePolicyData")
+            Prelude.<*> (x Data..: "ResourceType")
+            Prelude.<*> (x Data..: "ExcludeResourceTags")
+            Prelude.<*> (x Data..: "RemediationEnabled")
       )
 
 instance Prelude.Hashable Policy where
   hashWithSalt _salt Policy' {..} =
-    _salt `Prelude.hashWithSalt` policyId
-      `Prelude.hashWithSalt` resourceTypeList
-      `Prelude.hashWithSalt` resourceTags
-      `Prelude.hashWithSalt` policyUpdateToken
+    _salt
       `Prelude.hashWithSalt` deleteUnusedFMManagedResources
       `Prelude.hashWithSalt` excludeMap
       `Prelude.hashWithSalt` includeMap
+      `Prelude.hashWithSalt` policyDescription
+      `Prelude.hashWithSalt` policyId
+      `Prelude.hashWithSalt` policyUpdateToken
+      `Prelude.hashWithSalt` resourceSetIds
+      `Prelude.hashWithSalt` resourceTags
+      `Prelude.hashWithSalt` resourceTypeList
       `Prelude.hashWithSalt` policyName
       `Prelude.hashWithSalt` securityServicePolicyData
       `Prelude.hashWithSalt` resourceType
@@ -440,42 +489,48 @@ instance Prelude.Hashable Policy where
 
 instance Prelude.NFData Policy where
   rnf Policy' {..} =
-    Prelude.rnf policyId
-      `Prelude.seq` Prelude.rnf resourceTypeList
-      `Prelude.seq` Prelude.rnf resourceTags
-      `Prelude.seq` Prelude.rnf policyUpdateToken
-      `Prelude.seq` Prelude.rnf deleteUnusedFMManagedResources
+    Prelude.rnf deleteUnusedFMManagedResources
       `Prelude.seq` Prelude.rnf excludeMap
       `Prelude.seq` Prelude.rnf includeMap
+      `Prelude.seq` Prelude.rnf policyDescription
+      `Prelude.seq` Prelude.rnf policyId
+      `Prelude.seq` Prelude.rnf policyUpdateToken
+      `Prelude.seq` Prelude.rnf resourceSetIds
+      `Prelude.seq` Prelude.rnf resourceTags
+      `Prelude.seq` Prelude.rnf resourceTypeList
       `Prelude.seq` Prelude.rnf policyName
       `Prelude.seq` Prelude.rnf securityServicePolicyData
       `Prelude.seq` Prelude.rnf resourceType
       `Prelude.seq` Prelude.rnf excludeResourceTags
       `Prelude.seq` Prelude.rnf remediationEnabled
 
-instance Core.ToJSON Policy where
+instance Data.ToJSON Policy where
   toJSON Policy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PolicyId" Core..=) Prelude.<$> policyId,
-            ("ResourceTypeList" Core..=)
-              Prelude.<$> resourceTypeList,
-            ("ResourceTags" Core..=) Prelude.<$> resourceTags,
-            ("PolicyUpdateToken" Core..=)
-              Prelude.<$> policyUpdateToken,
-            ("DeleteUnusedFMManagedResources" Core..=)
+          [ ("DeleteUnusedFMManagedResources" Data..=)
               Prelude.<$> deleteUnusedFMManagedResources,
-            ("ExcludeMap" Core..=) Prelude.<$> excludeMap,
-            ("IncludeMap" Core..=) Prelude.<$> includeMap,
-            Prelude.Just ("PolicyName" Core..= policyName),
+            ("ExcludeMap" Data..=) Prelude.<$> excludeMap,
+            ("IncludeMap" Data..=) Prelude.<$> includeMap,
+            ("PolicyDescription" Data..=)
+              Prelude.<$> policyDescription,
+            ("PolicyId" Data..=) Prelude.<$> policyId,
+            ("PolicyUpdateToken" Data..=)
+              Prelude.<$> policyUpdateToken,
+            ("ResourceSetIds" Data..=)
+              Prelude.<$> resourceSetIds,
+            ("ResourceTags" Data..=) Prelude.<$> resourceTags,
+            ("ResourceTypeList" Data..=)
+              Prelude.<$> resourceTypeList,
+            Prelude.Just ("PolicyName" Data..= policyName),
             Prelude.Just
               ( "SecurityServicePolicyData"
-                  Core..= securityServicePolicyData
+                  Data..= securityServicePolicyData
               ),
-            Prelude.Just ("ResourceType" Core..= resourceType),
+            Prelude.Just ("ResourceType" Data..= resourceType),
             Prelude.Just
-              ("ExcludeResourceTags" Core..= excludeResourceTags),
+              ("ExcludeResourceTags" Data..= excludeResourceTags),
             Prelude.Just
-              ("RemediationEnabled" Core..= remediationEnabled)
+              ("RemediationEnabled" Data..= remediationEnabled)
           ]
       )

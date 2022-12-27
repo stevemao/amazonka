@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDBStreams
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,14 +31,14 @@ module Amazonka.DynamoDBStreams
     -- ** InternalServerError
     _InternalServerError,
 
-    -- ** TrimmedDataAccessException
-    _TrimmedDataAccessException,
+    -- ** LimitExceededException
+    _LimitExceededException,
 
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
 
-    -- ** LimitExceededException
-    _LimitExceededException,
+    -- ** TrimmedDataAccessException
+    _TrimmedDataAccessException,
 
     -- * Waiters
     -- $waiters
@@ -46,11 +46,11 @@ module Amazonka.DynamoDBStreams
     -- * Operations
     -- $operations
 
-    -- ** GetShardIterator
-    GetShardIterator (GetShardIterator'),
-    newGetShardIterator,
-    GetShardIteratorResponse (GetShardIteratorResponse'),
-    newGetShardIteratorResponse,
+    -- ** DescribeStream
+    DescribeStream (DescribeStream'),
+    newDescribeStream,
+    DescribeStreamResponse (DescribeStreamResponse'),
+    newDescribeStreamResponse,
 
     -- ** GetRecords
     GetRecords (GetRecords'),
@@ -58,17 +58,17 @@ module Amazonka.DynamoDBStreams
     GetRecordsResponse (GetRecordsResponse'),
     newGetRecordsResponse,
 
+    -- ** GetShardIterator
+    GetShardIterator (GetShardIterator'),
+    newGetShardIterator,
+    GetShardIteratorResponse (GetShardIteratorResponse'),
+    newGetShardIteratorResponse,
+
     -- ** ListStreams
     ListStreams (ListStreams'),
     newListStreams,
     ListStreamsResponse (ListStreamsResponse'),
     newListStreamsResponse,
-
-    -- ** DescribeStream
-    DescribeStream (DescribeStream'),
-    newDescribeStream,
-    DescribeStreamResponse (DescribeStreamResponse'),
-    newDescribeStreamResponse,
 
     -- * Types
 

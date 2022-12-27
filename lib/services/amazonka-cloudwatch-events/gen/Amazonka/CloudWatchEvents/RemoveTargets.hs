@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.RemoveTargets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,6 +22,10 @@
 --
 -- Removes the specified targets from the specified rule. When the rule is
 -- triggered, those targets are no longer be invoked.
+--
+-- A successful execution of @RemoveTargets@ doesn\'t guarantee all targets
+-- are removed from the rule, it means that the target(s) listed in the
+-- request are removed.
 --
 -- When you remove a target, when the associated rule triggers, removed
 -- targets might continue to be invoked. Allow a short period of time for
@@ -37,8 +41,8 @@ module Amazonka.CloudWatchEvents.RemoveTargets
     newRemoveTargets,
 
     -- * Request Lenses
-    removeTargets_force,
     removeTargets_eventBusName,
+    removeTargets_force,
     removeTargets_rule,
     removeTargets_ids,
 
@@ -47,30 +51,31 @@ module Amazonka.CloudWatchEvents.RemoveTargets
     newRemoveTargetsResponse,
 
     -- * Response Lenses
-    removeTargetsResponse_failedEntryCount,
     removeTargetsResponse_failedEntries,
+    removeTargetsResponse_failedEntryCount,
     removeTargetsResponse_httpStatus,
   )
 where
 
 import Amazonka.CloudWatchEvents.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newRemoveTargets' smart constructor.
 data RemoveTargets = RemoveTargets'
-  { -- | If this is a managed rule, created by an Amazon Web Services service on
+  { -- | The name or ARN of the event bus associated with the rule. If you omit
+    -- this, the default event bus is used.
+    eventBusName :: Prelude.Maybe Prelude.Text,
+    -- | If this is a managed rule, created by an Amazon Web Services service on
     -- your behalf, you must specify @Force@ as @True@ to remove targets. This
     -- parameter is ignored for rules that are not managed rules. You can check
     -- whether a rule is a managed rule by using @DescribeRule@ or @ListRules@
     -- and checking the @ManagedBy@ field of the response.
     force :: Prelude.Maybe Prelude.Bool,
-    -- | The name or ARN of the event bus associated with the rule. If you omit
-    -- this, the default event bus is used.
-    eventBusName :: Prelude.Maybe Prelude.Text,
     -- | The name of the rule.
     rule :: Prelude.Text,
     -- | The IDs of the targets to remove from the rule.
@@ -86,14 +91,14 @@ data RemoveTargets = RemoveTargets'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'eventBusName', 'removeTargets_eventBusName' - The name or ARN of the event bus associated with the rule. If you omit
+-- this, the default event bus is used.
+--
 -- 'force', 'removeTargets_force' - If this is a managed rule, created by an Amazon Web Services service on
 -- your behalf, you must specify @Force@ as @True@ to remove targets. This
 -- parameter is ignored for rules that are not managed rules. You can check
 -- whether a rule is a managed rule by using @DescribeRule@ or @ListRules@
 -- and checking the @ManagedBy@ field of the response.
---
--- 'eventBusName', 'removeTargets_eventBusName' - The name or ARN of the event bus associated with the rule. If you omit
--- this, the default event bus is used.
 --
 -- 'rule', 'removeTargets_rule' - The name of the rule.
 --
@@ -106,11 +111,16 @@ newRemoveTargets ::
   RemoveTargets
 newRemoveTargets pRule_ pIds_ =
   RemoveTargets'
-    { force = Prelude.Nothing,
-      eventBusName = Prelude.Nothing,
+    { eventBusName = Prelude.Nothing,
+      force = Prelude.Nothing,
       rule = pRule_,
       ids = Lens.coerced Lens.# pIds_
     }
+
+-- | The name or ARN of the event bus associated with the rule. If you omit
+-- this, the default event bus is used.
+removeTargets_eventBusName :: Lens.Lens' RemoveTargets (Prelude.Maybe Prelude.Text)
+removeTargets_eventBusName = Lens.lens (\RemoveTargets' {eventBusName} -> eventBusName) (\s@RemoveTargets' {} a -> s {eventBusName = a} :: RemoveTargets)
 
 -- | If this is a managed rule, created by an Amazon Web Services service on
 -- your behalf, you must specify @Force@ as @True@ to remove targets. This
@@ -119,11 +129,6 @@ newRemoveTargets pRule_ pIds_ =
 -- and checking the @ManagedBy@ field of the response.
 removeTargets_force :: Lens.Lens' RemoveTargets (Prelude.Maybe Prelude.Bool)
 removeTargets_force = Lens.lens (\RemoveTargets' {force} -> force) (\s@RemoveTargets' {} a -> s {force = a} :: RemoveTargets)
-
--- | The name or ARN of the event bus associated with the rule. If you omit
--- this, the default event bus is used.
-removeTargets_eventBusName :: Lens.Lens' RemoveTargets (Prelude.Maybe Prelude.Text)
-removeTargets_eventBusName = Lens.lens (\RemoveTargets' {eventBusName} -> eventBusName) (\s@RemoveTargets' {} a -> s {eventBusName = a} :: RemoveTargets)
 
 -- | The name of the rule.
 removeTargets_rule :: Lens.Lens' RemoveTargets Prelude.Text
@@ -137,66 +142,67 @@ instance Core.AWSRequest RemoveTargets where
   type
     AWSResponse RemoveTargets =
       RemoveTargetsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RemoveTargetsResponse'
-            Prelude.<$> (x Core..?> "FailedEntryCount")
-            Prelude.<*> (x Core..?> "FailedEntries" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "FailedEntries" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "FailedEntryCount")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable RemoveTargets where
   hashWithSalt _salt RemoveTargets' {..} =
-    _salt `Prelude.hashWithSalt` force
-      `Prelude.hashWithSalt` eventBusName
+    _salt `Prelude.hashWithSalt` eventBusName
+      `Prelude.hashWithSalt` force
       `Prelude.hashWithSalt` rule
       `Prelude.hashWithSalt` ids
 
 instance Prelude.NFData RemoveTargets where
   rnf RemoveTargets' {..} =
-    Prelude.rnf force
-      `Prelude.seq` Prelude.rnf eventBusName
+    Prelude.rnf eventBusName
+      `Prelude.seq` Prelude.rnf force
       `Prelude.seq` Prelude.rnf rule
       `Prelude.seq` Prelude.rnf ids
 
-instance Core.ToHeaders RemoveTargets where
+instance Data.ToHeaders RemoveTargets where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSEvents.RemoveTargets" :: Prelude.ByteString),
+              Data.=# ("AWSEvents.RemoveTargets" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RemoveTargets where
+instance Data.ToJSON RemoveTargets where
   toJSON RemoveTargets' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Force" Core..=) Prelude.<$> force,
-            ("EventBusName" Core..=) Prelude.<$> eventBusName,
-            Prelude.Just ("Rule" Core..= rule),
-            Prelude.Just ("Ids" Core..= ids)
+          [ ("EventBusName" Data..=) Prelude.<$> eventBusName,
+            ("Force" Data..=) Prelude.<$> force,
+            Prelude.Just ("Rule" Data..= rule),
+            Prelude.Just ("Ids" Data..= ids)
           ]
       )
 
-instance Core.ToPath RemoveTargets where
+instance Data.ToPath RemoveTargets where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RemoveTargets where
+instance Data.ToQuery RemoveTargets where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRemoveTargetsResponse' smart constructor.
 data RemoveTargetsResponse = RemoveTargetsResponse'
-  { -- | The number of failed entries.
-    failedEntryCount :: Prelude.Maybe Prelude.Int,
-    -- | The failed target entries.
+  { -- | The failed target entries.
     failedEntries :: Prelude.Maybe [RemoveTargetsResultEntry],
+    -- | The number of failed entries.
+    failedEntryCount :: Prelude.Maybe Prelude.Int,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -210,9 +216,9 @@ data RemoveTargetsResponse = RemoveTargetsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'failedEntryCount', 'removeTargetsResponse_failedEntryCount' - The number of failed entries.
---
 -- 'failedEntries', 'removeTargetsResponse_failedEntries' - The failed target entries.
+--
+-- 'failedEntryCount', 'removeTargetsResponse_failedEntryCount' - The number of failed entries.
 --
 -- 'httpStatus', 'removeTargetsResponse_httpStatus' - The response's http status code.
 newRemoveTargetsResponse ::
@@ -221,19 +227,19 @@ newRemoveTargetsResponse ::
   RemoveTargetsResponse
 newRemoveTargetsResponse pHttpStatus_ =
   RemoveTargetsResponse'
-    { failedEntryCount =
+    { failedEntries =
         Prelude.Nothing,
-      failedEntries = Prelude.Nothing,
+      failedEntryCount = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The number of failed entries.
-removeTargetsResponse_failedEntryCount :: Lens.Lens' RemoveTargetsResponse (Prelude.Maybe Prelude.Int)
-removeTargetsResponse_failedEntryCount = Lens.lens (\RemoveTargetsResponse' {failedEntryCount} -> failedEntryCount) (\s@RemoveTargetsResponse' {} a -> s {failedEntryCount = a} :: RemoveTargetsResponse)
 
 -- | The failed target entries.
 removeTargetsResponse_failedEntries :: Lens.Lens' RemoveTargetsResponse (Prelude.Maybe [RemoveTargetsResultEntry])
 removeTargetsResponse_failedEntries = Lens.lens (\RemoveTargetsResponse' {failedEntries} -> failedEntries) (\s@RemoveTargetsResponse' {} a -> s {failedEntries = a} :: RemoveTargetsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The number of failed entries.
+removeTargetsResponse_failedEntryCount :: Lens.Lens' RemoveTargetsResponse (Prelude.Maybe Prelude.Int)
+removeTargetsResponse_failedEntryCount = Lens.lens (\RemoveTargetsResponse' {failedEntryCount} -> failedEntryCount) (\s@RemoveTargetsResponse' {} a -> s {failedEntryCount = a} :: RemoveTargetsResponse)
 
 -- | The response's http status code.
 removeTargetsResponse_httpStatus :: Lens.Lens' RemoveTargetsResponse Prelude.Int
@@ -241,6 +247,6 @@ removeTargetsResponse_httpStatus = Lens.lens (\RemoveTargetsResponse' {httpStatu
 
 instance Prelude.NFData RemoveTargetsResponse where
   rnf RemoveTargetsResponse' {..} =
-    Prelude.rnf failedEntryCount
-      `Prelude.seq` Prelude.rnf failedEntries
+    Prelude.rnf failedEntries
+      `Prelude.seq` Prelude.rnf failedEntryCount
       `Prelude.seq` Prelude.rnf httpStatus

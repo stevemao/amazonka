@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.NetworkInputSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.NetworkInputSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.HlsInputSettings
 import Amazonka.MediaLive.Types.NetworkInputServerValidation
 import qualified Amazonka.Prelude as Prelude
@@ -80,14 +81,14 @@ networkInputSettings_hlsInputSettings = Lens.lens (\NetworkInputSettings' {hlsIn
 networkInputSettings_serverValidation :: Lens.Lens' NetworkInputSettings (Prelude.Maybe NetworkInputServerValidation)
 networkInputSettings_serverValidation = Lens.lens (\NetworkInputSettings' {serverValidation} -> serverValidation) (\s@NetworkInputSettings' {} a -> s {serverValidation = a} :: NetworkInputSettings)
 
-instance Core.FromJSON NetworkInputSettings where
+instance Data.FromJSON NetworkInputSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NetworkInputSettings"
       ( \x ->
           NetworkInputSettings'
-            Prelude.<$> (x Core..:? "hlsInputSettings")
-            Prelude.<*> (x Core..:? "serverValidation")
+            Prelude.<$> (x Data..:? "hlsInputSettings")
+            Prelude.<*> (x Data..:? "serverValidation")
       )
 
 instance Prelude.Hashable NetworkInputSettings where
@@ -100,13 +101,13 @@ instance Prelude.NFData NetworkInputSettings where
     Prelude.rnf hlsInputSettings
       `Prelude.seq` Prelude.rnf serverValidation
 
-instance Core.ToJSON NetworkInputSettings where
+instance Data.ToJSON NetworkInputSettings where
   toJSON NetworkInputSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("hlsInputSettings" Core..=)
+          [ ("hlsInputSettings" Data..=)
               Prelude.<$> hlsInputSettings,
-            ("serverValidation" Core..=)
+            ("serverValidation" Data..=)
               Prelude.<$> serverValidation
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.GetPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.Lambda.GetPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,13 +59,13 @@ data GetPolicy = GetPolicy'
     --
     -- __Name formats__
     --
-    -- -   __Function name__ - @my-function@ (name-only), @my-function:v1@
+    -- -   __Function name__ – @my-function@ (name-only), @my-function:v1@
     --     (with alias).
     --
-    -- -   __Function ARN__ -
+    -- -   __Function ARN__ –
     --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
     --
-    -- -   __Partial ARN__ - @123456789012:function:my-function@.
+    -- -   __Partial ARN__ – @123456789012:function:my-function@.
     --
     -- You can append a version number or alias to any of the formats. The
     -- length constraint applies only to the full ARN. If you specify only the
@@ -87,13 +88,13 @@ data GetPolicy = GetPolicy'
 --
 -- __Name formats__
 --
--- -   __Function name__ - @my-function@ (name-only), @my-function:v1@
+-- -   __Function name__ – @my-function@ (name-only), @my-function:v1@
 --     (with alias).
 --
--- -   __Function ARN__ -
+-- -   __Function ARN__ –
 --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
 --
--- -   __Partial ARN__ - @123456789012:function:my-function@.
+-- -   __Partial ARN__ – @123456789012:function:my-function@.
 --
 -- You can append a version number or alias to any of the formats. The
 -- length constraint applies only to the full ARN. If you specify only the
@@ -116,13 +117,13 @@ getPolicy_qualifier = Lens.lens (\GetPolicy' {qualifier} -> qualifier) (\s@GetPo
 --
 -- __Name formats__
 --
--- -   __Function name__ - @my-function@ (name-only), @my-function:v1@
+-- -   __Function name__ – @my-function@ (name-only), @my-function:v1@
 --     (with alias).
 --
--- -   __Function ARN__ -
+-- -   __Function ARN__ –
 --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
 --
--- -   __Partial ARN__ - @123456789012:function:my-function@.
+-- -   __Partial ARN__ – @123456789012:function:my-function@.
 --
 -- You can append a version number or alias to any of the formats. The
 -- length constraint applies only to the full ARN. If you specify only the
@@ -132,13 +133,14 @@ getPolicy_functionName = Lens.lens (\GetPolicy' {functionName} -> functionName) 
 
 instance Core.AWSRequest GetPolicy where
   type AWSResponse GetPolicy = GetPolicyResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetPolicyResponse'
-            Prelude.<$> (x Core..?> "Policy")
-            Prelude.<*> (x Core..?> "RevisionId")
+            Prelude.<$> (x Data..?> "Policy")
+            Prelude.<*> (x Data..?> "RevisionId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -152,20 +154,20 @@ instance Prelude.NFData GetPolicy where
     Prelude.rnf qualifier
       `Prelude.seq` Prelude.rnf functionName
 
-instance Core.ToHeaders GetPolicy where
+instance Data.ToHeaders GetPolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetPolicy where
+instance Data.ToPath GetPolicy where
   toPath GetPolicy' {..} =
     Prelude.mconcat
       [ "/2015-03-31/functions/",
-        Core.toBS functionName,
+        Data.toBS functionName,
         "/policy"
       ]
 
-instance Core.ToQuery GetPolicy where
+instance Data.ToQuery GetPolicy where
   toQuery GetPolicy' {..} =
-    Prelude.mconcat ["Qualifier" Core.=: qualifier]
+    Prelude.mconcat ["Qualifier" Data.=: qualifier]
 
 -- | /See:/ 'newGetPolicyResponse' smart constructor.
 data GetPolicyResponse = GetPolicyResponse'

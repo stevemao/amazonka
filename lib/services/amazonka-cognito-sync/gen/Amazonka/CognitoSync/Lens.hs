@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoSync.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,48 +14,10 @@
 module Amazonka.CognitoSync.Lens
   ( -- * Operations
 
-    -- ** DescribeDataset
-    describeDataset_identityPoolId,
-    describeDataset_identityId,
-    describeDataset_datasetName,
-    describeDatasetResponse_dataset,
-    describeDatasetResponse_httpStatus,
-
-    -- ** SetCognitoEvents
-    setCognitoEvents_identityPoolId,
-    setCognitoEvents_events,
-
-    -- ** DescribeIdentityPoolUsage
-    describeIdentityPoolUsage_identityPoolId,
-    describeIdentityPoolUsageResponse_identityPoolUsage,
-    describeIdentityPoolUsageResponse_httpStatus,
-
-    -- ** GetBulkPublishDetails
-    getBulkPublishDetails_identityPoolId,
-    getBulkPublishDetailsResponse_bulkPublishStartTime,
-    getBulkPublishDetailsResponse_identityPoolId,
-    getBulkPublishDetailsResponse_bulkPublishCompleteTime,
-    getBulkPublishDetailsResponse_failureMessage,
-    getBulkPublishDetailsResponse_bulkPublishStatus,
-    getBulkPublishDetailsResponse_httpStatus,
-
-    -- ** ListIdentityPoolUsage
-    listIdentityPoolUsage_nextToken,
-    listIdentityPoolUsage_maxResults,
-    listIdentityPoolUsageResponse_identityPoolUsages,
-    listIdentityPoolUsageResponse_count,
-    listIdentityPoolUsageResponse_nextToken,
-    listIdentityPoolUsageResponse_maxResults,
-    listIdentityPoolUsageResponse_httpStatus,
-
-    -- ** SetIdentityPoolConfiguration
-    setIdentityPoolConfiguration_cognitoStreams,
-    setIdentityPoolConfiguration_pushSync,
-    setIdentityPoolConfiguration_identityPoolId,
-    setIdentityPoolConfigurationResponse_identityPoolId,
-    setIdentityPoolConfigurationResponse_cognitoStreams,
-    setIdentityPoolConfigurationResponse_pushSync,
-    setIdentityPoolConfigurationResponse_httpStatus,
+    -- ** BulkPublish
+    bulkPublish_identityPoolId,
+    bulkPublishResponse_identityPoolId,
+    bulkPublishResponse_httpStatus,
 
     -- ** DeleteDataset
     deleteDataset_identityPoolId,
@@ -64,16 +26,82 @@ module Amazonka.CognitoSync.Lens
     deleteDatasetResponse_dataset,
     deleteDatasetResponse_httpStatus,
 
-    -- ** GetCognitoEvents
-    getCognitoEvents_identityPoolId,
-    getCognitoEventsResponse_events,
-    getCognitoEventsResponse_httpStatus,
+    -- ** DescribeDataset
+    describeDataset_identityPoolId,
+    describeDataset_identityId,
+    describeDataset_datasetName,
+    describeDatasetResponse_dataset,
+    describeDatasetResponse_httpStatus,
+
+    -- ** DescribeIdentityPoolUsage
+    describeIdentityPoolUsage_identityPoolId,
+    describeIdentityPoolUsageResponse_identityPoolUsage,
+    describeIdentityPoolUsageResponse_httpStatus,
 
     -- ** DescribeIdentityUsage
     describeIdentityUsage_identityPoolId,
     describeIdentityUsage_identityId,
     describeIdentityUsageResponse_identityUsage,
     describeIdentityUsageResponse_httpStatus,
+
+    -- ** GetBulkPublishDetails
+    getBulkPublishDetails_identityPoolId,
+    getBulkPublishDetailsResponse_bulkPublishCompleteTime,
+    getBulkPublishDetailsResponse_bulkPublishStartTime,
+    getBulkPublishDetailsResponse_bulkPublishStatus,
+    getBulkPublishDetailsResponse_failureMessage,
+    getBulkPublishDetailsResponse_identityPoolId,
+    getBulkPublishDetailsResponse_httpStatus,
+
+    -- ** GetCognitoEvents
+    getCognitoEvents_identityPoolId,
+    getCognitoEventsResponse_events,
+    getCognitoEventsResponse_httpStatus,
+
+    -- ** GetIdentityPoolConfiguration
+    getIdentityPoolConfiguration_identityPoolId,
+    getIdentityPoolConfigurationResponse_cognitoStreams,
+    getIdentityPoolConfigurationResponse_identityPoolId,
+    getIdentityPoolConfigurationResponse_pushSync,
+    getIdentityPoolConfigurationResponse_httpStatus,
+
+    -- ** ListDatasets
+    listDatasets_maxResults,
+    listDatasets_nextToken,
+    listDatasets_identityId,
+    listDatasets_identityPoolId,
+    listDatasetsResponse_count,
+    listDatasetsResponse_datasets,
+    listDatasetsResponse_nextToken,
+    listDatasetsResponse_httpStatus,
+
+    -- ** ListIdentityPoolUsage
+    listIdentityPoolUsage_maxResults,
+    listIdentityPoolUsage_nextToken,
+    listIdentityPoolUsageResponse_count,
+    listIdentityPoolUsageResponse_identityPoolUsages,
+    listIdentityPoolUsageResponse_maxResults,
+    listIdentityPoolUsageResponse_nextToken,
+    listIdentityPoolUsageResponse_httpStatus,
+
+    -- ** ListRecords
+    listRecords_lastSyncCount,
+    listRecords_maxResults,
+    listRecords_nextToken,
+    listRecords_syncSessionToken,
+    listRecords_identityPoolId,
+    listRecords_identityId,
+    listRecords_datasetName,
+    listRecordsResponse_count,
+    listRecordsResponse_datasetDeletedAfterRequestedSyncCount,
+    listRecordsResponse_datasetExists,
+    listRecordsResponse_datasetSyncCount,
+    listRecordsResponse_lastModifiedBy,
+    listRecordsResponse_mergedDatasetNames,
+    listRecordsResponse_nextToken,
+    listRecordsResponse_records,
+    listRecordsResponse_syncSessionToken,
+    listRecordsResponse_httpStatus,
 
     -- ** RegisterDevice
     registerDevice_identityPoolId,
@@ -83,38 +111,25 @@ module Amazonka.CognitoSync.Lens
     registerDeviceResponse_deviceId,
     registerDeviceResponse_httpStatus,
 
+    -- ** SetCognitoEvents
+    setCognitoEvents_identityPoolId,
+    setCognitoEvents_events,
+
+    -- ** SetIdentityPoolConfiguration
+    setIdentityPoolConfiguration_cognitoStreams,
+    setIdentityPoolConfiguration_pushSync,
+    setIdentityPoolConfiguration_identityPoolId,
+    setIdentityPoolConfigurationResponse_cognitoStreams,
+    setIdentityPoolConfigurationResponse_identityPoolId,
+    setIdentityPoolConfigurationResponse_pushSync,
+    setIdentityPoolConfigurationResponse_httpStatus,
+
     -- ** SubscribeToDataset
     subscribeToDataset_identityPoolId,
     subscribeToDataset_identityId,
     subscribeToDataset_datasetName,
     subscribeToDataset_deviceId,
     subscribeToDatasetResponse_httpStatus,
-
-    -- ** GetIdentityPoolConfiguration
-    getIdentityPoolConfiguration_identityPoolId,
-    getIdentityPoolConfigurationResponse_identityPoolId,
-    getIdentityPoolConfigurationResponse_cognitoStreams,
-    getIdentityPoolConfigurationResponse_pushSync,
-    getIdentityPoolConfigurationResponse_httpStatus,
-
-    -- ** ListRecords
-    listRecords_lastSyncCount,
-    listRecords_nextToken,
-    listRecords_syncSessionToken,
-    listRecords_maxResults,
-    listRecords_identityPoolId,
-    listRecords_identityId,
-    listRecords_datasetName,
-    listRecordsResponse_datasetDeletedAfterRequestedSyncCount,
-    listRecordsResponse_datasetExists,
-    listRecordsResponse_count,
-    listRecordsResponse_records,
-    listRecordsResponse_nextToken,
-    listRecordsResponse_mergedDatasetNames,
-    listRecordsResponse_syncSessionToken,
-    listRecordsResponse_lastModifiedBy,
-    listRecordsResponse_datasetSyncCount,
-    listRecordsResponse_httpStatus,
 
     -- ** UnsubscribeFromDataset
     unsubscribeFromDataset_identityPoolId,
@@ -124,9 +139,9 @@ module Amazonka.CognitoSync.Lens
     unsubscribeFromDatasetResponse_httpStatus,
 
     -- ** UpdateRecords
-    updateRecords_recordPatches,
-    updateRecords_deviceId,
     updateRecords_clientContext,
+    updateRecords_deviceId,
+    updateRecords_recordPatches,
     updateRecords_identityPoolId,
     updateRecords_identityId,
     updateRecords_datasetName,
@@ -134,61 +149,46 @@ module Amazonka.CognitoSync.Lens
     updateRecordsResponse_records,
     updateRecordsResponse_httpStatus,
 
-    -- ** ListDatasets
-    listDatasets_nextToken,
-    listDatasets_maxResults,
-    listDatasets_identityId,
-    listDatasets_identityPoolId,
-    listDatasetsResponse_count,
-    listDatasetsResponse_nextToken,
-    listDatasetsResponse_datasets,
-    listDatasetsResponse_httpStatus,
-
-    -- ** BulkPublish
-    bulkPublish_identityPoolId,
-    bulkPublishResponse_identityPoolId,
-    bulkPublishResponse_httpStatus,
-
     -- * Types
 
     -- ** CognitoStreams
-    cognitoStreams_streamingStatus,
-    cognitoStreams_streamName,
     cognitoStreams_roleArn,
+    cognitoStreams_streamName,
+    cognitoStreams_streamingStatus,
 
     -- ** Dataset
-    dataset_lastModifiedDate,
-    dataset_numRecords,
+    dataset_creationDate,
     dataset_dataStorage,
     dataset_datasetName,
-    dataset_creationDate,
-    dataset_lastModifiedBy,
     dataset_identityId,
+    dataset_lastModifiedBy,
+    dataset_lastModifiedDate,
+    dataset_numRecords,
 
     -- ** IdentityPoolUsage
-    identityPoolUsage_lastModifiedDate,
-    identityPoolUsage_identityPoolId,
     identityPoolUsage_dataStorage,
+    identityPoolUsage_identityPoolId,
+    identityPoolUsage_lastModifiedDate,
     identityPoolUsage_syncSessionsCount,
 
     -- ** IdentityUsage
-    identityUsage_lastModifiedDate,
-    identityUsage_identityPoolId,
-    identityUsage_datasetCount,
     identityUsage_dataStorage,
+    identityUsage_datasetCount,
     identityUsage_identityId,
+    identityUsage_identityPoolId,
+    identityUsage_lastModifiedDate,
 
     -- ** PushSync
     pushSync_applicationArns,
     pushSync_roleArn,
 
     -- ** Record
-    record_syncCount,
     record_deviceLastModifiedDate,
-    record_lastModifiedDate,
-    record_value,
     record_key,
     record_lastModifiedBy,
+    record_lastModifiedDate,
+    record_syncCount,
+    record_value,
 
     -- ** RecordPatch
     recordPatch_deviceLastModifiedDate,

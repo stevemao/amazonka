@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.FlowDefinitionSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.FlowDefinitionSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.FlowDefinitionStatus
 
@@ -38,7 +39,7 @@ data FlowDefinitionSummary = FlowDefinitionSummary'
     -- | The status of the flow definition. Valid values:
     flowDefinitionStatus :: FlowDefinitionStatus,
     -- | The timestamp when SageMaker created the flow definition.
-    creationTime :: Core.POSIX
+    creationTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -81,7 +82,7 @@ newFlowDefinitionSummary
         flowDefinitionName = pFlowDefinitionName_,
         flowDefinitionArn = pFlowDefinitionArn_,
         flowDefinitionStatus = pFlowDefinitionStatus_,
-        creationTime = Core._Time Lens.# pCreationTime_
+        creationTime = Data._Time Lens.# pCreationTime_
       }
 
 -- | The reason why the flow definition creation failed. A failure reason is
@@ -103,19 +104,19 @@ flowDefinitionSummary_flowDefinitionStatus = Lens.lens (\FlowDefinitionSummary' 
 
 -- | The timestamp when SageMaker created the flow definition.
 flowDefinitionSummary_creationTime :: Lens.Lens' FlowDefinitionSummary Prelude.UTCTime
-flowDefinitionSummary_creationTime = Lens.lens (\FlowDefinitionSummary' {creationTime} -> creationTime) (\s@FlowDefinitionSummary' {} a -> s {creationTime = a} :: FlowDefinitionSummary) Prelude.. Core._Time
+flowDefinitionSummary_creationTime = Lens.lens (\FlowDefinitionSummary' {creationTime} -> creationTime) (\s@FlowDefinitionSummary' {} a -> s {creationTime = a} :: FlowDefinitionSummary) Prelude.. Data._Time
 
-instance Core.FromJSON FlowDefinitionSummary where
+instance Data.FromJSON FlowDefinitionSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FlowDefinitionSummary"
       ( \x ->
           FlowDefinitionSummary'
-            Prelude.<$> (x Core..:? "FailureReason")
-            Prelude.<*> (x Core..: "FlowDefinitionName")
-            Prelude.<*> (x Core..: "FlowDefinitionArn")
-            Prelude.<*> (x Core..: "FlowDefinitionStatus")
-            Prelude.<*> (x Core..: "CreationTime")
+            Prelude.<$> (x Data..:? "FailureReason")
+            Prelude.<*> (x Data..: "FlowDefinitionName")
+            Prelude.<*> (x Data..: "FlowDefinitionArn")
+            Prelude.<*> (x Data..: "FlowDefinitionStatus")
+            Prelude.<*> (x Data..: "CreationTime")
       )
 
 instance Prelude.Hashable FlowDefinitionSummary where

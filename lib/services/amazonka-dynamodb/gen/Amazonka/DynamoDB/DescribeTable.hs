@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.DescribeTable
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,8 +48,9 @@ module Amazonka.DynamoDB.DescribeTable
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DynamoDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -87,12 +88,13 @@ instance Core.AWSRequest DescribeTable where
   type
     AWSResponse DescribeTable =
       DescribeTableResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeTableResponse'
-            Prelude.<$> (x Core..?> "Table")
+            Prelude.<$> (x Data..?> "Table")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -103,32 +105,32 @@ instance Prelude.Hashable DescribeTable where
 instance Prelude.NFData DescribeTable where
   rnf DescribeTable' {..} = Prelude.rnf tableName
 
-instance Core.ToHeaders DescribeTable where
+instance Data.ToHeaders DescribeTable where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DynamoDB_20120810.DescribeTable" ::
+              Data.=# ( "DynamoDB_20120810.DescribeTable" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeTable where
+instance Data.ToJSON DescribeTable where
   toJSON DescribeTable' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("TableName" Core..= tableName)]
+          [Prelude.Just ("TableName" Data..= tableName)]
       )
 
-instance Core.ToPath DescribeTable where
+instance Data.ToPath DescribeTable where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeTable where
+instance Data.ToQuery DescribeTable where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @DescribeTable@ operation.

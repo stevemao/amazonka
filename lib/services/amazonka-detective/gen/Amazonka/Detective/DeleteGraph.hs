@@ -14,15 +14,15 @@
 
 -- |
 -- Module      : Amazonka.Detective.DeleteGraph
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Disables the specified behavior graph and queues it to be deleted. This
--- operation removes the graph from each member account\'s list of behavior
--- graphs.
+-- operation removes the behavior graph from each member account\'s list of
+-- behavior graphs.
 --
 -- @DeleteGraph@ can only be called by the administrator account for a
 -- behavior graph.
@@ -41,8 +41,9 @@ module Amazonka.Detective.DeleteGraph
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Detective.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ deleteGraph_graphArn = Lens.lens (\DeleteGraph' {graphArn} -> graphArn) (\s@Dele
 
 instance Core.AWSRequest DeleteGraph where
   type AWSResponse DeleteGraph = DeleteGraphResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull DeleteGraphResponse'
 
 instance Prelude.Hashable DeleteGraph where
@@ -86,28 +88,28 @@ instance Prelude.Hashable DeleteGraph where
 instance Prelude.NFData DeleteGraph where
   rnf DeleteGraph' {..} = Prelude.rnf graphArn
 
-instance Core.ToHeaders DeleteGraph where
+instance Data.ToHeaders DeleteGraph where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteGraph where
+instance Data.ToJSON DeleteGraph where
   toJSON DeleteGraph' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("GraphArn" Core..= graphArn)]
+          [Prelude.Just ("GraphArn" Data..= graphArn)]
       )
 
-instance Core.ToPath DeleteGraph where
+instance Data.ToPath DeleteGraph where
   toPath = Prelude.const "/graph/removal"
 
-instance Core.ToQuery DeleteGraph where
+instance Data.ToQuery DeleteGraph where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteGraphResponse' smart constructor.

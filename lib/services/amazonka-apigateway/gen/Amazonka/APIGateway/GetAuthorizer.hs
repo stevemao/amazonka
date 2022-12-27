@@ -14,15 +14,13 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetAuthorizer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Describe an existing Authorizer resource.
---
--- <https://docs.aws.amazon.com/cli/latest/reference/apigateway/get-authorizer.html AWS CLI>
 module Amazonka.APIGateway.GetAuthorizer
   ( -- * Creating a Request
     GetAuthorizer (..),
@@ -37,22 +35,23 @@ module Amazonka.APIGateway.GetAuthorizer
     newAuthorizer,
 
     -- * Response Lenses
-    authorizer_authorizerUri,
-    authorizer_identityValidationExpression,
-    authorizer_providerARNs,
-    authorizer_name,
-    authorizer_id,
-    authorizer_authorizerResultTtlInSeconds,
     authorizer_authType,
-    authorizer_type,
-    authorizer_identitySource,
     authorizer_authorizerCredentials,
+    authorizer_authorizerResultTtlInSeconds,
+    authorizer_authorizerUri,
+    authorizer_id,
+    authorizer_identitySource,
+    authorizer_identityValidationExpression,
+    authorizer_name,
+    authorizer_providerARNs,
+    authorizer_type,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,9 +60,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newGetAuthorizer' smart constructor.
 data GetAuthorizer = GetAuthorizer'
-  { -- | [Required] The string identifier of the associated RestApi.
+  { -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] The identifier of the Authorizer resource.
+    -- | The identifier of the Authorizer resource.
     authorizerId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -76,9 +75,9 @@ data GetAuthorizer = GetAuthorizer'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'restApiId', 'getAuthorizer_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'getAuthorizer_restApiId' - The string identifier of the associated RestApi.
 --
--- 'authorizerId', 'getAuthorizer_authorizerId' - [Required] The identifier of the Authorizer resource.
+-- 'authorizerId', 'getAuthorizer_authorizerId' - The identifier of the Authorizer resource.
 newGetAuthorizer ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -91,20 +90,21 @@ newGetAuthorizer pRestApiId_ pAuthorizerId_ =
       authorizerId = pAuthorizerId_
     }
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 getAuthorizer_restApiId :: Lens.Lens' GetAuthorizer Prelude.Text
 getAuthorizer_restApiId = Lens.lens (\GetAuthorizer' {restApiId} -> restApiId) (\s@GetAuthorizer' {} a -> s {restApiId = a} :: GetAuthorizer)
 
--- | [Required] The identifier of the Authorizer resource.
+-- | The identifier of the Authorizer resource.
 getAuthorizer_authorizerId :: Lens.Lens' GetAuthorizer Prelude.Text
 getAuthorizer_authorizerId = Lens.lens (\GetAuthorizer' {authorizerId} -> authorizerId) (\s@GetAuthorizer' {} a -> s {authorizerId = a} :: GetAuthorizer)
 
 instance Core.AWSRequest GetAuthorizer where
   type AWSResponse GetAuthorizer = Authorizer
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetAuthorizer where
   hashWithSalt _salt GetAuthorizer' {..} =
@@ -116,23 +116,23 @@ instance Prelude.NFData GetAuthorizer where
     Prelude.rnf restApiId
       `Prelude.seq` Prelude.rnf authorizerId
 
-instance Core.ToHeaders GetAuthorizer where
+instance Data.ToHeaders GetAuthorizer where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetAuthorizer where
+instance Data.ToPath GetAuthorizer where
   toPath GetAuthorizer' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/authorizers/",
-        Core.toBS authorizerId
+        Data.toBS authorizerId
       ]
 
-instance Core.ToQuery GetAuthorizer where
+instance Data.ToQuery GetAuthorizer where
   toQuery = Prelude.const Prelude.mempty

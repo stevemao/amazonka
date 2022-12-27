@@ -7,6 +7,7 @@ haskell_library(
         "gen/Amazonka/IoTDeviceAdvisor.hs",
         "gen/Amazonka/IoTDeviceAdvisor/CreateSuiteDefinition.hs",
         "gen/Amazonka/IoTDeviceAdvisor/DeleteSuiteDefinition.hs",
+        "gen/Amazonka/IoTDeviceAdvisor/GetEndpoint.hs",
         "gen/Amazonka/IoTDeviceAdvisor/GetSuiteDefinition.hs",
         "gen/Amazonka/IoTDeviceAdvisor/GetSuiteRun.hs",
         "gen/Amazonka/IoTDeviceAdvisor/GetSuiteRunReport.hs",
@@ -20,6 +21,7 @@ haskell_library(
         "gen/Amazonka/IoTDeviceAdvisor/Types.hs",
         "gen/Amazonka/IoTDeviceAdvisor/Types/DeviceUnderTest.hs",
         "gen/Amazonka/IoTDeviceAdvisor/Types/GroupResult.hs",
+        "gen/Amazonka/IoTDeviceAdvisor/Types/Protocol.hs",
         "gen/Amazonka/IoTDeviceAdvisor/Types/Status.hs",
         "gen/Amazonka/IoTDeviceAdvisor/Types/SuiteDefinitionConfiguration.hs",
         "gen/Amazonka/IoTDeviceAdvisor/Types/SuiteDefinitionInformation.hs",
@@ -27,19 +29,21 @@ haskell_library(
         "gen/Amazonka/IoTDeviceAdvisor/Types/SuiteRunInformation.hs",
         "gen/Amazonka/IoTDeviceAdvisor/Types/SuiteRunStatus.hs",
         "gen/Amazonka/IoTDeviceAdvisor/Types/TestCaseRun.hs",
+        "gen/Amazonka/IoTDeviceAdvisor/Types/TestCaseScenario.hs",
+        "gen/Amazonka/IoTDeviceAdvisor/Types/TestCaseScenarioStatus.hs",
+        "gen/Amazonka/IoTDeviceAdvisor/Types/TestCaseScenarioType.hs",
         "gen/Amazonka/IoTDeviceAdvisor/Types/TestResult.hs",
         "gen/Amazonka/IoTDeviceAdvisor/UntagResource.hs",
         "gen/Amazonka/IoTDeviceAdvisor/UpdateSuiteDefinition.hs",
         "gen/Amazonka/IoTDeviceAdvisor/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
         "-DVERSION_amazonka_iotdeviceadvisor=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -57,11 +61,12 @@ haskell_test(
         "test/Test/Amazonka/IoTDeviceAdvisor.hs",
         "test/Test/Amazonka/IoTDeviceAdvisor/Internal.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
         "-DVERSION_amazonka_iotdeviceadvisor=\"2.0\"",
         "-Wall",
         "-threaded",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

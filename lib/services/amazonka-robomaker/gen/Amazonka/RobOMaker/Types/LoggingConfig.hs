@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RobOMaker.Types.LoggingConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.RobOMaker.Types.LoggingConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The logging configuration.
@@ -28,7 +29,9 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newLoggingConfig' smart constructor.
 data LoggingConfig = LoggingConfig'
   { -- | A boolean indicating whether to record all ROS topics.
-    recordAllRosTopics :: Prelude.Bool
+    --
+    -- This API is no longer supported and will throw an error if used.
+    recordAllRosTopics :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -41,27 +44,29 @@ data LoggingConfig = LoggingConfig'
 -- for backwards compatibility:
 --
 -- 'recordAllRosTopics', 'loggingConfig_recordAllRosTopics' - A boolean indicating whether to record all ROS topics.
+--
+-- This API is no longer supported and will throw an error if used.
 newLoggingConfig ::
-  -- | 'recordAllRosTopics'
-  Prelude.Bool ->
   LoggingConfig
-newLoggingConfig pRecordAllRosTopics_ =
+newLoggingConfig =
   LoggingConfig'
     { recordAllRosTopics =
-        pRecordAllRosTopics_
+        Prelude.Nothing
     }
 
 -- | A boolean indicating whether to record all ROS topics.
-loggingConfig_recordAllRosTopics :: Lens.Lens' LoggingConfig Prelude.Bool
+--
+-- This API is no longer supported and will throw an error if used.
+loggingConfig_recordAllRosTopics :: Lens.Lens' LoggingConfig (Prelude.Maybe Prelude.Bool)
 loggingConfig_recordAllRosTopics = Lens.lens (\LoggingConfig' {recordAllRosTopics} -> recordAllRosTopics) (\s@LoggingConfig' {} a -> s {recordAllRosTopics = a} :: LoggingConfig)
 
-instance Core.FromJSON LoggingConfig where
+instance Data.FromJSON LoggingConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LoggingConfig"
       ( \x ->
           LoggingConfig'
-            Prelude.<$> (x Core..: "recordAllRosTopics")
+            Prelude.<$> (x Data..:? "recordAllRosTopics")
       )
 
 instance Prelude.Hashable LoggingConfig where
@@ -72,11 +77,11 @@ instance Prelude.NFData LoggingConfig where
   rnf LoggingConfig' {..} =
     Prelude.rnf recordAllRosTopics
 
-instance Core.ToJSON LoggingConfig where
+instance Data.ToJSON LoggingConfig where
   toJSON LoggingConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just
-              ("recordAllRosTopics" Core..= recordAllRosTopics)
+          [ ("recordAllRosTopics" Data..=)
+              Prelude.<$> recordAllRosTopics
           ]
       )

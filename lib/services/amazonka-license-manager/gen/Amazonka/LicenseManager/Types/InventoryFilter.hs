@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.Types.InventoryFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LicenseManager.Types.InventoryFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LicenseManager.Types.InventoryFilterCondition
 import qualified Amazonka.Prelude as Prelude
 
@@ -87,12 +88,12 @@ instance Prelude.NFData InventoryFilter where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf condition
 
-instance Core.ToJSON InventoryFilter where
+instance Data.ToJSON InventoryFilter where
   toJSON InventoryFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Value" Core..=) Prelude.<$> value,
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Condition" Core..= condition)
+          [ ("Value" Data..=) Prelude.<$> value,
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Condition" Data..= condition)
           ]
       )

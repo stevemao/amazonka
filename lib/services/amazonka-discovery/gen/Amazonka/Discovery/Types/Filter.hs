@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Discovery.Types.Filter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,15 @@
 module Amazonka.Discovery.Types.Filter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A filter that can use conditional operators.
 --
 -- For more information about filters, see
 -- <https://docs.aws.amazon.com/application-discovery/latest/userguide/discovery-api-queries.html Querying Discovered Configuration Items>
--- in the /AWS Application Discovery Service User Guide/.
+-- in the /Amazon Web Services Application Discovery Service User Guide/.
 --
 -- /See:/ 'newFilter' smart constructor.
 data Filter = Filter'
@@ -114,12 +115,12 @@ instance Prelude.NFData Filter where
       `Prelude.seq` Prelude.rnf values
       `Prelude.seq` Prelude.rnf condition
 
-instance Core.ToJSON Filter where
+instance Data.ToJSON Filter where
   toJSON Filter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("name" Core..= name),
-            Prelude.Just ("values" Core..= values),
-            Prelude.Just ("condition" Core..= condition)
+          [ Prelude.Just ("name" Data..= name),
+            Prelude.Just ("values" Data..= values),
+            Prelude.Just ("condition" Data..= condition)
           ]
       )

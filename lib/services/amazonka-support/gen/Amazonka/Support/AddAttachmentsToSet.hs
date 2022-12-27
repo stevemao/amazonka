@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Support.AddAttachmentsToSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,14 +27,14 @@
 -- it\'s created. The @expiryTime@ returned in the response is when the set
 -- expires.
 --
--- -   You must have a Business or Enterprise Support plan to use the AWS
---     Support API.
+-- -   You must have a Business, Enterprise On-Ramp, or Enterprise Support
+--     plan to use the Amazon Web Services Support API.
 --
--- -   If you call the AWS Support API from an account that does not have a
---     Business or Enterprise Support plan, the
---     @SubscriptionRequiredException@ error message appears. For
+-- -   If you call the Amazon Web Services Support API from an account that
+--     does not have a Business, Enterprise On-Ramp, or Enterprise Support
+--     plan, the @SubscriptionRequiredException@ error message appears. For
 --     information about changing your support plan, see
---     <http://aws.amazon.com/premiumsupport/ AWS Support>.
+--     <http://aws.amazon.com/premiumsupport/ Amazon Web Services Support>.
 module Amazonka.Support.AddAttachmentsToSet
   ( -- * Creating a Request
     AddAttachmentsToSet (..),
@@ -49,14 +49,15 @@ module Amazonka.Support.AddAttachmentsToSet
     newAddAttachmentsToSetResponse,
 
     -- * Response Lenses
-    addAttachmentsToSetResponse_expiryTime,
     addAttachmentsToSetResponse_attachmentSetId,
+    addAttachmentsToSetResponse_expiryTime,
     addAttachmentsToSetResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -133,13 +134,14 @@ instance Core.AWSRequest AddAttachmentsToSet where
   type
     AWSResponse AddAttachmentsToSet =
       AddAttachmentsToSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AddAttachmentsToSetResponse'
-            Prelude.<$> (x Core..?> "expiryTime")
-            Prelude.<*> (x Core..?> "attachmentSetId")
+            Prelude.<$> (x Data..?> "attachmentSetId")
+            Prelude.<*> (x Data..?> "expiryTime")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -153,35 +155,35 @@ instance Prelude.NFData AddAttachmentsToSet where
     Prelude.rnf attachmentSetId
       `Prelude.seq` Prelude.rnf attachments
 
-instance Core.ToHeaders AddAttachmentsToSet where
+instance Data.ToHeaders AddAttachmentsToSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSSupport_20130415.AddAttachmentsToSet" ::
+              Data.=# ( "AWSSupport_20130415.AddAttachmentsToSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AddAttachmentsToSet where
+instance Data.ToJSON AddAttachmentsToSet where
   toJSON AddAttachmentsToSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("attachmentSetId" Core..=)
+          [ ("attachmentSetId" Data..=)
               Prelude.<$> attachmentSetId,
-            Prelude.Just ("attachments" Core..= attachments)
+            Prelude.Just ("attachments" Data..= attachments)
           ]
       )
 
-instance Core.ToPath AddAttachmentsToSet where
+instance Data.ToPath AddAttachmentsToSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AddAttachmentsToSet where
+instance Data.ToQuery AddAttachmentsToSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The ID and expiry time of the attachment set returned by the
@@ -189,13 +191,13 @@ instance Core.ToQuery AddAttachmentsToSet where
 --
 -- /See:/ 'newAddAttachmentsToSetResponse' smart constructor.
 data AddAttachmentsToSetResponse = AddAttachmentsToSetResponse'
-  { -- | The time and date when the attachment set expires.
-    expiryTime :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the attachment set. If an @attachmentSetId@ was not specified,
+  { -- | The ID of the attachment set. If an @attachmentSetId@ was not specified,
     -- a new attachment set is created, and the ID of the set is returned in
     -- the response. If an @attachmentSetId@ was specified, the attachments are
     -- added to the specified set, if it exists.
     attachmentSetId :: Prelude.Maybe Prelude.Text,
+    -- | The time and date when the attachment set expires.
+    expiryTime :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -209,12 +211,12 @@ data AddAttachmentsToSetResponse = AddAttachmentsToSetResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'expiryTime', 'addAttachmentsToSetResponse_expiryTime' - The time and date when the attachment set expires.
---
 -- 'attachmentSetId', 'addAttachmentsToSetResponse_attachmentSetId' - The ID of the attachment set. If an @attachmentSetId@ was not specified,
 -- a new attachment set is created, and the ID of the set is returned in
 -- the response. If an @attachmentSetId@ was specified, the attachments are
 -- added to the specified set, if it exists.
+--
+-- 'expiryTime', 'addAttachmentsToSetResponse_expiryTime' - The time and date when the attachment set expires.
 --
 -- 'httpStatus', 'addAttachmentsToSetResponse_httpStatus' - The response's http status code.
 newAddAttachmentsToSetResponse ::
@@ -223,15 +225,11 @@ newAddAttachmentsToSetResponse ::
   AddAttachmentsToSetResponse
 newAddAttachmentsToSetResponse pHttpStatus_ =
   AddAttachmentsToSetResponse'
-    { expiryTime =
+    { attachmentSetId =
         Prelude.Nothing,
-      attachmentSetId = Prelude.Nothing,
+      expiryTime = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The time and date when the attachment set expires.
-addAttachmentsToSetResponse_expiryTime :: Lens.Lens' AddAttachmentsToSetResponse (Prelude.Maybe Prelude.Text)
-addAttachmentsToSetResponse_expiryTime = Lens.lens (\AddAttachmentsToSetResponse' {expiryTime} -> expiryTime) (\s@AddAttachmentsToSetResponse' {} a -> s {expiryTime = a} :: AddAttachmentsToSetResponse)
 
 -- | The ID of the attachment set. If an @attachmentSetId@ was not specified,
 -- a new attachment set is created, and the ID of the set is returned in
@@ -240,12 +238,16 @@ addAttachmentsToSetResponse_expiryTime = Lens.lens (\AddAttachmentsToSetResponse
 addAttachmentsToSetResponse_attachmentSetId :: Lens.Lens' AddAttachmentsToSetResponse (Prelude.Maybe Prelude.Text)
 addAttachmentsToSetResponse_attachmentSetId = Lens.lens (\AddAttachmentsToSetResponse' {attachmentSetId} -> attachmentSetId) (\s@AddAttachmentsToSetResponse' {} a -> s {attachmentSetId = a} :: AddAttachmentsToSetResponse)
 
+-- | The time and date when the attachment set expires.
+addAttachmentsToSetResponse_expiryTime :: Lens.Lens' AddAttachmentsToSetResponse (Prelude.Maybe Prelude.Text)
+addAttachmentsToSetResponse_expiryTime = Lens.lens (\AddAttachmentsToSetResponse' {expiryTime} -> expiryTime) (\s@AddAttachmentsToSetResponse' {} a -> s {expiryTime = a} :: AddAttachmentsToSetResponse)
+
 -- | The response's http status code.
 addAttachmentsToSetResponse_httpStatus :: Lens.Lens' AddAttachmentsToSetResponse Prelude.Int
 addAttachmentsToSetResponse_httpStatus = Lens.lens (\AddAttachmentsToSetResponse' {httpStatus} -> httpStatus) (\s@AddAttachmentsToSetResponse' {} a -> s {httpStatus = a} :: AddAttachmentsToSetResponse)
 
 instance Prelude.NFData AddAttachmentsToSetResponse where
   rnf AddAttachmentsToSetResponse' {..} =
-    Prelude.rnf expiryTime
-      `Prelude.seq` Prelude.rnf attachmentSetId
+    Prelude.rnf attachmentSetId
+      `Prelude.seq` Prelude.rnf expiryTime
       `Prelude.seq` Prelude.rnf httpStatus

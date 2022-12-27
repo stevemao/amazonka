@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.CreateModelBiasJobDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.SageMaker.CreateModelBiasJobDefinition
 
     -- * Request Lenses
     createModelBiasJobDefinition_modelBiasBaselineConfig,
-    createModelBiasJobDefinition_stoppingCondition,
     createModelBiasJobDefinition_networkConfig,
+    createModelBiasJobDefinition_stoppingCondition,
     createModelBiasJobDefinition_tags,
     createModelBiasJobDefinition_jobDefinitionName,
     createModelBiasJobDefinition_modelBiasAppSpecification,
@@ -49,7 +49,8 @@ module Amazonka.SageMaker.CreateModelBiasJobDefinition
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,9 +60,9 @@ import Amazonka.SageMaker.Types
 data CreateModelBiasJobDefinition = CreateModelBiasJobDefinition'
   { -- | The baseline configuration for a model bias job.
     modelBiasBaselineConfig :: Prelude.Maybe ModelBiasBaselineConfig,
-    stoppingCondition :: Prelude.Maybe MonitoringStoppingCondition,
     -- | Networking options for a model bias job.
     networkConfig :: Prelude.Maybe MonitoringNetworkConfig,
+    stoppingCondition :: Prelude.Maybe MonitoringStoppingCondition,
     -- | (Optional) An array of key-value pairs. For more information, see
     -- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags>
     -- in the /Amazon Web Services Billing and Cost Management User Guide/.
@@ -91,9 +92,9 @@ data CreateModelBiasJobDefinition = CreateModelBiasJobDefinition'
 --
 -- 'modelBiasBaselineConfig', 'createModelBiasJobDefinition_modelBiasBaselineConfig' - The baseline configuration for a model bias job.
 --
--- 'stoppingCondition', 'createModelBiasJobDefinition_stoppingCondition' - Undocumented member.
---
 -- 'networkConfig', 'createModelBiasJobDefinition_networkConfig' - Networking options for a model bias job.
+--
+-- 'stoppingCondition', 'createModelBiasJobDefinition_stoppingCondition' - Undocumented member.
 --
 -- 'tags', 'createModelBiasJobDefinition_tags' - (Optional) An array of key-value pairs. For more information, see
 -- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags>
@@ -136,8 +137,8 @@ newCreateModelBiasJobDefinition
     CreateModelBiasJobDefinition'
       { modelBiasBaselineConfig =
           Prelude.Nothing,
-        stoppingCondition = Prelude.Nothing,
         networkConfig = Prelude.Nothing,
+        stoppingCondition = Prelude.Nothing,
         tags = Prelude.Nothing,
         jobDefinitionName = pJobDefinitionName_,
         modelBiasAppSpecification =
@@ -153,13 +154,13 @@ newCreateModelBiasJobDefinition
 createModelBiasJobDefinition_modelBiasBaselineConfig :: Lens.Lens' CreateModelBiasJobDefinition (Prelude.Maybe ModelBiasBaselineConfig)
 createModelBiasJobDefinition_modelBiasBaselineConfig = Lens.lens (\CreateModelBiasJobDefinition' {modelBiasBaselineConfig} -> modelBiasBaselineConfig) (\s@CreateModelBiasJobDefinition' {} a -> s {modelBiasBaselineConfig = a} :: CreateModelBiasJobDefinition)
 
--- | Undocumented member.
-createModelBiasJobDefinition_stoppingCondition :: Lens.Lens' CreateModelBiasJobDefinition (Prelude.Maybe MonitoringStoppingCondition)
-createModelBiasJobDefinition_stoppingCondition = Lens.lens (\CreateModelBiasJobDefinition' {stoppingCondition} -> stoppingCondition) (\s@CreateModelBiasJobDefinition' {} a -> s {stoppingCondition = a} :: CreateModelBiasJobDefinition)
-
 -- | Networking options for a model bias job.
 createModelBiasJobDefinition_networkConfig :: Lens.Lens' CreateModelBiasJobDefinition (Prelude.Maybe MonitoringNetworkConfig)
 createModelBiasJobDefinition_networkConfig = Lens.lens (\CreateModelBiasJobDefinition' {networkConfig} -> networkConfig) (\s@CreateModelBiasJobDefinition' {} a -> s {networkConfig = a} :: CreateModelBiasJobDefinition)
+
+-- | Undocumented member.
+createModelBiasJobDefinition_stoppingCondition :: Lens.Lens' CreateModelBiasJobDefinition (Prelude.Maybe MonitoringStoppingCondition)
+createModelBiasJobDefinition_stoppingCondition = Lens.lens (\CreateModelBiasJobDefinition' {stoppingCondition} -> stoppingCondition) (\s@CreateModelBiasJobDefinition' {} a -> s {stoppingCondition = a} :: CreateModelBiasJobDefinition)
 
 -- | (Optional) An array of key-value pairs. For more information, see
 -- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags>
@@ -197,13 +198,14 @@ instance Core.AWSRequest CreateModelBiasJobDefinition where
   type
     AWSResponse CreateModelBiasJobDefinition =
       CreateModelBiasJobDefinitionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateModelBiasJobDefinitionResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "JobDefinitionArn")
+            Prelude.<*> (x Data..:> "JobDefinitionArn")
       )
 
 instance
@@ -213,8 +215,8 @@ instance
   hashWithSalt _salt CreateModelBiasJobDefinition' {..} =
     _salt
       `Prelude.hashWithSalt` modelBiasBaselineConfig
-      `Prelude.hashWithSalt` stoppingCondition
       `Prelude.hashWithSalt` networkConfig
+      `Prelude.hashWithSalt` stoppingCondition
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` jobDefinitionName
       `Prelude.hashWithSalt` modelBiasAppSpecification
@@ -226,8 +228,8 @@ instance
 instance Prelude.NFData CreateModelBiasJobDefinition where
   rnf CreateModelBiasJobDefinition' {..} =
     Prelude.rnf modelBiasBaselineConfig
-      `Prelude.seq` Prelude.rnf stoppingCondition
       `Prelude.seq` Prelude.rnf networkConfig
+      `Prelude.seq` Prelude.rnf stoppingCondition
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf jobDefinitionName
       `Prelude.seq` Prelude.rnf modelBiasAppSpecification
@@ -236,52 +238,52 @@ instance Prelude.NFData CreateModelBiasJobDefinition where
       `Prelude.seq` Prelude.rnf jobResources
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToHeaders CreateModelBiasJobDefinition where
+instance Data.ToHeaders CreateModelBiasJobDefinition where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.CreateModelBiasJobDefinition" ::
+              Data.=# ( "SageMaker.CreateModelBiasJobDefinition" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateModelBiasJobDefinition where
+instance Data.ToJSON CreateModelBiasJobDefinition where
   toJSON CreateModelBiasJobDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ModelBiasBaselineConfig" Core..=)
+          [ ("ModelBiasBaselineConfig" Data..=)
               Prelude.<$> modelBiasBaselineConfig,
-            ("StoppingCondition" Core..=)
+            ("NetworkConfig" Data..=) Prelude.<$> networkConfig,
+            ("StoppingCondition" Data..=)
               Prelude.<$> stoppingCondition,
-            ("NetworkConfig" Core..=) Prelude.<$> networkConfig,
-            ("Tags" Core..=) Prelude.<$> tags,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("JobDefinitionName" Core..= jobDefinitionName),
+              ("JobDefinitionName" Data..= jobDefinitionName),
             Prelude.Just
               ( "ModelBiasAppSpecification"
-                  Core..= modelBiasAppSpecification
+                  Data..= modelBiasAppSpecification
               ),
             Prelude.Just
-              ("ModelBiasJobInput" Core..= modelBiasJobInput),
+              ("ModelBiasJobInput" Data..= modelBiasJobInput),
             Prelude.Just
               ( "ModelBiasJobOutputConfig"
-                  Core..= modelBiasJobOutputConfig
+                  Data..= modelBiasJobOutputConfig
               ),
-            Prelude.Just ("JobResources" Core..= jobResources),
-            Prelude.Just ("RoleArn" Core..= roleArn)
+            Prelude.Just ("JobResources" Data..= jobResources),
+            Prelude.Just ("RoleArn" Data..= roleArn)
           ]
       )
 
-instance Core.ToPath CreateModelBiasJobDefinition where
+instance Data.ToPath CreateModelBiasJobDefinition where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateModelBiasJobDefinition where
+instance Data.ToQuery CreateModelBiasJobDefinition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateModelBiasJobDefinitionResponse' smart constructor.

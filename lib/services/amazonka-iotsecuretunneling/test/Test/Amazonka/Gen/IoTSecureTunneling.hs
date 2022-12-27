@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.IoTSecureTunneling
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,17 +27,23 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestListTagsForResource $
+--         [ requestCloseTunnel $
+--             newCloseTunnel
+--
+--         , requestDescribeTunnel $
+--             newDescribeTunnel
+--
+--         , requestListTagsForResource $
 --             newListTagsForResource
 --
---         , requestCloseTunnel $
---             newCloseTunnel
+--         , requestListTunnels $
+--             newListTunnels
 --
 --         , requestOpenTunnel $
 --             newOpenTunnel
 --
---         , requestDescribeTunnel $
---             newDescribeTunnel
+--         , requestRotateTunnelAccessToken $
+--             newRotateTunnelAccessToken
 --
 --         , requestTagResource $
 --             newTagResource
@@ -45,23 +51,26 @@ import Test.Tasty
 --         , requestUntagResource $
 --             newUntagResource
 --
---         , requestListTunnels $
---             newListTunnels
---
 --           ]
 
 --     , testGroup "response"
---         [ responseListTagsForResource $
+--         [ responseCloseTunnel $
+--             newCloseTunnelResponse
+--
+--         , responseDescribeTunnel $
+--             newDescribeTunnelResponse
+--
+--         , responseListTagsForResource $
 --             newListTagsForResourceResponse
 --
---         , responseCloseTunnel $
---             newCloseTunnelResponse
+--         , responseListTunnels $
+--             newListTunnelsResponse
 --
 --         , responseOpenTunnel $
 --             newOpenTunnelResponse
 --
---         , responseDescribeTunnel $
---             newDescribeTunnelResponse
+--         , responseRotateTunnelAccessToken $
+--             newRotateTunnelAccessTokenResponse
 --
 --         , responseTagResource $
 --             newTagResourceResponse
@@ -69,19 +78,10 @@ import Test.Tasty
 --         , responseUntagResource $
 --             newUntagResourceResponse
 --
---         , responseListTunnels $
---             newListTunnelsResponse
---
 --           ]
 --     ]
 
 -- Requests
-
-requestListTagsForResource :: ListTagsForResource -> TestTree
-requestListTagsForResource =
-  req
-    "ListTagsForResource"
-    "fixture/ListTagsForResource.yaml"
 
 requestCloseTunnel :: CloseTunnel -> TestTree
 requestCloseTunnel =
@@ -89,17 +89,35 @@ requestCloseTunnel =
     "CloseTunnel"
     "fixture/CloseTunnel.yaml"
 
+requestDescribeTunnel :: DescribeTunnel -> TestTree
+requestDescribeTunnel =
+  req
+    "DescribeTunnel"
+    "fixture/DescribeTunnel.yaml"
+
+requestListTagsForResource :: ListTagsForResource -> TestTree
+requestListTagsForResource =
+  req
+    "ListTagsForResource"
+    "fixture/ListTagsForResource.yaml"
+
+requestListTunnels :: ListTunnels -> TestTree
+requestListTunnels =
+  req
+    "ListTunnels"
+    "fixture/ListTunnels.yaml"
+
 requestOpenTunnel :: OpenTunnel -> TestTree
 requestOpenTunnel =
   req
     "OpenTunnel"
     "fixture/OpenTunnel.yaml"
 
-requestDescribeTunnel :: DescribeTunnel -> TestTree
-requestDescribeTunnel =
+requestRotateTunnelAccessToken :: RotateTunnelAccessToken -> TestTree
+requestRotateTunnelAccessToken =
   req
-    "DescribeTunnel"
-    "fixture/DescribeTunnel.yaml"
+    "RotateTunnelAccessToken"
+    "fixture/RotateTunnelAccessToken.yaml"
 
 requestTagResource :: TagResource -> TestTree
 requestTagResource =
@@ -113,21 +131,7 @@ requestUntagResource =
     "UntagResource"
     "fixture/UntagResource.yaml"
 
-requestListTunnels :: ListTunnels -> TestTree
-requestListTunnels =
-  req
-    "ListTunnels"
-    "fixture/ListTunnels.yaml"
-
 -- Responses
-
-responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
-responseListTagsForResource =
-  res
-    "ListTagsForResourceResponse"
-    "fixture/ListTagsForResourceResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
 
 responseCloseTunnel :: CloseTunnelResponse -> TestTree
 responseCloseTunnel =
@@ -137,6 +141,30 @@ responseCloseTunnel =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CloseTunnel)
 
+responseDescribeTunnel :: DescribeTunnelResponse -> TestTree
+responseDescribeTunnel =
+  res
+    "DescribeTunnelResponse"
+    "fixture/DescribeTunnelResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeTunnel)
+
+responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
+responseListTagsForResource =
+  res
+    "ListTagsForResourceResponse"
+    "fixture/ListTagsForResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
+
+responseListTunnels :: ListTunnelsResponse -> TestTree
+responseListTunnels =
+  res
+    "ListTunnelsResponse"
+    "fixture/ListTunnelsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTunnels)
+
 responseOpenTunnel :: OpenTunnelResponse -> TestTree
 responseOpenTunnel =
   res
@@ -145,13 +173,13 @@ responseOpenTunnel =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy OpenTunnel)
 
-responseDescribeTunnel :: DescribeTunnelResponse -> TestTree
-responseDescribeTunnel =
+responseRotateTunnelAccessToken :: RotateTunnelAccessTokenResponse -> TestTree
+responseRotateTunnelAccessToken =
   res
-    "DescribeTunnelResponse"
-    "fixture/DescribeTunnelResponse.proto"
+    "RotateTunnelAccessTokenResponse"
+    "fixture/RotateTunnelAccessTokenResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeTunnel)
+    (Proxy.Proxy :: Proxy.Proxy RotateTunnelAccessToken)
 
 responseTagResource :: TagResourceResponse -> TestTree
 responseTagResource =
@@ -168,11 +196,3 @@ responseUntagResource =
     "fixture/UntagResourceResponse.proto"
     defaultService
     (Proxy.Proxy :: Proxy.Proxy UntagResource)
-
-responseListTunnels :: ListTunnelsResponse -> TestTree
-responseListTunnels =
-  res
-    "ListTunnelsResponse"
-    "fixture/ListTunnelsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListTunnels)

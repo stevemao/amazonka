@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkManager.CreateGlobalNetwork
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.NetworkManager.CreateGlobalNetwork
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -51,7 +52,7 @@ import qualified Amazonka.Response as Response
 data CreateGlobalNetwork = CreateGlobalNetwork'
   { -- | A description of the global network.
     --
-    -- Length Constraints: Maximum length of 256 characters.
+    -- Constraints: Maximum length of 256 characters.
     description :: Prelude.Maybe Prelude.Text,
     -- | The tags to apply to the resource during creation.
     tags :: Prelude.Maybe [Tag]
@@ -68,7 +69,7 @@ data CreateGlobalNetwork = CreateGlobalNetwork'
 --
 -- 'description', 'createGlobalNetwork_description' - A description of the global network.
 --
--- Length Constraints: Maximum length of 256 characters.
+-- Constraints: Maximum length of 256 characters.
 --
 -- 'tags', 'createGlobalNetwork_tags' - The tags to apply to the resource during creation.
 newCreateGlobalNetwork ::
@@ -81,7 +82,7 @@ newCreateGlobalNetwork =
 
 -- | A description of the global network.
 --
--- Length Constraints: Maximum length of 256 characters.
+-- Constraints: Maximum length of 256 characters.
 createGlobalNetwork_description :: Lens.Lens' CreateGlobalNetwork (Prelude.Maybe Prelude.Text)
 createGlobalNetwork_description = Lens.lens (\CreateGlobalNetwork' {description} -> description) (\s@CreateGlobalNetwork' {} a -> s {description = a} :: CreateGlobalNetwork)
 
@@ -93,12 +94,13 @@ instance Core.AWSRequest CreateGlobalNetwork where
   type
     AWSResponse CreateGlobalNetwork =
       CreateGlobalNetworkResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateGlobalNetworkResponse'
-            Prelude.<$> (x Core..?> "GlobalNetwork")
+            Prelude.<$> (x Data..?> "GlobalNetwork")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -112,30 +114,30 @@ instance Prelude.NFData CreateGlobalNetwork where
     Prelude.rnf description
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders CreateGlobalNetwork where
+instance Data.ToHeaders CreateGlobalNetwork where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateGlobalNetwork where
+instance Data.ToJSON CreateGlobalNetwork where
   toJSON CreateGlobalNetwork' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Tags" Data..=) Prelude.<$> tags
           ]
       )
 
-instance Core.ToPath CreateGlobalNetwork where
+instance Data.ToPath CreateGlobalNetwork where
   toPath = Prelude.const "/global-networks"
 
-instance Core.ToQuery CreateGlobalNetwork where
+instance Data.ToQuery CreateGlobalNetwork where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateGlobalNetworkResponse' smart constructor.

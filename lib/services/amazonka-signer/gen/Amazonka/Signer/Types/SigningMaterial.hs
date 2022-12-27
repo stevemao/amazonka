@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Signer.Types.SigningMaterial
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Signer.Types.SigningMaterial where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The ACM certificate that is used to sign your code.
@@ -55,13 +56,13 @@ newSigningMaterial pCertificateArn_ =
 signingMaterial_certificateArn :: Lens.Lens' SigningMaterial Prelude.Text
 signingMaterial_certificateArn = Lens.lens (\SigningMaterial' {certificateArn} -> certificateArn) (\s@SigningMaterial' {} a -> s {certificateArn = a} :: SigningMaterial)
 
-instance Core.FromJSON SigningMaterial where
+instance Data.FromJSON SigningMaterial where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SigningMaterial"
       ( \x ->
           SigningMaterial'
-            Prelude.<$> (x Core..: "certificateArn")
+            Prelude.<$> (x Data..: "certificateArn")
       )
 
 instance Prelude.Hashable SigningMaterial where
@@ -71,11 +72,11 @@ instance Prelude.Hashable SigningMaterial where
 instance Prelude.NFData SigningMaterial where
   rnf SigningMaterial' {..} = Prelude.rnf certificateArn
 
-instance Core.ToJSON SigningMaterial where
+instance Data.ToJSON SigningMaterial where
   toJSON SigningMaterial' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("certificateArn" Core..= certificateArn)
+              ("certificateArn" Data..= certificateArn)
           ]
       )

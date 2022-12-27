@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.DescribeServices
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.ECS.DescribeServices
     newDescribeServices,
 
     -- * Request Lenses
-    describeServices_include,
     describeServices_cluster,
+    describeServices_include,
     describeServices_services,
 
     -- * Destructuring the Response
@@ -43,24 +43,25 @@ module Amazonka.ECS.DescribeServices
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeServices' smart constructor.
 data DescribeServices = DescribeServices'
-  { -- | Specifies whether you want to see the resource tags for the service. If
-    -- @TAGS@ is specified, the tags are included in the response. If this
-    -- field is omitted, tags are not included in the response.
-    include :: Prelude.Maybe [ServiceField],
-    -- | The short name or full Amazon Resource Name (ARN)the cluster that hosts
+  { -- | The short name or full Amazon Resource Name (ARN)the cluster that hosts
     -- the service to describe. If you do not specify a cluster, the default
     -- cluster is assumed. This parameter is required if the service or
     -- services you are describing were launched in any cluster other than the
     -- default cluster.
     cluster :: Prelude.Maybe Prelude.Text,
+    -- | Determines whether you want to see the resource tags for the service. If
+    -- @TAGS@ is specified, the tags are included in the response. If this
+    -- field is omitted, tags aren\'t included in the response.
+    include :: Prelude.Maybe [ServiceField],
     -- | A list of services to describe. You may specify up to 10 services to
     -- describe in a single operation.
     services :: [Prelude.Text]
@@ -75,15 +76,15 @@ data DescribeServices = DescribeServices'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'include', 'describeServices_include' - Specifies whether you want to see the resource tags for the service. If
--- @TAGS@ is specified, the tags are included in the response. If this
--- field is omitted, tags are not included in the response.
---
 -- 'cluster', 'describeServices_cluster' - The short name or full Amazon Resource Name (ARN)the cluster that hosts
 -- the service to describe. If you do not specify a cluster, the default
 -- cluster is assumed. This parameter is required if the service or
 -- services you are describing were launched in any cluster other than the
 -- default cluster.
+--
+-- 'include', 'describeServices_include' - Determines whether you want to see the resource tags for the service. If
+-- @TAGS@ is specified, the tags are included in the response. If this
+-- field is omitted, tags aren\'t included in the response.
 --
 -- 'services', 'describeServices_services' - A list of services to describe. You may specify up to 10 services to
 -- describe in a single operation.
@@ -91,16 +92,10 @@ newDescribeServices ::
   DescribeServices
 newDescribeServices =
   DescribeServices'
-    { include = Prelude.Nothing,
-      cluster = Prelude.Nothing,
+    { cluster = Prelude.Nothing,
+      include = Prelude.Nothing,
       services = Prelude.mempty
     }
-
--- | Specifies whether you want to see the resource tags for the service. If
--- @TAGS@ is specified, the tags are included in the response. If this
--- field is omitted, tags are not included in the response.
-describeServices_include :: Lens.Lens' DescribeServices (Prelude.Maybe [ServiceField])
-describeServices_include = Lens.lens (\DescribeServices' {include} -> include) (\s@DescribeServices' {} a -> s {include = a} :: DescribeServices) Prelude.. Lens.mapping Lens.coerced
 
 -- | The short name or full Amazon Resource Name (ARN)the cluster that hosts
 -- the service to describe. If you do not specify a cluster, the default
@@ -109,6 +104,12 @@ describeServices_include = Lens.lens (\DescribeServices' {include} -> include) (
 -- default cluster.
 describeServices_cluster :: Lens.Lens' DescribeServices (Prelude.Maybe Prelude.Text)
 describeServices_cluster = Lens.lens (\DescribeServices' {cluster} -> cluster) (\s@DescribeServices' {} a -> s {cluster = a} :: DescribeServices)
+
+-- | Determines whether you want to see the resource tags for the service. If
+-- @TAGS@ is specified, the tags are included in the response. If this
+-- field is omitted, tags aren\'t included in the response.
+describeServices_include :: Lens.Lens' DescribeServices (Prelude.Maybe [ServiceField])
+describeServices_include = Lens.lens (\DescribeServices' {include} -> include) (\s@DescribeServices' {} a -> s {include = a} :: DescribeServices) Prelude.. Lens.mapping Lens.coerced
 
 -- | A list of services to describe. You may specify up to 10 services to
 -- describe in a single operation.
@@ -119,57 +120,58 @@ instance Core.AWSRequest DescribeServices where
   type
     AWSResponse DescribeServices =
       DescribeServicesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeServicesResponse'
-            Prelude.<$> (x Core..?> "failures" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "services" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "failures" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "services" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeServices where
   hashWithSalt _salt DescribeServices' {..} =
-    _salt `Prelude.hashWithSalt` include
-      `Prelude.hashWithSalt` cluster
+    _salt `Prelude.hashWithSalt` cluster
+      `Prelude.hashWithSalt` include
       `Prelude.hashWithSalt` services
 
 instance Prelude.NFData DescribeServices where
   rnf DescribeServices' {..} =
-    Prelude.rnf include
-      `Prelude.seq` Prelude.rnf cluster
+    Prelude.rnf cluster
+      `Prelude.seq` Prelude.rnf include
       `Prelude.seq` Prelude.rnf services
 
-instance Core.ToHeaders DescribeServices where
+instance Data.ToHeaders DescribeServices where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerServiceV20141113.DescribeServices" ::
+              Data.=# ( "AmazonEC2ContainerServiceV20141113.DescribeServices" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeServices where
+instance Data.ToJSON DescribeServices where
   toJSON DescribeServices' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("include" Core..=) Prelude.<$> include,
-            ("cluster" Core..=) Prelude.<$> cluster,
-            Prelude.Just ("services" Core..= services)
+          [ ("cluster" Data..=) Prelude.<$> cluster,
+            ("include" Data..=) Prelude.<$> include,
+            Prelude.Just ("services" Data..= services)
           ]
       )
 
-instance Core.ToPath DescribeServices where
+instance Data.ToPath DescribeServices where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeServices where
+instance Data.ToQuery DescribeServices where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeServicesResponse' smart constructor.

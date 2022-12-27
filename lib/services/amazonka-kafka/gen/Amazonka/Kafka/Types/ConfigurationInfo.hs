@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.Types.ConfigurationInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Kafka.Types.ConfigurationInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the configuration to use for the brokers.
@@ -65,13 +66,13 @@ configurationInfo_revision = Lens.lens (\ConfigurationInfo' {revision} -> revisi
 configurationInfo_arn :: Lens.Lens' ConfigurationInfo Prelude.Text
 configurationInfo_arn = Lens.lens (\ConfigurationInfo' {arn} -> arn) (\s@ConfigurationInfo' {} a -> s {arn = a} :: ConfigurationInfo)
 
-instance Core.FromJSON ConfigurationInfo where
+instance Data.FromJSON ConfigurationInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ConfigurationInfo"
       ( \x ->
           ConfigurationInfo'
-            Prelude.<$> (x Core..: "revision") Prelude.<*> (x Core..: "arn")
+            Prelude.<$> (x Data..: "revision") Prelude.<*> (x Data..: "arn")
       )
 
 instance Prelude.Hashable ConfigurationInfo where
@@ -83,11 +84,11 @@ instance Prelude.NFData ConfigurationInfo where
   rnf ConfigurationInfo' {..} =
     Prelude.rnf revision `Prelude.seq` Prelude.rnf arn
 
-instance Core.ToJSON ConfigurationInfo where
+instance Data.ToJSON ConfigurationInfo where
   toJSON ConfigurationInfo' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("revision" Core..= revision),
-            Prelude.Just ("arn" Core..= arn)
+          [ Prelude.Just ("revision" Data..= revision),
+            Prelude.Just ("arn" Data..= arn)
           ]
       )

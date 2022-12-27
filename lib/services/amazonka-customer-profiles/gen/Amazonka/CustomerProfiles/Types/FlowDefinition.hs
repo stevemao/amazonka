@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CustomerProfiles.Types.FlowDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.CustomerProfiles.Types.FlowDefinition where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CustomerProfiles.Types.SourceFlowConfig
 import Amazonka.CustomerProfiles.Types.Task
 import Amazonka.CustomerProfiles.Types.TriggerConfig
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configurations that control how Customer Profiles retrieves data
@@ -144,17 +145,17 @@ instance Prelude.NFData FlowDefinition where
       `Prelude.seq` Prelude.rnf tasks
       `Prelude.seq` Prelude.rnf triggerConfig
 
-instance Core.ToJSON FlowDefinition where
+instance Data.ToJSON FlowDefinition where
   toJSON FlowDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Description" Core..=) Prelude.<$> description,
-            Prelude.Just ("FlowName" Core..= flowName),
-            Prelude.Just ("KmsArn" Core..= kmsArn),
+          [ ("Description" Data..=) Prelude.<$> description,
+            Prelude.Just ("FlowName" Data..= flowName),
+            Prelude.Just ("KmsArn" Data..= kmsArn),
             Prelude.Just
-              ("SourceFlowConfig" Core..= sourceFlowConfig),
-            Prelude.Just ("Tasks" Core..= tasks),
+              ("SourceFlowConfig" Data..= sourceFlowConfig),
+            Prelude.Just ("Tasks" Data..= tasks),
             Prelude.Just
-              ("TriggerConfig" Core..= triggerConfig)
+              ("TriggerConfig" Data..= triggerConfig)
           ]
       )

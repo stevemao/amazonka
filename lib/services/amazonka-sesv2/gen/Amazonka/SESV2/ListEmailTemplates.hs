@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.ListEmailTemplates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,14 +38,15 @@ module Amazonka.SESV2.ListEmailTemplates
     newListEmailTemplatesResponse,
 
     -- * Response Lenses
-    listEmailTemplatesResponse_templatesMetadata,
     listEmailTemplatesResponse_nextToken,
+    listEmailTemplatesResponse_templatesMetadata,
     listEmailTemplatesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -114,15 +115,16 @@ instance Core.AWSRequest ListEmailTemplates where
   type
     AWSResponse ListEmailTemplates =
       ListEmailTemplatesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListEmailTemplatesResponse'
-            Prelude.<$> ( x Core..?> "TemplatesMetadata"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "TemplatesMetadata"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -136,38 +138,38 @@ instance Prelude.NFData ListEmailTemplates where
     Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf pageSize
 
-instance Core.ToHeaders ListEmailTemplates where
+instance Data.ToHeaders ListEmailTemplates where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListEmailTemplates where
+instance Data.ToPath ListEmailTemplates where
   toPath = Prelude.const "/v2/email/templates"
 
-instance Core.ToQuery ListEmailTemplates where
+instance Data.ToQuery ListEmailTemplates where
   toQuery ListEmailTemplates' {..} =
     Prelude.mconcat
-      [ "NextToken" Core.=: nextToken,
-        "PageSize" Core.=: pageSize
+      [ "NextToken" Data.=: nextToken,
+        "PageSize" Data.=: pageSize
       ]
 
 -- | The following elements are returned by the service.
 --
 -- /See:/ 'newListEmailTemplatesResponse' smart constructor.
 data ListEmailTemplatesResponse = ListEmailTemplatesResponse'
-  { -- | An array the contains the name and creation time stamp for each template
-    -- in your Amazon SES account.
-    templatesMetadata :: Prelude.Maybe [EmailTemplateMetadata],
-    -- | A token indicating that there are additional email templates available
+  { -- | A token indicating that there are additional email templates available
     -- to be listed. Pass this token to a subsequent @ListEmailTemplates@ call
     -- to retrieve the next 10 email templates.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array the contains the name and creation time stamp for each template
+    -- in your Amazon SES account.
+    templatesMetadata :: Prelude.Maybe [EmailTemplateMetadata],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -181,12 +183,12 @@ data ListEmailTemplatesResponse = ListEmailTemplatesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'templatesMetadata', 'listEmailTemplatesResponse_templatesMetadata' - An array the contains the name and creation time stamp for each template
--- in your Amazon SES account.
---
 -- 'nextToken', 'listEmailTemplatesResponse_nextToken' - A token indicating that there are additional email templates available
 -- to be listed. Pass this token to a subsequent @ListEmailTemplates@ call
 -- to retrieve the next 10 email templates.
+--
+-- 'templatesMetadata', 'listEmailTemplatesResponse_templatesMetadata' - An array the contains the name and creation time stamp for each template
+-- in your Amazon SES account.
 --
 -- 'httpStatus', 'listEmailTemplatesResponse_httpStatus' - The response's http status code.
 newListEmailTemplatesResponse ::
@@ -195,16 +197,11 @@ newListEmailTemplatesResponse ::
   ListEmailTemplatesResponse
 newListEmailTemplatesResponse pHttpStatus_ =
   ListEmailTemplatesResponse'
-    { templatesMetadata =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      templatesMetadata = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | An array the contains the name and creation time stamp for each template
--- in your Amazon SES account.
-listEmailTemplatesResponse_templatesMetadata :: Lens.Lens' ListEmailTemplatesResponse (Prelude.Maybe [EmailTemplateMetadata])
-listEmailTemplatesResponse_templatesMetadata = Lens.lens (\ListEmailTemplatesResponse' {templatesMetadata} -> templatesMetadata) (\s@ListEmailTemplatesResponse' {} a -> s {templatesMetadata = a} :: ListEmailTemplatesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A token indicating that there are additional email templates available
 -- to be listed. Pass this token to a subsequent @ListEmailTemplates@ call
@@ -212,12 +209,17 @@ listEmailTemplatesResponse_templatesMetadata = Lens.lens (\ListEmailTemplatesRes
 listEmailTemplatesResponse_nextToken :: Lens.Lens' ListEmailTemplatesResponse (Prelude.Maybe Prelude.Text)
 listEmailTemplatesResponse_nextToken = Lens.lens (\ListEmailTemplatesResponse' {nextToken} -> nextToken) (\s@ListEmailTemplatesResponse' {} a -> s {nextToken = a} :: ListEmailTemplatesResponse)
 
+-- | An array the contains the name and creation time stamp for each template
+-- in your Amazon SES account.
+listEmailTemplatesResponse_templatesMetadata :: Lens.Lens' ListEmailTemplatesResponse (Prelude.Maybe [EmailTemplateMetadata])
+listEmailTemplatesResponse_templatesMetadata = Lens.lens (\ListEmailTemplatesResponse' {templatesMetadata} -> templatesMetadata) (\s@ListEmailTemplatesResponse' {} a -> s {templatesMetadata = a} :: ListEmailTemplatesResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The response's http status code.
 listEmailTemplatesResponse_httpStatus :: Lens.Lens' ListEmailTemplatesResponse Prelude.Int
 listEmailTemplatesResponse_httpStatus = Lens.lens (\ListEmailTemplatesResponse' {httpStatus} -> httpStatus) (\s@ListEmailTemplatesResponse' {} a -> s {httpStatus = a} :: ListEmailTemplatesResponse)
 
 instance Prelude.NFData ListEmailTemplatesResponse where
   rnf ListEmailTemplatesResponse' {..} =
-    Prelude.rnf templatesMetadata
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf templatesMetadata
       `Prelude.seq` Prelude.rnf httpStatus

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.DeleteRoom
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,7 +86,8 @@ deleteRoom_roomId = Lens.lens (\DeleteRoom' {roomId} -> roomId) (\s@DeleteRoom' 
 
 instance Core.AWSRequest DeleteRoom where
   type AWSResponse DeleteRoom = DeleteRoomResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response = Response.receiveNull DeleteRoomResponse'
 
 instance Prelude.Hashable DeleteRoom where
@@ -98,19 +100,19 @@ instance Prelude.NFData DeleteRoom where
     Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf roomId
 
-instance Core.ToHeaders DeleteRoom where
+instance Data.ToHeaders DeleteRoom where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteRoom where
+instance Data.ToPath DeleteRoom where
   toPath DeleteRoom' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/rooms/",
-        Core.toBS roomId
+        Data.toBS roomId
       ]
 
-instance Core.ToQuery DeleteRoom where
+instance Data.ToQuery DeleteRoom where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteRoomResponse' smart constructor.

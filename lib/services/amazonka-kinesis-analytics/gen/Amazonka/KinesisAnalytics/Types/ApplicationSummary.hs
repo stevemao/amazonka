@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalytics.Types.ApplicationSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KinesisAnalytics.Types.ApplicationSummary where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalytics.Types.ApplicationStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | This documentation is for version 1 of the Amazon Kinesis Data Analytics
@@ -87,15 +88,15 @@ applicationSummary_applicationARN = Lens.lens (\ApplicationSummary' {application
 applicationSummary_applicationStatus :: Lens.Lens' ApplicationSummary ApplicationStatus
 applicationSummary_applicationStatus = Lens.lens (\ApplicationSummary' {applicationStatus} -> applicationStatus) (\s@ApplicationSummary' {} a -> s {applicationStatus = a} :: ApplicationSummary)
 
-instance Core.FromJSON ApplicationSummary where
+instance Data.FromJSON ApplicationSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ApplicationSummary"
       ( \x ->
           ApplicationSummary'
-            Prelude.<$> (x Core..: "ApplicationName")
-            Prelude.<*> (x Core..: "ApplicationARN")
-            Prelude.<*> (x Core..: "ApplicationStatus")
+            Prelude.<$> (x Data..: "ApplicationName")
+            Prelude.<*> (x Data..: "ApplicationARN")
+            Prelude.<*> (x Data..: "ApplicationStatus")
       )
 
 instance Prelude.Hashable ApplicationSummary where

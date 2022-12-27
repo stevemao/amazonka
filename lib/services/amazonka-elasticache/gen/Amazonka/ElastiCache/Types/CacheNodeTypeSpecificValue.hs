@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.Types.CacheNodeTypeSpecificValue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElastiCache.Types.CacheNodeTypeSpecificValue where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A value that applies only to a certain cache node type.
@@ -62,11 +63,11 @@ cacheNodeTypeSpecificValue_cacheNodeType = Lens.lens (\CacheNodeTypeSpecificValu
 cacheNodeTypeSpecificValue_value :: Lens.Lens' CacheNodeTypeSpecificValue (Prelude.Maybe Prelude.Text)
 cacheNodeTypeSpecificValue_value = Lens.lens (\CacheNodeTypeSpecificValue' {value} -> value) (\s@CacheNodeTypeSpecificValue' {} a -> s {value = a} :: CacheNodeTypeSpecificValue)
 
-instance Core.FromXML CacheNodeTypeSpecificValue where
+instance Data.FromXML CacheNodeTypeSpecificValue where
   parseXML x =
     CacheNodeTypeSpecificValue'
-      Prelude.<$> (x Core..@? "CacheNodeType")
-      Prelude.<*> (x Core..@? "Value")
+      Prelude.<$> (x Data..@? "CacheNodeType")
+      Prelude.<*> (x Data..@? "Value")
 
 instance Prelude.Hashable CacheNodeTypeSpecificValue where
   hashWithSalt _salt CacheNodeTypeSpecificValue' {..} =

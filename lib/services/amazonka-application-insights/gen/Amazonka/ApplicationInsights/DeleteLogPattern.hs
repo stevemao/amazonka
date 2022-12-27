@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApplicationInsights.DeleteLogPattern
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.ApplicationInsights.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,7 +107,8 @@ instance Core.AWSRequest DeleteLogPattern where
   type
     AWSResponse DeleteLogPattern =
       DeleteLogPatternResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -126,37 +128,37 @@ instance Prelude.NFData DeleteLogPattern where
       `Prelude.seq` Prelude.rnf patternSetName
       `Prelude.seq` Prelude.rnf patternName
 
-instance Core.ToHeaders DeleteLogPattern where
+instance Data.ToHeaders DeleteLogPattern where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "EC2WindowsBarleyService.DeleteLogPattern" ::
+              Data.=# ( "EC2WindowsBarleyService.DeleteLogPattern" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteLogPattern where
+instance Data.ToJSON DeleteLogPattern where
   toJSON DeleteLogPattern' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ResourceGroupName" Core..= resourceGroupName),
+              ("ResourceGroupName" Data..= resourceGroupName),
             Prelude.Just
-              ("PatternSetName" Core..= patternSetName),
-            Prelude.Just ("PatternName" Core..= patternName)
+              ("PatternSetName" Data..= patternSetName),
+            Prelude.Just ("PatternName" Data..= patternName)
           ]
       )
 
-instance Core.ToPath DeleteLogPattern where
+instance Data.ToPath DeleteLogPattern where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteLogPattern where
+instance Data.ToQuery DeleteLogPattern where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteLogPatternResponse' smart constructor.

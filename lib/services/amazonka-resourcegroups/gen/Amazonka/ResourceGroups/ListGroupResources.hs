@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ResourceGroups.ListGroupResources
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,27 +42,28 @@ module Amazonka.ResourceGroups.ListGroupResources
     newListGroupResources,
 
     -- * Request Lenses
-    listGroupResources_group,
     listGroupResources_filters,
-    listGroupResources_nextToken,
+    listGroupResources_group,
     listGroupResources_groupName,
     listGroupResources_maxResults,
+    listGroupResources_nextToken,
 
     -- * Destructuring the Response
     ListGroupResourcesResponse (..),
     newListGroupResourcesResponse,
 
     -- * Response Lenses
-    listGroupResourcesResponse_resources,
-    listGroupResourcesResponse_queryErrors,
     listGroupResourcesResponse_nextToken,
+    listGroupResourcesResponse_queryErrors,
     listGroupResourcesResponse_resourceIdentifiers,
+    listGroupResourcesResponse_resources,
     listGroupResourcesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import Amazonka.ResourceGroups.Types
@@ -70,9 +71,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListGroupResources' smart constructor.
 data ListGroupResources = ListGroupResources'
-  { -- | The name or the ARN of the resource group
-    group' :: Prelude.Maybe Prelude.Text,
-    -- | Filters, formatted as ResourceFilter objects, that you want to apply to
+  { -- | Filters, formatted as ResourceFilter objects, that you want to apply to
     -- a @ListGroupResources@ operation. Filters the results to include only
     -- those of the specified resource types.
     --
@@ -98,12 +97,8 @@ data ListGroupResources = ListGroupResources'
     -- any of the allowed resource types for the query type (tag-based or AWS
     -- CloudFormation stack-based queries).
     filters :: Prelude.Maybe [ResourceFilter],
-    -- | The parameter for receiving additional results if you receive a
-    -- @NextToken@ response in a previous request. A @NextToken@ response
-    -- indicates that more output is available. Set this parameter to the value
-    -- provided by a previous call\'s @NextToken@ response to indicate where
-    -- the output should continue from.
-    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The name or the ARN of the resource group
+    group' :: Prelude.Maybe Prelude.Text,
     -- | /__Deprecated - don\'t use this parameter. Use the @Group@ request field
     -- instead.__/
     groupName :: Prelude.Maybe Prelude.Text,
@@ -117,7 +112,13 @@ data ListGroupResources = ListGroupResources'
     -- maximum even when there are more results available. You should check
     -- @NextToken@ after every operation to ensure that you receive all of the
     -- results.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The parameter for receiving additional results if you receive a
+    -- @NextToken@ response in a previous request. A @NextToken@ response
+    -- indicates that more output is available. Set this parameter to the value
+    -- provided by a previous call\'s @NextToken@ response to indicate where
+    -- the output should continue from.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -128,8 +129,6 @@ data ListGroupResources = ListGroupResources'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'group'', 'listGroupResources_group' - The name or the ARN of the resource group
 --
 -- 'filters', 'listGroupResources_filters' - Filters, formatted as ResourceFilter objects, that you want to apply to
 -- a @ListGroupResources@ operation. Filters the results to include only
@@ -157,11 +156,7 @@ data ListGroupResources = ListGroupResources'
 -- any of the allowed resource types for the query type (tag-based or AWS
 -- CloudFormation stack-based queries).
 --
--- 'nextToken', 'listGroupResources_nextToken' - The parameter for receiving additional results if you receive a
--- @NextToken@ response in a previous request. A @NextToken@ response
--- indicates that more output is available. Set this parameter to the value
--- provided by a previous call\'s @NextToken@ response to indicate where
--- the output should continue from.
+-- 'group'', 'listGroupResources_group' - The name or the ARN of the resource group
 --
 -- 'groupName', 'listGroupResources_groupName' - /__Deprecated - don\'t use this parameter. Use the @Group@ request field
 -- instead.__/
@@ -176,20 +171,22 @@ data ListGroupResources = ListGroupResources'
 -- maximum even when there are more results available. You should check
 -- @NextToken@ after every operation to ensure that you receive all of the
 -- results.
+--
+-- 'nextToken', 'listGroupResources_nextToken' - The parameter for receiving additional results if you receive a
+-- @NextToken@ response in a previous request. A @NextToken@ response
+-- indicates that more output is available. Set this parameter to the value
+-- provided by a previous call\'s @NextToken@ response to indicate where
+-- the output should continue from.
 newListGroupResources ::
   ListGroupResources
 newListGroupResources =
   ListGroupResources'
-    { group' = Prelude.Nothing,
-      filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { filters = Prelude.Nothing,
+      group' = Prelude.Nothing,
       groupName = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The name or the ARN of the resource group
-listGroupResources_group :: Lens.Lens' ListGroupResources (Prelude.Maybe Prelude.Text)
-listGroupResources_group = Lens.lens (\ListGroupResources' {group'} -> group') (\s@ListGroupResources' {} a -> s {group' = a} :: ListGroupResources)
 
 -- | Filters, formatted as ResourceFilter objects, that you want to apply to
 -- a @ListGroupResources@ operation. Filters the results to include only
@@ -219,13 +216,9 @@ listGroupResources_group = Lens.lens (\ListGroupResources' {group'} -> group') (
 listGroupResources_filters :: Lens.Lens' ListGroupResources (Prelude.Maybe [ResourceFilter])
 listGroupResources_filters = Lens.lens (\ListGroupResources' {filters} -> filters) (\s@ListGroupResources' {} a -> s {filters = a} :: ListGroupResources) Prelude.. Lens.mapping Lens.coerced
 
--- | The parameter for receiving additional results if you receive a
--- @NextToken@ response in a previous request. A @NextToken@ response
--- indicates that more output is available. Set this parameter to the value
--- provided by a previous call\'s @NextToken@ response to indicate where
--- the output should continue from.
-listGroupResources_nextToken :: Lens.Lens' ListGroupResources (Prelude.Maybe Prelude.Text)
-listGroupResources_nextToken = Lens.lens (\ListGroupResources' {nextToken} -> nextToken) (\s@ListGroupResources' {} a -> s {nextToken = a} :: ListGroupResources)
+-- | The name or the ARN of the resource group
+listGroupResources_group :: Lens.Lens' ListGroupResources (Prelude.Maybe Prelude.Text)
+listGroupResources_group = Lens.lens (\ListGroupResources' {group'} -> group') (\s@ListGroupResources' {} a -> s {group' = a} :: ListGroupResources)
 
 -- | /__Deprecated - don\'t use this parameter. Use the @Group@ request field
 -- instead.__/
@@ -244,6 +237,14 @@ listGroupResources_groupName = Lens.lens (\ListGroupResources' {groupName} -> gr
 -- results.
 listGroupResources_maxResults :: Lens.Lens' ListGroupResources (Prelude.Maybe Prelude.Natural)
 listGroupResources_maxResults = Lens.lens (\ListGroupResources' {maxResults} -> maxResults) (\s@ListGroupResources' {} a -> s {maxResults = a} :: ListGroupResources)
+
+-- | The parameter for receiving additional results if you receive a
+-- @NextToken@ response in a previous request. A @NextToken@ response
+-- indicates that more output is available. Set this parameter to the value
+-- provided by a previous call\'s @NextToken@ response to indicate where
+-- the output should continue from.
+listGroupResources_nextToken :: Lens.Lens' ListGroupResources (Prelude.Maybe Prelude.Text)
+listGroupResources_nextToken = Lens.lens (\ListGroupResources' {nextToken} -> nextToken) (\s@ListGroupResources' {} a -> s {nextToken = a} :: ListGroupResources)
 
 instance Core.AWSPager ListGroupResources where
   page rq rs
@@ -277,76 +278,77 @@ instance Core.AWSRequest ListGroupResources where
   type
     AWSResponse ListGroupResources =
       ListGroupResourcesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListGroupResourcesResponse'
-            Prelude.<$> (x Core..?> "Resources" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "QueryErrors" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "ResourceIdentifiers"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "QueryErrors" Core..!@ Prelude.mempty)
+            Prelude.<*> ( x Data..?> "ResourceIdentifiers"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "Resources" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListGroupResources where
   hashWithSalt _salt ListGroupResources' {..} =
-    _salt `Prelude.hashWithSalt` group'
-      `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` filters
+      `Prelude.hashWithSalt` group'
       `Prelude.hashWithSalt` groupName
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListGroupResources where
   rnf ListGroupResources' {..} =
-    Prelude.rnf group'
-      `Prelude.seq` Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf filters
+      `Prelude.seq` Prelude.rnf group'
       `Prelude.seq` Prelude.rnf groupName
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListGroupResources where
+instance Data.ToHeaders ListGroupResources where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON ListGroupResources where
+instance Data.ToJSON ListGroupResources where
   toJSON ListGroupResources' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Group" Core..=) Prelude.<$> group',
-            ("Filters" Core..=) Prelude.<$> filters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("GroupName" Core..=) Prelude.<$> groupName,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("Group" Data..=) Prelude.<$> group',
+            ("GroupName" Data..=) Prelude.<$> groupName,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListGroupResources where
+instance Data.ToPath ListGroupResources where
   toPath = Prelude.const "/list-group-resources"
 
-instance Core.ToQuery ListGroupResources where
+instance Data.ToQuery ListGroupResources where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListGroupResourcesResponse' smart constructor.
 data ListGroupResourcesResponse = ListGroupResourcesResponse'
-  { -- | An array of resources from which you can determine each resource\'s
-    -- identity, type, and group membership status.
-    resources :: Prelude.Maybe [ListGroupResourcesItem],
-    -- | A list of @QueryError@ objects. Each error is an object that contains
-    -- @ErrorCode@ and @Message@ structures. Possible values for @ErrorCode@
-    -- are @CLOUDFORMATION_STACK_INACTIVE@ and
-    -- @CLOUDFORMATION_STACK_NOT_EXISTING@.
-    queryErrors :: Prelude.Maybe [QueryError],
-    -- | If present, indicates that more output is available than is included in
+  { -- | If present, indicates that more output is available than is included in
     -- the current response. Use this value in the @NextToken@ request
     -- parameter in a subsequent call to the operation to get the next part of
     -- the output. You should repeat this until the @NextToken@ response
     -- element comes back as @null@.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of @QueryError@ objects. Each error is an object that contains
+    -- @ErrorCode@ and @Message@ structures. Possible values for @ErrorCode@
+    -- are @CLOUDFORMATION_STACK_INACTIVE@ and
+    -- @CLOUDFORMATION_STACK_NOT_EXISTING@.
+    queryErrors :: Prelude.Maybe [QueryError],
     -- | __/Deprecated - don\'t use this parameter. Use the @Resources@ response
     -- field instead./__
     resourceIdentifiers :: Prelude.Maybe [ResourceIdentifier],
+    -- | An array of resources from which you can determine each resource\'s
+    -- identity, type, and group membership status.
+    resources :: Prelude.Maybe [ListGroupResourcesItem],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -360,22 +362,22 @@ data ListGroupResourcesResponse = ListGroupResourcesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resources', 'listGroupResourcesResponse_resources' - An array of resources from which you can determine each resource\'s
--- identity, type, and group membership status.
---
--- 'queryErrors', 'listGroupResourcesResponse_queryErrors' - A list of @QueryError@ objects. Each error is an object that contains
--- @ErrorCode@ and @Message@ structures. Possible values for @ErrorCode@
--- are @CLOUDFORMATION_STACK_INACTIVE@ and
--- @CLOUDFORMATION_STACK_NOT_EXISTING@.
---
 -- 'nextToken', 'listGroupResourcesResponse_nextToken' - If present, indicates that more output is available than is included in
 -- the current response. Use this value in the @NextToken@ request
 -- parameter in a subsequent call to the operation to get the next part of
 -- the output. You should repeat this until the @NextToken@ response
 -- element comes back as @null@.
 --
+-- 'queryErrors', 'listGroupResourcesResponse_queryErrors' - A list of @QueryError@ objects. Each error is an object that contains
+-- @ErrorCode@ and @Message@ structures. Possible values for @ErrorCode@
+-- are @CLOUDFORMATION_STACK_INACTIVE@ and
+-- @CLOUDFORMATION_STACK_NOT_EXISTING@.
+--
 -- 'resourceIdentifiers', 'listGroupResourcesResponse_resourceIdentifiers' - __/Deprecated - don\'t use this parameter. Use the @Resources@ response
 -- field instead./__
+--
+-- 'resources', 'listGroupResourcesResponse_resources' - An array of resources from which you can determine each resource\'s
+-- identity, type, and group membership status.
 --
 -- 'httpStatus', 'listGroupResourcesResponse_httpStatus' - The response's http status code.
 newListGroupResourcesResponse ::
@@ -384,25 +386,13 @@ newListGroupResourcesResponse ::
   ListGroupResourcesResponse
 newListGroupResourcesResponse pHttpStatus_ =
   ListGroupResourcesResponse'
-    { resources =
+    { nextToken =
         Prelude.Nothing,
       queryErrors = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       resourceIdentifiers = Prelude.Nothing,
+      resources = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | An array of resources from which you can determine each resource\'s
--- identity, type, and group membership status.
-listGroupResourcesResponse_resources :: Lens.Lens' ListGroupResourcesResponse (Prelude.Maybe [ListGroupResourcesItem])
-listGroupResourcesResponse_resources = Lens.lens (\ListGroupResourcesResponse' {resources} -> resources) (\s@ListGroupResourcesResponse' {} a -> s {resources = a} :: ListGroupResourcesResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | A list of @QueryError@ objects. Each error is an object that contains
--- @ErrorCode@ and @Message@ structures. Possible values for @ErrorCode@
--- are @CLOUDFORMATION_STACK_INACTIVE@ and
--- @CLOUDFORMATION_STACK_NOT_EXISTING@.
-listGroupResourcesResponse_queryErrors :: Lens.Lens' ListGroupResourcesResponse (Prelude.Maybe [QueryError])
-listGroupResourcesResponse_queryErrors = Lens.lens (\ListGroupResourcesResponse' {queryErrors} -> queryErrors) (\s@ListGroupResourcesResponse' {} a -> s {queryErrors = a} :: ListGroupResourcesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | If present, indicates that more output is available than is included in
 -- the current response. Use this value in the @NextToken@ request
@@ -412,10 +402,22 @@ listGroupResourcesResponse_queryErrors = Lens.lens (\ListGroupResourcesResponse'
 listGroupResourcesResponse_nextToken :: Lens.Lens' ListGroupResourcesResponse (Prelude.Maybe Prelude.Text)
 listGroupResourcesResponse_nextToken = Lens.lens (\ListGroupResourcesResponse' {nextToken} -> nextToken) (\s@ListGroupResourcesResponse' {} a -> s {nextToken = a} :: ListGroupResourcesResponse)
 
+-- | A list of @QueryError@ objects. Each error is an object that contains
+-- @ErrorCode@ and @Message@ structures. Possible values for @ErrorCode@
+-- are @CLOUDFORMATION_STACK_INACTIVE@ and
+-- @CLOUDFORMATION_STACK_NOT_EXISTING@.
+listGroupResourcesResponse_queryErrors :: Lens.Lens' ListGroupResourcesResponse (Prelude.Maybe [QueryError])
+listGroupResourcesResponse_queryErrors = Lens.lens (\ListGroupResourcesResponse' {queryErrors} -> queryErrors) (\s@ListGroupResourcesResponse' {} a -> s {queryErrors = a} :: ListGroupResourcesResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | __/Deprecated - don\'t use this parameter. Use the @Resources@ response
 -- field instead./__
 listGroupResourcesResponse_resourceIdentifiers :: Lens.Lens' ListGroupResourcesResponse (Prelude.Maybe [ResourceIdentifier])
 listGroupResourcesResponse_resourceIdentifiers = Lens.lens (\ListGroupResourcesResponse' {resourceIdentifiers} -> resourceIdentifiers) (\s@ListGroupResourcesResponse' {} a -> s {resourceIdentifiers = a} :: ListGroupResourcesResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | An array of resources from which you can determine each resource\'s
+-- identity, type, and group membership status.
+listGroupResourcesResponse_resources :: Lens.Lens' ListGroupResourcesResponse (Prelude.Maybe [ListGroupResourcesItem])
+listGroupResourcesResponse_resources = Lens.lens (\ListGroupResourcesResponse' {resources} -> resources) (\s@ListGroupResourcesResponse' {} a -> s {resources = a} :: ListGroupResourcesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listGroupResourcesResponse_httpStatus :: Lens.Lens' ListGroupResourcesResponse Prelude.Int
@@ -423,8 +425,8 @@ listGroupResourcesResponse_httpStatus = Lens.lens (\ListGroupResourcesResponse' 
 
 instance Prelude.NFData ListGroupResourcesResponse where
   rnf ListGroupResourcesResponse' {..} =
-    Prelude.rnf resources
+    Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf queryErrors
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf resourceIdentifiers
+      `Prelude.seq` Prelude.rnf resources
       `Prelude.seq` Prelude.rnf httpStatus

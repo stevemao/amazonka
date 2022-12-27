@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.GetBotAliases
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,9 +31,9 @@ module Amazonka.LexModels.GetBotAliases
     newGetBotAliases,
 
     -- * Request Lenses
+    getBotAliases_maxResults,
     getBotAliases_nameContains,
     getBotAliases_nextToken,
-    getBotAliases_maxResults,
     getBotAliases_botName,
 
     -- * Destructuring the Response
@@ -41,14 +41,15 @@ module Amazonka.LexModels.GetBotAliases
     newGetBotAliasesResponse,
 
     -- * Response Lenses
-    getBotAliasesResponse_nextToken,
     getBotAliasesResponse_botAliases,
+    getBotAliasesResponse_nextToken,
     getBotAliasesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LexModels.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -56,7 +57,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetBotAliases' smart constructor.
 data GetBotAliases = GetBotAliases'
-  { -- | Substring to match in bot alias names. An alias will be returned if any
+  { -- | The maximum number of aliases to return in the response. The default is
+    -- 50. .
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Substring to match in bot alias names. An alias will be returned if any
     -- part of its name matches the substring. For example, \"xyz\" matches
     -- both \"xyzabc\" and \"abcxyz.\"
     nameContains :: Prelude.Maybe Prelude.Text,
@@ -65,9 +69,6 @@ data GetBotAliases = GetBotAliases'
     -- token in the response. To fetch the next page of aliases, specify the
     -- pagination token in the next request.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of aliases to return in the response. The default is
-    -- 50. .
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The name of the bot.
     botName :: Prelude.Text
   }
@@ -81,6 +82,9 @@ data GetBotAliases = GetBotAliases'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'getBotAliases_maxResults' - The maximum number of aliases to return in the response. The default is
+-- 50. .
+--
 -- 'nameContains', 'getBotAliases_nameContains' - Substring to match in bot alias names. An alias will be returned if any
 -- part of its name matches the substring. For example, \"xyz\" matches
 -- both \"xyzabc\" and \"abcxyz.\"
@@ -90,9 +94,6 @@ data GetBotAliases = GetBotAliases'
 -- token in the response. To fetch the next page of aliases, specify the
 -- pagination token in the next request.
 --
--- 'maxResults', 'getBotAliases_maxResults' - The maximum number of aliases to return in the response. The default is
--- 50. .
---
 -- 'botName', 'getBotAliases_botName' - The name of the bot.
 newGetBotAliases ::
   -- | 'botName'
@@ -100,11 +101,16 @@ newGetBotAliases ::
   GetBotAliases
 newGetBotAliases pBotName_ =
   GetBotAliases'
-    { nameContains = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nameContains = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
       botName = pBotName_
     }
+
+-- | The maximum number of aliases to return in the response. The default is
+-- 50. .
+getBotAliases_maxResults :: Lens.Lens' GetBotAliases (Prelude.Maybe Prelude.Natural)
+getBotAliases_maxResults = Lens.lens (\GetBotAliases' {maxResults} -> maxResults) (\s@GetBotAliases' {} a -> s {maxResults = a} :: GetBotAliases)
 
 -- | Substring to match in bot alias names. An alias will be returned if any
 -- part of its name matches the substring. For example, \"xyz\" matches
@@ -118,11 +124,6 @@ getBotAliases_nameContains = Lens.lens (\GetBotAliases' {nameContains} -> nameCo
 -- pagination token in the next request.
 getBotAliases_nextToken :: Lens.Lens' GetBotAliases (Prelude.Maybe Prelude.Text)
 getBotAliases_nextToken = Lens.lens (\GetBotAliases' {nextToken} -> nextToken) (\s@GetBotAliases' {} a -> s {nextToken = a} :: GetBotAliases)
-
--- | The maximum number of aliases to return in the response. The default is
--- 50. .
-getBotAliases_maxResults :: Lens.Lens' GetBotAliases (Prelude.Maybe Prelude.Natural)
-getBotAliases_maxResults = Lens.lens (\GetBotAliases' {maxResults} -> maxResults) (\s@GetBotAliases' {} a -> s {maxResults = a} :: GetBotAliases)
 
 -- | The name of the bot.
 getBotAliases_botName :: Lens.Lens' GetBotAliases Prelude.Text
@@ -152,63 +153,64 @@ instance Core.AWSRequest GetBotAliases where
   type
     AWSResponse GetBotAliases =
       GetBotAliasesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetBotAliasesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "BotAliases" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "BotAliases" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetBotAliases where
   hashWithSalt _salt GetBotAliases' {..} =
-    _salt `Prelude.hashWithSalt` nameContains
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nameContains
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` botName
 
 instance Prelude.NFData GetBotAliases where
   rnf GetBotAliases' {..} =
-    Prelude.rnf nameContains
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nameContains
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf botName
 
-instance Core.ToHeaders GetBotAliases where
+instance Data.ToHeaders GetBotAliases where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetBotAliases where
+instance Data.ToPath GetBotAliases where
   toPath GetBotAliases' {..} =
     Prelude.mconcat
-      ["/bots/", Core.toBS botName, "/aliases/"]
+      ["/bots/", Data.toBS botName, "/aliases/"]
 
-instance Core.ToQuery GetBotAliases where
+instance Data.ToQuery GetBotAliases where
   toQuery GetBotAliases' {..} =
     Prelude.mconcat
-      [ "nameContains" Core.=: nameContains,
-        "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nameContains" Data.=: nameContains,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newGetBotAliasesResponse' smart constructor.
 data GetBotAliasesResponse = GetBotAliasesResponse'
-  { -- | A pagination token for fetching next page of aliases. If the response to
+  { -- | An array of @BotAliasMetadata@ objects, each describing a bot alias.
+    botAliases :: Prelude.Maybe [BotAliasMetadata],
+    -- | A pagination token for fetching next page of aliases. If the response to
     -- this call is truncated, Amazon Lex returns a pagination token in the
     -- response. To fetch the next page of aliases, specify the pagination
     -- token in the next request.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | An array of @BotAliasMetadata@ objects, each describing a bot alias.
-    botAliases :: Prelude.Maybe [BotAliasMetadata],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -222,12 +224,12 @@ data GetBotAliasesResponse = GetBotAliasesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'botAliases', 'getBotAliasesResponse_botAliases' - An array of @BotAliasMetadata@ objects, each describing a bot alias.
+--
 -- 'nextToken', 'getBotAliasesResponse_nextToken' - A pagination token for fetching next page of aliases. If the response to
 -- this call is truncated, Amazon Lex returns a pagination token in the
 -- response. To fetch the next page of aliases, specify the pagination
 -- token in the next request.
---
--- 'botAliases', 'getBotAliasesResponse_botAliases' - An array of @BotAliasMetadata@ objects, each describing a bot alias.
 --
 -- 'httpStatus', 'getBotAliasesResponse_httpStatus' - The response's http status code.
 newGetBotAliasesResponse ::
@@ -236,10 +238,15 @@ newGetBotAliasesResponse ::
   GetBotAliasesResponse
 newGetBotAliasesResponse pHttpStatus_ =
   GetBotAliasesResponse'
-    { nextToken = Prelude.Nothing,
-      botAliases = Prelude.Nothing,
+    { botAliases =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | An array of @BotAliasMetadata@ objects, each describing a bot alias.
+getBotAliasesResponse_botAliases :: Lens.Lens' GetBotAliasesResponse (Prelude.Maybe [BotAliasMetadata])
+getBotAliasesResponse_botAliases = Lens.lens (\GetBotAliasesResponse' {botAliases} -> botAliases) (\s@GetBotAliasesResponse' {} a -> s {botAliases = a} :: GetBotAliasesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A pagination token for fetching next page of aliases. If the response to
 -- this call is truncated, Amazon Lex returns a pagination token in the
@@ -248,16 +255,12 @@ newGetBotAliasesResponse pHttpStatus_ =
 getBotAliasesResponse_nextToken :: Lens.Lens' GetBotAliasesResponse (Prelude.Maybe Prelude.Text)
 getBotAliasesResponse_nextToken = Lens.lens (\GetBotAliasesResponse' {nextToken} -> nextToken) (\s@GetBotAliasesResponse' {} a -> s {nextToken = a} :: GetBotAliasesResponse)
 
--- | An array of @BotAliasMetadata@ objects, each describing a bot alias.
-getBotAliasesResponse_botAliases :: Lens.Lens' GetBotAliasesResponse (Prelude.Maybe [BotAliasMetadata])
-getBotAliasesResponse_botAliases = Lens.lens (\GetBotAliasesResponse' {botAliases} -> botAliases) (\s@GetBotAliasesResponse' {} a -> s {botAliases = a} :: GetBotAliasesResponse) Prelude.. Lens.mapping Lens.coerced
-
 -- | The response's http status code.
 getBotAliasesResponse_httpStatus :: Lens.Lens' GetBotAliasesResponse Prelude.Int
 getBotAliasesResponse_httpStatus = Lens.lens (\GetBotAliasesResponse' {httpStatus} -> httpStatus) (\s@GetBotAliasesResponse' {} a -> s {httpStatus = a} :: GetBotAliasesResponse)
 
 instance Prelude.NFData GetBotAliasesResponse where
   rnf GetBotAliasesResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf botAliases
+    Prelude.rnf botAliases
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

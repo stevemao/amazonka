@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.UnarchiveFindings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.GuardDuty.UnarchiveFindings
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,7 +89,8 @@ instance Core.AWSRequest UnarchiveFindings where
   type
     AWSResponse UnarchiveFindings =
       UnarchiveFindingsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -106,33 +108,33 @@ instance Prelude.NFData UnarchiveFindings where
     Prelude.rnf detectorId
       `Prelude.seq` Prelude.rnf findingIds
 
-instance Core.ToHeaders UnarchiveFindings where
+instance Data.ToHeaders UnarchiveFindings where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UnarchiveFindings where
+instance Data.ToJSON UnarchiveFindings where
   toJSON UnarchiveFindings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("findingIds" Core..= findingIds)]
+          [Prelude.Just ("findingIds" Data..= findingIds)]
       )
 
-instance Core.ToPath UnarchiveFindings where
+instance Data.ToPath UnarchiveFindings where
   toPath UnarchiveFindings' {..} =
     Prelude.mconcat
       [ "/detector/",
-        Core.toBS detectorId,
+        Data.toBS detectorId,
         "/findings/unarchive"
       ]
 
-instance Core.ToQuery UnarchiveFindings where
+instance Data.ToQuery UnarchiveFindings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUnarchiveFindingsResponse' smart constructor.

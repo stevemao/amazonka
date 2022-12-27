@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSecureTunneling.CloseTunnel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,6 +23,10 @@
 -- Closes a tunnel identified by the unique tunnel id. When a @CloseTunnel@
 -- request is received, we close the WebSocket connections between the
 -- client and proxy server so no data can be transmitted.
+--
+-- Requires permission to access the
+-- <https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions CloseTunnel>
+-- action.
 module Amazonka.IoTSecureTunneling.CloseTunnel
   ( -- * Creating a Request
     CloseTunnel (..),
@@ -42,15 +46,16 @@ module Amazonka.IoTSecureTunneling.CloseTunnel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSecureTunneling.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCloseTunnel' smart constructor.
 data CloseTunnel = CloseTunnel'
-  { -- | When set to true, AWS IoT Secure Tunneling deletes the tunnel data
+  { -- | When set to true, IoT Secure Tunneling deletes the tunnel data
     -- immediately.
     delete' :: Prelude.Maybe Prelude.Bool,
     -- | The ID of the tunnel to close.
@@ -66,7 +71,7 @@ data CloseTunnel = CloseTunnel'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'delete'', 'closeTunnel_delete' - When set to true, AWS IoT Secure Tunneling deletes the tunnel data
+-- 'delete'', 'closeTunnel_delete' - When set to true, IoT Secure Tunneling deletes the tunnel data
 -- immediately.
 --
 -- 'tunnelId', 'closeTunnel_tunnelId' - The ID of the tunnel to close.
@@ -80,7 +85,7 @@ newCloseTunnel pTunnelId_ =
       tunnelId = pTunnelId_
     }
 
--- | When set to true, AWS IoT Secure Tunneling deletes the tunnel data
+-- | When set to true, IoT Secure Tunneling deletes the tunnel data
 -- immediately.
 closeTunnel_delete :: Lens.Lens' CloseTunnel (Prelude.Maybe Prelude.Bool)
 closeTunnel_delete = Lens.lens (\CloseTunnel' {delete'} -> delete') (\s@CloseTunnel' {} a -> s {delete' = a} :: CloseTunnel)
@@ -91,7 +96,8 @@ closeTunnel_tunnelId = Lens.lens (\CloseTunnel' {tunnelId} -> tunnelId) (\s@Clos
 
 instance Core.AWSRequest CloseTunnel where
   type AWSResponse CloseTunnel = CloseTunnelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -109,34 +115,34 @@ instance Prelude.NFData CloseTunnel where
     Prelude.rnf delete'
       `Prelude.seq` Prelude.rnf tunnelId
 
-instance Core.ToHeaders CloseTunnel where
+instance Data.ToHeaders CloseTunnel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "IoTSecuredTunneling.CloseTunnel" ::
+              Data.=# ( "IoTSecuredTunneling.CloseTunnel" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CloseTunnel where
+instance Data.ToJSON CloseTunnel where
   toJSON CloseTunnel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("delete" Core..=) Prelude.<$> delete',
-            Prelude.Just ("tunnelId" Core..= tunnelId)
+          [ ("delete" Data..=) Prelude.<$> delete',
+            Prelude.Just ("tunnelId" Data..= tunnelId)
           ]
       )
 
-instance Core.ToPath CloseTunnel where
+instance Data.ToPath CloseTunnel where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CloseTunnel where
+instance Data.ToQuery CloseTunnel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCloseTunnelResponse' smart constructor.

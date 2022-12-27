@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Amplify.DeleteApp
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.Amplify.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,13 +77,14 @@ deleteApp_appId = Lens.lens (\DeleteApp' {appId} -> appId) (\s@DeleteApp' {} a -
 
 instance Core.AWSRequest DeleteApp where
   type AWSResponse DeleteApp = DeleteAppResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteAppResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "app")
+            Prelude.<*> (x Data..:> "app")
       )
 
 instance Prelude.Hashable DeleteApp where
@@ -92,22 +94,22 @@ instance Prelude.Hashable DeleteApp where
 instance Prelude.NFData DeleteApp where
   rnf DeleteApp' {..} = Prelude.rnf appId
 
-instance Core.ToHeaders DeleteApp where
+instance Data.ToHeaders DeleteApp where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteApp where
+instance Data.ToPath DeleteApp where
   toPath DeleteApp' {..} =
-    Prelude.mconcat ["/apps/", Core.toBS appId]
+    Prelude.mconcat ["/apps/", Data.toBS appId]
 
-instance Core.ToQuery DeleteApp where
+instance Data.ToQuery DeleteApp where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The result structure for the delete app request.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SQS.SendMessage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,11 +37,11 @@ module Amazonka.SQS.SendMessage
     newSendMessage,
 
     -- * Request Lenses
-    sendMessage_messageAttributes,
     sendMessage_delaySeconds,
-    sendMessage_messageSystemAttributes,
+    sendMessage_messageAttributes,
     sendMessage_messageDeduplicationId,
     sendMessage_messageGroupId,
+    sendMessage_messageSystemAttributes,
     sendMessage_queueUrl,
     sendMessage_messageBody,
 
@@ -50,17 +50,18 @@ module Amazonka.SQS.SendMessage
     newSendMessageResponse,
 
     -- * Response Lenses
-    sendMessageResponse_sequenceNumber,
+    sendMessageResponse_mD5OfMessageAttributes,
+    sendMessageResponse_mD5OfMessageBody,
     sendMessageResponse_mD5OfMessageSystemAttributes,
     sendMessageResponse_messageId,
-    sendMessageResponse_mD5OfMessageBody,
-    sendMessageResponse_mD5OfMessageAttributes,
+    sendMessageResponse_sequenceNumber,
     sendMessageResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -70,12 +71,7 @@ import Amazonka.SQS.Types
 --
 -- /See:/ 'newSendMessage' smart constructor.
 data SendMessage = SendMessage'
-  { -- | Each message attribute consists of a @Name@, @Type@, and @Value@. For
-    -- more information, see
-    -- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes Amazon SQS message attributes>
-    -- in the /Amazon SQS Developer Guide/.
-    messageAttributes :: Prelude.Maybe (Prelude.HashMap Prelude.Text MessageAttributeValue),
-    -- | The length of time, in seconds, for which to delay a specific message.
+  { -- | The length of time, in seconds, for which to delay a specific message.
     -- Valid values: 0 to 900. Maximum: 15 minutes. Messages with a positive
     -- @DelaySeconds@ value become available for processing after the delay
     -- period is finished. If you don\'t specify a value, the default value for
@@ -84,16 +80,11 @@ data SendMessage = SendMessage'
     -- When you set @FifoQueue@, you can\'t set @DelaySeconds@ per message. You
     -- can set this parameter only on a queue level.
     delaySeconds :: Prelude.Maybe Prelude.Int,
-    -- | The message system attribute to send. Each message system attribute
-    -- consists of a @Name@, @Type@, and @Value@.
-    --
-    -- -   Currently, the only supported message system attribute is
-    --     @AWSTraceHeader@. Its type must be @String@ and its value must be a
-    --     correctly formatted X-Ray trace header string.
-    --
-    -- -   The size of a message system attribute doesn\'t count towards the
-    --     total size of a message.
-    messageSystemAttributes :: Prelude.Maybe (Prelude.HashMap MessageSystemAttributeNameForSends MessageSystemAttributeValue),
+    -- | Each message attribute consists of a @Name@, @Type@, and @Value@. For
+    -- more information, see
+    -- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes Amazon SQS message attributes>
+    -- in the /Amazon SQS Developer Guide/.
+    messageAttributes :: Prelude.Maybe (Prelude.HashMap Prelude.Text MessageAttributeValue),
     -- | This parameter applies only to FIFO (first-in-first-out) queues.
     --
     -- The token used for deduplication of sent messages. If a message with a
@@ -178,6 +169,16 @@ data SendMessage = SendMessage'
     -- @MessageGroupId@ is required for FIFO queues. You can\'t use it for
     -- Standard queues.
     messageGroupId :: Prelude.Maybe Prelude.Text,
+    -- | The message system attribute to send. Each message system attribute
+    -- consists of a @Name@, @Type@, and @Value@.
+    --
+    -- -   Currently, the only supported message system attribute is
+    --     @AWSTraceHeader@. Its type must be @String@ and its value must be a
+    --     correctly formatted X-Ray trace header string.
+    --
+    -- -   The size of a message system attribute doesn\'t count towards the
+    --     total size of a message.
+    messageSystemAttributes :: Prelude.Maybe (Prelude.HashMap MessageSystemAttributeNameForSends MessageSystemAttributeValue),
     -- | The URL of the Amazon SQS queue to which a message is sent.
     --
     -- Queue URLs and names are case-sensitive.
@@ -206,11 +207,6 @@ data SendMessage = SendMessage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'messageAttributes', 'sendMessage_messageAttributes' - Each message attribute consists of a @Name@, @Type@, and @Value@. For
--- more information, see
--- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes Amazon SQS message attributes>
--- in the /Amazon SQS Developer Guide/.
---
 -- 'delaySeconds', 'sendMessage_delaySeconds' - The length of time, in seconds, for which to delay a specific message.
 -- Valid values: 0 to 900. Maximum: 15 minutes. Messages with a positive
 -- @DelaySeconds@ value become available for processing after the delay
@@ -220,15 +216,10 @@ data SendMessage = SendMessage'
 -- When you set @FifoQueue@, you can\'t set @DelaySeconds@ per message. You
 -- can set this parameter only on a queue level.
 --
--- 'messageSystemAttributes', 'sendMessage_messageSystemAttributes' - The message system attribute to send. Each message system attribute
--- consists of a @Name@, @Type@, and @Value@.
---
--- -   Currently, the only supported message system attribute is
---     @AWSTraceHeader@. Its type must be @String@ and its value must be a
---     correctly formatted X-Ray trace header string.
---
--- -   The size of a message system attribute doesn\'t count towards the
---     total size of a message.
+-- 'messageAttributes', 'sendMessage_messageAttributes' - Each message attribute consists of a @Name@, @Type@, and @Value@. For
+-- more information, see
+-- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes Amazon SQS message attributes>
+-- in the /Amazon SQS Developer Guide/.
 --
 -- 'messageDeduplicationId', 'sendMessage_messageDeduplicationId' - This parameter applies only to FIFO (first-in-first-out) queues.
 --
@@ -314,6 +305,16 @@ data SendMessage = SendMessage'
 -- @MessageGroupId@ is required for FIFO queues. You can\'t use it for
 -- Standard queues.
 --
+-- 'messageSystemAttributes', 'sendMessage_messageSystemAttributes' - The message system attribute to send. Each message system attribute
+-- consists of a @Name@, @Type@, and @Value@.
+--
+-- -   Currently, the only supported message system attribute is
+--     @AWSTraceHeader@. Its type must be @String@ and its value must be a
+--     correctly formatted X-Ray trace header string.
+--
+-- -   The size of a message system attribute doesn\'t count towards the
+--     total size of a message.
+--
 -- 'queueUrl', 'sendMessage_queueUrl' - The URL of the Amazon SQS queue to which a message is sent.
 --
 -- Queue URLs and names are case-sensitive.
@@ -338,21 +339,14 @@ newSendMessage ::
   SendMessage
 newSendMessage pQueueUrl_ pMessageBody_ =
   SendMessage'
-    { messageAttributes = Prelude.Nothing,
-      delaySeconds = Prelude.Nothing,
-      messageSystemAttributes = Prelude.Nothing,
+    { delaySeconds = Prelude.Nothing,
+      messageAttributes = Prelude.Nothing,
       messageDeduplicationId = Prelude.Nothing,
       messageGroupId = Prelude.Nothing,
+      messageSystemAttributes = Prelude.Nothing,
       queueUrl = pQueueUrl_,
       messageBody = pMessageBody_
     }
-
--- | Each message attribute consists of a @Name@, @Type@, and @Value@. For
--- more information, see
--- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes Amazon SQS message attributes>
--- in the /Amazon SQS Developer Guide/.
-sendMessage_messageAttributes :: Lens.Lens' SendMessage (Prelude.Maybe (Prelude.HashMap Prelude.Text MessageAttributeValue))
-sendMessage_messageAttributes = Lens.lens (\SendMessage' {messageAttributes} -> messageAttributes) (\s@SendMessage' {} a -> s {messageAttributes = a} :: SendMessage) Prelude.. Lens.mapping Lens.coerced
 
 -- | The length of time, in seconds, for which to delay a specific message.
 -- Valid values: 0 to 900. Maximum: 15 minutes. Messages with a positive
@@ -365,17 +359,12 @@ sendMessage_messageAttributes = Lens.lens (\SendMessage' {messageAttributes} -> 
 sendMessage_delaySeconds :: Lens.Lens' SendMessage (Prelude.Maybe Prelude.Int)
 sendMessage_delaySeconds = Lens.lens (\SendMessage' {delaySeconds} -> delaySeconds) (\s@SendMessage' {} a -> s {delaySeconds = a} :: SendMessage)
 
--- | The message system attribute to send. Each message system attribute
--- consists of a @Name@, @Type@, and @Value@.
---
--- -   Currently, the only supported message system attribute is
---     @AWSTraceHeader@. Its type must be @String@ and its value must be a
---     correctly formatted X-Ray trace header string.
---
--- -   The size of a message system attribute doesn\'t count towards the
---     total size of a message.
-sendMessage_messageSystemAttributes :: Lens.Lens' SendMessage (Prelude.Maybe (Prelude.HashMap MessageSystemAttributeNameForSends MessageSystemAttributeValue))
-sendMessage_messageSystemAttributes = Lens.lens (\SendMessage' {messageSystemAttributes} -> messageSystemAttributes) (\s@SendMessage' {} a -> s {messageSystemAttributes = a} :: SendMessage) Prelude.. Lens.mapping Lens.coerced
+-- | Each message attribute consists of a @Name@, @Type@, and @Value@. For
+-- more information, see
+-- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes Amazon SQS message attributes>
+-- in the /Amazon SQS Developer Guide/.
+sendMessage_messageAttributes :: Lens.Lens' SendMessage (Prelude.Maybe (Prelude.HashMap Prelude.Text MessageAttributeValue))
+sendMessage_messageAttributes = Lens.lens (\SendMessage' {messageAttributes} -> messageAttributes) (\s@SendMessage' {} a -> s {messageAttributes = a} :: SendMessage) Prelude.. Lens.mapping Lens.coerced
 
 -- | This parameter applies only to FIFO (first-in-first-out) queues.
 --
@@ -465,6 +454,18 @@ sendMessage_messageDeduplicationId = Lens.lens (\SendMessage' {messageDeduplicat
 sendMessage_messageGroupId :: Lens.Lens' SendMessage (Prelude.Maybe Prelude.Text)
 sendMessage_messageGroupId = Lens.lens (\SendMessage' {messageGroupId} -> messageGroupId) (\s@SendMessage' {} a -> s {messageGroupId = a} :: SendMessage)
 
+-- | The message system attribute to send. Each message system attribute
+-- consists of a @Name@, @Type@, and @Value@.
+--
+-- -   Currently, the only supported message system attribute is
+--     @AWSTraceHeader@. Its type must be @String@ and its value must be a
+--     correctly formatted X-Ray trace header string.
+--
+-- -   The size of a message system attribute doesn\'t count towards the
+--     total size of a message.
+sendMessage_messageSystemAttributes :: Lens.Lens' SendMessage (Prelude.Maybe (Prelude.HashMap MessageSystemAttributeNameForSends MessageSystemAttributeValue))
+sendMessage_messageSystemAttributes = Lens.lens (\SendMessage' {messageSystemAttributes} -> messageSystemAttributes) (\s@SendMessage' {} a -> s {messageSystemAttributes = a} :: SendMessage) Prelude.. Lens.mapping Lens.coerced
+
 -- | The URL of the Amazon SQS queue to which a message is sent.
 --
 -- Queue URLs and names are case-sensitive.
@@ -488,84 +489,89 @@ sendMessage_messageBody = Lens.lens (\SendMessage' {messageBody} -> messageBody)
 
 instance Core.AWSRequest SendMessage where
   type AWSResponse SendMessage = SendMessageResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "SendMessageResult"
       ( \s h x ->
           SendMessageResponse'
-            Prelude.<$> (x Core..@? "SequenceNumber")
-            Prelude.<*> (x Core..@? "MD5OfMessageSystemAttributes")
-            Prelude.<*> (x Core..@? "MessageId")
-            Prelude.<*> (x Core..@? "MD5OfMessageBody")
-            Prelude.<*> (x Core..@? "MD5OfMessageAttributes")
+            Prelude.<$> (x Data..@? "MD5OfMessageAttributes")
+            Prelude.<*> (x Data..@? "MD5OfMessageBody")
+            Prelude.<*> (x Data..@? "MD5OfMessageSystemAttributes")
+            Prelude.<*> (x Data..@? "MessageId")
+            Prelude.<*> (x Data..@? "SequenceNumber")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable SendMessage where
   hashWithSalt _salt SendMessage' {..} =
-    _salt `Prelude.hashWithSalt` messageAttributes
-      `Prelude.hashWithSalt` delaySeconds
-      `Prelude.hashWithSalt` messageSystemAttributes
+    _salt `Prelude.hashWithSalt` delaySeconds
+      `Prelude.hashWithSalt` messageAttributes
       `Prelude.hashWithSalt` messageDeduplicationId
       `Prelude.hashWithSalt` messageGroupId
+      `Prelude.hashWithSalt` messageSystemAttributes
       `Prelude.hashWithSalt` queueUrl
       `Prelude.hashWithSalt` messageBody
 
 instance Prelude.NFData SendMessage where
   rnf SendMessage' {..} =
-    Prelude.rnf messageAttributes
-      `Prelude.seq` Prelude.rnf delaySeconds
-      `Prelude.seq` Prelude.rnf messageSystemAttributes
+    Prelude.rnf delaySeconds
+      `Prelude.seq` Prelude.rnf messageAttributes
       `Prelude.seq` Prelude.rnf messageDeduplicationId
       `Prelude.seq` Prelude.rnf messageGroupId
+      `Prelude.seq` Prelude.rnf messageSystemAttributes
       `Prelude.seq` Prelude.rnf queueUrl
       `Prelude.seq` Prelude.rnf messageBody
 
-instance Core.ToHeaders SendMessage where
+instance Data.ToHeaders SendMessage where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath SendMessage where
+instance Data.ToPath SendMessage where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SendMessage where
+instance Data.ToQuery SendMessage where
   toQuery SendMessage' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("SendMessage" :: Prelude.ByteString),
+          Data.=: ("SendMessage" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-11-05" :: Prelude.ByteString),
-        Core.toQuery
-          ( Core.toQueryMap "MessageAttribute" "Name" "Value"
+          Data.=: ("2012-11-05" :: Prelude.ByteString),
+        "DelaySeconds" Data.=: delaySeconds,
+        Data.toQuery
+          ( Data.toQueryMap "MessageAttribute" "Name" "Value"
               Prelude.<$> messageAttributes
           ),
-        "DelaySeconds" Core.=: delaySeconds,
-        Core.toQuery
-          ( Core.toQueryMap
+        "MessageDeduplicationId"
+          Data.=: messageDeduplicationId,
+        "MessageGroupId" Data.=: messageGroupId,
+        Data.toQuery
+          ( Data.toQueryMap
               "MessageSystemAttribute"
               "Name"
               "Value"
               Prelude.<$> messageSystemAttributes
           ),
-        "MessageDeduplicationId"
-          Core.=: messageDeduplicationId,
-        "MessageGroupId" Core.=: messageGroupId,
-        "QueueUrl" Core.=: queueUrl,
-        "MessageBody" Core.=: messageBody
+        "QueueUrl" Data.=: queueUrl,
+        "MessageBody" Data.=: messageBody
       ]
 
 -- | The @MD5OfMessageBody@ and @MessageId@ elements.
 --
 -- /See:/ 'newSendMessageResponse' smart constructor.
 data SendMessageResponse = SendMessageResponse'
-  { -- | This parameter applies only to FIFO (first-in-first-out) queues.
-    --
-    -- The large, non-consecutive number that Amazon SQS assigns to each
-    -- message.
-    --
-    -- The length of @SequenceNumber@ is 128 bits. @SequenceNumber@ continues
-    -- to increase for a particular @MessageGroupId@.
-    sequenceNumber :: Prelude.Maybe Prelude.Text,
+  { -- | An MD5 digest of the non-URL-encoded message attribute string. You can
+    -- use this attribute to verify that Amazon SQS received the message
+    -- correctly. Amazon SQS URL-decodes the message before creating the MD5
+    -- digest. For information about MD5, see
+    -- <https://www.ietf.org/rfc/rfc1321.txt RFC1321>.
+    mD5OfMessageAttributes :: Prelude.Maybe Prelude.Text,
+    -- | An MD5 digest of the non-URL-encoded message body string. You can use
+    -- this attribute to verify that Amazon SQS received the message correctly.
+    -- Amazon SQS URL-decodes the message before creating the MD5 digest. For
+    -- information about MD5, see
+    -- <https://www.ietf.org/rfc/rfc1321.txt RFC1321>.
+    mD5OfMessageBody :: Prelude.Maybe Prelude.Text,
     -- | An MD5 digest of the non-URL-encoded message system attribute string.
     -- You can use this attribute to verify that Amazon SQS received the
     -- message correctly. Amazon SQS URL-decodes the message before creating
@@ -576,18 +582,14 @@ data SendMessageResponse = SendMessageResponse'
     -- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-message-identifiers.html Queue and Message Identifiers>
     -- in the /Amazon SQS Developer Guide/.
     messageId :: Prelude.Maybe Prelude.Text,
-    -- | An MD5 digest of the non-URL-encoded message body string. You can use
-    -- this attribute to verify that Amazon SQS received the message correctly.
-    -- Amazon SQS URL-decodes the message before creating the MD5 digest. For
-    -- information about MD5, see
-    -- <https://www.ietf.org/rfc/rfc1321.txt RFC1321>.
-    mD5OfMessageBody :: Prelude.Maybe Prelude.Text,
-    -- | An MD5 digest of the non-URL-encoded message attribute string. You can
-    -- use this attribute to verify that Amazon SQS received the message
-    -- correctly. Amazon SQS URL-decodes the message before creating the MD5
-    -- digest. For information about MD5, see
-    -- <https://www.ietf.org/rfc/rfc1321.txt RFC1321>.
-    mD5OfMessageAttributes :: Prelude.Maybe Prelude.Text,
+    -- | This parameter applies only to FIFO (first-in-first-out) queues.
+    --
+    -- The large, non-consecutive number that Amazon SQS assigns to each
+    -- message.
+    --
+    -- The length of @SequenceNumber@ is 128 bits. @SequenceNumber@ continues
+    -- to increase for a particular @MessageGroupId@.
+    sequenceNumber :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -601,13 +603,17 @@ data SendMessageResponse = SendMessageResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sequenceNumber', 'sendMessageResponse_sequenceNumber' - This parameter applies only to FIFO (first-in-first-out) queues.
+-- 'mD5OfMessageAttributes', 'sendMessageResponse_mD5OfMessageAttributes' - An MD5 digest of the non-URL-encoded message attribute string. You can
+-- use this attribute to verify that Amazon SQS received the message
+-- correctly. Amazon SQS URL-decodes the message before creating the MD5
+-- digest. For information about MD5, see
+-- <https://www.ietf.org/rfc/rfc1321.txt RFC1321>.
 --
--- The large, non-consecutive number that Amazon SQS assigns to each
--- message.
---
--- The length of @SequenceNumber@ is 128 bits. @SequenceNumber@ continues
--- to increase for a particular @MessageGroupId@.
+-- 'mD5OfMessageBody', 'sendMessageResponse_mD5OfMessageBody' - An MD5 digest of the non-URL-encoded message body string. You can use
+-- this attribute to verify that Amazon SQS received the message correctly.
+-- Amazon SQS URL-decodes the message before creating the MD5 digest. For
+-- information about MD5, see
+-- <https://www.ietf.org/rfc/rfc1321.txt RFC1321>.
 --
 -- 'mD5OfMessageSystemAttributes', 'sendMessageResponse_mD5OfMessageSystemAttributes' - An MD5 digest of the non-URL-encoded message system attribute string.
 -- You can use this attribute to verify that Amazon SQS received the
@@ -619,17 +625,13 @@ data SendMessageResponse = SendMessageResponse'
 -- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-message-identifiers.html Queue and Message Identifiers>
 -- in the /Amazon SQS Developer Guide/.
 --
--- 'mD5OfMessageBody', 'sendMessageResponse_mD5OfMessageBody' - An MD5 digest of the non-URL-encoded message body string. You can use
--- this attribute to verify that Amazon SQS received the message correctly.
--- Amazon SQS URL-decodes the message before creating the MD5 digest. For
--- information about MD5, see
--- <https://www.ietf.org/rfc/rfc1321.txt RFC1321>.
+-- 'sequenceNumber', 'sendMessageResponse_sequenceNumber' - This parameter applies only to FIFO (first-in-first-out) queues.
 --
--- 'mD5OfMessageAttributes', 'sendMessageResponse_mD5OfMessageAttributes' - An MD5 digest of the non-URL-encoded message attribute string. You can
--- use this attribute to verify that Amazon SQS received the message
--- correctly. Amazon SQS URL-decodes the message before creating the MD5
--- digest. For information about MD5, see
--- <https://www.ietf.org/rfc/rfc1321.txt RFC1321>.
+-- The large, non-consecutive number that Amazon SQS assigns to each
+-- message.
+--
+-- The length of @SequenceNumber@ is 128 bits. @SequenceNumber@ continues
+-- to increase for a particular @MessageGroupId@.
 --
 -- 'httpStatus', 'sendMessageResponse_httpStatus' - The response's http status code.
 newSendMessageResponse ::
@@ -638,24 +640,30 @@ newSendMessageResponse ::
   SendMessageResponse
 newSendMessageResponse pHttpStatus_ =
   SendMessageResponse'
-    { sequenceNumber =
+    { mD5OfMessageAttributes =
         Prelude.Nothing,
+      mD5OfMessageBody = Prelude.Nothing,
       mD5OfMessageSystemAttributes = Prelude.Nothing,
       messageId = Prelude.Nothing,
-      mD5OfMessageBody = Prelude.Nothing,
-      mD5OfMessageAttributes = Prelude.Nothing,
+      sequenceNumber = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | This parameter applies only to FIFO (first-in-first-out) queues.
---
--- The large, non-consecutive number that Amazon SQS assigns to each
--- message.
---
--- The length of @SequenceNumber@ is 128 bits. @SequenceNumber@ continues
--- to increase for a particular @MessageGroupId@.
-sendMessageResponse_sequenceNumber :: Lens.Lens' SendMessageResponse (Prelude.Maybe Prelude.Text)
-sendMessageResponse_sequenceNumber = Lens.lens (\SendMessageResponse' {sequenceNumber} -> sequenceNumber) (\s@SendMessageResponse' {} a -> s {sequenceNumber = a} :: SendMessageResponse)
+-- | An MD5 digest of the non-URL-encoded message attribute string. You can
+-- use this attribute to verify that Amazon SQS received the message
+-- correctly. Amazon SQS URL-decodes the message before creating the MD5
+-- digest. For information about MD5, see
+-- <https://www.ietf.org/rfc/rfc1321.txt RFC1321>.
+sendMessageResponse_mD5OfMessageAttributes :: Lens.Lens' SendMessageResponse (Prelude.Maybe Prelude.Text)
+sendMessageResponse_mD5OfMessageAttributes = Lens.lens (\SendMessageResponse' {mD5OfMessageAttributes} -> mD5OfMessageAttributes) (\s@SendMessageResponse' {} a -> s {mD5OfMessageAttributes = a} :: SendMessageResponse)
+
+-- | An MD5 digest of the non-URL-encoded message body string. You can use
+-- this attribute to verify that Amazon SQS received the message correctly.
+-- Amazon SQS URL-decodes the message before creating the MD5 digest. For
+-- information about MD5, see
+-- <https://www.ietf.org/rfc/rfc1321.txt RFC1321>.
+sendMessageResponse_mD5OfMessageBody :: Lens.Lens' SendMessageResponse (Prelude.Maybe Prelude.Text)
+sendMessageResponse_mD5OfMessageBody = Lens.lens (\SendMessageResponse' {mD5OfMessageBody} -> mD5OfMessageBody) (\s@SendMessageResponse' {} a -> s {mD5OfMessageBody = a} :: SendMessageResponse)
 
 -- | An MD5 digest of the non-URL-encoded message system attribute string.
 -- You can use this attribute to verify that Amazon SQS received the
@@ -671,21 +679,15 @@ sendMessageResponse_mD5OfMessageSystemAttributes = Lens.lens (\SendMessageRespon
 sendMessageResponse_messageId :: Lens.Lens' SendMessageResponse (Prelude.Maybe Prelude.Text)
 sendMessageResponse_messageId = Lens.lens (\SendMessageResponse' {messageId} -> messageId) (\s@SendMessageResponse' {} a -> s {messageId = a} :: SendMessageResponse)
 
--- | An MD5 digest of the non-URL-encoded message body string. You can use
--- this attribute to verify that Amazon SQS received the message correctly.
--- Amazon SQS URL-decodes the message before creating the MD5 digest. For
--- information about MD5, see
--- <https://www.ietf.org/rfc/rfc1321.txt RFC1321>.
-sendMessageResponse_mD5OfMessageBody :: Lens.Lens' SendMessageResponse (Prelude.Maybe Prelude.Text)
-sendMessageResponse_mD5OfMessageBody = Lens.lens (\SendMessageResponse' {mD5OfMessageBody} -> mD5OfMessageBody) (\s@SendMessageResponse' {} a -> s {mD5OfMessageBody = a} :: SendMessageResponse)
-
--- | An MD5 digest of the non-URL-encoded message attribute string. You can
--- use this attribute to verify that Amazon SQS received the message
--- correctly. Amazon SQS URL-decodes the message before creating the MD5
--- digest. For information about MD5, see
--- <https://www.ietf.org/rfc/rfc1321.txt RFC1321>.
-sendMessageResponse_mD5OfMessageAttributes :: Lens.Lens' SendMessageResponse (Prelude.Maybe Prelude.Text)
-sendMessageResponse_mD5OfMessageAttributes = Lens.lens (\SendMessageResponse' {mD5OfMessageAttributes} -> mD5OfMessageAttributes) (\s@SendMessageResponse' {} a -> s {mD5OfMessageAttributes = a} :: SendMessageResponse)
+-- | This parameter applies only to FIFO (first-in-first-out) queues.
+--
+-- The large, non-consecutive number that Amazon SQS assigns to each
+-- message.
+--
+-- The length of @SequenceNumber@ is 128 bits. @SequenceNumber@ continues
+-- to increase for a particular @MessageGroupId@.
+sendMessageResponse_sequenceNumber :: Lens.Lens' SendMessageResponse (Prelude.Maybe Prelude.Text)
+sendMessageResponse_sequenceNumber = Lens.lens (\SendMessageResponse' {sequenceNumber} -> sequenceNumber) (\s@SendMessageResponse' {} a -> s {sequenceNumber = a} :: SendMessageResponse)
 
 -- | The response's http status code.
 sendMessageResponse_httpStatus :: Lens.Lens' SendMessageResponse Prelude.Int
@@ -693,9 +695,9 @@ sendMessageResponse_httpStatus = Lens.lens (\SendMessageResponse' {httpStatus} -
 
 instance Prelude.NFData SendMessageResponse where
   rnf SendMessageResponse' {..} =
-    Prelude.rnf sequenceNumber
+    Prelude.rnf mD5OfMessageAttributes
+      `Prelude.seq` Prelude.rnf mD5OfMessageBody
       `Prelude.seq` Prelude.rnf mD5OfMessageSystemAttributes
       `Prelude.seq` Prelude.rnf messageId
-      `Prelude.seq` Prelude.rnf mD5OfMessageBody
-      `Prelude.seq` Prelude.rnf mD5OfMessageAttributes
+      `Prelude.seq` Prelude.rnf sequenceNumber
       `Prelude.seq` Prelude.rnf httpStatus

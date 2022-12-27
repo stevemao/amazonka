@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Kinesis.DescribeStreamConsumer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,8 +37,8 @@ module Amazonka.Kinesis.DescribeStreamConsumer
 
     -- * Request Lenses
     describeStreamConsumer_consumerARN,
-    describeStreamConsumer_streamARN,
     describeStreamConsumer_consumerName,
+    describeStreamConsumer_streamARN,
 
     -- * Destructuring the Response
     DescribeStreamConsumerResponse (..),
@@ -51,8 +51,9 @@ module Amazonka.Kinesis.DescribeStreamConsumer
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kinesis.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,12 +63,12 @@ data DescribeStreamConsumer = DescribeStreamConsumer'
   { -- | The ARN returned by Kinesis Data Streams when you registered the
     -- consumer.
     consumerARN :: Prelude.Maybe Prelude.Text,
+    -- | The name that you gave to the consumer.
+    consumerName :: Prelude.Maybe Prelude.Text,
     -- | The ARN of the Kinesis data stream that the consumer is registered with.
     -- For more information, see
-    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and AWS Service Namespaces>.
-    streamARN :: Prelude.Maybe Prelude.Text,
-    -- | The name that you gave to the consumer.
-    consumerName :: Prelude.Maybe Prelude.Text
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>.
+    streamARN :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -82,19 +83,19 @@ data DescribeStreamConsumer = DescribeStreamConsumer'
 -- 'consumerARN', 'describeStreamConsumer_consumerARN' - The ARN returned by Kinesis Data Streams when you registered the
 -- consumer.
 --
+-- 'consumerName', 'describeStreamConsumer_consumerName' - The name that you gave to the consumer.
+--
 -- 'streamARN', 'describeStreamConsumer_streamARN' - The ARN of the Kinesis data stream that the consumer is registered with.
 -- For more information, see
--- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and AWS Service Namespaces>.
---
--- 'consumerName', 'describeStreamConsumer_consumerName' - The name that you gave to the consumer.
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>.
 newDescribeStreamConsumer ::
   DescribeStreamConsumer
 newDescribeStreamConsumer =
   DescribeStreamConsumer'
     { consumerARN =
         Prelude.Nothing,
-      streamARN = Prelude.Nothing,
-      consumerName = Prelude.Nothing
+      consumerName = Prelude.Nothing,
+      streamARN = Prelude.Nothing
     }
 
 -- | The ARN returned by Kinesis Data Streams when you registered the
@@ -102,70 +103,71 @@ newDescribeStreamConsumer =
 describeStreamConsumer_consumerARN :: Lens.Lens' DescribeStreamConsumer (Prelude.Maybe Prelude.Text)
 describeStreamConsumer_consumerARN = Lens.lens (\DescribeStreamConsumer' {consumerARN} -> consumerARN) (\s@DescribeStreamConsumer' {} a -> s {consumerARN = a} :: DescribeStreamConsumer)
 
--- | The ARN of the Kinesis data stream that the consumer is registered with.
--- For more information, see
--- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and AWS Service Namespaces>.
-describeStreamConsumer_streamARN :: Lens.Lens' DescribeStreamConsumer (Prelude.Maybe Prelude.Text)
-describeStreamConsumer_streamARN = Lens.lens (\DescribeStreamConsumer' {streamARN} -> streamARN) (\s@DescribeStreamConsumer' {} a -> s {streamARN = a} :: DescribeStreamConsumer)
-
 -- | The name that you gave to the consumer.
 describeStreamConsumer_consumerName :: Lens.Lens' DescribeStreamConsumer (Prelude.Maybe Prelude.Text)
 describeStreamConsumer_consumerName = Lens.lens (\DescribeStreamConsumer' {consumerName} -> consumerName) (\s@DescribeStreamConsumer' {} a -> s {consumerName = a} :: DescribeStreamConsumer)
+
+-- | The ARN of the Kinesis data stream that the consumer is registered with.
+-- For more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>.
+describeStreamConsumer_streamARN :: Lens.Lens' DescribeStreamConsumer (Prelude.Maybe Prelude.Text)
+describeStreamConsumer_streamARN = Lens.lens (\DescribeStreamConsumer' {streamARN} -> streamARN) (\s@DescribeStreamConsumer' {} a -> s {streamARN = a} :: DescribeStreamConsumer)
 
 instance Core.AWSRequest DescribeStreamConsumer where
   type
     AWSResponse DescribeStreamConsumer =
       DescribeStreamConsumerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeStreamConsumerResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "ConsumerDescription")
+            Prelude.<*> (x Data..:> "ConsumerDescription")
       )
 
 instance Prelude.Hashable DescribeStreamConsumer where
   hashWithSalt _salt DescribeStreamConsumer' {..} =
     _salt `Prelude.hashWithSalt` consumerARN
-      `Prelude.hashWithSalt` streamARN
       `Prelude.hashWithSalt` consumerName
+      `Prelude.hashWithSalt` streamARN
 
 instance Prelude.NFData DescribeStreamConsumer where
   rnf DescribeStreamConsumer' {..} =
     Prelude.rnf consumerARN
-      `Prelude.seq` Prelude.rnf streamARN
       `Prelude.seq` Prelude.rnf consumerName
+      `Prelude.seq` Prelude.rnf streamARN
 
-instance Core.ToHeaders DescribeStreamConsumer where
+instance Data.ToHeaders DescribeStreamConsumer where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Kinesis_20131202.DescribeStreamConsumer" ::
+              Data.=# ( "Kinesis_20131202.DescribeStreamConsumer" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeStreamConsumer where
+instance Data.ToJSON DescribeStreamConsumer where
   toJSON DescribeStreamConsumer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ConsumerARN" Core..=) Prelude.<$> consumerARN,
-            ("StreamARN" Core..=) Prelude.<$> streamARN,
-            ("ConsumerName" Core..=) Prelude.<$> consumerName
+          [ ("ConsumerARN" Data..=) Prelude.<$> consumerARN,
+            ("ConsumerName" Data..=) Prelude.<$> consumerName,
+            ("StreamARN" Data..=) Prelude.<$> streamARN
           ]
       )
 
-instance Core.ToPath DescribeStreamConsumer where
+instance Data.ToPath DescribeStreamConsumer where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeStreamConsumer where
+instance Data.ToQuery DescribeStreamConsumer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeStreamConsumerResponse' smart constructor.

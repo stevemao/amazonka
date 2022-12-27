@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorksCM.DescribeAccountAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.OpsWorksCM.DescribeAccountAttributes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorksCM.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -64,12 +65,13 @@ instance Core.AWSRequest DescribeAccountAttributes where
   type
     AWSResponse DescribeAccountAttributes =
       DescribeAccountAttributesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAccountAttributesResponse'
-            Prelude.<$> (x Core..?> "Attributes" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Attributes" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -80,28 +82,28 @@ instance Prelude.Hashable DescribeAccountAttributes where
 instance Prelude.NFData DescribeAccountAttributes where
   rnf _ = ()
 
-instance Core.ToHeaders DescribeAccountAttributes where
+instance Data.ToHeaders DescribeAccountAttributes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorksCM_V2016_11_01.DescribeAccountAttributes" ::
+              Data.=# ( "OpsWorksCM_V2016_11_01.DescribeAccountAttributes" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeAccountAttributes where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON DescribeAccountAttributes where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath DescribeAccountAttributes where
+instance Data.ToPath DescribeAccountAttributes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeAccountAttributes where
+instance Data.ToQuery DescribeAccountAttributes where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeAccountAttributesResponse' smart constructor.

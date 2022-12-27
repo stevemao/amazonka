@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.Types.ScheduleActivityTaskDecisionAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SWF.Types.ScheduleActivityTaskDecisionAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SWF.Types.ActivityType
 import Amazonka.SWF.Types.TaskList
@@ -72,6 +73,8 @@ data ScheduleActivityTaskDecisionAttributes = ScheduleActivityTaskDecisionAttrib
     -- The duration is specified in seconds, an integer greater than or equal
     -- to @0@. You can use @NONE@ to specify unlimited duration.
     heartbeatTimeout :: Prelude.Maybe Prelude.Text,
+    -- | The input provided to the activity task.
+    input :: Prelude.Maybe Prelude.Text,
     -- | The maximum duration for this activity task.
     --
     -- The duration is specified in seconds, an integer greater than or equal
@@ -82,33 +85,6 @@ data ScheduleActivityTaskDecisionAttributes = ScheduleActivityTaskDecisionAttrib
     -- neither this field is set nor a default schedule-to-close timeout was
     -- specified at registration time then a fault is returned.
     scheduleToCloseTimeout :: Prelude.Maybe Prelude.Text,
-    -- | The input provided to the activity task.
-    input :: Prelude.Maybe Prelude.Text,
-    -- | If set, specifies the name of the task list in which to schedule the
-    -- activity task. If not specified, the @defaultTaskList@ registered with
-    -- the activity type is used.
-    --
-    -- A task list for this activity task must be specified either as a default
-    -- for the activity type or through this field. If neither this field is
-    -- set nor a default task list was specified at registration time then a
-    -- fault is returned.
-    --
-    -- The specified string must not start or end with whitespace. It must not
-    -- contain a @:@ (colon), @\/@ (slash), @|@ (vertical bar), or any control
-    -- characters (@\\u0000-\\u001f@ | @\\u007f-\\u009f@). Also, it must not
-    -- contain the literal string @arn@.
-    taskList :: Prelude.Maybe TaskList,
-    -- | If set, specifies the priority with which the activity task is to be
-    -- assigned to a worker. This overrides the defaultTaskPriority specified
-    -- when registering the activity type using RegisterActivityType. Valid
-    -- values are integers that range from Java\'s @Integer.MIN_VALUE@
-    -- (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers
-    -- indicate higher priority.
-    --
-    -- For more information about setting task priority, see
-    -- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority>
-    -- in the /Amazon SWF Developer Guide/.
-    taskPriority :: Prelude.Maybe Prelude.Text,
     -- | If set, specifies the maximum duration the activity task can wait to be
     -- assigned to a worker. This overrides the default schedule-to-start
     -- timeout specified when registering the activity type using
@@ -134,6 +110,31 @@ data ScheduleActivityTaskDecisionAttributes = ScheduleActivityTaskDecisionAttrib
     -- this field is set nor a default start-to-close timeout was specified at
     -- registration time then a fault is returned.
     startToCloseTimeout :: Prelude.Maybe Prelude.Text,
+    -- | If set, specifies the name of the task list in which to schedule the
+    -- activity task. If not specified, the @defaultTaskList@ registered with
+    -- the activity type is used.
+    --
+    -- A task list for this activity task must be specified either as a default
+    -- for the activity type or through this field. If neither this field is
+    -- set nor a default task list was specified at registration time then a
+    -- fault is returned.
+    --
+    -- The specified string must not start or end with whitespace. It must not
+    -- contain a @:@ (colon), @\/@ (slash), @|@ (vertical bar), or any control
+    -- characters (@\\u0000-\\u001f@ | @\\u007f-\\u009f@). Also, it must not
+    -- contain the literal string @arn@.
+    taskList :: Prelude.Maybe TaskList,
+    -- | If set, specifies the priority with which the activity task is to be
+    -- assigned to a worker. This overrides the defaultTaskPriority specified
+    -- when registering the activity type using RegisterActivityType. Valid
+    -- values are integers that range from Java\'s @Integer.MIN_VALUE@
+    -- (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers
+    -- indicate higher priority.
+    --
+    -- For more information about setting task priority, see
+    -- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority>
+    -- in the /Amazon SWF Developer Guide/.
+    taskPriority :: Prelude.Maybe Prelude.Text,
     -- | The type of the activity task to schedule.
     activityType :: ActivityType,
     -- | The @activityId@ of the activity task.
@@ -168,6 +169,8 @@ data ScheduleActivityTaskDecisionAttributes = ScheduleActivityTaskDecisionAttrib
 -- The duration is specified in seconds, an integer greater than or equal
 -- to @0@. You can use @NONE@ to specify unlimited duration.
 --
+-- 'input', 'scheduleActivityTaskDecisionAttributes_input' - The input provided to the activity task.
+--
 -- 'scheduleToCloseTimeout', 'scheduleActivityTaskDecisionAttributes_scheduleToCloseTimeout' - The maximum duration for this activity task.
 --
 -- The duration is specified in seconds, an integer greater than or equal
@@ -177,33 +180,6 @@ data ScheduleActivityTaskDecisionAttributes = ScheduleActivityTaskDecisionAttrib
 -- either as a default for the activity type or through this field. If
 -- neither this field is set nor a default schedule-to-close timeout was
 -- specified at registration time then a fault is returned.
---
--- 'input', 'scheduleActivityTaskDecisionAttributes_input' - The input provided to the activity task.
---
--- 'taskList', 'scheduleActivityTaskDecisionAttributes_taskList' - If set, specifies the name of the task list in which to schedule the
--- activity task. If not specified, the @defaultTaskList@ registered with
--- the activity type is used.
---
--- A task list for this activity task must be specified either as a default
--- for the activity type or through this field. If neither this field is
--- set nor a default task list was specified at registration time then a
--- fault is returned.
---
--- The specified string must not start or end with whitespace. It must not
--- contain a @:@ (colon), @\/@ (slash), @|@ (vertical bar), or any control
--- characters (@\\u0000-\\u001f@ | @\\u007f-\\u009f@). Also, it must not
--- contain the literal string @arn@.
---
--- 'taskPriority', 'scheduleActivityTaskDecisionAttributes_taskPriority' - If set, specifies the priority with which the activity task is to be
--- assigned to a worker. This overrides the defaultTaskPriority specified
--- when registering the activity type using RegisterActivityType. Valid
--- values are integers that range from Java\'s @Integer.MIN_VALUE@
--- (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers
--- indicate higher priority.
---
--- For more information about setting task priority, see
--- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority>
--- in the /Amazon SWF Developer Guide/.
 --
 -- 'scheduleToStartTimeout', 'scheduleActivityTaskDecisionAttributes_scheduleToStartTimeout' - If set, specifies the maximum duration the activity task can wait to be
 -- assigned to a worker. This overrides the default schedule-to-start
@@ -230,6 +206,31 @@ data ScheduleActivityTaskDecisionAttributes = ScheduleActivityTaskDecisionAttrib
 -- this field is set nor a default start-to-close timeout was specified at
 -- registration time then a fault is returned.
 --
+-- 'taskList', 'scheduleActivityTaskDecisionAttributes_taskList' - If set, specifies the name of the task list in which to schedule the
+-- activity task. If not specified, the @defaultTaskList@ registered with
+-- the activity type is used.
+--
+-- A task list for this activity task must be specified either as a default
+-- for the activity type or through this field. If neither this field is
+-- set nor a default task list was specified at registration time then a
+-- fault is returned.
+--
+-- The specified string must not start or end with whitespace. It must not
+-- contain a @:@ (colon), @\/@ (slash), @|@ (vertical bar), or any control
+-- characters (@\\u0000-\\u001f@ | @\\u007f-\\u009f@). Also, it must not
+-- contain the literal string @arn@.
+--
+-- 'taskPriority', 'scheduleActivityTaskDecisionAttributes_taskPriority' - If set, specifies the priority with which the activity task is to be
+-- assigned to a worker. This overrides the defaultTaskPriority specified
+-- when registering the activity type using RegisterActivityType. Valid
+-- values are integers that range from Java\'s @Integer.MIN_VALUE@
+-- (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers
+-- indicate higher priority.
+--
+-- For more information about setting task priority, see
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority>
+-- in the /Amazon SWF Developer Guide/.
+--
 -- 'activityType', 'scheduleActivityTaskDecisionAttributes_activityType' - The type of the activity task to schedule.
 --
 -- 'activityId', 'scheduleActivityTaskDecisionAttributes_activityId' - The @activityId@ of the activity task.
@@ -251,15 +252,15 @@ newScheduleActivityTaskDecisionAttributes
       { control =
           Prelude.Nothing,
         heartbeatTimeout = Prelude.Nothing,
+        input = Prelude.Nothing,
         scheduleToCloseTimeout =
           Prelude.Nothing,
-        input = Prelude.Nothing,
-        taskList = Prelude.Nothing,
-        taskPriority = Prelude.Nothing,
         scheduleToStartTimeout =
           Prelude.Nothing,
         startToCloseTimeout =
           Prelude.Nothing,
+        taskList = Prelude.Nothing,
+        taskPriority = Prelude.Nothing,
         activityType = pActivityType_,
         activityId = pActivityId_
       }
@@ -282,6 +283,10 @@ scheduleActivityTaskDecisionAttributes_control = Lens.lens (\ScheduleActivityTas
 scheduleActivityTaskDecisionAttributes_heartbeatTimeout :: Lens.Lens' ScheduleActivityTaskDecisionAttributes (Prelude.Maybe Prelude.Text)
 scheduleActivityTaskDecisionAttributes_heartbeatTimeout = Lens.lens (\ScheduleActivityTaskDecisionAttributes' {heartbeatTimeout} -> heartbeatTimeout) (\s@ScheduleActivityTaskDecisionAttributes' {} a -> s {heartbeatTimeout = a} :: ScheduleActivityTaskDecisionAttributes)
 
+-- | The input provided to the activity task.
+scheduleActivityTaskDecisionAttributes_input :: Lens.Lens' ScheduleActivityTaskDecisionAttributes (Prelude.Maybe Prelude.Text)
+scheduleActivityTaskDecisionAttributes_input = Lens.lens (\ScheduleActivityTaskDecisionAttributes' {input} -> input) (\s@ScheduleActivityTaskDecisionAttributes' {} a -> s {input = a} :: ScheduleActivityTaskDecisionAttributes)
+
 -- | The maximum duration for this activity task.
 --
 -- The duration is specified in seconds, an integer greater than or equal
@@ -293,39 +298,6 @@ scheduleActivityTaskDecisionAttributes_heartbeatTimeout = Lens.lens (\ScheduleAc
 -- specified at registration time then a fault is returned.
 scheduleActivityTaskDecisionAttributes_scheduleToCloseTimeout :: Lens.Lens' ScheduleActivityTaskDecisionAttributes (Prelude.Maybe Prelude.Text)
 scheduleActivityTaskDecisionAttributes_scheduleToCloseTimeout = Lens.lens (\ScheduleActivityTaskDecisionAttributes' {scheduleToCloseTimeout} -> scheduleToCloseTimeout) (\s@ScheduleActivityTaskDecisionAttributes' {} a -> s {scheduleToCloseTimeout = a} :: ScheduleActivityTaskDecisionAttributes)
-
--- | The input provided to the activity task.
-scheduleActivityTaskDecisionAttributes_input :: Lens.Lens' ScheduleActivityTaskDecisionAttributes (Prelude.Maybe Prelude.Text)
-scheduleActivityTaskDecisionAttributes_input = Lens.lens (\ScheduleActivityTaskDecisionAttributes' {input} -> input) (\s@ScheduleActivityTaskDecisionAttributes' {} a -> s {input = a} :: ScheduleActivityTaskDecisionAttributes)
-
--- | If set, specifies the name of the task list in which to schedule the
--- activity task. If not specified, the @defaultTaskList@ registered with
--- the activity type is used.
---
--- A task list for this activity task must be specified either as a default
--- for the activity type or through this field. If neither this field is
--- set nor a default task list was specified at registration time then a
--- fault is returned.
---
--- The specified string must not start or end with whitespace. It must not
--- contain a @:@ (colon), @\/@ (slash), @|@ (vertical bar), or any control
--- characters (@\\u0000-\\u001f@ | @\\u007f-\\u009f@). Also, it must not
--- contain the literal string @arn@.
-scheduleActivityTaskDecisionAttributes_taskList :: Lens.Lens' ScheduleActivityTaskDecisionAttributes (Prelude.Maybe TaskList)
-scheduleActivityTaskDecisionAttributes_taskList = Lens.lens (\ScheduleActivityTaskDecisionAttributes' {taskList} -> taskList) (\s@ScheduleActivityTaskDecisionAttributes' {} a -> s {taskList = a} :: ScheduleActivityTaskDecisionAttributes)
-
--- | If set, specifies the priority with which the activity task is to be
--- assigned to a worker. This overrides the defaultTaskPriority specified
--- when registering the activity type using RegisterActivityType. Valid
--- values are integers that range from Java\'s @Integer.MIN_VALUE@
--- (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers
--- indicate higher priority.
---
--- For more information about setting task priority, see
--- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority>
--- in the /Amazon SWF Developer Guide/.
-scheduleActivityTaskDecisionAttributes_taskPriority :: Lens.Lens' ScheduleActivityTaskDecisionAttributes (Prelude.Maybe Prelude.Text)
-scheduleActivityTaskDecisionAttributes_taskPriority = Lens.lens (\ScheduleActivityTaskDecisionAttributes' {taskPriority} -> taskPriority) (\s@ScheduleActivityTaskDecisionAttributes' {} a -> s {taskPriority = a} :: ScheduleActivityTaskDecisionAttributes)
 
 -- | If set, specifies the maximum duration the activity task can wait to be
 -- assigned to a worker. This overrides the default schedule-to-start
@@ -356,6 +328,35 @@ scheduleActivityTaskDecisionAttributes_scheduleToStartTimeout = Lens.lens (\Sche
 scheduleActivityTaskDecisionAttributes_startToCloseTimeout :: Lens.Lens' ScheduleActivityTaskDecisionAttributes (Prelude.Maybe Prelude.Text)
 scheduleActivityTaskDecisionAttributes_startToCloseTimeout = Lens.lens (\ScheduleActivityTaskDecisionAttributes' {startToCloseTimeout} -> startToCloseTimeout) (\s@ScheduleActivityTaskDecisionAttributes' {} a -> s {startToCloseTimeout = a} :: ScheduleActivityTaskDecisionAttributes)
 
+-- | If set, specifies the name of the task list in which to schedule the
+-- activity task. If not specified, the @defaultTaskList@ registered with
+-- the activity type is used.
+--
+-- A task list for this activity task must be specified either as a default
+-- for the activity type or through this field. If neither this field is
+-- set nor a default task list was specified at registration time then a
+-- fault is returned.
+--
+-- The specified string must not start or end with whitespace. It must not
+-- contain a @:@ (colon), @\/@ (slash), @|@ (vertical bar), or any control
+-- characters (@\\u0000-\\u001f@ | @\\u007f-\\u009f@). Also, it must not
+-- contain the literal string @arn@.
+scheduleActivityTaskDecisionAttributes_taskList :: Lens.Lens' ScheduleActivityTaskDecisionAttributes (Prelude.Maybe TaskList)
+scheduleActivityTaskDecisionAttributes_taskList = Lens.lens (\ScheduleActivityTaskDecisionAttributes' {taskList} -> taskList) (\s@ScheduleActivityTaskDecisionAttributes' {} a -> s {taskList = a} :: ScheduleActivityTaskDecisionAttributes)
+
+-- | If set, specifies the priority with which the activity task is to be
+-- assigned to a worker. This overrides the defaultTaskPriority specified
+-- when registering the activity type using RegisterActivityType. Valid
+-- values are integers that range from Java\'s @Integer.MIN_VALUE@
+-- (-2147483648) to @Integer.MAX_VALUE@ (2147483647). Higher numbers
+-- indicate higher priority.
+--
+-- For more information about setting task priority, see
+-- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority>
+-- in the /Amazon SWF Developer Guide/.
+scheduleActivityTaskDecisionAttributes_taskPriority :: Lens.Lens' ScheduleActivityTaskDecisionAttributes (Prelude.Maybe Prelude.Text)
+scheduleActivityTaskDecisionAttributes_taskPriority = Lens.lens (\ScheduleActivityTaskDecisionAttributes' {taskPriority} -> taskPriority) (\s@ScheduleActivityTaskDecisionAttributes' {} a -> s {taskPriority = a} :: ScheduleActivityTaskDecisionAttributes)
+
 -- | The type of the activity task to schedule.
 scheduleActivityTaskDecisionAttributes_activityType :: Lens.Lens' ScheduleActivityTaskDecisionAttributes ActivityType
 scheduleActivityTaskDecisionAttributes_activityType = Lens.lens (\ScheduleActivityTaskDecisionAttributes' {activityType} -> activityType) (\s@ScheduleActivityTaskDecisionAttributes' {} a -> s {activityType = a} :: ScheduleActivityTaskDecisionAttributes)
@@ -378,12 +379,12 @@ instance
     ScheduleActivityTaskDecisionAttributes' {..} =
       _salt `Prelude.hashWithSalt` control
         `Prelude.hashWithSalt` heartbeatTimeout
-        `Prelude.hashWithSalt` scheduleToCloseTimeout
         `Prelude.hashWithSalt` input
-        `Prelude.hashWithSalt` taskList
-        `Prelude.hashWithSalt` taskPriority
+        `Prelude.hashWithSalt` scheduleToCloseTimeout
         `Prelude.hashWithSalt` scheduleToStartTimeout
         `Prelude.hashWithSalt` startToCloseTimeout
+        `Prelude.hashWithSalt` taskList
+        `Prelude.hashWithSalt` taskPriority
         `Prelude.hashWithSalt` activityType
         `Prelude.hashWithSalt` activityId
 
@@ -394,35 +395,35 @@ instance
   rnf ScheduleActivityTaskDecisionAttributes' {..} =
     Prelude.rnf control
       `Prelude.seq` Prelude.rnf heartbeatTimeout
-      `Prelude.seq` Prelude.rnf scheduleToCloseTimeout
       `Prelude.seq` Prelude.rnf input
-      `Prelude.seq` Prelude.rnf taskList
-      `Prelude.seq` Prelude.rnf taskPriority
+      `Prelude.seq` Prelude.rnf scheduleToCloseTimeout
       `Prelude.seq` Prelude.rnf scheduleToStartTimeout
       `Prelude.seq` Prelude.rnf startToCloseTimeout
+      `Prelude.seq` Prelude.rnf taskList
+      `Prelude.seq` Prelude.rnf taskPriority
       `Prelude.seq` Prelude.rnf activityType
       `Prelude.seq` Prelude.rnf activityId
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ScheduleActivityTaskDecisionAttributes
   where
   toJSON ScheduleActivityTaskDecisionAttributes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("control" Core..=) Prelude.<$> control,
-            ("heartbeatTimeout" Core..=)
+          [ ("control" Data..=) Prelude.<$> control,
+            ("heartbeatTimeout" Data..=)
               Prelude.<$> heartbeatTimeout,
-            ("scheduleToCloseTimeout" Core..=)
+            ("input" Data..=) Prelude.<$> input,
+            ("scheduleToCloseTimeout" Data..=)
               Prelude.<$> scheduleToCloseTimeout,
-            ("input" Core..=) Prelude.<$> input,
-            ("taskList" Core..=) Prelude.<$> taskList,
-            ("taskPriority" Core..=) Prelude.<$> taskPriority,
-            ("scheduleToStartTimeout" Core..=)
+            ("scheduleToStartTimeout" Data..=)
               Prelude.<$> scheduleToStartTimeout,
-            ("startToCloseTimeout" Core..=)
+            ("startToCloseTimeout" Data..=)
               Prelude.<$> startToCloseTimeout,
-            Prelude.Just ("activityType" Core..= activityType),
-            Prelude.Just ("activityId" Core..= activityId)
+            ("taskList" Data..=) Prelude.<$> taskList,
+            ("taskPriority" Data..=) Prelude.<$> taskPriority,
+            Prelude.Just ("activityType" Data..= activityType),
+            Prelude.Just ("activityId" Data..= activityId)
           ]
       )

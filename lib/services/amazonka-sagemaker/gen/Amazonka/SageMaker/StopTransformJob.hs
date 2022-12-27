@@ -14,19 +14,19 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.StopTransformJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Stops a transform job.
+-- Stops a batch transform job.
 --
 -- When Amazon SageMaker receives a @StopTransformJob@ request, the status
 -- of the job changes to @Stopping@. After Amazon SageMaker stops the job,
--- the status is set to @Stopped@. When you stop a transform job before it
--- is completed, Amazon SageMaker doesn\'t store the job\'s output in
--- Amazon S3.
+-- the status is set to @Stopped@. When you stop a batch transform job
+-- before it is completed, Amazon SageMaker doesn\'t store the job\'s
+-- output in Amazon S3.
 module Amazonka.SageMaker.StopTransformJob
   ( -- * Creating a Request
     StopTransformJob (..),
@@ -42,7 +42,8 @@ module Amazonka.SageMaker.StopTransformJob
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -50,7 +51,7 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newStopTransformJob' smart constructor.
 data StopTransformJob = StopTransformJob'
-  { -- | The name of the transform job to stop.
+  { -- | The name of the batch transform job to stop.
     transformJobName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -63,7 +64,7 @@ data StopTransformJob = StopTransformJob'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'transformJobName', 'stopTransformJob_transformJobName' - The name of the transform job to stop.
+-- 'transformJobName', 'stopTransformJob_transformJobName' - The name of the batch transform job to stop.
 newStopTransformJob ::
   -- | 'transformJobName'
   Prelude.Text ->
@@ -74,7 +75,7 @@ newStopTransformJob pTransformJobName_ =
         pTransformJobName_
     }
 
--- | The name of the transform job to stop.
+-- | The name of the batch transform job to stop.
 stopTransformJob_transformJobName :: Lens.Lens' StopTransformJob Prelude.Text
 stopTransformJob_transformJobName = Lens.lens (\StopTransformJob' {transformJobName} -> transformJobName) (\s@StopTransformJob' {} a -> s {transformJobName = a} :: StopTransformJob)
 
@@ -82,7 +83,8 @@ instance Core.AWSRequest StopTransformJob where
   type
     AWSResponse StopTransformJob =
       StopTransformJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull StopTransformJobResponse'
 
@@ -94,32 +96,32 @@ instance Prelude.NFData StopTransformJob where
   rnf StopTransformJob' {..} =
     Prelude.rnf transformJobName
 
-instance Core.ToHeaders StopTransformJob where
+instance Data.ToHeaders StopTransformJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.StopTransformJob" :: Prelude.ByteString),
+              Data.=# ("SageMaker.StopTransformJob" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopTransformJob where
+instance Data.ToJSON StopTransformJob where
   toJSON StopTransformJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("TransformJobName" Core..= transformJobName)
+              ("TransformJobName" Data..= transformJobName)
           ]
       )
 
-instance Core.ToPath StopTransformJob where
+instance Data.ToPath StopTransformJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopTransformJob where
+instance Data.ToQuery StopTransformJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopTransformJobResponse' smart constructor.

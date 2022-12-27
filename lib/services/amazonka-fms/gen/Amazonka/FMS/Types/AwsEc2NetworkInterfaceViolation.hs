@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.Types.AwsEc2NetworkInterfaceViolation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.FMS.Types.AwsEc2NetworkInterfaceViolation where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Violation detail for network interfaces associated with an EC2 instance.
@@ -66,18 +67,18 @@ awsEc2NetworkInterfaceViolation_violationTarget :: Lens.Lens' AwsEc2NetworkInter
 awsEc2NetworkInterfaceViolation_violationTarget = Lens.lens (\AwsEc2NetworkInterfaceViolation' {violationTarget} -> violationTarget) (\s@AwsEc2NetworkInterfaceViolation' {} a -> s {violationTarget = a} :: AwsEc2NetworkInterfaceViolation)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsEc2NetworkInterfaceViolation
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsEc2NetworkInterfaceViolation"
       ( \x ->
           AwsEc2NetworkInterfaceViolation'
-            Prelude.<$> ( x Core..:? "ViolatingSecurityGroups"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "ViolatingSecurityGroups"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "ViolationTarget")
+            Prelude.<*> (x Data..:? "ViolationTarget")
       )
 
 instance

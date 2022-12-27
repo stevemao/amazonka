@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.PrestoParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.PrestoParameters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The parameters for Presto.
@@ -76,15 +77,15 @@ prestoParameters_port = Lens.lens (\PrestoParameters' {port} -> port) (\s@Presto
 prestoParameters_catalog :: Lens.Lens' PrestoParameters Prelude.Text
 prestoParameters_catalog = Lens.lens (\PrestoParameters' {catalog} -> catalog) (\s@PrestoParameters' {} a -> s {catalog = a} :: PrestoParameters)
 
-instance Core.FromJSON PrestoParameters where
+instance Data.FromJSON PrestoParameters where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PrestoParameters"
       ( \x ->
           PrestoParameters'
-            Prelude.<$> (x Core..: "Host")
-            Prelude.<*> (x Core..: "Port")
-            Prelude.<*> (x Core..: "Catalog")
+            Prelude.<$> (x Data..: "Host")
+            Prelude.<*> (x Data..: "Port")
+            Prelude.<*> (x Data..: "Catalog")
       )
 
 instance Prelude.Hashable PrestoParameters where
@@ -99,12 +100,12 @@ instance Prelude.NFData PrestoParameters where
       `Prelude.seq` Prelude.rnf port
       `Prelude.seq` Prelude.rnf catalog
 
-instance Core.ToJSON PrestoParameters where
+instance Data.ToJSON PrestoParameters where
   toJSON PrestoParameters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Host" Core..= host),
-            Prelude.Just ("Port" Core..= port),
-            Prelude.Just ("Catalog" Core..= catalog)
+          [ Prelude.Just ("Host" Data..= host),
+            Prelude.Just ("Port" Data..= port),
+            Prelude.Just ("Catalog" Data..= catalog)
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.IndexFaces
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,7 +30,7 @@
 -- Rekognition uses feature vectors when it performs face match and search
 -- operations using the SearchFaces and SearchFacesByImage operations.
 --
--- For more information, see Adding Faces to a Collection in the Amazon
+-- For more information, see Adding faces to a collection in the Amazon
 -- Rekognition Developer Guide.
 --
 -- To get the number of faces in a collection, call DescribeCollection.
@@ -124,10 +124,10 @@ module Amazonka.Rekognition.IndexFaces
     newIndexFaces,
 
     -- * Request Lenses
-    indexFaces_externalImageId,
-    indexFaces_qualityFilter,
-    indexFaces_maxFaces,
     indexFaces_detectionAttributes,
+    indexFaces_externalImageId,
+    indexFaces_maxFaces,
+    indexFaces_qualityFilter,
     indexFaces_collectionId,
     indexFaces_image,
 
@@ -145,7 +145,8 @@ module Amazonka.Rekognition.IndexFaces
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types
 import qualified Amazonka.Request as Request
@@ -153,22 +154,20 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newIndexFaces' smart constructor.
 data IndexFaces = IndexFaces'
-  { -- | The ID you want to assign to all the faces detected in the image.
-    externalImageId :: Prelude.Maybe Prelude.Text,
-    -- | A filter that specifies a quality bar for how much filtering is done to
-    -- identify faces. Filtered faces aren\'t indexed. If you specify @AUTO@,
-    -- Amazon Rekognition chooses the quality bar. If you specify @LOW@,
-    -- @MEDIUM@, or @HIGH@, filtering removes all faces that don’t meet the
-    -- chosen quality bar. The default value is @AUTO@. The quality bar is
-    -- based on a variety of common use cases. Low-quality detections can occur
-    -- for a number of reasons. Some examples are an object that\'s
-    -- misidentified as a face, a face that\'s too blurry, or a face with a
-    -- pose that\'s too extreme to use. If you specify @NONE@, no filtering is
-    -- performed.
+  { -- | An array of facial attributes that you want to be returned. This can be
+    -- the default list of attributes or all attributes. If you don\'t specify
+    -- a value for @Attributes@ or if you specify @[\"DEFAULT\"]@, the API
+    -- returns the following subset of facial attributes: @BoundingBox@,
+    -- @Confidence@, @Pose@, @Quality@, and @Landmarks@. If you provide
+    -- @[\"ALL\"]@, all facial attributes are returned, but the operation takes
+    -- longer to complete.
     --
-    -- To use quality filtering, the collection you are using must be
-    -- associated with version 3 of the face model or higher.
-    qualityFilter :: Prelude.Maybe QualityFilter,
+    -- If you provide both, @[\"ALL\", \"DEFAULT\"]@, the service uses a
+    -- logical AND operator to determine which attributes to return (in this
+    -- case, all attributes).
+    detectionAttributes :: Prelude.Maybe [Attribute],
+    -- | The ID you want to assign to all the faces detected in the image.
+    externalImageId :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of faces to index. The value of @MaxFaces@ must be
     -- greater than or equal to 1. @IndexFaces@ returns no more than 100
     -- detected faces in an image, even if you specify a larger value for
@@ -187,18 +186,20 @@ data IndexFaces = IndexFaces'
     -- @MaxFaces@ can be used with a collection associated with any version of
     -- the face model.
     maxFaces :: Prelude.Maybe Prelude.Natural,
-    -- | An array of facial attributes that you want to be returned. This can be
-    -- the default list of attributes or all attributes. If you don\'t specify
-    -- a value for @Attributes@ or if you specify @[\"DEFAULT\"]@, the API
-    -- returns the following subset of facial attributes: @BoundingBox@,
-    -- @Confidence@, @Pose@, @Quality@, and @Landmarks@. If you provide
-    -- @[\"ALL\"]@, all facial attributes are returned, but the operation takes
-    -- longer to complete.
+    -- | A filter that specifies a quality bar for how much filtering is done to
+    -- identify faces. Filtered faces aren\'t indexed. If you specify @AUTO@,
+    -- Amazon Rekognition chooses the quality bar. If you specify @LOW@,
+    -- @MEDIUM@, or @HIGH@, filtering removes all faces that don’t meet the
+    -- chosen quality bar. The default value is @AUTO@. The quality bar is
+    -- based on a variety of common use cases. Low-quality detections can occur
+    -- for a number of reasons. Some examples are an object that\'s
+    -- misidentified as a face, a face that\'s too blurry, or a face with a
+    -- pose that\'s too extreme to use. If you specify @NONE@, no filtering is
+    -- performed.
     --
-    -- If you provide both, @[\"ALL\", \"DEFAULT\"]@, the service uses a
-    -- logical AND operator to determine which attributes to return (in this
-    -- case, all attributes).
-    detectionAttributes :: Prelude.Maybe [Attribute],
+    -- To use quality filtering, the collection you are using must be
+    -- associated with version 3 of the face model or higher.
+    qualityFilter :: Prelude.Maybe QualityFilter,
     -- | The ID of an existing collection to which you want to add the faces that
     -- are detected in the input images.
     collectionId :: Prelude.Text,
@@ -221,21 +222,19 @@ data IndexFaces = IndexFaces'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'detectionAttributes', 'indexFaces_detectionAttributes' - An array of facial attributes that you want to be returned. This can be
+-- the default list of attributes or all attributes. If you don\'t specify
+-- a value for @Attributes@ or if you specify @[\"DEFAULT\"]@, the API
+-- returns the following subset of facial attributes: @BoundingBox@,
+-- @Confidence@, @Pose@, @Quality@, and @Landmarks@. If you provide
+-- @[\"ALL\"]@, all facial attributes are returned, but the operation takes
+-- longer to complete.
+--
+-- If you provide both, @[\"ALL\", \"DEFAULT\"]@, the service uses a
+-- logical AND operator to determine which attributes to return (in this
+-- case, all attributes).
+--
 -- 'externalImageId', 'indexFaces_externalImageId' - The ID you want to assign to all the faces detected in the image.
---
--- 'qualityFilter', 'indexFaces_qualityFilter' - A filter that specifies a quality bar for how much filtering is done to
--- identify faces. Filtered faces aren\'t indexed. If you specify @AUTO@,
--- Amazon Rekognition chooses the quality bar. If you specify @LOW@,
--- @MEDIUM@, or @HIGH@, filtering removes all faces that don’t meet the
--- chosen quality bar. The default value is @AUTO@. The quality bar is
--- based on a variety of common use cases. Low-quality detections can occur
--- for a number of reasons. Some examples are an object that\'s
--- misidentified as a face, a face that\'s too blurry, or a face with a
--- pose that\'s too extreme to use. If you specify @NONE@, no filtering is
--- performed.
---
--- To use quality filtering, the collection you are using must be
--- associated with version 3 of the face model or higher.
 --
 -- 'maxFaces', 'indexFaces_maxFaces' - The maximum number of faces to index. The value of @MaxFaces@ must be
 -- greater than or equal to 1. @IndexFaces@ returns no more than 100
@@ -255,17 +254,19 @@ data IndexFaces = IndexFaces'
 -- @MaxFaces@ can be used with a collection associated with any version of
 -- the face model.
 --
--- 'detectionAttributes', 'indexFaces_detectionAttributes' - An array of facial attributes that you want to be returned. This can be
--- the default list of attributes or all attributes. If you don\'t specify
--- a value for @Attributes@ or if you specify @[\"DEFAULT\"]@, the API
--- returns the following subset of facial attributes: @BoundingBox@,
--- @Confidence@, @Pose@, @Quality@, and @Landmarks@. If you provide
--- @[\"ALL\"]@, all facial attributes are returned, but the operation takes
--- longer to complete.
+-- 'qualityFilter', 'indexFaces_qualityFilter' - A filter that specifies a quality bar for how much filtering is done to
+-- identify faces. Filtered faces aren\'t indexed. If you specify @AUTO@,
+-- Amazon Rekognition chooses the quality bar. If you specify @LOW@,
+-- @MEDIUM@, or @HIGH@, filtering removes all faces that don’t meet the
+-- chosen quality bar. The default value is @AUTO@. The quality bar is
+-- based on a variety of common use cases. Low-quality detections can occur
+-- for a number of reasons. Some examples are an object that\'s
+-- misidentified as a face, a face that\'s too blurry, or a face with a
+-- pose that\'s too extreme to use. If you specify @NONE@, no filtering is
+-- performed.
 --
--- If you provide both, @[\"ALL\", \"DEFAULT\"]@, the service uses a
--- logical AND operator to determine which attributes to return (in this
--- case, all attributes).
+-- To use quality filtering, the collection you are using must be
+-- associated with version 3 of the face model or higher.
 --
 -- 'collectionId', 'indexFaces_collectionId' - The ID of an existing collection to which you want to add the faces that
 -- are detected in the input images.
@@ -285,33 +286,31 @@ newIndexFaces ::
   IndexFaces
 newIndexFaces pCollectionId_ pImage_ =
   IndexFaces'
-    { externalImageId = Prelude.Nothing,
-      qualityFilter = Prelude.Nothing,
+    { detectionAttributes = Prelude.Nothing,
+      externalImageId = Prelude.Nothing,
       maxFaces = Prelude.Nothing,
-      detectionAttributes = Prelude.Nothing,
+      qualityFilter = Prelude.Nothing,
       collectionId = pCollectionId_,
       image = pImage_
     }
 
+-- | An array of facial attributes that you want to be returned. This can be
+-- the default list of attributes or all attributes. If you don\'t specify
+-- a value for @Attributes@ or if you specify @[\"DEFAULT\"]@, the API
+-- returns the following subset of facial attributes: @BoundingBox@,
+-- @Confidence@, @Pose@, @Quality@, and @Landmarks@. If you provide
+-- @[\"ALL\"]@, all facial attributes are returned, but the operation takes
+-- longer to complete.
+--
+-- If you provide both, @[\"ALL\", \"DEFAULT\"]@, the service uses a
+-- logical AND operator to determine which attributes to return (in this
+-- case, all attributes).
+indexFaces_detectionAttributes :: Lens.Lens' IndexFaces (Prelude.Maybe [Attribute])
+indexFaces_detectionAttributes = Lens.lens (\IndexFaces' {detectionAttributes} -> detectionAttributes) (\s@IndexFaces' {} a -> s {detectionAttributes = a} :: IndexFaces) Prelude.. Lens.mapping Lens.coerced
+
 -- | The ID you want to assign to all the faces detected in the image.
 indexFaces_externalImageId :: Lens.Lens' IndexFaces (Prelude.Maybe Prelude.Text)
 indexFaces_externalImageId = Lens.lens (\IndexFaces' {externalImageId} -> externalImageId) (\s@IndexFaces' {} a -> s {externalImageId = a} :: IndexFaces)
-
--- | A filter that specifies a quality bar for how much filtering is done to
--- identify faces. Filtered faces aren\'t indexed. If you specify @AUTO@,
--- Amazon Rekognition chooses the quality bar. If you specify @LOW@,
--- @MEDIUM@, or @HIGH@, filtering removes all faces that don’t meet the
--- chosen quality bar. The default value is @AUTO@. The quality bar is
--- based on a variety of common use cases. Low-quality detections can occur
--- for a number of reasons. Some examples are an object that\'s
--- misidentified as a face, a face that\'s too blurry, or a face with a
--- pose that\'s too extreme to use. If you specify @NONE@, no filtering is
--- performed.
---
--- To use quality filtering, the collection you are using must be
--- associated with version 3 of the face model or higher.
-indexFaces_qualityFilter :: Lens.Lens' IndexFaces (Prelude.Maybe QualityFilter)
-indexFaces_qualityFilter = Lens.lens (\IndexFaces' {qualityFilter} -> qualityFilter) (\s@IndexFaces' {} a -> s {qualityFilter = a} :: IndexFaces)
 
 -- | The maximum number of faces to index. The value of @MaxFaces@ must be
 -- greater than or equal to 1. @IndexFaces@ returns no more than 100
@@ -333,19 +332,21 @@ indexFaces_qualityFilter = Lens.lens (\IndexFaces' {qualityFilter} -> qualityFil
 indexFaces_maxFaces :: Lens.Lens' IndexFaces (Prelude.Maybe Prelude.Natural)
 indexFaces_maxFaces = Lens.lens (\IndexFaces' {maxFaces} -> maxFaces) (\s@IndexFaces' {} a -> s {maxFaces = a} :: IndexFaces)
 
--- | An array of facial attributes that you want to be returned. This can be
--- the default list of attributes or all attributes. If you don\'t specify
--- a value for @Attributes@ or if you specify @[\"DEFAULT\"]@, the API
--- returns the following subset of facial attributes: @BoundingBox@,
--- @Confidence@, @Pose@, @Quality@, and @Landmarks@. If you provide
--- @[\"ALL\"]@, all facial attributes are returned, but the operation takes
--- longer to complete.
+-- | A filter that specifies a quality bar for how much filtering is done to
+-- identify faces. Filtered faces aren\'t indexed. If you specify @AUTO@,
+-- Amazon Rekognition chooses the quality bar. If you specify @LOW@,
+-- @MEDIUM@, or @HIGH@, filtering removes all faces that don’t meet the
+-- chosen quality bar. The default value is @AUTO@. The quality bar is
+-- based on a variety of common use cases. Low-quality detections can occur
+-- for a number of reasons. Some examples are an object that\'s
+-- misidentified as a face, a face that\'s too blurry, or a face with a
+-- pose that\'s too extreme to use. If you specify @NONE@, no filtering is
+-- performed.
 --
--- If you provide both, @[\"ALL\", \"DEFAULT\"]@, the service uses a
--- logical AND operator to determine which attributes to return (in this
--- case, all attributes).
-indexFaces_detectionAttributes :: Lens.Lens' IndexFaces (Prelude.Maybe [Attribute])
-indexFaces_detectionAttributes = Lens.lens (\IndexFaces' {detectionAttributes} -> detectionAttributes) (\s@IndexFaces' {} a -> s {detectionAttributes = a} :: IndexFaces) Prelude.. Lens.mapping Lens.coerced
+-- To use quality filtering, the collection you are using must be
+-- associated with version 3 of the face model or higher.
+indexFaces_qualityFilter :: Lens.Lens' IndexFaces (Prelude.Maybe QualityFilter)
+indexFaces_qualityFilter = Lens.lens (\IndexFaces' {qualityFilter} -> qualityFilter) (\s@IndexFaces' {} a -> s {qualityFilter = a} :: IndexFaces)
 
 -- | The ID of an existing collection to which you want to add the faces that
 -- are detected in the input images.
@@ -364,70 +365,71 @@ indexFaces_image = Lens.lens (\IndexFaces' {image} -> image) (\s@IndexFaces' {} 
 
 instance Core.AWSRequest IndexFaces where
   type AWSResponse IndexFaces = IndexFacesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           IndexFacesResponse'
-            Prelude.<$> (x Core..?> "FaceModelVersion")
-            Prelude.<*> (x Core..?> "FaceRecords" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "OrientationCorrection")
-            Prelude.<*> (x Core..?> "UnindexedFaces" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "FaceModelVersion")
+            Prelude.<*> (x Data..?> "FaceRecords" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "OrientationCorrection")
+            Prelude.<*> (x Data..?> "UnindexedFaces" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable IndexFaces where
   hashWithSalt _salt IndexFaces' {..} =
-    _salt `Prelude.hashWithSalt` externalImageId
-      `Prelude.hashWithSalt` qualityFilter
+    _salt `Prelude.hashWithSalt` detectionAttributes
+      `Prelude.hashWithSalt` externalImageId
       `Prelude.hashWithSalt` maxFaces
-      `Prelude.hashWithSalt` detectionAttributes
+      `Prelude.hashWithSalt` qualityFilter
       `Prelude.hashWithSalt` collectionId
       `Prelude.hashWithSalt` image
 
 instance Prelude.NFData IndexFaces where
   rnf IndexFaces' {..} =
-    Prelude.rnf externalImageId
-      `Prelude.seq` Prelude.rnf qualityFilter
+    Prelude.rnf detectionAttributes
+      `Prelude.seq` Prelude.rnf externalImageId
       `Prelude.seq` Prelude.rnf maxFaces
-      `Prelude.seq` Prelude.rnf detectionAttributes
+      `Prelude.seq` Prelude.rnf qualityFilter
       `Prelude.seq` Prelude.rnf collectionId
       `Prelude.seq` Prelude.rnf image
 
-instance Core.ToHeaders IndexFaces where
+instance Data.ToHeaders IndexFaces where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "RekognitionService.IndexFaces" ::
+              Data.=# ( "RekognitionService.IndexFaces" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON IndexFaces where
+instance Data.ToJSON IndexFaces where
   toJSON IndexFaces' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ExternalImageId" Core..=)
-              Prelude.<$> externalImageId,
-            ("QualityFilter" Core..=) Prelude.<$> qualityFilter,
-            ("MaxFaces" Core..=) Prelude.<$> maxFaces,
-            ("DetectionAttributes" Core..=)
+          [ ("DetectionAttributes" Data..=)
               Prelude.<$> detectionAttributes,
-            Prelude.Just ("CollectionId" Core..= collectionId),
-            Prelude.Just ("Image" Core..= image)
+            ("ExternalImageId" Data..=)
+              Prelude.<$> externalImageId,
+            ("MaxFaces" Data..=) Prelude.<$> maxFaces,
+            ("QualityFilter" Data..=) Prelude.<$> qualityFilter,
+            Prelude.Just ("CollectionId" Data..= collectionId),
+            Prelude.Just ("Image" Data..= image)
           ]
       )
 
-instance Core.ToPath IndexFaces where
+instance Data.ToPath IndexFaces where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery IndexFaces where
+instance Data.ToQuery IndexFaces where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newIndexFacesResponse' smart constructor.

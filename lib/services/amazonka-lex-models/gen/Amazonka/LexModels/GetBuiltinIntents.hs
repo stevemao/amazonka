@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.GetBuiltinIntents
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,9 +33,9 @@ module Amazonka.LexModels.GetBuiltinIntents
 
     -- * Request Lenses
     getBuiltinIntents_locale,
+    getBuiltinIntents_maxResults,
     getBuiltinIntents_nextToken,
     getBuiltinIntents_signatureContains,
-    getBuiltinIntents_maxResults,
 
     -- * Destructuring the Response
     GetBuiltinIntentsResponse (..),
@@ -49,7 +49,8 @@ module Amazonka.LexModels.GetBuiltinIntents
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LexModels.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -59,6 +60,9 @@ import qualified Amazonka.Response as Response
 data GetBuiltinIntents = GetBuiltinIntents'
   { -- | A list of locales that the intent supports.
     locale :: Prelude.Maybe Locale,
+    -- | The maximum number of intents to return in the response. The default is
+    -- 10.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | A pagination token that fetches the next page of intents. If this API
     -- call is truncated, Amazon Lex returns a pagination token in the
     -- response. To fetch the next page of intents, use the pagination token in
@@ -70,10 +74,7 @@ data GetBuiltinIntents = GetBuiltinIntents'
     -- signature for an intent, see
     -- <https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents Standard Built-in Intents>
     -- in the /Alexa Skills Kit/.
-    signatureContains :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of intents to return in the response. The default is
-    -- 10.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    signatureContains :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -87,6 +88,9 @@ data GetBuiltinIntents = GetBuiltinIntents'
 --
 -- 'locale', 'getBuiltinIntents_locale' - A list of locales that the intent supports.
 --
+-- 'maxResults', 'getBuiltinIntents_maxResults' - The maximum number of intents to return in the response. The default is
+-- 10.
+--
 -- 'nextToken', 'getBuiltinIntents_nextToken' - A pagination token that fetches the next page of intents. If this API
 -- call is truncated, Amazon Lex returns a pagination token in the
 -- response. To fetch the next page of intents, use the pagination token in
@@ -98,22 +102,24 @@ data GetBuiltinIntents = GetBuiltinIntents'
 -- signature for an intent, see
 -- <https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents Standard Built-in Intents>
 -- in the /Alexa Skills Kit/.
---
--- 'maxResults', 'getBuiltinIntents_maxResults' - The maximum number of intents to return in the response. The default is
--- 10.
 newGetBuiltinIntents ::
   GetBuiltinIntents
 newGetBuiltinIntents =
   GetBuiltinIntents'
     { locale = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      signatureContains = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      signatureContains = Prelude.Nothing
     }
 
 -- | A list of locales that the intent supports.
 getBuiltinIntents_locale :: Lens.Lens' GetBuiltinIntents (Prelude.Maybe Locale)
 getBuiltinIntents_locale = Lens.lens (\GetBuiltinIntents' {locale} -> locale) (\s@GetBuiltinIntents' {} a -> s {locale = a} :: GetBuiltinIntents)
+
+-- | The maximum number of intents to return in the response. The default is
+-- 10.
+getBuiltinIntents_maxResults :: Lens.Lens' GetBuiltinIntents (Prelude.Maybe Prelude.Natural)
+getBuiltinIntents_maxResults = Lens.lens (\GetBuiltinIntents' {maxResults} -> maxResults) (\s@GetBuiltinIntents' {} a -> s {maxResults = a} :: GetBuiltinIntents)
 
 -- | A pagination token that fetches the next page of intents. If this API
 -- call is truncated, Amazon Lex returns a pagination token in the
@@ -130,11 +136,6 @@ getBuiltinIntents_nextToken = Lens.lens (\GetBuiltinIntents' {nextToken} -> next
 -- in the /Alexa Skills Kit/.
 getBuiltinIntents_signatureContains :: Lens.Lens' GetBuiltinIntents (Prelude.Maybe Prelude.Text)
 getBuiltinIntents_signatureContains = Lens.lens (\GetBuiltinIntents' {signatureContains} -> signatureContains) (\s@GetBuiltinIntents' {} a -> s {signatureContains = a} :: GetBuiltinIntents)
-
--- | The maximum number of intents to return in the response. The default is
--- 10.
-getBuiltinIntents_maxResults :: Lens.Lens' GetBuiltinIntents (Prelude.Maybe Prelude.Natural)
-getBuiltinIntents_maxResults = Lens.lens (\GetBuiltinIntents' {maxResults} -> maxResults) (\s@GetBuiltinIntents' {} a -> s {maxResults = a} :: GetBuiltinIntents)
 
 instance Core.AWSPager GetBuiltinIntents where
   page rq rs
@@ -162,51 +163,52 @@ instance Core.AWSRequest GetBuiltinIntents where
   type
     AWSResponse GetBuiltinIntents =
       GetBuiltinIntentsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetBuiltinIntentsResponse'
-            Prelude.<$> (x Core..?> "intents" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "intents" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetBuiltinIntents where
   hashWithSalt _salt GetBuiltinIntents' {..} =
     _salt `Prelude.hashWithSalt` locale
+      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` signatureContains
-      `Prelude.hashWithSalt` maxResults
 
 instance Prelude.NFData GetBuiltinIntents where
   rnf GetBuiltinIntents' {..} =
     Prelude.rnf locale
+      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf signatureContains
-      `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders GetBuiltinIntents where
+instance Data.ToHeaders GetBuiltinIntents where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetBuiltinIntents where
+instance Data.ToPath GetBuiltinIntents where
   toPath = Prelude.const "/builtins/intents/"
 
-instance Core.ToQuery GetBuiltinIntents where
+instance Data.ToQuery GetBuiltinIntents where
   toQuery GetBuiltinIntents' {..} =
     Prelude.mconcat
-      [ "locale" Core.=: locale,
-        "nextToken" Core.=: nextToken,
-        "signatureContains" Core.=: signatureContains,
-        "maxResults" Core.=: maxResults
+      [ "locale" Data.=: locale,
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "signatureContains" Data.=: signatureContains
       ]
 
 -- | /See:/ 'newGetBuiltinIntentsResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KMS.RevokeGrant
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,7 +33,7 @@
 -- in the //Key Management Service Developer Guide// .
 --
 -- For detailed information about grants, including grant terminology, see
--- <https://docs.aws.amazon.com/kms/latest/developerguide/grants.html Using grants>
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/grants.html Grants in KMS>
 -- in the //Key Management Service Developer Guide// . For examples of
 -- working with grants in several programming languages, see
 -- <https://docs.aws.amazon.com/kms/latest/developerguide/programming-grants.html Programming grants>.
@@ -71,8 +71,9 @@ module Amazonka.KMS.RevokeGrant
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -161,7 +162,8 @@ revokeGrant_grantId = Lens.lens (\RevokeGrant' {grantId} -> grantId) (\s@RevokeG
 
 instance Core.AWSRequest RevokeGrant where
   type AWSResponse RevokeGrant = RevokeGrantResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull RevokeGrantResponse'
 
 instance Prelude.Hashable RevokeGrant where
@@ -173,32 +175,32 @@ instance Prelude.NFData RevokeGrant where
   rnf RevokeGrant' {..} =
     Prelude.rnf keyId `Prelude.seq` Prelude.rnf grantId
 
-instance Core.ToHeaders RevokeGrant where
+instance Data.ToHeaders RevokeGrant where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("TrentService.RevokeGrant" :: Prelude.ByteString),
+              Data.=# ("TrentService.RevokeGrant" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RevokeGrant where
+instance Data.ToJSON RevokeGrant where
   toJSON RevokeGrant' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("KeyId" Core..= keyId),
-            Prelude.Just ("GrantId" Core..= grantId)
+          [ Prelude.Just ("KeyId" Data..= keyId),
+            Prelude.Just ("GrantId" Data..= grantId)
           ]
       )
 
-instance Core.ToPath RevokeGrant where
+instance Data.ToPath RevokeGrant where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RevokeGrant where
+instance Data.ToQuery RevokeGrant where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRevokeGrantResponse' smart constructor.

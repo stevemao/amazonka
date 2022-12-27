@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchLogs.Types.MetricTransformation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudWatchLogs.Types.MetricTransformation where
 
 import Amazonka.CloudWatchLogs.Types.StandardUnit
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Indicates how to transform ingested log events to metric data in a
@@ -41,9 +42,9 @@ data MetricTransformation = MetricTransformation'
     -- found for a dimension is treated as a separate metric and accrues
     -- charges as a separate custom metric.
     --
-    -- To help prevent accidental high charges, Amazon disables a metric filter
-    -- if it generates 1000 different name\/value pairs for the dimensions that
-    -- you have specified within a certain amount of time.
+    -- CloudWatch Logs disables a metric filter if it generates 1000 different
+    -- name\/value pairs for your specified dimensions within a certain amount
+    -- of time. This helps to prevent accidental high charges.
     --
     -- You can also set up a billing alarm to alert you if your charges are
     -- higher than expected. For more information, see
@@ -84,9 +85,9 @@ data MetricTransformation = MetricTransformation'
 -- found for a dimension is treated as a separate metric and accrues
 -- charges as a separate custom metric.
 --
--- To help prevent accidental high charges, Amazon disables a metric filter
--- if it generates 1000 different name\/value pairs for the dimensions that
--- you have specified within a certain amount of time.
+-- CloudWatch Logs disables a metric filter if it generates 1000 different
+-- name\/value pairs for your specified dimensions within a certain amount
+-- of time. This helps to prevent accidental high charges.
 --
 -- You can also set up a billing alarm to alert you if your charges are
 -- higher than expected. For more information, see
@@ -139,9 +140,9 @@ metricTransformation_defaultValue = Lens.lens (\MetricTransformation' {defaultVa
 -- found for a dimension is treated as a separate metric and accrues
 -- charges as a separate custom metric.
 --
--- To help prevent accidental high charges, Amazon disables a metric filter
--- if it generates 1000 different name\/value pairs for the dimensions that
--- you have specified within a certain amount of time.
+-- CloudWatch Logs disables a metric filter if it generates 1000 different
+-- name\/value pairs for your specified dimensions within a certain amount
+-- of time. This helps to prevent accidental high charges.
 --
 -- You can also set up a billing alarm to alert you if your charges are
 -- higher than expected. For more information, see
@@ -169,18 +170,18 @@ metricTransformation_metricNamespace = Lens.lens (\MetricTransformation' {metric
 metricTransformation_metricValue :: Lens.Lens' MetricTransformation Prelude.Text
 metricTransformation_metricValue = Lens.lens (\MetricTransformation' {metricValue} -> metricValue) (\s@MetricTransformation' {} a -> s {metricValue = a} :: MetricTransformation)
 
-instance Core.FromJSON MetricTransformation where
+instance Data.FromJSON MetricTransformation where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MetricTransformation"
       ( \x ->
           MetricTransformation'
-            Prelude.<$> (x Core..:? "defaultValue")
-            Prelude.<*> (x Core..:? "dimensions" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "unit")
-            Prelude.<*> (x Core..: "metricName")
-            Prelude.<*> (x Core..: "metricNamespace")
-            Prelude.<*> (x Core..: "metricValue")
+            Prelude.<$> (x Data..:? "defaultValue")
+            Prelude.<*> (x Data..:? "dimensions" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "unit")
+            Prelude.<*> (x Data..: "metricName")
+            Prelude.<*> (x Data..: "metricNamespace")
+            Prelude.<*> (x Data..: "metricValue")
       )
 
 instance Prelude.Hashable MetricTransformation where
@@ -201,16 +202,16 @@ instance Prelude.NFData MetricTransformation where
       `Prelude.seq` Prelude.rnf metricNamespace
       `Prelude.seq` Prelude.rnf metricValue
 
-instance Core.ToJSON MetricTransformation where
+instance Data.ToJSON MetricTransformation where
   toJSON MetricTransformation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("defaultValue" Core..=) Prelude.<$> defaultValue,
-            ("dimensions" Core..=) Prelude.<$> dimensions,
-            ("unit" Core..=) Prelude.<$> unit,
-            Prelude.Just ("metricName" Core..= metricName),
+          [ ("defaultValue" Data..=) Prelude.<$> defaultValue,
+            ("dimensions" Data..=) Prelude.<$> dimensions,
+            ("unit" Data..=) Prelude.<$> unit,
+            Prelude.Just ("metricName" Data..= metricName),
             Prelude.Just
-              ("metricNamespace" Core..= metricNamespace),
-            Prelude.Just ("metricValue" Core..= metricValue)
+              ("metricNamespace" Data..= metricNamespace),
+            Prelude.Just ("metricValue" Data..= metricValue)
           ]
       )

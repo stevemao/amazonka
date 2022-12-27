@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.Types.SecurityProfileSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Connect.Types.SecurityProfileSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about a security profile.
@@ -29,10 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 data SecurityProfileSummary = SecurityProfileSummary'
   { -- | The Amazon Resource Name (ARN) of the security profile.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | The name of the security profile.
-    name :: Prelude.Maybe Prelude.Text,
     -- | The identifier of the security profile.
-    id :: Prelude.Maybe Prelude.Text
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the security profile.
+    name :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,49 +47,49 @@ data SecurityProfileSummary = SecurityProfileSummary'
 --
 -- 'arn', 'securityProfileSummary_arn' - The Amazon Resource Name (ARN) of the security profile.
 --
--- 'name', 'securityProfileSummary_name' - The name of the security profile.
---
 -- 'id', 'securityProfileSummary_id' - The identifier of the security profile.
+--
+-- 'name', 'securityProfileSummary_name' - The name of the security profile.
 newSecurityProfileSummary ::
   SecurityProfileSummary
 newSecurityProfileSummary =
   SecurityProfileSummary'
     { arn = Prelude.Nothing,
-      name = Prelude.Nothing,
-      id = Prelude.Nothing
+      id = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the security profile.
 securityProfileSummary_arn :: Lens.Lens' SecurityProfileSummary (Prelude.Maybe Prelude.Text)
 securityProfileSummary_arn = Lens.lens (\SecurityProfileSummary' {arn} -> arn) (\s@SecurityProfileSummary' {} a -> s {arn = a} :: SecurityProfileSummary)
 
--- | The name of the security profile.
-securityProfileSummary_name :: Lens.Lens' SecurityProfileSummary (Prelude.Maybe Prelude.Text)
-securityProfileSummary_name = Lens.lens (\SecurityProfileSummary' {name} -> name) (\s@SecurityProfileSummary' {} a -> s {name = a} :: SecurityProfileSummary)
-
 -- | The identifier of the security profile.
 securityProfileSummary_id :: Lens.Lens' SecurityProfileSummary (Prelude.Maybe Prelude.Text)
 securityProfileSummary_id = Lens.lens (\SecurityProfileSummary' {id} -> id) (\s@SecurityProfileSummary' {} a -> s {id = a} :: SecurityProfileSummary)
 
-instance Core.FromJSON SecurityProfileSummary where
+-- | The name of the security profile.
+securityProfileSummary_name :: Lens.Lens' SecurityProfileSummary (Prelude.Maybe Prelude.Text)
+securityProfileSummary_name = Lens.lens (\SecurityProfileSummary' {name} -> name) (\s@SecurityProfileSummary' {} a -> s {name = a} :: SecurityProfileSummary)
+
+instance Data.FromJSON SecurityProfileSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SecurityProfileSummary"
       ( \x ->
           SecurityProfileSummary'
-            Prelude.<$> (x Core..:? "Arn")
-            Prelude.<*> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "Id")
+            Prelude.<$> (x Data..:? "Arn")
+            Prelude.<*> (x Data..:? "Id")
+            Prelude.<*> (x Data..:? "Name")
       )
 
 instance Prelude.Hashable SecurityProfileSummary where
   hashWithSalt _salt SecurityProfileSummary' {..} =
     _salt `Prelude.hashWithSalt` arn
-      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` id
+      `Prelude.hashWithSalt` name
 
 instance Prelude.NFData SecurityProfileSummary where
   rnf SecurityProfileSummary' {..} =
     Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf id
+      `Prelude.seq` Prelude.rnf name

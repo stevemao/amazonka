@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MarketplaceCatalog.Types.Filter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MarketplaceCatalog.Types.Filter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A filter object, used to optionally filter results from calls to the
@@ -28,7 +29,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newFilter' smart constructor.
 data Filter = Filter'
-  { -- | @ListEntities@ - This is a list of unique @EntityId@s.
+  { -- | For @ListEntities@, the supported value for this is an @EntityId@.
+    --
+    -- For @ListChangeSets@, the supported values are as follows:
+    name :: Prelude.Maybe Prelude.Text,
+    -- | @ListEntities@ - This is a list of unique @EntityId@s.
     --
     -- @ListChangeSets@ - The supported filter names and associated
     -- @ValueList@s is as follows:
@@ -54,11 +59,7 @@ data Filter = Filter'
     --
     -- -   @AfterEndTime@ - The supported @ValueList@ is a list of all change
     --     sets that ended after the filter value.
-    valueList :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
-    -- | For @ListEntities@, the supported value for this is an @EntityId@.
-    --
-    -- For @ListChangeSets@, the supported values are as follows:
-    name :: Prelude.Maybe Prelude.Text
+    valueList :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -69,6 +70,10 @@ data Filter = Filter'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'name', 'filter_name' - For @ListEntities@, the supported value for this is an @EntityId@.
+--
+-- For @ListChangeSets@, the supported values are as follows:
 --
 -- 'valueList', 'filter_valueList' - @ListEntities@ - This is a list of unique @EntityId@s.
 --
@@ -96,17 +101,19 @@ data Filter = Filter'
 --
 -- -   @AfterEndTime@ - The supported @ValueList@ is a list of all change
 --     sets that ended after the filter value.
---
--- 'name', 'filter_name' - For @ListEntities@, the supported value for this is an @EntityId@.
---
--- For @ListChangeSets@, the supported values are as follows:
 newFilter ::
   Filter
 newFilter =
   Filter'
-    { valueList = Prelude.Nothing,
-      name = Prelude.Nothing
+    { name = Prelude.Nothing,
+      valueList = Prelude.Nothing
     }
+
+-- | For @ListEntities@, the supported value for this is an @EntityId@.
+--
+-- For @ListChangeSets@, the supported values are as follows:
+filter_name :: Lens.Lens' Filter (Prelude.Maybe Prelude.Text)
+filter_name = Lens.lens (\Filter' {name} -> name) (\s@Filter' {} a -> s {name = a} :: Filter)
 
 -- | @ListEntities@ - This is a list of unique @EntityId@s.
 --
@@ -137,27 +144,21 @@ newFilter =
 filter_valueList :: Lens.Lens' Filter (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
 filter_valueList = Lens.lens (\Filter' {valueList} -> valueList) (\s@Filter' {} a -> s {valueList = a} :: Filter) Prelude.. Lens.mapping Lens.coerced
 
--- | For @ListEntities@, the supported value for this is an @EntityId@.
---
--- For @ListChangeSets@, the supported values are as follows:
-filter_name :: Lens.Lens' Filter (Prelude.Maybe Prelude.Text)
-filter_name = Lens.lens (\Filter' {name} -> name) (\s@Filter' {} a -> s {name = a} :: Filter)
-
 instance Prelude.Hashable Filter where
   hashWithSalt _salt Filter' {..} =
-    _salt `Prelude.hashWithSalt` valueList
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` valueList
 
 instance Prelude.NFData Filter where
   rnf Filter' {..} =
-    Prelude.rnf valueList
-      `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name
+      `Prelude.seq` Prelude.rnf valueList
 
-instance Core.ToJSON Filter where
+instance Data.ToJSON Filter where
   toJSON Filter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ValueList" Core..=) Prelude.<$> valueList,
-            ("Name" Core..=) Prelude.<$> name
+          [ ("Name" Data..=) Prelude.<$> name,
+            ("ValueList" Data..=) Prelude.<$> valueList
           ]
       )

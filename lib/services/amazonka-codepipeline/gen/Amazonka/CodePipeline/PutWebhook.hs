@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.PutWebhook
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ where
 
 import Amazonka.CodePipeline.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,12 +108,13 @@ putWebhook_webhook = Lens.lens (\PutWebhook' {webhook} -> webhook) (\s@PutWebhoo
 
 instance Core.AWSRequest PutWebhook where
   type AWSResponse PutWebhook = PutWebhookResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutWebhookResponse'
-            Prelude.<$> (x Core..?> "webhook")
+            Prelude.<$> (x Data..?> "webhook")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -125,34 +127,34 @@ instance Prelude.NFData PutWebhook where
   rnf PutWebhook' {..} =
     Prelude.rnf tags `Prelude.seq` Prelude.rnf webhook
 
-instance Core.ToHeaders PutWebhook where
+instance Data.ToHeaders PutWebhook where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodePipeline_20150709.PutWebhook" ::
+              Data.=# ( "CodePipeline_20150709.PutWebhook" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutWebhook where
+instance Data.ToJSON PutWebhook where
   toJSON PutWebhook' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("webhook" Core..= webhook)
+          [ ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("webhook" Data..= webhook)
           ]
       )
 
-instance Core.ToPath PutWebhook where
+instance Data.ToPath PutWebhook where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutWebhook where
+instance Data.ToQuery PutWebhook where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutWebhookResponse' smart constructor.

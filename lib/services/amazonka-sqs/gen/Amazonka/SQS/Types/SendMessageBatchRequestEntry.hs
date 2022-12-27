@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SQS.Types.SendMessageBatchRequestEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SQS.Types.SendMessageBatchRequestEntry where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SQS.Types.MessageAttributeValue
 import Amazonka.SQS.Types.MessageSystemAttributeNameForSends
@@ -30,12 +31,7 @@ import Amazonka.SQS.Types.MessageSystemAttributeValue
 --
 -- /See:/ 'newSendMessageBatchRequestEntry' smart constructor.
 data SendMessageBatchRequestEntry = SendMessageBatchRequestEntry'
-  { -- | Each message attribute consists of a @Name@, @Type@, and @Value@. For
-    -- more information, see
-    -- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes Amazon SQS message attributes>
-    -- in the /Amazon SQS Developer Guide/.
-    messageAttributes :: Prelude.Maybe (Prelude.HashMap Prelude.Text MessageAttributeValue),
-    -- | The length of time, in seconds, for which a specific message is delayed.
+  { -- | The length of time, in seconds, for which a specific message is delayed.
     -- Valid values: 0 to 900. Maximum: 15 minutes. Messages with a positive
     -- @DelaySeconds@ value become available for processing after the delay
     -- period is finished. If you don\'t specify a value, the default value for
@@ -44,16 +40,11 @@ data SendMessageBatchRequestEntry = SendMessageBatchRequestEntry'
     -- When you set @FifoQueue@, you can\'t set @DelaySeconds@ per message. You
     -- can set this parameter only on a queue level.
     delaySeconds :: Prelude.Maybe Prelude.Int,
-    -- | The message system attribute to send Each message system attribute
-    -- consists of a @Name@, @Type@, and @Value@.
-    --
-    -- -   Currently, the only supported message system attribute is
-    --     @AWSTraceHeader@. Its type must be @String@ and its value must be a
-    --     correctly formatted X-Ray trace header string.
-    --
-    -- -   The size of a message system attribute doesn\'t count towards the
-    --     total size of a message.
-    messageSystemAttributes :: Prelude.Maybe (Prelude.HashMap MessageSystemAttributeNameForSends MessageSystemAttributeValue),
+    -- | Each message attribute consists of a @Name@, @Type@, and @Value@. For
+    -- more information, see
+    -- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes Amazon SQS message attributes>
+    -- in the /Amazon SQS Developer Guide/.
+    messageAttributes :: Prelude.Maybe (Prelude.HashMap Prelude.Text MessageAttributeValue),
     -- | This parameter applies only to FIFO (first-in-first-out) queues.
     --
     -- The token used for deduplication of messages within a 5-minute minimum
@@ -138,6 +129,16 @@ data SendMessageBatchRequestEntry = SendMessageBatchRequestEntry'
     -- @MessageGroupId@ is required for FIFO queues. You can\'t use it for
     -- Standard queues.
     messageGroupId :: Prelude.Maybe Prelude.Text,
+    -- | The message system attribute to send Each message system attribute
+    -- consists of a @Name@, @Type@, and @Value@.
+    --
+    -- -   Currently, the only supported message system attribute is
+    --     @AWSTraceHeader@. Its type must be @String@ and its value must be a
+    --     correctly formatted X-Ray trace header string.
+    --
+    -- -   The size of a message system attribute doesn\'t count towards the
+    --     total size of a message.
+    messageSystemAttributes :: Prelude.Maybe (Prelude.HashMap MessageSystemAttributeNameForSends MessageSystemAttributeValue),
     -- | An identifier for a message in this batch used to communicate the
     -- result.
     --
@@ -159,11 +160,6 @@ data SendMessageBatchRequestEntry = SendMessageBatchRequestEntry'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'messageAttributes', 'sendMessageBatchRequestEntry_messageAttributes' - Each message attribute consists of a @Name@, @Type@, and @Value@. For
--- more information, see
--- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes Amazon SQS message attributes>
--- in the /Amazon SQS Developer Guide/.
---
 -- 'delaySeconds', 'sendMessageBatchRequestEntry_delaySeconds' - The length of time, in seconds, for which a specific message is delayed.
 -- Valid values: 0 to 900. Maximum: 15 minutes. Messages with a positive
 -- @DelaySeconds@ value become available for processing after the delay
@@ -173,15 +169,10 @@ data SendMessageBatchRequestEntry = SendMessageBatchRequestEntry'
 -- When you set @FifoQueue@, you can\'t set @DelaySeconds@ per message. You
 -- can set this parameter only on a queue level.
 --
--- 'messageSystemAttributes', 'sendMessageBatchRequestEntry_messageSystemAttributes' - The message system attribute to send Each message system attribute
--- consists of a @Name@, @Type@, and @Value@.
---
--- -   Currently, the only supported message system attribute is
---     @AWSTraceHeader@. Its type must be @String@ and its value must be a
---     correctly formatted X-Ray trace header string.
---
--- -   The size of a message system attribute doesn\'t count towards the
---     total size of a message.
+-- 'messageAttributes', 'sendMessageBatchRequestEntry_messageAttributes' - Each message attribute consists of a @Name@, @Type@, and @Value@. For
+-- more information, see
+-- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes Amazon SQS message attributes>
+-- in the /Amazon SQS Developer Guide/.
 --
 -- 'messageDeduplicationId', 'sendMessageBatchRequestEntry_messageDeduplicationId' - This parameter applies only to FIFO (first-in-first-out) queues.
 --
@@ -267,6 +258,16 @@ data SendMessageBatchRequestEntry = SendMessageBatchRequestEntry'
 -- @MessageGroupId@ is required for FIFO queues. You can\'t use it for
 -- Standard queues.
 --
+-- 'messageSystemAttributes', 'sendMessageBatchRequestEntry_messageSystemAttributes' - The message system attribute to send Each message system attribute
+-- consists of a @Name@, @Type@, and @Value@.
+--
+-- -   Currently, the only supported message system attribute is
+--     @AWSTraceHeader@. Its type must be @String@ and its value must be a
+--     correctly formatted X-Ray trace header string.
+--
+-- -   The size of a message system attribute doesn\'t count towards the
+--     total size of a message.
+--
 -- 'id', 'sendMessageBatchRequestEntry_id' - An identifier for a message in this batch used to communicate the
 -- result.
 --
@@ -284,22 +285,15 @@ newSendMessageBatchRequestEntry ::
   SendMessageBatchRequestEntry
 newSendMessageBatchRequestEntry pId_ pMessageBody_ =
   SendMessageBatchRequestEntry'
-    { messageAttributes =
+    { delaySeconds =
         Prelude.Nothing,
-      delaySeconds = Prelude.Nothing,
-      messageSystemAttributes = Prelude.Nothing,
+      messageAttributes = Prelude.Nothing,
       messageDeduplicationId = Prelude.Nothing,
       messageGroupId = Prelude.Nothing,
+      messageSystemAttributes = Prelude.Nothing,
       id = pId_,
       messageBody = pMessageBody_
     }
-
--- | Each message attribute consists of a @Name@, @Type@, and @Value@. For
--- more information, see
--- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes Amazon SQS message attributes>
--- in the /Amazon SQS Developer Guide/.
-sendMessageBatchRequestEntry_messageAttributes :: Lens.Lens' SendMessageBatchRequestEntry (Prelude.Maybe (Prelude.HashMap Prelude.Text MessageAttributeValue))
-sendMessageBatchRequestEntry_messageAttributes = Lens.lens (\SendMessageBatchRequestEntry' {messageAttributes} -> messageAttributes) (\s@SendMessageBatchRequestEntry' {} a -> s {messageAttributes = a} :: SendMessageBatchRequestEntry) Prelude.. Lens.mapping Lens.coerced
 
 -- | The length of time, in seconds, for which a specific message is delayed.
 -- Valid values: 0 to 900. Maximum: 15 minutes. Messages with a positive
@@ -312,17 +306,12 @@ sendMessageBatchRequestEntry_messageAttributes = Lens.lens (\SendMessageBatchReq
 sendMessageBatchRequestEntry_delaySeconds :: Lens.Lens' SendMessageBatchRequestEntry (Prelude.Maybe Prelude.Int)
 sendMessageBatchRequestEntry_delaySeconds = Lens.lens (\SendMessageBatchRequestEntry' {delaySeconds} -> delaySeconds) (\s@SendMessageBatchRequestEntry' {} a -> s {delaySeconds = a} :: SendMessageBatchRequestEntry)
 
--- | The message system attribute to send Each message system attribute
--- consists of a @Name@, @Type@, and @Value@.
---
--- -   Currently, the only supported message system attribute is
---     @AWSTraceHeader@. Its type must be @String@ and its value must be a
---     correctly formatted X-Ray trace header string.
---
--- -   The size of a message system attribute doesn\'t count towards the
---     total size of a message.
-sendMessageBatchRequestEntry_messageSystemAttributes :: Lens.Lens' SendMessageBatchRequestEntry (Prelude.Maybe (Prelude.HashMap MessageSystemAttributeNameForSends MessageSystemAttributeValue))
-sendMessageBatchRequestEntry_messageSystemAttributes = Lens.lens (\SendMessageBatchRequestEntry' {messageSystemAttributes} -> messageSystemAttributes) (\s@SendMessageBatchRequestEntry' {} a -> s {messageSystemAttributes = a} :: SendMessageBatchRequestEntry) Prelude.. Lens.mapping Lens.coerced
+-- | Each message attribute consists of a @Name@, @Type@, and @Value@. For
+-- more information, see
+-- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes Amazon SQS message attributes>
+-- in the /Amazon SQS Developer Guide/.
+sendMessageBatchRequestEntry_messageAttributes :: Lens.Lens' SendMessageBatchRequestEntry (Prelude.Maybe (Prelude.HashMap Prelude.Text MessageAttributeValue))
+sendMessageBatchRequestEntry_messageAttributes = Lens.lens (\SendMessageBatchRequestEntry' {messageAttributes} -> messageAttributes) (\s@SendMessageBatchRequestEntry' {} a -> s {messageAttributes = a} :: SendMessageBatchRequestEntry) Prelude.. Lens.mapping Lens.coerced
 
 -- | This parameter applies only to FIFO (first-in-first-out) queues.
 --
@@ -412,6 +401,18 @@ sendMessageBatchRequestEntry_messageDeduplicationId = Lens.lens (\SendMessageBat
 sendMessageBatchRequestEntry_messageGroupId :: Lens.Lens' SendMessageBatchRequestEntry (Prelude.Maybe Prelude.Text)
 sendMessageBatchRequestEntry_messageGroupId = Lens.lens (\SendMessageBatchRequestEntry' {messageGroupId} -> messageGroupId) (\s@SendMessageBatchRequestEntry' {} a -> s {messageGroupId = a} :: SendMessageBatchRequestEntry)
 
+-- | The message system attribute to send Each message system attribute
+-- consists of a @Name@, @Type@, and @Value@.
+--
+-- -   Currently, the only supported message system attribute is
+--     @AWSTraceHeader@. Its type must be @String@ and its value must be a
+--     correctly formatted X-Ray trace header string.
+--
+-- -   The size of a message system attribute doesn\'t count towards the
+--     total size of a message.
+sendMessageBatchRequestEntry_messageSystemAttributes :: Lens.Lens' SendMessageBatchRequestEntry (Prelude.Maybe (Prelude.HashMap MessageSystemAttributeNameForSends MessageSystemAttributeValue))
+sendMessageBatchRequestEntry_messageSystemAttributes = Lens.lens (\SendMessageBatchRequestEntry' {messageSystemAttributes} -> messageSystemAttributes) (\s@SendMessageBatchRequestEntry' {} a -> s {messageSystemAttributes = a} :: SendMessageBatchRequestEntry) Prelude.. Lens.mapping Lens.coerced
+
 -- | An identifier for a message in this batch used to communicate the
 -- result.
 --
@@ -431,42 +432,42 @@ instance
     SendMessageBatchRequestEntry
   where
   hashWithSalt _salt SendMessageBatchRequestEntry' {..} =
-    _salt `Prelude.hashWithSalt` messageAttributes
-      `Prelude.hashWithSalt` delaySeconds
-      `Prelude.hashWithSalt` messageSystemAttributes
+    _salt `Prelude.hashWithSalt` delaySeconds
+      `Prelude.hashWithSalt` messageAttributes
       `Prelude.hashWithSalt` messageDeduplicationId
       `Prelude.hashWithSalt` messageGroupId
+      `Prelude.hashWithSalt` messageSystemAttributes
       `Prelude.hashWithSalt` id
       `Prelude.hashWithSalt` messageBody
 
 instance Prelude.NFData SendMessageBatchRequestEntry where
   rnf SendMessageBatchRequestEntry' {..} =
-    Prelude.rnf messageAttributes
-      `Prelude.seq` Prelude.rnf delaySeconds
-      `Prelude.seq` Prelude.rnf messageSystemAttributes
+    Prelude.rnf delaySeconds
+      `Prelude.seq` Prelude.rnf messageAttributes
       `Prelude.seq` Prelude.rnf messageDeduplicationId
       `Prelude.seq` Prelude.rnf messageGroupId
+      `Prelude.seq` Prelude.rnf messageSystemAttributes
       `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf messageBody
 
-instance Core.ToQuery SendMessageBatchRequestEntry where
+instance Data.ToQuery SendMessageBatchRequestEntry where
   toQuery SendMessageBatchRequestEntry' {..} =
     Prelude.mconcat
-      [ Core.toQuery
-          ( Core.toQueryMap "MessageAttribute" "Name" "Value"
+      [ "DelaySeconds" Data.=: delaySeconds,
+        Data.toQuery
+          ( Data.toQueryMap "MessageAttribute" "Name" "Value"
               Prelude.<$> messageAttributes
           ),
-        "DelaySeconds" Core.=: delaySeconds,
-        Core.toQuery
-          ( Core.toQueryMap
+        "MessageDeduplicationId"
+          Data.=: messageDeduplicationId,
+        "MessageGroupId" Data.=: messageGroupId,
+        Data.toQuery
+          ( Data.toQueryMap
               "MessageSystemAttribute"
               "Name"
               "Value"
               Prelude.<$> messageSystemAttributes
           ),
-        "MessageDeduplicationId"
-          Core.=: messageDeduplicationId,
-        "MessageGroupId" Core.=: messageGroupId,
-        "Id" Core.=: id,
-        "MessageBody" Core.=: messageBody
+        "Id" Data.=: id,
+        "MessageBody" Data.=: messageBody
       ]

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.Types.NodeInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.Kafka.Types.NodeInfo where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kafka.Types.BrokerNodeInfo
 import Amazonka.Kafka.Types.NodeType
 import Amazonka.Kafka.Types.ZookeeperNodeInfo
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The node information object.
@@ -32,16 +33,16 @@ import qualified Amazonka.Prelude as Prelude
 data NodeInfo = NodeInfo'
   { -- | The start time.
     addedToClusterTime :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the node.
-    nodeARN :: Prelude.Maybe Prelude.Text,
-    -- | The ZookeeperNodeInfo.
-    zookeeperNodeInfo :: Prelude.Maybe ZookeeperNodeInfo,
-    -- | The instance type.
-    instanceType :: Prelude.Maybe Prelude.Text,
     -- | The broker node info.
     brokerNodeInfo :: Prelude.Maybe BrokerNodeInfo,
+    -- | The instance type.
+    instanceType :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the node.
+    nodeARN :: Prelude.Maybe Prelude.Text,
     -- | The node type.
-    nodeType :: Prelude.Maybe NodeType
+    nodeType :: Prelude.Maybe NodeType,
+    -- | The ZookeeperNodeInfo.
+    zookeeperNodeInfo :: Prelude.Maybe ZookeeperNodeInfo
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -55,79 +56,79 @@ data NodeInfo = NodeInfo'
 --
 -- 'addedToClusterTime', 'nodeInfo_addedToClusterTime' - The start time.
 --
--- 'nodeARN', 'nodeInfo_nodeARN' - The Amazon Resource Name (ARN) of the node.
---
--- 'zookeeperNodeInfo', 'nodeInfo_zookeeperNodeInfo' - The ZookeeperNodeInfo.
+-- 'brokerNodeInfo', 'nodeInfo_brokerNodeInfo' - The broker node info.
 --
 -- 'instanceType', 'nodeInfo_instanceType' - The instance type.
 --
--- 'brokerNodeInfo', 'nodeInfo_brokerNodeInfo' - The broker node info.
+-- 'nodeARN', 'nodeInfo_nodeARN' - The Amazon Resource Name (ARN) of the node.
 --
 -- 'nodeType', 'nodeInfo_nodeType' - The node type.
+--
+-- 'zookeeperNodeInfo', 'nodeInfo_zookeeperNodeInfo' - The ZookeeperNodeInfo.
 newNodeInfo ::
   NodeInfo
 newNodeInfo =
   NodeInfo'
     { addedToClusterTime = Prelude.Nothing,
-      nodeARN = Prelude.Nothing,
-      zookeeperNodeInfo = Prelude.Nothing,
-      instanceType = Prelude.Nothing,
       brokerNodeInfo = Prelude.Nothing,
-      nodeType = Prelude.Nothing
+      instanceType = Prelude.Nothing,
+      nodeARN = Prelude.Nothing,
+      nodeType = Prelude.Nothing,
+      zookeeperNodeInfo = Prelude.Nothing
     }
 
 -- | The start time.
 nodeInfo_addedToClusterTime :: Lens.Lens' NodeInfo (Prelude.Maybe Prelude.Text)
 nodeInfo_addedToClusterTime = Lens.lens (\NodeInfo' {addedToClusterTime} -> addedToClusterTime) (\s@NodeInfo' {} a -> s {addedToClusterTime = a} :: NodeInfo)
 
--- | The Amazon Resource Name (ARN) of the node.
-nodeInfo_nodeARN :: Lens.Lens' NodeInfo (Prelude.Maybe Prelude.Text)
-nodeInfo_nodeARN = Lens.lens (\NodeInfo' {nodeARN} -> nodeARN) (\s@NodeInfo' {} a -> s {nodeARN = a} :: NodeInfo)
-
--- | The ZookeeperNodeInfo.
-nodeInfo_zookeeperNodeInfo :: Lens.Lens' NodeInfo (Prelude.Maybe ZookeeperNodeInfo)
-nodeInfo_zookeeperNodeInfo = Lens.lens (\NodeInfo' {zookeeperNodeInfo} -> zookeeperNodeInfo) (\s@NodeInfo' {} a -> s {zookeeperNodeInfo = a} :: NodeInfo)
+-- | The broker node info.
+nodeInfo_brokerNodeInfo :: Lens.Lens' NodeInfo (Prelude.Maybe BrokerNodeInfo)
+nodeInfo_brokerNodeInfo = Lens.lens (\NodeInfo' {brokerNodeInfo} -> brokerNodeInfo) (\s@NodeInfo' {} a -> s {brokerNodeInfo = a} :: NodeInfo)
 
 -- | The instance type.
 nodeInfo_instanceType :: Lens.Lens' NodeInfo (Prelude.Maybe Prelude.Text)
 nodeInfo_instanceType = Lens.lens (\NodeInfo' {instanceType} -> instanceType) (\s@NodeInfo' {} a -> s {instanceType = a} :: NodeInfo)
 
--- | The broker node info.
-nodeInfo_brokerNodeInfo :: Lens.Lens' NodeInfo (Prelude.Maybe BrokerNodeInfo)
-nodeInfo_brokerNodeInfo = Lens.lens (\NodeInfo' {brokerNodeInfo} -> brokerNodeInfo) (\s@NodeInfo' {} a -> s {brokerNodeInfo = a} :: NodeInfo)
+-- | The Amazon Resource Name (ARN) of the node.
+nodeInfo_nodeARN :: Lens.Lens' NodeInfo (Prelude.Maybe Prelude.Text)
+nodeInfo_nodeARN = Lens.lens (\NodeInfo' {nodeARN} -> nodeARN) (\s@NodeInfo' {} a -> s {nodeARN = a} :: NodeInfo)
 
 -- | The node type.
 nodeInfo_nodeType :: Lens.Lens' NodeInfo (Prelude.Maybe NodeType)
 nodeInfo_nodeType = Lens.lens (\NodeInfo' {nodeType} -> nodeType) (\s@NodeInfo' {} a -> s {nodeType = a} :: NodeInfo)
 
-instance Core.FromJSON NodeInfo where
+-- | The ZookeeperNodeInfo.
+nodeInfo_zookeeperNodeInfo :: Lens.Lens' NodeInfo (Prelude.Maybe ZookeeperNodeInfo)
+nodeInfo_zookeeperNodeInfo = Lens.lens (\NodeInfo' {zookeeperNodeInfo} -> zookeeperNodeInfo) (\s@NodeInfo' {} a -> s {zookeeperNodeInfo = a} :: NodeInfo)
+
+instance Data.FromJSON NodeInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NodeInfo"
       ( \x ->
           NodeInfo'
-            Prelude.<$> (x Core..:? "addedToClusterTime")
-            Prelude.<*> (x Core..:? "nodeARN")
-            Prelude.<*> (x Core..:? "zookeeperNodeInfo")
-            Prelude.<*> (x Core..:? "instanceType")
-            Prelude.<*> (x Core..:? "brokerNodeInfo")
-            Prelude.<*> (x Core..:? "nodeType")
+            Prelude.<$> (x Data..:? "addedToClusterTime")
+            Prelude.<*> (x Data..:? "brokerNodeInfo")
+            Prelude.<*> (x Data..:? "instanceType")
+            Prelude.<*> (x Data..:? "nodeARN")
+            Prelude.<*> (x Data..:? "nodeType")
+            Prelude.<*> (x Data..:? "zookeeperNodeInfo")
       )
 
 instance Prelude.Hashable NodeInfo where
   hashWithSalt _salt NodeInfo' {..} =
     _salt `Prelude.hashWithSalt` addedToClusterTime
-      `Prelude.hashWithSalt` nodeARN
-      `Prelude.hashWithSalt` zookeeperNodeInfo
-      `Prelude.hashWithSalt` instanceType
       `Prelude.hashWithSalt` brokerNodeInfo
+      `Prelude.hashWithSalt` instanceType
+      `Prelude.hashWithSalt` nodeARN
       `Prelude.hashWithSalt` nodeType
+      `Prelude.hashWithSalt` zookeeperNodeInfo
 
 instance Prelude.NFData NodeInfo where
   rnf NodeInfo' {..} =
     Prelude.rnf addedToClusterTime
-      `Prelude.seq` Prelude.rnf nodeARN
-      `Prelude.seq` Prelude.rnf zookeeperNodeInfo
-      `Prelude.seq` Prelude.rnf instanceType
       `Prelude.seq` Prelude.rnf brokerNodeInfo
+      `Prelude.seq` Prelude.rnf instanceType
+      `Prelude.seq` Prelude.rnf nodeARN
       `Prelude.seq` Prelude.rnf nodeType
+      `Prelude.seq` Prelude.rnf zookeeperNodeInfo

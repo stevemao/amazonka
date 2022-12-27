@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetClientCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,18 +34,19 @@ module Amazonka.APIGateway.GetClientCertificate
     newClientCertificate,
 
     -- * Response Lenses
-    clientCertificate_pemEncodedCertificate,
     clientCertificate_clientCertificateId,
     clientCertificate_createdDate,
-    clientCertificate_expirationDate,
     clientCertificate_description,
+    clientCertificate_expirationDate,
+    clientCertificate_pemEncodedCertificate,
     clientCertificate_tags,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,8 +56,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newGetClientCertificate' smart constructor.
 data GetClientCertificate = GetClientCertificate'
-  { -- | [Required] The identifier of the ClientCertificate resource to be
-    -- described.
+  { -- | The identifier of the ClientCertificate resource to be described.
     clientCertificateId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -69,8 +69,7 @@ data GetClientCertificate = GetClientCertificate'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'clientCertificateId', 'getClientCertificate_clientCertificateId' - [Required] The identifier of the ClientCertificate resource to be
--- described.
+-- 'clientCertificateId', 'getClientCertificate_clientCertificateId' - The identifier of the ClientCertificate resource to be described.
 newGetClientCertificate ::
   -- | 'clientCertificateId'
   Prelude.Text ->
@@ -81,8 +80,7 @@ newGetClientCertificate pClientCertificateId_ =
         pClientCertificateId_
     }
 
--- | [Required] The identifier of the ClientCertificate resource to be
--- described.
+-- | The identifier of the ClientCertificate resource to be described.
 getClientCertificate_clientCertificateId :: Lens.Lens' GetClientCertificate Prelude.Text
 getClientCertificate_clientCertificateId = Lens.lens (\GetClientCertificate' {clientCertificateId} -> clientCertificateId) (\s@GetClientCertificate' {} a -> s {clientCertificateId = a} :: GetClientCertificate)
 
@@ -90,10 +88,11 @@ instance Core.AWSRequest GetClientCertificate where
   type
     AWSResponse GetClientCertificate =
       ClientCertificate
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetClientCertificate where
   hashWithSalt _salt GetClientCertificate' {..} =
@@ -103,21 +102,21 @@ instance Prelude.NFData GetClientCertificate where
   rnf GetClientCertificate' {..} =
     Prelude.rnf clientCertificateId
 
-instance Core.ToHeaders GetClientCertificate where
+instance Data.ToHeaders GetClientCertificate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetClientCertificate where
+instance Data.ToPath GetClientCertificate where
   toPath GetClientCertificate' {..} =
     Prelude.mconcat
       [ "/clientcertificates/",
-        Core.toBS clientCertificateId
+        Data.toBS clientCertificateId
       ]
 
-instance Core.ToQuery GetClientCertificate where
+instance Data.ToQuery GetClientCertificate where
   toQuery = Prelude.const Prelude.mempty

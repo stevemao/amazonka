@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.ListAnomaliesForInsight
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,9 +30,10 @@ module Amazonka.DevOpsGuru.ListAnomaliesForInsight
     newListAnomaliesForInsight,
 
     -- * Request Lenses
-    listAnomaliesForInsight_startTimeRange,
-    listAnomaliesForInsight_nextToken,
+    listAnomaliesForInsight_accountId,
     listAnomaliesForInsight_maxResults,
+    listAnomaliesForInsight_nextToken,
+    listAnomaliesForInsight_startTimeRange,
     listAnomaliesForInsight_insightId,
 
     -- * Destructuring the Response
@@ -40,32 +41,35 @@ module Amazonka.DevOpsGuru.ListAnomaliesForInsight
     newListAnomaliesForInsightResponse,
 
     -- * Response Lenses
-    listAnomaliesForInsightResponse_proactiveAnomalies,
     listAnomaliesForInsightResponse_nextToken,
+    listAnomaliesForInsightResponse_proactiveAnomalies,
     listAnomaliesForInsightResponse_reactiveAnomalies,
     listAnomaliesForInsightResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DevOpsGuru.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListAnomaliesForInsight' smart constructor.
 data ListAnomaliesForInsight = ListAnomaliesForInsight'
-  { -- | A time range used to specify when the requested anomalies started. All
-    -- returned anomalies started during this time range.
-    startTimeRange :: Prelude.Maybe StartTimeRange,
-    -- | The pagination token to use to retrieve the next page of results for
-    -- this operation. If this value is null, it retrieves the first page.
-    nextToken :: Prelude.Maybe Prelude.Text,
+  { -- | The ID of the Amazon Web Services account.
+    accountId :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of results to return with a single call. To retrieve
     -- the remaining results, make another call with the returned @nextToken@
     -- value.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token to use to retrieve the next page of results for
+    -- this operation. If this value is null, it retrieves the first page.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A time range used to specify when the requested anomalies started. All
+    -- returned anomalies started during this time range.
+    startTimeRange :: Prelude.Maybe StartTimeRange,
     -- | The ID of the insight. The returned anomalies belong to this insight.
     insightId :: Prelude.Text
   }
@@ -79,15 +83,17 @@ data ListAnomaliesForInsight = ListAnomaliesForInsight'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'startTimeRange', 'listAnomaliesForInsight_startTimeRange' - A time range used to specify when the requested anomalies started. All
--- returned anomalies started during this time range.
---
--- 'nextToken', 'listAnomaliesForInsight_nextToken' - The pagination token to use to retrieve the next page of results for
--- this operation. If this value is null, it retrieves the first page.
+-- 'accountId', 'listAnomaliesForInsight_accountId' - The ID of the Amazon Web Services account.
 --
 -- 'maxResults', 'listAnomaliesForInsight_maxResults' - The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
+--
+-- 'nextToken', 'listAnomaliesForInsight_nextToken' - The pagination token to use to retrieve the next page of results for
+-- this operation. If this value is null, it retrieves the first page.
+--
+-- 'startTimeRange', 'listAnomaliesForInsight_startTimeRange' - A time range used to specify when the requested anomalies started. All
+-- returned anomalies started during this time range.
 --
 -- 'insightId', 'listAnomaliesForInsight_insightId' - The ID of the insight. The returned anomalies belong to this insight.
 newListAnomaliesForInsight ::
@@ -96,28 +102,33 @@ newListAnomaliesForInsight ::
   ListAnomaliesForInsight
 newListAnomaliesForInsight pInsightId_ =
   ListAnomaliesForInsight'
-    { startTimeRange =
+    { accountId =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      startTimeRange = Prelude.Nothing,
       insightId = pInsightId_
     }
 
--- | A time range used to specify when the requested anomalies started. All
--- returned anomalies started during this time range.
-listAnomaliesForInsight_startTimeRange :: Lens.Lens' ListAnomaliesForInsight (Prelude.Maybe StartTimeRange)
-listAnomaliesForInsight_startTimeRange = Lens.lens (\ListAnomaliesForInsight' {startTimeRange} -> startTimeRange) (\s@ListAnomaliesForInsight' {} a -> s {startTimeRange = a} :: ListAnomaliesForInsight)
-
--- | The pagination token to use to retrieve the next page of results for
--- this operation. If this value is null, it retrieves the first page.
-listAnomaliesForInsight_nextToken :: Lens.Lens' ListAnomaliesForInsight (Prelude.Maybe Prelude.Text)
-listAnomaliesForInsight_nextToken = Lens.lens (\ListAnomaliesForInsight' {nextToken} -> nextToken) (\s@ListAnomaliesForInsight' {} a -> s {nextToken = a} :: ListAnomaliesForInsight)
+-- | The ID of the Amazon Web Services account.
+listAnomaliesForInsight_accountId :: Lens.Lens' ListAnomaliesForInsight (Prelude.Maybe Prelude.Text)
+listAnomaliesForInsight_accountId = Lens.lens (\ListAnomaliesForInsight' {accountId} -> accountId) (\s@ListAnomaliesForInsight' {} a -> s {accountId = a} :: ListAnomaliesForInsight)
 
 -- | The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
 listAnomaliesForInsight_maxResults :: Lens.Lens' ListAnomaliesForInsight (Prelude.Maybe Prelude.Natural)
 listAnomaliesForInsight_maxResults = Lens.lens (\ListAnomaliesForInsight' {maxResults} -> maxResults) (\s@ListAnomaliesForInsight' {} a -> s {maxResults = a} :: ListAnomaliesForInsight)
+
+-- | The pagination token to use to retrieve the next page of results for
+-- this operation. If this value is null, it retrieves the first page.
+listAnomaliesForInsight_nextToken :: Lens.Lens' ListAnomaliesForInsight (Prelude.Maybe Prelude.Text)
+listAnomaliesForInsight_nextToken = Lens.lens (\ListAnomaliesForInsight' {nextToken} -> nextToken) (\s@ListAnomaliesForInsight' {} a -> s {nextToken = a} :: ListAnomaliesForInsight)
+
+-- | A time range used to specify when the requested anomalies started. All
+-- returned anomalies started during this time range.
+listAnomaliesForInsight_startTimeRange :: Lens.Lens' ListAnomaliesForInsight (Prelude.Maybe StartTimeRange)
+listAnomaliesForInsight_startTimeRange = Lens.lens (\ListAnomaliesForInsight' {startTimeRange} -> startTimeRange) (\s@ListAnomaliesForInsight' {} a -> s {startTimeRange = a} :: ListAnomaliesForInsight)
 
 -- | The ID of the insight. The returned anomalies belong to this insight.
 listAnomaliesForInsight_insightId :: Lens.Lens' ListAnomaliesForInsight Prelude.Text
@@ -155,16 +166,17 @@ instance Core.AWSRequest ListAnomaliesForInsight where
   type
     AWSResponse ListAnomaliesForInsight =
       ListAnomaliesForInsightResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAnomaliesForInsightResponse'
-            Prelude.<$> ( x Core..?> "ProactiveAnomalies"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "ProactiveAnomalies"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "ReactiveAnomalies"
+            Prelude.<*> ( x Data..?> "ReactiveAnomalies"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -172,56 +184,59 @@ instance Core.AWSRequest ListAnomaliesForInsight where
 
 instance Prelude.Hashable ListAnomaliesForInsight where
   hashWithSalt _salt ListAnomaliesForInsight' {..} =
-    _salt `Prelude.hashWithSalt` startTimeRange
-      `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` accountId
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` startTimeRange
       `Prelude.hashWithSalt` insightId
 
 instance Prelude.NFData ListAnomaliesForInsight where
   rnf ListAnomaliesForInsight' {..} =
-    Prelude.rnf startTimeRange
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf startTimeRange
       `Prelude.seq` Prelude.rnf insightId
 
-instance Core.ToHeaders ListAnomaliesForInsight where
+instance Data.ToHeaders ListAnomaliesForInsight where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListAnomaliesForInsight where
+instance Data.ToJSON ListAnomaliesForInsight where
   toJSON ListAnomaliesForInsight' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("StartTimeRange" Core..=)
-              Prelude.<$> startTimeRange,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("AccountId" Data..=) Prelude.<$> accountId,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("StartTimeRange" Data..=)
+              Prelude.<$> startTimeRange
           ]
       )
 
-instance Core.ToPath ListAnomaliesForInsight where
+instance Data.ToPath ListAnomaliesForInsight where
   toPath ListAnomaliesForInsight' {..} =
     Prelude.mconcat
-      ["/anomalies/insight/", Core.toBS insightId]
+      ["/anomalies/insight/", Data.toBS insightId]
 
-instance Core.ToQuery ListAnomaliesForInsight where
+instance Data.ToQuery ListAnomaliesForInsight where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListAnomaliesForInsightResponse' smart constructor.
 data ListAnomaliesForInsightResponse = ListAnomaliesForInsightResponse'
-  { -- | An array of @ProactiveAnomalySummary@ objects that represent the
-    -- requested anomalies
-    proactiveAnomalies :: Prelude.Maybe [ProactiveAnomalySummary],
-    -- | The pagination token to use to retrieve the next page of results for
+  { -- | The pagination token to use to retrieve the next page of results for
     -- this operation. If there are no more pages, this value is null.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of @ProactiveAnomalySummary@ objects that represent the
+    -- requested anomalies
+    proactiveAnomalies :: Prelude.Maybe [ProactiveAnomalySummary],
     -- | An array of @ReactiveAnomalySummary@ objects that represent the
     -- requested anomalies
     reactiveAnomalies :: Prelude.Maybe [ReactiveAnomalySummary],
@@ -238,11 +253,11 @@ data ListAnomaliesForInsightResponse = ListAnomaliesForInsightResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'proactiveAnomalies', 'listAnomaliesForInsightResponse_proactiveAnomalies' - An array of @ProactiveAnomalySummary@ objects that represent the
--- requested anomalies
---
 -- 'nextToken', 'listAnomaliesForInsightResponse_nextToken' - The pagination token to use to retrieve the next page of results for
 -- this operation. If there are no more pages, this value is null.
+--
+-- 'proactiveAnomalies', 'listAnomaliesForInsightResponse_proactiveAnomalies' - An array of @ProactiveAnomalySummary@ objects that represent the
+-- requested anomalies
 --
 -- 'reactiveAnomalies', 'listAnomaliesForInsightResponse_reactiveAnomalies' - An array of @ReactiveAnomalySummary@ objects that represent the
 -- requested anomalies
@@ -254,22 +269,22 @@ newListAnomaliesForInsightResponse ::
   ListAnomaliesForInsightResponse
 newListAnomaliesForInsightResponse pHttpStatus_ =
   ListAnomaliesForInsightResponse'
-    { proactiveAnomalies =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      proactiveAnomalies = Prelude.Nothing,
       reactiveAnomalies = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | An array of @ProactiveAnomalySummary@ objects that represent the
--- requested anomalies
-listAnomaliesForInsightResponse_proactiveAnomalies :: Lens.Lens' ListAnomaliesForInsightResponse (Prelude.Maybe [ProactiveAnomalySummary])
-listAnomaliesForInsightResponse_proactiveAnomalies = Lens.lens (\ListAnomaliesForInsightResponse' {proactiveAnomalies} -> proactiveAnomalies) (\s@ListAnomaliesForInsightResponse' {} a -> s {proactiveAnomalies = a} :: ListAnomaliesForInsightResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The pagination token to use to retrieve the next page of results for
 -- this operation. If there are no more pages, this value is null.
 listAnomaliesForInsightResponse_nextToken :: Lens.Lens' ListAnomaliesForInsightResponse (Prelude.Maybe Prelude.Text)
 listAnomaliesForInsightResponse_nextToken = Lens.lens (\ListAnomaliesForInsightResponse' {nextToken} -> nextToken) (\s@ListAnomaliesForInsightResponse' {} a -> s {nextToken = a} :: ListAnomaliesForInsightResponse)
+
+-- | An array of @ProactiveAnomalySummary@ objects that represent the
+-- requested anomalies
+listAnomaliesForInsightResponse_proactiveAnomalies :: Lens.Lens' ListAnomaliesForInsightResponse (Prelude.Maybe [ProactiveAnomalySummary])
+listAnomaliesForInsightResponse_proactiveAnomalies = Lens.lens (\ListAnomaliesForInsightResponse' {proactiveAnomalies} -> proactiveAnomalies) (\s@ListAnomaliesForInsightResponse' {} a -> s {proactiveAnomalies = a} :: ListAnomaliesForInsightResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | An array of @ReactiveAnomalySummary@ objects that represent the
 -- requested anomalies
@@ -285,7 +300,7 @@ instance
     ListAnomaliesForInsightResponse
   where
   rnf ListAnomaliesForInsightResponse' {..} =
-    Prelude.rnf proactiveAnomalies
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf proactiveAnomalies
       `Prelude.seq` Prelude.rnf reactiveAnomalies
       `Prelude.seq` Prelude.rnf httpStatus

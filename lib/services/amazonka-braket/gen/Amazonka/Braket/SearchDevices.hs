@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Braket.SearchDevices
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Braket.SearchDevices
     newSearchDevices,
 
     -- * Request Lenses
-    searchDevices_nextToken,
     searchDevices_maxResults,
+    searchDevices_nextToken,
     searchDevices_filters,
 
     -- * Destructuring the Response
@@ -46,19 +46,20 @@ where
 
 import Amazonka.Braket.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newSearchDevices' smart constructor.
 data SearchDevices = SearchDevices'
-  { -- | A token used for pagination of results returned in the response. Use the
+  { -- | The maximum number of results to return in the response.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token used for pagination of results returned in the response. Use the
     -- token returned from the previous request continue results where the
     -- previous request ended.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in the response.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The filter values to use to search for a device.
     filters :: [SearchDevicesFilter]
   }
@@ -72,31 +73,31 @@ data SearchDevices = SearchDevices'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'searchDevices_maxResults' - The maximum number of results to return in the response.
+--
 -- 'nextToken', 'searchDevices_nextToken' - A token used for pagination of results returned in the response. Use the
 -- token returned from the previous request continue results where the
 -- previous request ended.
---
--- 'maxResults', 'searchDevices_maxResults' - The maximum number of results to return in the response.
 --
 -- 'filters', 'searchDevices_filters' - The filter values to use to search for a device.
 newSearchDevices ::
   SearchDevices
 newSearchDevices =
   SearchDevices'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       filters = Prelude.mempty
     }
+
+-- | The maximum number of results to return in the response.
+searchDevices_maxResults :: Lens.Lens' SearchDevices (Prelude.Maybe Prelude.Natural)
+searchDevices_maxResults = Lens.lens (\SearchDevices' {maxResults} -> maxResults) (\s@SearchDevices' {} a -> s {maxResults = a} :: SearchDevices)
 
 -- | A token used for pagination of results returned in the response. Use the
 -- token returned from the previous request continue results where the
 -- previous request ended.
 searchDevices_nextToken :: Lens.Lens' SearchDevices (Prelude.Maybe Prelude.Text)
 searchDevices_nextToken = Lens.lens (\SearchDevices' {nextToken} -> nextToken) (\s@SearchDevices' {} a -> s {nextToken = a} :: SearchDevices)
-
--- | The maximum number of results to return in the response.
-searchDevices_maxResults :: Lens.Lens' SearchDevices (Prelude.Maybe Prelude.Natural)
-searchDevices_maxResults = Lens.lens (\SearchDevices' {maxResults} -> maxResults) (\s@SearchDevices' {} a -> s {maxResults = a} :: SearchDevices)
 
 -- | The filter values to use to search for a device.
 searchDevices_filters :: Lens.Lens' SearchDevices [SearchDevicesFilter]
@@ -123,53 +124,54 @@ instance Core.AWSRequest SearchDevices where
   type
     AWSResponse SearchDevices =
       SearchDevicesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SearchDevicesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "devices" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "devices" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable SearchDevices where
   hashWithSalt _salt SearchDevices' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` filters
 
 instance Prelude.NFData SearchDevices where
   rnf SearchDevices' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf filters
 
-instance Core.ToHeaders SearchDevices where
+instance Data.ToHeaders SearchDevices where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SearchDevices where
+instance Data.ToJSON SearchDevices where
   toJSON SearchDevices' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("filters" Core..= filters)
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("filters" Data..= filters)
           ]
       )
 
-instance Core.ToPath SearchDevices where
+instance Data.ToPath SearchDevices where
   toPath = Prelude.const "/devices"
 
-instance Core.ToQuery SearchDevices where
+instance Data.ToQuery SearchDevices where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSearchDevicesResponse' smart constructor.

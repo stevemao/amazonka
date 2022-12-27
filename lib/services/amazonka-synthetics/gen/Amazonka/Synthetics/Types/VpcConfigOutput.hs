@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Synthetics.Types.VpcConfigOutput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Synthetics.Types.VpcConfigOutput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | If this canary is to test an endpoint in a VPC, this structure contains
@@ -74,17 +75,17 @@ vpcConfigOutput_subnetIds = Lens.lens (\VpcConfigOutput' {subnetIds} -> subnetId
 vpcConfigOutput_vpcId :: Lens.Lens' VpcConfigOutput (Prelude.Maybe Prelude.Text)
 vpcConfigOutput_vpcId = Lens.lens (\VpcConfigOutput' {vpcId} -> vpcId) (\s@VpcConfigOutput' {} a -> s {vpcId = a} :: VpcConfigOutput)
 
-instance Core.FromJSON VpcConfigOutput where
+instance Data.FromJSON VpcConfigOutput where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VpcConfigOutput"
       ( \x ->
           VpcConfigOutput'
-            Prelude.<$> ( x Core..:? "SecurityGroupIds"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "SecurityGroupIds"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "SubnetIds" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "VpcId")
+            Prelude.<*> (x Data..:? "SubnetIds" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "VpcId")
       )
 
 instance Prelude.Hashable VpcConfigOutput where

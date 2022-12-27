@@ -14,15 +14,15 @@
 
 -- |
 -- Module      : Amazonka.Connect.UpdateContactFlowContent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the specified contact flow.
+-- Updates the specified flow.
 --
--- You can also create and update contact flows using the
+-- You can also create and update flows using the
 -- <https://docs.aws.amazon.com/connect/latest/adminguide/flow-language.html Amazon Connect Flow language>.
 module Amazonka.Connect.UpdateContactFlowContent
   ( -- * Creating a Request
@@ -42,7 +42,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -51,10 +52,9 @@ import qualified Amazonka.Response as Response
 data UpdateContactFlowContent = UpdateContactFlowContent'
   { -- | The identifier of the Amazon Connect instance.
     instanceId :: Prelude.Text,
-    -- | The identifier of the contact flow.
+    -- | The identifier of the flow.
     contactFlowId :: Prelude.Text,
-    -- | The JSON string that represents contact flow’s content. For an example,
-    -- see
+    -- | The JSON string that represents flow\'s content. For an example, see
     -- <https://docs.aws.amazon.com/connect/latest/adminguide/flow-language-example.html Example contact flow in Amazon Connect Flow language>
     -- in the /Amazon Connect Administrator Guide/.
     content :: Prelude.Text
@@ -71,10 +71,9 @@ data UpdateContactFlowContent = UpdateContactFlowContent'
 --
 -- 'instanceId', 'updateContactFlowContent_instanceId' - The identifier of the Amazon Connect instance.
 --
--- 'contactFlowId', 'updateContactFlowContent_contactFlowId' - The identifier of the contact flow.
+-- 'contactFlowId', 'updateContactFlowContent_contactFlowId' - The identifier of the flow.
 --
--- 'content', 'updateContactFlowContent_content' - The JSON string that represents contact flow’s content. For an example,
--- see
+-- 'content', 'updateContactFlowContent_content' - The JSON string that represents flow\'s content. For an example, see
 -- <https://docs.aws.amazon.com/connect/latest/adminguide/flow-language-example.html Example contact flow in Amazon Connect Flow language>
 -- in the /Amazon Connect Administrator Guide/.
 newUpdateContactFlowContent ::
@@ -100,12 +99,11 @@ newUpdateContactFlowContent
 updateContactFlowContent_instanceId :: Lens.Lens' UpdateContactFlowContent Prelude.Text
 updateContactFlowContent_instanceId = Lens.lens (\UpdateContactFlowContent' {instanceId} -> instanceId) (\s@UpdateContactFlowContent' {} a -> s {instanceId = a} :: UpdateContactFlowContent)
 
--- | The identifier of the contact flow.
+-- | The identifier of the flow.
 updateContactFlowContent_contactFlowId :: Lens.Lens' UpdateContactFlowContent Prelude.Text
 updateContactFlowContent_contactFlowId = Lens.lens (\UpdateContactFlowContent' {contactFlowId} -> contactFlowId) (\s@UpdateContactFlowContent' {} a -> s {contactFlowId = a} :: UpdateContactFlowContent)
 
--- | The JSON string that represents contact flow’s content. For an example,
--- see
+-- | The JSON string that represents flow\'s content. For an example, see
 -- <https://docs.aws.amazon.com/connect/latest/adminguide/flow-language-example.html Example contact flow in Amazon Connect Flow language>
 -- in the /Amazon Connect Administrator Guide/.
 updateContactFlowContent_content :: Lens.Lens' UpdateContactFlowContent Prelude.Text
@@ -115,7 +113,8 @@ instance Core.AWSRequest UpdateContactFlowContent where
   type
     AWSResponse UpdateContactFlowContent =
       UpdateContactFlowContentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       UpdateContactFlowContentResponse'
@@ -132,35 +131,35 @@ instance Prelude.NFData UpdateContactFlowContent where
       `Prelude.seq` Prelude.rnf contactFlowId
       `Prelude.seq` Prelude.rnf content
 
-instance Core.ToHeaders UpdateContactFlowContent where
+instance Data.ToHeaders UpdateContactFlowContent where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateContactFlowContent where
+instance Data.ToJSON UpdateContactFlowContent where
   toJSON UpdateContactFlowContent' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Content" Core..= content)]
+          [Prelude.Just ("Content" Data..= content)]
       )
 
-instance Core.ToPath UpdateContactFlowContent where
+instance Data.ToPath UpdateContactFlowContent where
   toPath UpdateContactFlowContent' {..} =
     Prelude.mconcat
       [ "/contact-flows/",
-        Core.toBS instanceId,
+        Data.toBS instanceId,
         "/",
-        Core.toBS contactFlowId,
+        Data.toBS contactFlowId,
         "/content"
       ]
 
-instance Core.ToQuery UpdateContactFlowContent where
+instance Data.ToQuery UpdateContactFlowContent where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateContactFlowContentResponse' smart constructor.

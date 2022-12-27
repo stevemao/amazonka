@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.GetMLTaskRuns
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,10 +34,10 @@ module Amazonka.Glue.GetMLTaskRuns
     newGetMLTaskRuns,
 
     -- * Request Lenses
-    getMLTaskRuns_nextToken,
-    getMLTaskRuns_sort,
     getMLTaskRuns_filter,
     getMLTaskRuns_maxResults,
+    getMLTaskRuns_nextToken,
+    getMLTaskRuns_sort,
     getMLTaskRuns_transformId,
 
     -- * Destructuring the Response
@@ -52,24 +52,25 @@ module Amazonka.Glue.GetMLTaskRuns
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetMLTaskRuns' smart constructor.
 data GetMLTaskRuns = GetMLTaskRuns'
-  { -- | A token for pagination of the results. The default is empty.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The sorting criteria, in the @TaskRunSortCriteria@ structure, for the
-    -- task run.
-    sort :: Prelude.Maybe TaskRunSortCriteria,
-    -- | The filter criteria, in the @TaskRunFilterCriteria@ structure, for the
+  { -- | The filter criteria, in the @TaskRunFilterCriteria@ structure, for the
     -- task run.
     filter' :: Prelude.Maybe TaskRunFilterCriteria,
     -- | The maximum number of results to return.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token for pagination of the results. The default is empty.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The sorting criteria, in the @TaskRunSortCriteria@ structure, for the
+    -- task run.
+    sort :: Prelude.Maybe TaskRunSortCriteria,
     -- | The unique identifier of the machine learning transform.
     transformId :: Prelude.Text
   }
@@ -83,15 +84,15 @@ data GetMLTaskRuns = GetMLTaskRuns'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'getMLTaskRuns_nextToken' - A token for pagination of the results. The default is empty.
---
--- 'sort', 'getMLTaskRuns_sort' - The sorting criteria, in the @TaskRunSortCriteria@ structure, for the
--- task run.
---
 -- 'filter'', 'getMLTaskRuns_filter' - The filter criteria, in the @TaskRunFilterCriteria@ structure, for the
 -- task run.
 --
 -- 'maxResults', 'getMLTaskRuns_maxResults' - The maximum number of results to return.
+--
+-- 'nextToken', 'getMLTaskRuns_nextToken' - A token for pagination of the results. The default is empty.
+--
+-- 'sort', 'getMLTaskRuns_sort' - The sorting criteria, in the @TaskRunSortCriteria@ structure, for the
+-- task run.
 --
 -- 'transformId', 'getMLTaskRuns_transformId' - The unique identifier of the machine learning transform.
 newGetMLTaskRuns ::
@@ -100,21 +101,12 @@ newGetMLTaskRuns ::
   GetMLTaskRuns
 newGetMLTaskRuns pTransformId_ =
   GetMLTaskRuns'
-    { nextToken = Prelude.Nothing,
-      sort = Prelude.Nothing,
-      filter' = Prelude.Nothing,
+    { filter' = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      sort = Prelude.Nothing,
       transformId = pTransformId_
     }
-
--- | A token for pagination of the results. The default is empty.
-getMLTaskRuns_nextToken :: Lens.Lens' GetMLTaskRuns (Prelude.Maybe Prelude.Text)
-getMLTaskRuns_nextToken = Lens.lens (\GetMLTaskRuns' {nextToken} -> nextToken) (\s@GetMLTaskRuns' {} a -> s {nextToken = a} :: GetMLTaskRuns)
-
--- | The sorting criteria, in the @TaskRunSortCriteria@ structure, for the
--- task run.
-getMLTaskRuns_sort :: Lens.Lens' GetMLTaskRuns (Prelude.Maybe TaskRunSortCriteria)
-getMLTaskRuns_sort = Lens.lens (\GetMLTaskRuns' {sort} -> sort) (\s@GetMLTaskRuns' {} a -> s {sort = a} :: GetMLTaskRuns)
 
 -- | The filter criteria, in the @TaskRunFilterCriteria@ structure, for the
 -- task run.
@@ -125,6 +117,15 @@ getMLTaskRuns_filter = Lens.lens (\GetMLTaskRuns' {filter'} -> filter') (\s@GetM
 getMLTaskRuns_maxResults :: Lens.Lens' GetMLTaskRuns (Prelude.Maybe Prelude.Natural)
 getMLTaskRuns_maxResults = Lens.lens (\GetMLTaskRuns' {maxResults} -> maxResults) (\s@GetMLTaskRuns' {} a -> s {maxResults = a} :: GetMLTaskRuns)
 
+-- | A token for pagination of the results. The default is empty.
+getMLTaskRuns_nextToken :: Lens.Lens' GetMLTaskRuns (Prelude.Maybe Prelude.Text)
+getMLTaskRuns_nextToken = Lens.lens (\GetMLTaskRuns' {nextToken} -> nextToken) (\s@GetMLTaskRuns' {} a -> s {nextToken = a} :: GetMLTaskRuns)
+
+-- | The sorting criteria, in the @TaskRunSortCriteria@ structure, for the
+-- task run.
+getMLTaskRuns_sort :: Lens.Lens' GetMLTaskRuns (Prelude.Maybe TaskRunSortCriteria)
+getMLTaskRuns_sort = Lens.lens (\GetMLTaskRuns' {sort} -> sort) (\s@GetMLTaskRuns' {} a -> s {sort = a} :: GetMLTaskRuns)
+
 -- | The unique identifier of the machine learning transform.
 getMLTaskRuns_transformId :: Lens.Lens' GetMLTaskRuns Prelude.Text
 getMLTaskRuns_transformId = Lens.lens (\GetMLTaskRuns' {transformId} -> transformId) (\s@GetMLTaskRuns' {} a -> s {transformId = a} :: GetMLTaskRuns)
@@ -133,61 +134,62 @@ instance Core.AWSRequest GetMLTaskRuns where
   type
     AWSResponse GetMLTaskRuns =
       GetMLTaskRunsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetMLTaskRunsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "TaskRuns" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "TaskRuns" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetMLTaskRuns where
   hashWithSalt _salt GetMLTaskRuns' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` sort
-      `Prelude.hashWithSalt` filter'
+    _salt `Prelude.hashWithSalt` filter'
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` sort
       `Prelude.hashWithSalt` transformId
 
 instance Prelude.NFData GetMLTaskRuns where
   rnf GetMLTaskRuns' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf sort
-      `Prelude.seq` Prelude.rnf filter'
+    Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf sort
       `Prelude.seq` Prelude.rnf transformId
 
-instance Core.ToHeaders GetMLTaskRuns where
+instance Data.ToHeaders GetMLTaskRuns where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.GetMLTaskRuns" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.GetMLTaskRuns" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetMLTaskRuns where
+instance Data.ToJSON GetMLTaskRuns where
   toJSON GetMLTaskRuns' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Sort" Core..=) Prelude.<$> sort,
-            ("Filter" Core..=) Prelude.<$> filter',
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("TransformId" Core..= transformId)
+          [ ("Filter" Data..=) Prelude.<$> filter',
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("Sort" Data..=) Prelude.<$> sort,
+            Prelude.Just ("TransformId" Data..= transformId)
           ]
       )
 
-instance Core.ToPath GetMLTaskRuns where
+instance Data.ToPath GetMLTaskRuns where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetMLTaskRuns where
+instance Data.ToQuery GetMLTaskRuns where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetMLTaskRunsResponse' smart constructor.

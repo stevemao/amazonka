@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.MessageRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.MessageRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types.AddressConfiguration
 import Amazonka.Pinpoint.Types.DirectMessageConfiguration
 import Amazonka.Pinpoint.Types.EndpointSendConfiguration
@@ -31,15 +32,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newMessageRequest' smart constructor.
 data MessageRequest = MessageRequest'
-  { -- | The unique identifier for tracing the message. This identifier is
-    -- visible to message recipients.
-    traceId :: Prelude.Maybe Prelude.Text,
-    -- | A map of custom attributes to attach to the message. For a push
-    -- notification, this payload is added to the data.pinpoint object. For an
-    -- email or text message, this payload is added to email\/SMS delivery
-    -- receipt event attributes.
-    context :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | A map of key-value pairs, where each key is an address and each value is
+  { -- | A map of key-value pairs, where each key is an address and each value is
     -- an
     -- <https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-addressconfiguration AddressConfiguration>
     -- object. An address can be a push notification token, a phone number, or
@@ -48,8 +41,11 @@ data MessageRequest = MessageRequest'
     -- object to tailor the message for an address by specifying settings such
     -- as content overrides and message variables.
     addresses :: Prelude.Maybe (Prelude.HashMap Prelude.Text AddressConfiguration),
-    -- | The message template to use for the message.
-    templateConfiguration :: Prelude.Maybe TemplateConfiguration,
+    -- | A map of custom attributes to attach to the message. For a push
+    -- notification, this payload is added to the data.pinpoint object. For an
+    -- email or text message, this payload is added to email\/SMS delivery
+    -- receipt event attributes.
+    context :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | A map of key-value pairs, where each key is an endpoint ID and each
     -- value is an
     -- <https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-endpointsendconfiguration EndpointSendConfiguration>
@@ -58,6 +54,11 @@ data MessageRequest = MessageRequest'
     -- object to tailor the message for an endpoint by specifying settings such
     -- as content overrides and message variables.
     endpoints :: Prelude.Maybe (Prelude.HashMap Prelude.Text EndpointSendConfiguration),
+    -- | The message template to use for the message.
+    templateConfiguration :: Prelude.Maybe TemplateConfiguration,
+    -- | The unique identifier for tracing the message. This identifier is
+    -- visible to message recipients.
+    traceId :: Prelude.Maybe Prelude.Text,
     -- | The settings and content for the default message and any default
     -- messages that you defined for specific channels.
     messageConfiguration :: DirectMessageConfiguration
@@ -72,14 +73,6 @@ data MessageRequest = MessageRequest'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'traceId', 'messageRequest_traceId' - The unique identifier for tracing the message. This identifier is
--- visible to message recipients.
---
--- 'context', 'messageRequest_context' - A map of custom attributes to attach to the message. For a push
--- notification, this payload is added to the data.pinpoint object. For an
--- email or text message, this payload is added to email\/SMS delivery
--- receipt event attributes.
---
 -- 'addresses', 'messageRequest_addresses' - A map of key-value pairs, where each key is an address and each value is
 -- an
 -- <https://docs.aws.amazon.com/pinpoint/latest/apireference/apps-application-id-messages.html#apps-application-id-messages-model-addressconfiguration AddressConfiguration>
@@ -89,7 +82,10 @@ data MessageRequest = MessageRequest'
 -- object to tailor the message for an address by specifying settings such
 -- as content overrides and message variables.
 --
--- 'templateConfiguration', 'messageRequest_templateConfiguration' - The message template to use for the message.
+-- 'context', 'messageRequest_context' - A map of custom attributes to attach to the message. For a push
+-- notification, this payload is added to the data.pinpoint object. For an
+-- email or text message, this payload is added to email\/SMS delivery
+-- receipt event attributes.
 --
 -- 'endpoints', 'messageRequest_endpoints' - A map of key-value pairs, where each key is an endpoint ID and each
 -- value is an
@@ -99,6 +95,11 @@ data MessageRequest = MessageRequest'
 -- object to tailor the message for an endpoint by specifying settings such
 -- as content overrides and message variables.
 --
+-- 'templateConfiguration', 'messageRequest_templateConfiguration' - The message template to use for the message.
+--
+-- 'traceId', 'messageRequest_traceId' - The unique identifier for tracing the message. This identifier is
+-- visible to message recipients.
+--
 -- 'messageConfiguration', 'messageRequest_messageConfiguration' - The settings and content for the default message and any default
 -- messages that you defined for specific channels.
 newMessageRequest ::
@@ -107,25 +108,13 @@ newMessageRequest ::
   MessageRequest
 newMessageRequest pMessageConfiguration_ =
   MessageRequest'
-    { traceId = Prelude.Nothing,
+    { addresses = Prelude.Nothing,
       context = Prelude.Nothing,
-      addresses = Prelude.Nothing,
-      templateConfiguration = Prelude.Nothing,
       endpoints = Prelude.Nothing,
+      templateConfiguration = Prelude.Nothing,
+      traceId = Prelude.Nothing,
       messageConfiguration = pMessageConfiguration_
     }
-
--- | The unique identifier for tracing the message. This identifier is
--- visible to message recipients.
-messageRequest_traceId :: Lens.Lens' MessageRequest (Prelude.Maybe Prelude.Text)
-messageRequest_traceId = Lens.lens (\MessageRequest' {traceId} -> traceId) (\s@MessageRequest' {} a -> s {traceId = a} :: MessageRequest)
-
--- | A map of custom attributes to attach to the message. For a push
--- notification, this payload is added to the data.pinpoint object. For an
--- email or text message, this payload is added to email\/SMS delivery
--- receipt event attributes.
-messageRequest_context :: Lens.Lens' MessageRequest (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
-messageRequest_context = Lens.lens (\MessageRequest' {context} -> context) (\s@MessageRequest' {} a -> s {context = a} :: MessageRequest) Prelude.. Lens.mapping Lens.coerced
 
 -- | A map of key-value pairs, where each key is an address and each value is
 -- an
@@ -138,9 +127,12 @@ messageRequest_context = Lens.lens (\MessageRequest' {context} -> context) (\s@M
 messageRequest_addresses :: Lens.Lens' MessageRequest (Prelude.Maybe (Prelude.HashMap Prelude.Text AddressConfiguration))
 messageRequest_addresses = Lens.lens (\MessageRequest' {addresses} -> addresses) (\s@MessageRequest' {} a -> s {addresses = a} :: MessageRequest) Prelude.. Lens.mapping Lens.coerced
 
--- | The message template to use for the message.
-messageRequest_templateConfiguration :: Lens.Lens' MessageRequest (Prelude.Maybe TemplateConfiguration)
-messageRequest_templateConfiguration = Lens.lens (\MessageRequest' {templateConfiguration} -> templateConfiguration) (\s@MessageRequest' {} a -> s {templateConfiguration = a} :: MessageRequest)
+-- | A map of custom attributes to attach to the message. For a push
+-- notification, this payload is added to the data.pinpoint object. For an
+-- email or text message, this payload is added to email\/SMS delivery
+-- receipt event attributes.
+messageRequest_context :: Lens.Lens' MessageRequest (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+messageRequest_context = Lens.lens (\MessageRequest' {context} -> context) (\s@MessageRequest' {} a -> s {context = a} :: MessageRequest) Prelude.. Lens.mapping Lens.coerced
 
 -- | A map of key-value pairs, where each key is an endpoint ID and each
 -- value is an
@@ -152,6 +144,15 @@ messageRequest_templateConfiguration = Lens.lens (\MessageRequest' {templateConf
 messageRequest_endpoints :: Lens.Lens' MessageRequest (Prelude.Maybe (Prelude.HashMap Prelude.Text EndpointSendConfiguration))
 messageRequest_endpoints = Lens.lens (\MessageRequest' {endpoints} -> endpoints) (\s@MessageRequest' {} a -> s {endpoints = a} :: MessageRequest) Prelude.. Lens.mapping Lens.coerced
 
+-- | The message template to use for the message.
+messageRequest_templateConfiguration :: Lens.Lens' MessageRequest (Prelude.Maybe TemplateConfiguration)
+messageRequest_templateConfiguration = Lens.lens (\MessageRequest' {templateConfiguration} -> templateConfiguration) (\s@MessageRequest' {} a -> s {templateConfiguration = a} :: MessageRequest)
+
+-- | The unique identifier for tracing the message. This identifier is
+-- visible to message recipients.
+messageRequest_traceId :: Lens.Lens' MessageRequest (Prelude.Maybe Prelude.Text)
+messageRequest_traceId = Lens.lens (\MessageRequest' {traceId} -> traceId) (\s@MessageRequest' {} a -> s {traceId = a} :: MessageRequest)
+
 -- | The settings and content for the default message and any default
 -- messages that you defined for specific channels.
 messageRequest_messageConfiguration :: Lens.Lens' MessageRequest DirectMessageConfiguration
@@ -159,35 +160,35 @@ messageRequest_messageConfiguration = Lens.lens (\MessageRequest' {messageConfig
 
 instance Prelude.Hashable MessageRequest where
   hashWithSalt _salt MessageRequest' {..} =
-    _salt `Prelude.hashWithSalt` traceId
+    _salt `Prelude.hashWithSalt` addresses
       `Prelude.hashWithSalt` context
-      `Prelude.hashWithSalt` addresses
-      `Prelude.hashWithSalt` templateConfiguration
       `Prelude.hashWithSalt` endpoints
+      `Prelude.hashWithSalt` templateConfiguration
+      `Prelude.hashWithSalt` traceId
       `Prelude.hashWithSalt` messageConfiguration
 
 instance Prelude.NFData MessageRequest where
   rnf MessageRequest' {..} =
-    Prelude.rnf traceId
+    Prelude.rnf addresses
       `Prelude.seq` Prelude.rnf context
-      `Prelude.seq` Prelude.rnf addresses
-      `Prelude.seq` Prelude.rnf templateConfiguration
       `Prelude.seq` Prelude.rnf endpoints
+      `Prelude.seq` Prelude.rnf templateConfiguration
+      `Prelude.seq` Prelude.rnf traceId
       `Prelude.seq` Prelude.rnf messageConfiguration
 
-instance Core.ToJSON MessageRequest where
+instance Data.ToJSON MessageRequest where
   toJSON MessageRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TraceId" Core..=) Prelude.<$> traceId,
-            ("Context" Core..=) Prelude.<$> context,
-            ("Addresses" Core..=) Prelude.<$> addresses,
-            ("TemplateConfiguration" Core..=)
+          [ ("Addresses" Data..=) Prelude.<$> addresses,
+            ("Context" Data..=) Prelude.<$> context,
+            ("Endpoints" Data..=) Prelude.<$> endpoints,
+            ("TemplateConfiguration" Data..=)
               Prelude.<$> templateConfiguration,
-            ("Endpoints" Core..=) Prelude.<$> endpoints,
+            ("TraceId" Data..=) Prelude.<$> traceId,
             Prelude.Just
               ( "MessageConfiguration"
-                  Core..= messageConfiguration
+                  Data..= messageConfiguration
               )
           ]
       )

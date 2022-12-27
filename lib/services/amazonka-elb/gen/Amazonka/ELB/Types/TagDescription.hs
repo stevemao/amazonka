@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ELB.Types.TagDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.ELB.Types.TagDescription where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELB.Internal
 import Amazonka.ELB.Types.Tag
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The tags associated with a load balancer.
@@ -63,12 +64,12 @@ tagDescription_loadBalancerName = Lens.lens (\TagDescription' {loadBalancerName}
 tagDescription_tags :: Lens.Lens' TagDescription (Prelude.Maybe (Prelude.NonEmpty Tag))
 tagDescription_tags = Lens.lens (\TagDescription' {tags} -> tags) (\s@TagDescription' {} a -> s {tags = a} :: TagDescription) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML TagDescription where
+instance Data.FromXML TagDescription where
   parseXML x =
     TagDescription'
-      Prelude.<$> (x Core..@? "LoadBalancerName")
-      Prelude.<*> ( x Core..@? "Tags" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList1 "member")
+      Prelude.<$> (x Data..@? "LoadBalancerName")
+      Prelude.<*> ( x Data..@? "Tags" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList1 "member")
                   )
 
 instance Prelude.Hashable TagDescription where

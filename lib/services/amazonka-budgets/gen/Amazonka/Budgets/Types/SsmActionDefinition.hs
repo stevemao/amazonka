@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Budgets.Types.SsmActionDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,10 +21,11 @@ module Amazonka.Budgets.Types.SsmActionDefinition where
 
 import Amazonka.Budgets.Types.ActionSubType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The AWS Systems Manager (SSM) action definition details.
+-- | The Amazon Web Services Systems Manager (SSM) action definition details.
 --
 -- /See:/ 'newSsmActionDefinition' smart constructor.
 data SsmActionDefinition = SsmActionDefinition'
@@ -81,15 +82,15 @@ ssmActionDefinition_region = Lens.lens (\SsmActionDefinition' {region} -> region
 ssmActionDefinition_instanceIds :: Lens.Lens' SsmActionDefinition (Prelude.NonEmpty Prelude.Text)
 ssmActionDefinition_instanceIds = Lens.lens (\SsmActionDefinition' {instanceIds} -> instanceIds) (\s@SsmActionDefinition' {} a -> s {instanceIds = a} :: SsmActionDefinition) Prelude.. Lens.coerced
 
-instance Core.FromJSON SsmActionDefinition where
+instance Data.FromJSON SsmActionDefinition where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SsmActionDefinition"
       ( \x ->
           SsmActionDefinition'
-            Prelude.<$> (x Core..: "ActionSubType")
-            Prelude.<*> (x Core..: "Region")
-            Prelude.<*> (x Core..: "InstanceIds")
+            Prelude.<$> (x Data..: "ActionSubType")
+            Prelude.<*> (x Data..: "Region")
+            Prelude.<*> (x Data..: "InstanceIds")
       )
 
 instance Prelude.Hashable SsmActionDefinition where
@@ -104,13 +105,13 @@ instance Prelude.NFData SsmActionDefinition where
       `Prelude.seq` Prelude.rnf region
       `Prelude.seq` Prelude.rnf instanceIds
 
-instance Core.ToJSON SsmActionDefinition where
+instance Data.ToJSON SsmActionDefinition where
   toJSON SsmActionDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ActionSubType" Core..= actionSubType),
-            Prelude.Just ("Region" Core..= region),
-            Prelude.Just ("InstanceIds" Core..= instanceIds)
+              ("ActionSubType" Data..= actionSubType),
+            Prelude.Just ("Region" Data..= region),
+            Prelude.Just ("InstanceIds" Data..= instanceIds)
           ]
       )

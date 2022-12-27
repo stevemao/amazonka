@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.UpdateIndexingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.IoT.UpdateIndexingConfiguration
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,7 +92,8 @@ instance Core.AWSRequest UpdateIndexingConfiguration where
   type
     AWSResponse UpdateIndexingConfiguration =
       UpdateIndexingConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -110,24 +112,24 @@ instance Prelude.NFData UpdateIndexingConfiguration where
     Prelude.rnf thingGroupIndexingConfiguration
       `Prelude.seq` Prelude.rnf thingIndexingConfiguration
 
-instance Core.ToHeaders UpdateIndexingConfiguration where
+instance Data.ToHeaders UpdateIndexingConfiguration where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateIndexingConfiguration where
+instance Data.ToJSON UpdateIndexingConfiguration where
   toJSON UpdateIndexingConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("thingGroupIndexingConfiguration" Core..=)
+          [ ("thingGroupIndexingConfiguration" Data..=)
               Prelude.<$> thingGroupIndexingConfiguration,
-            ("thingIndexingConfiguration" Core..=)
+            ("thingIndexingConfiguration" Data..=)
               Prelude.<$> thingIndexingConfiguration
           ]
       )
 
-instance Core.ToPath UpdateIndexingConfiguration where
+instance Data.ToPath UpdateIndexingConfiguration where
   toPath = Prelude.const "/indexing/config"
 
-instance Core.ToQuery UpdateIndexingConfiguration where
+instance Data.ToQuery UpdateIndexingConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateIndexingConfigurationResponse' smart constructor.

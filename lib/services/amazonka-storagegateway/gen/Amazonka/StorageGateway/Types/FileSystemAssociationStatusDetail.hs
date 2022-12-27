@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.Types.FileSystemAssociationStatusDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.StorageGateway.Types.FileSystemAssociationStatusDetail where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Detailed information on file system association status.
@@ -54,15 +55,15 @@ fileSystemAssociationStatusDetail_errorCode :: Lens.Lens' FileSystemAssociationS
 fileSystemAssociationStatusDetail_errorCode = Lens.lens (\FileSystemAssociationStatusDetail' {errorCode} -> errorCode) (\s@FileSystemAssociationStatusDetail' {} a -> s {errorCode = a} :: FileSystemAssociationStatusDetail)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     FileSystemAssociationStatusDetail
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FileSystemAssociationStatusDetail"
       ( \x ->
           FileSystemAssociationStatusDetail'
-            Prelude.<$> (x Core..:? "ErrorCode")
+            Prelude.<$> (x Data..:? "ErrorCode")
       )
 
 instance

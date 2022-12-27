@@ -14,14 +14,15 @@
 
 -- |
 -- Module      : Amazonka.SNS.ListOriginationNumbers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the calling account\'s dedicated origination numbers and their
--- metadata. For more information about origination numbers, see
+-- Lists the calling Amazon Web Services account\'s dedicated origination
+-- numbers and their metadata. For more information about origination
+-- numbers, see
 -- <https://docs.aws.amazon.com/sns/latest/dg/channels-sms-originating-identities-origination-numbers.html Origination numbers>
 -- in the /Amazon SNS Developer Guide/.
 --
@@ -32,8 +33,8 @@ module Amazonka.SNS.ListOriginationNumbers
     newListOriginationNumbers,
 
     -- * Request Lenses
-    listOriginationNumbers_nextToken,
     listOriginationNumbers_maxResults,
+    listOriginationNumbers_nextToken,
 
     -- * Destructuring the Response
     ListOriginationNumbersResponse (..),
@@ -47,7 +48,8 @@ module Amazonka.SNS.ListOriginationNumbers
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,10 +57,10 @@ import Amazonka.SNS.Types
 
 -- | /See:/ 'newListOriginationNumbers' smart constructor.
 data ListOriginationNumbers = ListOriginationNumbers'
-  { -- | Token that the previous @ListOriginationNumbers@ request returns.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of origination numbers to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | The maximum number of origination numbers to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Token that the previous @ListOriginationNumbers@ request returns.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -70,25 +72,25 @@ data ListOriginationNumbers = ListOriginationNumbers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listOriginationNumbers_nextToken' - Token that the previous @ListOriginationNumbers@ request returns.
---
 -- 'maxResults', 'listOriginationNumbers_maxResults' - The maximum number of origination numbers to return.
+--
+-- 'nextToken', 'listOriginationNumbers_nextToken' - Token that the previous @ListOriginationNumbers@ request returns.
 newListOriginationNumbers ::
   ListOriginationNumbers
 newListOriginationNumbers =
   ListOriginationNumbers'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
-
--- | Token that the previous @ListOriginationNumbers@ request returns.
-listOriginationNumbers_nextToken :: Lens.Lens' ListOriginationNumbers (Prelude.Maybe Prelude.Text)
-listOriginationNumbers_nextToken = Lens.lens (\ListOriginationNumbers' {nextToken} -> nextToken) (\s@ListOriginationNumbers' {} a -> s {nextToken = a} :: ListOriginationNumbers)
 
 -- | The maximum number of origination numbers to return.
 listOriginationNumbers_maxResults :: Lens.Lens' ListOriginationNumbers (Prelude.Maybe Prelude.Natural)
 listOriginationNumbers_maxResults = Lens.lens (\ListOriginationNumbers' {maxResults} -> maxResults) (\s@ListOriginationNumbers' {} a -> s {maxResults = a} :: ListOriginationNumbers)
+
+-- | Token that the previous @ListOriginationNumbers@ request returns.
+listOriginationNumbers_nextToken :: Lens.Lens' ListOriginationNumbers (Prelude.Maybe Prelude.Text)
+listOriginationNumbers_nextToken = Lens.lens (\ListOriginationNumbers' {nextToken} -> nextToken) (\s@ListOriginationNumbers' {} a -> s {nextToken = a} :: ListOriginationNumbers)
 
 instance Core.AWSPager ListOriginationNumbers where
   page rq rs
@@ -116,44 +118,45 @@ instance Core.AWSRequest ListOriginationNumbers where
   type
     AWSResponse ListOriginationNumbers =
       ListOriginationNumbersResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListOriginationNumbersResult"
       ( \s h x ->
           ListOriginationNumbersResponse'
-            Prelude.<$> (x Core..@? "NextToken")
-            Prelude.<*> ( x Core..@? "PhoneNumbers" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> (x Data..@? "NextToken")
+            Prelude.<*> ( x Data..@? "PhoneNumbers" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListOriginationNumbers where
   hashWithSalt _salt ListOriginationNumbers' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListOriginationNumbers where
   rnf ListOriginationNumbers' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListOriginationNumbers where
+instance Data.ToHeaders ListOriginationNumbers where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListOriginationNumbers where
+instance Data.ToPath ListOriginationNumbers where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListOriginationNumbers where
+instance Data.ToQuery ListOriginationNumbers where
   toQuery ListOriginationNumbers' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ListOriginationNumbers" :: Prelude.ByteString),
+          Data.=: ("ListOriginationNumbers" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-03-31" :: Prelude.ByteString),
-        "NextToken" Core.=: nextToken,
-        "MaxResults" Core.=: maxResults
+          Data.=: ("2010-03-31" :: Prelude.ByteString),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListOriginationNumbersResponse' smart constructor.

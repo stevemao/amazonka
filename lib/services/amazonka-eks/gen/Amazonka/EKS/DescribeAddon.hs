@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.DescribeAddon
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.EKS.DescribeAddon
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EKS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,12 +98,13 @@ instance Core.AWSRequest DescribeAddon where
   type
     AWSResponse DescribeAddon =
       DescribeAddonResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAddonResponse'
-            Prelude.<$> (x Core..?> "addon")
+            Prelude.<$> (x Data..?> "addon")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,27 +118,27 @@ instance Prelude.NFData DescribeAddon where
     Prelude.rnf clusterName
       `Prelude.seq` Prelude.rnf addonName
 
-instance Core.ToHeaders DescribeAddon where
+instance Data.ToHeaders DescribeAddon where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeAddon where
+instance Data.ToPath DescribeAddon where
   toPath DescribeAddon' {..} =
     Prelude.mconcat
       [ "/clusters/",
-        Core.toBS clusterName,
+        Data.toBS clusterName,
         "/addons/",
-        Core.toBS addonName
+        Data.toBS addonName
       ]
 
-instance Core.ToQuery DescribeAddon where
+instance Data.ToQuery DescribeAddon where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeAddonResponse' smart constructor.

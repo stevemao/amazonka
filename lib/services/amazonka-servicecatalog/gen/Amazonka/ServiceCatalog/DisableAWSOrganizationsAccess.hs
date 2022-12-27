@@ -14,24 +14,31 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.DisableAWSOrganizationsAccess
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disable portfolio sharing through AWS Organizations feature. This
--- feature will not delete your current shares but it will prevent you from
--- creating new shares throughout your organization. Current shares will
--- not be in sync with your organization structure if it changes after
--- calling this API. This API can only be called by the management account
--- in the organization.
+-- Disable portfolio sharing through the Organizations service. This
+-- command will not delete your current shares, but prevents you from
+-- creating new shares throughout your organization. Current shares are not
+-- kept in sync with your organization structure if the structure changes
+-- after calling this API. Only the management account in the organization
+-- can call this API.
 --
--- This API can\'t be invoked if there are active delegated administrators
--- in the organization.
+-- You cannot call this API if there are active delegated administrators in
+-- the organization.
 --
 -- Note that a delegated administrator is not authorized to invoke
 -- @DisableAWSOrganizationsAccess@.
+--
+-- If you share an Service Catalog portfolio in an organization within
+-- Organizations, and then disable Organizations access for Service
+-- Catalog, the portfolio access permissions will not sync with the latest
+-- changes to the organization structure. Specifically, accounts that you
+-- removed from the organization after disabling Service Catalog access
+-- will retain access to the previously shared portfolio.
 module Amazonka.ServiceCatalog.DisableAWSOrganizationsAccess
   ( -- * Creating a Request
     DisableAWSOrganizationsAccess (..),
@@ -47,7 +54,8 @@ module Amazonka.ServiceCatalog.DisableAWSOrganizationsAccess
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -75,7 +83,8 @@ instance
   type
     AWSResponse DisableAWSOrganizationsAccess =
       DisableAWSOrganizationsAccessResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -93,28 +102,28 @@ instance
 instance Prelude.NFData DisableAWSOrganizationsAccess where
   rnf _ = ()
 
-instance Core.ToHeaders DisableAWSOrganizationsAccess where
+instance Data.ToHeaders DisableAWSOrganizationsAccess where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.DisableAWSOrganizationsAccess" ::
+              Data.=# ( "AWS242ServiceCatalogService.DisableAWSOrganizationsAccess" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisableAWSOrganizationsAccess where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON DisableAWSOrganizationsAccess where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath DisableAWSOrganizationsAccess where
+instance Data.ToPath DisableAWSOrganizationsAccess where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisableAWSOrganizationsAccess where
+instance Data.ToQuery DisableAWSOrganizationsAccess where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisableAWSOrganizationsAccessResponse' smart constructor.

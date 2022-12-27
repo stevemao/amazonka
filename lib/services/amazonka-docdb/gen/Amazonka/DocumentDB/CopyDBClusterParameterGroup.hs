@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DocumentDB.CopyDBClusterParameterGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.DocumentDB.CopyDBClusterParameterGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DocumentDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,12 +63,14 @@ data CopyDBClusterParameterGroup = CopyDBClusterParameterGroup'
     --
     -- -   Must specify a valid cluster parameter group.
     --
-    -- -   If the source cluster parameter group is in the same Region as the
-    --     copy, specify a valid parameter group identifier; for example,
-    --     @my-db-cluster-param-group@, or a valid ARN.
+    -- -   If the source cluster parameter group is in the same Amazon Web
+    --     Services Region as the copy, specify a valid parameter group
+    --     identifier; for example, @my-db-cluster-param-group@, or a valid
+    --     ARN.
     --
-    -- -   If the source parameter group is in a different Region than the
-    --     copy, specify a valid cluster parameter group ARN; for example,
+    -- -   If the source parameter group is in a different Amazon Web Services
+    --     Region than the copy, specify a valid cluster parameter group ARN;
+    --     for example,
     --     @arn:aws:rds:us-east-1:123456789012:sample-cluster:sample-parameter-group@.
     sourceDBClusterParameterGroupIdentifier :: Prelude.Text,
     -- | The identifier for the copied cluster parameter group.
@@ -106,12 +109,14 @@ data CopyDBClusterParameterGroup = CopyDBClusterParameterGroup'
 --
 -- -   Must specify a valid cluster parameter group.
 --
--- -   If the source cluster parameter group is in the same Region as the
---     copy, specify a valid parameter group identifier; for example,
---     @my-db-cluster-param-group@, or a valid ARN.
+-- -   If the source cluster parameter group is in the same Amazon Web
+--     Services Region as the copy, specify a valid parameter group
+--     identifier; for example, @my-db-cluster-param-group@, or a valid
+--     ARN.
 --
--- -   If the source parameter group is in a different Region than the
---     copy, specify a valid cluster parameter group ARN; for example,
+-- -   If the source parameter group is in a different Amazon Web Services
+--     Region than the copy, specify a valid cluster parameter group ARN;
+--     for example,
 --     @arn:aws:rds:us-east-1:123456789012:sample-cluster:sample-parameter-group@.
 --
 -- 'targetDBClusterParameterGroupIdentifier', 'copyDBClusterParameterGroup_targetDBClusterParameterGroupIdentifier' - The identifier for the copied cluster parameter group.
@@ -163,12 +168,14 @@ copyDBClusterParameterGroup_tags = Lens.lens (\CopyDBClusterParameterGroup' {tag
 --
 -- -   Must specify a valid cluster parameter group.
 --
--- -   If the source cluster parameter group is in the same Region as the
---     copy, specify a valid parameter group identifier; for example,
---     @my-db-cluster-param-group@, or a valid ARN.
+-- -   If the source cluster parameter group is in the same Amazon Web
+--     Services Region as the copy, specify a valid parameter group
+--     identifier; for example, @my-db-cluster-param-group@, or a valid
+--     ARN.
 --
--- -   If the source parameter group is in a different Region than the
---     copy, specify a valid cluster parameter group ARN; for example,
+-- -   If the source parameter group is in a different Amazon Web Services
+--     Region than the copy, specify a valid cluster parameter group ARN;
+--     for example,
 --     @arn:aws:rds:us-east-1:123456789012:sample-cluster:sample-parameter-group@.
 copyDBClusterParameterGroup_sourceDBClusterParameterGroupIdentifier :: Lens.Lens' CopyDBClusterParameterGroup Prelude.Text
 copyDBClusterParameterGroup_sourceDBClusterParameterGroupIdentifier = Lens.lens (\CopyDBClusterParameterGroup' {sourceDBClusterParameterGroupIdentifier} -> sourceDBClusterParameterGroupIdentifier) (\s@CopyDBClusterParameterGroup' {} a -> s {sourceDBClusterParameterGroupIdentifier = a} :: CopyDBClusterParameterGroup)
@@ -197,13 +204,14 @@ instance Core.AWSRequest CopyDBClusterParameterGroup where
   type
     AWSResponse CopyDBClusterParameterGroup =
       CopyDBClusterParameterGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CopyDBClusterParameterGroupResult"
       ( \s h x ->
           CopyDBClusterParameterGroupResponse'
-            Prelude.<$> (x Core..@? "DBClusterParameterGroup")
+            Prelude.<$> (x Data..@? "DBClusterParameterGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -221,30 +229,30 @@ instance Prelude.NFData CopyDBClusterParameterGroup where
       `Prelude.seq` Prelude.rnf targetDBClusterParameterGroupIdentifier
       `Prelude.seq` Prelude.rnf targetDBClusterParameterGroupDescription
 
-instance Core.ToHeaders CopyDBClusterParameterGroup where
+instance Data.ToHeaders CopyDBClusterParameterGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CopyDBClusterParameterGroup where
+instance Data.ToPath CopyDBClusterParameterGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CopyDBClusterParameterGroup where
+instance Data.ToQuery CopyDBClusterParameterGroup where
   toQuery CopyDBClusterParameterGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "CopyDBClusterParameterGroup" ::
+          Data.=: ( "CopyDBClusterParameterGroup" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Tag" Prelude.<$> tags),
+          Data.=: Data.toQuery
+            (Data.toQueryList "Tag" Prelude.<$> tags),
         "SourceDBClusterParameterGroupIdentifier"
-          Core.=: sourceDBClusterParameterGroupIdentifier,
+          Data.=: sourceDBClusterParameterGroupIdentifier,
         "TargetDBClusterParameterGroupIdentifier"
-          Core.=: targetDBClusterParameterGroupIdentifier,
+          Data.=: targetDBClusterParameterGroupIdentifier,
         "TargetDBClusterParameterGroupDescription"
-          Core.=: targetDBClusterParameterGroupDescription
+          Data.=: targetDBClusterParameterGroupDescription
       ]
 
 -- | /See:/ 'newCopyDBClusterParameterGroupResponse' smart constructor.

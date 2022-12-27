@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.Types.AdjustmentType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AutoScaling.Types.AdjustmentType where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a policy adjustment type.
@@ -53,10 +54,10 @@ newAdjustmentType =
 adjustmentType_adjustmentType :: Lens.Lens' AdjustmentType (Prelude.Maybe Prelude.Text)
 adjustmentType_adjustmentType = Lens.lens (\AdjustmentType' {adjustmentType} -> adjustmentType) (\s@AdjustmentType' {} a -> s {adjustmentType = a} :: AdjustmentType)
 
-instance Core.FromXML AdjustmentType where
+instance Data.FromXML AdjustmentType where
   parseXML x =
     AdjustmentType'
-      Prelude.<$> (x Core..@? "AdjustmentType")
+      Prelude.<$> (x Data..@? "AdjustmentType")
 
 instance Prelude.Hashable AdjustmentType where
   hashWithSalt _salt AdjustmentType' {..} =

@@ -14,20 +14,22 @@
 
 -- |
 -- Module      : Amazonka.Transcribe.DescribeLanguageModel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets information about a single custom language model. Use this
--- information to see details about the language model in your Amazon Web
--- Services account. You can also see whether the base language model used
--- to create your custom language model has been updated. If Amazon
--- Transcribe has updated the base model, you can create a new custom
--- language model using the updated base model. If the language model
--- wasn\'t created, you can use this operation to understand why Amazon
--- Transcribe couldn\'t create it.
+-- Provides information about the specified custom language model.
+--
+-- This operation also shows if the base language model that you used to
+-- create your custom language model has been updated. If Amazon Transcribe
+-- has updated the base model, you can create a new custom language model
+-- using the updated base model.
+--
+-- If you tried to create a new custom language model and the request
+-- wasn\'t successful, you can use @DescribeLanguageModel@ to help identify
+-- the reason for this failure.
 module Amazonka.Transcribe.DescribeLanguageModel
   ( -- * Creating a Request
     DescribeLanguageModel (..),
@@ -47,7 +49,8 @@ module Amazonka.Transcribe.DescribeLanguageModel
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,8 +58,8 @@ import Amazonka.Transcribe.Types
 
 -- | /See:/ 'newDescribeLanguageModel' smart constructor.
 data DescribeLanguageModel = DescribeLanguageModel'
-  { -- | The name of the custom language model you submit to get more
-    -- information.
+  { -- | The name of the custom language model you want information about. Model
+    -- names are case sensitive.
     modelName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -69,8 +72,8 @@ data DescribeLanguageModel = DescribeLanguageModel'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'modelName', 'describeLanguageModel_modelName' - The name of the custom language model you submit to get more
--- information.
+-- 'modelName', 'describeLanguageModel_modelName' - The name of the custom language model you want information about. Model
+-- names are case sensitive.
 newDescribeLanguageModel ::
   -- | 'modelName'
   Prelude.Text ->
@@ -78,8 +81,8 @@ newDescribeLanguageModel ::
 newDescribeLanguageModel pModelName_ =
   DescribeLanguageModel' {modelName = pModelName_}
 
--- | The name of the custom language model you submit to get more
--- information.
+-- | The name of the custom language model you want information about. Model
+-- names are case sensitive.
 describeLanguageModel_modelName :: Lens.Lens' DescribeLanguageModel Prelude.Text
 describeLanguageModel_modelName = Lens.lens (\DescribeLanguageModel' {modelName} -> modelName) (\s@DescribeLanguageModel' {} a -> s {modelName = a} :: DescribeLanguageModel)
 
@@ -87,12 +90,13 @@ instance Core.AWSRequest DescribeLanguageModel where
   type
     AWSResponse DescribeLanguageModel =
       DescribeLanguageModelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeLanguageModelResponse'
-            Prelude.<$> (x Core..?> "LanguageModel")
+            Prelude.<$> (x Data..?> "LanguageModel")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -104,38 +108,46 @@ instance Prelude.NFData DescribeLanguageModel where
   rnf DescribeLanguageModel' {..} =
     Prelude.rnf modelName
 
-instance Core.ToHeaders DescribeLanguageModel where
+instance Data.ToHeaders DescribeLanguageModel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Transcribe.DescribeLanguageModel" ::
+              Data.=# ( "Transcribe.DescribeLanguageModel" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeLanguageModel where
+instance Data.ToJSON DescribeLanguageModel where
   toJSON DescribeLanguageModel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ModelName" Core..= modelName)]
+          [Prelude.Just ("ModelName" Data..= modelName)]
       )
 
-instance Core.ToPath DescribeLanguageModel where
+instance Data.ToPath DescribeLanguageModel where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeLanguageModel where
+instance Data.ToQuery DescribeLanguageModel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeLanguageModelResponse' smart constructor.
 data DescribeLanguageModelResponse = DescribeLanguageModelResponse'
-  { -- | The name of the custom language model you requested more information
-    -- about.
+  { -- | Provides information about the specified custom language model.
+    --
+    -- This parameter also shows if the base language model you used to create
+    -- your custom language model has been updated. If Amazon Transcribe has
+    -- updated the base model, you can create a new custom language model using
+    -- the updated base model.
+    --
+    -- If you tried to create a new custom language model and the request
+    -- wasn\'t successful, you can use this @DescribeLanguageModel@ to help
+    -- identify the reason for this failure.
     languageModel :: Prelude.Maybe LanguageModel,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -150,8 +162,16 @@ data DescribeLanguageModelResponse = DescribeLanguageModelResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'languageModel', 'describeLanguageModelResponse_languageModel' - The name of the custom language model you requested more information
--- about.
+-- 'languageModel', 'describeLanguageModelResponse_languageModel' - Provides information about the specified custom language model.
+--
+-- This parameter also shows if the base language model you used to create
+-- your custom language model has been updated. If Amazon Transcribe has
+-- updated the base model, you can create a new custom language model using
+-- the updated base model.
+--
+-- If you tried to create a new custom language model and the request
+-- wasn\'t successful, you can use this @DescribeLanguageModel@ to help
+-- identify the reason for this failure.
 --
 -- 'httpStatus', 'describeLanguageModelResponse_httpStatus' - The response's http status code.
 newDescribeLanguageModelResponse ::
@@ -165,8 +185,16 @@ newDescribeLanguageModelResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The name of the custom language model you requested more information
--- about.
+-- | Provides information about the specified custom language model.
+--
+-- This parameter also shows if the base language model you used to create
+-- your custom language model has been updated. If Amazon Transcribe has
+-- updated the base model, you can create a new custom language model using
+-- the updated base model.
+--
+-- If you tried to create a new custom language model and the request
+-- wasn\'t successful, you can use this @DescribeLanguageModel@ to help
+-- identify the reason for this failure.
 describeLanguageModelResponse_languageModel :: Lens.Lens' DescribeLanguageModelResponse (Prelude.Maybe LanguageModel)
 describeLanguageModelResponse_languageModel = Lens.lens (\DescribeLanguageModelResponse' {languageModel} -> languageModel) (\s@DescribeLanguageModelResponse' {} a -> s {languageModel = a} :: DescribeLanguageModelResponse)
 

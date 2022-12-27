@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.DeleteReceiptFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.SES.DeleteReceiptFilter
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,7 +87,8 @@ instance Core.AWSRequest DeleteReceiptFilter where
   type
     AWSResponse DeleteReceiptFilter =
       DeleteReceiptFilterResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeleteReceiptFilterResult"
@@ -102,20 +104,20 @@ instance Prelude.Hashable DeleteReceiptFilter where
 instance Prelude.NFData DeleteReceiptFilter where
   rnf DeleteReceiptFilter' {..} = Prelude.rnf filterName
 
-instance Core.ToHeaders DeleteReceiptFilter where
+instance Data.ToHeaders DeleteReceiptFilter where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteReceiptFilter where
+instance Data.ToPath DeleteReceiptFilter where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteReceiptFilter where
+instance Data.ToQuery DeleteReceiptFilter where
   toQuery DeleteReceiptFilter' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteReceiptFilter" :: Prelude.ByteString),
+          Data.=: ("DeleteReceiptFilter" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "FilterName" Core.=: filterName
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "FilterName" Data.=: filterName
       ]
 
 -- | An empty element returned on a successful request.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaPackage.Types.SpekeKeyProvider
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaPackage.Types.SpekeKeyProvider where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaPackage.Types.EncryptionContractConfiguration
 import qualified Amazonka.Prelude as Prelude
 
@@ -29,11 +30,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSpekeKeyProvider' smart constructor.
 data SpekeKeyProvider = SpekeKeyProvider'
-  { encryptionContractConfiguration :: Prelude.Maybe EncryptionContractConfiguration,
-    -- | An Amazon Resource Name (ARN) of a Certificate Manager certificate that
+  { -- | An Amazon Resource Name (ARN) of a Certificate Manager certificate that
     -- MediaPackage will use for enforcing secure end-to-end data transfer with
     -- the key provider service.
     certificateArn :: Prelude.Maybe Prelude.Text,
+    encryptionContractConfiguration :: Prelude.Maybe EncryptionContractConfiguration,
     -- | The resource ID to include in key requests.
     resourceId :: Prelude.Text,
     -- | The system IDs to include in key requests.
@@ -54,11 +55,11 @@ data SpekeKeyProvider = SpekeKeyProvider'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'encryptionContractConfiguration', 'spekeKeyProvider_encryptionContractConfiguration' - Undocumented member.
---
 -- 'certificateArn', 'spekeKeyProvider_certificateArn' - An Amazon Resource Name (ARN) of a Certificate Manager certificate that
 -- MediaPackage will use for enforcing secure end-to-end data transfer with
 -- the key provider service.
+--
+-- 'encryptionContractConfiguration', 'spekeKeyProvider_encryptionContractConfiguration' - Undocumented member.
 --
 -- 'resourceId', 'spekeKeyProvider_resourceId' - The resource ID to include in key requests.
 --
@@ -78,24 +79,23 @@ newSpekeKeyProvider ::
   SpekeKeyProvider
 newSpekeKeyProvider pResourceId_ pUrl_ pRoleArn_ =
   SpekeKeyProvider'
-    { encryptionContractConfiguration =
-        Prelude.Nothing,
-      certificateArn = Prelude.Nothing,
+    { certificateArn = Prelude.Nothing,
+      encryptionContractConfiguration = Prelude.Nothing,
       resourceId = pResourceId_,
       systemIds = Prelude.mempty,
       url = pUrl_,
       roleArn = pRoleArn_
     }
 
--- | Undocumented member.
-spekeKeyProvider_encryptionContractConfiguration :: Lens.Lens' SpekeKeyProvider (Prelude.Maybe EncryptionContractConfiguration)
-spekeKeyProvider_encryptionContractConfiguration = Lens.lens (\SpekeKeyProvider' {encryptionContractConfiguration} -> encryptionContractConfiguration) (\s@SpekeKeyProvider' {} a -> s {encryptionContractConfiguration = a} :: SpekeKeyProvider)
-
 -- | An Amazon Resource Name (ARN) of a Certificate Manager certificate that
 -- MediaPackage will use for enforcing secure end-to-end data transfer with
 -- the key provider service.
 spekeKeyProvider_certificateArn :: Lens.Lens' SpekeKeyProvider (Prelude.Maybe Prelude.Text)
 spekeKeyProvider_certificateArn = Lens.lens (\SpekeKeyProvider' {certificateArn} -> certificateArn) (\s@SpekeKeyProvider' {} a -> s {certificateArn = a} :: SpekeKeyProvider)
+
+-- | Undocumented member.
+spekeKeyProvider_encryptionContractConfiguration :: Lens.Lens' SpekeKeyProvider (Prelude.Maybe EncryptionContractConfiguration)
+spekeKeyProvider_encryptionContractConfiguration = Lens.lens (\SpekeKeyProvider' {encryptionContractConfiguration} -> encryptionContractConfiguration) (\s@SpekeKeyProvider' {} a -> s {encryptionContractConfiguration = a} :: SpekeKeyProvider)
 
 -- | The resource ID to include in key requests.
 spekeKeyProvider_resourceId :: Lens.Lens' SpekeKeyProvider Prelude.Text
@@ -114,25 +114,24 @@ spekeKeyProvider_url = Lens.lens (\SpekeKeyProvider' {url} -> url) (\s@SpekeKeyP
 spekeKeyProvider_roleArn :: Lens.Lens' SpekeKeyProvider Prelude.Text
 spekeKeyProvider_roleArn = Lens.lens (\SpekeKeyProvider' {roleArn} -> roleArn) (\s@SpekeKeyProvider' {} a -> s {roleArn = a} :: SpekeKeyProvider)
 
-instance Core.FromJSON SpekeKeyProvider where
+instance Data.FromJSON SpekeKeyProvider where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SpekeKeyProvider"
       ( \x ->
           SpekeKeyProvider'
-            Prelude.<$> (x Core..:? "encryptionContractConfiguration")
-            Prelude.<*> (x Core..:? "certificateArn")
-            Prelude.<*> (x Core..: "resourceId")
-            Prelude.<*> (x Core..:? "systemIds" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "url")
-            Prelude.<*> (x Core..: "roleArn")
+            Prelude.<$> (x Data..:? "certificateArn")
+            Prelude.<*> (x Data..:? "encryptionContractConfiguration")
+            Prelude.<*> (x Data..: "resourceId")
+            Prelude.<*> (x Data..:? "systemIds" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "url")
+            Prelude.<*> (x Data..: "roleArn")
       )
 
 instance Prelude.Hashable SpekeKeyProvider where
   hashWithSalt _salt SpekeKeyProvider' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` certificateArn
       `Prelude.hashWithSalt` encryptionContractConfiguration
-      `Prelude.hashWithSalt` certificateArn
       `Prelude.hashWithSalt` resourceId
       `Prelude.hashWithSalt` systemIds
       `Prelude.hashWithSalt` url
@@ -140,24 +139,24 @@ instance Prelude.Hashable SpekeKeyProvider where
 
 instance Prelude.NFData SpekeKeyProvider where
   rnf SpekeKeyProvider' {..} =
-    Prelude.rnf encryptionContractConfiguration
-      `Prelude.seq` Prelude.rnf certificateArn
+    Prelude.rnf certificateArn
+      `Prelude.seq` Prelude.rnf encryptionContractConfiguration
       `Prelude.seq` Prelude.rnf resourceId
       `Prelude.seq` Prelude.rnf systemIds
       `Prelude.seq` Prelude.rnf url
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToJSON SpekeKeyProvider where
+instance Data.ToJSON SpekeKeyProvider where
   toJSON SpekeKeyProvider' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("encryptionContractConfiguration" Core..=)
-              Prelude.<$> encryptionContractConfiguration,
-            ("certificateArn" Core..=)
+          [ ("certificateArn" Data..=)
               Prelude.<$> certificateArn,
-            Prelude.Just ("resourceId" Core..= resourceId),
-            Prelude.Just ("systemIds" Core..= systemIds),
-            Prelude.Just ("url" Core..= url),
-            Prelude.Just ("roleArn" Core..= roleArn)
+            ("encryptionContractConfiguration" Data..=)
+              Prelude.<$> encryptionContractConfiguration,
+            Prelude.Just ("resourceId" Data..= resourceId),
+            Prelude.Just ("systemIds" Data..= systemIds),
+            Prelude.Just ("url" Data..= url),
+            Prelude.Just ("roleArn" Data..= roleArn)
           ]
       )

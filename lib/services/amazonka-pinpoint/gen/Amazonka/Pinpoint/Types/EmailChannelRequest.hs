@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.EmailChannelRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.EmailChannelRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the status and settings of the email channel for an
@@ -28,12 +29,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newEmailChannelRequest' smart constructor.
 data EmailChannelRequest = EmailChannelRequest'
-  { -- | Specifies whether to enable the email channel for the application.
-    enabled :: Prelude.Maybe Prelude.Bool,
-    -- | The
+  { -- | The
     -- <https://docs.aws.amazon.com/ses/latest/APIReference/API_ConfigurationSet.html Amazon SES configuration set>
     -- that you want to apply to messages that you send through the channel.
     configurationSet :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether to enable the email channel for the application.
+    enabled :: Prelude.Maybe Prelude.Bool,
     -- | The ARN of the AWS Identity and Access Management (IAM) role that you
     -- want Amazon Pinpoint to use when it submits email-related event data for
     -- the channel.
@@ -56,11 +57,11 @@ data EmailChannelRequest = EmailChannelRequest'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'enabled', 'emailChannelRequest_enabled' - Specifies whether to enable the email channel for the application.
---
 -- 'configurationSet', 'emailChannelRequest_configurationSet' - The
 -- <https://docs.aws.amazon.com/ses/latest/APIReference/API_ConfigurationSet.html Amazon SES configuration set>
 -- that you want to apply to messages that you send through the channel.
+--
+-- 'enabled', 'emailChannelRequest_enabled' - Specifies whether to enable the email channel for the application.
 --
 -- 'roleArn', 'emailChannelRequest_roleArn' - The ARN of the AWS Identity and Access Management (IAM) role that you
 -- want Amazon Pinpoint to use when it submits email-related event data for
@@ -80,22 +81,23 @@ newEmailChannelRequest ::
   EmailChannelRequest
 newEmailChannelRequest pFromAddress_ pIdentity_ =
   EmailChannelRequest'
-    { enabled = Prelude.Nothing,
-      configurationSet = Prelude.Nothing,
+    { configurationSet =
+        Prelude.Nothing,
+      enabled = Prelude.Nothing,
       roleArn = Prelude.Nothing,
       fromAddress = pFromAddress_,
       identity = pIdentity_
     }
-
--- | Specifies whether to enable the email channel for the application.
-emailChannelRequest_enabled :: Lens.Lens' EmailChannelRequest (Prelude.Maybe Prelude.Bool)
-emailChannelRequest_enabled = Lens.lens (\EmailChannelRequest' {enabled} -> enabled) (\s@EmailChannelRequest' {} a -> s {enabled = a} :: EmailChannelRequest)
 
 -- | The
 -- <https://docs.aws.amazon.com/ses/latest/APIReference/API_ConfigurationSet.html Amazon SES configuration set>
 -- that you want to apply to messages that you send through the channel.
 emailChannelRequest_configurationSet :: Lens.Lens' EmailChannelRequest (Prelude.Maybe Prelude.Text)
 emailChannelRequest_configurationSet = Lens.lens (\EmailChannelRequest' {configurationSet} -> configurationSet) (\s@EmailChannelRequest' {} a -> s {configurationSet = a} :: EmailChannelRequest)
+
+-- | Specifies whether to enable the email channel for the application.
+emailChannelRequest_enabled :: Lens.Lens' EmailChannelRequest (Prelude.Maybe Prelude.Bool)
+emailChannelRequest_enabled = Lens.lens (\EmailChannelRequest' {enabled} -> enabled) (\s@EmailChannelRequest' {} a -> s {enabled = a} :: EmailChannelRequest)
 
 -- | The ARN of the AWS Identity and Access Management (IAM) role that you
 -- want Amazon Pinpoint to use when it submits email-related event data for
@@ -116,29 +118,29 @@ emailChannelRequest_identity = Lens.lens (\EmailChannelRequest' {identity} -> id
 
 instance Prelude.Hashable EmailChannelRequest where
   hashWithSalt _salt EmailChannelRequest' {..} =
-    _salt `Prelude.hashWithSalt` enabled
-      `Prelude.hashWithSalt` configurationSet
+    _salt `Prelude.hashWithSalt` configurationSet
+      `Prelude.hashWithSalt` enabled
       `Prelude.hashWithSalt` roleArn
       `Prelude.hashWithSalt` fromAddress
       `Prelude.hashWithSalt` identity
 
 instance Prelude.NFData EmailChannelRequest where
   rnf EmailChannelRequest' {..} =
-    Prelude.rnf enabled
-      `Prelude.seq` Prelude.rnf configurationSet
+    Prelude.rnf configurationSet
+      `Prelude.seq` Prelude.rnf enabled
       `Prelude.seq` Prelude.rnf roleArn
       `Prelude.seq` Prelude.rnf fromAddress
       `Prelude.seq` Prelude.rnf identity
 
-instance Core.ToJSON EmailChannelRequest where
+instance Data.ToJSON EmailChannelRequest where
   toJSON EmailChannelRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Enabled" Core..=) Prelude.<$> enabled,
-            ("ConfigurationSet" Core..=)
+          [ ("ConfigurationSet" Data..=)
               Prelude.<$> configurationSet,
-            ("RoleArn" Core..=) Prelude.<$> roleArn,
-            Prelude.Just ("FromAddress" Core..= fromAddress),
-            Prelude.Just ("Identity" Core..= identity)
+            ("Enabled" Data..=) Prelude.<$> enabled,
+            ("RoleArn" Data..=) Prelude.<$> roleArn,
+            Prelude.Just ("FromAddress" Data..= fromAddress),
+            Prelude.Just ("Identity" Data..= identity)
           ]
       )

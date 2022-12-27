@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.ServiceLimit
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.ServiceLimit where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types.Unit
 import qualified Amazonka.Prelude as Prelude
 
@@ -31,11 +32,11 @@ data ServiceLimit = ServiceLimit'
   { -- | Specifies whether the account has met the quota that corresponds to the
     -- metric specified by the UsageByAccount.type field in the response.
     isServiceLimited :: Prelude.Maybe Prelude.Bool,
+    -- | The unit of measurement for the value specified by the value field.
+    unit :: Prelude.Maybe Unit,
     -- | The value for the metric specified by the UsageByAccount.type field in
     -- the response.
-    value :: Prelude.Maybe Prelude.Integer,
-    -- | The unit of measurement for the value specified by the value field.
-    unit :: Prelude.Maybe Unit
+    value :: Prelude.Maybe Prelude.Integer
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -50,17 +51,17 @@ data ServiceLimit = ServiceLimit'
 -- 'isServiceLimited', 'serviceLimit_isServiceLimited' - Specifies whether the account has met the quota that corresponds to the
 -- metric specified by the UsageByAccount.type field in the response.
 --
+-- 'unit', 'serviceLimit_unit' - The unit of measurement for the value specified by the value field.
+--
 -- 'value', 'serviceLimit_value' - The value for the metric specified by the UsageByAccount.type field in
 -- the response.
---
--- 'unit', 'serviceLimit_unit' - The unit of measurement for the value specified by the value field.
 newServiceLimit ::
   ServiceLimit
 newServiceLimit =
   ServiceLimit'
     { isServiceLimited = Prelude.Nothing,
-      value = Prelude.Nothing,
-      unit = Prelude.Nothing
+      unit = Prelude.Nothing,
+      value = Prelude.Nothing
     }
 
 -- | Specifies whether the account has met the quota that corresponds to the
@@ -68,34 +69,34 @@ newServiceLimit =
 serviceLimit_isServiceLimited :: Lens.Lens' ServiceLimit (Prelude.Maybe Prelude.Bool)
 serviceLimit_isServiceLimited = Lens.lens (\ServiceLimit' {isServiceLimited} -> isServiceLimited) (\s@ServiceLimit' {} a -> s {isServiceLimited = a} :: ServiceLimit)
 
+-- | The unit of measurement for the value specified by the value field.
+serviceLimit_unit :: Lens.Lens' ServiceLimit (Prelude.Maybe Unit)
+serviceLimit_unit = Lens.lens (\ServiceLimit' {unit} -> unit) (\s@ServiceLimit' {} a -> s {unit = a} :: ServiceLimit)
+
 -- | The value for the metric specified by the UsageByAccount.type field in
 -- the response.
 serviceLimit_value :: Lens.Lens' ServiceLimit (Prelude.Maybe Prelude.Integer)
 serviceLimit_value = Lens.lens (\ServiceLimit' {value} -> value) (\s@ServiceLimit' {} a -> s {value = a} :: ServiceLimit)
 
--- | The unit of measurement for the value specified by the value field.
-serviceLimit_unit :: Lens.Lens' ServiceLimit (Prelude.Maybe Unit)
-serviceLimit_unit = Lens.lens (\ServiceLimit' {unit} -> unit) (\s@ServiceLimit' {} a -> s {unit = a} :: ServiceLimit)
-
-instance Core.FromJSON ServiceLimit where
+instance Data.FromJSON ServiceLimit where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ServiceLimit"
       ( \x ->
           ServiceLimit'
-            Prelude.<$> (x Core..:? "isServiceLimited")
-            Prelude.<*> (x Core..:? "value")
-            Prelude.<*> (x Core..:? "unit")
+            Prelude.<$> (x Data..:? "isServiceLimited")
+            Prelude.<*> (x Data..:? "unit")
+            Prelude.<*> (x Data..:? "value")
       )
 
 instance Prelude.Hashable ServiceLimit where
   hashWithSalt _salt ServiceLimit' {..} =
     _salt `Prelude.hashWithSalt` isServiceLimited
-      `Prelude.hashWithSalt` value
       `Prelude.hashWithSalt` unit
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData ServiceLimit where
   rnf ServiceLimit' {..} =
     Prelude.rnf isServiceLimited
-      `Prelude.seq` Prelude.rnf value
       `Prelude.seq` Prelude.rnf unit
+      `Prelude.seq` Prelude.rnf value

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.ListOpenWorkflowExecutions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -65,12 +65,12 @@ module Amazonka.SWF.ListOpenWorkflowExecutions
     newListOpenWorkflowExecutions,
 
     -- * Request Lenses
-    listOpenWorkflowExecutions_nextPageToken,
     listOpenWorkflowExecutions_executionFilter,
-    listOpenWorkflowExecutions_typeFilter,
+    listOpenWorkflowExecutions_maximumPageSize,
+    listOpenWorkflowExecutions_nextPageToken,
     listOpenWorkflowExecutions_reverseOrder,
     listOpenWorkflowExecutions_tagFilter,
-    listOpenWorkflowExecutions_maximumPageSize,
+    listOpenWorkflowExecutions_typeFilter,
     listOpenWorkflowExecutions_domain,
     listOpenWorkflowExecutions_startTimeFilter,
 
@@ -85,7 +85,8 @@ module Amazonka.SWF.ListOpenWorkflowExecutions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,7 +94,16 @@ import Amazonka.SWF.Types
 
 -- | /See:/ 'newListOpenWorkflowExecutions' smart constructor.
 data ListOpenWorkflowExecutions = ListOpenWorkflowExecutions'
-  { -- | If @NextPageToken@ is returned there are more results available. The
+  { -- | If specified, only workflow executions matching the workflow ID
+    -- specified in the filter are returned.
+    --
+    -- @executionFilter@, @typeFilter@ and @tagFilter@ are mutually exclusive.
+    -- You can specify at most one of these in a request.
+    executionFilter :: Prelude.Maybe WorkflowExecutionFilter,
+    -- | The maximum number of results that are returned per call. Use
+    -- @nextPageToken@ to obtain further pages of results.
+    maximumPageSize :: Prelude.Maybe Prelude.Natural,
+    -- | If @NextPageToken@ is returned there are more results available. The
     -- value of @NextPageToken@ is a unique pagination token for each page.
     -- Make the call again using the returned token to retrieve the next page.
     -- Keep all other arguments unchanged. Each pagination token expires after
@@ -103,18 +113,6 @@ data ListOpenWorkflowExecutions = ListOpenWorkflowExecutions'
     -- The configured @maximumPageSize@ determines how many results can be
     -- returned in a single call.
     nextPageToken :: Prelude.Maybe Prelude.Text,
-    -- | If specified, only workflow executions matching the workflow ID
-    -- specified in the filter are returned.
-    --
-    -- @executionFilter@, @typeFilter@ and @tagFilter@ are mutually exclusive.
-    -- You can specify at most one of these in a request.
-    executionFilter :: Prelude.Maybe WorkflowExecutionFilter,
-    -- | If specified, only executions of the type specified in the filter are
-    -- returned.
-    --
-    -- @executionFilter@, @typeFilter@ and @tagFilter@ are mutually exclusive.
-    -- You can specify at most one of these in a request.
-    typeFilter :: Prelude.Maybe WorkflowTypeFilter,
     -- | When set to @true@, returns the results in reverse order. By default the
     -- results are returned in descending order of the start time of the
     -- executions.
@@ -124,9 +122,12 @@ data ListOpenWorkflowExecutions = ListOpenWorkflowExecutions'
     -- @executionFilter@, @typeFilter@ and @tagFilter@ are mutually exclusive.
     -- You can specify at most one of these in a request.
     tagFilter :: Prelude.Maybe TagFilter,
-    -- | The maximum number of results that are returned per call. Use
-    -- @nextPageToken@ to obtain further pages of results.
-    maximumPageSize :: Prelude.Maybe Prelude.Natural,
+    -- | If specified, only executions of the type specified in the filter are
+    -- returned.
+    --
+    -- @executionFilter@, @typeFilter@ and @tagFilter@ are mutually exclusive.
+    -- You can specify at most one of these in a request.
+    typeFilter :: Prelude.Maybe WorkflowTypeFilter,
     -- | The name of the domain that contains the workflow executions to list.
     domain :: Prelude.Text,
     -- | Workflow executions are included in the returned results based on
@@ -143,6 +144,15 @@ data ListOpenWorkflowExecutions = ListOpenWorkflowExecutions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'executionFilter', 'listOpenWorkflowExecutions_executionFilter' - If specified, only workflow executions matching the workflow ID
+-- specified in the filter are returned.
+--
+-- @executionFilter@, @typeFilter@ and @tagFilter@ are mutually exclusive.
+-- You can specify at most one of these in a request.
+--
+-- 'maximumPageSize', 'listOpenWorkflowExecutions_maximumPageSize' - The maximum number of results that are returned per call. Use
+-- @nextPageToken@ to obtain further pages of results.
+--
 -- 'nextPageToken', 'listOpenWorkflowExecutions_nextPageToken' - If @NextPageToken@ is returned there are more results available. The
 -- value of @NextPageToken@ is a unique pagination token for each page.
 -- Make the call again using the returned token to retrieve the next page.
@@ -153,18 +163,6 @@ data ListOpenWorkflowExecutions = ListOpenWorkflowExecutions'
 -- The configured @maximumPageSize@ determines how many results can be
 -- returned in a single call.
 --
--- 'executionFilter', 'listOpenWorkflowExecutions_executionFilter' - If specified, only workflow executions matching the workflow ID
--- specified in the filter are returned.
---
--- @executionFilter@, @typeFilter@ and @tagFilter@ are mutually exclusive.
--- You can specify at most one of these in a request.
---
--- 'typeFilter', 'listOpenWorkflowExecutions_typeFilter' - If specified, only executions of the type specified in the filter are
--- returned.
---
--- @executionFilter@, @typeFilter@ and @tagFilter@ are mutually exclusive.
--- You can specify at most one of these in a request.
---
 -- 'reverseOrder', 'listOpenWorkflowExecutions_reverseOrder' - When set to @true@, returns the results in reverse order. By default the
 -- results are returned in descending order of the start time of the
 -- executions.
@@ -174,8 +172,11 @@ data ListOpenWorkflowExecutions = ListOpenWorkflowExecutions'
 -- @executionFilter@, @typeFilter@ and @tagFilter@ are mutually exclusive.
 -- You can specify at most one of these in a request.
 --
--- 'maximumPageSize', 'listOpenWorkflowExecutions_maximumPageSize' - The maximum number of results that are returned per call. Use
--- @nextPageToken@ to obtain further pages of results.
+-- 'typeFilter', 'listOpenWorkflowExecutions_typeFilter' - If specified, only executions of the type specified in the filter are
+-- returned.
+--
+-- @executionFilter@, @typeFilter@ and @tagFilter@ are mutually exclusive.
+-- You can specify at most one of these in a request.
 --
 -- 'domain', 'listOpenWorkflowExecutions_domain' - The name of the domain that contains the workflow executions to list.
 --
@@ -191,16 +192,29 @@ newListOpenWorkflowExecutions
   pDomain_
   pStartTimeFilter_ =
     ListOpenWorkflowExecutions'
-      { nextPageToken =
+      { executionFilter =
           Prelude.Nothing,
-        executionFilter = Prelude.Nothing,
-        typeFilter = Prelude.Nothing,
+        maximumPageSize = Prelude.Nothing,
+        nextPageToken = Prelude.Nothing,
         reverseOrder = Prelude.Nothing,
         tagFilter = Prelude.Nothing,
-        maximumPageSize = Prelude.Nothing,
+        typeFilter = Prelude.Nothing,
         domain = pDomain_,
         startTimeFilter = pStartTimeFilter_
       }
+
+-- | If specified, only workflow executions matching the workflow ID
+-- specified in the filter are returned.
+--
+-- @executionFilter@, @typeFilter@ and @tagFilter@ are mutually exclusive.
+-- You can specify at most one of these in a request.
+listOpenWorkflowExecutions_executionFilter :: Lens.Lens' ListOpenWorkflowExecutions (Prelude.Maybe WorkflowExecutionFilter)
+listOpenWorkflowExecutions_executionFilter = Lens.lens (\ListOpenWorkflowExecutions' {executionFilter} -> executionFilter) (\s@ListOpenWorkflowExecutions' {} a -> s {executionFilter = a} :: ListOpenWorkflowExecutions)
+
+-- | The maximum number of results that are returned per call. Use
+-- @nextPageToken@ to obtain further pages of results.
+listOpenWorkflowExecutions_maximumPageSize :: Lens.Lens' ListOpenWorkflowExecutions (Prelude.Maybe Prelude.Natural)
+listOpenWorkflowExecutions_maximumPageSize = Lens.lens (\ListOpenWorkflowExecutions' {maximumPageSize} -> maximumPageSize) (\s@ListOpenWorkflowExecutions' {} a -> s {maximumPageSize = a} :: ListOpenWorkflowExecutions)
 
 -- | If @NextPageToken@ is returned there are more results available. The
 -- value of @NextPageToken@ is a unique pagination token for each page.
@@ -213,22 +227,6 @@ newListOpenWorkflowExecutions
 -- returned in a single call.
 listOpenWorkflowExecutions_nextPageToken :: Lens.Lens' ListOpenWorkflowExecutions (Prelude.Maybe Prelude.Text)
 listOpenWorkflowExecutions_nextPageToken = Lens.lens (\ListOpenWorkflowExecutions' {nextPageToken} -> nextPageToken) (\s@ListOpenWorkflowExecutions' {} a -> s {nextPageToken = a} :: ListOpenWorkflowExecutions)
-
--- | If specified, only workflow executions matching the workflow ID
--- specified in the filter are returned.
---
--- @executionFilter@, @typeFilter@ and @tagFilter@ are mutually exclusive.
--- You can specify at most one of these in a request.
-listOpenWorkflowExecutions_executionFilter :: Lens.Lens' ListOpenWorkflowExecutions (Prelude.Maybe WorkflowExecutionFilter)
-listOpenWorkflowExecutions_executionFilter = Lens.lens (\ListOpenWorkflowExecutions' {executionFilter} -> executionFilter) (\s@ListOpenWorkflowExecutions' {} a -> s {executionFilter = a} :: ListOpenWorkflowExecutions)
-
--- | If specified, only executions of the type specified in the filter are
--- returned.
---
--- @executionFilter@, @typeFilter@ and @tagFilter@ are mutually exclusive.
--- You can specify at most one of these in a request.
-listOpenWorkflowExecutions_typeFilter :: Lens.Lens' ListOpenWorkflowExecutions (Prelude.Maybe WorkflowTypeFilter)
-listOpenWorkflowExecutions_typeFilter = Lens.lens (\ListOpenWorkflowExecutions' {typeFilter} -> typeFilter) (\s@ListOpenWorkflowExecutions' {} a -> s {typeFilter = a} :: ListOpenWorkflowExecutions)
 
 -- | When set to @true@, returns the results in reverse order. By default the
 -- results are returned in descending order of the start time of the
@@ -243,10 +241,13 @@ listOpenWorkflowExecutions_reverseOrder = Lens.lens (\ListOpenWorkflowExecutions
 listOpenWorkflowExecutions_tagFilter :: Lens.Lens' ListOpenWorkflowExecutions (Prelude.Maybe TagFilter)
 listOpenWorkflowExecutions_tagFilter = Lens.lens (\ListOpenWorkflowExecutions' {tagFilter} -> tagFilter) (\s@ListOpenWorkflowExecutions' {} a -> s {tagFilter = a} :: ListOpenWorkflowExecutions)
 
--- | The maximum number of results that are returned per call. Use
--- @nextPageToken@ to obtain further pages of results.
-listOpenWorkflowExecutions_maximumPageSize :: Lens.Lens' ListOpenWorkflowExecutions (Prelude.Maybe Prelude.Natural)
-listOpenWorkflowExecutions_maximumPageSize = Lens.lens (\ListOpenWorkflowExecutions' {maximumPageSize} -> maximumPageSize) (\s@ListOpenWorkflowExecutions' {} a -> s {maximumPageSize = a} :: ListOpenWorkflowExecutions)
+-- | If specified, only executions of the type specified in the filter are
+-- returned.
+--
+-- @executionFilter@, @typeFilter@ and @tagFilter@ are mutually exclusive.
+-- You can specify at most one of these in a request.
+listOpenWorkflowExecutions_typeFilter :: Lens.Lens' ListOpenWorkflowExecutions (Prelude.Maybe WorkflowTypeFilter)
+listOpenWorkflowExecutions_typeFilter = Lens.lens (\ListOpenWorkflowExecutions' {typeFilter} -> typeFilter) (\s@ListOpenWorkflowExecutions' {} a -> s {typeFilter = a} :: ListOpenWorkflowExecutions)
 
 -- | The name of the domain that contains the workflow executions to list.
 listOpenWorkflowExecutions_domain :: Lens.Lens' ListOpenWorkflowExecutions Prelude.Text
@@ -280,68 +281,69 @@ instance Core.AWSRequest ListOpenWorkflowExecutions where
   type
     AWSResponse ListOpenWorkflowExecutions =
       WorkflowExecutionInfos
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable ListOpenWorkflowExecutions where
   hashWithSalt _salt ListOpenWorkflowExecutions' {..} =
-    _salt `Prelude.hashWithSalt` nextPageToken
-      `Prelude.hashWithSalt` executionFilter
-      `Prelude.hashWithSalt` typeFilter
+    _salt `Prelude.hashWithSalt` executionFilter
+      `Prelude.hashWithSalt` maximumPageSize
+      `Prelude.hashWithSalt` nextPageToken
       `Prelude.hashWithSalt` reverseOrder
       `Prelude.hashWithSalt` tagFilter
-      `Prelude.hashWithSalt` maximumPageSize
+      `Prelude.hashWithSalt` typeFilter
       `Prelude.hashWithSalt` domain
       `Prelude.hashWithSalt` startTimeFilter
 
 instance Prelude.NFData ListOpenWorkflowExecutions where
   rnf ListOpenWorkflowExecutions' {..} =
-    Prelude.rnf nextPageToken
-      `Prelude.seq` Prelude.rnf executionFilter
-      `Prelude.seq` Prelude.rnf typeFilter
+    Prelude.rnf executionFilter
+      `Prelude.seq` Prelude.rnf maximumPageSize
+      `Prelude.seq` Prelude.rnf nextPageToken
       `Prelude.seq` Prelude.rnf reverseOrder
       `Prelude.seq` Prelude.rnf tagFilter
-      `Prelude.seq` Prelude.rnf maximumPageSize
+      `Prelude.seq` Prelude.rnf typeFilter
       `Prelude.seq` Prelude.rnf domain
       `Prelude.seq` Prelude.rnf startTimeFilter
 
-instance Core.ToHeaders ListOpenWorkflowExecutions where
+instance Data.ToHeaders ListOpenWorkflowExecutions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SimpleWorkflowService.ListOpenWorkflowExecutions" ::
+              Data.=# ( "SimpleWorkflowService.ListOpenWorkflowExecutions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListOpenWorkflowExecutions where
+instance Data.ToJSON ListOpenWorkflowExecutions where
   toJSON ListOpenWorkflowExecutions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextPageToken" Core..=) Prelude.<$> nextPageToken,
-            ("executionFilter" Core..=)
+          [ ("executionFilter" Data..=)
               Prelude.<$> executionFilter,
-            ("typeFilter" Core..=) Prelude.<$> typeFilter,
-            ("reverseOrder" Core..=) Prelude.<$> reverseOrder,
-            ("tagFilter" Core..=) Prelude.<$> tagFilter,
-            ("maximumPageSize" Core..=)
+            ("maximumPageSize" Data..=)
               Prelude.<$> maximumPageSize,
-            Prelude.Just ("domain" Core..= domain),
+            ("nextPageToken" Data..=) Prelude.<$> nextPageToken,
+            ("reverseOrder" Data..=) Prelude.<$> reverseOrder,
+            ("tagFilter" Data..=) Prelude.<$> tagFilter,
+            ("typeFilter" Data..=) Prelude.<$> typeFilter,
+            Prelude.Just ("domain" Data..= domain),
             Prelude.Just
-              ("startTimeFilter" Core..= startTimeFilter)
+              ("startTimeFilter" Data..= startTimeFilter)
           ]
       )
 
-instance Core.ToPath ListOpenWorkflowExecutions where
+instance Data.ToPath ListOpenWorkflowExecutions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListOpenWorkflowExecutions where
+instance Data.ToQuery ListOpenWorkflowExecutions where
   toQuery = Prelude.const Prelude.mempty

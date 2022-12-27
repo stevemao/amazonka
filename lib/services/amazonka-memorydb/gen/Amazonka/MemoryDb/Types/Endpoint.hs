@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MemoryDb.Types.Endpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MemoryDb.Types.Endpoint where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the information required for client programs to connect to
@@ -62,14 +63,14 @@ endpoint_address = Lens.lens (\Endpoint' {address} -> address) (\s@Endpoint' {} 
 endpoint_port :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Int)
 endpoint_port = Lens.lens (\Endpoint' {port} -> port) (\s@Endpoint' {} a -> s {port = a} :: Endpoint)
 
-instance Core.FromJSON Endpoint where
+instance Data.FromJSON Endpoint where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Endpoint"
       ( \x ->
           Endpoint'
-            Prelude.<$> (x Core..:? "Address")
-            Prelude.<*> (x Core..:? "Port")
+            Prelude.<$> (x Data..:? "Address")
+            Prelude.<*> (x Data..:? "Port")
       )
 
 instance Prelude.Hashable Endpoint where

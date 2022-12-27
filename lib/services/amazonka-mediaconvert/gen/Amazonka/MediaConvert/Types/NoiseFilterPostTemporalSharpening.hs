@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.NoiseFilterPostTemporalSharpening
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,18 +28,23 @@ module Amazonka.MediaConvert.Types.NoiseFilterPostTemporalSharpening
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Optional. When you set Noise reducer (noiseReducer) to Temporal
--- (TEMPORAL), you can use this setting to apply sharpening. The default
--- behavior, Auto (AUTO), allows the transcoder to determine whether to
--- apply filtering, depending on input type and quality. When you set Noise
--- reducer to Temporal, your output bandwidth is reduced. When Post
--- temporal sharpening is also enabled, that bandwidth reduction is
--- smaller.
+-- | When you set Noise reducer (noiseReducer) to Temporal (TEMPORAL), the
+-- bandwidth and sharpness of your output is reduced. You can optionally
+-- use Post temporal sharpening (postTemporalSharpening) to apply
+-- sharpening to the edges of your output. Note that Post temporal
+-- sharpening will also make the bandwidth reduction from the Noise reducer
+-- smaller. The default behavior, Auto (AUTO), allows the transcoder to
+-- determine whether to apply sharpening, depending on your input type and
+-- quality. When you set Post temporal sharpening to Enabled (ENABLED),
+-- specify how much sharpening is applied using Post temporal sharpening
+-- strength (postTemporalSharpeningStrength). Set Post temporal sharpening
+-- to Disabled (DISABLED) to not apply sharpening.
 newtype NoiseFilterPostTemporalSharpening = NoiseFilterPostTemporalSharpening'
   { fromNoiseFilterPostTemporalSharpening ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -51,18 +56,18 @@ newtype NoiseFilterPostTemporalSharpening = NoiseFilterPostTemporalSharpening'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern NoiseFilterPostTemporalSharpening_AUTO :: NoiseFilterPostTemporalSharpening

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersDevicesDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersDevicesDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A host device to expose to the container.
@@ -80,17 +81,17 @@ awsEcsTaskDefinitionContainerDefinitionsLinuxParametersDevicesDetails_permission
 awsEcsTaskDefinitionContainerDefinitionsLinuxParametersDevicesDetails_permissions = Lens.lens (\AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersDevicesDetails' {permissions} -> permissions) (\s@AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersDevicesDetails' {} a -> s {permissions = a} :: AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersDevicesDetails) Prelude.. Lens.mapping Lens.coerced
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersDevicesDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersDevicesDetails"
       ( \x ->
           AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersDevicesDetails'
-            Prelude.<$> (x Core..:? "ContainerPath")
-              Prelude.<*> (x Core..:? "HostPath")
-              Prelude.<*> (x Core..:? "Permissions" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "ContainerPath")
+              Prelude.<*> (x Data..:? "HostPath")
+              Prelude.<*> (x Data..:? "Permissions" Data..!= Prelude.mempty)
       )
 
 instance
@@ -115,15 +116,15 @@ instance
         `Prelude.seq` Prelude.rnf permissions
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersDevicesDetails
   where
   toJSON
     AwsEcsTaskDefinitionContainerDefinitionsLinuxParametersDevicesDetails' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("ContainerPath" Core..=) Prelude.<$> containerPath,
-              ("HostPath" Core..=) Prelude.<$> hostPath,
-              ("Permissions" Core..=) Prelude.<$> permissions
+            [ ("ContainerPath" Data..=) Prelude.<$> containerPath,
+              ("HostPath" Data..=) Prelude.<$> hostPath,
+              ("Permissions" Data..=) Prelude.<$> permissions
             ]
         )

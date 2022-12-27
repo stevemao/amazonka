@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppStream.DescribeDirectoryConfigs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,37 +36,38 @@ module Amazonka.AppStream.DescribeDirectoryConfigs
     newDescribeDirectoryConfigs,
 
     -- * Request Lenses
-    describeDirectoryConfigs_nextToken,
     describeDirectoryConfigs_directoryNames,
     describeDirectoryConfigs_maxResults,
+    describeDirectoryConfigs_nextToken,
 
     -- * Destructuring the Response
     DescribeDirectoryConfigsResponse (..),
     newDescribeDirectoryConfigsResponse,
 
     -- * Response Lenses
-    describeDirectoryConfigsResponse_nextToken,
     describeDirectoryConfigsResponse_directoryConfigs,
+    describeDirectoryConfigsResponse_nextToken,
     describeDirectoryConfigsResponse_httpStatus,
   )
 where
 
 import Amazonka.AppStream.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeDirectoryConfigs' smart constructor.
 data DescribeDirectoryConfigs = DescribeDirectoryConfigs'
-  { -- | The pagination token to use to retrieve the next page of results for
-    -- this operation. If this value is null, it retrieves the first page.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The directory names.
+  { -- | The directory names.
     directoryNames :: Prelude.Maybe [Prelude.Text],
     -- | The maximum size of each page of results.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The pagination token to use to retrieve the next page of results for
+    -- this operation. If this value is null, it retrieves the first page.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -78,26 +79,21 @@ data DescribeDirectoryConfigs = DescribeDirectoryConfigs'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeDirectoryConfigs_nextToken' - The pagination token to use to retrieve the next page of results for
--- this operation. If this value is null, it retrieves the first page.
---
 -- 'directoryNames', 'describeDirectoryConfigs_directoryNames' - The directory names.
 --
 -- 'maxResults', 'describeDirectoryConfigs_maxResults' - The maximum size of each page of results.
+--
+-- 'nextToken', 'describeDirectoryConfigs_nextToken' - The pagination token to use to retrieve the next page of results for
+-- this operation. If this value is null, it retrieves the first page.
 newDescribeDirectoryConfigs ::
   DescribeDirectoryConfigs
 newDescribeDirectoryConfigs =
   DescribeDirectoryConfigs'
-    { nextToken =
+    { directoryNames =
         Prelude.Nothing,
-      directoryNames = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The pagination token to use to retrieve the next page of results for
--- this operation. If this value is null, it retrieves the first page.
-describeDirectoryConfigs_nextToken :: Lens.Lens' DescribeDirectoryConfigs (Prelude.Maybe Prelude.Text)
-describeDirectoryConfigs_nextToken = Lens.lens (\DescribeDirectoryConfigs' {nextToken} -> nextToken) (\s@DescribeDirectoryConfigs' {} a -> s {nextToken = a} :: DescribeDirectoryConfigs)
 
 -- | The directory names.
 describeDirectoryConfigs_directoryNames :: Lens.Lens' DescribeDirectoryConfigs (Prelude.Maybe [Prelude.Text])
@@ -106,6 +102,11 @@ describeDirectoryConfigs_directoryNames = Lens.lens (\DescribeDirectoryConfigs' 
 -- | The maximum size of each page of results.
 describeDirectoryConfigs_maxResults :: Lens.Lens' DescribeDirectoryConfigs (Prelude.Maybe Prelude.Int)
 describeDirectoryConfigs_maxResults = Lens.lens (\DescribeDirectoryConfigs' {maxResults} -> maxResults) (\s@DescribeDirectoryConfigs' {} a -> s {maxResults = a} :: DescribeDirectoryConfigs)
+
+-- | The pagination token to use to retrieve the next page of results for
+-- this operation. If this value is null, it retrieves the first page.
+describeDirectoryConfigs_nextToken :: Lens.Lens' DescribeDirectoryConfigs (Prelude.Maybe Prelude.Text)
+describeDirectoryConfigs_nextToken = Lens.lens (\DescribeDirectoryConfigs' {nextToken} -> nextToken) (\s@DescribeDirectoryConfigs' {} a -> s {nextToken = a} :: DescribeDirectoryConfigs)
 
 instance Core.AWSPager DescribeDirectoryConfigs where
   page rq rs
@@ -133,71 +134,72 @@ instance Core.AWSRequest DescribeDirectoryConfigs where
   type
     AWSResponse DescribeDirectoryConfigs =
       DescribeDirectoryConfigsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeDirectoryConfigsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "DirectoryConfigs"
+            Prelude.<$> ( x Data..?> "DirectoryConfigs"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeDirectoryConfigs where
   hashWithSalt _salt DescribeDirectoryConfigs' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` directoryNames
+    _salt `Prelude.hashWithSalt` directoryNames
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeDirectoryConfigs where
   rnf DescribeDirectoryConfigs' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf directoryNames
+    Prelude.rnf directoryNames
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeDirectoryConfigs where
+instance Data.ToHeaders DescribeDirectoryConfigs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "PhotonAdminProxyService.DescribeDirectoryConfigs" ::
+              Data.=# ( "PhotonAdminProxyService.DescribeDirectoryConfigs" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeDirectoryConfigs where
+instance Data.ToJSON DescribeDirectoryConfigs where
   toJSON DescribeDirectoryConfigs' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("DirectoryNames" Core..=)
+          [ ("DirectoryNames" Data..=)
               Prelude.<$> directoryNames,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath DescribeDirectoryConfigs where
+instance Data.ToPath DescribeDirectoryConfigs where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeDirectoryConfigs where
+instance Data.ToQuery DescribeDirectoryConfigs where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeDirectoryConfigsResponse' smart constructor.
 data DescribeDirectoryConfigsResponse = DescribeDirectoryConfigsResponse'
-  { -- | The pagination token to use to retrieve the next page of results for
-    -- this operation. If there are no more pages, this value is null.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Information about the directory configurations. Note that although the
+  { -- | Information about the directory configurations. Note that although the
     -- response syntax in this topic includes the account password, this
     -- password is not returned in the actual response.
     directoryConfigs :: Prelude.Maybe [DirectoryConfig],
+    -- | The pagination token to use to retrieve the next page of results for
+    -- this operation. If there are no more pages, this value is null.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -211,12 +213,12 @@ data DescribeDirectoryConfigsResponse = DescribeDirectoryConfigsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeDirectoryConfigsResponse_nextToken' - The pagination token to use to retrieve the next page of results for
--- this operation. If there are no more pages, this value is null.
---
 -- 'directoryConfigs', 'describeDirectoryConfigsResponse_directoryConfigs' - Information about the directory configurations. Note that although the
 -- response syntax in this topic includes the account password, this
 -- password is not returned in the actual response.
+--
+-- 'nextToken', 'describeDirectoryConfigsResponse_nextToken' - The pagination token to use to retrieve the next page of results for
+-- this operation. If there are no more pages, this value is null.
 --
 -- 'httpStatus', 'describeDirectoryConfigsResponse_httpStatus' - The response's http status code.
 newDescribeDirectoryConfigsResponse ::
@@ -225,22 +227,22 @@ newDescribeDirectoryConfigsResponse ::
   DescribeDirectoryConfigsResponse
 newDescribeDirectoryConfigsResponse pHttpStatus_ =
   DescribeDirectoryConfigsResponse'
-    { nextToken =
+    { directoryConfigs =
         Prelude.Nothing,
-      directoryConfigs = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The pagination token to use to retrieve the next page of results for
--- this operation. If there are no more pages, this value is null.
-describeDirectoryConfigsResponse_nextToken :: Lens.Lens' DescribeDirectoryConfigsResponse (Prelude.Maybe Prelude.Text)
-describeDirectoryConfigsResponse_nextToken = Lens.lens (\DescribeDirectoryConfigsResponse' {nextToken} -> nextToken) (\s@DescribeDirectoryConfigsResponse' {} a -> s {nextToken = a} :: DescribeDirectoryConfigsResponse)
 
 -- | Information about the directory configurations. Note that although the
 -- response syntax in this topic includes the account password, this
 -- password is not returned in the actual response.
 describeDirectoryConfigsResponse_directoryConfigs :: Lens.Lens' DescribeDirectoryConfigsResponse (Prelude.Maybe [DirectoryConfig])
 describeDirectoryConfigsResponse_directoryConfigs = Lens.lens (\DescribeDirectoryConfigsResponse' {directoryConfigs} -> directoryConfigs) (\s@DescribeDirectoryConfigsResponse' {} a -> s {directoryConfigs = a} :: DescribeDirectoryConfigsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The pagination token to use to retrieve the next page of results for
+-- this operation. If there are no more pages, this value is null.
+describeDirectoryConfigsResponse_nextToken :: Lens.Lens' DescribeDirectoryConfigsResponse (Prelude.Maybe Prelude.Text)
+describeDirectoryConfigsResponse_nextToken = Lens.lens (\DescribeDirectoryConfigsResponse' {nextToken} -> nextToken) (\s@DescribeDirectoryConfigsResponse' {} a -> s {nextToken = a} :: DescribeDirectoryConfigsResponse)
 
 -- | The response's http status code.
 describeDirectoryConfigsResponse_httpStatus :: Lens.Lens' DescribeDirectoryConfigsResponse Prelude.Int
@@ -251,6 +253,6 @@ instance
     DescribeDirectoryConfigsResponse
   where
   rnf DescribeDirectoryConfigsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf directoryConfigs
+    Prelude.rnf directoryConfigs
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

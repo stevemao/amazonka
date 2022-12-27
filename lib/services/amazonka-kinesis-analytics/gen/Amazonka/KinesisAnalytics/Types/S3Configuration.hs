@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalytics.Types.S3Configuration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KinesisAnalytics.Types.S3Configuration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides a description of an Amazon S3 data source, including the Amazon
@@ -91,12 +92,12 @@ instance Prelude.NFData S3Configuration where
       `Prelude.seq` Prelude.rnf bucketARN
       `Prelude.seq` Prelude.rnf fileKey
 
-instance Core.ToJSON S3Configuration where
+instance Data.ToJSON S3Configuration where
   toJSON S3Configuration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("RoleARN" Core..= roleARN),
-            Prelude.Just ("BucketARN" Core..= bucketARN),
-            Prelude.Just ("FileKey" Core..= fileKey)
+          [ Prelude.Just ("RoleARN" Data..= roleARN),
+            Prelude.Just ("BucketARN" Data..= bucketARN),
+            Prelude.Just ("FileKey" Data..= fileKey)
           ]
       )

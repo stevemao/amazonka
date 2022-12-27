@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.FolderFilterAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,24 @@
 module Amazonka.QuickSight.Types.FolderFilterAttribute
   ( FolderFilterAttribute
       ( ..,
-        FolderFilterAttribute_PARENT_FOLDER_ARN
+        FolderFilterAttribute_DIRECT_QUICKSIGHT_OWNER,
+        FolderFilterAttribute_DIRECT_QUICKSIGHT_SOLE_OWNER,
+        FolderFilterAttribute_DIRECT_QUICKSIGHT_VIEWER_OR_OWNER,
+        FolderFilterAttribute_FOLDER_NAME,
+        FolderFilterAttribute_PARENT_FOLDER_ARN,
+        FolderFilterAttribute_QUICKSIGHT_OWNER,
+        FolderFilterAttribute_QUICKSIGHT_VIEWER_OR_OWNER
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype FolderFilterAttribute = FolderFilterAttribute'
   { fromFolderFilterAttribute ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -42,24 +49,48 @@ newtype FolderFilterAttribute = FolderFilterAttribute'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
+
+pattern FolderFilterAttribute_DIRECT_QUICKSIGHT_OWNER :: FolderFilterAttribute
+pattern FolderFilterAttribute_DIRECT_QUICKSIGHT_OWNER = FolderFilterAttribute' "DIRECT_QUICKSIGHT_OWNER"
+
+pattern FolderFilterAttribute_DIRECT_QUICKSIGHT_SOLE_OWNER :: FolderFilterAttribute
+pattern FolderFilterAttribute_DIRECT_QUICKSIGHT_SOLE_OWNER = FolderFilterAttribute' "DIRECT_QUICKSIGHT_SOLE_OWNER"
+
+pattern FolderFilterAttribute_DIRECT_QUICKSIGHT_VIEWER_OR_OWNER :: FolderFilterAttribute
+pattern FolderFilterAttribute_DIRECT_QUICKSIGHT_VIEWER_OR_OWNER = FolderFilterAttribute' "DIRECT_QUICKSIGHT_VIEWER_OR_OWNER"
+
+pattern FolderFilterAttribute_FOLDER_NAME :: FolderFilterAttribute
+pattern FolderFilterAttribute_FOLDER_NAME = FolderFilterAttribute' "FOLDER_NAME"
 
 pattern FolderFilterAttribute_PARENT_FOLDER_ARN :: FolderFilterAttribute
 pattern FolderFilterAttribute_PARENT_FOLDER_ARN = FolderFilterAttribute' "PARENT_FOLDER_ARN"
 
+pattern FolderFilterAttribute_QUICKSIGHT_OWNER :: FolderFilterAttribute
+pattern FolderFilterAttribute_QUICKSIGHT_OWNER = FolderFilterAttribute' "QUICKSIGHT_OWNER"
+
+pattern FolderFilterAttribute_QUICKSIGHT_VIEWER_OR_OWNER :: FolderFilterAttribute
+pattern FolderFilterAttribute_QUICKSIGHT_VIEWER_OR_OWNER = FolderFilterAttribute' "QUICKSIGHT_VIEWER_OR_OWNER"
+
 {-# COMPLETE
+  FolderFilterAttribute_DIRECT_QUICKSIGHT_OWNER,
+  FolderFilterAttribute_DIRECT_QUICKSIGHT_SOLE_OWNER,
+  FolderFilterAttribute_DIRECT_QUICKSIGHT_VIEWER_OR_OWNER,
+  FolderFilterAttribute_FOLDER_NAME,
   FolderFilterAttribute_PARENT_FOLDER_ARN,
+  FolderFilterAttribute_QUICKSIGHT_OWNER,
+  FolderFilterAttribute_QUICKSIGHT_VIEWER_OR_OWNER,
   FolderFilterAttribute'
   #-}

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.StopRemoteAccessSession
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.DeviceFarm.StopRemoteAccessSession
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,12 +80,13 @@ instance Core.AWSRequest StopRemoteAccessSession where
   type
     AWSResponse StopRemoteAccessSession =
       StopRemoteAccessSessionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StopRemoteAccessSessionResponse'
-            Prelude.<$> (x Core..?> "remoteAccessSession")
+            Prelude.<$> (x Data..?> "remoteAccessSession")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -95,32 +97,32 @@ instance Prelude.Hashable StopRemoteAccessSession where
 instance Prelude.NFData StopRemoteAccessSession where
   rnf StopRemoteAccessSession' {..} = Prelude.rnf arn
 
-instance Core.ToHeaders StopRemoteAccessSession where
+instance Data.ToHeaders StopRemoteAccessSession where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.StopRemoteAccessSession" ::
+              Data.=# ( "DeviceFarm_20150623.StopRemoteAccessSession" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopRemoteAccessSession where
+instance Data.ToJSON StopRemoteAccessSession where
   toJSON StopRemoteAccessSession' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("arn" Core..= arn)]
+          [Prelude.Just ("arn" Data..= arn)]
       )
 
-instance Core.ToPath StopRemoteAccessSession where
+instance Data.ToPath StopRemoteAccessSession where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopRemoteAccessSession where
+instance Data.ToQuery StopRemoteAccessSession where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the response from the server that describes the remote access

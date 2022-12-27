@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kinesis.Types.ChildShard
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,13 +20,19 @@
 module Amazonka.Kinesis.Types.ChildShard where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kinesis.Types.HashKeyRange
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
--- | /See:/ 'newChildShard' smart constructor.
+-- | Output parameter of the GetRecords API. The existing child shard of the
+-- current shard.
+--
+-- /See:/ 'newChildShard' smart constructor.
 data ChildShard = ChildShard'
-  { shardId :: Prelude.Text,
+  { -- | The shard ID of the existing child shard of the current shard.
+    shardId :: Prelude.Text,
+    -- | The current shard that is the parent of the existing child shard.
     parentShards :: [Prelude.Text],
     hashKeyRange :: HashKeyRange
   }
@@ -40,9 +46,9 @@ data ChildShard = ChildShard'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'shardId', 'childShard_shardId' - Undocumented member.
+-- 'shardId', 'childShard_shardId' - The shard ID of the existing child shard of the current shard.
 --
--- 'parentShards', 'childShard_parentShards' - Undocumented member.
+-- 'parentShards', 'childShard_parentShards' - The current shard that is the parent of the existing child shard.
 --
 -- 'hashKeyRange', 'childShard_hashKeyRange' - Undocumented member.
 newChildShard ::
@@ -58,11 +64,11 @@ newChildShard pShardId_ pHashKeyRange_ =
       hashKeyRange = pHashKeyRange_
     }
 
--- | Undocumented member.
+-- | The shard ID of the existing child shard of the current shard.
 childShard_shardId :: Lens.Lens' ChildShard Prelude.Text
 childShard_shardId = Lens.lens (\ChildShard' {shardId} -> shardId) (\s@ChildShard' {} a -> s {shardId = a} :: ChildShard)
 
--- | Undocumented member.
+-- | The current shard that is the parent of the existing child shard.
 childShard_parentShards :: Lens.Lens' ChildShard [Prelude.Text]
 childShard_parentShards = Lens.lens (\ChildShard' {parentShards} -> parentShards) (\s@ChildShard' {} a -> s {parentShards = a} :: ChildShard) Prelude.. Lens.coerced
 
@@ -70,15 +76,15 @@ childShard_parentShards = Lens.lens (\ChildShard' {parentShards} -> parentShards
 childShard_hashKeyRange :: Lens.Lens' ChildShard HashKeyRange
 childShard_hashKeyRange = Lens.lens (\ChildShard' {hashKeyRange} -> hashKeyRange) (\s@ChildShard' {} a -> s {hashKeyRange = a} :: ChildShard)
 
-instance Core.FromJSON ChildShard where
+instance Data.FromJSON ChildShard where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ChildShard"
       ( \x ->
           ChildShard'
-            Prelude.<$> (x Core..: "ShardId")
-            Prelude.<*> (x Core..:? "ParentShards" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "HashKeyRange")
+            Prelude.<$> (x Data..: "ShardId")
+            Prelude.<*> (x Data..:? "ParentShards" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "HashKeyRange")
       )
 
 instance Prelude.Hashable ChildShard where

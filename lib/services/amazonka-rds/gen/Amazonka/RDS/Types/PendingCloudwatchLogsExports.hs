@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.Types.PendingCloudwatchLogsExports
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.RDS.Types.PendingCloudwatchLogsExports where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A list of the log types whose configuration is still pending. In other
@@ -29,12 +30,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newPendingCloudwatchLogsExports' smart constructor.
 data PendingCloudwatchLogsExports = PendingCloudwatchLogsExports'
-  { -- | Log types that are in the process of being deactivated. After they are
-    -- deactivated, these log types aren\'t exported to CloudWatch Logs.
-    logTypesToEnable :: Prelude.Maybe [Prelude.Text],
-    -- | Log types that are in the process of being enabled. After they are
+  { -- | Log types that are in the process of being enabled. After they are
     -- enabled, these log types are exported to CloudWatch Logs.
-    logTypesToDisable :: Prelude.Maybe [Prelude.Text]
+    logTypesToDisable :: Prelude.Maybe [Prelude.Text],
+    -- | Log types that are in the process of being deactivated. After they are
+    -- deactivated, these log types aren\'t exported to CloudWatch Logs.
+    logTypesToEnable :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,40 +47,40 @@ data PendingCloudwatchLogsExports = PendingCloudwatchLogsExports'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'logTypesToEnable', 'pendingCloudwatchLogsExports_logTypesToEnable' - Log types that are in the process of being deactivated. After they are
--- deactivated, these log types aren\'t exported to CloudWatch Logs.
---
 -- 'logTypesToDisable', 'pendingCloudwatchLogsExports_logTypesToDisable' - Log types that are in the process of being enabled. After they are
 -- enabled, these log types are exported to CloudWatch Logs.
+--
+-- 'logTypesToEnable', 'pendingCloudwatchLogsExports_logTypesToEnable' - Log types that are in the process of being deactivated. After they are
+-- deactivated, these log types aren\'t exported to CloudWatch Logs.
 newPendingCloudwatchLogsExports ::
   PendingCloudwatchLogsExports
 newPendingCloudwatchLogsExports =
   PendingCloudwatchLogsExports'
-    { logTypesToEnable =
+    { logTypesToDisable =
         Prelude.Nothing,
-      logTypesToDisable = Prelude.Nothing
+      logTypesToEnable = Prelude.Nothing
     }
-
--- | Log types that are in the process of being deactivated. After they are
--- deactivated, these log types aren\'t exported to CloudWatch Logs.
-pendingCloudwatchLogsExports_logTypesToEnable :: Lens.Lens' PendingCloudwatchLogsExports (Prelude.Maybe [Prelude.Text])
-pendingCloudwatchLogsExports_logTypesToEnable = Lens.lens (\PendingCloudwatchLogsExports' {logTypesToEnable} -> logTypesToEnable) (\s@PendingCloudwatchLogsExports' {} a -> s {logTypesToEnable = a} :: PendingCloudwatchLogsExports) Prelude.. Lens.mapping Lens.coerced
 
 -- | Log types that are in the process of being enabled. After they are
 -- enabled, these log types are exported to CloudWatch Logs.
 pendingCloudwatchLogsExports_logTypesToDisable :: Lens.Lens' PendingCloudwatchLogsExports (Prelude.Maybe [Prelude.Text])
 pendingCloudwatchLogsExports_logTypesToDisable = Lens.lens (\PendingCloudwatchLogsExports' {logTypesToDisable} -> logTypesToDisable) (\s@PendingCloudwatchLogsExports' {} a -> s {logTypesToDisable = a} :: PendingCloudwatchLogsExports) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML PendingCloudwatchLogsExports where
+-- | Log types that are in the process of being deactivated. After they are
+-- deactivated, these log types aren\'t exported to CloudWatch Logs.
+pendingCloudwatchLogsExports_logTypesToEnable :: Lens.Lens' PendingCloudwatchLogsExports (Prelude.Maybe [Prelude.Text])
+pendingCloudwatchLogsExports_logTypesToEnable = Lens.lens (\PendingCloudwatchLogsExports' {logTypesToEnable} -> logTypesToEnable) (\s@PendingCloudwatchLogsExports' {} a -> s {logTypesToEnable = a} :: PendingCloudwatchLogsExports) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromXML PendingCloudwatchLogsExports where
   parseXML x =
     PendingCloudwatchLogsExports'
-      Prelude.<$> ( x Core..@? "LogTypesToEnable"
+      Prelude.<$> ( x Data..@? "LogTypesToDisable"
                       Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "member")
+                      Prelude.>>= Core.may (Data.parseXMLList "member")
                   )
-      Prelude.<*> ( x Core..@? "LogTypesToDisable"
+      Prelude.<*> ( x Data..@? "LogTypesToEnable"
                       Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "member")
+                      Prelude.>>= Core.may (Data.parseXMLList "member")
                   )
 
 instance
@@ -87,10 +88,10 @@ instance
     PendingCloudwatchLogsExports
   where
   hashWithSalt _salt PendingCloudwatchLogsExports' {..} =
-    _salt `Prelude.hashWithSalt` logTypesToEnable
-      `Prelude.hashWithSalt` logTypesToDisable
+    _salt `Prelude.hashWithSalt` logTypesToDisable
+      `Prelude.hashWithSalt` logTypesToEnable
 
 instance Prelude.NFData PendingCloudwatchLogsExports where
   rnf PendingCloudwatchLogsExports' {..} =
-    Prelude.rnf logTypesToEnable
-      `Prelude.seq` Prelude.rnf logTypesToDisable
+    Prelude.rnf logTypesToDisable
+      `Prelude.seq` Prelude.rnf logTypesToEnable

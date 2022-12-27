@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaStore.GetLifecyclePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.MediaStore.GetLifecyclePolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaStore.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -83,13 +84,14 @@ instance Core.AWSRequest GetLifecyclePolicy where
   type
     AWSResponse GetLifecyclePolicy =
       GetLifecyclePolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetLifecyclePolicyResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "LifecyclePolicy")
+            Prelude.<*> (x Data..:> "LifecyclePolicy")
       )
 
 instance Prelude.Hashable GetLifecyclePolicy where
@@ -100,34 +102,34 @@ instance Prelude.NFData GetLifecyclePolicy where
   rnf GetLifecyclePolicy' {..} =
     Prelude.rnf containerName
 
-instance Core.ToHeaders GetLifecyclePolicy where
+instance Data.ToHeaders GetLifecyclePolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "MediaStore_20170901.GetLifecyclePolicy" ::
+              Data.=# ( "MediaStore_20170901.GetLifecyclePolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetLifecyclePolicy where
+instance Data.ToJSON GetLifecyclePolicy where
   toJSON GetLifecyclePolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ContainerName" Core..= containerName)
+              ("ContainerName" Data..= containerName)
           ]
       )
 
-instance Core.ToPath GetLifecyclePolicy where
+instance Data.ToPath GetLifecyclePolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetLifecyclePolicy where
+instance Data.ToQuery GetLifecyclePolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetLifecyclePolicyResponse' smart constructor.

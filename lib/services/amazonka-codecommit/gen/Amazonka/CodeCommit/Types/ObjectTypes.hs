@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.Types.ObjectTypes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,17 +21,18 @@ module Amazonka.CodeCommit.Types.ObjectTypes where
 
 import Amazonka.CodeCommit.Types.ObjectTypeEnum
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the type of an object in a merge operation.
 --
 -- /See:/ 'newObjectTypes' smart constructor.
 data ObjectTypes = ObjectTypes'
-  { -- | The type of the object in the destination branch.
-    destination :: Prelude.Maybe ObjectTypeEnum,
-    -- | The type of the object in the base commit of the merge.
+  { -- | The type of the object in the base commit of the merge.
     base :: Prelude.Maybe ObjectTypeEnum,
+    -- | The type of the object in the destination branch.
+    destination :: Prelude.Maybe ObjectTypeEnum,
     -- | The type of the object in the source branch.
     source :: Prelude.Maybe ObjectTypeEnum
   }
@@ -45,51 +46,51 @@ data ObjectTypes = ObjectTypes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'destination', 'objectTypes_destination' - The type of the object in the destination branch.
---
 -- 'base', 'objectTypes_base' - The type of the object in the base commit of the merge.
+--
+-- 'destination', 'objectTypes_destination' - The type of the object in the destination branch.
 --
 -- 'source', 'objectTypes_source' - The type of the object in the source branch.
 newObjectTypes ::
   ObjectTypes
 newObjectTypes =
   ObjectTypes'
-    { destination = Prelude.Nothing,
-      base = Prelude.Nothing,
+    { base = Prelude.Nothing,
+      destination = Prelude.Nothing,
       source = Prelude.Nothing
     }
-
--- | The type of the object in the destination branch.
-objectTypes_destination :: Lens.Lens' ObjectTypes (Prelude.Maybe ObjectTypeEnum)
-objectTypes_destination = Lens.lens (\ObjectTypes' {destination} -> destination) (\s@ObjectTypes' {} a -> s {destination = a} :: ObjectTypes)
 
 -- | The type of the object in the base commit of the merge.
 objectTypes_base :: Lens.Lens' ObjectTypes (Prelude.Maybe ObjectTypeEnum)
 objectTypes_base = Lens.lens (\ObjectTypes' {base} -> base) (\s@ObjectTypes' {} a -> s {base = a} :: ObjectTypes)
 
+-- | The type of the object in the destination branch.
+objectTypes_destination :: Lens.Lens' ObjectTypes (Prelude.Maybe ObjectTypeEnum)
+objectTypes_destination = Lens.lens (\ObjectTypes' {destination} -> destination) (\s@ObjectTypes' {} a -> s {destination = a} :: ObjectTypes)
+
 -- | The type of the object in the source branch.
 objectTypes_source :: Lens.Lens' ObjectTypes (Prelude.Maybe ObjectTypeEnum)
 objectTypes_source = Lens.lens (\ObjectTypes' {source} -> source) (\s@ObjectTypes' {} a -> s {source = a} :: ObjectTypes)
 
-instance Core.FromJSON ObjectTypes where
+instance Data.FromJSON ObjectTypes where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ObjectTypes"
       ( \x ->
           ObjectTypes'
-            Prelude.<$> (x Core..:? "destination")
-            Prelude.<*> (x Core..:? "base")
-            Prelude.<*> (x Core..:? "source")
+            Prelude.<$> (x Data..:? "base")
+            Prelude.<*> (x Data..:? "destination")
+            Prelude.<*> (x Data..:? "source")
       )
 
 instance Prelude.Hashable ObjectTypes where
   hashWithSalt _salt ObjectTypes' {..} =
-    _salt `Prelude.hashWithSalt` destination
-      `Prelude.hashWithSalt` base
+    _salt `Prelude.hashWithSalt` base
+      `Prelude.hashWithSalt` destination
       `Prelude.hashWithSalt` source
 
 instance Prelude.NFData ObjectTypes where
   rnf ObjectTypes' {..} =
-    Prelude.rnf destination
-      `Prelude.seq` Prelude.rnf base
+    Prelude.rnf base
+      `Prelude.seq` Prelude.rnf destination
       `Prelude.seq` Prelude.rnf source

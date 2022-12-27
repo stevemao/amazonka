@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideoMedia.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,11 +18,11 @@ module Amazonka.KinesisVideoMedia.Types
     defaultService,
 
     -- * Errors
+    _ClientLimitExceededException,
     _ConnectionLimitExceededException,
     _InvalidArgumentException,
-    _NotAuthorizedException,
-    _ClientLimitExceededException,
     _InvalidEndpointException,
+    _NotAuthorizedException,
     _ResourceNotFoundException,
 
     -- * StartSelectorType
@@ -30,17 +31,17 @@ module Amazonka.KinesisVideoMedia.Types
     -- * StartSelector
     StartSelector (..),
     newStartSelector,
-    startSelector_continuationToken,
     startSelector_afterFragmentNumber,
+    startSelector_continuationToken,
     startSelector_startTimestamp,
     startSelector_startSelectorType,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.KinesisVideoMedia.Types.StartSelector
 import Amazonka.KinesisVideoMedia.Types.StartSelectorType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 
@@ -48,43 +49,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev =
-        "KinesisVideoMedia",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "kinesisvideo",
-      Core._serviceSigningName = "kinesisvideo",
-      Core._serviceVersion = "2017-09-30",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
-        Core.parseJSONError "KinesisVideoMedia",
-      Core._serviceRetry = retry
+    { Core.abbrev = "KinesisVideoMedia",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "kinesisvideo",
+      Core.signingName = "kinesisvideo",
+      Core.version = "2017-09-30",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "KinesisVideoMedia",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -92,29 +99,30 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
+
+-- | Kinesis Video Streams has throttled the request because you have
+-- exceeded the limit of allowed client calls. Try making the call later.
+_ClientLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ClientLimitExceededException =
+  Core._MatchServiceError
+    defaultService
+    "ClientLimitExceededException"
+    Prelude.. Core.hasStatus 400
 
 -- | Kinesis Video Streams has throttled the request because you have
 -- exceeded the limit of allowed client connections.
@@ -133,24 +141,6 @@ _InvalidArgumentException =
     "InvalidArgumentException"
     Prelude.. Core.hasStatus 400
 
--- | Status Code: 403, The caller is not authorized to perform an operation
--- on the given stream, or the token has expired.
-_NotAuthorizedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_NotAuthorizedException =
-  Core._MatchServiceError
-    defaultService
-    "NotAuthorizedException"
-    Prelude.. Core.hasStatus 401
-
--- | Kinesis Video Streams has throttled the request because you have
--- exceeded the limit of allowed client calls. Try making the call later.
-_ClientLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ClientLimitExceededException =
-  Core._MatchServiceError
-    defaultService
-    "ClientLimitExceededException"
-    Prelude.. Core.hasStatus 400
-
 -- | Status Code: 400, Caller used wrong endpoint to write data to a stream.
 -- On receiving such an exception, the user must call @GetDataEndpoint@
 -- with @AccessMode@ set to \"READ\" and use the endpoint Kinesis Video
@@ -161,6 +151,15 @@ _InvalidEndpointException =
     defaultService
     "InvalidEndpointException"
     Prelude.. Core.hasStatus 400
+
+-- | Status Code: 403, The caller is not authorized to perform an operation
+-- on the given stream, or the token has expired.
+_NotAuthorizedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_NotAuthorizedException =
+  Core._MatchServiceError
+    defaultService
+    "NotAuthorizedException"
+    Prelude.. Core.hasStatus 401
 
 -- | Status Code: 404, The stream with the given name does not exist.
 _ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError

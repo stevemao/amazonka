@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.UpdateConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.Kafka.UpdateConfiguration
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kafka.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,7 +60,7 @@ data UpdateConfiguration = UpdateConfiguration'
     -- ensure that the contents of the file are base64 encoded. When using the
     -- AWS Management Console, the SDK, or the AWS CLI, the contents of
     -- server.properties can be in plaintext.
-    serverProperties :: Core.Base64
+    serverProperties :: Data.Base64
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -94,7 +95,7 @@ newUpdateConfiguration pArn_ pServerProperties_ =
     { description = Prelude.Nothing,
       arn = pArn_,
       serverProperties =
-        Core._Base64 Lens.# pServerProperties_
+        Data._Base64 Lens.# pServerProperties_
     }
 
 -- | The description of the configuration revision.
@@ -114,19 +115,20 @@ updateConfiguration_arn = Lens.lens (\UpdateConfiguration' {arn} -> arn) (\s@Upd
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 updateConfiguration_serverProperties :: Lens.Lens' UpdateConfiguration Prelude.ByteString
-updateConfiguration_serverProperties = Lens.lens (\UpdateConfiguration' {serverProperties} -> serverProperties) (\s@UpdateConfiguration' {} a -> s {serverProperties = a} :: UpdateConfiguration) Prelude.. Core._Base64
+updateConfiguration_serverProperties = Lens.lens (\UpdateConfiguration' {serverProperties} -> serverProperties) (\s@UpdateConfiguration' {} a -> s {serverProperties = a} :: UpdateConfiguration) Prelude.. Data._Base64
 
 instance Core.AWSRequest UpdateConfiguration where
   type
     AWSResponse UpdateConfiguration =
       UpdateConfigurationResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateConfigurationResponse'
-            Prelude.<$> (x Core..?> "arn")
-            Prelude.<*> (x Core..?> "latestRevision")
+            Prelude.<$> (x Data..?> "arn")
+            Prelude.<*> (x Data..?> "latestRevision")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -142,33 +144,33 @@ instance Prelude.NFData UpdateConfiguration where
       `Prelude.seq` Prelude.rnf arn
       `Prelude.seq` Prelude.rnf serverProperties
 
-instance Core.ToHeaders UpdateConfiguration where
+instance Data.ToHeaders UpdateConfiguration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateConfiguration where
+instance Data.ToJSON UpdateConfiguration where
   toJSON UpdateConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("description" Core..=) Prelude.<$> description,
+          [ ("description" Data..=) Prelude.<$> description,
             Prelude.Just
-              ("serverProperties" Core..= serverProperties)
+              ("serverProperties" Data..= serverProperties)
           ]
       )
 
-instance Core.ToPath UpdateConfiguration where
+instance Data.ToPath UpdateConfiguration where
   toPath UpdateConfiguration' {..} =
     Prelude.mconcat
-      ["/v1/configurations/", Core.toBS arn]
+      ["/v1/configurations/", Data.toBS arn]
 
-instance Core.ToQuery UpdateConfiguration where
+instance Data.ToQuery UpdateConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateConfigurationResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Transfer.DescribeSecurityPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.Transfer.DescribeSecurityPolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -87,13 +88,14 @@ instance Core.AWSRequest DescribeSecurityPolicy where
   type
     AWSResponse DescribeSecurityPolicy =
       DescribeSecurityPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeSecurityPolicyResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "SecurityPolicy")
+            Prelude.<*> (x Data..:> "SecurityPolicy")
       )
 
 instance Prelude.Hashable DescribeSecurityPolicy where
@@ -104,34 +106,34 @@ instance Prelude.NFData DescribeSecurityPolicy where
   rnf DescribeSecurityPolicy' {..} =
     Prelude.rnf securityPolicyName
 
-instance Core.ToHeaders DescribeSecurityPolicy where
+instance Data.ToHeaders DescribeSecurityPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "TransferService.DescribeSecurityPolicy" ::
+              Data.=# ( "TransferService.DescribeSecurityPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeSecurityPolicy where
+instance Data.ToJSON DescribeSecurityPolicy where
   toJSON DescribeSecurityPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("SecurityPolicyName" Core..= securityPolicyName)
+              ("SecurityPolicyName" Data..= securityPolicyName)
           ]
       )
 
-instance Core.ToPath DescribeSecurityPolicy where
+instance Data.ToPath DescribeSecurityPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeSecurityPolicy where
+instance Data.ToQuery DescribeSecurityPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeSecurityPolicyResponse' smart constructor.

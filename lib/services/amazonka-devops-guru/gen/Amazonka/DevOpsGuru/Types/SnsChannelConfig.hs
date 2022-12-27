@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.Types.SnsChannelConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DevOpsGuru.Types.SnsChannelConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the Amazon Resource Name (ARN) of an Amazon Simple Notification
@@ -29,14 +30,20 @@ import qualified Amazonka.Prelude as Prelude
 -- If you use an Amazon SNS topic in another account, you must attach a
 -- policy to it that grants DevOps Guru permission to it notifications.
 -- DevOps Guru adds the required policy on your behalf to send
--- notifications using Amazon SNS in your account. For more information,
--- see
+-- notifications using Amazon SNS in your account. DevOps Guru only
+-- supports standard SNS topics. For more information, see
 -- <https://docs.aws.amazon.com/devops-guru/latest/userguide/sns-required-permissions.html Permissions for cross account Amazon SNS topics>.
 --
--- If you use an Amazon SNS topic that is encrypted by an AWS Key
--- Management Service customer-managed key (CMK), then you must add
--- permissions to the CMK. For more information, see
--- <https://docs.aws.amazon.com/devops-guru/latest/userguide/sns-kms-permissions.html Permissions for AWS KMS–encrypted Amazon SNS topics>.
+-- If you use an Amazon SNS topic in another account, you must attach a
+-- policy to it that grants DevOps Guru permission to it notifications.
+-- DevOps Guru adds the required policy on your behalf to send
+-- notifications using Amazon SNS in your account. For more information,
+-- see Permissions for cross account Amazon SNS topics.
+--
+-- If you use an Amazon SNS topic that is encrypted by an Amazon Web
+-- Services Key Management Service customer-managed key (CMK), then you
+-- must add permissions to the CMK. For more information, see
+-- <https://docs.aws.amazon.com/devops-guru/latest/userguide/sns-kms-permissions.html Permissions for Amazon Web Services KMS–encrypted Amazon SNS topics>.
 --
 -- /See:/ 'newSnsChannelConfig' smart constructor.
 data SnsChannelConfig = SnsChannelConfig'
@@ -66,13 +73,13 @@ newSnsChannelConfig =
 snsChannelConfig_topicArn :: Lens.Lens' SnsChannelConfig (Prelude.Maybe Prelude.Text)
 snsChannelConfig_topicArn = Lens.lens (\SnsChannelConfig' {topicArn} -> topicArn) (\s@SnsChannelConfig' {} a -> s {topicArn = a} :: SnsChannelConfig)
 
-instance Core.FromJSON SnsChannelConfig where
+instance Data.FromJSON SnsChannelConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SnsChannelConfig"
       ( \x ->
           SnsChannelConfig'
-            Prelude.<$> (x Core..:? "TopicArn")
+            Prelude.<$> (x Data..:? "TopicArn")
       )
 
 instance Prelude.Hashable SnsChannelConfig where
@@ -82,9 +89,9 @@ instance Prelude.Hashable SnsChannelConfig where
 instance Prelude.NFData SnsChannelConfig where
   rnf SnsChannelConfig' {..} = Prelude.rnf topicArn
 
-instance Core.ToJSON SnsChannelConfig where
+instance Data.ToJSON SnsChannelConfig where
   toJSON SnsChannelConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("TopicArn" Core..=) Prelude.<$> topicArn]
+          [("TopicArn" Data..=) Prelude.<$> topicArn]
       )

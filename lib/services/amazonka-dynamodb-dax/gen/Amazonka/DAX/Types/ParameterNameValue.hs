@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DAX.Types.ParameterNameValue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.DAX.Types.ParameterNameValue where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An individual DAX parameter.
 --
 -- /See:/ 'newParameterNameValue' smart constructor.
 data ParameterNameValue = ParameterNameValue'
-  { -- | The value of the parameter.
-    parameterValue :: Prelude.Maybe Prelude.Text,
-    -- | The name of the parameter.
-    parameterName :: Prelude.Maybe Prelude.Text
+  { -- | The name of the parameter.
+    parameterName :: Prelude.Maybe Prelude.Text,
+    -- | The value of the parameter.
+    parameterValue :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,42 +43,42 @@ data ParameterNameValue = ParameterNameValue'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'parameterValue', 'parameterNameValue_parameterValue' - The value of the parameter.
---
 -- 'parameterName', 'parameterNameValue_parameterName' - The name of the parameter.
+--
+-- 'parameterValue', 'parameterNameValue_parameterValue' - The value of the parameter.
 newParameterNameValue ::
   ParameterNameValue
 newParameterNameValue =
   ParameterNameValue'
-    { parameterValue =
+    { parameterName =
         Prelude.Nothing,
-      parameterName = Prelude.Nothing
+      parameterValue = Prelude.Nothing
     }
-
--- | The value of the parameter.
-parameterNameValue_parameterValue :: Lens.Lens' ParameterNameValue (Prelude.Maybe Prelude.Text)
-parameterNameValue_parameterValue = Lens.lens (\ParameterNameValue' {parameterValue} -> parameterValue) (\s@ParameterNameValue' {} a -> s {parameterValue = a} :: ParameterNameValue)
 
 -- | The name of the parameter.
 parameterNameValue_parameterName :: Lens.Lens' ParameterNameValue (Prelude.Maybe Prelude.Text)
 parameterNameValue_parameterName = Lens.lens (\ParameterNameValue' {parameterName} -> parameterName) (\s@ParameterNameValue' {} a -> s {parameterName = a} :: ParameterNameValue)
 
+-- | The value of the parameter.
+parameterNameValue_parameterValue :: Lens.Lens' ParameterNameValue (Prelude.Maybe Prelude.Text)
+parameterNameValue_parameterValue = Lens.lens (\ParameterNameValue' {parameterValue} -> parameterValue) (\s@ParameterNameValue' {} a -> s {parameterValue = a} :: ParameterNameValue)
+
 instance Prelude.Hashable ParameterNameValue where
   hashWithSalt _salt ParameterNameValue' {..} =
-    _salt `Prelude.hashWithSalt` parameterValue
-      `Prelude.hashWithSalt` parameterName
+    _salt `Prelude.hashWithSalt` parameterName
+      `Prelude.hashWithSalt` parameterValue
 
 instance Prelude.NFData ParameterNameValue where
   rnf ParameterNameValue' {..} =
-    Prelude.rnf parameterValue
-      `Prelude.seq` Prelude.rnf parameterName
+    Prelude.rnf parameterName
+      `Prelude.seq` Prelude.rnf parameterValue
 
-instance Core.ToJSON ParameterNameValue where
+instance Data.ToJSON ParameterNameValue where
   toJSON ParameterNameValue' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ParameterValue" Core..=)
-              Prelude.<$> parameterValue,
-            ("ParameterName" Core..=) Prelude.<$> parameterName
+          [ ("ParameterName" Data..=) Prelude.<$> parameterName,
+            ("ParameterValue" Data..=)
+              Prelude.<$> parameterValue
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.UpdateInsight
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.SecurityHub.UpdateInsight
     newUpdateInsight,
 
     -- * Request Lenses
-    updateInsight_groupByAttribute,
     updateInsight_filters,
+    updateInsight_groupByAttribute,
     updateInsight_name,
     updateInsight_insightArn,
 
@@ -43,7 +43,8 @@ module Amazonka.SecurityHub.UpdateInsight
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -51,10 +52,10 @@ import Amazonka.SecurityHub.Types
 
 -- | /See:/ 'newUpdateInsight' smart constructor.
 data UpdateInsight = UpdateInsight'
-  { -- | The updated @GroupBy@ attribute that defines this insight.
-    groupByAttribute :: Prelude.Maybe Prelude.Text,
-    -- | The updated filters that define this insight.
+  { -- | The updated filters that define this insight.
     filters :: Prelude.Maybe AwsSecurityFindingFilters,
+    -- | The updated @GroupBy@ attribute that defines this insight.
+    groupByAttribute :: Prelude.Maybe Prelude.Text,
     -- | The updated name for the insight.
     name :: Prelude.Maybe Prelude.Text,
     -- | The ARN of the insight that you want to update.
@@ -70,9 +71,9 @@ data UpdateInsight = UpdateInsight'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'groupByAttribute', 'updateInsight_groupByAttribute' - The updated @GroupBy@ attribute that defines this insight.
---
 -- 'filters', 'updateInsight_filters' - The updated filters that define this insight.
+--
+-- 'groupByAttribute', 'updateInsight_groupByAttribute' - The updated @GroupBy@ attribute that defines this insight.
 --
 -- 'name', 'updateInsight_name' - The updated name for the insight.
 --
@@ -83,19 +84,19 @@ newUpdateInsight ::
   UpdateInsight
 newUpdateInsight pInsightArn_ =
   UpdateInsight'
-    { groupByAttribute = Prelude.Nothing,
-      filters = Prelude.Nothing,
+    { filters = Prelude.Nothing,
+      groupByAttribute = Prelude.Nothing,
       name = Prelude.Nothing,
       insightArn = pInsightArn_
     }
 
--- | The updated @GroupBy@ attribute that defines this insight.
-updateInsight_groupByAttribute :: Lens.Lens' UpdateInsight (Prelude.Maybe Prelude.Text)
-updateInsight_groupByAttribute = Lens.lens (\UpdateInsight' {groupByAttribute} -> groupByAttribute) (\s@UpdateInsight' {} a -> s {groupByAttribute = a} :: UpdateInsight)
-
 -- | The updated filters that define this insight.
 updateInsight_filters :: Lens.Lens' UpdateInsight (Prelude.Maybe AwsSecurityFindingFilters)
 updateInsight_filters = Lens.lens (\UpdateInsight' {filters} -> filters) (\s@UpdateInsight' {} a -> s {filters = a} :: UpdateInsight)
+
+-- | The updated @GroupBy@ attribute that defines this insight.
+updateInsight_groupByAttribute :: Lens.Lens' UpdateInsight (Prelude.Maybe Prelude.Text)
+updateInsight_groupByAttribute = Lens.lens (\UpdateInsight' {groupByAttribute} -> groupByAttribute) (\s@UpdateInsight' {} a -> s {groupByAttribute = a} :: UpdateInsight)
 
 -- | The updated name for the insight.
 updateInsight_name :: Lens.Lens' UpdateInsight (Prelude.Maybe Prelude.Text)
@@ -109,7 +110,8 @@ instance Core.AWSRequest UpdateInsight where
   type
     AWSResponse UpdateInsight =
       UpdateInsightResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -119,46 +121,46 @@ instance Core.AWSRequest UpdateInsight where
 
 instance Prelude.Hashable UpdateInsight where
   hashWithSalt _salt UpdateInsight' {..} =
-    _salt `Prelude.hashWithSalt` groupByAttribute
-      `Prelude.hashWithSalt` filters
+    _salt `Prelude.hashWithSalt` filters
+      `Prelude.hashWithSalt` groupByAttribute
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` insightArn
 
 instance Prelude.NFData UpdateInsight where
   rnf UpdateInsight' {..} =
-    Prelude.rnf groupByAttribute
-      `Prelude.seq` Prelude.rnf filters
+    Prelude.rnf filters
+      `Prelude.seq` Prelude.rnf groupByAttribute
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf insightArn
 
-instance Core.ToHeaders UpdateInsight where
+instance Data.ToHeaders UpdateInsight where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateInsight where
+instance Data.ToJSON UpdateInsight where
   toJSON UpdateInsight' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("GroupByAttribute" Core..=)
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("GroupByAttribute" Data..=)
               Prelude.<$> groupByAttribute,
-            ("Filters" Core..=) Prelude.<$> filters,
-            ("Name" Core..=) Prelude.<$> name
+            ("Name" Data..=) Prelude.<$> name
           ]
       )
 
-instance Core.ToPath UpdateInsight where
+instance Data.ToPath UpdateInsight where
   toPath UpdateInsight' {..} =
     Prelude.mconcat
-      ["/insights/", Core.toBS insightArn]
+      ["/insights/", Data.toBS insightArn]
 
-instance Core.ToQuery UpdateInsight where
+instance Data.ToQuery UpdateInsight where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateInsightResponse' smart constructor.

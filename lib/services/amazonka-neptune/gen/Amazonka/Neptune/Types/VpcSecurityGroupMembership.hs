@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Neptune.Types.VpcSecurityGroupMembership
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Neptune.Types.VpcSecurityGroupMembership where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | This data type is used as a response element for queries on VPC security
@@ -63,11 +64,11 @@ vpcSecurityGroupMembership_status = Lens.lens (\VpcSecurityGroupMembership' {sta
 vpcSecurityGroupMembership_vpcSecurityGroupId :: Lens.Lens' VpcSecurityGroupMembership (Prelude.Maybe Prelude.Text)
 vpcSecurityGroupMembership_vpcSecurityGroupId = Lens.lens (\VpcSecurityGroupMembership' {vpcSecurityGroupId} -> vpcSecurityGroupId) (\s@VpcSecurityGroupMembership' {} a -> s {vpcSecurityGroupId = a} :: VpcSecurityGroupMembership)
 
-instance Core.FromXML VpcSecurityGroupMembership where
+instance Data.FromXML VpcSecurityGroupMembership where
   parseXML x =
     VpcSecurityGroupMembership'
-      Prelude.<$> (x Core..@? "Status")
-      Prelude.<*> (x Core..@? "VpcSecurityGroupId")
+      Prelude.<$> (x Data..@? "Status")
+      Prelude.<*> (x Data..@? "VpcSecurityGroupId")
 
 instance Prelude.Hashable VpcSecurityGroupMembership where
   hashWithSalt _salt VpcSecurityGroupMembership' {..} =

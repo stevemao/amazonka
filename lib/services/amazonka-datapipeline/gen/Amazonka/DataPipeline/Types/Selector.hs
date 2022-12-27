@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataPipeline.Types.Selector
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.DataPipeline.Types.Selector where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataPipeline.Types.Operator
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A comparision that is used to determine whether a query should return
@@ -29,12 +30,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSelector' smart constructor.
 data Selector = Selector'
-  { operator :: Prelude.Maybe Operator,
-    -- | The name of the field that the operator will be applied to. The field
+  { -- | The name of the field that the operator will be applied to. The field
     -- name is the \"key\" portion of the field definition in the pipeline
     -- definition syntax that is used by the AWS Data Pipeline API. If the
     -- field is not set on the object, the condition fails.
-    fieldName :: Prelude.Maybe Prelude.Text
+    fieldName :: Prelude.Maybe Prelude.Text,
+    operator :: Prelude.Maybe Operator
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,23 +47,19 @@ data Selector = Selector'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'operator', 'selector_operator' - Undocumented member.
---
 -- 'fieldName', 'selector_fieldName' - The name of the field that the operator will be applied to. The field
 -- name is the \"key\" portion of the field definition in the pipeline
 -- definition syntax that is used by the AWS Data Pipeline API. If the
 -- field is not set on the object, the condition fails.
+--
+-- 'operator', 'selector_operator' - Undocumented member.
 newSelector ::
   Selector
 newSelector =
   Selector'
-    { operator = Prelude.Nothing,
-      fieldName = Prelude.Nothing
+    { fieldName = Prelude.Nothing,
+      operator = Prelude.Nothing
     }
-
--- | Undocumented member.
-selector_operator :: Lens.Lens' Selector (Prelude.Maybe Operator)
-selector_operator = Lens.lens (\Selector' {operator} -> operator) (\s@Selector' {} a -> s {operator = a} :: Selector)
 
 -- | The name of the field that the operator will be applied to. The field
 -- name is the \"key\" portion of the field definition in the pipeline
@@ -71,21 +68,25 @@ selector_operator = Lens.lens (\Selector' {operator} -> operator) (\s@Selector' 
 selector_fieldName :: Lens.Lens' Selector (Prelude.Maybe Prelude.Text)
 selector_fieldName = Lens.lens (\Selector' {fieldName} -> fieldName) (\s@Selector' {} a -> s {fieldName = a} :: Selector)
 
+-- | Undocumented member.
+selector_operator :: Lens.Lens' Selector (Prelude.Maybe Operator)
+selector_operator = Lens.lens (\Selector' {operator} -> operator) (\s@Selector' {} a -> s {operator = a} :: Selector)
+
 instance Prelude.Hashable Selector where
   hashWithSalt _salt Selector' {..} =
-    _salt `Prelude.hashWithSalt` operator
-      `Prelude.hashWithSalt` fieldName
+    _salt `Prelude.hashWithSalt` fieldName
+      `Prelude.hashWithSalt` operator
 
 instance Prelude.NFData Selector where
   rnf Selector' {..} =
-    Prelude.rnf operator
-      `Prelude.seq` Prelude.rnf fieldName
+    Prelude.rnf fieldName
+      `Prelude.seq` Prelude.rnf operator
 
-instance Core.ToJSON Selector where
+instance Data.ToJSON Selector where
   toJSON Selector' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("operator" Core..=) Prelude.<$> operator,
-            ("fieldName" Core..=) Prelude.<$> fieldName
+          [ ("fieldName" Data..=) Prelude.<$> fieldName,
+            ("operator" Data..=) Prelude.<$> operator
           ]
       )

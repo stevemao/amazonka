@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.NetworkConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,16 @@
 module Amazonka.ECS.Types.NetworkConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types.AwsVpcConfiguration
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object representing the network configuration for a task or service.
 --
 -- /See:/ 'newNetworkConfiguration' smart constructor.
 data NetworkConfiguration = NetworkConfiguration'
-  { -- | The VPC subnets and security groups associated with a task.
+  { -- | The VPC subnets and security groups that are associated with a task.
     --
     -- All specified subnets and security groups must be from the same VPC.
     awsvpcConfiguration :: Prelude.Maybe AwsVpcConfiguration
@@ -43,7 +44,7 @@ data NetworkConfiguration = NetworkConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'awsvpcConfiguration', 'networkConfiguration_awsvpcConfiguration' - The VPC subnets and security groups associated with a task.
+-- 'awsvpcConfiguration', 'networkConfiguration_awsvpcConfiguration' - The VPC subnets and security groups that are associated with a task.
 --
 -- All specified subnets and security groups must be from the same VPC.
 newNetworkConfiguration ::
@@ -54,19 +55,19 @@ newNetworkConfiguration =
         Prelude.Nothing
     }
 
--- | The VPC subnets and security groups associated with a task.
+-- | The VPC subnets and security groups that are associated with a task.
 --
 -- All specified subnets and security groups must be from the same VPC.
 networkConfiguration_awsvpcConfiguration :: Lens.Lens' NetworkConfiguration (Prelude.Maybe AwsVpcConfiguration)
 networkConfiguration_awsvpcConfiguration = Lens.lens (\NetworkConfiguration' {awsvpcConfiguration} -> awsvpcConfiguration) (\s@NetworkConfiguration' {} a -> s {awsvpcConfiguration = a} :: NetworkConfiguration)
 
-instance Core.FromJSON NetworkConfiguration where
+instance Data.FromJSON NetworkConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NetworkConfiguration"
       ( \x ->
           NetworkConfiguration'
-            Prelude.<$> (x Core..:? "awsvpcConfiguration")
+            Prelude.<$> (x Data..:? "awsvpcConfiguration")
       )
 
 instance Prelude.Hashable NetworkConfiguration where
@@ -77,11 +78,11 @@ instance Prelude.NFData NetworkConfiguration where
   rnf NetworkConfiguration' {..} =
     Prelude.rnf awsvpcConfiguration
 
-instance Core.ToJSON NetworkConfiguration where
+instance Data.ToJSON NetworkConfiguration where
   toJSON NetworkConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("awsvpcConfiguration" Core..=)
+          [ ("awsvpcConfiguration" Data..=)
               Prelude.<$> awsvpcConfiguration
           ]
       )

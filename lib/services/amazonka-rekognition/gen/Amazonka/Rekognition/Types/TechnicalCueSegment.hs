@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.TechnicalCueSegment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.TechnicalCueSegment where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types.TechnicalCueType
 
@@ -66,14 +67,14 @@ technicalCueSegment_confidence = Lens.lens (\TechnicalCueSegment' {confidence} -
 technicalCueSegment_type :: Lens.Lens' TechnicalCueSegment (Prelude.Maybe TechnicalCueType)
 technicalCueSegment_type = Lens.lens (\TechnicalCueSegment' {type'} -> type') (\s@TechnicalCueSegment' {} a -> s {type' = a} :: TechnicalCueSegment)
 
-instance Core.FromJSON TechnicalCueSegment where
+instance Data.FromJSON TechnicalCueSegment where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TechnicalCueSegment"
       ( \x ->
           TechnicalCueSegment'
-            Prelude.<$> (x Core..:? "Confidence")
-            Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "Confidence")
+            Prelude.<*> (x Data..:? "Type")
       )
 
 instance Prelude.Hashable TechnicalCueSegment where

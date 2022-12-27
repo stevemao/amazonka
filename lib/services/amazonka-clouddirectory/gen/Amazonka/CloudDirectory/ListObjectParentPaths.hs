@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.ListObjectParentPaths
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,8 @@ module Amazonka.CloudDirectory.ListObjectParentPaths
     newListObjectParentPaths,
 
     -- * Request Lenses
-    listObjectParentPaths_nextToken,
     listObjectParentPaths_maxResults,
+    listObjectParentPaths_nextToken,
     listObjectParentPaths_directoryArn,
     listObjectParentPaths_objectReference,
 
@@ -50,26 +50,27 @@ module Amazonka.CloudDirectory.ListObjectParentPaths
     newListObjectParentPathsResponse,
 
     -- * Response Lenses
-    listObjectParentPathsResponse_pathToObjectIdentifiersList,
     listObjectParentPathsResponse_nextToken,
+    listObjectParentPathsResponse_pathToObjectIdentifiersList,
     listObjectParentPathsResponse_httpStatus,
   )
 where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListObjectParentPaths' smart constructor.
 data ListObjectParentPaths = ListObjectParentPaths'
-  { -- | The pagination token.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to be retrieved in a single call. This is an
+  { -- | The maximum number of items to be retrieved in a single call. This is an
     -- approximate number.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ARN of the directory to which the parent path applies.
     directoryArn :: Prelude.Text,
     -- | The reference that identifies the object whose parent paths are listed.
@@ -85,10 +86,10 @@ data ListObjectParentPaths = ListObjectParentPaths'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listObjectParentPaths_nextToken' - The pagination token.
---
 -- 'maxResults', 'listObjectParentPaths_maxResults' - The maximum number of items to be retrieved in a single call. This is an
 -- approximate number.
+--
+-- 'nextToken', 'listObjectParentPaths_nextToken' - The pagination token.
 --
 -- 'directoryArn', 'listObjectParentPaths_directoryArn' - The ARN of the directory to which the parent path applies.
 --
@@ -103,20 +104,21 @@ newListObjectParentPaths
   pDirectoryArn_
   pObjectReference_ =
     ListObjectParentPaths'
-      { nextToken = Prelude.Nothing,
-        maxResults = Prelude.Nothing,
+      { maxResults =
+          Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         directoryArn = pDirectoryArn_,
         objectReference = pObjectReference_
       }
-
--- | The pagination token.
-listObjectParentPaths_nextToken :: Lens.Lens' ListObjectParentPaths (Prelude.Maybe Prelude.Text)
-listObjectParentPaths_nextToken = Lens.lens (\ListObjectParentPaths' {nextToken} -> nextToken) (\s@ListObjectParentPaths' {} a -> s {nextToken = a} :: ListObjectParentPaths)
 
 -- | The maximum number of items to be retrieved in a single call. This is an
 -- approximate number.
 listObjectParentPaths_maxResults :: Lens.Lens' ListObjectParentPaths (Prelude.Maybe Prelude.Natural)
 listObjectParentPaths_maxResults = Lens.lens (\ListObjectParentPaths' {maxResults} -> maxResults) (\s@ListObjectParentPaths' {} a -> s {maxResults = a} :: ListObjectParentPaths)
+
+-- | The pagination token.
+listObjectParentPaths_nextToken :: Lens.Lens' ListObjectParentPaths (Prelude.Maybe Prelude.Text)
+listObjectParentPaths_nextToken = Lens.lens (\ListObjectParentPaths' {nextToken} -> nextToken) (\s@ListObjectParentPaths' {} a -> s {nextToken = a} :: ListObjectParentPaths)
 
 -- | The ARN of the directory to which the parent path applies.
 listObjectParentPaths_directoryArn :: Lens.Lens' ListObjectParentPaths Prelude.Text
@@ -152,63 +154,64 @@ instance Core.AWSRequest ListObjectParentPaths where
   type
     AWSResponse ListObjectParentPaths =
       ListObjectParentPathsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListObjectParentPathsResponse'
-            Prelude.<$> ( x Core..?> "PathToObjectIdentifiersList"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "PathToObjectIdentifiersList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListObjectParentPaths where
   hashWithSalt _salt ListObjectParentPaths' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` directoryArn
       `Prelude.hashWithSalt` objectReference
 
 instance Prelude.NFData ListObjectParentPaths where
   rnf ListObjectParentPaths' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf directoryArn
       `Prelude.seq` Prelude.rnf objectReference
 
-instance Core.ToHeaders ListObjectParentPaths where
+instance Data.ToHeaders ListObjectParentPaths where
   toHeaders ListObjectParentPaths' {..} =
     Prelude.mconcat
-      ["x-amz-data-partition" Core.=# directoryArn]
+      ["x-amz-data-partition" Data.=# directoryArn]
 
-instance Core.ToJSON ListObjectParentPaths where
+instance Data.ToJSON ListObjectParentPaths where
   toJSON ListObjectParentPaths' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("ObjectReference" Core..= objectReference)
+              ("ObjectReference" Data..= objectReference)
           ]
       )
 
-instance Core.ToPath ListObjectParentPaths where
+instance Data.ToPath ListObjectParentPaths where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/object/parentpaths"
 
-instance Core.ToQuery ListObjectParentPaths where
+instance Data.ToQuery ListObjectParentPaths where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListObjectParentPathsResponse' smart constructor.
 data ListObjectParentPathsResponse = ListObjectParentPathsResponse'
-  { -- | Returns the path to the @ObjectIdentifiers@ that are associated with the
+  { -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Returns the path to the @ObjectIdentifiers@ that are associated with the
     -- directory.
     pathToObjectIdentifiersList :: Prelude.Maybe [PathToObjectIdentifiers],
-    -- | The pagination token.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -222,10 +225,10 @@ data ListObjectParentPathsResponse = ListObjectParentPathsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'nextToken', 'listObjectParentPathsResponse_nextToken' - The pagination token.
+--
 -- 'pathToObjectIdentifiersList', 'listObjectParentPathsResponse_pathToObjectIdentifiersList' - Returns the path to the @ObjectIdentifiers@ that are associated with the
 -- directory.
---
--- 'nextToken', 'listObjectParentPathsResponse_nextToken' - The pagination token.
 --
 -- 'httpStatus', 'listObjectParentPathsResponse_httpStatus' - The response's http status code.
 newListObjectParentPathsResponse ::
@@ -234,20 +237,21 @@ newListObjectParentPathsResponse ::
   ListObjectParentPathsResponse
 newListObjectParentPathsResponse pHttpStatus_ =
   ListObjectParentPathsResponse'
-    { pathToObjectIdentifiersList =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      pathToObjectIdentifiersList =
+        Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The pagination token.
+listObjectParentPathsResponse_nextToken :: Lens.Lens' ListObjectParentPathsResponse (Prelude.Maybe Prelude.Text)
+listObjectParentPathsResponse_nextToken = Lens.lens (\ListObjectParentPathsResponse' {nextToken} -> nextToken) (\s@ListObjectParentPathsResponse' {} a -> s {nextToken = a} :: ListObjectParentPathsResponse)
 
 -- | Returns the path to the @ObjectIdentifiers@ that are associated with the
 -- directory.
 listObjectParentPathsResponse_pathToObjectIdentifiersList :: Lens.Lens' ListObjectParentPathsResponse (Prelude.Maybe [PathToObjectIdentifiers])
 listObjectParentPathsResponse_pathToObjectIdentifiersList = Lens.lens (\ListObjectParentPathsResponse' {pathToObjectIdentifiersList} -> pathToObjectIdentifiersList) (\s@ListObjectParentPathsResponse' {} a -> s {pathToObjectIdentifiersList = a} :: ListObjectParentPathsResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | The pagination token.
-listObjectParentPathsResponse_nextToken :: Lens.Lens' ListObjectParentPathsResponse (Prelude.Maybe Prelude.Text)
-listObjectParentPathsResponse_nextToken = Lens.lens (\ListObjectParentPathsResponse' {nextToken} -> nextToken) (\s@ListObjectParentPathsResponse' {} a -> s {nextToken = a} :: ListObjectParentPathsResponse)
 
 -- | The response's http status code.
 listObjectParentPathsResponse_httpStatus :: Lens.Lens' ListObjectParentPathsResponse Prelude.Int
@@ -255,6 +259,6 @@ listObjectParentPathsResponse_httpStatus = Lens.lens (\ListObjectParentPathsResp
 
 instance Prelude.NFData ListObjectParentPathsResponse where
   rnf ListObjectParentPathsResponse' {..} =
-    Prelude.rnf pathToObjectIdentifiersList
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf pathToObjectIdentifiersList
       `Prelude.seq` Prelude.rnf httpStatus

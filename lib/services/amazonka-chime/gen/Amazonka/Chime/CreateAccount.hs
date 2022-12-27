@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.CreateAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,12 +82,13 @@ instance Core.AWSRequest CreateAccount where
   type
     AWSResponse CreateAccount =
       CreateAccountResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateAccountResponse'
-            Prelude.<$> (x Core..?> "Account")
+            Prelude.<$> (x Data..?> "Account")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,20 +99,20 @@ instance Prelude.Hashable CreateAccount where
 instance Prelude.NFData CreateAccount where
   rnf CreateAccount' {..} = Prelude.rnf name
 
-instance Core.ToHeaders CreateAccount where
+instance Data.ToHeaders CreateAccount where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateAccount where
+instance Data.ToJSON CreateAccount where
   toJSON CreateAccount' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Name" Core..= name)]
+          [Prelude.Just ("Name" Data..= name)]
       )
 
-instance Core.ToPath CreateAccount where
+instance Data.ToPath CreateAccount where
   toPath = Prelude.const "/accounts"
 
-instance Core.ToQuery CreateAccount where
+instance Data.ToQuery CreateAccount where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateAccountResponse' smart constructor.

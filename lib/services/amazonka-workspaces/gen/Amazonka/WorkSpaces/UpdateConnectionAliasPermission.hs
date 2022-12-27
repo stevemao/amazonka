@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkSpaces.UpdateConnectionAliasPermission
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -58,7 +58,8 @@ module Amazonka.WorkSpaces.UpdateConnectionAliasPermission
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -121,7 +122,8 @@ instance
   type
     AWSResponse UpdateConnectionAliasPermission =
       UpdateConnectionAliasPermissionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -148,39 +150,39 @@ instance
       `Prelude.seq` Prelude.rnf connectionAliasPermission
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateConnectionAliasPermission
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkspacesService.UpdateConnectionAliasPermission" ::
+              Data.=# ( "WorkspacesService.UpdateConnectionAliasPermission" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateConnectionAliasPermission where
+instance Data.ToJSON UpdateConnectionAliasPermission where
   toJSON UpdateConnectionAliasPermission' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("AliasId" Core..= aliasId),
+          [ Prelude.Just ("AliasId" Data..= aliasId),
             Prelude.Just
               ( "ConnectionAliasPermission"
-                  Core..= connectionAliasPermission
+                  Data..= connectionAliasPermission
               )
           ]
       )
 
-instance Core.ToPath UpdateConnectionAliasPermission where
+instance Data.ToPath UpdateConnectionAliasPermission where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateConnectionAliasPermission where
+instance Data.ToQuery UpdateConnectionAliasPermission where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateConnectionAliasPermissionResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Location.DescribePlaceIndex
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,6 +34,7 @@ module Amazonka.Location.DescribePlaceIndex
     newDescribePlaceIndexResponse,
 
     -- * Response Lenses
+    describePlaceIndexResponse_pricingPlan,
     describePlaceIndexResponse_tags,
     describePlaceIndexResponse_httpStatus,
     describePlaceIndexResponse_createTime,
@@ -42,13 +43,13 @@ module Amazonka.Location.DescribePlaceIndex
     describePlaceIndexResponse_description,
     describePlaceIndexResponse_indexArn,
     describePlaceIndexResponse_indexName,
-    describePlaceIndexResponse_pricingPlan,
     describePlaceIndexResponse_updateTime,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -85,21 +86,22 @@ instance Core.AWSRequest DescribePlaceIndex where
   type
     AWSResponse DescribePlaceIndex =
       DescribePlaceIndexResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribePlaceIndexResponse'
-            Prelude.<$> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "PricingPlan")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "CreateTime")
-            Prelude.<*> (x Core..:> "DataSource")
-            Prelude.<*> (x Core..:> "DataSourceConfiguration")
-            Prelude.<*> (x Core..:> "Description")
-            Prelude.<*> (x Core..:> "IndexArn")
-            Prelude.<*> (x Core..:> "IndexName")
-            Prelude.<*> (x Core..:> "PricingPlan")
-            Prelude.<*> (x Core..:> "UpdateTime")
+            Prelude.<*> (x Data..:> "CreateTime")
+            Prelude.<*> (x Data..:> "DataSource")
+            Prelude.<*> (x Data..:> "DataSourceConfiguration")
+            Prelude.<*> (x Data..:> "Description")
+            Prelude.<*> (x Data..:> "IndexArn")
+            Prelude.<*> (x Data..:> "IndexName")
+            Prelude.<*> (x Data..:> "UpdateTime")
       )
 
 instance Prelude.Hashable DescribePlaceIndex where
@@ -109,43 +111,45 @@ instance Prelude.Hashable DescribePlaceIndex where
 instance Prelude.NFData DescribePlaceIndex where
   rnf DescribePlaceIndex' {..} = Prelude.rnf indexName
 
-instance Core.ToHeaders DescribePlaceIndex where
+instance Data.ToHeaders DescribePlaceIndex where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribePlaceIndex where
+instance Data.ToPath DescribePlaceIndex where
   toPath DescribePlaceIndex' {..} =
     Prelude.mconcat
-      ["/places/v0/indexes/", Core.toBS indexName]
+      ["/places/v0/indexes/", Data.toBS indexName]
 
-instance Core.ToQuery DescribePlaceIndex where
+instance Data.ToQuery DescribePlaceIndex where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribePlaceIndexResponse' smart constructor.
 data DescribePlaceIndexResponse = DescribePlaceIndexResponse'
-  { -- | Tags associated with place index resource.
+  { -- | No longer used. Always returns @RequestBasedUsage@.
+    pricingPlan :: Prelude.Maybe PricingPlan,
+    -- | Tags associated with place index resource.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | The timestamp for when the place index resource was created in
     -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
     -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
-    createTime :: Core.POSIX,
-    -- | The data provider of geospatial data. Indicates one of the available
-    -- providers:
+    createTime :: Data.POSIX,
+    -- | The data provider of geospatial data. Values can be one of the
+    -- following:
     --
     -- -   @Esri@
     --
     -- -   @Here@
     --
-    -- For additional details on data providers, see
+    -- For more information about data providers, see
     -- <https://docs.aws.amazon.com/location/latest/developerguide/what-is-data-provider.html Amazon Location Service data providers>.
     dataSource :: Prelude.Text,
     -- | The specified data storage option for requesting Places.
@@ -160,15 +164,10 @@ data DescribePlaceIndexResponse = DescribePlaceIndexResponse'
     indexArn :: Prelude.Text,
     -- | The name of the place index resource being described.
     indexName :: Prelude.Text,
-    -- | The pricing plan selected for the specified place index resource.
-    --
-    -- For additional details and restrictions on each pricing plan option, see
-    -- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
-    pricingPlan :: PricingPlan,
     -- | The timestamp for when the place index resource was last updated in
     -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
     -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
-    updateTime :: Core.POSIX
+    updateTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -180,6 +179,8 @@ data DescribePlaceIndexResponse = DescribePlaceIndexResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'pricingPlan', 'describePlaceIndexResponse_pricingPlan' - No longer used. Always returns @RequestBasedUsage@.
+--
 -- 'tags', 'describePlaceIndexResponse_tags' - Tags associated with place index resource.
 --
 -- 'httpStatus', 'describePlaceIndexResponse_httpStatus' - The response's http status code.
@@ -188,14 +189,14 @@ data DescribePlaceIndexResponse = DescribePlaceIndexResponse'
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
 --
--- 'dataSource', 'describePlaceIndexResponse_dataSource' - The data provider of geospatial data. Indicates one of the available
--- providers:
+-- 'dataSource', 'describePlaceIndexResponse_dataSource' - The data provider of geospatial data. Values can be one of the
+-- following:
 --
 -- -   @Esri@
 --
 -- -   @Here@
 --
--- For additional details on data providers, see
+-- For more information about data providers, see
 -- <https://docs.aws.amazon.com/location/latest/developerguide/what-is-data-provider.html Amazon Location Service data providers>.
 --
 -- 'dataSourceConfiguration', 'describePlaceIndexResponse_dataSourceConfiguration' - The specified data storage option for requesting Places.
@@ -209,11 +210,6 @@ data DescribePlaceIndexResponse = DescribePlaceIndexResponse'
 --     @arn:aws:geo:region:account-id:place-index\/ExamplePlaceIndex@
 --
 -- 'indexName', 'describePlaceIndexResponse_indexName' - The name of the place index resource being described.
---
--- 'pricingPlan', 'describePlaceIndexResponse_pricingPlan' - The pricing plan selected for the specified place index resource.
---
--- For additional details and restrictions on each pricing plan option, see
--- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
 --
 -- 'updateTime', 'describePlaceIndexResponse_updateTime' - The timestamp for when the place index resource was last updated in
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
@@ -233,8 +229,6 @@ newDescribePlaceIndexResponse ::
   Prelude.Text ->
   -- | 'indexName'
   Prelude.Text ->
-  -- | 'pricingPlan'
-  PricingPlan ->
   -- | 'updateTime'
   Prelude.UTCTime ->
   DescribePlaceIndexResponse
@@ -246,21 +240,25 @@ newDescribePlaceIndexResponse
   pDescription_
   pIndexArn_
   pIndexName_
-  pPricingPlan_
   pUpdateTime_ =
     DescribePlaceIndexResponse'
-      { tags = Prelude.Nothing,
+      { pricingPlan =
+          Prelude.Nothing,
+        tags = Prelude.Nothing,
         httpStatus = pHttpStatus_,
-        createTime = Core._Time Lens.# pCreateTime_,
+        createTime = Data._Time Lens.# pCreateTime_,
         dataSource = pDataSource_,
         dataSourceConfiguration =
           pDataSourceConfiguration_,
         description = pDescription_,
         indexArn = pIndexArn_,
         indexName = pIndexName_,
-        pricingPlan = pPricingPlan_,
-        updateTime = Core._Time Lens.# pUpdateTime_
+        updateTime = Data._Time Lens.# pUpdateTime_
       }
+
+-- | No longer used. Always returns @RequestBasedUsage@.
+describePlaceIndexResponse_pricingPlan :: Lens.Lens' DescribePlaceIndexResponse (Prelude.Maybe PricingPlan)
+describePlaceIndexResponse_pricingPlan = Lens.lens (\DescribePlaceIndexResponse' {pricingPlan} -> pricingPlan) (\s@DescribePlaceIndexResponse' {} a -> s {pricingPlan = a} :: DescribePlaceIndexResponse)
 
 -- | Tags associated with place index resource.
 describePlaceIndexResponse_tags :: Lens.Lens' DescribePlaceIndexResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -274,16 +272,16 @@ describePlaceIndexResponse_httpStatus = Lens.lens (\DescribePlaceIndexResponse' 
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
 describePlaceIndexResponse_createTime :: Lens.Lens' DescribePlaceIndexResponse Prelude.UTCTime
-describePlaceIndexResponse_createTime = Lens.lens (\DescribePlaceIndexResponse' {createTime} -> createTime) (\s@DescribePlaceIndexResponse' {} a -> s {createTime = a} :: DescribePlaceIndexResponse) Prelude.. Core._Time
+describePlaceIndexResponse_createTime = Lens.lens (\DescribePlaceIndexResponse' {createTime} -> createTime) (\s@DescribePlaceIndexResponse' {} a -> s {createTime = a} :: DescribePlaceIndexResponse) Prelude.. Data._Time
 
--- | The data provider of geospatial data. Indicates one of the available
--- providers:
+-- | The data provider of geospatial data. Values can be one of the
+-- following:
 --
 -- -   @Esri@
 --
 -- -   @Here@
 --
--- For additional details on data providers, see
+-- For more information about data providers, see
 -- <https://docs.aws.amazon.com/location/latest/developerguide/what-is-data-provider.html Amazon Location Service data providers>.
 describePlaceIndexResponse_dataSource :: Lens.Lens' DescribePlaceIndexResponse Prelude.Text
 describePlaceIndexResponse_dataSource = Lens.lens (\DescribePlaceIndexResponse' {dataSource} -> dataSource) (\s@DescribePlaceIndexResponse' {} a -> s {dataSource = a} :: DescribePlaceIndexResponse)
@@ -308,22 +306,16 @@ describePlaceIndexResponse_indexArn = Lens.lens (\DescribePlaceIndexResponse' {i
 describePlaceIndexResponse_indexName :: Lens.Lens' DescribePlaceIndexResponse Prelude.Text
 describePlaceIndexResponse_indexName = Lens.lens (\DescribePlaceIndexResponse' {indexName} -> indexName) (\s@DescribePlaceIndexResponse' {} a -> s {indexName = a} :: DescribePlaceIndexResponse)
 
--- | The pricing plan selected for the specified place index resource.
---
--- For additional details and restrictions on each pricing plan option, see
--- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
-describePlaceIndexResponse_pricingPlan :: Lens.Lens' DescribePlaceIndexResponse PricingPlan
-describePlaceIndexResponse_pricingPlan = Lens.lens (\DescribePlaceIndexResponse' {pricingPlan} -> pricingPlan) (\s@DescribePlaceIndexResponse' {} a -> s {pricingPlan = a} :: DescribePlaceIndexResponse)
-
 -- | The timestamp for when the place index resource was last updated in
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
 describePlaceIndexResponse_updateTime :: Lens.Lens' DescribePlaceIndexResponse Prelude.UTCTime
-describePlaceIndexResponse_updateTime = Lens.lens (\DescribePlaceIndexResponse' {updateTime} -> updateTime) (\s@DescribePlaceIndexResponse' {} a -> s {updateTime = a} :: DescribePlaceIndexResponse) Prelude.. Core._Time
+describePlaceIndexResponse_updateTime = Lens.lens (\DescribePlaceIndexResponse' {updateTime} -> updateTime) (\s@DescribePlaceIndexResponse' {} a -> s {updateTime = a} :: DescribePlaceIndexResponse) Prelude.. Data._Time
 
 instance Prelude.NFData DescribePlaceIndexResponse where
   rnf DescribePlaceIndexResponse' {..} =
-    Prelude.rnf tags
+    Prelude.rnf pricingPlan
+      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf createTime
       `Prelude.seq` Prelude.rnf dataSource
@@ -331,5 +323,4 @@ instance Prelude.NFData DescribePlaceIndexResponse where
       `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf indexArn
       `Prelude.seq` Prelude.rnf indexName
-      `Prelude.seq` Prelude.rnf pricingPlan
       `Prelude.seq` Prelude.rnf updateTime

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.Types.ResultData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Wisdom.Types.ResultData where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Wisdom.Types.Document
 
@@ -75,15 +76,15 @@ resultData_document = Lens.lens (\ResultData' {document} -> document) (\s@Result
 resultData_resultId :: Lens.Lens' ResultData Prelude.Text
 resultData_resultId = Lens.lens (\ResultData' {resultId} -> resultId) (\s@ResultData' {} a -> s {resultId = a} :: ResultData)
 
-instance Core.FromJSON ResultData where
+instance Data.FromJSON ResultData where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResultData"
       ( \x ->
           ResultData'
-            Prelude.<$> (x Core..:? "relevanceScore")
-            Prelude.<*> (x Core..: "document")
-            Prelude.<*> (x Core..: "resultId")
+            Prelude.<$> (x Data..:? "relevanceScore")
+            Prelude.<*> (x Data..: "document")
+            Prelude.<*> (x Data..: "resultId")
       )
 
 instance Prelude.Hashable ResultData where

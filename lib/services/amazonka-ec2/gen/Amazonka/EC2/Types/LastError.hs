@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.LastError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.LastError where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The last error that occurred for a VPC endpoint.
@@ -62,11 +63,11 @@ lastError_code = Lens.lens (\LastError' {code} -> code) (\s@LastError' {} a -> s
 lastError_message :: Lens.Lens' LastError (Prelude.Maybe Prelude.Text)
 lastError_message = Lens.lens (\LastError' {message} -> message) (\s@LastError' {} a -> s {message = a} :: LastError)
 
-instance Core.FromXML LastError where
+instance Data.FromXML LastError where
   parseXML x =
     LastError'
-      Prelude.<$> (x Core..@? "code")
-      Prelude.<*> (x Core..@? "message")
+      Prelude.<$> (x Data..@? "code")
+      Prelude.<*> (x Data..@? "message")
 
 instance Prelude.Hashable LastError where
   hashWithSalt _salt LastError' {..} =

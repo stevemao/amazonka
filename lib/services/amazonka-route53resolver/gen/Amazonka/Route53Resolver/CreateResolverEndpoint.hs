@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Resolver.CreateResolverEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,7 +52,8 @@ module Amazonka.Route53Resolver.CreateResolverEndpoint
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -200,12 +201,13 @@ instance Core.AWSRequest CreateResolverEndpoint where
   type
     AWSResponse CreateResolverEndpoint =
       CreateResolverEndpointResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateResolverEndpointResponse'
-            Prelude.<$> (x Core..?> "ResolverEndpoint")
+            Prelude.<$> (x Data..?> "ResolverEndpoint")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -227,40 +229,40 @@ instance Prelude.NFData CreateResolverEndpoint where
       `Prelude.seq` Prelude.rnf direction
       `Prelude.seq` Prelude.rnf ipAddresses
 
-instance Core.ToHeaders CreateResolverEndpoint where
+instance Data.ToHeaders CreateResolverEndpoint where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53Resolver.CreateResolverEndpoint" ::
+              Data.=# ( "Route53Resolver.CreateResolverEndpoint" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateResolverEndpoint where
+instance Data.ToJSON CreateResolverEndpoint where
   toJSON CreateResolverEndpoint' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Name" Core..=) Prelude.<$> name,
-            ("Tags" Core..=) Prelude.<$> tags,
+          [ ("Name" Data..=) Prelude.<$> name,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("CreatorRequestId" Core..= creatorRequestId),
+              ("CreatorRequestId" Data..= creatorRequestId),
             Prelude.Just
-              ("SecurityGroupIds" Core..= securityGroupIds),
-            Prelude.Just ("Direction" Core..= direction),
-            Prelude.Just ("IpAddresses" Core..= ipAddresses)
+              ("SecurityGroupIds" Data..= securityGroupIds),
+            Prelude.Just ("Direction" Data..= direction),
+            Prelude.Just ("IpAddresses" Data..= ipAddresses)
           ]
       )
 
-instance Core.ToPath CreateResolverEndpoint where
+instance Data.ToPath CreateResolverEndpoint where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateResolverEndpoint where
+instance Data.ToQuery CreateResolverEndpoint where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateResolverEndpointResponse' smart constructor.

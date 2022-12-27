@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MemoryDb.Types.AuthenticationMode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MemoryDb.Types.AuthenticationMode where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MemoryDb.Types.InputAuthenticationType
 import qualified Amazonka.Prelude as Prelude
 
@@ -76,11 +77,11 @@ instance Prelude.NFData AuthenticationMode where
     Prelude.rnf passwords
       `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON AuthenticationMode where
+instance Data.ToJSON AuthenticationMode where
   toJSON AuthenticationMode' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Passwords" Core..=) Prelude.<$> passwords,
-            ("Type" Core..=) Prelude.<$> type'
+          [ ("Passwords" Data..=) Prelude.<$> passwords,
+            ("Type" Data..=) Prelude.<$> type'
           ]
       )

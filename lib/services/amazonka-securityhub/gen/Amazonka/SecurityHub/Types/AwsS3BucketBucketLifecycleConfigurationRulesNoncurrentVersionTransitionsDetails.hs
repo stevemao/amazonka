@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsS3BucketBucketLifecycleConfigurationRulesNoncurrentVersionTransitionsDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsS3BucketBucketLifecycleConfigurationRulesNoncurrentVersionTransitionsDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A transition rule that describes when noncurrent objects transition to a
@@ -71,16 +72,16 @@ awsS3BucketBucketLifecycleConfigurationRulesNoncurrentVersionTransitionsDetails_
 awsS3BucketBucketLifecycleConfigurationRulesNoncurrentVersionTransitionsDetails_storageClass = Lens.lens (\AwsS3BucketBucketLifecycleConfigurationRulesNoncurrentVersionTransitionsDetails' {storageClass} -> storageClass) (\s@AwsS3BucketBucketLifecycleConfigurationRulesNoncurrentVersionTransitionsDetails' {} a -> s {storageClass = a} :: AwsS3BucketBucketLifecycleConfigurationRulesNoncurrentVersionTransitionsDetails)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsS3BucketBucketLifecycleConfigurationRulesNoncurrentVersionTransitionsDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsS3BucketBucketLifecycleConfigurationRulesNoncurrentVersionTransitionsDetails"
       ( \x ->
           AwsS3BucketBucketLifecycleConfigurationRulesNoncurrentVersionTransitionsDetails'
-            Prelude.<$> (x Core..:? "Days")
-              Prelude.<*> (x Core..:? "StorageClass")
+            Prelude.<$> (x Data..:? "Days")
+              Prelude.<*> (x Data..:? "StorageClass")
       )
 
 instance
@@ -103,14 +104,14 @@ instance
         `Prelude.seq` Prelude.rnf storageClass
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsS3BucketBucketLifecycleConfigurationRulesNoncurrentVersionTransitionsDetails
   where
   toJSON
     AwsS3BucketBucketLifecycleConfigurationRulesNoncurrentVersionTransitionsDetails' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("Days" Core..=) Prelude.<$> days,
-              ("StorageClass" Core..=) Prelude.<$> storageClass
+            [ ("Days" Data..=) Prelude.<$> days,
+              ("StorageClass" Data..=) Prelude.<$> storageClass
             ]
         )

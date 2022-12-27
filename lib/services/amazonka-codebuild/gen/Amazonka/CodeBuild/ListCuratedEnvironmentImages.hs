@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.ListCuratedEnvironmentImages
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ where
 
 import Amazonka.CodeBuild.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,12 +63,13 @@ instance Core.AWSRequest ListCuratedEnvironmentImages where
   type
     AWSResponse ListCuratedEnvironmentImages =
       ListCuratedEnvironmentImagesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListCuratedEnvironmentImagesResponse'
-            Prelude.<$> (x Core..?> "platforms" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "platforms" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -81,28 +83,28 @@ instance
 instance Prelude.NFData ListCuratedEnvironmentImages where
   rnf _ = ()
 
-instance Core.ToHeaders ListCuratedEnvironmentImages where
+instance Data.ToHeaders ListCuratedEnvironmentImages where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeBuild_20161006.ListCuratedEnvironmentImages" ::
+              Data.=# ( "CodeBuild_20161006.ListCuratedEnvironmentImages" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListCuratedEnvironmentImages where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON ListCuratedEnvironmentImages where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath ListCuratedEnvironmentImages where
+instance Data.ToPath ListCuratedEnvironmentImages where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListCuratedEnvironmentImages where
+instance Data.ToQuery ListCuratedEnvironmentImages where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListCuratedEnvironmentImagesResponse' smart constructor.

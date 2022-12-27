@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.DisassociateMembers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disassociates GuardDuty member accounts (to the current GuardDuty
--- administrator account) specified by the account IDs.
+-- Disassociates GuardDuty member accounts (to the current administrator
+-- account) specified by the account IDs.
 module Amazonka.GuardDuty.DisassociateMembers
   ( -- * Creating a Request
     DisassociateMembers (..),
@@ -42,8 +42,9 @@ module Amazonka.GuardDuty.DisassociateMembers
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,13 +99,14 @@ instance Core.AWSRequest DisassociateMembers where
   type
     AWSResponse DisassociateMembers =
       DisassociateMembersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DisassociateMembersResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "unprocessedAccounts"
+            Prelude.<*> ( x Data..?> "unprocessedAccounts"
                             Core..!@ Prelude.mempty
                         )
       )
@@ -119,33 +121,33 @@ instance Prelude.NFData DisassociateMembers where
     Prelude.rnf detectorId
       `Prelude.seq` Prelude.rnf accountIds
 
-instance Core.ToHeaders DisassociateMembers where
+instance Data.ToHeaders DisassociateMembers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisassociateMembers where
+instance Data.ToJSON DisassociateMembers where
   toJSON DisassociateMembers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("accountIds" Core..= accountIds)]
+          [Prelude.Just ("accountIds" Data..= accountIds)]
       )
 
-instance Core.ToPath DisassociateMembers where
+instance Data.ToPath DisassociateMembers where
   toPath DisassociateMembers' {..} =
     Prelude.mconcat
       [ "/detector/",
-        Core.toBS detectorId,
+        Data.toBS detectorId,
         "/member/disassociate"
       ]
 
-instance Core.ToQuery DisassociateMembers where
+instance Data.ToQuery DisassociateMembers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateMembersResponse' smart constructor.

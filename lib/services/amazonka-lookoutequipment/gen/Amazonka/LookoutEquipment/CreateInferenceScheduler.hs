@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutEquipment.CreateInferenceScheduler
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,8 @@ module Amazonka.LookoutEquipment.CreateInferenceScheduler
 
     -- * Request Lenses
     createInferenceScheduler_dataDelayOffsetInMinutes,
-    createInferenceScheduler_tags,
     createInferenceScheduler_serverSideKmsKeyId,
+    createInferenceScheduler_tags,
     createInferenceScheduler_modelName,
     createInferenceScheduler_inferenceSchedulerName,
     createInferenceScheduler_dataUploadFrequency,
@@ -48,15 +48,16 @@ module Amazonka.LookoutEquipment.CreateInferenceScheduler
     newCreateInferenceSchedulerResponse,
 
     -- * Response Lenses
-    createInferenceSchedulerResponse_status,
     createInferenceSchedulerResponse_inferenceSchedulerArn,
     createInferenceSchedulerResponse_inferenceSchedulerName,
+    createInferenceSchedulerResponse_status,
     createInferenceSchedulerResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LookoutEquipment.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -64,33 +65,38 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateInferenceScheduler' smart constructor.
 data CreateInferenceScheduler = CreateInferenceScheduler'
-  { -- | A period of time (in minutes) by which inference on the data is delayed
-    -- after the data starts. For instance, if you select an offset delay time
-    -- of five minutes, inference will not begin on the data until the first
-    -- data measurement after the five minute mark. For example, if five
-    -- minutes is selected, the inference scheduler will wake up at the
-    -- configured frequency with the additional five minute delay time to check
-    -- the customer S3 bucket. The customer can upload data at the same
-    -- frequency and they don\'t need to stop and restart the scheduler when
-    -- uploading new data.
+  { -- | The interval (in minutes) of planned delay at the start of each
+    -- inference segment. For example, if inference is set to run every ten
+    -- minutes, the delay is set to five minutes and the time is 09:08. The
+    -- inference scheduler will wake up at the configured interval (which,
+    -- without a delay configured, would be 09:10) plus the additional five
+    -- minute delay time (so 09:15) to check your Amazon S3 bucket. The delay
+    -- provides a buffer for you to upload data at the same frequency, so that
+    -- you don\'t have to stop and restart the scheduler when uploading new
+    -- data.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/lookout-for-equipment/latest/ug/understanding-inference-process.html Understanding the inference process>.
     dataDelayOffsetInMinutes :: Prelude.Maybe Prelude.Natural,
-    -- | Any tags associated with the inference scheduler.
-    tags :: Prelude.Maybe [Tag],
     -- | Provides the identifier of the KMS key used to encrypt inference
     -- scheduler data by Amazon Lookout for Equipment.
     serverSideKmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | Any tags associated with the inference scheduler.
+    tags :: Prelude.Maybe [Tag],
     -- | The name of the previously trained ML model being used to create the
     -- inference scheduler.
     modelName :: Prelude.Text,
     -- | The name of the inference scheduler being created.
     inferenceSchedulerName :: Prelude.Text,
-    -- | How often data is uploaded to the source S3 bucket for the input data.
-    -- The value chosen is the length of time between data uploads. For
+    -- | How often data is uploaded to the source Amazon S3 bucket for the input
+    -- data. The value chosen is the length of time between data uploads. For
     -- instance, if you select 5 minutes, Amazon Lookout for Equipment will
     -- upload the real-time data to the source bucket once every 5 minutes.
     -- This frequency also determines how often Amazon Lookout for Equipment
-    -- starts a scheduled inference on your data. In this example, it starts
-    -- once every 5 minutes.
+    -- runs inference on your data.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/lookout-for-equipment/latest/ug/understanding-inference-process.html Understanding the inference process>.
     dataUploadFrequency :: DataUploadFrequency,
     -- | Specifies configuration information for the input data for the inference
     -- scheduler, including delimiter, format, and dataset location.
@@ -115,33 +121,38 @@ data CreateInferenceScheduler = CreateInferenceScheduler'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'dataDelayOffsetInMinutes', 'createInferenceScheduler_dataDelayOffsetInMinutes' - A period of time (in minutes) by which inference on the data is delayed
--- after the data starts. For instance, if you select an offset delay time
--- of five minutes, inference will not begin on the data until the first
--- data measurement after the five minute mark. For example, if five
--- minutes is selected, the inference scheduler will wake up at the
--- configured frequency with the additional five minute delay time to check
--- the customer S3 bucket. The customer can upload data at the same
--- frequency and they don\'t need to stop and restart the scheduler when
--- uploading new data.
+-- 'dataDelayOffsetInMinutes', 'createInferenceScheduler_dataDelayOffsetInMinutes' - The interval (in minutes) of planned delay at the start of each
+-- inference segment. For example, if inference is set to run every ten
+-- minutes, the delay is set to five minutes and the time is 09:08. The
+-- inference scheduler will wake up at the configured interval (which,
+-- without a delay configured, would be 09:10) plus the additional five
+-- minute delay time (so 09:15) to check your Amazon S3 bucket. The delay
+-- provides a buffer for you to upload data at the same frequency, so that
+-- you don\'t have to stop and restart the scheduler when uploading new
+-- data.
 --
--- 'tags', 'createInferenceScheduler_tags' - Any tags associated with the inference scheduler.
+-- For more information, see
+-- <https://docs.aws.amazon.com/lookout-for-equipment/latest/ug/understanding-inference-process.html Understanding the inference process>.
 --
 -- 'serverSideKmsKeyId', 'createInferenceScheduler_serverSideKmsKeyId' - Provides the identifier of the KMS key used to encrypt inference
 -- scheduler data by Amazon Lookout for Equipment.
+--
+-- 'tags', 'createInferenceScheduler_tags' - Any tags associated with the inference scheduler.
 --
 -- 'modelName', 'createInferenceScheduler_modelName' - The name of the previously trained ML model being used to create the
 -- inference scheduler.
 --
 -- 'inferenceSchedulerName', 'createInferenceScheduler_inferenceSchedulerName' - The name of the inference scheduler being created.
 --
--- 'dataUploadFrequency', 'createInferenceScheduler_dataUploadFrequency' - How often data is uploaded to the source S3 bucket for the input data.
--- The value chosen is the length of time between data uploads. For
+-- 'dataUploadFrequency', 'createInferenceScheduler_dataUploadFrequency' - How often data is uploaded to the source Amazon S3 bucket for the input
+-- data. The value chosen is the length of time between data uploads. For
 -- instance, if you select 5 minutes, Amazon Lookout for Equipment will
 -- upload the real-time data to the source bucket once every 5 minutes.
 -- This frequency also determines how often Amazon Lookout for Equipment
--- starts a scheduled inference on your data. In this example, it starts
--- once every 5 minutes.
+-- runs inference on your data.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/lookout-for-equipment/latest/ug/understanding-inference-process.html Understanding the inference process>.
 --
 -- 'dataInputConfiguration', 'createInferenceScheduler_dataInputConfiguration' - Specifies configuration information for the input data for the inference
 -- scheduler, including delimiter, format, and dataset location.
@@ -181,8 +192,8 @@ newCreateInferenceScheduler
     CreateInferenceScheduler'
       { dataDelayOffsetInMinutes =
           Prelude.Nothing,
-        tags = Prelude.Nothing,
         serverSideKmsKeyId = Prelude.Nothing,
+        tags = Prelude.Nothing,
         modelName = pModelName_,
         inferenceSchedulerName = pInferenceSchedulerName_,
         dataUploadFrequency = pDataUploadFrequency_,
@@ -193,26 +204,29 @@ newCreateInferenceScheduler
         clientToken = pClientToken_
       }
 
--- | A period of time (in minutes) by which inference on the data is delayed
--- after the data starts. For instance, if you select an offset delay time
--- of five minutes, inference will not begin on the data until the first
--- data measurement after the five minute mark. For example, if five
--- minutes is selected, the inference scheduler will wake up at the
--- configured frequency with the additional five minute delay time to check
--- the customer S3 bucket. The customer can upload data at the same
--- frequency and they don\'t need to stop and restart the scheduler when
--- uploading new data.
+-- | The interval (in minutes) of planned delay at the start of each
+-- inference segment. For example, if inference is set to run every ten
+-- minutes, the delay is set to five minutes and the time is 09:08. The
+-- inference scheduler will wake up at the configured interval (which,
+-- without a delay configured, would be 09:10) plus the additional five
+-- minute delay time (so 09:15) to check your Amazon S3 bucket. The delay
+-- provides a buffer for you to upload data at the same frequency, so that
+-- you don\'t have to stop and restart the scheduler when uploading new
+-- data.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/lookout-for-equipment/latest/ug/understanding-inference-process.html Understanding the inference process>.
 createInferenceScheduler_dataDelayOffsetInMinutes :: Lens.Lens' CreateInferenceScheduler (Prelude.Maybe Prelude.Natural)
 createInferenceScheduler_dataDelayOffsetInMinutes = Lens.lens (\CreateInferenceScheduler' {dataDelayOffsetInMinutes} -> dataDelayOffsetInMinutes) (\s@CreateInferenceScheduler' {} a -> s {dataDelayOffsetInMinutes = a} :: CreateInferenceScheduler)
-
--- | Any tags associated with the inference scheduler.
-createInferenceScheduler_tags :: Lens.Lens' CreateInferenceScheduler (Prelude.Maybe [Tag])
-createInferenceScheduler_tags = Lens.lens (\CreateInferenceScheduler' {tags} -> tags) (\s@CreateInferenceScheduler' {} a -> s {tags = a} :: CreateInferenceScheduler) Prelude.. Lens.mapping Lens.coerced
 
 -- | Provides the identifier of the KMS key used to encrypt inference
 -- scheduler data by Amazon Lookout for Equipment.
 createInferenceScheduler_serverSideKmsKeyId :: Lens.Lens' CreateInferenceScheduler (Prelude.Maybe Prelude.Text)
 createInferenceScheduler_serverSideKmsKeyId = Lens.lens (\CreateInferenceScheduler' {serverSideKmsKeyId} -> serverSideKmsKeyId) (\s@CreateInferenceScheduler' {} a -> s {serverSideKmsKeyId = a} :: CreateInferenceScheduler)
+
+-- | Any tags associated with the inference scheduler.
+createInferenceScheduler_tags :: Lens.Lens' CreateInferenceScheduler (Prelude.Maybe [Tag])
+createInferenceScheduler_tags = Lens.lens (\CreateInferenceScheduler' {tags} -> tags) (\s@CreateInferenceScheduler' {} a -> s {tags = a} :: CreateInferenceScheduler) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the previously trained ML model being used to create the
 -- inference scheduler.
@@ -223,13 +237,15 @@ createInferenceScheduler_modelName = Lens.lens (\CreateInferenceScheduler' {mode
 createInferenceScheduler_inferenceSchedulerName :: Lens.Lens' CreateInferenceScheduler Prelude.Text
 createInferenceScheduler_inferenceSchedulerName = Lens.lens (\CreateInferenceScheduler' {inferenceSchedulerName} -> inferenceSchedulerName) (\s@CreateInferenceScheduler' {} a -> s {inferenceSchedulerName = a} :: CreateInferenceScheduler)
 
--- | How often data is uploaded to the source S3 bucket for the input data.
--- The value chosen is the length of time between data uploads. For
+-- | How often data is uploaded to the source Amazon S3 bucket for the input
+-- data. The value chosen is the length of time between data uploads. For
 -- instance, if you select 5 minutes, Amazon Lookout for Equipment will
 -- upload the real-time data to the source bucket once every 5 minutes.
 -- This frequency also determines how often Amazon Lookout for Equipment
--- starts a scheduled inference on your data. In this example, it starts
--- once every 5 minutes.
+-- runs inference on your data.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/lookout-for-equipment/latest/ug/understanding-inference-process.html Understanding the inference process>.
 createInferenceScheduler_dataUploadFrequency :: Lens.Lens' CreateInferenceScheduler DataUploadFrequency
 createInferenceScheduler_dataUploadFrequency = Lens.lens (\CreateInferenceScheduler' {dataUploadFrequency} -> dataUploadFrequency) (\s@CreateInferenceScheduler' {} a -> s {dataUploadFrequency = a} :: CreateInferenceScheduler)
 
@@ -257,14 +273,15 @@ instance Core.AWSRequest CreateInferenceScheduler where
   type
     AWSResponse CreateInferenceScheduler =
       CreateInferenceSchedulerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateInferenceSchedulerResponse'
-            Prelude.<$> (x Core..?> "Status")
-            Prelude.<*> (x Core..?> "InferenceSchedulerArn")
-            Prelude.<*> (x Core..?> "InferenceSchedulerName")
+            Prelude.<$> (x Data..?> "InferenceSchedulerArn")
+            Prelude.<*> (x Data..?> "InferenceSchedulerName")
+            Prelude.<*> (x Data..?> "Status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -272,8 +289,8 @@ instance Prelude.Hashable CreateInferenceScheduler where
   hashWithSalt _salt CreateInferenceScheduler' {..} =
     _salt
       `Prelude.hashWithSalt` dataDelayOffsetInMinutes
-      `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` serverSideKmsKeyId
+      `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` modelName
       `Prelude.hashWithSalt` inferenceSchedulerName
       `Prelude.hashWithSalt` dataUploadFrequency
@@ -285,8 +302,8 @@ instance Prelude.Hashable CreateInferenceScheduler where
 instance Prelude.NFData CreateInferenceScheduler where
   rnf CreateInferenceScheduler' {..} =
     Prelude.rnf dataDelayOffsetInMinutes
-      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf serverSideKmsKeyId
+      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf modelName
       `Prelude.seq` Prelude.rnf inferenceSchedulerName
       `Prelude.seq` Prelude.rnf dataUploadFrequency
@@ -295,64 +312,64 @@ instance Prelude.NFData CreateInferenceScheduler where
       `Prelude.seq` Prelude.rnf roleArn
       `Prelude.seq` Prelude.rnf clientToken
 
-instance Core.ToHeaders CreateInferenceScheduler where
+instance Data.ToHeaders CreateInferenceScheduler where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSLookoutEquipmentFrontendService.CreateInferenceScheduler" ::
+              Data.=# ( "AWSLookoutEquipmentFrontendService.CreateInferenceScheduler" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateInferenceScheduler where
+instance Data.ToJSON CreateInferenceScheduler where
   toJSON CreateInferenceScheduler' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DataDelayOffsetInMinutes" Core..=)
+          [ ("DataDelayOffsetInMinutes" Data..=)
               Prelude.<$> dataDelayOffsetInMinutes,
-            ("Tags" Core..=) Prelude.<$> tags,
-            ("ServerSideKmsKeyId" Core..=)
+            ("ServerSideKmsKeyId" Data..=)
               Prelude.<$> serverSideKmsKeyId,
-            Prelude.Just ("ModelName" Core..= modelName),
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("ModelName" Data..= modelName),
             Prelude.Just
               ( "InferenceSchedulerName"
-                  Core..= inferenceSchedulerName
+                  Data..= inferenceSchedulerName
               ),
             Prelude.Just
-              ("DataUploadFrequency" Core..= dataUploadFrequency),
+              ("DataUploadFrequency" Data..= dataUploadFrequency),
             Prelude.Just
               ( "DataInputConfiguration"
-                  Core..= dataInputConfiguration
+                  Data..= dataInputConfiguration
               ),
             Prelude.Just
               ( "DataOutputConfiguration"
-                  Core..= dataOutputConfiguration
+                  Data..= dataOutputConfiguration
               ),
-            Prelude.Just ("RoleArn" Core..= roleArn),
-            Prelude.Just ("ClientToken" Core..= clientToken)
+            Prelude.Just ("RoleArn" Data..= roleArn),
+            Prelude.Just ("ClientToken" Data..= clientToken)
           ]
       )
 
-instance Core.ToPath CreateInferenceScheduler where
+instance Data.ToPath CreateInferenceScheduler where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateInferenceScheduler where
+instance Data.ToQuery CreateInferenceScheduler where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateInferenceSchedulerResponse' smart constructor.
 data CreateInferenceSchedulerResponse = CreateInferenceSchedulerResponse'
-  { -- | Indicates the status of the @CreateInferenceScheduler@ operation.
-    status :: Prelude.Maybe InferenceSchedulerStatus,
-    -- | The Amazon Resource Name (ARN) of the inference scheduler being created.
+  { -- | The Amazon Resource Name (ARN) of the inference scheduler being created.
     inferenceSchedulerArn :: Prelude.Maybe Prelude.Text,
     -- | The name of inference scheduler being created.
     inferenceSchedulerName :: Prelude.Maybe Prelude.Text,
+    -- | Indicates the status of the @CreateInferenceScheduler@ operation.
+    status :: Prelude.Maybe InferenceSchedulerStatus,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -366,11 +383,11 @@ data CreateInferenceSchedulerResponse = CreateInferenceSchedulerResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'createInferenceSchedulerResponse_status' - Indicates the status of the @CreateInferenceScheduler@ operation.
---
 -- 'inferenceSchedulerArn', 'createInferenceSchedulerResponse_inferenceSchedulerArn' - The Amazon Resource Name (ARN) of the inference scheduler being created.
 --
 -- 'inferenceSchedulerName', 'createInferenceSchedulerResponse_inferenceSchedulerName' - The name of inference scheduler being created.
+--
+-- 'status', 'createInferenceSchedulerResponse_status' - Indicates the status of the @CreateInferenceScheduler@ operation.
 --
 -- 'httpStatus', 'createInferenceSchedulerResponse_httpStatus' - The response's http status code.
 newCreateInferenceSchedulerResponse ::
@@ -379,16 +396,12 @@ newCreateInferenceSchedulerResponse ::
   CreateInferenceSchedulerResponse
 newCreateInferenceSchedulerResponse pHttpStatus_ =
   CreateInferenceSchedulerResponse'
-    { status =
+    { inferenceSchedulerArn =
         Prelude.Nothing,
-      inferenceSchedulerArn = Prelude.Nothing,
       inferenceSchedulerName = Prelude.Nothing,
+      status = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Indicates the status of the @CreateInferenceScheduler@ operation.
-createInferenceSchedulerResponse_status :: Lens.Lens' CreateInferenceSchedulerResponse (Prelude.Maybe InferenceSchedulerStatus)
-createInferenceSchedulerResponse_status = Lens.lens (\CreateInferenceSchedulerResponse' {status} -> status) (\s@CreateInferenceSchedulerResponse' {} a -> s {status = a} :: CreateInferenceSchedulerResponse)
 
 -- | The Amazon Resource Name (ARN) of the inference scheduler being created.
 createInferenceSchedulerResponse_inferenceSchedulerArn :: Lens.Lens' CreateInferenceSchedulerResponse (Prelude.Maybe Prelude.Text)
@@ -397,6 +410,10 @@ createInferenceSchedulerResponse_inferenceSchedulerArn = Lens.lens (\CreateInfer
 -- | The name of inference scheduler being created.
 createInferenceSchedulerResponse_inferenceSchedulerName :: Lens.Lens' CreateInferenceSchedulerResponse (Prelude.Maybe Prelude.Text)
 createInferenceSchedulerResponse_inferenceSchedulerName = Lens.lens (\CreateInferenceSchedulerResponse' {inferenceSchedulerName} -> inferenceSchedulerName) (\s@CreateInferenceSchedulerResponse' {} a -> s {inferenceSchedulerName = a} :: CreateInferenceSchedulerResponse)
+
+-- | Indicates the status of the @CreateInferenceScheduler@ operation.
+createInferenceSchedulerResponse_status :: Lens.Lens' CreateInferenceSchedulerResponse (Prelude.Maybe InferenceSchedulerStatus)
+createInferenceSchedulerResponse_status = Lens.lens (\CreateInferenceSchedulerResponse' {status} -> status) (\s@CreateInferenceSchedulerResponse' {} a -> s {status = a} :: CreateInferenceSchedulerResponse)
 
 -- | The response's http status code.
 createInferenceSchedulerResponse_httpStatus :: Lens.Lens' CreateInferenceSchedulerResponse Prelude.Int
@@ -407,7 +424,7 @@ instance
     CreateInferenceSchedulerResponse
   where
   rnf CreateInferenceSchedulerResponse' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf inferenceSchedulerArn
+    Prelude.rnf inferenceSchedulerArn
       `Prelude.seq` Prelude.rnf inferenceSchedulerName
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf httpStatus

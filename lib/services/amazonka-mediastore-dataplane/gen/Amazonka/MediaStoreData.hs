@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.MediaStoreData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,29 +21,23 @@ module Amazonka.MediaStoreData
     -- * Errors
     -- $errors
 
-    -- ** RequestedRangeNotSatisfiableException
-    _RequestedRangeNotSatisfiableException,
+    -- ** ContainerNotFoundException
+    _ContainerNotFoundException,
 
     -- ** InternalServerError
     _InternalServerError,
 
-    -- ** ContainerNotFoundException
-    _ContainerNotFoundException,
-
     -- ** ObjectNotFoundException
     _ObjectNotFoundException,
+
+    -- ** RequestedRangeNotSatisfiableException
+    _RequestedRangeNotSatisfiableException,
 
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
-
-    -- ** PutObject
-    PutObject (PutObject'),
-    newPutObject,
-    PutObjectResponse (PutObjectResponse'),
-    newPutObjectResponse,
 
     -- ** DeleteObject
     DeleteObject (DeleteObject'),
@@ -68,6 +62,12 @@ module Amazonka.MediaStoreData
     newListItems,
     ListItemsResponse (ListItemsResponse'),
     newListItemsResponse,
+
+    -- ** PutObject
+    PutObject (PutObject'),
+    newPutObject,
+    PutObjectResponse (PutObjectResponse'),
+    newPutObjectResponse,
 
     -- * Types
 

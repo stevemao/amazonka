@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.CloudWatchOutputConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.CloudWatchOutputConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration options for sending command output to Amazon CloudWatch
@@ -78,14 +79,14 @@ cloudWatchOutputConfig_cloudWatchLogGroupName = Lens.lens (\CloudWatchOutputConf
 cloudWatchOutputConfig_cloudWatchOutputEnabled :: Lens.Lens' CloudWatchOutputConfig (Prelude.Maybe Prelude.Bool)
 cloudWatchOutputConfig_cloudWatchOutputEnabled = Lens.lens (\CloudWatchOutputConfig' {cloudWatchOutputEnabled} -> cloudWatchOutputEnabled) (\s@CloudWatchOutputConfig' {} a -> s {cloudWatchOutputEnabled = a} :: CloudWatchOutputConfig)
 
-instance Core.FromJSON CloudWatchOutputConfig where
+instance Data.FromJSON CloudWatchOutputConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CloudWatchOutputConfig"
       ( \x ->
           CloudWatchOutputConfig'
-            Prelude.<$> (x Core..:? "CloudWatchLogGroupName")
-            Prelude.<*> (x Core..:? "CloudWatchOutputEnabled")
+            Prelude.<$> (x Data..:? "CloudWatchLogGroupName")
+            Prelude.<*> (x Data..:? "CloudWatchOutputEnabled")
       )
 
 instance Prelude.Hashable CloudWatchOutputConfig where
@@ -98,13 +99,13 @@ instance Prelude.NFData CloudWatchOutputConfig where
     Prelude.rnf cloudWatchLogGroupName
       `Prelude.seq` Prelude.rnf cloudWatchOutputEnabled
 
-instance Core.ToJSON CloudWatchOutputConfig where
+instance Data.ToJSON CloudWatchOutputConfig where
   toJSON CloudWatchOutputConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CloudWatchLogGroupName" Core..=)
+          [ ("CloudWatchLogGroupName" Data..=)
               Prelude.<$> cloudWatchLogGroupName,
-            ("CloudWatchOutputEnabled" Core..=)
+            ("CloudWatchOutputEnabled" Data..=)
               Prelude.<$> cloudWatchOutputEnabled
           ]
       )

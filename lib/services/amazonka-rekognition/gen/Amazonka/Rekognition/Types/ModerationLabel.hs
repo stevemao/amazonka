@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.ModerationLabel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.ModerationLabel where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides information about a single type of inappropriate, unwanted, or
@@ -92,15 +93,15 @@ moderationLabel_name = Lens.lens (\ModerationLabel' {name} -> name) (\s@Moderati
 moderationLabel_parentName :: Lens.Lens' ModerationLabel (Prelude.Maybe Prelude.Text)
 moderationLabel_parentName = Lens.lens (\ModerationLabel' {parentName} -> parentName) (\s@ModerationLabel' {} a -> s {parentName = a} :: ModerationLabel)
 
-instance Core.FromJSON ModerationLabel where
+instance Data.FromJSON ModerationLabel where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ModerationLabel"
       ( \x ->
           ModerationLabel'
-            Prelude.<$> (x Core..:? "Confidence")
-            Prelude.<*> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "ParentName")
+            Prelude.<$> (x Data..:? "Confidence")
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "ParentName")
       )
 
 instance Prelude.Hashable ModerationLabel where

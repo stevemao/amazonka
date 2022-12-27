@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.GrpcTimeout
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppMesh.Types.GrpcTimeout where
 
 import Amazonka.AppMesh.Types.Duration
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents types of timeouts.
@@ -80,14 +81,14 @@ grpcTimeout_idle = Lens.lens (\GrpcTimeout' {idle} -> idle) (\s@GrpcTimeout' {} 
 grpcTimeout_perRequest :: Lens.Lens' GrpcTimeout (Prelude.Maybe Duration)
 grpcTimeout_perRequest = Lens.lens (\GrpcTimeout' {perRequest} -> perRequest) (\s@GrpcTimeout' {} a -> s {perRequest = a} :: GrpcTimeout)
 
-instance Core.FromJSON GrpcTimeout where
+instance Data.FromJSON GrpcTimeout where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GrpcTimeout"
       ( \x ->
           GrpcTimeout'
-            Prelude.<$> (x Core..:? "idle")
-            Prelude.<*> (x Core..:? "perRequest")
+            Prelude.<$> (x Data..:? "idle")
+            Prelude.<*> (x Data..:? "perRequest")
       )
 
 instance Prelude.Hashable GrpcTimeout where
@@ -100,11 +101,11 @@ instance Prelude.NFData GrpcTimeout where
     Prelude.rnf idle
       `Prelude.seq` Prelude.rnf perRequest
 
-instance Core.ToJSON GrpcTimeout where
+instance Data.ToJSON GrpcTimeout where
   toJSON GrpcTimeout' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("idle" Core..=) Prelude.<$> idle,
-            ("perRequest" Core..=) Prelude.<$> perRequest
+          [ ("idle" Data..=) Prelude.<$> idle,
+            ("perRequest" Data..=) Prelude.<$> perRequest
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AMP.DeleteAlertManagerDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ where
 
 import Amazonka.AMP.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,7 +92,8 @@ instance Core.AWSRequest DeleteAlertManagerDefinition where
   type
     AWSResponse DeleteAlertManagerDefinition =
       DeleteAlertManagerDefinitionResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteAlertManagerDefinitionResponse'
@@ -109,28 +111,28 @@ instance Prelude.NFData DeleteAlertManagerDefinition where
     Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf workspaceId
 
-instance Core.ToHeaders DeleteAlertManagerDefinition where
+instance Data.ToHeaders DeleteAlertManagerDefinition where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteAlertManagerDefinition where
+instance Data.ToPath DeleteAlertManagerDefinition where
   toPath DeleteAlertManagerDefinition' {..} =
     Prelude.mconcat
       [ "/workspaces/",
-        Core.toBS workspaceId,
+        Data.toBS workspaceId,
         "/alertmanager/definition"
       ]
 
-instance Core.ToQuery DeleteAlertManagerDefinition where
+instance Data.ToQuery DeleteAlertManagerDefinition where
   toQuery DeleteAlertManagerDefinition' {..} =
-    Prelude.mconcat ["clientToken" Core.=: clientToken]
+    Prelude.mconcat ["clientToken" Data.=: clientToken]
 
 -- | /See:/ 'newDeleteAlertManagerDefinitionResponse' smart constructor.
 data DeleteAlertManagerDefinitionResponse = DeleteAlertManagerDefinitionResponse'

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.AccountAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.EC2.Types.AccountAttribute where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.AccountAttributeValue
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an account attribute.
 --
 -- /See:/ 'newAccountAttribute' smart constructor.
 data AccountAttribute = AccountAttribute'
-  { -- | The values for the account attribute.
-    attributeValues :: Prelude.Maybe [AccountAttributeValue],
-    -- | The name of the account attribute.
-    attributeName :: Prelude.Maybe Prelude.Text
+  { -- | The name of the account attribute.
+    attributeName :: Prelude.Maybe Prelude.Text,
+    -- | The values for the account attribute.
+    attributeValues :: Prelude.Maybe [AccountAttributeValue]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,41 +45,40 @@ data AccountAttribute = AccountAttribute'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'attributeValues', 'accountAttribute_attributeValues' - The values for the account attribute.
---
 -- 'attributeName', 'accountAttribute_attributeName' - The name of the account attribute.
+--
+-- 'attributeValues', 'accountAttribute_attributeValues' - The values for the account attribute.
 newAccountAttribute ::
   AccountAttribute
 newAccountAttribute =
   AccountAttribute'
-    { attributeValues =
-        Prelude.Nothing,
-      attributeName = Prelude.Nothing
+    { attributeName = Prelude.Nothing,
+      attributeValues = Prelude.Nothing
     }
-
--- | The values for the account attribute.
-accountAttribute_attributeValues :: Lens.Lens' AccountAttribute (Prelude.Maybe [AccountAttributeValue])
-accountAttribute_attributeValues = Lens.lens (\AccountAttribute' {attributeValues} -> attributeValues) (\s@AccountAttribute' {} a -> s {attributeValues = a} :: AccountAttribute) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the account attribute.
 accountAttribute_attributeName :: Lens.Lens' AccountAttribute (Prelude.Maybe Prelude.Text)
 accountAttribute_attributeName = Lens.lens (\AccountAttribute' {attributeName} -> attributeName) (\s@AccountAttribute' {} a -> s {attributeName = a} :: AccountAttribute)
 
-instance Core.FromXML AccountAttribute where
+-- | The values for the account attribute.
+accountAttribute_attributeValues :: Lens.Lens' AccountAttribute (Prelude.Maybe [AccountAttributeValue])
+accountAttribute_attributeValues = Lens.lens (\AccountAttribute' {attributeValues} -> attributeValues) (\s@AccountAttribute' {} a -> s {attributeValues = a} :: AccountAttribute) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromXML AccountAttribute where
   parseXML x =
     AccountAttribute'
-      Prelude.<$> ( x Core..@? "attributeValueSet"
+      Prelude.<$> (x Data..@? "attributeName")
+      Prelude.<*> ( x Data..@? "attributeValueSet"
                       Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
-      Prelude.<*> (x Core..@? "attributeName")
 
 instance Prelude.Hashable AccountAttribute where
   hashWithSalt _salt AccountAttribute' {..} =
-    _salt `Prelude.hashWithSalt` attributeValues
-      `Prelude.hashWithSalt` attributeName
+    _salt `Prelude.hashWithSalt` attributeName
+      `Prelude.hashWithSalt` attributeValues
 
 instance Prelude.NFData AccountAttribute where
   rnf AccountAttribute' {..} =
-    Prelude.rnf attributeValues
-      `Prelude.seq` Prelude.rnf attributeName
+    Prelude.rnf attributeName
+      `Prelude.seq` Prelude.rnf attributeValues

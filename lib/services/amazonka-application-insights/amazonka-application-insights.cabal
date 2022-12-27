@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -74,8 +74,10 @@ library
     Amazonka.ApplicationInsights.Types.ConfigurationEvent
     Amazonka.ApplicationInsights.Types.ConfigurationEventResourceType
     Amazonka.ApplicationInsights.Types.ConfigurationEventStatus
+    Amazonka.ApplicationInsights.Types.DiscoveryType
     Amazonka.ApplicationInsights.Types.FeedbackKey
     Amazonka.ApplicationInsights.Types.FeedbackValue
+    Amazonka.ApplicationInsights.Types.GroupingType
     Amazonka.ApplicationInsights.Types.LogFilter
     Amazonka.ApplicationInsights.Types.LogPattern
     Amazonka.ApplicationInsights.Types.Observation
@@ -94,7 +96,7 @@ library
     Amazonka.ApplicationInsights.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-application-insights-test
@@ -114,8 +116,8 @@ test-suite amazonka-application-insights-test
 
   build-depends:
     , amazonka-application-insights
-    , amazonka-core                  ^>=2.0
-    , amazonka-test                  ^>=2.0
+    , amazonka-core                  >=2.0 && <2.1
+    , amazonka-test                  >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

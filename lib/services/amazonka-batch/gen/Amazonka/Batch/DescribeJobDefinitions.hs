@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Batch.DescribeJobDefinitions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,11 +30,11 @@ module Amazonka.Batch.DescribeJobDefinitions
     newDescribeJobDefinitions,
 
     -- * Request Lenses
-    describeJobDefinitions_status,
     describeJobDefinitions_jobDefinitionName,
     describeJobDefinitions_jobDefinitions,
-    describeJobDefinitions_nextToken,
     describeJobDefinitions_maxResults,
+    describeJobDefinitions_nextToken,
+    describeJobDefinitions_status,
 
     -- * Destructuring the Response
     DescribeJobDefinitionsResponse (..),
@@ -49,7 +49,8 @@ where
 
 import Amazonka.Batch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,25 +59,13 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeJobDefinitions' smart constructor.
 data DescribeJobDefinitions = DescribeJobDefinitions'
-  { -- | The status used to filter job definitions.
-    status :: Prelude.Maybe Prelude.Text,
-    -- | The name of the job definition to describe.
+  { -- | The name of the job definition to describe.
     jobDefinitionName :: Prelude.Maybe Prelude.Text,
     -- | A list of up to 100 job definitions. Each entry in the list can either
-    -- be an ARN of the form
+    -- be an ARN in the format
     -- @arn:aws:batch:${Region}:${Account}:job-definition\/${JobDefinitionName}:${Revision}@
     -- or a short version using the form @${JobDefinitionName}:${Revision}@.
     jobDefinitions :: Prelude.Maybe [Prelude.Text],
-    -- | The @nextToken@ value returned from a previous paginated
-    -- @DescribeJobDefinitions@ request where @maxResults@ was used and the
-    -- results exceeded the value of that parameter. Pagination continues from
-    -- the end of the previous results that returned the @nextToken@ value.
-    -- This value is @null@ when there are no more results to return.
-    --
-    -- This token should be treated as an opaque identifier that\'s only used
-    -- to retrieve the next items in a list and not for other programmatic
-    -- purposes.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of results returned by @DescribeJobDefinitions@ in
     -- paginated output. When this parameter is used, @DescribeJobDefinitions@
     -- only returns @maxResults@ results in a single page and a @nextToken@
@@ -85,7 +74,18 @@ data DescribeJobDefinitions = DescribeJobDefinitions'
     -- returned @nextToken@ value. This value can be between 1 and 100. If this
     -- parameter isn\'t used, then @DescribeJobDefinitions@ returns up to 100
     -- results and a @nextToken@ value if applicable.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The @nextToken@ value returned from a previous paginated
+    -- @DescribeJobDefinitions@ request where @maxResults@ was used and the
+    -- results exceeded the value of that parameter. Pagination continues from
+    -- the end of the previous results that returned the @nextToken@ value.
+    -- This value is @null@ when there are no more results to return.
+    --
+    -- Treat this token as an opaque identifier that\'s only used to retrieve
+    -- the next items in a list and not for other programmatic purposes.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The status used to filter job definitions.
+    status :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -97,24 +97,12 @@ data DescribeJobDefinitions = DescribeJobDefinitions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'describeJobDefinitions_status' - The status used to filter job definitions.
---
 -- 'jobDefinitionName', 'describeJobDefinitions_jobDefinitionName' - The name of the job definition to describe.
 --
 -- 'jobDefinitions', 'describeJobDefinitions_jobDefinitions' - A list of up to 100 job definitions. Each entry in the list can either
--- be an ARN of the form
+-- be an ARN in the format
 -- @arn:aws:batch:${Region}:${Account}:job-definition\/${JobDefinitionName}:${Revision}@
 -- or a short version using the form @${JobDefinitionName}:${Revision}@.
---
--- 'nextToken', 'describeJobDefinitions_nextToken' - The @nextToken@ value returned from a previous paginated
--- @DescribeJobDefinitions@ request where @maxResults@ was used and the
--- results exceeded the value of that parameter. Pagination continues from
--- the end of the previous results that returned the @nextToken@ value.
--- This value is @null@ when there are no more results to return.
---
--- This token should be treated as an opaque identifier that\'s only used
--- to retrieve the next items in a list and not for other programmatic
--- purposes.
 --
 -- 'maxResults', 'describeJobDefinitions_maxResults' - The maximum number of results returned by @DescribeJobDefinitions@ in
 -- paginated output. When this parameter is used, @DescribeJobDefinitions@
@@ -124,43 +112,39 @@ data DescribeJobDefinitions = DescribeJobDefinitions'
 -- returned @nextToken@ value. This value can be between 1 and 100. If this
 -- parameter isn\'t used, then @DescribeJobDefinitions@ returns up to 100
 -- results and a @nextToken@ value if applicable.
+--
+-- 'nextToken', 'describeJobDefinitions_nextToken' - The @nextToken@ value returned from a previous paginated
+-- @DescribeJobDefinitions@ request where @maxResults@ was used and the
+-- results exceeded the value of that parameter. Pagination continues from
+-- the end of the previous results that returned the @nextToken@ value.
+-- This value is @null@ when there are no more results to return.
+--
+-- Treat this token as an opaque identifier that\'s only used to retrieve
+-- the next items in a list and not for other programmatic purposes.
+--
+-- 'status', 'describeJobDefinitions_status' - The status used to filter job definitions.
 newDescribeJobDefinitions ::
   DescribeJobDefinitions
 newDescribeJobDefinitions =
   DescribeJobDefinitions'
-    { status = Prelude.Nothing,
-      jobDefinitionName = Prelude.Nothing,
+    { jobDefinitionName =
+        Prelude.Nothing,
       jobDefinitions = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      status = Prelude.Nothing
     }
-
--- | The status used to filter job definitions.
-describeJobDefinitions_status :: Lens.Lens' DescribeJobDefinitions (Prelude.Maybe Prelude.Text)
-describeJobDefinitions_status = Lens.lens (\DescribeJobDefinitions' {status} -> status) (\s@DescribeJobDefinitions' {} a -> s {status = a} :: DescribeJobDefinitions)
 
 -- | The name of the job definition to describe.
 describeJobDefinitions_jobDefinitionName :: Lens.Lens' DescribeJobDefinitions (Prelude.Maybe Prelude.Text)
 describeJobDefinitions_jobDefinitionName = Lens.lens (\DescribeJobDefinitions' {jobDefinitionName} -> jobDefinitionName) (\s@DescribeJobDefinitions' {} a -> s {jobDefinitionName = a} :: DescribeJobDefinitions)
 
 -- | A list of up to 100 job definitions. Each entry in the list can either
--- be an ARN of the form
+-- be an ARN in the format
 -- @arn:aws:batch:${Region}:${Account}:job-definition\/${JobDefinitionName}:${Revision}@
 -- or a short version using the form @${JobDefinitionName}:${Revision}@.
 describeJobDefinitions_jobDefinitions :: Lens.Lens' DescribeJobDefinitions (Prelude.Maybe [Prelude.Text])
 describeJobDefinitions_jobDefinitions = Lens.lens (\DescribeJobDefinitions' {jobDefinitions} -> jobDefinitions) (\s@DescribeJobDefinitions' {} a -> s {jobDefinitions = a} :: DescribeJobDefinitions) Prelude.. Lens.mapping Lens.coerced
-
--- | The @nextToken@ value returned from a previous paginated
--- @DescribeJobDefinitions@ request where @maxResults@ was used and the
--- results exceeded the value of that parameter. Pagination continues from
--- the end of the previous results that returned the @nextToken@ value.
--- This value is @null@ when there are no more results to return.
---
--- This token should be treated as an opaque identifier that\'s only used
--- to retrieve the next items in a list and not for other programmatic
--- purposes.
-describeJobDefinitions_nextToken :: Lens.Lens' DescribeJobDefinitions (Prelude.Maybe Prelude.Text)
-describeJobDefinitions_nextToken = Lens.lens (\DescribeJobDefinitions' {nextToken} -> nextToken) (\s@DescribeJobDefinitions' {} a -> s {nextToken = a} :: DescribeJobDefinitions)
 
 -- | The maximum number of results returned by @DescribeJobDefinitions@ in
 -- paginated output. When this parameter is used, @DescribeJobDefinitions@
@@ -172,6 +156,21 @@ describeJobDefinitions_nextToken = Lens.lens (\DescribeJobDefinitions' {nextToke
 -- results and a @nextToken@ value if applicable.
 describeJobDefinitions_maxResults :: Lens.Lens' DescribeJobDefinitions (Prelude.Maybe Prelude.Int)
 describeJobDefinitions_maxResults = Lens.lens (\DescribeJobDefinitions' {maxResults} -> maxResults) (\s@DescribeJobDefinitions' {} a -> s {maxResults = a} :: DescribeJobDefinitions)
+
+-- | The @nextToken@ value returned from a previous paginated
+-- @DescribeJobDefinitions@ request where @maxResults@ was used and the
+-- results exceeded the value of that parameter. Pagination continues from
+-- the end of the previous results that returned the @nextToken@ value.
+-- This value is @null@ when there are no more results to return.
+--
+-- Treat this token as an opaque identifier that\'s only used to retrieve
+-- the next items in a list and not for other programmatic purposes.
+describeJobDefinitions_nextToken :: Lens.Lens' DescribeJobDefinitions (Prelude.Maybe Prelude.Text)
+describeJobDefinitions_nextToken = Lens.lens (\DescribeJobDefinitions' {nextToken} -> nextToken) (\s@DescribeJobDefinitions' {} a -> s {nextToken = a} :: DescribeJobDefinitions)
+
+-- | The status used to filter job definitions.
+describeJobDefinitions_status :: Lens.Lens' DescribeJobDefinitions (Prelude.Maybe Prelude.Text)
+describeJobDefinitions_status = Lens.lens (\DescribeJobDefinitions' {status} -> status) (\s@DescribeJobDefinitions' {} a -> s {status = a} :: DescribeJobDefinitions)
 
 instance Core.AWSPager DescribeJobDefinitions where
   page rq rs
@@ -199,61 +198,62 @@ instance Core.AWSRequest DescribeJobDefinitions where
   type
     AWSResponse DescribeJobDefinitions =
       DescribeJobDefinitionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeJobDefinitionsResponse'
-            Prelude.<$> (x Core..?> "jobDefinitions" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "jobDefinitions" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeJobDefinitions where
   hashWithSalt _salt DescribeJobDefinitions' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` jobDefinitionName
+    _salt `Prelude.hashWithSalt` jobDefinitionName
       `Prelude.hashWithSalt` jobDefinitions
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData DescribeJobDefinitions where
   rnf DescribeJobDefinitions' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf jobDefinitionName
+    Prelude.rnf jobDefinitionName
       `Prelude.seq` Prelude.rnf jobDefinitions
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf status
 
-instance Core.ToHeaders DescribeJobDefinitions where
+instance Data.ToHeaders DescribeJobDefinitions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeJobDefinitions where
+instance Data.ToJSON DescribeJobDefinitions where
   toJSON DescribeJobDefinitions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("status" Core..=) Prelude.<$> status,
-            ("jobDefinitionName" Core..=)
+          [ ("jobDefinitionName" Data..=)
               Prelude.<$> jobDefinitionName,
-            ("jobDefinitions" Core..=)
+            ("jobDefinitions" Data..=)
               Prelude.<$> jobDefinitions,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            ("status" Data..=) Prelude.<$> status
           ]
       )
 
-instance Core.ToPath DescribeJobDefinitions where
+instance Data.ToPath DescribeJobDefinitions where
   toPath = Prelude.const "/v1/describejobdefinitions"
 
-instance Core.ToQuery DescribeJobDefinitions where
+instance Data.ToQuery DescribeJobDefinitions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeJobDefinitionsResponse' smart constructor.

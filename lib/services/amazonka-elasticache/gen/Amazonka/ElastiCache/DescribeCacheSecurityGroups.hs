@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.DescribeCacheSecurityGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.ElastiCache.DescribeCacheSecurityGroups
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -154,17 +155,18 @@ instance Core.AWSRequest DescribeCacheSecurityGroups where
   type
     AWSResponse DescribeCacheSecurityGroups =
       DescribeCacheSecurityGroupsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeCacheSecurityGroupsResult"
       ( \s h x ->
           DescribeCacheSecurityGroupsResponse'
-            Prelude.<$> ( x Core..@? "CacheSecurityGroups"
+            Prelude.<$> ( x Data..@? "CacheSecurityGroups"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "CacheSecurityGroup")
+                            Prelude.>>= Core.may (Data.parseXMLList "CacheSecurityGroup")
                         )
-            Prelude.<*> (x Core..@? "Marker")
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -180,25 +182,25 @@ instance Prelude.NFData DescribeCacheSecurityGroups where
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
 
-instance Core.ToHeaders DescribeCacheSecurityGroups where
+instance Data.ToHeaders DescribeCacheSecurityGroups where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeCacheSecurityGroups where
+instance Data.ToPath DescribeCacheSecurityGroups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeCacheSecurityGroups where
+instance Data.ToQuery DescribeCacheSecurityGroups where
   toQuery DescribeCacheSecurityGroups' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeCacheSecurityGroups" ::
+          Data.=: ( "DescribeCacheSecurityGroups" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
         "CacheSecurityGroupName"
-          Core.=: cacheSecurityGroupName,
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords
+          Data.=: cacheSecurityGroupName,
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords
       ]
 
 -- | Represents the output of a @DescribeCacheSecurityGroups@ operation.

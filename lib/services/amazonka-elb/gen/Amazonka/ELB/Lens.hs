@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.ELB.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,94 +14,16 @@
 module Amazonka.ELB.Lens
   ( -- * Operations
 
-    -- ** DescribeLoadBalancers
-    describeLoadBalancers_marker,
-    describeLoadBalancers_pageSize,
-    describeLoadBalancers_loadBalancerNames,
-    describeLoadBalancersResponse_loadBalancerDescriptions,
-    describeLoadBalancersResponse_nextMarker,
-    describeLoadBalancersResponse_httpStatus,
-
-    -- ** DescribeTags
-    describeTags_loadBalancerNames,
-    describeTagsResponse_tagDescriptions,
-    describeTagsResponse_httpStatus,
-
-    -- ** DescribeLoadBalancerPolicyTypes
-    describeLoadBalancerPolicyTypes_policyTypeNames,
-    describeLoadBalancerPolicyTypesResponse_policyTypeDescriptions,
-    describeLoadBalancerPolicyTypesResponse_httpStatus,
+    -- ** AddTags
+    addTags_loadBalancerNames,
+    addTags_tags,
+    addTagsResponse_httpStatus,
 
     -- ** ApplySecurityGroupsToLoadBalancer
     applySecurityGroupsToLoadBalancer_loadBalancerName,
     applySecurityGroupsToLoadBalancer_securityGroups,
     applySecurityGroupsToLoadBalancerResponse_securityGroups,
     applySecurityGroupsToLoadBalancerResponse_httpStatus,
-
-    -- ** RemoveTags
-    removeTags_loadBalancerNames,
-    removeTags_tags,
-    removeTagsResponse_httpStatus,
-
-    -- ** CreateLBCookieStickinessPolicy
-    createLBCookieStickinessPolicy_cookieExpirationPeriod,
-    createLBCookieStickinessPolicy_loadBalancerName,
-    createLBCookieStickinessPolicy_policyName,
-    createLBCookieStickinessPolicyResponse_httpStatus,
-
-    -- ** DeleteLoadBalancer
-    deleteLoadBalancer_loadBalancerName,
-    deleteLoadBalancerResponse_httpStatus,
-
-    -- ** DeregisterInstancesFromLoadBalancer
-    deregisterInstancesFromLoadBalancer_loadBalancerName,
-    deregisterInstancesFromLoadBalancer_instances,
-    deregisterInstancesFromLoadBalancerResponse_instances,
-    deregisterInstancesFromLoadBalancerResponse_httpStatus,
-
-    -- ** CreateLoadBalancerPolicy
-    createLoadBalancerPolicy_policyAttributes,
-    createLoadBalancerPolicy_loadBalancerName,
-    createLoadBalancerPolicy_policyName,
-    createLoadBalancerPolicy_policyTypeName,
-    createLoadBalancerPolicyResponse_httpStatus,
-
-    -- ** DescribeLoadBalancerPolicies
-    describeLoadBalancerPolicies_policyNames,
-    describeLoadBalancerPolicies_loadBalancerName,
-    describeLoadBalancerPoliciesResponse_policyDescriptions,
-    describeLoadBalancerPoliciesResponse_httpStatus,
-
-    -- ** DisableAvailabilityZonesForLoadBalancer
-    disableAvailabilityZonesForLoadBalancer_loadBalancerName,
-    disableAvailabilityZonesForLoadBalancer_availabilityZones,
-    disableAvailabilityZonesForLoadBalancerResponse_availabilityZones,
-    disableAvailabilityZonesForLoadBalancerResponse_httpStatus,
-
-    -- ** EnableAvailabilityZonesForLoadBalancer
-    enableAvailabilityZonesForLoadBalancer_loadBalancerName,
-    enableAvailabilityZonesForLoadBalancer_availabilityZones,
-    enableAvailabilityZonesForLoadBalancerResponse_availabilityZones,
-    enableAvailabilityZonesForLoadBalancerResponse_httpStatus,
-
-    -- ** SetLoadBalancerPoliciesForBackendServer
-    setLoadBalancerPoliciesForBackendServer_loadBalancerName,
-    setLoadBalancerPoliciesForBackendServer_instancePort,
-    setLoadBalancerPoliciesForBackendServer_policyNames,
-    setLoadBalancerPoliciesForBackendServerResponse_httpStatus,
-
-    -- ** SetLoadBalancerListenerSSLCertificate
-    setLoadBalancerListenerSSLCertificate_loadBalancerName,
-    setLoadBalancerListenerSSLCertificate_loadBalancerPort,
-    setLoadBalancerListenerSSLCertificate_sSLCertificateId,
-    setLoadBalancerListenerSSLCertificateResponse_httpStatus,
-
-    -- ** DescribeAccountLimits
-    describeAccountLimits_marker,
-    describeAccountLimits_pageSize,
-    describeAccountLimitsResponse_limits,
-    describeAccountLimitsResponse_nextMarker,
-    describeAccountLimitsResponse_httpStatus,
 
     -- ** AttachLoadBalancerToSubnets
     attachLoadBalancerToSubnets_loadBalancerName,
@@ -115,18 +37,67 @@ module Amazonka.ELB.Lens
     configureHealthCheckResponse_healthCheck,
     configureHealthCheckResponse_httpStatus,
 
-    -- ** ModifyLoadBalancerAttributes
-    modifyLoadBalancerAttributes_loadBalancerName,
-    modifyLoadBalancerAttributes_loadBalancerAttributes,
-    modifyLoadBalancerAttributesResponse_loadBalancerName,
-    modifyLoadBalancerAttributesResponse_loadBalancerAttributes,
-    modifyLoadBalancerAttributesResponse_httpStatus,
-
     -- ** CreateAppCookieStickinessPolicy
     createAppCookieStickinessPolicy_loadBalancerName,
     createAppCookieStickinessPolicy_policyName,
     createAppCookieStickinessPolicy_cookieName,
     createAppCookieStickinessPolicyResponse_httpStatus,
+
+    -- ** CreateLBCookieStickinessPolicy
+    createLBCookieStickinessPolicy_cookieExpirationPeriod,
+    createLBCookieStickinessPolicy_loadBalancerName,
+    createLBCookieStickinessPolicy_policyName,
+    createLBCookieStickinessPolicyResponse_httpStatus,
+
+    -- ** CreateLoadBalancer
+    createLoadBalancer_availabilityZones,
+    createLoadBalancer_scheme,
+    createLoadBalancer_securityGroups,
+    createLoadBalancer_subnets,
+    createLoadBalancer_tags,
+    createLoadBalancer_loadBalancerName,
+    createLoadBalancer_listeners,
+    createLoadBalancerResponse_dNSName,
+    createLoadBalancerResponse_httpStatus,
+
+    -- ** CreateLoadBalancerListeners
+    createLoadBalancerListeners_loadBalancerName,
+    createLoadBalancerListeners_listeners,
+    createLoadBalancerListenersResponse_httpStatus,
+
+    -- ** CreateLoadBalancerPolicy
+    createLoadBalancerPolicy_policyAttributes,
+    createLoadBalancerPolicy_loadBalancerName,
+    createLoadBalancerPolicy_policyName,
+    createLoadBalancerPolicy_policyTypeName,
+    createLoadBalancerPolicyResponse_httpStatus,
+
+    -- ** DeleteLoadBalancer
+    deleteLoadBalancer_loadBalancerName,
+    deleteLoadBalancerResponse_httpStatus,
+
+    -- ** DeleteLoadBalancerListeners
+    deleteLoadBalancerListeners_loadBalancerName,
+    deleteLoadBalancerListeners_loadBalancerPorts,
+    deleteLoadBalancerListenersResponse_httpStatus,
+
+    -- ** DeleteLoadBalancerPolicy
+    deleteLoadBalancerPolicy_loadBalancerName,
+    deleteLoadBalancerPolicy_policyName,
+    deleteLoadBalancerPolicyResponse_httpStatus,
+
+    -- ** DeregisterInstancesFromLoadBalancer
+    deregisterInstancesFromLoadBalancer_loadBalancerName,
+    deregisterInstancesFromLoadBalancer_instances,
+    deregisterInstancesFromLoadBalancerResponse_instances,
+    deregisterInstancesFromLoadBalancerResponse_httpStatus,
+
+    -- ** DescribeAccountLimits
+    describeAccountLimits_marker,
+    describeAccountLimits_pageSize,
+    describeAccountLimitsResponse_limits,
+    describeAccountLimitsResponse_nextMarker,
+    describeAccountLimitsResponse_httpStatus,
 
     -- ** DescribeInstanceHealth
     describeInstanceHealth_instances,
@@ -134,25 +105,34 @@ module Amazonka.ELB.Lens
     describeInstanceHealthResponse_instanceStates,
     describeInstanceHealthResponse_httpStatus,
 
-    -- ** AddTags
-    addTags_loadBalancerNames,
-    addTags_tags,
-    addTagsResponse_httpStatus,
-
     -- ** DescribeLoadBalancerAttributes
     describeLoadBalancerAttributes_loadBalancerName,
     describeLoadBalancerAttributesResponse_loadBalancerAttributes,
     describeLoadBalancerAttributesResponse_httpStatus,
 
-    -- ** CreateLoadBalancerListeners
-    createLoadBalancerListeners_loadBalancerName,
-    createLoadBalancerListeners_listeners,
-    createLoadBalancerListenersResponse_httpStatus,
+    -- ** DescribeLoadBalancerPolicies
+    describeLoadBalancerPolicies_loadBalancerName,
+    describeLoadBalancerPolicies_policyNames,
+    describeLoadBalancerPoliciesResponse_policyDescriptions,
+    describeLoadBalancerPoliciesResponse_httpStatus,
 
-    -- ** DeleteLoadBalancerPolicy
-    deleteLoadBalancerPolicy_loadBalancerName,
-    deleteLoadBalancerPolicy_policyName,
-    deleteLoadBalancerPolicyResponse_httpStatus,
+    -- ** DescribeLoadBalancerPolicyTypes
+    describeLoadBalancerPolicyTypes_policyTypeNames,
+    describeLoadBalancerPolicyTypesResponse_policyTypeDescriptions,
+    describeLoadBalancerPolicyTypesResponse_httpStatus,
+
+    -- ** DescribeLoadBalancers
+    describeLoadBalancers_loadBalancerNames,
+    describeLoadBalancers_marker,
+    describeLoadBalancers_pageSize,
+    describeLoadBalancersResponse_loadBalancerDescriptions,
+    describeLoadBalancersResponse_nextMarker,
+    describeLoadBalancersResponse_httpStatus,
+
+    -- ** DescribeTags
+    describeTags_loadBalancerNames,
+    describeTagsResponse_tagDescriptions,
+    describeTagsResponse_httpStatus,
 
     -- ** DetachLoadBalancerFromSubnets
     detachLoadBalancerFromSubnets_loadBalancerName,
@@ -160,27 +140,47 @@ module Amazonka.ELB.Lens
     detachLoadBalancerFromSubnetsResponse_subnets,
     detachLoadBalancerFromSubnetsResponse_httpStatus,
 
+    -- ** DisableAvailabilityZonesForLoadBalancer
+    disableAvailabilityZonesForLoadBalancer_loadBalancerName,
+    disableAvailabilityZonesForLoadBalancer_availabilityZones,
+    disableAvailabilityZonesForLoadBalancerResponse_availabilityZones,
+    disableAvailabilityZonesForLoadBalancerResponse_httpStatus,
+
+    -- ** EnableAvailabilityZonesForLoadBalancer
+    enableAvailabilityZonesForLoadBalancer_loadBalancerName,
+    enableAvailabilityZonesForLoadBalancer_availabilityZones,
+    enableAvailabilityZonesForLoadBalancerResponse_availabilityZones,
+    enableAvailabilityZonesForLoadBalancerResponse_httpStatus,
+
+    -- ** ModifyLoadBalancerAttributes
+    modifyLoadBalancerAttributes_loadBalancerName,
+    modifyLoadBalancerAttributes_loadBalancerAttributes,
+    modifyLoadBalancerAttributesResponse_loadBalancerAttributes,
+    modifyLoadBalancerAttributesResponse_loadBalancerName,
+    modifyLoadBalancerAttributesResponse_httpStatus,
+
     -- ** RegisterInstancesWithLoadBalancer
     registerInstancesWithLoadBalancer_loadBalancerName,
     registerInstancesWithLoadBalancer_instances,
     registerInstancesWithLoadBalancerResponse_instances,
     registerInstancesWithLoadBalancerResponse_httpStatus,
 
-    -- ** CreateLoadBalancer
-    createLoadBalancer_securityGroups,
-    createLoadBalancer_subnets,
-    createLoadBalancer_availabilityZones,
-    createLoadBalancer_scheme,
-    createLoadBalancer_tags,
-    createLoadBalancer_loadBalancerName,
-    createLoadBalancer_listeners,
-    createLoadBalancerResponse_dNSName,
-    createLoadBalancerResponse_httpStatus,
+    -- ** RemoveTags
+    removeTags_loadBalancerNames,
+    removeTags_tags,
+    removeTagsResponse_httpStatus,
 
-    -- ** DeleteLoadBalancerListeners
-    deleteLoadBalancerListeners_loadBalancerName,
-    deleteLoadBalancerListeners_loadBalancerPorts,
-    deleteLoadBalancerListenersResponse_httpStatus,
+    -- ** SetLoadBalancerListenerSSLCertificate
+    setLoadBalancerListenerSSLCertificate_loadBalancerName,
+    setLoadBalancerListenerSSLCertificate_loadBalancerPort,
+    setLoadBalancerListenerSSLCertificate_sSLCertificateId,
+    setLoadBalancerListenerSSLCertificateResponse_httpStatus,
+
+    -- ** SetLoadBalancerPoliciesForBackendServer
+    setLoadBalancerPoliciesForBackendServer_loadBalancerName,
+    setLoadBalancerPoliciesForBackendServer_instancePort,
+    setLoadBalancerPoliciesForBackendServer_policyNames,
+    setLoadBalancerPoliciesForBackendServerResponse_httpStatus,
 
     -- ** SetLoadBalancerPoliciesOfListener
     setLoadBalancerPoliciesOfListener_loadBalancerName,
@@ -192,21 +192,21 @@ module Amazonka.ELB.Lens
 
     -- ** AccessLog
     accessLog_emitInterval,
-    accessLog_s3BucketPrefix,
     accessLog_s3BucketName,
+    accessLog_s3BucketPrefix,
     accessLog_enabled,
 
     -- ** AdditionalAttribute
-    additionalAttribute_value,
     additionalAttribute_key,
+    additionalAttribute_value,
 
     -- ** AppCookieStickinessPolicy
-    appCookieStickinessPolicy_policyName,
     appCookieStickinessPolicy_cookieName,
+    appCookieStickinessPolicy_policyName,
 
     -- ** BackendServerDescription
-    backendServerDescription_policyNames,
     backendServerDescription_instancePort,
+    backendServerDescription_policyNames,
 
     -- ** ConnectionDraining
     connectionDraining_timeout,
@@ -229,14 +229,14 @@ module Amazonka.ELB.Lens
     instance_instanceId,
 
     -- ** InstanceState
-    instanceState_instanceId,
-    instanceState_state,
-    instanceState_reasonCode,
     instanceState_description,
+    instanceState_instanceId,
+    instanceState_reasonCode,
+    instanceState_state,
 
     -- ** LBCookieStickinessPolicy
-    lBCookieStickinessPolicy_policyName,
     lBCookieStickinessPolicy_cookieExpirationPeriod,
+    lBCookieStickinessPolicy_policyName,
 
     -- ** Limit
     limit_max,
@@ -250,67 +250,67 @@ module Amazonka.ELB.Lens
     listener_instancePort,
 
     -- ** ListenerDescription
-    listenerDescription_policyNames,
     listenerDescription_listener,
+    listenerDescription_policyNames,
 
     -- ** LoadBalancerAttributes
-    loadBalancerAttributes_crossZoneLoadBalancing,
     loadBalancerAttributes_accessLog,
     loadBalancerAttributes_additionalAttributes,
-    loadBalancerAttributes_connectionSettings,
     loadBalancerAttributes_connectionDraining,
+    loadBalancerAttributes_connectionSettings,
+    loadBalancerAttributes_crossZoneLoadBalancing,
 
     -- ** LoadBalancerDescription
-    loadBalancerDescription_sourceSecurityGroup,
-    loadBalancerDescription_canonicalHostedZoneName,
-    loadBalancerDescription_securityGroups,
-    loadBalancerDescription_healthCheck,
-    loadBalancerDescription_loadBalancerName,
-    loadBalancerDescription_createdTime,
-    loadBalancerDescription_vPCId,
-    loadBalancerDescription_subnets,
     loadBalancerDescription_availabilityZones,
     loadBalancerDescription_backendServerDescriptions,
+    loadBalancerDescription_canonicalHostedZoneName,
     loadBalancerDescription_canonicalHostedZoneNameID,
-    loadBalancerDescription_instances,
-    loadBalancerDescription_scheme,
-    loadBalancerDescription_listenerDescriptions,
+    loadBalancerDescription_createdTime,
     loadBalancerDescription_dNSName,
+    loadBalancerDescription_healthCheck,
+    loadBalancerDescription_instances,
+    loadBalancerDescription_listenerDescriptions,
+    loadBalancerDescription_loadBalancerName,
     loadBalancerDescription_policies,
+    loadBalancerDescription_scheme,
+    loadBalancerDescription_securityGroups,
+    loadBalancerDescription_sourceSecurityGroup,
+    loadBalancerDescription_subnets,
+    loadBalancerDescription_vPCId,
 
     -- ** Policies
-    policies_otherPolicies,
-    policies_lBCookieStickinessPolicies,
     policies_appCookieStickinessPolicies,
+    policies_lBCookieStickinessPolicies,
+    policies_otherPolicies,
 
     -- ** PolicyAttribute
-    policyAttribute_attributeValue,
     policyAttribute_attributeName,
+    policyAttribute_attributeValue,
 
     -- ** PolicyAttributeDescription
-    policyAttributeDescription_attributeValue,
     policyAttributeDescription_attributeName,
+    policyAttributeDescription_attributeValue,
 
     -- ** PolicyAttributeTypeDescription
+    policyAttributeTypeDescription_attributeName,
     policyAttributeTypeDescription_attributeType,
     policyAttributeTypeDescription_cardinality,
     policyAttributeTypeDescription_defaultValue,
-    policyAttributeTypeDescription_attributeName,
     policyAttributeTypeDescription_description,
 
     -- ** PolicyDescription
-    policyDescription_policyName,
     policyDescription_policyAttributeDescriptions,
+    policyDescription_policyName,
     policyDescription_policyTypeName,
 
     -- ** PolicyTypeDescription
-    policyTypeDescription_policyTypeName,
     policyTypeDescription_description,
     policyTypeDescription_policyAttributeTypeDescriptions,
+    policyTypeDescription_policyTypeName,
 
     -- ** SourceSecurityGroup
-    sourceSecurityGroup_ownerAlias,
     sourceSecurityGroup_groupName,
+    sourceSecurityGroup_ownerAlias,
 
     -- ** Tag
     tag_value,

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.InsightResultValue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.InsightResultValue where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The insight result values returned by the @GetInsightResults@ operation.
@@ -69,14 +70,14 @@ insightResultValue_groupByAttributeValue = Lens.lens (\InsightResultValue' {grou
 insightResultValue_count :: Lens.Lens' InsightResultValue Prelude.Int
 insightResultValue_count = Lens.lens (\InsightResultValue' {count} -> count) (\s@InsightResultValue' {} a -> s {count = a} :: InsightResultValue)
 
-instance Core.FromJSON InsightResultValue where
+instance Data.FromJSON InsightResultValue where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InsightResultValue"
       ( \x ->
           InsightResultValue'
-            Prelude.<$> (x Core..: "GroupByAttributeValue")
-            Prelude.<*> (x Core..: "Count")
+            Prelude.<$> (x Data..: "GroupByAttributeValue")
+            Prelude.<*> (x Data..: "Count")
       )
 
 instance Prelude.Hashable InsightResultValue where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.PointInTimeRecoveryDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,29 +20,29 @@
 module Amazonka.DynamoDB.Types.PointInTimeRecoveryDescription where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.PointInTimeRecoveryStatus
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | The description of the point in time settings applied to the table.
 --
 -- /See:/ 'newPointInTimeRecoveryDescription' smart constructor.
 data PointInTimeRecoveryDescription = PointInTimeRecoveryDescription'
-  { -- | The current state of point in time recovery:
-    --
-    -- -   @ENABLING@ - Point in time recovery is being enabled.
+  { -- | Specifies the earliest point in time you can restore your table to. You
+    -- can restore your table to any point in time during the last 35 days.
+    earliestRestorableDateTime :: Prelude.Maybe Data.POSIX,
+    -- | @LatestRestorableDateTime@ is typically 5 minutes before the current
+    -- time.
+    latestRestorableDateTime :: Prelude.Maybe Data.POSIX,
+    -- | The current state of point in time recovery:
     --
     -- -   @ENABLED@ - Point in time recovery is enabled.
     --
     -- -   @DISABLED@ - Point in time recovery is disabled.
-    pointInTimeRecoveryStatus :: Prelude.Maybe PointInTimeRecoveryStatus,
-    -- | Specifies the earliest point in time you can restore your table to. You
-    -- can restore your table to any point in time during the last 35 days.
-    earliestRestorableDateTime :: Prelude.Maybe Core.POSIX,
-    -- | @LatestRestorableDateTime@ is typically 5 minutes before the current
-    -- time.
-    latestRestorableDateTime :: Prelude.Maybe Core.POSIX
+    pointInTimeRecoveryStatus :: Prelude.Maybe PointInTimeRecoveryStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -54,33 +54,38 @@ data PointInTimeRecoveryDescription = PointInTimeRecoveryDescription'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'pointInTimeRecoveryStatus', 'pointInTimeRecoveryDescription_pointInTimeRecoveryStatus' - The current state of point in time recovery:
---
--- -   @ENABLING@ - Point in time recovery is being enabled.
---
--- -   @ENABLED@ - Point in time recovery is enabled.
---
--- -   @DISABLED@ - Point in time recovery is disabled.
---
 -- 'earliestRestorableDateTime', 'pointInTimeRecoveryDescription_earliestRestorableDateTime' - Specifies the earliest point in time you can restore your table to. You
 -- can restore your table to any point in time during the last 35 days.
 --
 -- 'latestRestorableDateTime', 'pointInTimeRecoveryDescription_latestRestorableDateTime' - @LatestRestorableDateTime@ is typically 5 minutes before the current
 -- time.
+--
+-- 'pointInTimeRecoveryStatus', 'pointInTimeRecoveryDescription_pointInTimeRecoveryStatus' - The current state of point in time recovery:
+--
+-- -   @ENABLED@ - Point in time recovery is enabled.
+--
+-- -   @DISABLED@ - Point in time recovery is disabled.
 newPointInTimeRecoveryDescription ::
   PointInTimeRecoveryDescription
 newPointInTimeRecoveryDescription =
   PointInTimeRecoveryDescription'
-    { pointInTimeRecoveryStatus =
+    { earliestRestorableDateTime =
         Prelude.Nothing,
-      earliestRestorableDateTime =
-        Prelude.Nothing,
-      latestRestorableDateTime = Prelude.Nothing
+      latestRestorableDateTime = Prelude.Nothing,
+      pointInTimeRecoveryStatus = Prelude.Nothing
     }
 
+-- | Specifies the earliest point in time you can restore your table to. You
+-- can restore your table to any point in time during the last 35 days.
+pointInTimeRecoveryDescription_earliestRestorableDateTime :: Lens.Lens' PointInTimeRecoveryDescription (Prelude.Maybe Prelude.UTCTime)
+pointInTimeRecoveryDescription_earliestRestorableDateTime = Lens.lens (\PointInTimeRecoveryDescription' {earliestRestorableDateTime} -> earliestRestorableDateTime) (\s@PointInTimeRecoveryDescription' {} a -> s {earliestRestorableDateTime = a} :: PointInTimeRecoveryDescription) Prelude.. Lens.mapping Data._Time
+
+-- | @LatestRestorableDateTime@ is typically 5 minutes before the current
+-- time.
+pointInTimeRecoveryDescription_latestRestorableDateTime :: Lens.Lens' PointInTimeRecoveryDescription (Prelude.Maybe Prelude.UTCTime)
+pointInTimeRecoveryDescription_latestRestorableDateTime = Lens.lens (\PointInTimeRecoveryDescription' {latestRestorableDateTime} -> latestRestorableDateTime) (\s@PointInTimeRecoveryDescription' {} a -> s {latestRestorableDateTime = a} :: PointInTimeRecoveryDescription) Prelude.. Lens.mapping Data._Time
+
 -- | The current state of point in time recovery:
---
--- -   @ENABLING@ - Point in time recovery is being enabled.
 --
 -- -   @ENABLED@ - Point in time recovery is enabled.
 --
@@ -88,25 +93,15 @@ newPointInTimeRecoveryDescription =
 pointInTimeRecoveryDescription_pointInTimeRecoveryStatus :: Lens.Lens' PointInTimeRecoveryDescription (Prelude.Maybe PointInTimeRecoveryStatus)
 pointInTimeRecoveryDescription_pointInTimeRecoveryStatus = Lens.lens (\PointInTimeRecoveryDescription' {pointInTimeRecoveryStatus} -> pointInTimeRecoveryStatus) (\s@PointInTimeRecoveryDescription' {} a -> s {pointInTimeRecoveryStatus = a} :: PointInTimeRecoveryDescription)
 
--- | Specifies the earliest point in time you can restore your table to. You
--- can restore your table to any point in time during the last 35 days.
-pointInTimeRecoveryDescription_earliestRestorableDateTime :: Lens.Lens' PointInTimeRecoveryDescription (Prelude.Maybe Prelude.UTCTime)
-pointInTimeRecoveryDescription_earliestRestorableDateTime = Lens.lens (\PointInTimeRecoveryDescription' {earliestRestorableDateTime} -> earliestRestorableDateTime) (\s@PointInTimeRecoveryDescription' {} a -> s {earliestRestorableDateTime = a} :: PointInTimeRecoveryDescription) Prelude.. Lens.mapping Core._Time
-
--- | @LatestRestorableDateTime@ is typically 5 minutes before the current
--- time.
-pointInTimeRecoveryDescription_latestRestorableDateTime :: Lens.Lens' PointInTimeRecoveryDescription (Prelude.Maybe Prelude.UTCTime)
-pointInTimeRecoveryDescription_latestRestorableDateTime = Lens.lens (\PointInTimeRecoveryDescription' {latestRestorableDateTime} -> latestRestorableDateTime) (\s@PointInTimeRecoveryDescription' {} a -> s {latestRestorableDateTime = a} :: PointInTimeRecoveryDescription) Prelude.. Lens.mapping Core._Time
-
-instance Core.FromJSON PointInTimeRecoveryDescription where
+instance Data.FromJSON PointInTimeRecoveryDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PointInTimeRecoveryDescription"
       ( \x ->
           PointInTimeRecoveryDescription'
-            Prelude.<$> (x Core..:? "PointInTimeRecoveryStatus")
-            Prelude.<*> (x Core..:? "EarliestRestorableDateTime")
-            Prelude.<*> (x Core..:? "LatestRestorableDateTime")
+            Prelude.<$> (x Data..:? "EarliestRestorableDateTime")
+            Prelude.<*> (x Data..:? "LatestRestorableDateTime")
+            Prelude.<*> (x Data..:? "PointInTimeRecoveryStatus")
       )
 
 instance
@@ -117,15 +112,15 @@ instance
     _salt
     PointInTimeRecoveryDescription' {..} =
       _salt
-        `Prelude.hashWithSalt` pointInTimeRecoveryStatus
         `Prelude.hashWithSalt` earliestRestorableDateTime
         `Prelude.hashWithSalt` latestRestorableDateTime
+        `Prelude.hashWithSalt` pointInTimeRecoveryStatus
 
 instance
   Prelude.NFData
     PointInTimeRecoveryDescription
   where
   rnf PointInTimeRecoveryDescription' {..} =
-    Prelude.rnf pointInTimeRecoveryStatus
-      `Prelude.seq` Prelude.rnf earliestRestorableDateTime
+    Prelude.rnf earliestRestorableDateTime
       `Prelude.seq` Prelude.rnf latestRestorableDateTime
+      `Prelude.seq` Prelude.rnf pointInTimeRecoveryStatus

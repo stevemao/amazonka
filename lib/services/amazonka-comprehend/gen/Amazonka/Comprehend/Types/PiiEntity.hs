@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.Types.PiiEntity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,28 +21,23 @@ module Amazonka.Comprehend.Types.PiiEntity where
 
 import Amazonka.Comprehend.Types.PiiEntityType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides information about a PII entity.
 --
 -- /See:/ 'newPiiEntity' smart constructor.
 data PiiEntity = PiiEntity'
-  { -- | A character offset in the input text that shows where the PII entity
-    -- begins (the first character is at position 0). The offset returns the
-    -- position of each UTF-8 code point in the string. A /code point/ is the
-    -- abstract character from a particular graphical representation. For
-    -- example, a multi-byte UTF-8 character maps to a single code point.
+  { -- | The zero-based offset from the beginning of the source text to the first
+    -- character in the entity.
     beginOffset :: Prelude.Maybe Prelude.Int,
+    -- | The zero-based offset from the beginning of the source text to the last
+    -- character in the entity.
+    endOffset :: Prelude.Maybe Prelude.Int,
     -- | The level of confidence that Amazon Comprehend has in the accuracy of
     -- the detection.
     score :: Prelude.Maybe Prelude.Double,
-    -- | A character offset in the input text that shows where the PII entity
-    -- ends. The offset returns the position of each UTF-8 code point in the
-    -- string. A /code point/ is the abstract character from a particular
-    -- graphical representation. For example, a multi-byte UTF-8 character maps
-    -- to a single code point.
-    endOffset :: Prelude.Maybe Prelude.Int,
     -- | The entity\'s type.
     type' :: Prelude.Maybe PiiEntityType
   }
@@ -56,20 +51,14 @@ data PiiEntity = PiiEntity'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'beginOffset', 'piiEntity_beginOffset' - A character offset in the input text that shows where the PII entity
--- begins (the first character is at position 0). The offset returns the
--- position of each UTF-8 code point in the string. A /code point/ is the
--- abstract character from a particular graphical representation. For
--- example, a multi-byte UTF-8 character maps to a single code point.
+-- 'beginOffset', 'piiEntity_beginOffset' - The zero-based offset from the beginning of the source text to the first
+-- character in the entity.
+--
+-- 'endOffset', 'piiEntity_endOffset' - The zero-based offset from the beginning of the source text to the last
+-- character in the entity.
 --
 -- 'score', 'piiEntity_score' - The level of confidence that Amazon Comprehend has in the accuracy of
 -- the detection.
---
--- 'endOffset', 'piiEntity_endOffset' - A character offset in the input text that shows where the PII entity
--- ends. The offset returns the position of each UTF-8 code point in the
--- string. A /code point/ is the abstract character from a particular
--- graphical representation. For example, a multi-byte UTF-8 character maps
--- to a single code point.
 --
 -- 'type'', 'piiEntity_type' - The entity\'s type.
 newPiiEntity ::
@@ -77,58 +66,52 @@ newPiiEntity ::
 newPiiEntity =
   PiiEntity'
     { beginOffset = Prelude.Nothing,
-      score = Prelude.Nothing,
       endOffset = Prelude.Nothing,
+      score = Prelude.Nothing,
       type' = Prelude.Nothing
     }
 
--- | A character offset in the input text that shows where the PII entity
--- begins (the first character is at position 0). The offset returns the
--- position of each UTF-8 code point in the string. A /code point/ is the
--- abstract character from a particular graphical representation. For
--- example, a multi-byte UTF-8 character maps to a single code point.
+-- | The zero-based offset from the beginning of the source text to the first
+-- character in the entity.
 piiEntity_beginOffset :: Lens.Lens' PiiEntity (Prelude.Maybe Prelude.Int)
 piiEntity_beginOffset = Lens.lens (\PiiEntity' {beginOffset} -> beginOffset) (\s@PiiEntity' {} a -> s {beginOffset = a} :: PiiEntity)
+
+-- | The zero-based offset from the beginning of the source text to the last
+-- character in the entity.
+piiEntity_endOffset :: Lens.Lens' PiiEntity (Prelude.Maybe Prelude.Int)
+piiEntity_endOffset = Lens.lens (\PiiEntity' {endOffset} -> endOffset) (\s@PiiEntity' {} a -> s {endOffset = a} :: PiiEntity)
 
 -- | The level of confidence that Amazon Comprehend has in the accuracy of
 -- the detection.
 piiEntity_score :: Lens.Lens' PiiEntity (Prelude.Maybe Prelude.Double)
 piiEntity_score = Lens.lens (\PiiEntity' {score} -> score) (\s@PiiEntity' {} a -> s {score = a} :: PiiEntity)
 
--- | A character offset in the input text that shows where the PII entity
--- ends. The offset returns the position of each UTF-8 code point in the
--- string. A /code point/ is the abstract character from a particular
--- graphical representation. For example, a multi-byte UTF-8 character maps
--- to a single code point.
-piiEntity_endOffset :: Lens.Lens' PiiEntity (Prelude.Maybe Prelude.Int)
-piiEntity_endOffset = Lens.lens (\PiiEntity' {endOffset} -> endOffset) (\s@PiiEntity' {} a -> s {endOffset = a} :: PiiEntity)
-
 -- | The entity\'s type.
 piiEntity_type :: Lens.Lens' PiiEntity (Prelude.Maybe PiiEntityType)
 piiEntity_type = Lens.lens (\PiiEntity' {type'} -> type') (\s@PiiEntity' {} a -> s {type' = a} :: PiiEntity)
 
-instance Core.FromJSON PiiEntity where
+instance Data.FromJSON PiiEntity where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PiiEntity"
       ( \x ->
           PiiEntity'
-            Prelude.<$> (x Core..:? "BeginOffset")
-            Prelude.<*> (x Core..:? "Score")
-            Prelude.<*> (x Core..:? "EndOffset")
-            Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "BeginOffset")
+            Prelude.<*> (x Data..:? "EndOffset")
+            Prelude.<*> (x Data..:? "Score")
+            Prelude.<*> (x Data..:? "Type")
       )
 
 instance Prelude.Hashable PiiEntity where
   hashWithSalt _salt PiiEntity' {..} =
     _salt `Prelude.hashWithSalt` beginOffset
-      `Prelude.hashWithSalt` score
       `Prelude.hashWithSalt` endOffset
+      `Prelude.hashWithSalt` score
       `Prelude.hashWithSalt` type'
 
 instance Prelude.NFData PiiEntity where
   rnf PiiEntity' {..} =
     Prelude.rnf beginOffset
-      `Prelude.seq` Prelude.rnf score
       `Prelude.seq` Prelude.rnf endOffset
+      `Prelude.seq` Prelude.rnf score
       `Prelude.seq` Prelude.rnf type'

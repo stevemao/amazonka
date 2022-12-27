@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.AssociationFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.AssociationFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSM.Types.AssociationFilterKey
 
@@ -78,11 +79,11 @@ instance Prelude.NFData AssociationFilter where
   rnf AssociationFilter' {..} =
     Prelude.rnf key `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON AssociationFilter where
+instance Data.ToJSON AssociationFilter where
   toJSON AssociationFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("key" Core..= key),
-            Prelude.Just ("value" Core..= value)
+          [ Prelude.Just ("key" Data..= key),
+            Prelude.Just ("value" Data..= value)
           ]
       )

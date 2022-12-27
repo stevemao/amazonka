@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.CreateDBSubnetGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.RDS.CreateDBSubnetGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -59,10 +60,16 @@ data CreateDBSubnetGroup = CreateDBSubnetGroup'
     -- | The name for the DB subnet group. This value is stored as a lowercase
     -- string.
     --
-    -- Constraints: Must contain no more than 255 letters, numbers, periods,
-    -- underscores, spaces, or hyphens. Must not be default.
+    -- Constraints:
     --
-    -- Example: @mySubnetgroup@
+    -- -   Must contain no more than 255 letters, numbers, periods,
+    --     underscores, spaces, or hyphens.
+    --
+    -- -   Must not be default.
+    --
+    -- -   First character must be a letter.
+    --
+    -- Example: @mydbsubnetgroup@
     dbSubnetGroupName :: Prelude.Text,
     -- | The description for the DB subnet group.
     dbSubnetGroupDescription :: Prelude.Text,
@@ -84,10 +91,16 @@ data CreateDBSubnetGroup = CreateDBSubnetGroup'
 -- 'dbSubnetGroupName', 'createDBSubnetGroup_dbSubnetGroupName' - The name for the DB subnet group. This value is stored as a lowercase
 -- string.
 --
--- Constraints: Must contain no more than 255 letters, numbers, periods,
--- underscores, spaces, or hyphens. Must not be default.
+-- Constraints:
 --
--- Example: @mySubnetgroup@
+-- -   Must contain no more than 255 letters, numbers, periods,
+--     underscores, spaces, or hyphens.
+--
+-- -   Must not be default.
+--
+-- -   First character must be a letter.
+--
+-- Example: @mydbsubnetgroup@
 --
 -- 'dbSubnetGroupDescription', 'createDBSubnetGroup_dbSubnetGroupDescription' - The description for the DB subnet group.
 --
@@ -116,10 +129,16 @@ createDBSubnetGroup_tags = Lens.lens (\CreateDBSubnetGroup' {tags} -> tags) (\s@
 -- | The name for the DB subnet group. This value is stored as a lowercase
 -- string.
 --
--- Constraints: Must contain no more than 255 letters, numbers, periods,
--- underscores, spaces, or hyphens. Must not be default.
+-- Constraints:
 --
--- Example: @mySubnetgroup@
+-- -   Must contain no more than 255 letters, numbers, periods,
+--     underscores, spaces, or hyphens.
+--
+-- -   Must not be default.
+--
+-- -   First character must be a letter.
+--
+-- Example: @mydbsubnetgroup@
 createDBSubnetGroup_dbSubnetGroupName :: Lens.Lens' CreateDBSubnetGroup Prelude.Text
 createDBSubnetGroup_dbSubnetGroupName = Lens.lens (\CreateDBSubnetGroup' {dbSubnetGroupName} -> dbSubnetGroupName) (\s@CreateDBSubnetGroup' {} a -> s {dbSubnetGroupName = a} :: CreateDBSubnetGroup)
 
@@ -135,13 +154,14 @@ instance Core.AWSRequest CreateDBSubnetGroup where
   type
     AWSResponse CreateDBSubnetGroup =
       CreateDBSubnetGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateDBSubnetGroupResult"
       ( \s h x ->
           CreateDBSubnetGroupResponse'
-            Prelude.<$> (x Core..@? "DBSubnetGroup")
+            Prelude.<$> (x Data..@? "DBSubnetGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -159,27 +179,27 @@ instance Prelude.NFData CreateDBSubnetGroup where
       `Prelude.seq` Prelude.rnf dbSubnetGroupDescription
       `Prelude.seq` Prelude.rnf subnetIds
 
-instance Core.ToHeaders CreateDBSubnetGroup where
+instance Data.ToHeaders CreateDBSubnetGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateDBSubnetGroup where
+instance Data.ToPath CreateDBSubnetGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateDBSubnetGroup where
+instance Data.ToQuery CreateDBSubnetGroup where
   toQuery CreateDBSubnetGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateDBSubnetGroup" :: Prelude.ByteString),
+          Data.=: ("CreateDBSubnetGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Tag" Prelude.<$> tags),
-        "DBSubnetGroupName" Core.=: dbSubnetGroupName,
+          Data.=: Data.toQuery
+            (Data.toQueryList "Tag" Prelude.<$> tags),
+        "DBSubnetGroupName" Data.=: dbSubnetGroupName,
         "DBSubnetGroupDescription"
-          Core.=: dbSubnetGroupDescription,
+          Data.=: dbSubnetGroupDescription,
         "SubnetIds"
-          Core.=: Core.toQueryList "SubnetIdentifier" subnetIds
+          Data.=: Data.toQueryList "SubnetIdentifier" subnetIds
       ]
 
 -- | /See:/ 'newCreateDBSubnetGroupResponse' smart constructor.

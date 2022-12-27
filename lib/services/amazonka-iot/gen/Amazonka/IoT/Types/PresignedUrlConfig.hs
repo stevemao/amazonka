@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.PresignedUrlConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoT.Types.PresignedUrlConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration for pre-signed S3 URLs.
@@ -34,6 +35,10 @@ data PresignedUrlConfig = PresignedUrlConfig'
     -- | The ARN of an IAM role that grants grants permission to download files
     -- from the S3 bucket where the job data\/updates are stored. The role must
     -- also grant permission for IoT to download the files.
+    --
+    -- For information about addressing the confused deputy problem, see
+    -- <https://docs.aws.amazon.com/iot/latest/developerguide/cross-service-confused-deputy-prevention.html cross-service confused deputy prevention>
+    -- in the /Amazon Web Services IoT Core developer guide/.
     roleArn :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -53,6 +58,10 @@ data PresignedUrlConfig = PresignedUrlConfig'
 -- 'roleArn', 'presignedUrlConfig_roleArn' - The ARN of an IAM role that grants grants permission to download files
 -- from the S3 bucket where the job data\/updates are stored. The role must
 -- also grant permission for IoT to download the files.
+--
+-- For information about addressing the confused deputy problem, see
+-- <https://docs.aws.amazon.com/iot/latest/developerguide/cross-service-confused-deputy-prevention.html cross-service confused deputy prevention>
+-- in the /Amazon Web Services IoT Core developer guide/.
 newPresignedUrlConfig ::
   PresignedUrlConfig
 newPresignedUrlConfig =
@@ -70,17 +79,21 @@ presignedUrlConfig_expiresInSec = Lens.lens (\PresignedUrlConfig' {expiresInSec}
 -- | The ARN of an IAM role that grants grants permission to download files
 -- from the S3 bucket where the job data\/updates are stored. The role must
 -- also grant permission for IoT to download the files.
+--
+-- For information about addressing the confused deputy problem, see
+-- <https://docs.aws.amazon.com/iot/latest/developerguide/cross-service-confused-deputy-prevention.html cross-service confused deputy prevention>
+-- in the /Amazon Web Services IoT Core developer guide/.
 presignedUrlConfig_roleArn :: Lens.Lens' PresignedUrlConfig (Prelude.Maybe Prelude.Text)
 presignedUrlConfig_roleArn = Lens.lens (\PresignedUrlConfig' {roleArn} -> roleArn) (\s@PresignedUrlConfig' {} a -> s {roleArn = a} :: PresignedUrlConfig)
 
-instance Core.FromJSON PresignedUrlConfig where
+instance Data.FromJSON PresignedUrlConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PresignedUrlConfig"
       ( \x ->
           PresignedUrlConfig'
-            Prelude.<$> (x Core..:? "expiresInSec")
-            Prelude.<*> (x Core..:? "roleArn")
+            Prelude.<$> (x Data..:? "expiresInSec")
+            Prelude.<*> (x Data..:? "roleArn")
       )
 
 instance Prelude.Hashable PresignedUrlConfig where
@@ -93,11 +106,11 @@ instance Prelude.NFData PresignedUrlConfig where
     Prelude.rnf expiresInSec
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToJSON PresignedUrlConfig where
+instance Data.ToJSON PresignedUrlConfig where
   toJSON PresignedUrlConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("expiresInSec" Core..=) Prelude.<$> expiresInSec,
-            ("roleArn" Core..=) Prelude.<$> roleArn
+          [ ("expiresInSec" Data..=) Prelude.<$> expiresInSec,
+            ("roleArn" Data..=) Prelude.<$> roleArn
           ]
       )

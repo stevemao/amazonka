@@ -14,11 +14,16 @@
 
 -- |
 -- Module      : Amazonka.EC2.EnableVpcClassicLinkDnsSupport
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
+--
+-- We are retiring EC2-Classic. We recommend that you migrate from
+-- EC2-Classic to a VPC. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html Migrate from EC2-Classic to a VPC>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
 --
 -- Enables a VPC to support DNS hostname resolution for ClassicLink. If
 -- enabled, the DNS hostname of a linked EC2-Classic instance resolves to
@@ -49,8 +54,9 @@ module Amazonka.EC2.EnableVpcClassicLinkDnsSupport
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,12 +96,13 @@ instance
   type
     AWSResponse EnableVpcClassicLinkDnsSupport =
       EnableVpcClassicLinkDnsSupportResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           EnableVpcClassicLinkDnsSupportResponse'
-            Prelude.<$> (x Core..@? "return")
+            Prelude.<$> (x Data..@? "return")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,24 +123,24 @@ instance
     Prelude.rnf vpcId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     EnableVpcClassicLinkDnsSupport
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath EnableVpcClassicLinkDnsSupport where
+instance Data.ToPath EnableVpcClassicLinkDnsSupport where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery EnableVpcClassicLinkDnsSupport where
+instance Data.ToQuery EnableVpcClassicLinkDnsSupport where
   toQuery EnableVpcClassicLinkDnsSupport' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "EnableVpcClassicLinkDnsSupport" ::
+          Data.=: ( "EnableVpcClassicLinkDnsSupport" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "VpcId" Core.=: vpcId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "VpcId" Data.=: vpcId
       ]
 
 -- | /See:/ 'newEnableVpcClassicLinkDnsSupportResponse' smart constructor.

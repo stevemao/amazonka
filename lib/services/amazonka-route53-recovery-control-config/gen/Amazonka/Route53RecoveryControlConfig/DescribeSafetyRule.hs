@@ -14,14 +14,13 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryControlConfig.DescribeSafetyRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the safety rules (that is, the assertion rules and gating
--- rules) for the routing controls in a control panel.
+-- Returns information about a safety rule.
 module Amazonka.Route53RecoveryControlConfig.DescribeSafetyRule
   ( -- * Creating a Request
     DescribeSafetyRule (..),
@@ -42,7 +41,8 @@ module Amazonka.Route53RecoveryControlConfig.DescribeSafetyRule
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -50,7 +50,7 @@ import Amazonka.Route53RecoveryControlConfig.Types
 
 -- | /See:/ 'newDescribeSafetyRule' smart constructor.
 data DescribeSafetyRule = DescribeSafetyRule'
-  { -- | The request body that you include when you update a safety rule.
+  { -- | The ARN of the safety rule.
     safetyRuleArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -63,7 +63,7 @@ data DescribeSafetyRule = DescribeSafetyRule'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'safetyRuleArn', 'describeSafetyRule_safetyRuleArn' - The request body that you include when you update a safety rule.
+-- 'safetyRuleArn', 'describeSafetyRule_safetyRuleArn' - The ARN of the safety rule.
 newDescribeSafetyRule ::
   -- | 'safetyRuleArn'
   Prelude.Text ->
@@ -74,7 +74,7 @@ newDescribeSafetyRule pSafetyRuleArn_ =
         pSafetyRuleArn_
     }
 
--- | The request body that you include when you update a safety rule.
+-- | The ARN of the safety rule.
 describeSafetyRule_safetyRuleArn :: Lens.Lens' DescribeSafetyRule Prelude.Text
 describeSafetyRule_safetyRuleArn = Lens.lens (\DescribeSafetyRule' {safetyRuleArn} -> safetyRuleArn) (\s@DescribeSafetyRule' {} a -> s {safetyRuleArn = a} :: DescribeSafetyRule)
 
@@ -82,13 +82,14 @@ instance Core.AWSRequest DescribeSafetyRule where
   type
     AWSResponse DescribeSafetyRule =
       DescribeSafetyRuleResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeSafetyRuleResponse'
-            Prelude.<$> (x Core..?> "AssertionRule")
-            Prelude.<*> (x Core..?> "GatingRule")
+            Prelude.<$> (x Data..?> "AssertionRule")
+            Prelude.<*> (x Data..?> "GatingRule")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -100,28 +101,30 @@ instance Prelude.NFData DescribeSafetyRule where
   rnf DescribeSafetyRule' {..} =
     Prelude.rnf safetyRuleArn
 
-instance Core.ToHeaders DescribeSafetyRule where
+instance Data.ToHeaders DescribeSafetyRule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeSafetyRule where
+instance Data.ToPath DescribeSafetyRule where
   toPath DescribeSafetyRule' {..} =
     Prelude.mconcat
-      ["/safetyrule/", Core.toBS safetyRuleArn]
+      ["/safetyrule/", Data.toBS safetyRuleArn]
 
-instance Core.ToQuery DescribeSafetyRule where
+instance Data.ToQuery DescribeSafetyRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeSafetyRuleResponse' smart constructor.
 data DescribeSafetyRuleResponse = DescribeSafetyRuleResponse'
-  { assertionRule :: Prelude.Maybe AssertionRule,
+  { -- | The assertion rule in the response.
+    assertionRule :: Prelude.Maybe AssertionRule,
+    -- | The gating rule in the response.
     gatingRule :: Prelude.Maybe GatingRule,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -136,9 +139,9 @@ data DescribeSafetyRuleResponse = DescribeSafetyRuleResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'assertionRule', 'describeSafetyRuleResponse_assertionRule' - Undocumented member.
+-- 'assertionRule', 'describeSafetyRuleResponse_assertionRule' - The assertion rule in the response.
 --
--- 'gatingRule', 'describeSafetyRuleResponse_gatingRule' - Undocumented member.
+-- 'gatingRule', 'describeSafetyRuleResponse_gatingRule' - The gating rule in the response.
 --
 -- 'httpStatus', 'describeSafetyRuleResponse_httpStatus' - The response's http status code.
 newDescribeSafetyRuleResponse ::
@@ -153,11 +156,11 @@ newDescribeSafetyRuleResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | Undocumented member.
+-- | The assertion rule in the response.
 describeSafetyRuleResponse_assertionRule :: Lens.Lens' DescribeSafetyRuleResponse (Prelude.Maybe AssertionRule)
 describeSafetyRuleResponse_assertionRule = Lens.lens (\DescribeSafetyRuleResponse' {assertionRule} -> assertionRule) (\s@DescribeSafetyRuleResponse' {} a -> s {assertionRule = a} :: DescribeSafetyRuleResponse)
 
--- | Undocumented member.
+-- | The gating rule in the response.
 describeSafetyRuleResponse_gatingRule :: Lens.Lens' DescribeSafetyRuleResponse (Prelude.Maybe GatingRule)
 describeSafetyRuleResponse_gatingRule = Lens.lens (\DescribeSafetyRuleResponse' {gatingRule} -> gatingRule) (\s@DescribeSafetyRuleResponse' {} a -> s {gatingRule = a} :: DescribeSafetyRuleResponse)
 

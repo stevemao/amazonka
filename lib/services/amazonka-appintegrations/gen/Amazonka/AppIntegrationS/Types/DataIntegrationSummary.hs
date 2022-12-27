@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppIntegrationS.Types.DataIntegrationSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppIntegrationS.Types.DataIntegrationSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Summary information about the DataIntegration.
@@ -70,15 +71,15 @@ dataIntegrationSummary_name = Lens.lens (\DataIntegrationSummary' {name} -> name
 dataIntegrationSummary_sourceURI :: Lens.Lens' DataIntegrationSummary (Prelude.Maybe Prelude.Text)
 dataIntegrationSummary_sourceURI = Lens.lens (\DataIntegrationSummary' {sourceURI} -> sourceURI) (\s@DataIntegrationSummary' {} a -> s {sourceURI = a} :: DataIntegrationSummary)
 
-instance Core.FromJSON DataIntegrationSummary where
+instance Data.FromJSON DataIntegrationSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DataIntegrationSummary"
       ( \x ->
           DataIntegrationSummary'
-            Prelude.<$> (x Core..:? "Arn")
-            Prelude.<*> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "SourceURI")
+            Prelude.<$> (x Data..:? "Arn")
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "SourceURI")
       )
 
 instance Prelude.Hashable DataIntegrationSummary where

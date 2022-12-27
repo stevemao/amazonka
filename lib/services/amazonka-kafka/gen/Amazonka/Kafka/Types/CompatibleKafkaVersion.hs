@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.Types.CompatibleKafkaVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,18 @@
 module Amazonka.Kafka.Types.CompatibleKafkaVersion where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Contains source Kafka versions and compatible target Kafka versions.
+-- | Contains source Apache Kafka versions and compatible target Apache Kafka
+-- versions.
 --
 -- /See:/ 'newCompatibleKafkaVersion' smart constructor.
 data CompatibleKafkaVersion = CompatibleKafkaVersion'
-  { -- | A Kafka version.
+  { -- | An Apache Kafka version.
     sourceVersion :: Prelude.Maybe Prelude.Text,
-    -- | A list of Kafka versions.
+    -- | A list of Apache Kafka versions.
     targetVersions :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -42,9 +44,9 @@ data CompatibleKafkaVersion = CompatibleKafkaVersion'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sourceVersion', 'compatibleKafkaVersion_sourceVersion' - A Kafka version.
+-- 'sourceVersion', 'compatibleKafkaVersion_sourceVersion' - An Apache Kafka version.
 --
--- 'targetVersions', 'compatibleKafkaVersion_targetVersions' - A list of Kafka versions.
+-- 'targetVersions', 'compatibleKafkaVersion_targetVersions' - A list of Apache Kafka versions.
 newCompatibleKafkaVersion ::
   CompatibleKafkaVersion
 newCompatibleKafkaVersion =
@@ -54,23 +56,23 @@ newCompatibleKafkaVersion =
       targetVersions = Prelude.Nothing
     }
 
--- | A Kafka version.
+-- | An Apache Kafka version.
 compatibleKafkaVersion_sourceVersion :: Lens.Lens' CompatibleKafkaVersion (Prelude.Maybe Prelude.Text)
 compatibleKafkaVersion_sourceVersion = Lens.lens (\CompatibleKafkaVersion' {sourceVersion} -> sourceVersion) (\s@CompatibleKafkaVersion' {} a -> s {sourceVersion = a} :: CompatibleKafkaVersion)
 
--- | A list of Kafka versions.
+-- | A list of Apache Kafka versions.
 compatibleKafkaVersion_targetVersions :: Lens.Lens' CompatibleKafkaVersion (Prelude.Maybe [Prelude.Text])
 compatibleKafkaVersion_targetVersions = Lens.lens (\CompatibleKafkaVersion' {targetVersions} -> targetVersions) (\s@CompatibleKafkaVersion' {} a -> s {targetVersions = a} :: CompatibleKafkaVersion) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON CompatibleKafkaVersion where
+instance Data.FromJSON CompatibleKafkaVersion where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CompatibleKafkaVersion"
       ( \x ->
           CompatibleKafkaVersion'
-            Prelude.<$> (x Core..:? "sourceVersion")
-            Prelude.<*> ( x Core..:? "targetVersions"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "sourceVersion")
+            Prelude.<*> ( x Data..:? "targetVersions"
+                            Data..!= Prelude.mempty
                         )
       )
 

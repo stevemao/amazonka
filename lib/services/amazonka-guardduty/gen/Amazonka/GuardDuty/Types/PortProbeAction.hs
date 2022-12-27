@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.Types.PortProbeAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.GuardDuty.Types.PortProbeAction where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types.PortProbeDetail
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the PORT_PROBE action described in the
@@ -29,11 +30,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newPortProbeAction' smart constructor.
 data PortProbeAction = PortProbeAction'
-  { -- | A list of objects related to port probe details.
-    portProbeDetails :: Prelude.Maybe [PortProbeDetail],
-    -- | Indicates whether EC2 blocked the port probe to the instance, such as
+  { -- | Indicates whether EC2 blocked the port probe to the instance, such as
     -- with an ACL.
-    blocked :: Prelude.Maybe Prelude.Bool
+    blocked :: Prelude.Maybe Prelude.Bool,
+    -- | A list of objects related to port probe details.
+    portProbeDetails :: Prelude.Maybe [PortProbeDetail]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,46 +46,45 @@ data PortProbeAction = PortProbeAction'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'portProbeDetails', 'portProbeAction_portProbeDetails' - A list of objects related to port probe details.
---
 -- 'blocked', 'portProbeAction_blocked' - Indicates whether EC2 blocked the port probe to the instance, such as
 -- with an ACL.
+--
+-- 'portProbeDetails', 'portProbeAction_portProbeDetails' - A list of objects related to port probe details.
 newPortProbeAction ::
   PortProbeAction
 newPortProbeAction =
   PortProbeAction'
-    { portProbeDetails =
-        Prelude.Nothing,
-      blocked = Prelude.Nothing
+    { blocked = Prelude.Nothing,
+      portProbeDetails = Prelude.Nothing
     }
-
--- | A list of objects related to port probe details.
-portProbeAction_portProbeDetails :: Lens.Lens' PortProbeAction (Prelude.Maybe [PortProbeDetail])
-portProbeAction_portProbeDetails = Lens.lens (\PortProbeAction' {portProbeDetails} -> portProbeDetails) (\s@PortProbeAction' {} a -> s {portProbeDetails = a} :: PortProbeAction) Prelude.. Lens.mapping Lens.coerced
 
 -- | Indicates whether EC2 blocked the port probe to the instance, such as
 -- with an ACL.
 portProbeAction_blocked :: Lens.Lens' PortProbeAction (Prelude.Maybe Prelude.Bool)
 portProbeAction_blocked = Lens.lens (\PortProbeAction' {blocked} -> blocked) (\s@PortProbeAction' {} a -> s {blocked = a} :: PortProbeAction)
 
-instance Core.FromJSON PortProbeAction where
+-- | A list of objects related to port probe details.
+portProbeAction_portProbeDetails :: Lens.Lens' PortProbeAction (Prelude.Maybe [PortProbeDetail])
+portProbeAction_portProbeDetails = Lens.lens (\PortProbeAction' {portProbeDetails} -> portProbeDetails) (\s@PortProbeAction' {} a -> s {portProbeDetails = a} :: PortProbeAction) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON PortProbeAction where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PortProbeAction"
       ( \x ->
           PortProbeAction'
-            Prelude.<$> ( x Core..:? "portProbeDetails"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "blocked")
+            Prelude.<*> ( x Data..:? "portProbeDetails"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "blocked")
       )
 
 instance Prelude.Hashable PortProbeAction where
   hashWithSalt _salt PortProbeAction' {..} =
-    _salt `Prelude.hashWithSalt` portProbeDetails
-      `Prelude.hashWithSalt` blocked
+    _salt `Prelude.hashWithSalt` blocked
+      `Prelude.hashWithSalt` portProbeDetails
 
 instance Prelude.NFData PortProbeAction where
   rnf PortProbeAction' {..} =
-    Prelude.rnf portProbeDetails
-      `Prelude.seq` Prelude.rnf blocked
+    Prelude.rnf blocked
+      `Prelude.seq` Prelude.rnf portProbeDetails

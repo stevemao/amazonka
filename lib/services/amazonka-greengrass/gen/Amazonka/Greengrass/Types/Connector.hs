@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.Types.Connector
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Greengrass.Types.Connector where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a connector. Connectors run on the Greengrass core and
@@ -82,15 +83,15 @@ connector_connectorArn = Lens.lens (\Connector' {connectorArn} -> connectorArn) 
 connector_id :: Lens.Lens' Connector Prelude.Text
 connector_id = Lens.lens (\Connector' {id} -> id) (\s@Connector' {} a -> s {id = a} :: Connector)
 
-instance Core.FromJSON Connector where
+instance Data.FromJSON Connector where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Connector"
       ( \x ->
           Connector'
-            Prelude.<$> (x Core..:? "Parameters" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "ConnectorArn")
-            Prelude.<*> (x Core..: "Id")
+            Prelude.<$> (x Data..:? "Parameters" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "ConnectorArn")
+            Prelude.<*> (x Data..: "Id")
       )
 
 instance Prelude.Hashable Connector where
@@ -105,12 +106,12 @@ instance Prelude.NFData Connector where
       `Prelude.seq` Prelude.rnf connectorArn
       `Prelude.seq` Prelude.rnf id
 
-instance Core.ToJSON Connector where
+instance Data.ToJSON Connector where
   toJSON Connector' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Parameters" Core..=) Prelude.<$> parameters,
-            Prelude.Just ("ConnectorArn" Core..= connectorArn),
-            Prelude.Just ("Id" Core..= id)
+          [ ("Parameters" Data..=) Prelude.<$> parameters,
+            Prelude.Just ("ConnectorArn" Data..= connectorArn),
+            Prelude.Just ("Id" Data..= id)
           ]
       )

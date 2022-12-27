@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudHSMV2.CreateCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.CloudHSMV2.CreateCluster
 
     -- * Request Lenses
     createCluster_backupRetentionPolicy,
-    createCluster_tagList,
     createCluster_sourceBackupId,
+    createCluster_tagList,
     createCluster_hsmType,
     createCluster_subnetIds,
 
@@ -45,7 +45,8 @@ where
 
 import Amazonka.CloudHSMV2.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,12 +55,12 @@ import qualified Amazonka.Response as Response
 data CreateCluster = CreateCluster'
   { -- | A policy that defines how the service retains backups.
     backupRetentionPolicy :: Prelude.Maybe BackupRetentionPolicy,
-    -- | Tags to apply to the CloudHSM cluster during creation.
-    tagList :: Prelude.Maybe [Tag],
     -- | The identifier (ID) of the cluster backup to restore. Use this value to
     -- restore the cluster from a backup instead of creating a new cluster. To
     -- find the backup ID, use DescribeBackups.
     sourceBackupId :: Prelude.Maybe Prelude.Text,
+    -- | Tags to apply to the CloudHSM cluster during creation.
+    tagList :: Prelude.Maybe [Tag],
     -- | The type of HSM to use in the cluster. Currently the only allowed value
     -- is @hsm1.medium@.
     hsmType :: Prelude.Text,
@@ -84,11 +85,11 @@ data CreateCluster = CreateCluster'
 --
 -- 'backupRetentionPolicy', 'createCluster_backupRetentionPolicy' - A policy that defines how the service retains backups.
 --
--- 'tagList', 'createCluster_tagList' - Tags to apply to the CloudHSM cluster during creation.
---
 -- 'sourceBackupId', 'createCluster_sourceBackupId' - The identifier (ID) of the cluster backup to restore. Use this value to
 -- restore the cluster from a backup instead of creating a new cluster. To
 -- find the backup ID, use DescribeBackups.
+--
+-- 'tagList', 'createCluster_tagList' - Tags to apply to the CloudHSM cluster during creation.
 --
 -- 'hsmType', 'createCluster_hsmType' - The type of HSM to use in the cluster. Currently the only allowed value
 -- is @hsm1.medium@.
@@ -110,8 +111,8 @@ newCreateCluster pHsmType_ pSubnetIds_ =
   CreateCluster'
     { backupRetentionPolicy =
         Prelude.Nothing,
-      tagList = Prelude.Nothing,
       sourceBackupId = Prelude.Nothing,
+      tagList = Prelude.Nothing,
       hsmType = pHsmType_,
       subnetIds = Lens.coerced Lens.# pSubnetIds_
     }
@@ -120,15 +121,15 @@ newCreateCluster pHsmType_ pSubnetIds_ =
 createCluster_backupRetentionPolicy :: Lens.Lens' CreateCluster (Prelude.Maybe BackupRetentionPolicy)
 createCluster_backupRetentionPolicy = Lens.lens (\CreateCluster' {backupRetentionPolicy} -> backupRetentionPolicy) (\s@CreateCluster' {} a -> s {backupRetentionPolicy = a} :: CreateCluster)
 
--- | Tags to apply to the CloudHSM cluster during creation.
-createCluster_tagList :: Lens.Lens' CreateCluster (Prelude.Maybe [Tag])
-createCluster_tagList = Lens.lens (\CreateCluster' {tagList} -> tagList) (\s@CreateCluster' {} a -> s {tagList = a} :: CreateCluster) Prelude.. Lens.mapping Lens.coerced
-
 -- | The identifier (ID) of the cluster backup to restore. Use this value to
 -- restore the cluster from a backup instead of creating a new cluster. To
 -- find the backup ID, use DescribeBackups.
 createCluster_sourceBackupId :: Lens.Lens' CreateCluster (Prelude.Maybe Prelude.Text)
 createCluster_sourceBackupId = Lens.lens (\CreateCluster' {sourceBackupId} -> sourceBackupId) (\s@CreateCluster' {} a -> s {sourceBackupId = a} :: CreateCluster)
+
+-- | Tags to apply to the CloudHSM cluster during creation.
+createCluster_tagList :: Lens.Lens' CreateCluster (Prelude.Maybe [Tag])
+createCluster_tagList = Lens.lens (\CreateCluster' {tagList} -> tagList) (\s@CreateCluster' {} a -> s {tagList = a} :: CreateCluster) Prelude.. Lens.mapping Lens.coerced
 
 -- | The type of HSM to use in the cluster. Currently the only allowed value
 -- is @hsm1.medium@.
@@ -149,64 +150,65 @@ instance Core.AWSRequest CreateCluster where
   type
     AWSResponse CreateCluster =
       CreateClusterResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateClusterResponse'
-            Prelude.<$> (x Core..?> "Cluster")
+            Prelude.<$> (x Data..?> "Cluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateCluster where
   hashWithSalt _salt CreateCluster' {..} =
     _salt `Prelude.hashWithSalt` backupRetentionPolicy
-      `Prelude.hashWithSalt` tagList
       `Prelude.hashWithSalt` sourceBackupId
+      `Prelude.hashWithSalt` tagList
       `Prelude.hashWithSalt` hsmType
       `Prelude.hashWithSalt` subnetIds
 
 instance Prelude.NFData CreateCluster where
   rnf CreateCluster' {..} =
     Prelude.rnf backupRetentionPolicy
-      `Prelude.seq` Prelude.rnf tagList
       `Prelude.seq` Prelude.rnf sourceBackupId
+      `Prelude.seq` Prelude.rnf tagList
       `Prelude.seq` Prelude.rnf hsmType
       `Prelude.seq` Prelude.rnf subnetIds
 
-instance Core.ToHeaders CreateCluster where
+instance Data.ToHeaders CreateCluster where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "BaldrApiService.CreateCluster" ::
+              Data.=# ( "BaldrApiService.CreateCluster" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateCluster where
+instance Data.ToJSON CreateCluster where
   toJSON CreateCluster' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("BackupRetentionPolicy" Core..=)
+          [ ("BackupRetentionPolicy" Data..=)
               Prelude.<$> backupRetentionPolicy,
-            ("TagList" Core..=) Prelude.<$> tagList,
-            ("SourceBackupId" Core..=)
+            ("SourceBackupId" Data..=)
               Prelude.<$> sourceBackupId,
-            Prelude.Just ("HsmType" Core..= hsmType),
-            Prelude.Just ("SubnetIds" Core..= subnetIds)
+            ("TagList" Data..=) Prelude.<$> tagList,
+            Prelude.Just ("HsmType" Data..= hsmType),
+            Prelude.Just ("SubnetIds" Data..= subnetIds)
           ]
       )
 
-instance Core.ToPath CreateCluster where
+instance Data.ToPath CreateCluster where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateCluster where
+instance Data.ToQuery CreateCluster where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateClusterResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.StopWorkflowRun
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.Glue.StopWorkflowRun
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -87,7 +88,8 @@ instance Core.AWSRequest StopWorkflowRun where
   type
     AWSResponse StopWorkflowRun =
       StopWorkflowRunResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -104,32 +106,32 @@ instance Prelude.NFData StopWorkflowRun where
   rnf StopWorkflowRun' {..} =
     Prelude.rnf name `Prelude.seq` Prelude.rnf runId
 
-instance Core.ToHeaders StopWorkflowRun where
+instance Data.ToHeaders StopWorkflowRun where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.StopWorkflowRun" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.StopWorkflowRun" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopWorkflowRun where
+instance Data.ToJSON StopWorkflowRun where
   toJSON StopWorkflowRun' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("RunId" Core..= runId)
+          [ Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("RunId" Data..= runId)
           ]
       )
 
-instance Core.ToPath StopWorkflowRun where
+instance Data.ToPath StopWorkflowRun where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopWorkflowRun where
+instance Data.ToQuery StopWorkflowRun where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopWorkflowRunResponse' smart constructor.

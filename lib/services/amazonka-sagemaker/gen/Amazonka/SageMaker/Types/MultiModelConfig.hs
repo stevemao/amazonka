@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.MultiModelConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.MultiModelConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.ModelCacheSetting
 
@@ -72,13 +73,13 @@ newMultiModelConfig =
 multiModelConfig_modelCacheSetting :: Lens.Lens' MultiModelConfig (Prelude.Maybe ModelCacheSetting)
 multiModelConfig_modelCacheSetting = Lens.lens (\MultiModelConfig' {modelCacheSetting} -> modelCacheSetting) (\s@MultiModelConfig' {} a -> s {modelCacheSetting = a} :: MultiModelConfig)
 
-instance Core.FromJSON MultiModelConfig where
+instance Data.FromJSON MultiModelConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MultiModelConfig"
       ( \x ->
           MultiModelConfig'
-            Prelude.<$> (x Core..:? "ModelCacheSetting")
+            Prelude.<$> (x Data..:? "ModelCacheSetting")
       )
 
 instance Prelude.Hashable MultiModelConfig where
@@ -89,11 +90,11 @@ instance Prelude.NFData MultiModelConfig where
   rnf MultiModelConfig' {..} =
     Prelude.rnf modelCacheSetting
 
-instance Core.ToJSON MultiModelConfig where
+instance Data.ToJSON MultiModelConfig where
   toJSON MultiModelConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ModelCacheSetting" Core..=)
+          [ ("ModelCacheSetting" Data..=)
               Prelude.<$> modelCacheSetting
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Forecast.UpdateDatasetGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,8 @@
 -- Replaces the datasets in a dataset group with the specified datasets.
 --
 -- The @Status@ of the dataset group must be @ACTIVE@ before you can use
--- the dataset group to create a predictor. Use the DescribeDatasetGroup
+-- the dataset group to create a predictor. Use the
+-- <https://docs.aws.amazon.com/forecast/latest/dg/API_DescribeDatasetGroup.html DescribeDatasetGroup>
 -- operation to get the status.
 module Amazonka.Forecast.UpdateDatasetGroup
   ( -- * Creating a Request
@@ -44,8 +45,9 @@ module Amazonka.Forecast.UpdateDatasetGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Forecast.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,7 +98,8 @@ instance Core.AWSRequest UpdateDatasetGroup where
   type
     AWSResponse UpdateDatasetGroup =
       UpdateDatasetGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -114,35 +117,35 @@ instance Prelude.NFData UpdateDatasetGroup where
     Prelude.rnf datasetGroupArn
       `Prelude.seq` Prelude.rnf datasetArns
 
-instance Core.ToHeaders UpdateDatasetGroup where
+instance Data.ToHeaders UpdateDatasetGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonForecast.UpdateDatasetGroup" ::
+              Data.=# ( "AmazonForecast.UpdateDatasetGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateDatasetGroup where
+instance Data.ToJSON UpdateDatasetGroup where
   toJSON UpdateDatasetGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("DatasetGroupArn" Core..= datasetGroupArn),
-            Prelude.Just ("DatasetArns" Core..= datasetArns)
+              ("DatasetGroupArn" Data..= datasetGroupArn),
+            Prelude.Just ("DatasetArns" Data..= datasetArns)
           ]
       )
 
-instance Core.ToPath UpdateDatasetGroup where
+instance Data.ToPath UpdateDatasetGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateDatasetGroup where
+instance Data.ToQuery UpdateDatasetGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateDatasetGroupResponse' smart constructor.

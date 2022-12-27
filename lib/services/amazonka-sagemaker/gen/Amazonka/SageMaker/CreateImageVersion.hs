@@ -14,15 +14,15 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.CreateImageVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Creates a version of the SageMaker image specified by @ImageName@. The
--- version represents the Amazon Container Registry (ECR) container image
--- specified by @BaseImage@.
+-- version represents the Amazon Elastic Container Registry (ECR) container
+-- image specified by @BaseImage@.
 module Amazonka.SageMaker.CreateImageVersion
   ( -- * Creating a Request
     CreateImageVersion (..),
@@ -44,7 +44,8 @@ module Amazonka.SageMaker.CreateImageVersion
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,8 +54,8 @@ import Amazonka.SageMaker.Types
 -- | /See:/ 'newCreateImageVersion' smart constructor.
 data CreateImageVersion = CreateImageVersion'
   { -- | The registry path of the container image to use as the starting point
-    -- for this version. The path is an Amazon Container Registry (ECR) URI in
-    -- the following format:
+    -- for this version. The path is an Amazon Elastic Container Registry (ECR)
+    -- URI in the following format:
     --
     -- @\<acct-id>.dkr.ecr.\<region>.amazonaws.com\/\<repo-name[:tag] or [\@digest]>@
     baseImage :: Prelude.Text,
@@ -76,8 +77,8 @@ data CreateImageVersion = CreateImageVersion'
 -- for backwards compatibility:
 --
 -- 'baseImage', 'createImageVersion_baseImage' - The registry path of the container image to use as the starting point
--- for this version. The path is an Amazon Container Registry (ECR) URI in
--- the following format:
+-- for this version. The path is an Amazon Elastic Container Registry (ECR)
+-- URI in the following format:
 --
 -- @\<acct-id>.dkr.ecr.\<region>.amazonaws.com\/\<repo-name[:tag] or [\@digest]>@
 --
@@ -105,8 +106,8 @@ newCreateImageVersion
       }
 
 -- | The registry path of the container image to use as the starting point
--- for this version. The path is an Amazon Container Registry (ECR) URI in
--- the following format:
+-- for this version. The path is an Amazon Elastic Container Registry (ECR)
+-- URI in the following format:
 --
 -- @\<acct-id>.dkr.ecr.\<region>.amazonaws.com\/\<repo-name[:tag] or [\@digest]>@
 createImageVersion_baseImage :: Lens.Lens' CreateImageVersion Prelude.Text
@@ -126,12 +127,13 @@ instance Core.AWSRequest CreateImageVersion where
   type
     AWSResponse CreateImageVersion =
       CreateImageVersionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateImageVersionResponse'
-            Prelude.<$> (x Core..?> "ImageVersionArn")
+            Prelude.<$> (x Data..?> "ImageVersionArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -147,35 +149,35 @@ instance Prelude.NFData CreateImageVersion where
       `Prelude.seq` Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf imageName
 
-instance Core.ToHeaders CreateImageVersion where
+instance Data.ToHeaders CreateImageVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.CreateImageVersion" ::
+              Data.=# ( "SageMaker.CreateImageVersion" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateImageVersion where
+instance Data.ToJSON CreateImageVersion where
   toJSON CreateImageVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("BaseImage" Core..= baseImage),
-            Prelude.Just ("ClientToken" Core..= clientToken),
-            Prelude.Just ("ImageName" Core..= imageName)
+          [ Prelude.Just ("BaseImage" Data..= baseImage),
+            Prelude.Just ("ClientToken" Data..= clientToken),
+            Prelude.Just ("ImageName" Data..= imageName)
           ]
       )
 
-instance Core.ToPath CreateImageVersion where
+instance Data.ToPath CreateImageVersion where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateImageVersion where
+instance Data.ToQuery CreateImageVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateImageVersionResponse' smart constructor.

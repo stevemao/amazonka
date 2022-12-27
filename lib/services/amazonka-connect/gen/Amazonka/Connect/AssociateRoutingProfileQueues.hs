@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.AssociateRoutingProfileQueues
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -110,7 +111,8 @@ instance
   type
     AWSResponse AssociateRoutingProfileQueues =
       AssociateRoutingProfileQueuesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       AssociateRoutingProfileQueuesResponse'
@@ -130,35 +132,35 @@ instance Prelude.NFData AssociateRoutingProfileQueues where
       `Prelude.seq` Prelude.rnf routingProfileId
       `Prelude.seq` Prelude.rnf queueConfigs
 
-instance Core.ToHeaders AssociateRoutingProfileQueues where
+instance Data.ToHeaders AssociateRoutingProfileQueues where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateRoutingProfileQueues where
+instance Data.ToJSON AssociateRoutingProfileQueues where
   toJSON AssociateRoutingProfileQueues' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("QueueConfigs" Core..= queueConfigs)]
+          [Prelude.Just ("QueueConfigs" Data..= queueConfigs)]
       )
 
-instance Core.ToPath AssociateRoutingProfileQueues where
+instance Data.ToPath AssociateRoutingProfileQueues where
   toPath AssociateRoutingProfileQueues' {..} =
     Prelude.mconcat
       [ "/routing-profiles/",
-        Core.toBS instanceId,
+        Data.toBS instanceId,
         "/",
-        Core.toBS routingProfileId,
+        Data.toBS routingProfileId,
         "/associate-queues"
       ]
 
-instance Core.ToQuery AssociateRoutingProfileQueues where
+instance Data.ToQuery AssociateRoutingProfileQueues where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateRoutingProfileQueuesResponse' smart constructor.

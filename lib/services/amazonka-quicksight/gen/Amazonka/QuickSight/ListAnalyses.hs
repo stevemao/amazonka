@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.ListAnalyses
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.QuickSight.ListAnalyses
     newListAnalyses,
 
     -- * Request Lenses
-    listAnalyses_nextToken,
     listAnalyses_maxResults,
+    listAnalyses_nextToken,
     listAnalyses_awsAccountId,
 
     -- * Destructuring the Response
@@ -39,15 +39,16 @@ module Amazonka.QuickSight.ListAnalyses
     newListAnalysesResponse,
 
     -- * Response Lenses
-    listAnalysesResponse_requestId,
-    listAnalysesResponse_nextToken,
     listAnalysesResponse_analysisSummaryList,
+    listAnalysesResponse_nextToken,
+    listAnalysesResponse_requestId,
     listAnalysesResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -55,10 +56,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListAnalyses' smart constructor.
 data ListAnalyses = ListAnalyses'
-  { -- | A pagination token that can be used in a subsequent request.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return.
+  { -- | The maximum number of results to return.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A pagination token that can be used in a subsequent request.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ID of the Amazon Web Services account that contains the analyses.
     awsAccountId :: Prelude.Text
   }
@@ -72,9 +73,9 @@ data ListAnalyses = ListAnalyses'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listAnalyses_nextToken' - A pagination token that can be used in a subsequent request.
---
 -- 'maxResults', 'listAnalyses_maxResults' - The maximum number of results to return.
+--
+-- 'nextToken', 'listAnalyses_nextToken' - A pagination token that can be used in a subsequent request.
 --
 -- 'awsAccountId', 'listAnalyses_awsAccountId' - The ID of the Amazon Web Services account that contains the analyses.
 newListAnalyses ::
@@ -83,18 +84,18 @@ newListAnalyses ::
   ListAnalyses
 newListAnalyses pAwsAccountId_ =
   ListAnalyses'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       awsAccountId = pAwsAccountId_
     }
-
--- | A pagination token that can be used in a subsequent request.
-listAnalyses_nextToken :: Lens.Lens' ListAnalyses (Prelude.Maybe Prelude.Text)
-listAnalyses_nextToken = Lens.lens (\ListAnalyses' {nextToken} -> nextToken) (\s@ListAnalyses' {} a -> s {nextToken = a} :: ListAnalyses)
 
 -- | The maximum number of results to return.
 listAnalyses_maxResults :: Lens.Lens' ListAnalyses (Prelude.Maybe Prelude.Natural)
 listAnalyses_maxResults = Lens.lens (\ListAnalyses' {maxResults} -> maxResults) (\s@ListAnalyses' {} a -> s {maxResults = a} :: ListAnalyses)
+
+-- | A pagination token that can be used in a subsequent request.
+listAnalyses_nextToken :: Lens.Lens' ListAnalyses (Prelude.Maybe Prelude.Text)
+listAnalyses_nextToken = Lens.lens (\ListAnalyses' {nextToken} -> nextToken) (\s@ListAnalyses' {} a -> s {nextToken = a} :: ListAnalyses)
 
 -- | The ID of the Amazon Web Services account that contains the analyses.
 listAnalyses_awsAccountId :: Lens.Lens' ListAnalyses Prelude.Text
@@ -122,62 +123,63 @@ instance Core.AWSPager ListAnalyses where
 
 instance Core.AWSRequest ListAnalyses where
   type AWSResponse ListAnalyses = ListAnalysesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAnalysesResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "AnalysisSummaryList"
+            Prelude.<$> ( x Data..?> "AnalysisSummaryList"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListAnalyses where
   hashWithSalt _salt ListAnalyses' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` awsAccountId
 
 instance Prelude.NFData ListAnalyses where
   rnf ListAnalyses' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf awsAccountId
 
-instance Core.ToHeaders ListAnalyses where
+instance Data.ToHeaders ListAnalyses where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListAnalyses where
+instance Data.ToPath ListAnalyses where
   toPath ListAnalyses' {..} =
     Prelude.mconcat
-      ["/accounts/", Core.toBS awsAccountId, "/analyses"]
+      ["/accounts/", Data.toBS awsAccountId, "/analyses"]
 
-instance Core.ToQuery ListAnalyses where
+instance Data.ToQuery ListAnalyses where
   toQuery ListAnalyses' {..} =
     Prelude.mconcat
-      [ "next-token" Core.=: nextToken,
-        "max-results" Core.=: maxResults
+      [ "max-results" Data.=: maxResults,
+        "next-token" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListAnalysesResponse' smart constructor.
 data ListAnalysesResponse = ListAnalysesResponse'
-  { -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Maybe Prelude.Text,
+  { -- | Metadata describing each of the analyses that are listed.
+    analysisSummaryList :: Prelude.Maybe [AnalysisSummary],
     -- | A pagination token that can be used in a subsequent request.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Metadata describing each of the analyses that are listed.
-    analysisSummaryList :: Prelude.Maybe [AnalysisSummary],
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -191,11 +193,11 @@ data ListAnalysesResponse = ListAnalysesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'listAnalysesResponse_requestId' - The Amazon Web Services request ID for this operation.
+-- 'analysisSummaryList', 'listAnalysesResponse_analysisSummaryList' - Metadata describing each of the analyses that are listed.
 --
 -- 'nextToken', 'listAnalysesResponse_nextToken' - A pagination token that can be used in a subsequent request.
 --
--- 'analysisSummaryList', 'listAnalysesResponse_analysisSummaryList' - Metadata describing each of the analyses that are listed.
+-- 'requestId', 'listAnalysesResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'status', 'listAnalysesResponse_status' - The HTTP status of the request.
 newListAnalysesResponse ::
@@ -204,23 +206,24 @@ newListAnalysesResponse ::
   ListAnalysesResponse
 newListAnalysesResponse pStatus_ =
   ListAnalysesResponse'
-    { requestId = Prelude.Nothing,
+    { analysisSummaryList =
+        Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      analysisSummaryList = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       status = pStatus_
     }
 
--- | The Amazon Web Services request ID for this operation.
-listAnalysesResponse_requestId :: Lens.Lens' ListAnalysesResponse (Prelude.Maybe Prelude.Text)
-listAnalysesResponse_requestId = Lens.lens (\ListAnalysesResponse' {requestId} -> requestId) (\s@ListAnalysesResponse' {} a -> s {requestId = a} :: ListAnalysesResponse)
+-- | Metadata describing each of the analyses that are listed.
+listAnalysesResponse_analysisSummaryList :: Lens.Lens' ListAnalysesResponse (Prelude.Maybe [AnalysisSummary])
+listAnalysesResponse_analysisSummaryList = Lens.lens (\ListAnalysesResponse' {analysisSummaryList} -> analysisSummaryList) (\s@ListAnalysesResponse' {} a -> s {analysisSummaryList = a} :: ListAnalysesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A pagination token that can be used in a subsequent request.
 listAnalysesResponse_nextToken :: Lens.Lens' ListAnalysesResponse (Prelude.Maybe Prelude.Text)
 listAnalysesResponse_nextToken = Lens.lens (\ListAnalysesResponse' {nextToken} -> nextToken) (\s@ListAnalysesResponse' {} a -> s {nextToken = a} :: ListAnalysesResponse)
 
--- | Metadata describing each of the analyses that are listed.
-listAnalysesResponse_analysisSummaryList :: Lens.Lens' ListAnalysesResponse (Prelude.Maybe [AnalysisSummary])
-listAnalysesResponse_analysisSummaryList = Lens.lens (\ListAnalysesResponse' {analysisSummaryList} -> analysisSummaryList) (\s@ListAnalysesResponse' {} a -> s {analysisSummaryList = a} :: ListAnalysesResponse) Prelude.. Lens.mapping Lens.coerced
+-- | The Amazon Web Services request ID for this operation.
+listAnalysesResponse_requestId :: Lens.Lens' ListAnalysesResponse (Prelude.Maybe Prelude.Text)
+listAnalysesResponse_requestId = Lens.lens (\ListAnalysesResponse' {requestId} -> requestId) (\s@ListAnalysesResponse' {} a -> s {requestId = a} :: ListAnalysesResponse)
 
 -- | The HTTP status of the request.
 listAnalysesResponse_status :: Lens.Lens' ListAnalysesResponse Prelude.Int
@@ -228,7 +231,7 @@ listAnalysesResponse_status = Lens.lens (\ListAnalysesResponse' {status} -> stat
 
 instance Prelude.NFData ListAnalysesResponse where
   rnf ListAnalysesResponse' {..} =
-    Prelude.rnf requestId
+    Prelude.rnf analysisSummaryList
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf analysisSummaryList
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf status

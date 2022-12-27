@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.Personalize.CreateCampaign
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a campaign by deploying a solution version. When a client calls
+-- Creates a campaign that deploys a solution version. When a client calls
 -- the
 -- <https://docs.aws.amazon.com/personalize/latest/dg/API_RS_GetRecommendations.html GetRecommendations>
 -- and
@@ -54,20 +54,21 @@
 --
 -- -   DELETE PENDING > DELETE IN_PROGRESS
 --
--- To get the campaign status, call DescribeCampaign.
+-- To get the campaign status, call
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeCampaign.html DescribeCampaign>.
 --
 -- Wait until the @status@ of the campaign is @ACTIVE@ before asking the
 -- campaign for recommendations.
 --
 -- __Related APIs__
 --
--- -   ListCampaigns
+-- -   <https://docs.aws.amazon.com/personalize/latest/dg/API_ListCampaigns.html ListCampaigns>
 --
--- -   DescribeCampaign
+-- -   <https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeCampaign.html DescribeCampaign>
 --
--- -   UpdateCampaign
+-- -   <https://docs.aws.amazon.com/personalize/latest/dg/API_UpdateCampaign.html UpdateCampaign>
 --
--- -   DeleteCampaign
+-- -   <https://docs.aws.amazon.com/personalize/latest/dg/API_DeleteCampaign.html DeleteCampaign>
 module Amazonka.Personalize.CreateCampaign
   ( -- * Creating a Request
     CreateCampaign (..),
@@ -76,6 +77,7 @@ module Amazonka.Personalize.CreateCampaign
     -- * Request Lenses
     createCampaign_campaignConfig,
     createCampaign_minProvisionedTPS,
+    createCampaign_tags,
     createCampaign_name,
     createCampaign_solutionVersionArn,
 
@@ -90,7 +92,8 @@ module Amazonka.Personalize.CreateCampaign
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -103,6 +106,10 @@ data CreateCampaign = CreateCampaign'
     -- | Specifies the requested minimum provisioned transactions
     -- (recommendations) per second that Amazon Personalize will support.
     minProvisionedTPS :: Prelude.Maybe Prelude.Natural,
+    -- | A list of
+    -- <https://docs.aws.amazon.com/personalize/latest/dev/tagging-resources.html tags>
+    -- to apply to the campaign.
+    tags :: Prelude.Maybe [Tag],
     -- | A name for the new campaign. The campaign name must be unique within
     -- your account.
     name :: Prelude.Text,
@@ -124,6 +131,10 @@ data CreateCampaign = CreateCampaign'
 -- 'minProvisionedTPS', 'createCampaign_minProvisionedTPS' - Specifies the requested minimum provisioned transactions
 -- (recommendations) per second that Amazon Personalize will support.
 --
+-- 'tags', 'createCampaign_tags' - A list of
+-- <https://docs.aws.amazon.com/personalize/latest/dev/tagging-resources.html tags>
+-- to apply to the campaign.
+--
 -- 'name', 'createCampaign_name' - A name for the new campaign. The campaign name must be unique within
 -- your account.
 --
@@ -138,6 +149,7 @@ newCreateCampaign pName_ pSolutionVersionArn_ =
   CreateCampaign'
     { campaignConfig = Prelude.Nothing,
       minProvisionedTPS = Prelude.Nothing,
+      tags = Prelude.Nothing,
       name = pName_,
       solutionVersionArn = pSolutionVersionArn_
     }
@@ -150,6 +162,12 @@ createCampaign_campaignConfig = Lens.lens (\CreateCampaign' {campaignConfig} -> 
 -- (recommendations) per second that Amazon Personalize will support.
 createCampaign_minProvisionedTPS :: Lens.Lens' CreateCampaign (Prelude.Maybe Prelude.Natural)
 createCampaign_minProvisionedTPS = Lens.lens (\CreateCampaign' {minProvisionedTPS} -> minProvisionedTPS) (\s@CreateCampaign' {} a -> s {minProvisionedTPS = a} :: CreateCampaign)
+
+-- | A list of
+-- <https://docs.aws.amazon.com/personalize/latest/dev/tagging-resources.html tags>
+-- to apply to the campaign.
+createCampaign_tags :: Lens.Lens' CreateCampaign (Prelude.Maybe [Tag])
+createCampaign_tags = Lens.lens (\CreateCampaign' {tags} -> tags) (\s@CreateCampaign' {} a -> s {tags = a} :: CreateCampaign) Prelude.. Lens.mapping Lens.coerced
 
 -- | A name for the new campaign. The campaign name must be unique within
 -- your account.
@@ -164,12 +182,13 @@ instance Core.AWSRequest CreateCampaign where
   type
     AWSResponse CreateCampaign =
       CreateCampaignResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateCampaignResponse'
-            Prelude.<$> (x Core..?> "campaignArn")
+            Prelude.<$> (x Data..?> "campaignArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -177,6 +196,7 @@ instance Prelude.Hashable CreateCampaign where
   hashWithSalt _salt CreateCampaign' {..} =
     _salt `Prelude.hashWithSalt` campaignConfig
       `Prelude.hashWithSalt` minProvisionedTPS
+      `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` solutionVersionArn
 
@@ -184,42 +204,44 @@ instance Prelude.NFData CreateCampaign where
   rnf CreateCampaign' {..} =
     Prelude.rnf campaignConfig
       `Prelude.seq` Prelude.rnf minProvisionedTPS
+      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf solutionVersionArn
 
-instance Core.ToHeaders CreateCampaign where
+instance Data.ToHeaders CreateCampaign where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.CreateCampaign" ::
+              Data.=# ( "AmazonPersonalize.CreateCampaign" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateCampaign where
+instance Data.ToJSON CreateCampaign where
   toJSON CreateCampaign' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("campaignConfig" Core..=)
+          [ ("campaignConfig" Data..=)
               Prelude.<$> campaignConfig,
-            ("minProvisionedTPS" Core..=)
+            ("minProvisionedTPS" Data..=)
               Prelude.<$> minProvisionedTPS,
-            Prelude.Just ("name" Core..= name),
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("name" Data..= name),
             Prelude.Just
-              ("solutionVersionArn" Core..= solutionVersionArn)
+              ("solutionVersionArn" Data..= solutionVersionArn)
           ]
       )
 
-instance Core.ToPath CreateCampaign where
+instance Data.ToPath CreateCampaign where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateCampaign where
+instance Data.ToQuery CreateCampaign where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateCampaignResponse' smart constructor.

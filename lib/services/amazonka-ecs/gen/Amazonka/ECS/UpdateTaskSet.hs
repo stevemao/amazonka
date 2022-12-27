@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.UpdateTaskSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.ECS.UpdateTaskSet
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,10 +56,10 @@ import qualified Amazonka.Response as Response
 -- | /See:/ 'newUpdateTaskSet' smart constructor.
 data UpdateTaskSet = UpdateTaskSet'
   { -- | The short name or full Amazon Resource Name (ARN) of the cluster that
-    -- hosts the service that the task set exists in.
+    -- hosts the service that the task set is found in.
     cluster :: Prelude.Text,
     -- | The short name or full Amazon Resource Name (ARN) of the service that
-    -- the task set exists in.
+    -- the task set is found in.
     service :: Prelude.Text,
     -- | The short name or full Amazon Resource Name (ARN) of the task set to
     -- update.
@@ -78,10 +79,10 @@ data UpdateTaskSet = UpdateTaskSet'
 -- for backwards compatibility:
 --
 -- 'cluster', 'updateTaskSet_cluster' - The short name or full Amazon Resource Name (ARN) of the cluster that
--- hosts the service that the task set exists in.
+-- hosts the service that the task set is found in.
 --
 -- 'service', 'updateTaskSet_service' - The short name or full Amazon Resource Name (ARN) of the service that
--- the task set exists in.
+-- the task set is found in.
 --
 -- 'taskSet', 'updateTaskSet_taskSet' - The short name or full Amazon Resource Name (ARN) of the task set to
 -- update.
@@ -111,12 +112,12 @@ newUpdateTaskSet
       }
 
 -- | The short name or full Amazon Resource Name (ARN) of the cluster that
--- hosts the service that the task set exists in.
+-- hosts the service that the task set is found in.
 updateTaskSet_cluster :: Lens.Lens' UpdateTaskSet Prelude.Text
 updateTaskSet_cluster = Lens.lens (\UpdateTaskSet' {cluster} -> cluster) (\s@UpdateTaskSet' {} a -> s {cluster = a} :: UpdateTaskSet)
 
 -- | The short name or full Amazon Resource Name (ARN) of the service that
--- the task set exists in.
+-- the task set is found in.
 updateTaskSet_service :: Lens.Lens' UpdateTaskSet Prelude.Text
 updateTaskSet_service = Lens.lens (\UpdateTaskSet' {service} -> service) (\s@UpdateTaskSet' {} a -> s {service = a} :: UpdateTaskSet)
 
@@ -134,12 +135,13 @@ instance Core.AWSRequest UpdateTaskSet where
   type
     AWSResponse UpdateTaskSet =
       UpdateTaskSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateTaskSetResponse'
-            Prelude.<$> (x Core..?> "taskSet")
+            Prelude.<$> (x Data..?> "taskSet")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -157,36 +159,36 @@ instance Prelude.NFData UpdateTaskSet where
       `Prelude.seq` Prelude.rnf taskSet
       `Prelude.seq` Prelude.rnf scale
 
-instance Core.ToHeaders UpdateTaskSet where
+instance Data.ToHeaders UpdateTaskSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerServiceV20141113.UpdateTaskSet" ::
+              Data.=# ( "AmazonEC2ContainerServiceV20141113.UpdateTaskSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateTaskSet where
+instance Data.ToJSON UpdateTaskSet where
   toJSON UpdateTaskSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("cluster" Core..= cluster),
-            Prelude.Just ("service" Core..= service),
-            Prelude.Just ("taskSet" Core..= taskSet),
-            Prelude.Just ("scale" Core..= scale)
+          [ Prelude.Just ("cluster" Data..= cluster),
+            Prelude.Just ("service" Data..= service),
+            Prelude.Just ("taskSet" Data..= taskSet),
+            Prelude.Just ("scale" Data..= scale)
           ]
       )
 
-instance Core.ToPath UpdateTaskSet where
+instance Data.ToPath UpdateTaskSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateTaskSet where
+instance Data.ToQuery UpdateTaskSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateTaskSetResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApiGatewayV2.GetApis
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.ApiGatewayV2.GetApis
     newGetApis,
 
     -- * Request Lenses
-    getApis_nextToken,
     getApis_maxResults,
+    getApis_nextToken,
 
     -- * Destructuring the Response
     GetApisResponse (..),
@@ -45,18 +45,19 @@ where
 
 import Amazonka.ApiGatewayV2.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetApis' smart constructor.
 data GetApis = GetApis'
-  { -- | The next page of elements from this collection. Not valid for the last
+  { -- | The maximum number of elements to be returned for this resource.
+    maxResults :: Prelude.Maybe Prelude.Text,
+    -- | The next page of elements from this collection. Not valid for the last
     -- element of the collection.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of elements to be returned for this resource.
-    maxResults :: Prelude.Maybe Prelude.Text
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -68,26 +69,26 @@ data GetApis = GetApis'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'getApis_maxResults' - The maximum number of elements to be returned for this resource.
+--
 -- 'nextToken', 'getApis_nextToken' - The next page of elements from this collection. Not valid for the last
 -- element of the collection.
---
--- 'maxResults', 'getApis_maxResults' - The maximum number of elements to be returned for this resource.
 newGetApis ::
   GetApis
 newGetApis =
   GetApis'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of elements to be returned for this resource.
+getApis_maxResults :: Lens.Lens' GetApis (Prelude.Maybe Prelude.Text)
+getApis_maxResults = Lens.lens (\GetApis' {maxResults} -> maxResults) (\s@GetApis' {} a -> s {maxResults = a} :: GetApis)
 
 -- | The next page of elements from this collection. Not valid for the last
 -- element of the collection.
 getApis_nextToken :: Lens.Lens' GetApis (Prelude.Maybe Prelude.Text)
 getApis_nextToken = Lens.lens (\GetApis' {nextToken} -> nextToken) (\s@GetApis' {} a -> s {nextToken = a} :: GetApis)
-
--- | The maximum number of elements to be returned for this resource.
-getApis_maxResults :: Lens.Lens' GetApis (Prelude.Maybe Prelude.Text)
-getApis_maxResults = Lens.lens (\GetApis' {maxResults} -> maxResults) (\s@GetApis' {} a -> s {maxResults = a} :: GetApis)
 
 instance Core.AWSPager GetApis where
   page rq rs
@@ -110,45 +111,46 @@ instance Core.AWSPager GetApis where
 
 instance Core.AWSRequest GetApis where
   type AWSResponse GetApis = GetApisResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetApisResponse'
-            Prelude.<$> (x Core..?> "items" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "items" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetApis where
   hashWithSalt _salt GetApis' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData GetApis where
   rnf GetApis' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders GetApis where
+instance Data.ToHeaders GetApis where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetApis where
+instance Data.ToPath GetApis where
   toPath = Prelude.const "/v2/apis"
 
-instance Core.ToQuery GetApis where
+instance Data.ToQuery GetApis where
   toQuery GetApis' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newGetApisResponse' smart constructor.

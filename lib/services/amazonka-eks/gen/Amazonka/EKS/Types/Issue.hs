@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.Types.Issue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,16 @@
 module Amazonka.EKS.Types.Issue where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EKS.Types.NodegroupIssueCode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object representing an issue with an Amazon EKS resource.
 --
 -- /See:/ 'newIssue' smart constructor.
 data Issue = Issue'
-  { -- | The Amazon Web Services resources that are afflicted by this issue.
-    resourceIds :: Prelude.Maybe [Prelude.Text],
-    -- | A brief description of the error.
+  { -- | A brief description of the error.
     --
     -- -   __AccessDenied__: Amazon EKS or one or more of your managed nodes is
     --     failing to authenticate or authorize with your Kubernetes cluster
@@ -70,7 +69,7 @@ data Issue = Issue'
     --     to be assigned a public IP address, then you need to enable the
     --     @auto-assign public IP address@ setting for the subnet. See
     --     <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-ip-addressing.html#subnet-public-ip Modifying the public IPv4 addressing attribute for your subnet>
-    --     in the Amazon VPC User Guide.
+    --     in the /Amazon VPC User Guide/.
     --
     -- -   __IamInstanceProfileNotFound__: We couldn\'t find the IAM instance
     --     profile for your managed node group. You may be able to recreate an
@@ -95,11 +94,13 @@ data Issue = Issue'
     -- -   __NodeCreationFailure__: Your launched instances are unable to
     --     register with your Amazon EKS cluster. Common causes of this failure
     --     are insufficient
-    --     <https://docs.aws.amazon.com/eks/latest/userguide/worker_node_IAM_role.html node IAM role>
+    --     <https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html node IAM role>
     --     permissions or lack of outbound internet access for the nodes.
     code :: Prelude.Maybe NodegroupIssueCode,
     -- | The error message associated with the issue.
-    message :: Prelude.Maybe Prelude.Text
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Web Services resources that are afflicted by this issue.
+    resourceIds :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -110,8 +111,6 @@ data Issue = Issue'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'resourceIds', 'issue_resourceIds' - The Amazon Web Services resources that are afflicted by this issue.
 --
 -- 'code', 'issue_code' - A brief description of the error.
 --
@@ -153,7 +152,7 @@ data Issue = Issue'
 --     to be assigned a public IP address, then you need to enable the
 --     @auto-assign public IP address@ setting for the subnet. See
 --     <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-ip-addressing.html#subnet-public-ip Modifying the public IPv4 addressing attribute for your subnet>
---     in the Amazon VPC User Guide.
+--     in the /Amazon VPC User Guide/.
 --
 -- -   __IamInstanceProfileNotFound__: We couldn\'t find the IAM instance
 --     profile for your managed node group. You may be able to recreate an
@@ -178,22 +177,20 @@ data Issue = Issue'
 -- -   __NodeCreationFailure__: Your launched instances are unable to
 --     register with your Amazon EKS cluster. Common causes of this failure
 --     are insufficient
---     <https://docs.aws.amazon.com/eks/latest/userguide/worker_node_IAM_role.html node IAM role>
+--     <https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html node IAM role>
 --     permissions or lack of outbound internet access for the nodes.
 --
 -- 'message', 'issue_message' - The error message associated with the issue.
+--
+-- 'resourceIds', 'issue_resourceIds' - The Amazon Web Services resources that are afflicted by this issue.
 newIssue ::
   Issue
 newIssue =
   Issue'
-    { resourceIds = Prelude.Nothing,
-      code = Prelude.Nothing,
-      message = Prelude.Nothing
+    { code = Prelude.Nothing,
+      message = Prelude.Nothing,
+      resourceIds = Prelude.Nothing
     }
-
--- | The Amazon Web Services resources that are afflicted by this issue.
-issue_resourceIds :: Lens.Lens' Issue (Prelude.Maybe [Prelude.Text])
-issue_resourceIds = Lens.lens (\Issue' {resourceIds} -> resourceIds) (\s@Issue' {} a -> s {resourceIds = a} :: Issue) Prelude.. Lens.mapping Lens.coerced
 
 -- | A brief description of the error.
 --
@@ -235,7 +232,7 @@ issue_resourceIds = Lens.lens (\Issue' {resourceIds} -> resourceIds) (\s@Issue' 
 --     to be assigned a public IP address, then you need to enable the
 --     @auto-assign public IP address@ setting for the subnet. See
 --     <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-ip-addressing.html#subnet-public-ip Modifying the public IPv4 addressing attribute for your subnet>
---     in the Amazon VPC User Guide.
+--     in the /Amazon VPC User Guide/.
 --
 -- -   __IamInstanceProfileNotFound__: We couldn\'t find the IAM instance
 --     profile for your managed node group. You may be able to recreate an
@@ -260,7 +257,7 @@ issue_resourceIds = Lens.lens (\Issue' {resourceIds} -> resourceIds) (\s@Issue' 
 -- -   __NodeCreationFailure__: Your launched instances are unable to
 --     register with your Amazon EKS cluster. Common causes of this failure
 --     are insufficient
---     <https://docs.aws.amazon.com/eks/latest/userguide/worker_node_IAM_role.html node IAM role>
+--     <https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html node IAM role>
 --     permissions or lack of outbound internet access for the nodes.
 issue_code :: Lens.Lens' Issue (Prelude.Maybe NodegroupIssueCode)
 issue_code = Lens.lens (\Issue' {code} -> code) (\s@Issue' {} a -> s {code = a} :: Issue)
@@ -269,25 +266,29 @@ issue_code = Lens.lens (\Issue' {code} -> code) (\s@Issue' {} a -> s {code = a} 
 issue_message :: Lens.Lens' Issue (Prelude.Maybe Prelude.Text)
 issue_message = Lens.lens (\Issue' {message} -> message) (\s@Issue' {} a -> s {message = a} :: Issue)
 
-instance Core.FromJSON Issue where
+-- | The Amazon Web Services resources that are afflicted by this issue.
+issue_resourceIds :: Lens.Lens' Issue (Prelude.Maybe [Prelude.Text])
+issue_resourceIds = Lens.lens (\Issue' {resourceIds} -> resourceIds) (\s@Issue' {} a -> s {resourceIds = a} :: Issue) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON Issue where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Issue"
       ( \x ->
           Issue'
-            Prelude.<$> (x Core..:? "resourceIds" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "code")
-            Prelude.<*> (x Core..:? "message")
+            Prelude.<$> (x Data..:? "code")
+            Prelude.<*> (x Data..:? "message")
+            Prelude.<*> (x Data..:? "resourceIds" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable Issue where
   hashWithSalt _salt Issue' {..} =
-    _salt `Prelude.hashWithSalt` resourceIds
-      `Prelude.hashWithSalt` code
+    _salt `Prelude.hashWithSalt` code
       `Prelude.hashWithSalt` message
+      `Prelude.hashWithSalt` resourceIds
 
 instance Prelude.NFData Issue where
   rnf Issue' {..} =
-    Prelude.rnf resourceIds
-      `Prelude.seq` Prelude.rnf code
+    Prelude.rnf code
       `Prelude.seq` Prelude.rnf message
+      `Prelude.seq` Prelude.rnf resourceIds

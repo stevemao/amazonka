@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.BatchDetectSyntax
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,9 @@
 --
 -- Inspects the text of a batch of documents for the syntax and part of
 -- speech of the words in the document and returns information about them.
--- For more information, see how-syntax.
+-- For more information, see
+-- <https://docs.aws.amazon.com/comprehend/latest/dg/how-syntax.html Syntax>
+-- in the Comprehend Developer Guide.
 module Amazonka.Comprehend.BatchDetectSyntax
   ( -- * Creating a Request
     BatchDetectSyntax (..),
@@ -45,17 +47,18 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newBatchDetectSyntax' smart constructor.
 data BatchDetectSyntax = BatchDetectSyntax'
-  { -- | A list containing the text of the input documents. The list can contain
-    -- a maximum of 25 documents. Each document must contain fewer that 5,000
-    -- bytes of UTF-8 encoded characters.
-    textList :: Core.Sensitive [Core.Sensitive Prelude.Text],
+  { -- | A list containing the UTF-8 encoded text of the input documents. The
+    -- list can contain a maximum of 25 documents. The maximum size for each
+    -- document is 5 KB.
+    textList :: Data.Sensitive (Prelude.NonEmpty (Data.Sensitive Prelude.Text)),
     -- | The language of the input documents. You can specify any of the
     -- following languages supported by Amazon Comprehend: German (\"de\"),
     -- English (\"en\"), Spanish (\"es\"), French (\"fr\"), Italian (\"it\"),
@@ -72,29 +75,33 @@ data BatchDetectSyntax = BatchDetectSyntax'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'textList', 'batchDetectSyntax_textList' - A list containing the text of the input documents. The list can contain
--- a maximum of 25 documents. Each document must contain fewer that 5,000
--- bytes of UTF-8 encoded characters.
+-- 'textList', 'batchDetectSyntax_textList' - A list containing the UTF-8 encoded text of the input documents. The
+-- list can contain a maximum of 25 documents. The maximum size for each
+-- document is 5 KB.
 --
 -- 'languageCode', 'batchDetectSyntax_languageCode' - The language of the input documents. You can specify any of the
 -- following languages supported by Amazon Comprehend: German (\"de\"),
 -- English (\"en\"), Spanish (\"es\"), French (\"fr\"), Italian (\"it\"),
 -- or Portuguese (\"pt\"). All documents must be in the same language.
 newBatchDetectSyntax ::
+  -- | 'textList'
+  Prelude.NonEmpty Prelude.Text ->
   -- | 'languageCode'
   SyntaxLanguageCode ->
   BatchDetectSyntax
-newBatchDetectSyntax pLanguageCode_ =
+newBatchDetectSyntax pTextList_ pLanguageCode_ =
   BatchDetectSyntax'
-    { textList = Prelude.mempty,
+    { textList =
+        Data._Sensitive Prelude.. Lens.coerced
+          Lens.# pTextList_,
       languageCode = pLanguageCode_
     }
 
--- | A list containing the text of the input documents. The list can contain
--- a maximum of 25 documents. Each document must contain fewer that 5,000
--- bytes of UTF-8 encoded characters.
-batchDetectSyntax_textList :: Lens.Lens' BatchDetectSyntax [Prelude.Text]
-batchDetectSyntax_textList = Lens.lens (\BatchDetectSyntax' {textList} -> textList) (\s@BatchDetectSyntax' {} a -> s {textList = a} :: BatchDetectSyntax) Prelude.. Core._Sensitive Prelude.. Lens.coerced
+-- | A list containing the UTF-8 encoded text of the input documents. The
+-- list can contain a maximum of 25 documents. The maximum size for each
+-- document is 5 KB.
+batchDetectSyntax_textList :: Lens.Lens' BatchDetectSyntax (Prelude.NonEmpty Prelude.Text)
+batchDetectSyntax_textList = Lens.lens (\BatchDetectSyntax' {textList} -> textList) (\s@BatchDetectSyntax' {} a -> s {textList = a} :: BatchDetectSyntax) Prelude.. Data._Sensitive Prelude.. Lens.coerced
 
 -- | The language of the input documents. You can specify any of the
 -- following languages supported by Amazon Comprehend: German (\"de\"),
@@ -107,14 +114,15 @@ instance Core.AWSRequest BatchDetectSyntax where
   type
     AWSResponse BatchDetectSyntax =
       BatchDetectSyntaxResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchDetectSyntaxResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "ResultList" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "ErrorList" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "ResultList" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "ErrorList" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable BatchDetectSyntax where
@@ -127,34 +135,34 @@ instance Prelude.NFData BatchDetectSyntax where
     Prelude.rnf textList
       `Prelude.seq` Prelude.rnf languageCode
 
-instance Core.ToHeaders BatchDetectSyntax where
+instance Data.ToHeaders BatchDetectSyntax where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.BatchDetectSyntax" ::
+              Data.=# ( "Comprehend_20171127.BatchDetectSyntax" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchDetectSyntax where
+instance Data.ToJSON BatchDetectSyntax where
   toJSON BatchDetectSyntax' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("TextList" Core..= textList),
-            Prelude.Just ("LanguageCode" Core..= languageCode)
+          [ Prelude.Just ("TextList" Data..= textList),
+            Prelude.Just ("LanguageCode" Data..= languageCode)
           ]
       )
 
-instance Core.ToPath BatchDetectSyntax where
+instance Data.ToPath BatchDetectSyntax where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery BatchDetectSyntax where
+instance Data.ToQuery BatchDetectSyntax where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchDetectSyntaxResponse' smart constructor.

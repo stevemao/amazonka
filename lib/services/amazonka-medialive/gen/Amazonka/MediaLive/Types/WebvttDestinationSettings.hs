@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.WebvttDestinationSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.WebvttDestinationSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.WebvttDestinationStyleControl
 import qualified Amazonka.Prelude as Prelude
 
@@ -66,13 +67,13 @@ newWebvttDestinationSettings =
 webvttDestinationSettings_styleControl :: Lens.Lens' WebvttDestinationSettings (Prelude.Maybe WebvttDestinationStyleControl)
 webvttDestinationSettings_styleControl = Lens.lens (\WebvttDestinationSettings' {styleControl} -> styleControl) (\s@WebvttDestinationSettings' {} a -> s {styleControl = a} :: WebvttDestinationSettings)
 
-instance Core.FromJSON WebvttDestinationSettings where
+instance Data.FromJSON WebvttDestinationSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "WebvttDestinationSettings"
       ( \x ->
           WebvttDestinationSettings'
-            Prelude.<$> (x Core..:? "styleControl")
+            Prelude.<$> (x Data..:? "styleControl")
       )
 
 instance Prelude.Hashable WebvttDestinationSettings where
@@ -83,9 +84,9 @@ instance Prelude.NFData WebvttDestinationSettings where
   rnf WebvttDestinationSettings' {..} =
     Prelude.rnf styleControl
 
-instance Core.ToJSON WebvttDestinationSettings where
+instance Data.ToJSON WebvttDestinationSettings where
   toJSON WebvttDestinationSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("styleControl" Core..=) Prelude.<$> styleControl]
+          [("styleControl" Data..=) Prelude.<$> styleControl]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.VoiceId.DescribeFraudsterRegistrationJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.VoiceId.DescribeFraudsterRegistrationJob
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,12 +98,13 @@ instance
   type
     AWSResponse DescribeFraudsterRegistrationJob =
       DescribeFraudsterRegistrationJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeFraudsterRegistrationJobResponse'
-            Prelude.<$> (x Core..?> "Job")
+            Prelude.<$> (x Data..?> "Job")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -125,37 +127,37 @@ instance
       `Prelude.seq` Prelude.rnf jobId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeFraudsterRegistrationJob
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "VoiceID.DescribeFraudsterRegistrationJob" ::
+              Data.=# ( "VoiceID.DescribeFraudsterRegistrationJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeFraudsterRegistrationJob where
+instance Data.ToJSON DescribeFraudsterRegistrationJob where
   toJSON DescribeFraudsterRegistrationJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("DomainId" Core..= domainId),
-            Prelude.Just ("JobId" Core..= jobId)
+          [ Prelude.Just ("DomainId" Data..= domainId),
+            Prelude.Just ("JobId" Data..= jobId)
           ]
       )
 
-instance Core.ToPath DescribeFraudsterRegistrationJob where
+instance Data.ToPath DescribeFraudsterRegistrationJob where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeFraudsterRegistrationJob
   where
   toQuery = Prelude.const Prelude.mempty

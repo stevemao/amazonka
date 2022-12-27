@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ChimeSDKMessaging.ListChannelsAssociatedWithChannelFlow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.ChimeSDKMessaging.ListChannelsAssociatedWithChannelFlow
     newListChannelsAssociatedWithChannelFlow,
 
     -- * Request Lenses
-    listChannelsAssociatedWithChannelFlow_nextToken,
     listChannelsAssociatedWithChannelFlow_maxResults,
+    listChannelsAssociatedWithChannelFlow_nextToken,
     listChannelsAssociatedWithChannelFlow_channelFlowArn,
 
     -- * Destructuring the Response
@@ -46,18 +46,19 @@ where
 
 import Amazonka.ChimeSDKMessaging.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListChannelsAssociatedWithChannelFlow' smart constructor.
 data ListChannelsAssociatedWithChannelFlow = ListChannelsAssociatedWithChannelFlow'
-  { -- | The token passed by previous API calls until all requested channels are
-    -- returned.
-    nextToken :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | The maximum number of channels that you want to return.
+  { -- | The maximum number of channels that you want to return.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token passed by previous API calls until all requested channels are
+    -- returned.
+    nextToken :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The ARN of the channel flow.
     channelFlowArn :: Prelude.Text
   }
@@ -71,10 +72,10 @@ data ListChannelsAssociatedWithChannelFlow = ListChannelsAssociatedWithChannelFl
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listChannelsAssociatedWithChannelFlow_maxResults' - The maximum number of channels that you want to return.
+--
 -- 'nextToken', 'listChannelsAssociatedWithChannelFlow_nextToken' - The token passed by previous API calls until all requested channels are
 -- returned.
---
--- 'maxResults', 'listChannelsAssociatedWithChannelFlow_maxResults' - The maximum number of channels that you want to return.
 --
 -- 'channelFlowArn', 'listChannelsAssociatedWithChannelFlow_channelFlowArn' - The ARN of the channel flow.
 newListChannelsAssociatedWithChannelFlow ::
@@ -84,20 +85,20 @@ newListChannelsAssociatedWithChannelFlow ::
 newListChannelsAssociatedWithChannelFlow
   pChannelFlowArn_ =
     ListChannelsAssociatedWithChannelFlow'
-      { nextToken =
+      { maxResults =
           Prelude.Nothing,
-        maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         channelFlowArn = pChannelFlowArn_
       }
-
--- | The token passed by previous API calls until all requested channels are
--- returned.
-listChannelsAssociatedWithChannelFlow_nextToken :: Lens.Lens' ListChannelsAssociatedWithChannelFlow (Prelude.Maybe Prelude.Text)
-listChannelsAssociatedWithChannelFlow_nextToken = Lens.lens (\ListChannelsAssociatedWithChannelFlow' {nextToken} -> nextToken) (\s@ListChannelsAssociatedWithChannelFlow' {} a -> s {nextToken = a} :: ListChannelsAssociatedWithChannelFlow) Prelude.. Lens.mapping Core._Sensitive
 
 -- | The maximum number of channels that you want to return.
 listChannelsAssociatedWithChannelFlow_maxResults :: Lens.Lens' ListChannelsAssociatedWithChannelFlow (Prelude.Maybe Prelude.Natural)
 listChannelsAssociatedWithChannelFlow_maxResults = Lens.lens (\ListChannelsAssociatedWithChannelFlow' {maxResults} -> maxResults) (\s@ListChannelsAssociatedWithChannelFlow' {} a -> s {maxResults = a} :: ListChannelsAssociatedWithChannelFlow)
+
+-- | The token passed by previous API calls until all requested channels are
+-- returned.
+listChannelsAssociatedWithChannelFlow_nextToken :: Lens.Lens' ListChannelsAssociatedWithChannelFlow (Prelude.Maybe Prelude.Text)
+listChannelsAssociatedWithChannelFlow_nextToken = Lens.lens (\ListChannelsAssociatedWithChannelFlow' {nextToken} -> nextToken) (\s@ListChannelsAssociatedWithChannelFlow' {} a -> s {nextToken = a} :: ListChannelsAssociatedWithChannelFlow) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The ARN of the channel flow.
 listChannelsAssociatedWithChannelFlow_channelFlowArn :: Lens.Lens' ListChannelsAssociatedWithChannelFlow Prelude.Text
@@ -111,13 +112,14 @@ instance
     AWSResponse
       ListChannelsAssociatedWithChannelFlow =
       ListChannelsAssociatedWithChannelFlowResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListChannelsAssociatedWithChannelFlowResponse'
-            Prelude.<$> (x Core..?> "Channels" Core..!@ Prelude.mempty)
-              Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Channels" Core..!@ Prelude.mempty)
+              Prelude.<*> (x Data..?> "NextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -128,8 +130,8 @@ instance
   hashWithSalt
     _salt
     ListChannelsAssociatedWithChannelFlow' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` channelFlowArn
 
 instance
@@ -137,31 +139,31 @@ instance
     ListChannelsAssociatedWithChannelFlow
   where
   rnf ListChannelsAssociatedWithChannelFlow' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf channelFlowArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListChannelsAssociatedWithChannelFlow
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     ListChannelsAssociatedWithChannelFlow
   where
   toPath = Prelude.const "/channels"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ListChannelsAssociatedWithChannelFlow
   where
   toQuery ListChannelsAssociatedWithChannelFlow' {..} =
     Prelude.mconcat
-      [ "next-token" Core.=: nextToken,
-        "max-results" Core.=: maxResults,
-        "channel-flow-arn" Core.=: channelFlowArn,
+      [ "max-results" Data.=: maxResults,
+        "next-token" Data.=: nextToken,
+        "channel-flow-arn" Data.=: channelFlowArn,
         "scope=channel-flow-associations"
       ]
 
@@ -171,7 +173,7 @@ data ListChannelsAssociatedWithChannelFlowResponse = ListChannelsAssociatedWithC
     channels :: Prelude.Maybe [ChannelAssociatedWithFlowSummary],
     -- | The token passed by previous API calls until all requested channels are
     -- returned.
-    nextToken :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    nextToken :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -211,7 +213,7 @@ listChannelsAssociatedWithChannelFlowResponse_channels = Lens.lens (\ListChannel
 -- | The token passed by previous API calls until all requested channels are
 -- returned.
 listChannelsAssociatedWithChannelFlowResponse_nextToken :: Lens.Lens' ListChannelsAssociatedWithChannelFlowResponse (Prelude.Maybe Prelude.Text)
-listChannelsAssociatedWithChannelFlowResponse_nextToken = Lens.lens (\ListChannelsAssociatedWithChannelFlowResponse' {nextToken} -> nextToken) (\s@ListChannelsAssociatedWithChannelFlowResponse' {} a -> s {nextToken = a} :: ListChannelsAssociatedWithChannelFlowResponse) Prelude.. Lens.mapping Core._Sensitive
+listChannelsAssociatedWithChannelFlowResponse_nextToken = Lens.lens (\ListChannelsAssociatedWithChannelFlowResponse' {nextToken} -> nextToken) (\s@ListChannelsAssociatedWithChannelFlowResponse' {} a -> s {nextToken = a} :: ListChannelsAssociatedWithChannelFlowResponse) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The response's http status code.
 listChannelsAssociatedWithChannelFlowResponse_httpStatus :: Lens.Lens' ListChannelsAssociatedWithChannelFlowResponse Prelude.Int

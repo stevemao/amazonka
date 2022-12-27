@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.ListJobsSortCriteria
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.ListJobsSortCriteria where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types.ListJobsSortAttributeName
 import Amazonka.MacieV2.Types.OrderBy
 import qualified Amazonka.Prelude as Prelude
@@ -30,13 +31,13 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newListJobsSortCriteria' smart constructor.
 data ListJobsSortCriteria = ListJobsSortCriteria'
-  { -- | The sort order to apply to the results, based on the value for the
+  { -- | The property to sort the results by.
+    attributeName :: Prelude.Maybe ListJobsSortAttributeName,
+    -- | The sort order to apply to the results, based on the value for the
     -- property specified by the attributeName property. Valid values are: ASC,
     -- sort the results in ascending order; and, DESC, sort the results in
     -- descending order.
-    orderBy :: Prelude.Maybe OrderBy,
-    -- | The property to sort the results by.
-    attributeName :: Prelude.Maybe ListJobsSortAttributeName
+    orderBy :: Prelude.Maybe OrderBy
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,19 +49,24 @@ data ListJobsSortCriteria = ListJobsSortCriteria'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'attributeName', 'listJobsSortCriteria_attributeName' - The property to sort the results by.
+--
 -- 'orderBy', 'listJobsSortCriteria_orderBy' - The sort order to apply to the results, based on the value for the
 -- property specified by the attributeName property. Valid values are: ASC,
 -- sort the results in ascending order; and, DESC, sort the results in
 -- descending order.
---
--- 'attributeName', 'listJobsSortCriteria_attributeName' - The property to sort the results by.
 newListJobsSortCriteria ::
   ListJobsSortCriteria
 newListJobsSortCriteria =
   ListJobsSortCriteria'
-    { orderBy = Prelude.Nothing,
-      attributeName = Prelude.Nothing
+    { attributeName =
+        Prelude.Nothing,
+      orderBy = Prelude.Nothing
     }
+
+-- | The property to sort the results by.
+listJobsSortCriteria_attributeName :: Lens.Lens' ListJobsSortCriteria (Prelude.Maybe ListJobsSortAttributeName)
+listJobsSortCriteria_attributeName = Lens.lens (\ListJobsSortCriteria' {attributeName} -> attributeName) (\s@ListJobsSortCriteria' {} a -> s {attributeName = a} :: ListJobsSortCriteria)
 
 -- | The sort order to apply to the results, based on the value for the
 -- property specified by the attributeName property. Valid values are: ASC,
@@ -69,25 +75,21 @@ newListJobsSortCriteria =
 listJobsSortCriteria_orderBy :: Lens.Lens' ListJobsSortCriteria (Prelude.Maybe OrderBy)
 listJobsSortCriteria_orderBy = Lens.lens (\ListJobsSortCriteria' {orderBy} -> orderBy) (\s@ListJobsSortCriteria' {} a -> s {orderBy = a} :: ListJobsSortCriteria)
 
--- | The property to sort the results by.
-listJobsSortCriteria_attributeName :: Lens.Lens' ListJobsSortCriteria (Prelude.Maybe ListJobsSortAttributeName)
-listJobsSortCriteria_attributeName = Lens.lens (\ListJobsSortCriteria' {attributeName} -> attributeName) (\s@ListJobsSortCriteria' {} a -> s {attributeName = a} :: ListJobsSortCriteria)
-
 instance Prelude.Hashable ListJobsSortCriteria where
   hashWithSalt _salt ListJobsSortCriteria' {..} =
-    _salt `Prelude.hashWithSalt` orderBy
-      `Prelude.hashWithSalt` attributeName
+    _salt `Prelude.hashWithSalt` attributeName
+      `Prelude.hashWithSalt` orderBy
 
 instance Prelude.NFData ListJobsSortCriteria where
   rnf ListJobsSortCriteria' {..} =
-    Prelude.rnf orderBy
-      `Prelude.seq` Prelude.rnf attributeName
+    Prelude.rnf attributeName
+      `Prelude.seq` Prelude.rnf orderBy
 
-instance Core.ToJSON ListJobsSortCriteria where
+instance Data.ToJSON ListJobsSortCriteria where
   toJSON ListJobsSortCriteria' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("orderBy" Core..=) Prelude.<$> orderBy,
-            ("attributeName" Core..=) Prelude.<$> attributeName
+          [ ("attributeName" Data..=) Prelude.<$> attributeName,
+            ("orderBy" Data..=) Prelude.<$> orderBy
           ]
       )

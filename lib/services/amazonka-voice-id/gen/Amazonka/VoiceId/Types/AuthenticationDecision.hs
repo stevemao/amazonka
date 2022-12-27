@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.VoiceId.Types.AuthenticationDecision
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,6 +23,7 @@ module Amazonka.VoiceId.Types.AuthenticationDecision
         AuthenticationDecision_ACCEPT,
         AuthenticationDecision_NOT_ENOUGH_SPEECH,
         AuthenticationDecision_REJECT,
+        AuthenticationDecision_SPEAKER_EXPIRED,
         AuthenticationDecision_SPEAKER_ID_NOT_PROVIDED,
         AuthenticationDecision_SPEAKER_NOT_ENROLLED,
         AuthenticationDecision_SPEAKER_OPTED_OUT
@@ -31,11 +32,12 @@ module Amazonka.VoiceId.Types.AuthenticationDecision
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype AuthenticationDecision = AuthenticationDecision'
   { fromAuthenticationDecision ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -47,18 +49,18 @@ newtype AuthenticationDecision = AuthenticationDecision'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern AuthenticationDecision_ACCEPT :: AuthenticationDecision
@@ -69,6 +71,9 @@ pattern AuthenticationDecision_NOT_ENOUGH_SPEECH = AuthenticationDecision' "NOT_
 
 pattern AuthenticationDecision_REJECT :: AuthenticationDecision
 pattern AuthenticationDecision_REJECT = AuthenticationDecision' "REJECT"
+
+pattern AuthenticationDecision_SPEAKER_EXPIRED :: AuthenticationDecision
+pattern AuthenticationDecision_SPEAKER_EXPIRED = AuthenticationDecision' "SPEAKER_EXPIRED"
 
 pattern AuthenticationDecision_SPEAKER_ID_NOT_PROVIDED :: AuthenticationDecision
 pattern AuthenticationDecision_SPEAKER_ID_NOT_PROVIDED = AuthenticationDecision' "SPEAKER_ID_NOT_PROVIDED"
@@ -83,6 +88,7 @@ pattern AuthenticationDecision_SPEAKER_OPTED_OUT = AuthenticationDecision' "SPEA
   AuthenticationDecision_ACCEPT,
   AuthenticationDecision_NOT_ENOUGH_SPEECH,
   AuthenticationDecision_REJECT,
+  AuthenticationDecision_SPEAKER_EXPIRED,
   AuthenticationDecision_SPEAKER_ID_NOT_PROVIDED,
   AuthenticationDecision_SPEAKER_NOT_ENROLLED,
   AuthenticationDecision_SPEAKER_OPTED_OUT,

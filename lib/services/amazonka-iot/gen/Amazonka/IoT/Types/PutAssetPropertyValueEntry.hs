@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.PutAssetPropertyValueEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,20 @@
 module Amazonka.IoT.Types.PutAssetPropertyValueEntry where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.AssetPropertyValue
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An asset property value entry containing the following information.
 --
 -- /See:/ 'newPutAssetPropertyValueEntry' smart constructor.
 data PutAssetPropertyValueEntry = PutAssetPropertyValueEntry'
-  { -- | Optional. A unique identifier for this entry that you can define to
+  { -- | The ID of the IoT SiteWise asset. You must specify either a
+    -- @propertyAlias@ or both an @aliasId@ and a @propertyId@. Accepts
+    -- substitution templates.
+    assetId :: Prelude.Maybe Prelude.Text,
+    -- | Optional. A unique identifier for this entry that you can define to
     -- better track which message caused an error in case of failure. Accepts
     -- substitution templates. Defaults to a new UUID.
     entryId :: Prelude.Maybe Prelude.Text,
@@ -40,10 +45,6 @@ data PutAssetPropertyValueEntry = PutAssetPropertyValueEntry'
     -- @propertyAlias@ or both an @aliasId@ and a @propertyId@. Accepts
     -- substitution templates.
     propertyId :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the IoT SiteWise asset. You must specify either a
-    -- @propertyAlias@ or both an @aliasId@ and a @propertyId@. Accepts
-    -- substitution templates.
-    assetId :: Prelude.Maybe Prelude.Text,
     -- | A list of property values to insert that each contain timestamp,
     -- quality, and value (TQV) information.
     propertyValues :: Prelude.NonEmpty AssetPropertyValue
@@ -58,6 +59,10 @@ data PutAssetPropertyValueEntry = PutAssetPropertyValueEntry'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'assetId', 'putAssetPropertyValueEntry_assetId' - The ID of the IoT SiteWise asset. You must specify either a
+-- @propertyAlias@ or both an @aliasId@ and a @propertyId@. Accepts
+-- substitution templates.
+--
 -- 'entryId', 'putAssetPropertyValueEntry_entryId' - Optional. A unique identifier for this entry that you can define to
 -- better track which message caused an error in case of failure. Accepts
 -- substitution templates. Defaults to a new UUID.
@@ -70,10 +75,6 @@ data PutAssetPropertyValueEntry = PutAssetPropertyValueEntry'
 -- @propertyAlias@ or both an @aliasId@ and a @propertyId@. Accepts
 -- substitution templates.
 --
--- 'assetId', 'putAssetPropertyValueEntry_assetId' - The ID of the IoT SiteWise asset. You must specify either a
--- @propertyAlias@ or both an @aliasId@ and a @propertyId@. Accepts
--- substitution templates.
---
 -- 'propertyValues', 'putAssetPropertyValueEntry_propertyValues' - A list of property values to insert that each contain timestamp,
 -- quality, and value (TQV) information.
 newPutAssetPropertyValueEntry ::
@@ -82,14 +83,20 @@ newPutAssetPropertyValueEntry ::
   PutAssetPropertyValueEntry
 newPutAssetPropertyValueEntry pPropertyValues_ =
   PutAssetPropertyValueEntry'
-    { entryId =
+    { assetId =
         Prelude.Nothing,
+      entryId = Prelude.Nothing,
       propertyAlias = Prelude.Nothing,
       propertyId = Prelude.Nothing,
-      assetId = Prelude.Nothing,
       propertyValues =
         Lens.coerced Lens.# pPropertyValues_
     }
+
+-- | The ID of the IoT SiteWise asset. You must specify either a
+-- @propertyAlias@ or both an @aliasId@ and a @propertyId@. Accepts
+-- substitution templates.
+putAssetPropertyValueEntry_assetId :: Lens.Lens' PutAssetPropertyValueEntry (Prelude.Maybe Prelude.Text)
+putAssetPropertyValueEntry_assetId = Lens.lens (\PutAssetPropertyValueEntry' {assetId} -> assetId) (\s@PutAssetPropertyValueEntry' {} a -> s {assetId = a} :: PutAssetPropertyValueEntry)
 
 -- | Optional. A unique identifier for this entry that you can define to
 -- better track which message caused an error in case of failure. Accepts
@@ -109,55 +116,49 @@ putAssetPropertyValueEntry_propertyAlias = Lens.lens (\PutAssetPropertyValueEntr
 putAssetPropertyValueEntry_propertyId :: Lens.Lens' PutAssetPropertyValueEntry (Prelude.Maybe Prelude.Text)
 putAssetPropertyValueEntry_propertyId = Lens.lens (\PutAssetPropertyValueEntry' {propertyId} -> propertyId) (\s@PutAssetPropertyValueEntry' {} a -> s {propertyId = a} :: PutAssetPropertyValueEntry)
 
--- | The ID of the IoT SiteWise asset. You must specify either a
--- @propertyAlias@ or both an @aliasId@ and a @propertyId@. Accepts
--- substitution templates.
-putAssetPropertyValueEntry_assetId :: Lens.Lens' PutAssetPropertyValueEntry (Prelude.Maybe Prelude.Text)
-putAssetPropertyValueEntry_assetId = Lens.lens (\PutAssetPropertyValueEntry' {assetId} -> assetId) (\s@PutAssetPropertyValueEntry' {} a -> s {assetId = a} :: PutAssetPropertyValueEntry)
-
 -- | A list of property values to insert that each contain timestamp,
 -- quality, and value (TQV) information.
 putAssetPropertyValueEntry_propertyValues :: Lens.Lens' PutAssetPropertyValueEntry (Prelude.NonEmpty AssetPropertyValue)
 putAssetPropertyValueEntry_propertyValues = Lens.lens (\PutAssetPropertyValueEntry' {propertyValues} -> propertyValues) (\s@PutAssetPropertyValueEntry' {} a -> s {propertyValues = a} :: PutAssetPropertyValueEntry) Prelude.. Lens.coerced
 
-instance Core.FromJSON PutAssetPropertyValueEntry where
+instance Data.FromJSON PutAssetPropertyValueEntry where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PutAssetPropertyValueEntry"
       ( \x ->
           PutAssetPropertyValueEntry'
-            Prelude.<$> (x Core..:? "entryId")
-            Prelude.<*> (x Core..:? "propertyAlias")
-            Prelude.<*> (x Core..:? "propertyId")
-            Prelude.<*> (x Core..:? "assetId")
-            Prelude.<*> (x Core..: "propertyValues")
+            Prelude.<$> (x Data..:? "assetId")
+            Prelude.<*> (x Data..:? "entryId")
+            Prelude.<*> (x Data..:? "propertyAlias")
+            Prelude.<*> (x Data..:? "propertyId")
+            Prelude.<*> (x Data..: "propertyValues")
       )
 
 instance Prelude.Hashable PutAssetPropertyValueEntry where
   hashWithSalt _salt PutAssetPropertyValueEntry' {..} =
-    _salt `Prelude.hashWithSalt` entryId
+    _salt `Prelude.hashWithSalt` assetId
+      `Prelude.hashWithSalt` entryId
       `Prelude.hashWithSalt` propertyAlias
       `Prelude.hashWithSalt` propertyId
-      `Prelude.hashWithSalt` assetId
       `Prelude.hashWithSalt` propertyValues
 
 instance Prelude.NFData PutAssetPropertyValueEntry where
   rnf PutAssetPropertyValueEntry' {..} =
-    Prelude.rnf entryId
+    Prelude.rnf assetId
+      `Prelude.seq` Prelude.rnf entryId
       `Prelude.seq` Prelude.rnf propertyAlias
       `Prelude.seq` Prelude.rnf propertyId
-      `Prelude.seq` Prelude.rnf assetId
       `Prelude.seq` Prelude.rnf propertyValues
 
-instance Core.ToJSON PutAssetPropertyValueEntry where
+instance Data.ToJSON PutAssetPropertyValueEntry where
   toJSON PutAssetPropertyValueEntry' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("entryId" Core..=) Prelude.<$> entryId,
-            ("propertyAlias" Core..=) Prelude.<$> propertyAlias,
-            ("propertyId" Core..=) Prelude.<$> propertyId,
-            ("assetId" Core..=) Prelude.<$> assetId,
+          [ ("assetId" Data..=) Prelude.<$> assetId,
+            ("entryId" Data..=) Prelude.<$> entryId,
+            ("propertyAlias" Data..=) Prelude.<$> propertyAlias,
+            ("propertyId" Data..=) Prelude.<$> propertyId,
             Prelude.Just
-              ("propertyValues" Core..= propertyValues)
+              ("propertyValues" Data..= propertyValues)
           ]
       )

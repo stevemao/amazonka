@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SnowDeviceManagement.ListTasks
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,23 +29,24 @@ module Amazonka.SnowDeviceManagement.ListTasks
     newListTasks,
 
     -- * Request Lenses
-    listTasks_state,
-    listTasks_nextToken,
     listTasks_maxResults,
+    listTasks_nextToken,
+    listTasks_state,
 
     -- * Destructuring the Response
     ListTasksResponse (..),
     newListTasksResponse,
 
     -- * Response Lenses
-    listTasksResponse_tasks,
     listTasksResponse_nextToken,
+    listTasksResponse_tasks,
     listTasksResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,12 +54,12 @@ import Amazonka.SnowDeviceManagement.Types
 
 -- | /See:/ 'newListTasks' smart constructor.
 data ListTasks = ListTasks'
-  { -- | A structure used to filter the list of tasks.
-    state :: Prelude.Maybe TaskState,
+  { -- | The maximum number of tasks per page.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | A pagination token to continue to the next page of tasks.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of tasks per page.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    -- | A structure used to filter the list of tasks.
+    state :: Prelude.Maybe TaskState
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -70,31 +71,31 @@ data ListTasks = ListTasks'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'state', 'listTasks_state' - A structure used to filter the list of tasks.
+-- 'maxResults', 'listTasks_maxResults' - The maximum number of tasks per page.
 --
 -- 'nextToken', 'listTasks_nextToken' - A pagination token to continue to the next page of tasks.
 --
--- 'maxResults', 'listTasks_maxResults' - The maximum number of tasks per page.
+-- 'state', 'listTasks_state' - A structure used to filter the list of tasks.
 newListTasks ::
   ListTasks
 newListTasks =
   ListTasks'
-    { state = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      state = Prelude.Nothing
     }
 
--- | A structure used to filter the list of tasks.
-listTasks_state :: Lens.Lens' ListTasks (Prelude.Maybe TaskState)
-listTasks_state = Lens.lens (\ListTasks' {state} -> state) (\s@ListTasks' {} a -> s {state = a} :: ListTasks)
+-- | The maximum number of tasks per page.
+listTasks_maxResults :: Lens.Lens' ListTasks (Prelude.Maybe Prelude.Natural)
+listTasks_maxResults = Lens.lens (\ListTasks' {maxResults} -> maxResults) (\s@ListTasks' {} a -> s {maxResults = a} :: ListTasks)
 
 -- | A pagination token to continue to the next page of tasks.
 listTasks_nextToken :: Lens.Lens' ListTasks (Prelude.Maybe Prelude.Text)
 listTasks_nextToken = Lens.lens (\ListTasks' {nextToken} -> nextToken) (\s@ListTasks' {} a -> s {nextToken = a} :: ListTasks)
 
--- | The maximum number of tasks per page.
-listTasks_maxResults :: Lens.Lens' ListTasks (Prelude.Maybe Prelude.Natural)
-listTasks_maxResults = Lens.lens (\ListTasks' {maxResults} -> maxResults) (\s@ListTasks' {} a -> s {maxResults = a} :: ListTasks)
+-- | A structure used to filter the list of tasks.
+listTasks_state :: Lens.Lens' ListTasks (Prelude.Maybe TaskState)
+listTasks_state = Lens.lens (\ListTasks' {state} -> state) (\s@ListTasks' {} a -> s {state = a} :: ListTasks)
 
 instance Core.AWSPager ListTasks where
   page rq rs
@@ -117,56 +118,57 @@ instance Core.AWSPager ListTasks where
 
 instance Core.AWSRequest ListTasks where
   type AWSResponse ListTasks = ListTasksResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTasksResponse'
-            Prelude.<$> (x Core..?> "tasks" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "tasks" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListTasks where
   hashWithSalt _salt ListTasks' {..} =
-    _salt `Prelude.hashWithSalt` state
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` state
 
 instance Prelude.NFData ListTasks where
   rnf ListTasks' {..} =
-    Prelude.rnf state
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf state
 
-instance Core.ToHeaders ListTasks where
+instance Data.ToHeaders ListTasks where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListTasks where
+instance Data.ToPath ListTasks where
   toPath = Prelude.const "/tasks"
 
-instance Core.ToQuery ListTasks where
+instance Data.ToQuery ListTasks where
   toQuery ListTasks' {..} =
     Prelude.mconcat
-      [ "state" Core.=: state,
-        "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "state" Data.=: state
       ]
 
 -- | /See:/ 'newListTasksResponse' smart constructor.
 data ListTasksResponse = ListTasksResponse'
-  { -- | A list of task structures containing details about each task.
-    tasks :: Prelude.Maybe [TaskSummary],
-    -- | A pagination token to continue to the next page of tasks.
+  { -- | A pagination token to continue to the next page of tasks.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of task structures containing details about each task.
+    tasks :: Prelude.Maybe [TaskSummary],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -180,9 +182,9 @@ data ListTasksResponse = ListTasksResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tasks', 'listTasksResponse_tasks' - A list of task structures containing details about each task.
---
 -- 'nextToken', 'listTasksResponse_nextToken' - A pagination token to continue to the next page of tasks.
+--
+-- 'tasks', 'listTasksResponse_tasks' - A list of task structures containing details about each task.
 --
 -- 'httpStatus', 'listTasksResponse_httpStatus' - The response's http status code.
 newListTasksResponse ::
@@ -191,18 +193,18 @@ newListTasksResponse ::
   ListTasksResponse
 newListTasksResponse pHttpStatus_ =
   ListTasksResponse'
-    { tasks = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { nextToken = Prelude.Nothing,
+      tasks = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A list of task structures containing details about each task.
-listTasksResponse_tasks :: Lens.Lens' ListTasksResponse (Prelude.Maybe [TaskSummary])
-listTasksResponse_tasks = Lens.lens (\ListTasksResponse' {tasks} -> tasks) (\s@ListTasksResponse' {} a -> s {tasks = a} :: ListTasksResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A pagination token to continue to the next page of tasks.
 listTasksResponse_nextToken :: Lens.Lens' ListTasksResponse (Prelude.Maybe Prelude.Text)
 listTasksResponse_nextToken = Lens.lens (\ListTasksResponse' {nextToken} -> nextToken) (\s@ListTasksResponse' {} a -> s {nextToken = a} :: ListTasksResponse)
+
+-- | A list of task structures containing details about each task.
+listTasksResponse_tasks :: Lens.Lens' ListTasksResponse (Prelude.Maybe [TaskSummary])
+listTasksResponse_tasks = Lens.lens (\ListTasksResponse' {tasks} -> tasks) (\s@ListTasksResponse' {} a -> s {tasks = a} :: ListTasksResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listTasksResponse_httpStatus :: Lens.Lens' ListTasksResponse Prelude.Int
@@ -210,6 +212,6 @@ listTasksResponse_httpStatus = Lens.lens (\ListTasksResponse' {httpStatus} -> ht
 
 instance Prelude.NFData ListTasksResponse where
   rnf ListTasksResponse' {..} =
-    Prelude.rnf tasks
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf tasks
       `Prelude.seq` Prelude.rnf httpStatus

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Snowball.ListJobs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,8 +34,8 @@ module Amazonka.Snowball.ListJobs
     newListJobs,
 
     -- * Request Lenses
-    listJobs_nextToken,
     listJobs_maxResults,
+    listJobs_nextToken,
 
     -- * Destructuring the Response
     ListJobsResponse (..),
@@ -49,7 +49,8 @@ module Amazonka.Snowball.ListJobs
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,12 +58,12 @@ import Amazonka.Snowball.Types
 
 -- | /See:/ 'newListJobs' smart constructor.
 data ListJobs = ListJobs'
-  { -- | HTTP requests are stateless. To identify what object comes \"next\" in
+  { -- | The number of @JobListEntry@ objects to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | HTTP requests are stateless. To identify what object comes \"next\" in
     -- the list of @JobListEntry@ objects, you have the option of specifying
     -- @NextToken@ as the starting point for your returned list.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The number of @JobListEntry@ objects to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -74,28 +75,28 @@ data ListJobs = ListJobs'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listJobs_maxResults' - The number of @JobListEntry@ objects to return.
+--
 -- 'nextToken', 'listJobs_nextToken' - HTTP requests are stateless. To identify what object comes \"next\" in
 -- the list of @JobListEntry@ objects, you have the option of specifying
 -- @NextToken@ as the starting point for your returned list.
---
--- 'maxResults', 'listJobs_maxResults' - The number of @JobListEntry@ objects to return.
 newListJobs ::
   ListJobs
 newListJobs =
   ListJobs'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The number of @JobListEntry@ objects to return.
+listJobs_maxResults :: Lens.Lens' ListJobs (Prelude.Maybe Prelude.Natural)
+listJobs_maxResults = Lens.lens (\ListJobs' {maxResults} -> maxResults) (\s@ListJobs' {} a -> s {maxResults = a} :: ListJobs)
 
 -- | HTTP requests are stateless. To identify what object comes \"next\" in
 -- the list of @JobListEntry@ objects, you have the option of specifying
 -- @NextToken@ as the starting point for your returned list.
 listJobs_nextToken :: Lens.Lens' ListJobs (Prelude.Maybe Prelude.Text)
 listJobs_nextToken = Lens.lens (\ListJobs' {nextToken} -> nextToken) (\s@ListJobs' {} a -> s {nextToken = a} :: ListJobs)
-
--- | The number of @JobListEntry@ objects to return.
-listJobs_maxResults :: Lens.Lens' ListJobs (Prelude.Maybe Prelude.Natural)
-listJobs_maxResults = Lens.lens (\ListJobs' {maxResults} -> maxResults) (\s@ListJobs' {} a -> s {maxResults = a} :: ListJobs)
 
 instance Core.AWSPager ListJobs where
   page rq rs
@@ -118,54 +119,55 @@ instance Core.AWSPager ListJobs where
 
 instance Core.AWSRequest ListJobs where
   type AWSResponse ListJobs = ListJobsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListJobsResponse'
-            Prelude.<$> (x Core..?> "JobListEntries" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "JobListEntries" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListJobs where
   hashWithSalt _salt ListJobs' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListJobs where
   rnf ListJobs' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListJobs where
+instance Data.ToHeaders ListJobs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSIESnowballJobManagementService.ListJobs" ::
+              Data.=# ( "AWSIESnowballJobManagementService.ListJobs" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListJobs where
+instance Data.ToJSON ListJobs where
   toJSON ListJobs' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListJobs where
+instance Data.ToPath ListJobs where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListJobs where
+instance Data.ToQuery ListJobs where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListJobsResponse' smart constructor.

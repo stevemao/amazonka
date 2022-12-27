@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.RevokeCacheSecurityGroupIngress
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.ElastiCache.RevokeCacheSecurityGroupIngress
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -122,13 +123,14 @@ instance
   type
     AWSResponse RevokeCacheSecurityGroupIngress =
       RevokeCacheSecurityGroupIngressResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "RevokeCacheSecurityGroupIngressResult"
       ( \s h x ->
           RevokeCacheSecurityGroupIngressResponse'
-            Prelude.<$> (x Core..@? "CacheSecurityGroup")
+            Prelude.<$> (x Data..@? "CacheSecurityGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -153,28 +155,28 @@ instance
       `Prelude.seq` Prelude.rnf eC2SecurityGroupOwnerId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     RevokeCacheSecurityGroupIngress
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath RevokeCacheSecurityGroupIngress where
+instance Data.ToPath RevokeCacheSecurityGroupIngress where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RevokeCacheSecurityGroupIngress where
+instance Data.ToQuery RevokeCacheSecurityGroupIngress where
   toQuery RevokeCacheSecurityGroupIngress' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "RevokeCacheSecurityGroupIngress" ::
+          Data.=: ( "RevokeCacheSecurityGroupIngress" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
         "CacheSecurityGroupName"
-          Core.=: cacheSecurityGroupName,
-        "EC2SecurityGroupName" Core.=: eC2SecurityGroupName,
+          Data.=: cacheSecurityGroupName,
+        "EC2SecurityGroupName" Data.=: eC2SecurityGroupName,
         "EC2SecurityGroupOwnerId"
-          Core.=: eC2SecurityGroupOwnerId
+          Data.=: eC2SecurityGroupOwnerId
       ]
 
 -- | /See:/ 'newRevokeCacheSecurityGroupIngressResponse' smart constructor.

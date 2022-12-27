@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.ListIdentityPolicies
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -53,7 +53,8 @@ module Amazonka.SES.ListIdentityPolicies
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -114,15 +115,16 @@ instance Core.AWSRequest ListIdentityPolicies where
   type
     AWSResponse ListIdentityPolicies =
       ListIdentityPoliciesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListIdentityPoliciesResult"
       ( \s h x ->
           ListIdentityPoliciesResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..@? "PolicyNames" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.parseXMLList "member"
+            Prelude.<*> ( x Data..@? "PolicyNames" Core..!@ Prelude.mempty
+                            Prelude.>>= Data.parseXMLList "member"
                         )
       )
 
@@ -133,20 +135,20 @@ instance Prelude.Hashable ListIdentityPolicies where
 instance Prelude.NFData ListIdentityPolicies where
   rnf ListIdentityPolicies' {..} = Prelude.rnf identity
 
-instance Core.ToHeaders ListIdentityPolicies where
+instance Data.ToHeaders ListIdentityPolicies where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListIdentityPolicies where
+instance Data.ToPath ListIdentityPolicies where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListIdentityPolicies where
+instance Data.ToQuery ListIdentityPolicies where
   toQuery ListIdentityPolicies' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ListIdentityPolicies" :: Prelude.ByteString),
+          Data.=: ("ListIdentityPolicies" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "Identity" Core.=: identity
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "Identity" Data.=: identity
       ]
 
 -- | A list of names of sending authorization policies that apply to an

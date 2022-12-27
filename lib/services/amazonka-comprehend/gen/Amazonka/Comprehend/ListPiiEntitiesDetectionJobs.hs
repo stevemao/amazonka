@@ -14,22 +14,24 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.ListPiiEntitiesDetectionJobs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Gets a list of the PII entity detection jobs that you have submitted.
+--
+-- This operation returns paginated results.
 module Amazonka.Comprehend.ListPiiEntitiesDetectionJobs
   ( -- * Creating a Request
     ListPiiEntitiesDetectionJobs (..),
     newListPiiEntitiesDetectionJobs,
 
     -- * Request Lenses
-    listPiiEntitiesDetectionJobs_nextToken,
     listPiiEntitiesDetectionJobs_filter,
     listPiiEntitiesDetectionJobs_maxResults,
+    listPiiEntitiesDetectionJobs_nextToken,
 
     -- * Destructuring the Response
     ListPiiEntitiesDetectionJobsResponse (..),
@@ -44,21 +46,22 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListPiiEntitiesDetectionJobs' smart constructor.
 data ListPiiEntitiesDetectionJobs = ListPiiEntitiesDetectionJobs'
-  { -- | Identifies the next page of results to return.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Filters the jobs that are returned. You can filter jobs on their name,
+  { -- | Filters the jobs that are returned. You can filter jobs on their name,
     -- status, or the date and time that they were submitted. You can only set
     -- one filter at a time.
     filter' :: Prelude.Maybe PiiEntitiesDetectionJobFilter,
     -- | The maximum number of results to return in each page.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Identifies the next page of results to return.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -70,26 +73,22 @@ data ListPiiEntitiesDetectionJobs = ListPiiEntitiesDetectionJobs'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listPiiEntitiesDetectionJobs_nextToken' - Identifies the next page of results to return.
---
 -- 'filter'', 'listPiiEntitiesDetectionJobs_filter' - Filters the jobs that are returned. You can filter jobs on their name,
 -- status, or the date and time that they were submitted. You can only set
 -- one filter at a time.
 --
 -- 'maxResults', 'listPiiEntitiesDetectionJobs_maxResults' - The maximum number of results to return in each page.
+--
+-- 'nextToken', 'listPiiEntitiesDetectionJobs_nextToken' - Identifies the next page of results to return.
 newListPiiEntitiesDetectionJobs ::
   ListPiiEntitiesDetectionJobs
 newListPiiEntitiesDetectionJobs =
   ListPiiEntitiesDetectionJobs'
-    { nextToken =
+    { filter' =
         Prelude.Nothing,
-      filter' = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | Identifies the next page of results to return.
-listPiiEntitiesDetectionJobs_nextToken :: Lens.Lens' ListPiiEntitiesDetectionJobs (Prelude.Maybe Prelude.Text)
-listPiiEntitiesDetectionJobs_nextToken = Lens.lens (\ListPiiEntitiesDetectionJobs' {nextToken} -> nextToken) (\s@ListPiiEntitiesDetectionJobs' {} a -> s {nextToken = a} :: ListPiiEntitiesDetectionJobs)
 
 -- | Filters the jobs that are returned. You can filter jobs on their name,
 -- status, or the date and time that they were submitted. You can only set
@@ -101,17 +100,44 @@ listPiiEntitiesDetectionJobs_filter = Lens.lens (\ListPiiEntitiesDetectionJobs' 
 listPiiEntitiesDetectionJobs_maxResults :: Lens.Lens' ListPiiEntitiesDetectionJobs (Prelude.Maybe Prelude.Natural)
 listPiiEntitiesDetectionJobs_maxResults = Lens.lens (\ListPiiEntitiesDetectionJobs' {maxResults} -> maxResults) (\s@ListPiiEntitiesDetectionJobs' {} a -> s {maxResults = a} :: ListPiiEntitiesDetectionJobs)
 
+-- | Identifies the next page of results to return.
+listPiiEntitiesDetectionJobs_nextToken :: Lens.Lens' ListPiiEntitiesDetectionJobs (Prelude.Maybe Prelude.Text)
+listPiiEntitiesDetectionJobs_nextToken = Lens.lens (\ListPiiEntitiesDetectionJobs' {nextToken} -> nextToken) (\s@ListPiiEntitiesDetectionJobs' {} a -> s {nextToken = a} :: ListPiiEntitiesDetectionJobs)
+
+instance Core.AWSPager ListPiiEntitiesDetectionJobs where
+  page rq rs
+    | Core.stop
+        ( rs
+            Lens.^? listPiiEntitiesDetectionJobsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Core.stop
+        ( rs
+            Lens.^? listPiiEntitiesDetectionJobsResponse_piiEntitiesDetectionJobPropertiesList
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Prelude.& listPiiEntitiesDetectionJobs_nextToken
+          Lens..~ rs
+          Lens.^? listPiiEntitiesDetectionJobsResponse_nextToken
+            Prelude.. Lens._Just
+
 instance Core.AWSRequest ListPiiEntitiesDetectionJobs where
   type
     AWSResponse ListPiiEntitiesDetectionJobs =
       ListPiiEntitiesDetectionJobsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPiiEntitiesDetectionJobsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "PiiEntitiesDetectionJobPropertiesList"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "PiiEntitiesDetectionJobPropertiesList"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -122,45 +148,45 @@ instance
     ListPiiEntitiesDetectionJobs
   where
   hashWithSalt _salt ListPiiEntitiesDetectionJobs' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` filter'
+    _salt `Prelude.hashWithSalt` filter'
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListPiiEntitiesDetectionJobs where
   rnf ListPiiEntitiesDetectionJobs' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf filter'
+    Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListPiiEntitiesDetectionJobs where
+instance Data.ToHeaders ListPiiEntitiesDetectionJobs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.ListPiiEntitiesDetectionJobs" ::
+              Data.=# ( "Comprehend_20171127.ListPiiEntitiesDetectionJobs" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListPiiEntitiesDetectionJobs where
+instance Data.ToJSON ListPiiEntitiesDetectionJobs where
   toJSON ListPiiEntitiesDetectionJobs' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Filter" Core..=) Prelude.<$> filter',
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filter" Data..=) Prelude.<$> filter',
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListPiiEntitiesDetectionJobs where
+instance Data.ToPath ListPiiEntitiesDetectionJobs where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListPiiEntitiesDetectionJobs where
+instance Data.ToQuery ListPiiEntitiesDetectionJobs where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListPiiEntitiesDetectionJobsResponse' smart constructor.

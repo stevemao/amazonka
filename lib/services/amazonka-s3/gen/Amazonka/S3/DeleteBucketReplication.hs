@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.DeleteBucketReplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -58,7 +58,8 @@ module Amazonka.S3.DeleteBucketReplication
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -67,8 +68,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newDeleteBucketReplication' smart constructor.
 data DeleteBucketReplication = DeleteBucketReplication'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The bucket name.
     bucket :: BucketName
@@ -84,8 +85,8 @@ data DeleteBucketReplication = DeleteBucketReplication'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'deleteBucketReplication_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'deleteBucketReplication_bucket' - The bucket name.
 newDeleteBucketReplication ::
@@ -100,8 +101,8 @@ newDeleteBucketReplication pBucket_ =
     }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 deleteBucketReplication_expectedBucketOwner :: Lens.Lens' DeleteBucketReplication (Prelude.Maybe Prelude.Text)
 deleteBucketReplication_expectedBucketOwner = Lens.lens (\DeleteBucketReplication' {expectedBucketOwner} -> expectedBucketOwner) (\s@DeleteBucketReplication' {} a -> s {expectedBucketOwner = a} :: DeleteBucketReplication)
 
@@ -113,9 +114,9 @@ instance Core.AWSRequest DeleteBucketReplication where
   type
     AWSResponse DeleteBucketReplication =
       DeleteBucketReplicationResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.delete defaultService
+      Prelude.. Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteBucketReplicationResponse'
@@ -130,18 +131,18 @@ instance Prelude.NFData DeleteBucketReplication where
     Prelude.rnf expectedBucketOwner
       `Prelude.seq` Prelude.rnf bucket
 
-instance Core.ToHeaders DeleteBucketReplication where
+instance Data.ToHeaders DeleteBucketReplication where
   toHeaders DeleteBucketReplication' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath DeleteBucketReplication where
+instance Data.ToPath DeleteBucketReplication where
   toPath DeleteBucketReplication' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery DeleteBucketReplication where
+instance Data.ToQuery DeleteBucketReplication where
   toQuery =
     Prelude.const (Prelude.mconcat ["replication"])
 

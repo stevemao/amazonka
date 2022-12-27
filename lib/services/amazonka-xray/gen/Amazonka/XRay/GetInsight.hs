@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.XRay.GetInsight
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.XRay.GetInsight
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,12 +82,13 @@ getInsight_insightId = Lens.lens (\GetInsight' {insightId} -> insightId) (\s@Get
 
 instance Core.AWSRequest GetInsight where
   type AWSResponse GetInsight = GetInsightResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetInsightResponse'
-            Prelude.<$> (x Core..?> "Insight")
+            Prelude.<$> (x Data..?> "Insight")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,20 +99,20 @@ instance Prelude.Hashable GetInsight where
 instance Prelude.NFData GetInsight where
   rnf GetInsight' {..} = Prelude.rnf insightId
 
-instance Core.ToHeaders GetInsight where
+instance Data.ToHeaders GetInsight where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON GetInsight where
+instance Data.ToJSON GetInsight where
   toJSON GetInsight' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("InsightId" Core..= insightId)]
+          [Prelude.Just ("InsightId" Data..= insightId)]
       )
 
-instance Core.ToPath GetInsight where
+instance Data.ToPath GetInsight where
   toPath = Prelude.const "/Insight"
 
-instance Core.ToQuery GetInsight where
+instance Data.ToQuery GetInsight where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetInsightResponse' smart constructor.

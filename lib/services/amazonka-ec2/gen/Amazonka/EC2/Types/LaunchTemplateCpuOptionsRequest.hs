@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.LaunchTemplateCpuOptionsRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.LaunchTemplateCpuOptionsRequest where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The CPU options for the instance. Both the core count and threads per
@@ -32,8 +33,8 @@ data LaunchTemplateCpuOptionsRequest = LaunchTemplateCpuOptionsRequest'
   { -- | The number of CPU cores for the instance.
     coreCount :: Prelude.Maybe Prelude.Int,
     -- | The number of threads per CPU core. To disable multithreading for the
-    -- instance, specify a value of 1. Otherwise, specify the default value of
-    -- 2.
+    -- instance, specify a value of @1@. Otherwise, specify the default value
+    -- of @2@.
     threadsPerCore :: Prelude.Maybe Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -49,8 +50,8 @@ data LaunchTemplateCpuOptionsRequest = LaunchTemplateCpuOptionsRequest'
 -- 'coreCount', 'launchTemplateCpuOptionsRequest_coreCount' - The number of CPU cores for the instance.
 --
 -- 'threadsPerCore', 'launchTemplateCpuOptionsRequest_threadsPerCore' - The number of threads per CPU core. To disable multithreading for the
--- instance, specify a value of 1. Otherwise, specify the default value of
--- 2.
+-- instance, specify a value of @1@. Otherwise, specify the default value
+-- of @2@.
 newLaunchTemplateCpuOptionsRequest ::
   LaunchTemplateCpuOptionsRequest
 newLaunchTemplateCpuOptionsRequest =
@@ -65,8 +66,8 @@ launchTemplateCpuOptionsRequest_coreCount :: Lens.Lens' LaunchTemplateCpuOptions
 launchTemplateCpuOptionsRequest_coreCount = Lens.lens (\LaunchTemplateCpuOptionsRequest' {coreCount} -> coreCount) (\s@LaunchTemplateCpuOptionsRequest' {} a -> s {coreCount = a} :: LaunchTemplateCpuOptionsRequest)
 
 -- | The number of threads per CPU core. To disable multithreading for the
--- instance, specify a value of 1. Otherwise, specify the default value of
--- 2.
+-- instance, specify a value of @1@. Otherwise, specify the default value
+-- of @2@.
 launchTemplateCpuOptionsRequest_threadsPerCore :: Lens.Lens' LaunchTemplateCpuOptionsRequest (Prelude.Maybe Prelude.Int)
 launchTemplateCpuOptionsRequest_threadsPerCore = Lens.lens (\LaunchTemplateCpuOptionsRequest' {threadsPerCore} -> threadsPerCore) (\s@LaunchTemplateCpuOptionsRequest' {} a -> s {threadsPerCore = a} :: LaunchTemplateCpuOptionsRequest)
 
@@ -88,9 +89,9 @@ instance
     Prelude.rnf coreCount
       `Prelude.seq` Prelude.rnf threadsPerCore
 
-instance Core.ToQuery LaunchTemplateCpuOptionsRequest where
+instance Data.ToQuery LaunchTemplateCpuOptionsRequest where
   toQuery LaunchTemplateCpuOptionsRequest' {..} =
     Prelude.mconcat
-      [ "CoreCount" Core.=: coreCount,
-        "ThreadsPerCore" Core.=: threadsPerCore
+      [ "CoreCount" Data.=: coreCount,
+        "ThreadsPerCore" Data.=: threadsPerCore
       ]

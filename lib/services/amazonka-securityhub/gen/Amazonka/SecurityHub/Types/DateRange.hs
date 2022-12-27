@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.DateRange
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.DateRange where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.DateRangeUnit
 
@@ -28,10 +29,10 @@ import Amazonka.SecurityHub.Types.DateRangeUnit
 --
 -- /See:/ 'newDateRange' smart constructor.
 data DateRange = DateRange'
-  { -- | A date range value for the date filter.
-    value :: Prelude.Maybe Prelude.Int,
-    -- | A date range unit for the date filter.
-    unit :: Prelude.Maybe DateRangeUnit
+  { -- | A date range unit for the date filter.
+    unit :: Prelude.Maybe DateRangeUnit,
+    -- | A date range value for the date filter.
+    value :: Prelude.Maybe Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,48 +44,48 @@ data DateRange = DateRange'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'dateRange_value' - A date range value for the date filter.
---
 -- 'unit', 'dateRange_unit' - A date range unit for the date filter.
+--
+-- 'value', 'dateRange_value' - A date range value for the date filter.
 newDateRange ::
   DateRange
 newDateRange =
   DateRange'
-    { value = Prelude.Nothing,
-      unit = Prelude.Nothing
+    { unit = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | A date range value for the date filter.
-dateRange_value :: Lens.Lens' DateRange (Prelude.Maybe Prelude.Int)
-dateRange_value = Lens.lens (\DateRange' {value} -> value) (\s@DateRange' {} a -> s {value = a} :: DateRange)
 
 -- | A date range unit for the date filter.
 dateRange_unit :: Lens.Lens' DateRange (Prelude.Maybe DateRangeUnit)
 dateRange_unit = Lens.lens (\DateRange' {unit} -> unit) (\s@DateRange' {} a -> s {unit = a} :: DateRange)
 
-instance Core.FromJSON DateRange where
+-- | A date range value for the date filter.
+dateRange_value :: Lens.Lens' DateRange (Prelude.Maybe Prelude.Int)
+dateRange_value = Lens.lens (\DateRange' {value} -> value) (\s@DateRange' {} a -> s {value = a} :: DateRange)
+
+instance Data.FromJSON DateRange where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DateRange"
       ( \x ->
           DateRange'
-            Prelude.<$> (x Core..:? "Value") Prelude.<*> (x Core..:? "Unit")
+            Prelude.<$> (x Data..:? "Unit") Prelude.<*> (x Data..:? "Value")
       )
 
 instance Prelude.Hashable DateRange where
   hashWithSalt _salt DateRange' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` unit
+    _salt `Prelude.hashWithSalt` unit
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData DateRange where
   rnf DateRange' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf unit
+    Prelude.rnf unit `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON DateRange where
+instance Data.ToJSON DateRange where
   toJSON DateRange' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Value" Core..=) Prelude.<$> value,
-            ("Unit" Core..=) Prelude.<$> unit
+          [ ("Unit" Data..=) Prelude.<$> unit,
+            ("Value" Data..=) Prelude.<$> value
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.Types.EmailContent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SESV2.Types.EmailContent where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SESV2.Types.Message
 import Amazonka.SESV2.Types.RawMessage
@@ -156,12 +157,12 @@ instance Prelude.NFData EmailContent where
       `Prelude.seq` Prelude.rnf simple
       `Prelude.seq` Prelude.rnf template
 
-instance Core.ToJSON EmailContent where
+instance Data.ToJSON EmailContent where
   toJSON EmailContent' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Raw" Core..=) Prelude.<$> raw,
-            ("Simple" Core..=) Prelude.<$> simple,
-            ("Template" Core..=) Prelude.<$> template
+          [ ("Raw" Data..=) Prelude.<$> raw,
+            ("Simple" Data..=) Prelude.<$> simple,
+            ("Template" Data..=) Prelude.<$> template
           ]
       )

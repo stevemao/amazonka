@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.ListLayerVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,10 +35,10 @@ module Amazonka.Lambda.ListLayerVersions
     newListLayerVersions,
 
     -- * Request Lenses
+    listLayerVersions_compatibleArchitecture,
     listLayerVersions_compatibleRuntime,
     listLayerVersions_marker,
     listLayerVersions_maxItems,
-    listLayerVersions_compatibleArchitecture,
     listLayerVersions_layerName,
 
     -- * Destructuring the Response
@@ -53,23 +53,24 @@ module Amazonka.Lambda.ListLayerVersions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListLayerVersions' smart constructor.
 data ListLayerVersions = ListLayerVersions'
-  { -- | A runtime identifier. For example, @go1.x@.
+  { -- | The compatible
+    -- <https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html instruction set architecture>.
+    compatibleArchitecture :: Prelude.Maybe Architecture,
+    -- | A runtime identifier. For example, @go1.x@.
     compatibleRuntime :: Prelude.Maybe Runtime,
     -- | A pagination token returned by a previous call.
     marker :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of versions to return.
     maxItems :: Prelude.Maybe Prelude.Natural,
-    -- | The compatible
-    -- <https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html instruction set architecture>.
-    compatibleArchitecture :: Prelude.Maybe Architecture,
     -- | The name or Amazon Resource Name (ARN) of the layer.
     layerName :: Prelude.Text
   }
@@ -83,14 +84,14 @@ data ListLayerVersions = ListLayerVersions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'compatibleArchitecture', 'listLayerVersions_compatibleArchitecture' - The compatible
+-- <https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html instruction set architecture>.
+--
 -- 'compatibleRuntime', 'listLayerVersions_compatibleRuntime' - A runtime identifier. For example, @go1.x@.
 --
 -- 'marker', 'listLayerVersions_marker' - A pagination token returned by a previous call.
 --
 -- 'maxItems', 'listLayerVersions_maxItems' - The maximum number of versions to return.
---
--- 'compatibleArchitecture', 'listLayerVersions_compatibleArchitecture' - The compatible
--- <https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html instruction set architecture>.
 --
 -- 'layerName', 'listLayerVersions_layerName' - The name or Amazon Resource Name (ARN) of the layer.
 newListLayerVersions ::
@@ -99,13 +100,18 @@ newListLayerVersions ::
   ListLayerVersions
 newListLayerVersions pLayerName_ =
   ListLayerVersions'
-    { compatibleRuntime =
+    { compatibleArchitecture =
         Prelude.Nothing,
+      compatibleRuntime = Prelude.Nothing,
       marker = Prelude.Nothing,
       maxItems = Prelude.Nothing,
-      compatibleArchitecture = Prelude.Nothing,
       layerName = pLayerName_
     }
+
+-- | The compatible
+-- <https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html instruction set architecture>.
+listLayerVersions_compatibleArchitecture :: Lens.Lens' ListLayerVersions (Prelude.Maybe Architecture)
+listLayerVersions_compatibleArchitecture = Lens.lens (\ListLayerVersions' {compatibleArchitecture} -> compatibleArchitecture) (\s@ListLayerVersions' {} a -> s {compatibleArchitecture = a} :: ListLayerVersions)
 
 -- | A runtime identifier. For example, @go1.x@.
 listLayerVersions_compatibleRuntime :: Lens.Lens' ListLayerVersions (Prelude.Maybe Runtime)
@@ -118,11 +124,6 @@ listLayerVersions_marker = Lens.lens (\ListLayerVersions' {marker} -> marker) (\
 -- | The maximum number of versions to return.
 listLayerVersions_maxItems :: Lens.Lens' ListLayerVersions (Prelude.Maybe Prelude.Natural)
 listLayerVersions_maxItems = Lens.lens (\ListLayerVersions' {maxItems} -> maxItems) (\s@ListLayerVersions' {} a -> s {maxItems = a} :: ListLayerVersions)
-
--- | The compatible
--- <https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html instruction set architecture>.
-listLayerVersions_compatibleArchitecture :: Lens.Lens' ListLayerVersions (Prelude.Maybe Architecture)
-listLayerVersions_compatibleArchitecture = Lens.lens (\ListLayerVersions' {compatibleArchitecture} -> compatibleArchitecture) (\s@ListLayerVersions' {} a -> s {compatibleArchitecture = a} :: ListLayerVersions)
 
 -- | The name or Amazon Resource Name (ARN) of the layer.
 listLayerVersions_layerName :: Lens.Lens' ListLayerVersions Prelude.Text
@@ -154,51 +155,52 @@ instance Core.AWSRequest ListLayerVersions where
   type
     AWSResponse ListLayerVersions =
       ListLayerVersionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListLayerVersionsResponse'
-            Prelude.<$> (x Core..?> "LayerVersions" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextMarker")
+            Prelude.<$> (x Data..?> "LayerVersions" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextMarker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListLayerVersions where
   hashWithSalt _salt ListLayerVersions' {..} =
-    _salt `Prelude.hashWithSalt` compatibleRuntime
+    _salt `Prelude.hashWithSalt` compatibleArchitecture
+      `Prelude.hashWithSalt` compatibleRuntime
       `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxItems
-      `Prelude.hashWithSalt` compatibleArchitecture
       `Prelude.hashWithSalt` layerName
 
 instance Prelude.NFData ListLayerVersions where
   rnf ListLayerVersions' {..} =
-    Prelude.rnf compatibleRuntime
+    Prelude.rnf compatibleArchitecture
+      `Prelude.seq` Prelude.rnf compatibleRuntime
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxItems
-      `Prelude.seq` Prelude.rnf compatibleArchitecture
       `Prelude.seq` Prelude.rnf layerName
 
-instance Core.ToHeaders ListLayerVersions where
+instance Data.ToHeaders ListLayerVersions where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListLayerVersions where
+instance Data.ToPath ListLayerVersions where
   toPath ListLayerVersions' {..} =
     Prelude.mconcat
       [ "/2018-10-31/layers/",
-        Core.toBS layerName,
+        Data.toBS layerName,
         "/versions"
       ]
 
-instance Core.ToQuery ListLayerVersions where
+instance Data.ToQuery ListLayerVersions where
   toQuery ListLayerVersions' {..} =
     Prelude.mconcat
-      [ "CompatibleRuntime" Core.=: compatibleRuntime,
-        "Marker" Core.=: marker,
-        "MaxItems" Core.=: maxItems,
-        "CompatibleArchitecture"
-          Core.=: compatibleArchitecture
+      [ "CompatibleArchitecture"
+          Data.=: compatibleArchitecture,
+        "CompatibleRuntime" Data.=: compatibleRuntime,
+        "Marker" Data.=: marker,
+        "MaxItems" Data.=: maxItems
       ]
 
 -- | /See:/ 'newListLayerVersionsResponse' smart constructor.

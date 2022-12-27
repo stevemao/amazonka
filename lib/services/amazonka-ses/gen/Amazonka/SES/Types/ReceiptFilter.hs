@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SES.Types.ReceiptFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SES.Types.ReceiptFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SES.Types.ReceiptIpFilter
 
@@ -94,10 +95,10 @@ receiptFilter_name = Lens.lens (\ReceiptFilter' {name} -> name) (\s@ReceiptFilte
 receiptFilter_ipFilter :: Lens.Lens' ReceiptFilter ReceiptIpFilter
 receiptFilter_ipFilter = Lens.lens (\ReceiptFilter' {ipFilter} -> ipFilter) (\s@ReceiptFilter' {} a -> s {ipFilter = a} :: ReceiptFilter)
 
-instance Core.FromXML ReceiptFilter where
+instance Data.FromXML ReceiptFilter where
   parseXML x =
     ReceiptFilter'
-      Prelude.<$> (x Core..@ "Name") Prelude.<*> (x Core..@ "IpFilter")
+      Prelude.<$> (x Data..@ "Name") Prelude.<*> (x Data..@ "IpFilter")
 
 instance Prelude.Hashable ReceiptFilter where
   hashWithSalt _salt ReceiptFilter' {..} =
@@ -108,7 +109,7 @@ instance Prelude.NFData ReceiptFilter where
   rnf ReceiptFilter' {..} =
     Prelude.rnf name `Prelude.seq` Prelude.rnf ipFilter
 
-instance Core.ToQuery ReceiptFilter where
+instance Data.ToQuery ReceiptFilter where
   toQuery ReceiptFilter' {..} =
     Prelude.mconcat
-      ["Name" Core.=: name, "IpFilter" Core.=: ipFilter]
+      ["Name" Data.=: name, "IpFilter" Data.=: ipFilter]

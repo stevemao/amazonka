@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsRedshiftClusterDeferredMaintenanceWindow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsRedshiftClusterDeferredMaintenanceWindow where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A time windows during which maintenance was deferred for an Amazon
@@ -35,15 +36,15 @@ data AwsRedshiftClusterDeferredMaintenanceWindow = AwsRedshiftClusterDeferredMai
     -- The value cannot contain spaces. For example,
     -- @2020-03-22T13:22:13.933Z@.
     deferMaintenanceEndTime :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the maintenance window.
+    deferMaintenanceIdentifier :: Prelude.Maybe Prelude.Text,
     -- | The start of the time window for which maintenance was deferred.
     --
     -- Uses the @date-time@ format specified in
     -- <https://tools.ietf.org/html/rfc3339#section-5.6 RFC 3339 section 5.6, Internet Date\/Time Format>.
     -- The value cannot contain spaces. For example,
     -- @2020-03-22T13:22:13.933Z@.
-    deferMaintenanceStartTime :: Prelude.Maybe Prelude.Text,
-    -- | The identifier of the maintenance window.
-    deferMaintenanceIdentifier :: Prelude.Maybe Prelude.Text
+    deferMaintenanceStartTime :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -62,23 +63,23 @@ data AwsRedshiftClusterDeferredMaintenanceWindow = AwsRedshiftClusterDeferredMai
 -- The value cannot contain spaces. For example,
 -- @2020-03-22T13:22:13.933Z@.
 --
+-- 'deferMaintenanceIdentifier', 'awsRedshiftClusterDeferredMaintenanceWindow_deferMaintenanceIdentifier' - The identifier of the maintenance window.
+--
 -- 'deferMaintenanceStartTime', 'awsRedshiftClusterDeferredMaintenanceWindow_deferMaintenanceStartTime' - The start of the time window for which maintenance was deferred.
 --
 -- Uses the @date-time@ format specified in
 -- <https://tools.ietf.org/html/rfc3339#section-5.6 RFC 3339 section 5.6, Internet Date\/Time Format>.
 -- The value cannot contain spaces. For example,
 -- @2020-03-22T13:22:13.933Z@.
---
--- 'deferMaintenanceIdentifier', 'awsRedshiftClusterDeferredMaintenanceWindow_deferMaintenanceIdentifier' - The identifier of the maintenance window.
 newAwsRedshiftClusterDeferredMaintenanceWindow ::
   AwsRedshiftClusterDeferredMaintenanceWindow
 newAwsRedshiftClusterDeferredMaintenanceWindow =
   AwsRedshiftClusterDeferredMaintenanceWindow'
     { deferMaintenanceEndTime =
         Prelude.Nothing,
-      deferMaintenanceStartTime =
-        Prelude.Nothing,
       deferMaintenanceIdentifier =
+        Prelude.Nothing,
+      deferMaintenanceStartTime =
         Prelude.Nothing
     }
 
@@ -91,6 +92,10 @@ newAwsRedshiftClusterDeferredMaintenanceWindow =
 awsRedshiftClusterDeferredMaintenanceWindow_deferMaintenanceEndTime :: Lens.Lens' AwsRedshiftClusterDeferredMaintenanceWindow (Prelude.Maybe Prelude.Text)
 awsRedshiftClusterDeferredMaintenanceWindow_deferMaintenanceEndTime = Lens.lens (\AwsRedshiftClusterDeferredMaintenanceWindow' {deferMaintenanceEndTime} -> deferMaintenanceEndTime) (\s@AwsRedshiftClusterDeferredMaintenanceWindow' {} a -> s {deferMaintenanceEndTime = a} :: AwsRedshiftClusterDeferredMaintenanceWindow)
 
+-- | The identifier of the maintenance window.
+awsRedshiftClusterDeferredMaintenanceWindow_deferMaintenanceIdentifier :: Lens.Lens' AwsRedshiftClusterDeferredMaintenanceWindow (Prelude.Maybe Prelude.Text)
+awsRedshiftClusterDeferredMaintenanceWindow_deferMaintenanceIdentifier = Lens.lens (\AwsRedshiftClusterDeferredMaintenanceWindow' {deferMaintenanceIdentifier} -> deferMaintenanceIdentifier) (\s@AwsRedshiftClusterDeferredMaintenanceWindow' {} a -> s {deferMaintenanceIdentifier = a} :: AwsRedshiftClusterDeferredMaintenanceWindow)
+
 -- | The start of the time window for which maintenance was deferred.
 --
 -- Uses the @date-time@ format specified in
@@ -100,22 +105,18 @@ awsRedshiftClusterDeferredMaintenanceWindow_deferMaintenanceEndTime = Lens.lens 
 awsRedshiftClusterDeferredMaintenanceWindow_deferMaintenanceStartTime :: Lens.Lens' AwsRedshiftClusterDeferredMaintenanceWindow (Prelude.Maybe Prelude.Text)
 awsRedshiftClusterDeferredMaintenanceWindow_deferMaintenanceStartTime = Lens.lens (\AwsRedshiftClusterDeferredMaintenanceWindow' {deferMaintenanceStartTime} -> deferMaintenanceStartTime) (\s@AwsRedshiftClusterDeferredMaintenanceWindow' {} a -> s {deferMaintenanceStartTime = a} :: AwsRedshiftClusterDeferredMaintenanceWindow)
 
--- | The identifier of the maintenance window.
-awsRedshiftClusterDeferredMaintenanceWindow_deferMaintenanceIdentifier :: Lens.Lens' AwsRedshiftClusterDeferredMaintenanceWindow (Prelude.Maybe Prelude.Text)
-awsRedshiftClusterDeferredMaintenanceWindow_deferMaintenanceIdentifier = Lens.lens (\AwsRedshiftClusterDeferredMaintenanceWindow' {deferMaintenanceIdentifier} -> deferMaintenanceIdentifier) (\s@AwsRedshiftClusterDeferredMaintenanceWindow' {} a -> s {deferMaintenanceIdentifier = a} :: AwsRedshiftClusterDeferredMaintenanceWindow)
-
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsRedshiftClusterDeferredMaintenanceWindow
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsRedshiftClusterDeferredMaintenanceWindow"
       ( \x ->
           AwsRedshiftClusterDeferredMaintenanceWindow'
-            Prelude.<$> (x Core..:? "DeferMaintenanceEndTime")
-              Prelude.<*> (x Core..:? "DeferMaintenanceStartTime")
-              Prelude.<*> (x Core..:? "DeferMaintenanceIdentifier")
+            Prelude.<$> (x Data..:? "DeferMaintenanceEndTime")
+              Prelude.<*> (x Data..:? "DeferMaintenanceIdentifier")
+              Prelude.<*> (x Data..:? "DeferMaintenanceStartTime")
       )
 
 instance
@@ -127,8 +128,8 @@ instance
     AwsRedshiftClusterDeferredMaintenanceWindow' {..} =
       _salt
         `Prelude.hashWithSalt` deferMaintenanceEndTime
-        `Prelude.hashWithSalt` deferMaintenanceStartTime
         `Prelude.hashWithSalt` deferMaintenanceIdentifier
+        `Prelude.hashWithSalt` deferMaintenanceStartTime
 
 instance
   Prelude.NFData
@@ -136,22 +137,22 @@ instance
   where
   rnf AwsRedshiftClusterDeferredMaintenanceWindow' {..} =
     Prelude.rnf deferMaintenanceEndTime
-      `Prelude.seq` Prelude.rnf deferMaintenanceStartTime
       `Prelude.seq` Prelude.rnf deferMaintenanceIdentifier
+      `Prelude.seq` Prelude.rnf deferMaintenanceStartTime
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsRedshiftClusterDeferredMaintenanceWindow
   where
   toJSON
     AwsRedshiftClusterDeferredMaintenanceWindow' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("DeferMaintenanceEndTime" Core..=)
+            [ ("DeferMaintenanceEndTime" Data..=)
                 Prelude.<$> deferMaintenanceEndTime,
-              ("DeferMaintenanceStartTime" Core..=)
-                Prelude.<$> deferMaintenanceStartTime,
-              ("DeferMaintenanceIdentifier" Core..=)
-                Prelude.<$> deferMaintenanceIdentifier
+              ("DeferMaintenanceIdentifier" Data..=)
+                Prelude.<$> deferMaintenanceIdentifier,
+              ("DeferMaintenanceStartTime" Data..=)
+                Prelude.<$> deferMaintenanceStartTime
             ]
         )

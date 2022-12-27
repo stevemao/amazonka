@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AccessAnalyzer.Types.NetworkOriginConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.AccessAnalyzer.Types.NetworkOriginConfiguration where
 import Amazonka.AccessAnalyzer.Types.InternetConfiguration
 import Amazonka.AccessAnalyzer.Types.VpcConfiguration
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The proposed @InternetConfiguration@ or @VpcConfiguration@ to apply to
@@ -73,14 +74,14 @@ networkOriginConfiguration_internetConfiguration = Lens.lens (\NetworkOriginConf
 networkOriginConfiguration_vpcConfiguration :: Lens.Lens' NetworkOriginConfiguration (Prelude.Maybe VpcConfiguration)
 networkOriginConfiguration_vpcConfiguration = Lens.lens (\NetworkOriginConfiguration' {vpcConfiguration} -> vpcConfiguration) (\s@NetworkOriginConfiguration' {} a -> s {vpcConfiguration = a} :: NetworkOriginConfiguration)
 
-instance Core.FromJSON NetworkOriginConfiguration where
+instance Data.FromJSON NetworkOriginConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NetworkOriginConfiguration"
       ( \x ->
           NetworkOriginConfiguration'
-            Prelude.<$> (x Core..:? "internetConfiguration")
-            Prelude.<*> (x Core..:? "vpcConfiguration")
+            Prelude.<$> (x Data..:? "internetConfiguration")
+            Prelude.<*> (x Data..:? "vpcConfiguration")
       )
 
 instance Prelude.Hashable NetworkOriginConfiguration where
@@ -93,13 +94,13 @@ instance Prelude.NFData NetworkOriginConfiguration where
     Prelude.rnf internetConfiguration
       `Prelude.seq` Prelude.rnf vpcConfiguration
 
-instance Core.ToJSON NetworkOriginConfiguration where
+instance Data.ToJSON NetworkOriginConfiguration where
   toJSON NetworkOriginConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("internetConfiguration" Core..=)
+          [ ("internetConfiguration" Data..=)
               Prelude.<$> internetConfiguration,
-            ("vpcConfiguration" Core..=)
+            ("vpcConfiguration" Data..=)
               Prelude.<$> vpcConfiguration
           ]
       )

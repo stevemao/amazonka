@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.TrialSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.TrialSource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The source of the trial.
@@ -63,14 +64,14 @@ trialSource_sourceType = Lens.lens (\TrialSource' {sourceType} -> sourceType) (\
 trialSource_sourceArn :: Lens.Lens' TrialSource Prelude.Text
 trialSource_sourceArn = Lens.lens (\TrialSource' {sourceArn} -> sourceArn) (\s@TrialSource' {} a -> s {sourceArn = a} :: TrialSource)
 
-instance Core.FromJSON TrialSource where
+instance Data.FromJSON TrialSource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TrialSource"
       ( \x ->
           TrialSource'
-            Prelude.<$> (x Core..:? "SourceType")
-            Prelude.<*> (x Core..: "SourceArn")
+            Prelude.<$> (x Data..:? "SourceType")
+            Prelude.<*> (x Data..: "SourceArn")
       )
 
 instance Prelude.Hashable TrialSource where

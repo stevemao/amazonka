@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.Types.OpenMonitoring
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Kafka.Types.OpenMonitoring where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kafka.Types.Prometheus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | JMX and Node monitoring for the MSK cluster.
@@ -53,12 +54,12 @@ newOpenMonitoring pPrometheus_ =
 openMonitoring_prometheus :: Lens.Lens' OpenMonitoring Prometheus
 openMonitoring_prometheus = Lens.lens (\OpenMonitoring' {prometheus} -> prometheus) (\s@OpenMonitoring' {} a -> s {prometheus = a} :: OpenMonitoring)
 
-instance Core.FromJSON OpenMonitoring where
+instance Data.FromJSON OpenMonitoring where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OpenMonitoring"
       ( \x ->
-          OpenMonitoring' Prelude.<$> (x Core..: "prometheus")
+          OpenMonitoring' Prelude.<$> (x Data..: "prometheus")
       )
 
 instance Prelude.Hashable OpenMonitoring where

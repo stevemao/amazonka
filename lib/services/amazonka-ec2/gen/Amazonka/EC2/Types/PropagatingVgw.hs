@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.PropagatingVgw
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.PropagatingVgw where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a virtual private gateway propagating route.
@@ -51,10 +52,10 @@ newPropagatingVgw =
 propagatingVgw_gatewayId :: Lens.Lens' PropagatingVgw (Prelude.Maybe Prelude.Text)
 propagatingVgw_gatewayId = Lens.lens (\PropagatingVgw' {gatewayId} -> gatewayId) (\s@PropagatingVgw' {} a -> s {gatewayId = a} :: PropagatingVgw)
 
-instance Core.FromXML PropagatingVgw where
+instance Data.FromXML PropagatingVgw where
   parseXML x =
     PropagatingVgw'
-      Prelude.<$> (x Core..@? "gatewayId")
+      Prelude.<$> (x Data..@? "gatewayId")
 
 instance Prelude.Hashable PropagatingVgw where
   hashWithSalt _salt PropagatingVgw' {..} =

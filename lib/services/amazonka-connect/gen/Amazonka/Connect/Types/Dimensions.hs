@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.Types.Dimensions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.Connect.Types.Dimensions where
 import Amazonka.Connect.Types.Channel
 import Amazonka.Connect.Types.QueueReference
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the dimensions for a set of metrics.
@@ -63,14 +64,14 @@ dimensions_channel = Lens.lens (\Dimensions' {channel} -> channel) (\s@Dimension
 dimensions_queue :: Lens.Lens' Dimensions (Prelude.Maybe QueueReference)
 dimensions_queue = Lens.lens (\Dimensions' {queue} -> queue) (\s@Dimensions' {} a -> s {queue = a} :: Dimensions)
 
-instance Core.FromJSON Dimensions where
+instance Data.FromJSON Dimensions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Dimensions"
       ( \x ->
           Dimensions'
-            Prelude.<$> (x Core..:? "Channel")
-            Prelude.<*> (x Core..:? "Queue")
+            Prelude.<$> (x Data..:? "Channel")
+            Prelude.<*> (x Data..:? "Queue")
       )
 
 instance Prelude.Hashable Dimensions where

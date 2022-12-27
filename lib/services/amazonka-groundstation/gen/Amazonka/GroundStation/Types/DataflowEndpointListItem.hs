@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GroundStation.Types.DataflowEndpointListItem
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.GroundStation.Types.DataflowEndpointListItem where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Item in a list of @DataflowEndpoint@ groups.
@@ -62,14 +63,14 @@ dataflowEndpointListItem_dataflowEndpointGroupArn = Lens.lens (\DataflowEndpoint
 dataflowEndpointListItem_dataflowEndpointGroupId :: Lens.Lens' DataflowEndpointListItem (Prelude.Maybe Prelude.Text)
 dataflowEndpointListItem_dataflowEndpointGroupId = Lens.lens (\DataflowEndpointListItem' {dataflowEndpointGroupId} -> dataflowEndpointGroupId) (\s@DataflowEndpointListItem' {} a -> s {dataflowEndpointGroupId = a} :: DataflowEndpointListItem)
 
-instance Core.FromJSON DataflowEndpointListItem where
+instance Data.FromJSON DataflowEndpointListItem where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DataflowEndpointListItem"
       ( \x ->
           DataflowEndpointListItem'
-            Prelude.<$> (x Core..:? "dataflowEndpointGroupArn")
-            Prelude.<*> (x Core..:? "dataflowEndpointGroupId")
+            Prelude.<$> (x Data..:? "dataflowEndpointGroupArn")
+            Prelude.<*> (x Data..:? "dataflowEndpointGroupId")
       )
 
 instance Prelude.Hashable DataflowEndpointListItem where

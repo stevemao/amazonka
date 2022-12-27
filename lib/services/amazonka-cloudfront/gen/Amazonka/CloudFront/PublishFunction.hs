@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.PublishFunction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -53,7 +53,8 @@ where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -105,12 +106,13 @@ instance Core.AWSRequest PublishFunction where
   type
     AWSResponse PublishFunction =
       PublishFunctionResponse
-  request = Request.post defaultService
+  request overrides =
+    Request.post (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           PublishFunctionResponse'
-            Prelude.<$> (Core.parseXML x)
+            Prelude.<$> (Data.parseXML x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -123,16 +125,16 @@ instance Prelude.NFData PublishFunction where
   rnf PublishFunction' {..} =
     Prelude.rnf name `Prelude.seq` Prelude.rnf ifMatch
 
-instance Core.ToHeaders PublishFunction where
+instance Data.ToHeaders PublishFunction where
   toHeaders PublishFunction' {..} =
-    Prelude.mconcat ["If-Match" Core.=# ifMatch]
+    Prelude.mconcat ["If-Match" Data.=# ifMatch]
 
-instance Core.ToPath PublishFunction where
+instance Data.ToPath PublishFunction where
   toPath PublishFunction' {..} =
     Prelude.mconcat
-      ["/2020-05-31/function/", Core.toBS name, "/publish"]
+      ["/2020-05-31/function/", Data.toBS name, "/publish"]
 
-instance Core.ToQuery PublishFunction where
+instance Data.ToQuery PublishFunction where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPublishFunctionResponse' smart constructor.

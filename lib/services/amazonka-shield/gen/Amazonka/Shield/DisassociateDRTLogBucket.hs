@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Shield.DisassociateDRTLogBucket
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,15 +22,6 @@
 --
 -- Removes the Shield Response Team\'s (SRT) access to the specified Amazon
 -- S3 bucket containing the logs that you shared previously.
---
--- To make a @DisassociateDRTLogBucket@ request, you must be subscribed to
--- the
--- <https://aws.amazon.com/premiumsupport/business-support/ Business Support plan>
--- or the
--- <https://aws.amazon.com/premiumsupport/enterprise-support/ Enterprise Support plan>.
--- However, if you are not subscribed to one of these support plans, but
--- had been previously and had granted the SRT access to your account, you
--- can submit a @DisassociateDRTLogBucket@ request to remove this access.
 module Amazonka.Shield.DisassociateDRTLogBucket
   ( -- * Creating a Request
     DisassociateDRTLogBucket (..),
@@ -49,7 +40,8 @@ module Amazonka.Shield.DisassociateDRTLogBucket
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,7 +78,8 @@ instance Core.AWSRequest DisassociateDRTLogBucket where
   type
     AWSResponse DisassociateDRTLogBucket =
       DisassociateDRTLogBucketResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -102,32 +95,32 @@ instance Prelude.NFData DisassociateDRTLogBucket where
   rnf DisassociateDRTLogBucket' {..} =
     Prelude.rnf logBucket
 
-instance Core.ToHeaders DisassociateDRTLogBucket where
+instance Data.ToHeaders DisassociateDRTLogBucket where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSShield_20160616.DisassociateDRTLogBucket" ::
+              Data.=# ( "AWSShield_20160616.DisassociateDRTLogBucket" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisassociateDRTLogBucket where
+instance Data.ToJSON DisassociateDRTLogBucket where
   toJSON DisassociateDRTLogBucket' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("LogBucket" Core..= logBucket)]
+          [Prelude.Just ("LogBucket" Data..= logBucket)]
       )
 
-instance Core.ToPath DisassociateDRTLogBucket where
+instance Data.ToPath DisassociateDRTLogBucket where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisassociateDRTLogBucket where
+instance Data.ToQuery DisassociateDRTLogBucket where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateDRTLogBucketResponse' smart constructor.

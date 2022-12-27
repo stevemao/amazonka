@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.PutConfigurationAggregator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,8 +26,8 @@
 --
 -- @accountIds@ that are passed will be replaced with existing accounts. If
 -- you want to add additional accounts into the aggregator, call
--- @DescribeAggregator@ to get the previous accounts and then append new
--- ones.
+-- @DescribeConfigurationAggregators@ to get the previous accounts and then
+-- append new ones.
 --
 -- Config should be enabled in source accounts and regions you want to
 -- aggregate.
@@ -43,15 +43,15 @@
 --
 -- To register a delegated administrator, see
 -- <https://docs.aws.amazon.com/config/latest/developerguide/set-up-aggregator-cli.html#register-a-delegated-administrator-cli Register a Delegated Administrator>
--- in the Config developer guide.
+-- in the /Config developer guide/.
 module Amazonka.Config.PutConfigurationAggregator
   ( -- * Creating a Request
     PutConfigurationAggregator (..),
     newPutConfigurationAggregator,
 
     -- * Request Lenses
-    putConfigurationAggregator_organizationAggregationSource,
     putConfigurationAggregator_accountAggregationSources,
+    putConfigurationAggregator_organizationAggregationSource,
     putConfigurationAggregator_tags,
     putConfigurationAggregator_configurationAggregatorName,
 
@@ -67,17 +67,18 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newPutConfigurationAggregator' smart constructor.
 data PutConfigurationAggregator = PutConfigurationAggregator'
-  { -- | An OrganizationAggregationSource object.
-    organizationAggregationSource :: Prelude.Maybe OrganizationAggregationSource,
-    -- | A list of AccountAggregationSource object.
+  { -- | A list of AccountAggregationSource object.
     accountAggregationSources :: Prelude.Maybe [AccountAggregationSource],
+    -- | An OrganizationAggregationSource object.
+    organizationAggregationSource :: Prelude.Maybe OrganizationAggregationSource,
     -- | An array of tag object.
     tags :: Prelude.Maybe [Tag],
     -- | The name of the configuration aggregator.
@@ -93,9 +94,9 @@ data PutConfigurationAggregator = PutConfigurationAggregator'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'organizationAggregationSource', 'putConfigurationAggregator_organizationAggregationSource' - An OrganizationAggregationSource object.
---
 -- 'accountAggregationSources', 'putConfigurationAggregator_accountAggregationSources' - A list of AccountAggregationSource object.
+--
+-- 'organizationAggregationSource', 'putConfigurationAggregator_organizationAggregationSource' - An OrganizationAggregationSource object.
 --
 -- 'tags', 'putConfigurationAggregator_tags' - An array of tag object.
 --
@@ -107,21 +108,21 @@ newPutConfigurationAggregator ::
 newPutConfigurationAggregator
   pConfigurationAggregatorName_ =
     PutConfigurationAggregator'
-      { organizationAggregationSource =
+      { accountAggregationSources =
           Prelude.Nothing,
-        accountAggregationSources = Prelude.Nothing,
+        organizationAggregationSource = Prelude.Nothing,
         tags = Prelude.Nothing,
         configurationAggregatorName =
           pConfigurationAggregatorName_
       }
 
--- | An OrganizationAggregationSource object.
-putConfigurationAggregator_organizationAggregationSource :: Lens.Lens' PutConfigurationAggregator (Prelude.Maybe OrganizationAggregationSource)
-putConfigurationAggregator_organizationAggregationSource = Lens.lens (\PutConfigurationAggregator' {organizationAggregationSource} -> organizationAggregationSource) (\s@PutConfigurationAggregator' {} a -> s {organizationAggregationSource = a} :: PutConfigurationAggregator)
-
 -- | A list of AccountAggregationSource object.
 putConfigurationAggregator_accountAggregationSources :: Lens.Lens' PutConfigurationAggregator (Prelude.Maybe [AccountAggregationSource])
 putConfigurationAggregator_accountAggregationSources = Lens.lens (\PutConfigurationAggregator' {accountAggregationSources} -> accountAggregationSources) (\s@PutConfigurationAggregator' {} a -> s {accountAggregationSources = a} :: PutConfigurationAggregator) Prelude.. Lens.mapping Lens.coerced
+
+-- | An OrganizationAggregationSource object.
+putConfigurationAggregator_organizationAggregationSource :: Lens.Lens' PutConfigurationAggregator (Prelude.Maybe OrganizationAggregationSource)
+putConfigurationAggregator_organizationAggregationSource = Lens.lens (\PutConfigurationAggregator' {organizationAggregationSource} -> organizationAggregationSource) (\s@PutConfigurationAggregator' {} a -> s {organizationAggregationSource = a} :: PutConfigurationAggregator)
 
 -- | An array of tag object.
 putConfigurationAggregator_tags :: Lens.Lens' PutConfigurationAggregator (Prelude.Maybe [Tag])
@@ -135,65 +136,66 @@ instance Core.AWSRequest PutConfigurationAggregator where
   type
     AWSResponse PutConfigurationAggregator =
       PutConfigurationAggregatorResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutConfigurationAggregatorResponse'
-            Prelude.<$> (x Core..?> "ConfigurationAggregator")
+            Prelude.<$> (x Data..?> "ConfigurationAggregator")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable PutConfigurationAggregator where
   hashWithSalt _salt PutConfigurationAggregator' {..} =
     _salt
-      `Prelude.hashWithSalt` organizationAggregationSource
       `Prelude.hashWithSalt` accountAggregationSources
+      `Prelude.hashWithSalt` organizationAggregationSource
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` configurationAggregatorName
 
 instance Prelude.NFData PutConfigurationAggregator where
   rnf PutConfigurationAggregator' {..} =
-    Prelude.rnf organizationAggregationSource
-      `Prelude.seq` Prelude.rnf accountAggregationSources
+    Prelude.rnf accountAggregationSources
+      `Prelude.seq` Prelude.rnf organizationAggregationSource
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf configurationAggregatorName
 
-instance Core.ToHeaders PutConfigurationAggregator where
+instance Data.ToHeaders PutConfigurationAggregator where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.PutConfigurationAggregator" ::
+              Data.=# ( "StarlingDoveService.PutConfigurationAggregator" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutConfigurationAggregator where
+instance Data.ToJSON PutConfigurationAggregator where
   toJSON PutConfigurationAggregator' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("OrganizationAggregationSource" Core..=)
-              Prelude.<$> organizationAggregationSource,
-            ("AccountAggregationSources" Core..=)
+          [ ("AccountAggregationSources" Data..=)
               Prelude.<$> accountAggregationSources,
-            ("Tags" Core..=) Prelude.<$> tags,
+            ("OrganizationAggregationSource" Data..=)
+              Prelude.<$> organizationAggregationSource,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
               ( "ConfigurationAggregatorName"
-                  Core..= configurationAggregatorName
+                  Data..= configurationAggregatorName
               )
           ]
       )
 
-instance Core.ToPath PutConfigurationAggregator where
+instance Data.ToPath PutConfigurationAggregator where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutConfigurationAggregator where
+instance Data.ToQuery PutConfigurationAggregator where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutConfigurationAggregatorResponse' smart constructor.

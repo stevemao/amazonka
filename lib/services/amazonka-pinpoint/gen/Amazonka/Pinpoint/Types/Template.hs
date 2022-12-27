@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.Template
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.Template where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the name and version of the message template to use for the
@@ -92,14 +93,14 @@ template_name = Lens.lens (\Template' {name} -> name) (\s@Template' {} a -> s {n
 template_version :: Lens.Lens' Template (Prelude.Maybe Prelude.Text)
 template_version = Lens.lens (\Template' {version} -> version) (\s@Template' {} a -> s {version = a} :: Template)
 
-instance Core.FromJSON Template where
+instance Data.FromJSON Template where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Template"
       ( \x ->
           Template'
-            Prelude.<$> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "Version")
+            Prelude.<$> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "Version")
       )
 
 instance Prelude.Hashable Template where
@@ -111,11 +112,11 @@ instance Prelude.NFData Template where
   rnf Template' {..} =
     Prelude.rnf name `Prelude.seq` Prelude.rnf version
 
-instance Core.ToJSON Template where
+instance Data.ToJSON Template where
   toJSON Template' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Name" Core..=) Prelude.<$> name,
-            ("Version" Core..=) Prelude.<$> version
+          [ ("Name" Data..=) Prelude.<$> name,
+            ("Version" Data..=) Prelude.<$> version
           ]
       )

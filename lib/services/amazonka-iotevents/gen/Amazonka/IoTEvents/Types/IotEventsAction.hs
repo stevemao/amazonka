@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.Types.IotEventsAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTEvents.Types.IotEventsAction where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types.Payload
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Sends an AWS IoT Events input, passing in information about the detector
@@ -68,14 +69,14 @@ iotEventsAction_payload = Lens.lens (\IotEventsAction' {payload} -> payload) (\s
 iotEventsAction_inputName :: Lens.Lens' IotEventsAction Prelude.Text
 iotEventsAction_inputName = Lens.lens (\IotEventsAction' {inputName} -> inputName) (\s@IotEventsAction' {} a -> s {inputName = a} :: IotEventsAction)
 
-instance Core.FromJSON IotEventsAction where
+instance Data.FromJSON IotEventsAction where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IotEventsAction"
       ( \x ->
           IotEventsAction'
-            Prelude.<$> (x Core..:? "payload")
-            Prelude.<*> (x Core..: "inputName")
+            Prelude.<$> (x Data..:? "payload")
+            Prelude.<*> (x Data..: "inputName")
       )
 
 instance Prelude.Hashable IotEventsAction where
@@ -88,11 +89,11 @@ instance Prelude.NFData IotEventsAction where
     Prelude.rnf payload
       `Prelude.seq` Prelude.rnf inputName
 
-instance Core.ToJSON IotEventsAction where
+instance Data.ToJSON IotEventsAction where
   toJSON IotEventsAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("payload" Core..=) Prelude.<$> payload,
-            Prelude.Just ("inputName" Core..= inputName)
+          [ ("payload" Data..=) Prelude.<$> payload,
+            Prelude.Just ("inputName" Data..= inputName)
           ]
       )

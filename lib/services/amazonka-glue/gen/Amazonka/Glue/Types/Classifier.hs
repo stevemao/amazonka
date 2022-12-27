@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.Classifier
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.Glue.Types.Classifier where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types.CsvClassifier
 import Amazonka.Glue.Types.GrokClassifier
 import Amazonka.Glue.Types.JsonClassifier
 import Amazonka.Glue.Types.XMLClassifier
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Classifiers are triggered during a crawl task. A classifier checks
@@ -41,14 +42,14 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newClassifier' smart constructor.
 data Classifier = Classifier'
-  { -- | A classifier that uses @grok@.
-    grokClassifier :: Prelude.Maybe GrokClassifier,
-    -- | A classifier for XML content.
-    xMLClassifier :: Prelude.Maybe XMLClassifier,
-    -- | A classifier for comma-separated values (CSV).
+  { -- | A classifier for comma-separated values (CSV).
     csvClassifier :: Prelude.Maybe CsvClassifier,
+    -- | A classifier that uses @grok@.
+    grokClassifier :: Prelude.Maybe GrokClassifier,
     -- | A classifier for JSON content.
-    jsonClassifier :: Prelude.Maybe JsonClassifier
+    jsonClassifier :: Prelude.Maybe JsonClassifier,
+    -- | A classifier for XML content.
+    xMLClassifier :: Prelude.Maybe XMLClassifier
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -60,61 +61,61 @@ data Classifier = Classifier'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'grokClassifier', 'classifier_grokClassifier' - A classifier that uses @grok@.
---
--- 'xMLClassifier', 'classifier_xMLClassifier' - A classifier for XML content.
---
 -- 'csvClassifier', 'classifier_csvClassifier' - A classifier for comma-separated values (CSV).
 --
+-- 'grokClassifier', 'classifier_grokClassifier' - A classifier that uses @grok@.
+--
 -- 'jsonClassifier', 'classifier_jsonClassifier' - A classifier for JSON content.
+--
+-- 'xMLClassifier', 'classifier_xMLClassifier' - A classifier for XML content.
 newClassifier ::
   Classifier
 newClassifier =
   Classifier'
-    { grokClassifier = Prelude.Nothing,
-      xMLClassifier = Prelude.Nothing,
-      csvClassifier = Prelude.Nothing,
-      jsonClassifier = Prelude.Nothing
+    { csvClassifier = Prelude.Nothing,
+      grokClassifier = Prelude.Nothing,
+      jsonClassifier = Prelude.Nothing,
+      xMLClassifier = Prelude.Nothing
     }
-
--- | A classifier that uses @grok@.
-classifier_grokClassifier :: Lens.Lens' Classifier (Prelude.Maybe GrokClassifier)
-classifier_grokClassifier = Lens.lens (\Classifier' {grokClassifier} -> grokClassifier) (\s@Classifier' {} a -> s {grokClassifier = a} :: Classifier)
-
--- | A classifier for XML content.
-classifier_xMLClassifier :: Lens.Lens' Classifier (Prelude.Maybe XMLClassifier)
-classifier_xMLClassifier = Lens.lens (\Classifier' {xMLClassifier} -> xMLClassifier) (\s@Classifier' {} a -> s {xMLClassifier = a} :: Classifier)
 
 -- | A classifier for comma-separated values (CSV).
 classifier_csvClassifier :: Lens.Lens' Classifier (Prelude.Maybe CsvClassifier)
 classifier_csvClassifier = Lens.lens (\Classifier' {csvClassifier} -> csvClassifier) (\s@Classifier' {} a -> s {csvClassifier = a} :: Classifier)
 
+-- | A classifier that uses @grok@.
+classifier_grokClassifier :: Lens.Lens' Classifier (Prelude.Maybe GrokClassifier)
+classifier_grokClassifier = Lens.lens (\Classifier' {grokClassifier} -> grokClassifier) (\s@Classifier' {} a -> s {grokClassifier = a} :: Classifier)
+
 -- | A classifier for JSON content.
 classifier_jsonClassifier :: Lens.Lens' Classifier (Prelude.Maybe JsonClassifier)
 classifier_jsonClassifier = Lens.lens (\Classifier' {jsonClassifier} -> jsonClassifier) (\s@Classifier' {} a -> s {jsonClassifier = a} :: Classifier)
 
-instance Core.FromJSON Classifier where
+-- | A classifier for XML content.
+classifier_xMLClassifier :: Lens.Lens' Classifier (Prelude.Maybe XMLClassifier)
+classifier_xMLClassifier = Lens.lens (\Classifier' {xMLClassifier} -> xMLClassifier) (\s@Classifier' {} a -> s {xMLClassifier = a} :: Classifier)
+
+instance Data.FromJSON Classifier where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Classifier"
       ( \x ->
           Classifier'
-            Prelude.<$> (x Core..:? "GrokClassifier")
-            Prelude.<*> (x Core..:? "XMLClassifier")
-            Prelude.<*> (x Core..:? "CsvClassifier")
-            Prelude.<*> (x Core..:? "JsonClassifier")
+            Prelude.<$> (x Data..:? "CsvClassifier")
+            Prelude.<*> (x Data..:? "GrokClassifier")
+            Prelude.<*> (x Data..:? "JsonClassifier")
+            Prelude.<*> (x Data..:? "XMLClassifier")
       )
 
 instance Prelude.Hashable Classifier where
   hashWithSalt _salt Classifier' {..} =
-    _salt `Prelude.hashWithSalt` grokClassifier
-      `Prelude.hashWithSalt` xMLClassifier
-      `Prelude.hashWithSalt` csvClassifier
+    _salt `Prelude.hashWithSalt` csvClassifier
+      `Prelude.hashWithSalt` grokClassifier
       `Prelude.hashWithSalt` jsonClassifier
+      `Prelude.hashWithSalt` xMLClassifier
 
 instance Prelude.NFData Classifier where
   rnf Classifier' {..} =
-    Prelude.rnf grokClassifier
-      `Prelude.seq` Prelude.rnf xMLClassifier
-      `Prelude.seq` Prelude.rnf csvClassifier
+    Prelude.rnf csvClassifier
+      `Prelude.seq` Prelude.rnf grokClassifier
       `Prelude.seq` Prelude.rnf jsonClassifier
+      `Prelude.seq` Prelude.rnf xMLClassifier

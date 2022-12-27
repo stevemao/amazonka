@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.ReplicationGroupUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,13 @@
 module Amazonka.DynamoDB.Types.ReplicationGroupUpdate where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.CreateReplicationGroupMemberAction
 import Amazonka.DynamoDB.Types.DeleteReplicationGroupMemberAction
 import Amazonka.DynamoDB.Types.UpdateReplicationGroupMemberAction
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents one of the following:
@@ -39,6 +41,10 @@ import qualified Amazonka.Prelude as Prelude
 -- -   An existing replica to be deleted. The request invokes the
 --     @DeleteTableReplica@ action in the destination Region, deleting the
 --     replica and all if its items in the destination Region.
+--
+-- When you manually remove a table or global table replica, you do not
+-- automatically remove any associated scalable targets, scaling policies,
+-- or CloudWatch alarms.
 --
 -- /See:/ 'newReplicationGroupUpdate' smart constructor.
 data ReplicationGroupUpdate = ReplicationGroupUpdate'
@@ -97,12 +103,12 @@ instance Prelude.NFData ReplicationGroupUpdate where
       `Prelude.seq` Prelude.rnf delete'
       `Prelude.seq` Prelude.rnf update
 
-instance Core.ToJSON ReplicationGroupUpdate where
+instance Data.ToJSON ReplicationGroupUpdate where
   toJSON ReplicationGroupUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Create" Core..=) Prelude.<$> create,
-            ("Delete" Core..=) Prelude.<$> delete',
-            ("Update" Core..=) Prelude.<$> update
+          [ ("Create" Data..=) Prelude.<$> create,
+            ("Delete" Data..=) Prelude.<$> delete',
+            ("Update" Data..=) Prelude.<$> update
           ]
       )

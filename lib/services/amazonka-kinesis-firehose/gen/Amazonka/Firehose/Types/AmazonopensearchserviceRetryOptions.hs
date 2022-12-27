@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Firehose.Types.AmazonopensearchserviceRetryOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,12 +20,21 @@
 module Amazonka.Firehose.Types.AmazonopensearchserviceRetryOptions where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | /See:/ 'newAmazonopensearchserviceRetryOptions' smart constructor.
+-- | Configures retry behavior in case Kinesis Data Firehose is unable to
+-- deliver documents to Amazon OpenSearch Service.
+--
+-- /See:/ 'newAmazonopensearchserviceRetryOptions' smart constructor.
 data AmazonopensearchserviceRetryOptions = AmazonopensearchserviceRetryOptions'
-  { durationInSeconds :: Prelude.Maybe Prelude.Natural
+  { -- | After an initial failure to deliver to Amazon OpenSearch Service, the
+    -- total amount of time during which Kinesis Data Firehose retries delivery
+    -- (including the first attempt). After this time has elapsed, the failed
+    -- documents are written to Amazon S3. Default value is 300 seconds (5
+    -- minutes). A value of 0 (zero) results in no retries.
+    durationInSeconds :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -37,7 +46,11 @@ data AmazonopensearchserviceRetryOptions = AmazonopensearchserviceRetryOptions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'durationInSeconds', 'amazonopensearchserviceRetryOptions_durationInSeconds' - Undocumented member.
+-- 'durationInSeconds', 'amazonopensearchserviceRetryOptions_durationInSeconds' - After an initial failure to deliver to Amazon OpenSearch Service, the
+-- total amount of time during which Kinesis Data Firehose retries delivery
+-- (including the first attempt). After this time has elapsed, the failed
+-- documents are written to Amazon S3. Default value is 300 seconds (5
+-- minutes). A value of 0 (zero) results in no retries.
 newAmazonopensearchserviceRetryOptions ::
   AmazonopensearchserviceRetryOptions
 newAmazonopensearchserviceRetryOptions =
@@ -46,20 +59,24 @@ newAmazonopensearchserviceRetryOptions =
         Prelude.Nothing
     }
 
--- | Undocumented member.
+-- | After an initial failure to deliver to Amazon OpenSearch Service, the
+-- total amount of time during which Kinesis Data Firehose retries delivery
+-- (including the first attempt). After this time has elapsed, the failed
+-- documents are written to Amazon S3. Default value is 300 seconds (5
+-- minutes). A value of 0 (zero) results in no retries.
 amazonopensearchserviceRetryOptions_durationInSeconds :: Lens.Lens' AmazonopensearchserviceRetryOptions (Prelude.Maybe Prelude.Natural)
 amazonopensearchserviceRetryOptions_durationInSeconds = Lens.lens (\AmazonopensearchserviceRetryOptions' {durationInSeconds} -> durationInSeconds) (\s@AmazonopensearchserviceRetryOptions' {} a -> s {durationInSeconds = a} :: AmazonopensearchserviceRetryOptions)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AmazonopensearchserviceRetryOptions
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AmazonopensearchserviceRetryOptions"
       ( \x ->
           AmazonopensearchserviceRetryOptions'
-            Prelude.<$> (x Core..:? "DurationInSeconds")
+            Prelude.<$> (x Data..:? "DurationInSeconds")
       )
 
 instance
@@ -79,13 +96,13 @@ instance
     Prelude.rnf durationInSeconds
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AmazonopensearchserviceRetryOptions
   where
   toJSON AmazonopensearchserviceRetryOptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DurationInSeconds" Core..=)
+          [ ("DurationInSeconds" Data..=)
               Prelude.<$> durationInSeconds
           ]
       )

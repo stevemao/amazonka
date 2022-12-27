@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.STS.DecodeAuthorizationMessage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,10 +36,12 @@
 -- to returning an HTTP code.
 --
 -- The message is encoded because the details of the authorization status
--- can constitute privileged information that the user who requested the
+-- can contain privileged information that the user who requested the
 -- operation should not see. To decode an authorization status message, a
--- user must be granted permissions via an IAM policy to request the
--- @DecodeAuthorizationMessage@ (@sts:DecodeAuthorizationMessage@) action.
+-- user must be granted permissions through an IAM
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html policy>
+-- to request the @DecodeAuthorizationMessage@
+-- (@sts:DecodeAuthorizationMessage@) action.
 --
 -- The decoded message includes the following type of information:
 --
@@ -74,7 +76,8 @@ module Amazonka.STS.DecodeAuthorizationMessage
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -114,13 +117,14 @@ instance Core.AWSRequest DecodeAuthorizationMessage where
   type
     AWSResponse DecodeAuthorizationMessage =
       DecodeAuthorizationMessageResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DecodeAuthorizationMessageResult"
       ( \s h x ->
           DecodeAuthorizationMessageResponse'
-            Prelude.<$> (x Core..@? "DecodedMessage")
+            Prelude.<$> (x Data..@? "DecodedMessage")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -132,20 +136,20 @@ instance Prelude.NFData DecodeAuthorizationMessage where
   rnf DecodeAuthorizationMessage' {..} =
     Prelude.rnf encodedMessage
 
-instance Core.ToHeaders DecodeAuthorizationMessage where
+instance Data.ToHeaders DecodeAuthorizationMessage where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DecodeAuthorizationMessage where
+instance Data.ToPath DecodeAuthorizationMessage where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DecodeAuthorizationMessage where
+instance Data.ToQuery DecodeAuthorizationMessage where
   toQuery DecodeAuthorizationMessage' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DecodeAuthorizationMessage" :: Prelude.ByteString),
+          Data.=: ("DecodeAuthorizationMessage" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2011-06-15" :: Prelude.ByteString),
-        "EncodedMessage" Core.=: encodedMessage
+          Data.=: ("2011-06-15" :: Prelude.ByteString),
+        "EncodedMessage" Data.=: encodedMessage
       ]
 
 -- | A document that contains additional information about the authorization
@@ -154,7 +158,7 @@ instance Core.ToQuery DecodeAuthorizationMessage where
 --
 -- /See:/ 'newDecodeAuthorizationMessageResponse' smart constructor.
 data DecodeAuthorizationMessageResponse = DecodeAuthorizationMessageResponse'
-  { -- | An XML document that contains the decoded message.
+  { -- | The API returns a response with the decoded message.
     decodedMessage :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -169,7 +173,7 @@ data DecodeAuthorizationMessageResponse = DecodeAuthorizationMessageResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'decodedMessage', 'decodeAuthorizationMessageResponse_decodedMessage' - An XML document that contains the decoded message.
+-- 'decodedMessage', 'decodeAuthorizationMessageResponse_decodedMessage' - The API returns a response with the decoded message.
 --
 -- 'httpStatus', 'decodeAuthorizationMessageResponse_httpStatus' - The response's http status code.
 newDecodeAuthorizationMessageResponse ::
@@ -183,7 +187,7 @@ newDecodeAuthorizationMessageResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | An XML document that contains the decoded message.
+-- | The API returns a response with the decoded message.
 decodeAuthorizationMessageResponse_decodedMessage :: Lens.Lens' DecodeAuthorizationMessageResponse (Prelude.Maybe Prelude.Text)
 decodeAuthorizationMessageResponse_decodedMessage = Lens.lens (\DecodeAuthorizationMessageResponse' {decodedMessage} -> decodedMessage) (\s@DecodeAuthorizationMessageResponse' {} a -> s {decodedMessage = a} :: DecodeAuthorizationMessageResponse)
 

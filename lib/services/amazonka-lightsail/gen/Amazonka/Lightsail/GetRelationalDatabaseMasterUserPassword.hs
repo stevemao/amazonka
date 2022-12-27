@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.GetRelationalDatabaseMasterUserPassword
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,14 +40,15 @@ module Amazonka.Lightsail.GetRelationalDatabaseMasterUserPassword
     newGetRelationalDatabaseMasterUserPasswordResponse,
 
     -- * Response Lenses
-    getRelationalDatabaseMasterUserPasswordResponse_masterUserPassword,
     getRelationalDatabaseMasterUserPasswordResponse_createdAt,
+    getRelationalDatabaseMasterUserPasswordResponse_masterUserPassword,
     getRelationalDatabaseMasterUserPasswordResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -126,13 +127,14 @@ instance
     AWSResponse
       GetRelationalDatabaseMasterUserPassword =
       GetRelationalDatabaseMasterUserPasswordResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetRelationalDatabaseMasterUserPasswordResponse'
-            Prelude.<$> (x Core..?> "masterUserPassword")
-              Prelude.<*> (x Core..?> "createdAt")
+            Prelude.<$> (x Data..?> "createdAt")
+              Prelude.<*> (x Data..?> "masterUserPassword")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -155,58 +157,58 @@ instance
       `Prelude.seq` Prelude.rnf relationalDatabaseName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetRelationalDatabaseMasterUserPassword
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.GetRelationalDatabaseMasterUserPassword" ::
+              Data.=# ( "Lightsail_20161128.GetRelationalDatabaseMasterUserPassword" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     GetRelationalDatabaseMasterUserPassword
   where
   toJSON GetRelationalDatabaseMasterUserPassword' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("passwordVersion" Core..=)
+          [ ("passwordVersion" Data..=)
               Prelude.<$> passwordVersion,
             Prelude.Just
               ( "relationalDatabaseName"
-                  Core..= relationalDatabaseName
+                  Data..= relationalDatabaseName
               )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     GetRelationalDatabaseMasterUserPassword
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetRelationalDatabaseMasterUserPassword
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetRelationalDatabaseMasterUserPasswordResponse' smart constructor.
 data GetRelationalDatabaseMasterUserPasswordResponse = GetRelationalDatabaseMasterUserPasswordResponse'
-  { -- | The master user password for the @password version@ specified.
-    masterUserPassword :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | The timestamp when the specified version of the master user password was
+  { -- | The timestamp when the specified version of the master user password was
     -- created.
-    createdAt :: Prelude.Maybe Core.POSIX,
+    createdAt :: Prelude.Maybe Data.POSIX,
+    -- | The master user password for the @password version@ specified.
+    masterUserPassword :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -220,10 +222,10 @@ data GetRelationalDatabaseMasterUserPasswordResponse = GetRelationalDatabaseMast
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'masterUserPassword', 'getRelationalDatabaseMasterUserPasswordResponse_masterUserPassword' - The master user password for the @password version@ specified.
---
 -- 'createdAt', 'getRelationalDatabaseMasterUserPasswordResponse_createdAt' - The timestamp when the specified version of the master user password was
 -- created.
+--
+-- 'masterUserPassword', 'getRelationalDatabaseMasterUserPasswordResponse_masterUserPassword' - The master user password for the @password version@ specified.
 --
 -- 'httpStatus', 'getRelationalDatabaseMasterUserPasswordResponse_httpStatus' - The response's http status code.
 newGetRelationalDatabaseMasterUserPasswordResponse ::
@@ -233,21 +235,21 @@ newGetRelationalDatabaseMasterUserPasswordResponse ::
 newGetRelationalDatabaseMasterUserPasswordResponse
   pHttpStatus_ =
     GetRelationalDatabaseMasterUserPasswordResponse'
-      { masterUserPassword =
+      { createdAt =
           Prelude.Nothing,
-        createdAt =
+        masterUserPassword =
           Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
 
--- | The master user password for the @password version@ specified.
-getRelationalDatabaseMasterUserPasswordResponse_masterUserPassword :: Lens.Lens' GetRelationalDatabaseMasterUserPasswordResponse (Prelude.Maybe Prelude.Text)
-getRelationalDatabaseMasterUserPasswordResponse_masterUserPassword = Lens.lens (\GetRelationalDatabaseMasterUserPasswordResponse' {masterUserPassword} -> masterUserPassword) (\s@GetRelationalDatabaseMasterUserPasswordResponse' {} a -> s {masterUserPassword = a} :: GetRelationalDatabaseMasterUserPasswordResponse) Prelude.. Lens.mapping Core._Sensitive
-
 -- | The timestamp when the specified version of the master user password was
 -- created.
 getRelationalDatabaseMasterUserPasswordResponse_createdAt :: Lens.Lens' GetRelationalDatabaseMasterUserPasswordResponse (Prelude.Maybe Prelude.UTCTime)
-getRelationalDatabaseMasterUserPasswordResponse_createdAt = Lens.lens (\GetRelationalDatabaseMasterUserPasswordResponse' {createdAt} -> createdAt) (\s@GetRelationalDatabaseMasterUserPasswordResponse' {} a -> s {createdAt = a} :: GetRelationalDatabaseMasterUserPasswordResponse) Prelude.. Lens.mapping Core._Time
+getRelationalDatabaseMasterUserPasswordResponse_createdAt = Lens.lens (\GetRelationalDatabaseMasterUserPasswordResponse' {createdAt} -> createdAt) (\s@GetRelationalDatabaseMasterUserPasswordResponse' {} a -> s {createdAt = a} :: GetRelationalDatabaseMasterUserPasswordResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The master user password for the @password version@ specified.
+getRelationalDatabaseMasterUserPasswordResponse_masterUserPassword :: Lens.Lens' GetRelationalDatabaseMasterUserPasswordResponse (Prelude.Maybe Prelude.Text)
+getRelationalDatabaseMasterUserPasswordResponse_masterUserPassword = Lens.lens (\GetRelationalDatabaseMasterUserPasswordResponse' {masterUserPassword} -> masterUserPassword) (\s@GetRelationalDatabaseMasterUserPasswordResponse' {} a -> s {masterUserPassword = a} :: GetRelationalDatabaseMasterUserPasswordResponse) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The response's http status code.
 getRelationalDatabaseMasterUserPasswordResponse_httpStatus :: Lens.Lens' GetRelationalDatabaseMasterUserPasswordResponse Prelude.Int
@@ -259,6 +261,6 @@ instance
   where
   rnf
     GetRelationalDatabaseMasterUserPasswordResponse' {..} =
-      Prelude.rnf masterUserPassword
-        `Prelude.seq` Prelude.rnf createdAt
+      Prelude.rnf createdAt
+        `Prelude.seq` Prelude.rnf masterUserPassword
         `Prelude.seq` Prelude.rnf httpStatus

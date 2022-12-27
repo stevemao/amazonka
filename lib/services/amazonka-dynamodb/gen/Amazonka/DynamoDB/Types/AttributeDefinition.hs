@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.AttributeDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,11 @@
 module Amazonka.DynamoDB.Types.AttributeDefinition where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.ScalarAttributeType
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents an attribute for describing the key schema for the table and
@@ -89,14 +91,14 @@ attributeDefinition_attributeName = Lens.lens (\AttributeDefinition' {attributeN
 attributeDefinition_attributeType :: Lens.Lens' AttributeDefinition ScalarAttributeType
 attributeDefinition_attributeType = Lens.lens (\AttributeDefinition' {attributeType} -> attributeType) (\s@AttributeDefinition' {} a -> s {attributeType = a} :: AttributeDefinition)
 
-instance Core.FromJSON AttributeDefinition where
+instance Data.FromJSON AttributeDefinition where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AttributeDefinition"
       ( \x ->
           AttributeDefinition'
-            Prelude.<$> (x Core..: "AttributeName")
-            Prelude.<*> (x Core..: "AttributeType")
+            Prelude.<$> (x Data..: "AttributeName")
+            Prelude.<*> (x Data..: "AttributeType")
       )
 
 instance Prelude.Hashable AttributeDefinition where
@@ -109,13 +111,13 @@ instance Prelude.NFData AttributeDefinition where
     Prelude.rnf attributeName
       `Prelude.seq` Prelude.rnf attributeType
 
-instance Core.ToJSON AttributeDefinition where
+instance Data.ToJSON AttributeDefinition where
   toJSON AttributeDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("AttributeName" Core..= attributeName),
+              ("AttributeName" Data..= attributeName),
             Prelude.Just
-              ("AttributeType" Core..= attributeType)
+              ("AttributeType" Data..= attributeType)
           ]
       )

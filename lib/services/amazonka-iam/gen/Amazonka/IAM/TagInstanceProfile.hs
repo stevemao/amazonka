@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.TagInstanceProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -67,8 +67,9 @@ module Amazonka.IAM.TagInstanceProfile
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -134,7 +135,8 @@ instance Core.AWSRequest TagInstanceProfile where
   type
     AWSResponse TagInstanceProfile =
       TagInstanceProfileResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull TagInstanceProfileResponse'
 
@@ -148,21 +150,21 @@ instance Prelude.NFData TagInstanceProfile where
     Prelude.rnf instanceProfileName
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders TagInstanceProfile where
+instance Data.ToHeaders TagInstanceProfile where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath TagInstanceProfile where
+instance Data.ToPath TagInstanceProfile where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery TagInstanceProfile where
+instance Data.ToQuery TagInstanceProfile where
   toQuery TagInstanceProfile' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("TagInstanceProfile" :: Prelude.ByteString),
+          Data.=: ("TagInstanceProfile" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "InstanceProfileName" Core.=: instanceProfileName,
-        "Tags" Core.=: Core.toQueryList "member" tags
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "InstanceProfileName" Data.=: instanceProfileName,
+        "Tags" Data.=: Data.toQueryList "member" tags
       ]
 
 -- | /See:/ 'newTagInstanceProfileResponse' smart constructor.

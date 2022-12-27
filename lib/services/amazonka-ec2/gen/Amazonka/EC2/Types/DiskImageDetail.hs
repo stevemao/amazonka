@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.DiskImageDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.DiskImageDetail where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.DiskImageFormat
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a disk image.
@@ -120,10 +121,10 @@ instance Prelude.NFData DiskImageDetail where
       `Prelude.seq` Prelude.rnf format
       `Prelude.seq` Prelude.rnf importManifestUrl
 
-instance Core.ToQuery DiskImageDetail where
+instance Data.ToQuery DiskImageDetail where
   toQuery DiskImageDetail' {..} =
     Prelude.mconcat
-      [ "Bytes" Core.=: bytes,
-        "Format" Core.=: format,
-        "ImportManifestUrl" Core.=: importManifestUrl
+      [ "Bytes" Data.=: bytes,
+        "Format" Data.=: format,
+        "ImportManifestUrl" Data.=: importManifestUrl
       ]

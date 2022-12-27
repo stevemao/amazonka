@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.StandardsSubscriptionRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.StandardsSubscriptionRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The standard that you want to enable.
@@ -83,12 +84,12 @@ instance Prelude.NFData StandardsSubscriptionRequest where
     Prelude.rnf standardsInput
       `Prelude.seq` Prelude.rnf standardsArn
 
-instance Core.ToJSON StandardsSubscriptionRequest where
+instance Data.ToJSON StandardsSubscriptionRequest where
   toJSON StandardsSubscriptionRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("StandardsInput" Core..=)
+          [ ("StandardsInput" Data..=)
               Prelude.<$> standardsInput,
-            Prelude.Just ("StandardsArn" Core..= standardsArn)
+            Prelude.Just ("StandardsArn" Data..= standardsArn)
           ]
       )

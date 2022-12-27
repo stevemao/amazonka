@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ImageBuilder.DeleteDistributionConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,15 +34,16 @@ module Amazonka.ImageBuilder.DeleteDistributionConfiguration
     newDeleteDistributionConfigurationResponse,
 
     -- * Response Lenses
-    deleteDistributionConfigurationResponse_requestId,
     deleteDistributionConfigurationResponse_distributionConfigurationArn,
+    deleteDistributionConfigurationResponse_requestId,
     deleteDistributionConfigurationResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ImageBuilder.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,13 +89,14 @@ instance
   type
     AWSResponse DeleteDistributionConfiguration =
       DeleteDistributionConfigurationResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteDistributionConfigurationResponse'
-            Prelude.<$> (x Core..?> "requestId")
-            Prelude.<*> (x Core..?> "distributionConfigurationArn")
+            Prelude.<$> (x Data..?> "distributionConfigurationArn")
+            Prelude.<*> (x Data..?> "requestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,37 +118,37 @@ instance
     Prelude.rnf distributionConfigurationArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteDistributionConfiguration
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteDistributionConfiguration where
+instance Data.ToPath DeleteDistributionConfiguration where
   toPath =
     Prelude.const "/DeleteDistributionConfiguration"
 
-instance Core.ToQuery DeleteDistributionConfiguration where
+instance Data.ToQuery DeleteDistributionConfiguration where
   toQuery DeleteDistributionConfiguration' {..} =
     Prelude.mconcat
       [ "distributionConfigurationArn"
-          Core.=: distributionConfigurationArn
+          Data.=: distributionConfigurationArn
       ]
 
 -- | /See:/ 'newDeleteDistributionConfigurationResponse' smart constructor.
 data DeleteDistributionConfigurationResponse = DeleteDistributionConfigurationResponse'
-  { -- | The request ID that uniquely identifies this request.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the distribution configuration that
+  { -- | The Amazon Resource Name (ARN) of the distribution configuration that
     -- was deleted.
     distributionConfigurationArn :: Prelude.Maybe Prelude.Text,
+    -- | The request ID that uniquely identifies this request.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -160,10 +162,10 @@ data DeleteDistributionConfigurationResponse = DeleteDistributionConfigurationRe
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'deleteDistributionConfigurationResponse_requestId' - The request ID that uniquely identifies this request.
---
 -- 'distributionConfigurationArn', 'deleteDistributionConfigurationResponse_distributionConfigurationArn' - The Amazon Resource Name (ARN) of the distribution configuration that
 -- was deleted.
+--
+-- 'requestId', 'deleteDistributionConfigurationResponse_requestId' - The request ID that uniquely identifies this request.
 --
 -- 'httpStatus', 'deleteDistributionConfigurationResponse_httpStatus' - The response's http status code.
 newDeleteDistributionConfigurationResponse ::
@@ -173,21 +175,20 @@ newDeleteDistributionConfigurationResponse ::
 newDeleteDistributionConfigurationResponse
   pHttpStatus_ =
     DeleteDistributionConfigurationResponse'
-      { requestId =
+      { distributionConfigurationArn =
           Prelude.Nothing,
-        distributionConfigurationArn =
-          Prelude.Nothing,
+        requestId = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | The request ID that uniquely identifies this request.
-deleteDistributionConfigurationResponse_requestId :: Lens.Lens' DeleteDistributionConfigurationResponse (Prelude.Maybe Prelude.Text)
-deleteDistributionConfigurationResponse_requestId = Lens.lens (\DeleteDistributionConfigurationResponse' {requestId} -> requestId) (\s@DeleteDistributionConfigurationResponse' {} a -> s {requestId = a} :: DeleteDistributionConfigurationResponse)
 
 -- | The Amazon Resource Name (ARN) of the distribution configuration that
 -- was deleted.
 deleteDistributionConfigurationResponse_distributionConfigurationArn :: Lens.Lens' DeleteDistributionConfigurationResponse (Prelude.Maybe Prelude.Text)
 deleteDistributionConfigurationResponse_distributionConfigurationArn = Lens.lens (\DeleteDistributionConfigurationResponse' {distributionConfigurationArn} -> distributionConfigurationArn) (\s@DeleteDistributionConfigurationResponse' {} a -> s {distributionConfigurationArn = a} :: DeleteDistributionConfigurationResponse)
+
+-- | The request ID that uniquely identifies this request.
+deleteDistributionConfigurationResponse_requestId :: Lens.Lens' DeleteDistributionConfigurationResponse (Prelude.Maybe Prelude.Text)
+deleteDistributionConfigurationResponse_requestId = Lens.lens (\DeleteDistributionConfigurationResponse' {requestId} -> requestId) (\s@DeleteDistributionConfigurationResponse' {} a -> s {requestId = a} :: DeleteDistributionConfigurationResponse)
 
 -- | The response's http status code.
 deleteDistributionConfigurationResponse_httpStatus :: Lens.Lens' DeleteDistributionConfigurationResponse Prelude.Int
@@ -198,6 +199,6 @@ instance
     DeleteDistributionConfigurationResponse
   where
   rnf DeleteDistributionConfigurationResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf distributionConfigurationArn
+    Prelude.rnf distributionConfigurationArn
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf httpStatus

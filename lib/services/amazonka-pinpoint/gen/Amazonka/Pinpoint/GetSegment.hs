@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.GetSegment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.Pinpoint.GetSegment
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -93,13 +94,14 @@ getSegment_applicationId = Lens.lens (\GetSegment' {applicationId} -> applicatio
 
 instance Core.AWSRequest GetSegment where
   type AWSResponse GetSegment = GetSegmentResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSegmentResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable GetSegment where
@@ -112,27 +114,27 @@ instance Prelude.NFData GetSegment where
     Prelude.rnf segmentId
       `Prelude.seq` Prelude.rnf applicationId
 
-instance Core.ToHeaders GetSegment where
+instance Data.ToHeaders GetSegment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetSegment where
+instance Data.ToPath GetSegment where
   toPath GetSegment' {..} =
     Prelude.mconcat
       [ "/v1/apps/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/segments/",
-        Core.toBS segmentId
+        Data.toBS segmentId
       ]
 
-instance Core.ToQuery GetSegment where
+instance Data.ToQuery GetSegment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetSegmentResponse' smart constructor.

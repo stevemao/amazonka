@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.DisableLogging
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,17 +35,20 @@ module Amazonka.Redshift.DisableLogging
     newLoggingStatus,
 
     -- * Response Lenses
+    loggingStatus_bucketName,
+    loggingStatus_lastFailureMessage,
     loggingStatus_lastFailureTime,
     loggingStatus_lastSuccessfulDeliveryTime,
-    loggingStatus_s3KeyPrefix,
-    loggingStatus_bucketName,
+    loggingStatus_logDestinationType,
+    loggingStatus_logExports,
     loggingStatus_loggingEnabled,
-    loggingStatus_lastFailureMessage,
+    loggingStatus_s3KeyPrefix,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -91,11 +94,12 @@ disableLogging_clusterIdentifier = Lens.lens (\DisableLogging' {clusterIdentifie
 
 instance Core.AWSRequest DisableLogging where
   type AWSResponse DisableLogging = LoggingStatus
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DisableLoggingResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance Prelude.Hashable DisableLogging where
   hashWithSalt _salt DisableLogging' {..} =
@@ -105,18 +109,18 @@ instance Prelude.NFData DisableLogging where
   rnf DisableLogging' {..} =
     Prelude.rnf clusterIdentifier
 
-instance Core.ToHeaders DisableLogging where
+instance Data.ToHeaders DisableLogging where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DisableLogging where
+instance Data.ToPath DisableLogging where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisableLogging where
+instance Data.ToQuery DisableLogging where
   toQuery DisableLogging' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DisableLogging" :: Prelude.ByteString),
+          Data.=: ("DisableLogging" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "ClusterIdentifier" Core.=: clusterIdentifier
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "ClusterIdentifier" Data.=: clusterIdentifier
       ]

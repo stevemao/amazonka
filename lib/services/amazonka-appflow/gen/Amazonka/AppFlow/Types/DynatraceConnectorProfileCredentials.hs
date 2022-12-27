@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.DynatraceConnectorProfileCredentials
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppFlow.Types.DynatraceConnectorProfileCredentials where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The connector-specific profile credentials required by Dynatrace.
@@ -72,11 +73,11 @@ instance
     Prelude.rnf apiToken
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DynatraceConnectorProfileCredentials
   where
   toJSON DynatraceConnectorProfileCredentials' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("apiToken" Core..= apiToken)]
+          [Prelude.Just ("apiToken" Data..= apiToken)]
       )

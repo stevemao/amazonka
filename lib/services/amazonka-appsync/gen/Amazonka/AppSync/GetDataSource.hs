@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppSync.GetDataSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.AppSync.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,12 +89,13 @@ instance Core.AWSRequest GetDataSource where
   type
     AWSResponse GetDataSource =
       GetDataSourceResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDataSourceResponse'
-            Prelude.<$> (x Core..?> "dataSource")
+            Prelude.<$> (x Data..?> "dataSource")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -106,27 +108,27 @@ instance Prelude.NFData GetDataSource where
   rnf GetDataSource' {..} =
     Prelude.rnf apiId `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders GetDataSource where
+instance Data.ToHeaders GetDataSource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetDataSource where
+instance Data.ToPath GetDataSource where
   toPath GetDataSource' {..} =
     Prelude.mconcat
       [ "/v1/apis/",
-        Core.toBS apiId,
+        Data.toBS apiId,
         "/datasources/",
-        Core.toBS name
+        Data.toBS name
       ]
 
-instance Core.ToQuery GetDataSource where
+instance Data.ToQuery GetDataSource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetDataSourceResponse' smart constructor.

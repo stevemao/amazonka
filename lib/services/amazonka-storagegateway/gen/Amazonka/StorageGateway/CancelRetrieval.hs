@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.CancelRetrieval
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.StorageGateway.CancelRetrieval
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,12 +99,13 @@ instance Core.AWSRequest CancelRetrieval where
   type
     AWSResponse CancelRetrieval =
       CancelRetrievalResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CancelRetrievalResponse'
-            Prelude.<$> (x Core..?> "TapeARN")
+            Prelude.<$> (x Data..?> "TapeARN")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,34 +119,34 @@ instance Prelude.NFData CancelRetrieval where
     Prelude.rnf gatewayARN
       `Prelude.seq` Prelude.rnf tapeARN
 
-instance Core.ToHeaders CancelRetrieval where
+instance Data.ToHeaders CancelRetrieval where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.CancelRetrieval" ::
+              Data.=# ( "StorageGateway_20130630.CancelRetrieval" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CancelRetrieval where
+instance Data.ToJSON CancelRetrieval where
   toJSON CancelRetrieval' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("GatewayARN" Core..= gatewayARN),
-            Prelude.Just ("TapeARN" Core..= tapeARN)
+          [ Prelude.Just ("GatewayARN" Data..= gatewayARN),
+            Prelude.Just ("TapeARN" Data..= tapeARN)
           ]
       )
 
-instance Core.ToPath CancelRetrieval where
+instance Data.ToPath CancelRetrieval where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CancelRetrieval where
+instance Data.ToQuery CancelRetrieval where
   toQuery = Prelude.const Prelude.mempty
 
 -- | CancelRetrievalOutput

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.UpdateAppImageConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.SageMaker.UpdateAppImageConfig
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,12 +91,13 @@ instance Core.AWSRequest UpdateAppImageConfig where
   type
     AWSResponse UpdateAppImageConfig =
       UpdateAppImageConfigResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateAppImageConfigResponse'
-            Prelude.<$> (x Core..?> "AppImageConfigArn")
+            Prelude.<$> (x Data..?> "AppImageConfigArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -110,36 +112,36 @@ instance Prelude.NFData UpdateAppImageConfig where
     Prelude.rnf kernelGatewayImageConfig
       `Prelude.seq` Prelude.rnf appImageConfigName
 
-instance Core.ToHeaders UpdateAppImageConfig where
+instance Data.ToHeaders UpdateAppImageConfig where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.UpdateAppImageConfig" ::
+              Data.=# ( "SageMaker.UpdateAppImageConfig" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateAppImageConfig where
+instance Data.ToJSON UpdateAppImageConfig where
   toJSON UpdateAppImageConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("KernelGatewayImageConfig" Core..=)
+          [ ("KernelGatewayImageConfig" Data..=)
               Prelude.<$> kernelGatewayImageConfig,
             Prelude.Just
-              ("AppImageConfigName" Core..= appImageConfigName)
+              ("AppImageConfigName" Data..= appImageConfigName)
           ]
       )
 
-instance Core.ToPath UpdateAppImageConfig where
+instance Data.ToPath UpdateAppImageConfig where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateAppImageConfig where
+instance Data.ToQuery UpdateAppImageConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateAppImageConfigResponse' smart constructor.

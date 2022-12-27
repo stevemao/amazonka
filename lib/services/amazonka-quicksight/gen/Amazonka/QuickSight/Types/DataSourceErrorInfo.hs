@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.DataSourceErrorInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.DataSourceErrorInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types.DataSourceErrorInfoType
 
@@ -28,10 +29,10 @@ import Amazonka.QuickSight.Types.DataSourceErrorInfoType
 --
 -- /See:/ 'newDataSourceErrorInfo' smart constructor.
 data DataSourceErrorInfo = DataSourceErrorInfo'
-  { -- | Error type.
-    type' :: Prelude.Maybe DataSourceErrorInfoType,
-    -- | Error message.
-    message :: Prelude.Maybe Prelude.Text
+  { -- | Error message.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | Error type.
+    type' :: Prelude.Maybe DataSourceErrorInfoType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,40 +44,40 @@ data DataSourceErrorInfo = DataSourceErrorInfo'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'type'', 'dataSourceErrorInfo_type' - Error type.
---
 -- 'message', 'dataSourceErrorInfo_message' - Error message.
+--
+-- 'type'', 'dataSourceErrorInfo_type' - Error type.
 newDataSourceErrorInfo ::
   DataSourceErrorInfo
 newDataSourceErrorInfo =
   DataSourceErrorInfo'
-    { type' = Prelude.Nothing,
-      message = Prelude.Nothing
+    { message = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
-
--- | Error type.
-dataSourceErrorInfo_type :: Lens.Lens' DataSourceErrorInfo (Prelude.Maybe DataSourceErrorInfoType)
-dataSourceErrorInfo_type = Lens.lens (\DataSourceErrorInfo' {type'} -> type') (\s@DataSourceErrorInfo' {} a -> s {type' = a} :: DataSourceErrorInfo)
 
 -- | Error message.
 dataSourceErrorInfo_message :: Lens.Lens' DataSourceErrorInfo (Prelude.Maybe Prelude.Text)
 dataSourceErrorInfo_message = Lens.lens (\DataSourceErrorInfo' {message} -> message) (\s@DataSourceErrorInfo' {} a -> s {message = a} :: DataSourceErrorInfo)
 
-instance Core.FromJSON DataSourceErrorInfo where
+-- | Error type.
+dataSourceErrorInfo_type :: Lens.Lens' DataSourceErrorInfo (Prelude.Maybe DataSourceErrorInfoType)
+dataSourceErrorInfo_type = Lens.lens (\DataSourceErrorInfo' {type'} -> type') (\s@DataSourceErrorInfo' {} a -> s {type' = a} :: DataSourceErrorInfo)
+
+instance Data.FromJSON DataSourceErrorInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DataSourceErrorInfo"
       ( \x ->
           DataSourceErrorInfo'
-            Prelude.<$> (x Core..:? "Type")
-            Prelude.<*> (x Core..:? "Message")
+            Prelude.<$> (x Data..:? "Message")
+            Prelude.<*> (x Data..:? "Type")
       )
 
 instance Prelude.Hashable DataSourceErrorInfo where
   hashWithSalt _salt DataSourceErrorInfo' {..} =
-    _salt `Prelude.hashWithSalt` type'
-      `Prelude.hashWithSalt` message
+    _salt `Prelude.hashWithSalt` message
+      `Prelude.hashWithSalt` type'
 
 instance Prelude.NFData DataSourceErrorInfo where
   rnf DataSourceErrorInfo' {..} =
-    Prelude.rnf type' `Prelude.seq` Prelude.rnf message
+    Prelude.rnf message `Prelude.seq` Prelude.rnf type'

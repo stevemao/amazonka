@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.Types.SizeConstraintSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WAFRegional.Types.SizeConstraintSet where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.WAFRegional.Types.SizeConstraint
 
@@ -112,16 +113,16 @@ sizeConstraintSet_sizeConstraintSetId = Lens.lens (\SizeConstraintSet' {sizeCons
 sizeConstraintSet_sizeConstraints :: Lens.Lens' SizeConstraintSet [SizeConstraint]
 sizeConstraintSet_sizeConstraints = Lens.lens (\SizeConstraintSet' {sizeConstraints} -> sizeConstraints) (\s@SizeConstraintSet' {} a -> s {sizeConstraints = a} :: SizeConstraintSet) Prelude.. Lens.coerced
 
-instance Core.FromJSON SizeConstraintSet where
+instance Data.FromJSON SizeConstraintSet where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SizeConstraintSet"
       ( \x ->
           SizeConstraintSet'
-            Prelude.<$> (x Core..:? "Name")
-            Prelude.<*> (x Core..: "SizeConstraintSetId")
-            Prelude.<*> ( x Core..:? "SizeConstraints"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "Name")
+            Prelude.<*> (x Data..: "SizeConstraintSetId")
+            Prelude.<*> ( x Data..:? "SizeConstraints"
+                            Data..!= Prelude.mempty
                         )
       )
 

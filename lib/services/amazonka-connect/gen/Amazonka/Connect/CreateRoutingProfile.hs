@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.CreateRoutingProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,7 +59,8 @@ data CreateRoutingProfile = CreateRoutingProfile'
   { -- | The inbound queues associated with the routing profile. If no queue is
     -- added, the agent can make only outbound calls.
     queueConfigs :: Prelude.Maybe (Prelude.NonEmpty RoutingProfileQueueConfig),
-    -- | One or more tags.
+    -- | The tags used to organize, track, or control access for this resource.
+    -- For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The identifier of the Amazon Connect instance. You can find the
     -- instanceId in the ARN of the instance.
@@ -87,7 +89,8 @@ data CreateRoutingProfile = CreateRoutingProfile'
 -- 'queueConfigs', 'createRoutingProfile_queueConfigs' - The inbound queues associated with the routing profile. If no queue is
 -- added, the agent can make only outbound calls.
 --
--- 'tags', 'createRoutingProfile_tags' - One or more tags.
+-- 'tags', 'createRoutingProfile_tags' - The tags used to organize, track, or control access for this resource.
+-- For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.
 --
 -- 'instanceId', 'createRoutingProfile_instanceId' - The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -132,7 +135,8 @@ newCreateRoutingProfile
 createRoutingProfile_queueConfigs :: Lens.Lens' CreateRoutingProfile (Prelude.Maybe (Prelude.NonEmpty RoutingProfileQueueConfig))
 createRoutingProfile_queueConfigs = Lens.lens (\CreateRoutingProfile' {queueConfigs} -> queueConfigs) (\s@CreateRoutingProfile' {} a -> s {queueConfigs = a} :: CreateRoutingProfile) Prelude.. Lens.mapping Lens.coerced
 
--- | One or more tags.
+-- | The tags used to organize, track, or control access for this resource.
+-- For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.
 createRoutingProfile_tags :: Lens.Lens' CreateRoutingProfile (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createRoutingProfile_tags = Lens.lens (\CreateRoutingProfile' {tags} -> tags) (\s@CreateRoutingProfile' {} a -> s {tags = a} :: CreateRoutingProfile) Prelude.. Lens.mapping Lens.coerced
 
@@ -163,13 +167,14 @@ instance Core.AWSRequest CreateRoutingProfile where
   type
     AWSResponse CreateRoutingProfile =
       CreateRoutingProfileResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateRoutingProfileResponse'
-            Prelude.<$> (x Core..?> "RoutingProfileArn")
-            Prelude.<*> (x Core..?> "RoutingProfileId")
+            Prelude.<$> (x Data..?> "RoutingProfileArn")
+            Prelude.<*> (x Data..?> "RoutingProfileId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -193,40 +198,40 @@ instance Prelude.NFData CreateRoutingProfile where
       `Prelude.seq` Prelude.rnf defaultOutboundQueueId
       `Prelude.seq` Prelude.rnf mediaConcurrencies
 
-instance Core.ToHeaders CreateRoutingProfile where
+instance Data.ToHeaders CreateRoutingProfile where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateRoutingProfile where
+instance Data.ToJSON CreateRoutingProfile where
   toJSON CreateRoutingProfile' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("QueueConfigs" Core..=) Prelude.<$> queueConfigs,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Description" Core..= description),
+          [ ("QueueConfigs" Data..=) Prelude.<$> queueConfigs,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Description" Data..= description),
             Prelude.Just
               ( "DefaultOutboundQueueId"
-                  Core..= defaultOutboundQueueId
+                  Data..= defaultOutboundQueueId
               ),
             Prelude.Just
-              ("MediaConcurrencies" Core..= mediaConcurrencies)
+              ("MediaConcurrencies" Data..= mediaConcurrencies)
           ]
       )
 
-instance Core.ToPath CreateRoutingProfile where
+instance Data.ToPath CreateRoutingProfile where
   toPath CreateRoutingProfile' {..} =
     Prelude.mconcat
-      ["/routing-profiles/", Core.toBS instanceId]
+      ["/routing-profiles/", Data.toBS instanceId]
 
-instance Core.ToQuery CreateRoutingProfile where
+instance Data.ToQuery CreateRoutingProfile where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateRoutingProfileResponse' smart constructor.

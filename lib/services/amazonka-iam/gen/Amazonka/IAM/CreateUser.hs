@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.CreateUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,8 +48,9 @@ module Amazonka.IAM.CreateUser
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -190,13 +191,14 @@ createUser_userName = Lens.lens (\CreateUser' {userName} -> userName) (\s@Create
 
 instance Core.AWSRequest CreateUser where
   type AWSResponse CreateUser = CreateUserResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateUserResult"
       ( \s h x ->
           CreateUserResponse'
-            Prelude.<$> (x Core..@? "User")
+            Prelude.<$> (x Data..@? "User")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -214,25 +216,25 @@ instance Prelude.NFData CreateUser where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf userName
 
-instance Core.ToHeaders CreateUser where
+instance Data.ToHeaders CreateUser where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateUser where
+instance Data.ToPath CreateUser where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateUser where
+instance Data.ToQuery CreateUser where
   toQuery CreateUser' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateUser" :: Prelude.ByteString),
+          Data.=: ("CreateUser" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "Path" Core.=: path,
-        "PermissionsBoundary" Core.=: permissionsBoundary,
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "Path" Data.=: path,
+        "PermissionsBoundary" Data.=: permissionsBoundary,
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> tags),
-        "UserName" Core.=: userName
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> tags),
+        "UserName" Data.=: userName
       ]
 
 -- | Contains the response to a successful CreateUser request.

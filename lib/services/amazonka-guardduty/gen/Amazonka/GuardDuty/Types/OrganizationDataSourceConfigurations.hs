@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.Types.OrganizationDataSourceConfigurations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,11 @@
 module Amazonka.GuardDuty.Types.OrganizationDataSourceConfigurations where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.GuardDuty.Types.OrganizationKubernetesConfiguration
+import Amazonka.GuardDuty.Types.OrganizationMalwareProtectionConfiguration
 import Amazonka.GuardDuty.Types.OrganizationS3LogsConfiguration
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that contains information on which data sources will be
@@ -30,7 +33,13 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newOrganizationDataSourceConfigurations' smart constructor.
 data OrganizationDataSourceConfigurations = OrganizationDataSourceConfigurations'
-  { -- | Describes whether S3 data event logs are enabled for new members of the
+  { -- | Describes the configuration of Kubernetes data sources for new members
+    -- of the organization.
+    kubernetes :: Prelude.Maybe OrganizationKubernetesConfiguration,
+    -- | Describes the configuration of Malware Protection for new members of the
+    -- organization.
+    malwareProtection :: Prelude.Maybe OrganizationMalwareProtectionConfiguration,
+    -- | Describes whether S3 data event logs are enabled for new members of the
     -- organization.
     s3Logs :: Prelude.Maybe OrganizationS3LogsConfiguration
   }
@@ -44,15 +53,33 @@ data OrganizationDataSourceConfigurations = OrganizationDataSourceConfigurations
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'kubernetes', 'organizationDataSourceConfigurations_kubernetes' - Describes the configuration of Kubernetes data sources for new members
+-- of the organization.
+--
+-- 'malwareProtection', 'organizationDataSourceConfigurations_malwareProtection' - Describes the configuration of Malware Protection for new members of the
+-- organization.
+--
 -- 's3Logs', 'organizationDataSourceConfigurations_s3Logs' - Describes whether S3 data event logs are enabled for new members of the
 -- organization.
 newOrganizationDataSourceConfigurations ::
   OrganizationDataSourceConfigurations
 newOrganizationDataSourceConfigurations =
   OrganizationDataSourceConfigurations'
-    { s3Logs =
-        Prelude.Nothing
+    { kubernetes =
+        Prelude.Nothing,
+      malwareProtection = Prelude.Nothing,
+      s3Logs = Prelude.Nothing
     }
+
+-- | Describes the configuration of Kubernetes data sources for new members
+-- of the organization.
+organizationDataSourceConfigurations_kubernetes :: Lens.Lens' OrganizationDataSourceConfigurations (Prelude.Maybe OrganizationKubernetesConfiguration)
+organizationDataSourceConfigurations_kubernetes = Lens.lens (\OrganizationDataSourceConfigurations' {kubernetes} -> kubernetes) (\s@OrganizationDataSourceConfigurations' {} a -> s {kubernetes = a} :: OrganizationDataSourceConfigurations)
+
+-- | Describes the configuration of Malware Protection for new members of the
+-- organization.
+organizationDataSourceConfigurations_malwareProtection :: Lens.Lens' OrganizationDataSourceConfigurations (Prelude.Maybe OrganizationMalwareProtectionConfiguration)
+organizationDataSourceConfigurations_malwareProtection = Lens.lens (\OrganizationDataSourceConfigurations' {malwareProtection} -> malwareProtection) (\s@OrganizationDataSourceConfigurations' {} a -> s {malwareProtection = a} :: OrganizationDataSourceConfigurations)
 
 -- | Describes whether S3 data event logs are enabled for new members of the
 -- organization.
@@ -66,21 +93,29 @@ instance
   hashWithSalt
     _salt
     OrganizationDataSourceConfigurations' {..} =
-      _salt `Prelude.hashWithSalt` s3Logs
+      _salt `Prelude.hashWithSalt` kubernetes
+        `Prelude.hashWithSalt` malwareProtection
+        `Prelude.hashWithSalt` s3Logs
 
 instance
   Prelude.NFData
     OrganizationDataSourceConfigurations
   where
   rnf OrganizationDataSourceConfigurations' {..} =
-    Prelude.rnf s3Logs
+    Prelude.rnf kubernetes
+      `Prelude.seq` Prelude.rnf malwareProtection
+      `Prelude.seq` Prelude.rnf s3Logs
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     OrganizationDataSourceConfigurations
   where
   toJSON OrganizationDataSourceConfigurations' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("s3Logs" Core..=) Prelude.<$> s3Logs]
+          [ ("kubernetes" Data..=) Prelude.<$> kubernetes,
+            ("malwareProtection" Data..=)
+              Prelude.<$> malwareProtection,
+            ("s3Logs" Data..=) Prelude.<$> s3Logs
+          ]
       )

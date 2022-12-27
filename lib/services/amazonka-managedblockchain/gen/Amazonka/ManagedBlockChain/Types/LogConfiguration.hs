@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ManagedBlockChain.Types.LogConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ManagedBlockChain.Types.LogConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A configuration for logging events.
@@ -50,12 +51,12 @@ newLogConfiguration =
 logConfiguration_enabled :: Lens.Lens' LogConfiguration (Prelude.Maybe Prelude.Bool)
 logConfiguration_enabled = Lens.lens (\LogConfiguration' {enabled} -> enabled) (\s@LogConfiguration' {} a -> s {enabled = a} :: LogConfiguration)
 
-instance Core.FromJSON LogConfiguration where
+instance Data.FromJSON LogConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LogConfiguration"
       ( \x ->
-          LogConfiguration' Prelude.<$> (x Core..:? "Enabled")
+          LogConfiguration' Prelude.<$> (x Data..:? "Enabled")
       )
 
 instance Prelude.Hashable LogConfiguration where
@@ -65,9 +66,9 @@ instance Prelude.Hashable LogConfiguration where
 instance Prelude.NFData LogConfiguration where
   rnf LogConfiguration' {..} = Prelude.rnf enabled
 
-instance Core.ToJSON LogConfiguration where
+instance Data.ToJSON LogConfiguration where
   toJSON LogConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Enabled" Core..=) Prelude.<$> enabled]
+          [("Enabled" Data..=) Prelude.<$> enabled]
       )

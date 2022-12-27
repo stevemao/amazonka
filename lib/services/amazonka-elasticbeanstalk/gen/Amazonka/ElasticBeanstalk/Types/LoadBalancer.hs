@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.Types.LoadBalancer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElasticBeanstalk.Types.LoadBalancer where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a LoadBalancer.
@@ -50,9 +51,9 @@ newLoadBalancer =
 loadBalancer_name :: Lens.Lens' LoadBalancer (Prelude.Maybe Prelude.Text)
 loadBalancer_name = Lens.lens (\LoadBalancer' {name} -> name) (\s@LoadBalancer' {} a -> s {name = a} :: LoadBalancer)
 
-instance Core.FromXML LoadBalancer where
+instance Data.FromXML LoadBalancer where
   parseXML x =
-    LoadBalancer' Prelude.<$> (x Core..@? "Name")
+    LoadBalancer' Prelude.<$> (x Data..@? "Name")
 
 instance Prelude.Hashable LoadBalancer where
   hashWithSalt _salt LoadBalancer' {..} =

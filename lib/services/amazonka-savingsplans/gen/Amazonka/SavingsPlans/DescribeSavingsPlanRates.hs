@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SavingsPlans.DescribeSavingsPlanRates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.SavingsPlans.DescribeSavingsPlanRates
 
     -- * Request Lenses
     describeSavingsPlanRates_filters,
-    describeSavingsPlanRates_nextToken,
     describeSavingsPlanRates_maxResults,
+    describeSavingsPlanRates_nextToken,
     describeSavingsPlanRates_savingsPlanId,
 
     -- * Destructuring the Response
@@ -37,15 +37,16 @@ module Amazonka.SavingsPlans.DescribeSavingsPlanRates
     newDescribeSavingsPlanRatesResponse,
 
     -- * Response Lenses
-    describeSavingsPlanRatesResponse_searchResults,
-    describeSavingsPlanRatesResponse_savingsPlanId,
     describeSavingsPlanRatesResponse_nextToken,
+    describeSavingsPlanRatesResponse_savingsPlanId,
+    describeSavingsPlanRatesResponse_searchResults,
     describeSavingsPlanRatesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,11 +56,11 @@ import Amazonka.SavingsPlans.Types
 data DescribeSavingsPlanRates = DescribeSavingsPlanRates'
   { -- | The filters.
     filters :: Prelude.Maybe [SavingsPlanRateFilter],
-    -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of results to return with a single call. To retrieve
     -- additional results, make another call with the returned token value.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ID of the Savings Plan.
     savingsPlanId :: Prelude.Text
   }
@@ -75,10 +76,10 @@ data DescribeSavingsPlanRates = DescribeSavingsPlanRates'
 --
 -- 'filters', 'describeSavingsPlanRates_filters' - The filters.
 --
--- 'nextToken', 'describeSavingsPlanRates_nextToken' - The token for the next page of results.
---
 -- 'maxResults', 'describeSavingsPlanRates_maxResults' - The maximum number of results to return with a single call. To retrieve
 -- additional results, make another call with the returned token value.
+--
+-- 'nextToken', 'describeSavingsPlanRates_nextToken' - The token for the next page of results.
 --
 -- 'savingsPlanId', 'describeSavingsPlanRates_savingsPlanId' - The ID of the Savings Plan.
 newDescribeSavingsPlanRates ::
@@ -89,8 +90,8 @@ newDescribeSavingsPlanRates pSavingsPlanId_ =
   DescribeSavingsPlanRates'
     { filters =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       savingsPlanId = pSavingsPlanId_
     }
 
@@ -98,14 +99,14 @@ newDescribeSavingsPlanRates pSavingsPlanId_ =
 describeSavingsPlanRates_filters :: Lens.Lens' DescribeSavingsPlanRates (Prelude.Maybe [SavingsPlanRateFilter])
 describeSavingsPlanRates_filters = Lens.lens (\DescribeSavingsPlanRates' {filters} -> filters) (\s@DescribeSavingsPlanRates' {} a -> s {filters = a} :: DescribeSavingsPlanRates) Prelude.. Lens.mapping Lens.coerced
 
--- | The token for the next page of results.
-describeSavingsPlanRates_nextToken :: Lens.Lens' DescribeSavingsPlanRates (Prelude.Maybe Prelude.Text)
-describeSavingsPlanRates_nextToken = Lens.lens (\DescribeSavingsPlanRates' {nextToken} -> nextToken) (\s@DescribeSavingsPlanRates' {} a -> s {nextToken = a} :: DescribeSavingsPlanRates)
-
 -- | The maximum number of results to return with a single call. To retrieve
 -- additional results, make another call with the returned token value.
 describeSavingsPlanRates_maxResults :: Lens.Lens' DescribeSavingsPlanRates (Prelude.Maybe Prelude.Natural)
 describeSavingsPlanRates_maxResults = Lens.lens (\DescribeSavingsPlanRates' {maxResults} -> maxResults) (\s@DescribeSavingsPlanRates' {} a -> s {maxResults = a} :: DescribeSavingsPlanRates)
+
+-- | The token for the next page of results.
+describeSavingsPlanRates_nextToken :: Lens.Lens' DescribeSavingsPlanRates (Prelude.Maybe Prelude.Text)
+describeSavingsPlanRates_nextToken = Lens.lens (\DescribeSavingsPlanRates' {nextToken} -> nextToken) (\s@DescribeSavingsPlanRates' {} a -> s {nextToken = a} :: DescribeSavingsPlanRates)
 
 -- | The ID of the Savings Plan.
 describeSavingsPlanRates_savingsPlanId :: Lens.Lens' DescribeSavingsPlanRates Prelude.Text
@@ -115,69 +116,70 @@ instance Core.AWSRequest DescribeSavingsPlanRates where
   type
     AWSResponse DescribeSavingsPlanRates =
       DescribeSavingsPlanRatesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeSavingsPlanRatesResponse'
-            Prelude.<$> (x Core..?> "searchResults" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "savingsPlanId")
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "savingsPlanId")
+            Prelude.<*> (x Data..?> "searchResults" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeSavingsPlanRates where
   hashWithSalt _salt DescribeSavingsPlanRates' {..} =
     _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` savingsPlanId
 
 instance Prelude.NFData DescribeSavingsPlanRates where
   rnf DescribeSavingsPlanRates' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf savingsPlanId
 
-instance Core.ToHeaders DescribeSavingsPlanRates where
+instance Data.ToHeaders DescribeSavingsPlanRates where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeSavingsPlanRates where
+instance Data.ToJSON DescribeSavingsPlanRates where
   toJSON DescribeSavingsPlanRates' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("filters" Core..=) Prelude.<$> filters,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
+          [ ("filters" Data..=) Prelude.<$> filters,
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("savingsPlanId" Core..= savingsPlanId)
+              ("savingsPlanId" Data..= savingsPlanId)
           ]
       )
 
-instance Core.ToPath DescribeSavingsPlanRates where
+instance Data.ToPath DescribeSavingsPlanRates where
   toPath = Prelude.const "/DescribeSavingsPlanRates"
 
-instance Core.ToQuery DescribeSavingsPlanRates where
+instance Data.ToQuery DescribeSavingsPlanRates where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeSavingsPlanRatesResponse' smart constructor.
 data DescribeSavingsPlanRatesResponse = DescribeSavingsPlanRatesResponse'
-  { -- | Information about the Savings Plans rates.
-    searchResults :: Prelude.Maybe [SavingsPlanRate],
-    -- | The ID of the Savings Plan.
-    savingsPlanId :: Prelude.Maybe Prelude.Text,
-    -- | The token to use to retrieve the next page of results. This value is
+  { -- | The token to use to retrieve the next page of results. This value is
     -- null when there are no more results to return.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Savings Plan.
+    savingsPlanId :: Prelude.Maybe Prelude.Text,
+    -- | Information about the Savings Plans rates.
+    searchResults :: Prelude.Maybe [SavingsPlanRate],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -191,12 +193,12 @@ data DescribeSavingsPlanRatesResponse = DescribeSavingsPlanRatesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'searchResults', 'describeSavingsPlanRatesResponse_searchResults' - Information about the Savings Plans rates.
+-- 'nextToken', 'describeSavingsPlanRatesResponse_nextToken' - The token to use to retrieve the next page of results. This value is
+-- null when there are no more results to return.
 --
 -- 'savingsPlanId', 'describeSavingsPlanRatesResponse_savingsPlanId' - The ID of the Savings Plan.
 --
--- 'nextToken', 'describeSavingsPlanRatesResponse_nextToken' - The token to use to retrieve the next page of results. This value is
--- null when there are no more results to return.
+-- 'searchResults', 'describeSavingsPlanRatesResponse_searchResults' - Information about the Savings Plans rates.
 --
 -- 'httpStatus', 'describeSavingsPlanRatesResponse_httpStatus' - The response's http status code.
 newDescribeSavingsPlanRatesResponse ::
@@ -205,25 +207,25 @@ newDescribeSavingsPlanRatesResponse ::
   DescribeSavingsPlanRatesResponse
 newDescribeSavingsPlanRatesResponse pHttpStatus_ =
   DescribeSavingsPlanRatesResponse'
-    { searchResults =
+    { nextToken =
         Prelude.Nothing,
       savingsPlanId = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      searchResults = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Information about the Savings Plans rates.
-describeSavingsPlanRatesResponse_searchResults :: Lens.Lens' DescribeSavingsPlanRatesResponse (Prelude.Maybe [SavingsPlanRate])
-describeSavingsPlanRatesResponse_searchResults = Lens.lens (\DescribeSavingsPlanRatesResponse' {searchResults} -> searchResults) (\s@DescribeSavingsPlanRatesResponse' {} a -> s {searchResults = a} :: DescribeSavingsPlanRatesResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | The ID of the Savings Plan.
-describeSavingsPlanRatesResponse_savingsPlanId :: Lens.Lens' DescribeSavingsPlanRatesResponse (Prelude.Maybe Prelude.Text)
-describeSavingsPlanRatesResponse_savingsPlanId = Lens.lens (\DescribeSavingsPlanRatesResponse' {savingsPlanId} -> savingsPlanId) (\s@DescribeSavingsPlanRatesResponse' {} a -> s {savingsPlanId = a} :: DescribeSavingsPlanRatesResponse)
 
 -- | The token to use to retrieve the next page of results. This value is
 -- null when there are no more results to return.
 describeSavingsPlanRatesResponse_nextToken :: Lens.Lens' DescribeSavingsPlanRatesResponse (Prelude.Maybe Prelude.Text)
 describeSavingsPlanRatesResponse_nextToken = Lens.lens (\DescribeSavingsPlanRatesResponse' {nextToken} -> nextToken) (\s@DescribeSavingsPlanRatesResponse' {} a -> s {nextToken = a} :: DescribeSavingsPlanRatesResponse)
+
+-- | The ID of the Savings Plan.
+describeSavingsPlanRatesResponse_savingsPlanId :: Lens.Lens' DescribeSavingsPlanRatesResponse (Prelude.Maybe Prelude.Text)
+describeSavingsPlanRatesResponse_savingsPlanId = Lens.lens (\DescribeSavingsPlanRatesResponse' {savingsPlanId} -> savingsPlanId) (\s@DescribeSavingsPlanRatesResponse' {} a -> s {savingsPlanId = a} :: DescribeSavingsPlanRatesResponse)
+
+-- | Information about the Savings Plans rates.
+describeSavingsPlanRatesResponse_searchResults :: Lens.Lens' DescribeSavingsPlanRatesResponse (Prelude.Maybe [SavingsPlanRate])
+describeSavingsPlanRatesResponse_searchResults = Lens.lens (\DescribeSavingsPlanRatesResponse' {searchResults} -> searchResults) (\s@DescribeSavingsPlanRatesResponse' {} a -> s {searchResults = a} :: DescribeSavingsPlanRatesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeSavingsPlanRatesResponse_httpStatus :: Lens.Lens' DescribeSavingsPlanRatesResponse Prelude.Int
@@ -234,7 +236,7 @@ instance
     DescribeSavingsPlanRatesResponse
   where
   rnf DescribeSavingsPlanRatesResponse' {..} =
-    Prelude.rnf searchResults
+    Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf savingsPlanId
-      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf searchResults
       `Prelude.seq` Prelude.rnf httpStatus

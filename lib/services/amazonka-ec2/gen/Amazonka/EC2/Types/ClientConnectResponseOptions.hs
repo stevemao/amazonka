@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.ClientConnectResponseOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.ClientConnectResponseOptions where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.ClientVpnEndpointAttributeStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The options for managing connection authorization for new client
@@ -30,13 +31,13 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newClientConnectResponseOptions' smart constructor.
 data ClientConnectResponseOptions = ClientConnectResponseOptions'
-  { -- | The status of any updates to the client connect options.
-    status :: Prelude.Maybe ClientVpnEndpointAttributeStatus,
-    -- | Indicates whether client connect options are enabled.
+  { -- | Indicates whether client connect options are enabled.
     enabled :: Prelude.Maybe Prelude.Bool,
     -- | The Amazon Resource Name (ARN) of the Lambda function used for
     -- connection authorization.
-    lambdaFunctionArn :: Prelude.Maybe Prelude.Text
+    lambdaFunctionArn :: Prelude.Maybe Prelude.Text,
+    -- | The status of any updates to the client connect options.
+    status :: Prelude.Maybe ClientVpnEndpointAttributeStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,25 +49,21 @@ data ClientConnectResponseOptions = ClientConnectResponseOptions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'clientConnectResponseOptions_status' - The status of any updates to the client connect options.
---
 -- 'enabled', 'clientConnectResponseOptions_enabled' - Indicates whether client connect options are enabled.
 --
 -- 'lambdaFunctionArn', 'clientConnectResponseOptions_lambdaFunctionArn' - The Amazon Resource Name (ARN) of the Lambda function used for
 -- connection authorization.
+--
+-- 'status', 'clientConnectResponseOptions_status' - The status of any updates to the client connect options.
 newClientConnectResponseOptions ::
   ClientConnectResponseOptions
 newClientConnectResponseOptions =
   ClientConnectResponseOptions'
-    { status =
+    { enabled =
         Prelude.Nothing,
-      enabled = Prelude.Nothing,
-      lambdaFunctionArn = Prelude.Nothing
+      lambdaFunctionArn = Prelude.Nothing,
+      status = Prelude.Nothing
     }
-
--- | The status of any updates to the client connect options.
-clientConnectResponseOptions_status :: Lens.Lens' ClientConnectResponseOptions (Prelude.Maybe ClientVpnEndpointAttributeStatus)
-clientConnectResponseOptions_status = Lens.lens (\ClientConnectResponseOptions' {status} -> status) (\s@ClientConnectResponseOptions' {} a -> s {status = a} :: ClientConnectResponseOptions)
 
 -- | Indicates whether client connect options are enabled.
 clientConnectResponseOptions_enabled :: Lens.Lens' ClientConnectResponseOptions (Prelude.Maybe Prelude.Bool)
@@ -77,24 +74,28 @@ clientConnectResponseOptions_enabled = Lens.lens (\ClientConnectResponseOptions'
 clientConnectResponseOptions_lambdaFunctionArn :: Lens.Lens' ClientConnectResponseOptions (Prelude.Maybe Prelude.Text)
 clientConnectResponseOptions_lambdaFunctionArn = Lens.lens (\ClientConnectResponseOptions' {lambdaFunctionArn} -> lambdaFunctionArn) (\s@ClientConnectResponseOptions' {} a -> s {lambdaFunctionArn = a} :: ClientConnectResponseOptions)
 
-instance Core.FromXML ClientConnectResponseOptions where
+-- | The status of any updates to the client connect options.
+clientConnectResponseOptions_status :: Lens.Lens' ClientConnectResponseOptions (Prelude.Maybe ClientVpnEndpointAttributeStatus)
+clientConnectResponseOptions_status = Lens.lens (\ClientConnectResponseOptions' {status} -> status) (\s@ClientConnectResponseOptions' {} a -> s {status = a} :: ClientConnectResponseOptions)
+
+instance Data.FromXML ClientConnectResponseOptions where
   parseXML x =
     ClientConnectResponseOptions'
-      Prelude.<$> (x Core..@? "status")
-      Prelude.<*> (x Core..@? "enabled")
-      Prelude.<*> (x Core..@? "lambdaFunctionArn")
+      Prelude.<$> (x Data..@? "enabled")
+      Prelude.<*> (x Data..@? "lambdaFunctionArn")
+      Prelude.<*> (x Data..@? "status")
 
 instance
   Prelude.Hashable
     ClientConnectResponseOptions
   where
   hashWithSalt _salt ClientConnectResponseOptions' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` enabled
+    _salt `Prelude.hashWithSalt` enabled
       `Prelude.hashWithSalt` lambdaFunctionArn
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData ClientConnectResponseOptions where
   rnf ClientConnectResponseOptions' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf enabled
+    Prelude.rnf enabled
       `Prelude.seq` Prelude.rnf lambdaFunctionArn
+      `Prelude.seq` Prelude.rnf status

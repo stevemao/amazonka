@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.PipelineExperimentConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.PipelineExperimentConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the names of the experiment and trial created by a pipeline.
@@ -62,14 +63,14 @@ pipelineExperimentConfig_experimentName = Lens.lens (\PipelineExperimentConfig' 
 pipelineExperimentConfig_trialName :: Lens.Lens' PipelineExperimentConfig (Prelude.Maybe Prelude.Text)
 pipelineExperimentConfig_trialName = Lens.lens (\PipelineExperimentConfig' {trialName} -> trialName) (\s@PipelineExperimentConfig' {} a -> s {trialName = a} :: PipelineExperimentConfig)
 
-instance Core.FromJSON PipelineExperimentConfig where
+instance Data.FromJSON PipelineExperimentConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PipelineExperimentConfig"
       ( \x ->
           PipelineExperimentConfig'
-            Prelude.<$> (x Core..:? "ExperimentName")
-            Prelude.<*> (x Core..:? "TrialName")
+            Prelude.<$> (x Data..:? "ExperimentName")
+            Prelude.<*> (x Data..:? "TrialName")
       )
 
 instance Prelude.Hashable PipelineExperimentConfig where

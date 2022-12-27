@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.Types.VpcEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Redshift.Types.VpcEndpoint where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Internal
 import Amazonka.Redshift.Types.NetworkInterface
@@ -30,14 +31,14 @@ import Amazonka.Redshift.Types.NetworkInterface
 --
 -- /See:/ 'newVpcEndpoint' smart constructor.
 data VpcEndpoint = VpcEndpoint'
-  { -- | The VPC identifier that the endpoint is associated.
-    vpcId :: Prelude.Maybe Prelude.Text,
-    -- | One or more network interfaces of the endpoint. Also known as an
+  { -- | One or more network interfaces of the endpoint. Also known as an
     -- interface endpoint.
     networkInterfaces :: Prelude.Maybe [NetworkInterface],
     -- | The connection endpoint ID for connecting an Amazon Redshift cluster
     -- through the proxy.
-    vpcEndpointId :: Prelude.Maybe Prelude.Text
+    vpcEndpointId :: Prelude.Maybe Prelude.Text,
+    -- | The VPC identifier that the endpoint is associated.
+    vpcId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -49,25 +50,21 @@ data VpcEndpoint = VpcEndpoint'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'vpcId', 'vpcEndpoint_vpcId' - The VPC identifier that the endpoint is associated.
---
 -- 'networkInterfaces', 'vpcEndpoint_networkInterfaces' - One or more network interfaces of the endpoint. Also known as an
 -- interface endpoint.
 --
 -- 'vpcEndpointId', 'vpcEndpoint_vpcEndpointId' - The connection endpoint ID for connecting an Amazon Redshift cluster
 -- through the proxy.
+--
+-- 'vpcId', 'vpcEndpoint_vpcId' - The VPC identifier that the endpoint is associated.
 newVpcEndpoint ::
   VpcEndpoint
 newVpcEndpoint =
   VpcEndpoint'
-    { vpcId = Prelude.Nothing,
-      networkInterfaces = Prelude.Nothing,
-      vpcEndpointId = Prelude.Nothing
+    { networkInterfaces = Prelude.Nothing,
+      vpcEndpointId = Prelude.Nothing,
+      vpcId = Prelude.Nothing
     }
-
--- | The VPC identifier that the endpoint is associated.
-vpcEndpoint_vpcId :: Lens.Lens' VpcEndpoint (Prelude.Maybe Prelude.Text)
-vpcEndpoint_vpcId = Lens.lens (\VpcEndpoint' {vpcId} -> vpcId) (\s@VpcEndpoint' {} a -> s {vpcId = a} :: VpcEndpoint)
 
 -- | One or more network interfaces of the endpoint. Also known as an
 -- interface endpoint.
@@ -79,24 +76,28 @@ vpcEndpoint_networkInterfaces = Lens.lens (\VpcEndpoint' {networkInterfaces} -> 
 vpcEndpoint_vpcEndpointId :: Lens.Lens' VpcEndpoint (Prelude.Maybe Prelude.Text)
 vpcEndpoint_vpcEndpointId = Lens.lens (\VpcEndpoint' {vpcEndpointId} -> vpcEndpointId) (\s@VpcEndpoint' {} a -> s {vpcEndpointId = a} :: VpcEndpoint)
 
-instance Core.FromXML VpcEndpoint where
+-- | The VPC identifier that the endpoint is associated.
+vpcEndpoint_vpcId :: Lens.Lens' VpcEndpoint (Prelude.Maybe Prelude.Text)
+vpcEndpoint_vpcId = Lens.lens (\VpcEndpoint' {vpcId} -> vpcId) (\s@VpcEndpoint' {} a -> s {vpcId = a} :: VpcEndpoint)
+
+instance Data.FromXML VpcEndpoint where
   parseXML x =
     VpcEndpoint'
-      Prelude.<$> (x Core..@? "VpcId")
-      Prelude.<*> ( x Core..@? "NetworkInterfaces"
+      Prelude.<$> ( x Data..@? "NetworkInterfaces"
                       Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "NetworkInterface")
+                      Prelude.>>= Core.may (Data.parseXMLList "NetworkInterface")
                   )
-      Prelude.<*> (x Core..@? "VpcEndpointId")
+      Prelude.<*> (x Data..@? "VpcEndpointId")
+      Prelude.<*> (x Data..@? "VpcId")
 
 instance Prelude.Hashable VpcEndpoint where
   hashWithSalt _salt VpcEndpoint' {..} =
-    _salt `Prelude.hashWithSalt` vpcId
-      `Prelude.hashWithSalt` networkInterfaces
+    _salt `Prelude.hashWithSalt` networkInterfaces
       `Prelude.hashWithSalt` vpcEndpointId
+      `Prelude.hashWithSalt` vpcId
 
 instance Prelude.NFData VpcEndpoint where
   rnf VpcEndpoint' {..} =
-    Prelude.rnf vpcId
-      `Prelude.seq` Prelude.rnf networkInterfaces
+    Prelude.rnf networkInterfaces
       `Prelude.seq` Prelude.rnf vpcEndpointId
+      `Prelude.seq` Prelude.rnf vpcId

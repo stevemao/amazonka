@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudSearch.Types.AccessPoliciesStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudSearch.Types.AccessPoliciesStatus where
 
 import Amazonka.CloudSearch.Types.OptionStatus
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configured access rules for the domain\'s document and search
@@ -65,11 +66,11 @@ accessPoliciesStatus_options = Lens.lens (\AccessPoliciesStatus' {options} -> op
 accessPoliciesStatus_status :: Lens.Lens' AccessPoliciesStatus OptionStatus
 accessPoliciesStatus_status = Lens.lens (\AccessPoliciesStatus' {status} -> status) (\s@AccessPoliciesStatus' {} a -> s {status = a} :: AccessPoliciesStatus)
 
-instance Core.FromXML AccessPoliciesStatus where
+instance Data.FromXML AccessPoliciesStatus where
   parseXML x =
     AccessPoliciesStatus'
-      Prelude.<$> (x Core..@ "Options")
-      Prelude.<*> (x Core..@ "Status")
+      Prelude.<$> (x Data..@ "Options")
+      Prelude.<*> (x Data..@ "Status")
 
 instance Prelude.Hashable AccessPoliciesStatus where
   hashWithSalt _salt AccessPoliciesStatus' {..} =

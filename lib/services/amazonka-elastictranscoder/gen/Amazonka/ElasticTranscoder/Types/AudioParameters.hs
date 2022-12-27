@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticTranscoder.Types.AudioParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,48 +20,16 @@
 module Amazonka.ElasticTranscoder.Types.AudioParameters where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticTranscoder.Types.AudioCodecOptions
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Parameters required for transcoding audio.
 --
 -- /See:/ 'newAudioParameters' smart constructor.
 data AudioParameters = AudioParameters'
-  { -- | The number of audio channels in the output file. The following values
-    -- are valid:
-    --
-    -- @auto@, @0@, @1@, @2@
-    --
-    -- One channel carries the information played by a single speaker. For
-    -- example, a stereo track with two channels sends one channel to the left
-    -- speaker, and the other channel to the right speaker. The output channels
-    -- are organized into tracks. If you want Elastic Transcoder to
-    -- automatically detect the number of audio channels in the input file and
-    -- use that value for the output file, select @auto@.
-    --
-    -- The output of a specific channel value and inputs are as follows:
-    --
-    -- -   @auto@ __channel specified, with any input:__ Pass through up to
-    --     eight input channels.
-    --
-    -- -   @0@ __channels specified, with any input:__ Audio omitted from the
-    --     output.
-    --
-    -- -   @1@ __channel specified, with at least one input channel:__ Mono
-    --     sound.
-    --
-    -- -   @2@ __channels specified, with any input:__ Two identical mono
-    --     channels or stereo. For more information about tracks, see
-    --     @Audio:AudioPackingMode.@
-    --
-    -- For more information about how Elastic Transcoder organizes channels and
-    -- tracks, see @Audio:AudioPackingMode@.
-    channels :: Prelude.Maybe Prelude.Text,
-    -- | The audio codec for the output file. Valid values include @aac@, @flac@,
-    -- @mp2@, @mp3@, @pcm@, and @vorbis@.
-    codec :: Prelude.Maybe Prelude.Text,
-    -- | The method of organizing audio channels and tracks. Use @Audio:Channels@
+  { -- | The method of organizing audio channels and tracks. Use @Audio:Channels@
     -- to specify the number of channels in your output, and
     -- @Audio:AudioPackingMode@ to specify the number of tracks and their
     -- relation to the channels. If you do not specify an
@@ -173,17 +141,42 @@ data AudioParameters = AudioParameters'
     --     eight tracks with one channel each, plus MOS tracks until there are
     --     eight tracks in all
     audioPackingMode :: Prelude.Maybe Prelude.Text,
-    -- | The sample rate of the audio stream in the output file, in Hertz. Valid
-    -- values include:
-    --
-    -- @auto@, @22050@, @32000@, @44100@, @48000@, @96000@
-    --
-    -- If you specify @auto@, Elastic Transcoder automatically detects the
-    -- sample rate.
-    sampleRate :: Prelude.Maybe Prelude.Text,
     -- | The bit rate of the audio stream in the output file, in
     -- kilobits\/second. Enter an integer between 64 and 320, inclusive.
     bitRate :: Prelude.Maybe Prelude.Text,
+    -- | The number of audio channels in the output file. The following values
+    -- are valid:
+    --
+    -- @auto@, @0@, @1@, @2@
+    --
+    -- One channel carries the information played by a single speaker. For
+    -- example, a stereo track with two channels sends one channel to the left
+    -- speaker, and the other channel to the right speaker. The output channels
+    -- are organized into tracks. If you want Elastic Transcoder to
+    -- automatically detect the number of audio channels in the input file and
+    -- use that value for the output file, select @auto@.
+    --
+    -- The output of a specific channel value and inputs are as follows:
+    --
+    -- -   @auto@ __channel specified, with any input:__ Pass through up to
+    --     eight input channels.
+    --
+    -- -   @0@ __channels specified, with any input:__ Audio omitted from the
+    --     output.
+    --
+    -- -   @1@ __channel specified, with at least one input channel:__ Mono
+    --     sound.
+    --
+    -- -   @2@ __channels specified, with any input:__ Two identical mono
+    --     channels or stereo. For more information about tracks, see
+    --     @Audio:AudioPackingMode.@
+    --
+    -- For more information about how Elastic Transcoder organizes channels and
+    -- tracks, see @Audio:AudioPackingMode@.
+    channels :: Prelude.Maybe Prelude.Text,
+    -- | The audio codec for the output file. Valid values include @aac@, @flac@,
+    -- @mp2@, @mp3@, @pcm@, and @vorbis@.
+    codec :: Prelude.Maybe Prelude.Text,
     -- | If you specified @AAC@ for @Audio:Codec@, this is the @AAC@ compression
     -- profile to use. Valid values include:
     --
@@ -191,7 +184,15 @@ data AudioParameters = AudioParameters'
     --
     -- If you specify @auto@, Elastic Transcoder chooses a profile based on the
     -- bit rate of the output file.
-    codecOptions :: Prelude.Maybe AudioCodecOptions
+    codecOptions :: Prelude.Maybe AudioCodecOptions,
+    -- | The sample rate of the audio stream in the output file, in Hertz. Valid
+    -- values include:
+    --
+    -- @auto@, @22050@, @32000@, @44100@, @48000@, @96000@
+    --
+    -- If you specify @auto@, Elastic Transcoder automatically detects the
+    -- sample rate.
+    sampleRate :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -202,39 +203,6 @@ data AudioParameters = AudioParameters'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'channels', 'audioParameters_channels' - The number of audio channels in the output file. The following values
--- are valid:
---
--- @auto@, @0@, @1@, @2@
---
--- One channel carries the information played by a single speaker. For
--- example, a stereo track with two channels sends one channel to the left
--- speaker, and the other channel to the right speaker. The output channels
--- are organized into tracks. If you want Elastic Transcoder to
--- automatically detect the number of audio channels in the input file and
--- use that value for the output file, select @auto@.
---
--- The output of a specific channel value and inputs are as follows:
---
--- -   @auto@ __channel specified, with any input:__ Pass through up to
---     eight input channels.
---
--- -   @0@ __channels specified, with any input:__ Audio omitted from the
---     output.
---
--- -   @1@ __channel specified, with at least one input channel:__ Mono
---     sound.
---
--- -   @2@ __channels specified, with any input:__ Two identical mono
---     channels or stereo. For more information about tracks, see
---     @Audio:AudioPackingMode.@
---
--- For more information about how Elastic Transcoder organizes channels and
--- tracks, see @Audio:AudioPackingMode@.
---
--- 'codec', 'audioParameters_codec' - The audio codec for the output file. Valid values include @aac@, @flac@,
--- @mp2@, @mp3@, @pcm@, and @vorbis@.
 --
 -- 'audioPackingMode', 'audioParameters_audioPackingMode' - The method of organizing audio channels and tracks. Use @Audio:Channels@
 -- to specify the number of channels in your output, and
@@ -348,37 +316,10 @@ data AudioParameters = AudioParameters'
 --     eight tracks with one channel each, plus MOS tracks until there are
 --     eight tracks in all
 --
--- 'sampleRate', 'audioParameters_sampleRate' - The sample rate of the audio stream in the output file, in Hertz. Valid
--- values include:
---
--- @auto@, @22050@, @32000@, @44100@, @48000@, @96000@
---
--- If you specify @auto@, Elastic Transcoder automatically detects the
--- sample rate.
---
 -- 'bitRate', 'audioParameters_bitRate' - The bit rate of the audio stream in the output file, in
 -- kilobits\/second. Enter an integer between 64 and 320, inclusive.
 --
--- 'codecOptions', 'audioParameters_codecOptions' - If you specified @AAC@ for @Audio:Codec@, this is the @AAC@ compression
--- profile to use. Valid values include:
---
--- @auto@, @AAC-LC@, @HE-AAC@, @HE-AACv2@
---
--- If you specify @auto@, Elastic Transcoder chooses a profile based on the
--- bit rate of the output file.
-newAudioParameters ::
-  AudioParameters
-newAudioParameters =
-  AudioParameters'
-    { channels = Prelude.Nothing,
-      codec = Prelude.Nothing,
-      audioPackingMode = Prelude.Nothing,
-      sampleRate = Prelude.Nothing,
-      bitRate = Prelude.Nothing,
-      codecOptions = Prelude.Nothing
-    }
-
--- | The number of audio channels in the output file. The following values
+-- 'channels', 'audioParameters_channels' - The number of audio channels in the output file. The following values
 -- are valid:
 --
 -- @auto@, @0@, @1@, @2@
@@ -407,13 +348,37 @@ newAudioParameters =
 --
 -- For more information about how Elastic Transcoder organizes channels and
 -- tracks, see @Audio:AudioPackingMode@.
-audioParameters_channels :: Lens.Lens' AudioParameters (Prelude.Maybe Prelude.Text)
-audioParameters_channels = Lens.lens (\AudioParameters' {channels} -> channels) (\s@AudioParameters' {} a -> s {channels = a} :: AudioParameters)
-
--- | The audio codec for the output file. Valid values include @aac@, @flac@,
+--
+-- 'codec', 'audioParameters_codec' - The audio codec for the output file. Valid values include @aac@, @flac@,
 -- @mp2@, @mp3@, @pcm@, and @vorbis@.
-audioParameters_codec :: Lens.Lens' AudioParameters (Prelude.Maybe Prelude.Text)
-audioParameters_codec = Lens.lens (\AudioParameters' {codec} -> codec) (\s@AudioParameters' {} a -> s {codec = a} :: AudioParameters)
+--
+-- 'codecOptions', 'audioParameters_codecOptions' - If you specified @AAC@ for @Audio:Codec@, this is the @AAC@ compression
+-- profile to use. Valid values include:
+--
+-- @auto@, @AAC-LC@, @HE-AAC@, @HE-AACv2@
+--
+-- If you specify @auto@, Elastic Transcoder chooses a profile based on the
+-- bit rate of the output file.
+--
+-- 'sampleRate', 'audioParameters_sampleRate' - The sample rate of the audio stream in the output file, in Hertz. Valid
+-- values include:
+--
+-- @auto@, @22050@, @32000@, @44100@, @48000@, @96000@
+--
+-- If you specify @auto@, Elastic Transcoder automatically detects the
+-- sample rate.
+newAudioParameters ::
+  AudioParameters
+newAudioParameters =
+  AudioParameters'
+    { audioPackingMode =
+        Prelude.Nothing,
+      bitRate = Prelude.Nothing,
+      channels = Prelude.Nothing,
+      codec = Prelude.Nothing,
+      codecOptions = Prelude.Nothing,
+      sampleRate = Prelude.Nothing
+    }
 
 -- | The method of organizing audio channels and tracks. Use @Audio:Channels@
 -- to specify the number of channels in your output, and
@@ -529,20 +494,47 @@ audioParameters_codec = Lens.lens (\AudioParameters' {codec} -> codec) (\s@Audio
 audioParameters_audioPackingMode :: Lens.Lens' AudioParameters (Prelude.Maybe Prelude.Text)
 audioParameters_audioPackingMode = Lens.lens (\AudioParameters' {audioPackingMode} -> audioPackingMode) (\s@AudioParameters' {} a -> s {audioPackingMode = a} :: AudioParameters)
 
--- | The sample rate of the audio stream in the output file, in Hertz. Valid
--- values include:
---
--- @auto@, @22050@, @32000@, @44100@, @48000@, @96000@
---
--- If you specify @auto@, Elastic Transcoder automatically detects the
--- sample rate.
-audioParameters_sampleRate :: Lens.Lens' AudioParameters (Prelude.Maybe Prelude.Text)
-audioParameters_sampleRate = Lens.lens (\AudioParameters' {sampleRate} -> sampleRate) (\s@AudioParameters' {} a -> s {sampleRate = a} :: AudioParameters)
-
 -- | The bit rate of the audio stream in the output file, in
 -- kilobits\/second. Enter an integer between 64 and 320, inclusive.
 audioParameters_bitRate :: Lens.Lens' AudioParameters (Prelude.Maybe Prelude.Text)
 audioParameters_bitRate = Lens.lens (\AudioParameters' {bitRate} -> bitRate) (\s@AudioParameters' {} a -> s {bitRate = a} :: AudioParameters)
+
+-- | The number of audio channels in the output file. The following values
+-- are valid:
+--
+-- @auto@, @0@, @1@, @2@
+--
+-- One channel carries the information played by a single speaker. For
+-- example, a stereo track with two channels sends one channel to the left
+-- speaker, and the other channel to the right speaker. The output channels
+-- are organized into tracks. If you want Elastic Transcoder to
+-- automatically detect the number of audio channels in the input file and
+-- use that value for the output file, select @auto@.
+--
+-- The output of a specific channel value and inputs are as follows:
+--
+-- -   @auto@ __channel specified, with any input:__ Pass through up to
+--     eight input channels.
+--
+-- -   @0@ __channels specified, with any input:__ Audio omitted from the
+--     output.
+--
+-- -   @1@ __channel specified, with at least one input channel:__ Mono
+--     sound.
+--
+-- -   @2@ __channels specified, with any input:__ Two identical mono
+--     channels or stereo. For more information about tracks, see
+--     @Audio:AudioPackingMode.@
+--
+-- For more information about how Elastic Transcoder organizes channels and
+-- tracks, see @Audio:AudioPackingMode@.
+audioParameters_channels :: Lens.Lens' AudioParameters (Prelude.Maybe Prelude.Text)
+audioParameters_channels = Lens.lens (\AudioParameters' {channels} -> channels) (\s@AudioParameters' {} a -> s {channels = a} :: AudioParameters)
+
+-- | The audio codec for the output file. Valid values include @aac@, @flac@,
+-- @mp2@, @mp3@, @pcm@, and @vorbis@.
+audioParameters_codec :: Lens.Lens' AudioParameters (Prelude.Maybe Prelude.Text)
+audioParameters_codec = Lens.lens (\AudioParameters' {codec} -> codec) (\s@AudioParameters' {} a -> s {codec = a} :: AudioParameters)
 
 -- | If you specified @AAC@ for @Audio:Codec@, this is the @AAC@ compression
 -- profile to use. Valid values include:
@@ -554,48 +546,58 @@ audioParameters_bitRate = Lens.lens (\AudioParameters' {bitRate} -> bitRate) (\s
 audioParameters_codecOptions :: Lens.Lens' AudioParameters (Prelude.Maybe AudioCodecOptions)
 audioParameters_codecOptions = Lens.lens (\AudioParameters' {codecOptions} -> codecOptions) (\s@AudioParameters' {} a -> s {codecOptions = a} :: AudioParameters)
 
-instance Core.FromJSON AudioParameters where
+-- | The sample rate of the audio stream in the output file, in Hertz. Valid
+-- values include:
+--
+-- @auto@, @22050@, @32000@, @44100@, @48000@, @96000@
+--
+-- If you specify @auto@, Elastic Transcoder automatically detects the
+-- sample rate.
+audioParameters_sampleRate :: Lens.Lens' AudioParameters (Prelude.Maybe Prelude.Text)
+audioParameters_sampleRate = Lens.lens (\AudioParameters' {sampleRate} -> sampleRate) (\s@AudioParameters' {} a -> s {sampleRate = a} :: AudioParameters)
+
+instance Data.FromJSON AudioParameters where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AudioParameters"
       ( \x ->
           AudioParameters'
-            Prelude.<$> (x Core..:? "Channels")
-            Prelude.<*> (x Core..:? "Codec")
-            Prelude.<*> (x Core..:? "AudioPackingMode")
-            Prelude.<*> (x Core..:? "SampleRate")
-            Prelude.<*> (x Core..:? "BitRate")
-            Prelude.<*> (x Core..:? "CodecOptions")
+            Prelude.<$> (x Data..:? "AudioPackingMode")
+            Prelude.<*> (x Data..:? "BitRate")
+            Prelude.<*> (x Data..:? "Channels")
+            Prelude.<*> (x Data..:? "Codec")
+            Prelude.<*> (x Data..:? "CodecOptions")
+            Prelude.<*> (x Data..:? "SampleRate")
       )
 
 instance Prelude.Hashable AudioParameters where
   hashWithSalt _salt AudioParameters' {..} =
-    _salt `Prelude.hashWithSalt` channels
-      `Prelude.hashWithSalt` codec
-      `Prelude.hashWithSalt` audioPackingMode
-      `Prelude.hashWithSalt` sampleRate
+    _salt `Prelude.hashWithSalt` audioPackingMode
       `Prelude.hashWithSalt` bitRate
+      `Prelude.hashWithSalt` channels
+      `Prelude.hashWithSalt` codec
       `Prelude.hashWithSalt` codecOptions
+      `Prelude.hashWithSalt` sampleRate
 
 instance Prelude.NFData AudioParameters where
   rnf AudioParameters' {..} =
-    Prelude.rnf channels
-      `Prelude.seq` Prelude.rnf codec
-      `Prelude.seq` Prelude.rnf audioPackingMode
-      `Prelude.seq` Prelude.rnf sampleRate
+    Prelude.rnf audioPackingMode
       `Prelude.seq` Prelude.rnf bitRate
+      `Prelude.seq` Prelude.rnf channels
+      `Prelude.seq` Prelude.rnf codec
       `Prelude.seq` Prelude.rnf codecOptions
+      `Prelude.seq` Prelude.rnf sampleRate
 
-instance Core.ToJSON AudioParameters where
+instance Data.ToJSON AudioParameters where
   toJSON AudioParameters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Channels" Core..=) Prelude.<$> channels,
-            ("Codec" Core..=) Prelude.<$> codec,
-            ("AudioPackingMode" Core..=)
+          [ ("AudioPackingMode" Data..=)
               Prelude.<$> audioPackingMode,
-            ("SampleRate" Core..=) Prelude.<$> sampleRate,
-            ("BitRate" Core..=) Prelude.<$> bitRate,
-            ("CodecOptions" Core..=) Prelude.<$> codecOptions
+            ("BitRate" Data..=) Prelude.<$> bitRate,
+            ("Channels" Data..=) Prelude.<$> channels,
+            ("Codec" Data..=) Prelude.<$> codec,
+            ("CodecOptions" Data..=) Prelude.<$> codecOptions,
+            ("SampleRate" Data..=) Prelude.<$> sampleRate
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Transcribe.Types.AbsoluteTimeRange
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,43 +20,46 @@
 module Amazonka.Transcribe.Types.AbsoluteTimeRange where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | A time range, set in seconds, between two points in the call.
+-- | A time range, in milliseconds, between two points in your media file.
+--
+-- You can use @StartTime@ and @EndTime@ to search a custom segment. For
+-- example, setting @StartTime@ to 10000 and @EndTime@ to 50000 only
+-- searches for your specified criteria in the audio contained between the
+-- 10,000 millisecond mark and the 50,000 millisecond mark of your media
+-- file. You must use @StartTime@ and @EndTime@ as a set; that is, if you
+-- include one, you must include both.
+--
+-- You can use also @First@ to search from the start of the audio until the
+-- time that you specify, or @Last@ to search from the time that you
+-- specify until the end of the audio. For example, setting @First@ to
+-- 50000 only searches for your specified criteria in the audio contained
+-- between the start of the media file to the 50,000 millisecond mark. You
+-- can use @First@ and @Last@ independently of each other.
+--
+-- If you prefer to use percentage instead of milliseconds, see .
 --
 -- /See:/ 'newAbsoluteTimeRange' smart constructor.
 data AbsoluteTimeRange = AbsoluteTimeRange'
-  { -- | A time range from the beginning of the call to the value that you\'ve
-    -- specified. For example, if you specify 100000, the time range is set to
-    -- the first 100,000 milliseconds of the call.
+  { -- | The time, in milliseconds, when Amazon Transcribe stops searching for
+    -- the specified criteria in your audio. If you include @EndTime@ in your
+    -- request, you must also include @StartTime@.
+    endTime :: Prelude.Maybe Prelude.Natural,
+    -- | The time, in milliseconds, from the start of your media file until the
+    -- specified value. Amazon Transcribe searches for your specified criteria
+    -- in this time segment.
     first :: Prelude.Maybe Prelude.Natural,
-    -- | A value that indicates the beginning of the time range in seconds. To
-    -- set absolute time range, you must specify a start time and an end time.
-    -- For example, if you specify the following values:
-    --
-    -- -   StartTime - 10000
-    --
-    -- -   Endtime - 50000
-    --
-    -- The time range is set between 10,000 milliseconds and 50,000
-    -- milliseconds into the call.
-    startTime :: Prelude.Maybe Prelude.Natural,
-    -- | A time range from the value that you\'ve specified to the end of the
-    -- call. For example, if you specify 100000, the time range is set to the
-    -- last 100,000 milliseconds of the call.
+    -- | The time, in milliseconds, from the specified value until the end of
+    -- your media file. Amazon Transcribe searches for your specified criteria
+    -- in this time segment.
     last :: Prelude.Maybe Prelude.Natural,
-    -- | A value that indicates the end of the time range in milliseconds. To set
-    -- absolute time range, you must specify a start time and an end time. For
-    -- example, if you specify the following values:
-    --
-    -- -   StartTime - 10000
-    --
-    -- -   Endtime - 50000
-    --
-    -- The time range is set between 10,000 milliseconds and 50,000
-    -- milliseconds into the call.
-    endTime :: Prelude.Maybe Prelude.Natural
+    -- | The time, in milliseconds, when Amazon Transcribe starts searching for
+    -- the specified criteria in your audio. If you include @StartTime@ in your
+    -- request, you must also include @EndTime@.
+    startTime :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -68,116 +71,88 @@ data AbsoluteTimeRange = AbsoluteTimeRange'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'first', 'absoluteTimeRange_first' - A time range from the beginning of the call to the value that you\'ve
--- specified. For example, if you specify 100000, the time range is set to
--- the first 100,000 milliseconds of the call.
+-- 'endTime', 'absoluteTimeRange_endTime' - The time, in milliseconds, when Amazon Transcribe stops searching for
+-- the specified criteria in your audio. If you include @EndTime@ in your
+-- request, you must also include @StartTime@.
 --
--- 'startTime', 'absoluteTimeRange_startTime' - A value that indicates the beginning of the time range in seconds. To
--- set absolute time range, you must specify a start time and an end time.
--- For example, if you specify the following values:
+-- 'first', 'absoluteTimeRange_first' - The time, in milliseconds, from the start of your media file until the
+-- specified value. Amazon Transcribe searches for your specified criteria
+-- in this time segment.
 --
--- -   StartTime - 10000
+-- 'last', 'absoluteTimeRange_last' - The time, in milliseconds, from the specified value until the end of
+-- your media file. Amazon Transcribe searches for your specified criteria
+-- in this time segment.
 --
--- -   Endtime - 50000
---
--- The time range is set between 10,000 milliseconds and 50,000
--- milliseconds into the call.
---
--- 'last', 'absoluteTimeRange_last' - A time range from the value that you\'ve specified to the end of the
--- call. For example, if you specify 100000, the time range is set to the
--- last 100,000 milliseconds of the call.
---
--- 'endTime', 'absoluteTimeRange_endTime' - A value that indicates the end of the time range in milliseconds. To set
--- absolute time range, you must specify a start time and an end time. For
--- example, if you specify the following values:
---
--- -   StartTime - 10000
---
--- -   Endtime - 50000
---
--- The time range is set between 10,000 milliseconds and 50,000
--- milliseconds into the call.
+-- 'startTime', 'absoluteTimeRange_startTime' - The time, in milliseconds, when Amazon Transcribe starts searching for
+-- the specified criteria in your audio. If you include @StartTime@ in your
+-- request, you must also include @EndTime@.
 newAbsoluteTimeRange ::
   AbsoluteTimeRange
 newAbsoluteTimeRange =
   AbsoluteTimeRange'
-    { first = Prelude.Nothing,
-      startTime = Prelude.Nothing,
+    { endTime = Prelude.Nothing,
+      first = Prelude.Nothing,
       last = Prelude.Nothing,
-      endTime = Prelude.Nothing
+      startTime = Prelude.Nothing
     }
 
--- | A time range from the beginning of the call to the value that you\'ve
--- specified. For example, if you specify 100000, the time range is set to
--- the first 100,000 milliseconds of the call.
-absoluteTimeRange_first :: Lens.Lens' AbsoluteTimeRange (Prelude.Maybe Prelude.Natural)
-absoluteTimeRange_first = Lens.lens (\AbsoluteTimeRange' {first} -> first) (\s@AbsoluteTimeRange' {} a -> s {first = a} :: AbsoluteTimeRange)
-
--- | A value that indicates the beginning of the time range in seconds. To
--- set absolute time range, you must specify a start time and an end time.
--- For example, if you specify the following values:
---
--- -   StartTime - 10000
---
--- -   Endtime - 50000
---
--- The time range is set between 10,000 milliseconds and 50,000
--- milliseconds into the call.
-absoluteTimeRange_startTime :: Lens.Lens' AbsoluteTimeRange (Prelude.Maybe Prelude.Natural)
-absoluteTimeRange_startTime = Lens.lens (\AbsoluteTimeRange' {startTime} -> startTime) (\s@AbsoluteTimeRange' {} a -> s {startTime = a} :: AbsoluteTimeRange)
-
--- | A time range from the value that you\'ve specified to the end of the
--- call. For example, if you specify 100000, the time range is set to the
--- last 100,000 milliseconds of the call.
-absoluteTimeRange_last :: Lens.Lens' AbsoluteTimeRange (Prelude.Maybe Prelude.Natural)
-absoluteTimeRange_last = Lens.lens (\AbsoluteTimeRange' {last} -> last) (\s@AbsoluteTimeRange' {} a -> s {last = a} :: AbsoluteTimeRange)
-
--- | A value that indicates the end of the time range in milliseconds. To set
--- absolute time range, you must specify a start time and an end time. For
--- example, if you specify the following values:
---
--- -   StartTime - 10000
---
--- -   Endtime - 50000
---
--- The time range is set between 10,000 milliseconds and 50,000
--- milliseconds into the call.
+-- | The time, in milliseconds, when Amazon Transcribe stops searching for
+-- the specified criteria in your audio. If you include @EndTime@ in your
+-- request, you must also include @StartTime@.
 absoluteTimeRange_endTime :: Lens.Lens' AbsoluteTimeRange (Prelude.Maybe Prelude.Natural)
 absoluteTimeRange_endTime = Lens.lens (\AbsoluteTimeRange' {endTime} -> endTime) (\s@AbsoluteTimeRange' {} a -> s {endTime = a} :: AbsoluteTimeRange)
 
-instance Core.FromJSON AbsoluteTimeRange where
+-- | The time, in milliseconds, from the start of your media file until the
+-- specified value. Amazon Transcribe searches for your specified criteria
+-- in this time segment.
+absoluteTimeRange_first :: Lens.Lens' AbsoluteTimeRange (Prelude.Maybe Prelude.Natural)
+absoluteTimeRange_first = Lens.lens (\AbsoluteTimeRange' {first} -> first) (\s@AbsoluteTimeRange' {} a -> s {first = a} :: AbsoluteTimeRange)
+
+-- | The time, in milliseconds, from the specified value until the end of
+-- your media file. Amazon Transcribe searches for your specified criteria
+-- in this time segment.
+absoluteTimeRange_last :: Lens.Lens' AbsoluteTimeRange (Prelude.Maybe Prelude.Natural)
+absoluteTimeRange_last = Lens.lens (\AbsoluteTimeRange' {last} -> last) (\s@AbsoluteTimeRange' {} a -> s {last = a} :: AbsoluteTimeRange)
+
+-- | The time, in milliseconds, when Amazon Transcribe starts searching for
+-- the specified criteria in your audio. If you include @StartTime@ in your
+-- request, you must also include @EndTime@.
+absoluteTimeRange_startTime :: Lens.Lens' AbsoluteTimeRange (Prelude.Maybe Prelude.Natural)
+absoluteTimeRange_startTime = Lens.lens (\AbsoluteTimeRange' {startTime} -> startTime) (\s@AbsoluteTimeRange' {} a -> s {startTime = a} :: AbsoluteTimeRange)
+
+instance Data.FromJSON AbsoluteTimeRange where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AbsoluteTimeRange"
       ( \x ->
           AbsoluteTimeRange'
-            Prelude.<$> (x Core..:? "First")
-            Prelude.<*> (x Core..:? "StartTime")
-            Prelude.<*> (x Core..:? "Last")
-            Prelude.<*> (x Core..:? "EndTime")
+            Prelude.<$> (x Data..:? "EndTime")
+            Prelude.<*> (x Data..:? "First")
+            Prelude.<*> (x Data..:? "Last")
+            Prelude.<*> (x Data..:? "StartTime")
       )
 
 instance Prelude.Hashable AbsoluteTimeRange where
   hashWithSalt _salt AbsoluteTimeRange' {..} =
-    _salt `Prelude.hashWithSalt` first
-      `Prelude.hashWithSalt` startTime
+    _salt `Prelude.hashWithSalt` endTime
+      `Prelude.hashWithSalt` first
       `Prelude.hashWithSalt` last
-      `Prelude.hashWithSalt` endTime
+      `Prelude.hashWithSalt` startTime
 
 instance Prelude.NFData AbsoluteTimeRange where
   rnf AbsoluteTimeRange' {..} =
-    Prelude.rnf first
-      `Prelude.seq` Prelude.rnf startTime
+    Prelude.rnf endTime
+      `Prelude.seq` Prelude.rnf first
       `Prelude.seq` Prelude.rnf last
-      `Prelude.seq` Prelude.rnf endTime
+      `Prelude.seq` Prelude.rnf startTime
 
-instance Core.ToJSON AbsoluteTimeRange where
+instance Data.ToJSON AbsoluteTimeRange where
   toJSON AbsoluteTimeRange' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("First" Core..=) Prelude.<$> first,
-            ("StartTime" Core..=) Prelude.<$> startTime,
-            ("Last" Core..=) Prelude.<$> last,
-            ("EndTime" Core..=) Prelude.<$> endTime
+          [ ("EndTime" Data..=) Prelude.<$> endTime,
+            ("First" Data..=) Prelude.<$> first,
+            ("Last" Data..=) Prelude.<$> last,
+            ("StartTime" Data..=) Prelude.<$> startTime
           ]
       )

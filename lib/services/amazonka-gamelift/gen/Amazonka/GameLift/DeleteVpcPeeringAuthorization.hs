@@ -14,21 +14,18 @@
 
 -- |
 -- Module      : Amazonka.GameLift.DeleteVpcPeeringAuthorization
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Cancels a pending VPC peering authorization for the specified VPC. If
--- you need to delete an existing VPC peering connection, call
--- DeleteVpcPeeringConnection.
+-- you need to delete an existing VPC peering connection, use
+-- <https://docs.aws.amazon.com/gamelift/latest/apireference/API_DeleteVpcPeeringConnection.html DeleteVpcPeeringConnection>.
 --
 -- __Related actions__
 --
--- CreateVpcPeeringAuthorization | DescribeVpcPeeringAuthorizations |
--- DeleteVpcPeeringAuthorization | CreateVpcPeeringConnection |
--- DescribeVpcPeeringConnections | DeleteVpcPeeringConnection |
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.DeleteVpcPeeringAuthorization
   ( -- * Creating a Request
@@ -49,25 +46,24 @@ module Amazonka.GameLift.DeleteVpcPeeringAuthorization
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newDeleteVpcPeeringAuthorization' smart constructor.
+-- | /See:/ 'newDeleteVpcPeeringAuthorization' smart constructor.
 data DeleteVpcPeeringAuthorization = DeleteVpcPeeringAuthorization'
-  { -- | A unique identifier for the AWS account that you use to manage your
-    -- GameLift fleet. You can find your Account ID in the AWS Management
-    -- Console under account settings.
+  { -- | A unique identifier for the Amazon Web Services account that you use to
+    -- manage your GameLift fleet. You can find your Account ID in the Amazon
+    -- Web Services Management Console under account settings.
     gameLiftAwsAccountId :: Prelude.Text,
     -- | A unique identifier for a VPC with resources to be accessed by your
     -- GameLift fleet. The VPC must be in the same Region as your fleet. To
     -- look up a VPC ID, use the
-    -- <https://console.aws.amazon.com/vpc/ VPC Dashboard> in the AWS
-    -- Management Console. Learn more about VPC peering in
+    -- <https://console.aws.amazon.com/vpc/ VPC Dashboard> in the Amazon Web
+    -- Services Management Console. Learn more about VPC peering in
     -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html VPC Peering with GameLift Fleets>.
     peerVpcId :: Prelude.Text
   }
@@ -81,15 +77,15 @@ data DeleteVpcPeeringAuthorization = DeleteVpcPeeringAuthorization'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'gameLiftAwsAccountId', 'deleteVpcPeeringAuthorization_gameLiftAwsAccountId' - A unique identifier for the AWS account that you use to manage your
--- GameLift fleet. You can find your Account ID in the AWS Management
--- Console under account settings.
+-- 'gameLiftAwsAccountId', 'deleteVpcPeeringAuthorization_gameLiftAwsAccountId' - A unique identifier for the Amazon Web Services account that you use to
+-- manage your GameLift fleet. You can find your Account ID in the Amazon
+-- Web Services Management Console under account settings.
 --
 -- 'peerVpcId', 'deleteVpcPeeringAuthorization_peerVpcId' - A unique identifier for a VPC with resources to be accessed by your
 -- GameLift fleet. The VPC must be in the same Region as your fleet. To
 -- look up a VPC ID, use the
--- <https://console.aws.amazon.com/vpc/ VPC Dashboard> in the AWS
--- Management Console. Learn more about VPC peering in
+-- <https://console.aws.amazon.com/vpc/ VPC Dashboard> in the Amazon Web
+-- Services Management Console. Learn more about VPC peering in
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html VPC Peering with GameLift Fleets>.
 newDeleteVpcPeeringAuthorization ::
   -- | 'gameLiftAwsAccountId'
@@ -106,17 +102,17 @@ newDeleteVpcPeeringAuthorization
         peerVpcId = pPeerVpcId_
       }
 
--- | A unique identifier for the AWS account that you use to manage your
--- GameLift fleet. You can find your Account ID in the AWS Management
--- Console under account settings.
+-- | A unique identifier for the Amazon Web Services account that you use to
+-- manage your GameLift fleet. You can find your Account ID in the Amazon
+-- Web Services Management Console under account settings.
 deleteVpcPeeringAuthorization_gameLiftAwsAccountId :: Lens.Lens' DeleteVpcPeeringAuthorization Prelude.Text
 deleteVpcPeeringAuthorization_gameLiftAwsAccountId = Lens.lens (\DeleteVpcPeeringAuthorization' {gameLiftAwsAccountId} -> gameLiftAwsAccountId) (\s@DeleteVpcPeeringAuthorization' {} a -> s {gameLiftAwsAccountId = a} :: DeleteVpcPeeringAuthorization)
 
 -- | A unique identifier for a VPC with resources to be accessed by your
 -- GameLift fleet. The VPC must be in the same Region as your fleet. To
 -- look up a VPC ID, use the
--- <https://console.aws.amazon.com/vpc/ VPC Dashboard> in the AWS
--- Management Console. Learn more about VPC peering in
+-- <https://console.aws.amazon.com/vpc/ VPC Dashboard> in the Amazon Web
+-- Services Management Console. Learn more about VPC peering in
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html VPC Peering with GameLift Fleets>.
 deleteVpcPeeringAuthorization_peerVpcId :: Lens.Lens' DeleteVpcPeeringAuthorization Prelude.Text
 deleteVpcPeeringAuthorization_peerVpcId = Lens.lens (\DeleteVpcPeeringAuthorization' {peerVpcId} -> peerVpcId) (\s@DeleteVpcPeeringAuthorization' {} a -> s {peerVpcId = a} :: DeleteVpcPeeringAuthorization)
@@ -128,7 +124,8 @@ instance
   type
     AWSResponse DeleteVpcPeeringAuthorization =
       DeleteVpcPeeringAuthorizationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -149,37 +146,37 @@ instance Prelude.NFData DeleteVpcPeeringAuthorization where
     Prelude.rnf gameLiftAwsAccountId
       `Prelude.seq` Prelude.rnf peerVpcId
 
-instance Core.ToHeaders DeleteVpcPeeringAuthorization where
+instance Data.ToHeaders DeleteVpcPeeringAuthorization where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.DeleteVpcPeeringAuthorization" ::
+              Data.=# ( "GameLift.DeleteVpcPeeringAuthorization" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteVpcPeeringAuthorization where
+instance Data.ToJSON DeleteVpcPeeringAuthorization where
   toJSON DeleteVpcPeeringAuthorization' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "GameLiftAwsAccountId"
-                  Core..= gameLiftAwsAccountId
+                  Data..= gameLiftAwsAccountId
               ),
-            Prelude.Just ("PeerVpcId" Core..= peerVpcId)
+            Prelude.Just ("PeerVpcId" Data..= peerVpcId)
           ]
       )
 
-instance Core.ToPath DeleteVpcPeeringAuthorization where
+instance Data.ToPath DeleteVpcPeeringAuthorization where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteVpcPeeringAuthorization where
+instance Data.ToQuery DeleteVpcPeeringAuthorization where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteVpcPeeringAuthorizationResponse' smart constructor.

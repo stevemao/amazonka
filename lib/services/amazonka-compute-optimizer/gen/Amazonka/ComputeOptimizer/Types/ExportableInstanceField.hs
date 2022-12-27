@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ComputeOptimizer.Types.ExportableInstanceField
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,24 +25,34 @@ module Amazonka.ComputeOptimizer.Types.ExportableInstanceField
         ExportableInstanceField_CurrentMemory,
         ExportableInstanceField_CurrentNetwork,
         ExportableInstanceField_CurrentOnDemandPrice,
+        ExportableInstanceField_CurrentPerformanceRisk,
         ExportableInstanceField_CurrentStandardOneYearNoUpfrontReservedPrice,
         ExportableInstanceField_CurrentStandardThreeYearNoUpfrontReservedPrice,
         ExportableInstanceField_CurrentStorage,
         ExportableInstanceField_CurrentVCpus,
+        ExportableInstanceField_EffectiveRecommendationPreferencesCpuVendorArchitectures,
+        ExportableInstanceField_EffectiveRecommendationPreferencesEnhancedInfrastructureMetrics,
+        ExportableInstanceField_EffectiveRecommendationPreferencesExternalMetricsSource,
+        ExportableInstanceField_EffectiveRecommendationPreferencesInferredWorkloadTypes,
         ExportableInstanceField_Finding,
         ExportableInstanceField_FindingReasonCodes,
+        ExportableInstanceField_InferredWorkloadTypes,
         ExportableInstanceField_InstanceArn,
         ExportableInstanceField_InstanceName,
         ExportableInstanceField_LastRefreshTimestamp,
         ExportableInstanceField_LookbackPeriodInDays,
+        ExportableInstanceField_RecommendationOptionsEstimatedMonthlySavingsCurrency,
+        ExportableInstanceField_RecommendationOptionsEstimatedMonthlySavingsValue,
         ExportableInstanceField_RecommendationOptionsInstanceType,
         ExportableInstanceField_RecommendationOptionsMemory,
+        ExportableInstanceField_RecommendationOptionsMigrationEffort,
         ExportableInstanceField_RecommendationOptionsNetwork,
         ExportableInstanceField_RecommendationOptionsOnDemandPrice,
         ExportableInstanceField_RecommendationOptionsPerformanceRisk,
         ExportableInstanceField_RecommendationOptionsPlatformDifferences,
         ExportableInstanceField_RecommendationOptionsProjectedUtilizationMetricsCpuMaximum,
         ExportableInstanceField_RecommendationOptionsProjectedUtilizationMetricsMemoryMaximum,
+        ExportableInstanceField_RecommendationOptionsSavingsOpportunityPercentage,
         ExportableInstanceField_RecommendationOptionsStandardOneYearNoUpfrontReservedPrice,
         ExportableInstanceField_RecommendationOptionsStandardThreeYearNoUpfrontReservedPrice,
         ExportableInstanceField_RecommendationOptionsStorage,
@@ -68,11 +78,12 @@ module Amazonka.ComputeOptimizer.Types.ExportableInstanceField
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype ExportableInstanceField = ExportableInstanceField'
   { fromExportableInstanceField ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -84,18 +95,18 @@ newtype ExportableInstanceField = ExportableInstanceField'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern ExportableInstanceField_AccountId :: ExportableInstanceField
@@ -113,6 +124,9 @@ pattern ExportableInstanceField_CurrentNetwork = ExportableInstanceField' "Curre
 pattern ExportableInstanceField_CurrentOnDemandPrice :: ExportableInstanceField
 pattern ExportableInstanceField_CurrentOnDemandPrice = ExportableInstanceField' "CurrentOnDemandPrice"
 
+pattern ExportableInstanceField_CurrentPerformanceRisk :: ExportableInstanceField
+pattern ExportableInstanceField_CurrentPerformanceRisk = ExportableInstanceField' "CurrentPerformanceRisk"
+
 pattern ExportableInstanceField_CurrentStandardOneYearNoUpfrontReservedPrice :: ExportableInstanceField
 pattern ExportableInstanceField_CurrentStandardOneYearNoUpfrontReservedPrice = ExportableInstanceField' "CurrentStandardOneYearNoUpfrontReservedPrice"
 
@@ -125,11 +139,26 @@ pattern ExportableInstanceField_CurrentStorage = ExportableInstanceField' "Curre
 pattern ExportableInstanceField_CurrentVCpus :: ExportableInstanceField
 pattern ExportableInstanceField_CurrentVCpus = ExportableInstanceField' "CurrentVCpus"
 
+pattern ExportableInstanceField_EffectiveRecommendationPreferencesCpuVendorArchitectures :: ExportableInstanceField
+pattern ExportableInstanceField_EffectiveRecommendationPreferencesCpuVendorArchitectures = ExportableInstanceField' "EffectiveRecommendationPreferencesCpuVendorArchitectures"
+
+pattern ExportableInstanceField_EffectiveRecommendationPreferencesEnhancedInfrastructureMetrics :: ExportableInstanceField
+pattern ExportableInstanceField_EffectiveRecommendationPreferencesEnhancedInfrastructureMetrics = ExportableInstanceField' "EffectiveRecommendationPreferencesEnhancedInfrastructureMetrics"
+
+pattern ExportableInstanceField_EffectiveRecommendationPreferencesExternalMetricsSource :: ExportableInstanceField
+pattern ExportableInstanceField_EffectiveRecommendationPreferencesExternalMetricsSource = ExportableInstanceField' "EffectiveRecommendationPreferencesExternalMetricsSource"
+
+pattern ExportableInstanceField_EffectiveRecommendationPreferencesInferredWorkloadTypes :: ExportableInstanceField
+pattern ExportableInstanceField_EffectiveRecommendationPreferencesInferredWorkloadTypes = ExportableInstanceField' "EffectiveRecommendationPreferencesInferredWorkloadTypes"
+
 pattern ExportableInstanceField_Finding :: ExportableInstanceField
 pattern ExportableInstanceField_Finding = ExportableInstanceField' "Finding"
 
 pattern ExportableInstanceField_FindingReasonCodes :: ExportableInstanceField
 pattern ExportableInstanceField_FindingReasonCodes = ExportableInstanceField' "FindingReasonCodes"
+
+pattern ExportableInstanceField_InferredWorkloadTypes :: ExportableInstanceField
+pattern ExportableInstanceField_InferredWorkloadTypes = ExportableInstanceField' "InferredWorkloadTypes"
 
 pattern ExportableInstanceField_InstanceArn :: ExportableInstanceField
 pattern ExportableInstanceField_InstanceArn = ExportableInstanceField' "InstanceArn"
@@ -143,11 +172,20 @@ pattern ExportableInstanceField_LastRefreshTimestamp = ExportableInstanceField' 
 pattern ExportableInstanceField_LookbackPeriodInDays :: ExportableInstanceField
 pattern ExportableInstanceField_LookbackPeriodInDays = ExportableInstanceField' "LookbackPeriodInDays"
 
+pattern ExportableInstanceField_RecommendationOptionsEstimatedMonthlySavingsCurrency :: ExportableInstanceField
+pattern ExportableInstanceField_RecommendationOptionsEstimatedMonthlySavingsCurrency = ExportableInstanceField' "RecommendationOptionsEstimatedMonthlySavingsCurrency"
+
+pattern ExportableInstanceField_RecommendationOptionsEstimatedMonthlySavingsValue :: ExportableInstanceField
+pattern ExportableInstanceField_RecommendationOptionsEstimatedMonthlySavingsValue = ExportableInstanceField' "RecommendationOptionsEstimatedMonthlySavingsValue"
+
 pattern ExportableInstanceField_RecommendationOptionsInstanceType :: ExportableInstanceField
 pattern ExportableInstanceField_RecommendationOptionsInstanceType = ExportableInstanceField' "RecommendationOptionsInstanceType"
 
 pattern ExportableInstanceField_RecommendationOptionsMemory :: ExportableInstanceField
 pattern ExportableInstanceField_RecommendationOptionsMemory = ExportableInstanceField' "RecommendationOptionsMemory"
+
+pattern ExportableInstanceField_RecommendationOptionsMigrationEffort :: ExportableInstanceField
+pattern ExportableInstanceField_RecommendationOptionsMigrationEffort = ExportableInstanceField' "RecommendationOptionsMigrationEffort"
 
 pattern ExportableInstanceField_RecommendationOptionsNetwork :: ExportableInstanceField
 pattern ExportableInstanceField_RecommendationOptionsNetwork = ExportableInstanceField' "RecommendationOptionsNetwork"
@@ -166,6 +204,9 @@ pattern ExportableInstanceField_RecommendationOptionsProjectedUtilizationMetrics
 
 pattern ExportableInstanceField_RecommendationOptionsProjectedUtilizationMetricsMemoryMaximum :: ExportableInstanceField
 pattern ExportableInstanceField_RecommendationOptionsProjectedUtilizationMetricsMemoryMaximum = ExportableInstanceField' "RecommendationOptionsProjectedUtilizationMetricsMemoryMaximum"
+
+pattern ExportableInstanceField_RecommendationOptionsSavingsOpportunityPercentage :: ExportableInstanceField
+pattern ExportableInstanceField_RecommendationOptionsSavingsOpportunityPercentage = ExportableInstanceField' "RecommendationOptionsSavingsOpportunityPercentage"
 
 pattern ExportableInstanceField_RecommendationOptionsStandardOneYearNoUpfrontReservedPrice :: ExportableInstanceField
 pattern ExportableInstanceField_RecommendationOptionsStandardOneYearNoUpfrontReservedPrice = ExportableInstanceField' "RecommendationOptionsStandardOneYearNoUpfrontReservedPrice"
@@ -233,24 +274,34 @@ pattern ExportableInstanceField_UtilizationMetricsNetworkPacketsOutPerSecondMaxi
   ExportableInstanceField_CurrentMemory,
   ExportableInstanceField_CurrentNetwork,
   ExportableInstanceField_CurrentOnDemandPrice,
+  ExportableInstanceField_CurrentPerformanceRisk,
   ExportableInstanceField_CurrentStandardOneYearNoUpfrontReservedPrice,
   ExportableInstanceField_CurrentStandardThreeYearNoUpfrontReservedPrice,
   ExportableInstanceField_CurrentStorage,
   ExportableInstanceField_CurrentVCpus,
+  ExportableInstanceField_EffectiveRecommendationPreferencesCpuVendorArchitectures,
+  ExportableInstanceField_EffectiveRecommendationPreferencesEnhancedInfrastructureMetrics,
+  ExportableInstanceField_EffectiveRecommendationPreferencesExternalMetricsSource,
+  ExportableInstanceField_EffectiveRecommendationPreferencesInferredWorkloadTypes,
   ExportableInstanceField_Finding,
   ExportableInstanceField_FindingReasonCodes,
+  ExportableInstanceField_InferredWorkloadTypes,
   ExportableInstanceField_InstanceArn,
   ExportableInstanceField_InstanceName,
   ExportableInstanceField_LastRefreshTimestamp,
   ExportableInstanceField_LookbackPeriodInDays,
+  ExportableInstanceField_RecommendationOptionsEstimatedMonthlySavingsCurrency,
+  ExportableInstanceField_RecommendationOptionsEstimatedMonthlySavingsValue,
   ExportableInstanceField_RecommendationOptionsInstanceType,
   ExportableInstanceField_RecommendationOptionsMemory,
+  ExportableInstanceField_RecommendationOptionsMigrationEffort,
   ExportableInstanceField_RecommendationOptionsNetwork,
   ExportableInstanceField_RecommendationOptionsOnDemandPrice,
   ExportableInstanceField_RecommendationOptionsPerformanceRisk,
   ExportableInstanceField_RecommendationOptionsPlatformDifferences,
   ExportableInstanceField_RecommendationOptionsProjectedUtilizationMetricsCpuMaximum,
   ExportableInstanceField_RecommendationOptionsProjectedUtilizationMetricsMemoryMaximum,
+  ExportableInstanceField_RecommendationOptionsSavingsOpportunityPercentage,
   ExportableInstanceField_RecommendationOptionsStandardOneYearNoUpfrontReservedPrice,
   ExportableInstanceField_RecommendationOptionsStandardThreeYearNoUpfrontReservedPrice,
   ExportableInstanceField_RecommendationOptionsStorage,

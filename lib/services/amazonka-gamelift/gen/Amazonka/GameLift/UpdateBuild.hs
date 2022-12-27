@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.UpdateBuild
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,6 @@
 --
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-build-intro.html Upload a Custom Server Build>
 --
--- __Related actions__
---
--- CreateBuild | ListBuilds | DescribeBuild | UpdateBuild | DeleteBuild |
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.UpdateBuild
   ( -- * Creating a Request
@@ -54,21 +51,20 @@ module Amazonka.GameLift.UpdateBuild
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newUpdateBuild' smart constructor.
+-- | /See:/ 'newUpdateBuild' smart constructor.
 data UpdateBuild = UpdateBuild'
-  { -- | A descriptive label that is associated with a build. Build names do not
-    -- need to be unique.
+  { -- | A descriptive label associated with a build. Build names do not need to
+    -- be unique.
     name :: Prelude.Maybe Prelude.Text,
-    -- | Version information that is associated with a build or script. Version
-    -- strings do not need to be unique.
+    -- | Version information associated with a build or script. Version strings
+    -- do not need to be unique.
     version :: Prelude.Maybe Prelude.Text,
     -- | A unique identifier for the build to update. You can use either the
     -- build ID or ARN value.
@@ -84,11 +80,11 @@ data UpdateBuild = UpdateBuild'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'updateBuild_name' - A descriptive label that is associated with a build. Build names do not
--- need to be unique.
+-- 'name', 'updateBuild_name' - A descriptive label associated with a build. Build names do not need to
+-- be unique.
 --
--- 'version', 'updateBuild_version' - Version information that is associated with a build or script. Version
--- strings do not need to be unique.
+-- 'version', 'updateBuild_version' - Version information associated with a build or script. Version strings
+-- do not need to be unique.
 --
 -- 'buildId', 'updateBuild_buildId' - A unique identifier for the build to update. You can use either the
 -- build ID or ARN value.
@@ -103,13 +99,13 @@ newUpdateBuild pBuildId_ =
       buildId = pBuildId_
     }
 
--- | A descriptive label that is associated with a build. Build names do not
--- need to be unique.
+-- | A descriptive label associated with a build. Build names do not need to
+-- be unique.
 updateBuild_name :: Lens.Lens' UpdateBuild (Prelude.Maybe Prelude.Text)
 updateBuild_name = Lens.lens (\UpdateBuild' {name} -> name) (\s@UpdateBuild' {} a -> s {name = a} :: UpdateBuild)
 
--- | Version information that is associated with a build or script. Version
--- strings do not need to be unique.
+-- | Version information associated with a build or script. Version strings
+-- do not need to be unique.
 updateBuild_version :: Lens.Lens' UpdateBuild (Prelude.Maybe Prelude.Text)
 updateBuild_version = Lens.lens (\UpdateBuild' {version} -> version) (\s@UpdateBuild' {} a -> s {version = a} :: UpdateBuild)
 
@@ -120,12 +116,13 @@ updateBuild_buildId = Lens.lens (\UpdateBuild' {buildId} -> buildId) (\s@UpdateB
 
 instance Core.AWSRequest UpdateBuild where
   type AWSResponse UpdateBuild = UpdateBuildResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateBuildResponse'
-            Prelude.<$> (x Core..?> "Build")
+            Prelude.<$> (x Data..?> "Build")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -141,38 +138,36 @@ instance Prelude.NFData UpdateBuild where
       `Prelude.seq` Prelude.rnf version
       `Prelude.seq` Prelude.rnf buildId
 
-instance Core.ToHeaders UpdateBuild where
+instance Data.ToHeaders UpdateBuild where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("GameLift.UpdateBuild" :: Prelude.ByteString),
+              Data.=# ("GameLift.UpdateBuild" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateBuild where
+instance Data.ToJSON UpdateBuild where
   toJSON UpdateBuild' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Name" Core..=) Prelude.<$> name,
-            ("Version" Core..=) Prelude.<$> version,
-            Prelude.Just ("BuildId" Core..= buildId)
+          [ ("Name" Data..=) Prelude.<$> name,
+            ("Version" Data..=) Prelude.<$> version,
+            Prelude.Just ("BuildId" Data..= buildId)
           ]
       )
 
-instance Core.ToPath UpdateBuild where
+instance Data.ToPath UpdateBuild where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateBuild where
+instance Data.ToQuery UpdateBuild where
   toQuery = Prelude.const Prelude.mempty
 
--- | Represents the returned data in response to a request operation.
---
--- /See:/ 'newUpdateBuildResponse' smart constructor.
+-- | /See:/ 'newUpdateBuildResponse' smart constructor.
 data UpdateBuildResponse = UpdateBuildResponse'
   { -- | The updated build resource.
     build :: Prelude.Maybe Build,

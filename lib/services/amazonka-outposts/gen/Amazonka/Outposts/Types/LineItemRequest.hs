@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Outposts.Types.LineItemRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.Outposts.Types.LineItemRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a line item request.
 --
 -- /See:/ 'newLineItemRequest' smart constructor.
 data LineItemRequest = LineItemRequest'
-  { -- | The quantity of a line item request.
-    quantity :: Prelude.Maybe Prelude.Natural,
-    -- | The ID of the catalog item.
-    catalogItemId :: Prelude.Maybe Prelude.Text
+  { -- | The ID of the catalog item.
+    catalogItemId :: Prelude.Maybe Prelude.Text,
+    -- | The quantity of a line item request.
+    quantity :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,40 +43,40 @@ data LineItemRequest = LineItemRequest'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'quantity', 'lineItemRequest_quantity' - The quantity of a line item request.
---
 -- 'catalogItemId', 'lineItemRequest_catalogItemId' - The ID of the catalog item.
+--
+-- 'quantity', 'lineItemRequest_quantity' - The quantity of a line item request.
 newLineItemRequest ::
   LineItemRequest
 newLineItemRequest =
   LineItemRequest'
-    { quantity = Prelude.Nothing,
-      catalogItemId = Prelude.Nothing
+    { catalogItemId = Prelude.Nothing,
+      quantity = Prelude.Nothing
     }
-
--- | The quantity of a line item request.
-lineItemRequest_quantity :: Lens.Lens' LineItemRequest (Prelude.Maybe Prelude.Natural)
-lineItemRequest_quantity = Lens.lens (\LineItemRequest' {quantity} -> quantity) (\s@LineItemRequest' {} a -> s {quantity = a} :: LineItemRequest)
 
 -- | The ID of the catalog item.
 lineItemRequest_catalogItemId :: Lens.Lens' LineItemRequest (Prelude.Maybe Prelude.Text)
 lineItemRequest_catalogItemId = Lens.lens (\LineItemRequest' {catalogItemId} -> catalogItemId) (\s@LineItemRequest' {} a -> s {catalogItemId = a} :: LineItemRequest)
 
+-- | The quantity of a line item request.
+lineItemRequest_quantity :: Lens.Lens' LineItemRequest (Prelude.Maybe Prelude.Natural)
+lineItemRequest_quantity = Lens.lens (\LineItemRequest' {quantity} -> quantity) (\s@LineItemRequest' {} a -> s {quantity = a} :: LineItemRequest)
+
 instance Prelude.Hashable LineItemRequest where
   hashWithSalt _salt LineItemRequest' {..} =
-    _salt `Prelude.hashWithSalt` quantity
-      `Prelude.hashWithSalt` catalogItemId
+    _salt `Prelude.hashWithSalt` catalogItemId
+      `Prelude.hashWithSalt` quantity
 
 instance Prelude.NFData LineItemRequest where
   rnf LineItemRequest' {..} =
-    Prelude.rnf quantity
-      `Prelude.seq` Prelude.rnf catalogItemId
+    Prelude.rnf catalogItemId
+      `Prelude.seq` Prelude.rnf quantity
 
-instance Core.ToJSON LineItemRequest where
+instance Data.ToJSON LineItemRequest where
   toJSON LineItemRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Quantity" Core..=) Prelude.<$> quantity,
-            ("CatalogItemId" Core..=) Prelude.<$> catalogItemId
+          [ ("CatalogItemId" Data..=) Prelude.<$> catalogItemId,
+            ("Quantity" Data..=) Prelude.<$> quantity
           ]
       )

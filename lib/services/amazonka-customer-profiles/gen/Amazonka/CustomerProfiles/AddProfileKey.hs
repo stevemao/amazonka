@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.CustomerProfiles.AddProfileKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Associates a new key value with a specific profile, such as a Contact
--- Trace Record (CTR) ContactId.
+-- Record ContactId.
 --
 -- A profile object can have a single unique key and any number of
 -- additional keys that can be used to identify the profile that it belongs
@@ -42,15 +42,16 @@ module Amazonka.CustomerProfiles.AddProfileKey
     newAddProfileKeyResponse,
 
     -- * Response Lenses
-    addProfileKeyResponse_values,
     addProfileKeyResponse_keyName,
+    addProfileKeyResponse_values,
     addProfileKeyResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CustomerProfiles.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,7 +60,13 @@ import qualified Amazonka.Response as Response
 data AddProfileKey = AddProfileKey'
   { -- | The unique identifier of a customer profile.
     profileId :: Prelude.Text,
-    -- | A searchable identifier of a customer profile.
+    -- | A searchable identifier of a customer profile. The predefined keys you
+    -- can use include: _account, _profileId, _assetId, _caseId, _orderId,
+    -- _fullName, _phone, _email, _ctrContactId, _marketoLeadId,
+    -- _salesforceAccountId, _salesforceContactId, _salesforceAssetId,
+    -- _zendeskUserId, _zendeskExternalId, _zendeskTicketId,
+    -- _serviceNowSystemId, _serviceNowIncidentId, _segmentUserId,
+    -- _shopifyCustomerId, _shopifyOrderId.
     keyName :: Prelude.Text,
     -- | A list of key values.
     values :: [Prelude.Text],
@@ -78,7 +85,13 @@ data AddProfileKey = AddProfileKey'
 --
 -- 'profileId', 'addProfileKey_profileId' - The unique identifier of a customer profile.
 --
--- 'keyName', 'addProfileKey_keyName' - A searchable identifier of a customer profile.
+-- 'keyName', 'addProfileKey_keyName' - A searchable identifier of a customer profile. The predefined keys you
+-- can use include: _account, _profileId, _assetId, _caseId, _orderId,
+-- _fullName, _phone, _email, _ctrContactId, _marketoLeadId,
+-- _salesforceAccountId, _salesforceContactId, _salesforceAssetId,
+-- _zendeskUserId, _zendeskExternalId, _zendeskTicketId,
+-- _serviceNowSystemId, _serviceNowIncidentId, _segmentUserId,
+-- _shopifyCustomerId, _shopifyOrderId.
 --
 -- 'values', 'addProfileKey_values' - A list of key values.
 --
@@ -103,7 +116,13 @@ newAddProfileKey pProfileId_ pKeyName_ pDomainName_ =
 addProfileKey_profileId :: Lens.Lens' AddProfileKey Prelude.Text
 addProfileKey_profileId = Lens.lens (\AddProfileKey' {profileId} -> profileId) (\s@AddProfileKey' {} a -> s {profileId = a} :: AddProfileKey)
 
--- | A searchable identifier of a customer profile.
+-- | A searchable identifier of a customer profile. The predefined keys you
+-- can use include: _account, _profileId, _assetId, _caseId, _orderId,
+-- _fullName, _phone, _email, _ctrContactId, _marketoLeadId,
+-- _salesforceAccountId, _salesforceContactId, _salesforceAssetId,
+-- _zendeskUserId, _zendeskExternalId, _zendeskTicketId,
+-- _serviceNowSystemId, _serviceNowIncidentId, _segmentUserId,
+-- _shopifyCustomerId, _shopifyOrderId.
 addProfileKey_keyName :: Lens.Lens' AddProfileKey Prelude.Text
 addProfileKey_keyName = Lens.lens (\AddProfileKey' {keyName} -> keyName) (\s@AddProfileKey' {} a -> s {keyName = a} :: AddProfileKey)
 
@@ -119,13 +138,14 @@ instance Core.AWSRequest AddProfileKey where
   type
     AWSResponse AddProfileKey =
       AddProfileKeyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AddProfileKeyResponse'
-            Prelude.<$> (x Core..?> "Values" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "KeyName")
+            Prelude.<$> (x Data..?> "KeyName")
+            Prelude.<*> (x Data..?> "Values" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -143,41 +163,41 @@ instance Prelude.NFData AddProfileKey where
       `Prelude.seq` Prelude.rnf values
       `Prelude.seq` Prelude.rnf domainName
 
-instance Core.ToHeaders AddProfileKey where
+instance Data.ToHeaders AddProfileKey where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AddProfileKey where
+instance Data.ToJSON AddProfileKey where
   toJSON AddProfileKey' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ProfileId" Core..= profileId),
-            Prelude.Just ("KeyName" Core..= keyName),
-            Prelude.Just ("Values" Core..= values)
+          [ Prelude.Just ("ProfileId" Data..= profileId),
+            Prelude.Just ("KeyName" Data..= keyName),
+            Prelude.Just ("Values" Data..= values)
           ]
       )
 
-instance Core.ToPath AddProfileKey where
+instance Data.ToPath AddProfileKey where
   toPath AddProfileKey' {..} =
     Prelude.mconcat
-      ["/domains/", Core.toBS domainName, "/profiles/keys"]
+      ["/domains/", Data.toBS domainName, "/profiles/keys"]
 
-instance Core.ToQuery AddProfileKey where
+instance Data.ToQuery AddProfileKey where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAddProfileKeyResponse' smart constructor.
 data AddProfileKeyResponse = AddProfileKeyResponse'
-  { -- | A list of key values.
-    values :: Prelude.Maybe [Prelude.Text],
-    -- | A searchable identifier of a customer profile.
+  { -- | A searchable identifier of a customer profile.
     keyName :: Prelude.Maybe Prelude.Text,
+    -- | A list of key values.
+    values :: Prelude.Maybe [Prelude.Text],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -191,9 +211,9 @@ data AddProfileKeyResponse = AddProfileKeyResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'values', 'addProfileKeyResponse_values' - A list of key values.
---
 -- 'keyName', 'addProfileKeyResponse_keyName' - A searchable identifier of a customer profile.
+--
+-- 'values', 'addProfileKeyResponse_values' - A list of key values.
 --
 -- 'httpStatus', 'addProfileKeyResponse_httpStatus' - The response's http status code.
 newAddProfileKeyResponse ::
@@ -202,18 +222,18 @@ newAddProfileKeyResponse ::
   AddProfileKeyResponse
 newAddProfileKeyResponse pHttpStatus_ =
   AddProfileKeyResponse'
-    { values = Prelude.Nothing,
-      keyName = Prelude.Nothing,
+    { keyName = Prelude.Nothing,
+      values = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A list of key values.
-addProfileKeyResponse_values :: Lens.Lens' AddProfileKeyResponse (Prelude.Maybe [Prelude.Text])
-addProfileKeyResponse_values = Lens.lens (\AddProfileKeyResponse' {values} -> values) (\s@AddProfileKeyResponse' {} a -> s {values = a} :: AddProfileKeyResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A searchable identifier of a customer profile.
 addProfileKeyResponse_keyName :: Lens.Lens' AddProfileKeyResponse (Prelude.Maybe Prelude.Text)
 addProfileKeyResponse_keyName = Lens.lens (\AddProfileKeyResponse' {keyName} -> keyName) (\s@AddProfileKeyResponse' {} a -> s {keyName = a} :: AddProfileKeyResponse)
+
+-- | A list of key values.
+addProfileKeyResponse_values :: Lens.Lens' AddProfileKeyResponse (Prelude.Maybe [Prelude.Text])
+addProfileKeyResponse_values = Lens.lens (\AddProfileKeyResponse' {values} -> values) (\s@AddProfileKeyResponse' {} a -> s {values = a} :: AddProfileKeyResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 addProfileKeyResponse_httpStatus :: Lens.Lens' AddProfileKeyResponse Prelude.Int
@@ -221,6 +241,6 @@ addProfileKeyResponse_httpStatus = Lens.lens (\AddProfileKeyResponse' {httpStatu
 
 instance Prelude.NFData AddProfileKeyResponse where
   rnf AddProfileKeyResponse' {..} =
-    Prelude.rnf values
-      `Prelude.seq` Prelude.rnf keyName
+    Prelude.rnf keyName
+      `Prelude.seq` Prelude.rnf values
       `Prelude.seq` Prelude.rnf httpStatus

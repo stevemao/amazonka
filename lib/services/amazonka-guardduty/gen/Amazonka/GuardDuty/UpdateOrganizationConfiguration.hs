@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.UpdateOrganizationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.GuardDuty.UpdateOrganizationConfiguration
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -109,7 +110,8 @@ instance
   type
     AWSResponse UpdateOrganizationConfiguration =
       UpdateOrganizationConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -138,34 +140,34 @@ instance
       `Prelude.seq` Prelude.rnf autoEnable
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateOrganizationConfiguration
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateOrganizationConfiguration where
+instance Data.ToJSON UpdateOrganizationConfiguration where
   toJSON UpdateOrganizationConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("dataSources" Core..=) Prelude.<$> dataSources,
-            Prelude.Just ("autoEnable" Core..= autoEnable)
+          [ ("dataSources" Data..=) Prelude.<$> dataSources,
+            Prelude.Just ("autoEnable" Data..= autoEnable)
           ]
       )
 
-instance Core.ToPath UpdateOrganizationConfiguration where
+instance Data.ToPath UpdateOrganizationConfiguration where
   toPath UpdateOrganizationConfiguration' {..} =
     Prelude.mconcat
-      ["/detector/", Core.toBS detectorId, "/admin"]
+      ["/detector/", Data.toBS detectorId, "/admin"]
 
-instance Core.ToQuery UpdateOrganizationConfiguration where
+instance Data.ToQuery UpdateOrganizationConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateOrganizationConfigurationResponse' smart constructor.

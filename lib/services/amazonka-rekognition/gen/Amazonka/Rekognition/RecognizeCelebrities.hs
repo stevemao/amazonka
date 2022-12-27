@@ -14,18 +14,18 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.RecognizeCelebrities
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Returns an array of celebrities recognized in the input image. For more
--- information, see Recognizing Celebrities in the Amazon Rekognition
+-- information, see Recognizing celebrities in the Amazon Rekognition
 -- Developer Guide.
 --
 -- @RecognizeCelebrities@ returns the 64 largest faces in the image. It
--- lists recognized celebrities in the @CelebrityFaces@ array and
+-- lists the recognized celebrities in the @CelebrityFaces@ array and any
 -- unrecognized faces in the @UnrecognizedFaces@ array.
 -- @RecognizeCelebrities@ doesn\'t return celebrities whose faces aren\'t
 -- among the largest 64 faces in the image.
@@ -49,7 +49,7 @@
 -- call Amazon Rekognition operations, passing image bytes is not
 -- supported. The image must be either a PNG or JPEG formatted file.
 --
--- For an example, see Recognizing Celebrities in an Image in the Amazon
+-- For an example, see Recognizing celebrities in an image in the Amazon
 -- Rekognition Developer Guide.
 --
 -- This operation requires permissions to perform the
@@ -75,7 +75,8 @@ module Amazonka.Rekognition.RecognizeCelebrities
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types
 import qualified Amazonka.Request as Request
@@ -130,14 +131,15 @@ instance Core.AWSRequest RecognizeCelebrities where
   type
     AWSResponse RecognizeCelebrities =
       RecognizeCelebritiesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RecognizeCelebritiesResponse'
-            Prelude.<$> (x Core..?> "CelebrityFaces" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "OrientationCorrection")
-            Prelude.<*> ( x Core..?> "UnrecognizedFaces"
+            Prelude.<$> (x Data..?> "CelebrityFaces" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "OrientationCorrection")
+            Prelude.<*> ( x Data..?> "UnrecognizedFaces"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -150,32 +152,32 @@ instance Prelude.Hashable RecognizeCelebrities where
 instance Prelude.NFData RecognizeCelebrities where
   rnf RecognizeCelebrities' {..} = Prelude.rnf image
 
-instance Core.ToHeaders RecognizeCelebrities where
+instance Data.ToHeaders RecognizeCelebrities where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "RekognitionService.RecognizeCelebrities" ::
+              Data.=# ( "RekognitionService.RecognizeCelebrities" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RecognizeCelebrities where
+instance Data.ToJSON RecognizeCelebrities where
   toJSON RecognizeCelebrities' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Image" Core..= image)]
+          [Prelude.Just ("Image" Data..= image)]
       )
 
-instance Core.ToPath RecognizeCelebrities where
+instance Data.ToPath RecognizeCelebrities where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RecognizeCelebrities where
+instance Data.ToQuery RecognizeCelebrities where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRecognizeCelebritiesResponse' smart constructor.

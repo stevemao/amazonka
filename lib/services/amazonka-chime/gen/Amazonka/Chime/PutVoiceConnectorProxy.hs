@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.PutVoiceConnectorProxy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,7 +58,7 @@ data PutVoiceConnectorProxy = PutVoiceConnectorProxy'
     -- Amazon Chime Voice Connector.
     disabled :: Prelude.Maybe Prelude.Bool,
     -- | The phone number to route calls to after a proxy session expires.
-    fallBackPhoneNumber :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    fallBackPhoneNumber :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The default number of minutes allowed for proxy sessions.
     defaultSessionExpiryMinutes :: Prelude.Int,
     -- | The countries for proxy phone numbers to be selected from.
@@ -114,7 +115,7 @@ putVoiceConnectorProxy_disabled = Lens.lens (\PutVoiceConnectorProxy' {disabled}
 
 -- | The phone number to route calls to after a proxy session expires.
 putVoiceConnectorProxy_fallBackPhoneNumber :: Lens.Lens' PutVoiceConnectorProxy (Prelude.Maybe Prelude.Text)
-putVoiceConnectorProxy_fallBackPhoneNumber = Lens.lens (\PutVoiceConnectorProxy' {fallBackPhoneNumber} -> fallBackPhoneNumber) (\s@PutVoiceConnectorProxy' {} a -> s {fallBackPhoneNumber = a} :: PutVoiceConnectorProxy) Prelude.. Lens.mapping Core._Sensitive
+putVoiceConnectorProxy_fallBackPhoneNumber = Lens.lens (\PutVoiceConnectorProxy' {fallBackPhoneNumber} -> fallBackPhoneNumber) (\s@PutVoiceConnectorProxy' {} a -> s {fallBackPhoneNumber = a} :: PutVoiceConnectorProxy) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The default number of minutes allowed for proxy sessions.
 putVoiceConnectorProxy_defaultSessionExpiryMinutes :: Lens.Lens' PutVoiceConnectorProxy Prelude.Int
@@ -132,12 +133,13 @@ instance Core.AWSRequest PutVoiceConnectorProxy where
   type
     AWSResponse PutVoiceConnectorProxy =
       PutVoiceConnectorProxyResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutVoiceConnectorProxyResponse'
-            Prelude.<$> (x Core..?> "Proxy")
+            Prelude.<$> (x Data..?> "Proxy")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -157,36 +159,36 @@ instance Prelude.NFData PutVoiceConnectorProxy where
       `Prelude.seq` Prelude.rnf phoneNumberPoolCountries
       `Prelude.seq` Prelude.rnf voiceConnectorId
 
-instance Core.ToHeaders PutVoiceConnectorProxy where
+instance Data.ToHeaders PutVoiceConnectorProxy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON PutVoiceConnectorProxy where
+instance Data.ToJSON PutVoiceConnectorProxy where
   toJSON PutVoiceConnectorProxy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Disabled" Core..=) Prelude.<$> disabled,
-            ("FallBackPhoneNumber" Core..=)
+          [ ("Disabled" Data..=) Prelude.<$> disabled,
+            ("FallBackPhoneNumber" Data..=)
               Prelude.<$> fallBackPhoneNumber,
             Prelude.Just
               ( "DefaultSessionExpiryMinutes"
-                  Core..= defaultSessionExpiryMinutes
+                  Data..= defaultSessionExpiryMinutes
               ),
             Prelude.Just
               ( "PhoneNumberPoolCountries"
-                  Core..= phoneNumberPoolCountries
+                  Data..= phoneNumberPoolCountries
               )
           ]
       )
 
-instance Core.ToPath PutVoiceConnectorProxy where
+instance Data.ToPath PutVoiceConnectorProxy where
   toPath PutVoiceConnectorProxy' {..} =
     Prelude.mconcat
       [ "/voice-connectors/",
-        Core.toBS voiceConnectorId,
+        Data.toBS voiceConnectorId,
         "/programmable-numbers/proxy"
       ]
 
-instance Core.ToQuery PutVoiceConnectorProxy where
+instance Data.ToQuery PutVoiceConnectorProxy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutVoiceConnectorProxyResponse' smart constructor.

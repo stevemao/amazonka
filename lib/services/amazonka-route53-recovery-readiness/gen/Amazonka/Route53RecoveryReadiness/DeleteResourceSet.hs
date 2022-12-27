@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryReadiness.DeleteResourceSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an existing Resource Set.
+-- Deletes a resource set.
 module Amazonka.Route53RecoveryReadiness.DeleteResourceSet
   ( -- * Creating a Request
     DeleteResourceSet (..),
@@ -36,7 +36,8 @@ module Amazonka.Route53RecoveryReadiness.DeleteResourceSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -44,7 +45,7 @@ import Amazonka.Route53RecoveryReadiness.Types
 
 -- | /See:/ 'newDeleteResourceSet' smart constructor.
 data DeleteResourceSet = DeleteResourceSet'
-  { -- | The ResourceSet to delete
+  { -- | Name of a resource set.
     resourceSetName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -57,7 +58,7 @@ data DeleteResourceSet = DeleteResourceSet'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceSetName', 'deleteResourceSet_resourceSetName' - The ResourceSet to delete
+-- 'resourceSetName', 'deleteResourceSet_resourceSetName' - Name of a resource set.
 newDeleteResourceSet ::
   -- | 'resourceSetName'
   Prelude.Text ->
@@ -68,7 +69,7 @@ newDeleteResourceSet pResourceSetName_ =
         pResourceSetName_
     }
 
--- | The ResourceSet to delete
+-- | Name of a resource set.
 deleteResourceSet_resourceSetName :: Lens.Lens' DeleteResourceSet Prelude.Text
 deleteResourceSet_resourceSetName = Lens.lens (\DeleteResourceSet' {resourceSetName} -> resourceSetName) (\s@DeleteResourceSet' {} a -> s {resourceSetName = a} :: DeleteResourceSet)
 
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteResourceSet where
   type
     AWSResponse DeleteResourceSet =
       DeleteResourceSetResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteResourceSetResponse'
 
@@ -88,23 +90,23 @@ instance Prelude.NFData DeleteResourceSet where
   rnf DeleteResourceSet' {..} =
     Prelude.rnf resourceSetName
 
-instance Core.ToHeaders DeleteResourceSet where
+instance Data.ToHeaders DeleteResourceSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteResourceSet where
+instance Data.ToPath DeleteResourceSet where
   toPath DeleteResourceSet' {..} =
     Prelude.mconcat
-      ["/resourcesets/", Core.toBS resourceSetName]
+      ["/resourcesets/", Data.toBS resourceSetName]
 
-instance Core.ToQuery DeleteResourceSet where
+instance Data.ToQuery DeleteResourceSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteResourceSetResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.StartMatchmaking
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,7 @@
 -- Track matchmaking events to respond as needed and acquire game session
 -- connection information for successfully completed matches. Ticket status
 -- updates are tracked using event notification through Amazon Simple
--- Notification Service (SNS), which is defined in the matchmaking
--- configuration.
+-- Notification Service, which is defined in the matchmaking configuration.
 --
 -- __Learn more__
 --
@@ -49,12 +48,6 @@
 -- <https://docs.aws.amazon.com/gamelift/latest/flexmatchguide/match-notification.html Set Up FlexMatch event notification>
 --
 -- <https://docs.aws.amazon.com/gamelift/latest/flexmatchguide/gamelift-match.html How GameLift FlexMatch works>
---
--- __Related actions__
---
--- StartMatchmaking | DescribeMatchmaking | StopMatchmaking | AcceptMatch |
--- StartMatchBackfill |
--- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.StartMatchmaking
   ( -- * Creating a Request
     StartMatchmaking (..),
@@ -76,15 +69,14 @@ module Amazonka.GameLift.StartMatchmaking
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newStartMatchmaking' smart constructor.
+-- | /See:/ 'newStartMatchmaking' smart constructor.
 data StartMatchmaking = StartMatchmaking'
   { -- | A unique identifier for a matchmaking ticket. If no ticket ID is
     -- specified here, Amazon GameLift will generate one in the form of a UUID.
@@ -99,6 +91,8 @@ data StartMatchmaking = StartMatchmaking'
     -- a player ID, and may contain player attributes and latency data to be
     -- used in the matchmaking process. After a successful match, @Player@
     -- objects contain the name of the team the player is assigned to.
+    --
+    -- You can include up to 10 @Players@ in a @StartMatchmaking@ request.
     players :: [Player]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -124,6 +118,8 @@ data StartMatchmaking = StartMatchmaking'
 -- a player ID, and may contain player attributes and latency data to be
 -- used in the matchmaking process. After a successful match, @Player@
 -- objects contain the name of the team the player is assigned to.
+--
+-- You can include up to 10 @Players@ in a @StartMatchmaking@ request.
 newStartMatchmaking ::
   -- | 'configurationName'
   Prelude.Text ->
@@ -152,6 +148,8 @@ startMatchmaking_configurationName = Lens.lens (\StartMatchmaking' {configuratio
 -- a player ID, and may contain player attributes and latency data to be
 -- used in the matchmaking process. After a successful match, @Player@
 -- objects contain the name of the team the player is assigned to.
+--
+-- You can include up to 10 @Players@ in a @StartMatchmaking@ request.
 startMatchmaking_players :: Lens.Lens' StartMatchmaking [Player]
 startMatchmaking_players = Lens.lens (\StartMatchmaking' {players} -> players) (\s@StartMatchmaking' {} a -> s {players = a} :: StartMatchmaking) Prelude.. Lens.coerced
 
@@ -159,12 +157,13 @@ instance Core.AWSRequest StartMatchmaking where
   type
     AWSResponse StartMatchmaking =
       StartMatchmakingResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartMatchmakingResponse'
-            Prelude.<$> (x Core..?> "MatchmakingTicket")
+            Prelude.<$> (x Data..?> "MatchmakingTicket")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -180,39 +179,37 @@ instance Prelude.NFData StartMatchmaking where
       `Prelude.seq` Prelude.rnf configurationName
       `Prelude.seq` Prelude.rnf players
 
-instance Core.ToHeaders StartMatchmaking where
+instance Data.ToHeaders StartMatchmaking where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("GameLift.StartMatchmaking" :: Prelude.ByteString),
+              Data.=# ("GameLift.StartMatchmaking" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartMatchmaking where
+instance Data.ToJSON StartMatchmaking where
   toJSON StartMatchmaking' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TicketId" Core..=) Prelude.<$> ticketId,
+          [ ("TicketId" Data..=) Prelude.<$> ticketId,
             Prelude.Just
-              ("ConfigurationName" Core..= configurationName),
-            Prelude.Just ("Players" Core..= players)
+              ("ConfigurationName" Data..= configurationName),
+            Prelude.Just ("Players" Data..= players)
           ]
       )
 
-instance Core.ToPath StartMatchmaking where
+instance Data.ToPath StartMatchmaking where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartMatchmaking where
+instance Data.ToQuery StartMatchmaking where
   toQuery = Prelude.const Prelude.mempty
 
--- | Represents the returned data in response to a request operation.
---
--- /See:/ 'newStartMatchmakingResponse' smart constructor.
+-- | /See:/ 'newStartMatchmakingResponse' smart constructor.
 data StartMatchmakingResponse = StartMatchmakingResponse'
   { -- | Ticket representing the matchmaking request. This object include the
     -- information included in the request, ticket status, and match results as

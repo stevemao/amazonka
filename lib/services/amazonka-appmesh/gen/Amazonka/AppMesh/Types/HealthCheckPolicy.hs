@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.HealthCheckPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppMesh.Types.HealthCheckPolicy where
 
 import Amazonka.AppMesh.Types.PortProtocol
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents the health check policy for a virtual node\'s
@@ -147,19 +148,19 @@ healthCheckPolicy_timeoutMillis = Lens.lens (\HealthCheckPolicy' {timeoutMillis}
 healthCheckPolicy_unhealthyThreshold :: Lens.Lens' HealthCheckPolicy Prelude.Natural
 healthCheckPolicy_unhealthyThreshold = Lens.lens (\HealthCheckPolicy' {unhealthyThreshold} -> unhealthyThreshold) (\s@HealthCheckPolicy' {} a -> s {unhealthyThreshold = a} :: HealthCheckPolicy)
 
-instance Core.FromJSON HealthCheckPolicy where
+instance Data.FromJSON HealthCheckPolicy where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HealthCheckPolicy"
       ( \x ->
           HealthCheckPolicy'
-            Prelude.<$> (x Core..:? "path")
-            Prelude.<*> (x Core..:? "port")
-            Prelude.<*> (x Core..: "healthyThreshold")
-            Prelude.<*> (x Core..: "intervalMillis")
-            Prelude.<*> (x Core..: "protocol")
-            Prelude.<*> (x Core..: "timeoutMillis")
-            Prelude.<*> (x Core..: "unhealthyThreshold")
+            Prelude.<$> (x Data..:? "path")
+            Prelude.<*> (x Data..:? "port")
+            Prelude.<*> (x Data..: "healthyThreshold")
+            Prelude.<*> (x Data..: "intervalMillis")
+            Prelude.<*> (x Data..: "protocol")
+            Prelude.<*> (x Data..: "timeoutMillis")
+            Prelude.<*> (x Data..: "unhealthyThreshold")
       )
 
 instance Prelude.Hashable HealthCheckPolicy where
@@ -182,19 +183,19 @@ instance Prelude.NFData HealthCheckPolicy where
       `Prelude.seq` Prelude.rnf timeoutMillis
       `Prelude.seq` Prelude.rnf unhealthyThreshold
 
-instance Core.ToJSON HealthCheckPolicy where
+instance Data.ToJSON HealthCheckPolicy where
   toJSON HealthCheckPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("path" Core..=) Prelude.<$> path,
-            ("port" Core..=) Prelude.<$> port,
+          [ ("path" Data..=) Prelude.<$> path,
+            ("port" Data..=) Prelude.<$> port,
             Prelude.Just
-              ("healthyThreshold" Core..= healthyThreshold),
+              ("healthyThreshold" Data..= healthyThreshold),
             Prelude.Just
-              ("intervalMillis" Core..= intervalMillis),
-            Prelude.Just ("protocol" Core..= protocol),
-            Prelude.Just ("timeoutMillis" Core..= timeoutMillis),
+              ("intervalMillis" Data..= intervalMillis),
+            Prelude.Just ("protocol" Data..= protocol),
+            Prelude.Just ("timeoutMillis" Data..= timeoutMillis),
             Prelude.Just
-              ("unhealthyThreshold" Core..= unhealthyThreshold)
+              ("unhealthyThreshold" Data..= unhealthyThreshold)
           ]
       )

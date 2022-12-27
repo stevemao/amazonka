@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.CreateProject
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.SageMaker.CreateProject
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -139,14 +140,15 @@ instance Core.AWSRequest CreateProject where
   type
     AWSResponse CreateProject =
       CreateProjectResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateProjectResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "ProjectArn")
-            Prelude.<*> (x Core..:> "ProjectId")
+            Prelude.<*> (x Data..:> "ProjectArn")
+            Prelude.<*> (x Data..:> "ProjectId")
       )
 
 instance Prelude.Hashable CreateProject where
@@ -163,38 +165,38 @@ instance Prelude.NFData CreateProject where
       `Prelude.seq` Prelude.rnf projectName
       `Prelude.seq` Prelude.rnf serviceCatalogProvisioningDetails
 
-instance Core.ToHeaders CreateProject where
+instance Data.ToHeaders CreateProject where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.CreateProject" :: Prelude.ByteString),
+              Data.=# ("SageMaker.CreateProject" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateProject where
+instance Data.ToJSON CreateProject where
   toJSON CreateProject' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ProjectDescription" Core..=)
+          [ ("ProjectDescription" Data..=)
               Prelude.<$> projectDescription,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("ProjectName" Core..= projectName),
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("ProjectName" Data..= projectName),
             Prelude.Just
               ( "ServiceCatalogProvisioningDetails"
-                  Core..= serviceCatalogProvisioningDetails
+                  Data..= serviceCatalogProvisioningDetails
               )
           ]
       )
 
-instance Core.ToPath CreateProject where
+instance Data.ToPath CreateProject where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateProject where
+instance Data.ToQuery CreateProject where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateProjectResponse' smart constructor.

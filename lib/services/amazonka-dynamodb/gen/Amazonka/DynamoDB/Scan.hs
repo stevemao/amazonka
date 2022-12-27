@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Scan
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -58,21 +58,21 @@ module Amazonka.DynamoDB.Scan
     newScan,
 
     -- * Request Lenses
-    scan_projectionExpression,
-    scan_scanFilter,
     scan_attributesToGet,
-    scan_totalSegments,
-    scan_expressionAttributeNames,
-    scan_filterExpression,
-    scan_consistentRead,
-    scan_expressionAttributeValues,
-    scan_returnConsumedCapacity,
-    scan_limit,
-    scan_select,
-    scan_segment,
     scan_conditionalOperator,
+    scan_consistentRead,
     scan_exclusiveStartKey,
+    scan_expressionAttributeNames,
+    scan_expressionAttributeValues,
+    scan_filterExpression,
     scan_indexName,
+    scan_limit,
+    scan_projectionExpression,
+    scan_returnConsumedCapacity,
+    scan_scanFilter,
+    scan_segment,
+    scan_select,
+    scan_totalSegments,
     scan_tableName,
 
     -- * Destructuring the Response
@@ -80,18 +80,19 @@ module Amazonka.DynamoDB.Scan
     newScanResponse,
 
     -- * Response Lenses
-    scanResponse_lastEvaluatedKey,
-    scanResponse_count,
-    scanResponse_scannedCount,
-    scanResponse_items,
     scanResponse_consumedCapacity,
+    scanResponse_count,
+    scanResponse_items,
+    scanResponse_lastEvaluatedKey,
+    scanResponse_scannedCount,
     scanResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DynamoDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,42 +101,44 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newScan' smart constructor.
 data Scan = Scan'
-  { -- | A string that identifies one or more attributes to retrieve from the
-    -- specified table or index. These attributes can include scalars, sets, or
-    -- elements of a JSON document. The attributes in the expression must be
-    -- separated by commas.
-    --
-    -- If no attribute names are specified, then all attributes will be
-    -- returned. If any of the requested attributes are not found, they will
-    -- not appear in the result.
-    --
-    -- For more information, see
-    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html Specifying Item Attributes>
-    -- in the /Amazon DynamoDB Developer Guide/.
-    projectionExpression :: Prelude.Maybe Prelude.Text,
-    -- | This is a legacy parameter. Use @FilterExpression@ instead. For more
-    -- information, see
-    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ScanFilter.html ScanFilter>
-    -- in the /Amazon DynamoDB Developer Guide/.
-    scanFilter :: Prelude.Maybe (Prelude.HashMap Prelude.Text Condition),
-    -- | This is a legacy parameter. Use @ProjectionExpression@ instead. For more
+  { -- | This is a legacy parameter. Use @ProjectionExpression@ instead. For more
     -- information, see
     -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html AttributesToGet>
     -- in the /Amazon DynamoDB Developer Guide/.
     attributesToGet :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
-    -- | For a parallel @Scan@ request, @TotalSegments@ represents the total
-    -- number of segments into which the @Scan@ operation will be divided. The
-    -- value of @TotalSegments@ corresponds to the number of application
-    -- workers that will perform the parallel scan. For example, if you want to
-    -- use four application threads to scan a table or an index, specify a
-    -- @TotalSegments@ value of 4.
+    -- | This is a legacy parameter. Use @FilterExpression@ instead. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html ConditionalOperator>
+    -- in the /Amazon DynamoDB Developer Guide/.
+    conditionalOperator :: Prelude.Maybe ConditionalOperator,
+    -- | A Boolean value that determines the read consistency model during the
+    -- scan:
     --
-    -- The value for @TotalSegments@ must be greater than or equal to 1, and
-    -- less than or equal to 1000000. If you specify a @TotalSegments@ value of
-    -- 1, the @Scan@ operation will be sequential rather than parallel.
+    -- -   If @ConsistentRead@ is @false@, then the data returned from @Scan@
+    --     might not contain the results from other recently completed write
+    --     operations (@PutItem@, @UpdateItem@, or @DeleteItem@).
     --
-    -- If you specify @TotalSegments@, you must also specify @Segment@.
-    totalSegments :: Prelude.Maybe Prelude.Natural,
+    -- -   If @ConsistentRead@ is @true@, then all of the write operations that
+    --     completed before the @Scan@ began are guaranteed to be contained in
+    --     the @Scan@ response.
+    --
+    -- The default setting for @ConsistentRead@ is @false@.
+    --
+    -- The @ConsistentRead@ parameter is not supported on global secondary
+    -- indexes. If you scan a global secondary index with @ConsistentRead@ set
+    -- to true, you will receive a @ValidationException@.
+    consistentRead :: Prelude.Maybe Prelude.Bool,
+    -- | The primary key of the first item that this operation will evaluate. Use
+    -- the value that was returned for @LastEvaluatedKey@ in the previous
+    -- operation.
+    --
+    -- The data type for @ExclusiveStartKey@ must be String, Number or Binary.
+    -- No set data types are allowed.
+    --
+    -- In a parallel scan, a @Scan@ request that includes @ExclusiveStartKey@
+    -- must specify the same segment whose previous @Scan@ returned the
+    -- corresponding value of @LastEvaluatedKey@.
+    exclusiveStartKey :: Prelude.Maybe (Prelude.HashMap Prelude.Text AttributeValue),
     -- | One or more substitution tokens for attribute names in an expression.
     -- The following are some use cases for using @ExpressionAttributeNames@:
     --
@@ -174,35 +177,6 @@ data Scan = Scan'
     -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html Specifying Item Attributes>
     -- in the /Amazon DynamoDB Developer Guide/.
     expressionAttributeNames :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | A string that contains conditions that DynamoDB applies after the @Scan@
-    -- operation, but before the data is returned to you. Items that do not
-    -- satisfy the @FilterExpression@ criteria are not returned.
-    --
-    -- A @FilterExpression@ is applied after the items have already been read;
-    -- the process of filtering does not consume any additional read capacity
-    -- units.
-    --
-    -- For more information, see
-    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#FilteringResults Filter Expressions>
-    -- in the /Amazon DynamoDB Developer Guide/.
-    filterExpression :: Prelude.Maybe Prelude.Text,
-    -- | A Boolean value that determines the read consistency model during the
-    -- scan:
-    --
-    -- -   If @ConsistentRead@ is @false@, then the data returned from @Scan@
-    --     might not contain the results from other recently completed write
-    --     operations (@PutItem@, @UpdateItem@, or @DeleteItem@).
-    --
-    -- -   If @ConsistentRead@ is @true@, then all of the write operations that
-    --     completed before the @Scan@ began are guaranteed to be contained in
-    --     the @Scan@ response.
-    --
-    -- The default setting for @ConsistentRead@ is @false@.
-    --
-    -- The @ConsistentRead@ parameter is not supported on global secondary
-    -- indexes. If you scan a global secondary index with @ConsistentRead@ set
-    -- to true, you will receive a @ValidationException@.
-    consistentRead :: Prelude.Maybe Prelude.Bool,
     -- | One or more values that can be substituted in an expression.
     --
     -- Use the __:__ (colon) character in an expression to dereference an
@@ -223,7 +197,22 @@ data Scan = Scan'
     -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html Condition Expressions>
     -- in the /Amazon DynamoDB Developer Guide/.
     expressionAttributeValues :: Prelude.Maybe (Prelude.HashMap Prelude.Text AttributeValue),
-    returnConsumedCapacity :: Prelude.Maybe ReturnConsumedCapacity,
+    -- | A string that contains conditions that DynamoDB applies after the @Scan@
+    -- operation, but before the data is returned to you. Items that do not
+    -- satisfy the @FilterExpression@ criteria are not returned.
+    --
+    -- A @FilterExpression@ is applied after the items have already been read;
+    -- the process of filtering does not consume any additional read capacity
+    -- units.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#Query.FilterExpression Filter Expressions>
+    -- in the /Amazon DynamoDB Developer Guide/.
+    filterExpression :: Prelude.Maybe Prelude.Text,
+    -- | The name of a secondary index to scan. This index can be any local
+    -- secondary index or global secondary index. Note that if you use the
+    -- @IndexName@ parameter, you must also provide @TableName@.
+    indexName :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of items to evaluate (not necessarily the number of
     -- matching items). If DynamoDB processes the number of items up to the
     -- limit while processing the results, it stops the operation and returns
@@ -237,6 +226,42 @@ data Scan = Scan'
     -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html Working with Queries>
     -- in the /Amazon DynamoDB Developer Guide/.
     limit :: Prelude.Maybe Prelude.Natural,
+    -- | A string that identifies one or more attributes to retrieve from the
+    -- specified table or index. These attributes can include scalars, sets, or
+    -- elements of a JSON document. The attributes in the expression must be
+    -- separated by commas.
+    --
+    -- If no attribute names are specified, then all attributes will be
+    -- returned. If any of the requested attributes are not found, they will
+    -- not appear in the result.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html Specifying Item Attributes>
+    -- in the /Amazon DynamoDB Developer Guide/.
+    projectionExpression :: Prelude.Maybe Prelude.Text,
+    returnConsumedCapacity :: Prelude.Maybe ReturnConsumedCapacity,
+    -- | This is a legacy parameter. Use @FilterExpression@ instead. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ScanFilter.html ScanFilter>
+    -- in the /Amazon DynamoDB Developer Guide/.
+    scanFilter :: Prelude.Maybe (Prelude.HashMap Prelude.Text Condition),
+    -- | For a parallel @Scan@ request, @Segment@ identifies an individual
+    -- segment to be scanned by an application worker.
+    --
+    -- Segment IDs are zero-based, so the first segment is always 0. For
+    -- example, if you want to use four application threads to scan a table or
+    -- an index, then the first thread specifies a @Segment@ value of 0, the
+    -- second thread specifies 1, and so on.
+    --
+    -- The value of @LastEvaluatedKey@ returned from a parallel @Scan@ request
+    -- must be used as @ExclusiveStartKey@ with the same segment ID in a
+    -- subsequent @Scan@ operation.
+    --
+    -- The value for @Segment@ must be greater than or equal to 0, and less
+    -- than the value provided for @TotalSegments@.
+    --
+    -- If you provide @Segment@, you must also provide @TotalSegments@.
+    segment :: Prelude.Maybe Prelude.Natural,
     -- | The attributes to be returned in the result. You can retrieve all item
     -- attributes, specific item attributes, the count of matching items, or in
     -- the case of an index, some or all of the attributes projected into the
@@ -258,8 +283,9 @@ data Scan = Scan'
     --     matching items themselves.
     --
     -- -   @SPECIFIC_ATTRIBUTES@ - Returns only the attributes listed in
-    --     @AttributesToGet@. This return value is equivalent to specifying
-    --     @AttributesToGet@ without specifying any value for @Select@.
+    --     @ProjectionExpression@. This return value is equivalent to
+    --     specifying @ProjectionExpression@ without specifying any value for
+    --     @Select@.
     --
     --     If you query or scan a local secondary index and request only
     --     attributes that are projected into that index, the operation reads
@@ -272,54 +298,31 @@ data Scan = Scan'
     --     attributes that are projected into the index. Global secondary index
     --     queries cannot fetch attributes from the parent table.
     --
-    -- If neither @Select@ nor @AttributesToGet@ are specified, DynamoDB
+    -- If neither @Select@ nor @ProjectionExpression@ are specified, DynamoDB
     -- defaults to @ALL_ATTRIBUTES@ when accessing a table, and
     -- @ALL_PROJECTED_ATTRIBUTES@ when accessing an index. You cannot use both
-    -- @Select@ and @AttributesToGet@ together in a single request, unless the
-    -- value for @Select@ is @SPECIFIC_ATTRIBUTES@. (This usage is equivalent
-    -- to specifying @AttributesToGet@ without any value for @Select@.)
+    -- @Select@ and @ProjectionExpression@ together in a single request, unless
+    -- the value for @Select@ is @SPECIFIC_ATTRIBUTES@. (This usage is
+    -- equivalent to specifying @ProjectionExpression@ without any value for
+    -- @Select@.)
     --
     -- If you use the @ProjectionExpression@ parameter, then the value for
     -- @Select@ can only be @SPECIFIC_ATTRIBUTES@. Any other value for @Select@
     -- will return an error.
     select :: Prelude.Maybe Select,
-    -- | For a parallel @Scan@ request, @Segment@ identifies an individual
-    -- segment to be scanned by an application worker.
+    -- | For a parallel @Scan@ request, @TotalSegments@ represents the total
+    -- number of segments into which the @Scan@ operation will be divided. The
+    -- value of @TotalSegments@ corresponds to the number of application
+    -- workers that will perform the parallel scan. For example, if you want to
+    -- use four application threads to scan a table or an index, specify a
+    -- @TotalSegments@ value of 4.
     --
-    -- Segment IDs are zero-based, so the first segment is always 0. For
-    -- example, if you want to use four application threads to scan a table or
-    -- an index, then the first thread specifies a @Segment@ value of 0, the
-    -- second thread specifies 1, and so on.
+    -- The value for @TotalSegments@ must be greater than or equal to 1, and
+    -- less than or equal to 1000000. If you specify a @TotalSegments@ value of
+    -- 1, the @Scan@ operation will be sequential rather than parallel.
     --
-    -- The value of @LastEvaluatedKey@ returned from a parallel @Scan@ request
-    -- must be used as @ExclusiveStartKey@ with the same segment ID in a
-    -- subsequent @Scan@ operation.
-    --
-    -- The value for @Segment@ must be greater than or equal to 0, and less
-    -- than the value provided for @TotalSegments@.
-    --
-    -- If you provide @Segment@, you must also provide @TotalSegments@.
-    segment :: Prelude.Maybe Prelude.Natural,
-    -- | This is a legacy parameter. Use @FilterExpression@ instead. For more
-    -- information, see
-    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html ConditionalOperator>
-    -- in the /Amazon DynamoDB Developer Guide/.
-    conditionalOperator :: Prelude.Maybe ConditionalOperator,
-    -- | The primary key of the first item that this operation will evaluate. Use
-    -- the value that was returned for @LastEvaluatedKey@ in the previous
-    -- operation.
-    --
-    -- The data type for @ExclusiveStartKey@ must be String, Number or Binary.
-    -- No set data types are allowed.
-    --
-    -- In a parallel scan, a @Scan@ request that includes @ExclusiveStartKey@
-    -- must specify the same segment whose previous @Scan@ returned the
-    -- corresponding value of @LastEvaluatedKey@.
-    exclusiveStartKey :: Prelude.Maybe (Prelude.HashMap Prelude.Text AttributeValue),
-    -- | The name of a secondary index to scan. This index can be any local
-    -- secondary index or global secondary index. Note that if you use the
-    -- @IndexName@ parameter, you must also provide @TableName@.
-    indexName :: Prelude.Maybe Prelude.Text,
+    -- If you specify @TotalSegments@, you must also specify @Segment@.
+    totalSegments :: Prelude.Maybe Prelude.Natural,
     -- | The name of the table containing the requested items; or, if you provide
     -- @IndexName@, the name of the table to which that index belongs.
     tableName :: Prelude.Text
@@ -334,41 +337,43 @@ data Scan = Scan'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'projectionExpression', 'scan_projectionExpression' - A string that identifies one or more attributes to retrieve from the
--- specified table or index. These attributes can include scalars, sets, or
--- elements of a JSON document. The attributes in the expression must be
--- separated by commas.
---
--- If no attribute names are specified, then all attributes will be
--- returned. If any of the requested attributes are not found, they will
--- not appear in the result.
---
--- For more information, see
--- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html Specifying Item Attributes>
--- in the /Amazon DynamoDB Developer Guide/.
---
--- 'scanFilter', 'scan_scanFilter' - This is a legacy parameter. Use @FilterExpression@ instead. For more
--- information, see
--- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ScanFilter.html ScanFilter>
--- in the /Amazon DynamoDB Developer Guide/.
---
 -- 'attributesToGet', 'scan_attributesToGet' - This is a legacy parameter. Use @ProjectionExpression@ instead. For more
 -- information, see
 -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html AttributesToGet>
 -- in the /Amazon DynamoDB Developer Guide/.
 --
--- 'totalSegments', 'scan_totalSegments' - For a parallel @Scan@ request, @TotalSegments@ represents the total
--- number of segments into which the @Scan@ operation will be divided. The
--- value of @TotalSegments@ corresponds to the number of application
--- workers that will perform the parallel scan. For example, if you want to
--- use four application threads to scan a table or an index, specify a
--- @TotalSegments@ value of 4.
+-- 'conditionalOperator', 'scan_conditionalOperator' - This is a legacy parameter. Use @FilterExpression@ instead. For more
+-- information, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html ConditionalOperator>
+-- in the /Amazon DynamoDB Developer Guide/.
 --
--- The value for @TotalSegments@ must be greater than or equal to 1, and
--- less than or equal to 1000000. If you specify a @TotalSegments@ value of
--- 1, the @Scan@ operation will be sequential rather than parallel.
+-- 'consistentRead', 'scan_consistentRead' - A Boolean value that determines the read consistency model during the
+-- scan:
 --
--- If you specify @TotalSegments@, you must also specify @Segment@.
+-- -   If @ConsistentRead@ is @false@, then the data returned from @Scan@
+--     might not contain the results from other recently completed write
+--     operations (@PutItem@, @UpdateItem@, or @DeleteItem@).
+--
+-- -   If @ConsistentRead@ is @true@, then all of the write operations that
+--     completed before the @Scan@ began are guaranteed to be contained in
+--     the @Scan@ response.
+--
+-- The default setting for @ConsistentRead@ is @false@.
+--
+-- The @ConsistentRead@ parameter is not supported on global secondary
+-- indexes. If you scan a global secondary index with @ConsistentRead@ set
+-- to true, you will receive a @ValidationException@.
+--
+-- 'exclusiveStartKey', 'scan_exclusiveStartKey' - The primary key of the first item that this operation will evaluate. Use
+-- the value that was returned for @LastEvaluatedKey@ in the previous
+-- operation.
+--
+-- The data type for @ExclusiveStartKey@ must be String, Number or Binary.
+-- No set data types are allowed.
+--
+-- In a parallel scan, a @Scan@ request that includes @ExclusiveStartKey@
+-- must specify the same segment whose previous @Scan@ returned the
+-- corresponding value of @LastEvaluatedKey@.
 --
 -- 'expressionAttributeNames', 'scan_expressionAttributeNames' - One or more substitution tokens for attribute names in an expression.
 -- The following are some use cases for using @ExpressionAttributeNames@:
@@ -408,35 +413,6 @@ data Scan = Scan'
 -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html Specifying Item Attributes>
 -- in the /Amazon DynamoDB Developer Guide/.
 --
--- 'filterExpression', 'scan_filterExpression' - A string that contains conditions that DynamoDB applies after the @Scan@
--- operation, but before the data is returned to you. Items that do not
--- satisfy the @FilterExpression@ criteria are not returned.
---
--- A @FilterExpression@ is applied after the items have already been read;
--- the process of filtering does not consume any additional read capacity
--- units.
---
--- For more information, see
--- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#FilteringResults Filter Expressions>
--- in the /Amazon DynamoDB Developer Guide/.
---
--- 'consistentRead', 'scan_consistentRead' - A Boolean value that determines the read consistency model during the
--- scan:
---
--- -   If @ConsistentRead@ is @false@, then the data returned from @Scan@
---     might not contain the results from other recently completed write
---     operations (@PutItem@, @UpdateItem@, or @DeleteItem@).
---
--- -   If @ConsistentRead@ is @true@, then all of the write operations that
---     completed before the @Scan@ began are guaranteed to be contained in
---     the @Scan@ response.
---
--- The default setting for @ConsistentRead@ is @false@.
---
--- The @ConsistentRead@ parameter is not supported on global secondary
--- indexes. If you scan a global secondary index with @ConsistentRead@ set
--- to true, you will receive a @ValidationException@.
---
 -- 'expressionAttributeValues', 'scan_expressionAttributeValues' - One or more values that can be substituted in an expression.
 --
 -- Use the __:__ (colon) character in an expression to dereference an
@@ -457,7 +433,21 @@ data Scan = Scan'
 -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html Condition Expressions>
 -- in the /Amazon DynamoDB Developer Guide/.
 --
--- 'returnConsumedCapacity', 'scan_returnConsumedCapacity' - Undocumented member.
+-- 'filterExpression', 'scan_filterExpression' - A string that contains conditions that DynamoDB applies after the @Scan@
+-- operation, but before the data is returned to you. Items that do not
+-- satisfy the @FilterExpression@ criteria are not returned.
+--
+-- A @FilterExpression@ is applied after the items have already been read;
+-- the process of filtering does not consume any additional read capacity
+-- units.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#Query.FilterExpression Filter Expressions>
+-- in the /Amazon DynamoDB Developer Guide/.
+--
+-- 'indexName', 'scan_indexName' - The name of a secondary index to scan. This index can be any local
+-- secondary index or global secondary index. Note that if you use the
+-- @IndexName@ parameter, you must also provide @TableName@.
 --
 -- 'limit', 'scan_limit' - The maximum number of items to evaluate (not necessarily the number of
 -- matching items). If DynamoDB processes the number of items up to the
@@ -471,6 +461,43 @@ data Scan = Scan'
 -- see
 -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html Working with Queries>
 -- in the /Amazon DynamoDB Developer Guide/.
+--
+-- 'projectionExpression', 'scan_projectionExpression' - A string that identifies one or more attributes to retrieve from the
+-- specified table or index. These attributes can include scalars, sets, or
+-- elements of a JSON document. The attributes in the expression must be
+-- separated by commas.
+--
+-- If no attribute names are specified, then all attributes will be
+-- returned. If any of the requested attributes are not found, they will
+-- not appear in the result.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html Specifying Item Attributes>
+-- in the /Amazon DynamoDB Developer Guide/.
+--
+-- 'returnConsumedCapacity', 'scan_returnConsumedCapacity' - Undocumented member.
+--
+-- 'scanFilter', 'scan_scanFilter' - This is a legacy parameter. Use @FilterExpression@ instead. For more
+-- information, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ScanFilter.html ScanFilter>
+-- in the /Amazon DynamoDB Developer Guide/.
+--
+-- 'segment', 'scan_segment' - For a parallel @Scan@ request, @Segment@ identifies an individual
+-- segment to be scanned by an application worker.
+--
+-- Segment IDs are zero-based, so the first segment is always 0. For
+-- example, if you want to use four application threads to scan a table or
+-- an index, then the first thread specifies a @Segment@ value of 0, the
+-- second thread specifies 1, and so on.
+--
+-- The value of @LastEvaluatedKey@ returned from a parallel @Scan@ request
+-- must be used as @ExclusiveStartKey@ with the same segment ID in a
+-- subsequent @Scan@ operation.
+--
+-- The value for @Segment@ must be greater than or equal to 0, and less
+-- than the value provided for @TotalSegments@.
+--
+-- If you provide @Segment@, you must also provide @TotalSegments@.
 --
 -- 'select', 'scan_select' - The attributes to be returned in the result. You can retrieve all item
 -- attributes, specific item attributes, the count of matching items, or in
@@ -493,8 +520,9 @@ data Scan = Scan'
 --     matching items themselves.
 --
 -- -   @SPECIFIC_ATTRIBUTES@ - Returns only the attributes listed in
---     @AttributesToGet@. This return value is equivalent to specifying
---     @AttributesToGet@ without specifying any value for @Select@.
+--     @ProjectionExpression@. This return value is equivalent to
+--     specifying @ProjectionExpression@ without specifying any value for
+--     @Select@.
 --
 --     If you query or scan a local secondary index and request only
 --     attributes that are projected into that index, the operation reads
@@ -507,110 +535,19 @@ data Scan = Scan'
 --     attributes that are projected into the index. Global secondary index
 --     queries cannot fetch attributes from the parent table.
 --
--- If neither @Select@ nor @AttributesToGet@ are specified, DynamoDB
+-- If neither @Select@ nor @ProjectionExpression@ are specified, DynamoDB
 -- defaults to @ALL_ATTRIBUTES@ when accessing a table, and
 -- @ALL_PROJECTED_ATTRIBUTES@ when accessing an index. You cannot use both
--- @Select@ and @AttributesToGet@ together in a single request, unless the
--- value for @Select@ is @SPECIFIC_ATTRIBUTES@. (This usage is equivalent
--- to specifying @AttributesToGet@ without any value for @Select@.)
+-- @Select@ and @ProjectionExpression@ together in a single request, unless
+-- the value for @Select@ is @SPECIFIC_ATTRIBUTES@. (This usage is
+-- equivalent to specifying @ProjectionExpression@ without any value for
+-- @Select@.)
 --
 -- If you use the @ProjectionExpression@ parameter, then the value for
 -- @Select@ can only be @SPECIFIC_ATTRIBUTES@. Any other value for @Select@
 -- will return an error.
 --
--- 'segment', 'scan_segment' - For a parallel @Scan@ request, @Segment@ identifies an individual
--- segment to be scanned by an application worker.
---
--- Segment IDs are zero-based, so the first segment is always 0. For
--- example, if you want to use four application threads to scan a table or
--- an index, then the first thread specifies a @Segment@ value of 0, the
--- second thread specifies 1, and so on.
---
--- The value of @LastEvaluatedKey@ returned from a parallel @Scan@ request
--- must be used as @ExclusiveStartKey@ with the same segment ID in a
--- subsequent @Scan@ operation.
---
--- The value for @Segment@ must be greater than or equal to 0, and less
--- than the value provided for @TotalSegments@.
---
--- If you provide @Segment@, you must also provide @TotalSegments@.
---
--- 'conditionalOperator', 'scan_conditionalOperator' - This is a legacy parameter. Use @FilterExpression@ instead. For more
--- information, see
--- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html ConditionalOperator>
--- in the /Amazon DynamoDB Developer Guide/.
---
--- 'exclusiveStartKey', 'scan_exclusiveStartKey' - The primary key of the first item that this operation will evaluate. Use
--- the value that was returned for @LastEvaluatedKey@ in the previous
--- operation.
---
--- The data type for @ExclusiveStartKey@ must be String, Number or Binary.
--- No set data types are allowed.
---
--- In a parallel scan, a @Scan@ request that includes @ExclusiveStartKey@
--- must specify the same segment whose previous @Scan@ returned the
--- corresponding value of @LastEvaluatedKey@.
---
--- 'indexName', 'scan_indexName' - The name of a secondary index to scan. This index can be any local
--- secondary index or global secondary index. Note that if you use the
--- @IndexName@ parameter, you must also provide @TableName@.
---
--- 'tableName', 'scan_tableName' - The name of the table containing the requested items; or, if you provide
--- @IndexName@, the name of the table to which that index belongs.
-newScan ::
-  -- | 'tableName'
-  Prelude.Text ->
-  Scan
-newScan pTableName_ =
-  Scan'
-    { projectionExpression = Prelude.Nothing,
-      scanFilter = Prelude.Nothing,
-      attributesToGet = Prelude.Nothing,
-      totalSegments = Prelude.Nothing,
-      expressionAttributeNames = Prelude.Nothing,
-      filterExpression = Prelude.Nothing,
-      consistentRead = Prelude.Nothing,
-      expressionAttributeValues = Prelude.Nothing,
-      returnConsumedCapacity = Prelude.Nothing,
-      limit = Prelude.Nothing,
-      select = Prelude.Nothing,
-      segment = Prelude.Nothing,
-      conditionalOperator = Prelude.Nothing,
-      exclusiveStartKey = Prelude.Nothing,
-      indexName = Prelude.Nothing,
-      tableName = pTableName_
-    }
-
--- | A string that identifies one or more attributes to retrieve from the
--- specified table or index. These attributes can include scalars, sets, or
--- elements of a JSON document. The attributes in the expression must be
--- separated by commas.
---
--- If no attribute names are specified, then all attributes will be
--- returned. If any of the requested attributes are not found, they will
--- not appear in the result.
---
--- For more information, see
--- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html Specifying Item Attributes>
--- in the /Amazon DynamoDB Developer Guide/.
-scan_projectionExpression :: Lens.Lens' Scan (Prelude.Maybe Prelude.Text)
-scan_projectionExpression = Lens.lens (\Scan' {projectionExpression} -> projectionExpression) (\s@Scan' {} a -> s {projectionExpression = a} :: Scan)
-
--- | This is a legacy parameter. Use @FilterExpression@ instead. For more
--- information, see
--- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ScanFilter.html ScanFilter>
--- in the /Amazon DynamoDB Developer Guide/.
-scan_scanFilter :: Lens.Lens' Scan (Prelude.Maybe (Prelude.HashMap Prelude.Text Condition))
-scan_scanFilter = Lens.lens (\Scan' {scanFilter} -> scanFilter) (\s@Scan' {} a -> s {scanFilter = a} :: Scan) Prelude.. Lens.mapping Lens.coerced
-
--- | This is a legacy parameter. Use @ProjectionExpression@ instead. For more
--- information, see
--- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html AttributesToGet>
--- in the /Amazon DynamoDB Developer Guide/.
-scan_attributesToGet :: Lens.Lens' Scan (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
-scan_attributesToGet = Lens.lens (\Scan' {attributesToGet} -> attributesToGet) (\s@Scan' {} a -> s {attributesToGet = a} :: Scan) Prelude.. Lens.mapping Lens.coerced
-
--- | For a parallel @Scan@ request, @TotalSegments@ represents the total
+-- 'totalSegments', 'scan_totalSegments' - For a parallel @Scan@ request, @TotalSegments@ represents the total
 -- number of segments into which the @Scan@ operation will be divided. The
 -- value of @TotalSegments@ corresponds to the number of application
 -- workers that will perform the parallel scan. For example, if you want to
@@ -622,8 +559,78 @@ scan_attributesToGet = Lens.lens (\Scan' {attributesToGet} -> attributesToGet) (
 -- 1, the @Scan@ operation will be sequential rather than parallel.
 --
 -- If you specify @TotalSegments@, you must also specify @Segment@.
-scan_totalSegments :: Lens.Lens' Scan (Prelude.Maybe Prelude.Natural)
-scan_totalSegments = Lens.lens (\Scan' {totalSegments} -> totalSegments) (\s@Scan' {} a -> s {totalSegments = a} :: Scan)
+--
+-- 'tableName', 'scan_tableName' - The name of the table containing the requested items; or, if you provide
+-- @IndexName@, the name of the table to which that index belongs.
+newScan ::
+  -- | 'tableName'
+  Prelude.Text ->
+  Scan
+newScan pTableName_ =
+  Scan'
+    { attributesToGet = Prelude.Nothing,
+      conditionalOperator = Prelude.Nothing,
+      consistentRead = Prelude.Nothing,
+      exclusiveStartKey = Prelude.Nothing,
+      expressionAttributeNames = Prelude.Nothing,
+      expressionAttributeValues = Prelude.Nothing,
+      filterExpression = Prelude.Nothing,
+      indexName = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      projectionExpression = Prelude.Nothing,
+      returnConsumedCapacity = Prelude.Nothing,
+      scanFilter = Prelude.Nothing,
+      segment = Prelude.Nothing,
+      select = Prelude.Nothing,
+      totalSegments = Prelude.Nothing,
+      tableName = pTableName_
+    }
+
+-- | This is a legacy parameter. Use @ProjectionExpression@ instead. For more
+-- information, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html AttributesToGet>
+-- in the /Amazon DynamoDB Developer Guide/.
+scan_attributesToGet :: Lens.Lens' Scan (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+scan_attributesToGet = Lens.lens (\Scan' {attributesToGet} -> attributesToGet) (\s@Scan' {} a -> s {attributesToGet = a} :: Scan) Prelude.. Lens.mapping Lens.coerced
+
+-- | This is a legacy parameter. Use @FilterExpression@ instead. For more
+-- information, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html ConditionalOperator>
+-- in the /Amazon DynamoDB Developer Guide/.
+scan_conditionalOperator :: Lens.Lens' Scan (Prelude.Maybe ConditionalOperator)
+scan_conditionalOperator = Lens.lens (\Scan' {conditionalOperator} -> conditionalOperator) (\s@Scan' {} a -> s {conditionalOperator = a} :: Scan)
+
+-- | A Boolean value that determines the read consistency model during the
+-- scan:
+--
+-- -   If @ConsistentRead@ is @false@, then the data returned from @Scan@
+--     might not contain the results from other recently completed write
+--     operations (@PutItem@, @UpdateItem@, or @DeleteItem@).
+--
+-- -   If @ConsistentRead@ is @true@, then all of the write operations that
+--     completed before the @Scan@ began are guaranteed to be contained in
+--     the @Scan@ response.
+--
+-- The default setting for @ConsistentRead@ is @false@.
+--
+-- The @ConsistentRead@ parameter is not supported on global secondary
+-- indexes. If you scan a global secondary index with @ConsistentRead@ set
+-- to true, you will receive a @ValidationException@.
+scan_consistentRead :: Lens.Lens' Scan (Prelude.Maybe Prelude.Bool)
+scan_consistentRead = Lens.lens (\Scan' {consistentRead} -> consistentRead) (\s@Scan' {} a -> s {consistentRead = a} :: Scan)
+
+-- | The primary key of the first item that this operation will evaluate. Use
+-- the value that was returned for @LastEvaluatedKey@ in the previous
+-- operation.
+--
+-- The data type for @ExclusiveStartKey@ must be String, Number or Binary.
+-- No set data types are allowed.
+--
+-- In a parallel scan, a @Scan@ request that includes @ExclusiveStartKey@
+-- must specify the same segment whose previous @Scan@ returned the
+-- corresponding value of @LastEvaluatedKey@.
+scan_exclusiveStartKey :: Lens.Lens' Scan (Prelude.Maybe (Prelude.HashMap Prelude.Text AttributeValue))
+scan_exclusiveStartKey = Lens.lens (\Scan' {exclusiveStartKey} -> exclusiveStartKey) (\s@Scan' {} a -> s {exclusiveStartKey = a} :: Scan) Prelude.. Lens.mapping Lens.coerced
 
 -- | One or more substitution tokens for attribute names in an expression.
 -- The following are some use cases for using @ExpressionAttributeNames@:
@@ -665,39 +672,6 @@ scan_totalSegments = Lens.lens (\Scan' {totalSegments} -> totalSegments) (\s@Sca
 scan_expressionAttributeNames :: Lens.Lens' Scan (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 scan_expressionAttributeNames = Lens.lens (\Scan' {expressionAttributeNames} -> expressionAttributeNames) (\s@Scan' {} a -> s {expressionAttributeNames = a} :: Scan) Prelude.. Lens.mapping Lens.coerced
 
--- | A string that contains conditions that DynamoDB applies after the @Scan@
--- operation, but before the data is returned to you. Items that do not
--- satisfy the @FilterExpression@ criteria are not returned.
---
--- A @FilterExpression@ is applied after the items have already been read;
--- the process of filtering does not consume any additional read capacity
--- units.
---
--- For more information, see
--- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#FilteringResults Filter Expressions>
--- in the /Amazon DynamoDB Developer Guide/.
-scan_filterExpression :: Lens.Lens' Scan (Prelude.Maybe Prelude.Text)
-scan_filterExpression = Lens.lens (\Scan' {filterExpression} -> filterExpression) (\s@Scan' {} a -> s {filterExpression = a} :: Scan)
-
--- | A Boolean value that determines the read consistency model during the
--- scan:
---
--- -   If @ConsistentRead@ is @false@, then the data returned from @Scan@
---     might not contain the results from other recently completed write
---     operations (@PutItem@, @UpdateItem@, or @DeleteItem@).
---
--- -   If @ConsistentRead@ is @true@, then all of the write operations that
---     completed before the @Scan@ began are guaranteed to be contained in
---     the @Scan@ response.
---
--- The default setting for @ConsistentRead@ is @false@.
---
--- The @ConsistentRead@ parameter is not supported on global secondary
--- indexes. If you scan a global secondary index with @ConsistentRead@ set
--- to true, you will receive a @ValidationException@.
-scan_consistentRead :: Lens.Lens' Scan (Prelude.Maybe Prelude.Bool)
-scan_consistentRead = Lens.lens (\Scan' {consistentRead} -> consistentRead) (\s@Scan' {} a -> s {consistentRead = a} :: Scan)
-
 -- | One or more values that can be substituted in an expression.
 --
 -- Use the __:__ (colon) character in an expression to dereference an
@@ -720,9 +694,25 @@ scan_consistentRead = Lens.lens (\Scan' {consistentRead} -> consistentRead) (\s@
 scan_expressionAttributeValues :: Lens.Lens' Scan (Prelude.Maybe (Prelude.HashMap Prelude.Text AttributeValue))
 scan_expressionAttributeValues = Lens.lens (\Scan' {expressionAttributeValues} -> expressionAttributeValues) (\s@Scan' {} a -> s {expressionAttributeValues = a} :: Scan) Prelude.. Lens.mapping Lens.coerced
 
--- | Undocumented member.
-scan_returnConsumedCapacity :: Lens.Lens' Scan (Prelude.Maybe ReturnConsumedCapacity)
-scan_returnConsumedCapacity = Lens.lens (\Scan' {returnConsumedCapacity} -> returnConsumedCapacity) (\s@Scan' {} a -> s {returnConsumedCapacity = a} :: Scan)
+-- | A string that contains conditions that DynamoDB applies after the @Scan@
+-- operation, but before the data is returned to you. Items that do not
+-- satisfy the @FilterExpression@ criteria are not returned.
+--
+-- A @FilterExpression@ is applied after the items have already been read;
+-- the process of filtering does not consume any additional read capacity
+-- units.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#Query.FilterExpression Filter Expressions>
+-- in the /Amazon DynamoDB Developer Guide/.
+scan_filterExpression :: Lens.Lens' Scan (Prelude.Maybe Prelude.Text)
+scan_filterExpression = Lens.lens (\Scan' {filterExpression} -> filterExpression) (\s@Scan' {} a -> s {filterExpression = a} :: Scan)
+
+-- | The name of a secondary index to scan. This index can be any local
+-- secondary index or global secondary index. Note that if you use the
+-- @IndexName@ parameter, you must also provide @TableName@.
+scan_indexName :: Lens.Lens' Scan (Prelude.Maybe Prelude.Text)
+scan_indexName = Lens.lens (\Scan' {indexName} -> indexName) (\s@Scan' {} a -> s {indexName = a} :: Scan)
 
 -- | The maximum number of items to evaluate (not necessarily the number of
 -- matching items). If DynamoDB processes the number of items up to the
@@ -738,6 +728,51 @@ scan_returnConsumedCapacity = Lens.lens (\Scan' {returnConsumedCapacity} -> retu
 -- in the /Amazon DynamoDB Developer Guide/.
 scan_limit :: Lens.Lens' Scan (Prelude.Maybe Prelude.Natural)
 scan_limit = Lens.lens (\Scan' {limit} -> limit) (\s@Scan' {} a -> s {limit = a} :: Scan)
+
+-- | A string that identifies one or more attributes to retrieve from the
+-- specified table or index. These attributes can include scalars, sets, or
+-- elements of a JSON document. The attributes in the expression must be
+-- separated by commas.
+--
+-- If no attribute names are specified, then all attributes will be
+-- returned. If any of the requested attributes are not found, they will
+-- not appear in the result.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html Specifying Item Attributes>
+-- in the /Amazon DynamoDB Developer Guide/.
+scan_projectionExpression :: Lens.Lens' Scan (Prelude.Maybe Prelude.Text)
+scan_projectionExpression = Lens.lens (\Scan' {projectionExpression} -> projectionExpression) (\s@Scan' {} a -> s {projectionExpression = a} :: Scan)
+
+-- | Undocumented member.
+scan_returnConsumedCapacity :: Lens.Lens' Scan (Prelude.Maybe ReturnConsumedCapacity)
+scan_returnConsumedCapacity = Lens.lens (\Scan' {returnConsumedCapacity} -> returnConsumedCapacity) (\s@Scan' {} a -> s {returnConsumedCapacity = a} :: Scan)
+
+-- | This is a legacy parameter. Use @FilterExpression@ instead. For more
+-- information, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ScanFilter.html ScanFilter>
+-- in the /Amazon DynamoDB Developer Guide/.
+scan_scanFilter :: Lens.Lens' Scan (Prelude.Maybe (Prelude.HashMap Prelude.Text Condition))
+scan_scanFilter = Lens.lens (\Scan' {scanFilter} -> scanFilter) (\s@Scan' {} a -> s {scanFilter = a} :: Scan) Prelude.. Lens.mapping Lens.coerced
+
+-- | For a parallel @Scan@ request, @Segment@ identifies an individual
+-- segment to be scanned by an application worker.
+--
+-- Segment IDs are zero-based, so the first segment is always 0. For
+-- example, if you want to use four application threads to scan a table or
+-- an index, then the first thread specifies a @Segment@ value of 0, the
+-- second thread specifies 1, and so on.
+--
+-- The value of @LastEvaluatedKey@ returned from a parallel @Scan@ request
+-- must be used as @ExclusiveStartKey@ with the same segment ID in a
+-- subsequent @Scan@ operation.
+--
+-- The value for @Segment@ must be greater than or equal to 0, and less
+-- than the value provided for @TotalSegments@.
+--
+-- If you provide @Segment@, you must also provide @TotalSegments@.
+scan_segment :: Lens.Lens' Scan (Prelude.Maybe Prelude.Natural)
+scan_segment = Lens.lens (\Scan' {segment} -> segment) (\s@Scan' {} a -> s {segment = a} :: Scan)
 
 -- | The attributes to be returned in the result. You can retrieve all item
 -- attributes, specific item attributes, the count of matching items, or in
@@ -760,8 +795,9 @@ scan_limit = Lens.lens (\Scan' {limit} -> limit) (\s@Scan' {} a -> s {limit = a}
 --     matching items themselves.
 --
 -- -   @SPECIFIC_ATTRIBUTES@ - Returns only the attributes listed in
---     @AttributesToGet@. This return value is equivalent to specifying
---     @AttributesToGet@ without specifying any value for @Select@.
+--     @ProjectionExpression@. This return value is equivalent to
+--     specifying @ProjectionExpression@ without specifying any value for
+--     @Select@.
 --
 --     If you query or scan a local secondary index and request only
 --     attributes that are projected into that index, the operation reads
@@ -774,12 +810,13 @@ scan_limit = Lens.lens (\Scan' {limit} -> limit) (\s@Scan' {} a -> s {limit = a}
 --     attributes that are projected into the index. Global secondary index
 --     queries cannot fetch attributes from the parent table.
 --
--- If neither @Select@ nor @AttributesToGet@ are specified, DynamoDB
+-- If neither @Select@ nor @ProjectionExpression@ are specified, DynamoDB
 -- defaults to @ALL_ATTRIBUTES@ when accessing a table, and
 -- @ALL_PROJECTED_ATTRIBUTES@ when accessing an index. You cannot use both
--- @Select@ and @AttributesToGet@ together in a single request, unless the
--- value for @Select@ is @SPECIFIC_ATTRIBUTES@. (This usage is equivalent
--- to specifying @AttributesToGet@ without any value for @Select@.)
+-- @Select@ and @ProjectionExpression@ together in a single request, unless
+-- the value for @Select@ is @SPECIFIC_ATTRIBUTES@. (This usage is
+-- equivalent to specifying @ProjectionExpression@ without any value for
+-- @Select@.)
 --
 -- If you use the @ProjectionExpression@ parameter, then the value for
 -- @Select@ can only be @SPECIFIC_ATTRIBUTES@. Any other value for @Select@
@@ -787,50 +824,20 @@ scan_limit = Lens.lens (\Scan' {limit} -> limit) (\s@Scan' {} a -> s {limit = a}
 scan_select :: Lens.Lens' Scan (Prelude.Maybe Select)
 scan_select = Lens.lens (\Scan' {select} -> select) (\s@Scan' {} a -> s {select = a} :: Scan)
 
--- | For a parallel @Scan@ request, @Segment@ identifies an individual
--- segment to be scanned by an application worker.
+-- | For a parallel @Scan@ request, @TotalSegments@ represents the total
+-- number of segments into which the @Scan@ operation will be divided. The
+-- value of @TotalSegments@ corresponds to the number of application
+-- workers that will perform the parallel scan. For example, if you want to
+-- use four application threads to scan a table or an index, specify a
+-- @TotalSegments@ value of 4.
 --
--- Segment IDs are zero-based, so the first segment is always 0. For
--- example, if you want to use four application threads to scan a table or
--- an index, then the first thread specifies a @Segment@ value of 0, the
--- second thread specifies 1, and so on.
+-- The value for @TotalSegments@ must be greater than or equal to 1, and
+-- less than or equal to 1000000. If you specify a @TotalSegments@ value of
+-- 1, the @Scan@ operation will be sequential rather than parallel.
 --
--- The value of @LastEvaluatedKey@ returned from a parallel @Scan@ request
--- must be used as @ExclusiveStartKey@ with the same segment ID in a
--- subsequent @Scan@ operation.
---
--- The value for @Segment@ must be greater than or equal to 0, and less
--- than the value provided for @TotalSegments@.
---
--- If you provide @Segment@, you must also provide @TotalSegments@.
-scan_segment :: Lens.Lens' Scan (Prelude.Maybe Prelude.Natural)
-scan_segment = Lens.lens (\Scan' {segment} -> segment) (\s@Scan' {} a -> s {segment = a} :: Scan)
-
--- | This is a legacy parameter. Use @FilterExpression@ instead. For more
--- information, see
--- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.ConditionalOperator.html ConditionalOperator>
--- in the /Amazon DynamoDB Developer Guide/.
-scan_conditionalOperator :: Lens.Lens' Scan (Prelude.Maybe ConditionalOperator)
-scan_conditionalOperator = Lens.lens (\Scan' {conditionalOperator} -> conditionalOperator) (\s@Scan' {} a -> s {conditionalOperator = a} :: Scan)
-
--- | The primary key of the first item that this operation will evaluate. Use
--- the value that was returned for @LastEvaluatedKey@ in the previous
--- operation.
---
--- The data type for @ExclusiveStartKey@ must be String, Number or Binary.
--- No set data types are allowed.
---
--- In a parallel scan, a @Scan@ request that includes @ExclusiveStartKey@
--- must specify the same segment whose previous @Scan@ returned the
--- corresponding value of @LastEvaluatedKey@.
-scan_exclusiveStartKey :: Lens.Lens' Scan (Prelude.Maybe (Prelude.HashMap Prelude.Text AttributeValue))
-scan_exclusiveStartKey = Lens.lens (\Scan' {exclusiveStartKey} -> exclusiveStartKey) (\s@Scan' {} a -> s {exclusiveStartKey = a} :: Scan) Prelude.. Lens.mapping Lens.coerced
-
--- | The name of a secondary index to scan. This index can be any local
--- secondary index or global secondary index. Note that if you use the
--- @IndexName@ parameter, you must also provide @TableName@.
-scan_indexName :: Lens.Lens' Scan (Prelude.Maybe Prelude.Text)
-scan_indexName = Lens.lens (\Scan' {indexName} -> indexName) (\s@Scan' {} a -> s {indexName = a} :: Scan)
+-- If you specify @TotalSegments@, you must also specify @Segment@.
+scan_totalSegments :: Lens.Lens' Scan (Prelude.Maybe Prelude.Natural)
+scan_totalSegments = Lens.lens (\Scan' {totalSegments} -> totalSegments) (\s@Scan' {} a -> s {totalSegments = a} :: Scan)
 
 -- | The name of the table containing the requested items; or, if you provide
 -- @IndexName@, the name of the table to which that index belongs.
@@ -853,115 +860,137 @@ instance Core.AWSPager Scan where
 
 instance Core.AWSRequest Scan where
   type AWSResponse Scan = ScanResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ScanResponse'
-            Prelude.<$> ( x Core..?> "LastEvaluatedKey"
+            Prelude.<$> (x Data..?> "ConsumedCapacity")
+            Prelude.<*> (x Data..?> "Count")
+            Prelude.<*> (x Data..?> "Items" Core..!@ Prelude.mempty)
+            Prelude.<*> ( x Data..?> "LastEvaluatedKey"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "Count")
-            Prelude.<*> (x Core..?> "ScannedCount")
-            Prelude.<*> (x Core..?> "Items" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "ConsumedCapacity")
+            Prelude.<*> (x Data..?> "ScannedCount")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable Scan where
   hashWithSalt _salt Scan' {..} =
-    _salt `Prelude.hashWithSalt` projectionExpression
-      `Prelude.hashWithSalt` scanFilter
-      `Prelude.hashWithSalt` attributesToGet
-      `Prelude.hashWithSalt` totalSegments
-      `Prelude.hashWithSalt` expressionAttributeNames
-      `Prelude.hashWithSalt` filterExpression
-      `Prelude.hashWithSalt` consistentRead
-      `Prelude.hashWithSalt` expressionAttributeValues
-      `Prelude.hashWithSalt` returnConsumedCapacity
-      `Prelude.hashWithSalt` limit
-      `Prelude.hashWithSalt` select
-      `Prelude.hashWithSalt` segment
+    _salt `Prelude.hashWithSalt` attributesToGet
       `Prelude.hashWithSalt` conditionalOperator
+      `Prelude.hashWithSalt` consistentRead
       `Prelude.hashWithSalt` exclusiveStartKey
+      `Prelude.hashWithSalt` expressionAttributeNames
+      `Prelude.hashWithSalt` expressionAttributeValues
+      `Prelude.hashWithSalt` filterExpression
       `Prelude.hashWithSalt` indexName
+      `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` projectionExpression
+      `Prelude.hashWithSalt` returnConsumedCapacity
+      `Prelude.hashWithSalt` scanFilter
+      `Prelude.hashWithSalt` segment
+      `Prelude.hashWithSalt` select
+      `Prelude.hashWithSalt` totalSegments
       `Prelude.hashWithSalt` tableName
 
 instance Prelude.NFData Scan where
   rnf Scan' {..} =
-    Prelude.rnf projectionExpression
-      `Prelude.seq` Prelude.rnf scanFilter
-      `Prelude.seq` Prelude.rnf attributesToGet
-      `Prelude.seq` Prelude.rnf totalSegments
-      `Prelude.seq` Prelude.rnf expressionAttributeNames
-      `Prelude.seq` Prelude.rnf filterExpression
-      `Prelude.seq` Prelude.rnf consistentRead
-      `Prelude.seq` Prelude.rnf expressionAttributeValues
-      `Prelude.seq` Prelude.rnf returnConsumedCapacity
-      `Prelude.seq` Prelude.rnf limit
-      `Prelude.seq` Prelude.rnf select
-      `Prelude.seq` Prelude.rnf segment
+    Prelude.rnf attributesToGet
       `Prelude.seq` Prelude.rnf conditionalOperator
+      `Prelude.seq` Prelude.rnf consistentRead
       `Prelude.seq` Prelude.rnf exclusiveStartKey
+      `Prelude.seq` Prelude.rnf expressionAttributeNames
+      `Prelude.seq` Prelude.rnf expressionAttributeValues
+      `Prelude.seq` Prelude.rnf filterExpression
       `Prelude.seq` Prelude.rnf indexName
+      `Prelude.seq` Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf projectionExpression
+      `Prelude.seq` Prelude.rnf returnConsumedCapacity
+      `Prelude.seq` Prelude.rnf scanFilter
+      `Prelude.seq` Prelude.rnf segment
+      `Prelude.seq` Prelude.rnf select
+      `Prelude.seq` Prelude.rnf totalSegments
       `Prelude.seq` Prelude.rnf tableName
 
-instance Core.ToHeaders Scan where
+instance Data.ToHeaders Scan where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("DynamoDB_20120810.Scan" :: Prelude.ByteString),
+              Data.=# ("DynamoDB_20120810.Scan" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON Scan where
+instance Data.ToJSON Scan where
   toJSON Scan' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ProjectionExpression" Core..=)
-              Prelude.<$> projectionExpression,
-            ("ScanFilter" Core..=) Prelude.<$> scanFilter,
-            ("AttributesToGet" Core..=)
+          [ ("AttributesToGet" Data..=)
               Prelude.<$> attributesToGet,
-            ("TotalSegments" Core..=) Prelude.<$> totalSegments,
-            ("ExpressionAttributeNames" Core..=)
-              Prelude.<$> expressionAttributeNames,
-            ("FilterExpression" Core..=)
-              Prelude.<$> filterExpression,
-            ("ConsistentRead" Core..=)
-              Prelude.<$> consistentRead,
-            ("ExpressionAttributeValues" Core..=)
-              Prelude.<$> expressionAttributeValues,
-            ("ReturnConsumedCapacity" Core..=)
-              Prelude.<$> returnConsumedCapacity,
-            ("Limit" Core..=) Prelude.<$> limit,
-            ("Select" Core..=) Prelude.<$> select,
-            ("Segment" Core..=) Prelude.<$> segment,
-            ("ConditionalOperator" Core..=)
+            ("ConditionalOperator" Data..=)
               Prelude.<$> conditionalOperator,
-            ("ExclusiveStartKey" Core..=)
+            ("ConsistentRead" Data..=)
+              Prelude.<$> consistentRead,
+            ("ExclusiveStartKey" Data..=)
               Prelude.<$> exclusiveStartKey,
-            ("IndexName" Core..=) Prelude.<$> indexName,
-            Prelude.Just ("TableName" Core..= tableName)
+            ("ExpressionAttributeNames" Data..=)
+              Prelude.<$> expressionAttributeNames,
+            ("ExpressionAttributeValues" Data..=)
+              Prelude.<$> expressionAttributeValues,
+            ("FilterExpression" Data..=)
+              Prelude.<$> filterExpression,
+            ("IndexName" Data..=) Prelude.<$> indexName,
+            ("Limit" Data..=) Prelude.<$> limit,
+            ("ProjectionExpression" Data..=)
+              Prelude.<$> projectionExpression,
+            ("ReturnConsumedCapacity" Data..=)
+              Prelude.<$> returnConsumedCapacity,
+            ("ScanFilter" Data..=) Prelude.<$> scanFilter,
+            ("Segment" Data..=) Prelude.<$> segment,
+            ("Select" Data..=) Prelude.<$> select,
+            ("TotalSegments" Data..=) Prelude.<$> totalSegments,
+            Prelude.Just ("TableName" Data..= tableName)
           ]
       )
 
-instance Core.ToPath Scan where
+instance Data.ToPath Scan where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery Scan where
+instance Data.ToQuery Scan where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @Scan@ operation.
 --
 -- /See:/ 'newScanResponse' smart constructor.
 data ScanResponse = ScanResponse'
-  { -- | The primary key of the item where the operation stopped, inclusive of
+  { -- | The capacity units consumed by the @Scan@ operation. The data returned
+    -- includes the total provisioned throughput consumed, along with
+    -- statistics for the table and any indexes involved in the operation.
+    -- @ConsumedCapacity@ is only returned if the @ReturnConsumedCapacity@
+    -- parameter was specified. For more information, see
+    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html Provisioned Throughput>
+    -- in the /Amazon DynamoDB Developer Guide/.
+    consumedCapacity :: Prelude.Maybe ConsumedCapacity,
+    -- | The number of items in the response.
+    --
+    -- If you set @ScanFilter@ in the request, then @Count@ is the number of
+    -- items returned after the filter was applied, and @ScannedCount@ is the
+    -- number of matching items before the filter was applied.
+    --
+    -- If you did not use a filter in the request, then @Count@ is the same as
+    -- @ScannedCount@.
+    count :: Prelude.Maybe Prelude.Int,
+    -- | An array of item attributes that match the scan criteria. Each element
+    -- in this array consists of an attribute name and the value for that
+    -- attribute.
+    items :: Prelude.Maybe [Prelude.HashMap Prelude.Text AttributeValue],
+    -- | The primary key of the item where the operation stopped, inclusive of
     -- the previous result set. Use this value to start a new operation,
     -- excluding this value in the new request.
     --
@@ -972,15 +1001,6 @@ data ScanResponse = ScanResponse'
     -- there is more data in the result set. The only way to know when you have
     -- reached the end of the result set is when @LastEvaluatedKey@ is empty.
     lastEvaluatedKey :: Prelude.Maybe (Prelude.HashMap Prelude.Text AttributeValue),
-    -- | The number of items in the response.
-    --
-    -- If you set @ScanFilter@ in the request, then @Count@ is the number of
-    -- items returned after the filter was applied, and @ScannedCount@ is the
-    -- number of matching items before the filter was applied.
-    --
-    -- If you did not use a filter in the request, then @Count@ is the same as
-    -- @ScannedCount@.
-    count :: Prelude.Maybe Prelude.Int,
     -- | The number of items evaluated, before any @ScanFilter@ is applied. A
     -- high @ScannedCount@ value with few, or no, @Count@ results indicates an
     -- inefficient @Scan@ operation. For more information, see
@@ -990,18 +1010,6 @@ data ScanResponse = ScanResponse'
     -- If you did not use a filter in the request, then @ScannedCount@ is the
     -- same as @Count@.
     scannedCount :: Prelude.Maybe Prelude.Int,
-    -- | An array of item attributes that match the scan criteria. Each element
-    -- in this array consists of an attribute name and the value for that
-    -- attribute.
-    items :: Prelude.Maybe [Prelude.HashMap Prelude.Text AttributeValue],
-    -- | The capacity units consumed by the @Scan@ operation. The data returned
-    -- includes the total provisioned throughput consumed, along with
-    -- statistics for the table and any indexes involved in the operation.
-    -- @ConsumedCapacity@ is only returned if the @ReturnConsumedCapacity@
-    -- parameter was specified. For more information, see
-    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html Provisioned Throughput>
-    -- in the /Amazon DynamoDB Developer Guide/.
-    consumedCapacity :: Prelude.Maybe ConsumedCapacity,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -1015,6 +1023,27 @@ data ScanResponse = ScanResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'consumedCapacity', 'scanResponse_consumedCapacity' - The capacity units consumed by the @Scan@ operation. The data returned
+-- includes the total provisioned throughput consumed, along with
+-- statistics for the table and any indexes involved in the operation.
+-- @ConsumedCapacity@ is only returned if the @ReturnConsumedCapacity@
+-- parameter was specified. For more information, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html Provisioned Throughput>
+-- in the /Amazon DynamoDB Developer Guide/.
+--
+-- 'count', 'scanResponse_count' - The number of items in the response.
+--
+-- If you set @ScanFilter@ in the request, then @Count@ is the number of
+-- items returned after the filter was applied, and @ScannedCount@ is the
+-- number of matching items before the filter was applied.
+--
+-- If you did not use a filter in the request, then @Count@ is the same as
+-- @ScannedCount@.
+--
+-- 'items', 'scanResponse_items' - An array of item attributes that match the scan criteria. Each element
+-- in this array consists of an attribute name and the value for that
+-- attribute.
+--
 -- 'lastEvaluatedKey', 'scanResponse_lastEvaluatedKey' - The primary key of the item where the operation stopped, inclusive of
 -- the previous result set. Use this value to start a new operation,
 -- excluding this value in the new request.
@@ -1026,15 +1055,6 @@ data ScanResponse = ScanResponse'
 -- there is more data in the result set. The only way to know when you have
 -- reached the end of the result set is when @LastEvaluatedKey@ is empty.
 --
--- 'count', 'scanResponse_count' - The number of items in the response.
---
--- If you set @ScanFilter@ in the request, then @Count@ is the number of
--- items returned after the filter was applied, and @ScannedCount@ is the
--- number of matching items before the filter was applied.
---
--- If you did not use a filter in the request, then @Count@ is the same as
--- @ScannedCount@.
---
 -- 'scannedCount', 'scanResponse_scannedCount' - The number of items evaluated, before any @ScanFilter@ is applied. A
 -- high @ScannedCount@ value with few, or no, @Count@ results indicates an
 -- inefficient @Scan@ operation. For more information, see
@@ -1044,18 +1064,6 @@ data ScanResponse = ScanResponse'
 -- If you did not use a filter in the request, then @ScannedCount@ is the
 -- same as @Count@.
 --
--- 'items', 'scanResponse_items' - An array of item attributes that match the scan criteria. Each element
--- in this array consists of an attribute name and the value for that
--- attribute.
---
--- 'consumedCapacity', 'scanResponse_consumedCapacity' - The capacity units consumed by the @Scan@ operation. The data returned
--- includes the total provisioned throughput consumed, along with
--- statistics for the table and any indexes involved in the operation.
--- @ConsumedCapacity@ is only returned if the @ReturnConsumedCapacity@
--- parameter was specified. For more information, see
--- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html Provisioned Throughput>
--- in the /Amazon DynamoDB Developer Guide/.
---
 -- 'httpStatus', 'scanResponse_httpStatus' - The response's http status code.
 newScanResponse ::
   -- | 'httpStatus'
@@ -1063,13 +1071,40 @@ newScanResponse ::
   ScanResponse
 newScanResponse pHttpStatus_ =
   ScanResponse'
-    { lastEvaluatedKey = Prelude.Nothing,
+    { consumedCapacity = Prelude.Nothing,
       count = Prelude.Nothing,
-      scannedCount = Prelude.Nothing,
       items = Prelude.Nothing,
-      consumedCapacity = Prelude.Nothing,
+      lastEvaluatedKey = Prelude.Nothing,
+      scannedCount = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The capacity units consumed by the @Scan@ operation. The data returned
+-- includes the total provisioned throughput consumed, along with
+-- statistics for the table and any indexes involved in the operation.
+-- @ConsumedCapacity@ is only returned if the @ReturnConsumedCapacity@
+-- parameter was specified. For more information, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html Provisioned Throughput>
+-- in the /Amazon DynamoDB Developer Guide/.
+scanResponse_consumedCapacity :: Lens.Lens' ScanResponse (Prelude.Maybe ConsumedCapacity)
+scanResponse_consumedCapacity = Lens.lens (\ScanResponse' {consumedCapacity} -> consumedCapacity) (\s@ScanResponse' {} a -> s {consumedCapacity = a} :: ScanResponse)
+
+-- | The number of items in the response.
+--
+-- If you set @ScanFilter@ in the request, then @Count@ is the number of
+-- items returned after the filter was applied, and @ScannedCount@ is the
+-- number of matching items before the filter was applied.
+--
+-- If you did not use a filter in the request, then @Count@ is the same as
+-- @ScannedCount@.
+scanResponse_count :: Lens.Lens' ScanResponse (Prelude.Maybe Prelude.Int)
+scanResponse_count = Lens.lens (\ScanResponse' {count} -> count) (\s@ScanResponse' {} a -> s {count = a} :: ScanResponse)
+
+-- | An array of item attributes that match the scan criteria. Each element
+-- in this array consists of an attribute name and the value for that
+-- attribute.
+scanResponse_items :: Lens.Lens' ScanResponse (Prelude.Maybe [Prelude.HashMap Prelude.Text AttributeValue])
+scanResponse_items = Lens.lens (\ScanResponse' {items} -> items) (\s@ScanResponse' {} a -> s {items = a} :: ScanResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The primary key of the item where the operation stopped, inclusive of
 -- the previous result set. Use this value to start a new operation,
@@ -1084,17 +1119,6 @@ newScanResponse pHttpStatus_ =
 scanResponse_lastEvaluatedKey :: Lens.Lens' ScanResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text AttributeValue))
 scanResponse_lastEvaluatedKey = Lens.lens (\ScanResponse' {lastEvaluatedKey} -> lastEvaluatedKey) (\s@ScanResponse' {} a -> s {lastEvaluatedKey = a} :: ScanResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | The number of items in the response.
---
--- If you set @ScanFilter@ in the request, then @Count@ is the number of
--- items returned after the filter was applied, and @ScannedCount@ is the
--- number of matching items before the filter was applied.
---
--- If you did not use a filter in the request, then @Count@ is the same as
--- @ScannedCount@.
-scanResponse_count :: Lens.Lens' ScanResponse (Prelude.Maybe Prelude.Int)
-scanResponse_count = Lens.lens (\ScanResponse' {count} -> count) (\s@ScanResponse' {} a -> s {count = a} :: ScanResponse)
-
 -- | The number of items evaluated, before any @ScanFilter@ is applied. A
 -- high @ScannedCount@ value with few, or no, @Count@ results indicates an
 -- inefficient @Scan@ operation. For more information, see
@@ -1106,31 +1130,15 @@ scanResponse_count = Lens.lens (\ScanResponse' {count} -> count) (\s@ScanRespons
 scanResponse_scannedCount :: Lens.Lens' ScanResponse (Prelude.Maybe Prelude.Int)
 scanResponse_scannedCount = Lens.lens (\ScanResponse' {scannedCount} -> scannedCount) (\s@ScanResponse' {} a -> s {scannedCount = a} :: ScanResponse)
 
--- | An array of item attributes that match the scan criteria. Each element
--- in this array consists of an attribute name and the value for that
--- attribute.
-scanResponse_items :: Lens.Lens' ScanResponse (Prelude.Maybe [Prelude.HashMap Prelude.Text AttributeValue])
-scanResponse_items = Lens.lens (\ScanResponse' {items} -> items) (\s@ScanResponse' {} a -> s {items = a} :: ScanResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | The capacity units consumed by the @Scan@ operation. The data returned
--- includes the total provisioned throughput consumed, along with
--- statistics for the table and any indexes involved in the operation.
--- @ConsumedCapacity@ is only returned if the @ReturnConsumedCapacity@
--- parameter was specified. For more information, see
--- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html Provisioned Throughput>
--- in the /Amazon DynamoDB Developer Guide/.
-scanResponse_consumedCapacity :: Lens.Lens' ScanResponse (Prelude.Maybe ConsumedCapacity)
-scanResponse_consumedCapacity = Lens.lens (\ScanResponse' {consumedCapacity} -> consumedCapacity) (\s@ScanResponse' {} a -> s {consumedCapacity = a} :: ScanResponse)
-
 -- | The response's http status code.
 scanResponse_httpStatus :: Lens.Lens' ScanResponse Prelude.Int
 scanResponse_httpStatus = Lens.lens (\ScanResponse' {httpStatus} -> httpStatus) (\s@ScanResponse' {} a -> s {httpStatus = a} :: ScanResponse)
 
 instance Prelude.NFData ScanResponse where
   rnf ScanResponse' {..} =
-    Prelude.rnf lastEvaluatedKey
+    Prelude.rnf consumedCapacity
       `Prelude.seq` Prelude.rnf count
-      `Prelude.seq` Prelude.rnf scannedCount
       `Prelude.seq` Prelude.rnf items
-      `Prelude.seq` Prelude.rnf consumedCapacity
+      `Prelude.seq` Prelude.rnf lastEvaluatedKey
+      `Prelude.seq` Prelude.rnf scannedCount
       `Prelude.seq` Prelude.rnf httpStatus

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.DescribeUserPool
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,12 +81,13 @@ instance Core.AWSRequest DescribeUserPool where
   type
     AWSResponse DescribeUserPool =
       DescribeUserPoolResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeUserPoolResponse'
-            Prelude.<$> (x Core..?> "UserPool")
+            Prelude.<$> (x Data..?> "UserPool")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -96,32 +98,32 @@ instance Prelude.Hashable DescribeUserPool where
 instance Prelude.NFData DescribeUserPool where
   rnf DescribeUserPool' {..} = Prelude.rnf userPoolId
 
-instance Core.ToHeaders DescribeUserPool where
+instance Data.ToHeaders DescribeUserPool where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.DescribeUserPool" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.DescribeUserPool" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeUserPool where
+instance Data.ToJSON DescribeUserPool where
   toJSON DescribeUserPool' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("UserPoolId" Core..= userPoolId)]
+          [Prelude.Just ("UserPoolId" Data..= userPoolId)]
       )
 
-instance Core.ToPath DescribeUserPool where
+instance Data.ToPath DescribeUserPool where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeUserPool where
+instance Data.ToQuery DescribeUserPool where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the response to describe the user pool.

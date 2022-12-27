@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,32 +38,17 @@ module Amazonka.CloudWatchEvents
     -- * Errors
     -- $errors
 
-    -- ** ManagedRuleException
-    _ManagedRuleException,
+    -- ** ConcurrentModificationException
+    _ConcurrentModificationException,
 
     -- ** IllegalStatusException
     _IllegalStatusException,
 
-    -- ** PolicyLengthExceededException
-    _PolicyLengthExceededException,
-
-    -- ** ResourceAlreadyExistsException
-    _ResourceAlreadyExistsException,
-
-    -- ** OperationDisabledException
-    _OperationDisabledException,
-
-    -- ** ConcurrentModificationException
-    _ConcurrentModificationException,
-
-    -- ** InvalidEventPatternException
-    _InvalidEventPatternException,
-
     -- ** InternalException
     _InternalException,
 
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
+    -- ** InvalidEventPatternException
+    _InvalidEventPatternException,
 
     -- ** InvalidStateException
     _InvalidStateException,
@@ -71,131 +56,26 @@ module Amazonka.CloudWatchEvents
     -- ** LimitExceededException
     _LimitExceededException,
 
+    -- ** ManagedRuleException
+    _ManagedRuleException,
+
+    -- ** OperationDisabledException
+    _OperationDisabledException,
+
+    -- ** PolicyLengthExceededException
+    _PolicyLengthExceededException,
+
+    -- ** ResourceAlreadyExistsException
+    _ResourceAlreadyExistsException,
+
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
+
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
-
-    -- ** DeauthorizeConnection
-    DeauthorizeConnection (DeauthorizeConnection'),
-    newDeauthorizeConnection,
-    DeauthorizeConnectionResponse (DeauthorizeConnectionResponse'),
-    newDeauthorizeConnectionResponse,
-
-    -- ** RemoveTargets
-    RemoveTargets (RemoveTargets'),
-    newRemoveTargets,
-    RemoveTargetsResponse (RemoveTargetsResponse'),
-    newRemoveTargetsResponse,
-
-    -- ** DeleteRule
-    DeleteRule (DeleteRule'),
-    newDeleteRule,
-    DeleteRuleResponse (DeleteRuleResponse'),
-    newDeleteRuleResponse,
-
-    -- ** ListPartnerEventSourceAccounts
-    ListPartnerEventSourceAccounts (ListPartnerEventSourceAccounts'),
-    newListPartnerEventSourceAccounts,
-    ListPartnerEventSourceAccountsResponse (ListPartnerEventSourceAccountsResponse'),
-    newListPartnerEventSourceAccountsResponse,
-
-    -- ** ListConnections
-    ListConnections (ListConnections'),
-    newListConnections,
-    ListConnectionsResponse (ListConnectionsResponse'),
-    newListConnectionsResponse,
-
-    -- ** DeleteConnection
-    DeleteConnection (DeleteConnection'),
-    newDeleteConnection,
-    DeleteConnectionResponse (DeleteConnectionResponse'),
-    newDeleteConnectionResponse,
-
-    -- ** UpdateConnection
-    UpdateConnection (UpdateConnection'),
-    newUpdateConnection,
-    UpdateConnectionResponse (UpdateConnectionResponse'),
-    newUpdateConnectionResponse,
-
-    -- ** ListRules (Paginated)
-    ListRules (ListRules'),
-    newListRules,
-    ListRulesResponse (ListRulesResponse'),
-    newListRulesResponse,
-
-    -- ** PutRule
-    PutRule (PutRule'),
-    newPutRule,
-    PutRuleResponse (PutRuleResponse'),
-    newPutRuleResponse,
-
-    -- ** DisableRule
-    DisableRule (DisableRule'),
-    newDisableRule,
-    DisableRuleResponse (DisableRuleResponse'),
-    newDisableRuleResponse,
-
-    -- ** PutPermission
-    PutPermission (PutPermission'),
-    newPutPermission,
-    PutPermissionResponse (PutPermissionResponse'),
-    newPutPermissionResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** ListReplays
-    ListReplays (ListReplays'),
-    newListReplays,
-    ListReplaysResponse (ListReplaysResponse'),
-    newListReplaysResponse,
-
-    -- ** CreateConnection
-    CreateConnection (CreateConnection'),
-    newCreateConnection,
-    CreateConnectionResponse (CreateConnectionResponse'),
-    newCreateConnectionResponse,
-
-    -- ** CancelReplay
-    CancelReplay (CancelReplay'),
-    newCancelReplay,
-    CancelReplayResponse (CancelReplayResponse'),
-    newCancelReplayResponse,
-
-    -- ** ListTargetsByRule (Paginated)
-    ListTargetsByRule (ListTargetsByRule'),
-    newListTargetsByRule,
-    ListTargetsByRuleResponse (ListTargetsByRuleResponse'),
-    newListTargetsByRuleResponse,
-
-    -- ** RemovePermission
-    RemovePermission (RemovePermission'),
-    newRemovePermission,
-    RemovePermissionResponse (RemovePermissionResponse'),
-    newRemovePermissionResponse,
-
-    -- ** ListApiDestinations
-    ListApiDestinations (ListApiDestinations'),
-    newListApiDestinations,
-    ListApiDestinationsResponse (ListApiDestinationsResponse'),
-    newListApiDestinationsResponse,
-
-    -- ** UpdateApiDestination
-    UpdateApiDestination (UpdateApiDestination'),
-    newUpdateApiDestination,
-    UpdateApiDestinationResponse (UpdateApiDestinationResponse'),
-    newUpdateApiDestinationResponse,
-
-    -- ** DeleteApiDestination
-    DeleteApiDestination (DeleteApiDestination'),
-    newDeleteApiDestination,
-    DeleteApiDestinationResponse (DeleteApiDestinationResponse'),
-    newDeleteApiDestinationResponse,
 
     -- ** ActivateEventSource
     ActivateEventSource (ActivateEventSource'),
@@ -203,167 +83,17 @@ module Amazonka.CloudWatchEvents
     ActivateEventSourceResponse (ActivateEventSourceResponse'),
     newActivateEventSourceResponse,
 
+    -- ** CancelReplay
+    CancelReplay (CancelReplay'),
+    newCancelReplay,
+    CancelReplayResponse (CancelReplayResponse'),
+    newCancelReplayResponse,
+
     -- ** CreateApiDestination
     CreateApiDestination (CreateApiDestination'),
     newCreateApiDestination,
     CreateApiDestinationResponse (CreateApiDestinationResponse'),
     newCreateApiDestinationResponse,
-
-    -- ** PutPartnerEvents
-    PutPartnerEvents (PutPartnerEvents'),
-    newPutPartnerEvents,
-    PutPartnerEventsResponse (PutPartnerEventsResponse'),
-    newPutPartnerEventsResponse,
-
-    -- ** DescribeConnection
-    DescribeConnection (DescribeConnection'),
-    newDescribeConnection,
-    DescribeConnectionResponse (DescribeConnectionResponse'),
-    newDescribeConnectionResponse,
-
-    -- ** DescribeRule
-    DescribeRule (DescribeRule'),
-    newDescribeRule,
-    DescribeRuleResponse (DescribeRuleResponse'),
-    newDescribeRuleResponse,
-
-    -- ** ListArchives
-    ListArchives (ListArchives'),
-    newListArchives,
-    ListArchivesResponse (ListArchivesResponse'),
-    newListArchivesResponse,
-
-    -- ** StartReplay
-    StartReplay (StartReplay'),
-    newStartReplay,
-    StartReplayResponse (StartReplayResponse'),
-    newStartReplayResponse,
-
-    -- ** DeletePartnerEventSource
-    DeletePartnerEventSource (DeletePartnerEventSource'),
-    newDeletePartnerEventSource,
-    DeletePartnerEventSourceResponse (DeletePartnerEventSourceResponse'),
-    newDeletePartnerEventSourceResponse,
-
-    -- ** DescribeReplay
-    DescribeReplay (DescribeReplay'),
-    newDescribeReplay,
-    DescribeReplayResponse (DescribeReplayResponse'),
-    newDescribeReplayResponse,
-
-    -- ** DescribeApiDestination
-    DescribeApiDestination (DescribeApiDestination'),
-    newDescribeApiDestination,
-    DescribeApiDestinationResponse (DescribeApiDestinationResponse'),
-    newDescribeApiDestinationResponse,
-
-    -- ** ListEventBuses
-    ListEventBuses (ListEventBuses'),
-    newListEventBuses,
-    ListEventBusesResponse (ListEventBusesResponse'),
-    newListEventBusesResponse,
-
-    -- ** CreateEventBus
-    CreateEventBus (CreateEventBus'),
-    newCreateEventBus,
-    CreateEventBusResponse (CreateEventBusResponse'),
-    newCreateEventBusResponse,
-
-    -- ** DescribeEventSource
-    DescribeEventSource (DescribeEventSource'),
-    newDescribeEventSource,
-    DescribeEventSourceResponse (DescribeEventSourceResponse'),
-    newDescribeEventSourceResponse,
-
-    -- ** DescribeArchive
-    DescribeArchive (DescribeArchive'),
-    newDescribeArchive,
-    DescribeArchiveResponse (DescribeArchiveResponse'),
-    newDescribeArchiveResponse,
-
-    -- ** EnableRule
-    EnableRule (EnableRule'),
-    newEnableRule,
-    EnableRuleResponse (EnableRuleResponse'),
-    newEnableRuleResponse,
-
-    -- ** ListRuleNamesByTarget (Paginated)
-    ListRuleNamesByTarget (ListRuleNamesByTarget'),
-    newListRuleNamesByTarget,
-    ListRuleNamesByTargetResponse (ListRuleNamesByTargetResponse'),
-    newListRuleNamesByTargetResponse,
-
-    -- ** TestEventPattern
-    TestEventPattern (TestEventPattern'),
-    newTestEventPattern,
-    TestEventPatternResponse (TestEventPatternResponse'),
-    newTestEventPatternResponse,
-
-    -- ** DescribePartnerEventSource
-    DescribePartnerEventSource (DescribePartnerEventSource'),
-    newDescribePartnerEventSource,
-    DescribePartnerEventSourceResponse (DescribePartnerEventSourceResponse'),
-    newDescribePartnerEventSourceResponse,
-
-    -- ** DescribeEventBus
-    DescribeEventBus (DescribeEventBus'),
-    newDescribeEventBus,
-    DescribeEventBusResponse (DescribeEventBusResponse'),
-    newDescribeEventBusResponse,
-
-    -- ** ListEventSources
-    ListEventSources (ListEventSources'),
-    newListEventSources,
-    ListEventSourcesResponse (ListEventSourcesResponse'),
-    newListEventSourcesResponse,
-
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
-
-    -- ** CreatePartnerEventSource
-    CreatePartnerEventSource (CreatePartnerEventSource'),
-    newCreatePartnerEventSource,
-    CreatePartnerEventSourceResponse (CreatePartnerEventSourceResponse'),
-    newCreatePartnerEventSourceResponse,
-
-    -- ** PutTargets
-    PutTargets (PutTargets'),
-    newPutTargets,
-    PutTargetsResponse (PutTargetsResponse'),
-    newPutTargetsResponse,
-
-    -- ** UpdateArchive
-    UpdateArchive (UpdateArchive'),
-    newUpdateArchive,
-    UpdateArchiveResponse (UpdateArchiveResponse'),
-    newUpdateArchiveResponse,
-
-    -- ** DeleteArchive
-    DeleteArchive (DeleteArchive'),
-    newDeleteArchive,
-    DeleteArchiveResponse (DeleteArchiveResponse'),
-    newDeleteArchiveResponse,
-
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
-
-    -- ** PutEvents
-    PutEvents (PutEvents'),
-    newPutEvents,
-    PutEventsResponse (PutEventsResponse'),
-    newPutEventsResponse,
-
-    -- ** ListPartnerEventSources
-    ListPartnerEventSources (ListPartnerEventSources'),
-    newListPartnerEventSources,
-    ListPartnerEventSourcesResponse (ListPartnerEventSourcesResponse'),
-    newListPartnerEventSourcesResponse,
 
     -- ** CreateArchive
     CreateArchive (CreateArchive'),
@@ -371,17 +101,317 @@ module Amazonka.CloudWatchEvents
     CreateArchiveResponse (CreateArchiveResponse'),
     newCreateArchiveResponse,
 
+    -- ** CreateConnection
+    CreateConnection (CreateConnection'),
+    newCreateConnection,
+    CreateConnectionResponse (CreateConnectionResponse'),
+    newCreateConnectionResponse,
+
+    -- ** CreateEndpoint
+    CreateEndpoint (CreateEndpoint'),
+    newCreateEndpoint,
+    CreateEndpointResponse (CreateEndpointResponse'),
+    newCreateEndpointResponse,
+
+    -- ** CreateEventBus
+    CreateEventBus (CreateEventBus'),
+    newCreateEventBus,
+    CreateEventBusResponse (CreateEventBusResponse'),
+    newCreateEventBusResponse,
+
+    -- ** CreatePartnerEventSource
+    CreatePartnerEventSource (CreatePartnerEventSource'),
+    newCreatePartnerEventSource,
+    CreatePartnerEventSourceResponse (CreatePartnerEventSourceResponse'),
+    newCreatePartnerEventSourceResponse,
+
     -- ** DeactivateEventSource
     DeactivateEventSource (DeactivateEventSource'),
     newDeactivateEventSource,
     DeactivateEventSourceResponse (DeactivateEventSourceResponse'),
     newDeactivateEventSourceResponse,
 
+    -- ** DeauthorizeConnection
+    DeauthorizeConnection (DeauthorizeConnection'),
+    newDeauthorizeConnection,
+    DeauthorizeConnectionResponse (DeauthorizeConnectionResponse'),
+    newDeauthorizeConnectionResponse,
+
+    -- ** DeleteApiDestination
+    DeleteApiDestination (DeleteApiDestination'),
+    newDeleteApiDestination,
+    DeleteApiDestinationResponse (DeleteApiDestinationResponse'),
+    newDeleteApiDestinationResponse,
+
+    -- ** DeleteArchive
+    DeleteArchive (DeleteArchive'),
+    newDeleteArchive,
+    DeleteArchiveResponse (DeleteArchiveResponse'),
+    newDeleteArchiveResponse,
+
+    -- ** DeleteConnection
+    DeleteConnection (DeleteConnection'),
+    newDeleteConnection,
+    DeleteConnectionResponse (DeleteConnectionResponse'),
+    newDeleteConnectionResponse,
+
+    -- ** DeleteEndpoint
+    DeleteEndpoint (DeleteEndpoint'),
+    newDeleteEndpoint,
+    DeleteEndpointResponse (DeleteEndpointResponse'),
+    newDeleteEndpointResponse,
+
     -- ** DeleteEventBus
     DeleteEventBus (DeleteEventBus'),
     newDeleteEventBus,
     DeleteEventBusResponse (DeleteEventBusResponse'),
     newDeleteEventBusResponse,
+
+    -- ** DeletePartnerEventSource
+    DeletePartnerEventSource (DeletePartnerEventSource'),
+    newDeletePartnerEventSource,
+    DeletePartnerEventSourceResponse (DeletePartnerEventSourceResponse'),
+    newDeletePartnerEventSourceResponse,
+
+    -- ** DeleteRule
+    DeleteRule (DeleteRule'),
+    newDeleteRule,
+    DeleteRuleResponse (DeleteRuleResponse'),
+    newDeleteRuleResponse,
+
+    -- ** DescribeApiDestination
+    DescribeApiDestination (DescribeApiDestination'),
+    newDescribeApiDestination,
+    DescribeApiDestinationResponse (DescribeApiDestinationResponse'),
+    newDescribeApiDestinationResponse,
+
+    -- ** DescribeArchive
+    DescribeArchive (DescribeArchive'),
+    newDescribeArchive,
+    DescribeArchiveResponse (DescribeArchiveResponse'),
+    newDescribeArchiveResponse,
+
+    -- ** DescribeConnection
+    DescribeConnection (DescribeConnection'),
+    newDescribeConnection,
+    DescribeConnectionResponse (DescribeConnectionResponse'),
+    newDescribeConnectionResponse,
+
+    -- ** DescribeEndpoint
+    DescribeEndpoint (DescribeEndpoint'),
+    newDescribeEndpoint,
+    DescribeEndpointResponse (DescribeEndpointResponse'),
+    newDescribeEndpointResponse,
+
+    -- ** DescribeEventBus
+    DescribeEventBus (DescribeEventBus'),
+    newDescribeEventBus,
+    DescribeEventBusResponse (DescribeEventBusResponse'),
+    newDescribeEventBusResponse,
+
+    -- ** DescribeEventSource
+    DescribeEventSource (DescribeEventSource'),
+    newDescribeEventSource,
+    DescribeEventSourceResponse (DescribeEventSourceResponse'),
+    newDescribeEventSourceResponse,
+
+    -- ** DescribePartnerEventSource
+    DescribePartnerEventSource (DescribePartnerEventSource'),
+    newDescribePartnerEventSource,
+    DescribePartnerEventSourceResponse (DescribePartnerEventSourceResponse'),
+    newDescribePartnerEventSourceResponse,
+
+    -- ** DescribeReplay
+    DescribeReplay (DescribeReplay'),
+    newDescribeReplay,
+    DescribeReplayResponse (DescribeReplayResponse'),
+    newDescribeReplayResponse,
+
+    -- ** DescribeRule
+    DescribeRule (DescribeRule'),
+    newDescribeRule,
+    DescribeRuleResponse (DescribeRuleResponse'),
+    newDescribeRuleResponse,
+
+    -- ** DisableRule
+    DisableRule (DisableRule'),
+    newDisableRule,
+    DisableRuleResponse (DisableRuleResponse'),
+    newDisableRuleResponse,
+
+    -- ** EnableRule
+    EnableRule (EnableRule'),
+    newEnableRule,
+    EnableRuleResponse (EnableRuleResponse'),
+    newEnableRuleResponse,
+
+    -- ** ListApiDestinations
+    ListApiDestinations (ListApiDestinations'),
+    newListApiDestinations,
+    ListApiDestinationsResponse (ListApiDestinationsResponse'),
+    newListApiDestinationsResponse,
+
+    -- ** ListArchives
+    ListArchives (ListArchives'),
+    newListArchives,
+    ListArchivesResponse (ListArchivesResponse'),
+    newListArchivesResponse,
+
+    -- ** ListConnections
+    ListConnections (ListConnections'),
+    newListConnections,
+    ListConnectionsResponse (ListConnectionsResponse'),
+    newListConnectionsResponse,
+
+    -- ** ListEndpoints
+    ListEndpoints (ListEndpoints'),
+    newListEndpoints,
+    ListEndpointsResponse (ListEndpointsResponse'),
+    newListEndpointsResponse,
+
+    -- ** ListEventBuses
+    ListEventBuses (ListEventBuses'),
+    newListEventBuses,
+    ListEventBusesResponse (ListEventBusesResponse'),
+    newListEventBusesResponse,
+
+    -- ** ListEventSources
+    ListEventSources (ListEventSources'),
+    newListEventSources,
+    ListEventSourcesResponse (ListEventSourcesResponse'),
+    newListEventSourcesResponse,
+
+    -- ** ListPartnerEventSourceAccounts
+    ListPartnerEventSourceAccounts (ListPartnerEventSourceAccounts'),
+    newListPartnerEventSourceAccounts,
+    ListPartnerEventSourceAccountsResponse (ListPartnerEventSourceAccountsResponse'),
+    newListPartnerEventSourceAccountsResponse,
+
+    -- ** ListPartnerEventSources
+    ListPartnerEventSources (ListPartnerEventSources'),
+    newListPartnerEventSources,
+    ListPartnerEventSourcesResponse (ListPartnerEventSourcesResponse'),
+    newListPartnerEventSourcesResponse,
+
+    -- ** ListReplays
+    ListReplays (ListReplays'),
+    newListReplays,
+    ListReplaysResponse (ListReplaysResponse'),
+    newListReplaysResponse,
+
+    -- ** ListRuleNamesByTarget (Paginated)
+    ListRuleNamesByTarget (ListRuleNamesByTarget'),
+    newListRuleNamesByTarget,
+    ListRuleNamesByTargetResponse (ListRuleNamesByTargetResponse'),
+    newListRuleNamesByTargetResponse,
+
+    -- ** ListRules (Paginated)
+    ListRules (ListRules'),
+    newListRules,
+    ListRulesResponse (ListRulesResponse'),
+    newListRulesResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** ListTargetsByRule (Paginated)
+    ListTargetsByRule (ListTargetsByRule'),
+    newListTargetsByRule,
+    ListTargetsByRuleResponse (ListTargetsByRuleResponse'),
+    newListTargetsByRuleResponse,
+
+    -- ** PutEvents
+    PutEvents (PutEvents'),
+    newPutEvents,
+    PutEventsResponse (PutEventsResponse'),
+    newPutEventsResponse,
+
+    -- ** PutPartnerEvents
+    PutPartnerEvents (PutPartnerEvents'),
+    newPutPartnerEvents,
+    PutPartnerEventsResponse (PutPartnerEventsResponse'),
+    newPutPartnerEventsResponse,
+
+    -- ** PutPermission
+    PutPermission (PutPermission'),
+    newPutPermission,
+    PutPermissionResponse (PutPermissionResponse'),
+    newPutPermissionResponse,
+
+    -- ** PutRule
+    PutRule (PutRule'),
+    newPutRule,
+    PutRuleResponse (PutRuleResponse'),
+    newPutRuleResponse,
+
+    -- ** PutTargets
+    PutTargets (PutTargets'),
+    newPutTargets,
+    PutTargetsResponse (PutTargetsResponse'),
+    newPutTargetsResponse,
+
+    -- ** RemovePermission
+    RemovePermission (RemovePermission'),
+    newRemovePermission,
+    RemovePermissionResponse (RemovePermissionResponse'),
+    newRemovePermissionResponse,
+
+    -- ** RemoveTargets
+    RemoveTargets (RemoveTargets'),
+    newRemoveTargets,
+    RemoveTargetsResponse (RemoveTargetsResponse'),
+    newRemoveTargetsResponse,
+
+    -- ** StartReplay
+    StartReplay (StartReplay'),
+    newStartReplay,
+    StartReplayResponse (StartReplayResponse'),
+    newStartReplayResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** TestEventPattern
+    TestEventPattern (TestEventPattern'),
+    newTestEventPattern,
+    TestEventPatternResponse (TestEventPatternResponse'),
+    newTestEventPatternResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UpdateApiDestination
+    UpdateApiDestination (UpdateApiDestination'),
+    newUpdateApiDestination,
+    UpdateApiDestinationResponse (UpdateApiDestinationResponse'),
+    newUpdateApiDestinationResponse,
+
+    -- ** UpdateArchive
+    UpdateArchive (UpdateArchive'),
+    newUpdateArchive,
+    UpdateArchiveResponse (UpdateArchiveResponse'),
+    newUpdateArchiveResponse,
+
+    -- ** UpdateConnection
+    UpdateConnection (UpdateConnection'),
+    newUpdateConnection,
+    UpdateConnectionResponse (UpdateConnectionResponse'),
+    newUpdateConnectionResponse,
+
+    -- ** UpdateEndpoint
+    UpdateEndpoint (UpdateEndpoint'),
+    newUpdateEndpoint,
+    UpdateEndpointResponse (UpdateEndpointResponse'),
+    newUpdateEndpointResponse,
 
     -- * Types
 
@@ -406,6 +436,9 @@ module Amazonka.CloudWatchEvents
     -- ** ConnectionState
     ConnectionState (..),
 
+    -- ** EndpointState
+    EndpointState (..),
+
     -- ** EventSourceState
     EventSourceState (..),
 
@@ -423,6 +456,9 @@ module Amazonka.CloudWatchEvents
 
     -- ** ReplayState
     ReplayState (..),
+
+    -- ** ReplicationState
+    ReplicationState (..),
 
     -- ** RuleState
     RuleState (..),
@@ -527,6 +563,14 @@ module Amazonka.CloudWatchEvents
     EcsParameters (EcsParameters'),
     newEcsParameters,
 
+    -- ** Endpoint
+    Endpoint (Endpoint'),
+    newEndpoint,
+
+    -- ** EndpointEventBus
+    EndpointEventBus (EndpointEventBus'),
+    newEndpointEventBus,
+
     -- ** EventBus
     EventBus (EventBus'),
     newEventBus,
@@ -534,6 +578,10 @@ module Amazonka.CloudWatchEvents
     -- ** EventSource
     EventSource (EventSource'),
     newEventSource,
+
+    -- ** FailoverConfig
+    FailoverConfig (FailoverConfig'),
+    newFailoverConfig,
 
     -- ** HttpParameters
     HttpParameters (HttpParameters'),
@@ -566,6 +614,10 @@ module Amazonka.CloudWatchEvents
     -- ** PlacementStrategy
     PlacementStrategy (PlacementStrategy'),
     newPlacementStrategy,
+
+    -- ** Primary
+    Primary (Primary'),
+    newPrimary,
 
     -- ** PutEventsRequestEntry
     PutEventsRequestEntry (PutEventsRequestEntry'),
@@ -603,9 +655,17 @@ module Amazonka.CloudWatchEvents
     ReplayDestination (ReplayDestination'),
     newReplayDestination,
 
+    -- ** ReplicationConfig
+    ReplicationConfig (ReplicationConfig'),
+    newReplicationConfig,
+
     -- ** RetryPolicy
     RetryPolicy (RetryPolicy'),
     newRetryPolicy,
+
+    -- ** RoutingConfig
+    RoutingConfig (RoutingConfig'),
+    newRoutingConfig,
 
     -- ** Rule
     Rule (Rule'),
@@ -626,6 +686,10 @@ module Amazonka.CloudWatchEvents
     -- ** SageMakerPipelineParameters
     SageMakerPipelineParameters (SageMakerPipelineParameters'),
     newSageMakerPipelineParameters,
+
+    -- ** Secondary
+    Secondary (Secondary'),
+    newSecondary,
 
     -- ** SqsParameters
     SqsParameters (SqsParameters'),
@@ -666,6 +730,7 @@ import Amazonka.CloudWatchEvents.CancelReplay
 import Amazonka.CloudWatchEvents.CreateApiDestination
 import Amazonka.CloudWatchEvents.CreateArchive
 import Amazonka.CloudWatchEvents.CreateConnection
+import Amazonka.CloudWatchEvents.CreateEndpoint
 import Amazonka.CloudWatchEvents.CreateEventBus
 import Amazonka.CloudWatchEvents.CreatePartnerEventSource
 import Amazonka.CloudWatchEvents.DeactivateEventSource
@@ -673,12 +738,14 @@ import Amazonka.CloudWatchEvents.DeauthorizeConnection
 import Amazonka.CloudWatchEvents.DeleteApiDestination
 import Amazonka.CloudWatchEvents.DeleteArchive
 import Amazonka.CloudWatchEvents.DeleteConnection
+import Amazonka.CloudWatchEvents.DeleteEndpoint
 import Amazonka.CloudWatchEvents.DeleteEventBus
 import Amazonka.CloudWatchEvents.DeletePartnerEventSource
 import Amazonka.CloudWatchEvents.DeleteRule
 import Amazonka.CloudWatchEvents.DescribeApiDestination
 import Amazonka.CloudWatchEvents.DescribeArchive
 import Amazonka.CloudWatchEvents.DescribeConnection
+import Amazonka.CloudWatchEvents.DescribeEndpoint
 import Amazonka.CloudWatchEvents.DescribeEventBus
 import Amazonka.CloudWatchEvents.DescribeEventSource
 import Amazonka.CloudWatchEvents.DescribePartnerEventSource
@@ -690,6 +757,7 @@ import Amazonka.CloudWatchEvents.Lens
 import Amazonka.CloudWatchEvents.ListApiDestinations
 import Amazonka.CloudWatchEvents.ListArchives
 import Amazonka.CloudWatchEvents.ListConnections
+import Amazonka.CloudWatchEvents.ListEndpoints
 import Amazonka.CloudWatchEvents.ListEventBuses
 import Amazonka.CloudWatchEvents.ListEventSources
 import Amazonka.CloudWatchEvents.ListPartnerEventSourceAccounts
@@ -714,6 +782,7 @@ import Amazonka.CloudWatchEvents.UntagResource
 import Amazonka.CloudWatchEvents.UpdateApiDestination
 import Amazonka.CloudWatchEvents.UpdateArchive
 import Amazonka.CloudWatchEvents.UpdateConnection
+import Amazonka.CloudWatchEvents.UpdateEndpoint
 import Amazonka.CloudWatchEvents.Waiters
 
 -- $errors

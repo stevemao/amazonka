@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.ListEulaAcceptances
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Nimble.ListEulaAcceptances
     newListEulaAcceptances,
 
     -- * Request Lenses
-    listEulaAcceptances_nextToken,
     listEulaAcceptances_eulaIds,
+    listEulaAcceptances_nextToken,
     listEulaAcceptances_studioId,
 
     -- * Destructuring the Response
@@ -38,14 +38,15 @@ module Amazonka.Nimble.ListEulaAcceptances
     newListEulaAcceptancesResponse,
 
     -- * Response Lenses
-    listEulaAcceptancesResponse_nextToken,
     listEulaAcceptancesResponse_eulaAcceptances,
+    listEulaAcceptancesResponse_nextToken,
     listEulaAcceptancesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -53,11 +54,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListEulaAcceptances' smart constructor.
 data ListEulaAcceptances = ListEulaAcceptances'
-  { -- | The token for the next set of results, or null if there are no more
-    -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | A collection of EULA IDs.
+  { -- | The list of EULA IDs that have been previously accepted.
     eulaIds :: Prelude.Maybe [Prelude.Text],
+    -- | The token to request the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The studio ID.
     studioId :: Prelude.Text
   }
@@ -71,10 +71,9 @@ data ListEulaAcceptances = ListEulaAcceptances'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listEulaAcceptances_nextToken' - The token for the next set of results, or null if there are no more
--- results.
+-- 'eulaIds', 'listEulaAcceptances_eulaIds' - The list of EULA IDs that have been previously accepted.
 --
--- 'eulaIds', 'listEulaAcceptances_eulaIds' - A collection of EULA IDs.
+-- 'nextToken', 'listEulaAcceptances_nextToken' - The token to request the next page of results.
 --
 -- 'studioId', 'listEulaAcceptances_studioId' - The studio ID.
 newListEulaAcceptances ::
@@ -83,19 +82,18 @@ newListEulaAcceptances ::
   ListEulaAcceptances
 newListEulaAcceptances pStudioId_ =
   ListEulaAcceptances'
-    { nextToken = Prelude.Nothing,
-      eulaIds = Prelude.Nothing,
+    { eulaIds = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       studioId = pStudioId_
     }
 
--- | The token for the next set of results, or null if there are no more
--- results.
-listEulaAcceptances_nextToken :: Lens.Lens' ListEulaAcceptances (Prelude.Maybe Prelude.Text)
-listEulaAcceptances_nextToken = Lens.lens (\ListEulaAcceptances' {nextToken} -> nextToken) (\s@ListEulaAcceptances' {} a -> s {nextToken = a} :: ListEulaAcceptances)
-
--- | A collection of EULA IDs.
+-- | The list of EULA IDs that have been previously accepted.
 listEulaAcceptances_eulaIds :: Lens.Lens' ListEulaAcceptances (Prelude.Maybe [Prelude.Text])
 listEulaAcceptances_eulaIds = Lens.lens (\ListEulaAcceptances' {eulaIds} -> eulaIds) (\s@ListEulaAcceptances' {} a -> s {eulaIds = a} :: ListEulaAcceptances) Prelude.. Lens.mapping Lens.coerced
+
+-- | The token to request the next page of results.
+listEulaAcceptances_nextToken :: Lens.Lens' ListEulaAcceptances (Prelude.Maybe Prelude.Text)
+listEulaAcceptances_nextToken = Lens.lens (\ListEulaAcceptances' {nextToken} -> nextToken) (\s@ListEulaAcceptances' {} a -> s {nextToken = a} :: ListEulaAcceptances)
 
 -- | The studio ID.
 listEulaAcceptances_studioId :: Lens.Lens' ListEulaAcceptances Prelude.Text
@@ -127,65 +125,66 @@ instance Core.AWSRequest ListEulaAcceptances where
   type
     AWSResponse ListEulaAcceptances =
       ListEulaAcceptancesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListEulaAcceptancesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> ( x Core..?> "eulaAcceptances"
+            Prelude.<$> ( x Data..?> "eulaAcceptances"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListEulaAcceptances where
   hashWithSalt _salt ListEulaAcceptances' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` eulaIds
+    _salt `Prelude.hashWithSalt` eulaIds
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` studioId
 
 instance Prelude.NFData ListEulaAcceptances where
   rnf ListEulaAcceptances' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf eulaIds
+    Prelude.rnf eulaIds
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf studioId
 
-instance Core.ToHeaders ListEulaAcceptances where
+instance Data.ToHeaders ListEulaAcceptances where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListEulaAcceptances where
+instance Data.ToPath ListEulaAcceptances where
   toPath ListEulaAcceptances' {..} =
     Prelude.mconcat
       [ "/2020-08-01/studios/",
-        Core.toBS studioId,
+        Data.toBS studioId,
         "/eula-acceptances"
       ]
 
-instance Core.ToQuery ListEulaAcceptances where
+instance Data.ToQuery ListEulaAcceptances where
   toQuery ListEulaAcceptances' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "eulaIds"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> eulaIds)
+      [ "eulaIds"
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> eulaIds),
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListEulaAcceptancesResponse' smart constructor.
 data ListEulaAcceptancesResponse = ListEulaAcceptancesResponse'
-  { -- | The token for the next set of results, or null if there are no more
+  { -- | A collection of EULA acceptances.
+    eulaAcceptances :: Prelude.Maybe [EulaAcceptance],
+    -- | The token for the next set of results, or null if there are no more
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | A collection of EULA acceptances.
-    eulaAcceptances :: Prelude.Maybe [EulaAcceptance],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -199,10 +198,10 @@ data ListEulaAcceptancesResponse = ListEulaAcceptancesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'eulaAcceptances', 'listEulaAcceptancesResponse_eulaAcceptances' - A collection of EULA acceptances.
+--
 -- 'nextToken', 'listEulaAcceptancesResponse_nextToken' - The token for the next set of results, or null if there are no more
 -- results.
---
--- 'eulaAcceptances', 'listEulaAcceptancesResponse_eulaAcceptances' - A collection of EULA acceptances.
 --
 -- 'httpStatus', 'listEulaAcceptancesResponse_httpStatus' - The response's http status code.
 newListEulaAcceptancesResponse ::
@@ -211,20 +210,20 @@ newListEulaAcceptancesResponse ::
   ListEulaAcceptancesResponse
 newListEulaAcceptancesResponse pHttpStatus_ =
   ListEulaAcceptancesResponse'
-    { nextToken =
+    { eulaAcceptances =
         Prelude.Nothing,
-      eulaAcceptances = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | A collection of EULA acceptances.
+listEulaAcceptancesResponse_eulaAcceptances :: Lens.Lens' ListEulaAcceptancesResponse (Prelude.Maybe [EulaAcceptance])
+listEulaAcceptancesResponse_eulaAcceptances = Lens.lens (\ListEulaAcceptancesResponse' {eulaAcceptances} -> eulaAcceptances) (\s@ListEulaAcceptancesResponse' {} a -> s {eulaAcceptances = a} :: ListEulaAcceptancesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token for the next set of results, or null if there are no more
 -- results.
 listEulaAcceptancesResponse_nextToken :: Lens.Lens' ListEulaAcceptancesResponse (Prelude.Maybe Prelude.Text)
 listEulaAcceptancesResponse_nextToken = Lens.lens (\ListEulaAcceptancesResponse' {nextToken} -> nextToken) (\s@ListEulaAcceptancesResponse' {} a -> s {nextToken = a} :: ListEulaAcceptancesResponse)
-
--- | A collection of EULA acceptances.
-listEulaAcceptancesResponse_eulaAcceptances :: Lens.Lens' ListEulaAcceptancesResponse (Prelude.Maybe [EulaAcceptance])
-listEulaAcceptancesResponse_eulaAcceptances = Lens.lens (\ListEulaAcceptancesResponse' {eulaAcceptances} -> eulaAcceptances) (\s@ListEulaAcceptancesResponse' {} a -> s {eulaAcceptances = a} :: ListEulaAcceptancesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listEulaAcceptancesResponse_httpStatus :: Lens.Lens' ListEulaAcceptancesResponse Prelude.Int
@@ -232,6 +231,6 @@ listEulaAcceptancesResponse_httpStatus = Lens.lens (\ListEulaAcceptancesResponse
 
 instance Prelude.NFData ListEulaAcceptancesResponse where
   rnf ListEulaAcceptancesResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf eulaAcceptances
+    Prelude.rnf eulaAcceptances
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

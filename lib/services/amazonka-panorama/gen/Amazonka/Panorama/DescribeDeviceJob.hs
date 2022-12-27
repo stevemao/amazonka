@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Panorama.DescribeDeviceJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,20 +34,22 @@ module Amazonka.Panorama.DescribeDeviceJob
     newDescribeDeviceJobResponse,
 
     -- * Response Lenses
-    describeDeviceJobResponse_status,
-    describeDeviceJobResponse_jobId,
     describeDeviceJobResponse_createdTime,
     describeDeviceJobResponse_deviceArn,
-    describeDeviceJobResponse_imageVersion,
-    describeDeviceJobResponse_deviceName,
     describeDeviceJobResponse_deviceId,
+    describeDeviceJobResponse_deviceName,
     describeDeviceJobResponse_deviceType,
+    describeDeviceJobResponse_imageVersion,
+    describeDeviceJobResponse_jobId,
+    describeDeviceJobResponse_jobType,
+    describeDeviceJobResponse_status,
     describeDeviceJobResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Panorama.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -84,19 +86,21 @@ instance Core.AWSRequest DescribeDeviceJob where
   type
     AWSResponse DescribeDeviceJob =
       DescribeDeviceJobResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeDeviceJobResponse'
-            Prelude.<$> (x Core..?> "Status")
-            Prelude.<*> (x Core..?> "JobId")
-            Prelude.<*> (x Core..?> "CreatedTime")
-            Prelude.<*> (x Core..?> "DeviceArn")
-            Prelude.<*> (x Core..?> "ImageVersion")
-            Prelude.<*> (x Core..?> "DeviceName")
-            Prelude.<*> (x Core..?> "DeviceId")
-            Prelude.<*> (x Core..?> "DeviceType")
+            Prelude.<$> (x Data..?> "CreatedTime")
+            Prelude.<*> (x Data..?> "DeviceArn")
+            Prelude.<*> (x Data..?> "DeviceId")
+            Prelude.<*> (x Data..?> "DeviceName")
+            Prelude.<*> (x Data..?> "DeviceType")
+            Prelude.<*> (x Data..?> "ImageVersion")
+            Prelude.<*> (x Data..?> "JobId")
+            Prelude.<*> (x Data..?> "JobType")
+            Prelude.<*> (x Data..?> "Status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -107,42 +111,44 @@ instance Prelude.Hashable DescribeDeviceJob where
 instance Prelude.NFData DescribeDeviceJob where
   rnf DescribeDeviceJob' {..} = Prelude.rnf jobId
 
-instance Core.ToHeaders DescribeDeviceJob where
+instance Data.ToHeaders DescribeDeviceJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeDeviceJob where
+instance Data.ToPath DescribeDeviceJob where
   toPath DescribeDeviceJob' {..} =
-    Prelude.mconcat ["/jobs/", Core.toBS jobId]
+    Prelude.mconcat ["/jobs/", Data.toBS jobId]
 
-instance Core.ToQuery DescribeDeviceJob where
+instance Data.ToQuery DescribeDeviceJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeDeviceJobResponse' smart constructor.
 data DescribeDeviceJobResponse = DescribeDeviceJobResponse'
-  { -- | The job\'s status.
-    status :: Prelude.Maybe UpdateProgress,
-    -- | The job\'s ID.
-    jobId :: Prelude.Maybe Prelude.Text,
-    -- | When the job was created.
-    createdTime :: Prelude.Maybe Core.POSIX,
+  { -- | When the job was created.
+    createdTime :: Prelude.Maybe Data.POSIX,
     -- | The device\'s ARN.
     deviceArn :: Prelude.Maybe Prelude.Text,
-    -- | For an OTA job, the target version of the device software.
-    imageVersion :: Prelude.Maybe Prelude.Text,
-    -- | The device\'s name.
-    deviceName :: Prelude.Maybe Prelude.Text,
     -- | The device\'s ID.
     deviceId :: Prelude.Maybe Prelude.Text,
+    -- | The device\'s name.
+    deviceName :: Prelude.Maybe Prelude.Text,
     -- | The device\'s type.
     deviceType :: Prelude.Maybe DeviceType,
+    -- | For an OTA job, the target version of the device software.
+    imageVersion :: Prelude.Maybe Prelude.Text,
+    -- | The job\'s ID.
+    jobId :: Prelude.Maybe Prelude.Text,
+    -- | The job\'s type.
+    jobType :: Prelude.Maybe JobType,
+    -- | The job\'s status.
+    status :: Prelude.Maybe UpdateProgress,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -156,21 +162,23 @@ data DescribeDeviceJobResponse = DescribeDeviceJobResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'describeDeviceJobResponse_status' - The job\'s status.
---
--- 'jobId', 'describeDeviceJobResponse_jobId' - The job\'s ID.
---
 -- 'createdTime', 'describeDeviceJobResponse_createdTime' - When the job was created.
 --
 -- 'deviceArn', 'describeDeviceJobResponse_deviceArn' - The device\'s ARN.
 --
--- 'imageVersion', 'describeDeviceJobResponse_imageVersion' - For an OTA job, the target version of the device software.
+-- 'deviceId', 'describeDeviceJobResponse_deviceId' - The device\'s ID.
 --
 -- 'deviceName', 'describeDeviceJobResponse_deviceName' - The device\'s name.
 --
--- 'deviceId', 'describeDeviceJobResponse_deviceId' - The device\'s ID.
---
 -- 'deviceType', 'describeDeviceJobResponse_deviceType' - The device\'s type.
+--
+-- 'imageVersion', 'describeDeviceJobResponse_imageVersion' - For an OTA job, the target version of the device software.
+--
+-- 'jobId', 'describeDeviceJobResponse_jobId' - The job\'s ID.
+--
+-- 'jobType', 'describeDeviceJobResponse_jobType' - The job\'s type.
+--
+-- 'status', 'describeDeviceJobResponse_status' - The job\'s status.
 --
 -- 'httpStatus', 'describeDeviceJobResponse_httpStatus' - The response's http status code.
 newDescribeDeviceJobResponse ::
@@ -179,49 +187,54 @@ newDescribeDeviceJobResponse ::
   DescribeDeviceJobResponse
 newDescribeDeviceJobResponse pHttpStatus_ =
   DescribeDeviceJobResponse'
-    { status =
+    { createdTime =
         Prelude.Nothing,
-      jobId = Prelude.Nothing,
-      createdTime = Prelude.Nothing,
       deviceArn = Prelude.Nothing,
-      imageVersion = Prelude.Nothing,
-      deviceName = Prelude.Nothing,
       deviceId = Prelude.Nothing,
+      deviceName = Prelude.Nothing,
       deviceType = Prelude.Nothing,
+      imageVersion = Prelude.Nothing,
+      jobId = Prelude.Nothing,
+      jobType = Prelude.Nothing,
+      status = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The job\'s status.
-describeDeviceJobResponse_status :: Lens.Lens' DescribeDeviceJobResponse (Prelude.Maybe UpdateProgress)
-describeDeviceJobResponse_status = Lens.lens (\DescribeDeviceJobResponse' {status} -> status) (\s@DescribeDeviceJobResponse' {} a -> s {status = a} :: DescribeDeviceJobResponse)
-
--- | The job\'s ID.
-describeDeviceJobResponse_jobId :: Lens.Lens' DescribeDeviceJobResponse (Prelude.Maybe Prelude.Text)
-describeDeviceJobResponse_jobId = Lens.lens (\DescribeDeviceJobResponse' {jobId} -> jobId) (\s@DescribeDeviceJobResponse' {} a -> s {jobId = a} :: DescribeDeviceJobResponse)
-
 -- | When the job was created.
 describeDeviceJobResponse_createdTime :: Lens.Lens' DescribeDeviceJobResponse (Prelude.Maybe Prelude.UTCTime)
-describeDeviceJobResponse_createdTime = Lens.lens (\DescribeDeviceJobResponse' {createdTime} -> createdTime) (\s@DescribeDeviceJobResponse' {} a -> s {createdTime = a} :: DescribeDeviceJobResponse) Prelude.. Lens.mapping Core._Time
+describeDeviceJobResponse_createdTime = Lens.lens (\DescribeDeviceJobResponse' {createdTime} -> createdTime) (\s@DescribeDeviceJobResponse' {} a -> s {createdTime = a} :: DescribeDeviceJobResponse) Prelude.. Lens.mapping Data._Time
 
 -- | The device\'s ARN.
 describeDeviceJobResponse_deviceArn :: Lens.Lens' DescribeDeviceJobResponse (Prelude.Maybe Prelude.Text)
 describeDeviceJobResponse_deviceArn = Lens.lens (\DescribeDeviceJobResponse' {deviceArn} -> deviceArn) (\s@DescribeDeviceJobResponse' {} a -> s {deviceArn = a} :: DescribeDeviceJobResponse)
 
--- | For an OTA job, the target version of the device software.
-describeDeviceJobResponse_imageVersion :: Lens.Lens' DescribeDeviceJobResponse (Prelude.Maybe Prelude.Text)
-describeDeviceJobResponse_imageVersion = Lens.lens (\DescribeDeviceJobResponse' {imageVersion} -> imageVersion) (\s@DescribeDeviceJobResponse' {} a -> s {imageVersion = a} :: DescribeDeviceJobResponse)
+-- | The device\'s ID.
+describeDeviceJobResponse_deviceId :: Lens.Lens' DescribeDeviceJobResponse (Prelude.Maybe Prelude.Text)
+describeDeviceJobResponse_deviceId = Lens.lens (\DescribeDeviceJobResponse' {deviceId} -> deviceId) (\s@DescribeDeviceJobResponse' {} a -> s {deviceId = a} :: DescribeDeviceJobResponse)
 
 -- | The device\'s name.
 describeDeviceJobResponse_deviceName :: Lens.Lens' DescribeDeviceJobResponse (Prelude.Maybe Prelude.Text)
 describeDeviceJobResponse_deviceName = Lens.lens (\DescribeDeviceJobResponse' {deviceName} -> deviceName) (\s@DescribeDeviceJobResponse' {} a -> s {deviceName = a} :: DescribeDeviceJobResponse)
 
--- | The device\'s ID.
-describeDeviceJobResponse_deviceId :: Lens.Lens' DescribeDeviceJobResponse (Prelude.Maybe Prelude.Text)
-describeDeviceJobResponse_deviceId = Lens.lens (\DescribeDeviceJobResponse' {deviceId} -> deviceId) (\s@DescribeDeviceJobResponse' {} a -> s {deviceId = a} :: DescribeDeviceJobResponse)
-
 -- | The device\'s type.
 describeDeviceJobResponse_deviceType :: Lens.Lens' DescribeDeviceJobResponse (Prelude.Maybe DeviceType)
 describeDeviceJobResponse_deviceType = Lens.lens (\DescribeDeviceJobResponse' {deviceType} -> deviceType) (\s@DescribeDeviceJobResponse' {} a -> s {deviceType = a} :: DescribeDeviceJobResponse)
+
+-- | For an OTA job, the target version of the device software.
+describeDeviceJobResponse_imageVersion :: Lens.Lens' DescribeDeviceJobResponse (Prelude.Maybe Prelude.Text)
+describeDeviceJobResponse_imageVersion = Lens.lens (\DescribeDeviceJobResponse' {imageVersion} -> imageVersion) (\s@DescribeDeviceJobResponse' {} a -> s {imageVersion = a} :: DescribeDeviceJobResponse)
+
+-- | The job\'s ID.
+describeDeviceJobResponse_jobId :: Lens.Lens' DescribeDeviceJobResponse (Prelude.Maybe Prelude.Text)
+describeDeviceJobResponse_jobId = Lens.lens (\DescribeDeviceJobResponse' {jobId} -> jobId) (\s@DescribeDeviceJobResponse' {} a -> s {jobId = a} :: DescribeDeviceJobResponse)
+
+-- | The job\'s type.
+describeDeviceJobResponse_jobType :: Lens.Lens' DescribeDeviceJobResponse (Prelude.Maybe JobType)
+describeDeviceJobResponse_jobType = Lens.lens (\DescribeDeviceJobResponse' {jobType} -> jobType) (\s@DescribeDeviceJobResponse' {} a -> s {jobType = a} :: DescribeDeviceJobResponse)
+
+-- | The job\'s status.
+describeDeviceJobResponse_status :: Lens.Lens' DescribeDeviceJobResponse (Prelude.Maybe UpdateProgress)
+describeDeviceJobResponse_status = Lens.lens (\DescribeDeviceJobResponse' {status} -> status) (\s@DescribeDeviceJobResponse' {} a -> s {status = a} :: DescribeDeviceJobResponse)
 
 -- | The response's http status code.
 describeDeviceJobResponse_httpStatus :: Lens.Lens' DescribeDeviceJobResponse Prelude.Int
@@ -229,12 +242,13 @@ describeDeviceJobResponse_httpStatus = Lens.lens (\DescribeDeviceJobResponse' {h
 
 instance Prelude.NFData DescribeDeviceJobResponse where
   rnf DescribeDeviceJobResponse' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf jobId
-      `Prelude.seq` Prelude.rnf createdTime
+    Prelude.rnf createdTime
       `Prelude.seq` Prelude.rnf deviceArn
-      `Prelude.seq` Prelude.rnf imageVersion
-      `Prelude.seq` Prelude.rnf deviceName
       `Prelude.seq` Prelude.rnf deviceId
+      `Prelude.seq` Prelude.rnf deviceName
       `Prelude.seq` Prelude.rnf deviceType
+      `Prelude.seq` Prelude.rnf imageVersion
+      `Prelude.seq` Prelude.rnf jobId
+      `Prelude.seq` Prelude.rnf jobType
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf httpStatus

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.ApplicationVersionSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KinesisAnalyticsV2.Types.ApplicationVersionSummary where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.ApplicationStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The summary of the application version.
@@ -72,14 +73,14 @@ applicationVersionSummary_applicationVersionId = Lens.lens (\ApplicationVersionS
 applicationVersionSummary_applicationStatus :: Lens.Lens' ApplicationVersionSummary ApplicationStatus
 applicationVersionSummary_applicationStatus = Lens.lens (\ApplicationVersionSummary' {applicationStatus} -> applicationStatus) (\s@ApplicationVersionSummary' {} a -> s {applicationStatus = a} :: ApplicationVersionSummary)
 
-instance Core.FromJSON ApplicationVersionSummary where
+instance Data.FromJSON ApplicationVersionSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ApplicationVersionSummary"
       ( \x ->
           ApplicationVersionSummary'
-            Prelude.<$> (x Core..: "ApplicationVersionId")
-            Prelude.<*> (x Core..: "ApplicationStatus")
+            Prelude.<$> (x Data..: "ApplicationVersionId")
+            Prelude.<*> (x Data..: "ApplicationStatus")
       )
 
 instance Prelude.Hashable ApplicationVersionSummary where

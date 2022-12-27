@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.XRay.DeleteSamplingRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.XRay.DeleteSamplingRule
     newDeleteSamplingRule,
 
     -- * Request Lenses
-    deleteSamplingRule_ruleName,
     deleteSamplingRule_ruleARN,
+    deleteSamplingRule_ruleName,
 
     -- * Destructuring the Response
     DeleteSamplingRuleResponse (..),
@@ -41,7 +41,8 @@ module Amazonka.XRay.DeleteSamplingRule
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,12 +50,12 @@ import Amazonka.XRay.Types
 
 -- | /See:/ 'newDeleteSamplingRule' smart constructor.
 data DeleteSamplingRule = DeleteSamplingRule'
-  { -- | The name of the sampling rule. Specify a rule by either name or ARN, but
+  { -- | The ARN of the sampling rule. Specify a rule by either name or ARN, but
     -- not both.
-    ruleName :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the sampling rule. Specify a rule by either name or ARN, but
+    ruleARN :: Prelude.Maybe Prelude.Text,
+    -- | The name of the sampling rule. Specify a rule by either name or ARN, but
     -- not both.
-    ruleARN :: Prelude.Maybe Prelude.Text
+    ruleName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -66,68 +67,69 @@ data DeleteSamplingRule = DeleteSamplingRule'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'ruleName', 'deleteSamplingRule_ruleName' - The name of the sampling rule. Specify a rule by either name or ARN, but
+-- 'ruleARN', 'deleteSamplingRule_ruleARN' - The ARN of the sampling rule. Specify a rule by either name or ARN, but
 -- not both.
 --
--- 'ruleARN', 'deleteSamplingRule_ruleARN' - The ARN of the sampling rule. Specify a rule by either name or ARN, but
+-- 'ruleName', 'deleteSamplingRule_ruleName' - The name of the sampling rule. Specify a rule by either name or ARN, but
 -- not both.
 newDeleteSamplingRule ::
   DeleteSamplingRule
 newDeleteSamplingRule =
   DeleteSamplingRule'
-    { ruleName = Prelude.Nothing,
-      ruleARN = Prelude.Nothing
+    { ruleARN = Prelude.Nothing,
+      ruleName = Prelude.Nothing
     }
-
--- | The name of the sampling rule. Specify a rule by either name or ARN, but
--- not both.
-deleteSamplingRule_ruleName :: Lens.Lens' DeleteSamplingRule (Prelude.Maybe Prelude.Text)
-deleteSamplingRule_ruleName = Lens.lens (\DeleteSamplingRule' {ruleName} -> ruleName) (\s@DeleteSamplingRule' {} a -> s {ruleName = a} :: DeleteSamplingRule)
 
 -- | The ARN of the sampling rule. Specify a rule by either name or ARN, but
 -- not both.
 deleteSamplingRule_ruleARN :: Lens.Lens' DeleteSamplingRule (Prelude.Maybe Prelude.Text)
 deleteSamplingRule_ruleARN = Lens.lens (\DeleteSamplingRule' {ruleARN} -> ruleARN) (\s@DeleteSamplingRule' {} a -> s {ruleARN = a} :: DeleteSamplingRule)
 
+-- | The name of the sampling rule. Specify a rule by either name or ARN, but
+-- not both.
+deleteSamplingRule_ruleName :: Lens.Lens' DeleteSamplingRule (Prelude.Maybe Prelude.Text)
+deleteSamplingRule_ruleName = Lens.lens (\DeleteSamplingRule' {ruleName} -> ruleName) (\s@DeleteSamplingRule' {} a -> s {ruleName = a} :: DeleteSamplingRule)
+
 instance Core.AWSRequest DeleteSamplingRule where
   type
     AWSResponse DeleteSamplingRule =
       DeleteSamplingRuleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteSamplingRuleResponse'
-            Prelude.<$> (x Core..?> "SamplingRuleRecord")
+            Prelude.<$> (x Data..?> "SamplingRuleRecord")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DeleteSamplingRule where
   hashWithSalt _salt DeleteSamplingRule' {..} =
-    _salt `Prelude.hashWithSalt` ruleName
-      `Prelude.hashWithSalt` ruleARN
+    _salt `Prelude.hashWithSalt` ruleARN
+      `Prelude.hashWithSalt` ruleName
 
 instance Prelude.NFData DeleteSamplingRule where
   rnf DeleteSamplingRule' {..} =
-    Prelude.rnf ruleName
-      `Prelude.seq` Prelude.rnf ruleARN
+    Prelude.rnf ruleARN
+      `Prelude.seq` Prelude.rnf ruleName
 
-instance Core.ToHeaders DeleteSamplingRule where
+instance Data.ToHeaders DeleteSamplingRule where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON DeleteSamplingRule where
+instance Data.ToJSON DeleteSamplingRule where
   toJSON DeleteSamplingRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RuleName" Core..=) Prelude.<$> ruleName,
-            ("RuleARN" Core..=) Prelude.<$> ruleARN
+          [ ("RuleARN" Data..=) Prelude.<$> ruleARN,
+            ("RuleName" Data..=) Prelude.<$> ruleName
           ]
       )
 
-instance Core.ToPath DeleteSamplingRule where
+instance Data.ToPath DeleteSamplingRule where
   toPath = Prelude.const "/DeleteSamplingRule"
 
-instance Core.ToQuery DeleteSamplingRule where
+instance Data.ToQuery DeleteSamplingRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteSamplingRuleResponse' smart constructor.

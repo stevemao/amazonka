@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KMS.UpdatePrimaryRegion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,7 @@
 -- different Amazon Web Services Region without re-encrypting the data or
 -- making a cross-Region call. For more information about multi-Region
 -- keys, see
--- <https://docs.aws.amazon.com/kms/latest/developerguide/multi-region-keys-overview.html Using multi-Region keys>
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/multi-region-keys-overview.html Multi-Region keys in KMS>
 -- in the /Key Management Service Developer Guide/.
 --
 -- The /primary key/ of a multi-Region key is the source for properties
@@ -75,7 +75,7 @@
 -- cryptographic operations, but you cannot replicate the new primary key
 -- or perform certain management operations, such as enabling or disabling
 -- these keys. For details about the @Updating@ key state, see
--- <kms/latest/developerguide/key-state.html Key state: Effect on your KMS key>
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html Key states of KMS keys>
 -- in the /Key Management Service Developer Guide/.
 --
 -- This operation does not return any output. To verify that primary key is
@@ -114,8 +114,9 @@ module Amazonka.KMS.UpdatePrimaryRegion
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -218,7 +219,8 @@ instance Core.AWSRequest UpdatePrimaryRegion where
   type
     AWSResponse UpdatePrimaryRegion =
       UpdatePrimaryRegionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull UpdatePrimaryRegionResponse'
 
@@ -232,35 +234,35 @@ instance Prelude.NFData UpdatePrimaryRegion where
     Prelude.rnf keyId
       `Prelude.seq` Prelude.rnf primaryRegion
 
-instance Core.ToHeaders UpdatePrimaryRegion where
+instance Data.ToHeaders UpdatePrimaryRegion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "TrentService.UpdatePrimaryRegion" ::
+              Data.=# ( "TrentService.UpdatePrimaryRegion" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdatePrimaryRegion where
+instance Data.ToJSON UpdatePrimaryRegion where
   toJSON UpdatePrimaryRegion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("KeyId" Core..= keyId),
+          [ Prelude.Just ("KeyId" Data..= keyId),
             Prelude.Just
-              ("PrimaryRegion" Core..= primaryRegion)
+              ("PrimaryRegion" Data..= primaryRegion)
           ]
       )
 
-instance Core.ToPath UpdatePrimaryRegion where
+instance Data.ToPath UpdatePrimaryRegion where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdatePrimaryRegion where
+instance Data.ToQuery UpdatePrimaryRegion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdatePrimaryRegionResponse' smart constructor.

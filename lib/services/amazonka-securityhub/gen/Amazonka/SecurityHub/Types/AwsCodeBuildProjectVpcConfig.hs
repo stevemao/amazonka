@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsCodeBuildProjectVpcConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsCodeBuildProjectVpcConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the VPC configuration that CodeBuild accesses.
@@ -29,10 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 data AwsCodeBuildProjectVpcConfig = AwsCodeBuildProjectVpcConfig'
   { -- | A list of one or more security group IDs in your VPC.
     securityGroupIds :: Prelude.Maybe [Prelude.Text],
-    -- | The ID of the VPC.
-    vpcId :: Prelude.Maybe Prelude.Text,
     -- | A list of one or more subnet IDs in your VPC.
-    subnets :: Prelude.Maybe [Prelude.Text]
+    subnets :: Prelude.Maybe [Prelude.Text],
+    -- | The ID of the VPC.
+    vpcId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,42 +47,42 @@ data AwsCodeBuildProjectVpcConfig = AwsCodeBuildProjectVpcConfig'
 --
 -- 'securityGroupIds', 'awsCodeBuildProjectVpcConfig_securityGroupIds' - A list of one or more security group IDs in your VPC.
 --
--- 'vpcId', 'awsCodeBuildProjectVpcConfig_vpcId' - The ID of the VPC.
---
 -- 'subnets', 'awsCodeBuildProjectVpcConfig_subnets' - A list of one or more subnet IDs in your VPC.
+--
+-- 'vpcId', 'awsCodeBuildProjectVpcConfig_vpcId' - The ID of the VPC.
 newAwsCodeBuildProjectVpcConfig ::
   AwsCodeBuildProjectVpcConfig
 newAwsCodeBuildProjectVpcConfig =
   AwsCodeBuildProjectVpcConfig'
     { securityGroupIds =
         Prelude.Nothing,
-      vpcId = Prelude.Nothing,
-      subnets = Prelude.Nothing
+      subnets = Prelude.Nothing,
+      vpcId = Prelude.Nothing
     }
 
 -- | A list of one or more security group IDs in your VPC.
 awsCodeBuildProjectVpcConfig_securityGroupIds :: Lens.Lens' AwsCodeBuildProjectVpcConfig (Prelude.Maybe [Prelude.Text])
 awsCodeBuildProjectVpcConfig_securityGroupIds = Lens.lens (\AwsCodeBuildProjectVpcConfig' {securityGroupIds} -> securityGroupIds) (\s@AwsCodeBuildProjectVpcConfig' {} a -> s {securityGroupIds = a} :: AwsCodeBuildProjectVpcConfig) Prelude.. Lens.mapping Lens.coerced
 
--- | The ID of the VPC.
-awsCodeBuildProjectVpcConfig_vpcId :: Lens.Lens' AwsCodeBuildProjectVpcConfig (Prelude.Maybe Prelude.Text)
-awsCodeBuildProjectVpcConfig_vpcId = Lens.lens (\AwsCodeBuildProjectVpcConfig' {vpcId} -> vpcId) (\s@AwsCodeBuildProjectVpcConfig' {} a -> s {vpcId = a} :: AwsCodeBuildProjectVpcConfig)
-
 -- | A list of one or more subnet IDs in your VPC.
 awsCodeBuildProjectVpcConfig_subnets :: Lens.Lens' AwsCodeBuildProjectVpcConfig (Prelude.Maybe [Prelude.Text])
 awsCodeBuildProjectVpcConfig_subnets = Lens.lens (\AwsCodeBuildProjectVpcConfig' {subnets} -> subnets) (\s@AwsCodeBuildProjectVpcConfig' {} a -> s {subnets = a} :: AwsCodeBuildProjectVpcConfig) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON AwsCodeBuildProjectVpcConfig where
+-- | The ID of the VPC.
+awsCodeBuildProjectVpcConfig_vpcId :: Lens.Lens' AwsCodeBuildProjectVpcConfig (Prelude.Maybe Prelude.Text)
+awsCodeBuildProjectVpcConfig_vpcId = Lens.lens (\AwsCodeBuildProjectVpcConfig' {vpcId} -> vpcId) (\s@AwsCodeBuildProjectVpcConfig' {} a -> s {vpcId = a} :: AwsCodeBuildProjectVpcConfig)
+
+instance Data.FromJSON AwsCodeBuildProjectVpcConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsCodeBuildProjectVpcConfig"
       ( \x ->
           AwsCodeBuildProjectVpcConfig'
-            Prelude.<$> ( x Core..:? "SecurityGroupIds"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "SecurityGroupIds"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "VpcId")
-            Prelude.<*> (x Core..:? "Subnets" Core..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Subnets" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "VpcId")
       )
 
 instance
@@ -90,22 +91,22 @@ instance
   where
   hashWithSalt _salt AwsCodeBuildProjectVpcConfig' {..} =
     _salt `Prelude.hashWithSalt` securityGroupIds
-      `Prelude.hashWithSalt` vpcId
       `Prelude.hashWithSalt` subnets
+      `Prelude.hashWithSalt` vpcId
 
 instance Prelude.NFData AwsCodeBuildProjectVpcConfig where
   rnf AwsCodeBuildProjectVpcConfig' {..} =
     Prelude.rnf securityGroupIds
-      `Prelude.seq` Prelude.rnf vpcId
       `Prelude.seq` Prelude.rnf subnets
+      `Prelude.seq` Prelude.rnf vpcId
 
-instance Core.ToJSON AwsCodeBuildProjectVpcConfig where
+instance Data.ToJSON AwsCodeBuildProjectVpcConfig where
   toJSON AwsCodeBuildProjectVpcConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SecurityGroupIds" Core..=)
+          [ ("SecurityGroupIds" Data..=)
               Prelude.<$> securityGroupIds,
-            ("VpcId" Core..=) Prelude.<$> vpcId,
-            ("Subnets" Core..=) Prelude.<$> subnets
+            ("Subnets" Data..=) Prelude.<$> subnets,
+            ("VpcId" Data..=) Prelude.<$> vpcId
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.ListV2LoggingLevels
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,9 +33,9 @@ module Amazonka.IoT.ListV2LoggingLevels
     newListV2LoggingLevels,
 
     -- * Request Lenses
-    listV2LoggingLevels_targetType,
-    listV2LoggingLevels_nextToken,
     listV2LoggingLevels_maxResults,
+    listV2LoggingLevels_nextToken,
+    listV2LoggingLevels_targetType,
 
     -- * Destructuring the Response
     ListV2LoggingLevelsResponse (..),
@@ -49,23 +49,24 @@ module Amazonka.IoT.ListV2LoggingLevels
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListV2LoggingLevels' smart constructor.
 data ListV2LoggingLevels = ListV2LoggingLevels'
-  { -- | The type of resource for which you are configuring logging. Must be
-    -- @THING_Group@.
-    targetType :: Prelude.Maybe LogTargetType,
+  { -- | The maximum number of results to return at one time.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | To retrieve the next set of results, the @nextToken@ value from a
     -- previous response; otherwise __null__ to receive the first set of
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return at one time.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    -- | The type of resource for which you are configuring logging. Must be
+    -- @THING_Group@.
+    targetType :: Prelude.Maybe LogTargetType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -77,27 +78,26 @@ data ListV2LoggingLevels = ListV2LoggingLevels'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'targetType', 'listV2LoggingLevels_targetType' - The type of resource for which you are configuring logging. Must be
--- @THING_Group@.
+-- 'maxResults', 'listV2LoggingLevels_maxResults' - The maximum number of results to return at one time.
 --
 -- 'nextToken', 'listV2LoggingLevels_nextToken' - To retrieve the next set of results, the @nextToken@ value from a
 -- previous response; otherwise __null__ to receive the first set of
 -- results.
 --
--- 'maxResults', 'listV2LoggingLevels_maxResults' - The maximum number of results to return at one time.
+-- 'targetType', 'listV2LoggingLevels_targetType' - The type of resource for which you are configuring logging. Must be
+-- @THING_Group@.
 newListV2LoggingLevels ::
   ListV2LoggingLevels
 newListV2LoggingLevels =
   ListV2LoggingLevels'
-    { targetType = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      targetType = Prelude.Nothing
     }
 
--- | The type of resource for which you are configuring logging. Must be
--- @THING_Group@.
-listV2LoggingLevels_targetType :: Lens.Lens' ListV2LoggingLevels (Prelude.Maybe LogTargetType)
-listV2LoggingLevels_targetType = Lens.lens (\ListV2LoggingLevels' {targetType} -> targetType) (\s@ListV2LoggingLevels' {} a -> s {targetType = a} :: ListV2LoggingLevels)
+-- | The maximum number of results to return at one time.
+listV2LoggingLevels_maxResults :: Lens.Lens' ListV2LoggingLevels (Prelude.Maybe Prelude.Natural)
+listV2LoggingLevels_maxResults = Lens.lens (\ListV2LoggingLevels' {maxResults} -> maxResults) (\s@ListV2LoggingLevels' {} a -> s {maxResults = a} :: ListV2LoggingLevels)
 
 -- | To retrieve the next set of results, the @nextToken@ value from a
 -- previous response; otherwise __null__ to receive the first set of
@@ -105,9 +105,10 @@ listV2LoggingLevels_targetType = Lens.lens (\ListV2LoggingLevels' {targetType} -
 listV2LoggingLevels_nextToken :: Lens.Lens' ListV2LoggingLevels (Prelude.Maybe Prelude.Text)
 listV2LoggingLevels_nextToken = Lens.lens (\ListV2LoggingLevels' {nextToken} -> nextToken) (\s@ListV2LoggingLevels' {} a -> s {nextToken = a} :: ListV2LoggingLevels)
 
--- | The maximum number of results to return at one time.
-listV2LoggingLevels_maxResults :: Lens.Lens' ListV2LoggingLevels (Prelude.Maybe Prelude.Natural)
-listV2LoggingLevels_maxResults = Lens.lens (\ListV2LoggingLevels' {maxResults} -> maxResults) (\s@ListV2LoggingLevels' {} a -> s {maxResults = a} :: ListV2LoggingLevels)
+-- | The type of resource for which you are configuring logging. Must be
+-- @THING_Group@.
+listV2LoggingLevels_targetType :: Lens.Lens' ListV2LoggingLevels (Prelude.Maybe LogTargetType)
+listV2LoggingLevels_targetType = Lens.lens (\ListV2LoggingLevels' {targetType} -> targetType) (\s@ListV2LoggingLevels' {} a -> s {targetType = a} :: ListV2LoggingLevels)
 
 instance Core.AWSPager ListV2LoggingLevels where
   page rq rs
@@ -135,42 +136,43 @@ instance Core.AWSRequest ListV2LoggingLevels where
   type
     AWSResponse ListV2LoggingLevels =
       ListV2LoggingLevelsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListV2LoggingLevelsResponse'
-            Prelude.<$> ( x Core..?> "logTargetConfigurations"
+            Prelude.<$> ( x Data..?> "logTargetConfigurations"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListV2LoggingLevels where
   hashWithSalt _salt ListV2LoggingLevels' {..} =
-    _salt `Prelude.hashWithSalt` targetType
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` targetType
 
 instance Prelude.NFData ListV2LoggingLevels where
   rnf ListV2LoggingLevels' {..} =
-    Prelude.rnf targetType
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf targetType
 
-instance Core.ToHeaders ListV2LoggingLevels where
+instance Data.ToHeaders ListV2LoggingLevels where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListV2LoggingLevels where
+instance Data.ToPath ListV2LoggingLevels where
   toPath = Prelude.const "/v2LoggingLevel"
 
-instance Core.ToQuery ListV2LoggingLevels where
+instance Data.ToQuery ListV2LoggingLevels where
   toQuery ListV2LoggingLevels' {..} =
     Prelude.mconcat
-      [ "targetType" Core.=: targetType,
-        "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "targetType" Data.=: targetType
       ]
 
 -- | /See:/ 'newListV2LoggingLevelsResponse' smart constructor.

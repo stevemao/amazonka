@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.JobExecutionStatusDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoT.Types.JobExecutionStatusDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details of the job execution status.
@@ -53,13 +54,13 @@ newJobExecutionStatusDetails =
 jobExecutionStatusDetails_detailsMap :: Lens.Lens' JobExecutionStatusDetails (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 jobExecutionStatusDetails_detailsMap = Lens.lens (\JobExecutionStatusDetails' {detailsMap} -> detailsMap) (\s@JobExecutionStatusDetails' {} a -> s {detailsMap = a} :: JobExecutionStatusDetails) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON JobExecutionStatusDetails where
+instance Data.FromJSON JobExecutionStatusDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "JobExecutionStatusDetails"
       ( \x ->
           JobExecutionStatusDetails'
-            Prelude.<$> (x Core..:? "detailsMap" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "detailsMap" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable JobExecutionStatusDetails where

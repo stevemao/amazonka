@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.DeleteWorkflow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.Glue.DeleteWorkflow
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,12 +78,13 @@ instance Core.AWSRequest DeleteWorkflow where
   type
     AWSResponse DeleteWorkflow =
       DeleteWorkflowResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteWorkflowResponse'
-            Prelude.<$> (x Core..?> "Name")
+            Prelude.<$> (x Data..?> "Name")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -93,30 +95,30 @@ instance Prelude.Hashable DeleteWorkflow where
 instance Prelude.NFData DeleteWorkflow where
   rnf DeleteWorkflow' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DeleteWorkflow where
+instance Data.ToHeaders DeleteWorkflow where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.DeleteWorkflow" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.DeleteWorkflow" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteWorkflow where
+instance Data.ToJSON DeleteWorkflow where
   toJSON DeleteWorkflow' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Name" Core..= name)]
+          [Prelude.Just ("Name" Data..= name)]
       )
 
-instance Core.ToPath DeleteWorkflow where
+instance Data.ToPath DeleteWorkflow where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteWorkflow where
+instance Data.ToQuery DeleteWorkflow where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteWorkflowResponse' smart constructor.

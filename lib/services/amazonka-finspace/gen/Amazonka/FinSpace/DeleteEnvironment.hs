@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FinSpace.DeleteEnvironment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.FinSpace.DeleteEnvironment
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FinSpace.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteEnvironment where
   type
     AWSResponse DeleteEnvironment =
       DeleteEnvironmentResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -92,23 +94,23 @@ instance Prelude.NFData DeleteEnvironment where
   rnf DeleteEnvironment' {..} =
     Prelude.rnf environmentId
 
-instance Core.ToHeaders DeleteEnvironment where
+instance Data.ToHeaders DeleteEnvironment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteEnvironment where
+instance Data.ToPath DeleteEnvironment where
   toPath DeleteEnvironment' {..} =
     Prelude.mconcat
-      ["/environment/", Core.toBS environmentId]
+      ["/environment/", Data.toBS environmentId]
 
-instance Core.ToQuery DeleteEnvironment where
+instance Data.ToQuery DeleteEnvironment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteEnvironmentResponse' smart constructor.

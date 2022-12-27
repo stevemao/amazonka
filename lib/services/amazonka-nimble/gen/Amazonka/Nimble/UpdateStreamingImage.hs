@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.UpdateStreamingImage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,10 +28,10 @@ module Amazonka.Nimble.UpdateStreamingImage
 
     -- * Request Lenses
     updateStreamingImage_clientToken,
-    updateStreamingImage_name,
     updateStreamingImage_description,
-    updateStreamingImage_studioId,
+    updateStreamingImage_name,
     updateStreamingImage_streamingImageId,
+    updateStreamingImage_studioId,
 
     -- * Destructuring the Response
     UpdateStreamingImageResponse (..),
@@ -44,35 +44,30 @@ module Amazonka.Nimble.UpdateStreamingImage
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | The streaming image ID.
---
--- /See:/ 'newUpdateStreamingImage' smart constructor.
+-- | /See:/ 'newUpdateStreamingImage' smart constructor.
 data UpdateStreamingImage = UpdateStreamingImage'
-  { -- | To make an idempotent API request using one of these actions, specify a
-    -- client token in the request. You should not reuse the same client token
-    -- for other API requests. If you retry a request that completed
-    -- successfully using the same client token and the same parameters, the
-    -- retry succeeds without performing any further actions. If you retry a
-    -- successful request using the same client token, but one or more of the
-    -- parameters are different, the retry fails with a ValidationException
-    -- error.
+  { -- | Unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request. If you don’t specify a client token, the AWS
+    -- SDK automatically generates a client token and uses it for the request
+    -- to ensure idempotency.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | The name for the streaming image.
-    name :: Prelude.Maybe Prelude.Text,
     -- | The description.
-    description :: Prelude.Maybe Prelude.Text,
-    -- | The studio ID.
-    studioId :: Prelude.Text,
+    description :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | The name for the streaming image.
+    name :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The streaming image ID.
-    streamingImageId :: Prelude.Text
+    streamingImageId :: Prelude.Text,
+    -- | The studio ID.
+    studioId :: Prelude.Text
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'UpdateStreamingImage' with all optional fields omitted.
@@ -82,121 +77,114 @@ data UpdateStreamingImage = UpdateStreamingImage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'clientToken', 'updateStreamingImage_clientToken' - To make an idempotent API request using one of these actions, specify a
--- client token in the request. You should not reuse the same client token
--- for other API requests. If you retry a request that completed
--- successfully using the same client token and the same parameters, the
--- retry succeeds without performing any further actions. If you retry a
--- successful request using the same client token, but one or more of the
--- parameters are different, the retry fails with a ValidationException
--- error.
---
--- 'name', 'updateStreamingImage_name' - The name for the streaming image.
+-- 'clientToken', 'updateStreamingImage_clientToken' - Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. If you don’t specify a client token, the AWS
+-- SDK automatically generates a client token and uses it for the request
+-- to ensure idempotency.
 --
 -- 'description', 'updateStreamingImage_description' - The description.
 --
--- 'studioId', 'updateStreamingImage_studioId' - The studio ID.
+-- 'name', 'updateStreamingImage_name' - The name for the streaming image.
 --
 -- 'streamingImageId', 'updateStreamingImage_streamingImageId' - The streaming image ID.
+--
+-- 'studioId', 'updateStreamingImage_studioId' - The studio ID.
 newUpdateStreamingImage ::
-  -- | 'studioId'
-  Prelude.Text ->
   -- | 'streamingImageId'
   Prelude.Text ->
+  -- | 'studioId'
+  Prelude.Text ->
   UpdateStreamingImage
-newUpdateStreamingImage pStudioId_ pStreamingImageId_ =
+newUpdateStreamingImage pStreamingImageId_ pStudioId_ =
   UpdateStreamingImage'
     { clientToken =
         Prelude.Nothing,
-      name = Prelude.Nothing,
       description = Prelude.Nothing,
-      studioId = pStudioId_,
-      streamingImageId = pStreamingImageId_
+      name = Prelude.Nothing,
+      streamingImageId = pStreamingImageId_,
+      studioId = pStudioId_
     }
 
--- | To make an idempotent API request using one of these actions, specify a
--- client token in the request. You should not reuse the same client token
--- for other API requests. If you retry a request that completed
--- successfully using the same client token and the same parameters, the
--- retry succeeds without performing any further actions. If you retry a
--- successful request using the same client token, but one or more of the
--- parameters are different, the retry fails with a ValidationException
--- error.
+-- | Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. If you don’t specify a client token, the AWS
+-- SDK automatically generates a client token and uses it for the request
+-- to ensure idempotency.
 updateStreamingImage_clientToken :: Lens.Lens' UpdateStreamingImage (Prelude.Maybe Prelude.Text)
 updateStreamingImage_clientToken = Lens.lens (\UpdateStreamingImage' {clientToken} -> clientToken) (\s@UpdateStreamingImage' {} a -> s {clientToken = a} :: UpdateStreamingImage)
 
--- | The name for the streaming image.
-updateStreamingImage_name :: Lens.Lens' UpdateStreamingImage (Prelude.Maybe Prelude.Text)
-updateStreamingImage_name = Lens.lens (\UpdateStreamingImage' {name} -> name) (\s@UpdateStreamingImage' {} a -> s {name = a} :: UpdateStreamingImage)
-
 -- | The description.
 updateStreamingImage_description :: Lens.Lens' UpdateStreamingImage (Prelude.Maybe Prelude.Text)
-updateStreamingImage_description = Lens.lens (\UpdateStreamingImage' {description} -> description) (\s@UpdateStreamingImage' {} a -> s {description = a} :: UpdateStreamingImage)
+updateStreamingImage_description = Lens.lens (\UpdateStreamingImage' {description} -> description) (\s@UpdateStreamingImage' {} a -> s {description = a} :: UpdateStreamingImage) Prelude.. Lens.mapping Data._Sensitive
 
--- | The studio ID.
-updateStreamingImage_studioId :: Lens.Lens' UpdateStreamingImage Prelude.Text
-updateStreamingImage_studioId = Lens.lens (\UpdateStreamingImage' {studioId} -> studioId) (\s@UpdateStreamingImage' {} a -> s {studioId = a} :: UpdateStreamingImage)
+-- | The name for the streaming image.
+updateStreamingImage_name :: Lens.Lens' UpdateStreamingImage (Prelude.Maybe Prelude.Text)
+updateStreamingImage_name = Lens.lens (\UpdateStreamingImage' {name} -> name) (\s@UpdateStreamingImage' {} a -> s {name = a} :: UpdateStreamingImage) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The streaming image ID.
 updateStreamingImage_streamingImageId :: Lens.Lens' UpdateStreamingImage Prelude.Text
 updateStreamingImage_streamingImageId = Lens.lens (\UpdateStreamingImage' {streamingImageId} -> streamingImageId) (\s@UpdateStreamingImage' {} a -> s {streamingImageId = a} :: UpdateStreamingImage)
 
+-- | The studio ID.
+updateStreamingImage_studioId :: Lens.Lens' UpdateStreamingImage Prelude.Text
+updateStreamingImage_studioId = Lens.lens (\UpdateStreamingImage' {studioId} -> studioId) (\s@UpdateStreamingImage' {} a -> s {studioId = a} :: UpdateStreamingImage)
+
 instance Core.AWSRequest UpdateStreamingImage where
   type
     AWSResponse UpdateStreamingImage =
       UpdateStreamingImageResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateStreamingImageResponse'
-            Prelude.<$> (x Core..?> "streamingImage")
+            Prelude.<$> (x Data..?> "streamingImage")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateStreamingImage where
   hashWithSalt _salt UpdateStreamingImage' {..} =
     _salt `Prelude.hashWithSalt` clientToken
-      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` description
-      `Prelude.hashWithSalt` studioId
+      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` streamingImageId
+      `Prelude.hashWithSalt` studioId
 
 instance Prelude.NFData UpdateStreamingImage where
   rnf UpdateStreamingImage' {..} =
     Prelude.rnf clientToken
-      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf description
-      `Prelude.seq` Prelude.rnf studioId
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf streamingImageId
+      `Prelude.seq` Prelude.rnf studioId
 
-instance Core.ToHeaders UpdateStreamingImage where
+instance Data.ToHeaders UpdateStreamingImage where
   toHeaders UpdateStreamingImage' {..} =
     Prelude.mconcat
-      [ "X-Amz-Client-Token" Core.=# clientToken,
+      [ "X-Amz-Client-Token" Data.=# clientToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToJSON UpdateStreamingImage where
+instance Data.ToJSON UpdateStreamingImage where
   toJSON UpdateStreamingImage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("name" Core..=) Prelude.<$> name,
-            ("description" Core..=) Prelude.<$> description
+          [ ("description" Data..=) Prelude.<$> description,
+            ("name" Data..=) Prelude.<$> name
           ]
       )
 
-instance Core.ToPath UpdateStreamingImage where
+instance Data.ToPath UpdateStreamingImage where
   toPath UpdateStreamingImage' {..} =
     Prelude.mconcat
       [ "/2020-08-01/studios/",
-        Core.toBS studioId,
+        Data.toBS studioId,
         "/streaming-images/",
-        Core.toBS streamingImageId
+        Data.toBS streamingImageId
       ]
 
-instance Core.ToQuery UpdateStreamingImage where
+instance Data.ToQuery UpdateStreamingImage where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateStreamingImageResponse' smart constructor.
@@ -205,7 +193,7 @@ data UpdateStreamingImageResponse = UpdateStreamingImageResponse'
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'UpdateStreamingImageResponse' with all optional fields omitted.
@@ -215,7 +203,7 @@ data UpdateStreamingImageResponse = UpdateStreamingImageResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'streamingImage', 'updateStreamingImageResponse_streamingImage' -
+-- 'streamingImage', 'updateStreamingImageResponse_streamingImage' - Undocumented member.
 --
 -- 'httpStatus', 'updateStreamingImageResponse_httpStatus' - The response's http status code.
 newUpdateStreamingImageResponse ::
@@ -229,7 +217,7 @@ newUpdateStreamingImageResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- |
+-- | Undocumented member.
 updateStreamingImageResponse_streamingImage :: Lens.Lens' UpdateStreamingImageResponse (Prelude.Maybe StreamingImage)
 updateStreamingImageResponse_streamingImage = Lens.lens (\UpdateStreamingImageResponse' {streamingImage} -> streamingImage) (\s@UpdateStreamingImageResponse' {} a -> s {streamingImage = a} :: UpdateStreamingImageResponse)
 

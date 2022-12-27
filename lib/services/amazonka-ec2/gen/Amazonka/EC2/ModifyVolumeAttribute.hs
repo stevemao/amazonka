@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ModifyVolumeAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,8 +48,9 @@ module Amazonka.EC2.ModifyVolumeAttribute
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -115,7 +116,8 @@ instance Core.AWSRequest ModifyVolumeAttribute where
   type
     AWSResponse ModifyVolumeAttribute =
       ModifyVolumeAttributeResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull ModifyVolumeAttributeResponse'
 
@@ -131,22 +133,22 @@ instance Prelude.NFData ModifyVolumeAttribute where
       `Prelude.seq` Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf volumeId
 
-instance Core.ToHeaders ModifyVolumeAttribute where
+instance Data.ToHeaders ModifyVolumeAttribute where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyVolumeAttribute where
+instance Data.ToPath ModifyVolumeAttribute where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyVolumeAttribute where
+instance Data.ToQuery ModifyVolumeAttribute where
   toQuery ModifyVolumeAttribute' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyVolumeAttribute" :: Prelude.ByteString),
+          Data.=: ("ModifyVolumeAttribute" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "AutoEnableIO" Core.=: autoEnableIO,
-        "DryRun" Core.=: dryRun,
-        "VolumeId" Core.=: volumeId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "AutoEnableIO" Data.=: autoEnableIO,
+        "DryRun" Data.=: dryRun,
+        "VolumeId" Data.=: volumeId
       ]
 
 -- | /See:/ 'newModifyVolumeAttributeResponse' smart constructor.

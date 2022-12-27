@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.CreateStudio
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -56,13 +56,13 @@ module Amazonka.Nimble.CreateStudio
     newCreateStudio,
 
     -- * Request Lenses
-    createStudio_studioEncryptionConfiguration,
     createStudio_clientToken,
+    createStudio_studioEncryptionConfiguration,
     createStudio_tags,
+    createStudio_adminRoleArn,
     createStudio_displayName,
     createStudio_studioName,
     createStudio_userRoleArn,
-    createStudio_adminRoleArn,
 
     -- * Destructuring the Response
     CreateStudioResponse (..),
@@ -75,43 +75,38 @@ module Amazonka.Nimble.CreateStudio
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | A collection of studio resources.
---
--- /See:/ 'newCreateStudio' smart constructor.
+-- | /See:/ 'newCreateStudio' smart constructor.
 data CreateStudio = CreateStudio'
-  { -- | The studio encryption configuration.
-    studioEncryptionConfiguration :: Prelude.Maybe StudioEncryptionConfiguration,
-    -- | To make an idempotent API request using one of these actions, specify a
-    -- client token in the request. You should not reuse the same client token
-    -- for other API requests. If you retry a request that completed
-    -- successfully using the same client token and the same parameters, the
-    -- retry succeeds without performing any further actions. If you retry a
-    -- successful request using the same client token, but one or more of the
-    -- parameters are different, the retry fails with a ValidationException
-    -- error.
+  { -- | Unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request. If you don’t specify a client token, the AWS
+    -- SDK automatically generates a client token and uses it for the request
+    -- to ensure idempotency.
     clientToken :: Prelude.Maybe Prelude.Text,
+    -- | The studio encryption configuration.
+    studioEncryptionConfiguration :: Prelude.Maybe StudioEncryptionConfiguration,
     -- | A collection of labels, in the form of key:value pairs, that apply to
     -- this resource.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | The IAM role that Studio Admins will assume when logging in to the
+    -- Nimble Studio portal.
+    adminRoleArn :: Prelude.Text,
     -- | A friendly name for the studio.
-    displayName :: Prelude.Text,
+    displayName :: Data.Sensitive Prelude.Text,
     -- | The studio name that is used in the URL of the Nimble Studio portal when
     -- accessed by Nimble Studio users.
     studioName :: Prelude.Text,
     -- | The IAM role that Studio Users will assume when logging in to the Nimble
     -- Studio portal.
-    userRoleArn :: Prelude.Text,
-    -- | The IAM role that Studio Admins will assume when logging in to the
-    -- Nimble Studio portal.
-    adminRoleArn :: Prelude.Text
+    userRoleArn :: Prelude.Text
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'CreateStudio' with all optional fields omitted.
@@ -121,19 +116,18 @@ data CreateStudio = CreateStudio'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'studioEncryptionConfiguration', 'createStudio_studioEncryptionConfiguration' - The studio encryption configuration.
+-- 'clientToken', 'createStudio_clientToken' - Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. If you don’t specify a client token, the AWS
+-- SDK automatically generates a client token and uses it for the request
+-- to ensure idempotency.
 --
--- 'clientToken', 'createStudio_clientToken' - To make an idempotent API request using one of these actions, specify a
--- client token in the request. You should not reuse the same client token
--- for other API requests. If you retry a request that completed
--- successfully using the same client token and the same parameters, the
--- retry succeeds without performing any further actions. If you retry a
--- successful request using the same client token, but one or more of the
--- parameters are different, the retry fails with a ValidationException
--- error.
+-- 'studioEncryptionConfiguration', 'createStudio_studioEncryptionConfiguration' - The studio encryption configuration.
 --
 -- 'tags', 'createStudio_tags' - A collection of labels, in the form of key:value pairs, that apply to
 -- this resource.
+--
+-- 'adminRoleArn', 'createStudio_adminRoleArn' - The IAM role that Studio Admins will assume when logging in to the
+-- Nimble Studio portal.
 --
 -- 'displayName', 'createStudio_displayName' - A friendly name for the studio.
 --
@@ -142,58 +136,55 @@ data CreateStudio = CreateStudio'
 --
 -- 'userRoleArn', 'createStudio_userRoleArn' - The IAM role that Studio Users will assume when logging in to the Nimble
 -- Studio portal.
---
--- 'adminRoleArn', 'createStudio_adminRoleArn' - The IAM role that Studio Admins will assume when logging in to the
--- Nimble Studio portal.
 newCreateStudio ::
+  -- | 'adminRoleArn'
+  Prelude.Text ->
   -- | 'displayName'
   Prelude.Text ->
   -- | 'studioName'
   Prelude.Text ->
   -- | 'userRoleArn'
   Prelude.Text ->
-  -- | 'adminRoleArn'
-  Prelude.Text ->
   CreateStudio
 newCreateStudio
+  pAdminRoleArn_
   pDisplayName_
   pStudioName_
-  pUserRoleArn_
-  pAdminRoleArn_ =
+  pUserRoleArn_ =
     CreateStudio'
-      { studioEncryptionConfiguration =
-          Prelude.Nothing,
-        clientToken = Prelude.Nothing,
+      { clientToken = Prelude.Nothing,
+        studioEncryptionConfiguration = Prelude.Nothing,
         tags = Prelude.Nothing,
-        displayName = pDisplayName_,
+        adminRoleArn = pAdminRoleArn_,
+        displayName = Data._Sensitive Lens.# pDisplayName_,
         studioName = pStudioName_,
-        userRoleArn = pUserRoleArn_,
-        adminRoleArn = pAdminRoleArn_
+        userRoleArn = pUserRoleArn_
       }
+
+-- | Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. If you don’t specify a client token, the AWS
+-- SDK automatically generates a client token and uses it for the request
+-- to ensure idempotency.
+createStudio_clientToken :: Lens.Lens' CreateStudio (Prelude.Maybe Prelude.Text)
+createStudio_clientToken = Lens.lens (\CreateStudio' {clientToken} -> clientToken) (\s@CreateStudio' {} a -> s {clientToken = a} :: CreateStudio)
 
 -- | The studio encryption configuration.
 createStudio_studioEncryptionConfiguration :: Lens.Lens' CreateStudio (Prelude.Maybe StudioEncryptionConfiguration)
 createStudio_studioEncryptionConfiguration = Lens.lens (\CreateStudio' {studioEncryptionConfiguration} -> studioEncryptionConfiguration) (\s@CreateStudio' {} a -> s {studioEncryptionConfiguration = a} :: CreateStudio)
-
--- | To make an idempotent API request using one of these actions, specify a
--- client token in the request. You should not reuse the same client token
--- for other API requests. If you retry a request that completed
--- successfully using the same client token and the same parameters, the
--- retry succeeds without performing any further actions. If you retry a
--- successful request using the same client token, but one or more of the
--- parameters are different, the retry fails with a ValidationException
--- error.
-createStudio_clientToken :: Lens.Lens' CreateStudio (Prelude.Maybe Prelude.Text)
-createStudio_clientToken = Lens.lens (\CreateStudio' {clientToken} -> clientToken) (\s@CreateStudio' {} a -> s {clientToken = a} :: CreateStudio)
 
 -- | A collection of labels, in the form of key:value pairs, that apply to
 -- this resource.
 createStudio_tags :: Lens.Lens' CreateStudio (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createStudio_tags = Lens.lens (\CreateStudio' {tags} -> tags) (\s@CreateStudio' {} a -> s {tags = a} :: CreateStudio) Prelude.. Lens.mapping Lens.coerced
 
+-- | The IAM role that Studio Admins will assume when logging in to the
+-- Nimble Studio portal.
+createStudio_adminRoleArn :: Lens.Lens' CreateStudio Prelude.Text
+createStudio_adminRoleArn = Lens.lens (\CreateStudio' {adminRoleArn} -> adminRoleArn) (\s@CreateStudio' {} a -> s {adminRoleArn = a} :: CreateStudio)
+
 -- | A friendly name for the studio.
 createStudio_displayName :: Lens.Lens' CreateStudio Prelude.Text
-createStudio_displayName = Lens.lens (\CreateStudio' {displayName} -> displayName) (\s@CreateStudio' {} a -> s {displayName = a} :: CreateStudio)
+createStudio_displayName = Lens.lens (\CreateStudio' {displayName} -> displayName) (\s@CreateStudio' {} a -> s {displayName = a} :: CreateStudio) Prelude.. Data._Sensitive
 
 -- | The studio name that is used in the URL of the Nimble Studio portal when
 -- accessed by Nimble Studio users.
@@ -205,69 +196,64 @@ createStudio_studioName = Lens.lens (\CreateStudio' {studioName} -> studioName) 
 createStudio_userRoleArn :: Lens.Lens' CreateStudio Prelude.Text
 createStudio_userRoleArn = Lens.lens (\CreateStudio' {userRoleArn} -> userRoleArn) (\s@CreateStudio' {} a -> s {userRoleArn = a} :: CreateStudio)
 
--- | The IAM role that Studio Admins will assume when logging in to the
--- Nimble Studio portal.
-createStudio_adminRoleArn :: Lens.Lens' CreateStudio Prelude.Text
-createStudio_adminRoleArn = Lens.lens (\CreateStudio' {adminRoleArn} -> adminRoleArn) (\s@CreateStudio' {} a -> s {adminRoleArn = a} :: CreateStudio)
-
 instance Core.AWSRequest CreateStudio where
   type AWSResponse CreateStudio = CreateStudioResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateStudioResponse'
-            Prelude.<$> (x Core..?> "studio")
+            Prelude.<$> (x Data..?> "studio")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateStudio where
   hashWithSalt _salt CreateStudio' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` clientToken
       `Prelude.hashWithSalt` studioEncryptionConfiguration
-      `Prelude.hashWithSalt` clientToken
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` adminRoleArn
       `Prelude.hashWithSalt` displayName
       `Prelude.hashWithSalt` studioName
       `Prelude.hashWithSalt` userRoleArn
-      `Prelude.hashWithSalt` adminRoleArn
 
 instance Prelude.NFData CreateStudio where
   rnf CreateStudio' {..} =
-    Prelude.rnf studioEncryptionConfiguration
-      `Prelude.seq` Prelude.rnf clientToken
+    Prelude.rnf clientToken
+      `Prelude.seq` Prelude.rnf studioEncryptionConfiguration
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf adminRoleArn
       `Prelude.seq` Prelude.rnf displayName
       `Prelude.seq` Prelude.rnf studioName
       `Prelude.seq` Prelude.rnf userRoleArn
-      `Prelude.seq` Prelude.rnf adminRoleArn
 
-instance Core.ToHeaders CreateStudio where
+instance Data.ToHeaders CreateStudio where
   toHeaders CreateStudio' {..} =
     Prelude.mconcat
-      [ "X-Amz-Client-Token" Core.=# clientToken,
+      [ "X-Amz-Client-Token" Data.=# clientToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToJSON CreateStudio where
+instance Data.ToJSON CreateStudio where
   toJSON CreateStudio' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("studioEncryptionConfiguration" Core..=)
+          [ ("studioEncryptionConfiguration" Data..=)
               Prelude.<$> studioEncryptionConfiguration,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("displayName" Core..= displayName),
-            Prelude.Just ("studioName" Core..= studioName),
-            Prelude.Just ("userRoleArn" Core..= userRoleArn),
-            Prelude.Just ("adminRoleArn" Core..= adminRoleArn)
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("adminRoleArn" Data..= adminRoleArn),
+            Prelude.Just ("displayName" Data..= displayName),
+            Prelude.Just ("studioName" Data..= studioName),
+            Prelude.Just ("userRoleArn" Data..= userRoleArn)
           ]
       )
 
-instance Core.ToPath CreateStudio where
+instance Data.ToPath CreateStudio where
   toPath = Prelude.const "/2020-08-01/studios"
 
-instance Core.ToQuery CreateStudio where
+instance Data.ToQuery CreateStudio where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateStudioResponse' smart constructor.
@@ -277,7 +263,7 @@ data CreateStudioResponse = CreateStudioResponse'
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'CreateStudioResponse' with all optional fields omitted.

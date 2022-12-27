@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.EventsRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.EventsRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types.EventsBatch
 import qualified Amazonka.Prelude as Prelude
 
@@ -61,9 +62,9 @@ instance Prelude.Hashable EventsRequest where
 instance Prelude.NFData EventsRequest where
   rnf EventsRequest' {..} = Prelude.rnf batchItem
 
-instance Core.ToJSON EventsRequest where
+instance Data.ToJSON EventsRequest where
   toJSON EventsRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("BatchItem" Core..= batchItem)]
+          [Prelude.Just ("BatchItem" Data..= batchItem)]
       )

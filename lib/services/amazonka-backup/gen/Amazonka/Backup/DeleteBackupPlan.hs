@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Backup.DeleteBackupPlan
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,17 +37,18 @@ module Amazonka.Backup.DeleteBackupPlan
     newDeleteBackupPlanResponse,
 
     -- * Response Lenses
-    deleteBackupPlanResponse_versionId,
-    deleteBackupPlanResponse_backupPlanId,
     deleteBackupPlanResponse_backupPlanArn,
+    deleteBackupPlanResponse_backupPlanId,
     deleteBackupPlanResponse_deletionDate,
+    deleteBackupPlanResponse_versionId,
     deleteBackupPlanResponse_httpStatus,
   )
 where
 
 import Amazonka.Backup.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,15 +84,16 @@ instance Core.AWSRequest DeleteBackupPlan where
   type
     AWSResponse DeleteBackupPlan =
       DeleteBackupPlanResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteBackupPlanResponse'
-            Prelude.<$> (x Core..?> "VersionId")
-            Prelude.<*> (x Core..?> "BackupPlanId")
-            Prelude.<*> (x Core..?> "BackupPlanArn")
-            Prelude.<*> (x Core..?> "DeletionDate")
+            Prelude.<$> (x Data..?> "BackupPlanArn")
+            Prelude.<*> (x Data..?> "BackupPlanId")
+            Prelude.<*> (x Data..?> "DeletionDate")
+            Prelude.<*> (x Data..?> "VersionId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -102,41 +104,41 @@ instance Prelude.Hashable DeleteBackupPlan where
 instance Prelude.NFData DeleteBackupPlan where
   rnf DeleteBackupPlan' {..} = Prelude.rnf backupPlanId
 
-instance Core.ToHeaders DeleteBackupPlan where
+instance Data.ToHeaders DeleteBackupPlan where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteBackupPlan where
+instance Data.ToPath DeleteBackupPlan where
   toPath DeleteBackupPlan' {..} =
     Prelude.mconcat
-      ["/backup/plans/", Core.toBS backupPlanId]
+      ["/backup/plans/", Data.toBS backupPlanId]
 
-instance Core.ToQuery DeleteBackupPlan where
+instance Data.ToQuery DeleteBackupPlan where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteBackupPlanResponse' smart constructor.
 data DeleteBackupPlanResponse = DeleteBackupPlanResponse'
-  { -- | Unique, randomly generated, Unicode, UTF-8 encoded strings that are at
-    -- most 1,024 bytes long. Version IDs cannot be edited.
-    versionId :: Prelude.Maybe Prelude.Text,
-    -- | Uniquely identifies a backup plan.
-    backupPlanId :: Prelude.Maybe Prelude.Text,
-    -- | An Amazon Resource Name (ARN) that uniquely identifies a backup plan;
+  { -- | An Amazon Resource Name (ARN) that uniquely identifies a backup plan;
     -- for example,
     -- @arn:aws:backup:us-east-1:123456789012:plan:8F81F553-3A74-4A3F-B93D-B3360DC80C50@.
     backupPlanArn :: Prelude.Maybe Prelude.Text,
+    -- | Uniquely identifies a backup plan.
+    backupPlanId :: Prelude.Maybe Prelude.Text,
     -- | The date and time a backup plan is deleted, in Unix format and
     -- Coordinated Universal Time (UTC). The value of @DeletionDate@ is
     -- accurate to milliseconds. For example, the value 1516925490.087
     -- represents Friday, January 26, 2018 12:11:30.087 AM.
-    deletionDate :: Prelude.Maybe Core.POSIX,
+    deletionDate :: Prelude.Maybe Data.POSIX,
+    -- | Unique, randomly generated, Unicode, UTF-8 encoded strings that are at
+    -- most 1,024 bytes long. Version IDs cannot be edited.
+    versionId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -150,19 +152,19 @@ data DeleteBackupPlanResponse = DeleteBackupPlanResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'versionId', 'deleteBackupPlanResponse_versionId' - Unique, randomly generated, Unicode, UTF-8 encoded strings that are at
--- most 1,024 bytes long. Version IDs cannot be edited.
---
--- 'backupPlanId', 'deleteBackupPlanResponse_backupPlanId' - Uniquely identifies a backup plan.
---
 -- 'backupPlanArn', 'deleteBackupPlanResponse_backupPlanArn' - An Amazon Resource Name (ARN) that uniquely identifies a backup plan;
 -- for example,
 -- @arn:aws:backup:us-east-1:123456789012:plan:8F81F553-3A74-4A3F-B93D-B3360DC80C50@.
+--
+-- 'backupPlanId', 'deleteBackupPlanResponse_backupPlanId' - Uniquely identifies a backup plan.
 --
 -- 'deletionDate', 'deleteBackupPlanResponse_deletionDate' - The date and time a backup plan is deleted, in Unix format and
 -- Coordinated Universal Time (UTC). The value of @DeletionDate@ is
 -- accurate to milliseconds. For example, the value 1516925490.087
 -- represents Friday, January 26, 2018 12:11:30.087 AM.
+--
+-- 'versionId', 'deleteBackupPlanResponse_versionId' - Unique, randomly generated, Unicode, UTF-8 encoded strings that are at
+-- most 1,024 bytes long. Version IDs cannot be edited.
 --
 -- 'httpStatus', 'deleteBackupPlanResponse_httpStatus' - The response's http status code.
 newDeleteBackupPlanResponse ::
@@ -171,22 +173,13 @@ newDeleteBackupPlanResponse ::
   DeleteBackupPlanResponse
 newDeleteBackupPlanResponse pHttpStatus_ =
   DeleteBackupPlanResponse'
-    { versionId =
+    { backupPlanArn =
         Prelude.Nothing,
       backupPlanId = Prelude.Nothing,
-      backupPlanArn = Prelude.Nothing,
       deletionDate = Prelude.Nothing,
+      versionId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Unique, randomly generated, Unicode, UTF-8 encoded strings that are at
--- most 1,024 bytes long. Version IDs cannot be edited.
-deleteBackupPlanResponse_versionId :: Lens.Lens' DeleteBackupPlanResponse (Prelude.Maybe Prelude.Text)
-deleteBackupPlanResponse_versionId = Lens.lens (\DeleteBackupPlanResponse' {versionId} -> versionId) (\s@DeleteBackupPlanResponse' {} a -> s {versionId = a} :: DeleteBackupPlanResponse)
-
--- | Uniquely identifies a backup plan.
-deleteBackupPlanResponse_backupPlanId :: Lens.Lens' DeleteBackupPlanResponse (Prelude.Maybe Prelude.Text)
-deleteBackupPlanResponse_backupPlanId = Lens.lens (\DeleteBackupPlanResponse' {backupPlanId} -> backupPlanId) (\s@DeleteBackupPlanResponse' {} a -> s {backupPlanId = a} :: DeleteBackupPlanResponse)
 
 -- | An Amazon Resource Name (ARN) that uniquely identifies a backup plan;
 -- for example,
@@ -194,12 +187,21 @@ deleteBackupPlanResponse_backupPlanId = Lens.lens (\DeleteBackupPlanResponse' {b
 deleteBackupPlanResponse_backupPlanArn :: Lens.Lens' DeleteBackupPlanResponse (Prelude.Maybe Prelude.Text)
 deleteBackupPlanResponse_backupPlanArn = Lens.lens (\DeleteBackupPlanResponse' {backupPlanArn} -> backupPlanArn) (\s@DeleteBackupPlanResponse' {} a -> s {backupPlanArn = a} :: DeleteBackupPlanResponse)
 
+-- | Uniquely identifies a backup plan.
+deleteBackupPlanResponse_backupPlanId :: Lens.Lens' DeleteBackupPlanResponse (Prelude.Maybe Prelude.Text)
+deleteBackupPlanResponse_backupPlanId = Lens.lens (\DeleteBackupPlanResponse' {backupPlanId} -> backupPlanId) (\s@DeleteBackupPlanResponse' {} a -> s {backupPlanId = a} :: DeleteBackupPlanResponse)
+
 -- | The date and time a backup plan is deleted, in Unix format and
 -- Coordinated Universal Time (UTC). The value of @DeletionDate@ is
 -- accurate to milliseconds. For example, the value 1516925490.087
 -- represents Friday, January 26, 2018 12:11:30.087 AM.
 deleteBackupPlanResponse_deletionDate :: Lens.Lens' DeleteBackupPlanResponse (Prelude.Maybe Prelude.UTCTime)
-deleteBackupPlanResponse_deletionDate = Lens.lens (\DeleteBackupPlanResponse' {deletionDate} -> deletionDate) (\s@DeleteBackupPlanResponse' {} a -> s {deletionDate = a} :: DeleteBackupPlanResponse) Prelude.. Lens.mapping Core._Time
+deleteBackupPlanResponse_deletionDate = Lens.lens (\DeleteBackupPlanResponse' {deletionDate} -> deletionDate) (\s@DeleteBackupPlanResponse' {} a -> s {deletionDate = a} :: DeleteBackupPlanResponse) Prelude.. Lens.mapping Data._Time
+
+-- | Unique, randomly generated, Unicode, UTF-8 encoded strings that are at
+-- most 1,024 bytes long. Version IDs cannot be edited.
+deleteBackupPlanResponse_versionId :: Lens.Lens' DeleteBackupPlanResponse (Prelude.Maybe Prelude.Text)
+deleteBackupPlanResponse_versionId = Lens.lens (\DeleteBackupPlanResponse' {versionId} -> versionId) (\s@DeleteBackupPlanResponse' {} a -> s {versionId = a} :: DeleteBackupPlanResponse)
 
 -- | The response's http status code.
 deleteBackupPlanResponse_httpStatus :: Lens.Lens' DeleteBackupPlanResponse Prelude.Int
@@ -207,8 +209,8 @@ deleteBackupPlanResponse_httpStatus = Lens.lens (\DeleteBackupPlanResponse' {htt
 
 instance Prelude.NFData DeleteBackupPlanResponse where
   rnf DeleteBackupPlanResponse' {..} =
-    Prelude.rnf versionId
+    Prelude.rnf backupPlanArn
       `Prelude.seq` Prelude.rnf backupPlanId
-      `Prelude.seq` Prelude.rnf backupPlanArn
       `Prelude.seq` Prelude.rnf deletionDate
+      `Prelude.seq` Prelude.rnf versionId
       `Prelude.seq` Prelude.rnf httpStatus

@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.ECR
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,38 +32,11 @@ module Amazonka.ECR
     -- * Errors
     -- $errors
 
-    -- ** ImageTagAlreadyExistsException
-    _ImageTagAlreadyExistsException,
+    -- ** EmptyUploadException
+    _EmptyUploadException,
 
-    -- ** ValidationException
-    _ValidationException,
-
-    -- ** LayersNotFoundException
-    _LayersNotFoundException,
-
-    -- ** ReferencedImagesNotFoundException
-    _ReferencedImagesNotFoundException,
-
-    -- ** InvalidParameterException
-    _InvalidParameterException,
-
-    -- ** LayerAlreadyExistsException
-    _LayerAlreadyExistsException,
-
-    -- ** ServerException
-    _ServerException,
-
-    -- ** LayerInaccessibleException
-    _LayerInaccessibleException,
-
-    -- ** InvalidLayerException
-    _InvalidLayerException,
-
-    -- ** LayerPartTooSmallException
-    _LayerPartTooSmallException,
-
-    -- ** LifecyclePolicyPreviewNotFoundException
-    _LifecyclePolicyPreviewNotFoundException,
+    -- ** ImageAlreadyExistsException
+    _ImageAlreadyExistsException,
 
     -- ** ImageDigestDoesNotMatchException
     _ImageDigestDoesNotMatchException,
@@ -71,116 +44,104 @@ module Amazonka.ECR
     -- ** ImageNotFoundException
     _ImageNotFoundException,
 
-    -- ** ImageAlreadyExistsException
-    _ImageAlreadyExistsException,
+    -- ** ImageTagAlreadyExistsException
+    _ImageTagAlreadyExistsException,
 
-    -- ** RepositoryNotFoundException
-    _RepositoryNotFoundException,
-
-    -- ** TooManyTagsException
-    _TooManyTagsException,
-
-    -- ** RegistryPolicyNotFoundException
-    _RegistryPolicyNotFoundException,
-
-    -- ** LifecyclePolicyPreviewInProgressException
-    _LifecyclePolicyPreviewInProgressException,
-
-    -- ** UploadNotFoundException
-    _UploadNotFoundException,
-
-    -- ** LifecyclePolicyNotFoundException
-    _LifecyclePolicyNotFoundException,
-
-    -- ** KmsException
-    _KmsException,
+    -- ** InvalidLayerException
+    _InvalidLayerException,
 
     -- ** InvalidLayerPartException
     _InvalidLayerPartException,
 
+    -- ** InvalidParameterException
+    _InvalidParameterException,
+
     -- ** InvalidTagParameterException
     _InvalidTagParameterException,
 
-    -- ** RepositoryNotEmptyException
-    _RepositoryNotEmptyException,
+    -- ** KmsException
+    _KmsException,
 
-    -- ** UnsupportedImageTypeException
-    _UnsupportedImageTypeException,
+    -- ** LayerAlreadyExistsException
+    _LayerAlreadyExistsException,
 
-    -- ** RepositoryAlreadyExistsException
-    _RepositoryAlreadyExistsException,
+    -- ** LayerInaccessibleException
+    _LayerInaccessibleException,
 
-    -- ** ScanNotFoundException
-    _ScanNotFoundException,
+    -- ** LayerPartTooSmallException
+    _LayerPartTooSmallException,
 
-    -- ** RepositoryPolicyNotFoundException
-    _RepositoryPolicyNotFoundException,
+    -- ** LayersNotFoundException
+    _LayersNotFoundException,
 
-    -- ** EmptyUploadException
-    _EmptyUploadException,
+    -- ** LifecyclePolicyNotFoundException
+    _LifecyclePolicyNotFoundException,
+
+    -- ** LifecyclePolicyPreviewInProgressException
+    _LifecyclePolicyPreviewInProgressException,
+
+    -- ** LifecyclePolicyPreviewNotFoundException
+    _LifecyclePolicyPreviewNotFoundException,
 
     -- ** LimitExceededException
     _LimitExceededException,
 
+    -- ** PullThroughCacheRuleAlreadyExistsException
+    _PullThroughCacheRuleAlreadyExistsException,
+
+    -- ** PullThroughCacheRuleNotFoundException
+    _PullThroughCacheRuleNotFoundException,
+
+    -- ** ReferencedImagesNotFoundException
+    _ReferencedImagesNotFoundException,
+
+    -- ** RegistryPolicyNotFoundException
+    _RegistryPolicyNotFoundException,
+
+    -- ** RepositoryAlreadyExistsException
+    _RepositoryAlreadyExistsException,
+
+    -- ** RepositoryNotEmptyException
+    _RepositoryNotEmptyException,
+
+    -- ** RepositoryNotFoundException
+    _RepositoryNotFoundException,
+
+    -- ** RepositoryPolicyNotFoundException
+    _RepositoryPolicyNotFoundException,
+
+    -- ** ScanNotFoundException
+    _ScanNotFoundException,
+
+    -- ** ServerException
+    _ServerException,
+
+    -- ** TooManyTagsException
+    _TooManyTagsException,
+
+    -- ** UnsupportedImageTypeException
+    _UnsupportedImageTypeException,
+
+    -- ** UnsupportedUpstreamRegistryException
+    _UnsupportedUpstreamRegistryException,
+
+    -- ** UploadNotFoundException
+    _UploadNotFoundException,
+
+    -- ** ValidationException
+    _ValidationException,
+
     -- * Waiters
     -- $waiters
-
-    -- ** LifecyclePolicyPreviewComplete
-    newLifecyclePolicyPreviewComplete,
 
     -- ** ImageScanComplete
     newImageScanComplete,
 
+    -- ** LifecyclePolicyPreviewComplete
+    newLifecyclePolicyPreviewComplete,
+
     -- * Operations
     -- $operations
-
-    -- ** GetRepositoryPolicy
-    GetRepositoryPolicy (GetRepositoryPolicy'),
-    newGetRepositoryPolicy,
-    GetRepositoryPolicyResponse (GetRepositoryPolicyResponse'),
-    newGetRepositoryPolicyResponse,
-
-    -- ** PutImageScanningConfiguration
-    PutImageScanningConfiguration (PutImageScanningConfiguration'),
-    newPutImageScanningConfiguration,
-    PutImageScanningConfigurationResponse (PutImageScanningConfigurationResponse'),
-    newPutImageScanningConfigurationResponse,
-
-    -- ** PutLifecyclePolicy
-    PutLifecyclePolicy (PutLifecyclePolicy'),
-    newPutLifecyclePolicy,
-    PutLifecyclePolicyResponse (PutLifecyclePolicyResponse'),
-    newPutLifecyclePolicyResponse,
-
-    -- ** DeleteLifecyclePolicy
-    DeleteLifecyclePolicy (DeleteLifecyclePolicy'),
-    newDeleteLifecyclePolicy,
-    DeleteLifecyclePolicyResponse (DeleteLifecyclePolicyResponse'),
-    newDeleteLifecyclePolicyResponse,
-
-    -- ** PutImageTagMutability
-    PutImageTagMutability (PutImageTagMutability'),
-    newPutImageTagMutability,
-    PutImageTagMutabilityResponse (PutImageTagMutabilityResponse'),
-    newPutImageTagMutabilityResponse,
-
-    -- ** BatchDeleteImage
-    BatchDeleteImage (BatchDeleteImage'),
-    newBatchDeleteImage,
-    BatchDeleteImageResponse (BatchDeleteImageResponse'),
-    newBatchDeleteImageResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** GetLifecyclePolicyPreview (Paginated)
-    GetLifecyclePolicyPreview (GetLifecyclePolicyPreview'),
-    newGetLifecyclePolicyPreview,
-    GetLifecyclePolicyPreviewResponse (GetLifecyclePolicyPreviewResponse'),
-    newGetLifecyclePolicyPreviewResponse,
 
     -- ** BatchCheckLayerAvailability
     BatchCheckLayerAvailability (BatchCheckLayerAvailability'),
@@ -188,65 +149,11 @@ module Amazonka.ECR
     BatchCheckLayerAvailabilityResponse (BatchCheckLayerAvailabilityResponse'),
     newBatchCheckLayerAvailabilityResponse,
 
-    -- ** DescribeRegistry
-    DescribeRegistry (DescribeRegistry'),
-    newDescribeRegistry,
-    DescribeRegistryResponse (DescribeRegistryResponse'),
-    newDescribeRegistryResponse,
-
-    -- ** DeleteRepositoryPolicy
-    DeleteRepositoryPolicy (DeleteRepositoryPolicy'),
-    newDeleteRepositoryPolicy,
-    DeleteRepositoryPolicyResponse (DeleteRepositoryPolicyResponse'),
-    newDeleteRepositoryPolicyResponse,
-
-    -- ** CreateRepository
-    CreateRepository (CreateRepository'),
-    newCreateRepository,
-    CreateRepositoryResponse (CreateRepositoryResponse'),
-    newCreateRepositoryResponse,
-
-    -- ** CompleteLayerUpload
-    CompleteLayerUpload (CompleteLayerUpload'),
-    newCompleteLayerUpload,
-    CompleteLayerUploadResponse (CompleteLayerUploadResponse'),
-    newCompleteLayerUploadResponse,
-
-    -- ** DescribeRepositories (Paginated)
-    DescribeRepositories (DescribeRepositories'),
-    newDescribeRepositories,
-    DescribeRepositoriesResponse (DescribeRepositoriesResponse'),
-    newDescribeRepositoriesResponse,
-
-    -- ** StartLifecyclePolicyPreview
-    StartLifecyclePolicyPreview (StartLifecyclePolicyPreview'),
-    newStartLifecyclePolicyPreview,
-    StartLifecyclePolicyPreviewResponse (StartLifecyclePolicyPreviewResponse'),
-    newStartLifecyclePolicyPreviewResponse,
-
-    -- ** DeleteRegistryPolicy
-    DeleteRegistryPolicy (DeleteRegistryPolicy'),
-    newDeleteRegistryPolicy,
-    DeleteRegistryPolicyResponse (DeleteRegistryPolicyResponse'),
-    newDeleteRegistryPolicyResponse,
-
-    -- ** PutRegistryPolicy
-    PutRegistryPolicy (PutRegistryPolicy'),
-    newPutRegistryPolicy,
-    PutRegistryPolicyResponse (PutRegistryPolicyResponse'),
-    newPutRegistryPolicyResponse,
-
-    -- ** UploadLayerPart
-    UploadLayerPart (UploadLayerPart'),
-    newUploadLayerPart,
-    UploadLayerPartResponse (UploadLayerPartResponse'),
-    newUploadLayerPartResponse,
-
-    -- ** DescribeImageReplicationStatus
-    DescribeImageReplicationStatus (DescribeImageReplicationStatus'),
-    newDescribeImageReplicationStatus,
-    DescribeImageReplicationStatusResponse (DescribeImageReplicationStatusResponse'),
-    newDescribeImageReplicationStatusResponse,
+    -- ** BatchDeleteImage
+    BatchDeleteImage (BatchDeleteImage'),
+    newBatchDeleteImage,
+    BatchDeleteImageResponse (BatchDeleteImageResponse'),
+    newBatchDeleteImageResponse,
 
     -- ** BatchGetImage
     BatchGetImage (BatchGetImage'),
@@ -254,53 +161,47 @@ module Amazonka.ECR
     BatchGetImageResponse (BatchGetImageResponse'),
     newBatchGetImageResponse,
 
-    -- ** PutReplicationConfiguration
-    PutReplicationConfiguration (PutReplicationConfiguration'),
-    newPutReplicationConfiguration,
-    PutReplicationConfigurationResponse (PutReplicationConfigurationResponse'),
-    newPutReplicationConfigurationResponse,
+    -- ** BatchGetRepositoryScanningConfiguration
+    BatchGetRepositoryScanningConfiguration (BatchGetRepositoryScanningConfiguration'),
+    newBatchGetRepositoryScanningConfiguration,
+    BatchGetRepositoryScanningConfigurationResponse (BatchGetRepositoryScanningConfigurationResponse'),
+    newBatchGetRepositoryScanningConfigurationResponse,
 
-    -- ** StartImageScan
-    StartImageScan (StartImageScan'),
-    newStartImageScan,
-    StartImageScanResponse (StartImageScanResponse'),
-    newStartImageScanResponse,
+    -- ** CompleteLayerUpload
+    CompleteLayerUpload (CompleteLayerUpload'),
+    newCompleteLayerUpload,
+    CompleteLayerUploadResponse (CompleteLayerUploadResponse'),
+    newCompleteLayerUploadResponse,
 
-    -- ** GetLifecyclePolicy
-    GetLifecyclePolicy (GetLifecyclePolicy'),
-    newGetLifecyclePolicy,
-    GetLifecyclePolicyResponse (GetLifecyclePolicyResponse'),
-    newGetLifecyclePolicyResponse,
+    -- ** CreatePullThroughCacheRule
+    CreatePullThroughCacheRule (CreatePullThroughCacheRule'),
+    newCreatePullThroughCacheRule,
+    CreatePullThroughCacheRuleResponse (CreatePullThroughCacheRuleResponse'),
+    newCreatePullThroughCacheRuleResponse,
 
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
+    -- ** CreateRepository
+    CreateRepository (CreateRepository'),
+    newCreateRepository,
+    CreateRepositoryResponse (CreateRepositoryResponse'),
+    newCreateRepositoryResponse,
 
-    -- ** SetRepositoryPolicy
-    SetRepositoryPolicy (SetRepositoryPolicy'),
-    newSetRepositoryPolicy,
-    SetRepositoryPolicyResponse (SetRepositoryPolicyResponse'),
-    newSetRepositoryPolicyResponse,
+    -- ** DeleteLifecyclePolicy
+    DeleteLifecyclePolicy (DeleteLifecyclePolicy'),
+    newDeleteLifecyclePolicy,
+    DeleteLifecyclePolicyResponse (DeleteLifecyclePolicyResponse'),
+    newDeleteLifecyclePolicyResponse,
 
-    -- ** DescribeImageScanFindings (Paginated)
-    DescribeImageScanFindings (DescribeImageScanFindings'),
-    newDescribeImageScanFindings,
-    DescribeImageScanFindingsResponse (DescribeImageScanFindingsResponse'),
-    newDescribeImageScanFindingsResponse,
+    -- ** DeletePullThroughCacheRule
+    DeletePullThroughCacheRule (DeletePullThroughCacheRule'),
+    newDeletePullThroughCacheRule,
+    DeletePullThroughCacheRuleResponse (DeletePullThroughCacheRuleResponse'),
+    newDeletePullThroughCacheRuleResponse,
 
-    -- ** InitiateLayerUpload
-    InitiateLayerUpload (InitiateLayerUpload'),
-    newInitiateLayerUpload,
-    InitiateLayerUploadResponse (InitiateLayerUploadResponse'),
-    newInitiateLayerUploadResponse,
-
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
+    -- ** DeleteRegistryPolicy
+    DeleteRegistryPolicy (DeleteRegistryPolicy'),
+    newDeleteRegistryPolicy,
+    DeleteRegistryPolicyResponse (DeleteRegistryPolicyResponse'),
+    newDeleteRegistryPolicyResponse,
 
     -- ** DeleteRepository
     DeleteRepository (DeleteRepository'),
@@ -308,23 +209,47 @@ module Amazonka.ECR
     DeleteRepositoryResponse (DeleteRepositoryResponse'),
     newDeleteRepositoryResponse,
 
-    -- ** GetRegistryPolicy
-    GetRegistryPolicy (GetRegistryPolicy'),
-    newGetRegistryPolicy,
-    GetRegistryPolicyResponse (GetRegistryPolicyResponse'),
-    newGetRegistryPolicyResponse,
+    -- ** DeleteRepositoryPolicy
+    DeleteRepositoryPolicy (DeleteRepositoryPolicy'),
+    newDeleteRepositoryPolicy,
+    DeleteRepositoryPolicyResponse (DeleteRepositoryPolicyResponse'),
+    newDeleteRepositoryPolicyResponse,
 
-    -- ** PutImage
-    PutImage (PutImage'),
-    newPutImage,
-    PutImageResponse (PutImageResponse'),
-    newPutImageResponse,
+    -- ** DescribeImageReplicationStatus
+    DescribeImageReplicationStatus (DescribeImageReplicationStatus'),
+    newDescribeImageReplicationStatus,
+    DescribeImageReplicationStatusResponse (DescribeImageReplicationStatusResponse'),
+    newDescribeImageReplicationStatusResponse,
 
-    -- ** ListImages (Paginated)
-    ListImages (ListImages'),
-    newListImages,
-    ListImagesResponse (ListImagesResponse'),
-    newListImagesResponse,
+    -- ** DescribeImageScanFindings (Paginated)
+    DescribeImageScanFindings (DescribeImageScanFindings'),
+    newDescribeImageScanFindings,
+    DescribeImageScanFindingsResponse (DescribeImageScanFindingsResponse'),
+    newDescribeImageScanFindingsResponse,
+
+    -- ** DescribeImages (Paginated)
+    DescribeImages (DescribeImages'),
+    newDescribeImages,
+    DescribeImagesResponse (DescribeImagesResponse'),
+    newDescribeImagesResponse,
+
+    -- ** DescribePullThroughCacheRules (Paginated)
+    DescribePullThroughCacheRules (DescribePullThroughCacheRules'),
+    newDescribePullThroughCacheRules,
+    DescribePullThroughCacheRulesResponse (DescribePullThroughCacheRulesResponse'),
+    newDescribePullThroughCacheRulesResponse,
+
+    -- ** DescribeRegistry
+    DescribeRegistry (DescribeRegistry'),
+    newDescribeRegistry,
+    DescribeRegistryResponse (DescribeRegistryResponse'),
+    newDescribeRegistryResponse,
+
+    -- ** DescribeRepositories (Paginated)
+    DescribeRepositories (DescribeRepositories'),
+    newDescribeRepositories,
+    DescribeRepositoriesResponse (DescribeRepositoriesResponse'),
+    newDescribeRepositoriesResponse,
 
     -- ** GetAuthorizationToken
     GetAuthorizationToken (GetAuthorizationToken'),
@@ -338,11 +263,131 @@ module Amazonka.ECR
     GetDownloadUrlForLayerResponse (GetDownloadUrlForLayerResponse'),
     newGetDownloadUrlForLayerResponse,
 
-    -- ** DescribeImages (Paginated)
-    DescribeImages (DescribeImages'),
-    newDescribeImages,
-    DescribeImagesResponse (DescribeImagesResponse'),
-    newDescribeImagesResponse,
+    -- ** GetLifecyclePolicy
+    GetLifecyclePolicy (GetLifecyclePolicy'),
+    newGetLifecyclePolicy,
+    GetLifecyclePolicyResponse (GetLifecyclePolicyResponse'),
+    newGetLifecyclePolicyResponse,
+
+    -- ** GetLifecyclePolicyPreview (Paginated)
+    GetLifecyclePolicyPreview (GetLifecyclePolicyPreview'),
+    newGetLifecyclePolicyPreview,
+    GetLifecyclePolicyPreviewResponse (GetLifecyclePolicyPreviewResponse'),
+    newGetLifecyclePolicyPreviewResponse,
+
+    -- ** GetRegistryPolicy
+    GetRegistryPolicy (GetRegistryPolicy'),
+    newGetRegistryPolicy,
+    GetRegistryPolicyResponse (GetRegistryPolicyResponse'),
+    newGetRegistryPolicyResponse,
+
+    -- ** GetRegistryScanningConfiguration
+    GetRegistryScanningConfiguration (GetRegistryScanningConfiguration'),
+    newGetRegistryScanningConfiguration,
+    GetRegistryScanningConfigurationResponse (GetRegistryScanningConfigurationResponse'),
+    newGetRegistryScanningConfigurationResponse,
+
+    -- ** GetRepositoryPolicy
+    GetRepositoryPolicy (GetRepositoryPolicy'),
+    newGetRepositoryPolicy,
+    GetRepositoryPolicyResponse (GetRepositoryPolicyResponse'),
+    newGetRepositoryPolicyResponse,
+
+    -- ** InitiateLayerUpload
+    InitiateLayerUpload (InitiateLayerUpload'),
+    newInitiateLayerUpload,
+    InitiateLayerUploadResponse (InitiateLayerUploadResponse'),
+    newInitiateLayerUploadResponse,
+
+    -- ** ListImages (Paginated)
+    ListImages (ListImages'),
+    newListImages,
+    ListImagesResponse (ListImagesResponse'),
+    newListImagesResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** PutImage
+    PutImage (PutImage'),
+    newPutImage,
+    PutImageResponse (PutImageResponse'),
+    newPutImageResponse,
+
+    -- ** PutImageScanningConfiguration
+    PutImageScanningConfiguration (PutImageScanningConfiguration'),
+    newPutImageScanningConfiguration,
+    PutImageScanningConfigurationResponse (PutImageScanningConfigurationResponse'),
+    newPutImageScanningConfigurationResponse,
+
+    -- ** PutImageTagMutability
+    PutImageTagMutability (PutImageTagMutability'),
+    newPutImageTagMutability,
+    PutImageTagMutabilityResponse (PutImageTagMutabilityResponse'),
+    newPutImageTagMutabilityResponse,
+
+    -- ** PutLifecyclePolicy
+    PutLifecyclePolicy (PutLifecyclePolicy'),
+    newPutLifecyclePolicy,
+    PutLifecyclePolicyResponse (PutLifecyclePolicyResponse'),
+    newPutLifecyclePolicyResponse,
+
+    -- ** PutRegistryPolicy
+    PutRegistryPolicy (PutRegistryPolicy'),
+    newPutRegistryPolicy,
+    PutRegistryPolicyResponse (PutRegistryPolicyResponse'),
+    newPutRegistryPolicyResponse,
+
+    -- ** PutRegistryScanningConfiguration
+    PutRegistryScanningConfiguration (PutRegistryScanningConfiguration'),
+    newPutRegistryScanningConfiguration,
+    PutRegistryScanningConfigurationResponse (PutRegistryScanningConfigurationResponse'),
+    newPutRegistryScanningConfigurationResponse,
+
+    -- ** PutReplicationConfiguration
+    PutReplicationConfiguration (PutReplicationConfiguration'),
+    newPutReplicationConfiguration,
+    PutReplicationConfigurationResponse (PutReplicationConfigurationResponse'),
+    newPutReplicationConfigurationResponse,
+
+    -- ** SetRepositoryPolicy
+    SetRepositoryPolicy (SetRepositoryPolicy'),
+    newSetRepositoryPolicy,
+    SetRepositoryPolicyResponse (SetRepositoryPolicyResponse'),
+    newSetRepositoryPolicyResponse,
+
+    -- ** StartImageScan
+    StartImageScan (StartImageScan'),
+    newStartImageScan,
+    StartImageScanResponse (StartImageScanResponse'),
+    newStartImageScanResponse,
+
+    -- ** StartLifecyclePolicyPreview
+    StartLifecyclePolicyPreview (StartLifecyclePolicyPreview'),
+    newStartLifecyclePolicyPreview,
+    StartLifecyclePolicyPreviewResponse (StartLifecyclePolicyPreviewResponse'),
+    newStartLifecyclePolicyPreviewResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UploadLayerPart
+    UploadLayerPart (UploadLayerPart'),
+    newUploadLayerPart,
+    UploadLayerPartResponse (UploadLayerPartResponse'),
+    newUploadLayerPartResponse,
 
     -- * Types
 
@@ -376,8 +421,20 @@ module Amazonka.ECR
     -- ** RepositoryFilterType
     RepositoryFilterType (..),
 
+    -- ** ScanFrequency
+    ScanFrequency (..),
+
     -- ** ScanStatus
     ScanStatus (..),
+
+    -- ** ScanType
+    ScanType (..),
+
+    -- ** ScanningConfigurationFailureCode
+    ScanningConfigurationFailureCode (..),
+
+    -- ** ScanningRepositoryFilterType
+    ScanningRepositoryFilterType (..),
 
     -- ** TagStatus
     TagStatus (..),
@@ -390,6 +447,22 @@ module Amazonka.ECR
     AuthorizationData (AuthorizationData'),
     newAuthorizationData,
 
+    -- ** AwsEcrContainerImageDetails
+    AwsEcrContainerImageDetails (AwsEcrContainerImageDetails'),
+    newAwsEcrContainerImageDetails,
+
+    -- ** CvssScore
+    CvssScore (CvssScore'),
+    newCvssScore,
+
+    -- ** CvssScoreAdjustment
+    CvssScoreAdjustment (CvssScoreAdjustment'),
+    newCvssScoreAdjustment,
+
+    -- ** CvssScoreDetails
+    CvssScoreDetails (CvssScoreDetails'),
+    newCvssScoreDetails,
+
     -- ** DescribeImagesFilter
     DescribeImagesFilter (DescribeImagesFilter'),
     newDescribeImagesFilter,
@@ -397,6 +470,10 @@ module Amazonka.ECR
     -- ** EncryptionConfiguration
     EncryptionConfiguration (EncryptionConfiguration'),
     newEncryptionConfiguration,
+
+    -- ** EnhancedImageScanFinding
+    EnhancedImageScanFinding (EnhancedImageScanFinding'),
+    newEnhancedImageScanFinding,
 
     -- ** Image
     Image (Image'),
@@ -466,6 +543,30 @@ module Amazonka.ECR
     ListImagesFilter (ListImagesFilter'),
     newListImagesFilter,
 
+    -- ** PackageVulnerabilityDetails
+    PackageVulnerabilityDetails (PackageVulnerabilityDetails'),
+    newPackageVulnerabilityDetails,
+
+    -- ** PullThroughCacheRule
+    PullThroughCacheRule (PullThroughCacheRule'),
+    newPullThroughCacheRule,
+
+    -- ** Recommendation
+    Recommendation (Recommendation'),
+    newRecommendation,
+
+    -- ** RegistryScanningConfiguration
+    RegistryScanningConfiguration (RegistryScanningConfiguration'),
+    newRegistryScanningConfiguration,
+
+    -- ** RegistryScanningRule
+    RegistryScanningRule (RegistryScanningRule'),
+    newRegistryScanningRule,
+
+    -- ** Remediation
+    Remediation (Remediation'),
+    newRemediation,
+
     -- ** ReplicationConfiguration
     ReplicationConfiguration (ReplicationConfiguration'),
     newReplicationConfiguration,
@@ -486,24 +587,56 @@ module Amazonka.ECR
     RepositoryFilter (RepositoryFilter'),
     newRepositoryFilter,
 
+    -- ** RepositoryScanningConfiguration
+    RepositoryScanningConfiguration (RepositoryScanningConfiguration'),
+    newRepositoryScanningConfiguration,
+
+    -- ** RepositoryScanningConfigurationFailure
+    RepositoryScanningConfigurationFailure (RepositoryScanningConfigurationFailure'),
+    newRepositoryScanningConfigurationFailure,
+
+    -- ** Resource
+    Resource (Resource'),
+    newResource,
+
+    -- ** ResourceDetails
+    ResourceDetails (ResourceDetails'),
+    newResourceDetails,
+
+    -- ** ScanningRepositoryFilter
+    ScanningRepositoryFilter (ScanningRepositoryFilter'),
+    newScanningRepositoryFilter,
+
+    -- ** ScoreDetails
+    ScoreDetails (ScoreDetails'),
+    newScoreDetails,
+
     -- ** Tag
     Tag (Tag'),
     newTag,
+
+    -- ** VulnerablePackage
+    VulnerablePackage (VulnerablePackage'),
+    newVulnerablePackage,
   )
 where
 
 import Amazonka.ECR.BatchCheckLayerAvailability
 import Amazonka.ECR.BatchDeleteImage
 import Amazonka.ECR.BatchGetImage
+import Amazonka.ECR.BatchGetRepositoryScanningConfiguration
 import Amazonka.ECR.CompleteLayerUpload
+import Amazonka.ECR.CreatePullThroughCacheRule
 import Amazonka.ECR.CreateRepository
 import Amazonka.ECR.DeleteLifecyclePolicy
+import Amazonka.ECR.DeletePullThroughCacheRule
 import Amazonka.ECR.DeleteRegistryPolicy
 import Amazonka.ECR.DeleteRepository
 import Amazonka.ECR.DeleteRepositoryPolicy
 import Amazonka.ECR.DescribeImageReplicationStatus
 import Amazonka.ECR.DescribeImageScanFindings
 import Amazonka.ECR.DescribeImages
+import Amazonka.ECR.DescribePullThroughCacheRules
 import Amazonka.ECR.DescribeRegistry
 import Amazonka.ECR.DescribeRepositories
 import Amazonka.ECR.GetAuthorizationToken
@@ -511,6 +644,7 @@ import Amazonka.ECR.GetDownloadUrlForLayer
 import Amazonka.ECR.GetLifecyclePolicy
 import Amazonka.ECR.GetLifecyclePolicyPreview
 import Amazonka.ECR.GetRegistryPolicy
+import Amazonka.ECR.GetRegistryScanningConfiguration
 import Amazonka.ECR.GetRepositoryPolicy
 import Amazonka.ECR.InitiateLayerUpload
 import Amazonka.ECR.Lens
@@ -521,6 +655,7 @@ import Amazonka.ECR.PutImageScanningConfiguration
 import Amazonka.ECR.PutImageTagMutability
 import Amazonka.ECR.PutLifecyclePolicy
 import Amazonka.ECR.PutRegistryPolicy
+import Amazonka.ECR.PutRegistryScanningConfiguration
 import Amazonka.ECR.PutReplicationConfiguration
 import Amazonka.ECR.SetRepositoryPolicy
 import Amazonka.ECR.StartImageScan

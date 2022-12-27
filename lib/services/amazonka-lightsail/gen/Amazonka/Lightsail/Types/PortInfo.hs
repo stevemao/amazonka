@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.PortInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.PortInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types.NetworkProtocol
 import qualified Amazonka.Prelude as Prelude
 
@@ -29,23 +30,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newPortInfo' smart constructor.
 data PortInfo = PortInfo'
-  { -- | The first port in a range of open ports on an instance.
+  { -- | An alias that defines access for a preconfigured range of IP addresses.
     --
-    -- Allowed ports:
-    --
-    -- -   TCP and UDP - @0@ to @65535@
-    --
-    -- -   ICMP - The ICMP type for IPv4 addresses. For example, specify @8@ as
-    --     the @fromPort@ (ICMP type), and @-1@ as the @toPort@ (ICMP code), to
-    --     enable ICMP Ping. For more information, see
-    --     <https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol#Control_messages Control Messages>
-    --     on /Wikipedia/.
-    --
-    -- -   ICMPv6 - The ICMP type for IPv6 addresses. For example, specify
-    --     @128@ as the @fromPort@ (ICMPv6 type), and @0@ as @toPort@ (ICMPv6
-    --     code). For more information, see
-    --     <https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol_for_IPv6 Internet Control Message Protocol for IPv6>.
-    fromPort :: Prelude.Maybe Prelude.Int,
+    -- The only alias currently supported is @lightsail-connect@, which allows
+    -- IP addresses of the browser-based RDP\/SSH client in the Lightsail
+    -- console to connect to your instance.
+    cidrListAliases :: Prelude.Maybe [Prelude.Text],
     -- | The IPv4 address, or range of IPv4 addresses (in CIDR notation) that are
     -- allowed to connect to an instance through the ports, and the protocol.
     --
@@ -64,6 +54,35 @@ data PortInfo = PortInfo'
     -- <https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation Classless Inter-Domain Routing>
     -- on /Wikipedia/.
     cidrs :: Prelude.Maybe [Prelude.Text],
+    -- | The first port in a range of open ports on an instance.
+    --
+    -- Allowed ports:
+    --
+    -- -   TCP and UDP - @0@ to @65535@
+    --
+    -- -   ICMP - The ICMP type for IPv4 addresses. For example, specify @8@ as
+    --     the @fromPort@ (ICMP type), and @-1@ as the @toPort@ (ICMP code), to
+    --     enable ICMP Ping. For more information, see
+    --     <https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol#Control_messages Control Messages>
+    --     on /Wikipedia/.
+    --
+    -- -   ICMPv6 - The ICMP type for IPv6 addresses. For example, specify
+    --     @128@ as the @fromPort@ (ICMPv6 type), and @0@ as @toPort@ (ICMPv6
+    --     code). For more information, see
+    --     <https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol_for_IPv6 Internet Control Message Protocol for IPv6>.
+    fromPort :: Prelude.Maybe Prelude.Int,
+    -- | The IPv6 address, or range of IPv6 addresses (in CIDR notation) that are
+    -- allowed to connect to an instance through the ports, and the protocol.
+    -- Only devices with an IPv6 address can connect to an instance through
+    -- IPv6; otherwise, IPv4 should be used.
+    --
+    -- The @cidrs@ parameter lists the IPv4 addresses that are allowed to
+    -- connect to an instance.
+    --
+    -- For more information about CIDR block notation, see
+    -- <https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation Classless Inter-Domain Routing>
+    -- on /Wikipedia/.
+    ipv6Cidrs :: Prelude.Maybe [Prelude.Text],
     -- | The IP protocol name.
     --
     -- The name can be one of the following:
@@ -95,24 +114,6 @@ data PortInfo = PortInfo'
     --     @icmp@ as the @protocol@, you must specify the ICMP type using the
     --     @fromPort@ parameter, and ICMP code using the @toPort@ parameter.
     protocol :: Prelude.Maybe NetworkProtocol,
-    -- | An alias that defines access for a preconfigured range of IP addresses.
-    --
-    -- The only alias currently supported is @lightsail-connect@, which allows
-    -- IP addresses of the browser-based RDP\/SSH client in the Lightsail
-    -- console to connect to your instance.
-    cidrListAliases :: Prelude.Maybe [Prelude.Text],
-    -- | The IPv6 address, or range of IPv6 addresses (in CIDR notation) that are
-    -- allowed to connect to an instance through the ports, and the protocol.
-    -- Only devices with an IPv6 address can connect to an instance through
-    -- IPv6; otherwise, IPv4 should be used.
-    --
-    -- The @cidrs@ parameter lists the IPv4 addresses that are allowed to
-    -- connect to an instance.
-    --
-    -- For more information about CIDR block notation, see
-    -- <https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation Classless Inter-Domain Routing>
-    -- on /Wikipedia/.
-    ipv6Cidrs :: Prelude.Maybe [Prelude.Text],
     -- | The last port in a range of open ports on an instance.
     --
     -- Allowed ports:
@@ -141,6 +142,30 @@ data PortInfo = PortInfo'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'cidrListAliases', 'portInfo_cidrListAliases' - An alias that defines access for a preconfigured range of IP addresses.
+--
+-- The only alias currently supported is @lightsail-connect@, which allows
+-- IP addresses of the browser-based RDP\/SSH client in the Lightsail
+-- console to connect to your instance.
+--
+-- 'cidrs', 'portInfo_cidrs' - The IPv4 address, or range of IPv4 addresses (in CIDR notation) that are
+-- allowed to connect to an instance through the ports, and the protocol.
+--
+-- The @ipv6Cidrs@ parameter lists the IPv6 addresses that are allowed to
+-- connect to an instance.
+--
+-- Examples:
+--
+-- -   To allow the IP address @192.0.2.44@, specify @192.0.2.44@ or
+--     @192.0.2.44\/32@.
+--
+-- -   To allow the IP addresses @192.0.2.0@ to @192.0.2.255@, specify
+--     @192.0.2.0\/24@.
+--
+-- For more information about CIDR block notation, see
+-- <https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation Classless Inter-Domain Routing>
+-- on /Wikipedia/.
+--
 -- 'fromPort', 'portInfo_fromPort' - The first port in a range of open ports on an instance.
 --
 -- Allowed ports:
@@ -158,19 +183,13 @@ data PortInfo = PortInfo'
 --     code). For more information, see
 --     <https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol_for_IPv6 Internet Control Message Protocol for IPv6>.
 --
--- 'cidrs', 'portInfo_cidrs' - The IPv4 address, or range of IPv4 addresses (in CIDR notation) that are
+-- 'ipv6Cidrs', 'portInfo_ipv6Cidrs' - The IPv6 address, or range of IPv6 addresses (in CIDR notation) that are
 -- allowed to connect to an instance through the ports, and the protocol.
+-- Only devices with an IPv6 address can connect to an instance through
+-- IPv6; otherwise, IPv4 should be used.
 --
--- The @ipv6Cidrs@ parameter lists the IPv6 addresses that are allowed to
+-- The @cidrs@ parameter lists the IPv4 addresses that are allowed to
 -- connect to an instance.
---
--- Examples:
---
--- -   To allow the IP address @192.0.2.44@, specify @192.0.2.44@ or
---     @192.0.2.44\/32@.
---
--- -   To allow the IP addresses @192.0.2.0@ to @192.0.2.255@, specify
---     @192.0.2.0\/24@.
 --
 -- For more information about CIDR block notation, see
 -- <https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation Classless Inter-Domain Routing>
@@ -207,24 +226,6 @@ data PortInfo = PortInfo'
 --     @icmp@ as the @protocol@, you must specify the ICMP type using the
 --     @fromPort@ parameter, and ICMP code using the @toPort@ parameter.
 --
--- 'cidrListAliases', 'portInfo_cidrListAliases' - An alias that defines access for a preconfigured range of IP addresses.
---
--- The only alias currently supported is @lightsail-connect@, which allows
--- IP addresses of the browser-based RDP\/SSH client in the Lightsail
--- console to connect to your instance.
---
--- 'ipv6Cidrs', 'portInfo_ipv6Cidrs' - The IPv6 address, or range of IPv6 addresses (in CIDR notation) that are
--- allowed to connect to an instance through the ports, and the protocol.
--- Only devices with an IPv6 address can connect to an instance through
--- IPv6; otherwise, IPv4 should be used.
---
--- The @cidrs@ parameter lists the IPv4 addresses that are allowed to
--- connect to an instance.
---
--- For more information about CIDR block notation, see
--- <https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation Classless Inter-Domain Routing>
--- on /Wikipedia/.
---
 -- 'toPort', 'portInfo_toPort' - The last port in a range of open ports on an instance.
 --
 -- Allowed ports:
@@ -245,32 +246,21 @@ newPortInfo ::
   PortInfo
 newPortInfo =
   PortInfo'
-    { fromPort = Prelude.Nothing,
+    { cidrListAliases = Prelude.Nothing,
       cidrs = Prelude.Nothing,
-      protocol = Prelude.Nothing,
-      cidrListAliases = Prelude.Nothing,
+      fromPort = Prelude.Nothing,
       ipv6Cidrs = Prelude.Nothing,
+      protocol = Prelude.Nothing,
       toPort = Prelude.Nothing
     }
 
--- | The first port in a range of open ports on an instance.
+-- | An alias that defines access for a preconfigured range of IP addresses.
 --
--- Allowed ports:
---
--- -   TCP and UDP - @0@ to @65535@
---
--- -   ICMP - The ICMP type for IPv4 addresses. For example, specify @8@ as
---     the @fromPort@ (ICMP type), and @-1@ as the @toPort@ (ICMP code), to
---     enable ICMP Ping. For more information, see
---     <https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol#Control_messages Control Messages>
---     on /Wikipedia/.
---
--- -   ICMPv6 - The ICMP type for IPv6 addresses. For example, specify
---     @128@ as the @fromPort@ (ICMPv6 type), and @0@ as @toPort@ (ICMPv6
---     code). For more information, see
---     <https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol_for_IPv6 Internet Control Message Protocol for IPv6>.
-portInfo_fromPort :: Lens.Lens' PortInfo (Prelude.Maybe Prelude.Int)
-portInfo_fromPort = Lens.lens (\PortInfo' {fromPort} -> fromPort) (\s@PortInfo' {} a -> s {fromPort = a} :: PortInfo)
+-- The only alias currently supported is @lightsail-connect@, which allows
+-- IP addresses of the browser-based RDP\/SSH client in the Lightsail
+-- console to connect to your instance.
+portInfo_cidrListAliases :: Lens.Lens' PortInfo (Prelude.Maybe [Prelude.Text])
+portInfo_cidrListAliases = Lens.lens (\PortInfo' {cidrListAliases} -> cidrListAliases) (\s@PortInfo' {} a -> s {cidrListAliases = a} :: PortInfo) Prelude.. Lens.mapping Lens.coerced
 
 -- | The IPv4 address, or range of IPv4 addresses (in CIDR notation) that are
 -- allowed to connect to an instance through the ports, and the protocol.
@@ -291,6 +281,39 @@ portInfo_fromPort = Lens.lens (\PortInfo' {fromPort} -> fromPort) (\s@PortInfo' 
 -- on /Wikipedia/.
 portInfo_cidrs :: Lens.Lens' PortInfo (Prelude.Maybe [Prelude.Text])
 portInfo_cidrs = Lens.lens (\PortInfo' {cidrs} -> cidrs) (\s@PortInfo' {} a -> s {cidrs = a} :: PortInfo) Prelude.. Lens.mapping Lens.coerced
+
+-- | The first port in a range of open ports on an instance.
+--
+-- Allowed ports:
+--
+-- -   TCP and UDP - @0@ to @65535@
+--
+-- -   ICMP - The ICMP type for IPv4 addresses. For example, specify @8@ as
+--     the @fromPort@ (ICMP type), and @-1@ as the @toPort@ (ICMP code), to
+--     enable ICMP Ping. For more information, see
+--     <https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol#Control_messages Control Messages>
+--     on /Wikipedia/.
+--
+-- -   ICMPv6 - The ICMP type for IPv6 addresses. For example, specify
+--     @128@ as the @fromPort@ (ICMPv6 type), and @0@ as @toPort@ (ICMPv6
+--     code). For more information, see
+--     <https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol_for_IPv6 Internet Control Message Protocol for IPv6>.
+portInfo_fromPort :: Lens.Lens' PortInfo (Prelude.Maybe Prelude.Int)
+portInfo_fromPort = Lens.lens (\PortInfo' {fromPort} -> fromPort) (\s@PortInfo' {} a -> s {fromPort = a} :: PortInfo)
+
+-- | The IPv6 address, or range of IPv6 addresses (in CIDR notation) that are
+-- allowed to connect to an instance through the ports, and the protocol.
+-- Only devices with an IPv6 address can connect to an instance through
+-- IPv6; otherwise, IPv4 should be used.
+--
+-- The @cidrs@ parameter lists the IPv4 addresses that are allowed to
+-- connect to an instance.
+--
+-- For more information about CIDR block notation, see
+-- <https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation Classless Inter-Domain Routing>
+-- on /Wikipedia/.
+portInfo_ipv6Cidrs :: Lens.Lens' PortInfo (Prelude.Maybe [Prelude.Text])
+portInfo_ipv6Cidrs = Lens.lens (\PortInfo' {ipv6Cidrs} -> ipv6Cidrs) (\s@PortInfo' {} a -> s {ipv6Cidrs = a} :: PortInfo) Prelude.. Lens.mapping Lens.coerced
 
 -- | The IP protocol name.
 --
@@ -325,28 +348,6 @@ portInfo_cidrs = Lens.lens (\PortInfo' {cidrs} -> cidrs) (\s@PortInfo' {} a -> s
 portInfo_protocol :: Lens.Lens' PortInfo (Prelude.Maybe NetworkProtocol)
 portInfo_protocol = Lens.lens (\PortInfo' {protocol} -> protocol) (\s@PortInfo' {} a -> s {protocol = a} :: PortInfo)
 
--- | An alias that defines access for a preconfigured range of IP addresses.
---
--- The only alias currently supported is @lightsail-connect@, which allows
--- IP addresses of the browser-based RDP\/SSH client in the Lightsail
--- console to connect to your instance.
-portInfo_cidrListAliases :: Lens.Lens' PortInfo (Prelude.Maybe [Prelude.Text])
-portInfo_cidrListAliases = Lens.lens (\PortInfo' {cidrListAliases} -> cidrListAliases) (\s@PortInfo' {} a -> s {cidrListAliases = a} :: PortInfo) Prelude.. Lens.mapping Lens.coerced
-
--- | The IPv6 address, or range of IPv6 addresses (in CIDR notation) that are
--- allowed to connect to an instance through the ports, and the protocol.
--- Only devices with an IPv6 address can connect to an instance through
--- IPv6; otherwise, IPv4 should be used.
---
--- The @cidrs@ parameter lists the IPv4 addresses that are allowed to
--- connect to an instance.
---
--- For more information about CIDR block notation, see
--- <https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation Classless Inter-Domain Routing>
--- on /Wikipedia/.
-portInfo_ipv6Cidrs :: Lens.Lens' PortInfo (Prelude.Maybe [Prelude.Text])
-portInfo_ipv6Cidrs = Lens.lens (\PortInfo' {ipv6Cidrs} -> ipv6Cidrs) (\s@PortInfo' {} a -> s {ipv6Cidrs = a} :: PortInfo) Prelude.. Lens.mapping Lens.coerced
-
 -- | The last port in a range of open ports on an instance.
 --
 -- Allowed ports:
@@ -368,32 +369,32 @@ portInfo_toPort = Lens.lens (\PortInfo' {toPort} -> toPort) (\s@PortInfo' {} a -
 
 instance Prelude.Hashable PortInfo where
   hashWithSalt _salt PortInfo' {..} =
-    _salt `Prelude.hashWithSalt` fromPort
+    _salt `Prelude.hashWithSalt` cidrListAliases
       `Prelude.hashWithSalt` cidrs
-      `Prelude.hashWithSalt` protocol
-      `Prelude.hashWithSalt` cidrListAliases
+      `Prelude.hashWithSalt` fromPort
       `Prelude.hashWithSalt` ipv6Cidrs
+      `Prelude.hashWithSalt` protocol
       `Prelude.hashWithSalt` toPort
 
 instance Prelude.NFData PortInfo where
   rnf PortInfo' {..} =
-    Prelude.rnf fromPort
+    Prelude.rnf cidrListAliases
       `Prelude.seq` Prelude.rnf cidrs
-      `Prelude.seq` Prelude.rnf protocol
-      `Prelude.seq` Prelude.rnf cidrListAliases
+      `Prelude.seq` Prelude.rnf fromPort
       `Prelude.seq` Prelude.rnf ipv6Cidrs
+      `Prelude.seq` Prelude.rnf protocol
       `Prelude.seq` Prelude.rnf toPort
 
-instance Core.ToJSON PortInfo where
+instance Data.ToJSON PortInfo where
   toJSON PortInfo' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("fromPort" Core..=) Prelude.<$> fromPort,
-            ("cidrs" Core..=) Prelude.<$> cidrs,
-            ("protocol" Core..=) Prelude.<$> protocol,
-            ("cidrListAliases" Core..=)
+          [ ("cidrListAliases" Data..=)
               Prelude.<$> cidrListAliases,
-            ("ipv6Cidrs" Core..=) Prelude.<$> ipv6Cidrs,
-            ("toPort" Core..=) Prelude.<$> toPort
+            ("cidrs" Data..=) Prelude.<$> cidrs,
+            ("fromPort" Data..=) Prelude.<$> fromPort,
+            ("ipv6Cidrs" Data..=) Prelude.<$> ipv6Cidrs,
+            ("protocol" Data..=) Prelude.<$> protocol,
+            ("toPort" Data..=) Prelude.<$> toPort
           ]
       )

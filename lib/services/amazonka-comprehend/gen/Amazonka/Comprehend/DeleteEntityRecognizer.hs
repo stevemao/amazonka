@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.DeleteEntityRecognizer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,7 +89,8 @@ instance Core.AWSRequest DeleteEntityRecognizer where
   type
     AWSResponse DeleteEntityRecognizer =
       DeleteEntityRecognizerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -104,34 +106,34 @@ instance Prelude.NFData DeleteEntityRecognizer where
   rnf DeleteEntityRecognizer' {..} =
     Prelude.rnf entityRecognizerArn
 
-instance Core.ToHeaders DeleteEntityRecognizer where
+instance Data.ToHeaders DeleteEntityRecognizer where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.DeleteEntityRecognizer" ::
+              Data.=# ( "Comprehend_20171127.DeleteEntityRecognizer" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteEntityRecognizer where
+instance Data.ToJSON DeleteEntityRecognizer where
   toJSON DeleteEntityRecognizer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("EntityRecognizerArn" Core..= entityRecognizerArn)
+              ("EntityRecognizerArn" Data..= entityRecognizerArn)
           ]
       )
 
-instance Core.ToPath DeleteEntityRecognizer where
+instance Data.ToPath DeleteEntityRecognizer where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteEntityRecognizer where
+instance Data.ToQuery DeleteEntityRecognizer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteEntityRecognizerResponse' smart constructor.

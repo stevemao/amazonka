@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkMailMessageFlow.PutRawMessageContent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -53,7 +53,8 @@ module Amazonka.WorkMailMessageFlow.PutRawMessageContent
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -103,7 +104,8 @@ instance Core.AWSRequest PutRawMessageContent where
   type
     AWSResponse PutRawMessageContent =
       PutRawMessageContentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -121,29 +123,29 @@ instance Prelude.NFData PutRawMessageContent where
     Prelude.rnf messageId
       `Prelude.seq` Prelude.rnf content
 
-instance Core.ToHeaders PutRawMessageContent where
+instance Data.ToHeaders PutRawMessageContent where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutRawMessageContent where
+instance Data.ToJSON PutRawMessageContent where
   toJSON PutRawMessageContent' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("content" Core..= content)]
+          [Prelude.Just ("content" Data..= content)]
       )
 
-instance Core.ToPath PutRawMessageContent where
+instance Data.ToPath PutRawMessageContent where
   toPath PutRawMessageContent' {..} =
-    Prelude.mconcat ["/messages/", Core.toBS messageId]
+    Prelude.mconcat ["/messages/", Data.toBS messageId]
 
-instance Core.ToQuery PutRawMessageContent where
+instance Data.ToQuery PutRawMessageContent where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutRawMessageContentResponse' smart constructor.

@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,17 +18,17 @@ module Amazonka.ElasticSearch.Types
     defaultService,
 
     -- * Errors
-    _ValidationException,
     _AccessDeniedException,
-    _ResourceAlreadyExistsException,
-    _ConflictException,
     _BaseException,
+    _ConflictException,
     _DisabledOperationException,
     _InternalException,
-    _InvalidTypeException,
-    _ResourceNotFoundException,
     _InvalidPaginationTokenException,
+    _InvalidTypeException,
     _LimitExceededException,
+    _ResourceAlreadyExistsException,
+    _ResourceNotFoundException,
+    _ValidationException,
 
     -- * AutoTuneDesiredState
     AutoTuneDesiredState (..),
@@ -68,11 +69,17 @@ module Amazonka.ElasticSearch.Types
     -- * OutboundCrossClusterSearchConnectionStatusCode
     OutboundCrossClusterSearchConnectionStatusCode (..),
 
+    -- * OverallChangeStatus
+    OverallChangeStatus (..),
+
     -- * PackageStatus
     PackageStatus (..),
 
     -- * PackageType
     PackageType (..),
+
+    -- * PrincipalType
+    PrincipalType (..),
 
     -- * ReservedElasticsearchInstancePaymentOption
     ReservedElasticsearchInstancePaymentOption (..),
@@ -101,6 +108,12 @@ module Amazonka.ElasticSearch.Types
     -- * VolumeType
     VolumeType (..),
 
+    -- * VpcEndpointErrorCode
+    VpcEndpointErrorCode (..),
+
+    -- * VpcEndpointStatus
+    VpcEndpointStatus (..),
+
     -- * AccessPoliciesStatus
     AccessPoliciesStatus (..),
     newAccessPoliciesStatus,
@@ -122,6 +135,8 @@ module Amazonka.ElasticSearch.Types
     -- * AdvancedSecurityOptions
     AdvancedSecurityOptions (..),
     newAdvancedSecurityOptions,
+    advancedSecurityOptions_anonymousAuthDisableDate,
+    advancedSecurityOptions_anonymousAuthEnabled,
     advancedSecurityOptions_enabled,
     advancedSecurityOptions_internalUserDatabaseEnabled,
     advancedSecurityOptions_sAMLOptions,
@@ -129,6 +144,7 @@ module Amazonka.ElasticSearch.Types
     -- * AdvancedSecurityOptionsInput
     AdvancedSecurityOptionsInput (..),
     newAdvancedSecurityOptionsInput,
+    advancedSecurityOptionsInput_anonymousAuthEnabled,
     advancedSecurityOptionsInput_enabled,
     advancedSecurityOptionsInput_internalUserDatabaseEnabled,
     advancedSecurityOptionsInput_masterUserOptions,
@@ -139,6 +155,12 @@ module Amazonka.ElasticSearch.Types
     newAdvancedSecurityOptionsStatus,
     advancedSecurityOptionsStatus_options,
     advancedSecurityOptionsStatus_status,
+
+    -- * AuthorizedPrincipal
+    AuthorizedPrincipal (..),
+    newAuthorizedPrincipal,
+    authorizedPrincipal_principal,
+    authorizedPrincipal_principalType,
 
     -- * AutoTune
     AutoTune (..),
@@ -154,16 +176,16 @@ module Amazonka.ElasticSearch.Types
     -- * AutoTuneMaintenanceSchedule
     AutoTuneMaintenanceSchedule (..),
     newAutoTuneMaintenanceSchedule,
-    autoTuneMaintenanceSchedule_startAt,
     autoTuneMaintenanceSchedule_cronExpressionForRecurrence,
     autoTuneMaintenanceSchedule_duration,
+    autoTuneMaintenanceSchedule_startAt,
 
     -- * AutoTuneOptions
     AutoTuneOptions (..),
     newAutoTuneOptions,
     autoTuneOptions_desiredState,
-    autoTuneOptions_rollbackOnDisable,
     autoTuneOptions_maintenanceSchedules,
+    autoTuneOptions_rollbackOnDisable,
 
     -- * AutoTuneOptionsInput
     AutoTuneOptionsInput (..),
@@ -174,32 +196,57 @@ module Amazonka.ElasticSearch.Types
     -- * AutoTuneOptionsOutput
     AutoTuneOptionsOutput (..),
     newAutoTuneOptionsOutput,
-    autoTuneOptionsOutput_state,
     autoTuneOptionsOutput_errorMessage,
+    autoTuneOptionsOutput_state,
 
     -- * AutoTuneOptionsStatus
     AutoTuneOptionsStatus (..),
     newAutoTuneOptionsStatus,
-    autoTuneOptionsStatus_status,
     autoTuneOptionsStatus_options,
+    autoTuneOptionsStatus_status,
 
     -- * AutoTuneStatus
     AutoTuneStatus (..),
     newAutoTuneStatus,
-    autoTuneStatus_pendingDeletion,
     autoTuneStatus_errorMessage,
+    autoTuneStatus_pendingDeletion,
     autoTuneStatus_updateVersion,
     autoTuneStatus_creationDate,
     autoTuneStatus_updateDate,
     autoTuneStatus_state,
 
+    -- * ChangeProgressDetails
+    ChangeProgressDetails (..),
+    newChangeProgressDetails,
+    changeProgressDetails_changeId,
+    changeProgressDetails_message,
+
+    -- * ChangeProgressStage
+    ChangeProgressStage (..),
+    newChangeProgressStage,
+    changeProgressStage_description,
+    changeProgressStage_lastUpdated,
+    changeProgressStage_name,
+    changeProgressStage_status,
+
+    -- * ChangeProgressStatusDetails
+    ChangeProgressStatusDetails (..),
+    newChangeProgressStatusDetails,
+    changeProgressStatusDetails_changeId,
+    changeProgressStatusDetails_changeProgressStages,
+    changeProgressStatusDetails_completedProperties,
+    changeProgressStatusDetails_pendingProperties,
+    changeProgressStatusDetails_startTime,
+    changeProgressStatusDetails_status,
+    changeProgressStatusDetails_totalNumberOfStages,
+
     -- * CognitoOptions
     CognitoOptions (..),
     newCognitoOptions,
-    cognitoOptions_identityPoolId,
     cognitoOptions_enabled,
-    cognitoOptions_userPoolId,
+    cognitoOptions_identityPoolId,
     cognitoOptions_roleArn,
+    cognitoOptions_userPoolId,
 
     -- * CognitoOptionsStatus
     CognitoOptionsStatus (..),
@@ -221,17 +268,17 @@ module Amazonka.ElasticSearch.Types
     -- * DescribePackagesFilter
     DescribePackagesFilter (..),
     newDescribePackagesFilter,
-    describePackagesFilter_value,
     describePackagesFilter_name,
+    describePackagesFilter_value,
 
     -- * DomainEndpointOptions
     DomainEndpointOptions (..),
     newDomainEndpointOptions,
-    domainEndpointOptions_enforceHTTPS,
-    domainEndpointOptions_tLSSecurityPolicy,
-    domainEndpointOptions_customEndpointEnabled,
     domainEndpointOptions_customEndpoint,
     domainEndpointOptions_customEndpointCertificateArn,
+    domainEndpointOptions_customEndpointEnabled,
+    domainEndpointOptions_enforceHTTPS,
+    domainEndpointOptions_tLSSecurityPolicy,
 
     -- * DomainEndpointOptionsStatus
     DomainEndpointOptionsStatus (..),
@@ -255,29 +302,36 @@ module Amazonka.ElasticSearch.Types
     -- * DomainPackageDetails
     DomainPackageDetails (..),
     newDomainPackageDetails,
+    domainPackageDetails_domainName,
+    domainPackageDetails_domainPackageStatus,
+    domainPackageDetails_errorDetails,
     domainPackageDetails_lastUpdated,
     domainPackageDetails_packageID,
-    domainPackageDetails_packageType,
     domainPackageDetails_packageName,
+    domainPackageDetails_packageType,
     domainPackageDetails_packageVersion,
-    domainPackageDetails_domainPackageStatus,
-    domainPackageDetails_domainName,
-    domainPackageDetails_errorDetails,
     domainPackageDetails_referencePath,
+
+    -- * DryRunResults
+    DryRunResults (..),
+    newDryRunResults,
+    dryRunResults_deploymentType,
+    dryRunResults_message,
 
     -- * Duration
     Duration (..),
     newDuration,
-    duration_value,
     duration_unit,
+    duration_value,
 
     -- * EBSOptions
     EBSOptions (..),
     newEBSOptions,
-    eBSOptions_volumeSize,
-    eBSOptions_iops,
-    eBSOptions_volumeType,
     eBSOptions_eBSEnabled,
+    eBSOptions_iops,
+    eBSOptions_throughput,
+    eBSOptions_volumeSize,
+    eBSOptions_volumeType,
 
     -- * EBSOptionsStatus
     EBSOptionsStatus (..),
@@ -288,17 +342,17 @@ module Amazonka.ElasticSearch.Types
     -- * ElasticsearchClusterConfig
     ElasticsearchClusterConfig (..),
     newElasticsearchClusterConfig,
-    elasticsearchClusterConfig_dedicatedMasterCount,
-    elasticsearchClusterConfig_dedicatedMasterType,
-    elasticsearchClusterConfig_dedicatedMasterEnabled,
-    elasticsearchClusterConfig_instanceCount,
     elasticsearchClusterConfig_coldStorageOptions,
-    elasticsearchClusterConfig_zoneAwarenessEnabled,
+    elasticsearchClusterConfig_dedicatedMasterCount,
+    elasticsearchClusterConfig_dedicatedMasterEnabled,
+    elasticsearchClusterConfig_dedicatedMasterType,
+    elasticsearchClusterConfig_instanceCount,
     elasticsearchClusterConfig_instanceType,
-    elasticsearchClusterConfig_warmEnabled,
-    elasticsearchClusterConfig_zoneAwarenessConfig,
     elasticsearchClusterConfig_warmCount,
+    elasticsearchClusterConfig_warmEnabled,
     elasticsearchClusterConfig_warmType,
+    elasticsearchClusterConfig_zoneAwarenessConfig,
+    elasticsearchClusterConfig_zoneAwarenessEnabled,
 
     -- * ElasticsearchClusterConfigStatus
     ElasticsearchClusterConfigStatus (..),
@@ -309,44 +363,46 @@ module Amazonka.ElasticSearch.Types
     -- * ElasticsearchDomainConfig
     ElasticsearchDomainConfig (..),
     newElasticsearchDomainConfig,
-    elasticsearchDomainConfig_eBSOptions,
-    elasticsearchDomainConfig_nodeToNodeEncryptionOptions,
     elasticsearchDomainConfig_accessPolicies,
-    elasticsearchDomainConfig_autoTuneOptions,
-    elasticsearchDomainConfig_logPublishingOptions,
-    elasticsearchDomainConfig_advancedSecurityOptions,
-    elasticsearchDomainConfig_elasticsearchClusterConfig,
-    elasticsearchDomainConfig_snapshotOptions,
-    elasticsearchDomainConfig_cognitoOptions,
-    elasticsearchDomainConfig_encryptionAtRestOptions,
-    elasticsearchDomainConfig_vPCOptions,
-    elasticsearchDomainConfig_domainEndpointOptions,
     elasticsearchDomainConfig_advancedOptions,
+    elasticsearchDomainConfig_advancedSecurityOptions,
+    elasticsearchDomainConfig_autoTuneOptions,
+    elasticsearchDomainConfig_changeProgressDetails,
+    elasticsearchDomainConfig_cognitoOptions,
+    elasticsearchDomainConfig_domainEndpointOptions,
+    elasticsearchDomainConfig_eBSOptions,
+    elasticsearchDomainConfig_elasticsearchClusterConfig,
     elasticsearchDomainConfig_elasticsearchVersion,
+    elasticsearchDomainConfig_encryptionAtRestOptions,
+    elasticsearchDomainConfig_logPublishingOptions,
+    elasticsearchDomainConfig_nodeToNodeEncryptionOptions,
+    elasticsearchDomainConfig_snapshotOptions,
+    elasticsearchDomainConfig_vPCOptions,
 
     -- * ElasticsearchDomainStatus
     ElasticsearchDomainStatus (..),
     newElasticsearchDomainStatus,
-    elasticsearchDomainStatus_eBSOptions,
-    elasticsearchDomainStatus_nodeToNodeEncryptionOptions,
     elasticsearchDomainStatus_accessPolicies,
-    elasticsearchDomainStatus_serviceSoftwareOptions,
-    elasticsearchDomainStatus_autoTuneOptions,
-    elasticsearchDomainStatus_logPublishingOptions,
-    elasticsearchDomainStatus_advancedSecurityOptions,
-    elasticsearchDomainStatus_created,
-    elasticsearchDomainStatus_snapshotOptions,
-    elasticsearchDomainStatus_cognitoOptions,
-    elasticsearchDomainStatus_encryptionAtRestOptions,
-    elasticsearchDomainStatus_deleted,
-    elasticsearchDomainStatus_vPCOptions,
-    elasticsearchDomainStatus_endpoints,
-    elasticsearchDomainStatus_domainEndpointOptions,
-    elasticsearchDomainStatus_processing,
-    elasticsearchDomainStatus_endpoint,
-    elasticsearchDomainStatus_upgradeProcessing,
     elasticsearchDomainStatus_advancedOptions,
+    elasticsearchDomainStatus_advancedSecurityOptions,
+    elasticsearchDomainStatus_autoTuneOptions,
+    elasticsearchDomainStatus_changeProgressDetails,
+    elasticsearchDomainStatus_cognitoOptions,
+    elasticsearchDomainStatus_created,
+    elasticsearchDomainStatus_deleted,
+    elasticsearchDomainStatus_domainEndpointOptions,
+    elasticsearchDomainStatus_eBSOptions,
     elasticsearchDomainStatus_elasticsearchVersion,
+    elasticsearchDomainStatus_encryptionAtRestOptions,
+    elasticsearchDomainStatus_endpoint,
+    elasticsearchDomainStatus_endpoints,
+    elasticsearchDomainStatus_logPublishingOptions,
+    elasticsearchDomainStatus_nodeToNodeEncryptionOptions,
+    elasticsearchDomainStatus_processing,
+    elasticsearchDomainStatus_serviceSoftwareOptions,
+    elasticsearchDomainStatus_snapshotOptions,
+    elasticsearchDomainStatus_upgradeProcessing,
+    elasticsearchDomainStatus_vPCOptions,
     elasticsearchDomainStatus_domainId,
     elasticsearchDomainStatus_domainName,
     elasticsearchDomainStatus_arn,
@@ -373,21 +429,21 @@ module Amazonka.ElasticSearch.Types
     -- * ErrorDetails
     ErrorDetails (..),
     newErrorDetails,
-    errorDetails_errorType,
     errorDetails_errorMessage,
+    errorDetails_errorType,
 
     -- * Filter
     Filter (..),
     newFilter,
-    filter_values,
     filter_name,
+    filter_values,
 
     -- * InboundCrossClusterSearchConnection
     InboundCrossClusterSearchConnection (..),
     newInboundCrossClusterSearchConnection,
-    inboundCrossClusterSearchConnection_destinationDomainInfo,
-    inboundCrossClusterSearchConnection_crossClusterSearchConnectionId,
     inboundCrossClusterSearchConnection_connectionStatus,
+    inboundCrossClusterSearchConnection_crossClusterSearchConnectionId,
+    inboundCrossClusterSearchConnection_destinationDomainInfo,
     inboundCrossClusterSearchConnection_sourceDomainInfo,
 
     -- * InboundCrossClusterSearchConnectionStatus
@@ -410,28 +466,28 @@ module Amazonka.ElasticSearch.Types
     -- * Limits
     Limits (..),
     newLimits,
-    limits_instanceLimits,
     limits_additionalLimits,
+    limits_instanceLimits,
     limits_storageTypes,
 
     -- * LogPublishingOption
     LogPublishingOption (..),
     newLogPublishingOption,
-    logPublishingOption_enabled,
     logPublishingOption_cloudWatchLogsLogGroupArn,
+    logPublishingOption_enabled,
 
     -- * LogPublishingOptionsStatus
     LogPublishingOptionsStatus (..),
     newLogPublishingOptionsStatus,
-    logPublishingOptionsStatus_status,
     logPublishingOptionsStatus_options,
+    logPublishingOptionsStatus_status,
 
     -- * MasterUserOptions
     MasterUserOptions (..),
     newMasterUserOptions,
-    masterUserOptions_masterUserPassword,
-    masterUserOptions_masterUserName,
     masterUserOptions_masterUserARN,
+    masterUserOptions_masterUserName,
+    masterUserOptions_masterUserPassword,
 
     -- * NodeToNodeEncryptionOptions
     NodeToNodeEncryptionOptions (..),
@@ -456,10 +512,10 @@ module Amazonka.ElasticSearch.Types
     -- * OutboundCrossClusterSearchConnection
     OutboundCrossClusterSearchConnection (..),
     newOutboundCrossClusterSearchConnection,
-    outboundCrossClusterSearchConnection_destinationDomainInfo,
     outboundCrossClusterSearchConnection_connectionAlias,
-    outboundCrossClusterSearchConnection_crossClusterSearchConnectionId,
     outboundCrossClusterSearchConnection_connectionStatus,
+    outboundCrossClusterSearchConnection_crossClusterSearchConnectionId,
+    outboundCrossClusterSearchConnection_destinationDomainInfo,
     outboundCrossClusterSearchConnection_sourceDomainInfo,
 
     -- * OutboundCrossClusterSearchConnectionStatus
@@ -471,63 +527,63 @@ module Amazonka.ElasticSearch.Types
     -- * PackageDetails
     PackageDetails (..),
     newPackageDetails,
-    packageDetails_packageID,
-    packageDetails_packageType,
-    packageDetails_lastUpdatedAt,
+    packageDetails_availablePackageVersion,
     packageDetails_createdAt,
+    packageDetails_errorDetails,
+    packageDetails_lastUpdatedAt,
+    packageDetails_packageDescription,
+    packageDetails_packageID,
     packageDetails_packageName,
     packageDetails_packageStatus,
-    packageDetails_packageDescription,
-    packageDetails_errorDetails,
-    packageDetails_availablePackageVersion,
+    packageDetails_packageType,
 
     -- * PackageSource
     PackageSource (..),
     newPackageSource,
-    packageSource_s3Key,
     packageSource_s3BucketName,
+    packageSource_s3Key,
 
     -- * PackageVersionHistory
     PackageVersionHistory (..),
     newPackageVersionHistory,
+    packageVersionHistory_commitMessage,
     packageVersionHistory_createdAt,
     packageVersionHistory_packageVersion,
-    packageVersionHistory_commitMessage,
 
     -- * RecurringCharge
     RecurringCharge (..),
     newRecurringCharge,
-    recurringCharge_recurringChargeFrequency,
     recurringCharge_recurringChargeAmount,
+    recurringCharge_recurringChargeFrequency,
 
     -- * ReservedElasticsearchInstance
     ReservedElasticsearchInstance (..),
     newReservedElasticsearchInstance,
-    reservedElasticsearchInstance_state,
     reservedElasticsearchInstance_currencyCode,
-    reservedElasticsearchInstance_startTime,
-    reservedElasticsearchInstance_reservedElasticsearchInstanceOfferingId,
-    reservedElasticsearchInstance_reservedElasticsearchInstanceId,
-    reservedElasticsearchInstance_elasticsearchInstanceCount,
-    reservedElasticsearchInstance_reservationName,
-    reservedElasticsearchInstance_elasticsearchInstanceType,
-    reservedElasticsearchInstance_recurringCharges,
-    reservedElasticsearchInstance_usagePrice,
-    reservedElasticsearchInstance_fixedPrice,
     reservedElasticsearchInstance_duration,
+    reservedElasticsearchInstance_elasticsearchInstanceCount,
+    reservedElasticsearchInstance_elasticsearchInstanceType,
+    reservedElasticsearchInstance_fixedPrice,
     reservedElasticsearchInstance_paymentOption,
+    reservedElasticsearchInstance_recurringCharges,
+    reservedElasticsearchInstance_reservationName,
+    reservedElasticsearchInstance_reservedElasticsearchInstanceId,
+    reservedElasticsearchInstance_reservedElasticsearchInstanceOfferingId,
+    reservedElasticsearchInstance_startTime,
+    reservedElasticsearchInstance_state,
+    reservedElasticsearchInstance_usagePrice,
 
     -- * ReservedElasticsearchInstanceOffering
     ReservedElasticsearchInstanceOffering (..),
     newReservedElasticsearchInstanceOffering,
     reservedElasticsearchInstanceOffering_currencyCode,
-    reservedElasticsearchInstanceOffering_reservedElasticsearchInstanceOfferingId,
-    reservedElasticsearchInstanceOffering_elasticsearchInstanceType,
-    reservedElasticsearchInstanceOffering_recurringCharges,
-    reservedElasticsearchInstanceOffering_usagePrice,
-    reservedElasticsearchInstanceOffering_fixedPrice,
     reservedElasticsearchInstanceOffering_duration,
+    reservedElasticsearchInstanceOffering_elasticsearchInstanceType,
+    reservedElasticsearchInstanceOffering_fixedPrice,
     reservedElasticsearchInstanceOffering_paymentOption,
+    reservedElasticsearchInstanceOffering_recurringCharges,
+    reservedElasticsearchInstanceOffering_reservedElasticsearchInstanceOfferingId,
+    reservedElasticsearchInstanceOffering_usagePrice,
 
     -- * SAMLIdp
     SAMLIdp (..),
@@ -538,11 +594,11 @@ module Amazonka.ElasticSearch.Types
     -- * SAMLOptionsInput
     SAMLOptionsInput (..),
     newSAMLOptionsInput,
-    sAMLOptionsInput_masterUserName,
     sAMLOptionsInput_enabled,
     sAMLOptionsInput_idp,
-    sAMLOptionsInput_rolesKey,
     sAMLOptionsInput_masterBackendRole,
+    sAMLOptionsInput_masterUserName,
+    sAMLOptionsInput_rolesKey,
     sAMLOptionsInput_sessionTimeoutMinutes,
     sAMLOptionsInput_subjectKey,
 
@@ -558,22 +614,22 @@ module Amazonka.ElasticSearch.Types
     -- * ScheduledAutoTuneDetails
     ScheduledAutoTuneDetails (..),
     newScheduledAutoTuneDetails,
-    scheduledAutoTuneDetails_severity,
     scheduledAutoTuneDetails_action,
-    scheduledAutoTuneDetails_date,
     scheduledAutoTuneDetails_actionType,
+    scheduledAutoTuneDetails_date,
+    scheduledAutoTuneDetails_severity,
 
     -- * ServiceSoftwareOptions
     ServiceSoftwareOptions (..),
     newServiceSoftwareOptions,
     serviceSoftwareOptions_automatedUpdateDate,
-    serviceSoftwareOptions_currentVersion,
-    serviceSoftwareOptions_optionalDeployment,
-    serviceSoftwareOptions_updateStatus,
     serviceSoftwareOptions_cancellable,
-    serviceSoftwareOptions_updateAvailable,
+    serviceSoftwareOptions_currentVersion,
     serviceSoftwareOptions_description,
     serviceSoftwareOptions_newVersion,
+    serviceSoftwareOptions_optionalDeployment,
+    serviceSoftwareOptions_updateAvailable,
+    serviceSoftwareOptions_updateStatus,
 
     -- * SnapshotOptions
     SnapshotOptions (..),
@@ -589,8 +645,8 @@ module Amazonka.ElasticSearch.Types
     -- * StorageType
     StorageType (..),
     newStorageType,
-    storageType_storageTypeLimits,
     storageType_storageSubTypeName,
+    storageType_storageTypeLimits,
     storageType_storageTypeName,
 
     -- * StorageTypeLimit
@@ -608,26 +664,26 @@ module Amazonka.ElasticSearch.Types
     -- * UpgradeHistory
     UpgradeHistory (..),
     newUpgradeHistory,
-    upgradeHistory_upgradeStatus,
+    upgradeHistory_startTimestamp,
     upgradeHistory_stepsList,
     upgradeHistory_upgradeName,
-    upgradeHistory_startTimestamp,
+    upgradeHistory_upgradeStatus,
 
     -- * UpgradeStepItem
     UpgradeStepItem (..),
     newUpgradeStepItem,
-    upgradeStepItem_upgradeStepStatus,
-    upgradeStepItem_progressPercent,
     upgradeStepItem_issues,
+    upgradeStepItem_progressPercent,
     upgradeStepItem_upgradeStep,
+    upgradeStepItem_upgradeStepStatus,
 
     -- * VPCDerivedInfo
     VPCDerivedInfo (..),
     newVPCDerivedInfo,
+    vPCDerivedInfo_availabilityZones,
     vPCDerivedInfo_securityGroupIds,
     vPCDerivedInfo_subnetIds,
     vPCDerivedInfo_vPCId,
-    vPCDerivedInfo_availabilityZones,
 
     -- * VPCDerivedInfoStatus
     VPCDerivedInfoStatus (..),
@@ -641,6 +697,31 @@ module Amazonka.ElasticSearch.Types
     vPCOptions_securityGroupIds,
     vPCOptions_subnetIds,
 
+    -- * VpcEndpoint
+    VpcEndpoint (..),
+    newVpcEndpoint,
+    vpcEndpoint_domainArn,
+    vpcEndpoint_endpoint,
+    vpcEndpoint_status,
+    vpcEndpoint_vpcEndpointId,
+    vpcEndpoint_vpcEndpointOwner,
+    vpcEndpoint_vpcOptions,
+
+    -- * VpcEndpointError
+    VpcEndpointError (..),
+    newVpcEndpointError,
+    vpcEndpointError_errorCode,
+    vpcEndpointError_errorMessage,
+    vpcEndpointError_vpcEndpointId,
+
+    -- * VpcEndpointSummary
+    VpcEndpointSummary (..),
+    newVpcEndpointSummary,
+    vpcEndpointSummary_domainArn,
+    vpcEndpointSummary_status,
+    vpcEndpointSummary_vpcEndpointId,
+    vpcEndpointSummary_vpcEndpointOwner,
+
     -- * ZoneAwarenessConfig
     ZoneAwarenessConfig (..),
     newZoneAwarenessConfig,
@@ -649,12 +730,14 @@ module Amazonka.ElasticSearch.Types
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.ElasticSearch.Types.AccessPoliciesStatus
 import Amazonka.ElasticSearch.Types.AdditionalLimit
 import Amazonka.ElasticSearch.Types.AdvancedOptionsStatus
 import Amazonka.ElasticSearch.Types.AdvancedSecurityOptions
 import Amazonka.ElasticSearch.Types.AdvancedSecurityOptionsInput
 import Amazonka.ElasticSearch.Types.AdvancedSecurityOptionsStatus
+import Amazonka.ElasticSearch.Types.AuthorizedPrincipal
 import Amazonka.ElasticSearch.Types.AutoTune
 import Amazonka.ElasticSearch.Types.AutoTuneDesiredState
 import Amazonka.ElasticSearch.Types.AutoTuneDetails
@@ -666,6 +749,9 @@ import Amazonka.ElasticSearch.Types.AutoTuneOptionsStatus
 import Amazonka.ElasticSearch.Types.AutoTuneState
 import Amazonka.ElasticSearch.Types.AutoTuneStatus
 import Amazonka.ElasticSearch.Types.AutoTuneType
+import Amazonka.ElasticSearch.Types.ChangeProgressDetails
+import Amazonka.ElasticSearch.Types.ChangeProgressStage
+import Amazonka.ElasticSearch.Types.ChangeProgressStatusDetails
 import Amazonka.ElasticSearch.Types.CognitoOptions
 import Amazonka.ElasticSearch.Types.CognitoOptionsStatus
 import Amazonka.ElasticSearch.Types.ColdStorageOptions
@@ -679,6 +765,7 @@ import Amazonka.ElasticSearch.Types.DomainInfo
 import Amazonka.ElasticSearch.Types.DomainInformation
 import Amazonka.ElasticSearch.Types.DomainPackageDetails
 import Amazonka.ElasticSearch.Types.DomainPackageStatus
+import Amazonka.ElasticSearch.Types.DryRunResults
 import Amazonka.ElasticSearch.Types.Duration
 import Amazonka.ElasticSearch.Types.EBSOptions
 import Amazonka.ElasticSearch.Types.EBSOptionsStatus
@@ -711,11 +798,13 @@ import Amazonka.ElasticSearch.Types.OptionStatus
 import Amazonka.ElasticSearch.Types.OutboundCrossClusterSearchConnection
 import Amazonka.ElasticSearch.Types.OutboundCrossClusterSearchConnectionStatus
 import Amazonka.ElasticSearch.Types.OutboundCrossClusterSearchConnectionStatusCode
+import Amazonka.ElasticSearch.Types.OverallChangeStatus
 import Amazonka.ElasticSearch.Types.PackageDetails
 import Amazonka.ElasticSearch.Types.PackageSource
 import Amazonka.ElasticSearch.Types.PackageStatus
 import Amazonka.ElasticSearch.Types.PackageType
 import Amazonka.ElasticSearch.Types.PackageVersionHistory
+import Amazonka.ElasticSearch.Types.PrincipalType
 import Amazonka.ElasticSearch.Types.RecurringCharge
 import Amazonka.ElasticSearch.Types.ReservedElasticsearchInstance
 import Amazonka.ElasticSearch.Types.ReservedElasticsearchInstanceOffering
@@ -743,8 +832,12 @@ import Amazonka.ElasticSearch.Types.VPCDerivedInfo
 import Amazonka.ElasticSearch.Types.VPCDerivedInfoStatus
 import Amazonka.ElasticSearch.Types.VPCOptions
 import Amazonka.ElasticSearch.Types.VolumeType
+import Amazonka.ElasticSearch.Types.VpcEndpoint
+import Amazonka.ElasticSearch.Types.VpcEndpointError
+import Amazonka.ElasticSearch.Types.VpcEndpointErrorCode
+import Amazonka.ElasticSearch.Types.VpcEndpointStatus
+import Amazonka.ElasticSearch.Types.VpcEndpointSummary
 import Amazonka.ElasticSearch.Types.ZoneAwarenessConfig
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 
@@ -752,42 +845,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "ElasticSearch",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "es",
-      Core._serviceSigningName = "es",
-      Core._serviceVersion = "2015-01-01",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
-        Core.parseJSONError "ElasticSearch",
-      Core._serviceRetry = retry
+    { Core.abbrev = "ElasticSearch",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "es",
+      Core.signingName = "es",
+      Core.version = "2015-01-01",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "ElasticSearch",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -795,38 +895,21 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
-
--- | An exception for missing \/ invalid input fields. Gives http status code
--- of 400.
-_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ValidationException =
-  Core._MatchServiceError
-    defaultService
-    "ValidationException"
-    Prelude.. Core.hasStatus 400
 
 -- | An error occurred because user does not have permissions to access the
 -- resource. Returns HTTP status code 403.
@@ -837,14 +920,12 @@ _AccessDeniedException =
     "AccessDeniedException"
     Prelude.. Core.hasStatus 403
 
--- | An exception for creating a resource that already exists. Gives http
--- status code of 400.
-_ResourceAlreadyExistsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ResourceAlreadyExistsException =
+-- | An error occurred while processing the request.
+_BaseException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_BaseException =
   Core._MatchServiceError
     defaultService
-    "ResourceAlreadyExistsException"
-    Prelude.. Core.hasStatus 409
+    "BaseException"
 
 -- | An error occurred because the client attempts to remove a resource that
 -- is currently in use. Returns HTTP status code 409.
@@ -854,13 +935,6 @@ _ConflictException =
     defaultService
     "ConflictException"
     Prelude.. Core.hasStatus 409
-
--- | An error occurred while processing the request.
-_BaseException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_BaseException =
-  Core._MatchServiceError
-    defaultService
-    "BaseException"
 
 -- | An error occured because the client wanted to access a not supported
 -- operation. Gives http status code of 409.
@@ -881,6 +955,15 @@ _InternalException =
     "InternalException"
     Prelude.. Core.hasStatus 500
 
+-- | The request processing has failed because of invalid pagination token
+-- provided by customer. Returns an HTTP status code of 400.
+_InvalidPaginationTokenException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidPaginationTokenException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidPaginationTokenException"
+    Prelude.. Core.hasStatus 400
+
 -- | An exception for trying to create or access sub-resource that is either
 -- invalid or not supported. Gives http status code of 409.
 _InvalidTypeException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -888,6 +971,24 @@ _InvalidTypeException =
   Core._MatchServiceError
     defaultService
     "InvalidTypeException"
+    Prelude.. Core.hasStatus 409
+
+-- | An exception for trying to create more than allowed resources or
+-- sub-resources. Gives http status code of 409.
+_LimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_LimitExceededException =
+  Core._MatchServiceError
+    defaultService
+    "LimitExceededException"
+    Prelude.. Core.hasStatus 409
+
+-- | An exception for creating a resource that already exists. Gives http
+-- status code of 400.
+_ResourceAlreadyExistsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ResourceAlreadyExistsException =
+  Core._MatchServiceError
+    defaultService
+    "ResourceAlreadyExistsException"
     Prelude.. Core.hasStatus 409
 
 -- | An exception for accessing or deleting a resource that does not exist.
@@ -899,20 +1000,11 @@ _ResourceNotFoundException =
     "ResourceNotFoundException"
     Prelude.. Core.hasStatus 409
 
--- | The request processing has failed because of invalid pagination token
--- provided by customer. Returns an HTTP status code of 400.
-_InvalidPaginationTokenException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidPaginationTokenException =
+-- | An exception for missing \/ invalid input fields. Gives http status code
+-- of 400.
+_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ValidationException =
   Core._MatchServiceError
     defaultService
-    "InvalidPaginationTokenException"
+    "ValidationException"
     Prelude.. Core.hasStatus 400
-
--- | An exception for trying to create more than allowed resources or
--- sub-resources. Gives http status code of 409.
-_LimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_LimitExceededException =
-  Core._MatchServiceError
-    defaultService
-    "LimitExceededException"
-    Prelude.. Core.hasStatus 409

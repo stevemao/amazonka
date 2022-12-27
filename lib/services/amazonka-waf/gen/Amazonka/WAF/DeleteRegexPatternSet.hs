@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAF.DeleteRegexPatternSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,7 +52,8 @@ module Amazonka.WAF.DeleteRegexPatternSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -111,12 +112,13 @@ instance Core.AWSRequest DeleteRegexPatternSet where
   type
     AWSResponse DeleteRegexPatternSet =
       DeleteRegexPatternSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteRegexPatternSetResponse'
-            Prelude.<$> (x Core..?> "ChangeToken")
+            Prelude.<$> (x Data..?> "ChangeToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -130,35 +132,35 @@ instance Prelude.NFData DeleteRegexPatternSet where
     Prelude.rnf regexPatternSetId
       `Prelude.seq` Prelude.rnf changeToken
 
-instance Core.ToHeaders DeleteRegexPatternSet where
+instance Data.ToHeaders DeleteRegexPatternSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_20150824.DeleteRegexPatternSet" ::
+              Data.=# ( "AWSWAF_20150824.DeleteRegexPatternSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteRegexPatternSet where
+instance Data.ToJSON DeleteRegexPatternSet where
   toJSON DeleteRegexPatternSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("RegexPatternSetId" Core..= regexPatternSetId),
-            Prelude.Just ("ChangeToken" Core..= changeToken)
+              ("RegexPatternSetId" Data..= regexPatternSetId),
+            Prelude.Just ("ChangeToken" Data..= changeToken)
           ]
       )
 
-instance Core.ToPath DeleteRegexPatternSet where
+instance Data.ToPath DeleteRegexPatternSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteRegexPatternSet where
+instance Data.ToQuery DeleteRegexPatternSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteRegexPatternSetResponse' smart constructor.

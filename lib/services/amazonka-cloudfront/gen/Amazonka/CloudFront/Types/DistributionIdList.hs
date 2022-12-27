@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.DistributionIdList
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudFront.Types.DistributionIdList where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A list of distribution IDs.
@@ -124,17 +125,17 @@ distributionIdList_isTruncated = Lens.lens (\DistributionIdList' {isTruncated} -
 distributionIdList_quantity :: Lens.Lens' DistributionIdList Prelude.Int
 distributionIdList_quantity = Lens.lens (\DistributionIdList' {quantity} -> quantity) (\s@DistributionIdList' {} a -> s {quantity = a} :: DistributionIdList)
 
-instance Core.FromXML DistributionIdList where
+instance Data.FromXML DistributionIdList where
   parseXML x =
     DistributionIdList'
-      Prelude.<$> ( x Core..@? "Items" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "DistributionId")
+      Prelude.<$> ( x Data..@? "Items" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "DistributionId")
                   )
-      Prelude.<*> (x Core..@? "NextMarker")
-      Prelude.<*> (x Core..@ "Marker")
-      Prelude.<*> (x Core..@ "MaxItems")
-      Prelude.<*> (x Core..@ "IsTruncated")
-      Prelude.<*> (x Core..@ "Quantity")
+      Prelude.<*> (x Data..@? "NextMarker")
+      Prelude.<*> (x Data..@ "Marker")
+      Prelude.<*> (x Data..@ "MaxItems")
+      Prelude.<*> (x Data..@ "IsTruncated")
+      Prelude.<*> (x Data..@ "Quantity")
 
 instance Prelude.Hashable DistributionIdList where
   hashWithSalt _salt DistributionIdList' {..} =

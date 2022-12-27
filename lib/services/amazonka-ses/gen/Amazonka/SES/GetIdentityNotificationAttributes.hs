@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.GetIdentityNotificationAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ module Amazonka.SES.GetIdentityNotificationAttributes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,16 +103,17 @@ instance
   type
     AWSResponse GetIdentityNotificationAttributes =
       GetIdentityNotificationAttributesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GetIdentityNotificationAttributesResult"
       ( \s h x ->
           GetIdentityNotificationAttributesResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-              Prelude.<*> ( x Core..@? "NotificationAttributes"
+              Prelude.<*> ( x Data..@? "NotificationAttributes"
                               Core..!@ Prelude.mempty
-                              Prelude.>>= Core.parseXMLMap "entry" "key" "value"
+                              Prelude.>>= Data.parseXMLMap "entry" "key" "value"
                           )
       )
 
@@ -132,31 +134,31 @@ instance
     Prelude.rnf identities
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetIdentityNotificationAttributes
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     GetIdentityNotificationAttributes
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetIdentityNotificationAttributes
   where
   toQuery GetIdentityNotificationAttributes' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "GetIdentityNotificationAttributes" ::
+          Data.=: ( "GetIdentityNotificationAttributes" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
         "Identities"
-          Core.=: Core.toQueryList "member" identities
+          Data.=: Data.toQueryList "member" identities
       ]
 
 -- | Represents the notification attributes for a list of identities.

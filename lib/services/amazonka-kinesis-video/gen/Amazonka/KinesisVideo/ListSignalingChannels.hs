@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideo.ListSignalingChannels
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,8 +32,8 @@ module Amazonka.KinesisVideo.ListSignalingChannels
 
     -- * Request Lenses
     listSignalingChannels_channelNameCondition,
-    listSignalingChannels_nextToken,
     listSignalingChannels_maxResults,
+    listSignalingChannels_nextToken,
 
     -- * Destructuring the Response
     ListSignalingChannelsResponse (..),
@@ -47,8 +47,9 @@ module Amazonka.KinesisVideo.ListSignalingChannels
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisVideo.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,14 +58,14 @@ import qualified Amazonka.Response as Response
 data ListSignalingChannels = ListSignalingChannels'
   { -- | Optional: Returns only the channels that satisfy a specific condition.
     channelNameCondition :: Prelude.Maybe ChannelNameCondition,
+    -- | The maximum number of channels to return in the response. The default is
+    -- 500.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | If you specify this parameter, when the result of a
     -- @ListSignalingChannels@ operation is truncated, the call returns the
     -- @NextToken@ in the response. To get another batch of channels, provide
     -- this token in your next request.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of channels to return in the response. The default is
-    -- 500.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -78,26 +79,31 @@ data ListSignalingChannels = ListSignalingChannels'
 --
 -- 'channelNameCondition', 'listSignalingChannels_channelNameCondition' - Optional: Returns only the channels that satisfy a specific condition.
 --
+-- 'maxResults', 'listSignalingChannels_maxResults' - The maximum number of channels to return in the response. The default is
+-- 500.
+--
 -- 'nextToken', 'listSignalingChannels_nextToken' - If you specify this parameter, when the result of a
 -- @ListSignalingChannels@ operation is truncated, the call returns the
 -- @NextToken@ in the response. To get another batch of channels, provide
 -- this token in your next request.
---
--- 'maxResults', 'listSignalingChannels_maxResults' - The maximum number of channels to return in the response. The default is
--- 500.
 newListSignalingChannels ::
   ListSignalingChannels
 newListSignalingChannels =
   ListSignalingChannels'
     { channelNameCondition =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | Optional: Returns only the channels that satisfy a specific condition.
 listSignalingChannels_channelNameCondition :: Lens.Lens' ListSignalingChannels (Prelude.Maybe ChannelNameCondition)
 listSignalingChannels_channelNameCondition = Lens.lens (\ListSignalingChannels' {channelNameCondition} -> channelNameCondition) (\s@ListSignalingChannels' {} a -> s {channelNameCondition = a} :: ListSignalingChannels)
+
+-- | The maximum number of channels to return in the response. The default is
+-- 500.
+listSignalingChannels_maxResults :: Lens.Lens' ListSignalingChannels (Prelude.Maybe Prelude.Natural)
+listSignalingChannels_maxResults = Lens.lens (\ListSignalingChannels' {maxResults} -> maxResults) (\s@ListSignalingChannels' {} a -> s {maxResults = a} :: ListSignalingChannels)
 
 -- | If you specify this parameter, when the result of a
 -- @ListSignalingChannels@ operation is truncated, the call returns the
@@ -105,11 +111,6 @@ listSignalingChannels_channelNameCondition = Lens.lens (\ListSignalingChannels' 
 -- this token in your next request.
 listSignalingChannels_nextToken :: Lens.Lens' ListSignalingChannels (Prelude.Maybe Prelude.Text)
 listSignalingChannels_nextToken = Lens.lens (\ListSignalingChannels' {nextToken} -> nextToken) (\s@ListSignalingChannels' {} a -> s {nextToken = a} :: ListSignalingChannels)
-
--- | The maximum number of channels to return in the response. The default is
--- 500.
-listSignalingChannels_maxResults :: Lens.Lens' ListSignalingChannels (Prelude.Maybe Prelude.Natural)
-listSignalingChannels_maxResults = Lens.lens (\ListSignalingChannels' {maxResults} -> maxResults) (\s@ListSignalingChannels' {} a -> s {maxResults = a} :: ListSignalingChannels)
 
 instance Core.AWSPager ListSignalingChannels where
   page rq rs
@@ -137,48 +138,49 @@ instance Core.AWSRequest ListSignalingChannels where
   type
     AWSResponse ListSignalingChannels =
       ListSignalingChannelsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListSignalingChannelsResponse'
-            Prelude.<$> ( x Core..?> "ChannelInfoList"
+            Prelude.<$> ( x Data..?> "ChannelInfoList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListSignalingChannels where
   hashWithSalt _salt ListSignalingChannels' {..} =
     _salt `Prelude.hashWithSalt` channelNameCondition
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListSignalingChannels where
   rnf ListSignalingChannels' {..} =
     Prelude.rnf channelNameCondition
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListSignalingChannels where
+instance Data.ToHeaders ListSignalingChannels where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON ListSignalingChannels where
+instance Data.ToJSON ListSignalingChannels where
   toJSON ListSignalingChannels' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ChannelNameCondition" Core..=)
+          [ ("ChannelNameCondition" Data..=)
               Prelude.<$> channelNameCondition,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListSignalingChannels where
+instance Data.ToPath ListSignalingChannels where
   toPath = Prelude.const "/listSignalingChannels"
 
-instance Core.ToQuery ListSignalingChannels where
+instance Data.ToQuery ListSignalingChannels where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListSignalingChannelsResponse' smart constructor.

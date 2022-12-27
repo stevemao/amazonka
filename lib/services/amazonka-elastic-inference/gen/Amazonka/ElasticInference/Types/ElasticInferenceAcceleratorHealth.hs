@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticInference.Types.ElasticInferenceAcceleratorHealth
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElasticInference.Types.ElasticInferenceAcceleratorHealth where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The health details of an Elastic Inference Accelerator.
@@ -54,15 +55,15 @@ elasticInferenceAcceleratorHealth_status :: Lens.Lens' ElasticInferenceAccelerat
 elasticInferenceAcceleratorHealth_status = Lens.lens (\ElasticInferenceAcceleratorHealth' {status} -> status) (\s@ElasticInferenceAcceleratorHealth' {} a -> s {status = a} :: ElasticInferenceAcceleratorHealth)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ElasticInferenceAcceleratorHealth
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ElasticInferenceAcceleratorHealth"
       ( \x ->
           ElasticInferenceAcceleratorHealth'
-            Prelude.<$> (x Core..:? "status")
+            Prelude.<$> (x Data..:? "status")
       )
 
 instance

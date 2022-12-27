@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.HealthLake.DescribeFHIRImportJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.HealthLake.DescribeFHIRImportJob
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.HealthLake.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,13 +93,14 @@ instance Core.AWSRequest DescribeFHIRImportJob where
   type
     AWSResponse DescribeFHIRImportJob =
       DescribeFHIRImportJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeFHIRImportJobResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "ImportJobProperties")
+            Prelude.<*> (x Data..:> "ImportJobProperties")
       )
 
 instance Prelude.Hashable DescribeFHIRImportJob where
@@ -111,34 +113,34 @@ instance Prelude.NFData DescribeFHIRImportJob where
     Prelude.rnf datastoreId
       `Prelude.seq` Prelude.rnf jobId
 
-instance Core.ToHeaders DescribeFHIRImportJob where
+instance Data.ToHeaders DescribeFHIRImportJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "HealthLake.DescribeFHIRImportJob" ::
+              Data.=# ( "HealthLake.DescribeFHIRImportJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeFHIRImportJob where
+instance Data.ToJSON DescribeFHIRImportJob where
   toJSON DescribeFHIRImportJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("DatastoreId" Core..= datastoreId),
-            Prelude.Just ("JobId" Core..= jobId)
+          [ Prelude.Just ("DatastoreId" Data..= datastoreId),
+            Prelude.Just ("JobId" Data..= jobId)
           ]
       )
 
-instance Core.ToPath DescribeFHIRImportJob where
+instance Data.ToPath DescribeFHIRImportJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeFHIRImportJob where
+instance Data.ToQuery DescribeFHIRImportJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeFHIRImportJobResponse' smart constructor.

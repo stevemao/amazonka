@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ImportExport.Types.Job
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ImportExport.Types.Job where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ImportExport.Types.JobType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Representation of a job returned by the ListJobs operation.
@@ -31,7 +32,7 @@ data Job = Job'
   { jobType :: JobType,
     jobId :: Prelude.Text,
     isCanceled :: Prelude.Bool,
-    creationDate :: Core.ISO8601
+    creationDate :: Data.ISO8601
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -65,7 +66,7 @@ newJob pJobType_ pJobId_ pIsCanceled_ pCreationDate_ =
     { jobType = pJobType_,
       jobId = pJobId_,
       isCanceled = pIsCanceled_,
-      creationDate = Core._Time Lens.# pCreationDate_
+      creationDate = Data._Time Lens.# pCreationDate_
     }
 
 -- | Undocumented member.
@@ -82,15 +83,15 @@ job_isCanceled = Lens.lens (\Job' {isCanceled} -> isCanceled) (\s@Job' {} a -> s
 
 -- | Undocumented member.
 job_creationDate :: Lens.Lens' Job Prelude.UTCTime
-job_creationDate = Lens.lens (\Job' {creationDate} -> creationDate) (\s@Job' {} a -> s {creationDate = a} :: Job) Prelude.. Core._Time
+job_creationDate = Lens.lens (\Job' {creationDate} -> creationDate) (\s@Job' {} a -> s {creationDate = a} :: Job) Prelude.. Data._Time
 
-instance Core.FromXML Job where
+instance Data.FromXML Job where
   parseXML x =
     Job'
-      Prelude.<$> (x Core..@ "JobType")
-      Prelude.<*> (x Core..@ "JobId")
-      Prelude.<*> (x Core..@ "IsCanceled")
-      Prelude.<*> (x Core..@ "CreationDate")
+      Prelude.<$> (x Data..@ "JobType")
+      Prelude.<*> (x Data..@ "JobId")
+      Prelude.<*> (x Data..@ "IsCanceled")
+      Prelude.<*> (x Data..@ "CreationDate")
 
 instance Prelude.Hashable Job where
   hashWithSalt _salt Job' {..} =

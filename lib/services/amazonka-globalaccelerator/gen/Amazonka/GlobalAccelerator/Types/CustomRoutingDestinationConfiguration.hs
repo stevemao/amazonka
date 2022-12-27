@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GlobalAccelerator.Types.CustomRoutingDestinationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.GlobalAccelerator.Types.CustomRoutingDestinationConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GlobalAccelerator.Types.CustomRoutingProtocol
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | For a custom routing accelerator, sets the port range and protocol for
@@ -114,14 +115,14 @@ instance
       `Prelude.seq` Prelude.rnf protocols
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     CustomRoutingDestinationConfiguration
   where
   toJSON CustomRoutingDestinationConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("FromPort" Core..= fromPort),
-            Prelude.Just ("ToPort" Core..= toPort),
-            Prelude.Just ("Protocols" Core..= protocols)
+          [ Prelude.Just ("FromPort" Data..= fromPort),
+            Prelude.Just ("ToPort" Data..= toPort),
+            Prelude.Just ("Protocols" Data..= protocols)
           ]
       )

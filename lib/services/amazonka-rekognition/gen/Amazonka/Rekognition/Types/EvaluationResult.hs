@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.EvaluationResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.EvaluationResult where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types.Summary
 
@@ -28,14 +29,14 @@ import Amazonka.Rekognition.Types.Summary
 --
 -- /See:/ 'newEvaluationResult' smart constructor.
 data EvaluationResult = EvaluationResult'
-  { -- | The S3 bucket that contains the training summary.
-    summary :: Prelude.Maybe Summary,
-    -- | The F1 score for the evaluation of all labels. The F1 score metric
+  { -- | The F1 score for the evaluation of all labels. The F1 score metric
     -- evaluates the overall precision and recall performance of the model as a
     -- single value. A higher value indicates better precision and recall
     -- performance. A lower score indicates that precision, recall, or both are
     -- performing poorly.
-    f1Score :: Prelude.Maybe Prelude.Double
+    f1Score :: Prelude.Maybe Prelude.Double,
+    -- | The S3 bucket that contains the training summary.
+    summary :: Prelude.Maybe Summary
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,24 +48,20 @@ data EvaluationResult = EvaluationResult'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'summary', 'evaluationResult_summary' - The S3 bucket that contains the training summary.
---
 -- 'f1Score', 'evaluationResult_f1Score' - The F1 score for the evaluation of all labels. The F1 score metric
 -- evaluates the overall precision and recall performance of the model as a
 -- single value. A higher value indicates better precision and recall
 -- performance. A lower score indicates that precision, recall, or both are
 -- performing poorly.
+--
+-- 'summary', 'evaluationResult_summary' - The S3 bucket that contains the training summary.
 newEvaluationResult ::
   EvaluationResult
 newEvaluationResult =
   EvaluationResult'
-    { summary = Prelude.Nothing,
-      f1Score = Prelude.Nothing
+    { f1Score = Prelude.Nothing,
+      summary = Prelude.Nothing
     }
-
--- | The S3 bucket that contains the training summary.
-evaluationResult_summary :: Lens.Lens' EvaluationResult (Prelude.Maybe Summary)
-evaluationResult_summary = Lens.lens (\EvaluationResult' {summary} -> summary) (\s@EvaluationResult' {} a -> s {summary = a} :: EvaluationResult)
 
 -- | The F1 score for the evaluation of all labels. The F1 score metric
 -- evaluates the overall precision and recall performance of the model as a
@@ -74,22 +71,26 @@ evaluationResult_summary = Lens.lens (\EvaluationResult' {summary} -> summary) (
 evaluationResult_f1Score :: Lens.Lens' EvaluationResult (Prelude.Maybe Prelude.Double)
 evaluationResult_f1Score = Lens.lens (\EvaluationResult' {f1Score} -> f1Score) (\s@EvaluationResult' {} a -> s {f1Score = a} :: EvaluationResult)
 
-instance Core.FromJSON EvaluationResult where
+-- | The S3 bucket that contains the training summary.
+evaluationResult_summary :: Lens.Lens' EvaluationResult (Prelude.Maybe Summary)
+evaluationResult_summary = Lens.lens (\EvaluationResult' {summary} -> summary) (\s@EvaluationResult' {} a -> s {summary = a} :: EvaluationResult)
+
+instance Data.FromJSON EvaluationResult where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EvaluationResult"
       ( \x ->
           EvaluationResult'
-            Prelude.<$> (x Core..:? "Summary")
-            Prelude.<*> (x Core..:? "F1Score")
+            Prelude.<$> (x Data..:? "F1Score")
+            Prelude.<*> (x Data..:? "Summary")
       )
 
 instance Prelude.Hashable EvaluationResult where
   hashWithSalt _salt EvaluationResult' {..} =
-    _salt `Prelude.hashWithSalt` summary
-      `Prelude.hashWithSalt` f1Score
+    _salt `Prelude.hashWithSalt` f1Score
+      `Prelude.hashWithSalt` summary
 
 instance Prelude.NFData EvaluationResult where
   rnf EvaluationResult' {..} =
-    Prelude.rnf summary
-      `Prelude.seq` Prelude.rnf f1Score
+    Prelude.rnf f1Score
+      `Prelude.seq` Prelude.rnf summary

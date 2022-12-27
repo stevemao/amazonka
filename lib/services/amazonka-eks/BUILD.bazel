@@ -1,6 +1,6 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_library", "haskell_test")
 
-# rule generated from amazonka-eks/amazonka-eks.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-eks/amazonka-eks.cabal by gazelle_cabal
 haskell_library(
     name = "amazonka-eks",
     srcs = [
@@ -17,6 +17,7 @@ haskell_library(
         "gen/Amazonka/EKS/DeleteNodegroup.hs",
         "gen/Amazonka/EKS/DeregisterCluster.hs",
         "gen/Amazonka/EKS/DescribeAddon.hs",
+        "gen/Amazonka/EKS/DescribeAddonConfiguration.hs",
         "gen/Amazonka/EKS/DescribeAddonVersions.hs",
         "gen/Amazonka/EKS/DescribeCluster.hs",
         "gen/Amazonka/EKS/DescribeFargateProfile.hs",
@@ -47,12 +48,17 @@ haskell_library(
         "gen/Amazonka/EKS/Types/CapacityTypes.hs",
         "gen/Amazonka/EKS/Types/Certificate.hs",
         "gen/Amazonka/EKS/Types/Cluster.hs",
+        "gen/Amazonka/EKS/Types/ClusterHealth.hs",
+        "gen/Amazonka/EKS/Types/ClusterIssue.hs",
+        "gen/Amazonka/EKS/Types/ClusterIssueCode.hs",
         "gen/Amazonka/EKS/Types/ClusterStatus.hs",
         "gen/Amazonka/EKS/Types/Compatibility.hs",
         "gen/Amazonka/EKS/Types/ConfigStatus.hs",
         "gen/Amazonka/EKS/Types/ConnectorConfigProvider.hs",
         "gen/Amazonka/EKS/Types/ConnectorConfigRequest.hs",
         "gen/Amazonka/EKS/Types/ConnectorConfigResponse.hs",
+        "gen/Amazonka/EKS/Types/ControlPlanePlacementRequest.hs",
+        "gen/Amazonka/EKS/Types/ControlPlanePlacementResponse.hs",
         "gen/Amazonka/EKS/Types/EKSErrorCode.hs",
         "gen/Amazonka/EKS/Types/EncryptionConfig.hs",
         "gen/Amazonka/EKS/Types/ErrorDetail.hs",
@@ -62,6 +68,7 @@ haskell_library(
         "gen/Amazonka/EKS/Types/Identity.hs",
         "gen/Amazonka/EKS/Types/IdentityProviderConfig.hs",
         "gen/Amazonka/EKS/Types/IdentityProviderConfigResponse.hs",
+        "gen/Amazonka/EKS/Types/IpFamily.hs",
         "gen/Amazonka/EKS/Types/Issue.hs",
         "gen/Amazonka/EKS/Types/KubernetesNetworkConfigRequest.hs",
         "gen/Amazonka/EKS/Types/KubernetesNetworkConfigResponse.hs",
@@ -69,6 +76,7 @@ haskell_library(
         "gen/Amazonka/EKS/Types/LogSetup.hs",
         "gen/Amazonka/EKS/Types/LogType.hs",
         "gen/Amazonka/EKS/Types/Logging.hs",
+        "gen/Amazonka/EKS/Types/MarketplaceInformation.hs",
         "gen/Amazonka/EKS/Types/Nodegroup.hs",
         "gen/Amazonka/EKS/Types/NodegroupHealth.hs",
         "gen/Amazonka/EKS/Types/NodegroupIssueCode.hs",
@@ -79,6 +87,8 @@ haskell_library(
         "gen/Amazonka/EKS/Types/OIDC.hs",
         "gen/Amazonka/EKS/Types/OidcIdentityProviderConfig.hs",
         "gen/Amazonka/EKS/Types/OidcIdentityProviderConfigRequest.hs",
+        "gen/Amazonka/EKS/Types/OutpostConfigRequest.hs",
+        "gen/Amazonka/EKS/Types/OutpostConfigResponse.hs",
         "gen/Amazonka/EKS/Types/Provider.hs",
         "gen/Amazonka/EKS/Types/RemoteAccessConfig.hs",
         "gen/Amazonka/EKS/Types/ResolveConflicts.hs",
@@ -101,14 +111,13 @@ haskell_library(
         "gen/Amazonka/EKS/UpdateNodegroupVersion.hs",
         "gen/Amazonka/EKS/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_eks=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
-        "-DVERSION_amazonka_eks=\"2.0\"",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -117,7 +126,7 @@ haskell_library(
     ],
 )
 
-# rule generated from amazonka-eks/amazonka-eks.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-eks/amazonka-eks.cabal by gazelle_cabal
 haskell_test(
     name = "amazonka-eks-test",
     srcs = [
@@ -126,11 +135,12 @@ haskell_test(
         "test/Test/Amazonka/EKS/Internal.hs",
         "test/Test/Amazonka/Gen/EKS.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_eks=\"2.0\"",
         "-Wall",
         "-threaded",
-        "-DVERSION_amazonka_eks=\"2.0\"",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

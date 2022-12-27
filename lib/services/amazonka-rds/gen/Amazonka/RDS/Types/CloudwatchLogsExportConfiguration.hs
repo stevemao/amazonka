@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.Types.CloudwatchLogsExportConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.RDS.Types.CloudwatchLogsExportConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configuration setting for the log types to be enabled for export to
@@ -96,19 +97,19 @@ instance
       `Prelude.seq` Prelude.rnf enableLogTypes
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     CloudwatchLogsExportConfiguration
   where
   toQuery CloudwatchLogsExportConfiguration' {..} =
     Prelude.mconcat
       [ "DisableLogTypes"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> disableLogTypes
             ),
         "EnableLogTypes"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> enableLogTypes
             )
       ]

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Firehose.ListTagsForDeliveryStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.Firehose.ListTagsForDeliveryStream
     newListTagsForDeliveryStream,
 
     -- * Request Lenses
-    listTagsForDeliveryStream_limit,
     listTagsForDeliveryStream_exclusiveStartTagKey,
+    listTagsForDeliveryStream_limit,
     listTagsForDeliveryStream_deliveryStreamName,
 
     -- * Destructuring the Response
@@ -44,23 +44,24 @@ module Amazonka.Firehose.ListTagsForDeliveryStream
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Firehose.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListTagsForDeliveryStream' smart constructor.
 data ListTagsForDeliveryStream = ListTagsForDeliveryStream'
-  { -- | The number of tags to return. If this number is less than the total
+  { -- | The key to use as the starting point for the list of tags. If you set
+    -- this parameter, @ListTagsForDeliveryStream@ gets all tags that occur
+    -- after @ExclusiveStartTagKey@.
+    exclusiveStartTagKey :: Prelude.Maybe Prelude.Text,
+    -- | The number of tags to return. If this number is less than the total
     -- number of tags associated with the delivery stream, @HasMoreTags@ is set
     -- to @true@ in the response. To list additional tags, set
     -- @ExclusiveStartTagKey@ to the last key in the response.
     limit :: Prelude.Maybe Prelude.Natural,
-    -- | The key to use as the starting point for the list of tags. If you set
-    -- this parameter, @ListTagsForDeliveryStream@ gets all tags that occur
-    -- after @ExclusiveStartTagKey@.
-    exclusiveStartTagKey :: Prelude.Maybe Prelude.Text,
     -- | The name of the delivery stream whose tags you want to list.
     deliveryStreamName :: Prelude.Text
   }
@@ -74,14 +75,14 @@ data ListTagsForDeliveryStream = ListTagsForDeliveryStream'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'exclusiveStartTagKey', 'listTagsForDeliveryStream_exclusiveStartTagKey' - The key to use as the starting point for the list of tags. If you set
+-- this parameter, @ListTagsForDeliveryStream@ gets all tags that occur
+-- after @ExclusiveStartTagKey@.
+--
 -- 'limit', 'listTagsForDeliveryStream_limit' - The number of tags to return. If this number is less than the total
 -- number of tags associated with the delivery stream, @HasMoreTags@ is set
 -- to @true@ in the response. To list additional tags, set
 -- @ExclusiveStartTagKey@ to the last key in the response.
---
--- 'exclusiveStartTagKey', 'listTagsForDeliveryStream_exclusiveStartTagKey' - The key to use as the starting point for the list of tags. If you set
--- this parameter, @ListTagsForDeliveryStream@ gets all tags that occur
--- after @ExclusiveStartTagKey@.
 --
 -- 'deliveryStreamName', 'listTagsForDeliveryStream_deliveryStreamName' - The name of the delivery stream whose tags you want to list.
 newListTagsForDeliveryStream ::
@@ -90,10 +91,17 @@ newListTagsForDeliveryStream ::
   ListTagsForDeliveryStream
 newListTagsForDeliveryStream pDeliveryStreamName_ =
   ListTagsForDeliveryStream'
-    { limit = Prelude.Nothing,
-      exclusiveStartTagKey = Prelude.Nothing,
+    { exclusiveStartTagKey =
+        Prelude.Nothing,
+      limit = Prelude.Nothing,
       deliveryStreamName = pDeliveryStreamName_
     }
+
+-- | The key to use as the starting point for the list of tags. If you set
+-- this parameter, @ListTagsForDeliveryStream@ gets all tags that occur
+-- after @ExclusiveStartTagKey@.
+listTagsForDeliveryStream_exclusiveStartTagKey :: Lens.Lens' ListTagsForDeliveryStream (Prelude.Maybe Prelude.Text)
+listTagsForDeliveryStream_exclusiveStartTagKey = Lens.lens (\ListTagsForDeliveryStream' {exclusiveStartTagKey} -> exclusiveStartTagKey) (\s@ListTagsForDeliveryStream' {} a -> s {exclusiveStartTagKey = a} :: ListTagsForDeliveryStream)
 
 -- | The number of tags to return. If this number is less than the total
 -- number of tags associated with the delivery stream, @HasMoreTags@ is set
@@ -101,12 +109,6 @@ newListTagsForDeliveryStream pDeliveryStreamName_ =
 -- @ExclusiveStartTagKey@ to the last key in the response.
 listTagsForDeliveryStream_limit :: Lens.Lens' ListTagsForDeliveryStream (Prelude.Maybe Prelude.Natural)
 listTagsForDeliveryStream_limit = Lens.lens (\ListTagsForDeliveryStream' {limit} -> limit) (\s@ListTagsForDeliveryStream' {} a -> s {limit = a} :: ListTagsForDeliveryStream)
-
--- | The key to use as the starting point for the list of tags. If you set
--- this parameter, @ListTagsForDeliveryStream@ gets all tags that occur
--- after @ExclusiveStartTagKey@.
-listTagsForDeliveryStream_exclusiveStartTagKey :: Lens.Lens' ListTagsForDeliveryStream (Prelude.Maybe Prelude.Text)
-listTagsForDeliveryStream_exclusiveStartTagKey = Lens.lens (\ListTagsForDeliveryStream' {exclusiveStartTagKey} -> exclusiveStartTagKey) (\s@ListTagsForDeliveryStream' {} a -> s {exclusiveStartTagKey = a} :: ListTagsForDeliveryStream)
 
 -- | The name of the delivery stream whose tags you want to list.
 listTagsForDeliveryStream_deliveryStreamName :: Lens.Lens' ListTagsForDeliveryStream Prelude.Text
@@ -116,59 +118,60 @@ instance Core.AWSRequest ListTagsForDeliveryStream where
   type
     AWSResponse ListTagsForDeliveryStream =
       ListTagsForDeliveryStreamResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTagsForDeliveryStreamResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..:> "HasMoreTags")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..:> "HasMoreTags")
       )
 
 instance Prelude.Hashable ListTagsForDeliveryStream where
   hashWithSalt _salt ListTagsForDeliveryStream' {..} =
-    _salt `Prelude.hashWithSalt` limit
-      `Prelude.hashWithSalt` exclusiveStartTagKey
+    _salt `Prelude.hashWithSalt` exclusiveStartTagKey
+      `Prelude.hashWithSalt` limit
       `Prelude.hashWithSalt` deliveryStreamName
 
 instance Prelude.NFData ListTagsForDeliveryStream where
   rnf ListTagsForDeliveryStream' {..} =
-    Prelude.rnf limit
-      `Prelude.seq` Prelude.rnf exclusiveStartTagKey
+    Prelude.rnf exclusiveStartTagKey
+      `Prelude.seq` Prelude.rnf limit
       `Prelude.seq` Prelude.rnf deliveryStreamName
 
-instance Core.ToHeaders ListTagsForDeliveryStream where
+instance Data.ToHeaders ListTagsForDeliveryStream where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Firehose_20150804.ListTagsForDeliveryStream" ::
+              Data.=# ( "Firehose_20150804.ListTagsForDeliveryStream" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTagsForDeliveryStream where
+instance Data.ToJSON ListTagsForDeliveryStream where
   toJSON ListTagsForDeliveryStream' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Limit" Core..=) Prelude.<$> limit,
-            ("ExclusiveStartTagKey" Core..=)
+          [ ("ExclusiveStartTagKey" Data..=)
               Prelude.<$> exclusiveStartTagKey,
+            ("Limit" Data..=) Prelude.<$> limit,
             Prelude.Just
-              ("DeliveryStreamName" Core..= deliveryStreamName)
+              ("DeliveryStreamName" Data..= deliveryStreamName)
           ]
       )
 
-instance Core.ToPath ListTagsForDeliveryStream where
+instance Data.ToPath ListTagsForDeliveryStream where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTagsForDeliveryStream where
+instance Data.ToQuery ListTagsForDeliveryStream where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTagsForDeliveryStreamResponse' smart constructor.

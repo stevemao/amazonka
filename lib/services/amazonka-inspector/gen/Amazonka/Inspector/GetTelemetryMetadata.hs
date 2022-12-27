@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Inspector.GetTelemetryMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.Inspector.GetTelemetryMetadata
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Inspector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,13 +85,14 @@ instance Core.AWSRequest GetTelemetryMetadata where
   type
     AWSResponse GetTelemetryMetadata =
       GetTelemetryMetadataResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetTelemetryMetadataResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "telemetryMetadata"
+            Prelude.<*> ( x Data..?> "telemetryMetadata"
                             Core..!@ Prelude.mempty
                         )
       )
@@ -103,34 +105,34 @@ instance Prelude.NFData GetTelemetryMetadata where
   rnf GetTelemetryMetadata' {..} =
     Prelude.rnf assessmentRunArn
 
-instance Core.ToHeaders GetTelemetryMetadata where
+instance Data.ToHeaders GetTelemetryMetadata where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "InspectorService.GetTelemetryMetadata" ::
+              Data.=# ( "InspectorService.GetTelemetryMetadata" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetTelemetryMetadata where
+instance Data.ToJSON GetTelemetryMetadata where
   toJSON GetTelemetryMetadata' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("assessmentRunArn" Core..= assessmentRunArn)
+              ("assessmentRunArn" Data..= assessmentRunArn)
           ]
       )
 
-instance Core.ToPath GetTelemetryMetadata where
+instance Data.ToPath GetTelemetryMetadata where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetTelemetryMetadata where
+instance Data.ToQuery GetTelemetryMetadata where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetTelemetryMetadataResponse' smart constructor.

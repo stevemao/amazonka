@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.DescribeEntityRecognizer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,12 +82,13 @@ instance Core.AWSRequest DescribeEntityRecognizer where
   type
     AWSResponse DescribeEntityRecognizer =
       DescribeEntityRecognizerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeEntityRecognizerResponse'
-            Prelude.<$> (x Core..?> "EntityRecognizerProperties")
+            Prelude.<$> (x Data..?> "EntityRecognizerProperties")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -98,34 +100,34 @@ instance Prelude.NFData DescribeEntityRecognizer where
   rnf DescribeEntityRecognizer' {..} =
     Prelude.rnf entityRecognizerArn
 
-instance Core.ToHeaders DescribeEntityRecognizer where
+instance Data.ToHeaders DescribeEntityRecognizer where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.DescribeEntityRecognizer" ::
+              Data.=# ( "Comprehend_20171127.DescribeEntityRecognizer" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeEntityRecognizer where
+instance Data.ToJSON DescribeEntityRecognizer where
   toJSON DescribeEntityRecognizer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("EntityRecognizerArn" Core..= entityRecognizerArn)
+              ("EntityRecognizerArn" Data..= entityRecognizerArn)
           ]
       )
 
-instance Core.ToPath DescribeEntityRecognizer where
+instance Data.ToPath DescribeEntityRecognizer where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeEntityRecognizer where
+instance Data.ToQuery DescribeEntityRecognizer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeEntityRecognizerResponse' smart constructor.

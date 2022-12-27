@@ -14,16 +14,24 @@
 
 -- |
 -- Module      : Amazonka.EC2.DeregisterImage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Deregisters the specified AMI. After you deregister an AMI, it can\'t be
--- used to launch new instances; however, it doesn\'t affect any instances
--- that you\'ve already launched from the AMI. You\'ll continue to incur
--- usage costs for those instances until you terminate them.
+-- used to launch new instances.
+--
+-- If you deregister an AMI that matches a Recycle Bin retention rule, the
+-- AMI is retained in the Recycle Bin for the specified retention period.
+-- For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/recycle-bin.html Recycle Bin>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
+--
+-- When you deregister an AMI, it doesn\'t affect any instances that
+-- you\'ve already launched from the AMI. You\'ll continue to incur usage
+-- costs for those instances until you terminate them.
 --
 -- When you deregister an Amazon EBS-backed AMI, it doesn\'t affect the
 -- snapshot that was created for the root volume of the instance during the
@@ -46,8 +54,9 @@ module Amazonka.EC2.DeregisterImage
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -105,7 +114,8 @@ instance Core.AWSRequest DeregisterImage where
   type
     AWSResponse DeregisterImage =
       DeregisterImageResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull DeregisterImageResponse'
 
@@ -119,21 +129,21 @@ instance Prelude.NFData DeregisterImage where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf imageId
 
-instance Core.ToHeaders DeregisterImage where
+instance Data.ToHeaders DeregisterImage where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeregisterImage where
+instance Data.ToPath DeregisterImage where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeregisterImage where
+instance Data.ToQuery DeregisterImage where
   toQuery DeregisterImage' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeregisterImage" :: Prelude.ByteString),
+          Data.=: ("DeregisterImage" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "ImageId" Core.=: imageId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "ImageId" Data.=: imageId
       ]
 
 -- | /See:/ 'newDeregisterImageResponse' smart constructor.

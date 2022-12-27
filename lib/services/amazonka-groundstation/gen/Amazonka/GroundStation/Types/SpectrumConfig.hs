@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GroundStation.Types.SpectrumConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.GroundStation.Types.SpectrumConfig where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GroundStation.Types.Frequency
 import Amazonka.GroundStation.Types.FrequencyBandwidth
 import Amazonka.GroundStation.Types.Polarization
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Object that describes a spectral @Config@.
@@ -116,15 +117,15 @@ spectrumConfig_bandwidth = Lens.lens (\SpectrumConfig' {bandwidth} -> bandwidth)
 spectrumConfig_centerFrequency :: Lens.Lens' SpectrumConfig Frequency
 spectrumConfig_centerFrequency = Lens.lens (\SpectrumConfig' {centerFrequency} -> centerFrequency) (\s@SpectrumConfig' {} a -> s {centerFrequency = a} :: SpectrumConfig)
 
-instance Core.FromJSON SpectrumConfig where
+instance Data.FromJSON SpectrumConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SpectrumConfig"
       ( \x ->
           SpectrumConfig'
-            Prelude.<$> (x Core..:? "polarization")
-            Prelude.<*> (x Core..: "bandwidth")
-            Prelude.<*> (x Core..: "centerFrequency")
+            Prelude.<$> (x Data..:? "polarization")
+            Prelude.<*> (x Data..: "bandwidth")
+            Prelude.<*> (x Data..: "centerFrequency")
       )
 
 instance Prelude.Hashable SpectrumConfig where
@@ -139,13 +140,13 @@ instance Prelude.NFData SpectrumConfig where
       `Prelude.seq` Prelude.rnf bandwidth
       `Prelude.seq` Prelude.rnf centerFrequency
 
-instance Core.ToJSON SpectrumConfig where
+instance Data.ToJSON SpectrumConfig where
   toJSON SpectrumConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("polarization" Core..=) Prelude.<$> polarization,
-            Prelude.Just ("bandwidth" Core..= bandwidth),
+          [ ("polarization" Data..=) Prelude.<$> polarization,
+            Prelude.Just ("bandwidth" Data..= bandwidth),
             Prelude.Just
-              ("centerFrequency" Core..= centerFrequency)
+              ("centerFrequency" Data..= centerFrequency)
           ]
       )

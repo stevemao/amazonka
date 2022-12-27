@@ -14,13 +14,15 @@
 
 -- |
 -- Module      : Amazonka.Transcribe.DeleteVocabulary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a vocabulary from Amazon Transcribe.
+-- Deletes a custom vocabulary. To use this operation, specify the name of
+-- the custom vocabulary you want to delete using @VocabularyName@. Custom
+-- vocabulary names are case sensitive.
 module Amazonka.Transcribe.DeleteVocabulary
   ( -- * Creating a Request
     DeleteVocabulary (..),
@@ -36,7 +38,8 @@ module Amazonka.Transcribe.DeleteVocabulary
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -44,7 +47,8 @@ import Amazonka.Transcribe.Types
 
 -- | /See:/ 'newDeleteVocabulary' smart constructor.
 data DeleteVocabulary = DeleteVocabulary'
-  { -- | The name of the vocabulary to delete.
+  { -- | The name of the custom vocabulary you want to delete. Custom vocabulary
+    -- names are case sensitive.
     vocabularyName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -57,7 +61,8 @@ data DeleteVocabulary = DeleteVocabulary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'vocabularyName', 'deleteVocabulary_vocabularyName' - The name of the vocabulary to delete.
+-- 'vocabularyName', 'deleteVocabulary_vocabularyName' - The name of the custom vocabulary you want to delete. Custom vocabulary
+-- names are case sensitive.
 newDeleteVocabulary ::
   -- | 'vocabularyName'
   Prelude.Text ->
@@ -68,7 +73,8 @@ newDeleteVocabulary pVocabularyName_ =
         pVocabularyName_
     }
 
--- | The name of the vocabulary to delete.
+-- | The name of the custom vocabulary you want to delete. Custom vocabulary
+-- names are case sensitive.
 deleteVocabulary_vocabularyName :: Lens.Lens' DeleteVocabulary Prelude.Text
 deleteVocabulary_vocabularyName = Lens.lens (\DeleteVocabulary' {vocabularyName} -> vocabularyName) (\s@DeleteVocabulary' {} a -> s {vocabularyName = a} :: DeleteVocabulary)
 
@@ -76,7 +82,8 @@ instance Core.AWSRequest DeleteVocabulary where
   type
     AWSResponse DeleteVocabulary =
       DeleteVocabularyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteVocabularyResponse'
 
@@ -88,34 +95,34 @@ instance Prelude.NFData DeleteVocabulary where
   rnf DeleteVocabulary' {..} =
     Prelude.rnf vocabularyName
 
-instance Core.ToHeaders DeleteVocabulary where
+instance Data.ToHeaders DeleteVocabulary where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Transcribe.DeleteVocabulary" ::
+              Data.=# ( "Transcribe.DeleteVocabulary" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteVocabulary where
+instance Data.ToJSON DeleteVocabulary where
   toJSON DeleteVocabulary' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("VocabularyName" Core..= vocabularyName)
+              ("VocabularyName" Data..= vocabularyName)
           ]
       )
 
-instance Core.ToPath DeleteVocabulary where
+instance Data.ToPath DeleteVocabulary where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteVocabulary where
+instance Data.ToQuery DeleteVocabulary where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteVocabularyResponse' smart constructor.

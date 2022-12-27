@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Firehose.Types.SplunkRetryOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Firehose.Types.SplunkRetryOptions where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configures retry behavior in case Kinesis Data Firehose is unable to
@@ -64,13 +65,13 @@ newSplunkRetryOptions =
 splunkRetryOptions_durationInSeconds :: Lens.Lens' SplunkRetryOptions (Prelude.Maybe Prelude.Natural)
 splunkRetryOptions_durationInSeconds = Lens.lens (\SplunkRetryOptions' {durationInSeconds} -> durationInSeconds) (\s@SplunkRetryOptions' {} a -> s {durationInSeconds = a} :: SplunkRetryOptions)
 
-instance Core.FromJSON SplunkRetryOptions where
+instance Data.FromJSON SplunkRetryOptions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SplunkRetryOptions"
       ( \x ->
           SplunkRetryOptions'
-            Prelude.<$> (x Core..:? "DurationInSeconds")
+            Prelude.<$> (x Data..:? "DurationInSeconds")
       )
 
 instance Prelude.Hashable SplunkRetryOptions where
@@ -81,11 +82,11 @@ instance Prelude.NFData SplunkRetryOptions where
   rnf SplunkRetryOptions' {..} =
     Prelude.rnf durationInSeconds
 
-instance Core.ToJSON SplunkRetryOptions where
+instance Data.ToJSON SplunkRetryOptions where
   toJSON SplunkRetryOptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DurationInSeconds" Core..=)
+          [ ("DurationInSeconds" Data..=)
               Prelude.<$> durationInSeconds
           ]
       )

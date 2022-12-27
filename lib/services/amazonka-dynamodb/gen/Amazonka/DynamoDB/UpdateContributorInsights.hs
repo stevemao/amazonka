@@ -14,14 +14,20 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.UpdateContributorInsights
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Updates the status for contributor insights for a specific table or
--- index.
+-- index. CloudWatch Contributor Insights for DynamoDB graphs display the
+-- partition key and (if applicable) sort key of frequently accessed items
+-- and frequently throttled items in plaintext. If you require the use of
+-- Amazon Web Services Key Management Service (KMS) to encrypt this table’s
+-- partition key and sort key data with an Amazon Web Services managed key
+-- or customer managed key, you should not enable CloudWatch Contributor
+-- Insights for DynamoDB for this table.
 module Amazonka.DynamoDB.UpdateContributorInsights
   ( -- * Creating a Request
     UpdateContributorInsights (..),
@@ -38,15 +44,16 @@ module Amazonka.DynamoDB.UpdateContributorInsights
 
     -- * Response Lenses
     updateContributorInsightsResponse_contributorInsightsStatus,
-    updateContributorInsightsResponse_tableName,
     updateContributorInsightsResponse_indexName,
+    updateContributorInsightsResponse_tableName,
     updateContributorInsightsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DynamoDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -108,14 +115,15 @@ instance Core.AWSRequest UpdateContributorInsights where
   type
     AWSResponse UpdateContributorInsights =
       UpdateContributorInsightsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateContributorInsightsResponse'
-            Prelude.<$> (x Core..?> "ContributorInsightsStatus")
-            Prelude.<*> (x Core..?> "TableName")
-            Prelude.<*> (x Core..?> "IndexName")
+            Prelude.<$> (x Data..?> "ContributorInsightsStatus")
+            Prelude.<*> (x Data..?> "IndexName")
+            Prelude.<*> (x Data..?> "TableName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -131,48 +139,48 @@ instance Prelude.NFData UpdateContributorInsights where
       `Prelude.seq` Prelude.rnf tableName
       `Prelude.seq` Prelude.rnf contributorInsightsAction
 
-instance Core.ToHeaders UpdateContributorInsights where
+instance Data.ToHeaders UpdateContributorInsights where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DynamoDB_20120810.UpdateContributorInsights" ::
+              Data.=# ( "DynamoDB_20120810.UpdateContributorInsights" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateContributorInsights where
+instance Data.ToJSON UpdateContributorInsights where
   toJSON UpdateContributorInsights' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("IndexName" Core..=) Prelude.<$> indexName,
-            Prelude.Just ("TableName" Core..= tableName),
+          [ ("IndexName" Data..=) Prelude.<$> indexName,
+            Prelude.Just ("TableName" Data..= tableName),
             Prelude.Just
               ( "ContributorInsightsAction"
-                  Core..= contributorInsightsAction
+                  Data..= contributorInsightsAction
               )
           ]
       )
 
-instance Core.ToPath UpdateContributorInsights where
+instance Data.ToPath UpdateContributorInsights where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateContributorInsights where
+instance Data.ToQuery UpdateContributorInsights where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateContributorInsightsResponse' smart constructor.
 data UpdateContributorInsightsResponse = UpdateContributorInsightsResponse'
   { -- | The status of contributor insights
     contributorInsightsStatus :: Prelude.Maybe ContributorInsightsStatus,
-    -- | The name of the table.
-    tableName :: Prelude.Maybe Prelude.Text,
     -- | The name of the global secondary index, if applicable.
     indexName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the table.
+    tableName :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -188,9 +196,9 @@ data UpdateContributorInsightsResponse = UpdateContributorInsightsResponse'
 --
 -- 'contributorInsightsStatus', 'updateContributorInsightsResponse_contributorInsightsStatus' - The status of contributor insights
 --
--- 'tableName', 'updateContributorInsightsResponse_tableName' - The name of the table.
---
 -- 'indexName', 'updateContributorInsightsResponse_indexName' - The name of the global secondary index, if applicable.
+--
+-- 'tableName', 'updateContributorInsightsResponse_tableName' - The name of the table.
 --
 -- 'httpStatus', 'updateContributorInsightsResponse_httpStatus' - The response's http status code.
 newUpdateContributorInsightsResponse ::
@@ -201,8 +209,8 @@ newUpdateContributorInsightsResponse pHttpStatus_ =
   UpdateContributorInsightsResponse'
     { contributorInsightsStatus =
         Prelude.Nothing,
-      tableName = Prelude.Nothing,
       indexName = Prelude.Nothing,
+      tableName = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
@@ -210,13 +218,13 @@ newUpdateContributorInsightsResponse pHttpStatus_ =
 updateContributorInsightsResponse_contributorInsightsStatus :: Lens.Lens' UpdateContributorInsightsResponse (Prelude.Maybe ContributorInsightsStatus)
 updateContributorInsightsResponse_contributorInsightsStatus = Lens.lens (\UpdateContributorInsightsResponse' {contributorInsightsStatus} -> contributorInsightsStatus) (\s@UpdateContributorInsightsResponse' {} a -> s {contributorInsightsStatus = a} :: UpdateContributorInsightsResponse)
 
--- | The name of the table.
-updateContributorInsightsResponse_tableName :: Lens.Lens' UpdateContributorInsightsResponse (Prelude.Maybe Prelude.Text)
-updateContributorInsightsResponse_tableName = Lens.lens (\UpdateContributorInsightsResponse' {tableName} -> tableName) (\s@UpdateContributorInsightsResponse' {} a -> s {tableName = a} :: UpdateContributorInsightsResponse)
-
 -- | The name of the global secondary index, if applicable.
 updateContributorInsightsResponse_indexName :: Lens.Lens' UpdateContributorInsightsResponse (Prelude.Maybe Prelude.Text)
 updateContributorInsightsResponse_indexName = Lens.lens (\UpdateContributorInsightsResponse' {indexName} -> indexName) (\s@UpdateContributorInsightsResponse' {} a -> s {indexName = a} :: UpdateContributorInsightsResponse)
+
+-- | The name of the table.
+updateContributorInsightsResponse_tableName :: Lens.Lens' UpdateContributorInsightsResponse (Prelude.Maybe Prelude.Text)
+updateContributorInsightsResponse_tableName = Lens.lens (\UpdateContributorInsightsResponse' {tableName} -> tableName) (\s@UpdateContributorInsightsResponse' {} a -> s {tableName = a} :: UpdateContributorInsightsResponse)
 
 -- | The response's http status code.
 updateContributorInsightsResponse_httpStatus :: Lens.Lens' UpdateContributorInsightsResponse Prelude.Int
@@ -228,6 +236,6 @@ instance
   where
   rnf UpdateContributorInsightsResponse' {..} =
     Prelude.rnf contributorInsightsStatus
-      `Prelude.seq` Prelude.rnf tableName
       `Prelude.seq` Prelude.rnf indexName
+      `Prelude.seq` Prelude.rnf tableName
       `Prelude.seq` Prelude.rnf httpStatus

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.HttpGatewayRouteHeader
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppMesh.Types.HttpGatewayRouteHeader where
 
 import Amazonka.AppMesh.Types.HeaderMatchMethod
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents the HTTP header in the gateway route.
@@ -31,6 +32,8 @@ data HttpGatewayRouteHeader = HttpGatewayRouteHeader'
   { -- | Specify @True@ to match anything except the match criteria. The default
     -- value is @False@.
     invert :: Prelude.Maybe Prelude.Bool,
+    -- | An object that represents the method and value to match with the header
+    -- value sent in a request. Specify one match method.
     match :: Prelude.Maybe HeaderMatchMethod,
     -- | A name for the HTTP header in the gateway route that will be matched on.
     name :: Prelude.Text
@@ -48,7 +51,8 @@ data HttpGatewayRouteHeader = HttpGatewayRouteHeader'
 -- 'invert', 'httpGatewayRouteHeader_invert' - Specify @True@ to match anything except the match criteria. The default
 -- value is @False@.
 --
--- 'match', 'httpGatewayRouteHeader_match' - Undocumented member.
+-- 'match', 'httpGatewayRouteHeader_match' - An object that represents the method and value to match with the header
+-- value sent in a request. Specify one match method.
 --
 -- 'name', 'httpGatewayRouteHeader_name' - A name for the HTTP header in the gateway route that will be matched on.
 newHttpGatewayRouteHeader ::
@@ -67,7 +71,8 @@ newHttpGatewayRouteHeader pName_ =
 httpGatewayRouteHeader_invert :: Lens.Lens' HttpGatewayRouteHeader (Prelude.Maybe Prelude.Bool)
 httpGatewayRouteHeader_invert = Lens.lens (\HttpGatewayRouteHeader' {invert} -> invert) (\s@HttpGatewayRouteHeader' {} a -> s {invert = a} :: HttpGatewayRouteHeader)
 
--- | Undocumented member.
+-- | An object that represents the method and value to match with the header
+-- value sent in a request. Specify one match method.
 httpGatewayRouteHeader_match :: Lens.Lens' HttpGatewayRouteHeader (Prelude.Maybe HeaderMatchMethod)
 httpGatewayRouteHeader_match = Lens.lens (\HttpGatewayRouteHeader' {match} -> match) (\s@HttpGatewayRouteHeader' {} a -> s {match = a} :: HttpGatewayRouteHeader)
 
@@ -75,15 +80,15 @@ httpGatewayRouteHeader_match = Lens.lens (\HttpGatewayRouteHeader' {match} -> ma
 httpGatewayRouteHeader_name :: Lens.Lens' HttpGatewayRouteHeader Prelude.Text
 httpGatewayRouteHeader_name = Lens.lens (\HttpGatewayRouteHeader' {name} -> name) (\s@HttpGatewayRouteHeader' {} a -> s {name = a} :: HttpGatewayRouteHeader)
 
-instance Core.FromJSON HttpGatewayRouteHeader where
+instance Data.FromJSON HttpGatewayRouteHeader where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HttpGatewayRouteHeader"
       ( \x ->
           HttpGatewayRouteHeader'
-            Prelude.<$> (x Core..:? "invert")
-            Prelude.<*> (x Core..:? "match")
-            Prelude.<*> (x Core..: "name")
+            Prelude.<$> (x Data..:? "invert")
+            Prelude.<*> (x Data..:? "match")
+            Prelude.<*> (x Data..: "name")
       )
 
 instance Prelude.Hashable HttpGatewayRouteHeader where
@@ -98,12 +103,12 @@ instance Prelude.NFData HttpGatewayRouteHeader where
       `Prelude.seq` Prelude.rnf match
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToJSON HttpGatewayRouteHeader where
+instance Data.ToJSON HttpGatewayRouteHeader where
   toJSON HttpGatewayRouteHeader' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("invert" Core..=) Prelude.<$> invert,
-            ("match" Core..=) Prelude.<$> match,
-            Prelude.Just ("name" Core..= name)
+          [ ("invert" Data..=) Prelude.<$> invert,
+            ("match" Data..=) Prelude.<$> match,
+            Prelude.Just ("name" Data..= name)
           ]
       )

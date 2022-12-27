@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Forecast.Types.Schema
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,12 +20,12 @@
 module Amazonka.Forecast.Types.Schema where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Forecast.Types.SchemaAttribute
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
--- | Defines the fields of a dataset. You specify this object in the
--- CreateDataset request.
+-- | Defines the fields of a dataset.
 --
 -- /See:/ 'newSchema' smart constructor.
 data Schema = Schema'
@@ -54,12 +54,12 @@ newSchema = Schema' {attributes = Prelude.Nothing}
 schema_attributes :: Lens.Lens' Schema (Prelude.Maybe (Prelude.NonEmpty SchemaAttribute))
 schema_attributes = Lens.lens (\Schema' {attributes} -> attributes) (\s@Schema' {} a -> s {attributes = a} :: Schema) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON Schema where
+instance Data.FromJSON Schema where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Schema"
       ( \x ->
-          Schema' Prelude.<$> (x Core..:? "Attributes")
+          Schema' Prelude.<$> (x Data..:? "Attributes")
       )
 
 instance Prelude.Hashable Schema where
@@ -69,9 +69,9 @@ instance Prelude.Hashable Schema where
 instance Prelude.NFData Schema where
   rnf Schema' {..} = Prelude.rnf attributes
 
-instance Core.ToJSON Schema where
+instance Data.ToJSON Schema where
   toJSON Schema' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Attributes" Core..=) Prelude.<$> attributes]
+          [("Attributes" Data..=) Prelude.<$> attributes]
       )

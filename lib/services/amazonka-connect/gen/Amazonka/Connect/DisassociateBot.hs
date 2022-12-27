@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.DisassociateBot
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -101,7 +102,8 @@ instance Core.AWSRequest DisassociateBot where
   type
     AWSResponse DisassociateBot =
       DisassociateBotResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DisassociateBotResponse'
 
@@ -117,32 +119,32 @@ instance Prelude.NFData DisassociateBot where
       `Prelude.seq` Prelude.rnf lexV2Bot
       `Prelude.seq` Prelude.rnf instanceId
 
-instance Core.ToHeaders DisassociateBot where
+instance Data.ToHeaders DisassociateBot where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisassociateBot where
+instance Data.ToJSON DisassociateBot where
   toJSON DisassociateBot' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("LexBot" Core..=) Prelude.<$> lexBot,
-            ("LexV2Bot" Core..=) Prelude.<$> lexV2Bot
+          [ ("LexBot" Data..=) Prelude.<$> lexBot,
+            ("LexV2Bot" Data..=) Prelude.<$> lexV2Bot
           ]
       )
 
-instance Core.ToPath DisassociateBot where
+instance Data.ToPath DisassociateBot where
   toPath DisassociateBot' {..} =
     Prelude.mconcat
-      ["/instance/", Core.toBS instanceId, "/bot"]
+      ["/instance/", Data.toBS instanceId, "/bot"]
 
-instance Core.ToQuery DisassociateBot where
+instance Data.ToQuery DisassociateBot where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateBotResponse' smart constructor.

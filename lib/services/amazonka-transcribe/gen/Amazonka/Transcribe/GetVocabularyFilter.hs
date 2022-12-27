@@ -14,13 +14,15 @@
 
 -- |
 -- Module      : Amazonka.Transcribe.GetVocabularyFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about a vocabulary filter.
+-- Provides information about the specified custom vocabulary filter.
+--
+-- To get a list of your custom vocabulary filters, use the operation.
 module Amazonka.Transcribe.GetVocabularyFilter
   ( -- * Creating a Request
     GetVocabularyFilter (..),
@@ -34,8 +36,8 @@ module Amazonka.Transcribe.GetVocabularyFilter
     newGetVocabularyFilterResponse,
 
     -- * Response Lenses
-    getVocabularyFilterResponse_languageCode,
     getVocabularyFilterResponse_downloadUri,
+    getVocabularyFilterResponse_languageCode,
     getVocabularyFilterResponse_lastModifiedTime,
     getVocabularyFilterResponse_vocabularyFilterName,
     getVocabularyFilterResponse_httpStatus,
@@ -43,7 +45,8 @@ module Amazonka.Transcribe.GetVocabularyFilter
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -51,7 +54,8 @@ import Amazonka.Transcribe.Types
 
 -- | /See:/ 'newGetVocabularyFilter' smart constructor.
 data GetVocabularyFilter = GetVocabularyFilter'
-  { -- | The name of the vocabulary filter for which to return information.
+  { -- | The name of the custom vocabulary filter you want information about.
+    -- Custom vocabulary filter names are case sensitive.
     vocabularyFilterName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -64,7 +68,8 @@ data GetVocabularyFilter = GetVocabularyFilter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'vocabularyFilterName', 'getVocabularyFilter_vocabularyFilterName' - The name of the vocabulary filter for which to return information.
+-- 'vocabularyFilterName', 'getVocabularyFilter_vocabularyFilterName' - The name of the custom vocabulary filter you want information about.
+-- Custom vocabulary filter names are case sensitive.
 newGetVocabularyFilter ::
   -- | 'vocabularyFilterName'
   Prelude.Text ->
@@ -75,7 +80,8 @@ newGetVocabularyFilter pVocabularyFilterName_ =
         pVocabularyFilterName_
     }
 
--- | The name of the vocabulary filter for which to return information.
+-- | The name of the custom vocabulary filter you want information about.
+-- Custom vocabulary filter names are case sensitive.
 getVocabularyFilter_vocabularyFilterName :: Lens.Lens' GetVocabularyFilter Prelude.Text
 getVocabularyFilter_vocabularyFilterName = Lens.lens (\GetVocabularyFilter' {vocabularyFilterName} -> vocabularyFilterName) (\s@GetVocabularyFilter' {} a -> s {vocabularyFilterName = a} :: GetVocabularyFilter)
 
@@ -83,15 +89,16 @@ instance Core.AWSRequest GetVocabularyFilter where
   type
     AWSResponse GetVocabularyFilter =
       GetVocabularyFilterResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetVocabularyFilterResponse'
-            Prelude.<$> (x Core..?> "LanguageCode")
-            Prelude.<*> (x Core..?> "DownloadUri")
-            Prelude.<*> (x Core..?> "LastModifiedTime")
-            Prelude.<*> (x Core..?> "VocabularyFilterName")
+            Prelude.<$> (x Data..?> "DownloadUri")
+            Prelude.<*> (x Data..?> "LanguageCode")
+            Prelude.<*> (x Data..?> "LastModifiedTime")
+            Prelude.<*> (x Data..?> "VocabularyFilterName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -103,49 +110,54 @@ instance Prelude.NFData GetVocabularyFilter where
   rnf GetVocabularyFilter' {..} =
     Prelude.rnf vocabularyFilterName
 
-instance Core.ToHeaders GetVocabularyFilter where
+instance Data.ToHeaders GetVocabularyFilter where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Transcribe.GetVocabularyFilter" ::
+              Data.=# ( "Transcribe.GetVocabularyFilter" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetVocabularyFilter where
+instance Data.ToJSON GetVocabularyFilter where
   toJSON GetVocabularyFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "VocabularyFilterName"
-                  Core..= vocabularyFilterName
+                  Data..= vocabularyFilterName
               )
           ]
       )
 
-instance Core.ToPath GetVocabularyFilter where
+instance Data.ToPath GetVocabularyFilter where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetVocabularyFilter where
+instance Data.ToQuery GetVocabularyFilter where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetVocabularyFilterResponse' smart constructor.
 data GetVocabularyFilterResponse = GetVocabularyFilterResponse'
-  { -- | The language code of the words in the vocabulary filter.
-    languageCode :: Prelude.Maybe LanguageCode,
-    -- | The URI of the list of words in the vocabulary filter. You can use this
-    -- URI to get the list of words.
+  { -- | The Amazon S3 location where the custom vocabulary filter is stored; use
+    -- this URI to view or download the custom vocabulary filter.
     downloadUri :: Prelude.Maybe Prelude.Text,
-    -- | The date and time that the contents of the vocabulary filter were
-    -- updated.
-    lastModifiedTime :: Prelude.Maybe Core.POSIX,
-    -- | The name of the vocabulary filter.
+    -- | The language code you selected for your custom vocabulary filter.
+    languageCode :: Prelude.Maybe LanguageCode,
+    -- | The date and time the specified custom vocabulary filter was last
+    -- modified.
+    --
+    -- Timestamps are in the format @YYYY-MM-DD\'T\'HH:MM:SS.SSSSSS-UTC@. For
+    -- example, @2022-05-04T12:32:58.761000-07:00@ represents 12:32 PM UTC-7 on
+    -- May 4, 2022.
+    lastModifiedTime :: Prelude.Maybe Data.POSIX,
+    -- | The name of the custom vocabulary filter you requested information
+    -- about.
     vocabularyFilterName :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -160,15 +172,20 @@ data GetVocabularyFilterResponse = GetVocabularyFilterResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'languageCode', 'getVocabularyFilterResponse_languageCode' - The language code of the words in the vocabulary filter.
+-- 'downloadUri', 'getVocabularyFilterResponse_downloadUri' - The Amazon S3 location where the custom vocabulary filter is stored; use
+-- this URI to view or download the custom vocabulary filter.
 --
--- 'downloadUri', 'getVocabularyFilterResponse_downloadUri' - The URI of the list of words in the vocabulary filter. You can use this
--- URI to get the list of words.
+-- 'languageCode', 'getVocabularyFilterResponse_languageCode' - The language code you selected for your custom vocabulary filter.
 --
--- 'lastModifiedTime', 'getVocabularyFilterResponse_lastModifiedTime' - The date and time that the contents of the vocabulary filter were
--- updated.
+-- 'lastModifiedTime', 'getVocabularyFilterResponse_lastModifiedTime' - The date and time the specified custom vocabulary filter was last
+-- modified.
 --
--- 'vocabularyFilterName', 'getVocabularyFilterResponse_vocabularyFilterName' - The name of the vocabulary filter.
+-- Timestamps are in the format @YYYY-MM-DD\'T\'HH:MM:SS.SSSSSS-UTC@. For
+-- example, @2022-05-04T12:32:58.761000-07:00@ represents 12:32 PM UTC-7 on
+-- May 4, 2022.
+--
+-- 'vocabularyFilterName', 'getVocabularyFilterResponse_vocabularyFilterName' - The name of the custom vocabulary filter you requested information
+-- about.
 --
 -- 'httpStatus', 'getVocabularyFilterResponse_httpStatus' - The response's http status code.
 newGetVocabularyFilterResponse ::
@@ -177,29 +194,34 @@ newGetVocabularyFilterResponse ::
   GetVocabularyFilterResponse
 newGetVocabularyFilterResponse pHttpStatus_ =
   GetVocabularyFilterResponse'
-    { languageCode =
+    { downloadUri =
         Prelude.Nothing,
-      downloadUri = Prelude.Nothing,
+      languageCode = Prelude.Nothing,
       lastModifiedTime = Prelude.Nothing,
       vocabularyFilterName = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The language code of the words in the vocabulary filter.
-getVocabularyFilterResponse_languageCode :: Lens.Lens' GetVocabularyFilterResponse (Prelude.Maybe LanguageCode)
-getVocabularyFilterResponse_languageCode = Lens.lens (\GetVocabularyFilterResponse' {languageCode} -> languageCode) (\s@GetVocabularyFilterResponse' {} a -> s {languageCode = a} :: GetVocabularyFilterResponse)
-
--- | The URI of the list of words in the vocabulary filter. You can use this
--- URI to get the list of words.
+-- | The Amazon S3 location where the custom vocabulary filter is stored; use
+-- this URI to view or download the custom vocabulary filter.
 getVocabularyFilterResponse_downloadUri :: Lens.Lens' GetVocabularyFilterResponse (Prelude.Maybe Prelude.Text)
 getVocabularyFilterResponse_downloadUri = Lens.lens (\GetVocabularyFilterResponse' {downloadUri} -> downloadUri) (\s@GetVocabularyFilterResponse' {} a -> s {downloadUri = a} :: GetVocabularyFilterResponse)
 
--- | The date and time that the contents of the vocabulary filter were
--- updated.
-getVocabularyFilterResponse_lastModifiedTime :: Lens.Lens' GetVocabularyFilterResponse (Prelude.Maybe Prelude.UTCTime)
-getVocabularyFilterResponse_lastModifiedTime = Lens.lens (\GetVocabularyFilterResponse' {lastModifiedTime} -> lastModifiedTime) (\s@GetVocabularyFilterResponse' {} a -> s {lastModifiedTime = a} :: GetVocabularyFilterResponse) Prelude.. Lens.mapping Core._Time
+-- | The language code you selected for your custom vocabulary filter.
+getVocabularyFilterResponse_languageCode :: Lens.Lens' GetVocabularyFilterResponse (Prelude.Maybe LanguageCode)
+getVocabularyFilterResponse_languageCode = Lens.lens (\GetVocabularyFilterResponse' {languageCode} -> languageCode) (\s@GetVocabularyFilterResponse' {} a -> s {languageCode = a} :: GetVocabularyFilterResponse)
 
--- | The name of the vocabulary filter.
+-- | The date and time the specified custom vocabulary filter was last
+-- modified.
+--
+-- Timestamps are in the format @YYYY-MM-DD\'T\'HH:MM:SS.SSSSSS-UTC@. For
+-- example, @2022-05-04T12:32:58.761000-07:00@ represents 12:32 PM UTC-7 on
+-- May 4, 2022.
+getVocabularyFilterResponse_lastModifiedTime :: Lens.Lens' GetVocabularyFilterResponse (Prelude.Maybe Prelude.UTCTime)
+getVocabularyFilterResponse_lastModifiedTime = Lens.lens (\GetVocabularyFilterResponse' {lastModifiedTime} -> lastModifiedTime) (\s@GetVocabularyFilterResponse' {} a -> s {lastModifiedTime = a} :: GetVocabularyFilterResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The name of the custom vocabulary filter you requested information
+-- about.
 getVocabularyFilterResponse_vocabularyFilterName :: Lens.Lens' GetVocabularyFilterResponse (Prelude.Maybe Prelude.Text)
 getVocabularyFilterResponse_vocabularyFilterName = Lens.lens (\GetVocabularyFilterResponse' {vocabularyFilterName} -> vocabularyFilterName) (\s@GetVocabularyFilterResponse' {} a -> s {vocabularyFilterName = a} :: GetVocabularyFilterResponse)
 
@@ -209,8 +231,8 @@ getVocabularyFilterResponse_httpStatus = Lens.lens (\GetVocabularyFilterResponse
 
 instance Prelude.NFData GetVocabularyFilterResponse where
   rnf GetVocabularyFilterResponse' {..} =
-    Prelude.rnf languageCode
-      `Prelude.seq` Prelude.rnf downloadUri
+    Prelude.rnf downloadUri
+      `Prelude.seq` Prelude.rnf languageCode
       `Prelude.seq` Prelude.rnf lastModifiedTime
       `Prelude.seq` Prelude.rnf vocabularyFilterName
       `Prelude.seq` Prelude.rnf httpStatus

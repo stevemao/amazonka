@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.GetSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.AuditManager.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -75,12 +76,13 @@ getSettings_attribute = Lens.lens (\GetSettings' {attribute} -> attribute) (\s@G
 
 instance Core.AWSRequest GetSettings where
   type AWSResponse GetSettings = GetSettingsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSettingsResponse'
-            Prelude.<$> (x Core..?> "settings")
+            Prelude.<$> (x Data..?> "settings")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -91,22 +93,22 @@ instance Prelude.Hashable GetSettings where
 instance Prelude.NFData GetSettings where
   rnf GetSettings' {..} = Prelude.rnf attribute
 
-instance Core.ToHeaders GetSettings where
+instance Data.ToHeaders GetSettings where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetSettings where
+instance Data.ToPath GetSettings where
   toPath GetSettings' {..} =
-    Prelude.mconcat ["/settings/", Core.toBS attribute]
+    Prelude.mconcat ["/settings/", Data.toBS attribute]
 
-instance Core.ToQuery GetSettings where
+instance Data.ToQuery GetSettings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetSettingsResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.StartBgpFailoverTest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -55,8 +55,9 @@ module Amazonka.DirectConnect.StartBgpFailoverTest
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -124,12 +125,13 @@ instance Core.AWSRequest StartBgpFailoverTest where
   type
     AWSResponse StartBgpFailoverTest =
       StartBgpFailoverTestResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartBgpFailoverTestResponse'
-            Prelude.<$> (x Core..?> "virtualInterfaceTest")
+            Prelude.<$> (x Data..?> "virtualInterfaceTest")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -145,37 +147,37 @@ instance Prelude.NFData StartBgpFailoverTest where
       `Prelude.seq` Prelude.rnf testDurationInMinutes
       `Prelude.seq` Prelude.rnf virtualInterfaceId
 
-instance Core.ToHeaders StartBgpFailoverTest where
+instance Data.ToHeaders StartBgpFailoverTest where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OvertureService.StartBgpFailoverTest" ::
+              Data.=# ( "OvertureService.StartBgpFailoverTest" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartBgpFailoverTest where
+instance Data.ToJSON StartBgpFailoverTest where
   toJSON StartBgpFailoverTest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("bgpPeers" Core..=) Prelude.<$> bgpPeers,
-            ("testDurationInMinutes" Core..=)
+          [ ("bgpPeers" Data..=) Prelude.<$> bgpPeers,
+            ("testDurationInMinutes" Data..=)
               Prelude.<$> testDurationInMinutes,
             Prelude.Just
-              ("virtualInterfaceId" Core..= virtualInterfaceId)
+              ("virtualInterfaceId" Data..= virtualInterfaceId)
           ]
       )
 
-instance Core.ToPath StartBgpFailoverTest where
+instance Data.ToPath StartBgpFailoverTest where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartBgpFailoverTest where
+instance Data.ToQuery StartBgpFailoverTest where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartBgpFailoverTestResponse' smart constructor.

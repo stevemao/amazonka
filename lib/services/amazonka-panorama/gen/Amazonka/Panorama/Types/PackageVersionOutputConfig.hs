@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Panorama.Types.PackageVersionOutputConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Panorama.Types.PackageVersionOutputConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A package version output configuration.
@@ -77,15 +78,15 @@ packageVersionOutputConfig_packageName = Lens.lens (\PackageVersionOutputConfig'
 packageVersionOutputConfig_packageVersion :: Lens.Lens' PackageVersionOutputConfig Prelude.Text
 packageVersionOutputConfig_packageVersion = Lens.lens (\PackageVersionOutputConfig' {packageVersion} -> packageVersion) (\s@PackageVersionOutputConfig' {} a -> s {packageVersion = a} :: PackageVersionOutputConfig)
 
-instance Core.FromJSON PackageVersionOutputConfig where
+instance Data.FromJSON PackageVersionOutputConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PackageVersionOutputConfig"
       ( \x ->
           PackageVersionOutputConfig'
-            Prelude.<$> (x Core..:? "MarkLatest")
-            Prelude.<*> (x Core..: "PackageName")
-            Prelude.<*> (x Core..: "PackageVersion")
+            Prelude.<$> (x Data..:? "MarkLatest")
+            Prelude.<*> (x Data..: "PackageName")
+            Prelude.<*> (x Data..: "PackageVersion")
       )
 
 instance Prelude.Hashable PackageVersionOutputConfig where
@@ -100,13 +101,13 @@ instance Prelude.NFData PackageVersionOutputConfig where
       `Prelude.seq` Prelude.rnf packageName
       `Prelude.seq` Prelude.rnf packageVersion
 
-instance Core.ToJSON PackageVersionOutputConfig where
+instance Data.ToJSON PackageVersionOutputConfig where
   toJSON PackageVersionOutputConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MarkLatest" Core..=) Prelude.<$> markLatest,
-            Prelude.Just ("PackageName" Core..= packageName),
+          [ ("MarkLatest" Data..=) Prelude.<$> markLatest,
+            Prelude.Just ("PackageName" Data..= packageName),
             Prelude.Just
-              ("PackageVersion" Core..= packageVersion)
+              ("PackageVersion" Data..= packageVersion)
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.Types.KnowledgeBaseAssociationData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Wisdom.Types.KnowledgeBaseAssociationData where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Association information about the knowledge base.
@@ -29,7 +30,7 @@ import qualified Amazonka.Prelude as Prelude
 data KnowledgeBaseAssociationData = KnowledgeBaseAssociationData'
   { -- | The Amazon Resource Name (ARN) of the knowledge base.
     knowledgeBaseArn :: Prelude.Maybe Prelude.Text,
-    -- | The the identifier of the knowledge base.
+    -- | The identifier of the knowledge base.
     knowledgeBaseId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -44,7 +45,7 @@ data KnowledgeBaseAssociationData = KnowledgeBaseAssociationData'
 --
 -- 'knowledgeBaseArn', 'knowledgeBaseAssociationData_knowledgeBaseArn' - The Amazon Resource Name (ARN) of the knowledge base.
 --
--- 'knowledgeBaseId', 'knowledgeBaseAssociationData_knowledgeBaseId' - The the identifier of the knowledge base.
+-- 'knowledgeBaseId', 'knowledgeBaseAssociationData_knowledgeBaseId' - The identifier of the knowledge base.
 newKnowledgeBaseAssociationData ::
   KnowledgeBaseAssociationData
 newKnowledgeBaseAssociationData =
@@ -58,18 +59,18 @@ newKnowledgeBaseAssociationData =
 knowledgeBaseAssociationData_knowledgeBaseArn :: Lens.Lens' KnowledgeBaseAssociationData (Prelude.Maybe Prelude.Text)
 knowledgeBaseAssociationData_knowledgeBaseArn = Lens.lens (\KnowledgeBaseAssociationData' {knowledgeBaseArn} -> knowledgeBaseArn) (\s@KnowledgeBaseAssociationData' {} a -> s {knowledgeBaseArn = a} :: KnowledgeBaseAssociationData)
 
--- | The the identifier of the knowledge base.
+-- | The identifier of the knowledge base.
 knowledgeBaseAssociationData_knowledgeBaseId :: Lens.Lens' KnowledgeBaseAssociationData (Prelude.Maybe Prelude.Text)
 knowledgeBaseAssociationData_knowledgeBaseId = Lens.lens (\KnowledgeBaseAssociationData' {knowledgeBaseId} -> knowledgeBaseId) (\s@KnowledgeBaseAssociationData' {} a -> s {knowledgeBaseId = a} :: KnowledgeBaseAssociationData)
 
-instance Core.FromJSON KnowledgeBaseAssociationData where
+instance Data.FromJSON KnowledgeBaseAssociationData where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "KnowledgeBaseAssociationData"
       ( \x ->
           KnowledgeBaseAssociationData'
-            Prelude.<$> (x Core..:? "knowledgeBaseArn")
-            Prelude.<*> (x Core..:? "knowledgeBaseId")
+            Prelude.<$> (x Data..:? "knowledgeBaseArn")
+            Prelude.<*> (x Data..:? "knowledgeBaseId")
       )
 
 instance

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.DescribeCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.DirectoryService.DescribeCertificate
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,12 +93,13 @@ instance Core.AWSRequest DescribeCertificate where
   type
     AWSResponse DescribeCertificate =
       DescribeCertificateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeCertificateResponse'
-            Prelude.<$> (x Core..?> "Certificate")
+            Prelude.<$> (x Data..?> "Certificate")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -111,35 +113,35 @@ instance Prelude.NFData DescribeCertificate where
     Prelude.rnf directoryId
       `Prelude.seq` Prelude.rnf certificateId
 
-instance Core.ToHeaders DescribeCertificate where
+instance Data.ToHeaders DescribeCertificate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.DescribeCertificate" ::
+              Data.=# ( "DirectoryService_20150416.DescribeCertificate" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeCertificate where
+instance Data.ToJSON DescribeCertificate where
   toJSON DescribeCertificate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("DirectoryId" Core..= directoryId),
+          [ Prelude.Just ("DirectoryId" Data..= directoryId),
             Prelude.Just
-              ("CertificateId" Core..= certificateId)
+              ("CertificateId" Data..= certificateId)
           ]
       )
 
-instance Core.ToPath DescribeCertificate where
+instance Data.ToPath DescribeCertificate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeCertificate where
+instance Data.ToQuery DescribeCertificate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeCertificateResponse' smart constructor.

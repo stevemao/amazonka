@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.S3ContentBaseLocation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KinesisAnalyticsV2.Types.S3ContentBaseLocation where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The S3 bucket that holds the application information.
@@ -73,11 +74,11 @@ instance Prelude.NFData S3ContentBaseLocation where
     Prelude.rnf basePath
       `Prelude.seq` Prelude.rnf bucketARN
 
-instance Core.ToJSON S3ContentBaseLocation where
+instance Data.ToJSON S3ContentBaseLocation where
   toJSON S3ContentBaseLocation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("BasePath" Core..=) Prelude.<$> basePath,
-            Prelude.Just ("BucketARN" Core..= bucketARN)
+          [ ("BasePath" Data..=) Prelude.<$> basePath,
+            Prelude.Just ("BucketARN" Data..= bucketARN)
           ]
       )

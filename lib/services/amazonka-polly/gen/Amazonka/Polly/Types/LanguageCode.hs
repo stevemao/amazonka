@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Polly.Types.LanguageCode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,13 @@
 module Amazonka.Polly.Types.LanguageCode
   ( LanguageCode
       ( ..,
+        LanguageCode_Ar_AE,
         LanguageCode_Arb,
+        LanguageCode_Ca_ES,
         LanguageCode_Cmn_CN,
         LanguageCode_Cy_GB,
         LanguageCode_Da_DK,
+        LanguageCode_De_AT,
         LanguageCode_De_DE,
         LanguageCode_En_AU,
         LanguageCode_En_GB,
@@ -35,6 +38,7 @@ module Amazonka.Polly.Types.LanguageCode
         LanguageCode_Es_ES,
         LanguageCode_Es_MX,
         LanguageCode_Es_US,
+        LanguageCode_Fi_FI,
         LanguageCode_Fr_CA,
         LanguageCode_Fr_FR,
         LanguageCode_Hi_IN,
@@ -50,17 +54,19 @@ module Amazonka.Polly.Types.LanguageCode
         LanguageCode_Ro_RO,
         LanguageCode_Ru_RU,
         LanguageCode_Sv_SE,
-        LanguageCode_Tr_TR
+        LanguageCode_Tr_TR,
+        LanguageCode_Yue_CN
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype LanguageCode = LanguageCode'
   { fromLanguageCode ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -72,22 +78,28 @@ newtype LanguageCode = LanguageCode'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
+
+pattern LanguageCode_Ar_AE :: LanguageCode
+pattern LanguageCode_Ar_AE = LanguageCode' "ar-AE"
 
 pattern LanguageCode_Arb :: LanguageCode
 pattern LanguageCode_Arb = LanguageCode' "arb"
+
+pattern LanguageCode_Ca_ES :: LanguageCode
+pattern LanguageCode_Ca_ES = LanguageCode' "ca-ES"
 
 pattern LanguageCode_Cmn_CN :: LanguageCode
 pattern LanguageCode_Cmn_CN = LanguageCode' "cmn-CN"
@@ -97,6 +109,9 @@ pattern LanguageCode_Cy_GB = LanguageCode' "cy-GB"
 
 pattern LanguageCode_Da_DK :: LanguageCode
 pattern LanguageCode_Da_DK = LanguageCode' "da-DK"
+
+pattern LanguageCode_De_AT :: LanguageCode
+pattern LanguageCode_De_AT = LanguageCode' "de-AT"
 
 pattern LanguageCode_De_DE :: LanguageCode
 pattern LanguageCode_De_DE = LanguageCode' "de-DE"
@@ -130,6 +145,9 @@ pattern LanguageCode_Es_MX = LanguageCode' "es-MX"
 
 pattern LanguageCode_Es_US :: LanguageCode
 pattern LanguageCode_Es_US = LanguageCode' "es-US"
+
+pattern LanguageCode_Fi_FI :: LanguageCode
+pattern LanguageCode_Fi_FI = LanguageCode' "fi-FI"
 
 pattern LanguageCode_Fr_CA :: LanguageCode
 pattern LanguageCode_Fr_CA = LanguageCode' "fr-CA"
@@ -179,11 +197,17 @@ pattern LanguageCode_Sv_SE = LanguageCode' "sv-SE"
 pattern LanguageCode_Tr_TR :: LanguageCode
 pattern LanguageCode_Tr_TR = LanguageCode' "tr-TR"
 
+pattern LanguageCode_Yue_CN :: LanguageCode
+pattern LanguageCode_Yue_CN = LanguageCode' "yue-CN"
+
 {-# COMPLETE
+  LanguageCode_Ar_AE,
   LanguageCode_Arb,
+  LanguageCode_Ca_ES,
   LanguageCode_Cmn_CN,
   LanguageCode_Cy_GB,
   LanguageCode_Da_DK,
+  LanguageCode_De_AT,
   LanguageCode_De_DE,
   LanguageCode_En_AU,
   LanguageCode_En_GB,
@@ -195,6 +219,7 @@ pattern LanguageCode_Tr_TR = LanguageCode' "tr-TR"
   LanguageCode_Es_ES,
   LanguageCode_Es_MX,
   LanguageCode_Es_US,
+  LanguageCode_Fi_FI,
   LanguageCode_Fr_CA,
   LanguageCode_Fr_FR,
   LanguageCode_Hi_IN,
@@ -211,5 +236,6 @@ pattern LanguageCode_Tr_TR = LanguageCode' "tr-TR"
   LanguageCode_Ru_RU,
   LanguageCode_Sv_SE,
   LanguageCode_Tr_TR,
+  LanguageCode_Yue_CN,
   LanguageCode'
   #-}

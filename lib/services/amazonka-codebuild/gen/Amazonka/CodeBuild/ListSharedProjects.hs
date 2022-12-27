@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.ListSharedProjects
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,10 +30,10 @@ module Amazonka.CodeBuild.ListSharedProjects
     newListSharedProjects,
 
     -- * Request Lenses
-    listSharedProjects_sortOrder,
-    listSharedProjects_nextToken,
     listSharedProjects_maxResults,
+    listSharedProjects_nextToken,
     listSharedProjects_sortBy,
+    listSharedProjects_sortOrder,
 
     -- * Destructuring the Response
     ListSharedProjectsResponse (..),
@@ -48,19 +48,18 @@ where
 
 import Amazonka.CodeBuild.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListSharedProjects' smart constructor.
 data ListSharedProjects = ListSharedProjects'
-  { -- | The order in which to list shared build projects. Valid values include:
-    --
-    -- -   @ASCENDING@: List in ascending order.
-    --
-    -- -   @DESCENDING@: List in descending order.
-    sortOrder :: Prelude.Maybe SortOrderType,
+  { -- | The maximum number of paginated shared build projects returned per
+    -- response. Use @nextToken@ to iterate pages in the list of returned
+    -- @Project@ objects. The default value is 100.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | During a previous call, the maximum number of items that can be returned
     -- is the value specified in @maxResults@. If there more items in the list,
     -- then a unique string called a /nextToken/ is returned. To get the next
@@ -69,10 +68,6 @@ data ListSharedProjects = ListSharedProjects'
     -- this operation with each subsequent next token that is returned, until
     -- no more next tokens are returned.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of paginated shared build projects returned per
-    -- response. Use @nextToken@ to iterate pages in the list of returned
-    -- @Project@ objects. The default value is 100.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The criterion to be used to list build projects shared with the current
     -- Amazon Web Services account or user. Valid values include:
     --
@@ -80,7 +75,13 @@ data ListSharedProjects = ListSharedProjects'
     --
     -- -   @MODIFIED_TIME@: List based on when information about the shared
     --     project was last changed.
-    sortBy :: Prelude.Maybe SharedResourceSortByType
+    sortBy :: Prelude.Maybe SharedResourceSortByType,
+    -- | The order in which to list shared build projects. Valid values include:
+    --
+    -- -   @ASCENDING@: List in ascending order.
+    --
+    -- -   @DESCENDING@: List in descending order.
+    sortOrder :: Prelude.Maybe SortOrderType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -92,11 +93,9 @@ data ListSharedProjects = ListSharedProjects'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sortOrder', 'listSharedProjects_sortOrder' - The order in which to list shared build projects. Valid values include:
---
--- -   @ASCENDING@: List in ascending order.
---
--- -   @DESCENDING@: List in descending order.
+-- 'maxResults', 'listSharedProjects_maxResults' - The maximum number of paginated shared build projects returned per
+-- response. Use @nextToken@ to iterate pages in the list of returned
+-- @Project@ objects. The default value is 100.
 --
 -- 'nextToken', 'listSharedProjects_nextToken' - During a previous call, the maximum number of items that can be returned
 -- is the value specified in @maxResults@. If there more items in the list,
@@ -106,10 +105,6 @@ data ListSharedProjects = ListSharedProjects'
 -- this operation with each subsequent next token that is returned, until
 -- no more next tokens are returned.
 --
--- 'maxResults', 'listSharedProjects_maxResults' - The maximum number of paginated shared build projects returned per
--- response. Use @nextToken@ to iterate pages in the list of returned
--- @Project@ objects. The default value is 100.
---
 -- 'sortBy', 'listSharedProjects_sortBy' - The criterion to be used to list build projects shared with the current
 -- Amazon Web Services account or user. Valid values include:
 --
@@ -117,23 +112,27 @@ data ListSharedProjects = ListSharedProjects'
 --
 -- -   @MODIFIED_TIME@: List based on when information about the shared
 --     project was last changed.
-newListSharedProjects ::
-  ListSharedProjects
-newListSharedProjects =
-  ListSharedProjects'
-    { sortOrder = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
-      sortBy = Prelude.Nothing
-    }
-
--- | The order in which to list shared build projects. Valid values include:
+--
+-- 'sortOrder', 'listSharedProjects_sortOrder' - The order in which to list shared build projects. Valid values include:
 --
 -- -   @ASCENDING@: List in ascending order.
 --
 -- -   @DESCENDING@: List in descending order.
-listSharedProjects_sortOrder :: Lens.Lens' ListSharedProjects (Prelude.Maybe SortOrderType)
-listSharedProjects_sortOrder = Lens.lens (\ListSharedProjects' {sortOrder} -> sortOrder) (\s@ListSharedProjects' {} a -> s {sortOrder = a} :: ListSharedProjects)
+newListSharedProjects ::
+  ListSharedProjects
+newListSharedProjects =
+  ListSharedProjects'
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      sortOrder = Prelude.Nothing
+    }
+
+-- | The maximum number of paginated shared build projects returned per
+-- response. Use @nextToken@ to iterate pages in the list of returned
+-- @Project@ objects. The default value is 100.
+listSharedProjects_maxResults :: Lens.Lens' ListSharedProjects (Prelude.Maybe Prelude.Natural)
+listSharedProjects_maxResults = Lens.lens (\ListSharedProjects' {maxResults} -> maxResults) (\s@ListSharedProjects' {} a -> s {maxResults = a} :: ListSharedProjects)
 
 -- | During a previous call, the maximum number of items that can be returned
 -- is the value specified in @maxResults@. If there more items in the list,
@@ -145,12 +144,6 @@ listSharedProjects_sortOrder = Lens.lens (\ListSharedProjects' {sortOrder} -> so
 listSharedProjects_nextToken :: Lens.Lens' ListSharedProjects (Prelude.Maybe Prelude.Text)
 listSharedProjects_nextToken = Lens.lens (\ListSharedProjects' {nextToken} -> nextToken) (\s@ListSharedProjects' {} a -> s {nextToken = a} :: ListSharedProjects)
 
--- | The maximum number of paginated shared build projects returned per
--- response. Use @nextToken@ to iterate pages in the list of returned
--- @Project@ objects. The default value is 100.
-listSharedProjects_maxResults :: Lens.Lens' ListSharedProjects (Prelude.Maybe Prelude.Natural)
-listSharedProjects_maxResults = Lens.lens (\ListSharedProjects' {maxResults} -> maxResults) (\s@ListSharedProjects' {} a -> s {maxResults = a} :: ListSharedProjects)
-
 -- | The criterion to be used to list build projects shared with the current
 -- Amazon Web Services account or user. Valid values include:
 --
@@ -160,6 +153,14 @@ listSharedProjects_maxResults = Lens.lens (\ListSharedProjects' {maxResults} -> 
 --     project was last changed.
 listSharedProjects_sortBy :: Lens.Lens' ListSharedProjects (Prelude.Maybe SharedResourceSortByType)
 listSharedProjects_sortBy = Lens.lens (\ListSharedProjects' {sortBy} -> sortBy) (\s@ListSharedProjects' {} a -> s {sortBy = a} :: ListSharedProjects)
+
+-- | The order in which to list shared build projects. Valid values include:
+--
+-- -   @ASCENDING@: List in ascending order.
+--
+-- -   @DESCENDING@: List in descending order.
+listSharedProjects_sortOrder :: Lens.Lens' ListSharedProjects (Prelude.Maybe SortOrderType)
+listSharedProjects_sortOrder = Lens.lens (\ListSharedProjects' {sortOrder} -> sortOrder) (\s@ListSharedProjects' {} a -> s {sortOrder = a} :: ListSharedProjects)
 
 instance Core.AWSPager ListSharedProjects where
   page rq rs
@@ -188,60 +189,61 @@ instance Core.AWSRequest ListSharedProjects where
   type
     AWSResponse ListSharedProjects =
       ListSharedProjectsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListSharedProjectsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "projects")
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "projects")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListSharedProjects where
   hashWithSalt _salt ListSharedProjects' {..} =
-    _salt `Prelude.hashWithSalt` sortOrder
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` sortBy
+      `Prelude.hashWithSalt` sortOrder
 
 instance Prelude.NFData ListSharedProjects where
   rnf ListSharedProjects' {..} =
-    Prelude.rnf sortOrder
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf sortBy
+      `Prelude.seq` Prelude.rnf sortOrder
 
-instance Core.ToHeaders ListSharedProjects where
+instance Data.ToHeaders ListSharedProjects where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeBuild_20161006.ListSharedProjects" ::
+              Data.=# ( "CodeBuild_20161006.ListSharedProjects" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListSharedProjects where
+instance Data.ToJSON ListSharedProjects where
   toJSON ListSharedProjects' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("sortOrder" Core..=) Prelude.<$> sortOrder,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
-            ("sortBy" Core..=) Prelude.<$> sortBy
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            ("sortBy" Data..=) Prelude.<$> sortBy,
+            ("sortOrder" Data..=) Prelude.<$> sortOrder
           ]
       )
 
-instance Core.ToPath ListSharedProjects where
+instance Data.ToPath ListSharedProjects where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListSharedProjects where
+instance Data.ToQuery ListSharedProjects where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListSharedProjectsResponse' smart constructor.

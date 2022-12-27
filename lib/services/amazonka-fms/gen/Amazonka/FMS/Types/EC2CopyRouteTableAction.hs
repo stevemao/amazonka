@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.Types.EC2CopyRouteTableAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.FMS.Types.EC2CopyRouteTableAction where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FMS.Types.ActionTarget
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An action that copies the EC2 route table for use in remediation.
@@ -85,15 +86,15 @@ eC2CopyRouteTableAction_vpcId = Lens.lens (\EC2CopyRouteTableAction' {vpcId} -> 
 eC2CopyRouteTableAction_routeTableId :: Lens.Lens' EC2CopyRouteTableAction ActionTarget
 eC2CopyRouteTableAction_routeTableId = Lens.lens (\EC2CopyRouteTableAction' {routeTableId} -> routeTableId) (\s@EC2CopyRouteTableAction' {} a -> s {routeTableId = a} :: EC2CopyRouteTableAction)
 
-instance Core.FromJSON EC2CopyRouteTableAction where
+instance Data.FromJSON EC2CopyRouteTableAction where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EC2CopyRouteTableAction"
       ( \x ->
           EC2CopyRouteTableAction'
-            Prelude.<$> (x Core..:? "Description")
-            Prelude.<*> (x Core..: "VpcId")
-            Prelude.<*> (x Core..: "RouteTableId")
+            Prelude.<$> (x Data..:? "Description")
+            Prelude.<*> (x Data..: "VpcId")
+            Prelude.<*> (x Data..: "RouteTableId")
       )
 
 instance Prelude.Hashable EC2CopyRouteTableAction where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.Types.GameSessionDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.GameLift.Types.GameSessionDetail where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types.GameSession
 import Amazonka.GameLift.Types.ProtectionPolicy
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A game session\'s properties plus the protection policy currently in
@@ -82,14 +83,14 @@ gameSessionDetail_gameSession = Lens.lens (\GameSessionDetail' {gameSession} -> 
 gameSessionDetail_protectionPolicy :: Lens.Lens' GameSessionDetail (Prelude.Maybe ProtectionPolicy)
 gameSessionDetail_protectionPolicy = Lens.lens (\GameSessionDetail' {protectionPolicy} -> protectionPolicy) (\s@GameSessionDetail' {} a -> s {protectionPolicy = a} :: GameSessionDetail)
 
-instance Core.FromJSON GameSessionDetail where
+instance Data.FromJSON GameSessionDetail where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GameSessionDetail"
       ( \x ->
           GameSessionDetail'
-            Prelude.<$> (x Core..:? "GameSession")
-            Prelude.<*> (x Core..:? "ProtectionPolicy")
+            Prelude.<$> (x Data..:? "GameSession")
+            Prelude.<*> (x Data..:? "ProtectionPolicy")
       )
 
 instance Prelude.Hashable GameSessionDetail where

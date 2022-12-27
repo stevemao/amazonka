@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.GetResourceLogLevel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.IoTWireless.GetResourceLogLevel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,12 +99,13 @@ instance Core.AWSRequest GetResourceLogLevel where
   type
     AWSResponse GetResourceLogLevel =
       GetResourceLogLevelResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetResourceLogLevelResponse'
-            Prelude.<$> (x Core..?> "LogLevel")
+            Prelude.<$> (x Data..?> "LogLevel")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,18 +119,18 @@ instance Prelude.NFData GetResourceLogLevel where
     Prelude.rnf resourceIdentifier
       `Prelude.seq` Prelude.rnf resourceType
 
-instance Core.ToHeaders GetResourceLogLevel where
+instance Data.ToHeaders GetResourceLogLevel where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetResourceLogLevel where
+instance Data.ToPath GetResourceLogLevel where
   toPath GetResourceLogLevel' {..} =
     Prelude.mconcat
-      ["/log-levels/", Core.toBS resourceIdentifier]
+      ["/log-levels/", Data.toBS resourceIdentifier]
 
-instance Core.ToQuery GetResourceLogLevel where
+instance Data.ToQuery GetResourceLogLevel where
   toQuery GetResourceLogLevel' {..} =
     Prelude.mconcat
-      ["resourceType" Core.=: resourceType]
+      ["resourceType" Data.=: resourceType]
 
 -- | /See:/ 'newGetResourceLogLevelResponse' smart constructor.
 data GetResourceLogLevelResponse = GetResourceLogLevelResponse'

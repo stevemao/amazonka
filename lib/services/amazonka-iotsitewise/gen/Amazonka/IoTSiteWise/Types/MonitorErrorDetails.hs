@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.MonitorErrorDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTSiteWise.Types.MonitorErrorDetails where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types.MonitorErrorCode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains IoT SiteWise Monitor error details.
@@ -62,14 +63,14 @@ monitorErrorDetails_code = Lens.lens (\MonitorErrorDetails' {code} -> code) (\s@
 monitorErrorDetails_message :: Lens.Lens' MonitorErrorDetails (Prelude.Maybe Prelude.Text)
 monitorErrorDetails_message = Lens.lens (\MonitorErrorDetails' {message} -> message) (\s@MonitorErrorDetails' {} a -> s {message = a} :: MonitorErrorDetails)
 
-instance Core.FromJSON MonitorErrorDetails where
+instance Data.FromJSON MonitorErrorDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MonitorErrorDetails"
       ( \x ->
           MonitorErrorDetails'
-            Prelude.<$> (x Core..:? "code")
-            Prelude.<*> (x Core..:? "message")
+            Prelude.<$> (x Data..:? "code")
+            Prelude.<*> (x Data..:? "message")
       )
 
 instance Prelude.Hashable MonitorErrorDetails where

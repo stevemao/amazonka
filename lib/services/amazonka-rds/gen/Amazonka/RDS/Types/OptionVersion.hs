@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.Types.OptionVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.RDS.Types.OptionVersion where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The version for an option. Option group option versions are returned by
@@ -28,11 +29,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newOptionVersion' smart constructor.
 data OptionVersion = OptionVersion'
-  { -- | The version of the option.
-    version :: Prelude.Maybe Prelude.Text,
-    -- | True if the version is the default version of the option, and otherwise
+  { -- | True if the version is the default version of the option, and otherwise
     -- false.
-    isDefault :: Prelude.Maybe Prelude.Bool
+    isDefault :: Prelude.Maybe Prelude.Bool,
+    -- | The version of the option.
+    version :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,39 +45,39 @@ data OptionVersion = OptionVersion'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'version', 'optionVersion_version' - The version of the option.
---
 -- 'isDefault', 'optionVersion_isDefault' - True if the version is the default version of the option, and otherwise
 -- false.
+--
+-- 'version', 'optionVersion_version' - The version of the option.
 newOptionVersion ::
   OptionVersion
 newOptionVersion =
   OptionVersion'
-    { version = Prelude.Nothing,
-      isDefault = Prelude.Nothing
+    { isDefault = Prelude.Nothing,
+      version = Prelude.Nothing
     }
-
--- | The version of the option.
-optionVersion_version :: Lens.Lens' OptionVersion (Prelude.Maybe Prelude.Text)
-optionVersion_version = Lens.lens (\OptionVersion' {version} -> version) (\s@OptionVersion' {} a -> s {version = a} :: OptionVersion)
 
 -- | True if the version is the default version of the option, and otherwise
 -- false.
 optionVersion_isDefault :: Lens.Lens' OptionVersion (Prelude.Maybe Prelude.Bool)
 optionVersion_isDefault = Lens.lens (\OptionVersion' {isDefault} -> isDefault) (\s@OptionVersion' {} a -> s {isDefault = a} :: OptionVersion)
 
-instance Core.FromXML OptionVersion where
+-- | The version of the option.
+optionVersion_version :: Lens.Lens' OptionVersion (Prelude.Maybe Prelude.Text)
+optionVersion_version = Lens.lens (\OptionVersion' {version} -> version) (\s@OptionVersion' {} a -> s {version = a} :: OptionVersion)
+
+instance Data.FromXML OptionVersion where
   parseXML x =
     OptionVersion'
-      Prelude.<$> (x Core..@? "Version")
-      Prelude.<*> (x Core..@? "IsDefault")
+      Prelude.<$> (x Data..@? "IsDefault")
+      Prelude.<*> (x Data..@? "Version")
 
 instance Prelude.Hashable OptionVersion where
   hashWithSalt _salt OptionVersion' {..} =
-    _salt `Prelude.hashWithSalt` version
-      `Prelude.hashWithSalt` isDefault
+    _salt `Prelude.hashWithSalt` isDefault
+      `Prelude.hashWithSalt` version
 
 instance Prelude.NFData OptionVersion where
   rnf OptionVersion' {..} =
-    Prelude.rnf version
-      `Prelude.seq` Prelude.rnf isDefault
+    Prelude.rnf isDefault
+      `Prelude.seq` Prelude.rnf version

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ELBV2.SetSecurityGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.ELBV2.SetSecurityGroups
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELBV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,15 +96,16 @@ instance Core.AWSRequest SetSecurityGroups where
   type
     AWSResponse SetSecurityGroups =
       SetSecurityGroupsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "SetSecurityGroupsResult"
       ( \s h x ->
           SetSecurityGroupsResponse'
-            Prelude.<$> ( x Core..@? "SecurityGroupIds"
+            Prelude.<$> ( x Data..@? "SecurityGroupIds"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -118,22 +120,22 @@ instance Prelude.NFData SetSecurityGroups where
     Prelude.rnf loadBalancerArn
       `Prelude.seq` Prelude.rnf securityGroups
 
-instance Core.ToHeaders SetSecurityGroups where
+instance Data.ToHeaders SetSecurityGroups where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath SetSecurityGroups where
+instance Data.ToPath SetSecurityGroups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SetSecurityGroups where
+instance Data.ToQuery SetSecurityGroups where
   toQuery SetSecurityGroups' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("SetSecurityGroups" :: Prelude.ByteString),
+          Data.=: ("SetSecurityGroups" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-12-01" :: Prelude.ByteString),
-        "LoadBalancerArn" Core.=: loadBalancerArn,
+          Data.=: ("2015-12-01" :: Prelude.ByteString),
+        "LoadBalancerArn" Data.=: loadBalancerArn,
         "SecurityGroups"
-          Core.=: Core.toQueryList "member" securityGroups
+          Data.=: Data.toQueryList "member" securityGroups
       ]
 
 -- | /See:/ 'newSetSecurityGroupsResponse' smart constructor.

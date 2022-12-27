@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.DescribeOrderableClusterOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,9 +38,9 @@ module Amazonka.Redshift.DescribeOrderableClusterOptions
     newDescribeOrderableClusterOptions,
 
     -- * Request Lenses
+    describeOrderableClusterOptions_clusterVersion,
     describeOrderableClusterOptions_marker,
     describeOrderableClusterOptions_maxRecords,
-    describeOrderableClusterOptions_clusterVersion,
     describeOrderableClusterOptions_nodeType,
 
     -- * Destructuring the Response
@@ -55,7 +55,8 @@ module Amazonka.Redshift.DescribeOrderableClusterOptions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -65,7 +66,15 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeOrderableClusterOptions' smart constructor.
 data DescribeOrderableClusterOptions = DescribeOrderableClusterOptions'
-  { -- | An optional parameter that specifies the starting point to return a set
+  { -- | The version filter value. Specify this parameter to show only the
+    -- available offerings matching the specified version.
+    --
+    -- Default: All versions.
+    --
+    -- Constraints: Must be one of the version returned from
+    -- DescribeClusterVersions.
+    clusterVersion :: Prelude.Maybe Prelude.Text,
+    -- | An optional parameter that specifies the starting point to return a set
     -- of response records. When the results of a
     -- DescribeOrderableClusterOptions request exceed the value specified in
     -- @MaxRecords@, Amazon Web Services returns a value in the @Marker@ field
@@ -83,14 +92,6 @@ data DescribeOrderableClusterOptions = DescribeOrderableClusterOptions'
     --
     -- Constraints: minimum 20, maximum 100.
     maxRecords :: Prelude.Maybe Prelude.Int,
-    -- | The version filter value. Specify this parameter to show only the
-    -- available offerings matching the specified version.
-    --
-    -- Default: All versions.
-    --
-    -- Constraints: Must be one of the version returned from
-    -- DescribeClusterVersions.
-    clusterVersion :: Prelude.Maybe Prelude.Text,
     -- | The node type filter value. Specify this parameter to show only the
     -- available offerings matching the specified node type.
     nodeType :: Prelude.Maybe Prelude.Text
@@ -104,6 +105,14 @@ data DescribeOrderableClusterOptions = DescribeOrderableClusterOptions'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'clusterVersion', 'describeOrderableClusterOptions_clusterVersion' - The version filter value. Specify this parameter to show only the
+-- available offerings matching the specified version.
+--
+-- Default: All versions.
+--
+-- Constraints: Must be one of the version returned from
+-- DescribeClusterVersions.
 --
 -- 'marker', 'describeOrderableClusterOptions_marker' - An optional parameter that specifies the starting point to return a set
 -- of response records. When the results of a
@@ -123,26 +132,28 @@ data DescribeOrderableClusterOptions = DescribeOrderableClusterOptions'
 --
 -- Constraints: minimum 20, maximum 100.
 --
--- 'clusterVersion', 'describeOrderableClusterOptions_clusterVersion' - The version filter value. Specify this parameter to show only the
--- available offerings matching the specified version.
---
--- Default: All versions.
---
--- Constraints: Must be one of the version returned from
--- DescribeClusterVersions.
---
 -- 'nodeType', 'describeOrderableClusterOptions_nodeType' - The node type filter value. Specify this parameter to show only the
 -- available offerings matching the specified node type.
 newDescribeOrderableClusterOptions ::
   DescribeOrderableClusterOptions
 newDescribeOrderableClusterOptions =
   DescribeOrderableClusterOptions'
-    { marker =
+    { clusterVersion =
         Prelude.Nothing,
+      marker = Prelude.Nothing,
       maxRecords = Prelude.Nothing,
-      clusterVersion = Prelude.Nothing,
       nodeType = Prelude.Nothing
     }
+
+-- | The version filter value. Specify this parameter to show only the
+-- available offerings matching the specified version.
+--
+-- Default: All versions.
+--
+-- Constraints: Must be one of the version returned from
+-- DescribeClusterVersions.
+describeOrderableClusterOptions_clusterVersion :: Lens.Lens' DescribeOrderableClusterOptions (Prelude.Maybe Prelude.Text)
+describeOrderableClusterOptions_clusterVersion = Lens.lens (\DescribeOrderableClusterOptions' {clusterVersion} -> clusterVersion) (\s@DescribeOrderableClusterOptions' {} a -> s {clusterVersion = a} :: DescribeOrderableClusterOptions)
 
 -- | An optional parameter that specifies the starting point to return a set
 -- of response records. When the results of a
@@ -165,16 +176,6 @@ describeOrderableClusterOptions_marker = Lens.lens (\DescribeOrderableClusterOpt
 -- Constraints: minimum 20, maximum 100.
 describeOrderableClusterOptions_maxRecords :: Lens.Lens' DescribeOrderableClusterOptions (Prelude.Maybe Prelude.Int)
 describeOrderableClusterOptions_maxRecords = Lens.lens (\DescribeOrderableClusterOptions' {maxRecords} -> maxRecords) (\s@DescribeOrderableClusterOptions' {} a -> s {maxRecords = a} :: DescribeOrderableClusterOptions)
-
--- | The version filter value. Specify this parameter to show only the
--- available offerings matching the specified version.
---
--- Default: All versions.
---
--- Constraints: Must be one of the version returned from
--- DescribeClusterVersions.
-describeOrderableClusterOptions_clusterVersion :: Lens.Lens' DescribeOrderableClusterOptions (Prelude.Maybe Prelude.Text)
-describeOrderableClusterOptions_clusterVersion = Lens.lens (\DescribeOrderableClusterOptions' {clusterVersion} -> clusterVersion) (\s@DescribeOrderableClusterOptions' {} a -> s {clusterVersion = a} :: DescribeOrderableClusterOptions)
 
 -- | The node type filter value. Specify this parameter to show only the
 -- available offerings matching the specified node type.
@@ -213,17 +214,18 @@ instance
   type
     AWSResponse DescribeOrderableClusterOptions =
       DescribeOrderableClusterOptionsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeOrderableClusterOptionsResult"
       ( \s h x ->
           DescribeOrderableClusterOptionsResponse'
-            Prelude.<$> (x Core..@? "Marker")
-            Prelude.<*> ( x Core..@? "OrderableClusterOptions"
+            Prelude.<$> (x Data..@? "Marker")
+            Prelude.<*> ( x Data..@? "OrderableClusterOptions"
                             Core..!@ Prelude.mempty
                             Prelude.>>= Core.may
-                              (Core.parseXMLList "OrderableClusterOption")
+                              (Data.parseXMLList "OrderableClusterOption")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -235,9 +237,9 @@ instance
   hashWithSalt
     _salt
     DescribeOrderableClusterOptions' {..} =
-      _salt `Prelude.hashWithSalt` marker
+      _salt `Prelude.hashWithSalt` clusterVersion
+        `Prelude.hashWithSalt` marker
         `Prelude.hashWithSalt` maxRecords
-        `Prelude.hashWithSalt` clusterVersion
         `Prelude.hashWithSalt` nodeType
 
 instance
@@ -245,33 +247,33 @@ instance
     DescribeOrderableClusterOptions
   where
   rnf DescribeOrderableClusterOptions' {..} =
-    Prelude.rnf marker
+    Prelude.rnf clusterVersion
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
-      `Prelude.seq` Prelude.rnf clusterVersion
       `Prelude.seq` Prelude.rnf nodeType
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeOrderableClusterOptions
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeOrderableClusterOptions where
+instance Data.ToPath DescribeOrderableClusterOptions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeOrderableClusterOptions where
+instance Data.ToQuery DescribeOrderableClusterOptions where
   toQuery DescribeOrderableClusterOptions' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeOrderableClusterOptions" ::
+          Data.=: ( "DescribeOrderableClusterOptions" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords,
-        "ClusterVersion" Core.=: clusterVersion,
-        "NodeType" Core.=: nodeType
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "ClusterVersion" Data.=: clusterVersion,
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
+        "NodeType" Data.=: nodeType
       ]
 
 -- | Contains the output from the DescribeOrderableClusterOptions action.

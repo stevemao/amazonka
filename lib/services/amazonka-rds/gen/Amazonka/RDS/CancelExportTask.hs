@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.CancelExportTask
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,26 +36,28 @@ module Amazonka.RDS.CancelExportTask
     newExportTask,
 
     -- * Response Lenses
-    exportTask_totalExtractedDataInGB,
-    exportTask_status,
-    exportTask_iamRoleArn,
-    exportTask_sourceArn,
     exportTask_exportOnly,
-    exportTask_taskStartTime,
-    exportTask_warningMessage,
-    exportTask_snapshotTime,
-    exportTask_kmsKeyId,
-    exportTask_taskEndTime,
     exportTask_exportTaskIdentifier,
-    exportTask_s3Prefix,
+    exportTask_failureCause,
+    exportTask_iamRoleArn,
+    exportTask_kmsKeyId,
     exportTask_percentProgress,
     exportTask_s3Bucket,
-    exportTask_failureCause,
+    exportTask_s3Prefix,
+    exportTask_snapshotTime,
+    exportTask_sourceArn,
+    exportTask_sourceType,
+    exportTask_status,
+    exportTask_taskEndTime,
+    exportTask_taskStartTime,
+    exportTask_totalExtractedDataInGB,
+    exportTask_warningMessage,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -93,11 +95,12 @@ cancelExportTask_exportTaskIdentifier = Lens.lens (\CancelExportTask' {exportTas
 
 instance Core.AWSRequest CancelExportTask where
   type AWSResponse CancelExportTask = ExportTask
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CancelExportTaskResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance Prelude.Hashable CancelExportTask where
   hashWithSalt _salt CancelExportTask' {..} =
@@ -107,18 +110,18 @@ instance Prelude.NFData CancelExportTask where
   rnf CancelExportTask' {..} =
     Prelude.rnf exportTaskIdentifier
 
-instance Core.ToHeaders CancelExportTask where
+instance Data.ToHeaders CancelExportTask where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CancelExportTask where
+instance Data.ToPath CancelExportTask where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CancelExportTask where
+instance Data.ToQuery CancelExportTask where
   toQuery CancelExportTask' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CancelExportTask" :: Prelude.ByteString),
+          Data.=: ("CancelExportTask" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "ExportTaskIdentifier" Core.=: exportTaskIdentifier
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "ExportTaskIdentifier" Data.=: exportTaskIdentifier
       ]

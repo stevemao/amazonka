@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Budgets.CreateBudget
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ where
 
 import Amazonka.Budgets.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,8 +62,8 @@ data CreateBudget = CreateBudget'
   { -- | A notification that you want to associate with a budget. A budget can
     -- have up to five notifications, and each notification can have one SNS
     -- subscriber and up to 10 email subscribers. If you include notifications
-    -- and subscribers in your @CreateBudget@ call, AWS creates the
-    -- notifications and subscribers for you.
+    -- and subscribers in your @CreateBudget@ call, Amazon Web Services creates
+    -- the notifications and subscribers for you.
     notificationsWithSubscribers :: Prelude.Maybe [NotificationWithSubscribers],
     -- | The @accountId@ that is associated with the budget.
     accountId :: Prelude.Text,
@@ -82,8 +83,8 @@ data CreateBudget = CreateBudget'
 -- 'notificationsWithSubscribers', 'createBudget_notificationsWithSubscribers' - A notification that you want to associate with a budget. A budget can
 -- have up to five notifications, and each notification can have one SNS
 -- subscriber and up to 10 email subscribers. If you include notifications
--- and subscribers in your @CreateBudget@ call, AWS creates the
--- notifications and subscribers for you.
+-- and subscribers in your @CreateBudget@ call, Amazon Web Services creates
+-- the notifications and subscribers for you.
 --
 -- 'accountId', 'createBudget_accountId' - The @accountId@ that is associated with the budget.
 --
@@ -105,8 +106,8 @@ newCreateBudget pAccountId_ pBudget_ =
 -- | A notification that you want to associate with a budget. A budget can
 -- have up to five notifications, and each notification can have one SNS
 -- subscriber and up to 10 email subscribers. If you include notifications
--- and subscribers in your @CreateBudget@ call, AWS creates the
--- notifications and subscribers for you.
+-- and subscribers in your @CreateBudget@ call, Amazon Web Services creates
+-- the notifications and subscribers for you.
 createBudget_notificationsWithSubscribers :: Lens.Lens' CreateBudget (Prelude.Maybe [NotificationWithSubscribers])
 createBudget_notificationsWithSubscribers = Lens.lens (\CreateBudget' {notificationsWithSubscribers} -> notificationsWithSubscribers) (\s@CreateBudget' {} a -> s {notificationsWithSubscribers = a} :: CreateBudget) Prelude.. Lens.mapping Lens.coerced
 
@@ -120,7 +121,8 @@ createBudget_budget = Lens.lens (\CreateBudget' {budget} -> budget) (\s@CreateBu
 
 instance Core.AWSRequest CreateBudget where
   type AWSResponse CreateBudget = CreateBudgetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -141,36 +143,36 @@ instance Prelude.NFData CreateBudget where
       `Prelude.seq` Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf budget
 
-instance Core.ToHeaders CreateBudget where
+instance Data.ToHeaders CreateBudget where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSBudgetServiceGateway.CreateBudget" ::
+              Data.=# ( "AWSBudgetServiceGateway.CreateBudget" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateBudget where
+instance Data.ToJSON CreateBudget where
   toJSON CreateBudget' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NotificationsWithSubscribers" Core..=)
+          [ ("NotificationsWithSubscribers" Data..=)
               Prelude.<$> notificationsWithSubscribers,
-            Prelude.Just ("AccountId" Core..= accountId),
-            Prelude.Just ("Budget" Core..= budget)
+            Prelude.Just ("AccountId" Data..= accountId),
+            Prelude.Just ("Budget" Data..= budget)
           ]
       )
 
-instance Core.ToPath CreateBudget where
+instance Data.ToPath CreateBudget where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateBudget where
+instance Data.ToQuery CreateBudget where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Response of CreateBudget

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GreengrassV2.Types.DisassociateClientDeviceFromCoreDeviceErrorEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.GreengrassV2.Types.DisassociateClientDeviceFromCoreDeviceErrorEntry where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains an error that occurs from a request to disassociate a client
@@ -76,17 +77,17 @@ disassociateClientDeviceFromCoreDeviceErrorEntry_thingName :: Lens.Lens' Disasso
 disassociateClientDeviceFromCoreDeviceErrorEntry_thingName = Lens.lens (\DisassociateClientDeviceFromCoreDeviceErrorEntry' {thingName} -> thingName) (\s@DisassociateClientDeviceFromCoreDeviceErrorEntry' {} a -> s {thingName = a} :: DisassociateClientDeviceFromCoreDeviceErrorEntry)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     DisassociateClientDeviceFromCoreDeviceErrorEntry
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DisassociateClientDeviceFromCoreDeviceErrorEntry"
       ( \x ->
           DisassociateClientDeviceFromCoreDeviceErrorEntry'
-            Prelude.<$> (x Core..:? "code")
-              Prelude.<*> (x Core..:? "message")
-              Prelude.<*> (x Core..:? "thingName")
+            Prelude.<$> (x Data..:? "code")
+              Prelude.<*> (x Data..:? "message")
+              Prelude.<*> (x Data..:? "thingName")
       )
 
 instance

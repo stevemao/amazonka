@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.ListTemplates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.QuickSight.ListTemplates
     newListTemplates,
 
     -- * Request Lenses
-    listTemplates_nextToken,
     listTemplates_maxResults,
+    listTemplates_nextToken,
     listTemplates_awsAccountId,
 
     -- * Destructuring the Response
@@ -38,15 +38,16 @@ module Amazonka.QuickSight.ListTemplates
     newListTemplatesResponse,
 
     -- * Response Lenses
+    listTemplatesResponse_nextToken,
     listTemplatesResponse_requestId,
     listTemplatesResponse_templateSummaryList,
-    listTemplatesResponse_nextToken,
     listTemplatesResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -54,11 +55,11 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListTemplates' smart constructor.
 data ListTemplates = ListTemplates'
-  { -- | The token for the next set of results, or null if there are no more
+  { -- | The maximum number of results to be returned per request.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results, or null if there are no more
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to be returned per request.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The ID of the Amazon Web Services account that contains the templates
     -- that you\'re listing.
     awsAccountId :: Prelude.Text
@@ -73,10 +74,10 @@ data ListTemplates = ListTemplates'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listTemplates_maxResults' - The maximum number of results to be returned per request.
+--
 -- 'nextToken', 'listTemplates_nextToken' - The token for the next set of results, or null if there are no more
 -- results.
---
--- 'maxResults', 'listTemplates_maxResults' - The maximum number of results to be returned per request.
 --
 -- 'awsAccountId', 'listTemplates_awsAccountId' - The ID of the Amazon Web Services account that contains the templates
 -- that you\'re listing.
@@ -86,19 +87,19 @@ newListTemplates ::
   ListTemplates
 newListTemplates pAwsAccountId_ =
   ListTemplates'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       awsAccountId = pAwsAccountId_
     }
+
+-- | The maximum number of results to be returned per request.
+listTemplates_maxResults :: Lens.Lens' ListTemplates (Prelude.Maybe Prelude.Natural)
+listTemplates_maxResults = Lens.lens (\ListTemplates' {maxResults} -> maxResults) (\s@ListTemplates' {} a -> s {maxResults = a} :: ListTemplates)
 
 -- | The token for the next set of results, or null if there are no more
 -- results.
 listTemplates_nextToken :: Lens.Lens' ListTemplates (Prelude.Maybe Prelude.Text)
 listTemplates_nextToken = Lens.lens (\ListTemplates' {nextToken} -> nextToken) (\s@ListTemplates' {} a -> s {nextToken = a} :: ListTemplates)
-
--- | The maximum number of results to be returned per request.
-listTemplates_maxResults :: Lens.Lens' ListTemplates (Prelude.Maybe Prelude.Natural)
-listTemplates_maxResults = Lens.lens (\ListTemplates' {maxResults} -> maxResults) (\s@ListTemplates' {} a -> s {maxResults = a} :: ListTemplates)
 
 -- | The ID of the Amazon Web Services account that contains the templates
 -- that you\'re listing.
@@ -129,63 +130,64 @@ instance Core.AWSRequest ListTemplates where
   type
     AWSResponse ListTemplates =
       ListTemplatesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTemplatesResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> ( x Core..?> "TemplateSummaryList"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "RequestId")
+            Prelude.<*> ( x Data..?> "TemplateSummaryList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListTemplates where
   hashWithSalt _salt ListTemplates' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` awsAccountId
 
 instance Prelude.NFData ListTemplates where
   rnf ListTemplates' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf awsAccountId
 
-instance Core.ToHeaders ListTemplates where
+instance Data.ToHeaders ListTemplates where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListTemplates where
+instance Data.ToPath ListTemplates where
   toPath ListTemplates' {..} =
     Prelude.mconcat
-      ["/accounts/", Core.toBS awsAccountId, "/templates"]
+      ["/accounts/", Data.toBS awsAccountId, "/templates"]
 
-instance Core.ToQuery ListTemplates where
+instance Data.ToQuery ListTemplates where
   toQuery ListTemplates' {..} =
     Prelude.mconcat
-      [ "next-token" Core.=: nextToken,
-        "max-result" Core.=: maxResults
+      [ "max-result" Data.=: maxResults,
+        "next-token" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListTemplatesResponse' smart constructor.
 data ListTemplatesResponse = ListTemplatesResponse'
-  { -- | The Amazon Web Services request ID for this operation.
+  { -- | The token for the next set of results, or null if there are no more
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Web Services request ID for this operation.
     requestId :: Prelude.Maybe Prelude.Text,
     -- | A structure containing information about the templates in the list.
     templateSummaryList :: Prelude.Maybe [TemplateSummary],
-    -- | The token for the next set of results, or null if there are no more
-    -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -199,12 +201,12 @@ data ListTemplatesResponse = ListTemplatesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'nextToken', 'listTemplatesResponse_nextToken' - The token for the next set of results, or null if there are no more
+-- results.
+--
 -- 'requestId', 'listTemplatesResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'templateSummaryList', 'listTemplatesResponse_templateSummaryList' - A structure containing information about the templates in the list.
---
--- 'nextToken', 'listTemplatesResponse_nextToken' - The token for the next set of results, or null if there are no more
--- results.
 --
 -- 'status', 'listTemplatesResponse_status' - The HTTP status of the request.
 newListTemplatesResponse ::
@@ -213,11 +215,16 @@ newListTemplatesResponse ::
   ListTemplatesResponse
 newListTemplatesResponse pStatus_ =
   ListTemplatesResponse'
-    { requestId = Prelude.Nothing,
+    { nextToken = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       templateSummaryList = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       status = pStatus_
     }
+
+-- | The token for the next set of results, or null if there are no more
+-- results.
+listTemplatesResponse_nextToken :: Lens.Lens' ListTemplatesResponse (Prelude.Maybe Prelude.Text)
+listTemplatesResponse_nextToken = Lens.lens (\ListTemplatesResponse' {nextToken} -> nextToken) (\s@ListTemplatesResponse' {} a -> s {nextToken = a} :: ListTemplatesResponse)
 
 -- | The Amazon Web Services request ID for this operation.
 listTemplatesResponse_requestId :: Lens.Lens' ListTemplatesResponse (Prelude.Maybe Prelude.Text)
@@ -227,18 +234,13 @@ listTemplatesResponse_requestId = Lens.lens (\ListTemplatesResponse' {requestId}
 listTemplatesResponse_templateSummaryList :: Lens.Lens' ListTemplatesResponse (Prelude.Maybe [TemplateSummary])
 listTemplatesResponse_templateSummaryList = Lens.lens (\ListTemplatesResponse' {templateSummaryList} -> templateSummaryList) (\s@ListTemplatesResponse' {} a -> s {templateSummaryList = a} :: ListTemplatesResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | The token for the next set of results, or null if there are no more
--- results.
-listTemplatesResponse_nextToken :: Lens.Lens' ListTemplatesResponse (Prelude.Maybe Prelude.Text)
-listTemplatesResponse_nextToken = Lens.lens (\ListTemplatesResponse' {nextToken} -> nextToken) (\s@ListTemplatesResponse' {} a -> s {nextToken = a} :: ListTemplatesResponse)
-
 -- | The HTTP status of the request.
 listTemplatesResponse_status :: Lens.Lens' ListTemplatesResponse Prelude.Int
 listTemplatesResponse_status = Lens.lens (\ListTemplatesResponse' {status} -> status) (\s@ListTemplatesResponse' {} a -> s {status = a} :: ListTemplatesResponse)
 
 instance Prelude.NFData ListTemplatesResponse where
   rnf ListTemplatesResponse' {..} =
-    Prelude.rnf requestId
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf templateSummaryList
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf status

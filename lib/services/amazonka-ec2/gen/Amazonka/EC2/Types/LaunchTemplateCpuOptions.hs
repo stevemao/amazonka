@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.LaunchTemplateCpuOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.LaunchTemplateCpuOptions where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The CPU options for the instance.
@@ -63,11 +64,11 @@ launchTemplateCpuOptions_coreCount = Lens.lens (\LaunchTemplateCpuOptions' {core
 launchTemplateCpuOptions_threadsPerCore :: Lens.Lens' LaunchTemplateCpuOptions (Prelude.Maybe Prelude.Int)
 launchTemplateCpuOptions_threadsPerCore = Lens.lens (\LaunchTemplateCpuOptions' {threadsPerCore} -> threadsPerCore) (\s@LaunchTemplateCpuOptions' {} a -> s {threadsPerCore = a} :: LaunchTemplateCpuOptions)
 
-instance Core.FromXML LaunchTemplateCpuOptions where
+instance Data.FromXML LaunchTemplateCpuOptions where
   parseXML x =
     LaunchTemplateCpuOptions'
-      Prelude.<$> (x Core..@? "coreCount")
-      Prelude.<*> (x Core..@? "threadsPerCore")
+      Prelude.<$> (x Data..@? "coreCount")
+      Prelude.<*> (x Data..@? "threadsPerCore")
 
 instance Prelude.Hashable LaunchTemplateCpuOptions where
   hashWithSalt _salt LaunchTemplateCpuOptions' {..} =

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.CheckInLicense
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.LicenseManager.CheckInLicense
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LicenseManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -89,7 +90,8 @@ instance Core.AWSRequest CheckInLicense where
   type
     AWSResponse CheckInLicense =
       CheckInLicenseResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -107,37 +109,37 @@ instance Prelude.NFData CheckInLicense where
     Prelude.rnf beneficiary
       `Prelude.seq` Prelude.rnf licenseConsumptionToken
 
-instance Core.ToHeaders CheckInLicense where
+instance Data.ToHeaders CheckInLicense where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSLicenseManager.CheckInLicense" ::
+              Data.=# ( "AWSLicenseManager.CheckInLicense" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CheckInLicense where
+instance Data.ToJSON CheckInLicense where
   toJSON CheckInLicense' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Beneficiary" Core..=) Prelude.<$> beneficiary,
+          [ ("Beneficiary" Data..=) Prelude.<$> beneficiary,
             Prelude.Just
               ( "LicenseConsumptionToken"
-                  Core..= licenseConsumptionToken
+                  Data..= licenseConsumptionToken
               )
           ]
       )
 
-instance Core.ToPath CheckInLicense where
+instance Data.ToPath CheckInLicense where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CheckInLicense where
+instance Data.ToQuery CheckInLicense where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCheckInLicenseResponse' smart constructor.

@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.LakeFormation.UpdateResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Updates the data access role used for vending access to the given
--- (registered) resource in AWS Lake Formation.
+-- (registered) resource in Lake Formation.
 module Amazonka.LakeFormation.UpdateResource
   ( -- * Creating a Request
     UpdateResource (..),
@@ -41,16 +41,16 @@ module Amazonka.LakeFormation.UpdateResource
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LakeFormation.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateResource' smart constructor.
 data UpdateResource = UpdateResource'
-  { -- | The new role to use for the given resource registered in AWS Lake
-    -- Formation.
+  { -- | The new role to use for the given resource registered in Lake Formation.
     roleArn :: Prelude.Text,
     -- | The resource ARN.
     resourceArn :: Prelude.Text
@@ -65,8 +65,7 @@ data UpdateResource = UpdateResource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'roleArn', 'updateResource_roleArn' - The new role to use for the given resource registered in AWS Lake
--- Formation.
+-- 'roleArn', 'updateResource_roleArn' - The new role to use for the given resource registered in Lake Formation.
 --
 -- 'resourceArn', 'updateResource_resourceArn' - The resource ARN.
 newUpdateResource ::
@@ -81,8 +80,7 @@ newUpdateResource pRoleArn_ pResourceArn_ =
       resourceArn = pResourceArn_
     }
 
--- | The new role to use for the given resource registered in AWS Lake
--- Formation.
+-- | The new role to use for the given resource registered in Lake Formation.
 updateResource_roleArn :: Lens.Lens' UpdateResource Prelude.Text
 updateResource_roleArn = Lens.lens (\UpdateResource' {roleArn} -> roleArn) (\s@UpdateResource' {} a -> s {roleArn = a} :: UpdateResource)
 
@@ -94,7 +92,8 @@ instance Core.AWSRequest UpdateResource where
   type
     AWSResponse UpdateResource =
       UpdateResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -112,34 +111,30 @@ instance Prelude.NFData UpdateResource where
     Prelude.rnf roleArn
       `Prelude.seq` Prelude.rnf resourceArn
 
-instance Core.ToHeaders UpdateResource where
+instance Data.ToHeaders UpdateResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
-          [ "X-Amz-Target"
-              Core.=# ( "AWSLakeFormation.UpdateResource" ::
-                          Prelude.ByteString
-                      ),
-            "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+          [ "Content-Type"
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateResource where
+instance Data.ToJSON UpdateResource where
   toJSON UpdateResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("RoleArn" Core..= roleArn),
-            Prelude.Just ("ResourceArn" Core..= resourceArn)
+          [ Prelude.Just ("RoleArn" Data..= roleArn),
+            Prelude.Just ("ResourceArn" Data..= resourceArn)
           ]
       )
 
-instance Core.ToPath UpdateResource where
-  toPath = Prelude.const "/"
+instance Data.ToPath UpdateResource where
+  toPath = Prelude.const "/UpdateResource"
 
-instance Core.ToQuery UpdateResource where
+instance Data.ToQuery UpdateResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateResourceResponse' smart constructor.

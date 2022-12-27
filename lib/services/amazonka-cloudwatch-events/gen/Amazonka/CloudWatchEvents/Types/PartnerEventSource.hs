@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.Types.PartnerEventSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudWatchEvents.Types.PartnerEventSource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A partner event source is created by an SaaS partner. If a customer
@@ -64,13 +65,13 @@ partnerEventSource_arn = Lens.lens (\PartnerEventSource' {arn} -> arn) (\s@Partn
 partnerEventSource_name :: Lens.Lens' PartnerEventSource (Prelude.Maybe Prelude.Text)
 partnerEventSource_name = Lens.lens (\PartnerEventSource' {name} -> name) (\s@PartnerEventSource' {} a -> s {name = a} :: PartnerEventSource)
 
-instance Core.FromJSON PartnerEventSource where
+instance Data.FromJSON PartnerEventSource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PartnerEventSource"
       ( \x ->
           PartnerEventSource'
-            Prelude.<$> (x Core..:? "Arn") Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Arn") Prelude.<*> (x Data..:? "Name")
       )
 
 instance Prelude.Hashable PartnerEventSource where

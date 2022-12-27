@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.ObjectLockLegalHold
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,17 @@
 module Amazonka.S3.Types.ObjectLockLegalHold where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.ObjectLockLegalHoldStatus
 
--- | A Legal Hold configuration for an object.
+-- | A legal hold configuration for an object.
 --
 -- /See:/ 'newObjectLockLegalHold' smart constructor.
 data ObjectLockLegalHold = ObjectLockLegalHold'
-  { -- | Indicates whether the specified object has a Legal Hold in place.
+  { -- | Indicates whether the specified object has a legal hold in place.
     status :: Prelude.Maybe ObjectLockLegalHoldStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -42,20 +43,20 @@ data ObjectLockLegalHold = ObjectLockLegalHold'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'objectLockLegalHold_status' - Indicates whether the specified object has a Legal Hold in place.
+-- 'status', 'objectLockLegalHold_status' - Indicates whether the specified object has a legal hold in place.
 newObjectLockLegalHold ::
   ObjectLockLegalHold
 newObjectLockLegalHold =
   ObjectLockLegalHold' {status = Prelude.Nothing}
 
--- | Indicates whether the specified object has a Legal Hold in place.
+-- | Indicates whether the specified object has a legal hold in place.
 objectLockLegalHold_status :: Lens.Lens' ObjectLockLegalHold (Prelude.Maybe ObjectLockLegalHoldStatus)
 objectLockLegalHold_status = Lens.lens (\ObjectLockLegalHold' {status} -> status) (\s@ObjectLockLegalHold' {} a -> s {status = a} :: ObjectLockLegalHold)
 
-instance Core.FromXML ObjectLockLegalHold where
+instance Data.FromXML ObjectLockLegalHold where
   parseXML x =
     ObjectLockLegalHold'
-      Prelude.<$> (x Core..@? "Status")
+      Prelude.<$> (x Data..@? "Status")
 
 instance Prelude.Hashable ObjectLockLegalHold where
   hashWithSalt _salt ObjectLockLegalHold' {..} =
@@ -64,6 +65,6 @@ instance Prelude.Hashable ObjectLockLegalHold where
 instance Prelude.NFData ObjectLockLegalHold where
   rnf ObjectLockLegalHold' {..} = Prelude.rnf status
 
-instance Core.ToXML ObjectLockLegalHold where
+instance Data.ToXML ObjectLockLegalHold where
   toXML ObjectLockLegalHold' {..} =
-    Prelude.mconcat ["Status" Core.@= status]
+    Prelude.mconcat ["Status" Data.@= status]

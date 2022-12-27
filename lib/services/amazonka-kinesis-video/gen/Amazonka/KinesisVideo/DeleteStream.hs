@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideo.DeleteStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,8 +52,9 @@ module Amazonka.KinesisVideo.DeleteStream
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisVideo.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -116,7 +117,8 @@ deleteStream_streamARN = Lens.lens (\DeleteStream' {streamARN} -> streamARN) (\s
 
 instance Core.AWSRequest DeleteStream where
   type AWSResponse DeleteStream = DeleteStreamResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -134,23 +136,23 @@ instance Prelude.NFData DeleteStream where
     Prelude.rnf currentVersion
       `Prelude.seq` Prelude.rnf streamARN
 
-instance Core.ToHeaders DeleteStream where
+instance Data.ToHeaders DeleteStream where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON DeleteStream where
+instance Data.ToJSON DeleteStream where
   toJSON DeleteStream' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CurrentVersion" Core..=)
+          [ ("CurrentVersion" Data..=)
               Prelude.<$> currentVersion,
-            Prelude.Just ("StreamARN" Core..= streamARN)
+            Prelude.Just ("StreamARN" Data..= streamARN)
           ]
       )
 
-instance Core.ToPath DeleteStream where
+instance Data.ToPath DeleteStream where
   toPath = Prelude.const "/deleteStream"
 
-instance Core.ToQuery DeleteStream where
+instance Data.ToQuery DeleteStream where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteStreamResponse' smart constructor.

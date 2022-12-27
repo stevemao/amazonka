@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MigrationHub.NotifyMigrationTaskState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,7 +54,8 @@ module Amazonka.MigrationHub.NotifyMigrationTaskState
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MigrationHub.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -73,7 +74,7 @@ data NotifyMigrationTaskState = NotifyMigrationTaskState'
     -- | Information about the task\'s progress and status.
     task :: Task,
     -- | The timestamp when the task was gathered.
-    updateDateTime :: Core.POSIX,
+    updateDateTime :: Data.POSIX,
     -- | Number of seconds after the UpdateDateTime within which the Migration
     -- Hub can expect an update. If Migration Hub does not receive an update
     -- within the specified interval, then the migration task will be
@@ -130,7 +131,7 @@ newNotifyMigrationTaskState
         migrationTaskName = pMigrationTaskName_,
         task = pTask_,
         updateDateTime =
-          Core._Time Lens.# pUpdateDateTime_,
+          Data._Time Lens.# pUpdateDateTime_,
         nextUpdateSeconds = pNextUpdateSeconds_
       }
 
@@ -154,7 +155,7 @@ notifyMigrationTaskState_task = Lens.lens (\NotifyMigrationTaskState' {task} -> 
 
 -- | The timestamp when the task was gathered.
 notifyMigrationTaskState_updateDateTime :: Lens.Lens' NotifyMigrationTaskState Prelude.UTCTime
-notifyMigrationTaskState_updateDateTime = Lens.lens (\NotifyMigrationTaskState' {updateDateTime} -> updateDateTime) (\s@NotifyMigrationTaskState' {} a -> s {updateDateTime = a} :: NotifyMigrationTaskState) Prelude.. Core._Time
+notifyMigrationTaskState_updateDateTime = Lens.lens (\NotifyMigrationTaskState' {updateDateTime} -> updateDateTime) (\s@NotifyMigrationTaskState' {} a -> s {updateDateTime = a} :: NotifyMigrationTaskState) Prelude.. Data._Time
 
 -- | Number of seconds after the UpdateDateTime within which the Migration
 -- Hub can expect an update. If Migration Hub does not receive an update
@@ -167,7 +168,8 @@ instance Core.AWSRequest NotifyMigrationTaskState where
   type
     AWSResponse NotifyMigrationTaskState =
       NotifyMigrationTaskStateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -193,44 +195,44 @@ instance Prelude.NFData NotifyMigrationTaskState where
       `Prelude.seq` Prelude.rnf updateDateTime
       `Prelude.seq` Prelude.rnf nextUpdateSeconds
 
-instance Core.ToHeaders NotifyMigrationTaskState where
+instance Data.ToHeaders NotifyMigrationTaskState where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSMigrationHub.NotifyMigrationTaskState" ::
+              Data.=# ( "AWSMigrationHub.NotifyMigrationTaskState" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON NotifyMigrationTaskState where
+instance Data.ToJSON NotifyMigrationTaskState where
   toJSON NotifyMigrationTaskState' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DryRun" Core..=) Prelude.<$> dryRun,
+          [ ("DryRun" Data..=) Prelude.<$> dryRun,
             Prelude.Just
               ( "ProgressUpdateStream"
-                  Core..= progressUpdateStream
+                  Data..= progressUpdateStream
               ),
             Prelude.Just
-              ("MigrationTaskName" Core..= migrationTaskName),
-            Prelude.Just ("Task" Core..= task),
+              ("MigrationTaskName" Data..= migrationTaskName),
+            Prelude.Just ("Task" Data..= task),
             Prelude.Just
-              ("UpdateDateTime" Core..= updateDateTime),
+              ("UpdateDateTime" Data..= updateDateTime),
             Prelude.Just
-              ("NextUpdateSeconds" Core..= nextUpdateSeconds)
+              ("NextUpdateSeconds" Data..= nextUpdateSeconds)
           ]
       )
 
-instance Core.ToPath NotifyMigrationTaskState where
+instance Data.ToPath NotifyMigrationTaskState where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery NotifyMigrationTaskState where
+instance Data.ToQuery NotifyMigrationTaskState where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newNotifyMigrationTaskStateResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.RebootInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.Lightsail.RebootInstance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -82,12 +83,13 @@ instance Core.AWSRequest RebootInstance where
   type
     AWSResponse RebootInstance =
       RebootInstanceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RebootInstanceResponse'
-            Prelude.<$> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -98,32 +100,32 @@ instance Prelude.Hashable RebootInstance where
 instance Prelude.NFData RebootInstance where
   rnf RebootInstance' {..} = Prelude.rnf instanceName
 
-instance Core.ToHeaders RebootInstance where
+instance Data.ToHeaders RebootInstance where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.RebootInstance" ::
+              Data.=# ( "Lightsail_20161128.RebootInstance" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RebootInstance where
+instance Data.ToJSON RebootInstance where
   toJSON RebootInstance' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("instanceName" Core..= instanceName)]
+          [Prelude.Just ("instanceName" Data..= instanceName)]
       )
 
-instance Core.ToPath RebootInstance where
+instance Data.ToPath RebootInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RebootInstance where
+instance Data.ToQuery RebootInstance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRebootInstanceResponse' smart constructor.

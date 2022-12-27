@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.CreateTrafficMirrorFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,9 +38,9 @@ module Amazonka.EC2.CreateTrafficMirrorFilter
 
     -- * Request Lenses
     createTrafficMirrorFilter_clientToken,
-    createTrafficMirrorFilter_tagSpecifications,
     createTrafficMirrorFilter_description,
     createTrafficMirrorFilter_dryRun,
+    createTrafficMirrorFilter_tagSpecifications,
 
     -- * Destructuring the Response
     CreateTrafficMirrorFilterResponse (..),
@@ -54,8 +54,9 @@ module Amazonka.EC2.CreateTrafficMirrorFilter
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,15 +67,15 @@ data CreateTrafficMirrorFilter = CreateTrafficMirrorFilter'
     -- idempotency of the request. For more information, see
     -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to ensure idempotency>.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | The tags to assign to a Traffic Mirror filter.
-    tagSpecifications :: Prelude.Maybe [TagSpecification],
     -- | The description of the Traffic Mirror filter.
     description :: Prelude.Maybe Prelude.Text,
     -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The tags to assign to a Traffic Mirror filter.
+    tagSpecifications :: Prelude.Maybe [TagSpecification]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -90,23 +91,23 @@ data CreateTrafficMirrorFilter = CreateTrafficMirrorFilter'
 -- idempotency of the request. For more information, see
 -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to ensure idempotency>.
 --
--- 'tagSpecifications', 'createTrafficMirrorFilter_tagSpecifications' - The tags to assign to a Traffic Mirror filter.
---
 -- 'description', 'createTrafficMirrorFilter_description' - The description of the Traffic Mirror filter.
 --
 -- 'dryRun', 'createTrafficMirrorFilter_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'tagSpecifications', 'createTrafficMirrorFilter_tagSpecifications' - The tags to assign to a Traffic Mirror filter.
 newCreateTrafficMirrorFilter ::
   CreateTrafficMirrorFilter
 newCreateTrafficMirrorFilter =
   CreateTrafficMirrorFilter'
     { clientToken =
         Prelude.Nothing,
-      tagSpecifications = Prelude.Nothing,
       description = Prelude.Nothing,
-      dryRun = Prelude.Nothing
+      dryRun = Prelude.Nothing,
+      tagSpecifications = Prelude.Nothing
     }
 
 -- | Unique, case-sensitive identifier that you provide to ensure the
@@ -114,10 +115,6 @@ newCreateTrafficMirrorFilter =
 -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to ensure idempotency>.
 createTrafficMirrorFilter_clientToken :: Lens.Lens' CreateTrafficMirrorFilter (Prelude.Maybe Prelude.Text)
 createTrafficMirrorFilter_clientToken = Lens.lens (\CreateTrafficMirrorFilter' {clientToken} -> clientToken) (\s@CreateTrafficMirrorFilter' {} a -> s {clientToken = a} :: CreateTrafficMirrorFilter)
-
--- | The tags to assign to a Traffic Mirror filter.
-createTrafficMirrorFilter_tagSpecifications :: Lens.Lens' CreateTrafficMirrorFilter (Prelude.Maybe [TagSpecification])
-createTrafficMirrorFilter_tagSpecifications = Lens.lens (\CreateTrafficMirrorFilter' {tagSpecifications} -> tagSpecifications) (\s@CreateTrafficMirrorFilter' {} a -> s {tagSpecifications = a} :: CreateTrafficMirrorFilter) Prelude.. Lens.mapping Lens.coerced
 
 -- | The description of the Traffic Mirror filter.
 createTrafficMirrorFilter_description :: Lens.Lens' CreateTrafficMirrorFilter (Prelude.Maybe Prelude.Text)
@@ -130,54 +127,59 @@ createTrafficMirrorFilter_description = Lens.lens (\CreateTrafficMirrorFilter' {
 createTrafficMirrorFilter_dryRun :: Lens.Lens' CreateTrafficMirrorFilter (Prelude.Maybe Prelude.Bool)
 createTrafficMirrorFilter_dryRun = Lens.lens (\CreateTrafficMirrorFilter' {dryRun} -> dryRun) (\s@CreateTrafficMirrorFilter' {} a -> s {dryRun = a} :: CreateTrafficMirrorFilter)
 
+-- | The tags to assign to a Traffic Mirror filter.
+createTrafficMirrorFilter_tagSpecifications :: Lens.Lens' CreateTrafficMirrorFilter (Prelude.Maybe [TagSpecification])
+createTrafficMirrorFilter_tagSpecifications = Lens.lens (\CreateTrafficMirrorFilter' {tagSpecifications} -> tagSpecifications) (\s@CreateTrafficMirrorFilter' {} a -> s {tagSpecifications = a} :: CreateTrafficMirrorFilter) Prelude.. Lens.mapping Lens.coerced
+
 instance Core.AWSRequest CreateTrafficMirrorFilter where
   type
     AWSResponse CreateTrafficMirrorFilter =
       CreateTrafficMirrorFilterResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CreateTrafficMirrorFilterResponse'
-            Prelude.<$> (x Core..@? "clientToken")
-            Prelude.<*> (x Core..@? "trafficMirrorFilter")
+            Prelude.<$> (x Data..@? "clientToken")
+            Prelude.<*> (x Data..@? "trafficMirrorFilter")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateTrafficMirrorFilter where
   hashWithSalt _salt CreateTrafficMirrorFilter' {..} =
     _salt `Prelude.hashWithSalt` clientToken
-      `Prelude.hashWithSalt` tagSpecifications
       `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` tagSpecifications
 
 instance Prelude.NFData CreateTrafficMirrorFilter where
   rnf CreateTrafficMirrorFilter' {..} =
     Prelude.rnf clientToken
-      `Prelude.seq` Prelude.rnf tagSpecifications
       `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf tagSpecifications
 
-instance Core.ToHeaders CreateTrafficMirrorFilter where
+instance Data.ToHeaders CreateTrafficMirrorFilter where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateTrafficMirrorFilter where
+instance Data.ToPath CreateTrafficMirrorFilter where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateTrafficMirrorFilter where
+instance Data.ToQuery CreateTrafficMirrorFilter where
   toQuery CreateTrafficMirrorFilter' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateTrafficMirrorFilter" :: Prelude.ByteString),
+          Data.=: ("CreateTrafficMirrorFilter" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "ClientToken" Core.=: clientToken,
-        Core.toQuery
-          ( Core.toQueryList "TagSpecification"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "ClientToken" Data.=: clientToken,
+        "Description" Data.=: description,
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          ( Data.toQueryList "TagSpecification"
               Prelude.<$> tagSpecifications
-          ),
-        "Description" Core.=: description,
-        "DryRun" Core.=: dryRun
+          )
       ]
 
 -- | /See:/ 'newCreateTrafficMirrorFilterResponse' smart constructor.

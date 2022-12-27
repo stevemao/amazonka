@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.RDSData.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,15 +18,22 @@ module Amazonka.RDSData.Types
     defaultService,
 
     -- * Errors
-    _StatementTimeoutException,
+    _AccessDeniedException,
+    _BadRequestException,
     _ForbiddenException,
+    _InternalServerErrorException,
     _NotFoundException,
     _ServiceUnavailableError,
-    _InternalServerErrorException,
-    _BadRequestException,
+    _StatementTimeoutException,
 
     -- * DecimalReturnType
     DecimalReturnType (..),
+
+    -- * LongReturnType
+    LongReturnType (..),
+
+    -- * RecordsFormatType
+    RecordsFormatType (..),
 
     -- * TypeHint
     TypeHint (..),
@@ -33,52 +41,53 @@ module Amazonka.RDSData.Types
     -- * ArrayValue
     ArrayValue (..),
     newArrayValue,
-    arrayValue_longValues,
-    arrayValue_doubleValues,
-    arrayValue_stringValues,
     arrayValue_arrayValues,
     arrayValue_booleanValues,
+    arrayValue_doubleValues,
+    arrayValue_longValues,
+    arrayValue_stringValues,
 
     -- * ColumnMetadata
     ColumnMetadata (..),
     newColumnMetadata,
-    columnMetadata_typeName,
+    columnMetadata_arrayBaseColumnType,
+    columnMetadata_isAutoIncrement,
     columnMetadata_isCaseSensitive,
     columnMetadata_isCurrency,
-    columnMetadata_scale,
-    columnMetadata_precision,
-    columnMetadata_schemaName,
-    columnMetadata_isAutoIncrement,
-    columnMetadata_name,
-    columnMetadata_arrayBaseColumnType,
-    columnMetadata_type,
     columnMetadata_isSigned,
     columnMetadata_label,
+    columnMetadata_name,
     columnMetadata_nullable,
+    columnMetadata_precision,
+    columnMetadata_scale,
+    columnMetadata_schemaName,
     columnMetadata_tableName,
+    columnMetadata_type,
+    columnMetadata_typeName,
 
     -- * Field
     Field (..),
     newField,
-    field_doubleValue,
-    field_stringValue,
-    field_longValue,
-    field_booleanValue,
     field_arrayValue,
     field_blobValue,
+    field_booleanValue,
+    field_doubleValue,
     field_isNull,
+    field_longValue,
+    field_stringValue,
 
     -- * ResultSetOptions
     ResultSetOptions (..),
     newResultSetOptions,
     resultSetOptions_decimalReturnType,
+    resultSetOptions_longReturnType,
 
     -- * SqlParameter
     SqlParameter (..),
     newSqlParameter,
-    sqlParameter_value,
     sqlParameter_name,
     sqlParameter_typeHint,
+    sqlParameter_value,
 
     -- * UpdateResult
     UpdateResult (..),
@@ -88,12 +97,14 @@ module Amazonka.RDSData.Types
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDSData.Types.ArrayValue
 import Amazonka.RDSData.Types.ColumnMetadata
 import Amazonka.RDSData.Types.DecimalReturnType
 import Amazonka.RDSData.Types.Field
+import Amazonka.RDSData.Types.LongReturnType
+import Amazonka.RDSData.Types.RecordsFormatType
 import Amazonka.RDSData.Types.ResultSetOptions
 import Amazonka.RDSData.Types.SqlParameter
 import Amazonka.RDSData.Types.TypeHint
@@ -104,41 +115,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "RDSData",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "rds-data",
-      Core._serviceSigningName = "rds-data",
-      Core._serviceVersion = "2018-08-01",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError = Core.parseJSONError "RDSData",
-      Core._serviceRetry = retry
+    { Core.abbrev = "RDSData",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "rds-data",
+      Core.signingName = "rds-data",
+      Core.version = "2018-08-01",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "RDSData",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -146,36 +165,36 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
 
--- | The execution of the SQL statement timed out.
-_StatementTimeoutException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_StatementTimeoutException =
+-- | You do not have sufficient access to perform this action.
+_AccessDeniedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_AccessDeniedException =
   Core._MatchServiceError
     defaultService
-    "StatementTimeoutException"
+    "AccessDeniedException"
+    Prelude.. Core.hasStatus 403
+
+-- | There is an error in the call or in a SQL statement.
+_BadRequestException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_BadRequestException =
+  Core._MatchServiceError
+    defaultService
+    "BadRequestException"
     Prelude.. Core.hasStatus 400
 
 -- | There are insufficient privileges to make the call.
@@ -185,6 +204,14 @@ _ForbiddenException =
     defaultService
     "ForbiddenException"
     Prelude.. Core.hasStatus 403
+
+-- | An internal error occurred.
+_InternalServerErrorException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InternalServerErrorException =
+  Core._MatchServiceError
+    defaultService
+    "InternalServerErrorException"
+    Prelude.. Core.hasStatus 500
 
 -- | The @resourceArn@, @secretArn@, or @transactionId@ value can\'t be
 -- found.
@@ -203,18 +230,10 @@ _ServiceUnavailableError =
     "ServiceUnavailableError"
     Prelude.. Core.hasStatus 503
 
--- | An internal error occurred.
-_InternalServerErrorException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InternalServerErrorException =
+-- | The execution of the SQL statement timed out.
+_StatementTimeoutException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_StatementTimeoutException =
   Core._MatchServiceError
     defaultService
-    "InternalServerErrorException"
-    Prelude.. Core.hasStatus 500
-
--- | There is an error in the call or in a SQL statement.
-_BadRequestException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_BadRequestException =
-  Core._MatchServiceError
-    defaultService
-    "BadRequestException"
+    "StatementTimeoutException"
     Prelude.. Core.hasStatus 400

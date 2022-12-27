@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.CreateFirewallPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,9 +23,9 @@
 -- Creates the firewall policy for the firewall according to the
 -- specifications.
 --
--- An AWS Network Firewall firewall policy defines the behavior of a
--- firewall, in a collection of stateless and stateful rule groups and
--- other settings. You can use one firewall policy for multiple firewalls.
+-- An Network Firewall firewall policy defines the behavior of a firewall,
+-- in a collection of stateless and stateful rule groups and other
+-- settings. You can use one firewall policy for multiple firewalls.
 module Amazonka.NetworkFirewall.CreateFirewallPolicy
   ( -- * Creating a Request
     CreateFirewallPolicy (..),
@@ -34,6 +34,7 @@ module Amazonka.NetworkFirewall.CreateFirewallPolicy
     -- * Request Lenses
     createFirewallPolicy_description,
     createFirewallPolicy_dryRun,
+    createFirewallPolicy_encryptionConfiguration,
     createFirewallPolicy_tags,
     createFirewallPolicy_firewallPolicyName,
     createFirewallPolicy_firewallPolicy,
@@ -50,7 +51,8 @@ module Amazonka.NetworkFirewall.CreateFirewallPolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkFirewall.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -74,6 +76,9 @@ data CreateFirewallPolicy = CreateFirewallPolicy'
     -- If set to @FALSE@, Network Firewall makes the requested changes to your
     -- resources.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | A complex type that contains settings for encryption of your firewall
+    -- policy resources.
+    encryptionConfiguration :: Prelude.Maybe EncryptionConfiguration,
     -- | The key:value pairs to associate with the resource.
     tags :: Prelude.Maybe (Prelude.NonEmpty Tag),
     -- | The descriptive name of the firewall policy. You can\'t change the name
@@ -108,6 +113,9 @@ data CreateFirewallPolicy = CreateFirewallPolicy'
 -- If set to @FALSE@, Network Firewall makes the requested changes to your
 -- resources.
 --
+-- 'encryptionConfiguration', 'createFirewallPolicy_encryptionConfiguration' - A complex type that contains settings for encryption of your firewall
+-- policy resources.
+--
 -- 'tags', 'createFirewallPolicy_tags' - The key:value pairs to associate with the resource.
 --
 -- 'firewallPolicyName', 'createFirewallPolicy_firewallPolicyName' - The descriptive name of the firewall policy. You can\'t change the name
@@ -127,6 +135,7 @@ newCreateFirewallPolicy
       { description =
           Prelude.Nothing,
         dryRun = Prelude.Nothing,
+        encryptionConfiguration = Prelude.Nothing,
         tags = Prelude.Nothing,
         firewallPolicyName = pFirewallPolicyName_,
         firewallPolicy = pFirewallPolicy_
@@ -152,6 +161,11 @@ createFirewallPolicy_description = Lens.lens (\CreateFirewallPolicy' {descriptio
 createFirewallPolicy_dryRun :: Lens.Lens' CreateFirewallPolicy (Prelude.Maybe Prelude.Bool)
 createFirewallPolicy_dryRun = Lens.lens (\CreateFirewallPolicy' {dryRun} -> dryRun) (\s@CreateFirewallPolicy' {} a -> s {dryRun = a} :: CreateFirewallPolicy)
 
+-- | A complex type that contains settings for encryption of your firewall
+-- policy resources.
+createFirewallPolicy_encryptionConfiguration :: Lens.Lens' CreateFirewallPolicy (Prelude.Maybe EncryptionConfiguration)
+createFirewallPolicy_encryptionConfiguration = Lens.lens (\CreateFirewallPolicy' {encryptionConfiguration} -> encryptionConfiguration) (\s@CreateFirewallPolicy' {} a -> s {encryptionConfiguration = a} :: CreateFirewallPolicy)
+
 -- | The key:value pairs to associate with the resource.
 createFirewallPolicy_tags :: Lens.Lens' CreateFirewallPolicy (Prelude.Maybe (Prelude.NonEmpty Tag))
 createFirewallPolicy_tags = Lens.lens (\CreateFirewallPolicy' {tags} -> tags) (\s@CreateFirewallPolicy' {} a -> s {tags = a} :: CreateFirewallPolicy) Prelude.. Lens.mapping Lens.coerced
@@ -169,20 +183,22 @@ instance Core.AWSRequest CreateFirewallPolicy where
   type
     AWSResponse CreateFirewallPolicy =
       CreateFirewallPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateFirewallPolicyResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "UpdateToken")
-            Prelude.<*> (x Core..:> "FirewallPolicyResponse")
+            Prelude.<*> (x Data..:> "UpdateToken")
+            Prelude.<*> (x Data..:> "FirewallPolicyResponse")
       )
 
 instance Prelude.Hashable CreateFirewallPolicy where
   hashWithSalt _salt CreateFirewallPolicy' {..} =
     _salt `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` encryptionConfiguration
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` firewallPolicyName
       `Prelude.hashWithSalt` firewallPolicy
@@ -191,43 +207,46 @@ instance Prelude.NFData CreateFirewallPolicy where
   rnf CreateFirewallPolicy' {..} =
     Prelude.rnf description
       `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf encryptionConfiguration
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf firewallPolicyName
       `Prelude.seq` Prelude.rnf firewallPolicy
 
-instance Core.ToHeaders CreateFirewallPolicy where
+instance Data.ToHeaders CreateFirewallPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "NetworkFirewall_20201112.CreateFirewallPolicy" ::
+              Data.=# ( "NetworkFirewall_20201112.CreateFirewallPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateFirewallPolicy where
+instance Data.ToJSON CreateFirewallPolicy where
   toJSON CreateFirewallPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Description" Core..=) Prelude.<$> description,
-            ("DryRun" Core..=) Prelude.<$> dryRun,
-            ("Tags" Core..=) Prelude.<$> tags,
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("DryRun" Data..=) Prelude.<$> dryRun,
+            ("EncryptionConfiguration" Data..=)
+              Prelude.<$> encryptionConfiguration,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("FirewallPolicyName" Core..= firewallPolicyName),
+              ("FirewallPolicyName" Data..= firewallPolicyName),
             Prelude.Just
-              ("FirewallPolicy" Core..= firewallPolicy)
+              ("FirewallPolicy" Data..= firewallPolicy)
           ]
       )
 
-instance Core.ToPath CreateFirewallPolicy where
+instance Data.ToPath CreateFirewallPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateFirewallPolicy where
+instance Data.ToQuery CreateFirewallPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateFirewallPolicyResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EFS.ModifyMountTargetSecurityGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -53,8 +53,9 @@ module Amazonka.EFS.ModifyMountTargetSecurityGroups
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EFS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,7 +108,8 @@ instance
   type
     AWSResponse ModifyMountTargetSecurityGroups =
       ModifyMountTargetSecurityGroupsResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveNull
       ModifyMountTargetSecurityGroupsResponse'
@@ -131,29 +133,29 @@ instance
       `Prelude.seq` Prelude.rnf mountTargetId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ModifyMountTargetSecurityGroups
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON ModifyMountTargetSecurityGroups where
+instance Data.ToJSON ModifyMountTargetSecurityGroups where
   toJSON ModifyMountTargetSecurityGroups' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SecurityGroups" Core..=)
+          [ ("SecurityGroups" Data..=)
               Prelude.<$> securityGroups
           ]
       )
 
-instance Core.ToPath ModifyMountTargetSecurityGroups where
+instance Data.ToPath ModifyMountTargetSecurityGroups where
   toPath ModifyMountTargetSecurityGroups' {..} =
     Prelude.mconcat
       [ "/2015-02-01/mount-targets/",
-        Core.toBS mountTargetId,
+        Data.toBS mountTargetId,
         "/security-groups"
       ]
 
-instance Core.ToQuery ModifyMountTargetSecurityGroups where
+instance Data.ToQuery ModifyMountTargetSecurityGroups where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newModifyMountTargetSecurityGroupsResponse' smart constructor.

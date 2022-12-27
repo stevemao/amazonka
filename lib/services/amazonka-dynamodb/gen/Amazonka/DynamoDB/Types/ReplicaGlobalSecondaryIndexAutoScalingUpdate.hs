@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.ReplicaGlobalSecondaryIndexAutoScalingUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,11 @@
 module Amazonka.DynamoDB.Types.ReplicaGlobalSecondaryIndexAutoScalingUpdate where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.AutoScalingSettingsUpdate
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the auto scaling settings of a global secondary index for a
@@ -30,9 +32,9 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newReplicaGlobalSecondaryIndexAutoScalingUpdate' smart constructor.
 data ReplicaGlobalSecondaryIndexAutoScalingUpdate = ReplicaGlobalSecondaryIndexAutoScalingUpdate'
-  { provisionedReadCapacityAutoScalingUpdate :: Prelude.Maybe AutoScalingSettingsUpdate,
-    -- | The name of the global secondary index.
-    indexName :: Prelude.Maybe Prelude.Text
+  { -- | The name of the global secondary index.
+    indexName :: Prelude.Maybe Prelude.Text,
+    provisionedReadCapacityAutoScalingUpdate :: Prelude.Maybe AutoScalingSettingsUpdate
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,25 +46,26 @@ data ReplicaGlobalSecondaryIndexAutoScalingUpdate = ReplicaGlobalSecondaryIndexA
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'provisionedReadCapacityAutoScalingUpdate', 'replicaGlobalSecondaryIndexAutoScalingUpdate_provisionedReadCapacityAutoScalingUpdate' - Undocumented member.
---
 -- 'indexName', 'replicaGlobalSecondaryIndexAutoScalingUpdate_indexName' - The name of the global secondary index.
+--
+-- 'provisionedReadCapacityAutoScalingUpdate', 'replicaGlobalSecondaryIndexAutoScalingUpdate_provisionedReadCapacityAutoScalingUpdate' - Undocumented member.
 newReplicaGlobalSecondaryIndexAutoScalingUpdate ::
   ReplicaGlobalSecondaryIndexAutoScalingUpdate
 newReplicaGlobalSecondaryIndexAutoScalingUpdate =
   ReplicaGlobalSecondaryIndexAutoScalingUpdate'
-    { provisionedReadCapacityAutoScalingUpdate =
+    { indexName =
         Prelude.Nothing,
-      indexName = Prelude.Nothing
+      provisionedReadCapacityAutoScalingUpdate =
+        Prelude.Nothing
     }
-
--- | Undocumented member.
-replicaGlobalSecondaryIndexAutoScalingUpdate_provisionedReadCapacityAutoScalingUpdate :: Lens.Lens' ReplicaGlobalSecondaryIndexAutoScalingUpdate (Prelude.Maybe AutoScalingSettingsUpdate)
-replicaGlobalSecondaryIndexAutoScalingUpdate_provisionedReadCapacityAutoScalingUpdate = Lens.lens (\ReplicaGlobalSecondaryIndexAutoScalingUpdate' {provisionedReadCapacityAutoScalingUpdate} -> provisionedReadCapacityAutoScalingUpdate) (\s@ReplicaGlobalSecondaryIndexAutoScalingUpdate' {} a -> s {provisionedReadCapacityAutoScalingUpdate = a} :: ReplicaGlobalSecondaryIndexAutoScalingUpdate)
 
 -- | The name of the global secondary index.
 replicaGlobalSecondaryIndexAutoScalingUpdate_indexName :: Lens.Lens' ReplicaGlobalSecondaryIndexAutoScalingUpdate (Prelude.Maybe Prelude.Text)
 replicaGlobalSecondaryIndexAutoScalingUpdate_indexName = Lens.lens (\ReplicaGlobalSecondaryIndexAutoScalingUpdate' {indexName} -> indexName) (\s@ReplicaGlobalSecondaryIndexAutoScalingUpdate' {} a -> s {indexName = a} :: ReplicaGlobalSecondaryIndexAutoScalingUpdate)
+
+-- | Undocumented member.
+replicaGlobalSecondaryIndexAutoScalingUpdate_provisionedReadCapacityAutoScalingUpdate :: Lens.Lens' ReplicaGlobalSecondaryIndexAutoScalingUpdate (Prelude.Maybe AutoScalingSettingsUpdate)
+replicaGlobalSecondaryIndexAutoScalingUpdate_provisionedReadCapacityAutoScalingUpdate = Lens.lens (\ReplicaGlobalSecondaryIndexAutoScalingUpdate' {provisionedReadCapacityAutoScalingUpdate} -> provisionedReadCapacityAutoScalingUpdate) (\s@ReplicaGlobalSecondaryIndexAutoScalingUpdate' {} a -> s {provisionedReadCapacityAutoScalingUpdate = a} :: ReplicaGlobalSecondaryIndexAutoScalingUpdate)
 
 instance
   Prelude.Hashable
@@ -71,29 +74,27 @@ instance
   hashWithSalt
     _salt
     ReplicaGlobalSecondaryIndexAutoScalingUpdate' {..} =
-      _salt
+      _salt `Prelude.hashWithSalt` indexName
         `Prelude.hashWithSalt` provisionedReadCapacityAutoScalingUpdate
-        `Prelude.hashWithSalt` indexName
 
 instance
   Prelude.NFData
     ReplicaGlobalSecondaryIndexAutoScalingUpdate
   where
   rnf ReplicaGlobalSecondaryIndexAutoScalingUpdate' {..} =
-    Prelude.rnf
-      provisionedReadCapacityAutoScalingUpdate
-      `Prelude.seq` Prelude.rnf indexName
+    Prelude.rnf indexName
+      `Prelude.seq` Prelude.rnf provisionedReadCapacityAutoScalingUpdate
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ReplicaGlobalSecondaryIndexAutoScalingUpdate
   where
   toJSON
     ReplicaGlobalSecondaryIndexAutoScalingUpdate' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("ProvisionedReadCapacityAutoScalingUpdate" Core..=)
-                Prelude.<$> provisionedReadCapacityAutoScalingUpdate,
-              ("IndexName" Core..=) Prelude.<$> indexName
+            [ ("IndexName" Data..=) Prelude.<$> indexName,
+              ("ProvisionedReadCapacityAutoScalingUpdate" Data..=)
+                Prelude.<$> provisionedReadCapacityAutoScalingUpdate
             ]
         )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ApplicationInsights.Types.LogPattern
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ApplicationInsights.Types.LogPattern where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that defines the log patterns that belongs to a
@@ -134,16 +135,16 @@ logPattern_patternSetName = Lens.lens (\LogPattern' {patternSetName} -> patternS
 logPattern_rank :: Lens.Lens' LogPattern (Prelude.Maybe Prelude.Int)
 logPattern_rank = Lens.lens (\LogPattern' {rank} -> rank) (\s@LogPattern' {} a -> s {rank = a} :: LogPattern)
 
-instance Core.FromJSON LogPattern where
+instance Data.FromJSON LogPattern where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LogPattern"
       ( \x ->
           LogPattern'
-            Prelude.<$> (x Core..:? "Pattern")
-            Prelude.<*> (x Core..:? "PatternName")
-            Prelude.<*> (x Core..:? "PatternSetName")
-            Prelude.<*> (x Core..:? "Rank")
+            Prelude.<$> (x Data..:? "Pattern")
+            Prelude.<*> (x Data..:? "PatternName")
+            Prelude.<*> (x Data..:? "PatternSetName")
+            Prelude.<*> (x Data..:? "Rank")
       )
 
 instance Prelude.Hashable LogPattern where

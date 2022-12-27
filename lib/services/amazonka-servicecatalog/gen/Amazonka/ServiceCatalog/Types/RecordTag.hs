@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.Types.RecordTag
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.ServiceCatalog.Types.RecordTag where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a tag, which is a key-value pair.
 --
 -- /See:/ 'newRecordTag' smart constructor.
 data RecordTag = RecordTag'
-  { -- | The value for this tag.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The key for this tag.
-    key :: Prelude.Maybe Prelude.Text
+  { -- | The key for this tag.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The value for this tag.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,39 +43,39 @@ data RecordTag = RecordTag'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'recordTag_value' - The value for this tag.
---
 -- 'key', 'recordTag_key' - The key for this tag.
+--
+-- 'value', 'recordTag_value' - The value for this tag.
 newRecordTag ::
   RecordTag
 newRecordTag =
   RecordTag'
-    { value = Prelude.Nothing,
-      key = Prelude.Nothing
+    { key = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The value for this tag.
-recordTag_value :: Lens.Lens' RecordTag (Prelude.Maybe Prelude.Text)
-recordTag_value = Lens.lens (\RecordTag' {value} -> value) (\s@RecordTag' {} a -> s {value = a} :: RecordTag)
 
 -- | The key for this tag.
 recordTag_key :: Lens.Lens' RecordTag (Prelude.Maybe Prelude.Text)
 recordTag_key = Lens.lens (\RecordTag' {key} -> key) (\s@RecordTag' {} a -> s {key = a} :: RecordTag)
 
-instance Core.FromJSON RecordTag where
+-- | The value for this tag.
+recordTag_value :: Lens.Lens' RecordTag (Prelude.Maybe Prelude.Text)
+recordTag_value = Lens.lens (\RecordTag' {value} -> value) (\s@RecordTag' {} a -> s {value = a} :: RecordTag)
+
+instance Data.FromJSON RecordTag where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RecordTag"
       ( \x ->
           RecordTag'
-            Prelude.<$> (x Core..:? "Value") Prelude.<*> (x Core..:? "Key")
+            Prelude.<$> (x Data..:? "Key") Prelude.<*> (x Data..:? "Value")
       )
 
 instance Prelude.Hashable RecordTag where
   hashWithSalt _salt RecordTag' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` key
+    _salt `Prelude.hashWithSalt` key
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData RecordTag where
   rnf RecordTag' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf key
+    Prelude.rnf key `Prelude.seq` Prelude.rnf value

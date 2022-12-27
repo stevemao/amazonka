@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DeleteVpc
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.EC2.DeleteVpc
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,7 +98,8 @@ deleteVpc_vpcId = Lens.lens (\DeleteVpc' {vpcId} -> vpcId) (\s@DeleteVpc' {} a -
 
 instance Core.AWSRequest DeleteVpc where
   type AWSResponse DeleteVpc = DeleteVpcResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response = Response.receiveNull DeleteVpcResponse'
 
 instance Prelude.Hashable DeleteVpc where
@@ -109,21 +111,21 @@ instance Prelude.NFData DeleteVpc where
   rnf DeleteVpc' {..} =
     Prelude.rnf dryRun `Prelude.seq` Prelude.rnf vpcId
 
-instance Core.ToHeaders DeleteVpc where
+instance Data.ToHeaders DeleteVpc where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteVpc where
+instance Data.ToPath DeleteVpc where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteVpc where
+instance Data.ToQuery DeleteVpc where
   toQuery DeleteVpc' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteVpc" :: Prelude.ByteString),
+          Data.=: ("DeleteVpc" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "VpcId" Core.=: vpcId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "VpcId" Data.=: vpcId
       ]
 
 -- | /See:/ 'newDeleteVpcResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Inspector.DescribeExclusions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.Inspector.DescribeExclusions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Inspector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,14 +94,15 @@ instance Core.AWSRequest DescribeExclusions where
   type
     AWSResponse DescribeExclusions =
       DescribeExclusionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeExclusionsResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "exclusions" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "failedItems" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "exclusions" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "failedItems" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable DescribeExclusions where
@@ -113,35 +115,35 @@ instance Prelude.NFData DescribeExclusions where
     Prelude.rnf locale
       `Prelude.seq` Prelude.rnf exclusionArns
 
-instance Core.ToHeaders DescribeExclusions where
+instance Data.ToHeaders DescribeExclusions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "InspectorService.DescribeExclusions" ::
+              Data.=# ( "InspectorService.DescribeExclusions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeExclusions where
+instance Data.ToJSON DescribeExclusions where
   toJSON DescribeExclusions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("locale" Core..=) Prelude.<$> locale,
+          [ ("locale" Data..=) Prelude.<$> locale,
             Prelude.Just
-              ("exclusionArns" Core..= exclusionArns)
+              ("exclusionArns" Data..= exclusionArns)
           ]
       )
 
-instance Core.ToPath DescribeExclusions where
+instance Data.ToPath DescribeExclusions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeExclusions where
+instance Data.ToQuery DescribeExclusions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeExclusionsResponse' smart constructor.

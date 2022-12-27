@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSMIncidents.Types.AutomationExecution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSMIncidents.Types.AutomationExecution where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The Systems Manager automation document process to start as the runbook
@@ -54,13 +55,13 @@ newAutomationExecution =
 automationExecution_ssmExecutionArn :: Lens.Lens' AutomationExecution (Prelude.Maybe Prelude.Text)
 automationExecution_ssmExecutionArn = Lens.lens (\AutomationExecution' {ssmExecutionArn} -> ssmExecutionArn) (\s@AutomationExecution' {} a -> s {ssmExecutionArn = a} :: AutomationExecution)
 
-instance Core.FromJSON AutomationExecution where
+instance Data.FromJSON AutomationExecution where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AutomationExecution"
       ( \x ->
           AutomationExecution'
-            Prelude.<$> (x Core..:? "ssmExecutionArn")
+            Prelude.<$> (x Data..:? "ssmExecutionArn")
       )
 
 instance Prelude.Hashable AutomationExecution where

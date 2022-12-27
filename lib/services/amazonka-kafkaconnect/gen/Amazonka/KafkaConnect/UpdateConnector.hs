@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.UpdateConnector
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.KafkaConnect.UpdateConnector
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KafkaConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,13 +108,14 @@ instance Core.AWSRequest UpdateConnector where
   type
     AWSResponse UpdateConnector =
       UpdateConnectorResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateConnectorResponse'
-            Prelude.<$> (x Core..?> "connectorArn")
-            Prelude.<*> (x Core..?> "connectorState")
+            Prelude.<$> (x Data..?> "connectorArn")
+            Prelude.<*> (x Data..?> "connectorState")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -129,33 +131,33 @@ instance Prelude.NFData UpdateConnector where
       `Prelude.seq` Prelude.rnf connectorArn
       `Prelude.seq` Prelude.rnf currentVersion
 
-instance Core.ToHeaders UpdateConnector where
+instance Data.ToHeaders UpdateConnector where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateConnector where
+instance Data.ToJSON UpdateConnector where
   toJSON UpdateConnector' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("capacity" Core..= capacity)]
+          [Prelude.Just ("capacity" Data..= capacity)]
       )
 
-instance Core.ToPath UpdateConnector where
+instance Data.ToPath UpdateConnector where
   toPath UpdateConnector' {..} =
     Prelude.mconcat
-      ["/v1/connectors/", Core.toBS connectorArn]
+      ["/v1/connectors/", Data.toBS connectorArn]
 
-instance Core.ToQuery UpdateConnector where
+instance Data.ToQuery UpdateConnector where
   toQuery UpdateConnector' {..} =
     Prelude.mconcat
-      ["currentVersion" Core.=: currentVersion]
+      ["currentVersion" Data.=: currentVersion]
 
 -- | /See:/ 'newUpdateConnectorResponse' smart constructor.
 data UpdateConnectorResponse = UpdateConnectorResponse'

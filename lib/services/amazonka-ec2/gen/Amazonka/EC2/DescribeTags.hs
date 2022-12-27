@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,7 @@
 -- Describes the specified tags for your EC2 resources.
 --
 -- For more information about tags, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html Tagging Your Resources>
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html Tag your Amazon EC2 resources>
 -- in the /Amazon Elastic Compute Cloud User Guide/.
 --
 -- This operation returns paginated results.
@@ -33,10 +33,10 @@ module Amazonka.EC2.DescribeTags
     newDescribeTags,
 
     -- * Request Lenses
-    describeTags_filters,
-    describeTags_nextToken,
     describeTags_dryRun,
+    describeTags_filters,
     describeTags_maxResults,
+    describeTags_nextToken,
 
     -- * Destructuring the Response
     DescribeTagsResponse (..),
@@ -50,15 +50,21 @@ module Amazonka.EC2.DescribeTags
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeTags' smart constructor.
 data DescribeTags = DescribeTags'
-  { -- | The filters.
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The filters.
     --
     -- -   @key@ - The tag key.
     --
@@ -80,17 +86,12 @@ data DescribeTags = DescribeTags'
     --
     -- -   @value@ - The tag value.
     filters :: Prelude.Maybe [Filter],
-    -- | The token to retrieve the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | The maximum number of results to return in a single call. This value can
     -- be between 5 and 1000. To retrieve the remaining results, make another
     -- call with the returned @NextToken@ value.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The token to retrieve the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -101,6 +102,11 @@ data DescribeTags = DescribeTags'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'dryRun', 'describeTags_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'filters', 'describeTags_filters' - The filters.
 --
@@ -124,25 +130,27 @@ data DescribeTags = DescribeTags'
 --
 -- -   @value@ - The tag value.
 --
--- 'nextToken', 'describeTags_nextToken' - The token to retrieve the next page of results.
---
--- 'dryRun', 'describeTags_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
---
 -- 'maxResults', 'describeTags_maxResults' - The maximum number of results to return in a single call. This value can
 -- be between 5 and 1000. To retrieve the remaining results, make another
 -- call with the returned @NextToken@ value.
+--
+-- 'nextToken', 'describeTags_nextToken' - The token to retrieve the next page of results.
 newDescribeTags ::
   DescribeTags
 newDescribeTags =
   DescribeTags'
-    { filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { dryRun = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeTags_dryRun :: Lens.Lens' DescribeTags (Prelude.Maybe Prelude.Bool)
+describeTags_dryRun = Lens.lens (\DescribeTags' {dryRun} -> dryRun) (\s@DescribeTags' {} a -> s {dryRun = a} :: DescribeTags)
 
 -- | The filters.
 --
@@ -168,22 +176,15 @@ newDescribeTags =
 describeTags_filters :: Lens.Lens' DescribeTags (Prelude.Maybe [Filter])
 describeTags_filters = Lens.lens (\DescribeTags' {filters} -> filters) (\s@DescribeTags' {} a -> s {filters = a} :: DescribeTags) Prelude.. Lens.mapping Lens.coerced
 
--- | The token to retrieve the next page of results.
-describeTags_nextToken :: Lens.Lens' DescribeTags (Prelude.Maybe Prelude.Text)
-describeTags_nextToken = Lens.lens (\DescribeTags' {nextToken} -> nextToken) (\s@DescribeTags' {} a -> s {nextToken = a} :: DescribeTags)
-
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describeTags_dryRun :: Lens.Lens' DescribeTags (Prelude.Maybe Prelude.Bool)
-describeTags_dryRun = Lens.lens (\DescribeTags' {dryRun} -> dryRun) (\s@DescribeTags' {} a -> s {dryRun = a} :: DescribeTags)
-
 -- | The maximum number of results to return in a single call. This value can
 -- be between 5 and 1000. To retrieve the remaining results, make another
 -- call with the returned @NextToken@ value.
 describeTags_maxResults :: Lens.Lens' DescribeTags (Prelude.Maybe Prelude.Int)
 describeTags_maxResults = Lens.lens (\DescribeTags' {maxResults} -> maxResults) (\s@DescribeTags' {} a -> s {maxResults = a} :: DescribeTags)
+
+-- | The token to retrieve the next page of results.
+describeTags_nextToken :: Lens.Lens' DescribeTags (Prelude.Maybe Prelude.Text)
+describeTags_nextToken = Lens.lens (\DescribeTags' {nextToken} -> nextToken) (\s@DescribeTags' {} a -> s {nextToken = a} :: DescribeTags)
 
 instance Core.AWSPager DescribeTags where
   page rq rs
@@ -206,50 +207,51 @@ instance Core.AWSPager DescribeTags where
 
 instance Core.AWSRequest DescribeTags where
   type AWSResponse DescribeTags = DescribeTagsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeTagsResponse'
-            Prelude.<$> (x Core..@? "nextToken")
-            Prelude.<*> ( x Core..@? "tagSet" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> (x Data..@? "nextToken")
+            Prelude.<*> ( x Data..@? "tagSet" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeTags where
   hashWithSalt _salt DescribeTags' {..} =
-    _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` dryRun
+    _salt `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeTags where
   rnf DescribeTags' {..} =
-    Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf dryRun
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeTags where
+instance Data.ToHeaders DescribeTags where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeTags where
+instance Data.ToPath DescribeTags where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeTags where
+instance Data.ToQuery DescribeTags where
   toQuery DescribeTags' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeTags" :: Prelude.ByteString),
+          Data.=: ("DescribeTags" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newDescribeTagsResponse' smart constructor.

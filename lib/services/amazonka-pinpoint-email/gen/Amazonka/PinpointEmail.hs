@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.PinpointEmail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -58,35 +58,35 @@ module Amazonka.PinpointEmail
     -- * Errors
     -- $errors
 
-    -- ** MessageRejected
-    _MessageRejected,
-
-    -- ** MailFromDomainNotVerifiedException
-    _MailFromDomainNotVerifiedException,
-
-    -- ** NotFoundException
-    _NotFoundException,
-
-    -- ** TooManyRequestsException
-    _TooManyRequestsException,
-
-    -- ** ConcurrentModificationException
-    _ConcurrentModificationException,
-
     -- ** AccountSuspendedException
     _AccountSuspendedException,
-
-    -- ** SendingPausedException
-    _SendingPausedException,
-
-    -- ** BadRequestException
-    _BadRequestException,
 
     -- ** AlreadyExistsException
     _AlreadyExistsException,
 
+    -- ** BadRequestException
+    _BadRequestException,
+
+    -- ** ConcurrentModificationException
+    _ConcurrentModificationException,
+
     -- ** LimitExceededException
     _LimitExceededException,
+
+    -- ** MailFromDomainNotVerifiedException
+    _MailFromDomainNotVerifiedException,
+
+    -- ** MessageRejected
+    _MessageRejected,
+
+    -- ** NotFoundException
+    _NotFoundException,
+
+    -- ** SendingPausedException
+    _SendingPausedException,
+
+    -- ** TooManyRequestsException
+    _TooManyRequestsException,
 
     -- * Waiters
     -- $waiters
@@ -94,221 +94,11 @@ module Amazonka.PinpointEmail
     -- * Operations
     -- $operations
 
-    -- ** GetConfigurationSet
-    GetConfigurationSet (GetConfigurationSet'),
-    newGetConfigurationSet,
-    GetConfigurationSetResponse (GetConfigurationSetResponse'),
-    newGetConfigurationSetResponse,
-
-    -- ** PutConfigurationSetTrackingOptions
-    PutConfigurationSetTrackingOptions (PutConfigurationSetTrackingOptions'),
-    newPutConfigurationSetTrackingOptions,
-    PutConfigurationSetTrackingOptionsResponse (PutConfigurationSetTrackingOptionsResponse'),
-    newPutConfigurationSetTrackingOptionsResponse,
-
-    -- ** PutEmailIdentityDkimAttributes
-    PutEmailIdentityDkimAttributes (PutEmailIdentityDkimAttributes'),
-    newPutEmailIdentityDkimAttributes,
-    PutEmailIdentityDkimAttributesResponse (PutEmailIdentityDkimAttributesResponse'),
-    newPutEmailIdentityDkimAttributesResponse,
-
-    -- ** PutConfigurationSetDeliveryOptions
-    PutConfigurationSetDeliveryOptions (PutConfigurationSetDeliveryOptions'),
-    newPutConfigurationSetDeliveryOptions,
-    PutConfigurationSetDeliveryOptionsResponse (PutConfigurationSetDeliveryOptionsResponse'),
-    newPutConfigurationSetDeliveryOptionsResponse,
-
-    -- ** ListDedicatedIpPools (Paginated)
-    ListDedicatedIpPools (ListDedicatedIpPools'),
-    newListDedicatedIpPools,
-    ListDedicatedIpPoolsResponse (ListDedicatedIpPoolsResponse'),
-    newListDedicatedIpPoolsResponse,
-
-    -- ** GetDomainDeliverabilityCampaign
-    GetDomainDeliverabilityCampaign (GetDomainDeliverabilityCampaign'),
-    newGetDomainDeliverabilityCampaign,
-    GetDomainDeliverabilityCampaignResponse (GetDomainDeliverabilityCampaignResponse'),
-    newGetDomainDeliverabilityCampaignResponse,
-
-    -- ** GetDedicatedIps (Paginated)
-    GetDedicatedIps (GetDedicatedIps'),
-    newGetDedicatedIps,
-    GetDedicatedIpsResponse (GetDedicatedIpsResponse'),
-    newGetDedicatedIpsResponse,
-
-    -- ** PutConfigurationSetSendingOptions
-    PutConfigurationSetSendingOptions (PutConfigurationSetSendingOptions'),
-    newPutConfigurationSetSendingOptions,
-    PutConfigurationSetSendingOptionsResponse (PutConfigurationSetSendingOptionsResponse'),
-    newPutConfigurationSetSendingOptionsResponse,
-
-    -- ** CreateDedicatedIpPool
-    CreateDedicatedIpPool (CreateDedicatedIpPool'),
-    newCreateDedicatedIpPool,
-    CreateDedicatedIpPoolResponse (CreateDedicatedIpPoolResponse'),
-    newCreateDedicatedIpPoolResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** PutEmailIdentityFeedbackAttributes
-    PutEmailIdentityFeedbackAttributes (PutEmailIdentityFeedbackAttributes'),
-    newPutEmailIdentityFeedbackAttributes,
-    PutEmailIdentityFeedbackAttributesResponse (PutEmailIdentityFeedbackAttributesResponse'),
-    newPutEmailIdentityFeedbackAttributesResponse,
-
-    -- ** PutConfigurationSetReputationOptions
-    PutConfigurationSetReputationOptions (PutConfigurationSetReputationOptions'),
-    newPutConfigurationSetReputationOptions,
-    PutConfigurationSetReputationOptionsResponse (PutConfigurationSetReputationOptionsResponse'),
-    newPutConfigurationSetReputationOptionsResponse,
-
-    -- ** PutDedicatedIpInPool
-    PutDedicatedIpInPool (PutDedicatedIpInPool'),
-    newPutDedicatedIpInPool,
-    PutDedicatedIpInPoolResponse (PutDedicatedIpInPoolResponse'),
-    newPutDedicatedIpInPoolResponse,
-
-    -- ** PutAccountSendingAttributes
-    PutAccountSendingAttributes (PutAccountSendingAttributes'),
-    newPutAccountSendingAttributes,
-    PutAccountSendingAttributesResponse (PutAccountSendingAttributesResponse'),
-    newPutAccountSendingAttributesResponse,
-
-    -- ** UpdateConfigurationSetEventDestination
-    UpdateConfigurationSetEventDestination (UpdateConfigurationSetEventDestination'),
-    newUpdateConfigurationSetEventDestination,
-    UpdateConfigurationSetEventDestinationResponse (UpdateConfigurationSetEventDestinationResponse'),
-    newUpdateConfigurationSetEventDestinationResponse,
-
-    -- ** DeleteConfigurationSetEventDestination
-    DeleteConfigurationSetEventDestination (DeleteConfigurationSetEventDestination'),
-    newDeleteConfigurationSetEventDestination,
-    DeleteConfigurationSetEventDestinationResponse (DeleteConfigurationSetEventDestinationResponse'),
-    newDeleteConfigurationSetEventDestinationResponse,
-
-    -- ** ListConfigurationSets (Paginated)
-    ListConfigurationSets (ListConfigurationSets'),
-    newListConfigurationSets,
-    ListConfigurationSetsResponse (ListConfigurationSetsResponse'),
-    newListConfigurationSetsResponse,
-
-    -- ** DeleteEmailIdentity
-    DeleteEmailIdentity (DeleteEmailIdentity'),
-    newDeleteEmailIdentity,
-    DeleteEmailIdentityResponse (DeleteEmailIdentityResponse'),
-    newDeleteEmailIdentityResponse,
-
-    -- ** DeleteConfigurationSet
-    DeleteConfigurationSet (DeleteConfigurationSet'),
-    newDeleteConfigurationSet,
-    DeleteConfigurationSetResponse (DeleteConfigurationSetResponse'),
-    newDeleteConfigurationSetResponse,
-
-    -- ** CreateEmailIdentity
-    CreateEmailIdentity (CreateEmailIdentity'),
-    newCreateEmailIdentity,
-    CreateEmailIdentityResponse (CreateEmailIdentityResponse'),
-    newCreateEmailIdentityResponse,
-
-    -- ** GetBlacklistReports
-    GetBlacklistReports (GetBlacklistReports'),
-    newGetBlacklistReports,
-    GetBlacklistReportsResponse (GetBlacklistReportsResponse'),
-    newGetBlacklistReportsResponse,
-
-    -- ** ListEmailIdentities (Paginated)
-    ListEmailIdentities (ListEmailIdentities'),
-    newListEmailIdentities,
-    ListEmailIdentitiesResponse (ListEmailIdentitiesResponse'),
-    newListEmailIdentitiesResponse,
-
-    -- ** GetDedicatedIp
-    GetDedicatedIp (GetDedicatedIp'),
-    newGetDedicatedIp,
-    GetDedicatedIpResponse (GetDedicatedIpResponse'),
-    newGetDedicatedIpResponse,
-
-    -- ** GetEmailIdentity
-    GetEmailIdentity (GetEmailIdentity'),
-    newGetEmailIdentity,
-    GetEmailIdentityResponse (GetEmailIdentityResponse'),
-    newGetEmailIdentityResponse,
-
-    -- ** GetConfigurationSetEventDestinations
-    GetConfigurationSetEventDestinations (GetConfigurationSetEventDestinations'),
-    newGetConfigurationSetEventDestinations,
-    GetConfigurationSetEventDestinationsResponse (GetConfigurationSetEventDestinationsResponse'),
-    newGetConfigurationSetEventDestinationsResponse,
-
-    -- ** GetAccount
-    GetAccount (GetAccount'),
-    newGetAccount,
-    GetAccountResponse (GetAccountResponse'),
-    newGetAccountResponse,
-
-    -- ** DeleteDedicatedIpPool
-    DeleteDedicatedIpPool (DeleteDedicatedIpPool'),
-    newDeleteDedicatedIpPool,
-    DeleteDedicatedIpPoolResponse (DeleteDedicatedIpPoolResponse'),
-    newDeleteDedicatedIpPoolResponse,
-
-    -- ** GetDomainStatisticsReport
-    GetDomainStatisticsReport (GetDomainStatisticsReport'),
-    newGetDomainStatisticsReport,
-    GetDomainStatisticsReportResponse (GetDomainStatisticsReportResponse'),
-    newGetDomainStatisticsReportResponse,
-
-    -- ** GetDeliverabilityDashboardOptions
-    GetDeliverabilityDashboardOptions (GetDeliverabilityDashboardOptions'),
-    newGetDeliverabilityDashboardOptions,
-    GetDeliverabilityDashboardOptionsResponse (GetDeliverabilityDashboardOptionsResponse'),
-    newGetDeliverabilityDashboardOptionsResponse,
-
-    -- ** ListDomainDeliverabilityCampaigns
-    ListDomainDeliverabilityCampaigns (ListDomainDeliverabilityCampaigns'),
-    newListDomainDeliverabilityCampaigns,
-    ListDomainDeliverabilityCampaignsResponse (ListDomainDeliverabilityCampaignsResponse'),
-    newListDomainDeliverabilityCampaignsResponse,
-
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
-
-    -- ** SendEmail
-    SendEmail (SendEmail'),
-    newSendEmail,
-    SendEmailResponse (SendEmailResponse'),
-    newSendEmailResponse,
-
-    -- ** PutDedicatedIpWarmupAttributes
-    PutDedicatedIpWarmupAttributes (PutDedicatedIpWarmupAttributes'),
-    newPutDedicatedIpWarmupAttributes,
-    PutDedicatedIpWarmupAttributesResponse (PutDedicatedIpWarmupAttributesResponse'),
-    newPutDedicatedIpWarmupAttributesResponse,
-
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
-
-    -- ** CreateDeliverabilityTestReport
-    CreateDeliverabilityTestReport (CreateDeliverabilityTestReport'),
-    newCreateDeliverabilityTestReport,
-    CreateDeliverabilityTestReportResponse (CreateDeliverabilityTestReportResponse'),
-    newCreateDeliverabilityTestReportResponse,
-
-    -- ** PutEmailIdentityMailFromAttributes
-    PutEmailIdentityMailFromAttributes (PutEmailIdentityMailFromAttributes'),
-    newPutEmailIdentityMailFromAttributes,
-    PutEmailIdentityMailFromAttributesResponse (PutEmailIdentityMailFromAttributesResponse'),
-    newPutEmailIdentityMailFromAttributesResponse,
+    -- ** CreateConfigurationSet
+    CreateConfigurationSet (CreateConfigurationSet'),
+    newCreateConfigurationSet,
+    CreateConfigurationSetResponse (CreateConfigurationSetResponse'),
+    newCreateConfigurationSetResponse,
 
     -- ** CreateConfigurationSetEventDestination
     CreateConfigurationSetEventDestination (CreateConfigurationSetEventDestination'),
@@ -316,17 +106,89 @@ module Amazonka.PinpointEmail
     CreateConfigurationSetEventDestinationResponse (CreateConfigurationSetEventDestinationResponse'),
     newCreateConfigurationSetEventDestinationResponse,
 
-    -- ** ListDeliverabilityTestReports (Paginated)
-    ListDeliverabilityTestReports (ListDeliverabilityTestReports'),
-    newListDeliverabilityTestReports,
-    ListDeliverabilityTestReportsResponse (ListDeliverabilityTestReportsResponse'),
-    newListDeliverabilityTestReportsResponse,
+    -- ** CreateDedicatedIpPool
+    CreateDedicatedIpPool (CreateDedicatedIpPool'),
+    newCreateDedicatedIpPool,
+    CreateDedicatedIpPoolResponse (CreateDedicatedIpPoolResponse'),
+    newCreateDedicatedIpPoolResponse,
 
-    -- ** CreateConfigurationSet
-    CreateConfigurationSet (CreateConfigurationSet'),
-    newCreateConfigurationSet,
-    CreateConfigurationSetResponse (CreateConfigurationSetResponse'),
-    newCreateConfigurationSetResponse,
+    -- ** CreateDeliverabilityTestReport
+    CreateDeliverabilityTestReport (CreateDeliverabilityTestReport'),
+    newCreateDeliverabilityTestReport,
+    CreateDeliverabilityTestReportResponse (CreateDeliverabilityTestReportResponse'),
+    newCreateDeliverabilityTestReportResponse,
+
+    -- ** CreateEmailIdentity
+    CreateEmailIdentity (CreateEmailIdentity'),
+    newCreateEmailIdentity,
+    CreateEmailIdentityResponse (CreateEmailIdentityResponse'),
+    newCreateEmailIdentityResponse,
+
+    -- ** DeleteConfigurationSet
+    DeleteConfigurationSet (DeleteConfigurationSet'),
+    newDeleteConfigurationSet,
+    DeleteConfigurationSetResponse (DeleteConfigurationSetResponse'),
+    newDeleteConfigurationSetResponse,
+
+    -- ** DeleteConfigurationSetEventDestination
+    DeleteConfigurationSetEventDestination (DeleteConfigurationSetEventDestination'),
+    newDeleteConfigurationSetEventDestination,
+    DeleteConfigurationSetEventDestinationResponse (DeleteConfigurationSetEventDestinationResponse'),
+    newDeleteConfigurationSetEventDestinationResponse,
+
+    -- ** DeleteDedicatedIpPool
+    DeleteDedicatedIpPool (DeleteDedicatedIpPool'),
+    newDeleteDedicatedIpPool,
+    DeleteDedicatedIpPoolResponse (DeleteDedicatedIpPoolResponse'),
+    newDeleteDedicatedIpPoolResponse,
+
+    -- ** DeleteEmailIdentity
+    DeleteEmailIdentity (DeleteEmailIdentity'),
+    newDeleteEmailIdentity,
+    DeleteEmailIdentityResponse (DeleteEmailIdentityResponse'),
+    newDeleteEmailIdentityResponse,
+
+    -- ** GetAccount
+    GetAccount (GetAccount'),
+    newGetAccount,
+    GetAccountResponse (GetAccountResponse'),
+    newGetAccountResponse,
+
+    -- ** GetBlacklistReports
+    GetBlacklistReports (GetBlacklistReports'),
+    newGetBlacklistReports,
+    GetBlacklistReportsResponse (GetBlacklistReportsResponse'),
+    newGetBlacklistReportsResponse,
+
+    -- ** GetConfigurationSet
+    GetConfigurationSet (GetConfigurationSet'),
+    newGetConfigurationSet,
+    GetConfigurationSetResponse (GetConfigurationSetResponse'),
+    newGetConfigurationSetResponse,
+
+    -- ** GetConfigurationSetEventDestinations
+    GetConfigurationSetEventDestinations (GetConfigurationSetEventDestinations'),
+    newGetConfigurationSetEventDestinations,
+    GetConfigurationSetEventDestinationsResponse (GetConfigurationSetEventDestinationsResponse'),
+    newGetConfigurationSetEventDestinationsResponse,
+
+    -- ** GetDedicatedIp
+    GetDedicatedIp (GetDedicatedIp'),
+    newGetDedicatedIp,
+    GetDedicatedIpResponse (GetDedicatedIpResponse'),
+    newGetDedicatedIpResponse,
+
+    -- ** GetDedicatedIps (Paginated)
+    GetDedicatedIps (GetDedicatedIps'),
+    newGetDedicatedIps,
+    GetDedicatedIpsResponse (GetDedicatedIpsResponse'),
+    newGetDedicatedIpsResponse,
+
+    -- ** GetDeliverabilityDashboardOptions
+    GetDeliverabilityDashboardOptions (GetDeliverabilityDashboardOptions'),
+    newGetDeliverabilityDashboardOptions,
+    GetDeliverabilityDashboardOptionsResponse (GetDeliverabilityDashboardOptionsResponse'),
+    newGetDeliverabilityDashboardOptionsResponse,
 
     -- ** GetDeliverabilityTestReport
     GetDeliverabilityTestReport (GetDeliverabilityTestReport'),
@@ -334,17 +196,155 @@ module Amazonka.PinpointEmail
     GetDeliverabilityTestReportResponse (GetDeliverabilityTestReportResponse'),
     newGetDeliverabilityTestReportResponse,
 
-    -- ** PutDeliverabilityDashboardOption
-    PutDeliverabilityDashboardOption (PutDeliverabilityDashboardOption'),
-    newPutDeliverabilityDashboardOption,
-    PutDeliverabilityDashboardOptionResponse (PutDeliverabilityDashboardOptionResponse'),
-    newPutDeliverabilityDashboardOptionResponse,
+    -- ** GetDomainDeliverabilityCampaign
+    GetDomainDeliverabilityCampaign (GetDomainDeliverabilityCampaign'),
+    newGetDomainDeliverabilityCampaign,
+    GetDomainDeliverabilityCampaignResponse (GetDomainDeliverabilityCampaignResponse'),
+    newGetDomainDeliverabilityCampaignResponse,
+
+    -- ** GetDomainStatisticsReport
+    GetDomainStatisticsReport (GetDomainStatisticsReport'),
+    newGetDomainStatisticsReport,
+    GetDomainStatisticsReportResponse (GetDomainStatisticsReportResponse'),
+    newGetDomainStatisticsReportResponse,
+
+    -- ** GetEmailIdentity
+    GetEmailIdentity (GetEmailIdentity'),
+    newGetEmailIdentity,
+    GetEmailIdentityResponse (GetEmailIdentityResponse'),
+    newGetEmailIdentityResponse,
+
+    -- ** ListConfigurationSets (Paginated)
+    ListConfigurationSets (ListConfigurationSets'),
+    newListConfigurationSets,
+    ListConfigurationSetsResponse (ListConfigurationSetsResponse'),
+    newListConfigurationSetsResponse,
+
+    -- ** ListDedicatedIpPools (Paginated)
+    ListDedicatedIpPools (ListDedicatedIpPools'),
+    newListDedicatedIpPools,
+    ListDedicatedIpPoolsResponse (ListDedicatedIpPoolsResponse'),
+    newListDedicatedIpPoolsResponse,
+
+    -- ** ListDeliverabilityTestReports (Paginated)
+    ListDeliverabilityTestReports (ListDeliverabilityTestReports'),
+    newListDeliverabilityTestReports,
+    ListDeliverabilityTestReportsResponse (ListDeliverabilityTestReportsResponse'),
+    newListDeliverabilityTestReportsResponse,
+
+    -- ** ListDomainDeliverabilityCampaigns
+    ListDomainDeliverabilityCampaigns (ListDomainDeliverabilityCampaigns'),
+    newListDomainDeliverabilityCampaigns,
+    ListDomainDeliverabilityCampaignsResponse (ListDomainDeliverabilityCampaignsResponse'),
+    newListDomainDeliverabilityCampaignsResponse,
+
+    -- ** ListEmailIdentities (Paginated)
+    ListEmailIdentities (ListEmailIdentities'),
+    newListEmailIdentities,
+    ListEmailIdentitiesResponse (ListEmailIdentitiesResponse'),
+    newListEmailIdentitiesResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** PutAccountDedicatedIpWarmupAttributes
     PutAccountDedicatedIpWarmupAttributes (PutAccountDedicatedIpWarmupAttributes'),
     newPutAccountDedicatedIpWarmupAttributes,
     PutAccountDedicatedIpWarmupAttributesResponse (PutAccountDedicatedIpWarmupAttributesResponse'),
     newPutAccountDedicatedIpWarmupAttributesResponse,
+
+    -- ** PutAccountSendingAttributes
+    PutAccountSendingAttributes (PutAccountSendingAttributes'),
+    newPutAccountSendingAttributes,
+    PutAccountSendingAttributesResponse (PutAccountSendingAttributesResponse'),
+    newPutAccountSendingAttributesResponse,
+
+    -- ** PutConfigurationSetDeliveryOptions
+    PutConfigurationSetDeliveryOptions (PutConfigurationSetDeliveryOptions'),
+    newPutConfigurationSetDeliveryOptions,
+    PutConfigurationSetDeliveryOptionsResponse (PutConfigurationSetDeliveryOptionsResponse'),
+    newPutConfigurationSetDeliveryOptionsResponse,
+
+    -- ** PutConfigurationSetReputationOptions
+    PutConfigurationSetReputationOptions (PutConfigurationSetReputationOptions'),
+    newPutConfigurationSetReputationOptions,
+    PutConfigurationSetReputationOptionsResponse (PutConfigurationSetReputationOptionsResponse'),
+    newPutConfigurationSetReputationOptionsResponse,
+
+    -- ** PutConfigurationSetSendingOptions
+    PutConfigurationSetSendingOptions (PutConfigurationSetSendingOptions'),
+    newPutConfigurationSetSendingOptions,
+    PutConfigurationSetSendingOptionsResponse (PutConfigurationSetSendingOptionsResponse'),
+    newPutConfigurationSetSendingOptionsResponse,
+
+    -- ** PutConfigurationSetTrackingOptions
+    PutConfigurationSetTrackingOptions (PutConfigurationSetTrackingOptions'),
+    newPutConfigurationSetTrackingOptions,
+    PutConfigurationSetTrackingOptionsResponse (PutConfigurationSetTrackingOptionsResponse'),
+    newPutConfigurationSetTrackingOptionsResponse,
+
+    -- ** PutDedicatedIpInPool
+    PutDedicatedIpInPool (PutDedicatedIpInPool'),
+    newPutDedicatedIpInPool,
+    PutDedicatedIpInPoolResponse (PutDedicatedIpInPoolResponse'),
+    newPutDedicatedIpInPoolResponse,
+
+    -- ** PutDedicatedIpWarmupAttributes
+    PutDedicatedIpWarmupAttributes (PutDedicatedIpWarmupAttributes'),
+    newPutDedicatedIpWarmupAttributes,
+    PutDedicatedIpWarmupAttributesResponse (PutDedicatedIpWarmupAttributesResponse'),
+    newPutDedicatedIpWarmupAttributesResponse,
+
+    -- ** PutDeliverabilityDashboardOption
+    PutDeliverabilityDashboardOption (PutDeliverabilityDashboardOption'),
+    newPutDeliverabilityDashboardOption,
+    PutDeliverabilityDashboardOptionResponse (PutDeliverabilityDashboardOptionResponse'),
+    newPutDeliverabilityDashboardOptionResponse,
+
+    -- ** PutEmailIdentityDkimAttributes
+    PutEmailIdentityDkimAttributes (PutEmailIdentityDkimAttributes'),
+    newPutEmailIdentityDkimAttributes,
+    PutEmailIdentityDkimAttributesResponse (PutEmailIdentityDkimAttributesResponse'),
+    newPutEmailIdentityDkimAttributesResponse,
+
+    -- ** PutEmailIdentityFeedbackAttributes
+    PutEmailIdentityFeedbackAttributes (PutEmailIdentityFeedbackAttributes'),
+    newPutEmailIdentityFeedbackAttributes,
+    PutEmailIdentityFeedbackAttributesResponse (PutEmailIdentityFeedbackAttributesResponse'),
+    newPutEmailIdentityFeedbackAttributesResponse,
+
+    -- ** PutEmailIdentityMailFromAttributes
+    PutEmailIdentityMailFromAttributes (PutEmailIdentityMailFromAttributes'),
+    newPutEmailIdentityMailFromAttributes,
+    PutEmailIdentityMailFromAttributesResponse (PutEmailIdentityMailFromAttributesResponse'),
+    newPutEmailIdentityMailFromAttributesResponse,
+
+    -- ** SendEmail
+    SendEmail (SendEmail'),
+    newSendEmail,
+    SendEmailResponse (SendEmailResponse'),
+    newSendEmailResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UpdateConfigurationSetEventDestination
+    UpdateConfigurationSetEventDestination (UpdateConfigurationSetEventDestination'),
+    newUpdateConfigurationSetEventDestination,
+    UpdateConfigurationSetEventDestinationResponse (UpdateConfigurationSetEventDestinationResponse'),
+    newUpdateConfigurationSetEventDestinationResponse,
 
     -- * Types
 

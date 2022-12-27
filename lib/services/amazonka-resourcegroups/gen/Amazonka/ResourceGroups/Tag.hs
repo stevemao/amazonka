@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ResourceGroups.Tag
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -55,7 +55,8 @@ module Amazonka.ResourceGroups.Tag
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import Amazonka.ResourceGroups.Types
@@ -101,13 +102,14 @@ tag_tags = Lens.lens (\Tag' {tags} -> tags) (\s@Tag' {} a -> s {tags = a} :: Tag
 
 instance Core.AWSRequest Tag where
   type AWSResponse Tag = TagResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           TagResponse'
-            Prelude.<$> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -120,22 +122,22 @@ instance Prelude.NFData Tag where
   rnf Tag' {..} =
     Prelude.rnf arn `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders Tag where
+instance Data.ToHeaders Tag where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON Tag where
+instance Data.ToJSON Tag where
   toJSON Tag' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Tags" Core..= tags)]
+          [Prelude.Just ("Tags" Data..= tags)]
       )
 
-instance Core.ToPath Tag where
+instance Data.ToPath Tag where
   toPath Tag' {..} =
     Prelude.mconcat
-      ["/resources/", Core.toBS arn, "/tags"]
+      ["/resources/", Data.toBS arn, "/tags"]
 
-instance Core.ToQuery Tag where
+instance Data.ToQuery Tag where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newTagResponse' smart constructor.

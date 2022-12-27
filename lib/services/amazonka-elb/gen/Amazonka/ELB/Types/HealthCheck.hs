@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ELB.Types.HealthCheck
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ELB.Types.HealthCheck where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELB.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a health check.
@@ -173,14 +174,14 @@ healthCheck_unhealthyThreshold = Lens.lens (\HealthCheck' {unhealthyThreshold} -
 healthCheck_healthyThreshold :: Lens.Lens' HealthCheck Prelude.Natural
 healthCheck_healthyThreshold = Lens.lens (\HealthCheck' {healthyThreshold} -> healthyThreshold) (\s@HealthCheck' {} a -> s {healthyThreshold = a} :: HealthCheck)
 
-instance Core.FromXML HealthCheck where
+instance Data.FromXML HealthCheck where
   parseXML x =
     HealthCheck'
-      Prelude.<$> (x Core..@ "Target")
-      Prelude.<*> (x Core..@ "Interval")
-      Prelude.<*> (x Core..@ "Timeout")
-      Prelude.<*> (x Core..@ "UnhealthyThreshold")
-      Prelude.<*> (x Core..@ "HealthyThreshold")
+      Prelude.<$> (x Data..@ "Target")
+      Prelude.<*> (x Data..@ "Interval")
+      Prelude.<*> (x Data..@ "Timeout")
+      Prelude.<*> (x Data..@ "UnhealthyThreshold")
+      Prelude.<*> (x Data..@ "HealthyThreshold")
 
 instance Prelude.Hashable HealthCheck where
   hashWithSalt _salt HealthCheck' {..} =
@@ -198,12 +199,12 @@ instance Prelude.NFData HealthCheck where
       `Prelude.seq` Prelude.rnf unhealthyThreshold
       `Prelude.seq` Prelude.rnf healthyThreshold
 
-instance Core.ToQuery HealthCheck where
+instance Data.ToQuery HealthCheck where
   toQuery HealthCheck' {..} =
     Prelude.mconcat
-      [ "Target" Core.=: target,
-        "Interval" Core.=: interval,
-        "Timeout" Core.=: timeout,
-        "UnhealthyThreshold" Core.=: unhealthyThreshold,
-        "HealthyThreshold" Core.=: healthyThreshold
+      [ "Target" Data.=: target,
+        "Interval" Data.=: interval,
+        "Timeout" Data.=: timeout,
+        "UnhealthyThreshold" Data.=: unhealthyThreshold,
+        "HealthyThreshold" Data.=: healthyThreshold
       ]

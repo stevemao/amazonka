@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AmplifyBackend.CloneBackend
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,19 +36,20 @@ module Amazonka.AmplifyBackend.CloneBackend
     newCloneBackendResponse,
 
     -- * Response Lenses
-    cloneBackendResponse_status,
-    cloneBackendResponse_jobId,
-    cloneBackendResponse_operation,
-    cloneBackendResponse_error,
     cloneBackendResponse_appId,
     cloneBackendResponse_backendEnvironmentName,
+    cloneBackendResponse_error,
+    cloneBackendResponse_jobId,
+    cloneBackendResponse_operation,
+    cloneBackendResponse_status,
     cloneBackendResponse_httpStatus,
   )
 where
 
 import Amazonka.AmplifyBackend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -111,17 +112,18 @@ cloneBackend_targetEnvironmentName = Lens.lens (\CloneBackend' {targetEnvironmen
 
 instance Core.AWSRequest CloneBackend where
   type AWSResponse CloneBackend = CloneBackendResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CloneBackendResponse'
-            Prelude.<$> (x Core..?> "status")
-            Prelude.<*> (x Core..?> "jobId")
-            Prelude.<*> (x Core..?> "operation")
-            Prelude.<*> (x Core..?> "error")
-            Prelude.<*> (x Core..?> "appId")
-            Prelude.<*> (x Core..?> "backendEnvironmentName")
+            Prelude.<$> (x Data..?> "appId")
+            Prelude.<*> (x Data..?> "backendEnvironmentName")
+            Prelude.<*> (x Data..?> "error")
+            Prelude.<*> (x Data..?> "jobId")
+            Prelude.<*> (x Data..?> "operation")
+            Prelude.<*> (x Data..?> "status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -137,55 +139,55 @@ instance Prelude.NFData CloneBackend where
       `Prelude.seq` Prelude.rnf backendEnvironmentName
       `Prelude.seq` Prelude.rnf targetEnvironmentName
 
-instance Core.ToHeaders CloneBackend where
+instance Data.ToHeaders CloneBackend where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CloneBackend where
+instance Data.ToJSON CloneBackend where
   toJSON CloneBackend' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "targetEnvironmentName"
-                  Core..= targetEnvironmentName
+                  Data..= targetEnvironmentName
               )
           ]
       )
 
-instance Core.ToPath CloneBackend where
+instance Data.ToPath CloneBackend where
   toPath CloneBackend' {..} =
     Prelude.mconcat
       [ "/backend/",
-        Core.toBS appId,
+        Data.toBS appId,
         "/environments/",
-        Core.toBS backendEnvironmentName,
+        Data.toBS backendEnvironmentName,
         "/clone"
       ]
 
-instance Core.ToQuery CloneBackend where
+instance Data.ToQuery CloneBackend where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCloneBackendResponse' smart constructor.
 data CloneBackendResponse = CloneBackendResponse'
-  { -- | The current status of the request.
-    status :: Prelude.Maybe Prelude.Text,
+  { -- | The app ID.
+    appId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the backend environment.
+    backendEnvironmentName :: Prelude.Maybe Prelude.Text,
+    -- | If the request fails, this error is returned.
+    error :: Prelude.Maybe Prelude.Text,
     -- | The ID for the job.
     jobId :: Prelude.Maybe Prelude.Text,
     -- | The name of the operation.
     operation :: Prelude.Maybe Prelude.Text,
-    -- | If the request fails, this error is returned.
-    error :: Prelude.Maybe Prelude.Text,
-    -- | The app ID.
-    appId :: Prelude.Maybe Prelude.Text,
-    -- | The name of the backend environment.
-    backendEnvironmentName :: Prelude.Maybe Prelude.Text,
+    -- | The current status of the request.
+    status :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -199,17 +201,17 @@ data CloneBackendResponse = CloneBackendResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'cloneBackendResponse_status' - The current status of the request.
+-- 'appId', 'cloneBackendResponse_appId' - The app ID.
+--
+-- 'backendEnvironmentName', 'cloneBackendResponse_backendEnvironmentName' - The name of the backend environment.
+--
+-- 'error', 'cloneBackendResponse_error' - If the request fails, this error is returned.
 --
 -- 'jobId', 'cloneBackendResponse_jobId' - The ID for the job.
 --
 -- 'operation', 'cloneBackendResponse_operation' - The name of the operation.
 --
--- 'error', 'cloneBackendResponse_error' - If the request fails, this error is returned.
---
--- 'appId', 'cloneBackendResponse_appId' - The app ID.
---
--- 'backendEnvironmentName', 'cloneBackendResponse_backendEnvironmentName' - The name of the backend environment.
+-- 'status', 'cloneBackendResponse_status' - The current status of the request.
 --
 -- 'httpStatus', 'cloneBackendResponse_httpStatus' - The response's http status code.
 newCloneBackendResponse ::
@@ -218,30 +220,14 @@ newCloneBackendResponse ::
   CloneBackendResponse
 newCloneBackendResponse pHttpStatus_ =
   CloneBackendResponse'
-    { status = Prelude.Nothing,
+    { appId = Prelude.Nothing,
+      backendEnvironmentName = Prelude.Nothing,
+      error = Prelude.Nothing,
       jobId = Prelude.Nothing,
       operation = Prelude.Nothing,
-      error = Prelude.Nothing,
-      appId = Prelude.Nothing,
-      backendEnvironmentName = Prelude.Nothing,
+      status = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The current status of the request.
-cloneBackendResponse_status :: Lens.Lens' CloneBackendResponse (Prelude.Maybe Prelude.Text)
-cloneBackendResponse_status = Lens.lens (\CloneBackendResponse' {status} -> status) (\s@CloneBackendResponse' {} a -> s {status = a} :: CloneBackendResponse)
-
--- | The ID for the job.
-cloneBackendResponse_jobId :: Lens.Lens' CloneBackendResponse (Prelude.Maybe Prelude.Text)
-cloneBackendResponse_jobId = Lens.lens (\CloneBackendResponse' {jobId} -> jobId) (\s@CloneBackendResponse' {} a -> s {jobId = a} :: CloneBackendResponse)
-
--- | The name of the operation.
-cloneBackendResponse_operation :: Lens.Lens' CloneBackendResponse (Prelude.Maybe Prelude.Text)
-cloneBackendResponse_operation = Lens.lens (\CloneBackendResponse' {operation} -> operation) (\s@CloneBackendResponse' {} a -> s {operation = a} :: CloneBackendResponse)
-
--- | If the request fails, this error is returned.
-cloneBackendResponse_error :: Lens.Lens' CloneBackendResponse (Prelude.Maybe Prelude.Text)
-cloneBackendResponse_error = Lens.lens (\CloneBackendResponse' {error} -> error) (\s@CloneBackendResponse' {} a -> s {error = a} :: CloneBackendResponse)
 
 -- | The app ID.
 cloneBackendResponse_appId :: Lens.Lens' CloneBackendResponse (Prelude.Maybe Prelude.Text)
@@ -251,16 +237,32 @@ cloneBackendResponse_appId = Lens.lens (\CloneBackendResponse' {appId} -> appId)
 cloneBackendResponse_backendEnvironmentName :: Lens.Lens' CloneBackendResponse (Prelude.Maybe Prelude.Text)
 cloneBackendResponse_backendEnvironmentName = Lens.lens (\CloneBackendResponse' {backendEnvironmentName} -> backendEnvironmentName) (\s@CloneBackendResponse' {} a -> s {backendEnvironmentName = a} :: CloneBackendResponse)
 
+-- | If the request fails, this error is returned.
+cloneBackendResponse_error :: Lens.Lens' CloneBackendResponse (Prelude.Maybe Prelude.Text)
+cloneBackendResponse_error = Lens.lens (\CloneBackendResponse' {error} -> error) (\s@CloneBackendResponse' {} a -> s {error = a} :: CloneBackendResponse)
+
+-- | The ID for the job.
+cloneBackendResponse_jobId :: Lens.Lens' CloneBackendResponse (Prelude.Maybe Prelude.Text)
+cloneBackendResponse_jobId = Lens.lens (\CloneBackendResponse' {jobId} -> jobId) (\s@CloneBackendResponse' {} a -> s {jobId = a} :: CloneBackendResponse)
+
+-- | The name of the operation.
+cloneBackendResponse_operation :: Lens.Lens' CloneBackendResponse (Prelude.Maybe Prelude.Text)
+cloneBackendResponse_operation = Lens.lens (\CloneBackendResponse' {operation} -> operation) (\s@CloneBackendResponse' {} a -> s {operation = a} :: CloneBackendResponse)
+
+-- | The current status of the request.
+cloneBackendResponse_status :: Lens.Lens' CloneBackendResponse (Prelude.Maybe Prelude.Text)
+cloneBackendResponse_status = Lens.lens (\CloneBackendResponse' {status} -> status) (\s@CloneBackendResponse' {} a -> s {status = a} :: CloneBackendResponse)
+
 -- | The response's http status code.
 cloneBackendResponse_httpStatus :: Lens.Lens' CloneBackendResponse Prelude.Int
 cloneBackendResponse_httpStatus = Lens.lens (\CloneBackendResponse' {httpStatus} -> httpStatus) (\s@CloneBackendResponse' {} a -> s {httpStatus = a} :: CloneBackendResponse)
 
 instance Prelude.NFData CloneBackendResponse where
   rnf CloneBackendResponse' {..} =
-    Prelude.rnf status
+    Prelude.rnf appId
+      `Prelude.seq` Prelude.rnf backendEnvironmentName
+      `Prelude.seq` Prelude.rnf error
       `Prelude.seq` Prelude.rnf jobId
       `Prelude.seq` Prelude.rnf operation
-      `Prelude.seq` Prelude.rnf error
-      `Prelude.seq` Prelude.rnf appId
-      `Prelude.seq` Prelude.rnf backendEnvironmentName
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf httpStatus

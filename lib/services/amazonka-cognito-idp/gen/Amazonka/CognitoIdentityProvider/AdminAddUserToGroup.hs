@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.AdminAddUserToGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -51,7 +52,7 @@ data AdminAddUserToGroup = AdminAddUserToGroup'
   { -- | The user pool ID for the user pool.
     userPoolId :: Prelude.Text,
     -- | The username for the user.
-    username :: Core.Sensitive Prelude.Text,
+    username :: Data.Sensitive Prelude.Text,
     -- | The group name.
     groupName :: Prelude.Text
   }
@@ -84,7 +85,7 @@ newAdminAddUserToGroup
   pGroupName_ =
     AdminAddUserToGroup'
       { userPoolId = pUserPoolId_,
-        username = Core._Sensitive Lens.# pUsername_,
+        username = Data._Sensitive Lens.# pUsername_,
         groupName = pGroupName_
       }
 
@@ -94,7 +95,7 @@ adminAddUserToGroup_userPoolId = Lens.lens (\AdminAddUserToGroup' {userPoolId} -
 
 -- | The username for the user.
 adminAddUserToGroup_username :: Lens.Lens' AdminAddUserToGroup Prelude.Text
-adminAddUserToGroup_username = Lens.lens (\AdminAddUserToGroup' {username} -> username) (\s@AdminAddUserToGroup' {} a -> s {username = a} :: AdminAddUserToGroup) Prelude.. Core._Sensitive
+adminAddUserToGroup_username = Lens.lens (\AdminAddUserToGroup' {username} -> username) (\s@AdminAddUserToGroup' {} a -> s {username = a} :: AdminAddUserToGroup) Prelude.. Data._Sensitive
 
 -- | The group name.
 adminAddUserToGroup_groupName :: Lens.Lens' AdminAddUserToGroup Prelude.Text
@@ -104,7 +105,8 @@ instance Core.AWSRequest AdminAddUserToGroup where
   type
     AWSResponse AdminAddUserToGroup =
       AdminAddUserToGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull AdminAddUserToGroupResponse'
 
@@ -120,35 +122,35 @@ instance Prelude.NFData AdminAddUserToGroup where
       `Prelude.seq` Prelude.rnf username
       `Prelude.seq` Prelude.rnf groupName
 
-instance Core.ToHeaders AdminAddUserToGroup where
+instance Data.ToHeaders AdminAddUserToGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.AdminAddUserToGroup" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.AdminAddUserToGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AdminAddUserToGroup where
+instance Data.ToJSON AdminAddUserToGroup where
   toJSON AdminAddUserToGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("UserPoolId" Core..= userPoolId),
-            Prelude.Just ("Username" Core..= username),
-            Prelude.Just ("GroupName" Core..= groupName)
+          [ Prelude.Just ("UserPoolId" Data..= userPoolId),
+            Prelude.Just ("Username" Data..= username),
+            Prelude.Just ("GroupName" Data..= groupName)
           ]
       )
 
-instance Core.ToPath AdminAddUserToGroup where
+instance Data.ToPath AdminAddUserToGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AdminAddUserToGroup where
+instance Data.ToQuery AdminAddUserToGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAdminAddUserToGroupResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.Types.SidewalkAccountInfoWithFingerprint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.IoTWireless.Types.SidewalkAccountInfoWithFingerprint where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a Sidewalk account.
 --
 -- /See:/ 'newSidewalkAccountInfoWithFingerprint' smart constructor.
 data SidewalkAccountInfoWithFingerprint = SidewalkAccountInfoWithFingerprint'
-  { -- | The Amazon Resource Name of the resource.
+  { -- | The Sidewalk Amazon ID.
+    amazonId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name of the resource.
     arn :: Prelude.Maybe Prelude.Text,
     -- | The fingerprint of the Sidewalk application server private key.
-    fingerprint :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | The Sidewalk Amazon ID.
-    amazonId :: Prelude.Maybe Prelude.Text
+    fingerprint :: Prelude.Maybe (Data.Sensitive Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -44,20 +45,24 @@ data SidewalkAccountInfoWithFingerprint = SidewalkAccountInfoWithFingerprint'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'amazonId', 'sidewalkAccountInfoWithFingerprint_amazonId' - The Sidewalk Amazon ID.
+--
 -- 'arn', 'sidewalkAccountInfoWithFingerprint_arn' - The Amazon Resource Name of the resource.
 --
 -- 'fingerprint', 'sidewalkAccountInfoWithFingerprint_fingerprint' - The fingerprint of the Sidewalk application server private key.
---
--- 'amazonId', 'sidewalkAccountInfoWithFingerprint_amazonId' - The Sidewalk Amazon ID.
 newSidewalkAccountInfoWithFingerprint ::
   SidewalkAccountInfoWithFingerprint
 newSidewalkAccountInfoWithFingerprint =
   SidewalkAccountInfoWithFingerprint'
-    { arn =
+    { amazonId =
         Prelude.Nothing,
-      fingerprint = Prelude.Nothing,
-      amazonId = Prelude.Nothing
+      arn = Prelude.Nothing,
+      fingerprint = Prelude.Nothing
     }
+
+-- | The Sidewalk Amazon ID.
+sidewalkAccountInfoWithFingerprint_amazonId :: Lens.Lens' SidewalkAccountInfoWithFingerprint (Prelude.Maybe Prelude.Text)
+sidewalkAccountInfoWithFingerprint_amazonId = Lens.lens (\SidewalkAccountInfoWithFingerprint' {amazonId} -> amazonId) (\s@SidewalkAccountInfoWithFingerprint' {} a -> s {amazonId = a} :: SidewalkAccountInfoWithFingerprint)
 
 -- | The Amazon Resource Name of the resource.
 sidewalkAccountInfoWithFingerprint_arn :: Lens.Lens' SidewalkAccountInfoWithFingerprint (Prelude.Maybe Prelude.Text)
@@ -65,24 +70,20 @@ sidewalkAccountInfoWithFingerprint_arn = Lens.lens (\SidewalkAccountInfoWithFing
 
 -- | The fingerprint of the Sidewalk application server private key.
 sidewalkAccountInfoWithFingerprint_fingerprint :: Lens.Lens' SidewalkAccountInfoWithFingerprint (Prelude.Maybe Prelude.Text)
-sidewalkAccountInfoWithFingerprint_fingerprint = Lens.lens (\SidewalkAccountInfoWithFingerprint' {fingerprint} -> fingerprint) (\s@SidewalkAccountInfoWithFingerprint' {} a -> s {fingerprint = a} :: SidewalkAccountInfoWithFingerprint) Prelude.. Lens.mapping Core._Sensitive
-
--- | The Sidewalk Amazon ID.
-sidewalkAccountInfoWithFingerprint_amazonId :: Lens.Lens' SidewalkAccountInfoWithFingerprint (Prelude.Maybe Prelude.Text)
-sidewalkAccountInfoWithFingerprint_amazonId = Lens.lens (\SidewalkAccountInfoWithFingerprint' {amazonId} -> amazonId) (\s@SidewalkAccountInfoWithFingerprint' {} a -> s {amazonId = a} :: SidewalkAccountInfoWithFingerprint)
+sidewalkAccountInfoWithFingerprint_fingerprint = Lens.lens (\SidewalkAccountInfoWithFingerprint' {fingerprint} -> fingerprint) (\s@SidewalkAccountInfoWithFingerprint' {} a -> s {fingerprint = a} :: SidewalkAccountInfoWithFingerprint) Prelude.. Lens.mapping Data._Sensitive
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     SidewalkAccountInfoWithFingerprint
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SidewalkAccountInfoWithFingerprint"
       ( \x ->
           SidewalkAccountInfoWithFingerprint'
-            Prelude.<$> (x Core..:? "Arn")
-            Prelude.<*> (x Core..:? "Fingerprint")
-            Prelude.<*> (x Core..:? "AmazonId")
+            Prelude.<$> (x Data..:? "AmazonId")
+            Prelude.<*> (x Data..:? "Arn")
+            Prelude.<*> (x Data..:? "Fingerprint")
       )
 
 instance
@@ -92,15 +93,15 @@ instance
   hashWithSalt
     _salt
     SidewalkAccountInfoWithFingerprint' {..} =
-      _salt `Prelude.hashWithSalt` arn
+      _salt `Prelude.hashWithSalt` amazonId
+        `Prelude.hashWithSalt` arn
         `Prelude.hashWithSalt` fingerprint
-        `Prelude.hashWithSalt` amazonId
 
 instance
   Prelude.NFData
     SidewalkAccountInfoWithFingerprint
   where
   rnf SidewalkAccountInfoWithFingerprint' {..} =
-    Prelude.rnf arn
+    Prelude.rnf amazonId
+      `Prelude.seq` Prelude.rnf arn
       `Prelude.seq` Prelude.rnf fingerprint
-      `Prelude.seq` Prelude.rnf amazonId

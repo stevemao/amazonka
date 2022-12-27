@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.XRay.Types.SamplingStrategy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.XRay.Types.SamplingStrategy where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.XRay.Types.SamplingStrategyName
 
@@ -28,10 +29,10 @@ import Amazonka.XRay.Types.SamplingStrategyName
 --
 -- /See:/ 'newSamplingStrategy' smart constructor.
 data SamplingStrategy = SamplingStrategy'
-  { -- | The value of a sampling rule.
-    value :: Prelude.Maybe Prelude.Double,
-    -- | The name of a sampling rule.
-    name :: Prelude.Maybe SamplingStrategyName
+  { -- | The name of a sampling rule.
+    name :: Prelude.Maybe SamplingStrategyName,
+    -- | The value of a sampling rule.
+    value :: Prelude.Maybe Prelude.Double
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,39 +44,39 @@ data SamplingStrategy = SamplingStrategy'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'samplingStrategy_value' - The value of a sampling rule.
---
 -- 'name', 'samplingStrategy_name' - The name of a sampling rule.
+--
+-- 'value', 'samplingStrategy_value' - The value of a sampling rule.
 newSamplingStrategy ::
   SamplingStrategy
 newSamplingStrategy =
   SamplingStrategy'
-    { value = Prelude.Nothing,
-      name = Prelude.Nothing
+    { name = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The value of a sampling rule.
-samplingStrategy_value :: Lens.Lens' SamplingStrategy (Prelude.Maybe Prelude.Double)
-samplingStrategy_value = Lens.lens (\SamplingStrategy' {value} -> value) (\s@SamplingStrategy' {} a -> s {value = a} :: SamplingStrategy)
 
 -- | The name of a sampling rule.
 samplingStrategy_name :: Lens.Lens' SamplingStrategy (Prelude.Maybe SamplingStrategyName)
 samplingStrategy_name = Lens.lens (\SamplingStrategy' {name} -> name) (\s@SamplingStrategy' {} a -> s {name = a} :: SamplingStrategy)
 
+-- | The value of a sampling rule.
+samplingStrategy_value :: Lens.Lens' SamplingStrategy (Prelude.Maybe Prelude.Double)
+samplingStrategy_value = Lens.lens (\SamplingStrategy' {value} -> value) (\s@SamplingStrategy' {} a -> s {value = a} :: SamplingStrategy)
+
 instance Prelude.Hashable SamplingStrategy where
   hashWithSalt _salt SamplingStrategy' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData SamplingStrategy where
   rnf SamplingStrategy' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON SamplingStrategy where
+instance Data.ToJSON SamplingStrategy where
   toJSON SamplingStrategy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Value" Core..=) Prelude.<$> value,
-            ("Name" Core..=) Prelude.<$> name
+          [ ("Name" Data..=) Prelude.<$> name,
+            ("Value" Data..=) Prelude.<$> value
           ]
       )

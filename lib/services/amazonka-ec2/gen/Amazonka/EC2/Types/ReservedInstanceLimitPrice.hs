@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.ReservedInstanceLimitPrice
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.ReservedInstanceLimitPrice where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.CurrencyCodeValues
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the limit price of a Reserved Instance offering.
@@ -80,9 +81,9 @@ instance Prelude.NFData ReservedInstanceLimitPrice where
     Prelude.rnf amount
       `Prelude.seq` Prelude.rnf currencyCode
 
-instance Core.ToQuery ReservedInstanceLimitPrice where
+instance Data.ToQuery ReservedInstanceLimitPrice where
   toQuery ReservedInstanceLimitPrice' {..} =
     Prelude.mconcat
-      [ "Amount" Core.=: amount,
-        "CurrencyCode" Core.=: currencyCode
+      [ "Amount" Data.=: amount,
+        "CurrencyCode" Data.=: currencyCode
       ]

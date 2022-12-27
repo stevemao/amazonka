@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.CreateConnector
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,9 +27,9 @@ module Amazonka.KafkaConnect.CreateConnector
     newCreateConnector,
 
     -- * Request Lenses
+    createConnector_connectorDescription,
     createConnector_logDelivery,
     createConnector_workerConfiguration,
-    createConnector_connectorDescription,
     createConnector_capacity,
     createConnector_connectorConfiguration,
     createConnector_connectorName,
@@ -53,26 +53,27 @@ module Amazonka.KafkaConnect.CreateConnector
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KafkaConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateConnector' smart constructor.
 data CreateConnector = CreateConnector'
-  { -- | Details about log delivery.
+  { -- | A summary description of the connector.
+    connectorDescription :: Prelude.Maybe Prelude.Text,
+    -- | Details about log delivery.
     logDelivery :: Prelude.Maybe LogDelivery,
     -- | Specifies which worker configuration to use with the connector.
     workerConfiguration :: Prelude.Maybe WorkerConfiguration,
-    -- | A summary description of the connector.
-    connectorDescription :: Prelude.Maybe Prelude.Text,
     -- | Information about the capacity allocated to the connector. Exactly one
     -- of the two properties must be specified.
     capacity :: Capacity,
     -- | A map of keys to values that represent the configuration for the
     -- connector.
-    connectorConfiguration :: Prelude.HashMap Prelude.Text Prelude.Text,
+    connectorConfiguration :: Data.Sensitive (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The name of the connector.
     connectorName :: Prelude.Text,
     -- | Specifies which Apache Kafka cluster to connect to.
@@ -93,7 +94,7 @@ data CreateConnector = CreateConnector'
     -- allow it to write to the S3 destination bucket.
     serviceExecutionRoleArn :: Prelude.Text
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'CreateConnector' with all optional fields omitted.
@@ -103,11 +104,11 @@ data CreateConnector = CreateConnector'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'connectorDescription', 'createConnector_connectorDescription' - A summary description of the connector.
+--
 -- 'logDelivery', 'createConnector_logDelivery' - Details about log delivery.
 --
 -- 'workerConfiguration', 'createConnector_workerConfiguration' - Specifies which worker configuration to use with the connector.
---
--- 'connectorDescription', 'createConnector_connectorDescription' - A summary description of the connector.
 --
 -- 'capacity', 'createConnector_capacity' - Information about the capacity allocated to the connector. Exactly one
 -- of the two properties must be specified.
@@ -158,9 +159,10 @@ newCreateConnector
   pKafkaConnectVersion_
   pServiceExecutionRoleArn_ =
     CreateConnector'
-      { logDelivery = Prelude.Nothing,
+      { connectorDescription =
+          Prelude.Nothing,
+        logDelivery = Prelude.Nothing,
         workerConfiguration = Prelude.Nothing,
-        connectorDescription = Prelude.Nothing,
         capacity = pCapacity_,
         connectorConfiguration = Prelude.mempty,
         connectorName = pConnectorName_,
@@ -174,6 +176,10 @@ newCreateConnector
         serviceExecutionRoleArn = pServiceExecutionRoleArn_
       }
 
+-- | A summary description of the connector.
+createConnector_connectorDescription :: Lens.Lens' CreateConnector (Prelude.Maybe Prelude.Text)
+createConnector_connectorDescription = Lens.lens (\CreateConnector' {connectorDescription} -> connectorDescription) (\s@CreateConnector' {} a -> s {connectorDescription = a} :: CreateConnector)
+
 -- | Details about log delivery.
 createConnector_logDelivery :: Lens.Lens' CreateConnector (Prelude.Maybe LogDelivery)
 createConnector_logDelivery = Lens.lens (\CreateConnector' {logDelivery} -> logDelivery) (\s@CreateConnector' {} a -> s {logDelivery = a} :: CreateConnector)
@@ -181,10 +187,6 @@ createConnector_logDelivery = Lens.lens (\CreateConnector' {logDelivery} -> logD
 -- | Specifies which worker configuration to use with the connector.
 createConnector_workerConfiguration :: Lens.Lens' CreateConnector (Prelude.Maybe WorkerConfiguration)
 createConnector_workerConfiguration = Lens.lens (\CreateConnector' {workerConfiguration} -> workerConfiguration) (\s@CreateConnector' {} a -> s {workerConfiguration = a} :: CreateConnector)
-
--- | A summary description of the connector.
-createConnector_connectorDescription :: Lens.Lens' CreateConnector (Prelude.Maybe Prelude.Text)
-createConnector_connectorDescription = Lens.lens (\CreateConnector' {connectorDescription} -> connectorDescription) (\s@CreateConnector' {} a -> s {connectorDescription = a} :: CreateConnector)
 
 -- | Information about the capacity allocated to the connector. Exactly one
 -- of the two properties must be specified.
@@ -194,7 +196,7 @@ createConnector_capacity = Lens.lens (\CreateConnector' {capacity} -> capacity) 
 -- | A map of keys to values that represent the configuration for the
 -- connector.
 createConnector_connectorConfiguration :: Lens.Lens' CreateConnector (Prelude.HashMap Prelude.Text Prelude.Text)
-createConnector_connectorConfiguration = Lens.lens (\CreateConnector' {connectorConfiguration} -> connectorConfiguration) (\s@CreateConnector' {} a -> s {connectorConfiguration = a} :: CreateConnector) Prelude.. Lens.coerced
+createConnector_connectorConfiguration = Lens.lens (\CreateConnector' {connectorConfiguration} -> connectorConfiguration) (\s@CreateConnector' {} a -> s {connectorConfiguration = a} :: CreateConnector) Prelude.. Data._Sensitive Prelude.. Lens.coerced
 
 -- | The name of the connector.
 createConnector_connectorName :: Lens.Lens' CreateConnector Prelude.Text
@@ -233,22 +235,23 @@ instance Core.AWSRequest CreateConnector where
   type
     AWSResponse CreateConnector =
       CreateConnectorResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateConnectorResponse'
-            Prelude.<$> (x Core..?> "connectorArn")
-            Prelude.<*> (x Core..?> "connectorName")
-            Prelude.<*> (x Core..?> "connectorState")
+            Prelude.<$> (x Data..?> "connectorArn")
+            Prelude.<*> (x Data..?> "connectorName")
+            Prelude.<*> (x Data..?> "connectorState")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateConnector where
   hashWithSalt _salt CreateConnector' {..} =
-    _salt `Prelude.hashWithSalt` logDelivery
+    _salt `Prelude.hashWithSalt` connectorDescription
+      `Prelude.hashWithSalt` logDelivery
       `Prelude.hashWithSalt` workerConfiguration
-      `Prelude.hashWithSalt` connectorDescription
       `Prelude.hashWithSalt` capacity
       `Prelude.hashWithSalt` connectorConfiguration
       `Prelude.hashWithSalt` connectorName
@@ -261,9 +264,9 @@ instance Prelude.Hashable CreateConnector where
 
 instance Prelude.NFData CreateConnector where
   rnf CreateConnector' {..} =
-    Prelude.rnf logDelivery
+    Prelude.rnf connectorDescription
+      `Prelude.seq` Prelude.rnf logDelivery
       `Prelude.seq` Prelude.rnf workerConfiguration
-      `Prelude.seq` Prelude.rnf connectorDescription
       `Prelude.seq` Prelude.rnf capacity
       `Prelude.seq` Prelude.rnf connectorConfiguration
       `Prelude.seq` Prelude.rnf connectorName
@@ -274,55 +277,55 @@ instance Prelude.NFData CreateConnector where
       `Prelude.seq` Prelude.rnf plugins
       `Prelude.seq` Prelude.rnf serviceExecutionRoleArn
 
-instance Core.ToHeaders CreateConnector where
+instance Data.ToHeaders CreateConnector where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateConnector where
+instance Data.ToJSON CreateConnector where
   toJSON CreateConnector' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("logDelivery" Core..=) Prelude.<$> logDelivery,
-            ("workerConfiguration" Core..=)
-              Prelude.<$> workerConfiguration,
-            ("connectorDescription" Core..=)
+          [ ("connectorDescription" Data..=)
               Prelude.<$> connectorDescription,
-            Prelude.Just ("capacity" Core..= capacity),
+            ("logDelivery" Data..=) Prelude.<$> logDelivery,
+            ("workerConfiguration" Data..=)
+              Prelude.<$> workerConfiguration,
+            Prelude.Just ("capacity" Data..= capacity),
             Prelude.Just
               ( "connectorConfiguration"
-                  Core..= connectorConfiguration
+                  Data..= connectorConfiguration
               ),
-            Prelude.Just ("connectorName" Core..= connectorName),
-            Prelude.Just ("kafkaCluster" Core..= kafkaCluster),
+            Prelude.Just ("connectorName" Data..= connectorName),
+            Prelude.Just ("kafkaCluster" Data..= kafkaCluster),
             Prelude.Just
               ( "kafkaClusterClientAuthentication"
-                  Core..= kafkaClusterClientAuthentication
+                  Data..= kafkaClusterClientAuthentication
               ),
             Prelude.Just
               ( "kafkaClusterEncryptionInTransit"
-                  Core..= kafkaClusterEncryptionInTransit
+                  Data..= kafkaClusterEncryptionInTransit
               ),
             Prelude.Just
-              ("kafkaConnectVersion" Core..= kafkaConnectVersion),
-            Prelude.Just ("plugins" Core..= plugins),
+              ("kafkaConnectVersion" Data..= kafkaConnectVersion),
+            Prelude.Just ("plugins" Data..= plugins),
             Prelude.Just
               ( "serviceExecutionRoleArn"
-                  Core..= serviceExecutionRoleArn
+                  Data..= serviceExecutionRoleArn
               )
           ]
       )
 
-instance Core.ToPath CreateConnector where
+instance Data.ToPath CreateConnector where
   toPath = Prelude.const "/v1/connectors"
 
-instance Core.ToQuery CreateConnector where
+instance Data.ToQuery CreateConnector where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateConnectorResponse' smart constructor.

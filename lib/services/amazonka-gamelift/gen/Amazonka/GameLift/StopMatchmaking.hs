@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.StopMatchmaking
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,12 +37,6 @@
 -- __Learn more__
 --
 -- <https://docs.aws.amazon.com/gamelift/latest/flexmatchguide/match-client.html Add FlexMatch to a game client>
---
--- __Related actions__
---
--- StartMatchmaking | DescribeMatchmaking | StopMatchmaking | AcceptMatch |
--- StartMatchBackfill |
--- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.StopMatchmaking
   ( -- * Creating a Request
     StopMatchmaking (..),
@@ -61,15 +55,14 @@ module Amazonka.GameLift.StopMatchmaking
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newStopMatchmaking' smart constructor.
+-- | /See:/ 'newStopMatchmaking' smart constructor.
 data StopMatchmaking = StopMatchmaking'
   { -- | A unique identifier for a matchmaking ticket.
     ticketId :: Prelude.Text
@@ -100,7 +93,8 @@ instance Core.AWSRequest StopMatchmaking where
   type
     AWSResponse StopMatchmaking =
       StopMatchmakingResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -115,30 +109,30 @@ instance Prelude.Hashable StopMatchmaking where
 instance Prelude.NFData StopMatchmaking where
   rnf StopMatchmaking' {..} = Prelude.rnf ticketId
 
-instance Core.ToHeaders StopMatchmaking where
+instance Data.ToHeaders StopMatchmaking where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("GameLift.StopMatchmaking" :: Prelude.ByteString),
+              Data.=# ("GameLift.StopMatchmaking" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopMatchmaking where
+instance Data.ToJSON StopMatchmaking where
   toJSON StopMatchmaking' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("TicketId" Core..= ticketId)]
+          [Prelude.Just ("TicketId" Data..= ticketId)]
       )
 
-instance Core.ToPath StopMatchmaking where
+instance Data.ToPath StopMatchmaking where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopMatchmaking where
+instance Data.ToQuery StopMatchmaking where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopMatchmakingResponse' smart constructor.

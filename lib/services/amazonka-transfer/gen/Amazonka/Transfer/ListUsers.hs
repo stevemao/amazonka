@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Transfer.ListUsers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,14 +22,16 @@
 --
 -- Lists the users for a file transfer protocol-enabled server that you
 -- specify by passing the @ServerId@ parameter.
+--
+-- This operation returns paginated results.
 module Amazonka.Transfer.ListUsers
   ( -- * Creating a Request
     ListUsers (..),
     newListUsers,
 
     -- * Request Lenses
-    listUsers_nextToken,
     listUsers_maxResults,
+    listUsers_nextToken,
     listUsers_serverId,
 
     -- * Destructuring the Response
@@ -45,7 +47,8 @@ module Amazonka.Transfer.ListUsers
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,14 +56,14 @@ import Amazonka.Transfer.Types
 
 -- | /See:/ 'newListUsers' smart constructor.
 data ListUsers = ListUsers'
-  { -- | When you can get additional results from the @ListUsers@ call, a
+  { -- | Specifies the number of users to return as a response to the @ListUsers@
+    -- request.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | When you can get additional results from the @ListUsers@ call, a
     -- @NextToken@ parameter is returned in the output. You can then pass in a
     -- subsequent command to the @NextToken@ parameter to continue listing
     -- additional users.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Specifies the number of users to return as a response to the @ListUsers@
-    -- request.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | A system-assigned unique identifier for a server that has users assigned
     -- to it.
     serverId :: Prelude.Text
@@ -75,13 +78,13 @@ data ListUsers = ListUsers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listUsers_maxResults' - Specifies the number of users to return as a response to the @ListUsers@
+-- request.
+--
 -- 'nextToken', 'listUsers_nextToken' - When you can get additional results from the @ListUsers@ call, a
 -- @NextToken@ parameter is returned in the output. You can then pass in a
 -- subsequent command to the @NextToken@ parameter to continue listing
 -- additional users.
---
--- 'maxResults', 'listUsers_maxResults' - Specifies the number of users to return as a response to the @ListUsers@
--- request.
 --
 -- 'serverId', 'listUsers_serverId' - A system-assigned unique identifier for a server that has users assigned
 -- to it.
@@ -91,10 +94,15 @@ newListUsers ::
   ListUsers
 newListUsers pServerId_ =
   ListUsers'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       serverId = pServerId_
     }
+
+-- | Specifies the number of users to return as a response to the @ListUsers@
+-- request.
+listUsers_maxResults :: Lens.Lens' ListUsers (Prelude.Maybe Prelude.Natural)
+listUsers_maxResults = Lens.lens (\ListUsers' {maxResults} -> maxResults) (\s@ListUsers' {} a -> s {maxResults = a} :: ListUsers)
 
 -- | When you can get additional results from the @ListUsers@ call, a
 -- @NextToken@ parameter is returned in the output. You can then pass in a
@@ -103,68 +111,80 @@ newListUsers pServerId_ =
 listUsers_nextToken :: Lens.Lens' ListUsers (Prelude.Maybe Prelude.Text)
 listUsers_nextToken = Lens.lens (\ListUsers' {nextToken} -> nextToken) (\s@ListUsers' {} a -> s {nextToken = a} :: ListUsers)
 
--- | Specifies the number of users to return as a response to the @ListUsers@
--- request.
-listUsers_maxResults :: Lens.Lens' ListUsers (Prelude.Maybe Prelude.Natural)
-listUsers_maxResults = Lens.lens (\ListUsers' {maxResults} -> maxResults) (\s@ListUsers' {} a -> s {maxResults = a} :: ListUsers)
-
 -- | A system-assigned unique identifier for a server that has users assigned
 -- to it.
 listUsers_serverId :: Lens.Lens' ListUsers Prelude.Text
 listUsers_serverId = Lens.lens (\ListUsers' {serverId} -> serverId) (\s@ListUsers' {} a -> s {serverId = a} :: ListUsers)
 
+instance Core.AWSPager ListUsers where
+  page rq rs
+    | Core.stop
+        ( rs
+            Lens.^? listUsersResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Core.stop (rs Lens.^. listUsersResponse_users) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Prelude.& listUsers_nextToken
+          Lens..~ rs
+          Lens.^? listUsersResponse_nextToken Prelude.. Lens._Just
+
 instance Core.AWSRequest ListUsers where
   type AWSResponse ListUsers = ListUsersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListUsersResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "ServerId")
-            Prelude.<*> (x Core..?> "Users" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..:> "ServerId")
+            Prelude.<*> (x Data..?> "Users" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListUsers where
   hashWithSalt _salt ListUsers' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` serverId
 
 instance Prelude.NFData ListUsers where
   rnf ListUsers' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf serverId
 
-instance Core.ToHeaders ListUsers where
+instance Data.ToHeaders ListUsers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("TransferService.ListUsers" :: Prelude.ByteString),
+              Data.=# ("TransferService.ListUsers" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListUsers where
+instance Data.ToJSON ListUsers where
   toJSON ListUsers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("ServerId" Core..= serverId)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("ServerId" Data..= serverId)
           ]
       )
 
-instance Core.ToPath ListUsers where
+instance Data.ToPath ListUsers where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListUsers where
+instance Data.ToQuery ListUsers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListUsersResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MGN.Types.LifeCycleLastTestInitiated
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.MGN.Types.LifeCycleLastTestInitiated where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Lifecycle last Test initiated.
 --
 -- /See:/ 'newLifeCycleLastTestInitiated' smart constructor.
 data LifeCycleLastTestInitiated = LifeCycleLastTestInitiated'
-  { -- | Lifecycle last Test initiated Job ID.
-    jobID :: Prelude.Maybe Prelude.Text,
-    -- | Lifecycle last Test initiated API call date and time.
-    apiCallDateTime :: Prelude.Maybe Prelude.Text
+  { -- | Lifecycle last Test initiated API call date and time.
+    apiCallDateTime :: Prelude.Maybe Prelude.Text,
+    -- | Lifecycle last Test initiated Job ID.
+    jobID :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,42 +43,42 @@ data LifeCycleLastTestInitiated = LifeCycleLastTestInitiated'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'jobID', 'lifeCycleLastTestInitiated_jobID' - Lifecycle last Test initiated Job ID.
---
 -- 'apiCallDateTime', 'lifeCycleLastTestInitiated_apiCallDateTime' - Lifecycle last Test initiated API call date and time.
+--
+-- 'jobID', 'lifeCycleLastTestInitiated_jobID' - Lifecycle last Test initiated Job ID.
 newLifeCycleLastTestInitiated ::
   LifeCycleLastTestInitiated
 newLifeCycleLastTestInitiated =
   LifeCycleLastTestInitiated'
-    { jobID =
+    { apiCallDateTime =
         Prelude.Nothing,
-      apiCallDateTime = Prelude.Nothing
+      jobID = Prelude.Nothing
     }
-
--- | Lifecycle last Test initiated Job ID.
-lifeCycleLastTestInitiated_jobID :: Lens.Lens' LifeCycleLastTestInitiated (Prelude.Maybe Prelude.Text)
-lifeCycleLastTestInitiated_jobID = Lens.lens (\LifeCycleLastTestInitiated' {jobID} -> jobID) (\s@LifeCycleLastTestInitiated' {} a -> s {jobID = a} :: LifeCycleLastTestInitiated)
 
 -- | Lifecycle last Test initiated API call date and time.
 lifeCycleLastTestInitiated_apiCallDateTime :: Lens.Lens' LifeCycleLastTestInitiated (Prelude.Maybe Prelude.Text)
 lifeCycleLastTestInitiated_apiCallDateTime = Lens.lens (\LifeCycleLastTestInitiated' {apiCallDateTime} -> apiCallDateTime) (\s@LifeCycleLastTestInitiated' {} a -> s {apiCallDateTime = a} :: LifeCycleLastTestInitiated)
 
-instance Core.FromJSON LifeCycleLastTestInitiated where
+-- | Lifecycle last Test initiated Job ID.
+lifeCycleLastTestInitiated_jobID :: Lens.Lens' LifeCycleLastTestInitiated (Prelude.Maybe Prelude.Text)
+lifeCycleLastTestInitiated_jobID = Lens.lens (\LifeCycleLastTestInitiated' {jobID} -> jobID) (\s@LifeCycleLastTestInitiated' {} a -> s {jobID = a} :: LifeCycleLastTestInitiated)
+
+instance Data.FromJSON LifeCycleLastTestInitiated where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LifeCycleLastTestInitiated"
       ( \x ->
           LifeCycleLastTestInitiated'
-            Prelude.<$> (x Core..:? "jobID")
-            Prelude.<*> (x Core..:? "apiCallDateTime")
+            Prelude.<$> (x Data..:? "apiCallDateTime")
+            Prelude.<*> (x Data..:? "jobID")
       )
 
 instance Prelude.Hashable LifeCycleLastTestInitiated where
   hashWithSalt _salt LifeCycleLastTestInitiated' {..} =
-    _salt `Prelude.hashWithSalt` jobID
-      `Prelude.hashWithSalt` apiCallDateTime
+    _salt `Prelude.hashWithSalt` apiCallDateTime
+      `Prelude.hashWithSalt` jobID
 
 instance Prelude.NFData LifeCycleLastTestInitiated where
   rnf LifeCycleLastTestInitiated' {..} =
-    Prelude.rnf jobID
-      `Prelude.seq` Prelude.rnf apiCallDateTime
+    Prelude.rnf apiCallDateTime
+      `Prelude.seq` Prelude.rnf jobID

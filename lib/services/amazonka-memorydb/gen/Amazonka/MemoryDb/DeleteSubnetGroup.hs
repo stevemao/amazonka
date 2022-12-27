@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MemoryDb.DeleteSubnetGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.MemoryDb.DeleteSubnetGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MemoryDb.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -81,12 +82,13 @@ instance Core.AWSRequest DeleteSubnetGroup where
   type
     AWSResponse DeleteSubnetGroup =
       DeleteSubnetGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteSubnetGroupResponse'
-            Prelude.<$> (x Core..?> "SubnetGroup")
+            Prelude.<$> (x Data..?> "SubnetGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -98,34 +100,34 @@ instance Prelude.NFData DeleteSubnetGroup where
   rnf DeleteSubnetGroup' {..} =
     Prelude.rnf subnetGroupName
 
-instance Core.ToHeaders DeleteSubnetGroup where
+instance Data.ToHeaders DeleteSubnetGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonMemoryDB.DeleteSubnetGroup" ::
+              Data.=# ( "AmazonMemoryDB.DeleteSubnetGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteSubnetGroup where
+instance Data.ToJSON DeleteSubnetGroup where
   toJSON DeleteSubnetGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("SubnetGroupName" Core..= subnetGroupName)
+              ("SubnetGroupName" Data..= subnetGroupName)
           ]
       )
 
-instance Core.ToPath DeleteSubnetGroup where
+instance Data.ToPath DeleteSubnetGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteSubnetGroup where
+instance Data.ToQuery DeleteSubnetGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteSubnetGroupResponse' smart constructor.

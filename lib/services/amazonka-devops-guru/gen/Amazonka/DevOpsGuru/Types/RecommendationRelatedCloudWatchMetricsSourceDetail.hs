@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.Types.RecommendationRelatedCloudWatchMetricsSourceDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DevOpsGuru.Types.RecommendationRelatedCloudWatchMetricsSourceDetail where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about an Amazon CloudWatch metric that is analyzed by DevOps
@@ -69,16 +70,16 @@ recommendationRelatedCloudWatchMetricsSourceDetail_namespace :: Lens.Lens' Recom
 recommendationRelatedCloudWatchMetricsSourceDetail_namespace = Lens.lens (\RecommendationRelatedCloudWatchMetricsSourceDetail' {namespace} -> namespace) (\s@RecommendationRelatedCloudWatchMetricsSourceDetail' {} a -> s {namespace = a} :: RecommendationRelatedCloudWatchMetricsSourceDetail)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     RecommendationRelatedCloudWatchMetricsSourceDetail
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RecommendationRelatedCloudWatchMetricsSourceDetail"
       ( \x ->
           RecommendationRelatedCloudWatchMetricsSourceDetail'
-            Prelude.<$> (x Core..:? "MetricName")
-              Prelude.<*> (x Core..:? "Namespace")
+            Prelude.<$> (x Data..:? "MetricName")
+              Prelude.<*> (x Data..:? "Namespace")
       )
 
 instance

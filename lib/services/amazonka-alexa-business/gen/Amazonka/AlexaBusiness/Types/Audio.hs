@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.Types.Audio
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AlexaBusiness.Types.Audio where
 
 import Amazonka.AlexaBusiness.Types.Locale
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The audio message. There is a 1 MB limit on the audio file input and the
@@ -93,11 +94,11 @@ instance Prelude.NFData Audio where
     Prelude.rnf locale
       `Prelude.seq` Prelude.rnf location
 
-instance Core.ToJSON Audio where
+instance Data.ToJSON Audio where
   toJSON Audio' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Locale" Core..= locale),
-            Prelude.Just ("Location" Core..= location)
+          [ Prelude.Just ("Locale" Data..= locale),
+            Prelude.Just ("Location" Data..= location)
           ]
       )

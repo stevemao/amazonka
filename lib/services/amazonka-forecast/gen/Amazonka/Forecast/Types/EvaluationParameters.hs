@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Forecast.Types.EvaluationParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Forecast.Types.EvaluationParameters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Parameters that define how to split a dataset into training data and
@@ -92,14 +93,14 @@ evaluationParameters_backTestWindowOffset = Lens.lens (\EvaluationParameters' {b
 evaluationParameters_numberOfBacktestWindows :: Lens.Lens' EvaluationParameters (Prelude.Maybe Prelude.Int)
 evaluationParameters_numberOfBacktestWindows = Lens.lens (\EvaluationParameters' {numberOfBacktestWindows} -> numberOfBacktestWindows) (\s@EvaluationParameters' {} a -> s {numberOfBacktestWindows = a} :: EvaluationParameters)
 
-instance Core.FromJSON EvaluationParameters where
+instance Data.FromJSON EvaluationParameters where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EvaluationParameters"
       ( \x ->
           EvaluationParameters'
-            Prelude.<$> (x Core..:? "BackTestWindowOffset")
-            Prelude.<*> (x Core..:? "NumberOfBacktestWindows")
+            Prelude.<$> (x Data..:? "BackTestWindowOffset")
+            Prelude.<*> (x Data..:? "NumberOfBacktestWindows")
       )
 
 instance Prelude.Hashable EvaluationParameters where
@@ -112,13 +113,13 @@ instance Prelude.NFData EvaluationParameters where
     Prelude.rnf backTestWindowOffset
       `Prelude.seq` Prelude.rnf numberOfBacktestWindows
 
-instance Core.ToJSON EvaluationParameters where
+instance Data.ToJSON EvaluationParameters where
   toJSON EvaluationParameters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("BackTestWindowOffset" Core..=)
+          [ ("BackTestWindowOffset" Data..=)
               Prelude.<$> backTestWindowOffset,
-            ("NumberOfBacktestWindows" Core..=)
+            ("NumberOfBacktestWindows" Data..=)
               Prelude.<$> numberOfBacktestWindows
           ]
       )

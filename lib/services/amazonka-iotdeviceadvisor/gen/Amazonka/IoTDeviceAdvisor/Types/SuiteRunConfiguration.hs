@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTDeviceAdvisor.Types.SuiteRunConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,18 @@
 module Amazonka.IoTDeviceAdvisor.Types.SuiteRunConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTDeviceAdvisor.Types.DeviceUnderTest
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Gets suite run configuration.
 --
 -- /See:/ 'newSuiteRunConfiguration' smart constructor.
 data SuiteRunConfiguration = SuiteRunConfiguration'
-  { -- | Gets the primary device for suite run.
+  { -- | TRUE if multiple test suites run in parallel.
+    parallelRun :: Prelude.Maybe Prelude.Bool,
+    -- | Gets the primary device for suite run.
     primaryDevice :: Prelude.Maybe DeviceUnderTest,
     -- | Gets test case list.
     selectedTestList :: Prelude.Maybe [Prelude.Text]
@@ -43,6 +46,8 @@ data SuiteRunConfiguration = SuiteRunConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'parallelRun', 'suiteRunConfiguration_parallelRun' - TRUE if multiple test suites run in parallel.
+--
 -- 'primaryDevice', 'suiteRunConfiguration_primaryDevice' - Gets the primary device for suite run.
 --
 -- 'selectedTestList', 'suiteRunConfiguration_selectedTestList' - Gets test case list.
@@ -50,10 +55,15 @@ newSuiteRunConfiguration ::
   SuiteRunConfiguration
 newSuiteRunConfiguration =
   SuiteRunConfiguration'
-    { primaryDevice =
+    { parallelRun =
         Prelude.Nothing,
+      primaryDevice = Prelude.Nothing,
       selectedTestList = Prelude.Nothing
     }
+
+-- | TRUE if multiple test suites run in parallel.
+suiteRunConfiguration_parallelRun :: Lens.Lens' SuiteRunConfiguration (Prelude.Maybe Prelude.Bool)
+suiteRunConfiguration_parallelRun = Lens.lens (\SuiteRunConfiguration' {parallelRun} -> parallelRun) (\s@SuiteRunConfiguration' {} a -> s {parallelRun = a} :: SuiteRunConfiguration)
 
 -- | Gets the primary device for suite run.
 suiteRunConfiguration_primaryDevice :: Lens.Lens' SuiteRunConfiguration (Prelude.Maybe DeviceUnderTest)
@@ -63,34 +73,38 @@ suiteRunConfiguration_primaryDevice = Lens.lens (\SuiteRunConfiguration' {primar
 suiteRunConfiguration_selectedTestList :: Lens.Lens' SuiteRunConfiguration (Prelude.Maybe [Prelude.Text])
 suiteRunConfiguration_selectedTestList = Lens.lens (\SuiteRunConfiguration' {selectedTestList} -> selectedTestList) (\s@SuiteRunConfiguration' {} a -> s {selectedTestList = a} :: SuiteRunConfiguration) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON SuiteRunConfiguration where
+instance Data.FromJSON SuiteRunConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SuiteRunConfiguration"
       ( \x ->
           SuiteRunConfiguration'
-            Prelude.<$> (x Core..:? "primaryDevice")
-            Prelude.<*> ( x Core..:? "selectedTestList"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "parallelRun")
+            Prelude.<*> (x Data..:? "primaryDevice")
+            Prelude.<*> ( x Data..:? "selectedTestList"
+                            Data..!= Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable SuiteRunConfiguration where
   hashWithSalt _salt SuiteRunConfiguration' {..} =
-    _salt `Prelude.hashWithSalt` primaryDevice
+    _salt `Prelude.hashWithSalt` parallelRun
+      `Prelude.hashWithSalt` primaryDevice
       `Prelude.hashWithSalt` selectedTestList
 
 instance Prelude.NFData SuiteRunConfiguration where
   rnf SuiteRunConfiguration' {..} =
-    Prelude.rnf primaryDevice
+    Prelude.rnf parallelRun
+      `Prelude.seq` Prelude.rnf primaryDevice
       `Prelude.seq` Prelude.rnf selectedTestList
 
-instance Core.ToJSON SuiteRunConfiguration where
+instance Data.ToJSON SuiteRunConfiguration where
   toJSON SuiteRunConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("primaryDevice" Core..=) Prelude.<$> primaryDevice,
-            ("selectedTestList" Core..=)
+          [ ("parallelRun" Data..=) Prelude.<$> parallelRun,
+            ("primaryDevice" Data..=) Prelude.<$> primaryDevice,
+            ("selectedTestList" Data..=)
               Prelude.<$> selectedTestList
           ]
       )

@@ -14,14 +14,18 @@
 
 -- |
 -- Module      : Amazonka.SNS.AddPermission
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Adds a statement to a topic\'s access control policy, granting access
--- for the specified accounts to the specified actions.
+-- for the specified Amazon Web Services accounts to the specified actions.
+--
+-- To remove the ability to change topic permissions, you must deny
+-- permissions to the @AddPermission@, @RemovePermission@, and
+-- @SetTopicAttributes@ actions in your IAM policy.
 module Amazonka.SNS.AddPermission
   ( -- * Creating a Request
     AddPermission (..),
@@ -40,7 +44,8 @@ module Amazonka.SNS.AddPermission
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,9 +57,9 @@ data AddPermission = AddPermission'
     topicArn :: Prelude.Text,
     -- | A unique identifier for the new policy statement.
     label :: Prelude.Text,
-    -- | The account IDs of the users (principals) who will be given access to
-    -- the specified actions. The users must have account, but do not need to
-    -- be signed up for this service.
+    -- | The Amazon Web Services account IDs of the users (principals) who will
+    -- be given access to the specified actions. The users must have Amazon Web
+    -- Services account, but do not need to be signed up for this service.
     aWSAccountId :: [Prelude.Text],
     -- | The action you want to allow for the specified principal(s).
     --
@@ -75,9 +80,9 @@ data AddPermission = AddPermission'
 --
 -- 'label', 'addPermission_label' - A unique identifier for the new policy statement.
 --
--- 'aWSAccountId', 'addPermission_aWSAccountId' - The account IDs of the users (principals) who will be given access to
--- the specified actions. The users must have account, but do not need to
--- be signed up for this service.
+-- 'aWSAccountId', 'addPermission_aWSAccountId' - The Amazon Web Services account IDs of the users (principals) who will
+-- be given access to the specified actions. The users must have Amazon Web
+-- Services account, but do not need to be signed up for this service.
 --
 -- 'actionName', 'addPermission_actionName' - The action you want to allow for the specified principal(s).
 --
@@ -104,9 +109,9 @@ addPermission_topicArn = Lens.lens (\AddPermission' {topicArn} -> topicArn) (\s@
 addPermission_label :: Lens.Lens' AddPermission Prelude.Text
 addPermission_label = Lens.lens (\AddPermission' {label} -> label) (\s@AddPermission' {} a -> s {label = a} :: AddPermission)
 
--- | The account IDs of the users (principals) who will be given access to
--- the specified actions. The users must have account, but do not need to
--- be signed up for this service.
+-- | The Amazon Web Services account IDs of the users (principals) who will
+-- be given access to the specified actions. The users must have Amazon Web
+-- Services account, but do not need to be signed up for this service.
 addPermission_aWSAccountId :: Lens.Lens' AddPermission [Prelude.Text]
 addPermission_aWSAccountId = Lens.lens (\AddPermission' {aWSAccountId} -> aWSAccountId) (\s@AddPermission' {} a -> s {aWSAccountId = a} :: AddPermission) Prelude.. Lens.coerced
 
@@ -120,7 +125,8 @@ instance Core.AWSRequest AddPermission where
   type
     AWSResponse AddPermission =
       AddPermissionResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull AddPermissionResponse'
 
@@ -138,25 +144,25 @@ instance Prelude.NFData AddPermission where
       `Prelude.seq` Prelude.rnf aWSAccountId
       `Prelude.seq` Prelude.rnf actionName
 
-instance Core.ToHeaders AddPermission where
+instance Data.ToHeaders AddPermission where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath AddPermission where
+instance Data.ToPath AddPermission where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AddPermission where
+instance Data.ToQuery AddPermission where
   toQuery AddPermission' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("AddPermission" :: Prelude.ByteString),
+          Data.=: ("AddPermission" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-03-31" :: Prelude.ByteString),
-        "TopicArn" Core.=: topicArn,
-        "Label" Core.=: label,
+          Data.=: ("2010-03-31" :: Prelude.ByteString),
+        "TopicArn" Data.=: topicArn,
+        "Label" Data.=: label,
         "AWSAccountId"
-          Core.=: Core.toQueryList "member" aWSAccountId,
+          Data.=: Data.toQueryList "member" aWSAccountId,
         "ActionName"
-          Core.=: Core.toQueryList "member" actionName
+          Data.=: Data.toQueryList "member" actionName
       ]
 
 -- | /See:/ 'newAddPermissionResponse' smart constructor.

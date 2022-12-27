@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataPipeline.DescribeObjects
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,8 +49,9 @@ module Amazonka.DataPipeline.DescribeObjects
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataPipeline.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -156,15 +157,16 @@ instance Core.AWSRequest DescribeObjects where
   type
     AWSResponse DescribeObjects =
       DescribeObjectsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeObjectsResponse'
-            Prelude.<$> (x Core..?> "hasMoreResults")
-            Prelude.<*> (x Core..?> "marker")
+            Prelude.<$> (x Data..?> "hasMoreResults")
+            Prelude.<*> (x Data..?> "marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "pipelineObjects"
+            Prelude.<*> ( x Data..?> "pipelineObjects"
                             Core..!@ Prelude.mempty
                         )
       )
@@ -183,37 +185,37 @@ instance Prelude.NFData DescribeObjects where
       `Prelude.seq` Prelude.rnf pipelineId
       `Prelude.seq` Prelude.rnf objectIds
 
-instance Core.ToHeaders DescribeObjects where
+instance Data.ToHeaders DescribeObjects where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DataPipeline.DescribeObjects" ::
+              Data.=# ( "DataPipeline.DescribeObjects" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeObjects where
+instance Data.ToJSON DescribeObjects where
   toJSON DescribeObjects' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("evaluateExpressions" Core..=)
+          [ ("evaluateExpressions" Data..=)
               Prelude.<$> evaluateExpressions,
-            ("marker" Core..=) Prelude.<$> marker,
-            Prelude.Just ("pipelineId" Core..= pipelineId),
-            Prelude.Just ("objectIds" Core..= objectIds)
+            ("marker" Data..=) Prelude.<$> marker,
+            Prelude.Just ("pipelineId" Data..= pipelineId),
+            Prelude.Just ("objectIds" Data..= objectIds)
           ]
       )
 
-instance Core.ToPath DescribeObjects where
+instance Data.ToPath DescribeObjects where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeObjects where
+instance Data.ToQuery DescribeObjects where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the output of DescribeObjects.

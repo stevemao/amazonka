@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.PolicyAttachment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudDirectory.Types.PolicyAttachment where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the @PolicyType@, @PolicyId@, and the @ObjectIdentifier@ to
@@ -29,12 +30,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newPolicyAttachment' smart constructor.
 data PolicyAttachment = PolicyAttachment'
-  { -- | The ID of @PolicyAttachment@.
+  { -- | The @ObjectIdentifier@ that is associated with @PolicyAttachment@.
+    objectIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The ID of @PolicyAttachment@.
     policyId :: Prelude.Maybe Prelude.Text,
     -- | The type of policy that can be associated with @PolicyAttachment@.
-    policyType :: Prelude.Maybe Prelude.Text,
-    -- | The @ObjectIdentifier@ that is associated with @PolicyAttachment@.
-    objectIdentifier :: Prelude.Maybe Prelude.Text
+    policyType :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,19 +47,24 @@ data PolicyAttachment = PolicyAttachment'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'objectIdentifier', 'policyAttachment_objectIdentifier' - The @ObjectIdentifier@ that is associated with @PolicyAttachment@.
+--
 -- 'policyId', 'policyAttachment_policyId' - The ID of @PolicyAttachment@.
 --
 -- 'policyType', 'policyAttachment_policyType' - The type of policy that can be associated with @PolicyAttachment@.
---
--- 'objectIdentifier', 'policyAttachment_objectIdentifier' - The @ObjectIdentifier@ that is associated with @PolicyAttachment@.
 newPolicyAttachment ::
   PolicyAttachment
 newPolicyAttachment =
   PolicyAttachment'
-    { policyId = Prelude.Nothing,
-      policyType = Prelude.Nothing,
-      objectIdentifier = Prelude.Nothing
+    { objectIdentifier =
+        Prelude.Nothing,
+      policyId = Prelude.Nothing,
+      policyType = Prelude.Nothing
     }
+
+-- | The @ObjectIdentifier@ that is associated with @PolicyAttachment@.
+policyAttachment_objectIdentifier :: Lens.Lens' PolicyAttachment (Prelude.Maybe Prelude.Text)
+policyAttachment_objectIdentifier = Lens.lens (\PolicyAttachment' {objectIdentifier} -> objectIdentifier) (\s@PolicyAttachment' {} a -> s {objectIdentifier = a} :: PolicyAttachment)
 
 -- | The ID of @PolicyAttachment@.
 policyAttachment_policyId :: Lens.Lens' PolicyAttachment (Prelude.Maybe Prelude.Text)
@@ -68,29 +74,25 @@ policyAttachment_policyId = Lens.lens (\PolicyAttachment' {policyId} -> policyId
 policyAttachment_policyType :: Lens.Lens' PolicyAttachment (Prelude.Maybe Prelude.Text)
 policyAttachment_policyType = Lens.lens (\PolicyAttachment' {policyType} -> policyType) (\s@PolicyAttachment' {} a -> s {policyType = a} :: PolicyAttachment)
 
--- | The @ObjectIdentifier@ that is associated with @PolicyAttachment@.
-policyAttachment_objectIdentifier :: Lens.Lens' PolicyAttachment (Prelude.Maybe Prelude.Text)
-policyAttachment_objectIdentifier = Lens.lens (\PolicyAttachment' {objectIdentifier} -> objectIdentifier) (\s@PolicyAttachment' {} a -> s {objectIdentifier = a} :: PolicyAttachment)
-
-instance Core.FromJSON PolicyAttachment where
+instance Data.FromJSON PolicyAttachment where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PolicyAttachment"
       ( \x ->
           PolicyAttachment'
-            Prelude.<$> (x Core..:? "PolicyId")
-            Prelude.<*> (x Core..:? "PolicyType")
-            Prelude.<*> (x Core..:? "ObjectIdentifier")
+            Prelude.<$> (x Data..:? "ObjectIdentifier")
+            Prelude.<*> (x Data..:? "PolicyId")
+            Prelude.<*> (x Data..:? "PolicyType")
       )
 
 instance Prelude.Hashable PolicyAttachment where
   hashWithSalt _salt PolicyAttachment' {..} =
-    _salt `Prelude.hashWithSalt` policyId
+    _salt `Prelude.hashWithSalt` objectIdentifier
+      `Prelude.hashWithSalt` policyId
       `Prelude.hashWithSalt` policyType
-      `Prelude.hashWithSalt` objectIdentifier
 
 instance Prelude.NFData PolicyAttachment where
   rnf PolicyAttachment' {..} =
-    Prelude.rnf policyId
+    Prelude.rnf objectIdentifier
+      `Prelude.seq` Prelude.rnf policyId
       `Prelude.seq` Prelude.rnf policyType
-      `Prelude.seq` Prelude.rnf objectIdentifier

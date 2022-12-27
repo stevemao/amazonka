@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.Types.SuppressionAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SESV2.Types.SuppressionAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SESV2.Types.SuppressionListReason
 
@@ -85,14 +86,14 @@ newSuppressionAttributes =
 suppressionAttributes_suppressedReasons :: Lens.Lens' SuppressionAttributes (Prelude.Maybe [SuppressionListReason])
 suppressionAttributes_suppressedReasons = Lens.lens (\SuppressionAttributes' {suppressedReasons} -> suppressedReasons) (\s@SuppressionAttributes' {} a -> s {suppressedReasons = a} :: SuppressionAttributes) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON SuppressionAttributes where
+instance Data.FromJSON SuppressionAttributes where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SuppressionAttributes"
       ( \x ->
           SuppressionAttributes'
-            Prelude.<$> ( x Core..:? "SuppressedReasons"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "SuppressedReasons"
+                            Data..!= Prelude.mempty
                         )
       )
 

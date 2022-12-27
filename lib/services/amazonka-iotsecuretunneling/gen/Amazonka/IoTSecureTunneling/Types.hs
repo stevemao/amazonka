@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSecureTunneling.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,8 +18,11 @@ module Amazonka.IoTSecureTunneling.Types
     defaultService,
 
     -- * Errors
-    _ResourceNotFoundException,
     _LimitExceededException,
+    _ResourceNotFoundException,
+
+    -- * ClientMode
+    ClientMode (..),
 
     -- * ConnectionStatus
     ConnectionStatus (..),
@@ -29,8 +33,8 @@ module Amazonka.IoTSecureTunneling.Types
     -- * ConnectionState
     ConnectionState (..),
     newConnectionState,
-    connectionState_status,
     connectionState_lastUpdatedAt,
+    connectionState_status,
 
     -- * DestinationConfig
     DestinationConfig (..),
@@ -52,31 +56,33 @@ module Amazonka.IoTSecureTunneling.Types
     -- * Tunnel
     Tunnel (..),
     newTunnel,
-    tunnel_status,
-    tunnel_lastUpdatedAt,
     tunnel_createdAt,
-    tunnel_tunnelArn,
-    tunnel_sourceConnectionState,
-    tunnel_destinationConnectionState,
-    tunnel_tunnelId,
-    tunnel_destinationConfig,
     tunnel_description,
-    tunnel_timeoutConfig,
+    tunnel_destinationConfig,
+    tunnel_destinationConnectionState,
+    tunnel_lastUpdatedAt,
+    tunnel_sourceConnectionState,
+    tunnel_status,
     tunnel_tags,
+    tunnel_timeoutConfig,
+    tunnel_tunnelArn,
+    tunnel_tunnelId,
 
     -- * TunnelSummary
     TunnelSummary (..),
     newTunnelSummary,
-    tunnelSummary_status,
-    tunnelSummary_lastUpdatedAt,
     tunnelSummary_createdAt,
+    tunnelSummary_description,
+    tunnelSummary_lastUpdatedAt,
+    tunnelSummary_status,
     tunnelSummary_tunnelArn,
     tunnelSummary_tunnelId,
-    tunnelSummary_description,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import Amazonka.IoTSecureTunneling.Types.ClientMode
 import Amazonka.IoTSecureTunneling.Types.ConnectionState
 import Amazonka.IoTSecureTunneling.Types.ConnectionStatus
 import Amazonka.IoTSecureTunneling.Types.DestinationConfig
@@ -85,7 +91,6 @@ import Amazonka.IoTSecureTunneling.Types.TimeoutConfig
 import Amazonka.IoTSecureTunneling.Types.Tunnel
 import Amazonka.IoTSecureTunneling.Types.TunnelStatus
 import Amazonka.IoTSecureTunneling.Types.TunnelSummary
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 
@@ -93,43 +98,50 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev =
-        "IoTSecureTunneling",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "api.tunneling.iot",
-      Core._serviceSigningName = "IoTSecuredTunneling",
-      Core._serviceVersion = "2018-10-05",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
+    { Core.abbrev = "IoTSecureTunneling",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "api.tunneling.iot",
+      Core.signingName = "IoTSecuredTunneling",
+      Core.version = "2018-10-05",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error =
         Core.parseJSONError "IoTSecureTunneling",
-      Core._serviceRetry = retry
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -137,36 +149,21 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
-
--- | Thrown when an operation is attempted on a resource that does not exist.
-_ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ResourceNotFoundException =
-  Core._MatchServiceError
-    defaultService
-    "ResourceNotFoundException"
 
 -- | Thrown when a tunnel limit is exceeded.
 _LimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -174,3 +171,10 @@ _LimitExceededException =
   Core._MatchServiceError
     defaultService
     "LimitExceededException"
+
+-- | Thrown when an operation is attempted on a resource that does not exist.
+_ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ResourceNotFoundException =
+  Core._MatchServiceError
+    defaultService
+    "ResourceNotFoundException"

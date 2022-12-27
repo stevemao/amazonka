@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.Types.TrafficRoute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeDeploy.Types.TrafficRoute where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a listener. The listener contains the path used to
@@ -57,13 +58,13 @@ newTrafficRoute =
 trafficRoute_listenerArns :: Lens.Lens' TrafficRoute (Prelude.Maybe [Prelude.Text])
 trafficRoute_listenerArns = Lens.lens (\TrafficRoute' {listenerArns} -> listenerArns) (\s@TrafficRoute' {} a -> s {listenerArns = a} :: TrafficRoute) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON TrafficRoute where
+instance Data.FromJSON TrafficRoute where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TrafficRoute"
       ( \x ->
           TrafficRoute'
-            Prelude.<$> (x Core..:? "listenerArns" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "listenerArns" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable TrafficRoute where
@@ -73,9 +74,9 @@ instance Prelude.Hashable TrafficRoute where
 instance Prelude.NFData TrafficRoute where
   rnf TrafficRoute' {..} = Prelude.rnf listenerArns
 
-instance Core.ToJSON TrafficRoute where
+instance Data.ToJSON TrafficRoute where
   toJSON TrafficRoute' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("listenerArns" Core..=) Prelude.<$> listenerArns]
+          [("listenerArns" Data..=) Prelude.<$> listenerArns]
       )

@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.MarketplaceCatalog
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,67 +27,67 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestListEntities $
---             newListEntities
---
---         , requestListChangeSets $
---             newListChangeSets
---
---         , requestStartChangeSet $
---             newStartChangeSet
---
---         , requestCancelChangeSet $
+--         [ requestCancelChangeSet $
 --             newCancelChangeSet
---
---         , requestDescribeEntity $
---             newDescribeEntity
 --
 --         , requestDescribeChangeSet $
 --             newDescribeChangeSet
 --
+--         , requestDescribeEntity $
+--             newDescribeEntity
+--
+--         , requestListChangeSets $
+--             newListChangeSets
+--
+--         , requestListEntities $
+--             newListEntities
+--
+--         , requestListTagsForResource $
+--             newListTagsForResource
+--
+--         , requestStartChangeSet $
+--             newStartChangeSet
+--
+--         , requestTagResource $
+--             newTagResource
+--
+--         , requestUntagResource $
+--             newUntagResource
+--
 --           ]
 
 --     , testGroup "response"
---         [ responseListEntities $
---             newListEntitiesResponse
---
---         , responseListChangeSets $
---             newListChangeSetsResponse
---
---         , responseStartChangeSet $
---             newStartChangeSetResponse
---
---         , responseCancelChangeSet $
+--         [ responseCancelChangeSet $
 --             newCancelChangeSetResponse
+--
+--         , responseDescribeChangeSet $
+--             newDescribeChangeSetResponse
 --
 --         , responseDescribeEntity $
 --             newDescribeEntityResponse
 --
---         , responseDescribeChangeSet $
---             newDescribeChangeSetResponse
+--         , responseListChangeSets $
+--             newListChangeSetsResponse
+--
+--         , responseListEntities $
+--             newListEntitiesResponse
+--
+--         , responseListTagsForResource $
+--             newListTagsForResourceResponse
+--
+--         , responseStartChangeSet $
+--             newStartChangeSetResponse
+--
+--         , responseTagResource $
+--             newTagResourceResponse
+--
+--         , responseUntagResource $
+--             newUntagResourceResponse
 --
 --           ]
 --     ]
 
 -- Requests
-
-requestListEntities :: ListEntities -> TestTree
-requestListEntities =
-  req
-    "ListEntities"
-    "fixture/ListEntities.yaml"
-
-requestListChangeSets :: ListChangeSets -> TestTree
-requestListChangeSets =
-  req
-    "ListChangeSets"
-    "fixture/ListChangeSets.yaml"
-
-requestStartChangeSet :: StartChangeSet -> TestTree
-requestStartChangeSet =
-  req
-    "StartChangeSet"
-    "fixture/StartChangeSet.yaml"
 
 requestCancelChangeSet :: CancelChangeSet -> TestTree
 requestCancelChangeSet =
@@ -95,43 +95,55 @@ requestCancelChangeSet =
     "CancelChangeSet"
     "fixture/CancelChangeSet.yaml"
 
-requestDescribeEntity :: DescribeEntity -> TestTree
-requestDescribeEntity =
-  req
-    "DescribeEntity"
-    "fixture/DescribeEntity.yaml"
-
 requestDescribeChangeSet :: DescribeChangeSet -> TestTree
 requestDescribeChangeSet =
   req
     "DescribeChangeSet"
     "fixture/DescribeChangeSet.yaml"
 
+requestDescribeEntity :: DescribeEntity -> TestTree
+requestDescribeEntity =
+  req
+    "DescribeEntity"
+    "fixture/DescribeEntity.yaml"
+
+requestListChangeSets :: ListChangeSets -> TestTree
+requestListChangeSets =
+  req
+    "ListChangeSets"
+    "fixture/ListChangeSets.yaml"
+
+requestListEntities :: ListEntities -> TestTree
+requestListEntities =
+  req
+    "ListEntities"
+    "fixture/ListEntities.yaml"
+
+requestListTagsForResource :: ListTagsForResource -> TestTree
+requestListTagsForResource =
+  req
+    "ListTagsForResource"
+    "fixture/ListTagsForResource.yaml"
+
+requestStartChangeSet :: StartChangeSet -> TestTree
+requestStartChangeSet =
+  req
+    "StartChangeSet"
+    "fixture/StartChangeSet.yaml"
+
+requestTagResource :: TagResource -> TestTree
+requestTagResource =
+  req
+    "TagResource"
+    "fixture/TagResource.yaml"
+
+requestUntagResource :: UntagResource -> TestTree
+requestUntagResource =
+  req
+    "UntagResource"
+    "fixture/UntagResource.yaml"
+
 -- Responses
-
-responseListEntities :: ListEntitiesResponse -> TestTree
-responseListEntities =
-  res
-    "ListEntitiesResponse"
-    "fixture/ListEntitiesResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListEntities)
-
-responseListChangeSets :: ListChangeSetsResponse -> TestTree
-responseListChangeSets =
-  res
-    "ListChangeSetsResponse"
-    "fixture/ListChangeSetsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListChangeSets)
-
-responseStartChangeSet :: StartChangeSetResponse -> TestTree
-responseStartChangeSet =
-  res
-    "StartChangeSetResponse"
-    "fixture/StartChangeSetResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy StartChangeSet)
 
 responseCancelChangeSet :: CancelChangeSetResponse -> TestTree
 responseCancelChangeSet =
@@ -141,6 +153,14 @@ responseCancelChangeSet =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CancelChangeSet)
 
+responseDescribeChangeSet :: DescribeChangeSetResponse -> TestTree
+responseDescribeChangeSet =
+  res
+    "DescribeChangeSetResponse"
+    "fixture/DescribeChangeSetResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeChangeSet)
+
 responseDescribeEntity :: DescribeEntityResponse -> TestTree
 responseDescribeEntity =
   res
@@ -149,10 +169,50 @@ responseDescribeEntity =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy DescribeEntity)
 
-responseDescribeChangeSet :: DescribeChangeSetResponse -> TestTree
-responseDescribeChangeSet =
+responseListChangeSets :: ListChangeSetsResponse -> TestTree
+responseListChangeSets =
   res
-    "DescribeChangeSetResponse"
-    "fixture/DescribeChangeSetResponse.proto"
+    "ListChangeSetsResponse"
+    "fixture/ListChangeSetsResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeChangeSet)
+    (Proxy.Proxy :: Proxy.Proxy ListChangeSets)
+
+responseListEntities :: ListEntitiesResponse -> TestTree
+responseListEntities =
+  res
+    "ListEntitiesResponse"
+    "fixture/ListEntitiesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListEntities)
+
+responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
+responseListTagsForResource =
+  res
+    "ListTagsForResourceResponse"
+    "fixture/ListTagsForResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
+
+responseStartChangeSet :: StartChangeSetResponse -> TestTree
+responseStartChangeSet =
+  res
+    "StartChangeSetResponse"
+    "fixture/StartChangeSetResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy StartChangeSet)
+
+responseTagResource :: TagResourceResponse -> TestTree
+responseTagResource =
+  res
+    "TagResourceResponse"
+    "fixture/TagResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy TagResource)
+
+responseUntagResource :: UntagResourceResponse -> TestTree
+responseUntagResource =
+  res
+    "UntagResourceResponse"
+    "fixture/UntagResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UntagResource)

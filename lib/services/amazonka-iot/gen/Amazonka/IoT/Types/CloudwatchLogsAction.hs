@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.CloudwatchLogsAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoT.Types.CloudwatchLogsAction where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an action that sends data to CloudWatch Logs.
@@ -65,14 +66,14 @@ cloudwatchLogsAction_roleArn = Lens.lens (\CloudwatchLogsAction' {roleArn} -> ro
 cloudwatchLogsAction_logGroupName :: Lens.Lens' CloudwatchLogsAction Prelude.Text
 cloudwatchLogsAction_logGroupName = Lens.lens (\CloudwatchLogsAction' {logGroupName} -> logGroupName) (\s@CloudwatchLogsAction' {} a -> s {logGroupName = a} :: CloudwatchLogsAction)
 
-instance Core.FromJSON CloudwatchLogsAction where
+instance Data.FromJSON CloudwatchLogsAction where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CloudwatchLogsAction"
       ( \x ->
           CloudwatchLogsAction'
-            Prelude.<$> (x Core..: "roleArn")
-            Prelude.<*> (x Core..: "logGroupName")
+            Prelude.<$> (x Data..: "roleArn")
+            Prelude.<*> (x Data..: "logGroupName")
       )
 
 instance Prelude.Hashable CloudwatchLogsAction where
@@ -85,11 +86,11 @@ instance Prelude.NFData CloudwatchLogsAction where
     Prelude.rnf roleArn
       `Prelude.seq` Prelude.rnf logGroupName
 
-instance Core.ToJSON CloudwatchLogsAction where
+instance Data.ToJSON CloudwatchLogsAction where
   toJSON CloudwatchLogsAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("roleArn" Core..= roleArn),
-            Prelude.Just ("logGroupName" Core..= logGroupName)
+          [ Prelude.Just ("roleArn" Data..= roleArn),
+            Prelude.Just ("logGroupName" Data..= logGroupName)
           ]
       )

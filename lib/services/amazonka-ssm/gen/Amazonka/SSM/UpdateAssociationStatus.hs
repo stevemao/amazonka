@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.SSM.UpdateAssociationStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Updates the status of the Amazon Web Services Systems Manager document
--- (SSM document) associated with the specified instance.
+-- (SSM document) associated with the specified managed node.
 --
 -- @UpdateAssociationStatus@ is primarily used by the Amazon Web Services
 -- Systems Manager Agent (SSM Agent) to report status updates about your
@@ -48,7 +48,8 @@ module Amazonka.SSM.UpdateAssociationStatus
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,7 +59,7 @@ import Amazonka.SSM.Types
 data UpdateAssociationStatus = UpdateAssociationStatus'
   { -- | The name of the SSM document.
     name :: Prelude.Text,
-    -- | The instance ID.
+    -- | The managed node ID.
     instanceId :: Prelude.Text,
     -- | The association status.
     associationStatus :: AssociationStatus
@@ -75,7 +76,7 @@ data UpdateAssociationStatus = UpdateAssociationStatus'
 --
 -- 'name', 'updateAssociationStatus_name' - The name of the SSM document.
 --
--- 'instanceId', 'updateAssociationStatus_instanceId' - The instance ID.
+-- 'instanceId', 'updateAssociationStatus_instanceId' - The managed node ID.
 --
 -- 'associationStatus', 'updateAssociationStatus_associationStatus' - The association status.
 newUpdateAssociationStatus ::
@@ -100,7 +101,7 @@ newUpdateAssociationStatus
 updateAssociationStatus_name :: Lens.Lens' UpdateAssociationStatus Prelude.Text
 updateAssociationStatus_name = Lens.lens (\UpdateAssociationStatus' {name} -> name) (\s@UpdateAssociationStatus' {} a -> s {name = a} :: UpdateAssociationStatus)
 
--- | The instance ID.
+-- | The managed node ID.
 updateAssociationStatus_instanceId :: Lens.Lens' UpdateAssociationStatus Prelude.Text
 updateAssociationStatus_instanceId = Lens.lens (\UpdateAssociationStatus' {instanceId} -> instanceId) (\s@UpdateAssociationStatus' {} a -> s {instanceId = a} :: UpdateAssociationStatus)
 
@@ -112,12 +113,13 @@ instance Core.AWSRequest UpdateAssociationStatus where
   type
     AWSResponse UpdateAssociationStatus =
       UpdateAssociationStatusResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateAssociationStatusResponse'
-            Prelude.<$> (x Core..?> "AssociationDescription")
+            Prelude.<$> (x Data..?> "AssociationDescription")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -133,36 +135,36 @@ instance Prelude.NFData UpdateAssociationStatus where
       `Prelude.seq` Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf associationStatus
 
-instance Core.ToHeaders UpdateAssociationStatus where
+instance Data.ToHeaders UpdateAssociationStatus where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.UpdateAssociationStatus" ::
+              Data.=# ( "AmazonSSM.UpdateAssociationStatus" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateAssociationStatus where
+instance Data.ToJSON UpdateAssociationStatus where
   toJSON UpdateAssociationStatus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("InstanceId" Core..= instanceId),
+          [ Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("InstanceId" Data..= instanceId),
             Prelude.Just
-              ("AssociationStatus" Core..= associationStatus)
+              ("AssociationStatus" Data..= associationStatus)
           ]
       )
 
-instance Core.ToPath UpdateAssociationStatus where
+instance Data.ToPath UpdateAssociationStatus where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateAssociationStatus where
+instance Data.ToQuery UpdateAssociationStatus where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateAssociationStatusResponse' smart constructor.
@@ -172,7 +174,7 @@ data UpdateAssociationStatusResponse = UpdateAssociationStatusResponse'
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'UpdateAssociationStatusResponse' with all optional fields omitted.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.Types.ManagedActionHistoryItem
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,32 +20,33 @@
 module Amazonka.ElasticBeanstalk.Types.ManagedActionHistoryItem where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticBeanstalk.Types.ActionHistoryStatus
 import Amazonka.ElasticBeanstalk.Types.ActionType
 import Amazonka.ElasticBeanstalk.Types.FailureType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The record of a completed or failed managed action.
 --
 -- /See:/ 'newManagedActionHistoryItem' smart constructor.
 data ManagedActionHistoryItem = ManagedActionHistoryItem'
-  { -- | The status of the action.
-    status :: Prelude.Maybe ActionHistoryStatus,
-    -- | If the action failed, the type of failure.
-    failureType :: Prelude.Maybe FailureType,
+  { -- | A description of the managed action.
+    actionDescription :: Prelude.Maybe Prelude.Text,
     -- | A unique identifier for the managed action.
     actionId :: Prelude.Maybe Prelude.Text,
+    -- | The type of the managed action.
+    actionType :: Prelude.Maybe ActionType,
+    -- | The date and time that the action started executing.
+    executedTime :: Prelude.Maybe Data.ISO8601,
     -- | If the action failed, a description of the failure.
     failureDescription :: Prelude.Maybe Prelude.Text,
+    -- | If the action failed, the type of failure.
+    failureType :: Prelude.Maybe FailureType,
     -- | The date and time that the action finished executing.
-    finishedTime :: Prelude.Maybe Core.ISO8601,
-    -- | A description of the managed action.
-    actionDescription :: Prelude.Maybe Prelude.Text,
-    -- | The date and time that the action started executing.
-    executedTime :: Prelude.Maybe Core.ISO8601,
-    -- | The type of the managed action.
-    actionType :: Prelude.Maybe ActionType
+    finishedTime :: Prelude.Maybe Data.ISO8601,
+    -- | The status of the action.
+    status :: Prelude.Maybe ActionHistoryStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -57,97 +58,98 @@ data ManagedActionHistoryItem = ManagedActionHistoryItem'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'managedActionHistoryItem_status' - The status of the action.
---
--- 'failureType', 'managedActionHistoryItem_failureType' - If the action failed, the type of failure.
+-- 'actionDescription', 'managedActionHistoryItem_actionDescription' - A description of the managed action.
 --
 -- 'actionId', 'managedActionHistoryItem_actionId' - A unique identifier for the managed action.
 --
--- 'failureDescription', 'managedActionHistoryItem_failureDescription' - If the action failed, a description of the failure.
---
--- 'finishedTime', 'managedActionHistoryItem_finishedTime' - The date and time that the action finished executing.
---
--- 'actionDescription', 'managedActionHistoryItem_actionDescription' - A description of the managed action.
+-- 'actionType', 'managedActionHistoryItem_actionType' - The type of the managed action.
 --
 -- 'executedTime', 'managedActionHistoryItem_executedTime' - The date and time that the action started executing.
 --
--- 'actionType', 'managedActionHistoryItem_actionType' - The type of the managed action.
+-- 'failureDescription', 'managedActionHistoryItem_failureDescription' - If the action failed, a description of the failure.
+--
+-- 'failureType', 'managedActionHistoryItem_failureType' - If the action failed, the type of failure.
+--
+-- 'finishedTime', 'managedActionHistoryItem_finishedTime' - The date and time that the action finished executing.
+--
+-- 'status', 'managedActionHistoryItem_status' - The status of the action.
 newManagedActionHistoryItem ::
   ManagedActionHistoryItem
 newManagedActionHistoryItem =
   ManagedActionHistoryItem'
-    { status = Prelude.Nothing,
-      failureType = Prelude.Nothing,
+    { actionDescription =
+        Prelude.Nothing,
       actionId = Prelude.Nothing,
-      failureDescription = Prelude.Nothing,
-      finishedTime = Prelude.Nothing,
-      actionDescription = Prelude.Nothing,
+      actionType = Prelude.Nothing,
       executedTime = Prelude.Nothing,
-      actionType = Prelude.Nothing
+      failureDescription = Prelude.Nothing,
+      failureType = Prelude.Nothing,
+      finishedTime = Prelude.Nothing,
+      status = Prelude.Nothing
     }
-
--- | The status of the action.
-managedActionHistoryItem_status :: Lens.Lens' ManagedActionHistoryItem (Prelude.Maybe ActionHistoryStatus)
-managedActionHistoryItem_status = Lens.lens (\ManagedActionHistoryItem' {status} -> status) (\s@ManagedActionHistoryItem' {} a -> s {status = a} :: ManagedActionHistoryItem)
-
--- | If the action failed, the type of failure.
-managedActionHistoryItem_failureType :: Lens.Lens' ManagedActionHistoryItem (Prelude.Maybe FailureType)
-managedActionHistoryItem_failureType = Lens.lens (\ManagedActionHistoryItem' {failureType} -> failureType) (\s@ManagedActionHistoryItem' {} a -> s {failureType = a} :: ManagedActionHistoryItem)
-
--- | A unique identifier for the managed action.
-managedActionHistoryItem_actionId :: Lens.Lens' ManagedActionHistoryItem (Prelude.Maybe Prelude.Text)
-managedActionHistoryItem_actionId = Lens.lens (\ManagedActionHistoryItem' {actionId} -> actionId) (\s@ManagedActionHistoryItem' {} a -> s {actionId = a} :: ManagedActionHistoryItem)
-
--- | If the action failed, a description of the failure.
-managedActionHistoryItem_failureDescription :: Lens.Lens' ManagedActionHistoryItem (Prelude.Maybe Prelude.Text)
-managedActionHistoryItem_failureDescription = Lens.lens (\ManagedActionHistoryItem' {failureDescription} -> failureDescription) (\s@ManagedActionHistoryItem' {} a -> s {failureDescription = a} :: ManagedActionHistoryItem)
-
--- | The date and time that the action finished executing.
-managedActionHistoryItem_finishedTime :: Lens.Lens' ManagedActionHistoryItem (Prelude.Maybe Prelude.UTCTime)
-managedActionHistoryItem_finishedTime = Lens.lens (\ManagedActionHistoryItem' {finishedTime} -> finishedTime) (\s@ManagedActionHistoryItem' {} a -> s {finishedTime = a} :: ManagedActionHistoryItem) Prelude.. Lens.mapping Core._Time
 
 -- | A description of the managed action.
 managedActionHistoryItem_actionDescription :: Lens.Lens' ManagedActionHistoryItem (Prelude.Maybe Prelude.Text)
 managedActionHistoryItem_actionDescription = Lens.lens (\ManagedActionHistoryItem' {actionDescription} -> actionDescription) (\s@ManagedActionHistoryItem' {} a -> s {actionDescription = a} :: ManagedActionHistoryItem)
 
--- | The date and time that the action started executing.
-managedActionHistoryItem_executedTime :: Lens.Lens' ManagedActionHistoryItem (Prelude.Maybe Prelude.UTCTime)
-managedActionHistoryItem_executedTime = Lens.lens (\ManagedActionHistoryItem' {executedTime} -> executedTime) (\s@ManagedActionHistoryItem' {} a -> s {executedTime = a} :: ManagedActionHistoryItem) Prelude.. Lens.mapping Core._Time
+-- | A unique identifier for the managed action.
+managedActionHistoryItem_actionId :: Lens.Lens' ManagedActionHistoryItem (Prelude.Maybe Prelude.Text)
+managedActionHistoryItem_actionId = Lens.lens (\ManagedActionHistoryItem' {actionId} -> actionId) (\s@ManagedActionHistoryItem' {} a -> s {actionId = a} :: ManagedActionHistoryItem)
 
 -- | The type of the managed action.
 managedActionHistoryItem_actionType :: Lens.Lens' ManagedActionHistoryItem (Prelude.Maybe ActionType)
 managedActionHistoryItem_actionType = Lens.lens (\ManagedActionHistoryItem' {actionType} -> actionType) (\s@ManagedActionHistoryItem' {} a -> s {actionType = a} :: ManagedActionHistoryItem)
 
-instance Core.FromXML ManagedActionHistoryItem where
+-- | The date and time that the action started executing.
+managedActionHistoryItem_executedTime :: Lens.Lens' ManagedActionHistoryItem (Prelude.Maybe Prelude.UTCTime)
+managedActionHistoryItem_executedTime = Lens.lens (\ManagedActionHistoryItem' {executedTime} -> executedTime) (\s@ManagedActionHistoryItem' {} a -> s {executedTime = a} :: ManagedActionHistoryItem) Prelude.. Lens.mapping Data._Time
+
+-- | If the action failed, a description of the failure.
+managedActionHistoryItem_failureDescription :: Lens.Lens' ManagedActionHistoryItem (Prelude.Maybe Prelude.Text)
+managedActionHistoryItem_failureDescription = Lens.lens (\ManagedActionHistoryItem' {failureDescription} -> failureDescription) (\s@ManagedActionHistoryItem' {} a -> s {failureDescription = a} :: ManagedActionHistoryItem)
+
+-- | If the action failed, the type of failure.
+managedActionHistoryItem_failureType :: Lens.Lens' ManagedActionHistoryItem (Prelude.Maybe FailureType)
+managedActionHistoryItem_failureType = Lens.lens (\ManagedActionHistoryItem' {failureType} -> failureType) (\s@ManagedActionHistoryItem' {} a -> s {failureType = a} :: ManagedActionHistoryItem)
+
+-- | The date and time that the action finished executing.
+managedActionHistoryItem_finishedTime :: Lens.Lens' ManagedActionHistoryItem (Prelude.Maybe Prelude.UTCTime)
+managedActionHistoryItem_finishedTime = Lens.lens (\ManagedActionHistoryItem' {finishedTime} -> finishedTime) (\s@ManagedActionHistoryItem' {} a -> s {finishedTime = a} :: ManagedActionHistoryItem) Prelude.. Lens.mapping Data._Time
+
+-- | The status of the action.
+managedActionHistoryItem_status :: Lens.Lens' ManagedActionHistoryItem (Prelude.Maybe ActionHistoryStatus)
+managedActionHistoryItem_status = Lens.lens (\ManagedActionHistoryItem' {status} -> status) (\s@ManagedActionHistoryItem' {} a -> s {status = a} :: ManagedActionHistoryItem)
+
+instance Data.FromXML ManagedActionHistoryItem where
   parseXML x =
     ManagedActionHistoryItem'
-      Prelude.<$> (x Core..@? "Status")
-      Prelude.<*> (x Core..@? "FailureType")
-      Prelude.<*> (x Core..@? "ActionId")
-      Prelude.<*> (x Core..@? "FailureDescription")
-      Prelude.<*> (x Core..@? "FinishedTime")
-      Prelude.<*> (x Core..@? "ActionDescription")
-      Prelude.<*> (x Core..@? "ExecutedTime")
-      Prelude.<*> (x Core..@? "ActionType")
+      Prelude.<$> (x Data..@? "ActionDescription")
+      Prelude.<*> (x Data..@? "ActionId")
+      Prelude.<*> (x Data..@? "ActionType")
+      Prelude.<*> (x Data..@? "ExecutedTime")
+      Prelude.<*> (x Data..@? "FailureDescription")
+      Prelude.<*> (x Data..@? "FailureType")
+      Prelude.<*> (x Data..@? "FinishedTime")
+      Prelude.<*> (x Data..@? "Status")
 
 instance Prelude.Hashable ManagedActionHistoryItem where
   hashWithSalt _salt ManagedActionHistoryItem' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` failureType
+    _salt `Prelude.hashWithSalt` actionDescription
       `Prelude.hashWithSalt` actionId
-      `Prelude.hashWithSalt` failureDescription
-      `Prelude.hashWithSalt` finishedTime
-      `Prelude.hashWithSalt` actionDescription
-      `Prelude.hashWithSalt` executedTime
       `Prelude.hashWithSalt` actionType
+      `Prelude.hashWithSalt` executedTime
+      `Prelude.hashWithSalt` failureDescription
+      `Prelude.hashWithSalt` failureType
+      `Prelude.hashWithSalt` finishedTime
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData ManagedActionHistoryItem where
   rnf ManagedActionHistoryItem' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf failureType
+    Prelude.rnf actionDescription
       `Prelude.seq` Prelude.rnf actionId
-      `Prelude.seq` Prelude.rnf failureDescription
-      `Prelude.seq` Prelude.rnf finishedTime
-      `Prelude.seq` Prelude.rnf actionDescription
-      `Prelude.seq` Prelude.rnf executedTime
       `Prelude.seq` Prelude.rnf actionType
+      `Prelude.seq` Prelude.rnf executedTime
+      `Prelude.seq` Prelude.rnf failureDescription
+      `Prelude.seq` Prelude.rnf failureType
+      `Prelude.seq` Prelude.rnf finishedTime
+      `Prelude.seq` Prelude.rnf status

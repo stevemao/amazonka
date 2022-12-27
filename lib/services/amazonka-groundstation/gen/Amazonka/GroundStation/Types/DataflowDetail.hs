@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GroundStation.Types.DataflowDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.GroundStation.Types.DataflowDetail where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GroundStation.Types.Destination
 import Amazonka.GroundStation.Types.Source
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a dataflow edge used in a contact.
@@ -30,9 +31,9 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newDataflowDetail' smart constructor.
 data DataflowDetail = DataflowDetail'
   { destination :: Prelude.Maybe Destination,
-    source :: Prelude.Maybe Source,
     -- | Error message for a dataflow.
-    errorMessage :: Prelude.Maybe Prelude.Text
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    source :: Prelude.Maybe Source
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,49 +47,49 @@ data DataflowDetail = DataflowDetail'
 --
 -- 'destination', 'dataflowDetail_destination' - Undocumented member.
 --
--- 'source', 'dataflowDetail_source' - Undocumented member.
---
 -- 'errorMessage', 'dataflowDetail_errorMessage' - Error message for a dataflow.
+--
+-- 'source', 'dataflowDetail_source' - Undocumented member.
 newDataflowDetail ::
   DataflowDetail
 newDataflowDetail =
   DataflowDetail'
     { destination = Prelude.Nothing,
-      source = Prelude.Nothing,
-      errorMessage = Prelude.Nothing
+      errorMessage = Prelude.Nothing,
+      source = Prelude.Nothing
     }
 
 -- | Undocumented member.
 dataflowDetail_destination :: Lens.Lens' DataflowDetail (Prelude.Maybe Destination)
 dataflowDetail_destination = Lens.lens (\DataflowDetail' {destination} -> destination) (\s@DataflowDetail' {} a -> s {destination = a} :: DataflowDetail)
 
--- | Undocumented member.
-dataflowDetail_source :: Lens.Lens' DataflowDetail (Prelude.Maybe Source)
-dataflowDetail_source = Lens.lens (\DataflowDetail' {source} -> source) (\s@DataflowDetail' {} a -> s {source = a} :: DataflowDetail)
-
 -- | Error message for a dataflow.
 dataflowDetail_errorMessage :: Lens.Lens' DataflowDetail (Prelude.Maybe Prelude.Text)
 dataflowDetail_errorMessage = Lens.lens (\DataflowDetail' {errorMessage} -> errorMessage) (\s@DataflowDetail' {} a -> s {errorMessage = a} :: DataflowDetail)
 
-instance Core.FromJSON DataflowDetail where
+-- | Undocumented member.
+dataflowDetail_source :: Lens.Lens' DataflowDetail (Prelude.Maybe Source)
+dataflowDetail_source = Lens.lens (\DataflowDetail' {source} -> source) (\s@DataflowDetail' {} a -> s {source = a} :: DataflowDetail)
+
+instance Data.FromJSON DataflowDetail where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DataflowDetail"
       ( \x ->
           DataflowDetail'
-            Prelude.<$> (x Core..:? "destination")
-            Prelude.<*> (x Core..:? "source")
-            Prelude.<*> (x Core..:? "errorMessage")
+            Prelude.<$> (x Data..:? "destination")
+            Prelude.<*> (x Data..:? "errorMessage")
+            Prelude.<*> (x Data..:? "source")
       )
 
 instance Prelude.Hashable DataflowDetail where
   hashWithSalt _salt DataflowDetail' {..} =
     _salt `Prelude.hashWithSalt` destination
-      `Prelude.hashWithSalt` source
       `Prelude.hashWithSalt` errorMessage
+      `Prelude.hashWithSalt` source
 
 instance Prelude.NFData DataflowDetail where
   rnf DataflowDetail' {..} =
     Prelude.rnf destination
-      `Prelude.seq` Prelude.rnf source
       `Prelude.seq` Prelude.rnf errorMessage
+      `Prelude.seq` Prelude.rnf source

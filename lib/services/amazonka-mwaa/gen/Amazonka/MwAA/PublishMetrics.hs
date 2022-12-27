@@ -14,13 +14,14 @@
 
 -- |
 -- Module      : Amazonka.MwAA.PublishMetrics
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- An operation for publishing metrics from the customers to the Ops plane.
+-- __Internal only__. Publishes environment health metrics to Amazon
+-- CloudWatch.
 module Amazonka.MwAA.PublishMetrics
   ( -- * Creating a Request
     PublishMetrics (..),
@@ -40,7 +41,8 @@ module Amazonka.MwAA.PublishMetrics
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MwAA.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -48,10 +50,11 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newPublishMetrics' smart constructor.
 data PublishMetrics = PublishMetrics'
-  { -- | Publishes environment metric data to Amazon CloudWatch.
+  { -- | __Internal only__. The name of the environment.
     environmentName :: Prelude.Text,
-    -- | Publishes metric data points to Amazon CloudWatch. CloudWatch associates
-    -- the data points with the specified metrica.
+    -- | __Internal only__. Publishes metrics to Amazon CloudWatch. To learn more
+    -- about the metrics published to Amazon CloudWatch, see
+    -- <https://docs.aws.amazon.com/mwaa/latest/userguide/cw-metrics.html Amazon MWAA performance metrics in Amazon CloudWatch>.
     metricData :: [MetricDatum]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -64,10 +67,11 @@ data PublishMetrics = PublishMetrics'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'environmentName', 'publishMetrics_environmentName' - Publishes environment metric data to Amazon CloudWatch.
+-- 'environmentName', 'publishMetrics_environmentName' - __Internal only__. The name of the environment.
 --
--- 'metricData', 'publishMetrics_metricData' - Publishes metric data points to Amazon CloudWatch. CloudWatch associates
--- the data points with the specified metrica.
+-- 'metricData', 'publishMetrics_metricData' - __Internal only__. Publishes metrics to Amazon CloudWatch. To learn more
+-- about the metrics published to Amazon CloudWatch, see
+-- <https://docs.aws.amazon.com/mwaa/latest/userguide/cw-metrics.html Amazon MWAA performance metrics in Amazon CloudWatch>.
 newPublishMetrics ::
   -- | 'environmentName'
   Prelude.Text ->
@@ -79,12 +83,13 @@ newPublishMetrics pEnvironmentName_ =
       metricData = Prelude.mempty
     }
 
--- | Publishes environment metric data to Amazon CloudWatch.
+-- | __Internal only__. The name of the environment.
 publishMetrics_environmentName :: Lens.Lens' PublishMetrics Prelude.Text
 publishMetrics_environmentName = Lens.lens (\PublishMetrics' {environmentName} -> environmentName) (\s@PublishMetrics' {} a -> s {environmentName = a} :: PublishMetrics)
 
--- | Publishes metric data points to Amazon CloudWatch. CloudWatch associates
--- the data points with the specified metrica.
+-- | __Internal only__. Publishes metrics to Amazon CloudWatch. To learn more
+-- about the metrics published to Amazon CloudWatch, see
+-- <https://docs.aws.amazon.com/mwaa/latest/userguide/cw-metrics.html Amazon MWAA performance metrics in Amazon CloudWatch>.
 publishMetrics_metricData :: Lens.Lens' PublishMetrics [MetricDatum]
 publishMetrics_metricData = Lens.lens (\PublishMetrics' {metricData} -> metricData) (\s@PublishMetrics' {} a -> s {metricData = a} :: PublishMetrics) Prelude.. Lens.coerced
 
@@ -92,7 +97,8 @@ instance Core.AWSRequest PublishMetrics where
   type
     AWSResponse PublishMetrics =
       PublishMetricsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -110,30 +116,30 @@ instance Prelude.NFData PublishMetrics where
     Prelude.rnf environmentName
       `Prelude.seq` Prelude.rnf metricData
 
-instance Core.ToHeaders PublishMetrics where
+instance Data.ToHeaders PublishMetrics where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PublishMetrics where
+instance Data.ToJSON PublishMetrics where
   toJSON PublishMetrics' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("MetricData" Core..= metricData)]
+          [Prelude.Just ("MetricData" Data..= metricData)]
       )
 
-instance Core.ToPath PublishMetrics where
+instance Data.ToPath PublishMetrics where
   toPath PublishMetrics' {..} =
     Prelude.mconcat
-      ["/metrics/environments/", Core.toBS environmentName]
+      ["/metrics/environments/", Data.toBS environmentName]
 
-instance Core.ToQuery PublishMetrics where
+instance Data.ToQuery PublishMetrics where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPublishMetricsResponse' smart constructor.

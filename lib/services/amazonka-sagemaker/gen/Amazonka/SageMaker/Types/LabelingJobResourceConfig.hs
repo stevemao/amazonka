@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.LabelingJobResourceConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,10 @@
 module Amazonka.SageMaker.Types.LabelingJobResourceConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
+import Amazonka.SageMaker.Types.VpcConfig
 
 -- | Configure encryption on the storage volume attached to the ML compute
 -- instance used to run automated data labeling model training and
@@ -51,7 +53,8 @@ data LabelingJobResourceConfig = LabelingJobResourceConfig'
     -- -   Amazon Resource Name (ARN) of a KMS Key
     --
     --     @\"arn:aws:kms:us-west-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab\"@
-    volumeKmsKeyId :: Prelude.Maybe Prelude.Text
+    volumeKmsKeyId :: Prelude.Maybe Prelude.Text,
+    vpcConfig :: Prelude.Maybe VpcConfig
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -85,12 +88,15 @@ data LabelingJobResourceConfig = LabelingJobResourceConfig'
 -- -   Amazon Resource Name (ARN) of a KMS Key
 --
 --     @\"arn:aws:kms:us-west-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab\"@
+--
+-- 'vpcConfig', 'labelingJobResourceConfig_vpcConfig' - Undocumented member.
 newLabelingJobResourceConfig ::
   LabelingJobResourceConfig
 newLabelingJobResourceConfig =
   LabelingJobResourceConfig'
     { volumeKmsKeyId =
-        Prelude.Nothing
+        Prelude.Nothing,
+      vpcConfig = Prelude.Nothing
     }
 
 -- | The Amazon Web Services Key Management Service (Amazon Web Services KMS)
@@ -118,28 +124,36 @@ newLabelingJobResourceConfig =
 labelingJobResourceConfig_volumeKmsKeyId :: Lens.Lens' LabelingJobResourceConfig (Prelude.Maybe Prelude.Text)
 labelingJobResourceConfig_volumeKmsKeyId = Lens.lens (\LabelingJobResourceConfig' {volumeKmsKeyId} -> volumeKmsKeyId) (\s@LabelingJobResourceConfig' {} a -> s {volumeKmsKeyId = a} :: LabelingJobResourceConfig)
 
-instance Core.FromJSON LabelingJobResourceConfig where
+-- | Undocumented member.
+labelingJobResourceConfig_vpcConfig :: Lens.Lens' LabelingJobResourceConfig (Prelude.Maybe VpcConfig)
+labelingJobResourceConfig_vpcConfig = Lens.lens (\LabelingJobResourceConfig' {vpcConfig} -> vpcConfig) (\s@LabelingJobResourceConfig' {} a -> s {vpcConfig = a} :: LabelingJobResourceConfig)
+
+instance Data.FromJSON LabelingJobResourceConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LabelingJobResourceConfig"
       ( \x ->
           LabelingJobResourceConfig'
-            Prelude.<$> (x Core..:? "VolumeKmsKeyId")
+            Prelude.<$> (x Data..:? "VolumeKmsKeyId")
+            Prelude.<*> (x Data..:? "VpcConfig")
       )
 
 instance Prelude.Hashable LabelingJobResourceConfig where
   hashWithSalt _salt LabelingJobResourceConfig' {..} =
     _salt `Prelude.hashWithSalt` volumeKmsKeyId
+      `Prelude.hashWithSalt` vpcConfig
 
 instance Prelude.NFData LabelingJobResourceConfig where
   rnf LabelingJobResourceConfig' {..} =
     Prelude.rnf volumeKmsKeyId
+      `Prelude.seq` Prelude.rnf vpcConfig
 
-instance Core.ToJSON LabelingJobResourceConfig where
+instance Data.ToJSON LabelingJobResourceConfig where
   toJSON LabelingJobResourceConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("VolumeKmsKeyId" Core..=)
-              Prelude.<$> volumeKmsKeyId
+          [ ("VolumeKmsKeyId" Data..=)
+              Prelude.<$> volumeKmsKeyId,
+            ("VpcConfig" Data..=) Prelude.<$> vpcConfig
           ]
       )

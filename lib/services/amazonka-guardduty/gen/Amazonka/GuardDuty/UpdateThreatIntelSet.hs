@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.UpdateThreatIntelSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.GuardDuty.UpdateThreatIntelSet
     newUpdateThreatIntelSet,
 
     -- * Request Lenses
-    updateThreatIntelSet_location,
     updateThreatIntelSet_activate,
+    updateThreatIntelSet_location,
     updateThreatIntelSet_name,
     updateThreatIntelSet_detectorId,
     updateThreatIntelSet_threatIntelSetId,
@@ -43,19 +43,20 @@ module Amazonka.GuardDuty.UpdateThreatIntelSet
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateThreatIntelSet' smart constructor.
 data UpdateThreatIntelSet = UpdateThreatIntelSet'
-  { -- | The updated URI of the file that contains the ThreateIntelSet.
-    location :: Prelude.Maybe Prelude.Text,
-    -- | The updated Boolean value that specifies whether the ThreateIntelSet is
+  { -- | The updated Boolean value that specifies whether the ThreateIntelSet is
     -- active or not.
     activate :: Prelude.Maybe Prelude.Bool,
+    -- | The updated URI of the file that contains the ThreateIntelSet.
+    location :: Prelude.Maybe Prelude.Text,
     -- | The unique ID that specifies the ThreatIntelSet that you want to update.
     name :: Prelude.Maybe Prelude.Text,
     -- | The detectorID that specifies the GuardDuty service whose ThreatIntelSet
@@ -74,10 +75,10 @@ data UpdateThreatIntelSet = UpdateThreatIntelSet'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'location', 'updateThreatIntelSet_location' - The updated URI of the file that contains the ThreateIntelSet.
---
 -- 'activate', 'updateThreatIntelSet_activate' - The updated Boolean value that specifies whether the ThreateIntelSet is
 -- active or not.
+--
+-- 'location', 'updateThreatIntelSet_location' - The updated URI of the file that contains the ThreateIntelSet.
 --
 -- 'name', 'updateThreatIntelSet_name' - The unique ID that specifies the ThreatIntelSet that you want to update.
 --
@@ -95,21 +96,21 @@ newUpdateThreatIntelSet
   pDetectorId_
   pThreatIntelSetId_ =
     UpdateThreatIntelSet'
-      { location = Prelude.Nothing,
-        activate = Prelude.Nothing,
+      { activate = Prelude.Nothing,
+        location = Prelude.Nothing,
         name = Prelude.Nothing,
         detectorId = pDetectorId_,
         threatIntelSetId = pThreatIntelSetId_
       }
 
--- | The updated URI of the file that contains the ThreateIntelSet.
-updateThreatIntelSet_location :: Lens.Lens' UpdateThreatIntelSet (Prelude.Maybe Prelude.Text)
-updateThreatIntelSet_location = Lens.lens (\UpdateThreatIntelSet' {location} -> location) (\s@UpdateThreatIntelSet' {} a -> s {location = a} :: UpdateThreatIntelSet)
-
 -- | The updated Boolean value that specifies whether the ThreateIntelSet is
 -- active or not.
 updateThreatIntelSet_activate :: Lens.Lens' UpdateThreatIntelSet (Prelude.Maybe Prelude.Bool)
 updateThreatIntelSet_activate = Lens.lens (\UpdateThreatIntelSet' {activate} -> activate) (\s@UpdateThreatIntelSet' {} a -> s {activate = a} :: UpdateThreatIntelSet)
+
+-- | The updated URI of the file that contains the ThreateIntelSet.
+updateThreatIntelSet_location :: Lens.Lens' UpdateThreatIntelSet (Prelude.Maybe Prelude.Text)
+updateThreatIntelSet_location = Lens.lens (\UpdateThreatIntelSet' {location} -> location) (\s@UpdateThreatIntelSet' {} a -> s {location = a} :: UpdateThreatIntelSet)
 
 -- | The unique ID that specifies the ThreatIntelSet that you want to update.
 updateThreatIntelSet_name :: Lens.Lens' UpdateThreatIntelSet (Prelude.Maybe Prelude.Text)
@@ -128,7 +129,8 @@ instance Core.AWSRequest UpdateThreatIntelSet where
   type
     AWSResponse UpdateThreatIntelSet =
       UpdateThreatIntelSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -138,51 +140,51 @@ instance Core.AWSRequest UpdateThreatIntelSet where
 
 instance Prelude.Hashable UpdateThreatIntelSet where
   hashWithSalt _salt UpdateThreatIntelSet' {..} =
-    _salt `Prelude.hashWithSalt` location
-      `Prelude.hashWithSalt` activate
+    _salt `Prelude.hashWithSalt` activate
+      `Prelude.hashWithSalt` location
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` detectorId
       `Prelude.hashWithSalt` threatIntelSetId
 
 instance Prelude.NFData UpdateThreatIntelSet where
   rnf UpdateThreatIntelSet' {..} =
-    Prelude.rnf location
-      `Prelude.seq` Prelude.rnf activate
+    Prelude.rnf activate
+      `Prelude.seq` Prelude.rnf location
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf detectorId
       `Prelude.seq` Prelude.rnf threatIntelSetId
 
-instance Core.ToHeaders UpdateThreatIntelSet where
+instance Data.ToHeaders UpdateThreatIntelSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateThreatIntelSet where
+instance Data.ToJSON UpdateThreatIntelSet where
   toJSON UpdateThreatIntelSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("location" Core..=) Prelude.<$> location,
-            ("activate" Core..=) Prelude.<$> activate,
-            ("name" Core..=) Prelude.<$> name
+          [ ("activate" Data..=) Prelude.<$> activate,
+            ("location" Data..=) Prelude.<$> location,
+            ("name" Data..=) Prelude.<$> name
           ]
       )
 
-instance Core.ToPath UpdateThreatIntelSet where
+instance Data.ToPath UpdateThreatIntelSet where
   toPath UpdateThreatIntelSet' {..} =
     Prelude.mconcat
       [ "/detector/",
-        Core.toBS detectorId,
+        Data.toBS detectorId,
         "/threatintelset/",
-        Core.toBS threatIntelSetId
+        Data.toBS threatIntelSetId
       ]
 
-instance Core.ToQuery UpdateThreatIntelSet where
+instance Data.ToQuery UpdateThreatIntelSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateThreatIntelSetResponse' smart constructor.

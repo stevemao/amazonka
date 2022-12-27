@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.DescribeAccountLimits
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,7 @@
 -- Retrieves your account\'s CloudFormation limits, such as the maximum
 -- number of stacks that you can create in your account. For more
 -- information about account limits, see
--- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html CloudFormation Limits>
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html CloudFormation Quotas>
 -- in the /CloudFormation User Guide/.
 --
 -- This operation returns paginated results.
@@ -40,15 +40,16 @@ module Amazonka.CloudFormation.DescribeAccountLimits
     newDescribeAccountLimitsResponse,
 
     -- * Response Lenses
-    describeAccountLimitsResponse_nextToken,
     describeAccountLimitsResponse_accountLimits,
+    describeAccountLimitsResponse_nextToken,
     describeAccountLimitsResponse_httpStatus,
   )
 where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -109,16 +110,17 @@ instance Core.AWSRequest DescribeAccountLimits where
   type
     AWSResponse DescribeAccountLimits =
       DescribeAccountLimitsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeAccountLimitsResult"
       ( \s h x ->
           DescribeAccountLimitsResponse'
-            Prelude.<$> (x Core..@? "NextToken")
-            Prelude.<*> ( x Core..@? "AccountLimits" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> ( x Data..@? "AccountLimits" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
+            Prelude.<*> (x Data..@? "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -130,32 +132,32 @@ instance Prelude.NFData DescribeAccountLimits where
   rnf DescribeAccountLimits' {..} =
     Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeAccountLimits where
+instance Data.ToHeaders DescribeAccountLimits where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeAccountLimits where
+instance Data.ToPath DescribeAccountLimits where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeAccountLimits where
+instance Data.ToQuery DescribeAccountLimits where
   toQuery DescribeAccountLimits' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeAccountLimits" :: Prelude.ByteString),
+          Data.=: ("DescribeAccountLimits" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
-        "NextToken" Core.=: nextToken
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "NextToken" Data.=: nextToken
       ]
 
 -- | The output for the DescribeAccountLimits action.
 --
 -- /See:/ 'newDescribeAccountLimitsResponse' smart constructor.
 data DescribeAccountLimitsResponse = DescribeAccountLimitsResponse'
-  { -- | If the output exceeds 1 MB in size, a string that identifies the next
-    -- page of limits. If no additional page exists, this value is null.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | An account limit structure that contain a list of CloudFormation account
+  { -- | An account limit structure that contain a list of CloudFormation account
     -- limits and their values.
     accountLimits :: Prelude.Maybe [AccountLimit],
+    -- | If the output exceeds 1 MB in size, a string that identifies the next
+    -- page of limits. If no additional page exists, this value is null.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -169,11 +171,11 @@ data DescribeAccountLimitsResponse = DescribeAccountLimitsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeAccountLimitsResponse_nextToken' - If the output exceeds 1 MB in size, a string that identifies the next
--- page of limits. If no additional page exists, this value is null.
---
 -- 'accountLimits', 'describeAccountLimitsResponse_accountLimits' - An account limit structure that contain a list of CloudFormation account
 -- limits and their values.
+--
+-- 'nextToken', 'describeAccountLimitsResponse_nextToken' - If the output exceeds 1 MB in size, a string that identifies the next
+-- page of limits. If no additional page exists, this value is null.
 --
 -- 'httpStatus', 'describeAccountLimitsResponse_httpStatus' - The response's http status code.
 newDescribeAccountLimitsResponse ::
@@ -182,21 +184,21 @@ newDescribeAccountLimitsResponse ::
   DescribeAccountLimitsResponse
 newDescribeAccountLimitsResponse pHttpStatus_ =
   DescribeAccountLimitsResponse'
-    { nextToken =
+    { accountLimits =
         Prelude.Nothing,
-      accountLimits = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | If the output exceeds 1 MB in size, a string that identifies the next
--- page of limits. If no additional page exists, this value is null.
-describeAccountLimitsResponse_nextToken :: Lens.Lens' DescribeAccountLimitsResponse (Prelude.Maybe Prelude.Text)
-describeAccountLimitsResponse_nextToken = Lens.lens (\DescribeAccountLimitsResponse' {nextToken} -> nextToken) (\s@DescribeAccountLimitsResponse' {} a -> s {nextToken = a} :: DescribeAccountLimitsResponse)
 
 -- | An account limit structure that contain a list of CloudFormation account
 -- limits and their values.
 describeAccountLimitsResponse_accountLimits :: Lens.Lens' DescribeAccountLimitsResponse (Prelude.Maybe [AccountLimit])
 describeAccountLimitsResponse_accountLimits = Lens.lens (\DescribeAccountLimitsResponse' {accountLimits} -> accountLimits) (\s@DescribeAccountLimitsResponse' {} a -> s {accountLimits = a} :: DescribeAccountLimitsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | If the output exceeds 1 MB in size, a string that identifies the next
+-- page of limits. If no additional page exists, this value is null.
+describeAccountLimitsResponse_nextToken :: Lens.Lens' DescribeAccountLimitsResponse (Prelude.Maybe Prelude.Text)
+describeAccountLimitsResponse_nextToken = Lens.lens (\DescribeAccountLimitsResponse' {nextToken} -> nextToken) (\s@DescribeAccountLimitsResponse' {} a -> s {nextToken = a} :: DescribeAccountLimitsResponse)
 
 -- | The response's http status code.
 describeAccountLimitsResponse_httpStatus :: Lens.Lens' DescribeAccountLimitsResponse Prelude.Int
@@ -204,6 +206,6 @@ describeAccountLimitsResponse_httpStatus = Lens.lens (\DescribeAccountLimitsResp
 
 instance Prelude.NFData DescribeAccountLimitsResponse where
   rnf DescribeAccountLimitsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf accountLimits
+    Prelude.rnf accountLimits
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

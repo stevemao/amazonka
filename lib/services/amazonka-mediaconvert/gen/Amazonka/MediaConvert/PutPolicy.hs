@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.PutPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.MediaConvert.PutPolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -82,12 +83,13 @@ putPolicy_policy = Lens.lens (\PutPolicy' {policy} -> policy) (\s@PutPolicy' {} 
 
 instance Core.AWSRequest PutPolicy where
   type AWSResponse PutPolicy = PutPolicyResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutPolicyResponse'
-            Prelude.<$> (x Core..?> "policy")
+            Prelude.<$> (x Data..?> "policy")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -98,28 +100,28 @@ instance Prelude.Hashable PutPolicy where
 instance Prelude.NFData PutPolicy where
   rnf PutPolicy' {..} = Prelude.rnf policy
 
-instance Core.ToHeaders PutPolicy where
+instance Data.ToHeaders PutPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutPolicy where
+instance Data.ToJSON PutPolicy where
   toJSON PutPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("policy" Core..= policy)]
+          [Prelude.Just ("policy" Data..= policy)]
       )
 
-instance Core.ToPath PutPolicy where
+instance Data.ToPath PutPolicy where
   toPath = Prelude.const "/2017-08-29/policy"
 
-instance Core.ToQuery PutPolicy where
+instance Data.ToQuery PutPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutPolicyResponse' smart constructor.

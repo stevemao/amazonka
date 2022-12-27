@@ -14,16 +14,16 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.GlobalSignOut
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Signs out users from all devices. It also invalidates all refresh tokens
--- issued to a user. The user\'s current access and Id tokens remain valid
--- until their expiry. Access and Id tokens expire one hour after they are
--- issued.
+-- that Amazon Cognito has issued to a user. A user can still use a hosted
+-- UI cookie to retrieve new tokens for the duration of the 1-hour cookie
+-- validity period.
 module Amazonka.CognitoIdentityProvider.GlobalSignOut
   ( -- * Creating a Request
     GlobalSignOut (..),
@@ -43,7 +43,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,8 +53,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newGlobalSignOut' smart constructor.
 data GlobalSignOut = GlobalSignOut'
-  { -- | The access token.
-    accessToken :: Core.Sensitive Prelude.Text
+  { -- | A valid access token that Amazon Cognito issued to the user who you want
+    -- to sign out.
+    accessToken :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -65,7 +67,8 @@ data GlobalSignOut = GlobalSignOut'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'accessToken', 'globalSignOut_accessToken' - The access token.
+-- 'accessToken', 'globalSignOut_accessToken' - A valid access token that Amazon Cognito issued to the user who you want
+-- to sign out.
 newGlobalSignOut ::
   -- | 'accessToken'
   Prelude.Text ->
@@ -73,18 +76,20 @@ newGlobalSignOut ::
 newGlobalSignOut pAccessToken_ =
   GlobalSignOut'
     { accessToken =
-        Core._Sensitive Lens.# pAccessToken_
+        Data._Sensitive Lens.# pAccessToken_
     }
 
--- | The access token.
+-- | A valid access token that Amazon Cognito issued to the user who you want
+-- to sign out.
 globalSignOut_accessToken :: Lens.Lens' GlobalSignOut Prelude.Text
-globalSignOut_accessToken = Lens.lens (\GlobalSignOut' {accessToken} -> accessToken) (\s@GlobalSignOut' {} a -> s {accessToken = a} :: GlobalSignOut) Prelude.. Core._Sensitive
+globalSignOut_accessToken = Lens.lens (\GlobalSignOut' {accessToken} -> accessToken) (\s@GlobalSignOut' {} a -> s {accessToken = a} :: GlobalSignOut) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest GlobalSignOut where
   type
     AWSResponse GlobalSignOut =
       GlobalSignOutResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -99,32 +104,32 @@ instance Prelude.Hashable GlobalSignOut where
 instance Prelude.NFData GlobalSignOut where
   rnf GlobalSignOut' {..} = Prelude.rnf accessToken
 
-instance Core.ToHeaders GlobalSignOut where
+instance Data.ToHeaders GlobalSignOut where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.GlobalSignOut" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.GlobalSignOut" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GlobalSignOut where
+instance Data.ToJSON GlobalSignOut where
   toJSON GlobalSignOut' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("AccessToken" Core..= accessToken)]
+          [Prelude.Just ("AccessToken" Data..= accessToken)]
       )
 
-instance Core.ToPath GlobalSignOut where
+instance Data.ToPath GlobalSignOut where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GlobalSignOut where
+instance Data.ToQuery GlobalSignOut where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The response to the request to sign out all devices.

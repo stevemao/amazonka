@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.UpdateNodegroupVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -53,11 +53,11 @@ module Amazonka.EKS.UpdateNodegroupVersion
     newUpdateNodegroupVersion,
 
     -- * Request Lenses
+    updateNodegroupVersion_clientRequestToken,
     updateNodegroupVersion_force,
+    updateNodegroupVersion_launchTemplate,
     updateNodegroupVersion_releaseVersion,
     updateNodegroupVersion_version,
-    updateNodegroupVersion_launchTemplate,
-    updateNodegroupVersion_clientRequestToken,
     updateNodegroupVersion_clusterName,
     updateNodegroupVersion_nodegroupName,
 
@@ -72,19 +72,27 @@ module Amazonka.EKS.UpdateNodegroupVersion
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EKS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateNodegroupVersion' smart constructor.
 data UpdateNodegroupVersion = UpdateNodegroupVersion'
-  { -- | Force the update if the existing node group\'s pods are unable to be
+  { -- | Unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | Force the update if the existing node group\'s pods are unable to be
     -- drained due to a pod disruption budget issue. If an update fails because
     -- pods could not be drained, you can force the update after it fails to
     -- terminate the old node whether or not any pods are running on the node.
     force :: Prelude.Maybe Prelude.Bool,
+    -- | An object representing a node group\'s launch template specification.
+    -- You can only update a node group using a launch template if the node
+    -- group was originally deployed with a launch template.
+    launchTemplate :: Prelude.Maybe LaunchTemplateSpecification,
     -- | The AMI version of the Amazon EKS optimized AMI to use for the update.
     -- By default, the latest available AMI version for the node group\'s
     -- Kubernetes version is used. For more information, see
@@ -94,7 +102,7 @@ data UpdateNodegroupVersion = UpdateNodegroupVersion'
     -- @releaseVersion@, or the node group update will fail. For more
     -- information about using launch templates with Amazon EKS, see
     -- <https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html Launch template support>
-    -- in the Amazon EKS User Guide.
+    -- in the /Amazon EKS User Guide/.
     releaseVersion :: Prelude.Maybe Prelude.Text,
     -- | The Kubernetes version to update to. If no version is specified, then
     -- the Kubernetes version of the node group does not change. You can
@@ -104,15 +112,8 @@ data UpdateNodegroupVersion = UpdateNodegroupVersion'
     -- then don\'t specify @version@, or the node group update will fail. For
     -- more information about using launch templates with Amazon EKS, see
     -- <https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html Launch template support>
-    -- in the Amazon EKS User Guide.
+    -- in the /Amazon EKS User Guide/.
     version :: Prelude.Maybe Prelude.Text,
-    -- | An object representing a node group\'s launch template specification.
-    -- You can only update a node group using a launch template if the node
-    -- group was originally deployed with a launch template.
-    launchTemplate :: Prelude.Maybe LaunchTemplateSpecification,
-    -- | Unique, case-sensitive identifier that you provide to ensure the
-    -- idempotency of the request.
-    clientRequestToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the Amazon EKS cluster that is associated with the managed
     -- node group to update.
     clusterName :: Prelude.Text,
@@ -129,10 +130,17 @@ data UpdateNodegroupVersion = UpdateNodegroupVersion'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'clientRequestToken', 'updateNodegroupVersion_clientRequestToken' - Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request.
+--
 -- 'force', 'updateNodegroupVersion_force' - Force the update if the existing node group\'s pods are unable to be
 -- drained due to a pod disruption budget issue. If an update fails because
 -- pods could not be drained, you can force the update after it fails to
 -- terminate the old node whether or not any pods are running on the node.
+--
+-- 'launchTemplate', 'updateNodegroupVersion_launchTemplate' - An object representing a node group\'s launch template specification.
+-- You can only update a node group using a launch template if the node
+-- group was originally deployed with a launch template.
 --
 -- 'releaseVersion', 'updateNodegroupVersion_releaseVersion' - The AMI version of the Amazon EKS optimized AMI to use for the update.
 -- By default, the latest available AMI version for the node group\'s
@@ -143,7 +151,7 @@ data UpdateNodegroupVersion = UpdateNodegroupVersion'
 -- @releaseVersion@, or the node group update will fail. For more
 -- information about using launch templates with Amazon EKS, see
 -- <https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html Launch template support>
--- in the Amazon EKS User Guide.
+-- in the /Amazon EKS User Guide/.
 --
 -- 'version', 'updateNodegroupVersion_version' - The Kubernetes version to update to. If no version is specified, then
 -- the Kubernetes version of the node group does not change. You can
@@ -153,14 +161,7 @@ data UpdateNodegroupVersion = UpdateNodegroupVersion'
 -- then don\'t specify @version@, or the node group update will fail. For
 -- more information about using launch templates with Amazon EKS, see
 -- <https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html Launch template support>
--- in the Amazon EKS User Guide.
---
--- 'launchTemplate', 'updateNodegroupVersion_launchTemplate' - An object representing a node group\'s launch template specification.
--- You can only update a node group using a launch template if the node
--- group was originally deployed with a launch template.
---
--- 'clientRequestToken', 'updateNodegroupVersion_clientRequestToken' - Unique, case-sensitive identifier that you provide to ensure the
--- idempotency of the request.
+-- in the /Amazon EKS User Guide/.
 --
 -- 'clusterName', 'updateNodegroupVersion_clusterName' - The name of the Amazon EKS cluster that is associated with the managed
 -- node group to update.
@@ -176,14 +177,20 @@ newUpdateNodegroupVersion
   pClusterName_
   pNodegroupName_ =
     UpdateNodegroupVersion'
-      { force = Prelude.Nothing,
+      { clientRequestToken =
+          Prelude.Nothing,
+        force = Prelude.Nothing,
+        launchTemplate = Prelude.Nothing,
         releaseVersion = Prelude.Nothing,
         version = Prelude.Nothing,
-        launchTemplate = Prelude.Nothing,
-        clientRequestToken = Prelude.Nothing,
         clusterName = pClusterName_,
         nodegroupName = pNodegroupName_
       }
+
+-- | Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request.
+updateNodegroupVersion_clientRequestToken :: Lens.Lens' UpdateNodegroupVersion (Prelude.Maybe Prelude.Text)
+updateNodegroupVersion_clientRequestToken = Lens.lens (\UpdateNodegroupVersion' {clientRequestToken} -> clientRequestToken) (\s@UpdateNodegroupVersion' {} a -> s {clientRequestToken = a} :: UpdateNodegroupVersion)
 
 -- | Force the update if the existing node group\'s pods are unable to be
 -- drained due to a pod disruption budget issue. If an update fails because
@@ -191,6 +198,12 @@ newUpdateNodegroupVersion
 -- terminate the old node whether or not any pods are running on the node.
 updateNodegroupVersion_force :: Lens.Lens' UpdateNodegroupVersion (Prelude.Maybe Prelude.Bool)
 updateNodegroupVersion_force = Lens.lens (\UpdateNodegroupVersion' {force} -> force) (\s@UpdateNodegroupVersion' {} a -> s {force = a} :: UpdateNodegroupVersion)
+
+-- | An object representing a node group\'s launch template specification.
+-- You can only update a node group using a launch template if the node
+-- group was originally deployed with a launch template.
+updateNodegroupVersion_launchTemplate :: Lens.Lens' UpdateNodegroupVersion (Prelude.Maybe LaunchTemplateSpecification)
+updateNodegroupVersion_launchTemplate = Lens.lens (\UpdateNodegroupVersion' {launchTemplate} -> launchTemplate) (\s@UpdateNodegroupVersion' {} a -> s {launchTemplate = a} :: UpdateNodegroupVersion)
 
 -- | The AMI version of the Amazon EKS optimized AMI to use for the update.
 -- By default, the latest available AMI version for the node group\'s
@@ -201,7 +214,7 @@ updateNodegroupVersion_force = Lens.lens (\UpdateNodegroupVersion' {force} -> fo
 -- @releaseVersion@, or the node group update will fail. For more
 -- information about using launch templates with Amazon EKS, see
 -- <https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html Launch template support>
--- in the Amazon EKS User Guide.
+-- in the /Amazon EKS User Guide/.
 updateNodegroupVersion_releaseVersion :: Lens.Lens' UpdateNodegroupVersion (Prelude.Maybe Prelude.Text)
 updateNodegroupVersion_releaseVersion = Lens.lens (\UpdateNodegroupVersion' {releaseVersion} -> releaseVersion) (\s@UpdateNodegroupVersion' {} a -> s {releaseVersion = a} :: UpdateNodegroupVersion)
 
@@ -213,20 +226,9 @@ updateNodegroupVersion_releaseVersion = Lens.lens (\UpdateNodegroupVersion' {rel
 -- then don\'t specify @version@, or the node group update will fail. For
 -- more information about using launch templates with Amazon EKS, see
 -- <https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html Launch template support>
--- in the Amazon EKS User Guide.
+-- in the /Amazon EKS User Guide/.
 updateNodegroupVersion_version :: Lens.Lens' UpdateNodegroupVersion (Prelude.Maybe Prelude.Text)
 updateNodegroupVersion_version = Lens.lens (\UpdateNodegroupVersion' {version} -> version) (\s@UpdateNodegroupVersion' {} a -> s {version = a} :: UpdateNodegroupVersion)
-
--- | An object representing a node group\'s launch template specification.
--- You can only update a node group using a launch template if the node
--- group was originally deployed with a launch template.
-updateNodegroupVersion_launchTemplate :: Lens.Lens' UpdateNodegroupVersion (Prelude.Maybe LaunchTemplateSpecification)
-updateNodegroupVersion_launchTemplate = Lens.lens (\UpdateNodegroupVersion' {launchTemplate} -> launchTemplate) (\s@UpdateNodegroupVersion' {} a -> s {launchTemplate = a} :: UpdateNodegroupVersion)
-
--- | Unique, case-sensitive identifier that you provide to ensure the
--- idempotency of the request.
-updateNodegroupVersion_clientRequestToken :: Lens.Lens' UpdateNodegroupVersion (Prelude.Maybe Prelude.Text)
-updateNodegroupVersion_clientRequestToken = Lens.lens (\UpdateNodegroupVersion' {clientRequestToken} -> clientRequestToken) (\s@UpdateNodegroupVersion' {} a -> s {clientRequestToken = a} :: UpdateNodegroupVersion)
 
 -- | The name of the Amazon EKS cluster that is associated with the managed
 -- node group to update.
@@ -241,72 +243,73 @@ instance Core.AWSRequest UpdateNodegroupVersion where
   type
     AWSResponse UpdateNodegroupVersion =
       UpdateNodegroupVersionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateNodegroupVersionResponse'
-            Prelude.<$> (x Core..?> "update")
+            Prelude.<$> (x Data..?> "update")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateNodegroupVersion where
   hashWithSalt _salt UpdateNodegroupVersion' {..} =
-    _salt `Prelude.hashWithSalt` force
+    _salt `Prelude.hashWithSalt` clientRequestToken
+      `Prelude.hashWithSalt` force
+      `Prelude.hashWithSalt` launchTemplate
       `Prelude.hashWithSalt` releaseVersion
       `Prelude.hashWithSalt` version
-      `Prelude.hashWithSalt` launchTemplate
-      `Prelude.hashWithSalt` clientRequestToken
       `Prelude.hashWithSalt` clusterName
       `Prelude.hashWithSalt` nodegroupName
 
 instance Prelude.NFData UpdateNodegroupVersion where
   rnf UpdateNodegroupVersion' {..} =
-    Prelude.rnf force
+    Prelude.rnf clientRequestToken
+      `Prelude.seq` Prelude.rnf force
+      `Prelude.seq` Prelude.rnf launchTemplate
       `Prelude.seq` Prelude.rnf releaseVersion
       `Prelude.seq` Prelude.rnf version
-      `Prelude.seq` Prelude.rnf launchTemplate
-      `Prelude.seq` Prelude.rnf clientRequestToken
       `Prelude.seq` Prelude.rnf clusterName
       `Prelude.seq` Prelude.rnf nodegroupName
 
-instance Core.ToHeaders UpdateNodegroupVersion where
+instance Data.ToHeaders UpdateNodegroupVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateNodegroupVersion where
+instance Data.ToJSON UpdateNodegroupVersion where
   toJSON UpdateNodegroupVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("force" Core..=) Prelude.<$> force,
-            ("releaseVersion" Core..=)
-              Prelude.<$> releaseVersion,
-            ("version" Core..=) Prelude.<$> version,
-            ("launchTemplate" Core..=)
+          [ ("clientRequestToken" Data..=)
+              Prelude.<$> clientRequestToken,
+            ("force" Data..=) Prelude.<$> force,
+            ("launchTemplate" Data..=)
               Prelude.<$> launchTemplate,
-            ("clientRequestToken" Core..=)
-              Prelude.<$> clientRequestToken
+            ("releaseVersion" Data..=)
+              Prelude.<$> releaseVersion,
+            ("version" Data..=) Prelude.<$> version
           ]
       )
 
-instance Core.ToPath UpdateNodegroupVersion where
+instance Data.ToPath UpdateNodegroupVersion where
   toPath UpdateNodegroupVersion' {..} =
     Prelude.mconcat
       [ "/clusters/",
-        Core.toBS clusterName,
+        Data.toBS clusterName,
         "/node-groups/",
-        Core.toBS nodegroupName,
+        Data.toBS nodegroupName,
         "/update-version"
       ]
 
-instance Core.ToQuery UpdateNodegroupVersion where
+instance Data.ToQuery UpdateNodegroupVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateNodegroupVersionResponse' smart constructor.

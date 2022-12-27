@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.GitConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.GitConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies configuration details for a Git repository in your Amazon Web
@@ -88,15 +89,15 @@ gitConfig_secretArn = Lens.lens (\GitConfig' {secretArn} -> secretArn) (\s@GitCo
 gitConfig_repositoryUrl :: Lens.Lens' GitConfig Prelude.Text
 gitConfig_repositoryUrl = Lens.lens (\GitConfig' {repositoryUrl} -> repositoryUrl) (\s@GitConfig' {} a -> s {repositoryUrl = a} :: GitConfig)
 
-instance Core.FromJSON GitConfig where
+instance Data.FromJSON GitConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GitConfig"
       ( \x ->
           GitConfig'
-            Prelude.<$> (x Core..:? "Branch")
-            Prelude.<*> (x Core..:? "SecretArn")
-            Prelude.<*> (x Core..: "RepositoryUrl")
+            Prelude.<$> (x Data..:? "Branch")
+            Prelude.<*> (x Data..:? "SecretArn")
+            Prelude.<*> (x Data..: "RepositoryUrl")
       )
 
 instance Prelude.Hashable GitConfig where
@@ -111,13 +112,13 @@ instance Prelude.NFData GitConfig where
       `Prelude.seq` Prelude.rnf secretArn
       `Prelude.seq` Prelude.rnf repositoryUrl
 
-instance Core.ToJSON GitConfig where
+instance Data.ToJSON GitConfig where
   toJSON GitConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Branch" Core..=) Prelude.<$> branch,
-            ("SecretArn" Core..=) Prelude.<$> secretArn,
+          [ ("Branch" Data..=) Prelude.<$> branch,
+            ("SecretArn" Data..=) Prelude.<$> secretArn,
             Prelude.Just
-              ("RepositoryUrl" Core..= repositoryUrl)
+              ("RepositoryUrl" Data..= repositoryUrl)
           ]
       )

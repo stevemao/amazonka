@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStar.Types.Toolchain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CodeStar.Types.Toolchain where
 
 import Amazonka.CodeStar.Types.ToolchainSource
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The toolchain template file provided with the project request. AWS
@@ -30,12 +31,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newToolchain' smart constructor.
 data Toolchain = Toolchain'
-  { -- | The list of parameter overrides to be passed into the toolchain template
-    -- during stack provisioning, if any.
-    stackParameters :: Prelude.Maybe (Prelude.HashMap Prelude.Text (Core.Sensitive Prelude.Text)),
-    -- | The service role ARN for AWS CodeStar to use for the toolchain template
+  { -- | The service role ARN for AWS CodeStar to use for the toolchain template
     -- during stack provisioning.
     roleArn :: Prelude.Maybe Prelude.Text,
+    -- | The list of parameter overrides to be passed into the toolchain template
+    -- during stack provisioning, if any.
+    stackParameters :: Prelude.Maybe (Prelude.HashMap Prelude.Text (Data.Sensitive Prelude.Text)),
     -- | The Amazon S3 location where the toolchain template file provided with
     -- the project request is stored. AWS CodeStar retrieves the file during
     -- project creation.
@@ -51,11 +52,11 @@ data Toolchain = Toolchain'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'stackParameters', 'toolchain_stackParameters' - The list of parameter overrides to be passed into the toolchain template
--- during stack provisioning, if any.
---
 -- 'roleArn', 'toolchain_roleArn' - The service role ARN for AWS CodeStar to use for the toolchain template
 -- during stack provisioning.
+--
+-- 'stackParameters', 'toolchain_stackParameters' - The list of parameter overrides to be passed into the toolchain template
+-- during stack provisioning, if any.
 --
 -- 'source', 'toolchain_source' - The Amazon S3 location where the toolchain template file provided with
 -- the project request is stored. AWS CodeStar retrieves the file during
@@ -66,20 +67,20 @@ newToolchain ::
   Toolchain
 newToolchain pSource_ =
   Toolchain'
-    { stackParameters = Prelude.Nothing,
-      roleArn = Prelude.Nothing,
+    { roleArn = Prelude.Nothing,
+      stackParameters = Prelude.Nothing,
       source = pSource_
     }
-
--- | The list of parameter overrides to be passed into the toolchain template
--- during stack provisioning, if any.
-toolchain_stackParameters :: Lens.Lens' Toolchain (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
-toolchain_stackParameters = Lens.lens (\Toolchain' {stackParameters} -> stackParameters) (\s@Toolchain' {} a -> s {stackParameters = a} :: Toolchain) Prelude.. Lens.mapping Lens.coerced
 
 -- | The service role ARN for AWS CodeStar to use for the toolchain template
 -- during stack provisioning.
 toolchain_roleArn :: Lens.Lens' Toolchain (Prelude.Maybe Prelude.Text)
 toolchain_roleArn = Lens.lens (\Toolchain' {roleArn} -> roleArn) (\s@Toolchain' {} a -> s {roleArn = a} :: Toolchain)
+
+-- | The list of parameter overrides to be passed into the toolchain template
+-- during stack provisioning, if any.
+toolchain_stackParameters :: Lens.Lens' Toolchain (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+toolchain_stackParameters = Lens.lens (\Toolchain' {stackParameters} -> stackParameters) (\s@Toolchain' {} a -> s {stackParameters = a} :: Toolchain) Prelude.. Lens.mapping Lens.coerced
 
 -- | The Amazon S3 location where the toolchain template file provided with
 -- the project request is stored. AWS CodeStar retrieves the file during
@@ -89,23 +90,23 @@ toolchain_source = Lens.lens (\Toolchain' {source} -> source) (\s@Toolchain' {} 
 
 instance Prelude.Hashable Toolchain where
   hashWithSalt _salt Toolchain' {..} =
-    _salt `Prelude.hashWithSalt` stackParameters
-      `Prelude.hashWithSalt` roleArn
+    _salt `Prelude.hashWithSalt` roleArn
+      `Prelude.hashWithSalt` stackParameters
       `Prelude.hashWithSalt` source
 
 instance Prelude.NFData Toolchain where
   rnf Toolchain' {..} =
-    Prelude.rnf stackParameters
-      `Prelude.seq` Prelude.rnf roleArn
+    Prelude.rnf roleArn
+      `Prelude.seq` Prelude.rnf stackParameters
       `Prelude.seq` Prelude.rnf source
 
-instance Core.ToJSON Toolchain where
+instance Data.ToJSON Toolchain where
   toJSON Toolchain' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("stackParameters" Core..=)
+          [ ("roleArn" Data..=) Prelude.<$> roleArn,
+            ("stackParameters" Data..=)
               Prelude.<$> stackParameters,
-            ("roleArn" Core..=) Prelude.<$> roleArn,
-            Prelude.Just ("source" Core..= source)
+            Prelude.Just ("source" Data..= source)
           ]
       )

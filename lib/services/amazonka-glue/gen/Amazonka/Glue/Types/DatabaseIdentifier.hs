@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.DatabaseIdentifier
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Glue.Types.DatabaseIdentifier where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A structure that describes a target database for resource linking.
@@ -61,14 +62,14 @@ databaseIdentifier_catalogId = Lens.lens (\DatabaseIdentifier' {catalogId} -> ca
 databaseIdentifier_databaseName :: Lens.Lens' DatabaseIdentifier (Prelude.Maybe Prelude.Text)
 databaseIdentifier_databaseName = Lens.lens (\DatabaseIdentifier' {databaseName} -> databaseName) (\s@DatabaseIdentifier' {} a -> s {databaseName = a} :: DatabaseIdentifier)
 
-instance Core.FromJSON DatabaseIdentifier where
+instance Data.FromJSON DatabaseIdentifier where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DatabaseIdentifier"
       ( \x ->
           DatabaseIdentifier'
-            Prelude.<$> (x Core..:? "CatalogId")
-            Prelude.<*> (x Core..:? "DatabaseName")
+            Prelude.<$> (x Data..:? "CatalogId")
+            Prelude.<*> (x Data..:? "DatabaseName")
       )
 
 instance Prelude.Hashable DatabaseIdentifier where
@@ -81,11 +82,11 @@ instance Prelude.NFData DatabaseIdentifier where
     Prelude.rnf catalogId
       `Prelude.seq` Prelude.rnf databaseName
 
-instance Core.ToJSON DatabaseIdentifier where
+instance Data.ToJSON DatabaseIdentifier where
   toJSON DatabaseIdentifier' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            ("DatabaseName" Core..=) Prelude.<$> databaseName
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            ("DatabaseName" Data..=) Prelude.<$> databaseName
           ]
       )

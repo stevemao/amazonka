@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.ConfirmPublicVirtualInterface
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.DirectConnect.ConfirmPublicVirtualInterface
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -87,12 +88,13 @@ instance
   type
     AWSResponse ConfirmPublicVirtualInterface =
       ConfirmPublicVirtualInterfaceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ConfirmPublicVirtualInterfaceResponse'
-            Prelude.<$> (x Core..?> "virtualInterfaceState")
+            Prelude.<$> (x Data..?> "virtualInterfaceState")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -107,34 +109,34 @@ instance Prelude.NFData ConfirmPublicVirtualInterface where
   rnf ConfirmPublicVirtualInterface' {..} =
     Prelude.rnf virtualInterfaceId
 
-instance Core.ToHeaders ConfirmPublicVirtualInterface where
+instance Data.ToHeaders ConfirmPublicVirtualInterface where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OvertureService.ConfirmPublicVirtualInterface" ::
+              Data.=# ( "OvertureService.ConfirmPublicVirtualInterface" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ConfirmPublicVirtualInterface where
+instance Data.ToJSON ConfirmPublicVirtualInterface where
   toJSON ConfirmPublicVirtualInterface' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("virtualInterfaceId" Core..= virtualInterfaceId)
+              ("virtualInterfaceId" Data..= virtualInterfaceId)
           ]
       )
 
-instance Core.ToPath ConfirmPublicVirtualInterface where
+instance Data.ToPath ConfirmPublicVirtualInterface where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ConfirmPublicVirtualInterface where
+instance Data.ToQuery ConfirmPublicVirtualInterface where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newConfirmPublicVirtualInterfaceResponse' smart constructor.

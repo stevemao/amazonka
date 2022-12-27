@@ -14,13 +14,15 @@
 
 -- |
 -- Module      : Amazonka.MediaTailor.DeleteChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a channel. You must stop the channel before it can be deleted.
+-- Deletes a channel. For information about MediaTailor channels, see
+-- <https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html Working with channels>
+-- in the /MediaTailor User Guide/.
 module Amazonka.MediaTailor.DeleteChannel
   ( -- * Creating a Request
     DeleteChannel (..),
@@ -39,7 +41,8 @@ module Amazonka.MediaTailor.DeleteChannel
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaTailor.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -47,7 +50,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteChannel' smart constructor.
 data DeleteChannel = DeleteChannel'
-  { -- | The identifier for the channel you are working on.
+  { -- | The name of the channel.
     channelName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -60,7 +63,7 @@ data DeleteChannel = DeleteChannel'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'channelName', 'deleteChannel_channelName' - The identifier for the channel you are working on.
+-- 'channelName', 'deleteChannel_channelName' - The name of the channel.
 newDeleteChannel ::
   -- | 'channelName'
   Prelude.Text ->
@@ -68,7 +71,7 @@ newDeleteChannel ::
 newDeleteChannel pChannelName_ =
   DeleteChannel' {channelName = pChannelName_}
 
--- | The identifier for the channel you are working on.
+-- | The name of the channel.
 deleteChannel_channelName :: Lens.Lens' DeleteChannel Prelude.Text
 deleteChannel_channelName = Lens.lens (\DeleteChannel' {channelName} -> channelName) (\s@DeleteChannel' {} a -> s {channelName = a} :: DeleteChannel)
 
@@ -76,7 +79,8 @@ instance Core.AWSRequest DeleteChannel where
   type
     AWSResponse DeleteChannel =
       DeleteChannelResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -91,23 +95,23 @@ instance Prelude.Hashable DeleteChannel where
 instance Prelude.NFData DeleteChannel where
   rnf DeleteChannel' {..} = Prelude.rnf channelName
 
-instance Core.ToHeaders DeleteChannel where
+instance Data.ToHeaders DeleteChannel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteChannel where
+instance Data.ToPath DeleteChannel where
   toPath DeleteChannel' {..} =
     Prelude.mconcat
-      ["/channel/", Core.toBS channelName]
+      ["/channel/", Data.toBS channelName]
 
-instance Core.ToQuery DeleteChannel where
+instance Data.ToQuery DeleteChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteChannelResponse' smart constructor.

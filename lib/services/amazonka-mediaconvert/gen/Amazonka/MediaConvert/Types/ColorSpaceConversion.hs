@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.ColorSpaceConversion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,12 +24,15 @@ module Amazonka.MediaConvert.Types.ColorSpaceConversion
         ColorSpaceConversion_FORCE_709,
         ColorSpaceConversion_FORCE_HDR10,
         ColorSpaceConversion_FORCE_HLG_2020,
+        ColorSpaceConversion_FORCE_P3D65_SDR,
+        ColorSpaceConversion_FORCE_P3DCI,
         ColorSpaceConversion_NONE
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specify the color space you want for this output. The service supports
@@ -38,10 +41,12 @@ import qualified Amazonka.Prelude as Prelude
 -- range. The converted video has an HDR format, but visually appears the
 -- same as an unconverted output. HDR to SDR conversion uses Elemental tone
 -- mapping technology to approximate the outcome of manually regrading from
--- HDR to SDR.
+-- HDR to SDR. Select Force P3D65 (SDR) to set the output color space
+-- metadata to the following: * Color primaries: Display P3 * Transfer
+-- characteristics: SMPTE 428M * Matrix coefficients: BT.709
 newtype ColorSpaceConversion = ColorSpaceConversion'
   { fromColorSpaceConversion ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -53,18 +58,18 @@ newtype ColorSpaceConversion = ColorSpaceConversion'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern ColorSpaceConversion_FORCE_601 :: ColorSpaceConversion
@@ -79,6 +84,12 @@ pattern ColorSpaceConversion_FORCE_HDR10 = ColorSpaceConversion' "FORCE_HDR10"
 pattern ColorSpaceConversion_FORCE_HLG_2020 :: ColorSpaceConversion
 pattern ColorSpaceConversion_FORCE_HLG_2020 = ColorSpaceConversion' "FORCE_HLG_2020"
 
+pattern ColorSpaceConversion_FORCE_P3D65_SDR :: ColorSpaceConversion
+pattern ColorSpaceConversion_FORCE_P3D65_SDR = ColorSpaceConversion' "FORCE_P3D65_SDR"
+
+pattern ColorSpaceConversion_FORCE_P3DCI :: ColorSpaceConversion
+pattern ColorSpaceConversion_FORCE_P3DCI = ColorSpaceConversion' "FORCE_P3DCI"
+
 pattern ColorSpaceConversion_NONE :: ColorSpaceConversion
 pattern ColorSpaceConversion_NONE = ColorSpaceConversion' "NONE"
 
@@ -87,6 +98,8 @@ pattern ColorSpaceConversion_NONE = ColorSpaceConversion' "NONE"
   ColorSpaceConversion_FORCE_709,
   ColorSpaceConversion_FORCE_HDR10,
   ColorSpaceConversion_FORCE_HLG_2020,
+  ColorSpaceConversion_FORCE_P3D65_SDR,
+  ColorSpaceConversion_FORCE_P3DCI,
   ColorSpaceConversion_NONE,
   ColorSpaceConversion'
   #-}

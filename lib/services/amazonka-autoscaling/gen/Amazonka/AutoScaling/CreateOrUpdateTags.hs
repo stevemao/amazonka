@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.CreateOrUpdateTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,7 +27,7 @@
 -- message.
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-tagging.html Tagging Auto Scaling groups and instances>
+-- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-tagging.html Tag Auto Scaling groups and instances>
 -- in the /Amazon EC2 Auto Scaling User Guide/.
 module Amazonka.AutoScaling.CreateOrUpdateTags
   ( -- * Creating a Request
@@ -45,7 +45,8 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,7 +80,8 @@ instance Core.AWSRequest CreateOrUpdateTags where
   type
     AWSResponse CreateOrUpdateTags =
       CreateOrUpdateTagsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull CreateOrUpdateTagsResponse'
 
@@ -90,20 +92,20 @@ instance Prelude.Hashable CreateOrUpdateTags where
 instance Prelude.NFData CreateOrUpdateTags where
   rnf CreateOrUpdateTags' {..} = Prelude.rnf tags
 
-instance Core.ToHeaders CreateOrUpdateTags where
+instance Data.ToHeaders CreateOrUpdateTags where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateOrUpdateTags where
+instance Data.ToPath CreateOrUpdateTags where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateOrUpdateTags where
+instance Data.ToQuery CreateOrUpdateTags where
   toQuery CreateOrUpdateTags' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateOrUpdateTags" :: Prelude.ByteString),
+          Data.=: ("CreateOrUpdateTags" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
-        "Tags" Core.=: Core.toQueryList "member" tags
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
+        "Tags" Data.=: Data.toQueryList "member" tags
       ]
 
 -- | /See:/ 'newCreateOrUpdateTagsResponse' smart constructor.

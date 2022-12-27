@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.UpdateSchema
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,9 +40,9 @@ module Amazonka.Glue.UpdateSchema
     newUpdateSchema,
 
     -- * Request Lenses
-    updateSchema_schemaVersionNumber,
-    updateSchema_description,
     updateSchema_compatibility,
+    updateSchema_description,
+    updateSchema_schemaVersionNumber,
     updateSchema_schemaId,
 
     -- * Destructuring the Response
@@ -51,28 +51,29 @@ module Amazonka.Glue.UpdateSchema
 
     -- * Response Lenses
     updateSchemaResponse_registryName,
-    updateSchemaResponse_schemaName,
     updateSchemaResponse_schemaArn,
+    updateSchemaResponse_schemaName,
     updateSchemaResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateSchema' smart constructor.
 data UpdateSchema = UpdateSchema'
-  { -- | Version number required for check pointing. One of @VersionNumber@ or
-    -- @Compatibility@ has to be provided.
-    schemaVersionNumber :: Prelude.Maybe SchemaVersionNumber,
+  { -- | The new compatibility setting for the schema.
+    compatibility :: Prelude.Maybe Compatibility,
     -- | The new description for the schema.
     description :: Prelude.Maybe Prelude.Text,
-    -- | The new compatibility setting for the schema.
-    compatibility :: Prelude.Maybe Compatibility,
+    -- | Version number required for check pointing. One of @VersionNumber@ or
+    -- @Compatibility@ has to be provided.
+    schemaVersionNumber :: Prelude.Maybe SchemaVersionNumber,
     -- | This is a wrapper structure to contain schema identity fields. The
     -- structure contains:
     --
@@ -93,12 +94,12 @@ data UpdateSchema = UpdateSchema'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'schemaVersionNumber', 'updateSchema_schemaVersionNumber' - Version number required for check pointing. One of @VersionNumber@ or
--- @Compatibility@ has to be provided.
+-- 'compatibility', 'updateSchema_compatibility' - The new compatibility setting for the schema.
 --
 -- 'description', 'updateSchema_description' - The new description for the schema.
 --
--- 'compatibility', 'updateSchema_compatibility' - The new compatibility setting for the schema.
+-- 'schemaVersionNumber', 'updateSchema_schemaVersionNumber' - Version number required for check pointing. One of @VersionNumber@ or
+-- @Compatibility@ has to be provided.
 --
 -- 'schemaId', 'updateSchema_schemaId' - This is a wrapper structure to contain schema identity fields. The
 -- structure contains:
@@ -114,25 +115,24 @@ newUpdateSchema ::
   UpdateSchema
 newUpdateSchema pSchemaId_ =
   UpdateSchema'
-    { schemaVersionNumber =
-        Prelude.Nothing,
+    { compatibility = Prelude.Nothing,
       description = Prelude.Nothing,
-      compatibility = Prelude.Nothing,
+      schemaVersionNumber = Prelude.Nothing,
       schemaId = pSchemaId_
     }
 
--- | Version number required for check pointing. One of @VersionNumber@ or
--- @Compatibility@ has to be provided.
-updateSchema_schemaVersionNumber :: Lens.Lens' UpdateSchema (Prelude.Maybe SchemaVersionNumber)
-updateSchema_schemaVersionNumber = Lens.lens (\UpdateSchema' {schemaVersionNumber} -> schemaVersionNumber) (\s@UpdateSchema' {} a -> s {schemaVersionNumber = a} :: UpdateSchema)
+-- | The new compatibility setting for the schema.
+updateSchema_compatibility :: Lens.Lens' UpdateSchema (Prelude.Maybe Compatibility)
+updateSchema_compatibility = Lens.lens (\UpdateSchema' {compatibility} -> compatibility) (\s@UpdateSchema' {} a -> s {compatibility = a} :: UpdateSchema)
 
 -- | The new description for the schema.
 updateSchema_description :: Lens.Lens' UpdateSchema (Prelude.Maybe Prelude.Text)
 updateSchema_description = Lens.lens (\UpdateSchema' {description} -> description) (\s@UpdateSchema' {} a -> s {description = a} :: UpdateSchema)
 
--- | The new compatibility setting for the schema.
-updateSchema_compatibility :: Lens.Lens' UpdateSchema (Prelude.Maybe Compatibility)
-updateSchema_compatibility = Lens.lens (\UpdateSchema' {compatibility} -> compatibility) (\s@UpdateSchema' {} a -> s {compatibility = a} :: UpdateSchema)
+-- | Version number required for check pointing. One of @VersionNumber@ or
+-- @Compatibility@ has to be provided.
+updateSchema_schemaVersionNumber :: Lens.Lens' UpdateSchema (Prelude.Maybe SchemaVersionNumber)
+updateSchema_schemaVersionNumber = Lens.lens (\UpdateSchema' {schemaVersionNumber} -> schemaVersionNumber) (\s@UpdateSchema' {} a -> s {schemaVersionNumber = a} :: UpdateSchema)
 
 -- | This is a wrapper structure to contain schema identity fields. The
 -- structure contains:
@@ -147,70 +147,71 @@ updateSchema_schemaId = Lens.lens (\UpdateSchema' {schemaId} -> schemaId) (\s@Up
 
 instance Core.AWSRequest UpdateSchema where
   type AWSResponse UpdateSchema = UpdateSchemaResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateSchemaResponse'
-            Prelude.<$> (x Core..?> "RegistryName")
-            Prelude.<*> (x Core..?> "SchemaName")
-            Prelude.<*> (x Core..?> "SchemaArn")
+            Prelude.<$> (x Data..?> "RegistryName")
+            Prelude.<*> (x Data..?> "SchemaArn")
+            Prelude.<*> (x Data..?> "SchemaName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateSchema where
   hashWithSalt _salt UpdateSchema' {..} =
-    _salt `Prelude.hashWithSalt` schemaVersionNumber
+    _salt `Prelude.hashWithSalt` compatibility
       `Prelude.hashWithSalt` description
-      `Prelude.hashWithSalt` compatibility
+      `Prelude.hashWithSalt` schemaVersionNumber
       `Prelude.hashWithSalt` schemaId
 
 instance Prelude.NFData UpdateSchema where
   rnf UpdateSchema' {..} =
-    Prelude.rnf schemaVersionNumber
+    Prelude.rnf compatibility
       `Prelude.seq` Prelude.rnf description
-      `Prelude.seq` Prelude.rnf compatibility
+      `Prelude.seq` Prelude.rnf schemaVersionNumber
       `Prelude.seq` Prelude.rnf schemaId
 
-instance Core.ToHeaders UpdateSchema where
+instance Data.ToHeaders UpdateSchema where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.UpdateSchema" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.UpdateSchema" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateSchema where
+instance Data.ToJSON UpdateSchema where
   toJSON UpdateSchema' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SchemaVersionNumber" Core..=)
+          [ ("Compatibility" Data..=) Prelude.<$> compatibility,
+            ("Description" Data..=) Prelude.<$> description,
+            ("SchemaVersionNumber" Data..=)
               Prelude.<$> schemaVersionNumber,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Compatibility" Core..=) Prelude.<$> compatibility,
-            Prelude.Just ("SchemaId" Core..= schemaId)
+            Prelude.Just ("SchemaId" Data..= schemaId)
           ]
       )
 
-instance Core.ToPath UpdateSchema where
+instance Data.ToPath UpdateSchema where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateSchema where
+instance Data.ToQuery UpdateSchema where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateSchemaResponse' smart constructor.
 data UpdateSchemaResponse = UpdateSchemaResponse'
   { -- | The name of the registry that contains the schema.
     registryName :: Prelude.Maybe Prelude.Text,
-    -- | The name of the schema.
-    schemaName :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the schema.
     schemaArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the schema.
+    schemaName :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -226,9 +227,9 @@ data UpdateSchemaResponse = UpdateSchemaResponse'
 --
 -- 'registryName', 'updateSchemaResponse_registryName' - The name of the registry that contains the schema.
 --
--- 'schemaName', 'updateSchemaResponse_schemaName' - The name of the schema.
---
 -- 'schemaArn', 'updateSchemaResponse_schemaArn' - The Amazon Resource Name (ARN) of the schema.
+--
+-- 'schemaName', 'updateSchemaResponse_schemaName' - The name of the schema.
 --
 -- 'httpStatus', 'updateSchemaResponse_httpStatus' - The response's http status code.
 newUpdateSchemaResponse ::
@@ -239,8 +240,8 @@ newUpdateSchemaResponse pHttpStatus_ =
   UpdateSchemaResponse'
     { registryName =
         Prelude.Nothing,
-      schemaName = Prelude.Nothing,
       schemaArn = Prelude.Nothing,
+      schemaName = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
@@ -248,13 +249,13 @@ newUpdateSchemaResponse pHttpStatus_ =
 updateSchemaResponse_registryName :: Lens.Lens' UpdateSchemaResponse (Prelude.Maybe Prelude.Text)
 updateSchemaResponse_registryName = Lens.lens (\UpdateSchemaResponse' {registryName} -> registryName) (\s@UpdateSchemaResponse' {} a -> s {registryName = a} :: UpdateSchemaResponse)
 
--- | The name of the schema.
-updateSchemaResponse_schemaName :: Lens.Lens' UpdateSchemaResponse (Prelude.Maybe Prelude.Text)
-updateSchemaResponse_schemaName = Lens.lens (\UpdateSchemaResponse' {schemaName} -> schemaName) (\s@UpdateSchemaResponse' {} a -> s {schemaName = a} :: UpdateSchemaResponse)
-
 -- | The Amazon Resource Name (ARN) of the schema.
 updateSchemaResponse_schemaArn :: Lens.Lens' UpdateSchemaResponse (Prelude.Maybe Prelude.Text)
 updateSchemaResponse_schemaArn = Lens.lens (\UpdateSchemaResponse' {schemaArn} -> schemaArn) (\s@UpdateSchemaResponse' {} a -> s {schemaArn = a} :: UpdateSchemaResponse)
+
+-- | The name of the schema.
+updateSchemaResponse_schemaName :: Lens.Lens' UpdateSchemaResponse (Prelude.Maybe Prelude.Text)
+updateSchemaResponse_schemaName = Lens.lens (\UpdateSchemaResponse' {schemaName} -> schemaName) (\s@UpdateSchemaResponse' {} a -> s {schemaName = a} :: UpdateSchemaResponse)
 
 -- | The response's http status code.
 updateSchemaResponse_httpStatus :: Lens.Lens' UpdateSchemaResponse Prelude.Int
@@ -263,6 +264,6 @@ updateSchemaResponse_httpStatus = Lens.lens (\UpdateSchemaResponse' {httpStatus}
 instance Prelude.NFData UpdateSchemaResponse where
   rnf UpdateSchemaResponse' {..} =
     Prelude.rnf registryName
-      `Prelude.seq` Prelude.rnf schemaName
       `Prelude.seq` Prelude.rnf schemaArn
+      `Prelude.seq` Prelude.rnf schemaName
       `Prelude.seq` Prelude.rnf httpStatus

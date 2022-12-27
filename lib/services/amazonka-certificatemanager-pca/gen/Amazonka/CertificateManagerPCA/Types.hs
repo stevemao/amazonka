@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,25 +18,25 @@ module Amazonka.CertificateManagerPCA.Types
     defaultService,
 
     -- * Errors
-    _InvalidTagException,
-    _InvalidRequestException,
-    _PermissionAlreadyExistsException,
-    _MalformedCSRException,
-    _RequestAlreadyProcessedException,
-    _MalformedCertificateException,
-    _RequestFailedException,
     _CertificateMismatchException,
-    _TooManyTagsException,
-    _InvalidArgsException,
-    _RequestInProgressException,
     _ConcurrentModificationException,
-    _InvalidNextTokenException,
-    _LockoutPreventedException,
+    _InvalidArgsException,
     _InvalidArnException,
+    _InvalidNextTokenException,
     _InvalidPolicyException,
-    _ResourceNotFoundException,
+    _InvalidRequestException,
     _InvalidStateException,
+    _InvalidTagException,
     _LimitExceededException,
+    _LockoutPreventedException,
+    _MalformedCSRException,
+    _MalformedCertificateException,
+    _PermissionAlreadyExistsException,
+    _RequestAlreadyProcessedException,
+    _RequestFailedException,
+    _RequestInProgressException,
+    _ResourceNotFoundException,
+    _TooManyTagsException,
 
     -- * AccessMethodType
     AccessMethodType (..),
@@ -54,6 +55,9 @@ module Amazonka.CertificateManagerPCA.Types
 
     -- * CertificateAuthorityType
     CertificateAuthorityType (..),
+
+    -- * CertificateAuthorityUsageMode
+    CertificateAuthorityUsageMode (..),
 
     -- * ExtendedKeyUsageType
     ExtendedKeyUsageType (..),
@@ -88,20 +92,21 @@ module Amazonka.CertificateManagerPCA.Types
     -- * ASN1Subject
     ASN1Subject (..),
     newASN1Subject,
-    aSN1Subject_givenName,
-    aSN1Subject_state,
     aSN1Subject_commonName,
-    aSN1Subject_organizationalUnit,
     aSN1Subject_country,
-    aSN1Subject_generationQualifier,
-    aSN1Subject_locality,
-    aSN1Subject_pseudonym,
-    aSN1Subject_initials,
-    aSN1Subject_title,
-    aSN1Subject_organization,
-    aSN1Subject_serialNumber,
-    aSN1Subject_surname,
+    aSN1Subject_customAttributes,
     aSN1Subject_distinguishedNameQualifier,
+    aSN1Subject_generationQualifier,
+    aSN1Subject_givenName,
+    aSN1Subject_initials,
+    aSN1Subject_locality,
+    aSN1Subject_organization,
+    aSN1Subject_organizationalUnit,
+    aSN1Subject_pseudonym,
+    aSN1Subject_serialNumber,
+    aSN1Subject_state,
+    aSN1Subject_surname,
+    aSN1Subject_title,
 
     -- * AccessDescription
     AccessDescription (..),
@@ -118,26 +123,27 @@ module Amazonka.CertificateManagerPCA.Types
     -- * ApiPassthrough
     ApiPassthrough (..),
     newApiPassthrough,
-    apiPassthrough_subject,
     apiPassthrough_extensions,
+    apiPassthrough_subject,
 
     -- * CertificateAuthority
     CertificateAuthority (..),
     newCertificateAuthority,
-    certificateAuthority_status,
-    certificateAuthority_failureReason,
-    certificateAuthority_certificateAuthorityConfiguration,
     certificateAuthority_arn,
+    certificateAuthority_certificateAuthorityConfiguration,
     certificateAuthority_createdAt,
-    certificateAuthority_serial,
+    certificateAuthority_failureReason,
     certificateAuthority_keyStorageSecurityStandard,
-    certificateAuthority_notBefore,
-    certificateAuthority_restorableUntil,
-    certificateAuthority_type,
-    certificateAuthority_ownerAccount,
-    certificateAuthority_revocationConfiguration,
     certificateAuthority_lastStateChangeAt,
     certificateAuthority_notAfter,
+    certificateAuthority_notBefore,
+    certificateAuthority_ownerAccount,
+    certificateAuthority_restorableUntil,
+    certificateAuthority_revocationConfiguration,
+    certificateAuthority_serial,
+    certificateAuthority_status,
+    certificateAuthority_type,
+    certificateAuthority_usageMode,
 
     -- * CertificateAuthorityConfiguration
     CertificateAuthorityConfiguration (..),
@@ -152,15 +158,28 @@ module Amazonka.CertificateManagerPCA.Types
     newCrlConfiguration,
     crlConfiguration_customCname,
     crlConfiguration_expirationInDays,
-    crlConfiguration_s3ObjectAcl,
     crlConfiguration_s3BucketName,
+    crlConfiguration_s3ObjectAcl,
     crlConfiguration_enabled,
 
     -- * CsrExtensions
     CsrExtensions (..),
     newCsrExtensions,
-    csrExtensions_subjectInformationAccess,
     csrExtensions_keyUsage,
+    csrExtensions_subjectInformationAccess,
+
+    -- * CustomAttribute
+    CustomAttribute (..),
+    newCustomAttribute,
+    customAttribute_objectIdentifier,
+    customAttribute_value,
+
+    -- * CustomExtension
+    CustomExtension (..),
+    newCustomExtension,
+    customExtension_critical,
+    customExtension_objectIdentifier,
+    customExtension_value,
 
     -- * EdiPartyName
     EdiPartyName (..),
@@ -171,41 +190,42 @@ module Amazonka.CertificateManagerPCA.Types
     -- * ExtendedKeyUsage
     ExtendedKeyUsage (..),
     newExtendedKeyUsage,
-    extendedKeyUsage_extendedKeyUsageType,
     extendedKeyUsage_extendedKeyUsageObjectIdentifier,
+    extendedKeyUsage_extendedKeyUsageType,
 
     -- * Extensions
     Extensions (..),
     newExtensions,
-    extensions_subjectAlternativeNames,
-    extensions_keyUsage,
-    extensions_extendedKeyUsage,
     extensions_certificatePolicies,
+    extensions_customExtensions,
+    extensions_extendedKeyUsage,
+    extensions_keyUsage,
+    extensions_subjectAlternativeNames,
 
     -- * GeneralName
     GeneralName (..),
     newGeneralName,
-    generalName_ipAddress,
-    generalName_uniformResourceIdentifier,
-    generalName_registeredId,
-    generalName_ediPartyName,
-    generalName_rfc822Name,
-    generalName_otherName,
-    generalName_dnsName,
     generalName_directoryName,
+    generalName_dnsName,
+    generalName_ediPartyName,
+    generalName_ipAddress,
+    generalName_otherName,
+    generalName_registeredId,
+    generalName_rfc822Name,
+    generalName_uniformResourceIdentifier,
 
     -- * KeyUsage
     KeyUsage (..),
     newKeyUsage,
-    keyUsage_dataEncipherment,
-    keyUsage_encipherOnly,
-    keyUsage_nonRepudiation,
     keyUsage_cRLSign,
-    keyUsage_digitalSignature,
-    keyUsage_keyCertSign,
+    keyUsage_dataEncipherment,
     keyUsage_decipherOnly,
-    keyUsage_keyEncipherment,
+    keyUsage_digitalSignature,
+    keyUsage_encipherOnly,
     keyUsage_keyAgreement,
+    keyUsage_keyCertSign,
+    keyUsage_keyEncipherment,
+    keyUsage_nonRepudiation,
 
     -- * OcspConfiguration
     OcspConfiguration (..),
@@ -222,12 +242,12 @@ module Amazonka.CertificateManagerPCA.Types
     -- * Permission
     Permission (..),
     newPermission,
-    permission_sourceAccount,
     permission_actions,
-    permission_createdAt,
-    permission_principal,
-    permission_policy,
     permission_certificateAuthorityArn,
+    permission_createdAt,
+    permission_policy,
+    permission_principal,
+    permission_sourceAccount,
 
     -- * PolicyInformation
     PolicyInformation (..),
@@ -278,8 +298,11 @@ import Amazonka.CertificateManagerPCA.Types.CertificateAuthority
 import Amazonka.CertificateManagerPCA.Types.CertificateAuthorityConfiguration
 import Amazonka.CertificateManagerPCA.Types.CertificateAuthorityStatus
 import Amazonka.CertificateManagerPCA.Types.CertificateAuthorityType
+import Amazonka.CertificateManagerPCA.Types.CertificateAuthorityUsageMode
 import Amazonka.CertificateManagerPCA.Types.CrlConfiguration
 import Amazonka.CertificateManagerPCA.Types.CsrExtensions
+import Amazonka.CertificateManagerPCA.Types.CustomAttribute
+import Amazonka.CertificateManagerPCA.Types.CustomExtension
 import Amazonka.CertificateManagerPCA.Types.EdiPartyName
 import Amazonka.CertificateManagerPCA.Types.ExtendedKeyUsage
 import Amazonka.CertificateManagerPCA.Types.ExtendedKeyUsageType
@@ -305,7 +328,7 @@ import Amazonka.CertificateManagerPCA.Types.Tag
 import Amazonka.CertificateManagerPCA.Types.Validity
 import Amazonka.CertificateManagerPCA.Types.ValidityPeriodType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 
@@ -313,43 +336,50 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev =
-        "CertificateManagerPCA",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "acm-pca",
-      Core._serviceSigningName = "acm-pca",
-      Core._serviceVersion = "2017-08-22",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
+    { Core.abbrev = "CertificateManagerPCA",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "acm-pca",
+      Core.signingName = "acm-pca",
+      Core.version = "2017-08-22",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error =
         Core.parseJSONError "CertificateManagerPCA",
-      Core._serviceRetry = retry
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -357,79 +387,21 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
-
--- | The tag associated with the CA is not valid. The invalid argument is
--- contained in the message field.
-_InvalidTagException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidTagException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidTagException"
-
--- | The request action cannot be performed or is prohibited.
-_InvalidRequestException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidRequestException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidRequestException"
-
--- | The designated permission has already been given to the user.
-_PermissionAlreadyExistsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_PermissionAlreadyExistsException =
-  Core._MatchServiceError
-    defaultService
-    "PermissionAlreadyExistsException"
-
--- | The certificate signing request is invalid.
-_MalformedCSRException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_MalformedCSRException =
-  Core._MatchServiceError
-    defaultService
-    "MalformedCSRException"
-
--- | Your request has already been completed.
-_RequestAlreadyProcessedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_RequestAlreadyProcessedException =
-  Core._MatchServiceError
-    defaultService
-    "RequestAlreadyProcessedException"
-
--- | One or more fields in the certificate are invalid.
-_MalformedCertificateException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_MalformedCertificateException =
-  Core._MatchServiceError
-    defaultService
-    "MalformedCertificateException"
-
--- | The request has failed for an unspecified reason.
-_RequestFailedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_RequestFailedException =
-  Core._MatchServiceError
-    defaultService
-    "RequestFailedException"
 
 -- | The certificate authority certificate you are importing does not comply
 -- with conditions specified in the certificate that signed it.
@@ -439,13 +411,12 @@ _CertificateMismatchException =
     defaultService
     "CertificateMismatchException"
 
--- | You can associate up to 50 tags with a private CA. Exception information
--- is contained in the exception message field.
-_TooManyTagsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TooManyTagsException =
+-- | A previous update to your private CA is still ongoing.
+_ConcurrentModificationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ConcurrentModificationException =
   Core._MatchServiceError
     defaultService
-    "TooManyTagsException"
+    "ConcurrentModificationException"
 
 -- | One or more of the specified arguments was not valid.
 _InvalidArgsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -454,19 +425,13 @@ _InvalidArgsException =
     defaultService
     "InvalidArgsException"
 
--- | Your request is already in progress.
-_RequestInProgressException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_RequestInProgressException =
+-- | The requested Amazon Resource Name (ARN) does not refer to an existing
+-- resource.
+_InvalidArnException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidArnException =
   Core._MatchServiceError
     defaultService
-    "RequestInProgressException"
-
--- | A previous update to your private CA is still ongoing.
-_ConcurrentModificationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ConcurrentModificationException =
-  Core._MatchServiceError
-    defaultService
-    "ConcurrentModificationException"
+    "InvalidArnException"
 
 -- | The token specified in the @NextToken@ argument is not valid. Use the
 -- token returned from your previous call to
@@ -477,23 +442,6 @@ _InvalidNextTokenException =
     defaultService
     "InvalidNextTokenException"
 
--- | The current action was prevented because it would lock the caller out
--- from performing subsequent actions. Verify that the specified parameters
--- would not result in the caller being denied access to the resource.
-_LockoutPreventedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_LockoutPreventedException =
-  Core._MatchServiceError
-    defaultService
-    "LockoutPreventedException"
-
--- | The requested Amazon Resource Name (ARN) does not refer to an existing
--- resource.
-_InvalidArnException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidArnException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidArnException"
-
 -- | The resource policy is invalid or is missing a required statement. For
 -- general information about IAM policy and statement structure, see
 -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#access_policies-json Overview of JSON Policies>.
@@ -503,13 +451,12 @@ _InvalidPolicyException =
     defaultService
     "InvalidPolicyException"
 
--- | A resource such as a private CA, S3 bucket, certificate, audit report,
--- or policy cannot be found.
-_ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ResourceNotFoundException =
+-- | The request action cannot be performed or is prohibited.
+_InvalidRequestException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidRequestException =
   Core._MatchServiceError
     defaultService
-    "ResourceNotFoundException"
+    "InvalidRequestException"
 
 -- | The state of the private CA does not allow this action to occur.
 _InvalidStateException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -518,6 +465,14 @@ _InvalidStateException =
     defaultService
     "InvalidStateException"
 
+-- | The tag associated with the CA is not valid. The invalid argument is
+-- contained in the message field.
+_InvalidTagException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidTagException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidTagException"
+
 -- | An ACM Private CA quota has been exceeded. See the exception message
 -- returned to determine the quota that was exceeded.
 _LimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -525,3 +480,70 @@ _LimitExceededException =
   Core._MatchServiceError
     defaultService
     "LimitExceededException"
+
+-- | The current action was prevented because it would lock the caller out
+-- from performing subsequent actions. Verify that the specified parameters
+-- would not result in the caller being denied access to the resource.
+_LockoutPreventedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_LockoutPreventedException =
+  Core._MatchServiceError
+    defaultService
+    "LockoutPreventedException"
+
+-- | The certificate signing request is invalid.
+_MalformedCSRException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_MalformedCSRException =
+  Core._MatchServiceError
+    defaultService
+    "MalformedCSRException"
+
+-- | One or more fields in the certificate are invalid.
+_MalformedCertificateException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_MalformedCertificateException =
+  Core._MatchServiceError
+    defaultService
+    "MalformedCertificateException"
+
+-- | The designated permission has already been given to the user.
+_PermissionAlreadyExistsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_PermissionAlreadyExistsException =
+  Core._MatchServiceError
+    defaultService
+    "PermissionAlreadyExistsException"
+
+-- | Your request has already been completed.
+_RequestAlreadyProcessedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_RequestAlreadyProcessedException =
+  Core._MatchServiceError
+    defaultService
+    "RequestAlreadyProcessedException"
+
+-- | The request has failed for an unspecified reason.
+_RequestFailedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_RequestFailedException =
+  Core._MatchServiceError
+    defaultService
+    "RequestFailedException"
+
+-- | Your request is already in progress.
+_RequestInProgressException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_RequestInProgressException =
+  Core._MatchServiceError
+    defaultService
+    "RequestInProgressException"
+
+-- | A resource such as a private CA, S3 bucket, certificate, audit report,
+-- or policy cannot be found.
+_ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ResourceNotFoundException =
+  Core._MatchServiceError
+    defaultService
+    "ResourceNotFoundException"
+
+-- | You can associate up to 50 tags with a private CA. Exception information
+-- is contained in the exception message field.
+_TooManyTagsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TooManyTagsException =
+  Core._MatchServiceError
+    defaultService
+    "TooManyTagsException"

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.DescribeConformancePackStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,8 +32,8 @@ module Amazonka.Config.DescribeConformancePackStatus
 
     -- * Request Lenses
     describeConformancePackStatus_conformancePackNames,
-    describeConformancePackStatus_nextToken,
     describeConformancePackStatus_limit,
+    describeConformancePackStatus_nextToken,
 
     -- * Destructuring the Response
     DescribeConformancePackStatusResponse (..),
@@ -48,7 +48,8 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,11 +58,11 @@ import qualified Amazonka.Response as Response
 data DescribeConformancePackStatus = DescribeConformancePackStatus'
   { -- | Comma-separated list of conformance pack names.
     conformancePackNames :: Prelude.Maybe [Prelude.Text],
+    -- | The maximum number of conformance packs status returned on each page.
+    limit :: Prelude.Maybe Prelude.Natural,
     -- | The @nextToken@ string returned in a previous request that you use to
     -- request the next page of results in a paginated response.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of conformance packs status returned on each page.
-    limit :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -75,32 +76,32 @@ data DescribeConformancePackStatus = DescribeConformancePackStatus'
 --
 -- 'conformancePackNames', 'describeConformancePackStatus_conformancePackNames' - Comma-separated list of conformance pack names.
 --
+-- 'limit', 'describeConformancePackStatus_limit' - The maximum number of conformance packs status returned on each page.
+--
 -- 'nextToken', 'describeConformancePackStatus_nextToken' - The @nextToken@ string returned in a previous request that you use to
 -- request the next page of results in a paginated response.
---
--- 'limit', 'describeConformancePackStatus_limit' - The maximum number of conformance packs status returned on each page.
 newDescribeConformancePackStatus ::
   DescribeConformancePackStatus
 newDescribeConformancePackStatus =
   DescribeConformancePackStatus'
     { conformancePackNames =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      limit = Prelude.Nothing
+      limit = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | Comma-separated list of conformance pack names.
 describeConformancePackStatus_conformancePackNames :: Lens.Lens' DescribeConformancePackStatus (Prelude.Maybe [Prelude.Text])
 describeConformancePackStatus_conformancePackNames = Lens.lens (\DescribeConformancePackStatus' {conformancePackNames} -> conformancePackNames) (\s@DescribeConformancePackStatus' {} a -> s {conformancePackNames = a} :: DescribeConformancePackStatus) Prelude.. Lens.mapping Lens.coerced
 
+-- | The maximum number of conformance packs status returned on each page.
+describeConformancePackStatus_limit :: Lens.Lens' DescribeConformancePackStatus (Prelude.Maybe Prelude.Natural)
+describeConformancePackStatus_limit = Lens.lens (\DescribeConformancePackStatus' {limit} -> limit) (\s@DescribeConformancePackStatus' {} a -> s {limit = a} :: DescribeConformancePackStatus)
+
 -- | The @nextToken@ string returned in a previous request that you use to
 -- request the next page of results in a paginated response.
 describeConformancePackStatus_nextToken :: Lens.Lens' DescribeConformancePackStatus (Prelude.Maybe Prelude.Text)
 describeConformancePackStatus_nextToken = Lens.lens (\DescribeConformancePackStatus' {nextToken} -> nextToken) (\s@DescribeConformancePackStatus' {} a -> s {nextToken = a} :: DescribeConformancePackStatus)
-
--- | The maximum number of conformance packs status returned on each page.
-describeConformancePackStatus_limit :: Lens.Lens' DescribeConformancePackStatus (Prelude.Maybe Prelude.Natural)
-describeConformancePackStatus_limit = Lens.lens (\DescribeConformancePackStatus' {limit} -> limit) (\s@DescribeConformancePackStatus' {} a -> s {limit = a} :: DescribeConformancePackStatus)
 
 instance Core.AWSPager DescribeConformancePackStatus where
   page rq rs
@@ -131,15 +132,16 @@ instance
   type
     AWSResponse DescribeConformancePackStatus =
       DescribeConformancePackStatusResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeConformancePackStatusResponse'
-            Prelude.<$> ( x Core..?> "ConformancePackStatusDetails"
+            Prelude.<$> ( x Data..?> "ConformancePackStatusDetails"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -149,45 +151,45 @@ instance
   where
   hashWithSalt _salt DescribeConformancePackStatus' {..} =
     _salt `Prelude.hashWithSalt` conformancePackNames
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeConformancePackStatus where
   rnf DescribeConformancePackStatus' {..} =
     Prelude.rnf conformancePackNames
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeConformancePackStatus where
+instance Data.ToHeaders DescribeConformancePackStatus where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.DescribeConformancePackStatus" ::
+              Data.=# ( "StarlingDoveService.DescribeConformancePackStatus" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeConformancePackStatus where
+instance Data.ToJSON DescribeConformancePackStatus where
   toJSON DescribeConformancePackStatus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ConformancePackNames" Core..=)
+          [ ("ConformancePackNames" Data..=)
               Prelude.<$> conformancePackNames,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Limit" Core..=) Prelude.<$> limit
+            ("Limit" Data..=) Prelude.<$> limit,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath DescribeConformancePackStatus where
+instance Data.ToPath DescribeConformancePackStatus where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeConformancePackStatus where
+instance Data.ToQuery DescribeConformancePackStatus where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeConformancePackStatusResponse' smart constructor.

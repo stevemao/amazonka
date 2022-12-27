@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DeleteJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,8 +51,9 @@ module Amazonka.IoT.DeleteJob
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -166,7 +167,8 @@ deleteJob_jobId = Lens.lens (\DeleteJob' {jobId} -> jobId) (\s@DeleteJob' {} a -
 
 instance Core.AWSRequest DeleteJob where
   type AWSResponse DeleteJob = DeleteJobResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response = Response.receiveNull DeleteJobResponse'
 
 instance Prelude.Hashable DeleteJob where
@@ -181,18 +183,18 @@ instance Prelude.NFData DeleteJob where
       `Prelude.seq` Prelude.rnf namespaceId
       `Prelude.seq` Prelude.rnf jobId
 
-instance Core.ToHeaders DeleteJob where
+instance Data.ToHeaders DeleteJob where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteJob where
+instance Data.ToPath DeleteJob where
   toPath DeleteJob' {..} =
-    Prelude.mconcat ["/jobs/", Core.toBS jobId]
+    Prelude.mconcat ["/jobs/", Data.toBS jobId]
 
-instance Core.ToQuery DeleteJob where
+instance Data.ToQuery DeleteJob where
   toQuery DeleteJob' {..} =
     Prelude.mconcat
-      [ "force" Core.=: force,
-        "namespaceId" Core.=: namespaceId
+      [ "force" Data.=: force,
+        "namespaceId" Data.=: namespaceId
       ]
 
 -- | /See:/ 'newDeleteJobResponse' smart constructor.

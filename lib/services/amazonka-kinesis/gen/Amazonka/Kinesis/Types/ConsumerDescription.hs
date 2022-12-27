@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kinesis.Types.ConsumerDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Kinesis.Types.ConsumerDescription where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kinesis.Types.ConsumerStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents the details of a registered consumer. This
@@ -43,7 +44,7 @@ data ConsumerDescription = ConsumerDescription'
     -- | A consumer can\'t read data while in the @CREATING@ or @DELETING@
     -- states.
     consumerStatus :: ConsumerStatus,
-    consumerCreationTimestamp :: Core.POSIX,
+    consumerCreationTimestamp :: Data.POSIX,
     -- | The ARN of the stream with which you registered the consumer.
     streamARN :: Prelude.Text
   }
@@ -97,7 +98,7 @@ newConsumerDescription
         consumerARN = pConsumerARN_,
         consumerStatus = pConsumerStatus_,
         consumerCreationTimestamp =
-          Core._Time Lens.# pConsumerCreationTimestamp_,
+          Data._Time Lens.# pConsumerCreationTimestamp_,
         streamARN = pStreamARN_
       }
 
@@ -123,23 +124,23 @@ consumerDescription_consumerStatus = Lens.lens (\ConsumerDescription' {consumerS
 
 -- |
 consumerDescription_consumerCreationTimestamp :: Lens.Lens' ConsumerDescription Prelude.UTCTime
-consumerDescription_consumerCreationTimestamp = Lens.lens (\ConsumerDescription' {consumerCreationTimestamp} -> consumerCreationTimestamp) (\s@ConsumerDescription' {} a -> s {consumerCreationTimestamp = a} :: ConsumerDescription) Prelude.. Core._Time
+consumerDescription_consumerCreationTimestamp = Lens.lens (\ConsumerDescription' {consumerCreationTimestamp} -> consumerCreationTimestamp) (\s@ConsumerDescription' {} a -> s {consumerCreationTimestamp = a} :: ConsumerDescription) Prelude.. Data._Time
 
 -- | The ARN of the stream with which you registered the consumer.
 consumerDescription_streamARN :: Lens.Lens' ConsumerDescription Prelude.Text
 consumerDescription_streamARN = Lens.lens (\ConsumerDescription' {streamARN} -> streamARN) (\s@ConsumerDescription' {} a -> s {streamARN = a} :: ConsumerDescription)
 
-instance Core.FromJSON ConsumerDescription where
+instance Data.FromJSON ConsumerDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ConsumerDescription"
       ( \x ->
           ConsumerDescription'
-            Prelude.<$> (x Core..: "ConsumerName")
-            Prelude.<*> (x Core..: "ConsumerARN")
-            Prelude.<*> (x Core..: "ConsumerStatus")
-            Prelude.<*> (x Core..: "ConsumerCreationTimestamp")
-            Prelude.<*> (x Core..: "StreamARN")
+            Prelude.<$> (x Data..: "ConsumerName")
+            Prelude.<*> (x Data..: "ConsumerARN")
+            Prelude.<*> (x Data..: "ConsumerStatus")
+            Prelude.<*> (x Data..: "ConsumerCreationTimestamp")
+            Prelude.<*> (x Data..: "StreamARN")
       )
 
 instance Prelude.Hashable ConsumerDescription where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.CreateServiceLinkedRole
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -53,8 +53,9 @@ module Amazonka.IAM.CreateServiceLinkedRole
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -162,13 +163,14 @@ instance Core.AWSRequest CreateServiceLinkedRole where
   type
     AWSResponse CreateServiceLinkedRole =
       CreateServiceLinkedRoleResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateServiceLinkedRoleResult"
       ( \s h x ->
           CreateServiceLinkedRoleResponse'
-            Prelude.<$> (x Core..@? "Role")
+            Prelude.<$> (x Data..@? "Role")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -184,22 +186,22 @@ instance Prelude.NFData CreateServiceLinkedRole where
       `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf aWSServiceName
 
-instance Core.ToHeaders CreateServiceLinkedRole where
+instance Data.ToHeaders CreateServiceLinkedRole where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateServiceLinkedRole where
+instance Data.ToPath CreateServiceLinkedRole where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateServiceLinkedRole where
+instance Data.ToQuery CreateServiceLinkedRole where
   toQuery CreateServiceLinkedRole' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateServiceLinkedRole" :: Prelude.ByteString),
+          Data.=: ("CreateServiceLinkedRole" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "CustomSuffix" Core.=: customSuffix,
-        "Description" Core.=: description,
-        "AWSServiceName" Core.=: aWSServiceName
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "CustomSuffix" Data.=: customSuffix,
+        "Description" Data.=: description,
+        "AWSServiceName" Data.=: aWSServiceName
       ]
 
 -- | /See:/ 'newCreateServiceLinkedRoleResponse' smart constructor.

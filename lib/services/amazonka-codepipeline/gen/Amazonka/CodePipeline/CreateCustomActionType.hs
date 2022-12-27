@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.CreateCustomActionType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.CodePipeline.CreateCustomActionType
     newCreateCustomActionType,
 
     -- * Request Lenses
-    createCustomActionType_settings,
     createCustomActionType_configurationProperties,
+    createCustomActionType_settings,
     createCustomActionType_tags,
     createCustomActionType_category,
     createCustomActionType_provider,
@@ -50,7 +50,8 @@ where
 
 import Amazonka.CodePipeline.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,9 +60,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCreateCustomActionType' smart constructor.
 data CreateCustomActionType = CreateCustomActionType'
-  { -- | URLs that provide users information about this custom action.
-    settings :: Prelude.Maybe ActionTypeSettings,
-    -- | The configuration properties for the custom action.
+  { -- | The configuration properties for the custom action.
     --
     -- You can refer to a name in the configuration properties of the custom
     -- action within the URL templates by following the format of
@@ -69,6 +68,8 @@ data CreateCustomActionType = CreateCustomActionType'
     -- and not secret. For more information, see
     -- <https://docs.aws.amazon.com/codepipeline/latest/userguide/how-to-create-custom-action.html Create a Custom Action for a Pipeline>.
     configurationProperties :: Prelude.Maybe [ActionConfigurationProperty],
+    -- | URLs that provide users information about this custom action.
+    settings :: Prelude.Maybe ActionTypeSettings,
     -- | The tags for the custom action.
     tags :: Prelude.Maybe [Tag],
     -- | The category of the custom action, such as a build action or a test
@@ -94,8 +95,6 @@ data CreateCustomActionType = CreateCustomActionType'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'settings', 'createCustomActionType_settings' - URLs that provide users information about this custom action.
---
 -- 'configurationProperties', 'createCustomActionType_configurationProperties' - The configuration properties for the custom action.
 --
 -- You can refer to a name in the configuration properties of the custom
@@ -103,6 +102,8 @@ data CreateCustomActionType = CreateCustomActionType'
 -- {Config:name}, as long as the configuration property is both required
 -- and not secret. For more information, see
 -- <https://docs.aws.amazon.com/codepipeline/latest/userguide/how-to-create-custom-action.html Create a Custom Action for a Pipeline>.
+--
+-- 'settings', 'createCustomActionType_settings' - URLs that provide users information about this custom action.
 --
 -- 'tags', 'createCustomActionType_tags' - The tags for the custom action.
 --
@@ -136,8 +137,9 @@ newCreateCustomActionType
   pInputArtifactDetails_
   pOutputArtifactDetails_ =
     CreateCustomActionType'
-      { settings = Prelude.Nothing,
-        configurationProperties = Prelude.Nothing,
+      { configurationProperties =
+          Prelude.Nothing,
+        settings = Prelude.Nothing,
         tags = Prelude.Nothing,
         category = pCategory_,
         provider = pProvider_,
@@ -145,10 +147,6 @@ newCreateCustomActionType
         inputArtifactDetails = pInputArtifactDetails_,
         outputArtifactDetails = pOutputArtifactDetails_
       }
-
--- | URLs that provide users information about this custom action.
-createCustomActionType_settings :: Lens.Lens' CreateCustomActionType (Prelude.Maybe ActionTypeSettings)
-createCustomActionType_settings = Lens.lens (\CreateCustomActionType' {settings} -> settings) (\s@CreateCustomActionType' {} a -> s {settings = a} :: CreateCustomActionType)
 
 -- | The configuration properties for the custom action.
 --
@@ -159,6 +157,10 @@ createCustomActionType_settings = Lens.lens (\CreateCustomActionType' {settings}
 -- <https://docs.aws.amazon.com/codepipeline/latest/userguide/how-to-create-custom-action.html Create a Custom Action for a Pipeline>.
 createCustomActionType_configurationProperties :: Lens.Lens' CreateCustomActionType (Prelude.Maybe [ActionConfigurationProperty])
 createCustomActionType_configurationProperties = Lens.lens (\CreateCustomActionType' {configurationProperties} -> configurationProperties) (\s@CreateCustomActionType' {} a -> s {configurationProperties = a} :: CreateCustomActionType) Prelude.. Lens.mapping Lens.coerced
+
+-- | URLs that provide users information about this custom action.
+createCustomActionType_settings :: Lens.Lens' CreateCustomActionType (Prelude.Maybe ActionTypeSettings)
+createCustomActionType_settings = Lens.lens (\CreateCustomActionType' {settings} -> settings) (\s@CreateCustomActionType' {} a -> s {settings = a} :: CreateCustomActionType)
 
 -- | The tags for the custom action.
 createCustomActionType_tags :: Lens.Lens' CreateCustomActionType (Prelude.Maybe [Tag])
@@ -190,20 +192,22 @@ instance Core.AWSRequest CreateCustomActionType where
   type
     AWSResponse CreateCustomActionType =
       CreateCustomActionTypeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateCustomActionTypeResponse'
-            Prelude.<$> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "actionType")
+            Prelude.<*> (x Data..:> "actionType")
       )
 
 instance Prelude.Hashable CreateCustomActionType where
   hashWithSalt _salt CreateCustomActionType' {..} =
-    _salt `Prelude.hashWithSalt` settings
+    _salt
       `Prelude.hashWithSalt` configurationProperties
+      `Prelude.hashWithSalt` settings
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` category
       `Prelude.hashWithSalt` provider
@@ -213,8 +217,8 @@ instance Prelude.Hashable CreateCustomActionType where
 
 instance Prelude.NFData CreateCustomActionType where
   rnf CreateCustomActionType' {..} =
-    Prelude.rnf settings
-      `Prelude.seq` Prelude.rnf configurationProperties
+    Prelude.rnf configurationProperties
+      `Prelude.seq` Prelude.rnf settings
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf category
       `Prelude.seq` Prelude.rnf provider
@@ -222,47 +226,47 @@ instance Prelude.NFData CreateCustomActionType where
       `Prelude.seq` Prelude.rnf inputArtifactDetails
       `Prelude.seq` Prelude.rnf outputArtifactDetails
 
-instance Core.ToHeaders CreateCustomActionType where
+instance Data.ToHeaders CreateCustomActionType where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodePipeline_20150709.CreateCustomActionType" ::
+              Data.=# ( "CodePipeline_20150709.CreateCustomActionType" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateCustomActionType where
+instance Data.ToJSON CreateCustomActionType where
   toJSON CreateCustomActionType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("settings" Core..=) Prelude.<$> settings,
-            ("configurationProperties" Core..=)
+          [ ("configurationProperties" Data..=)
               Prelude.<$> configurationProperties,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("category" Core..= category),
-            Prelude.Just ("provider" Core..= provider),
-            Prelude.Just ("version" Core..= version),
+            ("settings" Data..=) Prelude.<$> settings,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("category" Data..= category),
+            Prelude.Just ("provider" Data..= provider),
+            Prelude.Just ("version" Data..= version),
             Prelude.Just
               ( "inputArtifactDetails"
-                  Core..= inputArtifactDetails
+                  Data..= inputArtifactDetails
               ),
             Prelude.Just
               ( "outputArtifactDetails"
-                  Core..= outputArtifactDetails
+                  Data..= outputArtifactDetails
               )
           ]
       )
 
-instance Core.ToPath CreateCustomActionType where
+instance Data.ToPath CreateCustomActionType where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateCustomActionType where
+instance Data.ToQuery CreateCustomActionType where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @CreateCustomActionType@ operation.

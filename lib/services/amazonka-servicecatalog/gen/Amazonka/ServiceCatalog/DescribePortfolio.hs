@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.DescribePortfolio
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,16 +37,17 @@ module Amazonka.ServiceCatalog.DescribePortfolio
     newDescribePortfolioResponse,
 
     -- * Response Lenses
+    describePortfolioResponse_budgets,
     describePortfolioResponse_portfolioDetail,
     describePortfolioResponse_tagOptions,
-    describePortfolioResponse_budgets,
     describePortfolioResponse_tags,
     describePortfolioResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -113,15 +114,16 @@ instance Core.AWSRequest DescribePortfolio where
   type
     AWSResponse DescribePortfolio =
       DescribePortfolioResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribePortfolioResponse'
-            Prelude.<$> (x Core..?> "PortfolioDetail")
-            Prelude.<*> (x Core..?> "TagOptions" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "Budgets" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Budgets" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "PortfolioDetail")
+            Prelude.<*> (x Data..?> "TagOptions" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -135,45 +137,45 @@ instance Prelude.NFData DescribePortfolio where
     Prelude.rnf acceptLanguage
       `Prelude.seq` Prelude.rnf id
 
-instance Core.ToHeaders DescribePortfolio where
+instance Data.ToHeaders DescribePortfolio where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.DescribePortfolio" ::
+              Data.=# ( "AWS242ServiceCatalogService.DescribePortfolio" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribePortfolio where
+instance Data.ToJSON DescribePortfolio where
   toJSON DescribePortfolio' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            Prelude.Just ("Id" Core..= id)
+            Prelude.Just ("Id" Data..= id)
           ]
       )
 
-instance Core.ToPath DescribePortfolio where
+instance Data.ToPath DescribePortfolio where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribePortfolio where
+instance Data.ToQuery DescribePortfolio where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribePortfolioResponse' smart constructor.
 data DescribePortfolioResponse = DescribePortfolioResponse'
-  { -- | Information about the portfolio.
+  { -- | Information about the associated budgets.
+    budgets :: Prelude.Maybe [BudgetDetail],
+    -- | Information about the portfolio.
     portfolioDetail :: Prelude.Maybe PortfolioDetail,
     -- | Information about the TagOptions associated with the portfolio.
     tagOptions :: Prelude.Maybe [TagOptionDetail],
-    -- | Information about the associated budgets.
-    budgets :: Prelude.Maybe [BudgetDetail],
     -- | Information about the tags associated with the portfolio.
     tags :: Prelude.Maybe [Tag],
     -- | The response's http status code.
@@ -189,11 +191,11 @@ data DescribePortfolioResponse = DescribePortfolioResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'budgets', 'describePortfolioResponse_budgets' - Information about the associated budgets.
+--
 -- 'portfolioDetail', 'describePortfolioResponse_portfolioDetail' - Information about the portfolio.
 --
 -- 'tagOptions', 'describePortfolioResponse_tagOptions' - Information about the TagOptions associated with the portfolio.
---
--- 'budgets', 'describePortfolioResponse_budgets' - Information about the associated budgets.
 --
 -- 'tags', 'describePortfolioResponse_tags' - Information about the tags associated with the portfolio.
 --
@@ -204,13 +206,17 @@ newDescribePortfolioResponse ::
   DescribePortfolioResponse
 newDescribePortfolioResponse pHttpStatus_ =
   DescribePortfolioResponse'
-    { portfolioDetail =
+    { budgets =
         Prelude.Nothing,
+      portfolioDetail = Prelude.Nothing,
       tagOptions = Prelude.Nothing,
-      budgets = Prelude.Nothing,
       tags = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | Information about the associated budgets.
+describePortfolioResponse_budgets :: Lens.Lens' DescribePortfolioResponse (Prelude.Maybe [BudgetDetail])
+describePortfolioResponse_budgets = Lens.lens (\DescribePortfolioResponse' {budgets} -> budgets) (\s@DescribePortfolioResponse' {} a -> s {budgets = a} :: DescribePortfolioResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | Information about the portfolio.
 describePortfolioResponse_portfolioDetail :: Lens.Lens' DescribePortfolioResponse (Prelude.Maybe PortfolioDetail)
@@ -219,10 +225,6 @@ describePortfolioResponse_portfolioDetail = Lens.lens (\DescribePortfolioRespons
 -- | Information about the TagOptions associated with the portfolio.
 describePortfolioResponse_tagOptions :: Lens.Lens' DescribePortfolioResponse (Prelude.Maybe [TagOptionDetail])
 describePortfolioResponse_tagOptions = Lens.lens (\DescribePortfolioResponse' {tagOptions} -> tagOptions) (\s@DescribePortfolioResponse' {} a -> s {tagOptions = a} :: DescribePortfolioResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | Information about the associated budgets.
-describePortfolioResponse_budgets :: Lens.Lens' DescribePortfolioResponse (Prelude.Maybe [BudgetDetail])
-describePortfolioResponse_budgets = Lens.lens (\DescribePortfolioResponse' {budgets} -> budgets) (\s@DescribePortfolioResponse' {} a -> s {budgets = a} :: DescribePortfolioResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | Information about the tags associated with the portfolio.
 describePortfolioResponse_tags :: Lens.Lens' DescribePortfolioResponse (Prelude.Maybe [Tag])
@@ -234,8 +236,8 @@ describePortfolioResponse_httpStatus = Lens.lens (\DescribePortfolioResponse' {h
 
 instance Prelude.NFData DescribePortfolioResponse where
   rnf DescribePortfolioResponse' {..} =
-    Prelude.rnf portfolioDetail
+    Prelude.rnf budgets
+      `Prelude.seq` Prelude.rnf portfolioDetail
       `Prelude.seq` Prelude.rnf tagOptions
-      `Prelude.seq` Prelude.rnf budgets
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus

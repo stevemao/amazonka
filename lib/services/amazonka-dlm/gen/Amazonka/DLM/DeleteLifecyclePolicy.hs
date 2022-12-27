@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DLM.DeleteLifecyclePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,6 +22,9 @@
 --
 -- Deletes the specified lifecycle policy and halts the automated
 -- operations that the policy specified.
+--
+-- For more information about deleting a policy, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/view-modify-delete.html#delete Delete lifecycle policies>.
 module Amazonka.DLM.DeleteLifecyclePolicy
   ( -- * Creating a Request
     DeleteLifecyclePolicy (..),
@@ -40,8 +43,9 @@ module Amazonka.DLM.DeleteLifecyclePolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DLM.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,7 +81,8 @@ instance Core.AWSRequest DeleteLifecyclePolicy where
   type
     AWSResponse DeleteLifecyclePolicy =
       DeleteLifecyclePolicyResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -92,23 +97,23 @@ instance Prelude.Hashable DeleteLifecyclePolicy where
 instance Prelude.NFData DeleteLifecyclePolicy where
   rnf DeleteLifecyclePolicy' {..} = Prelude.rnf policyId
 
-instance Core.ToHeaders DeleteLifecyclePolicy where
+instance Data.ToHeaders DeleteLifecyclePolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteLifecyclePolicy where
+instance Data.ToPath DeleteLifecyclePolicy where
   toPath DeleteLifecyclePolicy' {..} =
     Prelude.mconcat
-      ["/policies/", Core.toBS policyId, "/"]
+      ["/policies/", Data.toBS policyId, "/"]
 
-instance Core.ToQuery DeleteLifecyclePolicy where
+instance Data.ToQuery DeleteLifecyclePolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteLifecyclePolicyResponse' smart constructor.

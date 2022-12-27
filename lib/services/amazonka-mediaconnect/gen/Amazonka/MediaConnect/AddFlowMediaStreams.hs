@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConnect.AddFlowMediaStreams
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.MediaConnect.AddFlowMediaStreams
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConnect.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -94,13 +95,14 @@ instance Core.AWSRequest AddFlowMediaStreams where
   type
     AWSResponse AddFlowMediaStreams =
       AddFlowMediaStreamsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AddFlowMediaStreamsResponse'
-            Prelude.<$> (x Core..?> "flowArn")
-            Prelude.<*> (x Core..?> "mediaStreams" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "flowArn")
+            Prelude.<*> (x Data..?> "mediaStreams" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -114,30 +116,30 @@ instance Prelude.NFData AddFlowMediaStreams where
     Prelude.rnf flowArn
       `Prelude.seq` Prelude.rnf mediaStreams
 
-instance Core.ToHeaders AddFlowMediaStreams where
+instance Data.ToHeaders AddFlowMediaStreams where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AddFlowMediaStreams where
+instance Data.ToJSON AddFlowMediaStreams where
   toJSON AddFlowMediaStreams' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("mediaStreams" Core..= mediaStreams)]
+          [Prelude.Just ("mediaStreams" Data..= mediaStreams)]
       )
 
-instance Core.ToPath AddFlowMediaStreams where
+instance Data.ToPath AddFlowMediaStreams where
   toPath AddFlowMediaStreams' {..} =
     Prelude.mconcat
-      ["/v1/flows/", Core.toBS flowArn, "/mediaStreams"]
+      ["/v1/flows/", Data.toBS flowArn, "/mediaStreams"]
 
-instance Core.ToQuery AddFlowMediaStreams where
+instance Data.ToQuery AddFlowMediaStreams where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAddFlowMediaStreamsResponse' smart constructor.

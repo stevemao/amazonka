@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.CancelBundleTask
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.EC2.CancelBundleTask
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -101,12 +102,13 @@ instance Core.AWSRequest CancelBundleTask where
   type
     AWSResponse CancelBundleTask =
       CancelBundleTaskResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CancelBundleTaskResponse'
-            Prelude.<$> (x Core..@? "bundleInstanceTask")
+            Prelude.<$> (x Data..@? "bundleInstanceTask")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -120,21 +122,21 @@ instance Prelude.NFData CancelBundleTask where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf bundleId
 
-instance Core.ToHeaders CancelBundleTask where
+instance Data.ToHeaders CancelBundleTask where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CancelBundleTask where
+instance Data.ToPath CancelBundleTask where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CancelBundleTask where
+instance Data.ToQuery CancelBundleTask where
   toQuery CancelBundleTask' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CancelBundleTask" :: Prelude.ByteString),
+          Data.=: ("CancelBundleTask" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "BundleId" Core.=: bundleId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "BundleId" Data.=: bundleId
       ]
 
 -- | Contains the output of CancelBundleTask.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.CompareFacesMatch
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.CompareFacesMatch where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types.ComparedFace
 
@@ -32,11 +33,11 @@ import Amazonka.Rekognition.Types.ComparedFace
 --
 -- /See:/ 'newCompareFacesMatch' smart constructor.
 data CompareFacesMatch = CompareFacesMatch'
-  { -- | Level of confidence that the faces match.
-    similarity :: Prelude.Maybe Prelude.Double,
-    -- | Provides face metadata (bounding box and confidence that the bounding
+  { -- | Provides face metadata (bounding box and confidence that the bounding
     -- box actually contains a face).
-    face :: Prelude.Maybe ComparedFace
+    face :: Prelude.Maybe ComparedFace,
+    -- | Level of confidence that the faces match.
+    similarity :: Prelude.Maybe Prelude.Double
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,43 +49,43 @@ data CompareFacesMatch = CompareFacesMatch'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'similarity', 'compareFacesMatch_similarity' - Level of confidence that the faces match.
---
 -- 'face', 'compareFacesMatch_face' - Provides face metadata (bounding box and confidence that the bounding
 -- box actually contains a face).
+--
+-- 'similarity', 'compareFacesMatch_similarity' - Level of confidence that the faces match.
 newCompareFacesMatch ::
   CompareFacesMatch
 newCompareFacesMatch =
   CompareFacesMatch'
-    { similarity = Prelude.Nothing,
-      face = Prelude.Nothing
+    { face = Prelude.Nothing,
+      similarity = Prelude.Nothing
     }
-
--- | Level of confidence that the faces match.
-compareFacesMatch_similarity :: Lens.Lens' CompareFacesMatch (Prelude.Maybe Prelude.Double)
-compareFacesMatch_similarity = Lens.lens (\CompareFacesMatch' {similarity} -> similarity) (\s@CompareFacesMatch' {} a -> s {similarity = a} :: CompareFacesMatch)
 
 -- | Provides face metadata (bounding box and confidence that the bounding
 -- box actually contains a face).
 compareFacesMatch_face :: Lens.Lens' CompareFacesMatch (Prelude.Maybe ComparedFace)
 compareFacesMatch_face = Lens.lens (\CompareFacesMatch' {face} -> face) (\s@CompareFacesMatch' {} a -> s {face = a} :: CompareFacesMatch)
 
-instance Core.FromJSON CompareFacesMatch where
+-- | Level of confidence that the faces match.
+compareFacesMatch_similarity :: Lens.Lens' CompareFacesMatch (Prelude.Maybe Prelude.Double)
+compareFacesMatch_similarity = Lens.lens (\CompareFacesMatch' {similarity} -> similarity) (\s@CompareFacesMatch' {} a -> s {similarity = a} :: CompareFacesMatch)
+
+instance Data.FromJSON CompareFacesMatch where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CompareFacesMatch"
       ( \x ->
           CompareFacesMatch'
-            Prelude.<$> (x Core..:? "Similarity")
-            Prelude.<*> (x Core..:? "Face")
+            Prelude.<$> (x Data..:? "Face")
+            Prelude.<*> (x Data..:? "Similarity")
       )
 
 instance Prelude.Hashable CompareFacesMatch where
   hashWithSalt _salt CompareFacesMatch' {..} =
-    _salt `Prelude.hashWithSalt` similarity
-      `Prelude.hashWithSalt` face
+    _salt `Prelude.hashWithSalt` face
+      `Prelude.hashWithSalt` similarity
 
 instance Prelude.NFData CompareFacesMatch where
   rnf CompareFacesMatch' {..} =
-    Prelude.rnf similarity
-      `Prelude.seq` Prelude.rnf face
+    Prelude.rnf face
+      `Prelude.seq` Prelude.rnf similarity

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.ListWirelessGatewayTaskDefinitions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,39 +28,40 @@ module Amazonka.IoTWireless.ListWirelessGatewayTaskDefinitions
     newListWirelessGatewayTaskDefinitions,
 
     -- * Request Lenses
-    listWirelessGatewayTaskDefinitions_taskDefinitionType,
-    listWirelessGatewayTaskDefinitions_nextToken,
     listWirelessGatewayTaskDefinitions_maxResults,
+    listWirelessGatewayTaskDefinitions_nextToken,
+    listWirelessGatewayTaskDefinitions_taskDefinitionType,
 
     -- * Destructuring the Response
     ListWirelessGatewayTaskDefinitionsResponse (..),
     newListWirelessGatewayTaskDefinitionsResponse,
 
     -- * Response Lenses
-    listWirelessGatewayTaskDefinitionsResponse_taskDefinitions,
     listWirelessGatewayTaskDefinitionsResponse_nextToken,
+    listWirelessGatewayTaskDefinitionsResponse_taskDefinitions,
     listWirelessGatewayTaskDefinitionsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListWirelessGatewayTaskDefinitions' smart constructor.
 data ListWirelessGatewayTaskDefinitions = ListWirelessGatewayTaskDefinitions'
-  { -- | A filter to list only the wireless gateway task definitions that use
-    -- this task definition type.
-    taskDefinitionType :: Prelude.Maybe WirelessGatewayTaskDefinitionType,
+  { -- | The maximum number of results to return in this operation.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | To retrieve the next set of results, the @nextToken@ value from a
     -- previous response; otherwise __null__ to receive the first set of
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in this operation.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    -- | A filter to list only the wireless gateway task definitions that use
+    -- this task definition type.
+    taskDefinitionType :: Prelude.Maybe WirelessGatewayTaskDefinitionType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -72,28 +73,27 @@ data ListWirelessGatewayTaskDefinitions = ListWirelessGatewayTaskDefinitions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'taskDefinitionType', 'listWirelessGatewayTaskDefinitions_taskDefinitionType' - A filter to list only the wireless gateway task definitions that use
--- this task definition type.
+-- 'maxResults', 'listWirelessGatewayTaskDefinitions_maxResults' - The maximum number of results to return in this operation.
 --
 -- 'nextToken', 'listWirelessGatewayTaskDefinitions_nextToken' - To retrieve the next set of results, the @nextToken@ value from a
 -- previous response; otherwise __null__ to receive the first set of
 -- results.
 --
--- 'maxResults', 'listWirelessGatewayTaskDefinitions_maxResults' - The maximum number of results to return in this operation.
+-- 'taskDefinitionType', 'listWirelessGatewayTaskDefinitions_taskDefinitionType' - A filter to list only the wireless gateway task definitions that use
+-- this task definition type.
 newListWirelessGatewayTaskDefinitions ::
   ListWirelessGatewayTaskDefinitions
 newListWirelessGatewayTaskDefinitions =
   ListWirelessGatewayTaskDefinitions'
-    { taskDefinitionType =
+    { maxResults =
         Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      taskDefinitionType = Prelude.Nothing
     }
 
--- | A filter to list only the wireless gateway task definitions that use
--- this task definition type.
-listWirelessGatewayTaskDefinitions_taskDefinitionType :: Lens.Lens' ListWirelessGatewayTaskDefinitions (Prelude.Maybe WirelessGatewayTaskDefinitionType)
-listWirelessGatewayTaskDefinitions_taskDefinitionType = Lens.lens (\ListWirelessGatewayTaskDefinitions' {taskDefinitionType} -> taskDefinitionType) (\s@ListWirelessGatewayTaskDefinitions' {} a -> s {taskDefinitionType = a} :: ListWirelessGatewayTaskDefinitions)
+-- | The maximum number of results to return in this operation.
+listWirelessGatewayTaskDefinitions_maxResults :: Lens.Lens' ListWirelessGatewayTaskDefinitions (Prelude.Maybe Prelude.Natural)
+listWirelessGatewayTaskDefinitions_maxResults = Lens.lens (\ListWirelessGatewayTaskDefinitions' {maxResults} -> maxResults) (\s@ListWirelessGatewayTaskDefinitions' {} a -> s {maxResults = a} :: ListWirelessGatewayTaskDefinitions)
 
 -- | To retrieve the next set of results, the @nextToken@ value from a
 -- previous response; otherwise __null__ to receive the first set of
@@ -101,9 +101,10 @@ listWirelessGatewayTaskDefinitions_taskDefinitionType = Lens.lens (\ListWireless
 listWirelessGatewayTaskDefinitions_nextToken :: Lens.Lens' ListWirelessGatewayTaskDefinitions (Prelude.Maybe Prelude.Text)
 listWirelessGatewayTaskDefinitions_nextToken = Lens.lens (\ListWirelessGatewayTaskDefinitions' {nextToken} -> nextToken) (\s@ListWirelessGatewayTaskDefinitions' {} a -> s {nextToken = a} :: ListWirelessGatewayTaskDefinitions)
 
--- | The maximum number of results to return in this operation.
-listWirelessGatewayTaskDefinitions_maxResults :: Lens.Lens' ListWirelessGatewayTaskDefinitions (Prelude.Maybe Prelude.Natural)
-listWirelessGatewayTaskDefinitions_maxResults = Lens.lens (\ListWirelessGatewayTaskDefinitions' {maxResults} -> maxResults) (\s@ListWirelessGatewayTaskDefinitions' {} a -> s {maxResults = a} :: ListWirelessGatewayTaskDefinitions)
+-- | A filter to list only the wireless gateway task definitions that use
+-- this task definition type.
+listWirelessGatewayTaskDefinitions_taskDefinitionType :: Lens.Lens' ListWirelessGatewayTaskDefinitions (Prelude.Maybe WirelessGatewayTaskDefinitionType)
+listWirelessGatewayTaskDefinitions_taskDefinitionType = Lens.lens (\ListWirelessGatewayTaskDefinitions' {taskDefinitionType} -> taskDefinitionType) (\s@ListWirelessGatewayTaskDefinitions' {} a -> s {taskDefinitionType = a} :: ListWirelessGatewayTaskDefinitions)
 
 instance
   Core.AWSRequest
@@ -112,15 +113,16 @@ instance
   type
     AWSResponse ListWirelessGatewayTaskDefinitions =
       ListWirelessGatewayTaskDefinitionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListWirelessGatewayTaskDefinitionsResponse'
-            Prelude.<$> ( x Core..?> "TaskDefinitions"
-                            Core..!@ Prelude.mempty
-                        )
-              Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
+              Prelude.<*> ( x Data..?> "TaskDefinitions"
+                              Core..!@ Prelude.mempty
+                          )
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -131,50 +133,50 @@ instance
   hashWithSalt
     _salt
     ListWirelessGatewayTaskDefinitions' {..} =
-      _salt `Prelude.hashWithSalt` taskDefinitionType
+      _salt `Prelude.hashWithSalt` maxResults
         `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` taskDefinitionType
 
 instance
   Prelude.NFData
     ListWirelessGatewayTaskDefinitions
   where
   rnf ListWirelessGatewayTaskDefinitions' {..} =
-    Prelude.rnf taskDefinitionType
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf taskDefinitionType
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListWirelessGatewayTaskDefinitions
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     ListWirelessGatewayTaskDefinitions
   where
   toPath =
     Prelude.const "/wireless-gateway-task-definitions"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ListWirelessGatewayTaskDefinitions
   where
   toQuery ListWirelessGatewayTaskDefinitions' {..} =
     Prelude.mconcat
-      [ "taskDefinitionType" Core.=: taskDefinitionType,
-        "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "taskDefinitionType" Data.=: taskDefinitionType
       ]
 
 -- | /See:/ 'newListWirelessGatewayTaskDefinitionsResponse' smart constructor.
 data ListWirelessGatewayTaskDefinitionsResponse = ListWirelessGatewayTaskDefinitionsResponse'
-  { -- | The list of task definitions.
-    taskDefinitions :: Prelude.Maybe [UpdateWirelessGatewayTaskEntry],
-    -- | The token to use to get the next set of results, or __null__ if there
+  { -- | The token to use to get the next set of results, or __null__ if there
     -- are no additional results.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of task definitions.
+    taskDefinitions :: Prelude.Maybe [UpdateWirelessGatewayTaskEntry],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -188,10 +190,10 @@ data ListWirelessGatewayTaskDefinitionsResponse = ListWirelessGatewayTaskDefinit
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'taskDefinitions', 'listWirelessGatewayTaskDefinitionsResponse_taskDefinitions' - The list of task definitions.
---
 -- 'nextToken', 'listWirelessGatewayTaskDefinitionsResponse_nextToken' - The token to use to get the next set of results, or __null__ if there
 -- are no additional results.
+--
+-- 'taskDefinitions', 'listWirelessGatewayTaskDefinitionsResponse_taskDefinitions' - The list of task definitions.
 --
 -- 'httpStatus', 'listWirelessGatewayTaskDefinitionsResponse_httpStatus' - The response's http status code.
 newListWirelessGatewayTaskDefinitionsResponse ::
@@ -201,20 +203,21 @@ newListWirelessGatewayTaskDefinitionsResponse ::
 newListWirelessGatewayTaskDefinitionsResponse
   pHttpStatus_ =
     ListWirelessGatewayTaskDefinitionsResponse'
-      { taskDefinitions =
+      { nextToken =
           Prelude.Nothing,
-        nextToken = Prelude.Nothing,
+        taskDefinitions =
+          Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | The list of task definitions.
-listWirelessGatewayTaskDefinitionsResponse_taskDefinitions :: Lens.Lens' ListWirelessGatewayTaskDefinitionsResponse (Prelude.Maybe [UpdateWirelessGatewayTaskEntry])
-listWirelessGatewayTaskDefinitionsResponse_taskDefinitions = Lens.lens (\ListWirelessGatewayTaskDefinitionsResponse' {taskDefinitions} -> taskDefinitions) (\s@ListWirelessGatewayTaskDefinitionsResponse' {} a -> s {taskDefinitions = a} :: ListWirelessGatewayTaskDefinitionsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token to use to get the next set of results, or __null__ if there
 -- are no additional results.
 listWirelessGatewayTaskDefinitionsResponse_nextToken :: Lens.Lens' ListWirelessGatewayTaskDefinitionsResponse (Prelude.Maybe Prelude.Text)
 listWirelessGatewayTaskDefinitionsResponse_nextToken = Lens.lens (\ListWirelessGatewayTaskDefinitionsResponse' {nextToken} -> nextToken) (\s@ListWirelessGatewayTaskDefinitionsResponse' {} a -> s {nextToken = a} :: ListWirelessGatewayTaskDefinitionsResponse)
+
+-- | The list of task definitions.
+listWirelessGatewayTaskDefinitionsResponse_taskDefinitions :: Lens.Lens' ListWirelessGatewayTaskDefinitionsResponse (Prelude.Maybe [UpdateWirelessGatewayTaskEntry])
+listWirelessGatewayTaskDefinitionsResponse_taskDefinitions = Lens.lens (\ListWirelessGatewayTaskDefinitionsResponse' {taskDefinitions} -> taskDefinitions) (\s@ListWirelessGatewayTaskDefinitionsResponse' {} a -> s {taskDefinitions = a} :: ListWirelessGatewayTaskDefinitionsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listWirelessGatewayTaskDefinitionsResponse_httpStatus :: Lens.Lens' ListWirelessGatewayTaskDefinitionsResponse Prelude.Int
@@ -225,6 +228,6 @@ instance
     ListWirelessGatewayTaskDefinitionsResponse
   where
   rnf ListWirelessGatewayTaskDefinitionsResponse' {..} =
-    Prelude.rnf taskDefinitions
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf taskDefinitions
       `Prelude.seq` Prelude.rnf httpStatus

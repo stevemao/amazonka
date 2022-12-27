@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MQ.Types.LdapServerMetadataInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MQ.Types.LdapServerMetadataInput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Optional. The metadata of the LDAP server used to authenticate and
@@ -30,17 +31,17 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newLdapServerMetadataInput' smart constructor.
 data LdapServerMetadataInput = LdapServerMetadataInput'
-  { -- | Specifies the name of the LDAP attribute for the user group membership.
+  { -- | Specifies the LDAP attribute that identifies the group name attribute in
+    -- the object returned from the group membership query.
+    roleName :: Prelude.Maybe Prelude.Text,
+    -- | The directory search scope for the role. If set to true, scope is to
+    -- search the entire subtree.
+    roleSearchSubtree :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies the name of the LDAP attribute for the user group membership.
     userRoleName :: Prelude.Maybe Prelude.Text,
     -- | The directory search scope for the user. If set to true, scope is to
     -- search the entire subtree.
     userSearchSubtree :: Prelude.Maybe Prelude.Bool,
-    -- | The directory search scope for the role. If set to true, scope is to
-    -- search the entire subtree.
-    roleSearchSubtree :: Prelude.Maybe Prelude.Bool,
-    -- | Specifies the LDAP attribute that identifies the group name attribute in
-    -- the object returned from the group membership query.
-    roleName :: Prelude.Maybe Prelude.Text,
     -- | Specifies the location of the LDAP server such as AWS Directory Service
     -- for Microsoft Active Directory . Optional failover server.
     hosts :: [Prelude.Text],
@@ -90,16 +91,16 @@ data LdapServerMetadataInput = LdapServerMetadataInput'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'userRoleName', 'ldapServerMetadataInput_userRoleName' - Specifies the name of the LDAP attribute for the user group membership.
---
--- 'userSearchSubtree', 'ldapServerMetadataInput_userSearchSubtree' - The directory search scope for the user. If set to true, scope is to
--- search the entire subtree.
+-- 'roleName', 'ldapServerMetadataInput_roleName' - Specifies the LDAP attribute that identifies the group name attribute in
+-- the object returned from the group membership query.
 --
 -- 'roleSearchSubtree', 'ldapServerMetadataInput_roleSearchSubtree' - The directory search scope for the role. If set to true, scope is to
 -- search the entire subtree.
 --
--- 'roleName', 'ldapServerMetadataInput_roleName' - Specifies the LDAP attribute that identifies the group name attribute in
--- the object returned from the group membership query.
+-- 'userRoleName', 'ldapServerMetadataInput_userRoleName' - Specifies the name of the LDAP attribute for the user group membership.
+--
+-- 'userSearchSubtree', 'ldapServerMetadataInput_userSearchSubtree' - The directory search scope for the user. If set to true, scope is to
+-- search the entire subtree.
 --
 -- 'hosts', 'ldapServerMetadataInput_hosts' - Specifies the location of the LDAP server such as AWS Directory Service
 -- for Microsoft Active Directory . Optional failover server.
@@ -160,11 +161,11 @@ newLdapServerMetadataInput
   pRoleBase_
   pServiceAccountPassword_ =
     LdapServerMetadataInput'
-      { userRoleName =
+      { roleName =
           Prelude.Nothing,
-        userSearchSubtree = Prelude.Nothing,
         roleSearchSubtree = Prelude.Nothing,
-        roleName = Prelude.Nothing,
+        userRoleName = Prelude.Nothing,
+        userSearchSubtree = Prelude.Nothing,
         hosts = Prelude.mempty,
         userSearchMatching = pUserSearchMatching_,
         userBase = pUserBase_,
@@ -174,6 +175,16 @@ newLdapServerMetadataInput
         serviceAccountPassword = pServiceAccountPassword_
       }
 
+-- | Specifies the LDAP attribute that identifies the group name attribute in
+-- the object returned from the group membership query.
+ldapServerMetadataInput_roleName :: Lens.Lens' LdapServerMetadataInput (Prelude.Maybe Prelude.Text)
+ldapServerMetadataInput_roleName = Lens.lens (\LdapServerMetadataInput' {roleName} -> roleName) (\s@LdapServerMetadataInput' {} a -> s {roleName = a} :: LdapServerMetadataInput)
+
+-- | The directory search scope for the role. If set to true, scope is to
+-- search the entire subtree.
+ldapServerMetadataInput_roleSearchSubtree :: Lens.Lens' LdapServerMetadataInput (Prelude.Maybe Prelude.Bool)
+ldapServerMetadataInput_roleSearchSubtree = Lens.lens (\LdapServerMetadataInput' {roleSearchSubtree} -> roleSearchSubtree) (\s@LdapServerMetadataInput' {} a -> s {roleSearchSubtree = a} :: LdapServerMetadataInput)
+
 -- | Specifies the name of the LDAP attribute for the user group membership.
 ldapServerMetadataInput_userRoleName :: Lens.Lens' LdapServerMetadataInput (Prelude.Maybe Prelude.Text)
 ldapServerMetadataInput_userRoleName = Lens.lens (\LdapServerMetadataInput' {userRoleName} -> userRoleName) (\s@LdapServerMetadataInput' {} a -> s {userRoleName = a} :: LdapServerMetadataInput)
@@ -182,16 +193,6 @@ ldapServerMetadataInput_userRoleName = Lens.lens (\LdapServerMetadataInput' {use
 -- search the entire subtree.
 ldapServerMetadataInput_userSearchSubtree :: Lens.Lens' LdapServerMetadataInput (Prelude.Maybe Prelude.Bool)
 ldapServerMetadataInput_userSearchSubtree = Lens.lens (\LdapServerMetadataInput' {userSearchSubtree} -> userSearchSubtree) (\s@LdapServerMetadataInput' {} a -> s {userSearchSubtree = a} :: LdapServerMetadataInput)
-
--- | The directory search scope for the role. If set to true, scope is to
--- search the entire subtree.
-ldapServerMetadataInput_roleSearchSubtree :: Lens.Lens' LdapServerMetadataInput (Prelude.Maybe Prelude.Bool)
-ldapServerMetadataInput_roleSearchSubtree = Lens.lens (\LdapServerMetadataInput' {roleSearchSubtree} -> roleSearchSubtree) (\s@LdapServerMetadataInput' {} a -> s {roleSearchSubtree = a} :: LdapServerMetadataInput)
-
--- | Specifies the LDAP attribute that identifies the group name attribute in
--- the object returned from the group membership query.
-ldapServerMetadataInput_roleName :: Lens.Lens' LdapServerMetadataInput (Prelude.Maybe Prelude.Text)
-ldapServerMetadataInput_roleName = Lens.lens (\LdapServerMetadataInput' {roleName} -> roleName) (\s@LdapServerMetadataInput' {} a -> s {roleName = a} :: LdapServerMetadataInput)
 
 -- | Specifies the location of the LDAP server such as AWS Directory Service
 -- for Microsoft Active Directory . Optional failover server.
@@ -247,10 +248,10 @@ ldapServerMetadataInput_serviceAccountPassword = Lens.lens (\LdapServerMetadataI
 
 instance Prelude.Hashable LdapServerMetadataInput where
   hashWithSalt _salt LdapServerMetadataInput' {..} =
-    _salt `Prelude.hashWithSalt` userRoleName
-      `Prelude.hashWithSalt` userSearchSubtree
+    _salt `Prelude.hashWithSalt` roleName
       `Prelude.hashWithSalt` roleSearchSubtree
-      `Prelude.hashWithSalt` roleName
+      `Prelude.hashWithSalt` userRoleName
+      `Prelude.hashWithSalt` userSearchSubtree
       `Prelude.hashWithSalt` hosts
       `Prelude.hashWithSalt` userSearchMatching
       `Prelude.hashWithSalt` userBase
@@ -261,10 +262,10 @@ instance Prelude.Hashable LdapServerMetadataInput where
 
 instance Prelude.NFData LdapServerMetadataInput where
   rnf LdapServerMetadataInput' {..} =
-    Prelude.rnf userRoleName
-      `Prelude.seq` Prelude.rnf userSearchSubtree
+    Prelude.rnf roleName
       `Prelude.seq` Prelude.rnf roleSearchSubtree
-      `Prelude.seq` Prelude.rnf roleName
+      `Prelude.seq` Prelude.rnf userRoleName
+      `Prelude.seq` Prelude.rnf userSearchSubtree
       `Prelude.seq` Prelude.rnf hosts
       `Prelude.seq` Prelude.rnf userSearchMatching
       `Prelude.seq` Prelude.rnf userBase
@@ -273,30 +274,30 @@ instance Prelude.NFData LdapServerMetadataInput where
       `Prelude.seq` Prelude.rnf roleBase
       `Prelude.seq` Prelude.rnf serviceAccountPassword
 
-instance Core.ToJSON LdapServerMetadataInput where
+instance Data.ToJSON LdapServerMetadataInput where
   toJSON LdapServerMetadataInput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("userRoleName" Core..=) Prelude.<$> userRoleName,
-            ("userSearchSubtree" Core..=)
-              Prelude.<$> userSearchSubtree,
-            ("roleSearchSubtree" Core..=)
+          [ ("roleName" Data..=) Prelude.<$> roleName,
+            ("roleSearchSubtree" Data..=)
               Prelude.<$> roleSearchSubtree,
-            ("roleName" Core..=) Prelude.<$> roleName,
-            Prelude.Just ("hosts" Core..= hosts),
+            ("userRoleName" Data..=) Prelude.<$> userRoleName,
+            ("userSearchSubtree" Data..=)
+              Prelude.<$> userSearchSubtree,
+            Prelude.Just ("hosts" Data..= hosts),
             Prelude.Just
-              ("userSearchMatching" Core..= userSearchMatching),
-            Prelude.Just ("userBase" Core..= userBase),
+              ("userSearchMatching" Data..= userSearchMatching),
+            Prelude.Just ("userBase" Data..= userBase),
             Prelude.Just
-              ("roleSearchMatching" Core..= roleSearchMatching),
+              ("roleSearchMatching" Data..= roleSearchMatching),
             Prelude.Just
               ( "serviceAccountUsername"
-                  Core..= serviceAccountUsername
+                  Data..= serviceAccountUsername
               ),
-            Prelude.Just ("roleBase" Core..= roleBase),
+            Prelude.Just ("roleBase" Data..= roleBase),
             Prelude.Just
               ( "serviceAccountPassword"
-                  Core..= serviceAccountPassword
+                  Data..= serviceAccountPassword
               )
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.GetLayerVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,21 +37,22 @@ module Amazonka.Lambda.GetLayerVersion
     newGetLayerVersionResponse,
 
     -- * Response Lenses
-    getLayerVersionResponse_layerVersionArn,
+    getLayerVersionResponse_compatibleArchitectures,
+    getLayerVersionResponse_compatibleRuntimes,
     getLayerVersionResponse_content,
     getLayerVersionResponse_createdDate,
-    getLayerVersionResponse_version,
-    getLayerVersionResponse_licenseInfo,
-    getLayerVersionResponse_compatibleArchitectures,
-    getLayerVersionResponse_layerArn,
     getLayerVersionResponse_description,
-    getLayerVersionResponse_compatibleRuntimes,
+    getLayerVersionResponse_layerArn,
+    getLayerVersionResponse_layerVersionArn,
+    getLayerVersionResponse_licenseInfo,
+    getLayerVersionResponse_version,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,10 +101,11 @@ instance Core.AWSRequest GetLayerVersion where
   type
     AWSResponse GetLayerVersion =
       GetLayerVersionResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetLayerVersion where
   hashWithSalt _salt GetLayerVersion' {..} =
@@ -115,17 +117,17 @@ instance Prelude.NFData GetLayerVersion where
     Prelude.rnf layerName
       `Prelude.seq` Prelude.rnf versionNumber
 
-instance Core.ToHeaders GetLayerVersion where
+instance Data.ToHeaders GetLayerVersion where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetLayerVersion where
+instance Data.ToPath GetLayerVersion where
   toPath GetLayerVersion' {..} =
     Prelude.mconcat
       [ "/2018-10-31/layers/",
-        Core.toBS layerName,
+        Data.toBS layerName,
         "/versions/",
-        Core.toBS versionNumber
+        Data.toBS versionNumber
       ]
 
-instance Core.ToQuery GetLayerVersion where
+instance Data.ToQuery GetLayerVersion where
   toQuery = Prelude.const Prelude.mempty

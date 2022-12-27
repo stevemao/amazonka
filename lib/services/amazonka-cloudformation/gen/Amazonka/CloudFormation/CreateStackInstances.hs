@@ -14,17 +14,17 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.CreateStackInstances
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Creates stack instances for the specified accounts, within the specified
--- Regions. A stack instance refers to a stack in a specific account and
--- Region. You must specify at least one value for either @Accounts@ or
--- @DeploymentTargets@, and you must specify at least one value for
--- @Regions@.
+-- Amazon Web Services Regions. A stack instance refers to a stack in a
+-- specific account and Region. You must specify at least one value for
+-- either @Accounts@ or @DeploymentTargets@, and you must specify at least
+-- one value for @Regions@.
 module Amazonka.CloudFormation.CreateStackInstances
   ( -- * Creating a Request
     CreateStackInstances (..),
@@ -33,9 +33,9 @@ module Amazonka.CloudFormation.CreateStackInstances
     -- * Request Lenses
     createStackInstances_accounts,
     createStackInstances_callAs,
-    createStackInstances_operationPreferences,
-    createStackInstances_operationId,
     createStackInstances_deploymentTargets,
+    createStackInstances_operationId,
+    createStackInstances_operationPreferences,
     createStackInstances_parameterOverrides,
     createStackInstances_stackSetName,
     createStackInstances_regions,
@@ -52,7 +52,8 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,8 +83,11 @@ data CreateStackInstances = CreateStackInstances'
     --     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator>
     --     in the /CloudFormation User Guide/.
     callAs :: Prelude.Maybe CallAs,
-    -- | Preferences for how CloudFormation performs this stack set operation.
-    operationPreferences :: Prelude.Maybe StackSetOperationPreferences,
+    -- | [Service-managed permissions] The Organizations accounts for which to
+    -- create stack instances in the specified Amazon Web Services Regions.
+    --
+    -- You can specify @Accounts@ or @DeploymentTargets@, but not both.
+    deploymentTargets :: Prelude.Maybe DeploymentTargets,
     -- | The unique identifier for this stack set operation.
     --
     -- The operation ID also functions as an idempotency token, to ensure that
@@ -97,35 +101,32 @@ data CreateStackInstances = CreateStackInstances'
     -- Repeating this stack set operation with a new operation ID retries all
     -- stack instances whose status is @OUTDATED@.
     operationId :: Prelude.Maybe Prelude.Text,
-    -- | [Service-managed permissions] The Organizations accounts for which to
-    -- create stack instances in the specified Regions.
-    --
-    -- You can specify @Accounts@ or @DeploymentTargets@, but not both.
-    deploymentTargets :: Prelude.Maybe DeploymentTargets,
+    -- | Preferences for how CloudFormation performs this stack set operation.
+    operationPreferences :: Prelude.Maybe StackSetOperationPreferences,
     -- | A list of stack set parameters whose values you want to override in the
     -- selected stack instances.
     --
     -- Any overridden parameter values will be applied to all stack instances
-    -- in the specified accounts and Regions. When specifying parameters and
-    -- their values, be aware of how CloudFormation sets parameter values
-    -- during stack instance operations:
+    -- in the specified accounts and Amazon Web Services Regions. When
+    -- specifying parameters and their values, be aware of how CloudFormation
+    -- sets parameter values during stack instance operations:
     --
     -- -   To override the current value for a parameter, include the parameter
     --     and specify its value.
     --
     -- -   To leave an overridden parameter set to its present value, include
-    --     the parameter and specify @UsePreviousValue@ as @true@. (You cannot
+    --     the parameter and specify @UsePreviousValue@ as @true@. (You can\'t
     --     specify both a value and set @UsePreviousValue@ to @true@.)
     --
     -- -   To set an overridden parameter back to the value specified in the
-    --     stack set, specify a parameter list but do not include the parameter
+    --     stack set, specify a parameter list but don\'t include the parameter
     --     in the list.
     --
-    -- -   To leave all parameters set to their present values, do not specify
+    -- -   To leave all parameters set to their present values, don\'t specify
     --     this property at all.
     --
     -- During stack set updates, any parameter values overridden for a stack
-    -- instance are not updated, but retain their overridden value.
+    -- instance aren\'t updated, but retain their overridden value.
     --
     -- You can only override the parameter /values/ that are specified in the
     -- stack set; to add or delete a parameter itself, use
@@ -135,8 +136,8 @@ data CreateStackInstances = CreateStackInstances'
     -- | The name or unique ID of the stack set that you want to create stack
     -- instances from.
     stackSetName :: Prelude.Text,
-    -- | The names of one or more Regions where you want to create stack
-    -- instances using the specified Amazon Web Services accounts.
+    -- | The names of one or more Amazon Web Services Regions where you want to
+    -- create stack instances using the specified Amazon Web Services accounts.
     regions :: [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -172,7 +173,10 @@ data CreateStackInstances = CreateStackInstances'
 --     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator>
 --     in the /CloudFormation User Guide/.
 --
--- 'operationPreferences', 'createStackInstances_operationPreferences' - Preferences for how CloudFormation performs this stack set operation.
+-- 'deploymentTargets', 'createStackInstances_deploymentTargets' - [Service-managed permissions] The Organizations accounts for which to
+-- create stack instances in the specified Amazon Web Services Regions.
+--
+-- You can specify @Accounts@ or @DeploymentTargets@, but not both.
 --
 -- 'operationId', 'createStackInstances_operationId' - The unique identifier for this stack set operation.
 --
@@ -187,35 +191,32 @@ data CreateStackInstances = CreateStackInstances'
 -- Repeating this stack set operation with a new operation ID retries all
 -- stack instances whose status is @OUTDATED@.
 --
--- 'deploymentTargets', 'createStackInstances_deploymentTargets' - [Service-managed permissions] The Organizations accounts for which to
--- create stack instances in the specified Regions.
---
--- You can specify @Accounts@ or @DeploymentTargets@, but not both.
+-- 'operationPreferences', 'createStackInstances_operationPreferences' - Preferences for how CloudFormation performs this stack set operation.
 --
 -- 'parameterOverrides', 'createStackInstances_parameterOverrides' - A list of stack set parameters whose values you want to override in the
 -- selected stack instances.
 --
 -- Any overridden parameter values will be applied to all stack instances
--- in the specified accounts and Regions. When specifying parameters and
--- their values, be aware of how CloudFormation sets parameter values
--- during stack instance operations:
+-- in the specified accounts and Amazon Web Services Regions. When
+-- specifying parameters and their values, be aware of how CloudFormation
+-- sets parameter values during stack instance operations:
 --
 -- -   To override the current value for a parameter, include the parameter
 --     and specify its value.
 --
 -- -   To leave an overridden parameter set to its present value, include
---     the parameter and specify @UsePreviousValue@ as @true@. (You cannot
+--     the parameter and specify @UsePreviousValue@ as @true@. (You can\'t
 --     specify both a value and set @UsePreviousValue@ to @true@.)
 --
 -- -   To set an overridden parameter back to the value specified in the
---     stack set, specify a parameter list but do not include the parameter
+--     stack set, specify a parameter list but don\'t include the parameter
 --     in the list.
 --
--- -   To leave all parameters set to their present values, do not specify
+-- -   To leave all parameters set to their present values, don\'t specify
 --     this property at all.
 --
 -- During stack set updates, any parameter values overridden for a stack
--- instance are not updated, but retain their overridden value.
+-- instance aren\'t updated, but retain their overridden value.
 --
 -- You can only override the parameter /values/ that are specified in the
 -- stack set; to add or delete a parameter itself, use
@@ -225,8 +226,8 @@ data CreateStackInstances = CreateStackInstances'
 -- 'stackSetName', 'createStackInstances_stackSetName' - The name or unique ID of the stack set that you want to create stack
 -- instances from.
 --
--- 'regions', 'createStackInstances_regions' - The names of one or more Regions where you want to create stack
--- instances using the specified Amazon Web Services accounts.
+-- 'regions', 'createStackInstances_regions' - The names of one or more Amazon Web Services Regions where you want to
+-- create stack instances using the specified Amazon Web Services accounts.
 newCreateStackInstances ::
   -- | 'stackSetName'
   Prelude.Text ->
@@ -235,9 +236,9 @@ newCreateStackInstances pStackSetName_ =
   CreateStackInstances'
     { accounts = Prelude.Nothing,
       callAs = Prelude.Nothing,
-      operationPreferences = Prelude.Nothing,
-      operationId = Prelude.Nothing,
       deploymentTargets = Prelude.Nothing,
+      operationId = Prelude.Nothing,
+      operationPreferences = Prelude.Nothing,
       parameterOverrides = Prelude.Nothing,
       stackSetName = pStackSetName_,
       regions = Prelude.mempty
@@ -270,9 +271,12 @@ createStackInstances_accounts = Lens.lens (\CreateStackInstances' {accounts} -> 
 createStackInstances_callAs :: Lens.Lens' CreateStackInstances (Prelude.Maybe CallAs)
 createStackInstances_callAs = Lens.lens (\CreateStackInstances' {callAs} -> callAs) (\s@CreateStackInstances' {} a -> s {callAs = a} :: CreateStackInstances)
 
--- | Preferences for how CloudFormation performs this stack set operation.
-createStackInstances_operationPreferences :: Lens.Lens' CreateStackInstances (Prelude.Maybe StackSetOperationPreferences)
-createStackInstances_operationPreferences = Lens.lens (\CreateStackInstances' {operationPreferences} -> operationPreferences) (\s@CreateStackInstances' {} a -> s {operationPreferences = a} :: CreateStackInstances)
+-- | [Service-managed permissions] The Organizations accounts for which to
+-- create stack instances in the specified Amazon Web Services Regions.
+--
+-- You can specify @Accounts@ or @DeploymentTargets@, but not both.
+createStackInstances_deploymentTargets :: Lens.Lens' CreateStackInstances (Prelude.Maybe DeploymentTargets)
+createStackInstances_deploymentTargets = Lens.lens (\CreateStackInstances' {deploymentTargets} -> deploymentTargets) (\s@CreateStackInstances' {} a -> s {deploymentTargets = a} :: CreateStackInstances)
 
 -- | The unique identifier for this stack set operation.
 --
@@ -289,37 +293,34 @@ createStackInstances_operationPreferences = Lens.lens (\CreateStackInstances' {o
 createStackInstances_operationId :: Lens.Lens' CreateStackInstances (Prelude.Maybe Prelude.Text)
 createStackInstances_operationId = Lens.lens (\CreateStackInstances' {operationId} -> operationId) (\s@CreateStackInstances' {} a -> s {operationId = a} :: CreateStackInstances)
 
--- | [Service-managed permissions] The Organizations accounts for which to
--- create stack instances in the specified Regions.
---
--- You can specify @Accounts@ or @DeploymentTargets@, but not both.
-createStackInstances_deploymentTargets :: Lens.Lens' CreateStackInstances (Prelude.Maybe DeploymentTargets)
-createStackInstances_deploymentTargets = Lens.lens (\CreateStackInstances' {deploymentTargets} -> deploymentTargets) (\s@CreateStackInstances' {} a -> s {deploymentTargets = a} :: CreateStackInstances)
+-- | Preferences for how CloudFormation performs this stack set operation.
+createStackInstances_operationPreferences :: Lens.Lens' CreateStackInstances (Prelude.Maybe StackSetOperationPreferences)
+createStackInstances_operationPreferences = Lens.lens (\CreateStackInstances' {operationPreferences} -> operationPreferences) (\s@CreateStackInstances' {} a -> s {operationPreferences = a} :: CreateStackInstances)
 
 -- | A list of stack set parameters whose values you want to override in the
 -- selected stack instances.
 --
 -- Any overridden parameter values will be applied to all stack instances
--- in the specified accounts and Regions. When specifying parameters and
--- their values, be aware of how CloudFormation sets parameter values
--- during stack instance operations:
+-- in the specified accounts and Amazon Web Services Regions. When
+-- specifying parameters and their values, be aware of how CloudFormation
+-- sets parameter values during stack instance operations:
 --
 -- -   To override the current value for a parameter, include the parameter
 --     and specify its value.
 --
 -- -   To leave an overridden parameter set to its present value, include
---     the parameter and specify @UsePreviousValue@ as @true@. (You cannot
+--     the parameter and specify @UsePreviousValue@ as @true@. (You can\'t
 --     specify both a value and set @UsePreviousValue@ to @true@.)
 --
 -- -   To set an overridden parameter back to the value specified in the
---     stack set, specify a parameter list but do not include the parameter
+--     stack set, specify a parameter list but don\'t include the parameter
 --     in the list.
 --
--- -   To leave all parameters set to their present values, do not specify
+-- -   To leave all parameters set to their present values, don\'t specify
 --     this property at all.
 --
 -- During stack set updates, any parameter values overridden for a stack
--- instance are not updated, but retain their overridden value.
+-- instance aren\'t updated, but retain their overridden value.
 --
 -- You can only override the parameter /values/ that are specified in the
 -- stack set; to add or delete a parameter itself, use
@@ -333,8 +334,8 @@ createStackInstances_parameterOverrides = Lens.lens (\CreateStackInstances' {par
 createStackInstances_stackSetName :: Lens.Lens' CreateStackInstances Prelude.Text
 createStackInstances_stackSetName = Lens.lens (\CreateStackInstances' {stackSetName} -> stackSetName) (\s@CreateStackInstances' {} a -> s {stackSetName = a} :: CreateStackInstances)
 
--- | The names of one or more Regions where you want to create stack
--- instances using the specified Amazon Web Services accounts.
+-- | The names of one or more Amazon Web Services Regions where you want to
+-- create stack instances using the specified Amazon Web Services accounts.
 createStackInstances_regions :: Lens.Lens' CreateStackInstances [Prelude.Text]
 createStackInstances_regions = Lens.lens (\CreateStackInstances' {regions} -> regions) (\s@CreateStackInstances' {} a -> s {regions = a} :: CreateStackInstances) Prelude.. Lens.coerced
 
@@ -342,13 +343,14 @@ instance Core.AWSRequest CreateStackInstances where
   type
     AWSResponse CreateStackInstances =
       CreateStackInstancesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateStackInstancesResult"
       ( \s h x ->
           CreateStackInstancesResponse'
-            Prelude.<$> (x Core..@? "OperationId")
+            Prelude.<$> (x Data..@? "OperationId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -356,9 +358,9 @@ instance Prelude.Hashable CreateStackInstances where
   hashWithSalt _salt CreateStackInstances' {..} =
     _salt `Prelude.hashWithSalt` accounts
       `Prelude.hashWithSalt` callAs
-      `Prelude.hashWithSalt` operationPreferences
-      `Prelude.hashWithSalt` operationId
       `Prelude.hashWithSalt` deploymentTargets
+      `Prelude.hashWithSalt` operationId
+      `Prelude.hashWithSalt` operationPreferences
       `Prelude.hashWithSalt` parameterOverrides
       `Prelude.hashWithSalt` stackSetName
       `Prelude.hashWithSalt` regions
@@ -367,40 +369,40 @@ instance Prelude.NFData CreateStackInstances where
   rnf CreateStackInstances' {..} =
     Prelude.rnf accounts
       `Prelude.seq` Prelude.rnf callAs
-      `Prelude.seq` Prelude.rnf operationPreferences
-      `Prelude.seq` Prelude.rnf operationId
       `Prelude.seq` Prelude.rnf deploymentTargets
+      `Prelude.seq` Prelude.rnf operationId
+      `Prelude.seq` Prelude.rnf operationPreferences
       `Prelude.seq` Prelude.rnf parameterOverrides
       `Prelude.seq` Prelude.rnf stackSetName
       `Prelude.seq` Prelude.rnf regions
 
-instance Core.ToHeaders CreateStackInstances where
+instance Data.ToHeaders CreateStackInstances where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateStackInstances where
+instance Data.ToPath CreateStackInstances where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateStackInstances where
+instance Data.ToQuery CreateStackInstances where
   toQuery CreateStackInstances' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateStackInstances" :: Prelude.ByteString),
+          Data.=: ("CreateStackInstances" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
         "Accounts"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> accounts),
-        "CallAs" Core.=: callAs,
-        "OperationPreferences" Core.=: operationPreferences,
-        "OperationId" Core.=: operationId,
-        "DeploymentTargets" Core.=: deploymentTargets,
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> accounts),
+        "CallAs" Data.=: callAs,
+        "DeploymentTargets" Data.=: deploymentTargets,
+        "OperationId" Data.=: operationId,
+        "OperationPreferences" Data.=: operationPreferences,
         "ParameterOverrides"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> parameterOverrides
             ),
-        "StackSetName" Core.=: stackSetName,
-        "Regions" Core.=: Core.toQueryList "member" regions
+        "StackSetName" Data.=: stackSetName,
+        "Regions" Data.=: Data.toQueryList "member" regions
       ]
 
 -- | /See:/ 'newCreateStackInstancesResponse' smart constructor.

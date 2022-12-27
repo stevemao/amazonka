@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MechanicalTurk.ListQualificationTypes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,10 +30,10 @@ module Amazonka.MechanicalTurk.ListQualificationTypes
     newListQualificationTypes,
 
     -- * Request Lenses
+    listQualificationTypes_maxResults,
     listQualificationTypes_mustBeOwnedByCaller,
     listQualificationTypes_nextToken,
     listQualificationTypes_query,
-    listQualificationTypes_maxResults,
     listQualificationTypes_mustBeRequestable,
 
     -- * Destructuring the Response
@@ -41,15 +41,16 @@ module Amazonka.MechanicalTurk.ListQualificationTypes
     newListQualificationTypesResponse,
 
     -- * Response Lenses
-    listQualificationTypesResponse_qualificationTypes,
     listQualificationTypesResponse_nextToken,
     listQualificationTypesResponse_numResults,
+    listQualificationTypesResponse_qualificationTypes,
     listQualificationTypesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MechanicalTurk.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -57,15 +58,15 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListQualificationTypes' smart constructor.
 data ListQualificationTypes = ListQualificationTypes'
-  { -- | Specifies that only Qualification types that the Requester created are
+  { -- | The maximum number of results to return in a single call.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Specifies that only Qualification types that the Requester created are
     -- returned. If false, the operation returns all Qualification types.
     mustBeOwnedByCaller :: Prelude.Maybe Prelude.Bool,
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | A text query against all of the searchable attributes of Qualification
     -- types.
     query :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in a single call.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | Specifies that only Qualification types that a user can request through
     -- the Amazon Mechanical Turk web site, such as by taking a Qualification
     -- test, are returned as results of the search. Some Qualification types,
@@ -84,6 +85,8 @@ data ListQualificationTypes = ListQualificationTypes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listQualificationTypes_maxResults' - The maximum number of results to return in a single call.
+--
 -- 'mustBeOwnedByCaller', 'listQualificationTypes_mustBeOwnedByCaller' - Specifies that only Qualification types that the Requester created are
 -- returned. If false, the operation returns all Qualification types.
 --
@@ -91,8 +94,6 @@ data ListQualificationTypes = ListQualificationTypes'
 --
 -- 'query', 'listQualificationTypes_query' - A text query against all of the searchable attributes of Qualification
 -- types.
---
--- 'maxResults', 'listQualificationTypes_maxResults' - The maximum number of results to return in a single call.
 --
 -- 'mustBeRequestable', 'listQualificationTypes_mustBeRequestable' - Specifies that only Qualification types that a user can request through
 -- the Amazon Mechanical Turk web site, such as by taking a Qualification
@@ -106,13 +107,17 @@ newListQualificationTypes ::
   ListQualificationTypes
 newListQualificationTypes pMustBeRequestable_ =
   ListQualificationTypes'
-    { mustBeOwnedByCaller =
+    { maxResults =
         Prelude.Nothing,
+      mustBeOwnedByCaller = Prelude.Nothing,
       nextToken = Prelude.Nothing,
       query = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
       mustBeRequestable = pMustBeRequestable_
     }
+
+-- | The maximum number of results to return in a single call.
+listQualificationTypes_maxResults :: Lens.Lens' ListQualificationTypes (Prelude.Maybe Prelude.Natural)
+listQualificationTypes_maxResults = Lens.lens (\ListQualificationTypes' {maxResults} -> maxResults) (\s@ListQualificationTypes' {} a -> s {maxResults = a} :: ListQualificationTypes)
 
 -- | Specifies that only Qualification types that the Requester created are
 -- returned. If false, the operation returns all Qualification types.
@@ -127,10 +132,6 @@ listQualificationTypes_nextToken = Lens.lens (\ListQualificationTypes' {nextToke
 -- types.
 listQualificationTypes_query :: Lens.Lens' ListQualificationTypes (Prelude.Maybe Prelude.Text)
 listQualificationTypes_query = Lens.lens (\ListQualificationTypes' {query} -> query) (\s@ListQualificationTypes' {} a -> s {query = a} :: ListQualificationTypes)
-
--- | The maximum number of results to return in a single call.
-listQualificationTypes_maxResults :: Lens.Lens' ListQualificationTypes (Prelude.Maybe Prelude.Natural)
-listQualificationTypes_maxResults = Lens.lens (\ListQualificationTypes' {maxResults} -> maxResults) (\s@ListQualificationTypes' {} a -> s {maxResults = a} :: ListQualificationTypes)
 
 -- | Specifies that only Qualification types that a user can request through
 -- the Amazon Mechanical Turk web site, such as by taking a Qualification
@@ -167,78 +168,79 @@ instance Core.AWSRequest ListQualificationTypes where
   type
     AWSResponse ListQualificationTypes =
       ListQualificationTypesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListQualificationTypesResponse'
-            Prelude.<$> ( x Core..?> "QualificationTypes"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "NumResults")
+            Prelude.<*> ( x Data..?> "QualificationTypes"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "NumResults")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListQualificationTypes where
   hashWithSalt _salt ListQualificationTypes' {..} =
-    _salt `Prelude.hashWithSalt` mustBeOwnedByCaller
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` mustBeOwnedByCaller
       `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` query
-      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` mustBeRequestable
 
 instance Prelude.NFData ListQualificationTypes where
   rnf ListQualificationTypes' {..} =
-    Prelude.rnf mustBeOwnedByCaller
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf mustBeOwnedByCaller
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf query
-      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf mustBeRequestable
 
-instance Core.ToHeaders ListQualificationTypes where
+instance Data.ToHeaders ListQualificationTypes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "MTurkRequesterServiceV20170117.ListQualificationTypes" ::
+              Data.=# ( "MTurkRequesterServiceV20170117.ListQualificationTypes" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListQualificationTypes where
+instance Data.ToJSON ListQualificationTypes where
   toJSON ListQualificationTypes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MustBeOwnedByCaller" Core..=)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("MustBeOwnedByCaller" Data..=)
               Prelude.<$> mustBeOwnedByCaller,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Query" Core..=) Prelude.<$> query,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("Query" Data..=) Prelude.<$> query,
             Prelude.Just
-              ("MustBeRequestable" Core..= mustBeRequestable)
+              ("MustBeRequestable" Data..= mustBeRequestable)
           ]
       )
 
-instance Core.ToPath ListQualificationTypes where
+instance Data.ToPath ListQualificationTypes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListQualificationTypes where
+instance Data.ToQuery ListQualificationTypes where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListQualificationTypesResponse' smart constructor.
 data ListQualificationTypesResponse = ListQualificationTypesResponse'
-  { -- | The list of QualificationType elements returned by the query.
-    qualificationTypes :: Prelude.Maybe [QualificationType],
-    nextToken :: Prelude.Maybe Prelude.Text,
+  { nextToken :: Prelude.Maybe Prelude.Text,
     -- | The number of Qualification types on this page in the filtered results
     -- list, equivalent to the number of types this operation returns.
     numResults :: Prelude.Maybe Prelude.Int,
+    -- | The list of QualificationType elements returned by the query.
+    qualificationTypes :: Prelude.Maybe [QualificationType],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -252,12 +254,12 @@ data ListQualificationTypesResponse = ListQualificationTypesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'qualificationTypes', 'listQualificationTypesResponse_qualificationTypes' - The list of QualificationType elements returned by the query.
---
 -- 'nextToken', 'listQualificationTypesResponse_nextToken' - Undocumented member.
 --
 -- 'numResults', 'listQualificationTypesResponse_numResults' - The number of Qualification types on this page in the filtered results
 -- list, equivalent to the number of types this operation returns.
+--
+-- 'qualificationTypes', 'listQualificationTypesResponse_qualificationTypes' - The list of QualificationType elements returned by the query.
 --
 -- 'httpStatus', 'listQualificationTypesResponse_httpStatus' - The response's http status code.
 newListQualificationTypesResponse ::
@@ -266,16 +268,12 @@ newListQualificationTypesResponse ::
   ListQualificationTypesResponse
 newListQualificationTypesResponse pHttpStatus_ =
   ListQualificationTypesResponse'
-    { qualificationTypes =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       numResults = Prelude.Nothing,
+      qualificationTypes = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The list of QualificationType elements returned by the query.
-listQualificationTypesResponse_qualificationTypes :: Lens.Lens' ListQualificationTypesResponse (Prelude.Maybe [QualificationType])
-listQualificationTypesResponse_qualificationTypes = Lens.lens (\ListQualificationTypesResponse' {qualificationTypes} -> qualificationTypes) (\s@ListQualificationTypesResponse' {} a -> s {qualificationTypes = a} :: ListQualificationTypesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | Undocumented member.
 listQualificationTypesResponse_nextToken :: Lens.Lens' ListQualificationTypesResponse (Prelude.Maybe Prelude.Text)
@@ -286,6 +284,10 @@ listQualificationTypesResponse_nextToken = Lens.lens (\ListQualificationTypesRes
 listQualificationTypesResponse_numResults :: Lens.Lens' ListQualificationTypesResponse (Prelude.Maybe Prelude.Int)
 listQualificationTypesResponse_numResults = Lens.lens (\ListQualificationTypesResponse' {numResults} -> numResults) (\s@ListQualificationTypesResponse' {} a -> s {numResults = a} :: ListQualificationTypesResponse)
 
+-- | The list of QualificationType elements returned by the query.
+listQualificationTypesResponse_qualificationTypes :: Lens.Lens' ListQualificationTypesResponse (Prelude.Maybe [QualificationType])
+listQualificationTypesResponse_qualificationTypes = Lens.lens (\ListQualificationTypesResponse' {qualificationTypes} -> qualificationTypes) (\s@ListQualificationTypesResponse' {} a -> s {qualificationTypes = a} :: ListQualificationTypesResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The response's http status code.
 listQualificationTypesResponse_httpStatus :: Lens.Lens' ListQualificationTypesResponse Prelude.Int
 listQualificationTypesResponse_httpStatus = Lens.lens (\ListQualificationTypesResponse' {httpStatus} -> httpStatus) (\s@ListQualificationTypesResponse' {} a -> s {httpStatus = a} :: ListQualificationTypesResponse)
@@ -295,7 +297,7 @@ instance
     ListQualificationTypesResponse
   where
   rnf ListQualificationTypesResponse' {..} =
-    Prelude.rnf qualificationTypes
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf numResults
+      `Prelude.seq` Prelude.rnf qualificationTypes
       `Prelude.seq` Prelude.rnf httpStatus

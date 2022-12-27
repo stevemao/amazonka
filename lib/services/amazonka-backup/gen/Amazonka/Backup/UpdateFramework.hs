@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Backup.UpdateFramework
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,9 +28,9 @@ module Amazonka.Backup.UpdateFramework
     newUpdateFramework,
 
     -- * Request Lenses
-    updateFramework_idempotencyToken,
-    updateFramework_frameworkDescription,
     updateFramework_frameworkControls,
+    updateFramework_frameworkDescription,
+    updateFramework_idempotencyToken,
     updateFramework_frameworkName,
 
     -- * Destructuring the Response
@@ -47,24 +47,25 @@ where
 
 import Amazonka.Backup.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateFramework' smart constructor.
 data UpdateFramework = UpdateFramework'
-  { -- | A customer-chosen string that you can use to distinguish between
+  { -- | A list of the controls that make up the framework. Each control in the
+    -- list has a name, input parameters, and scope.
+    frameworkControls :: Prelude.Maybe [FrameworkControl],
+    -- | An optional description of the framework with a maximum 1,024
+    -- characters.
+    frameworkDescription :: Prelude.Maybe Prelude.Text,
+    -- | A customer-chosen string that you can use to distinguish between
     -- otherwise identical calls to @UpdateFrameworkInput@. Retrying a
     -- successful request with the same idempotency token results in a success
     -- message with no action taken.
     idempotencyToken :: Prelude.Maybe Prelude.Text,
-    -- | An optional description of the framework with a maximum 1,024
-    -- characters.
-    frameworkDescription :: Prelude.Maybe Prelude.Text,
-    -- | A list of the controls that make up the framework. Each control in the
-    -- list has a name, input parameters, and scope.
-    frameworkControls :: Prelude.Maybe [FrameworkControl],
     -- | The unique name of a framework. This name is between 1 and 256
     -- characters, starting with a letter, and consisting of letters (a-z,
     -- A-Z), numbers (0-9), and underscores (_).
@@ -80,16 +81,16 @@ data UpdateFramework = UpdateFramework'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'idempotencyToken', 'updateFramework_idempotencyToken' - A customer-chosen string that you can use to distinguish between
--- otherwise identical calls to @UpdateFrameworkInput@. Retrying a
--- successful request with the same idempotency token results in a success
--- message with no action taken.
+-- 'frameworkControls', 'updateFramework_frameworkControls' - A list of the controls that make up the framework. Each control in the
+-- list has a name, input parameters, and scope.
 --
 -- 'frameworkDescription', 'updateFramework_frameworkDescription' - An optional description of the framework with a maximum 1,024
 -- characters.
 --
--- 'frameworkControls', 'updateFramework_frameworkControls' - A list of the controls that make up the framework. Each control in the
--- list has a name, input parameters, and scope.
+-- 'idempotencyToken', 'updateFramework_idempotencyToken' - A customer-chosen string that you can use to distinguish between
+-- otherwise identical calls to @UpdateFrameworkInput@. Retrying a
+-- successful request with the same idempotency token results in a success
+-- message with no action taken.
 --
 -- 'frameworkName', 'updateFramework_frameworkName' - The unique name of a framework. This name is between 1 and 256
 -- characters, starting with a letter, and consisting of letters (a-z,
@@ -100,12 +101,22 @@ newUpdateFramework ::
   UpdateFramework
 newUpdateFramework pFrameworkName_ =
   UpdateFramework'
-    { idempotencyToken =
+    { frameworkControls =
         Prelude.Nothing,
       frameworkDescription = Prelude.Nothing,
-      frameworkControls = Prelude.Nothing,
+      idempotencyToken = Prelude.Nothing,
       frameworkName = pFrameworkName_
     }
+
+-- | A list of the controls that make up the framework. Each control in the
+-- list has a name, input parameters, and scope.
+updateFramework_frameworkControls :: Lens.Lens' UpdateFramework (Prelude.Maybe [FrameworkControl])
+updateFramework_frameworkControls = Lens.lens (\UpdateFramework' {frameworkControls} -> frameworkControls) (\s@UpdateFramework' {} a -> s {frameworkControls = a} :: UpdateFramework) Prelude.. Lens.mapping Lens.coerced
+
+-- | An optional description of the framework with a maximum 1,024
+-- characters.
+updateFramework_frameworkDescription :: Lens.Lens' UpdateFramework (Prelude.Maybe Prelude.Text)
+updateFramework_frameworkDescription = Lens.lens (\UpdateFramework' {frameworkDescription} -> frameworkDescription) (\s@UpdateFramework' {} a -> s {frameworkDescription = a} :: UpdateFramework)
 
 -- | A customer-chosen string that you can use to distinguish between
 -- otherwise identical calls to @UpdateFrameworkInput@. Retrying a
@@ -113,16 +124,6 @@ newUpdateFramework pFrameworkName_ =
 -- message with no action taken.
 updateFramework_idempotencyToken :: Lens.Lens' UpdateFramework (Prelude.Maybe Prelude.Text)
 updateFramework_idempotencyToken = Lens.lens (\UpdateFramework' {idempotencyToken} -> idempotencyToken) (\s@UpdateFramework' {} a -> s {idempotencyToken = a} :: UpdateFramework)
-
--- | An optional description of the framework with a maximum 1,024
--- characters.
-updateFramework_frameworkDescription :: Lens.Lens' UpdateFramework (Prelude.Maybe Prelude.Text)
-updateFramework_frameworkDescription = Lens.lens (\UpdateFramework' {frameworkDescription} -> frameworkDescription) (\s@UpdateFramework' {} a -> s {frameworkDescription = a} :: UpdateFramework)
-
--- | A list of the controls that make up the framework. Each control in the
--- list has a name, input parameters, and scope.
-updateFramework_frameworkControls :: Lens.Lens' UpdateFramework (Prelude.Maybe [FrameworkControl])
-updateFramework_frameworkControls = Lens.lens (\UpdateFramework' {frameworkControls} -> frameworkControls) (\s@UpdateFramework' {} a -> s {frameworkControls = a} :: UpdateFramework) Prelude.. Lens.mapping Lens.coerced
 
 -- | The unique name of a framework. This name is between 1 and 256
 -- characters, starting with a letter, and consisting of letters (a-z,
@@ -134,70 +135,71 @@ instance Core.AWSRequest UpdateFramework where
   type
     AWSResponse UpdateFramework =
       UpdateFrameworkResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateFrameworkResponse'
-            Prelude.<$> (x Core..?> "CreationTime")
-            Prelude.<*> (x Core..?> "FrameworkArn")
-            Prelude.<*> (x Core..?> "FrameworkName")
+            Prelude.<$> (x Data..?> "CreationTime")
+            Prelude.<*> (x Data..?> "FrameworkArn")
+            Prelude.<*> (x Data..?> "FrameworkName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateFramework where
   hashWithSalt _salt UpdateFramework' {..} =
-    _salt `Prelude.hashWithSalt` idempotencyToken
+    _salt `Prelude.hashWithSalt` frameworkControls
       `Prelude.hashWithSalt` frameworkDescription
-      `Prelude.hashWithSalt` frameworkControls
+      `Prelude.hashWithSalt` idempotencyToken
       `Prelude.hashWithSalt` frameworkName
 
 instance Prelude.NFData UpdateFramework where
   rnf UpdateFramework' {..} =
-    Prelude.rnf idempotencyToken
+    Prelude.rnf frameworkControls
       `Prelude.seq` Prelude.rnf frameworkDescription
-      `Prelude.seq` Prelude.rnf frameworkControls
+      `Prelude.seq` Prelude.rnf idempotencyToken
       `Prelude.seq` Prelude.rnf frameworkName
 
-instance Core.ToHeaders UpdateFramework where
+instance Data.ToHeaders UpdateFramework where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateFramework where
+instance Data.ToJSON UpdateFramework where
   toJSON UpdateFramework' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("IdempotencyToken" Core..=)
-              Prelude.<$> idempotencyToken,
-            ("FrameworkDescription" Core..=)
+          [ ("FrameworkControls" Data..=)
+              Prelude.<$> frameworkControls,
+            ("FrameworkDescription" Data..=)
               Prelude.<$> frameworkDescription,
-            ("FrameworkControls" Core..=)
-              Prelude.<$> frameworkControls
+            ("IdempotencyToken" Data..=)
+              Prelude.<$> idempotencyToken
           ]
       )
 
-instance Core.ToPath UpdateFramework where
+instance Data.ToPath UpdateFramework where
   toPath UpdateFramework' {..} =
     Prelude.mconcat
-      ["/audit/frameworks/", Core.toBS frameworkName]
+      ["/audit/frameworks/", Data.toBS frameworkName]
 
-instance Core.ToQuery UpdateFramework where
+instance Data.ToQuery UpdateFramework where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateFrameworkResponse' smart constructor.
 data UpdateFrameworkResponse = UpdateFrameworkResponse'
-  { -- | The date and time that a framework is created, in Unix format and
-    -- Coordinated Universal Time (UTC). The value of @CreationTime@ is
-    -- accurate to milliseconds. For example, the value 1516925490.087
-    -- represents Friday, January 26, 2018 12:11:30.087 AM.
-    creationTime :: Prelude.Maybe Core.POSIX,
+  { -- | The date and time that a framework is created, in ISO 8601
+    -- representation. The value of @CreationTime@ is accurate to milliseconds.
+    -- For example, 2020-07-10T15:00:00.000-08:00 represents the 10th of July
+    -- 2020 at 3:00 PM 8 hours behind UTC.
+    creationTime :: Prelude.Maybe Data.POSIX,
     -- | An Amazon Resource Name (ARN) that uniquely identifies a resource. The
     -- format of the ARN depends on the resource type.
     frameworkArn :: Prelude.Maybe Prelude.Text,
@@ -218,10 +220,10 @@ data UpdateFrameworkResponse = UpdateFrameworkResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'creationTime', 'updateFrameworkResponse_creationTime' - The date and time that a framework is created, in Unix format and
--- Coordinated Universal Time (UTC). The value of @CreationTime@ is
--- accurate to milliseconds. For example, the value 1516925490.087
--- represents Friday, January 26, 2018 12:11:30.087 AM.
+-- 'creationTime', 'updateFrameworkResponse_creationTime' - The date and time that a framework is created, in ISO 8601
+-- representation. The value of @CreationTime@ is accurate to milliseconds.
+-- For example, 2020-07-10T15:00:00.000-08:00 represents the 10th of July
+-- 2020 at 3:00 PM 8 hours behind UTC.
 --
 -- 'frameworkArn', 'updateFrameworkResponse_frameworkArn' - An Amazon Resource Name (ARN) that uniquely identifies a resource. The
 -- format of the ARN depends on the resource type.
@@ -244,12 +246,12 @@ newUpdateFrameworkResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The date and time that a framework is created, in Unix format and
--- Coordinated Universal Time (UTC). The value of @CreationTime@ is
--- accurate to milliseconds. For example, the value 1516925490.087
--- represents Friday, January 26, 2018 12:11:30.087 AM.
+-- | The date and time that a framework is created, in ISO 8601
+-- representation. The value of @CreationTime@ is accurate to milliseconds.
+-- For example, 2020-07-10T15:00:00.000-08:00 represents the 10th of July
+-- 2020 at 3:00 PM 8 hours behind UTC.
 updateFrameworkResponse_creationTime :: Lens.Lens' UpdateFrameworkResponse (Prelude.Maybe Prelude.UTCTime)
-updateFrameworkResponse_creationTime = Lens.lens (\UpdateFrameworkResponse' {creationTime} -> creationTime) (\s@UpdateFrameworkResponse' {} a -> s {creationTime = a} :: UpdateFrameworkResponse) Prelude.. Lens.mapping Core._Time
+updateFrameworkResponse_creationTime = Lens.lens (\UpdateFrameworkResponse' {creationTime} -> creationTime) (\s@UpdateFrameworkResponse' {} a -> s {creationTime = a} :: UpdateFrameworkResponse) Prelude.. Lens.mapping Data._Time
 
 -- | An Amazon Resource Name (ARN) that uniquely identifies a resource. The
 -- format of the ARN depends on the resource type.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.BatchGetDeploymentGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.CodeDeploy.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,8 +53,8 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newBatchGetDeploymentGroups' smart constructor.
 data BatchGetDeploymentGroups = BatchGetDeploymentGroups'
-  { -- | The name of an AWS CodeDeploy application associated with the applicable
-    -- IAM user or AWS account.
+  { -- | The name of an CodeDeploy application associated with the applicable IAM
+    -- or Amazon Web Services account.
     applicationName :: Prelude.Text,
     -- | The names of the deployment groups.
     deploymentGroupNames :: [Prelude.Text]
@@ -68,8 +69,8 @@ data BatchGetDeploymentGroups = BatchGetDeploymentGroups'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'applicationName', 'batchGetDeploymentGroups_applicationName' - The name of an AWS CodeDeploy application associated with the applicable
--- IAM user or AWS account.
+-- 'applicationName', 'batchGetDeploymentGroups_applicationName' - The name of an CodeDeploy application associated with the applicable IAM
+-- or Amazon Web Services account.
 --
 -- 'deploymentGroupNames', 'batchGetDeploymentGroups_deploymentGroupNames' - The names of the deployment groups.
 newBatchGetDeploymentGroups ::
@@ -83,8 +84,8 @@ newBatchGetDeploymentGroups pApplicationName_ =
       deploymentGroupNames = Prelude.mempty
     }
 
--- | The name of an AWS CodeDeploy application associated with the applicable
--- IAM user or AWS account.
+-- | The name of an CodeDeploy application associated with the applicable IAM
+-- or Amazon Web Services account.
 batchGetDeploymentGroups_applicationName :: Lens.Lens' BatchGetDeploymentGroups Prelude.Text
 batchGetDeploymentGroups_applicationName = Lens.lens (\BatchGetDeploymentGroups' {applicationName} -> applicationName) (\s@BatchGetDeploymentGroups' {} a -> s {applicationName = a} :: BatchGetDeploymentGroups)
 
@@ -96,15 +97,16 @@ instance Core.AWSRequest BatchGetDeploymentGroups where
   type
     AWSResponse BatchGetDeploymentGroups =
       BatchGetDeploymentGroupsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchGetDeploymentGroupsResponse'
-            Prelude.<$> ( x Core..?> "deploymentGroupsInfo"
+            Prelude.<$> ( x Data..?> "deploymentGroupsInfo"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "errorMessage")
+            Prelude.<*> (x Data..?> "errorMessage")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -118,38 +120,38 @@ instance Prelude.NFData BatchGetDeploymentGroups where
     Prelude.rnf applicationName
       `Prelude.seq` Prelude.rnf deploymentGroupNames
 
-instance Core.ToHeaders BatchGetDeploymentGroups where
+instance Data.ToHeaders BatchGetDeploymentGroups where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeDeploy_20141006.BatchGetDeploymentGroups" ::
+              Data.=# ( "CodeDeploy_20141006.BatchGetDeploymentGroups" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchGetDeploymentGroups where
+instance Data.ToJSON BatchGetDeploymentGroups where
   toJSON BatchGetDeploymentGroups' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("applicationName" Core..= applicationName),
+              ("applicationName" Data..= applicationName),
             Prelude.Just
               ( "deploymentGroupNames"
-                  Core..= deploymentGroupNames
+                  Data..= deploymentGroupNames
               )
           ]
       )
 
-instance Core.ToPath BatchGetDeploymentGroups where
+instance Data.ToPath BatchGetDeploymentGroups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery BatchGetDeploymentGroups where
+instance Data.ToQuery BatchGetDeploymentGroups where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @BatchGetDeploymentGroups@ operation.

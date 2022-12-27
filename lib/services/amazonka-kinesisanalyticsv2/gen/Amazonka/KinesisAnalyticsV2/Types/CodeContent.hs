@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.CodeContent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KinesisAnalyticsV2.Types.CodeContent where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.S3ContentLocation
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies either the application code, or the location of the
@@ -29,15 +30,15 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newCodeContent' smart constructor.
 data CodeContent = CodeContent'
-  { -- | The text-format code for a Flink-based Kinesis Data Analytics
-    -- application.
-    textContent :: Prelude.Maybe Prelude.Text,
-    -- | Information about the Amazon S3 bucket that contains the application
+  { -- | Information about the Amazon S3 bucket that contains the application
     -- code.
     s3ContentLocation :: Prelude.Maybe S3ContentLocation,
+    -- | The text-format code for a Flink-based Kinesis Data Analytics
+    -- application.
+    textContent :: Prelude.Maybe Prelude.Text,
     -- | The zip-format code for a Flink-based Kinesis Data Analytics
     -- application.
-    zipFileContent :: Prelude.Maybe Core.Base64
+    zipFileContent :: Prelude.Maybe Data.Base64
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -49,11 +50,11 @@ data CodeContent = CodeContent'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'textContent', 'codeContent_textContent' - The text-format code for a Flink-based Kinesis Data Analytics
--- application.
---
 -- 's3ContentLocation', 'codeContent_s3ContentLocation' - Information about the Amazon S3 bucket that contains the application
 -- code.
+--
+-- 'textContent', 'codeContent_textContent' - The text-format code for a Flink-based Kinesis Data Analytics
+-- application.
 --
 -- 'zipFileContent', 'codeContent_zipFileContent' - The zip-format code for a Flink-based Kinesis Data Analytics
 -- application.--
@@ -65,20 +66,20 @@ newCodeContent ::
   CodeContent
 newCodeContent =
   CodeContent'
-    { textContent = Prelude.Nothing,
-      s3ContentLocation = Prelude.Nothing,
+    { s3ContentLocation = Prelude.Nothing,
+      textContent = Prelude.Nothing,
       zipFileContent = Prelude.Nothing
     }
-
--- | The text-format code for a Flink-based Kinesis Data Analytics
--- application.
-codeContent_textContent :: Lens.Lens' CodeContent (Prelude.Maybe Prelude.Text)
-codeContent_textContent = Lens.lens (\CodeContent' {textContent} -> textContent) (\s@CodeContent' {} a -> s {textContent = a} :: CodeContent)
 
 -- | Information about the Amazon S3 bucket that contains the application
 -- code.
 codeContent_s3ContentLocation :: Lens.Lens' CodeContent (Prelude.Maybe S3ContentLocation)
 codeContent_s3ContentLocation = Lens.lens (\CodeContent' {s3ContentLocation} -> s3ContentLocation) (\s@CodeContent' {} a -> s {s3ContentLocation = a} :: CodeContent)
+
+-- | The text-format code for a Flink-based Kinesis Data Analytics
+-- application.
+codeContent_textContent :: Lens.Lens' CodeContent (Prelude.Maybe Prelude.Text)
+codeContent_textContent = Lens.lens (\CodeContent' {textContent} -> textContent) (\s@CodeContent' {} a -> s {textContent = a} :: CodeContent)
 
 -- | The zip-format code for a Flink-based Kinesis Data Analytics
 -- application.--
@@ -87,28 +88,28 @@ codeContent_s3ContentLocation = Lens.lens (\CodeContent' {s3ContentLocation} -> 
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 codeContent_zipFileContent :: Lens.Lens' CodeContent (Prelude.Maybe Prelude.ByteString)
-codeContent_zipFileContent = Lens.lens (\CodeContent' {zipFileContent} -> zipFileContent) (\s@CodeContent' {} a -> s {zipFileContent = a} :: CodeContent) Prelude.. Lens.mapping Core._Base64
+codeContent_zipFileContent = Lens.lens (\CodeContent' {zipFileContent} -> zipFileContent) (\s@CodeContent' {} a -> s {zipFileContent = a} :: CodeContent) Prelude.. Lens.mapping Data._Base64
 
 instance Prelude.Hashable CodeContent where
   hashWithSalt _salt CodeContent' {..} =
-    _salt `Prelude.hashWithSalt` textContent
-      `Prelude.hashWithSalt` s3ContentLocation
+    _salt `Prelude.hashWithSalt` s3ContentLocation
+      `Prelude.hashWithSalt` textContent
       `Prelude.hashWithSalt` zipFileContent
 
 instance Prelude.NFData CodeContent where
   rnf CodeContent' {..} =
-    Prelude.rnf textContent
-      `Prelude.seq` Prelude.rnf s3ContentLocation
+    Prelude.rnf s3ContentLocation
+      `Prelude.seq` Prelude.rnf textContent
       `Prelude.seq` Prelude.rnf zipFileContent
 
-instance Core.ToJSON CodeContent where
+instance Data.ToJSON CodeContent where
   toJSON CodeContent' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TextContent" Core..=) Prelude.<$> textContent,
-            ("S3ContentLocation" Core..=)
+          [ ("S3ContentLocation" Data..=)
               Prelude.<$> s3ContentLocation,
-            ("ZipFileContent" Core..=)
+            ("TextContent" Data..=) Prelude.<$> textContent,
+            ("ZipFileContent" Data..=)
               Prelude.<$> zipFileContent
           ]
       )

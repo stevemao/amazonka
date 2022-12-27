@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.CreateStreamingSession
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,10 +30,10 @@ module Amazonka.Nimble.CreateStreamingSession
     newCreateStreamingSession,
 
     -- * Request Lenses
-    createStreamingSession_ownedBy,
     createStreamingSession_clientToken,
     createStreamingSession_ec2InstanceType,
     createStreamingSession_launchProfileId,
+    createStreamingSession_ownedBy,
     createStreamingSession_streamingImageId,
     createStreamingSession_tags,
     createStreamingSession_studioId,
@@ -49,31 +49,28 @@ module Amazonka.Nimble.CreateStreamingSession
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | A collection of streaming sessions.
---
--- /See:/ 'newCreateStreamingSession' smart constructor.
+-- | /See:/ 'newCreateStreamingSession' smart constructor.
 data CreateStreamingSession = CreateStreamingSession'
-  { -- | The user ID of the user that owns the streaming session.
-    ownedBy :: Prelude.Maybe Prelude.Text,
-    -- | To make an idempotent API request using one of these actions, specify a
-    -- client token in the request. You should not reuse the same client token
-    -- for other API requests. If you retry a request that completed
-    -- successfully using the same client token and the same parameters, the
-    -- retry succeeds without performing any further actions. If you retry a
-    -- successful request using the same client token, but one or more of the
-    -- parameters are different, the retry fails with a ValidationException
-    -- error.
+  { -- | Unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request. If you don’t specify a client token, the AWS
+    -- SDK automatically generates a client token and uses it for the request
+    -- to ensure idempotency.
     clientToken :: Prelude.Maybe Prelude.Text,
     -- | The EC2 Instance type used for the streaming session.
     ec2InstanceType :: Prelude.Maybe StreamingInstanceType,
     -- | The launch profile ID.
     launchProfileId :: Prelude.Maybe Prelude.Text,
+    -- | The user ID of the user that owns the streaming session. The user that
+    -- owns the session will be logging into the session and interacting with
+    -- the virtual workstation.
+    ownedBy :: Prelude.Maybe Prelude.Text,
     -- | The ID of the streaming image.
     streamingImageId :: Prelude.Maybe Prelude.Text,
     -- | A collection of labels, in the form of key:value pairs, that apply to
@@ -92,20 +89,18 @@ data CreateStreamingSession = CreateStreamingSession'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'ownedBy', 'createStreamingSession_ownedBy' - The user ID of the user that owns the streaming session.
---
--- 'clientToken', 'createStreamingSession_clientToken' - To make an idempotent API request using one of these actions, specify a
--- client token in the request. You should not reuse the same client token
--- for other API requests. If you retry a request that completed
--- successfully using the same client token and the same parameters, the
--- retry succeeds without performing any further actions. If you retry a
--- successful request using the same client token, but one or more of the
--- parameters are different, the retry fails with a ValidationException
--- error.
+-- 'clientToken', 'createStreamingSession_clientToken' - Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. If you don’t specify a client token, the AWS
+-- SDK automatically generates a client token and uses it for the request
+-- to ensure idempotency.
 --
 -- 'ec2InstanceType', 'createStreamingSession_ec2InstanceType' - The EC2 Instance type used for the streaming session.
 --
 -- 'launchProfileId', 'createStreamingSession_launchProfileId' - The launch profile ID.
+--
+-- 'ownedBy', 'createStreamingSession_ownedBy' - The user ID of the user that owns the streaming session. The user that
+-- owns the session will be logging into the session and interacting with
+-- the virtual workstation.
 --
 -- 'streamingImageId', 'createStreamingSession_streamingImageId' - The ID of the streaming image.
 --
@@ -119,27 +114,20 @@ newCreateStreamingSession ::
   CreateStreamingSession
 newCreateStreamingSession pStudioId_ =
   CreateStreamingSession'
-    { ownedBy = Prelude.Nothing,
-      clientToken = Prelude.Nothing,
+    { clientToken =
+        Prelude.Nothing,
       ec2InstanceType = Prelude.Nothing,
       launchProfileId = Prelude.Nothing,
+      ownedBy = Prelude.Nothing,
       streamingImageId = Prelude.Nothing,
       tags = Prelude.Nothing,
       studioId = pStudioId_
     }
 
--- | The user ID of the user that owns the streaming session.
-createStreamingSession_ownedBy :: Lens.Lens' CreateStreamingSession (Prelude.Maybe Prelude.Text)
-createStreamingSession_ownedBy = Lens.lens (\CreateStreamingSession' {ownedBy} -> ownedBy) (\s@CreateStreamingSession' {} a -> s {ownedBy = a} :: CreateStreamingSession)
-
--- | To make an idempotent API request using one of these actions, specify a
--- client token in the request. You should not reuse the same client token
--- for other API requests. If you retry a request that completed
--- successfully using the same client token and the same parameters, the
--- retry succeeds without performing any further actions. If you retry a
--- successful request using the same client token, but one or more of the
--- parameters are different, the retry fails with a ValidationException
--- error.
+-- | Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. If you don’t specify a client token, the AWS
+-- SDK automatically generates a client token and uses it for the request
+-- to ensure idempotency.
 createStreamingSession_clientToken :: Lens.Lens' CreateStreamingSession (Prelude.Maybe Prelude.Text)
 createStreamingSession_clientToken = Lens.lens (\CreateStreamingSession' {clientToken} -> clientToken) (\s@CreateStreamingSession' {} a -> s {clientToken = a} :: CreateStreamingSession)
 
@@ -150,6 +138,12 @@ createStreamingSession_ec2InstanceType = Lens.lens (\CreateStreamingSession' {ec
 -- | The launch profile ID.
 createStreamingSession_launchProfileId :: Lens.Lens' CreateStreamingSession (Prelude.Maybe Prelude.Text)
 createStreamingSession_launchProfileId = Lens.lens (\CreateStreamingSession' {launchProfileId} -> launchProfileId) (\s@CreateStreamingSession' {} a -> s {launchProfileId = a} :: CreateStreamingSession)
+
+-- | The user ID of the user that owns the streaming session. The user that
+-- owns the session will be logging into the session and interacting with
+-- the virtual workstation.
+createStreamingSession_ownedBy :: Lens.Lens' CreateStreamingSession (Prelude.Maybe Prelude.Text)
+createStreamingSession_ownedBy = Lens.lens (\CreateStreamingSession' {ownedBy} -> ownedBy) (\s@CreateStreamingSession' {} a -> s {ownedBy = a} :: CreateStreamingSession)
 
 -- | The ID of the streaming image.
 createStreamingSession_streamingImageId :: Lens.Lens' CreateStreamingSession (Prelude.Maybe Prelude.Text)
@@ -168,67 +162,68 @@ instance Core.AWSRequest CreateStreamingSession where
   type
     AWSResponse CreateStreamingSession =
       CreateStreamingSessionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateStreamingSessionResponse'
-            Prelude.<$> (x Core..?> "session")
+            Prelude.<$> (x Data..?> "session")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateStreamingSession where
   hashWithSalt _salt CreateStreamingSession' {..} =
-    _salt `Prelude.hashWithSalt` ownedBy
-      `Prelude.hashWithSalt` clientToken
+    _salt `Prelude.hashWithSalt` clientToken
       `Prelude.hashWithSalt` ec2InstanceType
       `Prelude.hashWithSalt` launchProfileId
+      `Prelude.hashWithSalt` ownedBy
       `Prelude.hashWithSalt` streamingImageId
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` studioId
 
 instance Prelude.NFData CreateStreamingSession where
   rnf CreateStreamingSession' {..} =
-    Prelude.rnf ownedBy
-      `Prelude.seq` Prelude.rnf clientToken
+    Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf ec2InstanceType
       `Prelude.seq` Prelude.rnf launchProfileId
+      `Prelude.seq` Prelude.rnf ownedBy
       `Prelude.seq` Prelude.rnf streamingImageId
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf studioId
 
-instance Core.ToHeaders CreateStreamingSession where
+instance Data.ToHeaders CreateStreamingSession where
   toHeaders CreateStreamingSession' {..} =
     Prelude.mconcat
-      [ "X-Amz-Client-Token" Core.=# clientToken,
+      [ "X-Amz-Client-Token" Data.=# clientToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToJSON CreateStreamingSession where
+instance Data.ToJSON CreateStreamingSession where
   toJSON CreateStreamingSession' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ownedBy" Core..=) Prelude.<$> ownedBy,
-            ("ec2InstanceType" Core..=)
+          [ ("ec2InstanceType" Data..=)
               Prelude.<$> ec2InstanceType,
-            ("launchProfileId" Core..=)
+            ("launchProfileId" Data..=)
               Prelude.<$> launchProfileId,
-            ("streamingImageId" Core..=)
+            ("ownedBy" Data..=) Prelude.<$> ownedBy,
+            ("streamingImageId" Data..=)
               Prelude.<$> streamingImageId,
-            ("tags" Core..=) Prelude.<$> tags
+            ("tags" Data..=) Prelude.<$> tags
           ]
       )
 
-instance Core.ToPath CreateStreamingSession where
+instance Data.ToPath CreateStreamingSession where
   toPath CreateStreamingSession' {..} =
     Prelude.mconcat
       [ "/2020-08-01/studios/",
-        Core.toBS studioId,
+        Data.toBS studioId,
         "/streaming-sessions"
       ]
 
-instance Core.ToQuery CreateStreamingSession where
+instance Data.ToQuery CreateStreamingSession where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateStreamingSessionResponse' smart constructor.

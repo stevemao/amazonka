@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppSync.DeleteType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.AppSync.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,7 +86,8 @@ deleteType_typeName = Lens.lens (\DeleteType' {typeName} -> typeName) (\s@Delete
 
 instance Core.AWSRequest DeleteType where
   type AWSResponse DeleteType = DeleteTypeResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -103,27 +105,27 @@ instance Prelude.NFData DeleteType where
     Prelude.rnf apiId
       `Prelude.seq` Prelude.rnf typeName
 
-instance Core.ToHeaders DeleteType where
+instance Data.ToHeaders DeleteType where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteType where
+instance Data.ToPath DeleteType where
   toPath DeleteType' {..} =
     Prelude.mconcat
       [ "/v1/apis/",
-        Core.toBS apiId,
+        Data.toBS apiId,
         "/types/",
-        Core.toBS typeName
+        Data.toBS typeName
       ]
 
-instance Core.ToQuery DeleteType where
+instance Data.ToQuery DeleteType where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteTypeResponse' smart constructor.

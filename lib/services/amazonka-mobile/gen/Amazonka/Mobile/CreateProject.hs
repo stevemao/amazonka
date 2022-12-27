@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Mobile.CreateProject
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.Mobile.CreateProject
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Mobile.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -121,12 +122,13 @@ instance Core.AWSRequest CreateProject where
   type
     AWSResponse CreateProject =
       CreateProjectResponse
-  request = Request.postBody defaultService
+  request overrides =
+    Request.postBody (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateProjectResponse'
-            Prelude.<$> (x Core..?> "details")
+            Prelude.<$> (x Data..?> "details")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -144,29 +146,29 @@ instance Prelude.NFData CreateProject where
       `Prelude.seq` Prelude.rnf region
       `Prelude.seq` Prelude.rnf snapshotId
 
-instance Core.ToBody CreateProject where
-  toBody CreateProject' {..} = Core.toBody contents
+instance Data.ToBody CreateProject where
+  toBody CreateProject' {..} = Data.toBody contents
 
-instance Core.ToHeaders CreateProject where
+instance Data.ToHeaders CreateProject where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath CreateProject where
+instance Data.ToPath CreateProject where
   toPath = Prelude.const "/projects"
 
-instance Core.ToQuery CreateProject where
+instance Data.ToQuery CreateProject where
   toQuery CreateProject' {..} =
     Prelude.mconcat
-      [ "name" Core.=: name,
-        "region" Core.=: region,
-        "snapshotId" Core.=: snapshotId
+      [ "name" Data.=: name,
+        "region" Data.=: region,
+        "snapshotId" Data.=: snapshotId
       ]
 
 -- | Result structure used in response to a request to create a project.

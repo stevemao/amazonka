@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.Types.FunctionDefinitionVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.Greengrass.Types.FunctionDefinitionVersion where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types.Function
 import Amazonka.Greengrass.Types.FunctionDefaultConfig
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a function definition version.
@@ -70,14 +71,14 @@ functionDefinitionVersion_defaultConfig = Lens.lens (\FunctionDefinitionVersion'
 functionDefinitionVersion_functions :: Lens.Lens' FunctionDefinitionVersion (Prelude.Maybe [Function])
 functionDefinitionVersion_functions = Lens.lens (\FunctionDefinitionVersion' {functions} -> functions) (\s@FunctionDefinitionVersion' {} a -> s {functions = a} :: FunctionDefinitionVersion) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON FunctionDefinitionVersion where
+instance Data.FromJSON FunctionDefinitionVersion where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FunctionDefinitionVersion"
       ( \x ->
           FunctionDefinitionVersion'
-            Prelude.<$> (x Core..:? "DefaultConfig")
-            Prelude.<*> (x Core..:? "Functions" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "DefaultConfig")
+            Prelude.<*> (x Data..:? "Functions" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable FunctionDefinitionVersion where
@@ -90,11 +91,11 @@ instance Prelude.NFData FunctionDefinitionVersion where
     Prelude.rnf defaultConfig
       `Prelude.seq` Prelude.rnf functions
 
-instance Core.ToJSON FunctionDefinitionVersion where
+instance Data.ToJSON FunctionDefinitionVersion where
   toJSON FunctionDefinitionVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DefaultConfig" Core..=) Prelude.<$> defaultConfig,
-            ("Functions" Core..=) Prelude.<$> functions
+          [ ("DefaultConfig" Data..=) Prelude.<$> defaultConfig,
+            ("Functions" Data..=) Prelude.<$> functions
           ]
       )

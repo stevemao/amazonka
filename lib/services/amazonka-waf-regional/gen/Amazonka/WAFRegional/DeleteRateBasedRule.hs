@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.DeleteRateBasedRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -65,7 +65,8 @@ module Amazonka.WAFRegional.DeleteRateBasedRule
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -118,12 +119,13 @@ instance Core.AWSRequest DeleteRateBasedRule where
   type
     AWSResponse DeleteRateBasedRule =
       DeleteRateBasedRuleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteRateBasedRuleResponse'
-            Prelude.<$> (x Core..?> "ChangeToken")
+            Prelude.<$> (x Data..?> "ChangeToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -137,34 +139,34 @@ instance Prelude.NFData DeleteRateBasedRule where
     Prelude.rnf ruleId
       `Prelude.seq` Prelude.rnf changeToken
 
-instance Core.ToHeaders DeleteRateBasedRule where
+instance Data.ToHeaders DeleteRateBasedRule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_Regional_20161128.DeleteRateBasedRule" ::
+              Data.=# ( "AWSWAF_Regional_20161128.DeleteRateBasedRule" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteRateBasedRule where
+instance Data.ToJSON DeleteRateBasedRule where
   toJSON DeleteRateBasedRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("RuleId" Core..= ruleId),
-            Prelude.Just ("ChangeToken" Core..= changeToken)
+          [ Prelude.Just ("RuleId" Data..= ruleId),
+            Prelude.Just ("ChangeToken" Data..= changeToken)
           ]
       )
 
-instance Core.ToPath DeleteRateBasedRule where
+instance Data.ToPath DeleteRateBasedRule where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteRateBasedRule where
+instance Data.ToQuery DeleteRateBasedRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteRateBasedRuleResponse' smart constructor.

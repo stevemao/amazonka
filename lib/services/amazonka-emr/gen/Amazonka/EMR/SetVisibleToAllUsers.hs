@@ -14,11 +14,16 @@
 
 -- |
 -- Module      : Amazonka.EMR.SetVisibleToAllUsers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
+--
+-- The SetVisibleToAllUsers parameter is no longer supported. Your cluster
+-- may be visible to all users in your account. To restrict cluster access
+-- using an IAM policy, see
+-- <https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-access-iam.html Identity and Access Management for EMR>.
 --
 -- Sets the Cluster$VisibleToAllUsers value for an EMR cluster. When
 -- @true@, IAM principals in the Amazon Web Services account can perform
@@ -49,8 +54,9 @@ module Amazonka.EMR.SetVisibleToAllUsers
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -111,7 +117,8 @@ instance Core.AWSRequest SetVisibleToAllUsers where
   type
     AWSResponse SetVisibleToAllUsers =
       SetVisibleToAllUsersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull SetVisibleToAllUsersResponse'
 
@@ -125,35 +132,35 @@ instance Prelude.NFData SetVisibleToAllUsers where
     Prelude.rnf jobFlowIds
       `Prelude.seq` Prelude.rnf visibleToAllUsers
 
-instance Core.ToHeaders SetVisibleToAllUsers where
+instance Data.ToHeaders SetVisibleToAllUsers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ElasticMapReduce.SetVisibleToAllUsers" ::
+              Data.=# ( "ElasticMapReduce.SetVisibleToAllUsers" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SetVisibleToAllUsers where
+instance Data.ToJSON SetVisibleToAllUsers where
   toJSON SetVisibleToAllUsers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("JobFlowIds" Core..= jobFlowIds),
+          [ Prelude.Just ("JobFlowIds" Data..= jobFlowIds),
             Prelude.Just
-              ("VisibleToAllUsers" Core..= visibleToAllUsers)
+              ("VisibleToAllUsers" Data..= visibleToAllUsers)
           ]
       )
 
-instance Core.ToPath SetVisibleToAllUsers where
+instance Data.ToPath SetVisibleToAllUsers where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SetVisibleToAllUsers where
+instance Data.ToQuery SetVisibleToAllUsers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSetVisibleToAllUsersResponse' smart constructor.

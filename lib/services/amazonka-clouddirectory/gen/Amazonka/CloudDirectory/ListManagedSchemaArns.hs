@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.ListManagedSchemaArns
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,37 +31,38 @@ module Amazonka.CloudDirectory.ListManagedSchemaArns
     newListManagedSchemaArns,
 
     -- * Request Lenses
+    listManagedSchemaArns_maxResults,
     listManagedSchemaArns_nextToken,
     listManagedSchemaArns_schemaArn,
-    listManagedSchemaArns_maxResults,
 
     -- * Destructuring the Response
     ListManagedSchemaArnsResponse (..),
     newListManagedSchemaArnsResponse,
 
     -- * Response Lenses
-    listManagedSchemaArnsResponse_schemaArns,
     listManagedSchemaArnsResponse_nextToken,
+    listManagedSchemaArnsResponse_schemaArns,
     listManagedSchemaArnsResponse_httpStatus,
   )
 where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListManagedSchemaArns' smart constructor.
 data ListManagedSchemaArns = ListManagedSchemaArns'
-  { -- | The pagination token.
+  { -- | The maximum number of results to retrieve.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response for ListManagedSchemaArns. When this parameter is used, all
     -- minor version ARNs for a major version are listed.
-    schemaArn :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to retrieve.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    schemaArn :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,20 +74,25 @@ data ListManagedSchemaArns = ListManagedSchemaArns'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listManagedSchemaArns_maxResults' - The maximum number of results to retrieve.
+--
 -- 'nextToken', 'listManagedSchemaArns_nextToken' - The pagination token.
 --
 -- 'schemaArn', 'listManagedSchemaArns_schemaArn' - The response for ListManagedSchemaArns. When this parameter is used, all
 -- minor version ARNs for a major version are listed.
---
--- 'maxResults', 'listManagedSchemaArns_maxResults' - The maximum number of results to retrieve.
 newListManagedSchemaArns ::
   ListManagedSchemaArns
 newListManagedSchemaArns =
   ListManagedSchemaArns'
-    { nextToken = Prelude.Nothing,
-      schemaArn = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      schemaArn = Prelude.Nothing
     }
+
+-- | The maximum number of results to retrieve.
+listManagedSchemaArns_maxResults :: Lens.Lens' ListManagedSchemaArns (Prelude.Maybe Prelude.Natural)
+listManagedSchemaArns_maxResults = Lens.lens (\ListManagedSchemaArns' {maxResults} -> maxResults) (\s@ListManagedSchemaArns' {} a -> s {maxResults = a} :: ListManagedSchemaArns)
 
 -- | The pagination token.
 listManagedSchemaArns_nextToken :: Lens.Lens' ListManagedSchemaArns (Prelude.Maybe Prelude.Text)
@@ -96,10 +102,6 @@ listManagedSchemaArns_nextToken = Lens.lens (\ListManagedSchemaArns' {nextToken}
 -- minor version ARNs for a major version are listed.
 listManagedSchemaArns_schemaArn :: Lens.Lens' ListManagedSchemaArns (Prelude.Maybe Prelude.Text)
 listManagedSchemaArns_schemaArn = Lens.lens (\ListManagedSchemaArns' {schemaArn} -> schemaArn) (\s@ListManagedSchemaArns' {} a -> s {schemaArn = a} :: ListManagedSchemaArns)
-
--- | The maximum number of results to retrieve.
-listManagedSchemaArns_maxResults :: Lens.Lens' ListManagedSchemaArns (Prelude.Maybe Prelude.Natural)
-listManagedSchemaArns_maxResults = Lens.lens (\ListManagedSchemaArns' {maxResults} -> maxResults) (\s@ListManagedSchemaArns' {} a -> s {maxResults = a} :: ListManagedSchemaArns)
 
 instance Core.AWSPager ListManagedSchemaArns where
   page rq rs
@@ -127,55 +129,56 @@ instance Core.AWSRequest ListManagedSchemaArns where
   type
     AWSResponse ListManagedSchemaArns =
       ListManagedSchemaArnsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListManagedSchemaArnsResponse'
-            Prelude.<$> (x Core..?> "SchemaArns" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "SchemaArns" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListManagedSchemaArns where
   hashWithSalt _salt ListManagedSchemaArns' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` schemaArn
-      `Prelude.hashWithSalt` maxResults
 
 instance Prelude.NFData ListManagedSchemaArns where
   rnf ListManagedSchemaArns' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf schemaArn
-      `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders ListManagedSchemaArns where
+instance Data.ToHeaders ListManagedSchemaArns where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON ListManagedSchemaArns where
+instance Data.ToJSON ListManagedSchemaArns where
   toJSON ListManagedSchemaArns' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("SchemaArn" Core..=) Prelude.<$> schemaArn,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("SchemaArn" Data..=) Prelude.<$> schemaArn
           ]
       )
 
-instance Core.ToPath ListManagedSchemaArns where
+instance Data.ToPath ListManagedSchemaArns where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/schema/managed"
 
-instance Core.ToQuery ListManagedSchemaArns where
+instance Data.ToQuery ListManagedSchemaArns where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListManagedSchemaArnsResponse' smart constructor.
 data ListManagedSchemaArnsResponse = ListManagedSchemaArnsResponse'
-  { -- | The ARNs for all AWS managed schemas.
-    schemaArns :: Prelude.Maybe [Prelude.Text],
-    -- | The pagination token.
+  { -- | The pagination token.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The ARNs for all AWS managed schemas.
+    schemaArns :: Prelude.Maybe [Prelude.Text],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -189,9 +192,9 @@ data ListManagedSchemaArnsResponse = ListManagedSchemaArnsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'schemaArns', 'listManagedSchemaArnsResponse_schemaArns' - The ARNs for all AWS managed schemas.
---
 -- 'nextToken', 'listManagedSchemaArnsResponse_nextToken' - The pagination token.
+--
+-- 'schemaArns', 'listManagedSchemaArnsResponse_schemaArns' - The ARNs for all AWS managed schemas.
 --
 -- 'httpStatus', 'listManagedSchemaArnsResponse_httpStatus' - The response's http status code.
 newListManagedSchemaArnsResponse ::
@@ -200,19 +203,19 @@ newListManagedSchemaArnsResponse ::
   ListManagedSchemaArnsResponse
 newListManagedSchemaArnsResponse pHttpStatus_ =
   ListManagedSchemaArnsResponse'
-    { schemaArns =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      schemaArns = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The ARNs for all AWS managed schemas.
-listManagedSchemaArnsResponse_schemaArns :: Lens.Lens' ListManagedSchemaArnsResponse (Prelude.Maybe [Prelude.Text])
-listManagedSchemaArnsResponse_schemaArns = Lens.lens (\ListManagedSchemaArnsResponse' {schemaArns} -> schemaArns) (\s@ListManagedSchemaArnsResponse' {} a -> s {schemaArns = a} :: ListManagedSchemaArnsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The pagination token.
 listManagedSchemaArnsResponse_nextToken :: Lens.Lens' ListManagedSchemaArnsResponse (Prelude.Maybe Prelude.Text)
 listManagedSchemaArnsResponse_nextToken = Lens.lens (\ListManagedSchemaArnsResponse' {nextToken} -> nextToken) (\s@ListManagedSchemaArnsResponse' {} a -> s {nextToken = a} :: ListManagedSchemaArnsResponse)
+
+-- | The ARNs for all AWS managed schemas.
+listManagedSchemaArnsResponse_schemaArns :: Lens.Lens' ListManagedSchemaArnsResponse (Prelude.Maybe [Prelude.Text])
+listManagedSchemaArnsResponse_schemaArns = Lens.lens (\ListManagedSchemaArnsResponse' {schemaArns} -> schemaArns) (\s@ListManagedSchemaArnsResponse' {} a -> s {schemaArns = a} :: ListManagedSchemaArnsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listManagedSchemaArnsResponse_httpStatus :: Lens.Lens' ListManagedSchemaArnsResponse Prelude.Int
@@ -220,6 +223,6 @@ listManagedSchemaArnsResponse_httpStatus = Lens.lens (\ListManagedSchemaArnsResp
 
 instance Prelude.NFData ListManagedSchemaArnsResponse where
   rnf ListManagedSchemaArnsResponse' {..} =
-    Prelude.rnf schemaArns
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf schemaArns
       `Prelude.seq` Prelude.rnf httpStatus

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTData.ListRetainedMessages
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,7 +36,7 @@
 -- action.
 --
 -- For more information about messaging costs, see
--- <http://aws.amazon.com/iot-core/pricing/#Messaging IoT Core pricing - Messaging>.
+-- <http://aws.amazon.com/iot-core/pricing/#Messaging Amazon Web Services IoT Core pricing - Messaging>.
 --
 -- This operation returns paginated results.
 module Amazonka.IoTData.ListRetainedMessages
@@ -45,35 +45,36 @@ module Amazonka.IoTData.ListRetainedMessages
     newListRetainedMessages,
 
     -- * Request Lenses
-    listRetainedMessages_nextToken,
     listRetainedMessages_maxResults,
+    listRetainedMessages_nextToken,
 
     -- * Destructuring the Response
     ListRetainedMessagesResponse (..),
     newListRetainedMessagesResponse,
 
     -- * Response Lenses
-    listRetainedMessagesResponse_retainedTopics,
     listRetainedMessagesResponse_nextToken,
+    listRetainedMessagesResponse_retainedTopics,
     listRetainedMessagesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTData.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListRetainedMessages' smart constructor.
 data ListRetainedMessages = ListRetainedMessages'
-  { -- | To retrieve the next set of results, the @nextToken@ value from a
+  { -- | The maximum number of results to return at one time.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | To retrieve the next set of results, the @nextToken@ value from a
     -- previous response; otherwise __null__ to receive the first set of
     -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return at one time.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -85,28 +86,28 @@ data ListRetainedMessages = ListRetainedMessages'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listRetainedMessages_maxResults' - The maximum number of results to return at one time.
+--
 -- 'nextToken', 'listRetainedMessages_nextToken' - To retrieve the next set of results, the @nextToken@ value from a
 -- previous response; otherwise __null__ to receive the first set of
 -- results.
---
--- 'maxResults', 'listRetainedMessages_maxResults' - The maximum number of results to return at one time.
 newListRetainedMessages ::
   ListRetainedMessages
 newListRetainedMessages =
   ListRetainedMessages'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of results to return at one time.
+listRetainedMessages_maxResults :: Lens.Lens' ListRetainedMessages (Prelude.Maybe Prelude.Natural)
+listRetainedMessages_maxResults = Lens.lens (\ListRetainedMessages' {maxResults} -> maxResults) (\s@ListRetainedMessages' {} a -> s {maxResults = a} :: ListRetainedMessages)
 
 -- | To retrieve the next set of results, the @nextToken@ value from a
 -- previous response; otherwise __null__ to receive the first set of
 -- results.
 listRetainedMessages_nextToken :: Lens.Lens' ListRetainedMessages (Prelude.Maybe Prelude.Text)
 listRetainedMessages_nextToken = Lens.lens (\ListRetainedMessages' {nextToken} -> nextToken) (\s@ListRetainedMessages' {} a -> s {nextToken = a} :: ListRetainedMessages)
-
--- | The maximum number of results to return at one time.
-listRetainedMessages_maxResults :: Lens.Lens' ListRetainedMessages (Prelude.Maybe Prelude.Natural)
-listRetainedMessages_maxResults = Lens.lens (\ListRetainedMessages' {maxResults} -> maxResults) (\s@ListRetainedMessages' {} a -> s {maxResults = a} :: ListRetainedMessages)
 
 instance Core.AWSPager ListRetainedMessages where
   page rq rs
@@ -134,47 +135,48 @@ instance Core.AWSRequest ListRetainedMessages where
   type
     AWSResponse ListRetainedMessages =
       ListRetainedMessagesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListRetainedMessagesResponse'
-            Prelude.<$> (x Core..?> "retainedTopics" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "retainedTopics" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListRetainedMessages where
   hashWithSalt _salt ListRetainedMessages' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListRetainedMessages where
   rnf ListRetainedMessages' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListRetainedMessages where
+instance Data.ToHeaders ListRetainedMessages where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListRetainedMessages where
+instance Data.ToPath ListRetainedMessages where
   toPath = Prelude.const "/retainedMessage"
 
-instance Core.ToQuery ListRetainedMessages where
+instance Data.ToQuery ListRetainedMessages where
   toQuery ListRetainedMessages' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListRetainedMessagesResponse' smart constructor.
 data ListRetainedMessagesResponse = ListRetainedMessagesResponse'
-  { -- | A summary list the account\'s retained messages. The information
-    -- returned doesn\'t include the message payloads of the retained messages.
-    retainedTopics :: Prelude.Maybe [RetainedMessageSummary],
-    -- | The token for the next set of results, or null if there are no
+  { -- | The token for the next set of results, or null if there are no
     -- additional results.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A summary list the account\'s retained messages. The information
+    -- returned doesn\'t include the message payloads of the retained messages.
+    retainedTopics :: Prelude.Maybe [RetainedMessageSummary],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -188,11 +190,11 @@ data ListRetainedMessagesResponse = ListRetainedMessagesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'retainedTopics', 'listRetainedMessagesResponse_retainedTopics' - A summary list the account\'s retained messages. The information
--- returned doesn\'t include the message payloads of the retained messages.
---
 -- 'nextToken', 'listRetainedMessagesResponse_nextToken' - The token for the next set of results, or null if there are no
 -- additional results.
+--
+-- 'retainedTopics', 'listRetainedMessagesResponse_retainedTopics' - A summary list the account\'s retained messages. The information
+-- returned doesn\'t include the message payloads of the retained messages.
 --
 -- 'httpStatus', 'listRetainedMessagesResponse_httpStatus' - The response's http status code.
 newListRetainedMessagesResponse ::
@@ -201,21 +203,21 @@ newListRetainedMessagesResponse ::
   ListRetainedMessagesResponse
 newListRetainedMessagesResponse pHttpStatus_ =
   ListRetainedMessagesResponse'
-    { retainedTopics =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      retainedTopics = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A summary list the account\'s retained messages. The information
--- returned doesn\'t include the message payloads of the retained messages.
-listRetainedMessagesResponse_retainedTopics :: Lens.Lens' ListRetainedMessagesResponse (Prelude.Maybe [RetainedMessageSummary])
-listRetainedMessagesResponse_retainedTopics = Lens.lens (\ListRetainedMessagesResponse' {retainedTopics} -> retainedTopics) (\s@ListRetainedMessagesResponse' {} a -> s {retainedTopics = a} :: ListRetainedMessagesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token for the next set of results, or null if there are no
 -- additional results.
 listRetainedMessagesResponse_nextToken :: Lens.Lens' ListRetainedMessagesResponse (Prelude.Maybe Prelude.Text)
 listRetainedMessagesResponse_nextToken = Lens.lens (\ListRetainedMessagesResponse' {nextToken} -> nextToken) (\s@ListRetainedMessagesResponse' {} a -> s {nextToken = a} :: ListRetainedMessagesResponse)
+
+-- | A summary list the account\'s retained messages. The information
+-- returned doesn\'t include the message payloads of the retained messages.
+listRetainedMessagesResponse_retainedTopics :: Lens.Lens' ListRetainedMessagesResponse (Prelude.Maybe [RetainedMessageSummary])
+listRetainedMessagesResponse_retainedTopics = Lens.lens (\ListRetainedMessagesResponse' {retainedTopics} -> retainedTopics) (\s@ListRetainedMessagesResponse' {} a -> s {retainedTopics = a} :: ListRetainedMessagesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listRetainedMessagesResponse_httpStatus :: Lens.Lens' ListRetainedMessagesResponse Prelude.Int
@@ -223,6 +225,6 @@ listRetainedMessagesResponse_httpStatus = Lens.lens (\ListRetainedMessagesRespon
 
 instance Prelude.NFData ListRetainedMessagesResponse where
   rnf ListRetainedMessagesResponse' {..} =
-    Prelude.rnf retainedTopics
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf retainedTopics
       `Prelude.seq` Prelude.rnf httpStatus

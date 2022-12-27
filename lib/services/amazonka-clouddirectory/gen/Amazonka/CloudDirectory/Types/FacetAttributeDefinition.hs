@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.FacetAttributeDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,8 @@ import Amazonka.CloudDirectory.Types.FacetAttributeType
 import Amazonka.CloudDirectory.Types.Rule
 import Amazonka.CloudDirectory.Types.TypedAttributeValue
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A facet attribute definition. See
@@ -32,12 +33,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newFacetAttributeDefinition' smart constructor.
 data FacetAttributeDefinition = FacetAttributeDefinition'
-  { -- | Validation rules attached to the attribute definition.
-    rules :: Prelude.Maybe (Prelude.HashMap Prelude.Text Rule),
-    -- | The default value of the attribute (if configured).
+  { -- | The default value of the attribute (if configured).
     defaultValue :: Prelude.Maybe TypedAttributeValue,
     -- | Whether the attribute is mutable or not.
     isImmutable :: Prelude.Maybe Prelude.Bool,
+    -- | Validation rules attached to the attribute definition.
+    rules :: Prelude.Maybe (Prelude.HashMap Prelude.Text Rule),
     -- | The type of the attribute.
     type' :: FacetAttributeType
   }
@@ -51,11 +52,11 @@ data FacetAttributeDefinition = FacetAttributeDefinition'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'rules', 'facetAttributeDefinition_rules' - Validation rules attached to the attribute definition.
---
 -- 'defaultValue', 'facetAttributeDefinition_defaultValue' - The default value of the attribute (if configured).
 --
 -- 'isImmutable', 'facetAttributeDefinition_isImmutable' - Whether the attribute is mutable or not.
+--
+-- 'rules', 'facetAttributeDefinition_rules' - Validation rules attached to the attribute definition.
 --
 -- 'type'', 'facetAttributeDefinition_type' - The type of the attribute.
 newFacetAttributeDefinition ::
@@ -64,15 +65,12 @@ newFacetAttributeDefinition ::
   FacetAttributeDefinition
 newFacetAttributeDefinition pType_ =
   FacetAttributeDefinition'
-    { rules = Prelude.Nothing,
-      defaultValue = Prelude.Nothing,
+    { defaultValue =
+        Prelude.Nothing,
       isImmutable = Prelude.Nothing,
+      rules = Prelude.Nothing,
       type' = pType_
     }
-
--- | Validation rules attached to the attribute definition.
-facetAttributeDefinition_rules :: Lens.Lens' FacetAttributeDefinition (Prelude.Maybe (Prelude.HashMap Prelude.Text Rule))
-facetAttributeDefinition_rules = Lens.lens (\FacetAttributeDefinition' {rules} -> rules) (\s@FacetAttributeDefinition' {} a -> s {rules = a} :: FacetAttributeDefinition) Prelude.. Lens.mapping Lens.coerced
 
 -- | The default value of the attribute (if configured).
 facetAttributeDefinition_defaultValue :: Lens.Lens' FacetAttributeDefinition (Prelude.Maybe TypedAttributeValue)
@@ -82,43 +80,47 @@ facetAttributeDefinition_defaultValue = Lens.lens (\FacetAttributeDefinition' {d
 facetAttributeDefinition_isImmutable :: Lens.Lens' FacetAttributeDefinition (Prelude.Maybe Prelude.Bool)
 facetAttributeDefinition_isImmutable = Lens.lens (\FacetAttributeDefinition' {isImmutable} -> isImmutable) (\s@FacetAttributeDefinition' {} a -> s {isImmutable = a} :: FacetAttributeDefinition)
 
+-- | Validation rules attached to the attribute definition.
+facetAttributeDefinition_rules :: Lens.Lens' FacetAttributeDefinition (Prelude.Maybe (Prelude.HashMap Prelude.Text Rule))
+facetAttributeDefinition_rules = Lens.lens (\FacetAttributeDefinition' {rules} -> rules) (\s@FacetAttributeDefinition' {} a -> s {rules = a} :: FacetAttributeDefinition) Prelude.. Lens.mapping Lens.coerced
+
 -- | The type of the attribute.
 facetAttributeDefinition_type :: Lens.Lens' FacetAttributeDefinition FacetAttributeType
 facetAttributeDefinition_type = Lens.lens (\FacetAttributeDefinition' {type'} -> type') (\s@FacetAttributeDefinition' {} a -> s {type' = a} :: FacetAttributeDefinition)
 
-instance Core.FromJSON FacetAttributeDefinition where
+instance Data.FromJSON FacetAttributeDefinition where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FacetAttributeDefinition"
       ( \x ->
           FacetAttributeDefinition'
-            Prelude.<$> (x Core..:? "Rules" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "DefaultValue")
-            Prelude.<*> (x Core..:? "IsImmutable")
-            Prelude.<*> (x Core..: "Type")
+            Prelude.<$> (x Data..:? "DefaultValue")
+            Prelude.<*> (x Data..:? "IsImmutable")
+            Prelude.<*> (x Data..:? "Rules" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "Type")
       )
 
 instance Prelude.Hashable FacetAttributeDefinition where
   hashWithSalt _salt FacetAttributeDefinition' {..} =
-    _salt `Prelude.hashWithSalt` rules
-      `Prelude.hashWithSalt` defaultValue
+    _salt `Prelude.hashWithSalt` defaultValue
       `Prelude.hashWithSalt` isImmutable
+      `Prelude.hashWithSalt` rules
       `Prelude.hashWithSalt` type'
 
 instance Prelude.NFData FacetAttributeDefinition where
   rnf FacetAttributeDefinition' {..} =
-    Prelude.rnf rules
-      `Prelude.seq` Prelude.rnf defaultValue
+    Prelude.rnf defaultValue
       `Prelude.seq` Prelude.rnf isImmutable
+      `Prelude.seq` Prelude.rnf rules
       `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON FacetAttributeDefinition where
+instance Data.ToJSON FacetAttributeDefinition where
   toJSON FacetAttributeDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Rules" Core..=) Prelude.<$> rules,
-            ("DefaultValue" Core..=) Prelude.<$> defaultValue,
-            ("IsImmutable" Core..=) Prelude.<$> isImmutable,
-            Prelude.Just ("Type" Core..= type')
+          [ ("DefaultValue" Data..=) Prelude.<$> defaultValue,
+            ("IsImmutable" Data..=) Prelude.<$> isImmutable,
+            ("Rules" Data..=) Prelude.<$> rules,
+            Prelude.Just ("Type" Data..= type')
           ]
       )

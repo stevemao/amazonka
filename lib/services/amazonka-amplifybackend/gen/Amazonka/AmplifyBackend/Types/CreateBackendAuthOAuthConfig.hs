@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AmplifyBackend.Types.CreateBackendAuthOAuthConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,17 +23,18 @@ import Amazonka.AmplifyBackend.Types.OAuthGrantType
 import Amazonka.AmplifyBackend.Types.OAuthScopesElement
 import Amazonka.AmplifyBackend.Types.SocialProviderSettings
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Creates the OAuth configuration for your Amplify project.
 --
 -- /See:/ 'newCreateBackendAuthOAuthConfig' smart constructor.
 data CreateBackendAuthOAuthConfig = CreateBackendAuthOAuthConfig'
-  { -- | The settings for using social providers to access your Amplify app.
-    socialProviderSettings :: Prelude.Maybe SocialProviderSettings,
-    -- | The domain prefix for your Amplify app.
+  { -- | The domain prefix for your Amplify app.
     domainPrefix :: Prelude.Maybe Prelude.Text,
+    -- | The settings for using social providers to access your Amplify app.
+    socialProviderSettings :: Prelude.Maybe SocialProviderSettings,
     -- | Redirect URLs that OAuth uses when a user signs out of an Amplify app.
     redirectSignOutURIs :: [Prelude.Text],
     -- | The redirected URI for signing in to your Amplify app.
@@ -55,9 +56,9 @@ data CreateBackendAuthOAuthConfig = CreateBackendAuthOAuthConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'socialProviderSettings', 'createBackendAuthOAuthConfig_socialProviderSettings' - The settings for using social providers to access your Amplify app.
---
 -- 'domainPrefix', 'createBackendAuthOAuthConfig_domainPrefix' - The domain prefix for your Amplify app.
+--
+-- 'socialProviderSettings', 'createBackendAuthOAuthConfig_socialProviderSettings' - The settings for using social providers to access your Amplify app.
 --
 -- 'redirectSignOutURIs', 'createBackendAuthOAuthConfig_redirectSignOutURIs' - Redirect URLs that OAuth uses when a user signs out of an Amplify app.
 --
@@ -74,22 +75,22 @@ newCreateBackendAuthOAuthConfig ::
   CreateBackendAuthOAuthConfig
 newCreateBackendAuthOAuthConfig pOAuthGrantType_ =
   CreateBackendAuthOAuthConfig'
-    { socialProviderSettings =
+    { domainPrefix =
         Prelude.Nothing,
-      domainPrefix = Prelude.Nothing,
+      socialProviderSettings = Prelude.Nothing,
       redirectSignOutURIs = Prelude.mempty,
       redirectSignInURIs = Prelude.mempty,
       oAuthGrantType = pOAuthGrantType_,
       oAuthScopes = Prelude.mempty
     }
 
--- | The settings for using social providers to access your Amplify app.
-createBackendAuthOAuthConfig_socialProviderSettings :: Lens.Lens' CreateBackendAuthOAuthConfig (Prelude.Maybe SocialProviderSettings)
-createBackendAuthOAuthConfig_socialProviderSettings = Lens.lens (\CreateBackendAuthOAuthConfig' {socialProviderSettings} -> socialProviderSettings) (\s@CreateBackendAuthOAuthConfig' {} a -> s {socialProviderSettings = a} :: CreateBackendAuthOAuthConfig)
-
 -- | The domain prefix for your Amplify app.
 createBackendAuthOAuthConfig_domainPrefix :: Lens.Lens' CreateBackendAuthOAuthConfig (Prelude.Maybe Prelude.Text)
 createBackendAuthOAuthConfig_domainPrefix = Lens.lens (\CreateBackendAuthOAuthConfig' {domainPrefix} -> domainPrefix) (\s@CreateBackendAuthOAuthConfig' {} a -> s {domainPrefix = a} :: CreateBackendAuthOAuthConfig)
+
+-- | The settings for using social providers to access your Amplify app.
+createBackendAuthOAuthConfig_socialProviderSettings :: Lens.Lens' CreateBackendAuthOAuthConfig (Prelude.Maybe SocialProviderSettings)
+createBackendAuthOAuthConfig_socialProviderSettings = Lens.lens (\CreateBackendAuthOAuthConfig' {socialProviderSettings} -> socialProviderSettings) (\s@CreateBackendAuthOAuthConfig' {} a -> s {socialProviderSettings = a} :: CreateBackendAuthOAuthConfig)
 
 -- | Redirect URLs that OAuth uses when a user signs out of an Amplify app.
 createBackendAuthOAuthConfig_redirectSignOutURIs :: Lens.Lens' CreateBackendAuthOAuthConfig [Prelude.Text]
@@ -109,22 +110,22 @@ createBackendAuthOAuthConfig_oAuthGrantType = Lens.lens (\CreateBackendAuthOAuth
 createBackendAuthOAuthConfig_oAuthScopes :: Lens.Lens' CreateBackendAuthOAuthConfig [OAuthScopesElement]
 createBackendAuthOAuthConfig_oAuthScopes = Lens.lens (\CreateBackendAuthOAuthConfig' {oAuthScopes} -> oAuthScopes) (\s@CreateBackendAuthOAuthConfig' {} a -> s {oAuthScopes = a} :: CreateBackendAuthOAuthConfig) Prelude.. Lens.coerced
 
-instance Core.FromJSON CreateBackendAuthOAuthConfig where
+instance Data.FromJSON CreateBackendAuthOAuthConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CreateBackendAuthOAuthConfig"
       ( \x ->
           CreateBackendAuthOAuthConfig'
-            Prelude.<$> (x Core..:? "socialProviderSettings")
-            Prelude.<*> (x Core..:? "domainPrefix")
-            Prelude.<*> ( x Core..:? "redirectSignOutURIs"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "domainPrefix")
+            Prelude.<*> (x Data..:? "socialProviderSettings")
+            Prelude.<*> ( x Data..:? "redirectSignOutURIs"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> ( x Core..:? "redirectSignInURIs"
-                            Core..!= Prelude.mempty
+            Prelude.<*> ( x Data..:? "redirectSignInURIs"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..: "oAuthGrantType")
-            Prelude.<*> (x Core..:? "oAuthScopes" Core..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "oAuthGrantType")
+            Prelude.<*> (x Data..:? "oAuthScopes" Data..!= Prelude.mempty)
       )
 
 instance
@@ -132,8 +133,8 @@ instance
     CreateBackendAuthOAuthConfig
   where
   hashWithSalt _salt CreateBackendAuthOAuthConfig' {..} =
-    _salt `Prelude.hashWithSalt` socialProviderSettings
-      `Prelude.hashWithSalt` domainPrefix
+    _salt `Prelude.hashWithSalt` domainPrefix
+      `Prelude.hashWithSalt` socialProviderSettings
       `Prelude.hashWithSalt` redirectSignOutURIs
       `Prelude.hashWithSalt` redirectSignInURIs
       `Prelude.hashWithSalt` oAuthGrantType
@@ -141,26 +142,26 @@ instance
 
 instance Prelude.NFData CreateBackendAuthOAuthConfig where
   rnf CreateBackendAuthOAuthConfig' {..} =
-    Prelude.rnf socialProviderSettings
-      `Prelude.seq` Prelude.rnf domainPrefix
+    Prelude.rnf domainPrefix
+      `Prelude.seq` Prelude.rnf socialProviderSettings
       `Prelude.seq` Prelude.rnf redirectSignOutURIs
       `Prelude.seq` Prelude.rnf redirectSignInURIs
       `Prelude.seq` Prelude.rnf oAuthGrantType
       `Prelude.seq` Prelude.rnf oAuthScopes
 
-instance Core.ToJSON CreateBackendAuthOAuthConfig where
+instance Data.ToJSON CreateBackendAuthOAuthConfig where
   toJSON CreateBackendAuthOAuthConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("socialProviderSettings" Core..=)
+          [ ("domainPrefix" Data..=) Prelude.<$> domainPrefix,
+            ("socialProviderSettings" Data..=)
               Prelude.<$> socialProviderSettings,
-            ("domainPrefix" Core..=) Prelude.<$> domainPrefix,
             Prelude.Just
-              ("redirectSignOutURIs" Core..= redirectSignOutURIs),
+              ("redirectSignOutURIs" Data..= redirectSignOutURIs),
             Prelude.Just
-              ("redirectSignInURIs" Core..= redirectSignInURIs),
+              ("redirectSignInURIs" Data..= redirectSignInURIs),
             Prelude.Just
-              ("oAuthGrantType" Core..= oAuthGrantType),
-            Prelude.Just ("oAuthScopes" Core..= oAuthScopes)
+              ("oAuthGrantType" Data..= oAuthGrantType),
+            Prelude.Just ("oAuthScopes" Data..= oAuthScopes)
           ]
       )

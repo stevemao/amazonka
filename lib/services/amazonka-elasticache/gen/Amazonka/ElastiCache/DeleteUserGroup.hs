@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.DeleteUserGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- For Redis engine version 6.x onwards: Deletes a user group. The user
+-- For Redis engine version 6.0 onwards: Deletes a user group. The user
 -- group must first be disassociated from the replication group before it
 -- can be deleted. For more information, see
 -- <http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html Using Role Based Access Control (RBAC)>.
@@ -37,19 +37,21 @@ module Amazonka.ElastiCache.DeleteUserGroup
     newUserGroup,
 
     -- * Response Lenses
-    userGroup_status,
-    userGroup_userIds,
     userGroup_arn,
-    userGroup_userGroupId,
     userGroup_engine,
+    userGroup_minimumEngineVersion,
     userGroup_pendingChanges,
     userGroup_replicationGroups,
+    userGroup_status,
+    userGroup_userGroupId,
+    userGroup_userIds,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,11 +85,12 @@ deleteUserGroup_userGroupId = Lens.lens (\DeleteUserGroup' {userGroupId} -> user
 
 instance Core.AWSRequest DeleteUserGroup where
   type AWSResponse DeleteUserGroup = UserGroup
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeleteUserGroupResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance Prelude.Hashable DeleteUserGroup where
   hashWithSalt _salt DeleteUserGroup' {..} =
@@ -96,18 +99,18 @@ instance Prelude.Hashable DeleteUserGroup where
 instance Prelude.NFData DeleteUserGroup where
   rnf DeleteUserGroup' {..} = Prelude.rnf userGroupId
 
-instance Core.ToHeaders DeleteUserGroup where
+instance Data.ToHeaders DeleteUserGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteUserGroup where
+instance Data.ToPath DeleteUserGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteUserGroup where
+instance Data.ToQuery DeleteUserGroup where
   toQuery DeleteUserGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteUserGroup" :: Prelude.ByteString),
+          Data.=: ("DeleteUserGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
-        "UserGroupId" Core.=: userGroupId
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
+        "UserGroupId" Data.=: userGroupId
       ]

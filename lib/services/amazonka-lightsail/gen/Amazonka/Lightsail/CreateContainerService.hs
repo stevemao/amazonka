@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.CreateContainerService
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,9 +32,10 @@ module Amazonka.Lightsail.CreateContainerService
     newCreateContainerService,
 
     -- * Request Lenses
+    createContainerService_deployment,
+    createContainerService_privateRegistryAccess,
     createContainerService_publicDomainNames,
     createContainerService_tags,
-    createContainerService_deployment,
     createContainerService_serviceName,
     createContainerService_power,
     createContainerService_scale,
@@ -50,7 +51,8 @@ module Amazonka.Lightsail.CreateContainerService
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -58,7 +60,24 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateContainerService' smart constructor.
 data CreateContainerService = CreateContainerService'
-  { -- | The public domain names to use with the container service, such as
+  { -- | An object that describes a deployment for the container service.
+    --
+    -- A deployment specifies the containers that will be launched on the
+    -- container service and their settings, such as the ports to open, the
+    -- environment variables to apply, and the launch command to run. It also
+    -- specifies the container that will serve as the public endpoint of the
+    -- deployment and its settings, such as the HTTP or HTTPS port to use, and
+    -- the health check configuration.
+    deployment :: Prelude.Maybe ContainerServiceDeploymentRequest,
+    -- | An object to describe the configuration for the container service to
+    -- access private container image repositories, such as Amazon Elastic
+    -- Container Registry (Amazon ECR) private repositories.
+    --
+    -- For more information, see
+    -- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-container-service-ecr-private-repo-access Configuring access to an Amazon ECR private repository for an Amazon Lightsail container service>
+    -- in the /Amazon Lightsail Developer Guide/.
+    privateRegistryAccess :: Prelude.Maybe PrivateRegistryAccessRequest,
+    -- | The public domain names to use with the container service, such as
     -- @example.com@ and @www.example.com@.
     --
     -- You can specify up to four public domain names for a container service.
@@ -77,7 +96,7 @@ data CreateContainerService = CreateContainerService'
     -- You can specify public domain names using a string to array map as shown
     -- in the example later on this page.
     publicDomainNames :: Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]),
-    -- | The tag keys and optional values to add to the certificate during
+    -- | The tag keys and optional values to add to the container service during
     -- create.
     --
     -- Use the @TagResource@ action to tag a resource after it\'s created.
@@ -85,15 +104,6 @@ data CreateContainerService = CreateContainerService'
     -- For more information about tags in Lightsail, see the
     -- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags Amazon Lightsail Developer Guide>.
     tags :: Prelude.Maybe [Tag],
-    -- | An object that describes a deployment for the container service.
-    --
-    -- A deployment specifies the containers that will be launched on the
-    -- container service and their settings, such as the ports to open, the
-    -- environment variables to apply, and the launch command to run. It also
-    -- specifies the container that will serve as the public endpoint of the
-    -- deployment and its settings, such as the HTTP or HTTPS port to use, and
-    -- the health check configuration.
-    deployment :: Prelude.Maybe ContainerServiceDeploymentRequest,
     -- | The name for the container service.
     --
     -- The name that you specify for your container service will make up part
@@ -101,13 +111,15 @@ data CreateContainerService = CreateContainerService'
     -- typically
     -- @https:\/\/\<ServiceName>.\<RandomGUID>.\<AWSRegion>.cs.amazonlightsail.com@.
     -- If the name of your container service is @container-service-1@, and
-    -- it\'s located in the US East (Ohio) AWS region (@us-east-2@), then the
-    -- domain for your container service will be like the following example:
+    -- it\'s located in the US East (Ohio) Amazon Web Services Region
+    -- (@us-east-2@), then the domain for your container service will be like
+    -- the following example:
     -- @https:\/\/container-service-1.ur4EXAMPLE2uq.us-east-2.cs.amazonlightsail.com@
     --
     -- The following are the requirements for container service names:
     --
-    -- -   Must be unique within each AWS Region in your Lightsail account.
+    -- -   Must be unique within each Amazon Web Services Region in your
+    --     Lightsail account.
     --
     -- -   Must contain 1 to 63 characters.
     --
@@ -147,6 +159,23 @@ data CreateContainerService = CreateContainerService'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'deployment', 'createContainerService_deployment' - An object that describes a deployment for the container service.
+--
+-- A deployment specifies the containers that will be launched on the
+-- container service and their settings, such as the ports to open, the
+-- environment variables to apply, and the launch command to run. It also
+-- specifies the container that will serve as the public endpoint of the
+-- deployment and its settings, such as the HTTP or HTTPS port to use, and
+-- the health check configuration.
+--
+-- 'privateRegistryAccess', 'createContainerService_privateRegistryAccess' - An object to describe the configuration for the container service to
+-- access private container image repositories, such as Amazon Elastic
+-- Container Registry (Amazon ECR) private repositories.
+--
+-- For more information, see
+-- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-container-service-ecr-private-repo-access Configuring access to an Amazon ECR private repository for an Amazon Lightsail container service>
+-- in the /Amazon Lightsail Developer Guide/.
+--
 -- 'publicDomainNames', 'createContainerService_publicDomainNames' - The public domain names to use with the container service, such as
 -- @example.com@ and @www.example.com@.
 --
@@ -166,22 +195,13 @@ data CreateContainerService = CreateContainerService'
 -- You can specify public domain names using a string to array map as shown
 -- in the example later on this page.
 --
--- 'tags', 'createContainerService_tags' - The tag keys and optional values to add to the certificate during
+-- 'tags', 'createContainerService_tags' - The tag keys and optional values to add to the container service during
 -- create.
 --
 -- Use the @TagResource@ action to tag a resource after it\'s created.
 --
 -- For more information about tags in Lightsail, see the
 -- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags Amazon Lightsail Developer Guide>.
---
--- 'deployment', 'createContainerService_deployment' - An object that describes a deployment for the container service.
---
--- A deployment specifies the containers that will be launched on the
--- container service and their settings, such as the ports to open, the
--- environment variables to apply, and the launch command to run. It also
--- specifies the container that will serve as the public endpoint of the
--- deployment and its settings, such as the HTTP or HTTPS port to use, and
--- the health check configuration.
 --
 -- 'serviceName', 'createContainerService_serviceName' - The name for the container service.
 --
@@ -190,13 +210,15 @@ data CreateContainerService = CreateContainerService'
 -- typically
 -- @https:\/\/\<ServiceName>.\<RandomGUID>.\<AWSRegion>.cs.amazonlightsail.com@.
 -- If the name of your container service is @container-service-1@, and
--- it\'s located in the US East (Ohio) AWS region (@us-east-2@), then the
--- domain for your container service will be like the following example:
+-- it\'s located in the US East (Ohio) Amazon Web Services Region
+-- (@us-east-2@), then the domain for your container service will be like
+-- the following example:
 -- @https:\/\/container-service-1.ur4EXAMPLE2uq.us-east-2.cs.amazonlightsail.com@
 --
 -- The following are the requirements for container service names:
 --
--- -   Must be unique within each AWS Region in your Lightsail account.
+-- -   Must be unique within each Amazon Web Services Region in your
+--     Lightsail account.
 --
 -- -   Must contain 1 to 63 characters.
 --
@@ -237,14 +259,36 @@ newCreateContainerService
   pPower_
   pScale_ =
     CreateContainerService'
-      { publicDomainNames =
+      { deployment =
           Prelude.Nothing,
+        privateRegistryAccess = Prelude.Nothing,
+        publicDomainNames = Prelude.Nothing,
         tags = Prelude.Nothing,
-        deployment = Prelude.Nothing,
         serviceName = pServiceName_,
         power = pPower_,
         scale = pScale_
       }
+
+-- | An object that describes a deployment for the container service.
+--
+-- A deployment specifies the containers that will be launched on the
+-- container service and their settings, such as the ports to open, the
+-- environment variables to apply, and the launch command to run. It also
+-- specifies the container that will serve as the public endpoint of the
+-- deployment and its settings, such as the HTTP or HTTPS port to use, and
+-- the health check configuration.
+createContainerService_deployment :: Lens.Lens' CreateContainerService (Prelude.Maybe ContainerServiceDeploymentRequest)
+createContainerService_deployment = Lens.lens (\CreateContainerService' {deployment} -> deployment) (\s@CreateContainerService' {} a -> s {deployment = a} :: CreateContainerService)
+
+-- | An object to describe the configuration for the container service to
+-- access private container image repositories, such as Amazon Elastic
+-- Container Registry (Amazon ECR) private repositories.
+--
+-- For more information, see
+-- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-container-service-ecr-private-repo-access Configuring access to an Amazon ECR private repository for an Amazon Lightsail container service>
+-- in the /Amazon Lightsail Developer Guide/.
+createContainerService_privateRegistryAccess :: Lens.Lens' CreateContainerService (Prelude.Maybe PrivateRegistryAccessRequest)
+createContainerService_privateRegistryAccess = Lens.lens (\CreateContainerService' {privateRegistryAccess} -> privateRegistryAccess) (\s@CreateContainerService' {} a -> s {privateRegistryAccess = a} :: CreateContainerService)
 
 -- | The public domain names to use with the container service, such as
 -- @example.com@ and @www.example.com@.
@@ -267,7 +311,7 @@ newCreateContainerService
 createContainerService_publicDomainNames :: Lens.Lens' CreateContainerService (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
 createContainerService_publicDomainNames = Lens.lens (\CreateContainerService' {publicDomainNames} -> publicDomainNames) (\s@CreateContainerService' {} a -> s {publicDomainNames = a} :: CreateContainerService) Prelude.. Lens.mapping Lens.coerced
 
--- | The tag keys and optional values to add to the certificate during
+-- | The tag keys and optional values to add to the container service during
 -- create.
 --
 -- Use the @TagResource@ action to tag a resource after it\'s created.
@@ -277,17 +321,6 @@ createContainerService_publicDomainNames = Lens.lens (\CreateContainerService' {
 createContainerService_tags :: Lens.Lens' CreateContainerService (Prelude.Maybe [Tag])
 createContainerService_tags = Lens.lens (\CreateContainerService' {tags} -> tags) (\s@CreateContainerService' {} a -> s {tags = a} :: CreateContainerService) Prelude.. Lens.mapping Lens.coerced
 
--- | An object that describes a deployment for the container service.
---
--- A deployment specifies the containers that will be launched on the
--- container service and their settings, such as the ports to open, the
--- environment variables to apply, and the launch command to run. It also
--- specifies the container that will serve as the public endpoint of the
--- deployment and its settings, such as the HTTP or HTTPS port to use, and
--- the health check configuration.
-createContainerService_deployment :: Lens.Lens' CreateContainerService (Prelude.Maybe ContainerServiceDeploymentRequest)
-createContainerService_deployment = Lens.lens (\CreateContainerService' {deployment} -> deployment) (\s@CreateContainerService' {} a -> s {deployment = a} :: CreateContainerService)
-
 -- | The name for the container service.
 --
 -- The name that you specify for your container service will make up part
@@ -295,13 +328,15 @@ createContainerService_deployment = Lens.lens (\CreateContainerService' {deploym
 -- typically
 -- @https:\/\/\<ServiceName>.\<RandomGUID>.\<AWSRegion>.cs.amazonlightsail.com@.
 -- If the name of your container service is @container-service-1@, and
--- it\'s located in the US East (Ohio) AWS region (@us-east-2@), then the
--- domain for your container service will be like the following example:
+-- it\'s located in the US East (Ohio) Amazon Web Services Region
+-- (@us-east-2@), then the domain for your container service will be like
+-- the following example:
 -- @https:\/\/container-service-1.ur4EXAMPLE2uq.us-east-2.cs.amazonlightsail.com@
 --
 -- The following are the requirements for container service names:
 --
--- -   Must be unique within each AWS Region in your Lightsail account.
+-- -   Must be unique within each Amazon Web Services Region in your
+--     Lightsail account.
 --
 -- -   Must contain 1 to 63 characters.
 --
@@ -340,66 +375,71 @@ instance Core.AWSRequest CreateContainerService where
   type
     AWSResponse CreateContainerService =
       CreateContainerServiceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateContainerServiceResponse'
-            Prelude.<$> (x Core..?> "containerService")
+            Prelude.<$> (x Data..?> "containerService")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateContainerService where
   hashWithSalt _salt CreateContainerService' {..} =
-    _salt `Prelude.hashWithSalt` publicDomainNames
+    _salt `Prelude.hashWithSalt` deployment
+      `Prelude.hashWithSalt` privateRegistryAccess
+      `Prelude.hashWithSalt` publicDomainNames
       `Prelude.hashWithSalt` tags
-      `Prelude.hashWithSalt` deployment
       `Prelude.hashWithSalt` serviceName
       `Prelude.hashWithSalt` power
       `Prelude.hashWithSalt` scale
 
 instance Prelude.NFData CreateContainerService where
   rnf CreateContainerService' {..} =
-    Prelude.rnf publicDomainNames
+    Prelude.rnf deployment
+      `Prelude.seq` Prelude.rnf privateRegistryAccess
+      `Prelude.seq` Prelude.rnf publicDomainNames
       `Prelude.seq` Prelude.rnf tags
-      `Prelude.seq` Prelude.rnf deployment
       `Prelude.seq` Prelude.rnf serviceName
       `Prelude.seq` Prelude.rnf power
       `Prelude.seq` Prelude.rnf scale
 
-instance Core.ToHeaders CreateContainerService where
+instance Data.ToHeaders CreateContainerService where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.CreateContainerService" ::
+              Data.=# ( "Lightsail_20161128.CreateContainerService" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateContainerService where
+instance Data.ToJSON CreateContainerService where
   toJSON CreateContainerService' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("publicDomainNames" Core..=)
+          [ ("deployment" Data..=) Prelude.<$> deployment,
+            ("privateRegistryAccess" Data..=)
+              Prelude.<$> privateRegistryAccess,
+            ("publicDomainNames" Data..=)
               Prelude.<$> publicDomainNames,
-            ("tags" Core..=) Prelude.<$> tags,
-            ("deployment" Core..=) Prelude.<$> deployment,
-            Prelude.Just ("serviceName" Core..= serviceName),
-            Prelude.Just ("power" Core..= power),
-            Prelude.Just ("scale" Core..= scale)
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("serviceName" Data..= serviceName),
+            Prelude.Just ("power" Data..= power),
+            Prelude.Just ("scale" Data..= scale)
           ]
       )
 
-instance Core.ToPath CreateContainerService where
+instance Data.ToPath CreateContainerService where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateContainerService where
+instance Data.ToQuery CreateContainerService where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateContainerServiceResponse' smart constructor.

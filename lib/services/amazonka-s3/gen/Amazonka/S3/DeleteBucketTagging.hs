@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.DeleteBucketTagging
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ module Amazonka.S3.DeleteBucketTagging
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,8 +57,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newDeleteBucketTagging' smart constructor.
 data DeleteBucketTagging = DeleteBucketTagging'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The bucket that has the tag set to be removed.
     bucket :: BucketName
@@ -73,8 +74,8 @@ data DeleteBucketTagging = DeleteBucketTagging'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'deleteBucketTagging_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'deleteBucketTagging_bucket' - The bucket that has the tag set to be removed.
 newDeleteBucketTagging ::
@@ -89,8 +90,8 @@ newDeleteBucketTagging pBucket_ =
     }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 deleteBucketTagging_expectedBucketOwner :: Lens.Lens' DeleteBucketTagging (Prelude.Maybe Prelude.Text)
 deleteBucketTagging_expectedBucketOwner = Lens.lens (\DeleteBucketTagging' {expectedBucketOwner} -> expectedBucketOwner) (\s@DeleteBucketTagging' {} a -> s {expectedBucketOwner = a} :: DeleteBucketTagging)
 
@@ -102,9 +103,9 @@ instance Core.AWSRequest DeleteBucketTagging where
   type
     AWSResponse DeleteBucketTagging =
       DeleteBucketTaggingResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.delete defaultService
+      Prelude.. Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteBucketTaggingResponse'
 
@@ -118,18 +119,18 @@ instance Prelude.NFData DeleteBucketTagging where
     Prelude.rnf expectedBucketOwner
       `Prelude.seq` Prelude.rnf bucket
 
-instance Core.ToHeaders DeleteBucketTagging where
+instance Data.ToHeaders DeleteBucketTagging where
   toHeaders DeleteBucketTagging' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath DeleteBucketTagging where
+instance Data.ToPath DeleteBucketTagging where
   toPath DeleteBucketTagging' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery DeleteBucketTagging where
+instance Data.ToQuery DeleteBucketTagging where
   toQuery = Prelude.const (Prelude.mconcat ["tagging"])
 
 -- | /See:/ 'newDeleteBucketTaggingResponse' smart constructor.

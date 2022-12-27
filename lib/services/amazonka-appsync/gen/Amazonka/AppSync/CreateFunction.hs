@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppSync.CreateFunction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,7 @@
 --
 -- Creates a @Function@ object.
 --
--- A function is a reusable entity. Multiple functions can be used to
+-- A function is a reusable entity. You can use multiple functions to
 -- compose the resolver logic.
 module Amazonka.AppSync.CreateFunction
   ( -- * Creating a Request
@@ -30,14 +30,17 @@ module Amazonka.AppSync.CreateFunction
     newCreateFunction,
 
     -- * Request Lenses
+    createFunction_code,
+    createFunction_description,
+    createFunction_functionVersion,
+    createFunction_maxBatchSize,
     createFunction_requestMappingTemplate,
     createFunction_responseMappingTemplate,
+    createFunction_runtime,
     createFunction_syncConfig,
-    createFunction_description,
     createFunction_apiId,
     createFunction_name,
     createFunction_dataSourceName,
-    createFunction_functionVersion,
 
     -- * Destructuring the Response
     CreateFunctionResponse (..),
@@ -51,30 +54,39 @@ where
 
 import Amazonka.AppSync.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateFunction' smart constructor.
 data CreateFunction = CreateFunction'
-  { -- | The @Function@ request mapping template. Functions support only the
+  { -- | The @function@ code that contains the request and response functions.
+    -- When code is used, the @runtime@ is required. The @runtime@ value must
+    -- be @APPSYNC_JS@.
+    code :: Prelude.Maybe Prelude.Text,
+    -- | The @Function@ description.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The @version@ of the request mapping template. Currently, the supported
+    -- value is 2018-05-29. Note that when using VTL and mapping templates, the
+    -- @functionVersion@ is required.
+    functionVersion :: Prelude.Maybe Prelude.Text,
+    -- | The maximum batching size for a resolver.
+    maxBatchSize :: Prelude.Maybe Prelude.Natural,
+    -- | The @Function@ request mapping template. Functions support only the
     -- 2018-05-29 version of the request mapping template.
     requestMappingTemplate :: Prelude.Maybe Prelude.Text,
     -- | The @Function@ response mapping template.
     responseMappingTemplate :: Prelude.Maybe Prelude.Text,
+    runtime :: Prelude.Maybe AppSyncRuntime,
     syncConfig :: Prelude.Maybe SyncConfig,
-    -- | The @Function@ description.
-    description :: Prelude.Maybe Prelude.Text,
     -- | The GraphQL API ID.
     apiId :: Prelude.Text,
     -- | The @Function@ name. The function name does not have to be unique.
     name :: Prelude.Text,
     -- | The @Function@ @DataSource@ name.
-    dataSourceName :: Prelude.Text,
-    -- | The @version@ of the request mapping template. Currently the supported
-    -- value is 2018-05-29.
-    functionVersion :: Prelude.Text
+    dataSourceName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -86,23 +98,32 @@ data CreateFunction = CreateFunction'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'code', 'createFunction_code' - The @function@ code that contains the request and response functions.
+-- When code is used, the @runtime@ is required. The @runtime@ value must
+-- be @APPSYNC_JS@.
+--
+-- 'description', 'createFunction_description' - The @Function@ description.
+--
+-- 'functionVersion', 'createFunction_functionVersion' - The @version@ of the request mapping template. Currently, the supported
+-- value is 2018-05-29. Note that when using VTL and mapping templates, the
+-- @functionVersion@ is required.
+--
+-- 'maxBatchSize', 'createFunction_maxBatchSize' - The maximum batching size for a resolver.
+--
 -- 'requestMappingTemplate', 'createFunction_requestMappingTemplate' - The @Function@ request mapping template. Functions support only the
 -- 2018-05-29 version of the request mapping template.
 --
 -- 'responseMappingTemplate', 'createFunction_responseMappingTemplate' - The @Function@ response mapping template.
 --
--- 'syncConfig', 'createFunction_syncConfig' - Undocumented member.
+-- 'runtime', 'createFunction_runtime' - Undocumented member.
 --
--- 'description', 'createFunction_description' - The @Function@ description.
+-- 'syncConfig', 'createFunction_syncConfig' - Undocumented member.
 --
 -- 'apiId', 'createFunction_apiId' - The GraphQL API ID.
 --
 -- 'name', 'createFunction_name' - The @Function@ name. The function name does not have to be unique.
 --
 -- 'dataSourceName', 'createFunction_dataSourceName' - The @Function@ @DataSource@ name.
---
--- 'functionVersion', 'createFunction_functionVersion' - The @version@ of the request mapping template. Currently the supported
--- value is 2018-05-29.
 newCreateFunction ::
   -- | 'apiId'
   Prelude.Text ->
@@ -110,25 +131,41 @@ newCreateFunction ::
   Prelude.Text ->
   -- | 'dataSourceName'
   Prelude.Text ->
-  -- | 'functionVersion'
-  Prelude.Text ->
   CreateFunction
-newCreateFunction
-  pApiId_
-  pName_
-  pDataSourceName_
-  pFunctionVersion_ =
-    CreateFunction'
-      { requestMappingTemplate =
-          Prelude.Nothing,
-        responseMappingTemplate = Prelude.Nothing,
-        syncConfig = Prelude.Nothing,
-        description = Prelude.Nothing,
-        apiId = pApiId_,
-        name = pName_,
-        dataSourceName = pDataSourceName_,
-        functionVersion = pFunctionVersion_
-      }
+newCreateFunction pApiId_ pName_ pDataSourceName_ =
+  CreateFunction'
+    { code = Prelude.Nothing,
+      description = Prelude.Nothing,
+      functionVersion = Prelude.Nothing,
+      maxBatchSize = Prelude.Nothing,
+      requestMappingTemplate = Prelude.Nothing,
+      responseMappingTemplate = Prelude.Nothing,
+      runtime = Prelude.Nothing,
+      syncConfig = Prelude.Nothing,
+      apiId = pApiId_,
+      name = pName_,
+      dataSourceName = pDataSourceName_
+    }
+
+-- | The @function@ code that contains the request and response functions.
+-- When code is used, the @runtime@ is required. The @runtime@ value must
+-- be @APPSYNC_JS@.
+createFunction_code :: Lens.Lens' CreateFunction (Prelude.Maybe Prelude.Text)
+createFunction_code = Lens.lens (\CreateFunction' {code} -> code) (\s@CreateFunction' {} a -> s {code = a} :: CreateFunction)
+
+-- | The @Function@ description.
+createFunction_description :: Lens.Lens' CreateFunction (Prelude.Maybe Prelude.Text)
+createFunction_description = Lens.lens (\CreateFunction' {description} -> description) (\s@CreateFunction' {} a -> s {description = a} :: CreateFunction)
+
+-- | The @version@ of the request mapping template. Currently, the supported
+-- value is 2018-05-29. Note that when using VTL and mapping templates, the
+-- @functionVersion@ is required.
+createFunction_functionVersion :: Lens.Lens' CreateFunction (Prelude.Maybe Prelude.Text)
+createFunction_functionVersion = Lens.lens (\CreateFunction' {functionVersion} -> functionVersion) (\s@CreateFunction' {} a -> s {functionVersion = a} :: CreateFunction)
+
+-- | The maximum batching size for a resolver.
+createFunction_maxBatchSize :: Lens.Lens' CreateFunction (Prelude.Maybe Prelude.Natural)
+createFunction_maxBatchSize = Lens.lens (\CreateFunction' {maxBatchSize} -> maxBatchSize) (\s@CreateFunction' {} a -> s {maxBatchSize = a} :: CreateFunction)
 
 -- | The @Function@ request mapping template. Functions support only the
 -- 2018-05-29 version of the request mapping template.
@@ -140,12 +177,12 @@ createFunction_responseMappingTemplate :: Lens.Lens' CreateFunction (Prelude.May
 createFunction_responseMappingTemplate = Lens.lens (\CreateFunction' {responseMappingTemplate} -> responseMappingTemplate) (\s@CreateFunction' {} a -> s {responseMappingTemplate = a} :: CreateFunction)
 
 -- | Undocumented member.
+createFunction_runtime :: Lens.Lens' CreateFunction (Prelude.Maybe AppSyncRuntime)
+createFunction_runtime = Lens.lens (\CreateFunction' {runtime} -> runtime) (\s@CreateFunction' {} a -> s {runtime = a} :: CreateFunction)
+
+-- | Undocumented member.
 createFunction_syncConfig :: Lens.Lens' CreateFunction (Prelude.Maybe SyncConfig)
 createFunction_syncConfig = Lens.lens (\CreateFunction' {syncConfig} -> syncConfig) (\s@CreateFunction' {} a -> s {syncConfig = a} :: CreateFunction)
-
--- | The @Function@ description.
-createFunction_description :: Lens.Lens' CreateFunction (Prelude.Maybe Prelude.Text)
-createFunction_description = Lens.lens (\CreateFunction' {description} -> description) (\s@CreateFunction' {} a -> s {description = a} :: CreateFunction)
 
 -- | The GraphQL API ID.
 createFunction_apiId :: Lens.Lens' CreateFunction Prelude.Text
@@ -159,81 +196,86 @@ createFunction_name = Lens.lens (\CreateFunction' {name} -> name) (\s@CreateFunc
 createFunction_dataSourceName :: Lens.Lens' CreateFunction Prelude.Text
 createFunction_dataSourceName = Lens.lens (\CreateFunction' {dataSourceName} -> dataSourceName) (\s@CreateFunction' {} a -> s {dataSourceName = a} :: CreateFunction)
 
--- | The @version@ of the request mapping template. Currently the supported
--- value is 2018-05-29.
-createFunction_functionVersion :: Lens.Lens' CreateFunction Prelude.Text
-createFunction_functionVersion = Lens.lens (\CreateFunction' {functionVersion} -> functionVersion) (\s@CreateFunction' {} a -> s {functionVersion = a} :: CreateFunction)
-
 instance Core.AWSRequest CreateFunction where
   type
     AWSResponse CreateFunction =
       CreateFunctionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateFunctionResponse'
-            Prelude.<$> (x Core..?> "functionConfiguration")
+            Prelude.<$> (x Data..?> "functionConfiguration")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateFunction where
   hashWithSalt _salt CreateFunction' {..} =
-    _salt `Prelude.hashWithSalt` requestMappingTemplate
-      `Prelude.hashWithSalt` responseMappingTemplate
-      `Prelude.hashWithSalt` syncConfig
+    _salt `Prelude.hashWithSalt` code
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` functionVersion
+      `Prelude.hashWithSalt` maxBatchSize
+      `Prelude.hashWithSalt` requestMappingTemplate
+      `Prelude.hashWithSalt` responseMappingTemplate
+      `Prelude.hashWithSalt` runtime
+      `Prelude.hashWithSalt` syncConfig
       `Prelude.hashWithSalt` apiId
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` dataSourceName
-      `Prelude.hashWithSalt` functionVersion
 
 instance Prelude.NFData CreateFunction where
   rnf CreateFunction' {..} =
-    Prelude.rnf requestMappingTemplate
-      `Prelude.seq` Prelude.rnf responseMappingTemplate
-      `Prelude.seq` Prelude.rnf syncConfig
+    Prelude.rnf code
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf functionVersion
+      `Prelude.seq` Prelude.rnf maxBatchSize
+      `Prelude.seq` Prelude.rnf requestMappingTemplate
+      `Prelude.seq` Prelude.rnf responseMappingTemplate
+      `Prelude.seq` Prelude.rnf runtime
+      `Prelude.seq` Prelude.rnf syncConfig
       `Prelude.seq` Prelude.rnf apiId
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf dataSourceName
-      `Prelude.seq` Prelude.rnf functionVersion
 
-instance Core.ToHeaders CreateFunction where
+instance Data.ToHeaders CreateFunction where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateFunction where
+instance Data.ToJSON CreateFunction where
   toJSON CreateFunction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("requestMappingTemplate" Core..=)
+          [ ("code" Data..=) Prelude.<$> code,
+            ("description" Data..=) Prelude.<$> description,
+            ("functionVersion" Data..=)
+              Prelude.<$> functionVersion,
+            ("maxBatchSize" Data..=) Prelude.<$> maxBatchSize,
+            ("requestMappingTemplate" Data..=)
               Prelude.<$> requestMappingTemplate,
-            ("responseMappingTemplate" Core..=)
+            ("responseMappingTemplate" Data..=)
               Prelude.<$> responseMappingTemplate,
-            ("syncConfig" Core..=) Prelude.<$> syncConfig,
-            ("description" Core..=) Prelude.<$> description,
-            Prelude.Just ("name" Core..= name),
+            ("runtime" Data..=) Prelude.<$> runtime,
+            ("syncConfig" Data..=) Prelude.<$> syncConfig,
+            Prelude.Just ("name" Data..= name),
             Prelude.Just
-              ("dataSourceName" Core..= dataSourceName),
-            Prelude.Just
-              ("functionVersion" Core..= functionVersion)
+              ("dataSourceName" Data..= dataSourceName)
           ]
       )
 
-instance Core.ToPath CreateFunction where
+instance Data.ToPath CreateFunction where
   toPath CreateFunction' {..} =
     Prelude.mconcat
-      ["/v1/apis/", Core.toBS apiId, "/functions"]
+      ["/v1/apis/", Data.toBS apiId, "/functions"]
 
-instance Core.ToQuery CreateFunction where
+instance Data.ToQuery CreateFunction where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateFunctionResponse' smart constructor.

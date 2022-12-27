@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Kinesis.ListTagsForStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.Kinesis.ListTagsForStream
     newListTagsForStream,
 
     -- * Request Lenses
-    listTagsForStream_limit,
     listTagsForStream_exclusiveStartTagKey,
+    listTagsForStream_limit,
     listTagsForStream_streamName,
 
     -- * Destructuring the Response
@@ -44,8 +44,9 @@ module Amazonka.Kinesis.ListTagsForStream
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kinesis.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,15 +55,15 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListTagsForStream' smart constructor.
 data ListTagsForStream = ListTagsForStream'
-  { -- | The number of tags to return. If this number is less than the total
+  { -- | The key to use as the starting point for the list of tags. If this
+    -- parameter is set, @ListTagsForStream@ gets all tags that occur after
+    -- @ExclusiveStartTagKey@.
+    exclusiveStartTagKey :: Prelude.Maybe Prelude.Text,
+    -- | The number of tags to return. If this number is less than the total
     -- number of tags associated with the stream, @HasMoreTags@ is set to
     -- @true@. To list additional tags, set @ExclusiveStartTagKey@ to the last
     -- key in the response.
     limit :: Prelude.Maybe Prelude.Natural,
-    -- | The key to use as the starting point for the list of tags. If this
-    -- parameter is set, @ListTagsForStream@ gets all tags that occur after
-    -- @ExclusiveStartTagKey@.
-    exclusiveStartTagKey :: Prelude.Maybe Prelude.Text,
     -- | The name of the stream.
     streamName :: Prelude.Text
   }
@@ -76,14 +77,14 @@ data ListTagsForStream = ListTagsForStream'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'exclusiveStartTagKey', 'listTagsForStream_exclusiveStartTagKey' - The key to use as the starting point for the list of tags. If this
+-- parameter is set, @ListTagsForStream@ gets all tags that occur after
+-- @ExclusiveStartTagKey@.
+--
 -- 'limit', 'listTagsForStream_limit' - The number of tags to return. If this number is less than the total
 -- number of tags associated with the stream, @HasMoreTags@ is set to
 -- @true@. To list additional tags, set @ExclusiveStartTagKey@ to the last
 -- key in the response.
---
--- 'exclusiveStartTagKey', 'listTagsForStream_exclusiveStartTagKey' - The key to use as the starting point for the list of tags. If this
--- parameter is set, @ListTagsForStream@ gets all tags that occur after
--- @ExclusiveStartTagKey@.
 --
 -- 'streamName', 'listTagsForStream_streamName' - The name of the stream.
 newListTagsForStream ::
@@ -92,10 +93,17 @@ newListTagsForStream ::
   ListTagsForStream
 newListTagsForStream pStreamName_ =
   ListTagsForStream'
-    { limit = Prelude.Nothing,
-      exclusiveStartTagKey = Prelude.Nothing,
+    { exclusiveStartTagKey =
+        Prelude.Nothing,
+      limit = Prelude.Nothing,
       streamName = pStreamName_
     }
+
+-- | The key to use as the starting point for the list of tags. If this
+-- parameter is set, @ListTagsForStream@ gets all tags that occur after
+-- @ExclusiveStartTagKey@.
+listTagsForStream_exclusiveStartTagKey :: Lens.Lens' ListTagsForStream (Prelude.Maybe Prelude.Text)
+listTagsForStream_exclusiveStartTagKey = Lens.lens (\ListTagsForStream' {exclusiveStartTagKey} -> exclusiveStartTagKey) (\s@ListTagsForStream' {} a -> s {exclusiveStartTagKey = a} :: ListTagsForStream)
 
 -- | The number of tags to return. If this number is less than the total
 -- number of tags associated with the stream, @HasMoreTags@ is set to
@@ -103,12 +111,6 @@ newListTagsForStream pStreamName_ =
 -- key in the response.
 listTagsForStream_limit :: Lens.Lens' ListTagsForStream (Prelude.Maybe Prelude.Natural)
 listTagsForStream_limit = Lens.lens (\ListTagsForStream' {limit} -> limit) (\s@ListTagsForStream' {} a -> s {limit = a} :: ListTagsForStream)
-
--- | The key to use as the starting point for the list of tags. If this
--- parameter is set, @ListTagsForStream@ gets all tags that occur after
--- @ExclusiveStartTagKey@.
-listTagsForStream_exclusiveStartTagKey :: Lens.Lens' ListTagsForStream (Prelude.Maybe Prelude.Text)
-listTagsForStream_exclusiveStartTagKey = Lens.lens (\ListTagsForStream' {exclusiveStartTagKey} -> exclusiveStartTagKey) (\s@ListTagsForStream' {} a -> s {exclusiveStartTagKey = a} :: ListTagsForStream)
 
 -- | The name of the stream.
 listTagsForStream_streamName :: Lens.Lens' ListTagsForStream Prelude.Text
@@ -118,58 +120,59 @@ instance Core.AWSRequest ListTagsForStream where
   type
     AWSResponse ListTagsForStream =
       ListTagsForStreamResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTagsForStreamResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..:> "HasMoreTags")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..:> "HasMoreTags")
       )
 
 instance Prelude.Hashable ListTagsForStream where
   hashWithSalt _salt ListTagsForStream' {..} =
-    _salt `Prelude.hashWithSalt` limit
-      `Prelude.hashWithSalt` exclusiveStartTagKey
+    _salt `Prelude.hashWithSalt` exclusiveStartTagKey
+      `Prelude.hashWithSalt` limit
       `Prelude.hashWithSalt` streamName
 
 instance Prelude.NFData ListTagsForStream where
   rnf ListTagsForStream' {..} =
-    Prelude.rnf limit
-      `Prelude.seq` Prelude.rnf exclusiveStartTagKey
+    Prelude.rnf exclusiveStartTagKey
+      `Prelude.seq` Prelude.rnf limit
       `Prelude.seq` Prelude.rnf streamName
 
-instance Core.ToHeaders ListTagsForStream where
+instance Data.ToHeaders ListTagsForStream where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Kinesis_20131202.ListTagsForStream" ::
+              Data.=# ( "Kinesis_20131202.ListTagsForStream" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTagsForStream where
+instance Data.ToJSON ListTagsForStream where
   toJSON ListTagsForStream' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Limit" Core..=) Prelude.<$> limit,
-            ("ExclusiveStartTagKey" Core..=)
+          [ ("ExclusiveStartTagKey" Data..=)
               Prelude.<$> exclusiveStartTagKey,
-            Prelude.Just ("StreamName" Core..= streamName)
+            ("Limit" Data..=) Prelude.<$> limit,
+            Prelude.Just ("StreamName" Data..= streamName)
           ]
       )
 
-instance Core.ToPath ListTagsForStream where
+instance Data.ToPath ListTagsForStream where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTagsForStream where
+instance Data.ToQuery ListTagsForStream where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output for @ListTagsForStream@.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.LambdaOutputUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KinesisAnalyticsV2.Types.LambdaOutputUpdate where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | When you update an SQL-based Kinesis Data Analytics application\'s
@@ -84,11 +85,11 @@ instance Prelude.NFData LambdaOutputUpdate where
   rnf LambdaOutputUpdate' {..} =
     Prelude.rnf resourceARNUpdate
 
-instance Core.ToJSON LambdaOutputUpdate where
+instance Data.ToJSON LambdaOutputUpdate where
   toJSON LambdaOutputUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ResourceARNUpdate" Core..= resourceARNUpdate)
+              ("ResourceARNUpdate" Data..= resourceARNUpdate)
           ]
       )

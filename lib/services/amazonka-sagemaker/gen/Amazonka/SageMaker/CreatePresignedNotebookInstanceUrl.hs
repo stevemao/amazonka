@@ -14,17 +14,17 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.CreatePresignedNotebookInstanceUrl
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Returns a URL that you can use to connect to the Jupyter server from a
--- notebook instance. In the Amazon SageMaker console, when you choose
--- @Open@ next to a notebook instance, Amazon SageMaker opens a new tab
--- showing the Jupyter server home page from the notebook instance. The
--- console uses this API to get the URL and show the page.
+-- notebook instance. In the SageMaker console, when you choose @Open@ next
+-- to a notebook instance, SageMaker opens a new tab showing the Jupyter
+-- server home page from the notebook instance. The console uses this API
+-- to get the URL and show the page.
 --
 -- The IAM role or user used to call this API defines the permissions to
 -- access the notebook instance. Once the presigned URL is created, no
@@ -63,7 +63,8 @@ module Amazonka.SageMaker.CreatePresignedNotebookInstanceUrl
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -117,12 +118,13 @@ instance
   type
     AWSResponse CreatePresignedNotebookInstanceUrl =
       CreatePresignedNotebookInstanceUrlResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreatePresignedNotebookInstanceUrlResponse'
-            Prelude.<$> (x Core..?> "AuthorizedUrl")
+            Prelude.<$> (x Data..?> "AuthorizedUrl")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -146,47 +148,47 @@ instance
       `Prelude.seq` Prelude.rnf notebookInstanceName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CreatePresignedNotebookInstanceUrl
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.CreatePresignedNotebookInstanceUrl" ::
+              Data.=# ( "SageMaker.CreatePresignedNotebookInstanceUrl" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     CreatePresignedNotebookInstanceUrl
   where
   toJSON CreatePresignedNotebookInstanceUrl' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SessionExpirationDurationInSeconds" Core..=)
+          [ ("SessionExpirationDurationInSeconds" Data..=)
               Prelude.<$> sessionExpirationDurationInSeconds,
             Prelude.Just
               ( "NotebookInstanceName"
-                  Core..= notebookInstanceName
+                  Data..= notebookInstanceName
               )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     CreatePresignedNotebookInstanceUrl
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     CreatePresignedNotebookInstanceUrl
   where
   toQuery = Prelude.const Prelude.mempty

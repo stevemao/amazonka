@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Shield.DisableProactiveEngagement
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ module Amazonka.Shield.DisableProactiveEngagement
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -63,7 +64,8 @@ instance Core.AWSRequest DisableProactiveEngagement where
   type
     AWSResponse DisableProactiveEngagement =
       DisableProactiveEngagementResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -78,28 +80,28 @@ instance Prelude.Hashable DisableProactiveEngagement where
 instance Prelude.NFData DisableProactiveEngagement where
   rnf _ = ()
 
-instance Core.ToHeaders DisableProactiveEngagement where
+instance Data.ToHeaders DisableProactiveEngagement where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSShield_20160616.DisableProactiveEngagement" ::
+              Data.=# ( "AWSShield_20160616.DisableProactiveEngagement" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisableProactiveEngagement where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON DisableProactiveEngagement where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath DisableProactiveEngagement where
+instance Data.ToPath DisableProactiveEngagement where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisableProactiveEngagement where
+instance Data.ToQuery DisableProactiveEngagement where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisableProactiveEngagementResponse' smart constructor.

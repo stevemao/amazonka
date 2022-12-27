@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.GetIntentVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,8 @@ module Amazonka.LexModels.GetIntentVersions
     newGetIntentVersions,
 
     -- * Request Lenses
-    getIntentVersions_nextToken,
     getIntentVersions_maxResults,
+    getIntentVersions_nextToken,
     getIntentVersions_name,
 
     -- * Destructuring the Response
@@ -57,7 +57,8 @@ module Amazonka.LexModels.GetIntentVersions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LexModels.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -65,14 +66,14 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetIntentVersions' smart constructor.
 data GetIntentVersions = GetIntentVersions'
-  { -- | A pagination token for fetching the next page of intent versions. If the
+  { -- | The maximum number of intent versions to return in the response. The
+    -- default is 10.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A pagination token for fetching the next page of intent versions. If the
     -- response to this call is truncated, Amazon Lex returns a pagination
     -- token in the response. To fetch the next page of versions, specify the
     -- pagination token in the next request.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of intent versions to return in the response. The
-    -- default is 10.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The name of the intent for which versions should be returned.
     name :: Prelude.Text
   }
@@ -86,13 +87,13 @@ data GetIntentVersions = GetIntentVersions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'getIntentVersions_maxResults' - The maximum number of intent versions to return in the response. The
+-- default is 10.
+--
 -- 'nextToken', 'getIntentVersions_nextToken' - A pagination token for fetching the next page of intent versions. If the
 -- response to this call is truncated, Amazon Lex returns a pagination
 -- token in the response. To fetch the next page of versions, specify the
 -- pagination token in the next request.
---
--- 'maxResults', 'getIntentVersions_maxResults' - The maximum number of intent versions to return in the response. The
--- default is 10.
 --
 -- 'name', 'getIntentVersions_name' - The name of the intent for which versions should be returned.
 newGetIntentVersions ::
@@ -101,10 +102,15 @@ newGetIntentVersions ::
   GetIntentVersions
 newGetIntentVersions pName_ =
   GetIntentVersions'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       name = pName_
     }
+
+-- | The maximum number of intent versions to return in the response. The
+-- default is 10.
+getIntentVersions_maxResults :: Lens.Lens' GetIntentVersions (Prelude.Maybe Prelude.Natural)
+getIntentVersions_maxResults = Lens.lens (\GetIntentVersions' {maxResults} -> maxResults) (\s@GetIntentVersions' {} a -> s {maxResults = a} :: GetIntentVersions)
 
 -- | A pagination token for fetching the next page of intent versions. If the
 -- response to this call is truncated, Amazon Lex returns a pagination
@@ -112,11 +118,6 @@ newGetIntentVersions pName_ =
 -- pagination token in the next request.
 getIntentVersions_nextToken :: Lens.Lens' GetIntentVersions (Prelude.Maybe Prelude.Text)
 getIntentVersions_nextToken = Lens.lens (\GetIntentVersions' {nextToken} -> nextToken) (\s@GetIntentVersions' {} a -> s {nextToken = a} :: GetIntentVersions)
-
--- | The maximum number of intent versions to return in the response. The
--- default is 10.
-getIntentVersions_maxResults :: Lens.Lens' GetIntentVersions (Prelude.Maybe Prelude.Natural)
-getIntentVersions_maxResults = Lens.lens (\GetIntentVersions' {maxResults} -> maxResults) (\s@GetIntentVersions' {} a -> s {maxResults = a} :: GetIntentVersions)
 
 -- | The name of the intent for which versions should be returned.
 getIntentVersions_name :: Lens.Lens' GetIntentVersions Prelude.Text
@@ -148,49 +149,50 @@ instance Core.AWSRequest GetIntentVersions where
   type
     AWSResponse GetIntentVersions =
       GetIntentVersionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetIntentVersionsResponse'
-            Prelude.<$> (x Core..?> "intents" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "intents" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetIntentVersions where
   hashWithSalt _salt GetIntentVersions' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData GetIntentVersions where
   rnf GetIntentVersions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders GetIntentVersions where
+instance Data.ToHeaders GetIntentVersions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetIntentVersions where
+instance Data.ToPath GetIntentVersions where
   toPath GetIntentVersions' {..} =
     Prelude.mconcat
-      ["/intents/", Core.toBS name, "/versions/"]
+      ["/intents/", Data.toBS name, "/versions/"]
 
-instance Core.ToQuery GetIntentVersions where
+instance Data.ToQuery GetIntentVersions where
   toQuery GetIntentVersions' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newGetIntentVersionsResponse' smart constructor.

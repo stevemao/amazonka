@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.StartInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,7 +52,8 @@ module Amazonka.Lightsail.StartInstance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -89,12 +90,13 @@ instance Core.AWSRequest StartInstance where
   type
     AWSResponse StartInstance =
       StartInstanceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartInstanceResponse'
-            Prelude.<$> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -105,32 +107,32 @@ instance Prelude.Hashable StartInstance where
 instance Prelude.NFData StartInstance where
   rnf StartInstance' {..} = Prelude.rnf instanceName
 
-instance Core.ToHeaders StartInstance where
+instance Data.ToHeaders StartInstance where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.StartInstance" ::
+              Data.=# ( "Lightsail_20161128.StartInstance" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartInstance where
+instance Data.ToJSON StartInstance where
   toJSON StartInstance' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("instanceName" Core..= instanceName)]
+          [Prelude.Just ("instanceName" Data..= instanceName)]
       )
 
-instance Core.ToPath StartInstance where
+instance Data.ToPath StartInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartInstance where
+instance Data.ToQuery StartInstance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartInstanceResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WAF.Types.HTTPHeader
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WAF.Types.HTTPHeader where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | This is __AWS WAF Classic__ documentation. For more information, see
@@ -40,10 +41,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newHTTPHeader' smart constructor.
 data HTTPHeader = HTTPHeader'
-  { -- | The value of one of the headers in the sampled web request.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The name of one of the headers in the sampled web request.
-    name :: Prelude.Maybe Prelude.Text
+  { -- | The name of one of the headers in the sampled web request.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The value of one of the headers in the sampled web request.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -55,39 +56,39 @@ data HTTPHeader = HTTPHeader'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'hTTPHeader_value' - The value of one of the headers in the sampled web request.
---
 -- 'name', 'hTTPHeader_name' - The name of one of the headers in the sampled web request.
+--
+-- 'value', 'hTTPHeader_value' - The value of one of the headers in the sampled web request.
 newHTTPHeader ::
   HTTPHeader
 newHTTPHeader =
   HTTPHeader'
-    { value = Prelude.Nothing,
-      name = Prelude.Nothing
+    { name = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The value of one of the headers in the sampled web request.
-hTTPHeader_value :: Lens.Lens' HTTPHeader (Prelude.Maybe Prelude.Text)
-hTTPHeader_value = Lens.lens (\HTTPHeader' {value} -> value) (\s@HTTPHeader' {} a -> s {value = a} :: HTTPHeader)
 
 -- | The name of one of the headers in the sampled web request.
 hTTPHeader_name :: Lens.Lens' HTTPHeader (Prelude.Maybe Prelude.Text)
 hTTPHeader_name = Lens.lens (\HTTPHeader' {name} -> name) (\s@HTTPHeader' {} a -> s {name = a} :: HTTPHeader)
 
-instance Core.FromJSON HTTPHeader where
+-- | The value of one of the headers in the sampled web request.
+hTTPHeader_value :: Lens.Lens' HTTPHeader (Prelude.Maybe Prelude.Text)
+hTTPHeader_value = Lens.lens (\HTTPHeader' {value} -> value) (\s@HTTPHeader' {} a -> s {value = a} :: HTTPHeader)
+
+instance Data.FromJSON HTTPHeader where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HTTPHeader"
       ( \x ->
           HTTPHeader'
-            Prelude.<$> (x Core..:? "Value") Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Name") Prelude.<*> (x Data..:? "Value")
       )
 
 instance Prelude.Hashable HTTPHeader where
   hashWithSalt _salt HTTPHeader' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData HTTPHeader where
   rnf HTTPHeader' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name `Prelude.seq` Prelude.rnf value

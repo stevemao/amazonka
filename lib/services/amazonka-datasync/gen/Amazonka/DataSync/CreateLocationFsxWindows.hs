@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataSync.CreateLocationFsxWindows
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,43 +47,51 @@ module Amazonka.DataSync.CreateLocationFsxWindows
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataSync.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateLocationFsxWindows' smart constructor.
 data CreateLocationFsxWindows = CreateLocationFsxWindows'
-  { -- | The name of the Windows domain that the FSx for Windows File Server
-    -- belongs to.
+  { -- | Specifies the name of the Windows domain that the FSx for Windows File
+    -- Server belongs to.
     domain :: Prelude.Maybe Prelude.Text,
-    -- | A subdirectory in the location’s path. This subdirectory in the Amazon
-    -- FSx for Windows File Server file system is used to read data from the
-    -- Amazon FSx for Windows File Server source location or write data to the
-    -- FSx for Windows File Server destination.
+    -- | Specifies a mount path for your file system using forward slashes. This
+    -- is where DataSync reads or writes data (depending on if this is a source
+    -- or destination location).
     subdirectory :: Prelude.Maybe Prelude.Text,
-    -- | The key-value pair that represents a tag that you want to add to the
-    -- resource. The value can be an empty string. This value helps you manage,
-    -- filter, and search for your resources. We recommend that you create a
-    -- name tag for your location.
+    -- | Specifies labels that help you categorize, filter, and search for your
+    -- Amazon Web Services resources. We recommend creating at least a name tag
+    -- for your location.
     tags :: Prelude.Maybe [TagListEntry],
-    -- | The Amazon Resource Name (ARN) for the FSx for Windows File Server file
-    -- system.
+    -- | Specifies the Amazon Resource Name (ARN) for the FSx for Windows File
+    -- Server file system.
     fsxFilesystemArn :: Prelude.Text,
-    -- | The Amazon Resource Names (ARNs) of the security groups that are to use
-    -- to configure the FSx for Windows File Server file system.
+    -- | Specifies the ARNs of the security groups that provide access to your
+    -- file system\'s preferred subnet.
+    --
+    -- If you choose a security group that doesn\'t allow connections from
+    -- within itself, do one of the following:
+    --
+    -- -   Configure the security group to allow it to communicate within
+    --     itself.
+    --
+    -- -   Choose a different security group that can communicate with the
+    --     mount target\'s security group.
     securityGroupArns :: Prelude.NonEmpty Prelude.Text,
-    -- | The user who has the permissions to access files and folders in the FSx
-    -- for Windows File Server file system.
+    -- | Specifies the user who has the permissions to access files and folders
+    -- in the file system.
     --
     -- For information about choosing a user name that ensures sufficient
     -- permissions to files, folders, and metadata, see
     -- <create-fsx-location.html#FSxWuser user>.
     user :: Prelude.Text,
-    -- | The password of the user who has the permissions to access files and
-    -- folders in the FSx for Windows File Server file system.
-    password :: Core.Sensitive Prelude.Text
+    -- | Specifies the password of the user who has the permissions to access
+    -- files and folders in the file system.
+    password :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -95,34 +103,41 @@ data CreateLocationFsxWindows = CreateLocationFsxWindows'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'domain', 'createLocationFsxWindows_domain' - The name of the Windows domain that the FSx for Windows File Server
--- belongs to.
+-- 'domain', 'createLocationFsxWindows_domain' - Specifies the name of the Windows domain that the FSx for Windows File
+-- Server belongs to.
 --
--- 'subdirectory', 'createLocationFsxWindows_subdirectory' - A subdirectory in the location’s path. This subdirectory in the Amazon
--- FSx for Windows File Server file system is used to read data from the
--- Amazon FSx for Windows File Server source location or write data to the
--- FSx for Windows File Server destination.
+-- 'subdirectory', 'createLocationFsxWindows_subdirectory' - Specifies a mount path for your file system using forward slashes. This
+-- is where DataSync reads or writes data (depending on if this is a source
+-- or destination location).
 --
--- 'tags', 'createLocationFsxWindows_tags' - The key-value pair that represents a tag that you want to add to the
--- resource. The value can be an empty string. This value helps you manage,
--- filter, and search for your resources. We recommend that you create a
--- name tag for your location.
+-- 'tags', 'createLocationFsxWindows_tags' - Specifies labels that help you categorize, filter, and search for your
+-- Amazon Web Services resources. We recommend creating at least a name tag
+-- for your location.
 --
--- 'fsxFilesystemArn', 'createLocationFsxWindows_fsxFilesystemArn' - The Amazon Resource Name (ARN) for the FSx for Windows File Server file
--- system.
+-- 'fsxFilesystemArn', 'createLocationFsxWindows_fsxFilesystemArn' - Specifies the Amazon Resource Name (ARN) for the FSx for Windows File
+-- Server file system.
 --
--- 'securityGroupArns', 'createLocationFsxWindows_securityGroupArns' - The Amazon Resource Names (ARNs) of the security groups that are to use
--- to configure the FSx for Windows File Server file system.
+-- 'securityGroupArns', 'createLocationFsxWindows_securityGroupArns' - Specifies the ARNs of the security groups that provide access to your
+-- file system\'s preferred subnet.
 --
--- 'user', 'createLocationFsxWindows_user' - The user who has the permissions to access files and folders in the FSx
--- for Windows File Server file system.
+-- If you choose a security group that doesn\'t allow connections from
+-- within itself, do one of the following:
+--
+-- -   Configure the security group to allow it to communicate within
+--     itself.
+--
+-- -   Choose a different security group that can communicate with the
+--     mount target\'s security group.
+--
+-- 'user', 'createLocationFsxWindows_user' - Specifies the user who has the permissions to access files and folders
+-- in the file system.
 --
 -- For information about choosing a user name that ensures sufficient
 -- permissions to files, folders, and metadata, see
 -- <create-fsx-location.html#FSxWuser user>.
 --
--- 'password', 'createLocationFsxWindows_password' - The password of the user who has the permissions to access files and
--- folders in the FSx for Windows File Server file system.
+-- 'password', 'createLocationFsxWindows_password' - Specifies the password of the user who has the permissions to access
+-- files and folders in the file system.
 newCreateLocationFsxWindows ::
   -- | 'fsxFilesystemArn'
   Prelude.Text ->
@@ -146,40 +161,47 @@ newCreateLocationFsxWindows
         securityGroupArns =
           Lens.coerced Lens.# pSecurityGroupArns_,
         user = pUser_,
-        password = Core._Sensitive Lens.# pPassword_
+        password = Data._Sensitive Lens.# pPassword_
       }
 
--- | The name of the Windows domain that the FSx for Windows File Server
--- belongs to.
+-- | Specifies the name of the Windows domain that the FSx for Windows File
+-- Server belongs to.
 createLocationFsxWindows_domain :: Lens.Lens' CreateLocationFsxWindows (Prelude.Maybe Prelude.Text)
 createLocationFsxWindows_domain = Lens.lens (\CreateLocationFsxWindows' {domain} -> domain) (\s@CreateLocationFsxWindows' {} a -> s {domain = a} :: CreateLocationFsxWindows)
 
--- | A subdirectory in the location’s path. This subdirectory in the Amazon
--- FSx for Windows File Server file system is used to read data from the
--- Amazon FSx for Windows File Server source location or write data to the
--- FSx for Windows File Server destination.
+-- | Specifies a mount path for your file system using forward slashes. This
+-- is where DataSync reads or writes data (depending on if this is a source
+-- or destination location).
 createLocationFsxWindows_subdirectory :: Lens.Lens' CreateLocationFsxWindows (Prelude.Maybe Prelude.Text)
 createLocationFsxWindows_subdirectory = Lens.lens (\CreateLocationFsxWindows' {subdirectory} -> subdirectory) (\s@CreateLocationFsxWindows' {} a -> s {subdirectory = a} :: CreateLocationFsxWindows)
 
--- | The key-value pair that represents a tag that you want to add to the
--- resource. The value can be an empty string. This value helps you manage,
--- filter, and search for your resources. We recommend that you create a
--- name tag for your location.
+-- | Specifies labels that help you categorize, filter, and search for your
+-- Amazon Web Services resources. We recommend creating at least a name tag
+-- for your location.
 createLocationFsxWindows_tags :: Lens.Lens' CreateLocationFsxWindows (Prelude.Maybe [TagListEntry])
 createLocationFsxWindows_tags = Lens.lens (\CreateLocationFsxWindows' {tags} -> tags) (\s@CreateLocationFsxWindows' {} a -> s {tags = a} :: CreateLocationFsxWindows) Prelude.. Lens.mapping Lens.coerced
 
--- | The Amazon Resource Name (ARN) for the FSx for Windows File Server file
--- system.
+-- | Specifies the Amazon Resource Name (ARN) for the FSx for Windows File
+-- Server file system.
 createLocationFsxWindows_fsxFilesystemArn :: Lens.Lens' CreateLocationFsxWindows Prelude.Text
 createLocationFsxWindows_fsxFilesystemArn = Lens.lens (\CreateLocationFsxWindows' {fsxFilesystemArn} -> fsxFilesystemArn) (\s@CreateLocationFsxWindows' {} a -> s {fsxFilesystemArn = a} :: CreateLocationFsxWindows)
 
--- | The Amazon Resource Names (ARNs) of the security groups that are to use
--- to configure the FSx for Windows File Server file system.
+-- | Specifies the ARNs of the security groups that provide access to your
+-- file system\'s preferred subnet.
+--
+-- If you choose a security group that doesn\'t allow connections from
+-- within itself, do one of the following:
+--
+-- -   Configure the security group to allow it to communicate within
+--     itself.
+--
+-- -   Choose a different security group that can communicate with the
+--     mount target\'s security group.
 createLocationFsxWindows_securityGroupArns :: Lens.Lens' CreateLocationFsxWindows (Prelude.NonEmpty Prelude.Text)
 createLocationFsxWindows_securityGroupArns = Lens.lens (\CreateLocationFsxWindows' {securityGroupArns} -> securityGroupArns) (\s@CreateLocationFsxWindows' {} a -> s {securityGroupArns = a} :: CreateLocationFsxWindows) Prelude.. Lens.coerced
 
--- | The user who has the permissions to access files and folders in the FSx
--- for Windows File Server file system.
+-- | Specifies the user who has the permissions to access files and folders
+-- in the file system.
 --
 -- For information about choosing a user name that ensures sufficient
 -- permissions to files, folders, and metadata, see
@@ -187,21 +209,22 @@ createLocationFsxWindows_securityGroupArns = Lens.lens (\CreateLocationFsxWindow
 createLocationFsxWindows_user :: Lens.Lens' CreateLocationFsxWindows Prelude.Text
 createLocationFsxWindows_user = Lens.lens (\CreateLocationFsxWindows' {user} -> user) (\s@CreateLocationFsxWindows' {} a -> s {user = a} :: CreateLocationFsxWindows)
 
--- | The password of the user who has the permissions to access files and
--- folders in the FSx for Windows File Server file system.
+-- | Specifies the password of the user who has the permissions to access
+-- files and folders in the file system.
 createLocationFsxWindows_password :: Lens.Lens' CreateLocationFsxWindows Prelude.Text
-createLocationFsxWindows_password = Lens.lens (\CreateLocationFsxWindows' {password} -> password) (\s@CreateLocationFsxWindows' {} a -> s {password = a} :: CreateLocationFsxWindows) Prelude.. Core._Sensitive
+createLocationFsxWindows_password = Lens.lens (\CreateLocationFsxWindows' {password} -> password) (\s@CreateLocationFsxWindows' {} a -> s {password = a} :: CreateLocationFsxWindows) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest CreateLocationFsxWindows where
   type
     AWSResponse CreateLocationFsxWindows =
       CreateLocationFsxWindowsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateLocationFsxWindowsResponse'
-            Prelude.<$> (x Core..?> "LocationArn")
+            Prelude.<$> (x Data..?> "LocationArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -225,47 +248,47 @@ instance Prelude.NFData CreateLocationFsxWindows where
       `Prelude.seq` Prelude.rnf user
       `Prelude.seq` Prelude.rnf password
 
-instance Core.ToHeaders CreateLocationFsxWindows where
+instance Data.ToHeaders CreateLocationFsxWindows where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "FmrsService.CreateLocationFsxWindows" ::
+              Data.=# ( "FmrsService.CreateLocationFsxWindows" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateLocationFsxWindows where
+instance Data.ToJSON CreateLocationFsxWindows where
   toJSON CreateLocationFsxWindows' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Domain" Core..=) Prelude.<$> domain,
-            ("Subdirectory" Core..=) Prelude.<$> subdirectory,
-            ("Tags" Core..=) Prelude.<$> tags,
+          [ ("Domain" Data..=) Prelude.<$> domain,
+            ("Subdirectory" Data..=) Prelude.<$> subdirectory,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("FsxFilesystemArn" Core..= fsxFilesystemArn),
+              ("FsxFilesystemArn" Data..= fsxFilesystemArn),
             Prelude.Just
-              ("SecurityGroupArns" Core..= securityGroupArns),
-            Prelude.Just ("User" Core..= user),
-            Prelude.Just ("Password" Core..= password)
+              ("SecurityGroupArns" Data..= securityGroupArns),
+            Prelude.Just ("User" Data..= user),
+            Prelude.Just ("Password" Data..= password)
           ]
       )
 
-instance Core.ToPath CreateLocationFsxWindows where
+instance Data.ToPath CreateLocationFsxWindows where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateLocationFsxWindows where
+instance Data.ToQuery CreateLocationFsxWindows where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateLocationFsxWindowsResponse' smart constructor.
 data CreateLocationFsxWindowsResponse = CreateLocationFsxWindowsResponse'
-  { -- | The Amazon Resource Name (ARN) of the FSx for Windows File Server file
-    -- system location that is created.
+  { -- | The ARN of the FSx for Windows File Server file system location you
+    -- created.
     locationArn :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -280,8 +303,8 @@ data CreateLocationFsxWindowsResponse = CreateLocationFsxWindowsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'locationArn', 'createLocationFsxWindowsResponse_locationArn' - The Amazon Resource Name (ARN) of the FSx for Windows File Server file
--- system location that is created.
+-- 'locationArn', 'createLocationFsxWindowsResponse_locationArn' - The ARN of the FSx for Windows File Server file system location you
+-- created.
 --
 -- 'httpStatus', 'createLocationFsxWindowsResponse_httpStatus' - The response's http status code.
 newCreateLocationFsxWindowsResponse ::
@@ -295,8 +318,8 @@ newCreateLocationFsxWindowsResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The Amazon Resource Name (ARN) of the FSx for Windows File Server file
--- system location that is created.
+-- | The ARN of the FSx for Windows File Server file system location you
+-- created.
 createLocationFsxWindowsResponse_locationArn :: Lens.Lens' CreateLocationFsxWindowsResponse (Prelude.Maybe Prelude.Text)
 createLocationFsxWindowsResponse_locationArn = Lens.lens (\CreateLocationFsxWindowsResponse' {locationArn} -> locationArn) (\s@CreateLocationFsxWindowsResponse' {} a -> s {locationArn = a} :: CreateLocationFsxWindowsResponse)
 

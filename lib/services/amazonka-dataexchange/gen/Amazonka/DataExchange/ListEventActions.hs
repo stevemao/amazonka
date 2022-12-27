@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataExchange.ListEventActions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.DataExchange.ListEventActions
 
     -- * Request Lenses
     listEventActions_eventSourceId,
-    listEventActions_nextToken,
     listEventActions_maxResults,
+    listEventActions_nextToken,
 
     -- * Destructuring the Response
     ListEventActionsResponse (..),
@@ -45,8 +45,9 @@ module Amazonka.DataExchange.ListEventActions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataExchange.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,11 +56,11 @@ import qualified Amazonka.Response as Response
 data ListEventActions = ListEventActions'
   { -- | The unique identifier for the event source.
     eventSourceId :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results returned by a single call.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The token value retrieved from a previous call to access the next page
     -- of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results returned by a single call.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,31 +74,31 @@ data ListEventActions = ListEventActions'
 --
 -- 'eventSourceId', 'listEventActions_eventSourceId' - The unique identifier for the event source.
 --
+-- 'maxResults', 'listEventActions_maxResults' - The maximum number of results returned by a single call.
+--
 -- 'nextToken', 'listEventActions_nextToken' - The token value retrieved from a previous call to access the next page
 -- of results.
---
--- 'maxResults', 'listEventActions_maxResults' - The maximum number of results returned by a single call.
 newListEventActions ::
   ListEventActions
 newListEventActions =
   ListEventActions'
     { eventSourceId = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | The unique identifier for the event source.
 listEventActions_eventSourceId :: Lens.Lens' ListEventActions (Prelude.Maybe Prelude.Text)
 listEventActions_eventSourceId = Lens.lens (\ListEventActions' {eventSourceId} -> eventSourceId) (\s@ListEventActions' {} a -> s {eventSourceId = a} :: ListEventActions)
 
+-- | The maximum number of results returned by a single call.
+listEventActions_maxResults :: Lens.Lens' ListEventActions (Prelude.Maybe Prelude.Natural)
+listEventActions_maxResults = Lens.lens (\ListEventActions' {maxResults} -> maxResults) (\s@ListEventActions' {} a -> s {maxResults = a} :: ListEventActions)
+
 -- | The token value retrieved from a previous call to access the next page
 -- of results.
 listEventActions_nextToken :: Lens.Lens' ListEventActions (Prelude.Maybe Prelude.Text)
 listEventActions_nextToken = Lens.lens (\ListEventActions' {nextToken} -> nextToken) (\s@ListEventActions' {} a -> s {nextToken = a} :: ListEventActions)
-
--- | The maximum number of results returned by a single call.
-listEventActions_maxResults :: Lens.Lens' ListEventActions (Prelude.Maybe Prelude.Natural)
-listEventActions_maxResults = Lens.lens (\ListEventActions' {maxResults} -> maxResults) (\s@ListEventActions' {} a -> s {maxResults = a} :: ListEventActions)
 
 instance Core.AWSPager ListEventActions where
   page rq rs
@@ -125,48 +126,49 @@ instance Core.AWSRequest ListEventActions where
   type
     AWSResponse ListEventActions =
       ListEventActionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListEventActionsResponse'
-            Prelude.<$> (x Core..?> "EventActions" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "EventActions" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListEventActions where
   hashWithSalt _salt ListEventActions' {..} =
     _salt `Prelude.hashWithSalt` eventSourceId
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListEventActions where
   rnf ListEventActions' {..} =
     Prelude.rnf eventSourceId
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListEventActions where
+instance Data.ToHeaders ListEventActions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListEventActions where
+instance Data.ToPath ListEventActions where
   toPath = Prelude.const "/v1/event-actions"
 
-instance Core.ToQuery ListEventActions where
+instance Data.ToQuery ListEventActions where
   toQuery ListEventActions' {..} =
     Prelude.mconcat
-      [ "eventSourceId" Core.=: eventSourceId,
-        "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "eventSourceId" Data.=: eventSourceId,
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListEventActionsResponse' smart constructor.

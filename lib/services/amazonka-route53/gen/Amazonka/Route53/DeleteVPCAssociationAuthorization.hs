@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.DeleteVPCAssociationAuthorization
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ module Amazonka.Route53.DeleteVPCAssociationAuthorization
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -126,7 +127,8 @@ instance
   type
     AWSResponse DeleteVPCAssociationAuthorization =
       DeleteVPCAssociationAuthorizationResponse
-  request = Request.postXML defaultService
+  request overrides =
+    Request.postXML (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -153,39 +155,39 @@ instance
       `Prelude.seq` Prelude.rnf vpc
 
 instance
-  Core.ToElement
+  Data.ToElement
     DeleteVPCAssociationAuthorization
   where
   toElement =
-    Core.mkElement
+    Data.mkElement
       "{https://route53.amazonaws.com/doc/2013-04-01/}DeleteVPCAssociationAuthorizationRequest"
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteVPCAssociationAuthorization
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     DeleteVPCAssociationAuthorization
   where
   toPath DeleteVPCAssociationAuthorization' {..} =
     Prelude.mconcat
       [ "/2013-04-01/hostedzone/",
-        Core.toBS hostedZoneId,
+        Data.toBS hostedZoneId,
         "/deauthorizevpcassociation"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DeleteVPCAssociationAuthorization
   where
   toQuery = Prelude.const Prelude.mempty
 
-instance Core.ToXML DeleteVPCAssociationAuthorization where
+instance Data.ToXML DeleteVPCAssociationAuthorization where
   toXML DeleteVPCAssociationAuthorization' {..} =
-    Prelude.mconcat ["VPC" Core.@= vpc]
+    Prelude.mconcat ["VPC" Data.@= vpc]
 
 -- | Empty response for the request.
 --

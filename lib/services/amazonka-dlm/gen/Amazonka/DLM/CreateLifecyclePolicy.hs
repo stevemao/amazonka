@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DLM.CreateLifecyclePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.DLM.CreateLifecyclePolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DLM.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -136,12 +137,13 @@ instance Core.AWSRequest CreateLifecyclePolicy where
   type
     AWSResponse CreateLifecyclePolicy =
       CreateLifecyclePolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateLifecyclePolicyResponse'
-            Prelude.<$> (x Core..?> "PolicyId")
+            Prelude.<$> (x Data..?> "PolicyId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -161,35 +163,35 @@ instance Prelude.NFData CreateLifecyclePolicy where
       `Prelude.seq` Prelude.rnf state
       `Prelude.seq` Prelude.rnf policyDetails
 
-instance Core.ToHeaders CreateLifecyclePolicy where
+instance Data.ToHeaders CreateLifecyclePolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateLifecyclePolicy where
+instance Data.ToJSON CreateLifecyclePolicy where
   toJSON CreateLifecyclePolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Tags" Core..=) Prelude.<$> tags,
+          [ ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("ExecutionRoleArn" Core..= executionRoleArn),
-            Prelude.Just ("Description" Core..= description),
-            Prelude.Just ("State" Core..= state),
+              ("ExecutionRoleArn" Data..= executionRoleArn),
+            Prelude.Just ("Description" Data..= description),
+            Prelude.Just ("State" Data..= state),
             Prelude.Just
-              ("PolicyDetails" Core..= policyDetails)
+              ("PolicyDetails" Data..= policyDetails)
           ]
       )
 
-instance Core.ToPath CreateLifecyclePolicy where
+instance Data.ToPath CreateLifecyclePolicy where
   toPath = Prelude.const "/policies"
 
-instance Core.ToQuery CreateLifecyclePolicy where
+instance Data.ToQuery CreateLifecyclePolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateLifecyclePolicyResponse' smart constructor.

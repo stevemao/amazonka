@@ -14,13 +14,14 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.ListNamespaces
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the namespaces for the specified Amazon Web Services account.
+-- Lists the namespaces for the specified Amazon Web Services account. This
+-- operation doesn\'t list deleted namespaces.
 --
 -- This operation returns paginated results.
 module Amazonka.QuickSight.ListNamespaces
@@ -29,8 +30,8 @@ module Amazonka.QuickSight.ListNamespaces
     newListNamespaces,
 
     -- * Request Lenses
-    listNamespaces_nextToken,
     listNamespaces_maxResults,
+    listNamespaces_nextToken,
     listNamespaces_awsAccountId,
 
     -- * Destructuring the Response
@@ -38,15 +39,16 @@ module Amazonka.QuickSight.ListNamespaces
     newListNamespacesResponse,
 
     -- * Response Lenses
-    listNamespacesResponse_requestId,
     listNamespacesResponse_namespaces,
     listNamespacesResponse_nextToken,
+    listNamespacesResponse_requestId,
     listNamespacesResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -54,10 +56,17 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListNamespaces' smart constructor.
 data ListNamespaces = ListNamespaces'
-  { -- | A pagination token that can be used in a subsequent request.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return.
+  { -- | The maximum number of results to return.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A unique pagination token that can be used in a subsequent request. You
+    -- will receive a pagination token in the response body of a previous
+    -- @ListNameSpaces@ API call if there is more data that can be returned. To
+    -- receive the data, make another @ListNamespaces@ API call with the
+    -- returned token to retrieve the next page of data. Each token is valid
+    -- for 24 hours. If you try to make a @ListNamespaces@ API call with an
+    -- expired token, you will receive a @HTTP 400 InvalidNextTokenException@
+    -- error.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ID for the Amazon Web Services account that contains the Amazon
     -- QuickSight namespaces that you want to list.
     awsAccountId :: Prelude.Text
@@ -72,9 +81,16 @@ data ListNamespaces = ListNamespaces'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listNamespaces_nextToken' - A pagination token that can be used in a subsequent request.
---
 -- 'maxResults', 'listNamespaces_maxResults' - The maximum number of results to return.
+--
+-- 'nextToken', 'listNamespaces_nextToken' - A unique pagination token that can be used in a subsequent request. You
+-- will receive a pagination token in the response body of a previous
+-- @ListNameSpaces@ API call if there is more data that can be returned. To
+-- receive the data, make another @ListNamespaces@ API call with the
+-- returned token to retrieve the next page of data. Each token is valid
+-- for 24 hours. If you try to make a @ListNamespaces@ API call with an
+-- expired token, you will receive a @HTTP 400 InvalidNextTokenException@
+-- error.
 --
 -- 'awsAccountId', 'listNamespaces_awsAccountId' - The ID for the Amazon Web Services account that contains the Amazon
 -- QuickSight namespaces that you want to list.
@@ -84,18 +100,25 @@ newListNamespaces ::
   ListNamespaces
 newListNamespaces pAwsAccountId_ =
   ListNamespaces'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       awsAccountId = pAwsAccountId_
     }
-
--- | A pagination token that can be used in a subsequent request.
-listNamespaces_nextToken :: Lens.Lens' ListNamespaces (Prelude.Maybe Prelude.Text)
-listNamespaces_nextToken = Lens.lens (\ListNamespaces' {nextToken} -> nextToken) (\s@ListNamespaces' {} a -> s {nextToken = a} :: ListNamespaces)
 
 -- | The maximum number of results to return.
 listNamespaces_maxResults :: Lens.Lens' ListNamespaces (Prelude.Maybe Prelude.Natural)
 listNamespaces_maxResults = Lens.lens (\ListNamespaces' {maxResults} -> maxResults) (\s@ListNamespaces' {} a -> s {maxResults = a} :: ListNamespaces)
+
+-- | A unique pagination token that can be used in a subsequent request. You
+-- will receive a pagination token in the response body of a previous
+-- @ListNameSpaces@ API call if there is more data that can be returned. To
+-- receive the data, make another @ListNamespaces@ API call with the
+-- returned token to retrieve the next page of data. Each token is valid
+-- for 24 hours. If you try to make a @ListNamespaces@ API call with an
+-- expired token, you will receive a @HTTP 400 InvalidNextTokenException@
+-- error.
+listNamespaces_nextToken :: Lens.Lens' ListNamespaces (Prelude.Maybe Prelude.Text)
+listNamespaces_nextToken = Lens.lens (\ListNamespaces' {nextToken} -> nextToken) (\s@ListNamespaces' {} a -> s {nextToken = a} :: ListNamespaces)
 
 -- | The ID for the Amazon Web Services account that contains the Amazon
 -- QuickSight namespaces that you want to list.
@@ -127,63 +150,70 @@ instance Core.AWSRequest ListNamespaces where
   type
     AWSResponse ListNamespaces =
       ListNamespacesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListNamespacesResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "Namespaces" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Namespaces" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListNamespaces where
   hashWithSalt _salt ListNamespaces' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` awsAccountId
 
 instance Prelude.NFData ListNamespaces where
   rnf ListNamespaces' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf awsAccountId
 
-instance Core.ToHeaders ListNamespaces where
+instance Data.ToHeaders ListNamespaces where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListNamespaces where
+instance Data.ToPath ListNamespaces where
   toPath ListNamespaces' {..} =
     Prelude.mconcat
-      ["/accounts/", Core.toBS awsAccountId, "/namespaces"]
+      ["/accounts/", Data.toBS awsAccountId, "/namespaces"]
 
-instance Core.ToQuery ListNamespaces where
+instance Data.ToQuery ListNamespaces where
   toQuery ListNamespaces' {..} =
     Prelude.mconcat
-      [ "next-token" Core.=: nextToken,
-        "max-results" Core.=: maxResults
+      [ "max-results" Data.=: maxResults,
+        "next-token" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListNamespacesResponse' smart constructor.
 data ListNamespacesResponse = ListNamespacesResponse'
-  { -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The information about the namespaces in this Amazon Web Services
+  { -- | The information about the namespaces in this Amazon Web Services
     -- account. The response includes the namespace ARN, name, Amazon Web
     -- Services Region, notification email address, creation status, and
     -- identity store.
     namespaces :: Prelude.Maybe [NamespaceInfoV2],
-    -- | A pagination token that can be used in a subsequent request.
+    -- | A unique pagination token that can be used in a subsequent request.
+    -- Receiving @NextToken@ in your response inticates that there is more data
+    -- that can be returned. To receive the data, make another @ListNamespaces@
+    -- API call with the returned token to retrieve the next page of data. Each
+    -- token is valid for 24 hours. If you try to make a @ListNamespaces@ API
+    -- call with an expired token, you will receive a
+    -- @HTTP 400 InvalidNextTokenException@ error.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -197,14 +227,20 @@ data ListNamespacesResponse = ListNamespacesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'listNamespacesResponse_requestId' - The Amazon Web Services request ID for this operation.
---
 -- 'namespaces', 'listNamespacesResponse_namespaces' - The information about the namespaces in this Amazon Web Services
 -- account. The response includes the namespace ARN, name, Amazon Web
 -- Services Region, notification email address, creation status, and
 -- identity store.
 --
--- 'nextToken', 'listNamespacesResponse_nextToken' - A pagination token that can be used in a subsequent request.
+-- 'nextToken', 'listNamespacesResponse_nextToken' - A unique pagination token that can be used in a subsequent request.
+-- Receiving @NextToken@ in your response inticates that there is more data
+-- that can be returned. To receive the data, make another @ListNamespaces@
+-- API call with the returned token to retrieve the next page of data. Each
+-- token is valid for 24 hours. If you try to make a @ListNamespaces@ API
+-- call with an expired token, you will receive a
+-- @HTTP 400 InvalidNextTokenException@ error.
+--
+-- 'requestId', 'listNamespacesResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'status', 'listNamespacesResponse_status' - The HTTP status of the request.
 newListNamespacesResponse ::
@@ -213,16 +249,12 @@ newListNamespacesResponse ::
   ListNamespacesResponse
 newListNamespacesResponse pStatus_ =
   ListNamespacesResponse'
-    { requestId =
+    { namespaces =
         Prelude.Nothing,
-      namespaces = Prelude.Nothing,
       nextToken = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       status = pStatus_
     }
-
--- | The Amazon Web Services request ID for this operation.
-listNamespacesResponse_requestId :: Lens.Lens' ListNamespacesResponse (Prelude.Maybe Prelude.Text)
-listNamespacesResponse_requestId = Lens.lens (\ListNamespacesResponse' {requestId} -> requestId) (\s@ListNamespacesResponse' {} a -> s {requestId = a} :: ListNamespacesResponse)
 
 -- | The information about the namespaces in this Amazon Web Services
 -- account. The response includes the namespace ARN, name, Amazon Web
@@ -231,9 +263,19 @@ listNamespacesResponse_requestId = Lens.lens (\ListNamespacesResponse' {requestI
 listNamespacesResponse_namespaces :: Lens.Lens' ListNamespacesResponse (Prelude.Maybe [NamespaceInfoV2])
 listNamespacesResponse_namespaces = Lens.lens (\ListNamespacesResponse' {namespaces} -> namespaces) (\s@ListNamespacesResponse' {} a -> s {namespaces = a} :: ListNamespacesResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | A pagination token that can be used in a subsequent request.
+-- | A unique pagination token that can be used in a subsequent request.
+-- Receiving @NextToken@ in your response inticates that there is more data
+-- that can be returned. To receive the data, make another @ListNamespaces@
+-- API call with the returned token to retrieve the next page of data. Each
+-- token is valid for 24 hours. If you try to make a @ListNamespaces@ API
+-- call with an expired token, you will receive a
+-- @HTTP 400 InvalidNextTokenException@ error.
 listNamespacesResponse_nextToken :: Lens.Lens' ListNamespacesResponse (Prelude.Maybe Prelude.Text)
 listNamespacesResponse_nextToken = Lens.lens (\ListNamespacesResponse' {nextToken} -> nextToken) (\s@ListNamespacesResponse' {} a -> s {nextToken = a} :: ListNamespacesResponse)
+
+-- | The Amazon Web Services request ID for this operation.
+listNamespacesResponse_requestId :: Lens.Lens' ListNamespacesResponse (Prelude.Maybe Prelude.Text)
+listNamespacesResponse_requestId = Lens.lens (\ListNamespacesResponse' {requestId} -> requestId) (\s@ListNamespacesResponse' {} a -> s {requestId = a} :: ListNamespacesResponse)
 
 -- | The HTTP status of the request.
 listNamespacesResponse_status :: Lens.Lens' ListNamespacesResponse Prelude.Int
@@ -241,7 +283,7 @@ listNamespacesResponse_status = Lens.lens (\ListNamespacesResponse' {status} -> 
 
 instance Prelude.NFData ListNamespacesResponse where
   rnf ListNamespacesResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf namespaces
+    Prelude.rnf namespaces
       `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf status

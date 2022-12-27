@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.RollbackStack
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,7 @@
 --
 -- When specifying @RollbackStack@, you preserve the state of previously
 -- provisioned resources when an operation fails. You can check the status
--- of the stack through the DescribeStacks API.
+-- of the stack through the DescribeStacks operation.
 --
 -- Rolls back the specified stack to the last known stable state from
 -- @CREATE_FAILED@ or @UPDATE_FAILED@ stack statuses.
@@ -62,7 +62,8 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -74,7 +75,7 @@ data RollbackStack = RollbackStack'
     -- | The Amazon Resource Name (ARN) of an Identity and Access Management role
     -- that CloudFormation assumes to rollback the stack.
     roleARN :: Prelude.Maybe Prelude.Text,
-    -- | The name that is associated with the stack.
+    -- | The name that\'s associated with the stack.
     stackName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -92,7 +93,7 @@ data RollbackStack = RollbackStack'
 -- 'roleARN', 'rollbackStack_roleARN' - The Amazon Resource Name (ARN) of an Identity and Access Management role
 -- that CloudFormation assumes to rollback the stack.
 --
--- 'stackName', 'rollbackStack_stackName' - The name that is associated with the stack.
+-- 'stackName', 'rollbackStack_stackName' - The name that\'s associated with the stack.
 newRollbackStack ::
   -- | 'stackName'
   Prelude.Text ->
@@ -114,7 +115,7 @@ rollbackStack_clientRequestToken = Lens.lens (\RollbackStack' {clientRequestToke
 rollbackStack_roleARN :: Lens.Lens' RollbackStack (Prelude.Maybe Prelude.Text)
 rollbackStack_roleARN = Lens.lens (\RollbackStack' {roleARN} -> roleARN) (\s@RollbackStack' {} a -> s {roleARN = a} :: RollbackStack)
 
--- | The name that is associated with the stack.
+-- | The name that\'s associated with the stack.
 rollbackStack_stackName :: Lens.Lens' RollbackStack Prelude.Text
 rollbackStack_stackName = Lens.lens (\RollbackStack' {stackName} -> stackName) (\s@RollbackStack' {} a -> s {stackName = a} :: RollbackStack)
 
@@ -122,13 +123,14 @@ instance Core.AWSRequest RollbackStack where
   type
     AWSResponse RollbackStack =
       RollbackStackResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "RollbackStackResult"
       ( \s h x ->
           RollbackStackResponse'
-            Prelude.<$> (x Core..@? "StackId")
+            Prelude.<$> (x Data..@? "StackId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -144,22 +146,22 @@ instance Prelude.NFData RollbackStack where
       `Prelude.seq` Prelude.rnf roleARN
       `Prelude.seq` Prelude.rnf stackName
 
-instance Core.ToHeaders RollbackStack where
+instance Data.ToHeaders RollbackStack where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath RollbackStack where
+instance Data.ToPath RollbackStack where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RollbackStack where
+instance Data.ToQuery RollbackStack where
   toQuery RollbackStack' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("RollbackStack" :: Prelude.ByteString),
+          Data.=: ("RollbackStack" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
-        "ClientRequestToken" Core.=: clientRequestToken,
-        "RoleARN" Core.=: roleARN,
-        "StackName" Core.=: stackName
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "ClientRequestToken" Data.=: clientRequestToken,
+        "RoleARN" Data.=: roleARN,
+        "StackName" Data.=: stackName
       ]
 
 -- | /See:/ 'newRollbackStackResponse' smart constructor.

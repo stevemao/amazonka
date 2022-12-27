@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.GetCertificates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,8 +32,8 @@ module Amazonka.Lightsail.GetCertificates
     newGetCertificates,
 
     -- * Request Lenses
-    getCertificates_certificateStatuses,
     getCertificates_certificateName,
+    getCertificates_certificateStatuses,
     getCertificates_includeCertificateDetails,
 
     -- * Destructuring the Response
@@ -47,7 +47,8 @@ module Amazonka.Lightsail.GetCertificates
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -55,19 +56,20 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetCertificates' smart constructor.
 data GetCertificates = GetCertificates'
-  { -- | The status of the certificates for which to return information.
+  { -- | The name for the certificate for which to return information.
+    --
+    -- When omitted, the response includes all of your certificates in the
+    -- Amazon Web Services Region where the request is made.
+    certificateName :: Prelude.Maybe Prelude.Text,
+    -- | The status of the certificates for which to return information.
     --
     -- For example, specify @ISSUED@ to return only certificates with an
     -- @ISSUED@ status.
     --
-    -- When omitted, the response includes all of your certificates in the AWS
-    -- Region where the request is made, regardless of their current status.
+    -- When omitted, the response includes all of your certificates in the
+    -- Amazon Web Services Region where the request is made, regardless of
+    -- their current status.
     certificateStatuses :: Prelude.Maybe [CertificateStatus],
-    -- | The name for the certificate for which to return information.
-    --
-    -- When omitted, the response includes all of your certificates in the AWS
-    -- Region where the request is made.
-    certificateName :: Prelude.Maybe Prelude.Text,
     -- | Indicates whether to include detailed information about the certificates
     -- in the response.
     --
@@ -85,18 +87,19 @@ data GetCertificates = GetCertificates'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'certificateName', 'getCertificates_certificateName' - The name for the certificate for which to return information.
+--
+-- When omitted, the response includes all of your certificates in the
+-- Amazon Web Services Region where the request is made.
+--
 -- 'certificateStatuses', 'getCertificates_certificateStatuses' - The status of the certificates for which to return information.
 --
 -- For example, specify @ISSUED@ to return only certificates with an
 -- @ISSUED@ status.
 --
--- When omitted, the response includes all of your certificates in the AWS
--- Region where the request is made, regardless of their current status.
---
--- 'certificateName', 'getCertificates_certificateName' - The name for the certificate for which to return information.
---
--- When omitted, the response includes all of your certificates in the AWS
--- Region where the request is made.
+-- When omitted, the response includes all of your certificates in the
+-- Amazon Web Services Region where the request is made, regardless of
+-- their current status.
 --
 -- 'includeCertificateDetails', 'getCertificates_includeCertificateDetails' - Indicates whether to include detailed information about the certificates
 -- in the response.
@@ -107,28 +110,28 @@ newGetCertificates ::
   GetCertificates
 newGetCertificates =
   GetCertificates'
-    { certificateStatuses =
-        Prelude.Nothing,
-      certificateName = Prelude.Nothing,
+    { certificateName = Prelude.Nothing,
+      certificateStatuses = Prelude.Nothing,
       includeCertificateDetails = Prelude.Nothing
     }
+
+-- | The name for the certificate for which to return information.
+--
+-- When omitted, the response includes all of your certificates in the
+-- Amazon Web Services Region where the request is made.
+getCertificates_certificateName :: Lens.Lens' GetCertificates (Prelude.Maybe Prelude.Text)
+getCertificates_certificateName = Lens.lens (\GetCertificates' {certificateName} -> certificateName) (\s@GetCertificates' {} a -> s {certificateName = a} :: GetCertificates)
 
 -- | The status of the certificates for which to return information.
 --
 -- For example, specify @ISSUED@ to return only certificates with an
 -- @ISSUED@ status.
 --
--- When omitted, the response includes all of your certificates in the AWS
--- Region where the request is made, regardless of their current status.
+-- When omitted, the response includes all of your certificates in the
+-- Amazon Web Services Region where the request is made, regardless of
+-- their current status.
 getCertificates_certificateStatuses :: Lens.Lens' GetCertificates (Prelude.Maybe [CertificateStatus])
 getCertificates_certificateStatuses = Lens.lens (\GetCertificates' {certificateStatuses} -> certificateStatuses) (\s@GetCertificates' {} a -> s {certificateStatuses = a} :: GetCertificates) Prelude.. Lens.mapping Lens.coerced
-
--- | The name for the certificate for which to return information.
---
--- When omitted, the response includes all of your certificates in the AWS
--- Region where the request is made.
-getCertificates_certificateName :: Lens.Lens' GetCertificates (Prelude.Maybe Prelude.Text)
-getCertificates_certificateName = Lens.lens (\GetCertificates' {certificateName} -> certificateName) (\s@GetCertificates' {} a -> s {certificateName = a} :: GetCertificates)
 
 -- | Indicates whether to include detailed information about the certificates
 -- in the response.
@@ -142,59 +145,60 @@ instance Core.AWSRequest GetCertificates where
   type
     AWSResponse GetCertificates =
       GetCertificatesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetCertificatesResponse'
-            Prelude.<$> (x Core..?> "certificates" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "certificates" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetCertificates where
   hashWithSalt _salt GetCertificates' {..} =
-    _salt `Prelude.hashWithSalt` certificateStatuses
-      `Prelude.hashWithSalt` certificateName
+    _salt `Prelude.hashWithSalt` certificateName
+      `Prelude.hashWithSalt` certificateStatuses
       `Prelude.hashWithSalt` includeCertificateDetails
 
 instance Prelude.NFData GetCertificates where
   rnf GetCertificates' {..} =
-    Prelude.rnf certificateStatuses
-      `Prelude.seq` Prelude.rnf certificateName
+    Prelude.rnf certificateName
+      `Prelude.seq` Prelude.rnf certificateStatuses
       `Prelude.seq` Prelude.rnf includeCertificateDetails
 
-instance Core.ToHeaders GetCertificates where
+instance Data.ToHeaders GetCertificates where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.GetCertificates" ::
+              Data.=# ( "Lightsail_20161128.GetCertificates" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetCertificates where
+instance Data.ToJSON GetCertificates where
   toJSON GetCertificates' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("certificateStatuses" Core..=)
-              Prelude.<$> certificateStatuses,
-            ("certificateName" Core..=)
+          [ ("certificateName" Data..=)
               Prelude.<$> certificateName,
-            ("includeCertificateDetails" Core..=)
+            ("certificateStatuses" Data..=)
+              Prelude.<$> certificateStatuses,
+            ("includeCertificateDetails" Data..=)
               Prelude.<$> includeCertificateDetails
           ]
       )
 
-instance Core.ToPath GetCertificates where
+instance Data.ToPath GetCertificates where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetCertificates where
+instance Data.ToQuery GetCertificates where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetCertificatesResponse' smart constructor.

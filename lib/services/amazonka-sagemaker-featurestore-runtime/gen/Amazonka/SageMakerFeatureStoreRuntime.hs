@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.SageMakerFeatureStoreRuntime
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,17 +35,17 @@ module Amazonka.SageMakerFeatureStoreRuntime
     -- ** AccessForbidden
     _AccessForbidden,
 
-    -- ** ServiceUnavailable
-    _ServiceUnavailable,
-
     -- ** InternalFailure
     _InternalFailure,
 
-    -- ** ValidationError
-    _ValidationError,
-
     -- ** ResourceNotFound
     _ResourceNotFound,
+
+    -- ** ServiceUnavailable
+    _ServiceUnavailable,
+
+    -- ** ValidationError
+    _ValidationError,
 
     -- * Waiters
     -- $waiters
@@ -53,11 +53,11 @@ module Amazonka.SageMakerFeatureStoreRuntime
     -- * Operations
     -- $operations
 
-    -- ** PutRecord
-    PutRecord (PutRecord'),
-    newPutRecord,
-    PutRecordResponse (PutRecordResponse'),
-    newPutRecordResponse,
+    -- ** BatchGetRecord
+    BatchGetRecord (BatchGetRecord'),
+    newBatchGetRecord,
+    BatchGetRecordResponse (BatchGetRecordResponse'),
+    newBatchGetRecordResponse,
 
     -- ** DeleteRecord
     DeleteRecord (DeleteRecord'),
@@ -65,19 +65,22 @@ module Amazonka.SageMakerFeatureStoreRuntime
     DeleteRecordResponse (DeleteRecordResponse'),
     newDeleteRecordResponse,
 
-    -- ** BatchGetRecord
-    BatchGetRecord (BatchGetRecord'),
-    newBatchGetRecord,
-    BatchGetRecordResponse (BatchGetRecordResponse'),
-    newBatchGetRecordResponse,
-
     -- ** GetRecord
     GetRecord (GetRecord'),
     newGetRecord,
     GetRecordResponse (GetRecordResponse'),
     newGetRecordResponse,
 
+    -- ** PutRecord
+    PutRecord (PutRecord'),
+    newPutRecord,
+    PutRecordResponse (PutRecordResponse'),
+    newPutRecordResponse,
+
     -- * Types
+
+    -- ** TargetStore
+    TargetStore (..),
 
     -- ** BatchGetRecordError
     BatchGetRecordError (BatchGetRecordError'),

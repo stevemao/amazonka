@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.AggregationType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoT.Types.AggregationType where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.AggregationTypeName
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The type of aggregation queries.
@@ -64,14 +65,14 @@ aggregationType_values = Lens.lens (\AggregationType' {values} -> values) (\s@Ag
 aggregationType_name :: Lens.Lens' AggregationType AggregationTypeName
 aggregationType_name = Lens.lens (\AggregationType' {name} -> name) (\s@AggregationType' {} a -> s {name = a} :: AggregationType)
 
-instance Core.FromJSON AggregationType where
+instance Data.FromJSON AggregationType where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AggregationType"
       ( \x ->
           AggregationType'
-            Prelude.<$> (x Core..:? "values" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "name")
+            Prelude.<$> (x Data..:? "values" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "name")
       )
 
 instance Prelude.Hashable AggregationType where
@@ -83,11 +84,11 @@ instance Prelude.NFData AggregationType where
   rnf AggregationType' {..} =
     Prelude.rnf values `Prelude.seq` Prelude.rnf name
 
-instance Core.ToJSON AggregationType where
+instance Data.ToJSON AggregationType where
   toJSON AggregationType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("values" Core..=) Prelude.<$> values,
-            Prelude.Just ("name" Core..= name)
+          [ ("values" Data..=) Prelude.<$> values,
+            Prelude.Just ("name" Data..= name)
           ]
       )

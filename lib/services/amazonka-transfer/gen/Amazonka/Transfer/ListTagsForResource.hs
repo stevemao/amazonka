@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Transfer.ListTagsForResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,14 +22,16 @@
 --
 -- Lists all of the tags associated with the Amazon Resource Name (ARN)
 -- that you specify. The resource can be a user, server, or role.
+--
+-- This operation returns paginated results.
 module Amazonka.Transfer.ListTagsForResource
   ( -- * Creating a Request
     ListTagsForResource (..),
     newListTagsForResource,
 
     -- * Request Lenses
-    listTagsForResource_nextToken,
     listTagsForResource_maxResults,
+    listTagsForResource_nextToken,
     listTagsForResource_arn,
 
     -- * Destructuring the Response
@@ -45,7 +47,8 @@ module Amazonka.Transfer.ListTagsForResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,14 +56,14 @@ import Amazonka.Transfer.Types
 
 -- | /See:/ 'newListTagsForResource' smart constructor.
 data ListTagsForResource = ListTagsForResource'
-  { -- | When you request additional results from the @ListTagsForResource@
+  { -- | Specifies the number of tags to return as a response to the
+    -- @ListTagsForResource@ request.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | When you request additional results from the @ListTagsForResource@
     -- operation, a @NextToken@ parameter is returned in the input. You can
     -- then pass in a subsequent command to the @NextToken@ parameter to
     -- continue listing additional tags.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Specifies the number of tags to return as a response to the
-    -- @ListTagsForResource@ request.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | Requests the tags associated with a particular Amazon Resource Name
     -- (ARN). An ARN is an identifier for a specific Amazon Web Services
     -- resource, such as a server, user, or role.
@@ -76,13 +79,13 @@ data ListTagsForResource = ListTagsForResource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listTagsForResource_maxResults' - Specifies the number of tags to return as a response to the
+-- @ListTagsForResource@ request.
+--
 -- 'nextToken', 'listTagsForResource_nextToken' - When you request additional results from the @ListTagsForResource@
 -- operation, a @NextToken@ parameter is returned in the input. You can
 -- then pass in a subsequent command to the @NextToken@ parameter to
 -- continue listing additional tags.
---
--- 'maxResults', 'listTagsForResource_maxResults' - Specifies the number of tags to return as a response to the
--- @ListTagsForResource@ request.
 --
 -- 'arn', 'listTagsForResource_arn' - Requests the tags associated with a particular Amazon Resource Name
 -- (ARN). An ARN is an identifier for a specific Amazon Web Services
@@ -93,10 +96,15 @@ newListTagsForResource ::
   ListTagsForResource
 newListTagsForResource pArn_ =
   ListTagsForResource'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       arn = pArn_
     }
+
+-- | Specifies the number of tags to return as a response to the
+-- @ListTagsForResource@ request.
+listTagsForResource_maxResults :: Lens.Lens' ListTagsForResource (Prelude.Maybe Prelude.Natural)
+listTagsForResource_maxResults = Lens.lens (\ListTagsForResource' {maxResults} -> maxResults) (\s@ListTagsForResource' {} a -> s {maxResults = a} :: ListTagsForResource)
 
 -- | When you request additional results from the @ListTagsForResource@
 -- operation, a @NextToken@ parameter is returned in the input. You can
@@ -105,73 +113,91 @@ newListTagsForResource pArn_ =
 listTagsForResource_nextToken :: Lens.Lens' ListTagsForResource (Prelude.Maybe Prelude.Text)
 listTagsForResource_nextToken = Lens.lens (\ListTagsForResource' {nextToken} -> nextToken) (\s@ListTagsForResource' {} a -> s {nextToken = a} :: ListTagsForResource)
 
--- | Specifies the number of tags to return as a response to the
--- @ListTagsForResource@ request.
-listTagsForResource_maxResults :: Lens.Lens' ListTagsForResource (Prelude.Maybe Prelude.Natural)
-listTagsForResource_maxResults = Lens.lens (\ListTagsForResource' {maxResults} -> maxResults) (\s@ListTagsForResource' {} a -> s {maxResults = a} :: ListTagsForResource)
-
 -- | Requests the tags associated with a particular Amazon Resource Name
 -- (ARN). An ARN is an identifier for a specific Amazon Web Services
 -- resource, such as a server, user, or role.
 listTagsForResource_arn :: Lens.Lens' ListTagsForResource Prelude.Text
 listTagsForResource_arn = Lens.lens (\ListTagsForResource' {arn} -> arn) (\s@ListTagsForResource' {} a -> s {arn = a} :: ListTagsForResource)
 
+instance Core.AWSPager ListTagsForResource where
+  page rq rs
+    | Core.stop
+        ( rs
+            Lens.^? listTagsForResourceResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Core.stop
+        ( rs
+            Lens.^? listTagsForResourceResponse_tags Prelude.. Lens._Just
+              Prelude.. Lens.to Prelude.toList
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Prelude.& listTagsForResource_nextToken
+          Lens..~ rs
+          Lens.^? listTagsForResourceResponse_nextToken
+            Prelude.. Lens._Just
+
 instance Core.AWSRequest ListTagsForResource where
   type
     AWSResponse ListTagsForResource =
       ListTagsForResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTagsForResourceResponse'
-            Prelude.<$> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Tags")
+            Prelude.<$> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Tags")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListTagsForResource where
   hashWithSalt _salt ListTagsForResource' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` arn
 
 instance Prelude.NFData ListTagsForResource where
   rnf ListTagsForResource' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf arn
 
-instance Core.ToHeaders ListTagsForResource where
+instance Data.ToHeaders ListTagsForResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "TransferService.ListTagsForResource" ::
+              Data.=# ( "TransferService.ListTagsForResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTagsForResource where
+instance Data.ToJSON ListTagsForResource where
   toJSON ListTagsForResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("Arn" Core..= arn)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("Arn" Data..= arn)
           ]
       )
 
-instance Core.ToPath ListTagsForResource where
+instance Data.ToPath ListTagsForResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTagsForResource where
+instance Data.ToQuery ListTagsForResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTagsForResourceResponse' smart constructor.

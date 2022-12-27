@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.Types.TotalImpactFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.CostExplorer.Types.TotalImpactFilter where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostExplorer.Types.NumericOperator
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Filters cost anomalies based on the total impact.
@@ -87,13 +88,13 @@ instance Prelude.NFData TotalImpactFilter where
       `Prelude.seq` Prelude.rnf numericOperator
       `Prelude.seq` Prelude.rnf startValue
 
-instance Core.ToJSON TotalImpactFilter where
+instance Data.ToJSON TotalImpactFilter where
   toJSON TotalImpactFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EndValue" Core..=) Prelude.<$> endValue,
+          [ ("EndValue" Data..=) Prelude.<$> endValue,
             Prelude.Just
-              ("NumericOperator" Core..= numericOperator),
-            Prelude.Just ("StartValue" Core..= startValue)
+              ("NumericOperator" Data..= numericOperator),
+            Prelude.Just ("StartValue" Data..= startValue)
           ]
       )

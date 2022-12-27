@@ -20,6 +20,7 @@ haskell_library(
         "gen/Amazonka/RAM/GetResourceShares.hs",
         "gen/Amazonka/RAM/Lens.hs",
         "gen/Amazonka/RAM/ListPendingInvitationResources.hs",
+        "gen/Amazonka/RAM/ListPermissionVersions.hs",
         "gen/Amazonka/RAM/ListPermissions.hs",
         "gen/Amazonka/RAM/ListPrincipals.hs",
         "gen/Amazonka/RAM/ListResourceSharePermissions.hs",
@@ -32,6 +33,8 @@ haskell_library(
         "gen/Amazonka/RAM/Types/Principal.hs",
         "gen/Amazonka/RAM/Types/Resource.hs",
         "gen/Amazonka/RAM/Types/ResourceOwner.hs",
+        "gen/Amazonka/RAM/Types/ResourceRegionScope.hs",
+        "gen/Amazonka/RAM/Types/ResourceRegionScopeFilter.hs",
         "gen/Amazonka/RAM/Types/ResourceShare.hs",
         "gen/Amazonka/RAM/Types/ResourceShareAssociation.hs",
         "gen/Amazonka/RAM/Types/ResourceShareAssociationStatus.hs",
@@ -50,14 +53,13 @@ haskell_library(
         "gen/Amazonka/RAM/UpdateResourceShare.hs",
         "gen/Amazonka/RAM/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
         "-DVERSION_amazonka_ram=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -75,11 +77,12 @@ haskell_test(
         "test/Test/Amazonka/RAM.hs",
         "test/Test/Amazonka/RAM/Internal.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
         "-DVERSION_amazonka_ram=\"2.0\"",
         "-Wall",
         "-threaded",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

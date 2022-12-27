@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatch.Types.MessageData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudWatch.Types.MessageData where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A message returned by the @GetMetricData@API, including a code and a
@@ -34,10 +35,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newMessageData' smart constructor.
 data MessageData = MessageData'
-  { -- | The message text.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The error code or status code associated with the message.
-    code :: Prelude.Maybe Prelude.Text
+  { -- | The error code or status code associated with the message.
+    code :: Prelude.Maybe Prelude.Text,
+    -- | The message text.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -49,35 +50,35 @@ data MessageData = MessageData'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'messageData_value' - The message text.
---
 -- 'code', 'messageData_code' - The error code or status code associated with the message.
+--
+-- 'value', 'messageData_value' - The message text.
 newMessageData ::
   MessageData
 newMessageData =
   MessageData'
-    { value = Prelude.Nothing,
-      code = Prelude.Nothing
+    { code = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The message text.
-messageData_value :: Lens.Lens' MessageData (Prelude.Maybe Prelude.Text)
-messageData_value = Lens.lens (\MessageData' {value} -> value) (\s@MessageData' {} a -> s {value = a} :: MessageData)
 
 -- | The error code or status code associated with the message.
 messageData_code :: Lens.Lens' MessageData (Prelude.Maybe Prelude.Text)
 messageData_code = Lens.lens (\MessageData' {code} -> code) (\s@MessageData' {} a -> s {code = a} :: MessageData)
 
-instance Core.FromXML MessageData where
+-- | The message text.
+messageData_value :: Lens.Lens' MessageData (Prelude.Maybe Prelude.Text)
+messageData_value = Lens.lens (\MessageData' {value} -> value) (\s@MessageData' {} a -> s {value = a} :: MessageData)
+
+instance Data.FromXML MessageData where
   parseXML x =
     MessageData'
-      Prelude.<$> (x Core..@? "Value") Prelude.<*> (x Core..@? "Code")
+      Prelude.<$> (x Data..@? "Code") Prelude.<*> (x Data..@? "Value")
 
 instance Prelude.Hashable MessageData where
   hashWithSalt _salt MessageData' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` code
+    _salt `Prelude.hashWithSalt` code
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData MessageData where
   rnf MessageData' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf code
+    Prelude.rnf code `Prelude.seq` Prelude.rnf value

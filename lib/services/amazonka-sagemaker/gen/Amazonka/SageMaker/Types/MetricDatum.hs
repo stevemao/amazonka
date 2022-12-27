@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.MetricDatum
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,27 @@
 module Amazonka.SageMaker.Types.MetricDatum where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.AutoMLMetricEnum
+import Amazonka.SageMaker.Types.AutoMLMetricExtendedEnum
 import Amazonka.SageMaker.Types.MetricSetSource
 
 -- | Information about the metric for a candidate produced by an AutoML job.
 --
 -- /See:/ 'newMetricDatum' smart constructor.
 data MetricDatum = MetricDatum'
-  { -- | The dataset split from which the AutoML job produced the metric.
-    set :: Prelude.Maybe MetricSetSource,
-    -- | The name of the metric.
+  { -- | The name of the metric.
     metricName :: Prelude.Maybe AutoMLMetricEnum,
+    -- | The dataset split from which the AutoML job produced the metric.
+    set :: Prelude.Maybe MetricSetSource,
+    -- | The name of the standard metric.
+    --
+    -- For definitions of the standard metrics, see
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/autopilot-model-support-validation.html#autopilot-metrics Autopilot candidate metrics>
+    -- .
+    standardMetricName :: Prelude.Maybe AutoMLMetricExtendedEnum,
     -- | The value of the metric.
     value :: Prelude.Maybe Prelude.Double
   }
@@ -46,51 +54,69 @@ data MetricDatum = MetricDatum'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'metricName', 'metricDatum_metricName' - The name of the metric.
+--
 -- 'set', 'metricDatum_set' - The dataset split from which the AutoML job produced the metric.
 --
--- 'metricName', 'metricDatum_metricName' - The name of the metric.
+-- 'standardMetricName', 'metricDatum_standardMetricName' - The name of the standard metric.
+--
+-- For definitions of the standard metrics, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/autopilot-model-support-validation.html#autopilot-metrics Autopilot candidate metrics>
+-- .
 --
 -- 'value', 'metricDatum_value' - The value of the metric.
 newMetricDatum ::
   MetricDatum
 newMetricDatum =
   MetricDatum'
-    { set = Prelude.Nothing,
-      metricName = Prelude.Nothing,
+    { metricName = Prelude.Nothing,
+      set = Prelude.Nothing,
+      standardMetricName = Prelude.Nothing,
       value = Prelude.Nothing
     }
-
--- | The dataset split from which the AutoML job produced the metric.
-metricDatum_set :: Lens.Lens' MetricDatum (Prelude.Maybe MetricSetSource)
-metricDatum_set = Lens.lens (\MetricDatum' {set} -> set) (\s@MetricDatum' {} a -> s {set = a} :: MetricDatum)
 
 -- | The name of the metric.
 metricDatum_metricName :: Lens.Lens' MetricDatum (Prelude.Maybe AutoMLMetricEnum)
 metricDatum_metricName = Lens.lens (\MetricDatum' {metricName} -> metricName) (\s@MetricDatum' {} a -> s {metricName = a} :: MetricDatum)
 
+-- | The dataset split from which the AutoML job produced the metric.
+metricDatum_set :: Lens.Lens' MetricDatum (Prelude.Maybe MetricSetSource)
+metricDatum_set = Lens.lens (\MetricDatum' {set} -> set) (\s@MetricDatum' {} a -> s {set = a} :: MetricDatum)
+
+-- | The name of the standard metric.
+--
+-- For definitions of the standard metrics, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/autopilot-model-support-validation.html#autopilot-metrics Autopilot candidate metrics>
+-- .
+metricDatum_standardMetricName :: Lens.Lens' MetricDatum (Prelude.Maybe AutoMLMetricExtendedEnum)
+metricDatum_standardMetricName = Lens.lens (\MetricDatum' {standardMetricName} -> standardMetricName) (\s@MetricDatum' {} a -> s {standardMetricName = a} :: MetricDatum)
+
 -- | The value of the metric.
 metricDatum_value :: Lens.Lens' MetricDatum (Prelude.Maybe Prelude.Double)
 metricDatum_value = Lens.lens (\MetricDatum' {value} -> value) (\s@MetricDatum' {} a -> s {value = a} :: MetricDatum)
 
-instance Core.FromJSON MetricDatum where
+instance Data.FromJSON MetricDatum where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MetricDatum"
       ( \x ->
           MetricDatum'
-            Prelude.<$> (x Core..:? "Set")
-            Prelude.<*> (x Core..:? "MetricName")
-            Prelude.<*> (x Core..:? "Value")
+            Prelude.<$> (x Data..:? "MetricName")
+            Prelude.<*> (x Data..:? "Set")
+            Prelude.<*> (x Data..:? "StandardMetricName")
+            Prelude.<*> (x Data..:? "Value")
       )
 
 instance Prelude.Hashable MetricDatum where
   hashWithSalt _salt MetricDatum' {..} =
-    _salt `Prelude.hashWithSalt` set
-      `Prelude.hashWithSalt` metricName
+    _salt `Prelude.hashWithSalt` metricName
+      `Prelude.hashWithSalt` set
+      `Prelude.hashWithSalt` standardMetricName
       `Prelude.hashWithSalt` value
 
 instance Prelude.NFData MetricDatum where
   rnf MetricDatum' {..} =
-    Prelude.rnf set
-      `Prelude.seq` Prelude.rnf metricName
+    Prelude.rnf metricName
+      `Prelude.seq` Prelude.rnf set
+      `Prelude.seq` Prelude.rnf standardMetricName
       `Prelude.seq` Prelude.rnf value

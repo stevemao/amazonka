@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.DescribeReservedCacheNodes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,12 +31,12 @@ module Amazonka.ElastiCache.DescribeReservedCacheNodes
 
     -- * Request Lenses
     describeReservedCacheNodes_cacheNodeType,
-    describeReservedCacheNodes_productDescription,
+    describeReservedCacheNodes_duration,
     describeReservedCacheNodes_marker,
     describeReservedCacheNodes_maxRecords,
-    describeReservedCacheNodes_reservedCacheNodeId,
     describeReservedCacheNodes_offeringType,
-    describeReservedCacheNodes_duration,
+    describeReservedCacheNodes_productDescription,
+    describeReservedCacheNodes_reservedCacheNodeId,
     describeReservedCacheNodes_reservedCacheNodesOfferingId,
 
     -- * Destructuring the Response
@@ -51,8 +51,9 @@ module Amazonka.ElastiCache.DescribeReservedCacheNodes
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -74,8 +75,7 @@ data DescribeReservedCacheNodes = DescribeReservedCacheNodes'
     --     -   Current generation:
     --
     --         __M6g node types__ (available only for Redis engine version
-    --         5.0.6 onward and for Memcached engine version 1.5.16 onward).
-    --
+    --         5.0.6 onward and for Memcached engine version 1.5.16 onward):
     --         @cache.m6g.large@, @cache.m6g.xlarge@, @cache.m6g.2xlarge@,
     --         @cache.m6g.4xlarge@, @cache.m6g.8xlarge@, @cache.m6g.12xlarge@,
     --         @cache.m6g.16xlarge@
@@ -90,13 +90,19 @@ data DescribeReservedCacheNodes = DescribeReservedCacheNodes'
     --         __M4 node types:__ @cache.m4.large@, @cache.m4.xlarge@,
     --         @cache.m4.2xlarge@, @cache.m4.4xlarge@, @cache.m4.10xlarge@
     --
+    --         __T4g node types__ (available only for Redis engine version
+    --         5.0.6 onward and Memcached engine version 1.5.16 onward):
+    --         @cache.t4g.micro@, @cache.t4g.small@, @cache.t4g.medium@
+    --
     --         __T3 node types:__ @cache.t3.micro@, @cache.t3.small@,
     --         @cache.t3.medium@
     --
     --         __T2 node types:__ @cache.t2.micro@, @cache.t2.small@,
     --         @cache.t2.medium@
     --
-    --     -   Previous generation: (not recommended)
+    --     -   Previous generation: (not recommended. Existing clusters are
+    --         still supported but creation of new clusters is not supported
+    --         for these types.)
     --
     --         __T1 node types:__ @cache.t1.micro@
     --
@@ -108,7 +114,9 @@ data DescribeReservedCacheNodes = DescribeReservedCacheNodes'
     --
     -- -   Compute optimized:
     --
-    --     -   Previous generation: (not recommended)
+    --     -   Previous generation: (not recommended. Existing clusters are
+    --         still supported but creation of new clusters is not supported
+    --         for these types.)
     --
     --         __C1 node types:__ @cache.c1.xlarge@
     --
@@ -134,7 +142,9 @@ data DescribeReservedCacheNodes = DescribeReservedCacheNodes'
     --         @cache.r4.2xlarge@, @cache.r4.4xlarge@, @cache.r4.8xlarge@,
     --         @cache.r4.16xlarge@
     --
-    --     -   Previous generation: (not recommended)
+    --     -   Previous generation: (not recommended. Existing clusters are
+    --         still supported but creation of new clusters is not supported
+    --         for these types.)
     --
     --         __M2 node types:__ @cache.m2.xlarge@, @cache.m2.2xlarge@,
     --         @cache.m2.4xlarge@
@@ -156,9 +166,11 @@ data DescribeReservedCacheNodes = DescribeReservedCacheNodes'
     -- -   Redis configuration variables @appendonly@ and @appendfsync@ are not
     --     supported on Redis version 2.8.22 and later.
     cacheNodeType :: Prelude.Maybe Prelude.Text,
-    -- | The product description filter value. Use this parameter to show only
-    -- those reservations matching the specified product description.
-    productDescription :: Prelude.Maybe Prelude.Text,
+    -- | The duration filter value, specified in years or seconds. Use this
+    -- parameter to show only reservations for this duration.
+    --
+    -- Valid Values: @1 | 3 | 31536000 | 94608000@
+    duration :: Prelude.Maybe Prelude.Text,
     -- | An optional marker returned from a prior request. Use this marker for
     -- pagination of results from this operation. If this parameter is
     -- specified, the response includes only records beyond the marker, up to
@@ -172,20 +184,18 @@ data DescribeReservedCacheNodes = DescribeReservedCacheNodes'
     --
     -- Constraints: minimum 20; maximum 100.
     maxRecords :: Prelude.Maybe Prelude.Int,
-    -- | The reserved cache node identifier filter value. Use this parameter to
-    -- show only the reservation that matches the specified reservation ID.
-    reservedCacheNodeId :: Prelude.Maybe Prelude.Text,
     -- | The offering type filter value. Use this parameter to show only the
     -- available offerings matching the specified offering type.
     --
     -- Valid values:
     -- @\"Light Utilization\"|\"Medium Utilization\"|\"Heavy Utilization\"|\"All Upfront\"|\"Partial Upfront\"| \"No Upfront\"@
     offeringType :: Prelude.Maybe Prelude.Text,
-    -- | The duration filter value, specified in years or seconds. Use this
-    -- parameter to show only reservations for this duration.
-    --
-    -- Valid Values: @1 | 3 | 31536000 | 94608000@
-    duration :: Prelude.Maybe Prelude.Text,
+    -- | The product description filter value. Use this parameter to show only
+    -- those reservations matching the specified product description.
+    productDescription :: Prelude.Maybe Prelude.Text,
+    -- | The reserved cache node identifier filter value. Use this parameter to
+    -- show only the reservation that matches the specified reservation ID.
+    reservedCacheNodeId :: Prelude.Maybe Prelude.Text,
     -- | The offering identifier filter value. Use this parameter to show only
     -- purchased reservations matching the specified offering identifier.
     reservedCacheNodesOfferingId :: Prelude.Maybe Prelude.Text
@@ -213,8 +223,7 @@ data DescribeReservedCacheNodes = DescribeReservedCacheNodes'
 --     -   Current generation:
 --
 --         __M6g node types__ (available only for Redis engine version
---         5.0.6 onward and for Memcached engine version 1.5.16 onward).
---
+--         5.0.6 onward and for Memcached engine version 1.5.16 onward):
 --         @cache.m6g.large@, @cache.m6g.xlarge@, @cache.m6g.2xlarge@,
 --         @cache.m6g.4xlarge@, @cache.m6g.8xlarge@, @cache.m6g.12xlarge@,
 --         @cache.m6g.16xlarge@
@@ -229,13 +238,19 @@ data DescribeReservedCacheNodes = DescribeReservedCacheNodes'
 --         __M4 node types:__ @cache.m4.large@, @cache.m4.xlarge@,
 --         @cache.m4.2xlarge@, @cache.m4.4xlarge@, @cache.m4.10xlarge@
 --
+--         __T4g node types__ (available only for Redis engine version
+--         5.0.6 onward and Memcached engine version 1.5.16 onward):
+--         @cache.t4g.micro@, @cache.t4g.small@, @cache.t4g.medium@
+--
 --         __T3 node types:__ @cache.t3.micro@, @cache.t3.small@,
 --         @cache.t3.medium@
 --
 --         __T2 node types:__ @cache.t2.micro@, @cache.t2.small@,
 --         @cache.t2.medium@
 --
---     -   Previous generation: (not recommended)
+--     -   Previous generation: (not recommended. Existing clusters are
+--         still supported but creation of new clusters is not supported
+--         for these types.)
 --
 --         __T1 node types:__ @cache.t1.micro@
 --
@@ -247,7 +262,9 @@ data DescribeReservedCacheNodes = DescribeReservedCacheNodes'
 --
 -- -   Compute optimized:
 --
---     -   Previous generation: (not recommended)
+--     -   Previous generation: (not recommended. Existing clusters are
+--         still supported but creation of new clusters is not supported
+--         for these types.)
 --
 --         __C1 node types:__ @cache.c1.xlarge@
 --
@@ -273,7 +290,9 @@ data DescribeReservedCacheNodes = DescribeReservedCacheNodes'
 --         @cache.r4.2xlarge@, @cache.r4.4xlarge@, @cache.r4.8xlarge@,
 --         @cache.r4.16xlarge@
 --
---     -   Previous generation: (not recommended)
+--     -   Previous generation: (not recommended. Existing clusters are
+--         still supported but creation of new clusters is not supported
+--         for these types.)
 --
 --         __M2 node types:__ @cache.m2.xlarge@, @cache.m2.2xlarge@,
 --         @cache.m2.4xlarge@
@@ -295,8 +314,10 @@ data DescribeReservedCacheNodes = DescribeReservedCacheNodes'
 -- -   Redis configuration variables @appendonly@ and @appendfsync@ are not
 --     supported on Redis version 2.8.22 and later.
 --
--- 'productDescription', 'describeReservedCacheNodes_productDescription' - The product description filter value. Use this parameter to show only
--- those reservations matching the specified product description.
+-- 'duration', 'describeReservedCacheNodes_duration' - The duration filter value, specified in years or seconds. Use this
+-- parameter to show only reservations for this duration.
+--
+-- Valid Values: @1 | 3 | 31536000 | 94608000@
 --
 -- 'marker', 'describeReservedCacheNodes_marker' - An optional marker returned from a prior request. Use this marker for
 -- pagination of results from this operation. If this parameter is
@@ -311,19 +332,17 @@ data DescribeReservedCacheNodes = DescribeReservedCacheNodes'
 --
 -- Constraints: minimum 20; maximum 100.
 --
--- 'reservedCacheNodeId', 'describeReservedCacheNodes_reservedCacheNodeId' - The reserved cache node identifier filter value. Use this parameter to
--- show only the reservation that matches the specified reservation ID.
---
 -- 'offeringType', 'describeReservedCacheNodes_offeringType' - The offering type filter value. Use this parameter to show only the
 -- available offerings matching the specified offering type.
 --
 -- Valid values:
 -- @\"Light Utilization\"|\"Medium Utilization\"|\"Heavy Utilization\"|\"All Upfront\"|\"Partial Upfront\"| \"No Upfront\"@
 --
--- 'duration', 'describeReservedCacheNodes_duration' - The duration filter value, specified in years or seconds. Use this
--- parameter to show only reservations for this duration.
+-- 'productDescription', 'describeReservedCacheNodes_productDescription' - The product description filter value. Use this parameter to show only
+-- those reservations matching the specified product description.
 --
--- Valid Values: @1 | 3 | 31536000 | 94608000@
+-- 'reservedCacheNodeId', 'describeReservedCacheNodes_reservedCacheNodeId' - The reserved cache node identifier filter value. Use this parameter to
+-- show only the reservation that matches the specified reservation ID.
 --
 -- 'reservedCacheNodesOfferingId', 'describeReservedCacheNodes_reservedCacheNodesOfferingId' - The offering identifier filter value. Use this parameter to show only
 -- purchased reservations matching the specified offering identifier.
@@ -333,12 +352,12 @@ newDescribeReservedCacheNodes =
   DescribeReservedCacheNodes'
     { cacheNodeType =
         Prelude.Nothing,
-      productDescription = Prelude.Nothing,
+      duration = Prelude.Nothing,
       marker = Prelude.Nothing,
       maxRecords = Prelude.Nothing,
-      reservedCacheNodeId = Prelude.Nothing,
       offeringType = Prelude.Nothing,
-      duration = Prelude.Nothing,
+      productDescription = Prelude.Nothing,
+      reservedCacheNodeId = Prelude.Nothing,
       reservedCacheNodesOfferingId = Prelude.Nothing
     }
 
@@ -355,8 +374,7 @@ newDescribeReservedCacheNodes =
 --     -   Current generation:
 --
 --         __M6g node types__ (available only for Redis engine version
---         5.0.6 onward and for Memcached engine version 1.5.16 onward).
---
+--         5.0.6 onward and for Memcached engine version 1.5.16 onward):
 --         @cache.m6g.large@, @cache.m6g.xlarge@, @cache.m6g.2xlarge@,
 --         @cache.m6g.4xlarge@, @cache.m6g.8xlarge@, @cache.m6g.12xlarge@,
 --         @cache.m6g.16xlarge@
@@ -371,13 +389,19 @@ newDescribeReservedCacheNodes =
 --         __M4 node types:__ @cache.m4.large@, @cache.m4.xlarge@,
 --         @cache.m4.2xlarge@, @cache.m4.4xlarge@, @cache.m4.10xlarge@
 --
+--         __T4g node types__ (available only for Redis engine version
+--         5.0.6 onward and Memcached engine version 1.5.16 onward):
+--         @cache.t4g.micro@, @cache.t4g.small@, @cache.t4g.medium@
+--
 --         __T3 node types:__ @cache.t3.micro@, @cache.t3.small@,
 --         @cache.t3.medium@
 --
 --         __T2 node types:__ @cache.t2.micro@, @cache.t2.small@,
 --         @cache.t2.medium@
 --
---     -   Previous generation: (not recommended)
+--     -   Previous generation: (not recommended. Existing clusters are
+--         still supported but creation of new clusters is not supported
+--         for these types.)
 --
 --         __T1 node types:__ @cache.t1.micro@
 --
@@ -389,7 +413,9 @@ newDescribeReservedCacheNodes =
 --
 -- -   Compute optimized:
 --
---     -   Previous generation: (not recommended)
+--     -   Previous generation: (not recommended. Existing clusters are
+--         still supported but creation of new clusters is not supported
+--         for these types.)
 --
 --         __C1 node types:__ @cache.c1.xlarge@
 --
@@ -415,7 +441,9 @@ newDescribeReservedCacheNodes =
 --         @cache.r4.2xlarge@, @cache.r4.4xlarge@, @cache.r4.8xlarge@,
 --         @cache.r4.16xlarge@
 --
---     -   Previous generation: (not recommended)
+--     -   Previous generation: (not recommended. Existing clusters are
+--         still supported but creation of new clusters is not supported
+--         for these types.)
 --
 --         __M2 node types:__ @cache.m2.xlarge@, @cache.m2.2xlarge@,
 --         @cache.m2.4xlarge@
@@ -439,10 +467,12 @@ newDescribeReservedCacheNodes =
 describeReservedCacheNodes_cacheNodeType :: Lens.Lens' DescribeReservedCacheNodes (Prelude.Maybe Prelude.Text)
 describeReservedCacheNodes_cacheNodeType = Lens.lens (\DescribeReservedCacheNodes' {cacheNodeType} -> cacheNodeType) (\s@DescribeReservedCacheNodes' {} a -> s {cacheNodeType = a} :: DescribeReservedCacheNodes)
 
--- | The product description filter value. Use this parameter to show only
--- those reservations matching the specified product description.
-describeReservedCacheNodes_productDescription :: Lens.Lens' DescribeReservedCacheNodes (Prelude.Maybe Prelude.Text)
-describeReservedCacheNodes_productDescription = Lens.lens (\DescribeReservedCacheNodes' {productDescription} -> productDescription) (\s@DescribeReservedCacheNodes' {} a -> s {productDescription = a} :: DescribeReservedCacheNodes)
+-- | The duration filter value, specified in years or seconds. Use this
+-- parameter to show only reservations for this duration.
+--
+-- Valid Values: @1 | 3 | 31536000 | 94608000@
+describeReservedCacheNodes_duration :: Lens.Lens' DescribeReservedCacheNodes (Prelude.Maybe Prelude.Text)
+describeReservedCacheNodes_duration = Lens.lens (\DescribeReservedCacheNodes' {duration} -> duration) (\s@DescribeReservedCacheNodes' {} a -> s {duration = a} :: DescribeReservedCacheNodes)
 
 -- | An optional marker returned from a prior request. Use this marker for
 -- pagination of results from this operation. If this parameter is
@@ -461,11 +491,6 @@ describeReservedCacheNodes_marker = Lens.lens (\DescribeReservedCacheNodes' {mar
 describeReservedCacheNodes_maxRecords :: Lens.Lens' DescribeReservedCacheNodes (Prelude.Maybe Prelude.Int)
 describeReservedCacheNodes_maxRecords = Lens.lens (\DescribeReservedCacheNodes' {maxRecords} -> maxRecords) (\s@DescribeReservedCacheNodes' {} a -> s {maxRecords = a} :: DescribeReservedCacheNodes)
 
--- | The reserved cache node identifier filter value. Use this parameter to
--- show only the reservation that matches the specified reservation ID.
-describeReservedCacheNodes_reservedCacheNodeId :: Lens.Lens' DescribeReservedCacheNodes (Prelude.Maybe Prelude.Text)
-describeReservedCacheNodes_reservedCacheNodeId = Lens.lens (\DescribeReservedCacheNodes' {reservedCacheNodeId} -> reservedCacheNodeId) (\s@DescribeReservedCacheNodes' {} a -> s {reservedCacheNodeId = a} :: DescribeReservedCacheNodes)
-
 -- | The offering type filter value. Use this parameter to show only the
 -- available offerings matching the specified offering type.
 --
@@ -474,12 +499,15 @@ describeReservedCacheNodes_reservedCacheNodeId = Lens.lens (\DescribeReservedCac
 describeReservedCacheNodes_offeringType :: Lens.Lens' DescribeReservedCacheNodes (Prelude.Maybe Prelude.Text)
 describeReservedCacheNodes_offeringType = Lens.lens (\DescribeReservedCacheNodes' {offeringType} -> offeringType) (\s@DescribeReservedCacheNodes' {} a -> s {offeringType = a} :: DescribeReservedCacheNodes)
 
--- | The duration filter value, specified in years or seconds. Use this
--- parameter to show only reservations for this duration.
---
--- Valid Values: @1 | 3 | 31536000 | 94608000@
-describeReservedCacheNodes_duration :: Lens.Lens' DescribeReservedCacheNodes (Prelude.Maybe Prelude.Text)
-describeReservedCacheNodes_duration = Lens.lens (\DescribeReservedCacheNodes' {duration} -> duration) (\s@DescribeReservedCacheNodes' {} a -> s {duration = a} :: DescribeReservedCacheNodes)
+-- | The product description filter value. Use this parameter to show only
+-- those reservations matching the specified product description.
+describeReservedCacheNodes_productDescription :: Lens.Lens' DescribeReservedCacheNodes (Prelude.Maybe Prelude.Text)
+describeReservedCacheNodes_productDescription = Lens.lens (\DescribeReservedCacheNodes' {productDescription} -> productDescription) (\s@DescribeReservedCacheNodes' {} a -> s {productDescription = a} :: DescribeReservedCacheNodes)
+
+-- | The reserved cache node identifier filter value. Use this parameter to
+-- show only the reservation that matches the specified reservation ID.
+describeReservedCacheNodes_reservedCacheNodeId :: Lens.Lens' DescribeReservedCacheNodes (Prelude.Maybe Prelude.Text)
+describeReservedCacheNodes_reservedCacheNodeId = Lens.lens (\DescribeReservedCacheNodes' {reservedCacheNodeId} -> reservedCacheNodeId) (\s@DescribeReservedCacheNodes' {} a -> s {reservedCacheNodeId = a} :: DescribeReservedCacheNodes)
 
 -- | The offering identifier filter value. Use this parameter to show only
 -- purchased reservations matching the specified offering identifier.
@@ -512,16 +540,17 @@ instance Core.AWSRequest DescribeReservedCacheNodes where
   type
     AWSResponse DescribeReservedCacheNodes =
       DescribeReservedCacheNodesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeReservedCacheNodesResult"
       ( \s h x ->
           DescribeReservedCacheNodesResponse'
-            Prelude.<$> (x Core..@? "Marker")
-            Prelude.<*> ( x Core..@? "ReservedCacheNodes"
+            Prelude.<$> (x Data..@? "Marker")
+            Prelude.<*> ( x Data..@? "ReservedCacheNodes"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "ReservedCacheNode")
+                            Prelude.>>= Core.may (Data.parseXMLList "ReservedCacheNode")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -529,47 +558,47 @@ instance Core.AWSRequest DescribeReservedCacheNodes where
 instance Prelude.Hashable DescribeReservedCacheNodes where
   hashWithSalt _salt DescribeReservedCacheNodes' {..} =
     _salt `Prelude.hashWithSalt` cacheNodeType
-      `Prelude.hashWithSalt` productDescription
+      `Prelude.hashWithSalt` duration
       `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
-      `Prelude.hashWithSalt` reservedCacheNodeId
       `Prelude.hashWithSalt` offeringType
-      `Prelude.hashWithSalt` duration
+      `Prelude.hashWithSalt` productDescription
+      `Prelude.hashWithSalt` reservedCacheNodeId
       `Prelude.hashWithSalt` reservedCacheNodesOfferingId
 
 instance Prelude.NFData DescribeReservedCacheNodes where
   rnf DescribeReservedCacheNodes' {..} =
     Prelude.rnf cacheNodeType
-      `Prelude.seq` Prelude.rnf productDescription
+      `Prelude.seq` Prelude.rnf duration
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
-      `Prelude.seq` Prelude.rnf reservedCacheNodeId
       `Prelude.seq` Prelude.rnf offeringType
-      `Prelude.seq` Prelude.rnf duration
+      `Prelude.seq` Prelude.rnf productDescription
+      `Prelude.seq` Prelude.rnf reservedCacheNodeId
       `Prelude.seq` Prelude.rnf reservedCacheNodesOfferingId
 
-instance Core.ToHeaders DescribeReservedCacheNodes where
+instance Data.ToHeaders DescribeReservedCacheNodes where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeReservedCacheNodes where
+instance Data.ToPath DescribeReservedCacheNodes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeReservedCacheNodes where
+instance Data.ToQuery DescribeReservedCacheNodes where
   toQuery DescribeReservedCacheNodes' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeReservedCacheNodes" :: Prelude.ByteString),
+          Data.=: ("DescribeReservedCacheNodes" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
-        "CacheNodeType" Core.=: cacheNodeType,
-        "ProductDescription" Core.=: productDescription,
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords,
-        "ReservedCacheNodeId" Core.=: reservedCacheNodeId,
-        "OfferingType" Core.=: offeringType,
-        "Duration" Core.=: duration,
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
+        "CacheNodeType" Data.=: cacheNodeType,
+        "Duration" Data.=: duration,
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
+        "OfferingType" Data.=: offeringType,
+        "ProductDescription" Data.=: productDescription,
+        "ReservedCacheNodeId" Data.=: reservedCacheNodeId,
         "ReservedCacheNodesOfferingId"
-          Core.=: reservedCacheNodesOfferingId
+          Data.=: reservedCacheNodesOfferingId
       ]
 
 -- | Represents the output of a @DescribeReservedCacheNodes@ operation.

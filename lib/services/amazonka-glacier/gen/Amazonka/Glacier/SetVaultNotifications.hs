@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glacier.SetVaultNotifications
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -73,8 +73,9 @@ module Amazonka.Glacier.SetVaultNotifications
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glacier.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -148,9 +149,9 @@ instance Core.AWSRequest SetVaultNotifications where
   type
     AWSResponse SetVaultNotifications =
       SetVaultNotificationsResponse
-  request =
-    Request.glacierVersionHeader (Core._serviceVersion defaultService)
-      Prelude.. Request.putJSON defaultService
+  request overrides =
+    Request.glacierVersionHeader (Core.version defaultService)
+      Prelude.. Request.putJSON (overrides defaultService)
   response =
     Response.receiveNull SetVaultNotificationsResponse'
 
@@ -167,29 +168,24 @@ instance Prelude.NFData SetVaultNotifications where
       `Prelude.seq` Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf vaultName
 
-instance Core.ToHeaders SetVaultNotifications where
+instance Data.ToHeaders SetVaultNotifications where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON SetVaultNotifications where
+instance Data.ToJSON SetVaultNotifications where
   toJSON SetVaultNotifications' {..} =
-    Core.object
-      ( Prelude.catMaybes
-          [ ("vaultNotificationConfig" Core..=)
-              Prelude.<$> vaultNotificationConfig
-          ]
-      )
+    Data.toJSON vaultNotificationConfig
 
-instance Core.ToPath SetVaultNotifications where
+instance Data.ToPath SetVaultNotifications where
   toPath SetVaultNotifications' {..} =
     Prelude.mconcat
       [ "/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/vaults/",
-        Core.toBS vaultName,
+        Data.toBS vaultName,
         "/notification-configuration"
       ]
 
-instance Core.ToQuery SetVaultNotifications where
+instance Data.ToQuery SetVaultNotifications where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSetVaultNotificationsResponse' smart constructor.

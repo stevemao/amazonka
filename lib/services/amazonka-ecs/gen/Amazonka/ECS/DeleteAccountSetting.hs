@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.DeleteAccountSetting
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,21 +42,23 @@ module Amazonka.ECS.DeleteAccountSetting
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteAccountSetting' smart constructor.
 data DeleteAccountSetting = DeleteAccountSetting'
-  { -- | The ARN of the principal, which can be an IAM user, IAM role, or the
-    -- root user. If you specify the root user, it disables the account setting
-    -- for all IAM users, IAM roles, and the root user of the account unless an
-    -- IAM user or role explicitly overrides these settings. If this field is
-    -- omitted, the setting is changed only for the authenticated user.
+  { -- | The Amazon Resource Name (ARN) of the principal. It can be an IAM user,
+    -- IAM role, or the root user. If you specify the root user, it disables
+    -- the account setting for all IAM users, IAM roles, and the root user of
+    -- the account unless an IAM user or role explicitly overrides these
+    -- settings. If this field is omitted, the setting is changed only for the
+    -- authenticated user.
     principalArn :: Prelude.Maybe Prelude.Text,
-    -- | The resource name for which to disable the account setting. If
+    -- | The resource name to disable the account setting for. If
     -- @serviceLongArnFormat@ is specified, the ARN for your Amazon ECS
     -- services is affected. If @taskLongArnFormat@ is specified, the ARN and
     -- resource ID for your Amazon ECS tasks is affected. If
@@ -76,13 +78,14 @@ data DeleteAccountSetting = DeleteAccountSetting'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'principalArn', 'deleteAccountSetting_principalArn' - The ARN of the principal, which can be an IAM user, IAM role, or the
--- root user. If you specify the root user, it disables the account setting
--- for all IAM users, IAM roles, and the root user of the account unless an
--- IAM user or role explicitly overrides these settings. If this field is
--- omitted, the setting is changed only for the authenticated user.
+-- 'principalArn', 'deleteAccountSetting_principalArn' - The Amazon Resource Name (ARN) of the principal. It can be an IAM user,
+-- IAM role, or the root user. If you specify the root user, it disables
+-- the account setting for all IAM users, IAM roles, and the root user of
+-- the account unless an IAM user or role explicitly overrides these
+-- settings. If this field is omitted, the setting is changed only for the
+-- authenticated user.
 --
--- 'name', 'deleteAccountSetting_name' - The resource name for which to disable the account setting. If
+-- 'name', 'deleteAccountSetting_name' - The resource name to disable the account setting for. If
 -- @serviceLongArnFormat@ is specified, the ARN for your Amazon ECS
 -- services is affected. If @taskLongArnFormat@ is specified, the ARN and
 -- resource ID for your Amazon ECS tasks is affected. If
@@ -101,15 +104,16 @@ newDeleteAccountSetting pName_ =
       name = pName_
     }
 
--- | The ARN of the principal, which can be an IAM user, IAM role, or the
--- root user. If you specify the root user, it disables the account setting
--- for all IAM users, IAM roles, and the root user of the account unless an
--- IAM user or role explicitly overrides these settings. If this field is
--- omitted, the setting is changed only for the authenticated user.
+-- | The Amazon Resource Name (ARN) of the principal. It can be an IAM user,
+-- IAM role, or the root user. If you specify the root user, it disables
+-- the account setting for all IAM users, IAM roles, and the root user of
+-- the account unless an IAM user or role explicitly overrides these
+-- settings. If this field is omitted, the setting is changed only for the
+-- authenticated user.
 deleteAccountSetting_principalArn :: Lens.Lens' DeleteAccountSetting (Prelude.Maybe Prelude.Text)
 deleteAccountSetting_principalArn = Lens.lens (\DeleteAccountSetting' {principalArn} -> principalArn) (\s@DeleteAccountSetting' {} a -> s {principalArn = a} :: DeleteAccountSetting)
 
--- | The resource name for which to disable the account setting. If
+-- | The resource name to disable the account setting for. If
 -- @serviceLongArnFormat@ is specified, the ARN for your Amazon ECS
 -- services is affected. If @taskLongArnFormat@ is specified, the ARN and
 -- resource ID for your Amazon ECS tasks is affected. If
@@ -124,12 +128,13 @@ instance Core.AWSRequest DeleteAccountSetting where
   type
     AWSResponse DeleteAccountSetting =
       DeleteAccountSettingResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteAccountSettingResponse'
-            Prelude.<$> (x Core..?> "setting")
+            Prelude.<$> (x Data..?> "setting")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -143,34 +148,34 @@ instance Prelude.NFData DeleteAccountSetting where
     Prelude.rnf principalArn
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders DeleteAccountSetting where
+instance Data.ToHeaders DeleteAccountSetting where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerServiceV20141113.DeleteAccountSetting" ::
+              Data.=# ( "AmazonEC2ContainerServiceV20141113.DeleteAccountSetting" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteAccountSetting where
+instance Data.ToJSON DeleteAccountSetting where
   toJSON DeleteAccountSetting' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("principalArn" Core..=) Prelude.<$> principalArn,
-            Prelude.Just ("name" Core..= name)
+          [ ("principalArn" Data..=) Prelude.<$> principalArn,
+            Prelude.Just ("name" Data..= name)
           ]
       )
 
-instance Core.ToPath DeleteAccountSetting where
+instance Data.ToPath DeleteAccountSetting where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteAccountSetting where
+instance Data.ToQuery DeleteAccountSetting where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAccountSettingResponse' smart constructor.

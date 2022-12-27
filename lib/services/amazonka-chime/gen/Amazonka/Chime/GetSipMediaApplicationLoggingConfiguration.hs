@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.GetSipMediaApplicationLoggingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,13 +87,14 @@ instance
     AWSResponse
       GetSipMediaApplicationLoggingConfiguration =
       GetSipMediaApplicationLoggingConfigurationResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSipMediaApplicationLoggingConfigurationResponse'
             Prelude.<$> ( x
-                            Core..?> "SipMediaApplicationLoggingConfiguration"
+                            Data..?> "SipMediaApplicationLoggingConfiguration"
                         )
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -114,25 +116,25 @@ instance
     Prelude.rnf sipMediaApplicationId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetSipMediaApplicationLoggingConfiguration
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     GetSipMediaApplicationLoggingConfiguration
   where
   toPath
     GetSipMediaApplicationLoggingConfiguration' {..} =
       Prelude.mconcat
         [ "/sip-media-applications/",
-          Core.toBS sipMediaApplicationId,
+          Data.toBS sipMediaApplicationId,
           "/logging-configuration"
         ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetSipMediaApplicationLoggingConfiguration
   where
   toQuery = Prelude.const Prelude.mempty

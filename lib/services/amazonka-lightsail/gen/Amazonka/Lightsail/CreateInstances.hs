@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.CreateInstances
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,12 +31,12 @@ module Amazonka.Lightsail.CreateInstances
     newCreateInstances,
 
     -- * Request Lenses
-    createInstances_customImageName,
     createInstances_addOns,
-    createInstances_userData,
+    createInstances_customImageName,
     createInstances_ipAddressType,
     createInstances_keyPairName,
     createInstances_tags,
+    createInstances_userData,
     createInstances_instanceNames,
     createInstances_availabilityZone,
     createInstances_blueprintId,
@@ -53,7 +53,8 @@ module Amazonka.Lightsail.CreateInstances
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -61,23 +62,14 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateInstances' smart constructor.
 data CreateInstances = CreateInstances'
-  { -- | (Deprecated) The name for your custom image.
+  { -- | An array of objects representing the add-ons to enable for the new
+    -- instance.
+    addOns :: Prelude.Maybe [AddOnRequest],
+    -- | (Deprecated) The name for your custom image.
     --
     -- In releases prior to June 12, 2017, this parameter was ignored by the
     -- API. It is now deprecated.
     customImageName :: Prelude.Maybe Prelude.Text,
-    -- | An array of objects representing the add-ons to enable for the new
-    -- instance.
-    addOns :: Prelude.Maybe [AddOnRequest],
-    -- | A launch script you can create that configures a server with additional
-    -- user data. For example, you might want to run @apt-get -y update@.
-    --
-    -- Depending on the machine image you choose, the command to get software
-    -- on your instance varies. Amazon Linux and CentOS use @yum@, Debian and
-    -- Ubuntu use @apt-get@, and FreeBSD uses @pkg@. For a complete list, see
-    -- the
-    -- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/compare-options-choose-lightsail-instance-image Amazon Lightsail Developer Guide>.
-    userData :: Prelude.Maybe Prelude.Text,
     -- | The IP address type for the instance.
     --
     -- The possible values are @ipv4@ for IPv4 only, and @dualstack@ for IPv4
@@ -91,6 +83,15 @@ data CreateInstances = CreateInstances'
     --
     -- Use the @TagResource@ action to tag a resource after it\'s created.
     tags :: Prelude.Maybe [Tag],
+    -- | A launch script you can create that configures a server with additional
+    -- user data. For example, you might want to run @apt-get -y update@.
+    --
+    -- Depending on the machine image you choose, the command to get software
+    -- on your instance varies. Amazon Linux and CentOS use @yum@, Debian and
+    -- Ubuntu use @apt-get@, and FreeBSD uses @pkg@. For a complete list, see
+    -- the
+    -- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/compare-options-choose-lightsail-instance-image Amazon Lightsail Developer Guide>.
+    userData :: Prelude.Maybe Prelude.Text,
     -- | The names to use for your new Lightsail instances. Separate multiple
     -- values using quotation marks and commas, for example:
     -- @[\"MyFirstInstance\",\"MySecondInstance\"]@
@@ -126,22 +127,13 @@ data CreateInstances = CreateInstances'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'addOns', 'createInstances_addOns' - An array of objects representing the add-ons to enable for the new
+-- instance.
+--
 -- 'customImageName', 'createInstances_customImageName' - (Deprecated) The name for your custom image.
 --
 -- In releases prior to June 12, 2017, this parameter was ignored by the
 -- API. It is now deprecated.
---
--- 'addOns', 'createInstances_addOns' - An array of objects representing the add-ons to enable for the new
--- instance.
---
--- 'userData', 'createInstances_userData' - A launch script you can create that configures a server with additional
--- user data. For example, you might want to run @apt-get -y update@.
---
--- Depending on the machine image you choose, the command to get software
--- on your instance varies. Amazon Linux and CentOS use @yum@, Debian and
--- Ubuntu use @apt-get@, and FreeBSD uses @pkg@. For a complete list, see
--- the
--- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/compare-options-choose-lightsail-instance-image Amazon Lightsail Developer Guide>.
 --
 -- 'ipAddressType', 'createInstances_ipAddressType' - The IP address type for the instance.
 --
@@ -155,6 +147,15 @@ data CreateInstances = CreateInstances'
 -- 'tags', 'createInstances_tags' - The tag keys and optional values to add to the resource during create.
 --
 -- Use the @TagResource@ action to tag a resource after it\'s created.
+--
+-- 'userData', 'createInstances_userData' - A launch script you can create that configures a server with additional
+-- user data. For example, you might want to run @apt-get -y update@.
+--
+-- Depending on the machine image you choose, the command to get software
+-- on your instance varies. Amazon Linux and CentOS use @yum@, Debian and
+-- Ubuntu use @apt-get@, and FreeBSD uses @pkg@. For a complete list, see
+-- the
+-- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/compare-options-choose-lightsail-instance-image Amazon Lightsail Developer Guide>.
 --
 -- 'instanceNames', 'createInstances_instanceNames' - The names to use for your new Lightsail instances. Separate multiple
 -- values using quotation marks and commas, for example:
@@ -192,17 +193,22 @@ newCreateInstances
   pBlueprintId_
   pBundleId_ =
     CreateInstances'
-      { customImageName = Prelude.Nothing,
-        addOns = Prelude.Nothing,
-        userData = Prelude.Nothing,
+      { addOns = Prelude.Nothing,
+        customImageName = Prelude.Nothing,
         ipAddressType = Prelude.Nothing,
         keyPairName = Prelude.Nothing,
         tags = Prelude.Nothing,
+        userData = Prelude.Nothing,
         instanceNames = Prelude.mempty,
         availabilityZone = pAvailabilityZone_,
         blueprintId = pBlueprintId_,
         bundleId = pBundleId_
       }
+
+-- | An array of objects representing the add-ons to enable for the new
+-- instance.
+createInstances_addOns :: Lens.Lens' CreateInstances (Prelude.Maybe [AddOnRequest])
+createInstances_addOns = Lens.lens (\CreateInstances' {addOns} -> addOns) (\s@CreateInstances' {} a -> s {addOns = a} :: CreateInstances) Prelude.. Lens.mapping Lens.coerced
 
 -- | (Deprecated) The name for your custom image.
 --
@@ -210,22 +216,6 @@ newCreateInstances
 -- API. It is now deprecated.
 createInstances_customImageName :: Lens.Lens' CreateInstances (Prelude.Maybe Prelude.Text)
 createInstances_customImageName = Lens.lens (\CreateInstances' {customImageName} -> customImageName) (\s@CreateInstances' {} a -> s {customImageName = a} :: CreateInstances)
-
--- | An array of objects representing the add-ons to enable for the new
--- instance.
-createInstances_addOns :: Lens.Lens' CreateInstances (Prelude.Maybe [AddOnRequest])
-createInstances_addOns = Lens.lens (\CreateInstances' {addOns} -> addOns) (\s@CreateInstances' {} a -> s {addOns = a} :: CreateInstances) Prelude.. Lens.mapping Lens.coerced
-
--- | A launch script you can create that configures a server with additional
--- user data. For example, you might want to run @apt-get -y update@.
---
--- Depending on the machine image you choose, the command to get software
--- on your instance varies. Amazon Linux and CentOS use @yum@, Debian and
--- Ubuntu use @apt-get@, and FreeBSD uses @pkg@. For a complete list, see
--- the
--- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/compare-options-choose-lightsail-instance-image Amazon Lightsail Developer Guide>.
-createInstances_userData :: Lens.Lens' CreateInstances (Prelude.Maybe Prelude.Text)
-createInstances_userData = Lens.lens (\CreateInstances' {userData} -> userData) (\s@CreateInstances' {} a -> s {userData = a} :: CreateInstances)
 
 -- | The IP address type for the instance.
 --
@@ -245,6 +235,17 @@ createInstances_keyPairName = Lens.lens (\CreateInstances' {keyPairName} -> keyP
 -- Use the @TagResource@ action to tag a resource after it\'s created.
 createInstances_tags :: Lens.Lens' CreateInstances (Prelude.Maybe [Tag])
 createInstances_tags = Lens.lens (\CreateInstances' {tags} -> tags) (\s@CreateInstances' {} a -> s {tags = a} :: CreateInstances) Prelude.. Lens.mapping Lens.coerced
+
+-- | A launch script you can create that configures a server with additional
+-- user data. For example, you might want to run @apt-get -y update@.
+--
+-- Depending on the machine image you choose, the command to get software
+-- on your instance varies. Amazon Linux and CentOS use @yum@, Debian and
+-- Ubuntu use @apt-get@, and FreeBSD uses @pkg@. For a complete list, see
+-- the
+-- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/compare-options-choose-lightsail-instance-image Amazon Lightsail Developer Guide>.
+createInstances_userData :: Lens.Lens' CreateInstances (Prelude.Maybe Prelude.Text)
+createInstances_userData = Lens.lens (\CreateInstances' {userData} -> userData) (\s@CreateInstances' {} a -> s {userData = a} :: CreateInstances)
 
 -- | The names to use for your new Lightsail instances. Separate multiple
 -- values using quotation marks and commas, for example:
@@ -282,23 +283,24 @@ instance Core.AWSRequest CreateInstances where
   type
     AWSResponse CreateInstances =
       CreateInstancesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateInstancesResponse'
-            Prelude.<$> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateInstances where
   hashWithSalt _salt CreateInstances' {..} =
-    _salt `Prelude.hashWithSalt` customImageName
-      `Prelude.hashWithSalt` addOns
-      `Prelude.hashWithSalt` userData
+    _salt `Prelude.hashWithSalt` addOns
+      `Prelude.hashWithSalt` customImageName
       `Prelude.hashWithSalt` ipAddressType
       `Prelude.hashWithSalt` keyPairName
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` userData
       `Prelude.hashWithSalt` instanceNames
       `Prelude.hashWithSalt` availabilityZone
       `Prelude.hashWithSalt` blueprintId
@@ -306,55 +308,55 @@ instance Prelude.Hashable CreateInstances where
 
 instance Prelude.NFData CreateInstances where
   rnf CreateInstances' {..} =
-    Prelude.rnf customImageName
-      `Prelude.seq` Prelude.rnf addOns
-      `Prelude.seq` Prelude.rnf userData
+    Prelude.rnf addOns
+      `Prelude.seq` Prelude.rnf customImageName
       `Prelude.seq` Prelude.rnf ipAddressType
       `Prelude.seq` Prelude.rnf keyPairName
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf userData
       `Prelude.seq` Prelude.rnf instanceNames
       `Prelude.seq` Prelude.rnf availabilityZone
       `Prelude.seq` Prelude.rnf blueprintId
       `Prelude.seq` Prelude.rnf bundleId
 
-instance Core.ToHeaders CreateInstances where
+instance Data.ToHeaders CreateInstances where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.CreateInstances" ::
+              Data.=# ( "Lightsail_20161128.CreateInstances" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateInstances where
+instance Data.ToJSON CreateInstances where
   toJSON CreateInstances' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("customImageName" Core..=)
+          [ ("addOns" Data..=) Prelude.<$> addOns,
+            ("customImageName" Data..=)
               Prelude.<$> customImageName,
-            ("addOns" Core..=) Prelude.<$> addOns,
-            ("userData" Core..=) Prelude.<$> userData,
-            ("ipAddressType" Core..=) Prelude.<$> ipAddressType,
-            ("keyPairName" Core..=) Prelude.<$> keyPairName,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("instanceNames" Core..= instanceNames),
+            ("ipAddressType" Data..=) Prelude.<$> ipAddressType,
+            ("keyPairName" Data..=) Prelude.<$> keyPairName,
+            ("tags" Data..=) Prelude.<$> tags,
+            ("userData" Data..=) Prelude.<$> userData,
+            Prelude.Just ("instanceNames" Data..= instanceNames),
             Prelude.Just
-              ("availabilityZone" Core..= availabilityZone),
-            Prelude.Just ("blueprintId" Core..= blueprintId),
-            Prelude.Just ("bundleId" Core..= bundleId)
+              ("availabilityZone" Data..= availabilityZone),
+            Prelude.Just ("blueprintId" Data..= blueprintId),
+            Prelude.Just ("bundleId" Data..= bundleId)
           ]
       )
 
-instance Core.ToPath CreateInstances where
+instance Data.ToPath CreateInstances where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateInstances where
+instance Data.ToQuery CreateInstances where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateInstancesResponse' smart constructor.

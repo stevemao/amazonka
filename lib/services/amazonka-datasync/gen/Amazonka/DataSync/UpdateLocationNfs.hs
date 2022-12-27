@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataSync.UpdateLocationNfs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,9 +30,9 @@ module Amazonka.DataSync.UpdateLocationNfs
     newUpdateLocationNfs,
 
     -- * Request Lenses
+    updateLocationNfs_mountOptions,
     updateLocationNfs_onPremConfig,
     updateLocationNfs_subdirectory,
-    updateLocationNfs_mountOptions,
     updateLocationNfs_locationArn,
 
     -- * Destructuring the Response
@@ -45,15 +45,17 @@ module Amazonka.DataSync.UpdateLocationNfs
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataSync.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateLocationNfs' smart constructor.
 data UpdateLocationNfs = UpdateLocationNfs'
-  { onPremConfig :: Prelude.Maybe OnPremConfig,
+  { mountOptions :: Prelude.Maybe NfsMountOptions,
+    onPremConfig :: Prelude.Maybe OnPremConfig,
     -- | The subdirectory in the NFS file system that is used to read data from
     -- the NFS source location or write data to the NFS destination. The NFS
     -- path should be a path that\'s exported by the NFS server, or a
@@ -82,7 +84,6 @@ data UpdateLocationNfs = UpdateLocationNfs'
     -- \/etc\/exports Configuration File in the Red Hat Enterprise Linux
     -- documentation.
     subdirectory :: Prelude.Maybe Prelude.Text,
-    mountOptions :: Prelude.Maybe NfsMountOptions,
     -- | The Amazon Resource Name (ARN) of the NFS location to update.
     locationArn :: Prelude.Text
   }
@@ -95,6 +96,8 @@ data UpdateLocationNfs = UpdateLocationNfs'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'mountOptions', 'updateLocationNfs_mountOptions' - Undocumented member.
 --
 -- 'onPremConfig', 'updateLocationNfs_onPremConfig' - Undocumented member.
 --
@@ -126,8 +129,6 @@ data UpdateLocationNfs = UpdateLocationNfs'
 -- \/etc\/exports Configuration File in the Red Hat Enterprise Linux
 -- documentation.
 --
--- 'mountOptions', 'updateLocationNfs_mountOptions' - Undocumented member.
---
 -- 'locationArn', 'updateLocationNfs_locationArn' - The Amazon Resource Name (ARN) of the NFS location to update.
 newUpdateLocationNfs ::
   -- | 'locationArn'
@@ -135,11 +136,15 @@ newUpdateLocationNfs ::
   UpdateLocationNfs
 newUpdateLocationNfs pLocationArn_ =
   UpdateLocationNfs'
-    { onPremConfig = Prelude.Nothing,
+    { mountOptions = Prelude.Nothing,
+      onPremConfig = Prelude.Nothing,
       subdirectory = Prelude.Nothing,
-      mountOptions = Prelude.Nothing,
       locationArn = pLocationArn_
     }
+
+-- | Undocumented member.
+updateLocationNfs_mountOptions :: Lens.Lens' UpdateLocationNfs (Prelude.Maybe NfsMountOptions)
+updateLocationNfs_mountOptions = Lens.lens (\UpdateLocationNfs' {mountOptions} -> mountOptions) (\s@UpdateLocationNfs' {} a -> s {mountOptions = a} :: UpdateLocationNfs)
 
 -- | Undocumented member.
 updateLocationNfs_onPremConfig :: Lens.Lens' UpdateLocationNfs (Prelude.Maybe OnPremConfig)
@@ -175,10 +180,6 @@ updateLocationNfs_onPremConfig = Lens.lens (\UpdateLocationNfs' {onPremConfig} -
 updateLocationNfs_subdirectory :: Lens.Lens' UpdateLocationNfs (Prelude.Maybe Prelude.Text)
 updateLocationNfs_subdirectory = Lens.lens (\UpdateLocationNfs' {subdirectory} -> subdirectory) (\s@UpdateLocationNfs' {} a -> s {subdirectory = a} :: UpdateLocationNfs)
 
--- | Undocumented member.
-updateLocationNfs_mountOptions :: Lens.Lens' UpdateLocationNfs (Prelude.Maybe NfsMountOptions)
-updateLocationNfs_mountOptions = Lens.lens (\UpdateLocationNfs' {mountOptions} -> mountOptions) (\s@UpdateLocationNfs' {} a -> s {mountOptions = a} :: UpdateLocationNfs)
-
 -- | The Amazon Resource Name (ARN) of the NFS location to update.
 updateLocationNfs_locationArn :: Lens.Lens' UpdateLocationNfs Prelude.Text
 updateLocationNfs_locationArn = Lens.lens (\UpdateLocationNfs' {locationArn} -> locationArn) (\s@UpdateLocationNfs' {} a -> s {locationArn = a} :: UpdateLocationNfs)
@@ -187,7 +188,8 @@ instance Core.AWSRequest UpdateLocationNfs where
   type
     AWSResponse UpdateLocationNfs =
       UpdateLocationNfsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -197,48 +199,48 @@ instance Core.AWSRequest UpdateLocationNfs where
 
 instance Prelude.Hashable UpdateLocationNfs where
   hashWithSalt _salt UpdateLocationNfs' {..} =
-    _salt `Prelude.hashWithSalt` onPremConfig
+    _salt `Prelude.hashWithSalt` mountOptions
+      `Prelude.hashWithSalt` onPremConfig
       `Prelude.hashWithSalt` subdirectory
-      `Prelude.hashWithSalt` mountOptions
       `Prelude.hashWithSalt` locationArn
 
 instance Prelude.NFData UpdateLocationNfs where
   rnf UpdateLocationNfs' {..} =
-    Prelude.rnf onPremConfig
+    Prelude.rnf mountOptions
+      `Prelude.seq` Prelude.rnf onPremConfig
       `Prelude.seq` Prelude.rnf subdirectory
-      `Prelude.seq` Prelude.rnf mountOptions
       `Prelude.seq` Prelude.rnf locationArn
 
-instance Core.ToHeaders UpdateLocationNfs where
+instance Data.ToHeaders UpdateLocationNfs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "FmrsService.UpdateLocationNfs" ::
+              Data.=# ( "FmrsService.UpdateLocationNfs" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateLocationNfs where
+instance Data.ToJSON UpdateLocationNfs where
   toJSON UpdateLocationNfs' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("OnPremConfig" Core..=) Prelude.<$> onPremConfig,
-            ("Subdirectory" Core..=) Prelude.<$> subdirectory,
-            ("MountOptions" Core..=) Prelude.<$> mountOptions,
-            Prelude.Just ("LocationArn" Core..= locationArn)
+          [ ("MountOptions" Data..=) Prelude.<$> mountOptions,
+            ("OnPremConfig" Data..=) Prelude.<$> onPremConfig,
+            ("Subdirectory" Data..=) Prelude.<$> subdirectory,
+            Prelude.Just ("LocationArn" Data..= locationArn)
           ]
       )
 
-instance Core.ToPath UpdateLocationNfs where
+instance Data.ToPath UpdateLocationNfs where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateLocationNfs where
+instance Data.ToQuery UpdateLocationNfs where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateLocationNfsResponse' smart constructor.

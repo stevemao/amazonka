@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.Types.XssMatchSetUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WAFRegional.Types.XssMatchSetUpdate where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.WAFRegional.Types.ChangeAction
 import Amazonka.WAFRegional.Types.XssMatchTuple
@@ -97,12 +98,12 @@ instance Prelude.NFData XssMatchSetUpdate where
     Prelude.rnf action
       `Prelude.seq` Prelude.rnf xssMatchTuple
 
-instance Core.ToJSON XssMatchSetUpdate where
+instance Data.ToJSON XssMatchSetUpdate where
   toJSON XssMatchSetUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Action" Core..= action),
+          [ Prelude.Just ("Action" Data..= action),
             Prelude.Just
-              ("XssMatchTuple" Core..= xssMatchTuple)
+              ("XssMatchTuple" Data..= xssMatchTuple)
           ]
       )

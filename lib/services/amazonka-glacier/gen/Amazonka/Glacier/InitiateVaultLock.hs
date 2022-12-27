@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glacier.InitiateVaultLock
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -74,8 +74,9 @@ module Amazonka.Glacier.InitiateVaultLock
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glacier.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -153,14 +154,14 @@ instance Core.AWSRequest InitiateVaultLock where
   type
     AWSResponse InitiateVaultLock =
       InitiateVaultLockResponse
-  request =
-    Request.glacierVersionHeader (Core._serviceVersion defaultService)
-      Prelude.. Request.postJSON defaultService
+  request overrides =
+    Request.glacierVersionHeader (Core.version defaultService)
+      Prelude.. Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
           InitiateVaultLockResponse'
-            Prelude.<$> (h Core..#? "x-amz-lock-id")
+            Prelude.<$> (h Data..#? "x-amz-lock-id")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -176,27 +177,23 @@ instance Prelude.NFData InitiateVaultLock where
       `Prelude.seq` Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf vaultName
 
-instance Core.ToHeaders InitiateVaultLock where
+instance Data.ToHeaders InitiateVaultLock where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON InitiateVaultLock where
-  toJSON InitiateVaultLock' {..} =
-    Core.object
-      ( Prelude.catMaybes
-          [("policy" Core..=) Prelude.<$> policy]
-      )
+instance Data.ToJSON InitiateVaultLock where
+  toJSON InitiateVaultLock' {..} = Data.toJSON policy
 
-instance Core.ToPath InitiateVaultLock where
+instance Data.ToPath InitiateVaultLock where
   toPath InitiateVaultLock' {..} =
     Prelude.mconcat
       [ "/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/vaults/",
-        Core.toBS vaultName,
+        Data.toBS vaultName,
         "/lock-policy"
       ]
 
-instance Core.ToQuery InitiateVaultLock where
+instance Data.ToQuery InitiateVaultLock where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the Amazon S3 Glacier response to your request.

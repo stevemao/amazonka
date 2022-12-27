@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.StopSentimentDetectionJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,7 @@
 --
 -- Stops a sentiment detection job in progress.
 --
--- If the job state is @IN_PROGRESS@ the job is marked for termination and
+-- If the job state is @IN_PROGRESS@, the job is marked for termination and
 -- put into the @STOP_REQUESTED@ state. If the job completes before it can
 -- be stopped, it is put into the @COMPLETED@ state; otherwise the job is
 -- be stopped and put into the @STOPPED@ state.
@@ -54,7 +54,8 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,13 +91,14 @@ instance Core.AWSRequest StopSentimentDetectionJob where
   type
     AWSResponse StopSentimentDetectionJob =
       StopSentimentDetectionJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StopSentimentDetectionJobResponse'
-            Prelude.<$> (x Core..?> "JobId")
-            Prelude.<*> (x Core..?> "JobStatus")
+            Prelude.<$> (x Data..?> "JobId")
+            Prelude.<*> (x Data..?> "JobStatus")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -108,32 +110,32 @@ instance Prelude.NFData StopSentimentDetectionJob where
   rnf StopSentimentDetectionJob' {..} =
     Prelude.rnf jobId
 
-instance Core.ToHeaders StopSentimentDetectionJob where
+instance Data.ToHeaders StopSentimentDetectionJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.StopSentimentDetectionJob" ::
+              Data.=# ( "Comprehend_20171127.StopSentimentDetectionJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopSentimentDetectionJob where
+instance Data.ToJSON StopSentimentDetectionJob where
   toJSON StopSentimentDetectionJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("JobId" Core..= jobId)]
+          [Prelude.Just ("JobId" Data..= jobId)]
       )
 
-instance Core.ToPath StopSentimentDetectionJob where
+instance Data.ToPath StopSentimentDetectionJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopSentimentDetectionJob where
+instance Data.ToQuery StopSentimentDetectionJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopSentimentDetectionJobResponse' smart constructor.

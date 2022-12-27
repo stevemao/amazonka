@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.CreateLoginProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -53,8 +53,9 @@ module Amazonka.IAM.CreateLoginProfile
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,7 +84,7 @@ data CreateLoginProfile = CreateLoginProfile'
     -- However, many tools, such as the Amazon Web Services Management Console,
     -- might restrict the ability to type certain characters because they have
     -- special meaning within that tool.
-    password :: Core.Sensitive Prelude.Text
+    password :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -128,7 +129,7 @@ newCreateLoginProfile pUserName_ pPassword_ =
     { passwordResetRequired =
         Prelude.Nothing,
       userName = pUserName_,
-      password = Core._Sensitive Lens.# pPassword_
+      password = Data._Sensitive Lens.# pPassword_
     }
 
 -- | Specifies whether the user is required to set a new password on next
@@ -158,20 +159,21 @@ createLoginProfile_userName = Lens.lens (\CreateLoginProfile' {userName} -> user
 -- might restrict the ability to type certain characters because they have
 -- special meaning within that tool.
 createLoginProfile_password :: Lens.Lens' CreateLoginProfile Prelude.Text
-createLoginProfile_password = Lens.lens (\CreateLoginProfile' {password} -> password) (\s@CreateLoginProfile' {} a -> s {password = a} :: CreateLoginProfile) Prelude.. Core._Sensitive
+createLoginProfile_password = Lens.lens (\CreateLoginProfile' {password} -> password) (\s@CreateLoginProfile' {} a -> s {password = a} :: CreateLoginProfile) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest CreateLoginProfile where
   type
     AWSResponse CreateLoginProfile =
       CreateLoginProfileResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateLoginProfileResult"
       ( \s h x ->
           CreateLoginProfileResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "LoginProfile")
+            Prelude.<*> (x Data..@ "LoginProfile")
       )
 
 instance Prelude.Hashable CreateLoginProfile where
@@ -186,23 +188,23 @@ instance Prelude.NFData CreateLoginProfile where
       `Prelude.seq` Prelude.rnf userName
       `Prelude.seq` Prelude.rnf password
 
-instance Core.ToHeaders CreateLoginProfile where
+instance Data.ToHeaders CreateLoginProfile where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateLoginProfile where
+instance Data.ToPath CreateLoginProfile where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateLoginProfile where
+instance Data.ToQuery CreateLoginProfile where
   toQuery CreateLoginProfile' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateLoginProfile" :: Prelude.ByteString),
+          Data.=: ("CreateLoginProfile" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
         "PasswordResetRequired"
-          Core.=: passwordResetRequired,
-        "UserName" Core.=: userName,
-        "Password" Core.=: password
+          Data.=: passwordResetRequired,
+        "UserName" Data.=: userName,
+        "Password" Data.=: password
       ]
 
 -- | Contains the response to a successful CreateLoginProfile request.

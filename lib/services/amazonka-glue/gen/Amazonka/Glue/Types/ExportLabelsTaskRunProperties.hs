@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.ExportLabelsTaskRunProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Glue.Types.ExportLabelsTaskRunProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies configuration properties for an exporting labels task run.
@@ -56,13 +57,13 @@ newExportLabelsTaskRunProperties =
 exportLabelsTaskRunProperties_outputS3Path :: Lens.Lens' ExportLabelsTaskRunProperties (Prelude.Maybe Prelude.Text)
 exportLabelsTaskRunProperties_outputS3Path = Lens.lens (\ExportLabelsTaskRunProperties' {outputS3Path} -> outputS3Path) (\s@ExportLabelsTaskRunProperties' {} a -> s {outputS3Path = a} :: ExportLabelsTaskRunProperties)
 
-instance Core.FromJSON ExportLabelsTaskRunProperties where
+instance Data.FromJSON ExportLabelsTaskRunProperties where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ExportLabelsTaskRunProperties"
       ( \x ->
           ExportLabelsTaskRunProperties'
-            Prelude.<$> (x Core..:? "OutputS3Path")
+            Prelude.<$> (x Data..:? "OutputS3Path")
       )
 
 instance

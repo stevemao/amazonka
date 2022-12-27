@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ManagedBlockChain.Types.MemberFabricAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ManagedBlockChain.Types.MemberFabricAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Attributes of Hyperledger Fabric for a member in a Managed Blockchain
@@ -28,10 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newMemberFabricAttributes' smart constructor.
 data MemberFabricAttributes = MemberFabricAttributes'
-  { -- | The endpoint used to access the member\'s certificate authority.
-    caEndpoint :: Prelude.Maybe Prelude.Text,
-    -- | The user name for the initial administrator user for the member.
-    adminUsername :: Prelude.Maybe Prelude.Text
+  { -- | The user name for the initial administrator user for the member.
+    adminUsername :: Prelude.Maybe Prelude.Text,
+    -- | The endpoint used to access the member\'s certificate authority.
+    caEndpoint :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,42 +44,42 @@ data MemberFabricAttributes = MemberFabricAttributes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'caEndpoint', 'memberFabricAttributes_caEndpoint' - The endpoint used to access the member\'s certificate authority.
---
 -- 'adminUsername', 'memberFabricAttributes_adminUsername' - The user name for the initial administrator user for the member.
+--
+-- 'caEndpoint', 'memberFabricAttributes_caEndpoint' - The endpoint used to access the member\'s certificate authority.
 newMemberFabricAttributes ::
   MemberFabricAttributes
 newMemberFabricAttributes =
   MemberFabricAttributes'
-    { caEndpoint =
+    { adminUsername =
         Prelude.Nothing,
-      adminUsername = Prelude.Nothing
+      caEndpoint = Prelude.Nothing
     }
-
--- | The endpoint used to access the member\'s certificate authority.
-memberFabricAttributes_caEndpoint :: Lens.Lens' MemberFabricAttributes (Prelude.Maybe Prelude.Text)
-memberFabricAttributes_caEndpoint = Lens.lens (\MemberFabricAttributes' {caEndpoint} -> caEndpoint) (\s@MemberFabricAttributes' {} a -> s {caEndpoint = a} :: MemberFabricAttributes)
 
 -- | The user name for the initial administrator user for the member.
 memberFabricAttributes_adminUsername :: Lens.Lens' MemberFabricAttributes (Prelude.Maybe Prelude.Text)
 memberFabricAttributes_adminUsername = Lens.lens (\MemberFabricAttributes' {adminUsername} -> adminUsername) (\s@MemberFabricAttributes' {} a -> s {adminUsername = a} :: MemberFabricAttributes)
 
-instance Core.FromJSON MemberFabricAttributes where
+-- | The endpoint used to access the member\'s certificate authority.
+memberFabricAttributes_caEndpoint :: Lens.Lens' MemberFabricAttributes (Prelude.Maybe Prelude.Text)
+memberFabricAttributes_caEndpoint = Lens.lens (\MemberFabricAttributes' {caEndpoint} -> caEndpoint) (\s@MemberFabricAttributes' {} a -> s {caEndpoint = a} :: MemberFabricAttributes)
+
+instance Data.FromJSON MemberFabricAttributes where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MemberFabricAttributes"
       ( \x ->
           MemberFabricAttributes'
-            Prelude.<$> (x Core..:? "CaEndpoint")
-            Prelude.<*> (x Core..:? "AdminUsername")
+            Prelude.<$> (x Data..:? "AdminUsername")
+            Prelude.<*> (x Data..:? "CaEndpoint")
       )
 
 instance Prelude.Hashable MemberFabricAttributes where
   hashWithSalt _salt MemberFabricAttributes' {..} =
-    _salt `Prelude.hashWithSalt` caEndpoint
-      `Prelude.hashWithSalt` adminUsername
+    _salt `Prelude.hashWithSalt` adminUsername
+      `Prelude.hashWithSalt` caEndpoint
 
 instance Prelude.NFData MemberFabricAttributes where
   rnf MemberFabricAttributes' {..} =
-    Prelude.rnf caEndpoint
-      `Prelude.seq` Prelude.rnf adminUsername
+    Prelude.rnf adminUsername
+      `Prelude.seq` Prelude.rnf caEndpoint

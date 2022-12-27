@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.Types.AutoScalingGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElasticBeanstalk.Types.AutoScalingGroup where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an Auto Scaling launch configuration.
@@ -50,9 +51,9 @@ newAutoScalingGroup =
 autoScalingGroup_name :: Lens.Lens' AutoScalingGroup (Prelude.Maybe Prelude.Text)
 autoScalingGroup_name = Lens.lens (\AutoScalingGroup' {name} -> name) (\s@AutoScalingGroup' {} a -> s {name = a} :: AutoScalingGroup)
 
-instance Core.FromXML AutoScalingGroup where
+instance Data.FromXML AutoScalingGroup where
   parseXML x =
-    AutoScalingGroup' Prelude.<$> (x Core..@? "Name")
+    AutoScalingGroup' Prelude.<$> (x Data..@? "Name")
 
 instance Prelude.Hashable AutoScalingGroup where
   hashWithSalt _salt AutoScalingGroup' {..} =

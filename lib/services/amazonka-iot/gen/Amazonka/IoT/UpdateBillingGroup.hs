@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.UpdateBillingGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.IoT.UpdateBillingGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -117,12 +118,13 @@ instance Core.AWSRequest UpdateBillingGroup where
   type
     AWSResponse UpdateBillingGroup =
       UpdateBillingGroupResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateBillingGroupResponse'
-            Prelude.<$> (x Core..?> "version")
+            Prelude.<$> (x Data..?> "version")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -138,28 +140,28 @@ instance Prelude.NFData UpdateBillingGroup where
       `Prelude.seq` Prelude.rnf billingGroupName
       `Prelude.seq` Prelude.rnf billingGroupProperties
 
-instance Core.ToHeaders UpdateBillingGroup where
+instance Data.ToHeaders UpdateBillingGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateBillingGroup where
+instance Data.ToJSON UpdateBillingGroup where
   toJSON UpdateBillingGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("expectedVersion" Core..=)
+          [ ("expectedVersion" Data..=)
               Prelude.<$> expectedVersion,
             Prelude.Just
               ( "billingGroupProperties"
-                  Core..= billingGroupProperties
+                  Data..= billingGroupProperties
               )
           ]
       )
 
-instance Core.ToPath UpdateBillingGroup where
+instance Data.ToPath UpdateBillingGroup where
   toPath UpdateBillingGroup' {..} =
     Prelude.mconcat
-      ["/billing-groups/", Core.toBS billingGroupName]
+      ["/billing-groups/", Data.toBS billingGroupName]
 
-instance Core.ToQuery UpdateBillingGroup where
+instance Data.ToQuery UpdateBillingGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateBillingGroupResponse' smart constructor.

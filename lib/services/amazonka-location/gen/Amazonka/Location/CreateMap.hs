@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Location.CreateMap
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,6 +22,12 @@
 --
 -- Creates a map resource in your AWS account, which provides map tiles of
 -- different styles sourced from global location data providers.
+--
+-- If your application is tracking or routing assets you use in your
+-- business, such as delivery vehicles or employees, you may only use HERE
+-- as your geolocation provider. See section 82 of the
+-- <http://aws.amazon.com/service-terms AWS service terms> for more
+-- details.
 module Amazonka.Location.CreateMap
   ( -- * Creating a Request
     CreateMap (..),
@@ -29,10 +35,10 @@ module Amazonka.Location.CreateMap
 
     -- * Request Lenses
     createMap_description,
+    createMap_pricingPlan,
     createMap_tags,
     createMap_configuration,
     createMap_mapName,
-    createMap_pricingPlan,
 
     -- * Destructuring the Response
     CreateMapResponse (..),
@@ -47,7 +53,8 @@ module Amazonka.Location.CreateMap
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -57,6 +64,9 @@ import qualified Amazonka.Response as Response
 data CreateMap = CreateMap'
   { -- | An optional description for the map resource.
     description :: Prelude.Maybe Prelude.Text,
+    -- | No longer used. If included, the only allowed value is
+    -- @RequestBasedUsage@.
+    pricingPlan :: Prelude.Maybe PricingPlan,
     -- | Applies one or more tags to the map resource. A tag is a key-value pair
     -- helps manage, identify, search, and filter your resources by labelling
     -- them.
@@ -75,8 +85,12 @@ data CreateMap = CreateMap'
     --
     -- -   Can use alphanumeric characters (A–Z, a–z, 0–9), and the following
     --     characters: + - = . _ : \/ \@.
+    --
+    -- -   Cannot use \"aws:\" as a prefix for a key.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | Specifies the map style selected from an available data provider.
+    -- | Specifies the @MapConfiguration@, including the map style, for the map
+    -- resource that you create. The map style defines the look of maps and the
+    -- data provider for your map resource.
     configuration :: MapConfiguration,
     -- | The name for the map resource.
     --
@@ -88,12 +102,7 @@ data CreateMap = CreateMap'
     -- -   Must be a unique map resource name.
     --
     -- -   No spaces allowed. For example, @ExampleMap@.
-    mapName :: Prelude.Text,
-    -- | Specifies the pricing plan for your map resource.
-    --
-    -- For additional details and restrictions on each pricing plan option, see
-    -- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
-    pricingPlan :: PricingPlan
+    mapName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -106,6 +115,9 @@ data CreateMap = CreateMap'
 -- for backwards compatibility:
 --
 -- 'description', 'createMap_description' - An optional description for the map resource.
+--
+-- 'pricingPlan', 'createMap_pricingPlan' - No longer used. If included, the only allowed value is
+-- @RequestBasedUsage@.
 --
 -- 'tags', 'createMap_tags' - Applies one or more tags to the map resource. A tag is a key-value pair
 -- helps manage, identify, search, and filter your resources by labelling
@@ -126,7 +138,11 @@ data CreateMap = CreateMap'
 -- -   Can use alphanumeric characters (A–Z, a–z, 0–9), and the following
 --     characters: + - = . _ : \/ \@.
 --
--- 'configuration', 'createMap_configuration' - Specifies the map style selected from an available data provider.
+-- -   Cannot use \"aws:\" as a prefix for a key.
+--
+-- 'configuration', 'createMap_configuration' - Specifies the @MapConfiguration@, including the map style, for the map
+-- resource that you create. The map style defines the look of maps and the
+-- data provider for your map resource.
 --
 -- 'mapName', 'createMap_mapName' - The name for the map resource.
 --
@@ -138,31 +154,29 @@ data CreateMap = CreateMap'
 -- -   Must be a unique map resource name.
 --
 -- -   No spaces allowed. For example, @ExampleMap@.
---
--- 'pricingPlan', 'createMap_pricingPlan' - Specifies the pricing plan for your map resource.
---
--- For additional details and restrictions on each pricing plan option, see
--- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
 newCreateMap ::
   -- | 'configuration'
   MapConfiguration ->
   -- | 'mapName'
   Prelude.Text ->
-  -- | 'pricingPlan'
-  PricingPlan ->
   CreateMap
-newCreateMap pConfiguration_ pMapName_ pPricingPlan_ =
+newCreateMap pConfiguration_ pMapName_ =
   CreateMap'
     { description = Prelude.Nothing,
+      pricingPlan = Prelude.Nothing,
       tags = Prelude.Nothing,
       configuration = pConfiguration_,
-      mapName = pMapName_,
-      pricingPlan = pPricingPlan_
+      mapName = pMapName_
     }
 
 -- | An optional description for the map resource.
 createMap_description :: Lens.Lens' CreateMap (Prelude.Maybe Prelude.Text)
 createMap_description = Lens.lens (\CreateMap' {description} -> description) (\s@CreateMap' {} a -> s {description = a} :: CreateMap)
+
+-- | No longer used. If included, the only allowed value is
+-- @RequestBasedUsage@.
+createMap_pricingPlan :: Lens.Lens' CreateMap (Prelude.Maybe PricingPlan)
+createMap_pricingPlan = Lens.lens (\CreateMap' {pricingPlan} -> pricingPlan) (\s@CreateMap' {} a -> s {pricingPlan = a} :: CreateMap)
 
 -- | Applies one or more tags to the map resource. A tag is a key-value pair
 -- helps manage, identify, search, and filter your resources by labelling
@@ -182,10 +196,14 @@ createMap_description = Lens.lens (\CreateMap' {description} -> description) (\s
 --
 -- -   Can use alphanumeric characters (A–Z, a–z, 0–9), and the following
 --     characters: + - = . _ : \/ \@.
+--
+-- -   Cannot use \"aws:\" as a prefix for a key.
 createMap_tags :: Lens.Lens' CreateMap (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createMap_tags = Lens.lens (\CreateMap' {tags} -> tags) (\s@CreateMap' {} a -> s {tags = a} :: CreateMap) Prelude.. Lens.mapping Lens.coerced
 
--- | Specifies the map style selected from an available data provider.
+-- | Specifies the @MapConfiguration@, including the map style, for the map
+-- resource that you create. The map style defines the look of maps and the
+-- data provider for your map resource.
 createMap_configuration :: Lens.Lens' CreateMap MapConfiguration
 createMap_configuration = Lens.lens (\CreateMap' {configuration} -> configuration) (\s@CreateMap' {} a -> s {configuration = a} :: CreateMap)
 
@@ -202,69 +220,63 @@ createMap_configuration = Lens.lens (\CreateMap' {configuration} -> configuratio
 createMap_mapName :: Lens.Lens' CreateMap Prelude.Text
 createMap_mapName = Lens.lens (\CreateMap' {mapName} -> mapName) (\s@CreateMap' {} a -> s {mapName = a} :: CreateMap)
 
--- | Specifies the pricing plan for your map resource.
---
--- For additional details and restrictions on each pricing plan option, see
--- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
-createMap_pricingPlan :: Lens.Lens' CreateMap PricingPlan
-createMap_pricingPlan = Lens.lens (\CreateMap' {pricingPlan} -> pricingPlan) (\s@CreateMap' {} a -> s {pricingPlan = a} :: CreateMap)
-
 instance Core.AWSRequest CreateMap where
   type AWSResponse CreateMap = CreateMapResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateMapResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "CreateTime")
-            Prelude.<*> (x Core..:> "MapArn")
-            Prelude.<*> (x Core..:> "MapName")
+            Prelude.<*> (x Data..:> "CreateTime")
+            Prelude.<*> (x Data..:> "MapArn")
+            Prelude.<*> (x Data..:> "MapName")
       )
 
 instance Prelude.Hashable CreateMap where
   hashWithSalt _salt CreateMap' {..} =
     _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` pricingPlan
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` configuration
       `Prelude.hashWithSalt` mapName
-      `Prelude.hashWithSalt` pricingPlan
 
 instance Prelude.NFData CreateMap where
   rnf CreateMap' {..} =
     Prelude.rnf description
+      `Prelude.seq` Prelude.rnf pricingPlan
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf configuration
       `Prelude.seq` Prelude.rnf mapName
-      `Prelude.seq` Prelude.rnf pricingPlan
 
-instance Core.ToHeaders CreateMap where
+instance Data.ToHeaders CreateMap where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateMap where
+instance Data.ToJSON CreateMap where
   toJSON CreateMap' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Configuration" Core..= configuration),
-            Prelude.Just ("MapName" Core..= mapName),
-            Prelude.Just ("PricingPlan" Core..= pricingPlan)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("PricingPlan" Data..=) Prelude.<$> pricingPlan,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Configuration" Data..= configuration),
+            Prelude.Just ("MapName" Data..= mapName)
           ]
       )
 
-instance Core.ToPath CreateMap where
+instance Data.ToPath CreateMap where
   toPath = Prelude.const "/maps/v0/maps"
 
-instance Core.ToQuery CreateMap where
+instance Data.ToQuery CreateMap where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateMapResponse' smart constructor.
@@ -274,11 +286,11 @@ data CreateMapResponse = CreateMapResponse'
     -- | The timestamp for when the map resource was created in
     -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
     -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
-    createTime :: Core.POSIX,
+    createTime :: Data.POSIX,
     -- | The Amazon Resource Name (ARN) for the map resource. Used to specify a
     -- resource across all AWS.
     --
-    -- -   Format example: @arn:aws:geo:region:account-id:maps\/ExampleMap@
+    -- -   Format example: @arn:aws:geo:region:account-id:map\/ExampleMap@
     mapArn :: Prelude.Text,
     -- | The name of the map resource.
     mapName :: Prelude.Text
@@ -302,7 +314,7 @@ data CreateMapResponse = CreateMapResponse'
 -- 'mapArn', 'createMapResponse_mapArn' - The Amazon Resource Name (ARN) for the map resource. Used to specify a
 -- resource across all AWS.
 --
--- -   Format example: @arn:aws:geo:region:account-id:maps\/ExampleMap@
+-- -   Format example: @arn:aws:geo:region:account-id:map\/ExampleMap@
 --
 -- 'mapName', 'createMapResponse_mapName' - The name of the map resource.
 newCreateMapResponse ::
@@ -322,7 +334,7 @@ newCreateMapResponse
   pMapName_ =
     CreateMapResponse'
       { httpStatus = pHttpStatus_,
-        createTime = Core._Time Lens.# pCreateTime_,
+        createTime = Data._Time Lens.# pCreateTime_,
         mapArn = pMapArn_,
         mapName = pMapName_
       }
@@ -335,12 +347,12 @@ createMapResponse_httpStatus = Lens.lens (\CreateMapResponse' {httpStatus} -> ht
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
 createMapResponse_createTime :: Lens.Lens' CreateMapResponse Prelude.UTCTime
-createMapResponse_createTime = Lens.lens (\CreateMapResponse' {createTime} -> createTime) (\s@CreateMapResponse' {} a -> s {createTime = a} :: CreateMapResponse) Prelude.. Core._Time
+createMapResponse_createTime = Lens.lens (\CreateMapResponse' {createTime} -> createTime) (\s@CreateMapResponse' {} a -> s {createTime = a} :: CreateMapResponse) Prelude.. Data._Time
 
 -- | The Amazon Resource Name (ARN) for the map resource. Used to specify a
 -- resource across all AWS.
 --
--- -   Format example: @arn:aws:geo:region:account-id:maps\/ExampleMap@
+-- -   Format example: @arn:aws:geo:region:account-id:map\/ExampleMap@
 createMapResponse_mapArn :: Lens.Lens' CreateMapResponse Prelude.Text
 createMapResponse_mapArn = Lens.lens (\CreateMapResponse' {mapArn} -> mapArn) (\s@CreateMapResponse' {} a -> s {mapArn = a} :: CreateMapResponse)
 

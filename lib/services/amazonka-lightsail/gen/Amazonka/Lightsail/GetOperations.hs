@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.GetOperations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.Lightsail.GetOperations
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -117,13 +118,14 @@ instance Core.AWSRequest GetOperations where
   type
     AWSResponse GetOperations =
       GetOperationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetOperationsResponse'
-            Prelude.<$> (x Core..?> "nextPageToken")
-            Prelude.<*> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "nextPageToken")
+            Prelude.<*> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -134,32 +136,32 @@ instance Prelude.Hashable GetOperations where
 instance Prelude.NFData GetOperations where
   rnf GetOperations' {..} = Prelude.rnf pageToken
 
-instance Core.ToHeaders GetOperations where
+instance Data.ToHeaders GetOperations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.GetOperations" ::
+              Data.=# ( "Lightsail_20161128.GetOperations" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetOperations where
+instance Data.ToJSON GetOperations where
   toJSON GetOperations' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("pageToken" Core..=) Prelude.<$> pageToken]
+          [("pageToken" Data..=) Prelude.<$> pageToken]
       )
 
-instance Core.ToPath GetOperations where
+instance Data.ToPath GetOperations where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetOperations where
+instance Data.ToQuery GetOperations where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetOperationsResponse' smart constructor.

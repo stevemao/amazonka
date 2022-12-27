@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.ScanProvisionedProducts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,8 @@ module Amazonka.ServiceCatalog.ScanProvisionedProducts
     -- * Request Lenses
     scanProvisionedProducts_acceptLanguage,
     scanProvisionedProducts_accessLevelFilter,
-    scanProvisionedProducts_pageToken,
     scanProvisionedProducts_pageSize,
+    scanProvisionedProducts_pageToken,
 
     -- * Destructuring the Response
     ScanProvisionedProductsResponse (..),
@@ -48,7 +48,8 @@ module Amazonka.ServiceCatalog.ScanProvisionedProducts
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,11 +67,11 @@ data ScanProvisionedProducts = ScanProvisionedProducts'
     acceptLanguage :: Prelude.Maybe Prelude.Text,
     -- | The access level to use to obtain results. The default is @User@.
     accessLevelFilter :: Prelude.Maybe AccessLevelFilter,
+    -- | The maximum number of items to return with this call.
+    pageSize :: Prelude.Maybe Prelude.Natural,
     -- | The page token for the next set of results. To retrieve the first set of
     -- results, use null.
-    pageToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return with this call.
-    pageSize :: Prelude.Maybe Prelude.Natural
+    pageToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -92,10 +93,10 @@ data ScanProvisionedProducts = ScanProvisionedProducts'
 --
 -- 'accessLevelFilter', 'scanProvisionedProducts_accessLevelFilter' - The access level to use to obtain results. The default is @User@.
 --
+-- 'pageSize', 'scanProvisionedProducts_pageSize' - The maximum number of items to return with this call.
+--
 -- 'pageToken', 'scanProvisionedProducts_pageToken' - The page token for the next set of results. To retrieve the first set of
 -- results, use null.
---
--- 'pageSize', 'scanProvisionedProducts_pageSize' - The maximum number of items to return with this call.
 newScanProvisionedProducts ::
   ScanProvisionedProducts
 newScanProvisionedProducts =
@@ -103,8 +104,8 @@ newScanProvisionedProducts =
     { acceptLanguage =
         Prelude.Nothing,
       accessLevelFilter = Prelude.Nothing,
-      pageToken = Prelude.Nothing,
-      pageSize = Prelude.Nothing
+      pageSize = Prelude.Nothing,
+      pageToken = Prelude.Nothing
     }
 
 -- | The language code.
@@ -121,14 +122,14 @@ scanProvisionedProducts_acceptLanguage = Lens.lens (\ScanProvisionedProducts' {a
 scanProvisionedProducts_accessLevelFilter :: Lens.Lens' ScanProvisionedProducts (Prelude.Maybe AccessLevelFilter)
 scanProvisionedProducts_accessLevelFilter = Lens.lens (\ScanProvisionedProducts' {accessLevelFilter} -> accessLevelFilter) (\s@ScanProvisionedProducts' {} a -> s {accessLevelFilter = a} :: ScanProvisionedProducts)
 
+-- | The maximum number of items to return with this call.
+scanProvisionedProducts_pageSize :: Lens.Lens' ScanProvisionedProducts (Prelude.Maybe Prelude.Natural)
+scanProvisionedProducts_pageSize = Lens.lens (\ScanProvisionedProducts' {pageSize} -> pageSize) (\s@ScanProvisionedProducts' {} a -> s {pageSize = a} :: ScanProvisionedProducts)
+
 -- | The page token for the next set of results. To retrieve the first set of
 -- results, use null.
 scanProvisionedProducts_pageToken :: Lens.Lens' ScanProvisionedProducts (Prelude.Maybe Prelude.Text)
 scanProvisionedProducts_pageToken = Lens.lens (\ScanProvisionedProducts' {pageToken} -> pageToken) (\s@ScanProvisionedProducts' {} a -> s {pageToken = a} :: ScanProvisionedProducts)
-
--- | The maximum number of items to return with this call.
-scanProvisionedProducts_pageSize :: Lens.Lens' ScanProvisionedProducts (Prelude.Maybe Prelude.Natural)
-scanProvisionedProducts_pageSize = Lens.lens (\ScanProvisionedProducts' {pageSize} -> pageSize) (\s@ScanProvisionedProducts' {} a -> s {pageSize = a} :: ScanProvisionedProducts)
 
 instance Core.AWSPager ScanProvisionedProducts where
   page rq rs
@@ -156,13 +157,14 @@ instance Core.AWSRequest ScanProvisionedProducts where
   type
     AWSResponse ScanProvisionedProducts =
       ScanProvisionedProductsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ScanProvisionedProductsResponse'
-            Prelude.<$> (x Core..?> "NextPageToken")
-            Prelude.<*> ( x Core..?> "ProvisionedProducts"
+            Prelude.<$> (x Data..?> "NextPageToken")
+            Prelude.<*> ( x Data..?> "ProvisionedProducts"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -172,48 +174,48 @@ instance Prelude.Hashable ScanProvisionedProducts where
   hashWithSalt _salt ScanProvisionedProducts' {..} =
     _salt `Prelude.hashWithSalt` acceptLanguage
       `Prelude.hashWithSalt` accessLevelFilter
-      `Prelude.hashWithSalt` pageToken
       `Prelude.hashWithSalt` pageSize
+      `Prelude.hashWithSalt` pageToken
 
 instance Prelude.NFData ScanProvisionedProducts where
   rnf ScanProvisionedProducts' {..} =
     Prelude.rnf acceptLanguage
       `Prelude.seq` Prelude.rnf accessLevelFilter
-      `Prelude.seq` Prelude.rnf pageToken
       `Prelude.seq` Prelude.rnf pageSize
+      `Prelude.seq` Prelude.rnf pageToken
 
-instance Core.ToHeaders ScanProvisionedProducts where
+instance Data.ToHeaders ScanProvisionedProducts where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.ScanProvisionedProducts" ::
+              Data.=# ( "AWS242ServiceCatalogService.ScanProvisionedProducts" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ScanProvisionedProducts where
+instance Data.ToJSON ScanProvisionedProducts where
   toJSON ScanProvisionedProducts' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            ("AccessLevelFilter" Core..=)
+            ("AccessLevelFilter" Data..=)
               Prelude.<$> accessLevelFilter,
-            ("PageToken" Core..=) Prelude.<$> pageToken,
-            ("PageSize" Core..=) Prelude.<$> pageSize
+            ("PageSize" Data..=) Prelude.<$> pageSize,
+            ("PageToken" Data..=) Prelude.<$> pageToken
           ]
       )
 
-instance Core.ToPath ScanProvisionedProducts where
+instance Data.ToPath ScanProvisionedProducts where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ScanProvisionedProducts where
+instance Data.ToQuery ScanProvisionedProducts where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newScanProvisionedProductsResponse' smart constructor.

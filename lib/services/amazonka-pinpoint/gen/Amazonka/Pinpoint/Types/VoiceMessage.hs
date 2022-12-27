@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.VoiceMessage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.VoiceMessage where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the settings for a one-time voice message that\'s sent
@@ -28,9 +29,8 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newVoiceMessage' smart constructor.
 data VoiceMessage = VoiceMessage'
-  { -- | The default message variables to use in the voice message. You can
-    -- override the default variables with individual address variables.
-    substitutions :: Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]),
+  { -- | The text of the script to use for the voice message.
+    body :: Prelude.Maybe Prelude.Text,
     -- | The code for the language to use when synthesizing the text of the
     -- message script. For a list of supported languages and the code for each
     -- one, see the
@@ -42,8 +42,9 @@ data VoiceMessage = VoiceMessage'
     -- in E.164 format, for example +12065550100, to ensure prompt and accurate
     -- delivery of the message.
     originationNumber :: Prelude.Maybe Prelude.Text,
-    -- | The text of the script to use for the voice message.
-    body :: Prelude.Maybe Prelude.Text,
+    -- | The default message variables to use in the voice message. You can
+    -- override the default variables with individual address variables.
+    substitutions :: Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]),
     -- | The name of the voice to use when delivering the message. For a list of
     -- supported voices, see the
     -- <https://docs.aws.amazon.com/polly/latest/dg/what-is.html Amazon Polly Developer Guide>.
@@ -59,8 +60,7 @@ data VoiceMessage = VoiceMessage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'substitutions', 'voiceMessage_substitutions' - The default message variables to use in the voice message. You can
--- override the default variables with individual address variables.
+-- 'body', 'voiceMessage_body' - The text of the script to use for the voice message.
 --
 -- 'languageCode', 'voiceMessage_languageCode' - The code for the language to use when synthesizing the text of the
 -- message script. For a list of supported languages and the code for each
@@ -73,7 +73,8 @@ data VoiceMessage = VoiceMessage'
 -- in E.164 format, for example +12065550100, to ensure prompt and accurate
 -- delivery of the message.
 --
--- 'body', 'voiceMessage_body' - The text of the script to use for the voice message.
+-- 'substitutions', 'voiceMessage_substitutions' - The default message variables to use in the voice message. You can
+-- override the default variables with individual address variables.
 --
 -- 'voiceId', 'voiceMessage_voiceId' - The name of the voice to use when delivering the message. For a list of
 -- supported voices, see the
@@ -82,17 +83,16 @@ newVoiceMessage ::
   VoiceMessage
 newVoiceMessage =
   VoiceMessage'
-    { substitutions = Prelude.Nothing,
+    { body = Prelude.Nothing,
       languageCode = Prelude.Nothing,
       originationNumber = Prelude.Nothing,
-      body = Prelude.Nothing,
+      substitutions = Prelude.Nothing,
       voiceId = Prelude.Nothing
     }
 
--- | The default message variables to use in the voice message. You can
--- override the default variables with individual address variables.
-voiceMessage_substitutions :: Lens.Lens' VoiceMessage (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
-voiceMessage_substitutions = Lens.lens (\VoiceMessage' {substitutions} -> substitutions) (\s@VoiceMessage' {} a -> s {substitutions = a} :: VoiceMessage) Prelude.. Lens.mapping Lens.coerced
+-- | The text of the script to use for the voice message.
+voiceMessage_body :: Lens.Lens' VoiceMessage (Prelude.Maybe Prelude.Text)
+voiceMessage_body = Lens.lens (\VoiceMessage' {body} -> body) (\s@VoiceMessage' {} a -> s {body = a} :: VoiceMessage)
 
 -- | The code for the language to use when synthesizing the text of the
 -- message script. For a list of supported languages and the code for each
@@ -109,9 +109,10 @@ voiceMessage_languageCode = Lens.lens (\VoiceMessage' {languageCode} -> language
 voiceMessage_originationNumber :: Lens.Lens' VoiceMessage (Prelude.Maybe Prelude.Text)
 voiceMessage_originationNumber = Lens.lens (\VoiceMessage' {originationNumber} -> originationNumber) (\s@VoiceMessage' {} a -> s {originationNumber = a} :: VoiceMessage)
 
--- | The text of the script to use for the voice message.
-voiceMessage_body :: Lens.Lens' VoiceMessage (Prelude.Maybe Prelude.Text)
-voiceMessage_body = Lens.lens (\VoiceMessage' {body} -> body) (\s@VoiceMessage' {} a -> s {body = a} :: VoiceMessage)
+-- | The default message variables to use in the voice message. You can
+-- override the default variables with individual address variables.
+voiceMessage_substitutions :: Lens.Lens' VoiceMessage (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
+voiceMessage_substitutions = Lens.lens (\VoiceMessage' {substitutions} -> substitutions) (\s@VoiceMessage' {} a -> s {substitutions = a} :: VoiceMessage) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the voice to use when delivering the message. For a list of
 -- supported voices, see the
@@ -121,29 +122,29 @@ voiceMessage_voiceId = Lens.lens (\VoiceMessage' {voiceId} -> voiceId) (\s@Voice
 
 instance Prelude.Hashable VoiceMessage where
   hashWithSalt _salt VoiceMessage' {..} =
-    _salt `Prelude.hashWithSalt` substitutions
+    _salt `Prelude.hashWithSalt` body
       `Prelude.hashWithSalt` languageCode
       `Prelude.hashWithSalt` originationNumber
-      `Prelude.hashWithSalt` body
+      `Prelude.hashWithSalt` substitutions
       `Prelude.hashWithSalt` voiceId
 
 instance Prelude.NFData VoiceMessage where
   rnf VoiceMessage' {..} =
-    Prelude.rnf substitutions
+    Prelude.rnf body
       `Prelude.seq` Prelude.rnf languageCode
       `Prelude.seq` Prelude.rnf originationNumber
-      `Prelude.seq` Prelude.rnf body
+      `Prelude.seq` Prelude.rnf substitutions
       `Prelude.seq` Prelude.rnf voiceId
 
-instance Core.ToJSON VoiceMessage where
+instance Data.ToJSON VoiceMessage where
   toJSON VoiceMessage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Substitutions" Core..=) Prelude.<$> substitutions,
-            ("LanguageCode" Core..=) Prelude.<$> languageCode,
-            ("OriginationNumber" Core..=)
+          [ ("Body" Data..=) Prelude.<$> body,
+            ("LanguageCode" Data..=) Prelude.<$> languageCode,
+            ("OriginationNumber" Data..=)
               Prelude.<$> originationNumber,
-            ("Body" Core..=) Prelude.<$> body,
-            ("VoiceId" Core..=) Prelude.<$> voiceId
+            ("Substitutions" Data..=) Prelude.<$> substitutions,
+            ("VoiceId" Data..=) Prelude.<$> voiceId
           ]
       )

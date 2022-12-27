@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.UpdateTrigger
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.Glue.UpdateTrigger
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,12 +92,13 @@ instance Core.AWSRequest UpdateTrigger where
   type
     AWSResponse UpdateTrigger =
       UpdateTriggerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateTriggerResponse'
-            Prelude.<$> (x Core..?> "Trigger")
+            Prelude.<$> (x Data..?> "Trigger")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -110,33 +112,33 @@ instance Prelude.NFData UpdateTrigger where
     Prelude.rnf name
       `Prelude.seq` Prelude.rnf triggerUpdate
 
-instance Core.ToHeaders UpdateTrigger where
+instance Data.ToHeaders UpdateTrigger where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.UpdateTrigger" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.UpdateTrigger" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateTrigger where
+instance Data.ToJSON UpdateTrigger where
   toJSON UpdateTrigger' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Name" Core..= name),
+          [ Prelude.Just ("Name" Data..= name),
             Prelude.Just
-              ("TriggerUpdate" Core..= triggerUpdate)
+              ("TriggerUpdate" Data..= triggerUpdate)
           ]
       )
 
-instance Core.ToPath UpdateTrigger where
+instance Data.ToPath UpdateTrigger where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateTrigger where
+instance Data.ToQuery UpdateTrigger where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateTriggerResponse' smart constructor.

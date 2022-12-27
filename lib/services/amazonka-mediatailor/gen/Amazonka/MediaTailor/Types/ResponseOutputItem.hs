@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaTailor.Types.ResponseOutputItem
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.MediaTailor.Types.ResponseOutputItem where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaTailor.Types.DashPlaylistSettings
 import Amazonka.MediaTailor.Types.HlsPlaylistSettings
 import qualified Amazonka.Prelude as Prelude
 
--- | This response includes only the \"property\" : \"type\" property.
+-- | The output item response.
 --
 -- /See:/ 'newResponseOutputItem' smart constructor.
 data ResponseOutputItem = ResponseOutputItem'
-  { -- | HLS manifest configuration settings.
-    hlsPlaylistSettings :: Prelude.Maybe HlsPlaylistSettings,
-    -- | DASH manifest configuration settings.
+  { -- | DASH manifest configuration settings.
     dashPlaylistSettings :: Prelude.Maybe DashPlaylistSettings,
+    -- | HLS manifest configuration settings.
+    hlsPlaylistSettings :: Prelude.Maybe HlsPlaylistSettings,
     -- | The name of the manifest for the channel that will appear in the channel
     -- output\'s playback URL.
     manifestName :: Prelude.Text,
@@ -52,9 +53,9 @@ data ResponseOutputItem = ResponseOutputItem'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'hlsPlaylistSettings', 'responseOutputItem_hlsPlaylistSettings' - HLS manifest configuration settings.
---
 -- 'dashPlaylistSettings', 'responseOutputItem_dashPlaylistSettings' - DASH manifest configuration settings.
+--
+-- 'hlsPlaylistSettings', 'responseOutputItem_hlsPlaylistSettings' - HLS manifest configuration settings.
 --
 -- 'manifestName', 'responseOutputItem_manifestName' - The name of the manifest for the channel that will appear in the channel
 -- output\'s playback URL.
@@ -76,21 +77,21 @@ newResponseOutputItem
   pPlaybackUrl_
   pSourceGroup_ =
     ResponseOutputItem'
-      { hlsPlaylistSettings =
+      { dashPlaylistSettings =
           Prelude.Nothing,
-        dashPlaylistSettings = Prelude.Nothing,
+        hlsPlaylistSettings = Prelude.Nothing,
         manifestName = pManifestName_,
         playbackUrl = pPlaybackUrl_,
         sourceGroup = pSourceGroup_
       }
 
--- | HLS manifest configuration settings.
-responseOutputItem_hlsPlaylistSettings :: Lens.Lens' ResponseOutputItem (Prelude.Maybe HlsPlaylistSettings)
-responseOutputItem_hlsPlaylistSettings = Lens.lens (\ResponseOutputItem' {hlsPlaylistSettings} -> hlsPlaylistSettings) (\s@ResponseOutputItem' {} a -> s {hlsPlaylistSettings = a} :: ResponseOutputItem)
-
 -- | DASH manifest configuration settings.
 responseOutputItem_dashPlaylistSettings :: Lens.Lens' ResponseOutputItem (Prelude.Maybe DashPlaylistSettings)
 responseOutputItem_dashPlaylistSettings = Lens.lens (\ResponseOutputItem' {dashPlaylistSettings} -> dashPlaylistSettings) (\s@ResponseOutputItem' {} a -> s {dashPlaylistSettings = a} :: ResponseOutputItem)
+
+-- | HLS manifest configuration settings.
+responseOutputItem_hlsPlaylistSettings :: Lens.Lens' ResponseOutputItem (Prelude.Maybe HlsPlaylistSettings)
+responseOutputItem_hlsPlaylistSettings = Lens.lens (\ResponseOutputItem' {hlsPlaylistSettings} -> hlsPlaylistSettings) (\s@ResponseOutputItem' {} a -> s {hlsPlaylistSettings = a} :: ResponseOutputItem)
 
 -- | The name of the manifest for the channel that will appear in the channel
 -- output\'s playback URL.
@@ -106,31 +107,31 @@ responseOutputItem_playbackUrl = Lens.lens (\ResponseOutputItem' {playbackUrl} -
 responseOutputItem_sourceGroup :: Lens.Lens' ResponseOutputItem Prelude.Text
 responseOutputItem_sourceGroup = Lens.lens (\ResponseOutputItem' {sourceGroup} -> sourceGroup) (\s@ResponseOutputItem' {} a -> s {sourceGroup = a} :: ResponseOutputItem)
 
-instance Core.FromJSON ResponseOutputItem where
+instance Data.FromJSON ResponseOutputItem where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResponseOutputItem"
       ( \x ->
           ResponseOutputItem'
-            Prelude.<$> (x Core..:? "HlsPlaylistSettings")
-            Prelude.<*> (x Core..:? "DashPlaylistSettings")
-            Prelude.<*> (x Core..: "ManifestName")
-            Prelude.<*> (x Core..: "PlaybackUrl")
-            Prelude.<*> (x Core..: "SourceGroup")
+            Prelude.<$> (x Data..:? "DashPlaylistSettings")
+            Prelude.<*> (x Data..:? "HlsPlaylistSettings")
+            Prelude.<*> (x Data..: "ManifestName")
+            Prelude.<*> (x Data..: "PlaybackUrl")
+            Prelude.<*> (x Data..: "SourceGroup")
       )
 
 instance Prelude.Hashable ResponseOutputItem where
   hashWithSalt _salt ResponseOutputItem' {..} =
-    _salt `Prelude.hashWithSalt` hlsPlaylistSettings
-      `Prelude.hashWithSalt` dashPlaylistSettings
+    _salt `Prelude.hashWithSalt` dashPlaylistSettings
+      `Prelude.hashWithSalt` hlsPlaylistSettings
       `Prelude.hashWithSalt` manifestName
       `Prelude.hashWithSalt` playbackUrl
       `Prelude.hashWithSalt` sourceGroup
 
 instance Prelude.NFData ResponseOutputItem where
   rnf ResponseOutputItem' {..} =
-    Prelude.rnf hlsPlaylistSettings
-      `Prelude.seq` Prelude.rnf dashPlaylistSettings
+    Prelude.rnf dashPlaylistSettings
+      `Prelude.seq` Prelude.rnf hlsPlaylistSettings
       `Prelude.seq` Prelude.rnf manifestName
       `Prelude.seq` Prelude.rnf playbackUrl
       `Prelude.seq` Prelude.rnf sourceGroup

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.UpdateUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,9 +28,9 @@ module Amazonka.Chime.UpdateUser
     newUpdateUser,
 
     -- * Request Lenses
+    updateUser_alexaForBusinessMetadata,
     updateUser_licenseType,
     updateUser_userType,
-    updateUser_alexaForBusinessMetadata,
     updateUser_accountId,
     updateUser_userId,
 
@@ -46,20 +46,21 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateUser' smart constructor.
 data UpdateUser = UpdateUser'
-  { -- | The user license type to update. This must be a supported license type
+  { -- | The Alexa for Business metadata.
+    alexaForBusinessMetadata :: Prelude.Maybe AlexaForBusinessMetadata,
+    -- | The user license type to update. This must be a supported license type
     -- for the Amazon Chime account that the user belongs to.
     licenseType :: Prelude.Maybe License,
     -- | The user type.
     userType :: Prelude.Maybe UserType,
-    -- | The Alexa for Business metadata.
-    alexaForBusinessMetadata :: Prelude.Maybe AlexaForBusinessMetadata,
     -- | The Amazon Chime account ID.
     accountId :: Prelude.Text,
     -- | The user ID.
@@ -75,12 +76,12 @@ data UpdateUser = UpdateUser'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'alexaForBusinessMetadata', 'updateUser_alexaForBusinessMetadata' - The Alexa for Business metadata.
+--
 -- 'licenseType', 'updateUser_licenseType' - The user license type to update. This must be a supported license type
 -- for the Amazon Chime account that the user belongs to.
 --
 -- 'userType', 'updateUser_userType' - The user type.
---
--- 'alexaForBusinessMetadata', 'updateUser_alexaForBusinessMetadata' - The Alexa for Business metadata.
 --
 -- 'accountId', 'updateUser_accountId' - The Amazon Chime account ID.
 --
@@ -93,12 +94,17 @@ newUpdateUser ::
   UpdateUser
 newUpdateUser pAccountId_ pUserId_ =
   UpdateUser'
-    { licenseType = Prelude.Nothing,
+    { alexaForBusinessMetadata =
+        Prelude.Nothing,
+      licenseType = Prelude.Nothing,
       userType = Prelude.Nothing,
-      alexaForBusinessMetadata = Prelude.Nothing,
       accountId = pAccountId_,
       userId = pUserId_
     }
+
+-- | The Alexa for Business metadata.
+updateUser_alexaForBusinessMetadata :: Lens.Lens' UpdateUser (Prelude.Maybe AlexaForBusinessMetadata)
+updateUser_alexaForBusinessMetadata = Lens.lens (\UpdateUser' {alexaForBusinessMetadata} -> alexaForBusinessMetadata) (\s@UpdateUser' {} a -> s {alexaForBusinessMetadata = a} :: UpdateUser)
 
 -- | The user license type to update. This must be a supported license type
 -- for the Amazon Chime account that the user belongs to.
@@ -108,10 +114,6 @@ updateUser_licenseType = Lens.lens (\UpdateUser' {licenseType} -> licenseType) (
 -- | The user type.
 updateUser_userType :: Lens.Lens' UpdateUser (Prelude.Maybe UserType)
 updateUser_userType = Lens.lens (\UpdateUser' {userType} -> userType) (\s@UpdateUser' {} a -> s {userType = a} :: UpdateUser)
-
--- | The Alexa for Business metadata.
-updateUser_alexaForBusinessMetadata :: Lens.Lens' UpdateUser (Prelude.Maybe AlexaForBusinessMetadata)
-updateUser_alexaForBusinessMetadata = Lens.lens (\UpdateUser' {alexaForBusinessMetadata} -> alexaForBusinessMetadata) (\s@UpdateUser' {} a -> s {alexaForBusinessMetadata = a} :: UpdateUser)
 
 -- | The Amazon Chime account ID.
 updateUser_accountId :: Lens.Lens' UpdateUser Prelude.Text
@@ -123,55 +125,57 @@ updateUser_userId = Lens.lens (\UpdateUser' {userId} -> userId) (\s@UpdateUser' 
 
 instance Core.AWSRequest UpdateUser where
   type AWSResponse UpdateUser = UpdateUserResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateUserResponse'
-            Prelude.<$> (x Core..?> "User")
+            Prelude.<$> (x Data..?> "User")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateUser where
   hashWithSalt _salt UpdateUser' {..} =
-    _salt `Prelude.hashWithSalt` licenseType
-      `Prelude.hashWithSalt` userType
+    _salt
       `Prelude.hashWithSalt` alexaForBusinessMetadata
+      `Prelude.hashWithSalt` licenseType
+      `Prelude.hashWithSalt` userType
       `Prelude.hashWithSalt` accountId
       `Prelude.hashWithSalt` userId
 
 instance Prelude.NFData UpdateUser where
   rnf UpdateUser' {..} =
-    Prelude.rnf licenseType
+    Prelude.rnf alexaForBusinessMetadata
+      `Prelude.seq` Prelude.rnf licenseType
       `Prelude.seq` Prelude.rnf userType
-      `Prelude.seq` Prelude.rnf alexaForBusinessMetadata
       `Prelude.seq` Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf userId
 
-instance Core.ToHeaders UpdateUser where
+instance Data.ToHeaders UpdateUser where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateUser where
+instance Data.ToJSON UpdateUser where
   toJSON UpdateUser' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("LicenseType" Core..=) Prelude.<$> licenseType,
-            ("UserType" Core..=) Prelude.<$> userType,
-            ("AlexaForBusinessMetadata" Core..=)
-              Prelude.<$> alexaForBusinessMetadata
+          [ ("AlexaForBusinessMetadata" Data..=)
+              Prelude.<$> alexaForBusinessMetadata,
+            ("LicenseType" Data..=) Prelude.<$> licenseType,
+            ("UserType" Data..=) Prelude.<$> userType
           ]
       )
 
-instance Core.ToPath UpdateUser where
+instance Data.ToPath UpdateUser where
   toPath UpdateUser' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/users/",
-        Core.toBS userId
+        Data.toBS userId
       ]
 
-instance Core.ToQuery UpdateUser where
+instance Data.ToQuery UpdateUser where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateUserResponse' smart constructor.

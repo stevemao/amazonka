@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.CreateGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a group that can be used in Amazon WorkMail by calling the
+-- Creates a group that can be used in WorkMail by calling the
 -- RegisterToWorkMail operation.
 module Amazonka.WorkMail.CreateGroup
   ( -- * Creating a Request
@@ -42,7 +42,8 @@ module Amazonka.WorkMail.CreateGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,12 +91,13 @@ createGroup_name = Lens.lens (\CreateGroup' {name} -> name) (\s@CreateGroup' {} 
 
 instance Core.AWSRequest CreateGroup where
   type AWSResponse CreateGroup = CreateGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateGroupResponse'
-            Prelude.<$> (x Core..?> "GroupId")
+            Prelude.<$> (x Data..?> "GroupId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -109,35 +111,35 @@ instance Prelude.NFData CreateGroup where
     Prelude.rnf organizationId
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreateGroup where
+instance Data.ToHeaders CreateGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkMailService.CreateGroup" ::
+              Data.=# ( "WorkMailService.CreateGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateGroup where
+instance Data.ToJSON CreateGroup where
   toJSON CreateGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("OrganizationId" Core..= organizationId),
-            Prelude.Just ("Name" Core..= name)
+              ("OrganizationId" Data..= organizationId),
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateGroup where
+instance Data.ToPath CreateGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateGroup where
+instance Data.ToQuery CreateGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateGroupResponse' smart constructor.

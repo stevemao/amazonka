@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,26 +44,26 @@ module Amazonka.IoTAnalytics
     -- * Errors
     -- $errors
 
+    -- ** InternalFailureException
+    _InternalFailureException,
+
     -- ** InvalidRequestException
     _InvalidRequestException,
+
+    -- ** LimitExceededException
+    _LimitExceededException,
 
     -- ** ResourceAlreadyExistsException
     _ResourceAlreadyExistsException,
 
-    -- ** ThrottlingException
-    _ThrottlingException,
-
-    -- ** InternalFailureException
-    _InternalFailureException,
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
 
     -- ** ServiceUnavailableException
     _ServiceUnavailableException,
 
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
-
-    -- ** LimitExceededException
-    _LimitExceededException,
+    -- ** ThrottlingException
+    _ThrottlingException,
 
     -- * Waiters
     -- $waiters
@@ -71,17 +71,113 @@ module Amazonka.IoTAnalytics
     -- * Operations
     -- $operations
 
-    -- ** DescribePipeline
-    DescribePipeline (DescribePipeline'),
-    newDescribePipeline,
-    DescribePipelineResponse (DescribePipelineResponse'),
-    newDescribePipelineResponse,
+    -- ** BatchPutMessage
+    BatchPutMessage (BatchPutMessage'),
+    newBatchPutMessage,
+    BatchPutMessageResponse (BatchPutMessageResponse'),
+    newBatchPutMessageResponse,
+
+    -- ** CancelPipelineReprocessing
+    CancelPipelineReprocessing (CancelPipelineReprocessing'),
+    newCancelPipelineReprocessing,
+    CancelPipelineReprocessingResponse (CancelPipelineReprocessingResponse'),
+    newCancelPipelineReprocessingResponse,
+
+    -- ** CreateChannel
+    CreateChannel (CreateChannel'),
+    newCreateChannel,
+    CreateChannelResponse (CreateChannelResponse'),
+    newCreateChannelResponse,
+
+    -- ** CreateDataset
+    CreateDataset (CreateDataset'),
+    newCreateDataset,
+    CreateDatasetResponse (CreateDatasetResponse'),
+    newCreateDatasetResponse,
+
+    -- ** CreateDatasetContent
+    CreateDatasetContent (CreateDatasetContent'),
+    newCreateDatasetContent,
+    CreateDatasetContentResponse (CreateDatasetContentResponse'),
+    newCreateDatasetContentResponse,
+
+    -- ** CreateDatastore
+    CreateDatastore (CreateDatastore'),
+    newCreateDatastore,
+    CreateDatastoreResponse (CreateDatastoreResponse'),
+    newCreateDatastoreResponse,
+
+    -- ** CreatePipeline
+    CreatePipeline (CreatePipeline'),
+    newCreatePipeline,
+    CreatePipelineResponse (CreatePipelineResponse'),
+    newCreatePipelineResponse,
+
+    -- ** DeleteChannel
+    DeleteChannel (DeleteChannel'),
+    newDeleteChannel,
+    DeleteChannelResponse (DeleteChannelResponse'),
+    newDeleteChannelResponse,
+
+    -- ** DeleteDataset
+    DeleteDataset (DeleteDataset'),
+    newDeleteDataset,
+    DeleteDatasetResponse (DeleteDatasetResponse'),
+    newDeleteDatasetResponse,
+
+    -- ** DeleteDatasetContent
+    DeleteDatasetContent (DeleteDatasetContent'),
+    newDeleteDatasetContent,
+    DeleteDatasetContentResponse (DeleteDatasetContentResponse'),
+    newDeleteDatasetContentResponse,
+
+    -- ** DeleteDatastore
+    DeleteDatastore (DeleteDatastore'),
+    newDeleteDatastore,
+    DeleteDatastoreResponse (DeleteDatastoreResponse'),
+    newDeleteDatastoreResponse,
+
+    -- ** DeletePipeline
+    DeletePipeline (DeletePipeline'),
+    newDeletePipeline,
+    DeletePipelineResponse (DeletePipelineResponse'),
+    newDeletePipelineResponse,
+
+    -- ** DescribeChannel
+    DescribeChannel (DescribeChannel'),
+    newDescribeChannel,
+    DescribeChannelResponse (DescribeChannelResponse'),
+    newDescribeChannelResponse,
 
     -- ** DescribeDataset
     DescribeDataset (DescribeDataset'),
     newDescribeDataset,
     DescribeDatasetResponse (DescribeDatasetResponse'),
     newDescribeDatasetResponse,
+
+    -- ** DescribeDatastore
+    DescribeDatastore (DescribeDatastore'),
+    newDescribeDatastore,
+    DescribeDatastoreResponse (DescribeDatastoreResponse'),
+    newDescribeDatastoreResponse,
+
+    -- ** DescribeLoggingOptions
+    DescribeLoggingOptions (DescribeLoggingOptions'),
+    newDescribeLoggingOptions,
+    DescribeLoggingOptionsResponse (DescribeLoggingOptionsResponse'),
+    newDescribeLoggingOptionsResponse,
+
+    -- ** DescribePipeline
+    DescribePipeline (DescribePipeline'),
+    newDescribePipeline,
+    DescribePipelineResponse (DescribePipelineResponse'),
+    newDescribePipelineResponse,
+
+    -- ** GetDatasetContent
+    GetDatasetContent (GetDatasetContent'),
+    newGetDatasetContent,
+    GetDatasetContentResponse (GetDatasetContentResponse'),
+    newGetDatasetContentResponse,
 
     -- ** ListChannels (Paginated)
     ListChannels (ListChannels'),
@@ -95,101 +191,11 @@ module Amazonka.IoTAnalytics
     ListDatasetContentsResponse (ListDatasetContentsResponse'),
     newListDatasetContentsResponse,
 
-    -- ** PutLoggingOptions
-    PutLoggingOptions (PutLoggingOptions'),
-    newPutLoggingOptions,
-    PutLoggingOptionsResponse (PutLoggingOptionsResponse'),
-    newPutLoggingOptionsResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** DeleteChannel
-    DeleteChannel (DeleteChannel'),
-    newDeleteChannel,
-    DeleteChannelResponse (DeleteChannelResponse'),
-    newDeleteChannelResponse,
-
-    -- ** UpdateChannel
-    UpdateChannel (UpdateChannel'),
-    newUpdateChannel,
-    UpdateChannelResponse (UpdateChannelResponse'),
-    newUpdateChannelResponse,
-
-    -- ** SampleChannelData
-    SampleChannelData (SampleChannelData'),
-    newSampleChannelData,
-    SampleChannelDataResponse (SampleChannelDataResponse'),
-    newSampleChannelDataResponse,
-
-    -- ** CancelPipelineReprocessing
-    CancelPipelineReprocessing (CancelPipelineReprocessing'),
-    newCancelPipelineReprocessing,
-    CancelPipelineReprocessingResponse (CancelPipelineReprocessingResponse'),
-    newCancelPipelineReprocessingResponse,
-
-    -- ** CreateDatastore
-    CreateDatastore (CreateDatastore'),
-    newCreateDatastore,
-    CreateDatastoreResponse (CreateDatastoreResponse'),
-    newCreateDatastoreResponse,
-
-    -- ** UpdatePipeline
-    UpdatePipeline (UpdatePipeline'),
-    newUpdatePipeline,
-    UpdatePipelineResponse (UpdatePipelineResponse'),
-    newUpdatePipelineResponse,
-
-    -- ** DeletePipeline
-    DeletePipeline (DeletePipeline'),
-    newDeletePipeline,
-    DeletePipelineResponse (DeletePipelineResponse'),
-    newDeletePipelineResponse,
-
-    -- ** DeleteDataset
-    DeleteDataset (DeleteDataset'),
-    newDeleteDataset,
-    DeleteDatasetResponse (DeleteDatasetResponse'),
-    newDeleteDatasetResponse,
-
-    -- ** UpdateDataset
-    UpdateDataset (UpdateDataset'),
-    newUpdateDataset,
-    UpdateDatasetResponse (UpdateDatasetResponse'),
-    newUpdateDatasetResponse,
-
-    -- ** ListPipelines (Paginated)
-    ListPipelines (ListPipelines'),
-    newListPipelines,
-    ListPipelinesResponse (ListPipelinesResponse'),
-    newListPipelinesResponse,
-
-    -- ** DeleteDatastore
-    DeleteDatastore (DeleteDatastore'),
-    newDeleteDatastore,
-    DeleteDatastoreResponse (DeleteDatastoreResponse'),
-    newDeleteDatastoreResponse,
-
-    -- ** UpdateDatastore
-    UpdateDatastore (UpdateDatastore'),
-    newUpdateDatastore,
-    UpdateDatastoreResponse (UpdateDatastoreResponse'),
-    newUpdateDatastoreResponse,
-
-    -- ** CreateDataset
-    CreateDataset (CreateDataset'),
-    newCreateDataset,
-    CreateDatasetResponse (CreateDatasetResponse'),
-    newCreateDatasetResponse,
-
-    -- ** BatchPutMessage
-    BatchPutMessage (BatchPutMessage'),
-    newBatchPutMessage,
-    BatchPutMessageResponse (BatchPutMessageResponse'),
-    newBatchPutMessageResponse,
+    -- ** ListDatasets (Paginated)
+    ListDatasets (ListDatasets'),
+    newListDatasets,
+    ListDatasetsResponse (ListDatasetsResponse'),
+    newListDatasetsResponse,
 
     -- ** ListDatastores (Paginated)
     ListDatastores (ListDatastores'),
@@ -197,53 +203,23 @@ module Amazonka.IoTAnalytics
     ListDatastoresResponse (ListDatastoresResponse'),
     newListDatastoresResponse,
 
-    -- ** CreateDatasetContent
-    CreateDatasetContent (CreateDatasetContent'),
-    newCreateDatasetContent,
-    CreateDatasetContentResponse (CreateDatasetContentResponse'),
-    newCreateDatasetContentResponse,
+    -- ** ListPipelines (Paginated)
+    ListPipelines (ListPipelines'),
+    newListPipelines,
+    ListPipelinesResponse (ListPipelinesResponse'),
+    newListPipelinesResponse,
 
-    -- ** CreateChannel
-    CreateChannel (CreateChannel'),
-    newCreateChannel,
-    CreateChannelResponse (CreateChannelResponse'),
-    newCreateChannelResponse,
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
-    -- ** DeleteDatasetContent
-    DeleteDatasetContent (DeleteDatasetContent'),
-    newDeleteDatasetContent,
-    DeleteDatasetContentResponse (DeleteDatasetContentResponse'),
-    newDeleteDatasetContentResponse,
-
-    -- ** DescribeDatastore
-    DescribeDatastore (DescribeDatastore'),
-    newDescribeDatastore,
-    DescribeDatastoreResponse (DescribeDatastoreResponse'),
-    newDescribeDatastoreResponse,
-
-    -- ** GetDatasetContent
-    GetDatasetContent (GetDatasetContent'),
-    newGetDatasetContent,
-    GetDatasetContentResponse (GetDatasetContentResponse'),
-    newGetDatasetContentResponse,
-
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
-
-    -- ** ListDatasets (Paginated)
-    ListDatasets (ListDatasets'),
-    newListDatasets,
-    ListDatasetsResponse (ListDatasetsResponse'),
-    newListDatasetsResponse,
-
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
+    -- ** PutLoggingOptions
+    PutLoggingOptions (PutLoggingOptions'),
+    newPutLoggingOptions,
+    PutLoggingOptionsResponse (PutLoggingOptionsResponse'),
+    newPutLoggingOptionsResponse,
 
     -- ** RunPipelineActivity
     RunPipelineActivity (RunPipelineActivity'),
@@ -251,17 +227,11 @@ module Amazonka.IoTAnalytics
     RunPipelineActivityResponse (RunPipelineActivityResponse'),
     newRunPipelineActivityResponse,
 
-    -- ** DescribeChannel
-    DescribeChannel (DescribeChannel'),
-    newDescribeChannel,
-    DescribeChannelResponse (DescribeChannelResponse'),
-    newDescribeChannelResponse,
-
-    -- ** CreatePipeline
-    CreatePipeline (CreatePipeline'),
-    newCreatePipeline,
-    CreatePipelineResponse (CreatePipelineResponse'),
-    newCreatePipelineResponse,
+    -- ** SampleChannelData
+    SampleChannelData (SampleChannelData'),
+    newSampleChannelData,
+    SampleChannelDataResponse (SampleChannelDataResponse'),
+    newSampleChannelDataResponse,
 
     -- ** StartPipelineReprocessing
     StartPipelineReprocessing (StartPipelineReprocessing'),
@@ -269,11 +239,41 @@ module Amazonka.IoTAnalytics
     StartPipelineReprocessingResponse (StartPipelineReprocessingResponse'),
     newStartPipelineReprocessingResponse,
 
-    -- ** DescribeLoggingOptions
-    DescribeLoggingOptions (DescribeLoggingOptions'),
-    newDescribeLoggingOptions,
-    DescribeLoggingOptionsResponse (DescribeLoggingOptionsResponse'),
-    newDescribeLoggingOptionsResponse,
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UpdateChannel
+    UpdateChannel (UpdateChannel'),
+    newUpdateChannel,
+    UpdateChannelResponse (UpdateChannelResponse'),
+    newUpdateChannelResponse,
+
+    -- ** UpdateDataset
+    UpdateDataset (UpdateDataset'),
+    newUpdateDataset,
+    UpdateDatasetResponse (UpdateDatasetResponse'),
+    newUpdateDatasetResponse,
+
+    -- ** UpdateDatastore
+    UpdateDatastore (UpdateDatastore'),
+    newUpdateDatastore,
+    UpdateDatastoreResponse (UpdateDatastoreResponse'),
+    newUpdateDatastoreResponse,
+
+    -- ** UpdatePipeline
+    UpdatePipeline (UpdatePipeline'),
+    newUpdatePipeline,
+    UpdatePipelineResponse (UpdatePipelineResponse'),
+    newUpdatePipelineResponse,
 
     -- * Types
 

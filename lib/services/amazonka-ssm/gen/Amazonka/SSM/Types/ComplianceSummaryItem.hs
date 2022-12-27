@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.ComplianceSummaryItem
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.ComplianceSummaryItem where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSM.Types.CompliantSummary
 import Amazonka.SSM.Types.NonCompliantSummary
@@ -29,13 +30,13 @@ import Amazonka.SSM.Types.NonCompliantSummary
 --
 -- /See:/ 'newComplianceSummaryItem' smart constructor.
 data ComplianceSummaryItem = ComplianceSummaryItem'
-  { -- | A list of NON_COMPLIANT items for the specified compliance type.
-    nonCompliantSummary :: Prelude.Maybe NonCompliantSummary,
+  { -- | The type of compliance item. For example, the compliance type can be
+    -- Association, Patch, or Custom:string.
+    complianceType :: Prelude.Maybe Prelude.Text,
     -- | A list of COMPLIANT items for the specified compliance type.
     compliantSummary :: Prelude.Maybe CompliantSummary,
-    -- | The type of compliance item. For example, the compliance type can be
-    -- Association, Patch, or Custom:string.
-    complianceType :: Prelude.Maybe Prelude.Text
+    -- | A list of NON_COMPLIANT items for the specified compliance type.
+    nonCompliantSummary :: Prelude.Maybe NonCompliantSummary
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,54 +48,54 @@ data ComplianceSummaryItem = ComplianceSummaryItem'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nonCompliantSummary', 'complianceSummaryItem_nonCompliantSummary' - A list of NON_COMPLIANT items for the specified compliance type.
+-- 'complianceType', 'complianceSummaryItem_complianceType' - The type of compliance item. For example, the compliance type can be
+-- Association, Patch, or Custom:string.
 --
 -- 'compliantSummary', 'complianceSummaryItem_compliantSummary' - A list of COMPLIANT items for the specified compliance type.
 --
--- 'complianceType', 'complianceSummaryItem_complianceType' - The type of compliance item. For example, the compliance type can be
--- Association, Patch, or Custom:string.
+-- 'nonCompliantSummary', 'complianceSummaryItem_nonCompliantSummary' - A list of NON_COMPLIANT items for the specified compliance type.
 newComplianceSummaryItem ::
   ComplianceSummaryItem
 newComplianceSummaryItem =
   ComplianceSummaryItem'
-    { nonCompliantSummary =
+    { complianceType =
         Prelude.Nothing,
       compliantSummary = Prelude.Nothing,
-      complianceType = Prelude.Nothing
+      nonCompliantSummary = Prelude.Nothing
     }
-
--- | A list of NON_COMPLIANT items for the specified compliance type.
-complianceSummaryItem_nonCompliantSummary :: Lens.Lens' ComplianceSummaryItem (Prelude.Maybe NonCompliantSummary)
-complianceSummaryItem_nonCompliantSummary = Lens.lens (\ComplianceSummaryItem' {nonCompliantSummary} -> nonCompliantSummary) (\s@ComplianceSummaryItem' {} a -> s {nonCompliantSummary = a} :: ComplianceSummaryItem)
-
--- | A list of COMPLIANT items for the specified compliance type.
-complianceSummaryItem_compliantSummary :: Lens.Lens' ComplianceSummaryItem (Prelude.Maybe CompliantSummary)
-complianceSummaryItem_compliantSummary = Lens.lens (\ComplianceSummaryItem' {compliantSummary} -> compliantSummary) (\s@ComplianceSummaryItem' {} a -> s {compliantSummary = a} :: ComplianceSummaryItem)
 
 -- | The type of compliance item. For example, the compliance type can be
 -- Association, Patch, or Custom:string.
 complianceSummaryItem_complianceType :: Lens.Lens' ComplianceSummaryItem (Prelude.Maybe Prelude.Text)
 complianceSummaryItem_complianceType = Lens.lens (\ComplianceSummaryItem' {complianceType} -> complianceType) (\s@ComplianceSummaryItem' {} a -> s {complianceType = a} :: ComplianceSummaryItem)
 
-instance Core.FromJSON ComplianceSummaryItem where
+-- | A list of COMPLIANT items for the specified compliance type.
+complianceSummaryItem_compliantSummary :: Lens.Lens' ComplianceSummaryItem (Prelude.Maybe CompliantSummary)
+complianceSummaryItem_compliantSummary = Lens.lens (\ComplianceSummaryItem' {compliantSummary} -> compliantSummary) (\s@ComplianceSummaryItem' {} a -> s {compliantSummary = a} :: ComplianceSummaryItem)
+
+-- | A list of NON_COMPLIANT items for the specified compliance type.
+complianceSummaryItem_nonCompliantSummary :: Lens.Lens' ComplianceSummaryItem (Prelude.Maybe NonCompliantSummary)
+complianceSummaryItem_nonCompliantSummary = Lens.lens (\ComplianceSummaryItem' {nonCompliantSummary} -> nonCompliantSummary) (\s@ComplianceSummaryItem' {} a -> s {nonCompliantSummary = a} :: ComplianceSummaryItem)
+
+instance Data.FromJSON ComplianceSummaryItem where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ComplianceSummaryItem"
       ( \x ->
           ComplianceSummaryItem'
-            Prelude.<$> (x Core..:? "NonCompliantSummary")
-            Prelude.<*> (x Core..:? "CompliantSummary")
-            Prelude.<*> (x Core..:? "ComplianceType")
+            Prelude.<$> (x Data..:? "ComplianceType")
+            Prelude.<*> (x Data..:? "CompliantSummary")
+            Prelude.<*> (x Data..:? "NonCompliantSummary")
       )
 
 instance Prelude.Hashable ComplianceSummaryItem where
   hashWithSalt _salt ComplianceSummaryItem' {..} =
-    _salt `Prelude.hashWithSalt` nonCompliantSummary
+    _salt `Prelude.hashWithSalt` complianceType
       `Prelude.hashWithSalt` compliantSummary
-      `Prelude.hashWithSalt` complianceType
+      `Prelude.hashWithSalt` nonCompliantSummary
 
 instance Prelude.NFData ComplianceSummaryItem where
   rnf ComplianceSummaryItem' {..} =
-    Prelude.rnf nonCompliantSummary
+    Prelude.rnf complianceType
       `Prelude.seq` Prelude.rnf compliantSummary
-      `Prelude.seq` Prelude.rnf complianceType
+      `Prelude.seq` Prelude.rnf nonCompliantSummary

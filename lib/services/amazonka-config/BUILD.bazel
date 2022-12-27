@@ -1,6 +1,6 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_library", "haskell_test")
 
-# rule generated from amazonka-config/amazonka-config.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-config/amazonka-config.cabal by gazelle_cabal
 haskell_library(
     name = "amazonka-config",
     srcs = [
@@ -59,14 +59,19 @@ haskell_library(
         "gen/Amazonka/Config/GetComplianceSummaryByResourceType.hs",
         "gen/Amazonka/Config/GetConformancePackComplianceDetails.hs",
         "gen/Amazonka/Config/GetConformancePackComplianceSummary.hs",
+        "gen/Amazonka/Config/GetCustomRulePolicy.hs",
         "gen/Amazonka/Config/GetDiscoveredResourceCounts.hs",
         "gen/Amazonka/Config/GetOrganizationConfigRuleDetailedStatus.hs",
         "gen/Amazonka/Config/GetOrganizationConformancePackDetailedStatus.hs",
+        "gen/Amazonka/Config/GetOrganizationCustomRulePolicy.hs",
         "gen/Amazonka/Config/GetResourceConfigHistory.hs",
+        "gen/Amazonka/Config/GetResourceEvaluationSummary.hs",
         "gen/Amazonka/Config/GetStoredQuery.hs",
         "gen/Amazonka/Config/Lens.hs",
         "gen/Amazonka/Config/ListAggregateDiscoveredResources.hs",
+        "gen/Amazonka/Config/ListConformancePackComplianceScores.hs",
         "gen/Amazonka/Config/ListDiscoveredResources.hs",
+        "gen/Amazonka/Config/ListResourceEvaluations.hs",
         "gen/Amazonka/Config/ListStoredQueries.hs",
         "gen/Amazonka/Config/ListTagsForResource.hs",
         "gen/Amazonka/Config/PutAggregationAuthorization.hs",
@@ -89,6 +94,7 @@ haskell_library(
         "gen/Amazonka/Config/StartConfigRulesEvaluation.hs",
         "gen/Amazonka/Config/StartConfigurationRecorder.hs",
         "gen/Amazonka/Config/StartRemediationExecution.hs",
+        "gen/Amazonka/Config/StartResourceEvaluation.hs",
         "gen/Amazonka/Config/StopConfigurationRecorder.hs",
         "gen/Amazonka/Config/TagResource.hs",
         "gen/Amazonka/Config/Types.hs",
@@ -132,6 +138,8 @@ haskell_library(
         "gen/Amazonka/Config/Types/ConfigurationRecorder.hs",
         "gen/Amazonka/Config/Types/ConfigurationRecorderStatus.hs",
         "gen/Amazonka/Config/Types/ConformancePackComplianceFilters.hs",
+        "gen/Amazonka/Config/Types/ConformancePackComplianceScore.hs",
+        "gen/Amazonka/Config/Types/ConformancePackComplianceScoresFilters.hs",
         "gen/Amazonka/Config/Types/ConformancePackComplianceSummary.hs",
         "gen/Amazonka/Config/Types/ConformancePackComplianceType.hs",
         "gen/Amazonka/Config/Types/ConformancePackDetail.hs",
@@ -141,13 +149,19 @@ haskell_library(
         "gen/Amazonka/Config/Types/ConformancePackRuleCompliance.hs",
         "gen/Amazonka/Config/Types/ConformancePackState.hs",
         "gen/Amazonka/Config/Types/ConformancePackStatusDetail.hs",
+        "gen/Amazonka/Config/Types/CustomPolicyDetails.hs",
         "gen/Amazonka/Config/Types/DeliveryChannel.hs",
         "gen/Amazonka/Config/Types/DeliveryChannelStatus.hs",
         "gen/Amazonka/Config/Types/DeliveryStatus.hs",
+        "gen/Amazonka/Config/Types/DescribeConfigRulesFilters.hs",
         "gen/Amazonka/Config/Types/Evaluation.hs",
+        "gen/Amazonka/Config/Types/EvaluationContext.hs",
+        "gen/Amazonka/Config/Types/EvaluationMode.hs",
+        "gen/Amazonka/Config/Types/EvaluationModeConfiguration.hs",
         "gen/Amazonka/Config/Types/EvaluationResult.hs",
         "gen/Amazonka/Config/Types/EvaluationResultIdentifier.hs",
         "gen/Amazonka/Config/Types/EvaluationResultQualifier.hs",
+        "gen/Amazonka/Config/Types/EvaluationStatus.hs",
         "gen/Amazonka/Config/Types/EventSource.hs",
         "gen/Amazonka/Config/Types/ExecutionControls.hs",
         "gen/Amazonka/Config/Types/ExternalEvaluation.hs",
@@ -164,9 +178,12 @@ haskell_library(
         "gen/Amazonka/Config/Types/OrganizationConfigRule.hs",
         "gen/Amazonka/Config/Types/OrganizationConfigRuleStatus.hs",
         "gen/Amazonka/Config/Types/OrganizationConfigRuleTriggerType.hs",
+        "gen/Amazonka/Config/Types/OrganizationConfigRuleTriggerTypeNoSN.hs",
         "gen/Amazonka/Config/Types/OrganizationConformancePack.hs",
         "gen/Amazonka/Config/Types/OrganizationConformancePackDetailedStatus.hs",
         "gen/Amazonka/Config/Types/OrganizationConformancePackStatus.hs",
+        "gen/Amazonka/Config/Types/OrganizationCustomPolicyRuleMetadata.hs",
+        "gen/Amazonka/Config/Types/OrganizationCustomPolicyRuleMetadataNoPolicy.hs",
         "gen/Amazonka/Config/Types/OrganizationCustomRuleMetadata.hs",
         "gen/Amazonka/Config/Types/OrganizationManagedRuleMetadata.hs",
         "gen/Amazonka/Config/Types/OrganizationResourceDetailedStatus.hs",
@@ -188,9 +205,14 @@ haskell_library(
         "gen/Amazonka/Config/Types/RemediationExecutionStepState.hs",
         "gen/Amazonka/Config/Types/RemediationParameterValue.hs",
         "gen/Amazonka/Config/Types/RemediationTargetType.hs",
+        "gen/Amazonka/Config/Types/ResourceConfigurationSchemaType.hs",
         "gen/Amazonka/Config/Types/ResourceCount.hs",
         "gen/Amazonka/Config/Types/ResourceCountFilters.hs",
         "gen/Amazonka/Config/Types/ResourceCountGroupKey.hs",
+        "gen/Amazonka/Config/Types/ResourceDetails.hs",
+        "gen/Amazonka/Config/Types/ResourceEvaluation.hs",
+        "gen/Amazonka/Config/Types/ResourceEvaluationFilters.hs",
+        "gen/Amazonka/Config/Types/ResourceEvaluationStatus.hs",
         "gen/Amazonka/Config/Types/ResourceFilters.hs",
         "gen/Amazonka/Config/Types/ResourceIdentifier.hs",
         "gen/Amazonka/Config/Types/ResourceKey.hs",
@@ -199,6 +221,8 @@ haskell_library(
         "gen/Amazonka/Config/Types/ResourceValueType.hs",
         "gen/Amazonka/Config/Types/RetentionConfiguration.hs",
         "gen/Amazonka/Config/Types/Scope.hs",
+        "gen/Amazonka/Config/Types/SortBy.hs",
+        "gen/Amazonka/Config/Types/SortOrder.hs",
         "gen/Amazonka/Config/Types/Source.hs",
         "gen/Amazonka/Config/Types/SourceDetail.hs",
         "gen/Amazonka/Config/Types/SsmControls.hs",
@@ -207,17 +231,18 @@ haskell_library(
         "gen/Amazonka/Config/Types/StoredQuery.hs",
         "gen/Amazonka/Config/Types/StoredQueryMetadata.hs",
         "gen/Amazonka/Config/Types/Tag.hs",
+        "gen/Amazonka/Config/Types/TemplateSSMDocumentDetails.hs",
+        "gen/Amazonka/Config/Types/TimeWindow.hs",
         "gen/Amazonka/Config/UntagResource.hs",
         "gen/Amazonka/Config/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_config=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
-        "-DVERSION_amazonka_config=\"2.0\"",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -226,7 +251,7 @@ haskell_library(
     ],
 )
 
-# rule generated from amazonka-config/amazonka-config.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-config/amazonka-config.cabal by gazelle_cabal
 haskell_test(
     name = "amazonka-config-test",
     srcs = [
@@ -235,11 +260,12 @@ haskell_test(
         "test/Test/Amazonka/Config/Internal.hs",
         "test/Test/Amazonka/Gen/Config.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_config=\"2.0\"",
         "-Wall",
         "-threaded",
-        "-DVERSION_amazonka_config=\"2.0\"",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

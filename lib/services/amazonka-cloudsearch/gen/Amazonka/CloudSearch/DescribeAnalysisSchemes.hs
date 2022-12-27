@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudSearch.DescribeAnalysisSchemes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,8 +34,8 @@ module Amazonka.CloudSearch.DescribeAnalysisSchemes
     newDescribeAnalysisSchemes,
 
     -- * Request Lenses
-    describeAnalysisSchemes_deployed,
     describeAnalysisSchemes_analysisSchemeNames,
+    describeAnalysisSchemes_deployed,
     describeAnalysisSchemes_domainName,
 
     -- * Destructuring the Response
@@ -50,7 +50,8 @@ where
 
 import Amazonka.CloudSearch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -63,11 +64,11 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeAnalysisSchemes' smart constructor.
 data DescribeAnalysisSchemes = DescribeAnalysisSchemes'
-  { -- | Whether to display the deployed configuration (@true@) or include any
+  { -- | The analysis schemes you want to describe.
+    analysisSchemeNames :: Prelude.Maybe [Prelude.Text],
+    -- | Whether to display the deployed configuration (@true@) or include any
     -- pending changes (@false@). Defaults to @false@.
     deployed :: Prelude.Maybe Prelude.Bool,
-    -- | The analysis schemes you want to describe.
-    analysisSchemeNames :: Prelude.Maybe [Prelude.Text],
     -- | The name of the domain you want to describe.
     domainName :: Prelude.Text
   }
@@ -81,10 +82,10 @@ data DescribeAnalysisSchemes = DescribeAnalysisSchemes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'analysisSchemeNames', 'describeAnalysisSchemes_analysisSchemeNames' - The analysis schemes you want to describe.
+--
 -- 'deployed', 'describeAnalysisSchemes_deployed' - Whether to display the deployed configuration (@true@) or include any
 -- pending changes (@false@). Defaults to @false@.
---
--- 'analysisSchemeNames', 'describeAnalysisSchemes_analysisSchemeNames' - The analysis schemes you want to describe.
 --
 -- 'domainName', 'describeAnalysisSchemes_domainName' - The name of the domain you want to describe.
 newDescribeAnalysisSchemes ::
@@ -93,20 +94,20 @@ newDescribeAnalysisSchemes ::
   DescribeAnalysisSchemes
 newDescribeAnalysisSchemes pDomainName_ =
   DescribeAnalysisSchemes'
-    { deployed =
+    { analysisSchemeNames =
         Prelude.Nothing,
-      analysisSchemeNames = Prelude.Nothing,
+      deployed = Prelude.Nothing,
       domainName = pDomainName_
     }
+
+-- | The analysis schemes you want to describe.
+describeAnalysisSchemes_analysisSchemeNames :: Lens.Lens' DescribeAnalysisSchemes (Prelude.Maybe [Prelude.Text])
+describeAnalysisSchemes_analysisSchemeNames = Lens.lens (\DescribeAnalysisSchemes' {analysisSchemeNames} -> analysisSchemeNames) (\s@DescribeAnalysisSchemes' {} a -> s {analysisSchemeNames = a} :: DescribeAnalysisSchemes) Prelude.. Lens.mapping Lens.coerced
 
 -- | Whether to display the deployed configuration (@true@) or include any
 -- pending changes (@false@). Defaults to @false@.
 describeAnalysisSchemes_deployed :: Lens.Lens' DescribeAnalysisSchemes (Prelude.Maybe Prelude.Bool)
 describeAnalysisSchemes_deployed = Lens.lens (\DescribeAnalysisSchemes' {deployed} -> deployed) (\s@DescribeAnalysisSchemes' {} a -> s {deployed = a} :: DescribeAnalysisSchemes)
-
--- | The analysis schemes you want to describe.
-describeAnalysisSchemes_analysisSchemeNames :: Lens.Lens' DescribeAnalysisSchemes (Prelude.Maybe [Prelude.Text])
-describeAnalysisSchemes_analysisSchemeNames = Lens.lens (\DescribeAnalysisSchemes' {analysisSchemeNames} -> analysisSchemeNames) (\s@DescribeAnalysisSchemes' {} a -> s {analysisSchemeNames = a} :: DescribeAnalysisSchemes) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the domain you want to describe.
 describeAnalysisSchemes_domainName :: Lens.Lens' DescribeAnalysisSchemes Prelude.Text
@@ -116,50 +117,51 @@ instance Core.AWSRequest DescribeAnalysisSchemes where
   type
     AWSResponse DescribeAnalysisSchemes =
       DescribeAnalysisSchemesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeAnalysisSchemesResult"
       ( \s h x ->
           DescribeAnalysisSchemesResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..@? "AnalysisSchemes" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.parseXMLList "member"
+            Prelude.<*> ( x Data..@? "AnalysisSchemes" Core..!@ Prelude.mempty
+                            Prelude.>>= Data.parseXMLList "member"
                         )
       )
 
 instance Prelude.Hashable DescribeAnalysisSchemes where
   hashWithSalt _salt DescribeAnalysisSchemes' {..} =
-    _salt `Prelude.hashWithSalt` deployed
-      `Prelude.hashWithSalt` analysisSchemeNames
+    _salt `Prelude.hashWithSalt` analysisSchemeNames
+      `Prelude.hashWithSalt` deployed
       `Prelude.hashWithSalt` domainName
 
 instance Prelude.NFData DescribeAnalysisSchemes where
   rnf DescribeAnalysisSchemes' {..} =
-    Prelude.rnf deployed
-      `Prelude.seq` Prelude.rnf analysisSchemeNames
+    Prelude.rnf analysisSchemeNames
+      `Prelude.seq` Prelude.rnf deployed
       `Prelude.seq` Prelude.rnf domainName
 
-instance Core.ToHeaders DescribeAnalysisSchemes where
+instance Data.ToHeaders DescribeAnalysisSchemes where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeAnalysisSchemes where
+instance Data.ToPath DescribeAnalysisSchemes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeAnalysisSchemes where
+instance Data.ToQuery DescribeAnalysisSchemes where
   toQuery DescribeAnalysisSchemes' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeAnalysisSchemes" :: Prelude.ByteString),
+          Data.=: ("DescribeAnalysisSchemes" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2013-01-01" :: Prelude.ByteString),
-        "Deployed" Core.=: deployed,
+          Data.=: ("2013-01-01" :: Prelude.ByteString),
         "AnalysisSchemeNames"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> analysisSchemeNames
             ),
-        "DomainName" Core.=: domainName
+        "Deployed" Data.=: deployed,
+        "DomainName" Data.=: domainName
       ]
 
 -- | The result of a @DescribeAnalysisSchemes@ request. Contains the analysis

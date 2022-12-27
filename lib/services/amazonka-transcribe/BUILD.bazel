@@ -1,6 +1,6 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_library", "haskell_test")
 
-# rule generated from amazonka-transcribe/amazonka-transcribe.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-transcribe/amazonka-transcribe.cabal by gazelle_cabal
 haskell_library(
     name = "amazonka-transcribe",
     srcs = [
@@ -52,9 +52,12 @@ haskell_library(
         "gen/Amazonka/Transcribe/Types/ChannelDefinition.hs",
         "gen/Amazonka/Transcribe/Types/ContentRedaction.hs",
         "gen/Amazonka/Transcribe/Types/InputDataConfig.hs",
+        "gen/Amazonka/Transcribe/Types/InputType.hs",
         "gen/Amazonka/Transcribe/Types/InterruptionFilter.hs",
         "gen/Amazonka/Transcribe/Types/JobExecutionSettings.hs",
         "gen/Amazonka/Transcribe/Types/LanguageCode.hs",
+        "gen/Amazonka/Transcribe/Types/LanguageCodeItem.hs",
+        "gen/Amazonka/Transcribe/Types/LanguageIdSettings.hs",
         "gen/Amazonka/Transcribe/Types/LanguageModel.hs",
         "gen/Amazonka/Transcribe/Types/Media.hs",
         "gen/Amazonka/Transcribe/Types/MediaFormat.hs",
@@ -68,6 +71,7 @@ haskell_library(
         "gen/Amazonka/Transcribe/Types/NonTalkTimeFilter.hs",
         "gen/Amazonka/Transcribe/Types/OutputLocationType.hs",
         "gen/Amazonka/Transcribe/Types/ParticipantRole.hs",
+        "gen/Amazonka/Transcribe/Types/PiiEntityType.hs",
         "gen/Amazonka/Transcribe/Types/RedactionOutput.hs",
         "gen/Amazonka/Transcribe/Types/RedactionType.hs",
         "gen/Amazonka/Transcribe/Types/RelativeTimeRange.hs",
@@ -98,14 +102,13 @@ haskell_library(
         "gen/Amazonka/Transcribe/UpdateVocabularyFilter.hs",
         "gen/Amazonka/Transcribe/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_transcribe=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
-        "-DVERSION_amazonka_transcribe=\"2.0\"",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -114,7 +117,7 @@ haskell_library(
     ],
 )
 
-# rule generated from amazonka-transcribe/amazonka-transcribe.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-transcribe/amazonka-transcribe.cabal by gazelle_cabal
 haskell_test(
     name = "amazonka-transcribe-test",
     srcs = [
@@ -123,11 +126,12 @@ haskell_test(
         "test/Test/Amazonka/Transcribe.hs",
         "test/Test/Amazonka/Transcribe/Internal.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_transcribe=\"2.0\"",
         "-Wall",
         "-threaded",
-        "-DVERSION_amazonka_transcribe=\"2.0\"",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

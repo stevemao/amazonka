@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.AppConfig.GetEnvironment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieve information about an environment. An environment is a logical
+-- Retrieves information about an environment. An environment is a
 -- deployment group of AppConfig applications, such as applications in a
 -- @Production@ environment or in an @EU_Region@ environment. Each
 -- configuration deployment targets an environment. You can enable one or
@@ -40,18 +40,19 @@ module Amazonka.AppConfig.GetEnvironment
     newEnvironment,
 
     -- * Response Lenses
-    environment_state,
-    environment_monitors,
     environment_applicationId,
-    environment_name,
-    environment_id,
     environment_description,
+    environment_id,
+    environment_monitors,
+    environment_name,
+    environment_state,
   )
 where
 
 import Amazonka.AppConfig.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,7 +61,7 @@ import qualified Amazonka.Response as Response
 data GetEnvironment = GetEnvironment'
   { -- | The ID of the application that includes the environment you want to get.
     applicationId :: Prelude.Text,
-    -- | The ID of the environment you wnat to get.
+    -- | The ID of the environment that you want to get.
     environmentId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -75,7 +76,7 @@ data GetEnvironment = GetEnvironment'
 --
 -- 'applicationId', 'getEnvironment_applicationId' - The ID of the application that includes the environment you want to get.
 --
--- 'environmentId', 'getEnvironment_environmentId' - The ID of the environment you wnat to get.
+-- 'environmentId', 'getEnvironment_environmentId' - The ID of the environment that you want to get.
 newGetEnvironment ::
   -- | 'applicationId'
   Prelude.Text ->
@@ -92,16 +93,17 @@ newGetEnvironment pApplicationId_ pEnvironmentId_ =
 getEnvironment_applicationId :: Lens.Lens' GetEnvironment Prelude.Text
 getEnvironment_applicationId = Lens.lens (\GetEnvironment' {applicationId} -> applicationId) (\s@GetEnvironment' {} a -> s {applicationId = a} :: GetEnvironment)
 
--- | The ID of the environment you wnat to get.
+-- | The ID of the environment that you want to get.
 getEnvironment_environmentId :: Lens.Lens' GetEnvironment Prelude.Text
 getEnvironment_environmentId = Lens.lens (\GetEnvironment' {environmentId} -> environmentId) (\s@GetEnvironment' {} a -> s {environmentId = a} :: GetEnvironment)
 
 instance Core.AWSRequest GetEnvironment where
   type AWSResponse GetEnvironment = Environment
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetEnvironment where
   hashWithSalt _salt GetEnvironment' {..} =
@@ -113,25 +115,25 @@ instance Prelude.NFData GetEnvironment where
     Prelude.rnf applicationId
       `Prelude.seq` Prelude.rnf environmentId
 
-instance Core.ToHeaders GetEnvironment where
+instance Data.ToHeaders GetEnvironment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetEnvironment where
+instance Data.ToPath GetEnvironment where
   toPath GetEnvironment' {..} =
     Prelude.mconcat
       [ "/applications/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/environments/",
-        Core.toBS environmentId
+        Data.toBS environmentId
       ]
 
-instance Core.ToQuery GetEnvironment where
+instance Data.ToQuery GetEnvironment where
   toQuery = Prelude.const Prelude.mempty

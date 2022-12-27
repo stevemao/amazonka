@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.GrpcRouteMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppMesh.Types.GrpcRouteMetadata where
 
 import Amazonka.AppMesh.Types.GrpcRouteMetadataMatchMethod
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents the match metadata for the route.
@@ -76,15 +77,15 @@ grpcRouteMetadata_match = Lens.lens (\GrpcRouteMetadata' {match} -> match) (\s@G
 grpcRouteMetadata_name :: Lens.Lens' GrpcRouteMetadata Prelude.Text
 grpcRouteMetadata_name = Lens.lens (\GrpcRouteMetadata' {name} -> name) (\s@GrpcRouteMetadata' {} a -> s {name = a} :: GrpcRouteMetadata)
 
-instance Core.FromJSON GrpcRouteMetadata where
+instance Data.FromJSON GrpcRouteMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GrpcRouteMetadata"
       ( \x ->
           GrpcRouteMetadata'
-            Prelude.<$> (x Core..:? "invert")
-            Prelude.<*> (x Core..:? "match")
-            Prelude.<*> (x Core..: "name")
+            Prelude.<$> (x Data..:? "invert")
+            Prelude.<*> (x Data..:? "match")
+            Prelude.<*> (x Data..: "name")
       )
 
 instance Prelude.Hashable GrpcRouteMetadata where
@@ -99,12 +100,12 @@ instance Prelude.NFData GrpcRouteMetadata where
       `Prelude.seq` Prelude.rnf match
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToJSON GrpcRouteMetadata where
+instance Data.ToJSON GrpcRouteMetadata where
   toJSON GrpcRouteMetadata' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("invert" Core..=) Prelude.<$> invert,
-            ("match" Core..=) Prelude.<$> match,
-            Prelude.Just ("name" Core..= name)
+          [ ("invert" Data..=) Prelude.<$> invert,
+            ("match" Data..=) Prelude.<$> match,
+            Prelude.Just ("name" Data..= name)
           ]
       )

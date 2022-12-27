@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.GetDirectoryLimits
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,8 +37,9 @@ module Amazonka.DirectoryService.GetDirectoryLimits
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -63,12 +64,13 @@ instance Core.AWSRequest GetDirectoryLimits where
   type
     AWSResponse GetDirectoryLimits =
       GetDirectoryLimitsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDirectoryLimitsResponse'
-            Prelude.<$> (x Core..?> "DirectoryLimits")
+            Prelude.<$> (x Data..?> "DirectoryLimits")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -79,28 +81,28 @@ instance Prelude.Hashable GetDirectoryLimits where
 instance Prelude.NFData GetDirectoryLimits where
   rnf _ = ()
 
-instance Core.ToHeaders GetDirectoryLimits where
+instance Data.ToHeaders GetDirectoryLimits where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.GetDirectoryLimits" ::
+              Data.=# ( "DirectoryService_20150416.GetDirectoryLimits" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetDirectoryLimits where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON GetDirectoryLimits where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath GetDirectoryLimits where
+instance Data.ToPath GetDirectoryLimits where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetDirectoryLimits where
+instance Data.ToQuery GetDirectoryLimits where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the results of the GetDirectoryLimits operation.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.Types.LicenseServiceConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Nimble.Types.LicenseServiceConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configuration for a license service that is associated with a studio
@@ -30,9 +31,9 @@ import qualified Amazonka.Prelude as Prelude
 data LicenseServiceConfiguration = LicenseServiceConfiguration'
   { -- | The endpoint of the license service that is accessed by the studio
     -- component resource.
-    endpoint :: Prelude.Maybe Prelude.Text
+    endpoint :: Prelude.Maybe (Data.Sensitive Prelude.Text)
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'LicenseServiceConfiguration' with all optional fields omitted.
@@ -55,15 +56,15 @@ newLicenseServiceConfiguration =
 -- | The endpoint of the license service that is accessed by the studio
 -- component resource.
 licenseServiceConfiguration_endpoint :: Lens.Lens' LicenseServiceConfiguration (Prelude.Maybe Prelude.Text)
-licenseServiceConfiguration_endpoint = Lens.lens (\LicenseServiceConfiguration' {endpoint} -> endpoint) (\s@LicenseServiceConfiguration' {} a -> s {endpoint = a} :: LicenseServiceConfiguration)
+licenseServiceConfiguration_endpoint = Lens.lens (\LicenseServiceConfiguration' {endpoint} -> endpoint) (\s@LicenseServiceConfiguration' {} a -> s {endpoint = a} :: LicenseServiceConfiguration) Prelude.. Lens.mapping Data._Sensitive
 
-instance Core.FromJSON LicenseServiceConfiguration where
+instance Data.FromJSON LicenseServiceConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LicenseServiceConfiguration"
       ( \x ->
           LicenseServiceConfiguration'
-            Prelude.<$> (x Core..:? "endpoint")
+            Prelude.<$> (x Data..:? "endpoint")
       )
 
 instance Prelude.Hashable LicenseServiceConfiguration where
@@ -74,9 +75,9 @@ instance Prelude.NFData LicenseServiceConfiguration where
   rnf LicenseServiceConfiguration' {..} =
     Prelude.rnf endpoint
 
-instance Core.ToJSON LicenseServiceConfiguration where
+instance Data.ToJSON LicenseServiceConfiguration where
   toJSON LicenseServiceConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("endpoint" Core..=) Prelude.<$> endpoint]
+          [("endpoint" Data..=) Prelude.<$> endpoint]
       )

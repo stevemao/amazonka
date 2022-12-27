@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECRPublic.UploadLayerPart
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,8 +48,8 @@ module Amazonka.ECRPublic.UploadLayerPart
     newUploadLayerPartResponse,
 
     -- * Response Lenses
-    uploadLayerPartResponse_registryId,
     uploadLayerPartResponse_lastByteReceived,
+    uploadLayerPartResponse_registryId,
     uploadLayerPartResponse_repositoryName,
     uploadLayerPartResponse_uploadId,
     uploadLayerPartResponse_httpStatus,
@@ -57,8 +57,9 @@ module Amazonka.ECRPublic.UploadLayerPart
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECRPublic.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,7 +82,7 @@ data UploadLayerPart = UploadLayerPart'
     -- layer.
     partLastByte :: Prelude.Natural,
     -- | The base64-encoded layer part payload.
-    layerPartBlob :: Core.Base64
+    layerPartBlob :: Data.Base64
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -137,7 +138,7 @@ newUploadLayerPart
         uploadId = pUploadId_,
         partFirstByte = pPartFirstByte_,
         partLastByte = pPartLastByte_,
-        layerPartBlob = Core._Base64 Lens.# pLayerPartBlob_
+        layerPartBlob = Data._Base64 Lens.# pLayerPartBlob_
       }
 
 -- | The AWS account ID associated with the registry to which you are
@@ -171,21 +172,22 @@ uploadLayerPart_partLastByte = Lens.lens (\UploadLayerPart' {partLastByte} -> pa
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 uploadLayerPart_layerPartBlob :: Lens.Lens' UploadLayerPart Prelude.ByteString
-uploadLayerPart_layerPartBlob = Lens.lens (\UploadLayerPart' {layerPartBlob} -> layerPartBlob) (\s@UploadLayerPart' {} a -> s {layerPartBlob = a} :: UploadLayerPart) Prelude.. Core._Base64
+uploadLayerPart_layerPartBlob = Lens.lens (\UploadLayerPart' {layerPartBlob} -> layerPartBlob) (\s@UploadLayerPart' {} a -> s {layerPartBlob = a} :: UploadLayerPart) Prelude.. Data._Base64
 
 instance Core.AWSRequest UploadLayerPart where
   type
     AWSResponse UploadLayerPart =
       UploadLayerPartResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UploadLayerPartResponse'
-            Prelude.<$> (x Core..?> "registryId")
-            Prelude.<*> (x Core..?> "lastByteReceived")
-            Prelude.<*> (x Core..?> "repositoryName")
-            Prelude.<*> (x Core..?> "uploadId")
+            Prelude.<$> (x Data..?> "lastByteReceived")
+            Prelude.<*> (x Data..?> "registryId")
+            Prelude.<*> (x Data..?> "repositoryName")
+            Prelude.<*> (x Data..?> "uploadId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -207,48 +209,48 @@ instance Prelude.NFData UploadLayerPart where
       `Prelude.seq` Prelude.rnf partLastByte
       `Prelude.seq` Prelude.rnf layerPartBlob
 
-instance Core.ToHeaders UploadLayerPart where
+instance Data.ToHeaders UploadLayerPart where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SpencerFrontendService.UploadLayerPart" ::
+              Data.=# ( "SpencerFrontendService.UploadLayerPart" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UploadLayerPart where
+instance Data.ToJSON UploadLayerPart where
   toJSON UploadLayerPart' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("registryId" Core..=) Prelude.<$> registryId,
+          [ ("registryId" Data..=) Prelude.<$> registryId,
             Prelude.Just
-              ("repositoryName" Core..= repositoryName),
-            Prelude.Just ("uploadId" Core..= uploadId),
-            Prelude.Just ("partFirstByte" Core..= partFirstByte),
-            Prelude.Just ("partLastByte" Core..= partLastByte),
+              ("repositoryName" Data..= repositoryName),
+            Prelude.Just ("uploadId" Data..= uploadId),
+            Prelude.Just ("partFirstByte" Data..= partFirstByte),
+            Prelude.Just ("partLastByte" Data..= partLastByte),
             Prelude.Just
-              ("layerPartBlob" Core..= layerPartBlob)
+              ("layerPartBlob" Data..= layerPartBlob)
           ]
       )
 
-instance Core.ToPath UploadLayerPart where
+instance Data.ToPath UploadLayerPart where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UploadLayerPart where
+instance Data.ToQuery UploadLayerPart where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUploadLayerPartResponse' smart constructor.
 data UploadLayerPartResponse = UploadLayerPartResponse'
-  { -- | The registry ID associated with the request.
-    registryId :: Prelude.Maybe Prelude.Text,
-    -- | The integer value of the last byte received in the request.
+  { -- | The integer value of the last byte received in the request.
     lastByteReceived :: Prelude.Maybe Prelude.Natural,
+    -- | The registry ID associated with the request.
+    registryId :: Prelude.Maybe Prelude.Text,
     -- | The repository name associated with the request.
     repositoryName :: Prelude.Maybe Prelude.Text,
     -- | The upload ID associated with the request.
@@ -266,9 +268,9 @@ data UploadLayerPartResponse = UploadLayerPartResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'registryId', 'uploadLayerPartResponse_registryId' - The registry ID associated with the request.
---
 -- 'lastByteReceived', 'uploadLayerPartResponse_lastByteReceived' - The integer value of the last byte received in the request.
+--
+-- 'registryId', 'uploadLayerPartResponse_registryId' - The registry ID associated with the request.
 --
 -- 'repositoryName', 'uploadLayerPartResponse_repositoryName' - The repository name associated with the request.
 --
@@ -281,21 +283,21 @@ newUploadLayerPartResponse ::
   UploadLayerPartResponse
 newUploadLayerPartResponse pHttpStatus_ =
   UploadLayerPartResponse'
-    { registryId =
+    { lastByteReceived =
         Prelude.Nothing,
-      lastByteReceived = Prelude.Nothing,
+      registryId = Prelude.Nothing,
       repositoryName = Prelude.Nothing,
       uploadId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The registry ID associated with the request.
-uploadLayerPartResponse_registryId :: Lens.Lens' UploadLayerPartResponse (Prelude.Maybe Prelude.Text)
-uploadLayerPartResponse_registryId = Lens.lens (\UploadLayerPartResponse' {registryId} -> registryId) (\s@UploadLayerPartResponse' {} a -> s {registryId = a} :: UploadLayerPartResponse)
-
 -- | The integer value of the last byte received in the request.
 uploadLayerPartResponse_lastByteReceived :: Lens.Lens' UploadLayerPartResponse (Prelude.Maybe Prelude.Natural)
 uploadLayerPartResponse_lastByteReceived = Lens.lens (\UploadLayerPartResponse' {lastByteReceived} -> lastByteReceived) (\s@UploadLayerPartResponse' {} a -> s {lastByteReceived = a} :: UploadLayerPartResponse)
+
+-- | The registry ID associated with the request.
+uploadLayerPartResponse_registryId :: Lens.Lens' UploadLayerPartResponse (Prelude.Maybe Prelude.Text)
+uploadLayerPartResponse_registryId = Lens.lens (\UploadLayerPartResponse' {registryId} -> registryId) (\s@UploadLayerPartResponse' {} a -> s {registryId = a} :: UploadLayerPartResponse)
 
 -- | The repository name associated with the request.
 uploadLayerPartResponse_repositoryName :: Lens.Lens' UploadLayerPartResponse (Prelude.Maybe Prelude.Text)
@@ -311,8 +313,8 @@ uploadLayerPartResponse_httpStatus = Lens.lens (\UploadLayerPartResponse' {httpS
 
 instance Prelude.NFData UploadLayerPartResponse where
   rnf UploadLayerPartResponse' {..} =
-    Prelude.rnf registryId
-      `Prelude.seq` Prelude.rnf lastByteReceived
+    Prelude.rnf lastByteReceived
+      `Prelude.seq` Prelude.rnf registryId
       `Prelude.seq` Prelude.rnf repositoryName
       `Prelude.seq` Prelude.rnf uploadId
       `Prelude.seq` Prelude.rnf httpStatus

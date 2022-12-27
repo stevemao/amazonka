@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -65,12 +65,14 @@ library
     Amazonka.ECS.DescribeTaskSets
     Amazonka.ECS.DiscoverPollEndpoint
     Amazonka.ECS.ExecuteCommand
+    Amazonka.ECS.GetTaskProtection
     Amazonka.ECS.Lens
     Amazonka.ECS.ListAccountSettings
     Amazonka.ECS.ListAttributes
     Amazonka.ECS.ListClusters
     Amazonka.ECS.ListContainerInstances
     Amazonka.ECS.ListServices
+    Amazonka.ECS.ListServicesByNamespace
     Amazonka.ECS.ListTagsForResource
     Amazonka.ECS.ListTaskDefinitionFamilies
     Amazonka.ECS.ListTaskDefinitions
@@ -90,6 +92,7 @@ library
     Amazonka.ECS.TagResource
     Amazonka.ECS.Types
     Amazonka.ECS.Types.AgentUpdateStatus
+    Amazonka.ECS.Types.ApplicationProtocol
     Amazonka.ECS.Types.AssignPublicIp
     Amazonka.ECS.Types.Attachment
     Amazonka.ECS.Types.AttachmentStateChange
@@ -105,6 +108,8 @@ library
     Amazonka.ECS.Types.Cluster
     Amazonka.ECS.Types.ClusterConfiguration
     Amazonka.ECS.Types.ClusterField
+    Amazonka.ECS.Types.ClusterServiceConnectDefaults
+    Amazonka.ECS.Types.ClusterServiceConnectDefaultsRequest
     Amazonka.ECS.Types.ClusterSetting
     Amazonka.ECS.Types.ClusterSettingName
     Amazonka.ECS.Types.Compatibility
@@ -115,10 +120,12 @@ library
     Amazonka.ECS.Types.ContainerDependency
     Amazonka.ECS.Types.ContainerInstance
     Amazonka.ECS.Types.ContainerInstanceField
+    Amazonka.ECS.Types.ContainerInstanceHealthStatus
     Amazonka.ECS.Types.ContainerInstanceStatus
     Amazonka.ECS.Types.ContainerOverride
     Amazonka.ECS.Types.ContainerService
     Amazonka.ECS.Types.ContainerStateChange
+    Amazonka.ECS.Types.CPUArchitecture
     Amazonka.ECS.Types.Deployment
     Amazonka.ECS.Types.DeploymentCircuitBreaker
     Amazonka.ECS.Types.DeploymentConfiguration
@@ -150,6 +157,9 @@ library
     Amazonka.ECS.Types.HostVolumeProperties
     Amazonka.ECS.Types.InferenceAccelerator
     Amazonka.ECS.Types.InferenceAcceleratorOverride
+    Amazonka.ECS.Types.InstanceHealthCheckResult
+    Amazonka.ECS.Types.InstanceHealthCheckState
+    Amazonka.ECS.Types.InstanceHealthCheckType
     Amazonka.ECS.Types.IpcMode
     Amazonka.ECS.Types.KernelCapabilities
     Amazonka.ECS.Types.KeyValuePair
@@ -169,6 +179,7 @@ library
     Amazonka.ECS.Types.NetworkConfiguration
     Amazonka.ECS.Types.NetworkInterface
     Amazonka.ECS.Types.NetworkMode
+    Amazonka.ECS.Types.OSFamily
     Amazonka.ECS.Types.PidMode
     Amazonka.ECS.Types.PlacementConstraint
     Amazonka.ECS.Types.PlacementConstraintType
@@ -178,17 +189,23 @@ library
     Amazonka.ECS.Types.PlatformDeviceType
     Amazonka.ECS.Types.PortMapping
     Amazonka.ECS.Types.PropagateTags
+    Amazonka.ECS.Types.ProtectedTask
     Amazonka.ECS.Types.ProxyConfiguration
     Amazonka.ECS.Types.ProxyConfigurationType
     Amazonka.ECS.Types.RepositoryCredentials
     Amazonka.ECS.Types.Resource
     Amazonka.ECS.Types.ResourceRequirement
     Amazonka.ECS.Types.ResourceType
+    Amazonka.ECS.Types.RuntimePlatform
     Amazonka.ECS.Types.Scale
     Amazonka.ECS.Types.ScaleUnit
     Amazonka.ECS.Types.SchedulingStrategy
     Amazonka.ECS.Types.Scope
     Amazonka.ECS.Types.Secret
+    Amazonka.ECS.Types.ServiceConnectClientAlias
+    Amazonka.ECS.Types.ServiceConnectConfiguration
+    Amazonka.ECS.Types.ServiceConnectService
+    Amazonka.ECS.Types.ServiceConnectServiceResource
     Amazonka.ECS.Types.ServiceEvent
     Amazonka.ECS.Types.ServiceField
     Amazonka.ECS.Types.ServiceRegistry
@@ -227,11 +244,12 @@ library
     Amazonka.ECS.UpdateContainerInstancesState
     Amazonka.ECS.UpdateService
     Amazonka.ECS.UpdateServicePrimaryTaskSet
+    Amazonka.ECS.UpdateTaskProtection
     Amazonka.ECS.UpdateTaskSet
     Amazonka.ECS.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-ecs-test
@@ -250,9 +268,9 @@ test-suite amazonka-ecs-test
     Test.Amazonka.Gen.ECS
 
   build-depends:
-    , amazonka-core         ^>=2.0
+    , amazonka-core         >=2.0 && <2.1
     , amazonka-ecs
-    , amazonka-test         ^>=2.0
+    , amazonka-test         >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.Types.Statement
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LexModels.Types.Statement where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LexModels.Types.Message
 import qualified Amazonka.Prelude as Prelude
 
@@ -77,14 +78,14 @@ statement_responseCard = Lens.lens (\Statement' {responseCard} -> responseCard) 
 statement_messages :: Lens.Lens' Statement (Prelude.NonEmpty Message)
 statement_messages = Lens.lens (\Statement' {messages} -> messages) (\s@Statement' {} a -> s {messages = a} :: Statement) Prelude.. Lens.coerced
 
-instance Core.FromJSON Statement where
+instance Data.FromJSON Statement where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Statement"
       ( \x ->
           Statement'
-            Prelude.<$> (x Core..:? "responseCard")
-            Prelude.<*> (x Core..: "messages")
+            Prelude.<$> (x Data..:? "responseCard")
+            Prelude.<*> (x Data..: "messages")
       )
 
 instance Prelude.Hashable Statement where
@@ -97,11 +98,11 @@ instance Prelude.NFData Statement where
     Prelude.rnf responseCard
       `Prelude.seq` Prelude.rnf messages
 
-instance Core.ToJSON Statement where
+instance Data.ToJSON Statement where
   toJSON Statement' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("responseCard" Core..=) Prelude.<$> responseCard,
-            Prelude.Just ("messages" Core..= messages)
+          [ ("responseCard" Data..=) Prelude.<$> responseCard,
+            Prelude.Just ("messages" Data..= messages)
           ]
       )

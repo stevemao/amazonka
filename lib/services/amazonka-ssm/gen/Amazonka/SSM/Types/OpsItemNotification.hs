@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.OpsItemNotification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.OpsItemNotification where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A notification about the OpsItem.
@@ -56,12 +57,12 @@ newOpsItemNotification =
 opsItemNotification_arn :: Lens.Lens' OpsItemNotification (Prelude.Maybe Prelude.Text)
 opsItemNotification_arn = Lens.lens (\OpsItemNotification' {arn} -> arn) (\s@OpsItemNotification' {} a -> s {arn = a} :: OpsItemNotification)
 
-instance Core.FromJSON OpsItemNotification where
+instance Data.FromJSON OpsItemNotification where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OpsItemNotification"
       ( \x ->
-          OpsItemNotification' Prelude.<$> (x Core..:? "Arn")
+          OpsItemNotification' Prelude.<$> (x Data..:? "Arn")
       )
 
 instance Prelude.Hashable OpsItemNotification where
@@ -71,7 +72,7 @@ instance Prelude.Hashable OpsItemNotification where
 instance Prelude.NFData OpsItemNotification where
   rnf OpsItemNotification' {..} = Prelude.rnf arn
 
-instance Core.ToJSON OpsItemNotification where
+instance Data.ToJSON OpsItemNotification where
   toJSON OpsItemNotification' {..} =
-    Core.object
-      (Prelude.catMaybes [("Arn" Core..=) Prelude.<$> arn])
+    Data.object
+      (Prelude.catMaybes [("Arn" Data..=) Prelude.<$> arn])

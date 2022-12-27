@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.CreateDirectConnectGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,8 +48,9 @@ module Amazonka.DirectConnect.CreateDirectConnectGateway
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -108,12 +109,13 @@ instance Core.AWSRequest CreateDirectConnectGateway where
   type
     AWSResponse CreateDirectConnectGateway =
       CreateDirectConnectGatewayResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateDirectConnectGatewayResponse'
-            Prelude.<$> (x Core..?> "directConnectGateway")
+            Prelude.<$> (x Data..?> "directConnectGateway")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -127,37 +129,37 @@ instance Prelude.NFData CreateDirectConnectGateway where
     Prelude.rnf amazonSideAsn
       `Prelude.seq` Prelude.rnf directConnectGatewayName
 
-instance Core.ToHeaders CreateDirectConnectGateway where
+instance Data.ToHeaders CreateDirectConnectGateway where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OvertureService.CreateDirectConnectGateway" ::
+              Data.=# ( "OvertureService.CreateDirectConnectGateway" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateDirectConnectGateway where
+instance Data.ToJSON CreateDirectConnectGateway where
   toJSON CreateDirectConnectGateway' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("amazonSideAsn" Core..=) Prelude.<$> amazonSideAsn,
+          [ ("amazonSideAsn" Data..=) Prelude.<$> amazonSideAsn,
             Prelude.Just
               ( "directConnectGatewayName"
-                  Core..= directConnectGatewayName
+                  Data..= directConnectGatewayName
               )
           ]
       )
 
-instance Core.ToPath CreateDirectConnectGateway where
+instance Data.ToPath CreateDirectConnectGateway where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateDirectConnectGateway where
+instance Data.ToQuery CreateDirectConnectGateway where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateDirectConnectGatewayResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Shield.Types.ProtectionGroupLimits
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Shield.Types.ProtectionGroupLimits where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Shield.Types.ProtectionGroupPatternTypeLimits
 
@@ -72,14 +73,14 @@ protectionGroupLimits_maxProtectionGroups = Lens.lens (\ProtectionGroupLimits' {
 protectionGroupLimits_patternTypeLimits :: Lens.Lens' ProtectionGroupLimits ProtectionGroupPatternTypeLimits
 protectionGroupLimits_patternTypeLimits = Lens.lens (\ProtectionGroupLimits' {patternTypeLimits} -> patternTypeLimits) (\s@ProtectionGroupLimits' {} a -> s {patternTypeLimits = a} :: ProtectionGroupLimits)
 
-instance Core.FromJSON ProtectionGroupLimits where
+instance Data.FromJSON ProtectionGroupLimits where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ProtectionGroupLimits"
       ( \x ->
           ProtectionGroupLimits'
-            Prelude.<$> (x Core..: "MaxProtectionGroups")
-            Prelude.<*> (x Core..: "PatternTypeLimits")
+            Prelude.<$> (x Data..: "MaxProtectionGroups")
+            Prelude.<*> (x Data..: "PatternTypeLimits")
       )
 
 instance Prelude.Hashable ProtectionGroupLimits where

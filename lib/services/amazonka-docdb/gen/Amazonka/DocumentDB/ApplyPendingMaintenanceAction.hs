@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DocumentDB.ApplyPendingMaintenanceAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.DocumentDB.ApplyPendingMaintenanceAction
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DocumentDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -155,13 +156,14 @@ instance
   type
     AWSResponse ApplyPendingMaintenanceAction =
       ApplyPendingMaintenanceActionResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ApplyPendingMaintenanceActionResult"
       ( \s h x ->
           ApplyPendingMaintenanceActionResponse'
-            Prelude.<$> (x Core..@? "ResourcePendingMaintenanceActions")
+            Prelude.<$> (x Data..@? "ResourcePendingMaintenanceActions")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -180,24 +182,24 @@ instance Prelude.NFData ApplyPendingMaintenanceAction where
       `Prelude.seq` Prelude.rnf applyAction
       `Prelude.seq` Prelude.rnf optInType
 
-instance Core.ToHeaders ApplyPendingMaintenanceAction where
+instance Data.ToHeaders ApplyPendingMaintenanceAction where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ApplyPendingMaintenanceAction where
+instance Data.ToPath ApplyPendingMaintenanceAction where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ApplyPendingMaintenanceAction where
+instance Data.ToQuery ApplyPendingMaintenanceAction where
   toQuery ApplyPendingMaintenanceAction' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "ApplyPendingMaintenanceAction" ::
+          Data.=: ( "ApplyPendingMaintenanceAction" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "ResourceIdentifier" Core.=: resourceIdentifier,
-        "ApplyAction" Core.=: applyAction,
-        "OptInType" Core.=: optInType
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "ResourceIdentifier" Data.=: resourceIdentifier,
+        "ApplyAction" Data.=: applyAction,
+        "OptInType" Data.=: optInType
       ]
 
 -- | /See:/ 'newApplyPendingMaintenanceActionResponse' smart constructor.

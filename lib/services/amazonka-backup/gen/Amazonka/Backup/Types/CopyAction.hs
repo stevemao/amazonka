@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Backup.Types.CopyAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Backup.Types.CopyAction where
 
 import Amazonka.Backup.Types.Lifecycle
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The details of the copy operation.
@@ -70,14 +71,14 @@ copyAction_lifecycle = Lens.lens (\CopyAction' {lifecycle} -> lifecycle) (\s@Cop
 copyAction_destinationBackupVaultArn :: Lens.Lens' CopyAction Prelude.Text
 copyAction_destinationBackupVaultArn = Lens.lens (\CopyAction' {destinationBackupVaultArn} -> destinationBackupVaultArn) (\s@CopyAction' {} a -> s {destinationBackupVaultArn = a} :: CopyAction)
 
-instance Core.FromJSON CopyAction where
+instance Data.FromJSON CopyAction where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CopyAction"
       ( \x ->
           CopyAction'
-            Prelude.<$> (x Core..:? "Lifecycle")
-            Prelude.<*> (x Core..: "DestinationBackupVaultArn")
+            Prelude.<$> (x Data..:? "Lifecycle")
+            Prelude.<*> (x Data..: "DestinationBackupVaultArn")
       )
 
 instance Prelude.Hashable CopyAction where
@@ -90,14 +91,14 @@ instance Prelude.NFData CopyAction where
     Prelude.rnf lifecycle
       `Prelude.seq` Prelude.rnf destinationBackupVaultArn
 
-instance Core.ToJSON CopyAction where
+instance Data.ToJSON CopyAction where
   toJSON CopyAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Lifecycle" Core..=) Prelude.<$> lifecycle,
+          [ ("Lifecycle" Data..=) Prelude.<$> lifecycle,
             Prelude.Just
               ( "DestinationBackupVaultArn"
-                  Core..= destinationBackupVaultArn
+                  Data..= destinationBackupVaultArn
               )
           ]
       )

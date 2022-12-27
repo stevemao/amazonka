@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Inspector.CreateAssessmentTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,8 +49,9 @@ module Amazonka.Inspector.CreateAssessmentTemplate
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Inspector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -156,13 +157,14 @@ instance Core.AWSRequest CreateAssessmentTemplate where
   type
     AWSResponse CreateAssessmentTemplate =
       CreateAssessmentTemplateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateAssessmentTemplateResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "assessmentTemplateArn")
+            Prelude.<*> (x Data..:> "assessmentTemplateArn")
       )
 
 instance Prelude.Hashable CreateAssessmentTemplate where
@@ -182,44 +184,44 @@ instance Prelude.NFData CreateAssessmentTemplate where
       `Prelude.seq` Prelude.rnf durationInSeconds
       `Prelude.seq` Prelude.rnf rulesPackageArns
 
-instance Core.ToHeaders CreateAssessmentTemplate where
+instance Data.ToHeaders CreateAssessmentTemplate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "InspectorService.CreateAssessmentTemplate" ::
+              Data.=# ( "InspectorService.CreateAssessmentTemplate" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateAssessmentTemplate where
+instance Data.ToJSON CreateAssessmentTemplate where
   toJSON CreateAssessmentTemplate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("userAttributesForFindings" Core..=)
+          [ ("userAttributesForFindings" Data..=)
               Prelude.<$> userAttributesForFindings,
             Prelude.Just
-              ("assessmentTargetArn" Core..= assessmentTargetArn),
+              ("assessmentTargetArn" Data..= assessmentTargetArn),
             Prelude.Just
               ( "assessmentTemplateName"
-                  Core..= assessmentTemplateName
+                  Data..= assessmentTemplateName
               ),
             Prelude.Just
-              ("durationInSeconds" Core..= durationInSeconds),
+              ("durationInSeconds" Data..= durationInSeconds),
             Prelude.Just
-              ("rulesPackageArns" Core..= rulesPackageArns)
+              ("rulesPackageArns" Data..= rulesPackageArns)
           ]
       )
 
-instance Core.ToPath CreateAssessmentTemplate where
+instance Data.ToPath CreateAssessmentTemplate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateAssessmentTemplate where
+instance Data.ToQuery CreateAssessmentTemplate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateAssessmentTemplateResponse' smart constructor.

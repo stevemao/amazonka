@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.AuditTaskMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,23 +20,24 @@
 module Amazonka.IoT.Types.AuditTaskMetadata where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.AuditTaskStatus
 import Amazonka.IoT.Types.AuditTaskType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The audits that were performed.
 --
 -- /See:/ 'newAuditTaskMetadata' smart constructor.
 data AuditTaskMetadata = AuditTaskMetadata'
-  { -- | The type of this audit. One of \"ON_DEMAND_AUDIT_TASK\" or
-    -- \"SCHEDULED_AUDIT_TASK\".
-    taskType :: Prelude.Maybe AuditTaskType,
-    -- | The ID of this audit.
+  { -- | The ID of this audit.
     taskId :: Prelude.Maybe Prelude.Text,
     -- | The status of this audit. One of \"IN_PROGRESS\", \"COMPLETED\",
     -- \"FAILED\", or \"CANCELED\".
-    taskStatus :: Prelude.Maybe AuditTaskStatus
+    taskStatus :: Prelude.Maybe AuditTaskStatus,
+    -- | The type of this audit. One of \"ON_DEMAND_AUDIT_TASK\" or
+    -- \"SCHEDULED_AUDIT_TASK\".
+    taskType :: Prelude.Maybe AuditTaskType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,26 +49,21 @@ data AuditTaskMetadata = AuditTaskMetadata'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'taskType', 'auditTaskMetadata_taskType' - The type of this audit. One of \"ON_DEMAND_AUDIT_TASK\" or
--- \"SCHEDULED_AUDIT_TASK\".
---
 -- 'taskId', 'auditTaskMetadata_taskId' - The ID of this audit.
 --
 -- 'taskStatus', 'auditTaskMetadata_taskStatus' - The status of this audit. One of \"IN_PROGRESS\", \"COMPLETED\",
 -- \"FAILED\", or \"CANCELED\".
+--
+-- 'taskType', 'auditTaskMetadata_taskType' - The type of this audit. One of \"ON_DEMAND_AUDIT_TASK\" or
+-- \"SCHEDULED_AUDIT_TASK\".
 newAuditTaskMetadata ::
   AuditTaskMetadata
 newAuditTaskMetadata =
   AuditTaskMetadata'
-    { taskType = Prelude.Nothing,
-      taskId = Prelude.Nothing,
-      taskStatus = Prelude.Nothing
+    { taskId = Prelude.Nothing,
+      taskStatus = Prelude.Nothing,
+      taskType = Prelude.Nothing
     }
-
--- | The type of this audit. One of \"ON_DEMAND_AUDIT_TASK\" or
--- \"SCHEDULED_AUDIT_TASK\".
-auditTaskMetadata_taskType :: Lens.Lens' AuditTaskMetadata (Prelude.Maybe AuditTaskType)
-auditTaskMetadata_taskType = Lens.lens (\AuditTaskMetadata' {taskType} -> taskType) (\s@AuditTaskMetadata' {} a -> s {taskType = a} :: AuditTaskMetadata)
 
 -- | The ID of this audit.
 auditTaskMetadata_taskId :: Lens.Lens' AuditTaskMetadata (Prelude.Maybe Prelude.Text)
@@ -78,25 +74,30 @@ auditTaskMetadata_taskId = Lens.lens (\AuditTaskMetadata' {taskId} -> taskId) (\
 auditTaskMetadata_taskStatus :: Lens.Lens' AuditTaskMetadata (Prelude.Maybe AuditTaskStatus)
 auditTaskMetadata_taskStatus = Lens.lens (\AuditTaskMetadata' {taskStatus} -> taskStatus) (\s@AuditTaskMetadata' {} a -> s {taskStatus = a} :: AuditTaskMetadata)
 
-instance Core.FromJSON AuditTaskMetadata where
+-- | The type of this audit. One of \"ON_DEMAND_AUDIT_TASK\" or
+-- \"SCHEDULED_AUDIT_TASK\".
+auditTaskMetadata_taskType :: Lens.Lens' AuditTaskMetadata (Prelude.Maybe AuditTaskType)
+auditTaskMetadata_taskType = Lens.lens (\AuditTaskMetadata' {taskType} -> taskType) (\s@AuditTaskMetadata' {} a -> s {taskType = a} :: AuditTaskMetadata)
+
+instance Data.FromJSON AuditTaskMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AuditTaskMetadata"
       ( \x ->
           AuditTaskMetadata'
-            Prelude.<$> (x Core..:? "taskType")
-            Prelude.<*> (x Core..:? "taskId")
-            Prelude.<*> (x Core..:? "taskStatus")
+            Prelude.<$> (x Data..:? "taskId")
+            Prelude.<*> (x Data..:? "taskStatus")
+            Prelude.<*> (x Data..:? "taskType")
       )
 
 instance Prelude.Hashable AuditTaskMetadata where
   hashWithSalt _salt AuditTaskMetadata' {..} =
-    _salt `Prelude.hashWithSalt` taskType
-      `Prelude.hashWithSalt` taskId
+    _salt `Prelude.hashWithSalt` taskId
       `Prelude.hashWithSalt` taskStatus
+      `Prelude.hashWithSalt` taskType
 
 instance Prelude.NFData AuditTaskMetadata where
   rnf AuditTaskMetadata' {..} =
-    Prelude.rnf taskType
-      `Prelude.seq` Prelude.rnf taskId
+    Prelude.rnf taskId
       `Prelude.seq` Prelude.rnf taskStatus
+      `Prelude.seq` Prelude.rnf taskType

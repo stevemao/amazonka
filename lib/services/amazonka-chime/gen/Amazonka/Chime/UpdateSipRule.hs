@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.UpdateSipRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -111,12 +112,13 @@ instance Core.AWSRequest UpdateSipRule where
   type
     AWSResponse UpdateSipRule =
       UpdateSipRuleResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateSipRuleResponse'
-            Prelude.<$> (x Core..?> "SipRule")
+            Prelude.<$> (x Data..?> "SipRule")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -134,26 +136,26 @@ instance Prelude.NFData UpdateSipRule where
       `Prelude.seq` Prelude.rnf sipRuleId
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders UpdateSipRule where
+instance Data.ToHeaders UpdateSipRule where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateSipRule where
+instance Data.ToJSON UpdateSipRule where
   toJSON UpdateSipRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Disabled" Core..=) Prelude.<$> disabled,
-            ("TargetApplications" Core..=)
+          [ ("Disabled" Data..=) Prelude.<$> disabled,
+            ("TargetApplications" Data..=)
               Prelude.<$> targetApplications,
-            Prelude.Just ("Name" Core..= name)
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath UpdateSipRule where
+instance Data.ToPath UpdateSipRule where
   toPath UpdateSipRule' {..} =
     Prelude.mconcat
-      ["/sip-rules/", Core.toBS sipRuleId]
+      ["/sip-rules/", Data.toBS sipRuleId]
 
-instance Core.ToQuery UpdateSipRule where
+instance Data.ToQuery UpdateSipRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateSipRuleResponse' smart constructor.

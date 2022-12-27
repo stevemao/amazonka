@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.Outposts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,14 +27,53 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestDeleteOutpost $
+--         [ requestCancelOrder $
+--             newCancelOrder
+--
+--         , requestCreateOrder $
+--             newCreateOrder
+--
+--         , requestCreateOutpost $
+--             newCreateOutpost
+--
+--         , requestCreateSite $
+--             newCreateSite
+--
+--         , requestDeleteOutpost $
 --             newDeleteOutpost
 --
 --         , requestDeleteSite $
 --             newDeleteSite
 --
---         , requestListTagsForResource $
---             newListTagsForResource
+--         , requestGetCatalogItem $
+--             newGetCatalogItem
+--
+--         , requestGetConnection $
+--             newGetConnection
+--
+--         , requestGetOrder $
+--             newGetOrder
+--
+--         , requestGetOutpost $
+--             newGetOutpost
+--
+--         , requestGetOutpostInstanceTypes $
+--             newGetOutpostInstanceTypes
+--
+--         , requestGetSite $
+--             newGetSite
+--
+--         , requestGetSiteAddress $
+--             newGetSiteAddress
+--
+--         , requestListAssets $
+--             newListAssets
+--
+--         , requestListCatalogItems $
+--             newListCatalogItems
+--
+--         , requestListOrders $
+--             newListOrders
 --
 --         , requestListOutposts $
 --             newListOutposts
@@ -42,17 +81,11 @@ import Test.Tasty
 --         , requestListSites $
 --             newListSites
 --
---         , requestCreateOrder $
---             newCreateOrder
+--         , requestListTagsForResource $
+--             newListTagsForResource
 --
---         , requestGetOutpostInstanceTypes $
---             newGetOutpostInstanceTypes
---
---         , requestCreateOutpost $
---             newCreateOutpost
---
---         , requestGetOutpost $
---             newGetOutpost
+--         , requestStartConnection $
+--             newStartConnection
 --
 --         , requestTagResource $
 --             newTagResource
@@ -60,17 +93,68 @@ import Test.Tasty
 --         , requestUntagResource $
 --             newUntagResource
 --
+--         , requestUpdateOutpost $
+--             newUpdateOutpost
+--
+--         , requestUpdateSite $
+--             newUpdateSite
+--
+--         , requestUpdateSiteAddress $
+--             newUpdateSiteAddress
+--
+--         , requestUpdateSiteRackPhysicalProperties $
+--             newUpdateSiteRackPhysicalProperties
+--
 --           ]
 
 --     , testGroup "response"
---         [ responseDeleteOutpost $
+--         [ responseCancelOrder $
+--             newCancelOrderResponse
+--
+--         , responseCreateOrder $
+--             newCreateOrderResponse
+--
+--         , responseCreateOutpost $
+--             newCreateOutpostResponse
+--
+--         , responseCreateSite $
+--             newCreateSiteResponse
+--
+--         , responseDeleteOutpost $
 --             newDeleteOutpostResponse
 --
 --         , responseDeleteSite $
 --             newDeleteSiteResponse
 --
---         , responseListTagsForResource $
---             newListTagsForResourceResponse
+--         , responseGetCatalogItem $
+--             newGetCatalogItemResponse
+--
+--         , responseGetConnection $
+--             newGetConnectionResponse
+--
+--         , responseGetOrder $
+--             newGetOrderResponse
+--
+--         , responseGetOutpost $
+--             newGetOutpostResponse
+--
+--         , responseGetOutpostInstanceTypes $
+--             newGetOutpostInstanceTypesResponse
+--
+--         , responseGetSite $
+--             newGetSiteResponse
+--
+--         , responseGetSiteAddress $
+--             newGetSiteAddressResponse
+--
+--         , responseListAssets $
+--             newListAssetsResponse
+--
+--         , responseListCatalogItems $
+--             newListCatalogItemsResponse
+--
+--         , responseListOrders $
+--             newListOrdersResponse
 --
 --         , responseListOutposts $
 --             newListOutpostsResponse
@@ -78,17 +162,11 @@ import Test.Tasty
 --         , responseListSites $
 --             newListSitesResponse
 --
---         , responseCreateOrder $
---             newCreateOrderResponse
+--         , responseListTagsForResource $
+--             newListTagsForResourceResponse
 --
---         , responseGetOutpostInstanceTypes $
---             newGetOutpostInstanceTypesResponse
---
---         , responseCreateOutpost $
---             newCreateOutpostResponse
---
---         , responseGetOutpost $
---             newGetOutpostResponse
+--         , responseStartConnection $
+--             newStartConnectionResponse
 --
 --         , responseTagResource $
 --             newTagResourceResponse
@@ -96,10 +174,46 @@ import Test.Tasty
 --         , responseUntagResource $
 --             newUntagResourceResponse
 --
+--         , responseUpdateOutpost $
+--             newUpdateOutpostResponse
+--
+--         , responseUpdateSite $
+--             newUpdateSiteResponse
+--
+--         , responseUpdateSiteAddress $
+--             newUpdateSiteAddressResponse
+--
+--         , responseUpdateSiteRackPhysicalProperties $
+--             newUpdateSiteRackPhysicalPropertiesResponse
+--
 --           ]
 --     ]
 
 -- Requests
+
+requestCancelOrder :: CancelOrder -> TestTree
+requestCancelOrder =
+  req
+    "CancelOrder"
+    "fixture/CancelOrder.yaml"
+
+requestCreateOrder :: CreateOrder -> TestTree
+requestCreateOrder =
+  req
+    "CreateOrder"
+    "fixture/CreateOrder.yaml"
+
+requestCreateOutpost :: CreateOutpost -> TestTree
+requestCreateOutpost =
+  req
+    "CreateOutpost"
+    "fixture/CreateOutpost.yaml"
+
+requestCreateSite :: CreateSite -> TestTree
+requestCreateSite =
+  req
+    "CreateSite"
+    "fixture/CreateSite.yaml"
 
 requestDeleteOutpost :: DeleteOutpost -> TestTree
 requestDeleteOutpost =
@@ -113,11 +227,65 @@ requestDeleteSite =
     "DeleteSite"
     "fixture/DeleteSite.yaml"
 
-requestListTagsForResource :: ListTagsForResource -> TestTree
-requestListTagsForResource =
+requestGetCatalogItem :: GetCatalogItem -> TestTree
+requestGetCatalogItem =
   req
-    "ListTagsForResource"
-    "fixture/ListTagsForResource.yaml"
+    "GetCatalogItem"
+    "fixture/GetCatalogItem.yaml"
+
+requestGetConnection :: GetConnection -> TestTree
+requestGetConnection =
+  req
+    "GetConnection"
+    "fixture/GetConnection.yaml"
+
+requestGetOrder :: GetOrder -> TestTree
+requestGetOrder =
+  req
+    "GetOrder"
+    "fixture/GetOrder.yaml"
+
+requestGetOutpost :: GetOutpost -> TestTree
+requestGetOutpost =
+  req
+    "GetOutpost"
+    "fixture/GetOutpost.yaml"
+
+requestGetOutpostInstanceTypes :: GetOutpostInstanceTypes -> TestTree
+requestGetOutpostInstanceTypes =
+  req
+    "GetOutpostInstanceTypes"
+    "fixture/GetOutpostInstanceTypes.yaml"
+
+requestGetSite :: GetSite -> TestTree
+requestGetSite =
+  req
+    "GetSite"
+    "fixture/GetSite.yaml"
+
+requestGetSiteAddress :: GetSiteAddress -> TestTree
+requestGetSiteAddress =
+  req
+    "GetSiteAddress"
+    "fixture/GetSiteAddress.yaml"
+
+requestListAssets :: ListAssets -> TestTree
+requestListAssets =
+  req
+    "ListAssets"
+    "fixture/ListAssets.yaml"
+
+requestListCatalogItems :: ListCatalogItems -> TestTree
+requestListCatalogItems =
+  req
+    "ListCatalogItems"
+    "fixture/ListCatalogItems.yaml"
+
+requestListOrders :: ListOrders -> TestTree
+requestListOrders =
+  req
+    "ListOrders"
+    "fixture/ListOrders.yaml"
 
 requestListOutposts :: ListOutposts -> TestTree
 requestListOutposts =
@@ -131,29 +299,17 @@ requestListSites =
     "ListSites"
     "fixture/ListSites.yaml"
 
-requestCreateOrder :: CreateOrder -> TestTree
-requestCreateOrder =
+requestListTagsForResource :: ListTagsForResource -> TestTree
+requestListTagsForResource =
   req
-    "CreateOrder"
-    "fixture/CreateOrder.yaml"
+    "ListTagsForResource"
+    "fixture/ListTagsForResource.yaml"
 
-requestGetOutpostInstanceTypes :: GetOutpostInstanceTypes -> TestTree
-requestGetOutpostInstanceTypes =
+requestStartConnection :: StartConnection -> TestTree
+requestStartConnection =
   req
-    "GetOutpostInstanceTypes"
-    "fixture/GetOutpostInstanceTypes.yaml"
-
-requestCreateOutpost :: CreateOutpost -> TestTree
-requestCreateOutpost =
-  req
-    "CreateOutpost"
-    "fixture/CreateOutpost.yaml"
-
-requestGetOutpost :: GetOutpost -> TestTree
-requestGetOutpost =
-  req
-    "GetOutpost"
-    "fixture/GetOutpost.yaml"
+    "StartConnection"
+    "fixture/StartConnection.yaml"
 
 requestTagResource :: TagResource -> TestTree
 requestTagResource =
@@ -167,7 +323,63 @@ requestUntagResource =
     "UntagResource"
     "fixture/UntagResource.yaml"
 
+requestUpdateOutpost :: UpdateOutpost -> TestTree
+requestUpdateOutpost =
+  req
+    "UpdateOutpost"
+    "fixture/UpdateOutpost.yaml"
+
+requestUpdateSite :: UpdateSite -> TestTree
+requestUpdateSite =
+  req
+    "UpdateSite"
+    "fixture/UpdateSite.yaml"
+
+requestUpdateSiteAddress :: UpdateSiteAddress -> TestTree
+requestUpdateSiteAddress =
+  req
+    "UpdateSiteAddress"
+    "fixture/UpdateSiteAddress.yaml"
+
+requestUpdateSiteRackPhysicalProperties :: UpdateSiteRackPhysicalProperties -> TestTree
+requestUpdateSiteRackPhysicalProperties =
+  req
+    "UpdateSiteRackPhysicalProperties"
+    "fixture/UpdateSiteRackPhysicalProperties.yaml"
+
 -- Responses
+
+responseCancelOrder :: CancelOrderResponse -> TestTree
+responseCancelOrder =
+  res
+    "CancelOrderResponse"
+    "fixture/CancelOrderResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy CancelOrder)
+
+responseCreateOrder :: CreateOrderResponse -> TestTree
+responseCreateOrder =
+  res
+    "CreateOrderResponse"
+    "fixture/CreateOrderResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy CreateOrder)
+
+responseCreateOutpost :: CreateOutpostResponse -> TestTree
+responseCreateOutpost =
+  res
+    "CreateOutpostResponse"
+    "fixture/CreateOutpostResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy CreateOutpost)
+
+responseCreateSite :: CreateSiteResponse -> TestTree
+responseCreateSite =
+  res
+    "CreateSiteResponse"
+    "fixture/CreateSiteResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy CreateSite)
 
 responseDeleteOutpost :: DeleteOutpostResponse -> TestTree
 responseDeleteOutpost =
@@ -185,13 +397,85 @@ responseDeleteSite =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy DeleteSite)
 
-responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
-responseListTagsForResource =
+responseGetCatalogItem :: GetCatalogItemResponse -> TestTree
+responseGetCatalogItem =
   res
-    "ListTagsForResourceResponse"
-    "fixture/ListTagsForResourceResponse.proto"
+    "GetCatalogItemResponse"
+    "fixture/GetCatalogItemResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
+    (Proxy.Proxy :: Proxy.Proxy GetCatalogItem)
+
+responseGetConnection :: GetConnectionResponse -> TestTree
+responseGetConnection =
+  res
+    "GetConnectionResponse"
+    "fixture/GetConnectionResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetConnection)
+
+responseGetOrder :: GetOrderResponse -> TestTree
+responseGetOrder =
+  res
+    "GetOrderResponse"
+    "fixture/GetOrderResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetOrder)
+
+responseGetOutpost :: GetOutpostResponse -> TestTree
+responseGetOutpost =
+  res
+    "GetOutpostResponse"
+    "fixture/GetOutpostResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetOutpost)
+
+responseGetOutpostInstanceTypes :: GetOutpostInstanceTypesResponse -> TestTree
+responseGetOutpostInstanceTypes =
+  res
+    "GetOutpostInstanceTypesResponse"
+    "fixture/GetOutpostInstanceTypesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetOutpostInstanceTypes)
+
+responseGetSite :: GetSiteResponse -> TestTree
+responseGetSite =
+  res
+    "GetSiteResponse"
+    "fixture/GetSiteResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetSite)
+
+responseGetSiteAddress :: GetSiteAddressResponse -> TestTree
+responseGetSiteAddress =
+  res
+    "GetSiteAddressResponse"
+    "fixture/GetSiteAddressResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetSiteAddress)
+
+responseListAssets :: ListAssetsResponse -> TestTree
+responseListAssets =
+  res
+    "ListAssetsResponse"
+    "fixture/ListAssetsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListAssets)
+
+responseListCatalogItems :: ListCatalogItemsResponse -> TestTree
+responseListCatalogItems =
+  res
+    "ListCatalogItemsResponse"
+    "fixture/ListCatalogItemsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListCatalogItems)
+
+responseListOrders :: ListOrdersResponse -> TestTree
+responseListOrders =
+  res
+    "ListOrdersResponse"
+    "fixture/ListOrdersResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListOrders)
 
 responseListOutposts :: ListOutpostsResponse -> TestTree
 responseListOutposts =
@@ -209,37 +493,21 @@ responseListSites =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy ListSites)
 
-responseCreateOrder :: CreateOrderResponse -> TestTree
-responseCreateOrder =
+responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
+responseListTagsForResource =
   res
-    "CreateOrderResponse"
-    "fixture/CreateOrderResponse.proto"
+    "ListTagsForResourceResponse"
+    "fixture/ListTagsForResourceResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateOrder)
+    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
 
-responseGetOutpostInstanceTypes :: GetOutpostInstanceTypesResponse -> TestTree
-responseGetOutpostInstanceTypes =
+responseStartConnection :: StartConnectionResponse -> TestTree
+responseStartConnection =
   res
-    "GetOutpostInstanceTypesResponse"
-    "fixture/GetOutpostInstanceTypesResponse.proto"
+    "StartConnectionResponse"
+    "fixture/StartConnectionResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetOutpostInstanceTypes)
-
-responseCreateOutpost :: CreateOutpostResponse -> TestTree
-responseCreateOutpost =
-  res
-    "CreateOutpostResponse"
-    "fixture/CreateOutpostResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateOutpost)
-
-responseGetOutpost :: GetOutpostResponse -> TestTree
-responseGetOutpost =
-  res
-    "GetOutpostResponse"
-    "fixture/GetOutpostResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetOutpost)
+    (Proxy.Proxy :: Proxy.Proxy StartConnection)
 
 responseTagResource :: TagResourceResponse -> TestTree
 responseTagResource =
@@ -256,3 +524,35 @@ responseUntagResource =
     "fixture/UntagResourceResponse.proto"
     defaultService
     (Proxy.Proxy :: Proxy.Proxy UntagResource)
+
+responseUpdateOutpost :: UpdateOutpostResponse -> TestTree
+responseUpdateOutpost =
+  res
+    "UpdateOutpostResponse"
+    "fixture/UpdateOutpostResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateOutpost)
+
+responseUpdateSite :: UpdateSiteResponse -> TestTree
+responseUpdateSite =
+  res
+    "UpdateSiteResponse"
+    "fixture/UpdateSiteResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateSite)
+
+responseUpdateSiteAddress :: UpdateSiteAddressResponse -> TestTree
+responseUpdateSiteAddress =
+  res
+    "UpdateSiteAddressResponse"
+    "fixture/UpdateSiteAddressResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateSiteAddress)
+
+responseUpdateSiteRackPhysicalProperties :: UpdateSiteRackPhysicalPropertiesResponse -> TestTree
+responseUpdateSiteRackPhysicalProperties =
+  res
+    "UpdateSiteRackPhysicalPropertiesResponse"
+    "fixture/UpdateSiteRackPhysicalPropertiesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateSiteRackPhysicalProperties)

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.ModifyDBClusterSnapshotAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,10 +43,8 @@
 -- To view which Amazon Web Services accounts have access to copy or
 -- restore a manual DB cluster snapshot, or whether a manual DB cluster
 -- snapshot is public or private, use the
--- DescribeDBClusterSnapshotAttributes API action. The accounts are
+-- DescribeDBClusterSnapshotAttributes API operation. The accounts are
 -- returned as values for the @restore@ attribute.
---
--- This action only applies to Aurora DB clusters.
 module Amazonka.RDS.ModifyDBClusterSnapshotAttribute
   ( -- * Creating a Request
     ModifyDBClusterSnapshotAttribute (..),
@@ -69,7 +67,8 @@ module Amazonka.RDS.ModifyDBClusterSnapshotAttribute
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -109,7 +108,7 @@ data ModifyDBClusterSnapshotAttribute = ModifyDBClusterSnapshotAttribute'
     -- or restore a manual DB cluster snapshot, set this value to @restore@.
     --
     -- To view the list of attributes available to modify, use the
-    -- DescribeDBClusterSnapshotAttributes API action.
+    -- DescribeDBClusterSnapshotAttributes API operation.
     attributeName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -152,7 +151,7 @@ data ModifyDBClusterSnapshotAttribute = ModifyDBClusterSnapshotAttribute'
 -- or restore a manual DB cluster snapshot, set this value to @restore@.
 --
 -- To view the list of attributes available to modify, use the
--- DescribeDBClusterSnapshotAttributes API action.
+-- DescribeDBClusterSnapshotAttributes API operation.
 newModifyDBClusterSnapshotAttribute ::
   -- | 'dbClusterSnapshotIdentifier'
   Prelude.Text ->
@@ -207,7 +206,7 @@ modifyDBClusterSnapshotAttribute_dbClusterSnapshotIdentifier = Lens.lens (\Modif
 -- or restore a manual DB cluster snapshot, set this value to @restore@.
 --
 -- To view the list of attributes available to modify, use the
--- DescribeDBClusterSnapshotAttributes API action.
+-- DescribeDBClusterSnapshotAttributes API operation.
 modifyDBClusterSnapshotAttribute_attributeName :: Lens.Lens' ModifyDBClusterSnapshotAttribute Prelude.Text
 modifyDBClusterSnapshotAttribute_attributeName = Lens.lens (\ModifyDBClusterSnapshotAttribute' {attributeName} -> attributeName) (\s@ModifyDBClusterSnapshotAttribute' {} a -> s {attributeName = a} :: ModifyDBClusterSnapshotAttribute)
 
@@ -218,13 +217,14 @@ instance
   type
     AWSResponse ModifyDBClusterSnapshotAttribute =
       ModifyDBClusterSnapshotAttributeResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ModifyDBClusterSnapshotAttributeResult"
       ( \s h x ->
           ModifyDBClusterSnapshotAttributeResponse'
-            Prelude.<$> (x Core..@? "DBClusterSnapshotAttributesResult")
+            Prelude.<$> (x Data..@? "DBClusterSnapshotAttributesResult")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -251,39 +251,39 @@ instance
       `Prelude.seq` Prelude.rnf attributeName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ModifyDBClusterSnapshotAttribute
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyDBClusterSnapshotAttribute where
+instance Data.ToPath ModifyDBClusterSnapshotAttribute where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ModifyDBClusterSnapshotAttribute
   where
   toQuery ModifyDBClusterSnapshotAttribute' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "ModifyDBClusterSnapshotAttribute" ::
+          Data.=: ( "ModifyDBClusterSnapshotAttribute" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "ValuesToAdd"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "AttributeValue"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "AttributeValue"
                 Prelude.<$> valuesToAdd
             ),
         "ValuesToRemove"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "AttributeValue"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "AttributeValue"
                 Prelude.<$> valuesToRemove
             ),
         "DBClusterSnapshotIdentifier"
-          Core.=: dbClusterSnapshotIdentifier,
-        "AttributeName" Core.=: attributeName
+          Data.=: dbClusterSnapshotIdentifier,
+        "AttributeName" Data.=: attributeName
       ]
 
 -- | /See:/ 'newModifyDBClusterSnapshotAttributeResponse' smart constructor.

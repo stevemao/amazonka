@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataSync.Types.PrivateLinkConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DataSync.Types.PrivateLinkConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The VPC endpoint, subnet, and security group that an agent uses to
@@ -28,7 +29,13 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newPrivateLinkConfig' smart constructor.
 data PrivateLinkConfig = PrivateLinkConfig'
-  { -- | The Amazon Resource Names (ARNs) of the security groups that are
+  { -- | The private endpoint that is configured for an agent that has access to
+    -- IP addresses in a
+    -- <https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.html PrivateLink>.
+    -- An agent that is configured with this endpoint will not be accessible
+    -- over the public internet.
+    privateLinkEndpoint :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Names (ARNs) of the security groups that are
     -- configured for the EC2 resource that hosts an agent activated in a VPC
     -- or an agent that has access to a VPC endpoint.
     securityGroupArns :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
@@ -36,12 +43,6 @@ data PrivateLinkConfig = PrivateLinkConfig'
     -- an agent activated in a VPC or an agent that has access to a VPC
     -- endpoint.
     subnetArns :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
-    -- | The private endpoint that is configured for an agent that has access to
-    -- IP addresses in a
-    -- <https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.html PrivateLink>.
-    -- An agent that is configured with this endpoint will not be accessible
-    -- over the public internet.
-    privateLinkEndpoint :: Prelude.Maybe Prelude.Text,
     -- | The ID of the VPC endpoint that is configured for an agent. An agent
     -- that is configured with a VPC endpoint will not be accessible over the
     -- public internet.
@@ -57,6 +58,12 @@ data PrivateLinkConfig = PrivateLinkConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'privateLinkEndpoint', 'privateLinkConfig_privateLinkEndpoint' - The private endpoint that is configured for an agent that has access to
+-- IP addresses in a
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.html PrivateLink>.
+-- An agent that is configured with this endpoint will not be accessible
+-- over the public internet.
+--
 -- 'securityGroupArns', 'privateLinkConfig_securityGroupArns' - The Amazon Resource Names (ARNs) of the security groups that are
 -- configured for the EC2 resource that hosts an agent activated in a VPC
 -- or an agent that has access to a VPC endpoint.
@@ -65,12 +72,6 @@ data PrivateLinkConfig = PrivateLinkConfig'
 -- an agent activated in a VPC or an agent that has access to a VPC
 -- endpoint.
 --
--- 'privateLinkEndpoint', 'privateLinkConfig_privateLinkEndpoint' - The private endpoint that is configured for an agent that has access to
--- IP addresses in a
--- <https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.html PrivateLink>.
--- An agent that is configured with this endpoint will not be accessible
--- over the public internet.
---
 -- 'vpcEndpointId', 'privateLinkConfig_vpcEndpointId' - The ID of the VPC endpoint that is configured for an agent. An agent
 -- that is configured with a VPC endpoint will not be accessible over the
 -- public internet.
@@ -78,12 +79,20 @@ newPrivateLinkConfig ::
   PrivateLinkConfig
 newPrivateLinkConfig =
   PrivateLinkConfig'
-    { securityGroupArns =
+    { privateLinkEndpoint =
         Prelude.Nothing,
+      securityGroupArns = Prelude.Nothing,
       subnetArns = Prelude.Nothing,
-      privateLinkEndpoint = Prelude.Nothing,
       vpcEndpointId = Prelude.Nothing
     }
+
+-- | The private endpoint that is configured for an agent that has access to
+-- IP addresses in a
+-- <https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.html PrivateLink>.
+-- An agent that is configured with this endpoint will not be accessible
+-- over the public internet.
+privateLinkConfig_privateLinkEndpoint :: Lens.Lens' PrivateLinkConfig (Prelude.Maybe Prelude.Text)
+privateLinkConfig_privateLinkEndpoint = Lens.lens (\PrivateLinkConfig' {privateLinkEndpoint} -> privateLinkEndpoint) (\s@PrivateLinkConfig' {} a -> s {privateLinkEndpoint = a} :: PrivateLinkConfig)
 
 -- | The Amazon Resource Names (ARNs) of the security groups that are
 -- configured for the EC2 resource that hosts an agent activated in a VPC
@@ -97,42 +106,34 @@ privateLinkConfig_securityGroupArns = Lens.lens (\PrivateLinkConfig' {securityGr
 privateLinkConfig_subnetArns :: Lens.Lens' PrivateLinkConfig (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
 privateLinkConfig_subnetArns = Lens.lens (\PrivateLinkConfig' {subnetArns} -> subnetArns) (\s@PrivateLinkConfig' {} a -> s {subnetArns = a} :: PrivateLinkConfig) Prelude.. Lens.mapping Lens.coerced
 
--- | The private endpoint that is configured for an agent that has access to
--- IP addresses in a
--- <https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.html PrivateLink>.
--- An agent that is configured with this endpoint will not be accessible
--- over the public internet.
-privateLinkConfig_privateLinkEndpoint :: Lens.Lens' PrivateLinkConfig (Prelude.Maybe Prelude.Text)
-privateLinkConfig_privateLinkEndpoint = Lens.lens (\PrivateLinkConfig' {privateLinkEndpoint} -> privateLinkEndpoint) (\s@PrivateLinkConfig' {} a -> s {privateLinkEndpoint = a} :: PrivateLinkConfig)
-
 -- | The ID of the VPC endpoint that is configured for an agent. An agent
 -- that is configured with a VPC endpoint will not be accessible over the
 -- public internet.
 privateLinkConfig_vpcEndpointId :: Lens.Lens' PrivateLinkConfig (Prelude.Maybe Prelude.Text)
 privateLinkConfig_vpcEndpointId = Lens.lens (\PrivateLinkConfig' {vpcEndpointId} -> vpcEndpointId) (\s@PrivateLinkConfig' {} a -> s {vpcEndpointId = a} :: PrivateLinkConfig)
 
-instance Core.FromJSON PrivateLinkConfig where
+instance Data.FromJSON PrivateLinkConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PrivateLinkConfig"
       ( \x ->
           PrivateLinkConfig'
-            Prelude.<$> (x Core..:? "SecurityGroupArns")
-            Prelude.<*> (x Core..:? "SubnetArns")
-            Prelude.<*> (x Core..:? "PrivateLinkEndpoint")
-            Prelude.<*> (x Core..:? "VpcEndpointId")
+            Prelude.<$> (x Data..:? "PrivateLinkEndpoint")
+            Prelude.<*> (x Data..:? "SecurityGroupArns")
+            Prelude.<*> (x Data..:? "SubnetArns")
+            Prelude.<*> (x Data..:? "VpcEndpointId")
       )
 
 instance Prelude.Hashable PrivateLinkConfig where
   hashWithSalt _salt PrivateLinkConfig' {..} =
-    _salt `Prelude.hashWithSalt` securityGroupArns
+    _salt `Prelude.hashWithSalt` privateLinkEndpoint
+      `Prelude.hashWithSalt` securityGroupArns
       `Prelude.hashWithSalt` subnetArns
-      `Prelude.hashWithSalt` privateLinkEndpoint
       `Prelude.hashWithSalt` vpcEndpointId
 
 instance Prelude.NFData PrivateLinkConfig where
   rnf PrivateLinkConfig' {..} =
-    Prelude.rnf securityGroupArns
+    Prelude.rnf privateLinkEndpoint
+      `Prelude.seq` Prelude.rnf securityGroupArns
       `Prelude.seq` Prelude.rnf subnetArns
-      `Prelude.seq` Prelude.rnf privateLinkEndpoint
       `Prelude.seq` Prelude.rnf vpcEndpointId

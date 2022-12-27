@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.LaunchTemplateElasticInferenceAcceleratorResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.LaunchTemplateElasticInferenceAcceleratorResponse where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an elastic inference accelerator.
@@ -73,12 +74,12 @@ launchTemplateElasticInferenceAcceleratorResponse_type :: Lens.Lens' LaunchTempl
 launchTemplateElasticInferenceAcceleratorResponse_type = Lens.lens (\LaunchTemplateElasticInferenceAcceleratorResponse' {type'} -> type') (\s@LaunchTemplateElasticInferenceAcceleratorResponse' {} a -> s {type' = a} :: LaunchTemplateElasticInferenceAcceleratorResponse)
 
 instance
-  Core.FromXML
+  Data.FromXML
     LaunchTemplateElasticInferenceAcceleratorResponse
   where
   parseXML x =
     LaunchTemplateElasticInferenceAcceleratorResponse'
-      Prelude.<$> (x Core..@? "count") Prelude.<*> (x Core..@? "type")
+      Prelude.<$> (x Data..@? "count") Prelude.<*> (x Data..@? "type")
 
 instance
   Prelude.Hashable

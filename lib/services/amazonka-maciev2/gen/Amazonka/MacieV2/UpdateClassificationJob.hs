@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.UpdateClassificationJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.MacieV2.UpdateClassificationJob
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -177,7 +178,8 @@ instance Core.AWSRequest UpdateClassificationJob where
   type
     AWSResponse UpdateClassificationJob =
       UpdateClassificationJobResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -195,29 +197,29 @@ instance Prelude.NFData UpdateClassificationJob where
     Prelude.rnf jobId
       `Prelude.seq` Prelude.rnf jobStatus
 
-instance Core.ToHeaders UpdateClassificationJob where
+instance Data.ToHeaders UpdateClassificationJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateClassificationJob where
+instance Data.ToJSON UpdateClassificationJob where
   toJSON UpdateClassificationJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("jobStatus" Core..= jobStatus)]
+          [Prelude.Just ("jobStatus" Data..= jobStatus)]
       )
 
-instance Core.ToPath UpdateClassificationJob where
+instance Data.ToPath UpdateClassificationJob where
   toPath UpdateClassificationJob' {..} =
-    Prelude.mconcat ["/jobs/", Core.toBS jobId]
+    Prelude.mconcat ["/jobs/", Data.toBS jobId]
 
-instance Core.ToQuery UpdateClassificationJob where
+instance Data.ToQuery UpdateClassificationJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateClassificationJobResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.SearchFacesByImage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -71,9 +71,9 @@ module Amazonka.Rekognition.SearchFacesByImage
     newSearchFacesByImage,
 
     -- * Request Lenses
-    searchFacesByImage_qualityFilter,
     searchFacesByImage_faceMatchThreshold,
     searchFacesByImage_maxFaces,
+    searchFacesByImage_qualityFilter,
     searchFacesByImage_collectionId,
     searchFacesByImage_image,
 
@@ -91,7 +91,8 @@ module Amazonka.Rekognition.SearchFacesByImage
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types
 import qualified Amazonka.Request as Request
@@ -99,7 +100,14 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newSearchFacesByImage' smart constructor.
 data SearchFacesByImage = SearchFacesByImage'
-  { -- | A filter that specifies a quality bar for how much filtering is done to
+  { -- | (Optional) Specifies the minimum confidence in the face match to return.
+    -- For example, don\'t return any matches where confidence in matches is
+    -- less than 70%. The default value is 80%.
+    faceMatchThreshold :: Prelude.Maybe Prelude.Double,
+    -- | Maximum number of faces to return. The operation returns the maximum
+    -- number of faces with the highest confidence in the match.
+    maxFaces :: Prelude.Maybe Prelude.Natural,
+    -- | A filter that specifies a quality bar for how much filtering is done to
     -- identify faces. Filtered faces aren\'t searched for in the collection.
     -- If you specify @AUTO@, Amazon Rekognition chooses the quality bar. If
     -- you specify @LOW@, @MEDIUM@, or @HIGH@, filtering removes all faces that
@@ -113,13 +121,6 @@ data SearchFacesByImage = SearchFacesByImage'
     -- To use quality filtering, the collection you are using must be
     -- associated with version 3 of the face model or higher.
     qualityFilter :: Prelude.Maybe QualityFilter,
-    -- | (Optional) Specifies the minimum confidence in the face match to return.
-    -- For example, don\'t return any matches where confidence in matches is
-    -- less than 70%. The default value is 80%.
-    faceMatchThreshold :: Prelude.Maybe Prelude.Double,
-    -- | Maximum number of faces to return. The operation returns the maximum
-    -- number of faces with the highest confidence in the match.
-    maxFaces :: Prelude.Maybe Prelude.Natural,
     -- | ID of the collection to search.
     collectionId :: Prelude.Text,
     -- | The input image as base64-encoded bytes or an S3 object. If you use the
@@ -141,6 +142,13 @@ data SearchFacesByImage = SearchFacesByImage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'faceMatchThreshold', 'searchFacesByImage_faceMatchThreshold' - (Optional) Specifies the minimum confidence in the face match to return.
+-- For example, don\'t return any matches where confidence in matches is
+-- less than 70%. The default value is 80%.
+--
+-- 'maxFaces', 'searchFacesByImage_maxFaces' - Maximum number of faces to return. The operation returns the maximum
+-- number of faces with the highest confidence in the match.
+--
 -- 'qualityFilter', 'searchFacesByImage_qualityFilter' - A filter that specifies a quality bar for how much filtering is done to
 -- identify faces. Filtered faces aren\'t searched for in the collection.
 -- If you specify @AUTO@, Amazon Rekognition chooses the quality bar. If
@@ -154,13 +162,6 @@ data SearchFacesByImage = SearchFacesByImage'
 --
 -- To use quality filtering, the collection you are using must be
 -- associated with version 3 of the face model or higher.
---
--- 'faceMatchThreshold', 'searchFacesByImage_faceMatchThreshold' - (Optional) Specifies the minimum confidence in the face match to return.
--- For example, don\'t return any matches where confidence in matches is
--- less than 70%. The default value is 80%.
---
--- 'maxFaces', 'searchFacesByImage_maxFaces' - Maximum number of faces to return. The operation returns the maximum
--- number of faces with the highest confidence in the match.
 --
 -- 'collectionId', 'searchFacesByImage_collectionId' - ID of the collection to search.
 --
@@ -179,13 +180,24 @@ newSearchFacesByImage ::
   SearchFacesByImage
 newSearchFacesByImage pCollectionId_ pImage_ =
   SearchFacesByImage'
-    { qualityFilter =
+    { faceMatchThreshold =
         Prelude.Nothing,
-      faceMatchThreshold = Prelude.Nothing,
       maxFaces = Prelude.Nothing,
+      qualityFilter = Prelude.Nothing,
       collectionId = pCollectionId_,
       image = pImage_
     }
+
+-- | (Optional) Specifies the minimum confidence in the face match to return.
+-- For example, don\'t return any matches where confidence in matches is
+-- less than 70%. The default value is 80%.
+searchFacesByImage_faceMatchThreshold :: Lens.Lens' SearchFacesByImage (Prelude.Maybe Prelude.Double)
+searchFacesByImage_faceMatchThreshold = Lens.lens (\SearchFacesByImage' {faceMatchThreshold} -> faceMatchThreshold) (\s@SearchFacesByImage' {} a -> s {faceMatchThreshold = a} :: SearchFacesByImage)
+
+-- | Maximum number of faces to return. The operation returns the maximum
+-- number of faces with the highest confidence in the match.
+searchFacesByImage_maxFaces :: Lens.Lens' SearchFacesByImage (Prelude.Maybe Prelude.Natural)
+searchFacesByImage_maxFaces = Lens.lens (\SearchFacesByImage' {maxFaces} -> maxFaces) (\s@SearchFacesByImage' {} a -> s {maxFaces = a} :: SearchFacesByImage)
 
 -- | A filter that specifies a quality bar for how much filtering is done to
 -- identify faces. Filtered faces aren\'t searched for in the collection.
@@ -202,17 +214,6 @@ newSearchFacesByImage pCollectionId_ pImage_ =
 -- associated with version 3 of the face model or higher.
 searchFacesByImage_qualityFilter :: Lens.Lens' SearchFacesByImage (Prelude.Maybe QualityFilter)
 searchFacesByImage_qualityFilter = Lens.lens (\SearchFacesByImage' {qualityFilter} -> qualityFilter) (\s@SearchFacesByImage' {} a -> s {qualityFilter = a} :: SearchFacesByImage)
-
--- | (Optional) Specifies the minimum confidence in the face match to return.
--- For example, don\'t return any matches where confidence in matches is
--- less than 70%. The default value is 80%.
-searchFacesByImage_faceMatchThreshold :: Lens.Lens' SearchFacesByImage (Prelude.Maybe Prelude.Double)
-searchFacesByImage_faceMatchThreshold = Lens.lens (\SearchFacesByImage' {faceMatchThreshold} -> faceMatchThreshold) (\s@SearchFacesByImage' {} a -> s {faceMatchThreshold = a} :: SearchFacesByImage)
-
--- | Maximum number of faces to return. The operation returns the maximum
--- number of faces with the highest confidence in the match.
-searchFacesByImage_maxFaces :: Lens.Lens' SearchFacesByImage (Prelude.Maybe Prelude.Natural)
-searchFacesByImage_maxFaces = Lens.lens (\SearchFacesByImage' {maxFaces} -> maxFaces) (\s@SearchFacesByImage' {} a -> s {maxFaces = a} :: SearchFacesByImage)
 
 -- | ID of the collection to search.
 searchFacesByImage_collectionId :: Lens.Lens' SearchFacesByImage Prelude.Text
@@ -232,66 +233,67 @@ instance Core.AWSRequest SearchFacesByImage where
   type
     AWSResponse SearchFacesByImage =
       SearchFacesByImageResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SearchFacesByImageResponse'
-            Prelude.<$> (x Core..?> "FaceMatches" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "FaceModelVersion")
-            Prelude.<*> (x Core..?> "SearchedFaceBoundingBox")
-            Prelude.<*> (x Core..?> "SearchedFaceConfidence")
+            Prelude.<$> (x Data..?> "FaceMatches" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "FaceModelVersion")
+            Prelude.<*> (x Data..?> "SearchedFaceBoundingBox")
+            Prelude.<*> (x Data..?> "SearchedFaceConfidence")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable SearchFacesByImage where
   hashWithSalt _salt SearchFacesByImage' {..} =
-    _salt `Prelude.hashWithSalt` qualityFilter
-      `Prelude.hashWithSalt` faceMatchThreshold
+    _salt `Prelude.hashWithSalt` faceMatchThreshold
       `Prelude.hashWithSalt` maxFaces
+      `Prelude.hashWithSalt` qualityFilter
       `Prelude.hashWithSalt` collectionId
       `Prelude.hashWithSalt` image
 
 instance Prelude.NFData SearchFacesByImage where
   rnf SearchFacesByImage' {..} =
-    Prelude.rnf qualityFilter
-      `Prelude.seq` Prelude.rnf faceMatchThreshold
+    Prelude.rnf faceMatchThreshold
       `Prelude.seq` Prelude.rnf maxFaces
+      `Prelude.seq` Prelude.rnf qualityFilter
       `Prelude.seq` Prelude.rnf collectionId
       `Prelude.seq` Prelude.rnf image
 
-instance Core.ToHeaders SearchFacesByImage where
+instance Data.ToHeaders SearchFacesByImage where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "RekognitionService.SearchFacesByImage" ::
+              Data.=# ( "RekognitionService.SearchFacesByImage" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SearchFacesByImage where
+instance Data.ToJSON SearchFacesByImage where
   toJSON SearchFacesByImage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("QualityFilter" Core..=) Prelude.<$> qualityFilter,
-            ("FaceMatchThreshold" Core..=)
+          [ ("FaceMatchThreshold" Data..=)
               Prelude.<$> faceMatchThreshold,
-            ("MaxFaces" Core..=) Prelude.<$> maxFaces,
-            Prelude.Just ("CollectionId" Core..= collectionId),
-            Prelude.Just ("Image" Core..= image)
+            ("MaxFaces" Data..=) Prelude.<$> maxFaces,
+            ("QualityFilter" Data..=) Prelude.<$> qualityFilter,
+            Prelude.Just ("CollectionId" Data..= collectionId),
+            Prelude.Just ("Image" Data..= image)
           ]
       )
 
-instance Core.ToPath SearchFacesByImage where
+instance Data.ToPath SearchFacesByImage where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SearchFacesByImage where
+instance Data.ToQuery SearchFacesByImage where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSearchFacesByImageResponse' smart constructor.

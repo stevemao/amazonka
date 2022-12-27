@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AMP.CreateWorkspace
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.AMP.CreateWorkspace
     newCreateWorkspace,
 
     -- * Request Lenses
-    createWorkspace_clientToken,
     createWorkspace_alias,
+    createWorkspace_clientToken,
     createWorkspace_tags,
 
     -- * Destructuring the Response
@@ -46,7 +46,8 @@ where
 
 import Amazonka.AMP.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,12 +56,12 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCreateWorkspace' smart constructor.
 data CreateWorkspace = CreateWorkspace'
-  { -- | Optional, unique, case-sensitive, user-provided identifier to ensure the
-    -- idempotency of the request.
-    clientToken :: Prelude.Maybe Prelude.Text,
-    -- | An optional user-assigned alias for this workspace. This alias is for
+  { -- | An optional user-assigned alias for this workspace. This alias is for
     -- user reference and does not need to be unique.
     alias :: Prelude.Maybe Prelude.Text,
+    -- | Optional, unique, case-sensitive, user-provided identifier to ensure the
+    -- idempotency of the request.
+    clientToken :: Prelude.Maybe Prelude.Text,
     -- | Optional, user-provided tags for this workspace.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text)
   }
@@ -74,31 +75,31 @@ data CreateWorkspace = CreateWorkspace'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'clientToken', 'createWorkspace_clientToken' - Optional, unique, case-sensitive, user-provided identifier to ensure the
--- idempotency of the request.
---
 -- 'alias', 'createWorkspace_alias' - An optional user-assigned alias for this workspace. This alias is for
 -- user reference and does not need to be unique.
+--
+-- 'clientToken', 'createWorkspace_clientToken' - Optional, unique, case-sensitive, user-provided identifier to ensure the
+-- idempotency of the request.
 --
 -- 'tags', 'createWorkspace_tags' - Optional, user-provided tags for this workspace.
 newCreateWorkspace ::
   CreateWorkspace
 newCreateWorkspace =
   CreateWorkspace'
-    { clientToken = Prelude.Nothing,
-      alias = Prelude.Nothing,
+    { alias = Prelude.Nothing,
+      clientToken = Prelude.Nothing,
       tags = Prelude.Nothing
     }
-
--- | Optional, unique, case-sensitive, user-provided identifier to ensure the
--- idempotency of the request.
-createWorkspace_clientToken :: Lens.Lens' CreateWorkspace (Prelude.Maybe Prelude.Text)
-createWorkspace_clientToken = Lens.lens (\CreateWorkspace' {clientToken} -> clientToken) (\s@CreateWorkspace' {} a -> s {clientToken = a} :: CreateWorkspace)
 
 -- | An optional user-assigned alias for this workspace. This alias is for
 -- user reference and does not need to be unique.
 createWorkspace_alias :: Lens.Lens' CreateWorkspace (Prelude.Maybe Prelude.Text)
 createWorkspace_alias = Lens.lens (\CreateWorkspace' {alias} -> alias) (\s@CreateWorkspace' {} a -> s {alias = a} :: CreateWorkspace)
+
+-- | Optional, unique, case-sensitive, user-provided identifier to ensure the
+-- idempotency of the request.
+createWorkspace_clientToken :: Lens.Lens' CreateWorkspace (Prelude.Maybe Prelude.Text)
+createWorkspace_clientToken = Lens.lens (\CreateWorkspace' {clientToken} -> clientToken) (\s@CreateWorkspace' {} a -> s {clientToken = a} :: CreateWorkspace)
 
 -- | Optional, user-provided tags for this workspace.
 createWorkspace_tags :: Lens.Lens' CreateWorkspace (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -108,55 +109,56 @@ instance Core.AWSRequest CreateWorkspace where
   type
     AWSResponse CreateWorkspace =
       CreateWorkspaceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateWorkspaceResponse'
-            Prelude.<$> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "arn")
-            Prelude.<*> (x Core..:> "status")
-            Prelude.<*> (x Core..:> "workspaceId")
+            Prelude.<*> (x Data..:> "arn")
+            Prelude.<*> (x Data..:> "status")
+            Prelude.<*> (x Data..:> "workspaceId")
       )
 
 instance Prelude.Hashable CreateWorkspace where
   hashWithSalt _salt CreateWorkspace' {..} =
-    _salt `Prelude.hashWithSalt` clientToken
-      `Prelude.hashWithSalt` alias
+    _salt `Prelude.hashWithSalt` alias
+      `Prelude.hashWithSalt` clientToken
       `Prelude.hashWithSalt` tags
 
 instance Prelude.NFData CreateWorkspace where
   rnf CreateWorkspace' {..} =
-    Prelude.rnf clientToken
-      `Prelude.seq` Prelude.rnf alias
+    Prelude.rnf alias
+      `Prelude.seq` Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders CreateWorkspace where
+instance Data.ToHeaders CreateWorkspace where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateWorkspace where
+instance Data.ToJSON CreateWorkspace where
   toJSON CreateWorkspace' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("alias" Core..=) Prelude.<$> alias,
-            ("tags" Core..=) Prelude.<$> tags
+          [ ("alias" Data..=) Prelude.<$> alias,
+            ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("tags" Data..=) Prelude.<$> tags
           ]
       )
 
-instance Core.ToPath CreateWorkspace where
+instance Data.ToPath CreateWorkspace where
   toPath = Prelude.const "/workspaces"
 
-instance Core.ToQuery CreateWorkspace where
+instance Data.ToQuery CreateWorkspace where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a CreateWorkspace operation.

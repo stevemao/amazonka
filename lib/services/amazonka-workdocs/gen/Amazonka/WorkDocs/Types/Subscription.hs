@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WorkDocs.Types.Subscription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WorkDocs.Types.Subscription where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.WorkDocs.Types.SubscriptionProtocolType
 
@@ -28,10 +29,10 @@ import Amazonka.WorkDocs.Types.SubscriptionProtocolType
 --
 -- /See:/ 'newSubscription' smart constructor.
 data Subscription = Subscription'
-  { -- | The protocol of the subscription.
-    protocol :: Prelude.Maybe SubscriptionProtocolType,
-    -- | The endpoint of the subscription.
+  { -- | The endpoint of the subscription.
     endPoint :: Prelude.Maybe Prelude.Text,
+    -- | The protocol of the subscription.
+    protocol :: Prelude.Maybe SubscriptionProtocolType,
     -- | The ID of the subscription.
     subscriptionId :: Prelude.Maybe Prelude.Text
   }
@@ -45,51 +46,51 @@ data Subscription = Subscription'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'protocol', 'subscription_protocol' - The protocol of the subscription.
---
 -- 'endPoint', 'subscription_endPoint' - The endpoint of the subscription.
+--
+-- 'protocol', 'subscription_protocol' - The protocol of the subscription.
 --
 -- 'subscriptionId', 'subscription_subscriptionId' - The ID of the subscription.
 newSubscription ::
   Subscription
 newSubscription =
   Subscription'
-    { protocol = Prelude.Nothing,
-      endPoint = Prelude.Nothing,
+    { endPoint = Prelude.Nothing,
+      protocol = Prelude.Nothing,
       subscriptionId = Prelude.Nothing
     }
-
--- | The protocol of the subscription.
-subscription_protocol :: Lens.Lens' Subscription (Prelude.Maybe SubscriptionProtocolType)
-subscription_protocol = Lens.lens (\Subscription' {protocol} -> protocol) (\s@Subscription' {} a -> s {protocol = a} :: Subscription)
 
 -- | The endpoint of the subscription.
 subscription_endPoint :: Lens.Lens' Subscription (Prelude.Maybe Prelude.Text)
 subscription_endPoint = Lens.lens (\Subscription' {endPoint} -> endPoint) (\s@Subscription' {} a -> s {endPoint = a} :: Subscription)
 
+-- | The protocol of the subscription.
+subscription_protocol :: Lens.Lens' Subscription (Prelude.Maybe SubscriptionProtocolType)
+subscription_protocol = Lens.lens (\Subscription' {protocol} -> protocol) (\s@Subscription' {} a -> s {protocol = a} :: Subscription)
+
 -- | The ID of the subscription.
 subscription_subscriptionId :: Lens.Lens' Subscription (Prelude.Maybe Prelude.Text)
 subscription_subscriptionId = Lens.lens (\Subscription' {subscriptionId} -> subscriptionId) (\s@Subscription' {} a -> s {subscriptionId = a} :: Subscription)
 
-instance Core.FromJSON Subscription where
+instance Data.FromJSON Subscription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Subscription"
       ( \x ->
           Subscription'
-            Prelude.<$> (x Core..:? "Protocol")
-            Prelude.<*> (x Core..:? "EndPoint")
-            Prelude.<*> (x Core..:? "SubscriptionId")
+            Prelude.<$> (x Data..:? "EndPoint")
+            Prelude.<*> (x Data..:? "Protocol")
+            Prelude.<*> (x Data..:? "SubscriptionId")
       )
 
 instance Prelude.Hashable Subscription where
   hashWithSalt _salt Subscription' {..} =
-    _salt `Prelude.hashWithSalt` protocol
-      `Prelude.hashWithSalt` endPoint
+    _salt `Prelude.hashWithSalt` endPoint
+      `Prelude.hashWithSalt` protocol
       `Prelude.hashWithSalt` subscriptionId
 
 instance Prelude.NFData Subscription where
   rnf Subscription' {..} =
-    Prelude.rnf protocol
-      `Prelude.seq` Prelude.rnf endPoint
+    Prelude.rnf endPoint
+      `Prelude.seq` Prelude.rnf protocol
       `Prelude.seq` Prelude.rnf subscriptionId

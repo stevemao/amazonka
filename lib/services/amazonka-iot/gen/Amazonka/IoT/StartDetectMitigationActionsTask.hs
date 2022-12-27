@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.StartDetectMitigationActionsTask
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,9 +31,9 @@ module Amazonka.IoT.StartDetectMitigationActionsTask
     newStartDetectMitigationActionsTask,
 
     -- * Request Lenses
-    startDetectMitigationActionsTask_violationEventOccurrenceRange,
     startDetectMitigationActionsTask_includeOnlyActiveViolations,
     startDetectMitigationActionsTask_includeSuppressedAlerts,
+    startDetectMitigationActionsTask_violationEventOccurrenceRange,
     startDetectMitigationActionsTask_taskId,
     startDetectMitigationActionsTask_target,
     startDetectMitigationActionsTask_actions,
@@ -50,20 +50,21 @@ module Amazonka.IoT.StartDetectMitigationActionsTask
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newStartDetectMitigationActionsTask' smart constructor.
 data StartDetectMitigationActionsTask = StartDetectMitigationActionsTask'
-  { -- | Specifies the time period of which violation events occurred between.
-    violationEventOccurrenceRange :: Prelude.Maybe ViolationEventOccurrenceRange,
-    -- | Specifies to list only active violations.
+  { -- | Specifies to list only active violations.
     includeOnlyActiveViolations :: Prelude.Maybe Prelude.Bool,
     -- | Specifies to include suppressed alerts.
     includeSuppressedAlerts :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies the time period of which violation events occurred between.
+    violationEventOccurrenceRange :: Prelude.Maybe ViolationEventOccurrenceRange,
     -- | The unique identifier of the task.
     taskId :: Prelude.Text,
     -- | Specifies the ML Detect findings to which the mitigation actions are
@@ -87,11 +88,11 @@ data StartDetectMitigationActionsTask = StartDetectMitigationActionsTask'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'violationEventOccurrenceRange', 'startDetectMitigationActionsTask_violationEventOccurrenceRange' - Specifies the time period of which violation events occurred between.
---
 -- 'includeOnlyActiveViolations', 'startDetectMitigationActionsTask_includeOnlyActiveViolations' - Specifies to list only active violations.
 --
 -- 'includeSuppressedAlerts', 'startDetectMitigationActionsTask_includeSuppressedAlerts' - Specifies to include suppressed alerts.
+--
+-- 'violationEventOccurrenceRange', 'startDetectMitigationActionsTask_violationEventOccurrenceRange' - Specifies the time period of which violation events occurred between.
 --
 -- 'taskId', 'startDetectMitigationActionsTask_taskId' - The unique identifier of the task.
 --
@@ -120,20 +121,16 @@ newStartDetectMitigationActionsTask
   pActions_
   pClientRequestToken_ =
     StartDetectMitigationActionsTask'
-      { violationEventOccurrenceRange =
-          Prelude.Nothing,
-        includeOnlyActiveViolations =
+      { includeOnlyActiveViolations =
           Prelude.Nothing,
         includeSuppressedAlerts = Prelude.Nothing,
+        violationEventOccurrenceRange =
+          Prelude.Nothing,
         taskId = pTaskId_,
         target = pTarget_,
         actions = Lens.coerced Lens.# pActions_,
         clientRequestToken = pClientRequestToken_
       }
-
--- | Specifies the time period of which violation events occurred between.
-startDetectMitigationActionsTask_violationEventOccurrenceRange :: Lens.Lens' StartDetectMitigationActionsTask (Prelude.Maybe ViolationEventOccurrenceRange)
-startDetectMitigationActionsTask_violationEventOccurrenceRange = Lens.lens (\StartDetectMitigationActionsTask' {violationEventOccurrenceRange} -> violationEventOccurrenceRange) (\s@StartDetectMitigationActionsTask' {} a -> s {violationEventOccurrenceRange = a} :: StartDetectMitigationActionsTask)
 
 -- | Specifies to list only active violations.
 startDetectMitigationActionsTask_includeOnlyActiveViolations :: Lens.Lens' StartDetectMitigationActionsTask (Prelude.Maybe Prelude.Bool)
@@ -142,6 +139,10 @@ startDetectMitigationActionsTask_includeOnlyActiveViolations = Lens.lens (\Start
 -- | Specifies to include suppressed alerts.
 startDetectMitigationActionsTask_includeSuppressedAlerts :: Lens.Lens' StartDetectMitigationActionsTask (Prelude.Maybe Prelude.Bool)
 startDetectMitigationActionsTask_includeSuppressedAlerts = Lens.lens (\StartDetectMitigationActionsTask' {includeSuppressedAlerts} -> includeSuppressedAlerts) (\s@StartDetectMitigationActionsTask' {} a -> s {includeSuppressedAlerts = a} :: StartDetectMitigationActionsTask)
+
+-- | Specifies the time period of which violation events occurred between.
+startDetectMitigationActionsTask_violationEventOccurrenceRange :: Lens.Lens' StartDetectMitigationActionsTask (Prelude.Maybe ViolationEventOccurrenceRange)
+startDetectMitigationActionsTask_violationEventOccurrenceRange = Lens.lens (\StartDetectMitigationActionsTask' {violationEventOccurrenceRange} -> violationEventOccurrenceRange) (\s@StartDetectMitigationActionsTask' {} a -> s {violationEventOccurrenceRange = a} :: StartDetectMitigationActionsTask)
 
 -- | The unique identifier of the task.
 startDetectMitigationActionsTask_taskId :: Lens.Lens' StartDetectMitigationActionsTask Prelude.Text
@@ -170,12 +171,13 @@ instance
   type
     AWSResponse StartDetectMitigationActionsTask =
       StartDetectMitigationActionsTaskResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartDetectMitigationActionsTaskResponse'
-            Prelude.<$> (x Core..?> "taskId")
+            Prelude.<$> (x Data..?> "taskId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -187,9 +189,9 @@ instance
     _salt
     StartDetectMitigationActionsTask' {..} =
       _salt
-        `Prelude.hashWithSalt` violationEventOccurrenceRange
         `Prelude.hashWithSalt` includeOnlyActiveViolations
         `Prelude.hashWithSalt` includeSuppressedAlerts
+        `Prelude.hashWithSalt` violationEventOccurrenceRange
         `Prelude.hashWithSalt` taskId
         `Prelude.hashWithSalt` target
         `Prelude.hashWithSalt` actions
@@ -200,46 +202,46 @@ instance
     StartDetectMitigationActionsTask
   where
   rnf StartDetectMitigationActionsTask' {..} =
-    Prelude.rnf violationEventOccurrenceRange
-      `Prelude.seq` Prelude.rnf includeOnlyActiveViolations
+    Prelude.rnf includeOnlyActiveViolations
       `Prelude.seq` Prelude.rnf includeSuppressedAlerts
+      `Prelude.seq` Prelude.rnf violationEventOccurrenceRange
       `Prelude.seq` Prelude.rnf taskId
       `Prelude.seq` Prelude.rnf target
       `Prelude.seq` Prelude.rnf actions
       `Prelude.seq` Prelude.rnf clientRequestToken
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     StartDetectMitigationActionsTask
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON StartDetectMitigationActionsTask where
+instance Data.ToJSON StartDetectMitigationActionsTask where
   toJSON StartDetectMitigationActionsTask' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("violationEventOccurrenceRange" Core..=)
-              Prelude.<$> violationEventOccurrenceRange,
-            ("includeOnlyActiveViolations" Core..=)
+          [ ("includeOnlyActiveViolations" Data..=)
               Prelude.<$> includeOnlyActiveViolations,
-            ("includeSuppressedAlerts" Core..=)
+            ("includeSuppressedAlerts" Data..=)
               Prelude.<$> includeSuppressedAlerts,
-            Prelude.Just ("target" Core..= target),
-            Prelude.Just ("actions" Core..= actions),
+            ("violationEventOccurrenceRange" Data..=)
+              Prelude.<$> violationEventOccurrenceRange,
+            Prelude.Just ("target" Data..= target),
+            Prelude.Just ("actions" Data..= actions),
             Prelude.Just
-              ("clientRequestToken" Core..= clientRequestToken)
+              ("clientRequestToken" Data..= clientRequestToken)
           ]
       )
 
-instance Core.ToPath StartDetectMitigationActionsTask where
+instance Data.ToPath StartDetectMitigationActionsTask where
   toPath StartDetectMitigationActionsTask' {..} =
     Prelude.mconcat
       [ "/detect/mitigationactions/tasks/",
-        Core.toBS taskId
+        Data.toBS taskId
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     StartDetectMitigationActionsTask
   where
   toQuery = Prelude.const Prelude.mempty

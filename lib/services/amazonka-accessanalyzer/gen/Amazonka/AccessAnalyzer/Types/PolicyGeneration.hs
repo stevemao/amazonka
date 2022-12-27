@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AccessAnalyzer.Types.PolicyGeneration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AccessAnalyzer.Types.PolicyGeneration where
 
 import Amazonka.AccessAnalyzer.Types.JobStatus
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains details about the policy generation status and properties.
@@ -29,7 +30,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newPolicyGeneration' smart constructor.
 data PolicyGeneration = PolicyGeneration'
   { -- | A timestamp of when the policy generation was completed.
-    completedOn :: Prelude.Maybe Core.POSIX,
+    completedOn :: Prelude.Maybe Data.POSIX,
     -- | The @JobId@ that is returned by the @StartPolicyGeneration@ operation.
     -- The @JobId@ can be used with @GetGeneratedPolicy@ to retrieve the
     -- generated policies or used with @CancelPolicyGeneration@ to cancel the
@@ -38,10 +39,10 @@ data PolicyGeneration = PolicyGeneration'
     -- | The ARN of the IAM entity (user or role) for which you are generating a
     -- policy.
     principalArn :: Prelude.Text,
-    -- | A timestamp of when the policy generation started.
-    startedOn :: Core.POSIX,
     -- | The status of the policy generation request.
-    status :: JobStatus
+    status :: JobStatus,
+    -- | A timestamp of when the policy generation started.
+    startedOn :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -63,35 +64,35 @@ data PolicyGeneration = PolicyGeneration'
 -- 'principalArn', 'policyGeneration_principalArn' - The ARN of the IAM entity (user or role) for which you are generating a
 -- policy.
 --
--- 'startedOn', 'policyGeneration_startedOn' - A timestamp of when the policy generation started.
---
 -- 'status', 'policyGeneration_status' - The status of the policy generation request.
+--
+-- 'startedOn', 'policyGeneration_startedOn' - A timestamp of when the policy generation started.
 newPolicyGeneration ::
   -- | 'jobId'
   Prelude.Text ->
   -- | 'principalArn'
   Prelude.Text ->
-  -- | 'startedOn'
-  Prelude.UTCTime ->
   -- | 'status'
   JobStatus ->
+  -- | 'startedOn'
+  Prelude.UTCTime ->
   PolicyGeneration
 newPolicyGeneration
   pJobId_
   pPrincipalArn_
-  pStartedOn_
-  pStatus_ =
+  pStatus_
+  pStartedOn_ =
     PolicyGeneration'
       { completedOn = Prelude.Nothing,
         jobId = pJobId_,
         principalArn = pPrincipalArn_,
-        startedOn = Core._Time Lens.# pStartedOn_,
-        status = pStatus_
+        status = pStatus_,
+        startedOn = Data._Time Lens.# pStartedOn_
       }
 
 -- | A timestamp of when the policy generation was completed.
 policyGeneration_completedOn :: Lens.Lens' PolicyGeneration (Prelude.Maybe Prelude.UTCTime)
-policyGeneration_completedOn = Lens.lens (\PolicyGeneration' {completedOn} -> completedOn) (\s@PolicyGeneration' {} a -> s {completedOn = a} :: PolicyGeneration) Prelude.. Lens.mapping Core._Time
+policyGeneration_completedOn = Lens.lens (\PolicyGeneration' {completedOn} -> completedOn) (\s@PolicyGeneration' {} a -> s {completedOn = a} :: PolicyGeneration) Prelude.. Lens.mapping Data._Time
 
 -- | The @JobId@ that is returned by the @StartPolicyGeneration@ operation.
 -- The @JobId@ can be used with @GetGeneratedPolicy@ to retrieve the
@@ -105,25 +106,25 @@ policyGeneration_jobId = Lens.lens (\PolicyGeneration' {jobId} -> jobId) (\s@Pol
 policyGeneration_principalArn :: Lens.Lens' PolicyGeneration Prelude.Text
 policyGeneration_principalArn = Lens.lens (\PolicyGeneration' {principalArn} -> principalArn) (\s@PolicyGeneration' {} a -> s {principalArn = a} :: PolicyGeneration)
 
--- | A timestamp of when the policy generation started.
-policyGeneration_startedOn :: Lens.Lens' PolicyGeneration Prelude.UTCTime
-policyGeneration_startedOn = Lens.lens (\PolicyGeneration' {startedOn} -> startedOn) (\s@PolicyGeneration' {} a -> s {startedOn = a} :: PolicyGeneration) Prelude.. Core._Time
-
 -- | The status of the policy generation request.
 policyGeneration_status :: Lens.Lens' PolicyGeneration JobStatus
 policyGeneration_status = Lens.lens (\PolicyGeneration' {status} -> status) (\s@PolicyGeneration' {} a -> s {status = a} :: PolicyGeneration)
 
-instance Core.FromJSON PolicyGeneration where
+-- | A timestamp of when the policy generation started.
+policyGeneration_startedOn :: Lens.Lens' PolicyGeneration Prelude.UTCTime
+policyGeneration_startedOn = Lens.lens (\PolicyGeneration' {startedOn} -> startedOn) (\s@PolicyGeneration' {} a -> s {startedOn = a} :: PolicyGeneration) Prelude.. Data._Time
+
+instance Data.FromJSON PolicyGeneration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PolicyGeneration"
       ( \x ->
           PolicyGeneration'
-            Prelude.<$> (x Core..:? "completedOn")
-            Prelude.<*> (x Core..: "jobId")
-            Prelude.<*> (x Core..: "principalArn")
-            Prelude.<*> (x Core..: "startedOn")
-            Prelude.<*> (x Core..: "status")
+            Prelude.<$> (x Data..:? "completedOn")
+            Prelude.<*> (x Data..: "jobId")
+            Prelude.<*> (x Data..: "principalArn")
+            Prelude.<*> (x Data..: "status")
+            Prelude.<*> (x Data..: "startedOn")
       )
 
 instance Prelude.Hashable PolicyGeneration where
@@ -131,13 +132,13 @@ instance Prelude.Hashable PolicyGeneration where
     _salt `Prelude.hashWithSalt` completedOn
       `Prelude.hashWithSalt` jobId
       `Prelude.hashWithSalt` principalArn
-      `Prelude.hashWithSalt` startedOn
       `Prelude.hashWithSalt` status
+      `Prelude.hashWithSalt` startedOn
 
 instance Prelude.NFData PolicyGeneration where
   rnf PolicyGeneration' {..} =
     Prelude.rnf completedOn
       `Prelude.seq` Prelude.rnf jobId
       `Prelude.seq` Prelude.rnf principalArn
-      `Prelude.seq` Prelude.rnf startedOn
       `Prelude.seq` Prelude.rnf status
+      `Prelude.seq` Prelude.rnf startedOn

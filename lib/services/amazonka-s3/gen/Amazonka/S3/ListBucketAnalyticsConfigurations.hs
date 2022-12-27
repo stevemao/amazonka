@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.ListBucketAnalyticsConfigurations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -68,14 +68,15 @@ module Amazonka.S3.ListBucketAnalyticsConfigurations
     -- * Response Lenses
     listBucketAnalyticsConfigurationsResponse_analyticsConfigurationList,
     listBucketAnalyticsConfigurationsResponse_continuationToken,
-    listBucketAnalyticsConfigurationsResponse_nextContinuationToken,
     listBucketAnalyticsConfigurationsResponse_isTruncated,
+    listBucketAnalyticsConfigurationsResponse_nextContinuationToken,
     listBucketAnalyticsConfigurationsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -87,8 +88,8 @@ data ListBucketAnalyticsConfigurations = ListBucketAnalyticsConfigurations'
     -- request should begin.
     continuationToken :: Prelude.Maybe Prelude.Text,
     -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the bucket from which analytics configurations are
     -- retrieved.
@@ -108,8 +109,8 @@ data ListBucketAnalyticsConfigurations = ListBucketAnalyticsConfigurations'
 -- request should begin.
 --
 -- 'expectedBucketOwner', 'listBucketAnalyticsConfigurations_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'listBucketAnalyticsConfigurations_bucket' - The name of the bucket from which analytics configurations are
 -- retrieved.
@@ -131,8 +132,8 @@ listBucketAnalyticsConfigurations_continuationToken :: Lens.Lens' ListBucketAnal
 listBucketAnalyticsConfigurations_continuationToken = Lens.lens (\ListBucketAnalyticsConfigurations' {continuationToken} -> continuationToken) (\s@ListBucketAnalyticsConfigurations' {} a -> s {continuationToken = a} :: ListBucketAnalyticsConfigurations)
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 listBucketAnalyticsConfigurations_expectedBucketOwner :: Lens.Lens' ListBucketAnalyticsConfigurations (Prelude.Maybe Prelude.Text)
 listBucketAnalyticsConfigurations_expectedBucketOwner = Lens.lens (\ListBucketAnalyticsConfigurations' {expectedBucketOwner} -> expectedBucketOwner) (\s@ListBucketAnalyticsConfigurations' {} a -> s {expectedBucketOwner = a} :: ListBucketAnalyticsConfigurations)
 
@@ -148,20 +149,20 @@ instance
   type
     AWSResponse ListBucketAnalyticsConfigurations =
       ListBucketAnalyticsConfigurationsResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.get defaultService
+      Prelude.. Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ListBucketAnalyticsConfigurationsResponse'
             Prelude.<$> ( Core.may
-                            (Core.parseXMLList "AnalyticsConfiguration")
+                            (Data.parseXMLList "AnalyticsConfiguration")
                             x
                         )
-              Prelude.<*> (x Core..@? "ContinuationToken")
-              Prelude.<*> (x Core..@? "NextContinuationToken")
-              Prelude.<*> (x Core..@? "IsTruncated")
+              Prelude.<*> (x Data..@? "ContinuationToken")
+              Prelude.<*> (x Data..@? "IsTruncated")
+              Prelude.<*> (x Data..@? "NextContinuationToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -186,29 +187,29 @@ instance
       `Prelude.seq` Prelude.rnf bucket
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListBucketAnalyticsConfigurations
   where
   toHeaders ListBucketAnalyticsConfigurations' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
 instance
-  Core.ToPath
+  Data.ToPath
     ListBucketAnalyticsConfigurations
   where
   toPath ListBucketAnalyticsConfigurations' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ListBucketAnalyticsConfigurations
   where
   toQuery ListBucketAnalyticsConfigurations' {..} =
     Prelude.mconcat
-      [ "continuation-token" Core.=: continuationToken,
+      [ "continuation-token" Data.=: continuationToken,
         "analytics"
       ]
 
@@ -220,15 +221,15 @@ data ListBucketAnalyticsConfigurationsResponse = ListBucketAnalyticsConfiguratio
     -- configuration list response. This value is present if it was sent in the
     -- request.
     continuationToken :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether the returned list of analytics configurations is
+    -- complete. A value of true indicates that the list is not complete and
+    -- the NextContinuationToken will be provided for a subsequent request.
+    isTruncated :: Prelude.Maybe Prelude.Bool,
     -- | @NextContinuationToken@ is sent when @isTruncated@ is true, which
     -- indicates that there are more analytics configurations to list. The next
     -- request must include this @NextContinuationToken@. The token is
     -- obfuscated and is not a usable value.
     nextContinuationToken :: Prelude.Maybe Prelude.Text,
-    -- | Indicates whether the returned list of analytics configurations is
-    -- complete. A value of true indicates that the list is not complete and
-    -- the NextContinuationToken will be provided for a subsequent request.
-    isTruncated :: Prelude.Maybe Prelude.Bool,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -248,14 +249,14 @@ data ListBucketAnalyticsConfigurationsResponse = ListBucketAnalyticsConfiguratio
 -- configuration list response. This value is present if it was sent in the
 -- request.
 --
+-- 'isTruncated', 'listBucketAnalyticsConfigurationsResponse_isTruncated' - Indicates whether the returned list of analytics configurations is
+-- complete. A value of true indicates that the list is not complete and
+-- the NextContinuationToken will be provided for a subsequent request.
+--
 -- 'nextContinuationToken', 'listBucketAnalyticsConfigurationsResponse_nextContinuationToken' - @NextContinuationToken@ is sent when @isTruncated@ is true, which
 -- indicates that there are more analytics configurations to list. The next
 -- request must include this @NextContinuationToken@. The token is
 -- obfuscated and is not a usable value.
---
--- 'isTruncated', 'listBucketAnalyticsConfigurationsResponse_isTruncated' - Indicates whether the returned list of analytics configurations is
--- complete. A value of true indicates that the list is not complete and
--- the NextContinuationToken will be provided for a subsequent request.
 --
 -- 'httpStatus', 'listBucketAnalyticsConfigurationsResponse_httpStatus' - The response's http status code.
 newListBucketAnalyticsConfigurationsResponse ::
@@ -269,9 +270,9 @@ newListBucketAnalyticsConfigurationsResponse
           Prelude.Nothing,
         continuationToken =
           Prelude.Nothing,
+        isTruncated = Prelude.Nothing,
         nextContinuationToken =
           Prelude.Nothing,
-        isTruncated = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
 
@@ -285,18 +286,18 @@ listBucketAnalyticsConfigurationsResponse_analyticsConfigurationList = Lens.lens
 listBucketAnalyticsConfigurationsResponse_continuationToken :: Lens.Lens' ListBucketAnalyticsConfigurationsResponse (Prelude.Maybe Prelude.Text)
 listBucketAnalyticsConfigurationsResponse_continuationToken = Lens.lens (\ListBucketAnalyticsConfigurationsResponse' {continuationToken} -> continuationToken) (\s@ListBucketAnalyticsConfigurationsResponse' {} a -> s {continuationToken = a} :: ListBucketAnalyticsConfigurationsResponse)
 
+-- | Indicates whether the returned list of analytics configurations is
+-- complete. A value of true indicates that the list is not complete and
+-- the NextContinuationToken will be provided for a subsequent request.
+listBucketAnalyticsConfigurationsResponse_isTruncated :: Lens.Lens' ListBucketAnalyticsConfigurationsResponse (Prelude.Maybe Prelude.Bool)
+listBucketAnalyticsConfigurationsResponse_isTruncated = Lens.lens (\ListBucketAnalyticsConfigurationsResponse' {isTruncated} -> isTruncated) (\s@ListBucketAnalyticsConfigurationsResponse' {} a -> s {isTruncated = a} :: ListBucketAnalyticsConfigurationsResponse)
+
 -- | @NextContinuationToken@ is sent when @isTruncated@ is true, which
 -- indicates that there are more analytics configurations to list. The next
 -- request must include this @NextContinuationToken@. The token is
 -- obfuscated and is not a usable value.
 listBucketAnalyticsConfigurationsResponse_nextContinuationToken :: Lens.Lens' ListBucketAnalyticsConfigurationsResponse (Prelude.Maybe Prelude.Text)
 listBucketAnalyticsConfigurationsResponse_nextContinuationToken = Lens.lens (\ListBucketAnalyticsConfigurationsResponse' {nextContinuationToken} -> nextContinuationToken) (\s@ListBucketAnalyticsConfigurationsResponse' {} a -> s {nextContinuationToken = a} :: ListBucketAnalyticsConfigurationsResponse)
-
--- | Indicates whether the returned list of analytics configurations is
--- complete. A value of true indicates that the list is not complete and
--- the NextContinuationToken will be provided for a subsequent request.
-listBucketAnalyticsConfigurationsResponse_isTruncated :: Lens.Lens' ListBucketAnalyticsConfigurationsResponse (Prelude.Maybe Prelude.Bool)
-listBucketAnalyticsConfigurationsResponse_isTruncated = Lens.lens (\ListBucketAnalyticsConfigurationsResponse' {isTruncated} -> isTruncated) (\s@ListBucketAnalyticsConfigurationsResponse' {} a -> s {isTruncated = a} :: ListBucketAnalyticsConfigurationsResponse)
 
 -- | The response's http status code.
 listBucketAnalyticsConfigurationsResponse_httpStatus :: Lens.Lens' ListBucketAnalyticsConfigurationsResponse Prelude.Int
@@ -309,6 +310,6 @@ instance
   rnf ListBucketAnalyticsConfigurationsResponse' {..} =
     Prelude.rnf analyticsConfigurationList
       `Prelude.seq` Prelude.rnf continuationToken
-      `Prelude.seq` Prelude.rnf nextContinuationToken
       `Prelude.seq` Prelude.rnf isTruncated
+      `Prelude.seq` Prelude.rnf nextContinuationToken
       `Prelude.seq` Prelude.rnf httpStatus

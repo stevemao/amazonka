@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.Types.City
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.GuardDuty.Types.City where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the city associated with the IP address.
@@ -49,11 +50,11 @@ newCity = City' {cityName = Prelude.Nothing}
 city_cityName :: Lens.Lens' City (Prelude.Maybe Prelude.Text)
 city_cityName = Lens.lens (\City' {cityName} -> cityName) (\s@City' {} a -> s {cityName = a} :: City)
 
-instance Core.FromJSON City where
+instance Data.FromJSON City where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "City"
-      (\x -> City' Prelude.<$> (x Core..:? "cityName"))
+      (\x -> City' Prelude.<$> (x Data..:? "cityName"))
 
 instance Prelude.Hashable City where
   hashWithSalt _salt City' {..} =

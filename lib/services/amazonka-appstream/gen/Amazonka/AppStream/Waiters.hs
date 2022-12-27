@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -8,7 +9,7 @@
 
 -- |
 -- Module      : Amazonka.AppStream.Waiters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -19,58 +20,18 @@ import Amazonka.AppStream.DescribeFleets
 import Amazonka.AppStream.Lens
 import Amazonka.AppStream.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
-
--- | Polls 'Amazonka.AppStream.DescribeFleets' every 30 seconds until a successful state is reached. An error is returned after 40 failed checks.
-newFleetStopped :: Core.Wait DescribeFleets
-newFleetStopped =
-  Core.Wait
-    { Core._waitName = "FleetStopped",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 30,
-      Core._waitAcceptors =
-        [ Core.matchAll
-            "INACTIVE"
-            Core.AcceptSuccess
-            ( Lens.folding
-                ( Lens.concatOf
-                    (describeFleetsResponse_fleets Prelude.. Lens._Just)
-                )
-                Prelude.. fleet_state
-                Prelude.. Lens.to Core.toTextCI
-            ),
-          Core.matchAny
-            "PENDING_ACTIVATE"
-            Core.AcceptFailure
-            ( Lens.folding
-                ( Lens.concatOf
-                    (describeFleetsResponse_fleets Prelude.. Lens._Just)
-                )
-                Prelude.. fleet_state
-                Prelude.. Lens.to Core.toTextCI
-            ),
-          Core.matchAny
-            "ACTIVE"
-            Core.AcceptFailure
-            ( Lens.folding
-                ( Lens.concatOf
-                    (describeFleetsResponse_fleets Prelude.. Lens._Just)
-                )
-                Prelude.. fleet_state
-                Prelude.. Lens.to Core.toTextCI
-            )
-        ]
-    }
 
 -- | Polls 'Amazonka.AppStream.DescribeFleets' every 30 seconds until a successful state is reached. An error is returned after 40 failed checks.
 newFleetStarted :: Core.Wait DescribeFleets
 newFleetStarted =
   Core.Wait
-    { Core._waitName = "FleetStarted",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 30,
-      Core._waitAcceptors =
+    { Core.name = "FleetStarted",
+      Core.attempts = 40,
+      Core.delay = 30,
+      Core.acceptors =
         [ Core.matchAll
             "ACTIVE"
             Core.AcceptSuccess
@@ -79,7 +40,7 @@ newFleetStarted =
                     (describeFleetsResponse_fleets Prelude.. Lens._Just)
                 )
                 Prelude.. fleet_state
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "PENDING_DEACTIVATE"
@@ -89,7 +50,7 @@ newFleetStarted =
                     (describeFleetsResponse_fleets Prelude.. Lens._Just)
                 )
                 Prelude.. fleet_state
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "INACTIVE"
@@ -99,7 +60,48 @@ newFleetStarted =
                     (describeFleetsResponse_fleets Prelude.. Lens._Just)
                 )
                 Prelude.. fleet_state
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
+            )
+        ]
+    }
+
+-- | Polls 'Amazonka.AppStream.DescribeFleets' every 30 seconds until a successful state is reached. An error is returned after 40 failed checks.
+newFleetStopped :: Core.Wait DescribeFleets
+newFleetStopped =
+  Core.Wait
+    { Core.name = "FleetStopped",
+      Core.attempts = 40,
+      Core.delay = 30,
+      Core.acceptors =
+        [ Core.matchAll
+            "INACTIVE"
+            Core.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeFleetsResponse_fleets Prelude.. Lens._Just)
+                )
+                Prelude.. fleet_state
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchAny
+            "PENDING_ACTIVATE"
+            Core.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeFleetsResponse_fleets Prelude.. Lens._Just)
+                )
+                Prelude.. fleet_state
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchAny
+            "ACTIVE"
+            Core.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeFleetsResponse_fleets Prelude.. Lens._Just)
+                )
+                Prelude.. fleet_state
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }

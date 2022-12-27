@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.DeleteUsagePlan
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,7 +37,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -46,7 +47,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDeleteUsagePlan' smart constructor.
 data DeleteUsagePlan = DeleteUsagePlan'
-  { -- | [Required] The Id of the to-be-deleted usage plan.
+  { -- | The Id of the to-be-deleted usage plan.
     usagePlanId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -59,7 +60,7 @@ data DeleteUsagePlan = DeleteUsagePlan'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'usagePlanId', 'deleteUsagePlan_usagePlanId' - [Required] The Id of the to-be-deleted usage plan.
+-- 'usagePlanId', 'deleteUsagePlan_usagePlanId' - The Id of the to-be-deleted usage plan.
 newDeleteUsagePlan ::
   -- | 'usagePlanId'
   Prelude.Text ->
@@ -67,7 +68,7 @@ newDeleteUsagePlan ::
 newDeleteUsagePlan pUsagePlanId_ =
   DeleteUsagePlan' {usagePlanId = pUsagePlanId_}
 
--- | [Required] The Id of the to-be-deleted usage plan.
+-- | The Id of the to-be-deleted usage plan.
 deleteUsagePlan_usagePlanId :: Lens.Lens' DeleteUsagePlan Prelude.Text
 deleteUsagePlan_usagePlanId = Lens.lens (\DeleteUsagePlan' {usagePlanId} -> usagePlanId) (\s@DeleteUsagePlan' {} a -> s {usagePlanId = a} :: DeleteUsagePlan)
 
@@ -75,7 +76,8 @@ instance Core.AWSRequest DeleteUsagePlan where
   type
     AWSResponse DeleteUsagePlan =
       DeleteUsagePlanResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteUsagePlanResponse'
 
@@ -86,21 +88,21 @@ instance Prelude.Hashable DeleteUsagePlan where
 instance Prelude.NFData DeleteUsagePlan where
   rnf DeleteUsagePlan' {..} = Prelude.rnf usagePlanId
 
-instance Core.ToHeaders DeleteUsagePlan where
+instance Data.ToHeaders DeleteUsagePlan where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath DeleteUsagePlan where
+instance Data.ToPath DeleteUsagePlan where
   toPath DeleteUsagePlan' {..} =
     Prelude.mconcat
-      ["/usageplans/", Core.toBS usagePlanId]
+      ["/usageplans/", Data.toBS usagePlanId]
 
-instance Core.ToQuery DeleteUsagePlan where
+instance Data.ToQuery DeleteUsagePlan where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteUsagePlanResponse' smart constructor.

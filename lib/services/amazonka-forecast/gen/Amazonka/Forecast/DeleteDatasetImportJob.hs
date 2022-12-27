@@ -14,16 +14,18 @@
 
 -- |
 -- Module      : Amazonka.Forecast.DeleteDatasetImportJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a dataset import job created using the CreateDatasetImportJob
+-- Deletes a dataset import job created using the
+-- <https://docs.aws.amazon.com/forecast/latest/dg/API_CreateDatasetImportJob.html CreateDatasetImportJob>
 -- operation. You can delete only dataset import jobs that have a status of
 -- @ACTIVE@ or @CREATE_FAILED@. To get the status, use the
--- DescribeDatasetImportJob operation.
+-- <https://docs.aws.amazon.com/forecast/latest/dg/API_DescribeDatasetImportJob.html DescribeDatasetImportJob>
+-- operation.
 module Amazonka.Forecast.DeleteDatasetImportJob
   ( -- * Creating a Request
     DeleteDatasetImportJob (..),
@@ -39,8 +41,9 @@ module Amazonka.Forecast.DeleteDatasetImportJob
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Forecast.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,7 +82,8 @@ instance Core.AWSRequest DeleteDatasetImportJob where
   type
     AWSResponse DeleteDatasetImportJob =
       DeleteDatasetImportJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       DeleteDatasetImportJobResponse'
@@ -92,34 +96,34 @@ instance Prelude.NFData DeleteDatasetImportJob where
   rnf DeleteDatasetImportJob' {..} =
     Prelude.rnf datasetImportJobArn
 
-instance Core.ToHeaders DeleteDatasetImportJob where
+instance Data.ToHeaders DeleteDatasetImportJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonForecast.DeleteDatasetImportJob" ::
+              Data.=# ( "AmazonForecast.DeleteDatasetImportJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteDatasetImportJob where
+instance Data.ToJSON DeleteDatasetImportJob where
   toJSON DeleteDatasetImportJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("DatasetImportJobArn" Core..= datasetImportJobArn)
+              ("DatasetImportJobArn" Data..= datasetImportJobArn)
           ]
       )
 
-instance Core.ToPath DeleteDatasetImportJob where
+instance Data.ToPath DeleteDatasetImportJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDatasetImportJob where
+instance Data.ToQuery DeleteDatasetImportJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteDatasetImportJobResponse' smart constructor.

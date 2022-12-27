@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.UpdateModelPackage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,9 +27,12 @@ module Amazonka.SageMaker.UpdateModelPackage
     newUpdateModelPackage,
 
     -- * Request Lenses
+    updateModelPackage_additionalInferenceSpecificationsToAdd,
     updateModelPackage_approvalDescription,
-    updateModelPackage_modelPackageArn,
+    updateModelPackage_customerMetadataProperties,
+    updateModelPackage_customerMetadataPropertiesToRemove,
     updateModelPackage_modelApprovalStatus,
+    updateModelPackage_modelPackageArn,
 
     -- * Destructuring the Response
     UpdateModelPackageResponse (..),
@@ -42,7 +45,8 @@ module Amazonka.SageMaker.UpdateModelPackage
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -50,12 +54,24 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newUpdateModelPackage' smart constructor.
 data UpdateModelPackage = UpdateModelPackage'
-  { -- | A description for the approval status of the model.
+  { -- | An array of additional Inference Specification objects to be added to
+    -- the existing array additional Inference Specification. Total number of
+    -- additional Inference Specifications can not exceed 15. Each additional
+    -- Inference Specification specifies artifacts based on this model package
+    -- that can be used on inference endpoints. Generally used with SageMaker
+    -- Neo to store the compiled artifacts.
+    additionalInferenceSpecificationsToAdd :: Prelude.Maybe (Prelude.NonEmpty AdditionalInferenceSpecificationDefinition),
+    -- | A description for the approval status of the model.
     approvalDescription :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the model.
-    modelPackageArn :: Prelude.Text,
+    -- | The metadata properties associated with the model package versions.
+    customerMetadataProperties :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | The metadata properties associated with the model package versions to
+    -- remove.
+    customerMetadataPropertiesToRemove :: Prelude.Maybe [Prelude.Text],
     -- | The approval status of the model.
-    modelApprovalStatus :: ModelApprovalStatus
+    modelApprovalStatus :: Prelude.Maybe ModelApprovalStatus,
+    -- | The Amazon Resource Name (ARN) of the model package.
+    modelPackageArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,96 +83,139 @@ data UpdateModelPackage = UpdateModelPackage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'additionalInferenceSpecificationsToAdd', 'updateModelPackage_additionalInferenceSpecificationsToAdd' - An array of additional Inference Specification objects to be added to
+-- the existing array additional Inference Specification. Total number of
+-- additional Inference Specifications can not exceed 15. Each additional
+-- Inference Specification specifies artifacts based on this model package
+-- that can be used on inference endpoints. Generally used with SageMaker
+-- Neo to store the compiled artifacts.
+--
 -- 'approvalDescription', 'updateModelPackage_approvalDescription' - A description for the approval status of the model.
 --
--- 'modelPackageArn', 'updateModelPackage_modelPackageArn' - The Amazon Resource Name (ARN) of the model.
+-- 'customerMetadataProperties', 'updateModelPackage_customerMetadataProperties' - The metadata properties associated with the model package versions.
+--
+-- 'customerMetadataPropertiesToRemove', 'updateModelPackage_customerMetadataPropertiesToRemove' - The metadata properties associated with the model package versions to
+-- remove.
 --
 -- 'modelApprovalStatus', 'updateModelPackage_modelApprovalStatus' - The approval status of the model.
+--
+-- 'modelPackageArn', 'updateModelPackage_modelPackageArn' - The Amazon Resource Name (ARN) of the model package.
 newUpdateModelPackage ::
   -- | 'modelPackageArn'
   Prelude.Text ->
-  -- | 'modelApprovalStatus'
-  ModelApprovalStatus ->
   UpdateModelPackage
-newUpdateModelPackage
-  pModelPackageArn_
-  pModelApprovalStatus_ =
-    UpdateModelPackage'
-      { approvalDescription =
-          Prelude.Nothing,
-        modelPackageArn = pModelPackageArn_,
-        modelApprovalStatus = pModelApprovalStatus_
-      }
+newUpdateModelPackage pModelPackageArn_ =
+  UpdateModelPackage'
+    { additionalInferenceSpecificationsToAdd =
+        Prelude.Nothing,
+      approvalDescription = Prelude.Nothing,
+      customerMetadataProperties = Prelude.Nothing,
+      customerMetadataPropertiesToRemove = Prelude.Nothing,
+      modelApprovalStatus = Prelude.Nothing,
+      modelPackageArn = pModelPackageArn_
+    }
+
+-- | An array of additional Inference Specification objects to be added to
+-- the existing array additional Inference Specification. Total number of
+-- additional Inference Specifications can not exceed 15. Each additional
+-- Inference Specification specifies artifacts based on this model package
+-- that can be used on inference endpoints. Generally used with SageMaker
+-- Neo to store the compiled artifacts.
+updateModelPackage_additionalInferenceSpecificationsToAdd :: Lens.Lens' UpdateModelPackage (Prelude.Maybe (Prelude.NonEmpty AdditionalInferenceSpecificationDefinition))
+updateModelPackage_additionalInferenceSpecificationsToAdd = Lens.lens (\UpdateModelPackage' {additionalInferenceSpecificationsToAdd} -> additionalInferenceSpecificationsToAdd) (\s@UpdateModelPackage' {} a -> s {additionalInferenceSpecificationsToAdd = a} :: UpdateModelPackage) Prelude.. Lens.mapping Lens.coerced
 
 -- | A description for the approval status of the model.
 updateModelPackage_approvalDescription :: Lens.Lens' UpdateModelPackage (Prelude.Maybe Prelude.Text)
 updateModelPackage_approvalDescription = Lens.lens (\UpdateModelPackage' {approvalDescription} -> approvalDescription) (\s@UpdateModelPackage' {} a -> s {approvalDescription = a} :: UpdateModelPackage)
 
--- | The Amazon Resource Name (ARN) of the model.
-updateModelPackage_modelPackageArn :: Lens.Lens' UpdateModelPackage Prelude.Text
-updateModelPackage_modelPackageArn = Lens.lens (\UpdateModelPackage' {modelPackageArn} -> modelPackageArn) (\s@UpdateModelPackage' {} a -> s {modelPackageArn = a} :: UpdateModelPackage)
+-- | The metadata properties associated with the model package versions.
+updateModelPackage_customerMetadataProperties :: Lens.Lens' UpdateModelPackage (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+updateModelPackage_customerMetadataProperties = Lens.lens (\UpdateModelPackage' {customerMetadataProperties} -> customerMetadataProperties) (\s@UpdateModelPackage' {} a -> s {customerMetadataProperties = a} :: UpdateModelPackage) Prelude.. Lens.mapping Lens.coerced
+
+-- | The metadata properties associated with the model package versions to
+-- remove.
+updateModelPackage_customerMetadataPropertiesToRemove :: Lens.Lens' UpdateModelPackage (Prelude.Maybe [Prelude.Text])
+updateModelPackage_customerMetadataPropertiesToRemove = Lens.lens (\UpdateModelPackage' {customerMetadataPropertiesToRemove} -> customerMetadataPropertiesToRemove) (\s@UpdateModelPackage' {} a -> s {customerMetadataPropertiesToRemove = a} :: UpdateModelPackage) Prelude.. Lens.mapping Lens.coerced
 
 -- | The approval status of the model.
-updateModelPackage_modelApprovalStatus :: Lens.Lens' UpdateModelPackage ModelApprovalStatus
+updateModelPackage_modelApprovalStatus :: Lens.Lens' UpdateModelPackage (Prelude.Maybe ModelApprovalStatus)
 updateModelPackage_modelApprovalStatus = Lens.lens (\UpdateModelPackage' {modelApprovalStatus} -> modelApprovalStatus) (\s@UpdateModelPackage' {} a -> s {modelApprovalStatus = a} :: UpdateModelPackage)
+
+-- | The Amazon Resource Name (ARN) of the model package.
+updateModelPackage_modelPackageArn :: Lens.Lens' UpdateModelPackage Prelude.Text
+updateModelPackage_modelPackageArn = Lens.lens (\UpdateModelPackage' {modelPackageArn} -> modelPackageArn) (\s@UpdateModelPackage' {} a -> s {modelPackageArn = a} :: UpdateModelPackage)
 
 instance Core.AWSRequest UpdateModelPackage where
   type
     AWSResponse UpdateModelPackage =
       UpdateModelPackageResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateModelPackageResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "ModelPackageArn")
+            Prelude.<*> (x Data..:> "ModelPackageArn")
       )
 
 instance Prelude.Hashable UpdateModelPackage where
   hashWithSalt _salt UpdateModelPackage' {..} =
-    _salt `Prelude.hashWithSalt` approvalDescription
-      `Prelude.hashWithSalt` modelPackageArn
+    _salt
+      `Prelude.hashWithSalt` additionalInferenceSpecificationsToAdd
+      `Prelude.hashWithSalt` approvalDescription
+      `Prelude.hashWithSalt` customerMetadataProperties
+      `Prelude.hashWithSalt` customerMetadataPropertiesToRemove
       `Prelude.hashWithSalt` modelApprovalStatus
+      `Prelude.hashWithSalt` modelPackageArn
 
 instance Prelude.NFData UpdateModelPackage where
   rnf UpdateModelPackage' {..} =
-    Prelude.rnf approvalDescription
-      `Prelude.seq` Prelude.rnf modelPackageArn
+    Prelude.rnf additionalInferenceSpecificationsToAdd
+      `Prelude.seq` Prelude.rnf approvalDescription
+      `Prelude.seq` Prelude.rnf customerMetadataProperties
+      `Prelude.seq` Prelude.rnf customerMetadataPropertiesToRemove
       `Prelude.seq` Prelude.rnf modelApprovalStatus
+      `Prelude.seq` Prelude.rnf modelPackageArn
 
-instance Core.ToHeaders UpdateModelPackage where
+instance Data.ToHeaders UpdateModelPackage where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.UpdateModelPackage" ::
+              Data.=# ( "SageMaker.UpdateModelPackage" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateModelPackage where
+instance Data.ToJSON UpdateModelPackage where
   toJSON UpdateModelPackage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ApprovalDescription" Core..=)
+          [ ("AdditionalInferenceSpecificationsToAdd" Data..=)
+              Prelude.<$> additionalInferenceSpecificationsToAdd,
+            ("ApprovalDescription" Data..=)
               Prelude.<$> approvalDescription,
+            ("CustomerMetadataProperties" Data..=)
+              Prelude.<$> customerMetadataProperties,
+            ("CustomerMetadataPropertiesToRemove" Data..=)
+              Prelude.<$> customerMetadataPropertiesToRemove,
+            ("ModelApprovalStatus" Data..=)
+              Prelude.<$> modelApprovalStatus,
             Prelude.Just
-              ("ModelPackageArn" Core..= modelPackageArn),
-            Prelude.Just
-              ("ModelApprovalStatus" Core..= modelApprovalStatus)
+              ("ModelPackageArn" Data..= modelPackageArn)
           ]
       )
 
-instance Core.ToPath UpdateModelPackage where
+instance Data.ToPath UpdateModelPackage where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateModelPackage where
+instance Data.ToQuery UpdateModelPackage where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateModelPackageResponse' smart constructor.

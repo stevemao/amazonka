@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatch.Types.MetricStat
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CloudWatch.Types.MetricStat where
 import Amazonka.CloudWatch.Types.Metric
 import Amazonka.CloudWatch.Types.StandardUnit
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | This structure defines the metric to be returned, along with the
@@ -178,13 +179,13 @@ metricStat_period = Lens.lens (\MetricStat' {period} -> period) (\s@MetricStat' 
 metricStat_stat :: Lens.Lens' MetricStat Prelude.Text
 metricStat_stat = Lens.lens (\MetricStat' {stat} -> stat) (\s@MetricStat' {} a -> s {stat = a} :: MetricStat)
 
-instance Core.FromXML MetricStat where
+instance Data.FromXML MetricStat where
   parseXML x =
     MetricStat'
-      Prelude.<$> (x Core..@? "Unit")
-      Prelude.<*> (x Core..@ "Metric")
-      Prelude.<*> (x Core..@ "Period")
-      Prelude.<*> (x Core..@ "Stat")
+      Prelude.<$> (x Data..@? "Unit")
+      Prelude.<*> (x Data..@ "Metric")
+      Prelude.<*> (x Data..@ "Period")
+      Prelude.<*> (x Data..@ "Stat")
 
 instance Prelude.Hashable MetricStat where
   hashWithSalt _salt MetricStat' {..} =
@@ -200,11 +201,11 @@ instance Prelude.NFData MetricStat where
       `Prelude.seq` Prelude.rnf period
       `Prelude.seq` Prelude.rnf stat
 
-instance Core.ToQuery MetricStat where
+instance Data.ToQuery MetricStat where
   toQuery MetricStat' {..} =
     Prelude.mconcat
-      [ "Unit" Core.=: unit,
-        "Metric" Core.=: metric,
-        "Period" Core.=: period,
-        "Stat" Core.=: stat
+      [ "Unit" Data.=: unit,
+        "Metric" Data.=: metric,
+        "Period" Data.=: period,
+        "Stat" Data.=: stat
       ]

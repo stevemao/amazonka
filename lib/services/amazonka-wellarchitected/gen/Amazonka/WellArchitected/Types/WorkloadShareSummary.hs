@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WellArchitected.Types.WorkloadShareSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WellArchitected.Types.WorkloadShareSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.WellArchitected.Types.PermissionType
 import Amazonka.WellArchitected.Types.ShareStatus
@@ -29,10 +30,12 @@ import Amazonka.WellArchitected.Types.ShareStatus
 --
 -- /See:/ 'newWorkloadShareSummary' smart constructor.
 data WorkloadShareSummary = WorkloadShareSummary'
-  { status :: Prelude.Maybe ShareStatus,
+  { permissionType :: Prelude.Maybe PermissionType,
+    shareId :: Prelude.Maybe Prelude.Text,
     sharedWith :: Prelude.Maybe Prelude.Text,
-    permissionType :: Prelude.Maybe PermissionType,
-    shareId :: Prelude.Maybe Prelude.Text
+    status :: Prelude.Maybe ShareStatus,
+    -- | Optional message to compliment the Status field.
+    statusMessage :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,30 +47,26 @@ data WorkloadShareSummary = WorkloadShareSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'workloadShareSummary_status' - Undocumented member.
---
--- 'sharedWith', 'workloadShareSummary_sharedWith' - Undocumented member.
---
 -- 'permissionType', 'workloadShareSummary_permissionType' - Undocumented member.
 --
 -- 'shareId', 'workloadShareSummary_shareId' - Undocumented member.
+--
+-- 'sharedWith', 'workloadShareSummary_sharedWith' - Undocumented member.
+--
+-- 'status', 'workloadShareSummary_status' - Undocumented member.
+--
+-- 'statusMessage', 'workloadShareSummary_statusMessage' - Optional message to compliment the Status field.
 newWorkloadShareSummary ::
   WorkloadShareSummary
 newWorkloadShareSummary =
   WorkloadShareSummary'
-    { status = Prelude.Nothing,
+    { permissionType =
+        Prelude.Nothing,
+      shareId = Prelude.Nothing,
       sharedWith = Prelude.Nothing,
-      permissionType = Prelude.Nothing,
-      shareId = Prelude.Nothing
+      status = Prelude.Nothing,
+      statusMessage = Prelude.Nothing
     }
-
--- | Undocumented member.
-workloadShareSummary_status :: Lens.Lens' WorkloadShareSummary (Prelude.Maybe ShareStatus)
-workloadShareSummary_status = Lens.lens (\WorkloadShareSummary' {status} -> status) (\s@WorkloadShareSummary' {} a -> s {status = a} :: WorkloadShareSummary)
-
--- | Undocumented member.
-workloadShareSummary_sharedWith :: Lens.Lens' WorkloadShareSummary (Prelude.Maybe Prelude.Text)
-workloadShareSummary_sharedWith = Lens.lens (\WorkloadShareSummary' {sharedWith} -> sharedWith) (\s@WorkloadShareSummary' {} a -> s {sharedWith = a} :: WorkloadShareSummary)
 
 -- | Undocumented member.
 workloadShareSummary_permissionType :: Lens.Lens' WorkloadShareSummary (Prelude.Maybe PermissionType)
@@ -77,28 +76,43 @@ workloadShareSummary_permissionType = Lens.lens (\WorkloadShareSummary' {permiss
 workloadShareSummary_shareId :: Lens.Lens' WorkloadShareSummary (Prelude.Maybe Prelude.Text)
 workloadShareSummary_shareId = Lens.lens (\WorkloadShareSummary' {shareId} -> shareId) (\s@WorkloadShareSummary' {} a -> s {shareId = a} :: WorkloadShareSummary)
 
-instance Core.FromJSON WorkloadShareSummary where
+-- | Undocumented member.
+workloadShareSummary_sharedWith :: Lens.Lens' WorkloadShareSummary (Prelude.Maybe Prelude.Text)
+workloadShareSummary_sharedWith = Lens.lens (\WorkloadShareSummary' {sharedWith} -> sharedWith) (\s@WorkloadShareSummary' {} a -> s {sharedWith = a} :: WorkloadShareSummary)
+
+-- | Undocumented member.
+workloadShareSummary_status :: Lens.Lens' WorkloadShareSummary (Prelude.Maybe ShareStatus)
+workloadShareSummary_status = Lens.lens (\WorkloadShareSummary' {status} -> status) (\s@WorkloadShareSummary' {} a -> s {status = a} :: WorkloadShareSummary)
+
+-- | Optional message to compliment the Status field.
+workloadShareSummary_statusMessage :: Lens.Lens' WorkloadShareSummary (Prelude.Maybe Prelude.Text)
+workloadShareSummary_statusMessage = Lens.lens (\WorkloadShareSummary' {statusMessage} -> statusMessage) (\s@WorkloadShareSummary' {} a -> s {statusMessage = a} :: WorkloadShareSummary)
+
+instance Data.FromJSON WorkloadShareSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "WorkloadShareSummary"
       ( \x ->
           WorkloadShareSummary'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "SharedWith")
-            Prelude.<*> (x Core..:? "PermissionType")
-            Prelude.<*> (x Core..:? "ShareId")
+            Prelude.<$> (x Data..:? "PermissionType")
+            Prelude.<*> (x Data..:? "ShareId")
+            Prelude.<*> (x Data..:? "SharedWith")
+            Prelude.<*> (x Data..:? "Status")
+            Prelude.<*> (x Data..:? "StatusMessage")
       )
 
 instance Prelude.Hashable WorkloadShareSummary where
   hashWithSalt _salt WorkloadShareSummary' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` sharedWith
-      `Prelude.hashWithSalt` permissionType
+    _salt `Prelude.hashWithSalt` permissionType
       `Prelude.hashWithSalt` shareId
+      `Prelude.hashWithSalt` sharedWith
+      `Prelude.hashWithSalt` status
+      `Prelude.hashWithSalt` statusMessage
 
 instance Prelude.NFData WorkloadShareSummary where
   rnf WorkloadShareSummary' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf sharedWith
-      `Prelude.seq` Prelude.rnf permissionType
+    Prelude.rnf permissionType
       `Prelude.seq` Prelude.rnf shareId
+      `Prelude.seq` Prelude.rnf sharedWith
+      `Prelude.seq` Prelude.rnf status
+      `Prelude.seq` Prelude.rnf statusMessage

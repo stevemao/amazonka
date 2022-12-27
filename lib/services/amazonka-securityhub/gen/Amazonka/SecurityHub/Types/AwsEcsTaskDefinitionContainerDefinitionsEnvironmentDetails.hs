@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.SecurityHub.Types.AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An environment variable to pass to the container.
 --
 -- /See:/ 'newAwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails' smart constructor.
 data AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails = AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails'
-  { -- | The value of the environment variable.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The name of the environment variable.
-    name :: Prelude.Maybe Prelude.Text
+  { -- | The name of the environment variable.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The value of the environment variable.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,37 +43,37 @@ data AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails = AwsEcsTaskDefi
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'awsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails_value' - The value of the environment variable.
---
 -- 'name', 'awsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails_name' - The name of the environment variable.
+--
+-- 'value', 'awsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails_value' - The value of the environment variable.
 newAwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails ::
   AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails
 newAwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails =
   AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails'
-    { value =
+    { name =
         Prelude.Nothing,
-      name =
+      value =
         Prelude.Nothing
     }
-
--- | The value of the environment variable.
-awsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails_value :: Lens.Lens' AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails (Prelude.Maybe Prelude.Text)
-awsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails_value = Lens.lens (\AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails' {value} -> value) (\s@AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails' {} a -> s {value = a} :: AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails)
 
 -- | The name of the environment variable.
 awsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails_name :: Lens.Lens' AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails (Prelude.Maybe Prelude.Text)
 awsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails_name = Lens.lens (\AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails' {name} -> name) (\s@AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails' {} a -> s {name = a} :: AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails)
 
+-- | The value of the environment variable.
+awsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails_value :: Lens.Lens' AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails (Prelude.Maybe Prelude.Text)
+awsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails_value = Lens.lens (\AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails' {value} -> value) (\s@AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails' {} a -> s {value = a} :: AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails"
       ( \x ->
           AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails'
-            Prelude.<$> (x Core..:? "Value") Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Name") Prelude.<*> (x Data..:? "Value")
       )
 
 instance
@@ -82,8 +83,8 @@ instance
   hashWithSalt
     _salt
     AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails' {..} =
-      _salt `Prelude.hashWithSalt` value
-        `Prelude.hashWithSalt` name
+      _salt `Prelude.hashWithSalt` name
+        `Prelude.hashWithSalt` value
 
 instance
   Prelude.NFData
@@ -91,17 +92,17 @@ instance
   where
   rnf
     AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails' {..} =
-      Prelude.rnf value `Prelude.seq` Prelude.rnf name
+      Prelude.rnf name `Prelude.seq` Prelude.rnf value
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails
   where
   toJSON
     AwsEcsTaskDefinitionContainerDefinitionsEnvironmentDetails' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("Value" Core..=) Prelude.<$> value,
-              ("Name" Core..=) Prelude.<$> name
+            [ ("Name" Data..=) Prelude.<$> name,
+              ("Value" Data..=) Prelude.<$> value
             ]
         )

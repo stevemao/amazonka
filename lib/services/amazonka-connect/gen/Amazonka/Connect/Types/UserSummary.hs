@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.Types.UserSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Connect.Types.UserSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains summary information about a user.
@@ -29,10 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 data UserSummary = UserSummary'
   { -- | The Amazon Resource Name (ARN) of the user account.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Connect user name of the user account.
-    username :: Prelude.Maybe Prelude.Text,
     -- | The identifier of the user account.
-    id :: Prelude.Maybe Prelude.Text
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Connect user name of the user account.
+    username :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,49 +47,49 @@ data UserSummary = UserSummary'
 --
 -- 'arn', 'userSummary_arn' - The Amazon Resource Name (ARN) of the user account.
 --
--- 'username', 'userSummary_username' - The Amazon Connect user name of the user account.
---
 -- 'id', 'userSummary_id' - The identifier of the user account.
+--
+-- 'username', 'userSummary_username' - The Amazon Connect user name of the user account.
 newUserSummary ::
   UserSummary
 newUserSummary =
   UserSummary'
     { arn = Prelude.Nothing,
-      username = Prelude.Nothing,
-      id = Prelude.Nothing
+      id = Prelude.Nothing,
+      username = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the user account.
 userSummary_arn :: Lens.Lens' UserSummary (Prelude.Maybe Prelude.Text)
 userSummary_arn = Lens.lens (\UserSummary' {arn} -> arn) (\s@UserSummary' {} a -> s {arn = a} :: UserSummary)
 
--- | The Amazon Connect user name of the user account.
-userSummary_username :: Lens.Lens' UserSummary (Prelude.Maybe Prelude.Text)
-userSummary_username = Lens.lens (\UserSummary' {username} -> username) (\s@UserSummary' {} a -> s {username = a} :: UserSummary)
-
 -- | The identifier of the user account.
 userSummary_id :: Lens.Lens' UserSummary (Prelude.Maybe Prelude.Text)
 userSummary_id = Lens.lens (\UserSummary' {id} -> id) (\s@UserSummary' {} a -> s {id = a} :: UserSummary)
 
-instance Core.FromJSON UserSummary where
+-- | The Amazon Connect user name of the user account.
+userSummary_username :: Lens.Lens' UserSummary (Prelude.Maybe Prelude.Text)
+userSummary_username = Lens.lens (\UserSummary' {username} -> username) (\s@UserSummary' {} a -> s {username = a} :: UserSummary)
+
+instance Data.FromJSON UserSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UserSummary"
       ( \x ->
           UserSummary'
-            Prelude.<$> (x Core..:? "Arn")
-            Prelude.<*> (x Core..:? "Username")
-            Prelude.<*> (x Core..:? "Id")
+            Prelude.<$> (x Data..:? "Arn")
+            Prelude.<*> (x Data..:? "Id")
+            Prelude.<*> (x Data..:? "Username")
       )
 
 instance Prelude.Hashable UserSummary where
   hashWithSalt _salt UserSummary' {..} =
     _salt `Prelude.hashWithSalt` arn
-      `Prelude.hashWithSalt` username
       `Prelude.hashWithSalt` id
+      `Prelude.hashWithSalt` username
 
 instance Prelude.NFData UserSummary where
   rnf UserSummary' {..} =
     Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf username
       `Prelude.seq` Prelude.rnf id
+      `Prelude.seq` Prelude.rnf username

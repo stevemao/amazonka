@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.Types.ProblemDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DeviceFarm.Types.ProblemDetail where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a problem detail.
@@ -61,13 +62,13 @@ problemDetail_arn = Lens.lens (\ProblemDetail' {arn} -> arn) (\s@ProblemDetail' 
 problemDetail_name :: Lens.Lens' ProblemDetail (Prelude.Maybe Prelude.Text)
 problemDetail_name = Lens.lens (\ProblemDetail' {name} -> name) (\s@ProblemDetail' {} a -> s {name = a} :: ProblemDetail)
 
-instance Core.FromJSON ProblemDetail where
+instance Data.FromJSON ProblemDetail where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ProblemDetail"
       ( \x ->
           ProblemDetail'
-            Prelude.<$> (x Core..:? "arn") Prelude.<*> (x Core..:? "name")
+            Prelude.<$> (x Data..:? "arn") Prelude.<*> (x Data..:? "name")
       )
 
 instance Prelude.Hashable ProblemDetail where

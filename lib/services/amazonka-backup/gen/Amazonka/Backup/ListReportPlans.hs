@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Backup.ListReportPlans
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,36 +28,37 @@ module Amazonka.Backup.ListReportPlans
     newListReportPlans,
 
     -- * Request Lenses
-    listReportPlans_nextToken,
     listReportPlans_maxResults,
+    listReportPlans_nextToken,
 
     -- * Destructuring the Response
     ListReportPlansResponse (..),
     newListReportPlansResponse,
 
     -- * Response Lenses
-    listReportPlansResponse_reportPlans,
     listReportPlansResponse_nextToken,
+    listReportPlansResponse_reportPlans,
     listReportPlansResponse_httpStatus,
   )
 where
 
 import Amazonka.Backup.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListReportPlans' smart constructor.
 data ListReportPlans = ListReportPlans'
-  { -- | An identifier that was returned from the previous call to this
+  { -- | The number of desired results from 1 to 1000. Optional. If unspecified,
+    -- the query will return 1 MB of data.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | An identifier that was returned from the previous call to this
     -- operation, which can be used to return the next set of items in the
     -- list.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The number of desired results from 1 to 1000. Optional. If unspecified,
-    -- the query will return 1 MB of data.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -69,19 +70,24 @@ data ListReportPlans = ListReportPlans'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listReportPlans_maxResults' - The number of desired results from 1 to 1000. Optional. If unspecified,
+-- the query will return 1 MB of data.
+--
 -- 'nextToken', 'listReportPlans_nextToken' - An identifier that was returned from the previous call to this
 -- operation, which can be used to return the next set of items in the
 -- list.
---
--- 'maxResults', 'listReportPlans_maxResults' - The number of desired results from 1 to 1000. Optional. If unspecified,
--- the query will return 1 MB of data.
 newListReportPlans ::
   ListReportPlans
 newListReportPlans =
   ListReportPlans'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The number of desired results from 1 to 1000. Optional. If unspecified,
+-- the query will return 1 MB of data.
+listReportPlans_maxResults :: Lens.Lens' ListReportPlans (Prelude.Maybe Prelude.Natural)
+listReportPlans_maxResults = Lens.lens (\ListReportPlans' {maxResults} -> maxResults) (\s@ListReportPlans' {} a -> s {maxResults = a} :: ListReportPlans)
 
 -- | An identifier that was returned from the previous call to this
 -- operation, which can be used to return the next set of items in the
@@ -89,68 +95,64 @@ newListReportPlans =
 listReportPlans_nextToken :: Lens.Lens' ListReportPlans (Prelude.Maybe Prelude.Text)
 listReportPlans_nextToken = Lens.lens (\ListReportPlans' {nextToken} -> nextToken) (\s@ListReportPlans' {} a -> s {nextToken = a} :: ListReportPlans)
 
--- | The number of desired results from 1 to 1000. Optional. If unspecified,
--- the query will return 1 MB of data.
-listReportPlans_maxResults :: Lens.Lens' ListReportPlans (Prelude.Maybe Prelude.Natural)
-listReportPlans_maxResults = Lens.lens (\ListReportPlans' {maxResults} -> maxResults) (\s@ListReportPlans' {} a -> s {maxResults = a} :: ListReportPlans)
-
 instance Core.AWSRequest ListReportPlans where
   type
     AWSResponse ListReportPlans =
       ListReportPlansResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListReportPlansResponse'
-            Prelude.<$> (x Core..?> "ReportPlans" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "ReportPlans" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListReportPlans where
   hashWithSalt _salt ListReportPlans' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListReportPlans where
   rnf ListReportPlans' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListReportPlans where
+instance Data.ToHeaders ListReportPlans where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListReportPlans where
+instance Data.ToPath ListReportPlans where
   toPath = Prelude.const "/audit/report-plans"
 
-instance Core.ToQuery ListReportPlans where
+instance Data.ToQuery ListReportPlans where
   toQuery ListReportPlans' {..} =
     Prelude.mconcat
-      [ "NextToken" Core.=: nextToken,
-        "MaxResults" Core.=: maxResults
+      [ "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListReportPlansResponse' smart constructor.
 data ListReportPlansResponse = ListReportPlansResponse'
-  { -- | A list of your report plans with detailed information for each plan.
+  { -- | An identifier that was returned from the previous call to this
+    -- operation, which can be used to return the next set of items in the
+    -- list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of your report plans with detailed information for each plan.
     -- This information includes the Amazon Resource Name (ARN), report plan
     -- name, description, settings, delivery channel, deployment status,
     -- creation time, and last times the report plan attempted to and
     -- successfully ran.
     reportPlans :: Prelude.Maybe [ReportPlan],
-    -- | An identifier that was returned from the previous call to this
-    -- operation, which can be used to return the next set of items in the
-    -- list.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -164,15 +166,15 @@ data ListReportPlansResponse = ListReportPlansResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'nextToken', 'listReportPlansResponse_nextToken' - An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+--
 -- 'reportPlans', 'listReportPlansResponse_reportPlans' - A list of your report plans with detailed information for each plan.
 -- This information includes the Amazon Resource Name (ARN), report plan
 -- name, description, settings, delivery channel, deployment status,
 -- creation time, and last times the report plan attempted to and
 -- successfully ran.
---
--- 'nextToken', 'listReportPlansResponse_nextToken' - An identifier that was returned from the previous call to this
--- operation, which can be used to return the next set of items in the
--- list.
 --
 -- 'httpStatus', 'listReportPlansResponse_httpStatus' - The response's http status code.
 newListReportPlansResponse ::
@@ -181,11 +183,17 @@ newListReportPlansResponse ::
   ListReportPlansResponse
 newListReportPlansResponse pHttpStatus_ =
   ListReportPlansResponse'
-    { reportPlans =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      reportPlans = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+listReportPlansResponse_nextToken :: Lens.Lens' ListReportPlansResponse (Prelude.Maybe Prelude.Text)
+listReportPlansResponse_nextToken = Lens.lens (\ListReportPlansResponse' {nextToken} -> nextToken) (\s@ListReportPlansResponse' {} a -> s {nextToken = a} :: ListReportPlansResponse)
 
 -- | A list of your report plans with detailed information for each plan.
 -- This information includes the Amazon Resource Name (ARN), report plan
@@ -195,18 +203,12 @@ newListReportPlansResponse pHttpStatus_ =
 listReportPlansResponse_reportPlans :: Lens.Lens' ListReportPlansResponse (Prelude.Maybe [ReportPlan])
 listReportPlansResponse_reportPlans = Lens.lens (\ListReportPlansResponse' {reportPlans} -> reportPlans) (\s@ListReportPlansResponse' {} a -> s {reportPlans = a} :: ListReportPlansResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | An identifier that was returned from the previous call to this
--- operation, which can be used to return the next set of items in the
--- list.
-listReportPlansResponse_nextToken :: Lens.Lens' ListReportPlansResponse (Prelude.Maybe Prelude.Text)
-listReportPlansResponse_nextToken = Lens.lens (\ListReportPlansResponse' {nextToken} -> nextToken) (\s@ListReportPlansResponse' {} a -> s {nextToken = a} :: ListReportPlansResponse)
-
 -- | The response's http status code.
 listReportPlansResponse_httpStatus :: Lens.Lens' ListReportPlansResponse Prelude.Int
 listReportPlansResponse_httpStatus = Lens.lens (\ListReportPlansResponse' {httpStatus} -> httpStatus) (\s@ListReportPlansResponse' {} a -> s {httpStatus = a} :: ListReportPlansResponse)
 
 instance Prelude.NFData ListReportPlansResponse where
   rnf ListReportPlansResponse' {..} =
-    Prelude.rnf reportPlans
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf reportPlans
       `Prelude.seq` Prelude.rnf httpStatus

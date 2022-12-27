@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ELBV2.ModifyListener
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,12 +37,12 @@ module Amazonka.ELBV2.ModifyListener
     newModifyListener,
 
     -- * Request Lenses
-    modifyListener_sslPolicy,
-    modifyListener_protocol,
-    modifyListener_defaultActions,
-    modifyListener_certificates,
     modifyListener_alpnPolicy,
+    modifyListener_certificates,
+    modifyListener_defaultActions,
     modifyListener_port,
+    modifyListener_protocol,
+    modifyListener_sslPolicy,
     modifyListener_listenerArn,
 
     -- * Destructuring the Response
@@ -56,36 +56,16 @@ module Amazonka.ELBV2.ModifyListener
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELBV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newModifyListener' smart constructor.
 data ModifyListener = ModifyListener'
-  { -- | [HTTPS and TLS listeners] The security policy that defines which
-    -- protocols and ciphers are supported.
-    --
-    -- For more information, see
-    -- <https://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-https-listener.html#describe-ssl-policies Security policies>
-    -- in the /Application Load Balancers Guide/ or
-    -- <https://docs.aws.amazon.com/elasticloadbalancing/latest/network/create-tls-listener.html#describe-ssl-policies Security policies>
-    -- in the /Network Load Balancers Guide/.
-    sslPolicy :: Prelude.Maybe Prelude.Text,
-    -- | The protocol for connections from clients to the load balancer.
-    -- Application Load Balancers support the HTTP and HTTPS protocols. Network
-    -- Load Balancers support the TCP, TLS, UDP, and TCP_UDP protocols. You
-    -- can’t change the protocol to UDP or TCP_UDP if dual-stack mode is
-    -- enabled. You cannot specify a protocol for a Gateway Load Balancer.
-    protocol :: Prelude.Maybe ProtocolEnum,
-    -- | The actions for the default rule.
-    defaultActions :: Prelude.Maybe [Action],
-    -- | [HTTPS and TLS listeners] The default certificate for the listener. You
-    -- must provide exactly one certificate. Set @CertificateArn@ to the
-    -- certificate ARN but do not set @IsDefault@.
-    certificates :: Prelude.Maybe [Certificate],
-    -- | [TLS listeners] The name of the Application-Layer Protocol Negotiation
+  { -- | [TLS listeners] The name of the Application-Layer Protocol Negotiation
     -- (ALPN) policy. You can specify one policy name. The following are the
     -- possible values:
     --
@@ -103,9 +83,30 @@ data ModifyListener = ModifyListener'
     -- <https://docs.aws.amazon.com/elasticloadbalancing/latest/network/create-tls-listener.html#alpn-policies ALPN policies>
     -- in the /Network Load Balancers Guide/.
     alpnPolicy :: Prelude.Maybe [Prelude.Text],
+    -- | [HTTPS and TLS listeners] The default certificate for the listener. You
+    -- must provide exactly one certificate. Set @CertificateArn@ to the
+    -- certificate ARN but do not set @IsDefault@.
+    certificates :: Prelude.Maybe [Certificate],
+    -- | The actions for the default rule.
+    defaultActions :: Prelude.Maybe [Action],
     -- | The port for connections from clients to the load balancer. You cannot
     -- specify a port for a Gateway Load Balancer.
     port :: Prelude.Maybe Prelude.Natural,
+    -- | The protocol for connections from clients to the load balancer.
+    -- Application Load Balancers support the HTTP and HTTPS protocols. Network
+    -- Load Balancers support the TCP, TLS, UDP, and TCP_UDP protocols. You
+    -- can’t change the protocol to UDP or TCP_UDP if dual-stack mode is
+    -- enabled. You cannot specify a protocol for a Gateway Load Balancer.
+    protocol :: Prelude.Maybe ProtocolEnum,
+    -- | [HTTPS and TLS listeners] The security policy that defines which
+    -- protocols and ciphers are supported.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-https-listener.html#describe-ssl-policies Security policies>
+    -- in the /Application Load Balancers Guide/ or
+    -- <https://docs.aws.amazon.com/elasticloadbalancing/latest/network/create-tls-listener.html#describe-ssl-policies Security policies>
+    -- in the /Network Load Balancers Guide/.
+    sslPolicy :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the listener.
     listenerArn :: Prelude.Text
   }
@@ -118,27 +119,6 @@ data ModifyListener = ModifyListener'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'sslPolicy', 'modifyListener_sslPolicy' - [HTTPS and TLS listeners] The security policy that defines which
--- protocols and ciphers are supported.
---
--- For more information, see
--- <https://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-https-listener.html#describe-ssl-policies Security policies>
--- in the /Application Load Balancers Guide/ or
--- <https://docs.aws.amazon.com/elasticloadbalancing/latest/network/create-tls-listener.html#describe-ssl-policies Security policies>
--- in the /Network Load Balancers Guide/.
---
--- 'protocol', 'modifyListener_protocol' - The protocol for connections from clients to the load balancer.
--- Application Load Balancers support the HTTP and HTTPS protocols. Network
--- Load Balancers support the TCP, TLS, UDP, and TCP_UDP protocols. You
--- can’t change the protocol to UDP or TCP_UDP if dual-stack mode is
--- enabled. You cannot specify a protocol for a Gateway Load Balancer.
---
--- 'defaultActions', 'modifyListener_defaultActions' - The actions for the default rule.
---
--- 'certificates', 'modifyListener_certificates' - [HTTPS and TLS listeners] The default certificate for the listener. You
--- must provide exactly one certificate. Set @CertificateArn@ to the
--- certificate ARN but do not set @IsDefault@.
 --
 -- 'alpnPolicy', 'modifyListener_alpnPolicy' - [TLS listeners] The name of the Application-Layer Protocol Negotiation
 -- (ALPN) policy. You can specify one policy name. The following are the
@@ -158,8 +138,29 @@ data ModifyListener = ModifyListener'
 -- <https://docs.aws.amazon.com/elasticloadbalancing/latest/network/create-tls-listener.html#alpn-policies ALPN policies>
 -- in the /Network Load Balancers Guide/.
 --
+-- 'certificates', 'modifyListener_certificates' - [HTTPS and TLS listeners] The default certificate for the listener. You
+-- must provide exactly one certificate. Set @CertificateArn@ to the
+-- certificate ARN but do not set @IsDefault@.
+--
+-- 'defaultActions', 'modifyListener_defaultActions' - The actions for the default rule.
+--
 -- 'port', 'modifyListener_port' - The port for connections from clients to the load balancer. You cannot
 -- specify a port for a Gateway Load Balancer.
+--
+-- 'protocol', 'modifyListener_protocol' - The protocol for connections from clients to the load balancer.
+-- Application Load Balancers support the HTTP and HTTPS protocols. Network
+-- Load Balancers support the TCP, TLS, UDP, and TCP_UDP protocols. You
+-- can’t change the protocol to UDP or TCP_UDP if dual-stack mode is
+-- enabled. You cannot specify a protocol for a Gateway Load Balancer.
+--
+-- 'sslPolicy', 'modifyListener_sslPolicy' - [HTTPS and TLS listeners] The security policy that defines which
+-- protocols and ciphers are supported.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-https-listener.html#describe-ssl-policies Security policies>
+-- in the /Application Load Balancers Guide/ or
+-- <https://docs.aws.amazon.com/elasticloadbalancing/latest/network/create-tls-listener.html#describe-ssl-policies Security policies>
+-- in the /Network Load Balancers Guide/.
 --
 -- 'listenerArn', 'modifyListener_listenerArn' - The Amazon Resource Name (ARN) of the listener.
 newModifyListener ::
@@ -168,43 +169,14 @@ newModifyListener ::
   ModifyListener
 newModifyListener pListenerArn_ =
   ModifyListener'
-    { sslPolicy = Prelude.Nothing,
-      protocol = Prelude.Nothing,
-      defaultActions = Prelude.Nothing,
+    { alpnPolicy = Prelude.Nothing,
       certificates = Prelude.Nothing,
-      alpnPolicy = Prelude.Nothing,
+      defaultActions = Prelude.Nothing,
       port = Prelude.Nothing,
+      protocol = Prelude.Nothing,
+      sslPolicy = Prelude.Nothing,
       listenerArn = pListenerArn_
     }
-
--- | [HTTPS and TLS listeners] The security policy that defines which
--- protocols and ciphers are supported.
---
--- For more information, see
--- <https://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-https-listener.html#describe-ssl-policies Security policies>
--- in the /Application Load Balancers Guide/ or
--- <https://docs.aws.amazon.com/elasticloadbalancing/latest/network/create-tls-listener.html#describe-ssl-policies Security policies>
--- in the /Network Load Balancers Guide/.
-modifyListener_sslPolicy :: Lens.Lens' ModifyListener (Prelude.Maybe Prelude.Text)
-modifyListener_sslPolicy = Lens.lens (\ModifyListener' {sslPolicy} -> sslPolicy) (\s@ModifyListener' {} a -> s {sslPolicy = a} :: ModifyListener)
-
--- | The protocol for connections from clients to the load balancer.
--- Application Load Balancers support the HTTP and HTTPS protocols. Network
--- Load Balancers support the TCP, TLS, UDP, and TCP_UDP protocols. You
--- can’t change the protocol to UDP or TCP_UDP if dual-stack mode is
--- enabled. You cannot specify a protocol for a Gateway Load Balancer.
-modifyListener_protocol :: Lens.Lens' ModifyListener (Prelude.Maybe ProtocolEnum)
-modifyListener_protocol = Lens.lens (\ModifyListener' {protocol} -> protocol) (\s@ModifyListener' {} a -> s {protocol = a} :: ModifyListener)
-
--- | The actions for the default rule.
-modifyListener_defaultActions :: Lens.Lens' ModifyListener (Prelude.Maybe [Action])
-modifyListener_defaultActions = Lens.lens (\ModifyListener' {defaultActions} -> defaultActions) (\s@ModifyListener' {} a -> s {defaultActions = a} :: ModifyListener) Prelude.. Lens.mapping Lens.coerced
-
--- | [HTTPS and TLS listeners] The default certificate for the listener. You
--- must provide exactly one certificate. Set @CertificateArn@ to the
--- certificate ARN but do not set @IsDefault@.
-modifyListener_certificates :: Lens.Lens' ModifyListener (Prelude.Maybe [Certificate])
-modifyListener_certificates = Lens.lens (\ModifyListener' {certificates} -> certificates) (\s@ModifyListener' {} a -> s {certificates = a} :: ModifyListener) Prelude.. Lens.mapping Lens.coerced
 
 -- | [TLS listeners] The name of the Application-Layer Protocol Negotiation
 -- (ALPN) policy. You can specify one policy name. The following are the
@@ -226,10 +198,39 @@ modifyListener_certificates = Lens.lens (\ModifyListener' {certificates} -> cert
 modifyListener_alpnPolicy :: Lens.Lens' ModifyListener (Prelude.Maybe [Prelude.Text])
 modifyListener_alpnPolicy = Lens.lens (\ModifyListener' {alpnPolicy} -> alpnPolicy) (\s@ModifyListener' {} a -> s {alpnPolicy = a} :: ModifyListener) Prelude.. Lens.mapping Lens.coerced
 
+-- | [HTTPS and TLS listeners] The default certificate for the listener. You
+-- must provide exactly one certificate. Set @CertificateArn@ to the
+-- certificate ARN but do not set @IsDefault@.
+modifyListener_certificates :: Lens.Lens' ModifyListener (Prelude.Maybe [Certificate])
+modifyListener_certificates = Lens.lens (\ModifyListener' {certificates} -> certificates) (\s@ModifyListener' {} a -> s {certificates = a} :: ModifyListener) Prelude.. Lens.mapping Lens.coerced
+
+-- | The actions for the default rule.
+modifyListener_defaultActions :: Lens.Lens' ModifyListener (Prelude.Maybe [Action])
+modifyListener_defaultActions = Lens.lens (\ModifyListener' {defaultActions} -> defaultActions) (\s@ModifyListener' {} a -> s {defaultActions = a} :: ModifyListener) Prelude.. Lens.mapping Lens.coerced
+
 -- | The port for connections from clients to the load balancer. You cannot
 -- specify a port for a Gateway Load Balancer.
 modifyListener_port :: Lens.Lens' ModifyListener (Prelude.Maybe Prelude.Natural)
 modifyListener_port = Lens.lens (\ModifyListener' {port} -> port) (\s@ModifyListener' {} a -> s {port = a} :: ModifyListener)
+
+-- | The protocol for connections from clients to the load balancer.
+-- Application Load Balancers support the HTTP and HTTPS protocols. Network
+-- Load Balancers support the TCP, TLS, UDP, and TCP_UDP protocols. You
+-- can’t change the protocol to UDP or TCP_UDP if dual-stack mode is
+-- enabled. You cannot specify a protocol for a Gateway Load Balancer.
+modifyListener_protocol :: Lens.Lens' ModifyListener (Prelude.Maybe ProtocolEnum)
+modifyListener_protocol = Lens.lens (\ModifyListener' {protocol} -> protocol) (\s@ModifyListener' {} a -> s {protocol = a} :: ModifyListener)
+
+-- | [HTTPS and TLS listeners] The security policy that defines which
+-- protocols and ciphers are supported.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-https-listener.html#describe-ssl-policies Security policies>
+-- in the /Application Load Balancers Guide/ or
+-- <https://docs.aws.amazon.com/elasticloadbalancing/latest/network/create-tls-listener.html#describe-ssl-policies Security policies>
+-- in the /Network Load Balancers Guide/.
+modifyListener_sslPolicy :: Lens.Lens' ModifyListener (Prelude.Maybe Prelude.Text)
+modifyListener_sslPolicy = Lens.lens (\ModifyListener' {sslPolicy} -> sslPolicy) (\s@ModifyListener' {} a -> s {sslPolicy = a} :: ModifyListener)
 
 -- | The Amazon Resource Name (ARN) of the listener.
 modifyListener_listenerArn :: Lens.Lens' ModifyListener Prelude.Text
@@ -239,66 +240,67 @@ instance Core.AWSRequest ModifyListener where
   type
     AWSResponse ModifyListener =
       ModifyListenerResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ModifyListenerResult"
       ( \s h x ->
           ModifyListenerResponse'
-            Prelude.<$> ( x Core..@? "Listeners" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> ( x Data..@? "Listeners" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ModifyListener where
   hashWithSalt _salt ModifyListener' {..} =
-    _salt `Prelude.hashWithSalt` sslPolicy
-      `Prelude.hashWithSalt` protocol
-      `Prelude.hashWithSalt` defaultActions
+    _salt `Prelude.hashWithSalt` alpnPolicy
       `Prelude.hashWithSalt` certificates
-      `Prelude.hashWithSalt` alpnPolicy
+      `Prelude.hashWithSalt` defaultActions
       `Prelude.hashWithSalt` port
+      `Prelude.hashWithSalt` protocol
+      `Prelude.hashWithSalt` sslPolicy
       `Prelude.hashWithSalt` listenerArn
 
 instance Prelude.NFData ModifyListener where
   rnf ModifyListener' {..} =
-    Prelude.rnf sslPolicy
-      `Prelude.seq` Prelude.rnf protocol
-      `Prelude.seq` Prelude.rnf defaultActions
+    Prelude.rnf alpnPolicy
       `Prelude.seq` Prelude.rnf certificates
-      `Prelude.seq` Prelude.rnf alpnPolicy
+      `Prelude.seq` Prelude.rnf defaultActions
       `Prelude.seq` Prelude.rnf port
+      `Prelude.seq` Prelude.rnf protocol
+      `Prelude.seq` Prelude.rnf sslPolicy
       `Prelude.seq` Prelude.rnf listenerArn
 
-instance Core.ToHeaders ModifyListener where
+instance Data.ToHeaders ModifyListener where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyListener where
+instance Data.ToPath ModifyListener where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyListener where
+instance Data.ToQuery ModifyListener where
   toQuery ModifyListener' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyListener" :: Prelude.ByteString),
+          Data.=: ("ModifyListener" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-12-01" :: Prelude.ByteString),
-        "SslPolicy" Core.=: sslPolicy,
-        "Protocol" Core.=: protocol,
+          Data.=: ("2015-12-01" :: Prelude.ByteString),
+        "AlpnPolicy"
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> alpnPolicy),
+        "Certificates"
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> certificates),
         "DefaultActions"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> defaultActions
             ),
-        "Certificates"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> certificates),
-        "AlpnPolicy"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> alpnPolicy),
-        "Port" Core.=: port,
-        "ListenerArn" Core.=: listenerArn
+        "Port" Data.=: port,
+        "Protocol" Data.=: protocol,
+        "SslPolicy" Data.=: sslPolicy,
+        "ListenerArn" Data.=: listenerArn
       ]
 
 -- | /See:/ 'newModifyListenerResponse' smart constructor.

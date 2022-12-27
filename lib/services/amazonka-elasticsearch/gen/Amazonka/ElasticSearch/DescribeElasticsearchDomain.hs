@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.DescribeElasticsearchDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.ElasticSearch.DescribeElasticsearchDomain
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,13 +86,14 @@ instance Core.AWSRequest DescribeElasticsearchDomain where
   type
     AWSResponse DescribeElasticsearchDomain =
       DescribeElasticsearchDomainResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeElasticsearchDomainResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "DomainStatus")
+            Prelude.<*> (x Data..:> "DomainStatus")
       )
 
 instance Prelude.Hashable DescribeElasticsearchDomain where
@@ -102,15 +104,15 @@ instance Prelude.NFData DescribeElasticsearchDomain where
   rnf DescribeElasticsearchDomain' {..} =
     Prelude.rnf domainName
 
-instance Core.ToHeaders DescribeElasticsearchDomain where
+instance Data.ToHeaders DescribeElasticsearchDomain where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeElasticsearchDomain where
+instance Data.ToPath DescribeElasticsearchDomain where
   toPath DescribeElasticsearchDomain' {..} =
     Prelude.mconcat
-      ["/2015-01-01/es/domain/", Core.toBS domainName]
+      ["/2015-01-01/es/domain/", Data.toBS domainName]
 
-instance Core.ToQuery DescribeElasticsearchDomain where
+instance Data.ToQuery DescribeElasticsearchDomain where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The result of a @DescribeElasticsearchDomain@ request. Contains the

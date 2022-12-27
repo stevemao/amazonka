@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KMS.UntagResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,7 +26,7 @@
 --
 -- Tagging or untagging a KMS key can allow or deny permission to the KMS
 -- key. For details, see
--- <https://docs.aws.amazon.com/kms/latest/developerguide/abac.html Using ABAC in KMS>
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/abac.html ABAC for KMS>
 -- in the /Key Management Service Developer Guide/.
 --
 -- When it succeeds, the @UntagResource@ operation doesn\'t return any
@@ -42,7 +42,7 @@
 --
 -- The KMS key that you use for this operation must be in a compatible key
 -- state. For details, see
--- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html Key state: Effect on your KMS key>
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html Key states of KMS keys>
 -- in the /Key Management Service Developer Guide/.
 --
 -- __Cross-account use__: No. You cannot perform this operation on a KMS
@@ -77,8 +77,9 @@ module Amazonka.KMS.UntagResource
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -161,7 +162,8 @@ instance Core.AWSRequest UntagResource where
   type
     AWSResponse UntagResource =
       UntagResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull UntagResourceResponse'
 
@@ -174,32 +176,32 @@ instance Prelude.NFData UntagResource where
   rnf UntagResource' {..} =
     Prelude.rnf keyId `Prelude.seq` Prelude.rnf tagKeys
 
-instance Core.ToHeaders UntagResource where
+instance Data.ToHeaders UntagResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("TrentService.UntagResource" :: Prelude.ByteString),
+              Data.=# ("TrentService.UntagResource" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UntagResource where
+instance Data.ToJSON UntagResource where
   toJSON UntagResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("KeyId" Core..= keyId),
-            Prelude.Just ("TagKeys" Core..= tagKeys)
+          [ Prelude.Just ("KeyId" Data..= keyId),
+            Prelude.Just ("TagKeys" Data..= tagKeys)
           ]
       )
 
-instance Core.ToPath UntagResource where
+instance Data.ToPath UntagResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UntagResource where
+instance Data.ToQuery UntagResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUntagResourceResponse' smart constructor.

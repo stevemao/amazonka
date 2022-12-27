@@ -14,13 +14,14 @@
 
 -- |
 -- Module      : Amazonka.MediaTailor.PutChannelPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an IAM policy for the channel.
+-- Creates an IAM policy for the channel. IAM policies are used to control
+-- access to your channel.
 module Amazonka.MediaTailor.PutChannelPolicy
   ( -- * Creating a Request
     PutChannelPolicy (..),
@@ -40,7 +41,8 @@ module Amazonka.MediaTailor.PutChannelPolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaTailor.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -48,7 +50,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newPutChannelPolicy' smart constructor.
 data PutChannelPolicy = PutChannelPolicy'
-  { -- | The identifier for the channel you are working on.
+  { -- | The channel name associated with this Channel Policy.
     channelName :: Prelude.Text,
     -- | Adds an IAM role that determines the permissions of your channel.
     policy :: Prelude.Text
@@ -63,7 +65,7 @@ data PutChannelPolicy = PutChannelPolicy'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'channelName', 'putChannelPolicy_channelName' - The identifier for the channel you are working on.
+-- 'channelName', 'putChannelPolicy_channelName' - The channel name associated with this Channel Policy.
 --
 -- 'policy', 'putChannelPolicy_policy' - Adds an IAM role that determines the permissions of your channel.
 newPutChannelPolicy ::
@@ -78,7 +80,7 @@ newPutChannelPolicy pChannelName_ pPolicy_ =
       policy = pPolicy_
     }
 
--- | The identifier for the channel you are working on.
+-- | The channel name associated with this Channel Policy.
 putChannelPolicy_channelName :: Lens.Lens' PutChannelPolicy Prelude.Text
 putChannelPolicy_channelName = Lens.lens (\PutChannelPolicy' {channelName} -> channelName) (\s@PutChannelPolicy' {} a -> s {channelName = a} :: PutChannelPolicy)
 
@@ -90,7 +92,8 @@ instance Core.AWSRequest PutChannelPolicy where
   type
     AWSResponse PutChannelPolicy =
       PutChannelPolicyResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -108,30 +111,30 @@ instance Prelude.NFData PutChannelPolicy where
     Prelude.rnf channelName
       `Prelude.seq` Prelude.rnf policy
 
-instance Core.ToHeaders PutChannelPolicy where
+instance Data.ToHeaders PutChannelPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutChannelPolicy where
+instance Data.ToJSON PutChannelPolicy where
   toJSON PutChannelPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Policy" Core..= policy)]
+          [Prelude.Just ("Policy" Data..= policy)]
       )
 
-instance Core.ToPath PutChannelPolicy where
+instance Data.ToPath PutChannelPolicy where
   toPath PutChannelPolicy' {..} =
     Prelude.mconcat
-      ["/channel/", Core.toBS channelName, "/policy"]
+      ["/channel/", Data.toBS channelName, "/policy"]
 
-instance Core.ToQuery PutChannelPolicy where
+instance Data.ToQuery PutChannelPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutChannelPolicyResponse' smart constructor.

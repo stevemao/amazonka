@@ -44,7 +44,7 @@ format_and_replace() {
   find "$dir" -type f -name '*.cabal' -print0 |
     xargs -0 cabal-fmt --inplace --indent=2
 
-  find "$dir" -type f -name '*.hs' -print0 |
+  find "$dir" -type f \( -name '*.hs' -o -name '*.hs-boot' \) -print0 |
     xargs -0 ormolu --mode=inplace \
       --ghc-opt='-XPatternSynonyms' \
       --ghc-opt='-XTypeApplications'
@@ -107,7 +107,8 @@ done
 parallel --halt-on-error 2 format_and_replace ::: "$tmp"/amazonka-*
 
 # Generate BUILD files for every package.
-./scripts/update-gazelle
+# Exit code 3 = Build OK, some tests failed/timed out
+./scripts/update-gazelle || [ $? == 3 ]
 
 set +e
 

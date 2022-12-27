@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ResourceGroups.Types.QueryError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ResourceGroups.Types.QueryError where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.ResourceGroups.Types.QueryErrorCode
 
@@ -83,14 +84,14 @@ queryError_errorCode = Lens.lens (\QueryError' {errorCode} -> errorCode) (\s@Que
 queryError_message :: Lens.Lens' QueryError (Prelude.Maybe Prelude.Text)
 queryError_message = Lens.lens (\QueryError' {message} -> message) (\s@QueryError' {} a -> s {message = a} :: QueryError)
 
-instance Core.FromJSON QueryError where
+instance Data.FromJSON QueryError where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "QueryError"
       ( \x ->
           QueryError'
-            Prelude.<$> (x Core..:? "ErrorCode")
-            Prelude.<*> (x Core..:? "Message")
+            Prelude.<$> (x Data..:? "ErrorCode")
+            Prelude.<*> (x Data..:? "Message")
       )
 
 instance Prelude.Hashable QueryError where

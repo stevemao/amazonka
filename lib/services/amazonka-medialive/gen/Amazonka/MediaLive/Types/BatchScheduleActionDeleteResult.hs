@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.BatchScheduleActionDeleteResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.BatchScheduleActionDeleteResult where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.ScheduleAction
 import qualified Amazonka.Prelude as Prelude
 
@@ -55,16 +56,16 @@ batchScheduleActionDeleteResult_scheduleActions :: Lens.Lens' BatchScheduleActio
 batchScheduleActionDeleteResult_scheduleActions = Lens.lens (\BatchScheduleActionDeleteResult' {scheduleActions} -> scheduleActions) (\s@BatchScheduleActionDeleteResult' {} a -> s {scheduleActions = a} :: BatchScheduleActionDeleteResult) Prelude.. Lens.coerced
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     BatchScheduleActionDeleteResult
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchScheduleActionDeleteResult"
       ( \x ->
           BatchScheduleActionDeleteResult'
-            Prelude.<$> ( x Core..:? "scheduleActions"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "scheduleActions"
+                            Data..!= Prelude.mempty
                         )
       )
 

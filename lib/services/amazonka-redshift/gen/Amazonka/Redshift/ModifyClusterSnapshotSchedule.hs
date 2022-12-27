@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.ModifyClusterSnapshotSchedule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ module Amazonka.Redshift.ModifyClusterSnapshotSchedule
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -108,7 +109,8 @@ instance
   type
     AWSResponse ModifyClusterSnapshotSchedule =
       ModifyClusterSnapshotScheduleResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       ModifyClusterSnapshotScheduleResponse'
@@ -128,24 +130,24 @@ instance Prelude.NFData ModifyClusterSnapshotSchedule where
       `Prelude.seq` Prelude.rnf scheduleIdentifier
       `Prelude.seq` Prelude.rnf clusterIdentifier
 
-instance Core.ToHeaders ModifyClusterSnapshotSchedule where
+instance Data.ToHeaders ModifyClusterSnapshotSchedule where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyClusterSnapshotSchedule where
+instance Data.ToPath ModifyClusterSnapshotSchedule where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyClusterSnapshotSchedule where
+instance Data.ToQuery ModifyClusterSnapshotSchedule where
   toQuery ModifyClusterSnapshotSchedule' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "ModifyClusterSnapshotSchedule" ::
+          Data.=: ( "ModifyClusterSnapshotSchedule" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "DisassociateSchedule" Core.=: disassociateSchedule,
-        "ScheduleIdentifier" Core.=: scheduleIdentifier,
-        "ClusterIdentifier" Core.=: clusterIdentifier
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "DisassociateSchedule" Data.=: disassociateSchedule,
+        "ScheduleIdentifier" Data.=: scheduleIdentifier,
+        "ClusterIdentifier" Data.=: clusterIdentifier
       ]
 
 -- | /See:/ 'newModifyClusterSnapshotScheduleResponse' smart constructor.

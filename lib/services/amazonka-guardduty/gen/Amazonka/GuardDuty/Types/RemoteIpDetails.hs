@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.Types.RemoteIpDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,25 +20,26 @@
 module Amazonka.GuardDuty.Types.RemoteIpDetails where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types.City
 import Amazonka.GuardDuty.Types.Country
 import Amazonka.GuardDuty.Types.GeoLocation
 import Amazonka.GuardDuty.Types.Organization
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the remote IP address of the connection.
 --
 -- /See:/ 'newRemoteIpDetails' smart constructor.
 data RemoteIpDetails = RemoteIpDetails'
-  { -- | The country code of the remote IP address.
-    country :: Prelude.Maybe Country,
-    -- | The city information of the remote IP address.
+  { -- | The city information of the remote IP address.
     city :: Prelude.Maybe City,
-    -- | The IPv4 remote address of the connection.
-    ipAddressV4 :: Prelude.Maybe Prelude.Text,
+    -- | The country code of the remote IP address.
+    country :: Prelude.Maybe Country,
     -- | The location information of the remote IP address.
     geoLocation :: Prelude.Maybe GeoLocation,
+    -- | The IPv4 remote address of the connection.
+    ipAddressV4 :: Prelude.Maybe Prelude.Text,
     -- | The ISP organization information of the remote IP address.
     organization :: Prelude.Maybe Organization
   }
@@ -52,71 +53,71 @@ data RemoteIpDetails = RemoteIpDetails'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'country', 'remoteIpDetails_country' - The country code of the remote IP address.
---
 -- 'city', 'remoteIpDetails_city' - The city information of the remote IP address.
 --
--- 'ipAddressV4', 'remoteIpDetails_ipAddressV4' - The IPv4 remote address of the connection.
+-- 'country', 'remoteIpDetails_country' - The country code of the remote IP address.
 --
 -- 'geoLocation', 'remoteIpDetails_geoLocation' - The location information of the remote IP address.
+--
+-- 'ipAddressV4', 'remoteIpDetails_ipAddressV4' - The IPv4 remote address of the connection.
 --
 -- 'organization', 'remoteIpDetails_organization' - The ISP organization information of the remote IP address.
 newRemoteIpDetails ::
   RemoteIpDetails
 newRemoteIpDetails =
   RemoteIpDetails'
-    { country = Prelude.Nothing,
-      city = Prelude.Nothing,
-      ipAddressV4 = Prelude.Nothing,
+    { city = Prelude.Nothing,
+      country = Prelude.Nothing,
       geoLocation = Prelude.Nothing,
+      ipAddressV4 = Prelude.Nothing,
       organization = Prelude.Nothing
     }
-
--- | The country code of the remote IP address.
-remoteIpDetails_country :: Lens.Lens' RemoteIpDetails (Prelude.Maybe Country)
-remoteIpDetails_country = Lens.lens (\RemoteIpDetails' {country} -> country) (\s@RemoteIpDetails' {} a -> s {country = a} :: RemoteIpDetails)
 
 -- | The city information of the remote IP address.
 remoteIpDetails_city :: Lens.Lens' RemoteIpDetails (Prelude.Maybe City)
 remoteIpDetails_city = Lens.lens (\RemoteIpDetails' {city} -> city) (\s@RemoteIpDetails' {} a -> s {city = a} :: RemoteIpDetails)
 
--- | The IPv4 remote address of the connection.
-remoteIpDetails_ipAddressV4 :: Lens.Lens' RemoteIpDetails (Prelude.Maybe Prelude.Text)
-remoteIpDetails_ipAddressV4 = Lens.lens (\RemoteIpDetails' {ipAddressV4} -> ipAddressV4) (\s@RemoteIpDetails' {} a -> s {ipAddressV4 = a} :: RemoteIpDetails)
+-- | The country code of the remote IP address.
+remoteIpDetails_country :: Lens.Lens' RemoteIpDetails (Prelude.Maybe Country)
+remoteIpDetails_country = Lens.lens (\RemoteIpDetails' {country} -> country) (\s@RemoteIpDetails' {} a -> s {country = a} :: RemoteIpDetails)
 
 -- | The location information of the remote IP address.
 remoteIpDetails_geoLocation :: Lens.Lens' RemoteIpDetails (Prelude.Maybe GeoLocation)
 remoteIpDetails_geoLocation = Lens.lens (\RemoteIpDetails' {geoLocation} -> geoLocation) (\s@RemoteIpDetails' {} a -> s {geoLocation = a} :: RemoteIpDetails)
 
+-- | The IPv4 remote address of the connection.
+remoteIpDetails_ipAddressV4 :: Lens.Lens' RemoteIpDetails (Prelude.Maybe Prelude.Text)
+remoteIpDetails_ipAddressV4 = Lens.lens (\RemoteIpDetails' {ipAddressV4} -> ipAddressV4) (\s@RemoteIpDetails' {} a -> s {ipAddressV4 = a} :: RemoteIpDetails)
+
 -- | The ISP organization information of the remote IP address.
 remoteIpDetails_organization :: Lens.Lens' RemoteIpDetails (Prelude.Maybe Organization)
 remoteIpDetails_organization = Lens.lens (\RemoteIpDetails' {organization} -> organization) (\s@RemoteIpDetails' {} a -> s {organization = a} :: RemoteIpDetails)
 
-instance Core.FromJSON RemoteIpDetails where
+instance Data.FromJSON RemoteIpDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RemoteIpDetails"
       ( \x ->
           RemoteIpDetails'
-            Prelude.<$> (x Core..:? "country")
-            Prelude.<*> (x Core..:? "city")
-            Prelude.<*> (x Core..:? "ipAddressV4")
-            Prelude.<*> (x Core..:? "geoLocation")
-            Prelude.<*> (x Core..:? "organization")
+            Prelude.<$> (x Data..:? "city")
+            Prelude.<*> (x Data..:? "country")
+            Prelude.<*> (x Data..:? "geoLocation")
+            Prelude.<*> (x Data..:? "ipAddressV4")
+            Prelude.<*> (x Data..:? "organization")
       )
 
 instance Prelude.Hashable RemoteIpDetails where
   hashWithSalt _salt RemoteIpDetails' {..} =
-    _salt `Prelude.hashWithSalt` country
-      `Prelude.hashWithSalt` city
-      `Prelude.hashWithSalt` ipAddressV4
+    _salt `Prelude.hashWithSalt` city
+      `Prelude.hashWithSalt` country
       `Prelude.hashWithSalt` geoLocation
+      `Prelude.hashWithSalt` ipAddressV4
       `Prelude.hashWithSalt` organization
 
 instance Prelude.NFData RemoteIpDetails where
   rnf RemoteIpDetails' {..} =
-    Prelude.rnf country
-      `Prelude.seq` Prelude.rnf city
-      `Prelude.seq` Prelude.rnf ipAddressV4
+    Prelude.rnf city
+      `Prelude.seq` Prelude.rnf country
       `Prelude.seq` Prelude.rnf geoLocation
+      `Prelude.seq` Prelude.rnf ipAddressV4
       `Prelude.seq` Prelude.rnf organization

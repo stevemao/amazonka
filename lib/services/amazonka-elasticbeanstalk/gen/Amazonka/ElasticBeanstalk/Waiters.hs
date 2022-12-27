@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -8,7 +9,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.Waiters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -16,20 +17,21 @@
 module Amazonka.ElasticBeanstalk.Waiters where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticBeanstalk.DescribeEnvironments
 import Amazonka.ElasticBeanstalk.Lens
 import Amazonka.ElasticBeanstalk.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Polls 'Amazonka.ElasticBeanstalk.DescribeEnvironments' every 20 seconds until a successful state is reached. An error is returned after 20 failed checks.
 newEnvironmentExists :: Core.Wait DescribeEnvironments
 newEnvironmentExists =
   Core.Wait
-    { Core._waitName = "EnvironmentExists",
-      Core._waitAttempts = 20,
-      Core._waitDelay = 20,
-      Core._waitAcceptors =
+    { Core.name = "EnvironmentExists",
+      Core.attempts = 20,
+      Core.delay = 20,
+      Core.acceptors =
         [ Core.matchAll
             "Ready"
             Core.AcceptSuccess
@@ -41,7 +43,7 @@ newEnvironmentExists =
                 )
                 Prelude.. environmentDescription_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAll
             "Launching"
@@ -54,44 +56,7 @@ newEnvironmentExists =
                 )
                 Prelude.. environmentDescription_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
-            )
-        ]
-    }
-
--- | Polls 'Amazonka.ElasticBeanstalk.DescribeEnvironments' every 20 seconds until a successful state is reached. An error is returned after 20 failed checks.
-newEnvironmentUpdated :: Core.Wait DescribeEnvironments
-newEnvironmentUpdated =
-  Core.Wait
-    { Core._waitName = "EnvironmentUpdated",
-      Core._waitAttempts = 20,
-      Core._waitDelay = 20,
-      Core._waitAcceptors =
-        [ Core.matchAll
-            "Ready"
-            Core.AcceptSuccess
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( environmentDescriptionsMessage_environments
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. environmentDescription_status
-                Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
-            ),
-          Core.matchAll
-            "Updating"
-            Core.AcceptRetry
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( environmentDescriptionsMessage_environments
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. environmentDescription_status
-                Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }
@@ -100,10 +65,10 @@ newEnvironmentUpdated =
 newEnvironmentTerminated :: Core.Wait DescribeEnvironments
 newEnvironmentTerminated =
   Core.Wait
-    { Core._waitName = "EnvironmentTerminated",
-      Core._waitAttempts = 20,
-      Core._waitDelay = 20,
-      Core._waitAcceptors =
+    { Core.name = "EnvironmentTerminated",
+      Core.attempts = 20,
+      Core.delay = 20,
+      Core.acceptors =
         [ Core.matchAll
             "Terminated"
             Core.AcceptSuccess
@@ -115,7 +80,7 @@ newEnvironmentTerminated =
                 )
                 Prelude.. environmentDescription_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAll
             "Terminating"
@@ -128,7 +93,44 @@ newEnvironmentTerminated =
                 )
                 Prelude.. environmentDescription_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
+            )
+        ]
+    }
+
+-- | Polls 'Amazonka.ElasticBeanstalk.DescribeEnvironments' every 20 seconds until a successful state is reached. An error is returned after 20 failed checks.
+newEnvironmentUpdated :: Core.Wait DescribeEnvironments
+newEnvironmentUpdated =
+  Core.Wait
+    { Core.name = "EnvironmentUpdated",
+      Core.attempts = 20,
+      Core.delay = 20,
+      Core.acceptors =
+        [ Core.matchAll
+            "Ready"
+            Core.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( environmentDescriptionsMessage_environments
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. environmentDescription_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchAll
+            "Updating"
+            Core.AcceptRetry
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( environmentDescriptionsMessage_environments
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. environmentDescription_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }

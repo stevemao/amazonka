@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.Types.ModelVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.FraudDetector.Types.ModelVersion where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types.ModelTypeEnum
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The model version.
@@ -89,16 +90,16 @@ modelVersion_modelType = Lens.lens (\ModelVersion' {modelType} -> modelType) (\s
 modelVersion_modelVersionNumber :: Lens.Lens' ModelVersion Prelude.Text
 modelVersion_modelVersionNumber = Lens.lens (\ModelVersion' {modelVersionNumber} -> modelVersionNumber) (\s@ModelVersion' {} a -> s {modelVersionNumber = a} :: ModelVersion)
 
-instance Core.FromJSON ModelVersion where
+instance Data.FromJSON ModelVersion where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ModelVersion"
       ( \x ->
           ModelVersion'
-            Prelude.<$> (x Core..:? "arn")
-            Prelude.<*> (x Core..: "modelId")
-            Prelude.<*> (x Core..: "modelType")
-            Prelude.<*> (x Core..: "modelVersionNumber")
+            Prelude.<$> (x Data..:? "arn")
+            Prelude.<*> (x Data..: "modelId")
+            Prelude.<*> (x Data..: "modelType")
+            Prelude.<*> (x Data..: "modelVersionNumber")
       )
 
 instance Prelude.Hashable ModelVersion where
@@ -115,14 +116,14 @@ instance Prelude.NFData ModelVersion where
       `Prelude.seq` Prelude.rnf modelType
       `Prelude.seq` Prelude.rnf modelVersionNumber
 
-instance Core.ToJSON ModelVersion where
+instance Data.ToJSON ModelVersion where
   toJSON ModelVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("arn" Core..=) Prelude.<$> arn,
-            Prelude.Just ("modelId" Core..= modelId),
-            Prelude.Just ("modelType" Core..= modelType),
+          [ ("arn" Data..=) Prelude.<$> arn,
+            Prelude.Just ("modelId" Data..= modelId),
+            Prelude.Just ("modelType" Data..= modelType),
             Prelude.Just
-              ("modelVersionNumber" Core..= modelVersionNumber)
+              ("modelVersionNumber" Data..= modelVersionNumber)
           ]
       )

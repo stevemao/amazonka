@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.Types.StepAdjustment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AutoScaling.Types.StepAdjustment where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes information used to create a step adjustment for a step
@@ -77,6 +78,11 @@ data StepAdjustment = StepAdjustment'
     -- | The amount by which to scale, based on the specified adjustment type. A
     -- positive value adds to the current capacity while a negative number
     -- removes from the current capacity.
+    --
+    -- The amount by which to scale. The adjustment is based on the value that
+    -- you specified in the @AdjustmentType@ property (either an absolute
+    -- number or a percentage). A positive value adds to the current capacity
+    -- and a negative number subtracts from the current capacity.
     scalingAdjustment :: Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -108,6 +114,11 @@ data StepAdjustment = StepAdjustment'
 -- 'scalingAdjustment', 'stepAdjustment_scalingAdjustment' - The amount by which to scale, based on the specified adjustment type. A
 -- positive value adds to the current capacity while a negative number
 -- removes from the current capacity.
+--
+-- The amount by which to scale. The adjustment is based on the value that
+-- you specified in the @AdjustmentType@ property (either an absolute
+-- number or a percentage). A positive value adds to the current capacity
+-- and a negative number subtracts from the current capacity.
 newStepAdjustment ::
   -- | 'scalingAdjustment'
   Prelude.Int ->
@@ -143,15 +154,20 @@ stepAdjustment_metricIntervalUpperBound = Lens.lens (\StepAdjustment' {metricInt
 -- | The amount by which to scale, based on the specified adjustment type. A
 -- positive value adds to the current capacity while a negative number
 -- removes from the current capacity.
+--
+-- The amount by which to scale. The adjustment is based on the value that
+-- you specified in the @AdjustmentType@ property (either an absolute
+-- number or a percentage). A positive value adds to the current capacity
+-- and a negative number subtracts from the current capacity.
 stepAdjustment_scalingAdjustment :: Lens.Lens' StepAdjustment Prelude.Int
 stepAdjustment_scalingAdjustment = Lens.lens (\StepAdjustment' {scalingAdjustment} -> scalingAdjustment) (\s@StepAdjustment' {} a -> s {scalingAdjustment = a} :: StepAdjustment)
 
-instance Core.FromXML StepAdjustment where
+instance Data.FromXML StepAdjustment where
   parseXML x =
     StepAdjustment'
-      Prelude.<$> (x Core..@? "MetricIntervalLowerBound")
-      Prelude.<*> (x Core..@? "MetricIntervalUpperBound")
-      Prelude.<*> (x Core..@ "ScalingAdjustment")
+      Prelude.<$> (x Data..@? "MetricIntervalLowerBound")
+      Prelude.<*> (x Data..@? "MetricIntervalUpperBound")
+      Prelude.<*> (x Data..@ "ScalingAdjustment")
 
 instance Prelude.Hashable StepAdjustment where
   hashWithSalt _salt StepAdjustment' {..} =
@@ -166,12 +182,12 @@ instance Prelude.NFData StepAdjustment where
       `Prelude.seq` Prelude.rnf metricIntervalUpperBound
       `Prelude.seq` Prelude.rnf scalingAdjustment
 
-instance Core.ToQuery StepAdjustment where
+instance Data.ToQuery StepAdjustment where
   toQuery StepAdjustment' {..} =
     Prelude.mconcat
       [ "MetricIntervalLowerBound"
-          Core.=: metricIntervalLowerBound,
+          Data.=: metricIntervalLowerBound,
         "MetricIntervalUpperBound"
-          Core.=: metricIntervalUpperBound,
-        "ScalingAdjustment" Core.=: scalingAdjustment
+          Data.=: metricIntervalUpperBound,
+        "ScalingAdjustment" Data.=: scalingAdjustment
       ]

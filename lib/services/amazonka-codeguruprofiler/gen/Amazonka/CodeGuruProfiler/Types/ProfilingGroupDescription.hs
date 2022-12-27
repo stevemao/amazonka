@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruProfiler.Types.ProfilingGroupDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,25 +23,31 @@ import Amazonka.CodeGuruProfiler.Types.AgentOrchestrationConfig
 import Amazonka.CodeGuruProfiler.Types.ComputePlatform
 import Amazonka.CodeGuruProfiler.Types.ProfilingStatus
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about a profiling group.
 --
 -- /See:/ 'newProfilingGroupDescription' smart constructor.
 data ProfilingGroupDescription = ProfilingGroupDescription'
-  { -- | The compute platform of the profiling group. If it is set to
+  { -- | An
+    -- <https://docs.aws.amazon.com/codeguru/latest/profiler-api/API_AgentOrchestrationConfig.html AgentOrchestrationConfig>
+    -- object that indicates if the profiling group is enabled for profiled or
+    -- not.
+    agentOrchestrationConfig :: Prelude.Maybe AgentOrchestrationConfig,
+    -- | The Amazon Resource Name (ARN) identifying the profiling group resource.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The compute platform of the profiling group. If it is set to
     -- @AWSLambda@, then the profiled application runs on AWS Lambda. If it is
     -- set to @Default@, then the profiled application runs on a compute
     -- platform that is not AWS Lambda, such an Amazon EC2 instance, an
     -- on-premises server, or a different platform. The default is @Default@.
     computePlatform :: Prelude.Maybe ComputePlatform,
-    -- | The Amazon Resource Name (ARN) identifying the profiling group resource.
-    arn :: Prelude.Maybe Prelude.Text,
     -- | The time when the profiling group was created. Specify using the ISO
     -- 8601 format. For example, 2020-06-01T13:15:02.001Z represents 1
     -- millisecond past June 1, 2020 1:15:02 PM UTC.
-    createdAt :: Prelude.Maybe Core.POSIX,
+    createdAt :: Prelude.Maybe Data.POSIX,
     -- | The name of the profiling group.
     name :: Prelude.Maybe Prelude.Text,
     -- | A
@@ -50,17 +56,12 @@ data ProfilingGroupDescription = ProfilingGroupDescription'
     -- pinged back, the last time a profile was received, and the aggregation
     -- period and start time for the most recent aggregated profile.
     profilingStatus :: Prelude.Maybe ProfilingStatus,
+    -- | A list of the tags that belong to this profiling group.
+    tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The date and time when the profiling group was last updated. Specify
     -- using the ISO 8601 format. For example, 2020-06-01T13:15:02.001Z
     -- represents 1 millisecond past June 1, 2020 1:15:02 PM UTC.
-    updatedAt :: Prelude.Maybe Core.POSIX,
-    -- | An
-    -- <https://docs.aws.amazon.com/codeguru/latest/profiler-api/API_AgentOrchestrationConfig.html AgentOrchestrationConfig>
-    -- object that indicates if the profiling group is enabled for profiled or
-    -- not.
-    agentOrchestrationConfig :: Prelude.Maybe AgentOrchestrationConfig,
-    -- | A list of the tags that belong to this profiling group.
-    tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text)
+    updatedAt :: Prelude.Maybe Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -72,13 +73,18 @@ data ProfilingGroupDescription = ProfilingGroupDescription'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'agentOrchestrationConfig', 'profilingGroupDescription_agentOrchestrationConfig' - An
+-- <https://docs.aws.amazon.com/codeguru/latest/profiler-api/API_AgentOrchestrationConfig.html AgentOrchestrationConfig>
+-- object that indicates if the profiling group is enabled for profiled or
+-- not.
+--
+-- 'arn', 'profilingGroupDescription_arn' - The Amazon Resource Name (ARN) identifying the profiling group resource.
+--
 -- 'computePlatform', 'profilingGroupDescription_computePlatform' - The compute platform of the profiling group. If it is set to
 -- @AWSLambda@, then the profiled application runs on AWS Lambda. If it is
 -- set to @Default@, then the profiled application runs on a compute
 -- platform that is not AWS Lambda, such an Amazon EC2 instance, an
 -- on-premises server, or a different platform. The default is @Default@.
---
--- 'arn', 'profilingGroupDescription_arn' - The Amazon Resource Name (ARN) identifying the profiling group resource.
 --
 -- 'createdAt', 'profilingGroupDescription_createdAt' - The time when the profiling group was created. Specify using the ISO
 -- 8601 format. For example, 2020-06-01T13:15:02.001Z represents 1
@@ -92,30 +98,36 @@ data ProfilingGroupDescription = ProfilingGroupDescription'
 -- pinged back, the last time a profile was received, and the aggregation
 -- period and start time for the most recent aggregated profile.
 --
+-- 'tags', 'profilingGroupDescription_tags' - A list of the tags that belong to this profiling group.
+--
 -- 'updatedAt', 'profilingGroupDescription_updatedAt' - The date and time when the profiling group was last updated. Specify
 -- using the ISO 8601 format. For example, 2020-06-01T13:15:02.001Z
 -- represents 1 millisecond past June 1, 2020 1:15:02 PM UTC.
---
--- 'agentOrchestrationConfig', 'profilingGroupDescription_agentOrchestrationConfig' - An
--- <https://docs.aws.amazon.com/codeguru/latest/profiler-api/API_AgentOrchestrationConfig.html AgentOrchestrationConfig>
--- object that indicates if the profiling group is enabled for profiled or
--- not.
---
--- 'tags', 'profilingGroupDescription_tags' - A list of the tags that belong to this profiling group.
 newProfilingGroupDescription ::
   ProfilingGroupDescription
 newProfilingGroupDescription =
   ProfilingGroupDescription'
-    { computePlatform =
+    { agentOrchestrationConfig =
         Prelude.Nothing,
       arn = Prelude.Nothing,
+      computePlatform = Prelude.Nothing,
       createdAt = Prelude.Nothing,
       name = Prelude.Nothing,
       profilingStatus = Prelude.Nothing,
-      updatedAt = Prelude.Nothing,
-      agentOrchestrationConfig = Prelude.Nothing,
-      tags = Prelude.Nothing
+      tags = Prelude.Nothing,
+      updatedAt = Prelude.Nothing
     }
+
+-- | An
+-- <https://docs.aws.amazon.com/codeguru/latest/profiler-api/API_AgentOrchestrationConfig.html AgentOrchestrationConfig>
+-- object that indicates if the profiling group is enabled for profiled or
+-- not.
+profilingGroupDescription_agentOrchestrationConfig :: Lens.Lens' ProfilingGroupDescription (Prelude.Maybe AgentOrchestrationConfig)
+profilingGroupDescription_agentOrchestrationConfig = Lens.lens (\ProfilingGroupDescription' {agentOrchestrationConfig} -> agentOrchestrationConfig) (\s@ProfilingGroupDescription' {} a -> s {agentOrchestrationConfig = a} :: ProfilingGroupDescription)
+
+-- | The Amazon Resource Name (ARN) identifying the profiling group resource.
+profilingGroupDescription_arn :: Lens.Lens' ProfilingGroupDescription (Prelude.Maybe Prelude.Text)
+profilingGroupDescription_arn = Lens.lens (\ProfilingGroupDescription' {arn} -> arn) (\s@ProfilingGroupDescription' {} a -> s {arn = a} :: ProfilingGroupDescription)
 
 -- | The compute platform of the profiling group. If it is set to
 -- @AWSLambda@, then the profiled application runs on AWS Lambda. If it is
@@ -125,15 +137,11 @@ newProfilingGroupDescription =
 profilingGroupDescription_computePlatform :: Lens.Lens' ProfilingGroupDescription (Prelude.Maybe ComputePlatform)
 profilingGroupDescription_computePlatform = Lens.lens (\ProfilingGroupDescription' {computePlatform} -> computePlatform) (\s@ProfilingGroupDescription' {} a -> s {computePlatform = a} :: ProfilingGroupDescription)
 
--- | The Amazon Resource Name (ARN) identifying the profiling group resource.
-profilingGroupDescription_arn :: Lens.Lens' ProfilingGroupDescription (Prelude.Maybe Prelude.Text)
-profilingGroupDescription_arn = Lens.lens (\ProfilingGroupDescription' {arn} -> arn) (\s@ProfilingGroupDescription' {} a -> s {arn = a} :: ProfilingGroupDescription)
-
 -- | The time when the profiling group was created. Specify using the ISO
 -- 8601 format. For example, 2020-06-01T13:15:02.001Z represents 1
 -- millisecond past June 1, 2020 1:15:02 PM UTC.
 profilingGroupDescription_createdAt :: Lens.Lens' ProfilingGroupDescription (Prelude.Maybe Prelude.UTCTime)
-profilingGroupDescription_createdAt = Lens.lens (\ProfilingGroupDescription' {createdAt} -> createdAt) (\s@ProfilingGroupDescription' {} a -> s {createdAt = a} :: ProfilingGroupDescription) Prelude.. Lens.mapping Core._Time
+profilingGroupDescription_createdAt = Lens.lens (\ProfilingGroupDescription' {createdAt} -> createdAt) (\s@ProfilingGroupDescription' {} a -> s {createdAt = a} :: ProfilingGroupDescription) Prelude.. Lens.mapping Data._Time
 
 -- | The name of the profiling group.
 profilingGroupDescription_name :: Lens.Lens' ProfilingGroupDescription (Prelude.Maybe Prelude.Text)
@@ -147,57 +155,51 @@ profilingGroupDescription_name = Lens.lens (\ProfilingGroupDescription' {name} -
 profilingGroupDescription_profilingStatus :: Lens.Lens' ProfilingGroupDescription (Prelude.Maybe ProfilingStatus)
 profilingGroupDescription_profilingStatus = Lens.lens (\ProfilingGroupDescription' {profilingStatus} -> profilingStatus) (\s@ProfilingGroupDescription' {} a -> s {profilingStatus = a} :: ProfilingGroupDescription)
 
--- | The date and time when the profiling group was last updated. Specify
--- using the ISO 8601 format. For example, 2020-06-01T13:15:02.001Z
--- represents 1 millisecond past June 1, 2020 1:15:02 PM UTC.
-profilingGroupDescription_updatedAt :: Lens.Lens' ProfilingGroupDescription (Prelude.Maybe Prelude.UTCTime)
-profilingGroupDescription_updatedAt = Lens.lens (\ProfilingGroupDescription' {updatedAt} -> updatedAt) (\s@ProfilingGroupDescription' {} a -> s {updatedAt = a} :: ProfilingGroupDescription) Prelude.. Lens.mapping Core._Time
-
--- | An
--- <https://docs.aws.amazon.com/codeguru/latest/profiler-api/API_AgentOrchestrationConfig.html AgentOrchestrationConfig>
--- object that indicates if the profiling group is enabled for profiled or
--- not.
-profilingGroupDescription_agentOrchestrationConfig :: Lens.Lens' ProfilingGroupDescription (Prelude.Maybe AgentOrchestrationConfig)
-profilingGroupDescription_agentOrchestrationConfig = Lens.lens (\ProfilingGroupDescription' {agentOrchestrationConfig} -> agentOrchestrationConfig) (\s@ProfilingGroupDescription' {} a -> s {agentOrchestrationConfig = a} :: ProfilingGroupDescription)
-
 -- | A list of the tags that belong to this profiling group.
 profilingGroupDescription_tags :: Lens.Lens' ProfilingGroupDescription (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 profilingGroupDescription_tags = Lens.lens (\ProfilingGroupDescription' {tags} -> tags) (\s@ProfilingGroupDescription' {} a -> s {tags = a} :: ProfilingGroupDescription) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON ProfilingGroupDescription where
+-- | The date and time when the profiling group was last updated. Specify
+-- using the ISO 8601 format. For example, 2020-06-01T13:15:02.001Z
+-- represents 1 millisecond past June 1, 2020 1:15:02 PM UTC.
+profilingGroupDescription_updatedAt :: Lens.Lens' ProfilingGroupDescription (Prelude.Maybe Prelude.UTCTime)
+profilingGroupDescription_updatedAt = Lens.lens (\ProfilingGroupDescription' {updatedAt} -> updatedAt) (\s@ProfilingGroupDescription' {} a -> s {updatedAt = a} :: ProfilingGroupDescription) Prelude.. Lens.mapping Data._Time
+
+instance Data.FromJSON ProfilingGroupDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ProfilingGroupDescription"
       ( \x ->
           ProfilingGroupDescription'
-            Prelude.<$> (x Core..:? "computePlatform")
-            Prelude.<*> (x Core..:? "arn")
-            Prelude.<*> (x Core..:? "createdAt")
-            Prelude.<*> (x Core..:? "name")
-            Prelude.<*> (x Core..:? "profilingStatus")
-            Prelude.<*> (x Core..:? "updatedAt")
-            Prelude.<*> (x Core..:? "agentOrchestrationConfig")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "agentOrchestrationConfig")
+            Prelude.<*> (x Data..:? "arn")
+            Prelude.<*> (x Data..:? "computePlatform")
+            Prelude.<*> (x Data..:? "createdAt")
+            Prelude.<*> (x Data..:? "name")
+            Prelude.<*> (x Data..:? "profilingStatus")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "updatedAt")
       )
 
 instance Prelude.Hashable ProfilingGroupDescription where
   hashWithSalt _salt ProfilingGroupDescription' {..} =
-    _salt `Prelude.hashWithSalt` computePlatform
+    _salt
+      `Prelude.hashWithSalt` agentOrchestrationConfig
       `Prelude.hashWithSalt` arn
+      `Prelude.hashWithSalt` computePlatform
       `Prelude.hashWithSalt` createdAt
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` profilingStatus
-      `Prelude.hashWithSalt` updatedAt
-      `Prelude.hashWithSalt` agentOrchestrationConfig
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` updatedAt
 
 instance Prelude.NFData ProfilingGroupDescription where
   rnf ProfilingGroupDescription' {..} =
-    Prelude.rnf computePlatform
+    Prelude.rnf agentOrchestrationConfig
       `Prelude.seq` Prelude.rnf arn
+      `Prelude.seq` Prelude.rnf computePlatform
       `Prelude.seq` Prelude.rnf createdAt
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf profilingStatus
-      `Prelude.seq` Prelude.rnf updatedAt
-      `Prelude.seq` Prelude.rnf agentOrchestrationConfig
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf updatedAt

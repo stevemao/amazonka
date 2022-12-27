@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.CreateCoreDefinitionVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,15 +39,16 @@ module Amazonka.Greengrass.CreateCoreDefinitionVersion
     -- * Response Lenses
     createCoreDefinitionVersionResponse_arn,
     createCoreDefinitionVersionResponse_creationTimestamp,
-    createCoreDefinitionVersionResponse_version,
     createCoreDefinitionVersionResponse_id,
+    createCoreDefinitionVersionResponse_version,
     createCoreDefinitionVersionResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -104,15 +105,16 @@ instance Core.AWSRequest CreateCoreDefinitionVersion where
   type
     AWSResponse CreateCoreDefinitionVersion =
       CreateCoreDefinitionVersionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateCoreDefinitionVersionResponse'
-            Prelude.<$> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "CreationTimestamp")
-            Prelude.<*> (x Core..?> "Version")
-            Prelude.<*> (x Core..?> "Id")
+            Prelude.<$> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "CreationTimestamp")
+            Prelude.<*> (x Data..?> "Id")
+            Prelude.<*> (x Data..?> "Version")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -128,30 +130,30 @@ instance Prelude.NFData CreateCoreDefinitionVersion where
       `Prelude.seq` Prelude.rnf cores
       `Prelude.seq` Prelude.rnf coreDefinitionId
 
-instance Core.ToHeaders CreateCoreDefinitionVersion where
+instance Data.ToHeaders CreateCoreDefinitionVersion where
   toHeaders CreateCoreDefinitionVersion' {..} =
     Prelude.mconcat
-      [ "X-Amzn-Client-Token" Core.=# amznClientToken,
+      [ "X-Amzn-Client-Token" Data.=# amznClientToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToJSON CreateCoreDefinitionVersion where
+instance Data.ToJSON CreateCoreDefinitionVersion where
   toJSON CreateCoreDefinitionVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Cores" Core..=) Prelude.<$> cores]
+          [("Cores" Data..=) Prelude.<$> cores]
       )
 
-instance Core.ToPath CreateCoreDefinitionVersion where
+instance Data.ToPath CreateCoreDefinitionVersion where
   toPath CreateCoreDefinitionVersion' {..} =
     Prelude.mconcat
       [ "/greengrass/definition/cores/",
-        Core.toBS coreDefinitionId,
+        Data.toBS coreDefinitionId,
         "/versions"
       ]
 
-instance Core.ToQuery CreateCoreDefinitionVersion where
+instance Data.ToQuery CreateCoreDefinitionVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateCoreDefinitionVersionResponse' smart constructor.
@@ -160,10 +162,10 @@ data CreateCoreDefinitionVersionResponse = CreateCoreDefinitionVersionResponse'
     arn :: Prelude.Maybe Prelude.Text,
     -- | The time, in milliseconds since the epoch, when the version was created.
     creationTimestamp :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the version.
-    version :: Prelude.Maybe Prelude.Text,
     -- | The ID of the parent definition that the version is associated with.
     id :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the version.
+    version :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -181,9 +183,9 @@ data CreateCoreDefinitionVersionResponse = CreateCoreDefinitionVersionResponse'
 --
 -- 'creationTimestamp', 'createCoreDefinitionVersionResponse_creationTimestamp' - The time, in milliseconds since the epoch, when the version was created.
 --
--- 'version', 'createCoreDefinitionVersionResponse_version' - The ID of the version.
---
 -- 'id', 'createCoreDefinitionVersionResponse_id' - The ID of the parent definition that the version is associated with.
+--
+-- 'version', 'createCoreDefinitionVersionResponse_version' - The ID of the version.
 --
 -- 'httpStatus', 'createCoreDefinitionVersionResponse_httpStatus' - The response's http status code.
 newCreateCoreDefinitionVersionResponse ::
@@ -195,8 +197,8 @@ newCreateCoreDefinitionVersionResponse pHttpStatus_ =
     { arn =
         Prelude.Nothing,
       creationTimestamp = Prelude.Nothing,
-      version = Prelude.Nothing,
       id = Prelude.Nothing,
+      version = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
@@ -208,13 +210,13 @@ createCoreDefinitionVersionResponse_arn = Lens.lens (\CreateCoreDefinitionVersio
 createCoreDefinitionVersionResponse_creationTimestamp :: Lens.Lens' CreateCoreDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
 createCoreDefinitionVersionResponse_creationTimestamp = Lens.lens (\CreateCoreDefinitionVersionResponse' {creationTimestamp} -> creationTimestamp) (\s@CreateCoreDefinitionVersionResponse' {} a -> s {creationTimestamp = a} :: CreateCoreDefinitionVersionResponse)
 
--- | The ID of the version.
-createCoreDefinitionVersionResponse_version :: Lens.Lens' CreateCoreDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
-createCoreDefinitionVersionResponse_version = Lens.lens (\CreateCoreDefinitionVersionResponse' {version} -> version) (\s@CreateCoreDefinitionVersionResponse' {} a -> s {version = a} :: CreateCoreDefinitionVersionResponse)
-
 -- | The ID of the parent definition that the version is associated with.
 createCoreDefinitionVersionResponse_id :: Lens.Lens' CreateCoreDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
 createCoreDefinitionVersionResponse_id = Lens.lens (\CreateCoreDefinitionVersionResponse' {id} -> id) (\s@CreateCoreDefinitionVersionResponse' {} a -> s {id = a} :: CreateCoreDefinitionVersionResponse)
+
+-- | The ID of the version.
+createCoreDefinitionVersionResponse_version :: Lens.Lens' CreateCoreDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
+createCoreDefinitionVersionResponse_version = Lens.lens (\CreateCoreDefinitionVersionResponse' {version} -> version) (\s@CreateCoreDefinitionVersionResponse' {} a -> s {version = a} :: CreateCoreDefinitionVersionResponse)
 
 -- | The response's http status code.
 createCoreDefinitionVersionResponse_httpStatus :: Lens.Lens' CreateCoreDefinitionVersionResponse Prelude.Int
@@ -227,6 +229,6 @@ instance
   rnf CreateCoreDefinitionVersionResponse' {..} =
     Prelude.rnf arn
       `Prelude.seq` Prelude.rnf creationTimestamp
-      `Prelude.seq` Prelude.rnf version
       `Prelude.seq` Prelude.rnf id
+      `Prelude.seq` Prelude.rnf version
       `Prelude.seq` Prelude.rnf httpStatus

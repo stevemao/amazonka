@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AccessAnalyzer.ListAccessPreviewFindings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,9 +30,9 @@ module Amazonka.AccessAnalyzer.ListAccessPreviewFindings
     newListAccessPreviewFindings,
 
     -- * Request Lenses
-    listAccessPreviewFindings_nextToken,
     listAccessPreviewFindings_filter,
     listAccessPreviewFindings_maxResults,
+    listAccessPreviewFindings_nextToken,
     listAccessPreviewFindings_accessPreviewId,
     listAccessPreviewFindings_analyzerArn,
 
@@ -49,19 +49,20 @@ where
 
 import Amazonka.AccessAnalyzer.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListAccessPreviewFindings' smart constructor.
 data ListAccessPreviewFindings = ListAccessPreviewFindings'
-  { -- | A token used for pagination of results returned.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Criteria to filter the returned findings.
+  { -- | Criteria to filter the returned findings.
     filter' :: Prelude.Maybe (Prelude.HashMap Prelude.Text Criterion),
     -- | The maximum number of results to return in the response.
     maxResults :: Prelude.Maybe Prelude.Int,
+    -- | A token used for pagination of results returned.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The unique ID for the access preview.
     accessPreviewId :: Prelude.Text,
     -- | The
@@ -79,11 +80,11 @@ data ListAccessPreviewFindings = ListAccessPreviewFindings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listAccessPreviewFindings_nextToken' - A token used for pagination of results returned.
---
 -- 'filter'', 'listAccessPreviewFindings_filter' - Criteria to filter the returned findings.
 --
 -- 'maxResults', 'listAccessPreviewFindings_maxResults' - The maximum number of results to return in the response.
+--
+-- 'nextToken', 'listAccessPreviewFindings_nextToken' - A token used for pagination of results returned.
 --
 -- 'accessPreviewId', 'listAccessPreviewFindings_accessPreviewId' - The unique ID for the access preview.
 --
@@ -100,17 +101,13 @@ newListAccessPreviewFindings
   pAccessPreviewId_
   pAnalyzerArn_ =
     ListAccessPreviewFindings'
-      { nextToken =
+      { filter' =
           Prelude.Nothing,
-        filter' = Prelude.Nothing,
         maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         accessPreviewId = pAccessPreviewId_,
         analyzerArn = pAnalyzerArn_
       }
-
--- | A token used for pagination of results returned.
-listAccessPreviewFindings_nextToken :: Lens.Lens' ListAccessPreviewFindings (Prelude.Maybe Prelude.Text)
-listAccessPreviewFindings_nextToken = Lens.lens (\ListAccessPreviewFindings' {nextToken} -> nextToken) (\s@ListAccessPreviewFindings' {} a -> s {nextToken = a} :: ListAccessPreviewFindings)
 
 -- | Criteria to filter the returned findings.
 listAccessPreviewFindings_filter :: Lens.Lens' ListAccessPreviewFindings (Prelude.Maybe (Prelude.HashMap Prelude.Text Criterion))
@@ -119,6 +116,10 @@ listAccessPreviewFindings_filter = Lens.lens (\ListAccessPreviewFindings' {filte
 -- | The maximum number of results to return in the response.
 listAccessPreviewFindings_maxResults :: Lens.Lens' ListAccessPreviewFindings (Prelude.Maybe Prelude.Int)
 listAccessPreviewFindings_maxResults = Lens.lens (\ListAccessPreviewFindings' {maxResults} -> maxResults) (\s@ListAccessPreviewFindings' {} a -> s {maxResults = a} :: ListAccessPreviewFindings)
+
+-- | A token used for pagination of results returned.
+listAccessPreviewFindings_nextToken :: Lens.Lens' ListAccessPreviewFindings (Prelude.Maybe Prelude.Text)
+listAccessPreviewFindings_nextToken = Lens.lens (\ListAccessPreviewFindings' {nextToken} -> nextToken) (\s@ListAccessPreviewFindings' {} a -> s {nextToken = a} :: ListAccessPreviewFindings)
 
 -- | The unique ID for the access preview.
 listAccessPreviewFindings_accessPreviewId :: Lens.Lens' ListAccessPreviewFindings Prelude.Text
@@ -155,60 +156,61 @@ instance Core.AWSRequest ListAccessPreviewFindings where
   type
     AWSResponse ListAccessPreviewFindings =
       ListAccessPreviewFindingsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAccessPreviewFindingsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "findings" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "findings" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListAccessPreviewFindings where
   hashWithSalt _salt ListAccessPreviewFindings' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` filter'
+    _salt `Prelude.hashWithSalt` filter'
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` accessPreviewId
       `Prelude.hashWithSalt` analyzerArn
 
 instance Prelude.NFData ListAccessPreviewFindings where
   rnf ListAccessPreviewFindings' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf filter'
+    Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf accessPreviewId
       `Prelude.seq` Prelude.rnf analyzerArn
 
-instance Core.ToHeaders ListAccessPreviewFindings where
+instance Data.ToHeaders ListAccessPreviewFindings where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListAccessPreviewFindings where
+instance Data.ToJSON ListAccessPreviewFindings where
   toJSON ListAccessPreviewFindings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("filter" Core..=) Prelude.<$> filter',
-            ("maxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("analyzerArn" Core..= analyzerArn)
+          [ ("filter" Data..=) Prelude.<$> filter',
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("analyzerArn" Data..= analyzerArn)
           ]
       )
 
-instance Core.ToPath ListAccessPreviewFindings where
+instance Data.ToPath ListAccessPreviewFindings where
   toPath ListAccessPreviewFindings' {..} =
     Prelude.mconcat
-      ["/access-preview/", Core.toBS accessPreviewId]
+      ["/access-preview/", Data.toBS accessPreviewId]
 
-instance Core.ToQuery ListAccessPreviewFindings where
+instance Data.ToQuery ListAccessPreviewFindings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListAccessPreviewFindingsResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkSpaces.CreateIpGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,8 @@ module Amazonka.WorkSpaces.CreateIpGroup
 
     -- * Request Lenses
     createIpGroup_groupDesc,
-    createIpGroup_userRules,
     createIpGroup_tags,
+    createIpGroup_userRules,
     createIpGroup_groupName,
 
     -- * Destructuring the Response
@@ -56,7 +56,8 @@ module Amazonka.WorkSpaces.CreateIpGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,10 +67,10 @@ import Amazonka.WorkSpaces.Types
 data CreateIpGroup = CreateIpGroup'
   { -- | The description of the group.
     groupDesc :: Prelude.Maybe Prelude.Text,
-    -- | The rules to add to the group.
-    userRules :: Prelude.Maybe [IpRuleItem],
     -- | The tags. Each WorkSpaces resource can have a maximum of 50 tags.
     tags :: Prelude.Maybe [Tag],
+    -- | The rules to add to the group.
+    userRules :: Prelude.Maybe [IpRuleItem],
     -- | The name of the group.
     groupName :: Prelude.Text
   }
@@ -85,9 +86,9 @@ data CreateIpGroup = CreateIpGroup'
 --
 -- 'groupDesc', 'createIpGroup_groupDesc' - The description of the group.
 --
--- 'userRules', 'createIpGroup_userRules' - The rules to add to the group.
---
 -- 'tags', 'createIpGroup_tags' - The tags. Each WorkSpaces resource can have a maximum of 50 tags.
+--
+-- 'userRules', 'createIpGroup_userRules' - The rules to add to the group.
 --
 -- 'groupName', 'createIpGroup_groupName' - The name of the group.
 newCreateIpGroup ::
@@ -97,8 +98,8 @@ newCreateIpGroup ::
 newCreateIpGroup pGroupName_ =
   CreateIpGroup'
     { groupDesc = Prelude.Nothing,
-      userRules = Prelude.Nothing,
       tags = Prelude.Nothing,
+      userRules = Prelude.Nothing,
       groupName = pGroupName_
     }
 
@@ -106,13 +107,13 @@ newCreateIpGroup pGroupName_ =
 createIpGroup_groupDesc :: Lens.Lens' CreateIpGroup (Prelude.Maybe Prelude.Text)
 createIpGroup_groupDesc = Lens.lens (\CreateIpGroup' {groupDesc} -> groupDesc) (\s@CreateIpGroup' {} a -> s {groupDesc = a} :: CreateIpGroup)
 
--- | The rules to add to the group.
-createIpGroup_userRules :: Lens.Lens' CreateIpGroup (Prelude.Maybe [IpRuleItem])
-createIpGroup_userRules = Lens.lens (\CreateIpGroup' {userRules} -> userRules) (\s@CreateIpGroup' {} a -> s {userRules = a} :: CreateIpGroup) Prelude.. Lens.mapping Lens.coerced
-
 -- | The tags. Each WorkSpaces resource can have a maximum of 50 tags.
 createIpGroup_tags :: Lens.Lens' CreateIpGroup (Prelude.Maybe [Tag])
 createIpGroup_tags = Lens.lens (\CreateIpGroup' {tags} -> tags) (\s@CreateIpGroup' {} a -> s {tags = a} :: CreateIpGroup) Prelude.. Lens.mapping Lens.coerced
+
+-- | The rules to add to the group.
+createIpGroup_userRules :: Lens.Lens' CreateIpGroup (Prelude.Maybe [IpRuleItem])
+createIpGroup_userRules = Lens.lens (\CreateIpGroup' {userRules} -> userRules) (\s@CreateIpGroup' {} a -> s {userRules = a} :: CreateIpGroup) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the group.
 createIpGroup_groupName :: Lens.Lens' CreateIpGroup Prelude.Text
@@ -122,59 +123,60 @@ instance Core.AWSRequest CreateIpGroup where
   type
     AWSResponse CreateIpGroup =
       CreateIpGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateIpGroupResponse'
-            Prelude.<$> (x Core..?> "GroupId")
+            Prelude.<$> (x Data..?> "GroupId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateIpGroup where
   hashWithSalt _salt CreateIpGroup' {..} =
     _salt `Prelude.hashWithSalt` groupDesc
-      `Prelude.hashWithSalt` userRules
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` userRules
       `Prelude.hashWithSalt` groupName
 
 instance Prelude.NFData CreateIpGroup where
   rnf CreateIpGroup' {..} =
     Prelude.rnf groupDesc
-      `Prelude.seq` Prelude.rnf userRules
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf userRules
       `Prelude.seq` Prelude.rnf groupName
 
-instance Core.ToHeaders CreateIpGroup where
+instance Data.ToHeaders CreateIpGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkspacesService.CreateIpGroup" ::
+              Data.=# ( "WorkspacesService.CreateIpGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateIpGroup where
+instance Data.ToJSON CreateIpGroup where
   toJSON CreateIpGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("GroupDesc" Core..=) Prelude.<$> groupDesc,
-            ("UserRules" Core..=) Prelude.<$> userRules,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("GroupName" Core..= groupName)
+          [ ("GroupDesc" Data..=) Prelude.<$> groupDesc,
+            ("Tags" Data..=) Prelude.<$> tags,
+            ("UserRules" Data..=) Prelude.<$> userRules,
+            Prelude.Just ("GroupName" Data..= groupName)
           ]
       )
 
-instance Core.ToPath CreateIpGroup where
+instance Data.ToPath CreateIpGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateIpGroup where
+instance Data.ToQuery CreateIpGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateIpGroupResponse' smart constructor.

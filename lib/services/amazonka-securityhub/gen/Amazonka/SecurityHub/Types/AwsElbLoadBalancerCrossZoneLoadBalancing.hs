@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsElbLoadBalancerCrossZoneLoadBalancing
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsElbLoadBalancerCrossZoneLoadBalancing where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains cross-zone load balancing settings for the load balancer.
@@ -57,15 +58,15 @@ awsElbLoadBalancerCrossZoneLoadBalancing_enabled :: Lens.Lens' AwsElbLoadBalance
 awsElbLoadBalancerCrossZoneLoadBalancing_enabled = Lens.lens (\AwsElbLoadBalancerCrossZoneLoadBalancing' {enabled} -> enabled) (\s@AwsElbLoadBalancerCrossZoneLoadBalancing' {} a -> s {enabled = a} :: AwsElbLoadBalancerCrossZoneLoadBalancing)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsElbLoadBalancerCrossZoneLoadBalancing
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsElbLoadBalancerCrossZoneLoadBalancing"
       ( \x ->
           AwsElbLoadBalancerCrossZoneLoadBalancing'
-            Prelude.<$> (x Core..:? "Enabled")
+            Prelude.<$> (x Data..:? "Enabled")
       )
 
 instance
@@ -85,11 +86,11 @@ instance
     Prelude.rnf enabled
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsElbLoadBalancerCrossZoneLoadBalancing
   where
   toJSON AwsElbLoadBalancerCrossZoneLoadBalancing' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Enabled" Core..=) Prelude.<$> enabled]
+          [("Enabled" Data..=) Prelude.<$> enabled]
       )

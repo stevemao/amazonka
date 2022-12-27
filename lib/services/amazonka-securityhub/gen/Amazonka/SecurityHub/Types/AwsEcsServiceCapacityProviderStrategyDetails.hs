@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsEcsServiceCapacityProviderStrategyDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsEcsServiceCapacityProviderStrategyDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Strategy item for the capacity provider strategy that the service uses.
@@ -100,17 +101,17 @@ awsEcsServiceCapacityProviderStrategyDetails_weight :: Lens.Lens' AwsEcsServiceC
 awsEcsServiceCapacityProviderStrategyDetails_weight = Lens.lens (\AwsEcsServiceCapacityProviderStrategyDetails' {weight} -> weight) (\s@AwsEcsServiceCapacityProviderStrategyDetails' {} a -> s {weight = a} :: AwsEcsServiceCapacityProviderStrategyDetails)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsEcsServiceCapacityProviderStrategyDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsEcsServiceCapacityProviderStrategyDetails"
       ( \x ->
           AwsEcsServiceCapacityProviderStrategyDetails'
-            Prelude.<$> (x Core..:? "Base")
-              Prelude.<*> (x Core..:? "CapacityProvider")
-              Prelude.<*> (x Core..:? "Weight")
+            Prelude.<$> (x Data..:? "Base")
+              Prelude.<*> (x Data..:? "CapacityProvider")
+              Prelude.<*> (x Data..:? "Weight")
       )
 
 instance
@@ -134,16 +135,16 @@ instance
       `Prelude.seq` Prelude.rnf weight
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsEcsServiceCapacityProviderStrategyDetails
   where
   toJSON
     AwsEcsServiceCapacityProviderStrategyDetails' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("Base" Core..=) Prelude.<$> base,
-              ("CapacityProvider" Core..=)
+            [ ("Base" Data..=) Prelude.<$> base,
+              ("CapacityProvider" Data..=)
                 Prelude.<$> capacityProvider,
-              ("Weight" Core..=) Prelude.<$> weight
+              ("Weight" Data..=) Prelude.<$> weight
             ]
         )

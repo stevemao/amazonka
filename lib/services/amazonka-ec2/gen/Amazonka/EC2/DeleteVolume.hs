@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DeleteVolume
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.EC2.DeleteVolume
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,7 +100,8 @@ deleteVolume_volumeId = Lens.lens (\DeleteVolume' {volumeId} -> volumeId) (\s@De
 
 instance Core.AWSRequest DeleteVolume where
   type AWSResponse DeleteVolume = DeleteVolumeResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response = Response.receiveNull DeleteVolumeResponse'
 
 instance Prelude.Hashable DeleteVolume where
@@ -112,21 +114,21 @@ instance Prelude.NFData DeleteVolume where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf volumeId
 
-instance Core.ToHeaders DeleteVolume where
+instance Data.ToHeaders DeleteVolume where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteVolume where
+instance Data.ToPath DeleteVolume where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteVolume where
+instance Data.ToQuery DeleteVolume where
   toQuery DeleteVolume' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteVolume" :: Prelude.ByteString),
+          Data.=: ("DeleteVolume" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "VolumeId" Core.=: volumeId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "VolumeId" Data.=: volumeId
       ]
 
 -- | /See:/ 'newDeleteVolumeResponse' smart constructor.

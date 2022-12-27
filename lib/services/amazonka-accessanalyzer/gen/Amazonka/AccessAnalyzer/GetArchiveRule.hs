@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AccessAnalyzer.GetArchiveRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ where
 
 import Amazonka.AccessAnalyzer.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,13 +99,14 @@ instance Core.AWSRequest GetArchiveRule where
   type
     AWSResponse GetArchiveRule =
       GetArchiveRuleResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetArchiveRuleResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "archiveRule")
+            Prelude.<*> (x Data..:> "archiveRule")
       )
 
 instance Prelude.Hashable GetArchiveRule where
@@ -117,27 +119,27 @@ instance Prelude.NFData GetArchiveRule where
     Prelude.rnf analyzerName
       `Prelude.seq` Prelude.rnf ruleName
 
-instance Core.ToHeaders GetArchiveRule where
+instance Data.ToHeaders GetArchiveRule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetArchiveRule where
+instance Data.ToPath GetArchiveRule where
   toPath GetArchiveRule' {..} =
     Prelude.mconcat
       [ "/analyzer/",
-        Core.toBS analyzerName,
+        Data.toBS analyzerName,
         "/archive-rule/",
-        Core.toBS ruleName
+        Data.toBS ruleName
       ]
 
-instance Core.ToQuery GetArchiveRule where
+instance Data.ToQuery GetArchiveRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The response to the request.

@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.Amplify.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,94 +14,28 @@
 module Amazonka.Amplify.Lens
   ( -- * Operations
 
-    -- ** GetDomainAssociation
-    getDomainAssociation_appId,
-    getDomainAssociation_domainName,
-    getDomainAssociationResponse_httpStatus,
-    getDomainAssociationResponse_domainAssociation,
-
-    -- ** ListArtifacts
-    listArtifacts_nextToken,
-    listArtifacts_maxResults,
-    listArtifacts_appId,
-    listArtifacts_branchName,
-    listArtifacts_jobId,
-    listArtifactsResponse_nextToken,
-    listArtifactsResponse_httpStatus,
-    listArtifactsResponse_artifacts,
-
-    -- ** StopJob
-    stopJob_appId,
-    stopJob_branchName,
-    stopJob_jobId,
-    stopJobResponse_httpStatus,
-    stopJobResponse_jobSummary,
-
-    -- ** GetBackendEnvironment
-    getBackendEnvironment_appId,
-    getBackendEnvironment_environmentName,
-    getBackendEnvironmentResponse_httpStatus,
-    getBackendEnvironmentResponse_backendEnvironment,
-
-    -- ** CreateWebhook
-    createWebhook_description,
-    createWebhook_appId,
-    createWebhook_branchName,
-    createWebhookResponse_httpStatus,
-    createWebhookResponse_webhook,
-
-    -- ** GetBranch
-    getBranch_appId,
-    getBranch_branchName,
-    getBranchResponse_httpStatus,
-    getBranchResponse_branch,
-
-    -- ** ListTagsForResource
-    listTagsForResource_resourceArn,
-    listTagsForResourceResponse_tags,
-    listTagsForResourceResponse_httpStatus,
-
-    -- ** CreateDomainAssociation
-    createDomainAssociation_enableAutoSubDomain,
-    createDomainAssociation_autoSubDomainCreationPatterns,
-    createDomainAssociation_autoSubDomainIAMRole,
-    createDomainAssociation_appId,
-    createDomainAssociation_domainName,
-    createDomainAssociation_subDomainSettings,
-    createDomainAssociationResponse_httpStatus,
-    createDomainAssociationResponse_domainAssociation,
-
-    -- ** GetWebhook
-    getWebhook_webhookId,
-    getWebhookResponse_httpStatus,
-    getWebhookResponse_webhook,
-
-    -- ** DeleteBranch
-    deleteBranch_appId,
-    deleteBranch_branchName,
-    deleteBranchResponse_httpStatus,
-    deleteBranchResponse_branch,
-
-    -- ** UpdateBranch
-    updateBranch_framework,
-    updateBranch_ttl,
-    updateBranch_enableNotification,
-    updateBranch_stage,
-    updateBranch_backendEnvironmentArn,
-    updateBranch_enablePullRequestPreview,
-    updateBranch_basicAuthCredentials,
-    updateBranch_buildSpec,
-    updateBranch_enablePerformanceMode,
-    updateBranch_displayName,
-    updateBranch_environmentVariables,
-    updateBranch_enableAutoBuild,
-    updateBranch_enableBasicAuth,
-    updateBranch_pullRequestEnvironmentName,
-    updateBranch_description,
-    updateBranch_appId,
-    updateBranch_branchName,
-    updateBranchResponse_httpStatus,
-    updateBranchResponse_branch,
+    -- ** CreateApp
+    createApp_accessToken,
+    createApp_autoBranchCreationConfig,
+    createApp_autoBranchCreationPatterns,
+    createApp_basicAuthCredentials,
+    createApp_buildSpec,
+    createApp_customHeaders,
+    createApp_customRules,
+    createApp_description,
+    createApp_enableAutoBranchCreation,
+    createApp_enableBasicAuth,
+    createApp_enableBranchAutoBuild,
+    createApp_enableBranchAutoDeletion,
+    createApp_environmentVariables,
+    createApp_iamServiceRoleArn,
+    createApp_oauthToken,
+    createApp_platform,
+    createApp_repository,
+    createApp_tags,
+    createApp_name,
+    createAppResponse_httpStatus,
+    createAppResponse_app,
 
     -- ** CreateBackendEnvironment
     createBackendEnvironment_deploymentArtifacts,
@@ -110,6 +44,28 @@ module Amazonka.Amplify.Lens
     createBackendEnvironment_environmentName,
     createBackendEnvironmentResponse_httpStatus,
     createBackendEnvironmentResponse_backendEnvironment,
+
+    -- ** CreateBranch
+    createBranch_backendEnvironmentArn,
+    createBranch_basicAuthCredentials,
+    createBranch_buildSpec,
+    createBranch_description,
+    createBranch_displayName,
+    createBranch_enableAutoBuild,
+    createBranch_enableBasicAuth,
+    createBranch_enableNotification,
+    createBranch_enablePerformanceMode,
+    createBranch_enablePullRequestPreview,
+    createBranch_environmentVariables,
+    createBranch_framework,
+    createBranch_pullRequestEnvironmentName,
+    createBranch_stage,
+    createBranch_tags,
+    createBranch_ttl,
+    createBranch_appId,
+    createBranch_branchName,
+    createBranchResponse_httpStatus,
+    createBranchResponse_branch,
 
     -- ** CreateDeployment
     createDeployment_fileMap,
@@ -120,50 +76,27 @@ module Amazonka.Amplify.Lens
     createDeploymentResponse_fileUploadUrls,
     createDeploymentResponse_zipUploadUrl,
 
-    -- ** CreateBranch
-    createBranch_framework,
-    createBranch_ttl,
-    createBranch_enableNotification,
-    createBranch_stage,
-    createBranch_backendEnvironmentArn,
-    createBranch_enablePullRequestPreview,
-    createBranch_basicAuthCredentials,
-    createBranch_buildSpec,
-    createBranch_enablePerformanceMode,
-    createBranch_displayName,
-    createBranch_environmentVariables,
-    createBranch_enableAutoBuild,
-    createBranch_enableBasicAuth,
-    createBranch_pullRequestEnvironmentName,
-    createBranch_description,
-    createBranch_tags,
-    createBranch_appId,
-    createBranch_branchName,
-    createBranchResponse_httpStatus,
-    createBranchResponse_branch,
+    -- ** CreateDomainAssociation
+    createDomainAssociation_autoSubDomainCreationPatterns,
+    createDomainAssociation_autoSubDomainIAMRole,
+    createDomainAssociation_enableAutoSubDomain,
+    createDomainAssociation_appId,
+    createDomainAssociation_domainName,
+    createDomainAssociation_subDomainSettings,
+    createDomainAssociationResponse_httpStatus,
+    createDomainAssociationResponse_domainAssociation,
 
-    -- ** GenerateAccessLogs
-    generateAccessLogs_startTime,
-    generateAccessLogs_endTime,
-    generateAccessLogs_domainName,
-    generateAccessLogs_appId,
-    generateAccessLogsResponse_logUrl,
-    generateAccessLogsResponse_httpStatus,
+    -- ** CreateWebhook
+    createWebhook_description,
+    createWebhook_appId,
+    createWebhook_branchName,
+    createWebhookResponse_httpStatus,
+    createWebhookResponse_webhook,
 
-    -- ** ListApps
-    listApps_nextToken,
-    listApps_maxResults,
-    listAppsResponse_nextToken,
-    listAppsResponse_httpStatus,
-    listAppsResponse_apps,
-
-    -- ** ListBranches
-    listBranches_nextToken,
-    listBranches_maxResults,
-    listBranches_appId,
-    listBranchesResponse_nextToken,
-    listBranchesResponse_httpStatus,
-    listBranchesResponse_branches,
+    -- ** DeleteApp
+    deleteApp_appId,
+    deleteAppResponse_httpStatus,
+    deleteAppResponse_app,
 
     -- ** DeleteBackendEnvironment
     deleteBackendEnvironment_appId,
@@ -171,48 +104,17 @@ module Amazonka.Amplify.Lens
     deleteBackendEnvironmentResponse_httpStatus,
     deleteBackendEnvironmentResponse_backendEnvironment,
 
-    -- ** DeleteApp
-    deleteApp_appId,
-    deleteAppResponse_httpStatus,
-    deleteAppResponse_app,
+    -- ** DeleteBranch
+    deleteBranch_appId,
+    deleteBranch_branchName,
+    deleteBranchResponse_httpStatus,
+    deleteBranchResponse_branch,
 
-    -- ** UpdateApp
-    updateApp_enableBranchAutoBuild,
-    updateApp_oauthToken,
-    updateApp_accessToken,
-    updateApp_customHeaders,
-    updateApp_platform,
-    updateApp_basicAuthCredentials,
-    updateApp_repository,
-    updateApp_buildSpec,
-    updateApp_enableBranchAutoDeletion,
-    updateApp_customRules,
-    updateApp_iamServiceRoleArn,
-    updateApp_autoBranchCreationPatterns,
-    updateApp_name,
-    updateApp_autoBranchCreationConfig,
-    updateApp_environmentVariables,
-    updateApp_enableAutoBranchCreation,
-    updateApp_enableBasicAuth,
-    updateApp_description,
-    updateApp_appId,
-    updateAppResponse_httpStatus,
-    updateAppResponse_app,
-
-    -- ** GetArtifactUrl
-    getArtifactUrl_artifactId,
-    getArtifactUrlResponse_httpStatus,
-    getArtifactUrlResponse_artifactId,
-    getArtifactUrlResponse_artifactUrl,
-
-    -- ** ListJobs
-    listJobs_nextToken,
-    listJobs_maxResults,
-    listJobs_appId,
-    listJobs_branchName,
-    listJobsResponse_nextToken,
-    listJobsResponse_httpStatus,
-    listJobsResponse_jobSummaries,
+    -- ** DeleteDomainAssociation
+    deleteDomainAssociation_appId,
+    deleteDomainAssociation_domainName,
+    deleteDomainAssociationResponse_httpStatus,
+    deleteDomainAssociationResponse_domainAssociation,
 
     -- ** DeleteJob
     deleteJob_appId,
@@ -221,6 +123,48 @@ module Amazonka.Amplify.Lens
     deleteJobResponse_httpStatus,
     deleteJobResponse_jobSummary,
 
+    -- ** DeleteWebhook
+    deleteWebhook_webhookId,
+    deleteWebhookResponse_httpStatus,
+    deleteWebhookResponse_webhook,
+
+    -- ** GenerateAccessLogs
+    generateAccessLogs_endTime,
+    generateAccessLogs_startTime,
+    generateAccessLogs_domainName,
+    generateAccessLogs_appId,
+    generateAccessLogsResponse_logUrl,
+    generateAccessLogsResponse_httpStatus,
+
+    -- ** GetApp
+    getApp_appId,
+    getAppResponse_httpStatus,
+    getAppResponse_app,
+
+    -- ** GetArtifactUrl
+    getArtifactUrl_artifactId,
+    getArtifactUrlResponse_httpStatus,
+    getArtifactUrlResponse_artifactId,
+    getArtifactUrlResponse_artifactUrl,
+
+    -- ** GetBackendEnvironment
+    getBackendEnvironment_appId,
+    getBackendEnvironment_environmentName,
+    getBackendEnvironmentResponse_httpStatus,
+    getBackendEnvironmentResponse_backendEnvironment,
+
+    -- ** GetBranch
+    getBranch_appId,
+    getBranch_branchName,
+    getBranchResponse_httpStatus,
+    getBranchResponse_branch,
+
+    -- ** GetDomainAssociation
+    getDomainAssociation_appId,
+    getDomainAssociation_domainName,
+    getDomainAssociationResponse_httpStatus,
+    getDomainAssociationResponse_domainAssociation,
+
     -- ** GetJob
     getJob_appId,
     getJob_branchName,
@@ -228,108 +172,74 @@ module Amazonka.Amplify.Lens
     getJobResponse_httpStatus,
     getJobResponse_job,
 
-    -- ** StartJob
-    startJob_commitId,
-    startJob_jobId,
-    startJob_jobReason,
-    startJob_commitTime,
-    startJob_commitMessage,
-    startJob_appId,
-    startJob_branchName,
-    startJob_jobType,
-    startJobResponse_httpStatus,
-    startJobResponse_jobSummary,
+    -- ** GetWebhook
+    getWebhook_webhookId,
+    getWebhookResponse_httpStatus,
+    getWebhookResponse_webhook,
 
-    -- ** GetApp
-    getApp_appId,
-    getAppResponse_httpStatus,
-    getAppResponse_app,
+    -- ** ListApps
+    listApps_maxResults,
+    listApps_nextToken,
+    listAppsResponse_nextToken,
+    listAppsResponse_httpStatus,
+    listAppsResponse_apps,
 
-    -- ** UpdateWebhook
-    updateWebhook_branchName,
-    updateWebhook_description,
-    updateWebhook_webhookId,
-    updateWebhookResponse_httpStatus,
-    updateWebhookResponse_webhook,
-
-    -- ** DeleteWebhook
-    deleteWebhook_webhookId,
-    deleteWebhookResponse_httpStatus,
-    deleteWebhookResponse_webhook,
-
-    -- ** ListWebhooks
-    listWebhooks_nextToken,
-    listWebhooks_maxResults,
-    listWebhooks_appId,
-    listWebhooksResponse_nextToken,
-    listWebhooksResponse_httpStatus,
-    listWebhooksResponse_webhooks,
-
-    -- ** CreateApp
-    createApp_enableBranchAutoBuild,
-    createApp_oauthToken,
-    createApp_accessToken,
-    createApp_customHeaders,
-    createApp_platform,
-    createApp_basicAuthCredentials,
-    createApp_repository,
-    createApp_buildSpec,
-    createApp_enableBranchAutoDeletion,
-    createApp_customRules,
-    createApp_iamServiceRoleArn,
-    createApp_autoBranchCreationPatterns,
-    createApp_autoBranchCreationConfig,
-    createApp_environmentVariables,
-    createApp_enableAutoBranchCreation,
-    createApp_enableBasicAuth,
-    createApp_description,
-    createApp_tags,
-    createApp_name,
-    createAppResponse_httpStatus,
-    createAppResponse_app,
-
-    -- ** DeleteDomainAssociation
-    deleteDomainAssociation_appId,
-    deleteDomainAssociation_domainName,
-    deleteDomainAssociationResponse_httpStatus,
-    deleteDomainAssociationResponse_domainAssociation,
-
-    -- ** UpdateDomainAssociation
-    updateDomainAssociation_enableAutoSubDomain,
-    updateDomainAssociation_autoSubDomainCreationPatterns,
-    updateDomainAssociation_autoSubDomainIAMRole,
-    updateDomainAssociation_appId,
-    updateDomainAssociation_domainName,
-    updateDomainAssociation_subDomainSettings,
-    updateDomainAssociationResponse_httpStatus,
-    updateDomainAssociationResponse_domainAssociation,
-
-    -- ** ListDomainAssociations
-    listDomainAssociations_nextToken,
-    listDomainAssociations_maxResults,
-    listDomainAssociations_appId,
-    listDomainAssociationsResponse_nextToken,
-    listDomainAssociationsResponse_httpStatus,
-    listDomainAssociationsResponse_domainAssociations,
-
-    -- ** TagResource
-    tagResource_resourceArn,
-    tagResource_tags,
-    tagResourceResponse_httpStatus,
+    -- ** ListArtifacts
+    listArtifacts_maxResults,
+    listArtifacts_nextToken,
+    listArtifacts_appId,
+    listArtifacts_branchName,
+    listArtifacts_jobId,
+    listArtifactsResponse_nextToken,
+    listArtifactsResponse_httpStatus,
+    listArtifactsResponse_artifacts,
 
     -- ** ListBackendEnvironments
-    listBackendEnvironments_nextToken,
     listBackendEnvironments_environmentName,
     listBackendEnvironments_maxResults,
+    listBackendEnvironments_nextToken,
     listBackendEnvironments_appId,
     listBackendEnvironmentsResponse_nextToken,
     listBackendEnvironmentsResponse_httpStatus,
     listBackendEnvironmentsResponse_backendEnvironments,
 
-    -- ** UntagResource
-    untagResource_resourceArn,
-    untagResource_tagKeys,
-    untagResourceResponse_httpStatus,
+    -- ** ListBranches
+    listBranches_maxResults,
+    listBranches_nextToken,
+    listBranches_appId,
+    listBranchesResponse_nextToken,
+    listBranchesResponse_httpStatus,
+    listBranchesResponse_branches,
+
+    -- ** ListDomainAssociations
+    listDomainAssociations_maxResults,
+    listDomainAssociations_nextToken,
+    listDomainAssociations_appId,
+    listDomainAssociationsResponse_nextToken,
+    listDomainAssociationsResponse_httpStatus,
+    listDomainAssociationsResponse_domainAssociations,
+
+    -- ** ListJobs
+    listJobs_maxResults,
+    listJobs_nextToken,
+    listJobs_appId,
+    listJobs_branchName,
+    listJobsResponse_nextToken,
+    listJobsResponse_httpStatus,
+    listJobsResponse_jobSummaries,
+
+    -- ** ListTagsForResource
+    listTagsForResource_resourceArn,
+    listTagsForResourceResponse_tags,
+    listTagsForResourceResponse_httpStatus,
+
+    -- ** ListWebhooks
+    listWebhooks_maxResults,
+    listWebhooks_nextToken,
+    listWebhooks_appId,
+    listWebhooksResponse_nextToken,
+    listWebhooksResponse_httpStatus,
+    listWebhooksResponse_webhooks,
 
     -- ** StartDeployment
     startDeployment_jobId,
@@ -339,19 +249,110 @@ module Amazonka.Amplify.Lens
     startDeploymentResponse_httpStatus,
     startDeploymentResponse_jobSummary,
 
+    -- ** StartJob
+    startJob_commitId,
+    startJob_commitMessage,
+    startJob_commitTime,
+    startJob_jobId,
+    startJob_jobReason,
+    startJob_appId,
+    startJob_branchName,
+    startJob_jobType,
+    startJobResponse_httpStatus,
+    startJobResponse_jobSummary,
+
+    -- ** StopJob
+    stopJob_appId,
+    stopJob_branchName,
+    stopJob_jobId,
+    stopJobResponse_httpStatus,
+    stopJobResponse_jobSummary,
+
+    -- ** TagResource
+    tagResource_resourceArn,
+    tagResource_tags,
+    tagResourceResponse_httpStatus,
+
+    -- ** UntagResource
+    untagResource_resourceArn,
+    untagResource_tagKeys,
+    untagResourceResponse_httpStatus,
+
+    -- ** UpdateApp
+    updateApp_accessToken,
+    updateApp_autoBranchCreationConfig,
+    updateApp_autoBranchCreationPatterns,
+    updateApp_basicAuthCredentials,
+    updateApp_buildSpec,
+    updateApp_customHeaders,
+    updateApp_customRules,
+    updateApp_description,
+    updateApp_enableAutoBranchCreation,
+    updateApp_enableBasicAuth,
+    updateApp_enableBranchAutoBuild,
+    updateApp_enableBranchAutoDeletion,
+    updateApp_environmentVariables,
+    updateApp_iamServiceRoleArn,
+    updateApp_name,
+    updateApp_oauthToken,
+    updateApp_platform,
+    updateApp_repository,
+    updateApp_appId,
+    updateAppResponse_httpStatus,
+    updateAppResponse_app,
+
+    -- ** UpdateBranch
+    updateBranch_backendEnvironmentArn,
+    updateBranch_basicAuthCredentials,
+    updateBranch_buildSpec,
+    updateBranch_description,
+    updateBranch_displayName,
+    updateBranch_enableAutoBuild,
+    updateBranch_enableBasicAuth,
+    updateBranch_enableNotification,
+    updateBranch_enablePerformanceMode,
+    updateBranch_enablePullRequestPreview,
+    updateBranch_environmentVariables,
+    updateBranch_framework,
+    updateBranch_pullRequestEnvironmentName,
+    updateBranch_stage,
+    updateBranch_ttl,
+    updateBranch_appId,
+    updateBranch_branchName,
+    updateBranchResponse_httpStatus,
+    updateBranchResponse_branch,
+
+    -- ** UpdateDomainAssociation
+    updateDomainAssociation_autoSubDomainCreationPatterns,
+    updateDomainAssociation_autoSubDomainIAMRole,
+    updateDomainAssociation_enableAutoSubDomain,
+    updateDomainAssociation_subDomainSettings,
+    updateDomainAssociation_appId,
+    updateDomainAssociation_domainName,
+    updateDomainAssociationResponse_httpStatus,
+    updateDomainAssociationResponse_domainAssociation,
+
+    -- ** UpdateWebhook
+    updateWebhook_branchName,
+    updateWebhook_description,
+    updateWebhook_webhookId,
+    updateWebhookResponse_httpStatus,
+    updateWebhookResponse_webhook,
+
     -- * Types
 
     -- ** App
-    app_customHeaders,
+    app_autoBranchCreationConfig,
+    app_autoBranchCreationPatterns,
     app_basicAuthCredentials,
     app_buildSpec,
-    app_enableBranchAutoDeletion,
+    app_customHeaders,
     app_customRules,
-    app_iamServiceRoleArn,
-    app_autoBranchCreationPatterns,
-    app_productionBranch,
-    app_autoBranchCreationConfig,
     app_enableAutoBranchCreation,
+    app_enableBranchAutoDeletion,
+    app_iamServiceRoleArn,
+    app_productionBranch,
+    app_repositoryCloneMethod,
     app_tags,
     app_appId,
     app_appArn,
@@ -371,16 +372,16 @@ module Amazonka.Amplify.Lens
     artifact_artifactId,
 
     -- ** AutoBranchCreationConfig
-    autoBranchCreationConfig_framework,
-    autoBranchCreationConfig_stage,
-    autoBranchCreationConfig_enablePullRequestPreview,
     autoBranchCreationConfig_basicAuthCredentials,
     autoBranchCreationConfig_buildSpec,
-    autoBranchCreationConfig_enablePerformanceMode,
-    autoBranchCreationConfig_environmentVariables,
     autoBranchCreationConfig_enableAutoBuild,
     autoBranchCreationConfig_enableBasicAuth,
+    autoBranchCreationConfig_enablePerformanceMode,
+    autoBranchCreationConfig_enablePullRequestPreview,
+    autoBranchCreationConfig_environmentVariables,
+    autoBranchCreationConfig_framework,
     autoBranchCreationConfig_pullRequestEnvironmentName,
+    autoBranchCreationConfig_stage,
 
     -- ** BackendEnvironment
     backendEnvironment_deploymentArtifacts,
@@ -391,16 +392,16 @@ module Amazonka.Amplify.Lens
     backendEnvironment_updateTime,
 
     -- ** Branch
+    branch_associatedResources,
     branch_backendEnvironmentArn,
-    branch_thumbnailUrl,
     branch_basicAuthCredentials,
     branch_buildSpec,
-    branch_sourceBranch,
-    branch_enablePerformanceMode,
     branch_destinationBranch,
+    branch_enablePerformanceMode,
     branch_pullRequestEnvironmentName,
-    branch_associatedResources,
+    branch_sourceBranch,
     branch_tags,
+    branch_thumbnailUrl,
     branch_branchArn,
     branch_branchName,
     branch_description,
@@ -420,15 +421,15 @@ module Amazonka.Amplify.Lens
     branch_enablePullRequestPreview,
 
     -- ** CustomRule
-    customRule_status,
     customRule_condition,
+    customRule_status,
     customRule_source,
     customRule_target,
 
     -- ** DomainAssociation
-    domainAssociation_certificateVerificationDNSRecord,
     domainAssociation_autoSubDomainCreationPatterns,
     domainAssociation_autoSubDomainIAMRole,
+    domainAssociation_certificateVerificationDNSRecord,
     domainAssociation_domainAssociationArn,
     domainAssociation_domainName,
     domainAssociation_enableAutoSubDomain,
@@ -452,19 +453,19 @@ module Amazonka.Amplify.Lens
     jobSummary_jobType,
 
     -- ** ProductionBranch
+    productionBranch_branchName,
     productionBranch_lastDeployTime,
     productionBranch_status,
     productionBranch_thumbnailUrl,
-    productionBranch_branchName,
 
     -- ** Step
-    step_logUrl,
-    step_context,
-    step_testArtifactsUrl,
     step_artifactsUrl,
-    step_testConfigUrl,
+    step_context,
+    step_logUrl,
     step_screenshots,
     step_statusReason,
+    step_testArtifactsUrl,
+    step_testConfigUrl,
     step_stepName,
     step_startTime,
     step_status,

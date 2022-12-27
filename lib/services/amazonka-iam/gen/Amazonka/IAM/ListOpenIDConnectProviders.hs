@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.ListOpenIDConnectProviders
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.IAM.ListOpenIDConnectProviders
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -69,15 +70,16 @@ instance Core.AWSRequest ListOpenIDConnectProviders where
   type
     AWSResponse ListOpenIDConnectProviders =
       ListOpenIDConnectProvidersResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListOpenIDConnectProvidersResult"
       ( \s h x ->
           ListOpenIDConnectProvidersResponse'
-            Prelude.<$> ( x Core..@? "OpenIDConnectProviderList"
+            Prelude.<$> ( x Data..@? "OpenIDConnectProviderList"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -89,20 +91,20 @@ instance Prelude.Hashable ListOpenIDConnectProviders where
 instance Prelude.NFData ListOpenIDConnectProviders where
   rnf _ = ()
 
-instance Core.ToHeaders ListOpenIDConnectProviders where
+instance Data.ToHeaders ListOpenIDConnectProviders where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListOpenIDConnectProviders where
+instance Data.ToPath ListOpenIDConnectProviders where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListOpenIDConnectProviders where
+instance Data.ToQuery ListOpenIDConnectProviders where
   toQuery =
     Prelude.const
       ( Prelude.mconcat
           [ "Action"
-              Core.=: ("ListOpenIDConnectProviders" :: Prelude.ByteString),
+              Data.=: ("ListOpenIDConnectProviders" :: Prelude.ByteString),
             "Version"
-              Core.=: ("2010-05-08" :: Prelude.ByteString)
+              Data.=: ("2010-05-08" :: Prelude.ByteString)
           ]
       )
 

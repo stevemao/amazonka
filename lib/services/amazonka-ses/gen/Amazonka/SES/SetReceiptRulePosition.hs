@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.SetReceiptRulePosition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.SES.SetReceiptRulePosition
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -116,7 +117,8 @@ instance Core.AWSRequest SetReceiptRulePosition where
   type
     AWSResponse SetReceiptRulePosition =
       SetReceiptRulePositionResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "SetReceiptRulePositionResult"
@@ -137,22 +139,22 @@ instance Prelude.NFData SetReceiptRulePosition where
       `Prelude.seq` Prelude.rnf ruleSetName
       `Prelude.seq` Prelude.rnf ruleName
 
-instance Core.ToHeaders SetReceiptRulePosition where
+instance Data.ToHeaders SetReceiptRulePosition where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath SetReceiptRulePosition where
+instance Data.ToPath SetReceiptRulePosition where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SetReceiptRulePosition where
+instance Data.ToQuery SetReceiptRulePosition where
   toQuery SetReceiptRulePosition' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("SetReceiptRulePosition" :: Prelude.ByteString),
+          Data.=: ("SetReceiptRulePosition" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "After" Core.=: after,
-        "RuleSetName" Core.=: ruleSetName,
-        "RuleName" Core.=: ruleName
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "After" Data.=: after,
+        "RuleSetName" Data.=: ruleSetName,
+        "RuleName" Data.=: ruleName
       ]
 
 -- | An empty element returned on a successful request.

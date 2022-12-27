@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.Types.BuildStatusConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeBuild.Types.BuildStatusConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information that defines how the CodeBuild build project
@@ -143,14 +144,14 @@ buildStatusConfig_context = Lens.lens (\BuildStatusConfig' {context} -> context)
 buildStatusConfig_targetUrl :: Lens.Lens' BuildStatusConfig (Prelude.Maybe Prelude.Text)
 buildStatusConfig_targetUrl = Lens.lens (\BuildStatusConfig' {targetUrl} -> targetUrl) (\s@BuildStatusConfig' {} a -> s {targetUrl = a} :: BuildStatusConfig)
 
-instance Core.FromJSON BuildStatusConfig where
+instance Data.FromJSON BuildStatusConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BuildStatusConfig"
       ( \x ->
           BuildStatusConfig'
-            Prelude.<$> (x Core..:? "context")
-            Prelude.<*> (x Core..:? "targetUrl")
+            Prelude.<$> (x Data..:? "context")
+            Prelude.<*> (x Data..:? "targetUrl")
       )
 
 instance Prelude.Hashable BuildStatusConfig where
@@ -163,11 +164,11 @@ instance Prelude.NFData BuildStatusConfig where
     Prelude.rnf context
       `Prelude.seq` Prelude.rnf targetUrl
 
-instance Core.ToJSON BuildStatusConfig where
+instance Data.ToJSON BuildStatusConfig where
   toJSON BuildStatusConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("context" Core..=) Prelude.<$> context,
-            ("targetUrl" Core..=) Prelude.<$> targetUrl
+          [ ("context" Data..=) Prelude.<$> context,
+            ("targetUrl" Data..=) Prelude.<$> targetUrl
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.ListDocumentMetadataHistory
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,9 +28,9 @@ module Amazonka.SSM.ListDocumentMetadataHistory
     newListDocumentMetadataHistory,
 
     -- * Request Lenses
-    listDocumentMetadataHistory_nextToken,
     listDocumentMetadataHistory_documentVersion,
     listDocumentMetadataHistory_maxResults,
+    listDocumentMetadataHistory_nextToken,
     listDocumentMetadataHistory_name,
     listDocumentMetadataHistory_metadata,
 
@@ -39,17 +39,18 @@ module Amazonka.SSM.ListDocumentMetadataHistory
     newListDocumentMetadataHistoryResponse,
 
     -- * Response Lenses
-    listDocumentMetadataHistoryResponse_nextToken,
-    listDocumentMetadataHistoryResponse_name,
-    listDocumentMetadataHistoryResponse_documentVersion,
     listDocumentMetadataHistoryResponse_author,
+    listDocumentMetadataHistoryResponse_documentVersion,
     listDocumentMetadataHistoryResponse_metadata,
+    listDocumentMetadataHistoryResponse_name,
+    listDocumentMetadataHistoryResponse_nextToken,
     listDocumentMetadataHistoryResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,15 +58,15 @@ import Amazonka.SSM.Types
 
 -- | /See:/ 'newListDocumentMetadataHistory' smart constructor.
 data ListDocumentMetadataHistory = ListDocumentMetadataHistory'
-  { -- | The token for the next set of items to return. (You received this token
-    -- from a previous call.)
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The version of the change template.
+  { -- | The version of the change template.
     documentVersion :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of items to return for this call. The call also
     -- returns a token that you can specify in a subsequent call to get the
     -- next set of results.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the change template.
     name :: Prelude.Text,
     -- | The type of data for which details are being requested. Currently, the
@@ -82,14 +83,14 @@ data ListDocumentMetadataHistory = ListDocumentMetadataHistory'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listDocumentMetadataHistory_nextToken' - The token for the next set of items to return. (You received this token
--- from a previous call.)
---
 -- 'documentVersion', 'listDocumentMetadataHistory_documentVersion' - The version of the change template.
 --
 -- 'maxResults', 'listDocumentMetadataHistory_maxResults' - The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results.
+--
+-- 'nextToken', 'listDocumentMetadataHistory_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 --
 -- 'name', 'listDocumentMetadataHistory_name' - The name of the change template.
 --
@@ -103,18 +104,13 @@ newListDocumentMetadataHistory ::
   ListDocumentMetadataHistory
 newListDocumentMetadataHistory pName_ pMetadata_ =
   ListDocumentMetadataHistory'
-    { nextToken =
+    { documentVersion =
         Prelude.Nothing,
-      documentVersion = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       name = pName_,
       metadata = pMetadata_
     }
-
--- | The token for the next set of items to return. (You received this token
--- from a previous call.)
-listDocumentMetadataHistory_nextToken :: Lens.Lens' ListDocumentMetadataHistory (Prelude.Maybe Prelude.Text)
-listDocumentMetadataHistory_nextToken = Lens.lens (\ListDocumentMetadataHistory' {nextToken} -> nextToken) (\s@ListDocumentMetadataHistory' {} a -> s {nextToken = a} :: ListDocumentMetadataHistory)
 
 -- | The version of the change template.
 listDocumentMetadataHistory_documentVersion :: Lens.Lens' ListDocumentMetadataHistory (Prelude.Maybe Prelude.Text)
@@ -125,6 +121,11 @@ listDocumentMetadataHistory_documentVersion = Lens.lens (\ListDocumentMetadataHi
 -- next set of results.
 listDocumentMetadataHistory_maxResults :: Lens.Lens' ListDocumentMetadataHistory (Prelude.Maybe Prelude.Natural)
 listDocumentMetadataHistory_maxResults = Lens.lens (\ListDocumentMetadataHistory' {maxResults} -> maxResults) (\s@ListDocumentMetadataHistory' {} a -> s {maxResults = a} :: ListDocumentMetadataHistory)
+
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+listDocumentMetadataHistory_nextToken :: Lens.Lens' ListDocumentMetadataHistory (Prelude.Maybe Prelude.Text)
+listDocumentMetadataHistory_nextToken = Lens.lens (\ListDocumentMetadataHistory' {nextToken} -> nextToken) (\s@ListDocumentMetadataHistory' {} a -> s {nextToken = a} :: ListDocumentMetadataHistory)
 
 -- | The name of the change template.
 listDocumentMetadataHistory_name :: Lens.Lens' ListDocumentMetadataHistory Prelude.Text
@@ -139,84 +140,85 @@ instance Core.AWSRequest ListDocumentMetadataHistory where
   type
     AWSResponse ListDocumentMetadataHistory =
       ListDocumentMetadataHistoryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDocumentMetadataHistoryResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Name")
-            Prelude.<*> (x Core..?> "DocumentVersion")
-            Prelude.<*> (x Core..?> "Author")
-            Prelude.<*> (x Core..?> "Metadata")
+            Prelude.<$> (x Data..?> "Author")
+            Prelude.<*> (x Data..?> "DocumentVersion")
+            Prelude.<*> (x Data..?> "Metadata")
+            Prelude.<*> (x Data..?> "Name")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListDocumentMetadataHistory where
   hashWithSalt _salt ListDocumentMetadataHistory' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` documentVersion
+    _salt `Prelude.hashWithSalt` documentVersion
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` metadata
 
 instance Prelude.NFData ListDocumentMetadataHistory where
   rnf ListDocumentMetadataHistory' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf documentVersion
+    Prelude.rnf documentVersion
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf metadata
 
-instance Core.ToHeaders ListDocumentMetadataHistory where
+instance Data.ToHeaders ListDocumentMetadataHistory where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.ListDocumentMetadataHistory" ::
+              Data.=# ( "AmazonSSM.ListDocumentMetadataHistory" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListDocumentMetadataHistory where
+instance Data.ToJSON ListDocumentMetadataHistory where
   toJSON ListDocumentMetadataHistory' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("DocumentVersion" Core..=)
+          [ ("DocumentVersion" Data..=)
               Prelude.<$> documentVersion,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Metadata" Core..= metadata)
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Metadata" Data..= metadata)
           ]
       )
 
-instance Core.ToPath ListDocumentMetadataHistory where
+instance Data.ToPath ListDocumentMetadataHistory where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListDocumentMetadataHistory where
+instance Data.ToQuery ListDocumentMetadataHistory where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListDocumentMetadataHistoryResponse' smart constructor.
 data ListDocumentMetadataHistoryResponse = ListDocumentMetadataHistoryResponse'
-  { -- | The maximum number of items to return for this call. The call also
+  { -- | The user ID of the person in the organization who requested the review
+    -- of the change template.
+    author :: Prelude.Maybe Prelude.Text,
+    -- | The version of the change template.
+    documentVersion :: Prelude.Maybe Prelude.Text,
+    -- | Information about the response to the change template approval request.
+    metadata :: Prelude.Maybe DocumentMetadataResponseInfo,
+    -- | The name of the change template.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return for this call. The call also
     -- returns a token that you can specify in a subsequent call to get the
     -- next set of results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The name of the change template.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The version of the change template.
-    documentVersion :: Prelude.Maybe Prelude.Text,
-    -- | The user ID of the person in the organization who requested the review
-    -- of the change template.
-    author :: Prelude.Maybe Prelude.Text,
-    -- | Information about the response to the change template approval request.
-    metadata :: Prelude.Maybe DocumentMetadataResponseInfo,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -230,18 +232,18 @@ data ListDocumentMetadataHistoryResponse = ListDocumentMetadataHistoryResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listDocumentMetadataHistoryResponse_nextToken' - The maximum number of items to return for this call. The call also
--- returns a token that you can specify in a subsequent call to get the
--- next set of results.
---
--- 'name', 'listDocumentMetadataHistoryResponse_name' - The name of the change template.
---
--- 'documentVersion', 'listDocumentMetadataHistoryResponse_documentVersion' - The version of the change template.
---
 -- 'author', 'listDocumentMetadataHistoryResponse_author' - The user ID of the person in the organization who requested the review
 -- of the change template.
 --
+-- 'documentVersion', 'listDocumentMetadataHistoryResponse_documentVersion' - The version of the change template.
+--
 -- 'metadata', 'listDocumentMetadataHistoryResponse_metadata' - Information about the response to the change template approval request.
+--
+-- 'name', 'listDocumentMetadataHistoryResponse_name' - The name of the change template.
+--
+-- 'nextToken', 'listDocumentMetadataHistoryResponse_nextToken' - The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
 --
 -- 'httpStatus', 'listDocumentMetadataHistoryResponse_httpStatus' - The response's http status code.
 newListDocumentMetadataHistoryResponse ::
@@ -250,37 +252,37 @@ newListDocumentMetadataHistoryResponse ::
   ListDocumentMetadataHistoryResponse
 newListDocumentMetadataHistoryResponse pHttpStatus_ =
   ListDocumentMetadataHistoryResponse'
-    { nextToken =
+    { author =
         Prelude.Nothing,
-      name = Prelude.Nothing,
       documentVersion = Prelude.Nothing,
-      author = Prelude.Nothing,
       metadata = Prelude.Nothing,
+      name = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The maximum number of items to return for this call. The call also
--- returns a token that you can specify in a subsequent call to get the
--- next set of results.
-listDocumentMetadataHistoryResponse_nextToken :: Lens.Lens' ListDocumentMetadataHistoryResponse (Prelude.Maybe Prelude.Text)
-listDocumentMetadataHistoryResponse_nextToken = Lens.lens (\ListDocumentMetadataHistoryResponse' {nextToken} -> nextToken) (\s@ListDocumentMetadataHistoryResponse' {} a -> s {nextToken = a} :: ListDocumentMetadataHistoryResponse)
-
--- | The name of the change template.
-listDocumentMetadataHistoryResponse_name :: Lens.Lens' ListDocumentMetadataHistoryResponse (Prelude.Maybe Prelude.Text)
-listDocumentMetadataHistoryResponse_name = Lens.lens (\ListDocumentMetadataHistoryResponse' {name} -> name) (\s@ListDocumentMetadataHistoryResponse' {} a -> s {name = a} :: ListDocumentMetadataHistoryResponse)
-
--- | The version of the change template.
-listDocumentMetadataHistoryResponse_documentVersion :: Lens.Lens' ListDocumentMetadataHistoryResponse (Prelude.Maybe Prelude.Text)
-listDocumentMetadataHistoryResponse_documentVersion = Lens.lens (\ListDocumentMetadataHistoryResponse' {documentVersion} -> documentVersion) (\s@ListDocumentMetadataHistoryResponse' {} a -> s {documentVersion = a} :: ListDocumentMetadataHistoryResponse)
 
 -- | The user ID of the person in the organization who requested the review
 -- of the change template.
 listDocumentMetadataHistoryResponse_author :: Lens.Lens' ListDocumentMetadataHistoryResponse (Prelude.Maybe Prelude.Text)
 listDocumentMetadataHistoryResponse_author = Lens.lens (\ListDocumentMetadataHistoryResponse' {author} -> author) (\s@ListDocumentMetadataHistoryResponse' {} a -> s {author = a} :: ListDocumentMetadataHistoryResponse)
 
+-- | The version of the change template.
+listDocumentMetadataHistoryResponse_documentVersion :: Lens.Lens' ListDocumentMetadataHistoryResponse (Prelude.Maybe Prelude.Text)
+listDocumentMetadataHistoryResponse_documentVersion = Lens.lens (\ListDocumentMetadataHistoryResponse' {documentVersion} -> documentVersion) (\s@ListDocumentMetadataHistoryResponse' {} a -> s {documentVersion = a} :: ListDocumentMetadataHistoryResponse)
+
 -- | Information about the response to the change template approval request.
 listDocumentMetadataHistoryResponse_metadata :: Lens.Lens' ListDocumentMetadataHistoryResponse (Prelude.Maybe DocumentMetadataResponseInfo)
 listDocumentMetadataHistoryResponse_metadata = Lens.lens (\ListDocumentMetadataHistoryResponse' {metadata} -> metadata) (\s@ListDocumentMetadataHistoryResponse' {} a -> s {metadata = a} :: ListDocumentMetadataHistoryResponse)
+
+-- | The name of the change template.
+listDocumentMetadataHistoryResponse_name :: Lens.Lens' ListDocumentMetadataHistoryResponse (Prelude.Maybe Prelude.Text)
+listDocumentMetadataHistoryResponse_name = Lens.lens (\ListDocumentMetadataHistoryResponse' {name} -> name) (\s@ListDocumentMetadataHistoryResponse' {} a -> s {name = a} :: ListDocumentMetadataHistoryResponse)
+
+-- | The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+listDocumentMetadataHistoryResponse_nextToken :: Lens.Lens' ListDocumentMetadataHistoryResponse (Prelude.Maybe Prelude.Text)
+listDocumentMetadataHistoryResponse_nextToken = Lens.lens (\ListDocumentMetadataHistoryResponse' {nextToken} -> nextToken) (\s@ListDocumentMetadataHistoryResponse' {} a -> s {nextToken = a} :: ListDocumentMetadataHistoryResponse)
 
 -- | The response's http status code.
 listDocumentMetadataHistoryResponse_httpStatus :: Lens.Lens' ListDocumentMetadataHistoryResponse Prelude.Int
@@ -291,9 +293,9 @@ instance
     ListDocumentMetadataHistoryResponse
   where
   rnf ListDocumentMetadataHistoryResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf name
+    Prelude.rnf author
       `Prelude.seq` Prelude.rnf documentVersion
-      `Prelude.seq` Prelude.rnf author
       `Prelude.seq` Prelude.rnf metadata
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

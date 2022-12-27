@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Panorama.RegisterPackageVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.Panorama.RegisterPackageVersion
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Panorama.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -126,7 +127,8 @@ instance Core.AWSRequest RegisterPackageVersion where
   type
     AWSResponse RegisterPackageVersion =
       RegisterPackageVersionResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -150,38 +152,38 @@ instance Prelude.NFData RegisterPackageVersion where
       `Prelude.seq` Prelude.rnf packageVersion
       `Prelude.seq` Prelude.rnf patchVersion
 
-instance Core.ToHeaders RegisterPackageVersion where
+instance Data.ToHeaders RegisterPackageVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RegisterPackageVersion where
+instance Data.ToJSON RegisterPackageVersion where
   toJSON RegisterPackageVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MarkLatest" Core..=) Prelude.<$> markLatest,
-            ("OwnerAccount" Core..=) Prelude.<$> ownerAccount
+          [ ("MarkLatest" Data..=) Prelude.<$> markLatest,
+            ("OwnerAccount" Data..=) Prelude.<$> ownerAccount
           ]
       )
 
-instance Core.ToPath RegisterPackageVersion where
+instance Data.ToPath RegisterPackageVersion where
   toPath RegisterPackageVersion' {..} =
     Prelude.mconcat
       [ "/packages/",
-        Core.toBS packageId,
+        Data.toBS packageId,
         "/versions/",
-        Core.toBS packageVersion,
+        Data.toBS packageVersion,
         "/patch/",
-        Core.toBS patchVersion
+        Data.toBS patchVersion
       ]
 
-instance Core.ToQuery RegisterPackageVersion where
+instance Data.ToQuery RegisterPackageVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRegisterPackageVersionResponse' smart constructor.

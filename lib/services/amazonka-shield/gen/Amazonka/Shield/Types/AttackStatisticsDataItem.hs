@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Shield.Types.AttackStatisticsDataItem
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Shield.Types.AttackStatisticsDataItem where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Shield.Types.AttackVolume
 
@@ -73,14 +74,14 @@ attackStatisticsDataItem_attackVolume = Lens.lens (\AttackStatisticsDataItem' {a
 attackStatisticsDataItem_attackCount :: Lens.Lens' AttackStatisticsDataItem Prelude.Integer
 attackStatisticsDataItem_attackCount = Lens.lens (\AttackStatisticsDataItem' {attackCount} -> attackCount) (\s@AttackStatisticsDataItem' {} a -> s {attackCount = a} :: AttackStatisticsDataItem)
 
-instance Core.FromJSON AttackStatisticsDataItem where
+instance Data.FromJSON AttackStatisticsDataItem where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AttackStatisticsDataItem"
       ( \x ->
           AttackStatisticsDataItem'
-            Prelude.<$> (x Core..:? "AttackVolume")
-            Prelude.<*> (x Core..: "AttackCount")
+            Prelude.<$> (x Data..:? "AttackVolume")
+            Prelude.<*> (x Data..: "AttackCount")
       )
 
 instance Prelude.Hashable AttackStatisticsDataItem where

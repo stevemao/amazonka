@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.GetCoipPoolUsage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,10 +28,10 @@ module Amazonka.EC2.GetCoipPoolUsage
     newGetCoipPoolUsage,
 
     -- * Request Lenses
-    getCoipPoolUsage_filters,
-    getCoipPoolUsage_nextToken,
     getCoipPoolUsage_dryRun,
+    getCoipPoolUsage_filters,
     getCoipPoolUsage_maxResults,
+    getCoipPoolUsage_nextToken,
     getCoipPoolUsage_poolId,
 
     -- * Destructuring the Response
@@ -47,35 +47,39 @@ module Amazonka.EC2.GetCoipPoolUsage
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetCoipPoolUsage' smart constructor.
 data GetCoipPoolUsage = GetCoipPoolUsage'
-  { -- | The filters. The following are the possible values:
-    --
-    -- -   @coip-address-usage.allocation-id@
-    --
-    -- -   @coip-address-usage.aws-account-id@
-    --
-    -- -   @coip-address-usage.aws-service@
-    --
-    -- -   @coip-address-usage.co-ip@
-    filters :: Prelude.Maybe [Filter],
-    -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Checks whether you have the required permissions for the action, without
+  { -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | One or more filters.
+    --
+    -- -   @coip-address-usage.allocation-id@ - The allocation ID of the
+    --     address.
+    --
+    -- -   @coip-address-usage.aws-account-id@ - The ID of the Amazon Web
+    --     Services account that is using the customer-owned IP address.
+    --
+    -- -   @coip-address-usage.aws-service@ - The Amazon Web Services service
+    --     that is using the customer-owned IP address.
+    --
+    -- -   @coip-address-usage.co-ip@ - The customer-owned IP address.
+    filters :: Prelude.Maybe [Filter],
     -- | The maximum number of results to return with a single call. To retrieve
     -- the remaining results, make another call with the returned @nextToken@
     -- value.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ID of the address pool.
     poolId :: Prelude.Text
   }
@@ -89,26 +93,29 @@ data GetCoipPoolUsage = GetCoipPoolUsage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'filters', 'getCoipPoolUsage_filters' - The filters. The following are the possible values:
---
--- -   @coip-address-usage.allocation-id@
---
--- -   @coip-address-usage.aws-account-id@
---
--- -   @coip-address-usage.aws-service@
---
--- -   @coip-address-usage.co-ip@
---
--- 'nextToken', 'getCoipPoolUsage_nextToken' - The token for the next page of results.
---
 -- 'dryRun', 'getCoipPoolUsage_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
 --
+-- 'filters', 'getCoipPoolUsage_filters' - One or more filters.
+--
+-- -   @coip-address-usage.allocation-id@ - The allocation ID of the
+--     address.
+--
+-- -   @coip-address-usage.aws-account-id@ - The ID of the Amazon Web
+--     Services account that is using the customer-owned IP address.
+--
+-- -   @coip-address-usage.aws-service@ - The Amazon Web Services service
+--     that is using the customer-owned IP address.
+--
+-- -   @coip-address-usage.co-ip@ - The customer-owned IP address.
+--
 -- 'maxResults', 'getCoipPoolUsage_maxResults' - The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
+--
+-- 'nextToken', 'getCoipPoolUsage_nextToken' - The token for the next page of results.
 --
 -- 'poolId', 'getCoipPoolUsage_poolId' - The ID of the address pool.
 newGetCoipPoolUsage ::
@@ -117,28 +124,12 @@ newGetCoipPoolUsage ::
   GetCoipPoolUsage
 newGetCoipPoolUsage pPoolId_ =
   GetCoipPoolUsage'
-    { filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
+    { dryRun = Prelude.Nothing,
+      filters = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       poolId = pPoolId_
     }
-
--- | The filters. The following are the possible values:
---
--- -   @coip-address-usage.allocation-id@
---
--- -   @coip-address-usage.aws-account-id@
---
--- -   @coip-address-usage.aws-service@
---
--- -   @coip-address-usage.co-ip@
-getCoipPoolUsage_filters :: Lens.Lens' GetCoipPoolUsage (Prelude.Maybe [Filter])
-getCoipPoolUsage_filters = Lens.lens (\GetCoipPoolUsage' {filters} -> filters) (\s@GetCoipPoolUsage' {} a -> s {filters = a} :: GetCoipPoolUsage) Prelude.. Lens.mapping Lens.coerced
-
--- | The token for the next page of results.
-getCoipPoolUsage_nextToken :: Lens.Lens' GetCoipPoolUsage (Prelude.Maybe Prelude.Text)
-getCoipPoolUsage_nextToken = Lens.lens (\GetCoipPoolUsage' {nextToken} -> nextToken) (\s@GetCoipPoolUsage' {} a -> s {nextToken = a} :: GetCoipPoolUsage)
 
 -- | Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
@@ -147,11 +138,30 @@ getCoipPoolUsage_nextToken = Lens.lens (\GetCoipPoolUsage' {nextToken} -> nextTo
 getCoipPoolUsage_dryRun :: Lens.Lens' GetCoipPoolUsage (Prelude.Maybe Prelude.Bool)
 getCoipPoolUsage_dryRun = Lens.lens (\GetCoipPoolUsage' {dryRun} -> dryRun) (\s@GetCoipPoolUsage' {} a -> s {dryRun = a} :: GetCoipPoolUsage)
 
+-- | One or more filters.
+--
+-- -   @coip-address-usage.allocation-id@ - The allocation ID of the
+--     address.
+--
+-- -   @coip-address-usage.aws-account-id@ - The ID of the Amazon Web
+--     Services account that is using the customer-owned IP address.
+--
+-- -   @coip-address-usage.aws-service@ - The Amazon Web Services service
+--     that is using the customer-owned IP address.
+--
+-- -   @coip-address-usage.co-ip@ - The customer-owned IP address.
+getCoipPoolUsage_filters :: Lens.Lens' GetCoipPoolUsage (Prelude.Maybe [Filter])
+getCoipPoolUsage_filters = Lens.lens (\GetCoipPoolUsage' {filters} -> filters) (\s@GetCoipPoolUsage' {} a -> s {filters = a} :: GetCoipPoolUsage) Prelude.. Lens.mapping Lens.coerced
+
 -- | The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
 getCoipPoolUsage_maxResults :: Lens.Lens' GetCoipPoolUsage (Prelude.Maybe Prelude.Natural)
 getCoipPoolUsage_maxResults = Lens.lens (\GetCoipPoolUsage' {maxResults} -> maxResults) (\s@GetCoipPoolUsage' {} a -> s {maxResults = a} :: GetCoipPoolUsage)
+
+-- | The token for the next page of results.
+getCoipPoolUsage_nextToken :: Lens.Lens' GetCoipPoolUsage (Prelude.Maybe Prelude.Text)
+getCoipPoolUsage_nextToken = Lens.lens (\GetCoipPoolUsage' {nextToken} -> nextToken) (\s@GetCoipPoolUsage' {} a -> s {nextToken = a} :: GetCoipPoolUsage)
 
 -- | The ID of the address pool.
 getCoipPoolUsage_poolId :: Lens.Lens' GetCoipPoolUsage Prelude.Text
@@ -161,55 +171,56 @@ instance Core.AWSRequest GetCoipPoolUsage where
   type
     AWSResponse GetCoipPoolUsage =
       GetCoipPoolUsageResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetCoipPoolUsageResponse'
-            Prelude.<$> ( x Core..@? "coipAddressUsageSet"
+            Prelude.<$> ( x Data..@? "coipAddressUsageSet"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
-            Prelude.<*> (x Core..@? "coipPoolId")
-            Prelude.<*> (x Core..@? "localGatewayRouteTableId")
+            Prelude.<*> (x Data..@? "coipPoolId")
+            Prelude.<*> (x Data..@? "localGatewayRouteTableId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetCoipPoolUsage where
   hashWithSalt _salt GetCoipPoolUsage' {..} =
-    _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` dryRun
+    _salt `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` poolId
 
 instance Prelude.NFData GetCoipPoolUsage where
   rnf GetCoipPoolUsage' {..} =
-    Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf dryRun
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf poolId
 
-instance Core.ToHeaders GetCoipPoolUsage where
+instance Data.ToHeaders GetCoipPoolUsage where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetCoipPoolUsage where
+instance Data.ToPath GetCoipPoolUsage where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetCoipPoolUsage where
+instance Data.ToQuery GetCoipPoolUsage where
   toQuery GetCoipPoolUsage' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("GetCoipPoolUsage" :: Prelude.ByteString),
+          Data.=: ("GetCoipPoolUsage" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults,
-        "PoolId" Core.=: poolId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
+        "PoolId" Data.=: poolId
       ]
 
 -- | /See:/ 'newGetCoipPoolUsageResponse' smart constructor.

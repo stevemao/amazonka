@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.DescribeStacks
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.OpsWorks.DescribeStacks
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -87,12 +88,13 @@ instance Core.AWSRequest DescribeStacks where
   type
     AWSResponse DescribeStacks =
       DescribeStacksResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeStacksResponse'
-            Prelude.<$> (x Core..?> "Stacks" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Stacks" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -103,32 +105,32 @@ instance Prelude.Hashable DescribeStacks where
 instance Prelude.NFData DescribeStacks where
   rnf DescribeStacks' {..} = Prelude.rnf stackIds
 
-instance Core.ToHeaders DescribeStacks where
+instance Data.ToHeaders DescribeStacks where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.DescribeStacks" ::
+              Data.=# ( "OpsWorks_20130218.DescribeStacks" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeStacks where
+instance Data.ToJSON DescribeStacks where
   toJSON DescribeStacks' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("StackIds" Core..=) Prelude.<$> stackIds]
+          [("StackIds" Data..=) Prelude.<$> stackIds]
       )
 
-instance Core.ToPath DescribeStacks where
+instance Data.ToPath DescribeStacks where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeStacks where
+instance Data.ToQuery DescribeStacks where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the response to a @DescribeStacks@ request.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FIS.Types.Action
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,27 +20,28 @@
 module Amazonka.FIS.Types.Action where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FIS.Types.ActionParameter
 import Amazonka.FIS.Types.ActionTarget
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an action. For more information, see
--- <https://docs.aws.amazon.com/fis/latest/userguide/fis-actions-reference.html AWS FIS actions>
--- in the /AWS Fault Injection Simulator User Guide/.
+-- <https://docs.aws.amazon.com/fis/latest/userguide/fis-actions-reference.html FIS actions>
+-- in the /Fault Injection Simulator User Guide/.
 --
 -- /See:/ 'newAction' smart constructor.
 data Action = Action'
-  { -- | The action parameters, if applicable.
-    parameters :: Prelude.Maybe (Prelude.HashMap Prelude.Text ActionParameter),
-    -- | The supported targets for the action.
-    targets :: Prelude.Maybe (Prelude.HashMap Prelude.Text ActionTarget),
+  { -- | The description for the action.
+    description :: Prelude.Maybe Prelude.Text,
     -- | The ID of the action.
     id :: Prelude.Maybe Prelude.Text,
-    -- | The description for the action.
-    description :: Prelude.Maybe Prelude.Text,
+    -- | The action parameters, if applicable.
+    parameters :: Prelude.Maybe (Prelude.HashMap Prelude.Text ActionParameter),
     -- | The tags for the action.
-    tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text)
+    tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | The supported targets for the action.
+    targets :: Prelude.Maybe (Prelude.HashMap Prelude.Text ActionTarget)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -52,71 +53,71 @@ data Action = Action'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'parameters', 'action_parameters' - The action parameters, if applicable.
---
--- 'targets', 'action_targets' - The supported targets for the action.
+-- 'description', 'action_description' - The description for the action.
 --
 -- 'id', 'action_id' - The ID of the action.
 --
--- 'description', 'action_description' - The description for the action.
+-- 'parameters', 'action_parameters' - The action parameters, if applicable.
 --
 -- 'tags', 'action_tags' - The tags for the action.
+--
+-- 'targets', 'action_targets' - The supported targets for the action.
 newAction ::
   Action
 newAction =
   Action'
-    { parameters = Prelude.Nothing,
-      targets = Prelude.Nothing,
+    { description = Prelude.Nothing,
       id = Prelude.Nothing,
-      description = Prelude.Nothing,
-      tags = Prelude.Nothing
+      parameters = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      targets = Prelude.Nothing
     }
-
--- | The action parameters, if applicable.
-action_parameters :: Lens.Lens' Action (Prelude.Maybe (Prelude.HashMap Prelude.Text ActionParameter))
-action_parameters = Lens.lens (\Action' {parameters} -> parameters) (\s@Action' {} a -> s {parameters = a} :: Action) Prelude.. Lens.mapping Lens.coerced
-
--- | The supported targets for the action.
-action_targets :: Lens.Lens' Action (Prelude.Maybe (Prelude.HashMap Prelude.Text ActionTarget))
-action_targets = Lens.lens (\Action' {targets} -> targets) (\s@Action' {} a -> s {targets = a} :: Action) Prelude.. Lens.mapping Lens.coerced
-
--- | The ID of the action.
-action_id :: Lens.Lens' Action (Prelude.Maybe Prelude.Text)
-action_id = Lens.lens (\Action' {id} -> id) (\s@Action' {} a -> s {id = a} :: Action)
 
 -- | The description for the action.
 action_description :: Lens.Lens' Action (Prelude.Maybe Prelude.Text)
 action_description = Lens.lens (\Action' {description} -> description) (\s@Action' {} a -> s {description = a} :: Action)
 
+-- | The ID of the action.
+action_id :: Lens.Lens' Action (Prelude.Maybe Prelude.Text)
+action_id = Lens.lens (\Action' {id} -> id) (\s@Action' {} a -> s {id = a} :: Action)
+
+-- | The action parameters, if applicable.
+action_parameters :: Lens.Lens' Action (Prelude.Maybe (Prelude.HashMap Prelude.Text ActionParameter))
+action_parameters = Lens.lens (\Action' {parameters} -> parameters) (\s@Action' {} a -> s {parameters = a} :: Action) Prelude.. Lens.mapping Lens.coerced
+
 -- | The tags for the action.
 action_tags :: Lens.Lens' Action (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 action_tags = Lens.lens (\Action' {tags} -> tags) (\s@Action' {} a -> s {tags = a} :: Action) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON Action where
+-- | The supported targets for the action.
+action_targets :: Lens.Lens' Action (Prelude.Maybe (Prelude.HashMap Prelude.Text ActionTarget))
+action_targets = Lens.lens (\Action' {targets} -> targets) (\s@Action' {} a -> s {targets = a} :: Action) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON Action where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Action"
       ( \x ->
           Action'
-            Prelude.<$> (x Core..:? "parameters" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "targets" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "id")
-            Prelude.<*> (x Core..:? "description")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "description")
+            Prelude.<*> (x Data..:? "id")
+            Prelude.<*> (x Data..:? "parameters" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "targets" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable Action where
   hashWithSalt _salt Action' {..} =
-    _salt `Prelude.hashWithSalt` parameters
-      `Prelude.hashWithSalt` targets
+    _salt `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` id
-      `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` parameters
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` targets
 
 instance Prelude.NFData Action where
   rnf Action' {..} =
-    Prelude.rnf parameters
-      `Prelude.seq` Prelude.rnf targets
+    Prelude.rnf description
       `Prelude.seq` Prelude.rnf id
-      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf parameters
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf targets

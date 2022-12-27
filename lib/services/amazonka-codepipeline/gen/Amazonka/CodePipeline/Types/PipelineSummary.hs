@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.Types.PipelineSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodePipeline.Types.PipelineSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Returns a summary of a pipeline.
@@ -28,14 +29,14 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newPipelineSummary' smart constructor.
 data PipelineSummary = PipelineSummary'
   { -- | The date and time the pipeline was created, in timestamp format.
-    created :: Prelude.Maybe Core.POSIX,
+    created :: Prelude.Maybe Data.POSIX,
     -- | The name of the pipeline.
     name :: Prelude.Maybe Prelude.Text,
-    -- | The version number of the pipeline.
-    version :: Prelude.Maybe Prelude.Natural,
     -- | The date and time of the last update to the pipeline, in timestamp
     -- format.
-    updated :: Prelude.Maybe Core.POSIX
+    updated :: Prelude.Maybe Data.POSIX,
+    -- | The version number of the pipeline.
+    version :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -51,59 +52,59 @@ data PipelineSummary = PipelineSummary'
 --
 -- 'name', 'pipelineSummary_name' - The name of the pipeline.
 --
--- 'version', 'pipelineSummary_version' - The version number of the pipeline.
---
 -- 'updated', 'pipelineSummary_updated' - The date and time of the last update to the pipeline, in timestamp
 -- format.
+--
+-- 'version', 'pipelineSummary_version' - The version number of the pipeline.
 newPipelineSummary ::
   PipelineSummary
 newPipelineSummary =
   PipelineSummary'
     { created = Prelude.Nothing,
       name = Prelude.Nothing,
-      version = Prelude.Nothing,
-      updated = Prelude.Nothing
+      updated = Prelude.Nothing,
+      version = Prelude.Nothing
     }
 
 -- | The date and time the pipeline was created, in timestamp format.
 pipelineSummary_created :: Lens.Lens' PipelineSummary (Prelude.Maybe Prelude.UTCTime)
-pipelineSummary_created = Lens.lens (\PipelineSummary' {created} -> created) (\s@PipelineSummary' {} a -> s {created = a} :: PipelineSummary) Prelude.. Lens.mapping Core._Time
+pipelineSummary_created = Lens.lens (\PipelineSummary' {created} -> created) (\s@PipelineSummary' {} a -> s {created = a} :: PipelineSummary) Prelude.. Lens.mapping Data._Time
 
 -- | The name of the pipeline.
 pipelineSummary_name :: Lens.Lens' PipelineSummary (Prelude.Maybe Prelude.Text)
 pipelineSummary_name = Lens.lens (\PipelineSummary' {name} -> name) (\s@PipelineSummary' {} a -> s {name = a} :: PipelineSummary)
 
+-- | The date and time of the last update to the pipeline, in timestamp
+-- format.
+pipelineSummary_updated :: Lens.Lens' PipelineSummary (Prelude.Maybe Prelude.UTCTime)
+pipelineSummary_updated = Lens.lens (\PipelineSummary' {updated} -> updated) (\s@PipelineSummary' {} a -> s {updated = a} :: PipelineSummary) Prelude.. Lens.mapping Data._Time
+
 -- | The version number of the pipeline.
 pipelineSummary_version :: Lens.Lens' PipelineSummary (Prelude.Maybe Prelude.Natural)
 pipelineSummary_version = Lens.lens (\PipelineSummary' {version} -> version) (\s@PipelineSummary' {} a -> s {version = a} :: PipelineSummary)
 
--- | The date and time of the last update to the pipeline, in timestamp
--- format.
-pipelineSummary_updated :: Lens.Lens' PipelineSummary (Prelude.Maybe Prelude.UTCTime)
-pipelineSummary_updated = Lens.lens (\PipelineSummary' {updated} -> updated) (\s@PipelineSummary' {} a -> s {updated = a} :: PipelineSummary) Prelude.. Lens.mapping Core._Time
-
-instance Core.FromJSON PipelineSummary where
+instance Data.FromJSON PipelineSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PipelineSummary"
       ( \x ->
           PipelineSummary'
-            Prelude.<$> (x Core..:? "created")
-            Prelude.<*> (x Core..:? "name")
-            Prelude.<*> (x Core..:? "version")
-            Prelude.<*> (x Core..:? "updated")
+            Prelude.<$> (x Data..:? "created")
+            Prelude.<*> (x Data..:? "name")
+            Prelude.<*> (x Data..:? "updated")
+            Prelude.<*> (x Data..:? "version")
       )
 
 instance Prelude.Hashable PipelineSummary where
   hashWithSalt _salt PipelineSummary' {..} =
     _salt `Prelude.hashWithSalt` created
       `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` version
       `Prelude.hashWithSalt` updated
+      `Prelude.hashWithSalt` version
 
 instance Prelude.NFData PipelineSummary where
   rnf PipelineSummary' {..} =
     Prelude.rnf created
       `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf version
       `Prelude.seq` Prelude.rnf updated
+      `Prelude.seq` Prelude.rnf version

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.Types.SourceConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Wisdom.Types.SourceConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Wisdom.Types.AppIntegrationsConfiguration
 
@@ -57,13 +58,13 @@ newSourceConfiguration =
 sourceConfiguration_appIntegrations :: Lens.Lens' SourceConfiguration (Prelude.Maybe AppIntegrationsConfiguration)
 sourceConfiguration_appIntegrations = Lens.lens (\SourceConfiguration' {appIntegrations} -> appIntegrations) (\s@SourceConfiguration' {} a -> s {appIntegrations = a} :: SourceConfiguration)
 
-instance Core.FromJSON SourceConfiguration where
+instance Data.FromJSON SourceConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SourceConfiguration"
       ( \x ->
           SourceConfiguration'
-            Prelude.<$> (x Core..:? "appIntegrations")
+            Prelude.<$> (x Data..:? "appIntegrations")
       )
 
 instance Prelude.Hashable SourceConfiguration where
@@ -74,11 +75,11 @@ instance Prelude.NFData SourceConfiguration where
   rnf SourceConfiguration' {..} =
     Prelude.rnf appIntegrations
 
-instance Core.ToJSON SourceConfiguration where
+instance Data.ToJSON SourceConfiguration where
   toJSON SourceConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("appIntegrations" Core..=)
+          [ ("appIntegrations" Data..=)
               Prelude.<$> appIntegrations
           ]
       )

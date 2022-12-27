@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.DescribePermissions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ module Amazonka.OpsWorks.DescribePermissions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -99,12 +100,13 @@ instance Core.AWSRequest DescribePermissions where
   type
     AWSResponse DescribePermissions =
       DescribePermissionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribePermissionsResponse'
-            Prelude.<$> (x Core..?> "Permissions" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Permissions" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -118,34 +120,34 @@ instance Prelude.NFData DescribePermissions where
     Prelude.rnf iamUserArn
       `Prelude.seq` Prelude.rnf stackId
 
-instance Core.ToHeaders DescribePermissions where
+instance Data.ToHeaders DescribePermissions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.DescribePermissions" ::
+              Data.=# ( "OpsWorks_20130218.DescribePermissions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribePermissions where
+instance Data.ToJSON DescribePermissions where
   toJSON DescribePermissions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("IamUserArn" Core..=) Prelude.<$> iamUserArn,
-            ("StackId" Core..=) Prelude.<$> stackId
+          [ ("IamUserArn" Data..=) Prelude.<$> iamUserArn,
+            ("StackId" Data..=) Prelude.<$> stackId
           ]
       )
 
-instance Core.ToPath DescribePermissions where
+instance Data.ToPath DescribePermissions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribePermissions where
+instance Data.ToQuery DescribePermissions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the response to a @DescribePermissions@ request.

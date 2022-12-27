@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSMContacts.ActivateContactChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.SSMContacts.ActivateContactChannel
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,7 +95,8 @@ instance Core.AWSRequest ActivateContactChannel where
   type
     AWSResponse ActivateContactChannel =
       ActivateContactChannelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -112,36 +114,36 @@ instance Prelude.NFData ActivateContactChannel where
     Prelude.rnf contactChannelId
       `Prelude.seq` Prelude.rnf activationCode
 
-instance Core.ToHeaders ActivateContactChannel where
+instance Data.ToHeaders ActivateContactChannel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SSMContacts.ActivateContactChannel" ::
+              Data.=# ( "SSMContacts.ActivateContactChannel" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ActivateContactChannel where
+instance Data.ToJSON ActivateContactChannel where
   toJSON ActivateContactChannel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ContactChannelId" Core..= contactChannelId),
+              ("ContactChannelId" Data..= contactChannelId),
             Prelude.Just
-              ("ActivationCode" Core..= activationCode)
+              ("ActivationCode" Data..= activationCode)
           ]
       )
 
-instance Core.ToPath ActivateContactChannel where
+instance Data.ToPath ActivateContactChannel where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ActivateContactChannel where
+instance Data.ToQuery ActivateContactChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newActivateContactChannelResponse' smart constructor.

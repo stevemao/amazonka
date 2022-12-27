@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.BatchGetCustomDataIdentifierSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.BatchGetCustomDataIdentifierSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides information about a custom data identifier.
@@ -31,17 +32,17 @@ data BatchGetCustomDataIdentifierSummary = BatchGetCustomDataIdentifierSummary'
     arn :: Prelude.Maybe Prelude.Text,
     -- | The date and time, in UTC and extended ISO 8601 format, when the custom
     -- data identifier was created.
-    createdAt :: Prelude.Maybe Core.POSIX,
-    -- | The custom name of the custom data identifier.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The unique identifier for the custom data identifier.
-    id :: Prelude.Maybe Prelude.Text,
+    createdAt :: Prelude.Maybe Data.POSIX,
     -- | Specifies whether the custom data identifier was deleted. If you delete
     -- a custom data identifier, Amazon Macie doesn\'t delete it permanently.
     -- Instead, it soft deletes the identifier.
     deleted :: Prelude.Maybe Prelude.Bool,
     -- | The custom description of the custom data identifier.
-    description :: Prelude.Maybe Prelude.Text
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the custom data identifier.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The custom name of the custom data identifier.
+    name :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -58,15 +59,15 @@ data BatchGetCustomDataIdentifierSummary = BatchGetCustomDataIdentifierSummary'
 -- 'createdAt', 'batchGetCustomDataIdentifierSummary_createdAt' - The date and time, in UTC and extended ISO 8601 format, when the custom
 -- data identifier was created.
 --
--- 'name', 'batchGetCustomDataIdentifierSummary_name' - The custom name of the custom data identifier.
---
--- 'id', 'batchGetCustomDataIdentifierSummary_id' - The unique identifier for the custom data identifier.
---
 -- 'deleted', 'batchGetCustomDataIdentifierSummary_deleted' - Specifies whether the custom data identifier was deleted. If you delete
 -- a custom data identifier, Amazon Macie doesn\'t delete it permanently.
 -- Instead, it soft deletes the identifier.
 --
 -- 'description', 'batchGetCustomDataIdentifierSummary_description' - The custom description of the custom data identifier.
+--
+-- 'id', 'batchGetCustomDataIdentifierSummary_id' - The unique identifier for the custom data identifier.
+--
+-- 'name', 'batchGetCustomDataIdentifierSummary_name' - The custom name of the custom data identifier.
 newBatchGetCustomDataIdentifierSummary ::
   BatchGetCustomDataIdentifierSummary
 newBatchGetCustomDataIdentifierSummary =
@@ -74,10 +75,10 @@ newBatchGetCustomDataIdentifierSummary =
     { arn =
         Prelude.Nothing,
       createdAt = Prelude.Nothing,
-      name = Prelude.Nothing,
-      id = Prelude.Nothing,
       deleted = Prelude.Nothing,
-      description = Prelude.Nothing
+      description = Prelude.Nothing,
+      id = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the custom data identifier.
@@ -87,15 +88,7 @@ batchGetCustomDataIdentifierSummary_arn = Lens.lens (\BatchGetCustomDataIdentifi
 -- | The date and time, in UTC and extended ISO 8601 format, when the custom
 -- data identifier was created.
 batchGetCustomDataIdentifierSummary_createdAt :: Lens.Lens' BatchGetCustomDataIdentifierSummary (Prelude.Maybe Prelude.UTCTime)
-batchGetCustomDataIdentifierSummary_createdAt = Lens.lens (\BatchGetCustomDataIdentifierSummary' {createdAt} -> createdAt) (\s@BatchGetCustomDataIdentifierSummary' {} a -> s {createdAt = a} :: BatchGetCustomDataIdentifierSummary) Prelude.. Lens.mapping Core._Time
-
--- | The custom name of the custom data identifier.
-batchGetCustomDataIdentifierSummary_name :: Lens.Lens' BatchGetCustomDataIdentifierSummary (Prelude.Maybe Prelude.Text)
-batchGetCustomDataIdentifierSummary_name = Lens.lens (\BatchGetCustomDataIdentifierSummary' {name} -> name) (\s@BatchGetCustomDataIdentifierSummary' {} a -> s {name = a} :: BatchGetCustomDataIdentifierSummary)
-
--- | The unique identifier for the custom data identifier.
-batchGetCustomDataIdentifierSummary_id :: Lens.Lens' BatchGetCustomDataIdentifierSummary (Prelude.Maybe Prelude.Text)
-batchGetCustomDataIdentifierSummary_id = Lens.lens (\BatchGetCustomDataIdentifierSummary' {id} -> id) (\s@BatchGetCustomDataIdentifierSummary' {} a -> s {id = a} :: BatchGetCustomDataIdentifierSummary)
+batchGetCustomDataIdentifierSummary_createdAt = Lens.lens (\BatchGetCustomDataIdentifierSummary' {createdAt} -> createdAt) (\s@BatchGetCustomDataIdentifierSummary' {} a -> s {createdAt = a} :: BatchGetCustomDataIdentifierSummary) Prelude.. Lens.mapping Data._Time
 
 -- | Specifies whether the custom data identifier was deleted. If you delete
 -- a custom data identifier, Amazon Macie doesn\'t delete it permanently.
@@ -107,21 +100,29 @@ batchGetCustomDataIdentifierSummary_deleted = Lens.lens (\BatchGetCustomDataIden
 batchGetCustomDataIdentifierSummary_description :: Lens.Lens' BatchGetCustomDataIdentifierSummary (Prelude.Maybe Prelude.Text)
 batchGetCustomDataIdentifierSummary_description = Lens.lens (\BatchGetCustomDataIdentifierSummary' {description} -> description) (\s@BatchGetCustomDataIdentifierSummary' {} a -> s {description = a} :: BatchGetCustomDataIdentifierSummary)
 
+-- | The unique identifier for the custom data identifier.
+batchGetCustomDataIdentifierSummary_id :: Lens.Lens' BatchGetCustomDataIdentifierSummary (Prelude.Maybe Prelude.Text)
+batchGetCustomDataIdentifierSummary_id = Lens.lens (\BatchGetCustomDataIdentifierSummary' {id} -> id) (\s@BatchGetCustomDataIdentifierSummary' {} a -> s {id = a} :: BatchGetCustomDataIdentifierSummary)
+
+-- | The custom name of the custom data identifier.
+batchGetCustomDataIdentifierSummary_name :: Lens.Lens' BatchGetCustomDataIdentifierSummary (Prelude.Maybe Prelude.Text)
+batchGetCustomDataIdentifierSummary_name = Lens.lens (\BatchGetCustomDataIdentifierSummary' {name} -> name) (\s@BatchGetCustomDataIdentifierSummary' {} a -> s {name = a} :: BatchGetCustomDataIdentifierSummary)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     BatchGetCustomDataIdentifierSummary
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchGetCustomDataIdentifierSummary"
       ( \x ->
           BatchGetCustomDataIdentifierSummary'
-            Prelude.<$> (x Core..:? "arn")
-            Prelude.<*> (x Core..:? "createdAt")
-            Prelude.<*> (x Core..:? "name")
-            Prelude.<*> (x Core..:? "id")
-            Prelude.<*> (x Core..:? "deleted")
-            Prelude.<*> (x Core..:? "description")
+            Prelude.<$> (x Data..:? "arn")
+            Prelude.<*> (x Data..:? "createdAt")
+            Prelude.<*> (x Data..:? "deleted")
+            Prelude.<*> (x Data..:? "description")
+            Prelude.<*> (x Data..:? "id")
+            Prelude.<*> (x Data..:? "name")
       )
 
 instance
@@ -133,10 +134,10 @@ instance
     BatchGetCustomDataIdentifierSummary' {..} =
       _salt `Prelude.hashWithSalt` arn
         `Prelude.hashWithSalt` createdAt
-        `Prelude.hashWithSalt` name
-        `Prelude.hashWithSalt` id
         `Prelude.hashWithSalt` deleted
         `Prelude.hashWithSalt` description
+        `Prelude.hashWithSalt` id
+        `Prelude.hashWithSalt` name
 
 instance
   Prelude.NFData
@@ -145,7 +146,7 @@ instance
   rnf BatchGetCustomDataIdentifierSummary' {..} =
     Prelude.rnf arn
       `Prelude.seq` Prelude.rnf createdAt
-      `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf deleted
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf id
+      `Prelude.seq` Prelude.rnf name

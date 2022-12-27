@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Athena.Types.DataCatalog
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Athena.Types.DataCatalog where
 
 import Amazonka.Athena.Types.DataCatalogType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about a data catalog in an Amazon Web Services
@@ -29,7 +30,9 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newDataCatalog' smart constructor.
 data DataCatalog = DataCatalog'
-  { -- | Specifies the Lambda function or functions to use for the data catalog.
+  { -- | An optional description of the data catalog.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the Lambda function or functions to use for the data catalog.
     -- This is a mapping whose values depend on the catalog type.
     --
     -- -   For the @HIVE@ data catalog type, use the following syntax. The
@@ -67,11 +70,10 @@ data DataCatalog = DataCatalog'
     --     -   Queries that specify a Glue Data Catalog other than the default
     --         @AwsDataCatalog@ must be run on Athena engine version 2.
     parameters :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | An optional description of the data catalog.
-    description :: Prelude.Maybe Prelude.Text,
     -- | The name of the data catalog. The catalog name must be unique for the
-    -- Amazon Web Services account and can use a maximum of 128 alphanumeric,
-    -- underscore, at sign, or hyphen characters.
+    -- Amazon Web Services account and can use a maximum of 127 alphanumeric,
+    -- underscore, at sign, or hyphen characters. The remainder of the length
+    -- constraint of 256 is reserved for use by Athena.
     name :: Prelude.Text,
     -- | The type of data catalog to create: @LAMBDA@ for a federated catalog,
     -- @HIVE@ for an external hive metastore, or @GLUE@ for an Glue Data
@@ -87,6 +89,8 @@ data DataCatalog = DataCatalog'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'description', 'dataCatalog_description' - An optional description of the data catalog.
 --
 -- 'parameters', 'dataCatalog_parameters' - Specifies the Lambda function or functions to use for the data catalog.
 -- This is a mapping whose values depend on the catalog type.
@@ -126,11 +130,10 @@ data DataCatalog = DataCatalog'
 --     -   Queries that specify a Glue Data Catalog other than the default
 --         @AwsDataCatalog@ must be run on Athena engine version 2.
 --
--- 'description', 'dataCatalog_description' - An optional description of the data catalog.
---
 -- 'name', 'dataCatalog_name' - The name of the data catalog. The catalog name must be unique for the
--- Amazon Web Services account and can use a maximum of 128 alphanumeric,
--- underscore, at sign, or hyphen characters.
+-- Amazon Web Services account and can use a maximum of 127 alphanumeric,
+-- underscore, at sign, or hyphen characters. The remainder of the length
+-- constraint of 256 is reserved for use by Athena.
 --
 -- 'type'', 'dataCatalog_type' - The type of data catalog to create: @LAMBDA@ for a federated catalog,
 -- @HIVE@ for an external hive metastore, or @GLUE@ for an Glue Data
@@ -143,11 +146,15 @@ newDataCatalog ::
   DataCatalog
 newDataCatalog pName_ pType_ =
   DataCatalog'
-    { parameters = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      parameters = Prelude.Nothing,
       name = pName_,
       type' = pType_
     }
+
+-- | An optional description of the data catalog.
+dataCatalog_description :: Lens.Lens' DataCatalog (Prelude.Maybe Prelude.Text)
+dataCatalog_description = Lens.lens (\DataCatalog' {description} -> description) (\s@DataCatalog' {} a -> s {description = a} :: DataCatalog)
 
 -- | Specifies the Lambda function or functions to use for the data catalog.
 -- This is a mapping whose values depend on the catalog type.
@@ -189,13 +196,10 @@ newDataCatalog pName_ pType_ =
 dataCatalog_parameters :: Lens.Lens' DataCatalog (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 dataCatalog_parameters = Lens.lens (\DataCatalog' {parameters} -> parameters) (\s@DataCatalog' {} a -> s {parameters = a} :: DataCatalog) Prelude.. Lens.mapping Lens.coerced
 
--- | An optional description of the data catalog.
-dataCatalog_description :: Lens.Lens' DataCatalog (Prelude.Maybe Prelude.Text)
-dataCatalog_description = Lens.lens (\DataCatalog' {description} -> description) (\s@DataCatalog' {} a -> s {description = a} :: DataCatalog)
-
 -- | The name of the data catalog. The catalog name must be unique for the
--- Amazon Web Services account and can use a maximum of 128 alphanumeric,
--- underscore, at sign, or hyphen characters.
+-- Amazon Web Services account and can use a maximum of 127 alphanumeric,
+-- underscore, at sign, or hyphen characters. The remainder of the length
+-- constraint of 256 is reserved for use by Athena.
 dataCatalog_name :: Lens.Lens' DataCatalog Prelude.Text
 dataCatalog_name = Lens.lens (\DataCatalog' {name} -> name) (\s@DataCatalog' {} a -> s {name = a} :: DataCatalog)
 
@@ -205,28 +209,28 @@ dataCatalog_name = Lens.lens (\DataCatalog' {name} -> name) (\s@DataCatalog' {} 
 dataCatalog_type :: Lens.Lens' DataCatalog DataCatalogType
 dataCatalog_type = Lens.lens (\DataCatalog' {type'} -> type') (\s@DataCatalog' {} a -> s {type' = a} :: DataCatalog)
 
-instance Core.FromJSON DataCatalog where
+instance Data.FromJSON DataCatalog where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DataCatalog"
       ( \x ->
           DataCatalog'
-            Prelude.<$> (x Core..:? "Parameters" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Description")
-            Prelude.<*> (x Core..: "Name")
-            Prelude.<*> (x Core..: "Type")
+            Prelude.<$> (x Data..:? "Description")
+            Prelude.<*> (x Data..:? "Parameters" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "Name")
+            Prelude.<*> (x Data..: "Type")
       )
 
 instance Prelude.Hashable DataCatalog where
   hashWithSalt _salt DataCatalog' {..} =
-    _salt `Prelude.hashWithSalt` parameters
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` parameters
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` type'
 
 instance Prelude.NFData DataCatalog where
   rnf DataCatalog' {..} =
-    Prelude.rnf parameters
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf parameters
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf type'

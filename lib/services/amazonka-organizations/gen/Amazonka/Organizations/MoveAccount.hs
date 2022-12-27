@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.MoveAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.Organizations.MoveAccount
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -185,7 +186,8 @@ moveAccount_destinationParentId = Lens.lens (\MoveAccount' {destinationParentId}
 
 instance Core.AWSRequest MoveAccount where
   type AWSResponse MoveAccount = MoveAccountResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull MoveAccountResponse'
 
 instance Prelude.Hashable MoveAccount where
@@ -200,37 +202,37 @@ instance Prelude.NFData MoveAccount where
       `Prelude.seq` Prelude.rnf sourceParentId
       `Prelude.seq` Prelude.rnf destinationParentId
 
-instance Core.ToHeaders MoveAccount where
+instance Data.ToHeaders MoveAccount where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.MoveAccount" ::
+              Data.=# ( "AWSOrganizationsV20161128.MoveAccount" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON MoveAccount where
+instance Data.ToJSON MoveAccount where
   toJSON MoveAccount' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("AccountId" Core..= accountId),
+          [ Prelude.Just ("AccountId" Data..= accountId),
             Prelude.Just
-              ("SourceParentId" Core..= sourceParentId),
+              ("SourceParentId" Data..= sourceParentId),
             Prelude.Just
-              ("DestinationParentId" Core..= destinationParentId)
+              ("DestinationParentId" Data..= destinationParentId)
           ]
       )
 
-instance Core.ToPath MoveAccount where
+instance Data.ToPath MoveAccount where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery MoveAccount where
+instance Data.ToQuery MoveAccount where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newMoveAccountResponse' smart constructor.

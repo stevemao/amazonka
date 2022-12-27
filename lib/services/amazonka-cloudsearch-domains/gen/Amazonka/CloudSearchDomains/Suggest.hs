@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudSearchDomains.Suggest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,15 +54,16 @@ module Amazonka.CloudSearchDomains.Suggest
     newSuggestResponse,
 
     -- * Response Lenses
-    suggestResponse_suggest,
     suggestResponse_status,
+    suggestResponse_suggest,
     suggestResponse_httpStatus,
   )
 where
 
 import Amazonka.CloudSearchDomains.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -120,13 +121,14 @@ suggest_suggester = Lens.lens (\Suggest' {suggester} -> suggester) (\s@Suggest' 
 
 instance Core.AWSRequest Suggest where
   type AWSResponse Suggest = SuggestResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SuggestResponse'
-            Prelude.<$> (x Core..?> "suggest")
-            Prelude.<*> (x Core..?> "status")
+            Prelude.<$> (x Data..?> "status")
+            Prelude.<*> (x Data..?> "suggest")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -142,26 +144,26 @@ instance Prelude.NFData Suggest where
       `Prelude.seq` Prelude.rnf query
       `Prelude.seq` Prelude.rnf suggester
 
-instance Core.ToHeaders Suggest where
+instance Data.ToHeaders Suggest where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath Suggest where
+instance Data.ToPath Suggest where
   toPath = Prelude.const "/2013-01-01/suggest"
 
-instance Core.ToQuery Suggest where
+instance Data.ToQuery Suggest where
   toQuery Suggest' {..} =
     Prelude.mconcat
-      [ "size" Core.=: size,
-        "q" Core.=: query,
-        "suggester" Core.=: suggester,
+      [ "size" Data.=: size,
+        "q" Data.=: query,
+        "suggester" Data.=: suggester,
         "format=sdk&pretty=true"
       ]
 
@@ -169,11 +171,11 @@ instance Core.ToQuery Suggest where
 --
 -- /See:/ 'newSuggestResponse' smart constructor.
 data SuggestResponse = SuggestResponse'
-  { -- | Container for the matching search suggestion information.
-    suggest :: Prelude.Maybe SuggestModel,
-    -- | The status of a @SuggestRequest@. Contains the resource ID (@rid@) and
+  { -- | The status of a @SuggestRequest@. Contains the resource ID (@rid@) and
     -- how long it took to process the request (@timems@).
     status :: Prelude.Maybe SuggestStatus,
+    -- | Container for the matching search suggestion information.
+    suggest :: Prelude.Maybe SuggestModel,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -187,10 +189,10 @@ data SuggestResponse = SuggestResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'suggest', 'suggestResponse_suggest' - Container for the matching search suggestion information.
---
 -- 'status', 'suggestResponse_status' - The status of a @SuggestRequest@. Contains the resource ID (@rid@) and
 -- how long it took to process the request (@timems@).
+--
+-- 'suggest', 'suggestResponse_suggest' - Container for the matching search suggestion information.
 --
 -- 'httpStatus', 'suggestResponse_httpStatus' - The response's http status code.
 newSuggestResponse ::
@@ -199,19 +201,19 @@ newSuggestResponse ::
   SuggestResponse
 newSuggestResponse pHttpStatus_ =
   SuggestResponse'
-    { suggest = Prelude.Nothing,
-      status = Prelude.Nothing,
+    { status = Prelude.Nothing,
+      suggest = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Container for the matching search suggestion information.
-suggestResponse_suggest :: Lens.Lens' SuggestResponse (Prelude.Maybe SuggestModel)
-suggestResponse_suggest = Lens.lens (\SuggestResponse' {suggest} -> suggest) (\s@SuggestResponse' {} a -> s {suggest = a} :: SuggestResponse)
 
 -- | The status of a @SuggestRequest@. Contains the resource ID (@rid@) and
 -- how long it took to process the request (@timems@).
 suggestResponse_status :: Lens.Lens' SuggestResponse (Prelude.Maybe SuggestStatus)
 suggestResponse_status = Lens.lens (\SuggestResponse' {status} -> status) (\s@SuggestResponse' {} a -> s {status = a} :: SuggestResponse)
+
+-- | Container for the matching search suggestion information.
+suggestResponse_suggest :: Lens.Lens' SuggestResponse (Prelude.Maybe SuggestModel)
+suggestResponse_suggest = Lens.lens (\SuggestResponse' {suggest} -> suggest) (\s@SuggestResponse' {} a -> s {suggest = a} :: SuggestResponse)
 
 -- | The response's http status code.
 suggestResponse_httpStatus :: Lens.Lens' SuggestResponse Prelude.Int
@@ -219,6 +221,6 @@ suggestResponse_httpStatus = Lens.lens (\SuggestResponse' {httpStatus} -> httpSt
 
 instance Prelude.NFData SuggestResponse where
   rnf SuggestResponse' {..} =
-    Prelude.rnf suggest
-      `Prelude.seq` Prelude.rnf status
+    Prelude.rnf status
+      `Prelude.seq` Prelude.rnf suggest
       `Prelude.seq` Prelude.rnf httpStatus

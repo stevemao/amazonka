@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceQuotas.GetServiceQuotaIncreaseRequestFromTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.ServiceQuotas.GetServiceQuotaIncreaseRequestFromTemplate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -112,12 +113,13 @@ instance
     AWSResponse
       GetServiceQuotaIncreaseRequestFromTemplate =
       GetServiceQuotaIncreaseRequestFromTemplateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetServiceQuotaIncreaseRequestFromTemplateResponse'
-            Prelude.<$> (x Core..?> "ServiceQuotaIncreaseRequestInTemplate")
+            Prelude.<$> (x Data..?> "ServiceQuotaIncreaseRequestInTemplate")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -142,45 +144,45 @@ instance
       `Prelude.seq` Prelude.rnf awsRegion
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetServiceQuotaIncreaseRequestFromTemplate
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ServiceQuotasV20190624.GetServiceQuotaIncreaseRequestFromTemplate" ::
+              Data.=# ( "ServiceQuotasV20190624.GetServiceQuotaIncreaseRequestFromTemplate" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     GetServiceQuotaIncreaseRequestFromTemplate
   where
   toJSON
     GetServiceQuotaIncreaseRequestFromTemplate' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ Prelude.Just ("ServiceCode" Core..= serviceCode),
-              Prelude.Just ("QuotaCode" Core..= quotaCode),
-              Prelude.Just ("AwsRegion" Core..= awsRegion)
+            [ Prelude.Just ("ServiceCode" Data..= serviceCode),
+              Prelude.Just ("QuotaCode" Data..= quotaCode),
+              Prelude.Just ("AwsRegion" Data..= awsRegion)
             ]
         )
 
 instance
-  Core.ToPath
+  Data.ToPath
     GetServiceQuotaIncreaseRequestFromTemplate
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetServiceQuotaIncreaseRequestFromTemplate
   where
   toQuery = Prelude.const Prelude.mempty

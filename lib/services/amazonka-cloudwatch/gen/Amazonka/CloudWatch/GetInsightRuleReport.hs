@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatch.GetInsightRuleReport
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -72,11 +72,11 @@ module Amazonka.CloudWatch.GetInsightRuleReport
     newGetInsightRuleReportResponse,
 
     -- * Response Lenses
-    getInsightRuleReportResponse_keyLabels,
-    getInsightRuleReportResponse_approximateUniqueCount,
-    getInsightRuleReportResponse_aggregationStatistic,
     getInsightRuleReportResponse_aggregateValue,
+    getInsightRuleReportResponse_aggregationStatistic,
+    getInsightRuleReportResponse_approximateUniqueCount,
     getInsightRuleReportResponse_contributors,
+    getInsightRuleReportResponse_keyLabels,
     getInsightRuleReportResponse_metricDatapoints,
     getInsightRuleReportResponse_httpStatus,
   )
@@ -84,7 +84,8 @@ where
 
 import Amazonka.CloudWatch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -132,11 +133,11 @@ data GetInsightRuleReport = GetInsightRuleReport'
     -- | The start time of the data to use in the report. When used in a raw HTTP
     -- Query API, it is formatted as @yyyy-MM-dd\'T\'HH:mm:ss@. For example,
     -- @2019-07-01T23:59:59@.
-    startTime :: Core.ISO8601,
+    startTime :: Data.ISO8601,
     -- | The end time of the data to use in the report. When used in a raw HTTP
     -- Query API, it is formatted as @yyyy-MM-dd\'T\'HH:mm:ss@. For example,
     -- @2019-07-01T23:59:59@.
-    endTime :: Core.ISO8601,
+    endTime :: Data.ISO8601,
     -- | The period, in seconds, to use for the statistics in the
     -- @InsightRuleMetricDatapoint@ results.
     period :: Prelude.Natural
@@ -220,8 +221,8 @@ newGetInsightRuleReport
         metrics = Prelude.Nothing,
         orderBy = Prelude.Nothing,
         ruleName = pRuleName_,
-        startTime = Core._Time Lens.# pStartTime_,
-        endTime = Core._Time Lens.# pEndTime_,
+        startTime = Data._Time Lens.# pStartTime_,
+        endTime = Data._Time Lens.# pEndTime_,
         period = pPeriod_
       }
 
@@ -275,13 +276,13 @@ getInsightRuleReport_ruleName = Lens.lens (\GetInsightRuleReport' {ruleName} -> 
 -- Query API, it is formatted as @yyyy-MM-dd\'T\'HH:mm:ss@. For example,
 -- @2019-07-01T23:59:59@.
 getInsightRuleReport_startTime :: Lens.Lens' GetInsightRuleReport Prelude.UTCTime
-getInsightRuleReport_startTime = Lens.lens (\GetInsightRuleReport' {startTime} -> startTime) (\s@GetInsightRuleReport' {} a -> s {startTime = a} :: GetInsightRuleReport) Prelude.. Core._Time
+getInsightRuleReport_startTime = Lens.lens (\GetInsightRuleReport' {startTime} -> startTime) (\s@GetInsightRuleReport' {} a -> s {startTime = a} :: GetInsightRuleReport) Prelude.. Data._Time
 
 -- | The end time of the data to use in the report. When used in a raw HTTP
 -- Query API, it is formatted as @yyyy-MM-dd\'T\'HH:mm:ss@. For example,
 -- @2019-07-01T23:59:59@.
 getInsightRuleReport_endTime :: Lens.Lens' GetInsightRuleReport Prelude.UTCTime
-getInsightRuleReport_endTime = Lens.lens (\GetInsightRuleReport' {endTime} -> endTime) (\s@GetInsightRuleReport' {} a -> s {endTime = a} :: GetInsightRuleReport) Prelude.. Core._Time
+getInsightRuleReport_endTime = Lens.lens (\GetInsightRuleReport' {endTime} -> endTime) (\s@GetInsightRuleReport' {} a -> s {endTime = a} :: GetInsightRuleReport) Prelude.. Data._Time
 
 -- | The period, in seconds, to use for the statistics in the
 -- @InsightRuleMetricDatapoint@ results.
@@ -292,24 +293,25 @@ instance Core.AWSRequest GetInsightRuleReport where
   type
     AWSResponse GetInsightRuleReport =
       GetInsightRuleReportResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GetInsightRuleReportResult"
       ( \s h x ->
           GetInsightRuleReportResponse'
-            Prelude.<$> ( x Core..@? "KeyLabels" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> (x Data..@? "AggregateValue")
+            Prelude.<*> (x Data..@? "AggregationStatistic")
+            Prelude.<*> (x Data..@? "ApproximateUniqueCount")
+            Prelude.<*> ( x Data..@? "Contributors" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> (x Core..@? "ApproximateUniqueCount")
-            Prelude.<*> (x Core..@? "AggregationStatistic")
-            Prelude.<*> (x Core..@? "AggregateValue")
-            Prelude.<*> ( x Core..@? "Contributors" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<*> ( x Data..@? "KeyLabels" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> ( x Core..@? "MetricDatapoints"
+            Prelude.<*> ( x Data..@? "MetricDatapoints"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -334,49 +336,49 @@ instance Prelude.NFData GetInsightRuleReport where
       `Prelude.seq` Prelude.rnf endTime
       `Prelude.seq` Prelude.rnf period
 
-instance Core.ToHeaders GetInsightRuleReport where
+instance Data.ToHeaders GetInsightRuleReport where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetInsightRuleReport where
+instance Data.ToPath GetInsightRuleReport where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetInsightRuleReport where
+instance Data.ToQuery GetInsightRuleReport where
   toQuery GetInsightRuleReport' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("GetInsightRuleReport" :: Prelude.ByteString),
+          Data.=: ("GetInsightRuleReport" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-08-01" :: Prelude.ByteString),
-        "MaxContributorCount" Core.=: maxContributorCount,
+          Data.=: ("2010-08-01" :: Prelude.ByteString),
+        "MaxContributorCount" Data.=: maxContributorCount,
         "Metrics"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> metrics),
-        "OrderBy" Core.=: orderBy,
-        "RuleName" Core.=: ruleName,
-        "StartTime" Core.=: startTime,
-        "EndTime" Core.=: endTime,
-        "Period" Core.=: period
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> metrics),
+        "OrderBy" Data.=: orderBy,
+        "RuleName" Data.=: ruleName,
+        "StartTime" Data.=: startTime,
+        "EndTime" Data.=: endTime,
+        "Period" Data.=: period
       ]
 
 -- | /See:/ 'newGetInsightRuleReportResponse' smart constructor.
 data GetInsightRuleReportResponse = GetInsightRuleReportResponse'
-  { -- | An array of the strings used as the keys for this rule. The keys are the
-    -- dimensions used to classify contributors. If the rule contains more than
-    -- one key, then each unique combination of values for the keys is counted
-    -- as a unique contributor.
-    keyLabels :: Prelude.Maybe [Prelude.Text],
+  { -- | The sum of the values from all individual contributors that match the
+    -- rule.
+    aggregateValue :: Prelude.Maybe Prelude.Double,
+    -- | Specifies whether this rule aggregates contributor data by COUNT or SUM.
+    aggregationStatistic :: Prelude.Maybe Prelude.Text,
     -- | An approximate count of the unique contributors found by this rule in
     -- this time period.
     approximateUniqueCount :: Prelude.Maybe Prelude.Integer,
-    -- | Specifies whether this rule aggregates contributor data by COUNT or SUM.
-    aggregationStatistic :: Prelude.Maybe Prelude.Text,
-    -- | The sum of the values from all individual contributors that match the
-    -- rule.
-    aggregateValue :: Prelude.Maybe Prelude.Double,
     -- | An array of the unique contributors found by this rule in this time
     -- period. If the rule contains multiple keys, each combination of values
     -- for the keys counts as a unique contributor.
     contributors :: Prelude.Maybe [InsightRuleContributor],
+    -- | An array of the strings used as the keys for this rule. The keys are the
+    -- dimensions used to classify contributors. If the rule contains more than
+    -- one key, then each unique combination of values for the keys is counted
+    -- as a unique contributor.
+    keyLabels :: Prelude.Maybe [Prelude.Text],
     -- | A time series of metric data points that matches the time period in the
     -- rule request.
     metricDatapoints :: Prelude.Maybe [InsightRuleMetricDatapoint],
@@ -393,22 +395,22 @@ data GetInsightRuleReportResponse = GetInsightRuleReportResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'keyLabels', 'getInsightRuleReportResponse_keyLabels' - An array of the strings used as the keys for this rule. The keys are the
--- dimensions used to classify contributors. If the rule contains more than
--- one key, then each unique combination of values for the keys is counted
--- as a unique contributor.
+-- 'aggregateValue', 'getInsightRuleReportResponse_aggregateValue' - The sum of the values from all individual contributors that match the
+-- rule.
+--
+-- 'aggregationStatistic', 'getInsightRuleReportResponse_aggregationStatistic' - Specifies whether this rule aggregates contributor data by COUNT or SUM.
 --
 -- 'approximateUniqueCount', 'getInsightRuleReportResponse_approximateUniqueCount' - An approximate count of the unique contributors found by this rule in
 -- this time period.
 --
--- 'aggregationStatistic', 'getInsightRuleReportResponse_aggregationStatistic' - Specifies whether this rule aggregates contributor data by COUNT or SUM.
---
--- 'aggregateValue', 'getInsightRuleReportResponse_aggregateValue' - The sum of the values from all individual contributors that match the
--- rule.
---
 -- 'contributors', 'getInsightRuleReportResponse_contributors' - An array of the unique contributors found by this rule in this time
 -- period. If the rule contains multiple keys, each combination of values
 -- for the keys counts as a unique contributor.
+--
+-- 'keyLabels', 'getInsightRuleReportResponse_keyLabels' - An array of the strings used as the keys for this rule. The keys are the
+-- dimensions used to classify contributors. If the rule contains more than
+-- one key, then each unique combination of values for the keys is counted
+-- as a unique contributor.
 --
 -- 'metricDatapoints', 'getInsightRuleReportResponse_metricDatapoints' - A time series of metric data points that matches the time period in the
 -- rule request.
@@ -420,15 +422,35 @@ newGetInsightRuleReportResponse ::
   GetInsightRuleReportResponse
 newGetInsightRuleReportResponse pHttpStatus_ =
   GetInsightRuleReportResponse'
-    { keyLabels =
+    { aggregateValue =
         Prelude.Nothing,
-      approximateUniqueCount = Prelude.Nothing,
       aggregationStatistic = Prelude.Nothing,
-      aggregateValue = Prelude.Nothing,
+      approximateUniqueCount = Prelude.Nothing,
       contributors = Prelude.Nothing,
+      keyLabels = Prelude.Nothing,
       metricDatapoints = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The sum of the values from all individual contributors that match the
+-- rule.
+getInsightRuleReportResponse_aggregateValue :: Lens.Lens' GetInsightRuleReportResponse (Prelude.Maybe Prelude.Double)
+getInsightRuleReportResponse_aggregateValue = Lens.lens (\GetInsightRuleReportResponse' {aggregateValue} -> aggregateValue) (\s@GetInsightRuleReportResponse' {} a -> s {aggregateValue = a} :: GetInsightRuleReportResponse)
+
+-- | Specifies whether this rule aggregates contributor data by COUNT or SUM.
+getInsightRuleReportResponse_aggregationStatistic :: Lens.Lens' GetInsightRuleReportResponse (Prelude.Maybe Prelude.Text)
+getInsightRuleReportResponse_aggregationStatistic = Lens.lens (\GetInsightRuleReportResponse' {aggregationStatistic} -> aggregationStatistic) (\s@GetInsightRuleReportResponse' {} a -> s {aggregationStatistic = a} :: GetInsightRuleReportResponse)
+
+-- | An approximate count of the unique contributors found by this rule in
+-- this time period.
+getInsightRuleReportResponse_approximateUniqueCount :: Lens.Lens' GetInsightRuleReportResponse (Prelude.Maybe Prelude.Integer)
+getInsightRuleReportResponse_approximateUniqueCount = Lens.lens (\GetInsightRuleReportResponse' {approximateUniqueCount} -> approximateUniqueCount) (\s@GetInsightRuleReportResponse' {} a -> s {approximateUniqueCount = a} :: GetInsightRuleReportResponse)
+
+-- | An array of the unique contributors found by this rule in this time
+-- period. If the rule contains multiple keys, each combination of values
+-- for the keys counts as a unique contributor.
+getInsightRuleReportResponse_contributors :: Lens.Lens' GetInsightRuleReportResponse (Prelude.Maybe [InsightRuleContributor])
+getInsightRuleReportResponse_contributors = Lens.lens (\GetInsightRuleReportResponse' {contributors} -> contributors) (\s@GetInsightRuleReportResponse' {} a -> s {contributors = a} :: GetInsightRuleReportResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | An array of the strings used as the keys for this rule. The keys are the
 -- dimensions used to classify contributors. If the rule contains more than
@@ -436,26 +458,6 @@ newGetInsightRuleReportResponse pHttpStatus_ =
 -- as a unique contributor.
 getInsightRuleReportResponse_keyLabels :: Lens.Lens' GetInsightRuleReportResponse (Prelude.Maybe [Prelude.Text])
 getInsightRuleReportResponse_keyLabels = Lens.lens (\GetInsightRuleReportResponse' {keyLabels} -> keyLabels) (\s@GetInsightRuleReportResponse' {} a -> s {keyLabels = a} :: GetInsightRuleReportResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | An approximate count of the unique contributors found by this rule in
--- this time period.
-getInsightRuleReportResponse_approximateUniqueCount :: Lens.Lens' GetInsightRuleReportResponse (Prelude.Maybe Prelude.Integer)
-getInsightRuleReportResponse_approximateUniqueCount = Lens.lens (\GetInsightRuleReportResponse' {approximateUniqueCount} -> approximateUniqueCount) (\s@GetInsightRuleReportResponse' {} a -> s {approximateUniqueCount = a} :: GetInsightRuleReportResponse)
-
--- | Specifies whether this rule aggregates contributor data by COUNT or SUM.
-getInsightRuleReportResponse_aggregationStatistic :: Lens.Lens' GetInsightRuleReportResponse (Prelude.Maybe Prelude.Text)
-getInsightRuleReportResponse_aggregationStatistic = Lens.lens (\GetInsightRuleReportResponse' {aggregationStatistic} -> aggregationStatistic) (\s@GetInsightRuleReportResponse' {} a -> s {aggregationStatistic = a} :: GetInsightRuleReportResponse)
-
--- | The sum of the values from all individual contributors that match the
--- rule.
-getInsightRuleReportResponse_aggregateValue :: Lens.Lens' GetInsightRuleReportResponse (Prelude.Maybe Prelude.Double)
-getInsightRuleReportResponse_aggregateValue = Lens.lens (\GetInsightRuleReportResponse' {aggregateValue} -> aggregateValue) (\s@GetInsightRuleReportResponse' {} a -> s {aggregateValue = a} :: GetInsightRuleReportResponse)
-
--- | An array of the unique contributors found by this rule in this time
--- period. If the rule contains multiple keys, each combination of values
--- for the keys counts as a unique contributor.
-getInsightRuleReportResponse_contributors :: Lens.Lens' GetInsightRuleReportResponse (Prelude.Maybe [InsightRuleContributor])
-getInsightRuleReportResponse_contributors = Lens.lens (\GetInsightRuleReportResponse' {contributors} -> contributors) (\s@GetInsightRuleReportResponse' {} a -> s {contributors = a} :: GetInsightRuleReportResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A time series of metric data points that matches the time period in the
 -- rule request.
@@ -468,10 +470,10 @@ getInsightRuleReportResponse_httpStatus = Lens.lens (\GetInsightRuleReportRespon
 
 instance Prelude.NFData GetInsightRuleReportResponse where
   rnf GetInsightRuleReportResponse' {..} =
-    Prelude.rnf keyLabels
-      `Prelude.seq` Prelude.rnf approximateUniqueCount
+    Prelude.rnf aggregateValue
       `Prelude.seq` Prelude.rnf aggregationStatistic
-      `Prelude.seq` Prelude.rnf aggregateValue
+      `Prelude.seq` Prelude.rnf approximateUniqueCount
       `Prelude.seq` Prelude.rnf contributors
+      `Prelude.seq` Prelude.rnf keyLabels
       `Prelude.seq` Prelude.rnf metricDatapoints
       `Prelude.seq` Prelude.rnf httpStatus

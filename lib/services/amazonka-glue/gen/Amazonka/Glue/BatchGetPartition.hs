@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.BatchGetPartition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,15 +37,16 @@ module Amazonka.Glue.BatchGetPartition
     newBatchGetPartitionResponse,
 
     -- * Response Lenses
-    batchGetPartitionResponse_unprocessedKeys,
     batchGetPartitionResponse_partitions,
+    batchGetPartitionResponse_unprocessedKeys,
     batchGetPartitionResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -115,15 +116,16 @@ instance Core.AWSRequest BatchGetPartition where
   type
     AWSResponse BatchGetPartition =
       BatchGetPartitionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchGetPartitionResponse'
-            Prelude.<$> ( x Core..?> "UnprocessedKeys"
+            Prelude.<$> (x Data..?> "Partitions" Core..!@ Prelude.mempty)
+            Prelude.<*> ( x Data..?> "UnprocessedKeys"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "Partitions" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -141,44 +143,44 @@ instance Prelude.NFData BatchGetPartition where
       `Prelude.seq` Prelude.rnf tableName
       `Prelude.seq` Prelude.rnf partitionsToGet
 
-instance Core.ToHeaders BatchGetPartition where
+instance Data.ToHeaders BatchGetPartition where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.BatchGetPartition" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.BatchGetPartition" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchGetPartition where
+instance Data.ToJSON BatchGetPartition where
   toJSON BatchGetPartition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            Prelude.Just ("DatabaseName" Core..= databaseName),
-            Prelude.Just ("TableName" Core..= tableName),
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            Prelude.Just ("DatabaseName" Data..= databaseName),
+            Prelude.Just ("TableName" Data..= tableName),
             Prelude.Just
-              ("PartitionsToGet" Core..= partitionsToGet)
+              ("PartitionsToGet" Data..= partitionsToGet)
           ]
       )
 
-instance Core.ToPath BatchGetPartition where
+instance Data.ToPath BatchGetPartition where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery BatchGetPartition where
+instance Data.ToQuery BatchGetPartition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchGetPartitionResponse' smart constructor.
 data BatchGetPartitionResponse = BatchGetPartitionResponse'
-  { -- | A list of the partition values in the request for which partitions were
+  { -- | A list of the requested partitions.
+    partitions :: Prelude.Maybe [Partition],
+    -- | A list of the partition values in the request for which partitions were
     -- not returned.
     unprocessedKeys :: Prelude.Maybe [PartitionValueList],
-    -- | A list of the requested partitions.
-    partitions :: Prelude.Maybe [Partition],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -192,10 +194,10 @@ data BatchGetPartitionResponse = BatchGetPartitionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'partitions', 'batchGetPartitionResponse_partitions' - A list of the requested partitions.
+--
 -- 'unprocessedKeys', 'batchGetPartitionResponse_unprocessedKeys' - A list of the partition values in the request for which partitions were
 -- not returned.
---
--- 'partitions', 'batchGetPartitionResponse_partitions' - A list of the requested partitions.
 --
 -- 'httpStatus', 'batchGetPartitionResponse_httpStatus' - The response's http status code.
 newBatchGetPartitionResponse ::
@@ -204,20 +206,20 @@ newBatchGetPartitionResponse ::
   BatchGetPartitionResponse
 newBatchGetPartitionResponse pHttpStatus_ =
   BatchGetPartitionResponse'
-    { unprocessedKeys =
+    { partitions =
         Prelude.Nothing,
-      partitions = Prelude.Nothing,
+      unprocessedKeys = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | A list of the requested partitions.
+batchGetPartitionResponse_partitions :: Lens.Lens' BatchGetPartitionResponse (Prelude.Maybe [Partition])
+batchGetPartitionResponse_partitions = Lens.lens (\BatchGetPartitionResponse' {partitions} -> partitions) (\s@BatchGetPartitionResponse' {} a -> s {partitions = a} :: BatchGetPartitionResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A list of the partition values in the request for which partitions were
 -- not returned.
 batchGetPartitionResponse_unprocessedKeys :: Lens.Lens' BatchGetPartitionResponse (Prelude.Maybe [PartitionValueList])
 batchGetPartitionResponse_unprocessedKeys = Lens.lens (\BatchGetPartitionResponse' {unprocessedKeys} -> unprocessedKeys) (\s@BatchGetPartitionResponse' {} a -> s {unprocessedKeys = a} :: BatchGetPartitionResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | A list of the requested partitions.
-batchGetPartitionResponse_partitions :: Lens.Lens' BatchGetPartitionResponse (Prelude.Maybe [Partition])
-batchGetPartitionResponse_partitions = Lens.lens (\BatchGetPartitionResponse' {partitions} -> partitions) (\s@BatchGetPartitionResponse' {} a -> s {partitions = a} :: BatchGetPartitionResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 batchGetPartitionResponse_httpStatus :: Lens.Lens' BatchGetPartitionResponse Prelude.Int
@@ -225,6 +227,6 @@ batchGetPartitionResponse_httpStatus = Lens.lens (\BatchGetPartitionResponse' {h
 
 instance Prelude.NFData BatchGetPartitionResponse where
   rnf BatchGetPartitionResponse' {..} =
-    Prelude.rnf unprocessedKeys
-      `Prelude.seq` Prelude.rnf partitions
+    Prelude.rnf partitions
+      `Prelude.seq` Prelude.rnf unprocessedKeys
       `Prelude.seq` Prelude.rnf httpStatus

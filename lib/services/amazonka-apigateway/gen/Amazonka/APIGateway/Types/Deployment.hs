@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.Types.Deployment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,21 +21,13 @@ module Amazonka.APIGateway.Types.Deployment where
 
 import Amazonka.APIGateway.Types.MethodSnapshot
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An immutable representation of a RestApi resource that can be called by
 -- users using Stages. A deployment must be associated with a Stage for it
 -- to be callable over the Internet.
---
--- To create a deployment, call @POST@ on the Deployments resource of a
--- RestApi. To view, update, or delete a deployment, call @GET@, @PATCH@,
--- or @DELETE@ on the specified deployment resource
--- (@\/restapis\/{restapi_id}\/deployments\/{deployment_id}@).
---
--- RestApi, Deployments, Stage,
--- <https://docs.aws.amazon.com/cli/latest/reference/apigateway/get-deployment.html AWS CLI>,
--- <https://aws.amazon.com/tools/ AWS SDKs>
 --
 -- /See:/ 'newDeployment' smart constructor.
 data Deployment = Deployment'
@@ -43,11 +35,11 @@ data Deployment = Deployment'
     -- resource was created.
     apiSummary :: Prelude.Maybe (Prelude.HashMap Prelude.Text (Prelude.HashMap Prelude.Text MethodSnapshot)),
     -- | The date and time that the deployment resource was created.
-    createdDate :: Prelude.Maybe Core.POSIX,
-    -- | The identifier for the deployment resource.
-    id :: Prelude.Maybe Prelude.Text,
+    createdDate :: Prelude.Maybe Data.POSIX,
     -- | The description for the deployment resource.
-    description :: Prelude.Maybe Prelude.Text
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The identifier for the deployment resource.
+    id :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -64,17 +56,17 @@ data Deployment = Deployment'
 --
 -- 'createdDate', 'deployment_createdDate' - The date and time that the deployment resource was created.
 --
--- 'id', 'deployment_id' - The identifier for the deployment resource.
---
 -- 'description', 'deployment_description' - The description for the deployment resource.
+--
+-- 'id', 'deployment_id' - The identifier for the deployment resource.
 newDeployment ::
   Deployment
 newDeployment =
   Deployment'
     { apiSummary = Prelude.Nothing,
       createdDate = Prelude.Nothing,
-      id = Prelude.Nothing,
-      description = Prelude.Nothing
+      description = Prelude.Nothing,
+      id = Prelude.Nothing
     }
 
 -- | A summary of the RestApi at the date and time that the deployment
@@ -84,38 +76,38 @@ deployment_apiSummary = Lens.lens (\Deployment' {apiSummary} -> apiSummary) (\s@
 
 -- | The date and time that the deployment resource was created.
 deployment_createdDate :: Lens.Lens' Deployment (Prelude.Maybe Prelude.UTCTime)
-deployment_createdDate = Lens.lens (\Deployment' {createdDate} -> createdDate) (\s@Deployment' {} a -> s {createdDate = a} :: Deployment) Prelude.. Lens.mapping Core._Time
-
--- | The identifier for the deployment resource.
-deployment_id :: Lens.Lens' Deployment (Prelude.Maybe Prelude.Text)
-deployment_id = Lens.lens (\Deployment' {id} -> id) (\s@Deployment' {} a -> s {id = a} :: Deployment)
+deployment_createdDate = Lens.lens (\Deployment' {createdDate} -> createdDate) (\s@Deployment' {} a -> s {createdDate = a} :: Deployment) Prelude.. Lens.mapping Data._Time
 
 -- | The description for the deployment resource.
 deployment_description :: Lens.Lens' Deployment (Prelude.Maybe Prelude.Text)
 deployment_description = Lens.lens (\Deployment' {description} -> description) (\s@Deployment' {} a -> s {description = a} :: Deployment)
 
-instance Core.FromJSON Deployment where
+-- | The identifier for the deployment resource.
+deployment_id :: Lens.Lens' Deployment (Prelude.Maybe Prelude.Text)
+deployment_id = Lens.lens (\Deployment' {id} -> id) (\s@Deployment' {} a -> s {id = a} :: Deployment)
+
+instance Data.FromJSON Deployment where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Deployment"
       ( \x ->
           Deployment'
-            Prelude.<$> (x Core..:? "apiSummary" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "createdDate")
-            Prelude.<*> (x Core..:? "id")
-            Prelude.<*> (x Core..:? "description")
+            Prelude.<$> (x Data..:? "apiSummary" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "createdDate")
+            Prelude.<*> (x Data..:? "description")
+            Prelude.<*> (x Data..:? "id")
       )
 
 instance Prelude.Hashable Deployment where
   hashWithSalt _salt Deployment' {..} =
     _salt `Prelude.hashWithSalt` apiSummary
       `Prelude.hashWithSalt` createdDate
-      `Prelude.hashWithSalt` id
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` id
 
 instance Prelude.NFData Deployment where
   rnf Deployment' {..} =
     Prelude.rnf apiSummary
       `Prelude.seq` Prelude.rnf createdDate
-      `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf id

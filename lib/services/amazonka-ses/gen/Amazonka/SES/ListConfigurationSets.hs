@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.ListConfigurationSets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,8 @@ module Amazonka.SES.ListConfigurationSets
     newListConfigurationSets,
 
     -- * Request Lenses
-    listConfigurationSets_nextToken,
     listConfigurationSets_maxItems,
+    listConfigurationSets_nextToken,
 
     -- * Destructuring the Response
     ListConfigurationSetsResponse (..),
@@ -56,7 +56,8 @@ module Amazonka.SES.ListConfigurationSets
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -69,12 +70,12 @@ import Amazonka.SES.Types
 --
 -- /See:/ 'newListConfigurationSets' smart constructor.
 data ListConfigurationSets = ListConfigurationSets'
-  { -- | A token returned from a previous call to @ListConfigurationSets@ to
+  { -- | The number of configuration sets to return.
+    maxItems :: Prelude.Maybe Prelude.Int,
+    -- | A token returned from a previous call to @ListConfigurationSets@ to
     -- indicate the position of the configuration set in the configuration set
     -- list.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The number of configuration sets to return.
-    maxItems :: Prelude.Maybe Prelude.Int
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -86,28 +87,28 @@ data ListConfigurationSets = ListConfigurationSets'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxItems', 'listConfigurationSets_maxItems' - The number of configuration sets to return.
+--
 -- 'nextToken', 'listConfigurationSets_nextToken' - A token returned from a previous call to @ListConfigurationSets@ to
 -- indicate the position of the configuration set in the configuration set
 -- list.
---
--- 'maxItems', 'listConfigurationSets_maxItems' - The number of configuration sets to return.
 newListConfigurationSets ::
   ListConfigurationSets
 newListConfigurationSets =
   ListConfigurationSets'
-    { nextToken = Prelude.Nothing,
-      maxItems = Prelude.Nothing
+    { maxItems = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The number of configuration sets to return.
+listConfigurationSets_maxItems :: Lens.Lens' ListConfigurationSets (Prelude.Maybe Prelude.Int)
+listConfigurationSets_maxItems = Lens.lens (\ListConfigurationSets' {maxItems} -> maxItems) (\s@ListConfigurationSets' {} a -> s {maxItems = a} :: ListConfigurationSets)
 
 -- | A token returned from a previous call to @ListConfigurationSets@ to
 -- indicate the position of the configuration set in the configuration set
 -- list.
 listConfigurationSets_nextToken :: Lens.Lens' ListConfigurationSets (Prelude.Maybe Prelude.Text)
 listConfigurationSets_nextToken = Lens.lens (\ListConfigurationSets' {nextToken} -> nextToken) (\s@ListConfigurationSets' {} a -> s {nextToken = a} :: ListConfigurationSets)
-
--- | The number of configuration sets to return.
-listConfigurationSets_maxItems :: Lens.Lens' ListConfigurationSets (Prelude.Maybe Prelude.Int)
-listConfigurationSets_maxItems = Lens.lens (\ListConfigurationSets' {maxItems} -> maxItems) (\s@ListConfigurationSets' {} a -> s {maxItems = a} :: ListConfigurationSets)
 
 instance Core.AWSPager ListConfigurationSets where
   page rq rs
@@ -135,45 +136,46 @@ instance Core.AWSRequest ListConfigurationSets where
   type
     AWSResponse ListConfigurationSets =
       ListConfigurationSetsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListConfigurationSetsResult"
       ( \s h x ->
           ListConfigurationSetsResponse'
-            Prelude.<$> ( x Core..@? "ConfigurationSets"
+            Prelude.<$> ( x Data..@? "ConfigurationSets"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> (x Core..@? "NextToken")
+            Prelude.<*> (x Data..@? "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListConfigurationSets where
   hashWithSalt _salt ListConfigurationSets' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxItems
+    _salt `Prelude.hashWithSalt` maxItems
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListConfigurationSets where
   rnf ListConfigurationSets' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxItems
+    Prelude.rnf maxItems
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListConfigurationSets where
+instance Data.ToHeaders ListConfigurationSets where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListConfigurationSets where
+instance Data.ToPath ListConfigurationSets where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListConfigurationSets where
+instance Data.ToQuery ListConfigurationSets where
   toQuery ListConfigurationSets' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ListConfigurationSets" :: Prelude.ByteString),
+          Data.=: ("ListConfigurationSets" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "NextToken" Core.=: nextToken,
-        "MaxItems" Core.=: maxItems
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "MaxItems" Data.=: maxItems,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | A list of configuration sets associated with your AWS account.

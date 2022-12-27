@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.DescribeUsageLimits
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,27 +45,28 @@ module Amazonka.Redshift.DescribeUsageLimits
     newDescribeUsageLimits,
 
     -- * Request Lenses
-    describeUsageLimits_tagValues,
-    describeUsageLimits_usageLimitId,
-    describeUsageLimits_tagKeys,
     describeUsageLimits_clusterIdentifier,
     describeUsageLimits_featureType,
     describeUsageLimits_marker,
     describeUsageLimits_maxRecords,
+    describeUsageLimits_tagKeys,
+    describeUsageLimits_tagValues,
+    describeUsageLimits_usageLimitId,
 
     -- * Destructuring the Response
     DescribeUsageLimitsResponse (..),
     newDescribeUsageLimitsResponse,
 
     -- * Response Lenses
-    describeUsageLimitsResponse_usageLimits,
     describeUsageLimitsResponse_marker,
+    describeUsageLimitsResponse_usageLimits,
     describeUsageLimitsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -73,24 +74,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeUsageLimits' smart constructor.
 data DescribeUsageLimits = DescribeUsageLimits'
-  { -- | A tag value or values for which you want to return all matching usage
-    -- limit objects that are associated with the specified tag value or
-    -- values. For example, suppose that you have parameter groups that are
-    -- tagged with values called @admin@ and @test@. If you specify both of
-    -- these tag values in the request, Amazon Redshift returns a response with
-    -- the usage limit objects that have either or both of these tag values
-    -- associated with them.
-    tagValues :: Prelude.Maybe [Prelude.Text],
-    -- | The identifier of the usage limit to describe.
-    usageLimitId :: Prelude.Maybe Prelude.Text,
-    -- | A tag key or keys for which you want to return all matching usage limit
-    -- objects that are associated with the specified key or keys. For example,
-    -- suppose that you have parameter groups that are tagged with keys called
-    -- @owner@ and @environment@. If you specify both of these tag keys in the
-    -- request, Amazon Redshift returns a response with the usage limit objects
-    -- have either or both of these tag keys associated with them.
-    tagKeys :: Prelude.Maybe [Prelude.Text],
-    -- | The identifier of the cluster for which you want to describe usage
+  { -- | The identifier of the cluster for which you want to describe usage
     -- limits.
     clusterIdentifier :: Prelude.Maybe Prelude.Text,
     -- | The feature type for which you want to describe usage limits.
@@ -111,7 +95,24 @@ data DescribeUsageLimits = DescribeUsageLimits'
     -- Default: @100@
     --
     -- Constraints: minimum 20, maximum 100.
-    maxRecords :: Prelude.Maybe Prelude.Int
+    maxRecords :: Prelude.Maybe Prelude.Int,
+    -- | A tag key or keys for which you want to return all matching usage limit
+    -- objects that are associated with the specified key or keys. For example,
+    -- suppose that you have parameter groups that are tagged with keys called
+    -- @owner@ and @environment@. If you specify both of these tag keys in the
+    -- request, Amazon Redshift returns a response with the usage limit objects
+    -- have either or both of these tag keys associated with them.
+    tagKeys :: Prelude.Maybe [Prelude.Text],
+    -- | A tag value or values for which you want to return all matching usage
+    -- limit objects that are associated with the specified tag value or
+    -- values. For example, suppose that you have parameter groups that are
+    -- tagged with values called @admin@ and @test@. If you specify both of
+    -- these tag values in the request, Amazon Redshift returns a response with
+    -- the usage limit objects that have either or both of these tag values
+    -- associated with them.
+    tagValues :: Prelude.Maybe [Prelude.Text],
+    -- | The identifier of the usage limit to describe.
+    usageLimitId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -122,23 +123,6 @@ data DescribeUsageLimits = DescribeUsageLimits'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'tagValues', 'describeUsageLimits_tagValues' - A tag value or values for which you want to return all matching usage
--- limit objects that are associated with the specified tag value or
--- values. For example, suppose that you have parameter groups that are
--- tagged with values called @admin@ and @test@. If you specify both of
--- these tag values in the request, Amazon Redshift returns a response with
--- the usage limit objects that have either or both of these tag values
--- associated with them.
---
--- 'usageLimitId', 'describeUsageLimits_usageLimitId' - The identifier of the usage limit to describe.
---
--- 'tagKeys', 'describeUsageLimits_tagKeys' - A tag key or keys for which you want to return all matching usage limit
--- objects that are associated with the specified key or keys. For example,
--- suppose that you have parameter groups that are tagged with keys called
--- @owner@ and @environment@. If you specify both of these tag keys in the
--- request, Amazon Redshift returns a response with the usage limit objects
--- have either or both of these tag keys associated with them.
 --
 -- 'clusterIdentifier', 'describeUsageLimits_clusterIdentifier' - The identifier of the cluster for which you want to describe usage
 -- limits.
@@ -161,41 +145,36 @@ data DescribeUsageLimits = DescribeUsageLimits'
 -- Default: @100@
 --
 -- Constraints: minimum 20, maximum 100.
-newDescribeUsageLimits ::
-  DescribeUsageLimits
-newDescribeUsageLimits =
-  DescribeUsageLimits'
-    { tagValues = Prelude.Nothing,
-      usageLimitId = Prelude.Nothing,
-      tagKeys = Prelude.Nothing,
-      clusterIdentifier = Prelude.Nothing,
-      featureType = Prelude.Nothing,
-      marker = Prelude.Nothing,
-      maxRecords = Prelude.Nothing
-    }
-
--- | A tag value or values for which you want to return all matching usage
+--
+-- 'tagKeys', 'describeUsageLimits_tagKeys' - A tag key or keys for which you want to return all matching usage limit
+-- objects that are associated with the specified key or keys. For example,
+-- suppose that you have parameter groups that are tagged with keys called
+-- @owner@ and @environment@. If you specify both of these tag keys in the
+-- request, Amazon Redshift returns a response with the usage limit objects
+-- have either or both of these tag keys associated with them.
+--
+-- 'tagValues', 'describeUsageLimits_tagValues' - A tag value or values for which you want to return all matching usage
 -- limit objects that are associated with the specified tag value or
 -- values. For example, suppose that you have parameter groups that are
 -- tagged with values called @admin@ and @test@. If you specify both of
 -- these tag values in the request, Amazon Redshift returns a response with
 -- the usage limit objects that have either or both of these tag values
 -- associated with them.
-describeUsageLimits_tagValues :: Lens.Lens' DescribeUsageLimits (Prelude.Maybe [Prelude.Text])
-describeUsageLimits_tagValues = Lens.lens (\DescribeUsageLimits' {tagValues} -> tagValues) (\s@DescribeUsageLimits' {} a -> s {tagValues = a} :: DescribeUsageLimits) Prelude.. Lens.mapping Lens.coerced
-
--- | The identifier of the usage limit to describe.
-describeUsageLimits_usageLimitId :: Lens.Lens' DescribeUsageLimits (Prelude.Maybe Prelude.Text)
-describeUsageLimits_usageLimitId = Lens.lens (\DescribeUsageLimits' {usageLimitId} -> usageLimitId) (\s@DescribeUsageLimits' {} a -> s {usageLimitId = a} :: DescribeUsageLimits)
-
--- | A tag key or keys for which you want to return all matching usage limit
--- objects that are associated with the specified key or keys. For example,
--- suppose that you have parameter groups that are tagged with keys called
--- @owner@ and @environment@. If you specify both of these tag keys in the
--- request, Amazon Redshift returns a response with the usage limit objects
--- have either or both of these tag keys associated with them.
-describeUsageLimits_tagKeys :: Lens.Lens' DescribeUsageLimits (Prelude.Maybe [Prelude.Text])
-describeUsageLimits_tagKeys = Lens.lens (\DescribeUsageLimits' {tagKeys} -> tagKeys) (\s@DescribeUsageLimits' {} a -> s {tagKeys = a} :: DescribeUsageLimits) Prelude.. Lens.mapping Lens.coerced
+--
+-- 'usageLimitId', 'describeUsageLimits_usageLimitId' - The identifier of the usage limit to describe.
+newDescribeUsageLimits ::
+  DescribeUsageLimits
+newDescribeUsageLimits =
+  DescribeUsageLimits'
+    { clusterIdentifier =
+        Prelude.Nothing,
+      featureType = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing,
+      tagKeys = Prelude.Nothing,
+      tagValues = Prelude.Nothing,
+      usageLimitId = Prelude.Nothing
+    }
 
 -- | The identifier of the cluster for which you want to describe usage
 -- limits.
@@ -227,6 +206,29 @@ describeUsageLimits_marker = Lens.lens (\DescribeUsageLimits' {marker} -> marker
 describeUsageLimits_maxRecords :: Lens.Lens' DescribeUsageLimits (Prelude.Maybe Prelude.Int)
 describeUsageLimits_maxRecords = Lens.lens (\DescribeUsageLimits' {maxRecords} -> maxRecords) (\s@DescribeUsageLimits' {} a -> s {maxRecords = a} :: DescribeUsageLimits)
 
+-- | A tag key or keys for which you want to return all matching usage limit
+-- objects that are associated with the specified key or keys. For example,
+-- suppose that you have parameter groups that are tagged with keys called
+-- @owner@ and @environment@. If you specify both of these tag keys in the
+-- request, Amazon Redshift returns a response with the usage limit objects
+-- have either or both of these tag keys associated with them.
+describeUsageLimits_tagKeys :: Lens.Lens' DescribeUsageLimits (Prelude.Maybe [Prelude.Text])
+describeUsageLimits_tagKeys = Lens.lens (\DescribeUsageLimits' {tagKeys} -> tagKeys) (\s@DescribeUsageLimits' {} a -> s {tagKeys = a} :: DescribeUsageLimits) Prelude.. Lens.mapping Lens.coerced
+
+-- | A tag value or values for which you want to return all matching usage
+-- limit objects that are associated with the specified tag value or
+-- values. For example, suppose that you have parameter groups that are
+-- tagged with values called @admin@ and @test@. If you specify both of
+-- these tag values in the request, Amazon Redshift returns a response with
+-- the usage limit objects that have either or both of these tag values
+-- associated with them.
+describeUsageLimits_tagValues :: Lens.Lens' DescribeUsageLimits (Prelude.Maybe [Prelude.Text])
+describeUsageLimits_tagValues = Lens.lens (\DescribeUsageLimits' {tagValues} -> tagValues) (\s@DescribeUsageLimits' {} a -> s {tagValues = a} :: DescribeUsageLimits) Prelude.. Lens.mapping Lens.coerced
+
+-- | The identifier of the usage limit to describe.
+describeUsageLimits_usageLimitId :: Lens.Lens' DescribeUsageLimits (Prelude.Maybe Prelude.Text)
+describeUsageLimits_usageLimitId = Lens.lens (\DescribeUsageLimits' {usageLimitId} -> usageLimitId) (\s@DescribeUsageLimits' {} a -> s {usageLimitId = a} :: DescribeUsageLimits)
+
 instance Core.AWSPager DescribeUsageLimits where
   page rq rs
     | Core.stop
@@ -253,76 +255,77 @@ instance Core.AWSRequest DescribeUsageLimits where
   type
     AWSResponse DescribeUsageLimits =
       DescribeUsageLimitsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeUsageLimitsResult"
       ( \s h x ->
           DescribeUsageLimitsResponse'
-            Prelude.<$> ( x Core..@? "UsageLimits" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> (x Data..@? "Marker")
+            Prelude.<*> ( x Data..@? "UsageLimits" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> (x Core..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeUsageLimits where
   hashWithSalt _salt DescribeUsageLimits' {..} =
-    _salt `Prelude.hashWithSalt` tagValues
-      `Prelude.hashWithSalt` usageLimitId
-      `Prelude.hashWithSalt` tagKeys
-      `Prelude.hashWithSalt` clusterIdentifier
+    _salt `Prelude.hashWithSalt` clusterIdentifier
       `Prelude.hashWithSalt` featureType
       `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
+      `Prelude.hashWithSalt` tagKeys
+      `Prelude.hashWithSalt` tagValues
+      `Prelude.hashWithSalt` usageLimitId
 
 instance Prelude.NFData DescribeUsageLimits where
   rnf DescribeUsageLimits' {..} =
-    Prelude.rnf tagValues
-      `Prelude.seq` Prelude.rnf usageLimitId
-      `Prelude.seq` Prelude.rnf tagKeys
-      `Prelude.seq` Prelude.rnf clusterIdentifier
+    Prelude.rnf clusterIdentifier
       `Prelude.seq` Prelude.rnf featureType
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
+      `Prelude.seq` Prelude.rnf tagKeys
+      `Prelude.seq` Prelude.rnf tagValues
+      `Prelude.seq` Prelude.rnf usageLimitId
 
-instance Core.ToHeaders DescribeUsageLimits where
+instance Data.ToHeaders DescribeUsageLimits where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeUsageLimits where
+instance Data.ToPath DescribeUsageLimits where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeUsageLimits where
+instance Data.ToQuery DescribeUsageLimits where
   toQuery DescribeUsageLimits' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeUsageLimits" :: Prelude.ByteString),
+          Data.=: ("DescribeUsageLimits" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "TagValues"
-          Core.=: Core.toQuery
-            (Core.toQueryList "TagValue" Prelude.<$> tagValues),
-        "UsageLimitId" Core.=: usageLimitId,
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "ClusterIdentifier" Data.=: clusterIdentifier,
+        "FeatureType" Data.=: featureType,
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
         "TagKeys"
-          Core.=: Core.toQuery
-            (Core.toQueryList "TagKey" Prelude.<$> tagKeys),
-        "ClusterIdentifier" Core.=: clusterIdentifier,
-        "FeatureType" Core.=: featureType,
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords
+          Data.=: Data.toQuery
+            (Data.toQueryList "TagKey" Prelude.<$> tagKeys),
+        "TagValues"
+          Data.=: Data.toQuery
+            (Data.toQueryList "TagValue" Prelude.<$> tagValues),
+        "UsageLimitId" Data.=: usageLimitId
       ]
 
 -- | /See:/ 'newDescribeUsageLimitsResponse' smart constructor.
 data DescribeUsageLimitsResponse = DescribeUsageLimitsResponse'
-  { -- | Contains the output from the DescribeUsageLimits action.
-    usageLimits :: Prelude.Maybe [UsageLimit],
-    -- | A value that indicates the starting point for the next set of response
+  { -- | A value that indicates the starting point for the next set of response
     -- records in a subsequent request. If a value is returned in a response,
     -- you can retrieve the next set of records by providing this returned
     -- marker value in the @Marker@ parameter and retrying the command. If the
     -- @Marker@ field is empty, all response records have been retrieved for
     -- the request.
     marker :: Prelude.Maybe Prelude.Text,
+    -- | Contains the output from the DescribeUsageLimits action.
+    usageLimits :: Prelude.Maybe [UsageLimit],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -336,14 +339,14 @@ data DescribeUsageLimitsResponse = DescribeUsageLimitsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'usageLimits', 'describeUsageLimitsResponse_usageLimits' - Contains the output from the DescribeUsageLimits action.
---
 -- 'marker', 'describeUsageLimitsResponse_marker' - A value that indicates the starting point for the next set of response
 -- records in a subsequent request. If a value is returned in a response,
 -- you can retrieve the next set of records by providing this returned
 -- marker value in the @Marker@ parameter and retrying the command. If the
 -- @Marker@ field is empty, all response records have been retrieved for
 -- the request.
+--
+-- 'usageLimits', 'describeUsageLimitsResponse_usageLimits' - Contains the output from the DescribeUsageLimits action.
 --
 -- 'httpStatus', 'describeUsageLimitsResponse_httpStatus' - The response's http status code.
 newDescribeUsageLimitsResponse ::
@@ -352,15 +355,11 @@ newDescribeUsageLimitsResponse ::
   DescribeUsageLimitsResponse
 newDescribeUsageLimitsResponse pHttpStatus_ =
   DescribeUsageLimitsResponse'
-    { usageLimits =
+    { marker =
         Prelude.Nothing,
-      marker = Prelude.Nothing,
+      usageLimits = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Contains the output from the DescribeUsageLimits action.
-describeUsageLimitsResponse_usageLimits :: Lens.Lens' DescribeUsageLimitsResponse (Prelude.Maybe [UsageLimit])
-describeUsageLimitsResponse_usageLimits = Lens.lens (\DescribeUsageLimitsResponse' {usageLimits} -> usageLimits) (\s@DescribeUsageLimitsResponse' {} a -> s {usageLimits = a} :: DescribeUsageLimitsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A value that indicates the starting point for the next set of response
 -- records in a subsequent request. If a value is returned in a response,
@@ -371,12 +370,16 @@ describeUsageLimitsResponse_usageLimits = Lens.lens (\DescribeUsageLimitsRespons
 describeUsageLimitsResponse_marker :: Lens.Lens' DescribeUsageLimitsResponse (Prelude.Maybe Prelude.Text)
 describeUsageLimitsResponse_marker = Lens.lens (\DescribeUsageLimitsResponse' {marker} -> marker) (\s@DescribeUsageLimitsResponse' {} a -> s {marker = a} :: DescribeUsageLimitsResponse)
 
+-- | Contains the output from the DescribeUsageLimits action.
+describeUsageLimitsResponse_usageLimits :: Lens.Lens' DescribeUsageLimitsResponse (Prelude.Maybe [UsageLimit])
+describeUsageLimitsResponse_usageLimits = Lens.lens (\DescribeUsageLimitsResponse' {usageLimits} -> usageLimits) (\s@DescribeUsageLimitsResponse' {} a -> s {usageLimits = a} :: DescribeUsageLimitsResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The response's http status code.
 describeUsageLimitsResponse_httpStatus :: Lens.Lens' DescribeUsageLimitsResponse Prelude.Int
 describeUsageLimitsResponse_httpStatus = Lens.lens (\DescribeUsageLimitsResponse' {httpStatus} -> httpStatus) (\s@DescribeUsageLimitsResponse' {} a -> s {httpStatus = a} :: DescribeUsageLimitsResponse)
 
 instance Prelude.NFData DescribeUsageLimitsResponse where
   rnf DescribeUsageLimitsResponse' {..} =
-    Prelude.rnf usageLimits
-      `Prelude.seq` Prelude.rnf marker
+    Prelude.rnf marker
+      `Prelude.seq` Prelude.rnf usageLimits
       `Prelude.seq` Prelude.rnf httpStatus

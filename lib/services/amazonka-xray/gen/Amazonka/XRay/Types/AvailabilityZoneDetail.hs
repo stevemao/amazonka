@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.XRay.Types.AvailabilityZoneDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.XRay.Types.AvailabilityZoneDetail where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A list of Availability Zones corresponding to the segments in a trace.
@@ -50,13 +51,13 @@ newAvailabilityZoneDetail =
 availabilityZoneDetail_name :: Lens.Lens' AvailabilityZoneDetail (Prelude.Maybe Prelude.Text)
 availabilityZoneDetail_name = Lens.lens (\AvailabilityZoneDetail' {name} -> name) (\s@AvailabilityZoneDetail' {} a -> s {name = a} :: AvailabilityZoneDetail)
 
-instance Core.FromJSON AvailabilityZoneDetail where
+instance Data.FromJSON AvailabilityZoneDetail where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AvailabilityZoneDetail"
       ( \x ->
           AvailabilityZoneDetail'
-            Prelude.<$> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Name")
       )
 
 instance Prelude.Hashable AvailabilityZoneDetail where

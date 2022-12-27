@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.InputClipping
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.InputClipping where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | To transcode only portions of your input, include one input clip for
@@ -113,14 +114,14 @@ inputClipping_endTimecode = Lens.lens (\InputClipping' {endTimecode} -> endTimec
 inputClipping_startTimecode :: Lens.Lens' InputClipping (Prelude.Maybe Prelude.Text)
 inputClipping_startTimecode = Lens.lens (\InputClipping' {startTimecode} -> startTimecode) (\s@InputClipping' {} a -> s {startTimecode = a} :: InputClipping)
 
-instance Core.FromJSON InputClipping where
+instance Data.FromJSON InputClipping where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InputClipping"
       ( \x ->
           InputClipping'
-            Prelude.<$> (x Core..:? "endTimecode")
-            Prelude.<*> (x Core..:? "startTimecode")
+            Prelude.<$> (x Data..:? "endTimecode")
+            Prelude.<*> (x Data..:? "startTimecode")
       )
 
 instance Prelude.Hashable InputClipping where
@@ -133,11 +134,11 @@ instance Prelude.NFData InputClipping where
     Prelude.rnf endTimecode
       `Prelude.seq` Prelude.rnf startTimecode
 
-instance Core.ToJSON InputClipping where
+instance Data.ToJSON InputClipping where
   toJSON InputClipping' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("endTimecode" Core..=) Prelude.<$> endTimecode,
-            ("startTimecode" Core..=) Prelude.<$> startTimecode
+          [ ("endTimecode" Data..=) Prelude.<$> endTimecode,
+            ("startTimecode" Data..=) Prelude.<$> startTimecode
           ]
       )

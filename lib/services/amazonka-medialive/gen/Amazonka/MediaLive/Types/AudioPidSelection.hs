@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.AudioPidSelection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.AudioPidSelection where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Audio Pid Selection
@@ -52,12 +53,12 @@ newAudioPidSelection pPid_ =
 audioPidSelection_pid :: Lens.Lens' AudioPidSelection Prelude.Natural
 audioPidSelection_pid = Lens.lens (\AudioPidSelection' {pid} -> pid) (\s@AudioPidSelection' {} a -> s {pid = a} :: AudioPidSelection)
 
-instance Core.FromJSON AudioPidSelection where
+instance Data.FromJSON AudioPidSelection where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AudioPidSelection"
       ( \x ->
-          AudioPidSelection' Prelude.<$> (x Core..: "pid")
+          AudioPidSelection' Prelude.<$> (x Data..: "pid")
       )
 
 instance Prelude.Hashable AudioPidSelection where
@@ -67,9 +68,9 @@ instance Prelude.Hashable AudioPidSelection where
 instance Prelude.NFData AudioPidSelection where
   rnf AudioPidSelection' {..} = Prelude.rnf pid
 
-instance Core.ToJSON AudioPidSelection where
+instance Data.ToJSON AudioPidSelection where
   toJSON AudioPidSelection' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("pid" Core..= pid)]
+          [Prelude.Just ("pid" Data..= pid)]
       )

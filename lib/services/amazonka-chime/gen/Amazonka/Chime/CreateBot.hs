@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.CreateBot
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,7 +54,7 @@ data CreateBot = CreateBot'
   { -- | The domain of the Amazon Chime Enterprise account.
     domain :: Prelude.Maybe Prelude.Text,
     -- | The bot display name.
-    displayName :: Core.Sensitive Prelude.Text,
+    displayName :: Data.Sensitive Prelude.Text,
     -- | The Amazon Chime account ID.
     accountId :: Prelude.Text
   }
@@ -81,7 +82,7 @@ newCreateBot ::
 newCreateBot pDisplayName_ pAccountId_ =
   CreateBot'
     { domain = Prelude.Nothing,
-      displayName = Core._Sensitive Lens.# pDisplayName_,
+      displayName = Data._Sensitive Lens.# pDisplayName_,
       accountId = pAccountId_
     }
 
@@ -91,7 +92,7 @@ createBot_domain = Lens.lens (\CreateBot' {domain} -> domain) (\s@CreateBot' {} 
 
 -- | The bot display name.
 createBot_displayName :: Lens.Lens' CreateBot Prelude.Text
-createBot_displayName = Lens.lens (\CreateBot' {displayName} -> displayName) (\s@CreateBot' {} a -> s {displayName = a} :: CreateBot) Prelude.. Core._Sensitive
+createBot_displayName = Lens.lens (\CreateBot' {displayName} -> displayName) (\s@CreateBot' {} a -> s {displayName = a} :: CreateBot) Prelude.. Data._Sensitive
 
 -- | The Amazon Chime account ID.
 createBot_accountId :: Lens.Lens' CreateBot Prelude.Text
@@ -99,12 +100,13 @@ createBot_accountId = Lens.lens (\CreateBot' {accountId} -> accountId) (\s@Creat
 
 instance Core.AWSRequest CreateBot where
   type AWSResponse CreateBot = CreateBotResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateBotResponse'
-            Prelude.<$> (x Core..?> "Bot")
+            Prelude.<$> (x Data..?> "Bot")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -120,24 +122,24 @@ instance Prelude.NFData CreateBot where
       `Prelude.seq` Prelude.rnf displayName
       `Prelude.seq` Prelude.rnf accountId
 
-instance Core.ToHeaders CreateBot where
+instance Data.ToHeaders CreateBot where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateBot where
+instance Data.ToJSON CreateBot where
   toJSON CreateBot' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Domain" Core..=) Prelude.<$> domain,
-            Prelude.Just ("DisplayName" Core..= displayName)
+          [ ("Domain" Data..=) Prelude.<$> domain,
+            Prelude.Just ("DisplayName" Data..= displayName)
           ]
       )
 
-instance Core.ToPath CreateBot where
+instance Data.ToPath CreateBot where
   toPath CreateBot' {..} =
     Prelude.mconcat
-      ["/accounts/", Core.toBS accountId, "/bots"]
+      ["/accounts/", Data.toBS accountId, "/bots"]
 
-instance Core.ToQuery CreateBot where
+instance Data.ToQuery CreateBot where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateBotResponse' smart constructor.

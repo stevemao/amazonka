@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.StepFunctions.Types.MapStateStartedEventDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.StepFunctions.Types.MapStateStartedEventDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details about a Map state that was started.
@@ -53,13 +54,13 @@ newMapStateStartedEventDetails =
 mapStateStartedEventDetails_length :: Lens.Lens' MapStateStartedEventDetails (Prelude.Maybe Prelude.Natural)
 mapStateStartedEventDetails_length = Lens.lens (\MapStateStartedEventDetails' {length} -> length) (\s@MapStateStartedEventDetails' {} a -> s {length = a} :: MapStateStartedEventDetails)
 
-instance Core.FromJSON MapStateStartedEventDetails where
+instance Data.FromJSON MapStateStartedEventDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MapStateStartedEventDetails"
       ( \x ->
           MapStateStartedEventDetails'
-            Prelude.<$> (x Core..:? "length")
+            Prelude.<$> (x Data..:? "length")
       )
 
 instance Prelude.Hashable MapStateStartedEventDetails where

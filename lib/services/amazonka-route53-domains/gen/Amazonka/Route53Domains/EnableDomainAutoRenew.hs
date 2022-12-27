@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Domains.EnableDomainAutoRenew
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@
 --
 -- This operation configures Amazon Route 53 to automatically renew the
 -- specified domain before the domain registration expires. The cost of
--- renewing your domain registration is billed to your AWS account.
+-- renewing your domain registration is billed to your Amazon Web Services
+-- account.
 --
 -- The period during which you can renew a domain name varies by TLD. For a
 -- list of TLDs and their renewal policies, see
@@ -48,7 +49,8 @@ module Amazonka.Route53Domains.EnableDomainAutoRenew
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,7 +87,8 @@ instance Core.AWSRequest EnableDomainAutoRenew where
   type
     AWSResponse EnableDomainAutoRenew =
       EnableDomainAutoRenewResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -101,32 +104,32 @@ instance Prelude.NFData EnableDomainAutoRenew where
   rnf EnableDomainAutoRenew' {..} =
     Prelude.rnf domainName
 
-instance Core.ToHeaders EnableDomainAutoRenew where
+instance Data.ToHeaders EnableDomainAutoRenew where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53Domains_v20140515.EnableDomainAutoRenew" ::
+              Data.=# ( "Route53Domains_v20140515.EnableDomainAutoRenew" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON EnableDomainAutoRenew where
+instance Data.ToJSON EnableDomainAutoRenew where
   toJSON EnableDomainAutoRenew' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("DomainName" Core..= domainName)]
+          [Prelude.Just ("DomainName" Data..= domainName)]
       )
 
-instance Core.ToPath EnableDomainAutoRenew where
+instance Data.ToPath EnableDomainAutoRenew where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery EnableDomainAutoRenew where
+instance Data.ToQuery EnableDomainAutoRenew where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newEnableDomainAutoRenewResponse' smart constructor.

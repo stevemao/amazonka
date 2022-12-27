@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.LogEvent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.LogEvent where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a database log event.
@@ -28,7 +29,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newLogEvent' smart constructor.
 data LogEvent = LogEvent'
   { -- | The timestamp when the database log event was created.
-    createdAt :: Prelude.Maybe Core.POSIX,
+    createdAt :: Prelude.Maybe Data.POSIX,
     -- | The message of the database log event.
     message :: Prelude.Maybe Prelude.Text
   }
@@ -55,20 +56,20 @@ newLogEvent =
 
 -- | The timestamp when the database log event was created.
 logEvent_createdAt :: Lens.Lens' LogEvent (Prelude.Maybe Prelude.UTCTime)
-logEvent_createdAt = Lens.lens (\LogEvent' {createdAt} -> createdAt) (\s@LogEvent' {} a -> s {createdAt = a} :: LogEvent) Prelude.. Lens.mapping Core._Time
+logEvent_createdAt = Lens.lens (\LogEvent' {createdAt} -> createdAt) (\s@LogEvent' {} a -> s {createdAt = a} :: LogEvent) Prelude.. Lens.mapping Data._Time
 
 -- | The message of the database log event.
 logEvent_message :: Lens.Lens' LogEvent (Prelude.Maybe Prelude.Text)
 logEvent_message = Lens.lens (\LogEvent' {message} -> message) (\s@LogEvent' {} a -> s {message = a} :: LogEvent)
 
-instance Core.FromJSON LogEvent where
+instance Data.FromJSON LogEvent where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LogEvent"
       ( \x ->
           LogEvent'
-            Prelude.<$> (x Core..:? "createdAt")
-            Prelude.<*> (x Core..:? "message")
+            Prelude.<$> (x Data..:? "createdAt")
+            Prelude.<*> (x Data..:? "message")
       )
 
 instance Prelude.Hashable LogEvent where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.PutBucketTagging
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -82,6 +82,7 @@ module Amazonka.S3.PutBucketTagging
     newPutBucketTagging,
 
     -- * Request Lenses
+    putBucketTagging_checksumAlgorithm,
     putBucketTagging_contentMD5,
     putBucketTagging_expectedBucketOwner,
     putBucketTagging_bucket,
@@ -94,7 +95,8 @@ module Amazonka.S3.PutBucketTagging
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,7 +104,19 @@ import Amazonka.S3.Types
 
 -- | /See:/ 'newPutBucketTagging' smart constructor.
 data PutBucketTagging = PutBucketTagging'
-  { -- | The base64-encoded 128-bit MD5 digest of the data. You must use this
+  { -- | Indicates the algorithm used to create the checksum for the object when
+    -- using the SDK. This header will not provide any additional functionality
+    -- if not using the SDK. When sending this header, there must be a
+    -- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+    -- Otherwise, Amazon S3 fails the request with the HTTP status code
+    -- @400 Bad Request@. For more information, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+    -- in the /Amazon S3 User Guide/.
+    --
+    -- If you provide an individual checksum, Amazon S3 ignores any provided
+    -- @ChecksumAlgorithm@ parameter.
+    checksumAlgorithm :: Prelude.Maybe ChecksumAlgorithm,
+    -- | The base64-encoded 128-bit MD5 digest of the data. You must use this
     -- header as a message integrity check to verify that the request body was
     -- not corrupted in transit. For more information, see
     -- <http://www.ietf.org/rfc/rfc1864.txt RFC 1864>.
@@ -112,8 +126,8 @@ data PutBucketTagging = PutBucketTagging'
     -- automatically.
     contentMD5 :: Prelude.Maybe Prelude.Text,
     -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The bucket name.
     bucket :: BucketName,
@@ -130,6 +144,18 @@ data PutBucketTagging = PutBucketTagging'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'checksumAlgorithm', 'putBucketTagging_checksumAlgorithm' - Indicates the algorithm used to create the checksum for the object when
+-- using the SDK. This header will not provide any additional functionality
+-- if not using the SDK. When sending this header, there must be a
+-- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+-- Otherwise, Amazon S3 fails the request with the HTTP status code
+-- @400 Bad Request@. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+-- in the /Amazon S3 User Guide/.
+--
+-- If you provide an individual checksum, Amazon S3 ignores any provided
+-- @ChecksumAlgorithm@ parameter.
+--
 -- 'contentMD5', 'putBucketTagging_contentMD5' - The base64-encoded 128-bit MD5 digest of the data. You must use this
 -- header as a message integrity check to verify that the request body was
 -- not corrupted in transit. For more information, see
@@ -140,8 +166,8 @@ data PutBucketTagging = PutBucketTagging'
 -- automatically.
 --
 -- 'expectedBucketOwner', 'putBucketTagging_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'putBucketTagging_bucket' - The bucket name.
 --
@@ -154,11 +180,27 @@ newPutBucketTagging ::
   PutBucketTagging
 newPutBucketTagging pBucket_ pTagging_ =
   PutBucketTagging'
-    { contentMD5 = Prelude.Nothing,
+    { checksumAlgorithm =
+        Prelude.Nothing,
+      contentMD5 = Prelude.Nothing,
       expectedBucketOwner = Prelude.Nothing,
       bucket = pBucket_,
       tagging = pTagging_
     }
+
+-- | Indicates the algorithm used to create the checksum for the object when
+-- using the SDK. This header will not provide any additional functionality
+-- if not using the SDK. When sending this header, there must be a
+-- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+-- Otherwise, Amazon S3 fails the request with the HTTP status code
+-- @400 Bad Request@. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+-- in the /Amazon S3 User Guide/.
+--
+-- If you provide an individual checksum, Amazon S3 ignores any provided
+-- @ChecksumAlgorithm@ parameter.
+putBucketTagging_checksumAlgorithm :: Lens.Lens' PutBucketTagging (Prelude.Maybe ChecksumAlgorithm)
+putBucketTagging_checksumAlgorithm = Lens.lens (\PutBucketTagging' {checksumAlgorithm} -> checksumAlgorithm) (\s@PutBucketTagging' {} a -> s {checksumAlgorithm = a} :: PutBucketTagging)
 
 -- | The base64-encoded 128-bit MD5 digest of the data. You must use this
 -- header as a message integrity check to verify that the request body was
@@ -172,8 +214,8 @@ putBucketTagging_contentMD5 :: Lens.Lens' PutBucketTagging (Prelude.Maybe Prelud
 putBucketTagging_contentMD5 = Lens.lens (\PutBucketTagging' {contentMD5} -> contentMD5) (\s@PutBucketTagging' {} a -> s {contentMD5 = a} :: PutBucketTagging)
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 putBucketTagging_expectedBucketOwner :: Lens.Lens' PutBucketTagging (Prelude.Maybe Prelude.Text)
 putBucketTagging_expectedBucketOwner = Lens.lens (\PutBucketTagging' {expectedBucketOwner} -> expectedBucketOwner) (\s@PutBucketTagging' {} a -> s {expectedBucketOwner = a} :: PutBucketTagging)
 
@@ -189,46 +231,50 @@ instance Core.AWSRequest PutBucketTagging where
   type
     AWSResponse PutBucketTagging =
       PutBucketTaggingResponse
-  request =
+  request overrides =
     Request.contentMD5Header
       Prelude.. Request.s3vhost
-      Prelude.. Request.putXML defaultService
+      Prelude.. Request.putXML (overrides defaultService)
   response =
     Response.receiveNull PutBucketTaggingResponse'
 
 instance Prelude.Hashable PutBucketTagging where
   hashWithSalt _salt PutBucketTagging' {..} =
-    _salt `Prelude.hashWithSalt` contentMD5
+    _salt `Prelude.hashWithSalt` checksumAlgorithm
+      `Prelude.hashWithSalt` contentMD5
       `Prelude.hashWithSalt` expectedBucketOwner
       `Prelude.hashWithSalt` bucket
       `Prelude.hashWithSalt` tagging
 
 instance Prelude.NFData PutBucketTagging where
   rnf PutBucketTagging' {..} =
-    Prelude.rnf contentMD5
+    Prelude.rnf checksumAlgorithm
+      `Prelude.seq` Prelude.rnf contentMD5
       `Prelude.seq` Prelude.rnf expectedBucketOwner
       `Prelude.seq` Prelude.rnf bucket
       `Prelude.seq` Prelude.rnf tagging
 
-instance Core.ToElement PutBucketTagging where
+instance Data.ToElement PutBucketTagging where
   toElement PutBucketTagging' {..} =
-    Core.mkElement
+    Data.mkElement
       "{http://s3.amazonaws.com/doc/2006-03-01/}Tagging"
       tagging
 
-instance Core.ToHeaders PutBucketTagging where
+instance Data.ToHeaders PutBucketTagging where
   toHeaders PutBucketTagging' {..} =
     Prelude.mconcat
-      [ "Content-MD5" Core.=# contentMD5,
+      [ "x-amz-sdk-checksum-algorithm"
+          Data.=# checksumAlgorithm,
+        "Content-MD5" Data.=# contentMD5,
         "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath PutBucketTagging where
+instance Data.ToPath PutBucketTagging where
   toPath PutBucketTagging' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery PutBucketTagging where
+instance Data.ToQuery PutBucketTagging where
   toQuery = Prelude.const (Prelude.mconcat ["tagging"])
 
 -- | /See:/ 'newPutBucketTaggingResponse' smart constructor.

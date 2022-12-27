@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.AccessPolicySummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.IoTSiteWise.Types.AccessPolicySummary where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types.Identity
 import Amazonka.IoTSiteWise.Types.Permission
 import Amazonka.IoTSiteWise.Types.Resource
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains an access policy that defines an identity\'s access to an IoT
@@ -31,14 +32,14 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAccessPolicySummary' smart constructor.
 data AccessPolicySummary = AccessPolicySummary'
-  { -- | The date the access policy was last updated, in Unix epoch time.
-    lastUpdateDate :: Prelude.Maybe Core.POSIX,
-    -- | The date the access policy was created, in Unix epoch time.
-    creationDate :: Prelude.Maybe Core.POSIX,
+  { -- | The date the access policy was created, in Unix epoch time.
+    creationDate :: Prelude.Maybe Data.POSIX,
+    -- | The date the access policy was last updated, in Unix epoch time.
+    lastUpdateDate :: Prelude.Maybe Data.POSIX,
     -- | The ID of the access policy.
     id :: Prelude.Text,
-    -- | The identity (an Amazon Web Services SSO user, an Amazon Web Services
-    -- SSO group, or an IAM user).
+    -- | The identity (an IAM Identity Center user, an IAM Identity Center group,
+    -- or an IAM user).
     identity :: Identity,
     -- | The IoT SiteWise Monitor resource (a portal or project).
     resource :: Resource,
@@ -56,14 +57,14 @@ data AccessPolicySummary = AccessPolicySummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'lastUpdateDate', 'accessPolicySummary_lastUpdateDate' - The date the access policy was last updated, in Unix epoch time.
---
 -- 'creationDate', 'accessPolicySummary_creationDate' - The date the access policy was created, in Unix epoch time.
+--
+-- 'lastUpdateDate', 'accessPolicySummary_lastUpdateDate' - The date the access policy was last updated, in Unix epoch time.
 --
 -- 'id', 'accessPolicySummary_id' - The ID of the access policy.
 --
--- 'identity', 'accessPolicySummary_identity' - The identity (an Amazon Web Services SSO user, an Amazon Web Services
--- SSO group, or an IAM user).
+-- 'identity', 'accessPolicySummary_identity' - The identity (an IAM Identity Center user, an IAM Identity Center group,
+-- or an IAM user).
 --
 -- 'resource', 'accessPolicySummary_resource' - The IoT SiteWise Monitor resource (a portal or project).
 --
@@ -85,29 +86,29 @@ newAccessPolicySummary
   pResource_
   pPermission_ =
     AccessPolicySummary'
-      { lastUpdateDate =
+      { creationDate =
           Prelude.Nothing,
-        creationDate = Prelude.Nothing,
+        lastUpdateDate = Prelude.Nothing,
         id = pId_,
         identity = pIdentity_,
         resource = pResource_,
         permission = pPermission_
       }
 
--- | The date the access policy was last updated, in Unix epoch time.
-accessPolicySummary_lastUpdateDate :: Lens.Lens' AccessPolicySummary (Prelude.Maybe Prelude.UTCTime)
-accessPolicySummary_lastUpdateDate = Lens.lens (\AccessPolicySummary' {lastUpdateDate} -> lastUpdateDate) (\s@AccessPolicySummary' {} a -> s {lastUpdateDate = a} :: AccessPolicySummary) Prelude.. Lens.mapping Core._Time
-
 -- | The date the access policy was created, in Unix epoch time.
 accessPolicySummary_creationDate :: Lens.Lens' AccessPolicySummary (Prelude.Maybe Prelude.UTCTime)
-accessPolicySummary_creationDate = Lens.lens (\AccessPolicySummary' {creationDate} -> creationDate) (\s@AccessPolicySummary' {} a -> s {creationDate = a} :: AccessPolicySummary) Prelude.. Lens.mapping Core._Time
+accessPolicySummary_creationDate = Lens.lens (\AccessPolicySummary' {creationDate} -> creationDate) (\s@AccessPolicySummary' {} a -> s {creationDate = a} :: AccessPolicySummary) Prelude.. Lens.mapping Data._Time
+
+-- | The date the access policy was last updated, in Unix epoch time.
+accessPolicySummary_lastUpdateDate :: Lens.Lens' AccessPolicySummary (Prelude.Maybe Prelude.UTCTime)
+accessPolicySummary_lastUpdateDate = Lens.lens (\AccessPolicySummary' {lastUpdateDate} -> lastUpdateDate) (\s@AccessPolicySummary' {} a -> s {lastUpdateDate = a} :: AccessPolicySummary) Prelude.. Lens.mapping Data._Time
 
 -- | The ID of the access policy.
 accessPolicySummary_id :: Lens.Lens' AccessPolicySummary Prelude.Text
 accessPolicySummary_id = Lens.lens (\AccessPolicySummary' {id} -> id) (\s@AccessPolicySummary' {} a -> s {id = a} :: AccessPolicySummary)
 
--- | The identity (an Amazon Web Services SSO user, an Amazon Web Services
--- SSO group, or an IAM user).
+-- | The identity (an IAM Identity Center user, an IAM Identity Center group,
+-- or an IAM user).
 accessPolicySummary_identity :: Lens.Lens' AccessPolicySummary Identity
 accessPolicySummary_identity = Lens.lens (\AccessPolicySummary' {identity} -> identity) (\s@AccessPolicySummary' {} a -> s {identity = a} :: AccessPolicySummary)
 
@@ -120,24 +121,24 @@ accessPolicySummary_resource = Lens.lens (\AccessPolicySummary' {resource} -> re
 accessPolicySummary_permission :: Lens.Lens' AccessPolicySummary Permission
 accessPolicySummary_permission = Lens.lens (\AccessPolicySummary' {permission} -> permission) (\s@AccessPolicySummary' {} a -> s {permission = a} :: AccessPolicySummary)
 
-instance Core.FromJSON AccessPolicySummary where
+instance Data.FromJSON AccessPolicySummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AccessPolicySummary"
       ( \x ->
           AccessPolicySummary'
-            Prelude.<$> (x Core..:? "lastUpdateDate")
-            Prelude.<*> (x Core..:? "creationDate")
-            Prelude.<*> (x Core..: "id")
-            Prelude.<*> (x Core..: "identity")
-            Prelude.<*> (x Core..: "resource")
-            Prelude.<*> (x Core..: "permission")
+            Prelude.<$> (x Data..:? "creationDate")
+            Prelude.<*> (x Data..:? "lastUpdateDate")
+            Prelude.<*> (x Data..: "id")
+            Prelude.<*> (x Data..: "identity")
+            Prelude.<*> (x Data..: "resource")
+            Prelude.<*> (x Data..: "permission")
       )
 
 instance Prelude.Hashable AccessPolicySummary where
   hashWithSalt _salt AccessPolicySummary' {..} =
-    _salt `Prelude.hashWithSalt` lastUpdateDate
-      `Prelude.hashWithSalt` creationDate
+    _salt `Prelude.hashWithSalt` creationDate
+      `Prelude.hashWithSalt` lastUpdateDate
       `Prelude.hashWithSalt` id
       `Prelude.hashWithSalt` identity
       `Prelude.hashWithSalt` resource
@@ -145,8 +146,8 @@ instance Prelude.Hashable AccessPolicySummary where
 
 instance Prelude.NFData AccessPolicySummary where
   rnf AccessPolicySummary' {..} =
-    Prelude.rnf lastUpdateDate
-      `Prelude.seq` Prelude.rnf creationDate
+    Prelude.rnf creationDate
+      `Prelude.seq` Prelude.rnf lastUpdateDate
       `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf identity
       `Prelude.seq` Prelude.rnf resource

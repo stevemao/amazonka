@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.Types.Evidence
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.GuardDuty.Types.Evidence where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types.ThreatIntelligenceDetail
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the reason that the finding was generated.
@@ -54,14 +55,14 @@ newEvidence =
 evidence_threatIntelligenceDetails :: Lens.Lens' Evidence (Prelude.Maybe [ThreatIntelligenceDetail])
 evidence_threatIntelligenceDetails = Lens.lens (\Evidence' {threatIntelligenceDetails} -> threatIntelligenceDetails) (\s@Evidence' {} a -> s {threatIntelligenceDetails = a} :: Evidence) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON Evidence where
+instance Data.FromJSON Evidence where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Evidence"
       ( \x ->
           Evidence'
-            Prelude.<$> ( x Core..:? "threatIntelligenceDetails"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "threatIntelligenceDetails"
+                            Data..!= Prelude.mempty
                         )
       )
 

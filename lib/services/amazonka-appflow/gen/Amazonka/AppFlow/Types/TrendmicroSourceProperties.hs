@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.TrendmicroSourceProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppFlow.Types.TrendmicroSourceProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The properties that are applied when using Trend Micro as a flow source.
@@ -52,13 +53,13 @@ newTrendmicroSourceProperties pObject_ =
 trendmicroSourceProperties_object :: Lens.Lens' TrendmicroSourceProperties Prelude.Text
 trendmicroSourceProperties_object = Lens.lens (\TrendmicroSourceProperties' {object'} -> object') (\s@TrendmicroSourceProperties' {} a -> s {object' = a} :: TrendmicroSourceProperties)
 
-instance Core.FromJSON TrendmicroSourceProperties where
+instance Data.FromJSON TrendmicroSourceProperties where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TrendmicroSourceProperties"
       ( \x ->
           TrendmicroSourceProperties'
-            Prelude.<$> (x Core..: "object")
+            Prelude.<$> (x Data..: "object")
       )
 
 instance Prelude.Hashable TrendmicroSourceProperties where
@@ -69,9 +70,9 @@ instance Prelude.NFData TrendmicroSourceProperties where
   rnf TrendmicroSourceProperties' {..} =
     Prelude.rnf object'
 
-instance Core.ToJSON TrendmicroSourceProperties where
+instance Data.ToJSON TrendmicroSourceProperties where
   toJSON TrendmicroSourceProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("object" Core..= object')]
+          [Prelude.Just ("object" Data..= object')]
       )

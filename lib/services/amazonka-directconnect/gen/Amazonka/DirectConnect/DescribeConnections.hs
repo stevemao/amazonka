@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.DescribeConnections
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.DirectConnect.DescribeConnections
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -75,10 +76,11 @@ describeConnections_connectionId = Lens.lens (\DescribeConnections' {connectionI
 
 instance Core.AWSRequest DescribeConnections where
   type AWSResponse DescribeConnections = Connections
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable DescribeConnections where
   hashWithSalt _salt DescribeConnections' {..} =
@@ -88,30 +90,30 @@ instance Prelude.NFData DescribeConnections where
   rnf DescribeConnections' {..} =
     Prelude.rnf connectionId
 
-instance Core.ToHeaders DescribeConnections where
+instance Data.ToHeaders DescribeConnections where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OvertureService.DescribeConnections" ::
+              Data.=# ( "OvertureService.DescribeConnections" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeConnections where
+instance Data.ToJSON DescribeConnections where
   toJSON DescribeConnections' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("connectionId" Core..=) Prelude.<$> connectionId]
+          [("connectionId" Data..=) Prelude.<$> connectionId]
       )
 
-instance Core.ToPath DescribeConnections where
+instance Data.ToPath DescribeConnections where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeConnections where
+instance Data.ToQuery DescribeConnections where
   toQuery = Prelude.const Prelude.mempty

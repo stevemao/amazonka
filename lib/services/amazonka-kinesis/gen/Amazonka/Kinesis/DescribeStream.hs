@@ -14,13 +14,18 @@
 
 -- |
 -- Module      : Amazonka.Kinesis.DescribeStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Describes the specified Kinesis data stream.
+--
+-- This API has been revised. It\'s highly recommended that you use the
+-- DescribeStreamSummary API to get a summarized description of the
+-- specified Kinesis data stream and the ListShards API to list the shards
+-- in a specified data stream and obtain information about each shard.
 --
 -- The information returned includes the stream name, Amazon Resource Name
 -- (ARN), creation time, enhanced metric configuration, and shard map. The
@@ -63,8 +68,9 @@ module Amazonka.Kinesis.DescribeStream
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kinesis.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -74,10 +80,18 @@ import qualified Amazonka.Response as Response
 -- /See:/ 'newDescribeStream' smart constructor.
 data DescribeStream = DescribeStream'
   { -- | The shard ID of the shard to start with.
+    --
+    -- Specify this parameter to indicate that you want to describe the stream
+    -- starting with the shard whose ID immediately follows
+    -- @ExclusiveStartShardId@.
+    --
+    -- If you don\'t specify this parameter, the default behavior for
+    -- @DescribeStream@ is to describe the stream starting with the first shard
+    -- in the stream.
     exclusiveStartShardId :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of shards to return in a single call. The default
     -- value is 100. If you specify a value greater than 100, at most 100
-    -- shards are returned.
+    -- results are returned.
     limit :: Prelude.Maybe Prelude.Natural,
     -- | The name of the stream to describe.
     streamName :: Prelude.Text
@@ -94,9 +108,17 @@ data DescribeStream = DescribeStream'
 --
 -- 'exclusiveStartShardId', 'describeStream_exclusiveStartShardId' - The shard ID of the shard to start with.
 --
+-- Specify this parameter to indicate that you want to describe the stream
+-- starting with the shard whose ID immediately follows
+-- @ExclusiveStartShardId@.
+--
+-- If you don\'t specify this parameter, the default behavior for
+-- @DescribeStream@ is to describe the stream starting with the first shard
+-- in the stream.
+--
 -- 'limit', 'describeStream_limit' - The maximum number of shards to return in a single call. The default
 -- value is 100. If you specify a value greater than 100, at most 100
--- shards are returned.
+-- results are returned.
 --
 -- 'streamName', 'describeStream_streamName' - The name of the stream to describe.
 newDescribeStream ::
@@ -112,12 +134,20 @@ newDescribeStream pStreamName_ =
     }
 
 -- | The shard ID of the shard to start with.
+--
+-- Specify this parameter to indicate that you want to describe the stream
+-- starting with the shard whose ID immediately follows
+-- @ExclusiveStartShardId@.
+--
+-- If you don\'t specify this parameter, the default behavior for
+-- @DescribeStream@ is to describe the stream starting with the first shard
+-- in the stream.
 describeStream_exclusiveStartShardId :: Lens.Lens' DescribeStream (Prelude.Maybe Prelude.Text)
 describeStream_exclusiveStartShardId = Lens.lens (\DescribeStream' {exclusiveStartShardId} -> exclusiveStartShardId) (\s@DescribeStream' {} a -> s {exclusiveStartShardId = a} :: DescribeStream)
 
 -- | The maximum number of shards to return in a single call. The default
 -- value is 100. If you specify a value greater than 100, at most 100
--- shards are returned.
+-- results are returned.
 describeStream_limit :: Lens.Lens' DescribeStream (Prelude.Maybe Prelude.Natural)
 describeStream_limit = Lens.lens (\DescribeStream' {limit} -> limit) (\s@DescribeStream' {} a -> s {limit = a} :: DescribeStream)
 
@@ -155,13 +185,14 @@ instance Core.AWSRequest DescribeStream where
   type
     AWSResponse DescribeStream =
       DescribeStreamResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeStreamResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "StreamDescription")
+            Prelude.<*> (x Data..:> "StreamDescription")
       )
 
 instance Prelude.Hashable DescribeStream where
@@ -176,36 +207,36 @@ instance Prelude.NFData DescribeStream where
       `Prelude.seq` Prelude.rnf limit
       `Prelude.seq` Prelude.rnf streamName
 
-instance Core.ToHeaders DescribeStream where
+instance Data.ToHeaders DescribeStream where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Kinesis_20131202.DescribeStream" ::
+              Data.=# ( "Kinesis_20131202.DescribeStream" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeStream where
+instance Data.ToJSON DescribeStream where
   toJSON DescribeStream' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ExclusiveStartShardId" Core..=)
+          [ ("ExclusiveStartShardId" Data..=)
               Prelude.<$> exclusiveStartShardId,
-            ("Limit" Core..=) Prelude.<$> limit,
-            Prelude.Just ("StreamName" Core..= streamName)
+            ("Limit" Data..=) Prelude.<$> limit,
+            Prelude.Just ("StreamName" Data..= streamName)
           ]
       )
 
-instance Core.ToPath DescribeStream where
+instance Data.ToPath DescribeStream where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeStream where
+instance Data.ToQuery DescribeStream where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output for @DescribeStream@.

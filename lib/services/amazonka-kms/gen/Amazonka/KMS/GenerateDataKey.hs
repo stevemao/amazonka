@@ -14,27 +14,33 @@
 
 -- |
 -- Module      : Amazonka.KMS.GenerateDataKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Generates a unique symmetric data key for client-side encryption. This
+-- Returns a unique symmetric data key for use outside of KMS. This
 -- operation returns a plaintext copy of the data key and a copy that is
--- encrypted under a KMS key that you specify. You can use the plaintext
--- key to encrypt your data outside of KMS and store the encrypted data key
--- with the encrypted data.
+-- encrypted under a symmetric encryption KMS key that you specify. The
+-- bytes in the plaintext key are random; they are not related to the
+-- caller or the KMS key. You can use the plaintext key to encrypt your
+-- data outside of KMS and store the encrypted data key with the encrypted
+-- data.
 --
--- @GenerateDataKey@ returns a unique data key for each request. The bytes
--- in the plaintext key are not related to the caller or the KMS key.
+-- To generate a data key, specify the symmetric encryption KMS key that
+-- will be used to encrypt the data key. You cannot use an asymmetric KMS
+-- key to encrypt data keys. To get the type of your KMS key, use the
+-- DescribeKey operation.
 --
--- To generate a data key, specify the symmetric KMS key that will be used
--- to encrypt the data key. You cannot use an asymmetric KMS key to
--- generate data keys. To get the type of your KMS key, use the DescribeKey
--- operation. You must also specify the length of the data key. Use either
--- the @KeySpec@ or @NumberOfBytes@ parameters (but not both). For 128-bit
--- and 256-bit data keys, use the @KeySpec@ parameter.
+-- You must also specify the length of the data key. Use either the
+-- @KeySpec@ or @NumberOfBytes@ parameters (but not both). For 128-bit and
+-- 256-bit data keys, use the @KeySpec@ parameter.
+--
+-- To generate an SM4 data key (China Regions only), specify a @KeySpec@
+-- value of @AES_128@ or @NumberOfBytes@ value of @128@. The symmetric
+-- encryption key used in China Regions to encrypt your data key is an SM4
+-- encryption key.
 --
 -- To get only an encrypted copy of the data key, use
 -- GenerateDataKeyWithoutPlaintext. To generate an asymmetric data key
@@ -42,8 +48,8 @@
 -- operation. To get a cryptographically secure random byte string, use
 -- GenerateRandom.
 --
--- You can use the optional encryption context to add additional security
--- to the encryption operation. If you specify an @EncryptionContext@, you
+-- You can use an optional encryption context to add additional security to
+-- the encryption operation. If you specify an @EncryptionContext@, you
 -- must specify the same encryption context (a case-sensitive exact match)
 -- when decrypting the encrypted data key. Otherwise, the request to
 -- decrypt fails with an @InvalidCiphertextException@. For more
@@ -60,7 +66,7 @@
 --
 -- The KMS key that you use for this operation must be in a compatible key
 -- state. For details, see
--- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html Key state: Effect on your KMS key>
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html Key states of KMS keys>
 -- in the /Key Management Service Developer Guide/.
 --
 -- __How to use your data key__
@@ -119,10 +125,10 @@ module Amazonka.KMS.GenerateDataKey
     newGenerateDataKey,
 
     -- * Request Lenses
-    generateDataKey_keySpec,
     generateDataKey_encryptionContext,
-    generateDataKey_numberOfBytes,
     generateDataKey_grantTokens,
+    generateDataKey_keySpec,
+    generateDataKey_numberOfBytes,
     generateDataKey_keyId,
 
     -- * Destructuring the Response
@@ -138,42 +144,30 @@ module Amazonka.KMS.GenerateDataKey
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGenerateDataKey' smart constructor.
 data GenerateDataKey = GenerateDataKey'
-  { -- | Specifies the length of the data key. Use @AES_128@ to generate a
-    -- 128-bit symmetric key, or @AES_256@ to generate a 256-bit symmetric key.
-    --
-    -- You must specify either the @KeySpec@ or the @NumberOfBytes@ parameter
-    -- (but not both) in every @GenerateDataKey@ request.
-    keySpec :: Prelude.Maybe DataKeySpec,
-    -- | Specifies the encryption context that will be used when encrypting the
+  { -- | Specifies the encryption context that will be used when encrypting the
     -- data key.
     --
     -- An /encryption context/ is a collection of non-secret key-value pairs
-    -- that represents additional authenticated data. When you use an
-    -- encryption context to encrypt data, you must specify the same (an exact
+    -- that represent additional authenticated data. When you use an encryption
+    -- context to encrypt data, you must specify the same (an exact
     -- case-sensitive match) encryption context to decrypt the data. An
-    -- encryption context is optional when encrypting with a symmetric KMS key,
-    -- but it is highly recommended.
+    -- encryption context is supported only on operations with symmetric
+    -- encryption KMS keys. On operations with symmetric encryption KMS keys,
+    -- an encryption context is optional, but it is strongly recommended.
     --
     -- For more information, see
-    -- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context Encryption Context>
+    -- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context Encryption context>
     -- in the /Key Management Service Developer Guide/.
     encryptionContext :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | Specifies the length of the data key in bytes. For example, use the
-    -- value 64 to generate a 512-bit data key (64 bytes is 512 bits). For
-    -- 128-bit (16-byte) and 256-bit (32-byte) data keys, use the @KeySpec@
-    -- parameter.
-    --
-    -- You must specify either the @KeySpec@ or the @NumberOfBytes@ parameter
-    -- (but not both) in every @GenerateDataKey@ request.
-    numberOfBytes :: Prelude.Maybe Prelude.Natural,
     -- | A list of grant tokens.
     --
     -- Use a grant token when your permission to call this operation comes from
@@ -184,7 +178,24 @@ data GenerateDataKey = GenerateDataKey'
     -- <https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#using-grant-token Using a grant token>
     -- in the /Key Management Service Developer Guide/.
     grantTokens :: Prelude.Maybe [Prelude.Text],
-    -- | Identifies the symmetric KMS key that encrypts the data key.
+    -- | Specifies the length of the data key. Use @AES_128@ to generate a
+    -- 128-bit symmetric key, or @AES_256@ to generate a 256-bit symmetric key.
+    --
+    -- You must specify either the @KeySpec@ or the @NumberOfBytes@ parameter
+    -- (but not both) in every @GenerateDataKey@ request.
+    keySpec :: Prelude.Maybe DataKeySpec,
+    -- | Specifies the length of the data key in bytes. For example, use the
+    -- value 64 to generate a 512-bit data key (64 bytes is 512 bits). For
+    -- 128-bit (16-byte) and 256-bit (32-byte) data keys, use the @KeySpec@
+    -- parameter.
+    --
+    -- You must specify either the @KeySpec@ or the @NumberOfBytes@ parameter
+    -- (but not both) in every @GenerateDataKey@ request.
+    numberOfBytes :: Prelude.Maybe Prelude.Natural,
+    -- | Specifies the symmetric encryption KMS key that encrypts the data key.
+    -- You cannot specify an asymmetric KMS key or a KMS key in a custom key
+    -- store. To get the type and origin of your KMS key, use the DescribeKey
+    -- operation.
     --
     -- To specify a KMS key, use its key ID, key ARN, alias name, or alias ARN.
     -- When using an alias name, prefix it with @\"alias\/\"@. To specify a KMS
@@ -216,33 +227,20 @@ data GenerateDataKey = GenerateDataKey'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'keySpec', 'generateDataKey_keySpec' - Specifies the length of the data key. Use @AES_128@ to generate a
--- 128-bit symmetric key, or @AES_256@ to generate a 256-bit symmetric key.
---
--- You must specify either the @KeySpec@ or the @NumberOfBytes@ parameter
--- (but not both) in every @GenerateDataKey@ request.
---
 -- 'encryptionContext', 'generateDataKey_encryptionContext' - Specifies the encryption context that will be used when encrypting the
 -- data key.
 --
 -- An /encryption context/ is a collection of non-secret key-value pairs
--- that represents additional authenticated data. When you use an
--- encryption context to encrypt data, you must specify the same (an exact
+-- that represent additional authenticated data. When you use an encryption
+-- context to encrypt data, you must specify the same (an exact
 -- case-sensitive match) encryption context to decrypt the data. An
--- encryption context is optional when encrypting with a symmetric KMS key,
--- but it is highly recommended.
+-- encryption context is supported only on operations with symmetric
+-- encryption KMS keys. On operations with symmetric encryption KMS keys,
+-- an encryption context is optional, but it is strongly recommended.
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context Encryption Context>
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context Encryption context>
 -- in the /Key Management Service Developer Guide/.
---
--- 'numberOfBytes', 'generateDataKey_numberOfBytes' - Specifies the length of the data key in bytes. For example, use the
--- value 64 to generate a 512-bit data key (64 bytes is 512 bits). For
--- 128-bit (16-byte) and 256-bit (32-byte) data keys, use the @KeySpec@
--- parameter.
---
--- You must specify either the @KeySpec@ or the @NumberOfBytes@ parameter
--- (but not both) in every @GenerateDataKey@ request.
 --
 -- 'grantTokens', 'generateDataKey_grantTokens' - A list of grant tokens.
 --
@@ -254,7 +252,24 @@ data GenerateDataKey = GenerateDataKey'
 -- <https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#using-grant-token Using a grant token>
 -- in the /Key Management Service Developer Guide/.
 --
--- 'keyId', 'generateDataKey_keyId' - Identifies the symmetric KMS key that encrypts the data key.
+-- 'keySpec', 'generateDataKey_keySpec' - Specifies the length of the data key. Use @AES_128@ to generate a
+-- 128-bit symmetric key, or @AES_256@ to generate a 256-bit symmetric key.
+--
+-- You must specify either the @KeySpec@ or the @NumberOfBytes@ parameter
+-- (but not both) in every @GenerateDataKey@ request.
+--
+-- 'numberOfBytes', 'generateDataKey_numberOfBytes' - Specifies the length of the data key in bytes. For example, use the
+-- value 64 to generate a 512-bit data key (64 bytes is 512 bits). For
+-- 128-bit (16-byte) and 256-bit (32-byte) data keys, use the @KeySpec@
+-- parameter.
+--
+-- You must specify either the @KeySpec@ or the @NumberOfBytes@ parameter
+-- (but not both) in every @GenerateDataKey@ request.
+--
+-- 'keyId', 'generateDataKey_keyId' - Specifies the symmetric encryption KMS key that encrypts the data key.
+-- You cannot specify an asymmetric KMS key or a KMS key in a custom key
+-- store. To get the type and origin of your KMS key, use the DescribeKey
+-- operation.
 --
 -- To specify a KMS key, use its key ID, key ARN, alias name, or alias ARN.
 -- When using an alias name, prefix it with @\"alias\/\"@. To specify a KMS
@@ -280,46 +295,30 @@ newGenerateDataKey ::
   GenerateDataKey
 newGenerateDataKey pKeyId_ =
   GenerateDataKey'
-    { keySpec = Prelude.Nothing,
-      encryptionContext = Prelude.Nothing,
-      numberOfBytes = Prelude.Nothing,
+    { encryptionContext =
+        Prelude.Nothing,
       grantTokens = Prelude.Nothing,
+      keySpec = Prelude.Nothing,
+      numberOfBytes = Prelude.Nothing,
       keyId = pKeyId_
     }
-
--- | Specifies the length of the data key. Use @AES_128@ to generate a
--- 128-bit symmetric key, or @AES_256@ to generate a 256-bit symmetric key.
---
--- You must specify either the @KeySpec@ or the @NumberOfBytes@ parameter
--- (but not both) in every @GenerateDataKey@ request.
-generateDataKey_keySpec :: Lens.Lens' GenerateDataKey (Prelude.Maybe DataKeySpec)
-generateDataKey_keySpec = Lens.lens (\GenerateDataKey' {keySpec} -> keySpec) (\s@GenerateDataKey' {} a -> s {keySpec = a} :: GenerateDataKey)
 
 -- | Specifies the encryption context that will be used when encrypting the
 -- data key.
 --
 -- An /encryption context/ is a collection of non-secret key-value pairs
--- that represents additional authenticated data. When you use an
--- encryption context to encrypt data, you must specify the same (an exact
+-- that represent additional authenticated data. When you use an encryption
+-- context to encrypt data, you must specify the same (an exact
 -- case-sensitive match) encryption context to decrypt the data. An
--- encryption context is optional when encrypting with a symmetric KMS key,
--- but it is highly recommended.
+-- encryption context is supported only on operations with symmetric
+-- encryption KMS keys. On operations with symmetric encryption KMS keys,
+-- an encryption context is optional, but it is strongly recommended.
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context Encryption Context>
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context Encryption context>
 -- in the /Key Management Service Developer Guide/.
 generateDataKey_encryptionContext :: Lens.Lens' GenerateDataKey (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 generateDataKey_encryptionContext = Lens.lens (\GenerateDataKey' {encryptionContext} -> encryptionContext) (\s@GenerateDataKey' {} a -> s {encryptionContext = a} :: GenerateDataKey) Prelude.. Lens.mapping Lens.coerced
-
--- | Specifies the length of the data key in bytes. For example, use the
--- value 64 to generate a 512-bit data key (64 bytes is 512 bits). For
--- 128-bit (16-byte) and 256-bit (32-byte) data keys, use the @KeySpec@
--- parameter.
---
--- You must specify either the @KeySpec@ or the @NumberOfBytes@ parameter
--- (but not both) in every @GenerateDataKey@ request.
-generateDataKey_numberOfBytes :: Lens.Lens' GenerateDataKey (Prelude.Maybe Prelude.Natural)
-generateDataKey_numberOfBytes = Lens.lens (\GenerateDataKey' {numberOfBytes} -> numberOfBytes) (\s@GenerateDataKey' {} a -> s {numberOfBytes = a} :: GenerateDataKey)
 
 -- | A list of grant tokens.
 --
@@ -333,7 +332,28 @@ generateDataKey_numberOfBytes = Lens.lens (\GenerateDataKey' {numberOfBytes} -> 
 generateDataKey_grantTokens :: Lens.Lens' GenerateDataKey (Prelude.Maybe [Prelude.Text])
 generateDataKey_grantTokens = Lens.lens (\GenerateDataKey' {grantTokens} -> grantTokens) (\s@GenerateDataKey' {} a -> s {grantTokens = a} :: GenerateDataKey) Prelude.. Lens.mapping Lens.coerced
 
--- | Identifies the symmetric KMS key that encrypts the data key.
+-- | Specifies the length of the data key. Use @AES_128@ to generate a
+-- 128-bit symmetric key, or @AES_256@ to generate a 256-bit symmetric key.
+--
+-- You must specify either the @KeySpec@ or the @NumberOfBytes@ parameter
+-- (but not both) in every @GenerateDataKey@ request.
+generateDataKey_keySpec :: Lens.Lens' GenerateDataKey (Prelude.Maybe DataKeySpec)
+generateDataKey_keySpec = Lens.lens (\GenerateDataKey' {keySpec} -> keySpec) (\s@GenerateDataKey' {} a -> s {keySpec = a} :: GenerateDataKey)
+
+-- | Specifies the length of the data key in bytes. For example, use the
+-- value 64 to generate a 512-bit data key (64 bytes is 512 bits). For
+-- 128-bit (16-byte) and 256-bit (32-byte) data keys, use the @KeySpec@
+-- parameter.
+--
+-- You must specify either the @KeySpec@ or the @NumberOfBytes@ parameter
+-- (but not both) in every @GenerateDataKey@ request.
+generateDataKey_numberOfBytes :: Lens.Lens' GenerateDataKey (Prelude.Maybe Prelude.Natural)
+generateDataKey_numberOfBytes = Lens.lens (\GenerateDataKey' {numberOfBytes} -> numberOfBytes) (\s@GenerateDataKey' {} a -> s {numberOfBytes = a} :: GenerateDataKey)
+
+-- | Specifies the symmetric encryption KMS key that encrypts the data key.
+-- You cannot specify an asymmetric KMS key or a KMS key in a custom key
+-- store. To get the type and origin of your KMS key, use the DescribeKey
+-- operation.
 --
 -- To specify a KMS key, use its key ID, key ARN, alias name, or alias ARN.
 -- When using an alias name, prefix it with @\"alias\/\"@. To specify a KMS
@@ -360,65 +380,66 @@ instance Core.AWSRequest GenerateDataKey where
   type
     AWSResponse GenerateDataKey =
       GenerateDataKeyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GenerateDataKeyResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "KeyId")
-            Prelude.<*> (x Core..:> "Plaintext")
-            Prelude.<*> (x Core..:> "CiphertextBlob")
+            Prelude.<*> (x Data..:> "KeyId")
+            Prelude.<*> (x Data..:> "Plaintext")
+            Prelude.<*> (x Data..:> "CiphertextBlob")
       )
 
 instance Prelude.Hashable GenerateDataKey where
   hashWithSalt _salt GenerateDataKey' {..} =
-    _salt `Prelude.hashWithSalt` keySpec
-      `Prelude.hashWithSalt` encryptionContext
-      `Prelude.hashWithSalt` numberOfBytes
+    _salt `Prelude.hashWithSalt` encryptionContext
       `Prelude.hashWithSalt` grantTokens
+      `Prelude.hashWithSalt` keySpec
+      `Prelude.hashWithSalt` numberOfBytes
       `Prelude.hashWithSalt` keyId
 
 instance Prelude.NFData GenerateDataKey where
   rnf GenerateDataKey' {..} =
-    Prelude.rnf keySpec
-      `Prelude.seq` Prelude.rnf encryptionContext
-      `Prelude.seq` Prelude.rnf numberOfBytes
+    Prelude.rnf encryptionContext
       `Prelude.seq` Prelude.rnf grantTokens
+      `Prelude.seq` Prelude.rnf keySpec
+      `Prelude.seq` Prelude.rnf numberOfBytes
       `Prelude.seq` Prelude.rnf keyId
 
-instance Core.ToHeaders GenerateDataKey where
+instance Data.ToHeaders GenerateDataKey where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "TrentService.GenerateDataKey" ::
+              Data.=# ( "TrentService.GenerateDataKey" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GenerateDataKey where
+instance Data.ToJSON GenerateDataKey where
   toJSON GenerateDataKey' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("KeySpec" Core..=) Prelude.<$> keySpec,
-            ("EncryptionContext" Core..=)
+          [ ("EncryptionContext" Data..=)
               Prelude.<$> encryptionContext,
-            ("NumberOfBytes" Core..=) Prelude.<$> numberOfBytes,
-            ("GrantTokens" Core..=) Prelude.<$> grantTokens,
-            Prelude.Just ("KeyId" Core..= keyId)
+            ("GrantTokens" Data..=) Prelude.<$> grantTokens,
+            ("KeySpec" Data..=) Prelude.<$> keySpec,
+            ("NumberOfBytes" Data..=) Prelude.<$> numberOfBytes,
+            Prelude.Just ("KeyId" Data..= keyId)
           ]
       )
 
-instance Core.ToPath GenerateDataKey where
+instance Data.ToPath GenerateDataKey where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GenerateDataKey where
+instance Data.ToQuery GenerateDataKey where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGenerateDataKeyResponse' smart constructor.
@@ -433,11 +454,11 @@ data GenerateDataKeyResponse = GenerateDataKeyResponse'
     -- Services CLI, the value is Base64-encoded. Otherwise, it is not
     -- Base64-encoded. Use this data key to encrypt your data outside of KMS.
     -- Then, remove it from memory as soon as possible.
-    plaintext :: Core.Sensitive Core.Base64,
+    plaintext :: Data.Sensitive Data.Base64,
     -- | The encrypted copy of the data key. When you use the HTTP API or the
     -- Amazon Web Services CLI, the value is Base64-encoded. Otherwise, it is
     -- not Base64-encoded.
-    ciphertextBlob :: Core.Base64
+    ciphertextBlob :: Data.Base64
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -490,10 +511,10 @@ newGenerateDataKeyResponse
       { httpStatus = pHttpStatus_,
         keyId = pKeyId_,
         plaintext =
-          Core._Sensitive Prelude.. Core._Base64
+          Data._Sensitive Prelude.. Data._Base64
             Lens.# pPlaintext_,
         ciphertextBlob =
-          Core._Base64 Lens.# pCiphertextBlob_
+          Data._Base64 Lens.# pCiphertextBlob_
       }
 
 -- | The response's http status code.
@@ -515,7 +536,7 @@ generateDataKeyResponse_keyId = Lens.lens (\GenerateDataKeyResponse' {keyId} -> 
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 generateDataKeyResponse_plaintext :: Lens.Lens' GenerateDataKeyResponse Prelude.ByteString
-generateDataKeyResponse_plaintext = Lens.lens (\GenerateDataKeyResponse' {plaintext} -> plaintext) (\s@GenerateDataKeyResponse' {} a -> s {plaintext = a} :: GenerateDataKeyResponse) Prelude.. Core._Sensitive Prelude.. Core._Base64
+generateDataKeyResponse_plaintext = Lens.lens (\GenerateDataKeyResponse' {plaintext} -> plaintext) (\s@GenerateDataKeyResponse' {} a -> s {plaintext = a} :: GenerateDataKeyResponse) Prelude.. Data._Sensitive Prelude.. Data._Base64
 
 -- | The encrypted copy of the data key. When you use the HTTP API or the
 -- Amazon Web Services CLI, the value is Base64-encoded. Otherwise, it is
@@ -525,7 +546,7 @@ generateDataKeyResponse_plaintext = Lens.lens (\GenerateDataKeyResponse' {plaint
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 generateDataKeyResponse_ciphertextBlob :: Lens.Lens' GenerateDataKeyResponse Prelude.ByteString
-generateDataKeyResponse_ciphertextBlob = Lens.lens (\GenerateDataKeyResponse' {ciphertextBlob} -> ciphertextBlob) (\s@GenerateDataKeyResponse' {} a -> s {ciphertextBlob = a} :: GenerateDataKeyResponse) Prelude.. Core._Base64
+generateDataKeyResponse_ciphertextBlob = Lens.lens (\GenerateDataKeyResponse' {ciphertextBlob} -> ciphertextBlob) (\s@GenerateDataKeyResponse' {} a -> s {ciphertextBlob = a} :: GenerateDataKeyResponse) Prelude.. Data._Base64
 
 instance Prelude.NFData GenerateDataKeyResponse where
   rnf GenerateDataKeyResponse' {..} =

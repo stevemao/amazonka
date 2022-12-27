@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.GetAccountSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,12 +82,13 @@ instance Core.AWSRequest GetAccountSettings where
   type
     AWSResponse GetAccountSettings =
       GetAccountSettingsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAccountSettingsResponse'
-            Prelude.<$> (x Core..?> "AccountSettings")
+            Prelude.<$> (x Data..?> "AccountSettings")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,15 +99,15 @@ instance Prelude.Hashable GetAccountSettings where
 instance Prelude.NFData GetAccountSettings where
   rnf GetAccountSettings' {..} = Prelude.rnf accountId
 
-instance Core.ToHeaders GetAccountSettings where
+instance Data.ToHeaders GetAccountSettings where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetAccountSettings where
+instance Data.ToPath GetAccountSettings where
   toPath GetAccountSettings' {..} =
     Prelude.mconcat
-      ["/accounts/", Core.toBS accountId, "/settings"]
+      ["/accounts/", Data.toBS accountId, "/settings"]
 
-instance Core.ToQuery GetAccountSettings where
+instance Data.ToQuery GetAccountSettings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetAccountSettingsResponse' smart constructor.

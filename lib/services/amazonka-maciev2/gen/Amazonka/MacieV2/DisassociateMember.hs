@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.DisassociateMember
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.MacieV2.DisassociateMember
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -48,8 +49,8 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDisassociateMember' smart constructor.
 data DisassociateMember = DisassociateMember'
-  { -- | The unique identifier for the Amazon Macie resource or account that the
-    -- request applies to.
+  { -- | The unique identifier for the Amazon Macie resource that the request
+    -- applies to.
     id :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -62,8 +63,8 @@ data DisassociateMember = DisassociateMember'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'id', 'disassociateMember_id' - The unique identifier for the Amazon Macie resource or account that the
--- request applies to.
+-- 'id', 'disassociateMember_id' - The unique identifier for the Amazon Macie resource that the request
+-- applies to.
 newDisassociateMember ::
   -- | 'id'
   Prelude.Text ->
@@ -71,8 +72,8 @@ newDisassociateMember ::
 newDisassociateMember pId_ =
   DisassociateMember' {id = pId_}
 
--- | The unique identifier for the Amazon Macie resource or account that the
--- request applies to.
+-- | The unique identifier for the Amazon Macie resource that the request
+-- applies to.
 disassociateMember_id :: Lens.Lens' DisassociateMember Prelude.Text
 disassociateMember_id = Lens.lens (\DisassociateMember' {id} -> id) (\s@DisassociateMember' {} a -> s {id = a} :: DisassociateMember)
 
@@ -80,7 +81,8 @@ instance Core.AWSRequest DisassociateMember where
   type
     AWSResponse DisassociateMember =
       DisassociateMemberResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -95,26 +97,26 @@ instance Prelude.Hashable DisassociateMember where
 instance Prelude.NFData DisassociateMember where
   rnf DisassociateMember' {..} = Prelude.rnf id
 
-instance Core.ToHeaders DisassociateMember where
+instance Data.ToHeaders DisassociateMember where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisassociateMember where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON DisassociateMember where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath DisassociateMember where
+instance Data.ToPath DisassociateMember where
   toPath DisassociateMember' {..} =
     Prelude.mconcat
-      ["/members/disassociate/", Core.toBS id]
+      ["/members/disassociate/", Data.toBS id]
 
-instance Core.ToQuery DisassociateMember where
+instance Data.ToQuery DisassociateMember where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateMemberResponse' smart constructor.

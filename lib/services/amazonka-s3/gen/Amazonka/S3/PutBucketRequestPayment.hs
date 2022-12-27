@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.PutBucketRequestPayment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,6 +38,7 @@ module Amazonka.S3.PutBucketRequestPayment
     newPutBucketRequestPayment,
 
     -- * Request Lenses
+    putBucketRequestPayment_checksumAlgorithm,
     putBucketRequestPayment_contentMD5,
     putBucketRequestPayment_expectedBucketOwner,
     putBucketRequestPayment_bucket,
@@ -50,7 +51,8 @@ module Amazonka.S3.PutBucketRequestPayment
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,7 +60,19 @@ import Amazonka.S3.Types
 
 -- | /See:/ 'newPutBucketRequestPayment' smart constructor.
 data PutBucketRequestPayment = PutBucketRequestPayment'
-  { -- | The base64-encoded 128-bit MD5 digest of the data. You must use this
+  { -- | Indicates the algorithm used to create the checksum for the object when
+    -- using the SDK. This header will not provide any additional functionality
+    -- if not using the SDK. When sending this header, there must be a
+    -- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+    -- Otherwise, Amazon S3 fails the request with the HTTP status code
+    -- @400 Bad Request@. For more information, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+    -- in the /Amazon S3 User Guide/.
+    --
+    -- If you provide an individual checksum, Amazon S3 ignores any provided
+    -- @ChecksumAlgorithm@ parameter.
+    checksumAlgorithm :: Prelude.Maybe ChecksumAlgorithm,
+    -- | The base64-encoded 128-bit MD5 digest of the data. You must use this
     -- header as a message integrity check to verify that the request body was
     -- not corrupted in transit. For more information, see
     -- <http://www.ietf.org/rfc/rfc1864.txt RFC 1864>.
@@ -68,8 +82,8 @@ data PutBucketRequestPayment = PutBucketRequestPayment'
     -- automatically.
     contentMD5 :: Prelude.Maybe Prelude.Text,
     -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The bucket name.
     bucket :: BucketName,
@@ -86,6 +100,18 @@ data PutBucketRequestPayment = PutBucketRequestPayment'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'checksumAlgorithm', 'putBucketRequestPayment_checksumAlgorithm' - Indicates the algorithm used to create the checksum for the object when
+-- using the SDK. This header will not provide any additional functionality
+-- if not using the SDK. When sending this header, there must be a
+-- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+-- Otherwise, Amazon S3 fails the request with the HTTP status code
+-- @400 Bad Request@. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+-- in the /Amazon S3 User Guide/.
+--
+-- If you provide an individual checksum, Amazon S3 ignores any provided
+-- @ChecksumAlgorithm@ parameter.
+--
 -- 'contentMD5', 'putBucketRequestPayment_contentMD5' - The base64-encoded 128-bit MD5 digest of the data. You must use this
 -- header as a message integrity check to verify that the request body was
 -- not corrupted in transit. For more information, see
@@ -96,8 +122,8 @@ data PutBucketRequestPayment = PutBucketRequestPayment'
 -- automatically.
 --
 -- 'expectedBucketOwner', 'putBucketRequestPayment_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'putBucketRequestPayment_bucket' - The bucket name.
 --
@@ -112,13 +138,28 @@ newPutBucketRequestPayment
   pBucket_
   pRequestPaymentConfiguration_ =
     PutBucketRequestPayment'
-      { contentMD5 =
+      { checksumAlgorithm =
           Prelude.Nothing,
+        contentMD5 = Prelude.Nothing,
         expectedBucketOwner = Prelude.Nothing,
         bucket = pBucket_,
         requestPaymentConfiguration =
           pRequestPaymentConfiguration_
       }
+
+-- | Indicates the algorithm used to create the checksum for the object when
+-- using the SDK. This header will not provide any additional functionality
+-- if not using the SDK. When sending this header, there must be a
+-- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+-- Otherwise, Amazon S3 fails the request with the HTTP status code
+-- @400 Bad Request@. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+-- in the /Amazon S3 User Guide/.
+--
+-- If you provide an individual checksum, Amazon S3 ignores any provided
+-- @ChecksumAlgorithm@ parameter.
+putBucketRequestPayment_checksumAlgorithm :: Lens.Lens' PutBucketRequestPayment (Prelude.Maybe ChecksumAlgorithm)
+putBucketRequestPayment_checksumAlgorithm = Lens.lens (\PutBucketRequestPayment' {checksumAlgorithm} -> checksumAlgorithm) (\s@PutBucketRequestPayment' {} a -> s {checksumAlgorithm = a} :: PutBucketRequestPayment)
 
 -- | The base64-encoded 128-bit MD5 digest of the data. You must use this
 -- header as a message integrity check to verify that the request body was
@@ -132,8 +173,8 @@ putBucketRequestPayment_contentMD5 :: Lens.Lens' PutBucketRequestPayment (Prelud
 putBucketRequestPayment_contentMD5 = Lens.lens (\PutBucketRequestPayment' {contentMD5} -> contentMD5) (\s@PutBucketRequestPayment' {} a -> s {contentMD5 = a} :: PutBucketRequestPayment)
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 putBucketRequestPayment_expectedBucketOwner :: Lens.Lens' PutBucketRequestPayment (Prelude.Maybe Prelude.Text)
 putBucketRequestPayment_expectedBucketOwner = Lens.lens (\PutBucketRequestPayment' {expectedBucketOwner} -> expectedBucketOwner) (\s@PutBucketRequestPayment' {} a -> s {expectedBucketOwner = a} :: PutBucketRequestPayment)
 
@@ -149,46 +190,50 @@ instance Core.AWSRequest PutBucketRequestPayment where
   type
     AWSResponse PutBucketRequestPayment =
       PutBucketRequestPaymentResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.putXML defaultService
+      Prelude.. Request.putXML (overrides defaultService)
   response =
     Response.receiveNull
       PutBucketRequestPaymentResponse'
 
 instance Prelude.Hashable PutBucketRequestPayment where
   hashWithSalt _salt PutBucketRequestPayment' {..} =
-    _salt `Prelude.hashWithSalt` contentMD5
+    _salt `Prelude.hashWithSalt` checksumAlgorithm
+      `Prelude.hashWithSalt` contentMD5
       `Prelude.hashWithSalt` expectedBucketOwner
       `Prelude.hashWithSalt` bucket
       `Prelude.hashWithSalt` requestPaymentConfiguration
 
 instance Prelude.NFData PutBucketRequestPayment where
   rnf PutBucketRequestPayment' {..} =
-    Prelude.rnf contentMD5
+    Prelude.rnf checksumAlgorithm
+      `Prelude.seq` Prelude.rnf contentMD5
       `Prelude.seq` Prelude.rnf expectedBucketOwner
       `Prelude.seq` Prelude.rnf bucket
       `Prelude.seq` Prelude.rnf requestPaymentConfiguration
 
-instance Core.ToElement PutBucketRequestPayment where
+instance Data.ToElement PutBucketRequestPayment where
   toElement PutBucketRequestPayment' {..} =
-    Core.mkElement
+    Data.mkElement
       "{http://s3.amazonaws.com/doc/2006-03-01/}RequestPaymentConfiguration"
       requestPaymentConfiguration
 
-instance Core.ToHeaders PutBucketRequestPayment where
+instance Data.ToHeaders PutBucketRequestPayment where
   toHeaders PutBucketRequestPayment' {..} =
     Prelude.mconcat
-      [ "Content-MD5" Core.=# contentMD5,
+      [ "x-amz-sdk-checksum-algorithm"
+          Data.=# checksumAlgorithm,
+        "Content-MD5" Data.=# contentMD5,
         "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath PutBucketRequestPayment where
+instance Data.ToPath PutBucketRequestPayment where
   toPath PutBucketRequestPayment' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery PutBucketRequestPayment where
+instance Data.ToQuery PutBucketRequestPayment where
   toQuery =
     Prelude.const (Prelude.mconcat ["requestPayment"])
 

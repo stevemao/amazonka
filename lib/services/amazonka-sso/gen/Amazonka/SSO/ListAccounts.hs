@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSO.ListAccounts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,8 +23,8 @@
 -- Lists all AWS accounts assigned to the user. These AWS accounts are
 -- assigned by the administrator of the account. For more information, see
 -- <https://docs.aws.amazon.com/singlesignon/latest/userguide/useraccess.html#assignusers Assign User Access>
--- in the /AWS SSO User Guide/. This operation returns a paginated
--- response.
+-- in the /IAM Identity Center User Guide/. This operation returns a
+-- paginated response.
 --
 -- This operation returns paginated results.
 module Amazonka.SSO.ListAccounts
@@ -33,8 +33,8 @@ module Amazonka.SSO.ListAccounts
     newListAccounts,
 
     -- * Request Lenses
-    listAccounts_nextToken,
     listAccounts_maxResults,
+    listAccounts_nextToken,
     listAccounts_accessToken,
 
     -- * Destructuring the Response
@@ -49,7 +49,8 @@ module Amazonka.SSO.ListAccounts
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,16 +58,16 @@ import Amazonka.SSO.Types
 
 -- | /See:/ 'newListAccounts' smart constructor.
 data ListAccounts = ListAccounts'
-  { -- | (Optional) When requesting subsequent pages, this is the page token from
+  { -- | This is the number of items clients can request per page.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | (Optional) When requesting subsequent pages, this is the page token from
     -- the previous response output.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | This is the number of items clients can request per page.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The token issued by the @CreateToken@ API call. For more information,
     -- see
     -- <https://docs.aws.amazon.com/singlesignon/latest/OIDCAPIReference/API_CreateToken.html CreateToken>
-    -- in the /AWS SSO OIDC API Reference Guide/.
-    accessToken :: Core.Sensitive Prelude.Text
+    -- in the /IAM Identity Center OIDC API Reference Guide/.
+    accessToken :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -78,41 +79,41 @@ data ListAccounts = ListAccounts'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listAccounts_maxResults' - This is the number of items clients can request per page.
+--
 -- 'nextToken', 'listAccounts_nextToken' - (Optional) When requesting subsequent pages, this is the page token from
 -- the previous response output.
---
--- 'maxResults', 'listAccounts_maxResults' - This is the number of items clients can request per page.
 --
 -- 'accessToken', 'listAccounts_accessToken' - The token issued by the @CreateToken@ API call. For more information,
 -- see
 -- <https://docs.aws.amazon.com/singlesignon/latest/OIDCAPIReference/API_CreateToken.html CreateToken>
--- in the /AWS SSO OIDC API Reference Guide/.
+-- in the /IAM Identity Center OIDC API Reference Guide/.
 newListAccounts ::
   -- | 'accessToken'
   Prelude.Text ->
   ListAccounts
 newListAccounts pAccessToken_ =
   ListAccounts'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
-      accessToken = Core._Sensitive Lens.# pAccessToken_
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      accessToken = Data._Sensitive Lens.# pAccessToken_
     }
+
+-- | This is the number of items clients can request per page.
+listAccounts_maxResults :: Lens.Lens' ListAccounts (Prelude.Maybe Prelude.Natural)
+listAccounts_maxResults = Lens.lens (\ListAccounts' {maxResults} -> maxResults) (\s@ListAccounts' {} a -> s {maxResults = a} :: ListAccounts)
 
 -- | (Optional) When requesting subsequent pages, this is the page token from
 -- the previous response output.
 listAccounts_nextToken :: Lens.Lens' ListAccounts (Prelude.Maybe Prelude.Text)
 listAccounts_nextToken = Lens.lens (\ListAccounts' {nextToken} -> nextToken) (\s@ListAccounts' {} a -> s {nextToken = a} :: ListAccounts)
 
--- | This is the number of items clients can request per page.
-listAccounts_maxResults :: Lens.Lens' ListAccounts (Prelude.Maybe Prelude.Natural)
-listAccounts_maxResults = Lens.lens (\ListAccounts' {maxResults} -> maxResults) (\s@ListAccounts' {} a -> s {maxResults = a} :: ListAccounts)
-
 -- | The token issued by the @CreateToken@ API call. For more information,
 -- see
 -- <https://docs.aws.amazon.com/singlesignon/latest/OIDCAPIReference/API_CreateToken.html CreateToken>
--- in the /AWS SSO OIDC API Reference Guide/.
+-- in the /IAM Identity Center OIDC API Reference Guide/.
 listAccounts_accessToken :: Lens.Lens' ListAccounts Prelude.Text
-listAccounts_accessToken = Lens.lens (\ListAccounts' {accessToken} -> accessToken) (\s@ListAccounts' {} a -> s {accessToken = a} :: ListAccounts) Prelude.. Core._Sensitive
+listAccounts_accessToken = Lens.lens (\ListAccounts' {accessToken} -> accessToken) (\s@ListAccounts' {} a -> s {accessToken = a} :: ListAccounts) Prelude.. Data._Sensitive
 
 instance Core.AWSPager ListAccounts where
   page rq rs
@@ -136,44 +137,45 @@ instance Core.AWSPager ListAccounts where
 
 instance Core.AWSRequest ListAccounts where
   type AWSResponse ListAccounts = ListAccountsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAccountsResponse'
-            Prelude.<$> (x Core..?> "accountList" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "accountList" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListAccounts where
   hashWithSalt _salt ListAccounts' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` accessToken
 
 instance Prelude.NFData ListAccounts where
   rnf ListAccounts' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf accessToken
 
-instance Core.ToHeaders ListAccounts where
+instance Data.ToHeaders ListAccounts where
   toHeaders ListAccounts' {..} =
     Prelude.mconcat
-      [ "x-amz-sso_bearer_token" Core.=# accessToken,
+      [ "x-amz-sso_bearer_token" Data.=# accessToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToPath ListAccounts where
+instance Data.ToPath ListAccounts where
   toPath = Prelude.const "/assignment/accounts"
 
-instance Core.ToQuery ListAccounts where
+instance Data.ToQuery ListAccounts where
   toQuery ListAccounts' {..} =
     Prelude.mconcat
-      [ "next_token" Core.=: nextToken,
-        "max_result" Core.=: maxResults
+      [ "max_result" Data.=: maxResults,
+        "next_token" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListAccountsResponse' smart constructor.

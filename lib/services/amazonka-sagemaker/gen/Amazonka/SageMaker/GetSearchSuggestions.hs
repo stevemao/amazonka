@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.GetSearchSuggestions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.SageMaker.GetSearchSuggestions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,12 +94,13 @@ instance Core.AWSRequest GetSearchSuggestions where
   type
     AWSResponse GetSearchSuggestions =
       GetSearchSuggestionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSearchSuggestionsResponse'
-            Prelude.<$> ( x Core..?> "PropertyNameSuggestions"
+            Prelude.<$> ( x Data..?> "PropertyNameSuggestions"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -114,35 +116,35 @@ instance Prelude.NFData GetSearchSuggestions where
     Prelude.rnf suggestionQuery
       `Prelude.seq` Prelude.rnf resource
 
-instance Core.ToHeaders GetSearchSuggestions where
+instance Data.ToHeaders GetSearchSuggestions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.GetSearchSuggestions" ::
+              Data.=# ( "SageMaker.GetSearchSuggestions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetSearchSuggestions where
+instance Data.ToJSON GetSearchSuggestions where
   toJSON GetSearchSuggestions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SuggestionQuery" Core..=)
+          [ ("SuggestionQuery" Data..=)
               Prelude.<$> suggestionQuery,
-            Prelude.Just ("Resource" Core..= resource)
+            Prelude.Just ("Resource" Data..= resource)
           ]
       )
 
-instance Core.ToPath GetSearchSuggestions where
+instance Data.ToPath GetSearchSuggestions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetSearchSuggestions where
+instance Data.ToQuery GetSearchSuggestions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetSearchSuggestionsResponse' smart constructor.

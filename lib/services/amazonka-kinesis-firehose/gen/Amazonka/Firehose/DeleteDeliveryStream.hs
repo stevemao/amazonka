@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Firehose.DeleteDeliveryStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -53,8 +53,9 @@ module Amazonka.Firehose.DeleteDeliveryStream
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Firehose.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -68,8 +69,8 @@ data DeleteDeliveryStream = DeleteDeliveryStream'
     -- force deletion, you can then use the
     -- <https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html RevokeGrant>
     -- operation to revoke the grant you gave to Kinesis Data Firehose. If a
-    -- failure to retire the grant happens due to an AWS KMS issue, Kinesis
-    -- Data Firehose keeps retrying the delete operation.
+    -- failure to retire the grant happens due to an Amazon Web Services KMS
+    -- issue, Kinesis Data Firehose keeps retrying the delete operation.
     --
     -- The default value is false.
     allowForceDelete :: Prelude.Maybe Prelude.Bool,
@@ -93,8 +94,8 @@ data DeleteDeliveryStream = DeleteDeliveryStream'
 -- force deletion, you can then use the
 -- <https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html RevokeGrant>
 -- operation to revoke the grant you gave to Kinesis Data Firehose. If a
--- failure to retire the grant happens due to an AWS KMS issue, Kinesis
--- Data Firehose keeps retrying the delete operation.
+-- failure to retire the grant happens due to an Amazon Web Services KMS
+-- issue, Kinesis Data Firehose keeps retrying the delete operation.
 --
 -- The default value is false.
 --
@@ -117,8 +118,8 @@ newDeleteDeliveryStream pDeliveryStreamName_ =
 -- force deletion, you can then use the
 -- <https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html RevokeGrant>
 -- operation to revoke the grant you gave to Kinesis Data Firehose. If a
--- failure to retire the grant happens due to an AWS KMS issue, Kinesis
--- Data Firehose keeps retrying the delete operation.
+-- failure to retire the grant happens due to an Amazon Web Services KMS
+-- issue, Kinesis Data Firehose keeps retrying the delete operation.
 --
 -- The default value is false.
 deleteDeliveryStream_allowForceDelete :: Lens.Lens' DeleteDeliveryStream (Prelude.Maybe Prelude.Bool)
@@ -132,7 +133,8 @@ instance Core.AWSRequest DeleteDeliveryStream where
   type
     AWSResponse DeleteDeliveryStream =
       DeleteDeliveryStreamResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -150,36 +152,36 @@ instance Prelude.NFData DeleteDeliveryStream where
     Prelude.rnf allowForceDelete
       `Prelude.seq` Prelude.rnf deliveryStreamName
 
-instance Core.ToHeaders DeleteDeliveryStream where
+instance Data.ToHeaders DeleteDeliveryStream where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Firehose_20150804.DeleteDeliveryStream" ::
+              Data.=# ( "Firehose_20150804.DeleteDeliveryStream" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteDeliveryStream where
+instance Data.ToJSON DeleteDeliveryStream where
   toJSON DeleteDeliveryStream' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AllowForceDelete" Core..=)
+          [ ("AllowForceDelete" Data..=)
               Prelude.<$> allowForceDelete,
             Prelude.Just
-              ("DeliveryStreamName" Core..= deliveryStreamName)
+              ("DeliveryStreamName" Data..= deliveryStreamName)
           ]
       )
 
-instance Core.ToPath DeleteDeliveryStream where
+instance Data.ToPath DeleteDeliveryStream where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDeliveryStream where
+instance Data.ToQuery DeleteDeliveryStream where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteDeliveryStreamResponse' smart constructor.

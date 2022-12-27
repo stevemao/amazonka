@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MGN.RetryDataReplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,19 +37,23 @@ module Amazonka.MGN.RetryDataReplication
     newSourceServer,
 
     -- * Response Lenses
-    sourceServer_sourceProperties,
+    sourceServer_applicationID,
     sourceServer_arn,
+    sourceServer_dataReplicationInfo,
+    sourceServer_isArchived,
     sourceServer_launchedInstance,
     sourceServer_lifeCycle,
-    sourceServer_isArchived,
-    sourceServer_dataReplicationInfo,
+    sourceServer_replicationType,
+    sourceServer_sourceProperties,
     sourceServer_sourceServerID,
     sourceServer_tags,
+    sourceServer_vcenterClientID,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MGN.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -87,10 +91,11 @@ retryDataReplication_sourceServerID = Lens.lens (\RetryDataReplication' {sourceS
 
 instance Core.AWSRequest RetryDataReplication where
   type AWSResponse RetryDataReplication = SourceServer
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable RetryDataReplication where
   hashWithSalt _salt RetryDataReplication' {..} =
@@ -100,28 +105,28 @@ instance Prelude.NFData RetryDataReplication where
   rnf RetryDataReplication' {..} =
     Prelude.rnf sourceServerID
 
-instance Core.ToHeaders RetryDataReplication where
+instance Data.ToHeaders RetryDataReplication where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RetryDataReplication where
+instance Data.ToJSON RetryDataReplication where
   toJSON RetryDataReplication' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("sourceServerID" Core..= sourceServerID)
+              ("sourceServerID" Data..= sourceServerID)
           ]
       )
 
-instance Core.ToPath RetryDataReplication where
+instance Data.ToPath RetryDataReplication where
   toPath = Prelude.const "/RetryDataReplication"
 
-instance Core.ToQuery RetryDataReplication where
+instance Data.ToQuery RetryDataReplication where
   toQuery = Prelude.const Prelude.mempty

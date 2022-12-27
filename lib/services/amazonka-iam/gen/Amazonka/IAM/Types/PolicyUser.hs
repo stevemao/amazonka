@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.Types.PolicyUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IAM.Types.PolicyUser where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about a user that a managed policy is attached to.
@@ -34,13 +35,13 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newPolicyUser' smart constructor.
 data PolicyUser = PolicyUser'
-  { -- | The name (friendly name, not ARN) identifying the user.
-    userName :: Prelude.Maybe Prelude.Text,
-    -- | The stable and unique string identifying the user. For more information
+  { -- | The stable and unique string identifying the user. For more information
     -- about IDs, see
     -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html IAM identifiers>
     -- in the /IAM User Guide/.
-    userId :: Prelude.Maybe Prelude.Text
+    userId :: Prelude.Maybe Prelude.Text,
+    -- | The name (friendly name, not ARN) identifying the user.
+    userName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -52,23 +53,19 @@ data PolicyUser = PolicyUser'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'userName', 'policyUser_userName' - The name (friendly name, not ARN) identifying the user.
---
 -- 'userId', 'policyUser_userId' - The stable and unique string identifying the user. For more information
 -- about IDs, see
 -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html IAM identifiers>
 -- in the /IAM User Guide/.
+--
+-- 'userName', 'policyUser_userName' - The name (friendly name, not ARN) identifying the user.
 newPolicyUser ::
   PolicyUser
 newPolicyUser =
   PolicyUser'
-    { userName = Prelude.Nothing,
-      userId = Prelude.Nothing
+    { userId = Prelude.Nothing,
+      userName = Prelude.Nothing
     }
-
--- | The name (friendly name, not ARN) identifying the user.
-policyUser_userName :: Lens.Lens' PolicyUser (Prelude.Maybe Prelude.Text)
-policyUser_userName = Lens.lens (\PolicyUser' {userName} -> userName) (\s@PolicyUser' {} a -> s {userName = a} :: PolicyUser)
 
 -- | The stable and unique string identifying the user. For more information
 -- about IDs, see
@@ -77,18 +74,22 @@ policyUser_userName = Lens.lens (\PolicyUser' {userName} -> userName) (\s@Policy
 policyUser_userId :: Lens.Lens' PolicyUser (Prelude.Maybe Prelude.Text)
 policyUser_userId = Lens.lens (\PolicyUser' {userId} -> userId) (\s@PolicyUser' {} a -> s {userId = a} :: PolicyUser)
 
-instance Core.FromXML PolicyUser where
+-- | The name (friendly name, not ARN) identifying the user.
+policyUser_userName :: Lens.Lens' PolicyUser (Prelude.Maybe Prelude.Text)
+policyUser_userName = Lens.lens (\PolicyUser' {userName} -> userName) (\s@PolicyUser' {} a -> s {userName = a} :: PolicyUser)
+
+instance Data.FromXML PolicyUser where
   parseXML x =
     PolicyUser'
-      Prelude.<$> (x Core..@? "UserName")
-      Prelude.<*> (x Core..@? "UserId")
+      Prelude.<$> (x Data..@? "UserId")
+      Prelude.<*> (x Data..@? "UserName")
 
 instance Prelude.Hashable PolicyUser where
   hashWithSalt _salt PolicyUser' {..} =
-    _salt `Prelude.hashWithSalt` userName
-      `Prelude.hashWithSalt` userId
+    _salt `Prelude.hashWithSalt` userId
+      `Prelude.hashWithSalt` userName
 
 instance Prelude.NFData PolicyUser where
   rnf PolicyUser' {..} =
-    Prelude.rnf userName
-      `Prelude.seq` Prelude.rnf userId
+    Prelude.rnf userId
+      `Prelude.seq` Prelude.rnf userName

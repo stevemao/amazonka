@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruReviewer.Types.KMSKeyDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CodeGuruReviewer.Types.KMSKeyDetails where
 
 import Amazonka.CodeGuruReviewer.Types.EncryptionOption
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that contains:
@@ -31,7 +32,7 @@ import qualified Amazonka.Prelude as Prelude
 --     (@AWS_OWNED_CMK@) or customer managed (@CUSTOMER_MANAGED_CMK@).
 --
 -- -   The ID of the Amazon Web Services KMS key that is associated with a
---     respository association.
+--     repository association.
 --
 -- /See:/ 'newKMSKeyDetails' smart constructor.
 data KMSKeyDetails = KMSKeyDetails'
@@ -40,7 +41,7 @@ data KMSKeyDetails = KMSKeyDetails'
     -- customer managed (@CUSTOMER_MANAGED_CMK@).
     encryptionOption :: Prelude.Maybe EncryptionOption,
     -- | The ID of the Amazon Web Services KMS key that is associated with a
-    -- respository association.
+    -- repository association.
     kmsKeyId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -58,7 +59,7 @@ data KMSKeyDetails = KMSKeyDetails'
 -- customer managed (@CUSTOMER_MANAGED_CMK@).
 --
 -- 'kmsKeyId', 'kmsKeyDetails_kmsKeyId' - The ID of the Amazon Web Services KMS key that is associated with a
--- respository association.
+-- repository association.
 newKMSKeyDetails ::
   KMSKeyDetails
 newKMSKeyDetails =
@@ -74,18 +75,18 @@ kmsKeyDetails_encryptionOption :: Lens.Lens' KMSKeyDetails (Prelude.Maybe Encryp
 kmsKeyDetails_encryptionOption = Lens.lens (\KMSKeyDetails' {encryptionOption} -> encryptionOption) (\s@KMSKeyDetails' {} a -> s {encryptionOption = a} :: KMSKeyDetails)
 
 -- | The ID of the Amazon Web Services KMS key that is associated with a
--- respository association.
+-- repository association.
 kmsKeyDetails_kmsKeyId :: Lens.Lens' KMSKeyDetails (Prelude.Maybe Prelude.Text)
 kmsKeyDetails_kmsKeyId = Lens.lens (\KMSKeyDetails' {kmsKeyId} -> kmsKeyId) (\s@KMSKeyDetails' {} a -> s {kmsKeyId = a} :: KMSKeyDetails)
 
-instance Core.FromJSON KMSKeyDetails where
+instance Data.FromJSON KMSKeyDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "KMSKeyDetails"
       ( \x ->
           KMSKeyDetails'
-            Prelude.<$> (x Core..:? "EncryptionOption")
-            Prelude.<*> (x Core..:? "KMSKeyId")
+            Prelude.<$> (x Data..:? "EncryptionOption")
+            Prelude.<*> (x Data..:? "KMSKeyId")
       )
 
 instance Prelude.Hashable KMSKeyDetails where
@@ -98,12 +99,12 @@ instance Prelude.NFData KMSKeyDetails where
     Prelude.rnf encryptionOption
       `Prelude.seq` Prelude.rnf kmsKeyId
 
-instance Core.ToJSON KMSKeyDetails where
+instance Data.ToJSON KMSKeyDetails where
   toJSON KMSKeyDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EncryptionOption" Core..=)
+          [ ("EncryptionOption" Data..=)
               Prelude.<$> encryptionOption,
-            ("KMSKeyId" Core..=) Prelude.<$> kmsKeyId
+            ("KMSKeyId" Data..=) Prelude.<$> kmsKeyId
           ]
       )

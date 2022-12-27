@@ -14,16 +14,14 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.GetCompatibleVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of upgrade-compatible versions of
--- OpenSearch\/Elasticsearch. You can optionally pass a @ DomainName @ to
--- get all upgrade-compatible versions of OpenSearch\/Elasticsearch for
--- that specific domain.
+-- Returns a map of OpenSearch or Elasticsearch versions and the versions
+-- you can upgrade them to.
 module Amazonka.OpenSearch.GetCompatibleVersions
   ( -- * Creating a Request
     GetCompatibleVersions (..),
@@ -43,18 +41,21 @@ module Amazonka.OpenSearch.GetCompatibleVersions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpenSearch.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Container for the request parameters to @ GetCompatibleVersions @
+-- | Container for the request parameters to @GetCompatibleVersions@
 -- operation.
 --
 -- /See:/ 'newGetCompatibleVersions' smart constructor.
 data GetCompatibleVersions = GetCompatibleVersions'
-  { domainName :: Prelude.Maybe Prelude.Text
+  { -- | The name of an existing domain. Provide this parameter to limit the
+    -- results to a single domain.
+    domainName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -66,7 +67,8 @@ data GetCompatibleVersions = GetCompatibleVersions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'domainName', 'getCompatibleVersions_domainName' - Undocumented member.
+-- 'domainName', 'getCompatibleVersions_domainName' - The name of an existing domain. Provide this parameter to limit the
+-- results to a single domain.
 newGetCompatibleVersions ::
   GetCompatibleVersions
 newGetCompatibleVersions =
@@ -75,7 +77,8 @@ newGetCompatibleVersions =
         Prelude.Nothing
     }
 
--- | Undocumented member.
+-- | The name of an existing domain. Provide this parameter to limit the
+-- results to a single domain.
 getCompatibleVersions_domainName :: Lens.Lens' GetCompatibleVersions (Prelude.Maybe Prelude.Text)
 getCompatibleVersions_domainName = Lens.lens (\GetCompatibleVersions' {domainName} -> domainName) (\s@GetCompatibleVersions' {} a -> s {domainName = a} :: GetCompatibleVersions)
 
@@ -83,12 +86,13 @@ instance Core.AWSRequest GetCompatibleVersions where
   type
     AWSResponse GetCompatibleVersions =
       GetCompatibleVersionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetCompatibleVersionsResponse'
-            Prelude.<$> ( x Core..?> "CompatibleVersions"
+            Prelude.<$> ( x Data..?> "CompatibleVersions"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -102,25 +106,25 @@ instance Prelude.NFData GetCompatibleVersions where
   rnf GetCompatibleVersions' {..} =
     Prelude.rnf domainName
 
-instance Core.ToHeaders GetCompatibleVersions where
+instance Data.ToHeaders GetCompatibleVersions where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetCompatibleVersions where
+instance Data.ToPath GetCompatibleVersions where
   toPath =
     Prelude.const
       "/2021-01-01/opensearch/compatibleVersions"
 
-instance Core.ToQuery GetCompatibleVersions where
+instance Data.ToQuery GetCompatibleVersions where
   toQuery GetCompatibleVersions' {..} =
-    Prelude.mconcat ["domainName" Core.=: domainName]
+    Prelude.mconcat ["domainName" Data.=: domainName]
 
--- | Container for the response returned by the @ GetCompatibleVersions @
+-- | Container for the response returned by the @GetCompatibleVersions@
 -- operation.
 --
 -- /See:/ 'newGetCompatibleVersionsResponse' smart constructor.
 data GetCompatibleVersionsResponse = GetCompatibleVersionsResponse'
-  { -- | A map of compatible OpenSearch versions returned as part of the
-    -- @ GetCompatibleVersions @ operation.
+  { -- | A map of OpenSearch or Elasticsearch versions and the versions you can
+    -- upgrade them to.
     compatibleVersions :: Prelude.Maybe [CompatibleVersionsMap],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -135,8 +139,8 @@ data GetCompatibleVersionsResponse = GetCompatibleVersionsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'compatibleVersions', 'getCompatibleVersionsResponse_compatibleVersions' - A map of compatible OpenSearch versions returned as part of the
--- @ GetCompatibleVersions @ operation.
+-- 'compatibleVersions', 'getCompatibleVersionsResponse_compatibleVersions' - A map of OpenSearch or Elasticsearch versions and the versions you can
+-- upgrade them to.
 --
 -- 'httpStatus', 'getCompatibleVersionsResponse_httpStatus' - The response's http status code.
 newGetCompatibleVersionsResponse ::
@@ -150,8 +154,8 @@ newGetCompatibleVersionsResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | A map of compatible OpenSearch versions returned as part of the
--- @ GetCompatibleVersions @ operation.
+-- | A map of OpenSearch or Elasticsearch versions and the versions you can
+-- upgrade them to.
 getCompatibleVersionsResponse_compatibleVersions :: Lens.Lens' GetCompatibleVersionsResponse (Prelude.Maybe [CompatibleVersionsMap])
 getCompatibleVersionsResponse_compatibleVersions = Lens.lens (\GetCompatibleVersionsResponse' {compatibleVersions} -> compatibleVersions) (\s@GetCompatibleVersionsResponse' {} a -> s {compatibleVersions = a} :: GetCompatibleVersionsResponse) Prelude.. Lens.mapping Lens.coerced
 

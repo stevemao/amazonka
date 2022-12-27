@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.OriginGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CloudFront.Types.OriginGroup where
 import Amazonka.CloudFront.Types.OriginGroupFailoverCriteria
 import Amazonka.CloudFront.Types.OriginGroupMembers
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An origin group includes two origins (a primary origin and a second
@@ -90,12 +91,12 @@ originGroup_failoverCriteria = Lens.lens (\OriginGroup' {failoverCriteria} -> fa
 originGroup_members :: Lens.Lens' OriginGroup OriginGroupMembers
 originGroup_members = Lens.lens (\OriginGroup' {members} -> members) (\s@OriginGroup' {} a -> s {members = a} :: OriginGroup)
 
-instance Core.FromXML OriginGroup where
+instance Data.FromXML OriginGroup where
   parseXML x =
     OriginGroup'
-      Prelude.<$> (x Core..@ "Id")
-      Prelude.<*> (x Core..@ "FailoverCriteria")
-      Prelude.<*> (x Core..@ "Members")
+      Prelude.<$> (x Data..@ "Id")
+      Prelude.<*> (x Data..@ "FailoverCriteria")
+      Prelude.<*> (x Data..@ "Members")
 
 instance Prelude.Hashable OriginGroup where
   hashWithSalt _salt OriginGroup' {..} =
@@ -109,10 +110,10 @@ instance Prelude.NFData OriginGroup where
       `Prelude.seq` Prelude.rnf failoverCriteria
       `Prelude.seq` Prelude.rnf members
 
-instance Core.ToXML OriginGroup where
+instance Data.ToXML OriginGroup where
   toXML OriginGroup' {..} =
     Prelude.mconcat
-      [ "Id" Core.@= id,
-        "FailoverCriteria" Core.@= failoverCriteria,
-        "Members" Core.@= members
+      [ "Id" Data.@= id,
+        "FailoverCriteria" Data.@= failoverCriteria,
+        "Members" Data.@= members
       ]

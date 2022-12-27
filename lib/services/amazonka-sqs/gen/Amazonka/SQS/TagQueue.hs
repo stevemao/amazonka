@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SQS.TagQueue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -61,7 +61,8 @@ module Amazonka.SQS.TagQueue
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,7 +108,8 @@ tagQueue_tags = Lens.lens (\TagQueue' {tags} -> tags) (\s@TagQueue' {} a -> s {t
 
 instance Core.AWSRequest TagQueue where
   type AWSResponse TagQueue = TagQueueResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response = Response.receiveNull TagQueueResponse'
 
 instance Prelude.Hashable TagQueue where
@@ -119,20 +121,20 @@ instance Prelude.NFData TagQueue where
   rnf TagQueue' {..} =
     Prelude.rnf queueUrl `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders TagQueue where
+instance Data.ToHeaders TagQueue where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath TagQueue where
+instance Data.ToPath TagQueue where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery TagQueue where
+instance Data.ToQuery TagQueue where
   toQuery TagQueue' {..} =
     Prelude.mconcat
-      [ "Action" Core.=: ("TagQueue" :: Prelude.ByteString),
+      [ "Action" Data.=: ("TagQueue" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-11-05" :: Prelude.ByteString),
-        "QueueUrl" Core.=: queueUrl,
-        Core.toQueryMap "Tags" "Key" "Value" tags
+          Data.=: ("2012-11-05" :: Prelude.ByteString),
+        "QueueUrl" Data.=: queueUrl,
+        Data.toQueryMap "Tags" "Key" "Value" tags
       ]
 
 -- | /See:/ 'newTagQueueResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.Types.AccountQuota
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.RDS.Types.AccountQuota where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a quota for an Amazon Web Services account.
@@ -116,12 +117,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAccountQuota' smart constructor.
 data AccountQuota = AccountQuota'
-  { -- | The maximum allowed value for the quota.
+  { -- | The name of the Amazon RDS quota for this Amazon Web Services account.
+    accountQuotaName :: Prelude.Maybe Prelude.Text,
+    -- | The maximum allowed value for the quota.
     max :: Prelude.Maybe Prelude.Integer,
     -- | The amount currently used toward the quota maximum.
-    used :: Prelude.Maybe Prelude.Integer,
-    -- | The name of the Amazon RDS quota for this Amazon Web Services account.
-    accountQuotaName :: Prelude.Maybe Prelude.Text
+    used :: Prelude.Maybe Prelude.Integer
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -133,19 +134,23 @@ data AccountQuota = AccountQuota'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'accountQuotaName', 'accountQuota_accountQuotaName' - The name of the Amazon RDS quota for this Amazon Web Services account.
+--
 -- 'max', 'accountQuota_max' - The maximum allowed value for the quota.
 --
 -- 'used', 'accountQuota_used' - The amount currently used toward the quota maximum.
---
--- 'accountQuotaName', 'accountQuota_accountQuotaName' - The name of the Amazon RDS quota for this Amazon Web Services account.
 newAccountQuota ::
   AccountQuota
 newAccountQuota =
   AccountQuota'
-    { max = Prelude.Nothing,
-      used = Prelude.Nothing,
-      accountQuotaName = Prelude.Nothing
+    { accountQuotaName = Prelude.Nothing,
+      max = Prelude.Nothing,
+      used = Prelude.Nothing
     }
+
+-- | The name of the Amazon RDS quota for this Amazon Web Services account.
+accountQuota_accountQuotaName :: Lens.Lens' AccountQuota (Prelude.Maybe Prelude.Text)
+accountQuota_accountQuotaName = Lens.lens (\AccountQuota' {accountQuotaName} -> accountQuotaName) (\s@AccountQuota' {} a -> s {accountQuotaName = a} :: AccountQuota)
 
 -- | The maximum allowed value for the quota.
 accountQuota_max :: Lens.Lens' AccountQuota (Prelude.Maybe Prelude.Integer)
@@ -155,25 +160,21 @@ accountQuota_max = Lens.lens (\AccountQuota' {max} -> max) (\s@AccountQuota' {} 
 accountQuota_used :: Lens.Lens' AccountQuota (Prelude.Maybe Prelude.Integer)
 accountQuota_used = Lens.lens (\AccountQuota' {used} -> used) (\s@AccountQuota' {} a -> s {used = a} :: AccountQuota)
 
--- | The name of the Amazon RDS quota for this Amazon Web Services account.
-accountQuota_accountQuotaName :: Lens.Lens' AccountQuota (Prelude.Maybe Prelude.Text)
-accountQuota_accountQuotaName = Lens.lens (\AccountQuota' {accountQuotaName} -> accountQuotaName) (\s@AccountQuota' {} a -> s {accountQuotaName = a} :: AccountQuota)
-
-instance Core.FromXML AccountQuota where
+instance Data.FromXML AccountQuota where
   parseXML x =
     AccountQuota'
-      Prelude.<$> (x Core..@? "Max")
-      Prelude.<*> (x Core..@? "Used")
-      Prelude.<*> (x Core..@? "AccountQuotaName")
+      Prelude.<$> (x Data..@? "AccountQuotaName")
+      Prelude.<*> (x Data..@? "Max")
+      Prelude.<*> (x Data..@? "Used")
 
 instance Prelude.Hashable AccountQuota where
   hashWithSalt _salt AccountQuota' {..} =
-    _salt `Prelude.hashWithSalt` max
+    _salt `Prelude.hashWithSalt` accountQuotaName
+      `Prelude.hashWithSalt` max
       `Prelude.hashWithSalt` used
-      `Prelude.hashWithSalt` accountQuotaName
 
 instance Prelude.NFData AccountQuota where
   rnf AccountQuota' {..} =
-    Prelude.rnf max
+    Prelude.rnf accountQuotaName
+      `Prelude.seq` Prelude.rnf max
       `Prelude.seq` Prelude.rnf used
-      `Prelude.seq` Prelude.rnf accountQuotaName

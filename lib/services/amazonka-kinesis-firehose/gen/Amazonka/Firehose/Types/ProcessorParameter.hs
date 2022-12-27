@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Firehose.Types.ProcessorParameter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,20 @@
 module Amazonka.Firehose.Types.ProcessorParameter where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Firehose.Types.ProcessorParameterName
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the processor parameter.
 --
 -- /See:/ 'newProcessorParameter' smart constructor.
 data ProcessorParameter = ProcessorParameter'
-  { -- | The name of the parameter.
+  { -- | The name of the parameter. Currently the following default values are
+    -- supported: 3 for @NumberOfRetries@ and 60 for the
+    -- @BufferIntervalInSeconds@. The @BufferSizeInMBs@ ranges between 0.2 MB
+    -- and up to 3MB. The default buffering hint is 1MB for all destinations,
+    -- except Splunk. For Splunk, the default buffering hint is 256 KB.
     parameterName :: ProcessorParameterName,
     -- | The parameter value.
     parameterValue :: Prelude.Text
@@ -43,7 +48,11 @@ data ProcessorParameter = ProcessorParameter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'parameterName', 'processorParameter_parameterName' - The name of the parameter.
+-- 'parameterName', 'processorParameter_parameterName' - The name of the parameter. Currently the following default values are
+-- supported: 3 for @NumberOfRetries@ and 60 for the
+-- @BufferIntervalInSeconds@. The @BufferSizeInMBs@ ranges between 0.2 MB
+-- and up to 3MB. The default buffering hint is 1MB for all destinations,
+-- except Splunk. For Splunk, the default buffering hint is 256 KB.
 --
 -- 'parameterValue', 'processorParameter_parameterValue' - The parameter value.
 newProcessorParameter ::
@@ -61,7 +70,11 @@ newProcessorParameter
         parameterValue = pParameterValue_
       }
 
--- | The name of the parameter.
+-- | The name of the parameter. Currently the following default values are
+-- supported: 3 for @NumberOfRetries@ and 60 for the
+-- @BufferIntervalInSeconds@. The @BufferSizeInMBs@ ranges between 0.2 MB
+-- and up to 3MB. The default buffering hint is 1MB for all destinations,
+-- except Splunk. For Splunk, the default buffering hint is 256 KB.
 processorParameter_parameterName :: Lens.Lens' ProcessorParameter ProcessorParameterName
 processorParameter_parameterName = Lens.lens (\ProcessorParameter' {parameterName} -> parameterName) (\s@ProcessorParameter' {} a -> s {parameterName = a} :: ProcessorParameter)
 
@@ -69,14 +82,14 @@ processorParameter_parameterName = Lens.lens (\ProcessorParameter' {parameterNam
 processorParameter_parameterValue :: Lens.Lens' ProcessorParameter Prelude.Text
 processorParameter_parameterValue = Lens.lens (\ProcessorParameter' {parameterValue} -> parameterValue) (\s@ProcessorParameter' {} a -> s {parameterValue = a} :: ProcessorParameter)
 
-instance Core.FromJSON ProcessorParameter where
+instance Data.FromJSON ProcessorParameter where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ProcessorParameter"
       ( \x ->
           ProcessorParameter'
-            Prelude.<$> (x Core..: "ParameterName")
-            Prelude.<*> (x Core..: "ParameterValue")
+            Prelude.<$> (x Data..: "ParameterName")
+            Prelude.<*> (x Data..: "ParameterValue")
       )
 
 instance Prelude.Hashable ProcessorParameter where
@@ -89,13 +102,13 @@ instance Prelude.NFData ProcessorParameter where
     Prelude.rnf parameterName
       `Prelude.seq` Prelude.rnf parameterValue
 
-instance Core.ToJSON ProcessorParameter where
+instance Data.ToJSON ProcessorParameter where
   toJSON ProcessorParameter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ParameterName" Core..= parameterName),
+              ("ParameterName" Data..= parameterName),
             Prelude.Just
-              ("ParameterValue" Core..= parameterValue)
+              ("ParameterValue" Data..= parameterValue)
           ]
       )

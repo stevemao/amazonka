@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.GetMediaCapturePipeline
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,12 +81,13 @@ instance Core.AWSRequest GetMediaCapturePipeline where
   type
     AWSResponse GetMediaCapturePipeline =
       GetMediaCapturePipelineResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetMediaCapturePipelineResponse'
-            Prelude.<$> (x Core..?> "MediaCapturePipeline")
+            Prelude.<$> (x Data..?> "MediaCapturePipeline")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,17 +99,17 @@ instance Prelude.NFData GetMediaCapturePipeline where
   rnf GetMediaCapturePipeline' {..} =
     Prelude.rnf mediaPipelineId
 
-instance Core.ToHeaders GetMediaCapturePipeline where
+instance Data.ToHeaders GetMediaCapturePipeline where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetMediaCapturePipeline where
+instance Data.ToPath GetMediaCapturePipeline where
   toPath GetMediaCapturePipeline' {..} =
     Prelude.mconcat
       [ "/media-capture-pipelines/",
-        Core.toBS mediaPipelineId
+        Data.toBS mediaPipelineId
       ]
 
-instance Core.ToQuery GetMediaCapturePipeline where
+instance Data.ToQuery GetMediaCapturePipeline where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetMediaCapturePipelineResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ChimeSDKMessaging.ListChannelBans
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.ChimeSDKMessaging.ListChannelBans
     newListChannelBans,
 
     -- * Request Lenses
-    listChannelBans_nextToken,
     listChannelBans_maxResults,
+    listChannelBans_nextToken,
     listChannelBans_channelArn,
     listChannelBans_chimeBearer,
 
@@ -42,26 +42,27 @@ module Amazonka.ChimeSDKMessaging.ListChannelBans
 
     -- * Response Lenses
     listChannelBansResponse_channelArn,
-    listChannelBansResponse_nextToken,
     listChannelBansResponse_channelBans,
+    listChannelBansResponse_nextToken,
     listChannelBansResponse_httpStatus,
   )
 where
 
 import Amazonka.ChimeSDKMessaging.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListChannelBans' smart constructor.
 data ListChannelBans = ListChannelBans'
-  { -- | The token passed by previous API calls until all requested bans are
-    -- returned.
-    nextToken :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | The maximum number of bans that you want returned.
+  { -- | The maximum number of bans that you want returned.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token passed by previous API calls until all requested bans are
+    -- returned.
+    nextToken :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The ARN of the channel.
     channelArn :: Prelude.Text,
     -- | The @AppInstanceUserArn@ of the user that makes the API call.
@@ -77,10 +78,10 @@ data ListChannelBans = ListChannelBans'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listChannelBans_maxResults' - The maximum number of bans that you want returned.
+--
 -- 'nextToken', 'listChannelBans_nextToken' - The token passed by previous API calls until all requested bans are
 -- returned.
---
--- 'maxResults', 'listChannelBans_maxResults' - The maximum number of bans that you want returned.
 --
 -- 'channelArn', 'listChannelBans_channelArn' - The ARN of the channel.
 --
@@ -93,20 +94,20 @@ newListChannelBans ::
   ListChannelBans
 newListChannelBans pChannelArn_ pChimeBearer_ =
   ListChannelBans'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       channelArn = pChannelArn_,
       chimeBearer = pChimeBearer_
     }
 
--- | The token passed by previous API calls until all requested bans are
--- returned.
-listChannelBans_nextToken :: Lens.Lens' ListChannelBans (Prelude.Maybe Prelude.Text)
-listChannelBans_nextToken = Lens.lens (\ListChannelBans' {nextToken} -> nextToken) (\s@ListChannelBans' {} a -> s {nextToken = a} :: ListChannelBans) Prelude.. Lens.mapping Core._Sensitive
-
 -- | The maximum number of bans that you want returned.
 listChannelBans_maxResults :: Lens.Lens' ListChannelBans (Prelude.Maybe Prelude.Natural)
 listChannelBans_maxResults = Lens.lens (\ListChannelBans' {maxResults} -> maxResults) (\s@ListChannelBans' {} a -> s {maxResults = a} :: ListChannelBans)
+
+-- | The token passed by previous API calls until all requested bans are
+-- returned.
+listChannelBans_nextToken :: Lens.Lens' ListChannelBans (Prelude.Maybe Prelude.Text)
+listChannelBans_nextToken = Lens.lens (\ListChannelBans' {nextToken} -> nextToken) (\s@ListChannelBans' {} a -> s {nextToken = a} :: ListChannelBans) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The ARN of the channel.
 listChannelBans_channelArn :: Lens.Lens' ListChannelBans Prelude.Text
@@ -120,57 +121,58 @@ instance Core.AWSRequest ListChannelBans where
   type
     AWSResponse ListChannelBans =
       ListChannelBansResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListChannelBansResponse'
-            Prelude.<$> (x Core..?> "ChannelArn")
-            Prelude.<*> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "ChannelBans" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "ChannelArn")
+            Prelude.<*> (x Data..?> "ChannelBans" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListChannelBans where
   hashWithSalt _salt ListChannelBans' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` channelArn
       `Prelude.hashWithSalt` chimeBearer
 
 instance Prelude.NFData ListChannelBans where
   rnf ListChannelBans' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf channelArn
       `Prelude.seq` Prelude.rnf chimeBearer
 
-instance Core.ToHeaders ListChannelBans where
+instance Data.ToHeaders ListChannelBans where
   toHeaders ListChannelBans' {..} =
     Prelude.mconcat
-      ["x-amz-chime-bearer" Core.=# chimeBearer]
+      ["x-amz-chime-bearer" Data.=# chimeBearer]
 
-instance Core.ToPath ListChannelBans where
+instance Data.ToPath ListChannelBans where
   toPath ListChannelBans' {..} =
     Prelude.mconcat
-      ["/channels/", Core.toBS channelArn, "/bans"]
+      ["/channels/", Data.toBS channelArn, "/bans"]
 
-instance Core.ToQuery ListChannelBans where
+instance Data.ToQuery ListChannelBans where
   toQuery ListChannelBans' {..} =
     Prelude.mconcat
-      [ "next-token" Core.=: nextToken,
-        "max-results" Core.=: maxResults
+      [ "max-results" Data.=: maxResults,
+        "next-token" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListChannelBansResponse' smart constructor.
 data ListChannelBansResponse = ListChannelBansResponse'
   { -- | The ARN of the channel.
     channelArn :: Prelude.Maybe Prelude.Text,
-    -- | The token passed by previous API calls until all requested bans are
-    -- returned.
-    nextToken :: Prelude.Maybe (Core.Sensitive Prelude.Text),
     -- | The information for each requested ban.
     channelBans :: Prelude.Maybe [ChannelBanSummary],
+    -- | The token passed by previous API calls until all requested bans are
+    -- returned.
+    nextToken :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -186,10 +188,10 @@ data ListChannelBansResponse = ListChannelBansResponse'
 --
 -- 'channelArn', 'listChannelBansResponse_channelArn' - The ARN of the channel.
 --
+-- 'channelBans', 'listChannelBansResponse_channelBans' - The information for each requested ban.
+--
 -- 'nextToken', 'listChannelBansResponse_nextToken' - The token passed by previous API calls until all requested bans are
 -- returned.
---
--- 'channelBans', 'listChannelBansResponse_channelBans' - The information for each requested ban.
 --
 -- 'httpStatus', 'listChannelBansResponse_httpStatus' - The response's http status code.
 newListChannelBansResponse ::
@@ -200,8 +202,8 @@ newListChannelBansResponse pHttpStatus_ =
   ListChannelBansResponse'
     { channelArn =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       channelBans = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
@@ -209,14 +211,14 @@ newListChannelBansResponse pHttpStatus_ =
 listChannelBansResponse_channelArn :: Lens.Lens' ListChannelBansResponse (Prelude.Maybe Prelude.Text)
 listChannelBansResponse_channelArn = Lens.lens (\ListChannelBansResponse' {channelArn} -> channelArn) (\s@ListChannelBansResponse' {} a -> s {channelArn = a} :: ListChannelBansResponse)
 
--- | The token passed by previous API calls until all requested bans are
--- returned.
-listChannelBansResponse_nextToken :: Lens.Lens' ListChannelBansResponse (Prelude.Maybe Prelude.Text)
-listChannelBansResponse_nextToken = Lens.lens (\ListChannelBansResponse' {nextToken} -> nextToken) (\s@ListChannelBansResponse' {} a -> s {nextToken = a} :: ListChannelBansResponse) Prelude.. Lens.mapping Core._Sensitive
-
 -- | The information for each requested ban.
 listChannelBansResponse_channelBans :: Lens.Lens' ListChannelBansResponse (Prelude.Maybe [ChannelBanSummary])
 listChannelBansResponse_channelBans = Lens.lens (\ListChannelBansResponse' {channelBans} -> channelBans) (\s@ListChannelBansResponse' {} a -> s {channelBans = a} :: ListChannelBansResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The token passed by previous API calls until all requested bans are
+-- returned.
+listChannelBansResponse_nextToken :: Lens.Lens' ListChannelBansResponse (Prelude.Maybe Prelude.Text)
+listChannelBansResponse_nextToken = Lens.lens (\ListChannelBansResponse' {nextToken} -> nextToken) (\s@ListChannelBansResponse' {} a -> s {nextToken = a} :: ListChannelBansResponse) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The response's http status code.
 listChannelBansResponse_httpStatus :: Lens.Lens' ListChannelBansResponse Prelude.Int
@@ -225,6 +227,6 @@ listChannelBansResponse_httpStatus = Lens.lens (\ListChannelBansResponse' {httpS
 instance Prelude.NFData ListChannelBansResponse where
   rnf ListChannelBansResponse' {..} =
     Prelude.rnf channelArn
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf channelBans
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

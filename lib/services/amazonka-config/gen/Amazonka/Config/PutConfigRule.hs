@@ -14,31 +14,40 @@
 
 -- |
 -- Module      : Amazonka.Config.PutConfigRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds or updates an Config rule for evaluating whether your Amazon Web
--- Services resources comply with your desired configurations.
+-- Adds or updates an Config rule to evaluate if your Amazon Web Services
+-- resources comply with your desired configurations. For information on
+-- how many Config rules you can have per account, see
+-- <https://docs.aws.amazon.com/config/latest/developerguide/configlimits.html Service Limits>
+-- in the /Config Developer Guide/.
 --
--- You can use this action for custom Config rules and Config managed
--- rules. A custom Config rule is a rule that you develop and maintain. An
--- Config managed rule is a customizable, predefined rule that Config
--- provides.
+-- There are two types of rules: Config Custom Rules and Config Managed
+-- Rules. You can use @PutConfigRule@ to create both Config custom rules
+-- and Config managed rules.
 --
--- If you are adding a new custom Config rule, you must first create the
--- Lambda function that the rule invokes to evaluate your resources. When
--- you use the @PutConfigRule@ action to add the rule to Config, you must
--- specify the Amazon Resource Name (ARN) that Lambda assigns to the
--- function. Specify the ARN for the @SourceIdentifier@ key. This key is
--- part of the @Source@ object, which is part of the @ConfigRule@ object.
+-- Custom rules are rules that you can create using either Guard or Lambda
+-- functions. Guard
+-- (<https://github.com/aws-cloudformation/cloudformation-guard Guard GitHub Repository>)
+-- is a policy-as-code language that allows you to write policies that are
+-- enforced by Config Custom Policy rules. Lambda uses custom code that you
+-- upload to evaluate a custom rule. If you are adding a new Custom Lambda
+-- rule, you first need to create an Lambda function that the rule invokes
+-- to evaluate your resources. When you use @PutConfigRule@ to add a Custom
+-- Lambda rule to Config, you must specify the Amazon Resource Name (ARN)
+-- that Lambda assigns to the function. You specify the ARN in the
+-- @SourceIdentifier@ key. This key is part of the @Source@ object, which
+-- is part of the @ConfigRule@ object.
 --
--- If you are adding an Config managed rule, specify the rule\'s identifier
--- for the @SourceIdentifier@ key. To reference Config managed rule
--- identifiers, see
--- <https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config_use-managed-rules.html About Config managed rules>.
+-- Managed rules are predefined, customizable rules created by Config. For
+-- a list of managed rules, see
+-- <https://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html List of Config Managed Rules>.
+-- If you are adding an Config managed rule, you must specify the rule\'s
+-- identifier for the @SourceIdentifier@ key.
 --
 -- For any new rule that you add, specify the @ConfigRuleName@ in the
 -- @ConfigRule@ object. Do not specify the @ConfigRuleArn@ or the
@@ -47,12 +56,6 @@
 -- If you are updating a rule that you added previously, you can specify
 -- the rule by @ConfigRuleName@, @ConfigRuleId@, or @ConfigRuleArn@ in the
 -- @ConfigRule@ data type that you use in this request.
---
--- The maximum number of rules that Config supports is 150.
---
--- For information about requesting a rule limit increase, see
--- <http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_config Config Limits>
--- in the /Amazon Web Services General Reference Guide/.
 --
 -- For more information about developing and using Config rules, see
 -- <https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config.html Evaluating Amazon Web Services resource Configurations with Config>
@@ -74,7 +77,8 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -121,7 +125,8 @@ instance Core.AWSRequest PutConfigRule where
   type
     AWSResponse PutConfigRule =
       PutConfigRuleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull PutConfigRuleResponse'
 
@@ -135,34 +140,34 @@ instance Prelude.NFData PutConfigRule where
     Prelude.rnf tags
       `Prelude.seq` Prelude.rnf configRule
 
-instance Core.ToHeaders PutConfigRule where
+instance Data.ToHeaders PutConfigRule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.PutConfigRule" ::
+              Data.=# ( "StarlingDoveService.PutConfigRule" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutConfigRule where
+instance Data.ToJSON PutConfigRule where
   toJSON PutConfigRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("ConfigRule" Core..= configRule)
+          [ ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("ConfigRule" Data..= configRule)
           ]
       )
 
-instance Core.ToPath PutConfigRule where
+instance Data.ToPath PutConfigRule where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutConfigRule where
+instance Data.ToQuery PutConfigRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutConfigRuleResponse' smart constructor.

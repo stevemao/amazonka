@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.MsSmoothOutputSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.MsSmoothOutputSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.MsSmoothH265PackagingType
 import qualified Amazonka.Prelude as Prelude
 
@@ -72,14 +73,14 @@ msSmoothOutputSettings_h265PackagingType = Lens.lens (\MsSmoothOutputSettings' {
 msSmoothOutputSettings_nameModifier :: Lens.Lens' MsSmoothOutputSettings (Prelude.Maybe Prelude.Text)
 msSmoothOutputSettings_nameModifier = Lens.lens (\MsSmoothOutputSettings' {nameModifier} -> nameModifier) (\s@MsSmoothOutputSettings' {} a -> s {nameModifier = a} :: MsSmoothOutputSettings)
 
-instance Core.FromJSON MsSmoothOutputSettings where
+instance Data.FromJSON MsSmoothOutputSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MsSmoothOutputSettings"
       ( \x ->
           MsSmoothOutputSettings'
-            Prelude.<$> (x Core..:? "h265PackagingType")
-            Prelude.<*> (x Core..:? "nameModifier")
+            Prelude.<$> (x Data..:? "h265PackagingType")
+            Prelude.<*> (x Data..:? "nameModifier")
       )
 
 instance Prelude.Hashable MsSmoothOutputSettings where
@@ -92,12 +93,12 @@ instance Prelude.NFData MsSmoothOutputSettings where
     Prelude.rnf h265PackagingType
       `Prelude.seq` Prelude.rnf nameModifier
 
-instance Core.ToJSON MsSmoothOutputSettings where
+instance Data.ToJSON MsSmoothOutputSettings where
   toJSON MsSmoothOutputSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("h265PackagingType" Core..=)
+          [ ("h265PackagingType" Data..=)
               Prelude.<$> h265PackagingType,
-            ("nameModifier" Core..=) Prelude.<$> nameModifier
+            ("nameModifier" Data..=) Prelude.<$> nameModifier
           ]
       )

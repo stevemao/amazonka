@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.Forecast
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -19,23 +19,23 @@ module Amazonka.Forecast
     -- * Errors
     -- $errors
 
-    -- ** ResourceAlreadyExistsException
-    _ResourceAlreadyExistsException,
+    -- ** InvalidInputException
+    _InvalidInputException,
 
     -- ** InvalidNextTokenException
     _InvalidNextTokenException,
 
-    -- ** InvalidInputException
-    _InvalidInputException,
-
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
-
     -- ** LimitExceededException
     _LimitExceededException,
 
+    -- ** ResourceAlreadyExistsException
+    _ResourceAlreadyExistsException,
+
     -- ** ResourceInUseException
     _ResourceInUseException,
+
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
 
     -- * Waiters
     -- $waiters
@@ -43,71 +43,11 @@ module Amazonka.Forecast
     -- * Operations
     -- $operations
 
-    -- ** ListDatasetGroups (Paginated)
-    ListDatasetGroups (ListDatasetGroups'),
-    newListDatasetGroups,
-    ListDatasetGroupsResponse (ListDatasetGroupsResponse'),
-    newListDatasetGroupsResponse,
-
-    -- ** CreateDatasetImportJob
-    CreateDatasetImportJob (CreateDatasetImportJob'),
-    newCreateDatasetImportJob,
-    CreateDatasetImportJobResponse (CreateDatasetImportJobResponse'),
-    newCreateDatasetImportJobResponse,
-
-    -- ** DescribeDataset
-    DescribeDataset (DescribeDataset'),
-    newDescribeDataset,
-    DescribeDatasetResponse (DescribeDatasetResponse'),
-    newDescribeDatasetResponse,
-
-    -- ** ListForecasts (Paginated)
-    ListForecasts (ListForecasts'),
-    newListForecasts,
-    ListForecastsResponse (ListForecastsResponse'),
-    newListForecastsResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** StopResource
-    StopResource (StopResource'),
-    newStopResource,
-    StopResourceResponse (StopResourceResponse'),
-    newStopResourceResponse,
-
-    -- ** DescribeDatasetImportJob
-    DescribeDatasetImportJob (DescribeDatasetImportJob'),
-    newDescribeDatasetImportJob,
-    DescribeDatasetImportJobResponse (DescribeDatasetImportJobResponse'),
-    newDescribeDatasetImportJobResponse,
-
-    -- ** DescribeForecastExportJob
-    DescribeForecastExportJob (DescribeForecastExportJob'),
-    newDescribeForecastExportJob,
-    DescribeForecastExportJobResponse (DescribeForecastExportJobResponse'),
-    newDescribeForecastExportJobResponse,
-
-    -- ** DescribePredictor
-    DescribePredictor (DescribePredictor'),
-    newDescribePredictor,
-    DescribePredictorResponse (DescribePredictorResponse'),
-    newDescribePredictorResponse,
-
-    -- ** DeleteDataset
-    DeleteDataset (DeleteDataset'),
-    newDeleteDataset,
-    DeleteDatasetResponse (DeleteDatasetResponse'),
-    newDeleteDatasetResponse,
-
-    -- ** DescribeForecast
-    DescribeForecast (DescribeForecast'),
-    newDescribeForecast,
-    DescribeForecastResponse (DescribeForecastResponse'),
-    newDescribeForecastResponse,
+    -- ** CreateAutoPredictor
+    CreateAutoPredictor (CreateAutoPredictor'),
+    newCreateAutoPredictor,
+    CreateAutoPredictorResponse (CreateAutoPredictorResponse'),
+    newCreateAutoPredictorResponse,
 
     -- ** CreateDataset
     CreateDataset (CreateDataset'),
@@ -115,71 +55,29 @@ module Amazonka.Forecast
     CreateDatasetResponse (CreateDatasetResponse'),
     newCreateDatasetResponse,
 
-    -- ** DeleteForecastExportJob
-    DeleteForecastExportJob (DeleteForecastExportJob'),
-    newDeleteForecastExportJob,
-    DeleteForecastExportJobResponse (DeleteForecastExportJobResponse'),
-    newDeleteForecastExportJobResponse,
+    -- ** CreateDatasetGroup
+    CreateDatasetGroup (CreateDatasetGroup'),
+    newCreateDatasetGroup,
+    CreateDatasetGroupResponse (CreateDatasetGroupResponse'),
+    newCreateDatasetGroupResponse,
 
-    -- ** DeletePredictor
-    DeletePredictor (DeletePredictor'),
-    newDeletePredictor,
-    DeletePredictorResponse (DeletePredictorResponse'),
-    newDeletePredictorResponse,
+    -- ** CreateDatasetImportJob
+    CreateDatasetImportJob (CreateDatasetImportJob'),
+    newCreateDatasetImportJob,
+    CreateDatasetImportJobResponse (CreateDatasetImportJobResponse'),
+    newCreateDatasetImportJobResponse,
 
-    -- ** ListDatasetImportJobs (Paginated)
-    ListDatasetImportJobs (ListDatasetImportJobs'),
-    newListDatasetImportJobs,
-    ListDatasetImportJobsResponse (ListDatasetImportJobsResponse'),
-    newListDatasetImportJobsResponse,
+    -- ** CreateExplainability
+    CreateExplainability (CreateExplainability'),
+    newCreateExplainability,
+    CreateExplainabilityResponse (CreateExplainabilityResponse'),
+    newCreateExplainabilityResponse,
 
-    -- ** DeleteDatasetImportJob
-    DeleteDatasetImportJob (DeleteDatasetImportJob'),
-    newDeleteDatasetImportJob,
-    DeleteDatasetImportJobResponse (DeleteDatasetImportJobResponse'),
-    newDeleteDatasetImportJobResponse,
-
-    -- ** GetAccuracyMetrics
-    GetAccuracyMetrics (GetAccuracyMetrics'),
-    newGetAccuracyMetrics,
-    GetAccuracyMetricsResponse (GetAccuracyMetricsResponse'),
-    newGetAccuracyMetricsResponse,
-
-    -- ** DeleteDatasetGroup
-    DeleteDatasetGroup (DeleteDatasetGroup'),
-    newDeleteDatasetGroup,
-    DeleteDatasetGroupResponse (DeleteDatasetGroupResponse'),
-    newDeleteDatasetGroupResponse,
-
-    -- ** UpdateDatasetGroup
-    UpdateDatasetGroup (UpdateDatasetGroup'),
-    newUpdateDatasetGroup,
-    UpdateDatasetGroupResponse (UpdateDatasetGroupResponse'),
-    newUpdateDatasetGroupResponse,
-
-    -- ** CreateForecastExportJob
-    CreateForecastExportJob (CreateForecastExportJob'),
-    newCreateForecastExportJob,
-    CreateForecastExportJobResponse (CreateForecastExportJobResponse'),
-    newCreateForecastExportJobResponse,
-
-    -- ** CreatePredictor
-    CreatePredictor (CreatePredictor'),
-    newCreatePredictor,
-    CreatePredictorResponse (CreatePredictorResponse'),
-    newCreatePredictorResponse,
-
-    -- ** ListPredictorBacktestExportJobs (Paginated)
-    ListPredictorBacktestExportJobs (ListPredictorBacktestExportJobs'),
-    newListPredictorBacktestExportJobs,
-    ListPredictorBacktestExportJobsResponse (ListPredictorBacktestExportJobsResponse'),
-    newListPredictorBacktestExportJobsResponse,
-
-    -- ** DeletePredictorBacktestExportJob
-    DeletePredictorBacktestExportJob (DeletePredictorBacktestExportJob'),
-    newDeletePredictorBacktestExportJob,
-    DeletePredictorBacktestExportJobResponse (DeletePredictorBacktestExportJobResponse'),
-    newDeletePredictorBacktestExportJobResponse,
+    -- ** CreateExplainabilityExport
+    CreateExplainabilityExport (CreateExplainabilityExport'),
+    newCreateExplainabilityExport,
+    CreateExplainabilityExportResponse (CreateExplainabilityExportResponse'),
+    newCreateExplainabilityExportResponse,
 
     -- ** CreateForecast
     CreateForecast (CreateForecast'),
@@ -187,11 +85,77 @@ module Amazonka.Forecast
     CreateForecastResponse (CreateForecastResponse'),
     newCreateForecastResponse,
 
+    -- ** CreateForecastExportJob
+    CreateForecastExportJob (CreateForecastExportJob'),
+    newCreateForecastExportJob,
+    CreateForecastExportJobResponse (CreateForecastExportJobResponse'),
+    newCreateForecastExportJobResponse,
+
+    -- ** CreateMonitor
+    CreateMonitor (CreateMonitor'),
+    newCreateMonitor,
+    CreateMonitorResponse (CreateMonitorResponse'),
+    newCreateMonitorResponse,
+
+    -- ** CreatePredictor
+    CreatePredictor (CreatePredictor'),
+    newCreatePredictor,
+    CreatePredictorResponse (CreatePredictorResponse'),
+    newCreatePredictorResponse,
+
     -- ** CreatePredictorBacktestExportJob
     CreatePredictorBacktestExportJob (CreatePredictorBacktestExportJob'),
     newCreatePredictorBacktestExportJob,
     CreatePredictorBacktestExportJobResponse (CreatePredictorBacktestExportJobResponse'),
     newCreatePredictorBacktestExportJobResponse,
+
+    -- ** CreateWhatIfAnalysis
+    CreateWhatIfAnalysis (CreateWhatIfAnalysis'),
+    newCreateWhatIfAnalysis,
+    CreateWhatIfAnalysisResponse (CreateWhatIfAnalysisResponse'),
+    newCreateWhatIfAnalysisResponse,
+
+    -- ** CreateWhatIfForecast
+    CreateWhatIfForecast (CreateWhatIfForecast'),
+    newCreateWhatIfForecast,
+    CreateWhatIfForecastResponse (CreateWhatIfForecastResponse'),
+    newCreateWhatIfForecastResponse,
+
+    -- ** CreateWhatIfForecastExport
+    CreateWhatIfForecastExport (CreateWhatIfForecastExport'),
+    newCreateWhatIfForecastExport,
+    CreateWhatIfForecastExportResponse (CreateWhatIfForecastExportResponse'),
+    newCreateWhatIfForecastExportResponse,
+
+    -- ** DeleteDataset
+    DeleteDataset (DeleteDataset'),
+    newDeleteDataset,
+    DeleteDatasetResponse (DeleteDatasetResponse'),
+    newDeleteDatasetResponse,
+
+    -- ** DeleteDatasetGroup
+    DeleteDatasetGroup (DeleteDatasetGroup'),
+    newDeleteDatasetGroup,
+    DeleteDatasetGroupResponse (DeleteDatasetGroupResponse'),
+    newDeleteDatasetGroupResponse,
+
+    -- ** DeleteDatasetImportJob
+    DeleteDatasetImportJob (DeleteDatasetImportJob'),
+    newDeleteDatasetImportJob,
+    DeleteDatasetImportJobResponse (DeleteDatasetImportJobResponse'),
+    newDeleteDatasetImportJobResponse,
+
+    -- ** DeleteExplainability
+    DeleteExplainability (DeleteExplainability'),
+    newDeleteExplainability,
+    DeleteExplainabilityResponse (DeleteExplainabilityResponse'),
+    newDeleteExplainabilityResponse,
+
+    -- ** DeleteExplainabilityExport
+    DeleteExplainabilityExport (DeleteExplainabilityExport'),
+    newDeleteExplainabilityExport,
+    DeleteExplainabilityExportResponse (DeleteExplainabilityExportResponse'),
+    newDeleteExplainabilityExportResponse,
 
     -- ** DeleteForecast
     DeleteForecast (DeleteForecast'),
@@ -199,11 +163,65 @@ module Amazonka.Forecast
     DeleteForecastResponse (DeleteForecastResponse'),
     newDeleteForecastResponse,
 
+    -- ** DeleteForecastExportJob
+    DeleteForecastExportJob (DeleteForecastExportJob'),
+    newDeleteForecastExportJob,
+    DeleteForecastExportJobResponse (DeleteForecastExportJobResponse'),
+    newDeleteForecastExportJobResponse,
+
+    -- ** DeleteMonitor
+    DeleteMonitor (DeleteMonitor'),
+    newDeleteMonitor,
+    DeleteMonitorResponse (DeleteMonitorResponse'),
+    newDeleteMonitorResponse,
+
+    -- ** DeletePredictor
+    DeletePredictor (DeletePredictor'),
+    newDeletePredictor,
+    DeletePredictorResponse (DeletePredictorResponse'),
+    newDeletePredictorResponse,
+
+    -- ** DeletePredictorBacktestExportJob
+    DeletePredictorBacktestExportJob (DeletePredictorBacktestExportJob'),
+    newDeletePredictorBacktestExportJob,
+    DeletePredictorBacktestExportJobResponse (DeletePredictorBacktestExportJobResponse'),
+    newDeletePredictorBacktestExportJobResponse,
+
     -- ** DeleteResourceTree
     DeleteResourceTree (DeleteResourceTree'),
     newDeleteResourceTree,
     DeleteResourceTreeResponse (DeleteResourceTreeResponse'),
     newDeleteResourceTreeResponse,
+
+    -- ** DeleteWhatIfAnalysis
+    DeleteWhatIfAnalysis (DeleteWhatIfAnalysis'),
+    newDeleteWhatIfAnalysis,
+    DeleteWhatIfAnalysisResponse (DeleteWhatIfAnalysisResponse'),
+    newDeleteWhatIfAnalysisResponse,
+
+    -- ** DeleteWhatIfForecast
+    DeleteWhatIfForecast (DeleteWhatIfForecast'),
+    newDeleteWhatIfForecast,
+    DeleteWhatIfForecastResponse (DeleteWhatIfForecastResponse'),
+    newDeleteWhatIfForecastResponse,
+
+    -- ** DeleteWhatIfForecastExport
+    DeleteWhatIfForecastExport (DeleteWhatIfForecastExport'),
+    newDeleteWhatIfForecastExport,
+    DeleteWhatIfForecastExportResponse (DeleteWhatIfForecastExportResponse'),
+    newDeleteWhatIfForecastExportResponse,
+
+    -- ** DescribeAutoPredictor
+    DescribeAutoPredictor (DescribeAutoPredictor'),
+    newDescribeAutoPredictor,
+    DescribeAutoPredictorResponse (DescribeAutoPredictorResponse'),
+    newDescribeAutoPredictorResponse,
+
+    -- ** DescribeDataset
+    DescribeDataset (DescribeDataset'),
+    newDescribeDataset,
+    DescribeDatasetResponse (DescribeDatasetResponse'),
+    newDescribeDatasetResponse,
 
     -- ** DescribeDatasetGroup
     DescribeDatasetGroup (DescribeDatasetGroup'),
@@ -211,17 +229,47 @@ module Amazonka.Forecast
     DescribeDatasetGroupResponse (DescribeDatasetGroupResponse'),
     newDescribeDatasetGroupResponse,
 
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
+    -- ** DescribeDatasetImportJob
+    DescribeDatasetImportJob (DescribeDatasetImportJob'),
+    newDescribeDatasetImportJob,
+    DescribeDatasetImportJobResponse (DescribeDatasetImportJobResponse'),
+    newDescribeDatasetImportJobResponse,
 
-    -- ** ListDatasets (Paginated)
-    ListDatasets (ListDatasets'),
-    newListDatasets,
-    ListDatasetsResponse (ListDatasetsResponse'),
-    newListDatasetsResponse,
+    -- ** DescribeExplainability
+    DescribeExplainability (DescribeExplainability'),
+    newDescribeExplainability,
+    DescribeExplainabilityResponse (DescribeExplainabilityResponse'),
+    newDescribeExplainabilityResponse,
+
+    -- ** DescribeExplainabilityExport
+    DescribeExplainabilityExport (DescribeExplainabilityExport'),
+    newDescribeExplainabilityExport,
+    DescribeExplainabilityExportResponse (DescribeExplainabilityExportResponse'),
+    newDescribeExplainabilityExportResponse,
+
+    -- ** DescribeForecast
+    DescribeForecast (DescribeForecast'),
+    newDescribeForecast,
+    DescribeForecastResponse (DescribeForecastResponse'),
+    newDescribeForecastResponse,
+
+    -- ** DescribeForecastExportJob
+    DescribeForecastExportJob (DescribeForecastExportJob'),
+    newDescribeForecastExportJob,
+    DescribeForecastExportJobResponse (DescribeForecastExportJobResponse'),
+    newDescribeForecastExportJobResponse,
+
+    -- ** DescribeMonitor
+    DescribeMonitor (DescribeMonitor'),
+    newDescribeMonitor,
+    DescribeMonitorResponse (DescribeMonitorResponse'),
+    newDescribeMonitorResponse,
+
+    -- ** DescribePredictor
+    DescribePredictor (DescribePredictor'),
+    newDescribePredictor,
+    DescribePredictorResponse (DescribePredictorResponse'),
+    newDescribePredictorResponse,
 
     -- ** DescribePredictorBacktestExportJob
     DescribePredictorBacktestExportJob (DescribePredictorBacktestExportJob'),
@@ -229,17 +277,59 @@ module Amazonka.Forecast
     DescribePredictorBacktestExportJobResponse (DescribePredictorBacktestExportJobResponse'),
     newDescribePredictorBacktestExportJobResponse,
 
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
+    -- ** DescribeWhatIfAnalysis
+    DescribeWhatIfAnalysis (DescribeWhatIfAnalysis'),
+    newDescribeWhatIfAnalysis,
+    DescribeWhatIfAnalysisResponse (DescribeWhatIfAnalysisResponse'),
+    newDescribeWhatIfAnalysisResponse,
 
-    -- ** CreateDatasetGroup
-    CreateDatasetGroup (CreateDatasetGroup'),
-    newCreateDatasetGroup,
-    CreateDatasetGroupResponse (CreateDatasetGroupResponse'),
-    newCreateDatasetGroupResponse,
+    -- ** DescribeWhatIfForecast
+    DescribeWhatIfForecast (DescribeWhatIfForecast'),
+    newDescribeWhatIfForecast,
+    DescribeWhatIfForecastResponse (DescribeWhatIfForecastResponse'),
+    newDescribeWhatIfForecastResponse,
+
+    -- ** DescribeWhatIfForecastExport
+    DescribeWhatIfForecastExport (DescribeWhatIfForecastExport'),
+    newDescribeWhatIfForecastExport,
+    DescribeWhatIfForecastExportResponse (DescribeWhatIfForecastExportResponse'),
+    newDescribeWhatIfForecastExportResponse,
+
+    -- ** GetAccuracyMetrics
+    GetAccuracyMetrics (GetAccuracyMetrics'),
+    newGetAccuracyMetrics,
+    GetAccuracyMetricsResponse (GetAccuracyMetricsResponse'),
+    newGetAccuracyMetricsResponse,
+
+    -- ** ListDatasetGroups (Paginated)
+    ListDatasetGroups (ListDatasetGroups'),
+    newListDatasetGroups,
+    ListDatasetGroupsResponse (ListDatasetGroupsResponse'),
+    newListDatasetGroupsResponse,
+
+    -- ** ListDatasetImportJobs (Paginated)
+    ListDatasetImportJobs (ListDatasetImportJobs'),
+    newListDatasetImportJobs,
+    ListDatasetImportJobsResponse (ListDatasetImportJobsResponse'),
+    newListDatasetImportJobsResponse,
+
+    -- ** ListDatasets (Paginated)
+    ListDatasets (ListDatasets'),
+    newListDatasets,
+    ListDatasetsResponse (ListDatasetsResponse'),
+    newListDatasetsResponse,
+
+    -- ** ListExplainabilities (Paginated)
+    ListExplainabilities (ListExplainabilities'),
+    newListExplainabilities,
+    ListExplainabilitiesResponse (ListExplainabilitiesResponse'),
+    newListExplainabilitiesResponse,
+
+    -- ** ListExplainabilityExports (Paginated)
+    ListExplainabilityExports (ListExplainabilityExports'),
+    newListExplainabilityExports,
+    ListExplainabilityExportsResponse (ListExplainabilityExportsResponse'),
+    newListExplainabilityExportsResponse,
 
     -- ** ListForecastExportJobs (Paginated)
     ListForecastExportJobs (ListForecastExportJobs'),
@@ -247,11 +337,89 @@ module Amazonka.Forecast
     ListForecastExportJobsResponse (ListForecastExportJobsResponse'),
     newListForecastExportJobsResponse,
 
+    -- ** ListForecasts (Paginated)
+    ListForecasts (ListForecasts'),
+    newListForecasts,
+    ListForecastsResponse (ListForecastsResponse'),
+    newListForecastsResponse,
+
+    -- ** ListMonitorEvaluations (Paginated)
+    ListMonitorEvaluations (ListMonitorEvaluations'),
+    newListMonitorEvaluations,
+    ListMonitorEvaluationsResponse (ListMonitorEvaluationsResponse'),
+    newListMonitorEvaluationsResponse,
+
+    -- ** ListMonitors (Paginated)
+    ListMonitors (ListMonitors'),
+    newListMonitors,
+    ListMonitorsResponse (ListMonitorsResponse'),
+    newListMonitorsResponse,
+
+    -- ** ListPredictorBacktestExportJobs (Paginated)
+    ListPredictorBacktestExportJobs (ListPredictorBacktestExportJobs'),
+    newListPredictorBacktestExportJobs,
+    ListPredictorBacktestExportJobsResponse (ListPredictorBacktestExportJobsResponse'),
+    newListPredictorBacktestExportJobsResponse,
+
     -- ** ListPredictors (Paginated)
     ListPredictors (ListPredictors'),
     newListPredictors,
     ListPredictorsResponse (ListPredictorsResponse'),
     newListPredictorsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** ListWhatIfAnalyses (Paginated)
+    ListWhatIfAnalyses (ListWhatIfAnalyses'),
+    newListWhatIfAnalyses,
+    ListWhatIfAnalysesResponse (ListWhatIfAnalysesResponse'),
+    newListWhatIfAnalysesResponse,
+
+    -- ** ListWhatIfForecastExports (Paginated)
+    ListWhatIfForecastExports (ListWhatIfForecastExports'),
+    newListWhatIfForecastExports,
+    ListWhatIfForecastExportsResponse (ListWhatIfForecastExportsResponse'),
+    newListWhatIfForecastExportsResponse,
+
+    -- ** ListWhatIfForecasts (Paginated)
+    ListWhatIfForecasts (ListWhatIfForecasts'),
+    newListWhatIfForecasts,
+    ListWhatIfForecastsResponse (ListWhatIfForecastsResponse'),
+    newListWhatIfForecastsResponse,
+
+    -- ** ResumeResource
+    ResumeResource (ResumeResource'),
+    newResumeResource,
+    ResumeResourceResponse (ResumeResourceResponse'),
+    newResumeResourceResponse,
+
+    -- ** StopResource
+    StopResource (StopResource'),
+    newStopResource,
+    StopResourceResponse (StopResourceResponse'),
+    newStopResourceResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UpdateDatasetGroup
+    UpdateDatasetGroup (UpdateDatasetGroup'),
+    newUpdateDatasetGroup,
+    UpdateDatasetGroupResponse (UpdateDatasetGroupResponse'),
+    newUpdateDatasetGroupResponse,
 
     -- * Types
 
@@ -261,8 +429,14 @@ module Amazonka.Forecast
     -- ** AutoMLOverrideStrategy
     AutoMLOverrideStrategy (..),
 
+    -- ** Condition
+    Condition (..),
+
     -- ** DatasetType
     DatasetType (..),
+
+    -- ** DayOfWeek
+    DayOfWeek (..),
 
     -- ** Domain
     Domain (..),
@@ -276,11 +450,46 @@ module Amazonka.Forecast
     -- ** FilterConditionString
     FilterConditionString (..),
 
+    -- ** Month
+    Month (..),
+
+    -- ** Operation
+    Operation (..),
+
     -- ** OptimizationMetric
     OptimizationMetric (..),
 
     -- ** ScalingType
     ScalingType (..),
+
+    -- ** State
+    State (..),
+
+    -- ** TimePointGranularity
+    TimePointGranularity (..),
+
+    -- ** TimeSeriesGranularity
+    TimeSeriesGranularity (..),
+
+    -- ** Action
+    Action (Action'),
+    newAction,
+
+    -- ** AdditionalDataset
+    AdditionalDataset (AdditionalDataset'),
+    newAdditionalDataset,
+
+    -- ** AttributeConfig
+    AttributeConfig (AttributeConfig'),
+    newAttributeConfig,
+
+    -- ** Baseline
+    Baseline (Baseline'),
+    newBaseline,
+
+    -- ** BaselineMetric
+    BaselineMetric (BaselineMetric'),
+    newBaselineMetric,
 
     -- ** CategoricalParameterRange
     CategoricalParameterRange (CategoricalParameterRange'),
@@ -289,6 +498,10 @@ module Amazonka.Forecast
     -- ** ContinuousParameterRange
     ContinuousParameterRange (ContinuousParameterRange'),
     newContinuousParameterRange,
+
+    -- ** DataConfig
+    DataConfig (DataConfig'),
+    newDataConfig,
 
     -- ** DataDestination
     DataDestination (DataDestination'),
@@ -326,6 +539,22 @@ module Amazonka.Forecast
     EvaluationResult (EvaluationResult'),
     newEvaluationResult,
 
+    -- ** ExplainabilityConfig
+    ExplainabilityConfig (ExplainabilityConfig'),
+    newExplainabilityConfig,
+
+    -- ** ExplainabilityExportSummary
+    ExplainabilityExportSummary (ExplainabilityExportSummary'),
+    newExplainabilityExportSummary,
+
+    -- ** ExplainabilityInfo
+    ExplainabilityInfo (ExplainabilityInfo'),
+    newExplainabilityInfo,
+
+    -- ** ExplainabilitySummary
+    ExplainabilitySummary (ExplainabilitySummary'),
+    newExplainabilitySummary,
+
     -- ** Featurization
     Featurization (Featurization'),
     newFeaturization,
@@ -362,9 +591,29 @@ module Amazonka.Forecast
     IntegerParameterRange (IntegerParameterRange'),
     newIntegerParameterRange,
 
+    -- ** MetricResult
+    MetricResult (MetricResult'),
+    newMetricResult,
+
     -- ** Metrics
     Metrics (Metrics'),
     newMetrics,
+
+    -- ** MonitorConfig
+    MonitorConfig (MonitorConfig'),
+    newMonitorConfig,
+
+    -- ** MonitorDataSource
+    MonitorDataSource (MonitorDataSource'),
+    newMonitorDataSource,
+
+    -- ** MonitorInfo
+    MonitorInfo (MonitorInfo'),
+    newMonitorInfo,
+
+    -- ** MonitorSummary
+    MonitorSummary (MonitorSummary'),
+    newMonitorSummary,
 
     -- ** ParameterRanges
     ParameterRanges (ParameterRanges'),
@@ -374,6 +623,14 @@ module Amazonka.Forecast
     PredictorBacktestExportJobSummary (PredictorBacktestExportJobSummary'),
     newPredictorBacktestExportJobSummary,
 
+    -- ** PredictorBaseline
+    PredictorBaseline (PredictorBaseline'),
+    newPredictorBaseline,
+
+    -- ** PredictorEvent
+    PredictorEvent (PredictorEvent'),
+    newPredictorEvent,
+
     -- ** PredictorExecution
     PredictorExecution (PredictorExecution'),
     newPredictorExecution,
@@ -382,9 +639,17 @@ module Amazonka.Forecast
     PredictorExecutionDetails (PredictorExecutionDetails'),
     newPredictorExecutionDetails,
 
+    -- ** PredictorMonitorEvaluation
+    PredictorMonitorEvaluation (PredictorMonitorEvaluation'),
+    newPredictorMonitorEvaluation,
+
     -- ** PredictorSummary
     PredictorSummary (PredictorSummary'),
     newPredictorSummary,
+
+    -- ** ReferencePredictorSummary
+    ReferencePredictorSummary (ReferencePredictorSummary'),
+    newReferencePredictorSummary,
 
     -- ** S3Config
     S3Config (S3Config'),
@@ -414,9 +679,45 @@ module Amazonka.Forecast
     TestWindowSummary (TestWindowSummary'),
     newTestWindowSummary,
 
+    -- ** TimeAlignmentBoundary
+    TimeAlignmentBoundary (TimeAlignmentBoundary'),
+    newTimeAlignmentBoundary,
+
+    -- ** TimeSeriesCondition
+    TimeSeriesCondition (TimeSeriesCondition'),
+    newTimeSeriesCondition,
+
+    -- ** TimeSeriesIdentifiers
+    TimeSeriesIdentifiers (TimeSeriesIdentifiers'),
+    newTimeSeriesIdentifiers,
+
+    -- ** TimeSeriesReplacementsDataSource
+    TimeSeriesReplacementsDataSource (TimeSeriesReplacementsDataSource'),
+    newTimeSeriesReplacementsDataSource,
+
+    -- ** TimeSeriesSelector
+    TimeSeriesSelector (TimeSeriesSelector'),
+    newTimeSeriesSelector,
+
+    -- ** TimeSeriesTransformation
+    TimeSeriesTransformation (TimeSeriesTransformation'),
+    newTimeSeriesTransformation,
+
     -- ** WeightedQuantileLoss
     WeightedQuantileLoss (WeightedQuantileLoss'),
     newWeightedQuantileLoss,
+
+    -- ** WhatIfAnalysisSummary
+    WhatIfAnalysisSummary (WhatIfAnalysisSummary'),
+    newWhatIfAnalysisSummary,
+
+    -- ** WhatIfForecastExportSummary
+    WhatIfForecastExportSummary (WhatIfForecastExportSummary'),
+    newWhatIfForecastExportSummary,
+
+    -- ** WhatIfForecastSummary
+    WhatIfForecastSummary (WhatIfForecastSummary'),
+    newWhatIfForecastSummary,
 
     -- ** WindowSummary
     WindowSummary (WindowSummary'),
@@ -424,38 +725,66 @@ module Amazonka.Forecast
   )
 where
 
+import Amazonka.Forecast.CreateAutoPredictor
 import Amazonka.Forecast.CreateDataset
 import Amazonka.Forecast.CreateDatasetGroup
 import Amazonka.Forecast.CreateDatasetImportJob
+import Amazonka.Forecast.CreateExplainability
+import Amazonka.Forecast.CreateExplainabilityExport
 import Amazonka.Forecast.CreateForecast
 import Amazonka.Forecast.CreateForecastExportJob
+import Amazonka.Forecast.CreateMonitor
 import Amazonka.Forecast.CreatePredictor
 import Amazonka.Forecast.CreatePredictorBacktestExportJob
+import Amazonka.Forecast.CreateWhatIfAnalysis
+import Amazonka.Forecast.CreateWhatIfForecast
+import Amazonka.Forecast.CreateWhatIfForecastExport
 import Amazonka.Forecast.DeleteDataset
 import Amazonka.Forecast.DeleteDatasetGroup
 import Amazonka.Forecast.DeleteDatasetImportJob
+import Amazonka.Forecast.DeleteExplainability
+import Amazonka.Forecast.DeleteExplainabilityExport
 import Amazonka.Forecast.DeleteForecast
 import Amazonka.Forecast.DeleteForecastExportJob
+import Amazonka.Forecast.DeleteMonitor
 import Amazonka.Forecast.DeletePredictor
 import Amazonka.Forecast.DeletePredictorBacktestExportJob
 import Amazonka.Forecast.DeleteResourceTree
+import Amazonka.Forecast.DeleteWhatIfAnalysis
+import Amazonka.Forecast.DeleteWhatIfForecast
+import Amazonka.Forecast.DeleteWhatIfForecastExport
+import Amazonka.Forecast.DescribeAutoPredictor
 import Amazonka.Forecast.DescribeDataset
 import Amazonka.Forecast.DescribeDatasetGroup
 import Amazonka.Forecast.DescribeDatasetImportJob
+import Amazonka.Forecast.DescribeExplainability
+import Amazonka.Forecast.DescribeExplainabilityExport
 import Amazonka.Forecast.DescribeForecast
 import Amazonka.Forecast.DescribeForecastExportJob
+import Amazonka.Forecast.DescribeMonitor
 import Amazonka.Forecast.DescribePredictor
 import Amazonka.Forecast.DescribePredictorBacktestExportJob
+import Amazonka.Forecast.DescribeWhatIfAnalysis
+import Amazonka.Forecast.DescribeWhatIfForecast
+import Amazonka.Forecast.DescribeWhatIfForecastExport
 import Amazonka.Forecast.GetAccuracyMetrics
 import Amazonka.Forecast.Lens
 import Amazonka.Forecast.ListDatasetGroups
 import Amazonka.Forecast.ListDatasetImportJobs
 import Amazonka.Forecast.ListDatasets
+import Amazonka.Forecast.ListExplainabilities
+import Amazonka.Forecast.ListExplainabilityExports
 import Amazonka.Forecast.ListForecastExportJobs
 import Amazonka.Forecast.ListForecasts
+import Amazonka.Forecast.ListMonitorEvaluations
+import Amazonka.Forecast.ListMonitors
 import Amazonka.Forecast.ListPredictorBacktestExportJobs
 import Amazonka.Forecast.ListPredictors
 import Amazonka.Forecast.ListTagsForResource
+import Amazonka.Forecast.ListWhatIfAnalyses
+import Amazonka.Forecast.ListWhatIfForecastExports
+import Amazonka.Forecast.ListWhatIfForecasts
+import Amazonka.Forecast.ResumeResource
 import Amazonka.Forecast.StopResource
 import Amazonka.Forecast.TagResource
 import Amazonka.Forecast.Types

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KMS.ReplicateKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,7 +35,7 @@
 -- different Amazon Web Services Region without re-encrypting the data or
 -- making a cross-Region call. For more information about multi-Region
 -- keys, see
--- <https://docs.aws.amazon.com/kms/latest/developerguide/multi-region-keys-overview.html Using multi-Region keys>
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/multi-region-keys-overview.html Multi-Region keys in KMS>
 -- in the /Key Management Service Developer Guide/.
 --
 -- A /replica key/ is a fully-functional KMS key that can be used
@@ -56,7 +56,7 @@
 -- <https://docs.aws.amazon.com/kms/latest/developerguide/tagging-keys.html tags>,
 -- <https://docs.aws.amazon.com/kms/latest/developerguide/kms-alias.html aliases>,
 -- and
--- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html key state>.
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html Key states of KMS keys>.
 -- KMS pricing and quotas for KMS keys apply to each primary key and
 -- replica key.
 --
@@ -68,8 +68,17 @@
 -- you are creating and using the replica key programmatically, retry on
 -- @KMSInvalidStateException@ or call @DescribeKey@ to check its @KeyState@
 -- value before using it. For details about the @Creating@ key state, see
--- <kms/latest/developerguide/key-state.html Key state: Effect on your KMS key>
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html Key states of KMS keys>
 -- in the /Key Management Service Developer Guide/.
+--
+-- You cannot create more than one replica of a primary key in any Region.
+-- If the Region already includes a replica of the key you\'re trying to
+-- replicate, @ReplicateKey@ returns an @AlreadyExistsException@ error. If
+-- the key state of the existing replica is @PendingDeletion@, you can
+-- cancel the scheduled key deletion (CancelKeyDeletion) or wait for the
+-- key to be deleted. The new replica key you create will have the same
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/multi-region-keys-overview.html#mrk-sync-properties shared properties>
+-- as the original replica key.
 --
 -- The CloudTrail log of a @ReplicateKey@ operation records a
 -- @ReplicateKey@ operation in the primary key\'s Region and a CreateKey
@@ -114,8 +123,8 @@ module Amazonka.KMS.ReplicateKey
 
     -- * Request Lenses
     replicateKey_bypassPolicyLockoutSafetyCheck,
-    replicateKey_policy,
     replicateKey_description,
+    replicateKey_policy,
     replicateKey_tags,
     replicateKey_keyId,
     replicateKey_replicaRegion,
@@ -133,8 +142,9 @@ module Amazonka.KMS.ReplicateKey
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -157,6 +167,14 @@ data ReplicateKey = ReplicateKey'
     --
     -- The default value is false.
     bypassPolicyLockoutSafetyCheck :: Prelude.Maybe Prelude.Bool,
+    -- | A description of the KMS key. The default value is an empty string (no
+    -- description).
+    --
+    -- The description is not a shared property of multi-Region keys. You can
+    -- specify the same description or a different description for each key in
+    -- a set of related multi-Region keys. KMS does not synchronize this
+    -- property.
+    description :: Prelude.Maybe Prelude.Text,
     -- | The key policy to attach to the KMS key. This parameter is optional. If
     -- you do not provide a key policy, KMS attaches the
     -- <https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html#key-policy-default default key policy>
@@ -186,23 +204,31 @@ data ReplicateKey = ReplicateKey'
     --     <https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_general.html#troubleshoot_general_eventual-consistency Changes that I make are not always immediately visible>
     --     in the //Identity and Access Management User Guide// .
     --
-    -- -   The key policy size quota is 32 kilobytes (32768 bytes).
-    policy :: Prelude.Maybe Prelude.Text,
-    -- | A description of the KMS key. The default value is an empty string (no
-    -- description).
+    -- A key policy document can include only the following characters:
     --
-    -- The description is not a shared property of multi-Region keys. You can
-    -- specify the same description or a different description for each key in
-    -- a set of related multi-Region keys. KMS does not synchronize this
-    -- property.
-    description :: Prelude.Maybe Prelude.Text,
+    -- -   Printable ASCII characters from the space character (@\\u0020@)
+    --     through the end of the ASCII character range.
+    --
+    -- -   Printable characters in the Basic Latin and Latin-1 Supplement
+    --     character set (through @\\u00FF@).
+    --
+    -- -   The tab (@\\u0009@), line feed (@\\u000A@), and carriage return
+    --     (@\\u000D@) special characters
+    --
+    -- For information about key policies, see
+    -- <https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html Key policies in KMS>
+    -- in the /Key Management Service Developer Guide/. For help writing and
+    -- formatting a JSON policy document, see the
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html IAM JSON Policy Reference>
+    -- in the //Identity and Access Management User Guide// .
+    policy :: Prelude.Maybe Prelude.Text,
     -- | Assigns one or more tags to the replica key. Use this parameter to tag
     -- the KMS key when it is created. To tag an existing KMS key, use the
     -- TagResource operation.
     --
     -- Tagging or untagging a KMS key can allow or deny permission to the KMS
     -- key. For details, see
-    -- <https://docs.aws.amazon.com/kms/latest/developerguide/abac.html Using ABAC in KMS>
+    -- <https://docs.aws.amazon.com/kms/latest/developerguide/abac.html ABAC for KMS>
     -- in the /Key Management Service Developer Guide/.
     --
     -- To use this parameter, you must have
@@ -249,15 +275,23 @@ data ReplicateKey = ReplicateKey'
     -- <https://docs.aws.amazon.com/general/latest/gr/kms.html#kms_region KMS service endpoints>
     -- in the /Amazon Web Services General Reference/.
     --
+    -- HMAC KMS keys are not supported in all Amazon Web Services Regions. If
+    -- you try to replicate an HMAC KMS key in an Amazon Web Services Region in
+    -- which HMAC keys are not supported, the @ReplicateKey@ operation returns
+    -- an @UnsupportedOperationException@. For a list of Regions in which HMAC
+    -- KMS keys are supported, see
+    -- <https://docs.aws.amazon.com/kms/latest/developerguide/hmac.html HMAC keys in KMS>
+    -- in the /Key Management Service Developer Guide/.
+    --
     -- The replica must be in a different Amazon Web Services Region than its
     -- primary key and other replicas of that primary key, but in the same
     -- Amazon Web Services partition. KMS must be available in the replica
     -- Region. If the Region is not enabled by default, the Amazon Web Services
-    -- account must be enabled in the Region.
-    --
-    -- For information about Amazon Web Services partitions, see
-    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) in the Amazon Web Services General Reference.>
-    -- For information about enabling and disabling Regions, see
+    -- account must be enabled in the Region. For information about Amazon Web
+    -- Services partitions, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>
+    -- in the /Amazon Web Services General Reference/. For information about
+    -- enabling and disabling Regions, see
     -- <https://docs.aws.amazon.com/general/latest/gr/rande-manage.html#rande-manage-enable Enabling a Region>
     -- and
     -- <https://docs.aws.amazon.com/general/latest/gr/rande-manage.html#rande-manage-disable Disabling a Region>
@@ -290,6 +324,14 @@ data ReplicateKey = ReplicateKey'
 --
 -- The default value is false.
 --
+-- 'description', 'replicateKey_description' - A description of the KMS key. The default value is an empty string (no
+-- description).
+--
+-- The description is not a shared property of multi-Region keys. You can
+-- specify the same description or a different description for each key in
+-- a set of related multi-Region keys. KMS does not synchronize this
+-- property.
+--
 -- 'policy', 'replicateKey_policy' - The key policy to attach to the KMS key. This parameter is optional. If
 -- you do not provide a key policy, KMS attaches the
 -- <https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html#key-policy-default default key policy>
@@ -319,15 +361,23 @@ data ReplicateKey = ReplicateKey'
 --     <https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_general.html#troubleshoot_general_eventual-consistency Changes that I make are not always immediately visible>
 --     in the //Identity and Access Management User Guide// .
 --
--- -   The key policy size quota is 32 kilobytes (32768 bytes).
+-- A key policy document can include only the following characters:
 --
--- 'description', 'replicateKey_description' - A description of the KMS key. The default value is an empty string (no
--- description).
+-- -   Printable ASCII characters from the space character (@\\u0020@)
+--     through the end of the ASCII character range.
 --
--- The description is not a shared property of multi-Region keys. You can
--- specify the same description or a different description for each key in
--- a set of related multi-Region keys. KMS does not synchronize this
--- property.
+-- -   Printable characters in the Basic Latin and Latin-1 Supplement
+--     character set (through @\\u00FF@).
+--
+-- -   The tab (@\\u0009@), line feed (@\\u000A@), and carriage return
+--     (@\\u000D@) special characters
+--
+-- For information about key policies, see
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html Key policies in KMS>
+-- in the /Key Management Service Developer Guide/. For help writing and
+-- formatting a JSON policy document, see the
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html IAM JSON Policy Reference>
+-- in the //Identity and Access Management User Guide// .
 --
 -- 'tags', 'replicateKey_tags' - Assigns one or more tags to the replica key. Use this parameter to tag
 -- the KMS key when it is created. To tag an existing KMS key, use the
@@ -335,7 +385,7 @@ data ReplicateKey = ReplicateKey'
 --
 -- Tagging or untagging a KMS key can allow or deny permission to the KMS
 -- key. For details, see
--- <https://docs.aws.amazon.com/kms/latest/developerguide/abac.html Using ABAC in KMS>
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/abac.html ABAC for KMS>
 -- in the /Key Management Service Developer Guide/.
 --
 -- To use this parameter, you must have
@@ -382,15 +432,23 @@ data ReplicateKey = ReplicateKey'
 -- <https://docs.aws.amazon.com/general/latest/gr/kms.html#kms_region KMS service endpoints>
 -- in the /Amazon Web Services General Reference/.
 --
+-- HMAC KMS keys are not supported in all Amazon Web Services Regions. If
+-- you try to replicate an HMAC KMS key in an Amazon Web Services Region in
+-- which HMAC keys are not supported, the @ReplicateKey@ operation returns
+-- an @UnsupportedOperationException@. For a list of Regions in which HMAC
+-- KMS keys are supported, see
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/hmac.html HMAC keys in KMS>
+-- in the /Key Management Service Developer Guide/.
+--
 -- The replica must be in a different Amazon Web Services Region than its
 -- primary key and other replicas of that primary key, but in the same
 -- Amazon Web Services partition. KMS must be available in the replica
 -- Region. If the Region is not enabled by default, the Amazon Web Services
--- account must be enabled in the Region.
---
--- For information about Amazon Web Services partitions, see
--- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) in the Amazon Web Services General Reference.>
--- For information about enabling and disabling Regions, see
+-- account must be enabled in the Region. For information about Amazon Web
+-- Services partitions, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>
+-- in the /Amazon Web Services General Reference/. For information about
+-- enabling and disabling Regions, see
 -- <https://docs.aws.amazon.com/general/latest/gr/rande-manage.html#rande-manage-enable Enabling a Region>
 -- and
 -- <https://docs.aws.amazon.com/general/latest/gr/rande-manage.html#rande-manage-disable Disabling a Region>
@@ -405,8 +463,8 @@ newReplicateKey pKeyId_ pReplicaRegion_ =
   ReplicateKey'
     { bypassPolicyLockoutSafetyCheck =
         Prelude.Nothing,
-      policy = Prelude.Nothing,
       description = Prelude.Nothing,
+      policy = Prelude.Nothing,
       tags = Prelude.Nothing,
       keyId = pKeyId_,
       replicaRegion = pReplicaRegion_
@@ -429,6 +487,16 @@ newReplicateKey pKeyId_ pReplicaRegion_ =
 -- The default value is false.
 replicateKey_bypassPolicyLockoutSafetyCheck :: Lens.Lens' ReplicateKey (Prelude.Maybe Prelude.Bool)
 replicateKey_bypassPolicyLockoutSafetyCheck = Lens.lens (\ReplicateKey' {bypassPolicyLockoutSafetyCheck} -> bypassPolicyLockoutSafetyCheck) (\s@ReplicateKey' {} a -> s {bypassPolicyLockoutSafetyCheck = a} :: ReplicateKey)
+
+-- | A description of the KMS key. The default value is an empty string (no
+-- description).
+--
+-- The description is not a shared property of multi-Region keys. You can
+-- specify the same description or a different description for each key in
+-- a set of related multi-Region keys. KMS does not synchronize this
+-- property.
+replicateKey_description :: Lens.Lens' ReplicateKey (Prelude.Maybe Prelude.Text)
+replicateKey_description = Lens.lens (\ReplicateKey' {description} -> description) (\s@ReplicateKey' {} a -> s {description = a} :: ReplicateKey)
 
 -- | The key policy to attach to the KMS key. This parameter is optional. If
 -- you do not provide a key policy, KMS attaches the
@@ -459,19 +527,25 @@ replicateKey_bypassPolicyLockoutSafetyCheck = Lens.lens (\ReplicateKey' {bypassP
 --     <https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_general.html#troubleshoot_general_eventual-consistency Changes that I make are not always immediately visible>
 --     in the //Identity and Access Management User Guide// .
 --
--- -   The key policy size quota is 32 kilobytes (32768 bytes).
+-- A key policy document can include only the following characters:
+--
+-- -   Printable ASCII characters from the space character (@\\u0020@)
+--     through the end of the ASCII character range.
+--
+-- -   Printable characters in the Basic Latin and Latin-1 Supplement
+--     character set (through @\\u00FF@).
+--
+-- -   The tab (@\\u0009@), line feed (@\\u000A@), and carriage return
+--     (@\\u000D@) special characters
+--
+-- For information about key policies, see
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html Key policies in KMS>
+-- in the /Key Management Service Developer Guide/. For help writing and
+-- formatting a JSON policy document, see the
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html IAM JSON Policy Reference>
+-- in the //Identity and Access Management User Guide// .
 replicateKey_policy :: Lens.Lens' ReplicateKey (Prelude.Maybe Prelude.Text)
 replicateKey_policy = Lens.lens (\ReplicateKey' {policy} -> policy) (\s@ReplicateKey' {} a -> s {policy = a} :: ReplicateKey)
-
--- | A description of the KMS key. The default value is an empty string (no
--- description).
---
--- The description is not a shared property of multi-Region keys. You can
--- specify the same description or a different description for each key in
--- a set of related multi-Region keys. KMS does not synchronize this
--- property.
-replicateKey_description :: Lens.Lens' ReplicateKey (Prelude.Maybe Prelude.Text)
-replicateKey_description = Lens.lens (\ReplicateKey' {description} -> description) (\s@ReplicateKey' {} a -> s {description = a} :: ReplicateKey)
 
 -- | Assigns one or more tags to the replica key. Use this parameter to tag
 -- the KMS key when it is created. To tag an existing KMS key, use the
@@ -479,7 +553,7 @@ replicateKey_description = Lens.lens (\ReplicateKey' {description} -> descriptio
 --
 -- Tagging or untagging a KMS key can allow or deny permission to the KMS
 -- key. For details, see
--- <https://docs.aws.amazon.com/kms/latest/developerguide/abac.html Using ABAC in KMS>
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/abac.html ABAC for KMS>
 -- in the /Key Management Service Developer Guide/.
 --
 -- To use this parameter, you must have
@@ -530,15 +604,23 @@ replicateKey_keyId = Lens.lens (\ReplicateKey' {keyId} -> keyId) (\s@ReplicateKe
 -- <https://docs.aws.amazon.com/general/latest/gr/kms.html#kms_region KMS service endpoints>
 -- in the /Amazon Web Services General Reference/.
 --
+-- HMAC KMS keys are not supported in all Amazon Web Services Regions. If
+-- you try to replicate an HMAC KMS key in an Amazon Web Services Region in
+-- which HMAC keys are not supported, the @ReplicateKey@ operation returns
+-- an @UnsupportedOperationException@. For a list of Regions in which HMAC
+-- KMS keys are supported, see
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/hmac.html HMAC keys in KMS>
+-- in the /Key Management Service Developer Guide/.
+--
 -- The replica must be in a different Amazon Web Services Region than its
 -- primary key and other replicas of that primary key, but in the same
 -- Amazon Web Services partition. KMS must be available in the replica
 -- Region. If the Region is not enabled by default, the Amazon Web Services
--- account must be enabled in the Region.
---
--- For information about Amazon Web Services partitions, see
--- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) in the Amazon Web Services General Reference.>
--- For information about enabling and disabling Regions, see
+-- account must be enabled in the Region. For information about Amazon Web
+-- Services partitions, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>
+-- in the /Amazon Web Services General Reference/. For information about
+-- enabling and disabling Regions, see
 -- <https://docs.aws.amazon.com/general/latest/gr/rande-manage.html#rande-manage-enable Enabling a Region>
 -- and
 -- <https://docs.aws.amazon.com/general/latest/gr/rande-manage.html#rande-manage-disable Disabling a Region>
@@ -548,14 +630,15 @@ replicateKey_replicaRegion = Lens.lens (\ReplicateKey' {replicaRegion} -> replic
 
 instance Core.AWSRequest ReplicateKey where
   type AWSResponse ReplicateKey = ReplicateKeyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ReplicateKeyResponse'
-            Prelude.<$> (x Core..?> "ReplicaKeyMetadata")
-            Prelude.<*> (x Core..?> "ReplicaPolicy")
-            Prelude.<*> (x Core..?> "ReplicaTags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "ReplicaKeyMetadata")
+            Prelude.<*> (x Data..?> "ReplicaPolicy")
+            Prelude.<*> (x Data..?> "ReplicaTags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -563,8 +646,8 @@ instance Prelude.Hashable ReplicateKey where
   hashWithSalt _salt ReplicateKey' {..} =
     _salt
       `Prelude.hashWithSalt` bypassPolicyLockoutSafetyCheck
-      `Prelude.hashWithSalt` policy
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` policy
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` keyId
       `Prelude.hashWithSalt` replicaRegion
@@ -572,44 +655,44 @@ instance Prelude.Hashable ReplicateKey where
 instance Prelude.NFData ReplicateKey where
   rnf ReplicateKey' {..} =
     Prelude.rnf bypassPolicyLockoutSafetyCheck
-      `Prelude.seq` Prelude.rnf policy
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf policy
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf keyId
       `Prelude.seq` Prelude.rnf replicaRegion
 
-instance Core.ToHeaders ReplicateKey where
+instance Data.ToHeaders ReplicateKey where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("TrentService.ReplicateKey" :: Prelude.ByteString),
+              Data.=# ("TrentService.ReplicateKey" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ReplicateKey where
+instance Data.ToJSON ReplicateKey where
   toJSON ReplicateKey' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("BypassPolicyLockoutSafetyCheck" Core..=)
+          [ ("BypassPolicyLockoutSafetyCheck" Data..=)
               Prelude.<$> bypassPolicyLockoutSafetyCheck,
-            ("Policy" Core..=) Prelude.<$> policy,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("KeyId" Core..= keyId),
+            ("Description" Data..=) Prelude.<$> description,
+            ("Policy" Data..=) Prelude.<$> policy,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("KeyId" Data..= keyId),
             Prelude.Just
-              ("ReplicaRegion" Core..= replicaRegion)
+              ("ReplicaRegion" Data..= replicaRegion)
           ]
       )
 
-instance Core.ToPath ReplicateKey where
+instance Data.ToPath ReplicateKey where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ReplicateKey where
+instance Data.ToQuery ReplicateKey where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newReplicateKeyResponse' smart constructor.
@@ -618,7 +701,7 @@ data ReplicateKeyResponse = ReplicateKeyResponse'
     -- Resource Name
     -- (<https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN key ARN>)
     -- and
-    -- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html key state>.
+    -- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html Key states of KMS keys>.
     -- It also includes the ARN and Amazon Web Services Region of its primary
     -- key and other replica keys.
     replicaKeyMetadata :: Prelude.Maybe KeyMetadata,
@@ -645,7 +728,7 @@ data ReplicateKeyResponse = ReplicateKeyResponse'
 -- Resource Name
 -- (<https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN key ARN>)
 -- and
--- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html key state>.
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html Key states of KMS keys>.
 -- It also includes the ARN and Amazon Web Services Region of its primary
 -- key and other replica keys.
 --
@@ -673,7 +756,7 @@ newReplicateKeyResponse pHttpStatus_ =
 -- Resource Name
 -- (<https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN key ARN>)
 -- and
--- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html key state>.
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html Key states of KMS keys>.
 -- It also includes the ARN and Amazon Web Services Region of its primary
 -- key and other replica keys.
 replicateKeyResponse_replicaKeyMetadata :: Lens.Lens' ReplicateKeyResponse (Prelude.Maybe KeyMetadata)

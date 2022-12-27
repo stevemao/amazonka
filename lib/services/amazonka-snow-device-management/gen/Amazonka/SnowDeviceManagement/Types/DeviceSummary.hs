@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SnowDeviceManagement.Types.DeviceSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SnowDeviceManagement.Types.DeviceSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Identifying information about the device.
@@ -29,10 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 data DeviceSummary = DeviceSummary'
   { -- | The ID of the job used to order the device.
     associatedWithJob :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the device.
-    managedDeviceId :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the device.
     managedDeviceArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the device.
+    managedDeviceId :: Prelude.Maybe Prelude.Text,
     -- | Optional metadata that you assign to a resource. You can use tags to
     -- categorize a resource in different ways, such as by purpose, owner, or
     -- environment.
@@ -50,9 +51,9 @@ data DeviceSummary = DeviceSummary'
 --
 -- 'associatedWithJob', 'deviceSummary_associatedWithJob' - The ID of the job used to order the device.
 --
--- 'managedDeviceId', 'deviceSummary_managedDeviceId' - The ID of the device.
---
 -- 'managedDeviceArn', 'deviceSummary_managedDeviceArn' - The Amazon Resource Name (ARN) of the device.
+--
+-- 'managedDeviceId', 'deviceSummary_managedDeviceId' - The ID of the device.
 --
 -- 'tags', 'deviceSummary_tags' - Optional metadata that you assign to a resource. You can use tags to
 -- categorize a resource in different ways, such as by purpose, owner, or
@@ -62,8 +63,8 @@ newDeviceSummary ::
 newDeviceSummary =
   DeviceSummary'
     { associatedWithJob = Prelude.Nothing,
-      managedDeviceId = Prelude.Nothing,
       managedDeviceArn = Prelude.Nothing,
+      managedDeviceId = Prelude.Nothing,
       tags = Prelude.Nothing
     }
 
@@ -71,13 +72,13 @@ newDeviceSummary =
 deviceSummary_associatedWithJob :: Lens.Lens' DeviceSummary (Prelude.Maybe Prelude.Text)
 deviceSummary_associatedWithJob = Lens.lens (\DeviceSummary' {associatedWithJob} -> associatedWithJob) (\s@DeviceSummary' {} a -> s {associatedWithJob = a} :: DeviceSummary)
 
--- | The ID of the device.
-deviceSummary_managedDeviceId :: Lens.Lens' DeviceSummary (Prelude.Maybe Prelude.Text)
-deviceSummary_managedDeviceId = Lens.lens (\DeviceSummary' {managedDeviceId} -> managedDeviceId) (\s@DeviceSummary' {} a -> s {managedDeviceId = a} :: DeviceSummary)
-
 -- | The Amazon Resource Name (ARN) of the device.
 deviceSummary_managedDeviceArn :: Lens.Lens' DeviceSummary (Prelude.Maybe Prelude.Text)
 deviceSummary_managedDeviceArn = Lens.lens (\DeviceSummary' {managedDeviceArn} -> managedDeviceArn) (\s@DeviceSummary' {} a -> s {managedDeviceArn = a} :: DeviceSummary)
+
+-- | The ID of the device.
+deviceSummary_managedDeviceId :: Lens.Lens' DeviceSummary (Prelude.Maybe Prelude.Text)
+deviceSummary_managedDeviceId = Lens.lens (\DeviceSummary' {managedDeviceId} -> managedDeviceId) (\s@DeviceSummary' {} a -> s {managedDeviceId = a} :: DeviceSummary)
 
 -- | Optional metadata that you assign to a resource. You can use tags to
 -- categorize a resource in different ways, such as by purpose, owner, or
@@ -85,28 +86,28 @@ deviceSummary_managedDeviceArn = Lens.lens (\DeviceSummary' {managedDeviceArn} -
 deviceSummary_tags :: Lens.Lens' DeviceSummary (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 deviceSummary_tags = Lens.lens (\DeviceSummary' {tags} -> tags) (\s@DeviceSummary' {} a -> s {tags = a} :: DeviceSummary) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON DeviceSummary where
+instance Data.FromJSON DeviceSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DeviceSummary"
       ( \x ->
           DeviceSummary'
-            Prelude.<$> (x Core..:? "associatedWithJob")
-            Prelude.<*> (x Core..:? "managedDeviceId")
-            Prelude.<*> (x Core..:? "managedDeviceArn")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "associatedWithJob")
+            Prelude.<*> (x Data..:? "managedDeviceArn")
+            Prelude.<*> (x Data..:? "managedDeviceId")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable DeviceSummary where
   hashWithSalt _salt DeviceSummary' {..} =
     _salt `Prelude.hashWithSalt` associatedWithJob
-      `Prelude.hashWithSalt` managedDeviceId
       `Prelude.hashWithSalt` managedDeviceArn
+      `Prelude.hashWithSalt` managedDeviceId
       `Prelude.hashWithSalt` tags
 
 instance Prelude.NFData DeviceSummary where
   rnf DeviceSummary' {..} =
     Prelude.rnf associatedWithJob
-      `Prelude.seq` Prelude.rnf managedDeviceId
       `Prelude.seq` Prelude.rnf managedDeviceArn
+      `Prelude.seq` Prelude.rnf managedDeviceId
       `Prelude.seq` Prelude.rnf tags

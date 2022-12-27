@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.Types.WorkerConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KafkaConnect.Types.WorkerConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configuration of the workers, which are the processes that run the
@@ -78,14 +79,14 @@ instance Prelude.NFData WorkerConfiguration where
     Prelude.rnf revision
       `Prelude.seq` Prelude.rnf workerConfigurationArn
 
-instance Core.ToJSON WorkerConfiguration where
+instance Data.ToJSON WorkerConfiguration where
   toJSON WorkerConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("revision" Core..= revision),
+          [ Prelude.Just ("revision" Data..= revision),
             Prelude.Just
               ( "workerConfigurationArn"
-                  Core..= workerConfigurationArn
+                  Data..= workerConfigurationArn
               )
           ]
       )

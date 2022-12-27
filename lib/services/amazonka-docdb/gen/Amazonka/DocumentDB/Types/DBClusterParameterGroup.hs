@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DocumentDB.Types.DBClusterParameterGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DocumentDB.Types.DBClusterParameterGroup where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Detailed information about a cluster parameter group.
@@ -29,11 +30,11 @@ import qualified Amazonka.Prelude as Prelude
 data DBClusterParameterGroup = DBClusterParameterGroup'
   { -- | The Amazon Resource Name (ARN) for the cluster parameter group.
     dbClusterParameterGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | Provides the name of the cluster parameter group.
+    dbClusterParameterGroupName :: Prelude.Maybe Prelude.Text,
     -- | Provides the name of the parameter group family that this cluster
     -- parameter group is compatible with.
     dbParameterGroupFamily :: Prelude.Maybe Prelude.Text,
-    -- | Provides the name of the cluster parameter group.
-    dbClusterParameterGroupName :: Prelude.Maybe Prelude.Text,
     -- | Provides the customer-specified description for this cluster parameter
     -- group.
     description :: Prelude.Maybe Prelude.Text
@@ -50,10 +51,10 @@ data DBClusterParameterGroup = DBClusterParameterGroup'
 --
 -- 'dbClusterParameterGroupArn', 'dbClusterParameterGroup_dbClusterParameterGroupArn' - The Amazon Resource Name (ARN) for the cluster parameter group.
 --
+-- 'dbClusterParameterGroupName', 'dbClusterParameterGroup_dbClusterParameterGroupName' - Provides the name of the cluster parameter group.
+--
 -- 'dbParameterGroupFamily', 'dbClusterParameterGroup_dbParameterGroupFamily' - Provides the name of the parameter group family that this cluster
 -- parameter group is compatible with.
---
--- 'dbClusterParameterGroupName', 'dbClusterParameterGroup_dbClusterParameterGroupName' - Provides the name of the cluster parameter group.
 --
 -- 'description', 'dbClusterParameterGroup_description' - Provides the customer-specified description for this cluster parameter
 -- group.
@@ -63,8 +64,8 @@ newDBClusterParameterGroup =
   DBClusterParameterGroup'
     { dbClusterParameterGroupArn =
         Prelude.Nothing,
-      dbParameterGroupFamily = Prelude.Nothing,
       dbClusterParameterGroupName = Prelude.Nothing,
+      dbParameterGroupFamily = Prelude.Nothing,
       description = Prelude.Nothing
     }
 
@@ -72,39 +73,39 @@ newDBClusterParameterGroup =
 dbClusterParameterGroup_dbClusterParameterGroupArn :: Lens.Lens' DBClusterParameterGroup (Prelude.Maybe Prelude.Text)
 dbClusterParameterGroup_dbClusterParameterGroupArn = Lens.lens (\DBClusterParameterGroup' {dbClusterParameterGroupArn} -> dbClusterParameterGroupArn) (\s@DBClusterParameterGroup' {} a -> s {dbClusterParameterGroupArn = a} :: DBClusterParameterGroup)
 
+-- | Provides the name of the cluster parameter group.
+dbClusterParameterGroup_dbClusterParameterGroupName :: Lens.Lens' DBClusterParameterGroup (Prelude.Maybe Prelude.Text)
+dbClusterParameterGroup_dbClusterParameterGroupName = Lens.lens (\DBClusterParameterGroup' {dbClusterParameterGroupName} -> dbClusterParameterGroupName) (\s@DBClusterParameterGroup' {} a -> s {dbClusterParameterGroupName = a} :: DBClusterParameterGroup)
+
 -- | Provides the name of the parameter group family that this cluster
 -- parameter group is compatible with.
 dbClusterParameterGroup_dbParameterGroupFamily :: Lens.Lens' DBClusterParameterGroup (Prelude.Maybe Prelude.Text)
 dbClusterParameterGroup_dbParameterGroupFamily = Lens.lens (\DBClusterParameterGroup' {dbParameterGroupFamily} -> dbParameterGroupFamily) (\s@DBClusterParameterGroup' {} a -> s {dbParameterGroupFamily = a} :: DBClusterParameterGroup)
-
--- | Provides the name of the cluster parameter group.
-dbClusterParameterGroup_dbClusterParameterGroupName :: Lens.Lens' DBClusterParameterGroup (Prelude.Maybe Prelude.Text)
-dbClusterParameterGroup_dbClusterParameterGroupName = Lens.lens (\DBClusterParameterGroup' {dbClusterParameterGroupName} -> dbClusterParameterGroupName) (\s@DBClusterParameterGroup' {} a -> s {dbClusterParameterGroupName = a} :: DBClusterParameterGroup)
 
 -- | Provides the customer-specified description for this cluster parameter
 -- group.
 dbClusterParameterGroup_description :: Lens.Lens' DBClusterParameterGroup (Prelude.Maybe Prelude.Text)
 dbClusterParameterGroup_description = Lens.lens (\DBClusterParameterGroup' {description} -> description) (\s@DBClusterParameterGroup' {} a -> s {description = a} :: DBClusterParameterGroup)
 
-instance Core.FromXML DBClusterParameterGroup where
+instance Data.FromXML DBClusterParameterGroup where
   parseXML x =
     DBClusterParameterGroup'
-      Prelude.<$> (x Core..@? "DBClusterParameterGroupArn")
-      Prelude.<*> (x Core..@? "DBParameterGroupFamily")
-      Prelude.<*> (x Core..@? "DBClusterParameterGroupName")
-      Prelude.<*> (x Core..@? "Description")
+      Prelude.<$> (x Data..@? "DBClusterParameterGroupArn")
+      Prelude.<*> (x Data..@? "DBClusterParameterGroupName")
+      Prelude.<*> (x Data..@? "DBParameterGroupFamily")
+      Prelude.<*> (x Data..@? "Description")
 
 instance Prelude.Hashable DBClusterParameterGroup where
   hashWithSalt _salt DBClusterParameterGroup' {..} =
     _salt
       `Prelude.hashWithSalt` dbClusterParameterGroupArn
-      `Prelude.hashWithSalt` dbParameterGroupFamily
       `Prelude.hashWithSalt` dbClusterParameterGroupName
+      `Prelude.hashWithSalt` dbParameterGroupFamily
       `Prelude.hashWithSalt` description
 
 instance Prelude.NFData DBClusterParameterGroup where
   rnf DBClusterParameterGroup' {..} =
     Prelude.rnf dbClusterParameterGroupArn
-      `Prelude.seq` Prelude.rnf dbParameterGroupFamily
       `Prelude.seq` Prelude.rnf dbClusterParameterGroupName
+      `Prelude.seq` Prelude.rnf dbParameterGroupFamily
       `Prelude.seq` Prelude.rnf description

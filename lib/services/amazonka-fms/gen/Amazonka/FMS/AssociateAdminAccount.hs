@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.AssociateAdminAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.FMS.AssociateAdminAccount
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,7 +95,8 @@ instance Core.AWSRequest AssociateAdminAccount where
   type
     AWSResponse AssociateAdminAccount =
       AssociateAdminAccountResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull AssociateAdminAccountResponse'
 
@@ -106,32 +108,32 @@ instance Prelude.NFData AssociateAdminAccount where
   rnf AssociateAdminAccount' {..} =
     Prelude.rnf adminAccount
 
-instance Core.ToHeaders AssociateAdminAccount where
+instance Data.ToHeaders AssociateAdminAccount where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSFMS_20180101.AssociateAdminAccount" ::
+              Data.=# ( "AWSFMS_20180101.AssociateAdminAccount" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateAdminAccount where
+instance Data.ToJSON AssociateAdminAccount where
   toJSON AssociateAdminAccount' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("AdminAccount" Core..= adminAccount)]
+          [Prelude.Just ("AdminAccount" Data..= adminAccount)]
       )
 
-instance Core.ToPath AssociateAdminAccount where
+instance Data.ToPath AssociateAdminAccount where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AssociateAdminAccount where
+instance Data.ToQuery AssociateAdminAccount where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateAdminAccountResponse' smart constructor.

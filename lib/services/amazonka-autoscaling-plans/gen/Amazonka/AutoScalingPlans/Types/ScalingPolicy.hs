@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScalingPlans.Types.ScalingPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.AutoScalingPlans.Types.ScalingPolicy where
 import Amazonka.AutoScalingPlans.Types.PolicyType
 import Amazonka.AutoScalingPlans.Types.TargetTrackingConfiguration
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a scaling policy.
@@ -80,15 +81,15 @@ scalingPolicy_policyName = Lens.lens (\ScalingPolicy' {policyName} -> policyName
 scalingPolicy_policyType :: Lens.Lens' ScalingPolicy PolicyType
 scalingPolicy_policyType = Lens.lens (\ScalingPolicy' {policyType} -> policyType) (\s@ScalingPolicy' {} a -> s {policyType = a} :: ScalingPolicy)
 
-instance Core.FromJSON ScalingPolicy where
+instance Data.FromJSON ScalingPolicy where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ScalingPolicy"
       ( \x ->
           ScalingPolicy'
-            Prelude.<$> (x Core..:? "TargetTrackingConfiguration")
-            Prelude.<*> (x Core..: "PolicyName")
-            Prelude.<*> (x Core..: "PolicyType")
+            Prelude.<$> (x Data..:? "TargetTrackingConfiguration")
+            Prelude.<*> (x Data..: "PolicyName")
+            Prelude.<*> (x Data..: "PolicyType")
       )
 
 instance Prelude.Hashable ScalingPolicy where

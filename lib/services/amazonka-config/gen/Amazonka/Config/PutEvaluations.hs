@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.PutEvaluations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -130,12 +131,13 @@ instance Core.AWSRequest PutEvaluations where
   type
     AWSResponse PutEvaluations =
       PutEvaluationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutEvaluationsResponse'
-            Prelude.<$> ( x Core..?> "FailedEvaluations"
+            Prelude.<$> ( x Data..?> "FailedEvaluations"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -153,35 +155,35 @@ instance Prelude.NFData PutEvaluations where
       `Prelude.seq` Prelude.rnf testMode
       `Prelude.seq` Prelude.rnf resultToken
 
-instance Core.ToHeaders PutEvaluations where
+instance Data.ToHeaders PutEvaluations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.PutEvaluations" ::
+              Data.=# ( "StarlingDoveService.PutEvaluations" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutEvaluations where
+instance Data.ToJSON PutEvaluations where
   toJSON PutEvaluations' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Evaluations" Core..=) Prelude.<$> evaluations,
-            ("TestMode" Core..=) Prelude.<$> testMode,
-            Prelude.Just ("ResultToken" Core..= resultToken)
+          [ ("Evaluations" Data..=) Prelude.<$> evaluations,
+            ("TestMode" Data..=) Prelude.<$> testMode,
+            Prelude.Just ("ResultToken" Data..= resultToken)
           ]
       )
 
-instance Core.ToPath PutEvaluations where
+instance Data.ToPath PutEvaluations where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutEvaluations where
+instance Data.ToQuery PutEvaluations where
   toQuery = Prelude.const Prelude.mempty
 
 -- |

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.CreateFlowDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.SageMaker.CreateFlowDefinition
     newCreateFlowDefinition,
 
     -- * Request Lenses
-    createFlowDefinition_humanLoopRequestSource,
     createFlowDefinition_humanLoopActivationConfig,
+    createFlowDefinition_humanLoopRequestSource,
     createFlowDefinition_tags,
     createFlowDefinition_flowDefinitionName,
     createFlowDefinition_humanLoopConfig,
@@ -46,7 +46,8 @@ module Amazonka.SageMaker.CreateFlowDefinition
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,13 +55,13 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newCreateFlowDefinition' smart constructor.
 data CreateFlowDefinition = CreateFlowDefinition'
-  { -- | Container for configuring the source of human task requests. Use to
+  { -- | An object containing information about the events that trigger a human
+    -- workflow.
+    humanLoopActivationConfig :: Prelude.Maybe HumanLoopActivationConfig,
+    -- | Container for configuring the source of human task requests. Use to
     -- specify if Amazon Rekognition or Amazon Textract is used as an
     -- integration source.
     humanLoopRequestSource :: Prelude.Maybe HumanLoopRequestSource,
-    -- | An object containing information about the events that trigger a human
-    -- workflow.
-    humanLoopActivationConfig :: Prelude.Maybe HumanLoopActivationConfig,
     -- | An array of key-value pairs that contain metadata to help you categorize
     -- and organize a flow definition. Each tag consists of a key and a value,
     -- both of which you define.
@@ -88,12 +89,12 @@ data CreateFlowDefinition = CreateFlowDefinition'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'humanLoopActivationConfig', 'createFlowDefinition_humanLoopActivationConfig' - An object containing information about the events that trigger a human
+-- workflow.
+--
 -- 'humanLoopRequestSource', 'createFlowDefinition_humanLoopRequestSource' - Container for configuring the source of human task requests. Use to
 -- specify if Amazon Rekognition or Amazon Textract is used as an
 -- integration source.
---
--- 'humanLoopActivationConfig', 'createFlowDefinition_humanLoopActivationConfig' - An object containing information about the events that trigger a human
--- workflow.
 --
 -- 'tags', 'createFlowDefinition_tags' - An array of key-value pairs that contain metadata to help you categorize
 -- and organize a flow definition. Each tag consists of a key and a value,
@@ -126,9 +127,9 @@ newCreateFlowDefinition
   pOutputConfig_
   pRoleArn_ =
     CreateFlowDefinition'
-      { humanLoopRequestSource =
+      { humanLoopActivationConfig =
           Prelude.Nothing,
-        humanLoopActivationConfig = Prelude.Nothing,
+        humanLoopRequestSource = Prelude.Nothing,
         tags = Prelude.Nothing,
         flowDefinitionName = pFlowDefinitionName_,
         humanLoopConfig = pHumanLoopConfig_,
@@ -136,16 +137,16 @@ newCreateFlowDefinition
         roleArn = pRoleArn_
       }
 
+-- | An object containing information about the events that trigger a human
+-- workflow.
+createFlowDefinition_humanLoopActivationConfig :: Lens.Lens' CreateFlowDefinition (Prelude.Maybe HumanLoopActivationConfig)
+createFlowDefinition_humanLoopActivationConfig = Lens.lens (\CreateFlowDefinition' {humanLoopActivationConfig} -> humanLoopActivationConfig) (\s@CreateFlowDefinition' {} a -> s {humanLoopActivationConfig = a} :: CreateFlowDefinition)
+
 -- | Container for configuring the source of human task requests. Use to
 -- specify if Amazon Rekognition or Amazon Textract is used as an
 -- integration source.
 createFlowDefinition_humanLoopRequestSource :: Lens.Lens' CreateFlowDefinition (Prelude.Maybe HumanLoopRequestSource)
 createFlowDefinition_humanLoopRequestSource = Lens.lens (\CreateFlowDefinition' {humanLoopRequestSource} -> humanLoopRequestSource) (\s@CreateFlowDefinition' {} a -> s {humanLoopRequestSource = a} :: CreateFlowDefinition)
-
--- | An object containing information about the events that trigger a human
--- workflow.
-createFlowDefinition_humanLoopActivationConfig :: Lens.Lens' CreateFlowDefinition (Prelude.Maybe HumanLoopActivationConfig)
-createFlowDefinition_humanLoopActivationConfig = Lens.lens (\CreateFlowDefinition' {humanLoopActivationConfig} -> humanLoopActivationConfig) (\s@CreateFlowDefinition' {} a -> s {humanLoopActivationConfig = a} :: CreateFlowDefinition)
 
 -- | An array of key-value pairs that contain metadata to help you categorize
 -- and organize a flow definition. Each tag consists of a key and a value,
@@ -177,19 +178,21 @@ instance Core.AWSRequest CreateFlowDefinition where
   type
     AWSResponse CreateFlowDefinition =
       CreateFlowDefinitionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateFlowDefinitionResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "FlowDefinitionArn")
+            Prelude.<*> (x Data..:> "FlowDefinitionArn")
       )
 
 instance Prelude.Hashable CreateFlowDefinition where
   hashWithSalt _salt CreateFlowDefinition' {..} =
-    _salt `Prelude.hashWithSalt` humanLoopRequestSource
+    _salt
       `Prelude.hashWithSalt` humanLoopActivationConfig
+      `Prelude.hashWithSalt` humanLoopRequestSource
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` flowDefinitionName
       `Prelude.hashWithSalt` humanLoopConfig
@@ -198,51 +201,51 @@ instance Prelude.Hashable CreateFlowDefinition where
 
 instance Prelude.NFData CreateFlowDefinition where
   rnf CreateFlowDefinition' {..} =
-    Prelude.rnf humanLoopRequestSource
-      `Prelude.seq` Prelude.rnf humanLoopActivationConfig
+    Prelude.rnf humanLoopActivationConfig
+      `Prelude.seq` Prelude.rnf humanLoopRequestSource
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf flowDefinitionName
       `Prelude.seq` Prelude.rnf humanLoopConfig
       `Prelude.seq` Prelude.rnf outputConfig
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToHeaders CreateFlowDefinition where
+instance Data.ToHeaders CreateFlowDefinition where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.CreateFlowDefinition" ::
+              Data.=# ( "SageMaker.CreateFlowDefinition" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateFlowDefinition where
+instance Data.ToJSON CreateFlowDefinition where
   toJSON CreateFlowDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("HumanLoopRequestSource" Core..=)
-              Prelude.<$> humanLoopRequestSource,
-            ("HumanLoopActivationConfig" Core..=)
+          [ ("HumanLoopActivationConfig" Data..=)
               Prelude.<$> humanLoopActivationConfig,
-            ("Tags" Core..=) Prelude.<$> tags,
+            ("HumanLoopRequestSource" Data..=)
+              Prelude.<$> humanLoopRequestSource,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("FlowDefinitionName" Core..= flowDefinitionName),
+              ("FlowDefinitionName" Data..= flowDefinitionName),
             Prelude.Just
-              ("HumanLoopConfig" Core..= humanLoopConfig),
-            Prelude.Just ("OutputConfig" Core..= outputConfig),
-            Prelude.Just ("RoleArn" Core..= roleArn)
+              ("HumanLoopConfig" Data..= humanLoopConfig),
+            Prelude.Just ("OutputConfig" Data..= outputConfig),
+            Prelude.Just ("RoleArn" Data..= roleArn)
           ]
       )
 
-instance Core.ToPath CreateFlowDefinition where
+instance Data.ToPath CreateFlowDefinition where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateFlowDefinition where
+instance Data.ToQuery CreateFlowDefinition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateFlowDefinitionResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.XRay.Types.UnprocessedStatistics
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.XRay.Types.UnprocessedStatistics where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Sampling statistics from a call to
@@ -29,12 +30,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newUnprocessedStatistics' smart constructor.
 data UnprocessedStatistics = UnprocessedStatistics'
-  { -- | The name of the sampling rule.
-    ruleName :: Prelude.Maybe Prelude.Text,
-    -- | The error code.
+  { -- | The error code.
     errorCode :: Prelude.Maybe Prelude.Text,
     -- | The error message.
-    message :: Prelude.Maybe Prelude.Text
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The name of the sampling rule.
+    ruleName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,23 +47,19 @@ data UnprocessedStatistics = UnprocessedStatistics'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'ruleName', 'unprocessedStatistics_ruleName' - The name of the sampling rule.
---
 -- 'errorCode', 'unprocessedStatistics_errorCode' - The error code.
 --
 -- 'message', 'unprocessedStatistics_message' - The error message.
+--
+-- 'ruleName', 'unprocessedStatistics_ruleName' - The name of the sampling rule.
 newUnprocessedStatistics ::
   UnprocessedStatistics
 newUnprocessedStatistics =
   UnprocessedStatistics'
-    { ruleName = Prelude.Nothing,
-      errorCode = Prelude.Nothing,
-      message = Prelude.Nothing
+    { errorCode = Prelude.Nothing,
+      message = Prelude.Nothing,
+      ruleName = Prelude.Nothing
     }
-
--- | The name of the sampling rule.
-unprocessedStatistics_ruleName :: Lens.Lens' UnprocessedStatistics (Prelude.Maybe Prelude.Text)
-unprocessedStatistics_ruleName = Lens.lens (\UnprocessedStatistics' {ruleName} -> ruleName) (\s@UnprocessedStatistics' {} a -> s {ruleName = a} :: UnprocessedStatistics)
 
 -- | The error code.
 unprocessedStatistics_errorCode :: Lens.Lens' UnprocessedStatistics (Prelude.Maybe Prelude.Text)
@@ -72,25 +69,29 @@ unprocessedStatistics_errorCode = Lens.lens (\UnprocessedStatistics' {errorCode}
 unprocessedStatistics_message :: Lens.Lens' UnprocessedStatistics (Prelude.Maybe Prelude.Text)
 unprocessedStatistics_message = Lens.lens (\UnprocessedStatistics' {message} -> message) (\s@UnprocessedStatistics' {} a -> s {message = a} :: UnprocessedStatistics)
 
-instance Core.FromJSON UnprocessedStatistics where
+-- | The name of the sampling rule.
+unprocessedStatistics_ruleName :: Lens.Lens' UnprocessedStatistics (Prelude.Maybe Prelude.Text)
+unprocessedStatistics_ruleName = Lens.lens (\UnprocessedStatistics' {ruleName} -> ruleName) (\s@UnprocessedStatistics' {} a -> s {ruleName = a} :: UnprocessedStatistics)
+
+instance Data.FromJSON UnprocessedStatistics where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UnprocessedStatistics"
       ( \x ->
           UnprocessedStatistics'
-            Prelude.<$> (x Core..:? "RuleName")
-            Prelude.<*> (x Core..:? "ErrorCode")
-            Prelude.<*> (x Core..:? "Message")
+            Prelude.<$> (x Data..:? "ErrorCode")
+            Prelude.<*> (x Data..:? "Message")
+            Prelude.<*> (x Data..:? "RuleName")
       )
 
 instance Prelude.Hashable UnprocessedStatistics where
   hashWithSalt _salt UnprocessedStatistics' {..} =
-    _salt `Prelude.hashWithSalt` ruleName
-      `Prelude.hashWithSalt` errorCode
+    _salt `Prelude.hashWithSalt` errorCode
       `Prelude.hashWithSalt` message
+      `Prelude.hashWithSalt` ruleName
 
 instance Prelude.NFData UnprocessedStatistics where
   rnf UnprocessedStatistics' {..} =
-    Prelude.rnf ruleName
-      `Prelude.seq` Prelude.rnf errorCode
+    Prelude.rnf errorCode
       `Prelude.seq` Prelude.rnf message
+      `Prelude.seq` Prelude.rnf ruleName

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.AssociatedAssetsSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,19 @@
 module Amazonka.IoTSiteWise.Types.AssociatedAssetsSummary where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types.AssetHierarchy
 import Amazonka.IoTSiteWise.Types.AssetStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains a summary of an associated asset.
 --
 -- /See:/ 'newAssociatedAssetsSummary' smart constructor.
 data AssociatedAssetsSummary = AssociatedAssetsSummary'
-  { -- | The ID of the asset.
+  { -- | A description for the asset.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the asset.
     id :: Prelude.Text,
     -- | The
     -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
@@ -42,9 +45,9 @@ data AssociatedAssetsSummary = AssociatedAssetsSummary'
     -- | The ID of the asset model used to create the asset.
     assetModelId :: Prelude.Text,
     -- | The date the asset was created, in Unix epoch time.
-    creationDate :: Core.POSIX,
+    creationDate :: Data.POSIX,
     -- | The date the asset was last updated, in Unix epoch time.
-    lastUpdateDate :: Core.POSIX,
+    lastUpdateDate :: Data.POSIX,
     -- | The current status of the asset.
     status :: AssetStatus,
     -- | A list of asset hierarchies that each contain a @hierarchyId@. A
@@ -60,6 +63,8 @@ data AssociatedAssetsSummary = AssociatedAssetsSummary'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'description', 'associatedAssetsSummary_description' - A description for the asset.
 --
 -- 'id', 'associatedAssetsSummary_id' - The ID of the asset.
 --
@@ -106,16 +111,22 @@ newAssociatedAssetsSummary
   pLastUpdateDate_
   pStatus_ =
     AssociatedAssetsSummary'
-      { id = pId_,
+      { description =
+          Prelude.Nothing,
+        id = pId_,
         arn = pArn_,
         name = pName_,
         assetModelId = pAssetModelId_,
-        creationDate = Core._Time Lens.# pCreationDate_,
+        creationDate = Data._Time Lens.# pCreationDate_,
         lastUpdateDate =
-          Core._Time Lens.# pLastUpdateDate_,
+          Data._Time Lens.# pLastUpdateDate_,
         status = pStatus_,
         hierarchies = Prelude.mempty
       }
+
+-- | A description for the asset.
+associatedAssetsSummary_description :: Lens.Lens' AssociatedAssetsSummary (Prelude.Maybe Prelude.Text)
+associatedAssetsSummary_description = Lens.lens (\AssociatedAssetsSummary' {description} -> description) (\s@AssociatedAssetsSummary' {} a -> s {description = a} :: AssociatedAssetsSummary)
 
 -- | The ID of the asset.
 associatedAssetsSummary_id :: Lens.Lens' AssociatedAssetsSummary Prelude.Text
@@ -139,11 +150,11 @@ associatedAssetsSummary_assetModelId = Lens.lens (\AssociatedAssetsSummary' {ass
 
 -- | The date the asset was created, in Unix epoch time.
 associatedAssetsSummary_creationDate :: Lens.Lens' AssociatedAssetsSummary Prelude.UTCTime
-associatedAssetsSummary_creationDate = Lens.lens (\AssociatedAssetsSummary' {creationDate} -> creationDate) (\s@AssociatedAssetsSummary' {} a -> s {creationDate = a} :: AssociatedAssetsSummary) Prelude.. Core._Time
+associatedAssetsSummary_creationDate = Lens.lens (\AssociatedAssetsSummary' {creationDate} -> creationDate) (\s@AssociatedAssetsSummary' {} a -> s {creationDate = a} :: AssociatedAssetsSummary) Prelude.. Data._Time
 
 -- | The date the asset was last updated, in Unix epoch time.
 associatedAssetsSummary_lastUpdateDate :: Lens.Lens' AssociatedAssetsSummary Prelude.UTCTime
-associatedAssetsSummary_lastUpdateDate = Lens.lens (\AssociatedAssetsSummary' {lastUpdateDate} -> lastUpdateDate) (\s@AssociatedAssetsSummary' {} a -> s {lastUpdateDate = a} :: AssociatedAssetsSummary) Prelude.. Core._Time
+associatedAssetsSummary_lastUpdateDate = Lens.lens (\AssociatedAssetsSummary' {lastUpdateDate} -> lastUpdateDate) (\s@AssociatedAssetsSummary' {} a -> s {lastUpdateDate = a} :: AssociatedAssetsSummary) Prelude.. Data._Time
 
 -- | The current status of the asset.
 associatedAssetsSummary_status :: Lens.Lens' AssociatedAssetsSummary AssetStatus
@@ -154,25 +165,27 @@ associatedAssetsSummary_status = Lens.lens (\AssociatedAssetsSummary' {status} -
 associatedAssetsSummary_hierarchies :: Lens.Lens' AssociatedAssetsSummary [AssetHierarchy]
 associatedAssetsSummary_hierarchies = Lens.lens (\AssociatedAssetsSummary' {hierarchies} -> hierarchies) (\s@AssociatedAssetsSummary' {} a -> s {hierarchies = a} :: AssociatedAssetsSummary) Prelude.. Lens.coerced
 
-instance Core.FromJSON AssociatedAssetsSummary where
+instance Data.FromJSON AssociatedAssetsSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AssociatedAssetsSummary"
       ( \x ->
           AssociatedAssetsSummary'
-            Prelude.<$> (x Core..: "id")
-            Prelude.<*> (x Core..: "arn")
-            Prelude.<*> (x Core..: "name")
-            Prelude.<*> (x Core..: "assetModelId")
-            Prelude.<*> (x Core..: "creationDate")
-            Prelude.<*> (x Core..: "lastUpdateDate")
-            Prelude.<*> (x Core..: "status")
-            Prelude.<*> (x Core..:? "hierarchies" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "description")
+            Prelude.<*> (x Data..: "id")
+            Prelude.<*> (x Data..: "arn")
+            Prelude.<*> (x Data..: "name")
+            Prelude.<*> (x Data..: "assetModelId")
+            Prelude.<*> (x Data..: "creationDate")
+            Prelude.<*> (x Data..: "lastUpdateDate")
+            Prelude.<*> (x Data..: "status")
+            Prelude.<*> (x Data..:? "hierarchies" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable AssociatedAssetsSummary where
   hashWithSalt _salt AssociatedAssetsSummary' {..} =
-    _salt `Prelude.hashWithSalt` id
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` id
       `Prelude.hashWithSalt` arn
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` assetModelId
@@ -183,7 +196,8 @@ instance Prelude.Hashable AssociatedAssetsSummary where
 
 instance Prelude.NFData AssociatedAssetsSummary where
   rnf AssociatedAssetsSummary' {..} =
-    Prelude.rnf id
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf arn
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf assetModelId

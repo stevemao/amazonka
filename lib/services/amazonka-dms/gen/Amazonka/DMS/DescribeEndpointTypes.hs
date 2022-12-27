@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DMS.DescribeEndpointTypes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,15 +38,16 @@ module Amazonka.DMS.DescribeEndpointTypes
     newDescribeEndpointTypesResponse,
 
     -- * Response Lenses
-    describeEndpointTypesResponse_supportedEndpointTypes,
     describeEndpointTypesResponse_marker,
+    describeEndpointTypesResponse_supportedEndpointTypes,
     describeEndpointTypesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DMS.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -157,15 +158,16 @@ instance Core.AWSRequest DescribeEndpointTypes where
   type
     AWSResponse DescribeEndpointTypes =
       DescribeEndpointTypesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeEndpointTypesResponse'
-            Prelude.<$> ( x Core..?> "SupportedEndpointTypes"
+            Prelude.<$> (x Data..?> "Marker")
+            Prelude.<*> ( x Data..?> "SupportedEndpointTypes"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -181,47 +183,47 @@ instance Prelude.NFData DescribeEndpointTypes where
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
 
-instance Core.ToHeaders DescribeEndpointTypes where
+instance Data.ToHeaders DescribeEndpointTypes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonDMSv20160101.DescribeEndpointTypes" ::
+              Data.=# ( "AmazonDMSv20160101.DescribeEndpointTypes" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeEndpointTypes where
+instance Data.ToJSON DescribeEndpointTypes where
   toJSON DescribeEndpointTypes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("Marker" Core..=) Prelude.<$> marker,
-            ("MaxRecords" Core..=) Prelude.<$> maxRecords
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("Marker" Data..=) Prelude.<$> marker,
+            ("MaxRecords" Data..=) Prelude.<$> maxRecords
           ]
       )
 
-instance Core.ToPath DescribeEndpointTypes where
+instance Data.ToPath DescribeEndpointTypes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeEndpointTypes where
+instance Data.ToQuery DescribeEndpointTypes where
   toQuery = Prelude.const Prelude.mempty
 
 -- |
 --
 -- /See:/ 'newDescribeEndpointTypesResponse' smart constructor.
 data DescribeEndpointTypesResponse = DescribeEndpointTypesResponse'
-  { -- | The types of endpoints that are supported.
-    supportedEndpointTypes :: Prelude.Maybe [SupportedEndpointType],
-    -- | An optional pagination token provided by a previous request. If this
+  { -- | An optional pagination token provided by a previous request. If this
     -- parameter is specified, the response includes only records beyond the
     -- marker, up to the value specified by @MaxRecords@.
     marker :: Prelude.Maybe Prelude.Text,
+    -- | The types of endpoints that are supported.
+    supportedEndpointTypes :: Prelude.Maybe [SupportedEndpointType],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -235,11 +237,11 @@ data DescribeEndpointTypesResponse = DescribeEndpointTypesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'supportedEndpointTypes', 'describeEndpointTypesResponse_supportedEndpointTypes' - The types of endpoints that are supported.
---
 -- 'marker', 'describeEndpointTypesResponse_marker' - An optional pagination token provided by a previous request. If this
 -- parameter is specified, the response includes only records beyond the
 -- marker, up to the value specified by @MaxRecords@.
+--
+-- 'supportedEndpointTypes', 'describeEndpointTypesResponse_supportedEndpointTypes' - The types of endpoints that are supported.
 --
 -- 'httpStatus', 'describeEndpointTypesResponse_httpStatus' - The response's http status code.
 newDescribeEndpointTypesResponse ::
@@ -248,15 +250,11 @@ newDescribeEndpointTypesResponse ::
   DescribeEndpointTypesResponse
 newDescribeEndpointTypesResponse pHttpStatus_ =
   DescribeEndpointTypesResponse'
-    { supportedEndpointTypes =
+    { marker =
         Prelude.Nothing,
-      marker = Prelude.Nothing,
+      supportedEndpointTypes = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The types of endpoints that are supported.
-describeEndpointTypesResponse_supportedEndpointTypes :: Lens.Lens' DescribeEndpointTypesResponse (Prelude.Maybe [SupportedEndpointType])
-describeEndpointTypesResponse_supportedEndpointTypes = Lens.lens (\DescribeEndpointTypesResponse' {supportedEndpointTypes} -> supportedEndpointTypes) (\s@DescribeEndpointTypesResponse' {} a -> s {supportedEndpointTypes = a} :: DescribeEndpointTypesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | An optional pagination token provided by a previous request. If this
 -- parameter is specified, the response includes only records beyond the
@@ -264,12 +262,16 @@ describeEndpointTypesResponse_supportedEndpointTypes = Lens.lens (\DescribeEndpo
 describeEndpointTypesResponse_marker :: Lens.Lens' DescribeEndpointTypesResponse (Prelude.Maybe Prelude.Text)
 describeEndpointTypesResponse_marker = Lens.lens (\DescribeEndpointTypesResponse' {marker} -> marker) (\s@DescribeEndpointTypesResponse' {} a -> s {marker = a} :: DescribeEndpointTypesResponse)
 
+-- | The types of endpoints that are supported.
+describeEndpointTypesResponse_supportedEndpointTypes :: Lens.Lens' DescribeEndpointTypesResponse (Prelude.Maybe [SupportedEndpointType])
+describeEndpointTypesResponse_supportedEndpointTypes = Lens.lens (\DescribeEndpointTypesResponse' {supportedEndpointTypes} -> supportedEndpointTypes) (\s@DescribeEndpointTypesResponse' {} a -> s {supportedEndpointTypes = a} :: DescribeEndpointTypesResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The response's http status code.
 describeEndpointTypesResponse_httpStatus :: Lens.Lens' DescribeEndpointTypesResponse Prelude.Int
 describeEndpointTypesResponse_httpStatus = Lens.lens (\DescribeEndpointTypesResponse' {httpStatus} -> httpStatus) (\s@DescribeEndpointTypesResponse' {} a -> s {httpStatus = a} :: DescribeEndpointTypesResponse)
 
 instance Prelude.NFData DescribeEndpointTypesResponse where
   rnf DescribeEndpointTypesResponse' {..} =
-    Prelude.rnf supportedEndpointTypes
-      `Prelude.seq` Prelude.rnf marker
+    Prelude.rnf marker
+      `Prelude.seq` Prelude.rnf supportedEndpointTypes
       `Prelude.seq` Prelude.rnf httpStatus

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.Types.CustomDomainConfigType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CognitoIdentityProvider.Types.CustomDomainConfigType where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configuration for a custom domain that hosts the sign-up and sign-in
@@ -62,13 +63,13 @@ newCustomDomainConfigType pCertificateArn_ =
 customDomainConfigType_certificateArn :: Lens.Lens' CustomDomainConfigType Prelude.Text
 customDomainConfigType_certificateArn = Lens.lens (\CustomDomainConfigType' {certificateArn} -> certificateArn) (\s@CustomDomainConfigType' {} a -> s {certificateArn = a} :: CustomDomainConfigType)
 
-instance Core.FromJSON CustomDomainConfigType where
+instance Data.FromJSON CustomDomainConfigType where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CustomDomainConfigType"
       ( \x ->
           CustomDomainConfigType'
-            Prelude.<$> (x Core..: "CertificateArn")
+            Prelude.<$> (x Data..: "CertificateArn")
       )
 
 instance Prelude.Hashable CustomDomainConfigType where
@@ -79,11 +80,11 @@ instance Prelude.NFData CustomDomainConfigType where
   rnf CustomDomainConfigType' {..} =
     Prelude.rnf certificateArn
 
-instance Core.ToJSON CustomDomainConfigType where
+instance Data.ToJSON CustomDomainConfigType where
   toJSON CustomDomainConfigType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("CertificateArn" Core..= certificateArn)
+              ("CertificateArn" Data..= certificateArn)
           ]
       )

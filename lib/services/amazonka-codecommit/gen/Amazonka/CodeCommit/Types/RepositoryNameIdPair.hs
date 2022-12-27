@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.Types.RepositoryNameIdPair
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeCommit.Types.RepositoryNameIdPair where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a repository name and ID.
@@ -62,14 +63,14 @@ repositoryNameIdPair_repositoryId = Lens.lens (\RepositoryNameIdPair' {repositor
 repositoryNameIdPair_repositoryName :: Lens.Lens' RepositoryNameIdPair (Prelude.Maybe Prelude.Text)
 repositoryNameIdPair_repositoryName = Lens.lens (\RepositoryNameIdPair' {repositoryName} -> repositoryName) (\s@RepositoryNameIdPair' {} a -> s {repositoryName = a} :: RepositoryNameIdPair)
 
-instance Core.FromJSON RepositoryNameIdPair where
+instance Data.FromJSON RepositoryNameIdPair where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RepositoryNameIdPair"
       ( \x ->
           RepositoryNameIdPair'
-            Prelude.<$> (x Core..:? "repositoryId")
-            Prelude.<*> (x Core..:? "repositoryName")
+            Prelude.<$> (x Data..:? "repositoryId")
+            Prelude.<*> (x Data..:? "repositoryName")
       )
 
 instance Prelude.Hashable RepositoryNameIdPair where

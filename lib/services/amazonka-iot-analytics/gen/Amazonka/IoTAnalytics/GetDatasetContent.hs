@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.GetDatasetContent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,16 +35,17 @@ module Amazonka.IoTAnalytics.GetDatasetContent
     newGetDatasetContentResponse,
 
     -- * Response Lenses
-    getDatasetContentResponse_status,
     getDatasetContentResponse_entries,
+    getDatasetContentResponse_status,
     getDatasetContentResponse_timestamp,
     getDatasetContentResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,14 +101,15 @@ instance Core.AWSRequest GetDatasetContent where
   type
     AWSResponse GetDatasetContent =
       GetDatasetContentResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDatasetContentResponse'
-            Prelude.<$> (x Core..?> "status")
-            Prelude.<*> (x Core..?> "entries" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "timestamp")
+            Prelude.<$> (x Data..?> "entries" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "status")
+            Prelude.<*> (x Data..?> "timestamp")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -121,26 +123,26 @@ instance Prelude.NFData GetDatasetContent where
     Prelude.rnf versionId
       `Prelude.seq` Prelude.rnf datasetName
 
-instance Core.ToHeaders GetDatasetContent where
+instance Data.ToHeaders GetDatasetContent where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetDatasetContent where
+instance Data.ToPath GetDatasetContent where
   toPath GetDatasetContent' {..} =
     Prelude.mconcat
-      ["/datasets/", Core.toBS datasetName, "/content"]
+      ["/datasets/", Data.toBS datasetName, "/content"]
 
-instance Core.ToQuery GetDatasetContent where
+instance Data.ToQuery GetDatasetContent where
   toQuery GetDatasetContent' {..} =
-    Prelude.mconcat ["versionId" Core.=: versionId]
+    Prelude.mconcat ["versionId" Data.=: versionId]
 
 -- | /See:/ 'newGetDatasetContentResponse' smart constructor.
 data GetDatasetContentResponse = GetDatasetContentResponse'
-  { -- | The status of the dataset content.
-    status :: Prelude.Maybe DatasetContentStatus,
-    -- | A list of @DatasetEntry@ objects.
+  { -- | A list of @DatasetEntry@ objects.
     entries :: Prelude.Maybe [DatasetEntry],
+    -- | The status of the dataset content.
+    status :: Prelude.Maybe DatasetContentStatus,
     -- | The time when the request was made.
-    timestamp :: Prelude.Maybe Core.POSIX,
+    timestamp :: Prelude.Maybe Data.POSIX,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -154,9 +156,9 @@ data GetDatasetContentResponse = GetDatasetContentResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'getDatasetContentResponse_status' - The status of the dataset content.
---
 -- 'entries', 'getDatasetContentResponse_entries' - A list of @DatasetEntry@ objects.
+--
+-- 'status', 'getDatasetContentResponse_status' - The status of the dataset content.
 --
 -- 'timestamp', 'getDatasetContentResponse_timestamp' - The time when the request was made.
 --
@@ -167,24 +169,24 @@ newGetDatasetContentResponse ::
   GetDatasetContentResponse
 newGetDatasetContentResponse pHttpStatus_ =
   GetDatasetContentResponse'
-    { status =
+    { entries =
         Prelude.Nothing,
-      entries = Prelude.Nothing,
+      status = Prelude.Nothing,
       timestamp = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The status of the dataset content.
-getDatasetContentResponse_status :: Lens.Lens' GetDatasetContentResponse (Prelude.Maybe DatasetContentStatus)
-getDatasetContentResponse_status = Lens.lens (\GetDatasetContentResponse' {status} -> status) (\s@GetDatasetContentResponse' {} a -> s {status = a} :: GetDatasetContentResponse)
 
 -- | A list of @DatasetEntry@ objects.
 getDatasetContentResponse_entries :: Lens.Lens' GetDatasetContentResponse (Prelude.Maybe [DatasetEntry])
 getDatasetContentResponse_entries = Lens.lens (\GetDatasetContentResponse' {entries} -> entries) (\s@GetDatasetContentResponse' {} a -> s {entries = a} :: GetDatasetContentResponse) Prelude.. Lens.mapping Lens.coerced
 
+-- | The status of the dataset content.
+getDatasetContentResponse_status :: Lens.Lens' GetDatasetContentResponse (Prelude.Maybe DatasetContentStatus)
+getDatasetContentResponse_status = Lens.lens (\GetDatasetContentResponse' {status} -> status) (\s@GetDatasetContentResponse' {} a -> s {status = a} :: GetDatasetContentResponse)
+
 -- | The time when the request was made.
 getDatasetContentResponse_timestamp :: Lens.Lens' GetDatasetContentResponse (Prelude.Maybe Prelude.UTCTime)
-getDatasetContentResponse_timestamp = Lens.lens (\GetDatasetContentResponse' {timestamp} -> timestamp) (\s@GetDatasetContentResponse' {} a -> s {timestamp = a} :: GetDatasetContentResponse) Prelude.. Lens.mapping Core._Time
+getDatasetContentResponse_timestamp = Lens.lens (\GetDatasetContentResponse' {timestamp} -> timestamp) (\s@GetDatasetContentResponse' {} a -> s {timestamp = a} :: GetDatasetContentResponse) Prelude.. Lens.mapping Data._Time
 
 -- | The response's http status code.
 getDatasetContentResponse_httpStatus :: Lens.Lens' GetDatasetContentResponse Prelude.Int
@@ -192,7 +194,7 @@ getDatasetContentResponse_httpStatus = Lens.lens (\GetDatasetContentResponse' {h
 
 instance Prelude.NFData GetDatasetContentResponse where
   rnf GetDatasetContentResponse' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf entries
+    Prelude.rnf entries
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf timestamp
       `Prelude.seq` Prelude.rnf httpStatus

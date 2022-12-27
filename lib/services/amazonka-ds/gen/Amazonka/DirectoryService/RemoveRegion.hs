@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.RemoveRegion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.DirectoryService.RemoveRegion
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,7 +80,8 @@ removeRegion_directoryId = Lens.lens (\RemoveRegion' {directoryId} -> directoryI
 
 instance Core.AWSRequest RemoveRegion where
   type AWSResponse RemoveRegion = RemoveRegionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -94,32 +96,32 @@ instance Prelude.Hashable RemoveRegion where
 instance Prelude.NFData RemoveRegion where
   rnf RemoveRegion' {..} = Prelude.rnf directoryId
 
-instance Core.ToHeaders RemoveRegion where
+instance Data.ToHeaders RemoveRegion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.RemoveRegion" ::
+              Data.=# ( "DirectoryService_20150416.RemoveRegion" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RemoveRegion where
+instance Data.ToJSON RemoveRegion where
   toJSON RemoveRegion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("DirectoryId" Core..= directoryId)]
+          [Prelude.Just ("DirectoryId" Data..= directoryId)]
       )
 
-instance Core.ToPath RemoveRegion where
+instance Data.ToPath RemoveRegion where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RemoveRegion where
+instance Data.ToQuery RemoveRegion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRemoveRegionResponse' smart constructor.

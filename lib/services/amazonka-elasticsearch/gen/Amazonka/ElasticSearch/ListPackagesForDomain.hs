@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.ListPackagesForDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.ElasticSearch.ListPackagesForDomain
     newListPackagesForDomain,
 
     -- * Request Lenses
-    listPackagesForDomain_nextToken,
     listPackagesForDomain_maxResults,
+    listPackagesForDomain_nextToken,
     listPackagesForDomain_domainName,
 
     -- * Destructuring the Response
@@ -43,8 +43,9 @@ module Amazonka.ElasticSearch.ListPackagesForDomain
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,12 +54,12 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListPackagesForDomain' smart constructor.
 data ListPackagesForDomain = ListPackagesForDomain'
-  { -- | Used for pagination. Only necessary if a previous API call includes a
+  { -- | Limits results to a maximum number of packages.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | Used for pagination. Only necessary if a previous API call includes a
     -- non-null NextToken value. If provided, returns results for the next
     -- page.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Limits results to a maximum number of packages.
-    maxResults :: Prelude.Maybe Prelude.Int,
     -- | The name of the domain for which you want to list associated packages.
     domainName :: Prelude.Text
   }
@@ -72,11 +73,11 @@ data ListPackagesForDomain = ListPackagesForDomain'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listPackagesForDomain_maxResults' - Limits results to a maximum number of packages.
+--
 -- 'nextToken', 'listPackagesForDomain_nextToken' - Used for pagination. Only necessary if a previous API call includes a
 -- non-null NextToken value. If provided, returns results for the next
 -- page.
---
--- 'maxResults', 'listPackagesForDomain_maxResults' - Limits results to a maximum number of packages.
 --
 -- 'domainName', 'listPackagesForDomain_domainName' - The name of the domain for which you want to list associated packages.
 newListPackagesForDomain ::
@@ -85,20 +86,21 @@ newListPackagesForDomain ::
   ListPackagesForDomain
 newListPackagesForDomain pDomainName_ =
   ListPackagesForDomain'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       domainName = pDomainName_
     }
+
+-- | Limits results to a maximum number of packages.
+listPackagesForDomain_maxResults :: Lens.Lens' ListPackagesForDomain (Prelude.Maybe Prelude.Int)
+listPackagesForDomain_maxResults = Lens.lens (\ListPackagesForDomain' {maxResults} -> maxResults) (\s@ListPackagesForDomain' {} a -> s {maxResults = a} :: ListPackagesForDomain)
 
 -- | Used for pagination. Only necessary if a previous API call includes a
 -- non-null NextToken value. If provided, returns results for the next
 -- page.
 listPackagesForDomain_nextToken :: Lens.Lens' ListPackagesForDomain (Prelude.Maybe Prelude.Text)
 listPackagesForDomain_nextToken = Lens.lens (\ListPackagesForDomain' {nextToken} -> nextToken) (\s@ListPackagesForDomain' {} a -> s {nextToken = a} :: ListPackagesForDomain)
-
--- | Limits results to a maximum number of packages.
-listPackagesForDomain_maxResults :: Lens.Lens' ListPackagesForDomain (Prelude.Maybe Prelude.Int)
-listPackagesForDomain_maxResults = Lens.lens (\ListPackagesForDomain' {maxResults} -> maxResults) (\s@ListPackagesForDomain' {} a -> s {maxResults = a} :: ListPackagesForDomain)
 
 -- | The name of the domain for which you want to list associated packages.
 listPackagesForDomain_domainName :: Lens.Lens' ListPackagesForDomain Prelude.Text
@@ -108,46 +110,47 @@ instance Core.AWSRequest ListPackagesForDomain where
   type
     AWSResponse ListPackagesForDomain =
       ListPackagesForDomainResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPackagesForDomainResponse'
-            Prelude.<$> ( x Core..?> "DomainPackageDetailsList"
+            Prelude.<$> ( x Data..?> "DomainPackageDetailsList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListPackagesForDomain where
   hashWithSalt _salt ListPackagesForDomain' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` domainName
 
 instance Prelude.NFData ListPackagesForDomain where
   rnf ListPackagesForDomain' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf domainName
 
-instance Core.ToHeaders ListPackagesForDomain where
+instance Data.ToHeaders ListPackagesForDomain where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListPackagesForDomain where
+instance Data.ToPath ListPackagesForDomain where
   toPath ListPackagesForDomain' {..} =
     Prelude.mconcat
       [ "/2015-01-01/domain/",
-        Core.toBS domainName,
+        Data.toBS domainName,
         "/packages"
       ]
 
-instance Core.ToQuery ListPackagesForDomain where
+instance Data.ToQuery ListPackagesForDomain where
   toQuery ListPackagesForDomain' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | Container for response parameters to @ ListPackagesForDomain @

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.Types.SqsAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTEvents.Types.SqsAction where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types.Payload
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Sends information about the detector model instance and the event that
@@ -80,15 +81,15 @@ sqsAction_useBase64 = Lens.lens (\SqsAction' {useBase64} -> useBase64) (\s@SqsAc
 sqsAction_queueUrl :: Lens.Lens' SqsAction Prelude.Text
 sqsAction_queueUrl = Lens.lens (\SqsAction' {queueUrl} -> queueUrl) (\s@SqsAction' {} a -> s {queueUrl = a} :: SqsAction)
 
-instance Core.FromJSON SqsAction where
+instance Data.FromJSON SqsAction where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SqsAction"
       ( \x ->
           SqsAction'
-            Prelude.<$> (x Core..:? "payload")
-            Prelude.<*> (x Core..:? "useBase64")
-            Prelude.<*> (x Core..: "queueUrl")
+            Prelude.<$> (x Data..:? "payload")
+            Prelude.<*> (x Data..:? "useBase64")
+            Prelude.<*> (x Data..: "queueUrl")
       )
 
 instance Prelude.Hashable SqsAction where
@@ -103,12 +104,12 @@ instance Prelude.NFData SqsAction where
       `Prelude.seq` Prelude.rnf useBase64
       `Prelude.seq` Prelude.rnf queueUrl
 
-instance Core.ToJSON SqsAction where
+instance Data.ToJSON SqsAction where
   toJSON SqsAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("payload" Core..=) Prelude.<$> payload,
-            ("useBase64" Core..=) Prelude.<$> useBase64,
-            Prelude.Just ("queueUrl" Core..= queueUrl)
+          [ ("payload" Data..=) Prelude.<$> payload,
+            ("useBase64" Data..=) Prelude.<$> useBase64,
+            Prelude.Just ("queueUrl" Data..= queueUrl)
           ]
       )

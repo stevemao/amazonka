@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.Types.ExecutorConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CodePipeline.Types.ExecutorConfiguration where
 import Amazonka.CodePipeline.Types.JobWorkerExecutorConfiguration
 import Amazonka.CodePipeline.Types.LambdaExecutorConfiguration
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The action engine, or executor, related to the supported integration
@@ -31,10 +32,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newExecutorConfiguration' smart constructor.
 data ExecutorConfiguration = ExecutorConfiguration'
-  { -- | Details about the @Lambda@ executor of the action type.
-    lambdaExecutorConfiguration :: Prelude.Maybe LambdaExecutorConfiguration,
-    -- | Details about the @JobWorker@ executor of the action type.
-    jobWorkerExecutorConfiguration :: Prelude.Maybe JobWorkerExecutorConfiguration
+  { -- | Details about the @JobWorker@ executor of the action type.
+    jobWorkerExecutorConfiguration :: Prelude.Maybe JobWorkerExecutorConfiguration,
+    -- | Details about the @Lambda@ executor of the action type.
+    lambdaExecutorConfiguration :: Prelude.Maybe LambdaExecutorConfiguration
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,54 +47,54 @@ data ExecutorConfiguration = ExecutorConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'lambdaExecutorConfiguration', 'executorConfiguration_lambdaExecutorConfiguration' - Details about the @Lambda@ executor of the action type.
---
 -- 'jobWorkerExecutorConfiguration', 'executorConfiguration_jobWorkerExecutorConfiguration' - Details about the @JobWorker@ executor of the action type.
+--
+-- 'lambdaExecutorConfiguration', 'executorConfiguration_lambdaExecutorConfiguration' - Details about the @Lambda@ executor of the action type.
 newExecutorConfiguration ::
   ExecutorConfiguration
 newExecutorConfiguration =
   ExecutorConfiguration'
-    { lambdaExecutorConfiguration =
+    { jobWorkerExecutorConfiguration =
         Prelude.Nothing,
-      jobWorkerExecutorConfiguration = Prelude.Nothing
+      lambdaExecutorConfiguration = Prelude.Nothing
     }
-
--- | Details about the @Lambda@ executor of the action type.
-executorConfiguration_lambdaExecutorConfiguration :: Lens.Lens' ExecutorConfiguration (Prelude.Maybe LambdaExecutorConfiguration)
-executorConfiguration_lambdaExecutorConfiguration = Lens.lens (\ExecutorConfiguration' {lambdaExecutorConfiguration} -> lambdaExecutorConfiguration) (\s@ExecutorConfiguration' {} a -> s {lambdaExecutorConfiguration = a} :: ExecutorConfiguration)
 
 -- | Details about the @JobWorker@ executor of the action type.
 executorConfiguration_jobWorkerExecutorConfiguration :: Lens.Lens' ExecutorConfiguration (Prelude.Maybe JobWorkerExecutorConfiguration)
 executorConfiguration_jobWorkerExecutorConfiguration = Lens.lens (\ExecutorConfiguration' {jobWorkerExecutorConfiguration} -> jobWorkerExecutorConfiguration) (\s@ExecutorConfiguration' {} a -> s {jobWorkerExecutorConfiguration = a} :: ExecutorConfiguration)
 
-instance Core.FromJSON ExecutorConfiguration where
+-- | Details about the @Lambda@ executor of the action type.
+executorConfiguration_lambdaExecutorConfiguration :: Lens.Lens' ExecutorConfiguration (Prelude.Maybe LambdaExecutorConfiguration)
+executorConfiguration_lambdaExecutorConfiguration = Lens.lens (\ExecutorConfiguration' {lambdaExecutorConfiguration} -> lambdaExecutorConfiguration) (\s@ExecutorConfiguration' {} a -> s {lambdaExecutorConfiguration = a} :: ExecutorConfiguration)
+
+instance Data.FromJSON ExecutorConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ExecutorConfiguration"
       ( \x ->
           ExecutorConfiguration'
-            Prelude.<$> (x Core..:? "lambdaExecutorConfiguration")
-            Prelude.<*> (x Core..:? "jobWorkerExecutorConfiguration")
+            Prelude.<$> (x Data..:? "jobWorkerExecutorConfiguration")
+            Prelude.<*> (x Data..:? "lambdaExecutorConfiguration")
       )
 
 instance Prelude.Hashable ExecutorConfiguration where
   hashWithSalt _salt ExecutorConfiguration' {..} =
     _salt
-      `Prelude.hashWithSalt` lambdaExecutorConfiguration
       `Prelude.hashWithSalt` jobWorkerExecutorConfiguration
+      `Prelude.hashWithSalt` lambdaExecutorConfiguration
 
 instance Prelude.NFData ExecutorConfiguration where
   rnf ExecutorConfiguration' {..} =
-    Prelude.rnf lambdaExecutorConfiguration
-      `Prelude.seq` Prelude.rnf jobWorkerExecutorConfiguration
+    Prelude.rnf jobWorkerExecutorConfiguration
+      `Prelude.seq` Prelude.rnf lambdaExecutorConfiguration
 
-instance Core.ToJSON ExecutorConfiguration where
+instance Data.ToJSON ExecutorConfiguration where
   toJSON ExecutorConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("lambdaExecutorConfiguration" Core..=)
-              Prelude.<$> lambdaExecutorConfiguration,
-            ("jobWorkerExecutorConfiguration" Core..=)
-              Prelude.<$> jobWorkerExecutorConfiguration
+          [ ("jobWorkerExecutorConfiguration" Data..=)
+              Prelude.<$> jobWorkerExecutorConfiguration,
+            ("lambdaExecutorConfiguration" Data..=)
+              Prelude.<$> lambdaExecutorConfiguration
           ]
       )

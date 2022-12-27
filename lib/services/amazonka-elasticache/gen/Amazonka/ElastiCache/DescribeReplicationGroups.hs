@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.DescribeReplicationGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,8 +49,9 @@ module Amazonka.ElastiCache.DescribeReplicationGroups
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -168,16 +169,17 @@ instance Core.AWSRequest DescribeReplicationGroups where
   type
     AWSResponse DescribeReplicationGroups =
       DescribeReplicationGroupsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeReplicationGroupsResult"
       ( \s h x ->
           DescribeReplicationGroupsResponse'
-            Prelude.<$> (x Core..@? "Marker")
-            Prelude.<*> ( x Core..@? "ReplicationGroups"
+            Prelude.<$> (x Data..@? "Marker")
+            Prelude.<*> ( x Data..@? "ReplicationGroups"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "ReplicationGroup")
+                            Prelude.>>= Core.may (Data.parseXMLList "ReplicationGroup")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -194,22 +196,22 @@ instance Prelude.NFData DescribeReplicationGroups where
       `Prelude.seq` Prelude.rnf maxRecords
       `Prelude.seq` Prelude.rnf replicationGroupId
 
-instance Core.ToHeaders DescribeReplicationGroups where
+instance Data.ToHeaders DescribeReplicationGroups where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeReplicationGroups where
+instance Data.ToPath DescribeReplicationGroups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeReplicationGroups where
+instance Data.ToQuery DescribeReplicationGroups where
   toQuery DescribeReplicationGroups' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeReplicationGroups" :: Prelude.ByteString),
+          Data.=: ("DescribeReplicationGroups" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords,
-        "ReplicationGroupId" Core.=: replicationGroupId
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
+        "ReplicationGroupId" Data.=: replicationGroupId
       ]
 
 -- | Represents the output of a @DescribeReplicationGroups@ operation.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.PutEvents
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,12 +22,15 @@
 --
 -- Sends custom events to Amazon EventBridge so that they can be matched to
 -- rules.
+--
+-- PutEvents will only process nested JSON up to 1100 levels deep.
 module Amazonka.CloudWatchEvents.PutEvents
   ( -- * Creating a Request
     PutEvents (..),
     newPutEvents,
 
     -- * Request Lenses
+    putEvents_endpointId,
     putEvents_entries,
 
     -- * Destructuring the Response
@@ -35,22 +38,29 @@ module Amazonka.CloudWatchEvents.PutEvents
     newPutEventsResponse,
 
     -- * Response Lenses
-    putEventsResponse_failedEntryCount,
     putEventsResponse_entries,
+    putEventsResponse_failedEntryCount,
     putEventsResponse_httpStatus,
   )
 where
 
 import Amazonka.CloudWatchEvents.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newPutEvents' smart constructor.
 data PutEvents = PutEvents'
-  { -- | The entry that defines an event in your system. You can specify several
+  { -- | The URL subdomain of the endpoint. For example, if the URL for Endpoint
+    -- is abcde.veo.endpoints.event.amazonaws.com, then the EndpointId is
+    -- @abcde.veo@.
+    --
+    -- When using Java, you must include @auth-crt@ on the class path.
+    endpointId :: Prelude.Maybe Prelude.Text,
+    -- | The entry that defines an event in your system. You can specify several
     -- parameters for the entry such as the source and type of the event,
     -- resources associated with the event, and so on.
     entries :: Prelude.NonEmpty PutEventsRequestEntry
@@ -65,6 +75,12 @@ data PutEvents = PutEvents'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'endpointId', 'putEvents_endpointId' - The URL subdomain of the endpoint. For example, if the URL for Endpoint
+-- is abcde.veo.endpoints.event.amazonaws.com, then the EndpointId is
+-- @abcde.veo@.
+--
+-- When using Java, you must include @auth-crt@ on the class path.
+--
 -- 'entries', 'putEvents_entries' - The entry that defines an event in your system. You can specify several
 -- parameters for the entry such as the source and type of the event,
 -- resources associated with the event, and so on.
@@ -73,7 +89,18 @@ newPutEvents ::
   Prelude.NonEmpty PutEventsRequestEntry ->
   PutEvents
 newPutEvents pEntries_ =
-  PutEvents' {entries = Lens.coerced Lens.# pEntries_}
+  PutEvents'
+    { endpointId = Prelude.Nothing,
+      entries = Lens.coerced Lens.# pEntries_
+    }
+
+-- | The URL subdomain of the endpoint. For example, if the URL for Endpoint
+-- is abcde.veo.endpoints.event.amazonaws.com, then the EndpointId is
+-- @abcde.veo@.
+--
+-- When using Java, you must include @auth-crt@ on the class path.
+putEvents_endpointId :: Lens.Lens' PutEvents (Prelude.Maybe Prelude.Text)
+putEvents_endpointId = Lens.lens (\PutEvents' {endpointId} -> endpointId) (\s@PutEvents' {} a -> s {endpointId = a} :: PutEvents)
 
 -- | The entry that defines an event in your system. You can specify several
 -- parameters for the entry such as the source and type of the event,
@@ -83,58 +110,64 @@ putEvents_entries = Lens.lens (\PutEvents' {entries} -> entries) (\s@PutEvents' 
 
 instance Core.AWSRequest PutEvents where
   type AWSResponse PutEvents = PutEventsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutEventsResponse'
-            Prelude.<$> (x Core..?> "FailedEntryCount")
-            Prelude.<*> (x Core..?> "Entries" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Entries" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "FailedEntryCount")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable PutEvents where
   hashWithSalt _salt PutEvents' {..} =
-    _salt `Prelude.hashWithSalt` entries
+    _salt `Prelude.hashWithSalt` endpointId
+      `Prelude.hashWithSalt` entries
 
 instance Prelude.NFData PutEvents where
-  rnf PutEvents' {..} = Prelude.rnf entries
+  rnf PutEvents' {..} =
+    Prelude.rnf endpointId
+      `Prelude.seq` Prelude.rnf entries
 
-instance Core.ToHeaders PutEvents where
+instance Data.ToHeaders PutEvents where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSEvents.PutEvents" :: Prelude.ByteString),
+              Data.=# ("AWSEvents.PutEvents" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutEvents where
+instance Data.ToJSON PutEvents where
   toJSON PutEvents' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Entries" Core..= entries)]
+          [ ("EndpointId" Data..=) Prelude.<$> endpointId,
+            Prelude.Just ("Entries" Data..= entries)
+          ]
       )
 
-instance Core.ToPath PutEvents where
+instance Data.ToPath PutEvents where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutEvents where
+instance Data.ToQuery PutEvents where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutEventsResponse' smart constructor.
 data PutEventsResponse = PutEventsResponse'
-  { -- | The number of failed entries.
-    failedEntryCount :: Prelude.Maybe Prelude.Int,
-    -- | The successfully and unsuccessfully ingested events results. If the
+  { -- | The successfully and unsuccessfully ingested events results. If the
     -- ingestion was successful, the entry has the event ID in it. Otherwise,
     -- you can use the error code and error message to identify the problem
     -- with the entry.
     entries :: Prelude.Maybe [PutEventsResultEntry],
+    -- | The number of failed entries.
+    failedEntryCount :: Prelude.Maybe Prelude.Int,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -148,12 +181,12 @@ data PutEventsResponse = PutEventsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'failedEntryCount', 'putEventsResponse_failedEntryCount' - The number of failed entries.
---
 -- 'entries', 'putEventsResponse_entries' - The successfully and unsuccessfully ingested events results. If the
 -- ingestion was successful, the entry has the event ID in it. Otherwise,
 -- you can use the error code and error message to identify the problem
 -- with the entry.
+--
+-- 'failedEntryCount', 'putEventsResponse_failedEntryCount' - The number of failed entries.
 --
 -- 'httpStatus', 'putEventsResponse_httpStatus' - The response's http status code.
 newPutEventsResponse ::
@@ -162,15 +195,10 @@ newPutEventsResponse ::
   PutEventsResponse
 newPutEventsResponse pHttpStatus_ =
   PutEventsResponse'
-    { failedEntryCount =
-        Prelude.Nothing,
-      entries = Prelude.Nothing,
+    { entries = Prelude.Nothing,
+      failedEntryCount = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The number of failed entries.
-putEventsResponse_failedEntryCount :: Lens.Lens' PutEventsResponse (Prelude.Maybe Prelude.Int)
-putEventsResponse_failedEntryCount = Lens.lens (\PutEventsResponse' {failedEntryCount} -> failedEntryCount) (\s@PutEventsResponse' {} a -> s {failedEntryCount = a} :: PutEventsResponse)
 
 -- | The successfully and unsuccessfully ingested events results. If the
 -- ingestion was successful, the entry has the event ID in it. Otherwise,
@@ -179,12 +207,16 @@ putEventsResponse_failedEntryCount = Lens.lens (\PutEventsResponse' {failedEntry
 putEventsResponse_entries :: Lens.Lens' PutEventsResponse (Prelude.Maybe [PutEventsResultEntry])
 putEventsResponse_entries = Lens.lens (\PutEventsResponse' {entries} -> entries) (\s@PutEventsResponse' {} a -> s {entries = a} :: PutEventsResponse) Prelude.. Lens.mapping Lens.coerced
 
+-- | The number of failed entries.
+putEventsResponse_failedEntryCount :: Lens.Lens' PutEventsResponse (Prelude.Maybe Prelude.Int)
+putEventsResponse_failedEntryCount = Lens.lens (\PutEventsResponse' {failedEntryCount} -> failedEntryCount) (\s@PutEventsResponse' {} a -> s {failedEntryCount = a} :: PutEventsResponse)
+
 -- | The response's http status code.
 putEventsResponse_httpStatus :: Lens.Lens' PutEventsResponse Prelude.Int
 putEventsResponse_httpStatus = Lens.lens (\PutEventsResponse' {httpStatus} -> httpStatus) (\s@PutEventsResponse' {} a -> s {httpStatus = a} :: PutEventsResponse)
 
 instance Prelude.NFData PutEventsResponse where
   rnf PutEventsResponse' {..} =
-    Prelude.rnf failedEntryCount
-      `Prelude.seq` Prelude.rnf entries
+    Prelude.rnf entries
+      `Prelude.seq` Prelude.rnf failedEntryCount
       `Prelude.seq` Prelude.rnf httpStatus

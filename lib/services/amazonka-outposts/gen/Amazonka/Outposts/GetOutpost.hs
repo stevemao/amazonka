@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Outposts.GetOutpost
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.Outposts.GetOutpost
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Outposts.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -48,7 +49,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetOutpost' smart constructor.
 data GetOutpost = GetOutpost'
-  { -- | The ID of the Outpost.
+  { -- | The ID or the Amazon Resource Name (ARN) of the Outpost.
     outpostId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -61,7 +62,7 @@ data GetOutpost = GetOutpost'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'outpostId', 'getOutpost_outpostId' - The ID of the Outpost.
+-- 'outpostId', 'getOutpost_outpostId' - The ID or the Amazon Resource Name (ARN) of the Outpost.
 newGetOutpost ::
   -- | 'outpostId'
   Prelude.Text ->
@@ -69,18 +70,19 @@ newGetOutpost ::
 newGetOutpost pOutpostId_ =
   GetOutpost' {outpostId = pOutpostId_}
 
--- | The ID of the Outpost.
+-- | The ID or the Amazon Resource Name (ARN) of the Outpost.
 getOutpost_outpostId :: Lens.Lens' GetOutpost Prelude.Text
 getOutpost_outpostId = Lens.lens (\GetOutpost' {outpostId} -> outpostId) (\s@GetOutpost' {} a -> s {outpostId = a} :: GetOutpost)
 
 instance Core.AWSRequest GetOutpost where
   type AWSResponse GetOutpost = GetOutpostResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetOutpostResponse'
-            Prelude.<$> (x Core..?> "Outpost")
+            Prelude.<$> (x Data..?> "Outpost")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -91,22 +93,22 @@ instance Prelude.Hashable GetOutpost where
 instance Prelude.NFData GetOutpost where
   rnf GetOutpost' {..} = Prelude.rnf outpostId
 
-instance Core.ToHeaders GetOutpost where
+instance Data.ToHeaders GetOutpost where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetOutpost where
+instance Data.ToPath GetOutpost where
   toPath GetOutpost' {..} =
-    Prelude.mconcat ["/outposts/", Core.toBS outpostId]
+    Prelude.mconcat ["/outposts/", Data.toBS outpostId]
 
-instance Core.ToQuery GetOutpost where
+instance Data.ToQuery GetOutpost where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetOutpostResponse' smart constructor.

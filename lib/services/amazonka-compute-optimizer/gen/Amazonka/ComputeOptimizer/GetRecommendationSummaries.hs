@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ComputeOptimizer.GetRecommendationSummaries
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,8 @@ module Amazonka.ComputeOptimizer.GetRecommendationSummaries
 
     -- * Request Lenses
     getRecommendationSummaries_accountIds,
-    getRecommendationSummaries_nextToken,
     getRecommendationSummaries_maxResults,
+    getRecommendationSummaries_nextToken,
 
     -- * Destructuring the Response
     GetRecommendationSummariesResponse (..),
@@ -58,7 +58,8 @@ where
 
 import Amazonka.ComputeOptimizer.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -74,14 +75,14 @@ data GetRecommendationSummaries = GetRecommendationSummaries'
     --
     -- Only one account ID can be specified per request.
     accountIds :: Prelude.Maybe [Prelude.Text],
-    -- | The token to advance to the next page of recommendation summaries.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of recommendation summaries to return with a single
     -- request.
     --
     -- To retrieve the remaining results, make another request with the
     -- returned @nextToken@ value.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The token to advance to the next page of recommendation summaries.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -102,21 +103,21 @@ data GetRecommendationSummaries = GetRecommendationSummaries'
 --
 -- Only one account ID can be specified per request.
 --
--- 'nextToken', 'getRecommendationSummaries_nextToken' - The token to advance to the next page of recommendation summaries.
---
 -- 'maxResults', 'getRecommendationSummaries_maxResults' - The maximum number of recommendation summaries to return with a single
 -- request.
 --
 -- To retrieve the remaining results, make another request with the
 -- returned @nextToken@ value.
+--
+-- 'nextToken', 'getRecommendationSummaries_nextToken' - The token to advance to the next page of recommendation summaries.
 newGetRecommendationSummaries ::
   GetRecommendationSummaries
 newGetRecommendationSummaries =
   GetRecommendationSummaries'
     { accountIds =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | The ID of the Amazon Web Services account for which to return
@@ -130,10 +131,6 @@ newGetRecommendationSummaries =
 getRecommendationSummaries_accountIds :: Lens.Lens' GetRecommendationSummaries (Prelude.Maybe [Prelude.Text])
 getRecommendationSummaries_accountIds = Lens.lens (\GetRecommendationSummaries' {accountIds} -> accountIds) (\s@GetRecommendationSummaries' {} a -> s {accountIds = a} :: GetRecommendationSummaries) Prelude.. Lens.mapping Lens.coerced
 
--- | The token to advance to the next page of recommendation summaries.
-getRecommendationSummaries_nextToken :: Lens.Lens' GetRecommendationSummaries (Prelude.Maybe Prelude.Text)
-getRecommendationSummaries_nextToken = Lens.lens (\GetRecommendationSummaries' {nextToken} -> nextToken) (\s@GetRecommendationSummaries' {} a -> s {nextToken = a} :: GetRecommendationSummaries)
-
 -- | The maximum number of recommendation summaries to return with a single
 -- request.
 --
@@ -142,17 +139,22 @@ getRecommendationSummaries_nextToken = Lens.lens (\GetRecommendationSummaries' {
 getRecommendationSummaries_maxResults :: Lens.Lens' GetRecommendationSummaries (Prelude.Maybe Prelude.Int)
 getRecommendationSummaries_maxResults = Lens.lens (\GetRecommendationSummaries' {maxResults} -> maxResults) (\s@GetRecommendationSummaries' {} a -> s {maxResults = a} :: GetRecommendationSummaries)
 
+-- | The token to advance to the next page of recommendation summaries.
+getRecommendationSummaries_nextToken :: Lens.Lens' GetRecommendationSummaries (Prelude.Maybe Prelude.Text)
+getRecommendationSummaries_nextToken = Lens.lens (\GetRecommendationSummaries' {nextToken} -> nextToken) (\s@GetRecommendationSummaries' {} a -> s {nextToken = a} :: GetRecommendationSummaries)
+
 instance Core.AWSRequest GetRecommendationSummaries where
   type
     AWSResponse GetRecommendationSummaries =
       GetRecommendationSummariesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetRecommendationSummariesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> ( x Core..?> "recommendationSummaries"
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> ( x Data..?> "recommendationSummaries"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -161,44 +163,44 @@ instance Core.AWSRequest GetRecommendationSummaries where
 instance Prelude.Hashable GetRecommendationSummaries where
   hashWithSalt _salt GetRecommendationSummaries' {..} =
     _salt `Prelude.hashWithSalt` accountIds
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData GetRecommendationSummaries where
   rnf GetRecommendationSummaries' {..} =
     Prelude.rnf accountIds
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders GetRecommendationSummaries where
+instance Data.ToHeaders GetRecommendationSummaries where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ComputeOptimizerService.GetRecommendationSummaries" ::
+              Data.=# ( "ComputeOptimizerService.GetRecommendationSummaries" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetRecommendationSummaries where
+instance Data.ToJSON GetRecommendationSummaries where
   toJSON GetRecommendationSummaries' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("accountIds" Core..=) Prelude.<$> accountIds,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("accountIds" Data..=) Prelude.<$> accountIds,
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath GetRecommendationSummaries where
+instance Data.ToPath GetRecommendationSummaries where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetRecommendationSummaries where
+instance Data.ToQuery GetRecommendationSummaries where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetRecommendationSummariesResponse' smart constructor.

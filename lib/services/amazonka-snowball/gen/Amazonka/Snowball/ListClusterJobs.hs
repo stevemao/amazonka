@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Snowball.ListClusterJobs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.Snowball.ListClusterJobs
     newListClusterJobs,
 
     -- * Request Lenses
-    listClusterJobs_nextToken,
     listClusterJobs_maxResults,
+    listClusterJobs_nextToken,
     listClusterJobs_clusterId,
 
     -- * Destructuring the Response
@@ -47,7 +47,8 @@ module Amazonka.Snowball.ListClusterJobs
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,12 +56,12 @@ import Amazonka.Snowball.Types
 
 -- | /See:/ 'newListClusterJobs' smart constructor.
 data ListClusterJobs = ListClusterJobs'
-  { -- | HTTP requests are stateless. To identify what object comes \"next\" in
+  { -- | The number of @JobListEntry@ objects to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | HTTP requests are stateless. To identify what object comes \"next\" in
     -- the list of @JobListEntry@ objects, you have the option of specifying
     -- @NextToken@ as the starting point for your returned list.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The number of @JobListEntry@ objects to return.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The 39-character ID for the cluster that you want to list, for example
     -- @CID123e4567-e89b-12d3-a456-426655440000@.
     clusterId :: Prelude.Text
@@ -75,11 +76,11 @@ data ListClusterJobs = ListClusterJobs'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listClusterJobs_maxResults' - The number of @JobListEntry@ objects to return.
+--
 -- 'nextToken', 'listClusterJobs_nextToken' - HTTP requests are stateless. To identify what object comes \"next\" in
 -- the list of @JobListEntry@ objects, you have the option of specifying
 -- @NextToken@ as the starting point for your returned list.
---
--- 'maxResults', 'listClusterJobs_maxResults' - The number of @JobListEntry@ objects to return.
 --
 -- 'clusterId', 'listClusterJobs_clusterId' - The 39-character ID for the cluster that you want to list, for example
 -- @CID123e4567-e89b-12d3-a456-426655440000@.
@@ -89,20 +90,20 @@ newListClusterJobs ::
   ListClusterJobs
 newListClusterJobs pClusterId_ =
   ListClusterJobs'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       clusterId = pClusterId_
     }
+
+-- | The number of @JobListEntry@ objects to return.
+listClusterJobs_maxResults :: Lens.Lens' ListClusterJobs (Prelude.Maybe Prelude.Natural)
+listClusterJobs_maxResults = Lens.lens (\ListClusterJobs' {maxResults} -> maxResults) (\s@ListClusterJobs' {} a -> s {maxResults = a} :: ListClusterJobs)
 
 -- | HTTP requests are stateless. To identify what object comes \"next\" in
 -- the list of @JobListEntry@ objects, you have the option of specifying
 -- @NextToken@ as the starting point for your returned list.
 listClusterJobs_nextToken :: Lens.Lens' ListClusterJobs (Prelude.Maybe Prelude.Text)
 listClusterJobs_nextToken = Lens.lens (\ListClusterJobs' {nextToken} -> nextToken) (\s@ListClusterJobs' {} a -> s {nextToken = a} :: ListClusterJobs)
-
--- | The number of @JobListEntry@ objects to return.
-listClusterJobs_maxResults :: Lens.Lens' ListClusterJobs (Prelude.Maybe Prelude.Natural)
-listClusterJobs_maxResults = Lens.lens (\ListClusterJobs' {maxResults} -> maxResults) (\s@ListClusterJobs' {} a -> s {maxResults = a} :: ListClusterJobs)
 
 -- | The 39-character ID for the cluster that you want to list, for example
 -- @CID123e4567-e89b-12d3-a456-426655440000@.
@@ -135,57 +136,58 @@ instance Core.AWSRequest ListClusterJobs where
   type
     AWSResponse ListClusterJobs =
       ListClusterJobsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListClusterJobsResponse'
-            Prelude.<$> (x Core..?> "JobListEntries" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "JobListEntries" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListClusterJobs where
   hashWithSalt _salt ListClusterJobs' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` clusterId
 
 instance Prelude.NFData ListClusterJobs where
   rnf ListClusterJobs' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf clusterId
 
-instance Core.ToHeaders ListClusterJobs where
+instance Data.ToHeaders ListClusterJobs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSIESnowballJobManagementService.ListClusterJobs" ::
+              Data.=# ( "AWSIESnowballJobManagementService.ListClusterJobs" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListClusterJobs where
+instance Data.ToJSON ListClusterJobs where
   toJSON ListClusterJobs' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("ClusterId" Core..= clusterId)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("ClusterId" Data..= clusterId)
           ]
       )
 
-instance Core.ToPath ListClusterJobs where
+instance Data.ToPath ListClusterJobs where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListClusterJobs where
+instance Data.ToQuery ListClusterJobs where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListClusterJobsResponse' smart constructor.

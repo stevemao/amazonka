@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.MultiplexSettingsSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.MultiplexSettingsSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains summary configuration for a Multiplex event.
@@ -53,13 +54,13 @@ newMultiplexSettingsSummary =
 multiplexSettingsSummary_transportStreamBitrate :: Lens.Lens' MultiplexSettingsSummary (Prelude.Maybe Prelude.Natural)
 multiplexSettingsSummary_transportStreamBitrate = Lens.lens (\MultiplexSettingsSummary' {transportStreamBitrate} -> transportStreamBitrate) (\s@MultiplexSettingsSummary' {} a -> s {transportStreamBitrate = a} :: MultiplexSettingsSummary)
 
-instance Core.FromJSON MultiplexSettingsSummary where
+instance Data.FromJSON MultiplexSettingsSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MultiplexSettingsSummary"
       ( \x ->
           MultiplexSettingsSummary'
-            Prelude.<$> (x Core..:? "transportStreamBitrate")
+            Prelude.<$> (x Data..:? "transportStreamBitrate")
       )
 
 instance Prelude.Hashable MultiplexSettingsSummary where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.CompleteLifecycleAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,23 +26,27 @@
 -- This step is a part of the procedure for adding a lifecycle hook to an
 -- Auto Scaling group:
 --
--- 1.  (Optional) Create a Lambda function and a rule that allows
---     CloudWatch Events to invoke your Lambda function when Amazon EC2
---     Auto Scaling launches or terminates instances.
+-- 1.  (Optional) Create a launch template or launch configuration with a
+--     user data script that runs while an instance is in a wait state due
+--     to a lifecycle hook.
 --
--- 2.  (Optional) Create a notification target and an IAM role. The target
+-- 2.  (Optional) Create a Lambda function and a rule that allows Amazon
+--     EventBridge to invoke your Lambda function when an instance is put
+--     into a wait state due to a lifecycle hook.
+--
+-- 3.  (Optional) Create a notification target and an IAM role. The target
 --     can be either an Amazon SQS queue or an Amazon SNS topic. The role
 --     allows Amazon EC2 Auto Scaling to publish lifecycle notifications to
 --     the target.
 --
--- 3.  Create the lifecycle hook. Specify whether the hook is used when the
+-- 4.  Create the lifecycle hook. Specify whether the hook is used when the
 --     instances launch or terminate.
 --
--- 4.  If you need more time, record the lifecycle action heartbeat to keep
---     the instance in a pending state.
+-- 5.  If you need more time, record the lifecycle action heartbeat to keep
+--     the instance in a wait state.
 --
--- 5.  __If you finish before the timeout period ends, complete the
---     lifecycle action.__
+-- 6.  __If you finish before the timeout period ends, send a callback by
+--     using the CompleteLifecycleAction API call.__
 --
 -- For more information, see
 -- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/lifecycle-hooks.html Amazon EC2 Auto Scaling lifecycle hooks>
@@ -70,7 +74,8 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,8 +93,8 @@ data CompleteLifecycleAction = CompleteLifecycleAction'
     lifecycleHookName :: Prelude.Text,
     -- | The name of the Auto Scaling group.
     autoScalingGroupName :: Prelude.Text,
-    -- | The action for the group to take. This parameter can be either
-    -- @CONTINUE@ or @ABANDON@.
+    -- | The action for the group to take. You can specify either @CONTINUE@ or
+    -- @ABANDON@.
     lifecycleActionResult :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -113,8 +118,8 @@ data CompleteLifecycleAction = CompleteLifecycleAction'
 --
 -- 'autoScalingGroupName', 'completeLifecycleAction_autoScalingGroupName' - The name of the Auto Scaling group.
 --
--- 'lifecycleActionResult', 'completeLifecycleAction_lifecycleActionResult' - The action for the group to take. This parameter can be either
--- @CONTINUE@ or @ABANDON@.
+-- 'lifecycleActionResult', 'completeLifecycleAction_lifecycleActionResult' - The action for the group to take. You can specify either @CONTINUE@ or
+-- @ABANDON@.
 newCompleteLifecycleAction ::
   -- | 'lifecycleHookName'
   Prelude.Text ->
@@ -155,8 +160,8 @@ completeLifecycleAction_lifecycleHookName = Lens.lens (\CompleteLifecycleAction'
 completeLifecycleAction_autoScalingGroupName :: Lens.Lens' CompleteLifecycleAction Prelude.Text
 completeLifecycleAction_autoScalingGroupName = Lens.lens (\CompleteLifecycleAction' {autoScalingGroupName} -> autoScalingGroupName) (\s@CompleteLifecycleAction' {} a -> s {autoScalingGroupName = a} :: CompleteLifecycleAction)
 
--- | The action for the group to take. This parameter can be either
--- @CONTINUE@ or @ABANDON@.
+-- | The action for the group to take. You can specify either @CONTINUE@ or
+-- @ABANDON@.
 completeLifecycleAction_lifecycleActionResult :: Lens.Lens' CompleteLifecycleAction Prelude.Text
 completeLifecycleAction_lifecycleActionResult = Lens.lens (\CompleteLifecycleAction' {lifecycleActionResult} -> lifecycleActionResult) (\s@CompleteLifecycleAction' {} a -> s {lifecycleActionResult = a} :: CompleteLifecycleAction)
 
@@ -164,7 +169,8 @@ instance Core.AWSRequest CompleteLifecycleAction where
   type
     AWSResponse CompleteLifecycleAction =
       CompleteLifecycleActionResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CompleteLifecycleActionResult"
@@ -189,25 +195,25 @@ instance Prelude.NFData CompleteLifecycleAction where
       `Prelude.seq` Prelude.rnf autoScalingGroupName
       `Prelude.seq` Prelude.rnf lifecycleActionResult
 
-instance Core.ToHeaders CompleteLifecycleAction where
+instance Data.ToHeaders CompleteLifecycleAction where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CompleteLifecycleAction where
+instance Data.ToPath CompleteLifecycleAction where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CompleteLifecycleAction where
+instance Data.ToQuery CompleteLifecycleAction where
   toQuery CompleteLifecycleAction' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CompleteLifecycleAction" :: Prelude.ByteString),
+          Data.=: ("CompleteLifecycleAction" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
-        "InstanceId" Core.=: instanceId,
-        "LifecycleActionToken" Core.=: lifecycleActionToken,
-        "LifecycleHookName" Core.=: lifecycleHookName,
-        "AutoScalingGroupName" Core.=: autoScalingGroupName,
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
+        "InstanceId" Data.=: instanceId,
+        "LifecycleActionToken" Data.=: lifecycleActionToken,
+        "LifecycleHookName" Data.=: lifecycleHookName,
+        "AutoScalingGroupName" Data.=: autoScalingGroupName,
         "LifecycleActionResult"
-          Core.=: lifecycleActionResult
+          Data.=: lifecycleActionResult
       ]
 
 -- | /See:/ 'newCompleteLifecycleActionResponse' smart constructor.

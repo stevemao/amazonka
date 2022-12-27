@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.CreateContext
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,8 +32,8 @@ module Amazonka.SageMaker.CreateContext
 
     -- * Request Lenses
     createContext_description,
-    createContext_tags,
     createContext_properties,
+    createContext_tags,
     createContext_contextName,
     createContext_source,
     createContext_contextType,
@@ -49,7 +49,8 @@ module Amazonka.SageMaker.CreateContext
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,10 +60,10 @@ import Amazonka.SageMaker.Types
 data CreateContext = CreateContext'
   { -- | The description of the context.
     description :: Prelude.Maybe Prelude.Text,
-    -- | A list of tags to apply to the context.
-    tags :: Prelude.Maybe [Tag],
     -- | A list of properties to add to the context.
     properties :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | A list of tags to apply to the context.
+    tags :: Prelude.Maybe [Tag],
     -- | The name of the context. Must be unique to your account in an Amazon Web
     -- Services Region.
     contextName :: Prelude.Text,
@@ -83,9 +84,9 @@ data CreateContext = CreateContext'
 --
 -- 'description', 'createContext_description' - The description of the context.
 --
--- 'tags', 'createContext_tags' - A list of tags to apply to the context.
---
 -- 'properties', 'createContext_properties' - A list of properties to add to the context.
+--
+-- 'tags', 'createContext_tags' - A list of tags to apply to the context.
 --
 -- 'contextName', 'createContext_contextName' - The name of the context. Must be unique to your account in an Amazon Web
 -- Services Region.
@@ -104,8 +105,8 @@ newCreateContext ::
 newCreateContext pContextName_ pSource_ pContextType_ =
   CreateContext'
     { description = Prelude.Nothing,
-      tags = Prelude.Nothing,
       properties = Prelude.Nothing,
+      tags = Prelude.Nothing,
       contextName = pContextName_,
       source = pSource_,
       contextType = pContextType_
@@ -115,13 +116,13 @@ newCreateContext pContextName_ pSource_ pContextType_ =
 createContext_description :: Lens.Lens' CreateContext (Prelude.Maybe Prelude.Text)
 createContext_description = Lens.lens (\CreateContext' {description} -> description) (\s@CreateContext' {} a -> s {description = a} :: CreateContext)
 
--- | A list of tags to apply to the context.
-createContext_tags :: Lens.Lens' CreateContext (Prelude.Maybe [Tag])
-createContext_tags = Lens.lens (\CreateContext' {tags} -> tags) (\s@CreateContext' {} a -> s {tags = a} :: CreateContext) Prelude.. Lens.mapping Lens.coerced
-
 -- | A list of properties to add to the context.
 createContext_properties :: Lens.Lens' CreateContext (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createContext_properties = Lens.lens (\CreateContext' {properties} -> properties) (\s@CreateContext' {} a -> s {properties = a} :: CreateContext) Prelude.. Lens.mapping Lens.coerced
+
+-- | A list of tags to apply to the context.
+createContext_tags :: Lens.Lens' CreateContext (Prelude.Maybe [Tag])
+createContext_tags = Lens.lens (\CreateContext' {tags} -> tags) (\s@CreateContext' {} a -> s {tags = a} :: CreateContext) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the context. Must be unique to your account in an Amazon Web
 -- Services Region.
@@ -140,20 +141,21 @@ instance Core.AWSRequest CreateContext where
   type
     AWSResponse CreateContext =
       CreateContextResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateContextResponse'
-            Prelude.<$> (x Core..?> "ContextArn")
+            Prelude.<$> (x Data..?> "ContextArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateContext where
   hashWithSalt _salt CreateContext' {..} =
     _salt `Prelude.hashWithSalt` description
-      `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` properties
+      `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` contextName
       `Prelude.hashWithSalt` source
       `Prelude.hashWithSalt` contextType
@@ -161,42 +163,42 @@ instance Prelude.Hashable CreateContext where
 instance Prelude.NFData CreateContext where
   rnf CreateContext' {..} =
     Prelude.rnf description
-      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf properties
+      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf contextName
       `Prelude.seq` Prelude.rnf source
       `Prelude.seq` Prelude.rnf contextType
 
-instance Core.ToHeaders CreateContext where
+instance Data.ToHeaders CreateContext where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.CreateContext" :: Prelude.ByteString),
+              Data.=# ("SageMaker.CreateContext" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateContext where
+instance Data.ToJSON CreateContext where
   toJSON CreateContext' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            ("Properties" Core..=) Prelude.<$> properties,
-            Prelude.Just ("ContextName" Core..= contextName),
-            Prelude.Just ("Source" Core..= source),
-            Prelude.Just ("ContextType" Core..= contextType)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Properties" Data..=) Prelude.<$> properties,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("ContextName" Data..= contextName),
+            Prelude.Just ("Source" Data..= source),
+            Prelude.Just ("ContextType" Data..= contextType)
           ]
       )
 
-instance Core.ToPath CreateContext where
+instance Data.ToPath CreateContext where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateContext where
+instance Data.ToQuery CreateContext where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateContextResponse' smart constructor.

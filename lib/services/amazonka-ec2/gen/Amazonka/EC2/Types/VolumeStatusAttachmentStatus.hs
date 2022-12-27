@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.VolumeStatusAttachmentStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.VolumeStatusAttachmentStatus where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the instances to which the volume is attached.
@@ -63,11 +64,11 @@ volumeStatusAttachmentStatus_instanceId = Lens.lens (\VolumeStatusAttachmentStat
 volumeStatusAttachmentStatus_ioPerformance :: Lens.Lens' VolumeStatusAttachmentStatus (Prelude.Maybe Prelude.Text)
 volumeStatusAttachmentStatus_ioPerformance = Lens.lens (\VolumeStatusAttachmentStatus' {ioPerformance} -> ioPerformance) (\s@VolumeStatusAttachmentStatus' {} a -> s {ioPerformance = a} :: VolumeStatusAttachmentStatus)
 
-instance Core.FromXML VolumeStatusAttachmentStatus where
+instance Data.FromXML VolumeStatusAttachmentStatus where
   parseXML x =
     VolumeStatusAttachmentStatus'
-      Prelude.<$> (x Core..@? "instanceId")
-      Prelude.<*> (x Core..@? "ioPerformance")
+      Prelude.<$> (x Data..@? "instanceId")
+      Prelude.<*> (x Data..@? "ioPerformance")
 
 instance
   Prelude.Hashable

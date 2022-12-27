@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruReviewer.ListRecommendations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.CodeGuruReviewer.ListRecommendations
     newListRecommendations,
 
     -- * Request Lenses
-    listRecommendations_nextToken,
     listRecommendations_maxResults,
+    listRecommendations_nextToken,
     listRecommendations_codeReviewArn,
 
     -- * Destructuring the Response
@@ -44,18 +44,19 @@ where
 
 import Amazonka.CodeGuruReviewer.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListRecommendations' smart constructor.
 data ListRecommendations = ListRecommendations'
-  { -- | Pagination token.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results that are returned per call. The default is
+  { -- | The maximum number of results that are returned per call. The default is
     -- 100.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the
     -- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_CodeReview.html CodeReview>
     -- object.
@@ -71,10 +72,10 @@ data ListRecommendations = ListRecommendations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listRecommendations_nextToken' - Pagination token.
---
 -- 'maxResults', 'listRecommendations_maxResults' - The maximum number of results that are returned per call. The default is
 -- 100.
+--
+-- 'nextToken', 'listRecommendations_nextToken' - Pagination token.
 --
 -- 'codeReviewArn', 'listRecommendations_codeReviewArn' - The Amazon Resource Name (ARN) of the
 -- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_CodeReview.html CodeReview>
@@ -85,19 +86,19 @@ newListRecommendations ::
   ListRecommendations
 newListRecommendations pCodeReviewArn_ =
   ListRecommendations'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       codeReviewArn = pCodeReviewArn_
     }
-
--- | Pagination token.
-listRecommendations_nextToken :: Lens.Lens' ListRecommendations (Prelude.Maybe Prelude.Text)
-listRecommendations_nextToken = Lens.lens (\ListRecommendations' {nextToken} -> nextToken) (\s@ListRecommendations' {} a -> s {nextToken = a} :: ListRecommendations)
 
 -- | The maximum number of results that are returned per call. The default is
 -- 100.
 listRecommendations_maxResults :: Lens.Lens' ListRecommendations (Prelude.Maybe Prelude.Natural)
 listRecommendations_maxResults = Lens.lens (\ListRecommendations' {maxResults} -> maxResults) (\s@ListRecommendations' {} a -> s {maxResults = a} :: ListRecommendations)
+
+-- | Pagination token.
+listRecommendations_nextToken :: Lens.Lens' ListRecommendations (Prelude.Maybe Prelude.Text)
+listRecommendations_nextToken = Lens.lens (\ListRecommendations' {nextToken} -> nextToken) (\s@ListRecommendations' {} a -> s {nextToken = a} :: ListRecommendations)
 
 -- | The Amazon Resource Name (ARN) of the
 -- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_CodeReview.html CodeReview>
@@ -109,13 +110,14 @@ instance Core.AWSRequest ListRecommendations where
   type
     AWSResponse ListRecommendations =
       ListRecommendationsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListRecommendationsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "RecommendationSummaries"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "RecommendationSummaries"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -123,40 +125,40 @@ instance Core.AWSRequest ListRecommendations where
 
 instance Prelude.Hashable ListRecommendations where
   hashWithSalt _salt ListRecommendations' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` codeReviewArn
 
 instance Prelude.NFData ListRecommendations where
   rnf ListRecommendations' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf codeReviewArn
 
-instance Core.ToHeaders ListRecommendations where
+instance Data.ToHeaders ListRecommendations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListRecommendations where
+instance Data.ToPath ListRecommendations where
   toPath ListRecommendations' {..} =
     Prelude.mconcat
       [ "/codereviews/",
-        Core.toBS codeReviewArn,
+        Data.toBS codeReviewArn,
         "/Recommendations"
       ]
 
-instance Core.ToQuery ListRecommendations where
+instance Data.ToQuery ListRecommendations where
   toQuery ListRecommendations' {..} =
     Prelude.mconcat
-      [ "NextToken" Core.=: nextToken,
-        "MaxResults" Core.=: maxResults
+      [ "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListRecommendationsResponse' smart constructor.

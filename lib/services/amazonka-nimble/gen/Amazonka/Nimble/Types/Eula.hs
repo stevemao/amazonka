@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.Types.Eula
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,23 +20,24 @@
 module Amazonka.Nimble.Types.Eula where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a EULA resource.
 --
 -- /See:/ 'newEula' smart constructor.
 data Eula = Eula'
-  { -- | The Unix epoch timestamp in seconds for when the resource was created.
-    createdAt :: Prelude.Maybe Core.POSIX,
+  { -- | The EULA content.
+    content :: Prelude.Maybe Prelude.Text,
+    -- | The Unix epoch timestamp in seconds for when the resource was created.
+    createdAt :: Prelude.Maybe Data.POSIX,
     -- | The EULA ID.
     eulaId :: Prelude.Maybe Prelude.Text,
-    -- | The EULA content.
-    content :: Prelude.Maybe Prelude.Text,
     -- | The name for the EULA.
     name :: Prelude.Maybe Prelude.Text,
     -- | The Unix epoch timestamp in seconds for when the resource was updated.
-    updatedAt :: Prelude.Maybe Core.POSIX
+    updatedAt :: Prelude.Maybe Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,11 +49,11 @@ data Eula = Eula'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'content', 'eula_content' - The EULA content.
+--
 -- 'createdAt', 'eula_createdAt' - The Unix epoch timestamp in seconds for when the resource was created.
 --
 -- 'eulaId', 'eula_eulaId' - The EULA ID.
---
--- 'content', 'eula_content' - The EULA content.
 --
 -- 'name', 'eula_name' - The name for the EULA.
 --
@@ -61,24 +62,24 @@ newEula ::
   Eula
 newEula =
   Eula'
-    { createdAt = Prelude.Nothing,
+    { content = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
       eulaId = Prelude.Nothing,
-      content = Prelude.Nothing,
       name = Prelude.Nothing,
       updatedAt = Prelude.Nothing
     }
 
+-- | The EULA content.
+eula_content :: Lens.Lens' Eula (Prelude.Maybe Prelude.Text)
+eula_content = Lens.lens (\Eula' {content} -> content) (\s@Eula' {} a -> s {content = a} :: Eula)
+
 -- | The Unix epoch timestamp in seconds for when the resource was created.
 eula_createdAt :: Lens.Lens' Eula (Prelude.Maybe Prelude.UTCTime)
-eula_createdAt = Lens.lens (\Eula' {createdAt} -> createdAt) (\s@Eula' {} a -> s {createdAt = a} :: Eula) Prelude.. Lens.mapping Core._Time
+eula_createdAt = Lens.lens (\Eula' {createdAt} -> createdAt) (\s@Eula' {} a -> s {createdAt = a} :: Eula) Prelude.. Lens.mapping Data._Time
 
 -- | The EULA ID.
 eula_eulaId :: Lens.Lens' Eula (Prelude.Maybe Prelude.Text)
 eula_eulaId = Lens.lens (\Eula' {eulaId} -> eulaId) (\s@Eula' {} a -> s {eulaId = a} :: Eula)
-
--- | The EULA content.
-eula_content :: Lens.Lens' Eula (Prelude.Maybe Prelude.Text)
-eula_content = Lens.lens (\Eula' {content} -> content) (\s@Eula' {} a -> s {content = a} :: Eula)
 
 -- | The name for the EULA.
 eula_name :: Lens.Lens' Eula (Prelude.Maybe Prelude.Text)
@@ -86,33 +87,33 @@ eula_name = Lens.lens (\Eula' {name} -> name) (\s@Eula' {} a -> s {name = a} :: 
 
 -- | The Unix epoch timestamp in seconds for when the resource was updated.
 eula_updatedAt :: Lens.Lens' Eula (Prelude.Maybe Prelude.UTCTime)
-eula_updatedAt = Lens.lens (\Eula' {updatedAt} -> updatedAt) (\s@Eula' {} a -> s {updatedAt = a} :: Eula) Prelude.. Lens.mapping Core._Time
+eula_updatedAt = Lens.lens (\Eula' {updatedAt} -> updatedAt) (\s@Eula' {} a -> s {updatedAt = a} :: Eula) Prelude.. Lens.mapping Data._Time
 
-instance Core.FromJSON Eula where
+instance Data.FromJSON Eula where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Eula"
       ( \x ->
           Eula'
-            Prelude.<$> (x Core..:? "createdAt")
-            Prelude.<*> (x Core..:? "eulaId")
-            Prelude.<*> (x Core..:? "content")
-            Prelude.<*> (x Core..:? "name")
-            Prelude.<*> (x Core..:? "updatedAt")
+            Prelude.<$> (x Data..:? "content")
+            Prelude.<*> (x Data..:? "createdAt")
+            Prelude.<*> (x Data..:? "eulaId")
+            Prelude.<*> (x Data..:? "name")
+            Prelude.<*> (x Data..:? "updatedAt")
       )
 
 instance Prelude.Hashable Eula where
   hashWithSalt _salt Eula' {..} =
-    _salt `Prelude.hashWithSalt` createdAt
+    _salt `Prelude.hashWithSalt` content
+      `Prelude.hashWithSalt` createdAt
       `Prelude.hashWithSalt` eulaId
-      `Prelude.hashWithSalt` content
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` updatedAt
 
 instance Prelude.NFData Eula where
   rnf Eula' {..} =
-    Prelude.rnf createdAt
+    Prelude.rnf content
+      `Prelude.seq` Prelude.rnf createdAt
       `Prelude.seq` Prelude.rnf eulaId
-      `Prelude.seq` Prelude.rnf content
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf updatedAt

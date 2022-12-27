@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WAF.Types.GeoMatchSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WAF.Types.GeoMatchSet where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.WAF.Types.GeoMatchConstraint
 
@@ -109,16 +110,16 @@ geoMatchSet_geoMatchSetId = Lens.lens (\GeoMatchSet' {geoMatchSetId} -> geoMatch
 geoMatchSet_geoMatchConstraints :: Lens.Lens' GeoMatchSet [GeoMatchConstraint]
 geoMatchSet_geoMatchConstraints = Lens.lens (\GeoMatchSet' {geoMatchConstraints} -> geoMatchConstraints) (\s@GeoMatchSet' {} a -> s {geoMatchConstraints = a} :: GeoMatchSet) Prelude.. Lens.coerced
 
-instance Core.FromJSON GeoMatchSet where
+instance Data.FromJSON GeoMatchSet where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GeoMatchSet"
       ( \x ->
           GeoMatchSet'
-            Prelude.<$> (x Core..:? "Name")
-            Prelude.<*> (x Core..: "GeoMatchSetId")
-            Prelude.<*> ( x Core..:? "GeoMatchConstraints"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "Name")
+            Prelude.<*> (x Data..: "GeoMatchSetId")
+            Prelude.<*> ( x Data..:? "GeoMatchConstraints"
+                            Data..!= Prelude.mempty
                         )
       )
 

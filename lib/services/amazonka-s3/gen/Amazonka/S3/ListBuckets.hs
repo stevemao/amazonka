@@ -14,14 +14,15 @@
 
 -- |
 -- Module      : Amazonka.S3.ListBuckets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Returns a list of all buckets owned by the authenticated sender of the
--- request.
+-- request. To use this operation, you must have the @s3:ListAllMyBuckets@
+-- permission.
 module Amazonka.S3.ListBuckets
   ( -- * Creating a Request
     ListBuckets (..),
@@ -39,7 +40,8 @@ module Amazonka.S3.ListBuckets
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,17 +63,17 @@ newListBuckets = ListBuckets'
 
 instance Core.AWSRequest ListBuckets where
   type AWSResponse ListBuckets = ListBucketsResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.get defaultService
+      Prelude.. Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ListBucketsResponse'
-            Prelude.<$> ( x Core..@? "Buckets" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "Bucket")
+            Prelude.<$> ( x Data..@? "Buckets" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "Bucket")
                         )
-            Prelude.<*> (x Core..@? "Owner")
+            Prelude.<*> (x Data..@? "Owner")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -82,18 +84,18 @@ instance Prelude.Hashable ListBuckets where
 instance Prelude.NFData ListBuckets where
   rnf _ = ()
 
-instance Core.ToHeaders ListBuckets where
+instance Data.ToHeaders ListBuckets where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListBuckets where
+instance Data.ToPath ListBuckets where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListBuckets where
+instance Data.ToQuery ListBuckets where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListBucketsResponse' smart constructor.
 data ListBucketsResponse = ListBucketsResponse'
-  { -- | The list of buckets owned by the requestor.
+  { -- | The list of buckets owned by the requester.
     buckets :: Prelude.Maybe [Bucket],
     -- | The owner of the buckets listed.
     owner :: Prelude.Maybe Owner,
@@ -110,7 +112,7 @@ data ListBucketsResponse = ListBucketsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'buckets', 'listBucketsResponse_buckets' - The list of buckets owned by the requestor.
+-- 'buckets', 'listBucketsResponse_buckets' - The list of buckets owned by the requester.
 --
 -- 'owner', 'listBucketsResponse_owner' - The owner of the buckets listed.
 --
@@ -126,7 +128,7 @@ newListBucketsResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The list of buckets owned by the requestor.
+-- | The list of buckets owned by the requester.
 listBucketsResponse_buckets :: Lens.Lens' ListBucketsResponse (Prelude.Maybe [Bucket])
 listBucketsResponse_buckets = Lens.lens (\ListBucketsResponse' {buckets} -> buckets) (\s@ListBucketsResponse' {} a -> s {buckets = a} :: ListBucketsResponse) Prelude.. Lens.mapping Lens.coerced
 

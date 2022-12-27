@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.ListSentimentDetectionJobs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.Comprehend.ListSentimentDetectionJobs
     newListSentimentDetectionJobs,
 
     -- * Request Lenses
-    listSentimentDetectionJobs_nextToken,
     listSentimentDetectionJobs_filter,
     listSentimentDetectionJobs_maxResults,
+    listSentimentDetectionJobs_nextToken,
 
     -- * Destructuring the Response
     ListSentimentDetectionJobsResponse (..),
@@ -46,22 +46,23 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListSentimentDetectionJobs' smart constructor.
 data ListSentimentDetectionJobs = ListSentimentDetectionJobs'
-  { -- | Identifies the next page of results to return.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Filters the jobs that are returned. You can filter jobs on their name,
+  { -- | Filters the jobs that are returned. You can filter jobs on their name,
     -- status, or the date and time that they were submitted. You can only set
     -- one filter at a time.
     filter' :: Prelude.Maybe SentimentDetectionJobFilter,
     -- | The maximum number of results to return in each page. The default is
     -- 100.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Identifies the next page of results to return.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,27 +74,23 @@ data ListSentimentDetectionJobs = ListSentimentDetectionJobs'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listSentimentDetectionJobs_nextToken' - Identifies the next page of results to return.
---
 -- 'filter'', 'listSentimentDetectionJobs_filter' - Filters the jobs that are returned. You can filter jobs on their name,
 -- status, or the date and time that they were submitted. You can only set
 -- one filter at a time.
 --
 -- 'maxResults', 'listSentimentDetectionJobs_maxResults' - The maximum number of results to return in each page. The default is
 -- 100.
+--
+-- 'nextToken', 'listSentimentDetectionJobs_nextToken' - Identifies the next page of results to return.
 newListSentimentDetectionJobs ::
   ListSentimentDetectionJobs
 newListSentimentDetectionJobs =
   ListSentimentDetectionJobs'
-    { nextToken =
+    { filter' =
         Prelude.Nothing,
-      filter' = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | Identifies the next page of results to return.
-listSentimentDetectionJobs_nextToken :: Lens.Lens' ListSentimentDetectionJobs (Prelude.Maybe Prelude.Text)
-listSentimentDetectionJobs_nextToken = Lens.lens (\ListSentimentDetectionJobs' {nextToken} -> nextToken) (\s@ListSentimentDetectionJobs' {} a -> s {nextToken = a} :: ListSentimentDetectionJobs)
 
 -- | Filters the jobs that are returned. You can filter jobs on their name,
 -- status, or the date and time that they were submitted. You can only set
@@ -105,6 +102,10 @@ listSentimentDetectionJobs_filter = Lens.lens (\ListSentimentDetectionJobs' {fil
 -- 100.
 listSentimentDetectionJobs_maxResults :: Lens.Lens' ListSentimentDetectionJobs (Prelude.Maybe Prelude.Natural)
 listSentimentDetectionJobs_maxResults = Lens.lens (\ListSentimentDetectionJobs' {maxResults} -> maxResults) (\s@ListSentimentDetectionJobs' {} a -> s {maxResults = a} :: ListSentimentDetectionJobs)
+
+-- | Identifies the next page of results to return.
+listSentimentDetectionJobs_nextToken :: Lens.Lens' ListSentimentDetectionJobs (Prelude.Maybe Prelude.Text)
+listSentimentDetectionJobs_nextToken = Lens.lens (\ListSentimentDetectionJobs' {nextToken} -> nextToken) (\s@ListSentimentDetectionJobs' {} a -> s {nextToken = a} :: ListSentimentDetectionJobs)
 
 instance Core.AWSPager ListSentimentDetectionJobs where
   page rq rs
@@ -132,13 +133,14 @@ instance Core.AWSRequest ListSentimentDetectionJobs where
   type
     AWSResponse ListSentimentDetectionJobs =
       ListSentimentDetectionJobsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListSentimentDetectionJobsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "SentimentDetectionJobPropertiesList"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "SentimentDetectionJobPropertiesList"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -146,45 +148,45 @@ instance Core.AWSRequest ListSentimentDetectionJobs where
 
 instance Prelude.Hashable ListSentimentDetectionJobs where
   hashWithSalt _salt ListSentimentDetectionJobs' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` filter'
+    _salt `Prelude.hashWithSalt` filter'
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListSentimentDetectionJobs where
   rnf ListSentimentDetectionJobs' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf filter'
+    Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListSentimentDetectionJobs where
+instance Data.ToHeaders ListSentimentDetectionJobs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.ListSentimentDetectionJobs" ::
+              Data.=# ( "Comprehend_20171127.ListSentimentDetectionJobs" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListSentimentDetectionJobs where
+instance Data.ToJSON ListSentimentDetectionJobs where
   toJSON ListSentimentDetectionJobs' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Filter" Core..=) Prelude.<$> filter',
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filter" Data..=) Prelude.<$> filter',
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListSentimentDetectionJobs where
+instance Data.ToPath ListSentimentDetectionJobs where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListSentimentDetectionJobs where
+instance Data.ToQuery ListSentimentDetectionJobs where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListSentimentDetectionJobsResponse' smart constructor.

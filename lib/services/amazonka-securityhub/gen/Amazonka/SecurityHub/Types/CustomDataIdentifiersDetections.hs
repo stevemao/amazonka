@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.CustomDataIdentifiersDetections
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.CustomDataIdentifiersDetections where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.Occurrences
 
@@ -28,15 +29,15 @@ import Amazonka.SecurityHub.Types.Occurrences
 --
 -- /See:/ 'newCustomDataIdentifiersDetections' smart constructor.
 data CustomDataIdentifiersDetections = CustomDataIdentifiersDetections'
-  { -- | Details about the sensitive data that was detected.
-    occurrences :: Prelude.Maybe Occurrences,
-    -- | The ARN of the custom identifier that was used to detect the sensitive
+  { -- | The ARN of the custom identifier that was used to detect the sensitive
     -- data.
     arn :: Prelude.Maybe Prelude.Text,
     -- | The total number of occurrences of sensitive data that were detected.
     count :: Prelude.Maybe Prelude.Integer,
     -- | he name of the custom identifier that detected the sensitive data.
-    name :: Prelude.Maybe Prelude.Text
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Details about the sensitive data that was detected.
+    occurrences :: Prelude.Maybe Occurrences
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,28 +49,24 @@ data CustomDataIdentifiersDetections = CustomDataIdentifiersDetections'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'occurrences', 'customDataIdentifiersDetections_occurrences' - Details about the sensitive data that was detected.
---
 -- 'arn', 'customDataIdentifiersDetections_arn' - The ARN of the custom identifier that was used to detect the sensitive
 -- data.
 --
 -- 'count', 'customDataIdentifiersDetections_count' - The total number of occurrences of sensitive data that were detected.
 --
 -- 'name', 'customDataIdentifiersDetections_name' - he name of the custom identifier that detected the sensitive data.
+--
+-- 'occurrences', 'customDataIdentifiersDetections_occurrences' - Details about the sensitive data that was detected.
 newCustomDataIdentifiersDetections ::
   CustomDataIdentifiersDetections
 newCustomDataIdentifiersDetections =
   CustomDataIdentifiersDetections'
-    { occurrences =
+    { arn =
         Prelude.Nothing,
-      arn = Prelude.Nothing,
       count = Prelude.Nothing,
-      name = Prelude.Nothing
+      name = Prelude.Nothing,
+      occurrences = Prelude.Nothing
     }
-
--- | Details about the sensitive data that was detected.
-customDataIdentifiersDetections_occurrences :: Lens.Lens' CustomDataIdentifiersDetections (Prelude.Maybe Occurrences)
-customDataIdentifiersDetections_occurrences = Lens.lens (\CustomDataIdentifiersDetections' {occurrences} -> occurrences) (\s@CustomDataIdentifiersDetections' {} a -> s {occurrences = a} :: CustomDataIdentifiersDetections)
 
 -- | The ARN of the custom identifier that was used to detect the sensitive
 -- data.
@@ -84,19 +81,23 @@ customDataIdentifiersDetections_count = Lens.lens (\CustomDataIdentifiersDetecti
 customDataIdentifiersDetections_name :: Lens.Lens' CustomDataIdentifiersDetections (Prelude.Maybe Prelude.Text)
 customDataIdentifiersDetections_name = Lens.lens (\CustomDataIdentifiersDetections' {name} -> name) (\s@CustomDataIdentifiersDetections' {} a -> s {name = a} :: CustomDataIdentifiersDetections)
 
+-- | Details about the sensitive data that was detected.
+customDataIdentifiersDetections_occurrences :: Lens.Lens' CustomDataIdentifiersDetections (Prelude.Maybe Occurrences)
+customDataIdentifiersDetections_occurrences = Lens.lens (\CustomDataIdentifiersDetections' {occurrences} -> occurrences) (\s@CustomDataIdentifiersDetections' {} a -> s {occurrences = a} :: CustomDataIdentifiersDetections)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     CustomDataIdentifiersDetections
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CustomDataIdentifiersDetections"
       ( \x ->
           CustomDataIdentifiersDetections'
-            Prelude.<$> (x Core..:? "Occurrences")
-            Prelude.<*> (x Core..:? "Arn")
-            Prelude.<*> (x Core..:? "Count")
-            Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Arn")
+            Prelude.<*> (x Data..:? "Count")
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "Occurrences")
       )
 
 instance
@@ -106,28 +107,28 @@ instance
   hashWithSalt
     _salt
     CustomDataIdentifiersDetections' {..} =
-      _salt `Prelude.hashWithSalt` occurrences
-        `Prelude.hashWithSalt` arn
+      _salt `Prelude.hashWithSalt` arn
         `Prelude.hashWithSalt` count
         `Prelude.hashWithSalt` name
+        `Prelude.hashWithSalt` occurrences
 
 instance
   Prelude.NFData
     CustomDataIdentifiersDetections
   where
   rnf CustomDataIdentifiersDetections' {..} =
-    Prelude.rnf occurrences
-      `Prelude.seq` Prelude.rnf arn
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf count
       `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf occurrences
 
-instance Core.ToJSON CustomDataIdentifiersDetections where
+instance Data.ToJSON CustomDataIdentifiersDetections where
   toJSON CustomDataIdentifiersDetections' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Occurrences" Core..=) Prelude.<$> occurrences,
-            ("Arn" Core..=) Prelude.<$> arn,
-            ("Count" Core..=) Prelude.<$> count,
-            ("Name" Core..=) Prelude.<$> name
+          [ ("Arn" Data..=) Prelude.<$> arn,
+            ("Count" Data..=) Prelude.<$> count,
+            ("Name" Data..=) Prelude.<$> name,
+            ("Occurrences" Data..=) Prelude.<$> occurrences
           ]
       )

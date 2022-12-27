@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.Types.S3DestinationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTAnalytics.Types.S3DestinationConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types.GlueConfiguration
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration information for delivery of dataset contents to Amazon
@@ -157,16 +158,16 @@ s3DestinationConfiguration_key = Lens.lens (\S3DestinationConfiguration' {key} -
 s3DestinationConfiguration_roleArn :: Lens.Lens' S3DestinationConfiguration Prelude.Text
 s3DestinationConfiguration_roleArn = Lens.lens (\S3DestinationConfiguration' {roleArn} -> roleArn) (\s@S3DestinationConfiguration' {} a -> s {roleArn = a} :: S3DestinationConfiguration)
 
-instance Core.FromJSON S3DestinationConfiguration where
+instance Data.FromJSON S3DestinationConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "S3DestinationConfiguration"
       ( \x ->
           S3DestinationConfiguration'
-            Prelude.<$> (x Core..:? "glueConfiguration")
-            Prelude.<*> (x Core..: "bucket")
-            Prelude.<*> (x Core..: "key")
-            Prelude.<*> (x Core..: "roleArn")
+            Prelude.<$> (x Data..:? "glueConfiguration")
+            Prelude.<*> (x Data..: "bucket")
+            Prelude.<*> (x Data..: "key")
+            Prelude.<*> (x Data..: "roleArn")
       )
 
 instance Prelude.Hashable S3DestinationConfiguration where
@@ -183,14 +184,14 @@ instance Prelude.NFData S3DestinationConfiguration where
       `Prelude.seq` Prelude.rnf key
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToJSON S3DestinationConfiguration where
+instance Data.ToJSON S3DestinationConfiguration where
   toJSON S3DestinationConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("glueConfiguration" Core..=)
+          [ ("glueConfiguration" Data..=)
               Prelude.<$> glueConfiguration,
-            Prelude.Just ("bucket" Core..= bucket),
-            Prelude.Just ("key" Core..= key),
-            Prelude.Just ("roleArn" Core..= roleArn)
+            Prelude.Just ("bucket" Data..= bucket),
+            Prelude.Just ("key" Data..= key),
+            Prelude.Just ("roleArn" Data..= roleArn)
           ]
       )

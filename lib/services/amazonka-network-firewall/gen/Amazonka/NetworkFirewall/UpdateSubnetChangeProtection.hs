@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.UpdateSubnetChangeProtection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,9 +25,9 @@ module Amazonka.NetworkFirewall.UpdateSubnetChangeProtection
     newUpdateSubnetChangeProtection,
 
     -- * Request Lenses
-    updateSubnetChangeProtection_updateToken,
     updateSubnetChangeProtection_firewallArn,
     updateSubnetChangeProtection_firewallName,
+    updateSubnetChangeProtection_updateToken,
     updateSubnetChangeProtection_subnetChangeProtection,
 
     -- * Destructuring the Response
@@ -35,16 +35,17 @@ module Amazonka.NetworkFirewall.UpdateSubnetChangeProtection
     newUpdateSubnetChangeProtectionResponse,
 
     -- * Response Lenses
-    updateSubnetChangeProtectionResponse_updateToken,
     updateSubnetChangeProtectionResponse_firewallArn,
-    updateSubnetChangeProtectionResponse_subnetChangeProtection,
     updateSubnetChangeProtectionResponse_firewallName,
+    updateSubnetChangeProtectionResponse_subnetChangeProtection,
+    updateSubnetChangeProtectionResponse_updateToken,
     updateSubnetChangeProtectionResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkFirewall.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,7 +53,16 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateSubnetChangeProtection' smart constructor.
 data UpdateSubnetChangeProtection = UpdateSubnetChangeProtection'
-  { -- | An optional token that you can use for optimistic locking. Network
+  { -- | The Amazon Resource Name (ARN) of the firewall.
+    --
+    -- You must specify the ARN or the name, and you can specify both.
+    firewallArn :: Prelude.Maybe Prelude.Text,
+    -- | The descriptive name of the firewall. You can\'t change the name of a
+    -- firewall after you create it.
+    --
+    -- You must specify the ARN or the name, and you can specify both.
+    firewallName :: Prelude.Maybe Prelude.Text,
+    -- | An optional token that you can use for optimistic locking. Network
     -- Firewall returns a token to your requests that access the firewall. The
     -- token marks the state of the firewall resource at the time of the
     -- request.
@@ -70,15 +80,6 @@ data UpdateSubnetChangeProtection = UpdateSubnetChangeProtection'
     -- token. Reapply your changes as needed, then try the operation again
     -- using the new token.
     updateToken :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the firewall.
-    --
-    -- You must specify the ARN or the name, and you can specify both.
-    firewallArn :: Prelude.Maybe Prelude.Text,
-    -- | The descriptive name of the firewall. You can\'t change the name of a
-    -- firewall after you create it.
-    --
-    -- You must specify the ARN or the name, and you can specify both.
-    firewallName :: Prelude.Maybe Prelude.Text,
     -- | A setting indicating whether the firewall is protected against changes
     -- to the subnet associations. Use this setting to protect against
     -- accidentally modifying the subnet associations for a firewall that is in
@@ -95,6 +96,15 @@ data UpdateSubnetChangeProtection = UpdateSubnetChangeProtection'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'firewallArn', 'updateSubnetChangeProtection_firewallArn' - The Amazon Resource Name (ARN) of the firewall.
+--
+-- You must specify the ARN or the name, and you can specify both.
+--
+-- 'firewallName', 'updateSubnetChangeProtection_firewallName' - The descriptive name of the firewall. You can\'t change the name of a
+-- firewall after you create it.
+--
+-- You must specify the ARN or the name, and you can specify both.
 --
 -- 'updateToken', 'updateSubnetChangeProtection_updateToken' - An optional token that you can use for optimistic locking. Network
 -- Firewall returns a token to your requests that access the firewall. The
@@ -114,15 +124,6 @@ data UpdateSubnetChangeProtection = UpdateSubnetChangeProtection'
 -- token. Reapply your changes as needed, then try the operation again
 -- using the new token.
 --
--- 'firewallArn', 'updateSubnetChangeProtection_firewallArn' - The Amazon Resource Name (ARN) of the firewall.
---
--- You must specify the ARN or the name, and you can specify both.
---
--- 'firewallName', 'updateSubnetChangeProtection_firewallName' - The descriptive name of the firewall. You can\'t change the name of a
--- firewall after you create it.
---
--- You must specify the ARN or the name, and you can specify both.
---
 -- 'subnetChangeProtection', 'updateSubnetChangeProtection_subnetChangeProtection' - A setting indicating whether the firewall is protected against changes
 -- to the subnet associations. Use this setting to protect against
 -- accidentally modifying the subnet associations for a firewall that is in
@@ -135,13 +136,26 @@ newUpdateSubnetChangeProtection ::
 newUpdateSubnetChangeProtection
   pSubnetChangeProtection_ =
     UpdateSubnetChangeProtection'
-      { updateToken =
+      { firewallArn =
           Prelude.Nothing,
-        firewallArn = Prelude.Nothing,
         firewallName = Prelude.Nothing,
+        updateToken = Prelude.Nothing,
         subnetChangeProtection =
           pSubnetChangeProtection_
       }
+
+-- | The Amazon Resource Name (ARN) of the firewall.
+--
+-- You must specify the ARN or the name, and you can specify both.
+updateSubnetChangeProtection_firewallArn :: Lens.Lens' UpdateSubnetChangeProtection (Prelude.Maybe Prelude.Text)
+updateSubnetChangeProtection_firewallArn = Lens.lens (\UpdateSubnetChangeProtection' {firewallArn} -> firewallArn) (\s@UpdateSubnetChangeProtection' {} a -> s {firewallArn = a} :: UpdateSubnetChangeProtection)
+
+-- | The descriptive name of the firewall. You can\'t change the name of a
+-- firewall after you create it.
+--
+-- You must specify the ARN or the name, and you can specify both.
+updateSubnetChangeProtection_firewallName :: Lens.Lens' UpdateSubnetChangeProtection (Prelude.Maybe Prelude.Text)
+updateSubnetChangeProtection_firewallName = Lens.lens (\UpdateSubnetChangeProtection' {firewallName} -> firewallName) (\s@UpdateSubnetChangeProtection' {} a -> s {firewallName = a} :: UpdateSubnetChangeProtection)
 
 -- | An optional token that you can use for optimistic locking. Network
 -- Firewall returns a token to your requests that access the firewall. The
@@ -163,19 +177,6 @@ newUpdateSubnetChangeProtection
 updateSubnetChangeProtection_updateToken :: Lens.Lens' UpdateSubnetChangeProtection (Prelude.Maybe Prelude.Text)
 updateSubnetChangeProtection_updateToken = Lens.lens (\UpdateSubnetChangeProtection' {updateToken} -> updateToken) (\s@UpdateSubnetChangeProtection' {} a -> s {updateToken = a} :: UpdateSubnetChangeProtection)
 
--- | The Amazon Resource Name (ARN) of the firewall.
---
--- You must specify the ARN or the name, and you can specify both.
-updateSubnetChangeProtection_firewallArn :: Lens.Lens' UpdateSubnetChangeProtection (Prelude.Maybe Prelude.Text)
-updateSubnetChangeProtection_firewallArn = Lens.lens (\UpdateSubnetChangeProtection' {firewallArn} -> firewallArn) (\s@UpdateSubnetChangeProtection' {} a -> s {firewallArn = a} :: UpdateSubnetChangeProtection)
-
--- | The descriptive name of the firewall. You can\'t change the name of a
--- firewall after you create it.
---
--- You must specify the ARN or the name, and you can specify both.
-updateSubnetChangeProtection_firewallName :: Lens.Lens' UpdateSubnetChangeProtection (Prelude.Maybe Prelude.Text)
-updateSubnetChangeProtection_firewallName = Lens.lens (\UpdateSubnetChangeProtection' {firewallName} -> firewallName) (\s@UpdateSubnetChangeProtection' {} a -> s {firewallName = a} :: UpdateSubnetChangeProtection)
-
 -- | A setting indicating whether the firewall is protected against changes
 -- to the subnet associations. Use this setting to protect against
 -- accidentally modifying the subnet associations for a firewall that is in
@@ -188,15 +189,16 @@ instance Core.AWSRequest UpdateSubnetChangeProtection where
   type
     AWSResponse UpdateSubnetChangeProtection =
       UpdateSubnetChangeProtectionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateSubnetChangeProtectionResponse'
-            Prelude.<$> (x Core..?> "UpdateToken")
-            Prelude.<*> (x Core..?> "FirewallArn")
-            Prelude.<*> (x Core..?> "SubnetChangeProtection")
-            Prelude.<*> (x Core..?> "FirewallName")
+            Prelude.<$> (x Data..?> "FirewallArn")
+            Prelude.<*> (x Data..?> "FirewallName")
+            Prelude.<*> (x Data..?> "SubnetChangeProtection")
+            Prelude.<*> (x Data..?> "UpdateToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -205,56 +207,67 @@ instance
     UpdateSubnetChangeProtection
   where
   hashWithSalt _salt UpdateSubnetChangeProtection' {..} =
-    _salt `Prelude.hashWithSalt` updateToken
-      `Prelude.hashWithSalt` firewallArn
+    _salt `Prelude.hashWithSalt` firewallArn
       `Prelude.hashWithSalt` firewallName
+      `Prelude.hashWithSalt` updateToken
       `Prelude.hashWithSalt` subnetChangeProtection
 
 instance Prelude.NFData UpdateSubnetChangeProtection where
   rnf UpdateSubnetChangeProtection' {..} =
-    Prelude.rnf updateToken
-      `Prelude.seq` Prelude.rnf firewallArn
+    Prelude.rnf firewallArn
       `Prelude.seq` Prelude.rnf firewallName
+      `Prelude.seq` Prelude.rnf updateToken
       `Prelude.seq` Prelude.rnf subnetChangeProtection
 
-instance Core.ToHeaders UpdateSubnetChangeProtection where
+instance Data.ToHeaders UpdateSubnetChangeProtection where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "NetworkFirewall_20201112.UpdateSubnetChangeProtection" ::
+              Data.=# ( "NetworkFirewall_20201112.UpdateSubnetChangeProtection" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateSubnetChangeProtection where
+instance Data.ToJSON UpdateSubnetChangeProtection where
   toJSON UpdateSubnetChangeProtection' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("UpdateToken" Core..=) Prelude.<$> updateToken,
-            ("FirewallArn" Core..=) Prelude.<$> firewallArn,
-            ("FirewallName" Core..=) Prelude.<$> firewallName,
+          [ ("FirewallArn" Data..=) Prelude.<$> firewallArn,
+            ("FirewallName" Data..=) Prelude.<$> firewallName,
+            ("UpdateToken" Data..=) Prelude.<$> updateToken,
             Prelude.Just
               ( "SubnetChangeProtection"
-                  Core..= subnetChangeProtection
+                  Data..= subnetChangeProtection
               )
           ]
       )
 
-instance Core.ToPath UpdateSubnetChangeProtection where
+instance Data.ToPath UpdateSubnetChangeProtection where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateSubnetChangeProtection where
+instance Data.ToQuery UpdateSubnetChangeProtection where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateSubnetChangeProtectionResponse' smart constructor.
 data UpdateSubnetChangeProtectionResponse = UpdateSubnetChangeProtectionResponse'
-  { -- | An optional token that you can use for optimistic locking. Network
+  { -- | The Amazon Resource Name (ARN) of the firewall.
+    firewallArn :: Prelude.Maybe Prelude.Text,
+    -- | The descriptive name of the firewall. You can\'t change the name of a
+    -- firewall after you create it.
+    firewallName :: Prelude.Maybe Prelude.Text,
+    -- | A setting indicating whether the firewall is protected against changes
+    -- to the subnet associations. Use this setting to protect against
+    -- accidentally modifying the subnet associations for a firewall that is in
+    -- use. When you create a firewall, the operation initializes this setting
+    -- to @TRUE@.
+    subnetChangeProtection :: Prelude.Maybe Prelude.Bool,
+    -- | An optional token that you can use for optimistic locking. Network
     -- Firewall returns a token to your requests that access the firewall. The
     -- token marks the state of the firewall resource at the time of the
     -- request.
@@ -272,17 +285,6 @@ data UpdateSubnetChangeProtectionResponse = UpdateSubnetChangeProtectionResponse
     -- token. Reapply your changes as needed, then try the operation again
     -- using the new token.
     updateToken :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the firewall.
-    firewallArn :: Prelude.Maybe Prelude.Text,
-    -- | A setting indicating whether the firewall is protected against changes
-    -- to the subnet associations. Use this setting to protect against
-    -- accidentally modifying the subnet associations for a firewall that is in
-    -- use. When you create a firewall, the operation initializes this setting
-    -- to @TRUE@.
-    subnetChangeProtection :: Prelude.Maybe Prelude.Bool,
-    -- | The descriptive name of the firewall. You can\'t change the name of a
-    -- firewall after you create it.
-    firewallName :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -295,6 +297,17 @@ data UpdateSubnetChangeProtectionResponse = UpdateSubnetChangeProtectionResponse
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'firewallArn', 'updateSubnetChangeProtectionResponse_firewallArn' - The Amazon Resource Name (ARN) of the firewall.
+--
+-- 'firewallName', 'updateSubnetChangeProtectionResponse_firewallName' - The descriptive name of the firewall. You can\'t change the name of a
+-- firewall after you create it.
+--
+-- 'subnetChangeProtection', 'updateSubnetChangeProtectionResponse_subnetChangeProtection' - A setting indicating whether the firewall is protected against changes
+-- to the subnet associations. Use this setting to protect against
+-- accidentally modifying the subnet associations for a firewall that is in
+-- use. When you create a firewall, the operation initializes this setting
+-- to @TRUE@.
 --
 -- 'updateToken', 'updateSubnetChangeProtectionResponse_updateToken' - An optional token that you can use for optimistic locking. Network
 -- Firewall returns a token to your requests that access the firewall. The
@@ -314,17 +327,6 @@ data UpdateSubnetChangeProtectionResponse = UpdateSubnetChangeProtectionResponse
 -- token. Reapply your changes as needed, then try the operation again
 -- using the new token.
 --
--- 'firewallArn', 'updateSubnetChangeProtectionResponse_firewallArn' - The Amazon Resource Name (ARN) of the firewall.
---
--- 'subnetChangeProtection', 'updateSubnetChangeProtectionResponse_subnetChangeProtection' - A setting indicating whether the firewall is protected against changes
--- to the subnet associations. Use this setting to protect against
--- accidentally modifying the subnet associations for a firewall that is in
--- use. When you create a firewall, the operation initializes this setting
--- to @TRUE@.
---
--- 'firewallName', 'updateSubnetChangeProtectionResponse_firewallName' - The descriptive name of the firewall. You can\'t change the name of a
--- firewall after you create it.
---
 -- 'httpStatus', 'updateSubnetChangeProtectionResponse_httpStatus' - The response's http status code.
 newUpdateSubnetChangeProtectionResponse ::
   -- | 'httpStatus'
@@ -332,14 +334,31 @@ newUpdateSubnetChangeProtectionResponse ::
   UpdateSubnetChangeProtectionResponse
 newUpdateSubnetChangeProtectionResponse pHttpStatus_ =
   UpdateSubnetChangeProtectionResponse'
-    { updateToken =
-        Prelude.Nothing,
-      firewallArn = Prelude.Nothing,
-      subnetChangeProtection =
+    { firewallArn =
         Prelude.Nothing,
       firewallName = Prelude.Nothing,
+      subnetChangeProtection =
+        Prelude.Nothing,
+      updateToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The Amazon Resource Name (ARN) of the firewall.
+updateSubnetChangeProtectionResponse_firewallArn :: Lens.Lens' UpdateSubnetChangeProtectionResponse (Prelude.Maybe Prelude.Text)
+updateSubnetChangeProtectionResponse_firewallArn = Lens.lens (\UpdateSubnetChangeProtectionResponse' {firewallArn} -> firewallArn) (\s@UpdateSubnetChangeProtectionResponse' {} a -> s {firewallArn = a} :: UpdateSubnetChangeProtectionResponse)
+
+-- | The descriptive name of the firewall. You can\'t change the name of a
+-- firewall after you create it.
+updateSubnetChangeProtectionResponse_firewallName :: Lens.Lens' UpdateSubnetChangeProtectionResponse (Prelude.Maybe Prelude.Text)
+updateSubnetChangeProtectionResponse_firewallName = Lens.lens (\UpdateSubnetChangeProtectionResponse' {firewallName} -> firewallName) (\s@UpdateSubnetChangeProtectionResponse' {} a -> s {firewallName = a} :: UpdateSubnetChangeProtectionResponse)
+
+-- | A setting indicating whether the firewall is protected against changes
+-- to the subnet associations. Use this setting to protect against
+-- accidentally modifying the subnet associations for a firewall that is in
+-- use. When you create a firewall, the operation initializes this setting
+-- to @TRUE@.
+updateSubnetChangeProtectionResponse_subnetChangeProtection :: Lens.Lens' UpdateSubnetChangeProtectionResponse (Prelude.Maybe Prelude.Bool)
+updateSubnetChangeProtectionResponse_subnetChangeProtection = Lens.lens (\UpdateSubnetChangeProtectionResponse' {subnetChangeProtection} -> subnetChangeProtection) (\s@UpdateSubnetChangeProtectionResponse' {} a -> s {subnetChangeProtection = a} :: UpdateSubnetChangeProtectionResponse)
 
 -- | An optional token that you can use for optimistic locking. Network
 -- Firewall returns a token to your requests that access the firewall. The
@@ -361,23 +380,6 @@ newUpdateSubnetChangeProtectionResponse pHttpStatus_ =
 updateSubnetChangeProtectionResponse_updateToken :: Lens.Lens' UpdateSubnetChangeProtectionResponse (Prelude.Maybe Prelude.Text)
 updateSubnetChangeProtectionResponse_updateToken = Lens.lens (\UpdateSubnetChangeProtectionResponse' {updateToken} -> updateToken) (\s@UpdateSubnetChangeProtectionResponse' {} a -> s {updateToken = a} :: UpdateSubnetChangeProtectionResponse)
 
--- | The Amazon Resource Name (ARN) of the firewall.
-updateSubnetChangeProtectionResponse_firewallArn :: Lens.Lens' UpdateSubnetChangeProtectionResponse (Prelude.Maybe Prelude.Text)
-updateSubnetChangeProtectionResponse_firewallArn = Lens.lens (\UpdateSubnetChangeProtectionResponse' {firewallArn} -> firewallArn) (\s@UpdateSubnetChangeProtectionResponse' {} a -> s {firewallArn = a} :: UpdateSubnetChangeProtectionResponse)
-
--- | A setting indicating whether the firewall is protected against changes
--- to the subnet associations. Use this setting to protect against
--- accidentally modifying the subnet associations for a firewall that is in
--- use. When you create a firewall, the operation initializes this setting
--- to @TRUE@.
-updateSubnetChangeProtectionResponse_subnetChangeProtection :: Lens.Lens' UpdateSubnetChangeProtectionResponse (Prelude.Maybe Prelude.Bool)
-updateSubnetChangeProtectionResponse_subnetChangeProtection = Lens.lens (\UpdateSubnetChangeProtectionResponse' {subnetChangeProtection} -> subnetChangeProtection) (\s@UpdateSubnetChangeProtectionResponse' {} a -> s {subnetChangeProtection = a} :: UpdateSubnetChangeProtectionResponse)
-
--- | The descriptive name of the firewall. You can\'t change the name of a
--- firewall after you create it.
-updateSubnetChangeProtectionResponse_firewallName :: Lens.Lens' UpdateSubnetChangeProtectionResponse (Prelude.Maybe Prelude.Text)
-updateSubnetChangeProtectionResponse_firewallName = Lens.lens (\UpdateSubnetChangeProtectionResponse' {firewallName} -> firewallName) (\s@UpdateSubnetChangeProtectionResponse' {} a -> s {firewallName = a} :: UpdateSubnetChangeProtectionResponse)
-
 -- | The response's http status code.
 updateSubnetChangeProtectionResponse_httpStatus :: Lens.Lens' UpdateSubnetChangeProtectionResponse Prelude.Int
 updateSubnetChangeProtectionResponse_httpStatus = Lens.lens (\UpdateSubnetChangeProtectionResponse' {httpStatus} -> httpStatus) (\s@UpdateSubnetChangeProtectionResponse' {} a -> s {httpStatus = a} :: UpdateSubnetChangeProtectionResponse)
@@ -387,8 +389,8 @@ instance
     UpdateSubnetChangeProtectionResponse
   where
   rnf UpdateSubnetChangeProtectionResponse' {..} =
-    Prelude.rnf updateToken
-      `Prelude.seq` Prelude.rnf firewallArn
-      `Prelude.seq` Prelude.rnf subnetChangeProtection
+    Prelude.rnf firewallArn
       `Prelude.seq` Prelude.rnf firewallName
+      `Prelude.seq` Prelude.rnf subnetChangeProtection
+      `Prelude.seq` Prelude.rnf updateToken
       `Prelude.seq` Prelude.rnf httpStatus

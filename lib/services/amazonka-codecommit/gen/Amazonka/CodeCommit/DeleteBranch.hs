@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.DeleteBranch
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,12 +93,13 @@ deleteBranch_branchName = Lens.lens (\DeleteBranch' {branchName} -> branchName) 
 
 instance Core.AWSRequest DeleteBranch where
   type AWSResponse DeleteBranch = DeleteBranchResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteBranchResponse'
-            Prelude.<$> (x Core..?> "deletedBranch")
+            Prelude.<$> (x Data..?> "deletedBranch")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -111,35 +113,35 @@ instance Prelude.NFData DeleteBranch where
     Prelude.rnf repositoryName
       `Prelude.seq` Prelude.rnf branchName
 
-instance Core.ToHeaders DeleteBranch where
+instance Data.ToHeaders DeleteBranch where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.DeleteBranch" ::
+              Data.=# ( "CodeCommit_20150413.DeleteBranch" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteBranch where
+instance Data.ToJSON DeleteBranch where
   toJSON DeleteBranch' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("repositoryName" Core..= repositoryName),
-            Prelude.Just ("branchName" Core..= branchName)
+              ("repositoryName" Data..= repositoryName),
+            Prelude.Just ("branchName" Data..= branchName)
           ]
       )
 
-instance Core.ToPath DeleteBranch where
+instance Data.ToPath DeleteBranch where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteBranch where
+instance Data.ToQuery DeleteBranch where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a delete branch operation.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudSearchDomains.Types.SuggestStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudSearchDomains.Types.SuggestStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the resource id (@rid@) and the time it took to process the
@@ -62,13 +63,13 @@ suggestStatus_rid = Lens.lens (\SuggestStatus' {rid} -> rid) (\s@SuggestStatus' 
 suggestStatus_timems :: Lens.Lens' SuggestStatus (Prelude.Maybe Prelude.Integer)
 suggestStatus_timems = Lens.lens (\SuggestStatus' {timems} -> timems) (\s@SuggestStatus' {} a -> s {timems = a} :: SuggestStatus)
 
-instance Core.FromJSON SuggestStatus where
+instance Data.FromJSON SuggestStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SuggestStatus"
       ( \x ->
           SuggestStatus'
-            Prelude.<$> (x Core..:? "rid") Prelude.<*> (x Core..:? "timems")
+            Prelude.<$> (x Data..:? "rid") Prelude.<*> (x Data..:? "timems")
       )
 
 instance Prelude.Hashable SuggestStatus where

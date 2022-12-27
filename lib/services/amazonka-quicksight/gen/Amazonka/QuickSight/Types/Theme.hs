@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.Theme
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.Theme where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types.ThemeType
 import Amazonka.QuickSight.Types.ThemeVersion
@@ -29,20 +30,20 @@ import Amazonka.QuickSight.Types.ThemeVersion
 --
 -- /See:/ 'newTheme' smart constructor.
 data Theme = Theme'
-  { -- | The identifier that the user gives to the theme.
-    themeId :: Prelude.Maybe Prelude.Text,
-    -- | The date and time that the theme was last updated.
-    lastUpdatedTime :: Prelude.Maybe Core.POSIX,
-    -- | The Amazon Resource Name (ARN) of the theme.
+  { -- | The Amazon Resource Name (ARN) of the theme.
     arn :: Prelude.Maybe Prelude.Text,
     -- | The date and time that the theme was created.
-    createdTime :: Prelude.Maybe Core.POSIX,
+    createdTime :: Prelude.Maybe Data.POSIX,
+    -- | The date and time that the theme was last updated.
+    lastUpdatedTime :: Prelude.Maybe Data.POSIX,
     -- | The name that the user gives to the theme.
     name :: Prelude.Maybe Prelude.Text,
-    version :: Prelude.Maybe ThemeVersion,
+    -- | The identifier that the user gives to the theme.
+    themeId :: Prelude.Maybe Prelude.Text,
     -- | The type of theme, based on how it was created. Valid values include:
     -- @QUICKSIGHT@ and @CUSTOM@.
-    type' :: Prelude.Maybe ThemeType
+    type' :: Prelude.Maybe ThemeType,
+    version :: Prelude.Maybe ThemeVersion
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -54,40 +55,32 @@ data Theme = Theme'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'themeId', 'theme_themeId' - The identifier that the user gives to the theme.
---
--- 'lastUpdatedTime', 'theme_lastUpdatedTime' - The date and time that the theme was last updated.
---
 -- 'arn', 'theme_arn' - The Amazon Resource Name (ARN) of the theme.
 --
 -- 'createdTime', 'theme_createdTime' - The date and time that the theme was created.
 --
+-- 'lastUpdatedTime', 'theme_lastUpdatedTime' - The date and time that the theme was last updated.
+--
 -- 'name', 'theme_name' - The name that the user gives to the theme.
 --
--- 'version', 'theme_version' - Undocumented member.
+-- 'themeId', 'theme_themeId' - The identifier that the user gives to the theme.
 --
 -- 'type'', 'theme_type' - The type of theme, based on how it was created. Valid values include:
 -- @QUICKSIGHT@ and @CUSTOM@.
+--
+-- 'version', 'theme_version' - Undocumented member.
 newTheme ::
   Theme
 newTheme =
   Theme'
-    { themeId = Prelude.Nothing,
-      lastUpdatedTime = Prelude.Nothing,
-      arn = Prelude.Nothing,
+    { arn = Prelude.Nothing,
       createdTime = Prelude.Nothing,
+      lastUpdatedTime = Prelude.Nothing,
       name = Prelude.Nothing,
-      version = Prelude.Nothing,
-      type' = Prelude.Nothing
+      themeId = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      version = Prelude.Nothing
     }
-
--- | The identifier that the user gives to the theme.
-theme_themeId :: Lens.Lens' Theme (Prelude.Maybe Prelude.Text)
-theme_themeId = Lens.lens (\Theme' {themeId} -> themeId) (\s@Theme' {} a -> s {themeId = a} :: Theme)
-
--- | The date and time that the theme was last updated.
-theme_lastUpdatedTime :: Lens.Lens' Theme (Prelude.Maybe Prelude.UTCTime)
-theme_lastUpdatedTime = Lens.lens (\Theme' {lastUpdatedTime} -> lastUpdatedTime) (\s@Theme' {} a -> s {lastUpdatedTime = a} :: Theme) Prelude.. Lens.mapping Core._Time
 
 -- | The Amazon Resource Name (ARN) of the theme.
 theme_arn :: Lens.Lens' Theme (Prelude.Maybe Prelude.Text)
@@ -95,52 +88,60 @@ theme_arn = Lens.lens (\Theme' {arn} -> arn) (\s@Theme' {} a -> s {arn = a} :: T
 
 -- | The date and time that the theme was created.
 theme_createdTime :: Lens.Lens' Theme (Prelude.Maybe Prelude.UTCTime)
-theme_createdTime = Lens.lens (\Theme' {createdTime} -> createdTime) (\s@Theme' {} a -> s {createdTime = a} :: Theme) Prelude.. Lens.mapping Core._Time
+theme_createdTime = Lens.lens (\Theme' {createdTime} -> createdTime) (\s@Theme' {} a -> s {createdTime = a} :: Theme) Prelude.. Lens.mapping Data._Time
+
+-- | The date and time that the theme was last updated.
+theme_lastUpdatedTime :: Lens.Lens' Theme (Prelude.Maybe Prelude.UTCTime)
+theme_lastUpdatedTime = Lens.lens (\Theme' {lastUpdatedTime} -> lastUpdatedTime) (\s@Theme' {} a -> s {lastUpdatedTime = a} :: Theme) Prelude.. Lens.mapping Data._Time
 
 -- | The name that the user gives to the theme.
 theme_name :: Lens.Lens' Theme (Prelude.Maybe Prelude.Text)
 theme_name = Lens.lens (\Theme' {name} -> name) (\s@Theme' {} a -> s {name = a} :: Theme)
 
--- | Undocumented member.
-theme_version :: Lens.Lens' Theme (Prelude.Maybe ThemeVersion)
-theme_version = Lens.lens (\Theme' {version} -> version) (\s@Theme' {} a -> s {version = a} :: Theme)
+-- | The identifier that the user gives to the theme.
+theme_themeId :: Lens.Lens' Theme (Prelude.Maybe Prelude.Text)
+theme_themeId = Lens.lens (\Theme' {themeId} -> themeId) (\s@Theme' {} a -> s {themeId = a} :: Theme)
 
 -- | The type of theme, based on how it was created. Valid values include:
 -- @QUICKSIGHT@ and @CUSTOM@.
 theme_type :: Lens.Lens' Theme (Prelude.Maybe ThemeType)
 theme_type = Lens.lens (\Theme' {type'} -> type') (\s@Theme' {} a -> s {type' = a} :: Theme)
 
-instance Core.FromJSON Theme where
+-- | Undocumented member.
+theme_version :: Lens.Lens' Theme (Prelude.Maybe ThemeVersion)
+theme_version = Lens.lens (\Theme' {version} -> version) (\s@Theme' {} a -> s {version = a} :: Theme)
+
+instance Data.FromJSON Theme where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Theme"
       ( \x ->
           Theme'
-            Prelude.<$> (x Core..:? "ThemeId")
-            Prelude.<*> (x Core..:? "LastUpdatedTime")
-            Prelude.<*> (x Core..:? "Arn")
-            Prelude.<*> (x Core..:? "CreatedTime")
-            Prelude.<*> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "Version")
-            Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "Arn")
+            Prelude.<*> (x Data..:? "CreatedTime")
+            Prelude.<*> (x Data..:? "LastUpdatedTime")
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "ThemeId")
+            Prelude.<*> (x Data..:? "Type")
+            Prelude.<*> (x Data..:? "Version")
       )
 
 instance Prelude.Hashable Theme where
   hashWithSalt _salt Theme' {..} =
-    _salt `Prelude.hashWithSalt` themeId
-      `Prelude.hashWithSalt` lastUpdatedTime
-      `Prelude.hashWithSalt` arn
+    _salt `Prelude.hashWithSalt` arn
       `Prelude.hashWithSalt` createdTime
+      `Prelude.hashWithSalt` lastUpdatedTime
       `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` version
+      `Prelude.hashWithSalt` themeId
       `Prelude.hashWithSalt` type'
+      `Prelude.hashWithSalt` version
 
 instance Prelude.NFData Theme where
   rnf Theme' {..} =
-    Prelude.rnf themeId
-      `Prelude.seq` Prelude.rnf lastUpdatedTime
-      `Prelude.seq` Prelude.rnf arn
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf createdTime
+      `Prelude.seq` Prelude.rnf lastUpdatedTime
       `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf version
+      `Prelude.seq` Prelude.rnf themeId
       `Prelude.seq` Prelude.rnf type'
+      `Prelude.seq` Prelude.rnf version

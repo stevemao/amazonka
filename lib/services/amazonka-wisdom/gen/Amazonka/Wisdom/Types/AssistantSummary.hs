@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.Types.AssistantSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Wisdom.Types.AssistantSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Wisdom.Types.AssistantStatus
 import Amazonka.Wisdom.Types.AssistantType
@@ -36,7 +37,7 @@ data AssistantSummary = AssistantSummary'
     serverSideEncryptionConfiguration :: Prelude.Maybe ServerSideEncryptionConfiguration,
     -- | The tags used to organize, track, or control access for this resource.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | The Amazon Resource Name (ARN) of the Wisdom assistant
+    -- | The Amazon Resource Name (ARN) of the Wisdom assistant.
     assistantArn :: Prelude.Text,
     -- | The identifier of the Wisdom assistant.
     assistantId :: Prelude.Text,
@@ -63,7 +64,7 @@ data AssistantSummary = AssistantSummary'
 --
 -- 'tags', 'assistantSummary_tags' - The tags used to organize, track, or control access for this resource.
 --
--- 'assistantArn', 'assistantSummary_assistantArn' - The Amazon Resource Name (ARN) of the Wisdom assistant
+-- 'assistantArn', 'assistantSummary_assistantArn' - The Amazon Resource Name (ARN) of the Wisdom assistant.
 --
 -- 'assistantId', 'assistantSummary_assistantId' - The identifier of the Wisdom assistant.
 --
@@ -113,7 +114,7 @@ assistantSummary_serverSideEncryptionConfiguration = Lens.lens (\AssistantSummar
 assistantSummary_tags :: Lens.Lens' AssistantSummary (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 assistantSummary_tags = Lens.lens (\AssistantSummary' {tags} -> tags) (\s@AssistantSummary' {} a -> s {tags = a} :: AssistantSummary) Prelude.. Lens.mapping Lens.coerced
 
--- | The Amazon Resource Name (ARN) of the Wisdom assistant
+-- | The Amazon Resource Name (ARN) of the Wisdom assistant.
 assistantSummary_assistantArn :: Lens.Lens' AssistantSummary Prelude.Text
 assistantSummary_assistantArn = Lens.lens (\AssistantSummary' {assistantArn} -> assistantArn) (\s@AssistantSummary' {} a -> s {assistantArn = a} :: AssistantSummary)
 
@@ -133,20 +134,20 @@ assistantSummary_status = Lens.lens (\AssistantSummary' {status} -> status) (\s@
 assistantSummary_type :: Lens.Lens' AssistantSummary AssistantType
 assistantSummary_type = Lens.lens (\AssistantSummary' {type'} -> type') (\s@AssistantSummary' {} a -> s {type' = a} :: AssistantSummary)
 
-instance Core.FromJSON AssistantSummary where
+instance Data.FromJSON AssistantSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AssistantSummary"
       ( \x ->
           AssistantSummary'
-            Prelude.<$> (x Core..:? "description")
-            Prelude.<*> (x Core..:? "serverSideEncryptionConfiguration")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "assistantArn")
-            Prelude.<*> (x Core..: "assistantId")
-            Prelude.<*> (x Core..: "name")
-            Prelude.<*> (x Core..: "status")
-            Prelude.<*> (x Core..: "type")
+            Prelude.<$> (x Data..:? "description")
+            Prelude.<*> (x Data..:? "serverSideEncryptionConfiguration")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "assistantArn")
+            Prelude.<*> (x Data..: "assistantId")
+            Prelude.<*> (x Data..: "name")
+            Prelude.<*> (x Data..: "status")
+            Prelude.<*> (x Data..: "type")
       )
 
 instance Prelude.Hashable AssistantSummary where

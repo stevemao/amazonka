@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Forecast.DeletePredictorBacktestExportJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,9 @@ module Amazonka.Forecast.DeletePredictorBacktestExportJob
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Forecast.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,7 +84,8 @@ instance
   type
     AWSResponse DeletePredictorBacktestExportJob =
       DeletePredictorBacktestExportJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       DeletePredictorBacktestExportJobResponse'
@@ -106,39 +108,39 @@ instance
     Prelude.rnf predictorBacktestExportJobArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeletePredictorBacktestExportJob
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonForecast.DeletePredictorBacktestExportJob" ::
+              Data.=# ( "AmazonForecast.DeletePredictorBacktestExportJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeletePredictorBacktestExportJob where
+instance Data.ToJSON DeletePredictorBacktestExportJob where
   toJSON DeletePredictorBacktestExportJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "PredictorBacktestExportJobArn"
-                  Core..= predictorBacktestExportJobArn
+                  Data..= predictorBacktestExportJobArn
               )
           ]
       )
 
-instance Core.ToPath DeletePredictorBacktestExportJob where
+instance Data.ToPath DeletePredictorBacktestExportJob where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DeletePredictorBacktestExportJob
   where
   toQuery = Prelude.const Prelude.mempty

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.Types.DNSLogsConfigurationResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.GuardDuty.Types.DNSLogsConfigurationResult where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types.DataSourceStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information on the status of DNS logs as a data source.
@@ -53,13 +54,13 @@ newDNSLogsConfigurationResult pStatus_ =
 dNSLogsConfigurationResult_status :: Lens.Lens' DNSLogsConfigurationResult DataSourceStatus
 dNSLogsConfigurationResult_status = Lens.lens (\DNSLogsConfigurationResult' {status} -> status) (\s@DNSLogsConfigurationResult' {} a -> s {status = a} :: DNSLogsConfigurationResult)
 
-instance Core.FromJSON DNSLogsConfigurationResult where
+instance Data.FromJSON DNSLogsConfigurationResult where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DNSLogsConfigurationResult"
       ( \x ->
           DNSLogsConfigurationResult'
-            Prelude.<$> (x Core..: "status")
+            Prelude.<$> (x Data..: "status")
       )
 
 instance Prelude.Hashable DNSLogsConfigurationResult where

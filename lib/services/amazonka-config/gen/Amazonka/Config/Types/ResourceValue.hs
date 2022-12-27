@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Config.Types.ResourceValue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Config.Types.ResourceValue where
 
 import Amazonka.Config.Types.ResourceValueType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The dynamic value of the resource.
@@ -53,12 +54,12 @@ newResourceValue pValue_ =
 resourceValue_value :: Lens.Lens' ResourceValue ResourceValueType
 resourceValue_value = Lens.lens (\ResourceValue' {value} -> value) (\s@ResourceValue' {} a -> s {value = a} :: ResourceValue)
 
-instance Core.FromJSON ResourceValue where
+instance Data.FromJSON ResourceValue where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResourceValue"
       ( \x ->
-          ResourceValue' Prelude.<$> (x Core..: "Value")
+          ResourceValue' Prelude.<$> (x Data..: "Value")
       )
 
 instance Prelude.Hashable ResourceValue where
@@ -68,9 +69,9 @@ instance Prelude.Hashable ResourceValue where
 instance Prelude.NFData ResourceValue where
   rnf ResourceValue' {..} = Prelude.rnf value
 
-instance Core.ToJSON ResourceValue where
+instance Data.ToJSON ResourceValue where
   toJSON ResourceValue' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Value" Core..= value)]
+          [Prelude.Just ("Value" Data..= value)]
       )

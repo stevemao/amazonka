@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryReadiness.Types.R53ResourceRecord
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,17 @@
 module Amazonka.Route53RecoveryReadiness.Types.R53ResourceRecord where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The Route 53 resource a DNS Target Resource record points to
+-- | The Route 53 resource that a DNS target resource record points to.
 --
 -- /See:/ 'newR53ResourceRecord' smart constructor.
 data R53ResourceRecord = R53ResourceRecord'
-  { -- | The DNS target name
+  { -- | The DNS target domain name.
     domainName :: Prelude.Maybe Prelude.Text,
-    -- | The Resource Record set id
+    -- | The Route 53 Resource Record Set ID.
     recordSetId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -42,9 +43,9 @@ data R53ResourceRecord = R53ResourceRecord'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'domainName', 'r53ResourceRecord_domainName' - The DNS target name
+-- 'domainName', 'r53ResourceRecord_domainName' - The DNS target domain name.
 --
--- 'recordSetId', 'r53ResourceRecord_recordSetId' - The Resource Record set id
+-- 'recordSetId', 'r53ResourceRecord_recordSetId' - The Route 53 Resource Record Set ID.
 newR53ResourceRecord ::
   R53ResourceRecord
 newR53ResourceRecord =
@@ -53,22 +54,22 @@ newR53ResourceRecord =
       recordSetId = Prelude.Nothing
     }
 
--- | The DNS target name
+-- | The DNS target domain name.
 r53ResourceRecord_domainName :: Lens.Lens' R53ResourceRecord (Prelude.Maybe Prelude.Text)
 r53ResourceRecord_domainName = Lens.lens (\R53ResourceRecord' {domainName} -> domainName) (\s@R53ResourceRecord' {} a -> s {domainName = a} :: R53ResourceRecord)
 
--- | The Resource Record set id
+-- | The Route 53 Resource Record Set ID.
 r53ResourceRecord_recordSetId :: Lens.Lens' R53ResourceRecord (Prelude.Maybe Prelude.Text)
 r53ResourceRecord_recordSetId = Lens.lens (\R53ResourceRecord' {recordSetId} -> recordSetId) (\s@R53ResourceRecord' {} a -> s {recordSetId = a} :: R53ResourceRecord)
 
-instance Core.FromJSON R53ResourceRecord where
+instance Data.FromJSON R53ResourceRecord where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "R53ResourceRecord"
       ( \x ->
           R53ResourceRecord'
-            Prelude.<$> (x Core..:? "domainName")
-            Prelude.<*> (x Core..:? "recordSetId")
+            Prelude.<$> (x Data..:? "domainName")
+            Prelude.<*> (x Data..:? "recordSetId")
       )
 
 instance Prelude.Hashable R53ResourceRecord where
@@ -81,11 +82,11 @@ instance Prelude.NFData R53ResourceRecord where
     Prelude.rnf domainName
       `Prelude.seq` Prelude.rnf recordSetId
 
-instance Core.ToJSON R53ResourceRecord where
+instance Data.ToJSON R53ResourceRecord where
   toJSON R53ResourceRecord' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("domainName" Core..=) Prelude.<$> domainName,
-            ("recordSetId" Core..=) Prelude.<$> recordSetId
+          [ ("domainName" Data..=) Prelude.<$> domainName,
+            ("recordSetId" Data..=) Prelude.<$> recordSetId
           ]
       )

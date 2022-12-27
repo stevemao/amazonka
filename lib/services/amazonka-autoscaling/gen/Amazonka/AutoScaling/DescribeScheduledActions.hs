@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.DescribeScheduledActions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,53 +33,54 @@ module Amazonka.AutoScaling.DescribeScheduledActions
     newDescribeScheduledActions,
 
     -- * Request Lenses
-    describeScheduledActions_startTime,
-    describeScheduledActions_nextToken,
     describeScheduledActions_autoScalingGroupName,
-    describeScheduledActions_maxRecords,
     describeScheduledActions_endTime,
+    describeScheduledActions_maxRecords,
+    describeScheduledActions_nextToken,
     describeScheduledActions_scheduledActionNames,
+    describeScheduledActions_startTime,
 
     -- * Destructuring the Response
     DescribeScheduledActionsResponse (..),
     newDescribeScheduledActionsResponse,
 
     -- * Response Lenses
-    describeScheduledActionsResponse_scheduledUpdateGroupActions,
     describeScheduledActionsResponse_nextToken,
+    describeScheduledActionsResponse_scheduledUpdateGroupActions,
     describeScheduledActionsResponse_httpStatus,
   )
 where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeScheduledActions' smart constructor.
 data DescribeScheduledActions = DescribeScheduledActions'
-  { -- | The earliest scheduled start time to return. If scheduled action names
-    -- are provided, this parameter is ignored.
-    startTime :: Prelude.Maybe Core.ISO8601,
-    -- | The token for the next set of items to return. (You received this token
-    -- from a previous call.)
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The name of the Auto Scaling group.
+  { -- | The name of the Auto Scaling group.
     autoScalingGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The latest scheduled start time to return. If scheduled action names are
+    -- provided, this property is ignored.
+    endTime :: Prelude.Maybe Data.ISO8601,
     -- | The maximum number of items to return with this call. The default value
     -- is @50@ and the maximum value is @100@.
     maxRecords :: Prelude.Maybe Prelude.Int,
-    -- | The latest scheduled start time to return. If scheduled action names are
-    -- provided, this parameter is ignored.
-    endTime :: Prelude.Maybe Core.ISO8601,
-    -- | The names of one or more scheduled actions. If you omit this parameter,
+    -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The names of one or more scheduled actions. If you omit this property,
     -- all scheduled actions are described. If you specify an unknown scheduled
     -- action, it is ignored with no error.
     --
     -- Array Members: Maximum number of 50 actions.
-    scheduledActionNames :: Prelude.Maybe [Prelude.Text]
+    scheduledActionNames :: Prelude.Maybe [Prelude.Text],
+    -- | The earliest scheduled start time to return. If scheduled action names
+    -- are provided, this property is ignored.
+    startTime :: Prelude.Maybe Data.ISO8601
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -91,69 +92,69 @@ data DescribeScheduledActions = DescribeScheduledActions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'startTime', 'describeScheduledActions_startTime' - The earliest scheduled start time to return. If scheduled action names
--- are provided, this parameter is ignored.
---
--- 'nextToken', 'describeScheduledActions_nextToken' - The token for the next set of items to return. (You received this token
--- from a previous call.)
---
 -- 'autoScalingGroupName', 'describeScheduledActions_autoScalingGroupName' - The name of the Auto Scaling group.
+--
+-- 'endTime', 'describeScheduledActions_endTime' - The latest scheduled start time to return. If scheduled action names are
+-- provided, this property is ignored.
 --
 -- 'maxRecords', 'describeScheduledActions_maxRecords' - The maximum number of items to return with this call. The default value
 -- is @50@ and the maximum value is @100@.
 --
--- 'endTime', 'describeScheduledActions_endTime' - The latest scheduled start time to return. If scheduled action names are
--- provided, this parameter is ignored.
+-- 'nextToken', 'describeScheduledActions_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 --
--- 'scheduledActionNames', 'describeScheduledActions_scheduledActionNames' - The names of one or more scheduled actions. If you omit this parameter,
+-- 'scheduledActionNames', 'describeScheduledActions_scheduledActionNames' - The names of one or more scheduled actions. If you omit this property,
 -- all scheduled actions are described. If you specify an unknown scheduled
 -- action, it is ignored with no error.
 --
 -- Array Members: Maximum number of 50 actions.
+--
+-- 'startTime', 'describeScheduledActions_startTime' - The earliest scheduled start time to return. If scheduled action names
+-- are provided, this property is ignored.
 newDescribeScheduledActions ::
   DescribeScheduledActions
 newDescribeScheduledActions =
   DescribeScheduledActions'
-    { startTime =
+    { autoScalingGroupName =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      autoScalingGroupName = Prelude.Nothing,
-      maxRecords = Prelude.Nothing,
       endTime = Prelude.Nothing,
-      scheduledActionNames = Prelude.Nothing
+      maxRecords = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      scheduledActionNames = Prelude.Nothing,
+      startTime = Prelude.Nothing
     }
-
--- | The earliest scheduled start time to return. If scheduled action names
--- are provided, this parameter is ignored.
-describeScheduledActions_startTime :: Lens.Lens' DescribeScheduledActions (Prelude.Maybe Prelude.UTCTime)
-describeScheduledActions_startTime = Lens.lens (\DescribeScheduledActions' {startTime} -> startTime) (\s@DescribeScheduledActions' {} a -> s {startTime = a} :: DescribeScheduledActions) Prelude.. Lens.mapping Core._Time
-
--- | The token for the next set of items to return. (You received this token
--- from a previous call.)
-describeScheduledActions_nextToken :: Lens.Lens' DescribeScheduledActions (Prelude.Maybe Prelude.Text)
-describeScheduledActions_nextToken = Lens.lens (\DescribeScheduledActions' {nextToken} -> nextToken) (\s@DescribeScheduledActions' {} a -> s {nextToken = a} :: DescribeScheduledActions)
 
 -- | The name of the Auto Scaling group.
 describeScheduledActions_autoScalingGroupName :: Lens.Lens' DescribeScheduledActions (Prelude.Maybe Prelude.Text)
 describeScheduledActions_autoScalingGroupName = Lens.lens (\DescribeScheduledActions' {autoScalingGroupName} -> autoScalingGroupName) (\s@DescribeScheduledActions' {} a -> s {autoScalingGroupName = a} :: DescribeScheduledActions)
+
+-- | The latest scheduled start time to return. If scheduled action names are
+-- provided, this property is ignored.
+describeScheduledActions_endTime :: Lens.Lens' DescribeScheduledActions (Prelude.Maybe Prelude.UTCTime)
+describeScheduledActions_endTime = Lens.lens (\DescribeScheduledActions' {endTime} -> endTime) (\s@DescribeScheduledActions' {} a -> s {endTime = a} :: DescribeScheduledActions) Prelude.. Lens.mapping Data._Time
 
 -- | The maximum number of items to return with this call. The default value
 -- is @50@ and the maximum value is @100@.
 describeScheduledActions_maxRecords :: Lens.Lens' DescribeScheduledActions (Prelude.Maybe Prelude.Int)
 describeScheduledActions_maxRecords = Lens.lens (\DescribeScheduledActions' {maxRecords} -> maxRecords) (\s@DescribeScheduledActions' {} a -> s {maxRecords = a} :: DescribeScheduledActions)
 
--- | The latest scheduled start time to return. If scheduled action names are
--- provided, this parameter is ignored.
-describeScheduledActions_endTime :: Lens.Lens' DescribeScheduledActions (Prelude.Maybe Prelude.UTCTime)
-describeScheduledActions_endTime = Lens.lens (\DescribeScheduledActions' {endTime} -> endTime) (\s@DescribeScheduledActions' {} a -> s {endTime = a} :: DescribeScheduledActions) Prelude.. Lens.mapping Core._Time
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+describeScheduledActions_nextToken :: Lens.Lens' DescribeScheduledActions (Prelude.Maybe Prelude.Text)
+describeScheduledActions_nextToken = Lens.lens (\DescribeScheduledActions' {nextToken} -> nextToken) (\s@DescribeScheduledActions' {} a -> s {nextToken = a} :: DescribeScheduledActions)
 
--- | The names of one or more scheduled actions. If you omit this parameter,
+-- | The names of one or more scheduled actions. If you omit this property,
 -- all scheduled actions are described. If you specify an unknown scheduled
 -- action, it is ignored with no error.
 --
 -- Array Members: Maximum number of 50 actions.
 describeScheduledActions_scheduledActionNames :: Lens.Lens' DescribeScheduledActions (Prelude.Maybe [Prelude.Text])
 describeScheduledActions_scheduledActionNames = Lens.lens (\DescribeScheduledActions' {scheduledActionNames} -> scheduledActionNames) (\s@DescribeScheduledActions' {} a -> s {scheduledActionNames = a} :: DescribeScheduledActions) Prelude.. Lens.mapping Lens.coerced
+
+-- | The earliest scheduled start time to return. If scheduled action names
+-- are provided, this property is ignored.
+describeScheduledActions_startTime :: Lens.Lens' DescribeScheduledActions (Prelude.Maybe Prelude.UTCTime)
+describeScheduledActions_startTime = Lens.lens (\DescribeScheduledActions' {startTime} -> startTime) (\s@DescribeScheduledActions' {} a -> s {startTime = a} :: DescribeScheduledActions) Prelude.. Lens.mapping Data._Time
 
 instance Core.AWSPager DescribeScheduledActions where
   page rq rs
@@ -181,72 +182,73 @@ instance Core.AWSRequest DescribeScheduledActions where
   type
     AWSResponse DescribeScheduledActions =
       DescribeScheduledActionsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeScheduledActionsResult"
       ( \s h x ->
           DescribeScheduledActionsResponse'
-            Prelude.<$> ( x Core..@? "ScheduledUpdateGroupActions"
+            Prelude.<$> (x Data..@? "NextToken")
+            Prelude.<*> ( x Data..@? "ScheduledUpdateGroupActions"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> (x Core..@? "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeScheduledActions where
   hashWithSalt _salt DescribeScheduledActions' {..} =
-    _salt `Prelude.hashWithSalt` startTime
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` autoScalingGroupName
-      `Prelude.hashWithSalt` maxRecords
+    _salt `Prelude.hashWithSalt` autoScalingGroupName
       `Prelude.hashWithSalt` endTime
+      `Prelude.hashWithSalt` maxRecords
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` scheduledActionNames
+      `Prelude.hashWithSalt` startTime
 
 instance Prelude.NFData DescribeScheduledActions where
   rnf DescribeScheduledActions' {..} =
-    Prelude.rnf startTime
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf autoScalingGroupName
-      `Prelude.seq` Prelude.rnf maxRecords
+    Prelude.rnf autoScalingGroupName
       `Prelude.seq` Prelude.rnf endTime
+      `Prelude.seq` Prelude.rnf maxRecords
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf scheduledActionNames
+      `Prelude.seq` Prelude.rnf startTime
 
-instance Core.ToHeaders DescribeScheduledActions where
+instance Data.ToHeaders DescribeScheduledActions where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeScheduledActions where
+instance Data.ToPath DescribeScheduledActions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeScheduledActions where
+instance Data.ToQuery DescribeScheduledActions where
   toQuery DescribeScheduledActions' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeScheduledActions" :: Prelude.ByteString),
+          Data.=: ("DescribeScheduledActions" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
-        "StartTime" Core.=: startTime,
-        "NextToken" Core.=: nextToken,
-        "AutoScalingGroupName" Core.=: autoScalingGroupName,
-        "MaxRecords" Core.=: maxRecords,
-        "EndTime" Core.=: endTime,
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
+        "AutoScalingGroupName" Data.=: autoScalingGroupName,
+        "EndTime" Data.=: endTime,
+        "MaxRecords" Data.=: maxRecords,
+        "NextToken" Data.=: nextToken,
         "ScheduledActionNames"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> scheduledActionNames
-            )
+            ),
+        "StartTime" Data.=: startTime
       ]
 
 -- | /See:/ 'newDescribeScheduledActionsResponse' smart constructor.
 data DescribeScheduledActionsResponse = DescribeScheduledActionsResponse'
-  { -- | The scheduled actions.
-    scheduledUpdateGroupActions :: Prelude.Maybe [ScheduledUpdateGroupAction],
-    -- | A string that indicates that the response contains more items than can
+  { -- | A string that indicates that the response contains more items than can
     -- be returned in a single response. To receive additional items, specify
     -- this string for the @NextToken@ value when requesting the next set of
     -- items. This value is null when there are no more items to return.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The scheduled actions.
+    scheduledUpdateGroupActions :: Prelude.Maybe [ScheduledUpdateGroupAction],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -260,12 +262,12 @@ data DescribeScheduledActionsResponse = DescribeScheduledActionsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'scheduledUpdateGroupActions', 'describeScheduledActionsResponse_scheduledUpdateGroupActions' - The scheduled actions.
---
 -- 'nextToken', 'describeScheduledActionsResponse_nextToken' - A string that indicates that the response contains more items than can
 -- be returned in a single response. To receive additional items, specify
 -- this string for the @NextToken@ value when requesting the next set of
 -- items. This value is null when there are no more items to return.
+--
+-- 'scheduledUpdateGroupActions', 'describeScheduledActionsResponse_scheduledUpdateGroupActions' - The scheduled actions.
 --
 -- 'httpStatus', 'describeScheduledActionsResponse_httpStatus' - The response's http status code.
 newDescribeScheduledActionsResponse ::
@@ -274,15 +276,12 @@ newDescribeScheduledActionsResponse ::
   DescribeScheduledActionsResponse
 newDescribeScheduledActionsResponse pHttpStatus_ =
   DescribeScheduledActionsResponse'
-    { scheduledUpdateGroupActions =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      scheduledUpdateGroupActions =
+        Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The scheduled actions.
-describeScheduledActionsResponse_scheduledUpdateGroupActions :: Lens.Lens' DescribeScheduledActionsResponse (Prelude.Maybe [ScheduledUpdateGroupAction])
-describeScheduledActionsResponse_scheduledUpdateGroupActions = Lens.lens (\DescribeScheduledActionsResponse' {scheduledUpdateGroupActions} -> scheduledUpdateGroupActions) (\s@DescribeScheduledActionsResponse' {} a -> s {scheduledUpdateGroupActions = a} :: DescribeScheduledActionsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A string that indicates that the response contains more items than can
 -- be returned in a single response. To receive additional items, specify
@@ -290,6 +289,10 @@ describeScheduledActionsResponse_scheduledUpdateGroupActions = Lens.lens (\Descr
 -- items. This value is null when there are no more items to return.
 describeScheduledActionsResponse_nextToken :: Lens.Lens' DescribeScheduledActionsResponse (Prelude.Maybe Prelude.Text)
 describeScheduledActionsResponse_nextToken = Lens.lens (\DescribeScheduledActionsResponse' {nextToken} -> nextToken) (\s@DescribeScheduledActionsResponse' {} a -> s {nextToken = a} :: DescribeScheduledActionsResponse)
+
+-- | The scheduled actions.
+describeScheduledActionsResponse_scheduledUpdateGroupActions :: Lens.Lens' DescribeScheduledActionsResponse (Prelude.Maybe [ScheduledUpdateGroupAction])
+describeScheduledActionsResponse_scheduledUpdateGroupActions = Lens.lens (\DescribeScheduledActionsResponse' {scheduledUpdateGroupActions} -> scheduledUpdateGroupActions) (\s@DescribeScheduledActionsResponse' {} a -> s {scheduledUpdateGroupActions = a} :: DescribeScheduledActionsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeScheduledActionsResponse_httpStatus :: Lens.Lens' DescribeScheduledActionsResponse Prelude.Int
@@ -300,6 +303,6 @@ instance
     DescribeScheduledActionsResponse
   where
   rnf DescribeScheduledActionsResponse' {..} =
-    Prelude.rnf scheduledUpdateGroupActions
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf scheduledUpdateGroupActions
       `Prelude.seq` Prelude.rnf httpStatus

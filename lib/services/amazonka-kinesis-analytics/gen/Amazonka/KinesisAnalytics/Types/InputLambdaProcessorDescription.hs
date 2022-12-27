@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalytics.Types.InputLambdaProcessorDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KinesisAnalytics.Types.InputLambdaProcessorDescription where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that contains the Amazon Resource Name (ARN) of the
@@ -69,16 +70,16 @@ inputLambdaProcessorDescription_roleARN :: Lens.Lens' InputLambdaProcessorDescri
 inputLambdaProcessorDescription_roleARN = Lens.lens (\InputLambdaProcessorDescription' {roleARN} -> roleARN) (\s@InputLambdaProcessorDescription' {} a -> s {roleARN = a} :: InputLambdaProcessorDescription)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     InputLambdaProcessorDescription
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InputLambdaProcessorDescription"
       ( \x ->
           InputLambdaProcessorDescription'
-            Prelude.<$> (x Core..:? "ResourceARN")
-            Prelude.<*> (x Core..:? "RoleARN")
+            Prelude.<$> (x Data..:? "ResourceARN")
+            Prelude.<*> (x Data..:? "RoleARN")
       )
 
 instance

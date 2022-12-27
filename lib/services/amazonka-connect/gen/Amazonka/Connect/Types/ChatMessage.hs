@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.Types.ChatMessage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,15 @@
 module Amazonka.Connect.Types.ChatMessage where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A chat message.
 --
 -- /See:/ 'newChatMessage' smart constructor.
 data ChatMessage = ChatMessage'
-  { -- | The type of the content. Supported types are text and plain.
+  { -- | The type of the content. Supported types are @text\/plain@.
     contentType :: Prelude.Text,
     -- | The content of the chat message.
     content :: Prelude.Text
@@ -42,7 +43,7 @@ data ChatMessage = ChatMessage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'contentType', 'chatMessage_contentType' - The type of the content. Supported types are text and plain.
+-- 'contentType', 'chatMessage_contentType' - The type of the content. Supported types are @text\/plain@.
 --
 -- 'content', 'chatMessage_content' - The content of the chat message.
 newChatMessage ::
@@ -57,7 +58,7 @@ newChatMessage pContentType_ pContent_ =
       content = pContent_
     }
 
--- | The type of the content. Supported types are text and plain.
+-- | The type of the content. Supported types are @text\/plain@.
 chatMessage_contentType :: Lens.Lens' ChatMessage Prelude.Text
 chatMessage_contentType = Lens.lens (\ChatMessage' {contentType} -> contentType) (\s@ChatMessage' {} a -> s {contentType = a} :: ChatMessage)
 
@@ -75,11 +76,11 @@ instance Prelude.NFData ChatMessage where
     Prelude.rnf contentType
       `Prelude.seq` Prelude.rnf content
 
-instance Core.ToJSON ChatMessage where
+instance Data.ToJSON ChatMessage where
   toJSON ChatMessage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ContentType" Core..= contentType),
-            Prelude.Just ("Content" Core..= content)
+          [ Prelude.Just ("ContentType" Data..= contentType),
+            Prelude.Just ("Content" Data..= content)
           ]
       )

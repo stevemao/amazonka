@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.UpdateLoadBalancerAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.Lightsail.UpdateLoadBalancerAttribute
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -59,9 +60,40 @@ data UpdateLoadBalancerAttribute = UpdateLoadBalancerAttribute'
   { -- | The name of the load balancer that you want to modify (e.g.,
     -- @my-load-balancer@.
     loadBalancerName :: Prelude.Text,
-    -- | The name of the attribute you want to update. Valid values are below.
+    -- | The name of the attribute you want to update.
     attributeName :: LoadBalancerAttributeName,
     -- | The value that you want to specify for the attribute name.
+    --
+    -- The following values are supported depending on what you specify for the
+    -- @attributeName@ request parameter:
+    --
+    -- -   If you specify @HealthCheckPath@ for the @attributeName@ request
+    --     parameter, then the @attributeValue@ request parameter must be the
+    --     path to ping on the target (for example,
+    --     @\/weather\/us\/wa\/seattle@).
+    --
+    -- -   If you specify @SessionStickinessEnabled@ for the @attributeName@
+    --     request parameter, then the @attributeValue@ request parameter must
+    --     be @true@ to activate session stickiness or @false@ to deactivate
+    --     session stickiness.
+    --
+    -- -   If you specify @SessionStickiness_LB_CookieDurationSeconds@ for the
+    --     @attributeName@ request parameter, then the @attributeValue@ request
+    --     parameter must be an interger that represents the cookie duration in
+    --     seconds.
+    --
+    -- -   If you specify @HttpsRedirectionEnabled@ for the @attributeName@
+    --     request parameter, then the @attributeValue@ request parameter must
+    --     be @true@ to activate HTTP to HTTPS redirection or @false@ to
+    --     deactivate HTTP to HTTPS redirection.
+    --
+    -- -   If you specify @TlsPolicyName@ for the @attributeName@ request
+    --     parameter, then the @attributeValue@ request parameter must be the
+    --     name of the TLS policy.
+    --
+    --     Use the
+    --     <https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetLoadBalancerTlsPolicies.html GetLoadBalancerTlsPolicies>
+    --     action to get a list of TLS policy names that you can specify.
     attributeValue :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -77,9 +109,40 @@ data UpdateLoadBalancerAttribute = UpdateLoadBalancerAttribute'
 -- 'loadBalancerName', 'updateLoadBalancerAttribute_loadBalancerName' - The name of the load balancer that you want to modify (e.g.,
 -- @my-load-balancer@.
 --
--- 'attributeName', 'updateLoadBalancerAttribute_attributeName' - The name of the attribute you want to update. Valid values are below.
+-- 'attributeName', 'updateLoadBalancerAttribute_attributeName' - The name of the attribute you want to update.
 --
 -- 'attributeValue', 'updateLoadBalancerAttribute_attributeValue' - The value that you want to specify for the attribute name.
+--
+-- The following values are supported depending on what you specify for the
+-- @attributeName@ request parameter:
+--
+-- -   If you specify @HealthCheckPath@ for the @attributeName@ request
+--     parameter, then the @attributeValue@ request parameter must be the
+--     path to ping on the target (for example,
+--     @\/weather\/us\/wa\/seattle@).
+--
+-- -   If you specify @SessionStickinessEnabled@ for the @attributeName@
+--     request parameter, then the @attributeValue@ request parameter must
+--     be @true@ to activate session stickiness or @false@ to deactivate
+--     session stickiness.
+--
+-- -   If you specify @SessionStickiness_LB_CookieDurationSeconds@ for the
+--     @attributeName@ request parameter, then the @attributeValue@ request
+--     parameter must be an interger that represents the cookie duration in
+--     seconds.
+--
+-- -   If you specify @HttpsRedirectionEnabled@ for the @attributeName@
+--     request parameter, then the @attributeValue@ request parameter must
+--     be @true@ to activate HTTP to HTTPS redirection or @false@ to
+--     deactivate HTTP to HTTPS redirection.
+--
+-- -   If you specify @TlsPolicyName@ for the @attributeName@ request
+--     parameter, then the @attributeValue@ request parameter must be the
+--     name of the TLS policy.
+--
+--     Use the
+--     <https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetLoadBalancerTlsPolicies.html GetLoadBalancerTlsPolicies>
+--     action to get a list of TLS policy names that you can specify.
 newUpdateLoadBalancerAttribute ::
   -- | 'loadBalancerName'
   Prelude.Text ->
@@ -104,11 +167,42 @@ newUpdateLoadBalancerAttribute
 updateLoadBalancerAttribute_loadBalancerName :: Lens.Lens' UpdateLoadBalancerAttribute Prelude.Text
 updateLoadBalancerAttribute_loadBalancerName = Lens.lens (\UpdateLoadBalancerAttribute' {loadBalancerName} -> loadBalancerName) (\s@UpdateLoadBalancerAttribute' {} a -> s {loadBalancerName = a} :: UpdateLoadBalancerAttribute)
 
--- | The name of the attribute you want to update. Valid values are below.
+-- | The name of the attribute you want to update.
 updateLoadBalancerAttribute_attributeName :: Lens.Lens' UpdateLoadBalancerAttribute LoadBalancerAttributeName
 updateLoadBalancerAttribute_attributeName = Lens.lens (\UpdateLoadBalancerAttribute' {attributeName} -> attributeName) (\s@UpdateLoadBalancerAttribute' {} a -> s {attributeName = a} :: UpdateLoadBalancerAttribute)
 
 -- | The value that you want to specify for the attribute name.
+--
+-- The following values are supported depending on what you specify for the
+-- @attributeName@ request parameter:
+--
+-- -   If you specify @HealthCheckPath@ for the @attributeName@ request
+--     parameter, then the @attributeValue@ request parameter must be the
+--     path to ping on the target (for example,
+--     @\/weather\/us\/wa\/seattle@).
+--
+-- -   If you specify @SessionStickinessEnabled@ for the @attributeName@
+--     request parameter, then the @attributeValue@ request parameter must
+--     be @true@ to activate session stickiness or @false@ to deactivate
+--     session stickiness.
+--
+-- -   If you specify @SessionStickiness_LB_CookieDurationSeconds@ for the
+--     @attributeName@ request parameter, then the @attributeValue@ request
+--     parameter must be an interger that represents the cookie duration in
+--     seconds.
+--
+-- -   If you specify @HttpsRedirectionEnabled@ for the @attributeName@
+--     request parameter, then the @attributeValue@ request parameter must
+--     be @true@ to activate HTTP to HTTPS redirection or @false@ to
+--     deactivate HTTP to HTTPS redirection.
+--
+-- -   If you specify @TlsPolicyName@ for the @attributeName@ request
+--     parameter, then the @attributeValue@ request parameter must be the
+--     name of the TLS policy.
+--
+--     Use the
+--     <https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetLoadBalancerTlsPolicies.html GetLoadBalancerTlsPolicies>
+--     action to get a list of TLS policy names that you can specify.
 updateLoadBalancerAttribute_attributeValue :: Lens.Lens' UpdateLoadBalancerAttribute Prelude.Text
 updateLoadBalancerAttribute_attributeValue = Lens.lens (\UpdateLoadBalancerAttribute' {attributeValue} -> attributeValue) (\s@UpdateLoadBalancerAttribute' {} a -> s {attributeValue = a} :: UpdateLoadBalancerAttribute)
 
@@ -116,12 +210,13 @@ instance Core.AWSRequest UpdateLoadBalancerAttribute where
   type
     AWSResponse UpdateLoadBalancerAttribute =
       UpdateLoadBalancerAttributeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateLoadBalancerAttributeResponse'
-            Prelude.<$> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -137,37 +232,37 @@ instance Prelude.NFData UpdateLoadBalancerAttribute where
       `Prelude.seq` Prelude.rnf attributeName
       `Prelude.seq` Prelude.rnf attributeValue
 
-instance Core.ToHeaders UpdateLoadBalancerAttribute where
+instance Data.ToHeaders UpdateLoadBalancerAttribute where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.UpdateLoadBalancerAttribute" ::
+              Data.=# ( "Lightsail_20161128.UpdateLoadBalancerAttribute" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateLoadBalancerAttribute where
+instance Data.ToJSON UpdateLoadBalancerAttribute where
   toJSON UpdateLoadBalancerAttribute' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("loadBalancerName" Core..= loadBalancerName),
-            Prelude.Just ("attributeName" Core..= attributeName),
+              ("loadBalancerName" Data..= loadBalancerName),
+            Prelude.Just ("attributeName" Data..= attributeName),
             Prelude.Just
-              ("attributeValue" Core..= attributeValue)
+              ("attributeValue" Data..= attributeValue)
           ]
       )
 
-instance Core.ToPath UpdateLoadBalancerAttribute where
+instance Data.ToPath UpdateLoadBalancerAttribute where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateLoadBalancerAttribute where
+instance Data.ToQuery UpdateLoadBalancerAttribute where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateLoadBalancerAttributeResponse' smart constructor.

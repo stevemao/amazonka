@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.TagAttendee
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,7 +98,8 @@ tagAttendee_tags = Lens.lens (\TagAttendee' {tags} -> tags) (\s@TagAttendee' {} 
 
 instance Core.AWSRequest TagAttendee where
   type AWSResponse TagAttendee = TagAttendeeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull TagAttendeeResponse'
 
 instance Prelude.Hashable TagAttendee where
@@ -112,27 +114,27 @@ instance Prelude.NFData TagAttendee where
       `Prelude.seq` Prelude.rnf attendeeId
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders TagAttendee where
+instance Data.ToHeaders TagAttendee where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON TagAttendee where
+instance Data.ToJSON TagAttendee where
   toJSON TagAttendee' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Tags" Core..= tags)]
+          [Prelude.Just ("Tags" Data..= tags)]
       )
 
-instance Core.ToPath TagAttendee where
+instance Data.ToPath TagAttendee where
   toPath TagAttendee' {..} =
     Prelude.mconcat
       [ "/meetings/",
-        Core.toBS meetingId,
+        Data.toBS meetingId,
         "/attendees/",
-        Core.toBS attendeeId,
+        Data.toBS attendeeId,
         "/tags"
       ]
 
-instance Core.ToQuery TagAttendee where
+instance Data.ToQuery TagAttendee where
   toQuery =
     Prelude.const (Prelude.mconcat ["operation=add"])
 

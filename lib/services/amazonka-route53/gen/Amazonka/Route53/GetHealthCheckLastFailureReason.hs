@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.GetHealthCheckLastFailureReason
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.Route53.GetHealthCheckLastFailureReason
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,15 +107,16 @@ instance
   type
     AWSResponse GetHealthCheckLastFailureReason =
       GetHealthCheckLastFailureReasonResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetHealthCheckLastFailureReasonResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..@? "HealthCheckObservations"
+            Prelude.<*> ( x Data..@? "HealthCheckObservations"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.parseXMLList "HealthCheckObservation"
+                            Prelude.>>= Data.parseXMLList "HealthCheckObservation"
                         )
       )
 
@@ -135,20 +137,20 @@ instance
     Prelude.rnf healthCheckId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetHealthCheckLastFailureReason
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetHealthCheckLastFailureReason where
+instance Data.ToPath GetHealthCheckLastFailureReason where
   toPath GetHealthCheckLastFailureReason' {..} =
     Prelude.mconcat
       [ "/2013-04-01/healthcheck/",
-        Core.toBS healthCheckId,
+        Data.toBS healthCheckId,
         "/lastfailurereason"
       ]
 
-instance Core.ToQuery GetHealthCheckLastFailureReason where
+instance Data.ToQuery GetHealthCheckLastFailureReason where
   toQuery = Prelude.const Prelude.mempty
 
 -- | A complex type that contains the response to a

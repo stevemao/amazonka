@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.DeleteGameServerGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,13 +51,6 @@
 -- __Learn more__
 --
 -- <https://docs.aws.amazon.com/gamelift/latest/fleetiqguide/gsg-intro.html GameLift FleetIQ Guide>
---
--- __Related actions__
---
--- CreateGameServerGroup | ListGameServerGroups | DescribeGameServerGroup |
--- UpdateGameServerGroup | DeleteGameServerGroup | ResumeGameServerGroup |
--- SuspendGameServerGroup | DescribeGameServerInstances |
--- <https://docs.aws.amazon.com/gamelift/latest/fleetiqguide/reference-awssdk-fleetiq.html All APIs by task>
 module Amazonka.GameLift.DeleteGameServerGroup
   ( -- * Creating a Request
     DeleteGameServerGroup (..),
@@ -78,8 +71,9 @@ module Amazonka.GameLift.DeleteGameServerGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,19 +82,19 @@ import qualified Amazonka.Response as Response
 data DeleteGameServerGroup = DeleteGameServerGroup'
   { -- | The type of delete to perform. Options include the following:
     --
-    -- -   @SAFE_DELETE@ – (default) Terminates the game server group and EC2
-    --     Auto Scaling group only when it has no game servers that are in
-    --     @UTILIZED@ status.
+    -- -   @SAFE_DELETE@ – (default) Terminates the game server group and
+    --     Amazon EC2 Auto Scaling group only when it has no game servers that
+    --     are in @UTILIZED@ status.
     --
     -- -   @FORCE_DELETE@ – Terminates the game server group, including all
     --     active game servers regardless of their utilization status, and the
-    --     EC2 Auto Scaling group.
+    --     Amazon EC2 Auto Scaling group.
     --
     -- -   @RETAIN@ – Does a safe delete of the game server group but retains
-    --     the EC2 Auto Scaling group as is.
+    --     the Amazon EC2 Auto Scaling group as is.
     deleteOption :: Prelude.Maybe GameServerGroupDeleteOption,
-    -- | A unique identifier for the game server group. Use either the
-    -- GameServerGroup name or ARN value.
+    -- | A unique identifier for the game server group. Use either the name or
+    -- ARN value.
     gameServerGroupName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -115,19 +109,19 @@ data DeleteGameServerGroup = DeleteGameServerGroup'
 --
 -- 'deleteOption', 'deleteGameServerGroup_deleteOption' - The type of delete to perform. Options include the following:
 --
--- -   @SAFE_DELETE@ – (default) Terminates the game server group and EC2
---     Auto Scaling group only when it has no game servers that are in
---     @UTILIZED@ status.
+-- -   @SAFE_DELETE@ – (default) Terminates the game server group and
+--     Amazon EC2 Auto Scaling group only when it has no game servers that
+--     are in @UTILIZED@ status.
 --
 -- -   @FORCE_DELETE@ – Terminates the game server group, including all
 --     active game servers regardless of their utilization status, and the
---     EC2 Auto Scaling group.
+--     Amazon EC2 Auto Scaling group.
 --
 -- -   @RETAIN@ – Does a safe delete of the game server group but retains
---     the EC2 Auto Scaling group as is.
+--     the Amazon EC2 Auto Scaling group as is.
 --
--- 'gameServerGroupName', 'deleteGameServerGroup_gameServerGroupName' - A unique identifier for the game server group. Use either the
--- GameServerGroup name or ARN value.
+-- 'gameServerGroupName', 'deleteGameServerGroup_gameServerGroupName' - A unique identifier for the game server group. Use either the name or
+-- ARN value.
 newDeleteGameServerGroup ::
   -- | 'gameServerGroupName'
   Prelude.Text ->
@@ -141,21 +135,21 @@ newDeleteGameServerGroup pGameServerGroupName_ =
 
 -- | The type of delete to perform. Options include the following:
 --
--- -   @SAFE_DELETE@ – (default) Terminates the game server group and EC2
---     Auto Scaling group only when it has no game servers that are in
---     @UTILIZED@ status.
+-- -   @SAFE_DELETE@ – (default) Terminates the game server group and
+--     Amazon EC2 Auto Scaling group only when it has no game servers that
+--     are in @UTILIZED@ status.
 --
 -- -   @FORCE_DELETE@ – Terminates the game server group, including all
 --     active game servers regardless of their utilization status, and the
---     EC2 Auto Scaling group.
+--     Amazon EC2 Auto Scaling group.
 --
 -- -   @RETAIN@ – Does a safe delete of the game server group but retains
---     the EC2 Auto Scaling group as is.
+--     the Amazon EC2 Auto Scaling group as is.
 deleteGameServerGroup_deleteOption :: Lens.Lens' DeleteGameServerGroup (Prelude.Maybe GameServerGroupDeleteOption)
 deleteGameServerGroup_deleteOption = Lens.lens (\DeleteGameServerGroup' {deleteOption} -> deleteOption) (\s@DeleteGameServerGroup' {} a -> s {deleteOption = a} :: DeleteGameServerGroup)
 
--- | A unique identifier for the game server group. Use either the
--- GameServerGroup name or ARN value.
+-- | A unique identifier for the game server group. Use either the name or
+-- ARN value.
 deleteGameServerGroup_gameServerGroupName :: Lens.Lens' DeleteGameServerGroup Prelude.Text
 deleteGameServerGroup_gameServerGroupName = Lens.lens (\DeleteGameServerGroup' {gameServerGroupName} -> gameServerGroupName) (\s@DeleteGameServerGroup' {} a -> s {gameServerGroupName = a} :: DeleteGameServerGroup)
 
@@ -163,12 +157,13 @@ instance Core.AWSRequest DeleteGameServerGroup where
   type
     AWSResponse DeleteGameServerGroup =
       DeleteGameServerGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteGameServerGroupResponse'
-            Prelude.<$> (x Core..?> "GameServerGroup")
+            Prelude.<$> (x Data..?> "GameServerGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -182,35 +177,35 @@ instance Prelude.NFData DeleteGameServerGroup where
     Prelude.rnf deleteOption
       `Prelude.seq` Prelude.rnf gameServerGroupName
 
-instance Core.ToHeaders DeleteGameServerGroup where
+instance Data.ToHeaders DeleteGameServerGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.DeleteGameServerGroup" ::
+              Data.=# ( "GameLift.DeleteGameServerGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteGameServerGroup where
+instance Data.ToJSON DeleteGameServerGroup where
   toJSON DeleteGameServerGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DeleteOption" Core..=) Prelude.<$> deleteOption,
+          [ ("DeleteOption" Data..=) Prelude.<$> deleteOption,
             Prelude.Just
-              ("GameServerGroupName" Core..= gameServerGroupName)
+              ("GameServerGroupName" Data..= gameServerGroupName)
           ]
       )
 
-instance Core.ToPath DeleteGameServerGroup where
+instance Data.ToPath DeleteGameServerGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteGameServerGroup where
+instance Data.ToQuery DeleteGameServerGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteGameServerGroupResponse' smart constructor.

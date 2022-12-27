@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.ImportExport.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,22 +14,11 @@
 module Amazonka.ImportExport.Lens
   ( -- * Operations
 
-    -- ** GetShippingLabel
-    getShippingLabel_street3,
-    getShippingLabel_aPIVersion,
-    getShippingLabel_country,
-    getShippingLabel_stateOrProvince,
-    getShippingLabel_postalCode,
-    getShippingLabel_street2,
-    getShippingLabel_name,
-    getShippingLabel_company,
-    getShippingLabel_phoneNumber,
-    getShippingLabel_city,
-    getShippingLabel_street1,
-    getShippingLabel_jobIds,
-    getShippingLabelResponse_shippingLabelURL,
-    getShippingLabelResponse_warning,
-    getShippingLabelResponse_httpStatus,
+    -- ** CancelJob
+    cancelJob_aPIVersion,
+    cancelJob_jobId,
+    cancelJobResponse_success,
+    cancelJobResponse_httpStatus,
 
     -- ** CreateJob
     createJob_aPIVersion,
@@ -37,20 +26,58 @@ module Amazonka.ImportExport.Lens
     createJob_jobType,
     createJob_manifest,
     createJob_validateOnly,
-    createJobResponse_signature,
-    createJobResponse_jobType,
+    createJobResponse_artifactList,
     createJobResponse_jobId,
+    createJobResponse_jobType,
+    createJobResponse_signature,
     createJobResponse_signatureFileContents,
     createJobResponse_warningMessage,
-    createJobResponse_artifactList,
     createJobResponse_httpStatus,
+
+    -- ** GetShippingLabel
+    getShippingLabel_aPIVersion,
+    getShippingLabel_city,
+    getShippingLabel_company,
+    getShippingLabel_country,
+    getShippingLabel_name,
+    getShippingLabel_phoneNumber,
+    getShippingLabel_postalCode,
+    getShippingLabel_stateOrProvince,
+    getShippingLabel_street1,
+    getShippingLabel_street2,
+    getShippingLabel_street3,
+    getShippingLabel_jobIds,
+    getShippingLabelResponse_shippingLabelURL,
+    getShippingLabelResponse_warning,
+    getShippingLabelResponse_httpStatus,
+
+    -- ** GetStatus
+    getStatus_aPIVersion,
+    getStatus_jobId,
+    getStatusResponse_artifactList,
+    getStatusResponse_carrier,
+    getStatusResponse_creationDate,
+    getStatusResponse_currentManifest,
+    getStatusResponse_errorCount,
+    getStatusResponse_jobId,
+    getStatusResponse_jobType,
+    getStatusResponse_locationCode,
+    getStatusResponse_locationMessage,
+    getStatusResponse_logBucket,
+    getStatusResponse_logKey,
+    getStatusResponse_progressCode,
+    getStatusResponse_progressMessage,
+    getStatusResponse_signature,
+    getStatusResponse_signatureFileContents,
+    getStatusResponse_trackingNumber,
+    getStatusResponse_httpStatus,
 
     -- ** ListJobs
     listJobs_aPIVersion,
     listJobs_marker,
     listJobs_maxJobs,
-    listJobsResponse_jobs,
     listJobsResponse_isTruncated,
+    listJobsResponse_jobs,
     listJobsResponse_httpStatus,
 
     -- ** UpdateJob
@@ -59,43 +86,16 @@ module Amazonka.ImportExport.Lens
     updateJob_manifest,
     updateJob_jobType,
     updateJob_validateOnly,
+    updateJobResponse_artifactList,
     updateJobResponse_success,
     updateJobResponse_warningMessage,
-    updateJobResponse_artifactList,
     updateJobResponse_httpStatus,
-
-    -- ** GetStatus
-    getStatus_aPIVersion,
-    getStatus_jobId,
-    getStatusResponse_carrier,
-    getStatusResponse_trackingNumber,
-    getStatusResponse_signature,
-    getStatusResponse_jobType,
-    getStatusResponse_jobId,
-    getStatusResponse_signatureFileContents,
-    getStatusResponse_errorCount,
-    getStatusResponse_currentManifest,
-    getStatusResponse_artifactList,
-    getStatusResponse_logBucket,
-    getStatusResponse_creationDate,
-    getStatusResponse_progressCode,
-    getStatusResponse_locationCode,
-    getStatusResponse_logKey,
-    getStatusResponse_locationMessage,
-    getStatusResponse_progressMessage,
-    getStatusResponse_httpStatus,
-
-    -- ** CancelJob
-    cancelJob_aPIVersion,
-    cancelJob_jobId,
-    cancelJobResponse_success,
-    cancelJobResponse_httpStatus,
 
     -- * Types
 
     -- ** Artifact
-    artifact_url,
     artifact_description,
+    artifact_url,
 
     -- ** Job
     job_jobType,

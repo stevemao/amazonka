@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.LicenseConfigurationRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.LicenseConfigurationRequest where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a license configuration.
@@ -63,9 +64,9 @@ instance Prelude.NFData LicenseConfigurationRequest where
   rnf LicenseConfigurationRequest' {..} =
     Prelude.rnf licenseConfigurationArn
 
-instance Core.ToQuery LicenseConfigurationRequest where
+instance Data.ToQuery LicenseConfigurationRequest where
   toQuery LicenseConfigurationRequest' {..} =
     Prelude.mconcat
       [ "LicenseConfigurationArn"
-          Core.=: licenseConfigurationArn
+          Data.=: licenseConfigurationArn
       ]

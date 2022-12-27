@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Panorama.Types.PackageImportJobOutputConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Panorama.Types.PackageImportJobOutputConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Panorama.Types.PackageVersionOutputConfig
 import qualified Amazonka.Prelude as Prelude
 
@@ -54,13 +55,13 @@ newPackageImportJobOutputConfig =
 packageImportJobOutputConfig_packageVersionOutputConfig :: Lens.Lens' PackageImportJobOutputConfig (Prelude.Maybe PackageVersionOutputConfig)
 packageImportJobOutputConfig_packageVersionOutputConfig = Lens.lens (\PackageImportJobOutputConfig' {packageVersionOutputConfig} -> packageVersionOutputConfig) (\s@PackageImportJobOutputConfig' {} a -> s {packageVersionOutputConfig = a} :: PackageImportJobOutputConfig)
 
-instance Core.FromJSON PackageImportJobOutputConfig where
+instance Data.FromJSON PackageImportJobOutputConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PackageImportJobOutputConfig"
       ( \x ->
           PackageImportJobOutputConfig'
-            Prelude.<$> (x Core..:? "PackageVersionOutputConfig")
+            Prelude.<$> (x Data..:? "PackageVersionOutputConfig")
       )
 
 instance
@@ -75,11 +76,11 @@ instance Prelude.NFData PackageImportJobOutputConfig where
   rnf PackageImportJobOutputConfig' {..} =
     Prelude.rnf packageVersionOutputConfig
 
-instance Core.ToJSON PackageImportJobOutputConfig where
+instance Data.ToJSON PackageImportJobOutputConfig where
   toJSON PackageImportJobOutputConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PackageVersionOutputConfig" Core..=)
+          [ ("PackageVersionOutputConfig" Data..=)
               Prelude.<$> packageVersionOutputConfig
           ]
       )

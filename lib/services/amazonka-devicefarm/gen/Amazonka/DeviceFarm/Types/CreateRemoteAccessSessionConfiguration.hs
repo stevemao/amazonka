@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.Types.CreateRemoteAccessSessionConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.DeviceFarm.Types.CreateRemoteAccessSessionConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types.BillingMethod
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration settings for a remote access session, including billing
@@ -84,14 +85,14 @@ instance
       `Prelude.seq` Prelude.rnf vpceConfigurationArns
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     CreateRemoteAccessSessionConfiguration
   where
   toJSON CreateRemoteAccessSessionConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("billingMethod" Core..=) Prelude.<$> billingMethod,
-            ("vpceConfigurationArns" Core..=)
+          [ ("billingMethod" Data..=) Prelude.<$> billingMethod,
+            ("vpceConfigurationArns" Data..=)
               Prelude.<$> vpceConfigurationArns
           ]
       )

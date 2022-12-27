@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.Route53AutoNaming
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,14 @@ module Amazonka.Route53AutoNaming
     -- * Errors
     -- $errors
 
-    -- ** ResourceLimitExceeded
-    _ResourceLimitExceeded,
+    -- ** CustomHealthNotFound
+    _CustomHealthNotFound,
+
+    -- ** DuplicateRequest
+    _DuplicateRequest,
+
+    -- ** InstanceNotFound
+    _InstanceNotFound,
 
     -- ** InvalidInput
     _InvalidInput,
@@ -39,35 +45,29 @@ module Amazonka.Route53AutoNaming
     -- ** NamespaceNotFound
     _NamespaceNotFound,
 
-    -- ** ServiceAlreadyExists
-    _ServiceAlreadyExists,
-
-    -- ** ResourceInUse
-    _ResourceInUse,
-
-    -- ** TooManyTagsException
-    _TooManyTagsException,
-
-    -- ** CustomHealthNotFound
-    _CustomHealthNotFound,
+    -- ** OperationNotFound
+    _OperationNotFound,
 
     -- ** RequestLimitExceeded
     _RequestLimitExceeded,
 
-    -- ** InstanceNotFound
-    _InstanceNotFound,
+    -- ** ResourceInUse
+    _ResourceInUse,
 
-    -- ** DuplicateRequest
-    _DuplicateRequest,
+    -- ** ResourceLimitExceeded
+    _ResourceLimitExceeded,
+
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
+
+    -- ** ServiceAlreadyExists
+    _ServiceAlreadyExists,
 
     -- ** ServiceNotFound
     _ServiceNotFound,
 
-    -- ** OperationNotFound
-    _OperationNotFound,
-
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
+    -- ** TooManyTagsException
+    _TooManyTagsException,
 
     -- * Waiters
     -- $waiters
@@ -75,35 +75,17 @@ module Amazonka.Route53AutoNaming
     -- * Operations
     -- $operations
 
-    -- ** ListServices (Paginated)
-    ListServices (ListServices'),
-    newListServices,
-    ListServicesResponse (ListServicesResponse'),
-    newListServicesResponse,
-
-    -- ** DeleteService
-    DeleteService (DeleteService'),
-    newDeleteService,
-    DeleteServiceResponse (DeleteServiceResponse'),
-    newDeleteServiceResponse,
-
-    -- ** UpdateService
-    UpdateService (UpdateService'),
-    newUpdateService,
-    UpdateServiceResponse (UpdateServiceResponse'),
-    newUpdateServiceResponse,
-
-    -- ** ListOperations (Paginated)
-    ListOperations (ListOperations'),
-    newListOperations,
-    ListOperationsResponse (ListOperationsResponse'),
-    newListOperationsResponse,
-
     -- ** CreateHttpNamespace
     CreateHttpNamespace (CreateHttpNamespace'),
     newCreateHttpNamespace,
     CreateHttpNamespaceResponse (CreateHttpNamespaceResponse'),
     newCreateHttpNamespaceResponse,
+
+    -- ** CreatePrivateDnsNamespace
+    CreatePrivateDnsNamespace (CreatePrivateDnsNamespace'),
+    newCreatePrivateDnsNamespace,
+    CreatePrivateDnsNamespaceResponse (CreatePrivateDnsNamespaceResponse'),
+    newCreatePrivateDnsNamespaceResponse,
 
     -- ** CreatePublicDnsNamespace
     CreatePublicDnsNamespace (CreatePublicDnsNamespace'),
@@ -111,17 +93,11 @@ module Amazonka.Route53AutoNaming
     CreatePublicDnsNamespaceResponse (CreatePublicDnsNamespaceResponse'),
     newCreatePublicDnsNamespaceResponse,
 
-    -- ** GetInstance
-    GetInstance (GetInstance'),
-    newGetInstance,
-    GetInstanceResponse (GetInstanceResponse'),
-    newGetInstanceResponse,
-
-    -- ** ListNamespaces (Paginated)
-    ListNamespaces (ListNamespaces'),
-    newListNamespaces,
-    ListNamespacesResponse (ListNamespacesResponse'),
-    newListNamespacesResponse,
+    -- ** CreateService
+    CreateService (CreateService'),
+    newCreateService,
+    CreateServiceResponse (CreateServiceResponse'),
+    newCreateServiceResponse,
 
     -- ** DeleteNamespace
     DeleteNamespace (DeleteNamespace'),
@@ -129,17 +105,17 @@ module Amazonka.Route53AutoNaming
     DeleteNamespaceResponse (DeleteNamespaceResponse'),
     newDeleteNamespaceResponse,
 
-    -- ** UpdatePublicDnsNamespace
-    UpdatePublicDnsNamespace (UpdatePublicDnsNamespace'),
-    newUpdatePublicDnsNamespace,
-    UpdatePublicDnsNamespaceResponse (UpdatePublicDnsNamespaceResponse'),
-    newUpdatePublicDnsNamespaceResponse,
+    -- ** DeleteService
+    DeleteService (DeleteService'),
+    newDeleteService,
+    DeleteServiceResponse (DeleteServiceResponse'),
+    newDeleteServiceResponse,
 
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
+    -- ** DeregisterInstance
+    DeregisterInstance (DeregisterInstance'),
+    newDeregisterInstance,
+    DeregisterInstanceResponse (DeregisterInstanceResponse'),
+    newDeregisterInstanceResponse,
 
     -- ** DiscoverInstances
     DiscoverInstances (DiscoverInstances'),
@@ -147,23 +123,65 @@ module Amazonka.Route53AutoNaming
     DiscoverInstancesResponse (DiscoverInstancesResponse'),
     newDiscoverInstancesResponse,
 
+    -- ** GetInstance
+    GetInstance (GetInstance'),
+    newGetInstance,
+    GetInstanceResponse (GetInstanceResponse'),
+    newGetInstanceResponse,
+
     -- ** GetInstancesHealthStatus
     GetInstancesHealthStatus (GetInstancesHealthStatus'),
     newGetInstancesHealthStatus,
     GetInstancesHealthStatusResponse (GetInstancesHealthStatusResponse'),
     newGetInstancesHealthStatusResponse,
 
-    -- ** UpdateHttpNamespace
-    UpdateHttpNamespace (UpdateHttpNamespace'),
-    newUpdateHttpNamespace,
-    UpdateHttpNamespaceResponse (UpdateHttpNamespaceResponse'),
-    newUpdateHttpNamespaceResponse,
-
     -- ** GetNamespace
     GetNamespace (GetNamespace'),
     newGetNamespace,
     GetNamespaceResponse (GetNamespaceResponse'),
     newGetNamespaceResponse,
+
+    -- ** GetOperation
+    GetOperation (GetOperation'),
+    newGetOperation,
+    GetOperationResponse (GetOperationResponse'),
+    newGetOperationResponse,
+
+    -- ** GetService
+    GetService (GetService'),
+    newGetService,
+    GetServiceResponse (GetServiceResponse'),
+    newGetServiceResponse,
+
+    -- ** ListInstances (Paginated)
+    ListInstances (ListInstances'),
+    newListInstances,
+    ListInstancesResponse (ListInstancesResponse'),
+    newListInstancesResponse,
+
+    -- ** ListNamespaces (Paginated)
+    ListNamespaces (ListNamespaces'),
+    newListNamespaces,
+    ListNamespacesResponse (ListNamespacesResponse'),
+    newListNamespacesResponse,
+
+    -- ** ListOperations (Paginated)
+    ListOperations (ListOperations'),
+    newListOperations,
+    ListOperationsResponse (ListOperationsResponse'),
+    newListOperationsResponse,
+
+    -- ** ListServices (Paginated)
+    ListServices (ListServices'),
+    newListServices,
+    ListServicesResponse (ListServicesResponse'),
+    newListServicesResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** RegisterInstance
     RegisterInstance (RegisterInstance'),
@@ -177,17 +195,17 @@ module Amazonka.Route53AutoNaming
     TagResourceResponse (TagResourceResponse'),
     newTagResourceResponse,
 
-    -- ** ListInstances (Paginated)
-    ListInstances (ListInstances'),
-    newListInstances,
-    ListInstancesResponse (ListInstancesResponse'),
-    newListInstancesResponse,
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
-    -- ** GetOperation
-    GetOperation (GetOperation'),
-    newGetOperation,
-    GetOperationResponse (GetOperationResponse'),
-    newGetOperationResponse,
+    -- ** UpdateHttpNamespace
+    UpdateHttpNamespace (UpdateHttpNamespace'),
+    newUpdateHttpNamespace,
+    UpdateHttpNamespaceResponse (UpdateHttpNamespaceResponse'),
+    newUpdateHttpNamespaceResponse,
 
     -- ** UpdateInstanceCustomHealthStatus
     UpdateInstanceCustomHealthStatus (UpdateInstanceCustomHealthStatus'),
@@ -195,41 +213,23 @@ module Amazonka.Route53AutoNaming
     UpdateInstanceCustomHealthStatusResponse (UpdateInstanceCustomHealthStatusResponse'),
     newUpdateInstanceCustomHealthStatusResponse,
 
-    -- ** GetService
-    GetService (GetService'),
-    newGetService,
-    GetServiceResponse (GetServiceResponse'),
-    newGetServiceResponse,
-
-    -- ** CreatePrivateDnsNamespace
-    CreatePrivateDnsNamespace (CreatePrivateDnsNamespace'),
-    newCreatePrivateDnsNamespace,
-    CreatePrivateDnsNamespaceResponse (CreatePrivateDnsNamespaceResponse'),
-    newCreatePrivateDnsNamespaceResponse,
-
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
-
     -- ** UpdatePrivateDnsNamespace
     UpdatePrivateDnsNamespace (UpdatePrivateDnsNamespace'),
     newUpdatePrivateDnsNamespace,
     UpdatePrivateDnsNamespaceResponse (UpdatePrivateDnsNamespaceResponse'),
     newUpdatePrivateDnsNamespaceResponse,
 
-    -- ** CreateService
-    CreateService (CreateService'),
-    newCreateService,
-    CreateServiceResponse (CreateServiceResponse'),
-    newCreateServiceResponse,
+    -- ** UpdatePublicDnsNamespace
+    UpdatePublicDnsNamespace (UpdatePublicDnsNamespace'),
+    newUpdatePublicDnsNamespace,
+    UpdatePublicDnsNamespaceResponse (UpdatePublicDnsNamespaceResponse'),
+    newUpdatePublicDnsNamespaceResponse,
 
-    -- ** DeregisterInstance
-    DeregisterInstance (DeregisterInstance'),
-    newDeregisterInstance,
-    DeregisterInstanceResponse (DeregisterInstanceResponse'),
-    newDeregisterInstanceResponse,
+    -- ** UpdateService
+    UpdateService (UpdateService'),
+    newUpdateService,
+    UpdateServiceResponse (UpdateServiceResponse'),
+    newUpdateServiceResponse,
 
     -- * Types
 

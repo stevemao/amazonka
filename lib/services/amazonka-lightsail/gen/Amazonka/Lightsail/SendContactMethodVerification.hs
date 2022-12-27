@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.SendContactMethodVerification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,9 +25,10 @@
 --
 -- A contact method is used to send you notifications about your Amazon
 -- Lightsail resources. You can add one email address and one mobile phone
--- number contact method in each AWS Region. However, SMS text messaging is
--- not supported in some AWS Regions, and SMS text messages cannot be sent
--- to some countries\/regions. For more information, see
+-- number contact method in each Amazon Web Services Region. However, SMS
+-- text messaging is not supported in some Amazon Web Services Regions, and
+-- SMS text messages cannot be sent to some countries\/regions. For more
+-- information, see
 -- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-notifications Notifications in Amazon Lightsail>.
 --
 -- A verification request is sent to the contact method when you initially
@@ -55,7 +56,8 @@ module Amazonka.Lightsail.SendContactMethodVerification
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -98,12 +100,13 @@ instance
   type
     AWSResponse SendContactMethodVerification =
       SendContactMethodVerificationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SendContactMethodVerificationResponse'
-            Prelude.<$> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -118,32 +121,32 @@ instance Prelude.NFData SendContactMethodVerification where
   rnf SendContactMethodVerification' {..} =
     Prelude.rnf protocol
 
-instance Core.ToHeaders SendContactMethodVerification where
+instance Data.ToHeaders SendContactMethodVerification where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.SendContactMethodVerification" ::
+              Data.=# ( "Lightsail_20161128.SendContactMethodVerification" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SendContactMethodVerification where
+instance Data.ToJSON SendContactMethodVerification where
   toJSON SendContactMethodVerification' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("protocol" Core..= protocol)]
+          [Prelude.Just ("protocol" Data..= protocol)]
       )
 
-instance Core.ToPath SendContactMethodVerification where
+instance Data.ToPath SendContactMethodVerification where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SendContactMethodVerification where
+instance Data.ToQuery SendContactMethodVerification where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSendContactMethodVerificationResponse' smart constructor.

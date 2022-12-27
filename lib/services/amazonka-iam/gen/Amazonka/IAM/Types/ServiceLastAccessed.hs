@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.Types.ServiceLastAccessed
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IAM.Types.ServiceLastAccessed where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types.TrackedActionLastAccessed
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains details about the most recent attempt to access the service.
@@ -38,25 +39,15 @@ data ServiceLastAccessed = ServiceLastAccessed'
     --
     -- This field is null if no IAM entities attempted to access the service
     -- within the
-    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period reporting period>.
-    lastAuthenticated :: Prelude.Maybe Core.ISO8601,
-    -- | An object that contains details about the most recent attempt to access
-    -- a tracked action within the service.
-    --
-    -- This field is null if there no tracked actions or if the principal did
-    -- not use the tracked actions within the
-    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period reporting period>.
-    -- This field is also null if the report was generated at the service level
-    -- and not the action level. For more information, see the @Granularity@
-    -- field in GenerateServiceLastAccessedDetails.
-    trackedActionsLastAccessed :: Prelude.Maybe [TrackedActionLastAccessed],
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period tracking period>.
+    lastAuthenticated :: Prelude.Maybe Data.ISO8601,
     -- | The ARN of the authenticated entity (user or role) that last attempted
     -- to access the service. Amazon Web Services does not report
     -- unauthenticated requests.
     --
     -- This field is null if no IAM entities attempted to access the service
     -- within the
-    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period reporting period>.
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period tracking period>.
     lastAuthenticatedEntity :: Prelude.Maybe Prelude.Text,
     -- | The Region from which the authenticated entity (user or role) last
     -- attempted to access the service. Amazon Web Services does not report
@@ -64,15 +55,25 @@ data ServiceLastAccessed = ServiceLastAccessed'
     --
     -- This field is null if no IAM entities attempted to access the service
     -- within the
-    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period reporting period>.
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period tracking period>.
     lastAuthenticatedRegion :: Prelude.Maybe Prelude.Text,
     -- | The total number of authenticated principals (root user, IAM users, or
     -- IAM roles) that have attempted to access the service.
     --
     -- This field is null if no principals attempted to access the service
     -- within the
-    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period reporting period>.
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period tracking period>.
     totalAuthenticatedEntities :: Prelude.Maybe Prelude.Int,
+    -- | An object that contains details about the most recent attempt to access
+    -- a tracked action within the service.
+    --
+    -- This field is null if there no tracked actions or if the principal did
+    -- not use the tracked actions within the
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period tracking period>.
+    -- This field is also null if the report was generated at the service level
+    -- and not the action level. For more information, see the @Granularity@
+    -- field in GenerateServiceLastAccessedDetails.
+    trackedActionsLastAccessed :: Prelude.Maybe [TrackedActionLastAccessed],
     -- | The name of the service in which access was attempted.
     serviceName :: Prelude.Text,
     -- | The namespace of the service in which access was attempted.
@@ -104,17 +105,7 @@ data ServiceLastAccessed = ServiceLastAccessed'
 --
 -- This field is null if no IAM entities attempted to access the service
 -- within the
--- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period reporting period>.
---
--- 'trackedActionsLastAccessed', 'serviceLastAccessed_trackedActionsLastAccessed' - An object that contains details about the most recent attempt to access
--- a tracked action within the service.
---
--- This field is null if there no tracked actions or if the principal did
--- not use the tracked actions within the
--- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period reporting period>.
--- This field is also null if the report was generated at the service level
--- and not the action level. For more information, see the @Granularity@
--- field in GenerateServiceLastAccessedDetails.
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period tracking period>.
 --
 -- 'lastAuthenticatedEntity', 'serviceLastAccessed_lastAuthenticatedEntity' - The ARN of the authenticated entity (user or role) that last attempted
 -- to access the service. Amazon Web Services does not report
@@ -122,7 +113,7 @@ data ServiceLastAccessed = ServiceLastAccessed'
 --
 -- This field is null if no IAM entities attempted to access the service
 -- within the
--- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period reporting period>.
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period tracking period>.
 --
 -- 'lastAuthenticatedRegion', 'serviceLastAccessed_lastAuthenticatedRegion' - The Region from which the authenticated entity (user or role) last
 -- attempted to access the service. Amazon Web Services does not report
@@ -130,14 +121,24 @@ data ServiceLastAccessed = ServiceLastAccessed'
 --
 -- This field is null if no IAM entities attempted to access the service
 -- within the
--- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period reporting period>.
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period tracking period>.
 --
 -- 'totalAuthenticatedEntities', 'serviceLastAccessed_totalAuthenticatedEntities' - The total number of authenticated principals (root user, IAM users, or
 -- IAM roles) that have attempted to access the service.
 --
 -- This field is null if no principals attempted to access the service
 -- within the
--- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period reporting period>.
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period tracking period>.
+--
+-- 'trackedActionsLastAccessed', 'serviceLastAccessed_trackedActionsLastAccessed' - An object that contains details about the most recent attempt to access
+-- a tracked action within the service.
+--
+-- This field is null if there no tracked actions or if the principal did
+-- not use the tracked actions within the
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period tracking period>.
+-- This field is also null if the report was generated at the service level
+-- and not the action level. For more information, see the @Granularity@
+-- field in GenerateServiceLastAccessedDetails.
 --
 -- 'serviceName', 'serviceLastAccessed_serviceName' - The name of the service in which access was attempted.
 --
@@ -163,10 +164,10 @@ newServiceLastAccessed
     ServiceLastAccessed'
       { lastAuthenticated =
           Prelude.Nothing,
-        trackedActionsLastAccessed = Prelude.Nothing,
         lastAuthenticatedEntity = Prelude.Nothing,
         lastAuthenticatedRegion = Prelude.Nothing,
         totalAuthenticatedEntities = Prelude.Nothing,
+        trackedActionsLastAccessed = Prelude.Nothing,
         serviceName = pServiceName_,
         serviceNamespace = pServiceNamespace_
       }
@@ -178,21 +179,9 @@ newServiceLastAccessed
 --
 -- This field is null if no IAM entities attempted to access the service
 -- within the
--- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period reporting period>.
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period tracking period>.
 serviceLastAccessed_lastAuthenticated :: Lens.Lens' ServiceLastAccessed (Prelude.Maybe Prelude.UTCTime)
-serviceLastAccessed_lastAuthenticated = Lens.lens (\ServiceLastAccessed' {lastAuthenticated} -> lastAuthenticated) (\s@ServiceLastAccessed' {} a -> s {lastAuthenticated = a} :: ServiceLastAccessed) Prelude.. Lens.mapping Core._Time
-
--- | An object that contains details about the most recent attempt to access
--- a tracked action within the service.
---
--- This field is null if there no tracked actions or if the principal did
--- not use the tracked actions within the
--- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period reporting period>.
--- This field is also null if the report was generated at the service level
--- and not the action level. For more information, see the @Granularity@
--- field in GenerateServiceLastAccessedDetails.
-serviceLastAccessed_trackedActionsLastAccessed :: Lens.Lens' ServiceLastAccessed (Prelude.Maybe [TrackedActionLastAccessed])
-serviceLastAccessed_trackedActionsLastAccessed = Lens.lens (\ServiceLastAccessed' {trackedActionsLastAccessed} -> trackedActionsLastAccessed) (\s@ServiceLastAccessed' {} a -> s {trackedActionsLastAccessed = a} :: ServiceLastAccessed) Prelude.. Lens.mapping Lens.coerced
+serviceLastAccessed_lastAuthenticated = Lens.lens (\ServiceLastAccessed' {lastAuthenticated} -> lastAuthenticated) (\s@ServiceLastAccessed' {} a -> s {lastAuthenticated = a} :: ServiceLastAccessed) Prelude.. Lens.mapping Data._Time
 
 -- | The ARN of the authenticated entity (user or role) that last attempted
 -- to access the service. Amazon Web Services does not report
@@ -200,7 +189,7 @@ serviceLastAccessed_trackedActionsLastAccessed = Lens.lens (\ServiceLastAccessed
 --
 -- This field is null if no IAM entities attempted to access the service
 -- within the
--- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period reporting period>.
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period tracking period>.
 serviceLastAccessed_lastAuthenticatedEntity :: Lens.Lens' ServiceLastAccessed (Prelude.Maybe Prelude.Text)
 serviceLastAccessed_lastAuthenticatedEntity = Lens.lens (\ServiceLastAccessed' {lastAuthenticatedEntity} -> lastAuthenticatedEntity) (\s@ServiceLastAccessed' {} a -> s {lastAuthenticatedEntity = a} :: ServiceLastAccessed)
 
@@ -210,7 +199,7 @@ serviceLastAccessed_lastAuthenticatedEntity = Lens.lens (\ServiceLastAccessed' {
 --
 -- This field is null if no IAM entities attempted to access the service
 -- within the
--- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period reporting period>.
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period tracking period>.
 serviceLastAccessed_lastAuthenticatedRegion :: Lens.Lens' ServiceLastAccessed (Prelude.Maybe Prelude.Text)
 serviceLastAccessed_lastAuthenticatedRegion = Lens.lens (\ServiceLastAccessed' {lastAuthenticatedRegion} -> lastAuthenticatedRegion) (\s@ServiceLastAccessed' {} a -> s {lastAuthenticatedRegion = a} :: ServiceLastAccessed)
 
@@ -219,9 +208,21 @@ serviceLastAccessed_lastAuthenticatedRegion = Lens.lens (\ServiceLastAccessed' {
 --
 -- This field is null if no principals attempted to access the service
 -- within the
--- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period reporting period>.
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period tracking period>.
 serviceLastAccessed_totalAuthenticatedEntities :: Lens.Lens' ServiceLastAccessed (Prelude.Maybe Prelude.Int)
 serviceLastAccessed_totalAuthenticatedEntities = Lens.lens (\ServiceLastAccessed' {totalAuthenticatedEntities} -> totalAuthenticatedEntities) (\s@ServiceLastAccessed' {} a -> s {totalAuthenticatedEntities = a} :: ServiceLastAccessed)
+
+-- | An object that contains details about the most recent attempt to access
+-- a tracked action within the service.
+--
+-- This field is null if there no tracked actions or if the principal did
+-- not use the tracked actions within the
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period tracking period>.
+-- This field is also null if the report was generated at the service level
+-- and not the action level. For more information, see the @Granularity@
+-- field in GenerateServiceLastAccessedDetails.
+serviceLastAccessed_trackedActionsLastAccessed :: Lens.Lens' ServiceLastAccessed (Prelude.Maybe [TrackedActionLastAccessed])
+serviceLastAccessed_trackedActionsLastAccessed = Lens.lens (\ServiceLastAccessed' {trackedActionsLastAccessed} -> trackedActionsLastAccessed) (\s@ServiceLastAccessed' {} a -> s {trackedActionsLastAccessed = a} :: ServiceLastAccessed) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the service in which access was attempted.
 serviceLastAccessed_serviceName :: Lens.Lens' ServiceLastAccessed Prelude.Text
@@ -240,36 +241,36 @@ serviceLastAccessed_serviceName = Lens.lens (\ServiceLastAccessed' {serviceName}
 serviceLastAccessed_serviceNamespace :: Lens.Lens' ServiceLastAccessed Prelude.Text
 serviceLastAccessed_serviceNamespace = Lens.lens (\ServiceLastAccessed' {serviceNamespace} -> serviceNamespace) (\s@ServiceLastAccessed' {} a -> s {serviceNamespace = a} :: ServiceLastAccessed)
 
-instance Core.FromXML ServiceLastAccessed where
+instance Data.FromXML ServiceLastAccessed where
   parseXML x =
     ServiceLastAccessed'
-      Prelude.<$> (x Core..@? "LastAuthenticated")
-      Prelude.<*> ( x Core..@? "TrackedActionsLastAccessed"
+      Prelude.<$> (x Data..@? "LastAuthenticated")
+      Prelude.<*> (x Data..@? "LastAuthenticatedEntity")
+      Prelude.<*> (x Data..@? "LastAuthenticatedRegion")
+      Prelude.<*> (x Data..@? "TotalAuthenticatedEntities")
+      Prelude.<*> ( x Data..@? "TrackedActionsLastAccessed"
                       Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "member")
+                      Prelude.>>= Core.may (Data.parseXMLList "member")
                   )
-      Prelude.<*> (x Core..@? "LastAuthenticatedEntity")
-      Prelude.<*> (x Core..@? "LastAuthenticatedRegion")
-      Prelude.<*> (x Core..@? "TotalAuthenticatedEntities")
-      Prelude.<*> (x Core..@ "ServiceName")
-      Prelude.<*> (x Core..@ "ServiceNamespace")
+      Prelude.<*> (x Data..@ "ServiceName")
+      Prelude.<*> (x Data..@ "ServiceNamespace")
 
 instance Prelude.Hashable ServiceLastAccessed where
   hashWithSalt _salt ServiceLastAccessed' {..} =
     _salt `Prelude.hashWithSalt` lastAuthenticated
-      `Prelude.hashWithSalt` trackedActionsLastAccessed
       `Prelude.hashWithSalt` lastAuthenticatedEntity
       `Prelude.hashWithSalt` lastAuthenticatedRegion
       `Prelude.hashWithSalt` totalAuthenticatedEntities
+      `Prelude.hashWithSalt` trackedActionsLastAccessed
       `Prelude.hashWithSalt` serviceName
       `Prelude.hashWithSalt` serviceNamespace
 
 instance Prelude.NFData ServiceLastAccessed where
   rnf ServiceLastAccessed' {..} =
     Prelude.rnf lastAuthenticated
-      `Prelude.seq` Prelude.rnf trackedActionsLastAccessed
       `Prelude.seq` Prelude.rnf lastAuthenticatedEntity
       `Prelude.seq` Prelude.rnf lastAuthenticatedRegion
       `Prelude.seq` Prelude.rnf totalAuthenticatedEntities
+      `Prelude.seq` Prelude.rnf trackedActionsLastAccessed
       `Prelude.seq` Prelude.rnf serviceName
       `Prelude.seq` Prelude.rnf serviceNamespace

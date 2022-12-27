@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DisableTopicRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.IoT.DisableTopicRule
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,7 +80,8 @@ instance Core.AWSRequest DisableTopicRule where
   type
     AWSResponse DisableTopicRule =
       DisableTopicRuleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DisableTopicRuleResponse'
 
@@ -90,18 +92,18 @@ instance Prelude.Hashable DisableTopicRule where
 instance Prelude.NFData DisableTopicRule where
   rnf DisableTopicRule' {..} = Prelude.rnf ruleName
 
-instance Core.ToHeaders DisableTopicRule where
+instance Data.ToHeaders DisableTopicRule where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON DisableTopicRule where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON DisableTopicRule where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath DisableTopicRule where
+instance Data.ToPath DisableTopicRule where
   toPath DisableTopicRule' {..} =
     Prelude.mconcat
-      ["/rules/", Core.toBS ruleName, "/disable"]
+      ["/rules/", Data.toBS ruleName, "/disable"]
 
-instance Core.ToQuery DisableTopicRule where
+instance Data.ToQuery DisableTopicRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisableTopicRuleResponse' smart constructor.

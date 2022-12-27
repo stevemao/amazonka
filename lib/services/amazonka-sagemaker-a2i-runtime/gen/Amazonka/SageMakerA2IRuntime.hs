@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.SageMakerA2IRuntime
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -53,17 +53,8 @@ module Amazonka.SageMakerA2IRuntime
     -- * Errors
     -- $errors
 
-    -- ** ValidationException
-    _ValidationException,
-
     -- ** ConflictException
     _ConflictException,
-
-    -- ** ServiceQuotaExceededException
-    _ServiceQuotaExceededException,
-
-    -- ** ThrottlingException
-    _ThrottlingException,
 
     -- ** InternalServerException
     _InternalServerException,
@@ -71,23 +62,38 @@ module Amazonka.SageMakerA2IRuntime
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
 
+    -- ** ServiceQuotaExceededException
+    _ServiceQuotaExceededException,
+
+    -- ** ThrottlingException
+    _ThrottlingException,
+
+    -- ** ValidationException
+    _ValidationException,
+
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
 
-    -- ** ListHumanLoops (Paginated)
-    ListHumanLoops (ListHumanLoops'),
-    newListHumanLoops,
-    ListHumanLoopsResponse (ListHumanLoopsResponse'),
-    newListHumanLoopsResponse,
-
     -- ** DeleteHumanLoop
     DeleteHumanLoop (DeleteHumanLoop'),
     newDeleteHumanLoop,
     DeleteHumanLoopResponse (DeleteHumanLoopResponse'),
     newDeleteHumanLoopResponse,
+
+    -- ** DescribeHumanLoop
+    DescribeHumanLoop (DescribeHumanLoop'),
+    newDescribeHumanLoop,
+    DescribeHumanLoopResponse (DescribeHumanLoopResponse'),
+    newDescribeHumanLoopResponse,
+
+    -- ** ListHumanLoops (Paginated)
+    ListHumanLoops (ListHumanLoops'),
+    newListHumanLoops,
+    ListHumanLoopsResponse (ListHumanLoopsResponse'),
+    newListHumanLoopsResponse,
 
     -- ** StartHumanLoop
     StartHumanLoop (StartHumanLoop'),
@@ -100,12 +106,6 @@ module Amazonka.SageMakerA2IRuntime
     newStopHumanLoop,
     StopHumanLoopResponse (StopHumanLoopResponse'),
     newStopHumanLoopResponse,
-
-    -- ** DescribeHumanLoop
-    DescribeHumanLoop (DescribeHumanLoop'),
-    newDescribeHumanLoop,
-    DescribeHumanLoopResponse (DescribeHumanLoopResponse'),
-    newDescribeHumanLoopResponse,
 
     -- * Types
 

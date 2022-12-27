@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.Types.ResourceTag
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.DirectConnect.Types.ResourceTag where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectConnect.Types.Tag
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a tag associated with an Direct Connect resource.
@@ -62,14 +63,14 @@ resourceTag_resourceArn = Lens.lens (\ResourceTag' {resourceArn} -> resourceArn)
 resourceTag_tags :: Lens.Lens' ResourceTag (Prelude.Maybe (Prelude.NonEmpty Tag))
 resourceTag_tags = Lens.lens (\ResourceTag' {tags} -> tags) (\s@ResourceTag' {} a -> s {tags = a} :: ResourceTag) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON ResourceTag where
+instance Data.FromJSON ResourceTag where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResourceTag"
       ( \x ->
           ResourceTag'
-            Prelude.<$> (x Core..:? "resourceArn")
-            Prelude.<*> (x Core..:? "tags")
+            Prelude.<$> (x Data..:? "resourceArn")
+            Prelude.<*> (x Data..:? "tags")
       )
 
 instance Prelude.Hashable ResourceTag where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ManagedBlockChain.DeleteMember
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,11 +23,11 @@
 -- Deletes a member. Deleting a member removes the member and all
 -- associated resources from the network. @DeleteMember@ can only be called
 -- for a specified @MemberId@ if the principal performing the action is
--- associated with the AWS account that owns the member. In all other
--- cases, the @DeleteMember@ action is carried out as the result of an
--- approved proposal to remove a member. If @MemberId@ is the last member
--- in a network specified by the last AWS account, the network is deleted
--- also.
+-- associated with the Amazon Web Services account that owns the member. In
+-- all other cases, the @DeleteMember@ action is carried out as the result
+-- of an approved proposal to remove a member. If @MemberId@ is the last
+-- member in a network specified by the last Amazon Web Services account,
+-- the network is deleted also.
 --
 -- Applies only to Hyperledger Fabric.
 module Amazonka.ManagedBlockChain.DeleteMember
@@ -49,7 +49,8 @@ module Amazonka.ManagedBlockChain.DeleteMember
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ManagedBlockChain.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -97,7 +98,8 @@ deleteMember_memberId = Lens.lens (\DeleteMember' {memberId} -> memberId) (\s@De
 
 instance Core.AWSRequest DeleteMember where
   type AWSResponse DeleteMember = DeleteMemberResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -115,27 +117,27 @@ instance Prelude.NFData DeleteMember where
     Prelude.rnf networkId
       `Prelude.seq` Prelude.rnf memberId
 
-instance Core.ToHeaders DeleteMember where
+instance Data.ToHeaders DeleteMember where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteMember where
+instance Data.ToPath DeleteMember where
   toPath DeleteMember' {..} =
     Prelude.mconcat
       [ "/networks/",
-        Core.toBS networkId,
+        Data.toBS networkId,
         "/members/",
-        Core.toBS memberId
+        Data.toBS memberId
       ]
 
-instance Core.ToQuery DeleteMember where
+instance Data.ToQuery DeleteMember where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteMemberResponse' smart constructor.

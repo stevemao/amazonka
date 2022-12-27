@@ -14,15 +14,13 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetAuthorizers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Describe an existing Authorizers resource.
---
--- <https://docs.aws.amazon.com/cli/latest/reference/apigateway/get-authorizers.html AWS CLI>
 --
 -- This operation returns paginated results.
 module Amazonka.APIGateway.GetAuthorizers
@@ -48,7 +46,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,7 +61,7 @@ data GetAuthorizers = GetAuthorizers'
     limit :: Prelude.Maybe Prelude.Int,
     -- | The current pagination position in the paged result set.
     position :: Prelude.Maybe Prelude.Text,
-    -- | [Required] The string identifier of the associated RestApi.
+    -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -80,7 +79,7 @@ data GetAuthorizers = GetAuthorizers'
 --
 -- 'position', 'getAuthorizers_position' - The current pagination position in the paged result set.
 --
--- 'restApiId', 'getAuthorizers_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'getAuthorizers_restApiId' - The string identifier of the associated RestApi.
 newGetAuthorizers ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -101,7 +100,7 @@ getAuthorizers_limit = Lens.lens (\GetAuthorizers' {limit} -> limit) (\s@GetAuth
 getAuthorizers_position :: Lens.Lens' GetAuthorizers (Prelude.Maybe Prelude.Text)
 getAuthorizers_position = Lens.lens (\GetAuthorizers' {position} -> position) (\s@GetAuthorizers' {} a -> s {position = a} :: GetAuthorizers)
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 getAuthorizers_restApiId :: Lens.Lens' GetAuthorizers Prelude.Text
 getAuthorizers_restApiId = Lens.lens (\GetAuthorizers' {restApiId} -> restApiId) (\s@GetAuthorizers' {} a -> s {restApiId = a} :: GetAuthorizers)
 
@@ -128,13 +127,14 @@ instance Core.AWSRequest GetAuthorizers where
   type
     AWSResponse GetAuthorizers =
       GetAuthorizersResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAuthorizersResponse'
-            Prelude.<$> (x Core..?> "item" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "position")
+            Prelude.<$> (x Data..?> "item" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "position")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -150,29 +150,26 @@ instance Prelude.NFData GetAuthorizers where
       `Prelude.seq` Prelude.rnf position
       `Prelude.seq` Prelude.rnf restApiId
 
-instance Core.ToHeaders GetAuthorizers where
+instance Data.ToHeaders GetAuthorizers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetAuthorizers where
+instance Data.ToPath GetAuthorizers where
   toPath GetAuthorizers' {..} =
     Prelude.mconcat
-      ["/restapis/", Core.toBS restApiId, "/authorizers"]
+      ["/restapis/", Data.toBS restApiId, "/authorizers"]
 
-instance Core.ToQuery GetAuthorizers where
+instance Data.ToQuery GetAuthorizers where
   toQuery GetAuthorizers' {..} =
     Prelude.mconcat
-      ["limit" Core.=: limit, "position" Core.=: position]
+      ["limit" Data.=: limit, "position" Data.=: position]
 
 -- | Represents a collection of Authorizer resources.
---
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html Use Lambda Function as Authorizer>
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-integrate-with-cognito.html Use Cognito User Pool as Authorizer>
 --
 -- /See:/ 'newGetAuthorizersResponse' smart constructor.
 data GetAuthorizersResponse = GetAuthorizersResponse'

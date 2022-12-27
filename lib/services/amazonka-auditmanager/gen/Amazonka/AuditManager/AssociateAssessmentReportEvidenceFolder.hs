@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.AssociateAssessmentReportEvidenceFolder
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Associates an evidence folder to the specified assessment report in
--- Audit Manager.
+-- Associates an evidence folder to an assessment report in a Audit Manager
+-- assessment.
 module Amazonka.AuditManager.AssociateAssessmentReportEvidenceFolder
   ( -- * Creating a Request
     AssociateAssessmentReportEvidenceFolder (..),
@@ -42,16 +42,17 @@ where
 
 import Amazonka.AuditManager.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newAssociateAssessmentReportEvidenceFolder' smart constructor.
 data AssociateAssessmentReportEvidenceFolder = AssociateAssessmentReportEvidenceFolder'
-  { -- | The identifier for the specified assessment.
+  { -- | The identifier for the assessment.
     assessmentId :: Prelude.Text,
-    -- | The identifier for the folder in which evidence is stored.
+    -- | The identifier for the folder that the evidence is stored in.
     evidenceFolderId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -64,9 +65,9 @@ data AssociateAssessmentReportEvidenceFolder = AssociateAssessmentReportEvidence
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'assessmentId', 'associateAssessmentReportEvidenceFolder_assessmentId' - The identifier for the specified assessment.
+-- 'assessmentId', 'associateAssessmentReportEvidenceFolder_assessmentId' - The identifier for the assessment.
 --
--- 'evidenceFolderId', 'associateAssessmentReportEvidenceFolder_evidenceFolderId' - The identifier for the folder in which evidence is stored.
+-- 'evidenceFolderId', 'associateAssessmentReportEvidenceFolder_evidenceFolderId' - The identifier for the folder that the evidence is stored in.
 newAssociateAssessmentReportEvidenceFolder ::
   -- | 'assessmentId'
   Prelude.Text ->
@@ -83,11 +84,11 @@ newAssociateAssessmentReportEvidenceFolder
           pEvidenceFolderId_
       }
 
--- | The identifier for the specified assessment.
+-- | The identifier for the assessment.
 associateAssessmentReportEvidenceFolder_assessmentId :: Lens.Lens' AssociateAssessmentReportEvidenceFolder Prelude.Text
 associateAssessmentReportEvidenceFolder_assessmentId = Lens.lens (\AssociateAssessmentReportEvidenceFolder' {assessmentId} -> assessmentId) (\s@AssociateAssessmentReportEvidenceFolder' {} a -> s {assessmentId = a} :: AssociateAssessmentReportEvidenceFolder)
 
--- | The identifier for the folder in which evidence is stored.
+-- | The identifier for the folder that the evidence is stored in.
 associateAssessmentReportEvidenceFolder_evidenceFolderId :: Lens.Lens' AssociateAssessmentReportEvidenceFolder Prelude.Text
 associateAssessmentReportEvidenceFolder_evidenceFolderId = Lens.lens (\AssociateAssessmentReportEvidenceFolder' {evidenceFolderId} -> evidenceFolderId) (\s@AssociateAssessmentReportEvidenceFolder' {} a -> s {evidenceFolderId = a} :: AssociateAssessmentReportEvidenceFolder)
 
@@ -99,7 +100,8 @@ instance
     AWSResponse
       AssociateAssessmentReportEvidenceFolder =
       AssociateAssessmentReportEvidenceFolderResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -126,44 +128,44 @@ instance
       `Prelude.seq` Prelude.rnf evidenceFolderId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     AssociateAssessmentReportEvidenceFolder
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AssociateAssessmentReportEvidenceFolder
   where
   toJSON AssociateAssessmentReportEvidenceFolder' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("evidenceFolderId" Core..= evidenceFolderId)
+              ("evidenceFolderId" Data..= evidenceFolderId)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     AssociateAssessmentReportEvidenceFolder
   where
   toPath AssociateAssessmentReportEvidenceFolder' {..} =
     Prelude.mconcat
       [ "/assessments/",
-        Core.toBS assessmentId,
+        Data.toBS assessmentId,
         "/associateToAssessmentReport"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     AssociateAssessmentReportEvidenceFolder
   where
   toQuery = Prelude.const Prelude.mempty

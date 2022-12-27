@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaPackage.Types.CmafEncryption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,9 @@
 module Amazonka.MediaPackage.Types.CmafEncryption where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.MediaPackage.Types.CmafEncryptionMethod
 import Amazonka.MediaPackage.Types.SpekeKeyProvider
 import qualified Amazonka.Prelude as Prelude
 
@@ -28,13 +30,14 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newCmafEncryption' smart constructor.
 data CmafEncryption = CmafEncryption'
-  { -- | Time (in seconds) between each encryption key rotation.
-    keyRotationIntervalSeconds :: Prelude.Maybe Prelude.Int,
-    -- | An optional 128-bit, 16-byte hex value represented by a 32-character
+  { -- | An optional 128-bit, 16-byte hex value represented by a 32-character
     -- string, used in conjunction with the key for encrypting blocks. If you
     -- don\'t specify a value, then MediaPackage creates the constant
     -- initialization vector (IV).
     constantInitializationVector :: Prelude.Maybe Prelude.Text,
+    encryptionMethod :: Prelude.Maybe CmafEncryptionMethod,
+    -- | Time (in seconds) between each encryption key rotation.
+    keyRotationIntervalSeconds :: Prelude.Maybe Prelude.Int,
     spekeKeyProvider :: SpekeKeyProvider
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -47,12 +50,14 @@ data CmafEncryption = CmafEncryption'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'keyRotationIntervalSeconds', 'cmafEncryption_keyRotationIntervalSeconds' - Time (in seconds) between each encryption key rotation.
---
 -- 'constantInitializationVector', 'cmafEncryption_constantInitializationVector' - An optional 128-bit, 16-byte hex value represented by a 32-character
 -- string, used in conjunction with the key for encrypting blocks. If you
 -- don\'t specify a value, then MediaPackage creates the constant
 -- initialization vector (IV).
+--
+-- 'encryptionMethod', 'cmafEncryption_encryptionMethod' - Undocumented member.
+--
+-- 'keyRotationIntervalSeconds', 'cmafEncryption_keyRotationIntervalSeconds' - Time (in seconds) between each encryption key rotation.
 --
 -- 'spekeKeyProvider', 'cmafEncryption_spekeKeyProvider' - Undocumented member.
 newCmafEncryption ::
@@ -61,15 +66,12 @@ newCmafEncryption ::
   CmafEncryption
 newCmafEncryption pSpekeKeyProvider_ =
   CmafEncryption'
-    { keyRotationIntervalSeconds =
+    { constantInitializationVector =
         Prelude.Nothing,
-      constantInitializationVector = Prelude.Nothing,
+      encryptionMethod = Prelude.Nothing,
+      keyRotationIntervalSeconds = Prelude.Nothing,
       spekeKeyProvider = pSpekeKeyProvider_
     }
-
--- | Time (in seconds) between each encryption key rotation.
-cmafEncryption_keyRotationIntervalSeconds :: Lens.Lens' CmafEncryption (Prelude.Maybe Prelude.Int)
-cmafEncryption_keyRotationIntervalSeconds = Lens.lens (\CmafEncryption' {keyRotationIntervalSeconds} -> keyRotationIntervalSeconds) (\s@CmafEncryption' {} a -> s {keyRotationIntervalSeconds = a} :: CmafEncryption)
 
 -- | An optional 128-bit, 16-byte hex value represented by a 32-character
 -- string, used in conjunction with the key for encrypting blocks. If you
@@ -79,42 +81,55 @@ cmafEncryption_constantInitializationVector :: Lens.Lens' CmafEncryption (Prelud
 cmafEncryption_constantInitializationVector = Lens.lens (\CmafEncryption' {constantInitializationVector} -> constantInitializationVector) (\s@CmafEncryption' {} a -> s {constantInitializationVector = a} :: CmafEncryption)
 
 -- | Undocumented member.
+cmafEncryption_encryptionMethod :: Lens.Lens' CmafEncryption (Prelude.Maybe CmafEncryptionMethod)
+cmafEncryption_encryptionMethod = Lens.lens (\CmafEncryption' {encryptionMethod} -> encryptionMethod) (\s@CmafEncryption' {} a -> s {encryptionMethod = a} :: CmafEncryption)
+
+-- | Time (in seconds) between each encryption key rotation.
+cmafEncryption_keyRotationIntervalSeconds :: Lens.Lens' CmafEncryption (Prelude.Maybe Prelude.Int)
+cmafEncryption_keyRotationIntervalSeconds = Lens.lens (\CmafEncryption' {keyRotationIntervalSeconds} -> keyRotationIntervalSeconds) (\s@CmafEncryption' {} a -> s {keyRotationIntervalSeconds = a} :: CmafEncryption)
+
+-- | Undocumented member.
 cmafEncryption_spekeKeyProvider :: Lens.Lens' CmafEncryption SpekeKeyProvider
 cmafEncryption_spekeKeyProvider = Lens.lens (\CmafEncryption' {spekeKeyProvider} -> spekeKeyProvider) (\s@CmafEncryption' {} a -> s {spekeKeyProvider = a} :: CmafEncryption)
 
-instance Core.FromJSON CmafEncryption where
+instance Data.FromJSON CmafEncryption where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CmafEncryption"
       ( \x ->
           CmafEncryption'
-            Prelude.<$> (x Core..:? "keyRotationIntervalSeconds")
-            Prelude.<*> (x Core..:? "constantInitializationVector")
-            Prelude.<*> (x Core..: "spekeKeyProvider")
+            Prelude.<$> (x Data..:? "constantInitializationVector")
+            Prelude.<*> (x Data..:? "encryptionMethod")
+            Prelude.<*> (x Data..:? "keyRotationIntervalSeconds")
+            Prelude.<*> (x Data..: "spekeKeyProvider")
       )
 
 instance Prelude.Hashable CmafEncryption where
   hashWithSalt _salt CmafEncryption' {..} =
     _salt
-      `Prelude.hashWithSalt` keyRotationIntervalSeconds
       `Prelude.hashWithSalt` constantInitializationVector
+      `Prelude.hashWithSalt` encryptionMethod
+      `Prelude.hashWithSalt` keyRotationIntervalSeconds
       `Prelude.hashWithSalt` spekeKeyProvider
 
 instance Prelude.NFData CmafEncryption where
   rnf CmafEncryption' {..} =
-    Prelude.rnf keyRotationIntervalSeconds
-      `Prelude.seq` Prelude.rnf constantInitializationVector
+    Prelude.rnf constantInitializationVector
+      `Prelude.seq` Prelude.rnf encryptionMethod
+      `Prelude.seq` Prelude.rnf keyRotationIntervalSeconds
       `Prelude.seq` Prelude.rnf spekeKeyProvider
 
-instance Core.ToJSON CmafEncryption where
+instance Data.ToJSON CmafEncryption where
   toJSON CmafEncryption' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("keyRotationIntervalSeconds" Core..=)
-              Prelude.<$> keyRotationIntervalSeconds,
-            ("constantInitializationVector" Core..=)
+          [ ("constantInitializationVector" Data..=)
               Prelude.<$> constantInitializationVector,
+            ("encryptionMethod" Data..=)
+              Prelude.<$> encryptionMethod,
+            ("keyRotationIntervalSeconds" Data..=)
+              Prelude.<$> keyRotationIntervalSeconds,
             Prelude.Just
-              ("spekeKeyProvider" Core..= spekeKeyProvider)
+              ("spekeKeyProvider" Data..= spekeKeyProvider)
           ]
       )

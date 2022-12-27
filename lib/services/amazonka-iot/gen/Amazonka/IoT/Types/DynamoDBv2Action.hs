@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.DynamoDBv2Action
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoT.Types.DynamoDBv2Action where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.PutItemInput
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an action to write to a DynamoDB table.
@@ -87,14 +88,14 @@ dynamoDBv2Action_roleArn = Lens.lens (\DynamoDBv2Action' {roleArn} -> roleArn) (
 dynamoDBv2Action_putItem :: Lens.Lens' DynamoDBv2Action PutItemInput
 dynamoDBv2Action_putItem = Lens.lens (\DynamoDBv2Action' {putItem} -> putItem) (\s@DynamoDBv2Action' {} a -> s {putItem = a} :: DynamoDBv2Action)
 
-instance Core.FromJSON DynamoDBv2Action where
+instance Data.FromJSON DynamoDBv2Action where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DynamoDBv2Action"
       ( \x ->
           DynamoDBv2Action'
-            Prelude.<$> (x Core..: "roleArn")
-            Prelude.<*> (x Core..: "putItem")
+            Prelude.<$> (x Data..: "roleArn")
+            Prelude.<*> (x Data..: "putItem")
       )
 
 instance Prelude.Hashable DynamoDBv2Action where
@@ -107,11 +108,11 @@ instance Prelude.NFData DynamoDBv2Action where
     Prelude.rnf roleArn
       `Prelude.seq` Prelude.rnf putItem
 
-instance Core.ToJSON DynamoDBv2Action where
+instance Data.ToJSON DynamoDBv2Action where
   toJSON DynamoDBv2Action' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("roleArn" Core..= roleArn),
-            Prelude.Just ("putItem" Core..= putItem)
+          [ Prelude.Just ("roleArn" Data..= roleArn),
+            Prelude.Just ("putItem" Data..= putItem)
           ]
       )

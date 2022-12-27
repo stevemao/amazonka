@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.ListLicenseManagerReportGenerators
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.LicenseManager.ListLicenseManagerReportGenerators
 
     -- * Request Lenses
     listLicenseManagerReportGenerators_filters,
-    listLicenseManagerReportGenerators_nextToken,
     listLicenseManagerReportGenerators_maxResults,
+    listLicenseManagerReportGenerators_nextToken,
 
     -- * Destructuring the Response
     ListLicenseManagerReportGeneratorsResponse (..),
@@ -43,7 +43,8 @@ module Amazonka.LicenseManager.ListLicenseManagerReportGenerators
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LicenseManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -55,10 +56,10 @@ data ListLicenseManagerReportGenerators = ListLicenseManagerReportGenerators'
     --
     -- -   @LicenseConfigurationArn@
     filters :: Prelude.Maybe [Filter],
-    -- | Token for the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | Maximum number of results to return in a single call.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -74,17 +75,17 @@ data ListLicenseManagerReportGenerators = ListLicenseManagerReportGenerators'
 --
 -- -   @LicenseConfigurationArn@
 --
--- 'nextToken', 'listLicenseManagerReportGenerators_nextToken' - Token for the next set of results.
---
 -- 'maxResults', 'listLicenseManagerReportGenerators_maxResults' - Maximum number of results to return in a single call.
+--
+-- 'nextToken', 'listLicenseManagerReportGenerators_nextToken' - Token for the next set of results.
 newListLicenseManagerReportGenerators ::
   ListLicenseManagerReportGenerators
 newListLicenseManagerReportGenerators =
   ListLicenseManagerReportGenerators'
     { filters =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | Filters to scope the results. The following filters are supported:
@@ -93,13 +94,13 @@ newListLicenseManagerReportGenerators =
 listLicenseManagerReportGenerators_filters :: Lens.Lens' ListLicenseManagerReportGenerators (Prelude.Maybe [Filter])
 listLicenseManagerReportGenerators_filters = Lens.lens (\ListLicenseManagerReportGenerators' {filters} -> filters) (\s@ListLicenseManagerReportGenerators' {} a -> s {filters = a} :: ListLicenseManagerReportGenerators) Prelude.. Lens.mapping Lens.coerced
 
--- | Token for the next set of results.
-listLicenseManagerReportGenerators_nextToken :: Lens.Lens' ListLicenseManagerReportGenerators (Prelude.Maybe Prelude.Text)
-listLicenseManagerReportGenerators_nextToken = Lens.lens (\ListLicenseManagerReportGenerators' {nextToken} -> nextToken) (\s@ListLicenseManagerReportGenerators' {} a -> s {nextToken = a} :: ListLicenseManagerReportGenerators)
-
 -- | Maximum number of results to return in a single call.
 listLicenseManagerReportGenerators_maxResults :: Lens.Lens' ListLicenseManagerReportGenerators (Prelude.Maybe Prelude.Natural)
 listLicenseManagerReportGenerators_maxResults = Lens.lens (\ListLicenseManagerReportGenerators' {maxResults} -> maxResults) (\s@ListLicenseManagerReportGenerators' {} a -> s {maxResults = a} :: ListLicenseManagerReportGenerators)
+
+-- | Token for the next set of results.
+listLicenseManagerReportGenerators_nextToken :: Lens.Lens' ListLicenseManagerReportGenerators (Prelude.Maybe Prelude.Text)
+listLicenseManagerReportGenerators_nextToken = Lens.lens (\ListLicenseManagerReportGenerators' {nextToken} -> nextToken) (\s@ListLicenseManagerReportGenerators' {} a -> s {nextToken = a} :: ListLicenseManagerReportGenerators)
 
 instance
   Core.AWSRequest
@@ -108,13 +109,14 @@ instance
   type
     AWSResponse ListLicenseManagerReportGenerators =
       ListLicenseManagerReportGeneratorsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListLicenseManagerReportGeneratorsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-              Prelude.<*> ( x Core..?> "ReportGenerators"
+            Prelude.<$> (x Data..?> "NextToken")
+              Prelude.<*> ( x Data..?> "ReportGenerators"
                               Core..!@ Prelude.mempty
                           )
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -128,8 +130,8 @@ instance
     _salt
     ListLicenseManagerReportGenerators' {..} =
       _salt `Prelude.hashWithSalt` filters
-        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
 
 instance
   Prelude.NFData
@@ -137,48 +139,48 @@ instance
   where
   rnf ListLicenseManagerReportGenerators' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListLicenseManagerReportGenerators
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSLicenseManager.ListLicenseManagerReportGenerators" ::
+              Data.=# ( "AWSLicenseManager.ListLicenseManagerReportGenerators" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ListLicenseManagerReportGenerators
   where
   toJSON ListLicenseManagerReportGenerators' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     ListLicenseManagerReportGenerators
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ListLicenseManagerReportGenerators
   where
   toQuery = Prelude.const Prelude.mempty

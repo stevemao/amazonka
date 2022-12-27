@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.CreateVirtualNode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,7 @@
 -- You must be using @1.15.0@ or later of the Envoy image when setting
 -- these variables. For more information aboutApp Mesh Envoy variables, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/envoy.html Envoy image>
--- in the AWS App Mesh User Guide.
+-- in the App Mesh User Guide.
 module Amazonka.AppMesh.CreateVirtualNode
   ( -- * Creating a Request
     CreateVirtualNode (..),
@@ -76,7 +76,8 @@ where
 
 import Amazonka.AppMesh.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,10 +90,10 @@ data CreateVirtualNode = CreateVirtualNode'
     -- idempotency of the request. Up to 36 letters, numbers, hyphens, and
     -- underscores are allowed.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | The AWS IAM account ID of the service mesh owner. If the account ID is
-    -- not your own, then the account that you specify must share the mesh with
-    -- your account before you can create the resource in the service mesh. For
-    -- more information about mesh sharing, see
+    -- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+    -- account ID is not your own, then the account that you specify must share
+    -- the mesh with your account before you can create the resource in the
+    -- service mesh. For more information about mesh sharing, see
     -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
     meshOwner :: Prelude.Maybe Prelude.Text,
     -- | Optional metadata that you can apply to the virtual node to assist with
@@ -122,10 +123,10 @@ data CreateVirtualNode = CreateVirtualNode'
 -- idempotency of the request. Up to 36 letters, numbers, hyphens, and
 -- underscores are allowed.
 --
--- 'meshOwner', 'createVirtualNode_meshOwner' - The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then the account that you specify must share the mesh with
--- your account before you can create the resource in the service mesh. For
--- more information about mesh sharing, see
+-- 'meshOwner', 'createVirtualNode_meshOwner' - The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then the account that you specify must share
+-- the mesh with your account before you can create the resource in the
+-- service mesh. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 --
 -- 'tags', 'createVirtualNode_tags' - Optional metadata that you can apply to the virtual node to assist with
@@ -166,10 +167,10 @@ newCreateVirtualNode
 createVirtualNode_clientToken :: Lens.Lens' CreateVirtualNode (Prelude.Maybe Prelude.Text)
 createVirtualNode_clientToken = Lens.lens (\CreateVirtualNode' {clientToken} -> clientToken) (\s@CreateVirtualNode' {} a -> s {clientToken = a} :: CreateVirtualNode)
 
--- | The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then the account that you specify must share the mesh with
--- your account before you can create the resource in the service mesh. For
--- more information about mesh sharing, see
+-- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then the account that you specify must share
+-- the mesh with your account before you can create the resource in the
+-- service mesh. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 createVirtualNode_meshOwner :: Lens.Lens' CreateVirtualNode (Prelude.Maybe Prelude.Text)
 createVirtualNode_meshOwner = Lens.lens (\CreateVirtualNode' {meshOwner} -> meshOwner) (\s@CreateVirtualNode' {} a -> s {meshOwner = a} :: CreateVirtualNode)
@@ -198,13 +199,14 @@ instance Core.AWSRequest CreateVirtualNode where
   type
     AWSResponse CreateVirtualNode =
       CreateVirtualNodeResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateVirtualNodeResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable CreateVirtualNode where
@@ -225,40 +227,40 @@ instance Prelude.NFData CreateVirtualNode where
       `Prelude.seq` Prelude.rnf spec
       `Prelude.seq` Prelude.rnf virtualNodeName
 
-instance Core.ToHeaders CreateVirtualNode where
+instance Data.ToHeaders CreateVirtualNode where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateVirtualNode where
+instance Data.ToJSON CreateVirtualNode where
   toJSON CreateVirtualNode' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("spec" Core..= spec),
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("spec" Data..= spec),
             Prelude.Just
-              ("virtualNodeName" Core..= virtualNodeName)
+              ("virtualNodeName" Data..= virtualNodeName)
           ]
       )
 
-instance Core.ToPath CreateVirtualNode where
+instance Data.ToPath CreateVirtualNode where
   toPath CreateVirtualNode' {..} =
     Prelude.mconcat
       [ "/v20190125/meshes/",
-        Core.toBS meshName,
+        Data.toBS meshName,
         "/virtualNodes"
       ]
 
-instance Core.ToQuery CreateVirtualNode where
+instance Data.ToQuery CreateVirtualNode where
   toQuery CreateVirtualNode' {..} =
-    Prelude.mconcat ["meshOwner" Core.=: meshOwner]
+    Prelude.mconcat ["meshOwner" Data.=: meshOwner]
 
 -- |
 --

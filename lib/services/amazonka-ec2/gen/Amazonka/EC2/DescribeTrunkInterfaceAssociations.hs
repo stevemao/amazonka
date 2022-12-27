@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeTrunkInterfaceAssociations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,11 +32,11 @@ module Amazonka.EC2.DescribeTrunkInterfaceAssociations
     newDescribeTrunkInterfaceAssociations,
 
     -- * Request Lenses
-    describeTrunkInterfaceAssociations_filters,
-    describeTrunkInterfaceAssociations_nextToken,
     describeTrunkInterfaceAssociations_associationIds,
     describeTrunkInterfaceAssociations_dryRun,
+    describeTrunkInterfaceAssociations_filters,
     describeTrunkInterfaceAssociations_maxResults,
+    describeTrunkInterfaceAssociations_nextToken,
 
     -- * Destructuring the Response
     DescribeTrunkInterfaceAssociationsResponse (..),
@@ -50,34 +50,35 @@ module Amazonka.EC2.DescribeTrunkInterfaceAssociations
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeTrunkInterfaceAssociations' smart constructor.
 data DescribeTrunkInterfaceAssociations = DescribeTrunkInterfaceAssociations'
-  { -- | One or more filters.
-    --
-    -- -   @gre-key@ - The ID of a trunk interface association.
-    --
-    -- -   @interface-protocol@ - The interface protocol. Valid values are
-    --     @VLAN@ and @GRE@.
-    filters :: Prelude.Maybe [Filter],
-    -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The IDs of the associations.
+  { -- | The IDs of the associations.
     associationIds :: Prelude.Maybe [Prelude.Text],
     -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | One or more filters.
+    --
+    -- -   @gre-key@ - The ID of a trunk interface association.
+    --
+    -- -   @interface-protocol@ - The interface protocol. Valid values are
+    --     @VLAN@ and @GRE@.
+    filters :: Prelude.Maybe [Filter],
     -- | The maximum number of results to return with a single call. To retrieve
     -- the remaining results, make another call with the returned @nextToken@
     -- value.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -89,15 +90,6 @@ data DescribeTrunkInterfaceAssociations = DescribeTrunkInterfaceAssociations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'filters', 'describeTrunkInterfaceAssociations_filters' - One or more filters.
---
--- -   @gre-key@ - The ID of a trunk interface association.
---
--- -   @interface-protocol@ - The interface protocol. Valid values are
---     @VLAN@ and @GRE@.
---
--- 'nextToken', 'describeTrunkInterfaceAssociations_nextToken' - The token for the next page of results.
---
 -- 'associationIds', 'describeTrunkInterfaceAssociations_associationIds' - The IDs of the associations.
 --
 -- 'dryRun', 'describeTrunkInterfaceAssociations_dryRun' - Checks whether you have the required permissions for the action, without
@@ -105,33 +97,29 @@ data DescribeTrunkInterfaceAssociations = DescribeTrunkInterfaceAssociations'
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
 --
--- 'maxResults', 'describeTrunkInterfaceAssociations_maxResults' - The maximum number of results to return with a single call. To retrieve
--- the remaining results, make another call with the returned @nextToken@
--- value.
-newDescribeTrunkInterfaceAssociations ::
-  DescribeTrunkInterfaceAssociations
-newDescribeTrunkInterfaceAssociations =
-  DescribeTrunkInterfaceAssociations'
-    { filters =
-        Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      associationIds = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
-      maxResults = Prelude.Nothing
-    }
-
--- | One or more filters.
+-- 'filters', 'describeTrunkInterfaceAssociations_filters' - One or more filters.
 --
 -- -   @gre-key@ - The ID of a trunk interface association.
 --
 -- -   @interface-protocol@ - The interface protocol. Valid values are
 --     @VLAN@ and @GRE@.
-describeTrunkInterfaceAssociations_filters :: Lens.Lens' DescribeTrunkInterfaceAssociations (Prelude.Maybe [Filter])
-describeTrunkInterfaceAssociations_filters = Lens.lens (\DescribeTrunkInterfaceAssociations' {filters} -> filters) (\s@DescribeTrunkInterfaceAssociations' {} a -> s {filters = a} :: DescribeTrunkInterfaceAssociations) Prelude.. Lens.mapping Lens.coerced
-
--- | The token for the next page of results.
-describeTrunkInterfaceAssociations_nextToken :: Lens.Lens' DescribeTrunkInterfaceAssociations (Prelude.Maybe Prelude.Text)
-describeTrunkInterfaceAssociations_nextToken = Lens.lens (\DescribeTrunkInterfaceAssociations' {nextToken} -> nextToken) (\s@DescribeTrunkInterfaceAssociations' {} a -> s {nextToken = a} :: DescribeTrunkInterfaceAssociations)
+--
+-- 'maxResults', 'describeTrunkInterfaceAssociations_maxResults' - The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+--
+-- 'nextToken', 'describeTrunkInterfaceAssociations_nextToken' - The token for the next page of results.
+newDescribeTrunkInterfaceAssociations ::
+  DescribeTrunkInterfaceAssociations
+newDescribeTrunkInterfaceAssociations =
+  DescribeTrunkInterfaceAssociations'
+    { associationIds =
+        Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
+    }
 
 -- | The IDs of the associations.
 describeTrunkInterfaceAssociations_associationIds :: Lens.Lens' DescribeTrunkInterfaceAssociations (Prelude.Maybe [Prelude.Text])
@@ -144,11 +132,24 @@ describeTrunkInterfaceAssociations_associationIds = Lens.lens (\DescribeTrunkInt
 describeTrunkInterfaceAssociations_dryRun :: Lens.Lens' DescribeTrunkInterfaceAssociations (Prelude.Maybe Prelude.Bool)
 describeTrunkInterfaceAssociations_dryRun = Lens.lens (\DescribeTrunkInterfaceAssociations' {dryRun} -> dryRun) (\s@DescribeTrunkInterfaceAssociations' {} a -> s {dryRun = a} :: DescribeTrunkInterfaceAssociations)
 
+-- | One or more filters.
+--
+-- -   @gre-key@ - The ID of a trunk interface association.
+--
+-- -   @interface-protocol@ - The interface protocol. Valid values are
+--     @VLAN@ and @GRE@.
+describeTrunkInterfaceAssociations_filters :: Lens.Lens' DescribeTrunkInterfaceAssociations (Prelude.Maybe [Filter])
+describeTrunkInterfaceAssociations_filters = Lens.lens (\DescribeTrunkInterfaceAssociations' {filters} -> filters) (\s@DescribeTrunkInterfaceAssociations' {} a -> s {filters = a} :: DescribeTrunkInterfaceAssociations) Prelude.. Lens.mapping Lens.coerced
+
 -- | The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
 describeTrunkInterfaceAssociations_maxResults :: Lens.Lens' DescribeTrunkInterfaceAssociations (Prelude.Maybe Prelude.Natural)
 describeTrunkInterfaceAssociations_maxResults = Lens.lens (\DescribeTrunkInterfaceAssociations' {maxResults} -> maxResults) (\s@DescribeTrunkInterfaceAssociations' {} a -> s {maxResults = a} :: DescribeTrunkInterfaceAssociations)
+
+-- | The token for the next page of results.
+describeTrunkInterfaceAssociations_nextToken :: Lens.Lens' DescribeTrunkInterfaceAssociations (Prelude.Maybe Prelude.Text)
+describeTrunkInterfaceAssociations_nextToken = Lens.lens (\DescribeTrunkInterfaceAssociations' {nextToken} -> nextToken) (\s@DescribeTrunkInterfaceAssociations' {} a -> s {nextToken = a} :: DescribeTrunkInterfaceAssociations)
 
 instance
   Core.AWSPager
@@ -182,16 +183,17 @@ instance
   type
     AWSResponse DescribeTrunkInterfaceAssociations =
       DescribeTrunkInterfaceAssociationsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeTrunkInterfaceAssociationsResponse'
-            Prelude.<$> ( x Core..@? "interfaceAssociationSet"
+            Prelude.<$> ( x Data..@? "interfaceAssociationSet"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
-              Prelude.<*> (x Core..@? "nextToken")
+              Prelude.<*> (x Data..@? "nextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -202,56 +204,56 @@ instance
   hashWithSalt
     _salt
     DescribeTrunkInterfaceAssociations' {..} =
-      _salt `Prelude.hashWithSalt` filters
-        `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` associationIds
+      _salt `Prelude.hashWithSalt` associationIds
         `Prelude.hashWithSalt` dryRun
+        `Prelude.hashWithSalt` filters
         `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
 
 instance
   Prelude.NFData
     DescribeTrunkInterfaceAssociations
   where
   rnf DescribeTrunkInterfaceAssociations' {..} =
-    Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf associationIds
+    Prelude.rnf associationIds
       `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeTrunkInterfaceAssociations
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeTrunkInterfaceAssociations
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeTrunkInterfaceAssociations
   where
   toQuery DescribeTrunkInterfaceAssociations' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeTrunkInterfaceAssociations" ::
+          Data.=: ( "DescribeTrunkInterfaceAssociations" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        Core.toQuery
-          ( Core.toQueryList "AssociationId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        Data.toQuery
+          ( Data.toQueryList "AssociationId"
               Prelude.<$> associationIds
           ),
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newDescribeTrunkInterfaceAssociationsResponse' smart constructor.

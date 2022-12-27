@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.ServiceCatalogAppRegistry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,29 +30,26 @@ import Test.Tasty
 --         [ requestAssociateAttributeGroup $
 --             newAssociateAttributeGroup
 --
---         , requestListAttributeGroups $
---             newListAttributeGroups
---
---         , requestListTagsForResource $
---             newListTagsForResource
---
---         , requestSyncResource $
---             newSyncResource
---
---         , requestDeleteApplication $
---             newDeleteApplication
---
---         , requestUpdateApplication $
---             newUpdateApplication
---
 --         , requestAssociateResource $
 --             newAssociateResource
 --
 --         , requestCreateApplication $
 --             newCreateApplication
 --
+--         , requestCreateAttributeGroup $
+--             newCreateAttributeGroup
+--
+--         , requestDeleteApplication $
+--             newDeleteApplication
+--
+--         , requestDeleteAttributeGroup $
+--             newDeleteAttributeGroup
+--
 --         , requestDisassociateAttributeGroup $
 --             newDisassociateAttributeGroup
+--
+--         , requestDisassociateResource $
+--             newDisassociateResource
 --
 --         , requestGetApplication $
 --             newGetApplication
@@ -60,35 +57,47 @@ import Test.Tasty
 --         , requestGetAssociatedResource $
 --             newGetAssociatedResource
 --
---         , requestCreateAttributeGroup $
---             newCreateAttributeGroup
---
---         , requestDeleteAttributeGroup $
---             newDeleteAttributeGroup
---
---         , requestUpdateAttributeGroup $
---             newUpdateAttributeGroup
---
---         , requestListAssociatedAttributeGroups $
---             newListAssociatedAttributeGroups
---
 --         , requestGetAttributeGroup $
 --             newGetAttributeGroup
 --
---         , requestDisassociateResource $
---             newDisassociateResource
---
---         , requestTagResource $
---             newTagResource
---
---         , requestListAssociatedResources $
---             newListAssociatedResources
+--         , requestGetConfiguration $
+--             newGetConfiguration
 --
 --         , requestListApplications $
 --             newListApplications
 --
+--         , requestListAssociatedAttributeGroups $
+--             newListAssociatedAttributeGroups
+--
+--         , requestListAssociatedResources $
+--             newListAssociatedResources
+--
+--         , requestListAttributeGroups $
+--             newListAttributeGroups
+--
+--         , requestListAttributeGroupsForApplication $
+--             newListAttributeGroupsForApplication
+--
+--         , requestListTagsForResource $
+--             newListTagsForResource
+--
+--         , requestPutConfiguration $
+--             newPutConfiguration
+--
+--         , requestSyncResource $
+--             newSyncResource
+--
+--         , requestTagResource $
+--             newTagResource
+--
 --         , requestUntagResource $
 --             newUntagResource
+--
+--         , requestUpdateApplication $
+--             newUpdateApplication
+--
+--         , requestUpdateAttributeGroup $
+--             newUpdateAttributeGroup
 --
 --           ]
 
@@ -96,29 +105,26 @@ import Test.Tasty
 --         [ responseAssociateAttributeGroup $
 --             newAssociateAttributeGroupResponse
 --
---         , responseListAttributeGroups $
---             newListAttributeGroupsResponse
---
---         , responseListTagsForResource $
---             newListTagsForResourceResponse
---
---         , responseSyncResource $
---             newSyncResourceResponse
---
---         , responseDeleteApplication $
---             newDeleteApplicationResponse
---
---         , responseUpdateApplication $
---             newUpdateApplicationResponse
---
 --         , responseAssociateResource $
 --             newAssociateResourceResponse
 --
 --         , responseCreateApplication $
 --             newCreateApplicationResponse
 --
+--         , responseCreateAttributeGroup $
+--             newCreateAttributeGroupResponse
+--
+--         , responseDeleteApplication $
+--             newDeleteApplicationResponse
+--
+--         , responseDeleteAttributeGroup $
+--             newDeleteAttributeGroupResponse
+--
 --         , responseDisassociateAttributeGroup $
 --             newDisassociateAttributeGroupResponse
+--
+--         , responseDisassociateResource $
+--             newDisassociateResourceResponse
 --
 --         , responseGetApplication $
 --             newGetApplicationResponse
@@ -126,35 +132,47 @@ import Test.Tasty
 --         , responseGetAssociatedResource $
 --             newGetAssociatedResourceResponse
 --
---         , responseCreateAttributeGroup $
---             newCreateAttributeGroupResponse
---
---         , responseDeleteAttributeGroup $
---             newDeleteAttributeGroupResponse
---
---         , responseUpdateAttributeGroup $
---             newUpdateAttributeGroupResponse
---
---         , responseListAssociatedAttributeGroups $
---             newListAssociatedAttributeGroupsResponse
---
 --         , responseGetAttributeGroup $
 --             newGetAttributeGroupResponse
 --
---         , responseDisassociateResource $
---             newDisassociateResourceResponse
---
---         , responseTagResource $
---             newTagResourceResponse
---
---         , responseListAssociatedResources $
---             newListAssociatedResourcesResponse
+--         , responseGetConfiguration $
+--             newGetConfigurationResponse
 --
 --         , responseListApplications $
 --             newListApplicationsResponse
 --
+--         , responseListAssociatedAttributeGroups $
+--             newListAssociatedAttributeGroupsResponse
+--
+--         , responseListAssociatedResources $
+--             newListAssociatedResourcesResponse
+--
+--         , responseListAttributeGroups $
+--             newListAttributeGroupsResponse
+--
+--         , responseListAttributeGroupsForApplication $
+--             newListAttributeGroupsForApplicationResponse
+--
+--         , responseListTagsForResource $
+--             newListTagsForResourceResponse
+--
+--         , responsePutConfiguration $
+--             newPutConfigurationResponse
+--
+--         , responseSyncResource $
+--             newSyncResourceResponse
+--
+--         , responseTagResource $
+--             newTagResourceResponse
+--
 --         , responseUntagResource $
 --             newUntagResourceResponse
+--
+--         , responseUpdateApplication $
+--             newUpdateApplicationResponse
+--
+--         , responseUpdateAttributeGroup $
+--             newUpdateAttributeGroupResponse
 --
 --           ]
 --     ]
@@ -166,36 +184,6 @@ requestAssociateAttributeGroup =
   req
     "AssociateAttributeGroup"
     "fixture/AssociateAttributeGroup.yaml"
-
-requestListAttributeGroups :: ListAttributeGroups -> TestTree
-requestListAttributeGroups =
-  req
-    "ListAttributeGroups"
-    "fixture/ListAttributeGroups.yaml"
-
-requestListTagsForResource :: ListTagsForResource -> TestTree
-requestListTagsForResource =
-  req
-    "ListTagsForResource"
-    "fixture/ListTagsForResource.yaml"
-
-requestSyncResource :: SyncResource -> TestTree
-requestSyncResource =
-  req
-    "SyncResource"
-    "fixture/SyncResource.yaml"
-
-requestDeleteApplication :: DeleteApplication -> TestTree
-requestDeleteApplication =
-  req
-    "DeleteApplication"
-    "fixture/DeleteApplication.yaml"
-
-requestUpdateApplication :: UpdateApplication -> TestTree
-requestUpdateApplication =
-  req
-    "UpdateApplication"
-    "fixture/UpdateApplication.yaml"
 
 requestAssociateResource :: AssociateResource -> TestTree
 requestAssociateResource =
@@ -209,11 +197,35 @@ requestCreateApplication =
     "CreateApplication"
     "fixture/CreateApplication.yaml"
 
+requestCreateAttributeGroup :: CreateAttributeGroup -> TestTree
+requestCreateAttributeGroup =
+  req
+    "CreateAttributeGroup"
+    "fixture/CreateAttributeGroup.yaml"
+
+requestDeleteApplication :: DeleteApplication -> TestTree
+requestDeleteApplication =
+  req
+    "DeleteApplication"
+    "fixture/DeleteApplication.yaml"
+
+requestDeleteAttributeGroup :: DeleteAttributeGroup -> TestTree
+requestDeleteAttributeGroup =
+  req
+    "DeleteAttributeGroup"
+    "fixture/DeleteAttributeGroup.yaml"
+
 requestDisassociateAttributeGroup :: DisassociateAttributeGroup -> TestTree
 requestDisassociateAttributeGroup =
   req
     "DisassociateAttributeGroup"
     "fixture/DisassociateAttributeGroup.yaml"
+
+requestDisassociateResource :: DisassociateResource -> TestTree
+requestDisassociateResource =
+  req
+    "DisassociateResource"
+    "fixture/DisassociateResource.yaml"
 
 requestGetApplication :: GetApplication -> TestTree
 requestGetApplication =
@@ -227,53 +239,17 @@ requestGetAssociatedResource =
     "GetAssociatedResource"
     "fixture/GetAssociatedResource.yaml"
 
-requestCreateAttributeGroup :: CreateAttributeGroup -> TestTree
-requestCreateAttributeGroup =
-  req
-    "CreateAttributeGroup"
-    "fixture/CreateAttributeGroup.yaml"
-
-requestDeleteAttributeGroup :: DeleteAttributeGroup -> TestTree
-requestDeleteAttributeGroup =
-  req
-    "DeleteAttributeGroup"
-    "fixture/DeleteAttributeGroup.yaml"
-
-requestUpdateAttributeGroup :: UpdateAttributeGroup -> TestTree
-requestUpdateAttributeGroup =
-  req
-    "UpdateAttributeGroup"
-    "fixture/UpdateAttributeGroup.yaml"
-
-requestListAssociatedAttributeGroups :: ListAssociatedAttributeGroups -> TestTree
-requestListAssociatedAttributeGroups =
-  req
-    "ListAssociatedAttributeGroups"
-    "fixture/ListAssociatedAttributeGroups.yaml"
-
 requestGetAttributeGroup :: GetAttributeGroup -> TestTree
 requestGetAttributeGroup =
   req
     "GetAttributeGroup"
     "fixture/GetAttributeGroup.yaml"
 
-requestDisassociateResource :: DisassociateResource -> TestTree
-requestDisassociateResource =
+requestGetConfiguration :: GetConfiguration -> TestTree
+requestGetConfiguration =
   req
-    "DisassociateResource"
-    "fixture/DisassociateResource.yaml"
-
-requestTagResource :: TagResource -> TestTree
-requestTagResource =
-  req
-    "TagResource"
-    "fixture/TagResource.yaml"
-
-requestListAssociatedResources :: ListAssociatedResources -> TestTree
-requestListAssociatedResources =
-  req
-    "ListAssociatedResources"
-    "fixture/ListAssociatedResources.yaml"
+    "GetConfiguration"
+    "fixture/GetConfiguration.yaml"
 
 requestListApplications :: ListApplications -> TestTree
 requestListApplications =
@@ -281,11 +257,71 @@ requestListApplications =
     "ListApplications"
     "fixture/ListApplications.yaml"
 
+requestListAssociatedAttributeGroups :: ListAssociatedAttributeGroups -> TestTree
+requestListAssociatedAttributeGroups =
+  req
+    "ListAssociatedAttributeGroups"
+    "fixture/ListAssociatedAttributeGroups.yaml"
+
+requestListAssociatedResources :: ListAssociatedResources -> TestTree
+requestListAssociatedResources =
+  req
+    "ListAssociatedResources"
+    "fixture/ListAssociatedResources.yaml"
+
+requestListAttributeGroups :: ListAttributeGroups -> TestTree
+requestListAttributeGroups =
+  req
+    "ListAttributeGroups"
+    "fixture/ListAttributeGroups.yaml"
+
+requestListAttributeGroupsForApplication :: ListAttributeGroupsForApplication -> TestTree
+requestListAttributeGroupsForApplication =
+  req
+    "ListAttributeGroupsForApplication"
+    "fixture/ListAttributeGroupsForApplication.yaml"
+
+requestListTagsForResource :: ListTagsForResource -> TestTree
+requestListTagsForResource =
+  req
+    "ListTagsForResource"
+    "fixture/ListTagsForResource.yaml"
+
+requestPutConfiguration :: PutConfiguration -> TestTree
+requestPutConfiguration =
+  req
+    "PutConfiguration"
+    "fixture/PutConfiguration.yaml"
+
+requestSyncResource :: SyncResource -> TestTree
+requestSyncResource =
+  req
+    "SyncResource"
+    "fixture/SyncResource.yaml"
+
+requestTagResource :: TagResource -> TestTree
+requestTagResource =
+  req
+    "TagResource"
+    "fixture/TagResource.yaml"
+
 requestUntagResource :: UntagResource -> TestTree
 requestUntagResource =
   req
     "UntagResource"
     "fixture/UntagResource.yaml"
+
+requestUpdateApplication :: UpdateApplication -> TestTree
+requestUpdateApplication =
+  req
+    "UpdateApplication"
+    "fixture/UpdateApplication.yaml"
+
+requestUpdateAttributeGroup :: UpdateAttributeGroup -> TestTree
+requestUpdateAttributeGroup =
+  req
+    "UpdateAttributeGroup"
+    "fixture/UpdateAttributeGroup.yaml"
 
 -- Responses
 
@@ -296,46 +332,6 @@ responseAssociateAttributeGroup =
     "fixture/AssociateAttributeGroupResponse.proto"
     defaultService
     (Proxy.Proxy :: Proxy.Proxy AssociateAttributeGroup)
-
-responseListAttributeGroups :: ListAttributeGroupsResponse -> TestTree
-responseListAttributeGroups =
-  res
-    "ListAttributeGroupsResponse"
-    "fixture/ListAttributeGroupsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListAttributeGroups)
-
-responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
-responseListTagsForResource =
-  res
-    "ListTagsForResourceResponse"
-    "fixture/ListTagsForResourceResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
-
-responseSyncResource :: SyncResourceResponse -> TestTree
-responseSyncResource =
-  res
-    "SyncResourceResponse"
-    "fixture/SyncResourceResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy SyncResource)
-
-responseDeleteApplication :: DeleteApplicationResponse -> TestTree
-responseDeleteApplication =
-  res
-    "DeleteApplicationResponse"
-    "fixture/DeleteApplicationResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteApplication)
-
-responseUpdateApplication :: UpdateApplicationResponse -> TestTree
-responseUpdateApplication =
-  res
-    "UpdateApplicationResponse"
-    "fixture/UpdateApplicationResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateApplication)
 
 responseAssociateResource :: AssociateResourceResponse -> TestTree
 responseAssociateResource =
@@ -353,6 +349,30 @@ responseCreateApplication =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CreateApplication)
 
+responseCreateAttributeGroup :: CreateAttributeGroupResponse -> TestTree
+responseCreateAttributeGroup =
+  res
+    "CreateAttributeGroupResponse"
+    "fixture/CreateAttributeGroupResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy CreateAttributeGroup)
+
+responseDeleteApplication :: DeleteApplicationResponse -> TestTree
+responseDeleteApplication =
+  res
+    "DeleteApplicationResponse"
+    "fixture/DeleteApplicationResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeleteApplication)
+
+responseDeleteAttributeGroup :: DeleteAttributeGroupResponse -> TestTree
+responseDeleteAttributeGroup =
+  res
+    "DeleteAttributeGroupResponse"
+    "fixture/DeleteAttributeGroupResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeleteAttributeGroup)
+
 responseDisassociateAttributeGroup :: DisassociateAttributeGroupResponse -> TestTree
 responseDisassociateAttributeGroup =
   res
@@ -360,6 +380,14 @@ responseDisassociateAttributeGroup =
     "fixture/DisassociateAttributeGroupResponse.proto"
     defaultService
     (Proxy.Proxy :: Proxy.Proxy DisassociateAttributeGroup)
+
+responseDisassociateResource :: DisassociateResourceResponse -> TestTree
+responseDisassociateResource =
+  res
+    "DisassociateResourceResponse"
+    "fixture/DisassociateResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DisassociateResource)
 
 responseGetApplication :: GetApplicationResponse -> TestTree
 responseGetApplication =
@@ -377,38 +405,6 @@ responseGetAssociatedResource =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy GetAssociatedResource)
 
-responseCreateAttributeGroup :: CreateAttributeGroupResponse -> TestTree
-responseCreateAttributeGroup =
-  res
-    "CreateAttributeGroupResponse"
-    "fixture/CreateAttributeGroupResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateAttributeGroup)
-
-responseDeleteAttributeGroup :: DeleteAttributeGroupResponse -> TestTree
-responseDeleteAttributeGroup =
-  res
-    "DeleteAttributeGroupResponse"
-    "fixture/DeleteAttributeGroupResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteAttributeGroup)
-
-responseUpdateAttributeGroup :: UpdateAttributeGroupResponse -> TestTree
-responseUpdateAttributeGroup =
-  res
-    "UpdateAttributeGroupResponse"
-    "fixture/UpdateAttributeGroupResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateAttributeGroup)
-
-responseListAssociatedAttributeGroups :: ListAssociatedAttributeGroupsResponse -> TestTree
-responseListAssociatedAttributeGroups =
-  res
-    "ListAssociatedAttributeGroupsResponse"
-    "fixture/ListAssociatedAttributeGroupsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListAssociatedAttributeGroups)
-
 responseGetAttributeGroup :: GetAttributeGroupResponse -> TestTree
 responseGetAttributeGroup =
   res
@@ -417,29 +413,13 @@ responseGetAttributeGroup =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy GetAttributeGroup)
 
-responseDisassociateResource :: DisassociateResourceResponse -> TestTree
-responseDisassociateResource =
+responseGetConfiguration :: GetConfigurationResponse -> TestTree
+responseGetConfiguration =
   res
-    "DisassociateResourceResponse"
-    "fixture/DisassociateResourceResponse.proto"
+    "GetConfigurationResponse"
+    "fixture/GetConfigurationResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DisassociateResource)
-
-responseTagResource :: TagResourceResponse -> TestTree
-responseTagResource =
-  res
-    "TagResourceResponse"
-    "fixture/TagResourceResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy TagResource)
-
-responseListAssociatedResources :: ListAssociatedResourcesResponse -> TestTree
-responseListAssociatedResources =
-  res
-    "ListAssociatedResourcesResponse"
-    "fixture/ListAssociatedResourcesResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListAssociatedResources)
+    (Proxy.Proxy :: Proxy.Proxy GetConfiguration)
 
 responseListApplications :: ListApplicationsResponse -> TestTree
 responseListApplications =
@@ -449,6 +429,70 @@ responseListApplications =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy ListApplications)
 
+responseListAssociatedAttributeGroups :: ListAssociatedAttributeGroupsResponse -> TestTree
+responseListAssociatedAttributeGroups =
+  res
+    "ListAssociatedAttributeGroupsResponse"
+    "fixture/ListAssociatedAttributeGroupsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListAssociatedAttributeGroups)
+
+responseListAssociatedResources :: ListAssociatedResourcesResponse -> TestTree
+responseListAssociatedResources =
+  res
+    "ListAssociatedResourcesResponse"
+    "fixture/ListAssociatedResourcesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListAssociatedResources)
+
+responseListAttributeGroups :: ListAttributeGroupsResponse -> TestTree
+responseListAttributeGroups =
+  res
+    "ListAttributeGroupsResponse"
+    "fixture/ListAttributeGroupsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListAttributeGroups)
+
+responseListAttributeGroupsForApplication :: ListAttributeGroupsForApplicationResponse -> TestTree
+responseListAttributeGroupsForApplication =
+  res
+    "ListAttributeGroupsForApplicationResponse"
+    "fixture/ListAttributeGroupsForApplicationResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListAttributeGroupsForApplication)
+
+responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
+responseListTagsForResource =
+  res
+    "ListTagsForResourceResponse"
+    "fixture/ListTagsForResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
+
+responsePutConfiguration :: PutConfigurationResponse -> TestTree
+responsePutConfiguration =
+  res
+    "PutConfigurationResponse"
+    "fixture/PutConfigurationResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy PutConfiguration)
+
+responseSyncResource :: SyncResourceResponse -> TestTree
+responseSyncResource =
+  res
+    "SyncResourceResponse"
+    "fixture/SyncResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy SyncResource)
+
+responseTagResource :: TagResourceResponse -> TestTree
+responseTagResource =
+  res
+    "TagResourceResponse"
+    "fixture/TagResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy TagResource)
+
 responseUntagResource :: UntagResourceResponse -> TestTree
 responseUntagResource =
   res
@@ -456,3 +500,19 @@ responseUntagResource =
     "fixture/UntagResourceResponse.proto"
     defaultService
     (Proxy.Proxy :: Proxy.Proxy UntagResource)
+
+responseUpdateApplication :: UpdateApplicationResponse -> TestTree
+responseUpdateApplication =
+  res
+    "UpdateApplicationResponse"
+    "fixture/UpdateApplicationResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateApplication)
+
+responseUpdateAttributeGroup :: UpdateAttributeGroupResponse -> TestTree
+responseUpdateAttributeGroup =
+  res
+    "UpdateAttributeGroupResponse"
+    "fixture/UpdateAttributeGroupResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateAttributeGroup)

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.AsyncInferenceOutputConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.AsyncInferenceOutputConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.AsyncInferenceNotificationConfig
 
@@ -29,13 +30,13 @@ import Amazonka.SageMaker.Types.AsyncInferenceNotificationConfig
 --
 -- /See:/ 'newAsyncInferenceOutputConfig' smart constructor.
 data AsyncInferenceOutputConfig = AsyncInferenceOutputConfig'
-  { -- | Specifies the configuration for notifications of inference results for
+  { -- | The Amazon Web Services Key Management Service (Amazon Web Services KMS)
+    -- key that SageMaker uses to encrypt the asynchronous inference output in
+    -- Amazon S3.
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the configuration for notifications of inference results for
     -- asynchronous inference.
     notificationConfig :: Prelude.Maybe AsyncInferenceNotificationConfig,
-    -- | The Amazon Web Services Key Management Service (Amazon Web Services KMS)
-    -- key that Amazon SageMaker uses to encrypt the asynchronous inference
-    -- output in Amazon S3.
-    kmsKeyId :: Prelude.Maybe Prelude.Text,
     -- | The Amazon S3 location to upload inference responses to.
     s3OutputPath :: Prelude.Text
   }
@@ -49,12 +50,12 @@ data AsyncInferenceOutputConfig = AsyncInferenceOutputConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'kmsKeyId', 'asyncInferenceOutputConfig_kmsKeyId' - The Amazon Web Services Key Management Service (Amazon Web Services KMS)
+-- key that SageMaker uses to encrypt the asynchronous inference output in
+-- Amazon S3.
+--
 -- 'notificationConfig', 'asyncInferenceOutputConfig_notificationConfig' - Specifies the configuration for notifications of inference results for
 -- asynchronous inference.
---
--- 'kmsKeyId', 'asyncInferenceOutputConfig_kmsKeyId' - The Amazon Web Services Key Management Service (Amazon Web Services KMS)
--- key that Amazon SageMaker uses to encrypt the asynchronous inference
--- output in Amazon S3.
 --
 -- 's3OutputPath', 'asyncInferenceOutputConfig_s3OutputPath' - The Amazon S3 location to upload inference responses to.
 newAsyncInferenceOutputConfig ::
@@ -63,57 +64,57 @@ newAsyncInferenceOutputConfig ::
   AsyncInferenceOutputConfig
 newAsyncInferenceOutputConfig pS3OutputPath_ =
   AsyncInferenceOutputConfig'
-    { notificationConfig =
+    { kmsKeyId =
         Prelude.Nothing,
-      kmsKeyId = Prelude.Nothing,
+      notificationConfig = Prelude.Nothing,
       s3OutputPath = pS3OutputPath_
     }
+
+-- | The Amazon Web Services Key Management Service (Amazon Web Services KMS)
+-- key that SageMaker uses to encrypt the asynchronous inference output in
+-- Amazon S3.
+asyncInferenceOutputConfig_kmsKeyId :: Lens.Lens' AsyncInferenceOutputConfig (Prelude.Maybe Prelude.Text)
+asyncInferenceOutputConfig_kmsKeyId = Lens.lens (\AsyncInferenceOutputConfig' {kmsKeyId} -> kmsKeyId) (\s@AsyncInferenceOutputConfig' {} a -> s {kmsKeyId = a} :: AsyncInferenceOutputConfig)
 
 -- | Specifies the configuration for notifications of inference results for
 -- asynchronous inference.
 asyncInferenceOutputConfig_notificationConfig :: Lens.Lens' AsyncInferenceOutputConfig (Prelude.Maybe AsyncInferenceNotificationConfig)
 asyncInferenceOutputConfig_notificationConfig = Lens.lens (\AsyncInferenceOutputConfig' {notificationConfig} -> notificationConfig) (\s@AsyncInferenceOutputConfig' {} a -> s {notificationConfig = a} :: AsyncInferenceOutputConfig)
 
--- | The Amazon Web Services Key Management Service (Amazon Web Services KMS)
--- key that Amazon SageMaker uses to encrypt the asynchronous inference
--- output in Amazon S3.
-asyncInferenceOutputConfig_kmsKeyId :: Lens.Lens' AsyncInferenceOutputConfig (Prelude.Maybe Prelude.Text)
-asyncInferenceOutputConfig_kmsKeyId = Lens.lens (\AsyncInferenceOutputConfig' {kmsKeyId} -> kmsKeyId) (\s@AsyncInferenceOutputConfig' {} a -> s {kmsKeyId = a} :: AsyncInferenceOutputConfig)
-
 -- | The Amazon S3 location to upload inference responses to.
 asyncInferenceOutputConfig_s3OutputPath :: Lens.Lens' AsyncInferenceOutputConfig Prelude.Text
 asyncInferenceOutputConfig_s3OutputPath = Lens.lens (\AsyncInferenceOutputConfig' {s3OutputPath} -> s3OutputPath) (\s@AsyncInferenceOutputConfig' {} a -> s {s3OutputPath = a} :: AsyncInferenceOutputConfig)
 
-instance Core.FromJSON AsyncInferenceOutputConfig where
+instance Data.FromJSON AsyncInferenceOutputConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AsyncInferenceOutputConfig"
       ( \x ->
           AsyncInferenceOutputConfig'
-            Prelude.<$> (x Core..:? "NotificationConfig")
-            Prelude.<*> (x Core..:? "KmsKeyId")
-            Prelude.<*> (x Core..: "S3OutputPath")
+            Prelude.<$> (x Data..:? "KmsKeyId")
+            Prelude.<*> (x Data..:? "NotificationConfig")
+            Prelude.<*> (x Data..: "S3OutputPath")
       )
 
 instance Prelude.Hashable AsyncInferenceOutputConfig where
   hashWithSalt _salt AsyncInferenceOutputConfig' {..} =
-    _salt `Prelude.hashWithSalt` notificationConfig
-      `Prelude.hashWithSalt` kmsKeyId
+    _salt `Prelude.hashWithSalt` kmsKeyId
+      `Prelude.hashWithSalt` notificationConfig
       `Prelude.hashWithSalt` s3OutputPath
 
 instance Prelude.NFData AsyncInferenceOutputConfig where
   rnf AsyncInferenceOutputConfig' {..} =
-    Prelude.rnf notificationConfig
-      `Prelude.seq` Prelude.rnf kmsKeyId
+    Prelude.rnf kmsKeyId
+      `Prelude.seq` Prelude.rnf notificationConfig
       `Prelude.seq` Prelude.rnf s3OutputPath
 
-instance Core.ToJSON AsyncInferenceOutputConfig where
+instance Data.ToJSON AsyncInferenceOutputConfig where
   toJSON AsyncInferenceOutputConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NotificationConfig" Core..=)
+          [ ("KmsKeyId" Data..=) Prelude.<$> kmsKeyId,
+            ("NotificationConfig" Data..=)
               Prelude.<$> notificationConfig,
-            ("KmsKeyId" Core..=) Prelude.<$> kmsKeyId,
-            Prelude.Just ("S3OutputPath" Core..= s3OutputPath)
+            Prelude.Just ("S3OutputPath" Data..= s3OutputPath)
           ]
       )

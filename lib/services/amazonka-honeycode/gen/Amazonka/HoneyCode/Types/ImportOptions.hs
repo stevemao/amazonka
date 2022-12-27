@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.HoneyCode.Types.ImportOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.HoneyCode.Types.ImportOptions where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.HoneyCode.Types.DelimitedTextImportOptions
 import Amazonka.HoneyCode.Types.DestinationOptions
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that contains the options specified by the sumitter of the
@@ -68,14 +69,14 @@ importOptions_delimitedTextOptions = Lens.lens (\ImportOptions' {delimitedTextOp
 importOptions_destinationOptions :: Lens.Lens' ImportOptions (Prelude.Maybe DestinationOptions)
 importOptions_destinationOptions = Lens.lens (\ImportOptions' {destinationOptions} -> destinationOptions) (\s@ImportOptions' {} a -> s {destinationOptions = a} :: ImportOptions)
 
-instance Core.FromJSON ImportOptions where
+instance Data.FromJSON ImportOptions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ImportOptions"
       ( \x ->
           ImportOptions'
-            Prelude.<$> (x Core..:? "delimitedTextOptions")
-            Prelude.<*> (x Core..:? "destinationOptions")
+            Prelude.<$> (x Data..:? "delimitedTextOptions")
+            Prelude.<*> (x Data..:? "destinationOptions")
       )
 
 instance Prelude.Hashable ImportOptions where
@@ -88,13 +89,13 @@ instance Prelude.NFData ImportOptions where
     Prelude.rnf delimitedTextOptions
       `Prelude.seq` Prelude.rnf destinationOptions
 
-instance Core.ToJSON ImportOptions where
+instance Data.ToJSON ImportOptions where
   toJSON ImportOptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("delimitedTextOptions" Core..=)
+          [ ("delimitedTextOptions" Data..=)
               Prelude.<$> delimitedTextOptions,
-            ("destinationOptions" Core..=)
+            ("destinationOptions" Data..=)
               Prelude.<$> destinationOptions
           ]
       )

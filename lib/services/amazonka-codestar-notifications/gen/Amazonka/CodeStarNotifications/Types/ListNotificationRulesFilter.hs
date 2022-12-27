@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStarNotifications.Types.ListNotificationRulesFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CodeStarNotifications.Types.ListNotificationRulesFilter where
 
 import Amazonka.CodeStarNotifications.Types.ListNotificationRulesFilterName
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a filter to apply to the list of returned notification
@@ -34,8 +35,8 @@ data ListNotificationRulesFilter = ListNotificationRulesFilter'
     name :: ListNotificationRulesFilterName,
     -- | The value of the attribute you want to use to filter the returned
     -- notification rules. For example, if you specify filtering by /RESOURCE/
-    -- in Name, you might specify the ARN of a pipeline in AWS CodePipeline for
-    -- the value.
+    -- in Name, you might specify the ARN of a pipeline in CodePipeline for the
+    -- value.
     value :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -53,8 +54,8 @@ data ListNotificationRulesFilter = ListNotificationRulesFilter'
 --
 -- 'value', 'listNotificationRulesFilter_value' - The value of the attribute you want to use to filter the returned
 -- notification rules. For example, if you specify filtering by /RESOURCE/
--- in Name, you might specify the ARN of a pipeline in AWS CodePipeline for
--- the value.
+-- in Name, you might specify the ARN of a pipeline in CodePipeline for the
+-- value.
 newListNotificationRulesFilter ::
   -- | 'name'
   ListNotificationRulesFilterName ->
@@ -74,8 +75,8 @@ listNotificationRulesFilter_name = Lens.lens (\ListNotificationRulesFilter' {nam
 
 -- | The value of the attribute you want to use to filter the returned
 -- notification rules. For example, if you specify filtering by /RESOURCE/
--- in Name, you might specify the ARN of a pipeline in AWS CodePipeline for
--- the value.
+-- in Name, you might specify the ARN of a pipeline in CodePipeline for the
+-- value.
 listNotificationRulesFilter_value :: Lens.Lens' ListNotificationRulesFilter Prelude.Text
 listNotificationRulesFilter_value = Lens.lens (\ListNotificationRulesFilter' {value} -> value) (\s@ListNotificationRulesFilter' {} a -> s {value = a} :: ListNotificationRulesFilter)
 
@@ -88,11 +89,11 @@ instance Prelude.NFData ListNotificationRulesFilter where
   rnf ListNotificationRulesFilter' {..} =
     Prelude.rnf name `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON ListNotificationRulesFilter where
+instance Data.ToJSON ListNotificationRulesFilter where
   toJSON ListNotificationRulesFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Value" Core..= value)
+          [ Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Value" Data..= value)
           ]
       )

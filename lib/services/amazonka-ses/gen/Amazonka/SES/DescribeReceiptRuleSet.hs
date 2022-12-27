@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.DescribeReceiptRuleSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,14 +39,15 @@ module Amazonka.SES.DescribeReceiptRuleSet
     newDescribeReceiptRuleSetResponse,
 
     -- * Response Lenses
-    describeReceiptRuleSetResponse_rules,
     describeReceiptRuleSetResponse_metadata,
+    describeReceiptRuleSetResponse_rules,
     describeReceiptRuleSetResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,16 +92,17 @@ instance Core.AWSRequest DescribeReceiptRuleSet where
   type
     AWSResponse DescribeReceiptRuleSet =
       DescribeReceiptRuleSetResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeReceiptRuleSetResult"
       ( \s h x ->
           DescribeReceiptRuleSetResponse'
-            Prelude.<$> ( x Core..@? "Rules" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> (x Data..@? "Metadata")
+            Prelude.<*> ( x Data..@? "Rules" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> (x Core..@? "Metadata")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -112,32 +114,32 @@ instance Prelude.NFData DescribeReceiptRuleSet where
   rnf DescribeReceiptRuleSet' {..} =
     Prelude.rnf ruleSetName
 
-instance Core.ToHeaders DescribeReceiptRuleSet where
+instance Data.ToHeaders DescribeReceiptRuleSet where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeReceiptRuleSet where
+instance Data.ToPath DescribeReceiptRuleSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeReceiptRuleSet where
+instance Data.ToQuery DescribeReceiptRuleSet where
   toQuery DescribeReceiptRuleSet' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeReceiptRuleSet" :: Prelude.ByteString),
+          Data.=: ("DescribeReceiptRuleSet" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "RuleSetName" Core.=: ruleSetName
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "RuleSetName" Data.=: ruleSetName
       ]
 
 -- | Represents the details of the specified receipt rule set.
 --
 -- /See:/ 'newDescribeReceiptRuleSetResponse' smart constructor.
 data DescribeReceiptRuleSetResponse = DescribeReceiptRuleSetResponse'
-  { -- | A list of the receipt rules that belong to the specified receipt rule
-    -- set.
-    rules :: Prelude.Maybe [ReceiptRule],
-    -- | The metadata for the receipt rule set, which consists of the rule set
+  { -- | The metadata for the receipt rule set, which consists of the rule set
     -- name and the timestamp of when the rule set was created.
     metadata :: Prelude.Maybe ReceiptRuleSetMetadata,
+    -- | A list of the receipt rules that belong to the specified receipt rule
+    -- set.
+    rules :: Prelude.Maybe [ReceiptRule],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -151,11 +153,11 @@ data DescribeReceiptRuleSetResponse = DescribeReceiptRuleSetResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'rules', 'describeReceiptRuleSetResponse_rules' - A list of the receipt rules that belong to the specified receipt rule
--- set.
---
 -- 'metadata', 'describeReceiptRuleSetResponse_metadata' - The metadata for the receipt rule set, which consists of the rule set
 -- name and the timestamp of when the rule set was created.
+--
+-- 'rules', 'describeReceiptRuleSetResponse_rules' - A list of the receipt rules that belong to the specified receipt rule
+-- set.
 --
 -- 'httpStatus', 'describeReceiptRuleSetResponse_httpStatus' - The response's http status code.
 newDescribeReceiptRuleSetResponse ::
@@ -164,21 +166,21 @@ newDescribeReceiptRuleSetResponse ::
   DescribeReceiptRuleSetResponse
 newDescribeReceiptRuleSetResponse pHttpStatus_ =
   DescribeReceiptRuleSetResponse'
-    { rules =
+    { metadata =
         Prelude.Nothing,
-      metadata = Prelude.Nothing,
+      rules = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A list of the receipt rules that belong to the specified receipt rule
--- set.
-describeReceiptRuleSetResponse_rules :: Lens.Lens' DescribeReceiptRuleSetResponse (Prelude.Maybe [ReceiptRule])
-describeReceiptRuleSetResponse_rules = Lens.lens (\DescribeReceiptRuleSetResponse' {rules} -> rules) (\s@DescribeReceiptRuleSetResponse' {} a -> s {rules = a} :: DescribeReceiptRuleSetResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The metadata for the receipt rule set, which consists of the rule set
 -- name and the timestamp of when the rule set was created.
 describeReceiptRuleSetResponse_metadata :: Lens.Lens' DescribeReceiptRuleSetResponse (Prelude.Maybe ReceiptRuleSetMetadata)
 describeReceiptRuleSetResponse_metadata = Lens.lens (\DescribeReceiptRuleSetResponse' {metadata} -> metadata) (\s@DescribeReceiptRuleSetResponse' {} a -> s {metadata = a} :: DescribeReceiptRuleSetResponse)
+
+-- | A list of the receipt rules that belong to the specified receipt rule
+-- set.
+describeReceiptRuleSetResponse_rules :: Lens.Lens' DescribeReceiptRuleSetResponse (Prelude.Maybe [ReceiptRule])
+describeReceiptRuleSetResponse_rules = Lens.lens (\DescribeReceiptRuleSetResponse' {rules} -> rules) (\s@DescribeReceiptRuleSetResponse' {} a -> s {rules = a} :: DescribeReceiptRuleSetResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeReceiptRuleSetResponse_httpStatus :: Lens.Lens' DescribeReceiptRuleSetResponse Prelude.Int
@@ -189,6 +191,6 @@ instance
     DescribeReceiptRuleSetResponse
   where
   rnf DescribeReceiptRuleSetResponse' {..} =
-    Prelude.rnf rules
-      `Prelude.seq` Prelude.rnf metadata
+    Prelude.rnf metadata
+      `Prelude.seq` Prelude.rnf rules
       `Prelude.seq` Prelude.rnf httpStatus

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.SlackSourceProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppFlow.Types.SlackSourceProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The properties that are applied when Slack is being used as a source.
@@ -52,13 +53,13 @@ newSlackSourceProperties pObject_ =
 slackSourceProperties_object :: Lens.Lens' SlackSourceProperties Prelude.Text
 slackSourceProperties_object = Lens.lens (\SlackSourceProperties' {object'} -> object') (\s@SlackSourceProperties' {} a -> s {object' = a} :: SlackSourceProperties)
 
-instance Core.FromJSON SlackSourceProperties where
+instance Data.FromJSON SlackSourceProperties where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SlackSourceProperties"
       ( \x ->
           SlackSourceProperties'
-            Prelude.<$> (x Core..: "object")
+            Prelude.<$> (x Data..: "object")
       )
 
 instance Prelude.Hashable SlackSourceProperties where
@@ -68,9 +69,9 @@ instance Prelude.Hashable SlackSourceProperties where
 instance Prelude.NFData SlackSourceProperties where
   rnf SlackSourceProperties' {..} = Prelude.rnf object'
 
-instance Core.ToJSON SlackSourceProperties where
+instance Data.ToJSON SlackSourceProperties where
   toJSON SlackSourceProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("object" Core..= object')]
+          [Prelude.Just ("object" Data..= object')]
       )

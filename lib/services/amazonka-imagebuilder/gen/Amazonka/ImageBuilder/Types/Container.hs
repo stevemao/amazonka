@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ImageBuilder.Types.Container
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ImageBuilder.Types.Container where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A container encapsulates the runtime environment for an application.
@@ -64,14 +65,14 @@ container_imageUris = Lens.lens (\Container' {imageUris} -> imageUris) (\s@Conta
 container_region :: Lens.Lens' Container (Prelude.Maybe Prelude.Text)
 container_region = Lens.lens (\Container' {region} -> region) (\s@Container' {} a -> s {region = a} :: Container)
 
-instance Core.FromJSON Container where
+instance Data.FromJSON Container where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Container"
       ( \x ->
           Container'
-            Prelude.<$> (x Core..:? "imageUris" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "region")
+            Prelude.<$> (x Data..:? "imageUris" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "region")
       )
 
 instance Prelude.Hashable Container where

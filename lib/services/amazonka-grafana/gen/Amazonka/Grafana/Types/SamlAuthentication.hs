@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Grafana.Types.SamlAuthentication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.Grafana.Types.SamlAuthentication where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Grafana.Types.SamlConfiguration
 import Amazonka.Grafana.Types.SamlConfigurationStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A structure containing information about how this workspace works with
@@ -67,14 +68,14 @@ samlAuthentication_configuration = Lens.lens (\SamlAuthentication' {configuratio
 samlAuthentication_status :: Lens.Lens' SamlAuthentication SamlConfigurationStatus
 samlAuthentication_status = Lens.lens (\SamlAuthentication' {status} -> status) (\s@SamlAuthentication' {} a -> s {status = a} :: SamlAuthentication)
 
-instance Core.FromJSON SamlAuthentication where
+instance Data.FromJSON SamlAuthentication where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SamlAuthentication"
       ( \x ->
           SamlAuthentication'
-            Prelude.<$> (x Core..:? "configuration")
-            Prelude.<*> (x Core..: "status")
+            Prelude.<$> (x Data..:? "configuration")
+            Prelude.<*> (x Data..: "status")
       )
 
 instance Prelude.Hashable SamlAuthentication where

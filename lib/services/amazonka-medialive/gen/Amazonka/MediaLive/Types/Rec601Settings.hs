@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.Rec601Settings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.Rec601Settings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Rec601 Settings
@@ -39,9 +40,9 @@ newRec601Settings ::
   Rec601Settings
 newRec601Settings = Rec601Settings'
 
-instance Core.FromJSON Rec601Settings where
+instance Data.FromJSON Rec601Settings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Rec601Settings"
       (\x -> Prelude.pure Rec601Settings')
 
@@ -52,5 +53,5 @@ instance Prelude.Hashable Rec601Settings where
 instance Prelude.NFData Rec601Settings where
   rnf _ = ()
 
-instance Core.ToJSON Rec601Settings where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON Rec601Settings where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)

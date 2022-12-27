@@ -1,6 +1,6 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_library", "haskell_test")
 
-# rule generated from amazonka-certificatemanager-pca/amazonka-certificatemanager-pca.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-certificatemanager-pca/amazonka-certificatemanager-pca.cabal by gazelle_cabal
 haskell_library(
     name = "amazonka-certificatemanager-pca",
     srcs = [
@@ -40,8 +40,11 @@ haskell_library(
         "gen/Amazonka/CertificateManagerPCA/Types/CertificateAuthorityConfiguration.hs",
         "gen/Amazonka/CertificateManagerPCA/Types/CertificateAuthorityStatus.hs",
         "gen/Amazonka/CertificateManagerPCA/Types/CertificateAuthorityType.hs",
+        "gen/Amazonka/CertificateManagerPCA/Types/CertificateAuthorityUsageMode.hs",
         "gen/Amazonka/CertificateManagerPCA/Types/CrlConfiguration.hs",
         "gen/Amazonka/CertificateManagerPCA/Types/CsrExtensions.hs",
+        "gen/Amazonka/CertificateManagerPCA/Types/CustomAttribute.hs",
+        "gen/Amazonka/CertificateManagerPCA/Types/CustomExtension.hs",
         "gen/Amazonka/CertificateManagerPCA/Types/EdiPartyName.hs",
         "gen/Amazonka/CertificateManagerPCA/Types/ExtendedKeyUsage.hs",
         "gen/Amazonka/CertificateManagerPCA/Types/ExtendedKeyUsageType.hs",
@@ -70,14 +73,13 @@ haskell_library(
         "gen/Amazonka/CertificateManagerPCA/UpdateCertificateAuthority.hs",
         "gen/Amazonka/CertificateManagerPCA/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_certificatemanager_pca=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
-        "-DVERSION_amazonka_certificatemanager_pca=\"2.0\"",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -86,7 +88,7 @@ haskell_library(
     ],
 )
 
-# rule generated from amazonka-certificatemanager-pca/amazonka-certificatemanager-pca.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-certificatemanager-pca/amazonka-certificatemanager-pca.cabal by gazelle_cabal
 haskell_test(
     name = "amazonka-certificatemanager-pca-test",
     srcs = [
@@ -95,11 +97,12 @@ haskell_test(
         "test/Test/Amazonka/CertificateManagerPCA/Internal.hs",
         "test/Test/Amazonka/Gen/CertificateManagerPCA.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_certificatemanager_pca=\"2.0\"",
         "-Wall",
         "-threaded",
-        "-DVERSION_amazonka_certificatemanager_pca=\"2.0\"",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

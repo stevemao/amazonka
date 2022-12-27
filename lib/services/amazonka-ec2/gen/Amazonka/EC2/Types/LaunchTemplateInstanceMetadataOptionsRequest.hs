@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.LaunchTemplateInstanceMetadataOptionsRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,35 +20,36 @@
 module Amazonka.EC2.Types.LaunchTemplateInstanceMetadataOptionsRequest where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.LaunchTemplateHttpTokensState
 import Amazonka.EC2.Types.LaunchTemplateInstanceMetadataEndpointState
 import Amazonka.EC2.Types.LaunchTemplateInstanceMetadataProtocolIpv6
-import qualified Amazonka.Lens as Lens
+import Amazonka.EC2.Types.LaunchTemplateInstanceMetadataTagsState
 import qualified Amazonka.Prelude as Prelude
 
 -- | The metadata options for the instance. For more information, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html Instance Metadata and User Data>
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html Instance metadata and user data>
 -- in the /Amazon Elastic Compute Cloud User Guide/.
 --
 -- /See:/ 'newLaunchTemplateInstanceMetadataOptionsRequest' smart constructor.
 data LaunchTemplateInstanceMetadataOptionsRequest = LaunchTemplateInstanceMetadataOptionsRequest'
-  { -- | Enables or disables the IPv6 endpoint for the instance metadata service.
-    --
-    -- Default: @disabled@
-    httpProtocolIpv6 :: Prelude.Maybe LaunchTemplateInstanceMetadataProtocolIpv6,
-    -- | This parameter enables or disables the HTTP metadata endpoint on your
-    -- instances. If the parameter is not specified, the default state is
-    -- @enabled@.
+  { -- | Enables or disables the HTTP metadata endpoint on your instances. If the
+    -- parameter is not specified, the default state is @enabled@.
     --
     -- If you specify a value of @disabled@, you will not be able to access
     -- your instance metadata.
     httpEndpoint :: Prelude.Maybe LaunchTemplateInstanceMetadataEndpointState,
+    -- | Enables or disables the IPv6 endpoint for the instance metadata service.
+    --
+    -- Default: @disabled@
+    httpProtocolIpv6 :: Prelude.Maybe LaunchTemplateInstanceMetadataProtocolIpv6,
     -- | The desired HTTP PUT response hop limit for instance metadata requests.
     -- The larger the number, the further instance metadata requests can
     -- travel.
     --
-    -- Default: 1
+    -- Default: @1@
     --
     -- Possible values: Integers from 1 to 64
     httpPutResponseHopLimit :: Prelude.Maybe Prelude.Int,
@@ -66,7 +67,14 @@ data LaunchTemplateInstanceMetadataOptionsRequest = LaunchTemplateInstanceMetada
     -- instance metadata retrieval requests. In this state, retrieving the IAM
     -- role credentials always returns the version 2.0 credentials; the version
     -- 1.0 credentials are not available.
-    httpTokens :: Prelude.Maybe LaunchTemplateHttpTokensState
+    httpTokens :: Prelude.Maybe LaunchTemplateHttpTokensState,
+    -- | Set to @enabled@ to allow access to instance tags from the instance
+    -- metadata. Set to @disabled@ to turn off access to instance tags from the
+    -- instance metadata. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#work-with-tags-in-IMDS Work with instance tags using the instance metadata>.
+    --
+    -- Default: @disabled@
+    instanceMetadataTags :: Prelude.Maybe LaunchTemplateInstanceMetadataTagsState
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -78,22 +86,21 @@ data LaunchTemplateInstanceMetadataOptionsRequest = LaunchTemplateInstanceMetada
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'httpProtocolIpv6', 'launchTemplateInstanceMetadataOptionsRequest_httpProtocolIpv6' - Enables or disables the IPv6 endpoint for the instance metadata service.
---
--- Default: @disabled@
---
--- 'httpEndpoint', 'launchTemplateInstanceMetadataOptionsRequest_httpEndpoint' - This parameter enables or disables the HTTP metadata endpoint on your
--- instances. If the parameter is not specified, the default state is
--- @enabled@.
+-- 'httpEndpoint', 'launchTemplateInstanceMetadataOptionsRequest_httpEndpoint' - Enables or disables the HTTP metadata endpoint on your instances. If the
+-- parameter is not specified, the default state is @enabled@.
 --
 -- If you specify a value of @disabled@, you will not be able to access
 -- your instance metadata.
+--
+-- 'httpProtocolIpv6', 'launchTemplateInstanceMetadataOptionsRequest_httpProtocolIpv6' - Enables or disables the IPv6 endpoint for the instance metadata service.
+--
+-- Default: @disabled@
 --
 -- 'httpPutResponseHopLimit', 'launchTemplateInstanceMetadataOptionsRequest_httpPutResponseHopLimit' - The desired HTTP PUT response hop limit for instance metadata requests.
 -- The larger the number, the further instance metadata requests can
 -- travel.
 --
--- Default: 1
+-- Default: @1@
 --
 -- Possible values: Integers from 1 to 64
 --
@@ -111,18 +118,35 @@ data LaunchTemplateInstanceMetadataOptionsRequest = LaunchTemplateInstanceMetada
 -- instance metadata retrieval requests. In this state, retrieving the IAM
 -- role credentials always returns the version 2.0 credentials; the version
 -- 1.0 credentials are not available.
+--
+-- 'instanceMetadataTags', 'launchTemplateInstanceMetadataOptionsRequest_instanceMetadataTags' - Set to @enabled@ to allow access to instance tags from the instance
+-- metadata. Set to @disabled@ to turn off access to instance tags from the
+-- instance metadata. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#work-with-tags-in-IMDS Work with instance tags using the instance metadata>.
+--
+-- Default: @disabled@
 newLaunchTemplateInstanceMetadataOptionsRequest ::
   LaunchTemplateInstanceMetadataOptionsRequest
 newLaunchTemplateInstanceMetadataOptionsRequest =
   LaunchTemplateInstanceMetadataOptionsRequest'
-    { httpProtocolIpv6 =
+    { httpEndpoint =
         Prelude.Nothing,
-      httpEndpoint =
+      httpProtocolIpv6 =
         Prelude.Nothing,
       httpPutResponseHopLimit =
         Prelude.Nothing,
-      httpTokens = Prelude.Nothing
+      httpTokens = Prelude.Nothing,
+      instanceMetadataTags =
+        Prelude.Nothing
     }
+
+-- | Enables or disables the HTTP metadata endpoint on your instances. If the
+-- parameter is not specified, the default state is @enabled@.
+--
+-- If you specify a value of @disabled@, you will not be able to access
+-- your instance metadata.
+launchTemplateInstanceMetadataOptionsRequest_httpEndpoint :: Lens.Lens' LaunchTemplateInstanceMetadataOptionsRequest (Prelude.Maybe LaunchTemplateInstanceMetadataEndpointState)
+launchTemplateInstanceMetadataOptionsRequest_httpEndpoint = Lens.lens (\LaunchTemplateInstanceMetadataOptionsRequest' {httpEndpoint} -> httpEndpoint) (\s@LaunchTemplateInstanceMetadataOptionsRequest' {} a -> s {httpEndpoint = a} :: LaunchTemplateInstanceMetadataOptionsRequest)
 
 -- | Enables or disables the IPv6 endpoint for the instance metadata service.
 --
@@ -130,20 +154,11 @@ newLaunchTemplateInstanceMetadataOptionsRequest =
 launchTemplateInstanceMetadataOptionsRequest_httpProtocolIpv6 :: Lens.Lens' LaunchTemplateInstanceMetadataOptionsRequest (Prelude.Maybe LaunchTemplateInstanceMetadataProtocolIpv6)
 launchTemplateInstanceMetadataOptionsRequest_httpProtocolIpv6 = Lens.lens (\LaunchTemplateInstanceMetadataOptionsRequest' {httpProtocolIpv6} -> httpProtocolIpv6) (\s@LaunchTemplateInstanceMetadataOptionsRequest' {} a -> s {httpProtocolIpv6 = a} :: LaunchTemplateInstanceMetadataOptionsRequest)
 
--- | This parameter enables or disables the HTTP metadata endpoint on your
--- instances. If the parameter is not specified, the default state is
--- @enabled@.
---
--- If you specify a value of @disabled@, you will not be able to access
--- your instance metadata.
-launchTemplateInstanceMetadataOptionsRequest_httpEndpoint :: Lens.Lens' LaunchTemplateInstanceMetadataOptionsRequest (Prelude.Maybe LaunchTemplateInstanceMetadataEndpointState)
-launchTemplateInstanceMetadataOptionsRequest_httpEndpoint = Lens.lens (\LaunchTemplateInstanceMetadataOptionsRequest' {httpEndpoint} -> httpEndpoint) (\s@LaunchTemplateInstanceMetadataOptionsRequest' {} a -> s {httpEndpoint = a} :: LaunchTemplateInstanceMetadataOptionsRequest)
-
 -- | The desired HTTP PUT response hop limit for instance metadata requests.
 -- The larger the number, the further instance metadata requests can
 -- travel.
 --
--- Default: 1
+-- Default: @1@
 --
 -- Possible values: Integers from 1 to 64
 launchTemplateInstanceMetadataOptionsRequest_httpPutResponseHopLimit :: Lens.Lens' LaunchTemplateInstanceMetadataOptionsRequest (Prelude.Maybe Prelude.Int)
@@ -166,6 +181,15 @@ launchTemplateInstanceMetadataOptionsRequest_httpPutResponseHopLimit = Lens.lens
 launchTemplateInstanceMetadataOptionsRequest_httpTokens :: Lens.Lens' LaunchTemplateInstanceMetadataOptionsRequest (Prelude.Maybe LaunchTemplateHttpTokensState)
 launchTemplateInstanceMetadataOptionsRequest_httpTokens = Lens.lens (\LaunchTemplateInstanceMetadataOptionsRequest' {httpTokens} -> httpTokens) (\s@LaunchTemplateInstanceMetadataOptionsRequest' {} a -> s {httpTokens = a} :: LaunchTemplateInstanceMetadataOptionsRequest)
 
+-- | Set to @enabled@ to allow access to instance tags from the instance
+-- metadata. Set to @disabled@ to turn off access to instance tags from the
+-- instance metadata. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#work-with-tags-in-IMDS Work with instance tags using the instance metadata>.
+--
+-- Default: @disabled@
+launchTemplateInstanceMetadataOptionsRequest_instanceMetadataTags :: Lens.Lens' LaunchTemplateInstanceMetadataOptionsRequest (Prelude.Maybe LaunchTemplateInstanceMetadataTagsState)
+launchTemplateInstanceMetadataOptionsRequest_instanceMetadataTags = Lens.lens (\LaunchTemplateInstanceMetadataOptionsRequest' {instanceMetadataTags} -> instanceMetadataTags) (\s@LaunchTemplateInstanceMetadataOptionsRequest' {} a -> s {instanceMetadataTags = a} :: LaunchTemplateInstanceMetadataOptionsRequest)
+
 instance
   Prelude.Hashable
     LaunchTemplateInstanceMetadataOptionsRequest
@@ -173,31 +197,34 @@ instance
   hashWithSalt
     _salt
     LaunchTemplateInstanceMetadataOptionsRequest' {..} =
-      _salt `Prelude.hashWithSalt` httpProtocolIpv6
-        `Prelude.hashWithSalt` httpEndpoint
+      _salt `Prelude.hashWithSalt` httpEndpoint
+        `Prelude.hashWithSalt` httpProtocolIpv6
         `Prelude.hashWithSalt` httpPutResponseHopLimit
         `Prelude.hashWithSalt` httpTokens
+        `Prelude.hashWithSalt` instanceMetadataTags
 
 instance
   Prelude.NFData
     LaunchTemplateInstanceMetadataOptionsRequest
   where
   rnf LaunchTemplateInstanceMetadataOptionsRequest' {..} =
-    Prelude.rnf httpProtocolIpv6
-      `Prelude.seq` Prelude.rnf httpEndpoint
+    Prelude.rnf httpEndpoint
+      `Prelude.seq` Prelude.rnf httpProtocolIpv6
       `Prelude.seq` Prelude.rnf httpPutResponseHopLimit
       `Prelude.seq` Prelude.rnf httpTokens
+      `Prelude.seq` Prelude.rnf instanceMetadataTags
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     LaunchTemplateInstanceMetadataOptionsRequest
   where
   toQuery
     LaunchTemplateInstanceMetadataOptionsRequest' {..} =
       Prelude.mconcat
-        [ "HttpProtocolIpv6" Core.=: httpProtocolIpv6,
-          "HttpEndpoint" Core.=: httpEndpoint,
+        [ "HttpEndpoint" Data.=: httpEndpoint,
+          "HttpProtocolIpv6" Data.=: httpProtocolIpv6,
           "HttpPutResponseHopLimit"
-            Core.=: httpPutResponseHopLimit,
-          "HttpTokens" Core.=: httpTokens
+            Data.=: httpPutResponseHopLimit,
+          "HttpTokens" Data.=: httpTokens,
+          "InstanceMetadataTags" Data.=: instanceMetadataTags
         ]

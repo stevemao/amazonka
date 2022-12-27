@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.CreateUseCase
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,14 +45,16 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateUseCase' smart constructor.
 data CreateUseCase = CreateUseCase'
-  { -- | One or more tags.
+  { -- | The tags used to organize, track, or control access for this resource.
+    -- For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The identifier of the Amazon Connect instance. You can find the
     -- instanceId in the ARN of the instance.
@@ -73,7 +75,8 @@ data CreateUseCase = CreateUseCase'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tags', 'createUseCase_tags' - One or more tags.
+-- 'tags', 'createUseCase_tags' - The tags used to organize, track, or control access for this resource.
+-- For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.
 --
 -- 'instanceId', 'createUseCase_instanceId' - The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -102,7 +105,8 @@ newCreateUseCase
         useCaseType = pUseCaseType_
       }
 
--- | One or more tags.
+-- | The tags used to organize, track, or control access for this resource.
+-- For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.
 createUseCase_tags :: Lens.Lens' CreateUseCase (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createUseCase_tags = Lens.lens (\CreateUseCase' {tags} -> tags) (\s@CreateUseCase' {} a -> s {tags = a} :: CreateUseCase) Prelude.. Lens.mapping Lens.coerced
 
@@ -124,13 +128,14 @@ instance Core.AWSRequest CreateUseCase where
   type
     AWSResponse CreateUseCase =
       CreateUseCaseResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateUseCaseResponse'
-            Prelude.<$> (x Core..?> "UseCaseArn")
-            Prelude.<*> (x Core..?> "UseCaseId")
+            Prelude.<$> (x Data..?> "UseCaseArn")
+            Prelude.<*> (x Data..?> "UseCaseId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -148,37 +153,37 @@ instance Prelude.NFData CreateUseCase where
       `Prelude.seq` Prelude.rnf integrationAssociationId
       `Prelude.seq` Prelude.rnf useCaseType
 
-instance Core.ToHeaders CreateUseCase where
+instance Data.ToHeaders CreateUseCase where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateUseCase where
+instance Data.ToJSON CreateUseCase where
   toJSON CreateUseCase' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("UseCaseType" Core..= useCaseType)
+          [ ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("UseCaseType" Data..= useCaseType)
           ]
       )
 
-instance Core.ToPath CreateUseCase where
+instance Data.ToPath CreateUseCase where
   toPath CreateUseCase' {..} =
     Prelude.mconcat
       [ "/instance/",
-        Core.toBS instanceId,
+        Data.toBS instanceId,
         "/integration-associations/",
-        Core.toBS integrationAssociationId,
+        Data.toBS integrationAssociationId,
         "/use-cases"
       ]
 
-instance Core.ToQuery CreateUseCase where
+instance Data.ToQuery CreateUseCase where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateUseCaseResponse' smart constructor.

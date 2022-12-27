@@ -14,13 +14,14 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.ListApplications
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the applications registered with the IAM user or AWS account.
+-- Lists the applications registered with the IAM user or Amazon Web
+-- Services account.
 --
 -- This operation returns paginated results.
 module Amazonka.CodeDeploy.ListApplications
@@ -36,15 +37,16 @@ module Amazonka.CodeDeploy.ListApplications
     newListApplicationsResponse,
 
     -- * Response Lenses
-    listApplicationsResponse_nextToken,
     listApplicationsResponse_applications,
+    listApplicationsResponse_nextToken,
     listApplicationsResponse_httpStatus,
   )
 where
 
 import Amazonka.CodeDeploy.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -105,13 +107,14 @@ instance Core.AWSRequest ListApplications where
   type
     AWSResponse ListApplications =
       ListApplicationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListApplicationsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "applications" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "applications" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -122,44 +125,44 @@ instance Prelude.Hashable ListApplications where
 instance Prelude.NFData ListApplications where
   rnf ListApplications' {..} = Prelude.rnf nextToken
 
-instance Core.ToHeaders ListApplications where
+instance Data.ToHeaders ListApplications where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeDeploy_20141006.ListApplications" ::
+              Data.=# ( "CodeDeploy_20141006.ListApplications" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListApplications where
+instance Data.ToJSON ListApplications where
   toJSON ListApplications' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("nextToken" Core..=) Prelude.<$> nextToken]
+          [("nextToken" Data..=) Prelude.<$> nextToken]
       )
 
-instance Core.ToPath ListApplications where
+instance Data.ToPath ListApplications where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListApplications where
+instance Data.ToQuery ListApplications where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a ListApplications operation.
 --
 -- /See:/ 'newListApplicationsResponse' smart constructor.
 data ListApplicationsResponse = ListApplicationsResponse'
-  { -- | If a large amount of information is returned, an identifier is also
+  { -- | A list of application names.
+    applications :: Prelude.Maybe [Prelude.Text],
+    -- | If a large amount of information is returned, an identifier is also
     -- returned. It can be used in a subsequent list applications call to
     -- return the next set of applications in the list.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | A list of application names.
-    applications :: Prelude.Maybe [Prelude.Text],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -173,11 +176,11 @@ data ListApplicationsResponse = ListApplicationsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'applications', 'listApplicationsResponse_applications' - A list of application names.
+--
 -- 'nextToken', 'listApplicationsResponse_nextToken' - If a large amount of information is returned, an identifier is also
 -- returned. It can be used in a subsequent list applications call to
 -- return the next set of applications in the list.
---
--- 'applications', 'listApplicationsResponse_applications' - A list of application names.
 --
 -- 'httpStatus', 'listApplicationsResponse_httpStatus' - The response's http status code.
 newListApplicationsResponse ::
@@ -186,11 +189,15 @@ newListApplicationsResponse ::
   ListApplicationsResponse
 newListApplicationsResponse pHttpStatus_ =
   ListApplicationsResponse'
-    { nextToken =
+    { applications =
         Prelude.Nothing,
-      applications = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | A list of application names.
+listApplicationsResponse_applications :: Lens.Lens' ListApplicationsResponse (Prelude.Maybe [Prelude.Text])
+listApplicationsResponse_applications = Lens.lens (\ListApplicationsResponse' {applications} -> applications) (\s@ListApplicationsResponse' {} a -> s {applications = a} :: ListApplicationsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | If a large amount of information is returned, an identifier is also
 -- returned. It can be used in a subsequent list applications call to
@@ -198,16 +205,12 @@ newListApplicationsResponse pHttpStatus_ =
 listApplicationsResponse_nextToken :: Lens.Lens' ListApplicationsResponse (Prelude.Maybe Prelude.Text)
 listApplicationsResponse_nextToken = Lens.lens (\ListApplicationsResponse' {nextToken} -> nextToken) (\s@ListApplicationsResponse' {} a -> s {nextToken = a} :: ListApplicationsResponse)
 
--- | A list of application names.
-listApplicationsResponse_applications :: Lens.Lens' ListApplicationsResponse (Prelude.Maybe [Prelude.Text])
-listApplicationsResponse_applications = Lens.lens (\ListApplicationsResponse' {applications} -> applications) (\s@ListApplicationsResponse' {} a -> s {applications = a} :: ListApplicationsResponse) Prelude.. Lens.mapping Lens.coerced
-
 -- | The response's http status code.
 listApplicationsResponse_httpStatus :: Lens.Lens' ListApplicationsResponse Prelude.Int
 listApplicationsResponse_httpStatus = Lens.lens (\ListApplicationsResponse' {httpStatus} -> httpStatus) (\s@ListApplicationsResponse' {} a -> s {httpStatus = a} :: ListApplicationsResponse)
 
 instance Prelude.NFData ListApplicationsResponse where
   rnf ListApplicationsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf applications
+    Prelude.rnf applications
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

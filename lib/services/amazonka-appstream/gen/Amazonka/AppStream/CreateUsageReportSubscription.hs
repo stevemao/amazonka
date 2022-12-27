@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppStream.CreateUsageReportSubscription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,15 +31,16 @@ module Amazonka.AppStream.CreateUsageReportSubscription
     newCreateUsageReportSubscriptionResponse,
 
     -- * Response Lenses
-    createUsageReportSubscriptionResponse_schedule,
     createUsageReportSubscriptionResponse_s3BucketName,
+    createUsageReportSubscriptionResponse_schedule,
     createUsageReportSubscriptionResponse_httpStatus,
   )
 where
 
 import Amazonka.AppStream.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,13 +67,14 @@ instance
   type
     AWSResponse CreateUsageReportSubscription =
       CreateUsageReportSubscriptionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateUsageReportSubscriptionResponse'
-            Prelude.<$> (x Core..?> "Schedule")
-            Prelude.<*> (x Core..?> "S3BucketName")
+            Prelude.<$> (x Data..?> "S3BucketName")
+            Prelude.<*> (x Data..?> "Schedule")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -86,35 +88,33 @@ instance
 instance Prelude.NFData CreateUsageReportSubscription where
   rnf _ = ()
 
-instance Core.ToHeaders CreateUsageReportSubscription where
+instance Data.ToHeaders CreateUsageReportSubscription where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "PhotonAdminProxyService.CreateUsageReportSubscription" ::
+              Data.=# ( "PhotonAdminProxyService.CreateUsageReportSubscription" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateUsageReportSubscription where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON CreateUsageReportSubscription where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath CreateUsageReportSubscription where
+instance Data.ToPath CreateUsageReportSubscription where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateUsageReportSubscription where
+instance Data.ToQuery CreateUsageReportSubscription where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateUsageReportSubscriptionResponse' smart constructor.
 data CreateUsageReportSubscriptionResponse = CreateUsageReportSubscriptionResponse'
-  { -- | The schedule for generating usage reports.
-    schedule :: Prelude.Maybe UsageReportSchedule,
-    -- | The Amazon S3 bucket where generated reports are stored.
+  { -- | The Amazon S3 bucket where generated reports are stored.
     --
     -- If you enabled on-instance session scripts and Amazon S3 logging for
     -- your session script configuration, AppStream 2.0 created an S3 bucket to
@@ -124,6 +124,8 @@ data CreateUsageReportSubscriptionResponse = CreateUsageReportSubscriptionRespon
     -- enabled on-instance session scripts, when you enable usage reports,
     -- AppStream 2.0 creates a new S3 bucket.
     s3BucketName :: Prelude.Maybe Prelude.Text,
+    -- | The schedule for generating usage reports.
+    schedule :: Prelude.Maybe UsageReportSchedule,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -137,8 +139,6 @@ data CreateUsageReportSubscriptionResponse = CreateUsageReportSubscriptionRespon
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'schedule', 'createUsageReportSubscriptionResponse_schedule' - The schedule for generating usage reports.
---
 -- 's3BucketName', 'createUsageReportSubscriptionResponse_s3BucketName' - The Amazon S3 bucket where generated reports are stored.
 --
 -- If you enabled on-instance session scripts and Amazon S3 logging for
@@ -149,6 +149,8 @@ data CreateUsageReportSubscriptionResponse = CreateUsageReportSubscriptionRespon
 -- enabled on-instance session scripts, when you enable usage reports,
 -- AppStream 2.0 creates a new S3 bucket.
 --
+-- 'schedule', 'createUsageReportSubscriptionResponse_schedule' - The schedule for generating usage reports.
+--
 -- 'httpStatus', 'createUsageReportSubscriptionResponse_httpStatus' - The response's http status code.
 newCreateUsageReportSubscriptionResponse ::
   -- | 'httpStatus'
@@ -156,15 +158,11 @@ newCreateUsageReportSubscriptionResponse ::
   CreateUsageReportSubscriptionResponse
 newCreateUsageReportSubscriptionResponse pHttpStatus_ =
   CreateUsageReportSubscriptionResponse'
-    { schedule =
+    { s3BucketName =
         Prelude.Nothing,
-      s3BucketName = Prelude.Nothing,
+      schedule = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The schedule for generating usage reports.
-createUsageReportSubscriptionResponse_schedule :: Lens.Lens' CreateUsageReportSubscriptionResponse (Prelude.Maybe UsageReportSchedule)
-createUsageReportSubscriptionResponse_schedule = Lens.lens (\CreateUsageReportSubscriptionResponse' {schedule} -> schedule) (\s@CreateUsageReportSubscriptionResponse' {} a -> s {schedule = a} :: CreateUsageReportSubscriptionResponse)
 
 -- | The Amazon S3 bucket where generated reports are stored.
 --
@@ -178,6 +176,10 @@ createUsageReportSubscriptionResponse_schedule = Lens.lens (\CreateUsageReportSu
 createUsageReportSubscriptionResponse_s3BucketName :: Lens.Lens' CreateUsageReportSubscriptionResponse (Prelude.Maybe Prelude.Text)
 createUsageReportSubscriptionResponse_s3BucketName = Lens.lens (\CreateUsageReportSubscriptionResponse' {s3BucketName} -> s3BucketName) (\s@CreateUsageReportSubscriptionResponse' {} a -> s {s3BucketName = a} :: CreateUsageReportSubscriptionResponse)
 
+-- | The schedule for generating usage reports.
+createUsageReportSubscriptionResponse_schedule :: Lens.Lens' CreateUsageReportSubscriptionResponse (Prelude.Maybe UsageReportSchedule)
+createUsageReportSubscriptionResponse_schedule = Lens.lens (\CreateUsageReportSubscriptionResponse' {schedule} -> schedule) (\s@CreateUsageReportSubscriptionResponse' {} a -> s {schedule = a} :: CreateUsageReportSubscriptionResponse)
+
 -- | The response's http status code.
 createUsageReportSubscriptionResponse_httpStatus :: Lens.Lens' CreateUsageReportSubscriptionResponse Prelude.Int
 createUsageReportSubscriptionResponse_httpStatus = Lens.lens (\CreateUsageReportSubscriptionResponse' {httpStatus} -> httpStatus) (\s@CreateUsageReportSubscriptionResponse' {} a -> s {httpStatus = a} :: CreateUsageReportSubscriptionResponse)
@@ -187,6 +189,6 @@ instance
     CreateUsageReportSubscriptionResponse
   where
   rnf CreateUsageReportSubscriptionResponse' {..} =
-    Prelude.rnf schedule
-      `Prelude.seq` Prelude.rnf s3BucketName
+    Prelude.rnf s3BucketName
+      `Prelude.seq` Prelude.rnf schedule
       `Prelude.seq` Prelude.rnf httpStatus

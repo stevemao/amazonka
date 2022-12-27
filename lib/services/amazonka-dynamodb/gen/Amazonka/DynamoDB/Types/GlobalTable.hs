@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.GlobalTable
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,11 @@
 module Amazonka.DynamoDB.Types.GlobalTable where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.Replica
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the properties of a global table.
@@ -63,15 +65,15 @@ globalTable_globalTableName = Lens.lens (\GlobalTable' {globalTableName} -> glob
 globalTable_replicationGroup :: Lens.Lens' GlobalTable (Prelude.Maybe [Replica])
 globalTable_replicationGroup = Lens.lens (\GlobalTable' {replicationGroup} -> replicationGroup) (\s@GlobalTable' {} a -> s {replicationGroup = a} :: GlobalTable) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON GlobalTable where
+instance Data.FromJSON GlobalTable where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GlobalTable"
       ( \x ->
           GlobalTable'
-            Prelude.<$> (x Core..:? "GlobalTableName")
-            Prelude.<*> ( x Core..:? "ReplicationGroup"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "GlobalTableName")
+            Prelude.<*> ( x Data..:? "ReplicationGroup"
+                            Data..!= Prelude.mempty
                         )
       )
 

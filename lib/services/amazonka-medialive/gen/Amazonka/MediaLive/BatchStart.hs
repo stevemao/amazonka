@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.BatchStart
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,14 +35,15 @@ module Amazonka.MediaLive.BatchStart
     newBatchStartResponse,
 
     -- * Response Lenses
-    batchStartResponse_successful,
     batchStartResponse_failed,
+    batchStartResponse_successful,
     batchStartResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -88,13 +89,14 @@ batchStart'_multiplexIds = Lens.lens (\BatchStart'' {multiplexIds} -> multiplexI
 
 instance Core.AWSRequest BatchStart' where
   type AWSResponse BatchStart' = BatchStartResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchStartResponse'
-            Prelude.<$> (x Core..?> "successful" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "failed" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "failed" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "successful" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -108,40 +110,40 @@ instance Prelude.NFData BatchStart' where
     Prelude.rnf channelIds
       `Prelude.seq` Prelude.rnf multiplexIds
 
-instance Core.ToHeaders BatchStart' where
+instance Data.ToHeaders BatchStart' where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchStart' where
+instance Data.ToJSON BatchStart' where
   toJSON BatchStart'' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("channelIds" Core..=) Prelude.<$> channelIds,
-            ("multiplexIds" Core..=) Prelude.<$> multiplexIds
+          [ ("channelIds" Data..=) Prelude.<$> channelIds,
+            ("multiplexIds" Data..=) Prelude.<$> multiplexIds
           ]
       )
 
-instance Core.ToPath BatchStart' where
+instance Data.ToPath BatchStart' where
   toPath = Prelude.const "/prod/batch/start"
 
-instance Core.ToQuery BatchStart' where
+instance Data.ToQuery BatchStart' where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for BatchStartResponse
 --
 -- /See:/ 'newBatchStartResponse' smart constructor.
 data BatchStartResponse = BatchStartResponse'
-  { -- | List of successful operations
-    successful :: Prelude.Maybe [BatchSuccessfulResultModel],
-    -- | List of failed operations
+  { -- | List of failed operations
     failed :: Prelude.Maybe [BatchFailedResultModel],
+    -- | List of successful operations
+    successful :: Prelude.Maybe [BatchSuccessfulResultModel],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -155,9 +157,9 @@ data BatchStartResponse = BatchStartResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'successful', 'batchStartResponse_successful' - List of successful operations
---
 -- 'failed', 'batchStartResponse_failed' - List of failed operations
+--
+-- 'successful', 'batchStartResponse_successful' - List of successful operations
 --
 -- 'httpStatus', 'batchStartResponse_httpStatus' - The response's http status code.
 newBatchStartResponse ::
@@ -166,18 +168,18 @@ newBatchStartResponse ::
   BatchStartResponse
 newBatchStartResponse pHttpStatus_ =
   BatchStartResponse'
-    { successful = Prelude.Nothing,
-      failed = Prelude.Nothing,
+    { failed = Prelude.Nothing,
+      successful = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | List of successful operations
-batchStartResponse_successful :: Lens.Lens' BatchStartResponse (Prelude.Maybe [BatchSuccessfulResultModel])
-batchStartResponse_successful = Lens.lens (\BatchStartResponse' {successful} -> successful) (\s@BatchStartResponse' {} a -> s {successful = a} :: BatchStartResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | List of failed operations
 batchStartResponse_failed :: Lens.Lens' BatchStartResponse (Prelude.Maybe [BatchFailedResultModel])
 batchStartResponse_failed = Lens.lens (\BatchStartResponse' {failed} -> failed) (\s@BatchStartResponse' {} a -> s {failed = a} :: BatchStartResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | List of successful operations
+batchStartResponse_successful :: Lens.Lens' BatchStartResponse (Prelude.Maybe [BatchSuccessfulResultModel])
+batchStartResponse_successful = Lens.lens (\BatchStartResponse' {successful} -> successful) (\s@BatchStartResponse' {} a -> s {successful = a} :: BatchStartResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 batchStartResponse_httpStatus :: Lens.Lens' BatchStartResponse Prelude.Int
@@ -185,6 +187,6 @@ batchStartResponse_httpStatus = Lens.lens (\BatchStartResponse' {httpStatus} -> 
 
 instance Prelude.NFData BatchStartResponse where
   rnf BatchStartResponse' {..} =
-    Prelude.rnf successful
-      `Prelude.seq` Prelude.rnf failed
+    Prelude.rnf failed
+      `Prelude.seq` Prelude.rnf successful
       `Prelude.seq` Prelude.rnf httpStatus

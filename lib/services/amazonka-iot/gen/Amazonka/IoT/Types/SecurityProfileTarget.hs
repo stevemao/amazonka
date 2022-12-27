@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.SecurityProfileTarget
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoT.Types.SecurityProfileTarget where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A target to which an alert is sent when a security profile behavior is
@@ -53,12 +54,12 @@ newSecurityProfileTarget pArn_ =
 securityProfileTarget_arn :: Lens.Lens' SecurityProfileTarget Prelude.Text
 securityProfileTarget_arn = Lens.lens (\SecurityProfileTarget' {arn} -> arn) (\s@SecurityProfileTarget' {} a -> s {arn = a} :: SecurityProfileTarget)
 
-instance Core.FromJSON SecurityProfileTarget where
+instance Data.FromJSON SecurityProfileTarget where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SecurityProfileTarget"
       ( \x ->
-          SecurityProfileTarget' Prelude.<$> (x Core..: "arn")
+          SecurityProfileTarget' Prelude.<$> (x Data..: "arn")
       )
 
 instance Prelude.Hashable SecurityProfileTarget where

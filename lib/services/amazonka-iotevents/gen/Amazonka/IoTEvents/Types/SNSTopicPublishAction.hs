@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.Types.SNSTopicPublishAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTEvents.Types.SNSTopicPublishAction where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types.Payload
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information required to publish the Amazon SNS message.
@@ -67,14 +68,14 @@ sNSTopicPublishAction_payload = Lens.lens (\SNSTopicPublishAction' {payload} -> 
 sNSTopicPublishAction_targetArn :: Lens.Lens' SNSTopicPublishAction Prelude.Text
 sNSTopicPublishAction_targetArn = Lens.lens (\SNSTopicPublishAction' {targetArn} -> targetArn) (\s@SNSTopicPublishAction' {} a -> s {targetArn = a} :: SNSTopicPublishAction)
 
-instance Core.FromJSON SNSTopicPublishAction where
+instance Data.FromJSON SNSTopicPublishAction where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SNSTopicPublishAction"
       ( \x ->
           SNSTopicPublishAction'
-            Prelude.<$> (x Core..:? "payload")
-            Prelude.<*> (x Core..: "targetArn")
+            Prelude.<$> (x Data..:? "payload")
+            Prelude.<*> (x Data..: "targetArn")
       )
 
 instance Prelude.Hashable SNSTopicPublishAction where
@@ -87,11 +88,11 @@ instance Prelude.NFData SNSTopicPublishAction where
     Prelude.rnf payload
       `Prelude.seq` Prelude.rnf targetArn
 
-instance Core.ToJSON SNSTopicPublishAction where
+instance Data.ToJSON SNSTopicPublishAction where
   toJSON SNSTopicPublishAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("payload" Core..=) Prelude.<$> payload,
-            Prelude.Just ("targetArn" Core..= targetArn)
+          [ ("payload" Data..=) Prelude.<$> payload,
+            Prelude.Just ("targetArn" Data..= targetArn)
           ]
       )

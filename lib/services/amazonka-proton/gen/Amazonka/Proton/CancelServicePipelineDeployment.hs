@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Proton.CancelServicePipelineDeployment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,10 +22,9 @@
 --
 -- Attempts to cancel a service pipeline deployment on an
 -- UpdateServicePipeline action, if the deployment is @IN_PROGRESS@. For
--- more information, see /Update a service pipeline/ in the
--- <https://docs.aws.amazon.com/proton/latest/adminguide/ag-svc-pipeline-update.html AWS Proton Administrator guide>
--- or the
--- <https://docs.aws.amazon.com/proton/latest/userguide/ug-svc-pipeline-update.html AWS Proton User guide>.
+-- more information, see
+-- <https://docs.aws.amazon.com/proton/latest/userguide/ag-svc-pipeline-update.html Update a service pipeline>
+-- in the /Proton User guide/.
 --
 -- The following list includes potential cancellation scenarios.
 --
@@ -57,7 +56,8 @@ module Amazonka.Proton.CancelServicePipelineDeployment
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types
 import qualified Amazonka.Request as Request
@@ -100,13 +100,14 @@ instance
   type
     AWSResponse CancelServicePipelineDeployment =
       CancelServicePipelineDeploymentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CancelServicePipelineDeploymentResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "pipeline")
+            Prelude.<*> (x Data..:> "pipeline")
       )
 
 instance
@@ -126,41 +127,41 @@ instance
     Prelude.rnf serviceName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CancelServicePipelineDeployment
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AwsProton20200720.CancelServicePipelineDeployment" ::
+              Data.=# ( "AwsProton20200720.CancelServicePipelineDeployment" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CancelServicePipelineDeployment where
+instance Data.ToJSON CancelServicePipelineDeployment where
   toJSON CancelServicePipelineDeployment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("serviceName" Core..= serviceName)]
+          [Prelude.Just ("serviceName" Data..= serviceName)]
       )
 
-instance Core.ToPath CancelServicePipelineDeployment where
+instance Data.ToPath CancelServicePipelineDeployment where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CancelServicePipelineDeployment where
+instance Data.ToQuery CancelServicePipelineDeployment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCancelServicePipelineDeploymentResponse' smart constructor.
 data CancelServicePipelineDeploymentResponse = CancelServicePipelineDeploymentResponse'
   { -- | The response's http status code.
     httpStatus :: Prelude.Int,
-    -- | The service pipeline detail data that\'s returned by AWS Proton.
+    -- | The service pipeline detail data that\'s returned by Proton.
     pipeline :: ServicePipeline
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
@@ -175,7 +176,7 @@ data CancelServicePipelineDeploymentResponse = CancelServicePipelineDeploymentRe
 --
 -- 'httpStatus', 'cancelServicePipelineDeploymentResponse_httpStatus' - The response's http status code.
 --
--- 'pipeline', 'cancelServicePipelineDeploymentResponse_pipeline' - The service pipeline detail data that\'s returned by AWS Proton.
+-- 'pipeline', 'cancelServicePipelineDeploymentResponse_pipeline' - The service pipeline detail data that\'s returned by Proton.
 newCancelServicePipelineDeploymentResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
@@ -195,7 +196,7 @@ newCancelServicePipelineDeploymentResponse
 cancelServicePipelineDeploymentResponse_httpStatus :: Lens.Lens' CancelServicePipelineDeploymentResponse Prelude.Int
 cancelServicePipelineDeploymentResponse_httpStatus = Lens.lens (\CancelServicePipelineDeploymentResponse' {httpStatus} -> httpStatus) (\s@CancelServicePipelineDeploymentResponse' {} a -> s {httpStatus = a} :: CancelServicePipelineDeploymentResponse)
 
--- | The service pipeline detail data that\'s returned by AWS Proton.
+-- | The service pipeline detail data that\'s returned by Proton.
 cancelServicePipelineDeploymentResponse_pipeline :: Lens.Lens' CancelServicePipelineDeploymentResponse ServicePipeline
 cancelServicePipelineDeploymentResponse_pipeline = Lens.lens (\CancelServicePipelineDeploymentResponse' {pipeline} -> pipeline) (\s@CancelServicePipelineDeploymentResponse' {} a -> s {pipeline = a} :: CancelServicePipelineDeploymentResponse)
 

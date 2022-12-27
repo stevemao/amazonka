@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.DeleteTaskSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,7 @@
 -- Deletes a specified task set within a service. This is used when a
 -- service uses the @EXTERNAL@ deployment controller type. For more
 -- information, see
--- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html Amazon ECS Deployment Types>
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html Amazon ECS deployment types>
 -- in the /Amazon Elastic Container Service Developer Guide/.
 module Amazonka.ECS.DeleteTaskSet
   ( -- * Creating a Request
@@ -47,19 +47,20 @@ module Amazonka.ECS.DeleteTaskSet
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteTaskSet' smart constructor.
 data DeleteTaskSet = DeleteTaskSet'
-  { -- | If @true@, this allows you to delete a task set even if it hasn\'t been
-    -- scaled down to zero.
+  { -- | If @true@, you can delete a task set even if it hasn\'t been scaled down
+    -- to zero.
     force :: Prelude.Maybe Prelude.Bool,
     -- | The short name or full Amazon Resource Name (ARN) of the cluster that
-    -- hosts the service that the task set exists in to delete.
+    -- hosts the service that the task set found in to delete.
     cluster :: Prelude.Text,
     -- | The short name or full Amazon Resource Name (ARN) of the service that
     -- hosts the task set to delete.
@@ -78,11 +79,11 @@ data DeleteTaskSet = DeleteTaskSet'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'force', 'deleteTaskSet_force' - If @true@, this allows you to delete a task set even if it hasn\'t been
--- scaled down to zero.
+-- 'force', 'deleteTaskSet_force' - If @true@, you can delete a task set even if it hasn\'t been scaled down
+-- to zero.
 --
 -- 'cluster', 'deleteTaskSet_cluster' - The short name or full Amazon Resource Name (ARN) of the cluster that
--- hosts the service that the task set exists in to delete.
+-- hosts the service that the task set found in to delete.
 --
 -- 'service', 'deleteTaskSet_service' - The short name or full Amazon Resource Name (ARN) of the service that
 -- hosts the task set to delete.
@@ -105,13 +106,13 @@ newDeleteTaskSet pCluster_ pService_ pTaskSet_ =
       taskSet = pTaskSet_
     }
 
--- | If @true@, this allows you to delete a task set even if it hasn\'t been
--- scaled down to zero.
+-- | If @true@, you can delete a task set even if it hasn\'t been scaled down
+-- to zero.
 deleteTaskSet_force :: Lens.Lens' DeleteTaskSet (Prelude.Maybe Prelude.Bool)
 deleteTaskSet_force = Lens.lens (\DeleteTaskSet' {force} -> force) (\s@DeleteTaskSet' {} a -> s {force = a} :: DeleteTaskSet)
 
 -- | The short name or full Amazon Resource Name (ARN) of the cluster that
--- hosts the service that the task set exists in to delete.
+-- hosts the service that the task set found in to delete.
 deleteTaskSet_cluster :: Lens.Lens' DeleteTaskSet Prelude.Text
 deleteTaskSet_cluster = Lens.lens (\DeleteTaskSet' {cluster} -> cluster) (\s@DeleteTaskSet' {} a -> s {cluster = a} :: DeleteTaskSet)
 
@@ -129,12 +130,13 @@ instance Core.AWSRequest DeleteTaskSet where
   type
     AWSResponse DeleteTaskSet =
       DeleteTaskSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteTaskSetResponse'
-            Prelude.<$> (x Core..?> "taskSet")
+            Prelude.<$> (x Data..?> "taskSet")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -152,36 +154,36 @@ instance Prelude.NFData DeleteTaskSet where
       `Prelude.seq` Prelude.rnf service
       `Prelude.seq` Prelude.rnf taskSet
 
-instance Core.ToHeaders DeleteTaskSet where
+instance Data.ToHeaders DeleteTaskSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerServiceV20141113.DeleteTaskSet" ::
+              Data.=# ( "AmazonEC2ContainerServiceV20141113.DeleteTaskSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteTaskSet where
+instance Data.ToJSON DeleteTaskSet where
   toJSON DeleteTaskSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("force" Core..=) Prelude.<$> force,
-            Prelude.Just ("cluster" Core..= cluster),
-            Prelude.Just ("service" Core..= service),
-            Prelude.Just ("taskSet" Core..= taskSet)
+          [ ("force" Data..=) Prelude.<$> force,
+            Prelude.Just ("cluster" Data..= cluster),
+            Prelude.Just ("service" Data..= service),
+            Prelude.Just ("taskSet" Data..= taskSet)
           ]
       )
 
-instance Core.ToPath DeleteTaskSet where
+instance Data.ToPath DeleteTaskSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteTaskSet where
+instance Data.ToQuery DeleteTaskSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteTaskSetResponse' smart constructor.

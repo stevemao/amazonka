@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SnowDeviceManagement.CreateTask
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,14 +39,15 @@ module Amazonka.SnowDeviceManagement.CreateTask
     newCreateTaskResponse,
 
     -- * Response Lenses
-    createTaskResponse_taskId,
     createTaskResponse_taskArn,
+    createTaskResponse_taskId,
     createTaskResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -133,13 +134,14 @@ createTask_targets = Lens.lens (\CreateTask' {targets} -> targets) (\s@CreateTas
 
 instance Core.AWSRequest CreateTask where
   type AWSResponse CreateTask = CreateTaskResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateTaskResponse'
-            Prelude.<$> (x Core..?> "taskId")
-            Prelude.<*> (x Core..?> "taskArn")
+            Prelude.<$> (x Data..?> "taskArn")
+            Prelude.<*> (x Data..?> "taskId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -159,41 +161,41 @@ instance Prelude.NFData CreateTask where
       `Prelude.seq` Prelude.rnf command
       `Prelude.seq` Prelude.rnf targets
 
-instance Core.ToHeaders CreateTask where
+instance Data.ToHeaders CreateTask where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateTask where
+instance Data.ToJSON CreateTask where
   toJSON CreateTask' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("description" Core..=) Prelude.<$> description,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("command" Core..= command),
-            Prelude.Just ("targets" Core..= targets)
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("description" Data..=) Prelude.<$> description,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("command" Data..= command),
+            Prelude.Just ("targets" Data..= targets)
           ]
       )
 
-instance Core.ToPath CreateTask where
+instance Data.ToPath CreateTask where
   toPath = Prelude.const "/task"
 
-instance Core.ToQuery CreateTask where
+instance Data.ToQuery CreateTask where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateTaskResponse' smart constructor.
 data CreateTaskResponse = CreateTaskResponse'
-  { -- | The ID of the task that you created.
-    taskId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the task that you created.
+  { -- | The Amazon Resource Name (ARN) of the task that you created.
     taskArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the task that you created.
+    taskId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -207,9 +209,9 @@ data CreateTaskResponse = CreateTaskResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'taskId', 'createTaskResponse_taskId' - The ID of the task that you created.
---
 -- 'taskArn', 'createTaskResponse_taskArn' - The Amazon Resource Name (ARN) of the task that you created.
+--
+-- 'taskId', 'createTaskResponse_taskId' - The ID of the task that you created.
 --
 -- 'httpStatus', 'createTaskResponse_httpStatus' - The response's http status code.
 newCreateTaskResponse ::
@@ -218,18 +220,18 @@ newCreateTaskResponse ::
   CreateTaskResponse
 newCreateTaskResponse pHttpStatus_ =
   CreateTaskResponse'
-    { taskId = Prelude.Nothing,
-      taskArn = Prelude.Nothing,
+    { taskArn = Prelude.Nothing,
+      taskId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The ID of the task that you created.
-createTaskResponse_taskId :: Lens.Lens' CreateTaskResponse (Prelude.Maybe Prelude.Text)
-createTaskResponse_taskId = Lens.lens (\CreateTaskResponse' {taskId} -> taskId) (\s@CreateTaskResponse' {} a -> s {taskId = a} :: CreateTaskResponse)
 
 -- | The Amazon Resource Name (ARN) of the task that you created.
 createTaskResponse_taskArn :: Lens.Lens' CreateTaskResponse (Prelude.Maybe Prelude.Text)
 createTaskResponse_taskArn = Lens.lens (\CreateTaskResponse' {taskArn} -> taskArn) (\s@CreateTaskResponse' {} a -> s {taskArn = a} :: CreateTaskResponse)
+
+-- | The ID of the task that you created.
+createTaskResponse_taskId :: Lens.Lens' CreateTaskResponse (Prelude.Maybe Prelude.Text)
+createTaskResponse_taskId = Lens.lens (\CreateTaskResponse' {taskId} -> taskId) (\s@CreateTaskResponse' {} a -> s {taskId = a} :: CreateTaskResponse)
 
 -- | The response's http status code.
 createTaskResponse_httpStatus :: Lens.Lens' CreateTaskResponse Prelude.Int
@@ -237,6 +239,6 @@ createTaskResponse_httpStatus = Lens.lens (\CreateTaskResponse' {httpStatus} -> 
 
 instance Prelude.NFData CreateTaskResponse where
   rnf CreateTaskResponse' {..} =
-    Prelude.rnf taskId
-      `Prelude.seq` Prelude.rnf taskArn
+    Prelude.rnf taskArn
+      `Prelude.seq` Prelude.rnf taskId
       `Prelude.seq` Prelude.rnf httpStatus

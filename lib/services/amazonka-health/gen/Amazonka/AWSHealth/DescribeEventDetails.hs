@@ -14,15 +14,15 @@
 
 -- |
 -- Module      : Amazonka.AWSHealth.DescribeEventDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Returns detailed information about one or more specified events.
--- Information includes standard event data (AWS Region, service, and so
--- on, as returned by
+-- Information includes standard event data (Amazon Web Services Region,
+-- service, and so on, as returned by
 -- <https://docs.aws.amazon.com/health/latest/APIReference/API_DescribeEvents.html DescribeEvents>),
 -- a detailed event description, and possible additional metadata that
 -- depends upon the nature of the event. Affected entities are not
@@ -34,10 +34,10 @@
 -- for that event.
 --
 -- This operation supports resource-level permissions. You can use this
--- operation to allow or deny access to specific AWS Health events. For
--- more information, see
+-- operation to allow or deny access to specific Health events. For more
+-- information, see
 -- <https://docs.aws.amazon.com/health/latest/ug/security_iam_id-based-policy-examples.html#resource-action-based-conditions Resource- and action-based conditions>
--- in the /AWS Health User Guide/.
+-- in the /Health User Guide/.
 module Amazonka.AWSHealth.DescribeEventDetails
   ( -- * Creating a Request
     DescribeEventDetails (..),
@@ -52,15 +52,16 @@ module Amazonka.AWSHealth.DescribeEventDetails
     newDescribeEventDetailsResponse,
 
     -- * Response Lenses
-    describeEventDetailsResponse_successfulSet,
     describeEventDetailsResponse_failedSet,
+    describeEventDetailsResponse_successfulSet,
     describeEventDetailsResponse_httpStatus,
   )
 where
 
 import Amazonka.AWSHealth.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -113,13 +114,14 @@ instance Core.AWSRequest DescribeEventDetails where
   type
     AWSResponse DescribeEventDetails =
       DescribeEventDetailsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeEventDetailsResponse'
-            Prelude.<$> (x Core..?> "successfulSet" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "failedSet" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "failedSet" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "successfulSet" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -133,42 +135,42 @@ instance Prelude.NFData DescribeEventDetails where
     Prelude.rnf locale
       `Prelude.seq` Prelude.rnf eventArns
 
-instance Core.ToHeaders DescribeEventDetails where
+instance Data.ToHeaders DescribeEventDetails where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHealth_20160804.DescribeEventDetails" ::
+              Data.=# ( "AWSHealth_20160804.DescribeEventDetails" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeEventDetails where
+instance Data.ToJSON DescribeEventDetails where
   toJSON DescribeEventDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("locale" Core..=) Prelude.<$> locale,
-            Prelude.Just ("eventArns" Core..= eventArns)
+          [ ("locale" Data..=) Prelude.<$> locale,
+            Prelude.Just ("eventArns" Data..= eventArns)
           ]
       )
 
-instance Core.ToPath DescribeEventDetails where
+instance Data.ToPath DescribeEventDetails where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeEventDetails where
+instance Data.ToQuery DescribeEventDetails where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeEventDetailsResponse' smart constructor.
 data DescribeEventDetailsResponse = DescribeEventDetailsResponse'
-  { -- | Information about the events that could be retrieved.
-    successfulSet :: Prelude.Maybe [EventDetails],
-    -- | Error messages for any events that could not be retrieved.
+  { -- | Error messages for any events that could not be retrieved.
     failedSet :: Prelude.Maybe [EventDetailsErrorItem],
+    -- | Information about the events that could be retrieved.
+    successfulSet :: Prelude.Maybe [EventDetails],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -182,9 +184,9 @@ data DescribeEventDetailsResponse = DescribeEventDetailsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'successfulSet', 'describeEventDetailsResponse_successfulSet' - Information about the events that could be retrieved.
---
 -- 'failedSet', 'describeEventDetailsResponse_failedSet' - Error messages for any events that could not be retrieved.
+--
+-- 'successfulSet', 'describeEventDetailsResponse_successfulSet' - Information about the events that could be retrieved.
 --
 -- 'httpStatus', 'describeEventDetailsResponse_httpStatus' - The response's http status code.
 newDescribeEventDetailsResponse ::
@@ -193,19 +195,19 @@ newDescribeEventDetailsResponse ::
   DescribeEventDetailsResponse
 newDescribeEventDetailsResponse pHttpStatus_ =
   DescribeEventDetailsResponse'
-    { successfulSet =
+    { failedSet =
         Prelude.Nothing,
-      failedSet = Prelude.Nothing,
+      successfulSet = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Information about the events that could be retrieved.
-describeEventDetailsResponse_successfulSet :: Lens.Lens' DescribeEventDetailsResponse (Prelude.Maybe [EventDetails])
-describeEventDetailsResponse_successfulSet = Lens.lens (\DescribeEventDetailsResponse' {successfulSet} -> successfulSet) (\s@DescribeEventDetailsResponse' {} a -> s {successfulSet = a} :: DescribeEventDetailsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | Error messages for any events that could not be retrieved.
 describeEventDetailsResponse_failedSet :: Lens.Lens' DescribeEventDetailsResponse (Prelude.Maybe [EventDetailsErrorItem])
 describeEventDetailsResponse_failedSet = Lens.lens (\DescribeEventDetailsResponse' {failedSet} -> failedSet) (\s@DescribeEventDetailsResponse' {} a -> s {failedSet = a} :: DescribeEventDetailsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | Information about the events that could be retrieved.
+describeEventDetailsResponse_successfulSet :: Lens.Lens' DescribeEventDetailsResponse (Prelude.Maybe [EventDetails])
+describeEventDetailsResponse_successfulSet = Lens.lens (\DescribeEventDetailsResponse' {successfulSet} -> successfulSet) (\s@DescribeEventDetailsResponse' {} a -> s {successfulSet = a} :: DescribeEventDetailsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeEventDetailsResponse_httpStatus :: Lens.Lens' DescribeEventDetailsResponse Prelude.Int
@@ -213,6 +215,6 @@ describeEventDetailsResponse_httpStatus = Lens.lens (\DescribeEventDetailsRespon
 
 instance Prelude.NFData DescribeEventDetailsResponse where
   rnf DescribeEventDetailsResponse' {..} =
-    Prelude.rnf successfulSet
-      `Prelude.seq` Prelude.rnf failedSet
+    Prelude.rnf failedSet
+      `Prelude.seq` Prelude.rnf successfulSet
       `Prelude.seq` Prelude.rnf httpStatus

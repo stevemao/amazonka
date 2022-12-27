@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.DescribeIdentityProviderConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.EKS.DescribeIdentityProviderConfig
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EKS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,7 +54,7 @@ data DescribeIdentityProviderConfig = DescribeIdentityProviderConfig'
   { -- | The cluster name that the identity provider configuration is associated
     -- to.
     clusterName :: Prelude.Text,
-    -- | An object that represents an identity provider configuration.
+    -- | An object representing an identity provider configuration.
     identityProviderConfig :: IdentityProviderConfig
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -69,7 +70,7 @@ data DescribeIdentityProviderConfig = DescribeIdentityProviderConfig'
 -- 'clusterName', 'describeIdentityProviderConfig_clusterName' - The cluster name that the identity provider configuration is associated
 -- to.
 --
--- 'identityProviderConfig', 'describeIdentityProviderConfig_identityProviderConfig' - An object that represents an identity provider configuration.
+-- 'identityProviderConfig', 'describeIdentityProviderConfig_identityProviderConfig' - An object representing an identity provider configuration.
 newDescribeIdentityProviderConfig ::
   -- | 'clusterName'
   Prelude.Text ->
@@ -91,7 +92,7 @@ newDescribeIdentityProviderConfig
 describeIdentityProviderConfig_clusterName :: Lens.Lens' DescribeIdentityProviderConfig Prelude.Text
 describeIdentityProviderConfig_clusterName = Lens.lens (\DescribeIdentityProviderConfig' {clusterName} -> clusterName) (\s@DescribeIdentityProviderConfig' {} a -> s {clusterName = a} :: DescribeIdentityProviderConfig)
 
--- | An object that represents an identity provider configuration.
+-- | An object representing an identity provider configuration.
 describeIdentityProviderConfig_identityProviderConfig :: Lens.Lens' DescribeIdentityProviderConfig IdentityProviderConfig
 describeIdentityProviderConfig_identityProviderConfig = Lens.lens (\DescribeIdentityProviderConfig' {identityProviderConfig} -> identityProviderConfig) (\s@DescribeIdentityProviderConfig' {} a -> s {identityProviderConfig = a} :: DescribeIdentityProviderConfig)
 
@@ -102,12 +103,13 @@ instance
   type
     AWSResponse DescribeIdentityProviderConfig =
       DescribeIdentityProviderConfigResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeIdentityProviderConfigResponse'
-            Prelude.<$> (x Core..?> "identityProviderConfig")
+            Prelude.<$> (x Data..?> "identityProviderConfig")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -130,39 +132,39 @@ instance
       `Prelude.seq` Prelude.rnf identityProviderConfig
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeIdentityProviderConfig
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeIdentityProviderConfig where
+instance Data.ToJSON DescribeIdentityProviderConfig where
   toJSON DescribeIdentityProviderConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "identityProviderConfig"
-                  Core..= identityProviderConfig
+                  Data..= identityProviderConfig
               )
           ]
       )
 
-instance Core.ToPath DescribeIdentityProviderConfig where
+instance Data.ToPath DescribeIdentityProviderConfig where
   toPath DescribeIdentityProviderConfig' {..} =
     Prelude.mconcat
       [ "/clusters/",
-        Core.toBS clusterName,
+        Data.toBS clusterName,
         "/identity-provider-configs/describe"
       ]
 
-instance Core.ToQuery DescribeIdentityProviderConfig where
+instance Data.ToQuery DescribeIdentityProviderConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeIdentityProviderConfigResponse' smart constructor.

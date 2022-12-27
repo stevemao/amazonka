@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsS3BucketLoggingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.SecurityHub.Types.AwsS3BucketLoggingConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about logging for the S3 bucket
 --
 -- /See:/ 'newAwsS3BucketLoggingConfiguration' smart constructor.
 data AwsS3BucketLoggingConfiguration = AwsS3BucketLoggingConfiguration'
-  { -- | The prefix added to log files for the S3 bucket.
-    logFilePrefix :: Prelude.Maybe Prelude.Text,
-    -- | The name of the S3 bucket where log files for the S3 bucket are stored.
-    destinationBucketName :: Prelude.Maybe Prelude.Text
+  { -- | The name of the S3 bucket where log files for the S3 bucket are stored.
+    destinationBucketName :: Prelude.Maybe Prelude.Text,
+    -- | The prefix added to log files for the S3 bucket.
+    logFilePrefix :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,37 +43,37 @@ data AwsS3BucketLoggingConfiguration = AwsS3BucketLoggingConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'logFilePrefix', 'awsS3BucketLoggingConfiguration_logFilePrefix' - The prefix added to log files for the S3 bucket.
---
 -- 'destinationBucketName', 'awsS3BucketLoggingConfiguration_destinationBucketName' - The name of the S3 bucket where log files for the S3 bucket are stored.
+--
+-- 'logFilePrefix', 'awsS3BucketLoggingConfiguration_logFilePrefix' - The prefix added to log files for the S3 bucket.
 newAwsS3BucketLoggingConfiguration ::
   AwsS3BucketLoggingConfiguration
 newAwsS3BucketLoggingConfiguration =
   AwsS3BucketLoggingConfiguration'
-    { logFilePrefix =
+    { destinationBucketName =
         Prelude.Nothing,
-      destinationBucketName = Prelude.Nothing
+      logFilePrefix = Prelude.Nothing
     }
-
--- | The prefix added to log files for the S3 bucket.
-awsS3BucketLoggingConfiguration_logFilePrefix :: Lens.Lens' AwsS3BucketLoggingConfiguration (Prelude.Maybe Prelude.Text)
-awsS3BucketLoggingConfiguration_logFilePrefix = Lens.lens (\AwsS3BucketLoggingConfiguration' {logFilePrefix} -> logFilePrefix) (\s@AwsS3BucketLoggingConfiguration' {} a -> s {logFilePrefix = a} :: AwsS3BucketLoggingConfiguration)
 
 -- | The name of the S3 bucket where log files for the S3 bucket are stored.
 awsS3BucketLoggingConfiguration_destinationBucketName :: Lens.Lens' AwsS3BucketLoggingConfiguration (Prelude.Maybe Prelude.Text)
 awsS3BucketLoggingConfiguration_destinationBucketName = Lens.lens (\AwsS3BucketLoggingConfiguration' {destinationBucketName} -> destinationBucketName) (\s@AwsS3BucketLoggingConfiguration' {} a -> s {destinationBucketName = a} :: AwsS3BucketLoggingConfiguration)
 
+-- | The prefix added to log files for the S3 bucket.
+awsS3BucketLoggingConfiguration_logFilePrefix :: Lens.Lens' AwsS3BucketLoggingConfiguration (Prelude.Maybe Prelude.Text)
+awsS3BucketLoggingConfiguration_logFilePrefix = Lens.lens (\AwsS3BucketLoggingConfiguration' {logFilePrefix} -> logFilePrefix) (\s@AwsS3BucketLoggingConfiguration' {} a -> s {logFilePrefix = a} :: AwsS3BucketLoggingConfiguration)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsS3BucketLoggingConfiguration
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsS3BucketLoggingConfiguration"
       ( \x ->
           AwsS3BucketLoggingConfiguration'
-            Prelude.<$> (x Core..:? "LogFilePrefix")
-            Prelude.<*> (x Core..:? "DestinationBucketName")
+            Prelude.<$> (x Data..:? "DestinationBucketName")
+            Prelude.<*> (x Data..:? "LogFilePrefix")
       )
 
 instance
@@ -82,23 +83,23 @@ instance
   hashWithSalt
     _salt
     AwsS3BucketLoggingConfiguration' {..} =
-      _salt `Prelude.hashWithSalt` logFilePrefix
-        `Prelude.hashWithSalt` destinationBucketName
+      _salt `Prelude.hashWithSalt` destinationBucketName
+        `Prelude.hashWithSalt` logFilePrefix
 
 instance
   Prelude.NFData
     AwsS3BucketLoggingConfiguration
   where
   rnf AwsS3BucketLoggingConfiguration' {..} =
-    Prelude.rnf logFilePrefix
-      `Prelude.seq` Prelude.rnf destinationBucketName
+    Prelude.rnf destinationBucketName
+      `Prelude.seq` Prelude.rnf logFilePrefix
 
-instance Core.ToJSON AwsS3BucketLoggingConfiguration where
+instance Data.ToJSON AwsS3BucketLoggingConfiguration where
   toJSON AwsS3BucketLoggingConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("LogFilePrefix" Core..=) Prelude.<$> logFilePrefix,
-            ("DestinationBucketName" Core..=)
-              Prelude.<$> destinationBucketName
+          [ ("DestinationBucketName" Data..=)
+              Prelude.<$> destinationBucketName,
+            ("LogFilePrefix" Data..=) Prelude.<$> logFilePrefix
           ]
       )

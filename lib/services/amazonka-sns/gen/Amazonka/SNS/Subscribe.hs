@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SNS.Subscribe
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,8 +22,8 @@
 --
 -- Subscribes an endpoint to an Amazon SNS topic. If the endpoint type is
 -- HTTP\/S or email, or if the endpoint and the topic are not in the same
--- account, the endpoint owner must run the @ConfirmSubscription@ action to
--- confirm the subscription.
+-- Amazon Web Services account, the endpoint owner must run the
+-- @ConfirmSubscription@ action to confirm the subscription.
 --
 -- You call the @ConfirmSubscription@ action with the token from the
 -- subscription response. Confirmation tokens are valid for three days.
@@ -35,9 +35,9 @@ module Amazonka.SNS.Subscribe
     newSubscribe,
 
     -- * Request Lenses
-    subscribe_returnSubscriptionArn,
     subscribe_attributes,
     subscribe_endpoint,
+    subscribe_returnSubscriptionArn,
     subscribe_topicArn,
     subscribe_protocol,
 
@@ -52,7 +52,8 @@ module Amazonka.SNS.Subscribe
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,19 +63,7 @@ import Amazonka.SNS.Types
 --
 -- /See:/ 'newSubscribe' smart constructor.
 data Subscribe = Subscribe'
-  { -- | Sets whether the response from the @Subscribe@ request includes the
-    -- subscription ARN, even if the subscription is not yet confirmed.
-    --
-    -- If you set this parameter to @true@, the response includes the ARN in
-    -- all cases, even if the subscription is not yet confirmed. In addition to
-    -- the ARN for confirmed subscriptions, the response also includes the
-    -- @pending subscription@ ARN value for subscriptions that aren\'t yet
-    -- confirmed. A subscription becomes confirmed when the subscriber calls
-    -- the @ConfirmSubscription@ action with a confirmation token.
-    --
-    -- The default value is @false@.
-    returnSubscriptionArn :: Prelude.Maybe Prelude.Bool,
-    -- | A map of attributes with their corresponding values.
+  { -- | A map of attributes with their corresponding values.
     --
     -- The following lists the names, descriptions, and values of the special
     -- request parameters that the @Subscribe@ action uses:
@@ -85,6 +74,14 @@ data Subscribe = Subscribe'
     -- -   @FilterPolicy@ – The simple JSON object that lets your subscriber
     --     receive only a subset of messages, rather than receiving every
     --     message published to the topic.
+    --
+    -- -   @FilterPolicyScope@ – This attribute lets you choose the filtering
+    --     scope by using one of the following string value types:
+    --
+    --     -   @MessageAttributes@ (default) – The filter is applied on the
+    --         message attributes.
+    --
+    --     -   @MessageBody@ – The filter is applied on the message body.
     --
     -- -   @RawMessageDelivery@ – When set to @true@, enables raw message
     --     delivery to Amazon SQS or HTTP\/S endpoints. This eliminates the
@@ -142,6 +139,18 @@ data Subscribe = Subscribe'
     -- -   For the @firehose@ protocol, the endpoint is the ARN of an Amazon
     --     Kinesis Data Firehose delivery stream.
     endpoint :: Prelude.Maybe Prelude.Text,
+    -- | Sets whether the response from the @Subscribe@ request includes the
+    -- subscription ARN, even if the subscription is not yet confirmed.
+    --
+    -- If you set this parameter to @true@, the response includes the ARN in
+    -- all cases, even if the subscription is not yet confirmed. In addition to
+    -- the ARN for confirmed subscriptions, the response also includes the
+    -- @pending subscription@ ARN value for subscriptions that aren\'t yet
+    -- confirmed. A subscription becomes confirmed when the subscriber calls
+    -- the @ConfirmSubscription@ action with a confirmation token.
+    --
+    -- The default value is @false@.
+    returnSubscriptionArn :: Prelude.Maybe Prelude.Bool,
     -- | The ARN of the topic you want to subscribe to.
     topicArn :: Prelude.Text,
     -- | The protocol that you want to use. Supported protocols include:
@@ -177,18 +186,6 @@ data Subscribe = Subscribe'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'returnSubscriptionArn', 'subscribe_returnSubscriptionArn' - Sets whether the response from the @Subscribe@ request includes the
--- subscription ARN, even if the subscription is not yet confirmed.
---
--- If you set this parameter to @true@, the response includes the ARN in
--- all cases, even if the subscription is not yet confirmed. In addition to
--- the ARN for confirmed subscriptions, the response also includes the
--- @pending subscription@ ARN value for subscriptions that aren\'t yet
--- confirmed. A subscription becomes confirmed when the subscriber calls
--- the @ConfirmSubscription@ action with a confirmation token.
---
--- The default value is @false@.
---
 -- 'attributes', 'subscribe_attributes' - A map of attributes with their corresponding values.
 --
 -- The following lists the names, descriptions, and values of the special
@@ -200,6 +197,14 @@ data Subscribe = Subscribe'
 -- -   @FilterPolicy@ – The simple JSON object that lets your subscriber
 --     receive only a subset of messages, rather than receiving every
 --     message published to the topic.
+--
+-- -   @FilterPolicyScope@ – This attribute lets you choose the filtering
+--     scope by using one of the following string value types:
+--
+--     -   @MessageAttributes@ (default) – The filter is applied on the
+--         message attributes.
+--
+--     -   @MessageBody@ – The filter is applied on the message body.
 --
 -- -   @RawMessageDelivery@ – When set to @true@, enables raw message
 --     delivery to Amazon SQS or HTTP\/S endpoints. This eliminates the
@@ -257,6 +262,18 @@ data Subscribe = Subscribe'
 -- -   For the @firehose@ protocol, the endpoint is the ARN of an Amazon
 --     Kinesis Data Firehose delivery stream.
 --
+-- 'returnSubscriptionArn', 'subscribe_returnSubscriptionArn' - Sets whether the response from the @Subscribe@ request includes the
+-- subscription ARN, even if the subscription is not yet confirmed.
+--
+-- If you set this parameter to @true@, the response includes the ARN in
+-- all cases, even if the subscription is not yet confirmed. In addition to
+-- the ARN for confirmed subscriptions, the response also includes the
+-- @pending subscription@ ARN value for subscriptions that aren\'t yet
+-- confirmed. A subscription becomes confirmed when the subscriber calls
+-- the @ConfirmSubscription@ action with a confirmation token.
+--
+-- The default value is @false@.
+--
 -- 'topicArn', 'subscribe_topicArn' - The ARN of the topic you want to subscribe to.
 --
 -- 'protocol', 'subscribe_protocol' - The protocol that you want to use. Supported protocols include:
@@ -288,26 +305,12 @@ newSubscribe ::
   Subscribe
 newSubscribe pTopicArn_ pProtocol_ =
   Subscribe'
-    { returnSubscriptionArn = Prelude.Nothing,
-      attributes = Prelude.Nothing,
+    { attributes = Prelude.Nothing,
       endpoint = Prelude.Nothing,
+      returnSubscriptionArn = Prelude.Nothing,
       topicArn = pTopicArn_,
       protocol = pProtocol_
     }
-
--- | Sets whether the response from the @Subscribe@ request includes the
--- subscription ARN, even if the subscription is not yet confirmed.
---
--- If you set this parameter to @true@, the response includes the ARN in
--- all cases, even if the subscription is not yet confirmed. In addition to
--- the ARN for confirmed subscriptions, the response also includes the
--- @pending subscription@ ARN value for subscriptions that aren\'t yet
--- confirmed. A subscription becomes confirmed when the subscriber calls
--- the @ConfirmSubscription@ action with a confirmation token.
---
--- The default value is @false@.
-subscribe_returnSubscriptionArn :: Lens.Lens' Subscribe (Prelude.Maybe Prelude.Bool)
-subscribe_returnSubscriptionArn = Lens.lens (\Subscribe' {returnSubscriptionArn} -> returnSubscriptionArn) (\s@Subscribe' {} a -> s {returnSubscriptionArn = a} :: Subscribe)
 
 -- | A map of attributes with their corresponding values.
 --
@@ -320,6 +323,14 @@ subscribe_returnSubscriptionArn = Lens.lens (\Subscribe' {returnSubscriptionArn}
 -- -   @FilterPolicy@ – The simple JSON object that lets your subscriber
 --     receive only a subset of messages, rather than receiving every
 --     message published to the topic.
+--
+-- -   @FilterPolicyScope@ – This attribute lets you choose the filtering
+--     scope by using one of the following string value types:
+--
+--     -   @MessageAttributes@ (default) – The filter is applied on the
+--         message attributes.
+--
+--     -   @MessageBody@ – The filter is applied on the message body.
 --
 -- -   @RawMessageDelivery@ – When set to @true@, enables raw message
 --     delivery to Amazon SQS or HTTP\/S endpoints. This eliminates the
@@ -381,6 +392,20 @@ subscribe_attributes = Lens.lens (\Subscribe' {attributes} -> attributes) (\s@Su
 subscribe_endpoint :: Lens.Lens' Subscribe (Prelude.Maybe Prelude.Text)
 subscribe_endpoint = Lens.lens (\Subscribe' {endpoint} -> endpoint) (\s@Subscribe' {} a -> s {endpoint = a} :: Subscribe)
 
+-- | Sets whether the response from the @Subscribe@ request includes the
+-- subscription ARN, even if the subscription is not yet confirmed.
+--
+-- If you set this parameter to @true@, the response includes the ARN in
+-- all cases, even if the subscription is not yet confirmed. In addition to
+-- the ARN for confirmed subscriptions, the response also includes the
+-- @pending subscription@ ARN value for subscriptions that aren\'t yet
+-- confirmed. A subscription becomes confirmed when the subscriber calls
+-- the @ConfirmSubscription@ action with a confirmation token.
+--
+-- The default value is @false@.
+subscribe_returnSubscriptionArn :: Lens.Lens' Subscribe (Prelude.Maybe Prelude.Bool)
+subscribe_returnSubscriptionArn = Lens.lens (\Subscribe' {returnSubscriptionArn} -> returnSubscriptionArn) (\s@Subscribe' {} a -> s {returnSubscriptionArn = a} :: Subscribe)
+
 -- | The ARN of the topic you want to subscribe to.
 subscribe_topicArn :: Lens.Lens' Subscribe Prelude.Text
 subscribe_topicArn = Lens.lens (\Subscribe' {topicArn} -> topicArn) (\s@Subscribe' {} a -> s {topicArn = a} :: Subscribe)
@@ -411,55 +436,56 @@ subscribe_protocol = Lens.lens (\Subscribe' {protocol} -> protocol) (\s@Subscrib
 
 instance Core.AWSRequest Subscribe where
   type AWSResponse Subscribe = SubscribeResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "SubscribeResult"
       ( \s h x ->
           SubscribeResponse'
-            Prelude.<$> (x Core..@? "SubscriptionArn")
+            Prelude.<$> (x Data..@? "SubscriptionArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable Subscribe where
   hashWithSalt _salt Subscribe' {..} =
-    _salt `Prelude.hashWithSalt` returnSubscriptionArn
-      `Prelude.hashWithSalt` attributes
+    _salt `Prelude.hashWithSalt` attributes
       `Prelude.hashWithSalt` endpoint
+      `Prelude.hashWithSalt` returnSubscriptionArn
       `Prelude.hashWithSalt` topicArn
       `Prelude.hashWithSalt` protocol
 
 instance Prelude.NFData Subscribe where
   rnf Subscribe' {..} =
-    Prelude.rnf returnSubscriptionArn
-      `Prelude.seq` Prelude.rnf attributes
+    Prelude.rnf attributes
       `Prelude.seq` Prelude.rnf endpoint
+      `Prelude.seq` Prelude.rnf returnSubscriptionArn
       `Prelude.seq` Prelude.rnf topicArn
       `Prelude.seq` Prelude.rnf protocol
 
-instance Core.ToHeaders Subscribe where
+instance Data.ToHeaders Subscribe where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath Subscribe where
+instance Data.ToPath Subscribe where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery Subscribe where
+instance Data.ToQuery Subscribe where
   toQuery Subscribe' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("Subscribe" :: Prelude.ByteString),
+          Data.=: ("Subscribe" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-03-31" :: Prelude.ByteString),
-        "ReturnSubscriptionArn"
-          Core.=: returnSubscriptionArn,
+          Data.=: ("2010-03-31" :: Prelude.ByteString),
         "Attributes"
-          Core.=: Core.toQuery
-            ( Core.toQueryMap "entry" "key" "value"
+          Data.=: Data.toQuery
+            ( Data.toQueryMap "entry" "key" "value"
                 Prelude.<$> attributes
             ),
-        "Endpoint" Core.=: endpoint,
-        "TopicArn" Core.=: topicArn,
-        "Protocol" Core.=: protocol
+        "Endpoint" Data.=: endpoint,
+        "ReturnSubscriptionArn"
+          Data.=: returnSubscriptionArn,
+        "TopicArn" Data.=: topicArn,
+        "Protocol" Data.=: protocol
       ]
 
 -- | Response for Subscribe action.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.PutBucketMetricsConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -71,7 +71,8 @@ module Amazonka.S3.PutBucketMetricsConfiguration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,8 +81,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newPutBucketMetricsConfiguration' smart constructor.
 data PutBucketMetricsConfiguration = PutBucketMetricsConfiguration'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the bucket for which the metrics configuration is set.
     bucket :: BucketName,
@@ -101,8 +102,8 @@ data PutBucketMetricsConfiguration = PutBucketMetricsConfiguration'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'putBucketMetricsConfiguration_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'putBucketMetricsConfiguration_bucket' - The name of the bucket for which the metrics configuration is set.
 --
@@ -131,8 +132,8 @@ newPutBucketMetricsConfiguration
       }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 putBucketMetricsConfiguration_expectedBucketOwner :: Lens.Lens' PutBucketMetricsConfiguration (Prelude.Maybe Prelude.Text)
 putBucketMetricsConfiguration_expectedBucketOwner = Lens.lens (\PutBucketMetricsConfiguration' {expectedBucketOwner} -> expectedBucketOwner) (\s@PutBucketMetricsConfiguration' {} a -> s {expectedBucketOwner = a} :: PutBucketMetricsConfiguration)
 
@@ -155,9 +156,9 @@ instance
   type
     AWSResponse PutBucketMetricsConfiguration =
       PutBucketMetricsConfigurationResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.putXML defaultService
+      Prelude.. Request.putXML (overrides defaultService)
   response =
     Response.receiveNull
       PutBucketMetricsConfigurationResponse'
@@ -179,26 +180,26 @@ instance Prelude.NFData PutBucketMetricsConfiguration where
       `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf metricsConfiguration
 
-instance Core.ToElement PutBucketMetricsConfiguration where
+instance Data.ToElement PutBucketMetricsConfiguration where
   toElement PutBucketMetricsConfiguration' {..} =
-    Core.mkElement
+    Data.mkElement
       "{http://s3.amazonaws.com/doc/2006-03-01/}MetricsConfiguration"
       metricsConfiguration
 
-instance Core.ToHeaders PutBucketMetricsConfiguration where
+instance Data.ToHeaders PutBucketMetricsConfiguration where
   toHeaders PutBucketMetricsConfiguration' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath PutBucketMetricsConfiguration where
+instance Data.ToPath PutBucketMetricsConfiguration where
   toPath PutBucketMetricsConfiguration' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery PutBucketMetricsConfiguration where
+instance Data.ToQuery PutBucketMetricsConfiguration where
   toQuery PutBucketMetricsConfiguration' {..} =
-    Prelude.mconcat ["id" Core.=: id, "metrics"]
+    Prelude.mconcat ["id" Data.=: id, "metrics"]
 
 -- | /See:/ 'newPutBucketMetricsConfigurationResponse' smart constructor.
 data PutBucketMetricsConfigurationResponse = PutBucketMetricsConfigurationResponse'

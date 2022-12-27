@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.DataSetConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.DataSetConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types.ColumnGroupSchema
 import Amazonka.QuickSight.Types.DataSetSchema
@@ -73,17 +74,17 @@ dataSetConfiguration_dataSetSchema = Lens.lens (\DataSetConfiguration' {dataSetS
 dataSetConfiguration_placeholder :: Lens.Lens' DataSetConfiguration (Prelude.Maybe Prelude.Text)
 dataSetConfiguration_placeholder = Lens.lens (\DataSetConfiguration' {placeholder} -> placeholder) (\s@DataSetConfiguration' {} a -> s {placeholder = a} :: DataSetConfiguration)
 
-instance Core.FromJSON DataSetConfiguration where
+instance Data.FromJSON DataSetConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DataSetConfiguration"
       ( \x ->
           DataSetConfiguration'
-            Prelude.<$> ( x Core..:? "ColumnGroupSchemaList"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "ColumnGroupSchemaList"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "DataSetSchema")
-            Prelude.<*> (x Core..:? "Placeholder")
+            Prelude.<*> (x Data..:? "DataSetSchema")
+            Prelude.<*> (x Data..:? "Placeholder")
       )
 
 instance Prelude.Hashable DataSetConfiguration where
@@ -97,3 +98,14 @@ instance Prelude.NFData DataSetConfiguration where
     Prelude.rnf columnGroupSchemaList
       `Prelude.seq` Prelude.rnf dataSetSchema
       `Prelude.seq` Prelude.rnf placeholder
+
+instance Data.ToJSON DataSetConfiguration where
+  toJSON DataSetConfiguration' {..} =
+    Data.object
+      ( Prelude.catMaybes
+          [ ("ColumnGroupSchemaList" Data..=)
+              Prelude.<$> columnGroupSchemaList,
+            ("DataSetSchema" Data..=) Prelude.<$> dataSetSchema,
+            ("Placeholder" Data..=) Prelude.<$> placeholder
+          ]
+      )

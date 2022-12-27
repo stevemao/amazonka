@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.StopBuild
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.CodeBuild.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -74,12 +75,13 @@ stopBuild_id = Lens.lens (\StopBuild' {id} -> id) (\s@StopBuild' {} a -> s {id =
 
 instance Core.AWSRequest StopBuild where
   type AWSResponse StopBuild = StopBuildResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StopBuildResponse'
-            Prelude.<$> (x Core..?> "build")
+            Prelude.<$> (x Data..?> "build")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -90,30 +92,30 @@ instance Prelude.Hashable StopBuild where
 instance Prelude.NFData StopBuild where
   rnf StopBuild' {..} = Prelude.rnf id
 
-instance Core.ToHeaders StopBuild where
+instance Data.ToHeaders StopBuild where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeBuild_20161006.StopBuild" ::
+              Data.=# ( "CodeBuild_20161006.StopBuild" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopBuild where
+instance Data.ToJSON StopBuild where
   toJSON StopBuild' {..} =
-    Core.object
-      (Prelude.catMaybes [Prelude.Just ("id" Core..= id)])
+    Data.object
+      (Prelude.catMaybes [Prelude.Just ("id" Data..= id)])
 
-instance Core.ToPath StopBuild where
+instance Data.ToPath StopBuild where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopBuild where
+instance Data.ToQuery StopBuild where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopBuildResponse' smart constructor.

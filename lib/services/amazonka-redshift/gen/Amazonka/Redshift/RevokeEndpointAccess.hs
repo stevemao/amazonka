@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.RevokeEndpointAccess
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,9 +27,9 @@ module Amazonka.Redshift.RevokeEndpointAccess
     newRevokeEndpointAccess,
 
     -- * Request Lenses
-    revokeEndpointAccess_force,
-    revokeEndpointAccess_clusterIdentifier,
     revokeEndpointAccess_account,
+    revokeEndpointAccess_clusterIdentifier,
+    revokeEndpointAccess_force,
     revokeEndpointAccess_vpcIds,
 
     -- * Destructuring the Response
@@ -37,20 +37,21 @@ module Amazonka.Redshift.RevokeEndpointAccess
     newEndpointAuthorization,
 
     -- * Response Lenses
-    endpointAuthorization_status,
     endpointAuthorization_allowedAllVPCs,
-    endpointAuthorization_endpointCount,
-    endpointAuthorization_grantor,
-    endpointAuthorization_clusterIdentifier,
-    endpointAuthorization_grantee,
     endpointAuthorization_allowedVPCs,
-    endpointAuthorization_clusterStatus,
     endpointAuthorization_authorizeTime,
+    endpointAuthorization_clusterIdentifier,
+    endpointAuthorization_clusterStatus,
+    endpointAuthorization_endpointCount,
+    endpointAuthorization_grantee,
+    endpointAuthorization_grantor,
+    endpointAuthorization_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -58,14 +59,14 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newRevokeEndpointAccess' smart constructor.
 data RevokeEndpointAccess = RevokeEndpointAccess'
-  { -- | Indicates whether to force the revoke action. If true, the
+  { -- | The Amazon Web Services account ID whose access is to be revoked.
+    account :: Prelude.Maybe Prelude.Text,
+    -- | The cluster to revoke access from.
+    clusterIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether to force the revoke action. If true, the
     -- Redshift-managed VPC endpoints associated with the endpoint
     -- authorization are also deleted.
     force :: Prelude.Maybe Prelude.Bool,
-    -- | The cluster to revoke access from.
-    clusterIdentifier :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Web Services account ID whose access is to be revoked.
-    account :: Prelude.Maybe Prelude.Text,
     -- | The virtual private cloud (VPC) identifiers for which access is to be
     -- revoked.
     vpcIds :: Prelude.Maybe [Prelude.Text]
@@ -80,13 +81,13 @@ data RevokeEndpointAccess = RevokeEndpointAccess'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'force', 'revokeEndpointAccess_force' - Indicates whether to force the revoke action. If true, the
--- Redshift-managed VPC endpoints associated with the endpoint
--- authorization are also deleted.
+-- 'account', 'revokeEndpointAccess_account' - The Amazon Web Services account ID whose access is to be revoked.
 --
 -- 'clusterIdentifier', 'revokeEndpointAccess_clusterIdentifier' - The cluster to revoke access from.
 --
--- 'account', 'revokeEndpointAccess_account' - The Amazon Web Services account ID whose access is to be revoked.
+-- 'force', 'revokeEndpointAccess_force' - Indicates whether to force the revoke action. If true, the
+-- Redshift-managed VPC endpoints associated with the endpoint
+-- authorization are also deleted.
 --
 -- 'vpcIds', 'revokeEndpointAccess_vpcIds' - The virtual private cloud (VPC) identifiers for which access is to be
 -- revoked.
@@ -94,25 +95,25 @@ newRevokeEndpointAccess ::
   RevokeEndpointAccess
 newRevokeEndpointAccess =
   RevokeEndpointAccess'
-    { force = Prelude.Nothing,
+    { account = Prelude.Nothing,
       clusterIdentifier = Prelude.Nothing,
-      account = Prelude.Nothing,
+      force = Prelude.Nothing,
       vpcIds = Prelude.Nothing
     }
+
+-- | The Amazon Web Services account ID whose access is to be revoked.
+revokeEndpointAccess_account :: Lens.Lens' RevokeEndpointAccess (Prelude.Maybe Prelude.Text)
+revokeEndpointAccess_account = Lens.lens (\RevokeEndpointAccess' {account} -> account) (\s@RevokeEndpointAccess' {} a -> s {account = a} :: RevokeEndpointAccess)
+
+-- | The cluster to revoke access from.
+revokeEndpointAccess_clusterIdentifier :: Lens.Lens' RevokeEndpointAccess (Prelude.Maybe Prelude.Text)
+revokeEndpointAccess_clusterIdentifier = Lens.lens (\RevokeEndpointAccess' {clusterIdentifier} -> clusterIdentifier) (\s@RevokeEndpointAccess' {} a -> s {clusterIdentifier = a} :: RevokeEndpointAccess)
 
 -- | Indicates whether to force the revoke action. If true, the
 -- Redshift-managed VPC endpoints associated with the endpoint
 -- authorization are also deleted.
 revokeEndpointAccess_force :: Lens.Lens' RevokeEndpointAccess (Prelude.Maybe Prelude.Bool)
 revokeEndpointAccess_force = Lens.lens (\RevokeEndpointAccess' {force} -> force) (\s@RevokeEndpointAccess' {} a -> s {force = a} :: RevokeEndpointAccess)
-
--- | The cluster to revoke access from.
-revokeEndpointAccess_clusterIdentifier :: Lens.Lens' RevokeEndpointAccess (Prelude.Maybe Prelude.Text)
-revokeEndpointAccess_clusterIdentifier = Lens.lens (\RevokeEndpointAccess' {clusterIdentifier} -> clusterIdentifier) (\s@RevokeEndpointAccess' {} a -> s {clusterIdentifier = a} :: RevokeEndpointAccess)
-
--- | The Amazon Web Services account ID whose access is to be revoked.
-revokeEndpointAccess_account :: Lens.Lens' RevokeEndpointAccess (Prelude.Maybe Prelude.Text)
-revokeEndpointAccess_account = Lens.lens (\RevokeEndpointAccess' {account} -> account) (\s@RevokeEndpointAccess' {} a -> s {account = a} :: RevokeEndpointAccess)
 
 -- | The virtual private cloud (VPC) identifiers for which access is to be
 -- revoked.
@@ -123,45 +124,46 @@ instance Core.AWSRequest RevokeEndpointAccess where
   type
     AWSResponse RevokeEndpointAccess =
       EndpointAuthorization
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "RevokeEndpointAccessResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance Prelude.Hashable RevokeEndpointAccess where
   hashWithSalt _salt RevokeEndpointAccess' {..} =
-    _salt `Prelude.hashWithSalt` force
+    _salt `Prelude.hashWithSalt` account
       `Prelude.hashWithSalt` clusterIdentifier
-      `Prelude.hashWithSalt` account
+      `Prelude.hashWithSalt` force
       `Prelude.hashWithSalt` vpcIds
 
 instance Prelude.NFData RevokeEndpointAccess where
   rnf RevokeEndpointAccess' {..} =
-    Prelude.rnf force
+    Prelude.rnf account
       `Prelude.seq` Prelude.rnf clusterIdentifier
-      `Prelude.seq` Prelude.rnf account
+      `Prelude.seq` Prelude.rnf force
       `Prelude.seq` Prelude.rnf vpcIds
 
-instance Core.ToHeaders RevokeEndpointAccess where
+instance Data.ToHeaders RevokeEndpointAccess where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath RevokeEndpointAccess where
+instance Data.ToPath RevokeEndpointAccess where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RevokeEndpointAccess where
+instance Data.ToQuery RevokeEndpointAccess where
   toQuery RevokeEndpointAccess' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("RevokeEndpointAccess" :: Prelude.ByteString),
+          Data.=: ("RevokeEndpointAccess" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "Force" Core.=: force,
-        "ClusterIdentifier" Core.=: clusterIdentifier,
-        "Account" Core.=: account,
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "Account" Data.=: account,
+        "ClusterIdentifier" Data.=: clusterIdentifier,
+        "Force" Data.=: force,
         "VpcIds"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "VpcIdentifier"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "VpcIdentifier"
                 Prelude.<$> vpcIds
             )
       ]

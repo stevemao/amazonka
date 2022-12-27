@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.Types.WorkflowExecutionFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SWF.Types.WorkflowExecutionFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Used to filter the workflow executions in visibility APIs by their
@@ -61,9 +62,9 @@ instance Prelude.NFData WorkflowExecutionFilter where
   rnf WorkflowExecutionFilter' {..} =
     Prelude.rnf workflowId
 
-instance Core.ToJSON WorkflowExecutionFilter where
+instance Data.ToJSON WorkflowExecutionFilter where
   toJSON WorkflowExecutionFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("workflowId" Core..= workflowId)]
+          [Prelude.Just ("workflowId" Data..= workflowId)]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSO.Types.RoleInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.SSO.Types.RoleInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides information about the role that is assigned to the user.
 --
 -- /See:/ 'newRoleInfo' smart constructor.
 data RoleInfo = RoleInfo'
-  { -- | The friendly name of the role that is assigned to the user.
-    roleName :: Prelude.Maybe Prelude.Text,
-    -- | The identifier of the AWS account assigned to the user.
-    accountId :: Prelude.Maybe Prelude.Text
+  { -- | The identifier of the AWS account assigned to the user.
+    accountId :: Prelude.Maybe Prelude.Text,
+    -- | The friendly name of the role that is assigned to the user.
+    roleName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,41 +43,41 @@ data RoleInfo = RoleInfo'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'roleName', 'roleInfo_roleName' - The friendly name of the role that is assigned to the user.
---
 -- 'accountId', 'roleInfo_accountId' - The identifier of the AWS account assigned to the user.
+--
+-- 'roleName', 'roleInfo_roleName' - The friendly name of the role that is assigned to the user.
 newRoleInfo ::
   RoleInfo
 newRoleInfo =
   RoleInfo'
-    { roleName = Prelude.Nothing,
-      accountId = Prelude.Nothing
+    { accountId = Prelude.Nothing,
+      roleName = Prelude.Nothing
     }
-
--- | The friendly name of the role that is assigned to the user.
-roleInfo_roleName :: Lens.Lens' RoleInfo (Prelude.Maybe Prelude.Text)
-roleInfo_roleName = Lens.lens (\RoleInfo' {roleName} -> roleName) (\s@RoleInfo' {} a -> s {roleName = a} :: RoleInfo)
 
 -- | The identifier of the AWS account assigned to the user.
 roleInfo_accountId :: Lens.Lens' RoleInfo (Prelude.Maybe Prelude.Text)
 roleInfo_accountId = Lens.lens (\RoleInfo' {accountId} -> accountId) (\s@RoleInfo' {} a -> s {accountId = a} :: RoleInfo)
 
-instance Core.FromJSON RoleInfo where
+-- | The friendly name of the role that is assigned to the user.
+roleInfo_roleName :: Lens.Lens' RoleInfo (Prelude.Maybe Prelude.Text)
+roleInfo_roleName = Lens.lens (\RoleInfo' {roleName} -> roleName) (\s@RoleInfo' {} a -> s {roleName = a} :: RoleInfo)
+
+instance Data.FromJSON RoleInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RoleInfo"
       ( \x ->
           RoleInfo'
-            Prelude.<$> (x Core..:? "roleName")
-            Prelude.<*> (x Core..:? "accountId")
+            Prelude.<$> (x Data..:? "accountId")
+            Prelude.<*> (x Data..:? "roleName")
       )
 
 instance Prelude.Hashable RoleInfo where
   hashWithSalt _salt RoleInfo' {..} =
-    _salt `Prelude.hashWithSalt` roleName
-      `Prelude.hashWithSalt` accountId
+    _salt `Prelude.hashWithSalt` accountId
+      `Prelude.hashWithSalt` roleName
 
 instance Prelude.NFData RoleInfo where
   rnf RoleInfo' {..} =
-    Prelude.rnf roleName
-      `Prelude.seq` Prelude.rnf accountId
+    Prelude.rnf accountId
+      `Prelude.seq` Prelude.rnf roleName

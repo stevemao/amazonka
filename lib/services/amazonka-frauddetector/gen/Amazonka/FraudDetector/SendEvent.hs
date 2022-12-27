@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.SendEvent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.FraudDetector.SendEvent
     newSendEvent,
 
     -- * Request Lenses
-    sendEvent_labelTimestamp,
     sendEvent_assignedLabel,
+    sendEvent_labelTimestamp,
     sendEvent_eventId,
     sendEvent_eventTypeName,
     sendEvent_eventTimestamp,
@@ -48,20 +48,21 @@ module Amazonka.FraudDetector.SendEvent
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newSendEvent' smart constructor.
 data SendEvent = SendEvent'
-  { -- | The timestamp associated with the label. Required if specifying
-    -- @assignedLabel@.
-    labelTimestamp :: Prelude.Maybe Prelude.Text,
-    -- | The label to associate with the event. Required if specifying
+  { -- | The label to associate with the event. Required if specifying
     -- @labelTimestamp@.
     assignedLabel :: Prelude.Maybe Prelude.Text,
+    -- | The timestamp associated with the label. Required if specifying
+    -- @assignedLabel@.
+    labelTimestamp :: Prelude.Maybe Prelude.Text,
     -- | The event ID to upload.
     eventId :: Prelude.Text,
     -- | The event type name of the event.
@@ -72,9 +73,9 @@ data SendEvent = SendEvent'
     -- | Names of the event type\'s variables you defined in Amazon Fraud
     -- Detector to represent data elements and their corresponding values for
     -- the event you are sending for evaluation.
-    eventVariables :: Prelude.HashMap Prelude.Text (Core.Sensitive Prelude.Text),
+    eventVariables :: Prelude.HashMap Prelude.Text (Data.Sensitive Prelude.Text),
     -- | An array of entities.
-    entities :: [Core.Sensitive Entity]
+    entities :: [Data.Sensitive Entity]
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -86,11 +87,11 @@ data SendEvent = SendEvent'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'labelTimestamp', 'sendEvent_labelTimestamp' - The timestamp associated with the label. Required if specifying
--- @assignedLabel@.
---
 -- 'assignedLabel', 'sendEvent_assignedLabel' - The label to associate with the event. Required if specifying
 -- @labelTimestamp@.
+--
+-- 'labelTimestamp', 'sendEvent_labelTimestamp' - The timestamp associated with the label. Required if specifying
+-- @assignedLabel@.
 --
 -- 'eventId', 'sendEvent_eventId' - The event ID to upload.
 --
@@ -117,8 +118,8 @@ newSendEvent
   pEventTypeName_
   pEventTimestamp_ =
     SendEvent'
-      { labelTimestamp = Prelude.Nothing,
-        assignedLabel = Prelude.Nothing,
+      { assignedLabel = Prelude.Nothing,
+        labelTimestamp = Prelude.Nothing,
         eventId = pEventId_,
         eventTypeName = pEventTypeName_,
         eventTimestamp = pEventTimestamp_,
@@ -126,15 +127,15 @@ newSendEvent
         entities = Prelude.mempty
       }
 
--- | The timestamp associated with the label. Required if specifying
--- @assignedLabel@.
-sendEvent_labelTimestamp :: Lens.Lens' SendEvent (Prelude.Maybe Prelude.Text)
-sendEvent_labelTimestamp = Lens.lens (\SendEvent' {labelTimestamp} -> labelTimestamp) (\s@SendEvent' {} a -> s {labelTimestamp = a} :: SendEvent)
-
 -- | The label to associate with the event. Required if specifying
 -- @labelTimestamp@.
 sendEvent_assignedLabel :: Lens.Lens' SendEvent (Prelude.Maybe Prelude.Text)
 sendEvent_assignedLabel = Lens.lens (\SendEvent' {assignedLabel} -> assignedLabel) (\s@SendEvent' {} a -> s {assignedLabel = a} :: SendEvent)
+
+-- | The timestamp associated with the label. Required if specifying
+-- @assignedLabel@.
+sendEvent_labelTimestamp :: Lens.Lens' SendEvent (Prelude.Maybe Prelude.Text)
+sendEvent_labelTimestamp = Lens.lens (\SendEvent' {labelTimestamp} -> labelTimestamp) (\s@SendEvent' {} a -> s {labelTimestamp = a} :: SendEvent)
 
 -- | The event ID to upload.
 sendEvent_eventId :: Lens.Lens' SendEvent Prelude.Text
@@ -161,7 +162,8 @@ sendEvent_entities = Lens.lens (\SendEvent' {entities} -> entities) (\s@SendEven
 
 instance Core.AWSRequest SendEvent where
   type AWSResponse SendEvent = SendEventResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -171,8 +173,8 @@ instance Core.AWSRequest SendEvent where
 
 instance Prelude.Hashable SendEvent where
   hashWithSalt _salt SendEvent' {..} =
-    _salt `Prelude.hashWithSalt` labelTimestamp
-      `Prelude.hashWithSalt` assignedLabel
+    _salt `Prelude.hashWithSalt` assignedLabel
+      `Prelude.hashWithSalt` labelTimestamp
       `Prelude.hashWithSalt` eventId
       `Prelude.hashWithSalt` eventTypeName
       `Prelude.hashWithSalt` eventTimestamp
@@ -181,50 +183,50 @@ instance Prelude.Hashable SendEvent where
 
 instance Prelude.NFData SendEvent where
   rnf SendEvent' {..} =
-    Prelude.rnf labelTimestamp
-      `Prelude.seq` Prelude.rnf assignedLabel
+    Prelude.rnf assignedLabel
+      `Prelude.seq` Prelude.rnf labelTimestamp
       `Prelude.seq` Prelude.rnf eventId
       `Prelude.seq` Prelude.rnf eventTypeName
       `Prelude.seq` Prelude.rnf eventTimestamp
       `Prelude.seq` Prelude.rnf eventVariables
       `Prelude.seq` Prelude.rnf entities
 
-instance Core.ToHeaders SendEvent where
+instance Data.ToHeaders SendEvent where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.SendEvent" ::
+              Data.=# ( "AWSHawksNestServiceFacade.SendEvent" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SendEvent where
+instance Data.ToJSON SendEvent where
   toJSON SendEvent' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("labelTimestamp" Core..=)
+          [ ("assignedLabel" Data..=) Prelude.<$> assignedLabel,
+            ("labelTimestamp" Data..=)
               Prelude.<$> labelTimestamp,
-            ("assignedLabel" Core..=) Prelude.<$> assignedLabel,
-            Prelude.Just ("eventId" Core..= eventId),
-            Prelude.Just ("eventTypeName" Core..= eventTypeName),
+            Prelude.Just ("eventId" Data..= eventId),
+            Prelude.Just ("eventTypeName" Data..= eventTypeName),
             Prelude.Just
-              ("eventTimestamp" Core..= eventTimestamp),
+              ("eventTimestamp" Data..= eventTimestamp),
             Prelude.Just
-              ("eventVariables" Core..= eventVariables),
-            Prelude.Just ("entities" Core..= entities)
+              ("eventVariables" Data..= eventVariables),
+            Prelude.Just ("entities" Data..= entities)
           ]
       )
 
-instance Core.ToPath SendEvent where
+instance Data.ToPath SendEvent where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SendEvent where
+instance Data.ToQuery SendEvent where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSendEventResponse' smart constructor.

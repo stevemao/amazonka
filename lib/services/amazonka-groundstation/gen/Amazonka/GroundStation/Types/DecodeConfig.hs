@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GroundStation.Types.DecodeConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.GroundStation.Types.DecodeConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the decode @Config@.
@@ -52,13 +53,13 @@ newDecodeConfig pUnvalidatedJSON_ =
 decodeConfig_unvalidatedJSON :: Lens.Lens' DecodeConfig Prelude.Text
 decodeConfig_unvalidatedJSON = Lens.lens (\DecodeConfig' {unvalidatedJSON} -> unvalidatedJSON) (\s@DecodeConfig' {} a -> s {unvalidatedJSON = a} :: DecodeConfig)
 
-instance Core.FromJSON DecodeConfig where
+instance Data.FromJSON DecodeConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DecodeConfig"
       ( \x ->
           DecodeConfig'
-            Prelude.<$> (x Core..: "unvalidatedJSON")
+            Prelude.<$> (x Data..: "unvalidatedJSON")
       )
 
 instance Prelude.Hashable DecodeConfig where
@@ -68,11 +69,11 @@ instance Prelude.Hashable DecodeConfig where
 instance Prelude.NFData DecodeConfig where
   rnf DecodeConfig' {..} = Prelude.rnf unvalidatedJSON
 
-instance Core.ToJSON DecodeConfig where
+instance Data.ToJSON DecodeConfig where
   toJSON DecodeConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("unvalidatedJSON" Core..= unvalidatedJSON)
+              ("unvalidatedJSON" Data..= unvalidatedJSON)
           ]
       )

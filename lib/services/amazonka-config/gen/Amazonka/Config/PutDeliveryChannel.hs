@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.PutDeliveryChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,7 +98,8 @@ instance Core.AWSRequest PutDeliveryChannel where
   type
     AWSResponse PutDeliveryChannel =
       PutDeliveryChannelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull PutDeliveryChannelResponse'
 
@@ -109,34 +111,34 @@ instance Prelude.NFData PutDeliveryChannel where
   rnf PutDeliveryChannel' {..} =
     Prelude.rnf deliveryChannel
 
-instance Core.ToHeaders PutDeliveryChannel where
+instance Data.ToHeaders PutDeliveryChannel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.PutDeliveryChannel" ::
+              Data.=# ( "StarlingDoveService.PutDeliveryChannel" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutDeliveryChannel where
+instance Data.ToJSON PutDeliveryChannel where
   toJSON PutDeliveryChannel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("DeliveryChannel" Core..= deliveryChannel)
+              ("DeliveryChannel" Data..= deliveryChannel)
           ]
       )
 
-instance Core.ToPath PutDeliveryChannel where
+instance Data.ToPath PutDeliveryChannel where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutDeliveryChannel where
+instance Data.ToQuery PutDeliveryChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutDeliveryChannelResponse' smart constructor.

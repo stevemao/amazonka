@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.Asset
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.Asset where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types.GroundTruthManifest
 
@@ -52,13 +53,13 @@ newAsset =
 asset_groundTruthManifest :: Lens.Lens' Asset (Prelude.Maybe GroundTruthManifest)
 asset_groundTruthManifest = Lens.lens (\Asset' {groundTruthManifest} -> groundTruthManifest) (\s@Asset' {} a -> s {groundTruthManifest = a} :: Asset)
 
-instance Core.FromJSON Asset where
+instance Data.FromJSON Asset where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Asset"
       ( \x ->
           Asset'
-            Prelude.<$> (x Core..:? "GroundTruthManifest")
+            Prelude.<$> (x Data..:? "GroundTruthManifest")
       )
 
 instance Prelude.Hashable Asset where
@@ -68,11 +69,11 @@ instance Prelude.Hashable Asset where
 instance Prelude.NFData Asset where
   rnf Asset' {..} = Prelude.rnf groundTruthManifest
 
-instance Core.ToJSON Asset where
+instance Data.ToJSON Asset where
   toJSON Asset' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("GroundTruthManifest" Core..=)
+          [ ("GroundTruthManifest" Data..=)
               Prelude.<$> groundTruthManifest
           ]
       )

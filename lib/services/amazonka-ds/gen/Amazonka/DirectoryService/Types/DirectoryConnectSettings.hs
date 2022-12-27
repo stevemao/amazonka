@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.Types.DirectoryConnectSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DirectoryService.Types.DirectoryConnectSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information for the ConnectDirectory operation when an AD
@@ -130,15 +131,15 @@ instance Prelude.NFData DirectoryConnectSettings where
       `Prelude.seq` Prelude.rnf customerDnsIps
       `Prelude.seq` Prelude.rnf customerUserName
 
-instance Core.ToJSON DirectoryConnectSettings where
+instance Data.ToJSON DirectoryConnectSettings where
   toJSON DirectoryConnectSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("VpcId" Core..= vpcId),
-            Prelude.Just ("SubnetIds" Core..= subnetIds),
+          [ Prelude.Just ("VpcId" Data..= vpcId),
+            Prelude.Just ("SubnetIds" Data..= subnetIds),
             Prelude.Just
-              ("CustomerDnsIps" Core..= customerDnsIps),
+              ("CustomerDnsIps" Data..= customerDnsIps),
             Prelude.Just
-              ("CustomerUserName" Core..= customerUserName)
+              ("CustomerUserName" Data..= customerUserName)
           ]
       )

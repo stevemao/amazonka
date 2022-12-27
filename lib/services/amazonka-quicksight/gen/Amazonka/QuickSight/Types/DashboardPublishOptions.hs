@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.DashboardPublishOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,11 @@
 module Amazonka.QuickSight.Types.DashboardPublishOptions where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types.AdHocFilteringOption
+import Amazonka.QuickSight.Types.DashboardVisualPublishOptions
 import Amazonka.QuickSight.Types.ExportToCSVOption
 import Amazonka.QuickSight.Types.SheetControlsOption
 
@@ -35,7 +37,8 @@ data DashboardPublishOptions = DashboardPublishOptions'
     -- | Export to .csv option.
     exportToCSVOption :: Prelude.Maybe ExportToCSVOption,
     -- | Sheet controls option.
-    sheetControlsOption :: Prelude.Maybe SheetControlsOption
+    sheetControlsOption :: Prelude.Maybe SheetControlsOption,
+    visualPublishOptions :: Prelude.Maybe DashboardVisualPublishOptions
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -52,6 +55,8 @@ data DashboardPublishOptions = DashboardPublishOptions'
 -- 'exportToCSVOption', 'dashboardPublishOptions_exportToCSVOption' - Export to .csv option.
 --
 -- 'sheetControlsOption', 'dashboardPublishOptions_sheetControlsOption' - Sheet controls option.
+--
+-- 'visualPublishOptions', 'dashboardPublishOptions_visualPublishOptions' -
 newDashboardPublishOptions ::
   DashboardPublishOptions
 newDashboardPublishOptions =
@@ -59,7 +64,8 @@ newDashboardPublishOptions =
     { adHocFilteringOption =
         Prelude.Nothing,
       exportToCSVOption = Prelude.Nothing,
-      sheetControlsOption = Prelude.Nothing
+      sheetControlsOption = Prelude.Nothing,
+      visualPublishOptions = Prelude.Nothing
     }
 
 -- | Ad hoc (one-time) filtering option.
@@ -74,27 +80,35 @@ dashboardPublishOptions_exportToCSVOption = Lens.lens (\DashboardPublishOptions'
 dashboardPublishOptions_sheetControlsOption :: Lens.Lens' DashboardPublishOptions (Prelude.Maybe SheetControlsOption)
 dashboardPublishOptions_sheetControlsOption = Lens.lens (\DashboardPublishOptions' {sheetControlsOption} -> sheetControlsOption) (\s@DashboardPublishOptions' {} a -> s {sheetControlsOption = a} :: DashboardPublishOptions)
 
+-- |
+dashboardPublishOptions_visualPublishOptions :: Lens.Lens' DashboardPublishOptions (Prelude.Maybe DashboardVisualPublishOptions)
+dashboardPublishOptions_visualPublishOptions = Lens.lens (\DashboardPublishOptions' {visualPublishOptions} -> visualPublishOptions) (\s@DashboardPublishOptions' {} a -> s {visualPublishOptions = a} :: DashboardPublishOptions)
+
 instance Prelude.Hashable DashboardPublishOptions where
   hashWithSalt _salt DashboardPublishOptions' {..} =
     _salt `Prelude.hashWithSalt` adHocFilteringOption
       `Prelude.hashWithSalt` exportToCSVOption
       `Prelude.hashWithSalt` sheetControlsOption
+      `Prelude.hashWithSalt` visualPublishOptions
 
 instance Prelude.NFData DashboardPublishOptions where
   rnf DashboardPublishOptions' {..} =
     Prelude.rnf adHocFilteringOption
       `Prelude.seq` Prelude.rnf exportToCSVOption
       `Prelude.seq` Prelude.rnf sheetControlsOption
+      `Prelude.seq` Prelude.rnf visualPublishOptions
 
-instance Core.ToJSON DashboardPublishOptions where
+instance Data.ToJSON DashboardPublishOptions where
   toJSON DashboardPublishOptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AdHocFilteringOption" Core..=)
+          [ ("AdHocFilteringOption" Data..=)
               Prelude.<$> adHocFilteringOption,
-            ("ExportToCSVOption" Core..=)
+            ("ExportToCSVOption" Data..=)
               Prelude.<$> exportToCSVOption,
-            ("SheetControlsOption" Core..=)
-              Prelude.<$> sheetControlsOption
+            ("SheetControlsOption" Data..=)
+              Prelude.<$> sheetControlsOption,
+            ("VisualPublishOptions" Data..=)
+              Prelude.<$> visualPublishOptions
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.Types.DkimAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SESV2.Types.DkimAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SESV2.Types.DkimSigningAttributesOrigin
 import Amazonka.SESV2.Types.DkimSigningKeyLength
@@ -41,7 +42,28 @@ import Amazonka.SESV2.Types.DkimStatus
 --
 -- /See:/ 'newDkimAttributes' smart constructor.
 data DkimAttributes = DkimAttributes'
-  { -- | Describes whether or not Amazon SES has successfully located the DKIM
+  { -- | [Easy DKIM] The key length of the DKIM key pair in use.
+    currentSigningKeyLength :: Prelude.Maybe DkimSigningKeyLength,
+    -- | [Easy DKIM] The last time a key pair was generated for this identity.
+    lastKeyGenerationTimestamp :: Prelude.Maybe Data.POSIX,
+    -- | [Easy DKIM] The key length of the future DKIM key pair to be generated.
+    -- This can be changed at most once per day.
+    nextSigningKeyLength :: Prelude.Maybe DkimSigningKeyLength,
+    -- | A string that indicates how DKIM was configured for the identity. These
+    -- are the possible values:
+    --
+    -- -   @AWS_SES@ – Indicates that DKIM was configured for the identity by
+    --     using
+    --     <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim.html Easy DKIM>.
+    --
+    -- -   @EXTERNAL@ – Indicates that DKIM was configured for the identity by
+    --     using Bring Your Own DKIM (BYODKIM).
+    signingAttributesOrigin :: Prelude.Maybe DkimSigningAttributesOrigin,
+    -- | If the value is @true@, then the messages that you send from the
+    -- identity are signed using DKIM. If the value is @false@, then the
+    -- messages that you send from the identity aren\'t DKIM-signed.
+    signingEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | Describes whether or not Amazon SES has successfully located the DKIM
     -- records in the DNS records for the domain. The status can be one of the
     -- following:
     --
@@ -61,9 +83,6 @@ data DkimAttributes = DkimAttributes'
     -- -   @NOT_STARTED@ – The DKIM verification process hasn\'t been initiated
     --     for the domain.
     status :: Prelude.Maybe DkimStatus,
-    -- | [Easy DKIM] The key length of the future DKIM key pair to be generated.
-    -- This can be changed at most once per day.
-    nextSigningKeyLength :: Prelude.Maybe DkimSigningKeyLength,
     -- | If you used
     -- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim.html Easy DKIM>
     -- to configure DKIM authentication for the domain, then this object
@@ -79,25 +98,7 @@ data DkimAttributes = DkimAttributes'
     -- Regardless of the DKIM authentication method you use, Amazon SES
     -- searches for the appropriate records in the DNS configuration of the
     -- domain for up to 72 hours.
-    tokens :: Prelude.Maybe [Prelude.Text],
-    -- | If the value is @true@, then the messages that you send from the
-    -- identity are signed using DKIM. If the value is @false@, then the
-    -- messages that you send from the identity aren\'t DKIM-signed.
-    signingEnabled :: Prelude.Maybe Prelude.Bool,
-    -- | [Easy DKIM] The key length of the DKIM key pair in use.
-    currentSigningKeyLength :: Prelude.Maybe DkimSigningKeyLength,
-    -- | [Easy DKIM] The last time a key pair was generated for this identity.
-    lastKeyGenerationTimestamp :: Prelude.Maybe Core.POSIX,
-    -- | A string that indicates how DKIM was configured for the identity. These
-    -- are the possible values:
-    --
-    -- -   @AWS_SES@ – Indicates that DKIM was configured for the identity by
-    --     using
-    --     <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim.html Easy DKIM>.
-    --
-    -- -   @EXTERNAL@ – Indicates that DKIM was configured for the identity by
-    --     using Bring Your Own DKIM (BYODKIM).
-    signingAttributesOrigin :: Prelude.Maybe DkimSigningAttributesOrigin
+    tokens :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -108,6 +109,27 @@ data DkimAttributes = DkimAttributes'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'currentSigningKeyLength', 'dkimAttributes_currentSigningKeyLength' - [Easy DKIM] The key length of the DKIM key pair in use.
+--
+-- 'lastKeyGenerationTimestamp', 'dkimAttributes_lastKeyGenerationTimestamp' - [Easy DKIM] The last time a key pair was generated for this identity.
+--
+-- 'nextSigningKeyLength', 'dkimAttributes_nextSigningKeyLength' - [Easy DKIM] The key length of the future DKIM key pair to be generated.
+-- This can be changed at most once per day.
+--
+-- 'signingAttributesOrigin', 'dkimAttributes_signingAttributesOrigin' - A string that indicates how DKIM was configured for the identity. These
+-- are the possible values:
+--
+-- -   @AWS_SES@ – Indicates that DKIM was configured for the identity by
+--     using
+--     <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim.html Easy DKIM>.
+--
+-- -   @EXTERNAL@ – Indicates that DKIM was configured for the identity by
+--     using Bring Your Own DKIM (BYODKIM).
+--
+-- 'signingEnabled', 'dkimAttributes_signingEnabled' - If the value is @true@, then the messages that you send from the
+-- identity are signed using DKIM. If the value is @false@, then the
+-- messages that you send from the identity aren\'t DKIM-signed.
 --
 -- 'status', 'dkimAttributes_status' - Describes whether or not Amazon SES has successfully located the DKIM
 -- records in the DNS records for the domain. The status can be one of the
@@ -129,9 +151,6 @@ data DkimAttributes = DkimAttributes'
 -- -   @NOT_STARTED@ – The DKIM verification process hasn\'t been initiated
 --     for the domain.
 --
--- 'nextSigningKeyLength', 'dkimAttributes_nextSigningKeyLength' - [Easy DKIM] The key length of the future DKIM key pair to be generated.
--- This can be changed at most once per day.
---
 -- 'tokens', 'dkimAttributes_tokens' - If you used
 -- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim.html Easy DKIM>
 -- to configure DKIM authentication for the domain, then this object
@@ -147,16 +166,34 @@ data DkimAttributes = DkimAttributes'
 -- Regardless of the DKIM authentication method you use, Amazon SES
 -- searches for the appropriate records in the DNS configuration of the
 -- domain for up to 72 hours.
---
--- 'signingEnabled', 'dkimAttributes_signingEnabled' - If the value is @true@, then the messages that you send from the
--- identity are signed using DKIM. If the value is @false@, then the
--- messages that you send from the identity aren\'t DKIM-signed.
---
--- 'currentSigningKeyLength', 'dkimAttributes_currentSigningKeyLength' - [Easy DKIM] The key length of the DKIM key pair in use.
---
--- 'lastKeyGenerationTimestamp', 'dkimAttributes_lastKeyGenerationTimestamp' - [Easy DKIM] The last time a key pair was generated for this identity.
---
--- 'signingAttributesOrigin', 'dkimAttributes_signingAttributesOrigin' - A string that indicates how DKIM was configured for the identity. These
+newDkimAttributes ::
+  DkimAttributes
+newDkimAttributes =
+  DkimAttributes'
+    { currentSigningKeyLength =
+        Prelude.Nothing,
+      lastKeyGenerationTimestamp = Prelude.Nothing,
+      nextSigningKeyLength = Prelude.Nothing,
+      signingAttributesOrigin = Prelude.Nothing,
+      signingEnabled = Prelude.Nothing,
+      status = Prelude.Nothing,
+      tokens = Prelude.Nothing
+    }
+
+-- | [Easy DKIM] The key length of the DKIM key pair in use.
+dkimAttributes_currentSigningKeyLength :: Lens.Lens' DkimAttributes (Prelude.Maybe DkimSigningKeyLength)
+dkimAttributes_currentSigningKeyLength = Lens.lens (\DkimAttributes' {currentSigningKeyLength} -> currentSigningKeyLength) (\s@DkimAttributes' {} a -> s {currentSigningKeyLength = a} :: DkimAttributes)
+
+-- | [Easy DKIM] The last time a key pair was generated for this identity.
+dkimAttributes_lastKeyGenerationTimestamp :: Lens.Lens' DkimAttributes (Prelude.Maybe Prelude.UTCTime)
+dkimAttributes_lastKeyGenerationTimestamp = Lens.lens (\DkimAttributes' {lastKeyGenerationTimestamp} -> lastKeyGenerationTimestamp) (\s@DkimAttributes' {} a -> s {lastKeyGenerationTimestamp = a} :: DkimAttributes) Prelude.. Lens.mapping Data._Time
+
+-- | [Easy DKIM] The key length of the future DKIM key pair to be generated.
+-- This can be changed at most once per day.
+dkimAttributes_nextSigningKeyLength :: Lens.Lens' DkimAttributes (Prelude.Maybe DkimSigningKeyLength)
+dkimAttributes_nextSigningKeyLength = Lens.lens (\DkimAttributes' {nextSigningKeyLength} -> nextSigningKeyLength) (\s@DkimAttributes' {} a -> s {nextSigningKeyLength = a} :: DkimAttributes)
+
+-- | A string that indicates how DKIM was configured for the identity. These
 -- are the possible values:
 --
 -- -   @AWS_SES@ – Indicates that DKIM was configured for the identity by
@@ -165,18 +202,14 @@ data DkimAttributes = DkimAttributes'
 --
 -- -   @EXTERNAL@ – Indicates that DKIM was configured for the identity by
 --     using Bring Your Own DKIM (BYODKIM).
-newDkimAttributes ::
-  DkimAttributes
-newDkimAttributes =
-  DkimAttributes'
-    { status = Prelude.Nothing,
-      nextSigningKeyLength = Prelude.Nothing,
-      tokens = Prelude.Nothing,
-      signingEnabled = Prelude.Nothing,
-      currentSigningKeyLength = Prelude.Nothing,
-      lastKeyGenerationTimestamp = Prelude.Nothing,
-      signingAttributesOrigin = Prelude.Nothing
-    }
+dkimAttributes_signingAttributesOrigin :: Lens.Lens' DkimAttributes (Prelude.Maybe DkimSigningAttributesOrigin)
+dkimAttributes_signingAttributesOrigin = Lens.lens (\DkimAttributes' {signingAttributesOrigin} -> signingAttributesOrigin) (\s@DkimAttributes' {} a -> s {signingAttributesOrigin = a} :: DkimAttributes)
+
+-- | If the value is @true@, then the messages that you send from the
+-- identity are signed using DKIM. If the value is @false@, then the
+-- messages that you send from the identity aren\'t DKIM-signed.
+dkimAttributes_signingEnabled :: Lens.Lens' DkimAttributes (Prelude.Maybe Prelude.Bool)
+dkimAttributes_signingEnabled = Lens.lens (\DkimAttributes' {signingEnabled} -> signingEnabled) (\s@DkimAttributes' {} a -> s {signingEnabled = a} :: DkimAttributes)
 
 -- | Describes whether or not Amazon SES has successfully located the DKIM
 -- records in the DNS records for the domain. The status can be one of the
@@ -200,11 +233,6 @@ newDkimAttributes =
 dkimAttributes_status :: Lens.Lens' DkimAttributes (Prelude.Maybe DkimStatus)
 dkimAttributes_status = Lens.lens (\DkimAttributes' {status} -> status) (\s@DkimAttributes' {} a -> s {status = a} :: DkimAttributes)
 
--- | [Easy DKIM] The key length of the future DKIM key pair to be generated.
--- This can be changed at most once per day.
-dkimAttributes_nextSigningKeyLength :: Lens.Lens' DkimAttributes (Prelude.Maybe DkimSigningKeyLength)
-dkimAttributes_nextSigningKeyLength = Lens.lens (\DkimAttributes' {nextSigningKeyLength} -> nextSigningKeyLength) (\s@DkimAttributes' {} a -> s {nextSigningKeyLength = a} :: DkimAttributes)
-
 -- | If you used
 -- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim.html Easy DKIM>
 -- to configure DKIM authentication for the domain, then this object
@@ -223,63 +251,38 @@ dkimAttributes_nextSigningKeyLength = Lens.lens (\DkimAttributes' {nextSigningKe
 dkimAttributes_tokens :: Lens.Lens' DkimAttributes (Prelude.Maybe [Prelude.Text])
 dkimAttributes_tokens = Lens.lens (\DkimAttributes' {tokens} -> tokens) (\s@DkimAttributes' {} a -> s {tokens = a} :: DkimAttributes) Prelude.. Lens.mapping Lens.coerced
 
--- | If the value is @true@, then the messages that you send from the
--- identity are signed using DKIM. If the value is @false@, then the
--- messages that you send from the identity aren\'t DKIM-signed.
-dkimAttributes_signingEnabled :: Lens.Lens' DkimAttributes (Prelude.Maybe Prelude.Bool)
-dkimAttributes_signingEnabled = Lens.lens (\DkimAttributes' {signingEnabled} -> signingEnabled) (\s@DkimAttributes' {} a -> s {signingEnabled = a} :: DkimAttributes)
-
--- | [Easy DKIM] The key length of the DKIM key pair in use.
-dkimAttributes_currentSigningKeyLength :: Lens.Lens' DkimAttributes (Prelude.Maybe DkimSigningKeyLength)
-dkimAttributes_currentSigningKeyLength = Lens.lens (\DkimAttributes' {currentSigningKeyLength} -> currentSigningKeyLength) (\s@DkimAttributes' {} a -> s {currentSigningKeyLength = a} :: DkimAttributes)
-
--- | [Easy DKIM] The last time a key pair was generated for this identity.
-dkimAttributes_lastKeyGenerationTimestamp :: Lens.Lens' DkimAttributes (Prelude.Maybe Prelude.UTCTime)
-dkimAttributes_lastKeyGenerationTimestamp = Lens.lens (\DkimAttributes' {lastKeyGenerationTimestamp} -> lastKeyGenerationTimestamp) (\s@DkimAttributes' {} a -> s {lastKeyGenerationTimestamp = a} :: DkimAttributes) Prelude.. Lens.mapping Core._Time
-
--- | A string that indicates how DKIM was configured for the identity. These
--- are the possible values:
---
--- -   @AWS_SES@ – Indicates that DKIM was configured for the identity by
---     using
---     <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim.html Easy DKIM>.
---
--- -   @EXTERNAL@ – Indicates that DKIM was configured for the identity by
---     using Bring Your Own DKIM (BYODKIM).
-dkimAttributes_signingAttributesOrigin :: Lens.Lens' DkimAttributes (Prelude.Maybe DkimSigningAttributesOrigin)
-dkimAttributes_signingAttributesOrigin = Lens.lens (\DkimAttributes' {signingAttributesOrigin} -> signingAttributesOrigin) (\s@DkimAttributes' {} a -> s {signingAttributesOrigin = a} :: DkimAttributes)
-
-instance Core.FromJSON DkimAttributes where
+instance Data.FromJSON DkimAttributes where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DkimAttributes"
       ( \x ->
           DkimAttributes'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "NextSigningKeyLength")
-            Prelude.<*> (x Core..:? "Tokens" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "SigningEnabled")
-            Prelude.<*> (x Core..:? "CurrentSigningKeyLength")
-            Prelude.<*> (x Core..:? "LastKeyGenerationTimestamp")
-            Prelude.<*> (x Core..:? "SigningAttributesOrigin")
+            Prelude.<$> (x Data..:? "CurrentSigningKeyLength")
+            Prelude.<*> (x Data..:? "LastKeyGenerationTimestamp")
+            Prelude.<*> (x Data..:? "NextSigningKeyLength")
+            Prelude.<*> (x Data..:? "SigningAttributesOrigin")
+            Prelude.<*> (x Data..:? "SigningEnabled")
+            Prelude.<*> (x Data..:? "Status")
+            Prelude.<*> (x Data..:? "Tokens" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable DkimAttributes where
   hashWithSalt _salt DkimAttributes' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` nextSigningKeyLength
-      `Prelude.hashWithSalt` tokens
-      `Prelude.hashWithSalt` signingEnabled
+    _salt
       `Prelude.hashWithSalt` currentSigningKeyLength
       `Prelude.hashWithSalt` lastKeyGenerationTimestamp
+      `Prelude.hashWithSalt` nextSigningKeyLength
       `Prelude.hashWithSalt` signingAttributesOrigin
+      `Prelude.hashWithSalt` signingEnabled
+      `Prelude.hashWithSalt` status
+      `Prelude.hashWithSalt` tokens
 
 instance Prelude.NFData DkimAttributes where
   rnf DkimAttributes' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf nextSigningKeyLength
-      `Prelude.seq` Prelude.rnf tokens
-      `Prelude.seq` Prelude.rnf signingEnabled
-      `Prelude.seq` Prelude.rnf currentSigningKeyLength
+    Prelude.rnf currentSigningKeyLength
       `Prelude.seq` Prelude.rnf lastKeyGenerationTimestamp
+      `Prelude.seq` Prelude.rnf nextSigningKeyLength
       `Prelude.seq` Prelude.rnf signingAttributesOrigin
+      `Prelude.seq` Prelude.rnf signingEnabled
+      `Prelude.seq` Prelude.rnf status
+      `Prelude.seq` Prelude.rnf tokens

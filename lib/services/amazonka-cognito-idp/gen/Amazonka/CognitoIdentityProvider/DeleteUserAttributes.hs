@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.DeleteUserAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -50,14 +51,15 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDeleteUserAttributes' smart constructor.
 data DeleteUserAttributes = DeleteUserAttributes'
-  { -- | An array of strings representing the user attribute names you wish to
+  { -- | An array of strings representing the user attribute names you want to
     -- delete.
     --
-    -- For custom attributes, you must prepend the @custom:@ prefix to the
-    -- attribute name.
+    -- For custom attributes, you must prependattach the @custom:@ prefix to
+    -- the front of the attribute name.
     userAttributeNames :: [Prelude.Text],
-    -- | The access token used in the request to delete user attributes.
-    accessToken :: Core.Sensitive Prelude.Text
+    -- | A valid access token that Amazon Cognito issued to the user whose
+    -- attributes you want to delete.
+    accessToken :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -69,13 +71,14 @@ data DeleteUserAttributes = DeleteUserAttributes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'userAttributeNames', 'deleteUserAttributes_userAttributeNames' - An array of strings representing the user attribute names you wish to
+-- 'userAttributeNames', 'deleteUserAttributes_userAttributeNames' - An array of strings representing the user attribute names you want to
 -- delete.
 --
--- For custom attributes, you must prepend the @custom:@ prefix to the
--- attribute name.
+-- For custom attributes, you must prependattach the @custom:@ prefix to
+-- the front of the attribute name.
 --
--- 'accessToken', 'deleteUserAttributes_accessToken' - The access token used in the request to delete user attributes.
+-- 'accessToken', 'deleteUserAttributes_accessToken' - A valid access token that Amazon Cognito issued to the user whose
+-- attributes you want to delete.
 newDeleteUserAttributes ::
   -- | 'accessToken'
   Prelude.Text ->
@@ -84,26 +87,28 @@ newDeleteUserAttributes pAccessToken_ =
   DeleteUserAttributes'
     { userAttributeNames =
         Prelude.mempty,
-      accessToken = Core._Sensitive Lens.# pAccessToken_
+      accessToken = Data._Sensitive Lens.# pAccessToken_
     }
 
--- | An array of strings representing the user attribute names you wish to
+-- | An array of strings representing the user attribute names you want to
 -- delete.
 --
--- For custom attributes, you must prepend the @custom:@ prefix to the
--- attribute name.
+-- For custom attributes, you must prependattach the @custom:@ prefix to
+-- the front of the attribute name.
 deleteUserAttributes_userAttributeNames :: Lens.Lens' DeleteUserAttributes [Prelude.Text]
 deleteUserAttributes_userAttributeNames = Lens.lens (\DeleteUserAttributes' {userAttributeNames} -> userAttributeNames) (\s@DeleteUserAttributes' {} a -> s {userAttributeNames = a} :: DeleteUserAttributes) Prelude.. Lens.coerced
 
--- | The access token used in the request to delete user attributes.
+-- | A valid access token that Amazon Cognito issued to the user whose
+-- attributes you want to delete.
 deleteUserAttributes_accessToken :: Lens.Lens' DeleteUserAttributes Prelude.Text
-deleteUserAttributes_accessToken = Lens.lens (\DeleteUserAttributes' {accessToken} -> accessToken) (\s@DeleteUserAttributes' {} a -> s {accessToken = a} :: DeleteUserAttributes) Prelude.. Core._Sensitive
+deleteUserAttributes_accessToken = Lens.lens (\DeleteUserAttributes' {accessToken} -> accessToken) (\s@DeleteUserAttributes' {} a -> s {accessToken = a} :: DeleteUserAttributes) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest DeleteUserAttributes where
   type
     AWSResponse DeleteUserAttributes =
       DeleteUserAttributesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -121,35 +126,35 @@ instance Prelude.NFData DeleteUserAttributes where
     Prelude.rnf userAttributeNames
       `Prelude.seq` Prelude.rnf accessToken
 
-instance Core.ToHeaders DeleteUserAttributes where
+instance Data.ToHeaders DeleteUserAttributes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.DeleteUserAttributes" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.DeleteUserAttributes" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteUserAttributes where
+instance Data.ToJSON DeleteUserAttributes where
   toJSON DeleteUserAttributes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("UserAttributeNames" Core..= userAttributeNames),
-            Prelude.Just ("AccessToken" Core..= accessToken)
+              ("UserAttributeNames" Data..= userAttributeNames),
+            Prelude.Just ("AccessToken" Data..= accessToken)
           ]
       )
 
-instance Core.ToPath DeleteUserAttributes where
+instance Data.ToPath DeleteUserAttributes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteUserAttributes where
+instance Data.ToQuery DeleteUserAttributes where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the response from the server to delete user attributes.

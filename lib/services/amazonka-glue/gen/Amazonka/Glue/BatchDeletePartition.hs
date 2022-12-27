@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.BatchDeletePartition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.Glue.BatchDeletePartition
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -117,12 +118,13 @@ instance Core.AWSRequest BatchDeletePartition where
   type
     AWSResponse BatchDeletePartition =
       BatchDeletePartitionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchDeletePartitionResponse'
-            Prelude.<$> (x Core..?> "Errors" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Errors" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -140,37 +142,37 @@ instance Prelude.NFData BatchDeletePartition where
       `Prelude.seq` Prelude.rnf tableName
       `Prelude.seq` Prelude.rnf partitionsToDelete
 
-instance Core.ToHeaders BatchDeletePartition where
+instance Data.ToHeaders BatchDeletePartition where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSGlue.BatchDeletePartition" ::
+              Data.=# ( "AWSGlue.BatchDeletePartition" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchDeletePartition where
+instance Data.ToJSON BatchDeletePartition where
   toJSON BatchDeletePartition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            Prelude.Just ("DatabaseName" Core..= databaseName),
-            Prelude.Just ("TableName" Core..= tableName),
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            Prelude.Just ("DatabaseName" Data..= databaseName),
+            Prelude.Just ("TableName" Data..= tableName),
             Prelude.Just
-              ("PartitionsToDelete" Core..= partitionsToDelete)
+              ("PartitionsToDelete" Data..= partitionsToDelete)
           ]
       )
 
-instance Core.ToPath BatchDeletePartition where
+instance Data.ToPath BatchDeletePartition where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery BatchDeletePartition where
+instance Data.ToQuery BatchDeletePartition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchDeletePartitionResponse' smart constructor.

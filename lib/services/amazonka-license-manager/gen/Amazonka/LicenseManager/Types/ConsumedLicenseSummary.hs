@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.Types.ConsumedLicenseSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LicenseManager.Types.ConsumedLicenseSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LicenseManager.Types.ResourceType
 import qualified Amazonka.Prelude as Prelude
 
@@ -28,10 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newConsumedLicenseSummary' smart constructor.
 data ConsumedLicenseSummary = ConsumedLicenseSummary'
-  { -- | Resource type of the resource consuming a license.
-    resourceType :: Prelude.Maybe ResourceType,
-    -- | Number of licenses consumed by the resource.
-    consumedLicenses :: Prelude.Maybe Prelude.Integer
+  { -- | Number of licenses consumed by the resource.
+    consumedLicenses :: Prelude.Maybe Prelude.Integer,
+    -- | Resource type of the resource consuming a license.
+    resourceType :: Prelude.Maybe ResourceType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,42 +44,42 @@ data ConsumedLicenseSummary = ConsumedLicenseSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceType', 'consumedLicenseSummary_resourceType' - Resource type of the resource consuming a license.
---
 -- 'consumedLicenses', 'consumedLicenseSummary_consumedLicenses' - Number of licenses consumed by the resource.
+--
+-- 'resourceType', 'consumedLicenseSummary_resourceType' - Resource type of the resource consuming a license.
 newConsumedLicenseSummary ::
   ConsumedLicenseSummary
 newConsumedLicenseSummary =
   ConsumedLicenseSummary'
-    { resourceType =
+    { consumedLicenses =
         Prelude.Nothing,
-      consumedLicenses = Prelude.Nothing
+      resourceType = Prelude.Nothing
     }
-
--- | Resource type of the resource consuming a license.
-consumedLicenseSummary_resourceType :: Lens.Lens' ConsumedLicenseSummary (Prelude.Maybe ResourceType)
-consumedLicenseSummary_resourceType = Lens.lens (\ConsumedLicenseSummary' {resourceType} -> resourceType) (\s@ConsumedLicenseSummary' {} a -> s {resourceType = a} :: ConsumedLicenseSummary)
 
 -- | Number of licenses consumed by the resource.
 consumedLicenseSummary_consumedLicenses :: Lens.Lens' ConsumedLicenseSummary (Prelude.Maybe Prelude.Integer)
 consumedLicenseSummary_consumedLicenses = Lens.lens (\ConsumedLicenseSummary' {consumedLicenses} -> consumedLicenses) (\s@ConsumedLicenseSummary' {} a -> s {consumedLicenses = a} :: ConsumedLicenseSummary)
 
-instance Core.FromJSON ConsumedLicenseSummary where
+-- | Resource type of the resource consuming a license.
+consumedLicenseSummary_resourceType :: Lens.Lens' ConsumedLicenseSummary (Prelude.Maybe ResourceType)
+consumedLicenseSummary_resourceType = Lens.lens (\ConsumedLicenseSummary' {resourceType} -> resourceType) (\s@ConsumedLicenseSummary' {} a -> s {resourceType = a} :: ConsumedLicenseSummary)
+
+instance Data.FromJSON ConsumedLicenseSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ConsumedLicenseSummary"
       ( \x ->
           ConsumedLicenseSummary'
-            Prelude.<$> (x Core..:? "ResourceType")
-            Prelude.<*> (x Core..:? "ConsumedLicenses")
+            Prelude.<$> (x Data..:? "ConsumedLicenses")
+            Prelude.<*> (x Data..:? "ResourceType")
       )
 
 instance Prelude.Hashable ConsumedLicenseSummary where
   hashWithSalt _salt ConsumedLicenseSummary' {..} =
-    _salt `Prelude.hashWithSalt` resourceType
-      `Prelude.hashWithSalt` consumedLicenses
+    _salt `Prelude.hashWithSalt` consumedLicenses
+      `Prelude.hashWithSalt` resourceType
 
 instance Prelude.NFData ConsumedLicenseSummary where
   rnf ConsumedLicenseSummary' {..} =
-    Prelude.rnf resourceType
-      `Prelude.seq` Prelude.rnf consumedLicenses
+    Prelude.rnf consumedLicenses
+      `Prelude.seq` Prelude.rnf resourceType

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glacier.ListVaults
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,8 +51,8 @@ module Amazonka.Glacier.ListVaults
     newListVaults,
 
     -- * Request Lenses
-    listVaults_marker,
     listVaults_limit,
+    listVaults_marker,
     listVaults_accountId,
 
     -- * Destructuring the Response
@@ -67,8 +67,9 @@ module Amazonka.Glacier.ListVaults
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glacier.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,13 +79,13 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListVaults' smart constructor.
 data ListVaults = ListVaults'
-  { -- | A string used for pagination. The marker specifies the vault ARN after
-    -- which the listing of vaults should begin.
-    marker :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of vaults to be returned. The default limit is 10.
+  { -- | The maximum number of vaults to be returned. The default limit is 10.
     -- The number of vaults returned might be fewer than the specified limit,
     -- but the number of returned vaults never exceeds the limit.
     limit :: Prelude.Maybe Prelude.Text,
+    -- | A string used for pagination. The marker specifies the vault ARN after
+    -- which the listing of vaults should begin.
+    marker :: Prelude.Maybe Prelude.Text,
     -- | The @AccountId@ value is the AWS account ID. This value must match the
     -- AWS account ID associated with the credentials used to sign the request.
     -- You can either specify an AWS account ID or optionally a single \'@-@\'
@@ -103,12 +104,12 @@ data ListVaults = ListVaults'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'marker', 'listVaults_marker' - A string used for pagination. The marker specifies the vault ARN after
--- which the listing of vaults should begin.
---
 -- 'limit', 'listVaults_limit' - The maximum number of vaults to be returned. The default limit is 10.
 -- The number of vaults returned might be fewer than the specified limit,
 -- but the number of returned vaults never exceeds the limit.
+--
+-- 'marker', 'listVaults_marker' - A string used for pagination. The marker specifies the vault ARN after
+-- which the listing of vaults should begin.
 --
 -- 'accountId', 'listVaults_accountId' - The @AccountId@ value is the AWS account ID. This value must match the
 -- AWS account ID associated with the credentials used to sign the request.
@@ -122,21 +123,21 @@ newListVaults ::
   ListVaults
 newListVaults pAccountId_ =
   ListVaults'
-    { marker = Prelude.Nothing,
-      limit = Prelude.Nothing,
+    { limit = Prelude.Nothing,
+      marker = Prelude.Nothing,
       accountId = pAccountId_
     }
-
--- | A string used for pagination. The marker specifies the vault ARN after
--- which the listing of vaults should begin.
-listVaults_marker :: Lens.Lens' ListVaults (Prelude.Maybe Prelude.Text)
-listVaults_marker = Lens.lens (\ListVaults' {marker} -> marker) (\s@ListVaults' {} a -> s {marker = a} :: ListVaults)
 
 -- | The maximum number of vaults to be returned. The default limit is 10.
 -- The number of vaults returned might be fewer than the specified limit,
 -- but the number of returned vaults never exceeds the limit.
 listVaults_limit :: Lens.Lens' ListVaults (Prelude.Maybe Prelude.Text)
 listVaults_limit = Lens.lens (\ListVaults' {limit} -> limit) (\s@ListVaults' {} a -> s {limit = a} :: ListVaults)
+
+-- | A string used for pagination. The marker specifies the vault ARN after
+-- which the listing of vaults should begin.
+listVaults_marker :: Lens.Lens' ListVaults (Prelude.Maybe Prelude.Text)
+listVaults_marker = Lens.lens (\ListVaults' {marker} -> marker) (\s@ListVaults' {} a -> s {marker = a} :: ListVaults)
 
 -- | The @AccountId@ value is the AWS account ID. This value must match the
 -- AWS account ID associated with the credentials used to sign the request.
@@ -168,42 +169,42 @@ instance Core.AWSPager ListVaults where
 
 instance Core.AWSRequest ListVaults where
   type AWSResponse ListVaults = ListVaultsResponse
-  request =
-    Request.glacierVersionHeader (Core._serviceVersion defaultService)
-      Prelude.. Request.get defaultService
+  request overrides =
+    Request.glacierVersionHeader (Core.version defaultService)
+      Prelude.. Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListVaultsResponse'
-            Prelude.<$> (x Core..?> "Marker")
-            Prelude.<*> (x Core..?> "VaultList" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Marker")
+            Prelude.<*> (x Data..?> "VaultList" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListVaults where
   hashWithSalt _salt ListVaults' {..} =
-    _salt `Prelude.hashWithSalt` marker
-      `Prelude.hashWithSalt` limit
+    _salt `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` accountId
 
 instance Prelude.NFData ListVaults where
   rnf ListVaults' {..} =
-    Prelude.rnf marker
-      `Prelude.seq` Prelude.rnf limit
+    Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf accountId
 
-instance Core.ToHeaders ListVaults where
+instance Data.ToHeaders ListVaults where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListVaults where
+instance Data.ToPath ListVaults where
   toPath ListVaults' {..} =
     Prelude.mconcat
-      ["/", Core.toBS accountId, "/vaults"]
+      ["/", Data.toBS accountId, "/vaults"]
 
-instance Core.ToQuery ListVaults where
+instance Data.ToQuery ListVaults where
   toQuery ListVaults' {..} =
     Prelude.mconcat
-      ["marker" Core.=: marker, "limit" Core.=: limit]
+      ["limit" Data.=: limit, "marker" Data.=: marker]
 
 -- | Contains the Amazon S3 Glacier response to your request.
 --

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ComputeOptimizer.Types.LambdaFunctionUtilizationMetric
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,16 +22,15 @@ module Amazonka.ComputeOptimizer.Types.LambdaFunctionUtilizationMetric where
 import Amazonka.ComputeOptimizer.Types.LambdaFunctionMetricName
 import Amazonka.ComputeOptimizer.Types.LambdaFunctionMetricStatistic
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a utilization metric of an Lambda function.
 --
 -- /See:/ 'newLambdaFunctionUtilizationMetric' smart constructor.
 data LambdaFunctionUtilizationMetric = LambdaFunctionUtilizationMetric'
-  { -- | The value of the utilization metric.
-    value :: Prelude.Maybe Prelude.Double,
-    -- | The name of the utilization metric.
+  { -- | The name of the utilization metric.
     --
     -- The following utilization metrics are available:
     --
@@ -54,7 +53,9 @@ data LambdaFunctionUtilizationMetric = LambdaFunctionUtilizationMetric'
     -- utilization metric data for your resources using Amazon CloudWatch. For
     -- more information, see the
     -- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html Amazon CloudWatch User Guide>.
-    statistic :: Prelude.Maybe LambdaFunctionMetricStatistic
+    statistic :: Prelude.Maybe LambdaFunctionMetricStatistic,
+    -- | The value of the utilization metric.
+    value :: Prelude.Maybe Prelude.Double
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -65,8 +66,6 @@ data LambdaFunctionUtilizationMetric = LambdaFunctionUtilizationMetric'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'value', 'lambdaFunctionUtilizationMetric_value' - The value of the utilization metric.
 --
 -- 'name', 'lambdaFunctionUtilizationMetric_name' - The name of the utilization metric.
 --
@@ -91,19 +90,17 @@ data LambdaFunctionUtilizationMetric = LambdaFunctionUtilizationMetric'
 -- utilization metric data for your resources using Amazon CloudWatch. For
 -- more information, see the
 -- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html Amazon CloudWatch User Guide>.
+--
+-- 'value', 'lambdaFunctionUtilizationMetric_value' - The value of the utilization metric.
 newLambdaFunctionUtilizationMetric ::
   LambdaFunctionUtilizationMetric
 newLambdaFunctionUtilizationMetric =
   LambdaFunctionUtilizationMetric'
-    { value =
+    { name =
         Prelude.Nothing,
-      name = Prelude.Nothing,
-      statistic = Prelude.Nothing
+      statistic = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The value of the utilization metric.
-lambdaFunctionUtilizationMetric_value :: Lens.Lens' LambdaFunctionUtilizationMetric (Prelude.Maybe Prelude.Double)
-lambdaFunctionUtilizationMetric_value = Lens.lens (\LambdaFunctionUtilizationMetric' {value} -> value) (\s@LambdaFunctionUtilizationMetric' {} a -> s {value = a} :: LambdaFunctionUtilizationMetric)
 
 -- | The name of the utilization metric.
 --
@@ -133,18 +130,22 @@ lambdaFunctionUtilizationMetric_name = Lens.lens (\LambdaFunctionUtilizationMetr
 lambdaFunctionUtilizationMetric_statistic :: Lens.Lens' LambdaFunctionUtilizationMetric (Prelude.Maybe LambdaFunctionMetricStatistic)
 lambdaFunctionUtilizationMetric_statistic = Lens.lens (\LambdaFunctionUtilizationMetric' {statistic} -> statistic) (\s@LambdaFunctionUtilizationMetric' {} a -> s {statistic = a} :: LambdaFunctionUtilizationMetric)
 
+-- | The value of the utilization metric.
+lambdaFunctionUtilizationMetric_value :: Lens.Lens' LambdaFunctionUtilizationMetric (Prelude.Maybe Prelude.Double)
+lambdaFunctionUtilizationMetric_value = Lens.lens (\LambdaFunctionUtilizationMetric' {value} -> value) (\s@LambdaFunctionUtilizationMetric' {} a -> s {value = a} :: LambdaFunctionUtilizationMetric)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     LambdaFunctionUtilizationMetric
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LambdaFunctionUtilizationMetric"
       ( \x ->
           LambdaFunctionUtilizationMetric'
-            Prelude.<$> (x Core..:? "value")
-            Prelude.<*> (x Core..:? "name")
-            Prelude.<*> (x Core..:? "statistic")
+            Prelude.<$> (x Data..:? "name")
+            Prelude.<*> (x Data..:? "statistic")
+            Prelude.<*> (x Data..:? "value")
       )
 
 instance
@@ -154,15 +155,15 @@ instance
   hashWithSalt
     _salt
     LambdaFunctionUtilizationMetric' {..} =
-      _salt `Prelude.hashWithSalt` value
-        `Prelude.hashWithSalt` name
+      _salt `Prelude.hashWithSalt` name
         `Prelude.hashWithSalt` statistic
+        `Prelude.hashWithSalt` value
 
 instance
   Prelude.NFData
     LambdaFunctionUtilizationMetric
   where
   rnf LambdaFunctionUtilizationMetric' {..} =
-    Prelude.rnf value
-      `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name
       `Prelude.seq` Prelude.rnf statistic
+      `Prelude.seq` Prelude.rnf value

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LakeFormation.Types.DataLocationResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LakeFormation.Types.DataLocationResource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A structure for a data location object where permissions are granted or
@@ -29,7 +30,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newDataLocationResource' smart constructor.
 data DataLocationResource = DataLocationResource'
   { -- | The identifier for the Data Catalog where the location is registered
-    -- with AWS Lake Formation. By default, it is the account ID of the caller.
+    -- with Lake Formation. By default, it is the account ID of the caller.
     catalogId :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) that uniquely identifies the data
     -- location resource.
@@ -46,7 +47,7 @@ data DataLocationResource = DataLocationResource'
 -- for backwards compatibility:
 --
 -- 'catalogId', 'dataLocationResource_catalogId' - The identifier for the Data Catalog where the location is registered
--- with AWS Lake Formation. By default, it is the account ID of the caller.
+-- with Lake Formation. By default, it is the account ID of the caller.
 --
 -- 'resourceArn', 'dataLocationResource_resourceArn' - The Amazon Resource Name (ARN) that uniquely identifies the data
 -- location resource.
@@ -61,7 +62,7 @@ newDataLocationResource pResourceArn_ =
     }
 
 -- | The identifier for the Data Catalog where the location is registered
--- with AWS Lake Formation. By default, it is the account ID of the caller.
+-- with Lake Formation. By default, it is the account ID of the caller.
 dataLocationResource_catalogId :: Lens.Lens' DataLocationResource (Prelude.Maybe Prelude.Text)
 dataLocationResource_catalogId = Lens.lens (\DataLocationResource' {catalogId} -> catalogId) (\s@DataLocationResource' {} a -> s {catalogId = a} :: DataLocationResource)
 
@@ -70,14 +71,14 @@ dataLocationResource_catalogId = Lens.lens (\DataLocationResource' {catalogId} -
 dataLocationResource_resourceArn :: Lens.Lens' DataLocationResource Prelude.Text
 dataLocationResource_resourceArn = Lens.lens (\DataLocationResource' {resourceArn} -> resourceArn) (\s@DataLocationResource' {} a -> s {resourceArn = a} :: DataLocationResource)
 
-instance Core.FromJSON DataLocationResource where
+instance Data.FromJSON DataLocationResource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DataLocationResource"
       ( \x ->
           DataLocationResource'
-            Prelude.<$> (x Core..:? "CatalogId")
-            Prelude.<*> (x Core..: "ResourceArn")
+            Prelude.<$> (x Data..:? "CatalogId")
+            Prelude.<*> (x Data..: "ResourceArn")
       )
 
 instance Prelude.Hashable DataLocationResource where
@@ -90,11 +91,11 @@ instance Prelude.NFData DataLocationResource where
     Prelude.rnf catalogId
       `Prelude.seq` Prelude.rnf resourceArn
 
-instance Core.ToJSON DataLocationResource where
+instance Data.ToJSON DataLocationResource where
   toJSON DataLocationResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            Prelude.Just ("ResourceArn" Core..= resourceArn)
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            Prelude.Just ("ResourceArn" Data..= resourceArn)
           ]
       )

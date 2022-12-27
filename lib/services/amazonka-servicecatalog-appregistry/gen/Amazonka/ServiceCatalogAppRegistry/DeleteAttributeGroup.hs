@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalogAppRegistry.DeleteAttributeGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.ServiceCatalogAppRegistry.DeleteAttributeGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,12 +85,13 @@ instance Core.AWSRequest DeleteAttributeGroup where
   type
     AWSResponse DeleteAttributeGroup =
       DeleteAttributeGroupResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteAttributeGroupResponse'
-            Prelude.<$> (x Core..?> "attributeGroup")
+            Prelude.<$> (x Data..?> "attributeGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -101,23 +103,23 @@ instance Prelude.NFData DeleteAttributeGroup where
   rnf DeleteAttributeGroup' {..} =
     Prelude.rnf attributeGroup
 
-instance Core.ToHeaders DeleteAttributeGroup where
+instance Data.ToHeaders DeleteAttributeGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteAttributeGroup where
+instance Data.ToPath DeleteAttributeGroup where
   toPath DeleteAttributeGroup' {..} =
     Prelude.mconcat
-      ["/attribute-groups/", Core.toBS attributeGroup]
+      ["/attribute-groups/", Data.toBS attributeGroup]
 
-instance Core.ToQuery DeleteAttributeGroup where
+instance Data.ToQuery DeleteAttributeGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAttributeGroupResponse' smart constructor.

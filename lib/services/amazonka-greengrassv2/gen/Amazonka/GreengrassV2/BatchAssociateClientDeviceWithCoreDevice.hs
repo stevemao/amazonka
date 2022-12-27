@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.GreengrassV2.BatchAssociateClientDeviceWithCoreDevice
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Associate a list of client devices with a core device. Use this API
+-- Associates a list of client devices with a core device. Use this API
 -- operation to specify which client devices can discover a core device
 -- through cloud discovery. With cloud discovery, client devices connect to
 -- IoT Greengrass to retrieve associated core devices\' connectivity
@@ -55,8 +55,9 @@ module Amazonka.GreengrassV2.BatchAssociateClientDeviceWithCoreDevice
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GreengrassV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -110,12 +111,13 @@ instance
     AWSResponse
       BatchAssociateClientDeviceWithCoreDevice =
       BatchAssociateClientDeviceWithCoreDeviceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchAssociateClientDeviceWithCoreDeviceResponse'
-            Prelude.<$> (x Core..?> "errorEntries")
+            Prelude.<$> (x Data..?> "errorEntries" Core..!@ Prelude.mempty)
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -138,42 +140,34 @@ instance
       `Prelude.seq` Prelude.rnf coreDeviceThingName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     BatchAssociateClientDeviceWithCoreDevice
   where
-  toHeaders =
-    Prelude.const
-      ( Prelude.mconcat
-          [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
-                          Prelude.ByteString
-                      )
-          ]
-      )
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     BatchAssociateClientDeviceWithCoreDevice
   where
   toJSON BatchAssociateClientDeviceWithCoreDevice' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("entries" Core..=) Prelude.<$> entries]
+          [("entries" Data..=) Prelude.<$> entries]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     BatchAssociateClientDeviceWithCoreDevice
   where
   toPath BatchAssociateClientDeviceWithCoreDevice' {..} =
     Prelude.mconcat
       [ "/greengrass/v2/coreDevices/",
-        Core.toBS coreDeviceThingName,
+        Data.toBS coreDeviceThingName,
         "/associateClientDevices"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     BatchAssociateClientDeviceWithCoreDevice
   where
   toQuery = Prelude.const Prelude.mempty
@@ -182,7 +176,7 @@ instance
 data BatchAssociateClientDeviceWithCoreDeviceResponse = BatchAssociateClientDeviceWithCoreDeviceResponse'
   { -- | The list of any errors for the entries in the request. Each error entry
     -- contains the name of the IoT thing that failed to associate.
-    errorEntries :: Prelude.Maybe (Prelude.NonEmpty AssociateClientDeviceWithCoreDeviceErrorEntry),
+    errorEntries :: Prelude.Maybe [AssociateClientDeviceWithCoreDeviceErrorEntry],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -214,7 +208,7 @@ newBatchAssociateClientDeviceWithCoreDeviceResponse
 
 -- | The list of any errors for the entries in the request. Each error entry
 -- contains the name of the IoT thing that failed to associate.
-batchAssociateClientDeviceWithCoreDeviceResponse_errorEntries :: Lens.Lens' BatchAssociateClientDeviceWithCoreDeviceResponse (Prelude.Maybe (Prelude.NonEmpty AssociateClientDeviceWithCoreDeviceErrorEntry))
+batchAssociateClientDeviceWithCoreDeviceResponse_errorEntries :: Lens.Lens' BatchAssociateClientDeviceWithCoreDeviceResponse (Prelude.Maybe [AssociateClientDeviceWithCoreDeviceErrorEntry])
 batchAssociateClientDeviceWithCoreDeviceResponse_errorEntries = Lens.lens (\BatchAssociateClientDeviceWithCoreDeviceResponse' {errorEntries} -> errorEntries) (\s@BatchAssociateClientDeviceWithCoreDeviceResponse' {} a -> s {errorEntries = a} :: BatchAssociateClientDeviceWithCoreDeviceResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.

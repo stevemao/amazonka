@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.GetUsageTotals
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.MacieV2.GetUsageTotals
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -88,13 +89,14 @@ instance Core.AWSRequest GetUsageTotals where
   type
     AWSResponse GetUsageTotals =
       GetUsageTotalsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetUsageTotalsResponse'
-            Prelude.<$> (x Core..?> "timeRange")
-            Prelude.<*> (x Core..?> "usageTotals" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "timeRange")
+            Prelude.<*> (x Data..?> "usageTotals" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -105,23 +107,23 @@ instance Prelude.Hashable GetUsageTotals where
 instance Prelude.NFData GetUsageTotals where
   rnf GetUsageTotals' {..} = Prelude.rnf timeRange
 
-instance Core.ToHeaders GetUsageTotals where
+instance Data.ToHeaders GetUsageTotals where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetUsageTotals where
+instance Data.ToPath GetUsageTotals where
   toPath = Prelude.const "/usage"
 
-instance Core.ToQuery GetUsageTotals where
+instance Data.ToQuery GetUsageTotals where
   toQuery GetUsageTotals' {..} =
-    Prelude.mconcat ["timeRange" Core.=: timeRange]
+    Prelude.mconcat ["timeRange" Data.=: timeRange]
 
 -- | /See:/ 'newGetUsageTotalsResponse' smart constructor.
 data GetUsageTotalsResponse = GetUsageTotalsResponse'

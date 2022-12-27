@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.TransactGetItems
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,11 +23,11 @@
 -- @TransactGetItems@ is a synchronous operation that atomically retrieves
 -- multiple items from one or more tables (but not from indexes) in a
 -- single account and Region. A @TransactGetItems@ call can contain up to
--- 25 @TransactGetItem@ objects, each of which contains a @Get@ structure
+-- 100 @TransactGetItem@ objects, each of which contains a @Get@ structure
 -- that specifies an item to retrieve from a table in the account and
 -- Region. A call to @TransactGetItems@ cannot retrieve items from tables
--- in more than one AWS account or Region. The aggregate size of the items
--- in the transaction cannot exceed 4 MB.
+-- in more than one Amazon Web Services account or Region. The aggregate
+-- size of the items in the transaction cannot exceed 4 MB.
 --
 -- DynamoDB rejects the entire @TransactGetItems@ request if any of the
 -- following is true:
@@ -56,15 +56,16 @@ module Amazonka.DynamoDB.TransactGetItems
     newTransactGetItemsResponse,
 
     -- * Response Lenses
-    transactGetItemsResponse_responses,
     transactGetItemsResponse_consumedCapacity,
+    transactGetItemsResponse_responses,
     transactGetItemsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DynamoDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -75,7 +76,7 @@ data TransactGetItems = TransactGetItems'
     -- and a value of @NONE@ prevents that information from being returned. No
     -- other value is valid.
     returnConsumedCapacity :: Prelude.Maybe ReturnConsumedCapacity,
-    -- | An ordered array of up to 25 @TransactGetItem@ objects, each of which
+    -- | An ordered array of up to 100 @TransactGetItem@ objects, each of which
     -- contains a @Get@ structure.
     transactItems :: Prelude.NonEmpty TransactGetItem
   }
@@ -93,7 +94,7 @@ data TransactGetItems = TransactGetItems'
 -- and a value of @NONE@ prevents that information from being returned. No
 -- other value is valid.
 --
--- 'transactItems', 'transactGetItems_transactItems' - An ordered array of up to 25 @TransactGetItem@ objects, each of which
+-- 'transactItems', 'transactGetItems_transactItems' - An ordered array of up to 100 @TransactGetItem@ objects, each of which
 -- contains a @Get@ structure.
 newTransactGetItems ::
   -- | 'transactItems'
@@ -112,7 +113,7 @@ newTransactGetItems pTransactItems_ =
 transactGetItems_returnConsumedCapacity :: Lens.Lens' TransactGetItems (Prelude.Maybe ReturnConsumedCapacity)
 transactGetItems_returnConsumedCapacity = Lens.lens (\TransactGetItems' {returnConsumedCapacity} -> returnConsumedCapacity) (\s@TransactGetItems' {} a -> s {returnConsumedCapacity = a} :: TransactGetItems)
 
--- | An ordered array of up to 25 @TransactGetItem@ objects, each of which
+-- | An ordered array of up to 100 @TransactGetItem@ objects, each of which
 -- contains a @Get@ structure.
 transactGetItems_transactItems :: Lens.Lens' TransactGetItems (Prelude.NonEmpty TransactGetItem)
 transactGetItems_transactItems = Lens.lens (\TransactGetItems' {transactItems} -> transactItems) (\s@TransactGetItems' {} a -> s {transactItems = a} :: TransactGetItems) Prelude.. Lens.coerced
@@ -121,15 +122,16 @@ instance Core.AWSRequest TransactGetItems where
   type
     AWSResponse TransactGetItems =
       TransactGetItemsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           TransactGetItemsResponse'
-            Prelude.<$> (x Core..?> "Responses")
-            Prelude.<*> ( x Core..?> "ConsumedCapacity"
+            Prelude.<$> ( x Data..?> "ConsumedCapacity"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "Responses")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -143,41 +145,47 @@ instance Prelude.NFData TransactGetItems where
     Prelude.rnf returnConsumedCapacity
       `Prelude.seq` Prelude.rnf transactItems
 
-instance Core.ToHeaders TransactGetItems where
+instance Data.ToHeaders TransactGetItems where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DynamoDB_20120810.TransactGetItems" ::
+              Data.=# ( "DynamoDB_20120810.TransactGetItems" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON TransactGetItems where
+instance Data.ToJSON TransactGetItems where
   toJSON TransactGetItems' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ReturnConsumedCapacity" Core..=)
+          [ ("ReturnConsumedCapacity" Data..=)
               Prelude.<$> returnConsumedCapacity,
             Prelude.Just
-              ("TransactItems" Core..= transactItems)
+              ("TransactItems" Data..= transactItems)
           ]
       )
 
-instance Core.ToPath TransactGetItems where
+instance Data.ToPath TransactGetItems where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery TransactGetItems where
+instance Data.ToQuery TransactGetItems where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newTransactGetItemsResponse' smart constructor.
 data TransactGetItemsResponse = TransactGetItemsResponse'
-  { -- | An ordered array of up to 25 @ItemResponse@ objects, each of which
+  { -- | If the /ReturnConsumedCapacity/ value was @TOTAL@, this is an array of
+    -- @ConsumedCapacity@ objects, one for each table addressed by
+    -- @TransactGetItem@ objects in the /TransactItems/ parameter. These
+    -- @ConsumedCapacity@ objects report the read-capacity units consumed by
+    -- the @TransactGetItems@ call in that table.
+    consumedCapacity :: Prelude.Maybe [ConsumedCapacity],
+    -- | An ordered array of up to 100 @ItemResponse@ objects, each of which
     -- corresponds to the @TransactGetItem@ object in the same position in the
     -- /TransactItems/ array. Each @ItemResponse@ object contains a Map of the
     -- name-value pairs that are the projected attributes of the requested
@@ -187,12 +195,6 @@ data TransactGetItemsResponse = TransactGetItemsResponse'
     -- @ItemResponse@ object is Null, or if the requested item has no projected
     -- attributes, the corresponding @ItemResponse@ object is an empty Map.
     responses :: Prelude.Maybe (Prelude.NonEmpty ItemResponse),
-    -- | If the /ReturnConsumedCapacity/ value was @TOTAL@, this is an array of
-    -- @ConsumedCapacity@ objects, one for each table addressed by
-    -- @TransactGetItem@ objects in the /TransactItems/ parameter. These
-    -- @ConsumedCapacity@ objects report the read-capacity units consumed by
-    -- the @TransactGetItems@ call in that table.
-    consumedCapacity :: Prelude.Maybe [ConsumedCapacity],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -206,7 +208,13 @@ data TransactGetItemsResponse = TransactGetItemsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'responses', 'transactGetItemsResponse_responses' - An ordered array of up to 25 @ItemResponse@ objects, each of which
+-- 'consumedCapacity', 'transactGetItemsResponse_consumedCapacity' - If the /ReturnConsumedCapacity/ value was @TOTAL@, this is an array of
+-- @ConsumedCapacity@ objects, one for each table addressed by
+-- @TransactGetItem@ objects in the /TransactItems/ parameter. These
+-- @ConsumedCapacity@ objects report the read-capacity units consumed by
+-- the @TransactGetItems@ call in that table.
+--
+-- 'responses', 'transactGetItemsResponse_responses' - An ordered array of up to 100 @ItemResponse@ objects, each of which
 -- corresponds to the @TransactGetItem@ object in the same position in the
 -- /TransactItems/ array. Each @ItemResponse@ object contains a Map of the
 -- name-value pairs that are the projected attributes of the requested
@@ -216,12 +224,6 @@ data TransactGetItemsResponse = TransactGetItemsResponse'
 -- @ItemResponse@ object is Null, or if the requested item has no projected
 -- attributes, the corresponding @ItemResponse@ object is an empty Map.
 --
--- 'consumedCapacity', 'transactGetItemsResponse_consumedCapacity' - If the /ReturnConsumedCapacity/ value was @TOTAL@, this is an array of
--- @ConsumedCapacity@ objects, one for each table addressed by
--- @TransactGetItem@ objects in the /TransactItems/ parameter. These
--- @ConsumedCapacity@ objects report the read-capacity units consumed by
--- the @TransactGetItems@ call in that table.
---
 -- 'httpStatus', 'transactGetItemsResponse_httpStatus' - The response's http status code.
 newTransactGetItemsResponse ::
   -- | 'httpStatus'
@@ -229,13 +231,21 @@ newTransactGetItemsResponse ::
   TransactGetItemsResponse
 newTransactGetItemsResponse pHttpStatus_ =
   TransactGetItemsResponse'
-    { responses =
+    { consumedCapacity =
         Prelude.Nothing,
-      consumedCapacity = Prelude.Nothing,
+      responses = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | An ordered array of up to 25 @ItemResponse@ objects, each of which
+-- | If the /ReturnConsumedCapacity/ value was @TOTAL@, this is an array of
+-- @ConsumedCapacity@ objects, one for each table addressed by
+-- @TransactGetItem@ objects in the /TransactItems/ parameter. These
+-- @ConsumedCapacity@ objects report the read-capacity units consumed by
+-- the @TransactGetItems@ call in that table.
+transactGetItemsResponse_consumedCapacity :: Lens.Lens' TransactGetItemsResponse (Prelude.Maybe [ConsumedCapacity])
+transactGetItemsResponse_consumedCapacity = Lens.lens (\TransactGetItemsResponse' {consumedCapacity} -> consumedCapacity) (\s@TransactGetItemsResponse' {} a -> s {consumedCapacity = a} :: TransactGetItemsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | An ordered array of up to 100 @ItemResponse@ objects, each of which
 -- corresponds to the @TransactGetItem@ object in the same position in the
 -- /TransactItems/ array. Each @ItemResponse@ object contains a Map of the
 -- name-value pairs that are the projected attributes of the requested
@@ -247,20 +257,12 @@ newTransactGetItemsResponse pHttpStatus_ =
 transactGetItemsResponse_responses :: Lens.Lens' TransactGetItemsResponse (Prelude.Maybe (Prelude.NonEmpty ItemResponse))
 transactGetItemsResponse_responses = Lens.lens (\TransactGetItemsResponse' {responses} -> responses) (\s@TransactGetItemsResponse' {} a -> s {responses = a} :: TransactGetItemsResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | If the /ReturnConsumedCapacity/ value was @TOTAL@, this is an array of
--- @ConsumedCapacity@ objects, one for each table addressed by
--- @TransactGetItem@ objects in the /TransactItems/ parameter. These
--- @ConsumedCapacity@ objects report the read-capacity units consumed by
--- the @TransactGetItems@ call in that table.
-transactGetItemsResponse_consumedCapacity :: Lens.Lens' TransactGetItemsResponse (Prelude.Maybe [ConsumedCapacity])
-transactGetItemsResponse_consumedCapacity = Lens.lens (\TransactGetItemsResponse' {consumedCapacity} -> consumedCapacity) (\s@TransactGetItemsResponse' {} a -> s {consumedCapacity = a} :: TransactGetItemsResponse) Prelude.. Lens.mapping Lens.coerced
-
 -- | The response's http status code.
 transactGetItemsResponse_httpStatus :: Lens.Lens' TransactGetItemsResponse Prelude.Int
 transactGetItemsResponse_httpStatus = Lens.lens (\TransactGetItemsResponse' {httpStatus} -> httpStatus) (\s@TransactGetItemsResponse' {} a -> s {httpStatus = a} :: TransactGetItemsResponse)
 
 instance Prelude.NFData TransactGetItemsResponse where
   rnf TransactGetItemsResponse' {..} =
-    Prelude.rnf responses
-      `Prelude.seq` Prelude.rnf consumedCapacity
+    Prelude.rnf consumedCapacity
+      `Prelude.seq` Prelude.rnf responses
       `Prelude.seq` Prelude.rnf httpStatus

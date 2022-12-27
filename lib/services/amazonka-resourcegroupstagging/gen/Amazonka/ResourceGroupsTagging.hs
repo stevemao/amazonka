@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.ResourceGroupsTagging
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -19,23 +19,23 @@ module Amazonka.ResourceGroupsTagging
     -- * Errors
     -- $errors
 
-    -- ** InvalidParameterException
-    _InvalidParameterException,
+    -- ** ConcurrentModificationException
+    _ConcurrentModificationException,
 
     -- ** ConstraintViolationException
     _ConstraintViolationException,
 
-    -- ** ThrottledException
-    _ThrottledException,
+    -- ** InternalServiceException
+    _InternalServiceException,
+
+    -- ** InvalidParameterException
+    _InvalidParameterException,
 
     -- ** PaginationTokenExpiredException
     _PaginationTokenExpiredException,
 
-    -- ** ConcurrentModificationException
-    _ConcurrentModificationException,
-
-    -- ** InternalServiceException
-    _InternalServiceException,
+    -- ** ThrottledException
+    _ThrottledException,
 
     -- * Waiters
     -- $waiters
@@ -43,29 +43,29 @@ module Amazonka.ResourceGroupsTagging
     -- * Operations
     -- $operations
 
-    -- ** GetComplianceSummary (Paginated)
-    GetComplianceSummary (GetComplianceSummary'),
-    newGetComplianceSummary,
-    GetComplianceSummaryResponse (GetComplianceSummaryResponse'),
-    newGetComplianceSummaryResponse,
-
     -- ** DescribeReportCreation
     DescribeReportCreation (DescribeReportCreation'),
     newDescribeReportCreation,
     DescribeReportCreationResponse (DescribeReportCreationResponse'),
     newDescribeReportCreationResponse,
 
+    -- ** GetComplianceSummary (Paginated)
+    GetComplianceSummary (GetComplianceSummary'),
+    newGetComplianceSummary,
+    GetComplianceSummaryResponse (GetComplianceSummaryResponse'),
+    newGetComplianceSummaryResponse,
+
+    -- ** GetResources (Paginated)
+    GetResources (GetResources'),
+    newGetResources,
+    GetResourcesResponse (GetResourcesResponse'),
+    newGetResourcesResponse,
+
     -- ** GetTagKeys (Paginated)
     GetTagKeys (GetTagKeys'),
     newGetTagKeys,
     GetTagKeysResponse (GetTagKeysResponse'),
     newGetTagKeysResponse,
-
-    -- ** TagResources
-    TagResources (TagResources'),
-    newTagResources,
-    TagResourcesResponse (TagResourcesResponse'),
-    newTagResourcesResponse,
 
     -- ** GetTagValues (Paginated)
     GetTagValues (GetTagValues'),
@@ -79,11 +79,11 @@ module Amazonka.ResourceGroupsTagging
     StartReportCreationResponse (StartReportCreationResponse'),
     newStartReportCreationResponse,
 
-    -- ** GetResources (Paginated)
-    GetResources (GetResources'),
-    newGetResources,
-    GetResourcesResponse (GetResourcesResponse'),
-    newGetResourcesResponse,
+    -- ** TagResources
+    TagResources (TagResources'),
+    newTagResources,
+    TagResourcesResponse (TagResourcesResponse'),
+    newTagResourcesResponse,
 
     -- ** UntagResources
     UntagResources (UntagResources'),

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GlobalAccelerator.DeleteCustomRoutingAccelerator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,8 @@
 -- have permissions in place to avoid inadvertently deleting accelerators.
 -- You can use IAM policies with Global Accelerator to limit the users who
 -- have permissions to delete an accelerator. For more information, see
--- <https://docs.aws.amazon.com/global-accelerator/latest/dg/auth-and-access-control.html Authentication and Access Control>
--- in the /AWS Global Accelerator Developer Guide/.
+-- <https://docs.aws.amazon.com/global-accelerator/latest/dg/auth-and-access-control.html Identity and access management>
+-- in the /Global Accelerator Developer Guide/.
 module Amazonka.GlobalAccelerator.DeleteCustomRoutingAccelerator
   ( -- * Creating a Request
     DeleteCustomRoutingAccelerator (..),
@@ -53,8 +53,9 @@ module Amazonka.GlobalAccelerator.DeleteCustomRoutingAccelerator
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GlobalAccelerator.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,7 +100,8 @@ instance
   type
     AWSResponse DeleteCustomRoutingAccelerator =
       DeleteCustomRoutingAcceleratorResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       DeleteCustomRoutingAcceleratorResponse'
@@ -121,36 +123,36 @@ instance
     Prelude.rnf acceleratorArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteCustomRoutingAccelerator
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GlobalAccelerator_V20180706.DeleteCustomRoutingAccelerator" ::
+              Data.=# ( "GlobalAccelerator_V20180706.DeleteCustomRoutingAccelerator" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteCustomRoutingAccelerator where
+instance Data.ToJSON DeleteCustomRoutingAccelerator where
   toJSON DeleteCustomRoutingAccelerator' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("AcceleratorArn" Core..= acceleratorArn)
+              ("AcceleratorArn" Data..= acceleratorArn)
           ]
       )
 
-instance Core.ToPath DeleteCustomRoutingAccelerator where
+instance Data.ToPath DeleteCustomRoutingAccelerator where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteCustomRoutingAccelerator where
+instance Data.ToQuery DeleteCustomRoutingAccelerator where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteCustomRoutingAcceleratorResponse' smart constructor.

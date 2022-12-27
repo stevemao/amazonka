@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.GetDefaultPatchBaseline
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,14 +39,15 @@ module Amazonka.SSM.GetDefaultPatchBaseline
     newGetDefaultPatchBaselineResponse,
 
     -- * Response Lenses
-    getDefaultPatchBaselineResponse_operatingSystem,
     getDefaultPatchBaselineResponse_baselineId,
+    getDefaultPatchBaselineResponse_operatingSystem,
     getDefaultPatchBaselineResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,13 +85,14 @@ instance Core.AWSRequest GetDefaultPatchBaseline where
   type
     AWSResponse GetDefaultPatchBaseline =
       GetDefaultPatchBaselineResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDefaultPatchBaselineResponse'
-            Prelude.<$> (x Core..?> "OperatingSystem")
-            Prelude.<*> (x Core..?> "BaselineId")
+            Prelude.<$> (x Data..?> "BaselineId")
+            Prelude.<*> (x Data..?> "OperatingSystem")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -102,42 +104,42 @@ instance Prelude.NFData GetDefaultPatchBaseline where
   rnf GetDefaultPatchBaseline' {..} =
     Prelude.rnf operatingSystem
 
-instance Core.ToHeaders GetDefaultPatchBaseline where
+instance Data.ToHeaders GetDefaultPatchBaseline where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.GetDefaultPatchBaseline" ::
+              Data.=# ( "AmazonSSM.GetDefaultPatchBaseline" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetDefaultPatchBaseline where
+instance Data.ToJSON GetDefaultPatchBaseline where
   toJSON GetDefaultPatchBaseline' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("OperatingSystem" Core..=)
+          [ ("OperatingSystem" Data..=)
               Prelude.<$> operatingSystem
           ]
       )
 
-instance Core.ToPath GetDefaultPatchBaseline where
+instance Data.ToPath GetDefaultPatchBaseline where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetDefaultPatchBaseline where
+instance Data.ToQuery GetDefaultPatchBaseline where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetDefaultPatchBaselineResponse' smart constructor.
 data GetDefaultPatchBaselineResponse = GetDefaultPatchBaselineResponse'
-  { -- | The operating system for the returned patch baseline.
-    operatingSystem :: Prelude.Maybe OperatingSystem,
-    -- | The ID of the default patch baseline.
+  { -- | The ID of the default patch baseline.
     baselineId :: Prelude.Maybe Prelude.Text,
+    -- | The operating system for the returned patch baseline.
+    operatingSystem :: Prelude.Maybe OperatingSystem,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -151,9 +153,9 @@ data GetDefaultPatchBaselineResponse = GetDefaultPatchBaselineResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'operatingSystem', 'getDefaultPatchBaselineResponse_operatingSystem' - The operating system for the returned patch baseline.
---
 -- 'baselineId', 'getDefaultPatchBaselineResponse_baselineId' - The ID of the default patch baseline.
+--
+-- 'operatingSystem', 'getDefaultPatchBaselineResponse_operatingSystem' - The operating system for the returned patch baseline.
 --
 -- 'httpStatus', 'getDefaultPatchBaselineResponse_httpStatus' - The response's http status code.
 newGetDefaultPatchBaselineResponse ::
@@ -162,19 +164,19 @@ newGetDefaultPatchBaselineResponse ::
   GetDefaultPatchBaselineResponse
 newGetDefaultPatchBaselineResponse pHttpStatus_ =
   GetDefaultPatchBaselineResponse'
-    { operatingSystem =
+    { baselineId =
         Prelude.Nothing,
-      baselineId = Prelude.Nothing,
+      operatingSystem = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The operating system for the returned patch baseline.
-getDefaultPatchBaselineResponse_operatingSystem :: Lens.Lens' GetDefaultPatchBaselineResponse (Prelude.Maybe OperatingSystem)
-getDefaultPatchBaselineResponse_operatingSystem = Lens.lens (\GetDefaultPatchBaselineResponse' {operatingSystem} -> operatingSystem) (\s@GetDefaultPatchBaselineResponse' {} a -> s {operatingSystem = a} :: GetDefaultPatchBaselineResponse)
 
 -- | The ID of the default patch baseline.
 getDefaultPatchBaselineResponse_baselineId :: Lens.Lens' GetDefaultPatchBaselineResponse (Prelude.Maybe Prelude.Text)
 getDefaultPatchBaselineResponse_baselineId = Lens.lens (\GetDefaultPatchBaselineResponse' {baselineId} -> baselineId) (\s@GetDefaultPatchBaselineResponse' {} a -> s {baselineId = a} :: GetDefaultPatchBaselineResponse)
+
+-- | The operating system for the returned patch baseline.
+getDefaultPatchBaselineResponse_operatingSystem :: Lens.Lens' GetDefaultPatchBaselineResponse (Prelude.Maybe OperatingSystem)
+getDefaultPatchBaselineResponse_operatingSystem = Lens.lens (\GetDefaultPatchBaselineResponse' {operatingSystem} -> operatingSystem) (\s@GetDefaultPatchBaselineResponse' {} a -> s {operatingSystem = a} :: GetDefaultPatchBaselineResponse)
 
 -- | The response's http status code.
 getDefaultPatchBaselineResponse_httpStatus :: Lens.Lens' GetDefaultPatchBaselineResponse Prelude.Int
@@ -185,6 +187,6 @@ instance
     GetDefaultPatchBaselineResponse
   where
   rnf GetDefaultPatchBaselineResponse' {..} =
-    Prelude.rnf operatingSystem
-      `Prelude.seq` Prelude.rnf baselineId
+    Prelude.rnf baselineId
+      `Prelude.seq` Prelude.rnf operatingSystem
       `Prelude.seq` Prelude.rnf httpStatus

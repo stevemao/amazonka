@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.Types.HostedZoneConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53.Types.HostedZoneConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53.Internal
 
@@ -30,10 +31,10 @@ import Amazonka.Route53.Internal
 --
 -- /See:/ 'newHostedZoneConfig' smart constructor.
 data HostedZoneConfig = HostedZoneConfig'
-  { -- | A value that indicates whether this is a private hosted zone.
-    privateZone :: Prelude.Maybe Prelude.Bool,
-    -- | Any comments that you want to include about the hosted zone.
-    comment :: Prelude.Maybe Prelude.Text
+  { -- | Any comments that you want to include about the hosted zone.
+    comment :: Prelude.Maybe Prelude.Text,
+    -- | A value that indicates whether this is a private hosted zone.
+    privateZone :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,44 +46,44 @@ data HostedZoneConfig = HostedZoneConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'privateZone', 'hostedZoneConfig_privateZone' - A value that indicates whether this is a private hosted zone.
---
 -- 'comment', 'hostedZoneConfig_comment' - Any comments that you want to include about the hosted zone.
+--
+-- 'privateZone', 'hostedZoneConfig_privateZone' - A value that indicates whether this is a private hosted zone.
 newHostedZoneConfig ::
   HostedZoneConfig
 newHostedZoneConfig =
   HostedZoneConfig'
-    { privateZone = Prelude.Nothing,
-      comment = Prelude.Nothing
+    { comment = Prelude.Nothing,
+      privateZone = Prelude.Nothing
     }
-
--- | A value that indicates whether this is a private hosted zone.
-hostedZoneConfig_privateZone :: Lens.Lens' HostedZoneConfig (Prelude.Maybe Prelude.Bool)
-hostedZoneConfig_privateZone = Lens.lens (\HostedZoneConfig' {privateZone} -> privateZone) (\s@HostedZoneConfig' {} a -> s {privateZone = a} :: HostedZoneConfig)
 
 -- | Any comments that you want to include about the hosted zone.
 hostedZoneConfig_comment :: Lens.Lens' HostedZoneConfig (Prelude.Maybe Prelude.Text)
 hostedZoneConfig_comment = Lens.lens (\HostedZoneConfig' {comment} -> comment) (\s@HostedZoneConfig' {} a -> s {comment = a} :: HostedZoneConfig)
 
-instance Core.FromXML HostedZoneConfig where
+-- | A value that indicates whether this is a private hosted zone.
+hostedZoneConfig_privateZone :: Lens.Lens' HostedZoneConfig (Prelude.Maybe Prelude.Bool)
+hostedZoneConfig_privateZone = Lens.lens (\HostedZoneConfig' {privateZone} -> privateZone) (\s@HostedZoneConfig' {} a -> s {privateZone = a} :: HostedZoneConfig)
+
+instance Data.FromXML HostedZoneConfig where
   parseXML x =
     HostedZoneConfig'
-      Prelude.<$> (x Core..@? "PrivateZone")
-      Prelude.<*> (x Core..@? "Comment")
+      Prelude.<$> (x Data..@? "Comment")
+      Prelude.<*> (x Data..@? "PrivateZone")
 
 instance Prelude.Hashable HostedZoneConfig where
   hashWithSalt _salt HostedZoneConfig' {..} =
-    _salt `Prelude.hashWithSalt` privateZone
-      `Prelude.hashWithSalt` comment
+    _salt `Prelude.hashWithSalt` comment
+      `Prelude.hashWithSalt` privateZone
 
 instance Prelude.NFData HostedZoneConfig where
   rnf HostedZoneConfig' {..} =
-    Prelude.rnf privateZone
-      `Prelude.seq` Prelude.rnf comment
+    Prelude.rnf comment
+      `Prelude.seq` Prelude.rnf privateZone
 
-instance Core.ToXML HostedZoneConfig where
+instance Data.ToXML HostedZoneConfig where
   toXML HostedZoneConfig' {..} =
     Prelude.mconcat
-      [ "PrivateZone" Core.@= privateZone,
-        "Comment" Core.@= comment
+      [ "Comment" Data.@= comment,
+        "PrivateZone" Data.@= privateZone
       ]

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Proton.DeleteEnvironmentAccountConnection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,15 +23,15 @@
 -- In an environment account, delete an environment account connection.
 --
 -- After you delete an environment account connection that’s in use by an
--- AWS Proton environment, AWS Proton /can’t/ manage the environment
--- infrastructure resources until a new environment account connection is
--- accepted for the environment account and associated environment. You\'re
--- responsible for cleaning up provisioned resources that remain without an
--- environment connection.
+-- Proton environment, Proton /can’t/ manage the environment infrastructure
+-- resources until a new environment account connection is accepted for the
+-- environment account and associated environment. You\'re responsible for
+-- cleaning up provisioned resources that remain without an environment
+-- connection.
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/proton/latest/adminguide/ag-env-account-connections.html Environment account connections>
--- in the /AWS Proton Administrator guide/.
+-- <https://docs.aws.amazon.com/proton/latest/userguide/ag-env-account-connections.html Environment account connections>
+-- in the /Proton User guide/.
 module Amazonka.Proton.DeleteEnvironmentAccountConnection
   ( -- * Creating a Request
     DeleteEnvironmentAccountConnection (..),
@@ -51,7 +51,8 @@ module Amazonka.Proton.DeleteEnvironmentAccountConnection
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types
 import qualified Amazonka.Request as Request
@@ -91,12 +92,13 @@ instance
   type
     AWSResponse DeleteEnvironmentAccountConnection =
       DeleteEnvironmentAccountConnectionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteEnvironmentAccountConnectionResponse'
-            Prelude.<$> (x Core..?> "environmentAccountConnection")
+            Prelude.<$> (x Data..?> "environmentAccountConnection")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,47 +119,46 @@ instance
     Prelude.rnf id
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteEnvironmentAccountConnection
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AwsProton20200720.DeleteEnvironmentAccountConnection" ::
+              Data.=# ( "AwsProton20200720.DeleteEnvironmentAccountConnection" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DeleteEnvironmentAccountConnection
   where
   toJSON DeleteEnvironmentAccountConnection' {..} =
-    Core.object
-      (Prelude.catMaybes [Prelude.Just ("id" Core..= id)])
+    Data.object
+      (Prelude.catMaybes [Prelude.Just ("id" Data..= id)])
 
 instance
-  Core.ToPath
+  Data.ToPath
     DeleteEnvironmentAccountConnection
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DeleteEnvironmentAccountConnection
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteEnvironmentAccountConnectionResponse' smart constructor.
 data DeleteEnvironmentAccountConnectionResponse = DeleteEnvironmentAccountConnectionResponse'
-  { -- | The environment account connection detail data that\'s returned by AWS
-    -- Proton.
+  { -- | The detailed data of the environment account connection being deleted.
     environmentAccountConnection :: Prelude.Maybe EnvironmentAccountConnection,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -172,8 +173,7 @@ data DeleteEnvironmentAccountConnectionResponse = DeleteEnvironmentAccountConnec
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'environmentAccountConnection', 'deleteEnvironmentAccountConnectionResponse_environmentAccountConnection' - The environment account connection detail data that\'s returned by AWS
--- Proton.
+-- 'environmentAccountConnection', 'deleteEnvironmentAccountConnectionResponse_environmentAccountConnection' - The detailed data of the environment account connection being deleted.
 --
 -- 'httpStatus', 'deleteEnvironmentAccountConnectionResponse_httpStatus' - The response's http status code.
 newDeleteEnvironmentAccountConnectionResponse ::
@@ -188,8 +188,7 @@ newDeleteEnvironmentAccountConnectionResponse
         httpStatus = pHttpStatus_
       }
 
--- | The environment account connection detail data that\'s returned by AWS
--- Proton.
+-- | The detailed data of the environment account connection being deleted.
 deleteEnvironmentAccountConnectionResponse_environmentAccountConnection :: Lens.Lens' DeleteEnvironmentAccountConnectionResponse (Prelude.Maybe EnvironmentAccountConnection)
 deleteEnvironmentAccountConnectionResponse_environmentAccountConnection = Lens.lens (\DeleteEnvironmentAccountConnectionResponse' {environmentAccountConnection} -> environmentAccountConnection) (\s@DeleteEnvironmentAccountConnectionResponse' {} a -> s {environmentAccountConnection = a} :: DeleteEnvironmentAccountConnectionResponse)
 

@@ -14,13 +14,14 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.CreateResourceServer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new OAuth2.0 resource server and defines custom scopes in it.
+-- Creates a new OAuth2.0 resource server and defines custom scopes within
+-- it.
 module Amazonka.CognitoIdentityProvider.CreateResourceServer
   ( -- * Creating a Request
     CreateResourceServer (..),
@@ -44,20 +45,21 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateResourceServer' smart constructor.
 data CreateResourceServer = CreateResourceServer'
-  { -- | A list of scopes. Each scope is map, where the keys are @name@ and
+  { -- | A list of scopes. Each scope is a key-value map with the keys @name@ and
     -- @description@.
     scopes :: Prelude.Maybe [ResourceServerScopeType],
     -- | The user pool ID for the user pool.
     userPoolId :: Prelude.Text,
     -- | A unique resource server identifier for the resource server. This could
-    -- be an HTTPS endpoint where the resource server is located. For example,
+    -- be an HTTPS endpoint where the resource server is located, such as
     -- @https:\/\/my-weather-api.example.com@.
     identifier :: Prelude.Text,
     -- | A friendly name for the resource server.
@@ -73,13 +75,13 @@ data CreateResourceServer = CreateResourceServer'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'scopes', 'createResourceServer_scopes' - A list of scopes. Each scope is map, where the keys are @name@ and
+-- 'scopes', 'createResourceServer_scopes' - A list of scopes. Each scope is a key-value map with the keys @name@ and
 -- @description@.
 --
 -- 'userPoolId', 'createResourceServer_userPoolId' - The user pool ID for the user pool.
 --
 -- 'identifier', 'createResourceServer_identifier' - A unique resource server identifier for the resource server. This could
--- be an HTTPS endpoint where the resource server is located. For example,
+-- be an HTTPS endpoint where the resource server is located, such as
 -- @https:\/\/my-weather-api.example.com@.
 --
 -- 'name', 'createResourceServer_name' - A friendly name for the resource server.
@@ -102,7 +104,7 @@ newCreateResourceServer
         name = pName_
       }
 
--- | A list of scopes. Each scope is map, where the keys are @name@ and
+-- | A list of scopes. Each scope is a key-value map with the keys @name@ and
 -- @description@.
 createResourceServer_scopes :: Lens.Lens' CreateResourceServer (Prelude.Maybe [ResourceServerScopeType])
 createResourceServer_scopes = Lens.lens (\CreateResourceServer' {scopes} -> scopes) (\s@CreateResourceServer' {} a -> s {scopes = a} :: CreateResourceServer) Prelude.. Lens.mapping Lens.coerced
@@ -112,7 +114,7 @@ createResourceServer_userPoolId :: Lens.Lens' CreateResourceServer Prelude.Text
 createResourceServer_userPoolId = Lens.lens (\CreateResourceServer' {userPoolId} -> userPoolId) (\s@CreateResourceServer' {} a -> s {userPoolId = a} :: CreateResourceServer)
 
 -- | A unique resource server identifier for the resource server. This could
--- be an HTTPS endpoint where the resource server is located. For example,
+-- be an HTTPS endpoint where the resource server is located, such as
 -- @https:\/\/my-weather-api.example.com@.
 createResourceServer_identifier :: Lens.Lens' CreateResourceServer Prelude.Text
 createResourceServer_identifier = Lens.lens (\CreateResourceServer' {identifier} -> identifier) (\s@CreateResourceServer' {} a -> s {identifier = a} :: CreateResourceServer)
@@ -125,13 +127,14 @@ instance Core.AWSRequest CreateResourceServer where
   type
     AWSResponse CreateResourceServer =
       CreateResourceServerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateResourceServerResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "ResourceServer")
+            Prelude.<*> (x Data..:> "ResourceServer")
       )
 
 instance Prelude.Hashable CreateResourceServer where
@@ -148,36 +151,36 @@ instance Prelude.NFData CreateResourceServer where
       `Prelude.seq` Prelude.rnf identifier
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreateResourceServer where
+instance Data.ToHeaders CreateResourceServer where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.CreateResourceServer" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.CreateResourceServer" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateResourceServer where
+instance Data.ToJSON CreateResourceServer where
   toJSON CreateResourceServer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Scopes" Core..=) Prelude.<$> scopes,
-            Prelude.Just ("UserPoolId" Core..= userPoolId),
-            Prelude.Just ("Identifier" Core..= identifier),
-            Prelude.Just ("Name" Core..= name)
+          [ ("Scopes" Data..=) Prelude.<$> scopes,
+            Prelude.Just ("UserPoolId" Data..= userPoolId),
+            Prelude.Just ("Identifier" Data..= identifier),
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateResourceServer where
+instance Data.ToPath CreateResourceServer where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateResourceServer where
+instance Data.ToQuery CreateResourceServer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateResourceServerResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Location.Types.CalculateRouteCarModeOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Location.Types.CalculateRouteCarModeOptions where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains details about additional route preferences for requests that
@@ -28,18 +29,18 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newCalculateRouteCarModeOptions' smart constructor.
 data CalculateRouteCarModeOptions = CalculateRouteCarModeOptions'
-  { -- | Avoids tolls when calculating routes.
+  { -- | Avoids ferries when calculating routes.
     --
     -- Default Value: @false@
     --
     -- Valid Values: @false@ | @true@
-    avoidTolls :: Prelude.Maybe Prelude.Bool,
-    -- | Avoids ferries when calculating routes.
+    avoidFerries :: Prelude.Maybe Prelude.Bool,
+    -- | Avoids tolls when calculating routes.
     --
     -- Default Value: @false@
     --
     -- Valid Values: @false@ | @true@
-    avoidFerries :: Prelude.Maybe Prelude.Bool
+    avoidTolls :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -51,13 +52,13 @@ data CalculateRouteCarModeOptions = CalculateRouteCarModeOptions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'avoidTolls', 'calculateRouteCarModeOptions_avoidTolls' - Avoids tolls when calculating routes.
+-- 'avoidFerries', 'calculateRouteCarModeOptions_avoidFerries' - Avoids ferries when calculating routes.
 --
 -- Default Value: @false@
 --
 -- Valid Values: @false@ | @true@
 --
--- 'avoidFerries', 'calculateRouteCarModeOptions_avoidFerries' - Avoids ferries when calculating routes.
+-- 'avoidTolls', 'calculateRouteCarModeOptions_avoidTolls' - Avoids tolls when calculating routes.
 --
 -- Default Value: @false@
 --
@@ -66,18 +67,10 @@ newCalculateRouteCarModeOptions ::
   CalculateRouteCarModeOptions
 newCalculateRouteCarModeOptions =
   CalculateRouteCarModeOptions'
-    { avoidTolls =
+    { avoidFerries =
         Prelude.Nothing,
-      avoidFerries = Prelude.Nothing
+      avoidTolls = Prelude.Nothing
     }
-
--- | Avoids tolls when calculating routes.
---
--- Default Value: @false@
---
--- Valid Values: @false@ | @true@
-calculateRouteCarModeOptions_avoidTolls :: Lens.Lens' CalculateRouteCarModeOptions (Prelude.Maybe Prelude.Bool)
-calculateRouteCarModeOptions_avoidTolls = Lens.lens (\CalculateRouteCarModeOptions' {avoidTolls} -> avoidTolls) (\s@CalculateRouteCarModeOptions' {} a -> s {avoidTolls = a} :: CalculateRouteCarModeOptions)
 
 -- | Avoids ferries when calculating routes.
 --
@@ -87,24 +80,32 @@ calculateRouteCarModeOptions_avoidTolls = Lens.lens (\CalculateRouteCarModeOptio
 calculateRouteCarModeOptions_avoidFerries :: Lens.Lens' CalculateRouteCarModeOptions (Prelude.Maybe Prelude.Bool)
 calculateRouteCarModeOptions_avoidFerries = Lens.lens (\CalculateRouteCarModeOptions' {avoidFerries} -> avoidFerries) (\s@CalculateRouteCarModeOptions' {} a -> s {avoidFerries = a} :: CalculateRouteCarModeOptions)
 
+-- | Avoids tolls when calculating routes.
+--
+-- Default Value: @false@
+--
+-- Valid Values: @false@ | @true@
+calculateRouteCarModeOptions_avoidTolls :: Lens.Lens' CalculateRouteCarModeOptions (Prelude.Maybe Prelude.Bool)
+calculateRouteCarModeOptions_avoidTolls = Lens.lens (\CalculateRouteCarModeOptions' {avoidTolls} -> avoidTolls) (\s@CalculateRouteCarModeOptions' {} a -> s {avoidTolls = a} :: CalculateRouteCarModeOptions)
+
 instance
   Prelude.Hashable
     CalculateRouteCarModeOptions
   where
   hashWithSalt _salt CalculateRouteCarModeOptions' {..} =
-    _salt `Prelude.hashWithSalt` avoidTolls
-      `Prelude.hashWithSalt` avoidFerries
+    _salt `Prelude.hashWithSalt` avoidFerries
+      `Prelude.hashWithSalt` avoidTolls
 
 instance Prelude.NFData CalculateRouteCarModeOptions where
   rnf CalculateRouteCarModeOptions' {..} =
-    Prelude.rnf avoidTolls
-      `Prelude.seq` Prelude.rnf avoidFerries
+    Prelude.rnf avoidFerries
+      `Prelude.seq` Prelude.rnf avoidTolls
 
-instance Core.ToJSON CalculateRouteCarModeOptions where
+instance Data.ToJSON CalculateRouteCarModeOptions where
   toJSON CalculateRouteCarModeOptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AvoidTolls" Core..=) Prelude.<$> avoidTolls,
-            ("AvoidFerries" Core..=) Prelude.<$> avoidFerries
+          [ ("AvoidFerries" Data..=) Prelude.<$> avoidFerries,
+            ("AvoidTolls" Data..=) Prelude.<$> avoidTolls
           ]
       )

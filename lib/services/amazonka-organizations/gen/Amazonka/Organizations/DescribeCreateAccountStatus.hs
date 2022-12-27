@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.DescribeCreateAccountStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,7 +25,7 @@
 --
 -- This operation can be called only from the organization\'s management
 -- account or by a member account that is a delegated administrator for an
--- AWS service.
+-- Amazon Web Services service.
 module Amazonka.Organizations.DescribeCreateAccountStatus
   ( -- * Creating a Request
     DescribeCreateAccountStatus (..),
@@ -45,7 +45,8 @@ module Amazonka.Organizations.DescribeCreateAccountStatus
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -107,12 +108,13 @@ instance Core.AWSRequest DescribeCreateAccountStatus where
   type
     AWSResponse DescribeCreateAccountStatus =
       DescribeCreateAccountStatusResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeCreateAccountStatusResponse'
-            Prelude.<$> (x Core..?> "CreateAccountStatus")
+            Prelude.<$> (x Data..?> "CreateAccountStatus")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -124,36 +126,36 @@ instance Prelude.NFData DescribeCreateAccountStatus where
   rnf DescribeCreateAccountStatus' {..} =
     Prelude.rnf createAccountRequestId
 
-instance Core.ToHeaders DescribeCreateAccountStatus where
+instance Data.ToHeaders DescribeCreateAccountStatus where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.DescribeCreateAccountStatus" ::
+              Data.=# ( "AWSOrganizationsV20161128.DescribeCreateAccountStatus" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeCreateAccountStatus where
+instance Data.ToJSON DescribeCreateAccountStatus where
   toJSON DescribeCreateAccountStatus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "CreateAccountRequestId"
-                  Core..= createAccountRequestId
+                  Data..= createAccountRequestId
               )
           ]
       )
 
-instance Core.ToPath DescribeCreateAccountStatus where
+instance Data.ToPath DescribeCreateAccountStatus where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeCreateAccountStatus where
+instance Data.ToQuery DescribeCreateAccountStatus where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeCreateAccountStatusResponse' smart constructor.

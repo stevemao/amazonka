@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Shield.CreateSubscription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,11 @@
 --
 -- Activates Shield Advanced for an account.
 --
--- When you initally create a subscription, your subscription is set to be
+-- For accounts that are members of an Organizations organization, Shield
+-- Advanced subscriptions are billed against the organization\'s payer
+-- account, regardless of whether the payer account itself is subscribed.
+--
+-- When you initially create a subscription, your subscription is set to be
 -- automatically renewed at the end of the existing subscription period.
 -- You can change this by submitting an @UpdateSubscription@ request.
 module Amazonka.Shield.CreateSubscription
@@ -40,7 +44,8 @@ module Amazonka.Shield.CreateSubscription
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -64,7 +69,8 @@ instance Core.AWSRequest CreateSubscription where
   type
     AWSResponse CreateSubscription =
       CreateSubscriptionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -79,28 +85,28 @@ instance Prelude.Hashable CreateSubscription where
 instance Prelude.NFData CreateSubscription where
   rnf _ = ()
 
-instance Core.ToHeaders CreateSubscription where
+instance Data.ToHeaders CreateSubscription where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSShield_20160616.CreateSubscription" ::
+              Data.=# ( "AWSShield_20160616.CreateSubscription" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateSubscription where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON CreateSubscription where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath CreateSubscription where
+instance Data.ToPath CreateSubscription where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateSubscription where
+instance Data.ToQuery CreateSubscription where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateSubscriptionResponse' smart constructor.

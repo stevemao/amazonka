@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.UpdateSecurity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.Kafka.UpdateSecurity
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kafka.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -123,13 +124,14 @@ instance Core.AWSRequest UpdateSecurity where
   type
     AWSResponse UpdateSecurity =
       UpdateSecurityResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateSecurityResponse'
-            Prelude.<$> (x Core..?> "clusterArn")
-            Prelude.<*> (x Core..?> "clusterOperationArn")
+            Prelude.<$> (x Data..?> "clusterArn")
+            Prelude.<*> (x Data..?> "clusterOperationArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -147,36 +149,36 @@ instance Prelude.NFData UpdateSecurity where
       `Prelude.seq` Prelude.rnf clusterArn
       `Prelude.seq` Prelude.rnf currentVersion
 
-instance Core.ToHeaders UpdateSecurity where
+instance Data.ToHeaders UpdateSecurity where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateSecurity where
+instance Data.ToJSON UpdateSecurity where
   toJSON UpdateSecurity' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientAuthentication" Core..=)
+          [ ("clientAuthentication" Data..=)
               Prelude.<$> clientAuthentication,
-            ("encryptionInfo" Core..=)
+            ("encryptionInfo" Data..=)
               Prelude.<$> encryptionInfo,
             Prelude.Just
-              ("currentVersion" Core..= currentVersion)
+              ("currentVersion" Data..= currentVersion)
           ]
       )
 
-instance Core.ToPath UpdateSecurity where
+instance Data.ToPath UpdateSecurity where
   toPath UpdateSecurity' {..} =
     Prelude.mconcat
-      ["/v1/clusters/", Core.toBS clusterArn, "/security"]
+      ["/v1/clusters/", Data.toBS clusterArn, "/security"]
 
-instance Core.ToQuery UpdateSecurity where
+instance Data.ToQuery UpdateSecurity where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateSecurityResponse' smart constructor.

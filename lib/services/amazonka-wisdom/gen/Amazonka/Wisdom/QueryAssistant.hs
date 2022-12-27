@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.QueryAssistant
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.Wisdom.QueryAssistant
     newQueryAssistant,
 
     -- * Request Lenses
-    queryAssistant_nextToken,
     queryAssistant_maxResults,
+    queryAssistant_nextToken,
     queryAssistant_assistantId,
     queryAssistant_queryText,
 
@@ -48,7 +48,8 @@ module Amazonka.Wisdom.QueryAssistant
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,17 +57,17 @@ import Amazonka.Wisdom.Types
 
 -- | /See:/ 'newQueryAssistant' smart constructor.
 data QueryAssistant = QueryAssistant'
-  { -- | The token for the next set of results. Use the value returned in the
+  { -- | The maximum number of results to return per page.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results. Use the value returned in the
     -- previous response in the next request to retrieve the next set of
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return per page.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The identifier of the Wisdom assistant. Can be either the ID or the ARN.
     -- URLs cannot contain the ARN.
     assistantId :: Prelude.Text,
     -- | The text to search for.
-    queryText :: Core.Sensitive Prelude.Text
+    queryText :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -78,11 +79,11 @@ data QueryAssistant = QueryAssistant'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'queryAssistant_maxResults' - The maximum number of results to return per page.
+--
 -- 'nextToken', 'queryAssistant_nextToken' - The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
---
--- 'maxResults', 'queryAssistant_maxResults' - The maximum number of results to return per page.
 --
 -- 'assistantId', 'queryAssistant_assistantId' - The identifier of the Wisdom assistant. Can be either the ID or the ARN.
 -- URLs cannot contain the ARN.
@@ -96,21 +97,21 @@ newQueryAssistant ::
   QueryAssistant
 newQueryAssistant pAssistantId_ pQueryText_ =
   QueryAssistant'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       assistantId = pAssistantId_,
-      queryText = Core._Sensitive Lens.# pQueryText_
+      queryText = Data._Sensitive Lens.# pQueryText_
     }
+
+-- | The maximum number of results to return per page.
+queryAssistant_maxResults :: Lens.Lens' QueryAssistant (Prelude.Maybe Prelude.Natural)
+queryAssistant_maxResults = Lens.lens (\QueryAssistant' {maxResults} -> maxResults) (\s@QueryAssistant' {} a -> s {maxResults = a} :: QueryAssistant)
 
 -- | The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
 queryAssistant_nextToken :: Lens.Lens' QueryAssistant (Prelude.Maybe Prelude.Text)
 queryAssistant_nextToken = Lens.lens (\QueryAssistant' {nextToken} -> nextToken) (\s@QueryAssistant' {} a -> s {nextToken = a} :: QueryAssistant)
-
--- | The maximum number of results to return per page.
-queryAssistant_maxResults :: Lens.Lens' QueryAssistant (Prelude.Maybe Prelude.Natural)
-queryAssistant_maxResults = Lens.lens (\QueryAssistant' {maxResults} -> maxResults) (\s@QueryAssistant' {} a -> s {maxResults = a} :: QueryAssistant)
 
 -- | The identifier of the Wisdom assistant. Can be either the ID or the ARN.
 -- URLs cannot contain the ARN.
@@ -119,7 +120,7 @@ queryAssistant_assistantId = Lens.lens (\QueryAssistant' {assistantId} -> assist
 
 -- | The text to search for.
 queryAssistant_queryText :: Lens.Lens' QueryAssistant Prelude.Text
-queryAssistant_queryText = Lens.lens (\QueryAssistant' {queryText} -> queryText) (\s@QueryAssistant' {} a -> s {queryText = a} :: QueryAssistant) Prelude.. Core._Sensitive
+queryAssistant_queryText = Lens.lens (\QueryAssistant' {queryText} -> queryText) (\s@QueryAssistant' {} a -> s {queryText = a} :: QueryAssistant) Prelude.. Data._Sensitive
 
 instance Core.AWSPager QueryAssistant where
   page rq rs
@@ -143,57 +144,58 @@ instance Core.AWSRequest QueryAssistant where
   type
     AWSResponse QueryAssistant =
       QueryAssistantResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           QueryAssistantResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "results" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "results" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable QueryAssistant where
   hashWithSalt _salt QueryAssistant' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` assistantId
       `Prelude.hashWithSalt` queryText
 
 instance Prelude.NFData QueryAssistant where
   rnf QueryAssistant' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf assistantId
       `Prelude.seq` Prelude.rnf queryText
 
-instance Core.ToHeaders QueryAssistant where
+instance Data.ToHeaders QueryAssistant where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON QueryAssistant where
+instance Data.ToJSON QueryAssistant where
   toJSON QueryAssistant' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("queryText" Core..= queryText)
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("queryText" Data..= queryText)
           ]
       )
 
-instance Core.ToPath QueryAssistant where
+instance Data.ToPath QueryAssistant where
   toPath QueryAssistant' {..} =
     Prelude.mconcat
-      ["/assistants/", Core.toBS assistantId, "/query"]
+      ["/assistants/", Data.toBS assistantId, "/query"]
 
-instance Core.ToQuery QueryAssistant where
+instance Data.ToQuery QueryAssistant where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newQueryAssistantResponse' smart constructor.

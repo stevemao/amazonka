@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.KeyValue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.EMR.Types.KeyValue where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A key-value pair.
 --
 -- /See:/ 'newKeyValue' smart constructor.
 data KeyValue = KeyValue'
-  { -- | The value part of the identified key.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The unique identifier of a key-value pair.
-    key :: Prelude.Maybe Prelude.Text
+  { -- | The unique identifier of a key-value pair.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The value part of the identified key.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,39 +43,39 @@ data KeyValue = KeyValue'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'keyValue_value' - The value part of the identified key.
---
 -- 'key', 'keyValue_key' - The unique identifier of a key-value pair.
+--
+-- 'value', 'keyValue_value' - The value part of the identified key.
 newKeyValue ::
   KeyValue
 newKeyValue =
   KeyValue'
-    { value = Prelude.Nothing,
-      key = Prelude.Nothing
+    { key = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The value part of the identified key.
-keyValue_value :: Lens.Lens' KeyValue (Prelude.Maybe Prelude.Text)
-keyValue_value = Lens.lens (\KeyValue' {value} -> value) (\s@KeyValue' {} a -> s {value = a} :: KeyValue)
 
 -- | The unique identifier of a key-value pair.
 keyValue_key :: Lens.Lens' KeyValue (Prelude.Maybe Prelude.Text)
 keyValue_key = Lens.lens (\KeyValue' {key} -> key) (\s@KeyValue' {} a -> s {key = a} :: KeyValue)
 
+-- | The value part of the identified key.
+keyValue_value :: Lens.Lens' KeyValue (Prelude.Maybe Prelude.Text)
+keyValue_value = Lens.lens (\KeyValue' {value} -> value) (\s@KeyValue' {} a -> s {value = a} :: KeyValue)
+
 instance Prelude.Hashable KeyValue where
   hashWithSalt _salt KeyValue' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` key
+    _salt `Prelude.hashWithSalt` key
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData KeyValue where
   rnf KeyValue' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf key
+    Prelude.rnf key `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON KeyValue where
+instance Data.ToJSON KeyValue where
   toJSON KeyValue' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Value" Core..=) Prelude.<$> value,
-            ("Key" Core..=) Prelude.<$> key
+          [ ("Key" Data..=) Prelude.<$> key,
+            ("Value" Data..=) Prelude.<$> value
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ComputeOptimizer.ExportEC2InstanceRecommendations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,9 +38,9 @@ module Amazonka.ComputeOptimizer.ExportEC2InstanceRecommendations
 
     -- * Request Lenses
     exportEC2InstanceRecommendations_accountIds,
+    exportEC2InstanceRecommendations_fieldsToExport,
     exportEC2InstanceRecommendations_fileFormat,
     exportEC2InstanceRecommendations_filters,
-    exportEC2InstanceRecommendations_fieldsToExport,
     exportEC2InstanceRecommendations_includeMemberAccounts,
     exportEC2InstanceRecommendations_recommendationPreferences,
     exportEC2InstanceRecommendations_s3DestinationConfig,
@@ -58,7 +58,8 @@ where
 
 import Amazonka.ComputeOptimizer.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,6 +81,11 @@ data ExportEC2InstanceRecommendations = ExportEC2InstanceRecommendations'
     --
     -- You can specify multiple account IDs per request.
     accountIds :: Prelude.Maybe [Prelude.Text],
+    -- | The recommendations data to include in the export file. For more
+    -- information about the fields that can be exported, see
+    -- <https://docs.aws.amazon.com/compute-optimizer/latest/ug/exporting-recommendations.html#exported-files Exported files>
+    -- in the /Compute Optimizer User Guide/.
+    fieldsToExport :: Prelude.Maybe [ExportableInstanceField],
     -- | The format of the export file.
     --
     -- The only export file format currently supported is @Csv@.
@@ -87,11 +93,6 @@ data ExportEC2InstanceRecommendations = ExportEC2InstanceRecommendations'
     -- | An array of objects to specify a filter that exports a more specific set
     -- of instance recommendations.
     filters :: Prelude.Maybe [Filter],
-    -- | The recommendations data to include in the export file. For more
-    -- information about the fields that can be exported, see
-    -- <https://docs.aws.amazon.com/compute-optimizer/latest/ug/exporting-recommendations.html#exported-files Exported files>
-    -- in the /Compute Optimizer User Guide/.
-    fieldsToExport :: Prelude.Maybe [ExportableInstanceField],
     -- | Indicates whether to include recommendations for resources in all member
     -- accounts of the organization if your account is the management account
     -- of an organization.
@@ -117,10 +118,10 @@ data ExportEC2InstanceRecommendations = ExportEC2InstanceRecommendations'
     -- You must create the destination Amazon S3 bucket for your
     -- recommendations export before you create the export job. Compute
     -- Optimizer does not create the S3 bucket for you. After you create the S3
-    -- bucket, ensure that it has the required permissions policy policy to
-    -- allow Compute Optimizer to write the export file to it. If you plan to
-    -- specify an object prefix when you create the export job, you must
-    -- include the object prefix in the that you add to the S3 bucket. For more
+    -- bucket, ensure that it has the required permissions policy to allow
+    -- Compute Optimizer to write the export file to it. If you plan to specify
+    -- an object prefix when you create the export job, you must include the
+    -- object prefix in the policy that you add to the S3 bucket. For more
     -- information, see
     -- <https://docs.aws.amazon.com/compute-optimizer/latest/ug/create-s3-bucket-policy-for-compute-optimizer.html Amazon S3 Bucket Policy for Compute Optimizer>
     -- in the /Compute Optimizer User Guide/.
@@ -151,17 +152,17 @@ data ExportEC2InstanceRecommendations = ExportEC2InstanceRecommendations'
 --
 -- You can specify multiple account IDs per request.
 --
+-- 'fieldsToExport', 'exportEC2InstanceRecommendations_fieldsToExport' - The recommendations data to include in the export file. For more
+-- information about the fields that can be exported, see
+-- <https://docs.aws.amazon.com/compute-optimizer/latest/ug/exporting-recommendations.html#exported-files Exported files>
+-- in the /Compute Optimizer User Guide/.
+--
 -- 'fileFormat', 'exportEC2InstanceRecommendations_fileFormat' - The format of the export file.
 --
 -- The only export file format currently supported is @Csv@.
 --
 -- 'filters', 'exportEC2InstanceRecommendations_filters' - An array of objects to specify a filter that exports a more specific set
 -- of instance recommendations.
---
--- 'fieldsToExport', 'exportEC2InstanceRecommendations_fieldsToExport' - The recommendations data to include in the export file. For more
--- information about the fields that can be exported, see
--- <https://docs.aws.amazon.com/compute-optimizer/latest/ug/exporting-recommendations.html#exported-files Exported files>
--- in the /Compute Optimizer User Guide/.
 --
 -- 'includeMemberAccounts', 'exportEC2InstanceRecommendations_includeMemberAccounts' - Indicates whether to include recommendations for resources in all member
 -- accounts of the organization if your account is the management account
@@ -188,10 +189,10 @@ data ExportEC2InstanceRecommendations = ExportEC2InstanceRecommendations'
 -- You must create the destination Amazon S3 bucket for your
 -- recommendations export before you create the export job. Compute
 -- Optimizer does not create the S3 bucket for you. After you create the S3
--- bucket, ensure that it has the required permissions policy policy to
--- allow Compute Optimizer to write the export file to it. If you plan to
--- specify an object prefix when you create the export job, you must
--- include the object prefix in the that you add to the S3 bucket. For more
+-- bucket, ensure that it has the required permissions policy to allow
+-- Compute Optimizer to write the export file to it. If you plan to specify
+-- an object prefix when you create the export job, you must include the
+-- object prefix in the policy that you add to the S3 bucket. For more
 -- information, see
 -- <https://docs.aws.amazon.com/compute-optimizer/latest/ug/create-s3-bucket-policy-for-compute-optimizer.html Amazon S3 Bucket Policy for Compute Optimizer>
 -- in the /Compute Optimizer User Guide/.
@@ -204,9 +205,9 @@ newExportEC2InstanceRecommendations
     ExportEC2InstanceRecommendations'
       { accountIds =
           Prelude.Nothing,
+        fieldsToExport = Prelude.Nothing,
         fileFormat = Prelude.Nothing,
         filters = Prelude.Nothing,
-        fieldsToExport = Prelude.Nothing,
         includeMemberAccounts = Prelude.Nothing,
         recommendationPreferences =
           Prelude.Nothing,
@@ -231,6 +232,13 @@ newExportEC2InstanceRecommendations
 exportEC2InstanceRecommendations_accountIds :: Lens.Lens' ExportEC2InstanceRecommendations (Prelude.Maybe [Prelude.Text])
 exportEC2InstanceRecommendations_accountIds = Lens.lens (\ExportEC2InstanceRecommendations' {accountIds} -> accountIds) (\s@ExportEC2InstanceRecommendations' {} a -> s {accountIds = a} :: ExportEC2InstanceRecommendations) Prelude.. Lens.mapping Lens.coerced
 
+-- | The recommendations data to include in the export file. For more
+-- information about the fields that can be exported, see
+-- <https://docs.aws.amazon.com/compute-optimizer/latest/ug/exporting-recommendations.html#exported-files Exported files>
+-- in the /Compute Optimizer User Guide/.
+exportEC2InstanceRecommendations_fieldsToExport :: Lens.Lens' ExportEC2InstanceRecommendations (Prelude.Maybe [ExportableInstanceField])
+exportEC2InstanceRecommendations_fieldsToExport = Lens.lens (\ExportEC2InstanceRecommendations' {fieldsToExport} -> fieldsToExport) (\s@ExportEC2InstanceRecommendations' {} a -> s {fieldsToExport = a} :: ExportEC2InstanceRecommendations) Prelude.. Lens.mapping Lens.coerced
+
 -- | The format of the export file.
 --
 -- The only export file format currently supported is @Csv@.
@@ -241,13 +249,6 @@ exportEC2InstanceRecommendations_fileFormat = Lens.lens (\ExportEC2InstanceRecom
 -- of instance recommendations.
 exportEC2InstanceRecommendations_filters :: Lens.Lens' ExportEC2InstanceRecommendations (Prelude.Maybe [Filter])
 exportEC2InstanceRecommendations_filters = Lens.lens (\ExportEC2InstanceRecommendations' {filters} -> filters) (\s@ExportEC2InstanceRecommendations' {} a -> s {filters = a} :: ExportEC2InstanceRecommendations) Prelude.. Lens.mapping Lens.coerced
-
--- | The recommendations data to include in the export file. For more
--- information about the fields that can be exported, see
--- <https://docs.aws.amazon.com/compute-optimizer/latest/ug/exporting-recommendations.html#exported-files Exported files>
--- in the /Compute Optimizer User Guide/.
-exportEC2InstanceRecommendations_fieldsToExport :: Lens.Lens' ExportEC2InstanceRecommendations (Prelude.Maybe [ExportableInstanceField])
-exportEC2InstanceRecommendations_fieldsToExport = Lens.lens (\ExportEC2InstanceRecommendations' {fieldsToExport} -> fieldsToExport) (\s@ExportEC2InstanceRecommendations' {} a -> s {fieldsToExport = a} :: ExportEC2InstanceRecommendations) Prelude.. Lens.mapping Lens.coerced
 
 -- | Indicates whether to include recommendations for resources in all member
 -- accounts of the organization if your account is the management account
@@ -278,10 +279,10 @@ exportEC2InstanceRecommendations_recommendationPreferences = Lens.lens (\ExportE
 -- You must create the destination Amazon S3 bucket for your
 -- recommendations export before you create the export job. Compute
 -- Optimizer does not create the S3 bucket for you. After you create the S3
--- bucket, ensure that it has the required permissions policy policy to
--- allow Compute Optimizer to write the export file to it. If you plan to
--- specify an object prefix when you create the export job, you must
--- include the object prefix in the that you add to the S3 bucket. For more
+-- bucket, ensure that it has the required permissions policy to allow
+-- Compute Optimizer to write the export file to it. If you plan to specify
+-- an object prefix when you create the export job, you must include the
+-- object prefix in the policy that you add to the S3 bucket. For more
 -- information, see
 -- <https://docs.aws.amazon.com/compute-optimizer/latest/ug/create-s3-bucket-policy-for-compute-optimizer.html Amazon S3 Bucket Policy for Compute Optimizer>
 -- in the /Compute Optimizer User Guide/.
@@ -295,13 +296,14 @@ instance
   type
     AWSResponse ExportEC2InstanceRecommendations =
       ExportEC2InstanceRecommendationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ExportEC2InstanceRecommendationsResponse'
-            Prelude.<$> (x Core..?> "jobId")
-            Prelude.<*> (x Core..?> "s3Destination")
+            Prelude.<$> (x Data..?> "jobId")
+            Prelude.<*> (x Data..?> "s3Destination")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -313,9 +315,9 @@ instance
     _salt
     ExportEC2InstanceRecommendations' {..} =
       _salt `Prelude.hashWithSalt` accountIds
+        `Prelude.hashWithSalt` fieldsToExport
         `Prelude.hashWithSalt` fileFormat
         `Prelude.hashWithSalt` filters
-        `Prelude.hashWithSalt` fieldsToExport
         `Prelude.hashWithSalt` includeMemberAccounts
         `Prelude.hashWithSalt` recommendationPreferences
         `Prelude.hashWithSalt` s3DestinationConfig
@@ -326,54 +328,54 @@ instance
   where
   rnf ExportEC2InstanceRecommendations' {..} =
     Prelude.rnf accountIds
+      `Prelude.seq` Prelude.rnf fieldsToExport
       `Prelude.seq` Prelude.rnf fileFormat
       `Prelude.seq` Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf fieldsToExport
       `Prelude.seq` Prelude.rnf includeMemberAccounts
       `Prelude.seq` Prelude.rnf recommendationPreferences
       `Prelude.seq` Prelude.rnf s3DestinationConfig
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ExportEC2InstanceRecommendations
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ComputeOptimizerService.ExportEC2InstanceRecommendations" ::
+              Data.=# ( "ComputeOptimizerService.ExportEC2InstanceRecommendations" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ExportEC2InstanceRecommendations where
+instance Data.ToJSON ExportEC2InstanceRecommendations where
   toJSON ExportEC2InstanceRecommendations' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("accountIds" Core..=) Prelude.<$> accountIds,
-            ("fileFormat" Core..=) Prelude.<$> fileFormat,
-            ("filters" Core..=) Prelude.<$> filters,
-            ("fieldsToExport" Core..=)
+          [ ("accountIds" Data..=) Prelude.<$> accountIds,
+            ("fieldsToExport" Data..=)
               Prelude.<$> fieldsToExport,
-            ("includeMemberAccounts" Core..=)
+            ("fileFormat" Data..=) Prelude.<$> fileFormat,
+            ("filters" Data..=) Prelude.<$> filters,
+            ("includeMemberAccounts" Data..=)
               Prelude.<$> includeMemberAccounts,
-            ("recommendationPreferences" Core..=)
+            ("recommendationPreferences" Data..=)
               Prelude.<$> recommendationPreferences,
             Prelude.Just
-              ("s3DestinationConfig" Core..= s3DestinationConfig)
+              ("s3DestinationConfig" Data..= s3DestinationConfig)
           ]
       )
 
-instance Core.ToPath ExportEC2InstanceRecommendations where
+instance Data.ToPath ExportEC2InstanceRecommendations where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ExportEC2InstanceRecommendations
   where
   toQuery = Prelude.const Prelude.mempty

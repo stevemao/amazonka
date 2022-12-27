@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.GetParameter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.SSM.GetParameter
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -103,13 +104,14 @@ getParameter_name = Lens.lens (\GetParameter' {name} -> name) (\s@GetParameter' 
 
 instance Core.AWSRequest GetParameter where
   type AWSResponse GetParameter = GetParameterResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetParameterResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Parameter")
+            Prelude.<*> (x Data..:> "Parameter")
       )
 
 instance Prelude.Hashable GetParameter where
@@ -122,33 +124,33 @@ instance Prelude.NFData GetParameter where
     Prelude.rnf withDecryption
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders GetParameter where
+instance Data.ToHeaders GetParameter where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AmazonSSM.GetParameter" :: Prelude.ByteString),
+              Data.=# ("AmazonSSM.GetParameter" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetParameter where
+instance Data.ToJSON GetParameter where
   toJSON GetParameter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("WithDecryption" Core..=)
+          [ ("WithDecryption" Data..=)
               Prelude.<$> withDecryption,
-            Prelude.Just ("Name" Core..= name)
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath GetParameter where
+instance Data.ToPath GetParameter where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetParameter where
+instance Data.ToQuery GetParameter where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetParameterResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.EnableSecurityHub
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -66,7 +66,8 @@ module Amazonka.SecurityHub.EnableSecurityHub
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -125,7 +126,8 @@ instance Core.AWSRequest EnableSecurityHub where
   type
     AWSResponse EnableSecurityHub =
       EnableSecurityHubResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -143,31 +145,31 @@ instance Prelude.NFData EnableSecurityHub where
     Prelude.rnf enableDefaultStandards
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders EnableSecurityHub where
+instance Data.ToHeaders EnableSecurityHub where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON EnableSecurityHub where
+instance Data.ToJSON EnableSecurityHub where
   toJSON EnableSecurityHub' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EnableDefaultStandards" Core..=)
+          [ ("EnableDefaultStandards" Data..=)
               Prelude.<$> enableDefaultStandards,
-            ("Tags" Core..=) Prelude.<$> tags
+            ("Tags" Data..=) Prelude.<$> tags
           ]
       )
 
-instance Core.ToPath EnableSecurityHub where
+instance Data.ToPath EnableSecurityHub where
   toPath = Prelude.const "/accounts"
 
-instance Core.ToQuery EnableSecurityHub where
+instance Data.ToQuery EnableSecurityHub where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newEnableSecurityHubResponse' smart constructor.

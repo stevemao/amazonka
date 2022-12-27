@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.CreateBucket
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ module Amazonka.Lightsail.CreateBucket
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -67,7 +68,9 @@ data CreateBucket = CreateBucket'
     enableObjectVersioning :: Prelude.Maybe Prelude.Bool,
     -- | The tag keys and optional values to add to the bucket during creation.
     --
-    -- Use the TagResource action to tag the bucket after it\'s created.
+    -- Use the
+    -- <https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_TagResource.html TagResource>
+    -- action to tag the bucket after it\'s created.
     tags :: Prelude.Maybe [Tag],
     -- | The name for the bucket.
     --
@@ -80,11 +83,13 @@ data CreateBucket = CreateBucket'
     -- A bucket bundle specifies the monthly cost, storage space, and data
     -- transfer quota for a bucket.
     --
-    -- Use the GetBucketBundles action to get a list of bundle IDs that you can
-    -- specify.
+    -- Use the
+    -- <https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetBucketBundles.html GetBucketBundles>
+    -- action to get a list of bundle IDs that you can specify.
     --
-    -- Use the UpdateBucketBundle action to change the bundle after the bucket
-    -- is created.
+    -- Use the
+    -- <https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_UpdateBucketBundle.html UpdateBucketBundle>
+    -- action to change the bundle after the bucket is created.
     bundleId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -106,7 +111,9 @@ data CreateBucket = CreateBucket'
 --
 -- 'tags', 'createBucket_tags' - The tag keys and optional values to add to the bucket during creation.
 --
--- Use the TagResource action to tag the bucket after it\'s created.
+-- Use the
+-- <https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_TagResource.html TagResource>
+-- action to tag the bucket after it\'s created.
 --
 -- 'bucketName', 'createBucket_bucketName' - The name for the bucket.
 --
@@ -119,11 +126,13 @@ data CreateBucket = CreateBucket'
 -- A bucket bundle specifies the monthly cost, storage space, and data
 -- transfer quota for a bucket.
 --
--- Use the GetBucketBundles action to get a list of bundle IDs that you can
--- specify.
+-- Use the
+-- <https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetBucketBundles.html GetBucketBundles>
+-- action to get a list of bundle IDs that you can specify.
 --
--- Use the UpdateBucketBundle action to change the bundle after the bucket
--- is created.
+-- Use the
+-- <https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_UpdateBucketBundle.html UpdateBucketBundle>
+-- action to change the bundle after the bucket is created.
 newCreateBucket ::
   -- | 'bucketName'
   Prelude.Text ->
@@ -150,7 +159,9 @@ createBucket_enableObjectVersioning = Lens.lens (\CreateBucket' {enableObjectVer
 
 -- | The tag keys and optional values to add to the bucket during creation.
 --
--- Use the TagResource action to tag the bucket after it\'s created.
+-- Use the
+-- <https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_TagResource.html TagResource>
+-- action to tag the bucket after it\'s created.
 createBucket_tags :: Lens.Lens' CreateBucket (Prelude.Maybe [Tag])
 createBucket_tags = Lens.lens (\CreateBucket' {tags} -> tags) (\s@CreateBucket' {} a -> s {tags = a} :: CreateBucket) Prelude.. Lens.mapping Lens.coerced
 
@@ -167,23 +178,26 @@ createBucket_bucketName = Lens.lens (\CreateBucket' {bucketName} -> bucketName) 
 -- A bucket bundle specifies the monthly cost, storage space, and data
 -- transfer quota for a bucket.
 --
--- Use the GetBucketBundles action to get a list of bundle IDs that you can
--- specify.
+-- Use the
+-- <https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetBucketBundles.html GetBucketBundles>
+-- action to get a list of bundle IDs that you can specify.
 --
--- Use the UpdateBucketBundle action to change the bundle after the bucket
--- is created.
+-- Use the
+-- <https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_UpdateBucketBundle.html UpdateBucketBundle>
+-- action to change the bundle after the bucket is created.
 createBucket_bundleId :: Lens.Lens' CreateBucket Prelude.Text
 createBucket_bundleId = Lens.lens (\CreateBucket' {bundleId} -> bundleId) (\s@CreateBucket' {} a -> s {bundleId = a} :: CreateBucket)
 
 instance Core.AWSRequest CreateBucket where
   type AWSResponse CreateBucket = CreateBucketResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateBucketResponse'
-            Prelude.<$> (x Core..?> "bucket")
-            Prelude.<*> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "bucket")
+            Prelude.<*> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -201,37 +215,37 @@ instance Prelude.NFData CreateBucket where
       `Prelude.seq` Prelude.rnf bucketName
       `Prelude.seq` Prelude.rnf bundleId
 
-instance Core.ToHeaders CreateBucket where
+instance Data.ToHeaders CreateBucket where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.CreateBucket" ::
+              Data.=# ( "Lightsail_20161128.CreateBucket" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateBucket where
+instance Data.ToJSON CreateBucket where
   toJSON CreateBucket' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("enableObjectVersioning" Core..=)
+          [ ("enableObjectVersioning" Data..=)
               Prelude.<$> enableObjectVersioning,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("bucketName" Core..= bucketName),
-            Prelude.Just ("bundleId" Core..= bundleId)
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("bucketName" Data..= bucketName),
+            Prelude.Just ("bundleId" Data..= bundleId)
           ]
       )
 
-instance Core.ToPath CreateBucket where
+instance Data.ToPath CreateBucket where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateBucket where
+instance Data.ToQuery CreateBucket where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateBucketResponse' smart constructor.

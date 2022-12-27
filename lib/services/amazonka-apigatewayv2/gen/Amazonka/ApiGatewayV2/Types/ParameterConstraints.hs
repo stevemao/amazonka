@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ApiGatewayV2.Types.ParameterConstraints
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ApiGatewayV2.Types.ParameterConstraints where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Validation constraints imposed on parameters of a request (path, query
@@ -51,13 +52,13 @@ newParameterConstraints =
 parameterConstraints_required :: Lens.Lens' ParameterConstraints (Prelude.Maybe Prelude.Bool)
 parameterConstraints_required = Lens.lens (\ParameterConstraints' {required} -> required) (\s@ParameterConstraints' {} a -> s {required = a} :: ParameterConstraints)
 
-instance Core.FromJSON ParameterConstraints where
+instance Data.FromJSON ParameterConstraints where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ParameterConstraints"
       ( \x ->
           ParameterConstraints'
-            Prelude.<$> (x Core..:? "required")
+            Prelude.<$> (x Data..:? "required")
       )
 
 instance Prelude.Hashable ParameterConstraints where
@@ -67,9 +68,9 @@ instance Prelude.Hashable ParameterConstraints where
 instance Prelude.NFData ParameterConstraints where
   rnf ParameterConstraints' {..} = Prelude.rnf required
 
-instance Core.ToJSON ParameterConstraints where
+instance Data.ToJSON ParameterConstraints where
   toJSON ParameterConstraints' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("required" Core..=) Prelude.<$> required]
+          [("required" Data..=) Prelude.<$> required]
       )

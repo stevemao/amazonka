@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.CancelDetectMitigationActionsTask
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.IoT.CancelDetectMitigationActionsTask
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,7 +87,8 @@ instance
   type
     AWSResponse CancelDetectMitigationActionsTask =
       CancelDetectMitigationActionsTaskResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -111,30 +113,30 @@ instance
     Prelude.rnf taskId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CancelDetectMitigationActionsTask
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     CancelDetectMitigationActionsTask
   where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
 instance
-  Core.ToPath
+  Data.ToPath
     CancelDetectMitigationActionsTask
   where
   toPath CancelDetectMitigationActionsTask' {..} =
     Prelude.mconcat
       [ "/detect/mitigationactions/tasks/",
-        Core.toBS taskId,
+        Data.toBS taskId,
         "/cancel"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     CancelDetectMitigationActionsTask
   where
   toQuery = Prelude.const Prelude.mempty

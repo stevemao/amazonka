@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.DescribeOrganizationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the Amazon Macie configuration settings for an Amazon Web
--- Services organization.
+-- Retrieves the Amazon Macie configuration settings for an organization in
+-- Organizations.
 module Amazonka.MacieV2.DescribeOrganizationConfiguration
   ( -- * Creating a Request
     DescribeOrganizationConfiguration (..),
@@ -32,14 +32,15 @@ module Amazonka.MacieV2.DescribeOrganizationConfiguration
     newDescribeOrganizationConfigurationResponse,
 
     -- * Response Lenses
-    describeOrganizationConfigurationResponse_maxAccountLimitReached,
     describeOrganizationConfigurationResponse_autoEnable,
+    describeOrganizationConfigurationResponse_maxAccountLimitReached,
     describeOrganizationConfigurationResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -67,13 +68,14 @@ instance
   type
     AWSResponse DescribeOrganizationConfiguration =
       DescribeOrganizationConfigurationResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeOrganizationConfigurationResponse'
-            Prelude.<$> (x Core..?> "maxAccountLimitReached")
-              Prelude.<*> (x Core..?> "autoEnable")
+            Prelude.<$> (x Data..?> "autoEnable")
+              Prelude.<*> (x Data..?> "maxAccountLimitReached")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -91,39 +93,39 @@ instance
   rnf _ = ()
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeOrganizationConfiguration
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeOrganizationConfiguration
   where
   toPath = Prelude.const "/admin/configuration"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeOrganizationConfiguration
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeOrganizationConfigurationResponse' smart constructor.
 data DescribeOrganizationConfigurationResponse = DescribeOrganizationConfigurationResponse'
-  { -- | Specifies whether the maximum number of Amazon Macie member accounts are
-    -- part of the Amazon Web Services organization.
-    maxAccountLimitReached :: Prelude.Maybe Prelude.Bool,
-    -- | Specifies whether Amazon Macie is enabled automatically for accounts
-    -- that are added to the Amazon Web Services organization.
+  { -- | Specifies whether Amazon Macie is enabled automatically for accounts
+    -- that are added to the organization.
     autoEnable :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether the maximum number of Amazon Macie member accounts are
+    -- part of the organization.
+    maxAccountLimitReached :: Prelude.Maybe Prelude.Bool,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -137,11 +139,11 @@ data DescribeOrganizationConfigurationResponse = DescribeOrganizationConfigurati
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'maxAccountLimitReached', 'describeOrganizationConfigurationResponse_maxAccountLimitReached' - Specifies whether the maximum number of Amazon Macie member accounts are
--- part of the Amazon Web Services organization.
---
 -- 'autoEnable', 'describeOrganizationConfigurationResponse_autoEnable' - Specifies whether Amazon Macie is enabled automatically for accounts
--- that are added to the Amazon Web Services organization.
+-- that are added to the organization.
+--
+-- 'maxAccountLimitReached', 'describeOrganizationConfigurationResponse_maxAccountLimitReached' - Specifies whether the maximum number of Amazon Macie member accounts are
+-- part of the organization.
 --
 -- 'httpStatus', 'describeOrganizationConfigurationResponse_httpStatus' - The response's http status code.
 newDescribeOrganizationConfigurationResponse ::
@@ -151,21 +153,22 @@ newDescribeOrganizationConfigurationResponse ::
 newDescribeOrganizationConfigurationResponse
   pHttpStatus_ =
     DescribeOrganizationConfigurationResponse'
-      { maxAccountLimitReached =
+      { autoEnable =
           Prelude.Nothing,
-        autoEnable = Prelude.Nothing,
+        maxAccountLimitReached =
+          Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
 
--- | Specifies whether the maximum number of Amazon Macie member accounts are
--- part of the Amazon Web Services organization.
-describeOrganizationConfigurationResponse_maxAccountLimitReached :: Lens.Lens' DescribeOrganizationConfigurationResponse (Prelude.Maybe Prelude.Bool)
-describeOrganizationConfigurationResponse_maxAccountLimitReached = Lens.lens (\DescribeOrganizationConfigurationResponse' {maxAccountLimitReached} -> maxAccountLimitReached) (\s@DescribeOrganizationConfigurationResponse' {} a -> s {maxAccountLimitReached = a} :: DescribeOrganizationConfigurationResponse)
-
 -- | Specifies whether Amazon Macie is enabled automatically for accounts
--- that are added to the Amazon Web Services organization.
+-- that are added to the organization.
 describeOrganizationConfigurationResponse_autoEnable :: Lens.Lens' DescribeOrganizationConfigurationResponse (Prelude.Maybe Prelude.Bool)
 describeOrganizationConfigurationResponse_autoEnable = Lens.lens (\DescribeOrganizationConfigurationResponse' {autoEnable} -> autoEnable) (\s@DescribeOrganizationConfigurationResponse' {} a -> s {autoEnable = a} :: DescribeOrganizationConfigurationResponse)
+
+-- | Specifies whether the maximum number of Amazon Macie member accounts are
+-- part of the organization.
+describeOrganizationConfigurationResponse_maxAccountLimitReached :: Lens.Lens' DescribeOrganizationConfigurationResponse (Prelude.Maybe Prelude.Bool)
+describeOrganizationConfigurationResponse_maxAccountLimitReached = Lens.lens (\DescribeOrganizationConfigurationResponse' {maxAccountLimitReached} -> maxAccountLimitReached) (\s@DescribeOrganizationConfigurationResponse' {} a -> s {maxAccountLimitReached = a} :: DescribeOrganizationConfigurationResponse)
 
 -- | The response's http status code.
 describeOrganizationConfigurationResponse_httpStatus :: Lens.Lens' DescribeOrganizationConfigurationResponse Prelude.Int
@@ -176,6 +179,6 @@ instance
     DescribeOrganizationConfigurationResponse
   where
   rnf DescribeOrganizationConfigurationResponse' {..} =
-    Prelude.rnf maxAccountLimitReached
-      `Prelude.seq` Prelude.rnf autoEnable
+    Prelude.rnf autoEnable
+      `Prelude.seq` Prelude.rnf maxAccountLimitReached
       `Prelude.seq` Prelude.rnf httpStatus

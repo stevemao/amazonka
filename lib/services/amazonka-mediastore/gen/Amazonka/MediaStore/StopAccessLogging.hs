@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaStore.StopAccessLogging
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.MediaStore.StopAccessLogging
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaStore.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -79,7 +80,8 @@ instance Core.AWSRequest StopAccessLogging where
   type
     AWSResponse StopAccessLogging =
       StopAccessLoggingResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -95,34 +97,34 @@ instance Prelude.NFData StopAccessLogging where
   rnf StopAccessLogging' {..} =
     Prelude.rnf containerName
 
-instance Core.ToHeaders StopAccessLogging where
+instance Data.ToHeaders StopAccessLogging where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "MediaStore_20170901.StopAccessLogging" ::
+              Data.=# ( "MediaStore_20170901.StopAccessLogging" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopAccessLogging where
+instance Data.ToJSON StopAccessLogging where
   toJSON StopAccessLogging' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ContainerName" Core..= containerName)
+              ("ContainerName" Data..= containerName)
           ]
       )
 
-instance Core.ToPath StopAccessLogging where
+instance Data.ToPath StopAccessLogging where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopAccessLogging where
+instance Data.ToQuery StopAccessLogging where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopAccessLoggingResponse' smart constructor.

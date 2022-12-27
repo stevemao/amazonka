@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStarConnections.CreateHost
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,8 +35,8 @@ module Amazonka.CodeStarConnections.CreateHost
     newCreateHost,
 
     -- * Request Lenses
-    createHost_vpcConfiguration,
     createHost_tags,
+    createHost_vpcConfiguration,
     createHost_name,
     createHost_providerType,
     createHost_providerEndpoint,
@@ -54,18 +54,19 @@ where
 
 import Amazonka.CodeStarConnections.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateHost' smart constructor.
 data CreateHost = CreateHost'
-  { -- | The VPC configuration to be provisioned for the host. A VPC must be
+  { tags :: Prelude.Maybe [Tag],
+    -- | The VPC configuration to be provisioned for the host. A VPC must be
     -- configured and the infrastructure to be represented by the host must
     -- already be connected to the VPC.
     vpcConfiguration :: Prelude.Maybe VpcConfiguration,
-    tags :: Prelude.Maybe [Tag],
     -- | The name of the host to be created. The name must be unique in the
     -- calling AWS account.
     name :: Prelude.Text,
@@ -88,11 +89,11 @@ data CreateHost = CreateHost'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'tags', 'createHost_tags' - Undocumented member.
+--
 -- 'vpcConfiguration', 'createHost_vpcConfiguration' - The VPC configuration to be provisioned for the host. A VPC must be
 -- configured and the infrastructure to be represented by the host must
 -- already be connected to the VPC.
---
--- 'tags', 'createHost_tags' - Undocumented member.
 --
 -- 'name', 'createHost_name' - The name of the host to be created. The name must be unique in the
 -- calling AWS account.
@@ -117,22 +118,22 @@ newCreateHost
   pProviderType_
   pProviderEndpoint_ =
     CreateHost'
-      { vpcConfiguration = Prelude.Nothing,
-        tags = Prelude.Nothing,
+      { tags = Prelude.Nothing,
+        vpcConfiguration = Prelude.Nothing,
         name = pName_,
         providerType = pProviderType_,
         providerEndpoint = pProviderEndpoint_
       }
+
+-- | Undocumented member.
+createHost_tags :: Lens.Lens' CreateHost (Prelude.Maybe [Tag])
+createHost_tags = Lens.lens (\CreateHost' {tags} -> tags) (\s@CreateHost' {} a -> s {tags = a} :: CreateHost) Prelude.. Lens.mapping Lens.coerced
 
 -- | The VPC configuration to be provisioned for the host. A VPC must be
 -- configured and the infrastructure to be represented by the host must
 -- already be connected to the VPC.
 createHost_vpcConfiguration :: Lens.Lens' CreateHost (Prelude.Maybe VpcConfiguration)
 createHost_vpcConfiguration = Lens.lens (\CreateHost' {vpcConfiguration} -> vpcConfiguration) (\s@CreateHost' {} a -> s {vpcConfiguration = a} :: CreateHost)
-
--- | Undocumented member.
-createHost_tags :: Lens.Lens' CreateHost (Prelude.Maybe [Tag])
-createHost_tags = Lens.lens (\CreateHost' {tags} -> tags) (\s@CreateHost' {} a -> s {tags = a} :: CreateHost) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the host to be created. The name must be unique in the
 -- calling AWS account.
@@ -153,65 +154,66 @@ createHost_providerEndpoint = Lens.lens (\CreateHost' {providerEndpoint} -> prov
 
 instance Core.AWSRequest CreateHost where
   type AWSResponse CreateHost = CreateHostResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateHostResponse'
-            Prelude.<$> (x Core..?> "HostArn")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "HostArn")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateHost where
   hashWithSalt _salt CreateHost' {..} =
-    _salt `Prelude.hashWithSalt` vpcConfiguration
-      `Prelude.hashWithSalt` tags
+    _salt `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` vpcConfiguration
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` providerType
       `Prelude.hashWithSalt` providerEndpoint
 
 instance Prelude.NFData CreateHost where
   rnf CreateHost' {..} =
-    Prelude.rnf vpcConfiguration
-      `Prelude.seq` Prelude.rnf tags
+    Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf vpcConfiguration
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf providerType
       `Prelude.seq` Prelude.rnf providerEndpoint
 
-instance Core.ToHeaders CreateHost where
+instance Data.ToHeaders CreateHost where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "com.amazonaws.codestar.connections.CodeStar_connections_20191201.CreateHost" ::
+              Data.=# ( "com.amazonaws.codestar.connections.CodeStar_connections_20191201.CreateHost" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateHost where
+instance Data.ToJSON CreateHost where
   toJSON CreateHost' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("VpcConfiguration" Core..=)
+          [ ("Tags" Data..=) Prelude.<$> tags,
+            ("VpcConfiguration" Data..=)
               Prelude.<$> vpcConfiguration,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("ProviderType" Core..= providerType),
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("ProviderType" Data..= providerType),
             Prelude.Just
-              ("ProviderEndpoint" Core..= providerEndpoint)
+              ("ProviderEndpoint" Data..= providerEndpoint)
           ]
       )
 
-instance Core.ToPath CreateHost where
+instance Data.ToPath CreateHost where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateHost where
+instance Data.ToQuery CreateHost where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateHostResponse' smart constructor.

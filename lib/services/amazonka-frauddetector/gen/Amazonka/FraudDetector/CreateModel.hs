@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.CreateModel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.FraudDetector.CreateModel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -120,7 +121,8 @@ createModel_eventTypeName = Lens.lens (\CreateModel' {eventTypeName} -> eventTyp
 
 instance Core.AWSRequest CreateModel where
   type AWSResponse CreateModel = CreateModelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -144,38 +146,38 @@ instance Prelude.NFData CreateModel where
       `Prelude.seq` Prelude.rnf modelType
       `Prelude.seq` Prelude.rnf eventTypeName
 
-instance Core.ToHeaders CreateModel where
+instance Data.ToHeaders CreateModel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.CreateModel" ::
+              Data.=# ( "AWSHawksNestServiceFacade.CreateModel" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateModel where
+instance Data.ToJSON CreateModel where
   toJSON CreateModel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("description" Core..=) Prelude.<$> description,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("modelId" Core..= modelId),
-            Prelude.Just ("modelType" Core..= modelType),
+          [ ("description" Data..=) Prelude.<$> description,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("modelId" Data..= modelId),
+            Prelude.Just ("modelType" Data..= modelType),
             Prelude.Just
-              ("eventTypeName" Core..= eventTypeName)
+              ("eventTypeName" Data..= eventTypeName)
           ]
       )
 
-instance Core.ToPath CreateModel where
+instance Data.ToPath CreateModel where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateModel where
+instance Data.ToQuery CreateModel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateModelResponse' smart constructor.

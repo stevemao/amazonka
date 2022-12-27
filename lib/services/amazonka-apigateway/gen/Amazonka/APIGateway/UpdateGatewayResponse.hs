@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.UpdateGatewayResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,16 +38,17 @@ module Amazonka.APIGateway.UpdateGatewayResponse
 
     -- * Response Lenses
     gatewayResponse_defaultResponse,
+    gatewayResponse_responseParameters,
     gatewayResponse_responseTemplates,
     gatewayResponse_responseType,
     gatewayResponse_statusCode,
-    gatewayResponse_responseParameters,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,14 +58,12 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newUpdateGatewayResponse' smart constructor.
 data UpdateGatewayResponse = UpdateGatewayResponse'
-  { -- | A list of update operations to be applied to the specified resource and
-    -- in the order specified in this list.
+  { -- | For more information about supported patch operations, see
+    -- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
     patchOperations :: Prelude.Maybe [PatchOperation],
-    -- | [Required] The string identifier of the associated RestApi.
+    -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required]
-    --
-    -- The response type of the associated GatewayResponse.
+    -- | The response type of the associated GatewayResponse.
     responseType :: GatewayResponseType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -77,14 +76,12 @@ data UpdateGatewayResponse = UpdateGatewayResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'patchOperations', 'updateGatewayResponse_patchOperations' - A list of update operations to be applied to the specified resource and
--- in the order specified in this list.
+-- 'patchOperations', 'updateGatewayResponse_patchOperations' - For more information about supported patch operations, see
+-- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
 --
--- 'restApiId', 'updateGatewayResponse_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'updateGatewayResponse_restApiId' - The string identifier of the associated RestApi.
 --
--- 'responseType', 'updateGatewayResponse_responseType' - [Required]
---
--- The response type of the associated GatewayResponse.
+-- 'responseType', 'updateGatewayResponse_responseType' - The response type of the associated GatewayResponse.
 newUpdateGatewayResponse ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -99,18 +96,16 @@ newUpdateGatewayResponse pRestApiId_ pResponseType_ =
       responseType = pResponseType_
     }
 
--- | A list of update operations to be applied to the specified resource and
--- in the order specified in this list.
+-- | For more information about supported patch operations, see
+-- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
 updateGatewayResponse_patchOperations :: Lens.Lens' UpdateGatewayResponse (Prelude.Maybe [PatchOperation])
 updateGatewayResponse_patchOperations = Lens.lens (\UpdateGatewayResponse' {patchOperations} -> patchOperations) (\s@UpdateGatewayResponse' {} a -> s {patchOperations = a} :: UpdateGatewayResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 updateGatewayResponse_restApiId :: Lens.Lens' UpdateGatewayResponse Prelude.Text
 updateGatewayResponse_restApiId = Lens.lens (\UpdateGatewayResponse' {restApiId} -> restApiId) (\s@UpdateGatewayResponse' {} a -> s {restApiId = a} :: UpdateGatewayResponse)
 
--- | [Required]
---
--- The response type of the associated GatewayResponse.
+-- | The response type of the associated GatewayResponse.
 updateGatewayResponse_responseType :: Lens.Lens' UpdateGatewayResponse GatewayResponseType
 updateGatewayResponse_responseType = Lens.lens (\UpdateGatewayResponse' {responseType} -> responseType) (\s@UpdateGatewayResponse' {} a -> s {responseType = a} :: UpdateGatewayResponse)
 
@@ -118,10 +113,11 @@ instance Core.AWSRequest UpdateGatewayResponse where
   type
     AWSResponse UpdateGatewayResponse =
       GatewayResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable UpdateGatewayResponse where
   hashWithSalt _salt UpdateGatewayResponse' {..} =
@@ -135,32 +131,32 @@ instance Prelude.NFData UpdateGatewayResponse where
       `Prelude.seq` Prelude.rnf restApiId
       `Prelude.seq` Prelude.rnf responseType
 
-instance Core.ToHeaders UpdateGatewayResponse where
+instance Data.ToHeaders UpdateGatewayResponse where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToJSON UpdateGatewayResponse where
+instance Data.ToJSON UpdateGatewayResponse where
   toJSON UpdateGatewayResponse' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("patchOperations" Core..=)
+          [ ("patchOperations" Data..=)
               Prelude.<$> patchOperations
           ]
       )
 
-instance Core.ToPath UpdateGatewayResponse where
+instance Data.ToPath UpdateGatewayResponse where
   toPath UpdateGatewayResponse' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/gatewayresponses/",
-        Core.toBS responseType
+        Data.toBS responseType
       ]
 
-instance Core.ToQuery UpdateGatewayResponse where
+instance Data.ToQuery UpdateGatewayResponse where
   toQuery = Prelude.const Prelude.mempty

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CustomerProfiles.Types.MarketoSourceProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CustomerProfiles.Types.MarketoSourceProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The properties that are applied when Marketo is being used as a source.
@@ -60,9 +61,9 @@ instance Prelude.NFData MarketoSourceProperties where
   rnf MarketoSourceProperties' {..} =
     Prelude.rnf object'
 
-instance Core.ToJSON MarketoSourceProperties where
+instance Data.ToJSON MarketoSourceProperties where
   toJSON MarketoSourceProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Object" Core..= object')]
+          [Prelude.Just ("Object" Data..= object')]
       )

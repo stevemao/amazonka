@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.HttpActionHeader
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoT.Types.HttpActionHeader where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The HTTP action header.
@@ -62,13 +63,13 @@ httpActionHeader_key = Lens.lens (\HttpActionHeader' {key} -> key) (\s@HttpActio
 httpActionHeader_value :: Lens.Lens' HttpActionHeader Prelude.Text
 httpActionHeader_value = Lens.lens (\HttpActionHeader' {value} -> value) (\s@HttpActionHeader' {} a -> s {value = a} :: HttpActionHeader)
 
-instance Core.FromJSON HttpActionHeader where
+instance Data.FromJSON HttpActionHeader where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HttpActionHeader"
       ( \x ->
           HttpActionHeader'
-            Prelude.<$> (x Core..: "key") Prelude.<*> (x Core..: "value")
+            Prelude.<$> (x Data..: "key") Prelude.<*> (x Data..: "value")
       )
 
 instance Prelude.Hashable HttpActionHeader where
@@ -80,11 +81,11 @@ instance Prelude.NFData HttpActionHeader where
   rnf HttpActionHeader' {..} =
     Prelude.rnf key `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON HttpActionHeader where
+instance Data.ToJSON HttpActionHeader where
   toJSON HttpActionHeader' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("key" Core..= key),
-            Prelude.Just ("value" Core..= value)
+          [ Prelude.Just ("key" Data..= key),
+            Prelude.Just ("value" Data..= value)
           ]
       )

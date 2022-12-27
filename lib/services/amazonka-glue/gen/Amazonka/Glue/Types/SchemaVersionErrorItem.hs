@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.SchemaVersionErrorItem
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Glue.Types.SchemaVersionErrorItem where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types.ErrorDetails
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that contains the error details for an operation on a schema
@@ -29,10 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSchemaVersionErrorItem' smart constructor.
 data SchemaVersionErrorItem = SchemaVersionErrorItem'
-  { -- | The version number of the schema.
-    versionNumber :: Prelude.Maybe Prelude.Natural,
-    -- | The details of the error for the schema version.
-    errorDetails :: Prelude.Maybe ErrorDetails
+  { -- | The details of the error for the schema version.
+    errorDetails :: Prelude.Maybe ErrorDetails,
+    -- | The version number of the schema.
+    versionNumber :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,42 +45,42 @@ data SchemaVersionErrorItem = SchemaVersionErrorItem'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'versionNumber', 'schemaVersionErrorItem_versionNumber' - The version number of the schema.
---
 -- 'errorDetails', 'schemaVersionErrorItem_errorDetails' - The details of the error for the schema version.
+--
+-- 'versionNumber', 'schemaVersionErrorItem_versionNumber' - The version number of the schema.
 newSchemaVersionErrorItem ::
   SchemaVersionErrorItem
 newSchemaVersionErrorItem =
   SchemaVersionErrorItem'
-    { versionNumber =
+    { errorDetails =
         Prelude.Nothing,
-      errorDetails = Prelude.Nothing
+      versionNumber = Prelude.Nothing
     }
-
--- | The version number of the schema.
-schemaVersionErrorItem_versionNumber :: Lens.Lens' SchemaVersionErrorItem (Prelude.Maybe Prelude.Natural)
-schemaVersionErrorItem_versionNumber = Lens.lens (\SchemaVersionErrorItem' {versionNumber} -> versionNumber) (\s@SchemaVersionErrorItem' {} a -> s {versionNumber = a} :: SchemaVersionErrorItem)
 
 -- | The details of the error for the schema version.
 schemaVersionErrorItem_errorDetails :: Lens.Lens' SchemaVersionErrorItem (Prelude.Maybe ErrorDetails)
 schemaVersionErrorItem_errorDetails = Lens.lens (\SchemaVersionErrorItem' {errorDetails} -> errorDetails) (\s@SchemaVersionErrorItem' {} a -> s {errorDetails = a} :: SchemaVersionErrorItem)
 
-instance Core.FromJSON SchemaVersionErrorItem where
+-- | The version number of the schema.
+schemaVersionErrorItem_versionNumber :: Lens.Lens' SchemaVersionErrorItem (Prelude.Maybe Prelude.Natural)
+schemaVersionErrorItem_versionNumber = Lens.lens (\SchemaVersionErrorItem' {versionNumber} -> versionNumber) (\s@SchemaVersionErrorItem' {} a -> s {versionNumber = a} :: SchemaVersionErrorItem)
+
+instance Data.FromJSON SchemaVersionErrorItem where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SchemaVersionErrorItem"
       ( \x ->
           SchemaVersionErrorItem'
-            Prelude.<$> (x Core..:? "VersionNumber")
-            Prelude.<*> (x Core..:? "ErrorDetails")
+            Prelude.<$> (x Data..:? "ErrorDetails")
+            Prelude.<*> (x Data..:? "VersionNumber")
       )
 
 instance Prelude.Hashable SchemaVersionErrorItem where
   hashWithSalt _salt SchemaVersionErrorItem' {..} =
-    _salt `Prelude.hashWithSalt` versionNumber
-      `Prelude.hashWithSalt` errorDetails
+    _salt `Prelude.hashWithSalt` errorDetails
+      `Prelude.hashWithSalt` versionNumber
 
 instance Prelude.NFData SchemaVersionErrorItem where
   rnf SchemaVersionErrorItem' {..} =
-    Prelude.rnf versionNumber
-      `Prelude.seq` Prelude.rnf errorDetails
+    Prelude.rnf errorDetails
+      `Prelude.seq` Prelude.rnf versionNumber

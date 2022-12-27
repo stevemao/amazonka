@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScalingPlans
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,35 +47,29 @@ module Amazonka.AutoScalingPlans
     -- * Errors
     -- $errors
 
-    -- ** ValidationException
-    _ValidationException,
-
-    -- ** InvalidNextTokenException
-    _InvalidNextTokenException,
-
     -- ** ConcurrentUpdateException
     _ConcurrentUpdateException,
 
     -- ** InternalServiceException
     _InternalServiceException,
 
-    -- ** ObjectNotFoundException
-    _ObjectNotFoundException,
+    -- ** InvalidNextTokenException
+    _InvalidNextTokenException,
 
     -- ** LimitExceededException
     _LimitExceededException,
+
+    -- ** ObjectNotFoundException
+    _ObjectNotFoundException,
+
+    -- ** ValidationException
+    _ValidationException,
 
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
-
-    -- ** DescribeScalingPlanResources (Paginated)
-    DescribeScalingPlanResources (DescribeScalingPlanResources'),
-    newDescribeScalingPlanResources,
-    DescribeScalingPlanResourcesResponse (DescribeScalingPlanResourcesResponse'),
-    newDescribeScalingPlanResourcesResponse,
 
     -- ** CreateScalingPlan
     CreateScalingPlan (CreateScalingPlan'),
@@ -89,11 +83,11 @@ module Amazonka.AutoScalingPlans
     DeleteScalingPlanResponse (DeleteScalingPlanResponse'),
     newDeleteScalingPlanResponse,
 
-    -- ** UpdateScalingPlan
-    UpdateScalingPlan (UpdateScalingPlan'),
-    newUpdateScalingPlan,
-    UpdateScalingPlanResponse (UpdateScalingPlanResponse'),
-    newUpdateScalingPlanResponse,
+    -- ** DescribeScalingPlanResources (Paginated)
+    DescribeScalingPlanResources (DescribeScalingPlanResources'),
+    newDescribeScalingPlanResources,
+    DescribeScalingPlanResourcesResponse (DescribeScalingPlanResourcesResponse'),
+    newDescribeScalingPlanResourcesResponse,
 
     -- ** DescribeScalingPlans (Paginated)
     DescribeScalingPlans (DescribeScalingPlans'),
@@ -106,6 +100,12 @@ module Amazonka.AutoScalingPlans
     newGetScalingPlanResourceForecastData,
     GetScalingPlanResourceForecastDataResponse (GetScalingPlanResourceForecastDataResponse'),
     newGetScalingPlanResourceForecastDataResponse,
+
+    -- ** UpdateScalingPlan
+    UpdateScalingPlan (UpdateScalingPlan'),
+    newUpdateScalingPlan,
+    UpdateScalingPlanResponse (UpdateScalingPlanResponse'),
+    newUpdateScalingPlanResponse,
 
     -- * Types
 

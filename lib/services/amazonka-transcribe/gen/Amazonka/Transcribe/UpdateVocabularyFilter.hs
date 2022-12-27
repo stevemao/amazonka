@@ -14,13 +14,15 @@
 
 -- |
 -- Module      : Amazonka.Transcribe.UpdateVocabularyFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates a vocabulary filter with a new list of filtered words.
+-- Updates an existing custom vocabulary filter with a new list of words.
+-- The new list you provide overwrites all previous entries; you cannot
+-- append new terms onto an existing custom vocabulary filter.
 module Amazonka.Transcribe.UpdateVocabularyFilter
   ( -- * Creating a Request
     UpdateVocabularyFilter (..),
@@ -44,7 +46,8 @@ module Amazonka.Transcribe.UpdateVocabularyFilter
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,28 +55,34 @@ import Amazonka.Transcribe.Types
 
 -- | /See:/ 'newUpdateVocabularyFilter' smart constructor.
 data UpdateVocabularyFilter = UpdateVocabularyFilter'
-  { -- | The Amazon S3 location of a text file used as input to create the
-    -- vocabulary filter. Only use characters from the character set defined
-    -- for custom vocabularies. For a list of character sets, see
-    -- <https://docs.aws.amazon.com/transcribe/latest/dg/how-vocabulary.html#charsets Character Sets for Custom Vocabularies>.
+  { -- | The Amazon S3 location of the text file that contains your custom
+    -- vocabulary filter terms. The URI must be located in the same Amazon Web
+    -- Services Region as the resource you\'re calling.
     --
-    -- The specified file must be less than 50 KB of UTF-8 characters.
+    -- Here\'s an example URI path:
+    -- @s3:\/\/DOC-EXAMPLE-BUCKET\/my-vocab-filter-file.txt@
     --
-    -- If you provide the location of a list of words in the
-    -- @VocabularyFilterFileUri@ parameter, you can\'t use the @Words@
-    -- parameter.
+    -- Note that if you include @VocabularyFilterFileUri@ in your request, you
+    -- cannot use @Words@; you must choose one or the other.
     vocabularyFilterFileUri :: Prelude.Maybe Prelude.Text,
-    -- | The words to use in the vocabulary filter. Only use characters from the
-    -- character set defined for custom vocabularies. For a list of character
-    -- sets, see
-    -- <https://docs.aws.amazon.com/transcribe/latest/dg/how-vocabulary.html#charsets Character Sets for Custom Vocabularies>.
+    -- | Use this parameter if you want to update your custom vocabulary filter
+    -- by including all desired terms, as comma-separated values, within your
+    -- request. The other option for updating your vocabulary filter is to save
+    -- your entries in a text file and upload them to an Amazon S3 bucket, then
+    -- specify the location of your file using the @VocabularyFilterFileUri@
+    -- parameter.
     --
-    -- If you provide a list of words in the @Words@ parameter, you can\'t use
-    -- the @VocabularyFilterFileUri@ parameter.
+    -- Note that if you include @Words@ in your request, you cannot use
+    -- @VocabularyFilterFileUri@; you must choose one or the other.
+    --
+    -- Each language has a character set that contains all allowed characters
+    -- for that specific language. If you use unsupported characters, your
+    -- custom vocabulary filter request fails. Refer to
+    -- <https://docs.aws.amazon.com/transcribe/latest/dg/charsets.html Character Sets for Custom Vocabularies>
+    -- to get the character set for your language.
     words :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
-    -- | The name of the vocabulary filter to update. If you try to update a
-    -- vocabulary filter with the same name as another vocabulary filter, you
-    -- get a @ConflictException@ error.
+    -- | The name of the custom vocabulary filter you want to update. Custom
+    -- vocabulary filter names are case sensitive.
     vocabularyFilterName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -86,28 +95,34 @@ data UpdateVocabularyFilter = UpdateVocabularyFilter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'vocabularyFilterFileUri', 'updateVocabularyFilter_vocabularyFilterFileUri' - The Amazon S3 location of a text file used as input to create the
--- vocabulary filter. Only use characters from the character set defined
--- for custom vocabularies. For a list of character sets, see
--- <https://docs.aws.amazon.com/transcribe/latest/dg/how-vocabulary.html#charsets Character Sets for Custom Vocabularies>.
+-- 'vocabularyFilterFileUri', 'updateVocabularyFilter_vocabularyFilterFileUri' - The Amazon S3 location of the text file that contains your custom
+-- vocabulary filter terms. The URI must be located in the same Amazon Web
+-- Services Region as the resource you\'re calling.
 --
--- The specified file must be less than 50 KB of UTF-8 characters.
+-- Here\'s an example URI path:
+-- @s3:\/\/DOC-EXAMPLE-BUCKET\/my-vocab-filter-file.txt@
 --
--- If you provide the location of a list of words in the
--- @VocabularyFilterFileUri@ parameter, you can\'t use the @Words@
+-- Note that if you include @VocabularyFilterFileUri@ in your request, you
+-- cannot use @Words@; you must choose one or the other.
+--
+-- 'words', 'updateVocabularyFilter_words' - Use this parameter if you want to update your custom vocabulary filter
+-- by including all desired terms, as comma-separated values, within your
+-- request. The other option for updating your vocabulary filter is to save
+-- your entries in a text file and upload them to an Amazon S3 bucket, then
+-- specify the location of your file using the @VocabularyFilterFileUri@
 -- parameter.
 --
--- 'words', 'updateVocabularyFilter_words' - The words to use in the vocabulary filter. Only use characters from the
--- character set defined for custom vocabularies. For a list of character
--- sets, see
--- <https://docs.aws.amazon.com/transcribe/latest/dg/how-vocabulary.html#charsets Character Sets for Custom Vocabularies>.
+-- Note that if you include @Words@ in your request, you cannot use
+-- @VocabularyFilterFileUri@; you must choose one or the other.
 --
--- If you provide a list of words in the @Words@ parameter, you can\'t use
--- the @VocabularyFilterFileUri@ parameter.
+-- Each language has a character set that contains all allowed characters
+-- for that specific language. If you use unsupported characters, your
+-- custom vocabulary filter request fails. Refer to
+-- <https://docs.aws.amazon.com/transcribe/latest/dg/charsets.html Character Sets for Custom Vocabularies>
+-- to get the character set for your language.
 --
--- 'vocabularyFilterName', 'updateVocabularyFilter_vocabularyFilterName' - The name of the vocabulary filter to update. If you try to update a
--- vocabulary filter with the same name as another vocabulary filter, you
--- get a @ConflictException@ error.
+-- 'vocabularyFilterName', 'updateVocabularyFilter_vocabularyFilterName' - The name of the custom vocabulary filter you want to update. Custom
+-- vocabulary filter names are case sensitive.
 newUpdateVocabularyFilter ::
   -- | 'vocabularyFilterName'
   Prelude.Text ->
@@ -120,32 +135,38 @@ newUpdateVocabularyFilter pVocabularyFilterName_ =
       vocabularyFilterName = pVocabularyFilterName_
     }
 
--- | The Amazon S3 location of a text file used as input to create the
--- vocabulary filter. Only use characters from the character set defined
--- for custom vocabularies. For a list of character sets, see
--- <https://docs.aws.amazon.com/transcribe/latest/dg/how-vocabulary.html#charsets Character Sets for Custom Vocabularies>.
+-- | The Amazon S3 location of the text file that contains your custom
+-- vocabulary filter terms. The URI must be located in the same Amazon Web
+-- Services Region as the resource you\'re calling.
 --
--- The specified file must be less than 50 KB of UTF-8 characters.
+-- Here\'s an example URI path:
+-- @s3:\/\/DOC-EXAMPLE-BUCKET\/my-vocab-filter-file.txt@
 --
--- If you provide the location of a list of words in the
--- @VocabularyFilterFileUri@ parameter, you can\'t use the @Words@
--- parameter.
+-- Note that if you include @VocabularyFilterFileUri@ in your request, you
+-- cannot use @Words@; you must choose one or the other.
 updateVocabularyFilter_vocabularyFilterFileUri :: Lens.Lens' UpdateVocabularyFilter (Prelude.Maybe Prelude.Text)
 updateVocabularyFilter_vocabularyFilterFileUri = Lens.lens (\UpdateVocabularyFilter' {vocabularyFilterFileUri} -> vocabularyFilterFileUri) (\s@UpdateVocabularyFilter' {} a -> s {vocabularyFilterFileUri = a} :: UpdateVocabularyFilter)
 
--- | The words to use in the vocabulary filter. Only use characters from the
--- character set defined for custom vocabularies. For a list of character
--- sets, see
--- <https://docs.aws.amazon.com/transcribe/latest/dg/how-vocabulary.html#charsets Character Sets for Custom Vocabularies>.
+-- | Use this parameter if you want to update your custom vocabulary filter
+-- by including all desired terms, as comma-separated values, within your
+-- request. The other option for updating your vocabulary filter is to save
+-- your entries in a text file and upload them to an Amazon S3 bucket, then
+-- specify the location of your file using the @VocabularyFilterFileUri@
+-- parameter.
 --
--- If you provide a list of words in the @Words@ parameter, you can\'t use
--- the @VocabularyFilterFileUri@ parameter.
+-- Note that if you include @Words@ in your request, you cannot use
+-- @VocabularyFilterFileUri@; you must choose one or the other.
+--
+-- Each language has a character set that contains all allowed characters
+-- for that specific language. If you use unsupported characters, your
+-- custom vocabulary filter request fails. Refer to
+-- <https://docs.aws.amazon.com/transcribe/latest/dg/charsets.html Character Sets for Custom Vocabularies>
+-- to get the character set for your language.
 updateVocabularyFilter_words :: Lens.Lens' UpdateVocabularyFilter (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
 updateVocabularyFilter_words = Lens.lens (\UpdateVocabularyFilter' {words} -> words) (\s@UpdateVocabularyFilter' {} a -> s {words = a} :: UpdateVocabularyFilter) Prelude.. Lens.mapping Lens.coerced
 
--- | The name of the vocabulary filter to update. If you try to update a
--- vocabulary filter with the same name as another vocabulary filter, you
--- get a @ConflictException@ error.
+-- | The name of the custom vocabulary filter you want to update. Custom
+-- vocabulary filter names are case sensitive.
 updateVocabularyFilter_vocabularyFilterName :: Lens.Lens' UpdateVocabularyFilter Prelude.Text
 updateVocabularyFilter_vocabularyFilterName = Lens.lens (\UpdateVocabularyFilter' {vocabularyFilterName} -> vocabularyFilterName) (\s@UpdateVocabularyFilter' {} a -> s {vocabularyFilterName = a} :: UpdateVocabularyFilter)
 
@@ -153,14 +174,15 @@ instance Core.AWSRequest UpdateVocabularyFilter where
   type
     AWSResponse UpdateVocabularyFilter =
       UpdateVocabularyFilterResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateVocabularyFilterResponse'
-            Prelude.<$> (x Core..?> "LanguageCode")
-            Prelude.<*> (x Core..?> "LastModifiedTime")
-            Prelude.<*> (x Core..?> "VocabularyFilterName")
+            Prelude.<$> (x Data..?> "LanguageCode")
+            Prelude.<*> (x Data..?> "LastModifiedTime")
+            Prelude.<*> (x Data..?> "VocabularyFilterName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -177,48 +199,53 @@ instance Prelude.NFData UpdateVocabularyFilter where
       `Prelude.seq` Prelude.rnf words
       `Prelude.seq` Prelude.rnf vocabularyFilterName
 
-instance Core.ToHeaders UpdateVocabularyFilter where
+instance Data.ToHeaders UpdateVocabularyFilter where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Transcribe.UpdateVocabularyFilter" ::
+              Data.=# ( "Transcribe.UpdateVocabularyFilter" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateVocabularyFilter where
+instance Data.ToJSON UpdateVocabularyFilter where
   toJSON UpdateVocabularyFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("VocabularyFilterFileUri" Core..=)
+          [ ("VocabularyFilterFileUri" Data..=)
               Prelude.<$> vocabularyFilterFileUri,
-            ("Words" Core..=) Prelude.<$> words,
+            ("Words" Data..=) Prelude.<$> words,
             Prelude.Just
               ( "VocabularyFilterName"
-                  Core..= vocabularyFilterName
+                  Data..= vocabularyFilterName
               )
           ]
       )
 
-instance Core.ToPath UpdateVocabularyFilter where
+instance Data.ToPath UpdateVocabularyFilter where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateVocabularyFilter where
+instance Data.ToQuery UpdateVocabularyFilter where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateVocabularyFilterResponse' smart constructor.
 data UpdateVocabularyFilterResponse = UpdateVocabularyFilterResponse'
-  { -- | The language code of the words in the vocabulary filter.
+  { -- | The language code you selected for your custom vocabulary filter.
     languageCode :: Prelude.Maybe LanguageCode,
-    -- | The date and time that the vocabulary filter was updated.
-    lastModifiedTime :: Prelude.Maybe Core.POSIX,
-    -- | The name of the updated vocabulary filter.
+    -- | The date and time the specified custom vocabulary filter was last
+    -- updated.
+    --
+    -- Timestamps are in the format @YYYY-MM-DD\'T\'HH:MM:SS.SSSSSS-UTC@. For
+    -- example, @2022-05-04T12:32:58.761000-07:00@ represents 12:32 PM UTC-7 on
+    -- May 4, 2022.
+    lastModifiedTime :: Prelude.Maybe Data.POSIX,
+    -- | The name of the updated custom vocabulary filter.
     vocabularyFilterName :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -233,11 +260,16 @@ data UpdateVocabularyFilterResponse = UpdateVocabularyFilterResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'languageCode', 'updateVocabularyFilterResponse_languageCode' - The language code of the words in the vocabulary filter.
+-- 'languageCode', 'updateVocabularyFilterResponse_languageCode' - The language code you selected for your custom vocabulary filter.
 --
--- 'lastModifiedTime', 'updateVocabularyFilterResponse_lastModifiedTime' - The date and time that the vocabulary filter was updated.
+-- 'lastModifiedTime', 'updateVocabularyFilterResponse_lastModifiedTime' - The date and time the specified custom vocabulary filter was last
+-- updated.
 --
--- 'vocabularyFilterName', 'updateVocabularyFilterResponse_vocabularyFilterName' - The name of the updated vocabulary filter.
+-- Timestamps are in the format @YYYY-MM-DD\'T\'HH:MM:SS.SSSSSS-UTC@. For
+-- example, @2022-05-04T12:32:58.761000-07:00@ represents 12:32 PM UTC-7 on
+-- May 4, 2022.
+--
+-- 'vocabularyFilterName', 'updateVocabularyFilterResponse_vocabularyFilterName' - The name of the updated custom vocabulary filter.
 --
 -- 'httpStatus', 'updateVocabularyFilterResponse_httpStatus' - The response's http status code.
 newUpdateVocabularyFilterResponse ::
@@ -253,15 +285,20 @@ newUpdateVocabularyFilterResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The language code of the words in the vocabulary filter.
+-- | The language code you selected for your custom vocabulary filter.
 updateVocabularyFilterResponse_languageCode :: Lens.Lens' UpdateVocabularyFilterResponse (Prelude.Maybe LanguageCode)
 updateVocabularyFilterResponse_languageCode = Lens.lens (\UpdateVocabularyFilterResponse' {languageCode} -> languageCode) (\s@UpdateVocabularyFilterResponse' {} a -> s {languageCode = a} :: UpdateVocabularyFilterResponse)
 
--- | The date and time that the vocabulary filter was updated.
+-- | The date and time the specified custom vocabulary filter was last
+-- updated.
+--
+-- Timestamps are in the format @YYYY-MM-DD\'T\'HH:MM:SS.SSSSSS-UTC@. For
+-- example, @2022-05-04T12:32:58.761000-07:00@ represents 12:32 PM UTC-7 on
+-- May 4, 2022.
 updateVocabularyFilterResponse_lastModifiedTime :: Lens.Lens' UpdateVocabularyFilterResponse (Prelude.Maybe Prelude.UTCTime)
-updateVocabularyFilterResponse_lastModifiedTime = Lens.lens (\UpdateVocabularyFilterResponse' {lastModifiedTime} -> lastModifiedTime) (\s@UpdateVocabularyFilterResponse' {} a -> s {lastModifiedTime = a} :: UpdateVocabularyFilterResponse) Prelude.. Lens.mapping Core._Time
+updateVocabularyFilterResponse_lastModifiedTime = Lens.lens (\UpdateVocabularyFilterResponse' {lastModifiedTime} -> lastModifiedTime) (\s@UpdateVocabularyFilterResponse' {} a -> s {lastModifiedTime = a} :: UpdateVocabularyFilterResponse) Prelude.. Lens.mapping Data._Time
 
--- | The name of the updated vocabulary filter.
+-- | The name of the updated custom vocabulary filter.
 updateVocabularyFilterResponse_vocabularyFilterName :: Lens.Lens' UpdateVocabularyFilterResponse (Prelude.Maybe Prelude.Text)
 updateVocabularyFilterResponse_vocabularyFilterName = Lens.lens (\UpdateVocabularyFilterResponse' {vocabularyFilterName} -> vocabularyFilterName) (\s@UpdateVocabularyFilterResponse' {} a -> s {vocabularyFilterName = a} :: UpdateVocabularyFilterResponse)
 

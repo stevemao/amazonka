@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.StringFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.StringFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.StringFilterComparison
 
@@ -28,11 +29,7 @@ import Amazonka.SecurityHub.Types.StringFilterComparison
 --
 -- /See:/ 'newStringFilter' smart constructor.
 data StringFilter = StringFilter'
-  { -- | The string filter value. Filter values are case sensitive. For example,
-    -- the product name for control-based findings is @Security Hub@. If you
-    -- provide @security hub@ as the filter text, then there is no match.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The condition to apply to a string value when querying for findings. To
+  { -- | The condition to apply to a string value when querying for findings. To
     -- search for values that contain the filter criteria value, use one of the
     -- following comparison operators:
     --
@@ -99,7 +96,11 @@ data StringFilter = StringFilter'
     -- -   @ResourceType NOT_EQUALS AwsIamPolicy@
     --
     -- -   @ResourceType NOT_EQUALS AwsEc2NetworkInterface@
-    comparison :: Prelude.Maybe StringFilterComparison
+    comparison :: Prelude.Maybe StringFilterComparison,
+    -- | The string filter value. Filter values are case sensitive. For example,
+    -- the product name for control-based findings is @Security Hub@. If you
+    -- provide @security hub@ as the filter text, then there is no match.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -110,10 +111,6 @@ data StringFilter = StringFilter'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'value', 'stringFilter_value' - The string filter value. Filter values are case sensitive. For example,
--- the product name for control-based findings is @Security Hub@. If you
--- provide @security hub@ as the filter text, then there is no match.
 --
 -- 'comparison', 'stringFilter_comparison' - The condition to apply to a string value when querying for findings. To
 -- search for values that contain the filter criteria value, use one of the
@@ -182,19 +179,17 @@ data StringFilter = StringFilter'
 -- -   @ResourceType NOT_EQUALS AwsIamPolicy@
 --
 -- -   @ResourceType NOT_EQUALS AwsEc2NetworkInterface@
+--
+-- 'value', 'stringFilter_value' - The string filter value. Filter values are case sensitive. For example,
+-- the product name for control-based findings is @Security Hub@. If you
+-- provide @security hub@ as the filter text, then there is no match.
 newStringFilter ::
   StringFilter
 newStringFilter =
   StringFilter'
-    { value = Prelude.Nothing,
-      comparison = Prelude.Nothing
+    { comparison = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The string filter value. Filter values are case sensitive. For example,
--- the product name for control-based findings is @Security Hub@. If you
--- provide @security hub@ as the filter text, then there is no match.
-stringFilter_value :: Lens.Lens' StringFilter (Prelude.Maybe Prelude.Text)
-stringFilter_value = Lens.lens (\StringFilter' {value} -> value) (\s@StringFilter' {} a -> s {value = a} :: StringFilter)
 
 -- | The condition to apply to a string value when querying for findings. To
 -- search for values that contain the filter criteria value, use one of the
@@ -266,31 +261,37 @@ stringFilter_value = Lens.lens (\StringFilter' {value} -> value) (\s@StringFilte
 stringFilter_comparison :: Lens.Lens' StringFilter (Prelude.Maybe StringFilterComparison)
 stringFilter_comparison = Lens.lens (\StringFilter' {comparison} -> comparison) (\s@StringFilter' {} a -> s {comparison = a} :: StringFilter)
 
-instance Core.FromJSON StringFilter where
+-- | The string filter value. Filter values are case sensitive. For example,
+-- the product name for control-based findings is @Security Hub@. If you
+-- provide @security hub@ as the filter text, then there is no match.
+stringFilter_value :: Lens.Lens' StringFilter (Prelude.Maybe Prelude.Text)
+stringFilter_value = Lens.lens (\StringFilter' {value} -> value) (\s@StringFilter' {} a -> s {value = a} :: StringFilter)
+
+instance Data.FromJSON StringFilter where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StringFilter"
       ( \x ->
           StringFilter'
-            Prelude.<$> (x Core..:? "Value")
-            Prelude.<*> (x Core..:? "Comparison")
+            Prelude.<$> (x Data..:? "Comparison")
+            Prelude.<*> (x Data..:? "Value")
       )
 
 instance Prelude.Hashable StringFilter where
   hashWithSalt _salt StringFilter' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` comparison
+    _salt `Prelude.hashWithSalt` comparison
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData StringFilter where
   rnf StringFilter' {..} =
-    Prelude.rnf value
-      `Prelude.seq` Prelude.rnf comparison
+    Prelude.rnf comparison
+      `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON StringFilter where
+instance Data.ToJSON StringFilter where
   toJSON StringFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Value" Core..=) Prelude.<$> value,
-            ("Comparison" Core..=) Prelude.<$> comparison
+          [ ("Comparison" Data..=) Prelude.<$> comparison,
+            ("Value" Data..=) Prelude.<$> value
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.QuietTime
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.QuietTime where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the start and end times that define a time range when messages
@@ -28,16 +29,16 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newQuietTime' smart constructor.
 data QuietTime = QuietTime'
-  { -- | The specific time when quiet time begins. This value has to use 24-hour
+  { -- | The specific time when quiet time ends. This value has to use 24-hour
     -- notation and be in HH:MM format, where HH is the hour (with a leading
     -- zero, if applicable) and MM is the minutes. For example, use 02:30 to
     -- represent 2:30 AM, or 14:30 to represent 2:30 PM.
-    start :: Prelude.Maybe Prelude.Text,
-    -- | The specific time when quiet time ends. This value has to use 24-hour
+    end :: Prelude.Maybe Prelude.Text,
+    -- | The specific time when quiet time begins. This value has to use 24-hour
     -- notation and be in HH:MM format, where HH is the hour (with a leading
     -- zero, if applicable) and MM is the minutes. For example, use 02:30 to
     -- represent 2:30 AM, or 14:30 to represent 2:30 PM.
-    end :: Prelude.Maybe Prelude.Text
+    start :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -49,12 +50,12 @@ data QuietTime = QuietTime'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'start', 'quietTime_start' - The specific time when quiet time begins. This value has to use 24-hour
+-- 'end', 'quietTime_end' - The specific time when quiet time ends. This value has to use 24-hour
 -- notation and be in HH:MM format, where HH is the hour (with a leading
 -- zero, if applicable) and MM is the minutes. For example, use 02:30 to
 -- represent 2:30 AM, or 14:30 to represent 2:30 PM.
 --
--- 'end', 'quietTime_end' - The specific time when quiet time ends. This value has to use 24-hour
+-- 'start', 'quietTime_start' - The specific time when quiet time begins. This value has to use 24-hour
 -- notation and be in HH:MM format, where HH is the hour (with a leading
 -- zero, if applicable) and MM is the minutes. For example, use 02:30 to
 -- represent 2:30 AM, or 14:30 to represent 2:30 PM.
@@ -62,16 +63,9 @@ newQuietTime ::
   QuietTime
 newQuietTime =
   QuietTime'
-    { start = Prelude.Nothing,
-      end = Prelude.Nothing
+    { end = Prelude.Nothing,
+      start = Prelude.Nothing
     }
-
--- | The specific time when quiet time begins. This value has to use 24-hour
--- notation and be in HH:MM format, where HH is the hour (with a leading
--- zero, if applicable) and MM is the minutes. For example, use 02:30 to
--- represent 2:30 AM, or 14:30 to represent 2:30 PM.
-quietTime_start :: Lens.Lens' QuietTime (Prelude.Maybe Prelude.Text)
-quietTime_start = Lens.lens (\QuietTime' {start} -> start) (\s@QuietTime' {} a -> s {start = a} :: QuietTime)
 
 -- | The specific time when quiet time ends. This value has to use 24-hour
 -- notation and be in HH:MM format, where HH is the hour (with a leading
@@ -80,29 +74,36 @@ quietTime_start = Lens.lens (\QuietTime' {start} -> start) (\s@QuietTime' {} a -
 quietTime_end :: Lens.Lens' QuietTime (Prelude.Maybe Prelude.Text)
 quietTime_end = Lens.lens (\QuietTime' {end} -> end) (\s@QuietTime' {} a -> s {end = a} :: QuietTime)
 
-instance Core.FromJSON QuietTime where
+-- | The specific time when quiet time begins. This value has to use 24-hour
+-- notation and be in HH:MM format, where HH is the hour (with a leading
+-- zero, if applicable) and MM is the minutes. For example, use 02:30 to
+-- represent 2:30 AM, or 14:30 to represent 2:30 PM.
+quietTime_start :: Lens.Lens' QuietTime (Prelude.Maybe Prelude.Text)
+quietTime_start = Lens.lens (\QuietTime' {start} -> start) (\s@QuietTime' {} a -> s {start = a} :: QuietTime)
+
+instance Data.FromJSON QuietTime where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "QuietTime"
       ( \x ->
           QuietTime'
-            Prelude.<$> (x Core..:? "Start") Prelude.<*> (x Core..:? "End")
+            Prelude.<$> (x Data..:? "End") Prelude.<*> (x Data..:? "Start")
       )
 
 instance Prelude.Hashable QuietTime where
   hashWithSalt _salt QuietTime' {..} =
-    _salt `Prelude.hashWithSalt` start
-      `Prelude.hashWithSalt` end
+    _salt `Prelude.hashWithSalt` end
+      `Prelude.hashWithSalt` start
 
 instance Prelude.NFData QuietTime where
   rnf QuietTime' {..} =
-    Prelude.rnf start `Prelude.seq` Prelude.rnf end
+    Prelude.rnf end `Prelude.seq` Prelude.rnf start
 
-instance Core.ToJSON QuietTime where
+instance Data.ToJSON QuietTime where
   toJSON QuietTime' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Start" Core..=) Prelude.<$> start,
-            ("End" Core..=) Prelude.<$> end
+          [ ("End" Data..=) Prelude.<$> end,
+            ("Start" Data..=) Prelude.<$> start
           ]
       )

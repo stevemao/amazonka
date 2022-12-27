@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.RejectGrant
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,15 +34,16 @@ module Amazonka.LicenseManager.RejectGrant
     newRejectGrantResponse,
 
     -- * Response Lenses
+    rejectGrantResponse_grantArn,
     rejectGrantResponse_status,
     rejectGrantResponse_version,
-    rejectGrantResponse_grantArn,
     rejectGrantResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LicenseManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -77,14 +78,15 @@ rejectGrant_grantArn = Lens.lens (\RejectGrant' {grantArn} -> grantArn) (\s@Reje
 
 instance Core.AWSRequest RejectGrant where
   type AWSResponse RejectGrant = RejectGrantResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RejectGrantResponse'
-            Prelude.<$> (x Core..?> "Status")
-            Prelude.<*> (x Core..?> "Version")
-            Prelude.<*> (x Core..?> "GrantArn")
+            Prelude.<$> (x Data..?> "GrantArn")
+            Prelude.<*> (x Data..?> "Status")
+            Prelude.<*> (x Data..?> "Version")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -95,42 +97,42 @@ instance Prelude.Hashable RejectGrant where
 instance Prelude.NFData RejectGrant where
   rnf RejectGrant' {..} = Prelude.rnf grantArn
 
-instance Core.ToHeaders RejectGrant where
+instance Data.ToHeaders RejectGrant where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSLicenseManager.RejectGrant" ::
+              Data.=# ( "AWSLicenseManager.RejectGrant" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RejectGrant where
+instance Data.ToJSON RejectGrant where
   toJSON RejectGrant' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("GrantArn" Core..= grantArn)]
+          [Prelude.Just ("GrantArn" Data..= grantArn)]
       )
 
-instance Core.ToPath RejectGrant where
+instance Data.ToPath RejectGrant where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RejectGrant where
+instance Data.ToQuery RejectGrant where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRejectGrantResponse' smart constructor.
 data RejectGrantResponse = RejectGrantResponse'
-  { -- | Grant status.
+  { -- | Grant ARN.
+    grantArn :: Prelude.Maybe Prelude.Text,
+    -- | Grant status.
     status :: Prelude.Maybe GrantStatus,
     -- | Grant version.
     version :: Prelude.Maybe Prelude.Text,
-    -- | Grant ARN.
-    grantArn :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -144,11 +146,11 @@ data RejectGrantResponse = RejectGrantResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'grantArn', 'rejectGrantResponse_grantArn' - Grant ARN.
+--
 -- 'status', 'rejectGrantResponse_status' - Grant status.
 --
 -- 'version', 'rejectGrantResponse_version' - Grant version.
---
--- 'grantArn', 'rejectGrantResponse_grantArn' - Grant ARN.
 --
 -- 'httpStatus', 'rejectGrantResponse_httpStatus' - The response's http status code.
 newRejectGrantResponse ::
@@ -157,11 +159,15 @@ newRejectGrantResponse ::
   RejectGrantResponse
 newRejectGrantResponse pHttpStatus_ =
   RejectGrantResponse'
-    { status = Prelude.Nothing,
+    { grantArn = Prelude.Nothing,
+      status = Prelude.Nothing,
       version = Prelude.Nothing,
-      grantArn = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | Grant ARN.
+rejectGrantResponse_grantArn :: Lens.Lens' RejectGrantResponse (Prelude.Maybe Prelude.Text)
+rejectGrantResponse_grantArn = Lens.lens (\RejectGrantResponse' {grantArn} -> grantArn) (\s@RejectGrantResponse' {} a -> s {grantArn = a} :: RejectGrantResponse)
 
 -- | Grant status.
 rejectGrantResponse_status :: Lens.Lens' RejectGrantResponse (Prelude.Maybe GrantStatus)
@@ -171,17 +177,13 @@ rejectGrantResponse_status = Lens.lens (\RejectGrantResponse' {status} -> status
 rejectGrantResponse_version :: Lens.Lens' RejectGrantResponse (Prelude.Maybe Prelude.Text)
 rejectGrantResponse_version = Lens.lens (\RejectGrantResponse' {version} -> version) (\s@RejectGrantResponse' {} a -> s {version = a} :: RejectGrantResponse)
 
--- | Grant ARN.
-rejectGrantResponse_grantArn :: Lens.Lens' RejectGrantResponse (Prelude.Maybe Prelude.Text)
-rejectGrantResponse_grantArn = Lens.lens (\RejectGrantResponse' {grantArn} -> grantArn) (\s@RejectGrantResponse' {} a -> s {grantArn = a} :: RejectGrantResponse)
-
 -- | The response's http status code.
 rejectGrantResponse_httpStatus :: Lens.Lens' RejectGrantResponse Prelude.Int
 rejectGrantResponse_httpStatus = Lens.lens (\RejectGrantResponse' {httpStatus} -> httpStatus) (\s@RejectGrantResponse' {} a -> s {httpStatus = a} :: RejectGrantResponse)
 
 instance Prelude.NFData RejectGrantResponse where
   rnf RejectGrantResponse' {..} =
-    Prelude.rnf status
+    Prelude.rnf grantArn
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf version
-      `Prelude.seq` Prelude.rnf grantArn
       `Prelude.seq` Prelude.rnf httpStatus

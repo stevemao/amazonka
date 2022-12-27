@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.Types.Subscription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Greengrass.Types.Subscription where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a subscription.
@@ -105,16 +106,16 @@ subscription_subject = Lens.lens (\Subscription' {subject} -> subject) (\s@Subsc
 subscription_source :: Lens.Lens' Subscription Prelude.Text
 subscription_source = Lens.lens (\Subscription' {source} -> source) (\s@Subscription' {} a -> s {source = a} :: Subscription)
 
-instance Core.FromJSON Subscription where
+instance Data.FromJSON Subscription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Subscription"
       ( \x ->
           Subscription'
-            Prelude.<$> (x Core..: "Target")
-            Prelude.<*> (x Core..: "Id")
-            Prelude.<*> (x Core..: "Subject")
-            Prelude.<*> (x Core..: "Source")
+            Prelude.<$> (x Data..: "Target")
+            Prelude.<*> (x Data..: "Id")
+            Prelude.<*> (x Data..: "Subject")
+            Prelude.<*> (x Data..: "Source")
       )
 
 instance Prelude.Hashable Subscription where
@@ -131,13 +132,13 @@ instance Prelude.NFData Subscription where
       `Prelude.seq` Prelude.rnf subject
       `Prelude.seq` Prelude.rnf source
 
-instance Core.ToJSON Subscription where
+instance Data.ToJSON Subscription where
   toJSON Subscription' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Target" Core..= target),
-            Prelude.Just ("Id" Core..= id),
-            Prelude.Just ("Subject" Core..= subject),
-            Prelude.Just ("Source" Core..= source)
+          [ Prelude.Just ("Target" Data..= target),
+            Prelude.Just ("Id" Data..= id),
+            Prelude.Just ("Subject" Data..= subject),
+            Prelude.Just ("Source" Data..= source)
           ]
       )

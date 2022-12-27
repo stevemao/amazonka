@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -45,6 +45,7 @@ library
   exposed-modules:
     Amazonka.GlobalAccelerator
     Amazonka.GlobalAccelerator.AddCustomRoutingEndpoints
+    Amazonka.GlobalAccelerator.AddEndpoints
     Amazonka.GlobalAccelerator.AdvertiseByoipCidr
     Amazonka.GlobalAccelerator.AllowCustomRoutingTraffic
     Amazonka.GlobalAccelerator.CreateAccelerator
@@ -82,10 +83,12 @@ library
     Amazonka.GlobalAccelerator.ListTagsForResource
     Amazonka.GlobalAccelerator.ProvisionByoipCidr
     Amazonka.GlobalAccelerator.RemoveCustomRoutingEndpoints
+    Amazonka.GlobalAccelerator.RemoveEndpoints
     Amazonka.GlobalAccelerator.TagResource
     Amazonka.GlobalAccelerator.Types
     Amazonka.GlobalAccelerator.Types.Accelerator
     Amazonka.GlobalAccelerator.Types.AcceleratorAttributes
+    Amazonka.GlobalAccelerator.Types.AcceleratorEvent
     Amazonka.GlobalAccelerator.Types.AcceleratorStatus
     Amazonka.GlobalAccelerator.Types.ByoipCidr
     Amazonka.GlobalAccelerator.Types.ByoipCidrEvent
@@ -107,8 +110,10 @@ library
     Amazonka.GlobalAccelerator.Types.EndpointConfiguration
     Amazonka.GlobalAccelerator.Types.EndpointDescription
     Amazonka.GlobalAccelerator.Types.EndpointGroup
+    Amazonka.GlobalAccelerator.Types.EndpointIdentifier
     Amazonka.GlobalAccelerator.Types.HealthCheckProtocol
     Amazonka.GlobalAccelerator.Types.HealthState
+    Amazonka.GlobalAccelerator.Types.IpAddressFamily
     Amazonka.GlobalAccelerator.Types.IpAddressType
     Amazonka.GlobalAccelerator.Types.IpSet
     Amazonka.GlobalAccelerator.Types.Listener
@@ -130,7 +135,7 @@ library
     Amazonka.GlobalAccelerator.WithdrawByoipCidr
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-globalaccelerator-test
@@ -149,9 +154,9 @@ test-suite amazonka-globalaccelerator-test
     Test.Amazonka.GlobalAccelerator.Internal
 
   build-depends:
-    , amazonka-core               ^>=2.0
+    , amazonka-core               >=2.0 && <2.1
     , amazonka-globalaccelerator
-    , amazonka-test               ^>=2.0
+    , amazonka-test               >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

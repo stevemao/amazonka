@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetVpcLink
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,19 +34,20 @@ module Amazonka.APIGateway.GetVpcLink
     newVpcLink,
 
     -- * Response Lenses
-    vpcLink_status,
-    vpcLink_targetArns,
-    vpcLink_name,
-    vpcLink_statusMessage,
-    vpcLink_id,
     vpcLink_description,
+    vpcLink_id,
+    vpcLink_name,
+    vpcLink_status,
+    vpcLink_statusMessage,
     vpcLink_tags,
+    vpcLink_targetArns,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,8 +56,8 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newGetVpcLink' smart constructor.
 data GetVpcLink = GetVpcLink'
-  { -- | [Required] The identifier of the VpcLink. It is used in an Integration
-    -- to reference this VpcLink.
+  { -- | The identifier of the VpcLink. It is used in an Integration to reference
+    -- this VpcLink.
     vpcLinkId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -69,8 +70,8 @@ data GetVpcLink = GetVpcLink'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'vpcLinkId', 'getVpcLink_vpcLinkId' - [Required] The identifier of the VpcLink. It is used in an Integration
--- to reference this VpcLink.
+-- 'vpcLinkId', 'getVpcLink_vpcLinkId' - The identifier of the VpcLink. It is used in an Integration to reference
+-- this VpcLink.
 newGetVpcLink ::
   -- | 'vpcLinkId'
   Prelude.Text ->
@@ -78,17 +79,18 @@ newGetVpcLink ::
 newGetVpcLink pVpcLinkId_ =
   GetVpcLink' {vpcLinkId = pVpcLinkId_}
 
--- | [Required] The identifier of the VpcLink. It is used in an Integration
--- to reference this VpcLink.
+-- | The identifier of the VpcLink. It is used in an Integration to reference
+-- this VpcLink.
 getVpcLink_vpcLinkId :: Lens.Lens' GetVpcLink Prelude.Text
 getVpcLink_vpcLinkId = Lens.lens (\GetVpcLink' {vpcLinkId} -> vpcLinkId) (\s@GetVpcLink' {} a -> s {vpcLinkId = a} :: GetVpcLink)
 
 instance Core.AWSRequest GetVpcLink where
   type AWSResponse GetVpcLink = VpcLink
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetVpcLink where
   hashWithSalt _salt GetVpcLink' {..} =
@@ -97,18 +99,18 @@ instance Prelude.Hashable GetVpcLink where
 instance Prelude.NFData GetVpcLink where
   rnf GetVpcLink' {..} = Prelude.rnf vpcLinkId
 
-instance Core.ToHeaders GetVpcLink where
+instance Data.ToHeaders GetVpcLink where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetVpcLink where
+instance Data.ToPath GetVpcLink where
   toPath GetVpcLink' {..} =
-    Prelude.mconcat ["/vpclinks/", Core.toBS vpcLinkId]
+    Prelude.mconcat ["/vpclinks/", Data.toBS vpcLinkId]
 
-instance Core.ToQuery GetVpcLink where
+instance Data.ToQuery GetVpcLink where
   toQuery = Prelude.const Prelude.mempty

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.DescribeAggregateComplianceByConformancePacks
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,8 +37,8 @@ module Amazonka.Config.DescribeAggregateComplianceByConformancePacks
 
     -- * Request Lenses
     describeAggregateComplianceByConformancePacks_filters,
-    describeAggregateComplianceByConformancePacks_nextToken,
     describeAggregateComplianceByConformancePacks_limit,
+    describeAggregateComplianceByConformancePacks_nextToken,
     describeAggregateComplianceByConformancePacks_configurationAggregatorName,
 
     -- * Destructuring the Response
@@ -54,7 +54,8 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -64,13 +65,13 @@ data DescribeAggregateComplianceByConformancePacks = DescribeAggregateCompliance
   { -- | Filters the result by @AggregateConformancePackComplianceFilters@
     -- object.
     filters :: Prelude.Maybe AggregateConformancePackComplianceFilters,
-    -- | The @nextToken@ string returned on a previous page that you use to get
-    -- the next page of results in a paginated response.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of conformance packs compliance details returned on
     -- each page. The default is maximum. If you specify 0, Config uses the
     -- default.
     limit :: Prelude.Maybe Prelude.Natural,
+    -- | The @nextToken@ string returned on a previous page that you use to get
+    -- the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the configuration aggregator.
     configurationAggregatorName :: Prelude.Text
   }
@@ -87,12 +88,12 @@ data DescribeAggregateComplianceByConformancePacks = DescribeAggregateCompliance
 -- 'filters', 'describeAggregateComplianceByConformancePacks_filters' - Filters the result by @AggregateConformancePackComplianceFilters@
 -- object.
 --
--- 'nextToken', 'describeAggregateComplianceByConformancePacks_nextToken' - The @nextToken@ string returned on a previous page that you use to get
--- the next page of results in a paginated response.
---
 -- 'limit', 'describeAggregateComplianceByConformancePacks_limit' - The maximum number of conformance packs compliance details returned on
 -- each page. The default is maximum. If you specify 0, Config uses the
 -- default.
+--
+-- 'nextToken', 'describeAggregateComplianceByConformancePacks_nextToken' - The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
 --
 -- 'configurationAggregatorName', 'describeAggregateComplianceByConformancePacks_configurationAggregatorName' - The name of the configuration aggregator.
 newDescribeAggregateComplianceByConformancePacks ::
@@ -104,8 +105,8 @@ newDescribeAggregateComplianceByConformancePacks
     DescribeAggregateComplianceByConformancePacks'
       { filters =
           Prelude.Nothing,
-        nextToken = Prelude.Nothing,
         limit = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         configurationAggregatorName =
           pConfigurationAggregatorName_
       }
@@ -115,16 +116,16 @@ newDescribeAggregateComplianceByConformancePacks
 describeAggregateComplianceByConformancePacks_filters :: Lens.Lens' DescribeAggregateComplianceByConformancePacks (Prelude.Maybe AggregateConformancePackComplianceFilters)
 describeAggregateComplianceByConformancePacks_filters = Lens.lens (\DescribeAggregateComplianceByConformancePacks' {filters} -> filters) (\s@DescribeAggregateComplianceByConformancePacks' {} a -> s {filters = a} :: DescribeAggregateComplianceByConformancePacks)
 
--- | The @nextToken@ string returned on a previous page that you use to get
--- the next page of results in a paginated response.
-describeAggregateComplianceByConformancePacks_nextToken :: Lens.Lens' DescribeAggregateComplianceByConformancePacks (Prelude.Maybe Prelude.Text)
-describeAggregateComplianceByConformancePacks_nextToken = Lens.lens (\DescribeAggregateComplianceByConformancePacks' {nextToken} -> nextToken) (\s@DescribeAggregateComplianceByConformancePacks' {} a -> s {nextToken = a} :: DescribeAggregateComplianceByConformancePacks)
-
 -- | The maximum number of conformance packs compliance details returned on
 -- each page. The default is maximum. If you specify 0, Config uses the
 -- default.
 describeAggregateComplianceByConformancePacks_limit :: Lens.Lens' DescribeAggregateComplianceByConformancePacks (Prelude.Maybe Prelude.Natural)
 describeAggregateComplianceByConformancePacks_limit = Lens.lens (\DescribeAggregateComplianceByConformancePacks' {limit} -> limit) (\s@DescribeAggregateComplianceByConformancePacks' {} a -> s {limit = a} :: DescribeAggregateComplianceByConformancePacks)
+
+-- | The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
+describeAggregateComplianceByConformancePacks_nextToken :: Lens.Lens' DescribeAggregateComplianceByConformancePacks (Prelude.Maybe Prelude.Text)
+describeAggregateComplianceByConformancePacks_nextToken = Lens.lens (\DescribeAggregateComplianceByConformancePacks' {nextToken} -> nextToken) (\s@DescribeAggregateComplianceByConformancePacks' {} a -> s {nextToken = a} :: DescribeAggregateComplianceByConformancePacks)
 
 -- | The name of the configuration aggregator.
 describeAggregateComplianceByConformancePacks_configurationAggregatorName :: Lens.Lens' DescribeAggregateComplianceByConformancePacks Prelude.Text
@@ -163,15 +164,16 @@ instance
     AWSResponse
       DescribeAggregateComplianceByConformancePacks =
       DescribeAggregateComplianceByConformancePacksResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAggregateComplianceByConformancePacksResponse'
-            Prelude.<$> ( x Core..?> "AggregateComplianceByConformancePacks"
+            Prelude.<$> ( x Data..?> "AggregateComplianceByConformancePacks"
                             Core..!@ Prelude.mempty
                         )
-              Prelude.<*> (x Core..?> "NextToken")
+              Prelude.<*> (x Data..?> "NextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -183,8 +185,8 @@ instance
     _salt
     DescribeAggregateComplianceByConformancePacks' {..} =
       _salt `Prelude.hashWithSalt` filters
-        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` limit
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` configurationAggregatorName
 
 instance
@@ -194,54 +196,54 @@ instance
   rnf
     DescribeAggregateComplianceByConformancePacks' {..} =
       Prelude.rnf filters
-        `Prelude.seq` Prelude.rnf nextToken
         `Prelude.seq` Prelude.rnf limit
+        `Prelude.seq` Prelude.rnf nextToken
         `Prelude.seq` Prelude.rnf configurationAggregatorName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeAggregateComplianceByConformancePacks
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.DescribeAggregateComplianceByConformancePacks" ::
+              Data.=# ( "StarlingDoveService.DescribeAggregateComplianceByConformancePacks" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DescribeAggregateComplianceByConformancePacks
   where
   toJSON
     DescribeAggregateComplianceByConformancePacks' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("Filters" Core..=) Prelude.<$> filters,
-              ("NextToken" Core..=) Prelude.<$> nextToken,
-              ("Limit" Core..=) Prelude.<$> limit,
+            [ ("Filters" Data..=) Prelude.<$> filters,
+              ("Limit" Data..=) Prelude.<$> limit,
+              ("NextToken" Data..=) Prelude.<$> nextToken,
               Prelude.Just
                 ( "ConfigurationAggregatorName"
-                    Core..= configurationAggregatorName
+                    Data..= configurationAggregatorName
                 )
             ]
         )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeAggregateComplianceByConformancePacks
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeAggregateComplianceByConformancePacks
   where
   toQuery = Prelude.const Prelude.mempty

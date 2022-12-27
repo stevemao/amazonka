@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.ModelPackageGroupSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.ModelPackageGroupSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.ModelPackageGroupStatus
 
@@ -35,7 +36,7 @@ data ModelPackageGroupSummary = ModelPackageGroupSummary'
     -- | The Amazon Resource Name (ARN) of the model group.
     modelPackageGroupArn :: Prelude.Text,
     -- | The time that the model group was created.
-    creationTime :: Core.POSIX,
+    creationTime :: Data.POSIX,
     -- | The status of the model group.
     modelPackageGroupStatus :: ModelPackageGroupStatus
   }
@@ -78,7 +79,7 @@ newModelPackageGroupSummary
           Prelude.Nothing,
         modelPackageGroupName = pModelPackageGroupName_,
         modelPackageGroupArn = pModelPackageGroupArn_,
-        creationTime = Core._Time Lens.# pCreationTime_,
+        creationTime = Data._Time Lens.# pCreationTime_,
         modelPackageGroupStatus =
           pModelPackageGroupStatus_
       }
@@ -97,23 +98,23 @@ modelPackageGroupSummary_modelPackageGroupArn = Lens.lens (\ModelPackageGroupSum
 
 -- | The time that the model group was created.
 modelPackageGroupSummary_creationTime :: Lens.Lens' ModelPackageGroupSummary Prelude.UTCTime
-modelPackageGroupSummary_creationTime = Lens.lens (\ModelPackageGroupSummary' {creationTime} -> creationTime) (\s@ModelPackageGroupSummary' {} a -> s {creationTime = a} :: ModelPackageGroupSummary) Prelude.. Core._Time
+modelPackageGroupSummary_creationTime = Lens.lens (\ModelPackageGroupSummary' {creationTime} -> creationTime) (\s@ModelPackageGroupSummary' {} a -> s {creationTime = a} :: ModelPackageGroupSummary) Prelude.. Data._Time
 
 -- | The status of the model group.
 modelPackageGroupSummary_modelPackageGroupStatus :: Lens.Lens' ModelPackageGroupSummary ModelPackageGroupStatus
 modelPackageGroupSummary_modelPackageGroupStatus = Lens.lens (\ModelPackageGroupSummary' {modelPackageGroupStatus} -> modelPackageGroupStatus) (\s@ModelPackageGroupSummary' {} a -> s {modelPackageGroupStatus = a} :: ModelPackageGroupSummary)
 
-instance Core.FromJSON ModelPackageGroupSummary where
+instance Data.FromJSON ModelPackageGroupSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ModelPackageGroupSummary"
       ( \x ->
           ModelPackageGroupSummary'
-            Prelude.<$> (x Core..:? "ModelPackageGroupDescription")
-            Prelude.<*> (x Core..: "ModelPackageGroupName")
-            Prelude.<*> (x Core..: "ModelPackageGroupArn")
-            Prelude.<*> (x Core..: "CreationTime")
-            Prelude.<*> (x Core..: "ModelPackageGroupStatus")
+            Prelude.<$> (x Data..:? "ModelPackageGroupDescription")
+            Prelude.<*> (x Data..: "ModelPackageGroupName")
+            Prelude.<*> (x Data..: "ModelPackageGroupArn")
+            Prelude.<*> (x Data..: "CreationTime")
+            Prelude.<*> (x Data..: "ModelPackageGroupStatus")
       )
 
 instance Prelude.Hashable ModelPackageGroupSummary where

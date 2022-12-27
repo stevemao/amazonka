@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryReadiness.UpdateReadinessCheck
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates an exisiting Readiness Check.
+-- Updates a readiness check.
 module Amazonka.Route53RecoveryReadiness.UpdateReadinessCheck
   ( -- * Creating a Request
     UpdateReadinessCheck (..),
@@ -35,28 +35,29 @@ module Amazonka.Route53RecoveryReadiness.UpdateReadinessCheck
     newUpdateReadinessCheckResponse,
 
     -- * Response Lenses
+    updateReadinessCheckResponse_readinessCheckArn,
     updateReadinessCheckResponse_readinessCheckName,
     updateReadinessCheckResponse_resourceSet,
-    updateReadinessCheckResponse_readinessCheckArn,
     updateReadinessCheckResponse_tags,
     updateReadinessCheckResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 import Amazonka.Route53RecoveryReadiness.Types
 
--- | The new Readiness Check values
+-- | Name of a readiness check to describe.
 --
 -- /See:/ 'newUpdateReadinessCheck' smart constructor.
 data UpdateReadinessCheck = UpdateReadinessCheck'
-  { -- | The ReadinessCheck to update
+  { -- | Name of a readiness check.
     readinessCheckName :: Prelude.Text,
-    -- | The name of the ResourceSet to check
+    -- | The name of the resource set to be checked.
     resourceSetName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -69,9 +70,9 @@ data UpdateReadinessCheck = UpdateReadinessCheck'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'readinessCheckName', 'updateReadinessCheck_readinessCheckName' - The ReadinessCheck to update
+-- 'readinessCheckName', 'updateReadinessCheck_readinessCheckName' - Name of a readiness check.
 --
--- 'resourceSetName', 'updateReadinessCheck_resourceSetName' - The name of the ResourceSet to check
+-- 'resourceSetName', 'updateReadinessCheck_resourceSetName' - The name of the resource set to be checked.
 newUpdateReadinessCheck ::
   -- | 'readinessCheckName'
   Prelude.Text ->
@@ -87,11 +88,11 @@ newUpdateReadinessCheck
         resourceSetName = pResourceSetName_
       }
 
--- | The ReadinessCheck to update
+-- | Name of a readiness check.
 updateReadinessCheck_readinessCheckName :: Lens.Lens' UpdateReadinessCheck Prelude.Text
 updateReadinessCheck_readinessCheckName = Lens.lens (\UpdateReadinessCheck' {readinessCheckName} -> readinessCheckName) (\s@UpdateReadinessCheck' {} a -> s {readinessCheckName = a} :: UpdateReadinessCheck)
 
--- | The name of the ResourceSet to check
+-- | The name of the resource set to be checked.
 updateReadinessCheck_resourceSetName :: Lens.Lens' UpdateReadinessCheck Prelude.Text
 updateReadinessCheck_resourceSetName = Lens.lens (\UpdateReadinessCheck' {resourceSetName} -> resourceSetName) (\s@UpdateReadinessCheck' {} a -> s {resourceSetName = a} :: UpdateReadinessCheck)
 
@@ -99,15 +100,16 @@ instance Core.AWSRequest UpdateReadinessCheck where
   type
     AWSResponse UpdateReadinessCheck =
       UpdateReadinessCheckResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateReadinessCheckResponse'
-            Prelude.<$> (x Core..?> "readinessCheckName")
-            Prelude.<*> (x Core..?> "resourceSet")
-            Prelude.<*> (x Core..?> "readinessCheckArn")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "readinessCheckArn")
+            Prelude.<*> (x Data..?> "readinessCheckName")
+            Prelude.<*> (x Data..?> "resourceSet")
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -121,42 +123,42 @@ instance Prelude.NFData UpdateReadinessCheck where
     Prelude.rnf readinessCheckName
       `Prelude.seq` Prelude.rnf resourceSetName
 
-instance Core.ToHeaders UpdateReadinessCheck where
+instance Data.ToHeaders UpdateReadinessCheck where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateReadinessCheck where
+instance Data.ToJSON UpdateReadinessCheck where
   toJSON UpdateReadinessCheck' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("resourceSetName" Core..= resourceSetName)
+              ("resourceSetName" Data..= resourceSetName)
           ]
       )
 
-instance Core.ToPath UpdateReadinessCheck where
+instance Data.ToPath UpdateReadinessCheck where
   toPath UpdateReadinessCheck' {..} =
     Prelude.mconcat
-      ["/readinesschecks/", Core.toBS readinessCheckName]
+      ["/readinesschecks/", Data.toBS readinessCheckName]
 
-instance Core.ToQuery UpdateReadinessCheck where
+instance Data.ToQuery UpdateReadinessCheck where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateReadinessCheckResponse' smart constructor.
 data UpdateReadinessCheckResponse = UpdateReadinessCheckResponse'
-  { -- | Name for a ReadinessCheck
-    readinessCheckName :: Prelude.Maybe Prelude.Text,
-    -- | Name of the ResourceSet to be checked
-    resourceSet :: Prelude.Maybe Prelude.Text,
-    -- | Arn associated with ReadinessCheck
+  { -- | The Amazon Resource Name (ARN) associated with a readiness check.
     readinessCheckArn :: Prelude.Maybe Prelude.Text,
+    -- | Name of a readiness check.
+    readinessCheckName :: Prelude.Maybe Prelude.Text,
+    -- | Name of the resource set to be checked.
+    resourceSet :: Prelude.Maybe Prelude.Text,
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -171,11 +173,11 @@ data UpdateReadinessCheckResponse = UpdateReadinessCheckResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'readinessCheckName', 'updateReadinessCheckResponse_readinessCheckName' - Name for a ReadinessCheck
+-- 'readinessCheckArn', 'updateReadinessCheckResponse_readinessCheckArn' - The Amazon Resource Name (ARN) associated with a readiness check.
 --
--- 'resourceSet', 'updateReadinessCheckResponse_resourceSet' - Name of the ResourceSet to be checked
+-- 'readinessCheckName', 'updateReadinessCheckResponse_readinessCheckName' - Name of a readiness check.
 --
--- 'readinessCheckArn', 'updateReadinessCheckResponse_readinessCheckArn' - Arn associated with ReadinessCheck
+-- 'resourceSet', 'updateReadinessCheckResponse_resourceSet' - Name of the resource set to be checked.
 --
 -- 'tags', 'updateReadinessCheckResponse_tags' - Undocumented member.
 --
@@ -186,25 +188,25 @@ newUpdateReadinessCheckResponse ::
   UpdateReadinessCheckResponse
 newUpdateReadinessCheckResponse pHttpStatus_ =
   UpdateReadinessCheckResponse'
-    { readinessCheckName =
+    { readinessCheckArn =
         Prelude.Nothing,
+      readinessCheckName = Prelude.Nothing,
       resourceSet = Prelude.Nothing,
-      readinessCheckArn = Prelude.Nothing,
       tags = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | Name for a ReadinessCheck
+-- | The Amazon Resource Name (ARN) associated with a readiness check.
+updateReadinessCheckResponse_readinessCheckArn :: Lens.Lens' UpdateReadinessCheckResponse (Prelude.Maybe Prelude.Text)
+updateReadinessCheckResponse_readinessCheckArn = Lens.lens (\UpdateReadinessCheckResponse' {readinessCheckArn} -> readinessCheckArn) (\s@UpdateReadinessCheckResponse' {} a -> s {readinessCheckArn = a} :: UpdateReadinessCheckResponse)
+
+-- | Name of a readiness check.
 updateReadinessCheckResponse_readinessCheckName :: Lens.Lens' UpdateReadinessCheckResponse (Prelude.Maybe Prelude.Text)
 updateReadinessCheckResponse_readinessCheckName = Lens.lens (\UpdateReadinessCheckResponse' {readinessCheckName} -> readinessCheckName) (\s@UpdateReadinessCheckResponse' {} a -> s {readinessCheckName = a} :: UpdateReadinessCheckResponse)
 
--- | Name of the ResourceSet to be checked
+-- | Name of the resource set to be checked.
 updateReadinessCheckResponse_resourceSet :: Lens.Lens' UpdateReadinessCheckResponse (Prelude.Maybe Prelude.Text)
 updateReadinessCheckResponse_resourceSet = Lens.lens (\UpdateReadinessCheckResponse' {resourceSet} -> resourceSet) (\s@UpdateReadinessCheckResponse' {} a -> s {resourceSet = a} :: UpdateReadinessCheckResponse)
-
--- | Arn associated with ReadinessCheck
-updateReadinessCheckResponse_readinessCheckArn :: Lens.Lens' UpdateReadinessCheckResponse (Prelude.Maybe Prelude.Text)
-updateReadinessCheckResponse_readinessCheckArn = Lens.lens (\UpdateReadinessCheckResponse' {readinessCheckArn} -> readinessCheckArn) (\s@UpdateReadinessCheckResponse' {} a -> s {readinessCheckArn = a} :: UpdateReadinessCheckResponse)
 
 -- | Undocumented member.
 updateReadinessCheckResponse_tags :: Lens.Lens' UpdateReadinessCheckResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -216,8 +218,8 @@ updateReadinessCheckResponse_httpStatus = Lens.lens (\UpdateReadinessCheckRespon
 
 instance Prelude.NFData UpdateReadinessCheckResponse where
   rnf UpdateReadinessCheckResponse' {..} =
-    Prelude.rnf readinessCheckName
+    Prelude.rnf readinessCheckArn
+      `Prelude.seq` Prelude.rnf readinessCheckName
       `Prelude.seq` Prelude.rnf resourceSet
-      `Prelude.seq` Prelude.rnf readinessCheckArn
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.GroupIdentifier
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.GroupIdentifier where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a security group.
@@ -62,11 +63,11 @@ groupIdentifier_groupId = Lens.lens (\GroupIdentifier' {groupId} -> groupId) (\s
 groupIdentifier_groupName :: Lens.Lens' GroupIdentifier (Prelude.Maybe Prelude.Text)
 groupIdentifier_groupName = Lens.lens (\GroupIdentifier' {groupName} -> groupName) (\s@GroupIdentifier' {} a -> s {groupName = a} :: GroupIdentifier)
 
-instance Core.FromXML GroupIdentifier where
+instance Data.FromXML GroupIdentifier where
   parseXML x =
     GroupIdentifier'
-      Prelude.<$> (x Core..@? "groupId")
-      Prelude.<*> (x Core..@? "groupName")
+      Prelude.<$> (x Data..@? "groupId")
+      Prelude.<*> (x Data..@? "groupName")
 
 instance Prelude.Hashable GroupIdentifier where
   hashWithSalt _salt GroupIdentifier' {..} =
@@ -78,9 +79,9 @@ instance Prelude.NFData GroupIdentifier where
     Prelude.rnf groupId
       `Prelude.seq` Prelude.rnf groupName
 
-instance Core.ToQuery GroupIdentifier where
+instance Data.ToQuery GroupIdentifier where
   toQuery GroupIdentifier' {..} =
     Prelude.mconcat
-      [ "GroupId" Core.=: groupId,
-        "GroupName" Core.=: groupName
+      [ "GroupId" Data.=: groupId,
+        "GroupName" Data.=: groupName
       ]

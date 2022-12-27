@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.OutputGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.OutputGroup where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.Output
 import Amazonka.MediaLive.Types.OutputGroupSettings
 import qualified Amazonka.Prelude as Prelude
@@ -30,9 +31,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newOutputGroup' smart constructor.
 data OutputGroup = OutputGroup'
-  { -- | Custom output group name optionally defined by the user. Only letters,
-    -- numbers, and the underscore character allowed; only 32 characters
-    -- allowed.
+  { -- | Custom output group name optionally defined by the user.
     name :: Prelude.Maybe Prelude.Text,
     outputs :: [Output],
     -- | Settings associated with the output group.
@@ -48,9 +47,7 @@ data OutputGroup = OutputGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'outputGroup_name' - Custom output group name optionally defined by the user. Only letters,
--- numbers, and the underscore character allowed; only 32 characters
--- allowed.
+-- 'name', 'outputGroup_name' - Custom output group name optionally defined by the user.
 --
 -- 'outputs', 'outputGroup_outputs' - Undocumented member.
 --
@@ -66,9 +63,7 @@ newOutputGroup pOutputGroupSettings_ =
       outputGroupSettings = pOutputGroupSettings_
     }
 
--- | Custom output group name optionally defined by the user. Only letters,
--- numbers, and the underscore character allowed; only 32 characters
--- allowed.
+-- | Custom output group name optionally defined by the user.
 outputGroup_name :: Lens.Lens' OutputGroup (Prelude.Maybe Prelude.Text)
 outputGroup_name = Lens.lens (\OutputGroup' {name} -> name) (\s@OutputGroup' {} a -> s {name = a} :: OutputGroup)
 
@@ -80,15 +75,15 @@ outputGroup_outputs = Lens.lens (\OutputGroup' {outputs} -> outputs) (\s@OutputG
 outputGroup_outputGroupSettings :: Lens.Lens' OutputGroup OutputGroupSettings
 outputGroup_outputGroupSettings = Lens.lens (\OutputGroup' {outputGroupSettings} -> outputGroupSettings) (\s@OutputGroup' {} a -> s {outputGroupSettings = a} :: OutputGroup)
 
-instance Core.FromJSON OutputGroup where
+instance Data.FromJSON OutputGroup where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OutputGroup"
       ( \x ->
           OutputGroup'
-            Prelude.<$> (x Core..:? "name")
-            Prelude.<*> (x Core..:? "outputs" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "outputGroupSettings")
+            Prelude.<$> (x Data..:? "name")
+            Prelude.<*> (x Data..:? "outputs" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "outputGroupSettings")
       )
 
 instance Prelude.Hashable OutputGroup where
@@ -103,13 +98,13 @@ instance Prelude.NFData OutputGroup where
       `Prelude.seq` Prelude.rnf outputs
       `Prelude.seq` Prelude.rnf outputGroupSettings
 
-instance Core.ToJSON OutputGroup where
+instance Data.ToJSON OutputGroup where
   toJSON OutputGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("name" Core..=) Prelude.<$> name,
-            Prelude.Just ("outputs" Core..= outputs),
+          [ ("name" Data..=) Prelude.<$> name,
+            Prelude.Just ("outputs" Data..= outputs),
             Prelude.Just
-              ("outputGroupSettings" Core..= outputGroupSettings)
+              ("outputGroupSettings" Data..= outputGroupSettings)
           ]
       )

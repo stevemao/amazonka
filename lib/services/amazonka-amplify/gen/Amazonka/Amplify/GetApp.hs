@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Amplify.GetApp
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.Amplify.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,13 +77,14 @@ getApp_appId = Lens.lens (\GetApp' {appId} -> appId) (\s@GetApp' {} a -> s {appI
 
 instance Core.AWSRequest GetApp where
   type AWSResponse GetApp = GetAppResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAppResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "app")
+            Prelude.<*> (x Data..:> "app")
       )
 
 instance Prelude.Hashable GetApp where
@@ -92,22 +94,22 @@ instance Prelude.Hashable GetApp where
 instance Prelude.NFData GetApp where
   rnf GetApp' {..} = Prelude.rnf appId
 
-instance Core.ToHeaders GetApp where
+instance Data.ToHeaders GetApp where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetApp where
+instance Data.ToPath GetApp where
   toPath GetApp' {..} =
-    Prelude.mconcat ["/apps/", Core.toBS appId]
+    Prelude.mconcat ["/apps/", Data.toBS appId]
 
-instance Core.ToQuery GetApp where
+instance Data.ToQuery GetApp where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetAppResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Snowball.Types.KeyRange
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Snowball.Types.KeyRange where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains a key range. For export jobs, a @S3Resource@ object can have an
@@ -30,12 +31,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newKeyRange' smart constructor.
 data KeyRange = KeyRange'
-  { -- | The key that ends an optional key range for an export job. Ranges are
+  { -- | The key that starts an optional key range for an export job. Ranges are
     -- inclusive and UTF-8 binary sorted.
-    endMarker :: Prelude.Maybe Prelude.Text,
-    -- | The key that starts an optional key range for an export job. Ranges are
+    beginMarker :: Prelude.Maybe Prelude.Text,
+    -- | The key that ends an optional key range for an export job. Ranges are
     -- inclusive and UTF-8 binary sorted.
-    beginMarker :: Prelude.Maybe Prelude.Text
+    endMarker :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,54 +48,54 @@ data KeyRange = KeyRange'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'endMarker', 'keyRange_endMarker' - The key that ends an optional key range for an export job. Ranges are
+-- 'beginMarker', 'keyRange_beginMarker' - The key that starts an optional key range for an export job. Ranges are
 -- inclusive and UTF-8 binary sorted.
 --
--- 'beginMarker', 'keyRange_beginMarker' - The key that starts an optional key range for an export job. Ranges are
+-- 'endMarker', 'keyRange_endMarker' - The key that ends an optional key range for an export job. Ranges are
 -- inclusive and UTF-8 binary sorted.
 newKeyRange ::
   KeyRange
 newKeyRange =
   KeyRange'
-    { endMarker = Prelude.Nothing,
-      beginMarker = Prelude.Nothing
+    { beginMarker = Prelude.Nothing,
+      endMarker = Prelude.Nothing
     }
-
--- | The key that ends an optional key range for an export job. Ranges are
--- inclusive and UTF-8 binary sorted.
-keyRange_endMarker :: Lens.Lens' KeyRange (Prelude.Maybe Prelude.Text)
-keyRange_endMarker = Lens.lens (\KeyRange' {endMarker} -> endMarker) (\s@KeyRange' {} a -> s {endMarker = a} :: KeyRange)
 
 -- | The key that starts an optional key range for an export job. Ranges are
 -- inclusive and UTF-8 binary sorted.
 keyRange_beginMarker :: Lens.Lens' KeyRange (Prelude.Maybe Prelude.Text)
 keyRange_beginMarker = Lens.lens (\KeyRange' {beginMarker} -> beginMarker) (\s@KeyRange' {} a -> s {beginMarker = a} :: KeyRange)
 
-instance Core.FromJSON KeyRange where
+-- | The key that ends an optional key range for an export job. Ranges are
+-- inclusive and UTF-8 binary sorted.
+keyRange_endMarker :: Lens.Lens' KeyRange (Prelude.Maybe Prelude.Text)
+keyRange_endMarker = Lens.lens (\KeyRange' {endMarker} -> endMarker) (\s@KeyRange' {} a -> s {endMarker = a} :: KeyRange)
+
+instance Data.FromJSON KeyRange where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "KeyRange"
       ( \x ->
           KeyRange'
-            Prelude.<$> (x Core..:? "EndMarker")
-            Prelude.<*> (x Core..:? "BeginMarker")
+            Prelude.<$> (x Data..:? "BeginMarker")
+            Prelude.<*> (x Data..:? "EndMarker")
       )
 
 instance Prelude.Hashable KeyRange where
   hashWithSalt _salt KeyRange' {..} =
-    _salt `Prelude.hashWithSalt` endMarker
-      `Prelude.hashWithSalt` beginMarker
+    _salt `Prelude.hashWithSalt` beginMarker
+      `Prelude.hashWithSalt` endMarker
 
 instance Prelude.NFData KeyRange where
   rnf KeyRange' {..} =
-    Prelude.rnf endMarker
-      `Prelude.seq` Prelude.rnf beginMarker
+    Prelude.rnf beginMarker
+      `Prelude.seq` Prelude.rnf endMarker
 
-instance Core.ToJSON KeyRange where
+instance Data.ToJSON KeyRange where
   toJSON KeyRange' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EndMarker" Core..=) Prelude.<$> endMarker,
-            ("BeginMarker" Core..=) Prelude.<$> beginMarker
+          [ ("BeginMarker" Data..=) Prelude.<$> beginMarker,
+            ("EndMarker" Data..=) Prelude.<$> endMarker
           ]
       )

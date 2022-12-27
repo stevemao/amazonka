@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.GetCachePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,7 +52,8 @@ where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,13 +100,14 @@ instance Core.AWSRequest GetCachePolicy where
   type
     AWSResponse GetCachePolicy =
       GetCachePolicyResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetCachePolicyResponse'
-            Prelude.<$> (Core.parseXML x)
-            Prelude.<*> (h Core..#? "ETag")
+            Prelude.<$> (Data.parseXML x)
+            Prelude.<*> (h Data..#? "ETag")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,15 +118,15 @@ instance Prelude.Hashable GetCachePolicy where
 instance Prelude.NFData GetCachePolicy where
   rnf GetCachePolicy' {..} = Prelude.rnf id
 
-instance Core.ToHeaders GetCachePolicy where
+instance Data.ToHeaders GetCachePolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetCachePolicy where
+instance Data.ToPath GetCachePolicy where
   toPath GetCachePolicy' {..} =
     Prelude.mconcat
-      ["/2020-05-31/cache-policy/", Core.toBS id]
+      ["/2020-05-31/cache-policy/", Data.toBS id]
 
-instance Core.ToQuery GetCachePolicy where
+instance Data.ToQuery GetCachePolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetCachePolicyResponse' smart constructor.

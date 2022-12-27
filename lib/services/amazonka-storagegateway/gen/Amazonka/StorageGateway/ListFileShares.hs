@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.ListFileShares
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,8 +32,8 @@ module Amazonka.StorageGateway.ListFileShares
 
     -- * Request Lenses
     listFileShares_gatewayARN,
-    listFileShares_marker,
     listFileShares_limit,
+    listFileShares_marker,
 
     -- * Destructuring the Response
     ListFileSharesResponse (..),
@@ -48,7 +48,8 @@ module Amazonka.StorageGateway.ListFileShares
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,13 +63,13 @@ data ListFileShares = ListFileShares'
     -- to list. If this field is not present, all file shares under your
     -- account are listed.
     gatewayARN :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of file shares to return in the response. The value
+    -- must be an integer with a value greater than zero. Optional.
+    limit :: Prelude.Maybe Prelude.Natural,
     -- | Opaque pagination token returned from a previous ListFileShares
     -- operation. If present, @Marker@ specifies where to continue the list
     -- from after a previous call to ListFileShares. Optional.
-    marker :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of file shares to return in the response. The value
-    -- must be an integer with a value greater than zero. Optional.
-    limit :: Prelude.Maybe Prelude.Natural
+    marker :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -84,19 +85,19 @@ data ListFileShares = ListFileShares'
 -- to list. If this field is not present, all file shares under your
 -- account are listed.
 --
+-- 'limit', 'listFileShares_limit' - The maximum number of file shares to return in the response. The value
+-- must be an integer with a value greater than zero. Optional.
+--
 -- 'marker', 'listFileShares_marker' - Opaque pagination token returned from a previous ListFileShares
 -- operation. If present, @Marker@ specifies where to continue the list
 -- from after a previous call to ListFileShares. Optional.
---
--- 'limit', 'listFileShares_limit' - The maximum number of file shares to return in the response. The value
--- must be an integer with a value greater than zero. Optional.
 newListFileShares ::
   ListFileShares
 newListFileShares =
   ListFileShares'
     { gatewayARN = Prelude.Nothing,
-      marker = Prelude.Nothing,
-      limit = Prelude.Nothing
+      limit = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the gateway whose file shares you want
@@ -105,16 +106,16 @@ newListFileShares =
 listFileShares_gatewayARN :: Lens.Lens' ListFileShares (Prelude.Maybe Prelude.Text)
 listFileShares_gatewayARN = Lens.lens (\ListFileShares' {gatewayARN} -> gatewayARN) (\s@ListFileShares' {} a -> s {gatewayARN = a} :: ListFileShares)
 
+-- | The maximum number of file shares to return in the response. The value
+-- must be an integer with a value greater than zero. Optional.
+listFileShares_limit :: Lens.Lens' ListFileShares (Prelude.Maybe Prelude.Natural)
+listFileShares_limit = Lens.lens (\ListFileShares' {limit} -> limit) (\s@ListFileShares' {} a -> s {limit = a} :: ListFileShares)
+
 -- | Opaque pagination token returned from a previous ListFileShares
 -- operation. If present, @Marker@ specifies where to continue the list
 -- from after a previous call to ListFileShares. Optional.
 listFileShares_marker :: Lens.Lens' ListFileShares (Prelude.Maybe Prelude.Text)
 listFileShares_marker = Lens.lens (\ListFileShares' {marker} -> marker) (\s@ListFileShares' {} a -> s {marker = a} :: ListFileShares)
-
--- | The maximum number of file shares to return in the response. The value
--- must be an integer with a value greater than zero. Optional.
-listFileShares_limit :: Lens.Lens' ListFileShares (Prelude.Maybe Prelude.Natural)
-listFileShares_limit = Lens.lens (\ListFileShares' {limit} -> limit) (\s@ListFileShares' {} a -> s {limit = a} :: ListFileShares)
 
 instance Core.AWSPager ListFileShares where
   page rq rs
@@ -142,60 +143,61 @@ instance Core.AWSRequest ListFileShares where
   type
     AWSResponse ListFileShares =
       ListFileSharesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListFileSharesResponse'
-            Prelude.<$> ( x Core..?> "FileShareInfoList"
+            Prelude.<$> ( x Data..?> "FileShareInfoList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "Marker")
-            Prelude.<*> (x Core..?> "NextMarker")
+            Prelude.<*> (x Data..?> "Marker")
+            Prelude.<*> (x Data..?> "NextMarker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListFileShares where
   hashWithSalt _salt ListFileShares' {..} =
     _salt `Prelude.hashWithSalt` gatewayARN
-      `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` marker
 
 instance Prelude.NFData ListFileShares where
   rnf ListFileShares' {..} =
     Prelude.rnf gatewayARN
-      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf marker
 
-instance Core.ToHeaders ListFileShares where
+instance Data.ToHeaders ListFileShares where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.ListFileShares" ::
+              Data.=# ( "StorageGateway_20130630.ListFileShares" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListFileShares where
+instance Data.ToJSON ListFileShares where
   toJSON ListFileShares' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("GatewayARN" Core..=) Prelude.<$> gatewayARN,
-            ("Marker" Core..=) Prelude.<$> marker,
-            ("Limit" Core..=) Prelude.<$> limit
+          [ ("GatewayARN" Data..=) Prelude.<$> gatewayARN,
+            ("Limit" Data..=) Prelude.<$> limit,
+            ("Marker" Data..=) Prelude.<$> marker
           ]
       )
 
-instance Core.ToPath ListFileShares where
+instance Data.ToPath ListFileShares where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListFileShares where
+instance Data.ToQuery ListFileShares where
   toQuery = Prelude.const Prelude.mempty
 
 -- | ListFileShareOutput

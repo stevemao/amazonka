@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ComprehendMedical.StopICD10CMInferenceJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.ComprehendMedical.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,12 +78,13 @@ instance Core.AWSRequest StopICD10CMInferenceJob where
   type
     AWSResponse StopICD10CMInferenceJob =
       StopICD10CMInferenceJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StopICD10CMInferenceJobResponse'
-            Prelude.<$> (x Core..?> "JobId")
+            Prelude.<$> (x Data..?> "JobId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -93,32 +95,32 @@ instance Prelude.Hashable StopICD10CMInferenceJob where
 instance Prelude.NFData StopICD10CMInferenceJob where
   rnf StopICD10CMInferenceJob' {..} = Prelude.rnf jobId
 
-instance Core.ToHeaders StopICD10CMInferenceJob where
+instance Data.ToHeaders StopICD10CMInferenceJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ComprehendMedical_20181030.StopICD10CMInferenceJob" ::
+              Data.=# ( "ComprehendMedical_20181030.StopICD10CMInferenceJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopICD10CMInferenceJob where
+instance Data.ToJSON StopICD10CMInferenceJob where
   toJSON StopICD10CMInferenceJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("JobId" Core..= jobId)]
+          [Prelude.Just ("JobId" Data..= jobId)]
       )
 
-instance Core.ToPath StopICD10CMInferenceJob where
+instance Data.ToPath StopICD10CMInferenceJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopICD10CMInferenceJob where
+instance Data.ToQuery StopICD10CMInferenceJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopICD10CMInferenceJobResponse' smart constructor.

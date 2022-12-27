@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.CreateDefaultSubnet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,6 +32,7 @@ module Amazonka.EC2.CreateDefaultSubnet
 
     -- * Request Lenses
     createDefaultSubnet_dryRun,
+    createDefaultSubnet_ipv6Native,
     createDefaultSubnet_availabilityZone,
 
     -- * Destructuring the Response
@@ -45,8 +46,9 @@ module Amazonka.EC2.CreateDefaultSubnet
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,6 +60,10 @@ data CreateDefaultSubnet = CreateDefaultSubnet'
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | Indicates whether to create an IPv6 only subnet. If you already have a
+    -- default subnet for this Availability Zone, you must delete it before you
+    -- can create an IPv6 only subnet.
+    ipv6Native :: Prelude.Maybe Prelude.Bool,
     -- | The Availability Zone in which to create the default subnet.
     availabilityZone :: Prelude.Text
   }
@@ -76,6 +82,10 @@ data CreateDefaultSubnet = CreateDefaultSubnet'
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
 --
+-- 'ipv6Native', 'createDefaultSubnet_ipv6Native' - Indicates whether to create an IPv6 only subnet. If you already have a
+-- default subnet for this Availability Zone, you must delete it before you
+-- can create an IPv6 only subnet.
+--
 -- 'availabilityZone', 'createDefaultSubnet_availabilityZone' - The Availability Zone in which to create the default subnet.
 newCreateDefaultSubnet ::
   -- | 'availabilityZone'
@@ -84,6 +94,7 @@ newCreateDefaultSubnet ::
 newCreateDefaultSubnet pAvailabilityZone_ =
   CreateDefaultSubnet'
     { dryRun = Prelude.Nothing,
+      ipv6Native = Prelude.Nothing,
       availabilityZone = pAvailabilityZone_
     }
 
@@ -94,6 +105,12 @@ newCreateDefaultSubnet pAvailabilityZone_ =
 createDefaultSubnet_dryRun :: Lens.Lens' CreateDefaultSubnet (Prelude.Maybe Prelude.Bool)
 createDefaultSubnet_dryRun = Lens.lens (\CreateDefaultSubnet' {dryRun} -> dryRun) (\s@CreateDefaultSubnet' {} a -> s {dryRun = a} :: CreateDefaultSubnet)
 
+-- | Indicates whether to create an IPv6 only subnet. If you already have a
+-- default subnet for this Availability Zone, you must delete it before you
+-- can create an IPv6 only subnet.
+createDefaultSubnet_ipv6Native :: Lens.Lens' CreateDefaultSubnet (Prelude.Maybe Prelude.Bool)
+createDefaultSubnet_ipv6Native = Lens.lens (\CreateDefaultSubnet' {ipv6Native} -> ipv6Native) (\s@CreateDefaultSubnet' {} a -> s {ipv6Native = a} :: CreateDefaultSubnet)
+
 -- | The Availability Zone in which to create the default subnet.
 createDefaultSubnet_availabilityZone :: Lens.Lens' CreateDefaultSubnet Prelude.Text
 createDefaultSubnet_availabilityZone = Lens.lens (\CreateDefaultSubnet' {availabilityZone} -> availabilityZone) (\s@CreateDefaultSubnet' {} a -> s {availabilityZone = a} :: CreateDefaultSubnet)
@@ -102,40 +119,44 @@ instance Core.AWSRequest CreateDefaultSubnet where
   type
     AWSResponse CreateDefaultSubnet =
       CreateDefaultSubnetResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CreateDefaultSubnetResponse'
-            Prelude.<$> (x Core..@? "subnet")
+            Prelude.<$> (x Data..@? "subnet")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateDefaultSubnet where
   hashWithSalt _salt CreateDefaultSubnet' {..} =
     _salt `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` ipv6Native
       `Prelude.hashWithSalt` availabilityZone
 
 instance Prelude.NFData CreateDefaultSubnet where
   rnf CreateDefaultSubnet' {..} =
     Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf ipv6Native
       `Prelude.seq` Prelude.rnf availabilityZone
 
-instance Core.ToHeaders CreateDefaultSubnet where
+instance Data.ToHeaders CreateDefaultSubnet where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateDefaultSubnet where
+instance Data.ToPath CreateDefaultSubnet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateDefaultSubnet where
+instance Data.ToQuery CreateDefaultSubnet where
   toQuery CreateDefaultSubnet' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateDefaultSubnet" :: Prelude.ByteString),
+          Data.=: ("CreateDefaultSubnet" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "AvailabilityZone" Core.=: availabilityZone
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "Ipv6Native" Data.=: ipv6Native,
+        "AvailabilityZone" Data.=: availabilityZone
       ]
 
 -- | /See:/ 'newCreateDefaultSubnetResponse' smart constructor.

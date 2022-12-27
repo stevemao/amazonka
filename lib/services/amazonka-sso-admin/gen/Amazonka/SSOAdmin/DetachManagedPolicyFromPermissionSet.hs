@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.SSOAdmin.DetachManagedPolicyFromPermissionSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Detaches the attached IAM managed policy ARN from the specified
+-- Detaches the attached AWS managed policy ARN from the specified
 -- permission set.
 module Amazonka.SSOAdmin.DetachManagedPolicyFromPermissionSet
   ( -- * Creating a Request
@@ -42,7 +42,8 @@ module Amazonka.SSOAdmin.DetachManagedPolicyFromPermissionSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -50,14 +51,14 @@ import Amazonka.SSOAdmin.Types
 
 -- | /See:/ 'newDetachManagedPolicyFromPermissionSet' smart constructor.
 data DetachManagedPolicyFromPermissionSet = DetachManagedPolicyFromPermissionSet'
-  { -- | The ARN of the SSO instance under which the operation will be executed.
-    -- For more information about ARNs, see
-    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
-    -- in the /Amazon Web Services General Reference/.
+  { -- | The ARN of the IAM Identity Center instance under which the operation
+    -- will be executed. For more information about ARNs, see
+    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+    -- in the /AWS General Reference/.
     instanceArn :: Prelude.Text,
     -- | The ARN of the PermissionSet from which the policy should be detached.
     permissionSetArn :: Prelude.Text,
-    -- | The IAM managed policy ARN to be attached to a permission set.
+    -- | The AWS managed policy ARN to be detached from a permission set.
     managedPolicyArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -70,14 +71,14 @@ data DetachManagedPolicyFromPermissionSet = DetachManagedPolicyFromPermissionSet
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'instanceArn', 'detachManagedPolicyFromPermissionSet_instanceArn' - The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- 'instanceArn', 'detachManagedPolicyFromPermissionSet_instanceArn' - The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 --
 -- 'permissionSetArn', 'detachManagedPolicyFromPermissionSet_permissionSetArn' - The ARN of the PermissionSet from which the policy should be detached.
 --
--- 'managedPolicyArn', 'detachManagedPolicyFromPermissionSet_managedPolicyArn' - The IAM managed policy ARN to be attached to a permission set.
+-- 'managedPolicyArn', 'detachManagedPolicyFromPermissionSet_managedPolicyArn' - The AWS managed policy ARN to be detached from a permission set.
 newDetachManagedPolicyFromPermissionSet ::
   -- | 'instanceArn'
   Prelude.Text ->
@@ -97,10 +98,10 @@ newDetachManagedPolicyFromPermissionSet
         managedPolicyArn = pManagedPolicyArn_
       }
 
--- | The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- | The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 detachManagedPolicyFromPermissionSet_instanceArn :: Lens.Lens' DetachManagedPolicyFromPermissionSet Prelude.Text
 detachManagedPolicyFromPermissionSet_instanceArn = Lens.lens (\DetachManagedPolicyFromPermissionSet' {instanceArn} -> instanceArn) (\s@DetachManagedPolicyFromPermissionSet' {} a -> s {instanceArn = a} :: DetachManagedPolicyFromPermissionSet)
 
@@ -108,7 +109,7 @@ detachManagedPolicyFromPermissionSet_instanceArn = Lens.lens (\DetachManagedPoli
 detachManagedPolicyFromPermissionSet_permissionSetArn :: Lens.Lens' DetachManagedPolicyFromPermissionSet Prelude.Text
 detachManagedPolicyFromPermissionSet_permissionSetArn = Lens.lens (\DetachManagedPolicyFromPermissionSet' {permissionSetArn} -> permissionSetArn) (\s@DetachManagedPolicyFromPermissionSet' {} a -> s {permissionSetArn = a} :: DetachManagedPolicyFromPermissionSet)
 
--- | The IAM managed policy ARN to be attached to a permission set.
+-- | The AWS managed policy ARN to be detached from a permission set.
 detachManagedPolicyFromPermissionSet_managedPolicyArn :: Lens.Lens' DetachManagedPolicyFromPermissionSet Prelude.Text
 detachManagedPolicyFromPermissionSet_managedPolicyArn = Lens.lens (\DetachManagedPolicyFromPermissionSet' {managedPolicyArn} -> managedPolicyArn) (\s@DetachManagedPolicyFromPermissionSet' {} a -> s {managedPolicyArn = a} :: DetachManagedPolicyFromPermissionSet)
 
@@ -119,7 +120,8 @@ instance
   type
     AWSResponse DetachManagedPolicyFromPermissionSet =
       DetachManagedPolicyFromPermissionSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -148,46 +150,46 @@ instance
       `Prelude.seq` Prelude.rnf managedPolicyArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DetachManagedPolicyFromPermissionSet
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SWBExternalService.DetachManagedPolicyFromPermissionSet" ::
+              Data.=# ( "SWBExternalService.DetachManagedPolicyFromPermissionSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DetachManagedPolicyFromPermissionSet
   where
   toJSON DetachManagedPolicyFromPermissionSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("InstanceArn" Core..= instanceArn),
+          [ Prelude.Just ("InstanceArn" Data..= instanceArn),
             Prelude.Just
-              ("PermissionSetArn" Core..= permissionSetArn),
+              ("PermissionSetArn" Data..= permissionSetArn),
             Prelude.Just
-              ("ManagedPolicyArn" Core..= managedPolicyArn)
+              ("ManagedPolicyArn" Data..= managedPolicyArn)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DetachManagedPolicyFromPermissionSet
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DetachManagedPolicyFromPermissionSet
   where
   toQuery = Prelude.const Prelude.mempty

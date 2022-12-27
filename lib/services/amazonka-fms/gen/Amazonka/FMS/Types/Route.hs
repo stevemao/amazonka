@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.Types.Route
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.FMS.Types.Route where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FMS.Types.DestinationType
 import Amazonka.FMS.Types.TargetType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a route in a route table.
@@ -31,12 +32,12 @@ import qualified Amazonka.Prelude as Prelude
 data Route = Route'
   { -- | The destination of the route.
     destination :: Prelude.Maybe Prelude.Text,
-    -- | The type of target for the route.
-    targetType :: Prelude.Maybe TargetType,
     -- | The type of destination for the route.
     destinationType :: Prelude.Maybe DestinationType,
     -- | The route\'s target.
-    target :: Prelude.Maybe Prelude.Text
+    target :: Prelude.Maybe Prelude.Text,
+    -- | The type of target for the route.
+    targetType :: Prelude.Maybe TargetType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -50,28 +51,24 @@ data Route = Route'
 --
 -- 'destination', 'route_destination' - The destination of the route.
 --
--- 'targetType', 'route_targetType' - The type of target for the route.
---
 -- 'destinationType', 'route_destinationType' - The type of destination for the route.
 --
 -- 'target', 'route_target' - The route\'s target.
+--
+-- 'targetType', 'route_targetType' - The type of target for the route.
 newRoute ::
   Route
 newRoute =
   Route'
     { destination = Prelude.Nothing,
-      targetType = Prelude.Nothing,
       destinationType = Prelude.Nothing,
-      target = Prelude.Nothing
+      target = Prelude.Nothing,
+      targetType = Prelude.Nothing
     }
 
 -- | The destination of the route.
 route_destination :: Lens.Lens' Route (Prelude.Maybe Prelude.Text)
 route_destination = Lens.lens (\Route' {destination} -> destination) (\s@Route' {} a -> s {destination = a} :: Route)
-
--- | The type of target for the route.
-route_targetType :: Lens.Lens' Route (Prelude.Maybe TargetType)
-route_targetType = Lens.lens (\Route' {targetType} -> targetType) (\s@Route' {} a -> s {targetType = a} :: Route)
 
 -- | The type of destination for the route.
 route_destinationType :: Lens.Lens' Route (Prelude.Maybe DestinationType)
@@ -81,28 +78,32 @@ route_destinationType = Lens.lens (\Route' {destinationType} -> destinationType)
 route_target :: Lens.Lens' Route (Prelude.Maybe Prelude.Text)
 route_target = Lens.lens (\Route' {target} -> target) (\s@Route' {} a -> s {target = a} :: Route)
 
-instance Core.FromJSON Route where
+-- | The type of target for the route.
+route_targetType :: Lens.Lens' Route (Prelude.Maybe TargetType)
+route_targetType = Lens.lens (\Route' {targetType} -> targetType) (\s@Route' {} a -> s {targetType = a} :: Route)
+
+instance Data.FromJSON Route where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Route"
       ( \x ->
           Route'
-            Prelude.<$> (x Core..:? "Destination")
-            Prelude.<*> (x Core..:? "TargetType")
-            Prelude.<*> (x Core..:? "DestinationType")
-            Prelude.<*> (x Core..:? "Target")
+            Prelude.<$> (x Data..:? "Destination")
+            Prelude.<*> (x Data..:? "DestinationType")
+            Prelude.<*> (x Data..:? "Target")
+            Prelude.<*> (x Data..:? "TargetType")
       )
 
 instance Prelude.Hashable Route where
   hashWithSalt _salt Route' {..} =
     _salt `Prelude.hashWithSalt` destination
-      `Prelude.hashWithSalt` targetType
       `Prelude.hashWithSalt` destinationType
       `Prelude.hashWithSalt` target
+      `Prelude.hashWithSalt` targetType
 
 instance Prelude.NFData Route where
   rnf Route' {..} =
     Prelude.rnf destination
-      `Prelude.seq` Prelude.rnf targetType
       `Prelude.seq` Prelude.rnf destinationType
       `Prelude.seq` Prelude.rnf target
+      `Prelude.seq` Prelude.rnf targetType

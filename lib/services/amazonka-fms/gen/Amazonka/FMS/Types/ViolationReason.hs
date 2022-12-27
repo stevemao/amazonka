@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.Types.ViolationReason
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,9 @@ module Amazonka.FMS.Types.ViolationReason
       ( ..,
         ViolationReason_BLACK_HOLE_ROUTE_DETECTED,
         ViolationReason_BLACK_HOLE_ROUTE_DETECTED_IN_FIREWALL_SUBNET,
+        ViolationReason_FIREWALL_SUBNET_IS_OUT_OF_SCOPE,
         ViolationReason_FIREWALL_SUBNET_MISSING_EXPECTED_ROUTE,
+        ViolationReason_FIREWALL_SUBNET_MISSING_VPCE_ENDPOINT,
         ViolationReason_FMS_CREATED_SECURITY_GROUP_EDITED,
         ViolationReason_INTERNET_GATEWAY_MISSING_EXPECTED_ROUTE,
         ViolationReason_INTERNET_TRAFFIC_NOT_INSPECTED,
@@ -39,6 +41,7 @@ module Amazonka.FMS.Types.ViolationReason
         ViolationReason_RESOURCE_MISSING_WEB_ACL,
         ViolationReason_RESOURCE_MISSING_WEB_ACL_OR_SHIELD_PROTECTION,
         ViolationReason_RESOURCE_VIOLATES_AUDIT_SECURITY_GROUP,
+        ViolationReason_ROUTE_HAS_OUT_OF_SCOPE_ENDPOINT,
         ViolationReason_SECURITY_GROUP_REDUNDANT,
         ViolationReason_SECURITY_GROUP_UNUSED,
         ViolationReason_TRAFFIC_INSPECTION_CROSSES_AZ_BOUNDARY,
@@ -50,11 +53,12 @@ module Amazonka.FMS.Types.ViolationReason
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype ViolationReason = ViolationReason'
   { fromViolationReason ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -66,18 +70,18 @@ newtype ViolationReason = ViolationReason'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern ViolationReason_BLACK_HOLE_ROUTE_DETECTED :: ViolationReason
@@ -86,8 +90,14 @@ pattern ViolationReason_BLACK_HOLE_ROUTE_DETECTED = ViolationReason' "BLACK_HOLE
 pattern ViolationReason_BLACK_HOLE_ROUTE_DETECTED_IN_FIREWALL_SUBNET :: ViolationReason
 pattern ViolationReason_BLACK_HOLE_ROUTE_DETECTED_IN_FIREWALL_SUBNET = ViolationReason' "BLACK_HOLE_ROUTE_DETECTED_IN_FIREWALL_SUBNET"
 
+pattern ViolationReason_FIREWALL_SUBNET_IS_OUT_OF_SCOPE :: ViolationReason
+pattern ViolationReason_FIREWALL_SUBNET_IS_OUT_OF_SCOPE = ViolationReason' "FIREWALL_SUBNET_IS_OUT_OF_SCOPE"
+
 pattern ViolationReason_FIREWALL_SUBNET_MISSING_EXPECTED_ROUTE :: ViolationReason
 pattern ViolationReason_FIREWALL_SUBNET_MISSING_EXPECTED_ROUTE = ViolationReason' "FIREWALL_SUBNET_MISSING_EXPECTED_ROUTE"
+
+pattern ViolationReason_FIREWALL_SUBNET_MISSING_VPCE_ENDPOINT :: ViolationReason
+pattern ViolationReason_FIREWALL_SUBNET_MISSING_VPCE_ENDPOINT = ViolationReason' "FIREWALL_SUBNET_MISSING_VPCE_ENDPOINT"
 
 pattern ViolationReason_FMS_CREATED_SECURITY_GROUP_EDITED :: ViolationReason
 pattern ViolationReason_FMS_CREATED_SECURITY_GROUP_EDITED = ViolationReason' "FMS_CREATED_SECURITY_GROUP_EDITED"
@@ -137,6 +147,9 @@ pattern ViolationReason_RESOURCE_MISSING_WEB_ACL_OR_SHIELD_PROTECTION = Violatio
 pattern ViolationReason_RESOURCE_VIOLATES_AUDIT_SECURITY_GROUP :: ViolationReason
 pattern ViolationReason_RESOURCE_VIOLATES_AUDIT_SECURITY_GROUP = ViolationReason' "RESOURCE_VIOLATES_AUDIT_SECURITY_GROUP"
 
+pattern ViolationReason_ROUTE_HAS_OUT_OF_SCOPE_ENDPOINT :: ViolationReason
+pattern ViolationReason_ROUTE_HAS_OUT_OF_SCOPE_ENDPOINT = ViolationReason' "ROUTE_HAS_OUT_OF_SCOPE_ENDPOINT"
+
 pattern ViolationReason_SECURITY_GROUP_REDUNDANT :: ViolationReason
 pattern ViolationReason_SECURITY_GROUP_REDUNDANT = ViolationReason' "SECURITY_GROUP_REDUNDANT"
 
@@ -158,7 +171,9 @@ pattern ViolationReason_WEB_ACL_MISSING_RULE_GROUP = ViolationReason' "WEB_ACL_M
 {-# COMPLETE
   ViolationReason_BLACK_HOLE_ROUTE_DETECTED,
   ViolationReason_BLACK_HOLE_ROUTE_DETECTED_IN_FIREWALL_SUBNET,
+  ViolationReason_FIREWALL_SUBNET_IS_OUT_OF_SCOPE,
   ViolationReason_FIREWALL_SUBNET_MISSING_EXPECTED_ROUTE,
+  ViolationReason_FIREWALL_SUBNET_MISSING_VPCE_ENDPOINT,
   ViolationReason_FMS_CREATED_SECURITY_GROUP_EDITED,
   ViolationReason_INTERNET_GATEWAY_MISSING_EXPECTED_ROUTE,
   ViolationReason_INTERNET_TRAFFIC_NOT_INSPECTED,
@@ -175,6 +190,7 @@ pattern ViolationReason_WEB_ACL_MISSING_RULE_GROUP = ViolationReason' "WEB_ACL_M
   ViolationReason_RESOURCE_MISSING_WEB_ACL,
   ViolationReason_RESOURCE_MISSING_WEB_ACL_OR_SHIELD_PROTECTION,
   ViolationReason_RESOURCE_VIOLATES_AUDIT_SECURITY_GROUP,
+  ViolationReason_ROUTE_HAS_OUT_OF_SCOPE_ENDPOINT,
   ViolationReason_SECURITY_GROUP_REDUNDANT,
   ViolationReason_SECURITY_GROUP_UNUSED,
   ViolationReason_TRAFFIC_INSPECTION_CROSSES_AZ_BOUNDARY,

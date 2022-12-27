@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.CreateFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.GuardDuty.CreateFilter
     newCreateFilter,
 
     -- * Request Lenses
-    createFilter_clientToken,
     createFilter_action,
+    createFilter_clientToken,
     createFilter_description,
     createFilter_rank,
     createFilter_tags,
@@ -47,19 +47,20 @@ module Amazonka.GuardDuty.CreateFilter
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateFilter' smart constructor.
 data CreateFilter = CreateFilter'
-  { -- | The idempotency token for the create request.
-    clientToken :: Prelude.Maybe Prelude.Text,
-    -- | Specifies the action that is to be applied to the findings that match
+  { -- | Specifies the action that is to be applied to the findings that match
     -- the filter.
     action :: Prelude.Maybe FilterAction,
+    -- | The idempotency token for the create request.
+    clientToken :: Prelude.Maybe Prelude.Text,
     -- | The description of the filter.
     description :: Prelude.Maybe Prelude.Text,
     -- | Specifies the position of the filter in the list of current filters.
@@ -133,6 +134,8 @@ data CreateFilter = CreateFilter'
     --
     -- -   service.action.awsApiCallAction.errorCode
     --
+    -- -   service.action.awsApiCallAction.userAgent
+    --
     -- -   service.action.awsApiCallAction.remoteIpDetails.city.cityName
     --
     -- -   service.action.awsApiCallAction.remoteIpDetails.country.countryName
@@ -171,6 +174,16 @@ data CreateFilter = CreateFilter'
     --
     -- -   service.additionalInfo.threatListName
     --
+    -- -   resource.s3BucketDetails.publicAccess.effectivePermissions
+    --
+    -- -   resource.s3BucketDetails.name
+    --
+    -- -   resource.s3BucketDetails.tags.key
+    --
+    -- -   resource.s3BucketDetails.tags.value
+    --
+    -- -   resource.s3BucketDetails.type
+    --
     -- -   service.archived
     --
     --     When this attribute is set to TRUE, only archived findings are
@@ -201,10 +214,10 @@ data CreateFilter = CreateFilter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'clientToken', 'createFilter_clientToken' - The idempotency token for the create request.
---
 -- 'action', 'createFilter_action' - Specifies the action that is to be applied to the findings that match
 -- the filter.
+--
+-- 'clientToken', 'createFilter_clientToken' - The idempotency token for the create request.
 --
 -- 'description', 'createFilter_description' - The description of the filter.
 --
@@ -279,6 +292,8 @@ data CreateFilter = CreateFilter'
 --
 -- -   service.action.awsApiCallAction.errorCode
 --
+-- -   service.action.awsApiCallAction.userAgent
+--
 -- -   service.action.awsApiCallAction.remoteIpDetails.city.cityName
 --
 -- -   service.action.awsApiCallAction.remoteIpDetails.country.countryName
@@ -317,6 +332,16 @@ data CreateFilter = CreateFilter'
 --
 -- -   service.additionalInfo.threatListName
 --
+-- -   resource.s3BucketDetails.publicAccess.effectivePermissions
+--
+-- -   resource.s3BucketDetails.name
+--
+-- -   resource.s3BucketDetails.tags.key
+--
+-- -   resource.s3BucketDetails.tags.value
+--
+-- -   resource.s3BucketDetails.type
+--
 -- -   service.archived
 --
 --     When this attribute is set to TRUE, only archived findings are
@@ -345,8 +370,8 @@ newCreateFilter ::
   CreateFilter
 newCreateFilter pDetectorId_ pName_ pFindingCriteria_ =
   CreateFilter'
-    { clientToken = Prelude.Nothing,
-      action = Prelude.Nothing,
+    { action = Prelude.Nothing,
+      clientToken = Prelude.Nothing,
       description = Prelude.Nothing,
       rank = Prelude.Nothing,
       tags = Prelude.Nothing,
@@ -355,14 +380,14 @@ newCreateFilter pDetectorId_ pName_ pFindingCriteria_ =
       findingCriteria = pFindingCriteria_
     }
 
--- | The idempotency token for the create request.
-createFilter_clientToken :: Lens.Lens' CreateFilter (Prelude.Maybe Prelude.Text)
-createFilter_clientToken = Lens.lens (\CreateFilter' {clientToken} -> clientToken) (\s@CreateFilter' {} a -> s {clientToken = a} :: CreateFilter)
-
 -- | Specifies the action that is to be applied to the findings that match
 -- the filter.
 createFilter_action :: Lens.Lens' CreateFilter (Prelude.Maybe FilterAction)
 createFilter_action = Lens.lens (\CreateFilter' {action} -> action) (\s@CreateFilter' {} a -> s {action = a} :: CreateFilter)
+
+-- | The idempotency token for the create request.
+createFilter_clientToken :: Lens.Lens' CreateFilter (Prelude.Maybe Prelude.Text)
+createFilter_clientToken = Lens.lens (\CreateFilter' {clientToken} -> clientToken) (\s@CreateFilter' {} a -> s {clientToken = a} :: CreateFilter)
 
 -- | The description of the filter.
 createFilter_description :: Lens.Lens' CreateFilter (Prelude.Maybe Prelude.Text)
@@ -447,6 +472,8 @@ createFilter_name = Lens.lens (\CreateFilter' {name} -> name) (\s@CreateFilter' 
 --
 -- -   service.action.awsApiCallAction.errorCode
 --
+-- -   service.action.awsApiCallAction.userAgent
+--
 -- -   service.action.awsApiCallAction.remoteIpDetails.city.cityName
 --
 -- -   service.action.awsApiCallAction.remoteIpDetails.country.countryName
@@ -485,6 +512,16 @@ createFilter_name = Lens.lens (\CreateFilter' {name} -> name) (\s@CreateFilter' 
 --
 -- -   service.additionalInfo.threatListName
 --
+-- -   resource.s3BucketDetails.publicAccess.effectivePermissions
+--
+-- -   resource.s3BucketDetails.name
+--
+-- -   resource.s3BucketDetails.tags.key
+--
+-- -   resource.s3BucketDetails.tags.value
+--
+-- -   resource.s3BucketDetails.type
+--
 -- -   service.archived
 --
 --     When this attribute is set to TRUE, only archived findings are
@@ -508,19 +545,20 @@ createFilter_findingCriteria = Lens.lens (\CreateFilter' {findingCriteria} -> fi
 
 instance Core.AWSRequest CreateFilter where
   type AWSResponse CreateFilter = CreateFilterResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateFilterResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "name")
+            Prelude.<*> (x Data..:> "name")
       )
 
 instance Prelude.Hashable CreateFilter where
   hashWithSalt _salt CreateFilter' {..} =
-    _salt `Prelude.hashWithSalt` clientToken
-      `Prelude.hashWithSalt` action
+    _salt `Prelude.hashWithSalt` action
+      `Prelude.hashWithSalt` clientToken
       `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` rank
       `Prelude.hashWithSalt` tags
@@ -530,8 +568,8 @@ instance Prelude.Hashable CreateFilter where
 
 instance Prelude.NFData CreateFilter where
   rnf CreateFilter' {..} =
-    Prelude.rnf clientToken
-      `Prelude.seq` Prelude.rnf action
+    Prelude.rnf action
+      `Prelude.seq` Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf rank
       `Prelude.seq` Prelude.rnf tags
@@ -539,38 +577,38 @@ instance Prelude.NFData CreateFilter where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf findingCriteria
 
-instance Core.ToHeaders CreateFilter where
+instance Data.ToHeaders CreateFilter where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateFilter where
+instance Data.ToJSON CreateFilter where
   toJSON CreateFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("action" Core..=) Prelude.<$> action,
-            ("description" Core..=) Prelude.<$> description,
-            ("rank" Core..=) Prelude.<$> rank,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("name" Core..= name),
+          [ ("action" Data..=) Prelude.<$> action,
+            ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("description" Data..=) Prelude.<$> description,
+            ("rank" Data..=) Prelude.<$> rank,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("name" Data..= name),
             Prelude.Just
-              ("findingCriteria" Core..= findingCriteria)
+              ("findingCriteria" Data..= findingCriteria)
           ]
       )
 
-instance Core.ToPath CreateFilter where
+instance Data.ToPath CreateFilter where
   toPath CreateFilter' {..} =
     Prelude.mconcat
-      ["/detector/", Core.toBS detectorId, "/filter"]
+      ["/detector/", Data.toBS detectorId, "/filter"]
 
-instance Core.ToQuery CreateFilter where
+instance Data.ToQuery CreateFilter where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateFilterResponse' smart constructor.

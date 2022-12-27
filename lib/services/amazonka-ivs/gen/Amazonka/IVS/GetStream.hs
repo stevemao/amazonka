@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IVS.GetStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.IVS.GetStream
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IVS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -75,12 +76,13 @@ getStream_channelArn = Lens.lens (\GetStream' {channelArn} -> channelArn) (\s@Ge
 
 instance Core.AWSRequest GetStream where
   type AWSResponse GetStream = GetStreamResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetStreamResponse'
-            Prelude.<$> (x Core..?> "stream")
+            Prelude.<$> (x Data..?> "stream")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -91,28 +93,28 @@ instance Prelude.Hashable GetStream where
 instance Prelude.NFData GetStream where
   rnf GetStream' {..} = Prelude.rnf channelArn
 
-instance Core.ToHeaders GetStream where
+instance Data.ToHeaders GetStream where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetStream where
+instance Data.ToJSON GetStream where
   toJSON GetStream' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("channelArn" Core..= channelArn)]
+          [Prelude.Just ("channelArn" Data..= channelArn)]
       )
 
-instance Core.ToPath GetStream where
+instance Data.ToPath GetStream where
   toPath = Prelude.const "/GetStream"
 
-instance Core.ToQuery GetStream where
+instance Data.ToQuery GetStream where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetStreamResponse' smart constructor.

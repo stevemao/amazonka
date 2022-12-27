@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KMS.Types.MultiRegionKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KMS.Types.MultiRegionKey where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the primary or replica key in a multi-Region key.
@@ -64,13 +65,13 @@ multiRegionKey_arn = Lens.lens (\MultiRegionKey' {arn} -> arn) (\s@MultiRegionKe
 multiRegionKey_region :: Lens.Lens' MultiRegionKey (Prelude.Maybe Prelude.Text)
 multiRegionKey_region = Lens.lens (\MultiRegionKey' {region} -> region) (\s@MultiRegionKey' {} a -> s {region = a} :: MultiRegionKey)
 
-instance Core.FromJSON MultiRegionKey where
+instance Data.FromJSON MultiRegionKey where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MultiRegionKey"
       ( \x ->
           MultiRegionKey'
-            Prelude.<$> (x Core..:? "Arn") Prelude.<*> (x Core..:? "Region")
+            Prelude.<$> (x Data..:? "Arn") Prelude.<*> (x Data..:? "Region")
       )
 
 instance Prelude.Hashable MultiRegionKey where

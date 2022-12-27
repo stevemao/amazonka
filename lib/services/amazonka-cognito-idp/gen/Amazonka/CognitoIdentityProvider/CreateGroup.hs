@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.CreateGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.CognitoIdentityProvider.CreateGroup
     newCreateGroup,
 
     -- * Request Lenses
-    createGroup_precedence,
     createGroup_description,
+    createGroup_precedence,
     createGroup_roleArn,
     createGroup_groupName,
     createGroup_userPoolId,
@@ -47,34 +47,35 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateGroup' smart constructor.
 data CreateGroup = CreateGroup'
-  { -- | A nonnegative integer value that specifies the precedence of this group
+  { -- | A string containing the description of the group.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | A non-negative integer value that specifies the precedence of this group
     -- relative to the other groups that a user can belong to in the user pool.
     -- Zero is the highest precedence value. Groups with lower @Precedence@
     -- values take precedence over groups with higher or null @Precedence@
     -- values. If a user belongs to two or more groups, it is the group with
-    -- the lowest precedence value whose role ARN will be used in the
-    -- @cognito:roles@ and @cognito:preferred_role@ claims in the user\'s
-    -- tokens.
+    -- the lowest precedence value whose role ARN is given in the user\'s
+    -- tokens for the @cognito:roles@ and @cognito:preferred_role@ claims.
     --
     -- Two groups can have the same @Precedence@ value. If this happens,
     -- neither group takes precedence over the other. If two groups with the
     -- same @Precedence@ have the same role ARN, that role is used in the
     -- @cognito:preferred_role@ claim in tokens for users in each group. If the
     -- two groups have different role ARNs, the @cognito:preferred_role@ claim
-    -- is not set in users\' tokens.
+    -- isn\'t set in users\' tokens.
     --
-    -- The default @Precedence@ value is null.
+    -- The default @Precedence@ value is null. The maximum @Precedence@ value
+    -- is @2^31-1@.
     precedence :: Prelude.Maybe Prelude.Natural,
-    -- | A string containing the description of the group.
-    description :: Prelude.Maybe Prelude.Text,
-    -- | The role ARN for the group.
+    -- | The role Amazon Resource Name (ARN) for the group.
     roleArn :: Prelude.Maybe Prelude.Text,
     -- | The name of the group. Must be unique.
     groupName :: Prelude.Text,
@@ -91,27 +92,27 @@ data CreateGroup = CreateGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'precedence', 'createGroup_precedence' - A nonnegative integer value that specifies the precedence of this group
+-- 'description', 'createGroup_description' - A string containing the description of the group.
+--
+-- 'precedence', 'createGroup_precedence' - A non-negative integer value that specifies the precedence of this group
 -- relative to the other groups that a user can belong to in the user pool.
 -- Zero is the highest precedence value. Groups with lower @Precedence@
 -- values take precedence over groups with higher or null @Precedence@
 -- values. If a user belongs to two or more groups, it is the group with
--- the lowest precedence value whose role ARN will be used in the
--- @cognito:roles@ and @cognito:preferred_role@ claims in the user\'s
--- tokens.
+-- the lowest precedence value whose role ARN is given in the user\'s
+-- tokens for the @cognito:roles@ and @cognito:preferred_role@ claims.
 --
 -- Two groups can have the same @Precedence@ value. If this happens,
 -- neither group takes precedence over the other. If two groups with the
 -- same @Precedence@ have the same role ARN, that role is used in the
 -- @cognito:preferred_role@ claim in tokens for users in each group. If the
 -- two groups have different role ARNs, the @cognito:preferred_role@ claim
--- is not set in users\' tokens.
+-- isn\'t set in users\' tokens.
 --
--- The default @Precedence@ value is null.
+-- The default @Precedence@ value is null. The maximum @Precedence@ value
+-- is @2^31-1@.
 --
--- 'description', 'createGroup_description' - A string containing the description of the group.
---
--- 'roleArn', 'createGroup_roleArn' - The role ARN for the group.
+-- 'roleArn', 'createGroup_roleArn' - The role Amazon Resource Name (ARN) for the group.
 --
 -- 'groupName', 'createGroup_groupName' - The name of the group. Must be unique.
 --
@@ -124,38 +125,38 @@ newCreateGroup ::
   CreateGroup
 newCreateGroup pGroupName_ pUserPoolId_ =
   CreateGroup'
-    { precedence = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      precedence = Prelude.Nothing,
       roleArn = Prelude.Nothing,
       groupName = pGroupName_,
       userPoolId = pUserPoolId_
     }
 
--- | A nonnegative integer value that specifies the precedence of this group
+-- | A string containing the description of the group.
+createGroup_description :: Lens.Lens' CreateGroup (Prelude.Maybe Prelude.Text)
+createGroup_description = Lens.lens (\CreateGroup' {description} -> description) (\s@CreateGroup' {} a -> s {description = a} :: CreateGroup)
+
+-- | A non-negative integer value that specifies the precedence of this group
 -- relative to the other groups that a user can belong to in the user pool.
 -- Zero is the highest precedence value. Groups with lower @Precedence@
 -- values take precedence over groups with higher or null @Precedence@
 -- values. If a user belongs to two or more groups, it is the group with
--- the lowest precedence value whose role ARN will be used in the
--- @cognito:roles@ and @cognito:preferred_role@ claims in the user\'s
--- tokens.
+-- the lowest precedence value whose role ARN is given in the user\'s
+-- tokens for the @cognito:roles@ and @cognito:preferred_role@ claims.
 --
 -- Two groups can have the same @Precedence@ value. If this happens,
 -- neither group takes precedence over the other. If two groups with the
 -- same @Precedence@ have the same role ARN, that role is used in the
 -- @cognito:preferred_role@ claim in tokens for users in each group. If the
 -- two groups have different role ARNs, the @cognito:preferred_role@ claim
--- is not set in users\' tokens.
+-- isn\'t set in users\' tokens.
 --
--- The default @Precedence@ value is null.
+-- The default @Precedence@ value is null. The maximum @Precedence@ value
+-- is @2^31-1@.
 createGroup_precedence :: Lens.Lens' CreateGroup (Prelude.Maybe Prelude.Natural)
 createGroup_precedence = Lens.lens (\CreateGroup' {precedence} -> precedence) (\s@CreateGroup' {} a -> s {precedence = a} :: CreateGroup)
 
--- | A string containing the description of the group.
-createGroup_description :: Lens.Lens' CreateGroup (Prelude.Maybe Prelude.Text)
-createGroup_description = Lens.lens (\CreateGroup' {description} -> description) (\s@CreateGroup' {} a -> s {description = a} :: CreateGroup)
-
--- | The role ARN for the group.
+-- | The role Amazon Resource Name (ARN) for the group.
 createGroup_roleArn :: Lens.Lens' CreateGroup (Prelude.Maybe Prelude.Text)
 createGroup_roleArn = Lens.lens (\CreateGroup' {roleArn} -> roleArn) (\s@CreateGroup' {} a -> s {roleArn = a} :: CreateGroup)
 
@@ -169,62 +170,63 @@ createGroup_userPoolId = Lens.lens (\CreateGroup' {userPoolId} -> userPoolId) (\
 
 instance Core.AWSRequest CreateGroup where
   type AWSResponse CreateGroup = CreateGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateGroupResponse'
-            Prelude.<$> (x Core..?> "Group")
+            Prelude.<$> (x Data..?> "Group")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateGroup where
   hashWithSalt _salt CreateGroup' {..} =
-    _salt `Prelude.hashWithSalt` precedence
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` precedence
       `Prelude.hashWithSalt` roleArn
       `Prelude.hashWithSalt` groupName
       `Prelude.hashWithSalt` userPoolId
 
 instance Prelude.NFData CreateGroup where
   rnf CreateGroup' {..} =
-    Prelude.rnf precedence
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf precedence
       `Prelude.seq` Prelude.rnf roleArn
       `Prelude.seq` Prelude.rnf groupName
       `Prelude.seq` Prelude.rnf userPoolId
 
-instance Core.ToHeaders CreateGroup where
+instance Data.ToHeaders CreateGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.CreateGroup" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.CreateGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateGroup where
+instance Data.ToJSON CreateGroup where
   toJSON CreateGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Precedence" Core..=) Prelude.<$> precedence,
-            ("Description" Core..=) Prelude.<$> description,
-            ("RoleArn" Core..=) Prelude.<$> roleArn,
-            Prelude.Just ("GroupName" Core..= groupName),
-            Prelude.Just ("UserPoolId" Core..= userPoolId)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Precedence" Data..=) Prelude.<$> precedence,
+            ("RoleArn" Data..=) Prelude.<$> roleArn,
+            Prelude.Just ("GroupName" Data..= groupName),
+            Prelude.Just ("UserPoolId" Data..= userPoolId)
           ]
       )
 
-instance Core.ToPath CreateGroup where
+instance Data.ToPath CreateGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateGroup where
+instance Data.ToQuery CreateGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateGroupResponse' smart constructor.

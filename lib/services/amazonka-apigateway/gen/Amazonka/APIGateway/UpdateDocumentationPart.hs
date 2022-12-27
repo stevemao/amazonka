@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.UpdateDocumentationPart
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- -- | Undocumented operation.
+-- Updates a documentation part.
 module Amazonka.APIGateway.UpdateDocumentationPart
   ( -- * Creating a Request
     UpdateDocumentationPart (..),
@@ -36,15 +36,16 @@ module Amazonka.APIGateway.UpdateDocumentationPart
     newDocumentationPart,
 
     -- * Response Lenses
-    documentationPart_location,
     documentationPart_id,
+    documentationPart_location,
     documentationPart_properties,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,12 +54,12 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newUpdateDocumentationPart' smart constructor.
 data UpdateDocumentationPart = UpdateDocumentationPart'
-  { -- | A list of update operations to be applied to the specified resource and
-    -- in the order specified in this list.
+  { -- | For more information about supported patch operations, see
+    -- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
     patchOperations :: Prelude.Maybe [PatchOperation],
-    -- | [Required] The string identifier of the associated RestApi.
+    -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] The identifier of the to-be-updated documentation part.
+    -- | The identifier of the to-be-updated documentation part.
     documentationPartId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -71,12 +72,12 @@ data UpdateDocumentationPart = UpdateDocumentationPart'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'patchOperations', 'updateDocumentationPart_patchOperations' - A list of update operations to be applied to the specified resource and
--- in the order specified in this list.
+-- 'patchOperations', 'updateDocumentationPart_patchOperations' - For more information about supported patch operations, see
+-- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
 --
--- 'restApiId', 'updateDocumentationPart_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'updateDocumentationPart_restApiId' - The string identifier of the associated RestApi.
 --
--- 'documentationPartId', 'updateDocumentationPart_documentationPartId' - [Required] The identifier of the to-be-updated documentation part.
+-- 'documentationPartId', 'updateDocumentationPart_documentationPartId' - The identifier of the to-be-updated documentation part.
 newUpdateDocumentationPart ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -93,16 +94,16 @@ newUpdateDocumentationPart
         documentationPartId = pDocumentationPartId_
       }
 
--- | A list of update operations to be applied to the specified resource and
--- in the order specified in this list.
+-- | For more information about supported patch operations, see
+-- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
 updateDocumentationPart_patchOperations :: Lens.Lens' UpdateDocumentationPart (Prelude.Maybe [PatchOperation])
 updateDocumentationPart_patchOperations = Lens.lens (\UpdateDocumentationPart' {patchOperations} -> patchOperations) (\s@UpdateDocumentationPart' {} a -> s {patchOperations = a} :: UpdateDocumentationPart) Prelude.. Lens.mapping Lens.coerced
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 updateDocumentationPart_restApiId :: Lens.Lens' UpdateDocumentationPart Prelude.Text
 updateDocumentationPart_restApiId = Lens.lens (\UpdateDocumentationPart' {restApiId} -> restApiId) (\s@UpdateDocumentationPart' {} a -> s {restApiId = a} :: UpdateDocumentationPart)
 
--- | [Required] The identifier of the to-be-updated documentation part.
+-- | The identifier of the to-be-updated documentation part.
 updateDocumentationPart_documentationPartId :: Lens.Lens' UpdateDocumentationPart Prelude.Text
 updateDocumentationPart_documentationPartId = Lens.lens (\UpdateDocumentationPart' {documentationPartId} -> documentationPartId) (\s@UpdateDocumentationPart' {} a -> s {documentationPartId = a} :: UpdateDocumentationPart)
 
@@ -110,10 +111,11 @@ instance Core.AWSRequest UpdateDocumentationPart where
   type
     AWSResponse UpdateDocumentationPart =
       DocumentationPart
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable UpdateDocumentationPart where
   hashWithSalt _salt UpdateDocumentationPart' {..} =
@@ -127,32 +129,32 @@ instance Prelude.NFData UpdateDocumentationPart where
       `Prelude.seq` Prelude.rnf restApiId
       `Prelude.seq` Prelude.rnf documentationPartId
 
-instance Core.ToHeaders UpdateDocumentationPart where
+instance Data.ToHeaders UpdateDocumentationPart where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToJSON UpdateDocumentationPart where
+instance Data.ToJSON UpdateDocumentationPart where
   toJSON UpdateDocumentationPart' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("patchOperations" Core..=)
+          [ ("patchOperations" Data..=)
               Prelude.<$> patchOperations
           ]
       )
 
-instance Core.ToPath UpdateDocumentationPart where
+instance Data.ToPath UpdateDocumentationPart where
   toPath UpdateDocumentationPart' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/documentation/parts/",
-        Core.toBS documentationPartId
+        Data.toBS documentationPartId
       ]
 
-instance Core.ToQuery UpdateDocumentationPart where
+instance Data.ToQuery UpdateDocumentationPart where
   toQuery = Prelude.const Prelude.mempty

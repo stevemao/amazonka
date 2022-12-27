@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.Types.LaunchTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElasticBeanstalk.Types.LaunchTemplate where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an Amazon EC2 launch template.
@@ -50,9 +51,9 @@ newLaunchTemplate =
 launchTemplate_id :: Lens.Lens' LaunchTemplate (Prelude.Maybe Prelude.Text)
 launchTemplate_id = Lens.lens (\LaunchTemplate' {id} -> id) (\s@LaunchTemplate' {} a -> s {id = a} :: LaunchTemplate)
 
-instance Core.FromXML LaunchTemplate where
+instance Data.FromXML LaunchTemplate where
   parseXML x =
-    LaunchTemplate' Prelude.<$> (x Core..@? "Id")
+    LaunchTemplate' Prelude.<$> (x Data..@? "Id")
 
 instance Prelude.Hashable LaunchTemplate where
   hashWithSalt _salt LaunchTemplate' {..} =

@@ -6,366 +6,13 @@
 
 -- |
 -- Module      : Amazonka.Route53Resolver.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 module Amazonka.Route53Resolver.Lens
   ( -- * Operations
-
-    -- ** UpdateResolverEndpoint
-    updateResolverEndpoint_name,
-    updateResolverEndpoint_resolverEndpointId,
-    updateResolverEndpointResponse_resolverEndpoint,
-    updateResolverEndpointResponse_httpStatus,
-
-    -- ** DeleteResolverEndpoint
-    deleteResolverEndpoint_resolverEndpointId,
-    deleteResolverEndpointResponse_resolverEndpoint,
-    deleteResolverEndpointResponse_httpStatus,
-
-    -- ** CreateResolverRule
-    createResolverRule_resolverEndpointId,
-    createResolverRule_targetIps,
-    createResolverRule_name,
-    createResolverRule_tags,
-    createResolverRule_creatorRequestId,
-    createResolverRule_ruleType,
-    createResolverRule_domainName,
-    createResolverRuleResponse_resolverRule,
-    createResolverRuleResponse_httpStatus,
-
-    -- ** GetResolverQueryLogConfig
-    getResolverQueryLogConfig_resolverQueryLogConfigId,
-    getResolverQueryLogConfigResponse_resolverQueryLogConfig,
-    getResolverQueryLogConfigResponse_httpStatus,
-
-    -- ** CreateFirewallRule
-    createFirewallRule_blockOverrideDnsType,
-    createFirewallRule_blockResponse,
-    createFirewallRule_blockOverrideTtl,
-    createFirewallRule_blockOverrideDomain,
-    createFirewallRule_creatorRequestId,
-    createFirewallRule_firewallRuleGroupId,
-    createFirewallRule_firewallDomainListId,
-    createFirewallRule_priority,
-    createFirewallRule_action,
-    createFirewallRule_name,
-    createFirewallRuleResponse_firewallRule,
-    createFirewallRuleResponse_httpStatus,
-
-    -- ** UpdateFirewallRuleGroupAssociation
-    updateFirewallRuleGroupAssociation_mutationProtection,
-    updateFirewallRuleGroupAssociation_priority,
-    updateFirewallRuleGroupAssociation_name,
-    updateFirewallRuleGroupAssociation_firewallRuleGroupAssociationId,
-    updateFirewallRuleGroupAssociationResponse_firewallRuleGroupAssociation,
-    updateFirewallRuleGroupAssociationResponse_httpStatus,
-
-    -- ** ListFirewallRuleGroupAssociations
-    listFirewallRuleGroupAssociations_status,
-    listFirewallRuleGroupAssociations_firewallRuleGroupId,
-    listFirewallRuleGroupAssociations_priority,
-    listFirewallRuleGroupAssociations_vpcId,
-    listFirewallRuleGroupAssociations_nextToken,
-    listFirewallRuleGroupAssociations_maxResults,
-    listFirewallRuleGroupAssociationsResponse_firewallRuleGroupAssociations,
-    listFirewallRuleGroupAssociationsResponse_nextToken,
-    listFirewallRuleGroupAssociationsResponse_httpStatus,
-
-    -- ** ListResolverQueryLogConfigAssociations
-    listResolverQueryLogConfigAssociations_filters,
-    listResolverQueryLogConfigAssociations_nextToken,
-    listResolverQueryLogConfigAssociations_sortOrder,
-    listResolverQueryLogConfigAssociations_maxResults,
-    listResolverQueryLogConfigAssociations_sortBy,
-    listResolverQueryLogConfigAssociationsResponse_totalFilteredCount,
-    listResolverQueryLogConfigAssociationsResponse_resolverQueryLogConfigAssociations,
-    listResolverQueryLogConfigAssociationsResponse_nextToken,
-    listResolverQueryLogConfigAssociationsResponse_totalCount,
-    listResolverQueryLogConfigAssociationsResponse_httpStatus,
-
-    -- ** ListTagsForResource
-    listTagsForResource_nextToken,
-    listTagsForResource_maxResults,
-    listTagsForResource_resourceArn,
-    listTagsForResourceResponse_nextToken,
-    listTagsForResourceResponse_tags,
-    listTagsForResourceResponse_httpStatus,
-
-    -- ** GetFirewallRuleGroupAssociation
-    getFirewallRuleGroupAssociation_firewallRuleGroupAssociationId,
-    getFirewallRuleGroupAssociationResponse_firewallRuleGroupAssociation,
-    getFirewallRuleGroupAssociationResponse_httpStatus,
-
-    -- ** DisassociateResolverEndpointIpAddress
-    disassociateResolverEndpointIpAddress_resolverEndpointId,
-    disassociateResolverEndpointIpAddress_ipAddress,
-    disassociateResolverEndpointIpAddressResponse_resolverEndpoint,
-    disassociateResolverEndpointIpAddressResponse_httpStatus,
-
-    -- ** ListResolverRuleAssociations
-    listResolverRuleAssociations_filters,
-    listResolverRuleAssociations_nextToken,
-    listResolverRuleAssociations_maxResults,
-    listResolverRuleAssociationsResponse_resolverRuleAssociations,
-    listResolverRuleAssociationsResponse_nextToken,
-    listResolverRuleAssociationsResponse_maxResults,
-    listResolverRuleAssociationsResponse_httpStatus,
-
-    -- ** DeleteResolverQueryLogConfig
-    deleteResolverQueryLogConfig_resolverQueryLogConfigId,
-    deleteResolverQueryLogConfigResponse_resolverQueryLogConfig,
-    deleteResolverQueryLogConfigResponse_httpStatus,
-
-    -- ** CreateFirewallRuleGroup
-    createFirewallRuleGroup_tags,
-    createFirewallRuleGroup_creatorRequestId,
-    createFirewallRuleGroup_name,
-    createFirewallRuleGroupResponse_firewallRuleGroup,
-    createFirewallRuleGroupResponse_httpStatus,
-
-    -- ** GetResolverEndpoint
-    getResolverEndpoint_resolverEndpointId,
-    getResolverEndpointResponse_resolverEndpoint,
-    getResolverEndpointResponse_httpStatus,
-
-    -- ** ListResolverQueryLogConfigs
-    listResolverQueryLogConfigs_filters,
-    listResolverQueryLogConfigs_nextToken,
-    listResolverQueryLogConfigs_sortOrder,
-    listResolverQueryLogConfigs_maxResults,
-    listResolverQueryLogConfigs_sortBy,
-    listResolverQueryLogConfigsResponse_totalFilteredCount,
-    listResolverQueryLogConfigsResponse_resolverQueryLogConfigs,
-    listResolverQueryLogConfigsResponse_nextToken,
-    listResolverQueryLogConfigsResponse_totalCount,
-    listResolverQueryLogConfigsResponse_httpStatus,
-
-    -- ** DeleteFirewallRuleGroup
-    deleteFirewallRuleGroup_firewallRuleGroupId,
-    deleteFirewallRuleGroupResponse_firewallRuleGroup,
-    deleteFirewallRuleGroupResponse_httpStatus,
-
-    -- ** ListResolverEndpointIpAddresses
-    listResolverEndpointIpAddresses_nextToken,
-    listResolverEndpointIpAddresses_maxResults,
-    listResolverEndpointIpAddresses_resolverEndpointId,
-    listResolverEndpointIpAddressesResponse_nextToken,
-    listResolverEndpointIpAddressesResponse_maxResults,
-    listResolverEndpointIpAddressesResponse_ipAddresses,
-    listResolverEndpointIpAddressesResponse_httpStatus,
-
-    -- ** AssociateResolverQueryLogConfig
-    associateResolverQueryLogConfig_resolverQueryLogConfigId,
-    associateResolverQueryLogConfig_resourceId,
-    associateResolverQueryLogConfigResponse_resolverQueryLogConfigAssociation,
-    associateResolverQueryLogConfigResponse_httpStatus,
-
-    -- ** GetResolverRulePolicy
-    getResolverRulePolicy_arn,
-    getResolverRulePolicyResponse_resolverRulePolicy,
-    getResolverRulePolicyResponse_httpStatus,
-
-    -- ** GetResolverDnssecConfig
-    getResolverDnssecConfig_resourceId,
-    getResolverDnssecConfigResponse_resolverDNSSECConfig,
-    getResolverDnssecConfigResponse_httpStatus,
-
-    -- ** ListFirewallRuleGroups
-    listFirewallRuleGroups_nextToken,
-    listFirewallRuleGroups_maxResults,
-    listFirewallRuleGroupsResponse_nextToken,
-    listFirewallRuleGroupsResponse_firewallRuleGroups,
-    listFirewallRuleGroupsResponse_httpStatus,
-
-    -- ** UpdateResolverRule
-    updateResolverRule_resolverRuleId,
-    updateResolverRule_config,
-    updateResolverRuleResponse_resolverRule,
-    updateResolverRuleResponse_httpStatus,
-
-    -- ** DeleteResolverRule
-    deleteResolverRule_resolverRuleId,
-    deleteResolverRuleResponse_resolverRule,
-    deleteResolverRuleResponse_httpStatus,
-
-    -- ** DeleteFirewallRule
-    deleteFirewallRule_firewallRuleGroupId,
-    deleteFirewallRule_firewallDomainListId,
-    deleteFirewallRuleResponse_firewallRule,
-    deleteFirewallRuleResponse_httpStatus,
-
-    -- ** UpdateFirewallRule
-    updateFirewallRule_blockOverrideDnsType,
-    updateFirewallRule_priority,
-    updateFirewallRule_blockResponse,
-    updateFirewallRule_action,
-    updateFirewallRule_blockOverrideTtl,
-    updateFirewallRule_name,
-    updateFirewallRule_blockOverrideDomain,
-    updateFirewallRule_firewallRuleGroupId,
-    updateFirewallRule_firewallDomainListId,
-    updateFirewallRuleResponse_firewallRule,
-    updateFirewallRuleResponse_httpStatus,
-
-    -- ** ListFirewallRules
-    listFirewallRules_priority,
-    listFirewallRules_action,
-    listFirewallRules_nextToken,
-    listFirewallRules_maxResults,
-    listFirewallRules_firewallRuleGroupId,
-    listFirewallRulesResponse_firewallRules,
-    listFirewallRulesResponse_nextToken,
-    listFirewallRulesResponse_httpStatus,
-
-    -- ** GetFirewallRuleGroup
-    getFirewallRuleGroup_firewallRuleGroupId,
-    getFirewallRuleGroupResponse_firewallRuleGroup,
-    getFirewallRuleGroupResponse_httpStatus,
-
-    -- ** ListResolverRules
-    listResolverRules_filters,
-    listResolverRules_nextToken,
-    listResolverRules_maxResults,
-    listResolverRulesResponse_resolverRules,
-    listResolverRulesResponse_nextToken,
-    listResolverRulesResponse_maxResults,
-    listResolverRulesResponse_httpStatus,
-
-    -- ** CreateResolverEndpoint
-    createResolverEndpoint_name,
-    createResolverEndpoint_tags,
-    createResolverEndpoint_creatorRequestId,
-    createResolverEndpoint_securityGroupIds,
-    createResolverEndpoint_direction,
-    createResolverEndpoint_ipAddresses,
-    createResolverEndpointResponse_resolverEndpoint,
-    createResolverEndpointResponse_httpStatus,
-
-    -- ** AssociateResolverRule
-    associateResolverRule_name,
-    associateResolverRule_resolverRuleId,
-    associateResolverRule_vPCId,
-    associateResolverRuleResponse_resolverRuleAssociation,
-    associateResolverRuleResponse_httpStatus,
-
-    -- ** GetResolverQueryLogConfigPolicy
-    getResolverQueryLogConfigPolicy_arn,
-    getResolverQueryLogConfigPolicyResponse_resolverQueryLogConfigPolicy,
-    getResolverQueryLogConfigPolicyResponse_httpStatus,
-
-    -- ** UpdateFirewallDomains
-    updateFirewallDomains_firewallDomainListId,
-    updateFirewallDomains_operation,
-    updateFirewallDomains_domains,
-    updateFirewallDomainsResponse_status,
-    updateFirewallDomainsResponse_statusMessage,
-    updateFirewallDomainsResponse_name,
-    updateFirewallDomainsResponse_id,
-    updateFirewallDomainsResponse_httpStatus,
-
-    -- ** ListResolverEndpoints
-    listResolverEndpoints_filters,
-    listResolverEndpoints_nextToken,
-    listResolverEndpoints_maxResults,
-    listResolverEndpointsResponse_resolverEndpoints,
-    listResolverEndpointsResponse_nextToken,
-    listResolverEndpointsResponse_maxResults,
-    listResolverEndpointsResponse_httpStatus,
-
-    -- ** ListFirewallDomains
-    listFirewallDomains_nextToken,
-    listFirewallDomains_maxResults,
-    listFirewallDomains_firewallDomainListId,
-    listFirewallDomainsResponse_nextToken,
-    listFirewallDomainsResponse_domains,
-    listFirewallDomainsResponse_httpStatus,
-
-    -- ** GetResolverRuleAssociation
-    getResolverRuleAssociation_resolverRuleAssociationId,
-    getResolverRuleAssociationResponse_resolverRuleAssociation,
-    getResolverRuleAssociationResponse_httpStatus,
-
-    -- ** GetFirewallConfig
-    getFirewallConfig_resourceId,
-    getFirewallConfigResponse_firewallConfig,
-    getFirewallConfigResponse_httpStatus,
-
-    -- ** GetFirewallDomainList
-    getFirewallDomainList_firewallDomainListId,
-    getFirewallDomainListResponse_firewallDomainList,
-    getFirewallDomainListResponse_httpStatus,
-
-    -- ** DisassociateResolverRule
-    disassociateResolverRule_vPCId,
-    disassociateResolverRule_resolverRuleId,
-    disassociateResolverRuleResponse_resolverRuleAssociation,
-    disassociateResolverRuleResponse_httpStatus,
-
-    -- ** GetResolverQueryLogConfigAssociation
-    getResolverQueryLogConfigAssociation_resolverQueryLogConfigAssociationId,
-    getResolverQueryLogConfigAssociationResponse_resolverQueryLogConfigAssociation,
-    getResolverQueryLogConfigAssociationResponse_httpStatus,
-
-    -- ** ListFirewallDomainLists
-    listFirewallDomainLists_nextToken,
-    listFirewallDomainLists_maxResults,
-    listFirewallDomainListsResponse_nextToken,
-    listFirewallDomainListsResponse_firewallDomainLists,
-    listFirewallDomainListsResponse_httpStatus,
-
-    -- ** DisassociateFirewallRuleGroup
-    disassociateFirewallRuleGroup_firewallRuleGroupAssociationId,
-    disassociateFirewallRuleGroupResponse_firewallRuleGroupAssociation,
-    disassociateFirewallRuleGroupResponse_httpStatus,
-
-    -- ** UpdateFirewallConfig
-    updateFirewallConfig_resourceId,
-    updateFirewallConfig_firewallFailOpen,
-    updateFirewallConfigResponse_firewallConfig,
-    updateFirewallConfigResponse_httpStatus,
-
-    -- ** DeleteFirewallDomainList
-    deleteFirewallDomainList_firewallDomainListId,
-    deleteFirewallDomainListResponse_firewallDomainList,
-    deleteFirewallDomainListResponse_httpStatus,
-
-    -- ** ListFirewallConfigs
-    listFirewallConfigs_nextToken,
-    listFirewallConfigs_maxResults,
-    listFirewallConfigsResponse_nextToken,
-    listFirewallConfigsResponse_firewallConfigs,
-    listFirewallConfigsResponse_httpStatus,
-
-    -- ** CreateFirewallDomainList
-    createFirewallDomainList_tags,
-    createFirewallDomainList_creatorRequestId,
-    createFirewallDomainList_name,
-    createFirewallDomainListResponse_firewallDomainList,
-    createFirewallDomainListResponse_httpStatus,
-
-    -- ** ImportFirewallDomains
-    importFirewallDomains_firewallDomainListId,
-    importFirewallDomains_operation,
-    importFirewallDomains_domainFileUrl,
-    importFirewallDomainsResponse_status,
-    importFirewallDomainsResponse_statusMessage,
-    importFirewallDomainsResponse_name,
-    importFirewallDomainsResponse_id,
-    importFirewallDomainsResponse_httpStatus,
-
-    -- ** DisassociateResolverQueryLogConfig
-    disassociateResolverQueryLogConfig_resolverQueryLogConfigId,
-    disassociateResolverQueryLogConfig_resourceId,
-    disassociateResolverQueryLogConfigResponse_resolverQueryLogConfigAssociation,
-    disassociateResolverQueryLogConfigResponse_httpStatus,
-
-    -- ** TagResource
-    tagResource_resourceArn,
-    tagResource_tags,
-    tagResourceResponse_httpStatus,
 
     -- ** AssociateFirewallRuleGroup
     associateFirewallRuleGroup_mutationProtection,
@@ -378,22 +25,62 @@ module Amazonka.Route53Resolver.Lens
     associateFirewallRuleGroupResponse_firewallRuleGroupAssociation,
     associateFirewallRuleGroupResponse_httpStatus,
 
-    -- ** UntagResource
-    untagResource_resourceArn,
-    untagResource_tagKeys,
-    untagResourceResponse_httpStatus,
-
-    -- ** PutResolverQueryLogConfigPolicy
-    putResolverQueryLogConfigPolicy_arn,
-    putResolverQueryLogConfigPolicy_resolverQueryLogConfigPolicy,
-    putResolverQueryLogConfigPolicyResponse_returnValue,
-    putResolverQueryLogConfigPolicyResponse_httpStatus,
-
     -- ** AssociateResolverEndpointIpAddress
     associateResolverEndpointIpAddress_resolverEndpointId,
     associateResolverEndpointIpAddress_ipAddress,
     associateResolverEndpointIpAddressResponse_resolverEndpoint,
     associateResolverEndpointIpAddressResponse_httpStatus,
+
+    -- ** AssociateResolverQueryLogConfig
+    associateResolverQueryLogConfig_resolverQueryLogConfigId,
+    associateResolverQueryLogConfig_resourceId,
+    associateResolverQueryLogConfigResponse_resolverQueryLogConfigAssociation,
+    associateResolverQueryLogConfigResponse_httpStatus,
+
+    -- ** AssociateResolverRule
+    associateResolverRule_name,
+    associateResolverRule_resolverRuleId,
+    associateResolverRule_vPCId,
+    associateResolverRuleResponse_resolverRuleAssociation,
+    associateResolverRuleResponse_httpStatus,
+
+    -- ** CreateFirewallDomainList
+    createFirewallDomainList_tags,
+    createFirewallDomainList_creatorRequestId,
+    createFirewallDomainList_name,
+    createFirewallDomainListResponse_firewallDomainList,
+    createFirewallDomainListResponse_httpStatus,
+
+    -- ** CreateFirewallRule
+    createFirewallRule_blockOverrideDnsType,
+    createFirewallRule_blockOverrideDomain,
+    createFirewallRule_blockOverrideTtl,
+    createFirewallRule_blockResponse,
+    createFirewallRule_creatorRequestId,
+    createFirewallRule_firewallRuleGroupId,
+    createFirewallRule_firewallDomainListId,
+    createFirewallRule_priority,
+    createFirewallRule_action,
+    createFirewallRule_name,
+    createFirewallRuleResponse_firewallRule,
+    createFirewallRuleResponse_httpStatus,
+
+    -- ** CreateFirewallRuleGroup
+    createFirewallRuleGroup_tags,
+    createFirewallRuleGroup_creatorRequestId,
+    createFirewallRuleGroup_name,
+    createFirewallRuleGroupResponse_firewallRuleGroup,
+    createFirewallRuleGroupResponse_httpStatus,
+
+    -- ** CreateResolverEndpoint
+    createResolverEndpoint_name,
+    createResolverEndpoint_tags,
+    createResolverEndpoint_creatorRequestId,
+    createResolverEndpoint_securityGroupIds,
+    createResolverEndpoint_direction,
+    createResolverEndpoint_ipAddresses,
+    createResolverEndpointResponse_resolverEndpoint,
+    createResolverEndpointResponse_httpStatus,
 
     -- ** CreateResolverQueryLogConfig
     createResolverQueryLogConfig_tags,
@@ -403,10 +90,283 @@ module Amazonka.Route53Resolver.Lens
     createResolverQueryLogConfigResponse_resolverQueryLogConfig,
     createResolverQueryLogConfigResponse_httpStatus,
 
+    -- ** CreateResolverRule
+    createResolverRule_name,
+    createResolverRule_resolverEndpointId,
+    createResolverRule_tags,
+    createResolverRule_targetIps,
+    createResolverRule_creatorRequestId,
+    createResolverRule_ruleType,
+    createResolverRule_domainName,
+    createResolverRuleResponse_resolverRule,
+    createResolverRuleResponse_httpStatus,
+
+    -- ** DeleteFirewallDomainList
+    deleteFirewallDomainList_firewallDomainListId,
+    deleteFirewallDomainListResponse_firewallDomainList,
+    deleteFirewallDomainListResponse_httpStatus,
+
+    -- ** DeleteFirewallRule
+    deleteFirewallRule_firewallRuleGroupId,
+    deleteFirewallRule_firewallDomainListId,
+    deleteFirewallRuleResponse_firewallRule,
+    deleteFirewallRuleResponse_httpStatus,
+
+    -- ** DeleteFirewallRuleGroup
+    deleteFirewallRuleGroup_firewallRuleGroupId,
+    deleteFirewallRuleGroupResponse_firewallRuleGroup,
+    deleteFirewallRuleGroupResponse_httpStatus,
+
+    -- ** DeleteResolverEndpoint
+    deleteResolverEndpoint_resolverEndpointId,
+    deleteResolverEndpointResponse_resolverEndpoint,
+    deleteResolverEndpointResponse_httpStatus,
+
+    -- ** DeleteResolverQueryLogConfig
+    deleteResolverQueryLogConfig_resolverQueryLogConfigId,
+    deleteResolverQueryLogConfigResponse_resolverQueryLogConfig,
+    deleteResolverQueryLogConfigResponse_httpStatus,
+
+    -- ** DeleteResolverRule
+    deleteResolverRule_resolverRuleId,
+    deleteResolverRuleResponse_resolverRule,
+    deleteResolverRuleResponse_httpStatus,
+
+    -- ** DisassociateFirewallRuleGroup
+    disassociateFirewallRuleGroup_firewallRuleGroupAssociationId,
+    disassociateFirewallRuleGroupResponse_firewallRuleGroupAssociation,
+    disassociateFirewallRuleGroupResponse_httpStatus,
+
+    -- ** DisassociateResolverEndpointIpAddress
+    disassociateResolverEndpointIpAddress_resolverEndpointId,
+    disassociateResolverEndpointIpAddress_ipAddress,
+    disassociateResolverEndpointIpAddressResponse_resolverEndpoint,
+    disassociateResolverEndpointIpAddressResponse_httpStatus,
+
+    -- ** DisassociateResolverQueryLogConfig
+    disassociateResolverQueryLogConfig_resolverQueryLogConfigId,
+    disassociateResolverQueryLogConfig_resourceId,
+    disassociateResolverQueryLogConfigResponse_resolverQueryLogConfigAssociation,
+    disassociateResolverQueryLogConfigResponse_httpStatus,
+
+    -- ** DisassociateResolverRule
+    disassociateResolverRule_vPCId,
+    disassociateResolverRule_resolverRuleId,
+    disassociateResolverRuleResponse_resolverRuleAssociation,
+    disassociateResolverRuleResponse_httpStatus,
+
+    -- ** GetFirewallConfig
+    getFirewallConfig_resourceId,
+    getFirewallConfigResponse_firewallConfig,
+    getFirewallConfigResponse_httpStatus,
+
+    -- ** GetFirewallDomainList
+    getFirewallDomainList_firewallDomainListId,
+    getFirewallDomainListResponse_firewallDomainList,
+    getFirewallDomainListResponse_httpStatus,
+
+    -- ** GetFirewallRuleGroup
+    getFirewallRuleGroup_firewallRuleGroupId,
+    getFirewallRuleGroupResponse_firewallRuleGroup,
+    getFirewallRuleGroupResponse_httpStatus,
+
+    -- ** GetFirewallRuleGroupAssociation
+    getFirewallRuleGroupAssociation_firewallRuleGroupAssociationId,
+    getFirewallRuleGroupAssociationResponse_firewallRuleGroupAssociation,
+    getFirewallRuleGroupAssociationResponse_httpStatus,
+
+    -- ** GetFirewallRuleGroupPolicy
+    getFirewallRuleGroupPolicy_arn,
+    getFirewallRuleGroupPolicyResponse_firewallRuleGroupPolicy,
+    getFirewallRuleGroupPolicyResponse_httpStatus,
+
+    -- ** GetResolverConfig
+    getResolverConfig_resourceId,
+    getResolverConfigResponse_resolverConfig,
+    getResolverConfigResponse_httpStatus,
+
+    -- ** GetResolverDnssecConfig
+    getResolverDnssecConfig_resourceId,
+    getResolverDnssecConfigResponse_resolverDNSSECConfig,
+    getResolverDnssecConfigResponse_httpStatus,
+
+    -- ** GetResolverEndpoint
+    getResolverEndpoint_resolverEndpointId,
+    getResolverEndpointResponse_resolverEndpoint,
+    getResolverEndpointResponse_httpStatus,
+
+    -- ** GetResolverQueryLogConfig
+    getResolverQueryLogConfig_resolverQueryLogConfigId,
+    getResolverQueryLogConfigResponse_resolverQueryLogConfig,
+    getResolverQueryLogConfigResponse_httpStatus,
+
+    -- ** GetResolverQueryLogConfigAssociation
+    getResolverQueryLogConfigAssociation_resolverQueryLogConfigAssociationId,
+    getResolverQueryLogConfigAssociationResponse_resolverQueryLogConfigAssociation,
+    getResolverQueryLogConfigAssociationResponse_httpStatus,
+
+    -- ** GetResolverQueryLogConfigPolicy
+    getResolverQueryLogConfigPolicy_arn,
+    getResolverQueryLogConfigPolicyResponse_resolverQueryLogConfigPolicy,
+    getResolverQueryLogConfigPolicyResponse_httpStatus,
+
     -- ** GetResolverRule
     getResolverRule_resolverRuleId,
     getResolverRuleResponse_resolverRule,
     getResolverRuleResponse_httpStatus,
+
+    -- ** GetResolverRuleAssociation
+    getResolverRuleAssociation_resolverRuleAssociationId,
+    getResolverRuleAssociationResponse_resolverRuleAssociation,
+    getResolverRuleAssociationResponse_httpStatus,
+
+    -- ** GetResolverRulePolicy
+    getResolverRulePolicy_arn,
+    getResolverRulePolicyResponse_resolverRulePolicy,
+    getResolverRulePolicyResponse_httpStatus,
+
+    -- ** ImportFirewallDomains
+    importFirewallDomains_firewallDomainListId,
+    importFirewallDomains_operation,
+    importFirewallDomains_domainFileUrl,
+    importFirewallDomainsResponse_id,
+    importFirewallDomainsResponse_name,
+    importFirewallDomainsResponse_status,
+    importFirewallDomainsResponse_statusMessage,
+    importFirewallDomainsResponse_httpStatus,
+
+    -- ** ListFirewallConfigs
+    listFirewallConfigs_maxResults,
+    listFirewallConfigs_nextToken,
+    listFirewallConfigsResponse_firewallConfigs,
+    listFirewallConfigsResponse_nextToken,
+    listFirewallConfigsResponse_httpStatus,
+
+    -- ** ListFirewallDomainLists
+    listFirewallDomainLists_maxResults,
+    listFirewallDomainLists_nextToken,
+    listFirewallDomainListsResponse_firewallDomainLists,
+    listFirewallDomainListsResponse_nextToken,
+    listFirewallDomainListsResponse_httpStatus,
+
+    -- ** ListFirewallDomains
+    listFirewallDomains_maxResults,
+    listFirewallDomains_nextToken,
+    listFirewallDomains_firewallDomainListId,
+    listFirewallDomainsResponse_domains,
+    listFirewallDomainsResponse_nextToken,
+    listFirewallDomainsResponse_httpStatus,
+
+    -- ** ListFirewallRuleGroupAssociations
+    listFirewallRuleGroupAssociations_firewallRuleGroupId,
+    listFirewallRuleGroupAssociations_maxResults,
+    listFirewallRuleGroupAssociations_nextToken,
+    listFirewallRuleGroupAssociations_priority,
+    listFirewallRuleGroupAssociations_status,
+    listFirewallRuleGroupAssociations_vpcId,
+    listFirewallRuleGroupAssociationsResponse_firewallRuleGroupAssociations,
+    listFirewallRuleGroupAssociationsResponse_nextToken,
+    listFirewallRuleGroupAssociationsResponse_httpStatus,
+
+    -- ** ListFirewallRuleGroups
+    listFirewallRuleGroups_maxResults,
+    listFirewallRuleGroups_nextToken,
+    listFirewallRuleGroupsResponse_firewallRuleGroups,
+    listFirewallRuleGroupsResponse_nextToken,
+    listFirewallRuleGroupsResponse_httpStatus,
+
+    -- ** ListFirewallRules
+    listFirewallRules_action,
+    listFirewallRules_maxResults,
+    listFirewallRules_nextToken,
+    listFirewallRules_priority,
+    listFirewallRules_firewallRuleGroupId,
+    listFirewallRulesResponse_firewallRules,
+    listFirewallRulesResponse_nextToken,
+    listFirewallRulesResponse_httpStatus,
+
+    -- ** ListResolverConfigs
+    listResolverConfigs_maxResults,
+    listResolverConfigs_nextToken,
+    listResolverConfigsResponse_nextToken,
+    listResolverConfigsResponse_resolverConfigs,
+    listResolverConfigsResponse_httpStatus,
+
+    -- ** ListResolverDnssecConfigs
+    listResolverDnssecConfigs_filters,
+    listResolverDnssecConfigs_maxResults,
+    listResolverDnssecConfigs_nextToken,
+    listResolverDnssecConfigsResponse_nextToken,
+    listResolverDnssecConfigsResponse_resolverDnssecConfigs,
+    listResolverDnssecConfigsResponse_httpStatus,
+
+    -- ** ListResolverEndpointIpAddresses
+    listResolverEndpointIpAddresses_maxResults,
+    listResolverEndpointIpAddresses_nextToken,
+    listResolverEndpointIpAddresses_resolverEndpointId,
+    listResolverEndpointIpAddressesResponse_ipAddresses,
+    listResolverEndpointIpAddressesResponse_maxResults,
+    listResolverEndpointIpAddressesResponse_nextToken,
+    listResolverEndpointIpAddressesResponse_httpStatus,
+
+    -- ** ListResolverEndpoints
+    listResolverEndpoints_filters,
+    listResolverEndpoints_maxResults,
+    listResolverEndpoints_nextToken,
+    listResolverEndpointsResponse_maxResults,
+    listResolverEndpointsResponse_nextToken,
+    listResolverEndpointsResponse_resolverEndpoints,
+    listResolverEndpointsResponse_httpStatus,
+
+    -- ** ListResolverQueryLogConfigAssociations
+    listResolverQueryLogConfigAssociations_filters,
+    listResolverQueryLogConfigAssociations_maxResults,
+    listResolverQueryLogConfigAssociations_nextToken,
+    listResolverQueryLogConfigAssociations_sortBy,
+    listResolverQueryLogConfigAssociations_sortOrder,
+    listResolverQueryLogConfigAssociationsResponse_nextToken,
+    listResolverQueryLogConfigAssociationsResponse_resolverQueryLogConfigAssociations,
+    listResolverQueryLogConfigAssociationsResponse_totalCount,
+    listResolverQueryLogConfigAssociationsResponse_totalFilteredCount,
+    listResolverQueryLogConfigAssociationsResponse_httpStatus,
+
+    -- ** ListResolverQueryLogConfigs
+    listResolverQueryLogConfigs_filters,
+    listResolverQueryLogConfigs_maxResults,
+    listResolverQueryLogConfigs_nextToken,
+    listResolverQueryLogConfigs_sortBy,
+    listResolverQueryLogConfigs_sortOrder,
+    listResolverQueryLogConfigsResponse_nextToken,
+    listResolverQueryLogConfigsResponse_resolverQueryLogConfigs,
+    listResolverQueryLogConfigsResponse_totalCount,
+    listResolverQueryLogConfigsResponse_totalFilteredCount,
+    listResolverQueryLogConfigsResponse_httpStatus,
+
+    -- ** ListResolverRuleAssociations
+    listResolverRuleAssociations_filters,
+    listResolverRuleAssociations_maxResults,
+    listResolverRuleAssociations_nextToken,
+    listResolverRuleAssociationsResponse_maxResults,
+    listResolverRuleAssociationsResponse_nextToken,
+    listResolverRuleAssociationsResponse_resolverRuleAssociations,
+    listResolverRuleAssociationsResponse_httpStatus,
+
+    -- ** ListResolverRules
+    listResolverRules_filters,
+    listResolverRules_maxResults,
+    listResolverRules_nextToken,
+    listResolverRulesResponse_maxResults,
+    listResolverRulesResponse_nextToken,
+    listResolverRulesResponse_resolverRules,
+    listResolverRulesResponse_httpStatus,
+
+    -- ** ListTagsForResource
+    listTagsForResource_maxResults,
+    listTagsForResource_nextToken,
+    listTagsForResource_resourceArn,
+    listTagsForResourceResponse_nextToken,
+    listTagsForResourceResponse_tags,
+    listTagsForResourceResponse_httpStatus,
 
     -- ** PutFirewallRuleGroupPolicy
     putFirewallRuleGroupPolicy_arn,
@@ -414,19 +374,70 @@ module Amazonka.Route53Resolver.Lens
     putFirewallRuleGroupPolicyResponse_returnValue,
     putFirewallRuleGroupPolicyResponse_httpStatus,
 
+    -- ** PutResolverQueryLogConfigPolicy
+    putResolverQueryLogConfigPolicy_arn,
+    putResolverQueryLogConfigPolicy_resolverQueryLogConfigPolicy,
+    putResolverQueryLogConfigPolicyResponse_returnValue,
+    putResolverQueryLogConfigPolicyResponse_httpStatus,
+
     -- ** PutResolverRulePolicy
     putResolverRulePolicy_arn,
     putResolverRulePolicy_resolverRulePolicy,
     putResolverRulePolicyResponse_returnValue,
     putResolverRulePolicyResponse_httpStatus,
 
-    -- ** ListResolverDnssecConfigs
-    listResolverDnssecConfigs_filters,
-    listResolverDnssecConfigs_nextToken,
-    listResolverDnssecConfigs_maxResults,
-    listResolverDnssecConfigsResponse_nextToken,
-    listResolverDnssecConfigsResponse_resolverDnssecConfigs,
-    listResolverDnssecConfigsResponse_httpStatus,
+    -- ** TagResource
+    tagResource_resourceArn,
+    tagResource_tags,
+    tagResourceResponse_httpStatus,
+
+    -- ** UntagResource
+    untagResource_resourceArn,
+    untagResource_tagKeys,
+    untagResourceResponse_httpStatus,
+
+    -- ** UpdateFirewallConfig
+    updateFirewallConfig_resourceId,
+    updateFirewallConfig_firewallFailOpen,
+    updateFirewallConfigResponse_firewallConfig,
+    updateFirewallConfigResponse_httpStatus,
+
+    -- ** UpdateFirewallDomains
+    updateFirewallDomains_firewallDomainListId,
+    updateFirewallDomains_operation,
+    updateFirewallDomains_domains,
+    updateFirewallDomainsResponse_id,
+    updateFirewallDomainsResponse_name,
+    updateFirewallDomainsResponse_status,
+    updateFirewallDomainsResponse_statusMessage,
+    updateFirewallDomainsResponse_httpStatus,
+
+    -- ** UpdateFirewallRule
+    updateFirewallRule_action,
+    updateFirewallRule_blockOverrideDnsType,
+    updateFirewallRule_blockOverrideDomain,
+    updateFirewallRule_blockOverrideTtl,
+    updateFirewallRule_blockResponse,
+    updateFirewallRule_name,
+    updateFirewallRule_priority,
+    updateFirewallRule_firewallRuleGroupId,
+    updateFirewallRule_firewallDomainListId,
+    updateFirewallRuleResponse_firewallRule,
+    updateFirewallRuleResponse_httpStatus,
+
+    -- ** UpdateFirewallRuleGroupAssociation
+    updateFirewallRuleGroupAssociation_mutationProtection,
+    updateFirewallRuleGroupAssociation_name,
+    updateFirewallRuleGroupAssociation_priority,
+    updateFirewallRuleGroupAssociation_firewallRuleGroupAssociationId,
+    updateFirewallRuleGroupAssociationResponse_firewallRuleGroupAssociation,
+    updateFirewallRuleGroupAssociationResponse_httpStatus,
+
+    -- ** UpdateResolverConfig
+    updateResolverConfig_resourceId,
+    updateResolverConfig_autodefinedReverseFlag,
+    updateResolverConfigResponse_resolverConfig,
+    updateResolverConfigResponse_httpStatus,
 
     -- ** UpdateResolverDnssecConfig
     updateResolverDnssecConfig_resourceId,
@@ -434,91 +445,98 @@ module Amazonka.Route53Resolver.Lens
     updateResolverDnssecConfigResponse_resolverDNSSECConfig,
     updateResolverDnssecConfigResponse_httpStatus,
 
-    -- ** GetFirewallRuleGroupPolicy
-    getFirewallRuleGroupPolicy_arn,
-    getFirewallRuleGroupPolicyResponse_firewallRuleGroupPolicy,
-    getFirewallRuleGroupPolicyResponse_httpStatus,
+    -- ** UpdateResolverEndpoint
+    updateResolverEndpoint_name,
+    updateResolverEndpoint_resolverEndpointId,
+    updateResolverEndpointResponse_resolverEndpoint,
+    updateResolverEndpointResponse_httpStatus,
+
+    -- ** UpdateResolverRule
+    updateResolverRule_resolverRuleId,
+    updateResolverRule_config,
+    updateResolverRuleResponse_resolverRule,
+    updateResolverRuleResponse_httpStatus,
 
     -- * Types
 
     -- ** Filter
-    filter_values,
     filter_name,
+    filter_values,
 
     -- ** FirewallConfig
-    firewallConfig_resourceId,
-    firewallConfig_ownerId,
-    firewallConfig_id,
     firewallConfig_firewallFailOpen,
+    firewallConfig_id,
+    firewallConfig_ownerId,
+    firewallConfig_resourceId,
 
     -- ** FirewallDomainList
-    firewallDomainList_creationTime,
-    firewallDomainList_status,
     firewallDomainList_arn,
+    firewallDomainList_creationTime,
     firewallDomainList_creatorRequestId,
-    firewallDomainList_managedOwnerName,
     firewallDomainList_domainCount,
-    firewallDomainList_modificationTime,
-    firewallDomainList_statusMessage,
-    firewallDomainList_name,
     firewallDomainList_id,
+    firewallDomainList_managedOwnerName,
+    firewallDomainList_modificationTime,
+    firewallDomainList_name,
+    firewallDomainList_status,
+    firewallDomainList_statusMessage,
 
     -- ** FirewallDomainListMetadata
     firewallDomainListMetadata_arn,
     firewallDomainListMetadata_creatorRequestId,
+    firewallDomainListMetadata_id,
     firewallDomainListMetadata_managedOwnerName,
     firewallDomainListMetadata_name,
-    firewallDomainListMetadata_id,
 
     -- ** FirewallRule
-    firewallRule_creationTime,
-    firewallRule_blockOverrideDnsType,
-    firewallRule_firewallRuleGroupId,
-    firewallRule_priority,
-    firewallRule_blockResponse,
-    firewallRule_creatorRequestId,
-    firewallRule_modificationTime,
     firewallRule_action,
-    firewallRule_blockOverrideTtl,
-    firewallRule_name,
+    firewallRule_blockOverrideDnsType,
     firewallRule_blockOverrideDomain,
+    firewallRule_blockOverrideTtl,
+    firewallRule_blockResponse,
+    firewallRule_creationTime,
+    firewallRule_creatorRequestId,
     firewallRule_firewallDomainListId,
+    firewallRule_firewallRuleGroupId,
+    firewallRule_modificationTime,
+    firewallRule_name,
+    firewallRule_priority,
 
     -- ** FirewallRuleGroup
-    firewallRuleGroup_creationTime,
-    firewallRuleGroup_status,
     firewallRuleGroup_arn,
+    firewallRuleGroup_creationTime,
     firewallRuleGroup_creatorRequestId,
-    firewallRuleGroup_modificationTime,
-    firewallRuleGroup_shareStatus,
-    firewallRuleGroup_ownerId,
-    firewallRuleGroup_statusMessage,
-    firewallRuleGroup_name,
     firewallRuleGroup_id,
+    firewallRuleGroup_modificationTime,
+    firewallRuleGroup_name,
+    firewallRuleGroup_ownerId,
     firewallRuleGroup_ruleCount,
+    firewallRuleGroup_shareStatus,
+    firewallRuleGroup_status,
+    firewallRuleGroup_statusMessage,
 
     -- ** FirewallRuleGroupAssociation
-    firewallRuleGroupAssociation_creationTime,
-    firewallRuleGroupAssociation_status,
-    firewallRuleGroupAssociation_mutationProtection,
-    firewallRuleGroupAssociation_firewallRuleGroupId,
-    firewallRuleGroupAssociation_priority,
     firewallRuleGroupAssociation_arn,
-    firewallRuleGroupAssociation_vpcId,
+    firewallRuleGroupAssociation_creationTime,
     firewallRuleGroupAssociation_creatorRequestId,
+    firewallRuleGroupAssociation_firewallRuleGroupId,
+    firewallRuleGroupAssociation_id,
     firewallRuleGroupAssociation_managedOwnerName,
     firewallRuleGroupAssociation_modificationTime,
-    firewallRuleGroupAssociation_statusMessage,
+    firewallRuleGroupAssociation_mutationProtection,
     firewallRuleGroupAssociation_name,
-    firewallRuleGroupAssociation_id,
+    firewallRuleGroupAssociation_priority,
+    firewallRuleGroupAssociation_status,
+    firewallRuleGroupAssociation_statusMessage,
+    firewallRuleGroupAssociation_vpcId,
 
     -- ** FirewallRuleGroupMetadata
     firewallRuleGroupMetadata_arn,
     firewallRuleGroupMetadata_creatorRequestId,
-    firewallRuleGroupMetadata_shareStatus,
-    firewallRuleGroupMetadata_ownerId,
-    firewallRuleGroupMetadata_name,
     firewallRuleGroupMetadata_id,
+    firewallRuleGroupMetadata_name,
+    firewallRuleGroupMetadata_ownerId,
+    firewallRuleGroupMetadata_shareStatus,
 
     -- ** IpAddressRequest
     ipAddressRequest_ip,
@@ -526,87 +544,93 @@ module Amazonka.Route53Resolver.Lens
 
     -- ** IpAddressResponse
     ipAddressResponse_creationTime,
-    ipAddressResponse_status,
-    ipAddressResponse_modificationTime,
-    ipAddressResponse_subnetId,
     ipAddressResponse_ip,
     ipAddressResponse_ipId,
+    ipAddressResponse_modificationTime,
+    ipAddressResponse_status,
     ipAddressResponse_statusMessage,
+    ipAddressResponse_subnetId,
 
     -- ** IpAddressUpdate
-    ipAddressUpdate_subnetId,
     ipAddressUpdate_ip,
     ipAddressUpdate_ipId,
+    ipAddressUpdate_subnetId,
+
+    -- ** ResolverConfig
+    resolverConfig_autodefinedReverse,
+    resolverConfig_id,
+    resolverConfig_ownerId,
+    resolverConfig_resourceId,
 
     -- ** ResolverDnssecConfig
-    resolverDnssecConfig_resourceId,
-    resolverDnssecConfig_ownerId,
-    resolverDnssecConfig_validationStatus,
     resolverDnssecConfig_id,
+    resolverDnssecConfig_ownerId,
+    resolverDnssecConfig_resourceId,
+    resolverDnssecConfig_validationStatus,
 
     -- ** ResolverEndpoint
-    resolverEndpoint_creationTime,
-    resolverEndpoint_status,
-    resolverEndpoint_securityGroupIds,
-    resolverEndpoint_direction,
     resolverEndpoint_arn,
+    resolverEndpoint_creationTime,
     resolverEndpoint_creatorRequestId,
-    resolverEndpoint_modificationTime,
-    resolverEndpoint_ipAddressCount,
-    resolverEndpoint_statusMessage,
-    resolverEndpoint_name,
-    resolverEndpoint_id,
+    resolverEndpoint_direction,
     resolverEndpoint_hostVPCId,
+    resolverEndpoint_id,
+    resolverEndpoint_ipAddressCount,
+    resolverEndpoint_modificationTime,
+    resolverEndpoint_name,
+    resolverEndpoint_securityGroupIds,
+    resolverEndpoint_status,
+    resolverEndpoint_statusMessage,
 
     -- ** ResolverQueryLogConfig
-    resolverQueryLogConfig_creationTime,
-    resolverQueryLogConfig_status,
-    resolverQueryLogConfig_associationCount,
     resolverQueryLogConfig_arn,
+    resolverQueryLogConfig_associationCount,
+    resolverQueryLogConfig_creationTime,
     resolverQueryLogConfig_creatorRequestId,
     resolverQueryLogConfig_destinationArn,
-    resolverQueryLogConfig_shareStatus,
-    resolverQueryLogConfig_ownerId,
-    resolverQueryLogConfig_name,
     resolverQueryLogConfig_id,
+    resolverQueryLogConfig_name,
+    resolverQueryLogConfig_ownerId,
+    resolverQueryLogConfig_shareStatus,
+    resolverQueryLogConfig_status,
 
     -- ** ResolverQueryLogConfigAssociation
     resolverQueryLogConfigAssociation_creationTime,
-    resolverQueryLogConfigAssociation_status,
+    resolverQueryLogConfigAssociation_error,
+    resolverQueryLogConfigAssociation_errorMessage,
+    resolverQueryLogConfigAssociation_id,
     resolverQueryLogConfigAssociation_resolverQueryLogConfigId,
     resolverQueryLogConfigAssociation_resourceId,
-    resolverQueryLogConfigAssociation_error,
-    resolverQueryLogConfigAssociation_id,
-    resolverQueryLogConfigAssociation_errorMessage,
+    resolverQueryLogConfigAssociation_status,
 
     -- ** ResolverRule
-    resolverRule_creationTime,
-    resolverRule_status,
     resolverRule_arn,
-    resolverRule_resolverEndpointId,
+    resolverRule_creationTime,
     resolverRule_creatorRequestId,
-    resolverRule_targetIps,
-    resolverRule_modificationTime,
-    resolverRule_shareStatus,
-    resolverRule_ownerId,
     resolverRule_domainName,
-    resolverRule_statusMessage,
-    resolverRule_name,
     resolverRule_id,
+    resolverRule_modificationTime,
+    resolverRule_name,
+    resolverRule_ownerId,
+    resolverRule_resolverEndpointId,
     resolverRule_ruleType,
+    resolverRule_shareStatus,
+    resolverRule_status,
+    resolverRule_statusMessage,
+    resolverRule_targetIps,
 
     -- ** ResolverRuleAssociation
-    resolverRuleAssociation_status,
-    resolverRuleAssociation_resolverRuleId,
-    resolverRuleAssociation_vPCId,
-    resolverRuleAssociation_statusMessage,
-    resolverRuleAssociation_name,
     resolverRuleAssociation_id,
+    resolverRuleAssociation_name,
+    resolverRuleAssociation_resolverRuleId,
+    resolverRuleAssociation_status,
+    resolverRuleAssociation_statusMessage,
+    resolverRuleAssociation_vPCId,
 
     -- ** ResolverRuleConfig
+    resolverRuleConfig_name,
     resolverRuleConfig_resolverEndpointId,
     resolverRuleConfig_targetIps,
-    resolverRuleConfig_name,
 
     -- ** Tag
     tag_key,
@@ -643,6 +667,7 @@ import Amazonka.Route53Resolver.GetFirewallDomainList
 import Amazonka.Route53Resolver.GetFirewallRuleGroup
 import Amazonka.Route53Resolver.GetFirewallRuleGroupAssociation
 import Amazonka.Route53Resolver.GetFirewallRuleGroupPolicy
+import Amazonka.Route53Resolver.GetResolverConfig
 import Amazonka.Route53Resolver.GetResolverDnssecConfig
 import Amazonka.Route53Resolver.GetResolverEndpoint
 import Amazonka.Route53Resolver.GetResolverQueryLogConfig
@@ -658,6 +683,7 @@ import Amazonka.Route53Resolver.ListFirewallDomains
 import Amazonka.Route53Resolver.ListFirewallRuleGroupAssociations
 import Amazonka.Route53Resolver.ListFirewallRuleGroups
 import Amazonka.Route53Resolver.ListFirewallRules
+import Amazonka.Route53Resolver.ListResolverConfigs
 import Amazonka.Route53Resolver.ListResolverDnssecConfigs
 import Amazonka.Route53Resolver.ListResolverEndpointIpAddresses
 import Amazonka.Route53Resolver.ListResolverEndpoints
@@ -681,6 +707,7 @@ import Amazonka.Route53Resolver.Types.FirewallRuleGroupMetadata
 import Amazonka.Route53Resolver.Types.IpAddressRequest
 import Amazonka.Route53Resolver.Types.IpAddressResponse
 import Amazonka.Route53Resolver.Types.IpAddressUpdate
+import Amazonka.Route53Resolver.Types.ResolverConfig
 import Amazonka.Route53Resolver.Types.ResolverDnssecConfig
 import Amazonka.Route53Resolver.Types.ResolverEndpoint
 import Amazonka.Route53Resolver.Types.ResolverQueryLogConfig
@@ -695,6 +722,7 @@ import Amazonka.Route53Resolver.UpdateFirewallConfig
 import Amazonka.Route53Resolver.UpdateFirewallDomains
 import Amazonka.Route53Resolver.UpdateFirewallRule
 import Amazonka.Route53Resolver.UpdateFirewallRuleGroupAssociation
+import Amazonka.Route53Resolver.UpdateResolverConfig
 import Amazonka.Route53Resolver.UpdateResolverDnssecConfig
 import Amazonka.Route53Resolver.UpdateResolverEndpoint
 import Amazonka.Route53Resolver.UpdateResolverRule

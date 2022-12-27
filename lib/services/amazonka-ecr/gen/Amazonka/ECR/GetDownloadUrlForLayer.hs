@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECR.GetDownloadUrlForLayer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,15 +45,16 @@ module Amazonka.ECR.GetDownloadUrlForLayer
     newGetDownloadUrlForLayerResponse,
 
     -- * Response Lenses
-    getDownloadUrlForLayerResponse_layerDigest,
     getDownloadUrlForLayerResponse_downloadUrl,
+    getDownloadUrlForLayerResponse_layerDigest,
     getDownloadUrlForLayerResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -123,13 +124,14 @@ instance Core.AWSRequest GetDownloadUrlForLayer where
   type
     AWSResponse GetDownloadUrlForLayer =
       GetDownloadUrlForLayerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDownloadUrlForLayerResponse'
-            Prelude.<$> (x Core..?> "layerDigest")
-            Prelude.<*> (x Core..?> "downloadUrl")
+            Prelude.<$> (x Data..?> "downloadUrl")
+            Prelude.<*> (x Data..?> "layerDigest")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -145,44 +147,44 @@ instance Prelude.NFData GetDownloadUrlForLayer where
       `Prelude.seq` Prelude.rnf repositoryName
       `Prelude.seq` Prelude.rnf layerDigest
 
-instance Core.ToHeaders GetDownloadUrlForLayer where
+instance Data.ToHeaders GetDownloadUrlForLayer where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerRegistry_V20150921.GetDownloadUrlForLayer" ::
+              Data.=# ( "AmazonEC2ContainerRegistry_V20150921.GetDownloadUrlForLayer" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetDownloadUrlForLayer where
+instance Data.ToJSON GetDownloadUrlForLayer where
   toJSON GetDownloadUrlForLayer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("registryId" Core..=) Prelude.<$> registryId,
+          [ ("registryId" Data..=) Prelude.<$> registryId,
             Prelude.Just
-              ("repositoryName" Core..= repositoryName),
-            Prelude.Just ("layerDigest" Core..= layerDigest)
+              ("repositoryName" Data..= repositoryName),
+            Prelude.Just ("layerDigest" Data..= layerDigest)
           ]
       )
 
-instance Core.ToPath GetDownloadUrlForLayer where
+instance Data.ToPath GetDownloadUrlForLayer where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetDownloadUrlForLayer where
+instance Data.ToQuery GetDownloadUrlForLayer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetDownloadUrlForLayerResponse' smart constructor.
 data GetDownloadUrlForLayerResponse = GetDownloadUrlForLayerResponse'
-  { -- | The digest of the image layer to download.
-    layerDigest :: Prelude.Maybe Prelude.Text,
-    -- | The pre-signed Amazon S3 download URL for the requested layer.
+  { -- | The pre-signed Amazon S3 download URL for the requested layer.
     downloadUrl :: Prelude.Maybe Prelude.Text,
+    -- | The digest of the image layer to download.
+    layerDigest :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -196,9 +198,9 @@ data GetDownloadUrlForLayerResponse = GetDownloadUrlForLayerResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'layerDigest', 'getDownloadUrlForLayerResponse_layerDigest' - The digest of the image layer to download.
---
 -- 'downloadUrl', 'getDownloadUrlForLayerResponse_downloadUrl' - The pre-signed Amazon S3 download URL for the requested layer.
+--
+-- 'layerDigest', 'getDownloadUrlForLayerResponse_layerDigest' - The digest of the image layer to download.
 --
 -- 'httpStatus', 'getDownloadUrlForLayerResponse_httpStatus' - The response's http status code.
 newGetDownloadUrlForLayerResponse ::
@@ -207,19 +209,19 @@ newGetDownloadUrlForLayerResponse ::
   GetDownloadUrlForLayerResponse
 newGetDownloadUrlForLayerResponse pHttpStatus_ =
   GetDownloadUrlForLayerResponse'
-    { layerDigest =
+    { downloadUrl =
         Prelude.Nothing,
-      downloadUrl = Prelude.Nothing,
+      layerDigest = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The digest of the image layer to download.
-getDownloadUrlForLayerResponse_layerDigest :: Lens.Lens' GetDownloadUrlForLayerResponse (Prelude.Maybe Prelude.Text)
-getDownloadUrlForLayerResponse_layerDigest = Lens.lens (\GetDownloadUrlForLayerResponse' {layerDigest} -> layerDigest) (\s@GetDownloadUrlForLayerResponse' {} a -> s {layerDigest = a} :: GetDownloadUrlForLayerResponse)
 
 -- | The pre-signed Amazon S3 download URL for the requested layer.
 getDownloadUrlForLayerResponse_downloadUrl :: Lens.Lens' GetDownloadUrlForLayerResponse (Prelude.Maybe Prelude.Text)
 getDownloadUrlForLayerResponse_downloadUrl = Lens.lens (\GetDownloadUrlForLayerResponse' {downloadUrl} -> downloadUrl) (\s@GetDownloadUrlForLayerResponse' {} a -> s {downloadUrl = a} :: GetDownloadUrlForLayerResponse)
+
+-- | The digest of the image layer to download.
+getDownloadUrlForLayerResponse_layerDigest :: Lens.Lens' GetDownloadUrlForLayerResponse (Prelude.Maybe Prelude.Text)
+getDownloadUrlForLayerResponse_layerDigest = Lens.lens (\GetDownloadUrlForLayerResponse' {layerDigest} -> layerDigest) (\s@GetDownloadUrlForLayerResponse' {} a -> s {layerDigest = a} :: GetDownloadUrlForLayerResponse)
 
 -- | The response's http status code.
 getDownloadUrlForLayerResponse_httpStatus :: Lens.Lens' GetDownloadUrlForLayerResponse Prelude.Int
@@ -230,6 +232,6 @@ instance
     GetDownloadUrlForLayerResponse
   where
   rnf GetDownloadUrlForLayerResponse' {..} =
-    Prelude.rnf layerDigest
-      `Prelude.seq` Prelude.rnf downloadUrl
+    Prelude.rnf downloadUrl
+      `Prelude.seq` Prelude.rnf layerDigest
       `Prelude.seq` Prelude.rnf httpStatus

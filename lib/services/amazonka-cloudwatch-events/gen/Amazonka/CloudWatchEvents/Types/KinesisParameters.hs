@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.Types.KinesisParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudWatchEvents.Types.KinesisParameters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | This object enables you to specify a JSON path to extract from the event
@@ -68,13 +69,13 @@ newKinesisParameters pPartitionKeyPath_ =
 kinesisParameters_partitionKeyPath :: Lens.Lens' KinesisParameters Prelude.Text
 kinesisParameters_partitionKeyPath = Lens.lens (\KinesisParameters' {partitionKeyPath} -> partitionKeyPath) (\s@KinesisParameters' {} a -> s {partitionKeyPath = a} :: KinesisParameters)
 
-instance Core.FromJSON KinesisParameters where
+instance Data.FromJSON KinesisParameters where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "KinesisParameters"
       ( \x ->
           KinesisParameters'
-            Prelude.<$> (x Core..: "PartitionKeyPath")
+            Prelude.<$> (x Data..: "PartitionKeyPath")
       )
 
 instance Prelude.Hashable KinesisParameters where
@@ -85,11 +86,11 @@ instance Prelude.NFData KinesisParameters where
   rnf KinesisParameters' {..} =
     Prelude.rnf partitionKeyPath
 
-instance Core.ToJSON KinesisParameters where
+instance Data.ToJSON KinesisParameters where
   toJSON KinesisParameters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("PartitionKeyPath" Core..= partitionKeyPath)
+              ("PartitionKeyPath" Data..= partitionKeyPath)
           ]
       )

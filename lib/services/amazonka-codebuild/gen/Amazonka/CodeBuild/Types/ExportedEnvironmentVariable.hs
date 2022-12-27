@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.Types.ExportedEnvironmentVariable
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeBuild.Types.ExportedEnvironmentVariable where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about an exported environment variable.
@@ -38,10 +39,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newExportedEnvironmentVariable' smart constructor.
 data ExportedEnvironmentVariable = ExportedEnvironmentVariable'
-  { -- | The value assigned to the exported environment variable.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The name of the exported environment variable.
-    name :: Prelude.Maybe Prelude.Text
+  { -- | The name of the exported environment variable.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The value assigned to the exported environment variable.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -53,40 +54,40 @@ data ExportedEnvironmentVariable = ExportedEnvironmentVariable'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'exportedEnvironmentVariable_value' - The value assigned to the exported environment variable.
---
 -- 'name', 'exportedEnvironmentVariable_name' - The name of the exported environment variable.
+--
+-- 'value', 'exportedEnvironmentVariable_value' - The value assigned to the exported environment variable.
 newExportedEnvironmentVariable ::
   ExportedEnvironmentVariable
 newExportedEnvironmentVariable =
   ExportedEnvironmentVariable'
-    { value =
+    { name =
         Prelude.Nothing,
-      name = Prelude.Nothing
+      value = Prelude.Nothing
     }
-
--- | The value assigned to the exported environment variable.
-exportedEnvironmentVariable_value :: Lens.Lens' ExportedEnvironmentVariable (Prelude.Maybe Prelude.Text)
-exportedEnvironmentVariable_value = Lens.lens (\ExportedEnvironmentVariable' {value} -> value) (\s@ExportedEnvironmentVariable' {} a -> s {value = a} :: ExportedEnvironmentVariable)
 
 -- | The name of the exported environment variable.
 exportedEnvironmentVariable_name :: Lens.Lens' ExportedEnvironmentVariable (Prelude.Maybe Prelude.Text)
 exportedEnvironmentVariable_name = Lens.lens (\ExportedEnvironmentVariable' {name} -> name) (\s@ExportedEnvironmentVariable' {} a -> s {name = a} :: ExportedEnvironmentVariable)
 
-instance Core.FromJSON ExportedEnvironmentVariable where
+-- | The value assigned to the exported environment variable.
+exportedEnvironmentVariable_value :: Lens.Lens' ExportedEnvironmentVariable (Prelude.Maybe Prelude.Text)
+exportedEnvironmentVariable_value = Lens.lens (\ExportedEnvironmentVariable' {value} -> value) (\s@ExportedEnvironmentVariable' {} a -> s {value = a} :: ExportedEnvironmentVariable)
+
+instance Data.FromJSON ExportedEnvironmentVariable where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ExportedEnvironmentVariable"
       ( \x ->
           ExportedEnvironmentVariable'
-            Prelude.<$> (x Core..:? "value") Prelude.<*> (x Core..:? "name")
+            Prelude.<$> (x Data..:? "name") Prelude.<*> (x Data..:? "value")
       )
 
 instance Prelude.Hashable ExportedEnvironmentVariable where
   hashWithSalt _salt ExportedEnvironmentVariable' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData ExportedEnvironmentVariable where
   rnf ExportedEnvironmentVariable' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name `Prelude.seq` Prelude.rnf value

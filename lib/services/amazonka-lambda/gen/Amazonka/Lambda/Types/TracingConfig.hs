@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.Types.TracingConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Lambda.Types.TracingConfig where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types.TracingMode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The function\'s
@@ -61,9 +62,9 @@ instance Prelude.Hashable TracingConfig where
 instance Prelude.NFData TracingConfig where
   rnf TracingConfig' {..} = Prelude.rnf mode
 
-instance Core.ToJSON TracingConfig where
+instance Data.ToJSON TracingConfig where
   toJSON TracingConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Mode" Core..=) Prelude.<$> mode]
+          [("Mode" Data..=) Prelude.<$> mode]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.DisassociateTrialComponent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,7 +51,8 @@ module Amazonka.SageMaker.DisassociateTrialComponent
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -104,13 +105,14 @@ instance Core.AWSRequest DisassociateTrialComponent where
   type
     AWSResponse DisassociateTrialComponent =
       DisassociateTrialComponentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DisassociateTrialComponentResponse'
-            Prelude.<$> (x Core..?> "TrialArn")
-            Prelude.<*> (x Core..?> "TrialComponentArn")
+            Prelude.<$> (x Data..?> "TrialArn")
+            Prelude.<*> (x Data..?> "TrialComponentArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -124,42 +126,42 @@ instance Prelude.NFData DisassociateTrialComponent where
     Prelude.rnf trialComponentName
       `Prelude.seq` Prelude.rnf trialName
 
-instance Core.ToHeaders DisassociateTrialComponent where
+instance Data.ToHeaders DisassociateTrialComponent where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.DisassociateTrialComponent" ::
+              Data.=# ( "SageMaker.DisassociateTrialComponent" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisassociateTrialComponent where
+instance Data.ToJSON DisassociateTrialComponent where
   toJSON DisassociateTrialComponent' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("TrialComponentName" Core..= trialComponentName),
-            Prelude.Just ("TrialName" Core..= trialName)
+              ("TrialComponentName" Data..= trialComponentName),
+            Prelude.Just ("TrialName" Data..= trialName)
           ]
       )
 
-instance Core.ToPath DisassociateTrialComponent where
+instance Data.ToPath DisassociateTrialComponent where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisassociateTrialComponent where
+instance Data.ToQuery DisassociateTrialComponent where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateTrialComponentResponse' smart constructor.
 data DisassociateTrialComponentResponse = DisassociateTrialComponentResponse'
   { -- | The Amazon Resource Name (ARN) of the trial.
     trialArn :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the trial component.
+    -- | The Amazon Resource Name (ARN) of the trial component.
     trialComponentArn :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -176,7 +178,7 @@ data DisassociateTrialComponentResponse = DisassociateTrialComponentResponse'
 --
 -- 'trialArn', 'disassociateTrialComponentResponse_trialArn' - The Amazon Resource Name (ARN) of the trial.
 --
--- 'trialComponentArn', 'disassociateTrialComponentResponse_trialComponentArn' - The ARN of the trial component.
+-- 'trialComponentArn', 'disassociateTrialComponentResponse_trialComponentArn' - The Amazon Resource Name (ARN) of the trial component.
 --
 -- 'httpStatus', 'disassociateTrialComponentResponse_httpStatus' - The response's http status code.
 newDisassociateTrialComponentResponse ::
@@ -195,7 +197,7 @@ newDisassociateTrialComponentResponse pHttpStatus_ =
 disassociateTrialComponentResponse_trialArn :: Lens.Lens' DisassociateTrialComponentResponse (Prelude.Maybe Prelude.Text)
 disassociateTrialComponentResponse_trialArn = Lens.lens (\DisassociateTrialComponentResponse' {trialArn} -> trialArn) (\s@DisassociateTrialComponentResponse' {} a -> s {trialArn = a} :: DisassociateTrialComponentResponse)
 
--- | The ARN of the trial component.
+-- | The Amazon Resource Name (ARN) of the trial component.
 disassociateTrialComponentResponse_trialComponentArn :: Lens.Lens' DisassociateTrialComponentResponse (Prelude.Maybe Prelude.Text)
 disassociateTrialComponentResponse_trialComponentArn = Lens.lens (\DisassociateTrialComponentResponse' {trialComponentArn} -> trialComponentArn) (\s@DisassociateTrialComponentResponse' {} a -> s {trialComponentArn = a} :: DisassociateTrialComponentResponse)
 

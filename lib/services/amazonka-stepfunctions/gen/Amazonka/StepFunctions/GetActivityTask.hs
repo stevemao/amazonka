@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StepFunctions.GetActivityTask
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,6 +27,8 @@
 -- task of this type is needed.) The maximum time the service holds on to
 -- the request before responding is 60 seconds. If no task is available
 -- within 60 seconds, the poll returns a @taskToken@ with a null string.
+--
+-- This API action isn\'t logged in CloudTrail.
 --
 -- Workers should set their client side socket timeout to at least 65
 -- seconds (5 seconds higher than the maximum time the service may hold the
@@ -57,7 +59,8 @@ module Amazonka.StepFunctions.GetActivityTask
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -114,13 +117,14 @@ instance Core.AWSRequest GetActivityTask where
   type
     AWSResponse GetActivityTask =
       GetActivityTaskResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetActivityTaskResponse'
-            Prelude.<$> (x Core..?> "input")
-            Prelude.<*> (x Core..?> "taskToken")
+            Prelude.<$> (x Data..?> "input")
+            Prelude.<*> (x Data..?> "taskToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -134,34 +138,34 @@ instance Prelude.NFData GetActivityTask where
     Prelude.rnf workerName
       `Prelude.seq` Prelude.rnf activityArn
 
-instance Core.ToHeaders GetActivityTask where
+instance Data.ToHeaders GetActivityTask where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSStepFunctions.GetActivityTask" ::
+              Data.=# ( "AWSStepFunctions.GetActivityTask" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetActivityTask where
+instance Data.ToJSON GetActivityTask where
   toJSON GetActivityTask' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("workerName" Core..=) Prelude.<$> workerName,
-            Prelude.Just ("activityArn" Core..= activityArn)
+          [ ("workerName" Data..=) Prelude.<$> workerName,
+            Prelude.Just ("activityArn" Data..= activityArn)
           ]
       )
 
-instance Core.ToPath GetActivityTask where
+instance Data.ToPath GetActivityTask where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetActivityTask where
+instance Data.ToQuery GetActivityTask where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetActivityTaskResponse' smart constructor.
@@ -169,7 +173,7 @@ data GetActivityTaskResponse = GetActivityTaskResponse'
   { -- | The string that contains the JSON input data for the task. Length
     -- constraints apply to the payload size, and are expressed as bytes in
     -- UTF-8 encoding.
-    input :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    input :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | A token that identifies the scheduled task. This token must be copied
     -- and included in subsequent calls to SendTaskHeartbeat, SendTaskSuccess
     -- or SendTaskFailure in order to report the progress or completion of the
@@ -213,7 +217,7 @@ newGetActivityTaskResponse pHttpStatus_ =
 -- constraints apply to the payload size, and are expressed as bytes in
 -- UTF-8 encoding.
 getActivityTaskResponse_input :: Lens.Lens' GetActivityTaskResponse (Prelude.Maybe Prelude.Text)
-getActivityTaskResponse_input = Lens.lens (\GetActivityTaskResponse' {input} -> input) (\s@GetActivityTaskResponse' {} a -> s {input = a} :: GetActivityTaskResponse) Prelude.. Lens.mapping Core._Sensitive
+getActivityTaskResponse_input = Lens.lens (\GetActivityTaskResponse' {input} -> input) (\s@GetActivityTaskResponse' {} a -> s {input = a} :: GetActivityTaskResponse) Prelude.. Lens.mapping Data._Sensitive
 
 -- | A token that identifies the scheduled task. This token must be copied
 -- and included in subsequent calls to SendTaskHeartbeat, SendTaskSuccess

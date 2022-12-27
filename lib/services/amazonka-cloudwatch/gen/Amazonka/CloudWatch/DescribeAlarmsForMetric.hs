@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatch.DescribeAlarmsForMetric
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,11 +33,11 @@ module Amazonka.CloudWatch.DescribeAlarmsForMetric
     newDescribeAlarmsForMetric,
 
     -- * Request Lenses
-    describeAlarmsForMetric_period,
     describeAlarmsForMetric_dimensions,
-    describeAlarmsForMetric_unit,
-    describeAlarmsForMetric_statistic,
     describeAlarmsForMetric_extendedStatistic,
+    describeAlarmsForMetric_period,
+    describeAlarmsForMetric_statistic,
+    describeAlarmsForMetric_unit,
     describeAlarmsForMetric_metricName,
     describeAlarmsForMetric_namespace,
 
@@ -53,27 +53,28 @@ where
 
 import Amazonka.CloudWatch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeAlarmsForMetric' smart constructor.
 data DescribeAlarmsForMetric = DescribeAlarmsForMetric'
-  { -- | The period, in seconds, over which the statistic is applied.
-    period :: Prelude.Maybe Prelude.Natural,
-    -- | The dimensions associated with the metric. If the metric has any
+  { -- | The dimensions associated with the metric. If the metric has any
     -- associated dimensions, you must specify them in order for the call to
     -- succeed.
     dimensions :: Prelude.Maybe [Dimension],
-    -- | The unit for the metric.
-    unit :: Prelude.Maybe StandardUnit,
-    -- | The statistic for the metric, other than percentiles. For percentile
-    -- statistics, use @ExtendedStatistics@.
-    statistic :: Prelude.Maybe Statistic,
     -- | The percentile statistic for the metric. Specify a value between p0.0
     -- and p100.
     extendedStatistic :: Prelude.Maybe Prelude.Text,
+    -- | The period, in seconds, over which the statistic is applied.
+    period :: Prelude.Maybe Prelude.Natural,
+    -- | The statistic for the metric, other than percentiles. For percentile
+    -- statistics, use @ExtendedStatistics@.
+    statistic :: Prelude.Maybe Statistic,
+    -- | The unit for the metric.
+    unit :: Prelude.Maybe StandardUnit,
     -- | The name of the metric.
     metricName :: Prelude.Text,
     -- | The namespace of the metric.
@@ -89,19 +90,19 @@ data DescribeAlarmsForMetric = DescribeAlarmsForMetric'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'period', 'describeAlarmsForMetric_period' - The period, in seconds, over which the statistic is applied.
---
 -- 'dimensions', 'describeAlarmsForMetric_dimensions' - The dimensions associated with the metric. If the metric has any
 -- associated dimensions, you must specify them in order for the call to
 -- succeed.
 --
--- 'unit', 'describeAlarmsForMetric_unit' - The unit for the metric.
+-- 'extendedStatistic', 'describeAlarmsForMetric_extendedStatistic' - The percentile statistic for the metric. Specify a value between p0.0
+-- and p100.
+--
+-- 'period', 'describeAlarmsForMetric_period' - The period, in seconds, over which the statistic is applied.
 --
 -- 'statistic', 'describeAlarmsForMetric_statistic' - The statistic for the metric, other than percentiles. For percentile
 -- statistics, use @ExtendedStatistics@.
 --
--- 'extendedStatistic', 'describeAlarmsForMetric_extendedStatistic' - The percentile statistic for the metric. Specify a value between p0.0
--- and p100.
+-- 'unit', 'describeAlarmsForMetric_unit' - The unit for the metric.
 --
 -- 'metricName', 'describeAlarmsForMetric_metricName' - The name of the metric.
 --
@@ -114,18 +115,15 @@ newDescribeAlarmsForMetric ::
   DescribeAlarmsForMetric
 newDescribeAlarmsForMetric pMetricName_ pNamespace_ =
   DescribeAlarmsForMetric'
-    { period = Prelude.Nothing,
-      dimensions = Prelude.Nothing,
-      unit = Prelude.Nothing,
-      statistic = Prelude.Nothing,
+    { dimensions =
+        Prelude.Nothing,
       extendedStatistic = Prelude.Nothing,
+      period = Prelude.Nothing,
+      statistic = Prelude.Nothing,
+      unit = Prelude.Nothing,
       metricName = pMetricName_,
       namespace = pNamespace_
     }
-
--- | The period, in seconds, over which the statistic is applied.
-describeAlarmsForMetric_period :: Lens.Lens' DescribeAlarmsForMetric (Prelude.Maybe Prelude.Natural)
-describeAlarmsForMetric_period = Lens.lens (\DescribeAlarmsForMetric' {period} -> period) (\s@DescribeAlarmsForMetric' {} a -> s {period = a} :: DescribeAlarmsForMetric)
 
 -- | The dimensions associated with the metric. If the metric has any
 -- associated dimensions, you must specify them in order for the call to
@@ -133,19 +131,23 @@ describeAlarmsForMetric_period = Lens.lens (\DescribeAlarmsForMetric' {period} -
 describeAlarmsForMetric_dimensions :: Lens.Lens' DescribeAlarmsForMetric (Prelude.Maybe [Dimension])
 describeAlarmsForMetric_dimensions = Lens.lens (\DescribeAlarmsForMetric' {dimensions} -> dimensions) (\s@DescribeAlarmsForMetric' {} a -> s {dimensions = a} :: DescribeAlarmsForMetric) Prelude.. Lens.mapping Lens.coerced
 
--- | The unit for the metric.
-describeAlarmsForMetric_unit :: Lens.Lens' DescribeAlarmsForMetric (Prelude.Maybe StandardUnit)
-describeAlarmsForMetric_unit = Lens.lens (\DescribeAlarmsForMetric' {unit} -> unit) (\s@DescribeAlarmsForMetric' {} a -> s {unit = a} :: DescribeAlarmsForMetric)
+-- | The percentile statistic for the metric. Specify a value between p0.0
+-- and p100.
+describeAlarmsForMetric_extendedStatistic :: Lens.Lens' DescribeAlarmsForMetric (Prelude.Maybe Prelude.Text)
+describeAlarmsForMetric_extendedStatistic = Lens.lens (\DescribeAlarmsForMetric' {extendedStatistic} -> extendedStatistic) (\s@DescribeAlarmsForMetric' {} a -> s {extendedStatistic = a} :: DescribeAlarmsForMetric)
+
+-- | The period, in seconds, over which the statistic is applied.
+describeAlarmsForMetric_period :: Lens.Lens' DescribeAlarmsForMetric (Prelude.Maybe Prelude.Natural)
+describeAlarmsForMetric_period = Lens.lens (\DescribeAlarmsForMetric' {period} -> period) (\s@DescribeAlarmsForMetric' {} a -> s {period = a} :: DescribeAlarmsForMetric)
 
 -- | The statistic for the metric, other than percentiles. For percentile
 -- statistics, use @ExtendedStatistics@.
 describeAlarmsForMetric_statistic :: Lens.Lens' DescribeAlarmsForMetric (Prelude.Maybe Statistic)
 describeAlarmsForMetric_statistic = Lens.lens (\DescribeAlarmsForMetric' {statistic} -> statistic) (\s@DescribeAlarmsForMetric' {} a -> s {statistic = a} :: DescribeAlarmsForMetric)
 
--- | The percentile statistic for the metric. Specify a value between p0.0
--- and p100.
-describeAlarmsForMetric_extendedStatistic :: Lens.Lens' DescribeAlarmsForMetric (Prelude.Maybe Prelude.Text)
-describeAlarmsForMetric_extendedStatistic = Lens.lens (\DescribeAlarmsForMetric' {extendedStatistic} -> extendedStatistic) (\s@DescribeAlarmsForMetric' {} a -> s {extendedStatistic = a} :: DescribeAlarmsForMetric)
+-- | The unit for the metric.
+describeAlarmsForMetric_unit :: Lens.Lens' DescribeAlarmsForMetric (Prelude.Maybe StandardUnit)
+describeAlarmsForMetric_unit = Lens.lens (\DescribeAlarmsForMetric' {unit} -> unit) (\s@DescribeAlarmsForMetric' {} a -> s {unit = a} :: DescribeAlarmsForMetric)
 
 -- | The name of the metric.
 describeAlarmsForMetric_metricName :: Lens.Lens' DescribeAlarmsForMetric Prelude.Text
@@ -159,60 +161,61 @@ instance Core.AWSRequest DescribeAlarmsForMetric where
   type
     AWSResponse DescribeAlarmsForMetric =
       DescribeAlarmsForMetricResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeAlarmsForMetricResult"
       ( \s h x ->
           DescribeAlarmsForMetricResponse'
-            Prelude.<$> ( x Core..@? "MetricAlarms" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> ( x Data..@? "MetricAlarms" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeAlarmsForMetric where
   hashWithSalt _salt DescribeAlarmsForMetric' {..} =
-    _salt `Prelude.hashWithSalt` period
-      `Prelude.hashWithSalt` dimensions
-      `Prelude.hashWithSalt` unit
-      `Prelude.hashWithSalt` statistic
+    _salt `Prelude.hashWithSalt` dimensions
       `Prelude.hashWithSalt` extendedStatistic
+      `Prelude.hashWithSalt` period
+      `Prelude.hashWithSalt` statistic
+      `Prelude.hashWithSalt` unit
       `Prelude.hashWithSalt` metricName
       `Prelude.hashWithSalt` namespace
 
 instance Prelude.NFData DescribeAlarmsForMetric where
   rnf DescribeAlarmsForMetric' {..} =
-    Prelude.rnf period
-      `Prelude.seq` Prelude.rnf dimensions
-      `Prelude.seq` Prelude.rnf unit
-      `Prelude.seq` Prelude.rnf statistic
+    Prelude.rnf dimensions
       `Prelude.seq` Prelude.rnf extendedStatistic
+      `Prelude.seq` Prelude.rnf period
+      `Prelude.seq` Prelude.rnf statistic
+      `Prelude.seq` Prelude.rnf unit
       `Prelude.seq` Prelude.rnf metricName
       `Prelude.seq` Prelude.rnf namespace
 
-instance Core.ToHeaders DescribeAlarmsForMetric where
+instance Data.ToHeaders DescribeAlarmsForMetric where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeAlarmsForMetric where
+instance Data.ToPath DescribeAlarmsForMetric where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeAlarmsForMetric where
+instance Data.ToQuery DescribeAlarmsForMetric where
   toQuery DescribeAlarmsForMetric' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeAlarmsForMetric" :: Prelude.ByteString),
+          Data.=: ("DescribeAlarmsForMetric" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-08-01" :: Prelude.ByteString),
-        "Period" Core.=: period,
+          Data.=: ("2010-08-01" :: Prelude.ByteString),
         "Dimensions"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> dimensions),
-        "Unit" Core.=: unit,
-        "Statistic" Core.=: statistic,
-        "ExtendedStatistic" Core.=: extendedStatistic,
-        "MetricName" Core.=: metricName,
-        "Namespace" Core.=: namespace
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> dimensions),
+        "ExtendedStatistic" Data.=: extendedStatistic,
+        "Period" Data.=: period,
+        "Statistic" Data.=: statistic,
+        "Unit" Data.=: unit,
+        "MetricName" Data.=: metricName,
+        "Namespace" Data.=: namespace
       ]
 
 -- | /See:/ 'newDescribeAlarmsForMetricResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.GetPasswordData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -65,8 +65,9 @@ module Amazonka.EC2.GetPasswordData
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -122,15 +123,16 @@ instance Core.AWSRequest GetPasswordData where
   type
     AWSResponse GetPasswordData =
       GetPasswordDataResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetPasswordDataResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "instanceId")
-            Prelude.<*> (x Core..@ "passwordData")
-            Prelude.<*> (x Core..@ "timestamp")
+            Prelude.<*> (x Data..@ "instanceId")
+            Prelude.<*> (x Data..@ "passwordData")
+            Prelude.<*> (x Data..@ "timestamp")
       )
 
 instance Prelude.Hashable GetPasswordData where
@@ -143,21 +145,21 @@ instance Prelude.NFData GetPasswordData where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf instanceId
 
-instance Core.ToHeaders GetPasswordData where
+instance Data.ToHeaders GetPasswordData where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetPasswordData where
+instance Data.ToPath GetPasswordData where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetPasswordData where
+instance Data.ToQuery GetPasswordData where
   toQuery GetPasswordData' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("GetPasswordData" :: Prelude.ByteString),
+          Data.=: ("GetPasswordData" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "InstanceId" Core.=: instanceId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "InstanceId" Data.=: instanceId
       ]
 
 -- | /See:/ 'newGetPasswordDataResponse' smart constructor.
@@ -170,7 +172,7 @@ data GetPasswordDataResponse = GetPasswordDataResponse'
     -- not available.
     passwordData :: Prelude.Text,
     -- | The time the data was last updated.
-    timestamp :: Core.ISO8601
+    timestamp :: Data.ISO8601
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -209,7 +211,7 @@ newGetPasswordDataResponse
       { httpStatus = pHttpStatus_,
         instanceId = pInstanceId_,
         passwordData = pPasswordData_,
-        timestamp = Core._Time Lens.# pTimestamp_
+        timestamp = Data._Time Lens.# pTimestamp_
       }
 
 -- | The response's http status code.
@@ -227,7 +229,7 @@ getPasswordDataResponse_passwordData = Lens.lens (\GetPasswordDataResponse' {pas
 
 -- | The time the data was last updated.
 getPasswordDataResponse_timestamp :: Lens.Lens' GetPasswordDataResponse Prelude.UTCTime
-getPasswordDataResponse_timestamp = Lens.lens (\GetPasswordDataResponse' {timestamp} -> timestamp) (\s@GetPasswordDataResponse' {} a -> s {timestamp = a} :: GetPasswordDataResponse) Prelude.. Core._Time
+getPasswordDataResponse_timestamp = Lens.lens (\GetPasswordDataResponse' {timestamp} -> timestamp) (\s@GetPasswordDataResponse' {} a -> s {timestamp = a} :: GetPasswordDataResponse) Prelude.. Data._Time
 
 instance Prelude.NFData GetPasswordDataResponse where
   rnf GetPasswordDataResponse' {..} =

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsElbLoadBalancerConnectionDraining
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsElbLoadBalancerConnectionDraining where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the connection draining configuration for the
@@ -67,16 +68,16 @@ awsElbLoadBalancerConnectionDraining_timeout :: Lens.Lens' AwsElbLoadBalancerCon
 awsElbLoadBalancerConnectionDraining_timeout = Lens.lens (\AwsElbLoadBalancerConnectionDraining' {timeout} -> timeout) (\s@AwsElbLoadBalancerConnectionDraining' {} a -> s {timeout = a} :: AwsElbLoadBalancerConnectionDraining)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsElbLoadBalancerConnectionDraining
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsElbLoadBalancerConnectionDraining"
       ( \x ->
           AwsElbLoadBalancerConnectionDraining'
-            Prelude.<$> (x Core..:? "Enabled")
-            Prelude.<*> (x Core..:? "Timeout")
+            Prelude.<$> (x Data..:? "Enabled")
+            Prelude.<*> (x Data..:? "Timeout")
       )
 
 instance
@@ -98,13 +99,13 @@ instance
       `Prelude.seq` Prelude.rnf timeout
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsElbLoadBalancerConnectionDraining
   where
   toJSON AwsElbLoadBalancerConnectionDraining' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Enabled" Core..=) Prelude.<$> enabled,
-            ("Timeout" Core..=) Prelude.<$> timeout
+          [ ("Enabled" Data..=) Prelude.<$> enabled,
+            ("Timeout" Data..=) Prelude.<$> timeout
           ]
       )

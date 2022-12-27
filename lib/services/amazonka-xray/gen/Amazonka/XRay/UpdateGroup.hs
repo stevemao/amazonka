@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.XRay.UpdateGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,9 +28,9 @@ module Amazonka.XRay.UpdateGroup
 
     -- * Request Lenses
     updateGroup_filterExpression,
-    updateGroup_insightsConfiguration,
     updateGroup_groupARN,
     updateGroup_groupName,
+    updateGroup_insightsConfiguration,
 
     -- * Destructuring the Response
     UpdateGroupResponse (..),
@@ -43,7 +43,8 @@ module Amazonka.XRay.UpdateGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,19 +55,19 @@ data UpdateGroup = UpdateGroup'
   { -- | The updated filter expression defining criteria by which to group
     -- traces.
     filterExpression :: Prelude.Maybe Prelude.Text,
+    -- | The ARN that was generated upon creation.
+    groupARN :: Prelude.Maybe Prelude.Text,
+    -- | The case-sensitive name of the group.
+    groupName :: Prelude.Maybe Prelude.Text,
     -- | The structure containing configurations related to insights.
     --
     -- -   The InsightsEnabled boolean can be set to true to enable insights
     --     for the group or false to disable insights for the group.
     --
-    -- -   The NotifcationsEnabled boolean can be set to true to enable
+    -- -   The NotificationsEnabled boolean can be set to true to enable
     --     insights notifications for the group. Notifications can only be
     --     enabled on a group with InsightsEnabled set to true.
-    insightsConfiguration :: Prelude.Maybe InsightsConfiguration,
-    -- | The ARN that was generated upon creation.
-    groupARN :: Prelude.Maybe Prelude.Text,
-    -- | The case-sensitive name of the group.
-    groupName :: Prelude.Maybe Prelude.Text
+    insightsConfiguration :: Prelude.Maybe InsightsConfiguration
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -81,43 +82,32 @@ data UpdateGroup = UpdateGroup'
 -- 'filterExpression', 'updateGroup_filterExpression' - The updated filter expression defining criteria by which to group
 -- traces.
 --
+-- 'groupARN', 'updateGroup_groupARN' - The ARN that was generated upon creation.
+--
+-- 'groupName', 'updateGroup_groupName' - The case-sensitive name of the group.
+--
 -- 'insightsConfiguration', 'updateGroup_insightsConfiguration' - The structure containing configurations related to insights.
 --
 -- -   The InsightsEnabled boolean can be set to true to enable insights
 --     for the group or false to disable insights for the group.
 --
--- -   The NotifcationsEnabled boolean can be set to true to enable
+-- -   The NotificationsEnabled boolean can be set to true to enable
 --     insights notifications for the group. Notifications can only be
 --     enabled on a group with InsightsEnabled set to true.
---
--- 'groupARN', 'updateGroup_groupARN' - The ARN that was generated upon creation.
---
--- 'groupName', 'updateGroup_groupName' - The case-sensitive name of the group.
 newUpdateGroup ::
   UpdateGroup
 newUpdateGroup =
   UpdateGroup'
     { filterExpression = Prelude.Nothing,
-      insightsConfiguration = Prelude.Nothing,
       groupARN = Prelude.Nothing,
-      groupName = Prelude.Nothing
+      groupName = Prelude.Nothing,
+      insightsConfiguration = Prelude.Nothing
     }
 
 -- | The updated filter expression defining criteria by which to group
 -- traces.
 updateGroup_filterExpression :: Lens.Lens' UpdateGroup (Prelude.Maybe Prelude.Text)
 updateGroup_filterExpression = Lens.lens (\UpdateGroup' {filterExpression} -> filterExpression) (\s@UpdateGroup' {} a -> s {filterExpression = a} :: UpdateGroup)
-
--- | The structure containing configurations related to insights.
---
--- -   The InsightsEnabled boolean can be set to true to enable insights
---     for the group or false to disable insights for the group.
---
--- -   The NotifcationsEnabled boolean can be set to true to enable
---     insights notifications for the group. Notifications can only be
---     enabled on a group with InsightsEnabled set to true.
-updateGroup_insightsConfiguration :: Lens.Lens' UpdateGroup (Prelude.Maybe InsightsConfiguration)
-updateGroup_insightsConfiguration = Lens.lens (\UpdateGroup' {insightsConfiguration} -> insightsConfiguration) (\s@UpdateGroup' {} a -> s {insightsConfiguration = a} :: UpdateGroup)
 
 -- | The ARN that was generated upon creation.
 updateGroup_groupARN :: Lens.Lens' UpdateGroup (Prelude.Maybe Prelude.Text)
@@ -127,51 +117,63 @@ updateGroup_groupARN = Lens.lens (\UpdateGroup' {groupARN} -> groupARN) (\s@Upda
 updateGroup_groupName :: Lens.Lens' UpdateGroup (Prelude.Maybe Prelude.Text)
 updateGroup_groupName = Lens.lens (\UpdateGroup' {groupName} -> groupName) (\s@UpdateGroup' {} a -> s {groupName = a} :: UpdateGroup)
 
+-- | The structure containing configurations related to insights.
+--
+-- -   The InsightsEnabled boolean can be set to true to enable insights
+--     for the group or false to disable insights for the group.
+--
+-- -   The NotificationsEnabled boolean can be set to true to enable
+--     insights notifications for the group. Notifications can only be
+--     enabled on a group with InsightsEnabled set to true.
+updateGroup_insightsConfiguration :: Lens.Lens' UpdateGroup (Prelude.Maybe InsightsConfiguration)
+updateGroup_insightsConfiguration = Lens.lens (\UpdateGroup' {insightsConfiguration} -> insightsConfiguration) (\s@UpdateGroup' {} a -> s {insightsConfiguration = a} :: UpdateGroup)
+
 instance Core.AWSRequest UpdateGroup where
   type AWSResponse UpdateGroup = UpdateGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateGroupResponse'
-            Prelude.<$> (x Core..?> "Group")
+            Prelude.<$> (x Data..?> "Group")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateGroup where
   hashWithSalt _salt UpdateGroup' {..} =
     _salt `Prelude.hashWithSalt` filterExpression
-      `Prelude.hashWithSalt` insightsConfiguration
       `Prelude.hashWithSalt` groupARN
       `Prelude.hashWithSalt` groupName
+      `Prelude.hashWithSalt` insightsConfiguration
 
 instance Prelude.NFData UpdateGroup where
   rnf UpdateGroup' {..} =
     Prelude.rnf filterExpression
-      `Prelude.seq` Prelude.rnf insightsConfiguration
       `Prelude.seq` Prelude.rnf groupARN
       `Prelude.seq` Prelude.rnf groupName
+      `Prelude.seq` Prelude.rnf insightsConfiguration
 
-instance Core.ToHeaders UpdateGroup where
+instance Data.ToHeaders UpdateGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateGroup where
+instance Data.ToJSON UpdateGroup where
   toJSON UpdateGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("FilterExpression" Core..=)
+          [ ("FilterExpression" Data..=)
               Prelude.<$> filterExpression,
-            ("InsightsConfiguration" Core..=)
-              Prelude.<$> insightsConfiguration,
-            ("GroupARN" Core..=) Prelude.<$> groupARN,
-            ("GroupName" Core..=) Prelude.<$> groupName
+            ("GroupARN" Data..=) Prelude.<$> groupARN,
+            ("GroupName" Data..=) Prelude.<$> groupName,
+            ("InsightsConfiguration" Data..=)
+              Prelude.<$> insightsConfiguration
           ]
       )
 
-instance Core.ToPath UpdateGroup where
+instance Data.ToPath UpdateGroup where
   toPath = Prelude.const "/UpdateGroup"
 
-instance Core.ToQuery UpdateGroup where
+instance Data.ToQuery UpdateGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateGroupResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkSpaces.CreateUpdatedWorkspaceImage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@
 -- Amazon WorkSpaces requirements, use
 -- <https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceImages.html DescribeWorkspaceImages>.
 --
--- -   Only Windows 10 WorkSpace images can be programmatically updated at
---     this time.
+-- -   Only Windows 10, Windows Sever 2016, and Windows Server 2019
+--     WorkSpace images can be programmatically updated at this time.
 --
 -- -   Microsoft Windows updates and other application updates are not
 --     included in the update process.
@@ -59,7 +59,8 @@ module Amazonka.WorkSpaces.CreateUpdatedWorkspaceImage
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -145,12 +146,13 @@ instance Core.AWSRequest CreateUpdatedWorkspaceImage where
   type
     AWSResponse CreateUpdatedWorkspaceImage =
       CreateUpdatedWorkspaceImageResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateUpdatedWorkspaceImageResponse'
-            Prelude.<$> (x Core..?> "ImageId")
+            Prelude.<$> (x Data..?> "ImageId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -168,37 +170,37 @@ instance Prelude.NFData CreateUpdatedWorkspaceImage where
       `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf sourceImageId
 
-instance Core.ToHeaders CreateUpdatedWorkspaceImage where
+instance Data.ToHeaders CreateUpdatedWorkspaceImage where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkspacesService.CreateUpdatedWorkspaceImage" ::
+              Data.=# ( "WorkspacesService.CreateUpdatedWorkspaceImage" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateUpdatedWorkspaceImage where
+instance Data.ToJSON CreateUpdatedWorkspaceImage where
   toJSON CreateUpdatedWorkspaceImage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Description" Core..= description),
+          [ ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Description" Data..= description),
             Prelude.Just
-              ("SourceImageId" Core..= sourceImageId)
+              ("SourceImageId" Data..= sourceImageId)
           ]
       )
 
-instance Core.ToPath CreateUpdatedWorkspaceImage where
+instance Data.ToPath CreateUpdatedWorkspaceImage where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateUpdatedWorkspaceImage where
+instance Data.ToQuery CreateUpdatedWorkspaceImage where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateUpdatedWorkspaceImageResponse' smart constructor.

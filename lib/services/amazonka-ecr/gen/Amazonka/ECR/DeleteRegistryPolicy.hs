@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECR.DeleteRegistryPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,15 +31,16 @@ module Amazonka.ECR.DeleteRegistryPolicy
     newDeleteRegistryPolicyResponse,
 
     -- * Response Lenses
-    deleteRegistryPolicyResponse_registryId,
     deleteRegistryPolicyResponse_policyText,
+    deleteRegistryPolicyResponse_registryId,
     deleteRegistryPolicyResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,13 +63,14 @@ instance Core.AWSRequest DeleteRegistryPolicy where
   type
     AWSResponse DeleteRegistryPolicy =
       DeleteRegistryPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteRegistryPolicyResponse'
-            Prelude.<$> (x Core..?> "registryId")
-            Prelude.<*> (x Core..?> "policyText")
+            Prelude.<$> (x Data..?> "policyText")
+            Prelude.<*> (x Data..?> "registryId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -79,36 +81,36 @@ instance Prelude.Hashable DeleteRegistryPolicy where
 instance Prelude.NFData DeleteRegistryPolicy where
   rnf _ = ()
 
-instance Core.ToHeaders DeleteRegistryPolicy where
+instance Data.ToHeaders DeleteRegistryPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerRegistry_V20150921.DeleteRegistryPolicy" ::
+              Data.=# ( "AmazonEC2ContainerRegistry_V20150921.DeleteRegistryPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteRegistryPolicy where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON DeleteRegistryPolicy where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath DeleteRegistryPolicy where
+instance Data.ToPath DeleteRegistryPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteRegistryPolicy where
+instance Data.ToQuery DeleteRegistryPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteRegistryPolicyResponse' smart constructor.
 data DeleteRegistryPolicyResponse = DeleteRegistryPolicyResponse'
-  { -- | The registry ID associated with the request.
-    registryId :: Prelude.Maybe Prelude.Text,
-    -- | The contents of the registry permissions policy that was deleted.
+  { -- | The contents of the registry permissions policy that was deleted.
     policyText :: Prelude.Maybe Prelude.Text,
+    -- | The registry ID associated with the request.
+    registryId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -122,9 +124,9 @@ data DeleteRegistryPolicyResponse = DeleteRegistryPolicyResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'registryId', 'deleteRegistryPolicyResponse_registryId' - The registry ID associated with the request.
---
 -- 'policyText', 'deleteRegistryPolicyResponse_policyText' - The contents of the registry permissions policy that was deleted.
+--
+-- 'registryId', 'deleteRegistryPolicyResponse_registryId' - The registry ID associated with the request.
 --
 -- 'httpStatus', 'deleteRegistryPolicyResponse_httpStatus' - The response's http status code.
 newDeleteRegistryPolicyResponse ::
@@ -133,19 +135,19 @@ newDeleteRegistryPolicyResponse ::
   DeleteRegistryPolicyResponse
 newDeleteRegistryPolicyResponse pHttpStatus_ =
   DeleteRegistryPolicyResponse'
-    { registryId =
+    { policyText =
         Prelude.Nothing,
-      policyText = Prelude.Nothing,
+      registryId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The registry ID associated with the request.
-deleteRegistryPolicyResponse_registryId :: Lens.Lens' DeleteRegistryPolicyResponse (Prelude.Maybe Prelude.Text)
-deleteRegistryPolicyResponse_registryId = Lens.lens (\DeleteRegistryPolicyResponse' {registryId} -> registryId) (\s@DeleteRegistryPolicyResponse' {} a -> s {registryId = a} :: DeleteRegistryPolicyResponse)
 
 -- | The contents of the registry permissions policy that was deleted.
 deleteRegistryPolicyResponse_policyText :: Lens.Lens' DeleteRegistryPolicyResponse (Prelude.Maybe Prelude.Text)
 deleteRegistryPolicyResponse_policyText = Lens.lens (\DeleteRegistryPolicyResponse' {policyText} -> policyText) (\s@DeleteRegistryPolicyResponse' {} a -> s {policyText = a} :: DeleteRegistryPolicyResponse)
+
+-- | The registry ID associated with the request.
+deleteRegistryPolicyResponse_registryId :: Lens.Lens' DeleteRegistryPolicyResponse (Prelude.Maybe Prelude.Text)
+deleteRegistryPolicyResponse_registryId = Lens.lens (\DeleteRegistryPolicyResponse' {registryId} -> registryId) (\s@DeleteRegistryPolicyResponse' {} a -> s {registryId = a} :: DeleteRegistryPolicyResponse)
 
 -- | The response's http status code.
 deleteRegistryPolicyResponse_httpStatus :: Lens.Lens' DeleteRegistryPolicyResponse Prelude.Int
@@ -153,6 +155,6 @@ deleteRegistryPolicyResponse_httpStatus = Lens.lens (\DeleteRegistryPolicyRespon
 
 instance Prelude.NFData DeleteRegistryPolicyResponse where
   rnf DeleteRegistryPolicyResponse' {..} =
-    Prelude.rnf registryId
-      `Prelude.seq` Prelude.rnf policyText
+    Prelude.rnf policyText
+      `Prelude.seq` Prelude.rnf registryId
       `Prelude.seq` Prelude.rnf httpStatus

@@ -6,21 +6,13 @@
 
 -- |
 -- Module      : Amazonka.MarketplaceMetering.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 module Amazonka.MarketplaceMetering.Lens
   ( -- * Operations
-
-    -- ** RegisterUsage
-    registerUsage_nonce,
-    registerUsage_productCode,
-    registerUsage_publicKeyVersion,
-    registerUsageResponse_signature,
-    registerUsageResponse_publicKeyRotationTimestamp,
-    registerUsageResponse_httpStatus,
 
     -- ** BatchMeterUsage
     batchMeterUsage_usageRecords,
@@ -29,21 +21,30 @@ module Amazonka.MarketplaceMetering.Lens
     batchMeterUsageResponse_unprocessedRecords,
     batchMeterUsageResponse_httpStatus,
 
-    -- ** ResolveCustomer
-    resolveCustomer_registrationToken,
-    resolveCustomerResponse_customerIdentifier,
-    resolveCustomerResponse_productCode,
-    resolveCustomerResponse_httpStatus,
-
     -- ** MeterUsage
-    meterUsage_usageQuantity,
-    meterUsage_usageAllocations,
     meterUsage_dryRun,
+    meterUsage_usageAllocations,
+    meterUsage_usageQuantity,
     meterUsage_productCode,
     meterUsage_timestamp,
     meterUsage_usageDimension,
     meterUsageResponse_meteringRecordId,
     meterUsageResponse_httpStatus,
+
+    -- ** RegisterUsage
+    registerUsage_nonce,
+    registerUsage_productCode,
+    registerUsage_publicKeyVersion,
+    registerUsageResponse_publicKeyRotationTimestamp,
+    registerUsageResponse_signature,
+    registerUsageResponse_httpStatus,
+
+    -- ** ResolveCustomer
+    resolveCustomer_registrationToken,
+    resolveCustomerResponse_customerAWSAccountId,
+    resolveCustomerResponse_customerIdentifier,
+    resolveCustomerResponse_productCode,
+    resolveCustomerResponse_httpStatus,
 
     -- * Types
 
@@ -63,9 +64,9 @@ module Amazonka.MarketplaceMetering.Lens
     usageRecord_dimension,
 
     -- ** UsageRecordResult
+    usageRecordResult_meteringRecordId,
     usageRecordResult_status,
     usageRecordResult_usageRecord,
-    usageRecordResult_meteringRecordId,
   )
 where
 

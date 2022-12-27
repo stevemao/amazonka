@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.MarketplaceEntitlement.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -15,28 +15,28 @@ module Amazonka.MarketplaceEntitlement.Lens
   ( -- * Operations
 
     -- ** GetEntitlements
-    getEntitlements_nextToken,
     getEntitlements_filter,
     getEntitlements_maxResults,
+    getEntitlements_nextToken,
     getEntitlements_productCode,
-    getEntitlementsResponse_nextToken,
     getEntitlementsResponse_entitlements,
+    getEntitlementsResponse_nextToken,
     getEntitlementsResponse_httpStatus,
 
     -- * Types
 
     -- ** Entitlement
-    entitlement_dimension,
-    entitlement_value,
-    entitlement_expirationDate,
     entitlement_customerIdentifier,
+    entitlement_dimension,
+    entitlement_expirationDate,
     entitlement_productCode,
+    entitlement_value,
 
     -- ** EntitlementValue
-    entitlementValue_integerValue,
-    entitlementValue_doubleValue,
-    entitlementValue_stringValue,
     entitlementValue_booleanValue,
+    entitlementValue_doubleValue,
+    entitlementValue_integerValue,
+    entitlementValue_stringValue,
   )
 where
 

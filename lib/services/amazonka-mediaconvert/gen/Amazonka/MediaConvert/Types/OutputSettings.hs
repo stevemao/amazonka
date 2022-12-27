@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.OutputSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.OutputSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types.HlsSettings
 import qualified Amazonka.Prelude as Prelude
 
@@ -51,13 +52,13 @@ newOutputSettings =
 outputSettings_hlsSettings :: Lens.Lens' OutputSettings (Prelude.Maybe HlsSettings)
 outputSettings_hlsSettings = Lens.lens (\OutputSettings' {hlsSettings} -> hlsSettings) (\s@OutputSettings' {} a -> s {hlsSettings = a} :: OutputSettings)
 
-instance Core.FromJSON OutputSettings where
+instance Data.FromJSON OutputSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OutputSettings"
       ( \x ->
           OutputSettings'
-            Prelude.<$> (x Core..:? "hlsSettings")
+            Prelude.<$> (x Data..:? "hlsSettings")
       )
 
 instance Prelude.Hashable OutputSettings where
@@ -67,9 +68,9 @@ instance Prelude.Hashable OutputSettings where
 instance Prelude.NFData OutputSettings where
   rnf OutputSettings' {..} = Prelude.rnf hlsSettings
 
-instance Core.ToJSON OutputSettings where
+instance Data.ToJSON OutputSettings where
   toJSON OutputSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("hlsSettings" Core..=) Prelude.<$> hlsSettings]
+          [("hlsSettings" Data..=) Prelude.<$> hlsSettings]
       )

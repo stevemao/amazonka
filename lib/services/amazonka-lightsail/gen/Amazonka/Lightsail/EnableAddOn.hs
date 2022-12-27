@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.EnableAddOn
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.Lightsail.EnableAddOn
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -94,12 +95,13 @@ enableAddOn_addOnRequest = Lens.lens (\EnableAddOn' {addOnRequest} -> addOnReque
 
 instance Core.AWSRequest EnableAddOn where
   type AWSResponse EnableAddOn = EnableAddOnResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           EnableAddOnResponse'
-            Prelude.<$> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -113,34 +115,34 @@ instance Prelude.NFData EnableAddOn where
     Prelude.rnf resourceName
       `Prelude.seq` Prelude.rnf addOnRequest
 
-instance Core.ToHeaders EnableAddOn where
+instance Data.ToHeaders EnableAddOn where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.EnableAddOn" ::
+              Data.=# ( "Lightsail_20161128.EnableAddOn" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON EnableAddOn where
+instance Data.ToJSON EnableAddOn where
   toJSON EnableAddOn' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("resourceName" Core..= resourceName),
-            Prelude.Just ("addOnRequest" Core..= addOnRequest)
+          [ Prelude.Just ("resourceName" Data..= resourceName),
+            Prelude.Just ("addOnRequest" Data..= addOnRequest)
           ]
       )
 
-instance Core.ToPath EnableAddOn where
+instance Data.ToPath EnableAddOn where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery EnableAddOn where
+instance Data.ToQuery EnableAddOn where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newEnableAddOnResponse' smart constructor.

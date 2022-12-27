@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.UpdatePipelineExecution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,9 @@ module Amazonka.SageMaker.UpdatePipelineExecution
     newUpdatePipelineExecution,
 
     -- * Request Lenses
-    updatePipelineExecution_pipelineExecutionDisplayName,
+    updatePipelineExecution_parallelismConfiguration,
     updatePipelineExecution_pipelineExecutionDescription,
+    updatePipelineExecution_pipelineExecutionDisplayName,
     updatePipelineExecution_pipelineExecutionArn,
 
     -- * Destructuring the Response
@@ -42,7 +43,8 @@ module Amazonka.SageMaker.UpdatePipelineExecution
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -50,10 +52,13 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newUpdatePipelineExecution' smart constructor.
 data UpdatePipelineExecution = UpdatePipelineExecution'
-  { -- | The display name of the pipeline execution.
-    pipelineExecutionDisplayName :: Prelude.Maybe Prelude.Text,
+  { -- | This configuration, if specified, overrides the parallelism
+    -- configuration of the parent pipeline for this specific run.
+    parallelismConfiguration :: Prelude.Maybe ParallelismConfiguration,
     -- | The description of the pipeline execution.
     pipelineExecutionDescription :: Prelude.Maybe Prelude.Text,
+    -- | The display name of the pipeline execution.
+    pipelineExecutionDisplayName :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the pipeline execution.
     pipelineExecutionArn :: Prelude.Text
   }
@@ -67,9 +72,12 @@ data UpdatePipelineExecution = UpdatePipelineExecution'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'pipelineExecutionDisplayName', 'updatePipelineExecution_pipelineExecutionDisplayName' - The display name of the pipeline execution.
+-- 'parallelismConfiguration', 'updatePipelineExecution_parallelismConfiguration' - This configuration, if specified, overrides the parallelism
+-- configuration of the parent pipeline for this specific run.
 --
 -- 'pipelineExecutionDescription', 'updatePipelineExecution_pipelineExecutionDescription' - The description of the pipeline execution.
+--
+-- 'pipelineExecutionDisplayName', 'updatePipelineExecution_pipelineExecutionDisplayName' - The display name of the pipeline execution.
 --
 -- 'pipelineExecutionArn', 'updatePipelineExecution_pipelineExecutionArn' - The Amazon Resource Name (ARN) of the pipeline execution.
 newUpdatePipelineExecution ::
@@ -78,19 +86,25 @@ newUpdatePipelineExecution ::
   UpdatePipelineExecution
 newUpdatePipelineExecution pPipelineExecutionArn_ =
   UpdatePipelineExecution'
-    { pipelineExecutionDisplayName =
+    { parallelismConfiguration =
         Prelude.Nothing,
       pipelineExecutionDescription = Prelude.Nothing,
+      pipelineExecutionDisplayName = Prelude.Nothing,
       pipelineExecutionArn = pPipelineExecutionArn_
     }
 
--- | The display name of the pipeline execution.
-updatePipelineExecution_pipelineExecutionDisplayName :: Lens.Lens' UpdatePipelineExecution (Prelude.Maybe Prelude.Text)
-updatePipelineExecution_pipelineExecutionDisplayName = Lens.lens (\UpdatePipelineExecution' {pipelineExecutionDisplayName} -> pipelineExecutionDisplayName) (\s@UpdatePipelineExecution' {} a -> s {pipelineExecutionDisplayName = a} :: UpdatePipelineExecution)
+-- | This configuration, if specified, overrides the parallelism
+-- configuration of the parent pipeline for this specific run.
+updatePipelineExecution_parallelismConfiguration :: Lens.Lens' UpdatePipelineExecution (Prelude.Maybe ParallelismConfiguration)
+updatePipelineExecution_parallelismConfiguration = Lens.lens (\UpdatePipelineExecution' {parallelismConfiguration} -> parallelismConfiguration) (\s@UpdatePipelineExecution' {} a -> s {parallelismConfiguration = a} :: UpdatePipelineExecution)
 
 -- | The description of the pipeline execution.
 updatePipelineExecution_pipelineExecutionDescription :: Lens.Lens' UpdatePipelineExecution (Prelude.Maybe Prelude.Text)
 updatePipelineExecution_pipelineExecutionDescription = Lens.lens (\UpdatePipelineExecution' {pipelineExecutionDescription} -> pipelineExecutionDescription) (\s@UpdatePipelineExecution' {} a -> s {pipelineExecutionDescription = a} :: UpdatePipelineExecution)
+
+-- | The display name of the pipeline execution.
+updatePipelineExecution_pipelineExecutionDisplayName :: Lens.Lens' UpdatePipelineExecution (Prelude.Maybe Prelude.Text)
+updatePipelineExecution_pipelineExecutionDisplayName = Lens.lens (\UpdatePipelineExecution' {pipelineExecutionDisplayName} -> pipelineExecutionDisplayName) (\s@UpdatePipelineExecution' {} a -> s {pipelineExecutionDisplayName = a} :: UpdatePipelineExecution)
 
 -- | The Amazon Resource Name (ARN) of the pipeline execution.
 updatePipelineExecution_pipelineExecutionArn :: Lens.Lens' UpdatePipelineExecution Prelude.Text
@@ -100,62 +114,67 @@ instance Core.AWSRequest UpdatePipelineExecution where
   type
     AWSResponse UpdatePipelineExecution =
       UpdatePipelineExecutionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdatePipelineExecutionResponse'
-            Prelude.<$> (x Core..?> "PipelineExecutionArn")
+            Prelude.<$> (x Data..?> "PipelineExecutionArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdatePipelineExecution where
   hashWithSalt _salt UpdatePipelineExecution' {..} =
     _salt
-      `Prelude.hashWithSalt` pipelineExecutionDisplayName
+      `Prelude.hashWithSalt` parallelismConfiguration
       `Prelude.hashWithSalt` pipelineExecutionDescription
+      `Prelude.hashWithSalt` pipelineExecutionDisplayName
       `Prelude.hashWithSalt` pipelineExecutionArn
 
 instance Prelude.NFData UpdatePipelineExecution where
   rnf UpdatePipelineExecution' {..} =
-    Prelude.rnf pipelineExecutionDisplayName
+    Prelude.rnf parallelismConfiguration
       `Prelude.seq` Prelude.rnf pipelineExecutionDescription
+      `Prelude.seq` Prelude.rnf pipelineExecutionDisplayName
       `Prelude.seq` Prelude.rnf pipelineExecutionArn
 
-instance Core.ToHeaders UpdatePipelineExecution where
+instance Data.ToHeaders UpdatePipelineExecution where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.UpdatePipelineExecution" ::
+              Data.=# ( "SageMaker.UpdatePipelineExecution" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdatePipelineExecution where
+instance Data.ToJSON UpdatePipelineExecution where
   toJSON UpdatePipelineExecution' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PipelineExecutionDisplayName" Core..=)
-              Prelude.<$> pipelineExecutionDisplayName,
-            ("PipelineExecutionDescription" Core..=)
+          [ ("ParallelismConfiguration" Data..=)
+              Prelude.<$> parallelismConfiguration,
+            ("PipelineExecutionDescription" Data..=)
               Prelude.<$> pipelineExecutionDescription,
+            ("PipelineExecutionDisplayName" Data..=)
+              Prelude.<$> pipelineExecutionDisplayName,
             Prelude.Just
               ( "PipelineExecutionArn"
-                  Core..= pipelineExecutionArn
+                  Data..= pipelineExecutionArn
               )
           ]
       )
 
-instance Core.ToPath UpdatePipelineExecution where
+instance Data.ToPath UpdatePipelineExecution where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdatePipelineExecution where
+instance Data.ToQuery UpdatePipelineExecution where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdatePipelineExecutionResponse' smart constructor.

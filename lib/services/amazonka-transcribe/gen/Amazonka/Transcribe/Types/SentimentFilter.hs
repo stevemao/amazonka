@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Transcribe.Types.SentimentFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,34 +20,53 @@
 module Amazonka.Transcribe.Types.SentimentFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Transcribe.Types.AbsoluteTimeRange
 import Amazonka.Transcribe.Types.ParticipantRole
 import Amazonka.Transcribe.Types.RelativeTimeRange
 import Amazonka.Transcribe.Types.SentimentValue
 
--- | An object that enables you to specify a particular customer or agent
--- sentiment. If at least 50 percent of the conversation turns (the
--- back-and-forth between two speakers) in a specified time period match
--- the specified sentiment, Amazon Transcribe will consider the sentiment a
--- match.
+-- | Flag the presence or absence of specific sentiments detected in your
+-- Call Analytics transcription output.
+--
+-- Rules using @SentimentFilter@ are designed to match:
+--
+-- -   The presence or absence of a positive sentiment felt by the
+--     customer, agent, or both at specified points in the call
+--
+-- -   The presence or absence of a negative sentiment felt by the
+--     customer, agent, or both at specified points in the call
+--
+-- -   The presence or absence of a neutral sentiment felt by the customer,
+--     agent, or both at specified points in the call
+--
+-- -   The presence or absence of a mixed sentiment felt by the customer,
+--     the agent, or both at specified points in the call
+--
+-- See
+-- <https://docs.aws.amazon.com/transcribe/latest/dg/tca-categories-batch.html#tca-rules-batch Rule criteria for batch categories>
+-- for usage examples.
 --
 -- /See:/ 'newSentimentFilter' smart constructor.
 data SentimentFilter = SentimentFilter'
-  { -- | A value that determines whether the sentiment belongs to the customer or
-    -- the agent.
-    participantRole :: Prelude.Maybe ParticipantRole,
-    -- | The time range, set in percentages, that correspond to proportion of the
-    -- call.
-    relativeTimeRange :: Prelude.Maybe RelativeTimeRange,
-    -- | Set to @TRUE@ to look for sentiments that weren\'t specified in the
-    -- request.
-    negate :: Prelude.Maybe Prelude.Bool,
-    -- | The time range, measured in seconds, of the sentiment.
+  { -- | Makes it possible to specify a time range (in milliseconds) in your
+    -- audio, during which you want to search for the specified sentiments. See
+    -- for more detail.
     absoluteTimeRange :: Prelude.Maybe AbsoluteTimeRange,
-    -- | An array that enables you to specify sentiments for the customer or
-    -- agent. You can specify one or more values.
+    -- | Set to @TRUE@ to flag the sentiments that you didn\'t include in your
+    -- request. Set to @FALSE@ to flag the sentiments that you specified in
+    -- your request.
+    negate :: Prelude.Maybe Prelude.Bool,
+    -- | Specify the participant that you want to flag. Omitting this parameter
+    -- is equivalent to specifying both participants.
+    participantRole :: Prelude.Maybe ParticipantRole,
+    -- | Makes it possible to specify a time range (in percentage) in your media
+    -- file, during which you want to search for the specified sentiments. See
+    -- for more detail.
+    relativeTimeRange :: Prelude.Maybe RelativeTimeRange,
+    -- | Specify the sentiments that you want to flag.
     sentiments :: Prelude.NonEmpty SentimentValue
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -60,96 +79,103 @@ data SentimentFilter = SentimentFilter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'participantRole', 'sentimentFilter_participantRole' - A value that determines whether the sentiment belongs to the customer or
--- the agent.
+-- 'absoluteTimeRange', 'sentimentFilter_absoluteTimeRange' - Makes it possible to specify a time range (in milliseconds) in your
+-- audio, during which you want to search for the specified sentiments. See
+-- for more detail.
 --
--- 'relativeTimeRange', 'sentimentFilter_relativeTimeRange' - The time range, set in percentages, that correspond to proportion of the
--- call.
+-- 'negate', 'sentimentFilter_negate' - Set to @TRUE@ to flag the sentiments that you didn\'t include in your
+-- request. Set to @FALSE@ to flag the sentiments that you specified in
+-- your request.
 --
--- 'negate', 'sentimentFilter_negate' - Set to @TRUE@ to look for sentiments that weren\'t specified in the
--- request.
+-- 'participantRole', 'sentimentFilter_participantRole' - Specify the participant that you want to flag. Omitting this parameter
+-- is equivalent to specifying both participants.
 --
--- 'absoluteTimeRange', 'sentimentFilter_absoluteTimeRange' - The time range, measured in seconds, of the sentiment.
+-- 'relativeTimeRange', 'sentimentFilter_relativeTimeRange' - Makes it possible to specify a time range (in percentage) in your media
+-- file, during which you want to search for the specified sentiments. See
+-- for more detail.
 --
--- 'sentiments', 'sentimentFilter_sentiments' - An array that enables you to specify sentiments for the customer or
--- agent. You can specify one or more values.
+-- 'sentiments', 'sentimentFilter_sentiments' - Specify the sentiments that you want to flag.
 newSentimentFilter ::
   -- | 'sentiments'
   Prelude.NonEmpty SentimentValue ->
   SentimentFilter
 newSentimentFilter pSentiments_ =
   SentimentFilter'
-    { participantRole = Prelude.Nothing,
-      relativeTimeRange = Prelude.Nothing,
+    { absoluteTimeRange =
+        Prelude.Nothing,
       negate = Prelude.Nothing,
-      absoluteTimeRange = Prelude.Nothing,
+      participantRole = Prelude.Nothing,
+      relativeTimeRange = Prelude.Nothing,
       sentiments = Lens.coerced Lens.# pSentiments_
     }
 
--- | A value that determines whether the sentiment belongs to the customer or
--- the agent.
-sentimentFilter_participantRole :: Lens.Lens' SentimentFilter (Prelude.Maybe ParticipantRole)
-sentimentFilter_participantRole = Lens.lens (\SentimentFilter' {participantRole} -> participantRole) (\s@SentimentFilter' {} a -> s {participantRole = a} :: SentimentFilter)
-
--- | The time range, set in percentages, that correspond to proportion of the
--- call.
-sentimentFilter_relativeTimeRange :: Lens.Lens' SentimentFilter (Prelude.Maybe RelativeTimeRange)
-sentimentFilter_relativeTimeRange = Lens.lens (\SentimentFilter' {relativeTimeRange} -> relativeTimeRange) (\s@SentimentFilter' {} a -> s {relativeTimeRange = a} :: SentimentFilter)
-
--- | Set to @TRUE@ to look for sentiments that weren\'t specified in the
--- request.
-sentimentFilter_negate :: Lens.Lens' SentimentFilter (Prelude.Maybe Prelude.Bool)
-sentimentFilter_negate = Lens.lens (\SentimentFilter' {negate} -> negate) (\s@SentimentFilter' {} a -> s {negate = a} :: SentimentFilter)
-
--- | The time range, measured in seconds, of the sentiment.
+-- | Makes it possible to specify a time range (in milliseconds) in your
+-- audio, during which you want to search for the specified sentiments. See
+-- for more detail.
 sentimentFilter_absoluteTimeRange :: Lens.Lens' SentimentFilter (Prelude.Maybe AbsoluteTimeRange)
 sentimentFilter_absoluteTimeRange = Lens.lens (\SentimentFilter' {absoluteTimeRange} -> absoluteTimeRange) (\s@SentimentFilter' {} a -> s {absoluteTimeRange = a} :: SentimentFilter)
 
--- | An array that enables you to specify sentiments for the customer or
--- agent. You can specify one or more values.
+-- | Set to @TRUE@ to flag the sentiments that you didn\'t include in your
+-- request. Set to @FALSE@ to flag the sentiments that you specified in
+-- your request.
+sentimentFilter_negate :: Lens.Lens' SentimentFilter (Prelude.Maybe Prelude.Bool)
+sentimentFilter_negate = Lens.lens (\SentimentFilter' {negate} -> negate) (\s@SentimentFilter' {} a -> s {negate = a} :: SentimentFilter)
+
+-- | Specify the participant that you want to flag. Omitting this parameter
+-- is equivalent to specifying both participants.
+sentimentFilter_participantRole :: Lens.Lens' SentimentFilter (Prelude.Maybe ParticipantRole)
+sentimentFilter_participantRole = Lens.lens (\SentimentFilter' {participantRole} -> participantRole) (\s@SentimentFilter' {} a -> s {participantRole = a} :: SentimentFilter)
+
+-- | Makes it possible to specify a time range (in percentage) in your media
+-- file, during which you want to search for the specified sentiments. See
+-- for more detail.
+sentimentFilter_relativeTimeRange :: Lens.Lens' SentimentFilter (Prelude.Maybe RelativeTimeRange)
+sentimentFilter_relativeTimeRange = Lens.lens (\SentimentFilter' {relativeTimeRange} -> relativeTimeRange) (\s@SentimentFilter' {} a -> s {relativeTimeRange = a} :: SentimentFilter)
+
+-- | Specify the sentiments that you want to flag.
 sentimentFilter_sentiments :: Lens.Lens' SentimentFilter (Prelude.NonEmpty SentimentValue)
 sentimentFilter_sentiments = Lens.lens (\SentimentFilter' {sentiments} -> sentiments) (\s@SentimentFilter' {} a -> s {sentiments = a} :: SentimentFilter) Prelude.. Lens.coerced
 
-instance Core.FromJSON SentimentFilter where
+instance Data.FromJSON SentimentFilter where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SentimentFilter"
       ( \x ->
           SentimentFilter'
-            Prelude.<$> (x Core..:? "ParticipantRole")
-            Prelude.<*> (x Core..:? "RelativeTimeRange")
-            Prelude.<*> (x Core..:? "Negate")
-            Prelude.<*> (x Core..:? "AbsoluteTimeRange")
-            Prelude.<*> (x Core..: "Sentiments")
+            Prelude.<$> (x Data..:? "AbsoluteTimeRange")
+            Prelude.<*> (x Data..:? "Negate")
+            Prelude.<*> (x Data..:? "ParticipantRole")
+            Prelude.<*> (x Data..:? "RelativeTimeRange")
+            Prelude.<*> (x Data..: "Sentiments")
       )
 
 instance Prelude.Hashable SentimentFilter where
   hashWithSalt _salt SentimentFilter' {..} =
-    _salt `Prelude.hashWithSalt` participantRole
-      `Prelude.hashWithSalt` relativeTimeRange
+    _salt `Prelude.hashWithSalt` absoluteTimeRange
       `Prelude.hashWithSalt` negate
-      `Prelude.hashWithSalt` absoluteTimeRange
+      `Prelude.hashWithSalt` participantRole
+      `Prelude.hashWithSalt` relativeTimeRange
       `Prelude.hashWithSalt` sentiments
 
 instance Prelude.NFData SentimentFilter where
   rnf SentimentFilter' {..} =
-    Prelude.rnf participantRole
-      `Prelude.seq` Prelude.rnf relativeTimeRange
+    Prelude.rnf absoluteTimeRange
       `Prelude.seq` Prelude.rnf negate
-      `Prelude.seq` Prelude.rnf absoluteTimeRange
+      `Prelude.seq` Prelude.rnf participantRole
+      `Prelude.seq` Prelude.rnf relativeTimeRange
       `Prelude.seq` Prelude.rnf sentiments
 
-instance Core.ToJSON SentimentFilter where
+instance Data.ToJSON SentimentFilter where
   toJSON SentimentFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ParticipantRole" Core..=)
-              Prelude.<$> participantRole,
-            ("RelativeTimeRange" Core..=)
-              Prelude.<$> relativeTimeRange,
-            ("Negate" Core..=) Prelude.<$> negate,
-            ("AbsoluteTimeRange" Core..=)
+          [ ("AbsoluteTimeRange" Data..=)
               Prelude.<$> absoluteTimeRange,
-            Prelude.Just ("Sentiments" Core..= sentiments)
+            ("Negate" Data..=) Prelude.<$> negate,
+            ("ParticipantRole" Data..=)
+              Prelude.<$> participantRole,
+            ("RelativeTimeRange" Data..=)
+              Prelude.<$> relativeTimeRange,
+            Prelude.Just ("Sentiments" Data..= sentiments)
           ]
       )

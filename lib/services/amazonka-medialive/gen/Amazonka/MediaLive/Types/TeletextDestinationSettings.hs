@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.TeletextDestinationSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.TeletextDestinationSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Teletext Destination Settings
@@ -40,9 +41,9 @@ newTeletextDestinationSettings ::
 newTeletextDestinationSettings =
   TeletextDestinationSettings'
 
-instance Core.FromJSON TeletextDestinationSettings where
+instance Data.FromJSON TeletextDestinationSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TeletextDestinationSettings"
       (\x -> Prelude.pure TeletextDestinationSettings')
 
@@ -53,5 +54,5 @@ instance Prelude.Hashable TeletextDestinationSettings where
 instance Prelude.NFData TeletextDestinationSettings where
   rnf _ = ()
 
-instance Core.ToJSON TeletextDestinationSettings where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON TeletextDestinationSettings where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)

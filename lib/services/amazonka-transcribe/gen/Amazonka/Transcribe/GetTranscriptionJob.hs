@@ -14,18 +14,24 @@
 
 -- |
 -- Module      : Amazonka.Transcribe.GetTranscriptionJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about a transcription job. To see the status of the
--- job, check the @TranscriptionJobStatus@ field. If the status is
--- @COMPLETED@, the job is finished and you can find the results at the
--- location specified in the @TranscriptFileUri@ field. If you enable
--- content redaction, the redacted transcript appears in
--- @RedactedTranscriptFileUri@.
+-- Provides information about the specified transcription job.
+--
+-- To view the status of the specified transcription job, check the
+-- @TranscriptionJobStatus@ field. If the status is @COMPLETED@, the job is
+-- finished. You can find the results at the location specified in
+-- @TranscriptFileUri@. If the status is @FAILED@, @FailureReason@ provides
+-- details on why your transcription job failed.
+--
+-- If you enabled content redaction, the redacted transcript can be found
+-- at the location specified in @RedactedTranscriptFileUri@.
+--
+-- To get a list of your transcription jobs, use the operation.
 module Amazonka.Transcribe.GetTranscriptionJob
   ( -- * Creating a Request
     GetTranscriptionJob (..),
@@ -45,7 +51,8 @@ module Amazonka.Transcribe.GetTranscriptionJob
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,7 +60,8 @@ import Amazonka.Transcribe.Types
 
 -- | /See:/ 'newGetTranscriptionJob' smart constructor.
 data GetTranscriptionJob = GetTranscriptionJob'
-  { -- | The name of the job.
+  { -- | The name of the transcription job you want information about. Job names
+    -- are case sensitive.
     transcriptionJobName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -66,7 +74,8 @@ data GetTranscriptionJob = GetTranscriptionJob'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'transcriptionJobName', 'getTranscriptionJob_transcriptionJobName' - The name of the job.
+-- 'transcriptionJobName', 'getTranscriptionJob_transcriptionJobName' - The name of the transcription job you want information about. Job names
+-- are case sensitive.
 newGetTranscriptionJob ::
   -- | 'transcriptionJobName'
   Prelude.Text ->
@@ -77,7 +86,8 @@ newGetTranscriptionJob pTranscriptionJobName_ =
         pTranscriptionJobName_
     }
 
--- | The name of the job.
+-- | The name of the transcription job you want information about. Job names
+-- are case sensitive.
 getTranscriptionJob_transcriptionJobName :: Lens.Lens' GetTranscriptionJob Prelude.Text
 getTranscriptionJob_transcriptionJobName = Lens.lens (\GetTranscriptionJob' {transcriptionJobName} -> transcriptionJobName) (\s@GetTranscriptionJob' {} a -> s {transcriptionJobName = a} :: GetTranscriptionJob)
 
@@ -85,12 +95,13 @@ instance Core.AWSRequest GetTranscriptionJob where
   type
     AWSResponse GetTranscriptionJob =
       GetTranscriptionJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetTranscriptionJobResponse'
-            Prelude.<$> (x Core..?> "TranscriptionJob")
+            Prelude.<$> (x Data..?> "TranscriptionJob")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -102,41 +113,42 @@ instance Prelude.NFData GetTranscriptionJob where
   rnf GetTranscriptionJob' {..} =
     Prelude.rnf transcriptionJobName
 
-instance Core.ToHeaders GetTranscriptionJob where
+instance Data.ToHeaders GetTranscriptionJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Transcribe.GetTranscriptionJob" ::
+              Data.=# ( "Transcribe.GetTranscriptionJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetTranscriptionJob where
+instance Data.ToJSON GetTranscriptionJob where
   toJSON GetTranscriptionJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "TranscriptionJobName"
-                  Core..= transcriptionJobName
+                  Data..= transcriptionJobName
               )
           ]
       )
 
-instance Core.ToPath GetTranscriptionJob where
+instance Data.ToPath GetTranscriptionJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetTranscriptionJob where
+instance Data.ToQuery GetTranscriptionJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetTranscriptionJobResponse' smart constructor.
 data GetTranscriptionJobResponse = GetTranscriptionJobResponse'
-  { -- | An object that contains the results of the transcription job.
+  { -- | Provides detailed information about the specified transcription job,
+    -- including job status and, if applicable, failure reason.
     transcriptionJob :: Prelude.Maybe TranscriptionJob,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -151,7 +163,8 @@ data GetTranscriptionJobResponse = GetTranscriptionJobResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'transcriptionJob', 'getTranscriptionJobResponse_transcriptionJob' - An object that contains the results of the transcription job.
+-- 'transcriptionJob', 'getTranscriptionJobResponse_transcriptionJob' - Provides detailed information about the specified transcription job,
+-- including job status and, if applicable, failure reason.
 --
 -- 'httpStatus', 'getTranscriptionJobResponse_httpStatus' - The response's http status code.
 newGetTranscriptionJobResponse ::
@@ -165,7 +178,8 @@ newGetTranscriptionJobResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | An object that contains the results of the transcription job.
+-- | Provides detailed information about the specified transcription job,
+-- including job status and, if applicable, failure reason.
 getTranscriptionJobResponse_transcriptionJob :: Lens.Lens' GetTranscriptionJobResponse (Prelude.Maybe TranscriptionJob)
 getTranscriptionJobResponse_transcriptionJob = Lens.lens (\GetTranscriptionJobResponse' {transcriptionJob} -> transcriptionJob) (\s@GetTranscriptionJobResponse' {} a -> s {transcriptionJob = a} :: GetTranscriptionJobResponse)
 

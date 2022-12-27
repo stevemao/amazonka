@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ELB.CreateLoadBalancerPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.ELB.CreateLoadBalancerPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -129,7 +130,8 @@ instance Core.AWSRequest CreateLoadBalancerPolicy where
   type
     AWSResponse CreateLoadBalancerPolicy =
       CreateLoadBalancerPolicyResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateLoadBalancerPolicyResult"
@@ -152,27 +154,27 @@ instance Prelude.NFData CreateLoadBalancerPolicy where
       `Prelude.seq` Prelude.rnf policyName
       `Prelude.seq` Prelude.rnf policyTypeName
 
-instance Core.ToHeaders CreateLoadBalancerPolicy where
+instance Data.ToHeaders CreateLoadBalancerPolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateLoadBalancerPolicy where
+instance Data.ToPath CreateLoadBalancerPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateLoadBalancerPolicy where
+instance Data.ToQuery CreateLoadBalancerPolicy where
   toQuery CreateLoadBalancerPolicy' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateLoadBalancerPolicy" :: Prelude.ByteString),
+          Data.=: ("CreateLoadBalancerPolicy" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-06-01" :: Prelude.ByteString),
+          Data.=: ("2012-06-01" :: Prelude.ByteString),
         "PolicyAttributes"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> policyAttributes
             ),
-        "LoadBalancerName" Core.=: loadBalancerName,
-        "PolicyName" Core.=: policyName,
-        "PolicyTypeName" Core.=: policyTypeName
+        "LoadBalancerName" Data.=: loadBalancerName,
+        "PolicyName" Data.=: policyName,
+        "PolicyTypeName" Data.=: policyTypeName
       ]
 
 -- | Contains the output of CreateLoadBalancerPolicy.

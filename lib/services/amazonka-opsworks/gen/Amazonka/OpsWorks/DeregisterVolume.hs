@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.DeregisterVolume
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.OpsWorks.DeregisterVolume
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -87,7 +88,8 @@ instance Core.AWSRequest DeregisterVolume where
   type
     AWSResponse DeregisterVolume =
       DeregisterVolumeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeregisterVolumeResponse'
 
@@ -98,32 +100,32 @@ instance Prelude.Hashable DeregisterVolume where
 instance Prelude.NFData DeregisterVolume where
   rnf DeregisterVolume' {..} = Prelude.rnf volumeId
 
-instance Core.ToHeaders DeregisterVolume where
+instance Data.ToHeaders DeregisterVolume where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.DeregisterVolume" ::
+              Data.=# ( "OpsWorks_20130218.DeregisterVolume" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeregisterVolume where
+instance Data.ToJSON DeregisterVolume where
   toJSON DeregisterVolume' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("VolumeId" Core..= volumeId)]
+          [Prelude.Just ("VolumeId" Data..= volumeId)]
       )
 
-instance Core.ToPath DeregisterVolume where
+instance Data.ToPath DeregisterVolume where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeregisterVolume where
+instance Data.ToQuery DeregisterVolume where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeregisterVolumeResponse' smart constructor.

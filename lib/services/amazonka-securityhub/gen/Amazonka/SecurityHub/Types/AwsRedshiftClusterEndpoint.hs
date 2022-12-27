@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsRedshiftClusterEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsRedshiftClusterEndpoint where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The connection endpoint for an Amazon Redshift cluster.
@@ -62,14 +63,14 @@ awsRedshiftClusterEndpoint_address = Lens.lens (\AwsRedshiftClusterEndpoint' {ad
 awsRedshiftClusterEndpoint_port :: Lens.Lens' AwsRedshiftClusterEndpoint (Prelude.Maybe Prelude.Int)
 awsRedshiftClusterEndpoint_port = Lens.lens (\AwsRedshiftClusterEndpoint' {port} -> port) (\s@AwsRedshiftClusterEndpoint' {} a -> s {port = a} :: AwsRedshiftClusterEndpoint)
 
-instance Core.FromJSON AwsRedshiftClusterEndpoint where
+instance Data.FromJSON AwsRedshiftClusterEndpoint where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsRedshiftClusterEndpoint"
       ( \x ->
           AwsRedshiftClusterEndpoint'
-            Prelude.<$> (x Core..:? "Address")
-            Prelude.<*> (x Core..:? "Port")
+            Prelude.<$> (x Data..:? "Address")
+            Prelude.<*> (x Data..:? "Port")
       )
 
 instance Prelude.Hashable AwsRedshiftClusterEndpoint where
@@ -81,11 +82,11 @@ instance Prelude.NFData AwsRedshiftClusterEndpoint where
   rnf AwsRedshiftClusterEndpoint' {..} =
     Prelude.rnf address `Prelude.seq` Prelude.rnf port
 
-instance Core.ToJSON AwsRedshiftClusterEndpoint where
+instance Data.ToJSON AwsRedshiftClusterEndpoint where
   toJSON AwsRedshiftClusterEndpoint' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Address" Core..=) Prelude.<$> address,
-            ("Port" Core..=) Prelude.<$> port
+          [ ("Address" Data..=) Prelude.<$> address,
+            ("Port" Data..=) Prelude.<$> port
           ]
       )

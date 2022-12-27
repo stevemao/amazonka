@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorksCM.CreateServer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -59,22 +59,22 @@ module Amazonka.OpsWorksCM.CreateServer
     newCreateServer,
 
     -- * Request Lenses
-    createServer_engineVersion,
-    createServer_disableAutomatedBackup,
-    createServer_securityGroupIds,
     createServer_associatePublicIpAddress,
-    createServer_subnetIds,
-    createServer_keyPair,
     createServer_backupId,
+    createServer_backupRetentionCount,
+    createServer_customCertificate,
     createServer_customDomain,
     createServer_customPrivateKey,
-    createServer_engineModel,
+    createServer_disableAutomatedBackup,
     createServer_engineAttributes,
-    createServer_preferredMaintenanceWindow,
+    createServer_engineModel,
+    createServer_engineVersion,
+    createServer_keyPair,
     createServer_preferredBackupWindow,
-    createServer_customCertificate,
+    createServer_preferredMaintenanceWindow,
+    createServer_securityGroupIds,
+    createServer_subnetIds,
     createServer_tags,
-    createServer_backupRetentionCount,
     createServer_engine,
     createServer_serverName,
     createServer_instanceProfileArn,
@@ -92,7 +92,8 @@ module Amazonka.OpsWorksCM.CreateServer
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorksCM.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -100,44 +101,38 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateServer' smart constructor.
 data CreateServer = CreateServer'
-  { -- | The major release version of the engine that you want to use. For a Chef
-    -- server, the valid value for EngineVersion is currently @2@. For a Puppet
-    -- server, valid values are @2019@ or @2017@.
-    engineVersion :: Prelude.Maybe Prelude.Text,
-    -- | Enable or disable scheduled backups. Valid values are @true@ or @false@.
-    -- The default value is @true@.
-    disableAutomatedBackup :: Prelude.Maybe Prelude.Bool,
-    -- | A list of security group IDs to attach to the Amazon EC2 instance. If
-    -- you add this parameter, the specified security groups must be within the
-    -- VPC that is specified by @SubnetIds@.
-    --
-    -- If you do not specify this parameter, AWS OpsWorks CM creates one new
-    -- security group that uses TCP ports 22 and 443, open to 0.0.0.0\/0
-    -- (everyone).
-    securityGroupIds :: Prelude.Maybe [Prelude.Text],
-    -- | Associate a public IP address with a server that you are launching.
+  { -- | Associate a public IP address with a server that you are launching.
     -- Valid values are @true@ or @false@. The default value is @true@.
     associatePublicIpAddress :: Prelude.Maybe Prelude.Bool,
-    -- | The IDs of subnets in which to launch the server EC2 instance.
-    --
-    -- Amazon EC2-Classic customers: This field is required. All servers must
-    -- run within a VPC. The VPC must have \"Auto Assign Public IP\" enabled.
-    --
-    -- EC2-VPC customers: This field is optional. If you do not specify subnet
-    -- IDs, your EC2 instances are created in a default subnet that is selected
-    -- by Amazon EC2. If you specify subnet IDs, the VPC must have \"Auto
-    -- Assign Public IP\" enabled.
-    --
-    -- For more information about supported Amazon EC2 platforms, see
-    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html Supported Platforms>.
-    subnetIds :: Prelude.Maybe [Prelude.Text],
-    -- | The Amazon EC2 key pair to set for the instance. This parameter is
-    -- optional; if desired, you may specify this parameter to connect to your
-    -- instances by using SSH.
-    keyPair :: Prelude.Maybe Prelude.Text,
     -- | If you specify this field, AWS OpsWorks CM creates the server by using
     -- the backup represented by BackupId.
     backupId :: Prelude.Maybe Prelude.Text,
+    -- | The number of automated backups that you want to keep. Whenever a new
+    -- backup is created, AWS OpsWorks CM deletes the oldest backups if this
+    -- number is exceeded. The default value is @1@.
+    backupRetentionCount :: Prelude.Maybe Prelude.Natural,
+    -- | A PEM-formatted HTTPS certificate. The value can be be a single,
+    -- self-signed certificate, or a certificate chain. If you specify a custom
+    -- certificate, you must also specify values for @CustomDomain@ and
+    -- @CustomPrivateKey@. The following are requirements for the
+    -- @CustomCertificate@ value:
+    --
+    -- -   You can provide either a self-signed, custom certificate, or the
+    --     full certificate chain.
+    --
+    -- -   The certificate must be a valid X509 certificate, or a certificate
+    --     chain in PEM format.
+    --
+    -- -   The certificate must be valid at the time of upload. A certificate
+    --     can\'t be used before its validity period begins (the certificate\'s
+    --     @NotBefore@ date), or after it expires (the certificate\'s
+    --     @NotAfter@ date).
+    --
+    -- -   The certificate’s common name or subject alternative names (SANs),
+    --     if present, must match the value of @CustomDomain@.
+    --
+    -- -   The certificate must match the value of @CustomPrivateKey@.
+    customCertificate :: Prelude.Maybe Prelude.Text,
     -- | An optional public endpoint of a server, such as
     -- @https:\/\/aws.my-company.com@. To access the server, create a CNAME DNS
     -- record in your preferred DNS service that points the custom domain to
@@ -151,10 +146,10 @@ data CreateServer = CreateServer'
     -- The private key must not be encrypted; it cannot be protected by a
     -- password or passphrase. If you specify a custom private key, you must
     -- also specify values for @CustomDomain@ and @CustomCertificate@.
-    customPrivateKey :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | The engine model of the server. Valid values in this release include
-    -- @Monolithic@ for Puppet and @Single@ for Chef.
-    engineModel :: Prelude.Maybe Prelude.Text,
+    customPrivateKey :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | Enable or disable scheduled backups. Valid values are @true@ or @false@.
+    -- The default value is @true@.
+    disableAutomatedBackup :: Prelude.Maybe Prelude.Bool,
     -- | Optional engine attributes on a specified server.
     --
     -- __Attributes accepted in a Chef createServer request:__
@@ -187,16 +182,17 @@ data CreateServer = CreateServer'
     --     repository, add PUPPET_R10K_PRIVATE_KEY to specify a PEM-encoded
     --     private SSH key.
     engineAttributes :: Prelude.Maybe [EngineAttribute],
-    -- | The start time for a one-hour period each week during which AWS OpsWorks
-    -- CM performs maintenance on the instance. Valid values must be specified
-    -- in the following format: @DDD:HH:MM@. @MM@ must be specified as @00@.
-    -- The specified time is in coordinated universal time (UTC). The default
-    -- value is a random one-hour period on Tuesday, Wednesday, or Friday. See
-    -- @TimeWindowDefinition@ for more information.
-    --
-    -- __Example:__ @Mon:08:00@, which represents a start time of every Monday
-    -- at 08:00 UTC. (8:00 a.m.)
-    preferredMaintenanceWindow :: Prelude.Maybe Prelude.Text,
+    -- | The engine model of the server. Valid values in this release include
+    -- @Monolithic@ for Puppet and @Single@ for Chef.
+    engineModel :: Prelude.Maybe Prelude.Text,
+    -- | The major release version of the engine that you want to use. For a Chef
+    -- server, the valid value for EngineVersion is currently @2@. For a Puppet
+    -- server, valid values are @2019@ or @2017@.
+    engineVersion :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon EC2 key pair to set for the instance. This parameter is
+    -- optional; if desired, you may specify this parameter to connect to your
+    -- instances by using SSH.
+    keyPair :: Prelude.Maybe Prelude.Text,
     -- | The start time for a one-hour period during which AWS OpsWorks CM backs
     -- up application-level data on your server if automated backups are
     -- enabled. Valid values must be specified in one of the following formats:
@@ -213,28 +209,37 @@ data CreateServer = CreateServer'
     -- __Example:__ @Mon:08:00@, which represents a start time of every Monday
     -- at 08:00 UTC. (8:00 a.m.)
     preferredBackupWindow :: Prelude.Maybe Prelude.Text,
-    -- | A PEM-formatted HTTPS certificate. The value can be be a single,
-    -- self-signed certificate, or a certificate chain. If you specify a custom
-    -- certificate, you must also specify values for @CustomDomain@ and
-    -- @CustomPrivateKey@. The following are requirements for the
-    -- @CustomCertificate@ value:
+    -- | The start time for a one-hour period each week during which AWS OpsWorks
+    -- CM performs maintenance on the instance. Valid values must be specified
+    -- in the following format: @DDD:HH:MM@. @MM@ must be specified as @00@.
+    -- The specified time is in coordinated universal time (UTC). The default
+    -- value is a random one-hour period on Tuesday, Wednesday, or Friday. See
+    -- @TimeWindowDefinition@ for more information.
     --
-    -- -   You can provide either a self-signed, custom certificate, or the
-    --     full certificate chain.
+    -- __Example:__ @Mon:08:00@, which represents a start time of every Monday
+    -- at 08:00 UTC. (8:00 a.m.)
+    preferredMaintenanceWindow :: Prelude.Maybe Prelude.Text,
+    -- | A list of security group IDs to attach to the Amazon EC2 instance. If
+    -- you add this parameter, the specified security groups must be within the
+    -- VPC that is specified by @SubnetIds@.
     --
-    -- -   The certificate must be a valid X509 certificate, or a certificate
-    --     chain in PEM format.
+    -- If you do not specify this parameter, AWS OpsWorks CM creates one new
+    -- security group that uses TCP ports 22 and 443, open to 0.0.0.0\/0
+    -- (everyone).
+    securityGroupIds :: Prelude.Maybe [Prelude.Text],
+    -- | The IDs of subnets in which to launch the server EC2 instance.
     --
-    -- -   The certificate must be valid at the time of upload. A certificate
-    --     can\'t be used before its validity period begins (the certificate\'s
-    --     @NotBefore@ date), or after it expires (the certificate\'s
-    --     @NotAfter@ date).
+    -- Amazon EC2-Classic customers: This field is required. All servers must
+    -- run within a VPC. The VPC must have \"Auto Assign Public IP\" enabled.
     --
-    -- -   The certificate’s common name or subject alternative names (SANs),
-    --     if present, must match the value of @CustomDomain@.
+    -- EC2-VPC customers: This field is optional. If you do not specify subnet
+    -- IDs, your EC2 instances are created in a default subnet that is selected
+    -- by Amazon EC2. If you specify subnet IDs, the VPC must have \"Auto
+    -- Assign Public IP\" enabled.
     --
-    -- -   The certificate must match the value of @CustomPrivateKey@.
-    customCertificate :: Prelude.Maybe Prelude.Text,
+    -- For more information about supported Amazon EC2 platforms, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html Supported Platforms>.
+    subnetIds :: Prelude.Maybe [Prelude.Text],
     -- | A map that contains tag keys and tag values to attach to an AWS OpsWorks
     -- for Chef Automate or AWS OpsWorks for Puppet Enterprise server.
     --
@@ -254,10 +259,6 @@ data CreateServer = CreateServer'
     -- -   A maximum of 50 user-applied tags is allowed for any AWS OpsWorks-CM
     --     server.
     tags :: Prelude.Maybe [Tag],
-    -- | The number of automated backups that you want to keep. Whenever a new
-    -- backup is created, AWS OpsWorks CM deletes the oldest backups if this
-    -- number is exceeded. The default value is @1@.
-    backupRetentionCount :: Prelude.Maybe Prelude.Natural,
     -- | The configuration management engine to use. Valid values include
     -- @ChefAutomate@ and @Puppet@.
     engine :: Prelude.Text,
@@ -296,43 +297,37 @@ data CreateServer = CreateServer'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'engineVersion', 'createServer_engineVersion' - The major release version of the engine that you want to use. For a Chef
--- server, the valid value for EngineVersion is currently @2@. For a Puppet
--- server, valid values are @2019@ or @2017@.
---
--- 'disableAutomatedBackup', 'createServer_disableAutomatedBackup' - Enable or disable scheduled backups. Valid values are @true@ or @false@.
--- The default value is @true@.
---
--- 'securityGroupIds', 'createServer_securityGroupIds' - A list of security group IDs to attach to the Amazon EC2 instance. If
--- you add this parameter, the specified security groups must be within the
--- VPC that is specified by @SubnetIds@.
---
--- If you do not specify this parameter, AWS OpsWorks CM creates one new
--- security group that uses TCP ports 22 and 443, open to 0.0.0.0\/0
--- (everyone).
---
 -- 'associatePublicIpAddress', 'createServer_associatePublicIpAddress' - Associate a public IP address with a server that you are launching.
 -- Valid values are @true@ or @false@. The default value is @true@.
 --
--- 'subnetIds', 'createServer_subnetIds' - The IDs of subnets in which to launch the server EC2 instance.
---
--- Amazon EC2-Classic customers: This field is required. All servers must
--- run within a VPC. The VPC must have \"Auto Assign Public IP\" enabled.
---
--- EC2-VPC customers: This field is optional. If you do not specify subnet
--- IDs, your EC2 instances are created in a default subnet that is selected
--- by Amazon EC2. If you specify subnet IDs, the VPC must have \"Auto
--- Assign Public IP\" enabled.
---
--- For more information about supported Amazon EC2 platforms, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html Supported Platforms>.
---
--- 'keyPair', 'createServer_keyPair' - The Amazon EC2 key pair to set for the instance. This parameter is
--- optional; if desired, you may specify this parameter to connect to your
--- instances by using SSH.
---
 -- 'backupId', 'createServer_backupId' - If you specify this field, AWS OpsWorks CM creates the server by using
 -- the backup represented by BackupId.
+--
+-- 'backupRetentionCount', 'createServer_backupRetentionCount' - The number of automated backups that you want to keep. Whenever a new
+-- backup is created, AWS OpsWorks CM deletes the oldest backups if this
+-- number is exceeded. The default value is @1@.
+--
+-- 'customCertificate', 'createServer_customCertificate' - A PEM-formatted HTTPS certificate. The value can be be a single,
+-- self-signed certificate, or a certificate chain. If you specify a custom
+-- certificate, you must also specify values for @CustomDomain@ and
+-- @CustomPrivateKey@. The following are requirements for the
+-- @CustomCertificate@ value:
+--
+-- -   You can provide either a self-signed, custom certificate, or the
+--     full certificate chain.
+--
+-- -   The certificate must be a valid X509 certificate, or a certificate
+--     chain in PEM format.
+--
+-- -   The certificate must be valid at the time of upload. A certificate
+--     can\'t be used before its validity period begins (the certificate\'s
+--     @NotBefore@ date), or after it expires (the certificate\'s
+--     @NotAfter@ date).
+--
+-- -   The certificate’s common name or subject alternative names (SANs),
+--     if present, must match the value of @CustomDomain@.
+--
+-- -   The certificate must match the value of @CustomPrivateKey@.
 --
 -- 'customDomain', 'createServer_customDomain' - An optional public endpoint of a server, such as
 -- @https:\/\/aws.my-company.com@. To access the server, create a CNAME DNS
@@ -348,8 +343,8 @@ data CreateServer = CreateServer'
 -- password or passphrase. If you specify a custom private key, you must
 -- also specify values for @CustomDomain@ and @CustomCertificate@.
 --
--- 'engineModel', 'createServer_engineModel' - The engine model of the server. Valid values in this release include
--- @Monolithic@ for Puppet and @Single@ for Chef.
+-- 'disableAutomatedBackup', 'createServer_disableAutomatedBackup' - Enable or disable scheduled backups. Valid values are @true@ or @false@.
+-- The default value is @true@.
 --
 -- 'engineAttributes', 'createServer_engineAttributes' - Optional engine attributes on a specified server.
 --
@@ -383,15 +378,16 @@ data CreateServer = CreateServer'
 --     repository, add PUPPET_R10K_PRIVATE_KEY to specify a PEM-encoded
 --     private SSH key.
 --
--- 'preferredMaintenanceWindow', 'createServer_preferredMaintenanceWindow' - The start time for a one-hour period each week during which AWS OpsWorks
--- CM performs maintenance on the instance. Valid values must be specified
--- in the following format: @DDD:HH:MM@. @MM@ must be specified as @00@.
--- The specified time is in coordinated universal time (UTC). The default
--- value is a random one-hour period on Tuesday, Wednesday, or Friday. See
--- @TimeWindowDefinition@ for more information.
+-- 'engineModel', 'createServer_engineModel' - The engine model of the server. Valid values in this release include
+-- @Monolithic@ for Puppet and @Single@ for Chef.
 --
--- __Example:__ @Mon:08:00@, which represents a start time of every Monday
--- at 08:00 UTC. (8:00 a.m.)
+-- 'engineVersion', 'createServer_engineVersion' - The major release version of the engine that you want to use. For a Chef
+-- server, the valid value for EngineVersion is currently @2@. For a Puppet
+-- server, valid values are @2019@ or @2017@.
+--
+-- 'keyPair', 'createServer_keyPair' - The Amazon EC2 key pair to set for the instance. This parameter is
+-- optional; if desired, you may specify this parameter to connect to your
+-- instances by using SSH.
 --
 -- 'preferredBackupWindow', 'createServer_preferredBackupWindow' - The start time for a one-hour period during which AWS OpsWorks CM backs
 -- up application-level data on your server if automated backups are
@@ -409,27 +405,36 @@ data CreateServer = CreateServer'
 -- __Example:__ @Mon:08:00@, which represents a start time of every Monday
 -- at 08:00 UTC. (8:00 a.m.)
 --
--- 'customCertificate', 'createServer_customCertificate' - A PEM-formatted HTTPS certificate. The value can be be a single,
--- self-signed certificate, or a certificate chain. If you specify a custom
--- certificate, you must also specify values for @CustomDomain@ and
--- @CustomPrivateKey@. The following are requirements for the
--- @CustomCertificate@ value:
+-- 'preferredMaintenanceWindow', 'createServer_preferredMaintenanceWindow' - The start time for a one-hour period each week during which AWS OpsWorks
+-- CM performs maintenance on the instance. Valid values must be specified
+-- in the following format: @DDD:HH:MM@. @MM@ must be specified as @00@.
+-- The specified time is in coordinated universal time (UTC). The default
+-- value is a random one-hour period on Tuesday, Wednesday, or Friday. See
+-- @TimeWindowDefinition@ for more information.
 --
--- -   You can provide either a self-signed, custom certificate, or the
---     full certificate chain.
+-- __Example:__ @Mon:08:00@, which represents a start time of every Monday
+-- at 08:00 UTC. (8:00 a.m.)
 --
--- -   The certificate must be a valid X509 certificate, or a certificate
---     chain in PEM format.
+-- 'securityGroupIds', 'createServer_securityGroupIds' - A list of security group IDs to attach to the Amazon EC2 instance. If
+-- you add this parameter, the specified security groups must be within the
+-- VPC that is specified by @SubnetIds@.
 --
--- -   The certificate must be valid at the time of upload. A certificate
---     can\'t be used before its validity period begins (the certificate\'s
---     @NotBefore@ date), or after it expires (the certificate\'s
---     @NotAfter@ date).
+-- If you do not specify this parameter, AWS OpsWorks CM creates one new
+-- security group that uses TCP ports 22 and 443, open to 0.0.0.0\/0
+-- (everyone).
 --
--- -   The certificate’s common name or subject alternative names (SANs),
---     if present, must match the value of @CustomDomain@.
+-- 'subnetIds', 'createServer_subnetIds' - The IDs of subnets in which to launch the server EC2 instance.
 --
--- -   The certificate must match the value of @CustomPrivateKey@.
+-- Amazon EC2-Classic customers: This field is required. All servers must
+-- run within a VPC. The VPC must have \"Auto Assign Public IP\" enabled.
+--
+-- EC2-VPC customers: This field is optional. If you do not specify subnet
+-- IDs, your EC2 instances are created in a default subnet that is selected
+-- by Amazon EC2. If you specify subnet IDs, the VPC must have \"Auto
+-- Assign Public IP\" enabled.
+--
+-- For more information about supported Amazon EC2 platforms, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html Supported Platforms>.
 --
 -- 'tags', 'createServer_tags' - A map that contains tag keys and tag values to attach to an AWS OpsWorks
 -- for Chef Automate or AWS OpsWorks for Puppet Enterprise server.
@@ -449,10 +454,6 @@ data CreateServer = CreateServer'
 --
 -- -   A maximum of 50 user-applied tags is allowed for any AWS OpsWorks-CM
 --     server.
---
--- 'backupRetentionCount', 'createServer_backupRetentionCount' - The number of automated backups that you want to keep. Whenever a new
--- backup is created, AWS OpsWorks CM deletes the oldest backups if this
--- number is exceeded. The default value is @1@.
 --
 -- 'engine', 'createServer_engine' - The configuration management engine to use. Valid values include
 -- @ChefAutomate@ and @Puppet@.
@@ -499,22 +500,23 @@ newCreateServer
   pInstanceType_
   pServiceRoleArn_ =
     CreateServer'
-      { engineVersion = Prelude.Nothing,
-        disableAutomatedBackup = Prelude.Nothing,
-        securityGroupIds = Prelude.Nothing,
-        associatePublicIpAddress = Prelude.Nothing,
-        subnetIds = Prelude.Nothing,
-        keyPair = Prelude.Nothing,
+      { associatePublicIpAddress =
+          Prelude.Nothing,
         backupId = Prelude.Nothing,
+        backupRetentionCount = Prelude.Nothing,
+        customCertificate = Prelude.Nothing,
         customDomain = Prelude.Nothing,
         customPrivateKey = Prelude.Nothing,
-        engineModel = Prelude.Nothing,
+        disableAutomatedBackup = Prelude.Nothing,
         engineAttributes = Prelude.Nothing,
-        preferredMaintenanceWindow = Prelude.Nothing,
+        engineModel = Prelude.Nothing,
+        engineVersion = Prelude.Nothing,
+        keyPair = Prelude.Nothing,
         preferredBackupWindow = Prelude.Nothing,
-        customCertificate = Prelude.Nothing,
+        preferredMaintenanceWindow = Prelude.Nothing,
+        securityGroupIds = Prelude.Nothing,
+        subnetIds = Prelude.Nothing,
         tags = Prelude.Nothing,
-        backupRetentionCount = Prelude.Nothing,
         engine = pEngine_,
         serverName = pServerName_,
         instanceProfileArn = pInstanceProfileArn_,
@@ -522,57 +524,45 @@ newCreateServer
         serviceRoleArn = pServiceRoleArn_
       }
 
--- | The major release version of the engine that you want to use. For a Chef
--- server, the valid value for EngineVersion is currently @2@. For a Puppet
--- server, valid values are @2019@ or @2017@.
-createServer_engineVersion :: Lens.Lens' CreateServer (Prelude.Maybe Prelude.Text)
-createServer_engineVersion = Lens.lens (\CreateServer' {engineVersion} -> engineVersion) (\s@CreateServer' {} a -> s {engineVersion = a} :: CreateServer)
-
--- | Enable or disable scheduled backups. Valid values are @true@ or @false@.
--- The default value is @true@.
-createServer_disableAutomatedBackup :: Lens.Lens' CreateServer (Prelude.Maybe Prelude.Bool)
-createServer_disableAutomatedBackup = Lens.lens (\CreateServer' {disableAutomatedBackup} -> disableAutomatedBackup) (\s@CreateServer' {} a -> s {disableAutomatedBackup = a} :: CreateServer)
-
--- | A list of security group IDs to attach to the Amazon EC2 instance. If
--- you add this parameter, the specified security groups must be within the
--- VPC that is specified by @SubnetIds@.
---
--- If you do not specify this parameter, AWS OpsWorks CM creates one new
--- security group that uses TCP ports 22 and 443, open to 0.0.0.0\/0
--- (everyone).
-createServer_securityGroupIds :: Lens.Lens' CreateServer (Prelude.Maybe [Prelude.Text])
-createServer_securityGroupIds = Lens.lens (\CreateServer' {securityGroupIds} -> securityGroupIds) (\s@CreateServer' {} a -> s {securityGroupIds = a} :: CreateServer) Prelude.. Lens.mapping Lens.coerced
-
 -- | Associate a public IP address with a server that you are launching.
 -- Valid values are @true@ or @false@. The default value is @true@.
 createServer_associatePublicIpAddress :: Lens.Lens' CreateServer (Prelude.Maybe Prelude.Bool)
 createServer_associatePublicIpAddress = Lens.lens (\CreateServer' {associatePublicIpAddress} -> associatePublicIpAddress) (\s@CreateServer' {} a -> s {associatePublicIpAddress = a} :: CreateServer)
 
--- | The IDs of subnets in which to launch the server EC2 instance.
---
--- Amazon EC2-Classic customers: This field is required. All servers must
--- run within a VPC. The VPC must have \"Auto Assign Public IP\" enabled.
---
--- EC2-VPC customers: This field is optional. If you do not specify subnet
--- IDs, your EC2 instances are created in a default subnet that is selected
--- by Amazon EC2. If you specify subnet IDs, the VPC must have \"Auto
--- Assign Public IP\" enabled.
---
--- For more information about supported Amazon EC2 platforms, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html Supported Platforms>.
-createServer_subnetIds :: Lens.Lens' CreateServer (Prelude.Maybe [Prelude.Text])
-createServer_subnetIds = Lens.lens (\CreateServer' {subnetIds} -> subnetIds) (\s@CreateServer' {} a -> s {subnetIds = a} :: CreateServer) Prelude.. Lens.mapping Lens.coerced
-
--- | The Amazon EC2 key pair to set for the instance. This parameter is
--- optional; if desired, you may specify this parameter to connect to your
--- instances by using SSH.
-createServer_keyPair :: Lens.Lens' CreateServer (Prelude.Maybe Prelude.Text)
-createServer_keyPair = Lens.lens (\CreateServer' {keyPair} -> keyPair) (\s@CreateServer' {} a -> s {keyPair = a} :: CreateServer)
-
 -- | If you specify this field, AWS OpsWorks CM creates the server by using
 -- the backup represented by BackupId.
 createServer_backupId :: Lens.Lens' CreateServer (Prelude.Maybe Prelude.Text)
 createServer_backupId = Lens.lens (\CreateServer' {backupId} -> backupId) (\s@CreateServer' {} a -> s {backupId = a} :: CreateServer)
+
+-- | The number of automated backups that you want to keep. Whenever a new
+-- backup is created, AWS OpsWorks CM deletes the oldest backups if this
+-- number is exceeded. The default value is @1@.
+createServer_backupRetentionCount :: Lens.Lens' CreateServer (Prelude.Maybe Prelude.Natural)
+createServer_backupRetentionCount = Lens.lens (\CreateServer' {backupRetentionCount} -> backupRetentionCount) (\s@CreateServer' {} a -> s {backupRetentionCount = a} :: CreateServer)
+
+-- | A PEM-formatted HTTPS certificate. The value can be be a single,
+-- self-signed certificate, or a certificate chain. If you specify a custom
+-- certificate, you must also specify values for @CustomDomain@ and
+-- @CustomPrivateKey@. The following are requirements for the
+-- @CustomCertificate@ value:
+--
+-- -   You can provide either a self-signed, custom certificate, or the
+--     full certificate chain.
+--
+-- -   The certificate must be a valid X509 certificate, or a certificate
+--     chain in PEM format.
+--
+-- -   The certificate must be valid at the time of upload. A certificate
+--     can\'t be used before its validity period begins (the certificate\'s
+--     @NotBefore@ date), or after it expires (the certificate\'s
+--     @NotAfter@ date).
+--
+-- -   The certificate’s common name or subject alternative names (SANs),
+--     if present, must match the value of @CustomDomain@.
+--
+-- -   The certificate must match the value of @CustomPrivateKey@.
+createServer_customCertificate :: Lens.Lens' CreateServer (Prelude.Maybe Prelude.Text)
+createServer_customCertificate = Lens.lens (\CreateServer' {customCertificate} -> customCertificate) (\s@CreateServer' {} a -> s {customCertificate = a} :: CreateServer)
 
 -- | An optional public endpoint of a server, such as
 -- @https:\/\/aws.my-company.com@. To access the server, create a CNAME DNS
@@ -590,12 +580,12 @@ createServer_customDomain = Lens.lens (\CreateServer' {customDomain} -> customDo
 -- password or passphrase. If you specify a custom private key, you must
 -- also specify values for @CustomDomain@ and @CustomCertificate@.
 createServer_customPrivateKey :: Lens.Lens' CreateServer (Prelude.Maybe Prelude.Text)
-createServer_customPrivateKey = Lens.lens (\CreateServer' {customPrivateKey} -> customPrivateKey) (\s@CreateServer' {} a -> s {customPrivateKey = a} :: CreateServer) Prelude.. Lens.mapping Core._Sensitive
+createServer_customPrivateKey = Lens.lens (\CreateServer' {customPrivateKey} -> customPrivateKey) (\s@CreateServer' {} a -> s {customPrivateKey = a} :: CreateServer) Prelude.. Lens.mapping Data._Sensitive
 
--- | The engine model of the server. Valid values in this release include
--- @Monolithic@ for Puppet and @Single@ for Chef.
-createServer_engineModel :: Lens.Lens' CreateServer (Prelude.Maybe Prelude.Text)
-createServer_engineModel = Lens.lens (\CreateServer' {engineModel} -> engineModel) (\s@CreateServer' {} a -> s {engineModel = a} :: CreateServer)
+-- | Enable or disable scheduled backups. Valid values are @true@ or @false@.
+-- The default value is @true@.
+createServer_disableAutomatedBackup :: Lens.Lens' CreateServer (Prelude.Maybe Prelude.Bool)
+createServer_disableAutomatedBackup = Lens.lens (\CreateServer' {disableAutomatedBackup} -> disableAutomatedBackup) (\s@CreateServer' {} a -> s {disableAutomatedBackup = a} :: CreateServer)
 
 -- | Optional engine attributes on a specified server.
 --
@@ -631,17 +621,22 @@ createServer_engineModel = Lens.lens (\CreateServer' {engineModel} -> engineMode
 createServer_engineAttributes :: Lens.Lens' CreateServer (Prelude.Maybe [EngineAttribute])
 createServer_engineAttributes = Lens.lens (\CreateServer' {engineAttributes} -> engineAttributes) (\s@CreateServer' {} a -> s {engineAttributes = a} :: CreateServer) Prelude.. Lens.mapping Lens.coerced
 
--- | The start time for a one-hour period each week during which AWS OpsWorks
--- CM performs maintenance on the instance. Valid values must be specified
--- in the following format: @DDD:HH:MM@. @MM@ must be specified as @00@.
--- The specified time is in coordinated universal time (UTC). The default
--- value is a random one-hour period on Tuesday, Wednesday, or Friday. See
--- @TimeWindowDefinition@ for more information.
---
--- __Example:__ @Mon:08:00@, which represents a start time of every Monday
--- at 08:00 UTC. (8:00 a.m.)
-createServer_preferredMaintenanceWindow :: Lens.Lens' CreateServer (Prelude.Maybe Prelude.Text)
-createServer_preferredMaintenanceWindow = Lens.lens (\CreateServer' {preferredMaintenanceWindow} -> preferredMaintenanceWindow) (\s@CreateServer' {} a -> s {preferredMaintenanceWindow = a} :: CreateServer)
+-- | The engine model of the server. Valid values in this release include
+-- @Monolithic@ for Puppet and @Single@ for Chef.
+createServer_engineModel :: Lens.Lens' CreateServer (Prelude.Maybe Prelude.Text)
+createServer_engineModel = Lens.lens (\CreateServer' {engineModel} -> engineModel) (\s@CreateServer' {} a -> s {engineModel = a} :: CreateServer)
+
+-- | The major release version of the engine that you want to use. For a Chef
+-- server, the valid value for EngineVersion is currently @2@. For a Puppet
+-- server, valid values are @2019@ or @2017@.
+createServer_engineVersion :: Lens.Lens' CreateServer (Prelude.Maybe Prelude.Text)
+createServer_engineVersion = Lens.lens (\CreateServer' {engineVersion} -> engineVersion) (\s@CreateServer' {} a -> s {engineVersion = a} :: CreateServer)
+
+-- | The Amazon EC2 key pair to set for the instance. This parameter is
+-- optional; if desired, you may specify this parameter to connect to your
+-- instances by using SSH.
+createServer_keyPair :: Lens.Lens' CreateServer (Prelude.Maybe Prelude.Text)
+createServer_keyPair = Lens.lens (\CreateServer' {keyPair} -> keyPair) (\s@CreateServer' {} a -> s {keyPair = a} :: CreateServer)
 
 -- | The start time for a one-hour period during which AWS OpsWorks CM backs
 -- up application-level data on your server if automated backups are
@@ -661,29 +656,42 @@ createServer_preferredMaintenanceWindow = Lens.lens (\CreateServer' {preferredMa
 createServer_preferredBackupWindow :: Lens.Lens' CreateServer (Prelude.Maybe Prelude.Text)
 createServer_preferredBackupWindow = Lens.lens (\CreateServer' {preferredBackupWindow} -> preferredBackupWindow) (\s@CreateServer' {} a -> s {preferredBackupWindow = a} :: CreateServer)
 
--- | A PEM-formatted HTTPS certificate. The value can be be a single,
--- self-signed certificate, or a certificate chain. If you specify a custom
--- certificate, you must also specify values for @CustomDomain@ and
--- @CustomPrivateKey@. The following are requirements for the
--- @CustomCertificate@ value:
+-- | The start time for a one-hour period each week during which AWS OpsWorks
+-- CM performs maintenance on the instance. Valid values must be specified
+-- in the following format: @DDD:HH:MM@. @MM@ must be specified as @00@.
+-- The specified time is in coordinated universal time (UTC). The default
+-- value is a random one-hour period on Tuesday, Wednesday, or Friday. See
+-- @TimeWindowDefinition@ for more information.
 --
--- -   You can provide either a self-signed, custom certificate, or the
---     full certificate chain.
+-- __Example:__ @Mon:08:00@, which represents a start time of every Monday
+-- at 08:00 UTC. (8:00 a.m.)
+createServer_preferredMaintenanceWindow :: Lens.Lens' CreateServer (Prelude.Maybe Prelude.Text)
+createServer_preferredMaintenanceWindow = Lens.lens (\CreateServer' {preferredMaintenanceWindow} -> preferredMaintenanceWindow) (\s@CreateServer' {} a -> s {preferredMaintenanceWindow = a} :: CreateServer)
+
+-- | A list of security group IDs to attach to the Amazon EC2 instance. If
+-- you add this parameter, the specified security groups must be within the
+-- VPC that is specified by @SubnetIds@.
 --
--- -   The certificate must be a valid X509 certificate, or a certificate
---     chain in PEM format.
+-- If you do not specify this parameter, AWS OpsWorks CM creates one new
+-- security group that uses TCP ports 22 and 443, open to 0.0.0.0\/0
+-- (everyone).
+createServer_securityGroupIds :: Lens.Lens' CreateServer (Prelude.Maybe [Prelude.Text])
+createServer_securityGroupIds = Lens.lens (\CreateServer' {securityGroupIds} -> securityGroupIds) (\s@CreateServer' {} a -> s {securityGroupIds = a} :: CreateServer) Prelude.. Lens.mapping Lens.coerced
+
+-- | The IDs of subnets in which to launch the server EC2 instance.
 --
--- -   The certificate must be valid at the time of upload. A certificate
---     can\'t be used before its validity period begins (the certificate\'s
---     @NotBefore@ date), or after it expires (the certificate\'s
---     @NotAfter@ date).
+-- Amazon EC2-Classic customers: This field is required. All servers must
+-- run within a VPC. The VPC must have \"Auto Assign Public IP\" enabled.
 --
--- -   The certificate’s common name or subject alternative names (SANs),
---     if present, must match the value of @CustomDomain@.
+-- EC2-VPC customers: This field is optional. If you do not specify subnet
+-- IDs, your EC2 instances are created in a default subnet that is selected
+-- by Amazon EC2. If you specify subnet IDs, the VPC must have \"Auto
+-- Assign Public IP\" enabled.
 --
--- -   The certificate must match the value of @CustomPrivateKey@.
-createServer_customCertificate :: Lens.Lens' CreateServer (Prelude.Maybe Prelude.Text)
-createServer_customCertificate = Lens.lens (\CreateServer' {customCertificate} -> customCertificate) (\s@CreateServer' {} a -> s {customCertificate = a} :: CreateServer)
+-- For more information about supported Amazon EC2 platforms, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html Supported Platforms>.
+createServer_subnetIds :: Lens.Lens' CreateServer (Prelude.Maybe [Prelude.Text])
+createServer_subnetIds = Lens.lens (\CreateServer' {subnetIds} -> subnetIds) (\s@CreateServer' {} a -> s {subnetIds = a} :: CreateServer) Prelude.. Lens.mapping Lens.coerced
 
 -- | A map that contains tag keys and tag values to attach to an AWS OpsWorks
 -- for Chef Automate or AWS OpsWorks for Puppet Enterprise server.
@@ -705,12 +713,6 @@ createServer_customCertificate = Lens.lens (\CreateServer' {customCertificate} -
 --     server.
 createServer_tags :: Lens.Lens' CreateServer (Prelude.Maybe [Tag])
 createServer_tags = Lens.lens (\CreateServer' {tags} -> tags) (\s@CreateServer' {} a -> s {tags = a} :: CreateServer) Prelude.. Lens.mapping Lens.coerced
-
--- | The number of automated backups that you want to keep. Whenever a new
--- backup is created, AWS OpsWorks CM deletes the oldest backups if this
--- number is exceeded. The default value is @1@.
-createServer_backupRetentionCount :: Lens.Lens' CreateServer (Prelude.Maybe Prelude.Natural)
-createServer_backupRetentionCount = Lens.lens (\CreateServer' {backupRetentionCount} -> backupRetentionCount) (\s@CreateServer' {} a -> s {backupRetentionCount = a} :: CreateServer)
 
 -- | The configuration management engine to use. Valid values include
 -- @ChefAutomate@ and @Puppet@.
@@ -751,33 +753,35 @@ createServer_serviceRoleArn = Lens.lens (\CreateServer' {serviceRoleArn} -> serv
 
 instance Core.AWSRequest CreateServer where
   type AWSResponse CreateServer = CreateServerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateServerResponse'
-            Prelude.<$> (x Core..?> "Server")
+            Prelude.<$> (x Data..?> "Server")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateServer where
   hashWithSalt _salt CreateServer' {..} =
-    _salt `Prelude.hashWithSalt` engineVersion
-      `Prelude.hashWithSalt` disableAutomatedBackup
-      `Prelude.hashWithSalt` securityGroupIds
+    _salt
       `Prelude.hashWithSalt` associatePublicIpAddress
-      `Prelude.hashWithSalt` subnetIds
-      `Prelude.hashWithSalt` keyPair
       `Prelude.hashWithSalt` backupId
+      `Prelude.hashWithSalt` backupRetentionCount
+      `Prelude.hashWithSalt` customCertificate
       `Prelude.hashWithSalt` customDomain
       `Prelude.hashWithSalt` customPrivateKey
-      `Prelude.hashWithSalt` engineModel
+      `Prelude.hashWithSalt` disableAutomatedBackup
       `Prelude.hashWithSalt` engineAttributes
-      `Prelude.hashWithSalt` preferredMaintenanceWindow
+      `Prelude.hashWithSalt` engineModel
+      `Prelude.hashWithSalt` engineVersion
+      `Prelude.hashWithSalt` keyPair
       `Prelude.hashWithSalt` preferredBackupWindow
-      `Prelude.hashWithSalt` customCertificate
+      `Prelude.hashWithSalt` preferredMaintenanceWindow
+      `Prelude.hashWithSalt` securityGroupIds
+      `Prelude.hashWithSalt` subnetIds
       `Prelude.hashWithSalt` tags
-      `Prelude.hashWithSalt` backupRetentionCount
       `Prelude.hashWithSalt` engine
       `Prelude.hashWithSalt` serverName
       `Prelude.hashWithSalt` instanceProfileArn
@@ -786,86 +790,86 @@ instance Prelude.Hashable CreateServer where
 
 instance Prelude.NFData CreateServer where
   rnf CreateServer' {..} =
-    Prelude.rnf engineVersion
-      `Prelude.seq` Prelude.rnf disableAutomatedBackup
-      `Prelude.seq` Prelude.rnf securityGroupIds
-      `Prelude.seq` Prelude.rnf associatePublicIpAddress
-      `Prelude.seq` Prelude.rnf subnetIds
-      `Prelude.seq` Prelude.rnf keyPair
+    Prelude.rnf associatePublicIpAddress
       `Prelude.seq` Prelude.rnf backupId
+      `Prelude.seq` Prelude.rnf backupRetentionCount
+      `Prelude.seq` Prelude.rnf customCertificate
       `Prelude.seq` Prelude.rnf customDomain
       `Prelude.seq` Prelude.rnf customPrivateKey
-      `Prelude.seq` Prelude.rnf engineModel
+      `Prelude.seq` Prelude.rnf disableAutomatedBackup
       `Prelude.seq` Prelude.rnf engineAttributes
-      `Prelude.seq` Prelude.rnf preferredMaintenanceWindow
+      `Prelude.seq` Prelude.rnf engineModel
+      `Prelude.seq` Prelude.rnf engineVersion
+      `Prelude.seq` Prelude.rnf keyPair
       `Prelude.seq` Prelude.rnf preferredBackupWindow
-      `Prelude.seq` Prelude.rnf customCertificate
+      `Prelude.seq` Prelude.rnf preferredMaintenanceWindow
+      `Prelude.seq` Prelude.rnf securityGroupIds
+      `Prelude.seq` Prelude.rnf subnetIds
       `Prelude.seq` Prelude.rnf tags
-      `Prelude.seq` Prelude.rnf backupRetentionCount
       `Prelude.seq` Prelude.rnf engine
       `Prelude.seq` Prelude.rnf serverName
       `Prelude.seq` Prelude.rnf instanceProfileArn
       `Prelude.seq` Prelude.rnf instanceType
       `Prelude.seq` Prelude.rnf serviceRoleArn
 
-instance Core.ToHeaders CreateServer where
+instance Data.ToHeaders CreateServer where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorksCM_V2016_11_01.CreateServer" ::
+              Data.=# ( "OpsWorksCM_V2016_11_01.CreateServer" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateServer where
+instance Data.ToJSON CreateServer where
   toJSON CreateServer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EngineVersion" Core..=) Prelude.<$> engineVersion,
-            ("DisableAutomatedBackup" Core..=)
-              Prelude.<$> disableAutomatedBackup,
-            ("SecurityGroupIds" Core..=)
-              Prelude.<$> securityGroupIds,
-            ("AssociatePublicIpAddress" Core..=)
+          [ ("AssociatePublicIpAddress" Data..=)
               Prelude.<$> associatePublicIpAddress,
-            ("SubnetIds" Core..=) Prelude.<$> subnetIds,
-            ("KeyPair" Core..=) Prelude.<$> keyPair,
-            ("BackupId" Core..=) Prelude.<$> backupId,
-            ("CustomDomain" Core..=) Prelude.<$> customDomain,
-            ("CustomPrivateKey" Core..=)
-              Prelude.<$> customPrivateKey,
-            ("EngineModel" Core..=) Prelude.<$> engineModel,
-            ("EngineAttributes" Core..=)
-              Prelude.<$> engineAttributes,
-            ("PreferredMaintenanceWindow" Core..=)
-              Prelude.<$> preferredMaintenanceWindow,
-            ("PreferredBackupWindow" Core..=)
-              Prelude.<$> preferredBackupWindow,
-            ("CustomCertificate" Core..=)
-              Prelude.<$> customCertificate,
-            ("Tags" Core..=) Prelude.<$> tags,
-            ("BackupRetentionCount" Core..=)
+            ("BackupId" Data..=) Prelude.<$> backupId,
+            ("BackupRetentionCount" Data..=)
               Prelude.<$> backupRetentionCount,
-            Prelude.Just ("Engine" Core..= engine),
-            Prelude.Just ("ServerName" Core..= serverName),
+            ("CustomCertificate" Data..=)
+              Prelude.<$> customCertificate,
+            ("CustomDomain" Data..=) Prelude.<$> customDomain,
+            ("CustomPrivateKey" Data..=)
+              Prelude.<$> customPrivateKey,
+            ("DisableAutomatedBackup" Data..=)
+              Prelude.<$> disableAutomatedBackup,
+            ("EngineAttributes" Data..=)
+              Prelude.<$> engineAttributes,
+            ("EngineModel" Data..=) Prelude.<$> engineModel,
+            ("EngineVersion" Data..=) Prelude.<$> engineVersion,
+            ("KeyPair" Data..=) Prelude.<$> keyPair,
+            ("PreferredBackupWindow" Data..=)
+              Prelude.<$> preferredBackupWindow,
+            ("PreferredMaintenanceWindow" Data..=)
+              Prelude.<$> preferredMaintenanceWindow,
+            ("SecurityGroupIds" Data..=)
+              Prelude.<$> securityGroupIds,
+            ("SubnetIds" Data..=) Prelude.<$> subnetIds,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Engine" Data..= engine),
+            Prelude.Just ("ServerName" Data..= serverName),
             Prelude.Just
-              ("InstanceProfileArn" Core..= instanceProfileArn),
-            Prelude.Just ("InstanceType" Core..= instanceType),
+              ("InstanceProfileArn" Data..= instanceProfileArn),
+            Prelude.Just ("InstanceType" Data..= instanceType),
             Prelude.Just
-              ("ServiceRoleArn" Core..= serviceRoleArn)
+              ("ServiceRoleArn" Data..= serviceRoleArn)
           ]
       )
 
-instance Core.ToPath CreateServer where
+instance Data.ToPath CreateServer where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateServer where
+instance Data.ToQuery CreateServer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateServerResponse' smart constructor.

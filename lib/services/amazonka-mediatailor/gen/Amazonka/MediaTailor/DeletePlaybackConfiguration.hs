@@ -14,13 +14,15 @@
 
 -- |
 -- Module      : Amazonka.MediaTailor.DeletePlaybackConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the playback configuration for the specified name.
+-- Deletes a playback configuration. For information about MediaTailor
+-- configurations, see
+-- <https://docs.aws.amazon.com/mediatailor/latest/ug/configurations.html Working with configurations in AWS Elemental MediaTailor>.
 module Amazonka.MediaTailor.DeletePlaybackConfiguration
   ( -- * Creating a Request
     DeletePlaybackConfiguration (..),
@@ -39,7 +41,8 @@ module Amazonka.MediaTailor.DeletePlaybackConfiguration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaTailor.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -47,7 +50,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeletePlaybackConfiguration' smart constructor.
 data DeletePlaybackConfiguration = DeletePlaybackConfiguration'
-  { -- | The identifier for the playback configuration.
+  { -- | The name of the playback configuration.
     name :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -60,7 +63,7 @@ data DeletePlaybackConfiguration = DeletePlaybackConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'deletePlaybackConfiguration_name' - The identifier for the playback configuration.
+-- 'name', 'deletePlaybackConfiguration_name' - The name of the playback configuration.
 newDeletePlaybackConfiguration ::
   -- | 'name'
   Prelude.Text ->
@@ -68,7 +71,7 @@ newDeletePlaybackConfiguration ::
 newDeletePlaybackConfiguration pName_ =
   DeletePlaybackConfiguration' {name = pName_}
 
--- | The identifier for the playback configuration.
+-- | The name of the playback configuration.
 deletePlaybackConfiguration_name :: Lens.Lens' DeletePlaybackConfiguration Prelude.Text
 deletePlaybackConfiguration_name = Lens.lens (\DeletePlaybackConfiguration' {name} -> name) (\s@DeletePlaybackConfiguration' {} a -> s {name = a} :: DeletePlaybackConfiguration)
 
@@ -76,7 +79,8 @@ instance Core.AWSRequest DeletePlaybackConfiguration where
   type
     AWSResponse DeletePlaybackConfiguration =
       DeletePlaybackConfigurationResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -92,23 +96,23 @@ instance Prelude.NFData DeletePlaybackConfiguration where
   rnf DeletePlaybackConfiguration' {..} =
     Prelude.rnf name
 
-instance Core.ToHeaders DeletePlaybackConfiguration where
+instance Data.ToHeaders DeletePlaybackConfiguration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeletePlaybackConfiguration where
+instance Data.ToPath DeletePlaybackConfiguration where
   toPath DeletePlaybackConfiguration' {..} =
     Prelude.mconcat
-      ["/playbackConfiguration/", Core.toBS name]
+      ["/playbackConfiguration/", Data.toBS name]
 
-instance Core.ToQuery DeletePlaybackConfiguration where
+instance Data.ToQuery DeletePlaybackConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeletePlaybackConfigurationResponse' smart constructor.

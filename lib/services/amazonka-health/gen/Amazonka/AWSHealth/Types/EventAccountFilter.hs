@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AWSHealth.Types.EventAccountFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AWSHealth.Types.EventAccountFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The values used to filter results from the
@@ -31,7 +32,8 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newEventAccountFilter' smart constructor.
 data EventAccountFilter = EventAccountFilter'
-  { -- | The 12-digit AWS account numbers that contains the affected entities.
+  { -- | The 12-digit Amazon Web Services account numbers that contains the
+    -- affected entities.
     awsAccountId :: Prelude.Maybe Prelude.Text,
     -- | The unique identifier for the event. The event ARN has the
     -- @arn:aws:health:event-region::event\/SERVICE\/EVENT_TYPE_CODE\/EVENT_TYPE_PLUS_ID @
@@ -52,7 +54,8 @@ data EventAccountFilter = EventAccountFilter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'awsAccountId', 'eventAccountFilter_awsAccountId' - The 12-digit AWS account numbers that contains the affected entities.
+-- 'awsAccountId', 'eventAccountFilter_awsAccountId' - The 12-digit Amazon Web Services account numbers that contains the
+-- affected entities.
 --
 -- 'eventArn', 'eventAccountFilter_eventArn' - The unique identifier for the event. The event ARN has the
 -- @arn:aws:health:event-region::event\/SERVICE\/EVENT_TYPE_CODE\/EVENT_TYPE_PLUS_ID @
@@ -71,7 +74,8 @@ newEventAccountFilter pEventArn_ =
       eventArn = pEventArn_
     }
 
--- | The 12-digit AWS account numbers that contains the affected entities.
+-- | The 12-digit Amazon Web Services account numbers that contains the
+-- affected entities.
 eventAccountFilter_awsAccountId :: Lens.Lens' EventAccountFilter (Prelude.Maybe Prelude.Text)
 eventAccountFilter_awsAccountId = Lens.lens (\EventAccountFilter' {awsAccountId} -> awsAccountId) (\s@EventAccountFilter' {} a -> s {awsAccountId = a} :: EventAccountFilter)
 
@@ -95,11 +99,11 @@ instance Prelude.NFData EventAccountFilter where
     Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf eventArn
 
-instance Core.ToJSON EventAccountFilter where
+instance Data.ToJSON EventAccountFilter where
   toJSON EventAccountFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("awsAccountId" Core..=) Prelude.<$> awsAccountId,
-            Prelude.Just ("eventArn" Core..= eventArn)
+          [ ("awsAccountId" Data..=) Prelude.<$> awsAccountId,
+            Prelude.Just ("eventArn" Data..= eventArn)
           ]
       )

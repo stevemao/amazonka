@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,12 +18,12 @@ module Amazonka.MediaConvert.Types
     defaultService,
 
     -- * Errors
+    _BadRequestException,
     _ConflictException,
     _ForbiddenException,
+    _InternalServerErrorException,
     _NotFoundException,
     _TooManyRequestsException,
-    _InternalServerErrorException,
-    _BadRequestException,
 
     -- * AacAudioDescriptionBroadcasterMix
     AacAudioDescriptionBroadcasterMix (..),
@@ -96,6 +97,9 @@ module Amazonka.MediaConvert.Types
     -- * AudioDefaultSelection
     AudioDefaultSelection (..),
 
+    -- * AudioDurationCorrection
+    AudioDurationCorrection (..),
+
     -- * AudioLanguageCodeControl
     AudioLanguageCodeControl (..),
 
@@ -119,6 +123,9 @@ module Amazonka.MediaConvert.Types
 
     -- * Av1AdaptiveQuantization
     Av1AdaptiveQuantization (..),
+
+    -- * Av1BitDepth
+    Av1BitDepth (..),
 
     -- * Av1FramerateControl
     Av1FramerateControl (..),
@@ -219,6 +226,9 @@ module Amazonka.MediaConvert.Types
     -- * CmafManifestDurationFormat
     CmafManifestDurationFormat (..),
 
+    -- * CmafMpdManifestBandwidthType
+    CmafMpdManifestBandwidthType (..),
+
     -- * CmafMpdProfile
     CmafMpdProfile (..),
 
@@ -236,6 +246,9 @@ module Amazonka.MediaConvert.Types
 
     -- * CmafTargetDurationCompatibilityMode
     CmafTargetDurationCompatibilityMode (..),
+
+    -- * CmafVideoCompositionOffsets
+    CmafVideoCompositionOffsets (..),
 
     -- * CmafWriteDASHManifest
     CmafWriteDASHManifest (..),
@@ -258,11 +271,23 @@ module Amazonka.MediaConvert.Types
     -- * CmfcIFrameOnlyManifest
     CmfcIFrameOnlyManifest (..),
 
+    -- * CmfcKlvMetadata
+    CmfcKlvMetadata (..),
+
+    -- * CmfcManifestMetadataSignaling
+    CmfcManifestMetadataSignaling (..),
+
     -- * CmfcScte35Esam
     CmfcScte35Esam (..),
 
     -- * CmfcScte35Source
     CmfcScte35Source (..),
+
+    -- * CmfcTimedMetadata
+    CmfcTimedMetadata (..),
+
+    -- * CmfcTimedMetadataBoxVersion
+    CmfcTimedMetadataBoxVersion (..),
 
     -- * ColorMetadata
     ColorMetadata (..),
@@ -297,6 +322,9 @@ module Amazonka.MediaConvert.Types
     -- * DashIsoIntervalCadence
     DashIsoIntervalCadence (..),
 
+    -- * DashIsoMpdManifestBandwidthType
+    DashIsoMpdManifestBandwidthType (..),
+
     -- * DashIsoMpdProfile
     DashIsoMpdProfile (..),
 
@@ -311,6 +339,9 @@ module Amazonka.MediaConvert.Types
 
     -- * DashIsoSegmentLengthControl
     DashIsoSegmentLengthControl (..),
+
+    -- * DashIsoVideoCompositionOffsets
+    DashIsoVideoCompositionOffsets (..),
 
     -- * DashIsoWriteSegmentTimelineInRepresentation
     DashIsoWriteSegmentTimelineInRepresentation (..),
@@ -332,6 +363,9 @@ module Amazonka.MediaConvert.Types
 
     -- * DolbyVisionLevel6Mode
     DolbyVisionLevel6Mode (..),
+
+    -- * DolbyVisionMapping
+    DolbyVisionMapping (..),
 
     -- * DolbyVisionProfile
     DolbyVisionProfile (..),
@@ -449,6 +483,9 @@ module Amazonka.MediaConvert.Types
 
     -- * EmbeddedTerminateCaptions
     EmbeddedTerminateCaptions (..),
+
+    -- * EmbeddedTimecodeOverride
+    EmbeddedTimecodeOverride (..),
 
     -- * F4vMoovPlacement
     F4vMoovPlacement (..),
@@ -624,6 +661,9 @@ module Amazonka.MediaConvert.Types
     -- * HlsCaptionLanguageSetting
     HlsCaptionLanguageSetting (..),
 
+    -- * HlsCaptionSegmentLengthControl
+    HlsCaptionSegmentLengthControl (..),
+
     -- * HlsClientCache
     HlsClientCache (..),
 
@@ -683,6 +723,9 @@ module Amazonka.MediaConvert.Types
 
     -- * HlsTimedMetadataId3Frame
     HlsTimedMetadataId3Frame (..),
+
+    -- * ImscAccessibilitySubs
+    ImscAccessibilitySubs (..),
 
     -- * ImscStylePassthrough
     ImscStylePassthrough (..),
@@ -749,6 +792,9 @@ module Amazonka.MediaConvert.Types
 
     -- * M2tsForceTsVideoEbpOrder
     M2tsForceTsVideoEbpOrder (..),
+
+    -- * M2tsKlvMetadata
+    M2tsKlvMetadata (..),
 
     -- * M2tsNielsenId3
     M2tsNielsenId3 (..),
@@ -825,11 +871,23 @@ module Amazonka.MediaConvert.Types
     -- * MpdCaptionContainerType
     MpdCaptionContainerType (..),
 
+    -- * MpdKlvMetadata
+    MpdKlvMetadata (..),
+
+    -- * MpdManifestMetadataSignaling
+    MpdManifestMetadataSignaling (..),
+
     -- * MpdScte35Esam
     MpdScte35Esam (..),
 
     -- * MpdScte35Source
     MpdScte35Source (..),
+
+    -- * MpdTimedMetadata
+    MpdTimedMetadata (..),
+
+    -- * MpdTimedMetadataBoxVersion
+    MpdTimedMetadataBoxVersion (..),
 
     -- * Mpeg2AdaptiveQuantization
     Mpeg2AdaptiveQuantization (..),
@@ -918,6 +976,9 @@ module Amazonka.MediaConvert.Types
     -- * NoiseFilterPostTemporalSharpening
     NoiseFilterPostTemporalSharpening (..),
 
+    -- * NoiseFilterPostTemporalSharpeningStrength
+    NoiseFilterPostTemporalSharpeningStrength (..),
+
     -- * NoiseReducerFilter
     NoiseReducerFilter (..),
 
@@ -929,6 +990,9 @@ module Amazonka.MediaConvert.Types
 
     -- * OutputSdt
     OutputSdt (..),
+
+    -- * PadVideo
+    PadVideo (..),
 
     -- * PresetListBy
     PresetListBy (..),
@@ -972,11 +1036,17 @@ module Amazonka.MediaConvert.Types
     -- * RenewalType
     RenewalType (..),
 
+    -- * RequiredFlag
+    RequiredFlag (..),
+
     -- * ReservationPlanStatus
     ReservationPlanStatus (..),
 
     -- * RespondToAfd
     RespondToAfd (..),
+
+    -- * RuleType
+    RuleType (..),
 
     -- * S3ObjectCannedAcl
     S3ObjectCannedAcl (..),
@@ -1086,6 +1156,9 @@ module Amazonka.MediaConvert.Types
     -- * WavFormat
     WavFormat (..),
 
+    -- * WebvttAccessibilitySubs
+    WebvttAccessibilitySubs (..),
+
     -- * WebvttStylePassthrough
     WebvttStylePassthrough (..),
 
@@ -1153,28 +1226,28 @@ module Amazonka.MediaConvert.Types
     AacSettings (..),
     newAacSettings,
     aacSettings_audioDescriptionBroadcasterMix,
-    aacSettings_rawFormat,
+    aacSettings_bitrate,
+    aacSettings_codecProfile,
     aacSettings_codingMode,
     aacSettings_rateControlMode,
+    aacSettings_rawFormat,
     aacSettings_sampleRate,
     aacSettings_specification,
-    aacSettings_codecProfile,
-    aacSettings_bitrate,
     aacSettings_vbrQuality,
 
     -- * Ac3Settings
     Ac3Settings (..),
     newAc3Settings,
-    ac3Settings_lfeFilter,
-    ac3Settings_dynamicRangeCompressionLine,
-    ac3Settings_metadataControl,
-    ac3Settings_bitstreamMode,
-    ac3Settings_dynamicRangeCompressionRf,
-    ac3Settings_codingMode,
-    ac3Settings_sampleRate,
-    ac3Settings_dynamicRangeCompressionProfile,
     ac3Settings_bitrate,
+    ac3Settings_bitstreamMode,
+    ac3Settings_codingMode,
     ac3Settings_dialnorm,
+    ac3Settings_dynamicRangeCompressionLine,
+    ac3Settings_dynamicRangeCompressionProfile,
+    ac3Settings_dynamicRangeCompressionRf,
+    ac3Settings_lfeFilter,
+    ac3Settings_metadataControl,
+    ac3Settings_sampleRate,
 
     -- * AccelerationSettings
     AccelerationSettings (..),
@@ -1188,12 +1261,19 @@ module Amazonka.MediaConvert.Types
     aiffSettings_channels,
     aiffSettings_sampleRate,
 
+    -- * AllowedRenditionSize
+    AllowedRenditionSize (..),
+    newAllowedRenditionSize,
+    allowedRenditionSize_height,
+    allowedRenditionSize_required,
+    allowedRenditionSize_width,
+
     -- * AncillarySourceSettings
     AncillarySourceSettings (..),
     newAncillarySourceSettings,
     ancillarySourceSettings_convert608To708,
-    ancillarySourceSettings_terminateCaptions,
     ancillarySourceSettings_sourceAncillaryChannelNumber,
+    ancillarySourceSettings_terminateCaptions,
 
     -- * AudioChannelTaggingSettings
     AudioChannelTaggingSettings (..),
@@ -1203,69 +1283,80 @@ module Amazonka.MediaConvert.Types
     -- * AudioCodecSettings
     AudioCodecSettings (..),
     newAudioCodecSettings,
+    audioCodecSettings_aacSettings,
+    audioCodecSettings_ac3Settings,
     audioCodecSettings_aiffSettings,
     audioCodecSettings_codec,
-    audioCodecSettings_ac3Settings,
-    audioCodecSettings_opusSettings,
-    audioCodecSettings_mp2Settings,
-    audioCodecSettings_wavSettings,
     audioCodecSettings_eac3AtmosSettings,
-    audioCodecSettings_mp3Settings,
-    audioCodecSettings_vorbisSettings,
-    audioCodecSettings_aacSettings,
     audioCodecSettings_eac3Settings,
+    audioCodecSettings_mp2Settings,
+    audioCodecSettings_mp3Settings,
+    audioCodecSettings_opusSettings,
+    audioCodecSettings_vorbisSettings,
+    audioCodecSettings_wavSettings,
 
     -- * AudioDescription
     AudioDescription (..),
     newAudioDescription,
+    audioDescription_audioChannelTaggingSettings,
+    audioDescription_audioNormalizationSettings,
     audioDescription_audioSourceName,
+    audioDescription_audioType,
+    audioDescription_audioTypeControl,
+    audioDescription_codecSettings,
     audioDescription_customLanguageCode,
     audioDescription_languageCode,
-    audioDescription_audioChannelTaggingSettings,
-    audioDescription_audioType,
-    audioDescription_audioNormalizationSettings,
     audioDescription_languageCodeControl,
-    audioDescription_codecSettings,
-    audioDescription_streamName,
     audioDescription_remixSettings,
-    audioDescription_audioTypeControl,
+    audioDescription_streamName,
 
     -- * AudioNormalizationSettings
     AudioNormalizationSettings (..),
     newAudioNormalizationSettings,
-    audioNormalizationSettings_algorithmControl,
-    audioNormalizationSettings_targetLkfs,
-    audioNormalizationSettings_peakCalculation,
-    audioNormalizationSettings_correctionGateLevel,
     audioNormalizationSettings_algorithm,
+    audioNormalizationSettings_algorithmControl,
+    audioNormalizationSettings_correctionGateLevel,
     audioNormalizationSettings_loudnessLogging,
+    audioNormalizationSettings_peakCalculation,
+    audioNormalizationSettings_targetLkfs,
 
     -- * AudioSelector
     AudioSelector (..),
     newAudioSelector,
-    audioSelector_tracks,
+    audioSelector_audioDurationCorrection,
     audioSelector_customLanguageCode,
-    audioSelector_programSelection,
+    audioSelector_defaultSelection,
+    audioSelector_externalAudioFileInput,
+    audioSelector_hlsRenditionGroupSettings,
     audioSelector_languageCode,
     audioSelector_offset,
-    audioSelector_defaultSelection,
     audioSelector_pids,
-    audioSelector_hlsRenditionGroupSettings,
-    audioSelector_selectorType,
-    audioSelector_externalAudioFileInput,
+    audioSelector_programSelection,
     audioSelector_remixSettings,
+    audioSelector_selectorType,
+    audioSelector_tracks,
 
     -- * AudioSelectorGroup
     AudioSelectorGroup (..),
     newAudioSelectorGroup,
     audioSelectorGroup_audioSelectorNames,
 
+    -- * AutomatedAbrRule
+    AutomatedAbrRule (..),
+    newAutomatedAbrRule,
+    automatedAbrRule_allowedRenditions,
+    automatedAbrRule_forceIncludeRenditions,
+    automatedAbrRule_minBottomRenditionSize,
+    automatedAbrRule_minTopRenditionSize,
+    automatedAbrRule_type,
+
     -- * AutomatedAbrSettings
     AutomatedAbrSettings (..),
     newAutomatedAbrSettings,
-    automatedAbrSettings_maxRenditions,
     automatedAbrSettings_maxAbrBitrate,
+    automatedAbrSettings_maxRenditions,
     automatedAbrSettings_minAbrBitrate,
+    automatedAbrSettings_rules,
 
     -- * AutomatedEncodingSettings
     AutomatedEncodingSettings (..),
@@ -1275,23 +1366,24 @@ module Amazonka.MediaConvert.Types
     -- * Av1QvbrSettings
     Av1QvbrSettings (..),
     newAv1QvbrSettings,
-    av1QvbrSettings_qvbrQualityLevelFineTune,
     av1QvbrSettings_qvbrQualityLevel,
+    av1QvbrSettings_qvbrQualityLevelFineTune,
 
     -- * Av1Settings
     Av1Settings (..),
     newAv1Settings,
-    av1Settings_gopSize,
-    av1Settings_numberBFramesBetweenReferenceFrames,
-    av1Settings_slices,
-    av1Settings_rateControlMode,
-    av1Settings_qvbrSettings,
-    av1Settings_framerateDenominator,
-    av1Settings_framerateConversionAlgorithm,
-    av1Settings_framerateControl,
     av1Settings_adaptiveQuantization,
+    av1Settings_bitDepth,
+    av1Settings_framerateControl,
+    av1Settings_framerateConversionAlgorithm,
+    av1Settings_framerateDenominator,
     av1Settings_framerateNumerator,
+    av1Settings_gopSize,
     av1Settings_maxBitrate,
+    av1Settings_numberBFramesBetweenReferenceFrames,
+    av1Settings_qvbrSettings,
+    av1Settings_rateControlMode,
+    av1Settings_slices,
     av1Settings_spatialAdaptiveQuantization,
 
     -- * AvailBlanking
@@ -1302,16 +1394,16 @@ module Amazonka.MediaConvert.Types
     -- * AvcIntraSettings
     AvcIntraSettings (..),
     newAvcIntraSettings,
-    avcIntraSettings_slowPal,
+    avcIntraSettings_avcIntraClass,
     avcIntraSettings_avcIntraUhdSettings,
-    avcIntraSettings_telecine,
+    avcIntraSettings_framerateControl,
+    avcIntraSettings_framerateConversionAlgorithm,
+    avcIntraSettings_framerateDenominator,
+    avcIntraSettings_framerateNumerator,
     avcIntraSettings_interlaceMode,
     avcIntraSettings_scanTypeConversionMode,
-    avcIntraSettings_avcIntraClass,
-    avcIntraSettings_framerateDenominator,
-    avcIntraSettings_framerateConversionAlgorithm,
-    avcIntraSettings_framerateControl,
-    avcIntraSettings_framerateNumerator,
+    avcIntraSettings_slowPal,
+    avcIntraSettings_telecine,
 
     -- * AvcIntraUhdSettings
     AvcIntraUhdSettings (..),
@@ -1321,58 +1413,58 @@ module Amazonka.MediaConvert.Types
     -- * BurninDestinationSettings
     BurninDestinationSettings (..),
     newBurninDestinationSettings,
+    burninDestinationSettings_alignment,
+    burninDestinationSettings_applyFontColor,
+    burninDestinationSettings_backgroundColor,
     burninDestinationSettings_backgroundOpacity,
     burninDestinationSettings_fallbackFont,
+    burninDestinationSettings_fontColor,
     burninDestinationSettings_fontOpacity,
-    burninDestinationSettings_shadowYOffset,
     burninDestinationSettings_fontResolution,
-    burninDestinationSettings_yPosition,
-    burninDestinationSettings_backgroundColor,
-    burninDestinationSettings_shadowXOffset,
-    burninDestinationSettings_fontSize,
-    burninDestinationSettings_xPosition,
-    burninDestinationSettings_teletextSpacing,
     burninDestinationSettings_fontScript,
-    burninDestinationSettings_alignment,
-    burninDestinationSettings_shadowOpacity,
-    burninDestinationSettings_applyFontColor,
-    burninDestinationSettings_stylePassthrough,
+    burninDestinationSettings_fontSize,
+    burninDestinationSettings_hexFontColor,
     burninDestinationSettings_outlineColor,
     burninDestinationSettings_outlineSize,
     burninDestinationSettings_shadowColor,
-    burninDestinationSettings_hexFontColor,
-    burninDestinationSettings_fontColor,
+    burninDestinationSettings_shadowOpacity,
+    burninDestinationSettings_shadowXOffset,
+    burninDestinationSettings_shadowYOffset,
+    burninDestinationSettings_stylePassthrough,
+    burninDestinationSettings_teletextSpacing,
+    burninDestinationSettings_xPosition,
+    burninDestinationSettings_yPosition,
 
     -- * CaptionDescription
     CaptionDescription (..),
     newCaptionDescription,
     captionDescription_captionSelectorName,
     captionDescription_customLanguageCode,
-    captionDescription_languageCode,
     captionDescription_destinationSettings,
+    captionDescription_languageCode,
     captionDescription_languageDescription,
 
     -- * CaptionDescriptionPreset
     CaptionDescriptionPreset (..),
     newCaptionDescriptionPreset,
     captionDescriptionPreset_customLanguageCode,
-    captionDescriptionPreset_languageCode,
     captionDescriptionPreset_destinationSettings,
+    captionDescriptionPreset_languageCode,
     captionDescriptionPreset_languageDescription,
 
     -- * CaptionDestinationSettings
     CaptionDestinationSettings (..),
     newCaptionDestinationSettings,
+    captionDestinationSettings_burninDestinationSettings,
+    captionDestinationSettings_destinationType,
+    captionDestinationSettings_dvbSubDestinationSettings,
+    captionDestinationSettings_embeddedDestinationSettings,
+    captionDestinationSettings_imscDestinationSettings,
+    captionDestinationSettings_sccDestinationSettings,
     captionDestinationSettings_srtDestinationSettings,
     captionDestinationSettings_teletextDestinationSettings,
-    captionDestinationSettings_dvbSubDestinationSettings,
     captionDestinationSettings_ttmlDestinationSettings,
-    captionDestinationSettings_destinationType,
     captionDestinationSettings_webvttDestinationSettings,
-    captionDestinationSettings_embeddedDestinationSettings,
-    captionDestinationSettings_sccDestinationSettings,
-    captionDestinationSettings_burninDestinationSettings,
-    captionDestinationSettings_imscDestinationSettings,
 
     -- * CaptionSelector
     CaptionSelector (..),
@@ -1390,14 +1482,14 @@ module Amazonka.MediaConvert.Types
     -- * CaptionSourceSettings
     CaptionSourceSettings (..),
     newCaptionSourceSettings,
-    captionSourceSettings_teletextSourceSettings,
-    captionSourceSettings_sourceType,
-    captionSourceSettings_fileSourceSettings,
-    captionSourceSettings_webvttHlsSourceSettings,
-    captionSourceSettings_dvbSubSourceSettings,
-    captionSourceSettings_trackSourceSettings,
     captionSourceSettings_ancillarySourceSettings,
+    captionSourceSettings_dvbSubSourceSettings,
     captionSourceSettings_embeddedSourceSettings,
+    captionSourceSettings_fileSourceSettings,
+    captionSourceSettings_sourceType,
+    captionSourceSettings_teletextSourceSettings,
+    captionSourceSettings_trackSourceSettings,
+    captionSourceSettings_webvttHlsSourceSettings,
 
     -- * ChannelMapping
     ChannelMapping (..),
@@ -1413,86 +1505,95 @@ module Amazonka.MediaConvert.Types
     -- * CmafEncryptionSettings
     CmafEncryptionSettings (..),
     newCmafEncryptionSettings,
-    cmafEncryptionSettings_encryptionMethod,
     cmafEncryptionSettings_constantInitializationVector,
-    cmafEncryptionSettings_type,
-    cmafEncryptionSettings_staticKeyProvider,
-    cmafEncryptionSettings_spekeKeyProvider,
+    cmafEncryptionSettings_encryptionMethod,
     cmafEncryptionSettings_initializationVectorInManifest,
+    cmafEncryptionSettings_spekeKeyProvider,
+    cmafEncryptionSettings_staticKeyProvider,
+    cmafEncryptionSettings_type,
 
     -- * CmafGroupSettings
     CmafGroupSettings (..),
     newCmafGroupSettings,
-    cmafGroupSettings_fragmentLength,
-    cmafGroupSettings_segmentControl,
-    cmafGroupSettings_destination,
-    cmafGroupSettings_minBufferTime,
-    cmafGroupSettings_mpdProfile,
-    cmafGroupSettings_targetDurationCompatibilityMode,
-    cmafGroupSettings_imageBasedTrickPlay,
-    cmafGroupSettings_writeHlsManifest,
     cmafGroupSettings_additionalManifests,
-    cmafGroupSettings_segmentLengthControl,
-    cmafGroupSettings_imageBasedTrickPlaySettings,
-    cmafGroupSettings_codecSpecification,
     cmafGroupSettings_baseUrl,
-    cmafGroupSettings_destinationSettings,
-    cmafGroupSettings_minFinalSegmentLength,
-    cmafGroupSettings_writeDashManifest,
-    cmafGroupSettings_encryption,
-    cmafGroupSettings_segmentLength,
-    cmafGroupSettings_ptsOffsetHandlingForBFrames,
-    cmafGroupSettings_manifestDurationFormat,
     cmafGroupSettings_clientCache,
-    cmafGroupSettings_writeSegmentTimelineInRepresentation,
-    cmafGroupSettings_streamInfResolution,
+    cmafGroupSettings_codecSpecification,
+    cmafGroupSettings_destination,
+    cmafGroupSettings_destinationSettings,
+    cmafGroupSettings_encryption,
+    cmafGroupSettings_fragmentLength,
+    cmafGroupSettings_imageBasedTrickPlay,
+    cmafGroupSettings_imageBasedTrickPlaySettings,
     cmafGroupSettings_manifestCompression,
+    cmafGroupSettings_manifestDurationFormat,
+    cmafGroupSettings_minBufferTime,
+    cmafGroupSettings_minFinalSegmentLength,
+    cmafGroupSettings_mpdManifestBandwidthType,
+    cmafGroupSettings_mpdProfile,
+    cmafGroupSettings_ptsOffsetHandlingForBFrames,
+    cmafGroupSettings_segmentControl,
+    cmafGroupSettings_segmentLength,
+    cmafGroupSettings_segmentLengthControl,
+    cmafGroupSettings_streamInfResolution,
+    cmafGroupSettings_targetDurationCompatibilityMode,
+    cmafGroupSettings_videoCompositionOffsets,
+    cmafGroupSettings_writeDashManifest,
+    cmafGroupSettings_writeHlsManifest,
+    cmafGroupSettings_writeSegmentTimelineInRepresentation,
 
     -- * CmafImageBasedTrickPlaySettings
     CmafImageBasedTrickPlaySettings (..),
     newCmafImageBasedTrickPlaySettings,
-    cmafImageBasedTrickPlaySettings_tileWidth,
-    cmafImageBasedTrickPlaySettings_thumbnailHeight,
     cmafImageBasedTrickPlaySettings_intervalCadence,
-    cmafImageBasedTrickPlaySettings_thumbnailWidth,
+    cmafImageBasedTrickPlaySettings_thumbnailHeight,
     cmafImageBasedTrickPlaySettings_thumbnailInterval,
+    cmafImageBasedTrickPlaySettings_thumbnailWidth,
     cmafImageBasedTrickPlaySettings_tileHeight,
+    cmafImageBasedTrickPlaySettings_tileWidth,
 
     -- * CmfcSettings
     CmfcSettings (..),
     newCmfcSettings,
-    cmfcSettings_descriptiveVideoServiceFlag,
-    cmfcSettings_audioRenditionSets,
-    cmfcSettings_iFrameOnlyManifest,
-    cmfcSettings_scte35Esam,
     cmfcSettings_audioDuration,
     cmfcSettings_audioGroupId,
-    cmfcSettings_scte35Source,
+    cmfcSettings_audioRenditionSets,
     cmfcSettings_audioTrackType,
+    cmfcSettings_descriptiveVideoServiceFlag,
+    cmfcSettings_iFrameOnlyManifest,
+    cmfcSettings_klvMetadata,
+    cmfcSettings_manifestMetadataSignaling,
+    cmfcSettings_scte35Esam,
+    cmfcSettings_scte35Source,
+    cmfcSettings_timedMetadata,
+    cmfcSettings_timedMetadataBoxVersion,
+    cmfcSettings_timedMetadataSchemeIdUri,
+    cmfcSettings_timedMetadataValue,
 
     -- * ColorCorrector
     ColorCorrector (..),
     newColorCorrector,
-    colorCorrector_saturation,
+    colorCorrector_brightness,
+    colorCorrector_colorSpaceConversion,
+    colorCorrector_contrast,
+    colorCorrector_hdr10Metadata,
     colorCorrector_hue,
     colorCorrector_sampleRangeConversion,
-    colorCorrector_colorSpaceConversion,
-    colorCorrector_hdr10Metadata,
-    colorCorrector_contrast,
-    colorCorrector_brightness,
+    colorCorrector_saturation,
+    colorCorrector_sdrReferenceWhiteLevel,
 
     -- * ContainerSettings
     ContainerSettings (..),
     newContainerSettings,
-    containerSettings_m2tsSettings,
-    containerSettings_mxfSettings,
-    containerSettings_m3u8Settings,
     containerSettings_cmfcSettings,
+    containerSettings_container,
+    containerSettings_f4vSettings,
+    containerSettings_m2tsSettings,
+    containerSettings_m3u8Settings,
     containerSettings_movSettings,
     containerSettings_mp4Settings,
     containerSettings_mpdSettings,
-    containerSettings_container,
-    containerSettings_f4vSettings,
+    containerSettings_mxfSettings,
 
     -- * DashAdditionalManifest
     DashAdditionalManifest (..),
@@ -1509,41 +1610,43 @@ module Amazonka.MediaConvert.Types
     -- * DashIsoGroupSettings
     DashIsoGroupSettings (..),
     newDashIsoGroupSettings,
-    dashIsoGroupSettings_fragmentLength,
-    dashIsoGroupSettings_segmentControl,
-    dashIsoGroupSettings_destination,
-    dashIsoGroupSettings_hbbtvCompliance,
-    dashIsoGroupSettings_minBufferTime,
-    dashIsoGroupSettings_mpdProfile,
-    dashIsoGroupSettings_imageBasedTrickPlay,
     dashIsoGroupSettings_additionalManifests,
-    dashIsoGroupSettings_segmentLengthControl,
-    dashIsoGroupSettings_imageBasedTrickPlaySettings,
-    dashIsoGroupSettings_baseUrl,
-    dashIsoGroupSettings_destinationSettings,
-    dashIsoGroupSettings_minFinalSegmentLength,
     dashIsoGroupSettings_audioChannelConfigSchemeIdUri,
+    dashIsoGroupSettings_baseUrl,
+    dashIsoGroupSettings_destination,
+    dashIsoGroupSettings_destinationSettings,
     dashIsoGroupSettings_encryption,
-    dashIsoGroupSettings_segmentLength,
+    dashIsoGroupSettings_fragmentLength,
+    dashIsoGroupSettings_hbbtvCompliance,
+    dashIsoGroupSettings_imageBasedTrickPlay,
+    dashIsoGroupSettings_imageBasedTrickPlaySettings,
+    dashIsoGroupSettings_minBufferTime,
+    dashIsoGroupSettings_minFinalSegmentLength,
+    dashIsoGroupSettings_mpdManifestBandwidthType,
+    dashIsoGroupSettings_mpdProfile,
     dashIsoGroupSettings_ptsOffsetHandlingForBFrames,
+    dashIsoGroupSettings_segmentControl,
+    dashIsoGroupSettings_segmentLength,
+    dashIsoGroupSettings_segmentLengthControl,
+    dashIsoGroupSettings_videoCompositionOffsets,
     dashIsoGroupSettings_writeSegmentTimelineInRepresentation,
 
     -- * DashIsoImageBasedTrickPlaySettings
     DashIsoImageBasedTrickPlaySettings (..),
     newDashIsoImageBasedTrickPlaySettings,
-    dashIsoImageBasedTrickPlaySettings_tileWidth,
-    dashIsoImageBasedTrickPlaySettings_thumbnailHeight,
     dashIsoImageBasedTrickPlaySettings_intervalCadence,
-    dashIsoImageBasedTrickPlaySettings_thumbnailWidth,
+    dashIsoImageBasedTrickPlaySettings_thumbnailHeight,
     dashIsoImageBasedTrickPlaySettings_thumbnailInterval,
+    dashIsoImageBasedTrickPlaySettings_thumbnailWidth,
     dashIsoImageBasedTrickPlaySettings_tileHeight,
+    dashIsoImageBasedTrickPlaySettings_tileWidth,
 
     -- * Deinterlacer
     Deinterlacer (..),
     newDeinterlacer,
+    deinterlacer_algorithm,
     deinterlacer_control,
     deinterlacer_mode,
-    deinterlacer_algorithm,
 
     -- * DestinationSettings
     DestinationSettings (..),
@@ -1553,15 +1656,16 @@ module Amazonka.MediaConvert.Types
     -- * DolbyVision
     DolbyVision (..),
     newDolbyVision,
-    dolbyVision_profile,
-    dolbyVision_l6Mode,
     dolbyVision_l6Metadata,
+    dolbyVision_l6Mode,
+    dolbyVision_mapping,
+    dolbyVision_profile,
 
     -- * DolbyVisionLevel6Metadata
     DolbyVisionLevel6Metadata (..),
     newDolbyVisionLevel6Metadata,
-    dolbyVisionLevel6Metadata_maxFall,
     dolbyVisionLevel6Metadata_maxCll,
+    dolbyVisionLevel6Metadata_maxFall,
 
     -- * DvbNitSettings
     DvbNitSettings (..),
@@ -1573,41 +1677,41 @@ module Amazonka.MediaConvert.Types
     -- * DvbSdtSettings
     DvbSdtSettings (..),
     newDvbSdtSettings,
-    dvbSdtSettings_sdtInterval,
-    dvbSdtSettings_serviceProviderName,
     dvbSdtSettings_outputSdt,
+    dvbSdtSettings_sdtInterval,
     dvbSdtSettings_serviceName,
+    dvbSdtSettings_serviceProviderName,
 
     -- * DvbSubDestinationSettings
     DvbSubDestinationSettings (..),
     newDvbSubDestinationSettings,
-    dvbSubDestinationSettings_ddsHandling,
-    dvbSubDestinationSettings_backgroundOpacity,
-    dvbSubDestinationSettings_fallbackFont,
-    dvbSubDestinationSettings_height,
-    dvbSubDestinationSettings_fontOpacity,
-    dvbSubDestinationSettings_shadowYOffset,
-    dvbSubDestinationSettings_fontResolution,
-    dvbSubDestinationSettings_yPosition,
-    dvbSubDestinationSettings_ddsYCoordinate,
-    dvbSubDestinationSettings_backgroundColor,
-    dvbSubDestinationSettings_shadowXOffset,
-    dvbSubDestinationSettings_fontSize,
-    dvbSubDestinationSettings_width,
-    dvbSubDestinationSettings_ddsXCoordinate,
-    dvbSubDestinationSettings_xPosition,
-    dvbSubDestinationSettings_teletextSpacing,
-    dvbSubDestinationSettings_fontScript,
     dvbSubDestinationSettings_alignment,
-    dvbSubDestinationSettings_shadowOpacity,
     dvbSubDestinationSettings_applyFontColor,
-    dvbSubDestinationSettings_stylePassthrough,
+    dvbSubDestinationSettings_backgroundColor,
+    dvbSubDestinationSettings_backgroundOpacity,
+    dvbSubDestinationSettings_ddsHandling,
+    dvbSubDestinationSettings_ddsXCoordinate,
+    dvbSubDestinationSettings_ddsYCoordinate,
+    dvbSubDestinationSettings_fallbackFont,
+    dvbSubDestinationSettings_fontColor,
+    dvbSubDestinationSettings_fontOpacity,
+    dvbSubDestinationSettings_fontResolution,
+    dvbSubDestinationSettings_fontScript,
+    dvbSubDestinationSettings_fontSize,
+    dvbSubDestinationSettings_height,
+    dvbSubDestinationSettings_hexFontColor,
     dvbSubDestinationSettings_outlineColor,
     dvbSubDestinationSettings_outlineSize,
     dvbSubDestinationSettings_shadowColor,
-    dvbSubDestinationSettings_hexFontColor,
-    dvbSubDestinationSettings_fontColor,
+    dvbSubDestinationSettings_shadowOpacity,
+    dvbSubDestinationSettings_shadowXOffset,
+    dvbSubDestinationSettings_shadowYOffset,
+    dvbSubDestinationSettings_stylePassthrough,
     dvbSubDestinationSettings_subtitlingType,
+    dvbSubDestinationSettings_teletextSpacing,
+    dvbSubDestinationSettings_width,
+    dvbSubDestinationSettings_xPosition,
+    dvbSubDestinationSettings_yPosition,
 
     -- * DvbSubSourceSettings
     DvbSubSourceSettings (..),
@@ -1622,48 +1726,48 @@ module Amazonka.MediaConvert.Types
     -- * Eac3AtmosSettings
     Eac3AtmosSettings (..),
     newEac3AtmosSettings,
-    eac3AtmosSettings_stereoDownmix,
-    eac3AtmosSettings_loRoCenterMixLevel,
-    eac3AtmosSettings_ltRtCenterMixLevel,
-    eac3AtmosSettings_dynamicRangeCompressionLine,
-    eac3AtmosSettings_ltRtSurroundMixLevel,
-    eac3AtmosSettings_loRoSurroundMixLevel,
-    eac3AtmosSettings_dynamicRangeControl,
+    eac3AtmosSettings_bitrate,
     eac3AtmosSettings_bitstreamMode,
-    eac3AtmosSettings_dynamicRangeCompressionRf,
     eac3AtmosSettings_codingMode,
+    eac3AtmosSettings_dialogueIntelligence,
+    eac3AtmosSettings_downmixControl,
+    eac3AtmosSettings_dynamicRangeCompressionLine,
+    eac3AtmosSettings_dynamicRangeCompressionRf,
+    eac3AtmosSettings_dynamicRangeControl,
+    eac3AtmosSettings_loRoCenterMixLevel,
+    eac3AtmosSettings_loRoSurroundMixLevel,
+    eac3AtmosSettings_ltRtCenterMixLevel,
+    eac3AtmosSettings_ltRtSurroundMixLevel,
+    eac3AtmosSettings_meteringMode,
     eac3AtmosSettings_sampleRate,
     eac3AtmosSettings_speechThreshold,
-    eac3AtmosSettings_bitrate,
-    eac3AtmosSettings_dialogueIntelligence,
-    eac3AtmosSettings_meteringMode,
+    eac3AtmosSettings_stereoDownmix,
     eac3AtmosSettings_surroundExMode,
-    eac3AtmosSettings_downmixControl,
 
     -- * Eac3Settings
     Eac3Settings (..),
     newEac3Settings,
-    eac3Settings_stereoDownmix,
-    eac3Settings_loRoCenterMixLevel,
-    eac3Settings_ltRtCenterMixLevel,
-    eac3Settings_lfeFilter,
+    eac3Settings_attenuationControl,
+    eac3Settings_bitrate,
+    eac3Settings_bitstreamMode,
+    eac3Settings_codingMode,
+    eac3Settings_dcFilter,
+    eac3Settings_dialnorm,
     eac3Settings_dynamicRangeCompressionLine,
+    eac3Settings_dynamicRangeCompressionRf,
+    eac3Settings_lfeControl,
+    eac3Settings_lfeFilter,
+    eac3Settings_loRoCenterMixLevel,
+    eac3Settings_loRoSurroundMixLevel,
+    eac3Settings_ltRtCenterMixLevel,
     eac3Settings_ltRtSurroundMixLevel,
     eac3Settings_metadataControl,
-    eac3Settings_loRoSurroundMixLevel,
-    eac3Settings_surroundMode,
-    eac3Settings_attenuationControl,
     eac3Settings_passthroughControl,
-    eac3Settings_bitstreamMode,
-    eac3Settings_lfeControl,
-    eac3Settings_dynamicRangeCompressionRf,
-    eac3Settings_codingMode,
-    eac3Settings_sampleRate,
-    eac3Settings_dcFilter,
-    eac3Settings_bitrate,
     eac3Settings_phaseControl,
+    eac3Settings_sampleRate,
+    eac3Settings_stereoDownmix,
     eac3Settings_surroundExMode,
-    eac3Settings_dialnorm,
+    eac3Settings_surroundMode,
 
     -- * EmbeddedDestinationSettings
     EmbeddedDestinationSettings (..),
@@ -1675,9 +1779,9 @@ module Amazonka.MediaConvert.Types
     EmbeddedSourceSettings (..),
     newEmbeddedSourceSettings,
     embeddedSourceSettings_convert608To708,
-    embeddedSourceSettings_terminateCaptions,
-    embeddedSourceSettings_source608TrackNumber,
     embeddedSourceSettings_source608ChannelNumber,
+    embeddedSourceSettings_source608TrackNumber,
+    embeddedSourceSettings_terminateCaptions,
 
     -- * Endpoint
     Endpoint (..),
@@ -1704,8 +1808,8 @@ module Amazonka.MediaConvert.Types
     -- * ExtendedDataServices
     ExtendedDataServices (..),
     newExtendedDataServices,
-    extendedDataServices_vchipAction,
     extendedDataServices_copyProtectionAction,
+    extendedDataServices_vchipAction,
 
     -- * F4vSettings
     F4vSettings (..),
@@ -1721,137 +1825,145 @@ module Amazonka.MediaConvert.Types
     -- * FileSourceSettings
     FileSourceSettings (..),
     newFileSourceSettings,
-    fileSourceSettings_framerate,
     fileSourceSettings_convert608To708,
+    fileSourceSettings_framerate,
+    fileSourceSettings_sourceFile,
     fileSourceSettings_timeDelta,
     fileSourceSettings_timeDeltaUnits,
-    fileSourceSettings_sourceFile,
+
+    -- * ForceIncludeRenditionSize
+    ForceIncludeRenditionSize (..),
+    newForceIncludeRenditionSize,
+    forceIncludeRenditionSize_height,
+    forceIncludeRenditionSize_width,
 
     -- * FrameCaptureSettings
     FrameCaptureSettings (..),
     newFrameCaptureSettings,
-    frameCaptureSettings_quality,
     frameCaptureSettings_framerateDenominator,
-    frameCaptureSettings_maxCaptures,
     frameCaptureSettings_framerateNumerator,
+    frameCaptureSettings_maxCaptures,
+    frameCaptureSettings_quality,
 
     -- * H264QvbrSettings
     H264QvbrSettings (..),
     newH264QvbrSettings,
-    h264QvbrSettings_qvbrQualityLevelFineTune,
     h264QvbrSettings_maxAverageBitrate,
     h264QvbrSettings_qvbrQualityLevel,
+    h264QvbrSettings_qvbrQualityLevelFineTune,
 
     -- * H264Settings
     H264Settings (..),
     newH264Settings,
-    h264Settings_unregisteredSeiTimecode,
-    h264Settings_qualityTuningLevel,
-    h264Settings_temporalAdaptiveQuantization,
-    h264Settings_sceneChangeDetect,
-    h264Settings_hrdBufferInitialFillPercentage,
-    h264Settings_slowPal,
-    h264Settings_parNumerator,
-    h264Settings_gopSize,
-    h264Settings_numberBFramesBetweenReferenceFrames,
-    h264Settings_gopSizeUnits,
-    h264Settings_hrdBufferSize,
-    h264Settings_slices,
-    h264Settings_rateControlMode,
-    h264Settings_numberReferenceFrames,
-    h264Settings_telecine,
-    h264Settings_dynamicSubGop,
-    h264Settings_minIInterval,
-    h264Settings_interlaceMode,
-    h264Settings_parControl,
-    h264Settings_repeatPps,
-    h264Settings_scanTypeConversionMode,
-    h264Settings_flickerAdaptiveQuantization,
-    h264Settings_qvbrSettings,
-    h264Settings_softness,
-    h264Settings_codecProfile,
-    h264Settings_bitrate,
-    h264Settings_framerateDenominator,
-    h264Settings_framerateConversionAlgorithm,
-    h264Settings_codecLevel,
-    h264Settings_entropyEncoding,
-    h264Settings_framerateControl,
     h264Settings_adaptiveQuantization,
+    h264Settings_bitrate,
+    h264Settings_codecLevel,
+    h264Settings_codecProfile,
+    h264Settings_dynamicSubGop,
+    h264Settings_entropyEncoding,
+    h264Settings_fieldEncoding,
+    h264Settings_flickerAdaptiveQuantization,
+    h264Settings_framerateControl,
+    h264Settings_framerateConversionAlgorithm,
+    h264Settings_framerateDenominator,
     h264Settings_framerateNumerator,
     h264Settings_gopBReference,
-    h264Settings_maxBitrate,
-    h264Settings_syntax,
-    h264Settings_fieldEncoding,
     h264Settings_gopClosedCadence,
+    h264Settings_gopSize,
+    h264Settings_gopSizeUnits,
+    h264Settings_hrdBufferFinalFillPercentage,
+    h264Settings_hrdBufferInitialFillPercentage,
+    h264Settings_hrdBufferSize,
+    h264Settings_interlaceMode,
+    h264Settings_maxBitrate,
+    h264Settings_minIInterval,
+    h264Settings_numberBFramesBetweenReferenceFrames,
+    h264Settings_numberReferenceFrames,
+    h264Settings_parControl,
     h264Settings_parDenominator,
+    h264Settings_parNumerator,
+    h264Settings_qualityTuningLevel,
+    h264Settings_qvbrSettings,
+    h264Settings_rateControlMode,
+    h264Settings_repeatPps,
+    h264Settings_scanTypeConversionMode,
+    h264Settings_sceneChangeDetect,
+    h264Settings_slices,
+    h264Settings_slowPal,
+    h264Settings_softness,
     h264Settings_spatialAdaptiveQuantization,
+    h264Settings_syntax,
+    h264Settings_telecine,
+    h264Settings_temporalAdaptiveQuantization,
+    h264Settings_unregisteredSeiTimecode,
 
     -- * H265QvbrSettings
     H265QvbrSettings (..),
     newH265QvbrSettings,
-    h265QvbrSettings_qvbrQualityLevelFineTune,
     h265QvbrSettings_maxAverageBitrate,
     h265QvbrSettings_qvbrQualityLevel,
+    h265QvbrSettings_qvbrQualityLevelFineTune,
 
     -- * H265Settings
     H265Settings (..),
     newH265Settings,
-    h265Settings_unregisteredSeiTimecode,
-    h265Settings_qualityTuningLevel,
-    h265Settings_temporalAdaptiveQuantization,
-    h265Settings_sceneChangeDetect,
-    h265Settings_hrdBufferInitialFillPercentage,
-    h265Settings_tiles,
-    h265Settings_slowPal,
-    h265Settings_temporalIds,
-    h265Settings_parNumerator,
-    h265Settings_gopSize,
-    h265Settings_numberBFramesBetweenReferenceFrames,
-    h265Settings_gopSizeUnits,
-    h265Settings_hrdBufferSize,
-    h265Settings_slices,
-    h265Settings_alternateTransferFunctionSei,
-    h265Settings_rateControlMode,
-    h265Settings_numberReferenceFrames,
-    h265Settings_telecine,
-    h265Settings_dynamicSubGop,
-    h265Settings_minIInterval,
-    h265Settings_interlaceMode,
-    h265Settings_parControl,
-    h265Settings_scanTypeConversionMode,
-    h265Settings_flickerAdaptiveQuantization,
-    h265Settings_qvbrSettings,
-    h265Settings_sampleAdaptiveOffsetFilterMode,
-    h265Settings_codecProfile,
-    h265Settings_bitrate,
-    h265Settings_framerateDenominator,
-    h265Settings_framerateConversionAlgorithm,
-    h265Settings_codecLevel,
-    h265Settings_framerateControl,
-    h265Settings_writeMp4PackagingType,
     h265Settings_adaptiveQuantization,
+    h265Settings_alternateTransferFunctionSei,
+    h265Settings_bitrate,
+    h265Settings_codecLevel,
+    h265Settings_codecProfile,
+    h265Settings_dynamicSubGop,
+    h265Settings_flickerAdaptiveQuantization,
+    h265Settings_framerateControl,
+    h265Settings_framerateConversionAlgorithm,
+    h265Settings_framerateDenominator,
     h265Settings_framerateNumerator,
     h265Settings_gopBReference,
-    h265Settings_maxBitrate,
     h265Settings_gopClosedCadence,
+    h265Settings_gopSize,
+    h265Settings_gopSizeUnits,
+    h265Settings_hrdBufferFinalFillPercentage,
+    h265Settings_hrdBufferInitialFillPercentage,
+    h265Settings_hrdBufferSize,
+    h265Settings_interlaceMode,
+    h265Settings_maxBitrate,
+    h265Settings_minIInterval,
+    h265Settings_numberBFramesBetweenReferenceFrames,
+    h265Settings_numberReferenceFrames,
+    h265Settings_parControl,
     h265Settings_parDenominator,
+    h265Settings_parNumerator,
+    h265Settings_qualityTuningLevel,
+    h265Settings_qvbrSettings,
+    h265Settings_rateControlMode,
+    h265Settings_sampleAdaptiveOffsetFilterMode,
+    h265Settings_scanTypeConversionMode,
+    h265Settings_sceneChangeDetect,
+    h265Settings_slices,
+    h265Settings_slowPal,
     h265Settings_spatialAdaptiveQuantization,
+    h265Settings_telecine,
+    h265Settings_temporalAdaptiveQuantization,
+    h265Settings_temporalIds,
+    h265Settings_tiles,
+    h265Settings_unregisteredSeiTimecode,
+    h265Settings_writeMp4PackagingType,
 
     -- * Hdr10Metadata
     Hdr10Metadata (..),
     newHdr10Metadata,
-    hdr10Metadata_redPrimaryX,
     hdr10Metadata_bluePrimaryX,
-    hdr10Metadata_maxFrameAverageLightLevel,
-    hdr10Metadata_whitePointY,
-    hdr10Metadata_maxContentLightLevel,
-    hdr10Metadata_whitePointX,
     hdr10Metadata_bluePrimaryY,
-    hdr10Metadata_greenPrimaryY,
     hdr10Metadata_greenPrimaryX,
-    hdr10Metadata_minLuminance,
-    hdr10Metadata_redPrimaryY,
+    hdr10Metadata_greenPrimaryY,
+    hdr10Metadata_maxContentLightLevel,
+    hdr10Metadata_maxFrameAverageLightLevel,
     hdr10Metadata_maxLuminance,
+    hdr10Metadata_minLuminance,
+    hdr10Metadata_redPrimaryX,
+    hdr10Metadata_redPrimaryY,
+    hdr10Metadata_whitePointX,
+    hdr10Metadata_whitePointY,
 
     -- * Hdr10Plus
     Hdr10Plus (..),
@@ -1868,83 +1980,84 @@ module Amazonka.MediaConvert.Types
     -- * HlsCaptionLanguageMapping
     HlsCaptionLanguageMapping (..),
     newHlsCaptionLanguageMapping,
+    hlsCaptionLanguageMapping_captionChannel,
     hlsCaptionLanguageMapping_customLanguageCode,
     hlsCaptionLanguageMapping_languageCode,
     hlsCaptionLanguageMapping_languageDescription,
-    hlsCaptionLanguageMapping_captionChannel,
 
     -- * HlsEncryptionSettings
     HlsEncryptionSettings (..),
     newHlsEncryptionSettings,
-    hlsEncryptionSettings_offlineEncrypted,
-    hlsEncryptionSettings_encryptionMethod,
     hlsEncryptionSettings_constantInitializationVector,
-    hlsEncryptionSettings_type,
-    hlsEncryptionSettings_staticKeyProvider,
-    hlsEncryptionSettings_spekeKeyProvider,
+    hlsEncryptionSettings_encryptionMethod,
     hlsEncryptionSettings_initializationVectorInManifest,
+    hlsEncryptionSettings_offlineEncrypted,
+    hlsEncryptionSettings_spekeKeyProvider,
+    hlsEncryptionSettings_staticKeyProvider,
+    hlsEncryptionSettings_type,
 
     -- * HlsGroupSettings
     HlsGroupSettings (..),
     newHlsGroupSettings,
-    hlsGroupSettings_directoryStructure,
-    hlsGroupSettings_segmentControl,
-    hlsGroupSettings_destination,
-    hlsGroupSettings_timedMetadataId3Period,
-    hlsGroupSettings_targetDurationCompatibilityMode,
-    hlsGroupSettings_imageBasedTrickPlay,
-    hlsGroupSettings_additionalManifests,
-    hlsGroupSettings_minSegmentLength,
-    hlsGroupSettings_programDateTime,
-    hlsGroupSettings_segmentLengthControl,
-    hlsGroupSettings_imageBasedTrickPlaySettings,
-    hlsGroupSettings_programDateTimePeriod,
-    hlsGroupSettings_codecSpecification,
-    hlsGroupSettings_captionLanguageMappings,
-    hlsGroupSettings_baseUrl,
-    hlsGroupSettings_destinationSettings,
-    hlsGroupSettings_minFinalSegmentLength,
     hlsGroupSettings_adMarkers,
-    hlsGroupSettings_encryption,
-    hlsGroupSettings_segmentLength,
-    hlsGroupSettings_timedMetadataId3Frame,
-    hlsGroupSettings_outputSelection,
-    hlsGroupSettings_captionLanguageSetting,
-    hlsGroupSettings_segmentsPerSubdirectory,
-    hlsGroupSettings_manifestDurationFormat,
+    hlsGroupSettings_additionalManifests,
     hlsGroupSettings_audioOnlyHeader,
+    hlsGroupSettings_baseUrl,
+    hlsGroupSettings_captionLanguageMappings,
+    hlsGroupSettings_captionLanguageSetting,
+    hlsGroupSettings_captionSegmentLengthControl,
     hlsGroupSettings_clientCache,
-    hlsGroupSettings_timestampDeltaMilliseconds,
-    hlsGroupSettings_streamInfResolution,
+    hlsGroupSettings_codecSpecification,
+    hlsGroupSettings_destination,
+    hlsGroupSettings_destinationSettings,
+    hlsGroupSettings_directoryStructure,
+    hlsGroupSettings_encryption,
+    hlsGroupSettings_imageBasedTrickPlay,
+    hlsGroupSettings_imageBasedTrickPlaySettings,
     hlsGroupSettings_manifestCompression,
+    hlsGroupSettings_manifestDurationFormat,
+    hlsGroupSettings_minFinalSegmentLength,
+    hlsGroupSettings_minSegmentLength,
+    hlsGroupSettings_outputSelection,
+    hlsGroupSettings_programDateTime,
+    hlsGroupSettings_programDateTimePeriod,
+    hlsGroupSettings_segmentControl,
+    hlsGroupSettings_segmentLength,
+    hlsGroupSettings_segmentLengthControl,
+    hlsGroupSettings_segmentsPerSubdirectory,
+    hlsGroupSettings_streamInfResolution,
+    hlsGroupSettings_targetDurationCompatibilityMode,
+    hlsGroupSettings_timedMetadataId3Frame,
+    hlsGroupSettings_timedMetadataId3Period,
+    hlsGroupSettings_timestampDeltaMilliseconds,
 
     -- * HlsImageBasedTrickPlaySettings
     HlsImageBasedTrickPlaySettings (..),
     newHlsImageBasedTrickPlaySettings,
-    hlsImageBasedTrickPlaySettings_tileWidth,
-    hlsImageBasedTrickPlaySettings_thumbnailHeight,
     hlsImageBasedTrickPlaySettings_intervalCadence,
-    hlsImageBasedTrickPlaySettings_thumbnailWidth,
+    hlsImageBasedTrickPlaySettings_thumbnailHeight,
     hlsImageBasedTrickPlaySettings_thumbnailInterval,
+    hlsImageBasedTrickPlaySettings_thumbnailWidth,
     hlsImageBasedTrickPlaySettings_tileHeight,
+    hlsImageBasedTrickPlaySettings_tileWidth,
 
     -- * HlsRenditionGroupSettings
     HlsRenditionGroupSettings (..),
     newHlsRenditionGroupSettings,
-    hlsRenditionGroupSettings_renditionName,
     hlsRenditionGroupSettings_renditionGroupId,
     hlsRenditionGroupSettings_renditionLanguageCode,
+    hlsRenditionGroupSettings_renditionName,
 
     -- * HlsSettings
     HlsSettings (..),
     newHlsSettings,
-    hlsSettings_descriptiveVideoServiceFlag,
-    hlsSettings_audioRenditionSets,
-    hlsSettings_iFrameOnlyManifest,
     hlsSettings_audioGroupId,
-    hlsSettings_segmentModifier,
     hlsSettings_audioOnlyContainer,
+    hlsSettings_audioRenditionSets,
     hlsSettings_audioTrackType,
+    hlsSettings_descriptiveVideoServiceFlag,
+    hlsSettings_iFrameOnlyManifest,
+    hlsSettings_segmentModifier,
 
     -- * HopDestination
     HopDestination (..),
@@ -1963,35 +2076,39 @@ module Amazonka.MediaConvert.Types
     ImageInserter (..),
     newImageInserter,
     imageInserter_insertableImages,
+    imageInserter_sdrReferenceWhiteLevel,
 
     -- * ImscDestinationSettings
     ImscDestinationSettings (..),
     newImscDestinationSettings,
+    imscDestinationSettings_accessibility,
     imscDestinationSettings_stylePassthrough,
 
     -- * Input
     Input (..),
     newInput,
-    input_videoSelector,
-    input_supplementalImps,
-    input_programNumber,
     input_audioSelectorGroups,
-    input_timecodeSource,
     input_audioSelectors,
-    input_decryptionSettings,
-    input_deblockFilter,
-    input_inputClippings,
-    input_crop,
-    input_denoiseFilter,
-    input_imageInserter,
-    input_filterStrength,
-    input_psiControl,
     input_captionSelectors,
+    input_crop,
+    input_deblockFilter,
+    input_decryptionSettings,
+    input_denoiseFilter,
+    input_dolbyVisionMetadataXml,
     input_fileInput,
-    input_timecodeStart,
+    input_filterEnable,
+    input_filterStrength,
+    input_imageInserter,
+    input_inputClippings,
     input_inputScanType,
     input_position,
-    input_filterEnable,
+    input_programNumber,
+    input_psiControl,
+    input_supplementalImps,
+    input_timecodeSource,
+    input_timecodeStart,
+    input_videoGenerator,
+    input_videoSelector,
 
     -- * InputClipping
     InputClipping (..),
@@ -2002,147 +2119,153 @@ module Amazonka.MediaConvert.Types
     -- * InputDecryptionSettings
     InputDecryptionSettings (..),
     newInputDecryptionSettings,
-    inputDecryptionSettings_encryptedDecryptionKey,
-    inputDecryptionSettings_kmsKeyRegion,
     inputDecryptionSettings_decryptionMode,
+    inputDecryptionSettings_encryptedDecryptionKey,
     inputDecryptionSettings_initializationVector,
+    inputDecryptionSettings_kmsKeyRegion,
 
     -- * InputTemplate
     InputTemplate (..),
     newInputTemplate,
-    inputTemplate_videoSelector,
-    inputTemplate_programNumber,
     inputTemplate_audioSelectorGroups,
-    inputTemplate_timecodeSource,
     inputTemplate_audioSelectors,
-    inputTemplate_deblockFilter,
-    inputTemplate_inputClippings,
-    inputTemplate_crop,
-    inputTemplate_denoiseFilter,
-    inputTemplate_imageInserter,
-    inputTemplate_filterStrength,
-    inputTemplate_psiControl,
     inputTemplate_captionSelectors,
-    inputTemplate_timecodeStart,
+    inputTemplate_crop,
+    inputTemplate_deblockFilter,
+    inputTemplate_denoiseFilter,
+    inputTemplate_dolbyVisionMetadataXml,
+    inputTemplate_filterEnable,
+    inputTemplate_filterStrength,
+    inputTemplate_imageInserter,
+    inputTemplate_inputClippings,
     inputTemplate_inputScanType,
     inputTemplate_position,
-    inputTemplate_filterEnable,
+    inputTemplate_programNumber,
+    inputTemplate_psiControl,
+    inputTemplate_timecodeSource,
+    inputTemplate_timecodeStart,
+    inputTemplate_videoSelector,
+
+    -- * InputVideoGenerator
+    InputVideoGenerator (..),
+    newInputVideoGenerator,
+    inputVideoGenerator_duration,
 
     -- * InsertableImage
     InsertableImage (..),
     newInsertableImage,
-    insertableImage_imageX,
-    insertableImage_height,
-    insertableImage_startTime,
-    insertableImage_fadeOut,
-    insertableImage_width,
-    insertableImage_opacity,
-    insertableImage_layer,
     insertableImage_duration,
-    insertableImage_imageY,
-    insertableImage_imageInserterInput,
     insertableImage_fadeIn,
+    insertableImage_fadeOut,
+    insertableImage_height,
+    insertableImage_imageInserterInput,
+    insertableImage_imageX,
+    insertableImage_imageY,
+    insertableImage_layer,
+    insertableImage_opacity,
+    insertableImage_startTime,
+    insertableImage_width,
 
     -- * Job
     Job (..),
     newJob,
-    job_status,
-    job_jobTemplate,
     job_accelerationSettings,
-    job_priority,
-    job_statusUpdateInterval,
+    job_accelerationStatus,
     job_arn,
-    job_createdAt,
-    job_hopDestinations,
-    job_retryCount,
-    job_simulateReservedQueue,
-    job_currentPhase,
-    job_queue,
-    job_userMetadata,
     job_billingTagsSource,
-    job_outputGroupDetails,
+    job_createdAt,
+    job_currentPhase,
     job_errorCode,
-    job_queueTransitions,
+    job_errorMessage,
+    job_hopDestinations,
     job_id,
     job_jobPercentComplete,
-    job_timing,
+    job_jobTemplate,
     job_messages,
-    job_errorMessage,
-    job_accelerationStatus,
+    job_outputGroupDetails,
+    job_priority,
+    job_queue,
+    job_queueTransitions,
+    job_retryCount,
+    job_simulateReservedQueue,
+    job_status,
+    job_statusUpdateInterval,
+    job_timing,
+    job_userMetadata,
     job_role,
     job_settings,
 
     -- * JobMessages
     JobMessages (..),
     newJobMessages,
-    jobMessages_warning,
     jobMessages_info,
+    jobMessages_warning,
 
     -- * JobSettings
     JobSettings (..),
     newJobSettings,
-    jobSettings_nielsenNonLinearWatermark,
-    jobSettings_esam,
-    jobSettings_inputs,
-    jobSettings_timedMetadataInsertion,
-    jobSettings_nielsenConfiguration,
-    jobSettings_availBlanking,
-    jobSettings_extendedDataServices,
-    jobSettings_motionImageInserter,
-    jobSettings_timecodeConfig,
-    jobSettings_outputGroups,
     jobSettings_adAvailOffset,
+    jobSettings_availBlanking,
+    jobSettings_esam,
+    jobSettings_extendedDataServices,
+    jobSettings_inputs,
     jobSettings_kantarWatermark,
+    jobSettings_motionImageInserter,
+    jobSettings_nielsenConfiguration,
+    jobSettings_nielsenNonLinearWatermark,
+    jobSettings_outputGroups,
+    jobSettings_timecodeConfig,
+    jobSettings_timedMetadataInsertion,
 
     -- * JobTemplate
     JobTemplate (..),
     newJobTemplate,
     jobTemplate_accelerationSettings,
+    jobTemplate_arn,
+    jobTemplate_category,
+    jobTemplate_createdAt,
+    jobTemplate_description,
+    jobTemplate_hopDestinations,
     jobTemplate_lastUpdated,
     jobTemplate_priority,
-    jobTemplate_statusUpdateInterval,
-    jobTemplate_arn,
-    jobTemplate_createdAt,
-    jobTemplate_category,
-    jobTemplate_hopDestinations,
     jobTemplate_queue,
+    jobTemplate_statusUpdateInterval,
     jobTemplate_type,
-    jobTemplate_description,
     jobTemplate_settings,
     jobTemplate_name,
 
     -- * JobTemplateSettings
     JobTemplateSettings (..),
     newJobTemplateSettings,
-    jobTemplateSettings_nielsenNonLinearWatermark,
-    jobTemplateSettings_esam,
-    jobTemplateSettings_inputs,
-    jobTemplateSettings_timedMetadataInsertion,
-    jobTemplateSettings_nielsenConfiguration,
-    jobTemplateSettings_availBlanking,
-    jobTemplateSettings_extendedDataServices,
-    jobTemplateSettings_motionImageInserter,
-    jobTemplateSettings_timecodeConfig,
-    jobTemplateSettings_outputGroups,
     jobTemplateSettings_adAvailOffset,
+    jobTemplateSettings_availBlanking,
+    jobTemplateSettings_esam,
+    jobTemplateSettings_extendedDataServices,
+    jobTemplateSettings_inputs,
     jobTemplateSettings_kantarWatermark,
+    jobTemplateSettings_motionImageInserter,
+    jobTemplateSettings_nielsenConfiguration,
+    jobTemplateSettings_nielsenNonLinearWatermark,
+    jobTemplateSettings_outputGroups,
+    jobTemplateSettings_timecodeConfig,
+    jobTemplateSettings_timedMetadataInsertion,
 
     -- * KantarWatermarkSettings
     KantarWatermarkSettings (..),
     newKantarWatermarkSettings,
-    kantarWatermarkSettings_metadata7,
-    kantarWatermarkSettings_kantarServerUrl,
-    kantarWatermarkSettings_kantarLicenseId,
-    kantarWatermarkSettings_logDestination,
-    kantarWatermarkSettings_fileOffset,
-    kantarWatermarkSettings_metadata6,
-    kantarWatermarkSettings_metadata3,
-    kantarWatermarkSettings_credentialsSecretName,
     kantarWatermarkSettings_channelName,
     kantarWatermarkSettings_contentReference,
-    kantarWatermarkSettings_metadata8,
-    kantarWatermarkSettings_metadata5,
+    kantarWatermarkSettings_credentialsSecretName,
+    kantarWatermarkSettings_fileOffset,
+    kantarWatermarkSettings_kantarLicenseId,
+    kantarWatermarkSettings_kantarServerUrl,
+    kantarWatermarkSettings_logDestination,
+    kantarWatermarkSettings_metadata3,
     kantarWatermarkSettings_metadata4,
+    kantarWatermarkSettings_metadata5,
+    kantarWatermarkSettings_metadata6,
+    kantarWatermarkSettings_metadata7,
+    kantarWatermarkSettings_metadata8,
 
     -- * M2tsScte35Esam
     M2tsScte35Esam (..),
@@ -2152,77 +2275,90 @@ module Amazonka.MediaConvert.Types
     -- * M2tsSettings
     M2tsSettings (..),
     newM2tsSettings,
-    m2tsSettings_pmtPid,
-    m2tsSettings_videoPid,
-    m2tsSettings_bufferModel,
-    m2tsSettings_programNumber,
-    m2tsSettings_scte35Pid,
-    m2tsSettings_minEbpInterval,
-    m2tsSettings_transportStreamId,
-    m2tsSettings_maxPcrInterval,
-    m2tsSettings_fragmentTime,
-    m2tsSettings_privateMetadataPid,
-    m2tsSettings_scte35Esam,
-    m2tsSettings_audioDuration,
-    m2tsSettings_pmtInterval,
-    m2tsSettings_dvbSdtSettings,
-    m2tsSettings_nullPacketBitrate,
     m2tsSettings_audioBufferModel,
-    m2tsSettings_timedMetadataPid,
+    m2tsSettings_audioDuration,
     m2tsSettings_audioFramesPerPes,
-    m2tsSettings_pcrPid,
-    m2tsSettings_segmentationMarkers,
-    m2tsSettings_dvbSubPids,
-    m2tsSettings_scte35Source,
-    m2tsSettings_patInterval,
-    m2tsSettings_forceTsVideoEbpOrder,
-    m2tsSettings_esRateInPes,
-    m2tsSettings_bitrate,
     m2tsSettings_audioPids,
-    m2tsSettings_dvbTeletextPid,
-    m2tsSettings_nielsenId3,
+    m2tsSettings_bitrate,
+    m2tsSettings_bufferModel,
     m2tsSettings_dataPTSControl,
-    m2tsSettings_segmentationTime,
-    m2tsSettings_ebpAudioInterval,
     m2tsSettings_dvbNitSettings,
-    m2tsSettings_pcrControl,
-    m2tsSettings_ebpPlacement,
-    m2tsSettings_rateMode,
-    m2tsSettings_segmentationStyle,
+    m2tsSettings_dvbSdtSettings,
+    m2tsSettings_dvbSubPids,
     m2tsSettings_dvbTdtSettings,
+    m2tsSettings_dvbTeletextPid,
+    m2tsSettings_ebpAudioInterval,
+    m2tsSettings_ebpPlacement,
+    m2tsSettings_esRateInPes,
+    m2tsSettings_forceTsVideoEbpOrder,
+    m2tsSettings_fragmentTime,
+    m2tsSettings_klvMetadata,
+    m2tsSettings_maxPcrInterval,
+    m2tsSettings_minEbpInterval,
+    m2tsSettings_nielsenId3,
+    m2tsSettings_nullPacketBitrate,
+    m2tsSettings_patInterval,
+    m2tsSettings_pcrControl,
+    m2tsSettings_pcrPid,
+    m2tsSettings_pmtInterval,
+    m2tsSettings_pmtPid,
+    m2tsSettings_privateMetadataPid,
+    m2tsSettings_programNumber,
+    m2tsSettings_rateMode,
+    m2tsSettings_scte35Esam,
+    m2tsSettings_scte35Pid,
+    m2tsSettings_scte35Source,
+    m2tsSettings_segmentationMarkers,
+    m2tsSettings_segmentationStyle,
+    m2tsSettings_segmentationTime,
+    m2tsSettings_timedMetadataPid,
+    m2tsSettings_transportStreamId,
+    m2tsSettings_videoPid,
 
     -- * M3u8Settings
     M3u8Settings (..),
     newM3u8Settings,
+    m3u8Settings_audioDuration,
+    m3u8Settings_audioFramesPerPes,
+    m3u8Settings_audioPids,
+    m3u8Settings_dataPTSControl,
+    m3u8Settings_maxPcrInterval,
+    m3u8Settings_nielsenId3,
+    m3u8Settings_patInterval,
+    m3u8Settings_pcrControl,
+    m3u8Settings_pcrPid,
+    m3u8Settings_pmtInterval,
     m3u8Settings_pmtPid,
-    m3u8Settings_videoPid,
+    m3u8Settings_privateMetadataPid,
     m3u8Settings_programNumber,
     m3u8Settings_scte35Pid,
-    m3u8Settings_transportStreamId,
-    m3u8Settings_maxPcrInterval,
-    m3u8Settings_privateMetadataPid,
-    m3u8Settings_audioDuration,
-    m3u8Settings_pmtInterval,
-    m3u8Settings_timedMetadataPid,
-    m3u8Settings_audioFramesPerPes,
-    m3u8Settings_pcrPid,
-    m3u8Settings_timedMetadata,
     m3u8Settings_scte35Source,
-    m3u8Settings_patInterval,
-    m3u8Settings_audioPids,
-    m3u8Settings_nielsenId3,
-    m3u8Settings_dataPTSControl,
-    m3u8Settings_pcrControl,
+    m3u8Settings_timedMetadata,
+    m3u8Settings_timedMetadataPid,
+    m3u8Settings_transportStreamId,
+    m3u8Settings_videoPid,
+
+    -- * MinBottomRenditionSize
+    MinBottomRenditionSize (..),
+    newMinBottomRenditionSize,
+    minBottomRenditionSize_height,
+    minBottomRenditionSize_width,
+
+    -- * MinTopRenditionSize
+    MinTopRenditionSize (..),
+    newMinTopRenditionSize,
+    minTopRenditionSize_height,
+    minTopRenditionSize_width,
 
     -- * MotionImageInserter
     MotionImageInserter (..),
     newMotionImageInserter,
     motionImageInserter_framerate,
-    motionImageInserter_startTime,
-    motionImageInserter_offset,
     motionImageInserter_input,
     motionImageInserter_insertionMode,
+    motionImageInserter_offset,
     motionImageInserter_playback,
+    motionImageInserter_startTime,
 
     -- * MotionImageInsertionFramerate
     MotionImageInsertionFramerate (..),
@@ -2239,82 +2375,89 @@ module Amazonka.MediaConvert.Types
     -- * MovSettings
     MovSettings (..),
     newMovSettings,
-    movSettings_reference,
+    movSettings_clapAtom,
     movSettings_cslgAtom,
     movSettings_mpeg2FourCCControl,
     movSettings_paddingControl,
-    movSettings_clapAtom,
+    movSettings_reference,
 
     -- * Mp2Settings
     Mp2Settings (..),
     newMp2Settings,
+    mp2Settings_bitrate,
     mp2Settings_channels,
     mp2Settings_sampleRate,
-    mp2Settings_bitrate,
 
     -- * Mp3Settings
     Mp3Settings (..),
     newMp3Settings,
+    mp3Settings_bitrate,
     mp3Settings_channels,
     mp3Settings_rateControlMode,
     mp3Settings_sampleRate,
-    mp3Settings_bitrate,
     mp3Settings_vbrQuality,
 
     -- * Mp4Settings
     Mp4Settings (..),
     newMp4Settings,
-    mp4Settings_moovPlacement,
+    mp4Settings_audioDuration,
+    mp4Settings_cslgAtom,
     mp4Settings_cttsVersion,
     mp4Settings_freeSpaceBox,
-    mp4Settings_audioDuration,
+    mp4Settings_moovPlacement,
     mp4Settings_mp4MajorBrand,
-    mp4Settings_cslgAtom,
 
     -- * MpdSettings
     MpdSettings (..),
     newMpdSettings,
-    mpdSettings_scte35Esam,
-    mpdSettings_audioDuration,
-    mpdSettings_scte35Source,
     mpdSettings_accessibilityCaptionHints,
+    mpdSettings_audioDuration,
     mpdSettings_captionContainerType,
+    mpdSettings_klvMetadata,
+    mpdSettings_manifestMetadataSignaling,
+    mpdSettings_scte35Esam,
+    mpdSettings_scte35Source,
+    mpdSettings_timedMetadata,
+    mpdSettings_timedMetadataBoxVersion,
+    mpdSettings_timedMetadataSchemeIdUri,
+    mpdSettings_timedMetadataValue,
 
     -- * Mpeg2Settings
     Mpeg2Settings (..),
     newMpeg2Settings,
-    mpeg2Settings_qualityTuningLevel,
-    mpeg2Settings_temporalAdaptiveQuantization,
-    mpeg2Settings_sceneChangeDetect,
-    mpeg2Settings_hrdBufferInitialFillPercentage,
-    mpeg2Settings_slowPal,
-    mpeg2Settings_parNumerator,
-    mpeg2Settings_gopSize,
-    mpeg2Settings_numberBFramesBetweenReferenceFrames,
-    mpeg2Settings_gopSizeUnits,
-    mpeg2Settings_hrdBufferSize,
-    mpeg2Settings_rateControlMode,
-    mpeg2Settings_telecine,
-    mpeg2Settings_intraDcPrecision,
-    mpeg2Settings_dynamicSubGop,
-    mpeg2Settings_minIInterval,
-    mpeg2Settings_interlaceMode,
-    mpeg2Settings_parControl,
-    mpeg2Settings_scanTypeConversionMode,
-    mpeg2Settings_softness,
-    mpeg2Settings_codecProfile,
-    mpeg2Settings_bitrate,
-    mpeg2Settings_framerateDenominator,
-    mpeg2Settings_framerateConversionAlgorithm,
-    mpeg2Settings_codecLevel,
-    mpeg2Settings_framerateControl,
     mpeg2Settings_adaptiveQuantization,
+    mpeg2Settings_bitrate,
+    mpeg2Settings_codecLevel,
+    mpeg2Settings_codecProfile,
+    mpeg2Settings_dynamicSubGop,
+    mpeg2Settings_framerateControl,
+    mpeg2Settings_framerateConversionAlgorithm,
+    mpeg2Settings_framerateDenominator,
     mpeg2Settings_framerateNumerator,
-    mpeg2Settings_maxBitrate,
-    mpeg2Settings_syntax,
     mpeg2Settings_gopClosedCadence,
+    mpeg2Settings_gopSize,
+    mpeg2Settings_gopSizeUnits,
+    mpeg2Settings_hrdBufferFinalFillPercentage,
+    mpeg2Settings_hrdBufferInitialFillPercentage,
+    mpeg2Settings_hrdBufferSize,
+    mpeg2Settings_interlaceMode,
+    mpeg2Settings_intraDcPrecision,
+    mpeg2Settings_maxBitrate,
+    mpeg2Settings_minIInterval,
+    mpeg2Settings_numberBFramesBetweenReferenceFrames,
+    mpeg2Settings_parControl,
     mpeg2Settings_parDenominator,
+    mpeg2Settings_parNumerator,
+    mpeg2Settings_qualityTuningLevel,
+    mpeg2Settings_rateControlMode,
+    mpeg2Settings_scanTypeConversionMode,
+    mpeg2Settings_sceneChangeDetect,
+    mpeg2Settings_slowPal,
+    mpeg2Settings_softness,
     mpeg2Settings_spatialAdaptiveQuantization,
+    mpeg2Settings_syntax,
+    mpeg2Settings_telecine,
+    mpeg2Settings_temporalAdaptiveQuantization,
 
     -- * MsSmoothAdditionalManifest
     MsSmoothAdditionalManifest (..),
@@ -2330,35 +2473,35 @@ module Amazonka.MediaConvert.Types
     -- * MsSmoothGroupSettings
     MsSmoothGroupSettings (..),
     newMsSmoothGroupSettings,
-    msSmoothGroupSettings_fragmentLength,
-    msSmoothGroupSettings_manifestEncoding,
-    msSmoothGroupSettings_destination,
-    msSmoothGroupSettings_audioDeduplication,
     msSmoothGroupSettings_additionalManifests,
-    msSmoothGroupSettings_fragmentLengthControl,
+    msSmoothGroupSettings_audioDeduplication,
+    msSmoothGroupSettings_destination,
     msSmoothGroupSettings_destinationSettings,
     msSmoothGroupSettings_encryption,
+    msSmoothGroupSettings_fragmentLength,
+    msSmoothGroupSettings_fragmentLengthControl,
+    msSmoothGroupSettings_manifestEncoding,
 
     -- * MxfSettings
     MxfSettings (..),
     newMxfSettings,
-    mxfSettings_xavcProfileSettings,
     mxfSettings_afdSignaling,
     mxfSettings_profile,
+    mxfSettings_xavcProfileSettings,
 
     -- * MxfXavcProfileSettings
     MxfXavcProfileSettings (..),
     newMxfXavcProfileSettings,
-    mxfXavcProfileSettings_maxAncDataSize,
     mxfXavcProfileSettings_durationMode,
+    mxfXavcProfileSettings_maxAncDataSize,
 
     -- * NexGuardFileMarkerSettings
     NexGuardFileMarkerSettings (..),
     newNexGuardFileMarkerSettings,
-    nexGuardFileMarkerSettings_strength,
+    nexGuardFileMarkerSettings_license,
     nexGuardFileMarkerSettings_payload,
     nexGuardFileMarkerSettings_preset,
-    nexGuardFileMarkerSettings_license,
+    nexGuardFileMarkerSettings_strength,
 
     -- * NielsenConfiguration
     NielsenConfiguration (..),
@@ -2369,25 +2512,25 @@ module Amazonka.MediaConvert.Types
     -- * NielsenNonLinearWatermarkSettings
     NielsenNonLinearWatermarkSettings (..),
     newNielsenNonLinearWatermarkSettings,
-    nielsenNonLinearWatermarkSettings_episodeId,
     nielsenNonLinearWatermarkSettings_activeWatermarkProcess,
-    nielsenNonLinearWatermarkSettings_sourceId,
-    nielsenNonLinearWatermarkSettings_cbetSourceId,
-    nielsenNonLinearWatermarkSettings_ticServerUrl,
-    nielsenNonLinearWatermarkSettings_metadataDestination,
-    nielsenNonLinearWatermarkSettings_assetName,
     nielsenNonLinearWatermarkSettings_adiFilename,
     nielsenNonLinearWatermarkSettings_assetId,
-    nielsenNonLinearWatermarkSettings_uniqueTicPerAudioTrack,
+    nielsenNonLinearWatermarkSettings_assetName,
+    nielsenNonLinearWatermarkSettings_cbetSourceId,
+    nielsenNonLinearWatermarkSettings_episodeId,
+    nielsenNonLinearWatermarkSettings_metadataDestination,
+    nielsenNonLinearWatermarkSettings_sourceId,
     nielsenNonLinearWatermarkSettings_sourceWatermarkStatus,
+    nielsenNonLinearWatermarkSettings_ticServerUrl,
+    nielsenNonLinearWatermarkSettings_uniqueTicPerAudioTrack,
 
     -- * NoiseReducer
     NoiseReducer (..),
     newNoiseReducer,
-    noiseReducer_temporalFilterSettings,
-    noiseReducer_spatialFilterSettings,
-    noiseReducer_filterSettings,
     noiseReducer_filter,
+    noiseReducer_filterSettings,
+    noiseReducer_spatialFilterSettings,
+    noiseReducer_temporalFilterSettings,
 
     -- * NoiseReducerFilterSettings
     NoiseReducerFilterSettings (..),
@@ -2397,57 +2540,58 @@ module Amazonka.MediaConvert.Types
     -- * NoiseReducerSpatialFilterSettings
     NoiseReducerSpatialFilterSettings (..),
     newNoiseReducerSpatialFilterSettings,
-    noiseReducerSpatialFilterSettings_strength,
     noiseReducerSpatialFilterSettings_postFilterSharpenStrength,
     noiseReducerSpatialFilterSettings_speed,
+    noiseReducerSpatialFilterSettings_strength,
 
     -- * NoiseReducerTemporalFilterSettings
     NoiseReducerTemporalFilterSettings (..),
     newNoiseReducerTemporalFilterSettings,
-    noiseReducerTemporalFilterSettings_postTemporalSharpening,
     noiseReducerTemporalFilterSettings_aggressiveMode,
-    noiseReducerTemporalFilterSettings_strength,
+    noiseReducerTemporalFilterSettings_postTemporalSharpening,
+    noiseReducerTemporalFilterSettings_postTemporalSharpeningStrength,
     noiseReducerTemporalFilterSettings_speed,
+    noiseReducerTemporalFilterSettings_strength,
 
     -- * OpusSettings
     OpusSettings (..),
     newOpusSettings,
+    opusSettings_bitrate,
     opusSettings_channels,
     opusSettings_sampleRate,
-    opusSettings_bitrate,
 
     -- * Output
     Output (..),
     newOutput,
+    output_audioDescriptions,
     output_captionDescriptions,
-    output_extension,
-    output_videoDescription,
     output_containerSettings,
+    output_extension,
+    output_nameModifier,
     output_outputSettings,
     output_preset,
-    output_nameModifier,
-    output_audioDescriptions,
+    output_videoDescription,
 
     -- * OutputChannelMapping
     OutputChannelMapping (..),
     newOutputChannelMapping,
-    outputChannelMapping_inputChannelsFineTune,
     outputChannelMapping_inputChannels,
+    outputChannelMapping_inputChannelsFineTune,
 
     -- * OutputDetail
     OutputDetail (..),
     newOutputDetail,
-    outputDetail_videoDetails,
     outputDetail_durationInMs,
+    outputDetail_videoDetails,
 
     -- * OutputGroup
     OutputGroup (..),
     newOutputGroup,
-    outputGroup_outputGroupSettings,
-    outputGroup_outputs,
+    outputGroup_automatedEncodingSettings,
     outputGroup_customName,
     outputGroup_name,
-    outputGroup_automatedEncodingSettings,
+    outputGroup_outputGroupSettings,
+    outputGroup_outputs,
 
     -- * OutputGroupDetail
     OutputGroupDetail (..),
@@ -2457,12 +2601,12 @@ module Amazonka.MediaConvert.Types
     -- * OutputGroupSettings
     OutputGroupSettings (..),
     newOutputGroupSettings,
-    outputGroupSettings_fileGroupSettings,
     outputGroupSettings_cmafGroupSettings,
-    outputGroupSettings_msSmoothGroupSettings,
-    outputGroupSettings_hlsGroupSettings,
-    outputGroupSettings_type,
     outputGroupSettings_dashIsoGroupSettings,
+    outputGroupSettings_fileGroupSettings,
+    outputGroupSettings_hlsGroupSettings,
+    outputGroupSettings_msSmoothGroupSettings,
+    outputGroupSettings_type,
 
     -- * OutputSettings
     OutputSettings (..),
@@ -2477,67 +2621,67 @@ module Amazonka.MediaConvert.Types
     -- * Policy
     Policy (..),
     newPolicy,
-    policy_s3Inputs,
     policy_httpInputs,
     policy_httpsInputs,
+    policy_s3Inputs,
 
     -- * Preset
     Preset (..),
     newPreset,
-    preset_lastUpdated,
     preset_arn,
-    preset_createdAt,
     preset_category,
-    preset_type,
+    preset_createdAt,
     preset_description,
+    preset_lastUpdated,
+    preset_type,
     preset_settings,
     preset_name,
 
     -- * PresetSettings
     PresetSettings (..),
     newPresetSettings,
-    presetSettings_captionDescriptions,
-    presetSettings_videoDescription,
-    presetSettings_containerSettings,
     presetSettings_audioDescriptions,
+    presetSettings_captionDescriptions,
+    presetSettings_containerSettings,
+    presetSettings_videoDescription,
 
     -- * ProresSettings
     ProresSettings (..),
     newProresSettings,
-    proresSettings_slowPal,
-    proresSettings_parNumerator,
-    proresSettings_telecine,
+    proresSettings_chromaSampling,
+    proresSettings_codecProfile,
+    proresSettings_framerateControl,
+    proresSettings_framerateConversionAlgorithm,
+    proresSettings_framerateDenominator,
+    proresSettings_framerateNumerator,
     proresSettings_interlaceMode,
     proresSettings_parControl,
-    proresSettings_scanTypeConversionMode,
-    proresSettings_codecProfile,
-    proresSettings_framerateDenominator,
-    proresSettings_framerateConversionAlgorithm,
-    proresSettings_framerateControl,
-    proresSettings_framerateNumerator,
-    proresSettings_chromaSampling,
     proresSettings_parDenominator,
+    proresSettings_parNumerator,
+    proresSettings_scanTypeConversionMode,
+    proresSettings_slowPal,
+    proresSettings_telecine,
 
     -- * Queue
     Queue (..),
     newQueue,
-    queue_status,
-    queue_lastUpdated,
     queue_arn,
     queue_createdAt,
-    queue_reservationPlan,
-    queue_pricingPlan,
-    queue_submittedJobsCount,
-    queue_progressingJobsCount,
-    queue_type,
     queue_description,
+    queue_lastUpdated,
+    queue_pricingPlan,
+    queue_progressingJobsCount,
+    queue_reservationPlan,
+    queue_status,
+    queue_submittedJobsCount,
+    queue_type,
     queue_name,
 
     -- * QueueTransition
     QueueTransition (..),
     newQueueTransition,
-    queueTransition_sourceQueue,
     queueTransition_destinationQueue,
+    queueTransition_sourceQueue,
     queueTransition_timestamp,
 
     -- * Rectangle
@@ -2558,12 +2702,12 @@ module Amazonka.MediaConvert.Types
     -- * ReservationPlan
     ReservationPlan (..),
     newReservationPlan,
-    reservationPlan_status,
+    reservationPlan_commitment,
     reservationPlan_expiresAt,
     reservationPlan_purchasedAt,
-    reservationPlan_commitment,
-    reservationPlan_reservedSlots,
     reservationPlan_renewalType,
+    reservationPlan_reservedSlots,
+    reservationPlan_status,
 
     -- * ReservationPlanSettings
     ReservationPlanSettings (..),
@@ -2593,8 +2737,8 @@ module Amazonka.MediaConvert.Types
     S3EncryptionSettings (..),
     newS3EncryptionSettings,
     s3EncryptionSettings_encryptionType,
-    s3EncryptionSettings_kmsKeyArn,
     s3EncryptionSettings_kmsEncryptionContext,
+    s3EncryptionSettings_kmsKeyArn,
 
     -- * SccDestinationSettings
     SccDestinationSettings (..),
@@ -2604,19 +2748,19 @@ module Amazonka.MediaConvert.Types
     -- * SpekeKeyProvider
     SpekeKeyProvider (..),
     newSpekeKeyProvider,
-    spekeKeyProvider_resourceId,
     spekeKeyProvider_certificateArn,
-    spekeKeyProvider_url,
+    spekeKeyProvider_resourceId,
     spekeKeyProvider_systemIds,
+    spekeKeyProvider_url,
 
     -- * SpekeKeyProviderCmaf
     SpekeKeyProviderCmaf (..),
     newSpekeKeyProviderCmaf,
-    spekeKeyProviderCmaf_resourceId,
-    spekeKeyProviderCmaf_dashSignaledSystemIds,
     spekeKeyProviderCmaf_certificateArn,
-    spekeKeyProviderCmaf_url,
+    spekeKeyProviderCmaf_dashSignaledSystemIds,
     spekeKeyProviderCmaf_hlsSignaledSystemIds,
+    spekeKeyProviderCmaf_resourceId,
+    spekeKeyProviderCmaf_url,
 
     -- * SrtDestinationSettings
     SrtDestinationSettings (..),
@@ -2626,16 +2770,16 @@ module Amazonka.MediaConvert.Types
     -- * StaticKeyProvider
     StaticKeyProvider (..),
     newStaticKeyProvider,
-    staticKeyProvider_staticKeyValue,
-    staticKeyProvider_url,
     staticKeyProvider_keyFormat,
     staticKeyProvider_keyFormatVersions,
+    staticKeyProvider_staticKeyValue,
+    staticKeyProvider_url,
 
     -- * TeletextDestinationSettings
     TeletextDestinationSettings (..),
     newTeletextDestinationSettings,
-    teletextDestinationSettings_pageTypes,
     teletextDestinationSettings_pageNumber,
+    teletextDestinationSettings_pageTypes,
 
     -- * TeletextSourceSettings
     TeletextSourceSettings (..),
@@ -2645,17 +2789,17 @@ module Amazonka.MediaConvert.Types
     -- * TimecodeBurnin
     TimecodeBurnin (..),
     newTimecodeBurnin,
-    timecodeBurnin_prefix,
     timecodeBurnin_fontSize,
     timecodeBurnin_position,
+    timecodeBurnin_prefix,
 
     -- * TimecodeConfig
     TimecodeConfig (..),
     newTimecodeConfig,
-    timecodeConfig_start,
-    timecodeConfig_timestampOffset,
     timecodeConfig_anchor,
     timecodeConfig_source,
+    timecodeConfig_start,
+    timecodeConfig_timestampOffset,
 
     -- * TimedMetadataInsertion
     TimedMetadataInsertion (..),
@@ -2665,8 +2809,8 @@ module Amazonka.MediaConvert.Types
     -- * Timing
     Timing (..),
     newTiming,
-    timing_startTime,
     timing_finishTime,
+    timing_startTime,
     timing_submitTime,
 
     -- * TrackSourceSettings
@@ -2682,50 +2826,50 @@ module Amazonka.MediaConvert.Types
     -- * Vc3Settings
     Vc3Settings (..),
     newVc3Settings,
-    vc3Settings_slowPal,
-    vc3Settings_telecine,
+    vc3Settings_framerateControl,
+    vc3Settings_framerateConversionAlgorithm,
+    vc3Settings_framerateDenominator,
+    vc3Settings_framerateNumerator,
     vc3Settings_interlaceMode,
     vc3Settings_scanTypeConversionMode,
-    vc3Settings_framerateDenominator,
+    vc3Settings_slowPal,
+    vc3Settings_telecine,
     vc3Settings_vc3Class,
-    vc3Settings_framerateConversionAlgorithm,
-    vc3Settings_framerateControl,
-    vc3Settings_framerateNumerator,
 
     -- * VideoCodecSettings
     VideoCodecSettings (..),
     newVideoCodecSettings,
-    videoCodecSettings_frameCaptureSettings,
     videoCodecSettings_av1Settings,
-    videoCodecSettings_codec,
-    videoCodecSettings_xavcSettings,
-    videoCodecSettings_h265Settings,
-    videoCodecSettings_proresSettings,
-    videoCodecSettings_vp9Settings,
-    videoCodecSettings_h264Settings,
-    videoCodecSettings_mpeg2Settings,
-    videoCodecSettings_vp8Settings,
-    videoCodecSettings_vc3Settings,
     videoCodecSettings_avcIntraSettings,
+    videoCodecSettings_codec,
+    videoCodecSettings_frameCaptureSettings,
+    videoCodecSettings_h264Settings,
+    videoCodecSettings_h265Settings,
+    videoCodecSettings_mpeg2Settings,
+    videoCodecSettings_proresSettings,
+    videoCodecSettings_vc3Settings,
+    videoCodecSettings_vp8Settings,
+    videoCodecSettings_vp9Settings,
+    videoCodecSettings_xavcSettings,
 
     -- * VideoDescription
     VideoDescription (..),
     newVideoDescription,
-    videoDescription_timecodeInsertion,
-    videoDescription_height,
     videoDescription_afdSignaling,
-    videoDescription_sharpness,
-    videoDescription_crop,
-    videoDescription_width,
-    videoDescription_scalingBehavior,
-    videoDescription_respondToAfd,
-    videoDescription_dropFrameTimecode,
     videoDescription_antiAlias,
-    videoDescription_fixedAfd,
-    videoDescription_colorMetadata,
     videoDescription_codecSettings,
-    videoDescription_videoPreprocessors,
+    videoDescription_colorMetadata,
+    videoDescription_crop,
+    videoDescription_dropFrameTimecode,
+    videoDescription_fixedAfd,
+    videoDescription_height,
     videoDescription_position,
+    videoDescription_respondToAfd,
+    videoDescription_scalingBehavior,
+    videoDescription_sharpness,
+    videoDescription_timecodeInsertion,
+    videoDescription_videoPreprocessors,
+    videoDescription_width,
 
     -- * VideoDetail
     VideoDetail (..),
@@ -2736,25 +2880,27 @@ module Amazonka.MediaConvert.Types
     -- * VideoPreprocessor
     VideoPreprocessor (..),
     newVideoPreprocessor,
-    videoPreprocessor_timecodeBurnin,
-    videoPreprocessor_dolbyVision,
     videoPreprocessor_colorCorrector,
     videoPreprocessor_deinterlacer,
-    videoPreprocessor_noiseReducer,
-    videoPreprocessor_imageInserter,
+    videoPreprocessor_dolbyVision,
     videoPreprocessor_hdr10Plus,
+    videoPreprocessor_imageInserter,
+    videoPreprocessor_noiseReducer,
     videoPreprocessor_partnerWatermarking,
+    videoPreprocessor_timecodeBurnin,
 
     -- * VideoSelector
     VideoSelector (..),
     newVideoSelector,
-    videoSelector_programNumber,
     videoSelector_alphaBehavior,
-    videoSelector_colorSpaceUsage,
-    videoSelector_hdr10Metadata,
-    videoSelector_pid,
-    videoSelector_rotate,
     videoSelector_colorSpace,
+    videoSelector_colorSpaceUsage,
+    videoSelector_embeddedTimecodeOverride,
+    videoSelector_hdr10Metadata,
+    videoSelector_padVideo,
+    videoSelector_pid,
+    videoSelector_programNumber,
+    videoSelector_rotate,
     videoSelector_sampleRange,
 
     -- * VorbisSettings
@@ -2767,36 +2913,36 @@ module Amazonka.MediaConvert.Types
     -- * Vp8Settings
     Vp8Settings (..),
     newVp8Settings,
-    vp8Settings_qualityTuningLevel,
-    vp8Settings_parNumerator,
+    vp8Settings_bitrate,
+    vp8Settings_framerateControl,
+    vp8Settings_framerateConversionAlgorithm,
+    vp8Settings_framerateDenominator,
+    vp8Settings_framerateNumerator,
     vp8Settings_gopSize,
     vp8Settings_hrdBufferSize,
-    vp8Settings_rateControlMode,
-    vp8Settings_parControl,
-    vp8Settings_bitrate,
-    vp8Settings_framerateDenominator,
-    vp8Settings_framerateConversionAlgorithm,
-    vp8Settings_framerateControl,
-    vp8Settings_framerateNumerator,
     vp8Settings_maxBitrate,
+    vp8Settings_parControl,
     vp8Settings_parDenominator,
+    vp8Settings_parNumerator,
+    vp8Settings_qualityTuningLevel,
+    vp8Settings_rateControlMode,
 
     -- * Vp9Settings
     Vp9Settings (..),
     newVp9Settings,
-    vp9Settings_qualityTuningLevel,
-    vp9Settings_parNumerator,
+    vp9Settings_bitrate,
+    vp9Settings_framerateControl,
+    vp9Settings_framerateConversionAlgorithm,
+    vp9Settings_framerateDenominator,
+    vp9Settings_framerateNumerator,
     vp9Settings_gopSize,
     vp9Settings_hrdBufferSize,
-    vp9Settings_rateControlMode,
-    vp9Settings_parControl,
-    vp9Settings_bitrate,
-    vp9Settings_framerateDenominator,
-    vp9Settings_framerateConversionAlgorithm,
-    vp9Settings_framerateControl,
-    vp9Settings_framerateNumerator,
     vp9Settings_maxBitrate,
+    vp9Settings_parControl,
     vp9Settings_parDenominator,
+    vp9Settings_parNumerator,
+    vp9Settings_qualityTuningLevel,
+    vp9Settings_rateControlMode,
 
     -- * WavSettings
     WavSettings (..),
@@ -2809,14 +2955,15 @@ module Amazonka.MediaConvert.Types
     -- * WebvttDestinationSettings
     WebvttDestinationSettings (..),
     newWebvttDestinationSettings,
+    webvttDestinationSettings_accessibility,
     webvttDestinationSettings_stylePassthrough,
 
     -- * WebvttHlsSourceSettings
     WebvttHlsSourceSettings (..),
     newWebvttHlsSourceSettings,
-    webvttHlsSourceSettings_renditionName,
     webvttHlsSourceSettings_renditionGroupId,
     webvttHlsSourceSettings_renditionLanguageCode,
+    webvttHlsSourceSettings_renditionName,
 
     -- * Xavc4kIntraCbgProfileSettings
     Xavc4kIntraCbgProfileSettings (..),
@@ -2831,14 +2978,14 @@ module Amazonka.MediaConvert.Types
     -- * Xavc4kProfileSettings
     Xavc4kProfileSettings (..),
     newXavc4kProfileSettings,
-    xavc4kProfileSettings_qualityTuningLevel,
-    xavc4kProfileSettings_hrdBufferSize,
-    xavc4kProfileSettings_slices,
     xavc4kProfileSettings_bitrateClass,
-    xavc4kProfileSettings_flickerAdaptiveQuantization,
     xavc4kProfileSettings_codecProfile,
+    xavc4kProfileSettings_flickerAdaptiveQuantization,
     xavc4kProfileSettings_gopBReference,
     xavc4kProfileSettings_gopClosedCadence,
+    xavc4kProfileSettings_hrdBufferSize,
+    xavc4kProfileSettings_qualityTuningLevel,
+    xavc4kProfileSettings_slices,
 
     -- * XavcHdIntraCbgProfileSettings
     XavcHdIntraCbgProfileSettings (..),
@@ -2848,40 +2995,40 @@ module Amazonka.MediaConvert.Types
     -- * XavcHdProfileSettings
     XavcHdProfileSettings (..),
     newXavcHdProfileSettings,
-    xavcHdProfileSettings_qualityTuningLevel,
-    xavcHdProfileSettings_hrdBufferSize,
-    xavcHdProfileSettings_slices,
     xavcHdProfileSettings_bitrateClass,
-    xavcHdProfileSettings_telecine,
-    xavcHdProfileSettings_interlaceMode,
     xavcHdProfileSettings_flickerAdaptiveQuantization,
     xavcHdProfileSettings_gopBReference,
     xavcHdProfileSettings_gopClosedCadence,
+    xavcHdProfileSettings_hrdBufferSize,
+    xavcHdProfileSettings_interlaceMode,
+    xavcHdProfileSettings_qualityTuningLevel,
+    xavcHdProfileSettings_slices,
+    xavcHdProfileSettings_telecine,
 
     -- * XavcSettings
     XavcSettings (..),
     newXavcSettings,
-    xavcSettings_temporalAdaptiveQuantization,
-    xavcSettings_slowPal,
-    xavcSettings_xavc4kProfileSettings,
-    xavcSettings_xavcHdIntraCbgProfileSettings,
-    xavcSettings_xavc4kIntraVbrProfileSettings,
-    xavcSettings_xavc4kIntraCbgProfileSettings,
-    xavcSettings_profile,
-    xavcSettings_softness,
-    xavcSettings_framerateDenominator,
-    xavcSettings_framerateConversionAlgorithm,
+    xavcSettings_adaptiveQuantization,
     xavcSettings_entropyEncoding,
     xavcSettings_framerateControl,
-    xavcSettings_adaptiveQuantization,
+    xavcSettings_framerateConversionAlgorithm,
+    xavcSettings_framerateDenominator,
     xavcSettings_framerateNumerator,
-    xavcSettings_xavcHdProfileSettings,
+    xavcSettings_profile,
+    xavcSettings_slowPal,
+    xavcSettings_softness,
     xavcSettings_spatialAdaptiveQuantization,
+    xavcSettings_temporalAdaptiveQuantization,
+    xavcSettings_xavc4kIntraCbgProfileSettings,
+    xavcSettings_xavc4kIntraVbrProfileSettings,
+    xavcSettings_xavc4kProfileSettings,
+    xavcSettings_xavcHdIntraCbgProfileSettings,
+    xavcSettings_xavcHdProfileSettings,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.MediaConvert.Types.AacAudioDescriptionBroadcasterMix
 import Amazonka.MediaConvert.Types.AacCodecProfile
 import Amazonka.MediaConvert.Types.AacCodingMode
@@ -2903,6 +3050,7 @@ import Amazonka.MediaConvert.Types.AccelerationSettings
 import Amazonka.MediaConvert.Types.AccelerationStatus
 import Amazonka.MediaConvert.Types.AfdSignaling
 import Amazonka.MediaConvert.Types.AiffSettings
+import Amazonka.MediaConvert.Types.AllowedRenditionSize
 import Amazonka.MediaConvert.Types.AlphaBehavior
 import Amazonka.MediaConvert.Types.AncillaryConvert608To708
 import Amazonka.MediaConvert.Types.AncillarySourceSettings
@@ -2914,6 +3062,7 @@ import Amazonka.MediaConvert.Types.AudioCodec
 import Amazonka.MediaConvert.Types.AudioCodecSettings
 import Amazonka.MediaConvert.Types.AudioDefaultSelection
 import Amazonka.MediaConvert.Types.AudioDescription
+import Amazonka.MediaConvert.Types.AudioDurationCorrection
 import Amazonka.MediaConvert.Types.AudioLanguageCodeControl
 import Amazonka.MediaConvert.Types.AudioNormalizationAlgorithm
 import Amazonka.MediaConvert.Types.AudioNormalizationAlgorithmControl
@@ -2924,9 +3073,11 @@ import Amazonka.MediaConvert.Types.AudioSelector
 import Amazonka.MediaConvert.Types.AudioSelectorGroup
 import Amazonka.MediaConvert.Types.AudioSelectorType
 import Amazonka.MediaConvert.Types.AudioTypeControl
+import Amazonka.MediaConvert.Types.AutomatedAbrRule
 import Amazonka.MediaConvert.Types.AutomatedAbrSettings
 import Amazonka.MediaConvert.Types.AutomatedEncodingSettings
 import Amazonka.MediaConvert.Types.Av1AdaptiveQuantization
+import Amazonka.MediaConvert.Types.Av1BitDepth
 import Amazonka.MediaConvert.Types.Av1FramerateControl
 import Amazonka.MediaConvert.Types.Av1FramerateConversionAlgorithm
 import Amazonka.MediaConvert.Types.Av1QvbrSettings
@@ -2977,12 +3128,14 @@ import Amazonka.MediaConvert.Types.CmafIntervalCadence
 import Amazonka.MediaConvert.Types.CmafKeyProviderType
 import Amazonka.MediaConvert.Types.CmafManifestCompression
 import Amazonka.MediaConvert.Types.CmafManifestDurationFormat
+import Amazonka.MediaConvert.Types.CmafMpdManifestBandwidthType
 import Amazonka.MediaConvert.Types.CmafMpdProfile
 import Amazonka.MediaConvert.Types.CmafPtsOffsetHandlingForBFrames
 import Amazonka.MediaConvert.Types.CmafSegmentControl
 import Amazonka.MediaConvert.Types.CmafSegmentLengthControl
 import Amazonka.MediaConvert.Types.CmafStreamInfResolution
 import Amazonka.MediaConvert.Types.CmafTargetDurationCompatibilityMode
+import Amazonka.MediaConvert.Types.CmafVideoCompositionOffsets
 import Amazonka.MediaConvert.Types.CmafWriteDASHManifest
 import Amazonka.MediaConvert.Types.CmafWriteHLSManifest
 import Amazonka.MediaConvert.Types.CmafWriteSegmentTimelineInRepresentation
@@ -2990,9 +3143,13 @@ import Amazonka.MediaConvert.Types.CmfcAudioDuration
 import Amazonka.MediaConvert.Types.CmfcAudioTrackType
 import Amazonka.MediaConvert.Types.CmfcDescriptiveVideoServiceFlag
 import Amazonka.MediaConvert.Types.CmfcIFrameOnlyManifest
+import Amazonka.MediaConvert.Types.CmfcKlvMetadata
+import Amazonka.MediaConvert.Types.CmfcManifestMetadataSignaling
 import Amazonka.MediaConvert.Types.CmfcScte35Esam
 import Amazonka.MediaConvert.Types.CmfcScte35Source
 import Amazonka.MediaConvert.Types.CmfcSettings
+import Amazonka.MediaConvert.Types.CmfcTimedMetadata
+import Amazonka.MediaConvert.Types.CmfcTimedMetadataBoxVersion
 import Amazonka.MediaConvert.Types.ColorCorrector
 import Amazonka.MediaConvert.Types.ColorMetadata
 import Amazonka.MediaConvert.Types.ColorSpace
@@ -3010,11 +3167,13 @@ import Amazonka.MediaConvert.Types.DashIsoHbbtvCompliance
 import Amazonka.MediaConvert.Types.DashIsoImageBasedTrickPlay
 import Amazonka.MediaConvert.Types.DashIsoImageBasedTrickPlaySettings
 import Amazonka.MediaConvert.Types.DashIsoIntervalCadence
+import Amazonka.MediaConvert.Types.DashIsoMpdManifestBandwidthType
 import Amazonka.MediaConvert.Types.DashIsoMpdProfile
 import Amazonka.MediaConvert.Types.DashIsoPlaybackDeviceCompatibility
 import Amazonka.MediaConvert.Types.DashIsoPtsOffsetHandlingForBFrames
 import Amazonka.MediaConvert.Types.DashIsoSegmentControl
 import Amazonka.MediaConvert.Types.DashIsoSegmentLengthControl
+import Amazonka.MediaConvert.Types.DashIsoVideoCompositionOffsets
 import Amazonka.MediaConvert.Types.DashIsoWriteSegmentTimelineInRepresentation
 import Amazonka.MediaConvert.Types.DecryptionMode
 import Amazonka.MediaConvert.Types.DeinterlaceAlgorithm
@@ -3026,6 +3185,7 @@ import Amazonka.MediaConvert.Types.DestinationSettings
 import Amazonka.MediaConvert.Types.DolbyVision
 import Amazonka.MediaConvert.Types.DolbyVisionLevel6Metadata
 import Amazonka.MediaConvert.Types.DolbyVisionLevel6Mode
+import Amazonka.MediaConvert.Types.DolbyVisionMapping
 import Amazonka.MediaConvert.Types.DolbyVisionProfile
 import Amazonka.MediaConvert.Types.DropFrameTimecode
 import Amazonka.MediaConvert.Types.DvbNitSettings
@@ -3074,6 +3234,7 @@ import Amazonka.MediaConvert.Types.EmbeddedConvert608To708
 import Amazonka.MediaConvert.Types.EmbeddedDestinationSettings
 import Amazonka.MediaConvert.Types.EmbeddedSourceSettings
 import Amazonka.MediaConvert.Types.EmbeddedTerminateCaptions
+import Amazonka.MediaConvert.Types.EmbeddedTimecodeOverride
 import Amazonka.MediaConvert.Types.Endpoint
 import Amazonka.MediaConvert.Types.EsamManifestConfirmConditionNotification
 import Amazonka.MediaConvert.Types.EsamSettings
@@ -3086,6 +3247,7 @@ import Amazonka.MediaConvert.Types.FileSourceConvert608To708
 import Amazonka.MediaConvert.Types.FileSourceSettings
 import Amazonka.MediaConvert.Types.FileSourceTimeDeltaUnits
 import Amazonka.MediaConvert.Types.FontScript
+import Amazonka.MediaConvert.Types.ForceIncludeRenditionSize
 import Amazonka.MediaConvert.Types.FrameCaptureSettings
 import Amazonka.MediaConvert.Types.H264AdaptiveQuantization
 import Amazonka.MediaConvert.Types.H264CodecLevel
@@ -3149,6 +3311,7 @@ import Amazonka.MediaConvert.Types.HlsAudioOnlyHeader
 import Amazonka.MediaConvert.Types.HlsAudioTrackType
 import Amazonka.MediaConvert.Types.HlsCaptionLanguageMapping
 import Amazonka.MediaConvert.Types.HlsCaptionLanguageSetting
+import Amazonka.MediaConvert.Types.HlsCaptionSegmentLengthControl
 import Amazonka.MediaConvert.Types.HlsClientCache
 import Amazonka.MediaConvert.Types.HlsCodecSpecification
 import Amazonka.MediaConvert.Types.HlsDescriptiveVideoServiceFlag
@@ -3177,6 +3340,7 @@ import Amazonka.MediaConvert.Types.HlsTimedMetadataId3Frame
 import Amazonka.MediaConvert.Types.HopDestination
 import Amazonka.MediaConvert.Types.Id3Insertion
 import Amazonka.MediaConvert.Types.ImageInserter
+import Amazonka.MediaConvert.Types.ImscAccessibilitySubs
 import Amazonka.MediaConvert.Types.ImscDestinationSettings
 import Amazonka.MediaConvert.Types.ImscStylePassthrough
 import Amazonka.MediaConvert.Types.Input
@@ -3192,6 +3356,7 @@ import Amazonka.MediaConvert.Types.InputSampleRange
 import Amazonka.MediaConvert.Types.InputScanType
 import Amazonka.MediaConvert.Types.InputTemplate
 import Amazonka.MediaConvert.Types.InputTimecodeSource
+import Amazonka.MediaConvert.Types.InputVideoGenerator
 import Amazonka.MediaConvert.Types.InsertableImage
 import Amazonka.MediaConvert.Types.Job
 import Amazonka.MediaConvert.Types.JobMessages
@@ -3211,6 +3376,7 @@ import Amazonka.MediaConvert.Types.M2tsEbpAudioInterval
 import Amazonka.MediaConvert.Types.M2tsEbpPlacement
 import Amazonka.MediaConvert.Types.M2tsEsRateInPes
 import Amazonka.MediaConvert.Types.M2tsForceTsVideoEbpOrder
+import Amazonka.MediaConvert.Types.M2tsKlvMetadata
 import Amazonka.MediaConvert.Types.M2tsNielsenId3
 import Amazonka.MediaConvert.Types.M2tsPcrControl
 import Amazonka.MediaConvert.Types.M2tsRateMode
@@ -3225,6 +3391,8 @@ import Amazonka.MediaConvert.Types.M3u8NielsenId3
 import Amazonka.MediaConvert.Types.M3u8PcrControl
 import Amazonka.MediaConvert.Types.M3u8Scte35Source
 import Amazonka.MediaConvert.Types.M3u8Settings
+import Amazonka.MediaConvert.Types.MinBottomRenditionSize
+import Amazonka.MediaConvert.Types.MinTopRenditionSize
 import Amazonka.MediaConvert.Types.MotionImageInserter
 import Amazonka.MediaConvert.Types.MotionImageInsertionFramerate
 import Amazonka.MediaConvert.Types.MotionImageInsertionMode
@@ -3246,9 +3414,13 @@ import Amazonka.MediaConvert.Types.Mp4Settings
 import Amazonka.MediaConvert.Types.MpdAccessibilityCaptionHints
 import Amazonka.MediaConvert.Types.MpdAudioDuration
 import Amazonka.MediaConvert.Types.MpdCaptionContainerType
+import Amazonka.MediaConvert.Types.MpdKlvMetadata
+import Amazonka.MediaConvert.Types.MpdManifestMetadataSignaling
 import Amazonka.MediaConvert.Types.MpdScte35Esam
 import Amazonka.MediaConvert.Types.MpdScte35Source
 import Amazonka.MediaConvert.Types.MpdSettings
+import Amazonka.MediaConvert.Types.MpdTimedMetadata
+import Amazonka.MediaConvert.Types.MpdTimedMetadataBoxVersion
 import Amazonka.MediaConvert.Types.Mpeg2AdaptiveQuantization
 import Amazonka.MediaConvert.Types.Mpeg2CodecLevel
 import Amazonka.MediaConvert.Types.Mpeg2CodecProfile
@@ -3287,6 +3459,7 @@ import Amazonka.MediaConvert.Types.NielsenNonLinearWatermarkSettings
 import Amazonka.MediaConvert.Types.NielsenSourceWatermarkStatusType
 import Amazonka.MediaConvert.Types.NielsenUniqueTicPerAudioTrackType
 import Amazonka.MediaConvert.Types.NoiseFilterPostTemporalSharpening
+import Amazonka.MediaConvert.Types.NoiseFilterPostTemporalSharpeningStrength
 import Amazonka.MediaConvert.Types.NoiseReducer
 import Amazonka.MediaConvert.Types.NoiseReducerFilter
 import Amazonka.MediaConvert.Types.NoiseReducerFilterSettings
@@ -3303,6 +3476,7 @@ import Amazonka.MediaConvert.Types.OutputGroupSettings
 import Amazonka.MediaConvert.Types.OutputGroupType
 import Amazonka.MediaConvert.Types.OutputSdt
 import Amazonka.MediaConvert.Types.OutputSettings
+import Amazonka.MediaConvert.Types.PadVideo
 import Amazonka.MediaConvert.Types.PartnerWatermarking
 import Amazonka.MediaConvert.Types.Policy
 import Amazonka.MediaConvert.Types.Preset
@@ -3326,11 +3500,13 @@ import Amazonka.MediaConvert.Types.QueueTransition
 import Amazonka.MediaConvert.Types.Rectangle
 import Amazonka.MediaConvert.Types.RemixSettings
 import Amazonka.MediaConvert.Types.RenewalType
+import Amazonka.MediaConvert.Types.RequiredFlag
 import Amazonka.MediaConvert.Types.ReservationPlan
 import Amazonka.MediaConvert.Types.ReservationPlanSettings
 import Amazonka.MediaConvert.Types.ReservationPlanStatus
 import Amazonka.MediaConvert.Types.ResourceTags
 import Amazonka.MediaConvert.Types.RespondToAfd
+import Amazonka.MediaConvert.Types.RuleType
 import Amazonka.MediaConvert.Types.S3DestinationAccessControl
 import Amazonka.MediaConvert.Types.S3DestinationSettings
 import Amazonka.MediaConvert.Types.S3EncryptionSettings
@@ -3393,6 +3569,7 @@ import Amazonka.MediaConvert.Types.Vp9Settings
 import Amazonka.MediaConvert.Types.WatermarkingStrength
 import Amazonka.MediaConvert.Types.WavFormat
 import Amazonka.MediaConvert.Types.WavSettings
+import Amazonka.MediaConvert.Types.WebvttAccessibilitySubs
 import Amazonka.MediaConvert.Types.WebvttDestinationSettings
 import Amazonka.MediaConvert.Types.WebvttHlsSourceSettings
 import Amazonka.MediaConvert.Types.WebvttStylePassthrough
@@ -3429,42 +3606,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "MediaConvert",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "mediaconvert",
-      Core._serviceSigningName = "mediaconvert",
-      Core._serviceVersion = "2017-08-29",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
-        Core.parseJSONError "MediaConvert",
-      Core._serviceRetry = retry
+    { Core.abbrev = "MediaConvert",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "mediaconvert",
+      Core.signingName = "mediaconvert",
+      Core.version = "2017-08-29",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "MediaConvert",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -3472,29 +3656,30 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
+
+-- | The service can\'t process your request because of a problem in the
+-- request. Please check your request form and syntax.
+_BadRequestException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_BadRequestException =
+  Core._MatchServiceError
+    defaultService
+    "BadRequestException"
+    Prelude.. Core.hasStatus 400
 
 -- | The service couldn\'t complete your request because there is a conflict
 -- with the current state of the resource.
@@ -3514,6 +3699,15 @@ _ForbiddenException =
     "ForbiddenException"
     Prelude.. Core.hasStatus 403
 
+-- | The service encountered an unexpected condition and can\'t fulfill your
+-- request.
+_InternalServerErrorException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InternalServerErrorException =
+  Core._MatchServiceError
+    defaultService
+    "InternalServerErrorException"
+    Prelude.. Core.hasStatus 500
+
 -- | The resource you requested doesn\'t exist.
 _NotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
 _NotFoundException =
@@ -3530,21 +3724,3 @@ _TooManyRequestsException =
     defaultService
     "TooManyRequestsException"
     Prelude.. Core.hasStatus 429
-
--- | The service encountered an unexpected condition and can\'t fulfill your
--- request.
-_InternalServerErrorException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InternalServerErrorException =
-  Core._MatchServiceError
-    defaultService
-    "InternalServerErrorException"
-    Prelude.. Core.hasStatus 500
-
--- | The service can\'t process your request because of a problem in the
--- request. Please check your request form and syntax.
-_BadRequestException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_BadRequestException =
-  Core._MatchServiceError
-    defaultService
-    "BadRequestException"
-    Prelude.. Core.hasStatus 400

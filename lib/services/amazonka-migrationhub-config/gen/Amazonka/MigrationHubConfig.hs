@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.MigrationHubConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,9 +44,6 @@ module Amazonka.MigrationHubConfig
     -- ** DryRunOperation
     _DryRunOperation,
 
-    -- ** ThrottlingException
-    _ThrottlingException,
-
     -- ** InternalServerError
     _InternalServerError,
 
@@ -56,17 +53,14 @@ module Amazonka.MigrationHubConfig
     -- ** ServiceUnavailableException
     _ServiceUnavailableException,
 
+    -- ** ThrottlingException
+    _ThrottlingException,
+
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
-
-    -- ** GetHomeRegion
-    GetHomeRegion (GetHomeRegion'),
-    newGetHomeRegion,
-    GetHomeRegionResponse (GetHomeRegionResponse'),
-    newGetHomeRegionResponse,
 
     -- ** CreateHomeRegionControl
     CreateHomeRegionControl (CreateHomeRegionControl'),
@@ -79,6 +73,12 @@ module Amazonka.MigrationHubConfig
     newDescribeHomeRegionControls,
     DescribeHomeRegionControlsResponse (DescribeHomeRegionControlsResponse'),
     newDescribeHomeRegionControlsResponse,
+
+    -- ** GetHomeRegion
+    GetHomeRegion (GetHomeRegion'),
+    newGetHomeRegion,
+    GetHomeRegionResponse (GetHomeRegionResponse'),
+    newGetHomeRegionResponse,
 
     -- * Types
 

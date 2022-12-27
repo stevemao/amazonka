@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.BatchGetVariable
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,15 +34,16 @@ module Amazonka.FraudDetector.BatchGetVariable
     newBatchGetVariableResponse,
 
     -- * Response Lenses
-    batchGetVariableResponse_variables,
     batchGetVariableResponse_errors,
+    batchGetVariableResponse_variables,
     batchGetVariableResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,13 +82,14 @@ instance Core.AWSRequest BatchGetVariable where
   type
     AWSResponse BatchGetVariable =
       BatchGetVariableResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchGetVariableResponse'
-            Prelude.<$> (x Core..?> "variables" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "errors" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "errors" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "variables" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -98,40 +100,40 @@ instance Prelude.Hashable BatchGetVariable where
 instance Prelude.NFData BatchGetVariable where
   rnf BatchGetVariable' {..} = Prelude.rnf names
 
-instance Core.ToHeaders BatchGetVariable where
+instance Data.ToHeaders BatchGetVariable where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.BatchGetVariable" ::
+              Data.=# ( "AWSHawksNestServiceFacade.BatchGetVariable" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchGetVariable where
+instance Data.ToJSON BatchGetVariable where
   toJSON BatchGetVariable' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("names" Core..= names)]
+          [Prelude.Just ("names" Data..= names)]
       )
 
-instance Core.ToPath BatchGetVariable where
+instance Data.ToPath BatchGetVariable where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery BatchGetVariable where
+instance Data.ToQuery BatchGetVariable where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchGetVariableResponse' smart constructor.
 data BatchGetVariableResponse = BatchGetVariableResponse'
-  { -- | The returned variables.
-    variables :: Prelude.Maybe [Variable],
-    -- | The errors from the request.
+  { -- | The errors from the request.
     errors :: Prelude.Maybe [BatchGetVariableError],
+    -- | The returned variables.
+    variables :: Prelude.Maybe [Variable],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -145,9 +147,9 @@ data BatchGetVariableResponse = BatchGetVariableResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'variables', 'batchGetVariableResponse_variables' - The returned variables.
---
 -- 'errors', 'batchGetVariableResponse_errors' - The errors from the request.
+--
+-- 'variables', 'batchGetVariableResponse_variables' - The returned variables.
 --
 -- 'httpStatus', 'batchGetVariableResponse_httpStatus' - The response's http status code.
 newBatchGetVariableResponse ::
@@ -156,19 +158,18 @@ newBatchGetVariableResponse ::
   BatchGetVariableResponse
 newBatchGetVariableResponse pHttpStatus_ =
   BatchGetVariableResponse'
-    { variables =
-        Prelude.Nothing,
-      errors = Prelude.Nothing,
+    { errors = Prelude.Nothing,
+      variables = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The returned variables.
-batchGetVariableResponse_variables :: Lens.Lens' BatchGetVariableResponse (Prelude.Maybe [Variable])
-batchGetVariableResponse_variables = Lens.lens (\BatchGetVariableResponse' {variables} -> variables) (\s@BatchGetVariableResponse' {} a -> s {variables = a} :: BatchGetVariableResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The errors from the request.
 batchGetVariableResponse_errors :: Lens.Lens' BatchGetVariableResponse (Prelude.Maybe [BatchGetVariableError])
 batchGetVariableResponse_errors = Lens.lens (\BatchGetVariableResponse' {errors} -> errors) (\s@BatchGetVariableResponse' {} a -> s {errors = a} :: BatchGetVariableResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The returned variables.
+batchGetVariableResponse_variables :: Lens.Lens' BatchGetVariableResponse (Prelude.Maybe [Variable])
+batchGetVariableResponse_variables = Lens.lens (\BatchGetVariableResponse' {variables} -> variables) (\s@BatchGetVariableResponse' {} a -> s {variables = a} :: BatchGetVariableResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 batchGetVariableResponse_httpStatus :: Lens.Lens' BatchGetVariableResponse Prelude.Int
@@ -176,6 +177,6 @@ batchGetVariableResponse_httpStatus = Lens.lens (\BatchGetVariableResponse' {htt
 
 instance Prelude.NFData BatchGetVariableResponse where
   rnf BatchGetVariableResponse' {..} =
-    Prelude.rnf variables
-      `Prelude.seq` Prelude.rnf errors
+    Prelude.rnf errors
+      `Prelude.seq` Prelude.rnf variables
       `Prelude.seq` Prelude.rnf httpStatus

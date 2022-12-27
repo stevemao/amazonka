@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.Types.UserGroupsUpdateStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElastiCache.Types.UserGroupsUpdateStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The status of the user group update.
@@ -62,16 +63,16 @@ userGroupsUpdateStatus_userGroupIdsToAdd = Lens.lens (\UserGroupsUpdateStatus' {
 userGroupsUpdateStatus_userGroupIdsToRemove :: Lens.Lens' UserGroupsUpdateStatus (Prelude.Maybe [Prelude.Text])
 userGroupsUpdateStatus_userGroupIdsToRemove = Lens.lens (\UserGroupsUpdateStatus' {userGroupIdsToRemove} -> userGroupIdsToRemove) (\s@UserGroupsUpdateStatus' {} a -> s {userGroupIdsToRemove = a} :: UserGroupsUpdateStatus) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML UserGroupsUpdateStatus where
+instance Data.FromXML UserGroupsUpdateStatus where
   parseXML x =
     UserGroupsUpdateStatus'
-      Prelude.<$> ( x Core..@? "UserGroupIdsToAdd"
+      Prelude.<$> ( x Data..@? "UserGroupIdsToAdd"
                       Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "member")
+                      Prelude.>>= Core.may (Data.parseXMLList "member")
                   )
-      Prelude.<*> ( x Core..@? "UserGroupIdsToRemove"
+      Prelude.<*> ( x Data..@? "UserGroupIdsToRemove"
                       Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "member")
+                      Prelude.>>= Core.may (Data.parseXMLList "member")
                   )
 
 instance Prelude.Hashable UserGroupsUpdateStatus where

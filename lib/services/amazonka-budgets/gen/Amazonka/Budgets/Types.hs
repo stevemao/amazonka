@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.Budgets.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -18,14 +19,15 @@ module Amazonka.Budgets.Types
 
     -- * Errors
     _AccessDeniedException,
-    _InvalidParameterException,
-    _InternalErrorException,
+    _CreationLimitExceededException,
+    _DuplicateRecordException,
     _ExpiredNextTokenException,
+    _InternalErrorException,
+    _InvalidNextTokenException,
+    _InvalidParameterException,
     _NotFoundException,
     _ResourceLockedException,
-    _InvalidNextTokenException,
-    _DuplicateRecordException,
-    _CreationLimitExceededException,
+    _ThrottlingException,
 
     -- * ActionStatus
     ActionStatus (..),
@@ -38,6 +40,9 @@ module Amazonka.Budgets.Types
 
     -- * ApprovalModel
     ApprovalModel (..),
+
+    -- * AutoAdjustType
+    AutoAdjustType (..),
 
     -- * BudgetType
     BudgetType (..),
@@ -100,36 +105,50 @@ module Amazonka.Budgets.Types
     actionThreshold_actionThresholdValue,
     actionThreshold_actionThresholdType,
 
+    -- * AutoAdjustData
+    AutoAdjustData (..),
+    newAutoAdjustData,
+    autoAdjustData_historicalOptions,
+    autoAdjustData_lastAutoAdjustTime,
+    autoAdjustData_autoAdjustType,
+
     -- * Budget
     Budget (..),
     newBudget,
-    budget_calculatedSpend,
-    budget_plannedBudgetLimits,
-    budget_lastUpdatedTime,
+    budget_autoAdjustData,
     budget_budgetLimit,
-    budget_timePeriod,
-    budget_costTypes,
+    budget_calculatedSpend,
     budget_costFilters,
+    budget_costTypes,
+    budget_lastUpdatedTime,
+    budget_plannedBudgetLimits,
+    budget_timePeriod,
     budget_budgetName,
     budget_timeUnit,
     budget_budgetType,
 
+    -- * BudgetNotificationsForAccount
+    BudgetNotificationsForAccount (..),
+    newBudgetNotificationsForAccount,
+    budgetNotificationsForAccount_budgetName,
+    budgetNotificationsForAccount_notifications,
+
     -- * BudgetPerformanceHistory
     BudgetPerformanceHistory (..),
     newBudgetPerformanceHistory,
-    budgetPerformanceHistory_budgetedAndActualAmountsList,
-    budgetPerformanceHistory_timeUnit,
     budgetPerformanceHistory_budgetName,
     budgetPerformanceHistory_budgetType,
-    budgetPerformanceHistory_costTypes,
+    budgetPerformanceHistory_budgetedAndActualAmountsList,
     budgetPerformanceHistory_costFilters,
+    budgetPerformanceHistory_costTypes,
+    budgetPerformanceHistory_timeUnit,
 
     -- * BudgetedAndActualAmounts
     BudgetedAndActualAmounts (..),
     newBudgetedAndActualAmounts,
-    budgetedAndActualAmounts_timePeriod,
     budgetedAndActualAmounts_actualAmount,
     budgetedAndActualAmounts_budgetedAmount,
+    budgetedAndActualAmounts_timePeriod,
 
     -- * CalculatedSpend
     CalculatedSpend (..),
@@ -140,24 +159,30 @@ module Amazonka.Budgets.Types
     -- * CostTypes
     CostTypes (..),
     newCostTypes,
-    costTypes_useAmortized,
-    costTypes_includeRecurring,
-    costTypes_useBlended,
-    costTypes_includeSupport,
-    costTypes_includeDiscount,
-    costTypes_includeSubscription,
-    costTypes_includeRefund,
-    costTypes_includeUpfront,
-    costTypes_includeOtherSubscription,
-    costTypes_includeTax,
     costTypes_includeCredit,
+    costTypes_includeDiscount,
+    costTypes_includeOtherSubscription,
+    costTypes_includeRecurring,
+    costTypes_includeRefund,
+    costTypes_includeSubscription,
+    costTypes_includeSupport,
+    costTypes_includeTax,
+    costTypes_includeUpfront,
+    costTypes_useAmortized,
+    costTypes_useBlended,
 
     -- * Definition
     Definition (..),
     newDefinition,
-    definition_scpActionDefinition,
     definition_iamActionDefinition,
+    definition_scpActionDefinition,
     definition_ssmActionDefinition,
+
+    -- * HistoricalOptions
+    HistoricalOptions (..),
+    newHistoricalOptions,
+    historicalOptions_lookBackAvailablePeriods,
+    historicalOptions_budgetAdjustmentPeriod,
 
     -- * IamActionDefinition
     IamActionDefinition (..),
@@ -170,8 +195,8 @@ module Amazonka.Budgets.Types
     -- * Notification
     Notification (..),
     newNotification,
-    notification_thresholdType,
     notification_notificationState,
+    notification_thresholdType,
     notification_notificationType,
     notification_comparisonOperator,
     notification_threshold,
@@ -210,8 +235,8 @@ module Amazonka.Budgets.Types
     -- * TimePeriod
     TimePeriod (..),
     newTimePeriod,
-    timePeriod_start,
     timePeriod_end,
+    timePeriod_start,
   )
 where
 
@@ -223,7 +248,10 @@ import Amazonka.Budgets.Types.ActionSubType
 import Amazonka.Budgets.Types.ActionThreshold
 import Amazonka.Budgets.Types.ActionType
 import Amazonka.Budgets.Types.ApprovalModel
+import Amazonka.Budgets.Types.AutoAdjustData
+import Amazonka.Budgets.Types.AutoAdjustType
 import Amazonka.Budgets.Types.Budget
+import Amazonka.Budgets.Types.BudgetNotificationsForAccount
 import Amazonka.Budgets.Types.BudgetPerformanceHistory
 import Amazonka.Budgets.Types.BudgetType
 import Amazonka.Budgets.Types.BudgetedAndActualAmounts
@@ -233,6 +261,7 @@ import Amazonka.Budgets.Types.CostTypes
 import Amazonka.Budgets.Types.Definition
 import Amazonka.Budgets.Types.EventType
 import Amazonka.Budgets.Types.ExecutionType
+import Amazonka.Budgets.Types.HistoricalOptions
 import Amazonka.Budgets.Types.IamActionDefinition
 import Amazonka.Budgets.Types.Notification
 import Amazonka.Budgets.Types.NotificationState
@@ -247,7 +276,7 @@ import Amazonka.Budgets.Types.ThresholdType
 import Amazonka.Budgets.Types.TimePeriod
 import Amazonka.Budgets.Types.TimeUnit
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 
@@ -255,41 +284,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "Budgets",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "budgets",
-      Core._serviceSigningName = "budgets",
-      Core._serviceVersion = "2016-10-20",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError = Core.parseJSONError "Budgets",
-      Core._serviceRetry = retry
+    { Core.abbrev = "Budgets",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "budgets",
+      Core.signingName = "budgets",
+      Core.version = "2016-10-20",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "Budgets",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -297,28 +334,20 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
 
 -- | You are not authorized to use this operation with the given parameters.
@@ -328,13 +357,27 @@ _AccessDeniedException =
     defaultService
     "AccessDeniedException"
 
--- | An error on the client occurred. Typically, the cause is an invalid
--- input value.
-_InvalidParameterException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidParameterException =
+-- | You\'ve exceeded the notification or subscriber limit.
+_CreationLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_CreationLimitExceededException =
   Core._MatchServiceError
     defaultService
-    "InvalidParameterException"
+    "CreationLimitExceededException"
+
+-- | The budget name already exists. Budget names must be unique within an
+-- account.
+_DuplicateRecordException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DuplicateRecordException =
+  Core._MatchServiceError
+    defaultService
+    "DuplicateRecordException"
+
+-- | The pagination token expired.
+_ExpiredNextTokenException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ExpiredNextTokenException =
+  Core._MatchServiceError
+    defaultService
+    "ExpiredNextTokenException"
 
 -- | An error on the server occurred during the processing of your request.
 -- Try again later.
@@ -344,12 +387,20 @@ _InternalErrorException =
     defaultService
     "InternalErrorException"
 
--- | The pagination token expired.
-_ExpiredNextTokenException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ExpiredNextTokenException =
+-- | The pagination token is invalid.
+_InvalidNextTokenException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidNextTokenException =
   Core._MatchServiceError
     defaultService
-    "ExpiredNextTokenException"
+    "InvalidNextTokenException"
+
+-- | An error on the client occurred. Typically, the cause is an invalid
+-- input value.
+_InvalidParameterException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidParameterException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidParameterException"
 
 -- | We can’t locate the resource that you specified.
 _NotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -366,24 +417,10 @@ _ResourceLockedException =
     defaultService
     "ResourceLockedException"
 
--- | The pagination token is invalid.
-_InvalidNextTokenException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidNextTokenException =
+-- | The number of API requests has exceeded the maximum allowed API request
+-- throttling limit for the account.
+_ThrottlingException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ThrottlingException =
   Core._MatchServiceError
     defaultService
-    "InvalidNextTokenException"
-
--- | The budget name already exists. Budget names must be unique within an
--- account.
-_DuplicateRecordException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DuplicateRecordException =
-  Core._MatchServiceError
-    defaultService
-    "DuplicateRecordException"
-
--- | You\'ve exceeded the notification or subscriber limit.
-_CreationLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_CreationLimitExceededException =
-  Core._MatchServiceError
-    defaultService
-    "CreationLimitExceededException"
+    "ThrottlingException"

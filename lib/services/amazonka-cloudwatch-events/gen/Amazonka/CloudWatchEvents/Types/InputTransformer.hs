@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.Types.InputTransformer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudWatchEvents.Types.InputTransformer where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the parameters needed for you to provide custom input to a
@@ -229,14 +230,14 @@ inputTransformer_inputPathsMap = Lens.lens (\InputTransformer' {inputPathsMap} -
 inputTransformer_inputTemplate :: Lens.Lens' InputTransformer Prelude.Text
 inputTransformer_inputTemplate = Lens.lens (\InputTransformer' {inputTemplate} -> inputTemplate) (\s@InputTransformer' {} a -> s {inputTemplate = a} :: InputTransformer)
 
-instance Core.FromJSON InputTransformer where
+instance Data.FromJSON InputTransformer where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InputTransformer"
       ( \x ->
           InputTransformer'
-            Prelude.<$> (x Core..:? "InputPathsMap" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "InputTemplate")
+            Prelude.<$> (x Data..:? "InputPathsMap" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "InputTemplate")
       )
 
 instance Prelude.Hashable InputTransformer where
@@ -249,12 +250,12 @@ instance Prelude.NFData InputTransformer where
     Prelude.rnf inputPathsMap
       `Prelude.seq` Prelude.rnf inputTemplate
 
-instance Core.ToJSON InputTransformer where
+instance Data.ToJSON InputTransformer where
   toJSON InputTransformer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("InputPathsMap" Core..=) Prelude.<$> inputPathsMap,
+          [ ("InputPathsMap" Data..=) Prelude.<$> inputPathsMap,
             Prelude.Just
-              ("InputTemplate" Core..= inputTemplate)
+              ("InputTemplate" Data..= inputTemplate)
           ]
       )

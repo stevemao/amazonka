@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConnect.ListReservations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.MediaConnect.ListReservations
     newListReservations,
 
     -- * Request Lenses
-    listReservations_nextToken,
     listReservations_maxResults,
+    listReservations_nextToken,
 
     -- * Destructuring the Response
     ListReservationsResponse (..),
@@ -46,7 +46,8 @@ module Amazonka.MediaConnect.ListReservations
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConnect.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -54,13 +55,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListReservations' smart constructor.
 data ListReservations = ListReservations'
-  { -- | The token that identifies which batch of results that you want to see.
-    -- For example, you submit a ListReservations request with MaxResults set
-    -- at 5. The service returns the first batch of results (up to 5) and a
-    -- NextToken value. To see the next batch of results, you can submit the
-    -- ListOfferings request a second time and specify the NextToken value.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return per API request. For example,
+  { -- | The maximum number of results to return per API request. For example,
     -- you submit a ListReservations request with MaxResults set at 5. Although
     -- 20 items match your request, the service returns no more than the first
     -- 5 items. (The service also returns a NextToken value that you can use to
@@ -68,7 +63,13 @@ data ListReservations = ListReservations'
     -- than the MaxResults value. If MaxResults is not included in the request,
     -- the service defaults to pagination with a maximum of 10 results per
     -- page.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token that identifies which batch of results that you want to see.
+    -- For example, you submit a ListReservations request with MaxResults set
+    -- at 5. The service returns the first batch of results (up to 5) and a
+    -- NextToken value. To see the next batch of results, you can submit the
+    -- ListOfferings request a second time and specify the NextToken value.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -80,12 +81,6 @@ data ListReservations = ListReservations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listReservations_nextToken' - The token that identifies which batch of results that you want to see.
--- For example, you submit a ListReservations request with MaxResults set
--- at 5. The service returns the first batch of results (up to 5) and a
--- NextToken value. To see the next batch of results, you can submit the
--- ListOfferings request a second time and specify the NextToken value.
---
 -- 'maxResults', 'listReservations_maxResults' - The maximum number of results to return per API request. For example,
 -- you submit a ListReservations request with MaxResults set at 5. Although
 -- 20 items match your request, the service returns no more than the first
@@ -94,21 +89,19 @@ data ListReservations = ListReservations'
 -- than the MaxResults value. If MaxResults is not included in the request,
 -- the service defaults to pagination with a maximum of 10 results per
 -- page.
-newListReservations ::
-  ListReservations
-newListReservations =
-  ListReservations'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
-    }
-
--- | The token that identifies which batch of results that you want to see.
+--
+-- 'nextToken', 'listReservations_nextToken' - The token that identifies which batch of results that you want to see.
 -- For example, you submit a ListReservations request with MaxResults set
 -- at 5. The service returns the first batch of results (up to 5) and a
 -- NextToken value. To see the next batch of results, you can submit the
 -- ListOfferings request a second time and specify the NextToken value.
-listReservations_nextToken :: Lens.Lens' ListReservations (Prelude.Maybe Prelude.Text)
-listReservations_nextToken = Lens.lens (\ListReservations' {nextToken} -> nextToken) (\s@ListReservations' {} a -> s {nextToken = a} :: ListReservations)
+newListReservations ::
+  ListReservations
+newListReservations =
+  ListReservations'
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
+    }
 
 -- | The maximum number of results to return per API request. For example,
 -- you submit a ListReservations request with MaxResults set at 5. Although
@@ -120,6 +113,14 @@ listReservations_nextToken = Lens.lens (\ListReservations' {nextToken} -> nextTo
 -- page.
 listReservations_maxResults :: Lens.Lens' ListReservations (Prelude.Maybe Prelude.Natural)
 listReservations_maxResults = Lens.lens (\ListReservations' {maxResults} -> maxResults) (\s@ListReservations' {} a -> s {maxResults = a} :: ListReservations)
+
+-- | The token that identifies which batch of results that you want to see.
+-- For example, you submit a ListReservations request with MaxResults set
+-- at 5. The service returns the first batch of results (up to 5) and a
+-- NextToken value. To see the next batch of results, you can submit the
+-- ListOfferings request a second time and specify the NextToken value.
+listReservations_nextToken :: Lens.Lens' ListReservations (Prelude.Maybe Prelude.Text)
+listReservations_nextToken = Lens.lens (\ListReservations' {nextToken} -> nextToken) (\s@ListReservations' {} a -> s {nextToken = a} :: ListReservations)
 
 instance Core.AWSPager ListReservations where
   page rq rs
@@ -147,45 +148,46 @@ instance Core.AWSRequest ListReservations where
   type
     AWSResponse ListReservations =
       ListReservationsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListReservationsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "reservations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "reservations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListReservations where
   hashWithSalt _salt ListReservations' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListReservations where
   rnf ListReservations' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListReservations where
+instance Data.ToHeaders ListReservations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListReservations where
+instance Data.ToPath ListReservations where
   toPath = Prelude.const "/v1/reservations"
 
-instance Core.ToQuery ListReservations where
+instance Data.ToQuery ListReservations where
   toQuery ListReservations' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListReservationsResponse' smart constructor.

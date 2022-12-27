@@ -14,15 +14,15 @@
 
 -- |
 -- Module      : Amazonka.ManagedBlockChain.RejectInvitation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Rejects an invitation to join a network. This action can be called by a
--- principal in an AWS account that has received an invitation to create a
--- member and join a network.
+-- principal in an Amazon Web Services account that has received an
+-- invitation to create a member and join a network.
 --
 -- Applies only to Hyperledger Fabric.
 module Amazonka.ManagedBlockChain.RejectInvitation
@@ -43,7 +43,8 @@ module Amazonka.ManagedBlockChain.RejectInvitation
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ManagedBlockChain.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -80,7 +81,8 @@ instance Core.AWSRequest RejectInvitation where
   type
     AWSResponse RejectInvitation =
       RejectInvitationResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -95,23 +97,23 @@ instance Prelude.Hashable RejectInvitation where
 instance Prelude.NFData RejectInvitation where
   rnf RejectInvitation' {..} = Prelude.rnf invitationId
 
-instance Core.ToHeaders RejectInvitation where
+instance Data.ToHeaders RejectInvitation where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath RejectInvitation where
+instance Data.ToPath RejectInvitation where
   toPath RejectInvitation' {..} =
     Prelude.mconcat
-      ["/invitations/", Core.toBS invitationId]
+      ["/invitations/", Data.toBS invitationId]
 
-instance Core.ToQuery RejectInvitation where
+instance Data.ToQuery RejectInvitation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRejectInvitationResponse' smart constructor.

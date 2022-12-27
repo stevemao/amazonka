@@ -6,50 +6,13 @@
 
 -- |
 -- Module      : Amazonka.CloudHSMV2.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 module Amazonka.CloudHSMV2.Lens
   ( -- * Operations
-
-    -- ** DescribeClusters
-    describeClusters_filters,
-    describeClusters_nextToken,
-    describeClusters_maxResults,
-    describeClustersResponse_nextToken,
-    describeClustersResponse_clusters,
-    describeClustersResponse_httpStatus,
-
-    -- ** DeleteBackup
-    deleteBackup_backupId,
-    deleteBackupResponse_backup,
-    deleteBackupResponse_httpStatus,
-
-    -- ** InitializeCluster
-    initializeCluster_clusterId,
-    initializeCluster_signedCert,
-    initializeCluster_trustAnchor,
-    initializeClusterResponse_stateMessage,
-    initializeClusterResponse_state,
-    initializeClusterResponse_httpStatus,
-
-    -- ** CreateHsm
-    createHsm_ipAddress,
-    createHsm_clusterId,
-    createHsm_availabilityZone,
-    createHsmResponse_hsm,
-    createHsmResponse_httpStatus,
-
-    -- ** DescribeBackups
-    describeBackups_sortAscending,
-    describeBackups_filters,
-    describeBackups_nextToken,
-    describeBackups_maxResults,
-    describeBackupsResponse_backups,
-    describeBackupsResponse_nextToken,
-    describeBackupsResponse_httpStatus,
 
     -- ** CopyBackupToRegion
     copyBackupToRegion_tagList,
@@ -58,56 +21,72 @@ module Amazonka.CloudHSMV2.Lens
     copyBackupToRegionResponse_destinationBackup,
     copyBackupToRegionResponse_httpStatus,
 
-    -- ** DeleteCluster
-    deleteCluster_clusterId,
-    deleteClusterResponse_cluster,
-    deleteClusterResponse_httpStatus,
-
     -- ** CreateCluster
     createCluster_backupRetentionPolicy,
-    createCluster_tagList,
     createCluster_sourceBackupId,
+    createCluster_tagList,
     createCluster_hsmType,
     createCluster_subnetIds,
     createClusterResponse_cluster,
     createClusterResponse_httpStatus,
 
-    -- ** RestoreBackup
-    restoreBackup_backupId,
-    restoreBackupResponse_backup,
-    restoreBackupResponse_httpStatus,
+    -- ** CreateHsm
+    createHsm_ipAddress,
+    createHsm_clusterId,
+    createHsm_availabilityZone,
+    createHsmResponse_hsm,
+    createHsmResponse_httpStatus,
+
+    -- ** DeleteBackup
+    deleteBackup_backupId,
+    deleteBackupResponse_backup,
+    deleteBackupResponse_httpStatus,
+
+    -- ** DeleteCluster
+    deleteCluster_clusterId,
+    deleteClusterResponse_cluster,
+    deleteClusterResponse_httpStatus,
 
     -- ** DeleteHsm
     deleteHsm_eniId,
-    deleteHsm_hsmId,
     deleteHsm_eniIp,
+    deleteHsm_hsmId,
     deleteHsm_clusterId,
     deleteHsmResponse_hsmId,
     deleteHsmResponse_httpStatus,
 
-    -- ** ModifyCluster
-    modifyCluster_backupRetentionPolicy,
-    modifyCluster_clusterId,
-    modifyClusterResponse_cluster,
-    modifyClusterResponse_httpStatus,
+    -- ** DescribeBackups
+    describeBackups_filters,
+    describeBackups_maxResults,
+    describeBackups_nextToken,
+    describeBackups_sortAscending,
+    describeBackupsResponse_backups,
+    describeBackupsResponse_nextToken,
+    describeBackupsResponse_httpStatus,
 
-    -- ** TagResource
-    tagResource_resourceId,
-    tagResource_tagList,
-    tagResourceResponse_httpStatus,
+    -- ** DescribeClusters
+    describeClusters_filters,
+    describeClusters_maxResults,
+    describeClusters_nextToken,
+    describeClustersResponse_clusters,
+    describeClustersResponse_nextToken,
+    describeClustersResponse_httpStatus,
+
+    -- ** InitializeCluster
+    initializeCluster_clusterId,
+    initializeCluster_signedCert,
+    initializeCluster_trustAnchor,
+    initializeClusterResponse_state,
+    initializeClusterResponse_stateMessage,
+    initializeClusterResponse_httpStatus,
 
     -- ** ListTags
-    listTags_nextToken,
     listTags_maxResults,
+    listTags_nextToken,
     listTags_resourceId,
     listTagsResponse_nextToken,
     listTagsResponse_httpStatus,
     listTagsResponse_tagList,
-
-    -- ** UntagResource
-    untagResource_resourceId,
-    untagResource_tagKeyList,
-    untagResourceResponse_httpStatus,
 
     -- ** ModifyBackupAttributes
     modifyBackupAttributes_backupId,
@@ -115,63 +94,84 @@ module Amazonka.CloudHSMV2.Lens
     modifyBackupAttributesResponse_backup,
     modifyBackupAttributesResponse_httpStatus,
 
+    -- ** ModifyCluster
+    modifyCluster_backupRetentionPolicy,
+    modifyCluster_clusterId,
+    modifyClusterResponse_cluster,
+    modifyClusterResponse_httpStatus,
+
+    -- ** RestoreBackup
+    restoreBackup_backupId,
+    restoreBackupResponse_backup,
+    restoreBackupResponse_httpStatus,
+
+    -- ** TagResource
+    tagResource_resourceId,
+    tagResource_tagList,
+    tagResourceResponse_httpStatus,
+
+    -- ** UntagResource
+    untagResource_resourceId,
+    untagResource_tagKeyList,
+    untagResourceResponse_httpStatus,
+
     -- * Types
 
     -- ** Backup
+    backup_backupState,
+    backup_clusterId,
+    backup_copyTimestamp,
+    backup_createTimestamp,
     backup_deleteTimestamp,
-    backup_sourceCluster,
     backup_neverExpires,
+    backup_sourceBackup,
+    backup_sourceCluster,
     backup_sourceRegion,
     backup_tagList,
-    backup_sourceBackup,
-    backup_clusterId,
-    backup_createTimestamp,
-    backup_copyTimestamp,
-    backup_backupState,
     backup_backupId,
 
     -- ** BackupRetentionPolicy
-    backupRetentionPolicy_value,
     backupRetentionPolicy_type,
+    backupRetentionPolicy_value,
 
     -- ** Certificates
-    certificates_manufacturerHardwareCertificate,
+    certificates_awsHardwareCertificate,
+    certificates_clusterCertificate,
     certificates_clusterCsr,
     certificates_hsmCertificate,
-    certificates_clusterCertificate,
-    certificates_awsHardwareCertificate,
+    certificates_manufacturerHardwareCertificate,
 
     -- ** Cluster
-    cluster_preCoPassword,
-    cluster_stateMessage,
-    cluster_state,
-    cluster_subnetMapping,
+    cluster_backupPolicy,
     cluster_backupRetentionPolicy,
-    cluster_hsms,
-    cluster_vpcId,
-    cluster_tagList,
-    cluster_sourceBackupId,
     cluster_certificates,
-    cluster_securityGroup,
     cluster_clusterId,
     cluster_createTimestamp,
-    cluster_backupPolicy,
     cluster_hsmType,
+    cluster_hsms,
+    cluster_preCoPassword,
+    cluster_securityGroup,
+    cluster_sourceBackupId,
+    cluster_state,
+    cluster_stateMessage,
+    cluster_subnetMapping,
+    cluster_tagList,
+    cluster_vpcId,
 
     -- ** DestinationBackup
+    destinationBackup_createTimestamp,
+    destinationBackup_sourceBackup,
     destinationBackup_sourceCluster,
     destinationBackup_sourceRegion,
-    destinationBackup_sourceBackup,
-    destinationBackup_createTimestamp,
 
     -- ** Hsm
-    hsm_stateMessage,
-    hsm_state,
-    hsm_eniId,
-    hsm_subnetId,
     hsm_availabilityZone,
     hsm_clusterId,
+    hsm_eniId,
     hsm_eniIp,
+    hsm_state,
+    hsm_stateMessage,
+    hsm_subnetId,
     hsm_hsmId,
 
     -- ** Tag

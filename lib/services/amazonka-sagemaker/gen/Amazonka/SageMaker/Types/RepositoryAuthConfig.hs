@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.RepositoryAuthConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.RepositoryAuthConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies an authentication configuration for the private docker
@@ -76,13 +77,13 @@ newRepositoryAuthConfig
 repositoryAuthConfig_repositoryCredentialsProviderArn :: Lens.Lens' RepositoryAuthConfig Prelude.Text
 repositoryAuthConfig_repositoryCredentialsProviderArn = Lens.lens (\RepositoryAuthConfig' {repositoryCredentialsProviderArn} -> repositoryCredentialsProviderArn) (\s@RepositoryAuthConfig' {} a -> s {repositoryCredentialsProviderArn = a} :: RepositoryAuthConfig)
 
-instance Core.FromJSON RepositoryAuthConfig where
+instance Data.FromJSON RepositoryAuthConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RepositoryAuthConfig"
       ( \x ->
           RepositoryAuthConfig'
-            Prelude.<$> (x Core..: "RepositoryCredentialsProviderArn")
+            Prelude.<$> (x Data..: "RepositoryCredentialsProviderArn")
       )
 
 instance Prelude.Hashable RepositoryAuthConfig where
@@ -94,13 +95,13 @@ instance Prelude.NFData RepositoryAuthConfig where
   rnf RepositoryAuthConfig' {..} =
     Prelude.rnf repositoryCredentialsProviderArn
 
-instance Core.ToJSON RepositoryAuthConfig where
+instance Data.ToJSON RepositoryAuthConfig where
   toJSON RepositoryAuthConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "RepositoryCredentialsProviderArn"
-                  Core..= repositoryCredentialsProviderArn
+                  Data..= repositoryCredentialsProviderArn
               )
           ]
       )

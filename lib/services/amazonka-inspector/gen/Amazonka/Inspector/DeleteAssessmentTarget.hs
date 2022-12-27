@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Inspector.DeleteAssessmentTarget
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,8 +37,9 @@ module Amazonka.Inspector.DeleteAssessmentTarget
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Inspector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,7 +78,8 @@ instance Core.AWSRequest DeleteAssessmentTarget where
   type
     AWSResponse DeleteAssessmentTarget =
       DeleteAssessmentTargetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       DeleteAssessmentTargetResponse'
@@ -90,34 +92,34 @@ instance Prelude.NFData DeleteAssessmentTarget where
   rnf DeleteAssessmentTarget' {..} =
     Prelude.rnf assessmentTargetArn
 
-instance Core.ToHeaders DeleteAssessmentTarget where
+instance Data.ToHeaders DeleteAssessmentTarget where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "InspectorService.DeleteAssessmentTarget" ::
+              Data.=# ( "InspectorService.DeleteAssessmentTarget" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteAssessmentTarget where
+instance Data.ToJSON DeleteAssessmentTarget where
   toJSON DeleteAssessmentTarget' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("assessmentTargetArn" Core..= assessmentTargetArn)
+              ("assessmentTargetArn" Data..= assessmentTargetArn)
           ]
       )
 
-instance Core.ToPath DeleteAssessmentTarget where
+instance Data.ToPath DeleteAssessmentTarget where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteAssessmentTarget where
+instance Data.ToQuery DeleteAssessmentTarget where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAssessmentTargetResponse' smart constructor.

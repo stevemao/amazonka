@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.Types.ListRecordHistorySearchFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,23 +20,24 @@
 module Amazonka.ServiceCatalog.Types.ListRecordHistorySearchFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The search filter to use when listing history records.
 --
 -- /See:/ 'newListRecordHistorySearchFilter' smart constructor.
 data ListRecordHistorySearchFilter = ListRecordHistorySearchFilter'
-  { -- | The filter value.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The filter key.
+  { -- | The filter key.
     --
     -- -   @product@ - Filter results based on the specified product
     --     identifier.
     --
     -- -   @provisionedproduct@ - Filter results based on the provisioned
     --     product identifier.
-    key :: Prelude.Maybe Prelude.Text
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The filter value.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,8 +49,6 @@ data ListRecordHistorySearchFilter = ListRecordHistorySearchFilter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'listRecordHistorySearchFilter_value' - The filter value.
---
 -- 'key', 'listRecordHistorySearchFilter_key' - The filter key.
 --
 -- -   @product@ - Filter results based on the specified product
@@ -57,18 +56,16 @@ data ListRecordHistorySearchFilter = ListRecordHistorySearchFilter'
 --
 -- -   @provisionedproduct@ - Filter results based on the provisioned
 --     product identifier.
+--
+-- 'value', 'listRecordHistorySearchFilter_value' - The filter value.
 newListRecordHistorySearchFilter ::
   ListRecordHistorySearchFilter
 newListRecordHistorySearchFilter =
   ListRecordHistorySearchFilter'
-    { value =
+    { key =
         Prelude.Nothing,
-      key = Prelude.Nothing
+      value = Prelude.Nothing
     }
-
--- | The filter value.
-listRecordHistorySearchFilter_value :: Lens.Lens' ListRecordHistorySearchFilter (Prelude.Maybe Prelude.Text)
-listRecordHistorySearchFilter_value = Lens.lens (\ListRecordHistorySearchFilter' {value} -> value) (\s@ListRecordHistorySearchFilter' {} a -> s {value = a} :: ListRecordHistorySearchFilter)
 
 -- | The filter key.
 --
@@ -80,23 +77,27 @@ listRecordHistorySearchFilter_value = Lens.lens (\ListRecordHistorySearchFilter'
 listRecordHistorySearchFilter_key :: Lens.Lens' ListRecordHistorySearchFilter (Prelude.Maybe Prelude.Text)
 listRecordHistorySearchFilter_key = Lens.lens (\ListRecordHistorySearchFilter' {key} -> key) (\s@ListRecordHistorySearchFilter' {} a -> s {key = a} :: ListRecordHistorySearchFilter)
 
+-- | The filter value.
+listRecordHistorySearchFilter_value :: Lens.Lens' ListRecordHistorySearchFilter (Prelude.Maybe Prelude.Text)
+listRecordHistorySearchFilter_value = Lens.lens (\ListRecordHistorySearchFilter' {value} -> value) (\s@ListRecordHistorySearchFilter' {} a -> s {value = a} :: ListRecordHistorySearchFilter)
+
 instance
   Prelude.Hashable
     ListRecordHistorySearchFilter
   where
   hashWithSalt _salt ListRecordHistorySearchFilter' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` key
+    _salt `Prelude.hashWithSalt` key
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData ListRecordHistorySearchFilter where
   rnf ListRecordHistorySearchFilter' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf key
+    Prelude.rnf key `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON ListRecordHistorySearchFilter where
+instance Data.ToJSON ListRecordHistorySearchFilter where
   toJSON ListRecordHistorySearchFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Value" Core..=) Prelude.<$> value,
-            ("Key" Core..=) Prelude.<$> key
+          [ ("Key" Data..=) Prelude.<$> key,
+            ("Value" Data..=) Prelude.<$> value
           ]
       )

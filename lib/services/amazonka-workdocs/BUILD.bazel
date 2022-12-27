@@ -1,6 +1,6 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_library", "haskell_test")
 
-# rule generated from amazonka-workdocs/amazonka-workdocs.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-workdocs/amazonka-workdocs.cabal by gazelle_cabal
 haskell_library(
     name = "amazonka-workdocs",
     srcs = [
@@ -18,6 +18,7 @@ haskell_library(
         "gen/Amazonka/WorkDocs/DeleteComment.hs",
         "gen/Amazonka/WorkDocs/DeleteCustomMetadata.hs",
         "gen/Amazonka/WorkDocs/DeleteDocument.hs",
+        "gen/Amazonka/WorkDocs/DeleteDocumentVersion.hs",
         "gen/Amazonka/WorkDocs/DeleteFolder.hs",
         "gen/Amazonka/WorkDocs/DeleteFolderContents.hs",
         "gen/Amazonka/WorkDocs/DeleteLabels.hs",
@@ -43,6 +44,7 @@ haskell_library(
         "gen/Amazonka/WorkDocs/Lens.hs",
         "gen/Amazonka/WorkDocs/RemoveAllResourcePermissions.hs",
         "gen/Amazonka/WorkDocs/RemoveResourcePermission.hs",
+        "gen/Amazonka/WorkDocs/RestoreDocumentVersions.hs",
         "gen/Amazonka/WorkDocs/Types.hs",
         "gen/Amazonka/WorkDocs/Types/Activity.hs",
         "gen/Amazonka/WorkDocs/Types/ActivityType.hs",
@@ -98,14 +100,13 @@ haskell_library(
         "gen/Amazonka/WorkDocs/UpdateUser.hs",
         "gen/Amazonka/WorkDocs/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_workdocs=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
-        "-DVERSION_amazonka_workdocs=\"2.0\"",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -114,7 +115,7 @@ haskell_library(
     ],
 )
 
-# rule generated from amazonka-workdocs/amazonka-workdocs.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-workdocs/amazonka-workdocs.cabal by gazelle_cabal
 haskell_test(
     name = "amazonka-workdocs-test",
     srcs = [
@@ -123,11 +124,12 @@ haskell_test(
         "test/Test/Amazonka/WorkDocs.hs",
         "test/Test/Amazonka/WorkDocs/Internal.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_workdocs=\"2.0\"",
         "-Wall",
         "-threaded",
-        "-DVERSION_amazonka_workdocs=\"2.0\"",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.InstancePortState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.InstancePortState where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types.NetworkProtocol
 import Amazonka.Lightsail.Types.PortState
 import qualified Amazonka.Prelude as Prelude
@@ -30,7 +31,23 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newInstancePortState' smart constructor.
 data InstancePortState = InstancePortState'
-  { -- | The first port in a range of open ports on an instance.
+  { -- | An alias that defines access for a preconfigured range of IP addresses.
+    --
+    -- The only alias currently supported is @lightsail-connect@, which allows
+    -- IP addresses of the browser-based RDP\/SSH client in the Lightsail
+    -- console to connect to your instance.
+    cidrListAliases :: Prelude.Maybe [Prelude.Text],
+    -- | The IPv4 address, or range of IPv4 addresses (in CIDR notation) that are
+    -- allowed to connect to an instance through the ports, and the protocol.
+    --
+    -- The @ipv6Cidrs@ parameter lists the IPv6 addresses that are allowed to
+    -- connect to an instance.
+    --
+    -- For more information about CIDR block notation, see
+    -- <https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation Classless Inter-Domain Routing>
+    -- on /Wikipedia/.
+    cidrs :: Prelude.Maybe [Prelude.Text],
+    -- | The first port in a range of open ports on an instance.
     --
     -- Allowed ports:
     --
@@ -47,20 +64,18 @@ data InstancePortState = InstancePortState'
     --     code). For more information, see
     --     <https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol_for_IPv6 Internet Control Message Protocol for IPv6>.
     fromPort :: Prelude.Maybe Prelude.Int,
-    -- | The IPv4 address, or range of IPv4 addresses (in CIDR notation) that are
+    -- | The IPv6 address, or range of IPv6 addresses (in CIDR notation) that are
     -- allowed to connect to an instance through the ports, and the protocol.
+    -- Only devices with an IPv6 address can connect to an instance through
+    -- IPv6; otherwise, IPv4 should be used.
     --
-    -- The @ipv6Cidrs@ parameter lists the IPv6 addresses that are allowed to
+    -- The @cidrs@ parameter lists the IPv4 addresses that are allowed to
     -- connect to an instance.
     --
     -- For more information about CIDR block notation, see
     -- <https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation Classless Inter-Domain Routing>
     -- on /Wikipedia/.
-    cidrs :: Prelude.Maybe [Prelude.Text],
-    -- | Specifies whether the instance port is @open@ or @closed@.
-    --
-    -- The port state for Lightsail instances is always @open@.
-    state :: Prelude.Maybe PortState,
+    ipv6Cidrs :: Prelude.Maybe [Prelude.Text],
     -- | The IP protocol name.
     --
     -- The name can be one of the following:
@@ -92,24 +107,10 @@ data InstancePortState = InstancePortState'
     --     @icmp@ as the @protocol@, you must specify the ICMP type using the
     --     @fromPort@ parameter, and ICMP code using the @toPort@ parameter.
     protocol :: Prelude.Maybe NetworkProtocol,
-    -- | An alias that defines access for a preconfigured range of IP addresses.
+    -- | Specifies whether the instance port is @open@ or @closed@.
     --
-    -- The only alias currently supported is @lightsail-connect@, which allows
-    -- IP addresses of the browser-based RDP\/SSH client in the Lightsail
-    -- console to connect to your instance.
-    cidrListAliases :: Prelude.Maybe [Prelude.Text],
-    -- | The IPv6 address, or range of IPv6 addresses (in CIDR notation) that are
-    -- allowed to connect to an instance through the ports, and the protocol.
-    -- Only devices with an IPv6 address can connect to an instance through
-    -- IPv6; otherwise, IPv4 should be used.
-    --
-    -- The @cidrs@ parameter lists the IPv4 addresses that are allowed to
-    -- connect to an instance.
-    --
-    -- For more information about CIDR block notation, see
-    -- <https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation Classless Inter-Domain Routing>
-    -- on /Wikipedia/.
-    ipv6Cidrs :: Prelude.Maybe [Prelude.Text],
+    -- The port state for Lightsail instances is always @open@.
+    state :: Prelude.Maybe PortState,
     -- | The last port in a range of open ports on an instance.
     --
     -- Allowed ports:
@@ -138,6 +139,22 @@ data InstancePortState = InstancePortState'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'cidrListAliases', 'instancePortState_cidrListAliases' - An alias that defines access for a preconfigured range of IP addresses.
+--
+-- The only alias currently supported is @lightsail-connect@, which allows
+-- IP addresses of the browser-based RDP\/SSH client in the Lightsail
+-- console to connect to your instance.
+--
+-- 'cidrs', 'instancePortState_cidrs' - The IPv4 address, or range of IPv4 addresses (in CIDR notation) that are
+-- allowed to connect to an instance through the ports, and the protocol.
+--
+-- The @ipv6Cidrs@ parameter lists the IPv6 addresses that are allowed to
+-- connect to an instance.
+--
+-- For more information about CIDR block notation, see
+-- <https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation Classless Inter-Domain Routing>
+-- on /Wikipedia/.
+--
 -- 'fromPort', 'instancePortState_fromPort' - The first port in a range of open ports on an instance.
 --
 -- Allowed ports:
@@ -155,19 +172,17 @@ data InstancePortState = InstancePortState'
 --     code). For more information, see
 --     <https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol_for_IPv6 Internet Control Message Protocol for IPv6>.
 --
--- 'cidrs', 'instancePortState_cidrs' - The IPv4 address, or range of IPv4 addresses (in CIDR notation) that are
+-- 'ipv6Cidrs', 'instancePortState_ipv6Cidrs' - The IPv6 address, or range of IPv6 addresses (in CIDR notation) that are
 -- allowed to connect to an instance through the ports, and the protocol.
+-- Only devices with an IPv6 address can connect to an instance through
+-- IPv6; otherwise, IPv4 should be used.
 --
--- The @ipv6Cidrs@ parameter lists the IPv6 addresses that are allowed to
+-- The @cidrs@ parameter lists the IPv4 addresses that are allowed to
 -- connect to an instance.
 --
 -- For more information about CIDR block notation, see
 -- <https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation Classless Inter-Domain Routing>
 -- on /Wikipedia/.
---
--- 'state', 'instancePortState_state' - Specifies whether the instance port is @open@ or @closed@.
---
--- The port state for Lightsail instances is always @open@.
 --
 -- 'protocol', 'instancePortState_protocol' - The IP protocol name.
 --
@@ -200,23 +215,9 @@ data InstancePortState = InstancePortState'
 --     @icmp@ as the @protocol@, you must specify the ICMP type using the
 --     @fromPort@ parameter, and ICMP code using the @toPort@ parameter.
 --
--- 'cidrListAliases', 'instancePortState_cidrListAliases' - An alias that defines access for a preconfigured range of IP addresses.
+-- 'state', 'instancePortState_state' - Specifies whether the instance port is @open@ or @closed@.
 --
--- The only alias currently supported is @lightsail-connect@, which allows
--- IP addresses of the browser-based RDP\/SSH client in the Lightsail
--- console to connect to your instance.
---
--- 'ipv6Cidrs', 'instancePortState_ipv6Cidrs' - The IPv6 address, or range of IPv6 addresses (in CIDR notation) that are
--- allowed to connect to an instance through the ports, and the protocol.
--- Only devices with an IPv6 address can connect to an instance through
--- IPv6; otherwise, IPv4 should be used.
---
--- The @cidrs@ parameter lists the IPv4 addresses that are allowed to
--- connect to an instance.
---
--- For more information about CIDR block notation, see
--- <https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation Classless Inter-Domain Routing>
--- on /Wikipedia/.
+-- The port state for Lightsail instances is always @open@.
 --
 -- 'toPort', 'instancePortState_toPort' - The last port in a range of open ports on an instance.
 --
@@ -238,14 +239,35 @@ newInstancePortState ::
   InstancePortState
 newInstancePortState =
   InstancePortState'
-    { fromPort = Prelude.Nothing,
+    { cidrListAliases =
+        Prelude.Nothing,
       cidrs = Prelude.Nothing,
-      state = Prelude.Nothing,
-      protocol = Prelude.Nothing,
-      cidrListAliases = Prelude.Nothing,
+      fromPort = Prelude.Nothing,
       ipv6Cidrs = Prelude.Nothing,
+      protocol = Prelude.Nothing,
+      state = Prelude.Nothing,
       toPort = Prelude.Nothing
     }
+
+-- | An alias that defines access for a preconfigured range of IP addresses.
+--
+-- The only alias currently supported is @lightsail-connect@, which allows
+-- IP addresses of the browser-based RDP\/SSH client in the Lightsail
+-- console to connect to your instance.
+instancePortState_cidrListAliases :: Lens.Lens' InstancePortState (Prelude.Maybe [Prelude.Text])
+instancePortState_cidrListAliases = Lens.lens (\InstancePortState' {cidrListAliases} -> cidrListAliases) (\s@InstancePortState' {} a -> s {cidrListAliases = a} :: InstancePortState) Prelude.. Lens.mapping Lens.coerced
+
+-- | The IPv4 address, or range of IPv4 addresses (in CIDR notation) that are
+-- allowed to connect to an instance through the ports, and the protocol.
+--
+-- The @ipv6Cidrs@ parameter lists the IPv6 addresses that are allowed to
+-- connect to an instance.
+--
+-- For more information about CIDR block notation, see
+-- <https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation Classless Inter-Domain Routing>
+-- on /Wikipedia/.
+instancePortState_cidrs :: Lens.Lens' InstancePortState (Prelude.Maybe [Prelude.Text])
+instancePortState_cidrs = Lens.lens (\InstancePortState' {cidrs} -> cidrs) (\s@InstancePortState' {} a -> s {cidrs = a} :: InstancePortState) Prelude.. Lens.mapping Lens.coerced
 
 -- | The first port in a range of open ports on an instance.
 --
@@ -266,23 +288,19 @@ newInstancePortState =
 instancePortState_fromPort :: Lens.Lens' InstancePortState (Prelude.Maybe Prelude.Int)
 instancePortState_fromPort = Lens.lens (\InstancePortState' {fromPort} -> fromPort) (\s@InstancePortState' {} a -> s {fromPort = a} :: InstancePortState)
 
--- | The IPv4 address, or range of IPv4 addresses (in CIDR notation) that are
+-- | The IPv6 address, or range of IPv6 addresses (in CIDR notation) that are
 -- allowed to connect to an instance through the ports, and the protocol.
+-- Only devices with an IPv6 address can connect to an instance through
+-- IPv6; otherwise, IPv4 should be used.
 --
--- The @ipv6Cidrs@ parameter lists the IPv6 addresses that are allowed to
+-- The @cidrs@ parameter lists the IPv4 addresses that are allowed to
 -- connect to an instance.
 --
 -- For more information about CIDR block notation, see
 -- <https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation Classless Inter-Domain Routing>
 -- on /Wikipedia/.
-instancePortState_cidrs :: Lens.Lens' InstancePortState (Prelude.Maybe [Prelude.Text])
-instancePortState_cidrs = Lens.lens (\InstancePortState' {cidrs} -> cidrs) (\s@InstancePortState' {} a -> s {cidrs = a} :: InstancePortState) Prelude.. Lens.mapping Lens.coerced
-
--- | Specifies whether the instance port is @open@ or @closed@.
---
--- The port state for Lightsail instances is always @open@.
-instancePortState_state :: Lens.Lens' InstancePortState (Prelude.Maybe PortState)
-instancePortState_state = Lens.lens (\InstancePortState' {state} -> state) (\s@InstancePortState' {} a -> s {state = a} :: InstancePortState)
+instancePortState_ipv6Cidrs :: Lens.Lens' InstancePortState (Prelude.Maybe [Prelude.Text])
+instancePortState_ipv6Cidrs = Lens.lens (\InstancePortState' {ipv6Cidrs} -> ipv6Cidrs) (\s@InstancePortState' {} a -> s {ipv6Cidrs = a} :: InstancePortState) Prelude.. Lens.mapping Lens.coerced
 
 -- | The IP protocol name.
 --
@@ -317,27 +335,11 @@ instancePortState_state = Lens.lens (\InstancePortState' {state} -> state) (\s@I
 instancePortState_protocol :: Lens.Lens' InstancePortState (Prelude.Maybe NetworkProtocol)
 instancePortState_protocol = Lens.lens (\InstancePortState' {protocol} -> protocol) (\s@InstancePortState' {} a -> s {protocol = a} :: InstancePortState)
 
--- | An alias that defines access for a preconfigured range of IP addresses.
+-- | Specifies whether the instance port is @open@ or @closed@.
 --
--- The only alias currently supported is @lightsail-connect@, which allows
--- IP addresses of the browser-based RDP\/SSH client in the Lightsail
--- console to connect to your instance.
-instancePortState_cidrListAliases :: Lens.Lens' InstancePortState (Prelude.Maybe [Prelude.Text])
-instancePortState_cidrListAliases = Lens.lens (\InstancePortState' {cidrListAliases} -> cidrListAliases) (\s@InstancePortState' {} a -> s {cidrListAliases = a} :: InstancePortState) Prelude.. Lens.mapping Lens.coerced
-
--- | The IPv6 address, or range of IPv6 addresses (in CIDR notation) that are
--- allowed to connect to an instance through the ports, and the protocol.
--- Only devices with an IPv6 address can connect to an instance through
--- IPv6; otherwise, IPv4 should be used.
---
--- The @cidrs@ parameter lists the IPv4 addresses that are allowed to
--- connect to an instance.
---
--- For more information about CIDR block notation, see
--- <https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation Classless Inter-Domain Routing>
--- on /Wikipedia/.
-instancePortState_ipv6Cidrs :: Lens.Lens' InstancePortState (Prelude.Maybe [Prelude.Text])
-instancePortState_ipv6Cidrs = Lens.lens (\InstancePortState' {ipv6Cidrs} -> ipv6Cidrs) (\s@InstancePortState' {} a -> s {ipv6Cidrs = a} :: InstancePortState) Prelude.. Lens.mapping Lens.coerced
+-- The port state for Lightsail instances is always @open@.
+instancePortState_state :: Lens.Lens' InstancePortState (Prelude.Maybe PortState)
+instancePortState_state = Lens.lens (\InstancePortState' {state} -> state) (\s@InstancePortState' {} a -> s {state = a} :: InstancePortState)
 
 -- | The last port in a range of open ports on an instance.
 --
@@ -358,39 +360,39 @@ instancePortState_ipv6Cidrs = Lens.lens (\InstancePortState' {ipv6Cidrs} -> ipv6
 instancePortState_toPort :: Lens.Lens' InstancePortState (Prelude.Maybe Prelude.Int)
 instancePortState_toPort = Lens.lens (\InstancePortState' {toPort} -> toPort) (\s@InstancePortState' {} a -> s {toPort = a} :: InstancePortState)
 
-instance Core.FromJSON InstancePortState where
+instance Data.FromJSON InstancePortState where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InstancePortState"
       ( \x ->
           InstancePortState'
-            Prelude.<$> (x Core..:? "fromPort")
-            Prelude.<*> (x Core..:? "cidrs" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "state")
-            Prelude.<*> (x Core..:? "protocol")
-            Prelude.<*> ( x Core..:? "cidrListAliases"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "cidrListAliases"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "ipv6Cidrs" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "toPort")
+            Prelude.<*> (x Data..:? "cidrs" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "fromPort")
+            Prelude.<*> (x Data..:? "ipv6Cidrs" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "protocol")
+            Prelude.<*> (x Data..:? "state")
+            Prelude.<*> (x Data..:? "toPort")
       )
 
 instance Prelude.Hashable InstancePortState where
   hashWithSalt _salt InstancePortState' {..} =
-    _salt `Prelude.hashWithSalt` fromPort
+    _salt `Prelude.hashWithSalt` cidrListAliases
       `Prelude.hashWithSalt` cidrs
-      `Prelude.hashWithSalt` state
-      `Prelude.hashWithSalt` protocol
-      `Prelude.hashWithSalt` cidrListAliases
+      `Prelude.hashWithSalt` fromPort
       `Prelude.hashWithSalt` ipv6Cidrs
+      `Prelude.hashWithSalt` protocol
+      `Prelude.hashWithSalt` state
       `Prelude.hashWithSalt` toPort
 
 instance Prelude.NFData InstancePortState where
   rnf InstancePortState' {..} =
-    Prelude.rnf fromPort
+    Prelude.rnf cidrListAliases
       `Prelude.seq` Prelude.rnf cidrs
-      `Prelude.seq` Prelude.rnf state
-      `Prelude.seq` Prelude.rnf protocol
-      `Prelude.seq` Prelude.rnf cidrListAliases
+      `Prelude.seq` Prelude.rnf fromPort
       `Prelude.seq` Prelude.rnf ipv6Cidrs
+      `Prelude.seq` Prelude.rnf protocol
+      `Prelude.seq` Prelude.rnf state
       `Prelude.seq` Prelude.rnf toPort

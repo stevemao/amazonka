@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppSync.Types.DeltaSyncConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.AppSync.Types.DeltaSyncConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a Delta Sync configuration.
 --
 -- /See:/ 'newDeltaSyncConfig' smart constructor.
 data DeltaSyncConfig = DeltaSyncConfig'
-  { -- | The number of minutes an Item is stored in the datasource.
+  { -- | The number of minutes that an Item is stored in the data source.
     baseTableTTL :: Prelude.Maybe Prelude.Integer,
     -- | The Delta Sync table name.
     deltaSyncTableName :: Prelude.Maybe Prelude.Text,
-    -- | The number of minutes a Delta Sync log entry is stored in the Delta Sync
-    -- table.
+    -- | The number of minutes that a Delta Sync log entry is stored in the Delta
+    -- Sync table.
     deltaSyncTableTTL :: Prelude.Maybe Prelude.Integer
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -45,12 +46,12 @@ data DeltaSyncConfig = DeltaSyncConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'baseTableTTL', 'deltaSyncConfig_baseTableTTL' - The number of minutes an Item is stored in the datasource.
+-- 'baseTableTTL', 'deltaSyncConfig_baseTableTTL' - The number of minutes that an Item is stored in the data source.
 --
 -- 'deltaSyncTableName', 'deltaSyncConfig_deltaSyncTableName' - The Delta Sync table name.
 --
--- 'deltaSyncTableTTL', 'deltaSyncConfig_deltaSyncTableTTL' - The number of minutes a Delta Sync log entry is stored in the Delta Sync
--- table.
+-- 'deltaSyncTableTTL', 'deltaSyncConfig_deltaSyncTableTTL' - The number of minutes that a Delta Sync log entry is stored in the Delta
+-- Sync table.
 newDeltaSyncConfig ::
   DeltaSyncConfig
 newDeltaSyncConfig =
@@ -60,7 +61,7 @@ newDeltaSyncConfig =
       deltaSyncTableTTL = Prelude.Nothing
     }
 
--- | The number of minutes an Item is stored in the datasource.
+-- | The number of minutes that an Item is stored in the data source.
 deltaSyncConfig_baseTableTTL :: Lens.Lens' DeltaSyncConfig (Prelude.Maybe Prelude.Integer)
 deltaSyncConfig_baseTableTTL = Lens.lens (\DeltaSyncConfig' {baseTableTTL} -> baseTableTTL) (\s@DeltaSyncConfig' {} a -> s {baseTableTTL = a} :: DeltaSyncConfig)
 
@@ -68,20 +69,20 @@ deltaSyncConfig_baseTableTTL = Lens.lens (\DeltaSyncConfig' {baseTableTTL} -> ba
 deltaSyncConfig_deltaSyncTableName :: Lens.Lens' DeltaSyncConfig (Prelude.Maybe Prelude.Text)
 deltaSyncConfig_deltaSyncTableName = Lens.lens (\DeltaSyncConfig' {deltaSyncTableName} -> deltaSyncTableName) (\s@DeltaSyncConfig' {} a -> s {deltaSyncTableName = a} :: DeltaSyncConfig)
 
--- | The number of minutes a Delta Sync log entry is stored in the Delta Sync
--- table.
+-- | The number of minutes that a Delta Sync log entry is stored in the Delta
+-- Sync table.
 deltaSyncConfig_deltaSyncTableTTL :: Lens.Lens' DeltaSyncConfig (Prelude.Maybe Prelude.Integer)
 deltaSyncConfig_deltaSyncTableTTL = Lens.lens (\DeltaSyncConfig' {deltaSyncTableTTL} -> deltaSyncTableTTL) (\s@DeltaSyncConfig' {} a -> s {deltaSyncTableTTL = a} :: DeltaSyncConfig)
 
-instance Core.FromJSON DeltaSyncConfig where
+instance Data.FromJSON DeltaSyncConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DeltaSyncConfig"
       ( \x ->
           DeltaSyncConfig'
-            Prelude.<$> (x Core..:? "baseTableTTL")
-            Prelude.<*> (x Core..:? "deltaSyncTableName")
-            Prelude.<*> (x Core..:? "deltaSyncTableTTL")
+            Prelude.<$> (x Data..:? "baseTableTTL")
+            Prelude.<*> (x Data..:? "deltaSyncTableName")
+            Prelude.<*> (x Data..:? "deltaSyncTableTTL")
       )
 
 instance Prelude.Hashable DeltaSyncConfig where
@@ -96,14 +97,14 @@ instance Prelude.NFData DeltaSyncConfig where
       `Prelude.seq` Prelude.rnf deltaSyncTableName
       `Prelude.seq` Prelude.rnf deltaSyncTableTTL
 
-instance Core.ToJSON DeltaSyncConfig where
+instance Data.ToJSON DeltaSyncConfig where
   toJSON DeltaSyncConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("baseTableTTL" Core..=) Prelude.<$> baseTableTTL,
-            ("deltaSyncTableName" Core..=)
+          [ ("baseTableTTL" Data..=) Prelude.<$> baseTableTTL,
+            ("deltaSyncTableName" Data..=)
               Prelude.<$> deltaSyncTableName,
-            ("deltaSyncTableTTL" Core..=)
+            ("deltaSyncTableTTL" Data..=)
               Prelude.<$> deltaSyncTableTTL
           ]
       )

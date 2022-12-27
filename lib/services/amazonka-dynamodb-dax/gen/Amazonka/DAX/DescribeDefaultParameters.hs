@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DAX.DescribeDefaultParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.DAX.DescribeDefaultParameters
     newDescribeDefaultParameters,
 
     -- * Request Lenses
-    describeDefaultParameters_nextToken,
     describeDefaultParameters_maxResults,
+    describeDefaultParameters_nextToken,
 
     -- * Destructuring the Response
     DescribeDefaultParametersResponse (..),
@@ -45,25 +45,26 @@ module Amazonka.DAX.DescribeDefaultParameters
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DAX.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeDefaultParameters' smart constructor.
 data DescribeDefaultParameters = DescribeDefaultParameters'
-  { -- | An optional token returned from a prior request. Use this token for
-    -- pagination of results from this action. If this parameter is specified,
-    -- the response includes only results beyond the token, up to the value
-    -- specified by @MaxResults@.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to include in the response. If more
+  { -- | The maximum number of results to include in the response. If more
     -- results exist than the specified @MaxResults@ value, a token is included
     -- in the response so that the remaining results can be retrieved.
     --
     -- The value for @MaxResults@ must be between 20 and 100.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | An optional token returned from a prior request. Use this token for
+    -- pagination of results from this action. If this parameter is specified,
+    -- the response includes only results beyond the token, up to the value
+    -- specified by @MaxResults@.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -75,31 +76,24 @@ data DescribeDefaultParameters = DescribeDefaultParameters'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeDefaultParameters_nextToken' - An optional token returned from a prior request. Use this token for
--- pagination of results from this action. If this parameter is specified,
--- the response includes only results beyond the token, up to the value
--- specified by @MaxResults@.
---
 -- 'maxResults', 'describeDefaultParameters_maxResults' - The maximum number of results to include in the response. If more
 -- results exist than the specified @MaxResults@ value, a token is included
 -- in the response so that the remaining results can be retrieved.
 --
 -- The value for @MaxResults@ must be between 20 and 100.
+--
+-- 'nextToken', 'describeDefaultParameters_nextToken' - An optional token returned from a prior request. Use this token for
+-- pagination of results from this action. If this parameter is specified,
+-- the response includes only results beyond the token, up to the value
+-- specified by @MaxResults@.
 newDescribeDefaultParameters ::
   DescribeDefaultParameters
 newDescribeDefaultParameters =
   DescribeDefaultParameters'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
-
--- | An optional token returned from a prior request. Use this token for
--- pagination of results from this action. If this parameter is specified,
--- the response includes only results beyond the token, up to the value
--- specified by @MaxResults@.
-describeDefaultParameters_nextToken :: Lens.Lens' DescribeDefaultParameters (Prelude.Maybe Prelude.Text)
-describeDefaultParameters_nextToken = Lens.lens (\DescribeDefaultParameters' {nextToken} -> nextToken) (\s@DescribeDefaultParameters' {} a -> s {nextToken = a} :: DescribeDefaultParameters)
 
 -- | The maximum number of results to include in the response. If more
 -- results exist than the specified @MaxResults@ value, a token is included
@@ -108,6 +102,13 @@ describeDefaultParameters_nextToken = Lens.lens (\DescribeDefaultParameters' {ne
 -- The value for @MaxResults@ must be between 20 and 100.
 describeDefaultParameters_maxResults :: Lens.Lens' DescribeDefaultParameters (Prelude.Maybe Prelude.Int)
 describeDefaultParameters_maxResults = Lens.lens (\DescribeDefaultParameters' {maxResults} -> maxResults) (\s@DescribeDefaultParameters' {} a -> s {maxResults = a} :: DescribeDefaultParameters)
+
+-- | An optional token returned from a prior request. Use this token for
+-- pagination of results from this action. If this parameter is specified,
+-- the response includes only results beyond the token, up to the value
+-- specified by @MaxResults@.
+describeDefaultParameters_nextToken :: Lens.Lens' DescribeDefaultParameters (Prelude.Maybe Prelude.Text)
+describeDefaultParameters_nextToken = Lens.lens (\DescribeDefaultParameters' {nextToken} -> nextToken) (\s@DescribeDefaultParameters' {} a -> s {nextToken = a} :: DescribeDefaultParameters)
 
 instance Core.AWSPager DescribeDefaultParameters where
   page rq rs
@@ -135,54 +136,55 @@ instance Core.AWSRequest DescribeDefaultParameters where
   type
     AWSResponse DescribeDefaultParameters =
       DescribeDefaultParametersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeDefaultParametersResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Parameters" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Parameters" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeDefaultParameters where
   hashWithSalt _salt DescribeDefaultParameters' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeDefaultParameters where
   rnf DescribeDefaultParameters' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeDefaultParameters where
+instance Data.ToHeaders DescribeDefaultParameters where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonDAXV3.DescribeDefaultParameters" ::
+              Data.=# ( "AmazonDAXV3.DescribeDefaultParameters" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeDefaultParameters where
+instance Data.ToJSON DescribeDefaultParameters where
   toJSON DescribeDefaultParameters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath DescribeDefaultParameters where
+instance Data.ToPath DescribeDefaultParameters where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeDefaultParameters where
+instance Data.ToQuery DescribeDefaultParameters where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeDefaultParametersResponse' smart constructor.

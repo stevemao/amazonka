@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.DeletePublishingDestination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.GuardDuty.DeletePublishingDestination
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,7 +97,8 @@ instance Core.AWSRequest DeletePublishingDestination where
   type
     AWSResponse DeletePublishingDestination =
       DeletePublishingDestinationResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -114,27 +116,27 @@ instance Prelude.NFData DeletePublishingDestination where
     Prelude.rnf detectorId
       `Prelude.seq` Prelude.rnf destinationId
 
-instance Core.ToHeaders DeletePublishingDestination where
+instance Data.ToHeaders DeletePublishingDestination where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeletePublishingDestination where
+instance Data.ToPath DeletePublishingDestination where
   toPath DeletePublishingDestination' {..} =
     Prelude.mconcat
       [ "/detector/",
-        Core.toBS detectorId,
+        Data.toBS detectorId,
         "/publishingDestination/",
-        Core.toBS destinationId
+        Data.toBS destinationId
       ]
 
-instance Core.ToQuery DeletePublishingDestination where
+instance Data.ToQuery DeletePublishingDestination where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeletePublishingDestinationResponse' smart constructor.

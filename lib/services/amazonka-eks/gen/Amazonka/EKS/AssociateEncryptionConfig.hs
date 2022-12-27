@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.AssociateEncryptionConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.EKS.AssociateEncryptionConfig
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EKS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -111,12 +112,13 @@ instance Core.AWSRequest AssociateEncryptionConfig where
   type
     AWSResponse AssociateEncryptionConfig =
       AssociateEncryptionConfigResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AssociateEncryptionConfigResponse'
-            Prelude.<$> (x Core..?> "update")
+            Prelude.<$> (x Data..?> "update")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -132,37 +134,37 @@ instance Prelude.NFData AssociateEncryptionConfig where
       `Prelude.seq` Prelude.rnf clusterName
       `Prelude.seq` Prelude.rnf encryptionConfig
 
-instance Core.ToHeaders AssociateEncryptionConfig where
+instance Data.ToHeaders AssociateEncryptionConfig where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateEncryptionConfig where
+instance Data.ToJSON AssociateEncryptionConfig where
   toJSON AssociateEncryptionConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientRequestToken" Core..=)
+          [ ("clientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
             Prelude.Just
-              ("encryptionConfig" Core..= encryptionConfig)
+              ("encryptionConfig" Data..= encryptionConfig)
           ]
       )
 
-instance Core.ToPath AssociateEncryptionConfig where
+instance Data.ToPath AssociateEncryptionConfig where
   toPath AssociateEncryptionConfig' {..} =
     Prelude.mconcat
       [ "/clusters/",
-        Core.toBS clusterName,
+        Data.toBS clusterName,
         "/encryption-config/associate"
       ]
 
-instance Core.ToQuery AssociateEncryptionConfig where
+instance Data.ToQuery AssociateEncryptionConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateEncryptionConfigResponse' smart constructor.

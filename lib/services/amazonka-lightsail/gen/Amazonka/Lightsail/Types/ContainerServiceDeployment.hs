@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.ContainerServiceDeployment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.ContainerServiceDeployment where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types.Container
 import Amazonka.Lightsail.Types.ContainerServiceDeploymentState
 import Amazonka.Lightsail.Types.ContainerServiceEndpoint
@@ -34,7 +35,14 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newContainerServiceDeployment' smart constructor.
 data ContainerServiceDeployment = ContainerServiceDeployment'
-  { -- | The state of the deployment.
+  { -- | An object that describes the configuration for the containers of the
+    -- deployment.
+    containers :: Prelude.Maybe (Prelude.HashMap Prelude.Text Container),
+    -- | The timestamp when the deployment was created.
+    createdAt :: Prelude.Maybe Data.POSIX,
+    -- | An object that describes the endpoint of the deployment.
+    publicEndpoint :: Prelude.Maybe ContainerServiceEndpoint,
+    -- | The state of the deployment.
     --
     -- A deployment can be in one of the following states:
     --
@@ -51,13 +59,6 @@ data ContainerServiceDeployment = ContainerServiceDeployment'
     --     to view the log events for the containers in the deployment to try
     --     to determine the reason for the failure.
     state :: Prelude.Maybe ContainerServiceDeploymentState,
-    -- | An object that describes the endpoint of the deployment.
-    publicEndpoint :: Prelude.Maybe ContainerServiceEndpoint,
-    -- | The timestamp when the deployment was created.
-    createdAt :: Prelude.Maybe Core.POSIX,
-    -- | An object that describes the configuration for the containers of the
-    -- deployment.
-    containers :: Prelude.Maybe (Prelude.HashMap Prelude.Text Container),
     -- | The version number of the deployment.
     version :: Prelude.Maybe Prelude.Int
   }
@@ -70,6 +71,13 @@ data ContainerServiceDeployment = ContainerServiceDeployment'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'containers', 'containerServiceDeployment_containers' - An object that describes the configuration for the containers of the
+-- deployment.
+--
+-- 'createdAt', 'containerServiceDeployment_createdAt' - The timestamp when the deployment was created.
+--
+-- 'publicEndpoint', 'containerServiceDeployment_publicEndpoint' - An object that describes the endpoint of the deployment.
 --
 -- 'state', 'containerServiceDeployment_state' - The state of the deployment.
 --
@@ -88,25 +96,31 @@ data ContainerServiceDeployment = ContainerServiceDeployment'
 --     to view the log events for the containers in the deployment to try
 --     to determine the reason for the failure.
 --
--- 'publicEndpoint', 'containerServiceDeployment_publicEndpoint' - An object that describes the endpoint of the deployment.
---
--- 'createdAt', 'containerServiceDeployment_createdAt' - The timestamp when the deployment was created.
---
--- 'containers', 'containerServiceDeployment_containers' - An object that describes the configuration for the containers of the
--- deployment.
---
 -- 'version', 'containerServiceDeployment_version' - The version number of the deployment.
 newContainerServiceDeployment ::
   ContainerServiceDeployment
 newContainerServiceDeployment =
   ContainerServiceDeployment'
-    { state =
+    { containers =
         Prelude.Nothing,
-      publicEndpoint = Prelude.Nothing,
       createdAt = Prelude.Nothing,
-      containers = Prelude.Nothing,
+      publicEndpoint = Prelude.Nothing,
+      state = Prelude.Nothing,
       version = Prelude.Nothing
     }
+
+-- | An object that describes the configuration for the containers of the
+-- deployment.
+containerServiceDeployment_containers :: Lens.Lens' ContainerServiceDeployment (Prelude.Maybe (Prelude.HashMap Prelude.Text Container))
+containerServiceDeployment_containers = Lens.lens (\ContainerServiceDeployment' {containers} -> containers) (\s@ContainerServiceDeployment' {} a -> s {containers = a} :: ContainerServiceDeployment) Prelude.. Lens.mapping Lens.coerced
+
+-- | The timestamp when the deployment was created.
+containerServiceDeployment_createdAt :: Lens.Lens' ContainerServiceDeployment (Prelude.Maybe Prelude.UTCTime)
+containerServiceDeployment_createdAt = Lens.lens (\ContainerServiceDeployment' {createdAt} -> createdAt) (\s@ContainerServiceDeployment' {} a -> s {createdAt = a} :: ContainerServiceDeployment) Prelude.. Lens.mapping Data._Time
+
+-- | An object that describes the endpoint of the deployment.
+containerServiceDeployment_publicEndpoint :: Lens.Lens' ContainerServiceDeployment (Prelude.Maybe ContainerServiceEndpoint)
+containerServiceDeployment_publicEndpoint = Lens.lens (\ContainerServiceDeployment' {publicEndpoint} -> publicEndpoint) (\s@ContainerServiceDeployment' {} a -> s {publicEndpoint = a} :: ContainerServiceDeployment)
 
 -- | The state of the deployment.
 --
@@ -127,48 +141,35 @@ newContainerServiceDeployment =
 containerServiceDeployment_state :: Lens.Lens' ContainerServiceDeployment (Prelude.Maybe ContainerServiceDeploymentState)
 containerServiceDeployment_state = Lens.lens (\ContainerServiceDeployment' {state} -> state) (\s@ContainerServiceDeployment' {} a -> s {state = a} :: ContainerServiceDeployment)
 
--- | An object that describes the endpoint of the deployment.
-containerServiceDeployment_publicEndpoint :: Lens.Lens' ContainerServiceDeployment (Prelude.Maybe ContainerServiceEndpoint)
-containerServiceDeployment_publicEndpoint = Lens.lens (\ContainerServiceDeployment' {publicEndpoint} -> publicEndpoint) (\s@ContainerServiceDeployment' {} a -> s {publicEndpoint = a} :: ContainerServiceDeployment)
-
--- | The timestamp when the deployment was created.
-containerServiceDeployment_createdAt :: Lens.Lens' ContainerServiceDeployment (Prelude.Maybe Prelude.UTCTime)
-containerServiceDeployment_createdAt = Lens.lens (\ContainerServiceDeployment' {createdAt} -> createdAt) (\s@ContainerServiceDeployment' {} a -> s {createdAt = a} :: ContainerServiceDeployment) Prelude.. Lens.mapping Core._Time
-
--- | An object that describes the configuration for the containers of the
--- deployment.
-containerServiceDeployment_containers :: Lens.Lens' ContainerServiceDeployment (Prelude.Maybe (Prelude.HashMap Prelude.Text Container))
-containerServiceDeployment_containers = Lens.lens (\ContainerServiceDeployment' {containers} -> containers) (\s@ContainerServiceDeployment' {} a -> s {containers = a} :: ContainerServiceDeployment) Prelude.. Lens.mapping Lens.coerced
-
 -- | The version number of the deployment.
 containerServiceDeployment_version :: Lens.Lens' ContainerServiceDeployment (Prelude.Maybe Prelude.Int)
 containerServiceDeployment_version = Lens.lens (\ContainerServiceDeployment' {version} -> version) (\s@ContainerServiceDeployment' {} a -> s {version = a} :: ContainerServiceDeployment)
 
-instance Core.FromJSON ContainerServiceDeployment where
+instance Data.FromJSON ContainerServiceDeployment where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ContainerServiceDeployment"
       ( \x ->
           ContainerServiceDeployment'
-            Prelude.<$> (x Core..:? "state")
-            Prelude.<*> (x Core..:? "publicEndpoint")
-            Prelude.<*> (x Core..:? "createdAt")
-            Prelude.<*> (x Core..:? "containers" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "version")
+            Prelude.<$> (x Data..:? "containers" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "createdAt")
+            Prelude.<*> (x Data..:? "publicEndpoint")
+            Prelude.<*> (x Data..:? "state")
+            Prelude.<*> (x Data..:? "version")
       )
 
 instance Prelude.Hashable ContainerServiceDeployment where
   hashWithSalt _salt ContainerServiceDeployment' {..} =
-    _salt `Prelude.hashWithSalt` state
-      `Prelude.hashWithSalt` publicEndpoint
+    _salt `Prelude.hashWithSalt` containers
       `Prelude.hashWithSalt` createdAt
-      `Prelude.hashWithSalt` containers
+      `Prelude.hashWithSalt` publicEndpoint
+      `Prelude.hashWithSalt` state
       `Prelude.hashWithSalt` version
 
 instance Prelude.NFData ContainerServiceDeployment where
   rnf ContainerServiceDeployment' {..} =
-    Prelude.rnf state
-      `Prelude.seq` Prelude.rnf publicEndpoint
+    Prelude.rnf containers
       `Prelude.seq` Prelude.rnf createdAt
-      `Prelude.seq` Prelude.rnf containers
+      `Prelude.seq` Prelude.rnf publicEndpoint
+      `Prelude.seq` Prelude.rnf state
       `Prelude.seq` Prelude.rnf version

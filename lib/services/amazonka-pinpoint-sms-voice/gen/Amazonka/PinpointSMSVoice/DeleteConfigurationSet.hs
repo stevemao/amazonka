@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.PinpointSMSVoice.DeleteConfigurationSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.PinpointSMSVoice.DeleteConfigurationSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.PinpointSMSVoice.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -79,7 +80,8 @@ instance Core.AWSRequest DeleteConfigurationSet where
   type
     AWSResponse DeleteConfigurationSet =
       DeleteConfigurationSetResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -95,25 +97,25 @@ instance Prelude.NFData DeleteConfigurationSet where
   rnf DeleteConfigurationSet' {..} =
     Prelude.rnf configurationSetName
 
-instance Core.ToHeaders DeleteConfigurationSet where
+instance Data.ToHeaders DeleteConfigurationSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteConfigurationSet where
+instance Data.ToPath DeleteConfigurationSet where
   toPath DeleteConfigurationSet' {..} =
     Prelude.mconcat
       [ "/v1/sms-voice/configuration-sets/",
-        Core.toBS configurationSetName
+        Data.toBS configurationSetName
       ]
 
-instance Core.ToQuery DeleteConfigurationSet where
+instance Data.ToQuery DeleteConfigurationSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | An empty object that indicates that the configuration set was deleted

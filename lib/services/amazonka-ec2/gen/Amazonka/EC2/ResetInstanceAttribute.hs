@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ResetInstanceAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.EC2.ResetInstanceAttribute
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -63,8 +64,7 @@ data ResetInstanceAttribute = ResetInstanceAttribute'
     -- | The attribute to reset.
     --
     -- You can only reset the following attributes: @kernel@ | @ramdisk@ |
-    -- @sourceDestCheck@. To change an instance attribute, use
-    -- ModifyInstanceAttribute.
+    -- @sourceDestCheck@.
     attribute :: InstanceAttributeName,
     -- | The ID of the instance.
     instanceId :: Prelude.Text
@@ -87,8 +87,7 @@ data ResetInstanceAttribute = ResetInstanceAttribute'
 -- 'attribute', 'resetInstanceAttribute_attribute' - The attribute to reset.
 --
 -- You can only reset the following attributes: @kernel@ | @ramdisk@ |
--- @sourceDestCheck@. To change an instance attribute, use
--- ModifyInstanceAttribute.
+-- @sourceDestCheck@.
 --
 -- 'instanceId', 'resetInstanceAttribute_instanceId' - The ID of the instance.
 newResetInstanceAttribute ::
@@ -114,8 +113,7 @@ resetInstanceAttribute_dryRun = Lens.lens (\ResetInstanceAttribute' {dryRun} -> 
 -- | The attribute to reset.
 --
 -- You can only reset the following attributes: @kernel@ | @ramdisk@ |
--- @sourceDestCheck@. To change an instance attribute, use
--- ModifyInstanceAttribute.
+-- @sourceDestCheck@.
 resetInstanceAttribute_attribute :: Lens.Lens' ResetInstanceAttribute InstanceAttributeName
 resetInstanceAttribute_attribute = Lens.lens (\ResetInstanceAttribute' {attribute} -> attribute) (\s@ResetInstanceAttribute' {} a -> s {attribute = a} :: ResetInstanceAttribute)
 
@@ -127,7 +125,8 @@ instance Core.AWSRequest ResetInstanceAttribute where
   type
     AWSResponse ResetInstanceAttribute =
       ResetInstanceAttributeResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       ResetInstanceAttributeResponse'
@@ -144,22 +143,22 @@ instance Prelude.NFData ResetInstanceAttribute where
       `Prelude.seq` Prelude.rnf attribute
       `Prelude.seq` Prelude.rnf instanceId
 
-instance Core.ToHeaders ResetInstanceAttribute where
+instance Data.ToHeaders ResetInstanceAttribute where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ResetInstanceAttribute where
+instance Data.ToPath ResetInstanceAttribute where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ResetInstanceAttribute where
+instance Data.ToQuery ResetInstanceAttribute where
   toQuery ResetInstanceAttribute' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ResetInstanceAttribute" :: Prelude.ByteString),
+          Data.=: ("ResetInstanceAttribute" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "Attribute" Core.=: attribute,
-        "InstanceId" Core.=: instanceId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "Attribute" Data.=: attribute,
+        "InstanceId" Data.=: instanceId
       ]
 
 -- | /See:/ 'newResetInstanceAttributeResponse' smart constructor.

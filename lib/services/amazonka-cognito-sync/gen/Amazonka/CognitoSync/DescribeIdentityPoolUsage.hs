@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoSync.DescribeIdentityPoolUsage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.CognitoSync.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,12 +94,13 @@ instance Core.AWSRequest DescribeIdentityPoolUsage where
   type
     AWSResponse DescribeIdentityPoolUsage =
       DescribeIdentityPoolUsageResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeIdentityPoolUsageResponse'
-            Prelude.<$> (x Core..?> "IdentityPoolUsage")
+            Prelude.<$> (x Data..?> "IdentityPoolUsage")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -110,23 +112,23 @@ instance Prelude.NFData DescribeIdentityPoolUsage where
   rnf DescribeIdentityPoolUsage' {..} =
     Prelude.rnf identityPoolId
 
-instance Core.ToHeaders DescribeIdentityPoolUsage where
+instance Data.ToHeaders DescribeIdentityPoolUsage where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeIdentityPoolUsage where
+instance Data.ToPath DescribeIdentityPoolUsage where
   toPath DescribeIdentityPoolUsage' {..} =
     Prelude.mconcat
-      ["/identitypools/", Core.toBS identityPoolId]
+      ["/identitypools/", Data.toBS identityPoolId]
 
-instance Core.ToQuery DescribeIdentityPoolUsage where
+instance Data.ToQuery DescribeIdentityPoolUsage where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Response to a successful DescribeIdentityPoolUsage request.

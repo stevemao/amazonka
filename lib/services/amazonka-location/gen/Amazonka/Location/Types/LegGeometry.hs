@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Location.Types.LegGeometry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Location.Types.LegGeometry where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the geometry details for each path between a pair of positions.
@@ -35,7 +36,7 @@ data LegGeometry = LegGeometry'
     --
     -- -   For example,
     --     @[[-123.117, 49.284],[-123.115, 49.285],[-123.115, 49.285]]@
-    lineString :: Prelude.Maybe (Prelude.NonEmpty (Core.Sensitive (Prelude.NonEmpty Prelude.Double)))
+    lineString :: Prelude.Maybe (Prelude.NonEmpty (Data.Sensitive (Prelude.NonEmpty Prelude.Double)))
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -69,12 +70,12 @@ newLegGeometry =
 legGeometry_lineString :: Lens.Lens' LegGeometry (Prelude.Maybe (Prelude.NonEmpty (Prelude.NonEmpty Prelude.Double)))
 legGeometry_lineString = Lens.lens (\LegGeometry' {lineString} -> lineString) (\s@LegGeometry' {} a -> s {lineString = a} :: LegGeometry) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON LegGeometry where
+instance Data.FromJSON LegGeometry where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LegGeometry"
       ( \x ->
-          LegGeometry' Prelude.<$> (x Core..:? "LineString")
+          LegGeometry' Prelude.<$> (x Data..:? "LineString")
       )
 
 instance Prelude.Hashable LegGeometry where

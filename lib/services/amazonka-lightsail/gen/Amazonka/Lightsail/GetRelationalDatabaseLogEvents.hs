@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.GetRelationalDatabaseLogEvents
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,10 +27,10 @@ module Amazonka.Lightsail.GetRelationalDatabaseLogEvents
     newGetRelationalDatabaseLogEvents,
 
     -- * Request Lenses
-    getRelationalDatabaseLogEvents_startTime,
-    getRelationalDatabaseLogEvents_startFromHead,
     getRelationalDatabaseLogEvents_endTime,
     getRelationalDatabaseLogEvents_pageToken,
+    getRelationalDatabaseLogEvents_startFromHead,
+    getRelationalDatabaseLogEvents_startTime,
     getRelationalDatabaseLogEvents_relationalDatabaseName,
     getRelationalDatabaseLogEvents_logStreamName,
 
@@ -40,14 +40,15 @@ module Amazonka.Lightsail.GetRelationalDatabaseLogEvents
 
     -- * Response Lenses
     getRelationalDatabaseLogEventsResponse_nextBackwardToken,
-    getRelationalDatabaseLogEventsResponse_resourceLogEvents,
     getRelationalDatabaseLogEventsResponse_nextForwardToken,
+    getRelationalDatabaseLogEventsResponse_resourceLogEvents,
     getRelationalDatabaseLogEventsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -55,25 +56,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetRelationalDatabaseLogEvents' smart constructor.
 data GetRelationalDatabaseLogEvents = GetRelationalDatabaseLogEvents'
-  { -- | The start of the time interval from which to get log events.
-    --
-    -- Constraints:
-    --
-    -- -   Specified in Coordinated Universal Time (UTC).
-    --
-    -- -   Specified in the Unix time format.
-    --
-    --     For example, if you wish to use a start time of October 1, 2018, at
-    --     8 PM UTC, then you input @1538424000@ as the start time.
-    startTime :: Prelude.Maybe Core.POSIX,
-    -- | Parameter to specify if the log should start from head or tail. If
-    -- @true@ is specified, the log event starts from the head of the log. If
-    -- @false@ is specified, the log event starts from the tail of the log.
-    --
-    -- For PostgreSQL, the default value of @false@ is the only option
-    -- available.
-    startFromHead :: Prelude.Maybe Prelude.Bool,
-    -- | The end of the time interval from which to get log events.
+  { -- | The end of the time interval from which to get log events.
     --
     -- Constraints:
     --
@@ -83,7 +66,7 @@ data GetRelationalDatabaseLogEvents = GetRelationalDatabaseLogEvents'
     --
     --     For example, if you wish to use an end time of October 1, 2018, at 8
     --     PM UTC, then you input @1538424000@ as the end time.
-    endTime :: Prelude.Maybe Core.POSIX,
+    endTime :: Prelude.Maybe Data.POSIX,
     -- | The token to advance to the next or previous page of results from your
     -- request.
     --
@@ -92,6 +75,24 @@ data GetRelationalDatabaseLogEvents = GetRelationalDatabaseLogEvents'
     -- forward token and\/or next backward token that you can specify as the
     -- page token in a subsequent request.
     pageToken :: Prelude.Maybe Prelude.Text,
+    -- | Parameter to specify if the log should start from head or tail. If
+    -- @true@ is specified, the log event starts from the head of the log. If
+    -- @false@ is specified, the log event starts from the tail of the log.
+    --
+    -- For PostgreSQL, the default value of @false@ is the only option
+    -- available.
+    startFromHead :: Prelude.Maybe Prelude.Bool,
+    -- | The start of the time interval from which to get log events.
+    --
+    -- Constraints:
+    --
+    -- -   Specified in Coordinated Universal Time (UTC).
+    --
+    -- -   Specified in the Unix time format.
+    --
+    --     For example, if you wish to use a start time of October 1, 2018, at
+    --     8 PM UTC, then you input @1538424000@ as the start time.
+    startTime :: Prelude.Maybe Data.POSIX,
     -- | The name of your database for which to get log events.
     relationalDatabaseName :: Prelude.Text,
     -- | The name of the log stream.
@@ -109,24 +110,6 @@ data GetRelationalDatabaseLogEvents = GetRelationalDatabaseLogEvents'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'startTime', 'getRelationalDatabaseLogEvents_startTime' - The start of the time interval from which to get log events.
---
--- Constraints:
---
--- -   Specified in Coordinated Universal Time (UTC).
---
--- -   Specified in the Unix time format.
---
---     For example, if you wish to use a start time of October 1, 2018, at
---     8 PM UTC, then you input @1538424000@ as the start time.
---
--- 'startFromHead', 'getRelationalDatabaseLogEvents_startFromHead' - Parameter to specify if the log should start from head or tail. If
--- @true@ is specified, the log event starts from the head of the log. If
--- @false@ is specified, the log event starts from the tail of the log.
---
--- For PostgreSQL, the default value of @false@ is the only option
--- available.
 --
 -- 'endTime', 'getRelationalDatabaseLogEvents_endTime' - The end of the time interval from which to get log events.
 --
@@ -147,6 +130,24 @@ data GetRelationalDatabaseLogEvents = GetRelationalDatabaseLogEvents'
 -- forward token and\/or next backward token that you can specify as the
 -- page token in a subsequent request.
 --
+-- 'startFromHead', 'getRelationalDatabaseLogEvents_startFromHead' - Parameter to specify if the log should start from head or tail. If
+-- @true@ is specified, the log event starts from the head of the log. If
+-- @false@ is specified, the log event starts from the tail of the log.
+--
+-- For PostgreSQL, the default value of @false@ is the only option
+-- available.
+--
+-- 'startTime', 'getRelationalDatabaseLogEvents_startTime' - The start of the time interval from which to get log events.
+--
+-- Constraints:
+--
+-- -   Specified in Coordinated Universal Time (UTC).
+--
+-- -   Specified in the Unix time format.
+--
+--     For example, if you wish to use a start time of October 1, 2018, at
+--     8 PM UTC, then you input @1538424000@ as the start time.
+--
 -- 'relationalDatabaseName', 'getRelationalDatabaseLogEvents_relationalDatabaseName' - The name of your database for which to get log events.
 --
 -- 'logStreamName', 'getRelationalDatabaseLogEvents_logStreamName' - The name of the log stream.
@@ -163,37 +164,15 @@ newGetRelationalDatabaseLogEvents
   pRelationalDatabaseName_
   pLogStreamName_ =
     GetRelationalDatabaseLogEvents'
-      { startTime =
+      { endTime =
           Prelude.Nothing,
-        startFromHead = Prelude.Nothing,
-        endTime = Prelude.Nothing,
         pageToken = Prelude.Nothing,
+        startFromHead = Prelude.Nothing,
+        startTime = Prelude.Nothing,
         relationalDatabaseName =
           pRelationalDatabaseName_,
         logStreamName = pLogStreamName_
       }
-
--- | The start of the time interval from which to get log events.
---
--- Constraints:
---
--- -   Specified in Coordinated Universal Time (UTC).
---
--- -   Specified in the Unix time format.
---
---     For example, if you wish to use a start time of October 1, 2018, at
---     8 PM UTC, then you input @1538424000@ as the start time.
-getRelationalDatabaseLogEvents_startTime :: Lens.Lens' GetRelationalDatabaseLogEvents (Prelude.Maybe Prelude.UTCTime)
-getRelationalDatabaseLogEvents_startTime = Lens.lens (\GetRelationalDatabaseLogEvents' {startTime} -> startTime) (\s@GetRelationalDatabaseLogEvents' {} a -> s {startTime = a} :: GetRelationalDatabaseLogEvents) Prelude.. Lens.mapping Core._Time
-
--- | Parameter to specify if the log should start from head or tail. If
--- @true@ is specified, the log event starts from the head of the log. If
--- @false@ is specified, the log event starts from the tail of the log.
---
--- For PostgreSQL, the default value of @false@ is the only option
--- available.
-getRelationalDatabaseLogEvents_startFromHead :: Lens.Lens' GetRelationalDatabaseLogEvents (Prelude.Maybe Prelude.Bool)
-getRelationalDatabaseLogEvents_startFromHead = Lens.lens (\GetRelationalDatabaseLogEvents' {startFromHead} -> startFromHead) (\s@GetRelationalDatabaseLogEvents' {} a -> s {startFromHead = a} :: GetRelationalDatabaseLogEvents)
 
 -- | The end of the time interval from which to get log events.
 --
@@ -206,7 +185,7 @@ getRelationalDatabaseLogEvents_startFromHead = Lens.lens (\GetRelationalDatabase
 --     For example, if you wish to use an end time of October 1, 2018, at 8
 --     PM UTC, then you input @1538424000@ as the end time.
 getRelationalDatabaseLogEvents_endTime :: Lens.Lens' GetRelationalDatabaseLogEvents (Prelude.Maybe Prelude.UTCTime)
-getRelationalDatabaseLogEvents_endTime = Lens.lens (\GetRelationalDatabaseLogEvents' {endTime} -> endTime) (\s@GetRelationalDatabaseLogEvents' {} a -> s {endTime = a} :: GetRelationalDatabaseLogEvents) Prelude.. Lens.mapping Core._Time
+getRelationalDatabaseLogEvents_endTime = Lens.lens (\GetRelationalDatabaseLogEvents' {endTime} -> endTime) (\s@GetRelationalDatabaseLogEvents' {} a -> s {endTime = a} :: GetRelationalDatabaseLogEvents) Prelude.. Lens.mapping Data._Time
 
 -- | The token to advance to the next or previous page of results from your
 -- request.
@@ -217,6 +196,28 @@ getRelationalDatabaseLogEvents_endTime = Lens.lens (\GetRelationalDatabaseLogEve
 -- page token in a subsequent request.
 getRelationalDatabaseLogEvents_pageToken :: Lens.Lens' GetRelationalDatabaseLogEvents (Prelude.Maybe Prelude.Text)
 getRelationalDatabaseLogEvents_pageToken = Lens.lens (\GetRelationalDatabaseLogEvents' {pageToken} -> pageToken) (\s@GetRelationalDatabaseLogEvents' {} a -> s {pageToken = a} :: GetRelationalDatabaseLogEvents)
+
+-- | Parameter to specify if the log should start from head or tail. If
+-- @true@ is specified, the log event starts from the head of the log. If
+-- @false@ is specified, the log event starts from the tail of the log.
+--
+-- For PostgreSQL, the default value of @false@ is the only option
+-- available.
+getRelationalDatabaseLogEvents_startFromHead :: Lens.Lens' GetRelationalDatabaseLogEvents (Prelude.Maybe Prelude.Bool)
+getRelationalDatabaseLogEvents_startFromHead = Lens.lens (\GetRelationalDatabaseLogEvents' {startFromHead} -> startFromHead) (\s@GetRelationalDatabaseLogEvents' {} a -> s {startFromHead = a} :: GetRelationalDatabaseLogEvents)
+
+-- | The start of the time interval from which to get log events.
+--
+-- Constraints:
+--
+-- -   Specified in Coordinated Universal Time (UTC).
+--
+-- -   Specified in the Unix time format.
+--
+--     For example, if you wish to use a start time of October 1, 2018, at
+--     8 PM UTC, then you input @1538424000@ as the start time.
+getRelationalDatabaseLogEvents_startTime :: Lens.Lens' GetRelationalDatabaseLogEvents (Prelude.Maybe Prelude.UTCTime)
+getRelationalDatabaseLogEvents_startTime = Lens.lens (\GetRelationalDatabaseLogEvents' {startTime} -> startTime) (\s@GetRelationalDatabaseLogEvents' {} a -> s {startTime = a} :: GetRelationalDatabaseLogEvents) Prelude.. Lens.mapping Data._Time
 
 -- | The name of your database for which to get log events.
 getRelationalDatabaseLogEvents_relationalDatabaseName :: Lens.Lens' GetRelationalDatabaseLogEvents Prelude.Text
@@ -236,16 +237,17 @@ instance
   type
     AWSResponse GetRelationalDatabaseLogEvents =
       GetRelationalDatabaseLogEventsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetRelationalDatabaseLogEventsResponse'
-            Prelude.<$> (x Core..?> "nextBackwardToken")
-            Prelude.<*> ( x Core..?> "resourceLogEvents"
+            Prelude.<$> (x Data..?> "nextBackwardToken")
+            Prelude.<*> (x Data..?> "nextForwardToken")
+            Prelude.<*> ( x Data..?> "resourceLogEvents"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextForwardToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -256,10 +258,10 @@ instance
   hashWithSalt
     _salt
     GetRelationalDatabaseLogEvents' {..} =
-      _salt `Prelude.hashWithSalt` startTime
-        `Prelude.hashWithSalt` startFromHead
-        `Prelude.hashWithSalt` endTime
+      _salt `Prelude.hashWithSalt` endTime
         `Prelude.hashWithSalt` pageToken
+        `Prelude.hashWithSalt` startFromHead
+        `Prelude.hashWithSalt` startTime
         `Prelude.hashWithSalt` relationalDatabaseName
         `Prelude.hashWithSalt` logStreamName
 
@@ -268,52 +270,52 @@ instance
     GetRelationalDatabaseLogEvents
   where
   rnf GetRelationalDatabaseLogEvents' {..} =
-    Prelude.rnf startTime
-      `Prelude.seq` Prelude.rnf startFromHead
-      `Prelude.seq` Prelude.rnf endTime
+    Prelude.rnf endTime
       `Prelude.seq` Prelude.rnf pageToken
+      `Prelude.seq` Prelude.rnf startFromHead
+      `Prelude.seq` Prelude.rnf startTime
       `Prelude.seq` Prelude.rnf relationalDatabaseName
       `Prelude.seq` Prelude.rnf logStreamName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetRelationalDatabaseLogEvents
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.GetRelationalDatabaseLogEvents" ::
+              Data.=# ( "Lightsail_20161128.GetRelationalDatabaseLogEvents" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetRelationalDatabaseLogEvents where
+instance Data.ToJSON GetRelationalDatabaseLogEvents where
   toJSON GetRelationalDatabaseLogEvents' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("startTime" Core..=) Prelude.<$> startTime,
-            ("startFromHead" Core..=) Prelude.<$> startFromHead,
-            ("endTime" Core..=) Prelude.<$> endTime,
-            ("pageToken" Core..=) Prelude.<$> pageToken,
+          [ ("endTime" Data..=) Prelude.<$> endTime,
+            ("pageToken" Data..=) Prelude.<$> pageToken,
+            ("startFromHead" Data..=) Prelude.<$> startFromHead,
+            ("startTime" Data..=) Prelude.<$> startTime,
             Prelude.Just
               ( "relationalDatabaseName"
-                  Core..= relationalDatabaseName
+                  Data..= relationalDatabaseName
               ),
             Prelude.Just
-              ("logStreamName" Core..= logStreamName)
+              ("logStreamName" Data..= logStreamName)
           ]
       )
 
-instance Core.ToPath GetRelationalDatabaseLogEvents where
+instance Data.ToPath GetRelationalDatabaseLogEvents where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetRelationalDatabaseLogEvents where
+instance Data.ToQuery GetRelationalDatabaseLogEvents where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetRelationalDatabaseLogEventsResponse' smart constructor.
@@ -321,12 +323,12 @@ data GetRelationalDatabaseLogEventsResponse = GetRelationalDatabaseLogEventsResp
   { -- | A token used for advancing to the previous page of results from your get
     -- relational database log events request.
     nextBackwardToken :: Prelude.Maybe Prelude.Text,
-    -- | An object describing the result of your get relational database log
-    -- events request.
-    resourceLogEvents :: Prelude.Maybe [LogEvent],
     -- | A token used for advancing to the next page of results from your get
     -- relational database log events request.
     nextForwardToken :: Prelude.Maybe Prelude.Text,
+    -- | An object describing the result of your get relational database log
+    -- events request.
+    resourceLogEvents :: Prelude.Maybe [LogEvent],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -343,11 +345,11 @@ data GetRelationalDatabaseLogEventsResponse = GetRelationalDatabaseLogEventsResp
 -- 'nextBackwardToken', 'getRelationalDatabaseLogEventsResponse_nextBackwardToken' - A token used for advancing to the previous page of results from your get
 -- relational database log events request.
 --
--- 'resourceLogEvents', 'getRelationalDatabaseLogEventsResponse_resourceLogEvents' - An object describing the result of your get relational database log
--- events request.
---
 -- 'nextForwardToken', 'getRelationalDatabaseLogEventsResponse_nextForwardToken' - A token used for advancing to the next page of results from your get
 -- relational database log events request.
+--
+-- 'resourceLogEvents', 'getRelationalDatabaseLogEventsResponse_resourceLogEvents' - An object describing the result of your get relational database log
+-- events request.
 --
 -- 'httpStatus', 'getRelationalDatabaseLogEventsResponse_httpStatus' - The response's http status code.
 newGetRelationalDatabaseLogEventsResponse ::
@@ -359,8 +361,8 @@ newGetRelationalDatabaseLogEventsResponse
     GetRelationalDatabaseLogEventsResponse'
       { nextBackwardToken =
           Prelude.Nothing,
-        resourceLogEvents = Prelude.Nothing,
         nextForwardToken = Prelude.Nothing,
+        resourceLogEvents = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
 
@@ -369,15 +371,15 @@ newGetRelationalDatabaseLogEventsResponse
 getRelationalDatabaseLogEventsResponse_nextBackwardToken :: Lens.Lens' GetRelationalDatabaseLogEventsResponse (Prelude.Maybe Prelude.Text)
 getRelationalDatabaseLogEventsResponse_nextBackwardToken = Lens.lens (\GetRelationalDatabaseLogEventsResponse' {nextBackwardToken} -> nextBackwardToken) (\s@GetRelationalDatabaseLogEventsResponse' {} a -> s {nextBackwardToken = a} :: GetRelationalDatabaseLogEventsResponse)
 
--- | An object describing the result of your get relational database log
--- events request.
-getRelationalDatabaseLogEventsResponse_resourceLogEvents :: Lens.Lens' GetRelationalDatabaseLogEventsResponse (Prelude.Maybe [LogEvent])
-getRelationalDatabaseLogEventsResponse_resourceLogEvents = Lens.lens (\GetRelationalDatabaseLogEventsResponse' {resourceLogEvents} -> resourceLogEvents) (\s@GetRelationalDatabaseLogEventsResponse' {} a -> s {resourceLogEvents = a} :: GetRelationalDatabaseLogEventsResponse) Prelude.. Lens.mapping Lens.coerced
-
 -- | A token used for advancing to the next page of results from your get
 -- relational database log events request.
 getRelationalDatabaseLogEventsResponse_nextForwardToken :: Lens.Lens' GetRelationalDatabaseLogEventsResponse (Prelude.Maybe Prelude.Text)
 getRelationalDatabaseLogEventsResponse_nextForwardToken = Lens.lens (\GetRelationalDatabaseLogEventsResponse' {nextForwardToken} -> nextForwardToken) (\s@GetRelationalDatabaseLogEventsResponse' {} a -> s {nextForwardToken = a} :: GetRelationalDatabaseLogEventsResponse)
+
+-- | An object describing the result of your get relational database log
+-- events request.
+getRelationalDatabaseLogEventsResponse_resourceLogEvents :: Lens.Lens' GetRelationalDatabaseLogEventsResponse (Prelude.Maybe [LogEvent])
+getRelationalDatabaseLogEventsResponse_resourceLogEvents = Lens.lens (\GetRelationalDatabaseLogEventsResponse' {resourceLogEvents} -> resourceLogEvents) (\s@GetRelationalDatabaseLogEventsResponse' {} a -> s {resourceLogEvents = a} :: GetRelationalDatabaseLogEventsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 getRelationalDatabaseLogEventsResponse_httpStatus :: Lens.Lens' GetRelationalDatabaseLogEventsResponse Prelude.Int
@@ -389,6 +391,6 @@ instance
   where
   rnf GetRelationalDatabaseLogEventsResponse' {..} =
     Prelude.rnf nextBackwardToken
-      `Prelude.seq` Prelude.rnf resourceLogEvents
       `Prelude.seq` Prelude.rnf nextForwardToken
+      `Prelude.seq` Prelude.rnf resourceLogEvents
       `Prelude.seq` Prelude.rnf httpStatus

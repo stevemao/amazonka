@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.WorkflowGraph
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.Glue.Types.WorkflowGraph where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types.Edge
 import Amazonka.Glue.Types.Node
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A workflow graph represents the complete workflow containing all the
@@ -71,14 +72,14 @@ workflowGraph_edges = Lens.lens (\WorkflowGraph' {edges} -> edges) (\s@WorkflowG
 workflowGraph_nodes :: Lens.Lens' WorkflowGraph (Prelude.Maybe [Node])
 workflowGraph_nodes = Lens.lens (\WorkflowGraph' {nodes} -> nodes) (\s@WorkflowGraph' {} a -> s {nodes = a} :: WorkflowGraph) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON WorkflowGraph where
+instance Data.FromJSON WorkflowGraph where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "WorkflowGraph"
       ( \x ->
           WorkflowGraph'
-            Prelude.<$> (x Core..:? "Edges" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Nodes" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Edges" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Nodes" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable WorkflowGraph where

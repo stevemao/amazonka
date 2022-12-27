@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -11,16 +11,16 @@
 --
 -- Derived from API version @2017-08-22@ of the AWS service descriptions, licensed under Apache 2.0.
 --
--- This is the /ACM Private CA API Reference/. It provides descriptions,
--- syntax, and usage examples for each of the actions and data types
--- involved in creating and managing private certificate authorities (CA)
--- for your organization.
+-- This is the /Private Certificate Authority (PCA) API Reference/. It
+-- provides descriptions, syntax, and usage examples for each of the
+-- actions and data types involved in creating and managing a private
+-- certificate authority (CA) for your organization.
 --
--- The documentation for each action shows the Query API request parameters
--- and the XML response. Alternatively, you can use one of the AWS SDKs to
--- access an API that\'s tailored to the programming language or platform
--- that you\'re using. For more information, see
--- <https://aws.amazon.com/tools/#SDKs AWS SDKs>.
+-- The documentation for each action shows the API request parameters and
+-- the JSON response. Alternatively, you can use one of the Amazon Web
+-- Services SDKs to access an API that is tailored to the programming
+-- language or platform that you prefer. For more information, see
+-- <https://aws.amazon.com/tools/#SDKs Amazon Web Services SDKs>.
 --
 -- Each ACM Private CA API operation has a quota that determines the number
 -- of times the operation can be called per second. ACM Private CA
@@ -34,7 +34,7 @@
 -- APIs.
 --
 -- To see an up-to-date list of your ACM Private CA quotas, or to request a
--- quota increase, log into your AWS account and visit the
+-- quota increase, log into your Amazon Web Services account and visit the
 -- <https://console.aws.amazon.com/servicequotas/ Service Quotas> console.
 module Amazonka.CertificateManagerPCA
   ( -- * Service Configuration
@@ -43,68 +43,65 @@ module Amazonka.CertificateManagerPCA
     -- * Errors
     -- $errors
 
-    -- ** InvalidTagException
-    _InvalidTagException,
-
-    -- ** InvalidRequestException
-    _InvalidRequestException,
-
-    -- ** PermissionAlreadyExistsException
-    _PermissionAlreadyExistsException,
-
-    -- ** MalformedCSRException
-    _MalformedCSRException,
-
-    -- ** RequestAlreadyProcessedException
-    _RequestAlreadyProcessedException,
-
-    -- ** MalformedCertificateException
-    _MalformedCertificateException,
-
-    -- ** RequestFailedException
-    _RequestFailedException,
-
     -- ** CertificateMismatchException
     _CertificateMismatchException,
-
-    -- ** TooManyTagsException
-    _TooManyTagsException,
-
-    -- ** InvalidArgsException
-    _InvalidArgsException,
-
-    -- ** RequestInProgressException
-    _RequestInProgressException,
 
     -- ** ConcurrentModificationException
     _ConcurrentModificationException,
 
-    -- ** InvalidNextTokenException
-    _InvalidNextTokenException,
-
-    -- ** LockoutPreventedException
-    _LockoutPreventedException,
+    -- ** InvalidArgsException
+    _InvalidArgsException,
 
     -- ** InvalidArnException
     _InvalidArnException,
 
+    -- ** InvalidNextTokenException
+    _InvalidNextTokenException,
+
     -- ** InvalidPolicyException
     _InvalidPolicyException,
 
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
+    -- ** InvalidRequestException
+    _InvalidRequestException,
 
     -- ** InvalidStateException
     _InvalidStateException,
 
+    -- ** InvalidTagException
+    _InvalidTagException,
+
     -- ** LimitExceededException
     _LimitExceededException,
 
+    -- ** LockoutPreventedException
+    _LockoutPreventedException,
+
+    -- ** MalformedCSRException
+    _MalformedCSRException,
+
+    -- ** MalformedCertificateException
+    _MalformedCertificateException,
+
+    -- ** PermissionAlreadyExistsException
+    _PermissionAlreadyExistsException,
+
+    -- ** RequestAlreadyProcessedException
+    _RequestAlreadyProcessedException,
+
+    -- ** RequestFailedException
+    _RequestFailedException,
+
+    -- ** RequestInProgressException
+    _RequestInProgressException,
+
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
+
+    -- ** TooManyTagsException
+    _TooManyTagsException,
+
     -- * Waiters
     -- $waiters
-
-    -- ** CertificateIssued
-    newCertificateIssued,
 
     -- ** AuditReportCreated
     newAuditReportCreated,
@@ -112,56 +109,11 @@ module Amazonka.CertificateManagerPCA
     -- ** CertificateAuthorityCSRCreated
     newCertificateAuthorityCSRCreated,
 
+    -- ** CertificateIssued
+    newCertificateIssued,
+
     -- * Operations
     -- $operations
-
-    -- ** ImportCertificateAuthorityCertificate
-    ImportCertificateAuthorityCertificate (ImportCertificateAuthorityCertificate'),
-    newImportCertificateAuthorityCertificate,
-    ImportCertificateAuthorityCertificateResponse (ImportCertificateAuthorityCertificateResponse'),
-    newImportCertificateAuthorityCertificateResponse,
-
-    -- ** CreatePermission
-    CreatePermission (CreatePermission'),
-    newCreatePermission,
-    CreatePermissionResponse (CreatePermissionResponse'),
-    newCreatePermissionResponse,
-
-    -- ** DescribeCertificateAuthorityAuditReport
-    DescribeCertificateAuthorityAuditReport (DescribeCertificateAuthorityAuditReport'),
-    newDescribeCertificateAuthorityAuditReport,
-    DescribeCertificateAuthorityAuditReportResponse (DescribeCertificateAuthorityAuditReportResponse'),
-    newDescribeCertificateAuthorityAuditReportResponse,
-
-    -- ** DeletePermission
-    DeletePermission (DeletePermission'),
-    newDeletePermission,
-    DeletePermissionResponse (DeletePermissionResponse'),
-    newDeletePermissionResponse,
-
-    -- ** RevokeCertificate
-    RevokeCertificate (RevokeCertificate'),
-    newRevokeCertificate,
-    RevokeCertificateResponse (RevokeCertificateResponse'),
-    newRevokeCertificateResponse,
-
-    -- ** UpdateCertificateAuthority
-    UpdateCertificateAuthority (UpdateCertificateAuthority'),
-    newUpdateCertificateAuthority,
-    UpdateCertificateAuthorityResponse (UpdateCertificateAuthorityResponse'),
-    newUpdateCertificateAuthorityResponse,
-
-    -- ** DeleteCertificateAuthority
-    DeleteCertificateAuthority (DeleteCertificateAuthority'),
-    newDeleteCertificateAuthority,
-    DeleteCertificateAuthorityResponse (DeleteCertificateAuthorityResponse'),
-    newDeleteCertificateAuthorityResponse,
-
-    -- ** GetCertificateAuthorityCsr
-    GetCertificateAuthorityCsr (GetCertificateAuthorityCsr'),
-    newGetCertificateAuthorityCsr,
-    GetCertificateAuthorityCsrResponse (GetCertificateAuthorityCsrResponse'),
-    newGetCertificateAuthorityCsrResponse,
 
     -- ** CreateCertificateAuthority
     CreateCertificateAuthority (CreateCertificateAuthority'),
@@ -169,29 +121,29 @@ module Amazonka.CertificateManagerPCA
     CreateCertificateAuthorityResponse (CreateCertificateAuthorityResponse'),
     newCreateCertificateAuthorityResponse,
 
-    -- ** ListCertificateAuthorities (Paginated)
-    ListCertificateAuthorities (ListCertificateAuthorities'),
-    newListCertificateAuthorities,
-    ListCertificateAuthoritiesResponse (ListCertificateAuthoritiesResponse'),
-    newListCertificateAuthoritiesResponse,
+    -- ** CreateCertificateAuthorityAuditReport
+    CreateCertificateAuthorityAuditReport (CreateCertificateAuthorityAuditReport'),
+    newCreateCertificateAuthorityAuditReport,
+    CreateCertificateAuthorityAuditReportResponse (CreateCertificateAuthorityAuditReportResponse'),
+    newCreateCertificateAuthorityAuditReportResponse,
 
-    -- ** GetCertificate
-    GetCertificate (GetCertificate'),
-    newGetCertificate,
-    GetCertificateResponse (GetCertificateResponse'),
-    newGetCertificateResponse,
+    -- ** CreatePermission
+    CreatePermission (CreatePermission'),
+    newCreatePermission,
+    CreatePermissionResponse (CreatePermissionResponse'),
+    newCreatePermissionResponse,
 
-    -- ** TagCertificateAuthority
-    TagCertificateAuthority (TagCertificateAuthority'),
-    newTagCertificateAuthority,
-    TagCertificateAuthorityResponse (TagCertificateAuthorityResponse'),
-    newTagCertificateAuthorityResponse,
+    -- ** DeleteCertificateAuthority
+    DeleteCertificateAuthority (DeleteCertificateAuthority'),
+    newDeleteCertificateAuthority,
+    DeleteCertificateAuthorityResponse (DeleteCertificateAuthorityResponse'),
+    newDeleteCertificateAuthorityResponse,
 
-    -- ** PutPolicy
-    PutPolicy (PutPolicy'),
-    newPutPolicy,
-    PutPolicyResponse (PutPolicyResponse'),
-    newPutPolicyResponse,
+    -- ** DeletePermission
+    DeletePermission (DeletePermission'),
+    newDeletePermission,
+    DeletePermissionResponse (DeletePermissionResponse'),
+    newDeletePermissionResponse,
 
     -- ** DeletePolicy
     DeletePolicy (DeletePolicy'),
@@ -205,17 +157,17 @@ module Amazonka.CertificateManagerPCA
     DescribeCertificateAuthorityResponse (DescribeCertificateAuthorityResponse'),
     newDescribeCertificateAuthorityResponse,
 
-    -- ** RestoreCertificateAuthority
-    RestoreCertificateAuthority (RestoreCertificateAuthority'),
-    newRestoreCertificateAuthority,
-    RestoreCertificateAuthorityResponse (RestoreCertificateAuthorityResponse'),
-    newRestoreCertificateAuthorityResponse,
+    -- ** DescribeCertificateAuthorityAuditReport
+    DescribeCertificateAuthorityAuditReport (DescribeCertificateAuthorityAuditReport'),
+    newDescribeCertificateAuthorityAuditReport,
+    DescribeCertificateAuthorityAuditReportResponse (DescribeCertificateAuthorityAuditReportResponse'),
+    newDescribeCertificateAuthorityAuditReportResponse,
 
-    -- ** IssueCertificate
-    IssueCertificate (IssueCertificate'),
-    newIssueCertificate,
-    IssueCertificateResponse (IssueCertificateResponse'),
-    newIssueCertificateResponse,
+    -- ** GetCertificate
+    GetCertificate (GetCertificate'),
+    newGetCertificate,
+    GetCertificateResponse (GetCertificateResponse'),
+    newGetCertificateResponse,
 
     -- ** GetCertificateAuthorityCertificate
     GetCertificateAuthorityCertificate (GetCertificateAuthorityCertificate'),
@@ -223,23 +175,41 @@ module Amazonka.CertificateManagerPCA
     GetCertificateAuthorityCertificateResponse (GetCertificateAuthorityCertificateResponse'),
     newGetCertificateAuthorityCertificateResponse,
 
+    -- ** GetCertificateAuthorityCsr
+    GetCertificateAuthorityCsr (GetCertificateAuthorityCsr'),
+    newGetCertificateAuthorityCsr,
+    GetCertificateAuthorityCsrResponse (GetCertificateAuthorityCsrResponse'),
+    newGetCertificateAuthorityCsrResponse,
+
+    -- ** GetPolicy
+    GetPolicy (GetPolicy'),
+    newGetPolicy,
+    GetPolicyResponse (GetPolicyResponse'),
+    newGetPolicyResponse,
+
+    -- ** ImportCertificateAuthorityCertificate
+    ImportCertificateAuthorityCertificate (ImportCertificateAuthorityCertificate'),
+    newImportCertificateAuthorityCertificate,
+    ImportCertificateAuthorityCertificateResponse (ImportCertificateAuthorityCertificateResponse'),
+    newImportCertificateAuthorityCertificateResponse,
+
+    -- ** IssueCertificate
+    IssueCertificate (IssueCertificate'),
+    newIssueCertificate,
+    IssueCertificateResponse (IssueCertificateResponse'),
+    newIssueCertificateResponse,
+
+    -- ** ListCertificateAuthorities (Paginated)
+    ListCertificateAuthorities (ListCertificateAuthorities'),
+    newListCertificateAuthorities,
+    ListCertificateAuthoritiesResponse (ListCertificateAuthoritiesResponse'),
+    newListCertificateAuthoritiesResponse,
+
     -- ** ListPermissions (Paginated)
     ListPermissions (ListPermissions'),
     newListPermissions,
     ListPermissionsResponse (ListPermissionsResponse'),
     newListPermissionsResponse,
-
-    -- ** UntagCertificateAuthority
-    UntagCertificateAuthority (UntagCertificateAuthority'),
-    newUntagCertificateAuthority,
-    UntagCertificateAuthorityResponse (UntagCertificateAuthorityResponse'),
-    newUntagCertificateAuthorityResponse,
-
-    -- ** CreateCertificateAuthorityAuditReport
-    CreateCertificateAuthorityAuditReport (CreateCertificateAuthorityAuditReport'),
-    newCreateCertificateAuthorityAuditReport,
-    CreateCertificateAuthorityAuditReportResponse (CreateCertificateAuthorityAuditReportResponse'),
-    newCreateCertificateAuthorityAuditReportResponse,
 
     -- ** ListTags (Paginated)
     ListTags (ListTags'),
@@ -247,11 +217,41 @@ module Amazonka.CertificateManagerPCA
     ListTagsResponse (ListTagsResponse'),
     newListTagsResponse,
 
-    -- ** GetPolicy
-    GetPolicy (GetPolicy'),
-    newGetPolicy,
-    GetPolicyResponse (GetPolicyResponse'),
-    newGetPolicyResponse,
+    -- ** PutPolicy
+    PutPolicy (PutPolicy'),
+    newPutPolicy,
+    PutPolicyResponse (PutPolicyResponse'),
+    newPutPolicyResponse,
+
+    -- ** RestoreCertificateAuthority
+    RestoreCertificateAuthority (RestoreCertificateAuthority'),
+    newRestoreCertificateAuthority,
+    RestoreCertificateAuthorityResponse (RestoreCertificateAuthorityResponse'),
+    newRestoreCertificateAuthorityResponse,
+
+    -- ** RevokeCertificate
+    RevokeCertificate (RevokeCertificate'),
+    newRevokeCertificate,
+    RevokeCertificateResponse (RevokeCertificateResponse'),
+    newRevokeCertificateResponse,
+
+    -- ** TagCertificateAuthority
+    TagCertificateAuthority (TagCertificateAuthority'),
+    newTagCertificateAuthority,
+    TagCertificateAuthorityResponse (TagCertificateAuthorityResponse'),
+    newTagCertificateAuthorityResponse,
+
+    -- ** UntagCertificateAuthority
+    UntagCertificateAuthority (UntagCertificateAuthority'),
+    newUntagCertificateAuthority,
+    UntagCertificateAuthorityResponse (UntagCertificateAuthorityResponse'),
+    newUntagCertificateAuthorityResponse,
+
+    -- ** UpdateCertificateAuthority
+    UpdateCertificateAuthority (UpdateCertificateAuthority'),
+    newUpdateCertificateAuthority,
+    UpdateCertificateAuthorityResponse (UpdateCertificateAuthorityResponse'),
+    newUpdateCertificateAuthorityResponse,
 
     -- * Types
 
@@ -272,6 +272,9 @@ module Amazonka.CertificateManagerPCA
 
     -- ** CertificateAuthorityType
     CertificateAuthorityType (..),
+
+    -- ** CertificateAuthorityUsageMode
+    CertificateAuthorityUsageMode (..),
 
     -- ** ExtendedKeyUsageType
     ExtendedKeyUsageType (..),
@@ -334,6 +337,14 @@ module Amazonka.CertificateManagerPCA
     -- ** CsrExtensions
     CsrExtensions (CsrExtensions'),
     newCsrExtensions,
+
+    -- ** CustomAttribute
+    CustomAttribute (CustomAttribute'),
+    newCustomAttribute,
+
+    -- ** CustomExtension
+    CustomExtension (CustomExtension'),
+    newCustomExtension,
 
     -- ** EdiPartyName
     EdiPartyName (EdiPartyName'),

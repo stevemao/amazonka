@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeInstanceCreditSpecifications
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -55,54 +55,55 @@ module Amazonka.EC2.DescribeInstanceCreditSpecifications
     newDescribeInstanceCreditSpecifications,
 
     -- * Request Lenses
-    describeInstanceCreditSpecifications_filters,
-    describeInstanceCreditSpecifications_nextToken,
-    describeInstanceCreditSpecifications_instanceIds,
     describeInstanceCreditSpecifications_dryRun,
+    describeInstanceCreditSpecifications_filters,
+    describeInstanceCreditSpecifications_instanceIds,
     describeInstanceCreditSpecifications_maxResults,
+    describeInstanceCreditSpecifications_nextToken,
 
     -- * Destructuring the Response
     DescribeInstanceCreditSpecificationsResponse (..),
     newDescribeInstanceCreditSpecificationsResponse,
 
     -- * Response Lenses
-    describeInstanceCreditSpecificationsResponse_nextToken,
     describeInstanceCreditSpecificationsResponse_instanceCreditSpecifications,
+    describeInstanceCreditSpecificationsResponse_nextToken,
     describeInstanceCreditSpecificationsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeInstanceCreditSpecifications' smart constructor.
 data DescribeInstanceCreditSpecifications = DescribeInstanceCreditSpecifications'
-  { -- | The filters.
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The filters.
     --
     -- -   @instance-id@ - The ID of the instance.
     filters :: Prelude.Maybe [Filter],
-    -- | The token to retrieve the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The instance IDs.
     --
     -- Default: Describes all your instances.
     --
     -- Constraints: Maximum 1000 explicitly specified instance IDs.
     instanceIds :: Prelude.Maybe [Prelude.Text],
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | The maximum number of results to return in a single call. To retrieve
     -- the remaining results, make another call with the returned @NextToken@
     -- value. This value can be between 5 and 1000. You cannot specify this
     -- parameter and the instance IDs parameter in the same call.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to retrieve the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -114,11 +115,14 @@ data DescribeInstanceCreditSpecifications = DescribeInstanceCreditSpecifications
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'dryRun', 'describeInstanceCreditSpecifications_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
 -- 'filters', 'describeInstanceCreditSpecifications_filters' - The filters.
 --
 -- -   @instance-id@ - The ID of the instance.
---
--- 'nextToken', 'describeInstanceCreditSpecifications_nextToken' - The token to retrieve the next page of results.
 --
 -- 'instanceIds', 'describeInstanceCreditSpecifications_instanceIds' - The instance IDs.
 --
@@ -126,36 +130,36 @@ data DescribeInstanceCreditSpecifications = DescribeInstanceCreditSpecifications
 --
 -- Constraints: Maximum 1000 explicitly specified instance IDs.
 --
--- 'dryRun', 'describeInstanceCreditSpecifications_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
---
 -- 'maxResults', 'describeInstanceCreditSpecifications_maxResults' - The maximum number of results to return in a single call. To retrieve
 -- the remaining results, make another call with the returned @NextToken@
 -- value. This value can be between 5 and 1000. You cannot specify this
 -- parameter and the instance IDs parameter in the same call.
+--
+-- 'nextToken', 'describeInstanceCreditSpecifications_nextToken' - The token to retrieve the next page of results.
 newDescribeInstanceCreditSpecifications ::
   DescribeInstanceCreditSpecifications
 newDescribeInstanceCreditSpecifications =
   DescribeInstanceCreditSpecifications'
-    { filters =
+    { dryRun =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      filters = Prelude.Nothing,
       instanceIds = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeInstanceCreditSpecifications_dryRun :: Lens.Lens' DescribeInstanceCreditSpecifications (Prelude.Maybe Prelude.Bool)
+describeInstanceCreditSpecifications_dryRun = Lens.lens (\DescribeInstanceCreditSpecifications' {dryRun} -> dryRun) (\s@DescribeInstanceCreditSpecifications' {} a -> s {dryRun = a} :: DescribeInstanceCreditSpecifications)
 
 -- | The filters.
 --
 -- -   @instance-id@ - The ID of the instance.
 describeInstanceCreditSpecifications_filters :: Lens.Lens' DescribeInstanceCreditSpecifications (Prelude.Maybe [Filter])
 describeInstanceCreditSpecifications_filters = Lens.lens (\DescribeInstanceCreditSpecifications' {filters} -> filters) (\s@DescribeInstanceCreditSpecifications' {} a -> s {filters = a} :: DescribeInstanceCreditSpecifications) Prelude.. Lens.mapping Lens.coerced
-
--- | The token to retrieve the next page of results.
-describeInstanceCreditSpecifications_nextToken :: Lens.Lens' DescribeInstanceCreditSpecifications (Prelude.Maybe Prelude.Text)
-describeInstanceCreditSpecifications_nextToken = Lens.lens (\DescribeInstanceCreditSpecifications' {nextToken} -> nextToken) (\s@DescribeInstanceCreditSpecifications' {} a -> s {nextToken = a} :: DescribeInstanceCreditSpecifications)
 
 -- | The instance IDs.
 --
@@ -165,19 +169,16 @@ describeInstanceCreditSpecifications_nextToken = Lens.lens (\DescribeInstanceCre
 describeInstanceCreditSpecifications_instanceIds :: Lens.Lens' DescribeInstanceCreditSpecifications (Prelude.Maybe [Prelude.Text])
 describeInstanceCreditSpecifications_instanceIds = Lens.lens (\DescribeInstanceCreditSpecifications' {instanceIds} -> instanceIds) (\s@DescribeInstanceCreditSpecifications' {} a -> s {instanceIds = a} :: DescribeInstanceCreditSpecifications) Prelude.. Lens.mapping Lens.coerced
 
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describeInstanceCreditSpecifications_dryRun :: Lens.Lens' DescribeInstanceCreditSpecifications (Prelude.Maybe Prelude.Bool)
-describeInstanceCreditSpecifications_dryRun = Lens.lens (\DescribeInstanceCreditSpecifications' {dryRun} -> dryRun) (\s@DescribeInstanceCreditSpecifications' {} a -> s {dryRun = a} :: DescribeInstanceCreditSpecifications)
-
 -- | The maximum number of results to return in a single call. To retrieve
 -- the remaining results, make another call with the returned @NextToken@
 -- value. This value can be between 5 and 1000. You cannot specify this
 -- parameter and the instance IDs parameter in the same call.
 describeInstanceCreditSpecifications_maxResults :: Lens.Lens' DescribeInstanceCreditSpecifications (Prelude.Maybe Prelude.Natural)
 describeInstanceCreditSpecifications_maxResults = Lens.lens (\DescribeInstanceCreditSpecifications' {maxResults} -> maxResults) (\s@DescribeInstanceCreditSpecifications' {} a -> s {maxResults = a} :: DescribeInstanceCreditSpecifications)
+
+-- | The token to retrieve the next page of results.
+describeInstanceCreditSpecifications_nextToken :: Lens.Lens' DescribeInstanceCreditSpecifications (Prelude.Maybe Prelude.Text)
+describeInstanceCreditSpecifications_nextToken = Lens.lens (\DescribeInstanceCreditSpecifications' {nextToken} -> nextToken) (\s@DescribeInstanceCreditSpecifications' {} a -> s {nextToken = a} :: DescribeInstanceCreditSpecifications)
 
 instance
   Core.AWSPager
@@ -211,16 +212,17 @@ instance
   type
     AWSResponse DescribeInstanceCreditSpecifications =
       DescribeInstanceCreditSpecificationsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeInstanceCreditSpecificationsResponse'
-            Prelude.<$> (x Core..@? "nextToken")
-              Prelude.<*> ( x Core..@? "instanceCreditSpecificationSet"
-                              Core..!@ Prelude.mempty
-                              Prelude.>>= Core.may (Core.parseXMLList "item")
-                          )
+            Prelude.<$> ( x Data..@? "instanceCreditSpecificationSet"
+                            Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
+                        )
+              Prelude.<*> (x Data..@? "nextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -231,65 +233,65 @@ instance
   hashWithSalt
     _salt
     DescribeInstanceCreditSpecifications' {..} =
-      _salt `Prelude.hashWithSalt` filters
-        `Prelude.hashWithSalt` nextToken
+      _salt `Prelude.hashWithSalt` dryRun
+        `Prelude.hashWithSalt` filters
         `Prelude.hashWithSalt` instanceIds
-        `Prelude.hashWithSalt` dryRun
         `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
 
 instance
   Prelude.NFData
     DescribeInstanceCreditSpecifications
   where
   rnf DescribeInstanceCreditSpecifications' {..} =
-    Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf instanceIds
-      `Prelude.seq` Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeInstanceCreditSpecifications
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeInstanceCreditSpecifications
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeInstanceCreditSpecifications
   where
   toQuery DescribeInstanceCreditSpecifications' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeInstanceCreditSpecifications" ::
+          Data.=: ( "DescribeInstanceCreditSpecifications" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        Core.toQuery
-          ( Core.toQueryList "InstanceId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        Data.toQuery
+          ( Data.toQueryList "InstanceId"
               Prelude.<$> instanceIds
           ),
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newDescribeInstanceCreditSpecificationsResponse' smart constructor.
 data DescribeInstanceCreditSpecificationsResponse = DescribeInstanceCreditSpecificationsResponse'
-  { -- | The token to use to retrieve the next page of results. This value is
+  { -- | Information about the credit option for CPU usage of an instance.
+    instanceCreditSpecifications :: Prelude.Maybe [InstanceCreditSpecification],
+    -- | The token to use to retrieve the next page of results. This value is
     -- @null@ when there are no more results to return.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Information about the credit option for CPU usage of an instance.
-    instanceCreditSpecifications :: Prelude.Maybe [InstanceCreditSpecification],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -303,10 +305,10 @@ data DescribeInstanceCreditSpecificationsResponse = DescribeInstanceCreditSpecif
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'instanceCreditSpecifications', 'describeInstanceCreditSpecificationsResponse_instanceCreditSpecifications' - Information about the credit option for CPU usage of an instance.
+--
 -- 'nextToken', 'describeInstanceCreditSpecificationsResponse_nextToken' - The token to use to retrieve the next page of results. This value is
 -- @null@ when there are no more results to return.
---
--- 'instanceCreditSpecifications', 'describeInstanceCreditSpecificationsResponse_instanceCreditSpecifications' - Information about the credit option for CPU usage of an instance.
 --
 -- 'httpStatus', 'describeInstanceCreditSpecificationsResponse_httpStatus' - The response's http status code.
 newDescribeInstanceCreditSpecificationsResponse ::
@@ -316,21 +318,20 @@ newDescribeInstanceCreditSpecificationsResponse ::
 newDescribeInstanceCreditSpecificationsResponse
   pHttpStatus_ =
     DescribeInstanceCreditSpecificationsResponse'
-      { nextToken =
+      { instanceCreditSpecifications =
           Prelude.Nothing,
-        instanceCreditSpecifications =
-          Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
+
+-- | Information about the credit option for CPU usage of an instance.
+describeInstanceCreditSpecificationsResponse_instanceCreditSpecifications :: Lens.Lens' DescribeInstanceCreditSpecificationsResponse (Prelude.Maybe [InstanceCreditSpecification])
+describeInstanceCreditSpecificationsResponse_instanceCreditSpecifications = Lens.lens (\DescribeInstanceCreditSpecificationsResponse' {instanceCreditSpecifications} -> instanceCreditSpecifications) (\s@DescribeInstanceCreditSpecificationsResponse' {} a -> s {instanceCreditSpecifications = a} :: DescribeInstanceCreditSpecificationsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token to use to retrieve the next page of results. This value is
 -- @null@ when there are no more results to return.
 describeInstanceCreditSpecificationsResponse_nextToken :: Lens.Lens' DescribeInstanceCreditSpecificationsResponse (Prelude.Maybe Prelude.Text)
 describeInstanceCreditSpecificationsResponse_nextToken = Lens.lens (\DescribeInstanceCreditSpecificationsResponse' {nextToken} -> nextToken) (\s@DescribeInstanceCreditSpecificationsResponse' {} a -> s {nextToken = a} :: DescribeInstanceCreditSpecificationsResponse)
-
--- | Information about the credit option for CPU usage of an instance.
-describeInstanceCreditSpecificationsResponse_instanceCreditSpecifications :: Lens.Lens' DescribeInstanceCreditSpecificationsResponse (Prelude.Maybe [InstanceCreditSpecification])
-describeInstanceCreditSpecificationsResponse_instanceCreditSpecifications = Lens.lens (\DescribeInstanceCreditSpecificationsResponse' {instanceCreditSpecifications} -> instanceCreditSpecifications) (\s@DescribeInstanceCreditSpecificationsResponse' {} a -> s {instanceCreditSpecifications = a} :: DescribeInstanceCreditSpecificationsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeInstanceCreditSpecificationsResponse_httpStatus :: Lens.Lens' DescribeInstanceCreditSpecificationsResponse Prelude.Int
@@ -341,6 +342,6 @@ instance
     DescribeInstanceCreditSpecificationsResponse
   where
   rnf DescribeInstanceCreditSpecificationsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf instanceCreditSpecifications
+    Prelude.rnf instanceCreditSpecifications
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

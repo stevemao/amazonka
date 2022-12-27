@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.Types.EndpointConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.APIGateway.Types.EndpointConfiguration where
 
 import Amazonka.APIGateway.Types.EndpointType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The endpoint configuration to indicate the types of endpoints an API
@@ -78,15 +79,15 @@ endpointConfiguration_types = Lens.lens (\EndpointConfiguration' {types} -> type
 endpointConfiguration_vpcEndpointIds :: Lens.Lens' EndpointConfiguration (Prelude.Maybe [Prelude.Text])
 endpointConfiguration_vpcEndpointIds = Lens.lens (\EndpointConfiguration' {vpcEndpointIds} -> vpcEndpointIds) (\s@EndpointConfiguration' {} a -> s {vpcEndpointIds = a} :: EndpointConfiguration) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON EndpointConfiguration where
+instance Data.FromJSON EndpointConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EndpointConfiguration"
       ( \x ->
           EndpointConfiguration'
-            Prelude.<$> (x Core..:? "types" Core..!= Prelude.mempty)
-            Prelude.<*> ( x Core..:? "vpcEndpointIds"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "types" Data..!= Prelude.mempty)
+            Prelude.<*> ( x Data..:? "vpcEndpointIds"
+                            Data..!= Prelude.mempty
                         )
       )
 
@@ -100,12 +101,12 @@ instance Prelude.NFData EndpointConfiguration where
     Prelude.rnf types
       `Prelude.seq` Prelude.rnf vpcEndpointIds
 
-instance Core.ToJSON EndpointConfiguration where
+instance Data.ToJSON EndpointConfiguration where
   toJSON EndpointConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("types" Core..=) Prelude.<$> types,
-            ("vpcEndpointIds" Core..=)
+          [ ("types" Data..=) Prelude.<$> types,
+            ("vpcEndpointIds" Data..=)
               Prelude.<$> vpcEndpointIds
           ]
       )

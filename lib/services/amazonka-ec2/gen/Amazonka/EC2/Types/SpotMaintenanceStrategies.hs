@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.SpotMaintenanceStrategies
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.SpotMaintenanceStrategies where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.SpotCapacityRebalance
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The strategies for managing your Spot Instances that are at an elevated
@@ -30,8 +31,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSpotMaintenanceStrategies' smart constructor.
 data SpotMaintenanceStrategies = SpotMaintenanceStrategies'
-  { -- | The strategy to use when Amazon EC2 emits a signal that your Spot
-    -- Instance is at an elevated risk of being interrupted.
+  { -- | The Spot Instance replacement strategy to use when Amazon EC2 emits a
+    -- signal that your Spot Instance is at an elevated risk of being
+    -- interrupted. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-capacity-rebalance.html Capacity rebalancing>
+    -- in the /Amazon EC2 User Guide for Linux Instances/.
     capacityRebalance :: Prelude.Maybe SpotCapacityRebalance
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -44,8 +48,11 @@ data SpotMaintenanceStrategies = SpotMaintenanceStrategies'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'capacityRebalance', 'spotMaintenanceStrategies_capacityRebalance' - The strategy to use when Amazon EC2 emits a signal that your Spot
--- Instance is at an elevated risk of being interrupted.
+-- 'capacityRebalance', 'spotMaintenanceStrategies_capacityRebalance' - The Spot Instance replacement strategy to use when Amazon EC2 emits a
+-- signal that your Spot Instance is at an elevated risk of being
+-- interrupted. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-capacity-rebalance.html Capacity rebalancing>
+-- in the /Amazon EC2 User Guide for Linux Instances/.
 newSpotMaintenanceStrategies ::
   SpotMaintenanceStrategies
 newSpotMaintenanceStrategies =
@@ -54,15 +61,18 @@ newSpotMaintenanceStrategies =
         Prelude.Nothing
     }
 
--- | The strategy to use when Amazon EC2 emits a signal that your Spot
--- Instance is at an elevated risk of being interrupted.
+-- | The Spot Instance replacement strategy to use when Amazon EC2 emits a
+-- signal that your Spot Instance is at an elevated risk of being
+-- interrupted. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-capacity-rebalance.html Capacity rebalancing>
+-- in the /Amazon EC2 User Guide for Linux Instances/.
 spotMaintenanceStrategies_capacityRebalance :: Lens.Lens' SpotMaintenanceStrategies (Prelude.Maybe SpotCapacityRebalance)
 spotMaintenanceStrategies_capacityRebalance = Lens.lens (\SpotMaintenanceStrategies' {capacityRebalance} -> capacityRebalance) (\s@SpotMaintenanceStrategies' {} a -> s {capacityRebalance = a} :: SpotMaintenanceStrategies)
 
-instance Core.FromXML SpotMaintenanceStrategies where
+instance Data.FromXML SpotMaintenanceStrategies where
   parseXML x =
     SpotMaintenanceStrategies'
-      Prelude.<$> (x Core..@? "capacityRebalance")
+      Prelude.<$> (x Data..@? "capacityRebalance")
 
 instance Prelude.Hashable SpotMaintenanceStrategies where
   hashWithSalt _salt SpotMaintenanceStrategies' {..} =
@@ -72,7 +82,7 @@ instance Prelude.NFData SpotMaintenanceStrategies where
   rnf SpotMaintenanceStrategies' {..} =
     Prelude.rnf capacityRebalance
 
-instance Core.ToQuery SpotMaintenanceStrategies where
+instance Data.ToQuery SpotMaintenanceStrategies where
   toQuery SpotMaintenanceStrategies' {..} =
     Prelude.mconcat
-      ["CapacityRebalance" Core.=: capacityRebalance]
+      ["CapacityRebalance" Data.=: capacityRebalance]

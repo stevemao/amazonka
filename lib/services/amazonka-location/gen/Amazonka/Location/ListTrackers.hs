@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Location.ListTrackers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Location.ListTrackers
     newListTrackers,
 
     -- * Request Lenses
-    listTrackers_nextToken,
     listTrackers_maxResults,
+    listTrackers_nextToken,
 
     -- * Destructuring the Response
     ListTrackersResponse (..),
@@ -44,7 +44,8 @@ module Amazonka.Location.ListTrackers
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,15 +53,15 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListTrackers' smart constructor.
 data ListTrackers = ListTrackers'
-  { -- | The pagination token specifying which page of results to return in the
+  { -- | An optional limit for the number of resources returned in a single call.
+    --
+    -- Default value: @100@
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token specifying which page of results to return in the
     -- response. If no token is provided, the default page is the first page.
     --
     -- Default value: @null@
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | An optional limit for the number of resources returned in a single call.
-    --
-    -- Default value: @100@
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -72,21 +73,27 @@ data ListTrackers = ListTrackers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listTrackers_maxResults' - An optional limit for the number of resources returned in a single call.
+--
+-- Default value: @100@
+--
 -- 'nextToken', 'listTrackers_nextToken' - The pagination token specifying which page of results to return in the
 -- response. If no token is provided, the default page is the first page.
 --
 -- Default value: @null@
---
--- 'maxResults', 'listTrackers_maxResults' - An optional limit for the number of resources returned in a single call.
---
--- Default value: @100@
 newListTrackers ::
   ListTrackers
 newListTrackers =
   ListTrackers'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | An optional limit for the number of resources returned in a single call.
+--
+-- Default value: @100@
+listTrackers_maxResults :: Lens.Lens' ListTrackers (Prelude.Maybe Prelude.Natural)
+listTrackers_maxResults = Lens.lens (\ListTrackers' {maxResults} -> maxResults) (\s@ListTrackers' {} a -> s {maxResults = a} :: ListTrackers)
 
 -- | The pagination token specifying which page of results to return in the
 -- response. If no token is provided, the default page is the first page.
@@ -94,12 +101,6 @@ newListTrackers =
 -- Default value: @null@
 listTrackers_nextToken :: Lens.Lens' ListTrackers (Prelude.Maybe Prelude.Text)
 listTrackers_nextToken = Lens.lens (\ListTrackers' {nextToken} -> nextToken) (\s@ListTrackers' {} a -> s {nextToken = a} :: ListTrackers)
-
--- | An optional limit for the number of resources returned in a single call.
---
--- Default value: @100@
-listTrackers_maxResults :: Lens.Lens' ListTrackers (Prelude.Maybe Prelude.Natural)
-listTrackers_maxResults = Lens.lens (\ListTrackers' {maxResults} -> maxResults) (\s@ListTrackers' {} a -> s {maxResults = a} :: ListTrackers)
 
 instance Core.AWSPager ListTrackers where
   page rq rs
@@ -119,50 +120,51 @@ instance Core.AWSPager ListTrackers where
 
 instance Core.AWSRequest ListTrackers where
   type AWSResponse ListTrackers = ListTrackersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTrackersResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Entries" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Entries" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListTrackers where
   hashWithSalt _salt ListTrackers' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListTrackers where
   rnf ListTrackers' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListTrackers where
+instance Data.ToHeaders ListTrackers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTrackers where
+instance Data.ToJSON ListTrackers where
   toJSON ListTrackers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListTrackers where
+instance Data.ToPath ListTrackers where
   toPath = Prelude.const "/tracking/v0/list-trackers"
 
-instance Core.ToQuery ListTrackers where
+instance Data.ToQuery ListTrackers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTrackersResponse' smart constructor.

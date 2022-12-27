@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECRPublic.CompleteLayerUpload
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,8 @@ module Amazonka.ECRPublic.CompleteLayerUpload
     newCompleteLayerUploadResponse,
 
     -- * Response Lenses
-    completeLayerUploadResponse_registryId,
     completeLayerUploadResponse_layerDigest,
+    completeLayerUploadResponse_registryId,
     completeLayerUploadResponse_repositoryName,
     completeLayerUploadResponse_uploadId,
     completeLayerUploadResponse_httpStatus,
@@ -56,8 +56,9 @@ module Amazonka.ECRPublic.CompleteLayerUpload
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECRPublic.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -141,15 +142,16 @@ instance Core.AWSRequest CompleteLayerUpload where
   type
     AWSResponse CompleteLayerUpload =
       CompleteLayerUploadResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CompleteLayerUploadResponse'
-            Prelude.<$> (x Core..?> "registryId")
-            Prelude.<*> (x Core..?> "layerDigest")
-            Prelude.<*> (x Core..?> "repositoryName")
-            Prelude.<*> (x Core..?> "uploadId")
+            Prelude.<$> (x Data..?> "layerDigest")
+            Prelude.<*> (x Data..?> "registryId")
+            Prelude.<*> (x Data..?> "repositoryName")
+            Prelude.<*> (x Data..?> "uploadId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -167,45 +169,45 @@ instance Prelude.NFData CompleteLayerUpload where
       `Prelude.seq` Prelude.rnf uploadId
       `Prelude.seq` Prelude.rnf layerDigests
 
-instance Core.ToHeaders CompleteLayerUpload where
+instance Data.ToHeaders CompleteLayerUpload where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SpencerFrontendService.CompleteLayerUpload" ::
+              Data.=# ( "SpencerFrontendService.CompleteLayerUpload" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CompleteLayerUpload where
+instance Data.ToJSON CompleteLayerUpload where
   toJSON CompleteLayerUpload' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("registryId" Core..=) Prelude.<$> registryId,
+          [ ("registryId" Data..=) Prelude.<$> registryId,
             Prelude.Just
-              ("repositoryName" Core..= repositoryName),
-            Prelude.Just ("uploadId" Core..= uploadId),
-            Prelude.Just ("layerDigests" Core..= layerDigests)
+              ("repositoryName" Data..= repositoryName),
+            Prelude.Just ("uploadId" Data..= uploadId),
+            Prelude.Just ("layerDigests" Data..= layerDigests)
           ]
       )
 
-instance Core.ToPath CompleteLayerUpload where
+instance Data.ToPath CompleteLayerUpload where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CompleteLayerUpload where
+instance Data.ToQuery CompleteLayerUpload where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCompleteLayerUploadResponse' smart constructor.
 data CompleteLayerUploadResponse = CompleteLayerUploadResponse'
-  { -- | The public registry ID associated with the request.
-    registryId :: Prelude.Maybe Prelude.Text,
-    -- | The @sha256@ digest of the image layer.
+  { -- | The @sha256@ digest of the image layer.
     layerDigest :: Prelude.Maybe Prelude.Text,
+    -- | The public registry ID associated with the request.
+    registryId :: Prelude.Maybe Prelude.Text,
     -- | The repository name associated with the request.
     repositoryName :: Prelude.Maybe Prelude.Text,
     -- | The upload ID associated with the layer.
@@ -223,9 +225,9 @@ data CompleteLayerUploadResponse = CompleteLayerUploadResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'registryId', 'completeLayerUploadResponse_registryId' - The public registry ID associated with the request.
---
 -- 'layerDigest', 'completeLayerUploadResponse_layerDigest' - The @sha256@ digest of the image layer.
+--
+-- 'registryId', 'completeLayerUploadResponse_registryId' - The public registry ID associated with the request.
 --
 -- 'repositoryName', 'completeLayerUploadResponse_repositoryName' - The repository name associated with the request.
 --
@@ -238,21 +240,21 @@ newCompleteLayerUploadResponse ::
   CompleteLayerUploadResponse
 newCompleteLayerUploadResponse pHttpStatus_ =
   CompleteLayerUploadResponse'
-    { registryId =
+    { layerDigest =
         Prelude.Nothing,
-      layerDigest = Prelude.Nothing,
+      registryId = Prelude.Nothing,
       repositoryName = Prelude.Nothing,
       uploadId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The public registry ID associated with the request.
-completeLayerUploadResponse_registryId :: Lens.Lens' CompleteLayerUploadResponse (Prelude.Maybe Prelude.Text)
-completeLayerUploadResponse_registryId = Lens.lens (\CompleteLayerUploadResponse' {registryId} -> registryId) (\s@CompleteLayerUploadResponse' {} a -> s {registryId = a} :: CompleteLayerUploadResponse)
-
 -- | The @sha256@ digest of the image layer.
 completeLayerUploadResponse_layerDigest :: Lens.Lens' CompleteLayerUploadResponse (Prelude.Maybe Prelude.Text)
 completeLayerUploadResponse_layerDigest = Lens.lens (\CompleteLayerUploadResponse' {layerDigest} -> layerDigest) (\s@CompleteLayerUploadResponse' {} a -> s {layerDigest = a} :: CompleteLayerUploadResponse)
+
+-- | The public registry ID associated with the request.
+completeLayerUploadResponse_registryId :: Lens.Lens' CompleteLayerUploadResponse (Prelude.Maybe Prelude.Text)
+completeLayerUploadResponse_registryId = Lens.lens (\CompleteLayerUploadResponse' {registryId} -> registryId) (\s@CompleteLayerUploadResponse' {} a -> s {registryId = a} :: CompleteLayerUploadResponse)
 
 -- | The repository name associated with the request.
 completeLayerUploadResponse_repositoryName :: Lens.Lens' CompleteLayerUploadResponse (Prelude.Maybe Prelude.Text)
@@ -268,8 +270,8 @@ completeLayerUploadResponse_httpStatus = Lens.lens (\CompleteLayerUploadResponse
 
 instance Prelude.NFData CompleteLayerUploadResponse where
   rnf CompleteLayerUploadResponse' {..} =
-    Prelude.rnf registryId
-      `Prelude.seq` Prelude.rnf layerDigest
+    Prelude.rnf layerDigest
+      `Prelude.seq` Prelude.rnf registryId
       `Prelude.seq` Prelude.rnf repositoryName
       `Prelude.seq` Prelude.rnf uploadId
       `Prelude.seq` Prelude.rnf httpStatus

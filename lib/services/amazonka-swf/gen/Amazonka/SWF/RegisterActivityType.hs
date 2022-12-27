@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.RegisterActivityType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -60,11 +60,11 @@ module Amazonka.SWF.RegisterActivityType
     newRegisterActivityType,
 
     -- * Request Lenses
-    registerActivityType_defaultTaskScheduleToStartTimeout,
+    registerActivityType_defaultTaskHeartbeatTimeout,
     registerActivityType_defaultTaskList,
     registerActivityType_defaultTaskPriority,
-    registerActivityType_defaultTaskHeartbeatTimeout,
     registerActivityType_defaultTaskScheduleToCloseTimeout,
+    registerActivityType_defaultTaskScheduleToStartTimeout,
     registerActivityType_defaultTaskStartToCloseTimeout,
     registerActivityType_description,
     registerActivityType_domain,
@@ -78,7 +78,8 @@ module Amazonka.SWF.RegisterActivityType
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,14 +87,19 @@ import Amazonka.SWF.Types
 
 -- | /See:/ 'newRegisterActivityType' smart constructor.
 data RegisterActivityType = RegisterActivityType'
-  { -- | If set, specifies the default maximum duration that a task of this
-    -- activity type can wait before being assigned to a worker. This default
-    -- can be overridden when scheduling an activity task using the
-    -- @ScheduleActivityTask@ Decision.
+  { -- | If set, specifies the default maximum time before which a worker
+    -- processing a task of this type must report progress by calling
+    -- RecordActivityTaskHeartbeat. If the timeout is exceeded, the activity
+    -- task is automatically timed out. This default can be overridden when
+    -- scheduling an activity task using the @ScheduleActivityTask@ Decision.
+    -- If the activity worker subsequently attempts to record a heartbeat or
+    -- returns a result, the activity worker receives an @UnknownResource@
+    -- fault. In this case, Amazon SWF no longer considers the activity task to
+    -- be valid; the activity worker should clean up the activity task.
     --
     -- The duration is specified in seconds, an integer greater than or equal
     -- to @0@. You can use @NONE@ to specify unlimited duration.
-    defaultTaskScheduleToStartTimeout :: Prelude.Maybe Prelude.Text,
+    defaultTaskHeartbeatTimeout :: Prelude.Maybe Prelude.Text,
     -- | If set, specifies the default task list to use for scheduling tasks of
     -- this activity type. This default task list is used if a task list isn\'t
     -- provided when a task is scheduled through the @ScheduleActivityTask@
@@ -108,19 +114,6 @@ data RegisterActivityType = RegisterActivityType'
     -- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority>
     -- in the /in the /Amazon SWF Developer Guide/./.
     defaultTaskPriority :: Prelude.Maybe Prelude.Text,
-    -- | If set, specifies the default maximum time before which a worker
-    -- processing a task of this type must report progress by calling
-    -- RecordActivityTaskHeartbeat. If the timeout is exceeded, the activity
-    -- task is automatically timed out. This default can be overridden when
-    -- scheduling an activity task using the @ScheduleActivityTask@ Decision.
-    -- If the activity worker subsequently attempts to record a heartbeat or
-    -- returns a result, the activity worker receives an @UnknownResource@
-    -- fault. In this case, Amazon SWF no longer considers the activity task to
-    -- be valid; the activity worker should clean up the activity task.
-    --
-    -- The duration is specified in seconds, an integer greater than or equal
-    -- to @0@. You can use @NONE@ to specify unlimited duration.
-    defaultTaskHeartbeatTimeout :: Prelude.Maybe Prelude.Text,
     -- | If set, specifies the default maximum duration for a task of this
     -- activity type. This default can be overridden when scheduling an
     -- activity task using the @ScheduleActivityTask@ Decision.
@@ -128,6 +121,14 @@ data RegisterActivityType = RegisterActivityType'
     -- The duration is specified in seconds, an integer greater than or equal
     -- to @0@. You can use @NONE@ to specify unlimited duration.
     defaultTaskScheduleToCloseTimeout :: Prelude.Maybe Prelude.Text,
+    -- | If set, specifies the default maximum duration that a task of this
+    -- activity type can wait before being assigned to a worker. This default
+    -- can be overridden when scheduling an activity task using the
+    -- @ScheduleActivityTask@ Decision.
+    --
+    -- The duration is specified in seconds, an integer greater than or equal
+    -- to @0@. You can use @NONE@ to specify unlimited duration.
+    defaultTaskScheduleToStartTimeout :: Prelude.Maybe Prelude.Text,
     -- | If set, specifies the default maximum duration that a worker can take to
     -- process tasks of this activity type. This default can be overridden when
     -- scheduling an activity task using the @ScheduleActivityTask@ Decision.
@@ -167,10 +168,15 @@ data RegisterActivityType = RegisterActivityType'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'defaultTaskScheduleToStartTimeout', 'registerActivityType_defaultTaskScheduleToStartTimeout' - If set, specifies the default maximum duration that a task of this
--- activity type can wait before being assigned to a worker. This default
--- can be overridden when scheduling an activity task using the
--- @ScheduleActivityTask@ Decision.
+-- 'defaultTaskHeartbeatTimeout', 'registerActivityType_defaultTaskHeartbeatTimeout' - If set, specifies the default maximum time before which a worker
+-- processing a task of this type must report progress by calling
+-- RecordActivityTaskHeartbeat. If the timeout is exceeded, the activity
+-- task is automatically timed out. This default can be overridden when
+-- scheduling an activity task using the @ScheduleActivityTask@ Decision.
+-- If the activity worker subsequently attempts to record a heartbeat or
+-- returns a result, the activity worker receives an @UnknownResource@
+-- fault. In this case, Amazon SWF no longer considers the activity task to
+-- be valid; the activity worker should clean up the activity task.
 --
 -- The duration is specified in seconds, an integer greater than or equal
 -- to @0@. You can use @NONE@ to specify unlimited duration.
@@ -189,22 +195,17 @@ data RegisterActivityType = RegisterActivityType'
 -- <https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html Setting Task Priority>
 -- in the /in the /Amazon SWF Developer Guide/./.
 --
--- 'defaultTaskHeartbeatTimeout', 'registerActivityType_defaultTaskHeartbeatTimeout' - If set, specifies the default maximum time before which a worker
--- processing a task of this type must report progress by calling
--- RecordActivityTaskHeartbeat. If the timeout is exceeded, the activity
--- task is automatically timed out. This default can be overridden when
--- scheduling an activity task using the @ScheduleActivityTask@ Decision.
--- If the activity worker subsequently attempts to record a heartbeat or
--- returns a result, the activity worker receives an @UnknownResource@
--- fault. In this case, Amazon SWF no longer considers the activity task to
--- be valid; the activity worker should clean up the activity task.
+-- 'defaultTaskScheduleToCloseTimeout', 'registerActivityType_defaultTaskScheduleToCloseTimeout' - If set, specifies the default maximum duration for a task of this
+-- activity type. This default can be overridden when scheduling an
+-- activity task using the @ScheduleActivityTask@ Decision.
 --
 -- The duration is specified in seconds, an integer greater than or equal
 -- to @0@. You can use @NONE@ to specify unlimited duration.
 --
--- 'defaultTaskScheduleToCloseTimeout', 'registerActivityType_defaultTaskScheduleToCloseTimeout' - If set, specifies the default maximum duration for a task of this
--- activity type. This default can be overridden when scheduling an
--- activity task using the @ScheduleActivityTask@ Decision.
+-- 'defaultTaskScheduleToStartTimeout', 'registerActivityType_defaultTaskScheduleToStartTimeout' - If set, specifies the default maximum duration that a task of this
+-- activity type can wait before being assigned to a worker. This default
+-- can be overridden when scheduling an activity task using the
+-- @ScheduleActivityTask@ Decision.
 --
 -- The duration is specified in seconds, an integer greater than or equal
 -- to @0@. You can use @NONE@ to specify unlimited duration.
@@ -246,12 +247,12 @@ newRegisterActivityType ::
   RegisterActivityType
 newRegisterActivityType pDomain_ pName_ pVersion_ =
   RegisterActivityType'
-    { defaultTaskScheduleToStartTimeout =
+    { defaultTaskHeartbeatTimeout =
         Prelude.Nothing,
       defaultTaskList = Prelude.Nothing,
       defaultTaskPriority = Prelude.Nothing,
-      defaultTaskHeartbeatTimeout = Prelude.Nothing,
       defaultTaskScheduleToCloseTimeout = Prelude.Nothing,
+      defaultTaskScheduleToStartTimeout = Prelude.Nothing,
       defaultTaskStartToCloseTimeout = Prelude.Nothing,
       description = Prelude.Nothing,
       domain = pDomain_,
@@ -259,15 +260,20 @@ newRegisterActivityType pDomain_ pName_ pVersion_ =
       version = pVersion_
     }
 
--- | If set, specifies the default maximum duration that a task of this
--- activity type can wait before being assigned to a worker. This default
--- can be overridden when scheduling an activity task using the
--- @ScheduleActivityTask@ Decision.
+-- | If set, specifies the default maximum time before which a worker
+-- processing a task of this type must report progress by calling
+-- RecordActivityTaskHeartbeat. If the timeout is exceeded, the activity
+-- task is automatically timed out. This default can be overridden when
+-- scheduling an activity task using the @ScheduleActivityTask@ Decision.
+-- If the activity worker subsequently attempts to record a heartbeat or
+-- returns a result, the activity worker receives an @UnknownResource@
+-- fault. In this case, Amazon SWF no longer considers the activity task to
+-- be valid; the activity worker should clean up the activity task.
 --
 -- The duration is specified in seconds, an integer greater than or equal
 -- to @0@. You can use @NONE@ to specify unlimited duration.
-registerActivityType_defaultTaskScheduleToStartTimeout :: Lens.Lens' RegisterActivityType (Prelude.Maybe Prelude.Text)
-registerActivityType_defaultTaskScheduleToStartTimeout = Lens.lens (\RegisterActivityType' {defaultTaskScheduleToStartTimeout} -> defaultTaskScheduleToStartTimeout) (\s@RegisterActivityType' {} a -> s {defaultTaskScheduleToStartTimeout = a} :: RegisterActivityType)
+registerActivityType_defaultTaskHeartbeatTimeout :: Lens.Lens' RegisterActivityType (Prelude.Maybe Prelude.Text)
+registerActivityType_defaultTaskHeartbeatTimeout = Lens.lens (\RegisterActivityType' {defaultTaskHeartbeatTimeout} -> defaultTaskHeartbeatTimeout) (\s@RegisterActivityType' {} a -> s {defaultTaskHeartbeatTimeout = a} :: RegisterActivityType)
 
 -- | If set, specifies the default task list to use for scheduling tasks of
 -- this activity type. This default task list is used if a task list isn\'t
@@ -287,21 +293,6 @@ registerActivityType_defaultTaskList = Lens.lens (\RegisterActivityType' {defaul
 registerActivityType_defaultTaskPriority :: Lens.Lens' RegisterActivityType (Prelude.Maybe Prelude.Text)
 registerActivityType_defaultTaskPriority = Lens.lens (\RegisterActivityType' {defaultTaskPriority} -> defaultTaskPriority) (\s@RegisterActivityType' {} a -> s {defaultTaskPriority = a} :: RegisterActivityType)
 
--- | If set, specifies the default maximum time before which a worker
--- processing a task of this type must report progress by calling
--- RecordActivityTaskHeartbeat. If the timeout is exceeded, the activity
--- task is automatically timed out. This default can be overridden when
--- scheduling an activity task using the @ScheduleActivityTask@ Decision.
--- If the activity worker subsequently attempts to record a heartbeat or
--- returns a result, the activity worker receives an @UnknownResource@
--- fault. In this case, Amazon SWF no longer considers the activity task to
--- be valid; the activity worker should clean up the activity task.
---
--- The duration is specified in seconds, an integer greater than or equal
--- to @0@. You can use @NONE@ to specify unlimited duration.
-registerActivityType_defaultTaskHeartbeatTimeout :: Lens.Lens' RegisterActivityType (Prelude.Maybe Prelude.Text)
-registerActivityType_defaultTaskHeartbeatTimeout = Lens.lens (\RegisterActivityType' {defaultTaskHeartbeatTimeout} -> defaultTaskHeartbeatTimeout) (\s@RegisterActivityType' {} a -> s {defaultTaskHeartbeatTimeout = a} :: RegisterActivityType)
-
 -- | If set, specifies the default maximum duration for a task of this
 -- activity type. This default can be overridden when scheduling an
 -- activity task using the @ScheduleActivityTask@ Decision.
@@ -310,6 +301,16 @@ registerActivityType_defaultTaskHeartbeatTimeout = Lens.lens (\RegisterActivityT
 -- to @0@. You can use @NONE@ to specify unlimited duration.
 registerActivityType_defaultTaskScheduleToCloseTimeout :: Lens.Lens' RegisterActivityType (Prelude.Maybe Prelude.Text)
 registerActivityType_defaultTaskScheduleToCloseTimeout = Lens.lens (\RegisterActivityType' {defaultTaskScheduleToCloseTimeout} -> defaultTaskScheduleToCloseTimeout) (\s@RegisterActivityType' {} a -> s {defaultTaskScheduleToCloseTimeout = a} :: RegisterActivityType)
+
+-- | If set, specifies the default maximum duration that a task of this
+-- activity type can wait before being assigned to a worker. This default
+-- can be overridden when scheduling an activity task using the
+-- @ScheduleActivityTask@ Decision.
+--
+-- The duration is specified in seconds, an integer greater than or equal
+-- to @0@. You can use @NONE@ to specify unlimited duration.
+registerActivityType_defaultTaskScheduleToStartTimeout :: Lens.Lens' RegisterActivityType (Prelude.Maybe Prelude.Text)
+registerActivityType_defaultTaskScheduleToStartTimeout = Lens.lens (\RegisterActivityType' {defaultTaskScheduleToStartTimeout} -> defaultTaskScheduleToStartTimeout) (\s@RegisterActivityType' {} a -> s {defaultTaskScheduleToStartTimeout = a} :: RegisterActivityType)
 
 -- | If set, specifies the default maximum duration that a worker can take to
 -- process tasks of this activity type. This default can be overridden when
@@ -353,18 +354,19 @@ instance Core.AWSRequest RegisterActivityType where
   type
     AWSResponse RegisterActivityType =
       RegisterActivityTypeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull RegisterActivityTypeResponse'
 
 instance Prelude.Hashable RegisterActivityType where
   hashWithSalt _salt RegisterActivityType' {..} =
     _salt
-      `Prelude.hashWithSalt` defaultTaskScheduleToStartTimeout
+      `Prelude.hashWithSalt` defaultTaskHeartbeatTimeout
       `Prelude.hashWithSalt` defaultTaskList
       `Prelude.hashWithSalt` defaultTaskPriority
-      `Prelude.hashWithSalt` defaultTaskHeartbeatTimeout
       `Prelude.hashWithSalt` defaultTaskScheduleToCloseTimeout
+      `Prelude.hashWithSalt` defaultTaskScheduleToStartTimeout
       `Prelude.hashWithSalt` defaultTaskStartToCloseTimeout
       `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` domain
@@ -373,59 +375,59 @@ instance Prelude.Hashable RegisterActivityType where
 
 instance Prelude.NFData RegisterActivityType where
   rnf RegisterActivityType' {..} =
-    Prelude.rnf defaultTaskScheduleToStartTimeout
+    Prelude.rnf defaultTaskHeartbeatTimeout
       `Prelude.seq` Prelude.rnf defaultTaskList
       `Prelude.seq` Prelude.rnf defaultTaskPriority
-      `Prelude.seq` Prelude.rnf defaultTaskHeartbeatTimeout
       `Prelude.seq` Prelude.rnf defaultTaskScheduleToCloseTimeout
+      `Prelude.seq` Prelude.rnf defaultTaskScheduleToStartTimeout
       `Prelude.seq` Prelude.rnf defaultTaskStartToCloseTimeout
       `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf domain
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf version
 
-instance Core.ToHeaders RegisterActivityType where
+instance Data.ToHeaders RegisterActivityType where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SimpleWorkflowService.RegisterActivityType" ::
+              Data.=# ( "SimpleWorkflowService.RegisterActivityType" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RegisterActivityType where
+instance Data.ToJSON RegisterActivityType where
   toJSON RegisterActivityType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("defaultTaskScheduleToStartTimeout" Core..=)
-              Prelude.<$> defaultTaskScheduleToStartTimeout,
-            ("defaultTaskList" Core..=)
-              Prelude.<$> defaultTaskList,
-            ("defaultTaskPriority" Core..=)
-              Prelude.<$> defaultTaskPriority,
-            ("defaultTaskHeartbeatTimeout" Core..=)
+          [ ("defaultTaskHeartbeatTimeout" Data..=)
               Prelude.<$> defaultTaskHeartbeatTimeout,
-            ("defaultTaskScheduleToCloseTimeout" Core..=)
+            ("defaultTaskList" Data..=)
+              Prelude.<$> defaultTaskList,
+            ("defaultTaskPriority" Data..=)
+              Prelude.<$> defaultTaskPriority,
+            ("defaultTaskScheduleToCloseTimeout" Data..=)
               Prelude.<$> defaultTaskScheduleToCloseTimeout,
-            ("defaultTaskStartToCloseTimeout" Core..=)
+            ("defaultTaskScheduleToStartTimeout" Data..=)
+              Prelude.<$> defaultTaskScheduleToStartTimeout,
+            ("defaultTaskStartToCloseTimeout" Data..=)
               Prelude.<$> defaultTaskStartToCloseTimeout,
-            ("description" Core..=) Prelude.<$> description,
-            Prelude.Just ("domain" Core..= domain),
-            Prelude.Just ("name" Core..= name),
-            Prelude.Just ("version" Core..= version)
+            ("description" Data..=) Prelude.<$> description,
+            Prelude.Just ("domain" Data..= domain),
+            Prelude.Just ("name" Data..= name),
+            Prelude.Just ("version" Data..= version)
           ]
       )
 
-instance Core.ToPath RegisterActivityType where
+instance Data.ToPath RegisterActivityType where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RegisterActivityType where
+instance Data.ToQuery RegisterActivityType where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRegisterActivityTypeResponse' smart constructor.

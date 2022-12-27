@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.DescribePortal
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,11 +34,11 @@ module Amazonka.IoTSiteWise.DescribePortal
     newDescribePortalResponse,
 
     -- * Response Lenses
+    describePortalResponse_alarms,
+    describePortalResponse_notificationSenderEmail,
     describePortalResponse_portalAuthMode,
     describePortalResponse_portalDescription,
-    describePortalResponse_notificationSenderEmail,
     describePortalResponse_portalLogoImageLocation,
-    describePortalResponse_alarms,
     describePortalResponse_roleArn,
     describePortalResponse_httpStatus,
     describePortalResponse_portalId,
@@ -54,8 +54,9 @@ module Amazonka.IoTSiteWise.DescribePortal
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,27 +92,28 @@ instance Core.AWSRequest DescribePortal where
   type
     AWSResponse DescribePortal =
       DescribePortalResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribePortalResponse'
-            Prelude.<$> (x Core..?> "portalAuthMode")
-            Prelude.<*> (x Core..?> "portalDescription")
-            Prelude.<*> (x Core..?> "notificationSenderEmail")
-            Prelude.<*> (x Core..?> "portalLogoImageLocation")
-            Prelude.<*> (x Core..?> "alarms")
-            Prelude.<*> (x Core..?> "roleArn")
+            Prelude.<$> (x Data..?> "alarms")
+            Prelude.<*> (x Data..?> "notificationSenderEmail")
+            Prelude.<*> (x Data..?> "portalAuthMode")
+            Prelude.<*> (x Data..?> "portalDescription")
+            Prelude.<*> (x Data..?> "portalLogoImageLocation")
+            Prelude.<*> (x Data..?> "roleArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "portalId")
-            Prelude.<*> (x Core..:> "portalArn")
-            Prelude.<*> (x Core..:> "portalName")
-            Prelude.<*> (x Core..:> "portalClientId")
-            Prelude.<*> (x Core..:> "portalStartUrl")
-            Prelude.<*> (x Core..:> "portalContactEmail")
-            Prelude.<*> (x Core..:> "portalStatus")
-            Prelude.<*> (x Core..:> "portalCreationDate")
-            Prelude.<*> (x Core..:> "portalLastUpdateDate")
+            Prelude.<*> (x Data..:> "portalId")
+            Prelude.<*> (x Data..:> "portalArn")
+            Prelude.<*> (x Data..:> "portalName")
+            Prelude.<*> (x Data..:> "portalClientId")
+            Prelude.<*> (x Data..:> "portalStartUrl")
+            Prelude.<*> (x Data..:> "portalContactEmail")
+            Prelude.<*> (x Data..:> "portalStatus")
+            Prelude.<*> (x Data..:> "portalCreationDate")
+            Prelude.<*> (x Data..:> "portalLastUpdateDate")
       )
 
 instance Prelude.Hashable DescribePortal where
@@ -121,37 +123,37 @@ instance Prelude.Hashable DescribePortal where
 instance Prelude.NFData DescribePortal where
   rnf DescribePortal' {..} = Prelude.rnf portalId
 
-instance Core.ToHeaders DescribePortal where
+instance Data.ToHeaders DescribePortal where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribePortal where
+instance Data.ToPath DescribePortal where
   toPath DescribePortal' {..} =
-    Prelude.mconcat ["/portals/", Core.toBS portalId]
+    Prelude.mconcat ["/portals/", Data.toBS portalId]
 
-instance Core.ToQuery DescribePortal where
+instance Data.ToQuery DescribePortal where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribePortalResponse' smart constructor.
 data DescribePortalResponse = DescribePortalResponse'
-  { -- | The service to use to authenticate users to the portal.
+  { -- | Contains the configuration information of an alarm created in an IoT
+    -- SiteWise Monitor portal.
+    alarms :: Prelude.Maybe Alarms,
+    -- | The email address that sends alarm notifications.
+    notificationSenderEmail :: Prelude.Maybe Prelude.Text,
+    -- | The service to use to authenticate users to the portal.
     portalAuthMode :: Prelude.Maybe AuthMode,
     -- | The portal\'s description.
     portalDescription :: Prelude.Maybe Prelude.Text,
-    -- | The email address that sends alarm notifications.
-    notificationSenderEmail :: Prelude.Maybe Prelude.Text,
     -- | The portal\'s logo image, which is available at a URL.
     portalLogoImageLocation :: Prelude.Maybe ImageLocation,
-    -- | Contains the configuration information of an alarm created in an IoT
-    -- SiteWise Monitor portal.
-    alarms :: Prelude.Maybe Alarms,
     -- | The
     -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
     -- of the service role that allows the portal\'s users to access your IoT
@@ -171,12 +173,12 @@ data DescribePortalResponse = DescribePortalResponse'
     portalArn :: Prelude.Text,
     -- | The name of the portal.
     portalName :: Prelude.Text,
-    -- | The Amazon Web Services SSO application generated client ID (used with
-    -- Amazon Web Services SSO APIs). IoT SiteWise includes @portalClientId@
-    -- for only portals that use Amazon Web Services SSO to authenticate users.
+    -- | The IAM Identity Center application generated client ID (used with IAM
+    -- Identity Center APIs). IoT SiteWise includes @portalClientId@ for only
+    -- portals that use IAM Identity Center to authenticate users.
     portalClientId :: Prelude.Text,
     -- | The URL for the IoT SiteWise Monitor portal. You can use this URL to
-    -- access portals that use Amazon Web Services SSO for authentication. For
+    -- access portals that use IAM Identity Center for authentication. For
     -- portals that use IAM for authentication, you must use the IoT SiteWise
     -- console to get a URL that you can use to access the portal.
     portalStartUrl :: Prelude.Text,
@@ -186,9 +188,9 @@ data DescribePortalResponse = DescribePortalResponse'
     -- message.
     portalStatus :: PortalStatus,
     -- | The date the portal was created, in Unix epoch time.
-    portalCreationDate :: Core.POSIX,
+    portalCreationDate :: Data.POSIX,
     -- | The date the portal was last updated, in Unix epoch time.
-    portalLastUpdateDate :: Core.POSIX
+    portalLastUpdateDate :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -200,16 +202,16 @@ data DescribePortalResponse = DescribePortalResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'alarms', 'describePortalResponse_alarms' - Contains the configuration information of an alarm created in an IoT
+-- SiteWise Monitor portal.
+--
+-- 'notificationSenderEmail', 'describePortalResponse_notificationSenderEmail' - The email address that sends alarm notifications.
+--
 -- 'portalAuthMode', 'describePortalResponse_portalAuthMode' - The service to use to authenticate users to the portal.
 --
 -- 'portalDescription', 'describePortalResponse_portalDescription' - The portal\'s description.
 --
--- 'notificationSenderEmail', 'describePortalResponse_notificationSenderEmail' - The email address that sends alarm notifications.
---
 -- 'portalLogoImageLocation', 'describePortalResponse_portalLogoImageLocation' - The portal\'s logo image, which is available at a URL.
---
--- 'alarms', 'describePortalResponse_alarms' - Contains the configuration information of an alarm created in an IoT
--- SiteWise Monitor portal.
 --
 -- 'roleArn', 'describePortalResponse_roleArn' - The
 -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
@@ -230,12 +232,12 @@ data DescribePortalResponse = DescribePortalResponse'
 --
 -- 'portalName', 'describePortalResponse_portalName' - The name of the portal.
 --
--- 'portalClientId', 'describePortalResponse_portalClientId' - The Amazon Web Services SSO application generated client ID (used with
--- Amazon Web Services SSO APIs). IoT SiteWise includes @portalClientId@
--- for only portals that use Amazon Web Services SSO to authenticate users.
+-- 'portalClientId', 'describePortalResponse_portalClientId' - The IAM Identity Center application generated client ID (used with IAM
+-- Identity Center APIs). IoT SiteWise includes @portalClientId@ for only
+-- portals that use IAM Identity Center to authenticate users.
 --
 -- 'portalStartUrl', 'describePortalResponse_portalStartUrl' - The URL for the IoT SiteWise Monitor portal. You can use this URL to
--- access portals that use Amazon Web Services SSO for authentication. For
+-- access portals that use IAM Identity Center for authentication. For
 -- portals that use IAM for authentication, you must use the IoT SiteWise
 -- console to get a URL that you can use to access the portal.
 --
@@ -281,12 +283,11 @@ newDescribePortalResponse
   pPortalCreationDate_
   pPortalLastUpdateDate_ =
     DescribePortalResponse'
-      { portalAuthMode =
-          Prelude.Nothing,
-        portalDescription = Prelude.Nothing,
+      { alarms = Prelude.Nothing,
         notificationSenderEmail = Prelude.Nothing,
+        portalAuthMode = Prelude.Nothing,
+        portalDescription = Prelude.Nothing,
         portalLogoImageLocation = Prelude.Nothing,
-        alarms = Prelude.Nothing,
         roleArn = Prelude.Nothing,
         httpStatus = pHttpStatus_,
         portalId = pPortalId_,
@@ -297,10 +298,19 @@ newDescribePortalResponse
         portalContactEmail = pPortalContactEmail_,
         portalStatus = pPortalStatus_,
         portalCreationDate =
-          Core._Time Lens.# pPortalCreationDate_,
+          Data._Time Lens.# pPortalCreationDate_,
         portalLastUpdateDate =
-          Core._Time Lens.# pPortalLastUpdateDate_
+          Data._Time Lens.# pPortalLastUpdateDate_
       }
+
+-- | Contains the configuration information of an alarm created in an IoT
+-- SiteWise Monitor portal.
+describePortalResponse_alarms :: Lens.Lens' DescribePortalResponse (Prelude.Maybe Alarms)
+describePortalResponse_alarms = Lens.lens (\DescribePortalResponse' {alarms} -> alarms) (\s@DescribePortalResponse' {} a -> s {alarms = a} :: DescribePortalResponse)
+
+-- | The email address that sends alarm notifications.
+describePortalResponse_notificationSenderEmail :: Lens.Lens' DescribePortalResponse (Prelude.Maybe Prelude.Text)
+describePortalResponse_notificationSenderEmail = Lens.lens (\DescribePortalResponse' {notificationSenderEmail} -> notificationSenderEmail) (\s@DescribePortalResponse' {} a -> s {notificationSenderEmail = a} :: DescribePortalResponse)
 
 -- | The service to use to authenticate users to the portal.
 describePortalResponse_portalAuthMode :: Lens.Lens' DescribePortalResponse (Prelude.Maybe AuthMode)
@@ -310,18 +320,9 @@ describePortalResponse_portalAuthMode = Lens.lens (\DescribePortalResponse' {por
 describePortalResponse_portalDescription :: Lens.Lens' DescribePortalResponse (Prelude.Maybe Prelude.Text)
 describePortalResponse_portalDescription = Lens.lens (\DescribePortalResponse' {portalDescription} -> portalDescription) (\s@DescribePortalResponse' {} a -> s {portalDescription = a} :: DescribePortalResponse)
 
--- | The email address that sends alarm notifications.
-describePortalResponse_notificationSenderEmail :: Lens.Lens' DescribePortalResponse (Prelude.Maybe Prelude.Text)
-describePortalResponse_notificationSenderEmail = Lens.lens (\DescribePortalResponse' {notificationSenderEmail} -> notificationSenderEmail) (\s@DescribePortalResponse' {} a -> s {notificationSenderEmail = a} :: DescribePortalResponse)
-
 -- | The portal\'s logo image, which is available at a URL.
 describePortalResponse_portalLogoImageLocation :: Lens.Lens' DescribePortalResponse (Prelude.Maybe ImageLocation)
 describePortalResponse_portalLogoImageLocation = Lens.lens (\DescribePortalResponse' {portalLogoImageLocation} -> portalLogoImageLocation) (\s@DescribePortalResponse' {} a -> s {portalLogoImageLocation = a} :: DescribePortalResponse)
-
--- | Contains the configuration information of an alarm created in an IoT
--- SiteWise Monitor portal.
-describePortalResponse_alarms :: Lens.Lens' DescribePortalResponse (Prelude.Maybe Alarms)
-describePortalResponse_alarms = Lens.lens (\DescribePortalResponse' {alarms} -> alarms) (\s@DescribePortalResponse' {} a -> s {alarms = a} :: DescribePortalResponse)
 
 -- | The
 -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
@@ -352,14 +353,14 @@ describePortalResponse_portalArn = Lens.lens (\DescribePortalResponse' {portalAr
 describePortalResponse_portalName :: Lens.Lens' DescribePortalResponse Prelude.Text
 describePortalResponse_portalName = Lens.lens (\DescribePortalResponse' {portalName} -> portalName) (\s@DescribePortalResponse' {} a -> s {portalName = a} :: DescribePortalResponse)
 
--- | The Amazon Web Services SSO application generated client ID (used with
--- Amazon Web Services SSO APIs). IoT SiteWise includes @portalClientId@
--- for only portals that use Amazon Web Services SSO to authenticate users.
+-- | The IAM Identity Center application generated client ID (used with IAM
+-- Identity Center APIs). IoT SiteWise includes @portalClientId@ for only
+-- portals that use IAM Identity Center to authenticate users.
 describePortalResponse_portalClientId :: Lens.Lens' DescribePortalResponse Prelude.Text
 describePortalResponse_portalClientId = Lens.lens (\DescribePortalResponse' {portalClientId} -> portalClientId) (\s@DescribePortalResponse' {} a -> s {portalClientId = a} :: DescribePortalResponse)
 
 -- | The URL for the IoT SiteWise Monitor portal. You can use this URL to
--- access portals that use Amazon Web Services SSO for authentication. For
+-- access portals that use IAM Identity Center for authentication. For
 -- portals that use IAM for authentication, you must use the IoT SiteWise
 -- console to get a URL that you can use to access the portal.
 describePortalResponse_portalStartUrl :: Lens.Lens' DescribePortalResponse Prelude.Text
@@ -376,19 +377,19 @@ describePortalResponse_portalStatus = Lens.lens (\DescribePortalResponse' {porta
 
 -- | The date the portal was created, in Unix epoch time.
 describePortalResponse_portalCreationDate :: Lens.Lens' DescribePortalResponse Prelude.UTCTime
-describePortalResponse_portalCreationDate = Lens.lens (\DescribePortalResponse' {portalCreationDate} -> portalCreationDate) (\s@DescribePortalResponse' {} a -> s {portalCreationDate = a} :: DescribePortalResponse) Prelude.. Core._Time
+describePortalResponse_portalCreationDate = Lens.lens (\DescribePortalResponse' {portalCreationDate} -> portalCreationDate) (\s@DescribePortalResponse' {} a -> s {portalCreationDate = a} :: DescribePortalResponse) Prelude.. Data._Time
 
 -- | The date the portal was last updated, in Unix epoch time.
 describePortalResponse_portalLastUpdateDate :: Lens.Lens' DescribePortalResponse Prelude.UTCTime
-describePortalResponse_portalLastUpdateDate = Lens.lens (\DescribePortalResponse' {portalLastUpdateDate} -> portalLastUpdateDate) (\s@DescribePortalResponse' {} a -> s {portalLastUpdateDate = a} :: DescribePortalResponse) Prelude.. Core._Time
+describePortalResponse_portalLastUpdateDate = Lens.lens (\DescribePortalResponse' {portalLastUpdateDate} -> portalLastUpdateDate) (\s@DescribePortalResponse' {} a -> s {portalLastUpdateDate = a} :: DescribePortalResponse) Prelude.. Data._Time
 
 instance Prelude.NFData DescribePortalResponse where
   rnf DescribePortalResponse' {..} =
-    Prelude.rnf portalAuthMode
-      `Prelude.seq` Prelude.rnf portalDescription
+    Prelude.rnf alarms
       `Prelude.seq` Prelude.rnf notificationSenderEmail
+      `Prelude.seq` Prelude.rnf portalAuthMode
+      `Prelude.seq` Prelude.rnf portalDescription
       `Prelude.seq` Prelude.rnf portalLogoImageLocation
-      `Prelude.seq` Prelude.rnf alarms
       `Prelude.seq` Prelude.rnf roleArn
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf portalId

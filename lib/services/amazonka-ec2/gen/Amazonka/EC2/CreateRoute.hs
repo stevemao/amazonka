@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.CreateRoute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,10 +22,9 @@
 --
 -- Creates a route in a route table within a VPC.
 --
--- You must specify one of the following targets: internet gateway or
--- virtual private gateway, NAT instance, NAT gateway, VPC peering
--- connection, network interface, egress-only internet gateway, or transit
--- gateway.
+-- You must specify either a destination CIDR block or a prefix list ID.
+-- You must also specify exactly one of the resources from the parameter
+-- list.
 --
 -- When determining how to route traffic, we use the route with the most
 -- specific match. For example, traffic is destined for the IPv4 address
@@ -49,20 +48,21 @@ module Amazonka.EC2.CreateRoute
     newCreateRoute,
 
     -- * Request Lenses
-    createRoute_vpcPeeringConnectionId,
-    createRoute_instanceId,
-    createRoute_egressOnlyInternetGatewayId,
+    createRoute_carrierGatewayId,
+    createRoute_coreNetworkArn,
+    createRoute_destinationCidrBlock,
     createRoute_destinationIpv6CidrBlock,
+    createRoute_destinationPrefixListId,
+    createRoute_dryRun,
+    createRoute_egressOnlyInternetGatewayId,
+    createRoute_gatewayId,
+    createRoute_instanceId,
     createRoute_localGatewayId,
     createRoute_natGatewayId,
     createRoute_networkInterfaceId,
     createRoute_transitGatewayId,
-    createRoute_gatewayId,
     createRoute_vpcEndpointId,
-    createRoute_destinationPrefixListId,
-    createRoute_dryRun,
-    createRoute_carrierGatewayId,
-    createRoute_destinationCidrBlock,
+    createRoute_vpcPeeringConnectionId,
     createRoute_routeTableId,
 
     -- * Destructuring the Response
@@ -76,24 +76,45 @@ module Amazonka.EC2.CreateRoute
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateRoute' smart constructor.
 data CreateRoute = CreateRoute'
-  { -- | The ID of a VPC peering connection.
-    vpcPeeringConnectionId :: Prelude.Maybe Prelude.Text,
-    -- | The ID of a NAT instance in your VPC. The operation fails if you specify
-    -- an instance ID unless exactly one network interface is attached.
-    instanceId :: Prelude.Maybe Prelude.Text,
-    -- | [IPv6 traffic only] The ID of an egress-only internet gateway.
-    egressOnlyInternetGatewayId :: Prelude.Maybe Prelude.Text,
+  { -- | The ID of the carrier gateway.
+    --
+    -- You can only use this option when the VPC contains a subnet which is
+    -- associated with a Wavelength Zone.
+    carrierGatewayId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the core network.
+    coreNetworkArn :: Prelude.Maybe Prelude.Text,
+    -- | The IPv4 CIDR address block used for the destination match. Routing
+    -- decisions are based on the most specific match. We modify the specified
+    -- CIDR block to its canonical form; for example, if you specify
+    -- @100.68.0.18\/18@, we modify it to @100.68.0.0\/18@.
+    destinationCidrBlock :: Prelude.Maybe Prelude.Text,
     -- | The IPv6 CIDR block used for the destination match. Routing decisions
     -- are based on the most specific match.
     destinationIpv6CidrBlock :: Prelude.Maybe Prelude.Text,
+    -- | The ID of a prefix list used for the destination match.
+    destinationPrefixListId :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | [IPv6 traffic only] The ID of an egress-only internet gateway.
+    egressOnlyInternetGatewayId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of an internet gateway or virtual private gateway attached to
+    -- your VPC.
+    gatewayId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of a NAT instance in your VPC. The operation fails if you specify
+    -- an instance ID unless exactly one network interface is attached.
+    instanceId :: Prelude.Maybe Prelude.Text,
     -- | The ID of the local gateway.
     localGatewayId :: Prelude.Maybe Prelude.Text,
     -- | [IPv4 traffic only] The ID of a NAT gateway.
@@ -102,29 +123,11 @@ data CreateRoute = CreateRoute'
     networkInterfaceId :: Prelude.Maybe Prelude.Text,
     -- | The ID of a transit gateway.
     transitGatewayId :: Prelude.Maybe Prelude.Text,
-    -- | The ID of an internet gateway or virtual private gateway attached to
-    -- your VPC.
-    gatewayId :: Prelude.Maybe Prelude.Text,
     -- | The ID of a VPC endpoint. Supported for Gateway Load Balancer endpoints
     -- only.
     vpcEndpointId :: Prelude.Maybe Prelude.Text,
-    -- | The ID of a prefix list used for the destination match.
-    destinationPrefixListId :: Prelude.Maybe Prelude.Text,
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
-    -- | The ID of the carrier gateway.
-    --
-    -- You can only use this option when the VPC contains a subnet which is
-    -- associated with a Wavelength Zone.
-    carrierGatewayId :: Prelude.Maybe Prelude.Text,
-    -- | The IPv4 CIDR address block used for the destination match. Routing
-    -- decisions are based on the most specific match. We modify the specified
-    -- CIDR block to its canonical form; for example, if you specify
-    -- @100.68.0.18\/18@, we modify it to @100.68.0.0\/18@.
-    destinationCidrBlock :: Prelude.Maybe Prelude.Text,
+    -- | The ID of a VPC peering connection.
+    vpcPeeringConnectionId :: Prelude.Maybe Prelude.Text,
     -- | The ID of the route table for the route.
     routeTableId :: Prelude.Text
   }
@@ -138,15 +141,35 @@ data CreateRoute = CreateRoute'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'vpcPeeringConnectionId', 'createRoute_vpcPeeringConnectionId' - The ID of a VPC peering connection.
+-- 'carrierGatewayId', 'createRoute_carrierGatewayId' - The ID of the carrier gateway.
 --
--- 'instanceId', 'createRoute_instanceId' - The ID of a NAT instance in your VPC. The operation fails if you specify
--- an instance ID unless exactly one network interface is attached.
+-- You can only use this option when the VPC contains a subnet which is
+-- associated with a Wavelength Zone.
 --
--- 'egressOnlyInternetGatewayId', 'createRoute_egressOnlyInternetGatewayId' - [IPv6 traffic only] The ID of an egress-only internet gateway.
+-- 'coreNetworkArn', 'createRoute_coreNetworkArn' - The Amazon Resource Name (ARN) of the core network.
+--
+-- 'destinationCidrBlock', 'createRoute_destinationCidrBlock' - The IPv4 CIDR address block used for the destination match. Routing
+-- decisions are based on the most specific match. We modify the specified
+-- CIDR block to its canonical form; for example, if you specify
+-- @100.68.0.18\/18@, we modify it to @100.68.0.0\/18@.
 --
 -- 'destinationIpv6CidrBlock', 'createRoute_destinationIpv6CidrBlock' - The IPv6 CIDR block used for the destination match. Routing decisions
 -- are based on the most specific match.
+--
+-- 'destinationPrefixListId', 'createRoute_destinationPrefixListId' - The ID of a prefix list used for the destination match.
+--
+-- 'dryRun', 'createRoute_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'egressOnlyInternetGatewayId', 'createRoute_egressOnlyInternetGatewayId' - [IPv6 traffic only] The ID of an egress-only internet gateway.
+--
+-- 'gatewayId', 'createRoute_gatewayId' - The ID of an internet gateway or virtual private gateway attached to
+-- your VPC.
+--
+-- 'instanceId', 'createRoute_instanceId' - The ID of a NAT instance in your VPC. The operation fails if you specify
+-- an instance ID unless exactly one network interface is attached.
 --
 -- 'localGatewayId', 'createRoute_localGatewayId' - The ID of the local gateway.
 --
@@ -156,28 +179,10 @@ data CreateRoute = CreateRoute'
 --
 -- 'transitGatewayId', 'createRoute_transitGatewayId' - The ID of a transit gateway.
 --
--- 'gatewayId', 'createRoute_gatewayId' - The ID of an internet gateway or virtual private gateway attached to
--- your VPC.
---
 -- 'vpcEndpointId', 'createRoute_vpcEndpointId' - The ID of a VPC endpoint. Supported for Gateway Load Balancer endpoints
 -- only.
 --
--- 'destinationPrefixListId', 'createRoute_destinationPrefixListId' - The ID of a prefix list used for the destination match.
---
--- 'dryRun', 'createRoute_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
---
--- 'carrierGatewayId', 'createRoute_carrierGatewayId' - The ID of the carrier gateway.
---
--- You can only use this option when the VPC contains a subnet which is
--- associated with a Wavelength Zone.
---
--- 'destinationCidrBlock', 'createRoute_destinationCidrBlock' - The IPv4 CIDR address block used for the destination match. Routing
--- decisions are based on the most specific match. We modify the specified
--- CIDR block to its canonical form; for example, if you specify
--- @100.68.0.18\/18@, we modify it to @100.68.0.0\/18@.
+-- 'vpcPeeringConnectionId', 'createRoute_vpcPeeringConnectionId' - The ID of a VPC peering connection.
 --
 -- 'routeTableId', 'createRoute_routeTableId' - The ID of the route table for the route.
 newCreateRoute ::
@@ -186,41 +191,71 @@ newCreateRoute ::
   CreateRoute
 newCreateRoute pRouteTableId_ =
   CreateRoute'
-    { vpcPeeringConnectionId =
-        Prelude.Nothing,
-      instanceId = Prelude.Nothing,
-      egressOnlyInternetGatewayId = Prelude.Nothing,
+    { carrierGatewayId = Prelude.Nothing,
+      coreNetworkArn = Prelude.Nothing,
+      destinationCidrBlock = Prelude.Nothing,
       destinationIpv6CidrBlock = Prelude.Nothing,
+      destinationPrefixListId = Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      egressOnlyInternetGatewayId = Prelude.Nothing,
+      gatewayId = Prelude.Nothing,
+      instanceId = Prelude.Nothing,
       localGatewayId = Prelude.Nothing,
       natGatewayId = Prelude.Nothing,
       networkInterfaceId = Prelude.Nothing,
       transitGatewayId = Prelude.Nothing,
-      gatewayId = Prelude.Nothing,
       vpcEndpointId = Prelude.Nothing,
-      destinationPrefixListId = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
-      carrierGatewayId = Prelude.Nothing,
-      destinationCidrBlock = Prelude.Nothing,
+      vpcPeeringConnectionId = Prelude.Nothing,
       routeTableId = pRouteTableId_
     }
 
--- | The ID of a VPC peering connection.
-createRoute_vpcPeeringConnectionId :: Lens.Lens' CreateRoute (Prelude.Maybe Prelude.Text)
-createRoute_vpcPeeringConnectionId = Lens.lens (\CreateRoute' {vpcPeeringConnectionId} -> vpcPeeringConnectionId) (\s@CreateRoute' {} a -> s {vpcPeeringConnectionId = a} :: CreateRoute)
+-- | The ID of the carrier gateway.
+--
+-- You can only use this option when the VPC contains a subnet which is
+-- associated with a Wavelength Zone.
+createRoute_carrierGatewayId :: Lens.Lens' CreateRoute (Prelude.Maybe Prelude.Text)
+createRoute_carrierGatewayId = Lens.lens (\CreateRoute' {carrierGatewayId} -> carrierGatewayId) (\s@CreateRoute' {} a -> s {carrierGatewayId = a} :: CreateRoute)
 
--- | The ID of a NAT instance in your VPC. The operation fails if you specify
--- an instance ID unless exactly one network interface is attached.
-createRoute_instanceId :: Lens.Lens' CreateRoute (Prelude.Maybe Prelude.Text)
-createRoute_instanceId = Lens.lens (\CreateRoute' {instanceId} -> instanceId) (\s@CreateRoute' {} a -> s {instanceId = a} :: CreateRoute)
+-- | The Amazon Resource Name (ARN) of the core network.
+createRoute_coreNetworkArn :: Lens.Lens' CreateRoute (Prelude.Maybe Prelude.Text)
+createRoute_coreNetworkArn = Lens.lens (\CreateRoute' {coreNetworkArn} -> coreNetworkArn) (\s@CreateRoute' {} a -> s {coreNetworkArn = a} :: CreateRoute)
 
--- | [IPv6 traffic only] The ID of an egress-only internet gateway.
-createRoute_egressOnlyInternetGatewayId :: Lens.Lens' CreateRoute (Prelude.Maybe Prelude.Text)
-createRoute_egressOnlyInternetGatewayId = Lens.lens (\CreateRoute' {egressOnlyInternetGatewayId} -> egressOnlyInternetGatewayId) (\s@CreateRoute' {} a -> s {egressOnlyInternetGatewayId = a} :: CreateRoute)
+-- | The IPv4 CIDR address block used for the destination match. Routing
+-- decisions are based on the most specific match. We modify the specified
+-- CIDR block to its canonical form; for example, if you specify
+-- @100.68.0.18\/18@, we modify it to @100.68.0.0\/18@.
+createRoute_destinationCidrBlock :: Lens.Lens' CreateRoute (Prelude.Maybe Prelude.Text)
+createRoute_destinationCidrBlock = Lens.lens (\CreateRoute' {destinationCidrBlock} -> destinationCidrBlock) (\s@CreateRoute' {} a -> s {destinationCidrBlock = a} :: CreateRoute)
 
 -- | The IPv6 CIDR block used for the destination match. Routing decisions
 -- are based on the most specific match.
 createRoute_destinationIpv6CidrBlock :: Lens.Lens' CreateRoute (Prelude.Maybe Prelude.Text)
 createRoute_destinationIpv6CidrBlock = Lens.lens (\CreateRoute' {destinationIpv6CidrBlock} -> destinationIpv6CidrBlock) (\s@CreateRoute' {} a -> s {destinationIpv6CidrBlock = a} :: CreateRoute)
+
+-- | The ID of a prefix list used for the destination match.
+createRoute_destinationPrefixListId :: Lens.Lens' CreateRoute (Prelude.Maybe Prelude.Text)
+createRoute_destinationPrefixListId = Lens.lens (\CreateRoute' {destinationPrefixListId} -> destinationPrefixListId) (\s@CreateRoute' {} a -> s {destinationPrefixListId = a} :: CreateRoute)
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+createRoute_dryRun :: Lens.Lens' CreateRoute (Prelude.Maybe Prelude.Bool)
+createRoute_dryRun = Lens.lens (\CreateRoute' {dryRun} -> dryRun) (\s@CreateRoute' {} a -> s {dryRun = a} :: CreateRoute)
+
+-- | [IPv6 traffic only] The ID of an egress-only internet gateway.
+createRoute_egressOnlyInternetGatewayId :: Lens.Lens' CreateRoute (Prelude.Maybe Prelude.Text)
+createRoute_egressOnlyInternetGatewayId = Lens.lens (\CreateRoute' {egressOnlyInternetGatewayId} -> egressOnlyInternetGatewayId) (\s@CreateRoute' {} a -> s {egressOnlyInternetGatewayId = a} :: CreateRoute)
+
+-- | The ID of an internet gateway or virtual private gateway attached to
+-- your VPC.
+createRoute_gatewayId :: Lens.Lens' CreateRoute (Prelude.Maybe Prelude.Text)
+createRoute_gatewayId = Lens.lens (\CreateRoute' {gatewayId} -> gatewayId) (\s@CreateRoute' {} a -> s {gatewayId = a} :: CreateRoute)
+
+-- | The ID of a NAT instance in your VPC. The operation fails if you specify
+-- an instance ID unless exactly one network interface is attached.
+createRoute_instanceId :: Lens.Lens' CreateRoute (Prelude.Maybe Prelude.Text)
+createRoute_instanceId = Lens.lens (\CreateRoute' {instanceId} -> instanceId) (\s@CreateRoute' {} a -> s {instanceId = a} :: CreateRoute)
 
 -- | The ID of the local gateway.
 createRoute_localGatewayId :: Lens.Lens' CreateRoute (Prelude.Maybe Prelude.Text)
@@ -238,40 +273,14 @@ createRoute_networkInterfaceId = Lens.lens (\CreateRoute' {networkInterfaceId} -
 createRoute_transitGatewayId :: Lens.Lens' CreateRoute (Prelude.Maybe Prelude.Text)
 createRoute_transitGatewayId = Lens.lens (\CreateRoute' {transitGatewayId} -> transitGatewayId) (\s@CreateRoute' {} a -> s {transitGatewayId = a} :: CreateRoute)
 
--- | The ID of an internet gateway or virtual private gateway attached to
--- your VPC.
-createRoute_gatewayId :: Lens.Lens' CreateRoute (Prelude.Maybe Prelude.Text)
-createRoute_gatewayId = Lens.lens (\CreateRoute' {gatewayId} -> gatewayId) (\s@CreateRoute' {} a -> s {gatewayId = a} :: CreateRoute)
-
 -- | The ID of a VPC endpoint. Supported for Gateway Load Balancer endpoints
 -- only.
 createRoute_vpcEndpointId :: Lens.Lens' CreateRoute (Prelude.Maybe Prelude.Text)
 createRoute_vpcEndpointId = Lens.lens (\CreateRoute' {vpcEndpointId} -> vpcEndpointId) (\s@CreateRoute' {} a -> s {vpcEndpointId = a} :: CreateRoute)
 
--- | The ID of a prefix list used for the destination match.
-createRoute_destinationPrefixListId :: Lens.Lens' CreateRoute (Prelude.Maybe Prelude.Text)
-createRoute_destinationPrefixListId = Lens.lens (\CreateRoute' {destinationPrefixListId} -> destinationPrefixListId) (\s@CreateRoute' {} a -> s {destinationPrefixListId = a} :: CreateRoute)
-
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-createRoute_dryRun :: Lens.Lens' CreateRoute (Prelude.Maybe Prelude.Bool)
-createRoute_dryRun = Lens.lens (\CreateRoute' {dryRun} -> dryRun) (\s@CreateRoute' {} a -> s {dryRun = a} :: CreateRoute)
-
--- | The ID of the carrier gateway.
---
--- You can only use this option when the VPC contains a subnet which is
--- associated with a Wavelength Zone.
-createRoute_carrierGatewayId :: Lens.Lens' CreateRoute (Prelude.Maybe Prelude.Text)
-createRoute_carrierGatewayId = Lens.lens (\CreateRoute' {carrierGatewayId} -> carrierGatewayId) (\s@CreateRoute' {} a -> s {carrierGatewayId = a} :: CreateRoute)
-
--- | The IPv4 CIDR address block used for the destination match. Routing
--- decisions are based on the most specific match. We modify the specified
--- CIDR block to its canonical form; for example, if you specify
--- @100.68.0.18\/18@, we modify it to @100.68.0.0\/18@.
-createRoute_destinationCidrBlock :: Lens.Lens' CreateRoute (Prelude.Maybe Prelude.Text)
-createRoute_destinationCidrBlock = Lens.lens (\CreateRoute' {destinationCidrBlock} -> destinationCidrBlock) (\s@CreateRoute' {} a -> s {destinationCidrBlock = a} :: CreateRoute)
+-- | The ID of a VPC peering connection.
+createRoute_vpcPeeringConnectionId :: Lens.Lens' CreateRoute (Prelude.Maybe Prelude.Text)
+createRoute_vpcPeeringConnectionId = Lens.lens (\CreateRoute' {vpcPeeringConnectionId} -> vpcPeeringConnectionId) (\s@CreateRoute' {} a -> s {vpcPeeringConnectionId = a} :: CreateRoute)
 
 -- | The ID of the route table for the route.
 createRoute_routeTableId :: Lens.Lens' CreateRoute Prelude.Text
@@ -279,83 +288,87 @@ createRoute_routeTableId = Lens.lens (\CreateRoute' {routeTableId} -> routeTable
 
 instance Core.AWSRequest CreateRoute where
   type AWSResponse CreateRoute = CreateRouteResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CreateRouteResponse'
-            Prelude.<$> (x Core..@? "return")
+            Prelude.<$> (x Data..@? "return")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateRoute where
   hashWithSalt _salt CreateRoute' {..} =
-    _salt `Prelude.hashWithSalt` vpcPeeringConnectionId
-      `Prelude.hashWithSalt` instanceId
-      `Prelude.hashWithSalt` egressOnlyInternetGatewayId
+    _salt `Prelude.hashWithSalt` carrierGatewayId
+      `Prelude.hashWithSalt` coreNetworkArn
+      `Prelude.hashWithSalt` destinationCidrBlock
       `Prelude.hashWithSalt` destinationIpv6CidrBlock
+      `Prelude.hashWithSalt` destinationPrefixListId
+      `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` egressOnlyInternetGatewayId
+      `Prelude.hashWithSalt` gatewayId
+      `Prelude.hashWithSalt` instanceId
       `Prelude.hashWithSalt` localGatewayId
       `Prelude.hashWithSalt` natGatewayId
       `Prelude.hashWithSalt` networkInterfaceId
       `Prelude.hashWithSalt` transitGatewayId
-      `Prelude.hashWithSalt` gatewayId
       `Prelude.hashWithSalt` vpcEndpointId
-      `Prelude.hashWithSalt` destinationPrefixListId
-      `Prelude.hashWithSalt` dryRun
-      `Prelude.hashWithSalt` carrierGatewayId
-      `Prelude.hashWithSalt` destinationCidrBlock
+      `Prelude.hashWithSalt` vpcPeeringConnectionId
       `Prelude.hashWithSalt` routeTableId
 
 instance Prelude.NFData CreateRoute where
   rnf CreateRoute' {..} =
-    Prelude.rnf vpcPeeringConnectionId
-      `Prelude.seq` Prelude.rnf instanceId
-      `Prelude.seq` Prelude.rnf egressOnlyInternetGatewayId
+    Prelude.rnf carrierGatewayId
+      `Prelude.seq` Prelude.rnf coreNetworkArn
+      `Prelude.seq` Prelude.rnf destinationCidrBlock
       `Prelude.seq` Prelude.rnf destinationIpv6CidrBlock
+      `Prelude.seq` Prelude.rnf destinationPrefixListId
+      `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf egressOnlyInternetGatewayId
+      `Prelude.seq` Prelude.rnf gatewayId
+      `Prelude.seq` Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf localGatewayId
       `Prelude.seq` Prelude.rnf natGatewayId
       `Prelude.seq` Prelude.rnf networkInterfaceId
       `Prelude.seq` Prelude.rnf transitGatewayId
-      `Prelude.seq` Prelude.rnf gatewayId
       `Prelude.seq` Prelude.rnf vpcEndpointId
-      `Prelude.seq` Prelude.rnf destinationPrefixListId
-      `Prelude.seq` Prelude.rnf dryRun
-      `Prelude.seq` Prelude.rnf carrierGatewayId
-      `Prelude.seq` Prelude.rnf destinationCidrBlock
+      `Prelude.seq` Prelude.rnf vpcPeeringConnectionId
       `Prelude.seq` Prelude.rnf routeTableId
 
-instance Core.ToHeaders CreateRoute where
+instance Data.ToHeaders CreateRoute where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateRoute where
+instance Data.ToPath CreateRoute where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateRoute where
+instance Data.ToQuery CreateRoute where
   toQuery CreateRoute' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateRoute" :: Prelude.ByteString),
+          Data.=: ("CreateRoute" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "VpcPeeringConnectionId"
-          Core.=: vpcPeeringConnectionId,
-        "InstanceId" Core.=: instanceId,
-        "EgressOnlyInternetGatewayId"
-          Core.=: egressOnlyInternetGatewayId,
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "CarrierGatewayId" Data.=: carrierGatewayId,
+        "CoreNetworkArn" Data.=: coreNetworkArn,
+        "DestinationCidrBlock" Data.=: destinationCidrBlock,
         "DestinationIpv6CidrBlock"
-          Core.=: destinationIpv6CidrBlock,
-        "LocalGatewayId" Core.=: localGatewayId,
-        "NatGatewayId" Core.=: natGatewayId,
-        "NetworkInterfaceId" Core.=: networkInterfaceId,
-        "TransitGatewayId" Core.=: transitGatewayId,
-        "GatewayId" Core.=: gatewayId,
-        "VpcEndpointId" Core.=: vpcEndpointId,
+          Data.=: destinationIpv6CidrBlock,
         "DestinationPrefixListId"
-          Core.=: destinationPrefixListId,
-        "DryRun" Core.=: dryRun,
-        "CarrierGatewayId" Core.=: carrierGatewayId,
-        "DestinationCidrBlock" Core.=: destinationCidrBlock,
-        "RouteTableId" Core.=: routeTableId
+          Data.=: destinationPrefixListId,
+        "DryRun" Data.=: dryRun,
+        "EgressOnlyInternetGatewayId"
+          Data.=: egressOnlyInternetGatewayId,
+        "GatewayId" Data.=: gatewayId,
+        "InstanceId" Data.=: instanceId,
+        "LocalGatewayId" Data.=: localGatewayId,
+        "NatGatewayId" Data.=: natGatewayId,
+        "NetworkInterfaceId" Data.=: networkInterfaceId,
+        "TransitGatewayId" Data.=: transitGatewayId,
+        "VpcEndpointId" Data.=: vpcEndpointId,
+        "VpcPeeringConnectionId"
+          Data.=: vpcPeeringConnectionId,
+        "RouteTableId" Data.=: routeTableId
       ]
 
 -- | /See:/ 'newCreateRouteResponse' smart constructor.

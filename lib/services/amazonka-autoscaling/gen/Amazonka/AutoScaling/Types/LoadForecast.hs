@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.Types.LoadForecast
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AutoScaling.Types.LoadForecast where
 
 import Amazonka.AutoScaling.Types.PredictiveScalingMetricSpecification
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A @GetPredictiveScalingForecast@ call returns the load forecast for a
@@ -31,8 +32,8 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newLoadForecast' smart constructor.
 data LoadForecast = LoadForecast'
-  { -- | The time stamps for the data points, in UTC format.
-    timestamps :: [Core.ISO8601],
+  { -- | The timestamps for the data points, in UTC format.
+    timestamps :: [Data.ISO8601],
     -- | The values of the data points.
     values :: [Prelude.Double],
     -- | The metric specification for the load forecast.
@@ -48,7 +49,7 @@ data LoadForecast = LoadForecast'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'timestamps', 'loadForecast_timestamps' - The time stamps for the data points, in UTC format.
+-- 'timestamps', 'loadForecast_timestamps' - The timestamps for the data points, in UTC format.
 --
 -- 'values', 'loadForecast_values' - The values of the data points.
 --
@@ -64,7 +65,7 @@ newLoadForecast pMetricSpecification_ =
       metricSpecification = pMetricSpecification_
     }
 
--- | The time stamps for the data points, in UTC format.
+-- | The timestamps for the data points, in UTC format.
 loadForecast_timestamps :: Lens.Lens' LoadForecast [Prelude.UTCTime]
 loadForecast_timestamps = Lens.lens (\LoadForecast' {timestamps} -> timestamps) (\s@LoadForecast' {} a -> s {timestamps = a} :: LoadForecast) Prelude.. Lens.coerced
 
@@ -76,16 +77,16 @@ loadForecast_values = Lens.lens (\LoadForecast' {values} -> values) (\s@LoadFore
 loadForecast_metricSpecification :: Lens.Lens' LoadForecast PredictiveScalingMetricSpecification
 loadForecast_metricSpecification = Lens.lens (\LoadForecast' {metricSpecification} -> metricSpecification) (\s@LoadForecast' {} a -> s {metricSpecification = a} :: LoadForecast)
 
-instance Core.FromXML LoadForecast where
+instance Data.FromXML LoadForecast where
   parseXML x =
     LoadForecast'
-      Prelude.<$> ( x Core..@? "Timestamps" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.parseXMLList "member"
+      Prelude.<$> ( x Data..@? "Timestamps" Core..!@ Prelude.mempty
+                      Prelude.>>= Data.parseXMLList "member"
                   )
-      Prelude.<*> ( x Core..@? "Values" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.parseXMLList "member"
+      Prelude.<*> ( x Data..@? "Values" Core..!@ Prelude.mempty
+                      Prelude.>>= Data.parseXMLList "member"
                   )
-      Prelude.<*> (x Core..@ "MetricSpecification")
+      Prelude.<*> (x Data..@ "MetricSpecification")
 
 instance Prelude.Hashable LoadForecast where
   hashWithSalt _salt LoadForecast' {..} =

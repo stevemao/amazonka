@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.ListPipelines
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,23 +29,24 @@ module Amazonka.CodePipeline.ListPipelines
     newListPipelines,
 
     -- * Request Lenses
-    listPipelines_nextToken,
     listPipelines_maxResults,
+    listPipelines_nextToken,
 
     -- * Destructuring the Response
     ListPipelinesResponse (..),
     newListPipelinesResponse,
 
     -- * Response Lenses
-    listPipelinesResponse_pipelines,
     listPipelinesResponse_nextToken,
+    listPipelinesResponse_pipelines,
     listPipelinesResponse_httpStatus,
   )
 where
 
 import Amazonka.CodePipeline.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,14 +55,14 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListPipelines' smart constructor.
 data ListPipelines = ListPipelines'
-  { -- | An identifier that was returned from the previous list pipelines call.
-    -- It can be used to return the next set of pipelines in the list.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of pipelines to return in a single call. To retrieve
+  { -- | The maximum number of pipelines to return in a single call. To retrieve
     -- the remaining pipelines, make another call with the returned nextToken
     -- value. The minimum value you can specify is 1. The maximum accepted
     -- value is 1000.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | An identifier that was returned from the previous list pipelines call.
+    -- It can be used to return the next set of pipelines in the list.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,25 +74,20 @@ data ListPipelines = ListPipelines'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listPipelines_nextToken' - An identifier that was returned from the previous list pipelines call.
--- It can be used to return the next set of pipelines in the list.
---
 -- 'maxResults', 'listPipelines_maxResults' - The maximum number of pipelines to return in a single call. To retrieve
 -- the remaining pipelines, make another call with the returned nextToken
 -- value. The minimum value you can specify is 1. The maximum accepted
 -- value is 1000.
+--
+-- 'nextToken', 'listPipelines_nextToken' - An identifier that was returned from the previous list pipelines call.
+-- It can be used to return the next set of pipelines in the list.
 newListPipelines ::
   ListPipelines
 newListPipelines =
   ListPipelines'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | An identifier that was returned from the previous list pipelines call.
--- It can be used to return the next set of pipelines in the list.
-listPipelines_nextToken :: Lens.Lens' ListPipelines (Prelude.Maybe Prelude.Text)
-listPipelines_nextToken = Lens.lens (\ListPipelines' {nextToken} -> nextToken) (\s@ListPipelines' {} a -> s {nextToken = a} :: ListPipelines)
 
 -- | The maximum number of pipelines to return in a single call. To retrieve
 -- the remaining pipelines, make another call with the returned nextToken
@@ -99,6 +95,11 @@ listPipelines_nextToken = Lens.lens (\ListPipelines' {nextToken} -> nextToken) (
 -- value is 1000.
 listPipelines_maxResults :: Lens.Lens' ListPipelines (Prelude.Maybe Prelude.Natural)
 listPipelines_maxResults = Lens.lens (\ListPipelines' {maxResults} -> maxResults) (\s@ListPipelines' {} a -> s {maxResults = a} :: ListPipelines)
+
+-- | An identifier that was returned from the previous list pipelines call.
+-- It can be used to return the next set of pipelines in the list.
+listPipelines_nextToken :: Lens.Lens' ListPipelines (Prelude.Maybe Prelude.Text)
+listPipelines_nextToken = Lens.lens (\ListPipelines' {nextToken} -> nextToken) (\s@ListPipelines' {} a -> s {nextToken = a} :: ListPipelines)
 
 instance Core.AWSPager ListPipelines where
   page rq rs
@@ -123,66 +124,67 @@ instance Core.AWSRequest ListPipelines where
   type
     AWSResponse ListPipelines =
       ListPipelinesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPipelinesResponse'
-            Prelude.<$> (x Core..?> "pipelines" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "pipelines" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListPipelines where
   hashWithSalt _salt ListPipelines' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListPipelines where
   rnf ListPipelines' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListPipelines where
+instance Data.ToHeaders ListPipelines where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodePipeline_20150709.ListPipelines" ::
+              Data.=# ( "CodePipeline_20150709.ListPipelines" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListPipelines where
+instance Data.ToJSON ListPipelines where
   toJSON ListPipelines' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListPipelines where
+instance Data.ToPath ListPipelines where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListPipelines where
+instance Data.ToQuery ListPipelines where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @ListPipelines@ action.
 --
 -- /See:/ 'newListPipelinesResponse' smart constructor.
 data ListPipelinesResponse = ListPipelinesResponse'
-  { -- | The list of pipelines.
-    pipelines :: Prelude.Maybe [PipelineSummary],
-    -- | If the amount of returned information is significantly large, an
+  { -- | If the amount of returned information is significantly large, an
     -- identifier is also returned. It can be used in a subsequent list
     -- pipelines call to return the next set of pipelines in the list.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of pipelines.
+    pipelines :: Prelude.Maybe [PipelineSummary],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -196,11 +198,11 @@ data ListPipelinesResponse = ListPipelinesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'pipelines', 'listPipelinesResponse_pipelines' - The list of pipelines.
---
 -- 'nextToken', 'listPipelinesResponse_nextToken' - If the amount of returned information is significantly large, an
 -- identifier is also returned. It can be used in a subsequent list
 -- pipelines call to return the next set of pipelines in the list.
+--
+-- 'pipelines', 'listPipelinesResponse_pipelines' - The list of pipelines.
 --
 -- 'httpStatus', 'listPipelinesResponse_httpStatus' - The response's http status code.
 newListPipelinesResponse ::
@@ -209,14 +211,10 @@ newListPipelinesResponse ::
   ListPipelinesResponse
 newListPipelinesResponse pHttpStatus_ =
   ListPipelinesResponse'
-    { pipelines = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { nextToken = Prelude.Nothing,
+      pipelines = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The list of pipelines.
-listPipelinesResponse_pipelines :: Lens.Lens' ListPipelinesResponse (Prelude.Maybe [PipelineSummary])
-listPipelinesResponse_pipelines = Lens.lens (\ListPipelinesResponse' {pipelines} -> pipelines) (\s@ListPipelinesResponse' {} a -> s {pipelines = a} :: ListPipelinesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | If the amount of returned information is significantly large, an
 -- identifier is also returned. It can be used in a subsequent list
@@ -224,12 +222,16 @@ listPipelinesResponse_pipelines = Lens.lens (\ListPipelinesResponse' {pipelines}
 listPipelinesResponse_nextToken :: Lens.Lens' ListPipelinesResponse (Prelude.Maybe Prelude.Text)
 listPipelinesResponse_nextToken = Lens.lens (\ListPipelinesResponse' {nextToken} -> nextToken) (\s@ListPipelinesResponse' {} a -> s {nextToken = a} :: ListPipelinesResponse)
 
+-- | The list of pipelines.
+listPipelinesResponse_pipelines :: Lens.Lens' ListPipelinesResponse (Prelude.Maybe [PipelineSummary])
+listPipelinesResponse_pipelines = Lens.lens (\ListPipelinesResponse' {pipelines} -> pipelines) (\s@ListPipelinesResponse' {} a -> s {pipelines = a} :: ListPipelinesResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The response's http status code.
 listPipelinesResponse_httpStatus :: Lens.Lens' ListPipelinesResponse Prelude.Int
 listPipelinesResponse_httpStatus = Lens.lens (\ListPipelinesResponse' {httpStatus} -> httpStatus) (\s@ListPipelinesResponse' {} a -> s {httpStatus = a} :: ListPipelinesResponse)
 
 instance Prelude.NFData ListPipelinesResponse where
   rnf ListPipelinesResponse' {..} =
-    Prelude.rnf pipelines
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf pipelines
       `Prelude.seq` Prelude.rnf httpStatus

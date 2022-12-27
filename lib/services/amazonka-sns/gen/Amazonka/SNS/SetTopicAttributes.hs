@@ -14,13 +14,17 @@
 
 -- |
 -- Module      : Amazonka.SNS.SetTopicAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Allows a topic owner to set an attribute of the topic to a new value.
+--
+-- To remove the ability to change topic permissions, you must deny
+-- permissions to the @AddPermission@, @RemovePermission@, and
+-- @SetTopicAttributes@ actions in your IAM policy.
 module Amazonka.SNS.SetTopicAttributes
   ( -- * Creating a Request
     SetTopicAttributes (..),
@@ -38,7 +42,8 @@ module Amazonka.SNS.SetTopicAttributes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,6 +71,13 @@ data SetTopicAttributes = SetTopicAttributes'
     -- -   @Policy@ – The policy that defines who can access your topic. By
     --     default, only the topic owner can publish or subscribe to the topic.
     --
+    -- -   @TracingConfig@ – Tracing mode of an Amazon SNS topic. By default
+    --     @TracingConfig@ is set to @PassThrough@, and the topic passes
+    --     through the tracing header it receives from an Amazon SNS publisher
+    --     to its subscriptions. If set to Active, Amazon SNS will vend X-Ray
+    --     segment data to topic owner account if the sampled flag in the
+    --     tracing header is true. This is only supported on standard topics.
+    --
     -- The following attribute applies only to
     -- <https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html server-side-encryption>:
     --
@@ -76,6 +88,11 @@ data SetTopicAttributes = SetTopicAttributes'
     --     For more examples, see
     --     <https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters KeyId>
     --     in the /Key Management Service API Reference/.
+    --
+    -- -   @SignatureVersion@ – The signature version corresponds to the
+    --     hashing algorithm used while creating the signature of the
+    --     notifications, subscription confirmations, or unsubscribe
+    --     confirmation messages sent by Amazon SNS.
     --
     -- The following attribute applies only to
     -- <https://docs.aws.amazon.com/sns/latest/dg/sns-fifo-topics.html FIFO topics>:
@@ -128,6 +145,13 @@ data SetTopicAttributes = SetTopicAttributes'
 -- -   @Policy@ – The policy that defines who can access your topic. By
 --     default, only the topic owner can publish or subscribe to the topic.
 --
+-- -   @TracingConfig@ – Tracing mode of an Amazon SNS topic. By default
+--     @TracingConfig@ is set to @PassThrough@, and the topic passes
+--     through the tracing header it receives from an Amazon SNS publisher
+--     to its subscriptions. If set to Active, Amazon SNS will vend X-Ray
+--     segment data to topic owner account if the sampled flag in the
+--     tracing header is true. This is only supported on standard topics.
+--
 -- The following attribute applies only to
 -- <https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html server-side-encryption>:
 --
@@ -138,6 +162,11 @@ data SetTopicAttributes = SetTopicAttributes'
 --     For more examples, see
 --     <https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters KeyId>
 --     in the /Key Management Service API Reference/.
+--
+-- -   @SignatureVersion@ – The signature version corresponds to the
+--     hashing algorithm used while creating the signature of the
+--     notifications, subscription confirmations, or unsubscribe
+--     confirmation messages sent by Amazon SNS.
 --
 -- The following attribute applies only to
 -- <https://docs.aws.amazon.com/sns/latest/dg/sns-fifo-topics.html FIFO topics>:
@@ -196,6 +225,13 @@ setTopicAttributes_topicArn = Lens.lens (\SetTopicAttributes' {topicArn} -> topi
 -- -   @Policy@ – The policy that defines who can access your topic. By
 --     default, only the topic owner can publish or subscribe to the topic.
 --
+-- -   @TracingConfig@ – Tracing mode of an Amazon SNS topic. By default
+--     @TracingConfig@ is set to @PassThrough@, and the topic passes
+--     through the tracing header it receives from an Amazon SNS publisher
+--     to its subscriptions. If set to Active, Amazon SNS will vend X-Ray
+--     segment data to topic owner account if the sampled flag in the
+--     tracing header is true. This is only supported on standard topics.
+--
 -- The following attribute applies only to
 -- <https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html server-side-encryption>:
 --
@@ -206,6 +242,11 @@ setTopicAttributes_topicArn = Lens.lens (\SetTopicAttributes' {topicArn} -> topi
 --     For more examples, see
 --     <https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters KeyId>
 --     in the /Key Management Service API Reference/.
+--
+-- -   @SignatureVersion@ – The signature version corresponds to the
+--     hashing algorithm used while creating the signature of the
+--     notifications, subscription confirmations, or unsubscribe
+--     confirmation messages sent by Amazon SNS.
 --
 -- The following attribute applies only to
 -- <https://docs.aws.amazon.com/sns/latest/dg/sns-fifo-topics.html FIFO topics>:
@@ -235,7 +276,8 @@ instance Core.AWSRequest SetTopicAttributes where
   type
     AWSResponse SetTopicAttributes =
       SetTopicAttributesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull SetTopicAttributesResponse'
 
@@ -251,22 +293,22 @@ instance Prelude.NFData SetTopicAttributes where
       `Prelude.seq` Prelude.rnf topicArn
       `Prelude.seq` Prelude.rnf attributeName
 
-instance Core.ToHeaders SetTopicAttributes where
+instance Data.ToHeaders SetTopicAttributes where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath SetTopicAttributes where
+instance Data.ToPath SetTopicAttributes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SetTopicAttributes where
+instance Data.ToQuery SetTopicAttributes where
   toQuery SetTopicAttributes' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("SetTopicAttributes" :: Prelude.ByteString),
+          Data.=: ("SetTopicAttributes" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-03-31" :: Prelude.ByteString),
-        "AttributeValue" Core.=: attributeValue,
-        "TopicArn" Core.=: topicArn,
-        "AttributeName" Core.=: attributeName
+          Data.=: ("2010-03-31" :: Prelude.ByteString),
+        "AttributeValue" Data.=: attributeValue,
+        "TopicArn" Data.=: topicArn,
+        "AttributeName" Data.=: attributeName
       ]
 
 -- | /See:/ 'newSetTopicAttributesResponse' smart constructor.

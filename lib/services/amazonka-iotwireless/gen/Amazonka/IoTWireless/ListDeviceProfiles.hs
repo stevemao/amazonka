@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.ListDeviceProfiles
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.IoTWireless.ListDeviceProfiles
     newListDeviceProfiles,
 
     -- * Request Lenses
-    listDeviceProfiles_nextToken,
     listDeviceProfiles_maxResults,
+    listDeviceProfiles_nextToken,
 
     -- * Destructuring the Response
     ListDeviceProfilesResponse (..),
@@ -42,20 +42,21 @@ module Amazonka.IoTWireless.ListDeviceProfiles
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListDeviceProfiles' smart constructor.
 data ListDeviceProfiles = ListDeviceProfiles'
-  { -- | To retrieve the next set of results, the @nextToken@ value from a
+  { -- | The maximum number of results to return in this operation.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | To retrieve the next set of results, the @nextToken@ value from a
     -- previous response; otherwise __null__ to receive the first set of
     -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in this operation.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,18 +68,22 @@ data ListDeviceProfiles = ListDeviceProfiles'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listDeviceProfiles_maxResults' - The maximum number of results to return in this operation.
+--
 -- 'nextToken', 'listDeviceProfiles_nextToken' - To retrieve the next set of results, the @nextToken@ value from a
 -- previous response; otherwise __null__ to receive the first set of
 -- results.
---
--- 'maxResults', 'listDeviceProfiles_maxResults' - The maximum number of results to return in this operation.
 newListDeviceProfiles ::
   ListDeviceProfiles
 newListDeviceProfiles =
   ListDeviceProfiles'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of results to return in this operation.
+listDeviceProfiles_maxResults :: Lens.Lens' ListDeviceProfiles (Prelude.Maybe Prelude.Natural)
+listDeviceProfiles_maxResults = Lens.lens (\ListDeviceProfiles' {maxResults} -> maxResults) (\s@ListDeviceProfiles' {} a -> s {maxResults = a} :: ListDeviceProfiles)
 
 -- | To retrieve the next set of results, the @nextToken@ value from a
 -- previous response; otherwise __null__ to receive the first set of
@@ -86,47 +91,44 @@ newListDeviceProfiles =
 listDeviceProfiles_nextToken :: Lens.Lens' ListDeviceProfiles (Prelude.Maybe Prelude.Text)
 listDeviceProfiles_nextToken = Lens.lens (\ListDeviceProfiles' {nextToken} -> nextToken) (\s@ListDeviceProfiles' {} a -> s {nextToken = a} :: ListDeviceProfiles)
 
--- | The maximum number of results to return in this operation.
-listDeviceProfiles_maxResults :: Lens.Lens' ListDeviceProfiles (Prelude.Maybe Prelude.Natural)
-listDeviceProfiles_maxResults = Lens.lens (\ListDeviceProfiles' {maxResults} -> maxResults) (\s@ListDeviceProfiles' {} a -> s {maxResults = a} :: ListDeviceProfiles)
-
 instance Core.AWSRequest ListDeviceProfiles where
   type
     AWSResponse ListDeviceProfiles =
       ListDeviceProfilesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDeviceProfilesResponse'
-            Prelude.<$> ( x Core..?> "DeviceProfileList"
+            Prelude.<$> ( x Data..?> "DeviceProfileList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListDeviceProfiles where
   hashWithSalt _salt ListDeviceProfiles' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListDeviceProfiles where
   rnf ListDeviceProfiles' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListDeviceProfiles where
+instance Data.ToHeaders ListDeviceProfiles where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListDeviceProfiles where
+instance Data.ToPath ListDeviceProfiles where
   toPath = Prelude.const "/device-profiles"
 
-instance Core.ToQuery ListDeviceProfiles where
+instance Data.ToQuery ListDeviceProfiles where
   toQuery ListDeviceProfiles' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListDeviceProfilesResponse' smart constructor.

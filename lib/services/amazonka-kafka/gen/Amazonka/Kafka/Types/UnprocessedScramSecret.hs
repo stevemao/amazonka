@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.Types.UnprocessedScramSecret
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Kafka.Types.UnprocessedScramSecret where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Error info for scram secret associate\/disassociate failure.
@@ -71,15 +72,15 @@ unprocessedScramSecret_errorMessage = Lens.lens (\UnprocessedScramSecret' {error
 unprocessedScramSecret_secretArn :: Lens.Lens' UnprocessedScramSecret (Prelude.Maybe Prelude.Text)
 unprocessedScramSecret_secretArn = Lens.lens (\UnprocessedScramSecret' {secretArn} -> secretArn) (\s@UnprocessedScramSecret' {} a -> s {secretArn = a} :: UnprocessedScramSecret)
 
-instance Core.FromJSON UnprocessedScramSecret where
+instance Data.FromJSON UnprocessedScramSecret where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UnprocessedScramSecret"
       ( \x ->
           UnprocessedScramSecret'
-            Prelude.<$> (x Core..:? "errorCode")
-            Prelude.<*> (x Core..:? "errorMessage")
-            Prelude.<*> (x Core..:? "secretArn")
+            Prelude.<$> (x Data..:? "errorCode")
+            Prelude.<*> (x Data..:? "errorMessage")
+            Prelude.<*> (x Data..:? "secretArn")
       )
 
 instance Prelude.Hashable UnprocessedScramSecret where

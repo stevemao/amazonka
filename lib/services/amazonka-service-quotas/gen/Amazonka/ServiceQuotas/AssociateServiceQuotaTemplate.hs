@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceQuotas.AssociateServiceQuotaTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.ServiceQuotas.AssociateServiceQuotaTemplate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -67,7 +68,8 @@ instance
   type
     AWSResponse AssociateServiceQuotaTemplate =
       AssociateServiceQuotaTemplateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -85,28 +87,28 @@ instance
 instance Prelude.NFData AssociateServiceQuotaTemplate where
   rnf _ = ()
 
-instance Core.ToHeaders AssociateServiceQuotaTemplate where
+instance Data.ToHeaders AssociateServiceQuotaTemplate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ServiceQuotasV20190624.AssociateServiceQuotaTemplate" ::
+              Data.=# ( "ServiceQuotasV20190624.AssociateServiceQuotaTemplate" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateServiceQuotaTemplate where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON AssociateServiceQuotaTemplate where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath AssociateServiceQuotaTemplate where
+instance Data.ToPath AssociateServiceQuotaTemplate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AssociateServiceQuotaTemplate where
+instance Data.ToQuery AssociateServiceQuotaTemplate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateServiceQuotaTemplateResponse' smart constructor.

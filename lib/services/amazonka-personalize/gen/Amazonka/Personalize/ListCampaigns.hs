@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.ListCampaigns
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,7 +24,8 @@
 -- is not specified, all the campaigns associated with the account are
 -- listed. The response provides the properties for each campaign,
 -- including the Amazon Resource Name (ARN). For more information on
--- campaigns, see CreateCampaign.
+-- campaigns, see
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_CreateCampaign.html CreateCampaign>.
 --
 -- This operation returns paginated results.
 module Amazonka.Personalize.ListCampaigns
@@ -33,9 +34,9 @@ module Amazonka.Personalize.ListCampaigns
     newListCampaigns,
 
     -- * Request Lenses
-    listCampaigns_solutionArn,
-    listCampaigns_nextToken,
     listCampaigns_maxResults,
+    listCampaigns_nextToken,
+    listCampaigns_solutionArn,
 
     -- * Destructuring the Response
     ListCampaignsResponse (..),
@@ -49,7 +50,8 @@ module Amazonka.Personalize.ListCampaigns
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -57,15 +59,16 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListCampaigns' smart constructor.
 data ListCampaigns = ListCampaigns'
-  { -- | The Amazon Resource Name (ARN) of the solution to list the campaigns
+  { -- | The maximum number of campaigns to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token returned from the previous call to
+    -- <https://docs.aws.amazon.com/personalize/latest/dg/API_ListCampaigns.html ListCampaigns>
+    -- for getting the next set of campaigns (if they exist).
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the solution to list the campaigns
     -- for. When a solution is not specified, all the campaigns associated with
     -- the account are listed.
-    solutionArn :: Prelude.Maybe Prelude.Text,
-    -- | A token returned from the previous call to @ListCampaigns@ for getting
-    -- the next set of campaigns (if they exist).
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of campaigns to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    solutionArn :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -77,37 +80,39 @@ data ListCampaigns = ListCampaigns'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listCampaigns_maxResults' - The maximum number of campaigns to return.
+--
+-- 'nextToken', 'listCampaigns_nextToken' - A token returned from the previous call to
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_ListCampaigns.html ListCampaigns>
+-- for getting the next set of campaigns (if they exist).
+--
 -- 'solutionArn', 'listCampaigns_solutionArn' - The Amazon Resource Name (ARN) of the solution to list the campaigns
 -- for. When a solution is not specified, all the campaigns associated with
 -- the account are listed.
---
--- 'nextToken', 'listCampaigns_nextToken' - A token returned from the previous call to @ListCampaigns@ for getting
--- the next set of campaigns (if they exist).
---
--- 'maxResults', 'listCampaigns_maxResults' - The maximum number of campaigns to return.
 newListCampaigns ::
   ListCampaigns
 newListCampaigns =
   ListCampaigns'
-    { solutionArn = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      solutionArn = Prelude.Nothing
     }
+
+-- | The maximum number of campaigns to return.
+listCampaigns_maxResults :: Lens.Lens' ListCampaigns (Prelude.Maybe Prelude.Natural)
+listCampaigns_maxResults = Lens.lens (\ListCampaigns' {maxResults} -> maxResults) (\s@ListCampaigns' {} a -> s {maxResults = a} :: ListCampaigns)
+
+-- | A token returned from the previous call to
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_ListCampaigns.html ListCampaigns>
+-- for getting the next set of campaigns (if they exist).
+listCampaigns_nextToken :: Lens.Lens' ListCampaigns (Prelude.Maybe Prelude.Text)
+listCampaigns_nextToken = Lens.lens (\ListCampaigns' {nextToken} -> nextToken) (\s@ListCampaigns' {} a -> s {nextToken = a} :: ListCampaigns)
 
 -- | The Amazon Resource Name (ARN) of the solution to list the campaigns
 -- for. When a solution is not specified, all the campaigns associated with
 -- the account are listed.
 listCampaigns_solutionArn :: Lens.Lens' ListCampaigns (Prelude.Maybe Prelude.Text)
 listCampaigns_solutionArn = Lens.lens (\ListCampaigns' {solutionArn} -> solutionArn) (\s@ListCampaigns' {} a -> s {solutionArn = a} :: ListCampaigns)
-
--- | A token returned from the previous call to @ListCampaigns@ for getting
--- the next set of campaigns (if they exist).
-listCampaigns_nextToken :: Lens.Lens' ListCampaigns (Prelude.Maybe Prelude.Text)
-listCampaigns_nextToken = Lens.lens (\ListCampaigns' {nextToken} -> nextToken) (\s@ListCampaigns' {} a -> s {nextToken = a} :: ListCampaigns)
-
--- | The maximum number of campaigns to return.
-listCampaigns_maxResults :: Lens.Lens' ListCampaigns (Prelude.Maybe Prelude.Natural)
-listCampaigns_maxResults = Lens.lens (\ListCampaigns' {maxResults} -> maxResults) (\s@ListCampaigns' {} a -> s {maxResults = a} :: ListCampaigns)
 
 instance Core.AWSPager ListCampaigns where
   page rq rs
@@ -132,57 +137,58 @@ instance Core.AWSRequest ListCampaigns where
   type
     AWSResponse ListCampaigns =
       ListCampaignsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListCampaignsResponse'
-            Prelude.<$> (x Core..?> "campaigns" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "campaigns" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListCampaigns where
   hashWithSalt _salt ListCampaigns' {..} =
-    _salt `Prelude.hashWithSalt` solutionArn
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` solutionArn
 
 instance Prelude.NFData ListCampaigns where
   rnf ListCampaigns' {..} =
-    Prelude.rnf solutionArn
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf solutionArn
 
-instance Core.ToHeaders ListCampaigns where
+instance Data.ToHeaders ListCampaigns where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.ListCampaigns" ::
+              Data.=# ( "AmazonPersonalize.ListCampaigns" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListCampaigns where
+instance Data.ToJSON ListCampaigns where
   toJSON ListCampaigns' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("solutionArn" Core..=) Prelude.<$> solutionArn,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            ("solutionArn" Data..=) Prelude.<$> solutionArn
           ]
       )
 
-instance Core.ToPath ListCampaigns where
+instance Data.ToPath ListCampaigns where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListCampaigns where
+instance Data.ToQuery ListCampaigns where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListCampaignsResponse' smart constructor.

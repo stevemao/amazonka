@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.AliasICPRecordal
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudFront.Types.AliasICPRecordal where
 
 import Amazonka.CloudFront.Types.ICPRecordalStatus
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Amazon Web Services services in China customers must file for an
@@ -128,11 +129,11 @@ aliasICPRecordal_cname = Lens.lens (\AliasICPRecordal' {cname} -> cname) (\s@Ali
 aliasICPRecordal_iCPRecordalStatus :: Lens.Lens' AliasICPRecordal (Prelude.Maybe ICPRecordalStatus)
 aliasICPRecordal_iCPRecordalStatus = Lens.lens (\AliasICPRecordal' {iCPRecordalStatus} -> iCPRecordalStatus) (\s@AliasICPRecordal' {} a -> s {iCPRecordalStatus = a} :: AliasICPRecordal)
 
-instance Core.FromXML AliasICPRecordal where
+instance Data.FromXML AliasICPRecordal where
   parseXML x =
     AliasICPRecordal'
-      Prelude.<$> (x Core..@? "CNAME")
-      Prelude.<*> (x Core..@? "ICPRecordalStatus")
+      Prelude.<$> (x Data..@? "CNAME")
+      Prelude.<*> (x Data..@? "ICPRecordalStatus")
 
 instance Prelude.Hashable AliasICPRecordal where
   hashWithSalt _salt AliasICPRecordal' {..} =

@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.MwAA.GetEnvironment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the details of an Amazon Managed Workflows for Apache Airflow
--- (MWAA) environment.
+-- Describes an Amazon Managed Workflows for Apache Airflow (MWAA)
+-- environment.
 module Amazonka.MwAA.GetEnvironment
   ( -- * Creating a Request
     GetEnvironment (..),
@@ -41,7 +41,8 @@ module Amazonka.MwAA.GetEnvironment
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MwAA.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -81,12 +82,13 @@ instance Core.AWSRequest GetEnvironment where
   type
     AWSResponse GetEnvironment =
       GetEnvironmentResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetEnvironmentResponse'
-            Prelude.<$> (x Core..?> "Environment")
+            Prelude.<$> (x Data..?> "Environment")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,22 +99,22 @@ instance Prelude.Hashable GetEnvironment where
 instance Prelude.NFData GetEnvironment where
   rnf GetEnvironment' {..} = Prelude.rnf name
 
-instance Core.ToHeaders GetEnvironment where
+instance Data.ToHeaders GetEnvironment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetEnvironment where
+instance Data.ToPath GetEnvironment where
   toPath GetEnvironment' {..} =
-    Prelude.mconcat ["/environments/", Core.toBS name]
+    Prelude.mconcat ["/environments/", Data.toBS name]
 
-instance Core.ToQuery GetEnvironment where
+instance Data.ToQuery GetEnvironment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetEnvironmentResponse' smart constructor.
@@ -122,7 +124,7 @@ data GetEnvironmentResponse = GetEnvironmentResponse'
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'GetEnvironmentResponse' with all optional fields omitted.

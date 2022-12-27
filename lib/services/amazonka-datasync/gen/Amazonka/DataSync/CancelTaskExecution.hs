@@ -14,22 +14,22 @@
 
 -- |
 -- Module      : Amazonka.DataSync.CancelTaskExecution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Cancels execution of a task.
+-- Stops an DataSync task execution that\'s in progress. The transfer of
+-- some files are abruptly interrupted. File contents that\'re transferred
+-- to the destination might be incomplete or inconsistent with the source
+-- files.
 --
--- When you cancel a task execution, the transfer of some files is abruptly
--- interrupted. The contents of files that are transferred to the
--- destination might be incomplete or inconsistent with the source files.
--- However, if you start a new task execution on the same task and you
--- allow the task execution to complete, file content on the destination is
--- complete and consistent. This applies to other unexpected failures that
--- interrupt a task execution. In all of these cases, DataSync successfully
--- complete the transfer when you start the next task execution.
+-- However, if you start a new task execution using the same task and allow
+-- it to finish, file content on the destination will be complete and
+-- consistent. This applies to other unexpected failures that interrupt a
+-- task execution. In all of these cases, DataSync successfully completes
+-- the transfer when you start the next task execution.
 module Amazonka.DataSync.CancelTaskExecution
   ( -- * Creating a Request
     CancelTaskExecution (..),
@@ -48,8 +48,9 @@ module Amazonka.DataSync.CancelTaskExecution
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataSync.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,7 +59,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCancelTaskExecution' smart constructor.
 data CancelTaskExecution = CancelTaskExecution'
-  { -- | The Amazon Resource Name (ARN) of the task execution to cancel.
+  { -- | The Amazon Resource Name (ARN) of the task execution to stop.
     taskExecutionArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -71,7 +72,7 @@ data CancelTaskExecution = CancelTaskExecution'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'taskExecutionArn', 'cancelTaskExecution_taskExecutionArn' - The Amazon Resource Name (ARN) of the task execution to cancel.
+-- 'taskExecutionArn', 'cancelTaskExecution_taskExecutionArn' - The Amazon Resource Name (ARN) of the task execution to stop.
 newCancelTaskExecution ::
   -- | 'taskExecutionArn'
   Prelude.Text ->
@@ -82,7 +83,7 @@ newCancelTaskExecution pTaskExecutionArn_ =
         pTaskExecutionArn_
     }
 
--- | The Amazon Resource Name (ARN) of the task execution to cancel.
+-- | The Amazon Resource Name (ARN) of the task execution to stop.
 cancelTaskExecution_taskExecutionArn :: Lens.Lens' CancelTaskExecution Prelude.Text
 cancelTaskExecution_taskExecutionArn = Lens.lens (\CancelTaskExecution' {taskExecutionArn} -> taskExecutionArn) (\s@CancelTaskExecution' {} a -> s {taskExecutionArn = a} :: CancelTaskExecution)
 
@@ -90,7 +91,8 @@ instance Core.AWSRequest CancelTaskExecution where
   type
     AWSResponse CancelTaskExecution =
       CancelTaskExecutionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -106,34 +108,34 @@ instance Prelude.NFData CancelTaskExecution where
   rnf CancelTaskExecution' {..} =
     Prelude.rnf taskExecutionArn
 
-instance Core.ToHeaders CancelTaskExecution where
+instance Data.ToHeaders CancelTaskExecution where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "FmrsService.CancelTaskExecution" ::
+              Data.=# ( "FmrsService.CancelTaskExecution" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CancelTaskExecution where
+instance Data.ToJSON CancelTaskExecution where
   toJSON CancelTaskExecution' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("TaskExecutionArn" Core..= taskExecutionArn)
+              ("TaskExecutionArn" Data..= taskExecutionArn)
           ]
       )
 
-instance Core.ToPath CancelTaskExecution where
+instance Data.ToPath CancelTaskExecution where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CancelTaskExecution where
+instance Data.ToQuery CancelTaskExecution where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCancelTaskExecutionResponse' smart constructor.

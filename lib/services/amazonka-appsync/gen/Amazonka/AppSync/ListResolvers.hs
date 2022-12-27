@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppSync.ListResolvers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.AppSync.ListResolvers
     newListResolvers,
 
     -- * Request Lenses
-    listResolvers_nextToken,
     listResolvers_maxResults,
+    listResolvers_nextToken,
     listResolvers_apiId,
     listResolvers_typeName,
 
@@ -47,19 +47,20 @@ where
 
 import Amazonka.AppSync.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListResolvers' smart constructor.
 data ListResolvers = ListResolvers'
-  { -- | An identifier that was returned from the previous call to this
-    -- operation, which can be used to return the next set of items in the
+  { -- | The maximum number of results that you want the request to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | An identifier that was returned from the previous call to this
+    -- operation, which you can use to return the next set of items in the
     -- list.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results you want the request to return.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The API ID.
     apiId :: Prelude.Text,
     -- | The type name.
@@ -75,11 +76,11 @@ data ListResolvers = ListResolvers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listResolvers_nextToken' - An identifier that was returned from the previous call to this
--- operation, which can be used to return the next set of items in the
--- list.
+-- 'maxResults', 'listResolvers_maxResults' - The maximum number of results that you want the request to return.
 --
--- 'maxResults', 'listResolvers_maxResults' - The maximum number of results you want the request to return.
+-- 'nextToken', 'listResolvers_nextToken' - An identifier that was returned from the previous call to this
+-- operation, which you can use to return the next set of items in the
+-- list.
 --
 -- 'apiId', 'listResolvers_apiId' - The API ID.
 --
@@ -92,21 +93,21 @@ newListResolvers ::
   ListResolvers
 newListResolvers pApiId_ pTypeName_ =
   ListResolvers'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       apiId = pApiId_,
       typeName = pTypeName_
     }
 
+-- | The maximum number of results that you want the request to return.
+listResolvers_maxResults :: Lens.Lens' ListResolvers (Prelude.Maybe Prelude.Natural)
+listResolvers_maxResults = Lens.lens (\ListResolvers' {maxResults} -> maxResults) (\s@ListResolvers' {} a -> s {maxResults = a} :: ListResolvers)
+
 -- | An identifier that was returned from the previous call to this
--- operation, which can be used to return the next set of items in the
+-- operation, which you can use to return the next set of items in the
 -- list.
 listResolvers_nextToken :: Lens.Lens' ListResolvers (Prelude.Maybe Prelude.Text)
 listResolvers_nextToken = Lens.lens (\ListResolvers' {nextToken} -> nextToken) (\s@ListResolvers' {} a -> s {nextToken = a} :: ListResolvers)
-
--- | The maximum number of results you want the request to return.
-listResolvers_maxResults :: Lens.Lens' ListResolvers (Prelude.Maybe Prelude.Natural)
-listResolvers_maxResults = Lens.lens (\ListResolvers' {maxResults} -> maxResults) (\s@ListResolvers' {} a -> s {maxResults = a} :: ListResolvers)
 
 -- | The API ID.
 listResolvers_apiId :: Lens.Lens' ListResolvers Prelude.Text
@@ -139,62 +140,63 @@ instance Core.AWSRequest ListResolvers where
   type
     AWSResponse ListResolvers =
       ListResolversResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListResolversResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "resolvers" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "resolvers" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListResolvers where
   hashWithSalt _salt ListResolvers' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` apiId
       `Prelude.hashWithSalt` typeName
 
 instance Prelude.NFData ListResolvers where
   rnf ListResolvers' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf apiId
       `Prelude.seq` Prelude.rnf typeName
 
-instance Core.ToHeaders ListResolvers where
+instance Data.ToHeaders ListResolvers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListResolvers where
+instance Data.ToPath ListResolvers where
   toPath ListResolvers' {..} =
     Prelude.mconcat
       [ "/v1/apis/",
-        Core.toBS apiId,
+        Data.toBS apiId,
         "/types/",
-        Core.toBS typeName,
+        Data.toBS typeName,
         "/resolvers"
       ]
 
-instance Core.ToQuery ListResolvers where
+instance Data.ToQuery ListResolvers where
   toQuery ListResolvers' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListResolversResponse' smart constructor.
 data ListResolversResponse = ListResolversResponse'
-  { -- | An identifier to be passed in the next request to this operation to
-    -- return the next set of items in the list.
+  { -- | An identifier to pass in the next request to this operation to return
+    -- the next set of items in the list.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The @Resolver@ objects.
     resolvers :: Prelude.Maybe [Resolver],
@@ -211,8 +213,8 @@ data ListResolversResponse = ListResolversResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listResolversResponse_nextToken' - An identifier to be passed in the next request to this operation to
--- return the next set of items in the list.
+-- 'nextToken', 'listResolversResponse_nextToken' - An identifier to pass in the next request to this operation to return
+-- the next set of items in the list.
 --
 -- 'resolvers', 'listResolversResponse_resolvers' - The @Resolver@ objects.
 --
@@ -228,8 +230,8 @@ newListResolversResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | An identifier to be passed in the next request to this operation to
--- return the next set of items in the list.
+-- | An identifier to pass in the next request to this operation to return
+-- the next set of items in the list.
 listResolversResponse_nextToken :: Lens.Lens' ListResolversResponse (Prelude.Maybe Prelude.Text)
 listResolversResponse_nextToken = Lens.lens (\ListResolversResponse' {nextToken} -> nextToken) (\s@ListResolversResponse' {} a -> s {nextToken = a} :: ListResolversResponse)
 

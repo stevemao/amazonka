@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.DescribeStackDriftDetectionStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,7 +25,7 @@
 -- configuration differs, or has /drifted/, from it\'s expected
 -- configuration, as defined in the stack template and any values specified
 -- as template parameters. A stack is considered to have drifted if one or
--- more of its resources have drifted. For more information on stack and
+-- more of its resources have drifted. For more information about stack and
 -- resource drift, see
 -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html Detecting Unregulated Configuration Changes to Stacks and Resources>.
 --
@@ -48,9 +48,9 @@ module Amazonka.CloudFormation.DescribeStackDriftDetectionStatus
     newDescribeStackDriftDetectionStatusResponse,
 
     -- * Response Lenses
-    describeStackDriftDetectionStatusResponse_stackDriftStatus,
-    describeStackDriftDetectionStatusResponse_driftedStackResourceCount,
     describeStackDriftDetectionStatusResponse_detectionStatusReason,
+    describeStackDriftDetectionStatusResponse_driftedStackResourceCount,
+    describeStackDriftDetectionStatusResponse_stackDriftStatus,
     describeStackDriftDetectionStatusResponse_httpStatus,
     describeStackDriftDetectionStatusResponse_stackId,
     describeStackDriftDetectionStatusResponse_stackDriftDetectionId,
@@ -61,7 +61,8 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -116,20 +117,21 @@ instance
   type
     AWSResponse DescribeStackDriftDetectionStatus =
       DescribeStackDriftDetectionStatusResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeStackDriftDetectionStatusResult"
       ( \s h x ->
           DescribeStackDriftDetectionStatusResponse'
-            Prelude.<$> (x Core..@? "StackDriftStatus")
-              Prelude.<*> (x Core..@? "DriftedStackResourceCount")
-              Prelude.<*> (x Core..@? "DetectionStatusReason")
+            Prelude.<$> (x Data..@? "DetectionStatusReason")
+              Prelude.<*> (x Data..@? "DriftedStackResourceCount")
+              Prelude.<*> (x Data..@? "StackDriftStatus")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-              Prelude.<*> (x Core..@ "StackId")
-              Prelude.<*> (x Core..@ "StackDriftDetectionId")
-              Prelude.<*> (x Core..@ "DetectionStatus")
-              Prelude.<*> (x Core..@ "Timestamp")
+              Prelude.<*> (x Data..@ "StackId")
+              Prelude.<*> (x Data..@ "StackDriftDetectionId")
+              Prelude.<*> (x Data..@ "DetectionStatus")
+              Prelude.<*> (x Data..@ "Timestamp")
       )
 
 instance
@@ -149,43 +151,49 @@ instance
     Prelude.rnf stackDriftDetectionId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeStackDriftDetectionStatus
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeStackDriftDetectionStatus
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeStackDriftDetectionStatus
   where
   toQuery DescribeStackDriftDetectionStatus' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeStackDriftDetectionStatus" ::
+          Data.=: ( "DescribeStackDriftDetectionStatus" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
         "StackDriftDetectionId"
-          Core.=: stackDriftDetectionId
+          Data.=: stackDriftDetectionId
       ]
 
 -- | /See:/ 'newDescribeStackDriftDetectionStatusResponse' smart constructor.
 data DescribeStackDriftDetectionStatusResponse = DescribeStackDriftDetectionStatusResponse'
-  { -- | Status of the stack\'s actual configuration compared to its expected
+  { -- | The reason the stack drift detection operation has its current status.
+    detectionStatusReason :: Prelude.Maybe Prelude.Text,
+    -- | Total number of stack resources that have drifted. This is NULL until
+    -- the drift detection operation reaches a status of @DETECTION_COMPLETE@.
+    -- This value will be 0 for stacks whose drift status is @IN_SYNC@.
+    driftedStackResourceCount :: Prelude.Maybe Prelude.Int,
+    -- | Status of the stack\'s actual configuration compared to its expected
     -- configuration.
     --
     -- -   @DRIFTED@: The stack differs from its expected template
     --     configuration. A stack is considered to have drifted if one or more
     --     of its resources have drifted.
     --
-    -- -   @NOT_CHECKED@: CloudFormation has not checked if the stack differs
+    -- -   @NOT_CHECKED@: CloudFormation hasn\'t checked if the stack differs
     --     from its expected template configuration.
     --
     -- -   @IN_SYNC@: The stack\'s actual configuration matches its expected
@@ -193,12 +201,6 @@ data DescribeStackDriftDetectionStatusResponse = DescribeStackDriftDetectionStat
     --
     -- -   @UNKNOWN@: This value is reserved for future use.
     stackDriftStatus :: Prelude.Maybe StackDriftStatus,
-    -- | Total number of stack resources that have drifted. This is NULL until
-    -- the drift detection operation reaches a status of @DETECTION_COMPLETE@.
-    -- This value will be 0 for stacks whose drift status is @IN_SYNC@.
-    driftedStackResourceCount :: Prelude.Maybe Prelude.Int,
-    -- | The reason the stack drift detection operation has its current status.
-    detectionStatusReason :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | The ID of the stack.
@@ -213,7 +215,7 @@ data DescribeStackDriftDetectionStatusResponse = DescribeStackDriftDetectionStat
     --
     -- -   @DETECTION_COMPLETE@: The stack drift detection operation has
     --     successfully completed for all resources in the stack that support
-    --     drift detection. (Resources that do not currently support stack
+    --     drift detection. (Resources that don\'t currently support stack
     --     detection remain unchecked.)
     --
     --     If you specified logical resource IDs for CloudFormation to use as a
@@ -229,7 +231,7 @@ data DescribeStackDriftDetectionStatusResponse = DescribeStackDriftDetectionStat
     --     currently in progress.
     detectionStatus :: StackDriftDetectionStatus,
     -- | Time at which the stack drift detection operation was initiated.
-    timestamp :: Core.ISO8601
+    timestamp :: Data.ISO8601
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -241,6 +243,12 @@ data DescribeStackDriftDetectionStatusResponse = DescribeStackDriftDetectionStat
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'detectionStatusReason', 'describeStackDriftDetectionStatusResponse_detectionStatusReason' - The reason the stack drift detection operation has its current status.
+--
+-- 'driftedStackResourceCount', 'describeStackDriftDetectionStatusResponse_driftedStackResourceCount' - Total number of stack resources that have drifted. This is NULL until
+-- the drift detection operation reaches a status of @DETECTION_COMPLETE@.
+-- This value will be 0 for stacks whose drift status is @IN_SYNC@.
+--
 -- 'stackDriftStatus', 'describeStackDriftDetectionStatusResponse_stackDriftStatus' - Status of the stack\'s actual configuration compared to its expected
 -- configuration.
 --
@@ -248,19 +256,13 @@ data DescribeStackDriftDetectionStatusResponse = DescribeStackDriftDetectionStat
 --     configuration. A stack is considered to have drifted if one or more
 --     of its resources have drifted.
 --
--- -   @NOT_CHECKED@: CloudFormation has not checked if the stack differs
+-- -   @NOT_CHECKED@: CloudFormation hasn\'t checked if the stack differs
 --     from its expected template configuration.
 --
 -- -   @IN_SYNC@: The stack\'s actual configuration matches its expected
 --     template configuration.
 --
 -- -   @UNKNOWN@: This value is reserved for future use.
---
--- 'driftedStackResourceCount', 'describeStackDriftDetectionStatusResponse_driftedStackResourceCount' - Total number of stack resources that have drifted. This is NULL until
--- the drift detection operation reaches a status of @DETECTION_COMPLETE@.
--- This value will be 0 for stacks whose drift status is @IN_SYNC@.
---
--- 'detectionStatusReason', 'describeStackDriftDetectionStatusResponse_detectionStatusReason' - The reason the stack drift detection operation has its current status.
 --
 -- 'httpStatus', 'describeStackDriftDetectionStatusResponse_httpStatus' - The response's http status code.
 --
@@ -276,7 +278,7 @@ data DescribeStackDriftDetectionStatusResponse = DescribeStackDriftDetectionStat
 --
 -- -   @DETECTION_COMPLETE@: The stack drift detection operation has
 --     successfully completed for all resources in the stack that support
---     drift detection. (Resources that do not currently support stack
+--     drift detection. (Resources that don\'t currently support stack
 --     detection remain unchecked.)
 --
 --     If you specified logical resource IDs for CloudFormation to use as a
@@ -311,11 +313,11 @@ newDescribeStackDriftDetectionStatusResponse
   pDetectionStatus_
   pTimestamp_ =
     DescribeStackDriftDetectionStatusResponse'
-      { stackDriftStatus =
+      { detectionStatusReason =
           Prelude.Nothing,
         driftedStackResourceCount =
           Prelude.Nothing,
-        detectionStatusReason =
+        stackDriftStatus =
           Prelude.Nothing,
         httpStatus = pHttpStatus_,
         stackId = pStackId_,
@@ -324,8 +326,18 @@ newDescribeStackDriftDetectionStatusResponse
         detectionStatus =
           pDetectionStatus_,
         timestamp =
-          Core._Time Lens.# pTimestamp_
+          Data._Time Lens.# pTimestamp_
       }
+
+-- | The reason the stack drift detection operation has its current status.
+describeStackDriftDetectionStatusResponse_detectionStatusReason :: Lens.Lens' DescribeStackDriftDetectionStatusResponse (Prelude.Maybe Prelude.Text)
+describeStackDriftDetectionStatusResponse_detectionStatusReason = Lens.lens (\DescribeStackDriftDetectionStatusResponse' {detectionStatusReason} -> detectionStatusReason) (\s@DescribeStackDriftDetectionStatusResponse' {} a -> s {detectionStatusReason = a} :: DescribeStackDriftDetectionStatusResponse)
+
+-- | Total number of stack resources that have drifted. This is NULL until
+-- the drift detection operation reaches a status of @DETECTION_COMPLETE@.
+-- This value will be 0 for stacks whose drift status is @IN_SYNC@.
+describeStackDriftDetectionStatusResponse_driftedStackResourceCount :: Lens.Lens' DescribeStackDriftDetectionStatusResponse (Prelude.Maybe Prelude.Int)
+describeStackDriftDetectionStatusResponse_driftedStackResourceCount = Lens.lens (\DescribeStackDriftDetectionStatusResponse' {driftedStackResourceCount} -> driftedStackResourceCount) (\s@DescribeStackDriftDetectionStatusResponse' {} a -> s {driftedStackResourceCount = a} :: DescribeStackDriftDetectionStatusResponse)
 
 -- | Status of the stack\'s actual configuration compared to its expected
 -- configuration.
@@ -334,7 +346,7 @@ newDescribeStackDriftDetectionStatusResponse
 --     configuration. A stack is considered to have drifted if one or more
 --     of its resources have drifted.
 --
--- -   @NOT_CHECKED@: CloudFormation has not checked if the stack differs
+-- -   @NOT_CHECKED@: CloudFormation hasn\'t checked if the stack differs
 --     from its expected template configuration.
 --
 -- -   @IN_SYNC@: The stack\'s actual configuration matches its expected
@@ -343,16 +355,6 @@ newDescribeStackDriftDetectionStatusResponse
 -- -   @UNKNOWN@: This value is reserved for future use.
 describeStackDriftDetectionStatusResponse_stackDriftStatus :: Lens.Lens' DescribeStackDriftDetectionStatusResponse (Prelude.Maybe StackDriftStatus)
 describeStackDriftDetectionStatusResponse_stackDriftStatus = Lens.lens (\DescribeStackDriftDetectionStatusResponse' {stackDriftStatus} -> stackDriftStatus) (\s@DescribeStackDriftDetectionStatusResponse' {} a -> s {stackDriftStatus = a} :: DescribeStackDriftDetectionStatusResponse)
-
--- | Total number of stack resources that have drifted. This is NULL until
--- the drift detection operation reaches a status of @DETECTION_COMPLETE@.
--- This value will be 0 for stacks whose drift status is @IN_SYNC@.
-describeStackDriftDetectionStatusResponse_driftedStackResourceCount :: Lens.Lens' DescribeStackDriftDetectionStatusResponse (Prelude.Maybe Prelude.Int)
-describeStackDriftDetectionStatusResponse_driftedStackResourceCount = Lens.lens (\DescribeStackDriftDetectionStatusResponse' {driftedStackResourceCount} -> driftedStackResourceCount) (\s@DescribeStackDriftDetectionStatusResponse' {} a -> s {driftedStackResourceCount = a} :: DescribeStackDriftDetectionStatusResponse)
-
--- | The reason the stack drift detection operation has its current status.
-describeStackDriftDetectionStatusResponse_detectionStatusReason :: Lens.Lens' DescribeStackDriftDetectionStatusResponse (Prelude.Maybe Prelude.Text)
-describeStackDriftDetectionStatusResponse_detectionStatusReason = Lens.lens (\DescribeStackDriftDetectionStatusResponse' {detectionStatusReason} -> detectionStatusReason) (\s@DescribeStackDriftDetectionStatusResponse' {} a -> s {detectionStatusReason = a} :: DescribeStackDriftDetectionStatusResponse)
 
 -- | The response's http status code.
 describeStackDriftDetectionStatusResponse_httpStatus :: Lens.Lens' DescribeStackDriftDetectionStatusResponse Prelude.Int
@@ -374,7 +376,7 @@ describeStackDriftDetectionStatusResponse_stackDriftDetectionId = Lens.lens (\De
 --
 -- -   @DETECTION_COMPLETE@: The stack drift detection operation has
 --     successfully completed for all resources in the stack that support
---     drift detection. (Resources that do not currently support stack
+--     drift detection. (Resources that don\'t currently support stack
 --     detection remain unchecked.)
 --
 --     If you specified logical resource IDs for CloudFormation to use as a
@@ -393,16 +395,16 @@ describeStackDriftDetectionStatusResponse_detectionStatus = Lens.lens (\Describe
 
 -- | Time at which the stack drift detection operation was initiated.
 describeStackDriftDetectionStatusResponse_timestamp :: Lens.Lens' DescribeStackDriftDetectionStatusResponse Prelude.UTCTime
-describeStackDriftDetectionStatusResponse_timestamp = Lens.lens (\DescribeStackDriftDetectionStatusResponse' {timestamp} -> timestamp) (\s@DescribeStackDriftDetectionStatusResponse' {} a -> s {timestamp = a} :: DescribeStackDriftDetectionStatusResponse) Prelude.. Core._Time
+describeStackDriftDetectionStatusResponse_timestamp = Lens.lens (\DescribeStackDriftDetectionStatusResponse' {timestamp} -> timestamp) (\s@DescribeStackDriftDetectionStatusResponse' {} a -> s {timestamp = a} :: DescribeStackDriftDetectionStatusResponse) Prelude.. Data._Time
 
 instance
   Prelude.NFData
     DescribeStackDriftDetectionStatusResponse
   where
   rnf DescribeStackDriftDetectionStatusResponse' {..} =
-    Prelude.rnf stackDriftStatus
+    Prelude.rnf detectionStatusReason
       `Prelude.seq` Prelude.rnf driftedStackResourceCount
-      `Prelude.seq` Prelude.rnf detectionStatusReason
+      `Prelude.seq` Prelude.rnf stackDriftStatus
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf stackId
       `Prelude.seq` Prelude.rnf stackDriftDetectionId

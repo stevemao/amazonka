@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.DisableRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CloudWatchEvents.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,7 +91,8 @@ disableRule_name = Lens.lens (\DisableRule' {name} -> name) (\s@DisableRule' {} 
 
 instance Core.AWSRequest DisableRule where
   type AWSResponse DisableRule = DisableRuleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull DisableRuleResponse'
 
 instance Prelude.Hashable DisableRule where
@@ -103,32 +105,32 @@ instance Prelude.NFData DisableRule where
     Prelude.rnf eventBusName
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders DisableRule where
+instance Data.ToHeaders DisableRule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSEvents.DisableRule" :: Prelude.ByteString),
+              Data.=# ("AWSEvents.DisableRule" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisableRule where
+instance Data.ToJSON DisableRule where
   toJSON DisableRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EventBusName" Core..=) Prelude.<$> eventBusName,
-            Prelude.Just ("Name" Core..= name)
+          [ ("EventBusName" Data..=) Prelude.<$> eventBusName,
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath DisableRule where
+instance Data.ToPath DisableRule where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisableRule where
+instance Data.ToQuery DisableRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisableRuleResponse' smart constructor.

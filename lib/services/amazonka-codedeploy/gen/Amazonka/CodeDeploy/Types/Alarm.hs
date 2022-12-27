@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.Types.Alarm
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeDeploy.Types.Alarm where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about an alarm.
@@ -52,11 +53,11 @@ newAlarm = Alarm' {name = Prelude.Nothing}
 alarm_name :: Lens.Lens' Alarm (Prelude.Maybe Prelude.Text)
 alarm_name = Lens.lens (\Alarm' {name} -> name) (\s@Alarm' {} a -> s {name = a} :: Alarm)
 
-instance Core.FromJSON Alarm where
+instance Data.FromJSON Alarm where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Alarm"
-      (\x -> Alarm' Prelude.<$> (x Core..:? "name"))
+      (\x -> Alarm' Prelude.<$> (x Data..:? "name"))
 
 instance Prelude.Hashable Alarm where
   hashWithSalt _salt Alarm' {..} =
@@ -65,9 +66,9 @@ instance Prelude.Hashable Alarm where
 instance Prelude.NFData Alarm where
   rnf Alarm' {..} = Prelude.rnf name
 
-instance Core.ToJSON Alarm where
+instance Data.ToJSON Alarm where
   toJSON Alarm' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("name" Core..=) Prelude.<$> name]
+          [("name" Data..=) Prelude.<$> name]
       )

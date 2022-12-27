@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.Types.VPCDerivedInfoStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.ElasticSearch.Types.VPCDerivedInfoStatus where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types.OptionStatus
 import Amazonka.ElasticSearch.Types.VPCDerivedInfo
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Status of the VPC options for the specified Elasticsearch domain.
@@ -70,14 +71,14 @@ vPCDerivedInfoStatus_options = Lens.lens (\VPCDerivedInfoStatus' {options} -> op
 vPCDerivedInfoStatus_status :: Lens.Lens' VPCDerivedInfoStatus OptionStatus
 vPCDerivedInfoStatus_status = Lens.lens (\VPCDerivedInfoStatus' {status} -> status) (\s@VPCDerivedInfoStatus' {} a -> s {status = a} :: VPCDerivedInfoStatus)
 
-instance Core.FromJSON VPCDerivedInfoStatus where
+instance Data.FromJSON VPCDerivedInfoStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VPCDerivedInfoStatus"
       ( \x ->
           VPCDerivedInfoStatus'
-            Prelude.<$> (x Core..: "Options")
-            Prelude.<*> (x Core..: "Status")
+            Prelude.<$> (x Data..: "Options")
+            Prelude.<*> (x Data..: "Status")
       )
 
 instance Prelude.Hashable VPCDerivedInfoStatus where

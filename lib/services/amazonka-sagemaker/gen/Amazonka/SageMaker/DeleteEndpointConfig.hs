@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.DeleteEndpointConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.SageMaker.DeleteEndpointConfig
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,7 +86,8 @@ instance Core.AWSRequest DeleteEndpointConfig where
   type
     AWSResponse DeleteEndpointConfig =
       DeleteEndpointConfigResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteEndpointConfigResponse'
 
@@ -97,34 +99,34 @@ instance Prelude.NFData DeleteEndpointConfig where
   rnf DeleteEndpointConfig' {..} =
     Prelude.rnf endpointConfigName
 
-instance Core.ToHeaders DeleteEndpointConfig where
+instance Data.ToHeaders DeleteEndpointConfig where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.DeleteEndpointConfig" ::
+              Data.=# ( "SageMaker.DeleteEndpointConfig" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteEndpointConfig where
+instance Data.ToJSON DeleteEndpointConfig where
   toJSON DeleteEndpointConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("EndpointConfigName" Core..= endpointConfigName)
+              ("EndpointConfigName" Data..= endpointConfigName)
           ]
       )
 
-instance Core.ToPath DeleteEndpointConfig where
+instance Data.ToPath DeleteEndpointConfig where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteEndpointConfig where
+instance Data.ToQuery DeleteEndpointConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteEndpointConfigResponse' smart constructor.

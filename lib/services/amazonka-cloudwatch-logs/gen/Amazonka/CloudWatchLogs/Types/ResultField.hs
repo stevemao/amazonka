@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchLogs.Types.ResultField
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudWatchLogs.Types.ResultField where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains one field from one log event returned by a CloudWatch Logs
@@ -66,14 +67,14 @@ resultField_field = Lens.lens (\ResultField' {field} -> field) (\s@ResultField' 
 resultField_value :: Lens.Lens' ResultField (Prelude.Maybe Prelude.Text)
 resultField_value = Lens.lens (\ResultField' {value} -> value) (\s@ResultField' {} a -> s {value = a} :: ResultField)
 
-instance Core.FromJSON ResultField where
+instance Data.FromJSON ResultField where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResultField"
       ( \x ->
           ResultField'
-            Prelude.<$> (x Core..:? "field")
-            Prelude.<*> (x Core..:? "value")
+            Prelude.<$> (x Data..:? "field")
+            Prelude.<*> (x Data..:? "value")
       )
 
 instance Prelude.Hashable ResultField where

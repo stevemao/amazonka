@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Forecast.Types.DataSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,19 @@
 module Amazonka.Forecast.Types.DataSource where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Forecast.Types.S3Config
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
--- | The source of your training data, an AWS Identity and Access Management
--- (IAM) role that allows Amazon Forecast to access the data and,
--- optionally, an AWS Key Management Service (KMS) key. This object is
--- submitted in the CreateDatasetImportJob request.
+-- | The source of your data, an AWS Identity and Access Management (IAM)
+-- role that allows Amazon Forecast to access the data and, optionally, an
+-- AWS Key Management Service (KMS) key.
 --
 -- /See:/ 'newDataSource' smart constructor.
 data DataSource = DataSource'
-  { -- | The path to the training data stored in an Amazon Simple Storage Service
-    -- (Amazon S3) bucket along with the credentials to access the data.
+  { -- | The path to the data stored in an Amazon Simple Storage Service (Amazon
+    -- S3) bucket along with the credentials to access the data.
     s3Config :: S3Config
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -45,8 +45,8 @@ data DataSource = DataSource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 's3Config', 'dataSource_s3Config' - The path to the training data stored in an Amazon Simple Storage Service
--- (Amazon S3) bucket along with the credentials to access the data.
+-- 's3Config', 'dataSource_s3Config' - The path to the data stored in an Amazon Simple Storage Service (Amazon
+-- S3) bucket along with the credentials to access the data.
 newDataSource ::
   -- | 's3Config'
   S3Config ->
@@ -54,17 +54,17 @@ newDataSource ::
 newDataSource pS3Config_ =
   DataSource' {s3Config = pS3Config_}
 
--- | The path to the training data stored in an Amazon Simple Storage Service
--- (Amazon S3) bucket along with the credentials to access the data.
+-- | The path to the data stored in an Amazon Simple Storage Service (Amazon
+-- S3) bucket along with the credentials to access the data.
 dataSource_s3Config :: Lens.Lens' DataSource S3Config
 dataSource_s3Config = Lens.lens (\DataSource' {s3Config} -> s3Config) (\s@DataSource' {} a -> s {s3Config = a} :: DataSource)
 
-instance Core.FromJSON DataSource where
+instance Data.FromJSON DataSource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DataSource"
       ( \x ->
-          DataSource' Prelude.<$> (x Core..: "S3Config")
+          DataSource' Prelude.<$> (x Data..: "S3Config")
       )
 
 instance Prelude.Hashable DataSource where
@@ -74,9 +74,9 @@ instance Prelude.Hashable DataSource where
 instance Prelude.NFData DataSource where
   rnf DataSource' {..} = Prelude.rnf s3Config
 
-instance Core.ToJSON DataSource where
+instance Data.ToJSON DataSource where
   toJSON DataSource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("S3Config" Core..= s3Config)]
+          [Prelude.Just ("S3Config" Data..= s3Config)]
       )

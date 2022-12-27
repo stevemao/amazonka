@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.DLM
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,9 +17,10 @@
 -- Amazon Web Services resources. You create lifecycle policies, which are
 -- used to automate operations on the specified resources.
 --
--- Amazon DLM supports Amazon EBS volumes and snapshots. For information
--- about using Amazon DLM with Amazon EBS, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshot-lifecycle.html Automating the Amazon EBS Snapshot Lifecycle>
+-- Amazon Data Lifecycle Manager supports Amazon EBS volumes and snapshots.
+-- For information about using Amazon Data Lifecycle Manager with Amazon
+-- EBS, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshot-lifecycle.html Amazon Data Lifecycle Manager>
 -- in the /Amazon EC2 User Guide/.
 module Amazonka.DLM
   ( -- * Service Configuration
@@ -28,17 +29,17 @@ module Amazonka.DLM
     -- * Errors
     -- $errors
 
-    -- ** InvalidRequestException
-    _InvalidRequestException,
-
     -- ** InternalServerException
     _InternalServerException,
 
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
+    -- ** InvalidRequestException
+    _InvalidRequestException,
 
     -- ** LimitExceededException
     _LimitExceededException,
+
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
 
     -- * Waiters
     -- $waiters
@@ -46,35 +47,35 @@ module Amazonka.DLM
     -- * Operations
     -- $operations
 
-    -- ** DeleteLifecyclePolicy
-    DeleteLifecyclePolicy (DeleteLifecyclePolicy'),
-    newDeleteLifecyclePolicy,
-    DeleteLifecyclePolicyResponse (DeleteLifecyclePolicyResponse'),
-    newDeleteLifecyclePolicyResponse,
-
-    -- ** UpdateLifecyclePolicy
-    UpdateLifecyclePolicy (UpdateLifecyclePolicy'),
-    newUpdateLifecyclePolicy,
-    UpdateLifecyclePolicyResponse (UpdateLifecyclePolicyResponse'),
-    newUpdateLifecyclePolicyResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
     -- ** CreateLifecyclePolicy
     CreateLifecyclePolicy (CreateLifecyclePolicy'),
     newCreateLifecyclePolicy,
     CreateLifecyclePolicyResponse (CreateLifecyclePolicyResponse'),
     newCreateLifecyclePolicyResponse,
 
+    -- ** DeleteLifecyclePolicy
+    DeleteLifecyclePolicy (DeleteLifecyclePolicy'),
+    newDeleteLifecyclePolicy,
+    DeleteLifecyclePolicyResponse (DeleteLifecyclePolicyResponse'),
+    newDeleteLifecyclePolicyResponse,
+
+    -- ** GetLifecyclePolicies
+    GetLifecyclePolicies (GetLifecyclePolicies'),
+    newGetLifecyclePolicies,
+    GetLifecyclePoliciesResponse (GetLifecyclePoliciesResponse'),
+    newGetLifecyclePoliciesResponse,
+
     -- ** GetLifecyclePolicy
     GetLifecyclePolicy (GetLifecyclePolicy'),
     newGetLifecyclePolicy,
     GetLifecyclePolicyResponse (GetLifecyclePolicyResponse'),
     newGetLifecyclePolicyResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** TagResource
     TagResource (TagResource'),
@@ -88,11 +89,11 @@ module Amazonka.DLM
     UntagResourceResponse (UntagResourceResponse'),
     newUntagResourceResponse,
 
-    -- ** GetLifecyclePolicies
-    GetLifecyclePolicies (GetLifecyclePolicies'),
-    newGetLifecyclePolicies,
-    GetLifecyclePoliciesResponse (GetLifecyclePoliciesResponse'),
-    newGetLifecyclePoliciesResponse,
+    -- ** UpdateLifecyclePolicy
+    UpdateLifecyclePolicy (UpdateLifecyclePolicy'),
+    newUpdateLifecyclePolicy,
+    UpdateLifecyclePolicyResponse (UpdateLifecyclePolicyResponse'),
+    newUpdateLifecyclePolicyResponse,
 
     -- * Types
 
@@ -129,6 +130,14 @@ module Amazonka.DLM
     -- ** Action
     Action (Action'),
     newAction,
+
+    -- ** ArchiveRetainRule
+    ArchiveRetainRule (ArchiveRetainRule'),
+    newArchiveRetainRule,
+
+    -- ** ArchiveRule
+    ArchiveRule (ArchiveRule'),
+    newArchiveRule,
 
     -- ** CreateRule
     CreateRule (CreateRule'),
@@ -189,6 +198,10 @@ module Amazonka.DLM
     -- ** RetainRule
     RetainRule (RetainRule'),
     newRetainRule,
+
+    -- ** RetentionArchiveTier
+    RetentionArchiveTier (RetentionArchiveTier'),
+    newRetentionArchiveTier,
 
     -- ** Schedule
     Schedule (Schedule'),

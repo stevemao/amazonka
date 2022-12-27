@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.TemplateActiveVersionRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.TemplateActiveVersionRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies which version of a message template to use as the active
@@ -83,9 +84,9 @@ instance Prelude.NFData TemplateActiveVersionRequest where
   rnf TemplateActiveVersionRequest' {..} =
     Prelude.rnf version
 
-instance Core.ToJSON TemplateActiveVersionRequest where
+instance Data.ToJSON TemplateActiveVersionRequest where
   toJSON TemplateActiveVersionRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Version" Core..=) Prelude.<$> version]
+          [("Version" Data..=) Prelude.<$> version]
       )

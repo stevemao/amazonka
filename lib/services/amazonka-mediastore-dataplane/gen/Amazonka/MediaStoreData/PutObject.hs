@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaStoreData.PutObject
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,10 +29,10 @@ module Amazonka.MediaStoreData.PutObject
     newPutObject,
 
     -- * Request Lenses
-    putObject_storageClass,
-    putObject_uploadAvailability,
     putObject_cacheControl,
     putObject_contentType,
+    putObject_storageClass,
+    putObject_uploadAvailability,
     putObject_path,
     putObject_body,
 
@@ -41,15 +41,16 @@ module Amazonka.MediaStoreData.PutObject
     newPutObjectResponse,
 
     -- * Response Lenses
+    putObjectResponse_contentSHA256,
     putObjectResponse_eTag,
     putObjectResponse_storageClass,
-    putObjectResponse_contentSHA256,
     putObjectResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaStoreData.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -57,7 +58,16 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newPutObject' smart constructor.
 data PutObject = PutObject'
-  { -- | Indicates the storage class of a @Put@ request. Defaults to
+  { -- | An optional @CacheControl@ header that allows the caller to control the
+    -- object\'s cache behavior. Headers can be passed in as specified in the
+    -- HTTP at
+    -- <https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9>.
+    --
+    -- Headers with a custom user-defined value are also accepted.
+    cacheControl :: Prelude.Maybe Prelude.Text,
+    -- | The content type of the object.
+    contentType :: Prelude.Maybe Prelude.Text,
+    -- | Indicates the storage class of a @Put@ request. Defaults to
     -- high-performance temporal storage class, and objects are persisted into
     -- durable storage shortly after being received.
     storageClass :: Prelude.Maybe StorageClass,
@@ -71,15 +81,6 @@ data PutObject = PutObject'
     -- To use this header, you must also set the HTTP @Transfer-Encoding@
     -- header to @chunked@.
     uploadAvailability :: Prelude.Maybe UploadAvailability,
-    -- | An optional @CacheControl@ header that allows the caller to control the
-    -- object\'s cache behavior. Headers can be passed in as specified in the
-    -- HTTP at
-    -- <https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9>.
-    --
-    -- Headers with a custom user-defined value are also accepted.
-    cacheControl :: Prelude.Maybe Prelude.Text,
-    -- | The content type of the object.
-    contentType :: Prelude.Maybe Prelude.Text,
     -- | The path (including the file name) where the object is stored in the
     -- container. Format: \<folder name>\/\<folder name>\/\<file name>
     --
@@ -108,7 +109,7 @@ data PutObject = PutObject'
     -- omit an extension.
     path :: Prelude.Text,
     -- | The bytes to be stored.
-    body :: Core.HashedBody
+    body :: Data.HashedBody
   }
   deriving (Prelude.Show, Prelude.Generic)
 
@@ -119,6 +120,15 @@ data PutObject = PutObject'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'cacheControl', 'putObject_cacheControl' - An optional @CacheControl@ header that allows the caller to control the
+-- object\'s cache behavior. Headers can be passed in as specified in the
+-- HTTP at
+-- <https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9>.
+--
+-- Headers with a custom user-defined value are also accepted.
+--
+-- 'contentType', 'putObject_contentType' - The content type of the object.
 --
 -- 'storageClass', 'putObject_storageClass' - Indicates the storage class of a @Put@ request. Defaults to
 -- high-performance temporal storage class, and objects are persisted into
@@ -133,15 +143,6 @@ data PutObject = PutObject'
 --
 -- To use this header, you must also set the HTTP @Transfer-Encoding@
 -- header to @chunked@.
---
--- 'cacheControl', 'putObject_cacheControl' - An optional @CacheControl@ header that allows the caller to control the
--- object\'s cache behavior. Headers can be passed in as specified in the
--- HTTP at
--- <https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9>.
---
--- Headers with a custom user-defined value are also accepted.
---
--- 'contentType', 'putObject_contentType' - The content type of the object.
 --
 -- 'path', 'putObject_path' - The path (including the file name) where the object is stored in the
 -- container. Format: \<folder name>\/\<folder name>\/\<file name>
@@ -175,17 +176,30 @@ newPutObject ::
   -- | 'path'
   Prelude.Text ->
   -- | 'body'
-  Core.HashedBody ->
+  Data.HashedBody ->
   PutObject
 newPutObject pPath_ pBody_ =
   PutObject'
-    { storageClass = Prelude.Nothing,
-      uploadAvailability = Prelude.Nothing,
-      cacheControl = Prelude.Nothing,
+    { cacheControl = Prelude.Nothing,
       contentType = Prelude.Nothing,
+      storageClass = Prelude.Nothing,
+      uploadAvailability = Prelude.Nothing,
       path = pPath_,
       body = pBody_
     }
+
+-- | An optional @CacheControl@ header that allows the caller to control the
+-- object\'s cache behavior. Headers can be passed in as specified in the
+-- HTTP at
+-- <https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9>.
+--
+-- Headers with a custom user-defined value are also accepted.
+putObject_cacheControl :: Lens.Lens' PutObject (Prelude.Maybe Prelude.Text)
+putObject_cacheControl = Lens.lens (\PutObject' {cacheControl} -> cacheControl) (\s@PutObject' {} a -> s {cacheControl = a} :: PutObject)
+
+-- | The content type of the object.
+putObject_contentType :: Lens.Lens' PutObject (Prelude.Maybe Prelude.Text)
+putObject_contentType = Lens.lens (\PutObject' {contentType} -> contentType) (\s@PutObject' {} a -> s {contentType = a} :: PutObject)
 
 -- | Indicates the storage class of a @Put@ request. Defaults to
 -- high-performance temporal storage class, and objects are persisted into
@@ -204,19 +218,6 @@ putObject_storageClass = Lens.lens (\PutObject' {storageClass} -> storageClass) 
 -- header to @chunked@.
 putObject_uploadAvailability :: Lens.Lens' PutObject (Prelude.Maybe UploadAvailability)
 putObject_uploadAvailability = Lens.lens (\PutObject' {uploadAvailability} -> uploadAvailability) (\s@PutObject' {} a -> s {uploadAvailability = a} :: PutObject)
-
--- | An optional @CacheControl@ header that allows the caller to control the
--- object\'s cache behavior. Headers can be passed in as specified in the
--- HTTP at
--- <https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9>.
---
--- Headers with a custom user-defined value are also accepted.
-putObject_cacheControl :: Lens.Lens' PutObject (Prelude.Maybe Prelude.Text)
-putObject_cacheControl = Lens.lens (\PutObject' {cacheControl} -> cacheControl) (\s@PutObject' {} a -> s {cacheControl = a} :: PutObject)
-
--- | The content type of the object.
-putObject_contentType :: Lens.Lens' PutObject (Prelude.Maybe Prelude.Text)
-putObject_contentType = Lens.lens (\PutObject' {contentType} -> contentType) (\s@PutObject' {} a -> s {contentType = a} :: PutObject)
 
 -- | The path (including the file name) where the object is stored in the
 -- container. Format: \<folder name>\/\<folder name>\/\<file name>
@@ -248,51 +249,52 @@ putObject_path :: Lens.Lens' PutObject Prelude.Text
 putObject_path = Lens.lens (\PutObject' {path} -> path) (\s@PutObject' {} a -> s {path = a} :: PutObject)
 
 -- | The bytes to be stored.
-putObject_body :: Lens.Lens' PutObject Core.HashedBody
+putObject_body :: Lens.Lens' PutObject Data.HashedBody
 putObject_body = Lens.lens (\PutObject' {body} -> body) (\s@PutObject' {} a -> s {body = a} :: PutObject)
 
 instance Core.AWSRequest PutObject where
   type AWSResponse PutObject = PutObjectResponse
-  request = Request.putBody defaultService
+  request overrides =
+    Request.putBody (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutObjectResponse'
-            Prelude.<$> (x Core..?> "ETag")
-            Prelude.<*> (x Core..?> "StorageClass")
-            Prelude.<*> (x Core..?> "ContentSHA256")
+            Prelude.<$> (x Data..?> "ContentSHA256")
+            Prelude.<*> (x Data..?> "ETag")
+            Prelude.<*> (x Data..?> "StorageClass")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Core.ToBody PutObject where
-  toBody PutObject' {..} = Core.toBody body
+instance Data.ToBody PutObject where
+  toBody PutObject' {..} = Data.toBody body
 
-instance Core.ToHeaders PutObject where
+instance Data.ToHeaders PutObject where
   toHeaders PutObject' {..} =
     Prelude.mconcat
-      [ "x-amz-storage-class" Core.=# storageClass,
+      [ "Cache-Control" Data.=# cacheControl,
+        "Content-Type" Data.=# contentType,
+        "x-amz-storage-class" Data.=# storageClass,
         "x-amz-upload-availability"
-          Core.=# uploadAvailability,
-        "Cache-Control" Core.=# cacheControl,
-        "Content-Type" Core.=# contentType
+          Data.=# uploadAvailability
       ]
 
-instance Core.ToPath PutObject where
+instance Data.ToPath PutObject where
   toPath PutObject' {..} =
-    Prelude.mconcat ["/", Core.toBS path]
+    Prelude.mconcat ["/", Data.toBS path]
 
-instance Core.ToQuery PutObject where
+instance Data.ToQuery PutObject where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutObjectResponse' smart constructor.
 data PutObjectResponse = PutObjectResponse'
-  { -- | Unique identifier of the object in the container.
+  { -- | The SHA256 digest of the object that is persisted.
+    contentSHA256 :: Prelude.Maybe Prelude.Text,
+    -- | Unique identifier of the object in the container.
     eTag :: Prelude.Maybe Prelude.Text,
     -- | The storage class where the object was persisted. The class should be
     -- “Temporal”.
     storageClass :: Prelude.Maybe StorageClass,
-    -- | The SHA256 digest of the object that is persisted.
-    contentSHA256 :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -306,12 +308,12 @@ data PutObjectResponse = PutObjectResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'contentSHA256', 'putObjectResponse_contentSHA256' - The SHA256 digest of the object that is persisted.
+--
 -- 'eTag', 'putObjectResponse_eTag' - Unique identifier of the object in the container.
 --
 -- 'storageClass', 'putObjectResponse_storageClass' - The storage class where the object was persisted. The class should be
 -- “Temporal”.
---
--- 'contentSHA256', 'putObjectResponse_contentSHA256' - The SHA256 digest of the object that is persisted.
 --
 -- 'httpStatus', 'putObjectResponse_httpStatus' - The response's http status code.
 newPutObjectResponse ::
@@ -320,11 +322,15 @@ newPutObjectResponse ::
   PutObjectResponse
 newPutObjectResponse pHttpStatus_ =
   PutObjectResponse'
-    { eTag = Prelude.Nothing,
+    { contentSHA256 = Prelude.Nothing,
+      eTag = Prelude.Nothing,
       storageClass = Prelude.Nothing,
-      contentSHA256 = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The SHA256 digest of the object that is persisted.
+putObjectResponse_contentSHA256 :: Lens.Lens' PutObjectResponse (Prelude.Maybe Prelude.Text)
+putObjectResponse_contentSHA256 = Lens.lens (\PutObjectResponse' {contentSHA256} -> contentSHA256) (\s@PutObjectResponse' {} a -> s {contentSHA256 = a} :: PutObjectResponse)
 
 -- | Unique identifier of the object in the container.
 putObjectResponse_eTag :: Lens.Lens' PutObjectResponse (Prelude.Maybe Prelude.Text)
@@ -335,17 +341,13 @@ putObjectResponse_eTag = Lens.lens (\PutObjectResponse' {eTag} -> eTag) (\s@PutO
 putObjectResponse_storageClass :: Lens.Lens' PutObjectResponse (Prelude.Maybe StorageClass)
 putObjectResponse_storageClass = Lens.lens (\PutObjectResponse' {storageClass} -> storageClass) (\s@PutObjectResponse' {} a -> s {storageClass = a} :: PutObjectResponse)
 
--- | The SHA256 digest of the object that is persisted.
-putObjectResponse_contentSHA256 :: Lens.Lens' PutObjectResponse (Prelude.Maybe Prelude.Text)
-putObjectResponse_contentSHA256 = Lens.lens (\PutObjectResponse' {contentSHA256} -> contentSHA256) (\s@PutObjectResponse' {} a -> s {contentSHA256 = a} :: PutObjectResponse)
-
 -- | The response's http status code.
 putObjectResponse_httpStatus :: Lens.Lens' PutObjectResponse Prelude.Int
 putObjectResponse_httpStatus = Lens.lens (\PutObjectResponse' {httpStatus} -> httpStatus) (\s@PutObjectResponse' {} a -> s {httpStatus = a} :: PutObjectResponse)
 
 instance Prelude.NFData PutObjectResponse where
   rnf PutObjectResponse' {..} =
-    Prelude.rnf eTag
+    Prelude.rnf contentSHA256
+      `Prelude.seq` Prelude.rnf eTag
       `Prelude.seq` Prelude.rnf storageClass
-      `Prelude.seq` Prelude.rnf contentSHA256
       `Prelude.seq` Prelude.rnf httpStatus

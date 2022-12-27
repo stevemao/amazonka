@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.ListDatasetExportJobs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,8 +24,10 @@
 -- dataset is not specified, all the dataset export jobs associated with
 -- the account are listed. The response provides the properties for each
 -- dataset export job, including the Amazon Resource Name (ARN). For more
--- information on dataset export jobs, see CreateDatasetExportJob. For more
--- information on datasets, see CreateDataset.
+-- information on dataset export jobs, see
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDatasetExportJob.html CreateDatasetExportJob>.
+-- For more information on datasets, see
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDataset.html CreateDataset>.
 --
 -- This operation returns paginated results.
 module Amazonka.Personalize.ListDatasetExportJobs
@@ -35,22 +37,23 @@ module Amazonka.Personalize.ListDatasetExportJobs
 
     -- * Request Lenses
     listDatasetExportJobs_datasetArn,
-    listDatasetExportJobs_nextToken,
     listDatasetExportJobs_maxResults,
+    listDatasetExportJobs_nextToken,
 
     -- * Destructuring the Response
     ListDatasetExportJobsResponse (..),
     newListDatasetExportJobsResponse,
 
     -- * Response Lenses
-    listDatasetExportJobsResponse_nextToken,
     listDatasetExportJobsResponse_datasetExportJobs,
+    listDatasetExportJobsResponse_nextToken,
     listDatasetExportJobsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -61,11 +64,11 @@ data ListDatasetExportJobs = ListDatasetExportJobs'
   { -- | The Amazon Resource Name (ARN) of the dataset to list the dataset export
     -- jobs for.
     datasetArn :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of dataset export jobs to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | A token returned from the previous call to @ListDatasetExportJobs@ for
     -- getting the next set of dataset export jobs (if they exist).
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of dataset export jobs to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -80,18 +83,18 @@ data ListDatasetExportJobs = ListDatasetExportJobs'
 -- 'datasetArn', 'listDatasetExportJobs_datasetArn' - The Amazon Resource Name (ARN) of the dataset to list the dataset export
 -- jobs for.
 --
+-- 'maxResults', 'listDatasetExportJobs_maxResults' - The maximum number of dataset export jobs to return.
+--
 -- 'nextToken', 'listDatasetExportJobs_nextToken' - A token returned from the previous call to @ListDatasetExportJobs@ for
 -- getting the next set of dataset export jobs (if they exist).
---
--- 'maxResults', 'listDatasetExportJobs_maxResults' - The maximum number of dataset export jobs to return.
 newListDatasetExportJobs ::
   ListDatasetExportJobs
 newListDatasetExportJobs =
   ListDatasetExportJobs'
     { datasetArn =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the dataset to list the dataset export
@@ -99,14 +102,14 @@ newListDatasetExportJobs =
 listDatasetExportJobs_datasetArn :: Lens.Lens' ListDatasetExportJobs (Prelude.Maybe Prelude.Text)
 listDatasetExportJobs_datasetArn = Lens.lens (\ListDatasetExportJobs' {datasetArn} -> datasetArn) (\s@ListDatasetExportJobs' {} a -> s {datasetArn = a} :: ListDatasetExportJobs)
 
+-- | The maximum number of dataset export jobs to return.
+listDatasetExportJobs_maxResults :: Lens.Lens' ListDatasetExportJobs (Prelude.Maybe Prelude.Natural)
+listDatasetExportJobs_maxResults = Lens.lens (\ListDatasetExportJobs' {maxResults} -> maxResults) (\s@ListDatasetExportJobs' {} a -> s {maxResults = a} :: ListDatasetExportJobs)
+
 -- | A token returned from the previous call to @ListDatasetExportJobs@ for
 -- getting the next set of dataset export jobs (if they exist).
 listDatasetExportJobs_nextToken :: Lens.Lens' ListDatasetExportJobs (Prelude.Maybe Prelude.Text)
 listDatasetExportJobs_nextToken = Lens.lens (\ListDatasetExportJobs' {nextToken} -> nextToken) (\s@ListDatasetExportJobs' {} a -> s {nextToken = a} :: ListDatasetExportJobs)
-
--- | The maximum number of dataset export jobs to return.
-listDatasetExportJobs_maxResults :: Lens.Lens' ListDatasetExportJobs (Prelude.Maybe Prelude.Natural)
-listDatasetExportJobs_maxResults = Lens.lens (\ListDatasetExportJobs' {maxResults} -> maxResults) (\s@ListDatasetExportJobs' {} a -> s {maxResults = a} :: ListDatasetExportJobs)
 
 instance Core.AWSPager ListDatasetExportJobs where
   page rq rs
@@ -134,67 +137,68 @@ instance Core.AWSRequest ListDatasetExportJobs where
   type
     AWSResponse ListDatasetExportJobs =
       ListDatasetExportJobsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDatasetExportJobsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> ( x Core..?> "datasetExportJobs"
+            Prelude.<$> ( x Data..?> "datasetExportJobs"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListDatasetExportJobs where
   hashWithSalt _salt ListDatasetExportJobs' {..} =
     _salt `Prelude.hashWithSalt` datasetArn
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListDatasetExportJobs where
   rnf ListDatasetExportJobs' {..} =
     Prelude.rnf datasetArn
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListDatasetExportJobs where
+instance Data.ToHeaders ListDatasetExportJobs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.ListDatasetExportJobs" ::
+              Data.=# ( "AmazonPersonalize.ListDatasetExportJobs" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListDatasetExportJobs where
+instance Data.ToJSON ListDatasetExportJobs where
   toJSON ListDatasetExportJobs' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("datasetArn" Core..=) Prelude.<$> datasetArn,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("datasetArn" Data..=) Prelude.<$> datasetArn,
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListDatasetExportJobs where
+instance Data.ToPath ListDatasetExportJobs where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListDatasetExportJobs where
+instance Data.ToQuery ListDatasetExportJobs where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListDatasetExportJobsResponse' smart constructor.
 data ListDatasetExportJobsResponse = ListDatasetExportJobsResponse'
-  { -- | A token for getting the next set of dataset export jobs (if they exist).
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The list of dataset export jobs.
+  { -- | The list of dataset export jobs.
     datasetExportJobs :: Prelude.Maybe [DatasetExportJobSummary],
+    -- | A token for getting the next set of dataset export jobs (if they exist).
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -208,9 +212,9 @@ data ListDatasetExportJobsResponse = ListDatasetExportJobsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listDatasetExportJobsResponse_nextToken' - A token for getting the next set of dataset export jobs (if they exist).
---
 -- 'datasetExportJobs', 'listDatasetExportJobsResponse_datasetExportJobs' - The list of dataset export jobs.
+--
+-- 'nextToken', 'listDatasetExportJobsResponse_nextToken' - A token for getting the next set of dataset export jobs (if they exist).
 --
 -- 'httpStatus', 'listDatasetExportJobsResponse_httpStatus' - The response's http status code.
 newListDatasetExportJobsResponse ::
@@ -219,19 +223,19 @@ newListDatasetExportJobsResponse ::
   ListDatasetExportJobsResponse
 newListDatasetExportJobsResponse pHttpStatus_ =
   ListDatasetExportJobsResponse'
-    { nextToken =
+    { datasetExportJobs =
         Prelude.Nothing,
-      datasetExportJobs = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A token for getting the next set of dataset export jobs (if they exist).
-listDatasetExportJobsResponse_nextToken :: Lens.Lens' ListDatasetExportJobsResponse (Prelude.Maybe Prelude.Text)
-listDatasetExportJobsResponse_nextToken = Lens.lens (\ListDatasetExportJobsResponse' {nextToken} -> nextToken) (\s@ListDatasetExportJobsResponse' {} a -> s {nextToken = a} :: ListDatasetExportJobsResponse)
 
 -- | The list of dataset export jobs.
 listDatasetExportJobsResponse_datasetExportJobs :: Lens.Lens' ListDatasetExportJobsResponse (Prelude.Maybe [DatasetExportJobSummary])
 listDatasetExportJobsResponse_datasetExportJobs = Lens.lens (\ListDatasetExportJobsResponse' {datasetExportJobs} -> datasetExportJobs) (\s@ListDatasetExportJobsResponse' {} a -> s {datasetExportJobs = a} :: ListDatasetExportJobsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | A token for getting the next set of dataset export jobs (if they exist).
+listDatasetExportJobsResponse_nextToken :: Lens.Lens' ListDatasetExportJobsResponse (Prelude.Maybe Prelude.Text)
+listDatasetExportJobsResponse_nextToken = Lens.lens (\ListDatasetExportJobsResponse' {nextToken} -> nextToken) (\s@ListDatasetExportJobsResponse' {} a -> s {nextToken = a} :: ListDatasetExportJobsResponse)
 
 -- | The response's http status code.
 listDatasetExportJobsResponse_httpStatus :: Lens.Lens' ListDatasetExportJobsResponse Prelude.Int
@@ -239,6 +243,6 @@ listDatasetExportJobsResponse_httpStatus = Lens.lens (\ListDatasetExportJobsResp
 
 instance Prelude.NFData ListDatasetExportJobsResponse where
   rnf ListDatasetExportJobsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf datasetExportJobs
+    Prelude.rnf datasetExportJobs
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

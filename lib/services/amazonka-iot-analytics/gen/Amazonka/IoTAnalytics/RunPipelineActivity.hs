@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.RunPipelineActivity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.IoTAnalytics.RunPipelineActivity
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,7 +60,7 @@ data RunPipelineActivity = RunPipelineActivity'
     -- seconds or less) can be used.
     pipelineActivity :: PipelineActivity,
     -- | The sample message payloads on which the pipeline activity is run.
-    payloads :: Prelude.NonEmpty Core.Base64
+    payloads :: Prelude.NonEmpty Data.Base64
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -109,13 +110,14 @@ instance Core.AWSRequest RunPipelineActivity where
   type
     AWSResponse RunPipelineActivity =
       RunPipelineActivityResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RunPipelineActivityResponse'
-            Prelude.<$> (x Core..?> "logResult")
-            Prelude.<*> (x Core..?> "payloads")
+            Prelude.<$> (x Data..?> "logResult")
+            Prelude.<*> (x Data..?> "payloads")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -129,23 +131,23 @@ instance Prelude.NFData RunPipelineActivity where
     Prelude.rnf pipelineActivity
       `Prelude.seq` Prelude.rnf payloads
 
-instance Core.ToHeaders RunPipelineActivity where
+instance Data.ToHeaders RunPipelineActivity where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON RunPipelineActivity where
+instance Data.ToJSON RunPipelineActivity where
   toJSON RunPipelineActivity' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("pipelineActivity" Core..= pipelineActivity),
-            Prelude.Just ("payloads" Core..= payloads)
+              ("pipelineActivity" Data..= pipelineActivity),
+            Prelude.Just ("payloads" Data..= payloads)
           ]
       )
 
-instance Core.ToPath RunPipelineActivity where
+instance Data.ToPath RunPipelineActivity where
   toPath = Prelude.const "/pipelineactivities/run"
 
-instance Core.ToQuery RunPipelineActivity where
+instance Data.ToQuery RunPipelineActivity where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRunPipelineActivityResponse' smart constructor.
@@ -155,7 +157,7 @@ data RunPipelineActivityResponse = RunPipelineActivityResponse'
     -- | The enriched or transformed sample message payloads as base64-encoded
     -- strings. (The results of running the pipeline activity on each input
     -- sample message payload, encoded in base64.)
-    payloads :: Prelude.Maybe (Prelude.NonEmpty Core.Base64),
+    payloads :: Prelude.Maybe (Prelude.NonEmpty Data.Base64),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }

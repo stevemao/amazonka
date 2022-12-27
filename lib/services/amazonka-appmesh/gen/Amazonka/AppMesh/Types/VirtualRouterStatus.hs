@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.VirtualRouterStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppMesh.Types.VirtualRouterStatus where
 
 import Amazonka.AppMesh.Types.VirtualRouterStatusCode
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents the status of a virtual router.
@@ -53,13 +54,13 @@ newVirtualRouterStatus pStatus_ =
 virtualRouterStatus_status :: Lens.Lens' VirtualRouterStatus VirtualRouterStatusCode
 virtualRouterStatus_status = Lens.lens (\VirtualRouterStatus' {status} -> status) (\s@VirtualRouterStatus' {} a -> s {status = a} :: VirtualRouterStatus)
 
-instance Core.FromJSON VirtualRouterStatus where
+instance Data.FromJSON VirtualRouterStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VirtualRouterStatus"
       ( \x ->
           VirtualRouterStatus'
-            Prelude.<$> (x Core..: "status")
+            Prelude.<$> (x Data..: "status")
       )
 
 instance Prelude.Hashable VirtualRouterStatus where

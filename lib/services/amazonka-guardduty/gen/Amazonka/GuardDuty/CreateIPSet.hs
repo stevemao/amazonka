@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.CreateIPSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,9 +22,10 @@
 --
 -- Creates a new IPSet, which is called a trusted IP list in the console
 -- user interface. An IPSet is a list of IP addresses that are trusted for
--- secure communication with AWS infrastructure and applications. GuardDuty
--- doesn\'t generate findings for IP addresses that are included in IPSets.
--- Only users from the administrator account can use this operation.
+-- secure communication with Amazon Web Services infrastructure and
+-- applications. GuardDuty doesn\'t generate findings for IP addresses that
+-- are included in IPSets. Only users from the administrator account can
+-- use this operation.
 module Amazonka.GuardDuty.CreateIPSet
   ( -- * Creating a Request
     CreateIPSet (..),
@@ -50,8 +51,9 @@ module Amazonka.GuardDuty.CreateIPSet
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -72,8 +74,7 @@ data CreateIPSet = CreateIPSet'
     name :: Prelude.Text,
     -- | The format of the file that contains the IPSet.
     format :: IpSetFormat,
-    -- | The URI of the file that contains the IPSet. For example:
-    -- https:\/\/s3.us-west-2.amazonaws.com\/my-bucket\/my-object-key.
+    -- | The URI of the file that contains the IPSet.
     location :: Prelude.Text,
     -- | A Boolean value that indicates whether GuardDuty is to start using the
     -- uploaded IPSet.
@@ -103,8 +104,7 @@ data CreateIPSet = CreateIPSet'
 --
 -- 'format', 'createIPSet_format' - The format of the file that contains the IPSet.
 --
--- 'location', 'createIPSet_location' - The URI of the file that contains the IPSet. For example:
--- https:\/\/s3.us-west-2.amazonaws.com\/my-bucket\/my-object-key.
+-- 'location', 'createIPSet_location' - The URI of the file that contains the IPSet.
 --
 -- 'activate', 'createIPSet_activate' - A Boolean value that indicates whether GuardDuty is to start using the
 -- uploaded IPSet.
@@ -160,8 +160,7 @@ createIPSet_name = Lens.lens (\CreateIPSet' {name} -> name) (\s@CreateIPSet' {} 
 createIPSet_format :: Lens.Lens' CreateIPSet IpSetFormat
 createIPSet_format = Lens.lens (\CreateIPSet' {format} -> format) (\s@CreateIPSet' {} a -> s {format = a} :: CreateIPSet)
 
--- | The URI of the file that contains the IPSet. For example:
--- https:\/\/s3.us-west-2.amazonaws.com\/my-bucket\/my-object-key.
+-- | The URI of the file that contains the IPSet.
 createIPSet_location :: Lens.Lens' CreateIPSet Prelude.Text
 createIPSet_location = Lens.lens (\CreateIPSet' {location} -> location) (\s@CreateIPSet' {} a -> s {location = a} :: CreateIPSet)
 
@@ -172,13 +171,14 @@ createIPSet_activate = Lens.lens (\CreateIPSet' {activate} -> activate) (\s@Crea
 
 instance Core.AWSRequest CreateIPSet where
   type AWSResponse CreateIPSet = CreateIPSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateIPSetResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "ipSetId")
+            Prelude.<*> (x Data..:> "ipSetId")
       )
 
 instance Prelude.Hashable CreateIPSet where
@@ -201,36 +201,36 @@ instance Prelude.NFData CreateIPSet where
       `Prelude.seq` Prelude.rnf location
       `Prelude.seq` Prelude.rnf activate
 
-instance Core.ToHeaders CreateIPSet where
+instance Data.ToHeaders CreateIPSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateIPSet where
+instance Data.ToJSON CreateIPSet where
   toJSON CreateIPSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("name" Core..= name),
-            Prelude.Just ("format" Core..= format),
-            Prelude.Just ("location" Core..= location),
-            Prelude.Just ("activate" Core..= activate)
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("name" Data..= name),
+            Prelude.Just ("format" Data..= format),
+            Prelude.Just ("location" Data..= location),
+            Prelude.Just ("activate" Data..= activate)
           ]
       )
 
-instance Core.ToPath CreateIPSet where
+instance Data.ToPath CreateIPSet where
   toPath CreateIPSet' {..} =
     Prelude.mconcat
-      ["/detector/", Core.toBS detectorId, "/ipset"]
+      ["/detector/", Data.toBS detectorId, "/ipset"]
 
-instance Core.ToQuery CreateIPSet where
+instance Data.ToQuery CreateIPSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateIPSetResponse' smart constructor.

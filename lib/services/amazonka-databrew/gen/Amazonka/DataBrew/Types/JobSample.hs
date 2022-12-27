@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataBrew.Types.JobSample
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.DataBrew.Types.JobSample where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataBrew.Types.SampleMode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A sample configuration for profile jobs only, which determines the
@@ -31,13 +32,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newJobSample' smart constructor.
 data JobSample = JobSample'
-  { -- | The @Size@ parameter is only required when the mode is CUSTOM_ROWS. The
-    -- profile job is run on the specified number of rows. The maximum value
-    -- for size is Long.MAX_VALUE.
-    --
-    -- Long.MAX_VALUE = 9223372036854775807
-    size :: Prelude.Maybe Prelude.Integer,
-    -- | A value that determines whether the profile job is run on the entire
+  { -- | A value that determines whether the profile job is run on the entire
     -- dataset or a specified number of rows. This value must be one of the
     -- following:
     --
@@ -45,7 +40,13 @@ data JobSample = JobSample'
     --
     -- -   CUSTOM_ROWS - The profile job is run on the number of rows specified
     --     in the @Size@ parameter.
-    mode :: Prelude.Maybe SampleMode
+    mode :: Prelude.Maybe SampleMode,
+    -- | The @Size@ parameter is only required when the mode is CUSTOM_ROWS. The
+    -- profile job is run on the specified number of rows. The maximum value
+    -- for size is Long.MAX_VALUE.
+    --
+    -- Long.MAX_VALUE = 9223372036854775807
+    size :: Prelude.Maybe Prelude.Integer
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -57,12 +58,6 @@ data JobSample = JobSample'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'size', 'jobSample_size' - The @Size@ parameter is only required when the mode is CUSTOM_ROWS. The
--- profile job is run on the specified number of rows. The maximum value
--- for size is Long.MAX_VALUE.
---
--- Long.MAX_VALUE = 9223372036854775807
---
 -- 'mode', 'jobSample_mode' - A value that determines whether the profile job is run on the entire
 -- dataset or a specified number of rows. This value must be one of the
 -- following:
@@ -71,21 +66,19 @@ data JobSample = JobSample'
 --
 -- -   CUSTOM_ROWS - The profile job is run on the number of rows specified
 --     in the @Size@ parameter.
-newJobSample ::
-  JobSample
-newJobSample =
-  JobSample'
-    { size = Prelude.Nothing,
-      mode = Prelude.Nothing
-    }
-
--- | The @Size@ parameter is only required when the mode is CUSTOM_ROWS. The
+--
+-- 'size', 'jobSample_size' - The @Size@ parameter is only required when the mode is CUSTOM_ROWS. The
 -- profile job is run on the specified number of rows. The maximum value
 -- for size is Long.MAX_VALUE.
 --
 -- Long.MAX_VALUE = 9223372036854775807
-jobSample_size :: Lens.Lens' JobSample (Prelude.Maybe Prelude.Integer)
-jobSample_size = Lens.lens (\JobSample' {size} -> size) (\s@JobSample' {} a -> s {size = a} :: JobSample)
+newJobSample ::
+  JobSample
+newJobSample =
+  JobSample'
+    { mode = Prelude.Nothing,
+      size = Prelude.Nothing
+    }
 
 -- | A value that determines whether the profile job is run on the entire
 -- dataset or a specified number of rows. This value must be one of the
@@ -98,29 +91,37 @@ jobSample_size = Lens.lens (\JobSample' {size} -> size) (\s@JobSample' {} a -> s
 jobSample_mode :: Lens.Lens' JobSample (Prelude.Maybe SampleMode)
 jobSample_mode = Lens.lens (\JobSample' {mode} -> mode) (\s@JobSample' {} a -> s {mode = a} :: JobSample)
 
-instance Core.FromJSON JobSample where
+-- | The @Size@ parameter is only required when the mode is CUSTOM_ROWS. The
+-- profile job is run on the specified number of rows. The maximum value
+-- for size is Long.MAX_VALUE.
+--
+-- Long.MAX_VALUE = 9223372036854775807
+jobSample_size :: Lens.Lens' JobSample (Prelude.Maybe Prelude.Integer)
+jobSample_size = Lens.lens (\JobSample' {size} -> size) (\s@JobSample' {} a -> s {size = a} :: JobSample)
+
+instance Data.FromJSON JobSample where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "JobSample"
       ( \x ->
           JobSample'
-            Prelude.<$> (x Core..:? "Size") Prelude.<*> (x Core..:? "Mode")
+            Prelude.<$> (x Data..:? "Mode") Prelude.<*> (x Data..:? "Size")
       )
 
 instance Prelude.Hashable JobSample where
   hashWithSalt _salt JobSample' {..} =
-    _salt `Prelude.hashWithSalt` size
-      `Prelude.hashWithSalt` mode
+    _salt `Prelude.hashWithSalt` mode
+      `Prelude.hashWithSalt` size
 
 instance Prelude.NFData JobSample where
   rnf JobSample' {..} =
-    Prelude.rnf size `Prelude.seq` Prelude.rnf mode
+    Prelude.rnf mode `Prelude.seq` Prelude.rnf size
 
-instance Core.ToJSON JobSample where
+instance Data.ToJSON JobSample where
   toJSON JobSample' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Size" Core..=) Prelude.<$> size,
-            ("Mode" Core..=) Prelude.<$> mode
+          [ ("Mode" Data..=) Prelude.<$> mode,
+            ("Size" Data..=) Prelude.<$> size
           ]
       )

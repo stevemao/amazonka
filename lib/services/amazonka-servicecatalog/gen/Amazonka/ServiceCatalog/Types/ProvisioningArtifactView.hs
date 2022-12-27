@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.Types.ProvisioningArtifactView
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ServiceCatalog.Types.ProvisioningArtifactView where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.ServiceCatalog.Types.ProductViewSummary
 import Amazonka.ServiceCatalog.Types.ProvisioningArtifact
@@ -68,14 +69,14 @@ provisioningArtifactView_productViewSummary = Lens.lens (\ProvisioningArtifactVi
 provisioningArtifactView_provisioningArtifact :: Lens.Lens' ProvisioningArtifactView (Prelude.Maybe ProvisioningArtifact)
 provisioningArtifactView_provisioningArtifact = Lens.lens (\ProvisioningArtifactView' {provisioningArtifact} -> provisioningArtifact) (\s@ProvisioningArtifactView' {} a -> s {provisioningArtifact = a} :: ProvisioningArtifactView)
 
-instance Core.FromJSON ProvisioningArtifactView where
+instance Data.FromJSON ProvisioningArtifactView where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ProvisioningArtifactView"
       ( \x ->
           ProvisioningArtifactView'
-            Prelude.<$> (x Core..:? "ProductViewSummary")
-            Prelude.<*> (x Core..:? "ProvisioningArtifact")
+            Prelude.<$> (x Data..:? "ProductViewSummary")
+            Prelude.<*> (x Data..:? "ProvisioningArtifact")
       )
 
 instance Prelude.Hashable ProvisioningArtifactView where

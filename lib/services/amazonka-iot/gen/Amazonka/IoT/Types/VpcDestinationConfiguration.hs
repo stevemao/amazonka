@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.VpcDestinationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoT.Types.VpcDestinationConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configuration information for a virtual private cloud (VPC)
@@ -102,14 +103,14 @@ instance Prelude.NFData VpcDestinationConfiguration where
       `Prelude.seq` Prelude.rnf vpcId
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToJSON VpcDestinationConfiguration where
+instance Data.ToJSON VpcDestinationConfiguration where
   toJSON VpcDestinationConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("securityGroups" Core..=)
+          [ ("securityGroups" Data..=)
               Prelude.<$> securityGroups,
-            Prelude.Just ("subnetIds" Core..= subnetIds),
-            Prelude.Just ("vpcId" Core..= vpcId),
-            Prelude.Just ("roleArn" Core..= roleArn)
+            Prelude.Just ("subnetIds" Data..= subnetIds),
+            Prelude.Just ("vpcId" Data..= vpcId),
+            Prelude.Just ("roleArn" Data..= roleArn)
           ]
       )

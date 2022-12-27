@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Schemas.ExportSchema
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,17 +37,18 @@ module Amazonka.Schemas.ExportSchema
     newExportSchemaResponse,
 
     -- * Response Lenses
-    exportSchemaResponse_schemaVersion,
-    exportSchemaResponse_schemaName,
     exportSchemaResponse_content,
     exportSchemaResponse_schemaArn,
+    exportSchemaResponse_schemaName,
+    exportSchemaResponse_schemaVersion,
     exportSchemaResponse_type,
     exportSchemaResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -114,16 +115,17 @@ exportSchema_type = Lens.lens (\ExportSchema' {type'} -> type') (\s@ExportSchema
 
 instance Core.AWSRequest ExportSchema where
   type AWSResponse ExportSchema = ExportSchemaResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ExportSchemaResponse'
-            Prelude.<$> (x Core..?> "SchemaVersion")
-            Prelude.<*> (x Core..?> "SchemaName")
-            Prelude.<*> (x Core..?> "Content")
-            Prelude.<*> (x Core..?> "SchemaArn")
-            Prelude.<*> (x Core..?> "Type")
+            Prelude.<$> (x Data..?> "Content")
+            Prelude.<*> (x Data..?> "SchemaArn")
+            Prelude.<*> (x Data..?> "SchemaName")
+            Prelude.<*> (x Data..?> "SchemaVersion")
+            Prelude.<*> (x Data..?> "Type")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -141,40 +143,40 @@ instance Prelude.NFData ExportSchema where
       `Prelude.seq` Prelude.rnf schemaName
       `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToHeaders ExportSchema where
+instance Data.ToHeaders ExportSchema where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ExportSchema where
+instance Data.ToPath ExportSchema where
   toPath ExportSchema' {..} =
     Prelude.mconcat
       [ "/v1/registries/name/",
-        Core.toBS registryName,
+        Data.toBS registryName,
         "/schemas/name/",
-        Core.toBS schemaName,
+        Data.toBS schemaName,
         "/export"
       ]
 
-instance Core.ToQuery ExportSchema where
+instance Data.ToQuery ExportSchema where
   toQuery ExportSchema' {..} =
     Prelude.mconcat
-      [ "schemaVersion" Core.=: schemaVersion,
-        "type" Core.=: type'
+      [ "schemaVersion" Data.=: schemaVersion,
+        "type" Data.=: type'
       ]
 
 -- | /See:/ 'newExportSchemaResponse' smart constructor.
 data ExportSchemaResponse = ExportSchemaResponse'
-  { schemaVersion :: Prelude.Maybe Prelude.Text,
-    schemaName :: Prelude.Maybe Prelude.Text,
-    content :: Prelude.Maybe Prelude.Text,
+  { content :: Prelude.Maybe Prelude.Text,
     schemaArn :: Prelude.Maybe Prelude.Text,
+    schemaName :: Prelude.Maybe Prelude.Text,
+    schemaVersion :: Prelude.Maybe Prelude.Text,
     type' :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -189,13 +191,13 @@ data ExportSchemaResponse = ExportSchemaResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'schemaVersion', 'exportSchemaResponse_schemaVersion' - Undocumented member.
---
--- 'schemaName', 'exportSchemaResponse_schemaName' - Undocumented member.
---
 -- 'content', 'exportSchemaResponse_content' - Undocumented member.
 --
 -- 'schemaArn', 'exportSchemaResponse_schemaArn' - Undocumented member.
+--
+-- 'schemaName', 'exportSchemaResponse_schemaName' - Undocumented member.
+--
+-- 'schemaVersion', 'exportSchemaResponse_schemaVersion' - Undocumented member.
 --
 -- 'type'', 'exportSchemaResponse_type' - Undocumented member.
 --
@@ -206,22 +208,13 @@ newExportSchemaResponse ::
   ExportSchemaResponse
 newExportSchemaResponse pHttpStatus_ =
   ExportSchemaResponse'
-    { schemaVersion =
-        Prelude.Nothing,
-      schemaName = Prelude.Nothing,
-      content = Prelude.Nothing,
+    { content = Prelude.Nothing,
       schemaArn = Prelude.Nothing,
+      schemaName = Prelude.Nothing,
+      schemaVersion = Prelude.Nothing,
       type' = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Undocumented member.
-exportSchemaResponse_schemaVersion :: Lens.Lens' ExportSchemaResponse (Prelude.Maybe Prelude.Text)
-exportSchemaResponse_schemaVersion = Lens.lens (\ExportSchemaResponse' {schemaVersion} -> schemaVersion) (\s@ExportSchemaResponse' {} a -> s {schemaVersion = a} :: ExportSchemaResponse)
-
--- | Undocumented member.
-exportSchemaResponse_schemaName :: Lens.Lens' ExportSchemaResponse (Prelude.Maybe Prelude.Text)
-exportSchemaResponse_schemaName = Lens.lens (\ExportSchemaResponse' {schemaName} -> schemaName) (\s@ExportSchemaResponse' {} a -> s {schemaName = a} :: ExportSchemaResponse)
 
 -- | Undocumented member.
 exportSchemaResponse_content :: Lens.Lens' ExportSchemaResponse (Prelude.Maybe Prelude.Text)
@@ -230,6 +223,14 @@ exportSchemaResponse_content = Lens.lens (\ExportSchemaResponse' {content} -> co
 -- | Undocumented member.
 exportSchemaResponse_schemaArn :: Lens.Lens' ExportSchemaResponse (Prelude.Maybe Prelude.Text)
 exportSchemaResponse_schemaArn = Lens.lens (\ExportSchemaResponse' {schemaArn} -> schemaArn) (\s@ExportSchemaResponse' {} a -> s {schemaArn = a} :: ExportSchemaResponse)
+
+-- | Undocumented member.
+exportSchemaResponse_schemaName :: Lens.Lens' ExportSchemaResponse (Prelude.Maybe Prelude.Text)
+exportSchemaResponse_schemaName = Lens.lens (\ExportSchemaResponse' {schemaName} -> schemaName) (\s@ExportSchemaResponse' {} a -> s {schemaName = a} :: ExportSchemaResponse)
+
+-- | Undocumented member.
+exportSchemaResponse_schemaVersion :: Lens.Lens' ExportSchemaResponse (Prelude.Maybe Prelude.Text)
+exportSchemaResponse_schemaVersion = Lens.lens (\ExportSchemaResponse' {schemaVersion} -> schemaVersion) (\s@ExportSchemaResponse' {} a -> s {schemaVersion = a} :: ExportSchemaResponse)
 
 -- | Undocumented member.
 exportSchemaResponse_type :: Lens.Lens' ExportSchemaResponse (Prelude.Maybe Prelude.Text)
@@ -241,9 +242,9 @@ exportSchemaResponse_httpStatus = Lens.lens (\ExportSchemaResponse' {httpStatus}
 
 instance Prelude.NFData ExportSchemaResponse where
   rnf ExportSchemaResponse' {..} =
-    Prelude.rnf schemaVersion
-      `Prelude.seq` Prelude.rnf schemaName
-      `Prelude.seq` Prelude.rnf content
+    Prelude.rnf content
       `Prelude.seq` Prelude.rnf schemaArn
+      `Prelude.seq` Prelude.rnf schemaName
+      `Prelude.seq` Prelude.rnf schemaVersion
       `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf httpStatus

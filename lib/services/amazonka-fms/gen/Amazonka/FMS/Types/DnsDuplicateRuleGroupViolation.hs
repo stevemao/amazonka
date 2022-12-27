@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.Types.DnsDuplicateRuleGroupViolation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.FMS.Types.DnsDuplicateRuleGroupViolation where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A DNS Firewall rule group that Firewall Manager tried to associate with
@@ -28,10 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newDnsDuplicateRuleGroupViolation' smart constructor.
 data DnsDuplicateRuleGroupViolation = DnsDuplicateRuleGroupViolation'
-  { -- | A description of the violation that specifies the rule group and VPC.
-    violationTargetDescription :: Prelude.Maybe Prelude.Text,
-    -- | Information about the VPC ID.
-    violationTarget :: Prelude.Maybe Prelude.Text
+  { -- | Information about the VPC ID.
+    violationTarget :: Prelude.Maybe Prelude.Text,
+    -- | A description of the violation that specifies the rule group and VPC.
+    violationTargetDescription :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,34 +44,35 @@ data DnsDuplicateRuleGroupViolation = DnsDuplicateRuleGroupViolation'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'violationTargetDescription', 'dnsDuplicateRuleGroupViolation_violationTargetDescription' - A description of the violation that specifies the rule group and VPC.
---
 -- 'violationTarget', 'dnsDuplicateRuleGroupViolation_violationTarget' - Information about the VPC ID.
+--
+-- 'violationTargetDescription', 'dnsDuplicateRuleGroupViolation_violationTargetDescription' - A description of the violation that specifies the rule group and VPC.
 newDnsDuplicateRuleGroupViolation ::
   DnsDuplicateRuleGroupViolation
 newDnsDuplicateRuleGroupViolation =
   DnsDuplicateRuleGroupViolation'
-    { violationTargetDescription =
+    { violationTarget =
         Prelude.Nothing,
-      violationTarget = Prelude.Nothing
+      violationTargetDescription =
+        Prelude.Nothing
     }
-
--- | A description of the violation that specifies the rule group and VPC.
-dnsDuplicateRuleGroupViolation_violationTargetDescription :: Lens.Lens' DnsDuplicateRuleGroupViolation (Prelude.Maybe Prelude.Text)
-dnsDuplicateRuleGroupViolation_violationTargetDescription = Lens.lens (\DnsDuplicateRuleGroupViolation' {violationTargetDescription} -> violationTargetDescription) (\s@DnsDuplicateRuleGroupViolation' {} a -> s {violationTargetDescription = a} :: DnsDuplicateRuleGroupViolation)
 
 -- | Information about the VPC ID.
 dnsDuplicateRuleGroupViolation_violationTarget :: Lens.Lens' DnsDuplicateRuleGroupViolation (Prelude.Maybe Prelude.Text)
 dnsDuplicateRuleGroupViolation_violationTarget = Lens.lens (\DnsDuplicateRuleGroupViolation' {violationTarget} -> violationTarget) (\s@DnsDuplicateRuleGroupViolation' {} a -> s {violationTarget = a} :: DnsDuplicateRuleGroupViolation)
 
-instance Core.FromJSON DnsDuplicateRuleGroupViolation where
+-- | A description of the violation that specifies the rule group and VPC.
+dnsDuplicateRuleGroupViolation_violationTargetDescription :: Lens.Lens' DnsDuplicateRuleGroupViolation (Prelude.Maybe Prelude.Text)
+dnsDuplicateRuleGroupViolation_violationTargetDescription = Lens.lens (\DnsDuplicateRuleGroupViolation' {violationTargetDescription} -> violationTargetDescription) (\s@DnsDuplicateRuleGroupViolation' {} a -> s {violationTargetDescription = a} :: DnsDuplicateRuleGroupViolation)
+
+instance Data.FromJSON DnsDuplicateRuleGroupViolation where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DnsDuplicateRuleGroupViolation"
       ( \x ->
           DnsDuplicateRuleGroupViolation'
-            Prelude.<$> (x Core..:? "ViolationTargetDescription")
-            Prelude.<*> (x Core..:? "ViolationTarget")
+            Prelude.<$> (x Data..:? "ViolationTarget")
+            Prelude.<*> (x Data..:? "ViolationTargetDescription")
       )
 
 instance
@@ -80,14 +82,13 @@ instance
   hashWithSalt
     _salt
     DnsDuplicateRuleGroupViolation' {..} =
-      _salt
+      _salt `Prelude.hashWithSalt` violationTarget
         `Prelude.hashWithSalt` violationTargetDescription
-        `Prelude.hashWithSalt` violationTarget
 
 instance
   Prelude.NFData
     DnsDuplicateRuleGroupViolation
   where
   rnf DnsDuplicateRuleGroupViolation' {..} =
-    Prelude.rnf violationTargetDescription
-      `Prelude.seq` Prelude.rnf violationTarget
+    Prelude.rnf violationTarget
+      `Prelude.seq` Prelude.rnf violationTargetDescription

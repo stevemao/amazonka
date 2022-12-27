@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.GetContentSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Wisdom.GetContentSummary
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,8 +53,8 @@ data GetContentSummary = GetContentSummary'
   { -- | The identifier of the content. Can be either the ID or the ARN. URLs
     -- cannot contain the ARN.
     contentId :: Prelude.Text,
-    -- | The the identifier of the knowledge base. Can be either the ID or the
-    -- ARN. URLs cannot contain the ARN.
+    -- | The identifier of the knowledge base. Can be either the ID or the ARN.
+    -- URLs cannot contain the ARN.
     knowledgeBaseId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -69,8 +70,8 @@ data GetContentSummary = GetContentSummary'
 -- 'contentId', 'getContentSummary_contentId' - The identifier of the content. Can be either the ID or the ARN. URLs
 -- cannot contain the ARN.
 --
--- 'knowledgeBaseId', 'getContentSummary_knowledgeBaseId' - The the identifier of the knowledge base. Can be either the ID or the
--- ARN. URLs cannot contain the ARN.
+-- 'knowledgeBaseId', 'getContentSummary_knowledgeBaseId' - The identifier of the knowledge base. Can be either the ID or the ARN.
+-- URLs cannot contain the ARN.
 newGetContentSummary ::
   -- | 'contentId'
   Prelude.Text ->
@@ -88,8 +89,8 @@ newGetContentSummary pContentId_ pKnowledgeBaseId_ =
 getContentSummary_contentId :: Lens.Lens' GetContentSummary Prelude.Text
 getContentSummary_contentId = Lens.lens (\GetContentSummary' {contentId} -> contentId) (\s@GetContentSummary' {} a -> s {contentId = a} :: GetContentSummary)
 
--- | The the identifier of the knowledge base. Can be either the ID or the
--- ARN. URLs cannot contain the ARN.
+-- | The identifier of the knowledge base. Can be either the ID or the ARN.
+-- URLs cannot contain the ARN.
 getContentSummary_knowledgeBaseId :: Lens.Lens' GetContentSummary Prelude.Text
 getContentSummary_knowledgeBaseId = Lens.lens (\GetContentSummary' {knowledgeBaseId} -> knowledgeBaseId) (\s@GetContentSummary' {} a -> s {knowledgeBaseId = a} :: GetContentSummary)
 
@@ -97,12 +98,13 @@ instance Core.AWSRequest GetContentSummary where
   type
     AWSResponse GetContentSummary =
       GetContentSummaryResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetContentSummaryResponse'
-            Prelude.<$> (x Core..?> "contentSummary")
+            Prelude.<$> (x Data..?> "contentSummary")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,28 +118,28 @@ instance Prelude.NFData GetContentSummary where
     Prelude.rnf contentId
       `Prelude.seq` Prelude.rnf knowledgeBaseId
 
-instance Core.ToHeaders GetContentSummary where
+instance Data.ToHeaders GetContentSummary where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetContentSummary where
+instance Data.ToPath GetContentSummary where
   toPath GetContentSummary' {..} =
     Prelude.mconcat
       [ "/knowledgeBases/",
-        Core.toBS knowledgeBaseId,
+        Data.toBS knowledgeBaseId,
         "/contents/",
-        Core.toBS contentId,
+        Data.toBS contentId,
         "/summary"
       ]
 
-instance Core.ToQuery GetContentSummary where
+instance Data.ToQuery GetContentSummary where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetContentSummaryResponse' smart constructor.

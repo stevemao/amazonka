@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.ModelPackageSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.ModelPackageSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.ModelApprovalStatus
 import Amazonka.SageMaker.Types.ModelPackageStatus
@@ -41,17 +42,17 @@ data ModelPackageSummary = ModelPackageSummary'
     modelApprovalStatus :: Prelude.Maybe ModelApprovalStatus,
     -- | A brief description of the model package.
     modelPackageDescription :: Prelude.Maybe Prelude.Text,
-    -- | If the model package is a versioned model, the version of the model.
-    modelPackageVersion :: Prelude.Maybe Prelude.Natural,
     -- | If the model package is a versioned model, the model group that the
     -- versioned model belongs to.
     modelPackageGroupName :: Prelude.Maybe Prelude.Text,
+    -- | If the model package is a versioned model, the version of the model.
+    modelPackageVersion :: Prelude.Maybe Prelude.Natural,
     -- | The name of the model package.
     modelPackageName :: Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the model package.
     modelPackageArn :: Prelude.Text,
     -- | A timestamp that shows when the model package was created.
-    creationTime :: Core.POSIX,
+    creationTime :: Data.POSIX,
     -- | The overall status of the model package.
     modelPackageStatus :: ModelPackageStatus
   }
@@ -77,10 +78,10 @@ data ModelPackageSummary = ModelPackageSummary'
 --
 -- 'modelPackageDescription', 'modelPackageSummary_modelPackageDescription' - A brief description of the model package.
 --
--- 'modelPackageVersion', 'modelPackageSummary_modelPackageVersion' - If the model package is a versioned model, the version of the model.
---
 -- 'modelPackageGroupName', 'modelPackageSummary_modelPackageGroupName' - If the model package is a versioned model, the model group that the
 -- versioned model belongs to.
+--
+-- 'modelPackageVersion', 'modelPackageSummary_modelPackageVersion' - If the model package is a versioned model, the version of the model.
 --
 -- 'modelPackageName', 'modelPackageSummary_modelPackageName' - The name of the model package.
 --
@@ -108,11 +109,11 @@ newModelPackageSummary
       { modelApprovalStatus =
           Prelude.Nothing,
         modelPackageDescription = Prelude.Nothing,
-        modelPackageVersion = Prelude.Nothing,
         modelPackageGroupName = Prelude.Nothing,
+        modelPackageVersion = Prelude.Nothing,
         modelPackageName = pModelPackageName_,
         modelPackageArn = pModelPackageArn_,
-        creationTime = Core._Time Lens.# pCreationTime_,
+        creationTime = Data._Time Lens.# pCreationTime_,
         modelPackageStatus = pModelPackageStatus_
       }
 
@@ -132,14 +133,14 @@ modelPackageSummary_modelApprovalStatus = Lens.lens (\ModelPackageSummary' {mode
 modelPackageSummary_modelPackageDescription :: Lens.Lens' ModelPackageSummary (Prelude.Maybe Prelude.Text)
 modelPackageSummary_modelPackageDescription = Lens.lens (\ModelPackageSummary' {modelPackageDescription} -> modelPackageDescription) (\s@ModelPackageSummary' {} a -> s {modelPackageDescription = a} :: ModelPackageSummary)
 
--- | If the model package is a versioned model, the version of the model.
-modelPackageSummary_modelPackageVersion :: Lens.Lens' ModelPackageSummary (Prelude.Maybe Prelude.Natural)
-modelPackageSummary_modelPackageVersion = Lens.lens (\ModelPackageSummary' {modelPackageVersion} -> modelPackageVersion) (\s@ModelPackageSummary' {} a -> s {modelPackageVersion = a} :: ModelPackageSummary)
-
 -- | If the model package is a versioned model, the model group that the
 -- versioned model belongs to.
 modelPackageSummary_modelPackageGroupName :: Lens.Lens' ModelPackageSummary (Prelude.Maybe Prelude.Text)
 modelPackageSummary_modelPackageGroupName = Lens.lens (\ModelPackageSummary' {modelPackageGroupName} -> modelPackageGroupName) (\s@ModelPackageSummary' {} a -> s {modelPackageGroupName = a} :: ModelPackageSummary)
+
+-- | If the model package is a versioned model, the version of the model.
+modelPackageSummary_modelPackageVersion :: Lens.Lens' ModelPackageSummary (Prelude.Maybe Prelude.Natural)
+modelPackageSummary_modelPackageVersion = Lens.lens (\ModelPackageSummary' {modelPackageVersion} -> modelPackageVersion) (\s@ModelPackageSummary' {} a -> s {modelPackageVersion = a} :: ModelPackageSummary)
 
 -- | The name of the model package.
 modelPackageSummary_modelPackageName :: Lens.Lens' ModelPackageSummary Prelude.Text
@@ -151,34 +152,34 @@ modelPackageSummary_modelPackageArn = Lens.lens (\ModelPackageSummary' {modelPac
 
 -- | A timestamp that shows when the model package was created.
 modelPackageSummary_creationTime :: Lens.Lens' ModelPackageSummary Prelude.UTCTime
-modelPackageSummary_creationTime = Lens.lens (\ModelPackageSummary' {creationTime} -> creationTime) (\s@ModelPackageSummary' {} a -> s {creationTime = a} :: ModelPackageSummary) Prelude.. Core._Time
+modelPackageSummary_creationTime = Lens.lens (\ModelPackageSummary' {creationTime} -> creationTime) (\s@ModelPackageSummary' {} a -> s {creationTime = a} :: ModelPackageSummary) Prelude.. Data._Time
 
 -- | The overall status of the model package.
 modelPackageSummary_modelPackageStatus :: Lens.Lens' ModelPackageSummary ModelPackageStatus
 modelPackageSummary_modelPackageStatus = Lens.lens (\ModelPackageSummary' {modelPackageStatus} -> modelPackageStatus) (\s@ModelPackageSummary' {} a -> s {modelPackageStatus = a} :: ModelPackageSummary)
 
-instance Core.FromJSON ModelPackageSummary where
+instance Data.FromJSON ModelPackageSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ModelPackageSummary"
       ( \x ->
           ModelPackageSummary'
-            Prelude.<$> (x Core..:? "ModelApprovalStatus")
-            Prelude.<*> (x Core..:? "ModelPackageDescription")
-            Prelude.<*> (x Core..:? "ModelPackageVersion")
-            Prelude.<*> (x Core..:? "ModelPackageGroupName")
-            Prelude.<*> (x Core..: "ModelPackageName")
-            Prelude.<*> (x Core..: "ModelPackageArn")
-            Prelude.<*> (x Core..: "CreationTime")
-            Prelude.<*> (x Core..: "ModelPackageStatus")
+            Prelude.<$> (x Data..:? "ModelApprovalStatus")
+            Prelude.<*> (x Data..:? "ModelPackageDescription")
+            Prelude.<*> (x Data..:? "ModelPackageGroupName")
+            Prelude.<*> (x Data..:? "ModelPackageVersion")
+            Prelude.<*> (x Data..: "ModelPackageName")
+            Prelude.<*> (x Data..: "ModelPackageArn")
+            Prelude.<*> (x Data..: "CreationTime")
+            Prelude.<*> (x Data..: "ModelPackageStatus")
       )
 
 instance Prelude.Hashable ModelPackageSummary where
   hashWithSalt _salt ModelPackageSummary' {..} =
     _salt `Prelude.hashWithSalt` modelApprovalStatus
       `Prelude.hashWithSalt` modelPackageDescription
-      `Prelude.hashWithSalt` modelPackageVersion
       `Prelude.hashWithSalt` modelPackageGroupName
+      `Prelude.hashWithSalt` modelPackageVersion
       `Prelude.hashWithSalt` modelPackageName
       `Prelude.hashWithSalt` modelPackageArn
       `Prelude.hashWithSalt` creationTime
@@ -188,8 +189,8 @@ instance Prelude.NFData ModelPackageSummary where
   rnf ModelPackageSummary' {..} =
     Prelude.rnf modelApprovalStatus
       `Prelude.seq` Prelude.rnf modelPackageDescription
-      `Prelude.seq` Prelude.rnf modelPackageVersion
       `Prelude.seq` Prelude.rnf modelPackageGroupName
+      `Prelude.seq` Prelude.rnf modelPackageVersion
       `Prelude.seq` Prelude.rnf modelPackageName
       `Prelude.seq` Prelude.rnf modelPackageArn
       `Prelude.seq` Prelude.rnf creationTime

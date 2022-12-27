@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.Ulimit
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ECS.Types.Ulimit where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types.UlimitName
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The @ulimit@ settings to pass to the container.
@@ -36,9 +37,9 @@ import qualified Amazonka.Prelude as Prelude
 data Ulimit = Ulimit'
   { -- | The @type@ of the @ulimit@.
     name :: UlimitName,
-    -- | The soft limit for the ulimit type.
+    -- | The soft limit for the @ulimit@ type.
     softLimit :: Prelude.Int,
-    -- | The hard limit for the ulimit type.
+    -- | The hard limit for the @ulimit@ type.
     hardLimit :: Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -53,9 +54,9 @@ data Ulimit = Ulimit'
 --
 -- 'name', 'ulimit_name' - The @type@ of the @ulimit@.
 --
--- 'softLimit', 'ulimit_softLimit' - The soft limit for the ulimit type.
+-- 'softLimit', 'ulimit_softLimit' - The soft limit for the @ulimit@ type.
 --
--- 'hardLimit', 'ulimit_hardLimit' - The hard limit for the ulimit type.
+-- 'hardLimit', 'ulimit_hardLimit' - The hard limit for the @ulimit@ type.
 newUlimit ::
   -- | 'name'
   UlimitName ->
@@ -75,23 +76,23 @@ newUlimit pName_ pSoftLimit_ pHardLimit_ =
 ulimit_name :: Lens.Lens' Ulimit UlimitName
 ulimit_name = Lens.lens (\Ulimit' {name} -> name) (\s@Ulimit' {} a -> s {name = a} :: Ulimit)
 
--- | The soft limit for the ulimit type.
+-- | The soft limit for the @ulimit@ type.
 ulimit_softLimit :: Lens.Lens' Ulimit Prelude.Int
 ulimit_softLimit = Lens.lens (\Ulimit' {softLimit} -> softLimit) (\s@Ulimit' {} a -> s {softLimit = a} :: Ulimit)
 
--- | The hard limit for the ulimit type.
+-- | The hard limit for the @ulimit@ type.
 ulimit_hardLimit :: Lens.Lens' Ulimit Prelude.Int
 ulimit_hardLimit = Lens.lens (\Ulimit' {hardLimit} -> hardLimit) (\s@Ulimit' {} a -> s {hardLimit = a} :: Ulimit)
 
-instance Core.FromJSON Ulimit where
+instance Data.FromJSON Ulimit where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Ulimit"
       ( \x ->
           Ulimit'
-            Prelude.<$> (x Core..: "name")
-            Prelude.<*> (x Core..: "softLimit")
-            Prelude.<*> (x Core..: "hardLimit")
+            Prelude.<$> (x Data..: "name")
+            Prelude.<*> (x Data..: "softLimit")
+            Prelude.<*> (x Data..: "hardLimit")
       )
 
 instance Prelude.Hashable Ulimit where
@@ -106,12 +107,12 @@ instance Prelude.NFData Ulimit where
       `Prelude.seq` Prelude.rnf softLimit
       `Prelude.seq` Prelude.rnf hardLimit
 
-instance Core.ToJSON Ulimit where
+instance Data.ToJSON Ulimit where
   toJSON Ulimit' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("name" Core..= name),
-            Prelude.Just ("softLimit" Core..= softLimit),
-            Prelude.Just ("hardLimit" Core..= hardLimit)
+          [ Prelude.Just ("name" Data..= name),
+            Prelude.Just ("softLimit" Data..= softLimit),
+            Prelude.Just ("hardLimit" Data..= hardLimit)
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.Types.HPOResourceConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Personalize.Types.HPOResourceConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the resource configuration for hyperparameter optimization
@@ -69,14 +70,14 @@ hPOResourceConfig_maxNumberOfTrainingJobs = Lens.lens (\HPOResourceConfig' {maxN
 hPOResourceConfig_maxParallelTrainingJobs :: Lens.Lens' HPOResourceConfig (Prelude.Maybe Prelude.Text)
 hPOResourceConfig_maxParallelTrainingJobs = Lens.lens (\HPOResourceConfig' {maxParallelTrainingJobs} -> maxParallelTrainingJobs) (\s@HPOResourceConfig' {} a -> s {maxParallelTrainingJobs = a} :: HPOResourceConfig)
 
-instance Core.FromJSON HPOResourceConfig where
+instance Data.FromJSON HPOResourceConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HPOResourceConfig"
       ( \x ->
           HPOResourceConfig'
-            Prelude.<$> (x Core..:? "maxNumberOfTrainingJobs")
-            Prelude.<*> (x Core..:? "maxParallelTrainingJobs")
+            Prelude.<$> (x Data..:? "maxNumberOfTrainingJobs")
+            Prelude.<*> (x Data..:? "maxParallelTrainingJobs")
       )
 
 instance Prelude.Hashable HPOResourceConfig where
@@ -90,13 +91,13 @@ instance Prelude.NFData HPOResourceConfig where
     Prelude.rnf maxNumberOfTrainingJobs
       `Prelude.seq` Prelude.rnf maxParallelTrainingJobs
 
-instance Core.ToJSON HPOResourceConfig where
+instance Data.ToJSON HPOResourceConfig where
   toJSON HPOResourceConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("maxNumberOfTrainingJobs" Core..=)
+          [ ("maxNumberOfTrainingJobs" Data..=)
               Prelude.<$> maxNumberOfTrainingJobs,
-            ("maxParallelTrainingJobs" Core..=)
+            ("maxParallelTrainingJobs" Data..=)
               Prelude.<$> maxParallelTrainingJobs
           ]
       )

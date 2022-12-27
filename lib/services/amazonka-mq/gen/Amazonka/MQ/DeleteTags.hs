@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MQ.DeleteTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,7 +37,8 @@ module Amazonka.MQ.DeleteTags
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MQ.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -83,7 +84,8 @@ deleteTags_resourceArn = Lens.lens (\DeleteTags' {resourceArn} -> resourceArn) (
 
 instance Core.AWSRequest DeleteTags where
   type AWSResponse DeleteTags = DeleteTagsResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response = Response.receiveNull DeleteTagsResponse'
 
 instance Prelude.Hashable DeleteTags where
@@ -96,26 +98,26 @@ instance Prelude.NFData DeleteTags where
     Prelude.rnf tagKeys
       `Prelude.seq` Prelude.rnf resourceArn
 
-instance Core.ToHeaders DeleteTags where
+instance Data.ToHeaders DeleteTags where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteTags where
+instance Data.ToPath DeleteTags where
   toPath DeleteTags' {..} =
     Prelude.mconcat
-      ["/v1/tags/", Core.toBS resourceArn]
+      ["/v1/tags/", Data.toBS resourceArn]
 
-instance Core.ToQuery DeleteTags where
+instance Data.ToQuery DeleteTags where
   toQuery DeleteTags' {..} =
     Prelude.mconcat
-      ["tagKeys" Core.=: Core.toQueryList "member" tagKeys]
+      ["tagKeys" Data.=: Data.toQueryList "member" tagKeys]
 
 -- | /See:/ 'newDeleteTagsResponse' smart constructor.
 data DeleteTagsResponse = DeleteTagsResponse'

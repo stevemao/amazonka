@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStar.Types.CodeDestination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CodeStar.Types.CodeDestination where
 import Amazonka.CodeStar.Types.CodeCommitCodeDestination
 import Amazonka.CodeStar.Types.GitHubCodeDestination
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The repository to be created in AWS CodeStar. Valid values are AWS
@@ -88,11 +89,11 @@ instance Prelude.NFData CodeDestination where
     Prelude.rnf codeCommit
       `Prelude.seq` Prelude.rnf gitHub
 
-instance Core.ToJSON CodeDestination where
+instance Data.ToJSON CodeDestination where
   toJSON CodeDestination' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("codeCommit" Core..=) Prelude.<$> codeCommit,
-            ("gitHub" Core..=) Prelude.<$> gitHub
+          [ ("codeCommit" Data..=) Prelude.<$> codeCommit,
+            ("gitHub" Data..=) Prelude.<$> gitHub
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.Types.XssMatchSetSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WAFRegional.Types.XssMatchSetSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | This is __AWS WAF Classic__ documentation. For more information, see
@@ -96,14 +97,14 @@ xssMatchSetSummary_xssMatchSetId = Lens.lens (\XssMatchSetSummary' {xssMatchSetI
 xssMatchSetSummary_name :: Lens.Lens' XssMatchSetSummary Prelude.Text
 xssMatchSetSummary_name = Lens.lens (\XssMatchSetSummary' {name} -> name) (\s@XssMatchSetSummary' {} a -> s {name = a} :: XssMatchSetSummary)
 
-instance Core.FromJSON XssMatchSetSummary where
+instance Data.FromJSON XssMatchSetSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "XssMatchSetSummary"
       ( \x ->
           XssMatchSetSummary'
-            Prelude.<$> (x Core..: "XssMatchSetId")
-            Prelude.<*> (x Core..: "Name")
+            Prelude.<$> (x Data..: "XssMatchSetId")
+            Prelude.<*> (x Data..: "Name")
       )
 
 instance Prelude.Hashable XssMatchSetSummary where

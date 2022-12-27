@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ApiGatewayV2.Types.MutualTlsAuthenticationInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ApiGatewayV2.Types.MutualTlsAuthenticationInput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | /See:/ 'newMutualTlsAuthenticationInput' smart constructor.
@@ -91,12 +92,12 @@ instance Prelude.NFData MutualTlsAuthenticationInput where
     Prelude.rnf truststoreUri
       `Prelude.seq` Prelude.rnf truststoreVersion
 
-instance Core.ToJSON MutualTlsAuthenticationInput where
+instance Data.ToJSON MutualTlsAuthenticationInput where
   toJSON MutualTlsAuthenticationInput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("truststoreUri" Core..=) Prelude.<$> truststoreUri,
-            ("truststoreVersion" Core..=)
+          [ ("truststoreUri" Data..=) Prelude.<$> truststoreUri,
+            ("truststoreVersion" Data..=)
               Prelude.<$> truststoreVersion
           ]
       )

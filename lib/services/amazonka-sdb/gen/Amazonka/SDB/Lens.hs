@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.SDB.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,27 +22,49 @@ module Amazonka.SDB.Lens
     batchPutAttributes_domainName,
     batchPutAttributes_items,
 
+    -- ** CreateDomain
+    createDomain_domainName,
+
+    -- ** DeleteAttributes
+    deleteAttributes_attributes,
+    deleteAttributes_expected,
+    deleteAttributes_domainName,
+    deleteAttributes_itemName,
+
+    -- ** DeleteDomain
+    deleteDomain_domainName,
+
+    -- ** DomainMetadata
+    domainMetadata_domainName,
+    domainMetadataResponse_attributeNameCount,
+    domainMetadataResponse_attributeNamesSizeBytes,
+    domainMetadataResponse_attributeValueCount,
+    domainMetadataResponse_attributeValuesSizeBytes,
+    domainMetadataResponse_itemCount,
+    domainMetadataResponse_itemNamesSizeBytes,
+    domainMetadataResponse_timestamp,
+    domainMetadataResponse_httpStatus,
+
     -- ** GetAttributes
-    getAttributes_consistentRead,
     getAttributes_attributeNames,
+    getAttributes_consistentRead,
     getAttributes_domainName,
     getAttributes_itemName,
     getAttributesResponse_attributes,
     getAttributesResponse_httpStatus,
 
-    -- ** CreateDomain
-    createDomain_domainName,
+    -- ** ListDomains
+    listDomains_maxNumberOfDomains,
+    listDomains_nextToken,
+    listDomainsResponse_domainNames,
+    listDomainsResponse_nextToken,
+    listDomainsResponse_httpStatus,
 
-    -- ** DomainMetadata
-    domainMetadata_domainName,
-    domainMetadataResponse_itemNamesSizeBytes,
-    domainMetadataResponse_attributeValuesSizeBytes,
-    domainMetadataResponse_attributeNameCount,
-    domainMetadataResponse_attributeNamesSizeBytes,
-    domainMetadataResponse_attributeValueCount,
-    domainMetadataResponse_itemCount,
-    domainMetadataResponse_timestamp,
-    domainMetadataResponse_httpStatus,
+    -- ** PutAttributes
+    putAttributes_expected,
+    putAttributes_domainName,
+    putAttributes_itemName,
+    putAttributes_attributes,
 
     -- ** Select
     select_consistentRead,
@@ -52,33 +74,11 @@ module Amazonka.SDB.Lens
     selectResponse_nextToken,
     selectResponse_httpStatus,
 
-    -- ** DeleteAttributes
-    deleteAttributes_attributes,
-    deleteAttributes_expected,
-    deleteAttributes_domainName,
-    deleteAttributes_itemName,
-
-    -- ** PutAttributes
-    putAttributes_expected,
-    putAttributes_domainName,
-    putAttributes_itemName,
-    putAttributes_attributes,
-
-    -- ** DeleteDomain
-    deleteDomain_domainName,
-
-    -- ** ListDomains
-    listDomains_maxNumberOfDomains,
-    listDomains_nextToken,
-    listDomainsResponse_domainNames,
-    listDomainsResponse_nextToken,
-    listDomainsResponse_httpStatus,
-
     -- * Types
 
     -- ** Attribute
-    attribute_alternateValueEncoding,
     attribute_alternateNameEncoding,
+    attribute_alternateValueEncoding,
     attribute_name,
     attribute_value,
 
@@ -102,8 +102,8 @@ module Amazonka.SDB.Lens
 
     -- ** UpdateCondition
     updateCondition_exists,
-    updateCondition_value,
     updateCondition_name,
+    updateCondition_value,
   )
 where
 

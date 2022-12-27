@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.ListFilters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.Personalize.ListFilters
     newListFilters,
 
     -- * Request Lenses
-    listFilters_nextToken,
     listFilters_datasetGroupArn,
     listFilters_maxResults,
+    listFilters_nextToken,
 
     -- * Destructuring the Response
     ListFiltersResponse (..),
@@ -45,7 +45,8 @@ module Amazonka.Personalize.ListFilters
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -53,13 +54,13 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListFilters' smart constructor.
 data ListFilters = ListFilters'
-  { -- | A token returned from the previous call to @ListFilters@ for getting the
-    -- next set of filters (if they exist).
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the dataset group that contains the filters.
+  { -- | The ARN of the dataset group that contains the filters.
     datasetGroupArn :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of filters to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token returned from the previous call to @ListFilters@ for getting the
+    -- next set of filters (if they exist).
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -71,25 +72,20 @@ data ListFilters = ListFilters'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listFilters_nextToken' - A token returned from the previous call to @ListFilters@ for getting the
--- next set of filters (if they exist).
---
 -- 'datasetGroupArn', 'listFilters_datasetGroupArn' - The ARN of the dataset group that contains the filters.
 --
 -- 'maxResults', 'listFilters_maxResults' - The maximum number of filters to return.
+--
+-- 'nextToken', 'listFilters_nextToken' - A token returned from the previous call to @ListFilters@ for getting the
+-- next set of filters (if they exist).
 newListFilters ::
   ListFilters
 newListFilters =
   ListFilters'
-    { nextToken = Prelude.Nothing,
-      datasetGroupArn = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { datasetGroupArn = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | A token returned from the previous call to @ListFilters@ for getting the
--- next set of filters (if they exist).
-listFilters_nextToken :: Lens.Lens' ListFilters (Prelude.Maybe Prelude.Text)
-listFilters_nextToken = Lens.lens (\ListFilters' {nextToken} -> nextToken) (\s@ListFilters' {} a -> s {nextToken = a} :: ListFilters)
 
 -- | The ARN of the dataset group that contains the filters.
 listFilters_datasetGroupArn :: Lens.Lens' ListFilters (Prelude.Maybe Prelude.Text)
@@ -98,6 +94,11 @@ listFilters_datasetGroupArn = Lens.lens (\ListFilters' {datasetGroupArn} -> data
 -- | The maximum number of filters to return.
 listFilters_maxResults :: Lens.Lens' ListFilters (Prelude.Maybe Prelude.Natural)
 listFilters_maxResults = Lens.lens (\ListFilters' {maxResults} -> maxResults) (\s@ListFilters' {} a -> s {maxResults = a} :: ListFilters)
+
+-- | A token returned from the previous call to @ListFilters@ for getting the
+-- next set of filters (if they exist).
+listFilters_nextToken :: Lens.Lens' ListFilters (Prelude.Maybe Prelude.Text)
+listFilters_nextToken = Lens.lens (\ListFilters' {nextToken} -> nextToken) (\s@ListFilters' {} a -> s {nextToken = a} :: ListFilters)
 
 instance Core.AWSPager ListFilters where
   page rq rs
@@ -120,58 +121,59 @@ instance Core.AWSPager ListFilters where
 
 instance Core.AWSRequest ListFilters where
   type AWSResponse ListFilters = ListFiltersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListFiltersResponse'
-            Prelude.<$> (x Core..?> "Filters" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "Filters" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListFilters where
   hashWithSalt _salt ListFilters' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` datasetGroupArn
+    _salt `Prelude.hashWithSalt` datasetGroupArn
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListFilters where
   rnf ListFilters' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf datasetGroupArn
+    Prelude.rnf datasetGroupArn
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListFilters where
+instance Data.ToHeaders ListFilters where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.ListFilters" ::
+              Data.=# ( "AmazonPersonalize.ListFilters" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListFilters where
+instance Data.ToJSON ListFilters where
   toJSON ListFilters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("datasetGroupArn" Core..=)
+          [ ("datasetGroupArn" Data..=)
               Prelude.<$> datasetGroupArn,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListFilters where
+instance Data.ToPath ListFilters where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListFilters where
+instance Data.ToQuery ListFilters where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListFiltersResponse' smart constructor.

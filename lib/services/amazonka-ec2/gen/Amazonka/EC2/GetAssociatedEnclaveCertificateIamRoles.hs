@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.GetAssociatedEnclaveCertificateIamRoles
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.EC2.GetAssociatedEnclaveCertificateIamRoles
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -108,14 +109,15 @@ instance
     AWSResponse
       GetAssociatedEnclaveCertificateIamRoles =
       GetAssociatedEnclaveCertificateIamRolesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetAssociatedEnclaveCertificateIamRolesResponse'
-            Prelude.<$> ( x Core..@? "associatedRoleSet"
+            Prelude.<$> ( x Data..@? "associatedRoleSet"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -139,31 +141,31 @@ instance
       `Prelude.seq` Prelude.rnf dryRun
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetAssociatedEnclaveCertificateIamRoles
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     GetAssociatedEnclaveCertificateIamRoles
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetAssociatedEnclaveCertificateIamRoles
   where
   toQuery GetAssociatedEnclaveCertificateIamRoles' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "GetAssociatedEnclaveCertificateIamRoles" ::
+          Data.=: ( "GetAssociatedEnclaveCertificateIamRoles" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "CertificateArn" Core.=: certificateArn,
-        "DryRun" Core.=: dryRun
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "CertificateArn" Data.=: certificateArn,
+        "DryRun" Data.=: dryRun
       ]
 
 -- | /See:/ 'newGetAssociatedEnclaveCertificateIamRolesResponse' smart constructor.

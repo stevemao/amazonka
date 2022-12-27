@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.SegmentTypeInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.SegmentTypeInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types.SegmentType
 
@@ -64,14 +65,14 @@ segmentTypeInfo_modelVersion = Lens.lens (\SegmentTypeInfo' {modelVersion} -> mo
 segmentTypeInfo_type :: Lens.Lens' SegmentTypeInfo (Prelude.Maybe SegmentType)
 segmentTypeInfo_type = Lens.lens (\SegmentTypeInfo' {type'} -> type') (\s@SegmentTypeInfo' {} a -> s {type' = a} :: SegmentTypeInfo)
 
-instance Core.FromJSON SegmentTypeInfo where
+instance Data.FromJSON SegmentTypeInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SegmentTypeInfo"
       ( \x ->
           SegmentTypeInfo'
-            Prelude.<$> (x Core..:? "ModelVersion")
-            Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "ModelVersion")
+            Prelude.<*> (x Data..:? "Type")
       )
 
 instance Prelude.Hashable SegmentTypeInfo where

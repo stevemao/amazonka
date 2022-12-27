@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.DocumentReviewCommentSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.DocumentReviewCommentSource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSM.Types.DocumentReviewCommentType
 
@@ -69,14 +70,14 @@ documentReviewCommentSource_content = Lens.lens (\DocumentReviewCommentSource' {
 documentReviewCommentSource_type :: Lens.Lens' DocumentReviewCommentSource (Prelude.Maybe DocumentReviewCommentType)
 documentReviewCommentSource_type = Lens.lens (\DocumentReviewCommentSource' {type'} -> type') (\s@DocumentReviewCommentSource' {} a -> s {type' = a} :: DocumentReviewCommentSource)
 
-instance Core.FromJSON DocumentReviewCommentSource where
+instance Data.FromJSON DocumentReviewCommentSource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DocumentReviewCommentSource"
       ( \x ->
           DocumentReviewCommentSource'
-            Prelude.<$> (x Core..:? "Content")
-            Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "Content")
+            Prelude.<*> (x Data..:? "Type")
       )
 
 instance Prelude.Hashable DocumentReviewCommentSource where
@@ -88,11 +89,11 @@ instance Prelude.NFData DocumentReviewCommentSource where
   rnf DocumentReviewCommentSource' {..} =
     Prelude.rnf content `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON DocumentReviewCommentSource where
+instance Data.ToJSON DocumentReviewCommentSource where
   toJSON DocumentReviewCommentSource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Content" Core..=) Prelude.<$> content,
-            ("Type" Core..=) Prelude.<$> type'
+          [ ("Content" Data..=) Prelude.<$> content,
+            ("Type" Data..=) Prelude.<$> type'
           ]
       )

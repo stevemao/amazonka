@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkManager.CreateConnection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.NetworkManager.CreateConnection
 
     -- * Request Lenses
     createConnection_connectedLinkId,
-    createConnection_linkId,
     createConnection_description,
+    createConnection_linkId,
     createConnection_tags,
     createConnection_globalNetworkId,
     createConnection_deviceId,
@@ -49,7 +49,8 @@ module Amazonka.NetworkManager.CreateConnection
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -59,12 +60,12 @@ import qualified Amazonka.Response as Response
 data CreateConnection = CreateConnection'
   { -- | The ID of the link for the second device.
     connectedLinkId :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the link for the first device.
-    linkId :: Prelude.Maybe Prelude.Text,
     -- | A description of the connection.
     --
     -- Length Constraints: Maximum length of 256 characters.
     description :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the link for the first device.
+    linkId :: Prelude.Maybe Prelude.Text,
     -- | The tags to apply to the resource during creation.
     tags :: Prelude.Maybe [Tag],
     -- | The ID of the global network.
@@ -86,11 +87,11 @@ data CreateConnection = CreateConnection'
 --
 -- 'connectedLinkId', 'createConnection_connectedLinkId' - The ID of the link for the second device.
 --
--- 'linkId', 'createConnection_linkId' - The ID of the link for the first device.
---
 -- 'description', 'createConnection_description' - A description of the connection.
 --
 -- Length Constraints: Maximum length of 256 characters.
+--
+-- 'linkId', 'createConnection_linkId' - The ID of the link for the first device.
 --
 -- 'tags', 'createConnection_tags' - The tags to apply to the resource during creation.
 --
@@ -114,8 +115,8 @@ newCreateConnection
     CreateConnection'
       { connectedLinkId =
           Prelude.Nothing,
-        linkId = Prelude.Nothing,
         description = Prelude.Nothing,
+        linkId = Prelude.Nothing,
         tags = Prelude.Nothing,
         globalNetworkId = pGlobalNetworkId_,
         deviceId = pDeviceId_,
@@ -126,15 +127,15 @@ newCreateConnection
 createConnection_connectedLinkId :: Lens.Lens' CreateConnection (Prelude.Maybe Prelude.Text)
 createConnection_connectedLinkId = Lens.lens (\CreateConnection' {connectedLinkId} -> connectedLinkId) (\s@CreateConnection' {} a -> s {connectedLinkId = a} :: CreateConnection)
 
--- | The ID of the link for the first device.
-createConnection_linkId :: Lens.Lens' CreateConnection (Prelude.Maybe Prelude.Text)
-createConnection_linkId = Lens.lens (\CreateConnection' {linkId} -> linkId) (\s@CreateConnection' {} a -> s {linkId = a} :: CreateConnection)
-
 -- | A description of the connection.
 --
 -- Length Constraints: Maximum length of 256 characters.
 createConnection_description :: Lens.Lens' CreateConnection (Prelude.Maybe Prelude.Text)
 createConnection_description = Lens.lens (\CreateConnection' {description} -> description) (\s@CreateConnection' {} a -> s {description = a} :: CreateConnection)
+
+-- | The ID of the link for the first device.
+createConnection_linkId :: Lens.Lens' CreateConnection (Prelude.Maybe Prelude.Text)
+createConnection_linkId = Lens.lens (\CreateConnection' {linkId} -> linkId) (\s@CreateConnection' {} a -> s {linkId = a} :: CreateConnection)
 
 -- | The tags to apply to the resource during creation.
 createConnection_tags :: Lens.Lens' CreateConnection (Prelude.Maybe [Tag])
@@ -156,20 +157,21 @@ instance Core.AWSRequest CreateConnection where
   type
     AWSResponse CreateConnection =
       CreateConnectionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateConnectionResponse'
-            Prelude.<$> (x Core..?> "Connection")
+            Prelude.<$> (x Data..?> "Connection")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateConnection where
   hashWithSalt _salt CreateConnection' {..} =
     _salt `Prelude.hashWithSalt` connectedLinkId
-      `Prelude.hashWithSalt` linkId
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` linkId
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` globalNetworkId
       `Prelude.hashWithSalt` deviceId
@@ -178,48 +180,48 @@ instance Prelude.Hashable CreateConnection where
 instance Prelude.NFData CreateConnection where
   rnf CreateConnection' {..} =
     Prelude.rnf connectedLinkId
-      `Prelude.seq` Prelude.rnf linkId
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf linkId
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf globalNetworkId
       `Prelude.seq` Prelude.rnf deviceId
       `Prelude.seq` Prelude.rnf connectedDeviceId
 
-instance Core.ToHeaders CreateConnection where
+instance Data.ToHeaders CreateConnection where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateConnection where
+instance Data.ToJSON CreateConnection where
   toJSON CreateConnection' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ConnectedLinkId" Core..=)
+          [ ("ConnectedLinkId" Data..=)
               Prelude.<$> connectedLinkId,
-            ("LinkId" Core..=) Prelude.<$> linkId,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("DeviceId" Core..= deviceId),
+            ("Description" Data..=) Prelude.<$> description,
+            ("LinkId" Data..=) Prelude.<$> linkId,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("DeviceId" Data..= deviceId),
             Prelude.Just
-              ("ConnectedDeviceId" Core..= connectedDeviceId)
+              ("ConnectedDeviceId" Data..= connectedDeviceId)
           ]
       )
 
-instance Core.ToPath CreateConnection where
+instance Data.ToPath CreateConnection where
   toPath CreateConnection' {..} =
     Prelude.mconcat
       [ "/global-networks/",
-        Core.toBS globalNetworkId,
+        Data.toBS globalNetworkId,
         "/connections"
       ]
 
-instance Core.ToQuery CreateConnection where
+instance Data.ToQuery CreateConnection where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateConnectionResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ComprehendMedical.DetectPHI
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.ComprehendMedical.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,15 +86,16 @@ detectPHI_text = Lens.lens (\DetectPHI' {text} -> text) (\s@DetectPHI' {} a -> s
 
 instance Core.AWSRequest DetectPHI where
   type AWSResponse DetectPHI = DetectPHIResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DetectPHIResponse'
-            Prelude.<$> (x Core..?> "PaginationToken")
+            Prelude.<$> (x Data..?> "PaginationToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Entities" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..:> "ModelVersion")
+            Prelude.<*> (x Data..?> "Entities" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..:> "ModelVersion")
       )
 
 instance Prelude.Hashable DetectPHI where
@@ -103,32 +105,32 @@ instance Prelude.Hashable DetectPHI where
 instance Prelude.NFData DetectPHI where
   rnf DetectPHI' {..} = Prelude.rnf text
 
-instance Core.ToHeaders DetectPHI where
+instance Data.ToHeaders DetectPHI where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ComprehendMedical_20181030.DetectPHI" ::
+              Data.=# ( "ComprehendMedical_20181030.DetectPHI" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DetectPHI where
+instance Data.ToJSON DetectPHI where
   toJSON DetectPHI' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Text" Core..= text)]
+          [Prelude.Just ("Text" Data..= text)]
       )
 
-instance Core.ToPath DetectPHI where
+instance Data.ToPath DetectPHI where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DetectPHI where
+instance Data.ToQuery DetectPHI where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDetectPHIResponse' smart constructor.
@@ -141,7 +143,7 @@ data DetectPHIResponse = DetectPHIResponse'
     -- | The collection of PHI entities extracted from the input text and their
     -- associated information. For each entity, the response provides the
     -- entity text, the entity category, where the entity text begins and ends,
-    -- and the level of confidence that Amazon Comprehend Medical has in its
+    -- and the level of confidence that Comprehend Medical; has in its
     -- detection.
     entities :: [Entity],
     -- | The version of the model used to analyze the documents. The version
@@ -167,7 +169,7 @@ data DetectPHIResponse = DetectPHIResponse'
 -- 'entities', 'detectPHIResponse_entities' - The collection of PHI entities extracted from the input text and their
 -- associated information. For each entity, the response provides the
 -- entity text, the entity category, where the entity text begins and ends,
--- and the level of confidence that Amazon Comprehend Medical has in its
+-- and the level of confidence that Comprehend Medical; has in its
 -- detection.
 --
 -- 'modelVersion', 'detectPHIResponse_modelVersion' - The version of the model used to analyze the documents. The version
@@ -200,7 +202,7 @@ detectPHIResponse_httpStatus = Lens.lens (\DetectPHIResponse' {httpStatus} -> ht
 -- | The collection of PHI entities extracted from the input text and their
 -- associated information. For each entity, the response provides the
 -- entity text, the entity category, where the entity text begins and ends,
--- and the level of confidence that Amazon Comprehend Medical has in its
+-- and the level of confidence that Comprehend Medical; has in its
 -- detection.
 detectPHIResponse_entities :: Lens.Lens' DetectPHIResponse [Entity]
 detectPHIResponse_entities = Lens.lens (\DetectPHIResponse' {entities} -> entities) (\s@DetectPHIResponse' {} a -> s {entities = a} :: DetectPHIResponse) Prelude.. Lens.coerced

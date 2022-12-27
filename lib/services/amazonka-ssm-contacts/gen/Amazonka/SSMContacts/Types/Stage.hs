@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSMContacts.Types.Stage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSMContacts.Types.Stage where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSMContacts.Types.Target
 
@@ -71,14 +72,14 @@ stage_durationInMinutes = Lens.lens (\Stage' {durationInMinutes} -> durationInMi
 stage_targets :: Lens.Lens' Stage [Target]
 stage_targets = Lens.lens (\Stage' {targets} -> targets) (\s@Stage' {} a -> s {targets = a} :: Stage) Prelude.. Lens.coerced
 
-instance Core.FromJSON Stage where
+instance Data.FromJSON Stage where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Stage"
       ( \x ->
           Stage'
-            Prelude.<$> (x Core..: "DurationInMinutes")
-            Prelude.<*> (x Core..:? "Targets" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..: "DurationInMinutes")
+            Prelude.<*> (x Data..:? "Targets" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable Stage where
@@ -91,12 +92,12 @@ instance Prelude.NFData Stage where
     Prelude.rnf durationInMinutes
       `Prelude.seq` Prelude.rnf targets
 
-instance Core.ToJSON Stage where
+instance Data.ToJSON Stage where
   toJSON Stage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("DurationInMinutes" Core..= durationInMinutes),
-            Prelude.Just ("Targets" Core..= targets)
+              ("DurationInMinutes" Data..= durationInMinutes),
+            Prelude.Just ("Targets" Data..= targets)
           ]
       )

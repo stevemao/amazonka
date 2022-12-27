@@ -14,16 +14,14 @@
 
 -- |
 -- Module      : Amazonka.Kinesis.AddTagsToStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds or updates tags for the specified Kinesis data stream. Each time
--- you invoke this operation, you can specify up to 10 tags. If you want to
--- add more than 10 tags to your stream, you can invoke this operation
--- multiple times. In total, each stream can have up to 50 tags.
+-- Adds or updates tags for the specified Kinesis data stream. You can
+-- assign up to 50 tags to a data stream.
 --
 -- If tags have already been assigned to the stream, @AddTagsToStream@
 -- overwrites any existing tags that correspond to the specified tag keys.
@@ -45,8 +43,9 @@ module Amazonka.Kinesis.AddTagsToStream
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kinesis.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,7 +94,8 @@ instance Core.AWSRequest AddTagsToStream where
   type
     AWSResponse AddTagsToStream =
       AddTagsToStreamResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull AddTagsToStreamResponse'
 
@@ -109,34 +109,34 @@ instance Prelude.NFData AddTagsToStream where
     Prelude.rnf streamName
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders AddTagsToStream where
+instance Data.ToHeaders AddTagsToStream where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Kinesis_20131202.AddTagsToStream" ::
+              Data.=# ( "Kinesis_20131202.AddTagsToStream" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AddTagsToStream where
+instance Data.ToJSON AddTagsToStream where
   toJSON AddTagsToStream' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("StreamName" Core..= streamName),
-            Prelude.Just ("Tags" Core..= tags)
+          [ Prelude.Just ("StreamName" Data..= streamName),
+            Prelude.Just ("Tags" Data..= tags)
           ]
       )
 
-instance Core.ToPath AddTagsToStream where
+instance Data.ToPath AddTagsToStream where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AddTagsToStream where
+instance Data.ToQuery AddTagsToStream where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAddTagsToStreamResponse' smart constructor.

@@ -1,6 +1,6 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_library", "haskell_test")
 
-# rule generated from amazonka-medialive/amazonka-medialive.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-medialive/amazonka-medialive.cabal by gazelle_cabal
 haskell_library(
     name = "amazonka-medialive",
     srcs = [
@@ -49,8 +49,10 @@ haskell_library(
         "gen/Amazonka/MediaLive/ListReservations.hs",
         "gen/Amazonka/MediaLive/ListTagsForResource.hs",
         "gen/Amazonka/MediaLive/PurchaseOffering.hs",
+        "gen/Amazonka/MediaLive/RebootInputDevice.hs",
         "gen/Amazonka/MediaLive/RejectInputDeviceTransfer.hs",
         "gen/Amazonka/MediaLive/StartChannel.hs",
+        "gen/Amazonka/MediaLive/StartInputDeviceMaintenanceWindow.hs",
         "gen/Amazonka/MediaLive/StartMultiplex.hs",
         "gen/Amazonka/MediaLive/StopChannel.hs",
         "gen/Amazonka/MediaLive/StopMultiplex.hs",
@@ -71,6 +73,7 @@ haskell_library(
         "gen/Amazonka/MediaLive/Types/Ac3MetadataControl.hs",
         "gen/Amazonka/MediaLive/Types/Ac3Settings.hs",
         "gen/Amazonka/MediaLive/Types/AcceptHeader.hs",
+        "gen/Amazonka/MediaLive/Types/AccessibilityType.hs",
         "gen/Amazonka/MediaLive/Types/AfdSignaling.hs",
         "gen/Amazonka/MediaLive/Types/AncillarySourceSettings.hs",
         "gen/Amazonka/MediaLive/Types/ArchiveCdnSettings.hs",
@@ -141,6 +144,7 @@ haskell_library(
         "gen/Amazonka/MediaLive/Types/ContentType.hs",
         "gen/Amazonka/MediaLive/Types/DeviceSettingsSyncState.hs",
         "gen/Amazonka/MediaLive/Types/DeviceUpdateStatus.hs",
+        "gen/Amazonka/MediaLive/Types/DolbyVision81Settings.hs",
         "gen/Amazonka/MediaLive/Types/DvbNitSettings.hs",
         "gen/Amazonka/MediaLive/Types/DvbSdtOutputSdt.hs",
         "gen/Amazonka/MediaLive/Types/DvbSdtSettings.hs",
@@ -154,6 +158,10 @@ haskell_library(
         "gen/Amazonka/MediaLive/Types/DvbSubOcrLanguage.hs",
         "gen/Amazonka/MediaLive/Types/DvbSubSourceSettings.hs",
         "gen/Amazonka/MediaLive/Types/DvbTdtSettings.hs",
+        "gen/Amazonka/MediaLive/Types/Eac3AtmosCodingMode.hs",
+        "gen/Amazonka/MediaLive/Types/Eac3AtmosDrcLine.hs",
+        "gen/Amazonka/MediaLive/Types/Eac3AtmosDrcRf.hs",
+        "gen/Amazonka/MediaLive/Types/Eac3AtmosSettings.hs",
         "gen/Amazonka/MediaLive/Types/Eac3AttenuationControl.hs",
         "gen/Amazonka/MediaLive/Types/Eac3BitstreamMode.hs",
         "gen/Amazonka/MediaLive/Types/Eac3CodingMode.hs",
@@ -178,6 +186,7 @@ haskell_library(
         "gen/Amazonka/MediaLive/Types/EmbeddedScte20Detection.hs",
         "gen/Amazonka/MediaLive/Types/EmbeddedSourceSettings.hs",
         "gen/Amazonka/MediaLive/Types/EncoderSettings.hs",
+        "gen/Amazonka/MediaLive/Types/Esam.hs",
         "gen/Amazonka/MediaLive/Types/FailoverCondition.hs",
         "gen/Amazonka/MediaLive/Types/FailoverConditionSettings.hs",
         "gen/Amazonka/MediaLive/Types/FeatureActivations.hs",
@@ -271,6 +280,7 @@ haskell_library(
         "gen/Amazonka/MediaLive/Types/HlsOutputSelection.hs",
         "gen/Amazonka/MediaLive/Types/HlsOutputSettings.hs",
         "gen/Amazonka/MediaLive/Types/HlsProgramDateTime.hs",
+        "gen/Amazonka/MediaLive/Types/HlsProgramDateTimeClock.hs",
         "gen/Amazonka/MediaLive/Types/HlsRedundantManifest.hs",
         "gen/Amazonka/MediaLive/Types/HlsS3Settings.hs",
         "gen/Amazonka/MediaLive/Types/HlsScte35SourceType.hs",
@@ -367,6 +377,10 @@ haskell_library(
         "gen/Amazonka/MediaLive/Types/M3u8Scte35Behavior.hs",
         "gen/Amazonka/MediaLive/Types/M3u8Settings.hs",
         "gen/Amazonka/MediaLive/Types/M3u8TimedMetadataBehavior.hs",
+        "gen/Amazonka/MediaLive/Types/MaintenanceCreateSettings.hs",
+        "gen/Amazonka/MediaLive/Types/MaintenanceDay.hs",
+        "gen/Amazonka/MediaLive/Types/MaintenanceStatus.hs",
+        "gen/Amazonka/MediaLive/Types/MaintenanceUpdateSettings.hs",
         "gen/Amazonka/MediaLive/Types/MediaConnectFlow.hs",
         "gen/Amazonka/MediaLive/Types/MediaConnectFlowRequest.hs",
         "gen/Amazonka/MediaLive/Types/MediaPackageGroupSettings.hs",
@@ -436,10 +450,13 @@ haskell_library(
         "gen/Amazonka/MediaLive/Types/PipelinePauseStateSettings.hs",
         "gen/Amazonka/MediaLive/Types/PreferredChannelPipeline.hs",
         "gen/Amazonka/MediaLive/Types/RawSettings.hs",
+        "gen/Amazonka/MediaLive/Types/RebootInputDeviceForce.hs",
         "gen/Amazonka/MediaLive/Types/Rec601Settings.hs",
         "gen/Amazonka/MediaLive/Types/Rec709Settings.hs",
         "gen/Amazonka/MediaLive/Types/RemixSettings.hs",
+        "gen/Amazonka/MediaLive/Types/RenewalSettings.hs",
         "gen/Amazonka/MediaLive/Types/Reservation.hs",
+        "gen/Amazonka/MediaLive/Types/ReservationAutomaticRenewal.hs",
         "gen/Amazonka/MediaLive/Types/ReservationCodec.hs",
         "gen/Amazonka/MediaLive/Types/ReservationMaximumBitrate.hs",
         "gen/Amazonka/MediaLive/Types/ReservationMaximumFramerate.hs",
@@ -473,6 +490,8 @@ haskell_library(
         "gen/Amazonka/MediaLive/Types/Scte35Descriptor.hs",
         "gen/Amazonka/MediaLive/Types/Scte35DescriptorSettings.hs",
         "gen/Amazonka/MediaLive/Types/Scte35DeviceRestrictions.hs",
+        "gen/Amazonka/MediaLive/Types/Scte35InputMode.hs",
+        "gen/Amazonka/MediaLive/Types/Scte35InputScheduleActionSettings.hs",
         "gen/Amazonka/MediaLive/Types/Scte35NoRegionalBlackoutFlag.hs",
         "gen/Amazonka/MediaLive/Types/Scte35ReturnToNetworkScheduleActionSettings.hs",
         "gen/Amazonka/MediaLive/Types/Scte35SegmentationCancelIndicator.hs",
@@ -542,14 +561,13 @@ haskell_library(
         "gen/Amazonka/MediaLive/UpdateReservation.hs",
         "gen/Amazonka/MediaLive/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_medialive=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
-        "-DVERSION_amazonka_medialive=\"2.0\"",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -558,7 +576,7 @@ haskell_library(
     ],
 )
 
-# rule generated from amazonka-medialive/amazonka-medialive.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-medialive/amazonka-medialive.cabal by gazelle_cabal
 haskell_test(
     name = "amazonka-medialive-test",
     srcs = [
@@ -567,11 +585,12 @@ haskell_test(
         "test/Test/Amazonka/MediaLive.hs",
         "test/Test/Amazonka/MediaLive/Internal.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_medialive=\"2.0\"",
         "-Wall",
         "-threaded",
-        "-DVERSION_amazonka_medialive=\"2.0\"",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

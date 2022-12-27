@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ComputeOptimizer.GetEnrollmentStatusesForOrganization
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,8 +32,8 @@ module Amazonka.ComputeOptimizer.GetEnrollmentStatusesForOrganization
 
     -- * Request Lenses
     getEnrollmentStatusesForOrganization_filters,
-    getEnrollmentStatusesForOrganization_nextToken,
     getEnrollmentStatusesForOrganization_maxResults,
+    getEnrollmentStatusesForOrganization_nextToken,
 
     -- * Destructuring the Response
     GetEnrollmentStatusesForOrganizationResponse (..),
@@ -48,7 +48,8 @@ where
 
 import Amazonka.ComputeOptimizer.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,15 +59,15 @@ data GetEnrollmentStatusesForOrganization = GetEnrollmentStatusesForOrganization
   { -- | An array of objects to specify a filter that returns a more specific
     -- list of account enrollment statuses.
     filters :: Prelude.Maybe [EnrollmentFilter],
-    -- | The token to advance to the next page of account enrollment statuses.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of account enrollment statuses to return with a
     -- single request. You can specify up to 100 statuses to return with each
     -- request.
     --
     -- To retrieve the remaining results, make another request with the
     -- returned @nextToken@ value.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The token to advance to the next page of account enrollment statuses.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -81,32 +82,28 @@ data GetEnrollmentStatusesForOrganization = GetEnrollmentStatusesForOrganization
 -- 'filters', 'getEnrollmentStatusesForOrganization_filters' - An array of objects to specify a filter that returns a more specific
 -- list of account enrollment statuses.
 --
--- 'nextToken', 'getEnrollmentStatusesForOrganization_nextToken' - The token to advance to the next page of account enrollment statuses.
---
 -- 'maxResults', 'getEnrollmentStatusesForOrganization_maxResults' - The maximum number of account enrollment statuses to return with a
 -- single request. You can specify up to 100 statuses to return with each
 -- request.
 --
 -- To retrieve the remaining results, make another request with the
 -- returned @nextToken@ value.
+--
+-- 'nextToken', 'getEnrollmentStatusesForOrganization_nextToken' - The token to advance to the next page of account enrollment statuses.
 newGetEnrollmentStatusesForOrganization ::
   GetEnrollmentStatusesForOrganization
 newGetEnrollmentStatusesForOrganization =
   GetEnrollmentStatusesForOrganization'
     { filters =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | An array of objects to specify a filter that returns a more specific
 -- list of account enrollment statuses.
 getEnrollmentStatusesForOrganization_filters :: Lens.Lens' GetEnrollmentStatusesForOrganization (Prelude.Maybe [EnrollmentFilter])
 getEnrollmentStatusesForOrganization_filters = Lens.lens (\GetEnrollmentStatusesForOrganization' {filters} -> filters) (\s@GetEnrollmentStatusesForOrganization' {} a -> s {filters = a} :: GetEnrollmentStatusesForOrganization) Prelude.. Lens.mapping Lens.coerced
-
--- | The token to advance to the next page of account enrollment statuses.
-getEnrollmentStatusesForOrganization_nextToken :: Lens.Lens' GetEnrollmentStatusesForOrganization (Prelude.Maybe Prelude.Text)
-getEnrollmentStatusesForOrganization_nextToken = Lens.lens (\GetEnrollmentStatusesForOrganization' {nextToken} -> nextToken) (\s@GetEnrollmentStatusesForOrganization' {} a -> s {nextToken = a} :: GetEnrollmentStatusesForOrganization)
 
 -- | The maximum number of account enrollment statuses to return with a
 -- single request. You can specify up to 100 statuses to return with each
@@ -117,6 +114,10 @@ getEnrollmentStatusesForOrganization_nextToken = Lens.lens (\GetEnrollmentStatus
 getEnrollmentStatusesForOrganization_maxResults :: Lens.Lens' GetEnrollmentStatusesForOrganization (Prelude.Maybe Prelude.Int)
 getEnrollmentStatusesForOrganization_maxResults = Lens.lens (\GetEnrollmentStatusesForOrganization' {maxResults} -> maxResults) (\s@GetEnrollmentStatusesForOrganization' {} a -> s {maxResults = a} :: GetEnrollmentStatusesForOrganization)
 
+-- | The token to advance to the next page of account enrollment statuses.
+getEnrollmentStatusesForOrganization_nextToken :: Lens.Lens' GetEnrollmentStatusesForOrganization (Prelude.Maybe Prelude.Text)
+getEnrollmentStatusesForOrganization_nextToken = Lens.lens (\GetEnrollmentStatusesForOrganization' {nextToken} -> nextToken) (\s@GetEnrollmentStatusesForOrganization' {} a -> s {nextToken = a} :: GetEnrollmentStatusesForOrganization)
+
 instance
   Core.AWSRequest
     GetEnrollmentStatusesForOrganization
@@ -124,15 +125,16 @@ instance
   type
     AWSResponse GetEnrollmentStatusesForOrganization =
       GetEnrollmentStatusesForOrganizationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetEnrollmentStatusesForOrganizationResponse'
-            Prelude.<$> ( x Core..?> "accountEnrollmentStatuses"
+            Prelude.<$> ( x Data..?> "accountEnrollmentStatuses"
                             Core..!@ Prelude.mempty
                         )
-              Prelude.<*> (x Core..?> "nextToken")
+              Prelude.<*> (x Data..?> "nextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -144,8 +146,8 @@ instance
     _salt
     GetEnrollmentStatusesForOrganization' {..} =
       _salt `Prelude.hashWithSalt` filters
-        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
 
 instance
   Prelude.NFData
@@ -153,48 +155,48 @@ instance
   where
   rnf GetEnrollmentStatusesForOrganization' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetEnrollmentStatusesForOrganization
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ComputeOptimizerService.GetEnrollmentStatusesForOrganization" ::
+              Data.=# ( "ComputeOptimizerService.GetEnrollmentStatusesForOrganization" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     GetEnrollmentStatusesForOrganization
   where
   toJSON GetEnrollmentStatusesForOrganization' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("filters" Core..=) Prelude.<$> filters,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("filters" Data..=) Prelude.<$> filters,
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     GetEnrollmentStatusesForOrganization
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetEnrollmentStatusesForOrganization
   where
   toQuery = Prelude.const Prelude.mempty

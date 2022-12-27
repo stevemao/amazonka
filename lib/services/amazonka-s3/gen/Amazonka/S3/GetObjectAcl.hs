@@ -14,14 +14,17 @@
 
 -- |
 -- Module      : Amazonka.S3.GetObjectAcl
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Returns the access control list (ACL) of an object. To use this
--- operation, you must have @READ_ACP@ access to the object.
+-- operation, you must have @s3:GetObjectAcl@ permissions or @READ_ACP@
+-- access to the object. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#acl-access-policy-permission-mapping Mapping of ACL permissions and access policy permissions>
+-- in the /Amazon S3 User Guide/
 --
 -- This action is not supported by Amazon S3 on Outposts.
 --
@@ -31,9 +34,18 @@
 -- object. To return ACL information about a different version, use the
 -- versionId subresource.
 --
+-- If your bucket uses the bucket owner enforced setting for S3 Object
+-- Ownership, requests to read ACLs are still supported and return the
+-- @bucket-owner-full-control@ ACL with the owner being the account that
+-- created the bucket. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html Controlling object ownership and disabling ACLs>
+-- in the /Amazon S3 User Guide/.
+--
 -- The following operations are related to @GetObjectAcl@:
 --
 -- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html GetObject>
+--
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAttributes.html GetObjectAttributes>
 --
 -- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html DeleteObject>
 --
@@ -44,9 +56,9 @@ module Amazonka.S3.GetObjectAcl
     newGetObjectAcl,
 
     -- * Request Lenses
-    getObjectAcl_versionId,
-    getObjectAcl_requestPayer,
     getObjectAcl_expectedBucketOwner,
+    getObjectAcl_requestPayer,
+    getObjectAcl_versionId,
     getObjectAcl_bucket,
     getObjectAcl_key,
 
@@ -55,15 +67,16 @@ module Amazonka.S3.GetObjectAcl
     newGetObjectAclResponse,
 
     -- * Response Lenses
-    getObjectAclResponse_requestCharged,
     getObjectAclResponse_grants,
     getObjectAclResponse_owner,
+    getObjectAclResponse_requestCharged,
     getObjectAclResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -71,13 +84,13 @@ import Amazonka.S3.Types
 
 -- | /See:/ 'newGetObjectAcl' smart constructor.
 data GetObjectAcl = GetObjectAcl'
-  { -- | VersionId used to reference a specific version of the object.
-    versionId :: Prelude.Maybe ObjectVersionId,
-    requestPayer :: Prelude.Maybe RequestPayer,
-    -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+  { -- | The account ID of the expected bucket owner. If the bucket is owned by a
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
+    requestPayer :: Prelude.Maybe RequestPayer,
+    -- | VersionId used to reference a specific version of the object.
+    versionId :: Prelude.Maybe ObjectVersionId,
     -- | The bucket name that contains the object for which to get the ACL
     -- information.
     --
@@ -103,13 +116,13 @@ data GetObjectAcl = GetObjectAcl'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'versionId', 'getObjectAcl_versionId' - VersionId used to reference a specific version of the object.
+-- 'expectedBucketOwner', 'getObjectAcl_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'requestPayer', 'getObjectAcl_requestPayer' - Undocumented member.
 --
--- 'expectedBucketOwner', 'getObjectAcl_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- 'versionId', 'getObjectAcl_versionId' - VersionId used to reference a specific version of the object.
 --
 -- 'bucket', 'getObjectAcl_bucket' - The bucket name that contains the object for which to get the ACL
 -- information.
@@ -132,26 +145,27 @@ newGetObjectAcl ::
   GetObjectAcl
 newGetObjectAcl pBucket_ pKey_ =
   GetObjectAcl'
-    { versionId = Prelude.Nothing,
+    { expectedBucketOwner =
+        Prelude.Nothing,
       requestPayer = Prelude.Nothing,
-      expectedBucketOwner = Prelude.Nothing,
+      versionId = Prelude.Nothing,
       bucket = pBucket_,
       key = pKey_
     }
 
--- | VersionId used to reference a specific version of the object.
-getObjectAcl_versionId :: Lens.Lens' GetObjectAcl (Prelude.Maybe ObjectVersionId)
-getObjectAcl_versionId = Lens.lens (\GetObjectAcl' {versionId} -> versionId) (\s@GetObjectAcl' {} a -> s {versionId = a} :: GetObjectAcl)
+-- | The account ID of the expected bucket owner. If the bucket is owned by a
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
+getObjectAcl_expectedBucketOwner :: Lens.Lens' GetObjectAcl (Prelude.Maybe Prelude.Text)
+getObjectAcl_expectedBucketOwner = Lens.lens (\GetObjectAcl' {expectedBucketOwner} -> expectedBucketOwner) (\s@GetObjectAcl' {} a -> s {expectedBucketOwner = a} :: GetObjectAcl)
 
 -- | Undocumented member.
 getObjectAcl_requestPayer :: Lens.Lens' GetObjectAcl (Prelude.Maybe RequestPayer)
 getObjectAcl_requestPayer = Lens.lens (\GetObjectAcl' {requestPayer} -> requestPayer) (\s@GetObjectAcl' {} a -> s {requestPayer = a} :: GetObjectAcl)
 
--- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
-getObjectAcl_expectedBucketOwner :: Lens.Lens' GetObjectAcl (Prelude.Maybe Prelude.Text)
-getObjectAcl_expectedBucketOwner = Lens.lens (\GetObjectAcl' {expectedBucketOwner} -> expectedBucketOwner) (\s@GetObjectAcl' {} a -> s {expectedBucketOwner = a} :: GetObjectAcl)
+-- | VersionId used to reference a specific version of the object.
+getObjectAcl_versionId :: Lens.Lens' GetObjectAcl (Prelude.Maybe ObjectVersionId)
+getObjectAcl_versionId = Lens.lens (\GetObjectAcl' {versionId} -> versionId) (\s@GetObjectAcl' {} a -> s {versionId = a} :: GetObjectAcl)
 
 -- | The bucket name that contains the object for which to get the ACL
 -- information.
@@ -173,63 +187,63 @@ getObjectAcl_key = Lens.lens (\GetObjectAcl' {key} -> key) (\s@GetObjectAcl' {} 
 
 instance Core.AWSRequest GetObjectAcl where
   type AWSResponse GetObjectAcl = GetObjectAclResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.get defaultService
+      Prelude.. Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetObjectAclResponse'
-            Prelude.<$> (h Core..#? "x-amz-request-charged")
-            Prelude.<*> ( x Core..@? "AccessControlList"
+            Prelude.<$> ( x Data..@? "AccessControlList"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "Grant")
+                            Prelude.>>= Core.may (Data.parseXMLList "Grant")
                         )
-            Prelude.<*> (x Core..@? "Owner")
+            Prelude.<*> (x Data..@? "Owner")
+            Prelude.<*> (h Data..#? "x-amz-request-charged")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetObjectAcl where
   hashWithSalt _salt GetObjectAcl' {..} =
-    _salt `Prelude.hashWithSalt` versionId
+    _salt `Prelude.hashWithSalt` expectedBucketOwner
       `Prelude.hashWithSalt` requestPayer
-      `Prelude.hashWithSalt` expectedBucketOwner
+      `Prelude.hashWithSalt` versionId
       `Prelude.hashWithSalt` bucket
       `Prelude.hashWithSalt` key
 
 instance Prelude.NFData GetObjectAcl where
   rnf GetObjectAcl' {..} =
-    Prelude.rnf versionId
+    Prelude.rnf expectedBucketOwner
       `Prelude.seq` Prelude.rnf requestPayer
-      `Prelude.seq` Prelude.rnf expectedBucketOwner
+      `Prelude.seq` Prelude.rnf versionId
       `Prelude.seq` Prelude.rnf bucket
       `Prelude.seq` Prelude.rnf key
 
-instance Core.ToHeaders GetObjectAcl where
+instance Data.ToHeaders GetObjectAcl where
   toHeaders GetObjectAcl' {..} =
     Prelude.mconcat
-      [ "x-amz-request-payer" Core.=# requestPayer,
-        "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+      [ "x-amz-expected-bucket-owner"
+          Data.=# expectedBucketOwner,
+        "x-amz-request-payer" Data.=# requestPayer
       ]
 
-instance Core.ToPath GetObjectAcl where
+instance Data.ToPath GetObjectAcl where
   toPath GetObjectAcl' {..} =
     Prelude.mconcat
-      ["/", Core.toBS bucket, "/", Core.toBS key]
+      ["/", Data.toBS bucket, "/", Data.toBS key]
 
-instance Core.ToQuery GetObjectAcl where
+instance Data.ToQuery GetObjectAcl where
   toQuery GetObjectAcl' {..} =
     Prelude.mconcat
-      ["versionId" Core.=: versionId, "acl"]
+      ["versionId" Data.=: versionId, "acl"]
 
 -- | /See:/ 'newGetObjectAclResponse' smart constructor.
 data GetObjectAclResponse = GetObjectAclResponse'
-  { requestCharged :: Prelude.Maybe RequestCharged,
-    -- | A list of grants.
+  { -- | A list of grants.
     grants :: Prelude.Maybe [Grant],
     -- | Container for the bucket owner\'s display name and ID.
     owner :: Prelude.Maybe Owner,
+    requestCharged :: Prelude.Maybe RequestCharged,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -243,11 +257,11 @@ data GetObjectAclResponse = GetObjectAclResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestCharged', 'getObjectAclResponse_requestCharged' - Undocumented member.
---
 -- 'grants', 'getObjectAclResponse_grants' - A list of grants.
 --
 -- 'owner', 'getObjectAclResponse_owner' - Container for the bucket owner\'s display name and ID.
+--
+-- 'requestCharged', 'getObjectAclResponse_requestCharged' - Undocumented member.
 --
 -- 'httpStatus', 'getObjectAclResponse_httpStatus' - The response's http status code.
 newGetObjectAclResponse ::
@@ -256,16 +270,11 @@ newGetObjectAclResponse ::
   GetObjectAclResponse
 newGetObjectAclResponse pHttpStatus_ =
   GetObjectAclResponse'
-    { requestCharged =
-        Prelude.Nothing,
-      grants = Prelude.Nothing,
+    { grants = Prelude.Nothing,
       owner = Prelude.Nothing,
+      requestCharged = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Undocumented member.
-getObjectAclResponse_requestCharged :: Lens.Lens' GetObjectAclResponse (Prelude.Maybe RequestCharged)
-getObjectAclResponse_requestCharged = Lens.lens (\GetObjectAclResponse' {requestCharged} -> requestCharged) (\s@GetObjectAclResponse' {} a -> s {requestCharged = a} :: GetObjectAclResponse)
 
 -- | A list of grants.
 getObjectAclResponse_grants :: Lens.Lens' GetObjectAclResponse (Prelude.Maybe [Grant])
@@ -275,13 +284,17 @@ getObjectAclResponse_grants = Lens.lens (\GetObjectAclResponse' {grants} -> gran
 getObjectAclResponse_owner :: Lens.Lens' GetObjectAclResponse (Prelude.Maybe Owner)
 getObjectAclResponse_owner = Lens.lens (\GetObjectAclResponse' {owner} -> owner) (\s@GetObjectAclResponse' {} a -> s {owner = a} :: GetObjectAclResponse)
 
+-- | Undocumented member.
+getObjectAclResponse_requestCharged :: Lens.Lens' GetObjectAclResponse (Prelude.Maybe RequestCharged)
+getObjectAclResponse_requestCharged = Lens.lens (\GetObjectAclResponse' {requestCharged} -> requestCharged) (\s@GetObjectAclResponse' {} a -> s {requestCharged = a} :: GetObjectAclResponse)
+
 -- | The response's http status code.
 getObjectAclResponse_httpStatus :: Lens.Lens' GetObjectAclResponse Prelude.Int
 getObjectAclResponse_httpStatus = Lens.lens (\GetObjectAclResponse' {httpStatus} -> httpStatus) (\s@GetObjectAclResponse' {} a -> s {httpStatus = a} :: GetObjectAclResponse)
 
 instance Prelude.NFData GetObjectAclResponse where
   rnf GetObjectAclResponse' {..} =
-    Prelude.rnf requestCharged
-      `Prelude.seq` Prelude.rnf grants
+    Prelude.rnf grants
       `Prelude.seq` Prelude.rnf owner
+      `Prelude.seq` Prelude.rnf requestCharged
       `Prelude.seq` Prelude.rnf httpStatus

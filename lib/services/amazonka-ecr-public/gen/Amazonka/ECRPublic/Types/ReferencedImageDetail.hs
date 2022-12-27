@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECRPublic.Types.ReferencedImageDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ECRPublic.Types.ReferencedImageDetail where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that describes the image tag details returned by a
@@ -28,8 +29,15 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newReferencedImageDetail' smart constructor.
 data ReferencedImageDetail = ReferencedImageDetail'
-  { -- | The media type of the image manifest.
+  { -- | The artifact media type of the image.
+    artifactMediaType :: Prelude.Maybe Prelude.Text,
+    -- | The @sha256@ digest of the image manifest.
+    imageDigest :: Prelude.Maybe Prelude.Text,
+    -- | The media type of the image manifest.
     imageManifestMediaType :: Prelude.Maybe Prelude.Text,
+    -- | The date and time, expressed in standard JavaScript date format, at
+    -- which the current image tag was pushed to the repository.
+    imagePushedAt :: Prelude.Maybe Data.POSIX,
     -- | The size, in bytes, of the image in the repository.
     --
     -- If the image is a manifest list, this will be the max size of all
@@ -40,14 +48,7 @@ data ReferencedImageDetail = ReferencedImageDetail'
     -- @docker images@ command shows the uncompressed image size, so it may
     -- return a larger image size than the image sizes returned by
     -- DescribeImages.
-    imageSizeInBytes :: Prelude.Maybe Prelude.Integer,
-    -- | The @sha256@ digest of the image manifest.
-    imageDigest :: Prelude.Maybe Prelude.Text,
-    -- | The artifact media type of the image.
-    artifactMediaType :: Prelude.Maybe Prelude.Text,
-    -- | The date and time, expressed in standard JavaScript date format, at
-    -- which the current image tag was pushed to the repository.
-    imagePushedAt :: Prelude.Maybe Core.POSIX
+    imageSizeInBytes :: Prelude.Maybe Prelude.Integer
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -59,7 +60,14 @@ data ReferencedImageDetail = ReferencedImageDetail'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'artifactMediaType', 'referencedImageDetail_artifactMediaType' - The artifact media type of the image.
+--
+-- 'imageDigest', 'referencedImageDetail_imageDigest' - The @sha256@ digest of the image manifest.
+--
 -- 'imageManifestMediaType', 'referencedImageDetail_imageManifestMediaType' - The media type of the image manifest.
+--
+-- 'imagePushedAt', 'referencedImageDetail_imagePushedAt' - The date and time, expressed in standard JavaScript date format, at
+-- which the current image tag was pushed to the repository.
 --
 -- 'imageSizeInBytes', 'referencedImageDetail_imageSizeInBytes' - The size, in bytes, of the image in the repository.
 --
@@ -71,28 +79,34 @@ data ReferencedImageDetail = ReferencedImageDetail'
 -- @docker images@ command shows the uncompressed image size, so it may
 -- return a larger image size than the image sizes returned by
 -- DescribeImages.
---
--- 'imageDigest', 'referencedImageDetail_imageDigest' - The @sha256@ digest of the image manifest.
---
--- 'artifactMediaType', 'referencedImageDetail_artifactMediaType' - The artifact media type of the image.
---
--- 'imagePushedAt', 'referencedImageDetail_imagePushedAt' - The date and time, expressed in standard JavaScript date format, at
--- which the current image tag was pushed to the repository.
 newReferencedImageDetail ::
   ReferencedImageDetail
 newReferencedImageDetail =
   ReferencedImageDetail'
-    { imageManifestMediaType =
+    { artifactMediaType =
         Prelude.Nothing,
-      imageSizeInBytes = Prelude.Nothing,
       imageDigest = Prelude.Nothing,
-      artifactMediaType = Prelude.Nothing,
-      imagePushedAt = Prelude.Nothing
+      imageManifestMediaType = Prelude.Nothing,
+      imagePushedAt = Prelude.Nothing,
+      imageSizeInBytes = Prelude.Nothing
     }
+
+-- | The artifact media type of the image.
+referencedImageDetail_artifactMediaType :: Lens.Lens' ReferencedImageDetail (Prelude.Maybe Prelude.Text)
+referencedImageDetail_artifactMediaType = Lens.lens (\ReferencedImageDetail' {artifactMediaType} -> artifactMediaType) (\s@ReferencedImageDetail' {} a -> s {artifactMediaType = a} :: ReferencedImageDetail)
+
+-- | The @sha256@ digest of the image manifest.
+referencedImageDetail_imageDigest :: Lens.Lens' ReferencedImageDetail (Prelude.Maybe Prelude.Text)
+referencedImageDetail_imageDigest = Lens.lens (\ReferencedImageDetail' {imageDigest} -> imageDigest) (\s@ReferencedImageDetail' {} a -> s {imageDigest = a} :: ReferencedImageDetail)
 
 -- | The media type of the image manifest.
 referencedImageDetail_imageManifestMediaType :: Lens.Lens' ReferencedImageDetail (Prelude.Maybe Prelude.Text)
 referencedImageDetail_imageManifestMediaType = Lens.lens (\ReferencedImageDetail' {imageManifestMediaType} -> imageManifestMediaType) (\s@ReferencedImageDetail' {} a -> s {imageManifestMediaType = a} :: ReferencedImageDetail)
+
+-- | The date and time, expressed in standard JavaScript date format, at
+-- which the current image tag was pushed to the repository.
+referencedImageDetail_imagePushedAt :: Lens.Lens' ReferencedImageDetail (Prelude.Maybe Prelude.UTCTime)
+referencedImageDetail_imagePushedAt = Lens.lens (\ReferencedImageDetail' {imagePushedAt} -> imagePushedAt) (\s@ReferencedImageDetail' {} a -> s {imagePushedAt = a} :: ReferencedImageDetail) Prelude.. Lens.mapping Data._Time
 
 -- | The size, in bytes, of the image in the repository.
 --
@@ -107,44 +121,31 @@ referencedImageDetail_imageManifestMediaType = Lens.lens (\ReferencedImageDetail
 referencedImageDetail_imageSizeInBytes :: Lens.Lens' ReferencedImageDetail (Prelude.Maybe Prelude.Integer)
 referencedImageDetail_imageSizeInBytes = Lens.lens (\ReferencedImageDetail' {imageSizeInBytes} -> imageSizeInBytes) (\s@ReferencedImageDetail' {} a -> s {imageSizeInBytes = a} :: ReferencedImageDetail)
 
--- | The @sha256@ digest of the image manifest.
-referencedImageDetail_imageDigest :: Lens.Lens' ReferencedImageDetail (Prelude.Maybe Prelude.Text)
-referencedImageDetail_imageDigest = Lens.lens (\ReferencedImageDetail' {imageDigest} -> imageDigest) (\s@ReferencedImageDetail' {} a -> s {imageDigest = a} :: ReferencedImageDetail)
-
--- | The artifact media type of the image.
-referencedImageDetail_artifactMediaType :: Lens.Lens' ReferencedImageDetail (Prelude.Maybe Prelude.Text)
-referencedImageDetail_artifactMediaType = Lens.lens (\ReferencedImageDetail' {artifactMediaType} -> artifactMediaType) (\s@ReferencedImageDetail' {} a -> s {artifactMediaType = a} :: ReferencedImageDetail)
-
--- | The date and time, expressed in standard JavaScript date format, at
--- which the current image tag was pushed to the repository.
-referencedImageDetail_imagePushedAt :: Lens.Lens' ReferencedImageDetail (Prelude.Maybe Prelude.UTCTime)
-referencedImageDetail_imagePushedAt = Lens.lens (\ReferencedImageDetail' {imagePushedAt} -> imagePushedAt) (\s@ReferencedImageDetail' {} a -> s {imagePushedAt = a} :: ReferencedImageDetail) Prelude.. Lens.mapping Core._Time
-
-instance Core.FromJSON ReferencedImageDetail where
+instance Data.FromJSON ReferencedImageDetail where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ReferencedImageDetail"
       ( \x ->
           ReferencedImageDetail'
-            Prelude.<$> (x Core..:? "imageManifestMediaType")
-            Prelude.<*> (x Core..:? "imageSizeInBytes")
-            Prelude.<*> (x Core..:? "imageDigest")
-            Prelude.<*> (x Core..:? "artifactMediaType")
-            Prelude.<*> (x Core..:? "imagePushedAt")
+            Prelude.<$> (x Data..:? "artifactMediaType")
+            Prelude.<*> (x Data..:? "imageDigest")
+            Prelude.<*> (x Data..:? "imageManifestMediaType")
+            Prelude.<*> (x Data..:? "imagePushedAt")
+            Prelude.<*> (x Data..:? "imageSizeInBytes")
       )
 
 instance Prelude.Hashable ReferencedImageDetail where
   hashWithSalt _salt ReferencedImageDetail' {..} =
-    _salt `Prelude.hashWithSalt` imageManifestMediaType
-      `Prelude.hashWithSalt` imageSizeInBytes
+    _salt `Prelude.hashWithSalt` artifactMediaType
       `Prelude.hashWithSalt` imageDigest
-      `Prelude.hashWithSalt` artifactMediaType
+      `Prelude.hashWithSalt` imageManifestMediaType
       `Prelude.hashWithSalt` imagePushedAt
+      `Prelude.hashWithSalt` imageSizeInBytes
 
 instance Prelude.NFData ReferencedImageDetail where
   rnf ReferencedImageDetail' {..} =
-    Prelude.rnf imageManifestMediaType
-      `Prelude.seq` Prelude.rnf imageSizeInBytes
+    Prelude.rnf artifactMediaType
       `Prelude.seq` Prelude.rnf imageDigest
-      `Prelude.seq` Prelude.rnf artifactMediaType
+      `Prelude.seq` Prelude.rnf imageManifestMediaType
       `Prelude.seq` Prelude.rnf imagePushedAt
+      `Prelude.seq` Prelude.rnf imageSizeInBytes

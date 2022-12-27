@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.SetIpAddressType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.Lightsail.SetIpAddressType
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -59,8 +60,9 @@ data SetIpAddressType = SetIpAddressType'
     -- The possible values are @Distribution@, @Instance@, and @LoadBalancer@.
     --
     -- Distribution-related APIs are available only in the N. Virginia
-    -- (@us-east-1@) AWS Region. Set your AWS Region configuration to
-    -- @us-east-1@ to create, view, or edit distributions.
+    -- (@us-east-1@) Amazon Web Services Region. Set your Amazon Web Services
+    -- Region configuration to @us-east-1@ to create, view, or edit
+    -- distributions.
     resourceType :: ResourceType,
     -- | The name of the resource for which to set the IP address type.
     resourceName :: Prelude.Text,
@@ -85,8 +87,9 @@ data SetIpAddressType = SetIpAddressType'
 -- The possible values are @Distribution@, @Instance@, and @LoadBalancer@.
 --
 -- Distribution-related APIs are available only in the N. Virginia
--- (@us-east-1@) AWS Region. Set your AWS Region configuration to
--- @us-east-1@ to create, view, or edit distributions.
+-- (@us-east-1@) Amazon Web Services Region. Set your Amazon Web Services
+-- Region configuration to @us-east-1@ to create, view, or edit
+-- distributions.
 --
 -- 'resourceName', 'setIpAddressType_resourceName' - The name of the resource for which to set the IP address type.
 --
@@ -117,8 +120,9 @@ newSetIpAddressType
 -- The possible values are @Distribution@, @Instance@, and @LoadBalancer@.
 --
 -- Distribution-related APIs are available only in the N. Virginia
--- (@us-east-1@) AWS Region. Set your AWS Region configuration to
--- @us-east-1@ to create, view, or edit distributions.
+-- (@us-east-1@) Amazon Web Services Region. Set your Amazon Web Services
+-- Region configuration to @us-east-1@ to create, view, or edit
+-- distributions.
 setIpAddressType_resourceType :: Lens.Lens' SetIpAddressType ResourceType
 setIpAddressType_resourceType = Lens.lens (\SetIpAddressType' {resourceType} -> resourceType) (\s@SetIpAddressType' {} a -> s {resourceType = a} :: SetIpAddressType)
 
@@ -137,12 +141,13 @@ instance Core.AWSRequest SetIpAddressType where
   type
     AWSResponse SetIpAddressType =
       SetIpAddressTypeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SetIpAddressTypeResponse'
-            Prelude.<$> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -158,36 +163,36 @@ instance Prelude.NFData SetIpAddressType where
       `Prelude.seq` Prelude.rnf resourceName
       `Prelude.seq` Prelude.rnf ipAddressType
 
-instance Core.ToHeaders SetIpAddressType where
+instance Data.ToHeaders SetIpAddressType where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.SetIpAddressType" ::
+              Data.=# ( "Lightsail_20161128.SetIpAddressType" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SetIpAddressType where
+instance Data.ToJSON SetIpAddressType where
   toJSON SetIpAddressType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("resourceType" Core..= resourceType),
-            Prelude.Just ("resourceName" Core..= resourceName),
+          [ Prelude.Just ("resourceType" Data..= resourceType),
+            Prelude.Just ("resourceName" Data..= resourceName),
             Prelude.Just
-              ("ipAddressType" Core..= ipAddressType)
+              ("ipAddressType" Data..= ipAddressType)
           ]
       )
 
-instance Core.ToPath SetIpAddressType where
+instance Data.ToPath SetIpAddressType where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SetIpAddressType where
+instance Data.ToQuery SetIpAddressType where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSetIpAddressTypeResponse' smart constructor.

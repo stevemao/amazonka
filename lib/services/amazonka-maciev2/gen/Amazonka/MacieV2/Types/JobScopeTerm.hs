@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.JobScopeTerm
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.JobScopeTerm where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types.SimpleScopeTerm
 import Amazonka.MacieV2.Types.TagScopeTerm
 import qualified Amazonka.Prelude as Prelude
@@ -72,14 +73,14 @@ jobScopeTerm_simpleScopeTerm = Lens.lens (\JobScopeTerm' {simpleScopeTerm} -> si
 jobScopeTerm_tagScopeTerm :: Lens.Lens' JobScopeTerm (Prelude.Maybe TagScopeTerm)
 jobScopeTerm_tagScopeTerm = Lens.lens (\JobScopeTerm' {tagScopeTerm} -> tagScopeTerm) (\s@JobScopeTerm' {} a -> s {tagScopeTerm = a} :: JobScopeTerm)
 
-instance Core.FromJSON JobScopeTerm where
+instance Data.FromJSON JobScopeTerm where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "JobScopeTerm"
       ( \x ->
           JobScopeTerm'
-            Prelude.<$> (x Core..:? "simpleScopeTerm")
-            Prelude.<*> (x Core..:? "tagScopeTerm")
+            Prelude.<$> (x Data..:? "simpleScopeTerm")
+            Prelude.<*> (x Data..:? "tagScopeTerm")
       )
 
 instance Prelude.Hashable JobScopeTerm where
@@ -92,12 +93,12 @@ instance Prelude.NFData JobScopeTerm where
     Prelude.rnf simpleScopeTerm
       `Prelude.seq` Prelude.rnf tagScopeTerm
 
-instance Core.ToJSON JobScopeTerm where
+instance Data.ToJSON JobScopeTerm where
   toJSON JobScopeTerm' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("simpleScopeTerm" Core..=)
+          [ ("simpleScopeTerm" Data..=)
               Prelude.<$> simpleScopeTerm,
-            ("tagScopeTerm" Core..=) Prelude.<$> tagScopeTerm
+            ("tagScopeTerm" Data..=) Prelude.<$> tagScopeTerm
           ]
       )

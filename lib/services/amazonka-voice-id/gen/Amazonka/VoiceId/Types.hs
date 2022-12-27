@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.VoiceId.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,13 +18,13 @@ module Amazonka.VoiceId.Types
     defaultService,
 
     -- * Errors
-    _ValidationException,
     _AccessDeniedException,
     _ConflictException,
-    _ServiceQuotaExceededException,
-    _ThrottlingException,
     _InternalServerException,
     _ResourceNotFoundException,
+    _ServiceQuotaExceededException,
+    _ThrottlingException,
+    _ValidationException,
 
     -- * AuthenticationDecision
     AuthenticationDecision (..),
@@ -49,6 +50,9 @@ module Amazonka.VoiceId.Types
     -- * FraudsterRegistrationJobStatus
     FraudsterRegistrationJobStatus (..),
 
+    -- * ServerSideEncryptionUpdateStatus
+    ServerSideEncryptionUpdateStatus (..),
+
     -- * SpeakerEnrollmentJobStatus
     SpeakerEnrollmentJobStatus (..),
 
@@ -66,50 +70,52 @@ module Amazonka.VoiceId.Types
     -- * AuthenticationResult
     AuthenticationResult (..),
     newAuthenticationResult,
-    authenticationResult_customerSpeakerId,
-    authenticationResult_score,
-    authenticationResult_authenticationResultId,
-    authenticationResult_decision,
-    authenticationResult_configuration,
-    authenticationResult_audioAggregationStartedAt,
-    authenticationResult_generatedSpeakerId,
     authenticationResult_audioAggregationEndedAt,
+    authenticationResult_audioAggregationStartedAt,
+    authenticationResult_authenticationResultId,
+    authenticationResult_configuration,
+    authenticationResult_customerSpeakerId,
+    authenticationResult_decision,
+    authenticationResult_generatedSpeakerId,
+    authenticationResult_score,
 
     -- * Domain
     Domain (..),
     newDomain,
-    domain_domainStatus,
     domain_arn,
     domain_createdAt,
-    domain_name,
-    domain_domainId,
-    domain_updatedAt,
     domain_description,
+    domain_domainId,
+    domain_domainStatus,
+    domain_name,
     domain_serverSideEncryptionConfiguration,
+    domain_serverSideEncryptionUpdateDetails,
+    domain_updatedAt,
 
     -- * DomainSummary
     DomainSummary (..),
     newDomainSummary,
-    domainSummary_domainStatus,
     domainSummary_arn,
     domainSummary_createdAt,
-    domainSummary_name,
-    domainSummary_domainId,
-    domainSummary_updatedAt,
     domainSummary_description,
+    domainSummary_domainId,
+    domainSummary_domainStatus,
+    domainSummary_name,
     domainSummary_serverSideEncryptionConfiguration,
+    domainSummary_serverSideEncryptionUpdateDetails,
+    domainSummary_updatedAt,
 
     -- * EnrollmentConfig
     EnrollmentConfig (..),
     newEnrollmentConfig,
-    enrollmentConfig_fraudDetectionConfig,
     enrollmentConfig_existingEnrollmentAction,
+    enrollmentConfig_fraudDetectionConfig,
 
     -- * EnrollmentJobFraudDetectionConfig
     EnrollmentJobFraudDetectionConfig (..),
     newEnrollmentJobFraudDetectionConfig,
-    enrollmentJobFraudDetectionConfig_riskThreshold,
     enrollmentJobFraudDetectionConfig_fraudDetectionAction,
+    enrollmentJobFraudDetectionConfig_riskThreshold,
 
     -- * FailureDetails
     FailureDetails (..),
@@ -125,52 +131,53 @@ module Amazonka.VoiceId.Types
     -- * FraudDetectionResult
     FraudDetectionResult (..),
     newFraudDetectionResult,
+    fraudDetectionResult_audioAggregationEndedAt,
+    fraudDetectionResult_audioAggregationStartedAt,
+    fraudDetectionResult_configuration,
+    fraudDetectionResult_decision,
+    fraudDetectionResult_fraudDetectionResultId,
     fraudDetectionResult_reasons,
     fraudDetectionResult_riskDetails,
-    fraudDetectionResult_fraudDetectionResultId,
-    fraudDetectionResult_decision,
-    fraudDetectionResult_configuration,
-    fraudDetectionResult_audioAggregationStartedAt,
-    fraudDetectionResult_audioAggregationEndedAt,
 
     -- * FraudRiskDetails
     FraudRiskDetails (..),
     newFraudRiskDetails,
     fraudRiskDetails_knownFraudsterRisk,
+    fraudRiskDetails_voiceSpoofingRisk,
 
     -- * Fraudster
     Fraudster (..),
     newFraudster,
     fraudster_createdAt,
-    fraudster_generatedFraudsterId,
     fraudster_domainId,
+    fraudster_generatedFraudsterId,
 
     -- * FraudsterRegistrationJob
     FraudsterRegistrationJob (..),
     newFraudsterRegistrationJob,
-    fraudsterRegistrationJob_failureDetails,
-    fraudsterRegistrationJob_jobId,
     fraudsterRegistrationJob_createdAt,
-    fraudsterRegistrationJob_jobName,
-    fraudsterRegistrationJob_endedAt,
-    fraudsterRegistrationJob_inputDataConfig,
-    fraudsterRegistrationJob_jobProgress,
-    fraudsterRegistrationJob_outputDataConfig,
     fraudsterRegistrationJob_dataAccessRoleArn,
     fraudsterRegistrationJob_domainId,
+    fraudsterRegistrationJob_endedAt,
+    fraudsterRegistrationJob_failureDetails,
+    fraudsterRegistrationJob_inputDataConfig,
+    fraudsterRegistrationJob_jobId,
+    fraudsterRegistrationJob_jobName,
+    fraudsterRegistrationJob_jobProgress,
     fraudsterRegistrationJob_jobStatus,
+    fraudsterRegistrationJob_outputDataConfig,
     fraudsterRegistrationJob_registrationConfig,
 
     -- * FraudsterRegistrationJobSummary
     FraudsterRegistrationJobSummary (..),
     newFraudsterRegistrationJobSummary,
+    fraudsterRegistrationJobSummary_createdAt,
+    fraudsterRegistrationJobSummary_domainId,
+    fraudsterRegistrationJobSummary_endedAt,
     fraudsterRegistrationJobSummary_failureDetails,
     fraudsterRegistrationJobSummary_jobId,
-    fraudsterRegistrationJobSummary_createdAt,
     fraudsterRegistrationJobSummary_jobName,
-    fraudsterRegistrationJobSummary_endedAt,
     fraudsterRegistrationJobSummary_jobProgress,
-    fraudsterRegistrationJobSummary_domainId,
     fraudsterRegistrationJobSummary_jobStatus,
 
     -- * InputDataConfig
@@ -206,64 +213,78 @@ module Amazonka.VoiceId.Types
     newServerSideEncryptionConfiguration,
     serverSideEncryptionConfiguration_kmsKeyId,
 
+    -- * ServerSideEncryptionUpdateDetails
+    ServerSideEncryptionUpdateDetails (..),
+    newServerSideEncryptionUpdateDetails,
+    serverSideEncryptionUpdateDetails_message,
+    serverSideEncryptionUpdateDetails_oldKmsKeyId,
+    serverSideEncryptionUpdateDetails_updateStatus,
+
     -- * Speaker
     Speaker (..),
     newSpeaker,
-    speaker_status,
-    speaker_customerSpeakerId,
     speaker_createdAt,
+    speaker_customerSpeakerId,
     speaker_domainId,
-    speaker_updatedAt,
     speaker_generatedSpeakerId,
+    speaker_lastAccessedAt,
+    speaker_status,
+    speaker_updatedAt,
 
     -- * SpeakerEnrollmentJob
     SpeakerEnrollmentJob (..),
     newSpeakerEnrollmentJob,
-    speakerEnrollmentJob_failureDetails,
-    speakerEnrollmentJob_jobId,
     speakerEnrollmentJob_createdAt,
-    speakerEnrollmentJob_jobName,
-    speakerEnrollmentJob_endedAt,
-    speakerEnrollmentJob_enrollmentConfig,
-    speakerEnrollmentJob_inputDataConfig,
-    speakerEnrollmentJob_jobProgress,
-    speakerEnrollmentJob_outputDataConfig,
     speakerEnrollmentJob_dataAccessRoleArn,
     speakerEnrollmentJob_domainId,
+    speakerEnrollmentJob_endedAt,
+    speakerEnrollmentJob_enrollmentConfig,
+    speakerEnrollmentJob_failureDetails,
+    speakerEnrollmentJob_inputDataConfig,
+    speakerEnrollmentJob_jobId,
+    speakerEnrollmentJob_jobName,
+    speakerEnrollmentJob_jobProgress,
     speakerEnrollmentJob_jobStatus,
+    speakerEnrollmentJob_outputDataConfig,
 
     -- * SpeakerEnrollmentJobSummary
     SpeakerEnrollmentJobSummary (..),
     newSpeakerEnrollmentJobSummary,
+    speakerEnrollmentJobSummary_createdAt,
+    speakerEnrollmentJobSummary_domainId,
+    speakerEnrollmentJobSummary_endedAt,
     speakerEnrollmentJobSummary_failureDetails,
     speakerEnrollmentJobSummary_jobId,
-    speakerEnrollmentJobSummary_createdAt,
     speakerEnrollmentJobSummary_jobName,
-    speakerEnrollmentJobSummary_endedAt,
     speakerEnrollmentJobSummary_jobProgress,
-    speakerEnrollmentJobSummary_domainId,
     speakerEnrollmentJobSummary_jobStatus,
 
     -- * SpeakerSummary
     SpeakerSummary (..),
     newSpeakerSummary,
-    speakerSummary_status,
-    speakerSummary_customerSpeakerId,
     speakerSummary_createdAt,
+    speakerSummary_customerSpeakerId,
     speakerSummary_domainId,
-    speakerSummary_updatedAt,
     speakerSummary_generatedSpeakerId,
+    speakerSummary_lastAccessedAt,
+    speakerSummary_status,
+    speakerSummary_updatedAt,
 
     -- * Tag
     Tag (..),
     newTag,
     tag_key,
     tag_value,
+
+    -- * VoiceSpoofingRisk
+    VoiceSpoofingRisk (..),
+    newVoiceSpoofingRisk,
+    voiceSpoofingRisk_riskScore,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 import Amazonka.VoiceId.Types.AuthenticationConfiguration
@@ -293,6 +314,8 @@ import Amazonka.VoiceId.Types.KnownFraudsterRisk
 import Amazonka.VoiceId.Types.OutputDataConfig
 import Amazonka.VoiceId.Types.RegistrationConfig
 import Amazonka.VoiceId.Types.ServerSideEncryptionConfiguration
+import Amazonka.VoiceId.Types.ServerSideEncryptionUpdateDetails
+import Amazonka.VoiceId.Types.ServerSideEncryptionUpdateStatus
 import Amazonka.VoiceId.Types.Speaker
 import Amazonka.VoiceId.Types.SpeakerEnrollmentJob
 import Amazonka.VoiceId.Types.SpeakerEnrollmentJobStatus
@@ -301,46 +324,55 @@ import Amazonka.VoiceId.Types.SpeakerStatus
 import Amazonka.VoiceId.Types.SpeakerSummary
 import Amazonka.VoiceId.Types.StreamingStatus
 import Amazonka.VoiceId.Types.Tag
+import Amazonka.VoiceId.Types.VoiceSpoofingRisk
 
 -- | API version @2021-09-27@ of the Amazon Voice ID SDK configuration.
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "VoiceId",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "voiceid",
-      Core._serviceSigningName = "voiceid",
-      Core._serviceVersion = "2021-09-27",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError = Core.parseJSONError "VoiceId",
-      Core._serviceRetry = retry
+    { Core.abbrev = "VoiceId",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "voiceid",
+      Core.signingName = "voiceid",
+      Core.version = "2021-09-27",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "VoiceId",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -348,37 +380,21 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
-
--- | The request failed one or more validations; check the error message for
--- more details.
-_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ValidationException =
-  Core._MatchServiceError
-    defaultService
-    "ValidationException"
 
 -- | You do not have sufficient permissions to perform this action. Check the
 -- error message and try again.
@@ -395,6 +411,21 @@ _ConflictException =
   Core._MatchServiceError
     defaultService
     "ConflictException"
+
+-- | The request failed due to an unknown error on the server side.
+_InternalServerException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InternalServerException =
+  Core._MatchServiceError
+    defaultService
+    "InternalServerException"
+
+-- | The specified resource cannot be found. Check the @ResourceType@ and
+-- error message for more details.
+_ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ResourceNotFoundException =
+  Core._MatchServiceError
+    defaultService
+    "ResourceNotFoundException"
 
 -- | The request exceeded the service quota. Refer to
 -- <https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#voiceid-quotas Voice ID Service Quotas>
@@ -415,17 +446,10 @@ _ThrottlingException =
     defaultService
     "ThrottlingException"
 
--- | The request failed due to an unknown error on the server side.
-_InternalServerException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InternalServerException =
+-- | The request failed one or more validations; check the error message for
+-- more details.
+_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ValidationException =
   Core._MatchServiceError
     defaultService
-    "InternalServerException"
-
--- | The specified resource cannot be found. Check the @ResourceType@ and
--- error message for more details.
-_ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ResourceNotFoundException =
-  Core._MatchServiceError
-    defaultService
-    "ResourceNotFoundException"
+    "ValidationException"

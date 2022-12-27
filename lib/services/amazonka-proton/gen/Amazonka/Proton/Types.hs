@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.Proton.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,13 +18,16 @@ module Amazonka.Proton.Types
     defaultService,
 
     -- * Errors
-    _ValidationException,
     _AccessDeniedException,
     _ConflictException,
-    _ServiceQuotaExceededException,
-    _ThrottlingException,
     _InternalServerException,
     _ResourceNotFoundException,
+    _ServiceQuotaExceededException,
+    _ThrottlingException,
+    _ValidationException,
+
+    -- * ComponentDeploymentUpdateType
+    ComponentDeploymentUpdateType (..),
 
     -- * DeploymentStatus
     DeploymentStatus (..),
@@ -37,11 +41,44 @@ module Amazonka.Proton.Types
     -- * EnvironmentAccountConnectionStatus
     EnvironmentAccountConnectionStatus (..),
 
+    -- * ListServiceInstancesFilterBy
+    ListServiceInstancesFilterBy (..),
+
+    -- * ListServiceInstancesSortBy
+    ListServiceInstancesSortBy (..),
+
+    -- * ProvisionedResourceEngine
+    ProvisionedResourceEngine (..),
+
     -- * Provisioning
     Provisioning (..),
 
+    -- * RepositoryProvider
+    RepositoryProvider (..),
+
+    -- * RepositorySyncStatus
+    RepositorySyncStatus (..),
+
+    -- * ResourceDeploymentStatus
+    ResourceDeploymentStatus (..),
+
+    -- * ResourceSyncStatus
+    ResourceSyncStatus (..),
+
     -- * ServiceStatus
     ServiceStatus (..),
+
+    -- * ServiceTemplateSupportedComponentSourceType
+    ServiceTemplateSupportedComponentSourceType (..),
+
+    -- * SortOrder
+    SortOrder (..),
+
+    -- * SyncType
+    SyncType (..),
+
+    -- * TemplateType
+    TemplateType (..),
 
     -- * TemplateVersionStatus
     TemplateVersionStatus (..),
@@ -49,6 +86,8 @@ module Amazonka.Proton.Types
     -- * AccountSettings
     AccountSettings (..),
     newAccountSettings,
+    accountSettings_pipelineCodebuildRoleArn,
+    accountSettings_pipelineProvisioningRepository,
     accountSettings_pipelineServiceRoleArn,
 
     -- * CompatibleEnvironmentTemplate
@@ -63,16 +102,51 @@ module Amazonka.Proton.Types
     compatibleEnvironmentTemplateInput_majorVersion,
     compatibleEnvironmentTemplateInput_templateName,
 
+    -- * Component
+    Component (..),
+    newComponent,
+    component_deploymentStatusMessage,
+    component_description,
+    component_lastDeploymentAttemptedAt,
+    component_lastDeploymentSucceededAt,
+    component_serviceInstanceName,
+    component_serviceName,
+    component_serviceSpec,
+    component_arn,
+    component_createdAt,
+    component_deploymentStatus,
+    component_environmentName,
+    component_lastModifiedAt,
+    component_name,
+
+    -- * ComponentSummary
+    ComponentSummary (..),
+    newComponentSummary,
+    componentSummary_deploymentStatusMessage,
+    componentSummary_lastDeploymentAttemptedAt,
+    componentSummary_lastDeploymentSucceededAt,
+    componentSummary_serviceInstanceName,
+    componentSummary_serviceName,
+    componentSummary_arn,
+    componentSummary_createdAt,
+    componentSummary_deploymentStatus,
+    componentSummary_environmentName,
+    componentSummary_lastModifiedAt,
+    componentSummary_name,
+
     -- * Environment
     Environment (..),
     newEnvironment,
+    environment_codebuildRoleArn,
+    environment_componentRoleArn,
     environment_deploymentStatusMessage,
-    environment_environmentAccountId,
-    environment_provisioning,
-    environment_protonServiceRoleArn,
-    environment_environmentAccountConnectionId,
-    environment_spec,
     environment_description,
+    environment_environmentAccountConnectionId,
+    environment_environmentAccountId,
+    environment_protonServiceRoleArn,
+    environment_provisioning,
+    environment_provisioningRepository,
+    environment_spec,
     environment_arn,
     environment_createdAt,
     environment_deploymentStatus,
@@ -86,6 +160,8 @@ module Amazonka.Proton.Types
     -- * EnvironmentAccountConnection
     EnvironmentAccountConnection (..),
     newEnvironmentAccountConnection,
+    environmentAccountConnection_codebuildRoleArn,
+    environmentAccountConnection_componentRoleArn,
     environmentAccountConnection_arn,
     environmentAccountConnection_environmentAccountId,
     environmentAccountConnection_environmentName,
@@ -99,6 +175,7 @@ module Amazonka.Proton.Types
     -- * EnvironmentAccountConnectionSummary
     EnvironmentAccountConnectionSummary (..),
     newEnvironmentAccountConnectionSummary,
+    environmentAccountConnectionSummary_componentRoleArn,
     environmentAccountConnectionSummary_arn,
     environmentAccountConnectionSummary_environmentAccountId,
     environmentAccountConnectionSummary_environmentName,
@@ -112,12 +189,13 @@ module Amazonka.Proton.Types
     -- * EnvironmentSummary
     EnvironmentSummary (..),
     newEnvironmentSummary,
+    environmentSummary_componentRoleArn,
     environmentSummary_deploymentStatusMessage,
-    environmentSummary_environmentAccountId,
-    environmentSummary_provisioning,
-    environmentSummary_protonServiceRoleArn,
-    environmentSummary_environmentAccountConnectionId,
     environmentSummary_description,
+    environmentSummary_environmentAccountConnectionId,
+    environmentSummary_environmentAccountId,
+    environmentSummary_protonServiceRoleArn,
+    environmentSummary_provisioning,
     environmentSummary_arn,
     environmentSummary_createdAt,
     environmentSummary_deploymentStatus,
@@ -131,11 +209,11 @@ module Amazonka.Proton.Types
     -- * EnvironmentTemplate
     EnvironmentTemplate (..),
     newEnvironmentTemplate,
-    environmentTemplate_provisioning,
-    environmentTemplate_recommendedVersion,
+    environmentTemplate_description,
     environmentTemplate_displayName,
     environmentTemplate_encryptionKey,
-    environmentTemplate_description,
+    environmentTemplate_provisioning,
+    environmentTemplate_recommendedVersion,
     environmentTemplate_arn,
     environmentTemplate_createdAt,
     environmentTemplate_lastModifiedAt,
@@ -150,10 +228,10 @@ module Amazonka.Proton.Types
     -- * EnvironmentTemplateSummary
     EnvironmentTemplateSummary (..),
     newEnvironmentTemplateSummary,
+    environmentTemplateSummary_description,
+    environmentTemplateSummary_displayName,
     environmentTemplateSummary_provisioning,
     environmentTemplateSummary_recommendedVersion,
-    environmentTemplateSummary_displayName,
-    environmentTemplateSummary_description,
     environmentTemplateSummary_arn,
     environmentTemplateSummary_createdAt,
     environmentTemplateSummary_lastModifiedAt,
@@ -162,10 +240,10 @@ module Amazonka.Proton.Types
     -- * EnvironmentTemplateVersion
     EnvironmentTemplateVersion (..),
     newEnvironmentTemplateVersion,
+    environmentTemplateVersion_description,
+    environmentTemplateVersion_recommendedMinorVersion,
     environmentTemplateVersion_schema,
     environmentTemplateVersion_statusMessage,
-    environmentTemplateVersion_recommendedMinorVersion,
-    environmentTemplateVersion_description,
     environmentTemplateVersion_arn,
     environmentTemplateVersion_createdAt,
     environmentTemplateVersion_lastModifiedAt,
@@ -177,9 +255,9 @@ module Amazonka.Proton.Types
     -- * EnvironmentTemplateVersionSummary
     EnvironmentTemplateVersionSummary (..),
     newEnvironmentTemplateVersionSummary,
-    environmentTemplateVersionSummary_statusMessage,
-    environmentTemplateVersionSummary_recommendedMinorVersion,
     environmentTemplateVersionSummary_description,
+    environmentTemplateVersionSummary_recommendedMinorVersion,
+    environmentTemplateVersionSummary_statusMessage,
     environmentTemplateVersionSummary_arn,
     environmentTemplateVersionSummary_createdAt,
     environmentTemplateVersionSummary_lastModifiedAt,
@@ -187,6 +265,106 @@ module Amazonka.Proton.Types
     environmentTemplateVersionSummary_minorVersion,
     environmentTemplateVersionSummary_status,
     environmentTemplateVersionSummary_templateName,
+
+    -- * ListServiceInstancesFilter
+    ListServiceInstancesFilter (..),
+    newListServiceInstancesFilter,
+    listServiceInstancesFilter_key,
+    listServiceInstancesFilter_value,
+
+    -- * Output
+    Output (..),
+    newOutput,
+    output_key,
+    output_valueString,
+
+    -- * ProvisionedResource
+    ProvisionedResource (..),
+    newProvisionedResource,
+    provisionedResource_identifier,
+    provisionedResource_name,
+    provisionedResource_provisioningEngine,
+
+    -- * Repository
+    Repository (..),
+    newRepository,
+    repository_encryptionKey,
+    repository_arn,
+    repository_connectionArn,
+    repository_name,
+    repository_provider,
+
+    -- * RepositoryBranch
+    RepositoryBranch (..),
+    newRepositoryBranch,
+    repositoryBranch_arn,
+    repositoryBranch_branch,
+    repositoryBranch_name,
+    repositoryBranch_provider,
+
+    -- * RepositoryBranchInput
+    RepositoryBranchInput (..),
+    newRepositoryBranchInput,
+    repositoryBranchInput_branch,
+    repositoryBranchInput_name,
+    repositoryBranchInput_provider,
+
+    -- * RepositorySummary
+    RepositorySummary (..),
+    newRepositorySummary,
+    repositorySummary_arn,
+    repositorySummary_name,
+    repositorySummary_provider,
+
+    -- * RepositorySyncAttempt
+    RepositorySyncAttempt (..),
+    newRepositorySyncAttempt,
+    repositorySyncAttempt_events,
+    repositorySyncAttempt_startedAt,
+    repositorySyncAttempt_status,
+
+    -- * RepositorySyncDefinition
+    RepositorySyncDefinition (..),
+    newRepositorySyncDefinition,
+    repositorySyncDefinition_branch,
+    repositorySyncDefinition_directory,
+    repositorySyncDefinition_parent,
+    repositorySyncDefinition_target,
+
+    -- * RepositorySyncEvent
+    RepositorySyncEvent (..),
+    newRepositorySyncEvent,
+    repositorySyncEvent_externalId,
+    repositorySyncEvent_event,
+    repositorySyncEvent_time,
+    repositorySyncEvent_type,
+
+    -- * ResourceSyncAttempt
+    ResourceSyncAttempt (..),
+    newResourceSyncAttempt,
+    resourceSyncAttempt_events,
+    resourceSyncAttempt_initialRevision,
+    resourceSyncAttempt_startedAt,
+    resourceSyncAttempt_status,
+    resourceSyncAttempt_target,
+    resourceSyncAttempt_targetRevision,
+
+    -- * ResourceSyncEvent
+    ResourceSyncEvent (..),
+    newResourceSyncEvent,
+    resourceSyncEvent_externalId,
+    resourceSyncEvent_event,
+    resourceSyncEvent_time,
+    resourceSyncEvent_type,
+
+    -- * Revision
+    Revision (..),
+    newRevision,
+    revision_branch,
+    revision_directory,
+    revision_repositoryName,
+    revision_repositoryProvider,
+    revision_sha,
 
     -- * S3ObjectSource
     S3ObjectSource (..),
@@ -198,11 +376,11 @@ module Amazonka.Proton.Types
     Service (..),
     newService,
     service_branchName,
-    service_statusMessage,
-    service_repositoryId,
-    service_pipeline,
     service_description,
+    service_pipeline,
     service_repositoryConnectionArn,
+    service_repositoryId,
+    service_statusMessage,
     service_arn,
     service_createdAt,
     service_lastModifiedAt,
@@ -261,8 +439,8 @@ module Amazonka.Proton.Types
     -- * ServiceSummary
     ServiceSummary (..),
     newServiceSummary,
-    serviceSummary_statusMessage,
     serviceSummary_description,
+    serviceSummary_statusMessage,
     serviceSummary_arn,
     serviceSummary_createdAt,
     serviceSummary_lastModifiedAt,
@@ -273,11 +451,11 @@ module Amazonka.Proton.Types
     -- * ServiceTemplate
     ServiceTemplate (..),
     newServiceTemplate,
-    serviceTemplate_recommendedVersion,
+    serviceTemplate_description,
     serviceTemplate_displayName,
     serviceTemplate_encryptionKey,
     serviceTemplate_pipelineProvisioning,
-    serviceTemplate_description,
+    serviceTemplate_recommendedVersion,
     serviceTemplate_arn,
     serviceTemplate_createdAt,
     serviceTemplate_lastModifiedAt,
@@ -286,10 +464,10 @@ module Amazonka.Proton.Types
     -- * ServiceTemplateSummary
     ServiceTemplateSummary (..),
     newServiceTemplateSummary,
-    serviceTemplateSummary_recommendedVersion,
+    serviceTemplateSummary_description,
     serviceTemplateSummary_displayName,
     serviceTemplateSummary_pipelineProvisioning,
-    serviceTemplateSummary_description,
+    serviceTemplateSummary_recommendedVersion,
     serviceTemplateSummary_arn,
     serviceTemplateSummary_createdAt,
     serviceTemplateSummary_lastModifiedAt,
@@ -298,10 +476,11 @@ module Amazonka.Proton.Types
     -- * ServiceTemplateVersion
     ServiceTemplateVersion (..),
     newServiceTemplateVersion,
+    serviceTemplateVersion_description,
+    serviceTemplateVersion_recommendedMinorVersion,
     serviceTemplateVersion_schema,
     serviceTemplateVersion_statusMessage,
-    serviceTemplateVersion_recommendedMinorVersion,
-    serviceTemplateVersion_description,
+    serviceTemplateVersion_supportedComponentSources,
     serviceTemplateVersion_arn,
     serviceTemplateVersion_compatibleEnvironmentTemplates,
     serviceTemplateVersion_createdAt,
@@ -314,9 +493,9 @@ module Amazonka.Proton.Types
     -- * ServiceTemplateVersionSummary
     ServiceTemplateVersionSummary (..),
     newServiceTemplateVersionSummary,
-    serviceTemplateVersionSummary_statusMessage,
-    serviceTemplateVersionSummary_recommendedMinorVersion,
     serviceTemplateVersionSummary_description,
+    serviceTemplateVersionSummary_recommendedMinorVersion,
+    serviceTemplateVersionSummary_statusMessage,
     serviceTemplateVersionSummary_arn,
     serviceTemplateVersionSummary_createdAt,
     serviceTemplateVersionSummary_lastModifiedAt,
@@ -331,6 +510,16 @@ module Amazonka.Proton.Types
     tag_key,
     tag_value,
 
+    -- * TemplateSyncConfig
+    TemplateSyncConfig (..),
+    newTemplateSyncConfig,
+    templateSyncConfig_subdirectory,
+    templateSyncConfig_branch,
+    templateSyncConfig_repositoryName,
+    templateSyncConfig_repositoryProvider,
+    templateSyncConfig_templateName,
+    templateSyncConfig_templateType,
+
     -- * TemplateVersionSourceInput
     TemplateVersionSourceInput (..),
     newTemplateVersionSourceInput,
@@ -339,11 +528,14 @@ module Amazonka.Proton.Types
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types.AccountSettings
 import Amazonka.Proton.Types.CompatibleEnvironmentTemplate
 import Amazonka.Proton.Types.CompatibleEnvironmentTemplateInput
+import Amazonka.Proton.Types.Component
+import Amazonka.Proton.Types.ComponentDeploymentUpdateType
+import Amazonka.Proton.Types.ComponentSummary
 import Amazonka.Proton.Types.DeploymentStatus
 import Amazonka.Proton.Types.DeploymentUpdateType
 import Amazonka.Proton.Types.Environment
@@ -357,7 +549,27 @@ import Amazonka.Proton.Types.EnvironmentTemplateFilter
 import Amazonka.Proton.Types.EnvironmentTemplateSummary
 import Amazonka.Proton.Types.EnvironmentTemplateVersion
 import Amazonka.Proton.Types.EnvironmentTemplateVersionSummary
+import Amazonka.Proton.Types.ListServiceInstancesFilter
+import Amazonka.Proton.Types.ListServiceInstancesFilterBy
+import Amazonka.Proton.Types.ListServiceInstancesSortBy
+import Amazonka.Proton.Types.Output
+import Amazonka.Proton.Types.ProvisionedResource
+import Amazonka.Proton.Types.ProvisionedResourceEngine
 import Amazonka.Proton.Types.Provisioning
+import Amazonka.Proton.Types.Repository
+import Amazonka.Proton.Types.RepositoryBranch
+import Amazonka.Proton.Types.RepositoryBranchInput
+import Amazonka.Proton.Types.RepositoryProvider
+import Amazonka.Proton.Types.RepositorySummary
+import Amazonka.Proton.Types.RepositorySyncAttempt
+import Amazonka.Proton.Types.RepositorySyncDefinition
+import Amazonka.Proton.Types.RepositorySyncEvent
+import Amazonka.Proton.Types.RepositorySyncStatus
+import Amazonka.Proton.Types.ResourceDeploymentStatus
+import Amazonka.Proton.Types.ResourceSyncAttempt
+import Amazonka.Proton.Types.ResourceSyncEvent
+import Amazonka.Proton.Types.ResourceSyncStatus
+import Amazonka.Proton.Types.Revision
 import Amazonka.Proton.Types.S3ObjectSource
 import Amazonka.Proton.Types.Service
 import Amazonka.Proton.Types.ServiceInstance
@@ -367,9 +579,14 @@ import Amazonka.Proton.Types.ServiceStatus
 import Amazonka.Proton.Types.ServiceSummary
 import Amazonka.Proton.Types.ServiceTemplate
 import Amazonka.Proton.Types.ServiceTemplateSummary
+import Amazonka.Proton.Types.ServiceTemplateSupportedComponentSourceType
 import Amazonka.Proton.Types.ServiceTemplateVersion
 import Amazonka.Proton.Types.ServiceTemplateVersionSummary
+import Amazonka.Proton.Types.SortOrder
+import Amazonka.Proton.Types.SyncType
 import Amazonka.Proton.Types.Tag
+import Amazonka.Proton.Types.TemplateSyncConfig
+import Amazonka.Proton.Types.TemplateType
 import Amazonka.Proton.Types.TemplateVersionSourceInput
 import Amazonka.Proton.Types.TemplateVersionStatus
 import qualified Amazonka.Sign.V4 as Sign
@@ -378,41 +595,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "Proton",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "proton",
-      Core._serviceSigningName = "proton",
-      Core._serviceVersion = "2020-07-20",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError = Core.parseJSONError "Proton",
-      Core._serviceRetry = retry
+    { Core.abbrev = "Proton",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "proton",
+      Core.signingName = "proton",
+      Core.version = "2020-07-20",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "Proton",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -420,37 +645,21 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
-
--- | The input is invalid or an out-of-range value was supplied for the input
--- parameter.
-_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ValidationException =
-  Core._MatchServiceError
-    defaultService
-    "ValidationException"
 
 -- | There /isn\'t/ sufficient access for performing this action.
 _AccessDeniedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -467,22 +676,6 @@ _ConflictException =
     defaultService
     "ConflictException"
 
--- | A quota was exceeded. For more information, see
--- <https://docs.aws.amazon.com/proton/latest/adminguide/ag-limits.html AWS Proton Quotas>
--- in the /AWS Proton Administrator Guide/.
-_ServiceQuotaExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ServiceQuotaExceededException =
-  Core._MatchServiceError
-    defaultService
-    "ServiceQuotaExceededException"
-
--- | The request was denied due to request throttling.
-_ThrottlingException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ThrottlingException =
-  Core._MatchServiceError
-    defaultService
-    "ThrottlingException"
-
 -- | The request failed to register with the service.
 _InternalServerException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
 _InternalServerException =
@@ -496,3 +689,27 @@ _ResourceNotFoundException =
   Core._MatchServiceError
     defaultService
     "ResourceNotFoundException"
+
+-- | A quota was exceeded. For more information, see
+-- <https://docs.aws.amazon.com/proton/latest/userguide/ag-limits.html Proton Quotas>
+-- in the /Proton User Guide/.
+_ServiceQuotaExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ServiceQuotaExceededException =
+  Core._MatchServiceError
+    defaultService
+    "ServiceQuotaExceededException"
+
+-- | The request was denied due to request throttling.
+_ThrottlingException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ThrottlingException =
+  Core._MatchServiceError
+    defaultService
+    "ThrottlingException"
+
+-- | The input is invalid or an out-of-range value was supplied for the input
+-- parameter.
+_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ValidationException =
+  Core._MatchServiceError
+    defaultService
+    "ValidationException"

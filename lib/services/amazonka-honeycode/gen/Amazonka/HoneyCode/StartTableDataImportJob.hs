@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.HoneyCode.StartTableDataImportJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,8 +49,9 @@ module Amazonka.HoneyCode.StartTableDataImportJob
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.HoneyCode.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -87,7 +88,7 @@ data StartTableDataImportJob = StartTableDataImportJob'
     -- use request tokens to dedupe requests spanning hours or days.
     clientRequestToken :: Prelude.Text
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'StartTableDataImportJob' with all optional fields omitted.
@@ -200,14 +201,15 @@ instance Core.AWSRequest StartTableDataImportJob where
   type
     AWSResponse StartTableDataImportJob =
       StartTableDataImportJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartTableDataImportJobResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "jobId")
-            Prelude.<*> (x Core..:> "jobStatus")
+            Prelude.<*> (x Data..:> "jobId")
+            Prelude.<*> (x Data..:> "jobStatus")
       )
 
 instance Prelude.Hashable StartTableDataImportJob where
@@ -228,40 +230,40 @@ instance Prelude.NFData StartTableDataImportJob where
       `Prelude.seq` Prelude.rnf importOptions
       `Prelude.seq` Prelude.rnf clientRequestToken
 
-instance Core.ToHeaders StartTableDataImportJob where
+instance Data.ToHeaders StartTableDataImportJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartTableDataImportJob where
+instance Data.ToJSON StartTableDataImportJob where
   toJSON StartTableDataImportJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("dataSource" Core..= dataSource),
-            Prelude.Just ("dataFormat" Core..= dataFormat),
-            Prelude.Just ("importOptions" Core..= importOptions),
+          [ Prelude.Just ("dataSource" Data..= dataSource),
+            Prelude.Just ("dataFormat" Data..= dataFormat),
+            Prelude.Just ("importOptions" Data..= importOptions),
             Prelude.Just
-              ("clientRequestToken" Core..= clientRequestToken)
+              ("clientRequestToken" Data..= clientRequestToken)
           ]
       )
 
-instance Core.ToPath StartTableDataImportJob where
+instance Data.ToPath StartTableDataImportJob where
   toPath StartTableDataImportJob' {..} =
     Prelude.mconcat
       [ "/workbooks/",
-        Core.toBS workbookId,
+        Data.toBS workbookId,
         "/tables/",
-        Core.toBS destinationTableId,
+        Data.toBS destinationTableId,
         "/import"
       ]
 
-instance Core.ToQuery StartTableDataImportJob where
+instance Data.ToQuery StartTableDataImportJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartTableDataImportJobResponse' smart constructor.

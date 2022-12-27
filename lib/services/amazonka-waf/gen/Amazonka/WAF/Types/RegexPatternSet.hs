@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WAF.Types.RegexPatternSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WAF.Types.RegexPatternSet where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | This is __AWS WAF Classic__ documentation. For more information, see
@@ -107,16 +108,16 @@ regexPatternSet_regexPatternSetId = Lens.lens (\RegexPatternSet' {regexPatternSe
 regexPatternSet_regexPatternStrings :: Lens.Lens' RegexPatternSet [Prelude.Text]
 regexPatternSet_regexPatternStrings = Lens.lens (\RegexPatternSet' {regexPatternStrings} -> regexPatternStrings) (\s@RegexPatternSet' {} a -> s {regexPatternStrings = a} :: RegexPatternSet) Prelude.. Lens.coerced
 
-instance Core.FromJSON RegexPatternSet where
+instance Data.FromJSON RegexPatternSet where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RegexPatternSet"
       ( \x ->
           RegexPatternSet'
-            Prelude.<$> (x Core..:? "Name")
-            Prelude.<*> (x Core..: "RegexPatternSetId")
-            Prelude.<*> ( x Core..:? "RegexPatternStrings"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "Name")
+            Prelude.<*> (x Data..: "RegexPatternSetId")
+            Prelude.<*> ( x Data..:? "RegexPatternStrings"
+                            Data..!= Prelude.mempty
                         )
       )
 

@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.DisableOrganizationAdminAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disables an AWS account within the Organization as the GuardDuty
--- delegated administrator.
+-- Disables an Amazon Web Services account within the Organization as the
+-- GuardDuty delegated administrator.
 module Amazonka.GuardDuty.DisableOrganizationAdminAccount
   ( -- * Creating a Request
     DisableOrganizationAdminAccount (..),
@@ -40,16 +40,17 @@ module Amazonka.GuardDuty.DisableOrganizationAdminAccount
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDisableOrganizationAdminAccount' smart constructor.
 data DisableOrganizationAdminAccount = DisableOrganizationAdminAccount'
-  { -- | The AWS Account ID for the organizations account to be disabled as a
-    -- GuardDuty delegated administrator.
+  { -- | The Amazon Web Services Account ID for the organizations account to be
+    -- disabled as a GuardDuty delegated administrator.
     adminAccountId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -62,8 +63,8 @@ data DisableOrganizationAdminAccount = DisableOrganizationAdminAccount'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'adminAccountId', 'disableOrganizationAdminAccount_adminAccountId' - The AWS Account ID for the organizations account to be disabled as a
--- GuardDuty delegated administrator.
+-- 'adminAccountId', 'disableOrganizationAdminAccount_adminAccountId' - The Amazon Web Services Account ID for the organizations account to be
+-- disabled as a GuardDuty delegated administrator.
 newDisableOrganizationAdminAccount ::
   -- | 'adminAccountId'
   Prelude.Text ->
@@ -74,8 +75,8 @@ newDisableOrganizationAdminAccount pAdminAccountId_ =
         pAdminAccountId_
     }
 
--- | The AWS Account ID for the organizations account to be disabled as a
--- GuardDuty delegated administrator.
+-- | The Amazon Web Services Account ID for the organizations account to be
+-- disabled as a GuardDuty delegated administrator.
 disableOrganizationAdminAccount_adminAccountId :: Lens.Lens' DisableOrganizationAdminAccount Prelude.Text
 disableOrganizationAdminAccount_adminAccountId = Lens.lens (\DisableOrganizationAdminAccount' {adminAccountId} -> adminAccountId) (\s@DisableOrganizationAdminAccount' {} a -> s {adminAccountId = a} :: DisableOrganizationAdminAccount)
 
@@ -86,7 +87,8 @@ instance
   type
     AWSResponse DisableOrganizationAdminAccount =
       DisableOrganizationAdminAccountResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -111,32 +113,32 @@ instance
     Prelude.rnf adminAccountId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DisableOrganizationAdminAccount
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisableOrganizationAdminAccount where
+instance Data.ToJSON DisableOrganizationAdminAccount where
   toJSON DisableOrganizationAdminAccount' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("adminAccountId" Core..= adminAccountId)
+              ("adminAccountId" Data..= adminAccountId)
           ]
       )
 
-instance Core.ToPath DisableOrganizationAdminAccount where
+instance Data.ToPath DisableOrganizationAdminAccount where
   toPath = Prelude.const "/admin/disable"
 
-instance Core.ToQuery DisableOrganizationAdminAccount where
+instance Data.ToQuery DisableOrganizationAdminAccount where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisableOrganizationAdminAccountResponse' smart constructor.

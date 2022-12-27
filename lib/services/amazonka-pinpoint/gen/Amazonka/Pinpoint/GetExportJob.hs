@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.GetExportJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.Pinpoint.GetExportJob
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -93,13 +94,14 @@ getExportJob_jobId = Lens.lens (\GetExportJob' {jobId} -> jobId) (\s@GetExportJo
 
 instance Core.AWSRequest GetExportJob where
   type AWSResponse GetExportJob = GetExportJobResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetExportJobResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable GetExportJob where
@@ -112,27 +114,27 @@ instance Prelude.NFData GetExportJob where
     Prelude.rnf applicationId
       `Prelude.seq` Prelude.rnf jobId
 
-instance Core.ToHeaders GetExportJob where
+instance Data.ToHeaders GetExportJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetExportJob where
+instance Data.ToPath GetExportJob where
   toPath GetExportJob' {..} =
     Prelude.mconcat
       [ "/v1/apps/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/jobs/export/",
-        Core.toBS jobId
+        Data.toBS jobId
       ]
 
-instance Core.ToQuery GetExportJob where
+instance Data.ToQuery GetExportJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetExportJobResponse' smart constructor.

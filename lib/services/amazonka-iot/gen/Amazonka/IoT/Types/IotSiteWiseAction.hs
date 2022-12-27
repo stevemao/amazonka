@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.IotSiteWiseAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoT.Types.IotSiteWiseAction where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.PutAssetPropertyValueEntry
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an action to send data from an MQTT message that triggered the
@@ -79,14 +80,14 @@ iotSiteWiseAction_putAssetPropertyValueEntries = Lens.lens (\IotSiteWiseAction' 
 iotSiteWiseAction_roleArn :: Lens.Lens' IotSiteWiseAction Prelude.Text
 iotSiteWiseAction_roleArn = Lens.lens (\IotSiteWiseAction' {roleArn} -> roleArn) (\s@IotSiteWiseAction' {} a -> s {roleArn = a} :: IotSiteWiseAction)
 
-instance Core.FromJSON IotSiteWiseAction where
+instance Data.FromJSON IotSiteWiseAction where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IotSiteWiseAction"
       ( \x ->
           IotSiteWiseAction'
-            Prelude.<$> (x Core..: "putAssetPropertyValueEntries")
-            Prelude.<*> (x Core..: "roleArn")
+            Prelude.<$> (x Data..: "putAssetPropertyValueEntries")
+            Prelude.<*> (x Data..: "roleArn")
       )
 
 instance Prelude.Hashable IotSiteWiseAction where
@@ -100,14 +101,14 @@ instance Prelude.NFData IotSiteWiseAction where
     Prelude.rnf putAssetPropertyValueEntries
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToJSON IotSiteWiseAction where
+instance Data.ToJSON IotSiteWiseAction where
   toJSON IotSiteWiseAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "putAssetPropertyValueEntries"
-                  Core..= putAssetPropertyValueEntries
+                  Data..= putAssetPropertyValueEntries
               ),
-            Prelude.Just ("roleArn" Core..= roleArn)
+            Prelude.Just ("roleArn" Data..= roleArn)
           ]
       )

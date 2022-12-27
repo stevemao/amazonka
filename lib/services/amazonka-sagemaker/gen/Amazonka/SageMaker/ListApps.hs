@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.ListApps
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,11 +30,12 @@ module Amazonka.SageMaker.ListApps
 
     -- * Request Lenses
     listApps_domainIdEquals,
-    listApps_nextToken,
-    listApps_sortOrder,
-    listApps_userProfileNameEquals,
     listApps_maxResults,
+    listApps_nextToken,
     listApps_sortBy,
+    listApps_sortOrder,
+    listApps_spaceNameEquals,
+    listApps_userProfileNameEquals,
 
     -- * Destructuring the Response
     ListAppsResponse (..),
@@ -48,7 +49,8 @@ module Amazonka.SageMaker.ListApps
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,17 +60,19 @@ import Amazonka.SageMaker.Types
 data ListApps = ListApps'
   { -- | A parameter to search for the domain ID.
     domainIdEquals :: Prelude.Maybe Prelude.Text,
+    -- | Returns a list up to a specified limit.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | If the previous response was truncated, you will receive this token. Use
     -- it in your next request to receive the next set of results.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The parameter by which to sort the results. The default is CreationTime.
+    sortBy :: Prelude.Maybe AppSortKey,
     -- | The sort order for the results. The default is Ascending.
     sortOrder :: Prelude.Maybe SortOrder,
+    -- | A parameter to search by space name.
+    spaceNameEquals :: Prelude.Maybe Prelude.Text,
     -- | A parameter to search by user profile name.
-    userProfileNameEquals :: Prelude.Maybe Prelude.Text,
-    -- | Returns a list up to a specified limit.
-    maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | The parameter by which to sort the results. The default is CreationTime.
-    sortBy :: Prelude.Maybe AppSortKey
+    userProfileNameEquals :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -82,52 +86,59 @@ data ListApps = ListApps'
 --
 -- 'domainIdEquals', 'listApps_domainIdEquals' - A parameter to search for the domain ID.
 --
+-- 'maxResults', 'listApps_maxResults' - Returns a list up to a specified limit.
+--
 -- 'nextToken', 'listApps_nextToken' - If the previous response was truncated, you will receive this token. Use
 -- it in your next request to receive the next set of results.
 --
+-- 'sortBy', 'listApps_sortBy' - The parameter by which to sort the results. The default is CreationTime.
+--
 -- 'sortOrder', 'listApps_sortOrder' - The sort order for the results. The default is Ascending.
 --
+-- 'spaceNameEquals', 'listApps_spaceNameEquals' - A parameter to search by space name.
+--
 -- 'userProfileNameEquals', 'listApps_userProfileNameEquals' - A parameter to search by user profile name.
---
--- 'maxResults', 'listApps_maxResults' - Returns a list up to a specified limit.
---
--- 'sortBy', 'listApps_sortBy' - The parameter by which to sort the results. The default is CreationTime.
 newListApps ::
   ListApps
 newListApps =
   ListApps'
     { domainIdEquals = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      sortOrder = Prelude.Nothing,
-      userProfileNameEquals = Prelude.Nothing,
       maxResults = Prelude.Nothing,
-      sortBy = Prelude.Nothing
+      nextToken = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      sortOrder = Prelude.Nothing,
+      spaceNameEquals = Prelude.Nothing,
+      userProfileNameEquals = Prelude.Nothing
     }
 
 -- | A parameter to search for the domain ID.
 listApps_domainIdEquals :: Lens.Lens' ListApps (Prelude.Maybe Prelude.Text)
 listApps_domainIdEquals = Lens.lens (\ListApps' {domainIdEquals} -> domainIdEquals) (\s@ListApps' {} a -> s {domainIdEquals = a} :: ListApps)
 
+-- | Returns a list up to a specified limit.
+listApps_maxResults :: Lens.Lens' ListApps (Prelude.Maybe Prelude.Natural)
+listApps_maxResults = Lens.lens (\ListApps' {maxResults} -> maxResults) (\s@ListApps' {} a -> s {maxResults = a} :: ListApps)
+
 -- | If the previous response was truncated, you will receive this token. Use
 -- it in your next request to receive the next set of results.
 listApps_nextToken :: Lens.Lens' ListApps (Prelude.Maybe Prelude.Text)
 listApps_nextToken = Lens.lens (\ListApps' {nextToken} -> nextToken) (\s@ListApps' {} a -> s {nextToken = a} :: ListApps)
 
+-- | The parameter by which to sort the results. The default is CreationTime.
+listApps_sortBy :: Lens.Lens' ListApps (Prelude.Maybe AppSortKey)
+listApps_sortBy = Lens.lens (\ListApps' {sortBy} -> sortBy) (\s@ListApps' {} a -> s {sortBy = a} :: ListApps)
+
 -- | The sort order for the results. The default is Ascending.
 listApps_sortOrder :: Lens.Lens' ListApps (Prelude.Maybe SortOrder)
 listApps_sortOrder = Lens.lens (\ListApps' {sortOrder} -> sortOrder) (\s@ListApps' {} a -> s {sortOrder = a} :: ListApps)
 
+-- | A parameter to search by space name.
+listApps_spaceNameEquals :: Lens.Lens' ListApps (Prelude.Maybe Prelude.Text)
+listApps_spaceNameEquals = Lens.lens (\ListApps' {spaceNameEquals} -> spaceNameEquals) (\s@ListApps' {} a -> s {spaceNameEquals = a} :: ListApps)
+
 -- | A parameter to search by user profile name.
 listApps_userProfileNameEquals :: Lens.Lens' ListApps (Prelude.Maybe Prelude.Text)
 listApps_userProfileNameEquals = Lens.lens (\ListApps' {userProfileNameEquals} -> userProfileNameEquals) (\s@ListApps' {} a -> s {userProfileNameEquals = a} :: ListApps)
-
--- | Returns a list up to a specified limit.
-listApps_maxResults :: Lens.Lens' ListApps (Prelude.Maybe Prelude.Natural)
-listApps_maxResults = Lens.lens (\ListApps' {maxResults} -> maxResults) (\s@ListApps' {} a -> s {maxResults = a} :: ListApps)
-
--- | The parameter by which to sort the results. The default is CreationTime.
-listApps_sortBy :: Lens.Lens' ListApps (Prelude.Maybe AppSortKey)
-listApps_sortBy = Lens.lens (\ListApps' {sortBy} -> sortBy) (\s@ListApps' {} a -> s {sortBy = a} :: ListApps)
 
 instance Core.AWSPager ListApps where
   page rq rs
@@ -150,66 +161,71 @@ instance Core.AWSPager ListApps where
 
 instance Core.AWSRequest ListApps where
   type AWSResponse ListApps = ListAppsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAppsResponse'
-            Prelude.<$> (x Core..?> "Apps" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Apps" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListApps where
   hashWithSalt _salt ListApps' {..} =
     _salt `Prelude.hashWithSalt` domainIdEquals
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` sortOrder
-      `Prelude.hashWithSalt` userProfileNameEquals
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` sortBy
+      `Prelude.hashWithSalt` sortOrder
+      `Prelude.hashWithSalt` spaceNameEquals
+      `Prelude.hashWithSalt` userProfileNameEquals
 
 instance Prelude.NFData ListApps where
   rnf ListApps' {..} =
     Prelude.rnf domainIdEquals
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf sortOrder
-      `Prelude.seq` Prelude.rnf userProfileNameEquals
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf sortBy
+      `Prelude.seq` Prelude.rnf sortOrder
+      `Prelude.seq` Prelude.rnf spaceNameEquals
+      `Prelude.seq` Prelude.rnf userProfileNameEquals
 
-instance Core.ToHeaders ListApps where
+instance Data.ToHeaders ListApps where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.ListApps" :: Prelude.ByteString),
+              Data.=# ("SageMaker.ListApps" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListApps where
+instance Data.ToJSON ListApps where
   toJSON ListApps' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DomainIdEquals" Core..=)
+          [ ("DomainIdEquals" Data..=)
               Prelude.<$> domainIdEquals,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("SortOrder" Core..=) Prelude.<$> sortOrder,
-            ("UserProfileNameEquals" Core..=)
-              Prelude.<$> userProfileNameEquals,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            ("SortBy" Core..=) Prelude.<$> sortBy
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("SortBy" Data..=) Prelude.<$> sortBy,
+            ("SortOrder" Data..=) Prelude.<$> sortOrder,
+            ("SpaceNameEquals" Data..=)
+              Prelude.<$> spaceNameEquals,
+            ("UserProfileNameEquals" Data..=)
+              Prelude.<$> userProfileNameEquals
           ]
       )
 
-instance Core.ToPath ListApps where
+instance Data.ToPath ListApps where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListApps where
+instance Data.ToQuery ListApps where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListAppsResponse' smart constructor.

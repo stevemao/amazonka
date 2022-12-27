@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.UpgradeElasticsearchDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,6 +37,7 @@ module Amazonka.ElasticSearch.UpgradeElasticsearchDomain
     newUpgradeElasticsearchDomainResponse,
 
     -- * Response Lenses
+    upgradeElasticsearchDomainResponse_changeProgressDetails,
     upgradeElasticsearchDomainResponse_domainName,
     upgradeElasticsearchDomainResponse_performCheckOnly,
     upgradeElasticsearchDomainResponse_targetVersion,
@@ -45,8 +46,9 @@ module Amazonka.ElasticSearch.UpgradeElasticsearchDomain
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -112,14 +114,16 @@ instance Core.AWSRequest UpgradeElasticsearchDomain where
   type
     AWSResponse UpgradeElasticsearchDomain =
       UpgradeElasticsearchDomainResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpgradeElasticsearchDomainResponse'
-            Prelude.<$> (x Core..?> "DomainName")
-            Prelude.<*> (x Core..?> "PerformCheckOnly")
-            Prelude.<*> (x Core..?> "TargetVersion")
+            Prelude.<$> (x Data..?> "ChangeProgressDetails")
+            Prelude.<*> (x Data..?> "DomainName")
+            Prelude.<*> (x Data..?> "PerformCheckOnly")
+            Prelude.<*> (x Data..?> "TargetVersion")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -135,25 +139,25 @@ instance Prelude.NFData UpgradeElasticsearchDomain where
       `Prelude.seq` Prelude.rnf domainName
       `Prelude.seq` Prelude.rnf targetVersion
 
-instance Core.ToHeaders UpgradeElasticsearchDomain where
+instance Data.ToHeaders UpgradeElasticsearchDomain where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpgradeElasticsearchDomain where
+instance Data.ToJSON UpgradeElasticsearchDomain where
   toJSON UpgradeElasticsearchDomain' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PerformCheckOnly" Core..=)
+          [ ("PerformCheckOnly" Data..=)
               Prelude.<$> performCheckOnly,
-            Prelude.Just ("DomainName" Core..= domainName),
+            Prelude.Just ("DomainName" Data..= domainName),
             Prelude.Just
-              ("TargetVersion" Core..= targetVersion)
+              ("TargetVersion" Data..= targetVersion)
           ]
       )
 
-instance Core.ToPath UpgradeElasticsearchDomain where
+instance Data.ToPath UpgradeElasticsearchDomain where
   toPath = Prelude.const "/2015-01-01/es/upgradeDomain"
 
-instance Core.ToQuery UpgradeElasticsearchDomain where
+instance Data.ToQuery UpgradeElasticsearchDomain where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Container for response returned by @ UpgradeElasticsearchDomain @
@@ -161,7 +165,8 @@ instance Core.ToQuery UpgradeElasticsearchDomain where
 --
 -- /See:/ 'newUpgradeElasticsearchDomainResponse' smart constructor.
 data UpgradeElasticsearchDomainResponse = UpgradeElasticsearchDomainResponse'
-  { domainName :: Prelude.Maybe Prelude.Text,
+  { changeProgressDetails :: Prelude.Maybe ChangeProgressDetails,
+    domainName :: Prelude.Maybe Prelude.Text,
     -- | This flag, when set to True, indicates that an Upgrade Eligibility Check
     -- needs to be performed. This will not actually perform the Upgrade.
     performCheckOnly :: Prelude.Maybe Prelude.Bool,
@@ -180,6 +185,8 @@ data UpgradeElasticsearchDomainResponse = UpgradeElasticsearchDomainResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'changeProgressDetails', 'upgradeElasticsearchDomainResponse_changeProgressDetails' - Undocumented member.
+--
 -- 'domainName', 'upgradeElasticsearchDomainResponse_domainName' - Undocumented member.
 --
 -- 'performCheckOnly', 'upgradeElasticsearchDomainResponse_performCheckOnly' - This flag, when set to True, indicates that an Upgrade Eligibility Check
@@ -194,12 +201,17 @@ newUpgradeElasticsearchDomainResponse ::
   UpgradeElasticsearchDomainResponse
 newUpgradeElasticsearchDomainResponse pHttpStatus_ =
   UpgradeElasticsearchDomainResponse'
-    { domainName =
+    { changeProgressDetails =
         Prelude.Nothing,
+      domainName = Prelude.Nothing,
       performCheckOnly = Prelude.Nothing,
       targetVersion = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | Undocumented member.
+upgradeElasticsearchDomainResponse_changeProgressDetails :: Lens.Lens' UpgradeElasticsearchDomainResponse (Prelude.Maybe ChangeProgressDetails)
+upgradeElasticsearchDomainResponse_changeProgressDetails = Lens.lens (\UpgradeElasticsearchDomainResponse' {changeProgressDetails} -> changeProgressDetails) (\s@UpgradeElasticsearchDomainResponse' {} a -> s {changeProgressDetails = a} :: UpgradeElasticsearchDomainResponse)
 
 -- | Undocumented member.
 upgradeElasticsearchDomainResponse_domainName :: Lens.Lens' UpgradeElasticsearchDomainResponse (Prelude.Maybe Prelude.Text)
@@ -223,7 +235,8 @@ instance
     UpgradeElasticsearchDomainResponse
   where
   rnf UpgradeElasticsearchDomainResponse' {..} =
-    Prelude.rnf domainName
+    Prelude.rnf changeProgressDetails
+      `Prelude.seq` Prelude.rnf domainName
       `Prelude.seq` Prelude.rnf performCheckOnly
       `Prelude.seq` Prelude.rnf targetVersion
       `Prelude.seq` Prelude.rnf httpStatus

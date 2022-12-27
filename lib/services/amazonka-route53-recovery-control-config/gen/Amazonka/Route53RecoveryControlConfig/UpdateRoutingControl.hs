@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryControlConfig.UpdateRoutingControl
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.Route53RecoveryControlConfig.UpdateRoutingControl
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,12 +100,13 @@ instance Core.AWSRequest UpdateRoutingControl where
   type
     AWSResponse UpdateRoutingControl =
       UpdateRoutingControlResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateRoutingControlResponse'
-            Prelude.<$> (x Core..?> "RoutingControl")
+            Prelude.<$> (x Data..?> "RoutingControl")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -118,32 +120,32 @@ instance Prelude.NFData UpdateRoutingControl where
     Prelude.rnf routingControlName
       `Prelude.seq` Prelude.rnf routingControlArn
 
-instance Core.ToHeaders UpdateRoutingControl where
+instance Data.ToHeaders UpdateRoutingControl where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateRoutingControl where
+instance Data.ToJSON UpdateRoutingControl where
   toJSON UpdateRoutingControl' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("RoutingControlName" Core..= routingControlName),
+              ("RoutingControlName" Data..= routingControlName),
             Prelude.Just
-              ("RoutingControlArn" Core..= routingControlArn)
+              ("RoutingControlArn" Data..= routingControlArn)
           ]
       )
 
-instance Core.ToPath UpdateRoutingControl where
+instance Data.ToPath UpdateRoutingControl where
   toPath = Prelude.const "/routingcontrol"
 
-instance Core.ToQuery UpdateRoutingControl where
+instance Data.ToQuery UpdateRoutingControl where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateRoutingControlResponse' smart constructor.

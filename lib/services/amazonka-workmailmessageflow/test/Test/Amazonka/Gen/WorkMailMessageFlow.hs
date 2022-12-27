@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.WorkMailMessageFlow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,37 +27,37 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestPutRawMessageContent $
---             newPutRawMessageContent
---
---         , requestGetRawMessageContent $
+--         [ requestGetRawMessageContent $
 --             newGetRawMessageContent
+--
+--         , requestPutRawMessageContent $
+--             newPutRawMessageContent
 --
 --           ]
 
 --     , testGroup "response"
---         [ responsePutRawMessageContent $
---             newPutRawMessageContentResponse
---
---         , responseGetRawMessageContent $
+--         [ responseGetRawMessageContent $
 --             newGetRawMessageContentResponse
+--
+--         , responsePutRawMessageContent $
+--             newPutRawMessageContentResponse
 --
 --           ]
 --     ]
 
 -- Requests
 
-requestPutRawMessageContent :: PutRawMessageContent -> TestTree
-requestPutRawMessageContent =
-  req
-    "PutRawMessageContent"
-    "fixture/PutRawMessageContent.yaml"
-
 requestGetRawMessageContent :: GetRawMessageContent -> TestTree
 requestGetRawMessageContent =
   req
     "GetRawMessageContent"
     "fixture/GetRawMessageContent.yaml"
+
+requestPutRawMessageContent :: PutRawMessageContent -> TestTree
+requestPutRawMessageContent =
+  req
+    "PutRawMessageContent"
+    "fixture/PutRawMessageContent.yaml"
 
 -- Responses
 

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceQuotas.Types.ErrorReason
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ServiceQuotas.Types.ErrorReason where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.ServiceQuotas.Types.ErrorCode
 
@@ -98,14 +99,14 @@ errorReason_errorCode = Lens.lens (\ErrorReason' {errorCode} -> errorCode) (\s@E
 errorReason_errorMessage :: Lens.Lens' ErrorReason (Prelude.Maybe Prelude.Text)
 errorReason_errorMessage = Lens.lens (\ErrorReason' {errorMessage} -> errorMessage) (\s@ErrorReason' {} a -> s {errorMessage = a} :: ErrorReason)
 
-instance Core.FromJSON ErrorReason where
+instance Data.FromJSON ErrorReason where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ErrorReason"
       ( \x ->
           ErrorReason'
-            Prelude.<$> (x Core..:? "ErrorCode")
-            Prelude.<*> (x Core..:? "ErrorMessage")
+            Prelude.<$> (x Data..:? "ErrorCode")
+            Prelude.<*> (x Data..:? "ErrorMessage")
       )
 
 instance Prelude.Hashable ErrorReason where

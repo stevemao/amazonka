@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.PinpointSMSVoice
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -19,23 +19,23 @@ module Amazonka.PinpointSMSVoice
     -- * Errors
     -- $errors
 
+    -- ** AlreadyExistsException
+    _AlreadyExistsException,
+
+    -- ** BadRequestException
+    _BadRequestException,
+
+    -- ** InternalServiceErrorException
+    _InternalServiceErrorException,
+
+    -- ** LimitExceededException
+    _LimitExceededException,
+
     -- ** NotFoundException
     _NotFoundException,
 
     -- ** TooManyRequestsException
     _TooManyRequestsException,
-
-    -- ** InternalServiceErrorException
-    _InternalServiceErrorException,
-
-    -- ** BadRequestException
-    _BadRequestException,
-
-    -- ** AlreadyExistsException
-    _AlreadyExistsException,
-
-    -- ** LimitExceededException
-    _LimitExceededException,
 
     -- * Waiters
     -- $waiters
@@ -43,35 +43,11 @@ module Amazonka.PinpointSMSVoice
     -- * Operations
     -- $operations
 
-    -- ** UpdateConfigurationSetEventDestination
-    UpdateConfigurationSetEventDestination (UpdateConfigurationSetEventDestination'),
-    newUpdateConfigurationSetEventDestination,
-    UpdateConfigurationSetEventDestinationResponse (UpdateConfigurationSetEventDestinationResponse'),
-    newUpdateConfigurationSetEventDestinationResponse,
-
-    -- ** DeleteConfigurationSetEventDestination
-    DeleteConfigurationSetEventDestination (DeleteConfigurationSetEventDestination'),
-    newDeleteConfigurationSetEventDestination,
-    DeleteConfigurationSetEventDestinationResponse (DeleteConfigurationSetEventDestinationResponse'),
-    newDeleteConfigurationSetEventDestinationResponse,
-
-    -- ** DeleteConfigurationSet
-    DeleteConfigurationSet (DeleteConfigurationSet'),
-    newDeleteConfigurationSet,
-    DeleteConfigurationSetResponse (DeleteConfigurationSetResponse'),
-    newDeleteConfigurationSetResponse,
-
-    -- ** SendVoiceMessage
-    SendVoiceMessage (SendVoiceMessage'),
-    newSendVoiceMessage,
-    SendVoiceMessageResponse (SendVoiceMessageResponse'),
-    newSendVoiceMessageResponse,
-
-    -- ** GetConfigurationSetEventDestinations
-    GetConfigurationSetEventDestinations (GetConfigurationSetEventDestinations'),
-    newGetConfigurationSetEventDestinations,
-    GetConfigurationSetEventDestinationsResponse (GetConfigurationSetEventDestinationsResponse'),
-    newGetConfigurationSetEventDestinationsResponse,
+    -- ** CreateConfigurationSet
+    CreateConfigurationSet (CreateConfigurationSet'),
+    newCreateConfigurationSet,
+    CreateConfigurationSetResponse (CreateConfigurationSetResponse'),
+    newCreateConfigurationSetResponse,
 
     -- ** CreateConfigurationSetEventDestination
     CreateConfigurationSetEventDestination (CreateConfigurationSetEventDestination'),
@@ -79,11 +55,35 @@ module Amazonka.PinpointSMSVoice
     CreateConfigurationSetEventDestinationResponse (CreateConfigurationSetEventDestinationResponse'),
     newCreateConfigurationSetEventDestinationResponse,
 
-    -- ** CreateConfigurationSet
-    CreateConfigurationSet (CreateConfigurationSet'),
-    newCreateConfigurationSet,
-    CreateConfigurationSetResponse (CreateConfigurationSetResponse'),
-    newCreateConfigurationSetResponse,
+    -- ** DeleteConfigurationSet
+    DeleteConfigurationSet (DeleteConfigurationSet'),
+    newDeleteConfigurationSet,
+    DeleteConfigurationSetResponse (DeleteConfigurationSetResponse'),
+    newDeleteConfigurationSetResponse,
+
+    -- ** DeleteConfigurationSetEventDestination
+    DeleteConfigurationSetEventDestination (DeleteConfigurationSetEventDestination'),
+    newDeleteConfigurationSetEventDestination,
+    DeleteConfigurationSetEventDestinationResponse (DeleteConfigurationSetEventDestinationResponse'),
+    newDeleteConfigurationSetEventDestinationResponse,
+
+    -- ** GetConfigurationSetEventDestinations
+    GetConfigurationSetEventDestinations (GetConfigurationSetEventDestinations'),
+    newGetConfigurationSetEventDestinations,
+    GetConfigurationSetEventDestinationsResponse (GetConfigurationSetEventDestinationsResponse'),
+    newGetConfigurationSetEventDestinationsResponse,
+
+    -- ** SendVoiceMessage
+    SendVoiceMessage (SendVoiceMessage'),
+    newSendVoiceMessage,
+    SendVoiceMessageResponse (SendVoiceMessageResponse'),
+    newSendVoiceMessageResponse,
+
+    -- ** UpdateConfigurationSetEventDestination
+    UpdateConfigurationSetEventDestination (UpdateConfigurationSetEventDestination'),
+    newUpdateConfigurationSetEventDestination,
+    UpdateConfigurationSetEventDestinationResponse (UpdateConfigurationSetEventDestinationResponse'),
+    newUpdateConfigurationSetEventDestinationResponse,
 
     -- * Types
 

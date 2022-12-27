@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.DocumentMetadataResponseInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.DocumentMetadataResponseInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSM.Types.DocumentReviewerResponseSource
 
@@ -54,14 +55,14 @@ newDocumentMetadataResponseInfo =
 documentMetadataResponseInfo_reviewerResponse :: Lens.Lens' DocumentMetadataResponseInfo (Prelude.Maybe [DocumentReviewerResponseSource])
 documentMetadataResponseInfo_reviewerResponse = Lens.lens (\DocumentMetadataResponseInfo' {reviewerResponse} -> reviewerResponse) (\s@DocumentMetadataResponseInfo' {} a -> s {reviewerResponse = a} :: DocumentMetadataResponseInfo) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON DocumentMetadataResponseInfo where
+instance Data.FromJSON DocumentMetadataResponseInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DocumentMetadataResponseInfo"
       ( \x ->
           DocumentMetadataResponseInfo'
-            Prelude.<$> ( x Core..:? "ReviewerResponse"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "ReviewerResponse"
+                            Data..!= Prelude.mempty
                         )
       )
 

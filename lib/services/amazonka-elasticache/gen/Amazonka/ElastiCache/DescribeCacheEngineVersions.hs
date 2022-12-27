@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.DescribeCacheEngineVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,10 +29,10 @@ module Amazonka.ElastiCache.DescribeCacheEngineVersions
     newDescribeCacheEngineVersions,
 
     -- * Request Lenses
-    describeCacheEngineVersions_engineVersion,
     describeCacheEngineVersions_cacheParameterGroupFamily,
     describeCacheEngineVersions_defaultOnly,
     describeCacheEngineVersions_engine,
+    describeCacheEngineVersions_engineVersion,
     describeCacheEngineVersions_marker,
     describeCacheEngineVersions_maxRecords,
 
@@ -48,8 +48,9 @@ module Amazonka.ElastiCache.DescribeCacheEngineVersions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,16 +59,12 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeCacheEngineVersions' smart constructor.
 data DescribeCacheEngineVersions = DescribeCacheEngineVersions'
-  { -- | The cache engine version to return.
-    --
-    -- Example: @1.4.14@
-    engineVersion :: Prelude.Maybe Prelude.Text,
-    -- | The name of a specific cache parameter group family to return details
+  { -- | The name of a specific cache parameter group family to return details
     -- for.
     --
     -- Valid values are: @memcached1.4@ | @memcached1.5@ | @memcached1.6@ |
     -- @redis2.6@ | @redis2.8@ | @redis3.2@ | @redis4.0@ | @redis5.0@ |
-    -- @redis6.x@ |
+    -- @redis6.x@ | @redis6.2@
     --
     -- Constraints:
     --
@@ -82,6 +79,10 @@ data DescribeCacheEngineVersions = DescribeCacheEngineVersions'
     defaultOnly :: Prelude.Maybe Prelude.Bool,
     -- | The cache engine to return. Valid values: @memcached@ | @redis@
     engine :: Prelude.Maybe Prelude.Text,
+    -- | The cache engine version to return.
+    --
+    -- Example: @1.4.14@
+    engineVersion :: Prelude.Maybe Prelude.Text,
     -- | An optional marker returned from a prior request. Use this marker for
     -- pagination of results from this operation. If this parameter is
     -- specified, the response includes only records beyond the marker, up to
@@ -106,16 +107,12 @@ data DescribeCacheEngineVersions = DescribeCacheEngineVersions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'engineVersion', 'describeCacheEngineVersions_engineVersion' - The cache engine version to return.
---
--- Example: @1.4.14@
---
 -- 'cacheParameterGroupFamily', 'describeCacheEngineVersions_cacheParameterGroupFamily' - The name of a specific cache parameter group family to return details
 -- for.
 --
 -- Valid values are: @memcached1.4@ | @memcached1.5@ | @memcached1.6@ |
 -- @redis2.6@ | @redis2.8@ | @redis3.2@ | @redis4.0@ | @redis5.0@ |
--- @redis6.x@ |
+-- @redis6.x@ | @redis6.2@
 --
 -- Constraints:
 --
@@ -129,6 +126,10 @@ data DescribeCacheEngineVersions = DescribeCacheEngineVersions'
 -- engine or engine and major version combination is to be returned.
 --
 -- 'engine', 'describeCacheEngineVersions_engine' - The cache engine to return. Valid values: @memcached@ | @redis@
+--
+-- 'engineVersion', 'describeCacheEngineVersions_engineVersion' - The cache engine version to return.
+--
+-- Example: @1.4.14@
 --
 -- 'marker', 'describeCacheEngineVersions_marker' - An optional marker returned from a prior request. Use this marker for
 -- pagination of results from this operation. If this parameter is
@@ -146,27 +147,21 @@ newDescribeCacheEngineVersions ::
   DescribeCacheEngineVersions
 newDescribeCacheEngineVersions =
   DescribeCacheEngineVersions'
-    { engineVersion =
+    { cacheParameterGroupFamily =
         Prelude.Nothing,
-      cacheParameterGroupFamily = Prelude.Nothing,
       defaultOnly = Prelude.Nothing,
       engine = Prelude.Nothing,
+      engineVersion = Prelude.Nothing,
       marker = Prelude.Nothing,
       maxRecords = Prelude.Nothing
     }
-
--- | The cache engine version to return.
---
--- Example: @1.4.14@
-describeCacheEngineVersions_engineVersion :: Lens.Lens' DescribeCacheEngineVersions (Prelude.Maybe Prelude.Text)
-describeCacheEngineVersions_engineVersion = Lens.lens (\DescribeCacheEngineVersions' {engineVersion} -> engineVersion) (\s@DescribeCacheEngineVersions' {} a -> s {engineVersion = a} :: DescribeCacheEngineVersions)
 
 -- | The name of a specific cache parameter group family to return details
 -- for.
 --
 -- Valid values are: @memcached1.4@ | @memcached1.5@ | @memcached1.6@ |
 -- @redis2.6@ | @redis2.8@ | @redis3.2@ | @redis4.0@ | @redis5.0@ |
--- @redis6.x@ |
+-- @redis6.x@ | @redis6.2@
 --
 -- Constraints:
 --
@@ -186,6 +181,12 @@ describeCacheEngineVersions_defaultOnly = Lens.lens (\DescribeCacheEngineVersion
 -- | The cache engine to return. Valid values: @memcached@ | @redis@
 describeCacheEngineVersions_engine :: Lens.Lens' DescribeCacheEngineVersions (Prelude.Maybe Prelude.Text)
 describeCacheEngineVersions_engine = Lens.lens (\DescribeCacheEngineVersions' {engine} -> engine) (\s@DescribeCacheEngineVersions' {} a -> s {engine = a} :: DescribeCacheEngineVersions)
+
+-- | The cache engine version to return.
+--
+-- Example: @1.4.14@
+describeCacheEngineVersions_engineVersion :: Lens.Lens' DescribeCacheEngineVersions (Prelude.Maybe Prelude.Text)
+describeCacheEngineVersions_engineVersion = Lens.lens (\DescribeCacheEngineVersions' {engineVersion} -> engineVersion) (\s@DescribeCacheEngineVersions' {} a -> s {engineVersion = a} :: DescribeCacheEngineVersions)
 
 -- | An optional marker returned from a prior request. Use this marker for
 -- pagination of results from this operation. If this parameter is
@@ -230,60 +231,62 @@ instance Core.AWSRequest DescribeCacheEngineVersions where
   type
     AWSResponse DescribeCacheEngineVersions =
       DescribeCacheEngineVersionsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeCacheEngineVersionsResult"
       ( \s h x ->
           DescribeCacheEngineVersionsResponse'
-            Prelude.<$> ( x Core..@? "CacheEngineVersions"
+            Prelude.<$> ( x Data..@? "CacheEngineVersions"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "CacheEngineVersion")
+                            Prelude.>>= Core.may (Data.parseXMLList "CacheEngineVersion")
                         )
-            Prelude.<*> (x Core..@? "Marker")
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeCacheEngineVersions where
   hashWithSalt _salt DescribeCacheEngineVersions' {..} =
-    _salt `Prelude.hashWithSalt` engineVersion
+    _salt
       `Prelude.hashWithSalt` cacheParameterGroupFamily
       `Prelude.hashWithSalt` defaultOnly
       `Prelude.hashWithSalt` engine
+      `Prelude.hashWithSalt` engineVersion
       `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
 
 instance Prelude.NFData DescribeCacheEngineVersions where
   rnf DescribeCacheEngineVersions' {..} =
-    Prelude.rnf engineVersion
-      `Prelude.seq` Prelude.rnf cacheParameterGroupFamily
+    Prelude.rnf cacheParameterGroupFamily
       `Prelude.seq` Prelude.rnf defaultOnly
       `Prelude.seq` Prelude.rnf engine
+      `Prelude.seq` Prelude.rnf engineVersion
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
 
-instance Core.ToHeaders DescribeCacheEngineVersions where
+instance Data.ToHeaders DescribeCacheEngineVersions where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeCacheEngineVersions where
+instance Data.ToPath DescribeCacheEngineVersions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeCacheEngineVersions where
+instance Data.ToQuery DescribeCacheEngineVersions where
   toQuery DescribeCacheEngineVersions' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeCacheEngineVersions" ::
+          Data.=: ( "DescribeCacheEngineVersions" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
-        "EngineVersion" Core.=: engineVersion,
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
         "CacheParameterGroupFamily"
-          Core.=: cacheParameterGroupFamily,
-        "DefaultOnly" Core.=: defaultOnly,
-        "Engine" Core.=: engine,
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords
+          Data.=: cacheParameterGroupFamily,
+        "DefaultOnly" Data.=: defaultOnly,
+        "Engine" Data.=: engine,
+        "EngineVersion" Data.=: engineVersion,
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords
       ]
 
 -- | Represents the output of a DescribeCacheEngineVersions operation.

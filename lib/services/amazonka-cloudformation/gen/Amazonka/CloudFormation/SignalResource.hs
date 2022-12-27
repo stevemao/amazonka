@@ -14,19 +14,19 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.SignalResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Sends a signal to the specified resource with a success or failure
--- status. You can use the SignalResource API in conjunction with a
+-- status. You can use the @SignalResource@ operation in conjunction with a
 -- creation policy or update policy. CloudFormation doesn\'t proceed with a
 -- stack creation or update until resources receive the required number of
--- signals or the timeout period is exceeded. The SignalResource API is
--- useful in cases where you want to send signals from anywhere other than
--- an Amazon EC2 instance.
+-- signals or the timeout period is exceeded. The @SignalResource@
+-- operation is useful in cases where you want to send signals from
+-- anywhere other than an Amazon EC2 instance.
 module Amazonka.CloudFormation.SignalResource
   ( -- * Creating a Request
     SignalResource (..),
@@ -46,7 +46,8 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -144,7 +145,8 @@ instance Core.AWSRequest SignalResource where
   type
     AWSResponse SignalResource =
       SignalResourceResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull SignalResourceResponse'
 
@@ -162,23 +164,23 @@ instance Prelude.NFData SignalResource where
       `Prelude.seq` Prelude.rnf uniqueId
       `Prelude.seq` Prelude.rnf status
 
-instance Core.ToHeaders SignalResource where
+instance Data.ToHeaders SignalResource where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath SignalResource where
+instance Data.ToPath SignalResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SignalResource where
+instance Data.ToQuery SignalResource where
   toQuery SignalResource' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("SignalResource" :: Prelude.ByteString),
+          Data.=: ("SignalResource" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
-        "StackName" Core.=: stackName,
-        "LogicalResourceId" Core.=: logicalResourceId,
-        "UniqueId" Core.=: uniqueId,
-        "Status" Core.=: status
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "StackName" Data.=: stackName,
+        "LogicalResourceId" Data.=: logicalResourceId,
+        "UniqueId" Data.=: uniqueId,
+        "Status" Data.=: status
       ]
 
 -- | /See:/ 'newSignalResourceResponse' smart constructor.

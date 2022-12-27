@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.EnableLDAPS
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.DirectoryService.EnableLDAPS
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,7 +93,8 @@ enableLDAPS_type = Lens.lens (\EnableLDAPS' {type'} -> type') (\s@EnableLDAPS' {
 
 instance Core.AWSRequest EnableLDAPS where
   type AWSResponse EnableLDAPS = EnableLDAPSResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -110,34 +112,34 @@ instance Prelude.NFData EnableLDAPS where
     Prelude.rnf directoryId
       `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToHeaders EnableLDAPS where
+instance Data.ToHeaders EnableLDAPS where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.EnableLDAPS" ::
+              Data.=# ( "DirectoryService_20150416.EnableLDAPS" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON EnableLDAPS where
+instance Data.ToJSON EnableLDAPS where
   toJSON EnableLDAPS' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("DirectoryId" Core..= directoryId),
-            Prelude.Just ("Type" Core..= type')
+          [ Prelude.Just ("DirectoryId" Data..= directoryId),
+            Prelude.Just ("Type" Data..= type')
           ]
       )
 
-instance Core.ToPath EnableLDAPS where
+instance Data.ToPath EnableLDAPS where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery EnableLDAPS where
+instance Data.ToQuery EnableLDAPS where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newEnableLDAPSResponse' smart constructor.

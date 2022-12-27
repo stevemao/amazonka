@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.ResetClusterParameterGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.Redshift.ResetClusterParameterGroup
     newResetClusterParameterGroup,
 
     -- * Request Lenses
-    resetClusterParameterGroup_resetAllParameters,
     resetClusterParameterGroup_parameters,
+    resetClusterParameterGroup_resetAllParameters,
     resetClusterParameterGroup_parameterGroupName,
 
     -- * Destructuring the Response
@@ -40,13 +40,14 @@ module Amazonka.Redshift.ResetClusterParameterGroup
     newClusterParameterGroupNameMessage,
 
     -- * Response Lenses
-    clusterParameterGroupNameMessage_parameterGroupStatus,
     clusterParameterGroupNameMessage_parameterGroupName,
+    clusterParameterGroupNameMessage_parameterGroupStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -56,17 +57,17 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newResetClusterParameterGroup' smart constructor.
 data ResetClusterParameterGroup = ResetClusterParameterGroup'
-  { -- | If @true@, all parameters in the specified parameter group will be reset
-    -- to their default values.
-    --
-    -- Default: @true@
-    resetAllParameters :: Prelude.Maybe Prelude.Bool,
-    -- | An array of names of parameters to be reset. If /ResetAllParameters/
+  { -- | An array of names of parameters to be reset. If /ResetAllParameters/
     -- option is not used, then at least one parameter name must be supplied.
     --
     -- Constraints: A maximum of 20 parameters can be reset in a single
     -- request.
     parameters :: Prelude.Maybe [Parameter],
+    -- | If @true@, all parameters in the specified parameter group will be reset
+    -- to their default values.
+    --
+    -- Default: @true@
+    resetAllParameters :: Prelude.Maybe Prelude.Bool,
     -- | The name of the cluster parameter group to be reset.
     parameterGroupName :: Prelude.Text
   }
@@ -80,16 +81,16 @@ data ResetClusterParameterGroup = ResetClusterParameterGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resetAllParameters', 'resetClusterParameterGroup_resetAllParameters' - If @true@, all parameters in the specified parameter group will be reset
--- to their default values.
---
--- Default: @true@
---
 -- 'parameters', 'resetClusterParameterGroup_parameters' - An array of names of parameters to be reset. If /ResetAllParameters/
 -- option is not used, then at least one parameter name must be supplied.
 --
 -- Constraints: A maximum of 20 parameters can be reset in a single
 -- request.
+--
+-- 'resetAllParameters', 'resetClusterParameterGroup_resetAllParameters' - If @true@, all parameters in the specified parameter group will be reset
+-- to their default values.
+--
+-- Default: @true@
 --
 -- 'parameterGroupName', 'resetClusterParameterGroup_parameterGroupName' - The name of the cluster parameter group to be reset.
 newResetClusterParameterGroup ::
@@ -98,18 +99,11 @@ newResetClusterParameterGroup ::
   ResetClusterParameterGroup
 newResetClusterParameterGroup pParameterGroupName_ =
   ResetClusterParameterGroup'
-    { resetAllParameters =
+    { parameters =
         Prelude.Nothing,
-      parameters = Prelude.Nothing,
+      resetAllParameters = Prelude.Nothing,
       parameterGroupName = pParameterGroupName_
     }
-
--- | If @true@, all parameters in the specified parameter group will be reset
--- to their default values.
---
--- Default: @true@
-resetClusterParameterGroup_resetAllParameters :: Lens.Lens' ResetClusterParameterGroup (Prelude.Maybe Prelude.Bool)
-resetClusterParameterGroup_resetAllParameters = Lens.lens (\ResetClusterParameterGroup' {resetAllParameters} -> resetAllParameters) (\s@ResetClusterParameterGroup' {} a -> s {resetAllParameters = a} :: ResetClusterParameterGroup)
 
 -- | An array of names of parameters to be reset. If /ResetAllParameters/
 -- option is not used, then at least one parameter name must be supplied.
@@ -119,6 +113,13 @@ resetClusterParameterGroup_resetAllParameters = Lens.lens (\ResetClusterParamete
 resetClusterParameterGroup_parameters :: Lens.Lens' ResetClusterParameterGroup (Prelude.Maybe [Parameter])
 resetClusterParameterGroup_parameters = Lens.lens (\ResetClusterParameterGroup' {parameters} -> parameters) (\s@ResetClusterParameterGroup' {} a -> s {parameters = a} :: ResetClusterParameterGroup) Prelude.. Lens.mapping Lens.coerced
 
+-- | If @true@, all parameters in the specified parameter group will be reset
+-- to their default values.
+--
+-- Default: @true@
+resetClusterParameterGroup_resetAllParameters :: Lens.Lens' ResetClusterParameterGroup (Prelude.Maybe Prelude.Bool)
+resetClusterParameterGroup_resetAllParameters = Lens.lens (\ResetClusterParameterGroup' {resetAllParameters} -> resetAllParameters) (\s@ResetClusterParameterGroup' {} a -> s {resetAllParameters = a} :: ResetClusterParameterGroup)
+
 -- | The name of the cluster parameter group to be reset.
 resetClusterParameterGroup_parameterGroupName :: Lens.Lens' ResetClusterParameterGroup Prelude.Text
 resetClusterParameterGroup_parameterGroupName = Lens.lens (\ResetClusterParameterGroup' {parameterGroupName} -> parameterGroupName) (\s@ResetClusterParameterGroup' {} a -> s {parameterGroupName = a} :: ResetClusterParameterGroup)
@@ -127,42 +128,43 @@ instance Core.AWSRequest ResetClusterParameterGroup where
   type
     AWSResponse ResetClusterParameterGroup =
       ClusterParameterGroupNameMessage
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ResetClusterParameterGroupResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance Prelude.Hashable ResetClusterParameterGroup where
   hashWithSalt _salt ResetClusterParameterGroup' {..} =
-    _salt `Prelude.hashWithSalt` resetAllParameters
-      `Prelude.hashWithSalt` parameters
+    _salt `Prelude.hashWithSalt` parameters
+      `Prelude.hashWithSalt` resetAllParameters
       `Prelude.hashWithSalt` parameterGroupName
 
 instance Prelude.NFData ResetClusterParameterGroup where
   rnf ResetClusterParameterGroup' {..} =
-    Prelude.rnf resetAllParameters
-      `Prelude.seq` Prelude.rnf parameters
+    Prelude.rnf parameters
+      `Prelude.seq` Prelude.rnf resetAllParameters
       `Prelude.seq` Prelude.rnf parameterGroupName
 
-instance Core.ToHeaders ResetClusterParameterGroup where
+instance Data.ToHeaders ResetClusterParameterGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ResetClusterParameterGroup where
+instance Data.ToPath ResetClusterParameterGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ResetClusterParameterGroup where
+instance Data.ToQuery ResetClusterParameterGroup where
   toQuery ResetClusterParameterGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ResetClusterParameterGroup" :: Prelude.ByteString),
+          Data.=: ("ResetClusterParameterGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "ResetAllParameters" Core.=: resetAllParameters,
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
         "Parameters"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "Parameter"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "Parameter"
                 Prelude.<$> parameters
             ),
-        "ParameterGroupName" Core.=: parameterGroupName
+        "ResetAllParameters" Data.=: resetAllParameters,
+        "ParameterGroupName" Data.=: parameterGroupName
       ]

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.StartConfigRulesEvaluation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -73,7 +73,8 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -112,7 +113,8 @@ instance Core.AWSRequest StartConfigRulesEvaluation where
   type
     AWSResponse StartConfigRulesEvaluation =
       StartConfigRulesEvaluationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -128,34 +130,34 @@ instance Prelude.NFData StartConfigRulesEvaluation where
   rnf StartConfigRulesEvaluation' {..} =
     Prelude.rnf configRuleNames
 
-instance Core.ToHeaders StartConfigRulesEvaluation where
+instance Data.ToHeaders StartConfigRulesEvaluation where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.StartConfigRulesEvaluation" ::
+              Data.=# ( "StarlingDoveService.StartConfigRulesEvaluation" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartConfigRulesEvaluation where
+instance Data.ToJSON StartConfigRulesEvaluation where
   toJSON StartConfigRulesEvaluation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ConfigRuleNames" Core..=)
+          [ ("ConfigRuleNames" Data..=)
               Prelude.<$> configRuleNames
           ]
       )
 
-instance Core.ToPath StartConfigRulesEvaluation where
+instance Data.ToPath StartConfigRulesEvaluation where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartConfigRulesEvaluation where
+instance Data.ToQuery StartConfigRulesEvaluation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The output when you start the evaluation for the specified Config rule.

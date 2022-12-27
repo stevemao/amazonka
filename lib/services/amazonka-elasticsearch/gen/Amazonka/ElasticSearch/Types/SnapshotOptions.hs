@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.Types.SnapshotOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElasticSearch.Types.SnapshotOptions where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the time, in UTC format, when the service takes a daily
@@ -61,13 +62,13 @@ newSnapshotOptions =
 snapshotOptions_automatedSnapshotStartHour :: Lens.Lens' SnapshotOptions (Prelude.Maybe Prelude.Int)
 snapshotOptions_automatedSnapshotStartHour = Lens.lens (\SnapshotOptions' {automatedSnapshotStartHour} -> automatedSnapshotStartHour) (\s@SnapshotOptions' {} a -> s {automatedSnapshotStartHour = a} :: SnapshotOptions)
 
-instance Core.FromJSON SnapshotOptions where
+instance Data.FromJSON SnapshotOptions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SnapshotOptions"
       ( \x ->
           SnapshotOptions'
-            Prelude.<$> (x Core..:? "AutomatedSnapshotStartHour")
+            Prelude.<$> (x Data..:? "AutomatedSnapshotStartHour")
       )
 
 instance Prelude.Hashable SnapshotOptions where
@@ -79,11 +80,11 @@ instance Prelude.NFData SnapshotOptions where
   rnf SnapshotOptions' {..} =
     Prelude.rnf automatedSnapshotStartHour
 
-instance Core.ToJSON SnapshotOptions where
+instance Data.ToJSON SnapshotOptions where
   toJSON SnapshotOptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AutomatedSnapshotStartHour" Core..=)
+          [ ("AutomatedSnapshotStartHour" Data..=)
               Prelude.<$> automatedSnapshotStartHour
           ]
       )

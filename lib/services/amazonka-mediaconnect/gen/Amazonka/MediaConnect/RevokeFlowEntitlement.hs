@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConnect.RevokeFlowEntitlement
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.MediaConnect.RevokeFlowEntitlement
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConnect.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -94,13 +95,14 @@ instance Core.AWSRequest RevokeFlowEntitlement where
   type
     AWSResponse RevokeFlowEntitlement =
       RevokeFlowEntitlementResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RevokeFlowEntitlementResponse'
-            Prelude.<$> (x Core..?> "entitlementArn")
-            Prelude.<*> (x Core..?> "flowArn")
+            Prelude.<$> (x Data..?> "entitlementArn")
+            Prelude.<*> (x Data..?> "flowArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -114,27 +116,27 @@ instance Prelude.NFData RevokeFlowEntitlement where
     Prelude.rnf flowArn
       `Prelude.seq` Prelude.rnf entitlementArn
 
-instance Core.ToHeaders RevokeFlowEntitlement where
+instance Data.ToHeaders RevokeFlowEntitlement where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath RevokeFlowEntitlement where
+instance Data.ToPath RevokeFlowEntitlement where
   toPath RevokeFlowEntitlement' {..} =
     Prelude.mconcat
       [ "/v1/flows/",
-        Core.toBS flowArn,
+        Data.toBS flowArn,
         "/entitlements/",
-        Core.toBS entitlementArn
+        Data.toBS entitlementArn
       ]
 
-instance Core.ToQuery RevokeFlowEntitlement where
+instance Data.ToQuery RevokeFlowEntitlement where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRevokeFlowEntitlementResponse' smart constructor.

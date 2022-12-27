@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.DeleteApplicationVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.ElasticBeanstalk.DeleteApplicationVersion
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticBeanstalk.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -111,7 +112,8 @@ instance Core.AWSRequest DeleteApplicationVersion where
   type
     AWSResponse DeleteApplicationVersion =
       DeleteApplicationVersionResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       DeleteApplicationVersionResponse'
@@ -128,22 +130,22 @@ instance Prelude.NFData DeleteApplicationVersion where
       `Prelude.seq` Prelude.rnf applicationName
       `Prelude.seq` Prelude.rnf versionLabel
 
-instance Core.ToHeaders DeleteApplicationVersion where
+instance Data.ToHeaders DeleteApplicationVersion where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteApplicationVersion where
+instance Data.ToPath DeleteApplicationVersion where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteApplicationVersion where
+instance Data.ToQuery DeleteApplicationVersion where
   toQuery DeleteApplicationVersion' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteApplicationVersion" :: Prelude.ByteString),
+          Data.=: ("DeleteApplicationVersion" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "DeleteSourceBundle" Core.=: deleteSourceBundle,
-        "ApplicationName" Core.=: applicationName,
-        "VersionLabel" Core.=: versionLabel
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "DeleteSourceBundle" Data.=: deleteSourceBundle,
+        "ApplicationName" Data.=: applicationName,
+        "VersionLabel" Data.=: versionLabel
       ]
 
 -- | /See:/ 'newDeleteApplicationVersionResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.GetHostedZone
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,15 +35,16 @@ module Amazonka.Route53.GetHostedZone
     newGetHostedZoneResponse,
 
     -- * Response Lenses
-    getHostedZoneResponse_vPCs,
     getHostedZoneResponse_delegationSet,
+    getHostedZoneResponse_vPCs,
     getHostedZoneResponse_httpStatus,
     getHostedZoneResponse_hostedZone,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,17 +82,18 @@ instance Core.AWSRequest GetHostedZone where
   type
     AWSResponse GetHostedZone =
       GetHostedZoneResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetHostedZoneResponse'
-            Prelude.<$> ( x Core..@? "VPCs" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList1 "VPC")
+            Prelude.<$> (x Data..@? "DelegationSet")
+            Prelude.<*> ( x Data..@? "VPCs" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList1 "VPC")
                         )
-            Prelude.<*> (x Core..@? "DelegationSet")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "HostedZone")
+            Prelude.<*> (x Data..@ "HostedZone")
       )
 
 instance Prelude.Hashable GetHostedZone where
@@ -101,27 +103,27 @@ instance Prelude.Hashable GetHostedZone where
 instance Prelude.NFData GetHostedZone where
   rnf GetHostedZone' {..} = Prelude.rnf id
 
-instance Core.ToHeaders GetHostedZone where
+instance Data.ToHeaders GetHostedZone where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetHostedZone where
+instance Data.ToPath GetHostedZone where
   toPath GetHostedZone' {..} =
     Prelude.mconcat
-      ["/2013-04-01/hostedzone/", Core.toBS id]
+      ["/2013-04-01/hostedzone/", Data.toBS id]
 
-instance Core.ToQuery GetHostedZone where
+instance Data.ToQuery GetHostedZone where
   toQuery = Prelude.const Prelude.mempty
 
 -- | A complex type that contain the response to a @GetHostedZone@ request.
 --
 -- /See:/ 'newGetHostedZoneResponse' smart constructor.
 data GetHostedZoneResponse = GetHostedZoneResponse'
-  { -- | A complex type that contains information about the VPCs that are
-    -- associated with the specified hosted zone.
-    vPCs :: Prelude.Maybe (Prelude.NonEmpty VPC),
-    -- | A complex type that lists the Amazon Route 53 name servers for the
+  { -- | A complex type that lists the Amazon Route 53 name servers for the
     -- specified hosted zone.
     delegationSet :: Prelude.Maybe DelegationSet,
+    -- | A complex type that contains information about the VPCs that are
+    -- associated with the specified hosted zone.
+    vPCs :: Prelude.Maybe (Prelude.NonEmpty VPC),
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | A complex type that contains general information about the specified
@@ -138,11 +140,11 @@ data GetHostedZoneResponse = GetHostedZoneResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'vPCs', 'getHostedZoneResponse_vPCs' - A complex type that contains information about the VPCs that are
--- associated with the specified hosted zone.
---
 -- 'delegationSet', 'getHostedZoneResponse_delegationSet' - A complex type that lists the Amazon Route 53 name servers for the
 -- specified hosted zone.
+--
+-- 'vPCs', 'getHostedZoneResponse_vPCs' - A complex type that contains information about the VPCs that are
+-- associated with the specified hosted zone.
 --
 -- 'httpStatus', 'getHostedZoneResponse_httpStatus' - The response's http status code.
 --
@@ -156,21 +158,22 @@ newGetHostedZoneResponse ::
   GetHostedZoneResponse
 newGetHostedZoneResponse pHttpStatus_ pHostedZone_ =
   GetHostedZoneResponse'
-    { vPCs = Prelude.Nothing,
-      delegationSet = Prelude.Nothing,
+    { delegationSet =
+        Prelude.Nothing,
+      vPCs = Prelude.Nothing,
       httpStatus = pHttpStatus_,
       hostedZone = pHostedZone_
     }
-
--- | A complex type that contains information about the VPCs that are
--- associated with the specified hosted zone.
-getHostedZoneResponse_vPCs :: Lens.Lens' GetHostedZoneResponse (Prelude.Maybe (Prelude.NonEmpty VPC))
-getHostedZoneResponse_vPCs = Lens.lens (\GetHostedZoneResponse' {vPCs} -> vPCs) (\s@GetHostedZoneResponse' {} a -> s {vPCs = a} :: GetHostedZoneResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A complex type that lists the Amazon Route 53 name servers for the
 -- specified hosted zone.
 getHostedZoneResponse_delegationSet :: Lens.Lens' GetHostedZoneResponse (Prelude.Maybe DelegationSet)
 getHostedZoneResponse_delegationSet = Lens.lens (\GetHostedZoneResponse' {delegationSet} -> delegationSet) (\s@GetHostedZoneResponse' {} a -> s {delegationSet = a} :: GetHostedZoneResponse)
+
+-- | A complex type that contains information about the VPCs that are
+-- associated with the specified hosted zone.
+getHostedZoneResponse_vPCs :: Lens.Lens' GetHostedZoneResponse (Prelude.Maybe (Prelude.NonEmpty VPC))
+getHostedZoneResponse_vPCs = Lens.lens (\GetHostedZoneResponse' {vPCs} -> vPCs) (\s@GetHostedZoneResponse' {} a -> s {vPCs = a} :: GetHostedZoneResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 getHostedZoneResponse_httpStatus :: Lens.Lens' GetHostedZoneResponse Prelude.Int
@@ -183,7 +186,7 @@ getHostedZoneResponse_hostedZone = Lens.lens (\GetHostedZoneResponse' {hostedZon
 
 instance Prelude.NFData GetHostedZoneResponse where
   rnf GetHostedZoneResponse' {..} =
-    Prelude.rnf vPCs
-      `Prelude.seq` Prelude.rnf delegationSet
+    Prelude.rnf delegationSet
+      `Prelude.seq` Prelude.rnf vPCs
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf hostedZone

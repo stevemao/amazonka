@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataPipeline.SetTaskStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,9 +31,9 @@ module Amazonka.DataPipeline.SetTaskStatus
     newSetTaskStatus,
 
     -- * Request Lenses
-    setTaskStatus_errorStackTrace,
     setTaskStatus_errorId,
     setTaskStatus_errorMessage,
+    setTaskStatus_errorStackTrace,
     setTaskStatus_taskId,
     setTaskStatus_taskStatus,
 
@@ -47,8 +47,9 @@ module Amazonka.DataPipeline.SetTaskStatus
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataPipeline.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,12 +58,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newSetTaskStatus' smart constructor.
 data SetTaskStatus = SetTaskStatus'
-  { -- | If an error occurred during the task, this value specifies the stack
-    -- trace associated with the error. This value is set on the physical
-    -- attempt object. It is used to display error information to the user. The
-    -- web service does not parse this value.
-    errorStackTrace :: Prelude.Maybe Prelude.Text,
-    -- | If an error occurred during the task, this value specifies the error
+  { -- | If an error occurred during the task, this value specifies the error
     -- code. This value is set on the physical attempt object. It is used to
     -- display error information to the user. It should not start with string
     -- \"Service_\" which is reserved by the system.
@@ -72,6 +68,11 @@ data SetTaskStatus = SetTaskStatus'
     -- object. It is used to display error information to the user. The web
     -- service does not parse this value.
     errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | If an error occurred during the task, this value specifies the stack
+    -- trace associated with the error. This value is set on the physical
+    -- attempt object. It is used to display error information to the user. The
+    -- web service does not parse this value.
+    errorStackTrace :: Prelude.Maybe Prelude.Text,
     -- | The ID of the task assigned to the task runner. This value is provided
     -- in the response for PollForTask.
     taskId :: Prelude.Text,
@@ -89,11 +90,6 @@ data SetTaskStatus = SetTaskStatus'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'errorStackTrace', 'setTaskStatus_errorStackTrace' - If an error occurred during the task, this value specifies the stack
--- trace associated with the error. This value is set on the physical
--- attempt object. It is used to display error information to the user. The
--- web service does not parse this value.
---
 -- 'errorId', 'setTaskStatus_errorId' - If an error occurred during the task, this value specifies the error
 -- code. This value is set on the physical attempt object. It is used to
 -- display error information to the user. It should not start with string
@@ -103,6 +99,11 @@ data SetTaskStatus = SetTaskStatus'
 -- description of the error. This value is set on the physical attempt
 -- object. It is used to display error information to the user. The web
 -- service does not parse this value.
+--
+-- 'errorStackTrace', 'setTaskStatus_errorStackTrace' - If an error occurred during the task, this value specifies the stack
+-- trace associated with the error. This value is set on the physical
+-- attempt object. It is used to display error information to the user. The
+-- web service does not parse this value.
 --
 -- 'taskId', 'setTaskStatus_taskId' - The ID of the task assigned to the task runner. This value is provided
 -- in the response for PollForTask.
@@ -117,19 +118,12 @@ newSetTaskStatus ::
   SetTaskStatus
 newSetTaskStatus pTaskId_ pTaskStatus_ =
   SetTaskStatus'
-    { errorStackTrace = Prelude.Nothing,
-      errorId = Prelude.Nothing,
+    { errorId = Prelude.Nothing,
       errorMessage = Prelude.Nothing,
+      errorStackTrace = Prelude.Nothing,
       taskId = pTaskId_,
       taskStatus = pTaskStatus_
     }
-
--- | If an error occurred during the task, this value specifies the stack
--- trace associated with the error. This value is set on the physical
--- attempt object. It is used to display error information to the user. The
--- web service does not parse this value.
-setTaskStatus_errorStackTrace :: Lens.Lens' SetTaskStatus (Prelude.Maybe Prelude.Text)
-setTaskStatus_errorStackTrace = Lens.lens (\SetTaskStatus' {errorStackTrace} -> errorStackTrace) (\s@SetTaskStatus' {} a -> s {errorStackTrace = a} :: SetTaskStatus)
 
 -- | If an error occurred during the task, this value specifies the error
 -- code. This value is set on the physical attempt object. It is used to
@@ -145,6 +139,13 @@ setTaskStatus_errorId = Lens.lens (\SetTaskStatus' {errorId} -> errorId) (\s@Set
 setTaskStatus_errorMessage :: Lens.Lens' SetTaskStatus (Prelude.Maybe Prelude.Text)
 setTaskStatus_errorMessage = Lens.lens (\SetTaskStatus' {errorMessage} -> errorMessage) (\s@SetTaskStatus' {} a -> s {errorMessage = a} :: SetTaskStatus)
 
+-- | If an error occurred during the task, this value specifies the stack
+-- trace associated with the error. This value is set on the physical
+-- attempt object. It is used to display error information to the user. The
+-- web service does not parse this value.
+setTaskStatus_errorStackTrace :: Lens.Lens' SetTaskStatus (Prelude.Maybe Prelude.Text)
+setTaskStatus_errorStackTrace = Lens.lens (\SetTaskStatus' {errorStackTrace} -> errorStackTrace) (\s@SetTaskStatus' {} a -> s {errorStackTrace = a} :: SetTaskStatus)
+
 -- | The ID of the task assigned to the task runner. This value is provided
 -- in the response for PollForTask.
 setTaskStatus_taskId :: Lens.Lens' SetTaskStatus Prelude.Text
@@ -159,7 +160,8 @@ instance Core.AWSRequest SetTaskStatus where
   type
     AWSResponse SetTaskStatus =
       SetTaskStatusResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -169,50 +171,50 @@ instance Core.AWSRequest SetTaskStatus where
 
 instance Prelude.Hashable SetTaskStatus where
   hashWithSalt _salt SetTaskStatus' {..} =
-    _salt `Prelude.hashWithSalt` errorStackTrace
-      `Prelude.hashWithSalt` errorId
+    _salt `Prelude.hashWithSalt` errorId
       `Prelude.hashWithSalt` errorMessage
+      `Prelude.hashWithSalt` errorStackTrace
       `Prelude.hashWithSalt` taskId
       `Prelude.hashWithSalt` taskStatus
 
 instance Prelude.NFData SetTaskStatus where
   rnf SetTaskStatus' {..} =
-    Prelude.rnf errorStackTrace
-      `Prelude.seq` Prelude.rnf errorId
+    Prelude.rnf errorId
       `Prelude.seq` Prelude.rnf errorMessage
+      `Prelude.seq` Prelude.rnf errorStackTrace
       `Prelude.seq` Prelude.rnf taskId
       `Prelude.seq` Prelude.rnf taskStatus
 
-instance Core.ToHeaders SetTaskStatus where
+instance Data.ToHeaders SetTaskStatus where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("DataPipeline.SetTaskStatus" :: Prelude.ByteString),
+              Data.=# ("DataPipeline.SetTaskStatus" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SetTaskStatus where
+instance Data.ToJSON SetTaskStatus where
   toJSON SetTaskStatus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("errorStackTrace" Core..=)
+          [ ("errorId" Data..=) Prelude.<$> errorId,
+            ("errorMessage" Data..=) Prelude.<$> errorMessage,
+            ("errorStackTrace" Data..=)
               Prelude.<$> errorStackTrace,
-            ("errorId" Core..=) Prelude.<$> errorId,
-            ("errorMessage" Core..=) Prelude.<$> errorMessage,
-            Prelude.Just ("taskId" Core..= taskId),
-            Prelude.Just ("taskStatus" Core..= taskStatus)
+            Prelude.Just ("taskId" Data..= taskId),
+            Prelude.Just ("taskStatus" Data..= taskStatus)
           ]
       )
 
-instance Core.ToPath SetTaskStatus where
+instance Data.ToPath SetTaskStatus where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SetTaskStatus where
+instance Data.ToQuery SetTaskStatus where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the output of SetTaskStatus.

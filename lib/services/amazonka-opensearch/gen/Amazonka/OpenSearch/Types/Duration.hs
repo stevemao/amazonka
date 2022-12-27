@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.Types.Duration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,24 +20,20 @@
 module Amazonka.OpenSearch.Types.Duration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpenSearch.Types.TimeUnit
 import qualified Amazonka.Prelude as Prelude
 
--- | The maintenance schedule duration: duration value and duration unit. See
--- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/auto-tune.html Auto-Tune for Amazon OpenSearch Service>
--- for more information.
+-- | The duration of a maintenance schedule. For more information, see
+-- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/auto-tune.html Auto-Tune for Amazon OpenSearch Service>.
 --
 -- /See:/ 'newDuration' smart constructor.
 data Duration = Duration'
-  { -- | Integer to specify the value of a maintenance schedule duration. See
-    -- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/auto-tune.html Auto-Tune for Amazon OpenSearch Service>
-    -- for more information.
-    value :: Prelude.Maybe Prelude.Natural,
-    -- | The unit of a maintenance schedule duration. Valid value is HOURS. See
-    -- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/auto-tune.html Auto-Tune for Amazon OpenSearch Service>
-    -- for more information.
-    unit :: Prelude.Maybe TimeUnit
+  { -- | The unit of measurement for the duration of a maintenance schedule.
+    unit :: Prelude.Maybe TimeUnit,
+    -- | Integer to specify the value of a maintenance schedule duration.
+    value :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -49,56 +45,48 @@ data Duration = Duration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'duration_value' - Integer to specify the value of a maintenance schedule duration. See
--- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/auto-tune.html Auto-Tune for Amazon OpenSearch Service>
--- for more information.
+-- 'unit', 'duration_unit' - The unit of measurement for the duration of a maintenance schedule.
 --
--- 'unit', 'duration_unit' - The unit of a maintenance schedule duration. Valid value is HOURS. See
--- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/auto-tune.html Auto-Tune for Amazon OpenSearch Service>
--- for more information.
+-- 'value', 'duration_value' - Integer to specify the value of a maintenance schedule duration.
 newDuration ::
   Duration
 newDuration =
   Duration'
-    { value = Prelude.Nothing,
-      unit = Prelude.Nothing
+    { unit = Prelude.Nothing,
+      value = Prelude.Nothing
     }
 
--- | Integer to specify the value of a maintenance schedule duration. See
--- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/auto-tune.html Auto-Tune for Amazon OpenSearch Service>
--- for more information.
-duration_value :: Lens.Lens' Duration (Prelude.Maybe Prelude.Natural)
-duration_value = Lens.lens (\Duration' {value} -> value) (\s@Duration' {} a -> s {value = a} :: Duration)
-
--- | The unit of a maintenance schedule duration. Valid value is HOURS. See
--- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/auto-tune.html Auto-Tune for Amazon OpenSearch Service>
--- for more information.
+-- | The unit of measurement for the duration of a maintenance schedule.
 duration_unit :: Lens.Lens' Duration (Prelude.Maybe TimeUnit)
 duration_unit = Lens.lens (\Duration' {unit} -> unit) (\s@Duration' {} a -> s {unit = a} :: Duration)
 
-instance Core.FromJSON Duration where
+-- | Integer to specify the value of a maintenance schedule duration.
+duration_value :: Lens.Lens' Duration (Prelude.Maybe Prelude.Natural)
+duration_value = Lens.lens (\Duration' {value} -> value) (\s@Duration' {} a -> s {value = a} :: Duration)
+
+instance Data.FromJSON Duration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Duration"
       ( \x ->
           Duration'
-            Prelude.<$> (x Core..:? "Value") Prelude.<*> (x Core..:? "Unit")
+            Prelude.<$> (x Data..:? "Unit") Prelude.<*> (x Data..:? "Value")
       )
 
 instance Prelude.Hashable Duration where
   hashWithSalt _salt Duration' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` unit
+    _salt `Prelude.hashWithSalt` unit
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData Duration where
   rnf Duration' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf unit
+    Prelude.rnf unit `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON Duration where
+instance Data.ToJSON Duration where
   toJSON Duration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Value" Core..=) Prelude.<$> value,
-            ("Unit" Core..=) Prelude.<$> unit
+          [ ("Unit" Data..=) Prelude.<$> unit,
+            ("Value" Data..=) Prelude.<$> value
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAF.DeleteSizeConstraintSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -66,7 +66,8 @@ module Amazonka.WAF.DeleteSizeConstraintSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -125,12 +126,13 @@ instance Core.AWSRequest DeleteSizeConstraintSet where
   type
     AWSResponse DeleteSizeConstraintSet =
       DeleteSizeConstraintSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteSizeConstraintSetResponse'
-            Prelude.<$> (x Core..?> "ChangeToken")
+            Prelude.<$> (x Data..?> "ChangeToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -144,35 +146,35 @@ instance Prelude.NFData DeleteSizeConstraintSet where
     Prelude.rnf sizeConstraintSetId
       `Prelude.seq` Prelude.rnf changeToken
 
-instance Core.ToHeaders DeleteSizeConstraintSet where
+instance Data.ToHeaders DeleteSizeConstraintSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_20150824.DeleteSizeConstraintSet" ::
+              Data.=# ( "AWSWAF_20150824.DeleteSizeConstraintSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteSizeConstraintSet where
+instance Data.ToJSON DeleteSizeConstraintSet where
   toJSON DeleteSizeConstraintSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("SizeConstraintSetId" Core..= sizeConstraintSetId),
-            Prelude.Just ("ChangeToken" Core..= changeToken)
+              ("SizeConstraintSetId" Data..= sizeConstraintSetId),
+            Prelude.Just ("ChangeToken" Data..= changeToken)
           ]
       )
 
-instance Core.ToPath DeleteSizeConstraintSet where
+instance Data.ToPath DeleteSizeConstraintSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteSizeConstraintSet where
+instance Data.ToQuery DeleteSizeConstraintSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteSizeConstraintSetResponse' smart constructor.

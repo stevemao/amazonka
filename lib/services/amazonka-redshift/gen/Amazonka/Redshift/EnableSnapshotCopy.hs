@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.EnableSnapshotCopy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.Redshift.EnableSnapshotCopy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -187,13 +188,14 @@ instance Core.AWSRequest EnableSnapshotCopy where
   type
     AWSResponse EnableSnapshotCopy =
       EnableSnapshotCopyResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "EnableSnapshotCopyResult"
       ( \s h x ->
           EnableSnapshotCopyResponse'
-            Prelude.<$> (x Core..@? "Cluster")
+            Prelude.<$> (x Data..@? "Cluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -214,26 +216,26 @@ instance Prelude.NFData EnableSnapshotCopy where
       `Prelude.seq` Prelude.rnf clusterIdentifier
       `Prelude.seq` Prelude.rnf destinationRegion
 
-instance Core.ToHeaders EnableSnapshotCopy where
+instance Data.ToHeaders EnableSnapshotCopy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath EnableSnapshotCopy where
+instance Data.ToPath EnableSnapshotCopy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery EnableSnapshotCopy where
+instance Data.ToQuery EnableSnapshotCopy where
   toQuery EnableSnapshotCopy' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("EnableSnapshotCopy" :: Prelude.ByteString),
+          Data.=: ("EnableSnapshotCopy" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
         "ManualSnapshotRetentionPeriod"
-          Core.=: manualSnapshotRetentionPeriod,
-        "RetentionPeriod" Core.=: retentionPeriod,
+          Data.=: manualSnapshotRetentionPeriod,
+        "RetentionPeriod" Data.=: retentionPeriod,
         "SnapshotCopyGrantName"
-          Core.=: snapshotCopyGrantName,
-        "ClusterIdentifier" Core.=: clusterIdentifier,
-        "DestinationRegion" Core.=: destinationRegion
+          Data.=: snapshotCopyGrantName,
+        "ClusterIdentifier" Data.=: clusterIdentifier,
+        "DestinationRegion" Data.=: destinationRegion
       ]
 
 -- | /See:/ 'newEnableSnapshotCopyResponse' smart constructor.

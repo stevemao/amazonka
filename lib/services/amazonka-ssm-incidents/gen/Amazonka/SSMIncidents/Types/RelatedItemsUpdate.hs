@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSMIncidents.Types.RelatedItemsUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSMIncidents.Types.RelatedItemsUpdate where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSMIncidents.Types.ItemIdentifier
 import Amazonka.SSMIncidents.Types.RelatedItem
@@ -29,10 +30,10 @@ import Amazonka.SSMIncidents.Types.RelatedItem
 --
 -- /See:/ 'newRelatedItemsUpdate' smart constructor.
 data RelatedItemsUpdate = RelatedItemsUpdate'
-  { -- | Details about the related item you\'re deleting.
-    itemToRemove :: Prelude.Maybe ItemIdentifier,
-    -- | Details about the related item you\'re adding.
-    itemToAdd :: Prelude.Maybe RelatedItem
+  { -- | Details about the related item you\'re adding.
+    itemToAdd :: Prelude.Maybe RelatedItem,
+    -- | Details about the related item you\'re deleting.
+    itemToRemove :: Prelude.Maybe ItemIdentifier
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,40 +45,40 @@ data RelatedItemsUpdate = RelatedItemsUpdate'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'itemToRemove', 'relatedItemsUpdate_itemToRemove' - Details about the related item you\'re deleting.
---
 -- 'itemToAdd', 'relatedItemsUpdate_itemToAdd' - Details about the related item you\'re adding.
+--
+-- 'itemToRemove', 'relatedItemsUpdate_itemToRemove' - Details about the related item you\'re deleting.
 newRelatedItemsUpdate ::
   RelatedItemsUpdate
 newRelatedItemsUpdate =
   RelatedItemsUpdate'
-    { itemToRemove = Prelude.Nothing,
-      itemToAdd = Prelude.Nothing
+    { itemToAdd = Prelude.Nothing,
+      itemToRemove = Prelude.Nothing
     }
-
--- | Details about the related item you\'re deleting.
-relatedItemsUpdate_itemToRemove :: Lens.Lens' RelatedItemsUpdate (Prelude.Maybe ItemIdentifier)
-relatedItemsUpdate_itemToRemove = Lens.lens (\RelatedItemsUpdate' {itemToRemove} -> itemToRemove) (\s@RelatedItemsUpdate' {} a -> s {itemToRemove = a} :: RelatedItemsUpdate)
 
 -- | Details about the related item you\'re adding.
 relatedItemsUpdate_itemToAdd :: Lens.Lens' RelatedItemsUpdate (Prelude.Maybe RelatedItem)
 relatedItemsUpdate_itemToAdd = Lens.lens (\RelatedItemsUpdate' {itemToAdd} -> itemToAdd) (\s@RelatedItemsUpdate' {} a -> s {itemToAdd = a} :: RelatedItemsUpdate)
 
+-- | Details about the related item you\'re deleting.
+relatedItemsUpdate_itemToRemove :: Lens.Lens' RelatedItemsUpdate (Prelude.Maybe ItemIdentifier)
+relatedItemsUpdate_itemToRemove = Lens.lens (\RelatedItemsUpdate' {itemToRemove} -> itemToRemove) (\s@RelatedItemsUpdate' {} a -> s {itemToRemove = a} :: RelatedItemsUpdate)
+
 instance Prelude.Hashable RelatedItemsUpdate where
   hashWithSalt _salt RelatedItemsUpdate' {..} =
-    _salt `Prelude.hashWithSalt` itemToRemove
-      `Prelude.hashWithSalt` itemToAdd
+    _salt `Prelude.hashWithSalt` itemToAdd
+      `Prelude.hashWithSalt` itemToRemove
 
 instance Prelude.NFData RelatedItemsUpdate where
   rnf RelatedItemsUpdate' {..} =
-    Prelude.rnf itemToRemove
-      `Prelude.seq` Prelude.rnf itemToAdd
+    Prelude.rnf itemToAdd
+      `Prelude.seq` Prelude.rnf itemToRemove
 
-instance Core.ToJSON RelatedItemsUpdate where
+instance Data.ToJSON RelatedItemsUpdate where
   toJSON RelatedItemsUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("itemToRemove" Core..=) Prelude.<$> itemToRemove,
-            ("itemToAdd" Core..=) Prelude.<$> itemToAdd
+          [ ("itemToAdd" Data..=) Prelude.<$> itemToAdd,
+            ("itemToRemove" Data..=) Prelude.<$> itemToRemove
           ]
       )

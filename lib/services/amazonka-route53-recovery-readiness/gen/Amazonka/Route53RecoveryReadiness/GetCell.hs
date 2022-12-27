@@ -14,13 +14,15 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryReadiness.GetCell
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about a Cell.
+-- Gets information about a cell including cell name, cell Amazon Resource
+-- Name (ARN), ARNs of nested cells for this cell, and a list of those cell
+-- ARNs with their associated recovery group ARNs.
 module Amazonka.Route53RecoveryReadiness.GetCell
   ( -- * Creating a Request
     GetCell (..),
@@ -34,17 +36,18 @@ module Amazonka.Route53RecoveryReadiness.GetCell
     newGetCellResponse,
 
     -- * Response Lenses
+    getCellResponse_cellArn,
+    getCellResponse_cellName,
     getCellResponse_cells,
     getCellResponse_parentReadinessScopes,
-    getCellResponse_cellName,
-    getCellResponse_cellArn,
     getCellResponse_tags,
     getCellResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,7 +55,7 @@ import Amazonka.Route53RecoveryReadiness.Types
 
 -- | /See:/ 'newGetCell' smart constructor.
 data GetCell = GetCell'
-  { -- | The Cell to get
+  { -- | The name of the cell.
     cellName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -65,7 +68,7 @@ data GetCell = GetCell'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'cellName', 'getCell_cellName' - The Cell to get
+-- 'cellName', 'getCell_cellName' - The name of the cell.
 newGetCell ::
   -- | 'cellName'
   Prelude.Text ->
@@ -73,24 +76,25 @@ newGetCell ::
 newGetCell pCellName_ =
   GetCell' {cellName = pCellName_}
 
--- | The Cell to get
+-- | The name of the cell.
 getCell_cellName :: Lens.Lens' GetCell Prelude.Text
 getCell_cellName = Lens.lens (\GetCell' {cellName} -> cellName) (\s@GetCell' {} a -> s {cellName = a} :: GetCell)
 
 instance Core.AWSRequest GetCell where
   type AWSResponse GetCell = GetCellResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetCellResponse'
-            Prelude.<$> (x Core..?> "cells" Core..!@ Prelude.mempty)
-            Prelude.<*> ( x Core..?> "parentReadinessScopes"
+            Prelude.<$> (x Data..?> "cellArn")
+            Prelude.<*> (x Data..?> "cellName")
+            Prelude.<*> (x Data..?> "cells" Core..!@ Prelude.mempty)
+            Prelude.<*> ( x Data..?> "parentReadinessScopes"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "cellName")
-            Prelude.<*> (x Core..?> "cellArn")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -101,34 +105,37 @@ instance Prelude.Hashable GetCell where
 instance Prelude.NFData GetCell where
   rnf GetCell' {..} = Prelude.rnf cellName
 
-instance Core.ToHeaders GetCell where
+instance Data.ToHeaders GetCell where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetCell where
+instance Data.ToPath GetCell where
   toPath GetCell' {..} =
-    Prelude.mconcat ["/cells/", Core.toBS cellName]
+    Prelude.mconcat ["/cells/", Data.toBS cellName]
 
-instance Core.ToQuery GetCell where
+instance Data.ToQuery GetCell where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetCellResponse' smart constructor.
 data GetCellResponse = GetCellResponse'
-  { -- | A list of Cell arns
-    cells :: Prelude.Maybe [Prelude.Text],
-    -- | A list of Cell ARNs and\/or RecoveryGroup ARNs
-    parentReadinessScopes :: Prelude.Maybe [Prelude.Text],
-    -- | The name of the Cell
-    cellName :: Prelude.Maybe Prelude.Text,
-    -- | The arn for the Cell
+  { -- | The Amazon Resource Name (ARN) for the cell.
     cellArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the cell.
+    cellName :: Prelude.Maybe Prelude.Text,
+    -- | A list of cell ARNs.
+    cells :: Prelude.Maybe [Prelude.Text],
+    -- | The readiness scope for the cell, which can be a cell Amazon Resource
+    -- Name (ARN) or a recovery group ARN. This is a list but currently can
+    -- have only one element.
+    parentReadinessScopes :: Prelude.Maybe [Prelude.Text],
+    -- | Tags on the resources.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -143,15 +150,17 @@ data GetCellResponse = GetCellResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'cells', 'getCellResponse_cells' - A list of Cell arns
+-- 'cellArn', 'getCellResponse_cellArn' - The Amazon Resource Name (ARN) for the cell.
 --
--- 'parentReadinessScopes', 'getCellResponse_parentReadinessScopes' - A list of Cell ARNs and\/or RecoveryGroup ARNs
+-- 'cellName', 'getCellResponse_cellName' - The name of the cell.
 --
--- 'cellName', 'getCellResponse_cellName' - The name of the Cell
+-- 'cells', 'getCellResponse_cells' - A list of cell ARNs.
 --
--- 'cellArn', 'getCellResponse_cellArn' - The arn for the Cell
+-- 'parentReadinessScopes', 'getCellResponse_parentReadinessScopes' - The readiness scope for the cell, which can be a cell Amazon Resource
+-- Name (ARN) or a recovery group ARN. This is a list but currently can
+-- have only one element.
 --
--- 'tags', 'getCellResponse_tags' - Undocumented member.
+-- 'tags', 'getCellResponse_tags' - Tags on the resources.
 --
 -- 'httpStatus', 'getCellResponse_httpStatus' - The response's http status code.
 newGetCellResponse ::
@@ -160,31 +169,33 @@ newGetCellResponse ::
   GetCellResponse
 newGetCellResponse pHttpStatus_ =
   GetCellResponse'
-    { cells = Prelude.Nothing,
-      parentReadinessScopes = Prelude.Nothing,
+    { cellArn = Prelude.Nothing,
       cellName = Prelude.Nothing,
-      cellArn = Prelude.Nothing,
+      cells = Prelude.Nothing,
+      parentReadinessScopes = Prelude.Nothing,
       tags = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | A list of Cell arns
-getCellResponse_cells :: Lens.Lens' GetCellResponse (Prelude.Maybe [Prelude.Text])
-getCellResponse_cells = Lens.lens (\GetCellResponse' {cells} -> cells) (\s@GetCellResponse' {} a -> s {cells = a} :: GetCellResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | A list of Cell ARNs and\/or RecoveryGroup ARNs
-getCellResponse_parentReadinessScopes :: Lens.Lens' GetCellResponse (Prelude.Maybe [Prelude.Text])
-getCellResponse_parentReadinessScopes = Lens.lens (\GetCellResponse' {parentReadinessScopes} -> parentReadinessScopes) (\s@GetCellResponse' {} a -> s {parentReadinessScopes = a} :: GetCellResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | The name of the Cell
-getCellResponse_cellName :: Lens.Lens' GetCellResponse (Prelude.Maybe Prelude.Text)
-getCellResponse_cellName = Lens.lens (\GetCellResponse' {cellName} -> cellName) (\s@GetCellResponse' {} a -> s {cellName = a} :: GetCellResponse)
-
--- | The arn for the Cell
+-- | The Amazon Resource Name (ARN) for the cell.
 getCellResponse_cellArn :: Lens.Lens' GetCellResponse (Prelude.Maybe Prelude.Text)
 getCellResponse_cellArn = Lens.lens (\GetCellResponse' {cellArn} -> cellArn) (\s@GetCellResponse' {} a -> s {cellArn = a} :: GetCellResponse)
 
--- | Undocumented member.
+-- | The name of the cell.
+getCellResponse_cellName :: Lens.Lens' GetCellResponse (Prelude.Maybe Prelude.Text)
+getCellResponse_cellName = Lens.lens (\GetCellResponse' {cellName} -> cellName) (\s@GetCellResponse' {} a -> s {cellName = a} :: GetCellResponse)
+
+-- | A list of cell ARNs.
+getCellResponse_cells :: Lens.Lens' GetCellResponse (Prelude.Maybe [Prelude.Text])
+getCellResponse_cells = Lens.lens (\GetCellResponse' {cells} -> cells) (\s@GetCellResponse' {} a -> s {cells = a} :: GetCellResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The readiness scope for the cell, which can be a cell Amazon Resource
+-- Name (ARN) or a recovery group ARN. This is a list but currently can
+-- have only one element.
+getCellResponse_parentReadinessScopes :: Lens.Lens' GetCellResponse (Prelude.Maybe [Prelude.Text])
+getCellResponse_parentReadinessScopes = Lens.lens (\GetCellResponse' {parentReadinessScopes} -> parentReadinessScopes) (\s@GetCellResponse' {} a -> s {parentReadinessScopes = a} :: GetCellResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | Tags on the resources.
 getCellResponse_tags :: Lens.Lens' GetCellResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 getCellResponse_tags = Lens.lens (\GetCellResponse' {tags} -> tags) (\s@GetCellResponse' {} a -> s {tags = a} :: GetCellResponse) Prelude.. Lens.mapping Lens.coerced
 
@@ -194,9 +205,9 @@ getCellResponse_httpStatus = Lens.lens (\GetCellResponse' {httpStatus} -> httpSt
 
 instance Prelude.NFData GetCellResponse where
   rnf GetCellResponse' {..} =
-    Prelude.rnf cells
-      `Prelude.seq` Prelude.rnf parentReadinessScopes
+    Prelude.rnf cellArn
       `Prelude.seq` Prelude.rnf cellName
-      `Prelude.seq` Prelude.rnf cellArn
+      `Prelude.seq` Prelude.rnf cells
+      `Prelude.seq` Prelude.rnf parentReadinessScopes
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus

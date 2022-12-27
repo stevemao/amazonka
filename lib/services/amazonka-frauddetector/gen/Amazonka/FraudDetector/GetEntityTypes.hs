@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.GetEntityTypes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,9 +33,9 @@ module Amazonka.FraudDetector.GetEntityTypes
     newGetEntityTypes,
 
     -- * Request Lenses
-    getEntityTypes_nextToken,
-    getEntityTypes_name,
     getEntityTypes_maxResults,
+    getEntityTypes_name,
+    getEntityTypes_nextToken,
 
     -- * Destructuring the Response
     GetEntityTypesResponse (..),
@@ -49,20 +49,21 @@ module Amazonka.FraudDetector.GetEntityTypes
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetEntityTypes' smart constructor.
 data GetEntityTypes = GetEntityTypes'
-  { -- | The next token for the subsequent request.
-    nextToken :: Prelude.Maybe Prelude.Text,
+  { -- | The maximum number of objects to return for the request.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The name.
     name :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of objects to return for the request.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    -- | The next token for the subsequent request.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -74,87 +75,88 @@ data GetEntityTypes = GetEntityTypes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'getEntityTypes_nextToken' - The next token for the subsequent request.
+-- 'maxResults', 'getEntityTypes_maxResults' - The maximum number of objects to return for the request.
 --
 -- 'name', 'getEntityTypes_name' - The name.
 --
--- 'maxResults', 'getEntityTypes_maxResults' - The maximum number of objects to return for the request.
+-- 'nextToken', 'getEntityTypes_nextToken' - The next token for the subsequent request.
 newGetEntityTypes ::
   GetEntityTypes
 newGetEntityTypes =
   GetEntityTypes'
-    { nextToken = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
       name = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
-
--- | The next token for the subsequent request.
-getEntityTypes_nextToken :: Lens.Lens' GetEntityTypes (Prelude.Maybe Prelude.Text)
-getEntityTypes_nextToken = Lens.lens (\GetEntityTypes' {nextToken} -> nextToken) (\s@GetEntityTypes' {} a -> s {nextToken = a} :: GetEntityTypes)
-
--- | The name.
-getEntityTypes_name :: Lens.Lens' GetEntityTypes (Prelude.Maybe Prelude.Text)
-getEntityTypes_name = Lens.lens (\GetEntityTypes' {name} -> name) (\s@GetEntityTypes' {} a -> s {name = a} :: GetEntityTypes)
 
 -- | The maximum number of objects to return for the request.
 getEntityTypes_maxResults :: Lens.Lens' GetEntityTypes (Prelude.Maybe Prelude.Natural)
 getEntityTypes_maxResults = Lens.lens (\GetEntityTypes' {maxResults} -> maxResults) (\s@GetEntityTypes' {} a -> s {maxResults = a} :: GetEntityTypes)
 
+-- | The name.
+getEntityTypes_name :: Lens.Lens' GetEntityTypes (Prelude.Maybe Prelude.Text)
+getEntityTypes_name = Lens.lens (\GetEntityTypes' {name} -> name) (\s@GetEntityTypes' {} a -> s {name = a} :: GetEntityTypes)
+
+-- | The next token for the subsequent request.
+getEntityTypes_nextToken :: Lens.Lens' GetEntityTypes (Prelude.Maybe Prelude.Text)
+getEntityTypes_nextToken = Lens.lens (\GetEntityTypes' {nextToken} -> nextToken) (\s@GetEntityTypes' {} a -> s {nextToken = a} :: GetEntityTypes)
+
 instance Core.AWSRequest GetEntityTypes where
   type
     AWSResponse GetEntityTypes =
       GetEntityTypesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetEntityTypesResponse'
-            Prelude.<$> (x Core..?> "entityTypes" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "entityTypes" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetEntityTypes where
   hashWithSalt _salt GetEntityTypes' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData GetEntityTypes where
   rnf GetEntityTypes' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders GetEntityTypes where
+instance Data.ToHeaders GetEntityTypes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.GetEntityTypes" ::
+              Data.=# ( "AWSHawksNestServiceFacade.GetEntityTypes" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetEntityTypes where
+instance Data.ToJSON GetEntityTypes where
   toJSON GetEntityTypes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("name" Core..=) Prelude.<$> name,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("name" Data..=) Prelude.<$> name,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath GetEntityTypes where
+instance Data.ToPath GetEntityTypes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetEntityTypes where
+instance Data.ToQuery GetEntityTypes where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetEntityTypesResponse' smart constructor.

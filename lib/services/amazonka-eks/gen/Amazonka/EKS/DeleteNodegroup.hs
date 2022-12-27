@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.DeleteNodegroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.EKS.DeleteNodegroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EKS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,12 +95,13 @@ instance Core.AWSRequest DeleteNodegroup where
   type
     AWSResponse DeleteNodegroup =
       DeleteNodegroupResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteNodegroupResponse'
-            Prelude.<$> (x Core..?> "nodegroup")
+            Prelude.<$> (x Data..?> "nodegroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -113,27 +115,27 @@ instance Prelude.NFData DeleteNodegroup where
     Prelude.rnf clusterName
       `Prelude.seq` Prelude.rnf nodegroupName
 
-instance Core.ToHeaders DeleteNodegroup where
+instance Data.ToHeaders DeleteNodegroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteNodegroup where
+instance Data.ToPath DeleteNodegroup where
   toPath DeleteNodegroup' {..} =
     Prelude.mconcat
       [ "/clusters/",
-        Core.toBS clusterName,
+        Data.toBS clusterName,
         "/node-groups/",
-        Core.toBS nodegroupName
+        Data.toBS nodegroupName
       ]
 
-instance Core.ToQuery DeleteNodegroup where
+instance Data.ToQuery DeleteNodegroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteNodegroupResponse' smart constructor.

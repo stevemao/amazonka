@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GreengrassV2.ListEffectiveDeployments
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.GreengrassV2.ListEffectiveDeployments
     newListEffectiveDeployments,
 
     -- * Request Lenses
-    listEffectiveDeployments_nextToken,
     listEffectiveDeployments_maxResults,
+    listEffectiveDeployments_nextToken,
     listEffectiveDeployments_coreDeviceThingName,
 
     -- * Destructuring the Response
@@ -39,25 +39,26 @@ module Amazonka.GreengrassV2.ListEffectiveDeployments
     newListEffectiveDeploymentsResponse,
 
     -- * Response Lenses
-    listEffectiveDeploymentsResponse_nextToken,
     listEffectiveDeploymentsResponse_effectiveDeployments,
+    listEffectiveDeploymentsResponse_nextToken,
     listEffectiveDeploymentsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GreengrassV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListEffectiveDeployments' smart constructor.
 data ListEffectiveDeployments = ListEffectiveDeployments'
-  { -- | The token to be used for the next set of paginated results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to be returned per paginated request.
+  { -- | The maximum number of results to be returned per paginated request.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to be used for the next set of paginated results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the core device. This is also the name of the IoT thing.
     coreDeviceThingName :: Prelude.Text
   }
@@ -71,9 +72,9 @@ data ListEffectiveDeployments = ListEffectiveDeployments'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listEffectiveDeployments_nextToken' - The token to be used for the next set of paginated results.
---
 -- 'maxResults', 'listEffectiveDeployments_maxResults' - The maximum number of results to be returned per paginated request.
+--
+-- 'nextToken', 'listEffectiveDeployments_nextToken' - The token to be used for the next set of paginated results.
 --
 -- 'coreDeviceThingName', 'listEffectiveDeployments_coreDeviceThingName' - The name of the core device. This is also the name of the IoT thing.
 newListEffectiveDeployments ::
@@ -82,19 +83,19 @@ newListEffectiveDeployments ::
   ListEffectiveDeployments
 newListEffectiveDeployments pCoreDeviceThingName_ =
   ListEffectiveDeployments'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       coreDeviceThingName = pCoreDeviceThingName_
     }
-
--- | The token to be used for the next set of paginated results.
-listEffectiveDeployments_nextToken :: Lens.Lens' ListEffectiveDeployments (Prelude.Maybe Prelude.Text)
-listEffectiveDeployments_nextToken = Lens.lens (\ListEffectiveDeployments' {nextToken} -> nextToken) (\s@ListEffectiveDeployments' {} a -> s {nextToken = a} :: ListEffectiveDeployments)
 
 -- | The maximum number of results to be returned per paginated request.
 listEffectiveDeployments_maxResults :: Lens.Lens' ListEffectiveDeployments (Prelude.Maybe Prelude.Natural)
 listEffectiveDeployments_maxResults = Lens.lens (\ListEffectiveDeployments' {maxResults} -> maxResults) (\s@ListEffectiveDeployments' {} a -> s {maxResults = a} :: ListEffectiveDeployments)
+
+-- | The token to be used for the next set of paginated results.
+listEffectiveDeployments_nextToken :: Lens.Lens' ListEffectiveDeployments (Prelude.Maybe Prelude.Text)
+listEffectiveDeployments_nextToken = Lens.lens (\ListEffectiveDeployments' {nextToken} -> nextToken) (\s@ListEffectiveDeployments' {} a -> s {nextToken = a} :: ListEffectiveDeployments)
 
 -- | The name of the core device. This is also the name of the IoT thing.
 listEffectiveDeployments_coreDeviceThingName :: Lens.Lens' ListEffectiveDeployments Prelude.Text
@@ -126,63 +127,56 @@ instance Core.AWSRequest ListEffectiveDeployments where
   type
     AWSResponse ListEffectiveDeployments =
       ListEffectiveDeploymentsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListEffectiveDeploymentsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> ( x Core..?> "effectiveDeployments"
+            Prelude.<$> ( x Data..?> "effectiveDeployments"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListEffectiveDeployments where
   hashWithSalt _salt ListEffectiveDeployments' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` coreDeviceThingName
 
 instance Prelude.NFData ListEffectiveDeployments where
   rnf ListEffectiveDeployments' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf coreDeviceThingName
 
-instance Core.ToHeaders ListEffectiveDeployments where
-  toHeaders =
-    Prelude.const
-      ( Prelude.mconcat
-          [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
-                          Prelude.ByteString
-                      )
-          ]
-      )
+instance Data.ToHeaders ListEffectiveDeployments where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListEffectiveDeployments where
+instance Data.ToPath ListEffectiveDeployments where
   toPath ListEffectiveDeployments' {..} =
     Prelude.mconcat
       [ "/greengrass/v2/coreDevices/",
-        Core.toBS coreDeviceThingName,
+        Data.toBS coreDeviceThingName,
         "/effectiveDeployments"
       ]
 
-instance Core.ToQuery ListEffectiveDeployments where
+instance Data.ToQuery ListEffectiveDeployments where
   toQuery ListEffectiveDeployments' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListEffectiveDeploymentsResponse' smart constructor.
 data ListEffectiveDeploymentsResponse = ListEffectiveDeploymentsResponse'
-  { -- | The token for the next set of results, or null if there are no
+  { -- | A list that summarizes each deployment on the core device.
+    effectiveDeployments :: Prelude.Maybe [EffectiveDeployment],
+    -- | The token for the next set of results, or null if there are no
     -- additional results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | A list that summarizes each deployment on the core device.
-    effectiveDeployments :: Prelude.Maybe [EffectiveDeployment],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -196,10 +190,10 @@ data ListEffectiveDeploymentsResponse = ListEffectiveDeploymentsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'effectiveDeployments', 'listEffectiveDeploymentsResponse_effectiveDeployments' - A list that summarizes each deployment on the core device.
+--
 -- 'nextToken', 'listEffectiveDeploymentsResponse_nextToken' - The token for the next set of results, or null if there are no
 -- additional results.
---
--- 'effectiveDeployments', 'listEffectiveDeploymentsResponse_effectiveDeployments' - A list that summarizes each deployment on the core device.
 --
 -- 'httpStatus', 'listEffectiveDeploymentsResponse_httpStatus' - The response's http status code.
 newListEffectiveDeploymentsResponse ::
@@ -208,20 +202,20 @@ newListEffectiveDeploymentsResponse ::
   ListEffectiveDeploymentsResponse
 newListEffectiveDeploymentsResponse pHttpStatus_ =
   ListEffectiveDeploymentsResponse'
-    { nextToken =
+    { effectiveDeployments =
         Prelude.Nothing,
-      effectiveDeployments = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | A list that summarizes each deployment on the core device.
+listEffectiveDeploymentsResponse_effectiveDeployments :: Lens.Lens' ListEffectiveDeploymentsResponse (Prelude.Maybe [EffectiveDeployment])
+listEffectiveDeploymentsResponse_effectiveDeployments = Lens.lens (\ListEffectiveDeploymentsResponse' {effectiveDeployments} -> effectiveDeployments) (\s@ListEffectiveDeploymentsResponse' {} a -> s {effectiveDeployments = a} :: ListEffectiveDeploymentsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token for the next set of results, or null if there are no
 -- additional results.
 listEffectiveDeploymentsResponse_nextToken :: Lens.Lens' ListEffectiveDeploymentsResponse (Prelude.Maybe Prelude.Text)
 listEffectiveDeploymentsResponse_nextToken = Lens.lens (\ListEffectiveDeploymentsResponse' {nextToken} -> nextToken) (\s@ListEffectiveDeploymentsResponse' {} a -> s {nextToken = a} :: ListEffectiveDeploymentsResponse)
-
--- | A list that summarizes each deployment on the core device.
-listEffectiveDeploymentsResponse_effectiveDeployments :: Lens.Lens' ListEffectiveDeploymentsResponse (Prelude.Maybe [EffectiveDeployment])
-listEffectiveDeploymentsResponse_effectiveDeployments = Lens.lens (\ListEffectiveDeploymentsResponse' {effectiveDeployments} -> effectiveDeployments) (\s@ListEffectiveDeploymentsResponse' {} a -> s {effectiveDeployments = a} :: ListEffectiveDeploymentsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listEffectiveDeploymentsResponse_httpStatus :: Lens.Lens' ListEffectiveDeploymentsResponse Prelude.Int
@@ -232,6 +226,6 @@ instance
     ListEffectiveDeploymentsResponse
   where
   rnf ListEffectiveDeploymentsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf effectiveDeployments
+    Prelude.rnf effectiveDeployments
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

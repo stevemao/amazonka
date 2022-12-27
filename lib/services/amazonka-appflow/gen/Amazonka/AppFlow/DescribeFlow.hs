@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.DescribeFlow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,29 +34,33 @@ module Amazonka.AppFlow.DescribeFlow
     newDescribeFlowResponse,
 
     -- * Response Lenses
-    describeFlowResponse_lastUpdatedBy,
-    describeFlowResponse_flowArn,
-    describeFlowResponse_lastUpdatedAt,
     describeFlowResponse_createdAt,
     describeFlowResponse_createdBy,
-    describeFlowResponse_tasks,
-    describeFlowResponse_triggerConfig,
+    describeFlowResponse_description,
+    describeFlowResponse_destinationFlowConfigList,
+    describeFlowResponse_flowArn,
     describeFlowResponse_flowName,
-    describeFlowResponse_sourceFlowConfig,
+    describeFlowResponse_flowStatus,
     describeFlowResponse_flowStatusMessage,
     describeFlowResponse_kmsArn,
     describeFlowResponse_lastRunExecutionDetails,
-    describeFlowResponse_flowStatus,
-    describeFlowResponse_destinationFlowConfigList,
-    describeFlowResponse_description,
+    describeFlowResponse_lastRunMetadataCatalogDetails,
+    describeFlowResponse_lastUpdatedAt,
+    describeFlowResponse_lastUpdatedBy,
+    describeFlowResponse_metadataCatalogConfig,
+    describeFlowResponse_schemaVersion,
+    describeFlowResponse_sourceFlowConfig,
     describeFlowResponse_tags,
+    describeFlowResponse_tasks,
+    describeFlowResponse_triggerConfig,
     describeFlowResponse_httpStatus,
   )
 where
 
 import Amazonka.AppFlow.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,29 +97,35 @@ describeFlow_flowName = Lens.lens (\DescribeFlow' {flowName} -> flowName) (\s@De
 
 instance Core.AWSRequest DescribeFlow where
   type AWSResponse DescribeFlow = DescribeFlowResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeFlowResponse'
-            Prelude.<$> (x Core..?> "lastUpdatedBy")
-            Prelude.<*> (x Core..?> "flowArn")
-            Prelude.<*> (x Core..?> "lastUpdatedAt")
-            Prelude.<*> (x Core..?> "createdAt")
-            Prelude.<*> (x Core..?> "createdBy")
-            Prelude.<*> (x Core..?> "tasks" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "triggerConfig")
-            Prelude.<*> (x Core..?> "flowName")
-            Prelude.<*> (x Core..?> "sourceFlowConfig")
-            Prelude.<*> (x Core..?> "flowStatusMessage")
-            Prelude.<*> (x Core..?> "kmsArn")
-            Prelude.<*> (x Core..?> "lastRunExecutionDetails")
-            Prelude.<*> (x Core..?> "flowStatus")
-            Prelude.<*> ( x Core..?> "destinationFlowConfigList"
+            Prelude.<$> (x Data..?> "createdAt")
+            Prelude.<*> (x Data..?> "createdBy")
+            Prelude.<*> (x Data..?> "description")
+            Prelude.<*> ( x Data..?> "destinationFlowConfigList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "description")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "flowArn")
+            Prelude.<*> (x Data..?> "flowName")
+            Prelude.<*> (x Data..?> "flowStatus")
+            Prelude.<*> (x Data..?> "flowStatusMessage")
+            Prelude.<*> (x Data..?> "kmsArn")
+            Prelude.<*> (x Data..?> "lastRunExecutionDetails")
+            Prelude.<*> ( x Data..?> "lastRunMetadataCatalogDetails"
+                            Core..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Data..?> "lastUpdatedAt")
+            Prelude.<*> (x Data..?> "lastUpdatedBy")
+            Prelude.<*> (x Data..?> "metadataCatalogConfig")
+            Prelude.<*> (x Data..?> "schemaVersion")
+            Prelude.<*> (x Data..?> "sourceFlowConfig")
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "tasks" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "triggerConfig")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -126,54 +136,48 @@ instance Prelude.Hashable DescribeFlow where
 instance Prelude.NFData DescribeFlow where
   rnf DescribeFlow' {..} = Prelude.rnf flowName
 
-instance Core.ToHeaders DescribeFlow where
+instance Data.ToHeaders DescribeFlow where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeFlow where
+instance Data.ToJSON DescribeFlow where
   toJSON DescribeFlow' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("flowName" Core..= flowName)]
+          [Prelude.Just ("flowName" Data..= flowName)]
       )
 
-instance Core.ToPath DescribeFlow where
+instance Data.ToPath DescribeFlow where
   toPath = Prelude.const "/describe-flow"
 
-instance Core.ToQuery DescribeFlow where
+instance Data.ToQuery DescribeFlow where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeFlowResponse' smart constructor.
 data DescribeFlowResponse = DescribeFlowResponse'
-  { -- | Specifies the user name of the account that performed the most recent
-    -- update.
-    lastUpdatedBy :: Prelude.Maybe Prelude.Text,
-    -- | The flow\'s Amazon Resource Name (ARN).
-    flowArn :: Prelude.Maybe Prelude.Text,
-    -- | Specifies when the flow was last updated.
-    lastUpdatedAt :: Prelude.Maybe Core.POSIX,
-    -- | Specifies when the flow was created.
-    createdAt :: Prelude.Maybe Core.POSIX,
+  { -- | Specifies when the flow was created.
+    createdAt :: Prelude.Maybe Data.POSIX,
     -- | The ARN of the user who created the flow.
     createdBy :: Prelude.Maybe Prelude.Text,
-    -- | A list of tasks that Amazon AppFlow performs while transferring the data
-    -- in the flow run.
-    tasks :: Prelude.Maybe [Task],
-    -- | The trigger settings that determine how and when the flow runs.
-    triggerConfig :: Prelude.Maybe TriggerConfig,
+    -- | A description of the flow.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The configuration that controls how Amazon AppFlow transfers data to the
+    -- destination connector.
+    destinationFlowConfigList :: Prelude.Maybe [DestinationFlowConfig],
+    -- | The flow\'s Amazon Resource Name (ARN).
+    flowArn :: Prelude.Maybe Prelude.Text,
     -- | The specified name of the flow. Spaces are not allowed. Use underscores
     -- (_) or hyphens (-) only.
     flowName :: Prelude.Maybe Prelude.Text,
-    -- | The configuration that controls how Amazon AppFlow retrieves data from
-    -- the source connector.
-    sourceFlowConfig :: Prelude.Maybe SourceFlowConfig,
+    -- | Indicates the current status of the flow.
+    flowStatus :: Prelude.Maybe FlowStatus,
     -- | Contains an error message if the flow status is in a suspended or error
     -- state. This applies only to scheduled or event-triggered flows.
     flowStatusMessage :: Prelude.Maybe Prelude.Text,
@@ -184,15 +188,38 @@ data DescribeFlowResponse = DescribeFlowResponse'
     kmsArn :: Prelude.Maybe Prelude.Text,
     -- | Describes the details of the most recent flow run.
     lastRunExecutionDetails :: Prelude.Maybe ExecutionDetails,
-    -- | Indicates the current status of the flow.
-    flowStatus :: Prelude.Maybe FlowStatus,
-    -- | The configuration that controls how Amazon AppFlow transfers data to the
-    -- destination connector.
-    destinationFlowConfigList :: Prelude.Maybe [DestinationFlowConfig],
-    -- | A description of the flow.
-    description :: Prelude.Maybe Prelude.Text,
+    -- | Describes the metadata catalog, metadata table, and data partitions that
+    -- Amazon AppFlow used for the associated flow run.
+    lastRunMetadataCatalogDetails :: Prelude.Maybe [MetadataCatalogDetail],
+    -- | Specifies when the flow was last updated.
+    lastUpdatedAt :: Prelude.Maybe Data.POSIX,
+    -- | Specifies the user name of the account that performed the most recent
+    -- update.
+    lastUpdatedBy :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the configuration that Amazon AppFlow uses when it catalogs
+    -- the data that\'s transferred by the associated flow. When Amazon AppFlow
+    -- catalogs the data from a flow, it stores metadata in a data catalog.
+    metadataCatalogConfig :: Prelude.Maybe MetadataCatalogConfig,
+    -- | The version number of your data schema. Amazon AppFlow assigns this
+    -- version number. The version number increases by one when you change any
+    -- of the following settings in your flow configuration:
+    --
+    -- -   Source-to-destination field mappings
+    --
+    -- -   Field data types
+    --
+    -- -   Partition keys
+    schemaVersion :: Prelude.Maybe Prelude.Integer,
+    -- | The configuration that controls how Amazon AppFlow retrieves data from
+    -- the source connector.
+    sourceFlowConfig :: Prelude.Maybe SourceFlowConfig,
     -- | The tags used to organize, track, or control access for your flow.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | A list of tasks that Amazon AppFlow performs while transferring the data
+    -- in the flow run.
+    tasks :: Prelude.Maybe [Task],
+    -- | The trigger settings that determine how and when the flow runs.
+    triggerConfig :: Prelude.Maybe TriggerConfig,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -206,27 +233,21 @@ data DescribeFlowResponse = DescribeFlowResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'lastUpdatedBy', 'describeFlowResponse_lastUpdatedBy' - Specifies the user name of the account that performed the most recent
--- update.
---
--- 'flowArn', 'describeFlowResponse_flowArn' - The flow\'s Amazon Resource Name (ARN).
---
--- 'lastUpdatedAt', 'describeFlowResponse_lastUpdatedAt' - Specifies when the flow was last updated.
---
 -- 'createdAt', 'describeFlowResponse_createdAt' - Specifies when the flow was created.
 --
 -- 'createdBy', 'describeFlowResponse_createdBy' - The ARN of the user who created the flow.
 --
--- 'tasks', 'describeFlowResponse_tasks' - A list of tasks that Amazon AppFlow performs while transferring the data
--- in the flow run.
+-- 'description', 'describeFlowResponse_description' - A description of the flow.
 --
--- 'triggerConfig', 'describeFlowResponse_triggerConfig' - The trigger settings that determine how and when the flow runs.
+-- 'destinationFlowConfigList', 'describeFlowResponse_destinationFlowConfigList' - The configuration that controls how Amazon AppFlow transfers data to the
+-- destination connector.
+--
+-- 'flowArn', 'describeFlowResponse_flowArn' - The flow\'s Amazon Resource Name (ARN).
 --
 -- 'flowName', 'describeFlowResponse_flowName' - The specified name of the flow. Spaces are not allowed. Use underscores
 -- (_) or hyphens (-) only.
 --
--- 'sourceFlowConfig', 'describeFlowResponse_sourceFlowConfig' - The configuration that controls how Amazon AppFlow retrieves data from
--- the source connector.
+-- 'flowStatus', 'describeFlowResponse_flowStatus' - Indicates the current status of the flow.
 --
 -- 'flowStatusMessage', 'describeFlowResponse_flowStatusMessage' - Contains an error message if the flow status is in a suspended or error
 -- state. This applies only to scheduled or event-triggered flows.
@@ -238,14 +259,37 @@ data DescribeFlowResponse = DescribeFlowResponse'
 --
 -- 'lastRunExecutionDetails', 'describeFlowResponse_lastRunExecutionDetails' - Describes the details of the most recent flow run.
 --
--- 'flowStatus', 'describeFlowResponse_flowStatus' - Indicates the current status of the flow.
+-- 'lastRunMetadataCatalogDetails', 'describeFlowResponse_lastRunMetadataCatalogDetails' - Describes the metadata catalog, metadata table, and data partitions that
+-- Amazon AppFlow used for the associated flow run.
 --
--- 'destinationFlowConfigList', 'describeFlowResponse_destinationFlowConfigList' - The configuration that controls how Amazon AppFlow transfers data to the
--- destination connector.
+-- 'lastUpdatedAt', 'describeFlowResponse_lastUpdatedAt' - Specifies when the flow was last updated.
 --
--- 'description', 'describeFlowResponse_description' - A description of the flow.
+-- 'lastUpdatedBy', 'describeFlowResponse_lastUpdatedBy' - Specifies the user name of the account that performed the most recent
+-- update.
+--
+-- 'metadataCatalogConfig', 'describeFlowResponse_metadataCatalogConfig' - Specifies the configuration that Amazon AppFlow uses when it catalogs
+-- the data that\'s transferred by the associated flow. When Amazon AppFlow
+-- catalogs the data from a flow, it stores metadata in a data catalog.
+--
+-- 'schemaVersion', 'describeFlowResponse_schemaVersion' - The version number of your data schema. Amazon AppFlow assigns this
+-- version number. The version number increases by one when you change any
+-- of the following settings in your flow configuration:
+--
+-- -   Source-to-destination field mappings
+--
+-- -   Field data types
+--
+-- -   Partition keys
+--
+-- 'sourceFlowConfig', 'describeFlowResponse_sourceFlowConfig' - The configuration that controls how Amazon AppFlow retrieves data from
+-- the source connector.
 --
 -- 'tags', 'describeFlowResponse_tags' - The tags used to organize, track, or control access for your flow.
+--
+-- 'tasks', 'describeFlowResponse_tasks' - A list of tasks that Amazon AppFlow performs while transferring the data
+-- in the flow run.
+--
+-- 'triggerConfig', 'describeFlowResponse_triggerConfig' - The trigger settings that determine how and when the flow runs.
 --
 -- 'httpStatus', 'describeFlowResponse_httpStatus' - The response's http status code.
 newDescribeFlowResponse ::
@@ -254,65 +298,57 @@ newDescribeFlowResponse ::
   DescribeFlowResponse
 newDescribeFlowResponse pHttpStatus_ =
   DescribeFlowResponse'
-    { lastUpdatedBy =
-        Prelude.Nothing,
-      flowArn = Prelude.Nothing,
-      lastUpdatedAt = Prelude.Nothing,
-      createdAt = Prelude.Nothing,
+    { createdAt = Prelude.Nothing,
       createdBy = Prelude.Nothing,
-      tasks = Prelude.Nothing,
-      triggerConfig = Prelude.Nothing,
+      description = Prelude.Nothing,
+      destinationFlowConfigList = Prelude.Nothing,
+      flowArn = Prelude.Nothing,
       flowName = Prelude.Nothing,
-      sourceFlowConfig = Prelude.Nothing,
+      flowStatus = Prelude.Nothing,
       flowStatusMessage = Prelude.Nothing,
       kmsArn = Prelude.Nothing,
       lastRunExecutionDetails = Prelude.Nothing,
-      flowStatus = Prelude.Nothing,
-      destinationFlowConfigList = Prelude.Nothing,
-      description = Prelude.Nothing,
+      lastRunMetadataCatalogDetails = Prelude.Nothing,
+      lastUpdatedAt = Prelude.Nothing,
+      lastUpdatedBy = Prelude.Nothing,
+      metadataCatalogConfig = Prelude.Nothing,
+      schemaVersion = Prelude.Nothing,
+      sourceFlowConfig = Prelude.Nothing,
       tags = Prelude.Nothing,
+      tasks = Prelude.Nothing,
+      triggerConfig = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | Specifies the user name of the account that performed the most recent
--- update.
-describeFlowResponse_lastUpdatedBy :: Lens.Lens' DescribeFlowResponse (Prelude.Maybe Prelude.Text)
-describeFlowResponse_lastUpdatedBy = Lens.lens (\DescribeFlowResponse' {lastUpdatedBy} -> lastUpdatedBy) (\s@DescribeFlowResponse' {} a -> s {lastUpdatedBy = a} :: DescribeFlowResponse)
-
--- | The flow\'s Amazon Resource Name (ARN).
-describeFlowResponse_flowArn :: Lens.Lens' DescribeFlowResponse (Prelude.Maybe Prelude.Text)
-describeFlowResponse_flowArn = Lens.lens (\DescribeFlowResponse' {flowArn} -> flowArn) (\s@DescribeFlowResponse' {} a -> s {flowArn = a} :: DescribeFlowResponse)
-
--- | Specifies when the flow was last updated.
-describeFlowResponse_lastUpdatedAt :: Lens.Lens' DescribeFlowResponse (Prelude.Maybe Prelude.UTCTime)
-describeFlowResponse_lastUpdatedAt = Lens.lens (\DescribeFlowResponse' {lastUpdatedAt} -> lastUpdatedAt) (\s@DescribeFlowResponse' {} a -> s {lastUpdatedAt = a} :: DescribeFlowResponse) Prelude.. Lens.mapping Core._Time
-
 -- | Specifies when the flow was created.
 describeFlowResponse_createdAt :: Lens.Lens' DescribeFlowResponse (Prelude.Maybe Prelude.UTCTime)
-describeFlowResponse_createdAt = Lens.lens (\DescribeFlowResponse' {createdAt} -> createdAt) (\s@DescribeFlowResponse' {} a -> s {createdAt = a} :: DescribeFlowResponse) Prelude.. Lens.mapping Core._Time
+describeFlowResponse_createdAt = Lens.lens (\DescribeFlowResponse' {createdAt} -> createdAt) (\s@DescribeFlowResponse' {} a -> s {createdAt = a} :: DescribeFlowResponse) Prelude.. Lens.mapping Data._Time
 
 -- | The ARN of the user who created the flow.
 describeFlowResponse_createdBy :: Lens.Lens' DescribeFlowResponse (Prelude.Maybe Prelude.Text)
 describeFlowResponse_createdBy = Lens.lens (\DescribeFlowResponse' {createdBy} -> createdBy) (\s@DescribeFlowResponse' {} a -> s {createdBy = a} :: DescribeFlowResponse)
 
--- | A list of tasks that Amazon AppFlow performs while transferring the data
--- in the flow run.
-describeFlowResponse_tasks :: Lens.Lens' DescribeFlowResponse (Prelude.Maybe [Task])
-describeFlowResponse_tasks = Lens.lens (\DescribeFlowResponse' {tasks} -> tasks) (\s@DescribeFlowResponse' {} a -> s {tasks = a} :: DescribeFlowResponse) Prelude.. Lens.mapping Lens.coerced
+-- | A description of the flow.
+describeFlowResponse_description :: Lens.Lens' DescribeFlowResponse (Prelude.Maybe Prelude.Text)
+describeFlowResponse_description = Lens.lens (\DescribeFlowResponse' {description} -> description) (\s@DescribeFlowResponse' {} a -> s {description = a} :: DescribeFlowResponse)
 
--- | The trigger settings that determine how and when the flow runs.
-describeFlowResponse_triggerConfig :: Lens.Lens' DescribeFlowResponse (Prelude.Maybe TriggerConfig)
-describeFlowResponse_triggerConfig = Lens.lens (\DescribeFlowResponse' {triggerConfig} -> triggerConfig) (\s@DescribeFlowResponse' {} a -> s {triggerConfig = a} :: DescribeFlowResponse)
+-- | The configuration that controls how Amazon AppFlow transfers data to the
+-- destination connector.
+describeFlowResponse_destinationFlowConfigList :: Lens.Lens' DescribeFlowResponse (Prelude.Maybe [DestinationFlowConfig])
+describeFlowResponse_destinationFlowConfigList = Lens.lens (\DescribeFlowResponse' {destinationFlowConfigList} -> destinationFlowConfigList) (\s@DescribeFlowResponse' {} a -> s {destinationFlowConfigList = a} :: DescribeFlowResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The flow\'s Amazon Resource Name (ARN).
+describeFlowResponse_flowArn :: Lens.Lens' DescribeFlowResponse (Prelude.Maybe Prelude.Text)
+describeFlowResponse_flowArn = Lens.lens (\DescribeFlowResponse' {flowArn} -> flowArn) (\s@DescribeFlowResponse' {} a -> s {flowArn = a} :: DescribeFlowResponse)
 
 -- | The specified name of the flow. Spaces are not allowed. Use underscores
 -- (_) or hyphens (-) only.
 describeFlowResponse_flowName :: Lens.Lens' DescribeFlowResponse (Prelude.Maybe Prelude.Text)
 describeFlowResponse_flowName = Lens.lens (\DescribeFlowResponse' {flowName} -> flowName) (\s@DescribeFlowResponse' {} a -> s {flowName = a} :: DescribeFlowResponse)
 
--- | The configuration that controls how Amazon AppFlow retrieves data from
--- the source connector.
-describeFlowResponse_sourceFlowConfig :: Lens.Lens' DescribeFlowResponse (Prelude.Maybe SourceFlowConfig)
-describeFlowResponse_sourceFlowConfig = Lens.lens (\DescribeFlowResponse' {sourceFlowConfig} -> sourceFlowConfig) (\s@DescribeFlowResponse' {} a -> s {sourceFlowConfig = a} :: DescribeFlowResponse)
+-- | Indicates the current status of the flow.
+describeFlowResponse_flowStatus :: Lens.Lens' DescribeFlowResponse (Prelude.Maybe FlowStatus)
+describeFlowResponse_flowStatus = Lens.lens (\DescribeFlowResponse' {flowStatus} -> flowStatus) (\s@DescribeFlowResponse' {} a -> s {flowStatus = a} :: DescribeFlowResponse)
 
 -- | Contains an error message if the flow status is in a suspended or error
 -- state. This applies only to scheduled or event-triggered flows.
@@ -330,22 +366,55 @@ describeFlowResponse_kmsArn = Lens.lens (\DescribeFlowResponse' {kmsArn} -> kmsA
 describeFlowResponse_lastRunExecutionDetails :: Lens.Lens' DescribeFlowResponse (Prelude.Maybe ExecutionDetails)
 describeFlowResponse_lastRunExecutionDetails = Lens.lens (\DescribeFlowResponse' {lastRunExecutionDetails} -> lastRunExecutionDetails) (\s@DescribeFlowResponse' {} a -> s {lastRunExecutionDetails = a} :: DescribeFlowResponse)
 
--- | Indicates the current status of the flow.
-describeFlowResponse_flowStatus :: Lens.Lens' DescribeFlowResponse (Prelude.Maybe FlowStatus)
-describeFlowResponse_flowStatus = Lens.lens (\DescribeFlowResponse' {flowStatus} -> flowStatus) (\s@DescribeFlowResponse' {} a -> s {flowStatus = a} :: DescribeFlowResponse)
+-- | Describes the metadata catalog, metadata table, and data partitions that
+-- Amazon AppFlow used for the associated flow run.
+describeFlowResponse_lastRunMetadataCatalogDetails :: Lens.Lens' DescribeFlowResponse (Prelude.Maybe [MetadataCatalogDetail])
+describeFlowResponse_lastRunMetadataCatalogDetails = Lens.lens (\DescribeFlowResponse' {lastRunMetadataCatalogDetails} -> lastRunMetadataCatalogDetails) (\s@DescribeFlowResponse' {} a -> s {lastRunMetadataCatalogDetails = a} :: DescribeFlowResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | The configuration that controls how Amazon AppFlow transfers data to the
--- destination connector.
-describeFlowResponse_destinationFlowConfigList :: Lens.Lens' DescribeFlowResponse (Prelude.Maybe [DestinationFlowConfig])
-describeFlowResponse_destinationFlowConfigList = Lens.lens (\DescribeFlowResponse' {destinationFlowConfigList} -> destinationFlowConfigList) (\s@DescribeFlowResponse' {} a -> s {destinationFlowConfigList = a} :: DescribeFlowResponse) Prelude.. Lens.mapping Lens.coerced
+-- | Specifies when the flow was last updated.
+describeFlowResponse_lastUpdatedAt :: Lens.Lens' DescribeFlowResponse (Prelude.Maybe Prelude.UTCTime)
+describeFlowResponse_lastUpdatedAt = Lens.lens (\DescribeFlowResponse' {lastUpdatedAt} -> lastUpdatedAt) (\s@DescribeFlowResponse' {} a -> s {lastUpdatedAt = a} :: DescribeFlowResponse) Prelude.. Lens.mapping Data._Time
 
--- | A description of the flow.
-describeFlowResponse_description :: Lens.Lens' DescribeFlowResponse (Prelude.Maybe Prelude.Text)
-describeFlowResponse_description = Lens.lens (\DescribeFlowResponse' {description} -> description) (\s@DescribeFlowResponse' {} a -> s {description = a} :: DescribeFlowResponse)
+-- | Specifies the user name of the account that performed the most recent
+-- update.
+describeFlowResponse_lastUpdatedBy :: Lens.Lens' DescribeFlowResponse (Prelude.Maybe Prelude.Text)
+describeFlowResponse_lastUpdatedBy = Lens.lens (\DescribeFlowResponse' {lastUpdatedBy} -> lastUpdatedBy) (\s@DescribeFlowResponse' {} a -> s {lastUpdatedBy = a} :: DescribeFlowResponse)
+
+-- | Specifies the configuration that Amazon AppFlow uses when it catalogs
+-- the data that\'s transferred by the associated flow. When Amazon AppFlow
+-- catalogs the data from a flow, it stores metadata in a data catalog.
+describeFlowResponse_metadataCatalogConfig :: Lens.Lens' DescribeFlowResponse (Prelude.Maybe MetadataCatalogConfig)
+describeFlowResponse_metadataCatalogConfig = Lens.lens (\DescribeFlowResponse' {metadataCatalogConfig} -> metadataCatalogConfig) (\s@DescribeFlowResponse' {} a -> s {metadataCatalogConfig = a} :: DescribeFlowResponse)
+
+-- | The version number of your data schema. Amazon AppFlow assigns this
+-- version number. The version number increases by one when you change any
+-- of the following settings in your flow configuration:
+--
+-- -   Source-to-destination field mappings
+--
+-- -   Field data types
+--
+-- -   Partition keys
+describeFlowResponse_schemaVersion :: Lens.Lens' DescribeFlowResponse (Prelude.Maybe Prelude.Integer)
+describeFlowResponse_schemaVersion = Lens.lens (\DescribeFlowResponse' {schemaVersion} -> schemaVersion) (\s@DescribeFlowResponse' {} a -> s {schemaVersion = a} :: DescribeFlowResponse)
+
+-- | The configuration that controls how Amazon AppFlow retrieves data from
+-- the source connector.
+describeFlowResponse_sourceFlowConfig :: Lens.Lens' DescribeFlowResponse (Prelude.Maybe SourceFlowConfig)
+describeFlowResponse_sourceFlowConfig = Lens.lens (\DescribeFlowResponse' {sourceFlowConfig} -> sourceFlowConfig) (\s@DescribeFlowResponse' {} a -> s {sourceFlowConfig = a} :: DescribeFlowResponse)
 
 -- | The tags used to organize, track, or control access for your flow.
 describeFlowResponse_tags :: Lens.Lens' DescribeFlowResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 describeFlowResponse_tags = Lens.lens (\DescribeFlowResponse' {tags} -> tags) (\s@DescribeFlowResponse' {} a -> s {tags = a} :: DescribeFlowResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | A list of tasks that Amazon AppFlow performs while transferring the data
+-- in the flow run.
+describeFlowResponse_tasks :: Lens.Lens' DescribeFlowResponse (Prelude.Maybe [Task])
+describeFlowResponse_tasks = Lens.lens (\DescribeFlowResponse' {tasks} -> tasks) (\s@DescribeFlowResponse' {} a -> s {tasks = a} :: DescribeFlowResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The trigger settings that determine how and when the flow runs.
+describeFlowResponse_triggerConfig :: Lens.Lens' DescribeFlowResponse (Prelude.Maybe TriggerConfig)
+describeFlowResponse_triggerConfig = Lens.lens (\DescribeFlowResponse' {triggerConfig} -> triggerConfig) (\s@DescribeFlowResponse' {} a -> s {triggerConfig = a} :: DescribeFlowResponse)
 
 -- | The response's http status code.
 describeFlowResponse_httpStatus :: Lens.Lens' DescribeFlowResponse Prelude.Int
@@ -353,20 +422,23 @@ describeFlowResponse_httpStatus = Lens.lens (\DescribeFlowResponse' {httpStatus}
 
 instance Prelude.NFData DescribeFlowResponse where
   rnf DescribeFlowResponse' {..} =
-    Prelude.rnf lastUpdatedBy
-      `Prelude.seq` Prelude.rnf flowArn
-      `Prelude.seq` Prelude.rnf lastUpdatedAt
-      `Prelude.seq` Prelude.rnf createdAt
+    Prelude.rnf createdAt
       `Prelude.seq` Prelude.rnf createdBy
-      `Prelude.seq` Prelude.rnf tasks
-      `Prelude.seq` Prelude.rnf triggerConfig
+      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf destinationFlowConfigList
+      `Prelude.seq` Prelude.rnf flowArn
       `Prelude.seq` Prelude.rnf flowName
-      `Prelude.seq` Prelude.rnf sourceFlowConfig
+      `Prelude.seq` Prelude.rnf flowStatus
       `Prelude.seq` Prelude.rnf flowStatusMessage
       `Prelude.seq` Prelude.rnf kmsArn
       `Prelude.seq` Prelude.rnf lastRunExecutionDetails
-      `Prelude.seq` Prelude.rnf flowStatus
-      `Prelude.seq` Prelude.rnf destinationFlowConfigList
-      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf lastRunMetadataCatalogDetails
+      `Prelude.seq` Prelude.rnf lastUpdatedAt
+      `Prelude.seq` Prelude.rnf lastUpdatedBy
+      `Prelude.seq` Prelude.rnf metadataCatalogConfig
+      `Prelude.seq` Prelude.rnf schemaVersion
+      `Prelude.seq` Prelude.rnf sourceFlowConfig
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf tasks
+      `Prelude.seq` Prelude.rnf triggerConfig
       `Prelude.seq` Prelude.rnf httpStatus

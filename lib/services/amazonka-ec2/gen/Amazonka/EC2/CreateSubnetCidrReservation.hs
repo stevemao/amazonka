@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.CreateSubnetCidrReservation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,9 +30,9 @@ module Amazonka.EC2.CreateSubnetCidrReservation
     newCreateSubnetCidrReservation,
 
     -- * Request Lenses
-    createSubnetCidrReservation_tagSpecifications,
     createSubnetCidrReservation_description,
     createSubnetCidrReservation_dryRun,
+    createSubnetCidrReservation_tagSpecifications,
     createSubnetCidrReservation_subnetId,
     createSubnetCidrReservation_cidr,
     createSubnetCidrReservation_reservationType,
@@ -48,23 +48,24 @@ module Amazonka.EC2.CreateSubnetCidrReservation
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateSubnetCidrReservation' smart constructor.
 data CreateSubnetCidrReservation = CreateSubnetCidrReservation'
-  { -- | The tags to assign to the subnet CIDR reservation.
-    tagSpecifications :: Prelude.Maybe [TagSpecification],
-    -- | The description to assign to the subnet CIDR reservation.
+  { -- | The description to assign to the subnet CIDR reservation.
     description :: Prelude.Maybe Prelude.Text,
     -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The tags to assign to the subnet CIDR reservation.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
     -- | The ID of the subnet.
     subnetId :: Prelude.Text,
     -- | The IPv4 or IPV6 CIDR range to reserve.
@@ -93,14 +94,14 @@ data CreateSubnetCidrReservation = CreateSubnetCidrReservation'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tagSpecifications', 'createSubnetCidrReservation_tagSpecifications' - The tags to assign to the subnet CIDR reservation.
---
 -- 'description', 'createSubnetCidrReservation_description' - The description to assign to the subnet CIDR reservation.
 --
 -- 'dryRun', 'createSubnetCidrReservation_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'tagSpecifications', 'createSubnetCidrReservation_tagSpecifications' - The tags to assign to the subnet CIDR reservation.
 --
 -- 'subnetId', 'createSubnetCidrReservation_subnetId' - The ID of the subnet.
 --
@@ -131,18 +132,14 @@ newCreateSubnetCidrReservation
   pCidr_
   pReservationType_ =
     CreateSubnetCidrReservation'
-      { tagSpecifications =
+      { description =
           Prelude.Nothing,
-        description = Prelude.Nothing,
         dryRun = Prelude.Nothing,
+        tagSpecifications = Prelude.Nothing,
         subnetId = pSubnetId_,
         cidr = pCidr_,
         reservationType = pReservationType_
       }
-
--- | The tags to assign to the subnet CIDR reservation.
-createSubnetCidrReservation_tagSpecifications :: Lens.Lens' CreateSubnetCidrReservation (Prelude.Maybe [TagSpecification])
-createSubnetCidrReservation_tagSpecifications = Lens.lens (\CreateSubnetCidrReservation' {tagSpecifications} -> tagSpecifications) (\s@CreateSubnetCidrReservation' {} a -> s {tagSpecifications = a} :: CreateSubnetCidrReservation) Prelude.. Lens.mapping Lens.coerced
 
 -- | The description to assign to the subnet CIDR reservation.
 createSubnetCidrReservation_description :: Lens.Lens' CreateSubnetCidrReservation (Prelude.Maybe Prelude.Text)
@@ -154,6 +151,10 @@ createSubnetCidrReservation_description = Lens.lens (\CreateSubnetCidrReservatio
 -- Otherwise, it is @UnauthorizedOperation@.
 createSubnetCidrReservation_dryRun :: Lens.Lens' CreateSubnetCidrReservation (Prelude.Maybe Prelude.Bool)
 createSubnetCidrReservation_dryRun = Lens.lens (\CreateSubnetCidrReservation' {dryRun} -> dryRun) (\s@CreateSubnetCidrReservation' {} a -> s {dryRun = a} :: CreateSubnetCidrReservation)
+
+-- | The tags to assign to the subnet CIDR reservation.
+createSubnetCidrReservation_tagSpecifications :: Lens.Lens' CreateSubnetCidrReservation (Prelude.Maybe [TagSpecification])
+createSubnetCidrReservation_tagSpecifications = Lens.lens (\CreateSubnetCidrReservation' {tagSpecifications} -> tagSpecifications) (\s@CreateSubnetCidrReservation' {} a -> s {tagSpecifications = a} :: CreateSubnetCidrReservation) Prelude.. Lens.mapping Lens.coerced
 
 -- | The ID of the subnet.
 createSubnetCidrReservation_subnetId :: Lens.Lens' CreateSubnetCidrReservation Prelude.Text
@@ -182,57 +183,58 @@ instance Core.AWSRequest CreateSubnetCidrReservation where
   type
     AWSResponse CreateSubnetCidrReservation =
       CreateSubnetCidrReservationResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CreateSubnetCidrReservationResponse'
-            Prelude.<$> (x Core..@? "subnetCidrReservation")
+            Prelude.<$> (x Data..@? "subnetCidrReservation")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateSubnetCidrReservation where
   hashWithSalt _salt CreateSubnetCidrReservation' {..} =
-    _salt `Prelude.hashWithSalt` tagSpecifications
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` tagSpecifications
       `Prelude.hashWithSalt` subnetId
       `Prelude.hashWithSalt` cidr
       `Prelude.hashWithSalt` reservationType
 
 instance Prelude.NFData CreateSubnetCidrReservation where
   rnf CreateSubnetCidrReservation' {..} =
-    Prelude.rnf tagSpecifications
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
       `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf tagSpecifications
       `Prelude.seq` Prelude.rnf subnetId
       `Prelude.seq` Prelude.rnf cidr
       `Prelude.seq` Prelude.rnf reservationType
 
-instance Core.ToHeaders CreateSubnetCidrReservation where
+instance Data.ToHeaders CreateSubnetCidrReservation where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateSubnetCidrReservation where
+instance Data.ToPath CreateSubnetCidrReservation where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateSubnetCidrReservation where
+instance Data.ToQuery CreateSubnetCidrReservation where
   toQuery CreateSubnetCidrReservation' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "CreateSubnetCidrReservation" ::
+          Data.=: ( "CreateSubnetCidrReservation" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          ( Core.toQueryList "TagSpecification"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "Description" Data.=: description,
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          ( Data.toQueryList "TagSpecification"
               Prelude.<$> tagSpecifications
           ),
-        "Description" Core.=: description,
-        "DryRun" Core.=: dryRun,
-        "SubnetId" Core.=: subnetId,
-        "Cidr" Core.=: cidr,
-        "ReservationType" Core.=: reservationType
+        "SubnetId" Data.=: subnetId,
+        "Cidr" Data.=: cidr,
+        "ReservationType" Data.=: reservationType
       ]
 
 -- | /See:/ 'newCreateSubnetCidrReservationResponse' smart constructor.

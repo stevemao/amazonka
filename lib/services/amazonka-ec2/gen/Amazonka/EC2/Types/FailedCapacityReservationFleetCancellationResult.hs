@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.FailedCapacityReservationFleetCancellationResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.EC2.Types.FailedCapacityReservationFleetCancellationResult where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.CancelCapacityReservationFleetError
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a Capacity Reservation Fleet that could not be cancelled.
 --
 -- /See:/ 'newFailedCapacityReservationFleetCancellationResult' smart constructor.
 data FailedCapacityReservationFleetCancellationResult = FailedCapacityReservationFleetCancellationResult'
-  { -- | The ID of the Capacity Reservation Fleet that could not be cancelled.
-    capacityReservationFleetId :: Prelude.Maybe Prelude.Text,
-    -- | Information about the Capacity Reservation Fleet cancellation error.
-    cancelCapacityReservationFleetError :: Prelude.Maybe CancelCapacityReservationFleetError
+  { -- | Information about the Capacity Reservation Fleet cancellation error.
+    cancelCapacityReservationFleetError :: Prelude.Maybe CancelCapacityReservationFleetError,
+    -- | The ID of the Capacity Reservation Fleet that could not be cancelled.
+    capacityReservationFleetId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,35 +45,35 @@ data FailedCapacityReservationFleetCancellationResult = FailedCapacityReservatio
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'capacityReservationFleetId', 'failedCapacityReservationFleetCancellationResult_capacityReservationFleetId' - The ID of the Capacity Reservation Fleet that could not be cancelled.
---
 -- 'cancelCapacityReservationFleetError', 'failedCapacityReservationFleetCancellationResult_cancelCapacityReservationFleetError' - Information about the Capacity Reservation Fleet cancellation error.
+--
+-- 'capacityReservationFleetId', 'failedCapacityReservationFleetCancellationResult_capacityReservationFleetId' - The ID of the Capacity Reservation Fleet that could not be cancelled.
 newFailedCapacityReservationFleetCancellationResult ::
   FailedCapacityReservationFleetCancellationResult
 newFailedCapacityReservationFleetCancellationResult =
   FailedCapacityReservationFleetCancellationResult'
-    { capacityReservationFleetId =
+    { cancelCapacityReservationFleetError =
         Prelude.Nothing,
-      cancelCapacityReservationFleetError =
+      capacityReservationFleetId =
         Prelude.Nothing
     }
-
--- | The ID of the Capacity Reservation Fleet that could not be cancelled.
-failedCapacityReservationFleetCancellationResult_capacityReservationFleetId :: Lens.Lens' FailedCapacityReservationFleetCancellationResult (Prelude.Maybe Prelude.Text)
-failedCapacityReservationFleetCancellationResult_capacityReservationFleetId = Lens.lens (\FailedCapacityReservationFleetCancellationResult' {capacityReservationFleetId} -> capacityReservationFleetId) (\s@FailedCapacityReservationFleetCancellationResult' {} a -> s {capacityReservationFleetId = a} :: FailedCapacityReservationFleetCancellationResult)
 
 -- | Information about the Capacity Reservation Fleet cancellation error.
 failedCapacityReservationFleetCancellationResult_cancelCapacityReservationFleetError :: Lens.Lens' FailedCapacityReservationFleetCancellationResult (Prelude.Maybe CancelCapacityReservationFleetError)
 failedCapacityReservationFleetCancellationResult_cancelCapacityReservationFleetError = Lens.lens (\FailedCapacityReservationFleetCancellationResult' {cancelCapacityReservationFleetError} -> cancelCapacityReservationFleetError) (\s@FailedCapacityReservationFleetCancellationResult' {} a -> s {cancelCapacityReservationFleetError = a} :: FailedCapacityReservationFleetCancellationResult)
 
+-- | The ID of the Capacity Reservation Fleet that could not be cancelled.
+failedCapacityReservationFleetCancellationResult_capacityReservationFleetId :: Lens.Lens' FailedCapacityReservationFleetCancellationResult (Prelude.Maybe Prelude.Text)
+failedCapacityReservationFleetCancellationResult_capacityReservationFleetId = Lens.lens (\FailedCapacityReservationFleetCancellationResult' {capacityReservationFleetId} -> capacityReservationFleetId) (\s@FailedCapacityReservationFleetCancellationResult' {} a -> s {capacityReservationFleetId = a} :: FailedCapacityReservationFleetCancellationResult)
+
 instance
-  Core.FromXML
+  Data.FromXML
     FailedCapacityReservationFleetCancellationResult
   where
   parseXML x =
     FailedCapacityReservationFleetCancellationResult'
-      Prelude.<$> (x Core..@? "capacityReservationFleetId")
-        Prelude.<*> (x Core..@? "cancelCapacityReservationFleetError")
+      Prelude.<$> (x Data..@? "cancelCapacityReservationFleetError")
+        Prelude.<*> (x Data..@? "capacityReservationFleetId")
 
 instance
   Prelude.Hashable
@@ -82,8 +83,8 @@ instance
     _salt
     FailedCapacityReservationFleetCancellationResult' {..} =
       _salt
-        `Prelude.hashWithSalt` capacityReservationFleetId
         `Prelude.hashWithSalt` cancelCapacityReservationFleetError
+        `Prelude.hashWithSalt` capacityReservationFleetId
 
 instance
   Prelude.NFData
@@ -91,5 +92,5 @@ instance
   where
   rnf
     FailedCapacityReservationFleetCancellationResult' {..} =
-      Prelude.rnf capacityReservationFleetId
-        `Prelude.seq` Prelude.rnf cancelCapacityReservationFleetError
+      Prelude.rnf cancelCapacityReservationFleetError
+        `Prelude.seq` Prelude.rnf capacityReservationFleetId

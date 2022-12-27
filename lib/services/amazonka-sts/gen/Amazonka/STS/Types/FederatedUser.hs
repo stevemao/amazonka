@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.STS.Types.FederatedUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.STS.Types.FederatedUser where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Identifiers for the federated user that is associated with the
@@ -81,11 +82,11 @@ federatedUser_federatedUserId = Lens.lens (\FederatedUser' {federatedUserId} -> 
 federatedUser_arn :: Lens.Lens' FederatedUser Prelude.Text
 federatedUser_arn = Lens.lens (\FederatedUser' {arn} -> arn) (\s@FederatedUser' {} a -> s {arn = a} :: FederatedUser)
 
-instance Core.FromXML FederatedUser where
+instance Data.FromXML FederatedUser where
   parseXML x =
     FederatedUser'
-      Prelude.<$> (x Core..@ "FederatedUserId")
-      Prelude.<*> (x Core..@ "Arn")
+      Prelude.<$> (x Data..@ "FederatedUserId")
+      Prelude.<*> (x Data..@ "Arn")
 
 instance Prelude.Hashable FederatedUser where
   hashWithSalt _salt FederatedUser' {..} =

@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryReadiness.UpdateRecoveryGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates an existing Recovery Group.
+-- Updates a recovery group.
 module Amazonka.Route53RecoveryReadiness.UpdateRecoveryGroup
   ( -- * Creating a Request
     UpdateRecoveryGroup (..),
@@ -36,27 +36,29 @@ module Amazonka.Route53RecoveryReadiness.UpdateRecoveryGroup
 
     -- * Response Lenses
     updateRecoveryGroupResponse_cells,
-    updateRecoveryGroupResponse_recoveryGroupName,
     updateRecoveryGroupResponse_recoveryGroupArn,
+    updateRecoveryGroupResponse_recoveryGroupName,
     updateRecoveryGroupResponse_tags,
     updateRecoveryGroupResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 import Amazonka.Route53RecoveryReadiness.Types
 
--- | Parameters to update for the RecoveryGroup
+-- | Name of a recovery group.
 --
 -- /See:/ 'newUpdateRecoveryGroup' smart constructor.
 data UpdateRecoveryGroup = UpdateRecoveryGroup'
-  { -- | The RecoveryGroup to update
+  { -- | The name of a recovery group.
     recoveryGroupName :: Prelude.Text,
-    -- | A list of Cell arns, completely replaces previous list
+    -- | A list of cell Amazon Resource Names (ARNs). This list completely
+    -- replaces the previous list.
     cells :: [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -69,9 +71,10 @@ data UpdateRecoveryGroup = UpdateRecoveryGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'recoveryGroupName', 'updateRecoveryGroup_recoveryGroupName' - The RecoveryGroup to update
+-- 'recoveryGroupName', 'updateRecoveryGroup_recoveryGroupName' - The name of a recovery group.
 --
--- 'cells', 'updateRecoveryGroup_cells' - A list of Cell arns, completely replaces previous list
+-- 'cells', 'updateRecoveryGroup_cells' - A list of cell Amazon Resource Names (ARNs). This list completely
+-- replaces the previous list.
 newUpdateRecoveryGroup ::
   -- | 'recoveryGroupName'
   Prelude.Text ->
@@ -83,11 +86,12 @@ newUpdateRecoveryGroup pRecoveryGroupName_ =
       cells = Prelude.mempty
     }
 
--- | The RecoveryGroup to update
+-- | The name of a recovery group.
 updateRecoveryGroup_recoveryGroupName :: Lens.Lens' UpdateRecoveryGroup Prelude.Text
 updateRecoveryGroup_recoveryGroupName = Lens.lens (\UpdateRecoveryGroup' {recoveryGroupName} -> recoveryGroupName) (\s@UpdateRecoveryGroup' {} a -> s {recoveryGroupName = a} :: UpdateRecoveryGroup)
 
--- | A list of Cell arns, completely replaces previous list
+-- | A list of cell Amazon Resource Names (ARNs). This list completely
+-- replaces the previous list.
 updateRecoveryGroup_cells :: Lens.Lens' UpdateRecoveryGroup [Prelude.Text]
 updateRecoveryGroup_cells = Lens.lens (\UpdateRecoveryGroup' {cells} -> cells) (\s@UpdateRecoveryGroup' {} a -> s {cells = a} :: UpdateRecoveryGroup) Prelude.. Lens.coerced
 
@@ -95,15 +99,16 @@ instance Core.AWSRequest UpdateRecoveryGroup where
   type
     AWSResponse UpdateRecoveryGroup =
       UpdateRecoveryGroupResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateRecoveryGroupResponse'
-            Prelude.<$> (x Core..?> "cells" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "recoveryGroupName")
-            Prelude.<*> (x Core..?> "recoveryGroupArn")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "cells" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "recoveryGroupArn")
+            Prelude.<*> (x Data..?> "recoveryGroupName")
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,40 +122,41 @@ instance Prelude.NFData UpdateRecoveryGroup where
     Prelude.rnf recoveryGroupName
       `Prelude.seq` Prelude.rnf cells
 
-instance Core.ToHeaders UpdateRecoveryGroup where
+instance Data.ToHeaders UpdateRecoveryGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateRecoveryGroup where
+instance Data.ToJSON UpdateRecoveryGroup where
   toJSON UpdateRecoveryGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("cells" Core..= cells)]
+          [Prelude.Just ("cells" Data..= cells)]
       )
 
-instance Core.ToPath UpdateRecoveryGroup where
+instance Data.ToPath UpdateRecoveryGroup where
   toPath UpdateRecoveryGroup' {..} =
     Prelude.mconcat
-      ["/recoverygroups/", Core.toBS recoveryGroupName]
+      ["/recoverygroups/", Data.toBS recoveryGroupName]
 
-instance Core.ToQuery UpdateRecoveryGroup where
+instance Data.ToQuery UpdateRecoveryGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateRecoveryGroupResponse' smart constructor.
 data UpdateRecoveryGroupResponse = UpdateRecoveryGroupResponse'
-  { -- | A list of Cell arns
+  { -- | A list of a cell\'s Amazon Resource Names (ARNs).
     cells :: Prelude.Maybe [Prelude.Text],
-    -- | The name of the RecoveryGroup
-    recoveryGroupName :: Prelude.Maybe Prelude.Text,
-    -- | The arn for the RecoveryGroup
+    -- | The Amazon Resource Name (ARN) for the recovery group.
     recoveryGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the recovery group.
+    recoveryGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The tags associated with the recovery group.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -165,13 +171,13 @@ data UpdateRecoveryGroupResponse = UpdateRecoveryGroupResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'cells', 'updateRecoveryGroupResponse_cells' - A list of Cell arns
+-- 'cells', 'updateRecoveryGroupResponse_cells' - A list of a cell\'s Amazon Resource Names (ARNs).
 --
--- 'recoveryGroupName', 'updateRecoveryGroupResponse_recoveryGroupName' - The name of the RecoveryGroup
+-- 'recoveryGroupArn', 'updateRecoveryGroupResponse_recoveryGroupArn' - The Amazon Resource Name (ARN) for the recovery group.
 --
--- 'recoveryGroupArn', 'updateRecoveryGroupResponse_recoveryGroupArn' - The arn for the RecoveryGroup
+-- 'recoveryGroupName', 'updateRecoveryGroupResponse_recoveryGroupName' - The name of the recovery group.
 --
--- 'tags', 'updateRecoveryGroupResponse_tags' - Undocumented member.
+-- 'tags', 'updateRecoveryGroupResponse_tags' - The tags associated with the recovery group.
 --
 -- 'httpStatus', 'updateRecoveryGroupResponse_httpStatus' - The response's http status code.
 newUpdateRecoveryGroupResponse ::
@@ -182,25 +188,25 @@ newUpdateRecoveryGroupResponse pHttpStatus_ =
   UpdateRecoveryGroupResponse'
     { cells =
         Prelude.Nothing,
-      recoveryGroupName = Prelude.Nothing,
       recoveryGroupArn = Prelude.Nothing,
+      recoveryGroupName = Prelude.Nothing,
       tags = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | A list of Cell arns
+-- | A list of a cell\'s Amazon Resource Names (ARNs).
 updateRecoveryGroupResponse_cells :: Lens.Lens' UpdateRecoveryGroupResponse (Prelude.Maybe [Prelude.Text])
 updateRecoveryGroupResponse_cells = Lens.lens (\UpdateRecoveryGroupResponse' {cells} -> cells) (\s@UpdateRecoveryGroupResponse' {} a -> s {cells = a} :: UpdateRecoveryGroupResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | The name of the RecoveryGroup
-updateRecoveryGroupResponse_recoveryGroupName :: Lens.Lens' UpdateRecoveryGroupResponse (Prelude.Maybe Prelude.Text)
-updateRecoveryGroupResponse_recoveryGroupName = Lens.lens (\UpdateRecoveryGroupResponse' {recoveryGroupName} -> recoveryGroupName) (\s@UpdateRecoveryGroupResponse' {} a -> s {recoveryGroupName = a} :: UpdateRecoveryGroupResponse)
-
--- | The arn for the RecoveryGroup
+-- | The Amazon Resource Name (ARN) for the recovery group.
 updateRecoveryGroupResponse_recoveryGroupArn :: Lens.Lens' UpdateRecoveryGroupResponse (Prelude.Maybe Prelude.Text)
 updateRecoveryGroupResponse_recoveryGroupArn = Lens.lens (\UpdateRecoveryGroupResponse' {recoveryGroupArn} -> recoveryGroupArn) (\s@UpdateRecoveryGroupResponse' {} a -> s {recoveryGroupArn = a} :: UpdateRecoveryGroupResponse)
 
--- | Undocumented member.
+-- | The name of the recovery group.
+updateRecoveryGroupResponse_recoveryGroupName :: Lens.Lens' UpdateRecoveryGroupResponse (Prelude.Maybe Prelude.Text)
+updateRecoveryGroupResponse_recoveryGroupName = Lens.lens (\UpdateRecoveryGroupResponse' {recoveryGroupName} -> recoveryGroupName) (\s@UpdateRecoveryGroupResponse' {} a -> s {recoveryGroupName = a} :: UpdateRecoveryGroupResponse)
+
+-- | The tags associated with the recovery group.
 updateRecoveryGroupResponse_tags :: Lens.Lens' UpdateRecoveryGroupResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 updateRecoveryGroupResponse_tags = Lens.lens (\UpdateRecoveryGroupResponse' {tags} -> tags) (\s@UpdateRecoveryGroupResponse' {} a -> s {tags = a} :: UpdateRecoveryGroupResponse) Prelude.. Lens.mapping Lens.coerced
 
@@ -211,7 +217,7 @@ updateRecoveryGroupResponse_httpStatus = Lens.lens (\UpdateRecoveryGroupResponse
 instance Prelude.NFData UpdateRecoveryGroupResponse where
   rnf UpdateRecoveryGroupResponse' {..} =
     Prelude.rnf cells
-      `Prelude.seq` Prelude.rnf recoveryGroupName
       `Prelude.seq` Prelude.rnf recoveryGroupArn
+      `Prelude.seq` Prelude.rnf recoveryGroupName
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus

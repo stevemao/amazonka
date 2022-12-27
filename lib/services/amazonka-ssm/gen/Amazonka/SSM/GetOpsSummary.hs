@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.GetOpsSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,11 +35,11 @@ module Amazonka.SSM.GetOpsSummary
 
     -- * Request Lenses
     getOpsSummary_aggregators,
-    getOpsSummary_syncName,
     getOpsSummary_filters,
-    getOpsSummary_resultAttributes,
-    getOpsSummary_nextToken,
     getOpsSummary_maxResults,
+    getOpsSummary_nextToken,
+    getOpsSummary_resultAttributes,
+    getOpsSummary_syncName,
 
     -- * Destructuring the Response
     GetOpsSummaryResponse (..),
@@ -53,7 +53,8 @@ module Amazonka.SSM.GetOpsSummary
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -64,19 +65,19 @@ data GetOpsSummary = GetOpsSummary'
   { -- | Optional aggregators that return counts of OpsData based on one or more
     -- expressions.
     aggregators :: Prelude.Maybe (Prelude.NonEmpty OpsAggregator),
-    -- | Specify the name of a resource data sync to get.
-    syncName :: Prelude.Maybe Prelude.Text,
     -- | Optional filters used to scope down the returned OpsData.
     filters :: Prelude.Maybe (Prelude.NonEmpty OpsFilter),
-    -- | The OpsData data type to return.
-    resultAttributes :: Prelude.Maybe (Prelude.NonEmpty OpsResultAttribute),
-    -- | A token to start the list. Use this token to get the next set of
-    -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of items to return for this call. The call also
     -- returns a token that you can specify in a subsequent call to get the
     -- next set of results.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token to start the list. Use this token to get the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The OpsData data type to return.
+    resultAttributes :: Prelude.Maybe (Prelude.NonEmpty OpsResultAttribute),
+    -- | Specify the name of a resource data sync to get.
+    syncName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -91,28 +92,28 @@ data GetOpsSummary = GetOpsSummary'
 -- 'aggregators', 'getOpsSummary_aggregators' - Optional aggregators that return counts of OpsData based on one or more
 -- expressions.
 --
--- 'syncName', 'getOpsSummary_syncName' - Specify the name of a resource data sync to get.
---
 -- 'filters', 'getOpsSummary_filters' - Optional filters used to scope down the returned OpsData.
---
--- 'resultAttributes', 'getOpsSummary_resultAttributes' - The OpsData data type to return.
---
--- 'nextToken', 'getOpsSummary_nextToken' - A token to start the list. Use this token to get the next set of
--- results.
 --
 -- 'maxResults', 'getOpsSummary_maxResults' - The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results.
+--
+-- 'nextToken', 'getOpsSummary_nextToken' - A token to start the list. Use this token to get the next set of
+-- results.
+--
+-- 'resultAttributes', 'getOpsSummary_resultAttributes' - The OpsData data type to return.
+--
+-- 'syncName', 'getOpsSummary_syncName' - Specify the name of a resource data sync to get.
 newGetOpsSummary ::
   GetOpsSummary
 newGetOpsSummary =
   GetOpsSummary'
     { aggregators = Prelude.Nothing,
-      syncName = Prelude.Nothing,
       filters = Prelude.Nothing,
-      resultAttributes = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      resultAttributes = Prelude.Nothing,
+      syncName = Prelude.Nothing
     }
 
 -- | Optional aggregators that return counts of OpsData based on one or more
@@ -120,28 +121,28 @@ newGetOpsSummary =
 getOpsSummary_aggregators :: Lens.Lens' GetOpsSummary (Prelude.Maybe (Prelude.NonEmpty OpsAggregator))
 getOpsSummary_aggregators = Lens.lens (\GetOpsSummary' {aggregators} -> aggregators) (\s@GetOpsSummary' {} a -> s {aggregators = a} :: GetOpsSummary) Prelude.. Lens.mapping Lens.coerced
 
--- | Specify the name of a resource data sync to get.
-getOpsSummary_syncName :: Lens.Lens' GetOpsSummary (Prelude.Maybe Prelude.Text)
-getOpsSummary_syncName = Lens.lens (\GetOpsSummary' {syncName} -> syncName) (\s@GetOpsSummary' {} a -> s {syncName = a} :: GetOpsSummary)
-
 -- | Optional filters used to scope down the returned OpsData.
 getOpsSummary_filters :: Lens.Lens' GetOpsSummary (Prelude.Maybe (Prelude.NonEmpty OpsFilter))
 getOpsSummary_filters = Lens.lens (\GetOpsSummary' {filters} -> filters) (\s@GetOpsSummary' {} a -> s {filters = a} :: GetOpsSummary) Prelude.. Lens.mapping Lens.coerced
-
--- | The OpsData data type to return.
-getOpsSummary_resultAttributes :: Lens.Lens' GetOpsSummary (Prelude.Maybe (Prelude.NonEmpty OpsResultAttribute))
-getOpsSummary_resultAttributes = Lens.lens (\GetOpsSummary' {resultAttributes} -> resultAttributes) (\s@GetOpsSummary' {} a -> s {resultAttributes = a} :: GetOpsSummary) Prelude.. Lens.mapping Lens.coerced
-
--- | A token to start the list. Use this token to get the next set of
--- results.
-getOpsSummary_nextToken :: Lens.Lens' GetOpsSummary (Prelude.Maybe Prelude.Text)
-getOpsSummary_nextToken = Lens.lens (\GetOpsSummary' {nextToken} -> nextToken) (\s@GetOpsSummary' {} a -> s {nextToken = a} :: GetOpsSummary)
 
 -- | The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results.
 getOpsSummary_maxResults :: Lens.Lens' GetOpsSummary (Prelude.Maybe Prelude.Natural)
 getOpsSummary_maxResults = Lens.lens (\GetOpsSummary' {maxResults} -> maxResults) (\s@GetOpsSummary' {} a -> s {maxResults = a} :: GetOpsSummary)
+
+-- | A token to start the list. Use this token to get the next set of
+-- results.
+getOpsSummary_nextToken :: Lens.Lens' GetOpsSummary (Prelude.Maybe Prelude.Text)
+getOpsSummary_nextToken = Lens.lens (\GetOpsSummary' {nextToken} -> nextToken) (\s@GetOpsSummary' {} a -> s {nextToken = a} :: GetOpsSummary)
+
+-- | The OpsData data type to return.
+getOpsSummary_resultAttributes :: Lens.Lens' GetOpsSummary (Prelude.Maybe (Prelude.NonEmpty OpsResultAttribute))
+getOpsSummary_resultAttributes = Lens.lens (\GetOpsSummary' {resultAttributes} -> resultAttributes) (\s@GetOpsSummary' {} a -> s {resultAttributes = a} :: GetOpsSummary) Prelude.. Lens.mapping Lens.coerced
+
+-- | Specify the name of a resource data sync to get.
+getOpsSummary_syncName :: Lens.Lens' GetOpsSummary (Prelude.Maybe Prelude.Text)
+getOpsSummary_syncName = Lens.lens (\GetOpsSummary' {syncName} -> syncName) (\s@GetOpsSummary' {} a -> s {syncName = a} :: GetOpsSummary)
 
 instance Core.AWSPager GetOpsSummary where
   page rq rs
@@ -166,65 +167,66 @@ instance Core.AWSRequest GetOpsSummary where
   type
     AWSResponse GetOpsSummary =
       GetOpsSummaryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetOpsSummaryResponse'
-            Prelude.<$> (x Core..?> "Entities" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Entities" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetOpsSummary where
   hashWithSalt _salt GetOpsSummary' {..} =
     _salt `Prelude.hashWithSalt` aggregators
-      `Prelude.hashWithSalt` syncName
       `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` resultAttributes
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` resultAttributes
+      `Prelude.hashWithSalt` syncName
 
 instance Prelude.NFData GetOpsSummary where
   rnf GetOpsSummary' {..} =
     Prelude.rnf aggregators
-      `Prelude.seq` Prelude.rnf syncName
       `Prelude.seq` Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf resultAttributes
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf resultAttributes
+      `Prelude.seq` Prelude.rnf syncName
 
-instance Core.ToHeaders GetOpsSummary where
+instance Data.ToHeaders GetOpsSummary where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AmazonSSM.GetOpsSummary" :: Prelude.ByteString),
+              Data.=# ("AmazonSSM.GetOpsSummary" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetOpsSummary where
+instance Data.ToJSON GetOpsSummary where
   toJSON GetOpsSummary' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Aggregators" Core..=) Prelude.<$> aggregators,
-            ("SyncName" Core..=) Prelude.<$> syncName,
-            ("Filters" Core..=) Prelude.<$> filters,
-            ("ResultAttributes" Core..=)
+          [ ("Aggregators" Data..=) Prelude.<$> aggregators,
+            ("Filters" Data..=) Prelude.<$> filters,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("ResultAttributes" Data..=)
               Prelude.<$> resultAttributes,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+            ("SyncName" Data..=) Prelude.<$> syncName
           ]
       )
 
-instance Core.ToPath GetOpsSummary where
+instance Data.ToPath GetOpsSummary where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetOpsSummary where
+instance Data.ToQuery GetOpsSummary where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetOpsSummaryResponse' smart constructor.

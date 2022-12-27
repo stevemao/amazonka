@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ConnectContactLens.Types.RealtimeContactAnalysisSegment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.ConnectContactLens.Types.RealtimeContactAnalysisSegment where
 import Amazonka.ConnectContactLens.Types.Categories
 import Amazonka.ConnectContactLens.Types.Transcript
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An analyzed segment for a real-time analysis session.
@@ -64,14 +65,14 @@ realtimeContactAnalysisSegment_categories = Lens.lens (\RealtimeContactAnalysisS
 realtimeContactAnalysisSegment_transcript :: Lens.Lens' RealtimeContactAnalysisSegment (Prelude.Maybe Transcript)
 realtimeContactAnalysisSegment_transcript = Lens.lens (\RealtimeContactAnalysisSegment' {transcript} -> transcript) (\s@RealtimeContactAnalysisSegment' {} a -> s {transcript = a} :: RealtimeContactAnalysisSegment)
 
-instance Core.FromJSON RealtimeContactAnalysisSegment where
+instance Data.FromJSON RealtimeContactAnalysisSegment where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RealtimeContactAnalysisSegment"
       ( \x ->
           RealtimeContactAnalysisSegment'
-            Prelude.<$> (x Core..:? "Categories")
-            Prelude.<*> (x Core..:? "Transcript")
+            Prelude.<$> (x Data..:? "Categories")
+            Prelude.<*> (x Data..:? "Transcript")
       )
 
 instance

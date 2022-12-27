@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ServerlessApplicationRepository.Types.ApplicationPolicyStatement
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.ServerlessApplicationRepository.Types.ApplicationPolicyStatement where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Policy statement applied to the application.
 --
 -- /See:/ 'newApplicationPolicyStatement' smart constructor.
 data ApplicationPolicyStatement = ApplicationPolicyStatement'
-  { -- | A unique ID for the statement.
-    statementId :: Prelude.Maybe Prelude.Text,
-    -- | An array of PrinciplalOrgIDs, which corresponds to AWS IAM
+  { -- | An array of PrinciplalOrgIDs, which corresponds to AWS IAM
     -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#principal-org-id aws:PrincipalOrgID>
     -- global condition key.
     principalOrgIDs :: Prelude.Maybe [Prelude.Text],
+    -- | A unique ID for the statement.
+    statementId :: Prelude.Maybe Prelude.Text,
     -- | An array of AWS account IDs, or * to make the application public.
     principals :: [Prelude.Text],
     -- | For the list of actions supported for this operation, see
@@ -49,11 +50,11 @@ data ApplicationPolicyStatement = ApplicationPolicyStatement'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'statementId', 'applicationPolicyStatement_statementId' - A unique ID for the statement.
---
 -- 'principalOrgIDs', 'applicationPolicyStatement_principalOrgIDs' - An array of PrinciplalOrgIDs, which corresponds to AWS IAM
 -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#principal-org-id aws:PrincipalOrgID>
 -- global condition key.
+--
+-- 'statementId', 'applicationPolicyStatement_statementId' - A unique ID for the statement.
 --
 -- 'principals', 'applicationPolicyStatement_principals' - An array of AWS account IDs, or * to make the application public.
 --
@@ -63,22 +64,22 @@ newApplicationPolicyStatement ::
   ApplicationPolicyStatement
 newApplicationPolicyStatement =
   ApplicationPolicyStatement'
-    { statementId =
+    { principalOrgIDs =
         Prelude.Nothing,
-      principalOrgIDs = Prelude.Nothing,
+      statementId = Prelude.Nothing,
       principals = Prelude.mempty,
       actions = Prelude.mempty
     }
-
--- | A unique ID for the statement.
-applicationPolicyStatement_statementId :: Lens.Lens' ApplicationPolicyStatement (Prelude.Maybe Prelude.Text)
-applicationPolicyStatement_statementId = Lens.lens (\ApplicationPolicyStatement' {statementId} -> statementId) (\s@ApplicationPolicyStatement' {} a -> s {statementId = a} :: ApplicationPolicyStatement)
 
 -- | An array of PrinciplalOrgIDs, which corresponds to AWS IAM
 -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#principal-org-id aws:PrincipalOrgID>
 -- global condition key.
 applicationPolicyStatement_principalOrgIDs :: Lens.Lens' ApplicationPolicyStatement (Prelude.Maybe [Prelude.Text])
 applicationPolicyStatement_principalOrgIDs = Lens.lens (\ApplicationPolicyStatement' {principalOrgIDs} -> principalOrgIDs) (\s@ApplicationPolicyStatement' {} a -> s {principalOrgIDs = a} :: ApplicationPolicyStatement) Prelude.. Lens.mapping Lens.coerced
+
+-- | A unique ID for the statement.
+applicationPolicyStatement_statementId :: Lens.Lens' ApplicationPolicyStatement (Prelude.Maybe Prelude.Text)
+applicationPolicyStatement_statementId = Lens.lens (\ApplicationPolicyStatement' {statementId} -> statementId) (\s@ApplicationPolicyStatement' {} a -> s {statementId = a} :: ApplicationPolicyStatement)
 
 -- | An array of AWS account IDs, or * to make the application public.
 applicationPolicyStatement_principals :: Lens.Lens' ApplicationPolicyStatement [Prelude.Text]
@@ -89,42 +90,42 @@ applicationPolicyStatement_principals = Lens.lens (\ApplicationPolicyStatement' 
 applicationPolicyStatement_actions :: Lens.Lens' ApplicationPolicyStatement [Prelude.Text]
 applicationPolicyStatement_actions = Lens.lens (\ApplicationPolicyStatement' {actions} -> actions) (\s@ApplicationPolicyStatement' {} a -> s {actions = a} :: ApplicationPolicyStatement) Prelude.. Lens.coerced
 
-instance Core.FromJSON ApplicationPolicyStatement where
+instance Data.FromJSON ApplicationPolicyStatement where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ApplicationPolicyStatement"
       ( \x ->
           ApplicationPolicyStatement'
-            Prelude.<$> (x Core..:? "statementId")
-            Prelude.<*> ( x Core..:? "principalOrgIDs"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "principalOrgIDs"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "principals" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "actions" Core..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "statementId")
+            Prelude.<*> (x Data..:? "principals" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "actions" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable ApplicationPolicyStatement where
   hashWithSalt _salt ApplicationPolicyStatement' {..} =
-    _salt `Prelude.hashWithSalt` statementId
-      `Prelude.hashWithSalt` principalOrgIDs
+    _salt `Prelude.hashWithSalt` principalOrgIDs
+      `Prelude.hashWithSalt` statementId
       `Prelude.hashWithSalt` principals
       `Prelude.hashWithSalt` actions
 
 instance Prelude.NFData ApplicationPolicyStatement where
   rnf ApplicationPolicyStatement' {..} =
-    Prelude.rnf statementId
-      `Prelude.seq` Prelude.rnf principalOrgIDs
+    Prelude.rnf principalOrgIDs
+      `Prelude.seq` Prelude.rnf statementId
       `Prelude.seq` Prelude.rnf principals
       `Prelude.seq` Prelude.rnf actions
 
-instance Core.ToJSON ApplicationPolicyStatement where
+instance Data.ToJSON ApplicationPolicyStatement where
   toJSON ApplicationPolicyStatement' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("statementId" Core..=) Prelude.<$> statementId,
-            ("principalOrgIDs" Core..=)
+          [ ("principalOrgIDs" Data..=)
               Prelude.<$> principalOrgIDs,
-            Prelude.Just ("principals" Core..= principals),
-            Prelude.Just ("actions" Core..= actions)
+            ("statementId" Data..=) Prelude.<$> statementId,
+            Prelude.Just ("principals" Data..= principals),
+            Prelude.Just ("actions" Data..= actions)
           ]
       )

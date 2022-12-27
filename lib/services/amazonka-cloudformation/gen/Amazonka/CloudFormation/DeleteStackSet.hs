@@ -14,15 +14,15 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.DeleteStackSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a stack set. Before you can delete a stack set, all of its
--- member stack instances must be deleted. For more information about how
--- to do this, see DeleteStackInstances.
+-- Deletes a stack set. Before you can delete a stack set, all its member
+-- stack instances must be deleted. For more information about how to
+-- complete this, see DeleteStackInstances.
 module Amazonka.CloudFormation.DeleteStackSet
   ( -- * Creating a Request
     DeleteStackSet (..),
@@ -43,7 +43,8 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -138,7 +139,8 @@ instance Core.AWSRequest DeleteStackSet where
   type
     AWSResponse DeleteStackSet =
       DeleteStackSetResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeleteStackSetResult"
@@ -157,21 +159,21 @@ instance Prelude.NFData DeleteStackSet where
     Prelude.rnf callAs
       `Prelude.seq` Prelude.rnf stackSetName
 
-instance Core.ToHeaders DeleteStackSet where
+instance Data.ToHeaders DeleteStackSet where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteStackSet where
+instance Data.ToPath DeleteStackSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteStackSet where
+instance Data.ToQuery DeleteStackSet where
   toQuery DeleteStackSet' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteStackSet" :: Prelude.ByteString),
+          Data.=: ("DeleteStackSet" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
-        "CallAs" Core.=: callAs,
-        "StackSetName" Core.=: stackSetName
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "CallAs" Data.=: callAs,
+        "StackSetName" Data.=: stackSetName
       ]
 
 -- | /See:/ 'newDeleteStackSetResponse' smart constructor.

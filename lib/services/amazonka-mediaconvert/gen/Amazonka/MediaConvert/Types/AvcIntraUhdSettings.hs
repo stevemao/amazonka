@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.AvcIntraUhdSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.AvcIntraUhdSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types.AvcIntraUhdQualityTuningLevel
 import qualified Amazonka.Prelude as Prelude
 
@@ -74,13 +75,13 @@ newAvcIntraUhdSettings =
 avcIntraUhdSettings_qualityTuningLevel :: Lens.Lens' AvcIntraUhdSettings (Prelude.Maybe AvcIntraUhdQualityTuningLevel)
 avcIntraUhdSettings_qualityTuningLevel = Lens.lens (\AvcIntraUhdSettings' {qualityTuningLevel} -> qualityTuningLevel) (\s@AvcIntraUhdSettings' {} a -> s {qualityTuningLevel = a} :: AvcIntraUhdSettings)
 
-instance Core.FromJSON AvcIntraUhdSettings where
+instance Data.FromJSON AvcIntraUhdSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AvcIntraUhdSettings"
       ( \x ->
           AvcIntraUhdSettings'
-            Prelude.<$> (x Core..:? "qualityTuningLevel")
+            Prelude.<$> (x Data..:? "qualityTuningLevel")
       )
 
 instance Prelude.Hashable AvcIntraUhdSettings where
@@ -91,11 +92,11 @@ instance Prelude.NFData AvcIntraUhdSettings where
   rnf AvcIntraUhdSettings' {..} =
     Prelude.rnf qualityTuningLevel
 
-instance Core.ToJSON AvcIntraUhdSettings where
+instance Data.ToJSON AvcIntraUhdSettings where
   toJSON AvcIntraUhdSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("qualityTuningLevel" Core..=)
+          [ ("qualityTuningLevel" Data..=)
               Prelude.<$> qualityTuningLevel
           ]
       )

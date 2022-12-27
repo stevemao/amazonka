@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetDomainNames
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -114,13 +115,14 @@ instance Core.AWSRequest GetDomainNames where
   type
     AWSResponse GetDomainNames =
       GetDomainNamesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDomainNamesResponse'
-            Prelude.<$> (x Core..?> "item" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "position")
+            Prelude.<$> (x Data..?> "item" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "position")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -134,26 +136,24 @@ instance Prelude.NFData GetDomainNames where
     Prelude.rnf limit
       `Prelude.seq` Prelude.rnf position
 
-instance Core.ToHeaders GetDomainNames where
+instance Data.ToHeaders GetDomainNames where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetDomainNames where
+instance Data.ToPath GetDomainNames where
   toPath = Prelude.const "/domainnames"
 
-instance Core.ToQuery GetDomainNames where
+instance Data.ToQuery GetDomainNames where
   toQuery GetDomainNames' {..} =
     Prelude.mconcat
-      ["limit" Core.=: limit, "position" Core.=: position]
+      ["limit" Data.=: limit, "position" Data.=: position]
 
 -- | Represents a collection of DomainName resources.
---
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-custom-domains.html Use Client-Side Certificate>
 --
 -- /See:/ 'newGetDomainNamesResponse' smart constructor.
 data GetDomainNamesResponse = GetDomainNamesResponse'

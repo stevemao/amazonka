@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Shield.DescribeAttack
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.Shield.DescribeAttack
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -48,7 +49,7 @@ import Amazonka.Shield.Types
 
 -- | /See:/ 'newDescribeAttack' smart constructor.
 data DescribeAttack = DescribeAttack'
-  { -- | The unique identifier (ID) for the attack that to be described.
+  { -- | The unique identifier (ID) for the attack.
     attackId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -61,7 +62,7 @@ data DescribeAttack = DescribeAttack'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'attackId', 'describeAttack_attackId' - The unique identifier (ID) for the attack that to be described.
+-- 'attackId', 'describeAttack_attackId' - The unique identifier (ID) for the attack.
 newDescribeAttack ::
   -- | 'attackId'
   Prelude.Text ->
@@ -69,7 +70,7 @@ newDescribeAttack ::
 newDescribeAttack pAttackId_ =
   DescribeAttack' {attackId = pAttackId_}
 
--- | The unique identifier (ID) for the attack that to be described.
+-- | The unique identifier (ID) for the attack.
 describeAttack_attackId :: Lens.Lens' DescribeAttack Prelude.Text
 describeAttack_attackId = Lens.lens (\DescribeAttack' {attackId} -> attackId) (\s@DescribeAttack' {} a -> s {attackId = a} :: DescribeAttack)
 
@@ -77,12 +78,13 @@ instance Core.AWSRequest DescribeAttack where
   type
     AWSResponse DescribeAttack =
       DescribeAttackResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAttackResponse'
-            Prelude.<$> (x Core..?> "Attack")
+            Prelude.<$> (x Data..?> "Attack")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -93,37 +95,37 @@ instance Prelude.Hashable DescribeAttack where
 instance Prelude.NFData DescribeAttack where
   rnf DescribeAttack' {..} = Prelude.rnf attackId
 
-instance Core.ToHeaders DescribeAttack where
+instance Data.ToHeaders DescribeAttack where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSShield_20160616.DescribeAttack" ::
+              Data.=# ( "AWSShield_20160616.DescribeAttack" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeAttack where
+instance Data.ToJSON DescribeAttack where
   toJSON DescribeAttack' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("AttackId" Core..= attackId)]
+          [Prelude.Just ("AttackId" Data..= attackId)]
       )
 
-instance Core.ToPath DescribeAttack where
+instance Data.ToPath DescribeAttack where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeAttack where
+instance Data.ToQuery DescribeAttack where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeAttackResponse' smart constructor.
 data DescribeAttackResponse = DescribeAttackResponse'
-  { -- | The attack that is described.
+  { -- | The attack that you requested.
     attack :: Prelude.Maybe AttackDetail,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -138,7 +140,7 @@ data DescribeAttackResponse = DescribeAttackResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'attack', 'describeAttackResponse_attack' - The attack that is described.
+-- 'attack', 'describeAttackResponse_attack' - The attack that you requested.
 --
 -- 'httpStatus', 'describeAttackResponse_httpStatus' - The response's http status code.
 newDescribeAttackResponse ::
@@ -151,7 +153,7 @@ newDescribeAttackResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The attack that is described.
+-- | The attack that you requested.
 describeAttackResponse_attack :: Lens.Lens' DescribeAttackResponse (Prelude.Maybe AttackDetail)
 describeAttackResponse_attack = Lens.lens (\DescribeAttackResponse' {attack} -> attack) (\s@DescribeAttackResponse' {} a -> s {attack = a} :: DescribeAttackResponse)
 

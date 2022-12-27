@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.TableVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.Glue.Types.TableVersion where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types.Table
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies a version of a table.
 --
 -- /See:/ 'newTableVersion' smart constructor.
 data TableVersion = TableVersion'
-  { -- | The ID value that identifies this table version. A @VersionId@ is a
+  { -- | The table in question.
+    table :: Prelude.Maybe Table,
+    -- | The ID value that identifies this table version. A @VersionId@ is a
     -- string representation of an integer. Each version is incremented by 1.
-    versionId :: Prelude.Maybe Prelude.Text,
-    -- | The table in question.
-    table :: Prelude.Maybe Table
+    versionId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,43 +45,43 @@ data TableVersion = TableVersion'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'table', 'tableVersion_table' - The table in question.
+--
 -- 'versionId', 'tableVersion_versionId' - The ID value that identifies this table version. A @VersionId@ is a
 -- string representation of an integer. Each version is incremented by 1.
---
--- 'table', 'tableVersion_table' - The table in question.
 newTableVersion ::
   TableVersion
 newTableVersion =
   TableVersion'
-    { versionId = Prelude.Nothing,
-      table = Prelude.Nothing
+    { table = Prelude.Nothing,
+      versionId = Prelude.Nothing
     }
+
+-- | The table in question.
+tableVersion_table :: Lens.Lens' TableVersion (Prelude.Maybe Table)
+tableVersion_table = Lens.lens (\TableVersion' {table} -> table) (\s@TableVersion' {} a -> s {table = a} :: TableVersion)
 
 -- | The ID value that identifies this table version. A @VersionId@ is a
 -- string representation of an integer. Each version is incremented by 1.
 tableVersion_versionId :: Lens.Lens' TableVersion (Prelude.Maybe Prelude.Text)
 tableVersion_versionId = Lens.lens (\TableVersion' {versionId} -> versionId) (\s@TableVersion' {} a -> s {versionId = a} :: TableVersion)
 
--- | The table in question.
-tableVersion_table :: Lens.Lens' TableVersion (Prelude.Maybe Table)
-tableVersion_table = Lens.lens (\TableVersion' {table} -> table) (\s@TableVersion' {} a -> s {table = a} :: TableVersion)
-
-instance Core.FromJSON TableVersion where
+instance Data.FromJSON TableVersion where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TableVersion"
       ( \x ->
           TableVersion'
-            Prelude.<$> (x Core..:? "VersionId")
-            Prelude.<*> (x Core..:? "Table")
+            Prelude.<$> (x Data..:? "Table")
+            Prelude.<*> (x Data..:? "VersionId")
       )
 
 instance Prelude.Hashable TableVersion where
   hashWithSalt _salt TableVersion' {..} =
-    _salt `Prelude.hashWithSalt` versionId
-      `Prelude.hashWithSalt` table
+    _salt `Prelude.hashWithSalt` table
+      `Prelude.hashWithSalt` versionId
 
 instance Prelude.NFData TableVersion where
   rnf TableVersion' {..} =
-    Prelude.rnf versionId
-      `Prelude.seq` Prelude.rnf table
+    Prelude.rnf table
+      `Prelude.seq` Prelude.rnf versionId

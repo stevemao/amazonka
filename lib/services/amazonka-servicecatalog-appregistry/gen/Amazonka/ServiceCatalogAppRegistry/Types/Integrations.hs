@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalogAppRegistry.Types.Integrations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ServiceCatalogAppRegistry.Types.Integrations where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.ServiceCatalogAppRegistry.Types.ResourceGroup
 
@@ -51,13 +52,13 @@ newIntegrations =
 integrations_resourceGroup :: Lens.Lens' Integrations (Prelude.Maybe ResourceGroup)
 integrations_resourceGroup = Lens.lens (\Integrations' {resourceGroup} -> resourceGroup) (\s@Integrations' {} a -> s {resourceGroup = a} :: Integrations)
 
-instance Core.FromJSON Integrations where
+instance Data.FromJSON Integrations where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Integrations"
       ( \x ->
           Integrations'
-            Prelude.<$> (x Core..:? "resourceGroup")
+            Prelude.<$> (x Data..:? "resourceGroup")
       )
 
 instance Prelude.Hashable Integrations where

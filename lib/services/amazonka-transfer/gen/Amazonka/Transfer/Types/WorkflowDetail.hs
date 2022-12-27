@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Transfer.Types.WorkflowDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,17 @@
 module Amazonka.Transfer.Types.WorkflowDetail where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the workflow ID for the workflow to assign and the execution
--- role used for executing the workflow.
+-- role that\'s used for executing the workflow.
+--
+-- In addition to a workflow to execute when a file is uploaded completely,
+-- @WorkflowDetails@ can also contain a workflow ID (and execution role)
+-- for a workflow to execute on partial upload. A partial upload occurs
+-- when a file is open when the session disconnects.
 --
 -- /See:/ 'newWorkflowDetail' smart constructor.
 data WorkflowDetail = WorkflowDetail'
@@ -72,14 +78,14 @@ workflowDetail_workflowId = Lens.lens (\WorkflowDetail' {workflowId} -> workflow
 workflowDetail_executionRole :: Lens.Lens' WorkflowDetail Prelude.Text
 workflowDetail_executionRole = Lens.lens (\WorkflowDetail' {executionRole} -> executionRole) (\s@WorkflowDetail' {} a -> s {executionRole = a} :: WorkflowDetail)
 
-instance Core.FromJSON WorkflowDetail where
+instance Data.FromJSON WorkflowDetail where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "WorkflowDetail"
       ( \x ->
           WorkflowDetail'
-            Prelude.<$> (x Core..: "WorkflowId")
-            Prelude.<*> (x Core..: "ExecutionRole")
+            Prelude.<$> (x Data..: "WorkflowId")
+            Prelude.<*> (x Data..: "ExecutionRole")
       )
 
 instance Prelude.Hashable WorkflowDetail where
@@ -92,12 +98,12 @@ instance Prelude.NFData WorkflowDetail where
     Prelude.rnf workflowId
       `Prelude.seq` Prelude.rnf executionRole
 
-instance Core.ToJSON WorkflowDetail where
+instance Data.ToJSON WorkflowDetail where
   toJSON WorkflowDetail' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("WorkflowId" Core..= workflowId),
+          [ Prelude.Just ("WorkflowId" Data..= workflowId),
             Prelude.Just
-              ("ExecutionRole" Core..= executionRole)
+              ("ExecutionRole" Data..= executionRole)
           ]
       )

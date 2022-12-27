@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Batch.Types.ArrayProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.Batch.Types.ArrayProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | An object representing an Batch array job.
+-- | An object that represents an Batch array job.
 --
 -- /See:/ 'newArrayProperties' smart constructor.
 data ArrayProperties = ArrayProperties'
@@ -57,9 +58,9 @@ instance Prelude.Hashable ArrayProperties where
 instance Prelude.NFData ArrayProperties where
   rnf ArrayProperties' {..} = Prelude.rnf size
 
-instance Core.ToJSON ArrayProperties where
+instance Data.ToJSON ArrayProperties where
   toJSON ArrayProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("size" Core..=) Prelude.<$> size]
+          [("size" Data..=) Prelude.<$> size]
       )

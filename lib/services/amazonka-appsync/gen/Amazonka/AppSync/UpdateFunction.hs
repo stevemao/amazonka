@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppSync.UpdateFunction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,15 +27,18 @@ module Amazonka.AppSync.UpdateFunction
     newUpdateFunction,
 
     -- * Request Lenses
+    updateFunction_code,
+    updateFunction_description,
+    updateFunction_functionVersion,
+    updateFunction_maxBatchSize,
     updateFunction_requestMappingTemplate,
     updateFunction_responseMappingTemplate,
+    updateFunction_runtime,
     updateFunction_syncConfig,
-    updateFunction_description,
     updateFunction_apiId,
     updateFunction_name,
     updateFunction_functionId,
     updateFunction_dataSourceName,
-    updateFunction_functionVersion,
 
     -- * Destructuring the Response
     UpdateFunctionResponse (..),
@@ -49,21 +52,33 @@ where
 
 import Amazonka.AppSync.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateFunction' smart constructor.
 data UpdateFunction = UpdateFunction'
-  { -- | The @Function@ request mapping template. Functions support only the
+  { -- | The @function@ code that contains the request and response functions.
+    -- When code is used, the @runtime@ is required. The @runtime@ value must
+    -- be @APPSYNC_JS@.
+    code :: Prelude.Maybe Prelude.Text,
+    -- | The @Function@ description.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The @version@ of the request mapping template. Currently, the supported
+    -- value is 2018-05-29. Note that when using VTL and mapping templates, the
+    -- @functionVersion@ is required.
+    functionVersion :: Prelude.Maybe Prelude.Text,
+    -- | The maximum batching size for a resolver.
+    maxBatchSize :: Prelude.Maybe Prelude.Natural,
+    -- | The @Function@ request mapping template. Functions support only the
     -- 2018-05-29 version of the request mapping template.
     requestMappingTemplate :: Prelude.Maybe Prelude.Text,
     -- | The @Function@ request mapping template.
     responseMappingTemplate :: Prelude.Maybe Prelude.Text,
+    runtime :: Prelude.Maybe AppSyncRuntime,
     syncConfig :: Prelude.Maybe SyncConfig,
-    -- | The @Function@ description.
-    description :: Prelude.Maybe Prelude.Text,
     -- | The GraphQL API ID.
     apiId :: Prelude.Text,
     -- | The @Function@ name.
@@ -71,10 +86,7 @@ data UpdateFunction = UpdateFunction'
     -- | The function ID.
     functionId :: Prelude.Text,
     -- | The @Function@ @DataSource@ name.
-    dataSourceName :: Prelude.Text,
-    -- | The @version@ of the request mapping template. Currently the supported
-    -- value is 2018-05-29.
-    functionVersion :: Prelude.Text
+    dataSourceName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -86,14 +98,26 @@ data UpdateFunction = UpdateFunction'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'code', 'updateFunction_code' - The @function@ code that contains the request and response functions.
+-- When code is used, the @runtime@ is required. The @runtime@ value must
+-- be @APPSYNC_JS@.
+--
+-- 'description', 'updateFunction_description' - The @Function@ description.
+--
+-- 'functionVersion', 'updateFunction_functionVersion' - The @version@ of the request mapping template. Currently, the supported
+-- value is 2018-05-29. Note that when using VTL and mapping templates, the
+-- @functionVersion@ is required.
+--
+-- 'maxBatchSize', 'updateFunction_maxBatchSize' - The maximum batching size for a resolver.
+--
 -- 'requestMappingTemplate', 'updateFunction_requestMappingTemplate' - The @Function@ request mapping template. Functions support only the
 -- 2018-05-29 version of the request mapping template.
 --
 -- 'responseMappingTemplate', 'updateFunction_responseMappingTemplate' - The @Function@ request mapping template.
 --
--- 'syncConfig', 'updateFunction_syncConfig' - Undocumented member.
+-- 'runtime', 'updateFunction_runtime' - Undocumented member.
 --
--- 'description', 'updateFunction_description' - The @Function@ description.
+-- 'syncConfig', 'updateFunction_syncConfig' - Undocumented member.
 --
 -- 'apiId', 'updateFunction_apiId' - The GraphQL API ID.
 --
@@ -102,9 +126,6 @@ data UpdateFunction = UpdateFunction'
 -- 'functionId', 'updateFunction_functionId' - The function ID.
 --
 -- 'dataSourceName', 'updateFunction_dataSourceName' - The @Function@ @DataSource@ name.
---
--- 'functionVersion', 'updateFunction_functionVersion' - The @version@ of the request mapping template. Currently the supported
--- value is 2018-05-29.
 newUpdateFunction ::
   -- | 'apiId'
   Prelude.Text ->
@@ -114,27 +135,46 @@ newUpdateFunction ::
   Prelude.Text ->
   -- | 'dataSourceName'
   Prelude.Text ->
-  -- | 'functionVersion'
-  Prelude.Text ->
   UpdateFunction
 newUpdateFunction
   pApiId_
   pName_
   pFunctionId_
-  pDataSourceName_
-  pFunctionVersion_ =
+  pDataSourceName_ =
     UpdateFunction'
-      { requestMappingTemplate =
-          Prelude.Nothing,
-        responseMappingTemplate = Prelude.Nothing,
-        syncConfig = Prelude.Nothing,
+      { code = Prelude.Nothing,
         description = Prelude.Nothing,
+        functionVersion = Prelude.Nothing,
+        maxBatchSize = Prelude.Nothing,
+        requestMappingTemplate = Prelude.Nothing,
+        responseMappingTemplate = Prelude.Nothing,
+        runtime = Prelude.Nothing,
+        syncConfig = Prelude.Nothing,
         apiId = pApiId_,
         name = pName_,
         functionId = pFunctionId_,
-        dataSourceName = pDataSourceName_,
-        functionVersion = pFunctionVersion_
+        dataSourceName = pDataSourceName_
       }
+
+-- | The @function@ code that contains the request and response functions.
+-- When code is used, the @runtime@ is required. The @runtime@ value must
+-- be @APPSYNC_JS@.
+updateFunction_code :: Lens.Lens' UpdateFunction (Prelude.Maybe Prelude.Text)
+updateFunction_code = Lens.lens (\UpdateFunction' {code} -> code) (\s@UpdateFunction' {} a -> s {code = a} :: UpdateFunction)
+
+-- | The @Function@ description.
+updateFunction_description :: Lens.Lens' UpdateFunction (Prelude.Maybe Prelude.Text)
+updateFunction_description = Lens.lens (\UpdateFunction' {description} -> description) (\s@UpdateFunction' {} a -> s {description = a} :: UpdateFunction)
+
+-- | The @version@ of the request mapping template. Currently, the supported
+-- value is 2018-05-29. Note that when using VTL and mapping templates, the
+-- @functionVersion@ is required.
+updateFunction_functionVersion :: Lens.Lens' UpdateFunction (Prelude.Maybe Prelude.Text)
+updateFunction_functionVersion = Lens.lens (\UpdateFunction' {functionVersion} -> functionVersion) (\s@UpdateFunction' {} a -> s {functionVersion = a} :: UpdateFunction)
+
+-- | The maximum batching size for a resolver.
+updateFunction_maxBatchSize :: Lens.Lens' UpdateFunction (Prelude.Maybe Prelude.Natural)
+updateFunction_maxBatchSize = Lens.lens (\UpdateFunction' {maxBatchSize} -> maxBatchSize) (\s@UpdateFunction' {} a -> s {maxBatchSize = a} :: UpdateFunction)
 
 -- | The @Function@ request mapping template. Functions support only the
 -- 2018-05-29 version of the request mapping template.
@@ -146,12 +186,12 @@ updateFunction_responseMappingTemplate :: Lens.Lens' UpdateFunction (Prelude.May
 updateFunction_responseMappingTemplate = Lens.lens (\UpdateFunction' {responseMappingTemplate} -> responseMappingTemplate) (\s@UpdateFunction' {} a -> s {responseMappingTemplate = a} :: UpdateFunction)
 
 -- | Undocumented member.
+updateFunction_runtime :: Lens.Lens' UpdateFunction (Prelude.Maybe AppSyncRuntime)
+updateFunction_runtime = Lens.lens (\UpdateFunction' {runtime} -> runtime) (\s@UpdateFunction' {} a -> s {runtime = a} :: UpdateFunction)
+
+-- | Undocumented member.
 updateFunction_syncConfig :: Lens.Lens' UpdateFunction (Prelude.Maybe SyncConfig)
 updateFunction_syncConfig = Lens.lens (\UpdateFunction' {syncConfig} -> syncConfig) (\s@UpdateFunction' {} a -> s {syncConfig = a} :: UpdateFunction)
-
--- | The @Function@ description.
-updateFunction_description :: Lens.Lens' UpdateFunction (Prelude.Maybe Prelude.Text)
-updateFunction_description = Lens.lens (\UpdateFunction' {description} -> description) (\s@UpdateFunction' {} a -> s {description = a} :: UpdateFunction)
 
 -- | The GraphQL API ID.
 updateFunction_apiId :: Lens.Lens' UpdateFunction Prelude.Text
@@ -169,87 +209,92 @@ updateFunction_functionId = Lens.lens (\UpdateFunction' {functionId} -> function
 updateFunction_dataSourceName :: Lens.Lens' UpdateFunction Prelude.Text
 updateFunction_dataSourceName = Lens.lens (\UpdateFunction' {dataSourceName} -> dataSourceName) (\s@UpdateFunction' {} a -> s {dataSourceName = a} :: UpdateFunction)
 
--- | The @version@ of the request mapping template. Currently the supported
--- value is 2018-05-29.
-updateFunction_functionVersion :: Lens.Lens' UpdateFunction Prelude.Text
-updateFunction_functionVersion = Lens.lens (\UpdateFunction' {functionVersion} -> functionVersion) (\s@UpdateFunction' {} a -> s {functionVersion = a} :: UpdateFunction)
-
 instance Core.AWSRequest UpdateFunction where
   type
     AWSResponse UpdateFunction =
       UpdateFunctionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateFunctionResponse'
-            Prelude.<$> (x Core..?> "functionConfiguration")
+            Prelude.<$> (x Data..?> "functionConfiguration")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateFunction where
   hashWithSalt _salt UpdateFunction' {..} =
-    _salt `Prelude.hashWithSalt` requestMappingTemplate
-      `Prelude.hashWithSalt` responseMappingTemplate
-      `Prelude.hashWithSalt` syncConfig
+    _salt `Prelude.hashWithSalt` code
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` functionVersion
+      `Prelude.hashWithSalt` maxBatchSize
+      `Prelude.hashWithSalt` requestMappingTemplate
+      `Prelude.hashWithSalt` responseMappingTemplate
+      `Prelude.hashWithSalt` runtime
+      `Prelude.hashWithSalt` syncConfig
       `Prelude.hashWithSalt` apiId
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` functionId
       `Prelude.hashWithSalt` dataSourceName
-      `Prelude.hashWithSalt` functionVersion
 
 instance Prelude.NFData UpdateFunction where
   rnf UpdateFunction' {..} =
-    Prelude.rnf requestMappingTemplate
-      `Prelude.seq` Prelude.rnf responseMappingTemplate
-      `Prelude.seq` Prelude.rnf syncConfig
+    Prelude.rnf code
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf functionVersion
+      `Prelude.seq` Prelude.rnf maxBatchSize
+      `Prelude.seq` Prelude.rnf requestMappingTemplate
+      `Prelude.seq` Prelude.rnf responseMappingTemplate
+      `Prelude.seq` Prelude.rnf runtime
+      `Prelude.seq` Prelude.rnf syncConfig
       `Prelude.seq` Prelude.rnf apiId
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf functionId
       `Prelude.seq` Prelude.rnf dataSourceName
-      `Prelude.seq` Prelude.rnf functionVersion
 
-instance Core.ToHeaders UpdateFunction where
+instance Data.ToHeaders UpdateFunction where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateFunction where
+instance Data.ToJSON UpdateFunction where
   toJSON UpdateFunction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("requestMappingTemplate" Core..=)
+          [ ("code" Data..=) Prelude.<$> code,
+            ("description" Data..=) Prelude.<$> description,
+            ("functionVersion" Data..=)
+              Prelude.<$> functionVersion,
+            ("maxBatchSize" Data..=) Prelude.<$> maxBatchSize,
+            ("requestMappingTemplate" Data..=)
               Prelude.<$> requestMappingTemplate,
-            ("responseMappingTemplate" Core..=)
+            ("responseMappingTemplate" Data..=)
               Prelude.<$> responseMappingTemplate,
-            ("syncConfig" Core..=) Prelude.<$> syncConfig,
-            ("description" Core..=) Prelude.<$> description,
-            Prelude.Just ("name" Core..= name),
+            ("runtime" Data..=) Prelude.<$> runtime,
+            ("syncConfig" Data..=) Prelude.<$> syncConfig,
+            Prelude.Just ("name" Data..= name),
             Prelude.Just
-              ("dataSourceName" Core..= dataSourceName),
-            Prelude.Just
-              ("functionVersion" Core..= functionVersion)
+              ("dataSourceName" Data..= dataSourceName)
           ]
       )
 
-instance Core.ToPath UpdateFunction where
+instance Data.ToPath UpdateFunction where
   toPath UpdateFunction' {..} =
     Prelude.mconcat
       [ "/v1/apis/",
-        Core.toBS apiId,
+        Data.toBS apiId,
         "/functions/",
-        Core.toBS functionId
+        Data.toBS functionId
       ]
 
-instance Core.ToQuery UpdateFunction where
+instance Data.ToQuery UpdateFunction where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateFunctionResponse' smart constructor.

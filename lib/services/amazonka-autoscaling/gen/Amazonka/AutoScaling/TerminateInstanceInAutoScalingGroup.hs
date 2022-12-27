@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.TerminateInstanceInAutoScalingGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -60,7 +60,8 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -119,13 +120,14 @@ instance
   type
     AWSResponse TerminateInstanceInAutoScalingGroup =
       TerminateInstanceInAutoScalingGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "TerminateInstanceInAutoScalingGroupResult"
       ( \s h x ->
           TerminateInstanceInAutoScalingGroupResponse'
-            Prelude.<$> (x Core..@? "Activity")
+            Prelude.<$> (x Data..@? "Activity")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -148,32 +150,32 @@ instance
       `Prelude.seq` Prelude.rnf shouldDecrementDesiredCapacity
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     TerminateInstanceInAutoScalingGroup
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     TerminateInstanceInAutoScalingGroup
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     TerminateInstanceInAutoScalingGroup
   where
   toQuery TerminateInstanceInAutoScalingGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "TerminateInstanceInAutoScalingGroup" ::
+          Data.=: ( "TerminateInstanceInAutoScalingGroup" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
-        "InstanceId" Core.=: instanceId,
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
+        "InstanceId" Data.=: instanceId,
         "ShouldDecrementDesiredCapacity"
-          Core.=: shouldDecrementDesiredCapacity
+          Data.=: shouldDecrementDesiredCapacity
       ]
 
 -- | /See:/ 'newTerminateInstanceInAutoScalingGroupResponse' smart constructor.

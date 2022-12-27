@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.DeleteDeploymentConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ where
 
 import Amazonka.CodeDeploy.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -50,7 +51,7 @@ import qualified Amazonka.Response as Response
 -- /See:/ 'newDeleteDeploymentConfig' smart constructor.
 data DeleteDeploymentConfig = DeleteDeploymentConfig'
   { -- | The name of a deployment configuration associated with the IAM user or
-    -- AWS account.
+    -- Amazon Web Services account.
     deploymentConfigName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -64,7 +65,7 @@ data DeleteDeploymentConfig = DeleteDeploymentConfig'
 -- for backwards compatibility:
 --
 -- 'deploymentConfigName', 'deleteDeploymentConfig_deploymentConfigName' - The name of a deployment configuration associated with the IAM user or
--- AWS account.
+-- Amazon Web Services account.
 newDeleteDeploymentConfig ::
   -- | 'deploymentConfigName'
   Prelude.Text ->
@@ -76,7 +77,7 @@ newDeleteDeploymentConfig pDeploymentConfigName_ =
     }
 
 -- | The name of a deployment configuration associated with the IAM user or
--- AWS account.
+-- Amazon Web Services account.
 deleteDeploymentConfig_deploymentConfigName :: Lens.Lens' DeleteDeploymentConfig Prelude.Text
 deleteDeploymentConfig_deploymentConfigName = Lens.lens (\DeleteDeploymentConfig' {deploymentConfigName} -> deploymentConfigName) (\s@DeleteDeploymentConfig' {} a -> s {deploymentConfigName = a} :: DeleteDeploymentConfig)
 
@@ -84,7 +85,8 @@ instance Core.AWSRequest DeleteDeploymentConfig where
   type
     AWSResponse DeleteDeploymentConfig =
       DeleteDeploymentConfigResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       DeleteDeploymentConfigResponse'
@@ -97,36 +99,36 @@ instance Prelude.NFData DeleteDeploymentConfig where
   rnf DeleteDeploymentConfig' {..} =
     Prelude.rnf deploymentConfigName
 
-instance Core.ToHeaders DeleteDeploymentConfig where
+instance Data.ToHeaders DeleteDeploymentConfig where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeDeploy_20141006.DeleteDeploymentConfig" ::
+              Data.=# ( "CodeDeploy_20141006.DeleteDeploymentConfig" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteDeploymentConfig where
+instance Data.ToJSON DeleteDeploymentConfig where
   toJSON DeleteDeploymentConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "deploymentConfigName"
-                  Core..= deploymentConfigName
+                  Data..= deploymentConfigName
               )
           ]
       )
 
-instance Core.ToPath DeleteDeploymentConfig where
+instance Data.ToPath DeleteDeploymentConfig where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDeploymentConfig where
+instance Data.ToQuery DeleteDeploymentConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteDeploymentConfigResponse' smart constructor.

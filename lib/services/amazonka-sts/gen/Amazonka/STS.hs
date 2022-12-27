@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.STS
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,11 +26,23 @@ module Amazonka.STS
     -- * Errors
     -- $errors
 
-    -- ** MalformedPolicyDocumentException
-    _MalformedPolicyDocumentException,
+    -- ** ExpiredTokenException
+    _ExpiredTokenException,
+
+    -- ** IDPCommunicationErrorException
+    _IDPCommunicationErrorException,
+
+    -- ** IDPRejectedClaimException
+    _IDPRejectedClaimException,
 
     -- ** InvalidAuthorizationMessageException
     _InvalidAuthorizationMessageException,
+
+    -- ** InvalidIdentityTokenException
+    _InvalidIdentityTokenException,
+
+    -- ** MalformedPolicyDocumentException
+    _MalformedPolicyDocumentException,
 
     -- ** PackedPolicyTooLargeException
     _PackedPolicyTooLargeException,
@@ -38,29 +50,11 @@ module Amazonka.STS
     -- ** RegionDisabledException
     _RegionDisabledException,
 
-    -- ** IDPCommunicationErrorException
-    _IDPCommunicationErrorException,
-
-    -- ** InvalidIdentityTokenException
-    _InvalidIdentityTokenException,
-
-    -- ** ExpiredTokenException
-    _ExpiredTokenException,
-
-    -- ** IDPRejectedClaimException
-    _IDPRejectedClaimException,
-
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
-
-    -- ** GetCallerIdentity
-    GetCallerIdentity (GetCallerIdentity'),
-    newGetCallerIdentity,
-    GetCallerIdentityResponse (GetCallerIdentityResponse'),
-    newGetCallerIdentityResponse,
 
     -- ** AssumeRole
     AssumeRole (AssumeRole'),
@@ -68,11 +62,17 @@ module Amazonka.STS
     AssumeRoleResponse (AssumeRoleResponse'),
     newAssumeRoleResponse,
 
-    -- ** GetAccessKeyInfo
-    GetAccessKeyInfo (GetAccessKeyInfo'),
-    newGetAccessKeyInfo,
-    GetAccessKeyInfoResponse (GetAccessKeyInfoResponse'),
-    newGetAccessKeyInfoResponse,
+    -- ** AssumeRoleWithSAML
+    AssumeRoleWithSAML (AssumeRoleWithSAML'),
+    newAssumeRoleWithSAML,
+    AssumeRoleWithSAMLResponse (AssumeRoleWithSAMLResponse'),
+    newAssumeRoleWithSAMLResponse,
+
+    -- ** AssumeRoleWithWebIdentity
+    AssumeRoleWithWebIdentity (AssumeRoleWithWebIdentity'),
+    newAssumeRoleWithWebIdentity,
+    AssumeRoleWithWebIdentityResponse (AssumeRoleWithWebIdentityResponse'),
+    newAssumeRoleWithWebIdentityResponse,
 
     -- ** DecodeAuthorizationMessage
     DecodeAuthorizationMessage (DecodeAuthorizationMessage'),
@@ -80,11 +80,17 @@ module Amazonka.STS
     DecodeAuthorizationMessageResponse (DecodeAuthorizationMessageResponse'),
     newDecodeAuthorizationMessageResponse,
 
-    -- ** AssumeRoleWithWebIdentity
-    AssumeRoleWithWebIdentity (AssumeRoleWithWebIdentity'),
-    newAssumeRoleWithWebIdentity,
-    AssumeRoleWithWebIdentityResponse (AssumeRoleWithWebIdentityResponse'),
-    newAssumeRoleWithWebIdentityResponse,
+    -- ** GetAccessKeyInfo
+    GetAccessKeyInfo (GetAccessKeyInfo'),
+    newGetAccessKeyInfo,
+    GetAccessKeyInfoResponse (GetAccessKeyInfoResponse'),
+    newGetAccessKeyInfoResponse,
+
+    -- ** GetCallerIdentity
+    GetCallerIdentity (GetCallerIdentity'),
+    newGetCallerIdentity,
+    GetCallerIdentityResponse (GetCallerIdentityResponse'),
+    newGetCallerIdentityResponse,
 
     -- ** GetFederationToken
     GetFederationToken (GetFederationToken'),
@@ -97,12 +103,6 @@ module Amazonka.STS
     newGetSessionToken,
     GetSessionTokenResponse (GetSessionTokenResponse'),
     newGetSessionTokenResponse,
-
-    -- ** AssumeRoleWithSAML
-    AssumeRoleWithSAML (AssumeRoleWithSAML'),
-    newAssumeRoleWithSAML,
-    AssumeRoleWithSAMLResponse (AssumeRoleWithSAMLResponse'),
-    newAssumeRoleWithSAMLResponse,
 
     -- * Types
 

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Kinesis.SplitShard
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,9 +41,10 @@
 -- <https://docs.aws.amazon.com/kinesis/latest/dev/kinesis-using-sdk-java-resharding-split.html Split a Shard>
 -- in the /Amazon Kinesis Data Streams Developer Guide/.
 --
--- You can use DescribeStream to determine the shard ID and hash key values
--- for the @ShardToSplit@ and @NewStartingHashKey@ parameters that are
--- specified in the @SplitShard@ request.
+-- You can use DescribeStreamSummary and the ListShards APIs to determine
+-- the shard ID and hash key values for the @ShardToSplit@ and
+-- @NewStartingHashKey@ parameters that are specified in the @SplitShard@
+-- request.
 --
 -- @SplitShard@ is an asynchronous operation. Upon receiving a @SplitShard@
 -- request, Kinesis Data Streams immediately returns a response and sets
@@ -51,20 +52,19 @@
 -- Kinesis Data Streams sets the stream status to @ACTIVE@. Read and write
 -- operations continue to work while the stream is in the @UPDATING@ state.
 --
--- You can use @DescribeStream@ to check the status of the stream, which is
--- returned in @StreamStatus@. If the stream is in the @ACTIVE@ state, you
--- can call @SplitShard@. If a stream is in @CREATING@ or @UPDATING@ or
--- @DELETING@ states, @DescribeStream@ returns a @ResourceInUseException@.
+-- You can use DescribeStreamSummary to check the status of the stream,
+-- which is returned in @StreamStatus@. If the stream is in the @ACTIVE@
+-- state, you can call @SplitShard@.
 --
--- If the specified stream does not exist, @DescribeStream@ returns a
+-- If the specified stream does not exist, DescribeStreamSummary returns a
 -- @ResourceNotFoundException@. If you try to create more shards than are
 -- authorized for your account, you receive a @LimitExceededException@.
 --
--- For the default shard limit for an AWS account, see
+-- For the default shard limit for an Amazon Web Services account, see
 -- <https://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html Kinesis Data Streams Limits>
 -- in the /Amazon Kinesis Data Streams Developer Guide/. To increase this
 -- limit,
--- <https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html contact AWS Support>.
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html contact Amazon Web Services Support>.
 --
 -- If you try to operate on too many streams simultaneously using
 -- CreateStream, DeleteStream, MergeShards, and\/or SplitShard, you receive
@@ -88,8 +88,9 @@ module Amazonka.Kinesis.SplitShard
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kinesis.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -173,7 +174,8 @@ splitShard_newStartingHashKey = Lens.lens (\SplitShard' {newStartingHashKey'} ->
 
 instance Core.AWSRequest SplitShard where
   type AWSResponse SplitShard = SplitShardResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull SplitShardResponse'
 
 instance Prelude.Hashable SplitShard where
@@ -188,36 +190,36 @@ instance Prelude.NFData SplitShard where
       `Prelude.seq` Prelude.rnf shardToSplit
       `Prelude.seq` Prelude.rnf newStartingHashKey'
 
-instance Core.ToHeaders SplitShard where
+instance Data.ToHeaders SplitShard where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Kinesis_20131202.SplitShard" ::
+              Data.=# ( "Kinesis_20131202.SplitShard" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SplitShard where
+instance Data.ToJSON SplitShard where
   toJSON SplitShard' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("StreamName" Core..= streamName),
-            Prelude.Just ("ShardToSplit" Core..= shardToSplit),
+          [ Prelude.Just ("StreamName" Data..= streamName),
+            Prelude.Just ("ShardToSplit" Data..= shardToSplit),
             Prelude.Just
-              ("NewStartingHashKey" Core..= newStartingHashKey')
+              ("NewStartingHashKey" Data..= newStartingHashKey')
           ]
       )
 
-instance Core.ToPath SplitShard where
+instance Data.ToPath SplitShard where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SplitShard where
+instance Data.ToQuery SplitShard where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSplitShardResponse' smart constructor.

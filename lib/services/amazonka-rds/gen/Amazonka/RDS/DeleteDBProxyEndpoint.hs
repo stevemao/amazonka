@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.DeleteDBProxyEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.RDS.DeleteDBProxyEndpoint
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -83,13 +84,14 @@ instance Core.AWSRequest DeleteDBProxyEndpoint where
   type
     AWSResponse DeleteDBProxyEndpoint =
       DeleteDBProxyEndpointResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeleteDBProxyEndpointResult"
       ( \s h x ->
           DeleteDBProxyEndpointResponse'
-            Prelude.<$> (x Core..@? "DBProxyEndpoint")
+            Prelude.<$> (x Data..@? "DBProxyEndpoint")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -101,20 +103,20 @@ instance Prelude.NFData DeleteDBProxyEndpoint where
   rnf DeleteDBProxyEndpoint' {..} =
     Prelude.rnf dbProxyEndpointName
 
-instance Core.ToHeaders DeleteDBProxyEndpoint where
+instance Data.ToHeaders DeleteDBProxyEndpoint where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteDBProxyEndpoint where
+instance Data.ToPath DeleteDBProxyEndpoint where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDBProxyEndpoint where
+instance Data.ToQuery DeleteDBProxyEndpoint where
   toQuery DeleteDBProxyEndpoint' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteDBProxyEndpoint" :: Prelude.ByteString),
+          Data.=: ("DeleteDBProxyEndpoint" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "DBProxyEndpointName" Core.=: dbProxyEndpointName
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBProxyEndpointName" Data.=: dbProxyEndpointName
       ]
 
 -- | /See:/ 'newDeleteDBProxyEndpointResponse' smart constructor.

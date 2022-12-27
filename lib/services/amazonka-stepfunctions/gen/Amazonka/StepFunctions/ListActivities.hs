@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StepFunctions.ListActivities
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,8 @@ module Amazonka.StepFunctions.ListActivities
     newListActivities,
 
     -- * Request Lenses
-    listActivities_nextToken,
     listActivities_maxResults,
+    listActivities_nextToken,
 
     -- * Destructuring the Response
     ListActivitiesResponse (..),
@@ -54,7 +54,8 @@ module Amazonka.StepFunctions.ListActivities
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,20 +63,20 @@ import Amazonka.StepFunctions.Types
 
 -- | /See:/ 'newListActivities' smart constructor.
 data ListActivities = ListActivities'
-  { -- | If @nextToken@ is returned, there are more results available. The value
-    -- of @nextToken@ is a unique pagination token for each page. Make the call
-    -- again using the returned token to retrieve the next page. Keep all other
-    -- arguments unchanged. Each pagination token expires after 24 hours. Using
-    -- an expired pagination token will return an /HTTP 400 InvalidToken/
-    -- error.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results that are returned per call. You can use
+  { -- | The maximum number of results that are returned per call. You can use
     -- @nextToken@ to obtain further pages of results. The default is 100 and
     -- the maximum allowed page size is 1000. A value of 0 uses the default.
     --
     -- This is only an upper limit. The actual number of results returned per
     -- call might be fewer than the specified maximum.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | If @nextToken@ is returned, there are more results available. The value
+    -- of @nextToken@ is a unique pagination token for each page. Make the call
+    -- again using the returned token to retrieve the next page. Keep all other
+    -- arguments unchanged. Each pagination token expires after 24 hours. Using
+    -- an expired pagination token will return an /HTTP 400 InvalidToken/
+    -- error.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -87,35 +88,26 @@ data ListActivities = ListActivities'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listActivities_nextToken' - If @nextToken@ is returned, there are more results available. The value
--- of @nextToken@ is a unique pagination token for each page. Make the call
--- again using the returned token to retrieve the next page. Keep all other
--- arguments unchanged. Each pagination token expires after 24 hours. Using
--- an expired pagination token will return an /HTTP 400 InvalidToken/
--- error.
---
 -- 'maxResults', 'listActivities_maxResults' - The maximum number of results that are returned per call. You can use
 -- @nextToken@ to obtain further pages of results. The default is 100 and
 -- the maximum allowed page size is 1000. A value of 0 uses the default.
 --
 -- This is only an upper limit. The actual number of results returned per
 -- call might be fewer than the specified maximum.
-newListActivities ::
-  ListActivities
-newListActivities =
-  ListActivities'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
-    }
-
--- | If @nextToken@ is returned, there are more results available. The value
+--
+-- 'nextToken', 'listActivities_nextToken' - If @nextToken@ is returned, there are more results available. The value
 -- of @nextToken@ is a unique pagination token for each page. Make the call
 -- again using the returned token to retrieve the next page. Keep all other
 -- arguments unchanged. Each pagination token expires after 24 hours. Using
 -- an expired pagination token will return an /HTTP 400 InvalidToken/
 -- error.
-listActivities_nextToken :: Lens.Lens' ListActivities (Prelude.Maybe Prelude.Text)
-listActivities_nextToken = Lens.lens (\ListActivities' {nextToken} -> nextToken) (\s@ListActivities' {} a -> s {nextToken = a} :: ListActivities)
+newListActivities ::
+  ListActivities
+newListActivities =
+  ListActivities'
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
+    }
 
 -- | The maximum number of results that are returned per call. You can use
 -- @nextToken@ to obtain further pages of results. The default is 100 and
@@ -125,6 +117,15 @@ listActivities_nextToken = Lens.lens (\ListActivities' {nextToken} -> nextToken)
 -- call might be fewer than the specified maximum.
 listActivities_maxResults :: Lens.Lens' ListActivities (Prelude.Maybe Prelude.Natural)
 listActivities_maxResults = Lens.lens (\ListActivities' {maxResults} -> maxResults) (\s@ListActivities' {} a -> s {maxResults = a} :: ListActivities)
+
+-- | If @nextToken@ is returned, there are more results available. The value
+-- of @nextToken@ is a unique pagination token for each page. Make the call
+-- again using the returned token to retrieve the next page. Keep all other
+-- arguments unchanged. Each pagination token expires after 24 hours. Using
+-- an expired pagination token will return an /HTTP 400 InvalidToken/
+-- error.
+listActivities_nextToken :: Lens.Lens' ListActivities (Prelude.Maybe Prelude.Text)
+listActivities_nextToken = Lens.lens (\ListActivities' {nextToken} -> nextToken) (\s@ListActivities' {} a -> s {nextToken = a} :: ListActivities)
 
 instance Core.AWSPager ListActivities where
   page rq rs
@@ -148,54 +149,55 @@ instance Core.AWSRequest ListActivities where
   type
     AWSResponse ListActivities =
       ListActivitiesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListActivitiesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "activities" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "activities" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListActivities where
   hashWithSalt _salt ListActivities' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListActivities where
   rnf ListActivities' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListActivities where
+instance Data.ToHeaders ListActivities where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSStepFunctions.ListActivities" ::
+              Data.=# ( "AWSStepFunctions.ListActivities" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListActivities where
+instance Data.ToJSON ListActivities where
   toJSON ListActivities' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListActivities where
+instance Data.ToPath ListActivities where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListActivities where
+instance Data.ToQuery ListActivities where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListActivitiesResponse' smart constructor.

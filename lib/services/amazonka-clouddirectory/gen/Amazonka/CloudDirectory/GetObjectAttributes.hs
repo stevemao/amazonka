@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.GetObjectAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -133,12 +134,13 @@ instance Core.AWSRequest GetObjectAttributes where
   type
     AWSResponse GetObjectAttributes =
       GetObjectAttributesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetObjectAttributesResponse'
-            Prelude.<$> (x Core..?> "Attributes" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Attributes" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -158,31 +160,31 @@ instance Prelude.NFData GetObjectAttributes where
       `Prelude.seq` Prelude.rnf schemaFacet
       `Prelude.seq` Prelude.rnf attributeNames
 
-instance Core.ToHeaders GetObjectAttributes where
+instance Data.ToHeaders GetObjectAttributes where
   toHeaders GetObjectAttributes' {..} =
     Prelude.mconcat
-      [ "x-amz-consistency-level" Core.=# consistencyLevel,
-        "x-amz-data-partition" Core.=# directoryArn
+      [ "x-amz-consistency-level" Data.=# consistencyLevel,
+        "x-amz-data-partition" Data.=# directoryArn
       ]
 
-instance Core.ToJSON GetObjectAttributes where
+instance Data.ToJSON GetObjectAttributes where
   toJSON GetObjectAttributes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ObjectReference" Core..= objectReference),
-            Prelude.Just ("SchemaFacet" Core..= schemaFacet),
+              ("ObjectReference" Data..= objectReference),
+            Prelude.Just ("SchemaFacet" Data..= schemaFacet),
             Prelude.Just
-              ("AttributeNames" Core..= attributeNames)
+              ("AttributeNames" Data..= attributeNames)
           ]
       )
 
-instance Core.ToPath GetObjectAttributes where
+instance Data.ToPath GetObjectAttributes where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/object/attributes/get"
 
-instance Core.ToQuery GetObjectAttributes where
+instance Data.ToQuery GetObjectAttributes where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetObjectAttributesResponse' smart constructor.

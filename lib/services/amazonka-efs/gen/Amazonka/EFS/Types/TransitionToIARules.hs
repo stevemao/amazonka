@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EFS.Types.TransitionToIARules
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,6 +21,7 @@ module Amazonka.EFS.Types.TransitionToIARules
   ( TransitionToIARules
       ( ..,
         TransitionToIARules_AFTER_14_DAYS,
+        TransitionToIARules_AFTER_1_DAY,
         TransitionToIARules_AFTER_30_DAYS,
         TransitionToIARules_AFTER_60_DAYS,
         TransitionToIARules_AFTER_7_DAYS,
@@ -30,11 +31,12 @@ module Amazonka.EFS.Types.TransitionToIARules
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype TransitionToIARules = TransitionToIARules'
   { fromTransitionToIARules ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -46,22 +48,25 @@ newtype TransitionToIARules = TransitionToIARules'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern TransitionToIARules_AFTER_14_DAYS :: TransitionToIARules
 pattern TransitionToIARules_AFTER_14_DAYS = TransitionToIARules' "AFTER_14_DAYS"
+
+pattern TransitionToIARules_AFTER_1_DAY :: TransitionToIARules
+pattern TransitionToIARules_AFTER_1_DAY = TransitionToIARules' "AFTER_1_DAY"
 
 pattern TransitionToIARules_AFTER_30_DAYS :: TransitionToIARules
 pattern TransitionToIARules_AFTER_30_DAYS = TransitionToIARules' "AFTER_30_DAYS"
@@ -77,6 +82,7 @@ pattern TransitionToIARules_AFTER_90_DAYS = TransitionToIARules' "AFTER_90_DAYS"
 
 {-# COMPLETE
   TransitionToIARules_AFTER_14_DAYS,
+  TransitionToIARules_AFTER_1_DAY,
   TransitionToIARules_AFTER_30_DAYS,
   TransitionToIARules_AFTER_60_DAYS,
   TransitionToIARules_AFTER_7_DAYS,

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStarConnections.GetHost
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,10 +35,10 @@ module Amazonka.CodeStarConnections.GetHost
     newGetHostResponse,
 
     -- * Response Lenses
-    getHostResponse_status,
+    getHostResponse_name,
     getHostResponse_providerEndpoint,
     getHostResponse_providerType,
-    getHostResponse_name,
+    getHostResponse_status,
     getHostResponse_vpcConfiguration,
     getHostResponse_httpStatus,
   )
@@ -46,7 +46,8 @@ where
 
 import Amazonka.CodeStarConnections.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,16 +80,17 @@ getHost_hostArn = Lens.lens (\GetHost' {hostArn} -> hostArn) (\s@GetHost' {} a -
 
 instance Core.AWSRequest GetHost where
   type AWSResponse GetHost = GetHostResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetHostResponse'
-            Prelude.<$> (x Core..?> "Status")
-            Prelude.<*> (x Core..?> "ProviderEndpoint")
-            Prelude.<*> (x Core..?> "ProviderType")
-            Prelude.<*> (x Core..?> "Name")
-            Prelude.<*> (x Core..?> "VpcConfiguration")
+            Prelude.<$> (x Data..?> "Name")
+            Prelude.<*> (x Data..?> "ProviderEndpoint")
+            Prelude.<*> (x Data..?> "ProviderType")
+            Prelude.<*> (x Data..?> "Status")
+            Prelude.<*> (x Data..?> "VpcConfiguration")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -99,45 +101,45 @@ instance Prelude.Hashable GetHost where
 instance Prelude.NFData GetHost where
   rnf GetHost' {..} = Prelude.rnf hostArn
 
-instance Core.ToHeaders GetHost where
+instance Data.ToHeaders GetHost where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "com.amazonaws.codestar.connections.CodeStar_connections_20191201.GetHost" ::
+              Data.=# ( "com.amazonaws.codestar.connections.CodeStar_connections_20191201.GetHost" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetHost where
+instance Data.ToJSON GetHost where
   toJSON GetHost' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("HostArn" Core..= hostArn)]
+          [Prelude.Just ("HostArn" Data..= hostArn)]
       )
 
-instance Core.ToPath GetHost where
+instance Data.ToPath GetHost where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetHost where
+instance Data.ToQuery GetHost where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetHostResponse' smart constructor.
 data GetHostResponse = GetHostResponse'
-  { -- | The status of the requested host.
-    status :: Prelude.Maybe Prelude.Text,
+  { -- | The name of the requested host.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The endpoint of the infrastructure represented by the requested host.
     providerEndpoint :: Prelude.Maybe Prelude.Text,
     -- | The provider type of the requested host, such as GitHub Enterprise
     -- Server.
     providerType :: Prelude.Maybe ProviderType,
-    -- | The name of the requested host.
-    name :: Prelude.Maybe Prelude.Text,
+    -- | The status of the requested host.
+    status :: Prelude.Maybe Prelude.Text,
     -- | The VPC configuration of the requested host.
     vpcConfiguration :: Prelude.Maybe VpcConfiguration,
     -- | The response's http status code.
@@ -153,14 +155,14 @@ data GetHostResponse = GetHostResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'getHostResponse_status' - The status of the requested host.
+-- 'name', 'getHostResponse_name' - The name of the requested host.
 --
 -- 'providerEndpoint', 'getHostResponse_providerEndpoint' - The endpoint of the infrastructure represented by the requested host.
 --
 -- 'providerType', 'getHostResponse_providerType' - The provider type of the requested host, such as GitHub Enterprise
 -- Server.
 --
--- 'name', 'getHostResponse_name' - The name of the requested host.
+-- 'status', 'getHostResponse_status' - The status of the requested host.
 --
 -- 'vpcConfiguration', 'getHostResponse_vpcConfiguration' - The VPC configuration of the requested host.
 --
@@ -171,17 +173,17 @@ newGetHostResponse ::
   GetHostResponse
 newGetHostResponse pHttpStatus_ =
   GetHostResponse'
-    { status = Prelude.Nothing,
+    { name = Prelude.Nothing,
       providerEndpoint = Prelude.Nothing,
       providerType = Prelude.Nothing,
-      name = Prelude.Nothing,
+      status = Prelude.Nothing,
       vpcConfiguration = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The status of the requested host.
-getHostResponse_status :: Lens.Lens' GetHostResponse (Prelude.Maybe Prelude.Text)
-getHostResponse_status = Lens.lens (\GetHostResponse' {status} -> status) (\s@GetHostResponse' {} a -> s {status = a} :: GetHostResponse)
+-- | The name of the requested host.
+getHostResponse_name :: Lens.Lens' GetHostResponse (Prelude.Maybe Prelude.Text)
+getHostResponse_name = Lens.lens (\GetHostResponse' {name} -> name) (\s@GetHostResponse' {} a -> s {name = a} :: GetHostResponse)
 
 -- | The endpoint of the infrastructure represented by the requested host.
 getHostResponse_providerEndpoint :: Lens.Lens' GetHostResponse (Prelude.Maybe Prelude.Text)
@@ -192,9 +194,9 @@ getHostResponse_providerEndpoint = Lens.lens (\GetHostResponse' {providerEndpoin
 getHostResponse_providerType :: Lens.Lens' GetHostResponse (Prelude.Maybe ProviderType)
 getHostResponse_providerType = Lens.lens (\GetHostResponse' {providerType} -> providerType) (\s@GetHostResponse' {} a -> s {providerType = a} :: GetHostResponse)
 
--- | The name of the requested host.
-getHostResponse_name :: Lens.Lens' GetHostResponse (Prelude.Maybe Prelude.Text)
-getHostResponse_name = Lens.lens (\GetHostResponse' {name} -> name) (\s@GetHostResponse' {} a -> s {name = a} :: GetHostResponse)
+-- | The status of the requested host.
+getHostResponse_status :: Lens.Lens' GetHostResponse (Prelude.Maybe Prelude.Text)
+getHostResponse_status = Lens.lens (\GetHostResponse' {status} -> status) (\s@GetHostResponse' {} a -> s {status = a} :: GetHostResponse)
 
 -- | The VPC configuration of the requested host.
 getHostResponse_vpcConfiguration :: Lens.Lens' GetHostResponse (Prelude.Maybe VpcConfiguration)
@@ -206,9 +208,9 @@ getHostResponse_httpStatus = Lens.lens (\GetHostResponse' {httpStatus} -> httpSt
 
 instance Prelude.NFData GetHostResponse where
   rnf GetHostResponse' {..} =
-    Prelude.rnf status
+    Prelude.rnf name
       `Prelude.seq` Prelude.rnf providerEndpoint
       `Prelude.seq` Prelude.rnf providerType
-      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf vpcConfiguration
       `Prelude.seq` Prelude.rnf httpStatus

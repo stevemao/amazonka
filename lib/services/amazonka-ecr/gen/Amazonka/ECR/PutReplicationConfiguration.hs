@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECR.PutReplicationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,8 +52,9 @@ module Amazonka.ECR.PutReplicationConfiguration
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,12 +94,13 @@ instance Core.AWSRequest PutReplicationConfiguration where
   type
     AWSResponse PutReplicationConfiguration =
       PutReplicationConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutReplicationConfigurationResponse'
-            Prelude.<$> (x Core..?> "replicationConfiguration")
+            Prelude.<$> (x Data..?> "replicationConfiguration")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -111,36 +113,36 @@ instance Prelude.NFData PutReplicationConfiguration where
   rnf PutReplicationConfiguration' {..} =
     Prelude.rnf replicationConfiguration
 
-instance Core.ToHeaders PutReplicationConfiguration where
+instance Data.ToHeaders PutReplicationConfiguration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerRegistry_V20150921.PutReplicationConfiguration" ::
+              Data.=# ( "AmazonEC2ContainerRegistry_V20150921.PutReplicationConfiguration" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutReplicationConfiguration where
+instance Data.ToJSON PutReplicationConfiguration where
   toJSON PutReplicationConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "replicationConfiguration"
-                  Core..= replicationConfiguration
+                  Data..= replicationConfiguration
               )
           ]
       )
 
-instance Core.ToPath PutReplicationConfiguration where
+instance Data.ToPath PutReplicationConfiguration where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutReplicationConfiguration where
+instance Data.ToQuery PutReplicationConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutReplicationConfigurationResponse' smart constructor.

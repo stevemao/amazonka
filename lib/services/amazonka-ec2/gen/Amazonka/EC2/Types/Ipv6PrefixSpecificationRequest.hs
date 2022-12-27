@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.Ipv6PrefixSpecificationRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.Ipv6PrefixSpecificationRequest where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the IPv4 prefix option for a network interface.
@@ -54,10 +55,10 @@ newIpv6PrefixSpecificationRequest =
 ipv6PrefixSpecificationRequest_ipv6Prefix :: Lens.Lens' Ipv6PrefixSpecificationRequest (Prelude.Maybe Prelude.Text)
 ipv6PrefixSpecificationRequest_ipv6Prefix = Lens.lens (\Ipv6PrefixSpecificationRequest' {ipv6Prefix} -> ipv6Prefix) (\s@Ipv6PrefixSpecificationRequest' {} a -> s {ipv6Prefix = a} :: Ipv6PrefixSpecificationRequest)
 
-instance Core.FromXML Ipv6PrefixSpecificationRequest where
+instance Data.FromXML Ipv6PrefixSpecificationRequest where
   parseXML x =
     Ipv6PrefixSpecificationRequest'
-      Prelude.<$> (x Core..@? "Ipv6Prefix")
+      Prelude.<$> (x Data..@? "Ipv6Prefix")
 
 instance
   Prelude.Hashable
@@ -75,6 +76,6 @@ instance
   rnf Ipv6PrefixSpecificationRequest' {..} =
     Prelude.rnf ipv6Prefix
 
-instance Core.ToQuery Ipv6PrefixSpecificationRequest where
+instance Data.ToQuery Ipv6PrefixSpecificationRequest where
   toQuery Ipv6PrefixSpecificationRequest' {..} =
-    Prelude.mconcat ["Ipv6Prefix" Core.=: ipv6Prefix]
+    Prelude.mconcat ["Ipv6Prefix" Data.=: ipv6Prefix]

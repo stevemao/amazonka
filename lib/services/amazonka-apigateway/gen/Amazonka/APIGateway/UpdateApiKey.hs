@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.UpdateApiKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,22 +35,23 @@ module Amazonka.APIGateway.UpdateApiKey
     newApiKey,
 
     -- * Response Lenses
-    apiKey_enabled,
-    apiKey_value,
-    apiKey_customerId,
     apiKey_createdDate,
-    apiKey_name,
-    apiKey_id,
-    apiKey_stageKeys,
-    apiKey_lastUpdatedDate,
+    apiKey_customerId,
     apiKey_description,
+    apiKey_enabled,
+    apiKey_id,
+    apiKey_lastUpdatedDate,
+    apiKey_name,
+    apiKey_stageKeys,
     apiKey_tags,
+    apiKey_value,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,10 +60,10 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newUpdateApiKey' smart constructor.
 data UpdateApiKey = UpdateApiKey'
-  { -- | A list of update operations to be applied to the specified resource and
-    -- in the order specified in this list.
+  { -- | For more information about supported patch operations, see
+    -- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
     patchOperations :: Prelude.Maybe [PatchOperation],
-    -- | [Required] The identifier of the ApiKey resource to be updated.
+    -- | The identifier of the ApiKey resource to be updated.
     apiKey :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -75,10 +76,10 @@ data UpdateApiKey = UpdateApiKey'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'patchOperations', 'updateApiKey_patchOperations' - A list of update operations to be applied to the specified resource and
--- in the order specified in this list.
+-- 'patchOperations', 'updateApiKey_patchOperations' - For more information about supported patch operations, see
+-- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
 --
--- 'apiKey', 'updateApiKey_apiKey' - [Required] The identifier of the ApiKey resource to be updated.
+-- 'apiKey', 'updateApiKey_apiKey' - The identifier of the ApiKey resource to be updated.
 newUpdateApiKey ::
   -- | 'apiKey'
   Prelude.Text ->
@@ -89,21 +90,22 @@ newUpdateApiKey pApiKey_ =
       apiKey = pApiKey_
     }
 
--- | A list of update operations to be applied to the specified resource and
--- in the order specified in this list.
+-- | For more information about supported patch operations, see
+-- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
 updateApiKey_patchOperations :: Lens.Lens' UpdateApiKey (Prelude.Maybe [PatchOperation])
 updateApiKey_patchOperations = Lens.lens (\UpdateApiKey' {patchOperations} -> patchOperations) (\s@UpdateApiKey' {} a -> s {patchOperations = a} :: UpdateApiKey) Prelude.. Lens.mapping Lens.coerced
 
--- | [Required] The identifier of the ApiKey resource to be updated.
+-- | The identifier of the ApiKey resource to be updated.
 updateApiKey_apiKey :: Lens.Lens' UpdateApiKey Prelude.Text
 updateApiKey_apiKey = Lens.lens (\UpdateApiKey' {apiKey} -> apiKey) (\s@UpdateApiKey' {} a -> s {apiKey = a} :: UpdateApiKey)
 
 instance Core.AWSRequest UpdateApiKey where
   type AWSResponse UpdateApiKey = ApiKey
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable UpdateApiKey where
   hashWithSalt _salt UpdateApiKey' {..} =
@@ -115,27 +117,27 @@ instance Prelude.NFData UpdateApiKey where
     Prelude.rnf patchOperations
       `Prelude.seq` Prelude.rnf apiKey
 
-instance Core.ToHeaders UpdateApiKey where
+instance Data.ToHeaders UpdateApiKey where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToJSON UpdateApiKey where
+instance Data.ToJSON UpdateApiKey where
   toJSON UpdateApiKey' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("patchOperations" Core..=)
+          [ ("patchOperations" Data..=)
               Prelude.<$> patchOperations
           ]
       )
 
-instance Core.ToPath UpdateApiKey where
+instance Data.ToPath UpdateApiKey where
   toPath UpdateApiKey' {..} =
-    Prelude.mconcat ["/apikeys/", Core.toBS apiKey]
+    Prelude.mconcat ["/apikeys/", Data.toBS apiKey]
 
-instance Core.ToQuery UpdateApiKey where
+instance Data.ToQuery UpdateApiKey where
   toQuery = Prelude.const Prelude.mempty

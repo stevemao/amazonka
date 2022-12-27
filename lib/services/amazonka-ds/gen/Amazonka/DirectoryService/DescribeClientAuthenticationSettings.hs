@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.DescribeClientAuthenticationSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,14 +25,16 @@
 -- information about all client authentication types that are supported for
 -- the specified directory is retrieved. Currently, only @SmartCard@ is
 -- supported.
+--
+-- This operation returns paginated results.
 module Amazonka.DirectoryService.DescribeClientAuthenticationSettings
   ( -- * Creating a Request
     DescribeClientAuthenticationSettings (..),
     newDescribeClientAuthenticationSettings,
 
     -- * Request Lenses
-    describeClientAuthenticationSettings_nextToken,
     describeClientAuthenticationSettings_limit,
+    describeClientAuthenticationSettings_nextToken,
     describeClientAuthenticationSettings_type,
     describeClientAuthenticationSettings_directoryId,
 
@@ -41,29 +43,30 @@ module Amazonka.DirectoryService.DescribeClientAuthenticationSettings
     newDescribeClientAuthenticationSettingsResponse,
 
     -- * Response Lenses
-    describeClientAuthenticationSettingsResponse_nextToken,
     describeClientAuthenticationSettingsResponse_clientAuthenticationSettingsInfo,
+    describeClientAuthenticationSettingsResponse_nextToken,
     describeClientAuthenticationSettingsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeClientAuthenticationSettings' smart constructor.
 data DescribeClientAuthenticationSettings = DescribeClientAuthenticationSettings'
-  { -- | The /DescribeClientAuthenticationSettingsResult.NextToken/ value from a
-    -- previous call to DescribeClientAuthenticationSettings. Pass null if this
-    -- is the first call.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return. If this value is zero, the
+  { -- | The maximum number of items to return. If this value is zero, the
     -- maximum number of items is specified by the limitations of the
     -- operation.
     limit :: Prelude.Maybe Prelude.Natural,
+    -- | The /DescribeClientAuthenticationSettingsResult.NextToken/ value from a
+    -- previous call to DescribeClientAuthenticationSettings. Pass null if this
+    -- is the first call.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The type of client authentication for which to retrieve information. If
     -- no type is specified, a list of all client authentication types that are
     -- supported for the specified directory is retrieved.
@@ -81,13 +84,13 @@ data DescribeClientAuthenticationSettings = DescribeClientAuthenticationSettings
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeClientAuthenticationSettings_nextToken' - The /DescribeClientAuthenticationSettingsResult.NextToken/ value from a
--- previous call to DescribeClientAuthenticationSettings. Pass null if this
--- is the first call.
---
 -- 'limit', 'describeClientAuthenticationSettings_limit' - The maximum number of items to return. If this value is zero, the
 -- maximum number of items is specified by the limitations of the
 -- operation.
+--
+-- 'nextToken', 'describeClientAuthenticationSettings_nextToken' - The /DescribeClientAuthenticationSettingsResult.NextToken/ value from a
+-- previous call to DescribeClientAuthenticationSettings. Pass null if this
+-- is the first call.
 --
 -- 'type'', 'describeClientAuthenticationSettings_type' - The type of client authentication for which to retrieve information. If
 -- no type is specified, a list of all client authentication types that are
@@ -100,24 +103,24 @@ newDescribeClientAuthenticationSettings ::
   DescribeClientAuthenticationSettings
 newDescribeClientAuthenticationSettings pDirectoryId_ =
   DescribeClientAuthenticationSettings'
-    { nextToken =
+    { limit =
         Prelude.Nothing,
-      limit = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       type' = Prelude.Nothing,
       directoryId = pDirectoryId_
     }
-
--- | The /DescribeClientAuthenticationSettingsResult.NextToken/ value from a
--- previous call to DescribeClientAuthenticationSettings. Pass null if this
--- is the first call.
-describeClientAuthenticationSettings_nextToken :: Lens.Lens' DescribeClientAuthenticationSettings (Prelude.Maybe Prelude.Text)
-describeClientAuthenticationSettings_nextToken = Lens.lens (\DescribeClientAuthenticationSettings' {nextToken} -> nextToken) (\s@DescribeClientAuthenticationSettings' {} a -> s {nextToken = a} :: DescribeClientAuthenticationSettings)
 
 -- | The maximum number of items to return. If this value is zero, the
 -- maximum number of items is specified by the limitations of the
 -- operation.
 describeClientAuthenticationSettings_limit :: Lens.Lens' DescribeClientAuthenticationSettings (Prelude.Maybe Prelude.Natural)
 describeClientAuthenticationSettings_limit = Lens.lens (\DescribeClientAuthenticationSettings' {limit} -> limit) (\s@DescribeClientAuthenticationSettings' {} a -> s {limit = a} :: DescribeClientAuthenticationSettings)
+
+-- | The /DescribeClientAuthenticationSettingsResult.NextToken/ value from a
+-- previous call to DescribeClientAuthenticationSettings. Pass null if this
+-- is the first call.
+describeClientAuthenticationSettings_nextToken :: Lens.Lens' DescribeClientAuthenticationSettings (Prelude.Maybe Prelude.Text)
+describeClientAuthenticationSettings_nextToken = Lens.lens (\DescribeClientAuthenticationSettings' {nextToken} -> nextToken) (\s@DescribeClientAuthenticationSettings' {} a -> s {nextToken = a} :: DescribeClientAuthenticationSettings)
 
 -- | The type of client authentication for which to retrieve information. If
 -- no type is specified, a list of all client authentication types that are
@@ -130,21 +133,47 @@ describeClientAuthenticationSettings_directoryId :: Lens.Lens' DescribeClientAut
 describeClientAuthenticationSettings_directoryId = Lens.lens (\DescribeClientAuthenticationSettings' {directoryId} -> directoryId) (\s@DescribeClientAuthenticationSettings' {} a -> s {directoryId = a} :: DescribeClientAuthenticationSettings)
 
 instance
+  Core.AWSPager
+    DescribeClientAuthenticationSettings
+  where
+  page rq rs
+    | Core.stop
+        ( rs
+            Lens.^? describeClientAuthenticationSettingsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Core.stop
+        ( rs
+            Lens.^? describeClientAuthenticationSettingsResponse_clientAuthenticationSettingsInfo
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Prelude.& describeClientAuthenticationSettings_nextToken
+          Lens..~ rs
+            Lens.^? describeClientAuthenticationSettingsResponse_nextToken
+              Prelude.. Lens._Just
+
+instance
   Core.AWSRequest
     DescribeClientAuthenticationSettings
   where
   type
     AWSResponse DescribeClientAuthenticationSettings =
       DescribeClientAuthenticationSettingsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeClientAuthenticationSettingsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-              Prelude.<*> ( x Core..?> "ClientAuthenticationSettingsInfo"
-                              Core..!@ Prelude.mempty
-                          )
+            Prelude.<$> ( x Data..?> "ClientAuthenticationSettingsInfo"
+                            Core..!@ Prelude.mempty
+                        )
+              Prelude.<*> (x Data..?> "NextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -155,8 +184,8 @@ instance
   hashWithSalt
     _salt
     DescribeClientAuthenticationSettings' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` limit
+      _salt `Prelude.hashWithSalt` limit
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` type'
         `Prelude.hashWithSalt` directoryId
 
@@ -165,67 +194,67 @@ instance
     DescribeClientAuthenticationSettings
   where
   rnf DescribeClientAuthenticationSettings' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf limit
+    Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf directoryId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeClientAuthenticationSettings
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.DescribeClientAuthenticationSettings" ::
+              Data.=# ( "DirectoryService_20150416.DescribeClientAuthenticationSettings" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DescribeClientAuthenticationSettings
   where
   toJSON DescribeClientAuthenticationSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Limit" Core..=) Prelude.<$> limit,
-            ("Type" Core..=) Prelude.<$> type',
-            Prelude.Just ("DirectoryId" Core..= directoryId)
+          [ ("Limit" Data..=) Prelude.<$> limit,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("Type" Data..=) Prelude.<$> type',
+            Prelude.Just ("DirectoryId" Data..= directoryId)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeClientAuthenticationSettings
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeClientAuthenticationSettings
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeClientAuthenticationSettingsResponse' smart constructor.
 data DescribeClientAuthenticationSettingsResponse = DescribeClientAuthenticationSettingsResponse'
-  { -- | The next token used to retrieve the client authentication settings if
-    -- the number of setting types exceeds page limit and there is another
-    -- page.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Information about the type of client authentication for the specified
+  { -- | Information about the type of client authentication for the specified
     -- directory. The following information is retrieved: The date and time
     -- when the status of the client authentication type was last updated,
     -- whether the client authentication type is enabled or disabled, and the
     -- type of client authentication.
     clientAuthenticationSettingsInfo :: Prelude.Maybe [ClientAuthenticationSettingInfo],
+    -- | The next token used to retrieve the client authentication settings if
+    -- the number of setting types exceeds page limit and there is another
+    -- page.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -239,15 +268,15 @@ data DescribeClientAuthenticationSettingsResponse = DescribeClientAuthentication
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeClientAuthenticationSettingsResponse_nextToken' - The next token used to retrieve the client authentication settings if
--- the number of setting types exceeds page limit and there is another
--- page.
---
 -- 'clientAuthenticationSettingsInfo', 'describeClientAuthenticationSettingsResponse_clientAuthenticationSettingsInfo' - Information about the type of client authentication for the specified
 -- directory. The following information is retrieved: The date and time
 -- when the status of the client authentication type was last updated,
 -- whether the client authentication type is enabled or disabled, and the
 -- type of client authentication.
+--
+-- 'nextToken', 'describeClientAuthenticationSettingsResponse_nextToken' - The next token used to retrieve the client authentication settings if
+-- the number of setting types exceeds page limit and there is another
+-- page.
 --
 -- 'httpStatus', 'describeClientAuthenticationSettingsResponse_httpStatus' - The response's http status code.
 newDescribeClientAuthenticationSettingsResponse ::
@@ -257,18 +286,11 @@ newDescribeClientAuthenticationSettingsResponse ::
 newDescribeClientAuthenticationSettingsResponse
   pHttpStatus_ =
     DescribeClientAuthenticationSettingsResponse'
-      { nextToken =
+      { clientAuthenticationSettingsInfo =
           Prelude.Nothing,
-        clientAuthenticationSettingsInfo =
-          Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | The next token used to retrieve the client authentication settings if
--- the number of setting types exceeds page limit and there is another
--- page.
-describeClientAuthenticationSettingsResponse_nextToken :: Lens.Lens' DescribeClientAuthenticationSettingsResponse (Prelude.Maybe Prelude.Text)
-describeClientAuthenticationSettingsResponse_nextToken = Lens.lens (\DescribeClientAuthenticationSettingsResponse' {nextToken} -> nextToken) (\s@DescribeClientAuthenticationSettingsResponse' {} a -> s {nextToken = a} :: DescribeClientAuthenticationSettingsResponse)
 
 -- | Information about the type of client authentication for the specified
 -- directory. The following information is retrieved: The date and time
@@ -277,6 +299,12 @@ describeClientAuthenticationSettingsResponse_nextToken = Lens.lens (\DescribeCli
 -- type of client authentication.
 describeClientAuthenticationSettingsResponse_clientAuthenticationSettingsInfo :: Lens.Lens' DescribeClientAuthenticationSettingsResponse (Prelude.Maybe [ClientAuthenticationSettingInfo])
 describeClientAuthenticationSettingsResponse_clientAuthenticationSettingsInfo = Lens.lens (\DescribeClientAuthenticationSettingsResponse' {clientAuthenticationSettingsInfo} -> clientAuthenticationSettingsInfo) (\s@DescribeClientAuthenticationSettingsResponse' {} a -> s {clientAuthenticationSettingsInfo = a} :: DescribeClientAuthenticationSettingsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The next token used to retrieve the client authentication settings if
+-- the number of setting types exceeds page limit and there is another
+-- page.
+describeClientAuthenticationSettingsResponse_nextToken :: Lens.Lens' DescribeClientAuthenticationSettingsResponse (Prelude.Maybe Prelude.Text)
+describeClientAuthenticationSettingsResponse_nextToken = Lens.lens (\DescribeClientAuthenticationSettingsResponse' {nextToken} -> nextToken) (\s@DescribeClientAuthenticationSettingsResponse' {} a -> s {nextToken = a} :: DescribeClientAuthenticationSettingsResponse)
 
 -- | The response's http status code.
 describeClientAuthenticationSettingsResponse_httpStatus :: Lens.Lens' DescribeClientAuthenticationSettingsResponse Prelude.Int
@@ -287,6 +315,6 @@ instance
     DescribeClientAuthenticationSettingsResponse
   where
   rnf DescribeClientAuthenticationSettingsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf clientAuthenticationSettingsInfo
+    Prelude.rnf clientAuthenticationSettingsInfo
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

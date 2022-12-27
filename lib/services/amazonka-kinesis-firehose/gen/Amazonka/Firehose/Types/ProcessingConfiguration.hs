@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Firehose.Types.ProcessingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Firehose.Types.ProcessingConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Firehose.Types.Processor
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a data processing configuration.
@@ -62,14 +63,14 @@ processingConfiguration_enabled = Lens.lens (\ProcessingConfiguration' {enabled}
 processingConfiguration_processors :: Lens.Lens' ProcessingConfiguration (Prelude.Maybe [Processor])
 processingConfiguration_processors = Lens.lens (\ProcessingConfiguration' {processors} -> processors) (\s@ProcessingConfiguration' {} a -> s {processors = a} :: ProcessingConfiguration) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON ProcessingConfiguration where
+instance Data.FromJSON ProcessingConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ProcessingConfiguration"
       ( \x ->
           ProcessingConfiguration'
-            Prelude.<$> (x Core..:? "Enabled")
-            Prelude.<*> (x Core..:? "Processors" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Enabled")
+            Prelude.<*> (x Data..:? "Processors" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable ProcessingConfiguration where
@@ -82,11 +83,11 @@ instance Prelude.NFData ProcessingConfiguration where
     Prelude.rnf enabled
       `Prelude.seq` Prelude.rnf processors
 
-instance Core.ToJSON ProcessingConfiguration where
+instance Data.ToJSON ProcessingConfiguration where
   toJSON ProcessingConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Enabled" Core..=) Prelude.<$> enabled,
-            ("Processors" Core..=) Prelude.<$> processors
+          [ ("Enabled" Data..=) Prelude.<$> enabled,
+            ("Processors" Data..=) Prelude.<$> processors
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Kinesis.ListStreamConsumers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,9 +32,9 @@ module Amazonka.Kinesis.ListStreamConsumers
     newListStreamConsumers,
 
     -- * Request Lenses
+    listStreamConsumers_maxResults,
     listStreamConsumers_nextToken,
     listStreamConsumers_streamCreationTimestamp,
-    listStreamConsumers_maxResults,
     listStreamConsumers_streamARN,
 
     -- * Destructuring the Response
@@ -42,22 +42,27 @@ module Amazonka.Kinesis.ListStreamConsumers
     newListStreamConsumersResponse,
 
     -- * Response Lenses
-    listStreamConsumersResponse_nextToken,
     listStreamConsumersResponse_consumers,
+    listStreamConsumersResponse_nextToken,
     listStreamConsumersResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kinesis.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListStreamConsumers' smart constructor.
 data ListStreamConsumers = ListStreamConsumers'
-  { -- | When the number of consumers that are registered with the data stream is
+  { -- | The maximum number of consumers that you want a single call of
+    -- @ListStreamConsumers@ to return. The default value is 100. If you
+    -- specify a value greater than 100, at most 100 results are returned.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | When the number of consumers that are registered with the data stream is
     -- greater than the default value for the @MaxResults@ parameter, or if you
     -- explicitly specify a value for @MaxResults@ that is less than the number
     -- of consumers that are registered with the data stream, the response
@@ -88,13 +93,10 @@ data ListStreamConsumers = ListStreamConsumers'
     --
     -- You can\'t specify this parameter if you specify the NextToken
     -- parameter.
-    streamCreationTimestamp :: Prelude.Maybe Core.POSIX,
-    -- | The maximum number of consumers that you want a single call of
-    -- @ListStreamConsumers@ to return.
-    maxResults :: Prelude.Maybe Prelude.Natural,
+    streamCreationTimestamp :: Prelude.Maybe Data.POSIX,
     -- | The ARN of the Kinesis data stream for which you want to list the
     -- registered consumers. For more information, see
-    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>.
     streamARN :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -106,6 +108,10 @@ data ListStreamConsumers = ListStreamConsumers'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'maxResults', 'listStreamConsumers_maxResults' - The maximum number of consumers that you want a single call of
+-- @ListStreamConsumers@ to return. The default value is 100. If you
+-- specify a value greater than 100, at most 100 results are returned.
 --
 -- 'nextToken', 'listStreamConsumers_nextToken' - When the number of consumers that are registered with the data stream is
 -- greater than the default value for the @MaxResults@ parameter, or if you
@@ -139,23 +145,26 @@ data ListStreamConsumers = ListStreamConsumers'
 -- You can\'t specify this parameter if you specify the NextToken
 -- parameter.
 --
--- 'maxResults', 'listStreamConsumers_maxResults' - The maximum number of consumers that you want a single call of
--- @ListStreamConsumers@ to return.
---
 -- 'streamARN', 'listStreamConsumers_streamARN' - The ARN of the Kinesis data stream for which you want to list the
 -- registered consumers. For more information, see
--- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>.
 newListStreamConsumers ::
   -- | 'streamARN'
   Prelude.Text ->
   ListStreamConsumers
 newListStreamConsumers pStreamARN_ =
   ListStreamConsumers'
-    { nextToken = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       streamCreationTimestamp = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
       streamARN = pStreamARN_
     }
+
+-- | The maximum number of consumers that you want a single call of
+-- @ListStreamConsumers@ to return. The default value is 100. If you
+-- specify a value greater than 100, at most 100 results are returned.
+listStreamConsumers_maxResults :: Lens.Lens' ListStreamConsumers (Prelude.Maybe Prelude.Natural)
+listStreamConsumers_maxResults = Lens.lens (\ListStreamConsumers' {maxResults} -> maxResults) (\s@ListStreamConsumers' {} a -> s {maxResults = a} :: ListStreamConsumers)
 
 -- | When the number of consumers that are registered with the data stream is
 -- greater than the default value for the @MaxResults@ parameter, or if you
@@ -191,16 +200,11 @@ listStreamConsumers_nextToken = Lens.lens (\ListStreamConsumers' {nextToken} -> 
 -- You can\'t specify this parameter if you specify the NextToken
 -- parameter.
 listStreamConsumers_streamCreationTimestamp :: Lens.Lens' ListStreamConsumers (Prelude.Maybe Prelude.UTCTime)
-listStreamConsumers_streamCreationTimestamp = Lens.lens (\ListStreamConsumers' {streamCreationTimestamp} -> streamCreationTimestamp) (\s@ListStreamConsumers' {} a -> s {streamCreationTimestamp = a} :: ListStreamConsumers) Prelude.. Lens.mapping Core._Time
-
--- | The maximum number of consumers that you want a single call of
--- @ListStreamConsumers@ to return.
-listStreamConsumers_maxResults :: Lens.Lens' ListStreamConsumers (Prelude.Maybe Prelude.Natural)
-listStreamConsumers_maxResults = Lens.lens (\ListStreamConsumers' {maxResults} -> maxResults) (\s@ListStreamConsumers' {} a -> s {maxResults = a} :: ListStreamConsumers)
+listStreamConsumers_streamCreationTimestamp = Lens.lens (\ListStreamConsumers' {streamCreationTimestamp} -> streamCreationTimestamp) (\s@ListStreamConsumers' {} a -> s {streamCreationTimestamp = a} :: ListStreamConsumers) Prelude.. Lens.mapping Data._Time
 
 -- | The ARN of the Kinesis data stream for which you want to list the
 -- registered consumers. For more information, see
--- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>.
 listStreamConsumers_streamARN :: Lens.Lens' ListStreamConsumers Prelude.Text
 listStreamConsumers_streamARN = Lens.lens (\ListStreamConsumers' {streamARN} -> streamARN) (\s@ListStreamConsumers' {} a -> s {streamARN = a} :: ListStreamConsumers)
 
@@ -230,66 +234,70 @@ instance Core.AWSRequest ListStreamConsumers where
   type
     AWSResponse ListStreamConsumers =
       ListStreamConsumersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListStreamConsumersResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Consumers" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Consumers" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListStreamConsumers where
   hashWithSalt _salt ListStreamConsumers' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` streamCreationTimestamp
-      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` streamARN
 
 instance Prelude.NFData ListStreamConsumers where
   rnf ListStreamConsumers' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf streamCreationTimestamp
-      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf streamARN
 
-instance Core.ToHeaders ListStreamConsumers where
+instance Data.ToHeaders ListStreamConsumers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Kinesis_20131202.ListStreamConsumers" ::
+              Data.=# ( "Kinesis_20131202.ListStreamConsumers" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListStreamConsumers where
+instance Data.ToJSON ListStreamConsumers where
   toJSON ListStreamConsumers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("StreamCreationTimestamp" Core..=)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("StreamCreationTimestamp" Data..=)
               Prelude.<$> streamCreationTimestamp,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("StreamARN" Core..= streamARN)
+            Prelude.Just ("StreamARN" Data..= streamARN)
           ]
       )
 
-instance Core.ToPath ListStreamConsumers where
+instance Data.ToPath ListStreamConsumers where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListStreamConsumers where
+instance Data.ToQuery ListStreamConsumers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListStreamConsumersResponse' smart constructor.
 data ListStreamConsumersResponse = ListStreamConsumersResponse'
-  { -- | When the number of consumers that are registered with the data stream is
+  { -- | An array of JSON objects. Each object represents one registered
+    -- consumer.
+    consumers :: Prelude.Maybe [Consumer],
+    -- | When the number of consumers that are registered with the data stream is
     -- greater than the default value for the @MaxResults@ parameter, or if you
     -- explicitly specify a value for @MaxResults@ that is less than the number
     -- of registered consumers, the response includes a pagination token named
@@ -304,9 +312,6 @@ data ListStreamConsumersResponse = ListStreamConsumersResponse'
     -- to use that value. If you specify an expired token in a call to
     -- @ListStreamConsumers@, you get @ExpiredNextTokenException@.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | An array of JSON objects. Each object represents one registered
-    -- consumer.
-    consumers :: Prelude.Maybe [Consumer],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -319,6 +324,9 @@ data ListStreamConsumersResponse = ListStreamConsumersResponse'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'consumers', 'listStreamConsumersResponse_consumers' - An array of JSON objects. Each object represents one registered
+-- consumer.
 --
 -- 'nextToken', 'listStreamConsumersResponse_nextToken' - When the number of consumers that are registered with the data stream is
 -- greater than the default value for the @MaxResults@ parameter, or if you
@@ -335,9 +343,6 @@ data ListStreamConsumersResponse = ListStreamConsumersResponse'
 -- to use that value. If you specify an expired token in a call to
 -- @ListStreamConsumers@, you get @ExpiredNextTokenException@.
 --
--- 'consumers', 'listStreamConsumersResponse_consumers' - An array of JSON objects. Each object represents one registered
--- consumer.
---
 -- 'httpStatus', 'listStreamConsumersResponse_httpStatus' - The response's http status code.
 newListStreamConsumersResponse ::
   -- | 'httpStatus'
@@ -345,11 +350,16 @@ newListStreamConsumersResponse ::
   ListStreamConsumersResponse
 newListStreamConsumersResponse pHttpStatus_ =
   ListStreamConsumersResponse'
-    { nextToken =
+    { consumers =
         Prelude.Nothing,
-      consumers = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | An array of JSON objects. Each object represents one registered
+-- consumer.
+listStreamConsumersResponse_consumers :: Lens.Lens' ListStreamConsumersResponse (Prelude.Maybe [Consumer])
+listStreamConsumersResponse_consumers = Lens.lens (\ListStreamConsumersResponse' {consumers} -> consumers) (\s@ListStreamConsumersResponse' {} a -> s {consumers = a} :: ListStreamConsumersResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | When the number of consumers that are registered with the data stream is
 -- greater than the default value for the @MaxResults@ parameter, or if you
@@ -368,17 +378,12 @@ newListStreamConsumersResponse pHttpStatus_ =
 listStreamConsumersResponse_nextToken :: Lens.Lens' ListStreamConsumersResponse (Prelude.Maybe Prelude.Text)
 listStreamConsumersResponse_nextToken = Lens.lens (\ListStreamConsumersResponse' {nextToken} -> nextToken) (\s@ListStreamConsumersResponse' {} a -> s {nextToken = a} :: ListStreamConsumersResponse)
 
--- | An array of JSON objects. Each object represents one registered
--- consumer.
-listStreamConsumersResponse_consumers :: Lens.Lens' ListStreamConsumersResponse (Prelude.Maybe [Consumer])
-listStreamConsumersResponse_consumers = Lens.lens (\ListStreamConsumersResponse' {consumers} -> consumers) (\s@ListStreamConsumersResponse' {} a -> s {consumers = a} :: ListStreamConsumersResponse) Prelude.. Lens.mapping Lens.coerced
-
 -- | The response's http status code.
 listStreamConsumersResponse_httpStatus :: Lens.Lens' ListStreamConsumersResponse Prelude.Int
 listStreamConsumersResponse_httpStatus = Lens.lens (\ListStreamConsumersResponse' {httpStatus} -> httpStatus) (\s@ListStreamConsumersResponse' {} a -> s {httpStatus = a} :: ListStreamConsumersResponse)
 
 instance Prelude.NFData ListStreamConsumersResponse where
   rnf ListStreamConsumersResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf consumers
+    Prelude.rnf consumers
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

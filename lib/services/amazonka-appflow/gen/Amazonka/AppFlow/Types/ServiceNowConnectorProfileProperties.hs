@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.ServiceNowConnectorProfileProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppFlow.Types.ServiceNowConnectorProfileProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The connector-specific profile properties required when using
@@ -57,15 +58,15 @@ serviceNowConnectorProfileProperties_instanceUrl :: Lens.Lens' ServiceNowConnect
 serviceNowConnectorProfileProperties_instanceUrl = Lens.lens (\ServiceNowConnectorProfileProperties' {instanceUrl} -> instanceUrl) (\s@ServiceNowConnectorProfileProperties' {} a -> s {instanceUrl = a} :: ServiceNowConnectorProfileProperties)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ServiceNowConnectorProfileProperties
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ServiceNowConnectorProfileProperties"
       ( \x ->
           ServiceNowConnectorProfileProperties'
-            Prelude.<$> (x Core..: "instanceUrl")
+            Prelude.<$> (x Data..: "instanceUrl")
       )
 
 instance
@@ -85,11 +86,11 @@ instance
     Prelude.rnf instanceUrl
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ServiceNowConnectorProfileProperties
   where
   toJSON ServiceNowConnectorProfileProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("instanceUrl" Core..= instanceUrl)]
+          [Prelude.Just ("instanceUrl" Data..= instanceUrl)]
       )

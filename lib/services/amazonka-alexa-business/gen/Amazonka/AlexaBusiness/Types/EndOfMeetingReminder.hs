@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.Types.EndOfMeetingReminder
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AlexaBusiness.Types.EndOfMeetingReminder where
 
 import Amazonka.AlexaBusiness.Types.EndOfMeetingReminderType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Settings for the end of meeting reminder feature that are applied to a
@@ -73,15 +74,15 @@ endOfMeetingReminder_reminderAtMinutes = Lens.lens (\EndOfMeetingReminder' {remi
 endOfMeetingReminder_reminderType :: Lens.Lens' EndOfMeetingReminder (Prelude.Maybe EndOfMeetingReminderType)
 endOfMeetingReminder_reminderType = Lens.lens (\EndOfMeetingReminder' {reminderType} -> reminderType) (\s@EndOfMeetingReminder' {} a -> s {reminderType = a} :: EndOfMeetingReminder)
 
-instance Core.FromJSON EndOfMeetingReminder where
+instance Data.FromJSON EndOfMeetingReminder where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EndOfMeetingReminder"
       ( \x ->
           EndOfMeetingReminder'
-            Prelude.<$> (x Core..:? "Enabled")
-            Prelude.<*> (x Core..:? "ReminderAtMinutes")
-            Prelude.<*> (x Core..:? "ReminderType")
+            Prelude.<$> (x Data..:? "Enabled")
+            Prelude.<*> (x Data..:? "ReminderAtMinutes")
+            Prelude.<*> (x Data..:? "ReminderType")
       )
 
 instance Prelude.Hashable EndOfMeetingReminder where

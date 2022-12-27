@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalytics.Types.InputLambdaProcessorUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KinesisAnalytics.Types.InputLambdaProcessorUpdate where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents an update to the
@@ -29,10 +30,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newInputLambdaProcessorUpdate' smart constructor.
 data InputLambdaProcessorUpdate = InputLambdaProcessorUpdate'
-  { -- | The ARN of the new IAM role that is used to access the AWS Lambda
-    -- function.
-    roleARNUpdate :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the new
+  { -- | The Amazon Resource Name (ARN) of the new
     -- <https://docs.aws.amazon.com/lambda/ AWS Lambda> function that is used
     -- to preprocess the records in the stream.
     --
@@ -40,7 +38,10 @@ data InputLambdaProcessorUpdate = InputLambdaProcessorUpdate'
     -- include the Lambda function version in the Lambda function ARN. For more
     -- information about Lambda ARNs, see
     -- </general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda Example ARNs: AWS Lambda>
-    resourceARNUpdate :: Prelude.Maybe Prelude.Text
+    resourceARNUpdate :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the new IAM role that is used to access the AWS Lambda
+    -- function.
+    roleARNUpdate :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -52,9 +53,6 @@ data InputLambdaProcessorUpdate = InputLambdaProcessorUpdate'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'roleARNUpdate', 'inputLambdaProcessorUpdate_roleARNUpdate' - The ARN of the new IAM role that is used to access the AWS Lambda
--- function.
---
 -- 'resourceARNUpdate', 'inputLambdaProcessorUpdate_resourceARNUpdate' - The Amazon Resource Name (ARN) of the new
 -- <https://docs.aws.amazon.com/lambda/ AWS Lambda> function that is used
 -- to preprocess the records in the stream.
@@ -63,19 +61,17 @@ data InputLambdaProcessorUpdate = InputLambdaProcessorUpdate'
 -- include the Lambda function version in the Lambda function ARN. For more
 -- information about Lambda ARNs, see
 -- </general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda Example ARNs: AWS Lambda>
+--
+-- 'roleARNUpdate', 'inputLambdaProcessorUpdate_roleARNUpdate' - The ARN of the new IAM role that is used to access the AWS Lambda
+-- function.
 newInputLambdaProcessorUpdate ::
   InputLambdaProcessorUpdate
 newInputLambdaProcessorUpdate =
   InputLambdaProcessorUpdate'
-    { roleARNUpdate =
+    { resourceARNUpdate =
         Prelude.Nothing,
-      resourceARNUpdate = Prelude.Nothing
+      roleARNUpdate = Prelude.Nothing
     }
-
--- | The ARN of the new IAM role that is used to access the AWS Lambda
--- function.
-inputLambdaProcessorUpdate_roleARNUpdate :: Lens.Lens' InputLambdaProcessorUpdate (Prelude.Maybe Prelude.Text)
-inputLambdaProcessorUpdate_roleARNUpdate = Lens.lens (\InputLambdaProcessorUpdate' {roleARNUpdate} -> roleARNUpdate) (\s@InputLambdaProcessorUpdate' {} a -> s {roleARNUpdate = a} :: InputLambdaProcessorUpdate)
 
 -- | The Amazon Resource Name (ARN) of the new
 -- <https://docs.aws.amazon.com/lambda/ AWS Lambda> function that is used
@@ -88,22 +84,27 @@ inputLambdaProcessorUpdate_roleARNUpdate = Lens.lens (\InputLambdaProcessorUpdat
 inputLambdaProcessorUpdate_resourceARNUpdate :: Lens.Lens' InputLambdaProcessorUpdate (Prelude.Maybe Prelude.Text)
 inputLambdaProcessorUpdate_resourceARNUpdate = Lens.lens (\InputLambdaProcessorUpdate' {resourceARNUpdate} -> resourceARNUpdate) (\s@InputLambdaProcessorUpdate' {} a -> s {resourceARNUpdate = a} :: InputLambdaProcessorUpdate)
 
+-- | The ARN of the new IAM role that is used to access the AWS Lambda
+-- function.
+inputLambdaProcessorUpdate_roleARNUpdate :: Lens.Lens' InputLambdaProcessorUpdate (Prelude.Maybe Prelude.Text)
+inputLambdaProcessorUpdate_roleARNUpdate = Lens.lens (\InputLambdaProcessorUpdate' {roleARNUpdate} -> roleARNUpdate) (\s@InputLambdaProcessorUpdate' {} a -> s {roleARNUpdate = a} :: InputLambdaProcessorUpdate)
+
 instance Prelude.Hashable InputLambdaProcessorUpdate where
   hashWithSalt _salt InputLambdaProcessorUpdate' {..} =
-    _salt `Prelude.hashWithSalt` roleARNUpdate
-      `Prelude.hashWithSalt` resourceARNUpdate
+    _salt `Prelude.hashWithSalt` resourceARNUpdate
+      `Prelude.hashWithSalt` roleARNUpdate
 
 instance Prelude.NFData InputLambdaProcessorUpdate where
   rnf InputLambdaProcessorUpdate' {..} =
-    Prelude.rnf roleARNUpdate
-      `Prelude.seq` Prelude.rnf resourceARNUpdate
+    Prelude.rnf resourceARNUpdate
+      `Prelude.seq` Prelude.rnf roleARNUpdate
 
-instance Core.ToJSON InputLambdaProcessorUpdate where
+instance Data.ToJSON InputLambdaProcessorUpdate where
   toJSON InputLambdaProcessorUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RoleARNUpdate" Core..=) Prelude.<$> roleARNUpdate,
-            ("ResourceARNUpdate" Core..=)
-              Prelude.<$> resourceARNUpdate
+          [ ("ResourceARNUpdate" Data..=)
+              Prelude.<$> resourceARNUpdate,
+            ("RoleARNUpdate" Data..=) Prelude.<$> roleARNUpdate
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.Parameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.Parameters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types.DateTimeParameter
 import Amazonka.QuickSight.Types.DecimalParameter
@@ -40,7 +41,7 @@ data Parameters = Parameters'
     -- | The parameters that have a data type of string.
     stringParameters :: Prelude.Maybe [StringParameter]
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'Parameters' with all optional fields omitted.
@@ -97,17 +98,17 @@ instance Prelude.NFData Parameters where
       `Prelude.seq` Prelude.rnf integerParameters
       `Prelude.seq` Prelude.rnf stringParameters
 
-instance Core.ToJSON Parameters where
+instance Data.ToJSON Parameters where
   toJSON Parameters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DateTimeParameters" Core..=)
+          [ ("DateTimeParameters" Data..=)
               Prelude.<$> dateTimeParameters,
-            ("DecimalParameters" Core..=)
+            ("DecimalParameters" Data..=)
               Prelude.<$> decimalParameters,
-            ("IntegerParameters" Core..=)
+            ("IntegerParameters" Data..=)
               Prelude.<$> integerParameters,
-            ("StringParameters" Core..=)
+            ("StringParameters" Data..=)
               Prelude.<$> stringParameters
           ]
       )

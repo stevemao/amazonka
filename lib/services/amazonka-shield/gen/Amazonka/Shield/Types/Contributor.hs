@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Shield.Types.Contributor
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,21 +20,23 @@
 module Amazonka.Shield.Types.Contributor where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A contributor to the attack and their contribution.
 --
 -- /See:/ 'newContributor' smart constructor.
 data Contributor = Contributor'
-  { -- | The contribution of this contributor expressed in Protection units. For
-    -- example @10,000@.
-    value :: Prelude.Maybe Prelude.Integer,
-    -- | The name of the contributor. This is dependent on the
-    -- @AttackPropertyIdentifier@. For example, if the
+  { -- | The name of the contributor. The type of name that you\'ll find here
+    -- depends on the @AttackPropertyIdentifier@ setting in the
+    -- @AttackProperty@ where this contributor is defined. For example, if the
     -- @AttackPropertyIdentifier@ is @SOURCE_COUNTRY@, the @Name@ could be
     -- @United States@.
-    name :: Prelude.Maybe Prelude.Text
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The contribution of this contributor expressed in Protection units. For
+    -- example @10,000@.
+    value :: Prelude.Maybe Prelude.Integer
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,47 +48,49 @@ data Contributor = Contributor'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'contributor_value' - The contribution of this contributor expressed in Protection units. For
--- example @10,000@.
---
--- 'name', 'contributor_name' - The name of the contributor. This is dependent on the
--- @AttackPropertyIdentifier@. For example, if the
+-- 'name', 'contributor_name' - The name of the contributor. The type of name that you\'ll find here
+-- depends on the @AttackPropertyIdentifier@ setting in the
+-- @AttackProperty@ where this contributor is defined. For example, if the
 -- @AttackPropertyIdentifier@ is @SOURCE_COUNTRY@, the @Name@ could be
 -- @United States@.
+--
+-- 'value', 'contributor_value' - The contribution of this contributor expressed in Protection units. For
+-- example @10,000@.
 newContributor ::
   Contributor
 newContributor =
   Contributor'
-    { value = Prelude.Nothing,
-      name = Prelude.Nothing
+    { name = Prelude.Nothing,
+      value = Prelude.Nothing
     }
+
+-- | The name of the contributor. The type of name that you\'ll find here
+-- depends on the @AttackPropertyIdentifier@ setting in the
+-- @AttackProperty@ where this contributor is defined. For example, if the
+-- @AttackPropertyIdentifier@ is @SOURCE_COUNTRY@, the @Name@ could be
+-- @United States@.
+contributor_name :: Lens.Lens' Contributor (Prelude.Maybe Prelude.Text)
+contributor_name = Lens.lens (\Contributor' {name} -> name) (\s@Contributor' {} a -> s {name = a} :: Contributor)
 
 -- | The contribution of this contributor expressed in Protection units. For
 -- example @10,000@.
 contributor_value :: Lens.Lens' Contributor (Prelude.Maybe Prelude.Integer)
 contributor_value = Lens.lens (\Contributor' {value} -> value) (\s@Contributor' {} a -> s {value = a} :: Contributor)
 
--- | The name of the contributor. This is dependent on the
--- @AttackPropertyIdentifier@. For example, if the
--- @AttackPropertyIdentifier@ is @SOURCE_COUNTRY@, the @Name@ could be
--- @United States@.
-contributor_name :: Lens.Lens' Contributor (Prelude.Maybe Prelude.Text)
-contributor_name = Lens.lens (\Contributor' {name} -> name) (\s@Contributor' {} a -> s {name = a} :: Contributor)
-
-instance Core.FromJSON Contributor where
+instance Data.FromJSON Contributor where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Contributor"
       ( \x ->
           Contributor'
-            Prelude.<$> (x Core..:? "Value") Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Name") Prelude.<*> (x Data..:? "Value")
       )
 
 instance Prelude.Hashable Contributor where
   hashWithSalt _salt Contributor' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData Contributor where
   rnf Contributor' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name `Prelude.seq` Prelude.rnf value

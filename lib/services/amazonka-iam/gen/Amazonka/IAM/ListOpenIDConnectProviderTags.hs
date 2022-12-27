@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.ListOpenIDConnectProviderTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,16 +43,17 @@ module Amazonka.IAM.ListOpenIDConnectProviderTags
     newListOpenIDConnectProviderTagsResponse,
 
     -- * Response Lenses
-    listOpenIDConnectProviderTagsResponse_marker,
     listOpenIDConnectProviderTagsResponse_isTruncated,
+    listOpenIDConnectProviderTagsResponse_marker,
     listOpenIDConnectProviderTagsResponse_httpStatus,
     listOpenIDConnectProviderTagsResponse_tags,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -165,17 +166,18 @@ instance
   type
     AWSResponse ListOpenIDConnectProviderTags =
       ListOpenIDConnectProviderTagsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListOpenIDConnectProviderTagsResult"
       ( \s h x ->
           ListOpenIDConnectProviderTagsResponse'
-            Prelude.<$> (x Core..@? "Marker")
-            Prelude.<*> (x Core..@? "IsTruncated")
+            Prelude.<$> (x Data..@? "IsTruncated")
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..@? "Tags" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.parseXMLList "member"
+            Prelude.<*> ( x Data..@? "Tags" Core..!@ Prelude.mempty
+                            Prelude.>>= Data.parseXMLList "member"
                         )
       )
 
@@ -194,34 +196,30 @@ instance Prelude.NFData ListOpenIDConnectProviderTags where
       `Prelude.seq` Prelude.rnf maxItems
       `Prelude.seq` Prelude.rnf openIDConnectProviderArn
 
-instance Core.ToHeaders ListOpenIDConnectProviderTags where
+instance Data.ToHeaders ListOpenIDConnectProviderTags where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListOpenIDConnectProviderTags where
+instance Data.ToPath ListOpenIDConnectProviderTags where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListOpenIDConnectProviderTags where
+instance Data.ToQuery ListOpenIDConnectProviderTags where
   toQuery ListOpenIDConnectProviderTags' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "ListOpenIDConnectProviderTags" ::
+          Data.=: ( "ListOpenIDConnectProviderTags" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "Marker" Core.=: marker,
-        "MaxItems" Core.=: maxItems,
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "Marker" Data.=: marker,
+        "MaxItems" Data.=: maxItems,
         "OpenIDConnectProviderArn"
-          Core.=: openIDConnectProviderArn
+          Data.=: openIDConnectProviderArn
       ]
 
 -- | /See:/ 'newListOpenIDConnectProviderTagsResponse' smart constructor.
 data ListOpenIDConnectProviderTagsResponse = ListOpenIDConnectProviderTagsResponse'
-  { -- | When @IsTruncated@ is @true@, this element is present and contains the
-    -- value to use for the @Marker@ parameter in a subsequent pagination
-    -- request.
-    marker :: Prelude.Maybe Prelude.Text,
-    -- | A flag that indicates whether there are more items to return. If your
+  { -- | A flag that indicates whether there are more items to return. If your
     -- results were truncated, you can make a subsequent pagination request
     -- using the @Marker@ request parameter to retrieve more items. Note that
     -- IAM might return fewer than the @MaxItems@ number of results even when
@@ -229,6 +227,10 @@ data ListOpenIDConnectProviderTagsResponse = ListOpenIDConnectProviderTagsRespon
     -- @IsTruncated@ after every call to ensure that you receive all your
     -- results.
     isTruncated :: Prelude.Maybe Prelude.Bool,
+    -- | When @IsTruncated@ is @true@, this element is present and contains the
+    -- value to use for the @Marker@ parameter in a subsequent pagination
+    -- request.
+    marker :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | The list of tags that are currently attached to the OpenID Connect
@@ -247,10 +249,6 @@ data ListOpenIDConnectProviderTagsResponse = ListOpenIDConnectProviderTagsRespon
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'marker', 'listOpenIDConnectProviderTagsResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
--- value to use for the @Marker@ parameter in a subsequent pagination
--- request.
---
 -- 'isTruncated', 'listOpenIDConnectProviderTagsResponse_isTruncated' - A flag that indicates whether there are more items to return. If your
 -- results were truncated, you can make a subsequent pagination request
 -- using the @Marker@ request parameter to retrieve more items. Note that
@@ -258,6 +256,10 @@ data ListOpenIDConnectProviderTagsResponse = ListOpenIDConnectProviderTagsRespon
 -- there are more results available. We recommend that you check
 -- @IsTruncated@ after every call to ensure that you receive all your
 -- results.
+--
+-- 'marker', 'listOpenIDConnectProviderTagsResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
 --
 -- 'httpStatus', 'listOpenIDConnectProviderTagsResponse_httpStatus' - The response's http status code.
 --
@@ -271,18 +273,12 @@ newListOpenIDConnectProviderTagsResponse ::
   ListOpenIDConnectProviderTagsResponse
 newListOpenIDConnectProviderTagsResponse pHttpStatus_ =
   ListOpenIDConnectProviderTagsResponse'
-    { marker =
+    { isTruncated =
         Prelude.Nothing,
-      isTruncated = Prelude.Nothing,
+      marker = Prelude.Nothing,
       httpStatus = pHttpStatus_,
       tags = Prelude.mempty
     }
-
--- | When @IsTruncated@ is @true@, this element is present and contains the
--- value to use for the @Marker@ parameter in a subsequent pagination
--- request.
-listOpenIDConnectProviderTagsResponse_marker :: Lens.Lens' ListOpenIDConnectProviderTagsResponse (Prelude.Maybe Prelude.Text)
-listOpenIDConnectProviderTagsResponse_marker = Lens.lens (\ListOpenIDConnectProviderTagsResponse' {marker} -> marker) (\s@ListOpenIDConnectProviderTagsResponse' {} a -> s {marker = a} :: ListOpenIDConnectProviderTagsResponse)
 
 -- | A flag that indicates whether there are more items to return. If your
 -- results were truncated, you can make a subsequent pagination request
@@ -293,6 +289,12 @@ listOpenIDConnectProviderTagsResponse_marker = Lens.lens (\ListOpenIDConnectProv
 -- results.
 listOpenIDConnectProviderTagsResponse_isTruncated :: Lens.Lens' ListOpenIDConnectProviderTagsResponse (Prelude.Maybe Prelude.Bool)
 listOpenIDConnectProviderTagsResponse_isTruncated = Lens.lens (\ListOpenIDConnectProviderTagsResponse' {isTruncated} -> isTruncated) (\s@ListOpenIDConnectProviderTagsResponse' {} a -> s {isTruncated = a} :: ListOpenIDConnectProviderTagsResponse)
+
+-- | When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
+listOpenIDConnectProviderTagsResponse_marker :: Lens.Lens' ListOpenIDConnectProviderTagsResponse (Prelude.Maybe Prelude.Text)
+listOpenIDConnectProviderTagsResponse_marker = Lens.lens (\ListOpenIDConnectProviderTagsResponse' {marker} -> marker) (\s@ListOpenIDConnectProviderTagsResponse' {} a -> s {marker = a} :: ListOpenIDConnectProviderTagsResponse)
 
 -- | The response's http status code.
 listOpenIDConnectProviderTagsResponse_httpStatus :: Lens.Lens' ListOpenIDConnectProviderTagsResponse Prelude.Int
@@ -310,7 +312,7 @@ instance
     ListOpenIDConnectProviderTagsResponse
   where
   rnf ListOpenIDConnectProviderTagsResponse' {..} =
-    Prelude.rnf marker
-      `Prelude.seq` Prelude.rnf isTruncated
+    Prelude.rnf isTruncated
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf tags

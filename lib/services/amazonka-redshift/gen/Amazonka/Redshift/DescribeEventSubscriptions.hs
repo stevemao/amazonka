@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.DescribeEventSubscriptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,11 +42,11 @@ module Amazonka.Redshift.DescribeEventSubscriptions
     newDescribeEventSubscriptions,
 
     -- * Request Lenses
-    describeEventSubscriptions_subscriptionName,
-    describeEventSubscriptions_tagValues,
-    describeEventSubscriptions_tagKeys,
     describeEventSubscriptions_marker,
     describeEventSubscriptions_maxRecords,
+    describeEventSubscriptions_subscriptionName,
+    describeEventSubscriptions_tagKeys,
+    describeEventSubscriptions_tagValues,
 
     -- * Destructuring the Response
     DescribeEventSubscriptionsResponse (..),
@@ -60,7 +60,8 @@ module Amazonka.Redshift.DescribeEventSubscriptions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -70,26 +71,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeEventSubscriptions' smart constructor.
 data DescribeEventSubscriptions = DescribeEventSubscriptions'
-  { -- | The name of the Amazon Redshift event notification subscription to be
-    -- described.
-    subscriptionName :: Prelude.Maybe Prelude.Text,
-    -- | A tag value or values for which you want to return all matching event
-    -- notification subscriptions that are associated with the specified tag
-    -- value or values. For example, suppose that you have subscriptions that
-    -- are tagged with values called @admin@ and @test@. If you specify both of
-    -- these tag values in the request, Amazon Redshift returns a response with
-    -- the subscriptions that have either or both of these tag values
-    -- associated with them.
-    tagValues :: Prelude.Maybe [Prelude.Text],
-    -- | A tag key or keys for which you want to return all matching event
-    -- notification subscriptions that are associated with the specified key or
-    -- keys. For example, suppose that you have subscriptions that are tagged
-    -- with keys called @owner@ and @environment@. If you specify both of these
-    -- tag keys in the request, Amazon Redshift returns a response with the
-    -- subscriptions that have either or both of these tag keys associated with
-    -- them.
-    tagKeys :: Prelude.Maybe [Prelude.Text],
-    -- | An optional parameter that specifies the starting point to return a set
+  { -- | An optional parameter that specifies the starting point to return a set
     -- of response records. When the results of a DescribeEventSubscriptions
     -- request exceed the value specified in @MaxRecords@, Amazon Web Services
     -- returns a value in the @Marker@ field of the response. You can retrieve
@@ -105,7 +87,26 @@ data DescribeEventSubscriptions = DescribeEventSubscriptions'
     -- Default: @100@
     --
     -- Constraints: minimum 20, maximum 100.
-    maxRecords :: Prelude.Maybe Prelude.Int
+    maxRecords :: Prelude.Maybe Prelude.Int,
+    -- | The name of the Amazon Redshift event notification subscription to be
+    -- described.
+    subscriptionName :: Prelude.Maybe Prelude.Text,
+    -- | A tag key or keys for which you want to return all matching event
+    -- notification subscriptions that are associated with the specified key or
+    -- keys. For example, suppose that you have subscriptions that are tagged
+    -- with keys called @owner@ and @environment@. If you specify both of these
+    -- tag keys in the request, Amazon Redshift returns a response with the
+    -- subscriptions that have either or both of these tag keys associated with
+    -- them.
+    tagKeys :: Prelude.Maybe [Prelude.Text],
+    -- | A tag value or values for which you want to return all matching event
+    -- notification subscriptions that are associated with the specified tag
+    -- value or values. For example, suppose that you have subscriptions that
+    -- are tagged with values called @admin@ and @test@. If you specify both of
+    -- these tag values in the request, Amazon Redshift returns a response with
+    -- the subscriptions that have either or both of these tag values
+    -- associated with them.
+    tagValues :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -116,25 +117,6 @@ data DescribeEventSubscriptions = DescribeEventSubscriptions'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'subscriptionName', 'describeEventSubscriptions_subscriptionName' - The name of the Amazon Redshift event notification subscription to be
--- described.
---
--- 'tagValues', 'describeEventSubscriptions_tagValues' - A tag value or values for which you want to return all matching event
--- notification subscriptions that are associated with the specified tag
--- value or values. For example, suppose that you have subscriptions that
--- are tagged with values called @admin@ and @test@. If you specify both of
--- these tag values in the request, Amazon Redshift returns a response with
--- the subscriptions that have either or both of these tag values
--- associated with them.
---
--- 'tagKeys', 'describeEventSubscriptions_tagKeys' - A tag key or keys for which you want to return all matching event
--- notification subscriptions that are associated with the specified key or
--- keys. For example, suppose that you have subscriptions that are tagged
--- with keys called @owner@ and @environment@. If you specify both of these
--- tag keys in the request, Amazon Redshift returns a response with the
--- subscriptions that have either or both of these tag keys associated with
--- them.
 --
 -- 'marker', 'describeEventSubscriptions_marker' - An optional parameter that specifies the starting point to return a set
 -- of response records. When the results of a DescribeEventSubscriptions
@@ -152,42 +134,36 @@ data DescribeEventSubscriptions = DescribeEventSubscriptions'
 -- Default: @100@
 --
 -- Constraints: minimum 20, maximum 100.
-newDescribeEventSubscriptions ::
-  DescribeEventSubscriptions
-newDescribeEventSubscriptions =
-  DescribeEventSubscriptions'
-    { subscriptionName =
-        Prelude.Nothing,
-      tagValues = Prelude.Nothing,
-      tagKeys = Prelude.Nothing,
-      marker = Prelude.Nothing,
-      maxRecords = Prelude.Nothing
-    }
-
--- | The name of the Amazon Redshift event notification subscription to be
+--
+-- 'subscriptionName', 'describeEventSubscriptions_subscriptionName' - The name of the Amazon Redshift event notification subscription to be
 -- described.
-describeEventSubscriptions_subscriptionName :: Lens.Lens' DescribeEventSubscriptions (Prelude.Maybe Prelude.Text)
-describeEventSubscriptions_subscriptionName = Lens.lens (\DescribeEventSubscriptions' {subscriptionName} -> subscriptionName) (\s@DescribeEventSubscriptions' {} a -> s {subscriptionName = a} :: DescribeEventSubscriptions)
-
--- | A tag value or values for which you want to return all matching event
--- notification subscriptions that are associated with the specified tag
--- value or values. For example, suppose that you have subscriptions that
--- are tagged with values called @admin@ and @test@. If you specify both of
--- these tag values in the request, Amazon Redshift returns a response with
--- the subscriptions that have either or both of these tag values
--- associated with them.
-describeEventSubscriptions_tagValues :: Lens.Lens' DescribeEventSubscriptions (Prelude.Maybe [Prelude.Text])
-describeEventSubscriptions_tagValues = Lens.lens (\DescribeEventSubscriptions' {tagValues} -> tagValues) (\s@DescribeEventSubscriptions' {} a -> s {tagValues = a} :: DescribeEventSubscriptions) Prelude.. Lens.mapping Lens.coerced
-
--- | A tag key or keys for which you want to return all matching event
+--
+-- 'tagKeys', 'describeEventSubscriptions_tagKeys' - A tag key or keys for which you want to return all matching event
 -- notification subscriptions that are associated with the specified key or
 -- keys. For example, suppose that you have subscriptions that are tagged
 -- with keys called @owner@ and @environment@. If you specify both of these
 -- tag keys in the request, Amazon Redshift returns a response with the
 -- subscriptions that have either or both of these tag keys associated with
 -- them.
-describeEventSubscriptions_tagKeys :: Lens.Lens' DescribeEventSubscriptions (Prelude.Maybe [Prelude.Text])
-describeEventSubscriptions_tagKeys = Lens.lens (\DescribeEventSubscriptions' {tagKeys} -> tagKeys) (\s@DescribeEventSubscriptions' {} a -> s {tagKeys = a} :: DescribeEventSubscriptions) Prelude.. Lens.mapping Lens.coerced
+--
+-- 'tagValues', 'describeEventSubscriptions_tagValues' - A tag value or values for which you want to return all matching event
+-- notification subscriptions that are associated with the specified tag
+-- value or values. For example, suppose that you have subscriptions that
+-- are tagged with values called @admin@ and @test@. If you specify both of
+-- these tag values in the request, Amazon Redshift returns a response with
+-- the subscriptions that have either or both of these tag values
+-- associated with them.
+newDescribeEventSubscriptions ::
+  DescribeEventSubscriptions
+newDescribeEventSubscriptions =
+  DescribeEventSubscriptions'
+    { marker =
+        Prelude.Nothing,
+      maxRecords = Prelude.Nothing,
+      subscriptionName = Prelude.Nothing,
+      tagKeys = Prelude.Nothing,
+      tagValues = Prelude.Nothing
+    }
 
 -- | An optional parameter that specifies the starting point to return a set
 -- of response records. When the results of a DescribeEventSubscriptions
@@ -209,6 +185,31 @@ describeEventSubscriptions_marker = Lens.lens (\DescribeEventSubscriptions' {mar
 -- Constraints: minimum 20, maximum 100.
 describeEventSubscriptions_maxRecords :: Lens.Lens' DescribeEventSubscriptions (Prelude.Maybe Prelude.Int)
 describeEventSubscriptions_maxRecords = Lens.lens (\DescribeEventSubscriptions' {maxRecords} -> maxRecords) (\s@DescribeEventSubscriptions' {} a -> s {maxRecords = a} :: DescribeEventSubscriptions)
+
+-- | The name of the Amazon Redshift event notification subscription to be
+-- described.
+describeEventSubscriptions_subscriptionName :: Lens.Lens' DescribeEventSubscriptions (Prelude.Maybe Prelude.Text)
+describeEventSubscriptions_subscriptionName = Lens.lens (\DescribeEventSubscriptions' {subscriptionName} -> subscriptionName) (\s@DescribeEventSubscriptions' {} a -> s {subscriptionName = a} :: DescribeEventSubscriptions)
+
+-- | A tag key or keys for which you want to return all matching event
+-- notification subscriptions that are associated with the specified key or
+-- keys. For example, suppose that you have subscriptions that are tagged
+-- with keys called @owner@ and @environment@. If you specify both of these
+-- tag keys in the request, Amazon Redshift returns a response with the
+-- subscriptions that have either or both of these tag keys associated with
+-- them.
+describeEventSubscriptions_tagKeys :: Lens.Lens' DescribeEventSubscriptions (Prelude.Maybe [Prelude.Text])
+describeEventSubscriptions_tagKeys = Lens.lens (\DescribeEventSubscriptions' {tagKeys} -> tagKeys) (\s@DescribeEventSubscriptions' {} a -> s {tagKeys = a} :: DescribeEventSubscriptions) Prelude.. Lens.mapping Lens.coerced
+
+-- | A tag value or values for which you want to return all matching event
+-- notification subscriptions that are associated with the specified tag
+-- value or values. For example, suppose that you have subscriptions that
+-- are tagged with values called @admin@ and @test@. If you specify both of
+-- these tag values in the request, Amazon Redshift returns a response with
+-- the subscriptions that have either or both of these tag values
+-- associated with them.
+describeEventSubscriptions_tagValues :: Lens.Lens' DescribeEventSubscriptions (Prelude.Maybe [Prelude.Text])
+describeEventSubscriptions_tagValues = Lens.lens (\DescribeEventSubscriptions' {tagValues} -> tagValues) (\s@DescribeEventSubscriptions' {} a -> s {tagValues = a} :: DescribeEventSubscriptions) Prelude.. Lens.mapping Lens.coerced
 
 instance Core.AWSPager DescribeEventSubscriptions where
   page rq rs
@@ -236,58 +237,59 @@ instance Core.AWSRequest DescribeEventSubscriptions where
   type
     AWSResponse DescribeEventSubscriptions =
       DescribeEventSubscriptionsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeEventSubscriptionsResult"
       ( \s h x ->
           DescribeEventSubscriptionsResponse'
-            Prelude.<$> ( x Core..@? "EventSubscriptionsList"
+            Prelude.<$> ( x Data..@? "EventSubscriptionsList"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "EventSubscription")
+                            Prelude.>>= Core.may (Data.parseXMLList "EventSubscription")
                         )
-            Prelude.<*> (x Core..@? "Marker")
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeEventSubscriptions where
   hashWithSalt _salt DescribeEventSubscriptions' {..} =
-    _salt `Prelude.hashWithSalt` subscriptionName
-      `Prelude.hashWithSalt` tagValues
-      `Prelude.hashWithSalt` tagKeys
-      `Prelude.hashWithSalt` marker
+    _salt `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
+      `Prelude.hashWithSalt` subscriptionName
+      `Prelude.hashWithSalt` tagKeys
+      `Prelude.hashWithSalt` tagValues
 
 instance Prelude.NFData DescribeEventSubscriptions where
   rnf DescribeEventSubscriptions' {..} =
-    Prelude.rnf subscriptionName
-      `Prelude.seq` Prelude.rnf tagValues
-      `Prelude.seq` Prelude.rnf tagKeys
-      `Prelude.seq` Prelude.rnf marker
+    Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
+      `Prelude.seq` Prelude.rnf subscriptionName
+      `Prelude.seq` Prelude.rnf tagKeys
+      `Prelude.seq` Prelude.rnf tagValues
 
-instance Core.ToHeaders DescribeEventSubscriptions where
+instance Data.ToHeaders DescribeEventSubscriptions where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeEventSubscriptions where
+instance Data.ToPath DescribeEventSubscriptions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeEventSubscriptions where
+instance Data.ToQuery DescribeEventSubscriptions where
   toQuery DescribeEventSubscriptions' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeEventSubscriptions" :: Prelude.ByteString),
+          Data.=: ("DescribeEventSubscriptions" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "SubscriptionName" Core.=: subscriptionName,
-        "TagValues"
-          Core.=: Core.toQuery
-            (Core.toQueryList "TagValue" Prelude.<$> tagValues),
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
+        "SubscriptionName" Data.=: subscriptionName,
         "TagKeys"
-          Core.=: Core.toQuery
-            (Core.toQueryList "TagKey" Prelude.<$> tagKeys),
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords
+          Data.=: Data.toQuery
+            (Data.toQueryList "TagKey" Prelude.<$> tagKeys),
+        "TagValues"
+          Data.=: Data.toQuery
+            (Data.toQueryList "TagValue" Prelude.<$> tagValues)
       ]
 
 -- |

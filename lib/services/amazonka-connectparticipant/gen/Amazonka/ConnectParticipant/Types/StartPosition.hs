@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ConnectParticipant.Types.StartPosition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ConnectParticipant.Types.StartPosition where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A filtering option for where to start. For example, if you sent 100
@@ -92,12 +93,12 @@ instance Prelude.NFData StartPosition where
       `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf mostRecent
 
-instance Core.ToJSON StartPosition where
+instance Data.ToJSON StartPosition where
   toJSON StartPosition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AbsoluteTime" Core..=) Prelude.<$> absoluteTime,
-            ("Id" Core..=) Prelude.<$> id,
-            ("MostRecent" Core..=) Prelude.<$> mostRecent
+          [ ("AbsoluteTime" Data..=) Prelude.<$> absoluteTime,
+            ("Id" Data..=) Prelude.<$> id,
+            ("MostRecent" Data..=) Prelude.<$> mostRecent
           ]
       )

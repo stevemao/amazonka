@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudControl.GetResourceRequestStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.CloudControl.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,12 +96,13 @@ instance Core.AWSRequest GetResourceRequestStatus where
   type
     AWSResponse GetResourceRequestStatus =
       GetResourceRequestStatusResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetResourceRequestStatusResponse'
-            Prelude.<$> (x Core..?> "ProgressEvent")
+            Prelude.<$> (x Data..?> "ProgressEvent")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -112,32 +114,32 @@ instance Prelude.NFData GetResourceRequestStatus where
   rnf GetResourceRequestStatus' {..} =
     Prelude.rnf requestToken
 
-instance Core.ToHeaders GetResourceRequestStatus where
+instance Data.ToHeaders GetResourceRequestStatus where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CloudApiService.GetResourceRequestStatus" ::
+              Data.=# ( "CloudApiService.GetResourceRequestStatus" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetResourceRequestStatus where
+instance Data.ToJSON GetResourceRequestStatus where
   toJSON GetResourceRequestStatus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("RequestToken" Core..= requestToken)]
+          [Prelude.Just ("RequestToken" Data..= requestToken)]
       )
 
-instance Core.ToPath GetResourceRequestStatus where
+instance Data.ToPath GetResourceRequestStatus where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetResourceRequestStatus where
+instance Data.ToQuery GetResourceRequestStatus where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetResourceRequestStatusResponse' smart constructor.

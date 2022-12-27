@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MechanicalTurk.DeleteWorkerBlock
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.MechanicalTurk.DeleteWorkerBlock
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MechanicalTurk.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -96,7 +97,8 @@ instance Core.AWSRequest DeleteWorkerBlock where
   type
     AWSResponse DeleteWorkerBlock =
       DeleteWorkerBlockResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -114,34 +116,34 @@ instance Prelude.NFData DeleteWorkerBlock where
     Prelude.rnf reason
       `Prelude.seq` Prelude.rnf workerId
 
-instance Core.ToHeaders DeleteWorkerBlock where
+instance Data.ToHeaders DeleteWorkerBlock where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "MTurkRequesterServiceV20170117.DeleteWorkerBlock" ::
+              Data.=# ( "MTurkRequesterServiceV20170117.DeleteWorkerBlock" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteWorkerBlock where
+instance Data.ToJSON DeleteWorkerBlock where
   toJSON DeleteWorkerBlock' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Reason" Core..=) Prelude.<$> reason,
-            Prelude.Just ("WorkerId" Core..= workerId)
+          [ ("Reason" Data..=) Prelude.<$> reason,
+            Prelude.Just ("WorkerId" Data..= workerId)
           ]
       )
 
-instance Core.ToPath DeleteWorkerBlock where
+instance Data.ToPath DeleteWorkerBlock where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteWorkerBlock where
+instance Data.ToQuery DeleteWorkerBlock where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteWorkerBlockResponse' smart constructor.

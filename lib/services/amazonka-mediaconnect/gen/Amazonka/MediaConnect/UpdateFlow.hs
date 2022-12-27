@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConnect.UpdateFlow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,6 +27,7 @@ module Amazonka.MediaConnect.UpdateFlow
     newUpdateFlow,
 
     -- * Request Lenses
+    updateFlow_maintenance,
     updateFlow_sourceFailoverConfig,
     updateFlow_flowArn,
 
@@ -41,7 +42,8 @@ module Amazonka.MediaConnect.UpdateFlow
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConnect.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -51,7 +53,8 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newUpdateFlow' smart constructor.
 data UpdateFlow = UpdateFlow'
-  { sourceFailoverConfig :: Prelude.Maybe UpdateFailoverConfig,
+  { maintenance :: Prelude.Maybe UpdateMaintenance,
+    sourceFailoverConfig :: Prelude.Maybe UpdateFailoverConfig,
     -- | The flow that you want to update.
     flowArn :: Prelude.Text
   }
@@ -65,6 +68,8 @@ data UpdateFlow = UpdateFlow'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maintenance', 'updateFlow_maintenance' - Undocumented member.
+--
 -- 'sourceFailoverConfig', 'updateFlow_sourceFailoverConfig' - Undocumented member.
 --
 -- 'flowArn', 'updateFlow_flowArn' - The flow that you want to update.
@@ -74,9 +79,14 @@ newUpdateFlow ::
   UpdateFlow
 newUpdateFlow pFlowArn_ =
   UpdateFlow'
-    { sourceFailoverConfig = Prelude.Nothing,
+    { maintenance = Prelude.Nothing,
+      sourceFailoverConfig = Prelude.Nothing,
       flowArn = pFlowArn_
     }
+
+-- | Undocumented member.
+updateFlow_maintenance :: Lens.Lens' UpdateFlow (Prelude.Maybe UpdateMaintenance)
+updateFlow_maintenance = Lens.lens (\UpdateFlow' {maintenance} -> maintenance) (\s@UpdateFlow' {} a -> s {maintenance = a} :: UpdateFlow)
 
 -- | Undocumented member.
 updateFlow_sourceFailoverConfig :: Lens.Lens' UpdateFlow (Prelude.Maybe UpdateFailoverConfig)
@@ -88,50 +98,54 @@ updateFlow_flowArn = Lens.lens (\UpdateFlow' {flowArn} -> flowArn) (\s@UpdateFlo
 
 instance Core.AWSRequest UpdateFlow where
   type AWSResponse UpdateFlow = UpdateFlowResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateFlowResponse'
-            Prelude.<$> (x Core..?> "flow")
+            Prelude.<$> (x Data..?> "flow")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateFlow where
   hashWithSalt _salt UpdateFlow' {..} =
-    _salt `Prelude.hashWithSalt` sourceFailoverConfig
+    _salt `Prelude.hashWithSalt` maintenance
+      `Prelude.hashWithSalt` sourceFailoverConfig
       `Prelude.hashWithSalt` flowArn
 
 instance Prelude.NFData UpdateFlow where
   rnf UpdateFlow' {..} =
-    Prelude.rnf sourceFailoverConfig
+    Prelude.rnf maintenance
+      `Prelude.seq` Prelude.rnf sourceFailoverConfig
       `Prelude.seq` Prelude.rnf flowArn
 
-instance Core.ToHeaders UpdateFlow where
+instance Data.ToHeaders UpdateFlow where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateFlow where
+instance Data.ToJSON UpdateFlow where
   toJSON UpdateFlow' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("sourceFailoverConfig" Core..=)
+          [ ("maintenance" Data..=) Prelude.<$> maintenance,
+            ("sourceFailoverConfig" Data..=)
               Prelude.<$> sourceFailoverConfig
           ]
       )
 
-instance Core.ToPath UpdateFlow where
+instance Data.ToPath UpdateFlow where
   toPath UpdateFlow' {..} =
-    Prelude.mconcat ["/v1/flows/", Core.toBS flowArn]
+    Prelude.mconcat ["/v1/flows/", Data.toBS flowArn]
 
-instance Core.ToQuery UpdateFlow where
+instance Data.ToQuery UpdateFlow where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateFlowResponse' smart constructor.

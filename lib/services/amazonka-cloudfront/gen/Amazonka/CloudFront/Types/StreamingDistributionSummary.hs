@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.StreamingDistributionSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,7 +24,8 @@ import Amazonka.CloudFront.Types.PriceClass
 import Amazonka.CloudFront.Types.S3Origin
 import Amazonka.CloudFront.Types.TrustedSigners
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A summary of the information for a CloudFront streaming distribution.
@@ -36,14 +37,14 @@ data StreamingDistributionSummary = StreamingDistributionSummary'
     -- | The ARN (Amazon Resource Name) for the streaming distribution. For
     -- example:
     -- @arn:aws:cloudfront::123456789012:streaming-distribution\/EDFDVBD632BHDS5@,
-    -- where @123456789012@ is your account ID.
+    -- where @123456789012@ is your Amazon Web Services account ID.
     arn :: Prelude.Text,
     -- | Indicates the current status of the distribution. When the status is
     -- @Deployed@, the distribution\'s information is fully propagated
     -- throughout the Amazon CloudFront system.
     status :: Prelude.Text,
     -- | The date and time the distribution was last modified.
-    lastModifiedTime :: Core.ISO8601,
+    lastModifiedTime :: Data.ISO8601,
     -- | The domain name corresponding to the distribution, for example,
     -- @d111111abcdef8.cloudfront.net@.
     domainName :: Prelude.Text,
@@ -53,17 +54,17 @@ data StreamingDistributionSummary = StreamingDistributionSummary'
     -- | A complex type that contains information about CNAMEs (alternate domain
     -- names), if any, for this streaming distribution.
     aliases :: Aliases,
-    -- | A complex type that specifies the accounts, if any, that you want to
-    -- allow to create signed URLs for private content. If you want to require
-    -- signed URLs in requests for objects in the target origin that match the
-    -- @PathPattern@ for this cache behavior, specify @true@ for @Enabled@, and
-    -- specify the applicable values for @Quantity@ and @Items@.If you don\'t
-    -- want to require signed URLs in requests for objects that match
-    -- @PathPattern@, specify @false@ for @Enabled@ and @0@ for @Quantity@.
-    -- Omit @Items@. To add, change, or remove one or more trusted signers,
-    -- change @Enabled@ to @true@ (if it\'s currently @false@), change
-    -- @Quantity@ as applicable, and specify all of the trusted signers that
-    -- you want to include in the updated distribution.
+    -- | A complex type that specifies the Amazon Web Services accounts, if any,
+    -- that you want to allow to create signed URLs for private content. If you
+    -- want to require signed URLs in requests for objects in the target origin
+    -- that match the @PathPattern@ for this cache behavior, specify @true@ for
+    -- @Enabled@, and specify the applicable values for @Quantity@ and
+    -- @Items@.If you don\'t want to require signed URLs in requests for
+    -- objects that match @PathPattern@, specify @false@ for @Enabled@ and @0@
+    -- for @Quantity@. Omit @Items@. To add, change, or remove one or more
+    -- trusted signers, change @Enabled@ to @true@ (if it\'s currently
+    -- @false@), change @Quantity@ as applicable, and specify all of the
+    -- trusted signers that you want to include in the updated distribution.
     --
     -- For more information, see
     -- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html Serving Private Content through CloudFront>
@@ -93,7 +94,7 @@ data StreamingDistributionSummary = StreamingDistributionSummary'
 -- 'arn', 'streamingDistributionSummary_arn' - The ARN (Amazon Resource Name) for the streaming distribution. For
 -- example:
 -- @arn:aws:cloudfront::123456789012:streaming-distribution\/EDFDVBD632BHDS5@,
--- where @123456789012@ is your account ID.
+-- where @123456789012@ is your Amazon Web Services account ID.
 --
 -- 'status', 'streamingDistributionSummary_status' - Indicates the current status of the distribution. When the status is
 -- @Deployed@, the distribution\'s information is fully propagated
@@ -110,17 +111,17 @@ data StreamingDistributionSummary = StreamingDistributionSummary'
 -- 'aliases', 'streamingDistributionSummary_aliases' - A complex type that contains information about CNAMEs (alternate domain
 -- names), if any, for this streaming distribution.
 --
--- 'trustedSigners', 'streamingDistributionSummary_trustedSigners' - A complex type that specifies the accounts, if any, that you want to
--- allow to create signed URLs for private content. If you want to require
--- signed URLs in requests for objects in the target origin that match the
--- @PathPattern@ for this cache behavior, specify @true@ for @Enabled@, and
--- specify the applicable values for @Quantity@ and @Items@.If you don\'t
--- want to require signed URLs in requests for objects that match
--- @PathPattern@, specify @false@ for @Enabled@ and @0@ for @Quantity@.
--- Omit @Items@. To add, change, or remove one or more trusted signers,
--- change @Enabled@ to @true@ (if it\'s currently @false@), change
--- @Quantity@ as applicable, and specify all of the trusted signers that
--- you want to include in the updated distribution.
+-- 'trustedSigners', 'streamingDistributionSummary_trustedSigners' - A complex type that specifies the Amazon Web Services accounts, if any,
+-- that you want to allow to create signed URLs for private content. If you
+-- want to require signed URLs in requests for objects in the target origin
+-- that match the @PathPattern@ for this cache behavior, specify @true@ for
+-- @Enabled@, and specify the applicable values for @Quantity@ and
+-- @Items@.If you don\'t want to require signed URLs in requests for
+-- objects that match @PathPattern@, specify @false@ for @Enabled@ and @0@
+-- for @Quantity@. Omit @Items@. To add, change, or remove one or more
+-- trusted signers, change @Enabled@ to @true@ (if it\'s currently
+-- @false@), change @Quantity@ as applicable, and specify all of the
+-- trusted signers that you want to include in the updated distribution.
 --
 -- For more information, see
 -- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html Serving Private Content through CloudFront>
@@ -174,7 +175,7 @@ newStreamingDistributionSummary
         arn = pARN_,
         status = pStatus_,
         lastModifiedTime =
-          Core._Time Lens.# pLastModifiedTime_,
+          Data._Time Lens.# pLastModifiedTime_,
         domainName = pDomainName_,
         s3Origin = pS3Origin_,
         aliases = pAliases_,
@@ -191,7 +192,7 @@ streamingDistributionSummary_id = Lens.lens (\StreamingDistributionSummary' {id}
 -- | The ARN (Amazon Resource Name) for the streaming distribution. For
 -- example:
 -- @arn:aws:cloudfront::123456789012:streaming-distribution\/EDFDVBD632BHDS5@,
--- where @123456789012@ is your account ID.
+-- where @123456789012@ is your Amazon Web Services account ID.
 streamingDistributionSummary_arn :: Lens.Lens' StreamingDistributionSummary Prelude.Text
 streamingDistributionSummary_arn = Lens.lens (\StreamingDistributionSummary' {arn} -> arn) (\s@StreamingDistributionSummary' {} a -> s {arn = a} :: StreamingDistributionSummary)
 
@@ -203,7 +204,7 @@ streamingDistributionSummary_status = Lens.lens (\StreamingDistributionSummary' 
 
 -- | The date and time the distribution was last modified.
 streamingDistributionSummary_lastModifiedTime :: Lens.Lens' StreamingDistributionSummary Prelude.UTCTime
-streamingDistributionSummary_lastModifiedTime = Lens.lens (\StreamingDistributionSummary' {lastModifiedTime} -> lastModifiedTime) (\s@StreamingDistributionSummary' {} a -> s {lastModifiedTime = a} :: StreamingDistributionSummary) Prelude.. Core._Time
+streamingDistributionSummary_lastModifiedTime = Lens.lens (\StreamingDistributionSummary' {lastModifiedTime} -> lastModifiedTime) (\s@StreamingDistributionSummary' {} a -> s {lastModifiedTime = a} :: StreamingDistributionSummary) Prelude.. Data._Time
 
 -- | The domain name corresponding to the distribution, for example,
 -- @d111111abcdef8.cloudfront.net@.
@@ -220,17 +221,17 @@ streamingDistributionSummary_s3Origin = Lens.lens (\StreamingDistributionSummary
 streamingDistributionSummary_aliases :: Lens.Lens' StreamingDistributionSummary Aliases
 streamingDistributionSummary_aliases = Lens.lens (\StreamingDistributionSummary' {aliases} -> aliases) (\s@StreamingDistributionSummary' {} a -> s {aliases = a} :: StreamingDistributionSummary)
 
--- | A complex type that specifies the accounts, if any, that you want to
--- allow to create signed URLs for private content. If you want to require
--- signed URLs in requests for objects in the target origin that match the
--- @PathPattern@ for this cache behavior, specify @true@ for @Enabled@, and
--- specify the applicable values for @Quantity@ and @Items@.If you don\'t
--- want to require signed URLs in requests for objects that match
--- @PathPattern@, specify @false@ for @Enabled@ and @0@ for @Quantity@.
--- Omit @Items@. To add, change, or remove one or more trusted signers,
--- change @Enabled@ to @true@ (if it\'s currently @false@), change
--- @Quantity@ as applicable, and specify all of the trusted signers that
--- you want to include in the updated distribution.
+-- | A complex type that specifies the Amazon Web Services accounts, if any,
+-- that you want to allow to create signed URLs for private content. If you
+-- want to require signed URLs in requests for objects in the target origin
+-- that match the @PathPattern@ for this cache behavior, specify @true@ for
+-- @Enabled@, and specify the applicable values for @Quantity@ and
+-- @Items@.If you don\'t want to require signed URLs in requests for
+-- objects that match @PathPattern@, specify @false@ for @Enabled@ and @0@
+-- for @Quantity@. Omit @Items@. To add, change, or remove one or more
+-- trusted signers, change @Enabled@ to @true@ (if it\'s currently
+-- @false@), change @Quantity@ as applicable, and specify all of the
+-- trusted signers that you want to include in the updated distribution.
 --
 -- For more information, see
 -- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html Serving Private Content through CloudFront>
@@ -252,20 +253,20 @@ streamingDistributionSummary_priceClass = Lens.lens (\StreamingDistributionSumma
 streamingDistributionSummary_enabled :: Lens.Lens' StreamingDistributionSummary Prelude.Bool
 streamingDistributionSummary_enabled = Lens.lens (\StreamingDistributionSummary' {enabled} -> enabled) (\s@StreamingDistributionSummary' {} a -> s {enabled = a} :: StreamingDistributionSummary)
 
-instance Core.FromXML StreamingDistributionSummary where
+instance Data.FromXML StreamingDistributionSummary where
   parseXML x =
     StreamingDistributionSummary'
-      Prelude.<$> (x Core..@ "Id")
-      Prelude.<*> (x Core..@ "ARN")
-      Prelude.<*> (x Core..@ "Status")
-      Prelude.<*> (x Core..@ "LastModifiedTime")
-      Prelude.<*> (x Core..@ "DomainName")
-      Prelude.<*> (x Core..@ "S3Origin")
-      Prelude.<*> (x Core..@ "Aliases")
-      Prelude.<*> (x Core..@ "TrustedSigners")
-      Prelude.<*> (x Core..@ "Comment")
-      Prelude.<*> (x Core..@ "PriceClass")
-      Prelude.<*> (x Core..@ "Enabled")
+      Prelude.<$> (x Data..@ "Id")
+      Prelude.<*> (x Data..@ "ARN")
+      Prelude.<*> (x Data..@ "Status")
+      Prelude.<*> (x Data..@ "LastModifiedTime")
+      Prelude.<*> (x Data..@ "DomainName")
+      Prelude.<*> (x Data..@ "S3Origin")
+      Prelude.<*> (x Data..@ "Aliases")
+      Prelude.<*> (x Data..@ "TrustedSigners")
+      Prelude.<*> (x Data..@ "Comment")
+      Prelude.<*> (x Data..@ "PriceClass")
+      Prelude.<*> (x Data..@ "Enabled")
 
 instance
   Prelude.Hashable

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaPackageVOD.Types.PackagingGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaPackageVOD.Types.PackagingGroup where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaPackageVOD.Types.Authorization
 import Amazonka.MediaPackageVOD.Types.EgressAccessLogs
 import qualified Amazonka.Prelude as Prelude
@@ -34,9 +35,9 @@ data PackagingGroup = PackagingGroup'
     authorization :: Prelude.Maybe Authorization,
     -- | The fully qualified domain name for Assets in the PackagingGroup.
     domainName :: Prelude.Maybe Prelude.Text,
+    egressAccessLogs :: Prelude.Maybe EgressAccessLogs,
     -- | The ID of the PackagingGroup.
     id :: Prelude.Maybe Prelude.Text,
-    egressAccessLogs :: Prelude.Maybe EgressAccessLogs,
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -55,9 +56,9 @@ data PackagingGroup = PackagingGroup'
 --
 -- 'domainName', 'packagingGroup_domainName' - The fully qualified domain name for Assets in the PackagingGroup.
 --
--- 'id', 'packagingGroup_id' - The ID of the PackagingGroup.
---
 -- 'egressAccessLogs', 'packagingGroup_egressAccessLogs' - Undocumented member.
+--
+-- 'id', 'packagingGroup_id' - The ID of the PackagingGroup.
 --
 -- 'tags', 'packagingGroup_tags' - Undocumented member.
 newPackagingGroup ::
@@ -67,8 +68,8 @@ newPackagingGroup =
     { arn = Prelude.Nothing,
       authorization = Prelude.Nothing,
       domainName = Prelude.Nothing,
-      id = Prelude.Nothing,
       egressAccessLogs = Prelude.Nothing,
+      id = Prelude.Nothing,
       tags = Prelude.Nothing
     }
 
@@ -84,30 +85,30 @@ packagingGroup_authorization = Lens.lens (\PackagingGroup' {authorization} -> au
 packagingGroup_domainName :: Lens.Lens' PackagingGroup (Prelude.Maybe Prelude.Text)
 packagingGroup_domainName = Lens.lens (\PackagingGroup' {domainName} -> domainName) (\s@PackagingGroup' {} a -> s {domainName = a} :: PackagingGroup)
 
+-- | Undocumented member.
+packagingGroup_egressAccessLogs :: Lens.Lens' PackagingGroup (Prelude.Maybe EgressAccessLogs)
+packagingGroup_egressAccessLogs = Lens.lens (\PackagingGroup' {egressAccessLogs} -> egressAccessLogs) (\s@PackagingGroup' {} a -> s {egressAccessLogs = a} :: PackagingGroup)
+
 -- | The ID of the PackagingGroup.
 packagingGroup_id :: Lens.Lens' PackagingGroup (Prelude.Maybe Prelude.Text)
 packagingGroup_id = Lens.lens (\PackagingGroup' {id} -> id) (\s@PackagingGroup' {} a -> s {id = a} :: PackagingGroup)
 
 -- | Undocumented member.
-packagingGroup_egressAccessLogs :: Lens.Lens' PackagingGroup (Prelude.Maybe EgressAccessLogs)
-packagingGroup_egressAccessLogs = Lens.lens (\PackagingGroup' {egressAccessLogs} -> egressAccessLogs) (\s@PackagingGroup' {} a -> s {egressAccessLogs = a} :: PackagingGroup)
-
--- | Undocumented member.
 packagingGroup_tags :: Lens.Lens' PackagingGroup (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 packagingGroup_tags = Lens.lens (\PackagingGroup' {tags} -> tags) (\s@PackagingGroup' {} a -> s {tags = a} :: PackagingGroup) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON PackagingGroup where
+instance Data.FromJSON PackagingGroup where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PackagingGroup"
       ( \x ->
           PackagingGroup'
-            Prelude.<$> (x Core..:? "arn")
-            Prelude.<*> (x Core..:? "authorization")
-            Prelude.<*> (x Core..:? "domainName")
-            Prelude.<*> (x Core..:? "id")
-            Prelude.<*> (x Core..:? "egressAccessLogs")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "arn")
+            Prelude.<*> (x Data..:? "authorization")
+            Prelude.<*> (x Data..:? "domainName")
+            Prelude.<*> (x Data..:? "egressAccessLogs")
+            Prelude.<*> (x Data..:? "id")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable PackagingGroup where
@@ -115,8 +116,8 @@ instance Prelude.Hashable PackagingGroup where
     _salt `Prelude.hashWithSalt` arn
       `Prelude.hashWithSalt` authorization
       `Prelude.hashWithSalt` domainName
-      `Prelude.hashWithSalt` id
       `Prelude.hashWithSalt` egressAccessLogs
+      `Prelude.hashWithSalt` id
       `Prelude.hashWithSalt` tags
 
 instance Prelude.NFData PackagingGroup where
@@ -124,6 +125,6 @@ instance Prelude.NFData PackagingGroup where
     Prelude.rnf arn
       `Prelude.seq` Prelude.rnf authorization
       `Prelude.seq` Prelude.rnf domainName
-      `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf egressAccessLogs
+      `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf tags

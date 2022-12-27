@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.PurchaseReservedDBInstancesOffering
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.RDS.PurchaseReservedDBInstancesOffering
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -134,13 +135,14 @@ instance
   type
     AWSResponse PurchaseReservedDBInstancesOffering =
       PurchaseReservedDBInstancesOfferingResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "PurchaseReservedDBInstancesOfferingResult"
       ( \s h x ->
           PurchaseReservedDBInstancesOfferingResponse'
-            Prelude.<$> (x Core..@? "ReservedDBInstance")
+            Prelude.<$> (x Data..@? "ReservedDBInstance")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -167,36 +169,36 @@ instance
       `Prelude.seq` Prelude.rnf reservedDBInstancesOfferingId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     PurchaseReservedDBInstancesOffering
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     PurchaseReservedDBInstancesOffering
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     PurchaseReservedDBInstancesOffering
   where
   toQuery PurchaseReservedDBInstancesOffering' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "PurchaseReservedDBInstancesOffering" ::
+          Data.=: ( "PurchaseReservedDBInstancesOffering" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "DBInstanceCount" Core.=: dbInstanceCount,
-        "ReservedDBInstanceId" Core.=: reservedDBInstanceId,
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBInstanceCount" Data.=: dbInstanceCount,
+        "ReservedDBInstanceId" Data.=: reservedDBInstanceId,
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Tag" Prelude.<$> tags),
+          Data.=: Data.toQuery
+            (Data.toQueryList "Tag" Prelude.<$> tags),
         "ReservedDBInstancesOfferingId"
-          Core.=: reservedDBInstancesOfferingId
+          Data.=: reservedDBInstancesOfferingId
       ]
 
 -- | /See:/ 'newPurchaseReservedDBInstancesOfferingResponse' smart constructor.

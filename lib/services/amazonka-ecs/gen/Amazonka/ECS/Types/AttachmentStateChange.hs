@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.AttachmentStateChange
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ECS.Types.AttachmentStateChange where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object representing a change in state for a task attachment.
@@ -76,12 +77,12 @@ instance Prelude.NFData AttachmentStateChange where
     Prelude.rnf attachmentArn
       `Prelude.seq` Prelude.rnf status
 
-instance Core.ToJSON AttachmentStateChange where
+instance Data.ToJSON AttachmentStateChange where
   toJSON AttachmentStateChange' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("attachmentArn" Core..= attachmentArn),
-            Prelude.Just ("status" Core..= status)
+              ("attachmentArn" Data..= attachmentArn),
+            Prelude.Just ("status" Data..= status)
           ]
       )

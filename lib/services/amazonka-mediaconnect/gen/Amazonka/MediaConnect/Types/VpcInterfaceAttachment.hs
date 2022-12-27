@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConnect.Types.VpcInterfaceAttachment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConnect.Types.VpcInterfaceAttachment where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The settings for attaching a VPC interface to an output.
@@ -53,13 +54,13 @@ newVpcInterfaceAttachment =
 vpcInterfaceAttachment_vpcInterfaceName :: Lens.Lens' VpcInterfaceAttachment (Prelude.Maybe Prelude.Text)
 vpcInterfaceAttachment_vpcInterfaceName = Lens.lens (\VpcInterfaceAttachment' {vpcInterfaceName} -> vpcInterfaceName) (\s@VpcInterfaceAttachment' {} a -> s {vpcInterfaceName = a} :: VpcInterfaceAttachment)
 
-instance Core.FromJSON VpcInterfaceAttachment where
+instance Data.FromJSON VpcInterfaceAttachment where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VpcInterfaceAttachment"
       ( \x ->
           VpcInterfaceAttachment'
-            Prelude.<$> (x Core..:? "vpcInterfaceName")
+            Prelude.<$> (x Data..:? "vpcInterfaceName")
       )
 
 instance Prelude.Hashable VpcInterfaceAttachment where
@@ -70,11 +71,11 @@ instance Prelude.NFData VpcInterfaceAttachment where
   rnf VpcInterfaceAttachment' {..} =
     Prelude.rnf vpcInterfaceName
 
-instance Core.ToJSON VpcInterfaceAttachment where
+instance Data.ToJSON VpcInterfaceAttachment where
   toJSON VpcInterfaceAttachment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("vpcInterfaceName" Core..=)
+          [ ("vpcInterfaceName" Data..=)
               Prelude.<$> vpcInterfaceName
           ]
       )

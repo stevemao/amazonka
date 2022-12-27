@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glacier.Types.OutputLocation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Glacier.Types.OutputLocation where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glacier.Types.S3Location
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the location where the select job results are
@@ -55,12 +56,12 @@ newOutputLocation =
 outputLocation_s3 :: Lens.Lens' OutputLocation (Prelude.Maybe S3Location)
 outputLocation_s3 = Lens.lens (\OutputLocation' {s3} -> s3) (\s@OutputLocation' {} a -> s {s3 = a} :: OutputLocation)
 
-instance Core.FromJSON OutputLocation where
+instance Data.FromJSON OutputLocation where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OutputLocation"
       ( \x ->
-          OutputLocation' Prelude.<$> (x Core..:? "S3")
+          OutputLocation' Prelude.<$> (x Data..:? "S3")
       )
 
 instance Prelude.Hashable OutputLocation where
@@ -70,7 +71,7 @@ instance Prelude.Hashable OutputLocation where
 instance Prelude.NFData OutputLocation where
   rnf OutputLocation' {..} = Prelude.rnf s3
 
-instance Core.ToJSON OutputLocation where
+instance Data.ToJSON OutputLocation where
   toJSON OutputLocation' {..} =
-    Core.object
-      (Prelude.catMaybes [("S3" Core..=) Prelude.<$> s3])
+    Data.object
+      (Prelude.catMaybes [("S3" Data..=) Prelude.<$> s3])

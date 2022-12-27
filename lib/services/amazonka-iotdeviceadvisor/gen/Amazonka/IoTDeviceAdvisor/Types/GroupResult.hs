@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTDeviceAdvisor.Types.GroupResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,21 @@
 module Amazonka.IoTDeviceAdvisor.Types.GroupResult where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTDeviceAdvisor.Types.TestCaseRun
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Show Group Result.
 --
 -- /See:/ 'newGroupResult' smart constructor.
 data GroupResult = GroupResult'
-  { -- | Tests under Group Result.
-    tests :: Prelude.Maybe [TestCaseRun],
-    -- | Group result Id.
+  { -- | Group result ID.
     groupId :: Prelude.Maybe Prelude.Text,
     -- | Group Result Name.
-    groupName :: Prelude.Maybe Prelude.Text
+    groupName :: Prelude.Maybe Prelude.Text,
+    -- | Tests under Group Result.
+    tests :: Prelude.Maybe [TestCaseRun]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,25 +46,21 @@ data GroupResult = GroupResult'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tests', 'groupResult_tests' - Tests under Group Result.
---
--- 'groupId', 'groupResult_groupId' - Group result Id.
+-- 'groupId', 'groupResult_groupId' - Group result ID.
 --
 -- 'groupName', 'groupResult_groupName' - Group Result Name.
+--
+-- 'tests', 'groupResult_tests' - Tests under Group Result.
 newGroupResult ::
   GroupResult
 newGroupResult =
   GroupResult'
-    { tests = Prelude.Nothing,
-      groupId = Prelude.Nothing,
-      groupName = Prelude.Nothing
+    { groupId = Prelude.Nothing,
+      groupName = Prelude.Nothing,
+      tests = Prelude.Nothing
     }
 
--- | Tests under Group Result.
-groupResult_tests :: Lens.Lens' GroupResult (Prelude.Maybe [TestCaseRun])
-groupResult_tests = Lens.lens (\GroupResult' {tests} -> tests) (\s@GroupResult' {} a -> s {tests = a} :: GroupResult) Prelude.. Lens.mapping Lens.coerced
-
--- | Group result Id.
+-- | Group result ID.
 groupResult_groupId :: Lens.Lens' GroupResult (Prelude.Maybe Prelude.Text)
 groupResult_groupId = Lens.lens (\GroupResult' {groupId} -> groupId) (\s@GroupResult' {} a -> s {groupId = a} :: GroupResult)
 
@@ -71,25 +68,29 @@ groupResult_groupId = Lens.lens (\GroupResult' {groupId} -> groupId) (\s@GroupRe
 groupResult_groupName :: Lens.Lens' GroupResult (Prelude.Maybe Prelude.Text)
 groupResult_groupName = Lens.lens (\GroupResult' {groupName} -> groupName) (\s@GroupResult' {} a -> s {groupName = a} :: GroupResult)
 
-instance Core.FromJSON GroupResult where
+-- | Tests under Group Result.
+groupResult_tests :: Lens.Lens' GroupResult (Prelude.Maybe [TestCaseRun])
+groupResult_tests = Lens.lens (\GroupResult' {tests} -> tests) (\s@GroupResult' {} a -> s {tests = a} :: GroupResult) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON GroupResult where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GroupResult"
       ( \x ->
           GroupResult'
-            Prelude.<$> (x Core..:? "tests" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "groupId")
-            Prelude.<*> (x Core..:? "groupName")
+            Prelude.<$> (x Data..:? "groupId")
+            Prelude.<*> (x Data..:? "groupName")
+            Prelude.<*> (x Data..:? "tests" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable GroupResult where
   hashWithSalt _salt GroupResult' {..} =
-    _salt `Prelude.hashWithSalt` tests
-      `Prelude.hashWithSalt` groupId
+    _salt `Prelude.hashWithSalt` groupId
       `Prelude.hashWithSalt` groupName
+      `Prelude.hashWithSalt` tests
 
 instance Prelude.NFData GroupResult where
   rnf GroupResult' {..} =
-    Prelude.rnf tests
-      `Prelude.seq` Prelude.rnf groupId
+    Prelude.rnf groupId
       `Prelude.seq` Prelude.rnf groupName
+      `Prelude.seq` Prelude.rnf tests

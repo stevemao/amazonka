@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.CreateDBParameterGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,11 +25,13 @@
 -- A DB parameter group is initially created with the default parameters
 -- for the database engine used by the DB instance. To provide custom
 -- values for any of the parameters, you must modify the group after
--- creating it using /ModifyDBParameterGroup/. Once you\'ve created a DB
+-- creating it using @ModifyDBParameterGroup@. Once you\'ve created a DB
 -- parameter group, you need to associate it with your DB instance using
--- /ModifyDBInstance/. When you associate a new DB parameter group with a
+-- @ModifyDBInstance@. When you associate a new DB parameter group with a
 -- running DB instance, you need to reboot the DB instance without failover
 -- for the new DB parameter group and associated settings to take effect.
+--
+-- This command doesn\'t apply to RDS Custom.
 --
 -- After you create a DB parameter group, you should wait at least 5
 -- minutes before creating your first DB instance that uses that DB
@@ -65,7 +67,8 @@ module Amazonka.RDS.CreateDBParameterGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -110,7 +113,8 @@ data CreateDBParameterGroup = CreateDBParameterGroup'
     --
     -- -   @aurora@ (for MySQL 5.6-compatible Aurora)
     --
-    -- -   @aurora-mysql@ (for MySQL 5.7-compatible Aurora)
+    -- -   @aurora-mysql@ (for MySQL 5.7-compatible and MySQL 8.0-compatible
+    --     Aurora)
     --
     -- -   @aurora-postgresql@
     --
@@ -184,7 +188,8 @@ data CreateDBParameterGroup = CreateDBParameterGroup'
 --
 -- -   @aurora@ (for MySQL 5.6-compatible Aurora)
 --
--- -   @aurora-mysql@ (for MySQL 5.7-compatible Aurora)
+-- -   @aurora-mysql@ (for MySQL 5.7-compatible and MySQL 8.0-compatible
+--     Aurora)
 --
 -- -   @aurora-postgresql@
 --
@@ -269,7 +274,8 @@ createDBParameterGroup_dbParameterGroupName = Lens.lens (\CreateDBParameterGroup
 --
 -- -   @aurora@ (for MySQL 5.6-compatible Aurora)
 --
--- -   @aurora-mysql@ (for MySQL 5.7-compatible Aurora)
+-- -   @aurora-mysql@ (for MySQL 5.7-compatible and MySQL 8.0-compatible
+--     Aurora)
 --
 -- -   @aurora-postgresql@
 --
@@ -305,13 +311,14 @@ instance Core.AWSRequest CreateDBParameterGroup where
   type
     AWSResponse CreateDBParameterGroup =
       CreateDBParameterGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateDBParameterGroupResult"
       ( \s h x ->
           CreateDBParameterGroupResponse'
-            Prelude.<$> (x Core..@? "DBParameterGroup")
+            Prelude.<$> (x Data..@? "DBParameterGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -329,26 +336,26 @@ instance Prelude.NFData CreateDBParameterGroup where
       `Prelude.seq` Prelude.rnf dbParameterGroupFamily
       `Prelude.seq` Prelude.rnf description
 
-instance Core.ToHeaders CreateDBParameterGroup where
+instance Data.ToHeaders CreateDBParameterGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateDBParameterGroup where
+instance Data.ToPath CreateDBParameterGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateDBParameterGroup where
+instance Data.ToQuery CreateDBParameterGroup where
   toQuery CreateDBParameterGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateDBParameterGroup" :: Prelude.ByteString),
+          Data.=: ("CreateDBParameterGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Tag" Prelude.<$> tags),
-        "DBParameterGroupName" Core.=: dbParameterGroupName,
+          Data.=: Data.toQuery
+            (Data.toQueryList "Tag" Prelude.<$> tags),
+        "DBParameterGroupName" Data.=: dbParameterGroupName,
         "DBParameterGroupFamily"
-          Core.=: dbParameterGroupFamily,
-        "Description" Core.=: description
+          Data.=: dbParameterGroupFamily,
+        "Description" Data.=: description
       ]
 
 -- | /See:/ 'newCreateDBParameterGroupResponse' smart constructor.

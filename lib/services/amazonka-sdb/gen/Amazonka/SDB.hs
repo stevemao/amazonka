@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.SDB
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,56 +35,56 @@ module Amazonka.SDB
     -- * Errors
     -- $errors
 
-    -- ** InvalidNumberValueTests
-    _InvalidNumberValueTests,
-
-    -- ** NoSuchDomain
-    _NoSuchDomain,
-
-    -- ** NumberSubmittedItemsExceeded
-    _NumberSubmittedItemsExceeded,
-
     -- ** AttributeDoesNotExist
     _AttributeDoesNotExist,
-
-    -- ** NumberDomainAttributesExceeded
-    _NumberDomainAttributesExceeded,
 
     -- ** DuplicateItemName
     _DuplicateItemName,
 
-    -- ** MissingParameter
-    _MissingParameter,
-
     -- ** InvalidNextToken
     _InvalidNextToken,
+
+    -- ** InvalidNumberPredicates
+    _InvalidNumberPredicates,
+
+    -- ** InvalidNumberValueTests
+    _InvalidNumberValueTests,
 
     -- ** InvalidParameterValue
     _InvalidParameterValue,
 
+    -- ** InvalidQueryExpression
+    _InvalidQueryExpression,
+
+    -- ** MissingParameter
+    _MissingParameter,
+
+    -- ** NoSuchDomain
+    _NoSuchDomain,
+
+    -- ** NumberDomainAttributesExceeded
+    _NumberDomainAttributesExceeded,
+
+    -- ** NumberDomainBytesExceeded
+    _NumberDomainBytesExceeded,
+
+    -- ** NumberDomainsExceeded
+    _NumberDomainsExceeded,
+
     -- ** NumberItemAttributesExceeded
     _NumberItemAttributesExceeded,
+
+    -- ** NumberSubmittedAttributesExceeded
+    _NumberSubmittedAttributesExceeded,
+
+    -- ** NumberSubmittedItemsExceeded
+    _NumberSubmittedItemsExceeded,
 
     -- ** RequestTimeout
     _RequestTimeout,
 
     -- ** TooManyRequestedAttributes
     _TooManyRequestedAttributes,
-
-    -- ** InvalidNumberPredicates
-    _InvalidNumberPredicates,
-
-    -- ** NumberDomainsExceeded
-    _NumberDomainsExceeded,
-
-    -- ** NumberSubmittedAttributesExceeded
-    _NumberSubmittedAttributesExceeded,
-
-    -- ** NumberDomainBytesExceeded
-    _NumberDomainBytesExceeded,
-
-    -- ** InvalidQueryExpression
-    _InvalidQueryExpression,
 
     -- * Waiters
     -- $waiters
@@ -104,29 +104,11 @@ module Amazonka.SDB
     BatchPutAttributesResponse (BatchPutAttributesResponse'),
     newBatchPutAttributesResponse,
 
-    -- ** GetAttributes
-    GetAttributes (GetAttributes'),
-    newGetAttributes,
-    GetAttributesResponse (GetAttributesResponse'),
-    newGetAttributesResponse,
-
     -- ** CreateDomain
     CreateDomain (CreateDomain'),
     newCreateDomain,
     CreateDomainResponse (CreateDomainResponse'),
     newCreateDomainResponse,
-
-    -- ** DomainMetadata
-    DomainMetadata (DomainMetadata'),
-    newDomainMetadata,
-    DomainMetadataResponse (DomainMetadataResponse'),
-    newDomainMetadataResponse,
-
-    -- ** Select (Paginated)
-    Select (Select'),
-    newSelect,
-    SelectResponse (SelectResponse'),
-    newSelectResponse,
 
     -- ** DeleteAttributes
     DeleteAttributes (DeleteAttributes'),
@@ -134,23 +116,41 @@ module Amazonka.SDB
     DeleteAttributesResponse (DeleteAttributesResponse'),
     newDeleteAttributesResponse,
 
-    -- ** PutAttributes
-    PutAttributes (PutAttributes'),
-    newPutAttributes,
-    PutAttributesResponse (PutAttributesResponse'),
-    newPutAttributesResponse,
-
     -- ** DeleteDomain
     DeleteDomain (DeleteDomain'),
     newDeleteDomain,
     DeleteDomainResponse (DeleteDomainResponse'),
     newDeleteDomainResponse,
 
+    -- ** DomainMetadata
+    DomainMetadata (DomainMetadata'),
+    newDomainMetadata,
+    DomainMetadataResponse (DomainMetadataResponse'),
+    newDomainMetadataResponse,
+
+    -- ** GetAttributes
+    GetAttributes (GetAttributes'),
+    newGetAttributes,
+    GetAttributesResponse (GetAttributesResponse'),
+    newGetAttributesResponse,
+
     -- ** ListDomains (Paginated)
     ListDomains (ListDomains'),
     newListDomains,
     ListDomainsResponse (ListDomainsResponse'),
     newListDomainsResponse,
+
+    -- ** PutAttributes
+    PutAttributes (PutAttributes'),
+    newPutAttributes,
+    PutAttributesResponse (PutAttributesResponse'),
+    newPutAttributesResponse,
+
+    -- ** Select (Paginated)
+    Select (Select'),
+    newSelect,
+    SelectResponse (SelectResponse'),
+    newSelectResponse,
 
     -- * Types
 

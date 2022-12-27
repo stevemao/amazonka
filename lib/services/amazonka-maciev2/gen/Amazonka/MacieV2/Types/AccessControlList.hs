@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.AccessControlList
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.AccessControlList where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides information about the permissions settings of the bucket-level
@@ -28,12 +29,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAccessControlList' smart constructor.
 data AccessControlList = AccessControlList'
-  { -- | Specifies whether the ACL grants the general public with write access
+  { -- | Specifies whether the ACL grants the general public with read access
     -- permissions for the bucket.
-    allowsPublicWriteAccess :: Prelude.Maybe Prelude.Bool,
-    -- | Specifies whether the ACL grants the general public with read access
+    allowsPublicReadAccess :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether the ACL grants the general public with write access
     -- permissions for the bucket.
-    allowsPublicReadAccess :: Prelude.Maybe Prelude.Bool
+    allowsPublicWriteAccess :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,47 +46,46 @@ data AccessControlList = AccessControlList'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'allowsPublicWriteAccess', 'accessControlList_allowsPublicWriteAccess' - Specifies whether the ACL grants the general public with write access
+-- 'allowsPublicReadAccess', 'accessControlList_allowsPublicReadAccess' - Specifies whether the ACL grants the general public with read access
 -- permissions for the bucket.
 --
--- 'allowsPublicReadAccess', 'accessControlList_allowsPublicReadAccess' - Specifies whether the ACL grants the general public with read access
+-- 'allowsPublicWriteAccess', 'accessControlList_allowsPublicWriteAccess' - Specifies whether the ACL grants the general public with write access
 -- permissions for the bucket.
 newAccessControlList ::
   AccessControlList
 newAccessControlList =
   AccessControlList'
-    { allowsPublicWriteAccess =
+    { allowsPublicReadAccess =
         Prelude.Nothing,
-      allowsPublicReadAccess = Prelude.Nothing
+      allowsPublicWriteAccess = Prelude.Nothing
     }
-
--- | Specifies whether the ACL grants the general public with write access
--- permissions for the bucket.
-accessControlList_allowsPublicWriteAccess :: Lens.Lens' AccessControlList (Prelude.Maybe Prelude.Bool)
-accessControlList_allowsPublicWriteAccess = Lens.lens (\AccessControlList' {allowsPublicWriteAccess} -> allowsPublicWriteAccess) (\s@AccessControlList' {} a -> s {allowsPublicWriteAccess = a} :: AccessControlList)
 
 -- | Specifies whether the ACL grants the general public with read access
 -- permissions for the bucket.
 accessControlList_allowsPublicReadAccess :: Lens.Lens' AccessControlList (Prelude.Maybe Prelude.Bool)
 accessControlList_allowsPublicReadAccess = Lens.lens (\AccessControlList' {allowsPublicReadAccess} -> allowsPublicReadAccess) (\s@AccessControlList' {} a -> s {allowsPublicReadAccess = a} :: AccessControlList)
 
-instance Core.FromJSON AccessControlList where
+-- | Specifies whether the ACL grants the general public with write access
+-- permissions for the bucket.
+accessControlList_allowsPublicWriteAccess :: Lens.Lens' AccessControlList (Prelude.Maybe Prelude.Bool)
+accessControlList_allowsPublicWriteAccess = Lens.lens (\AccessControlList' {allowsPublicWriteAccess} -> allowsPublicWriteAccess) (\s@AccessControlList' {} a -> s {allowsPublicWriteAccess = a} :: AccessControlList)
+
+instance Data.FromJSON AccessControlList where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AccessControlList"
       ( \x ->
           AccessControlList'
-            Prelude.<$> (x Core..:? "allowsPublicWriteAccess")
-            Prelude.<*> (x Core..:? "allowsPublicReadAccess")
+            Prelude.<$> (x Data..:? "allowsPublicReadAccess")
+            Prelude.<*> (x Data..:? "allowsPublicWriteAccess")
       )
 
 instance Prelude.Hashable AccessControlList where
   hashWithSalt _salt AccessControlList' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` allowsPublicReadAccess
       `Prelude.hashWithSalt` allowsPublicWriteAccess
-      `Prelude.hashWithSalt` allowsPublicReadAccess
 
 instance Prelude.NFData AccessControlList where
   rnf AccessControlList' {..} =
-    Prelude.rnf allowsPublicWriteAccess
-      `Prelude.seq` Prelude.rnf allowsPublicReadAccess
+    Prelude.rnf allowsPublicReadAccess
+      `Prelude.seq` Prelude.rnf allowsPublicWriteAccess

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.LaunchTemplateConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,21 +20,22 @@
 module Amazonka.EC2.Types.LaunchTemplateConfig where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.FleetLaunchTemplateSpecification
 import Amazonka.EC2.Types.LaunchTemplateOverrides
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a launch template and overrides.
 --
 -- /See:/ 'newLaunchTemplateConfig' smart constructor.
 data LaunchTemplateConfig = LaunchTemplateConfig'
-  { -- | Any parameters that you specify override the same parameters in the
+  { -- | The launch template.
+    launchTemplateSpecification :: Prelude.Maybe FleetLaunchTemplateSpecification,
+    -- | Any parameters that you specify override the same parameters in the
     -- launch template.
-    overrides :: Prelude.Maybe [LaunchTemplateOverrides],
-    -- | The launch template.
-    launchTemplateSpecification :: Prelude.Maybe FleetLaunchTemplateSpecification
+    overrides :: Prelude.Maybe [LaunchTemplateOverrides]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,50 +47,52 @@ data LaunchTemplateConfig = LaunchTemplateConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'launchTemplateSpecification', 'launchTemplateConfig_launchTemplateSpecification' - The launch template.
+--
 -- 'overrides', 'launchTemplateConfig_overrides' - Any parameters that you specify override the same parameters in the
 -- launch template.
---
--- 'launchTemplateSpecification', 'launchTemplateConfig_launchTemplateSpecification' - The launch template.
 newLaunchTemplateConfig ::
   LaunchTemplateConfig
 newLaunchTemplateConfig =
   LaunchTemplateConfig'
-    { overrides = Prelude.Nothing,
-      launchTemplateSpecification = Prelude.Nothing
+    { launchTemplateSpecification =
+        Prelude.Nothing,
+      overrides = Prelude.Nothing
     }
+
+-- | The launch template.
+launchTemplateConfig_launchTemplateSpecification :: Lens.Lens' LaunchTemplateConfig (Prelude.Maybe FleetLaunchTemplateSpecification)
+launchTemplateConfig_launchTemplateSpecification = Lens.lens (\LaunchTemplateConfig' {launchTemplateSpecification} -> launchTemplateSpecification) (\s@LaunchTemplateConfig' {} a -> s {launchTemplateSpecification = a} :: LaunchTemplateConfig)
 
 -- | Any parameters that you specify override the same parameters in the
 -- launch template.
 launchTemplateConfig_overrides :: Lens.Lens' LaunchTemplateConfig (Prelude.Maybe [LaunchTemplateOverrides])
 launchTemplateConfig_overrides = Lens.lens (\LaunchTemplateConfig' {overrides} -> overrides) (\s@LaunchTemplateConfig' {} a -> s {overrides = a} :: LaunchTemplateConfig) Prelude.. Lens.mapping Lens.coerced
 
--- | The launch template.
-launchTemplateConfig_launchTemplateSpecification :: Lens.Lens' LaunchTemplateConfig (Prelude.Maybe FleetLaunchTemplateSpecification)
-launchTemplateConfig_launchTemplateSpecification = Lens.lens (\LaunchTemplateConfig' {launchTemplateSpecification} -> launchTemplateSpecification) (\s@LaunchTemplateConfig' {} a -> s {launchTemplateSpecification = a} :: LaunchTemplateConfig)
-
-instance Core.FromXML LaunchTemplateConfig where
+instance Data.FromXML LaunchTemplateConfig where
   parseXML x =
     LaunchTemplateConfig'
-      Prelude.<$> ( x Core..@? "overrides" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+      Prelude.<$> (x Data..@? "launchTemplateSpecification")
+      Prelude.<*> ( x Data..@? "overrides" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
-      Prelude.<*> (x Core..@? "launchTemplateSpecification")
 
 instance Prelude.Hashable LaunchTemplateConfig where
   hashWithSalt _salt LaunchTemplateConfig' {..} =
-    _salt `Prelude.hashWithSalt` overrides
+    _salt
       `Prelude.hashWithSalt` launchTemplateSpecification
+      `Prelude.hashWithSalt` overrides
 
 instance Prelude.NFData LaunchTemplateConfig where
   rnf LaunchTemplateConfig' {..} =
-    Prelude.rnf overrides
-      `Prelude.seq` Prelude.rnf launchTemplateSpecification
+    Prelude.rnf launchTemplateSpecification
+      `Prelude.seq` Prelude.rnf overrides
 
-instance Core.ToQuery LaunchTemplateConfig where
+instance Data.ToQuery LaunchTemplateConfig where
   toQuery LaunchTemplateConfig' {..} =
     Prelude.mconcat
-      [ Core.toQuery
-          (Core.toQueryList "Overrides" Prelude.<$> overrides),
-        "LaunchTemplateSpecification"
-          Core.=: launchTemplateSpecification
+      [ "LaunchTemplateSpecification"
+          Data.=: launchTemplateSpecification,
+        Data.toQuery
+          (Data.toQueryList "Overrides" Prelude.<$> overrides)
       ]

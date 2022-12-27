@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.ListScheduledAudits
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,33 +33,34 @@ module Amazonka.IoT.ListScheduledAudits
     newListScheduledAudits,
 
     -- * Request Lenses
-    listScheduledAudits_nextToken,
     listScheduledAudits_maxResults,
+    listScheduledAudits_nextToken,
 
     -- * Destructuring the Response
     ListScheduledAuditsResponse (..),
     newListScheduledAuditsResponse,
 
     -- * Response Lenses
-    listScheduledAuditsResponse_scheduledAudits,
     listScheduledAuditsResponse_nextToken,
+    listScheduledAuditsResponse_scheduledAudits,
     listScheduledAuditsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListScheduledAudits' smart constructor.
 data ListScheduledAudits = ListScheduledAudits'
-  { -- | The token for the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return at one time. The default is 25.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | The maximum number of results to return at one time. The default is 25.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -71,24 +72,24 @@ data ListScheduledAudits = ListScheduledAudits'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listScheduledAudits_nextToken' - The token for the next set of results.
---
 -- 'maxResults', 'listScheduledAudits_maxResults' - The maximum number of results to return at one time. The default is 25.
+--
+-- 'nextToken', 'listScheduledAudits_nextToken' - The token for the next set of results.
 newListScheduledAudits ::
   ListScheduledAudits
 newListScheduledAudits =
   ListScheduledAudits'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The token for the next set of results.
-listScheduledAudits_nextToken :: Lens.Lens' ListScheduledAudits (Prelude.Maybe Prelude.Text)
-listScheduledAudits_nextToken = Lens.lens (\ListScheduledAudits' {nextToken} -> nextToken) (\s@ListScheduledAudits' {} a -> s {nextToken = a} :: ListScheduledAudits)
 
 -- | The maximum number of results to return at one time. The default is 25.
 listScheduledAudits_maxResults :: Lens.Lens' ListScheduledAudits (Prelude.Maybe Prelude.Natural)
 listScheduledAudits_maxResults = Lens.lens (\ListScheduledAudits' {maxResults} -> maxResults) (\s@ListScheduledAudits' {} a -> s {maxResults = a} :: ListScheduledAudits)
+
+-- | The token for the next set of results.
+listScheduledAudits_nextToken :: Lens.Lens' ListScheduledAudits (Prelude.Maybe Prelude.Text)
+listScheduledAudits_nextToken = Lens.lens (\ListScheduledAudits' {nextToken} -> nextToken) (\s@ListScheduledAudits' {} a -> s {nextToken = a} :: ListScheduledAudits)
 
 instance Core.AWSPager ListScheduledAudits where
   page rq rs
@@ -116,48 +117,49 @@ instance Core.AWSRequest ListScheduledAudits where
   type
     AWSResponse ListScheduledAudits =
       ListScheduledAuditsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListScheduledAuditsResponse'
-            Prelude.<$> ( x Core..?> "scheduledAudits"
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> ( x Data..?> "scheduledAudits"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListScheduledAudits where
   hashWithSalt _salt ListScheduledAudits' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListScheduledAudits where
   rnf ListScheduledAudits' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListScheduledAudits where
+instance Data.ToHeaders ListScheduledAudits where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListScheduledAudits where
+instance Data.ToPath ListScheduledAudits where
   toPath = Prelude.const "/audit/scheduledaudits"
 
-instance Core.ToQuery ListScheduledAudits where
+instance Data.ToQuery ListScheduledAudits where
   toQuery ListScheduledAudits' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListScheduledAuditsResponse' smart constructor.
 data ListScheduledAuditsResponse = ListScheduledAuditsResponse'
-  { -- | The list of scheduled audits.
-    scheduledAudits :: Prelude.Maybe [ScheduledAuditMetadata],
-    -- | A token that can be used to retrieve the next set of results, or @null@
+  { -- | A token that can be used to retrieve the next set of results, or @null@
     -- if there are no additional results.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of scheduled audits.
+    scheduledAudits :: Prelude.Maybe [ScheduledAuditMetadata],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -171,10 +173,10 @@ data ListScheduledAuditsResponse = ListScheduledAuditsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'scheduledAudits', 'listScheduledAuditsResponse_scheduledAudits' - The list of scheduled audits.
---
 -- 'nextToken', 'listScheduledAuditsResponse_nextToken' - A token that can be used to retrieve the next set of results, or @null@
 -- if there are no additional results.
+--
+-- 'scheduledAudits', 'listScheduledAuditsResponse_scheduledAudits' - The list of scheduled audits.
 --
 -- 'httpStatus', 'listScheduledAuditsResponse_httpStatus' - The response's http status code.
 newListScheduledAuditsResponse ::
@@ -183,20 +185,20 @@ newListScheduledAuditsResponse ::
   ListScheduledAuditsResponse
 newListScheduledAuditsResponse pHttpStatus_ =
   ListScheduledAuditsResponse'
-    { scheduledAudits =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      scheduledAudits = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The list of scheduled audits.
-listScheduledAuditsResponse_scheduledAudits :: Lens.Lens' ListScheduledAuditsResponse (Prelude.Maybe [ScheduledAuditMetadata])
-listScheduledAuditsResponse_scheduledAudits = Lens.lens (\ListScheduledAuditsResponse' {scheduledAudits} -> scheduledAudits) (\s@ListScheduledAuditsResponse' {} a -> s {scheduledAudits = a} :: ListScheduledAuditsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A token that can be used to retrieve the next set of results, or @null@
 -- if there are no additional results.
 listScheduledAuditsResponse_nextToken :: Lens.Lens' ListScheduledAuditsResponse (Prelude.Maybe Prelude.Text)
 listScheduledAuditsResponse_nextToken = Lens.lens (\ListScheduledAuditsResponse' {nextToken} -> nextToken) (\s@ListScheduledAuditsResponse' {} a -> s {nextToken = a} :: ListScheduledAuditsResponse)
+
+-- | The list of scheduled audits.
+listScheduledAuditsResponse_scheduledAudits :: Lens.Lens' ListScheduledAuditsResponse (Prelude.Maybe [ScheduledAuditMetadata])
+listScheduledAuditsResponse_scheduledAudits = Lens.lens (\ListScheduledAuditsResponse' {scheduledAudits} -> scheduledAudits) (\s@ListScheduledAuditsResponse' {} a -> s {scheduledAudits = a} :: ListScheduledAuditsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listScheduledAuditsResponse_httpStatus :: Lens.Lens' ListScheduledAuditsResponse Prelude.Int
@@ -204,6 +206,6 @@ listScheduledAuditsResponse_httpStatus = Lens.lens (\ListScheduledAuditsResponse
 
 instance Prelude.NFData ListScheduledAuditsResponse where
   rnf ListScheduledAuditsResponse' {..} =
-    Prelude.rnf scheduledAudits
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf scheduledAudits
       `Prelude.seq` Prelude.rnf httpStatus

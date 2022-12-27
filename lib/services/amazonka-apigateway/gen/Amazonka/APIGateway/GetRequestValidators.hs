@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetRequestValidators
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,7 +61,7 @@ data GetRequestValidators = GetRequestValidators'
     limit :: Prelude.Maybe Prelude.Int,
     -- | The current pagination position in the paged result set.
     position :: Prelude.Maybe Prelude.Text,
-    -- | [Required] The string identifier of the associated RestApi.
+    -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -78,7 +79,7 @@ data GetRequestValidators = GetRequestValidators'
 --
 -- 'position', 'getRequestValidators_position' - The current pagination position in the paged result set.
 --
--- 'restApiId', 'getRequestValidators_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'getRequestValidators_restApiId' - The string identifier of the associated RestApi.
 newGetRequestValidators ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -99,7 +100,7 @@ getRequestValidators_limit = Lens.lens (\GetRequestValidators' {limit} -> limit)
 getRequestValidators_position :: Lens.Lens' GetRequestValidators (Prelude.Maybe Prelude.Text)
 getRequestValidators_position = Lens.lens (\GetRequestValidators' {position} -> position) (\s@GetRequestValidators' {} a -> s {position = a} :: GetRequestValidators)
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 getRequestValidators_restApiId :: Lens.Lens' GetRequestValidators Prelude.Text
 getRequestValidators_restApiId = Lens.lens (\GetRequestValidators' {restApiId} -> restApiId) (\s@GetRequestValidators' {} a -> s {restApiId = a} :: GetRequestValidators)
 
@@ -129,13 +130,14 @@ instance Core.AWSRequest GetRequestValidators where
   type
     AWSResponse GetRequestValidators =
       GetRequestValidatorsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetRequestValidatorsResponse'
-            Prelude.<$> (x Core..?> "item" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "position")
+            Prelude.<$> (x Data..?> "item" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "position")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -151,35 +153,29 @@ instance Prelude.NFData GetRequestValidators where
       `Prelude.seq` Prelude.rnf position
       `Prelude.seq` Prelude.rnf restApiId
 
-instance Core.ToHeaders GetRequestValidators where
+instance Data.ToHeaders GetRequestValidators where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetRequestValidators where
+instance Data.ToPath GetRequestValidators where
   toPath GetRequestValidators' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/requestvalidators"
       ]
 
-instance Core.ToQuery GetRequestValidators where
+instance Data.ToQuery GetRequestValidators where
   toQuery GetRequestValidators' {..} =
     Prelude.mconcat
-      ["limit" Core.=: limit, "position" Core.=: position]
+      ["limit" Data.=: limit, "position" Data.=: position]
 
 -- | A collection of RequestValidator resources of a given RestApi.
---
--- In OpenAPI, the RequestValidators of an API is defined by the
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-swagger-extensions.html#api-gateway-swagger-extensions-request-validators.html x-amazon-apigateway-request-validators>
--- extension.
---
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-method-request-validation.html Enable Basic Request Validation in API Gateway>
 --
 -- /See:/ 'newGetRequestValidatorsResponse' smart constructor.
 data GetRequestValidatorsResponse = GetRequestValidatorsResponse'

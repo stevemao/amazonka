@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.Types.SnapshotOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,16 @@
 module Amazonka.OpenSearch.Types.SnapshotOptions where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The time, in UTC format, when the service takes a daily automated
+-- | The time, in UTC format, when OpenSearch Service takes a daily automated
 -- snapshot of the specified domain. Default is @0@ hours.
 --
 -- /See:/ 'newSnapshotOptions' smart constructor.
 data SnapshotOptions = SnapshotOptions'
-  { -- | The time, in UTC format, when the service takes a daily automated
+  { -- | The time, in UTC format, when OpenSearch Service takes a daily automated
     -- snapshot of the specified domain. Default is @0@ hours.
     automatedSnapshotStartHour :: Prelude.Maybe Prelude.Int
   }
@@ -42,7 +43,7 @@ data SnapshotOptions = SnapshotOptions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'automatedSnapshotStartHour', 'snapshotOptions_automatedSnapshotStartHour' - The time, in UTC format, when the service takes a daily automated
+-- 'automatedSnapshotStartHour', 'snapshotOptions_automatedSnapshotStartHour' - The time, in UTC format, when OpenSearch Service takes a daily automated
 -- snapshot of the specified domain. Default is @0@ hours.
 newSnapshotOptions ::
   SnapshotOptions
@@ -52,18 +53,18 @@ newSnapshotOptions =
         Prelude.Nothing
     }
 
--- | The time, in UTC format, when the service takes a daily automated
+-- | The time, in UTC format, when OpenSearch Service takes a daily automated
 -- snapshot of the specified domain. Default is @0@ hours.
 snapshotOptions_automatedSnapshotStartHour :: Lens.Lens' SnapshotOptions (Prelude.Maybe Prelude.Int)
 snapshotOptions_automatedSnapshotStartHour = Lens.lens (\SnapshotOptions' {automatedSnapshotStartHour} -> automatedSnapshotStartHour) (\s@SnapshotOptions' {} a -> s {automatedSnapshotStartHour = a} :: SnapshotOptions)
 
-instance Core.FromJSON SnapshotOptions where
+instance Data.FromJSON SnapshotOptions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SnapshotOptions"
       ( \x ->
           SnapshotOptions'
-            Prelude.<$> (x Core..:? "AutomatedSnapshotStartHour")
+            Prelude.<$> (x Data..:? "AutomatedSnapshotStartHour")
       )
 
 instance Prelude.Hashable SnapshotOptions where
@@ -75,11 +76,11 @@ instance Prelude.NFData SnapshotOptions where
   rnf SnapshotOptions' {..} =
     Prelude.rnf automatedSnapshotStartHour
 
-instance Core.ToJSON SnapshotOptions where
+instance Data.ToJSON SnapshotOptions where
   toJSON SnapshotOptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AutomatedSnapshotStartHour" Core..=)
+          [ ("AutomatedSnapshotStartHour" Data..=)
               Prelude.<$> automatedSnapshotStartHour
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.CapacityProvider
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,47 +20,31 @@
 module Amazonka.ECS.Types.CapacityProvider where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types.AutoScalingGroupProvider
 import Amazonka.ECS.Types.CapacityProviderStatus
 import Amazonka.ECS.Types.CapacityProviderUpdateStatus
 import Amazonka.ECS.Types.Tag
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
--- | The details of a capacity provider.
+-- | The details for a capacity provider.
 --
 -- /See:/ 'newCapacityProvider' smart constructor.
 data CapacityProvider = CapacityProvider'
-  { -- | The current status of the capacity provider. Only capacity providers in
-    -- an @ACTIVE@ state can be used in a cluster. When a capacity provider is
-    -- successfully deleted, it will have an @INACTIVE@ status.
-    status :: Prelude.Maybe CapacityProviderStatus,
-    -- | The update status reason. This provides further details about the update
-    -- status for the capacity provider.
-    updateStatusReason :: Prelude.Maybe Prelude.Text,
-    -- | The Auto Scaling group settings for the capacity provider.
+  { -- | The Auto Scaling group settings for the capacity provider.
     autoScalingGroupProvider :: Prelude.Maybe AutoScalingGroupProvider,
-    -- | The name of the capacity provider.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The update status of the capacity provider. The following are the
-    -- possible states that will be returned.
-    --
-    -- [DELETE_IN_PROGRESS]
-    --     The capacity provider is in the process of being deleted.
-    --
-    -- [DELETE_COMPLETE]
-    --     The capacity provider has been successfully deleted and will have an
-    --     @INACTIVE@ status.
-    --
-    -- [DELETE_FAILED]
-    --     The capacity provider was unable to be deleted. The update status
-    --     reason will provide further details about why the delete failed.
-    updateStatus :: Prelude.Maybe CapacityProviderUpdateStatus,
     -- | The Amazon Resource Name (ARN) that identifies the capacity provider.
     capacityProviderArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the capacity provider.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The current status of the capacity provider. Only capacity providers in
+    -- an @ACTIVE@ state can be used in a cluster. When a capacity provider is
+    -- successfully deleted, it has an @INACTIVE@ status.
+    status :: Prelude.Maybe CapacityProviderStatus,
     -- | The metadata that you apply to the capacity provider to help you
     -- categorize and organize it. Each tag consists of a key and an optional
-    -- value, both of which you define.
+    -- value. You define both.
     --
     -- The following basic restrictions apply to tags:
     --
@@ -86,7 +70,24 @@ data CapacityProvider = CapacityProvider'
     --     Amazon Web Services use. You cannot edit or delete tag keys or
     --     values with this prefix. Tags with this prefix do not count against
     --     your tags per resource limit.
-    tags :: Prelude.Maybe [Tag]
+    tags :: Prelude.Maybe [Tag],
+    -- | The update status of the capacity provider. The following are the
+    -- possible states that is returned.
+    --
+    -- [DELETE_IN_PROGRESS]
+    --     The capacity provider is in the process of being deleted.
+    --
+    -- [DELETE_COMPLETE]
+    --     The capacity provider was successfully deleted and has an @INACTIVE@
+    --     status.
+    --
+    -- [DELETE_FAILED]
+    --     The capacity provider can\'t be deleted. The update status reason
+    --     provides further details about why the delete failed.
+    updateStatus :: Prelude.Maybe CapacityProviderUpdateStatus,
+    -- | The update status reason. This provides further details about the update
+    -- status for the capacity provider.
+    updateStatusReason :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -98,36 +99,19 @@ data CapacityProvider = CapacityProvider'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'capacityProvider_status' - The current status of the capacity provider. Only capacity providers in
--- an @ACTIVE@ state can be used in a cluster. When a capacity provider is
--- successfully deleted, it will have an @INACTIVE@ status.
---
--- 'updateStatusReason', 'capacityProvider_updateStatusReason' - The update status reason. This provides further details about the update
--- status for the capacity provider.
---
 -- 'autoScalingGroupProvider', 'capacityProvider_autoScalingGroupProvider' - The Auto Scaling group settings for the capacity provider.
---
--- 'name', 'capacityProvider_name' - The name of the capacity provider.
---
--- 'updateStatus', 'capacityProvider_updateStatus' - The update status of the capacity provider. The following are the
--- possible states that will be returned.
---
--- [DELETE_IN_PROGRESS]
---     The capacity provider is in the process of being deleted.
---
--- [DELETE_COMPLETE]
---     The capacity provider has been successfully deleted and will have an
---     @INACTIVE@ status.
---
--- [DELETE_FAILED]
---     The capacity provider was unable to be deleted. The update status
---     reason will provide further details about why the delete failed.
 --
 -- 'capacityProviderArn', 'capacityProvider_capacityProviderArn' - The Amazon Resource Name (ARN) that identifies the capacity provider.
 --
+-- 'name', 'capacityProvider_name' - The name of the capacity provider.
+--
+-- 'status', 'capacityProvider_status' - The current status of the capacity provider. Only capacity providers in
+-- an @ACTIVE@ state can be used in a cluster. When a capacity provider is
+-- successfully deleted, it has an @INACTIVE@ status.
+--
 -- 'tags', 'capacityProvider_tags' - The metadata that you apply to the capacity provider to help you
 -- categorize and organize it. Each tag consists of a key and an optional
--- value, both of which you define.
+-- value. You define both.
 --
 -- The following basic restrictions apply to tags:
 --
@@ -153,61 +137,58 @@ data CapacityProvider = CapacityProvider'
 --     Amazon Web Services use. You cannot edit or delete tag keys or
 --     values with this prefix. Tags with this prefix do not count against
 --     your tags per resource limit.
-newCapacityProvider ::
-  CapacityProvider
-newCapacityProvider =
-  CapacityProvider'
-    { status = Prelude.Nothing,
-      updateStatusReason = Prelude.Nothing,
-      autoScalingGroupProvider = Prelude.Nothing,
-      name = Prelude.Nothing,
-      updateStatus = Prelude.Nothing,
-      capacityProviderArn = Prelude.Nothing,
-      tags = Prelude.Nothing
-    }
-
--- | The current status of the capacity provider. Only capacity providers in
--- an @ACTIVE@ state can be used in a cluster. When a capacity provider is
--- successfully deleted, it will have an @INACTIVE@ status.
-capacityProvider_status :: Lens.Lens' CapacityProvider (Prelude.Maybe CapacityProviderStatus)
-capacityProvider_status = Lens.lens (\CapacityProvider' {status} -> status) (\s@CapacityProvider' {} a -> s {status = a} :: CapacityProvider)
-
--- | The update status reason. This provides further details about the update
--- status for the capacity provider.
-capacityProvider_updateStatusReason :: Lens.Lens' CapacityProvider (Prelude.Maybe Prelude.Text)
-capacityProvider_updateStatusReason = Lens.lens (\CapacityProvider' {updateStatusReason} -> updateStatusReason) (\s@CapacityProvider' {} a -> s {updateStatusReason = a} :: CapacityProvider)
-
--- | The Auto Scaling group settings for the capacity provider.
-capacityProvider_autoScalingGroupProvider :: Lens.Lens' CapacityProvider (Prelude.Maybe AutoScalingGroupProvider)
-capacityProvider_autoScalingGroupProvider = Lens.lens (\CapacityProvider' {autoScalingGroupProvider} -> autoScalingGroupProvider) (\s@CapacityProvider' {} a -> s {autoScalingGroupProvider = a} :: CapacityProvider)
-
--- | The name of the capacity provider.
-capacityProvider_name :: Lens.Lens' CapacityProvider (Prelude.Maybe Prelude.Text)
-capacityProvider_name = Lens.lens (\CapacityProvider' {name} -> name) (\s@CapacityProvider' {} a -> s {name = a} :: CapacityProvider)
-
--- | The update status of the capacity provider. The following are the
--- possible states that will be returned.
+--
+-- 'updateStatus', 'capacityProvider_updateStatus' - The update status of the capacity provider. The following are the
+-- possible states that is returned.
 --
 -- [DELETE_IN_PROGRESS]
 --     The capacity provider is in the process of being deleted.
 --
 -- [DELETE_COMPLETE]
---     The capacity provider has been successfully deleted and will have an
---     @INACTIVE@ status.
+--     The capacity provider was successfully deleted and has an @INACTIVE@
+--     status.
 --
 -- [DELETE_FAILED]
---     The capacity provider was unable to be deleted. The update status
---     reason will provide further details about why the delete failed.
-capacityProvider_updateStatus :: Lens.Lens' CapacityProvider (Prelude.Maybe CapacityProviderUpdateStatus)
-capacityProvider_updateStatus = Lens.lens (\CapacityProvider' {updateStatus} -> updateStatus) (\s@CapacityProvider' {} a -> s {updateStatus = a} :: CapacityProvider)
+--     The capacity provider can\'t be deleted. The update status reason
+--     provides further details about why the delete failed.
+--
+-- 'updateStatusReason', 'capacityProvider_updateStatusReason' - The update status reason. This provides further details about the update
+-- status for the capacity provider.
+newCapacityProvider ::
+  CapacityProvider
+newCapacityProvider =
+  CapacityProvider'
+    { autoScalingGroupProvider =
+        Prelude.Nothing,
+      capacityProviderArn = Prelude.Nothing,
+      name = Prelude.Nothing,
+      status = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      updateStatus = Prelude.Nothing,
+      updateStatusReason = Prelude.Nothing
+    }
+
+-- | The Auto Scaling group settings for the capacity provider.
+capacityProvider_autoScalingGroupProvider :: Lens.Lens' CapacityProvider (Prelude.Maybe AutoScalingGroupProvider)
+capacityProvider_autoScalingGroupProvider = Lens.lens (\CapacityProvider' {autoScalingGroupProvider} -> autoScalingGroupProvider) (\s@CapacityProvider' {} a -> s {autoScalingGroupProvider = a} :: CapacityProvider)
 
 -- | The Amazon Resource Name (ARN) that identifies the capacity provider.
 capacityProvider_capacityProviderArn :: Lens.Lens' CapacityProvider (Prelude.Maybe Prelude.Text)
 capacityProvider_capacityProviderArn = Lens.lens (\CapacityProvider' {capacityProviderArn} -> capacityProviderArn) (\s@CapacityProvider' {} a -> s {capacityProviderArn = a} :: CapacityProvider)
 
+-- | The name of the capacity provider.
+capacityProvider_name :: Lens.Lens' CapacityProvider (Prelude.Maybe Prelude.Text)
+capacityProvider_name = Lens.lens (\CapacityProvider' {name} -> name) (\s@CapacityProvider' {} a -> s {name = a} :: CapacityProvider)
+
+-- | The current status of the capacity provider. Only capacity providers in
+-- an @ACTIVE@ state can be used in a cluster. When a capacity provider is
+-- successfully deleted, it has an @INACTIVE@ status.
+capacityProvider_status :: Lens.Lens' CapacityProvider (Prelude.Maybe CapacityProviderStatus)
+capacityProvider_status = Lens.lens (\CapacityProvider' {status} -> status) (\s@CapacityProvider' {} a -> s {status = a} :: CapacityProvider)
+
 -- | The metadata that you apply to the capacity provider to help you
 -- categorize and organize it. Each tag consists of a key and an optional
--- value, both of which you define.
+-- value. You define both.
 --
 -- The following basic restrictions apply to tags:
 --
@@ -236,37 +217,59 @@ capacityProvider_capacityProviderArn = Lens.lens (\CapacityProvider' {capacityPr
 capacityProvider_tags :: Lens.Lens' CapacityProvider (Prelude.Maybe [Tag])
 capacityProvider_tags = Lens.lens (\CapacityProvider' {tags} -> tags) (\s@CapacityProvider' {} a -> s {tags = a} :: CapacityProvider) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON CapacityProvider where
+-- | The update status of the capacity provider. The following are the
+-- possible states that is returned.
+--
+-- [DELETE_IN_PROGRESS]
+--     The capacity provider is in the process of being deleted.
+--
+-- [DELETE_COMPLETE]
+--     The capacity provider was successfully deleted and has an @INACTIVE@
+--     status.
+--
+-- [DELETE_FAILED]
+--     The capacity provider can\'t be deleted. The update status reason
+--     provides further details about why the delete failed.
+capacityProvider_updateStatus :: Lens.Lens' CapacityProvider (Prelude.Maybe CapacityProviderUpdateStatus)
+capacityProvider_updateStatus = Lens.lens (\CapacityProvider' {updateStatus} -> updateStatus) (\s@CapacityProvider' {} a -> s {updateStatus = a} :: CapacityProvider)
+
+-- | The update status reason. This provides further details about the update
+-- status for the capacity provider.
+capacityProvider_updateStatusReason :: Lens.Lens' CapacityProvider (Prelude.Maybe Prelude.Text)
+capacityProvider_updateStatusReason = Lens.lens (\CapacityProvider' {updateStatusReason} -> updateStatusReason) (\s@CapacityProvider' {} a -> s {updateStatusReason = a} :: CapacityProvider)
+
+instance Data.FromJSON CapacityProvider where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CapacityProvider"
       ( \x ->
           CapacityProvider'
-            Prelude.<$> (x Core..:? "status")
-            Prelude.<*> (x Core..:? "updateStatusReason")
-            Prelude.<*> (x Core..:? "autoScalingGroupProvider")
-            Prelude.<*> (x Core..:? "name")
-            Prelude.<*> (x Core..:? "updateStatus")
-            Prelude.<*> (x Core..:? "capacityProviderArn")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "autoScalingGroupProvider")
+            Prelude.<*> (x Data..:? "capacityProviderArn")
+            Prelude.<*> (x Data..:? "name")
+            Prelude.<*> (x Data..:? "status")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "updateStatus")
+            Prelude.<*> (x Data..:? "updateStatusReason")
       )
 
 instance Prelude.Hashable CapacityProvider where
   hashWithSalt _salt CapacityProvider' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` updateStatusReason
+    _salt
       `Prelude.hashWithSalt` autoScalingGroupProvider
-      `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` updateStatus
       `Prelude.hashWithSalt` capacityProviderArn
+      `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` updateStatus
+      `Prelude.hashWithSalt` updateStatusReason
 
 instance Prelude.NFData CapacityProvider where
   rnf CapacityProvider' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf updateStatusReason
-      `Prelude.seq` Prelude.rnf autoScalingGroupProvider
-      `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf updateStatus
+    Prelude.rnf autoScalingGroupProvider
       `Prelude.seq` Prelude.rnf capacityProviderArn
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf updateStatus
+      `Prelude.seq` Prelude.rnf updateStatusReason

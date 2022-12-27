@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.Ipv4PrefixSpecificationResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.Ipv4PrefixSpecificationResponse where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the IPv4 delegated prefixes assigned to a network
@@ -29,7 +30,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newIpv4PrefixSpecificationResponse' smart constructor.
 data Ipv4PrefixSpecificationResponse = Ipv4PrefixSpecificationResponse'
-  { -- | One or more IPv4 delegated prefixes assigned to the network interface.
+  { -- | The IPv4 delegated prefixes assigned to the network interface.
     ipv4Prefix :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -42,7 +43,7 @@ data Ipv4PrefixSpecificationResponse = Ipv4PrefixSpecificationResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'ipv4Prefix', 'ipv4PrefixSpecificationResponse_ipv4Prefix' - One or more IPv4 delegated prefixes assigned to the network interface.
+-- 'ipv4Prefix', 'ipv4PrefixSpecificationResponse_ipv4Prefix' - The IPv4 delegated prefixes assigned to the network interface.
 newIpv4PrefixSpecificationResponse ::
   Ipv4PrefixSpecificationResponse
 newIpv4PrefixSpecificationResponse =
@@ -51,14 +52,14 @@ newIpv4PrefixSpecificationResponse =
         Prelude.Nothing
     }
 
--- | One or more IPv4 delegated prefixes assigned to the network interface.
+-- | The IPv4 delegated prefixes assigned to the network interface.
 ipv4PrefixSpecificationResponse_ipv4Prefix :: Lens.Lens' Ipv4PrefixSpecificationResponse (Prelude.Maybe Prelude.Text)
 ipv4PrefixSpecificationResponse_ipv4Prefix = Lens.lens (\Ipv4PrefixSpecificationResponse' {ipv4Prefix} -> ipv4Prefix) (\s@Ipv4PrefixSpecificationResponse' {} a -> s {ipv4Prefix = a} :: Ipv4PrefixSpecificationResponse)
 
-instance Core.FromXML Ipv4PrefixSpecificationResponse where
+instance Data.FromXML Ipv4PrefixSpecificationResponse where
   parseXML x =
     Ipv4PrefixSpecificationResponse'
-      Prelude.<$> (x Core..@? "ipv4Prefix")
+      Prelude.<$> (x Data..@? "ipv4Prefix")
 
 instance
   Prelude.Hashable

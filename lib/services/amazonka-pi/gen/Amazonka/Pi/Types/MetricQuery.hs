@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pi.Types.MetricQuery
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,41 +20,46 @@
 module Amazonka.Pi.Types.MetricQuery where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pi.Types.DimensionGroup
 import qualified Amazonka.Prelude as Prelude
 
 -- | A single query to be processed. You must provide the metric to query. If
--- no other parameters are specified, Performance Insights returns all of
--- the data points for that metric. You can optionally request that the
--- data points be aggregated by dimension group ( @GroupBy@), and return
+-- no other parameters are specified, Performance Insights returns all data
+-- points for the specified metric. Optionally, you can request that the
+-- data points be aggregated by dimension group (@GroupBy@), and return
 -- only those data points that match your criteria (@Filter@).
 --
 -- /See:/ 'newMetricQuery' smart constructor.
 data MetricQuery = MetricQuery'
-  { -- | A specification for how to aggregate the data points from a query
-    -- result. You must specify a valid dimension group. Performance Insights
-    -- will return all of the dimensions within that group, unless you provide
-    -- the names of specific dimensions within that group. You can also request
-    -- that Performance Insights return a limited number of values for a
-    -- dimension.
-    groupBy :: Prelude.Maybe DimensionGroup,
-    -- | One or more filters to apply in the request. Restrictions:
+  { -- | One or more filters to apply in the request. Restrictions:
     --
     -- -   Any number of filters by the same dimension, as specified in the
     --     @GroupBy@ parameter.
     --
     -- -   A single filter for any other dimension in this dimension group.
     filter' :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | A specification for how to aggregate the data points from a query
+    -- result. You must specify a valid dimension group. Performance Insights
+    -- will return all of the dimensions within that group, unless you provide
+    -- the names of specific dimensions within that group. You can also request
+    -- that Performance Insights return a limited number of values for a
+    -- dimension.
+    groupBy :: Prelude.Maybe DimensionGroup,
     -- | The name of a Performance Insights metric to be measured.
     --
     -- Valid values for @Metric@ are:
     --
-    -- -   @db.load.avg@ - a scaled representation of the number of active
+    -- -   @db.load.avg@ - A scaled representation of the number of active
     --     sessions for the database engine.
     --
-    -- -   @db.sampledload.avg@ - the raw number of active sessions for the
+    -- -   @db.sampledload.avg@ - The raw number of active sessions for the
     --     database engine.
+    --
+    -- -   The counter metrics listed in
+    --     <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_PerfInsights_Counters.html#USER_PerfInsights_Counters.OS Performance Insights operating system counters>
+    --     in the /Amazon Aurora User Guide/.
     --
     -- If the number of active sessions is less than an internal Performance
     -- Insights threshold, @db.load.avg@ and @db.sampledload.avg@ are the same
@@ -75,13 +80,6 @@ data MetricQuery = MetricQuery'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'groupBy', 'metricQuery_groupBy' - A specification for how to aggregate the data points from a query
--- result. You must specify a valid dimension group. Performance Insights
--- will return all of the dimensions within that group, unless you provide
--- the names of specific dimensions within that group. You can also request
--- that Performance Insights return a limited number of values for a
--- dimension.
---
 -- 'filter'', 'metricQuery_filter' - One or more filters to apply in the request. Restrictions:
 --
 -- -   Any number of filters by the same dimension, as specified in the
@@ -89,15 +87,26 @@ data MetricQuery = MetricQuery'
 --
 -- -   A single filter for any other dimension in this dimension group.
 --
+-- 'groupBy', 'metricQuery_groupBy' - A specification for how to aggregate the data points from a query
+-- result. You must specify a valid dimension group. Performance Insights
+-- will return all of the dimensions within that group, unless you provide
+-- the names of specific dimensions within that group. You can also request
+-- that Performance Insights return a limited number of values for a
+-- dimension.
+--
 -- 'metric', 'metricQuery_metric' - The name of a Performance Insights metric to be measured.
 --
 -- Valid values for @Metric@ are:
 --
--- -   @db.load.avg@ - a scaled representation of the number of active
+-- -   @db.load.avg@ - A scaled representation of the number of active
 --     sessions for the database engine.
 --
--- -   @db.sampledload.avg@ - the raw number of active sessions for the
+-- -   @db.sampledload.avg@ - The raw number of active sessions for the
 --     database engine.
+--
+-- -   The counter metrics listed in
+--     <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_PerfInsights_Counters.html#USER_PerfInsights_Counters.OS Performance Insights operating system counters>
+--     in the /Amazon Aurora User Guide/.
 --
 -- If the number of active sessions is less than an internal Performance
 -- Insights threshold, @db.load.avg@ and @db.sampledload.avg@ are the same
@@ -112,19 +121,10 @@ newMetricQuery ::
   MetricQuery
 newMetricQuery pMetric_ =
   MetricQuery'
-    { groupBy = Prelude.Nothing,
-      filter' = Prelude.Nothing,
+    { filter' = Prelude.Nothing,
+      groupBy = Prelude.Nothing,
       metric = pMetric_
     }
-
--- | A specification for how to aggregate the data points from a query
--- result. You must specify a valid dimension group. Performance Insights
--- will return all of the dimensions within that group, unless you provide
--- the names of specific dimensions within that group. You can also request
--- that Performance Insights return a limited number of values for a
--- dimension.
-metricQuery_groupBy :: Lens.Lens' MetricQuery (Prelude.Maybe DimensionGroup)
-metricQuery_groupBy = Lens.lens (\MetricQuery' {groupBy} -> groupBy) (\s@MetricQuery' {} a -> s {groupBy = a} :: MetricQuery)
 
 -- | One or more filters to apply in the request. Restrictions:
 --
@@ -135,15 +135,28 @@ metricQuery_groupBy = Lens.lens (\MetricQuery' {groupBy} -> groupBy) (\s@MetricQ
 metricQuery_filter :: Lens.Lens' MetricQuery (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 metricQuery_filter = Lens.lens (\MetricQuery' {filter'} -> filter') (\s@MetricQuery' {} a -> s {filter' = a} :: MetricQuery) Prelude.. Lens.mapping Lens.coerced
 
+-- | A specification for how to aggregate the data points from a query
+-- result. You must specify a valid dimension group. Performance Insights
+-- will return all of the dimensions within that group, unless you provide
+-- the names of specific dimensions within that group. You can also request
+-- that Performance Insights return a limited number of values for a
+-- dimension.
+metricQuery_groupBy :: Lens.Lens' MetricQuery (Prelude.Maybe DimensionGroup)
+metricQuery_groupBy = Lens.lens (\MetricQuery' {groupBy} -> groupBy) (\s@MetricQuery' {} a -> s {groupBy = a} :: MetricQuery)
+
 -- | The name of a Performance Insights metric to be measured.
 --
 -- Valid values for @Metric@ are:
 --
--- -   @db.load.avg@ - a scaled representation of the number of active
+-- -   @db.load.avg@ - A scaled representation of the number of active
 --     sessions for the database engine.
 --
--- -   @db.sampledload.avg@ - the raw number of active sessions for the
+-- -   @db.sampledload.avg@ - The raw number of active sessions for the
 --     database engine.
+--
+-- -   The counter metrics listed in
+--     <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_PerfInsights_Counters.html#USER_PerfInsights_Counters.OS Performance Insights operating system counters>
+--     in the /Amazon Aurora User Guide/.
 --
 -- If the number of active sessions is less than an internal Performance
 -- Insights threshold, @db.load.avg@ and @db.sampledload.avg@ are the same
@@ -157,22 +170,22 @@ metricQuery_metric = Lens.lens (\MetricQuery' {metric} -> metric) (\s@MetricQuer
 
 instance Prelude.Hashable MetricQuery where
   hashWithSalt _salt MetricQuery' {..} =
-    _salt `Prelude.hashWithSalt` groupBy
-      `Prelude.hashWithSalt` filter'
+    _salt `Prelude.hashWithSalt` filter'
+      `Prelude.hashWithSalt` groupBy
       `Prelude.hashWithSalt` metric
 
 instance Prelude.NFData MetricQuery where
   rnf MetricQuery' {..} =
-    Prelude.rnf groupBy
-      `Prelude.seq` Prelude.rnf filter'
+    Prelude.rnf filter'
+      `Prelude.seq` Prelude.rnf groupBy
       `Prelude.seq` Prelude.rnf metric
 
-instance Core.ToJSON MetricQuery where
+instance Data.ToJSON MetricQuery where
   toJSON MetricQuery' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("GroupBy" Core..=) Prelude.<$> groupBy,
-            ("Filter" Core..=) Prelude.<$> filter',
-            Prelude.Just ("Metric" Core..= metric)
+          [ ("Filter" Data..=) Prelude.<$> filter',
+            ("GroupBy" Data..=) Prelude.<$> groupBy,
+            Prelude.Just ("Metric" Data..= metric)
           ]
       )

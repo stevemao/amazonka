@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.PutResourcePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,10 +27,10 @@ module Amazonka.Glue.PutResourcePolicy
     newPutResourcePolicy,
 
     -- * Request Lenses
+    putResourcePolicy_enableHybrid,
     putResourcePolicy_policyExistsCondition,
     putResourcePolicy_policyHashCondition,
     putResourcePolicy_resourceArn,
-    putResourcePolicy_enableHybrid,
     putResourcePolicy_policyInJson,
 
     -- * Destructuring the Response
@@ -44,27 +44,16 @@ module Amazonka.Glue.PutResourcePolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newPutResourcePolicy' smart constructor.
 data PutResourcePolicy = PutResourcePolicy'
-  { -- | A value of @MUST_EXIST@ is used to update a policy. A value of
-    -- @NOT_EXIST@ is used to create a new policy. If a value of @NONE@ or a
-    -- null value is used, the call does not depend on the existence of a
-    -- policy.
-    policyExistsCondition :: Prelude.Maybe ExistCondition,
-    -- | The hash value returned when the previous policy was set using
-    -- @PutResourcePolicy@. Its purpose is to prevent concurrent modifications
-    -- of a policy. Do not use this parameter if no previous policy has been
-    -- set.
-    policyHashCondition :: Prelude.Maybe Prelude.Text,
-    -- | Do not use. For internal use only.
-    resourceArn :: Prelude.Maybe Prelude.Text,
-    -- | If @\'TRUE\'@, indicates that you are using both methods to grant
+  { -- | If @\'TRUE\'@, indicates that you are using both methods to grant
     -- cross-account access to Data Catalog resources:
     --
     -- -   By directly updating the resource policy with @PutResourePolicy@
@@ -76,6 +65,18 @@ data PutResourcePolicy = PutResourcePolicy'
     -- Console to grant cross-account access, otherwise the call fails. Default
     -- is \'FALSE\'.
     enableHybrid :: Prelude.Maybe EnableHybridValues,
+    -- | A value of @MUST_EXIST@ is used to update a policy. A value of
+    -- @NOT_EXIST@ is used to create a new policy. If a value of @NONE@ or a
+    -- null value is used, the call does not depend on the existence of a
+    -- policy.
+    policyExistsCondition :: Prelude.Maybe ExistCondition,
+    -- | The hash value returned when the previous policy was set using
+    -- @PutResourcePolicy@. Its purpose is to prevent concurrent modifications
+    -- of a policy. Do not use this parameter if no previous policy has been
+    -- set.
+    policyHashCondition :: Prelude.Maybe Prelude.Text,
+    -- | Do not use. For internal use only.
+    resourceArn :: Prelude.Maybe Prelude.Text,
     -- | Contains the policy document to set, in JSON format.
     policyInJson :: Prelude.Text
   }
@@ -89,18 +90,6 @@ data PutResourcePolicy = PutResourcePolicy'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'policyExistsCondition', 'putResourcePolicy_policyExistsCondition' - A value of @MUST_EXIST@ is used to update a policy. A value of
--- @NOT_EXIST@ is used to create a new policy. If a value of @NONE@ or a
--- null value is used, the call does not depend on the existence of a
--- policy.
---
--- 'policyHashCondition', 'putResourcePolicy_policyHashCondition' - The hash value returned when the previous policy was set using
--- @PutResourcePolicy@. Its purpose is to prevent concurrent modifications
--- of a policy. Do not use this parameter if no previous policy has been
--- set.
---
--- 'resourceArn', 'putResourcePolicy_resourceArn' - Do not use. For internal use only.
---
 -- 'enableHybrid', 'putResourcePolicy_enableHybrid' - If @\'TRUE\'@, indicates that you are using both methods to grant
 -- cross-account access to Data Catalog resources:
 --
@@ -113,6 +102,18 @@ data PutResourcePolicy = PutResourcePolicy'
 -- Console to grant cross-account access, otherwise the call fails. Default
 -- is \'FALSE\'.
 --
+-- 'policyExistsCondition', 'putResourcePolicy_policyExistsCondition' - A value of @MUST_EXIST@ is used to update a policy. A value of
+-- @NOT_EXIST@ is used to create a new policy. If a value of @NONE@ or a
+-- null value is used, the call does not depend on the existence of a
+-- policy.
+--
+-- 'policyHashCondition', 'putResourcePolicy_policyHashCondition' - The hash value returned when the previous policy was set using
+-- @PutResourcePolicy@. Its purpose is to prevent concurrent modifications
+-- of a policy. Do not use this parameter if no previous policy has been
+-- set.
+--
+-- 'resourceArn', 'putResourcePolicy_resourceArn' - Do not use. For internal use only.
+--
 -- 'policyInJson', 'putResourcePolicy_policyInJson' - Contains the policy document to set, in JSON format.
 newPutResourcePolicy ::
   -- | 'policyInJson'
@@ -120,13 +121,26 @@ newPutResourcePolicy ::
   PutResourcePolicy
 newPutResourcePolicy pPolicyInJson_ =
   PutResourcePolicy'
-    { policyExistsCondition =
-        Prelude.Nothing,
+    { enableHybrid = Prelude.Nothing,
+      policyExistsCondition = Prelude.Nothing,
       policyHashCondition = Prelude.Nothing,
       resourceArn = Prelude.Nothing,
-      enableHybrid = Prelude.Nothing,
       policyInJson = pPolicyInJson_
     }
+
+-- | If @\'TRUE\'@, indicates that you are using both methods to grant
+-- cross-account access to Data Catalog resources:
+--
+-- -   By directly updating the resource policy with @PutResourePolicy@
+--
+-- -   By using the __Grant permissions__ command on the Amazon Web
+--     Services Management Console.
+--
+-- Must be set to @\'TRUE\'@ if you have already used the Management
+-- Console to grant cross-account access, otherwise the call fails. Default
+-- is \'FALSE\'.
+putResourcePolicy_enableHybrid :: Lens.Lens' PutResourcePolicy (Prelude.Maybe EnableHybridValues)
+putResourcePolicy_enableHybrid = Lens.lens (\PutResourcePolicy' {enableHybrid} -> enableHybrid) (\s@PutResourcePolicy' {} a -> s {enableHybrid = a} :: PutResourcePolicy)
 
 -- | A value of @MUST_EXIST@ is used to update a policy. A value of
 -- @NOT_EXIST@ is used to create a new policy. If a value of @NONE@ or a
@@ -146,20 +160,6 @@ putResourcePolicy_policyHashCondition = Lens.lens (\PutResourcePolicy' {policyHa
 putResourcePolicy_resourceArn :: Lens.Lens' PutResourcePolicy (Prelude.Maybe Prelude.Text)
 putResourcePolicy_resourceArn = Lens.lens (\PutResourcePolicy' {resourceArn} -> resourceArn) (\s@PutResourcePolicy' {} a -> s {resourceArn = a} :: PutResourcePolicy)
 
--- | If @\'TRUE\'@, indicates that you are using both methods to grant
--- cross-account access to Data Catalog resources:
---
--- -   By directly updating the resource policy with @PutResourePolicy@
---
--- -   By using the __Grant permissions__ command on the Amazon Web
---     Services Management Console.
---
--- Must be set to @\'TRUE\'@ if you have already used the Management
--- Console to grant cross-account access, otherwise the call fails. Default
--- is \'FALSE\'.
-putResourcePolicy_enableHybrid :: Lens.Lens' PutResourcePolicy (Prelude.Maybe EnableHybridValues)
-putResourcePolicy_enableHybrid = Lens.lens (\PutResourcePolicy' {enableHybrid} -> enableHybrid) (\s@PutResourcePolicy' {} a -> s {enableHybrid = a} :: PutResourcePolicy)
-
 -- | Contains the policy document to set, in JSON format.
 putResourcePolicy_policyInJson :: Lens.Lens' PutResourcePolicy Prelude.Text
 putResourcePolicy_policyInJson = Lens.lens (\PutResourcePolicy' {policyInJson} -> policyInJson) (\s@PutResourcePolicy' {} a -> s {policyInJson = a} :: PutResourcePolicy)
@@ -168,62 +168,63 @@ instance Core.AWSRequest PutResourcePolicy where
   type
     AWSResponse PutResourcePolicy =
       PutResourcePolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutResourcePolicyResponse'
-            Prelude.<$> (x Core..?> "PolicyHash")
+            Prelude.<$> (x Data..?> "PolicyHash")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable PutResourcePolicy where
   hashWithSalt _salt PutResourcePolicy' {..} =
-    _salt `Prelude.hashWithSalt` policyExistsCondition
+    _salt `Prelude.hashWithSalt` enableHybrid
+      `Prelude.hashWithSalt` policyExistsCondition
       `Prelude.hashWithSalt` policyHashCondition
       `Prelude.hashWithSalt` resourceArn
-      `Prelude.hashWithSalt` enableHybrid
       `Prelude.hashWithSalt` policyInJson
 
 instance Prelude.NFData PutResourcePolicy where
   rnf PutResourcePolicy' {..} =
-    Prelude.rnf policyExistsCondition
+    Prelude.rnf enableHybrid
+      `Prelude.seq` Prelude.rnf policyExistsCondition
       `Prelude.seq` Prelude.rnf policyHashCondition
       `Prelude.seq` Prelude.rnf resourceArn
-      `Prelude.seq` Prelude.rnf enableHybrid
       `Prelude.seq` Prelude.rnf policyInJson
 
-instance Core.ToHeaders PutResourcePolicy where
+instance Data.ToHeaders PutResourcePolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.PutResourcePolicy" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.PutResourcePolicy" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutResourcePolicy where
+instance Data.ToJSON PutResourcePolicy where
   toJSON PutResourcePolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PolicyExistsCondition" Core..=)
+          [ ("EnableHybrid" Data..=) Prelude.<$> enableHybrid,
+            ("PolicyExistsCondition" Data..=)
               Prelude.<$> policyExistsCondition,
-            ("PolicyHashCondition" Core..=)
+            ("PolicyHashCondition" Data..=)
               Prelude.<$> policyHashCondition,
-            ("ResourceArn" Core..=) Prelude.<$> resourceArn,
-            ("EnableHybrid" Core..=) Prelude.<$> enableHybrid,
-            Prelude.Just ("PolicyInJson" Core..= policyInJson)
+            ("ResourceArn" Data..=) Prelude.<$> resourceArn,
+            Prelude.Just ("PolicyInJson" Data..= policyInJson)
           ]
       )
 
-instance Core.ToPath PutResourcePolicy where
+instance Data.ToPath PutResourcePolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutResourcePolicy where
+instance Data.ToQuery PutResourcePolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutResourcePolicyResponse' smart constructor.

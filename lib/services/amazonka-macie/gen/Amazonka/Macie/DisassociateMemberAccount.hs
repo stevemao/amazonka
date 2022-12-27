@@ -14,13 +14,14 @@
 
 -- |
 -- Module      : Amazonka.Macie.DisassociateMemberAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes the specified member account from Amazon Macie Classic.
+-- (Discontinued) Removes the specified member account from Amazon Macie
+-- Classic.
 module Amazonka.Macie.DisassociateMemberAccount
   ( -- * Creating a Request
     DisassociateMemberAccount (..),
@@ -36,7 +37,8 @@ module Amazonka.Macie.DisassociateMemberAccount
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Macie.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -44,8 +46,8 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDisassociateMemberAccount' smart constructor.
 data DisassociateMemberAccount = DisassociateMemberAccount'
-  { -- | The ID of the member account that you want to remove from Amazon Macie
-    -- Classic.
+  { -- | (Discontinued) The ID of the member account that you want to remove from
+    -- Amazon Macie Classic.
     memberAccountId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -58,8 +60,8 @@ data DisassociateMemberAccount = DisassociateMemberAccount'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'memberAccountId', 'disassociateMemberAccount_memberAccountId' - The ID of the member account that you want to remove from Amazon Macie
--- Classic.
+-- 'memberAccountId', 'disassociateMemberAccount_memberAccountId' - (Discontinued) The ID of the member account that you want to remove from
+-- Amazon Macie Classic.
 newDisassociateMemberAccount ::
   -- | 'memberAccountId'
   Prelude.Text ->
@@ -70,8 +72,8 @@ newDisassociateMemberAccount pMemberAccountId_ =
         pMemberAccountId_
     }
 
--- | The ID of the member account that you want to remove from Amazon Macie
--- Classic.
+-- | (Discontinued) The ID of the member account that you want to remove from
+-- Amazon Macie Classic.
 disassociateMemberAccount_memberAccountId :: Lens.Lens' DisassociateMemberAccount Prelude.Text
 disassociateMemberAccount_memberAccountId = Lens.lens (\DisassociateMemberAccount' {memberAccountId} -> memberAccountId) (\s@DisassociateMemberAccount' {} a -> s {memberAccountId = a} :: DisassociateMemberAccount)
 
@@ -79,7 +81,8 @@ instance Core.AWSRequest DisassociateMemberAccount where
   type
     AWSResponse DisassociateMemberAccount =
       DisassociateMemberAccountResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       DisassociateMemberAccountResponse'
@@ -92,34 +95,34 @@ instance Prelude.NFData DisassociateMemberAccount where
   rnf DisassociateMemberAccount' {..} =
     Prelude.rnf memberAccountId
 
-instance Core.ToHeaders DisassociateMemberAccount where
+instance Data.ToHeaders DisassociateMemberAccount where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "MacieService.DisassociateMemberAccount" ::
+              Data.=# ( "MacieService.DisassociateMemberAccount" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisassociateMemberAccount where
+instance Data.ToJSON DisassociateMemberAccount where
   toJSON DisassociateMemberAccount' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("memberAccountId" Core..= memberAccountId)
+              ("memberAccountId" Data..= memberAccountId)
           ]
       )
 
-instance Core.ToPath DisassociateMemberAccount where
+instance Data.ToPath DisassociateMemberAccount where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisassociateMemberAccount where
+instance Data.ToQuery DisassociateMemberAccount where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateMemberAccountResponse' smart constructor.

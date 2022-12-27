@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.Types.PutFileEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CodeCommit.Types.PutFileEntry where
 import Amazonka.CodeCommit.Types.FileModeTypeEnum
 import Amazonka.CodeCommit.Types.SourceFileSpecifier
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a file added or updated as part of a commit.
@@ -30,7 +31,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newPutFileEntry' smart constructor.
 data PutFileEntry = PutFileEntry'
   { -- | The content of the file, if a source file is not specified.
-    fileContent :: Prelude.Maybe Core.Base64,
+    fileContent :: Prelude.Maybe Data.Base64,
     -- | The extrapolated file mode permissions for the file. Valid values
     -- include EXECUTABLE and NORMAL.
     fileMode :: Prelude.Maybe FileModeTypeEnum,
@@ -85,7 +86,7 @@ newPutFileEntry pFilePath_ =
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 putFileEntry_fileContent :: Lens.Lens' PutFileEntry (Prelude.Maybe Prelude.ByteString)
-putFileEntry_fileContent = Lens.lens (\PutFileEntry' {fileContent} -> fileContent) (\s@PutFileEntry' {} a -> s {fileContent = a} :: PutFileEntry) Prelude.. Lens.mapping Core._Base64
+putFileEntry_fileContent = Lens.lens (\PutFileEntry' {fileContent} -> fileContent) (\s@PutFileEntry' {} a -> s {fileContent = a} :: PutFileEntry) Prelude.. Lens.mapping Data._Base64
 
 -- | The extrapolated file mode permissions for the file. Valid values
 -- include EXECUTABLE and NORMAL.
@@ -117,13 +118,13 @@ instance Prelude.NFData PutFileEntry where
       `Prelude.seq` Prelude.rnf sourceFile
       `Prelude.seq` Prelude.rnf filePath
 
-instance Core.ToJSON PutFileEntry where
+instance Data.ToJSON PutFileEntry where
   toJSON PutFileEntry' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("fileContent" Core..=) Prelude.<$> fileContent,
-            ("fileMode" Core..=) Prelude.<$> fileMode,
-            ("sourceFile" Core..=) Prelude.<$> sourceFile,
-            Prelude.Just ("filePath" Core..= filePath)
+          [ ("fileContent" Data..=) Prelude.<$> fileContent,
+            ("fileMode" Data..=) Prelude.<$> fileMode,
+            ("sourceFile" Data..=) Prelude.<$> sourceFile,
+            Prelude.Just ("filePath" Data..= filePath)
           ]
       )

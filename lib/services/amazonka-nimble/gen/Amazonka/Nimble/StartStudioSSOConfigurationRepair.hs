@@ -14,25 +14,23 @@
 
 -- |
 -- Module      : Amazonka.Nimble.StartStudioSSOConfigurationRepair
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Repairs the SSO configuration for a given studio.
+-- Repairs the IAM Identity Center configuration for a given studio.
 --
--- If the studio has a valid Amazon Web Services SSO configuration
--- currently associated with it, this operation will fail with a validation
--- error.
+-- If the studio has a valid IAM Identity Center configuration currently
+-- associated with it, this operation will fail with a validation error.
 --
--- If the studio does not have a valid Amazon Web Services SSO
--- configuration currently associated with it, then a new Amazon Web
--- Services SSO application is created for the studio and the studio is
--- changed to the READY state.
+-- If the studio does not have a valid IAM Identity Center configuration
+-- currently associated with it, then a new IAM Identity Center application
+-- is created for the studio and the studio is changed to the READY state.
 --
--- After the Amazon Web Services SSO application is repaired, you must use
--- the Amazon Nimble Studio console to add administrators and users to your
+-- After the IAM Identity Center application is repaired, you must use the
+-- Amazon Nimble Studio console to add administrators and users to your
 -- studio.
 module Amazonka.Nimble.StartStudioSSOConfigurationRepair
   ( -- * Creating a Request
@@ -48,13 +46,14 @@ module Amazonka.Nimble.StartStudioSSOConfigurationRepair
     newStartStudioSSOConfigurationRepairResponse,
 
     -- * Response Lenses
-    startStudioSSOConfigurationRepairResponse_studio,
     startStudioSSOConfigurationRepairResponse_httpStatus,
+    startStudioSSOConfigurationRepairResponse_studio,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -62,14 +61,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newStartStudioSSOConfigurationRepair' smart constructor.
 data StartStudioSSOConfigurationRepair = StartStudioSSOConfigurationRepair'
-  { -- | To make an idempotent API request using one of these actions, specify a
-    -- client token in the request. You should not reuse the same client token
-    -- for other API requests. If you retry a request that completed
-    -- successfully using the same client token and the same parameters, the
-    -- retry succeeds without performing any further actions. If you retry a
-    -- successful request using the same client token, but one or more of the
-    -- parameters are different, the retry fails with a ValidationException
-    -- error.
+  { -- | Unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request. If you don’t specify a client token, the AWS
+    -- SDK automatically generates a client token and uses it for the request
+    -- to ensure idempotency.
     clientToken :: Prelude.Maybe Prelude.Text,
     -- | The studio ID.
     studioId :: Prelude.Text
@@ -84,14 +79,10 @@ data StartStudioSSOConfigurationRepair = StartStudioSSOConfigurationRepair'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'clientToken', 'startStudioSSOConfigurationRepair_clientToken' - To make an idempotent API request using one of these actions, specify a
--- client token in the request. You should not reuse the same client token
--- for other API requests. If you retry a request that completed
--- successfully using the same client token and the same parameters, the
--- retry succeeds without performing any further actions. If you retry a
--- successful request using the same client token, but one or more of the
--- parameters are different, the retry fails with a ValidationException
--- error.
+-- 'clientToken', 'startStudioSSOConfigurationRepair_clientToken' - Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. If you don’t specify a client token, the AWS
+-- SDK automatically generates a client token and uses it for the request
+-- to ensure idempotency.
 --
 -- 'studioId', 'startStudioSSOConfigurationRepair_studioId' - The studio ID.
 newStartStudioSSOConfigurationRepair ::
@@ -105,14 +96,10 @@ newStartStudioSSOConfigurationRepair pStudioId_ =
       studioId = pStudioId_
     }
 
--- | To make an idempotent API request using one of these actions, specify a
--- client token in the request. You should not reuse the same client token
--- for other API requests. If you retry a request that completed
--- successfully using the same client token and the same parameters, the
--- retry succeeds without performing any further actions. If you retry a
--- successful request using the same client token, but one or more of the
--- parameters are different, the retry fails with a ValidationException
--- error.
+-- | Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. If you don’t specify a client token, the AWS
+-- SDK automatically generates a client token and uses it for the request
+-- to ensure idempotency.
 startStudioSSOConfigurationRepair_clientToken :: Lens.Lens' StartStudioSSOConfigurationRepair (Prelude.Maybe Prelude.Text)
 startStudioSSOConfigurationRepair_clientToken = Lens.lens (\StartStudioSSOConfigurationRepair' {clientToken} -> clientToken) (\s@StartStudioSSOConfigurationRepair' {} a -> s {clientToken = a} :: StartStudioSSOConfigurationRepair)
 
@@ -127,13 +114,14 @@ instance
   type
     AWSResponse StartStudioSSOConfigurationRepair =
       StartStudioSSOConfigurationRepairResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartStudioSSOConfigurationRepairResponse'
-            Prelude.<$> (x Core..?> "studio")
-              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+              Prelude.<*> (x Data..:> "studio")
       )
 
 instance
@@ -155,47 +143,47 @@ instance
       `Prelude.seq` Prelude.rnf studioId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     StartStudioSSOConfigurationRepair
   where
   toHeaders StartStudioSSOConfigurationRepair' {..} =
     Prelude.mconcat
-      [ "X-Amz-Client-Token" Core.=# clientToken,
+      [ "X-Amz-Client-Token" Data.=# clientToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     StartStudioSSOConfigurationRepair
   where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
 instance
-  Core.ToPath
+  Data.ToPath
     StartStudioSSOConfigurationRepair
   where
   toPath StartStudioSSOConfigurationRepair' {..} =
     Prelude.mconcat
       [ "/2020-08-01/studios/",
-        Core.toBS studioId,
+        Data.toBS studioId,
         "/sso-configuration"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     StartStudioSSOConfigurationRepair
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartStudioSSOConfigurationRepairResponse' smart constructor.
 data StartStudioSSOConfigurationRepairResponse = StartStudioSSOConfigurationRepairResponse'
-  { -- | Information about a studio.
-    studio :: Prelude.Maybe Studio,
-    -- | The response's http status code.
-    httpStatus :: Prelude.Int
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Information about a studio.
+    studio :: Studio
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'StartStudioSSOConfigurationRepairResponse' with all optional fields omitted.
@@ -205,33 +193,36 @@ data StartStudioSSOConfigurationRepairResponse = StartStudioSSOConfigurationRepa
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'studio', 'startStudioSSOConfigurationRepairResponse_studio' - Information about a studio.
---
 -- 'httpStatus', 'startStudioSSOConfigurationRepairResponse_httpStatus' - The response's http status code.
+--
+-- 'studio', 'startStudioSSOConfigurationRepairResponse_studio' - Information about a studio.
 newStartStudioSSOConfigurationRepairResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
+  -- | 'studio'
+  Studio ->
   StartStudioSSOConfigurationRepairResponse
 newStartStudioSSOConfigurationRepairResponse
-  pHttpStatus_ =
+  pHttpStatus_
+  pStudio_ =
     StartStudioSSOConfigurationRepairResponse'
-      { studio =
-          Prelude.Nothing,
-        httpStatus = pHttpStatus_
+      { httpStatus =
+          pHttpStatus_,
+        studio = pStudio_
       }
-
--- | Information about a studio.
-startStudioSSOConfigurationRepairResponse_studio :: Lens.Lens' StartStudioSSOConfigurationRepairResponse (Prelude.Maybe Studio)
-startStudioSSOConfigurationRepairResponse_studio = Lens.lens (\StartStudioSSOConfigurationRepairResponse' {studio} -> studio) (\s@StartStudioSSOConfigurationRepairResponse' {} a -> s {studio = a} :: StartStudioSSOConfigurationRepairResponse)
 
 -- | The response's http status code.
 startStudioSSOConfigurationRepairResponse_httpStatus :: Lens.Lens' StartStudioSSOConfigurationRepairResponse Prelude.Int
 startStudioSSOConfigurationRepairResponse_httpStatus = Lens.lens (\StartStudioSSOConfigurationRepairResponse' {httpStatus} -> httpStatus) (\s@StartStudioSSOConfigurationRepairResponse' {} a -> s {httpStatus = a} :: StartStudioSSOConfigurationRepairResponse)
+
+-- | Information about a studio.
+startStudioSSOConfigurationRepairResponse_studio :: Lens.Lens' StartStudioSSOConfigurationRepairResponse Studio
+startStudioSSOConfigurationRepairResponse_studio = Lens.lens (\StartStudioSSOConfigurationRepairResponse' {studio} -> studio) (\s@StartStudioSSOConfigurationRepairResponse' {} a -> s {studio = a} :: StartStudioSSOConfigurationRepairResponse)
 
 instance
   Prelude.NFData
     StartStudioSSOConfigurationRepairResponse
   where
   rnf StartStudioSSOConfigurationRepairResponse' {..} =
-    Prelude.rnf studio
-      `Prelude.seq` Prelude.rnf httpStatus
+    Prelude.rnf httpStatus
+      `Prelude.seq` Prelude.rnf studio

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Config.Types.FailedRemediationExceptionBatch
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,17 +21,18 @@ module Amazonka.Config.Types.FailedRemediationExceptionBatch where
 
 import Amazonka.Config.Types.RemediationException
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | List of each of the failed remediation exceptions with specific reasons.
 --
 -- /See:/ 'newFailedRemediationExceptionBatch' smart constructor.
 data FailedRemediationExceptionBatch = FailedRemediationExceptionBatch'
-  { -- | Returns a failure message. For example, the auto-remediation has failed.
-    failureMessage :: Prelude.Maybe Prelude.Text,
-    -- | Returns remediation exception resource key object of the failed items.
-    failedItems :: Prelude.Maybe [RemediationException]
+  { -- | Returns remediation exception resource key object of the failed items.
+    failedItems :: Prelude.Maybe [RemediationException],
+    -- | Returns a failure message. For example, the auto-remediation has failed.
+    failureMessage :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,37 +44,37 @@ data FailedRemediationExceptionBatch = FailedRemediationExceptionBatch'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'failureMessage', 'failedRemediationExceptionBatch_failureMessage' - Returns a failure message. For example, the auto-remediation has failed.
---
 -- 'failedItems', 'failedRemediationExceptionBatch_failedItems' - Returns remediation exception resource key object of the failed items.
+--
+-- 'failureMessage', 'failedRemediationExceptionBatch_failureMessage' - Returns a failure message. For example, the auto-remediation has failed.
 newFailedRemediationExceptionBatch ::
   FailedRemediationExceptionBatch
 newFailedRemediationExceptionBatch =
   FailedRemediationExceptionBatch'
-    { failureMessage =
+    { failedItems =
         Prelude.Nothing,
-      failedItems = Prelude.Nothing
+      failureMessage = Prelude.Nothing
     }
-
--- | Returns a failure message. For example, the auto-remediation has failed.
-failedRemediationExceptionBatch_failureMessage :: Lens.Lens' FailedRemediationExceptionBatch (Prelude.Maybe Prelude.Text)
-failedRemediationExceptionBatch_failureMessage = Lens.lens (\FailedRemediationExceptionBatch' {failureMessage} -> failureMessage) (\s@FailedRemediationExceptionBatch' {} a -> s {failureMessage = a} :: FailedRemediationExceptionBatch)
 
 -- | Returns remediation exception resource key object of the failed items.
 failedRemediationExceptionBatch_failedItems :: Lens.Lens' FailedRemediationExceptionBatch (Prelude.Maybe [RemediationException])
 failedRemediationExceptionBatch_failedItems = Lens.lens (\FailedRemediationExceptionBatch' {failedItems} -> failedItems) (\s@FailedRemediationExceptionBatch' {} a -> s {failedItems = a} :: FailedRemediationExceptionBatch) Prelude.. Lens.mapping Lens.coerced
 
+-- | Returns a failure message. For example, the auto-remediation has failed.
+failedRemediationExceptionBatch_failureMessage :: Lens.Lens' FailedRemediationExceptionBatch (Prelude.Maybe Prelude.Text)
+failedRemediationExceptionBatch_failureMessage = Lens.lens (\FailedRemediationExceptionBatch' {failureMessage} -> failureMessage) (\s@FailedRemediationExceptionBatch' {} a -> s {failureMessage = a} :: FailedRemediationExceptionBatch)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     FailedRemediationExceptionBatch
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FailedRemediationExceptionBatch"
       ( \x ->
           FailedRemediationExceptionBatch'
-            Prelude.<$> (x Core..:? "FailureMessage")
-            Prelude.<*> (x Core..:? "FailedItems" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "FailedItems" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "FailureMessage")
       )
 
 instance
@@ -83,13 +84,13 @@ instance
   hashWithSalt
     _salt
     FailedRemediationExceptionBatch' {..} =
-      _salt `Prelude.hashWithSalt` failureMessage
-        `Prelude.hashWithSalt` failedItems
+      _salt `Prelude.hashWithSalt` failedItems
+        `Prelude.hashWithSalt` failureMessage
 
 instance
   Prelude.NFData
     FailedRemediationExceptionBatch
   where
   rnf FailedRemediationExceptionBatch' {..} =
-    Prelude.rnf failureMessage
-      `Prelude.seq` Prelude.rnf failedItems
+    Prelude.rnf failedItems
+      `Prelude.seq` Prelude.rnf failureMessage

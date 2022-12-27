@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.PromoteReadReplica
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,15 +31,16 @@
 --     on your read replica, configure the automated backup window so that
 --     daily backups do not interfere with read replica promotion.
 --
--- -   This command doesn\'t apply to Aurora MySQL and Aurora PostgreSQL.
+-- -   This command doesn\'t apply to Aurora MySQL, Aurora PostgreSQL, or
+--     RDS Custom.
 module Amazonka.RDS.PromoteReadReplica
   ( -- * Creating a Request
     PromoteReadReplica (..),
     newPromoteReadReplica,
 
     -- * Request Lenses
-    promoteReadReplica_preferredBackupWindow,
     promoteReadReplica_backupRetentionPeriod,
+    promoteReadReplica_preferredBackupWindow,
     promoteReadReplica_dbInstanceIdentifier,
 
     -- * Destructuring the Response
@@ -53,7 +54,8 @@ module Amazonka.RDS.PromoteReadReplica
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -63,7 +65,19 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newPromoteReadReplica' smart constructor.
 data PromoteReadReplica = PromoteReadReplica'
-  { -- | The daily time range during which automated backups are created if
+  { -- | The number of days for which automated backups are retained. Setting
+    -- this parameter to a positive number enables backups. Setting this
+    -- parameter to 0 disables automated backups.
+    --
+    -- Default: 1
+    --
+    -- Constraints:
+    --
+    -- -   Must be a value from 0 to 35.
+    --
+    -- -   Can\'t be set to 0 if the DB instance is a source to read replicas.
+    backupRetentionPeriod :: Prelude.Maybe Prelude.Int,
+    -- | The daily time range during which automated backups are created if
     -- automated backups are enabled, using the @BackupRetentionPeriod@
     -- parameter.
     --
@@ -83,18 +97,6 @@ data PromoteReadReplica = PromoteReadReplica'
     --
     -- -   Must be at least 30 minutes.
     preferredBackupWindow :: Prelude.Maybe Prelude.Text,
-    -- | The number of days for which automated backups are retained. Setting
-    -- this parameter to a positive number enables backups. Setting this
-    -- parameter to 0 disables automated backups.
-    --
-    -- Default: 1
-    --
-    -- Constraints:
-    --
-    -- -   Must be a value from 0 to 35.
-    --
-    -- -   Can\'t be set to 0 if the DB instance is a source to read replicas.
-    backupRetentionPeriod :: Prelude.Maybe Prelude.Int,
     -- | The DB instance identifier. This value is stored as a lowercase string.
     --
     -- Constraints:
@@ -113,6 +115,18 @@ data PromoteReadReplica = PromoteReadReplica'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'backupRetentionPeriod', 'promoteReadReplica_backupRetentionPeriod' - The number of days for which automated backups are retained. Setting
+-- this parameter to a positive number enables backups. Setting this
+-- parameter to 0 disables automated backups.
+--
+-- Default: 1
+--
+-- Constraints:
+--
+-- -   Must be a value from 0 to 35.
+--
+-- -   Can\'t be set to 0 if the DB instance is a source to read replicas.
 --
 -- 'preferredBackupWindow', 'promoteReadReplica_preferredBackupWindow' - The daily time range during which automated backups are created if
 -- automated backups are enabled, using the @BackupRetentionPeriod@
@@ -134,18 +148,6 @@ data PromoteReadReplica = PromoteReadReplica'
 --
 -- -   Must be at least 30 minutes.
 --
--- 'backupRetentionPeriod', 'promoteReadReplica_backupRetentionPeriod' - The number of days for which automated backups are retained. Setting
--- this parameter to a positive number enables backups. Setting this
--- parameter to 0 disables automated backups.
---
--- Default: 1
---
--- Constraints:
---
--- -   Must be a value from 0 to 35.
---
--- -   Can\'t be set to 0 if the DB instance is a source to read replicas.
---
 -- 'dbInstanceIdentifier', 'promoteReadReplica_dbInstanceIdentifier' - The DB instance identifier. This value is stored as a lowercase string.
 --
 -- Constraints:
@@ -159,11 +161,25 @@ newPromoteReadReplica ::
   PromoteReadReplica
 newPromoteReadReplica pDBInstanceIdentifier_ =
   PromoteReadReplica'
-    { preferredBackupWindow =
+    { backupRetentionPeriod =
         Prelude.Nothing,
-      backupRetentionPeriod = Prelude.Nothing,
+      preferredBackupWindow = Prelude.Nothing,
       dbInstanceIdentifier = pDBInstanceIdentifier_
     }
+
+-- | The number of days for which automated backups are retained. Setting
+-- this parameter to a positive number enables backups. Setting this
+-- parameter to 0 disables automated backups.
+--
+-- Default: 1
+--
+-- Constraints:
+--
+-- -   Must be a value from 0 to 35.
+--
+-- -   Can\'t be set to 0 if the DB instance is a source to read replicas.
+promoteReadReplica_backupRetentionPeriod :: Lens.Lens' PromoteReadReplica (Prelude.Maybe Prelude.Int)
+promoteReadReplica_backupRetentionPeriod = Lens.lens (\PromoteReadReplica' {backupRetentionPeriod} -> backupRetentionPeriod) (\s@PromoteReadReplica' {} a -> s {backupRetentionPeriod = a} :: PromoteReadReplica)
 
 -- | The daily time range during which automated backups are created if
 -- automated backups are enabled, using the @BackupRetentionPeriod@
@@ -187,20 +203,6 @@ newPromoteReadReplica pDBInstanceIdentifier_ =
 promoteReadReplica_preferredBackupWindow :: Lens.Lens' PromoteReadReplica (Prelude.Maybe Prelude.Text)
 promoteReadReplica_preferredBackupWindow = Lens.lens (\PromoteReadReplica' {preferredBackupWindow} -> preferredBackupWindow) (\s@PromoteReadReplica' {} a -> s {preferredBackupWindow = a} :: PromoteReadReplica)
 
--- | The number of days for which automated backups are retained. Setting
--- this parameter to a positive number enables backups. Setting this
--- parameter to 0 disables automated backups.
---
--- Default: 1
---
--- Constraints:
---
--- -   Must be a value from 0 to 35.
---
--- -   Can\'t be set to 0 if the DB instance is a source to read replicas.
-promoteReadReplica_backupRetentionPeriod :: Lens.Lens' PromoteReadReplica (Prelude.Maybe Prelude.Int)
-promoteReadReplica_backupRetentionPeriod = Lens.lens (\PromoteReadReplica' {backupRetentionPeriod} -> backupRetentionPeriod) (\s@PromoteReadReplica' {} a -> s {backupRetentionPeriod = a} :: PromoteReadReplica)
-
 -- | The DB instance identifier. This value is stored as a lowercase string.
 --
 -- Constraints:
@@ -215,46 +217,47 @@ instance Core.AWSRequest PromoteReadReplica where
   type
     AWSResponse PromoteReadReplica =
       PromoteReadReplicaResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "PromoteReadReplicaResult"
       ( \s h x ->
           PromoteReadReplicaResponse'
-            Prelude.<$> (x Core..@? "DBInstance")
+            Prelude.<$> (x Data..@? "DBInstance")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable PromoteReadReplica where
   hashWithSalt _salt PromoteReadReplica' {..} =
-    _salt `Prelude.hashWithSalt` preferredBackupWindow
-      `Prelude.hashWithSalt` backupRetentionPeriod
+    _salt `Prelude.hashWithSalt` backupRetentionPeriod
+      `Prelude.hashWithSalt` preferredBackupWindow
       `Prelude.hashWithSalt` dbInstanceIdentifier
 
 instance Prelude.NFData PromoteReadReplica where
   rnf PromoteReadReplica' {..} =
-    Prelude.rnf preferredBackupWindow
-      `Prelude.seq` Prelude.rnf backupRetentionPeriod
+    Prelude.rnf backupRetentionPeriod
+      `Prelude.seq` Prelude.rnf preferredBackupWindow
       `Prelude.seq` Prelude.rnf dbInstanceIdentifier
 
-instance Core.ToHeaders PromoteReadReplica where
+instance Data.ToHeaders PromoteReadReplica where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath PromoteReadReplica where
+instance Data.ToPath PromoteReadReplica where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PromoteReadReplica where
+instance Data.ToQuery PromoteReadReplica where
   toQuery PromoteReadReplica' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("PromoteReadReplica" :: Prelude.ByteString),
+          Data.=: ("PromoteReadReplica" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "PreferredBackupWindow"
-          Core.=: preferredBackupWindow,
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "BackupRetentionPeriod"
-          Core.=: backupRetentionPeriod,
-        "DBInstanceIdentifier" Core.=: dbInstanceIdentifier
+          Data.=: backupRetentionPeriod,
+        "PreferredBackupWindow"
+          Data.=: preferredBackupWindow,
+        "DBInstanceIdentifier" Data.=: dbInstanceIdentifier
       ]
 
 -- | /See:/ 'newPromoteReadReplicaResponse' smart constructor.

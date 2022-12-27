@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetSdk
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,13 +63,13 @@ data GetSdk = GetSdk'
     -- @invokerPackage@ are required. For @sdkType@ of @java@, parameters named
     -- @serviceName@ and @javaPackageName@ are required.
     parameters :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | [Required] The string identifier of the associated RestApi.
+    -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] The name of the Stage that the SDK will use.
+    -- | The name of the Stage that the SDK will use.
     stageName :: Prelude.Text,
-    -- | [Required] The language for the generated SDK. Currently @java@,
-    -- @javascript@, @android@, @objectivec@ (for iOS), @swift@ (for iOS), and
-    -- @ruby@ are supported.
+    -- | The language for the generated SDK. Currently @java@, @javascript@,
+    -- @android@, @objectivec@ (for iOS), @swift@ (for iOS), and @ruby@ are
+    -- supported.
     sdkType :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -88,13 +89,13 @@ data GetSdk = GetSdk'
 -- @invokerPackage@ are required. For @sdkType@ of @java@, parameters named
 -- @serviceName@ and @javaPackageName@ are required.
 --
--- 'restApiId', 'getSdk_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'getSdk_restApiId' - The string identifier of the associated RestApi.
 --
--- 'stageName', 'getSdk_stageName' - [Required] The name of the Stage that the SDK will use.
+-- 'stageName', 'getSdk_stageName' - The name of the Stage that the SDK will use.
 --
--- 'sdkType', 'getSdk_sdkType' - [Required] The language for the generated SDK. Currently @java@,
--- @javascript@, @android@, @objectivec@ (for iOS), @swift@ (for iOS), and
--- @ruby@ are supported.
+-- 'sdkType', 'getSdk_sdkType' - The language for the generated SDK. Currently @java@, @javascript@,
+-- @android@, @objectivec@ (for iOS), @swift@ (for iOS), and @ruby@ are
+-- supported.
 newGetSdk ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -120,30 +121,31 @@ newGetSdk pRestApiId_ pStageName_ pSdkType_ =
 getSdk_parameters :: Lens.Lens' GetSdk (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 getSdk_parameters = Lens.lens (\GetSdk' {parameters} -> parameters) (\s@GetSdk' {} a -> s {parameters = a} :: GetSdk) Prelude.. Lens.mapping Lens.coerced
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 getSdk_restApiId :: Lens.Lens' GetSdk Prelude.Text
 getSdk_restApiId = Lens.lens (\GetSdk' {restApiId} -> restApiId) (\s@GetSdk' {} a -> s {restApiId = a} :: GetSdk)
 
--- | [Required] The name of the Stage that the SDK will use.
+-- | The name of the Stage that the SDK will use.
 getSdk_stageName :: Lens.Lens' GetSdk Prelude.Text
 getSdk_stageName = Lens.lens (\GetSdk' {stageName} -> stageName) (\s@GetSdk' {} a -> s {stageName = a} :: GetSdk)
 
--- | [Required] The language for the generated SDK. Currently @java@,
--- @javascript@, @android@, @objectivec@ (for iOS), @swift@ (for iOS), and
--- @ruby@ are supported.
+-- | The language for the generated SDK. Currently @java@, @javascript@,
+-- @android@, @objectivec@ (for iOS), @swift@ (for iOS), and @ruby@ are
+-- supported.
 getSdk_sdkType :: Lens.Lens' GetSdk Prelude.Text
 getSdk_sdkType = Lens.lens (\GetSdk' {sdkType} -> sdkType) (\s@GetSdk' {} a -> s {sdkType = a} :: GetSdk)
 
 instance Core.AWSRequest GetSdk where
   type AWSResponse GetSdk = GetSdkResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveBytes
       ( \s h x ->
           GetSdkResponse'
             Prelude.<$> (Prelude.pure (Prelude.Just (Prelude.coerce x)))
-            Prelude.<*> (h Core..#? "Content-Disposition")
-            Prelude.<*> (h Core..#? "Content-Type")
+            Prelude.<*> (h Data..#? "Content-Disposition")
+            Prelude.<*> (h Data..#? "Content-Type")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -161,32 +163,32 @@ instance Prelude.NFData GetSdk where
       `Prelude.seq` Prelude.rnf stageName
       `Prelude.seq` Prelude.rnf sdkType
 
-instance Core.ToHeaders GetSdk where
+instance Data.ToHeaders GetSdk where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetSdk where
+instance Data.ToPath GetSdk where
   toPath GetSdk' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/stages/",
-        Core.toBS stageName,
+        Data.toBS stageName,
         "/sdks/",
-        Core.toBS sdkType
+        Data.toBS sdkType
       ]
 
-instance Core.ToQuery GetSdk where
+instance Data.ToQuery GetSdk where
   toQuery GetSdk' {..} =
     Prelude.mconcat
       [ "parameters"
-          Core.=: Core.toQuery
-            ( Core.toQueryMap "entry" "key" "value"
+          Data.=: Data.toQuery
+            ( Data.toQueryMap "entry" "key" "value"
                 Prelude.<$> parameters
             )
       ]

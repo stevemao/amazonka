@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.StartVpcEndpointServicePrivateDnsVerification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,9 +27,7 @@
 -- the consumer can use the name to access the service.
 --
 -- Before the service provider runs this command, they must add a record to
--- the DNS server. For more information, see
--- <https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-services-dns-validation.html#add-dns-txt-record Adding a TXT Record to Your Domain\'s DNS Server>
--- in the /Amazon VPC User Guide/.
+-- the DNS server.
 module Amazonka.EC2.StartVpcEndpointServicePrivateDnsVerification
   ( -- * Creating a Request
     StartVpcEndpointServicePrivateDnsVerification (..),
@@ -50,8 +48,9 @@ module Amazonka.EC2.StartVpcEndpointServicePrivateDnsVerification
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -113,12 +112,13 @@ instance
     AWSResponse
       StartVpcEndpointServicePrivateDnsVerification =
       StartVpcEndpointServicePrivateDnsVerificationResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           StartVpcEndpointServicePrivateDnsVerificationResponse'
-            Prelude.<$> (x Core..@? "return")
+            Prelude.<$> (x Data..@? "return")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -142,32 +142,32 @@ instance
         `Prelude.seq` Prelude.rnf serviceId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     StartVpcEndpointServicePrivateDnsVerification
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     StartVpcEndpointServicePrivateDnsVerification
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     StartVpcEndpointServicePrivateDnsVerification
   where
   toQuery
     StartVpcEndpointServicePrivateDnsVerification' {..} =
       Prelude.mconcat
         [ "Action"
-            Core.=: ( "StartVpcEndpointServicePrivateDnsVerification" ::
+            Data.=: ( "StartVpcEndpointServicePrivateDnsVerification" ::
                         Prelude.ByteString
                     ),
           "Version"
-            Core.=: ("2016-11-15" :: Prelude.ByteString),
-          "DryRun" Core.=: dryRun,
-          "ServiceId" Core.=: serviceId
+            Data.=: ("2016-11-15" :: Prelude.ByteString),
+          "DryRun" Data.=: dryRun,
+          "ServiceId" Data.=: serviceId
         ]
 
 -- | /See:/ 'newStartVpcEndpointServicePrivateDnsVerificationResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ELBV2.DescribeLoadBalancers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.ELBV2.DescribeLoadBalancers
     newDescribeLoadBalancers,
 
     -- * Request Lenses
-    describeLoadBalancers_names,
     describeLoadBalancers_loadBalancerArns,
     describeLoadBalancers_marker,
+    describeLoadBalancers_names,
     describeLoadBalancers_pageSize,
 
     -- * Destructuring the Response
@@ -46,22 +46,23 @@ module Amazonka.ELBV2.DescribeLoadBalancers
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELBV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeLoadBalancers' smart constructor.
 data DescribeLoadBalancers = DescribeLoadBalancers'
-  { -- | The names of the load balancers.
-    names :: Prelude.Maybe [Prelude.Text],
-    -- | The Amazon Resource Names (ARN) of the load balancers. You can specify
+  { -- | The Amazon Resource Names (ARN) of the load balancers. You can specify
     -- up to 20 load balancers in a single call.
     loadBalancerArns :: Prelude.Maybe [Prelude.Text],
     -- | The marker for the next set of results. (You received this marker from a
     -- previous call.)
     marker :: Prelude.Maybe Prelude.Text,
+    -- | The names of the load balancers.
+    names :: Prelude.Maybe [Prelude.Text],
     -- | The maximum number of results to return with this call.
     pageSize :: Prelude.Maybe Prelude.Natural
   }
@@ -75,28 +76,25 @@ data DescribeLoadBalancers = DescribeLoadBalancers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'names', 'describeLoadBalancers_names' - The names of the load balancers.
---
 -- 'loadBalancerArns', 'describeLoadBalancers_loadBalancerArns' - The Amazon Resource Names (ARN) of the load balancers. You can specify
 -- up to 20 load balancers in a single call.
 --
 -- 'marker', 'describeLoadBalancers_marker' - The marker for the next set of results. (You received this marker from a
 -- previous call.)
 --
+-- 'names', 'describeLoadBalancers_names' - The names of the load balancers.
+--
 -- 'pageSize', 'describeLoadBalancers_pageSize' - The maximum number of results to return with this call.
 newDescribeLoadBalancers ::
   DescribeLoadBalancers
 newDescribeLoadBalancers =
   DescribeLoadBalancers'
-    { names = Prelude.Nothing,
-      loadBalancerArns = Prelude.Nothing,
+    { loadBalancerArns =
+        Prelude.Nothing,
       marker = Prelude.Nothing,
+      names = Prelude.Nothing,
       pageSize = Prelude.Nothing
     }
-
--- | The names of the load balancers.
-describeLoadBalancers_names :: Lens.Lens' DescribeLoadBalancers (Prelude.Maybe [Prelude.Text])
-describeLoadBalancers_names = Lens.lens (\DescribeLoadBalancers' {names} -> names) (\s@DescribeLoadBalancers' {} a -> s {names = a} :: DescribeLoadBalancers) Prelude.. Lens.mapping Lens.coerced
 
 -- | The Amazon Resource Names (ARN) of the load balancers. You can specify
 -- up to 20 load balancers in a single call.
@@ -107,6 +105,10 @@ describeLoadBalancers_loadBalancerArns = Lens.lens (\DescribeLoadBalancers' {loa
 -- previous call.)
 describeLoadBalancers_marker :: Lens.Lens' DescribeLoadBalancers (Prelude.Maybe Prelude.Text)
 describeLoadBalancers_marker = Lens.lens (\DescribeLoadBalancers' {marker} -> marker) (\s@DescribeLoadBalancers' {} a -> s {marker = a} :: DescribeLoadBalancers)
+
+-- | The names of the load balancers.
+describeLoadBalancers_names :: Lens.Lens' DescribeLoadBalancers (Prelude.Maybe [Prelude.Text])
+describeLoadBalancers_names = Lens.lens (\DescribeLoadBalancers' {names} -> names) (\s@DescribeLoadBalancers' {} a -> s {names = a} :: DescribeLoadBalancers) Prelude.. Lens.mapping Lens.coerced
 
 -- | The maximum number of results to return with this call.
 describeLoadBalancers_pageSize :: Lens.Lens' DescribeLoadBalancers (Prelude.Maybe Prelude.Natural)
@@ -138,56 +140,57 @@ instance Core.AWSRequest DescribeLoadBalancers where
   type
     AWSResponse DescribeLoadBalancers =
       DescribeLoadBalancersResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeLoadBalancersResult"
       ( \s h x ->
           DescribeLoadBalancersResponse'
-            Prelude.<$> ( x Core..@? "LoadBalancers" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> ( x Data..@? "LoadBalancers" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> (x Core..@? "NextMarker")
+            Prelude.<*> (x Data..@? "NextMarker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeLoadBalancers where
   hashWithSalt _salt DescribeLoadBalancers' {..} =
-    _salt `Prelude.hashWithSalt` names
-      `Prelude.hashWithSalt` loadBalancerArns
+    _salt `Prelude.hashWithSalt` loadBalancerArns
       `Prelude.hashWithSalt` marker
+      `Prelude.hashWithSalt` names
       `Prelude.hashWithSalt` pageSize
 
 instance Prelude.NFData DescribeLoadBalancers where
   rnf DescribeLoadBalancers' {..} =
-    Prelude.rnf names
-      `Prelude.seq` Prelude.rnf loadBalancerArns
+    Prelude.rnf loadBalancerArns
       `Prelude.seq` Prelude.rnf marker
+      `Prelude.seq` Prelude.rnf names
       `Prelude.seq` Prelude.rnf pageSize
 
-instance Core.ToHeaders DescribeLoadBalancers where
+instance Data.ToHeaders DescribeLoadBalancers where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeLoadBalancers where
+instance Data.ToPath DescribeLoadBalancers where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeLoadBalancers where
+instance Data.ToQuery DescribeLoadBalancers where
   toQuery DescribeLoadBalancers' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeLoadBalancers" :: Prelude.ByteString),
+          Data.=: ("DescribeLoadBalancers" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-12-01" :: Prelude.ByteString),
-        "Names"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> names),
+          Data.=: ("2015-12-01" :: Prelude.ByteString),
         "LoadBalancerArns"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> loadBalancerArns
             ),
-        "Marker" Core.=: marker,
-        "PageSize" Core.=: pageSize
+        "Marker" Data.=: marker,
+        "Names"
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> names),
+        "PageSize" Data.=: pageSize
       ]
 
 -- | /See:/ 'newDescribeLoadBalancersResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Synthetics.Types.CanaryLastRun
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Synthetics.Types.CanaryLastRun where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Synthetics.Types.CanaryRun
 
@@ -63,14 +64,14 @@ canaryLastRun_canaryName = Lens.lens (\CanaryLastRun' {canaryName} -> canaryName
 canaryLastRun_lastRun :: Lens.Lens' CanaryLastRun (Prelude.Maybe CanaryRun)
 canaryLastRun_lastRun = Lens.lens (\CanaryLastRun' {lastRun} -> lastRun) (\s@CanaryLastRun' {} a -> s {lastRun = a} :: CanaryLastRun)
 
-instance Core.FromJSON CanaryLastRun where
+instance Data.FromJSON CanaryLastRun where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CanaryLastRun"
       ( \x ->
           CanaryLastRun'
-            Prelude.<$> (x Core..:? "CanaryName")
-            Prelude.<*> (x Core..:? "LastRun")
+            Prelude.<$> (x Data..:? "CanaryName")
+            Prelude.<*> (x Data..:? "LastRun")
       )
 
 instance Prelude.Hashable CanaryLastRun where

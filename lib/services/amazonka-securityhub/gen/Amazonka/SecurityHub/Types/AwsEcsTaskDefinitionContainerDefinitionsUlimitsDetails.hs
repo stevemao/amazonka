@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,48 @@
 module Amazonka.SecurityHub.Types.AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A ulimit to set in the container.
 --
 -- /See:/ 'newAwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails' smart constructor.
 data AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails = AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails'
-  { -- | The type of the ulimit.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The hard limit for the ulimit type.
+  { -- | The hard limit for the ulimit type.
     hardLimit :: Prelude.Maybe Prelude.Int,
+    -- | The type of the ulimit. Valid values are as follows:
+    --
+    -- -   @core@
+    --
+    -- -   @cpu@
+    --
+    -- -   @data@
+    --
+    -- -   @fsize@
+    --
+    -- -   @locks@
+    --
+    -- -   @memlock@
+    --
+    -- -   @msgqueue@
+    --
+    -- -   @nice@
+    --
+    -- -   @nofile@
+    --
+    -- -   @nproc@
+    --
+    -- -   @rss@
+    --
+    -- -   @rtprio@
+    --
+    -- -   @rttime@
+    --
+    -- -   @sigpending@
+    --
+    -- -   @stack@
+    name :: Prelude.Maybe Prelude.Text,
     -- | The soft limit for the ulimit type.
     softLimit :: Prelude.Maybe Prelude.Int
   }
@@ -44,47 +75,107 @@ data AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails = AwsEcsTaskDefiniti
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'awsEcsTaskDefinitionContainerDefinitionsUlimitsDetails_name' - The type of the ulimit.
---
 -- 'hardLimit', 'awsEcsTaskDefinitionContainerDefinitionsUlimitsDetails_hardLimit' - The hard limit for the ulimit type.
+--
+-- 'name', 'awsEcsTaskDefinitionContainerDefinitionsUlimitsDetails_name' - The type of the ulimit. Valid values are as follows:
+--
+-- -   @core@
+--
+-- -   @cpu@
+--
+-- -   @data@
+--
+-- -   @fsize@
+--
+-- -   @locks@
+--
+-- -   @memlock@
+--
+-- -   @msgqueue@
+--
+-- -   @nice@
+--
+-- -   @nofile@
+--
+-- -   @nproc@
+--
+-- -   @rss@
+--
+-- -   @rtprio@
+--
+-- -   @rttime@
+--
+-- -   @sigpending@
+--
+-- -   @stack@
 --
 -- 'softLimit', 'awsEcsTaskDefinitionContainerDefinitionsUlimitsDetails_softLimit' - The soft limit for the ulimit type.
 newAwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails ::
   AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails
 newAwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails =
   AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails'
-    { name =
+    { hardLimit =
         Prelude.Nothing,
-      hardLimit =
+      name =
         Prelude.Nothing,
       softLimit =
         Prelude.Nothing
     }
 
--- | The type of the ulimit.
-awsEcsTaskDefinitionContainerDefinitionsUlimitsDetails_name :: Lens.Lens' AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails (Prelude.Maybe Prelude.Text)
-awsEcsTaskDefinitionContainerDefinitionsUlimitsDetails_name = Lens.lens (\AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails' {name} -> name) (\s@AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails' {} a -> s {name = a} :: AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails)
-
 -- | The hard limit for the ulimit type.
 awsEcsTaskDefinitionContainerDefinitionsUlimitsDetails_hardLimit :: Lens.Lens' AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails (Prelude.Maybe Prelude.Int)
 awsEcsTaskDefinitionContainerDefinitionsUlimitsDetails_hardLimit = Lens.lens (\AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails' {hardLimit} -> hardLimit) (\s@AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails' {} a -> s {hardLimit = a} :: AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails)
+
+-- | The type of the ulimit. Valid values are as follows:
+--
+-- -   @core@
+--
+-- -   @cpu@
+--
+-- -   @data@
+--
+-- -   @fsize@
+--
+-- -   @locks@
+--
+-- -   @memlock@
+--
+-- -   @msgqueue@
+--
+-- -   @nice@
+--
+-- -   @nofile@
+--
+-- -   @nproc@
+--
+-- -   @rss@
+--
+-- -   @rtprio@
+--
+-- -   @rttime@
+--
+-- -   @sigpending@
+--
+-- -   @stack@
+awsEcsTaskDefinitionContainerDefinitionsUlimitsDetails_name :: Lens.Lens' AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails (Prelude.Maybe Prelude.Text)
+awsEcsTaskDefinitionContainerDefinitionsUlimitsDetails_name = Lens.lens (\AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails' {name} -> name) (\s@AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails' {} a -> s {name = a} :: AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails)
 
 -- | The soft limit for the ulimit type.
 awsEcsTaskDefinitionContainerDefinitionsUlimitsDetails_softLimit :: Lens.Lens' AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails (Prelude.Maybe Prelude.Int)
 awsEcsTaskDefinitionContainerDefinitionsUlimitsDetails_softLimit = Lens.lens (\AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails' {softLimit} -> softLimit) (\s@AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails' {} a -> s {softLimit = a} :: AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails"
       ( \x ->
           AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails'
-            Prelude.<$> (x Core..:? "Name")
-              Prelude.<*> (x Core..:? "HardLimit")
-              Prelude.<*> (x Core..:? "SoftLimit")
+            Prelude.<$> (x Data..:? "HardLimit")
+              Prelude.<*> (x Data..:? "Name")
+              Prelude.<*> (x Data..:? "SoftLimit")
       )
 
 instance
@@ -94,8 +185,8 @@ instance
   hashWithSalt
     _salt
     AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails' {..} =
-      _salt `Prelude.hashWithSalt` name
-        `Prelude.hashWithSalt` hardLimit
+      _salt `Prelude.hashWithSalt` hardLimit
+        `Prelude.hashWithSalt` name
         `Prelude.hashWithSalt` softLimit
 
 instance
@@ -104,20 +195,20 @@ instance
   where
   rnf
     AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails' {..} =
-      Prelude.rnf name
-        `Prelude.seq` Prelude.rnf hardLimit
+      Prelude.rnf hardLimit
+        `Prelude.seq` Prelude.rnf name
         `Prelude.seq` Prelude.rnf softLimit
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails
   where
   toJSON
     AwsEcsTaskDefinitionContainerDefinitionsUlimitsDetails' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("Name" Core..=) Prelude.<$> name,
-              ("HardLimit" Core..=) Prelude.<$> hardLimit,
-              ("SoftLimit" Core..=) Prelude.<$> softLimit
+            [ ("HardLimit" Data..=) Prelude.<$> hardLimit,
+              ("Name" Data..=) Prelude.<$> name,
+              ("SoftLimit" Data..=) Prelude.<$> softLimit
             ]
         )

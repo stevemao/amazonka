@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.DeleteBucketMetricsConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -62,7 +62,8 @@ module Amazonka.S3.DeleteBucketMetricsConfiguration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -71,8 +72,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newDeleteBucketMetricsConfiguration' smart constructor.
 data DeleteBucketMetricsConfiguration = DeleteBucketMetricsConfiguration'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the bucket containing the metrics configuration to delete.
     bucket :: BucketName,
@@ -90,8 +91,8 @@ data DeleteBucketMetricsConfiguration = DeleteBucketMetricsConfiguration'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'deleteBucketMetricsConfiguration_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'deleteBucketMetricsConfiguration_bucket' - The name of the bucket containing the metrics configuration to delete.
 --
@@ -111,8 +112,8 @@ newDeleteBucketMetricsConfiguration pBucket_ pId_ =
     }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 deleteBucketMetricsConfiguration_expectedBucketOwner :: Lens.Lens' DeleteBucketMetricsConfiguration (Prelude.Maybe Prelude.Text)
 deleteBucketMetricsConfiguration_expectedBucketOwner = Lens.lens (\DeleteBucketMetricsConfiguration' {expectedBucketOwner} -> expectedBucketOwner) (\s@DeleteBucketMetricsConfiguration' {} a -> s {expectedBucketOwner = a} :: DeleteBucketMetricsConfiguration)
 
@@ -131,9 +132,9 @@ instance
   type
     AWSResponse DeleteBucketMetricsConfiguration =
       DeleteBucketMetricsConfigurationResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.delete defaultService
+      Prelude.. Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteBucketMetricsConfigurationResponse'
@@ -159,25 +160,25 @@ instance
       `Prelude.seq` Prelude.rnf id
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteBucketMetricsConfiguration
   where
   toHeaders DeleteBucketMetricsConfiguration' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath DeleteBucketMetricsConfiguration where
+instance Data.ToPath DeleteBucketMetricsConfiguration where
   toPath DeleteBucketMetricsConfiguration' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DeleteBucketMetricsConfiguration
   where
   toQuery DeleteBucketMetricsConfiguration' {..} =
-    Prelude.mconcat ["id" Core.=: id, "metrics"]
+    Prelude.mconcat ["id" Data.=: id, "metrics"]
 
 -- | /See:/ 'newDeleteBucketMetricsConfigurationResponse' smart constructor.
 data DeleteBucketMetricsConfigurationResponse = DeleteBucketMetricsConfigurationResponse'

@@ -14,21 +14,15 @@
 
 -- |
 -- Module      : Amazonka.S3Outposts.DeleteEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Amazon S3 on Outposts Access Points simplify managing data access at
--- scale for shared datasets in S3 on Outposts. S3 on Outposts uses
--- endpoints to connect to Outposts buckets so that you can perform actions
--- within your virtual private cloud (VPC). For more information, see
--- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/AccessingS3Outposts.html Accessing S3 on Outposts using VPC only access points>.
+-- Deletes an endpoint.
 --
--- This action deletes an endpoint.
---
--- It can take up to 5 minutes for this action to complete.
+-- It can take up to 5 minutes for this action to finish.
 --
 -- Related actions include:
 --
@@ -51,7 +45,8 @@ module Amazonka.S3Outposts.DeleteEndpoint
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,7 +56,7 @@ import Amazonka.S3Outposts.Types
 data DeleteEndpoint = DeleteEndpoint'
   { -- | The ID of the endpoint.
     endpointId :: Prelude.Text,
-    -- | The ID of the AWS Outposts.
+    -- | The ID of the Outposts.
     outpostId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -76,7 +71,7 @@ data DeleteEndpoint = DeleteEndpoint'
 --
 -- 'endpointId', 'deleteEndpoint_endpointId' - The ID of the endpoint.
 --
--- 'outpostId', 'deleteEndpoint_outpostId' - The ID of the AWS Outposts.
+-- 'outpostId', 'deleteEndpoint_outpostId' - The ID of the Outposts.
 newDeleteEndpoint ::
   -- | 'endpointId'
   Prelude.Text ->
@@ -93,7 +88,7 @@ newDeleteEndpoint pEndpointId_ pOutpostId_ =
 deleteEndpoint_endpointId :: Lens.Lens' DeleteEndpoint Prelude.Text
 deleteEndpoint_endpointId = Lens.lens (\DeleteEndpoint' {endpointId} -> endpointId) (\s@DeleteEndpoint' {} a -> s {endpointId = a} :: DeleteEndpoint)
 
--- | The ID of the AWS Outposts.
+-- | The ID of the Outposts.
 deleteEndpoint_outpostId :: Lens.Lens' DeleteEndpoint Prelude.Text
 deleteEndpoint_outpostId = Lens.lens (\DeleteEndpoint' {outpostId} -> outpostId) (\s@DeleteEndpoint' {} a -> s {outpostId = a} :: DeleteEndpoint)
 
@@ -101,7 +96,8 @@ instance Core.AWSRequest DeleteEndpoint where
   type
     AWSResponse DeleteEndpoint =
       DeleteEndpointResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteEndpointResponse'
 
@@ -115,25 +111,25 @@ instance Prelude.NFData DeleteEndpoint where
     Prelude.rnf endpointId
       `Prelude.seq` Prelude.rnf outpostId
 
-instance Core.ToHeaders DeleteEndpoint where
+instance Data.ToHeaders DeleteEndpoint where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteEndpoint where
+instance Data.ToPath DeleteEndpoint where
   toPath = Prelude.const "/S3Outposts/DeleteEndpoint"
 
-instance Core.ToQuery DeleteEndpoint where
+instance Data.ToQuery DeleteEndpoint where
   toQuery DeleteEndpoint' {..} =
     Prelude.mconcat
-      [ "endpointId" Core.=: endpointId,
-        "outpostId" Core.=: outpostId
+      [ "endpointId" Data.=: endpointId,
+        "outpostId" Data.=: outpostId
       ]
 
 -- | /See:/ 'newDeleteEndpointResponse' smart constructor.

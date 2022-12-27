@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Panorama.Types.StaticIpConnectionInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,21 +20,22 @@
 module Amazonka.Panorama.Types.StaticIpConnectionInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A static IP configuration.
 --
 -- /See:/ 'newStaticIpConnectionInfo' smart constructor.
 data StaticIpConnectionInfo = StaticIpConnectionInfo'
-  { -- | The connection\'s IP address.
-    ipAddress :: Prelude.Text,
-    -- | The connection\'s DNS mask.
-    mask :: Prelude.Text,
+  { -- | The connection\'s default gateway.
+    defaultGateway :: Prelude.Text,
     -- | The connection\'s DNS address.
     dns :: [Prelude.Text],
-    -- | The connection\'s default gateway.
-    defaultGateway :: Prelude.Text
+    -- | The connection\'s IP address.
+    ipAddress :: Prelude.Text,
+    -- | The connection\'s DNS mask.
+    mask :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,31 +47,40 @@ data StaticIpConnectionInfo = StaticIpConnectionInfo'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'ipAddress', 'staticIpConnectionInfo_ipAddress' - The connection\'s IP address.
---
--- 'mask', 'staticIpConnectionInfo_mask' - The connection\'s DNS mask.
+-- 'defaultGateway', 'staticIpConnectionInfo_defaultGateway' - The connection\'s default gateway.
 --
 -- 'dns', 'staticIpConnectionInfo_dns' - The connection\'s DNS address.
 --
--- 'defaultGateway', 'staticIpConnectionInfo_defaultGateway' - The connection\'s default gateway.
+-- 'ipAddress', 'staticIpConnectionInfo_ipAddress' - The connection\'s IP address.
+--
+-- 'mask', 'staticIpConnectionInfo_mask' - The connection\'s DNS mask.
 newStaticIpConnectionInfo ::
+  -- | 'defaultGateway'
+  Prelude.Text ->
   -- | 'ipAddress'
   Prelude.Text ->
   -- | 'mask'
   Prelude.Text ->
-  -- | 'defaultGateway'
-  Prelude.Text ->
   StaticIpConnectionInfo
 newStaticIpConnectionInfo
+  pDefaultGateway_
   pIpAddress_
-  pMask_
-  pDefaultGateway_ =
+  pMask_ =
     StaticIpConnectionInfo'
-      { ipAddress = pIpAddress_,
-        mask = pMask_,
+      { defaultGateway =
+          pDefaultGateway_,
         dns = Prelude.mempty,
-        defaultGateway = pDefaultGateway_
+        ipAddress = pIpAddress_,
+        mask = pMask_
       }
+
+-- | The connection\'s default gateway.
+staticIpConnectionInfo_defaultGateway :: Lens.Lens' StaticIpConnectionInfo Prelude.Text
+staticIpConnectionInfo_defaultGateway = Lens.lens (\StaticIpConnectionInfo' {defaultGateway} -> defaultGateway) (\s@StaticIpConnectionInfo' {} a -> s {defaultGateway = a} :: StaticIpConnectionInfo)
+
+-- | The connection\'s DNS address.
+staticIpConnectionInfo_dns :: Lens.Lens' StaticIpConnectionInfo [Prelude.Text]
+staticIpConnectionInfo_dns = Lens.lens (\StaticIpConnectionInfo' {dns} -> dns) (\s@StaticIpConnectionInfo' {} a -> s {dns = a} :: StaticIpConnectionInfo) Prelude.. Lens.coerced
 
 -- | The connection\'s IP address.
 staticIpConnectionInfo_ipAddress :: Lens.Lens' StaticIpConnectionInfo Prelude.Text
@@ -80,48 +90,40 @@ staticIpConnectionInfo_ipAddress = Lens.lens (\StaticIpConnectionInfo' {ipAddres
 staticIpConnectionInfo_mask :: Lens.Lens' StaticIpConnectionInfo Prelude.Text
 staticIpConnectionInfo_mask = Lens.lens (\StaticIpConnectionInfo' {mask} -> mask) (\s@StaticIpConnectionInfo' {} a -> s {mask = a} :: StaticIpConnectionInfo)
 
--- | The connection\'s DNS address.
-staticIpConnectionInfo_dns :: Lens.Lens' StaticIpConnectionInfo [Prelude.Text]
-staticIpConnectionInfo_dns = Lens.lens (\StaticIpConnectionInfo' {dns} -> dns) (\s@StaticIpConnectionInfo' {} a -> s {dns = a} :: StaticIpConnectionInfo) Prelude.. Lens.coerced
-
--- | The connection\'s default gateway.
-staticIpConnectionInfo_defaultGateway :: Lens.Lens' StaticIpConnectionInfo Prelude.Text
-staticIpConnectionInfo_defaultGateway = Lens.lens (\StaticIpConnectionInfo' {defaultGateway} -> defaultGateway) (\s@StaticIpConnectionInfo' {} a -> s {defaultGateway = a} :: StaticIpConnectionInfo)
-
-instance Core.FromJSON StaticIpConnectionInfo where
+instance Data.FromJSON StaticIpConnectionInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StaticIpConnectionInfo"
       ( \x ->
           StaticIpConnectionInfo'
-            Prelude.<$> (x Core..: "IpAddress")
-            Prelude.<*> (x Core..: "Mask")
-            Prelude.<*> (x Core..:? "Dns" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "DefaultGateway")
+            Prelude.<$> (x Data..: "DefaultGateway")
+            Prelude.<*> (x Data..:? "Dns" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "IpAddress")
+            Prelude.<*> (x Data..: "Mask")
       )
 
 instance Prelude.Hashable StaticIpConnectionInfo where
   hashWithSalt _salt StaticIpConnectionInfo' {..} =
-    _salt `Prelude.hashWithSalt` ipAddress
-      `Prelude.hashWithSalt` mask
+    _salt `Prelude.hashWithSalt` defaultGateway
       `Prelude.hashWithSalt` dns
-      `Prelude.hashWithSalt` defaultGateway
+      `Prelude.hashWithSalt` ipAddress
+      `Prelude.hashWithSalt` mask
 
 instance Prelude.NFData StaticIpConnectionInfo where
   rnf StaticIpConnectionInfo' {..} =
-    Prelude.rnf ipAddress
-      `Prelude.seq` Prelude.rnf mask
+    Prelude.rnf defaultGateway
       `Prelude.seq` Prelude.rnf dns
-      `Prelude.seq` Prelude.rnf defaultGateway
+      `Prelude.seq` Prelude.rnf ipAddress
+      `Prelude.seq` Prelude.rnf mask
 
-instance Core.ToJSON StaticIpConnectionInfo where
+instance Data.ToJSON StaticIpConnectionInfo where
   toJSON StaticIpConnectionInfo' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("IpAddress" Core..= ipAddress),
-            Prelude.Just ("Mask" Core..= mask),
-            Prelude.Just ("Dns" Core..= dns),
-            Prelude.Just
-              ("DefaultGateway" Core..= defaultGateway)
+          [ Prelude.Just
+              ("DefaultGateway" Data..= defaultGateway),
+            Prelude.Just ("Dns" Data..= dns),
+            Prelude.Just ("IpAddress" Data..= ipAddress),
+            Prelude.Just ("Mask" Data..= mask)
           ]
       )

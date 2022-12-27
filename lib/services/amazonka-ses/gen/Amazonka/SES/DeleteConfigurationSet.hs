@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.DeleteConfigurationSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.SES.DeleteConfigurationSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,7 +90,8 @@ instance Core.AWSRequest DeleteConfigurationSet where
   type
     AWSResponse DeleteConfigurationSet =
       DeleteConfigurationSetResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeleteConfigurationSetResult"
@@ -106,20 +108,20 @@ instance Prelude.NFData DeleteConfigurationSet where
   rnf DeleteConfigurationSet' {..} =
     Prelude.rnf configurationSetName
 
-instance Core.ToHeaders DeleteConfigurationSet where
+instance Data.ToHeaders DeleteConfigurationSet where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteConfigurationSet where
+instance Data.ToPath DeleteConfigurationSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteConfigurationSet where
+instance Data.ToQuery DeleteConfigurationSet where
   toQuery DeleteConfigurationSet' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteConfigurationSet" :: Prelude.ByteString),
+          Data.=: ("DeleteConfigurationSet" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "ConfigurationSetName" Core.=: configurationSetName
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "ConfigurationSetName" Data.=: configurationSetName
       ]
 
 -- | An empty element returned on a successful request.

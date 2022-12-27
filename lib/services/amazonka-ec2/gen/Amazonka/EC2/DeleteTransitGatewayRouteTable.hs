@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DeleteTransitGatewayRouteTable
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.EC2.DeleteTransitGatewayRouteTable
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,12 +107,13 @@ instance
   type
     AWSResponse DeleteTransitGatewayRouteTable =
       DeleteTransitGatewayRouteTableResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DeleteTransitGatewayRouteTableResponse'
-            Prelude.<$> (x Core..@? "transitGatewayRouteTable")
+            Prelude.<$> (x Data..@? "transitGatewayRouteTable")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -134,26 +136,26 @@ instance
       `Prelude.seq` Prelude.rnf transitGatewayRouteTableId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteTransitGatewayRouteTable
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteTransitGatewayRouteTable where
+instance Data.ToPath DeleteTransitGatewayRouteTable where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteTransitGatewayRouteTable where
+instance Data.ToQuery DeleteTransitGatewayRouteTable where
   toQuery DeleteTransitGatewayRouteTable' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DeleteTransitGatewayRouteTable" ::
+          Data.=: ( "DeleteTransitGatewayRouteTable" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
         "TransitGatewayRouteTableId"
-          Core.=: transitGatewayRouteTableId
+          Data.=: transitGatewayRouteTableId
       ]
 
 -- | /See:/ 'newDeleteTransitGatewayRouteTableResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kinesis.Types.Shard
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.Kinesis.Types.Shard where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kinesis.Types.HashKeyRange
 import Amazonka.Kinesis.Types.SequenceNumberRange
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A uniquely identified group of data records in a Kinesis data stream.
@@ -102,17 +103,17 @@ shard_hashKeyRange = Lens.lens (\Shard' {hashKeyRange} -> hashKeyRange) (\s@Shar
 shard_sequenceNumberRange :: Lens.Lens' Shard SequenceNumberRange
 shard_sequenceNumberRange = Lens.lens (\Shard' {sequenceNumberRange} -> sequenceNumberRange) (\s@Shard' {} a -> s {sequenceNumberRange = a} :: Shard)
 
-instance Core.FromJSON Shard where
+instance Data.FromJSON Shard where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Shard"
       ( \x ->
           Shard'
-            Prelude.<$> (x Core..:? "AdjacentParentShardId")
-            Prelude.<*> (x Core..:? "ParentShardId")
-            Prelude.<*> (x Core..: "ShardId")
-            Prelude.<*> (x Core..: "HashKeyRange")
-            Prelude.<*> (x Core..: "SequenceNumberRange")
+            Prelude.<$> (x Data..:? "AdjacentParentShardId")
+            Prelude.<*> (x Data..:? "ParentShardId")
+            Prelude.<*> (x Data..: "ShardId")
+            Prelude.<*> (x Data..: "HashKeyRange")
+            Prelude.<*> (x Data..: "SequenceNumberRange")
       )
 
 instance Prelude.Hashable Shard where

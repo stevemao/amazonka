@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.GetLayerVersionPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.Lambda.GetLayerVersionPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,13 +95,14 @@ instance Core.AWSRequest GetLayerVersionPolicy where
   type
     AWSResponse GetLayerVersionPolicy =
       GetLayerVersionPolicyResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetLayerVersionPolicyResponse'
-            Prelude.<$> (x Core..?> "Policy")
-            Prelude.<*> (x Core..?> "RevisionId")
+            Prelude.<$> (x Data..?> "Policy")
+            Prelude.<*> (x Data..?> "RevisionId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -114,20 +116,20 @@ instance Prelude.NFData GetLayerVersionPolicy where
     Prelude.rnf layerName
       `Prelude.seq` Prelude.rnf versionNumber
 
-instance Core.ToHeaders GetLayerVersionPolicy where
+instance Data.ToHeaders GetLayerVersionPolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetLayerVersionPolicy where
+instance Data.ToPath GetLayerVersionPolicy where
   toPath GetLayerVersionPolicy' {..} =
     Prelude.mconcat
       [ "/2018-10-31/layers/",
-        Core.toBS layerName,
+        Data.toBS layerName,
         "/versions/",
-        Core.toBS versionNumber,
+        Data.toBS versionNumber,
         "/policy"
       ]
 
-instance Core.ToQuery GetLayerVersionPolicy where
+instance Data.ToQuery GetLayerVersionPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetLayerVersionPolicyResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GlobalAccelerator.CreateAccelerator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,8 +26,9 @@
 -- Balancers.
 --
 -- Global Accelerator is a global service that supports endpoints in
--- multiple AWS Regions but you must specify the US West (Oregon) Region to
--- create or update accelerators.
+-- multiple Amazon Web Services Regions but you must specify the US West
+-- (Oregon) Region to create, update, or otherwise work with accelerators.
+-- That is, for example, specify @--region us-west-2@ on AWS CLI commands.
 module Amazonka.GlobalAccelerator.CreateAccelerator
   ( -- * Creating a Request
     CreateAccelerator (..),
@@ -36,8 +37,8 @@ module Amazonka.GlobalAccelerator.CreateAccelerator
     -- * Request Lenses
     createAccelerator_enabled,
     createAccelerator_ipAddressType,
-    createAccelerator_tags,
     createAccelerator_ipAddresses,
+    createAccelerator_tags,
     createAccelerator_name,
     createAccelerator_idempotencyToken,
 
@@ -52,8 +53,9 @@ module Amazonka.GlobalAccelerator.CreateAccelerator
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GlobalAccelerator.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,35 +68,42 @@ data CreateAccelerator = CreateAccelerator'
     -- If the value is set to true, an accelerator cannot be deleted. If set to
     -- false, the accelerator can be deleted.
     enabled :: Prelude.Maybe Prelude.Bool,
-    -- | The value for the address type must be IPv4.
+    -- | The IP address type that an accelerator supports. For a standard
+    -- accelerator, the value can be IPV4 or DUAL_STACK.
     ipAddressType :: Prelude.Maybe IpAddressType,
-    -- | Create tags for an accelerator.
-    --
-    -- For more information, see
-    -- <https://docs.aws.amazon.com/global-accelerator/latest/dg/tagging-in-global-accelerator.html Tagging in AWS Global Accelerator>
-    -- in the /AWS Global Accelerator Developer Guide/.
-    tags :: Prelude.Maybe [Tag],
     -- | Optionally, if you\'ve added your own IP address pool to Global
-    -- Accelerator (BYOIP), you can choose IP addresses from your own pool to
-    -- use for the accelerator\'s static IP addresses when you create an
-    -- accelerator. You can specify one or two addresses, separated by a space.
-    -- Do not include the \/32 suffix.
+    -- Accelerator (BYOIP), you can choose an IPv4 address from your own pool
+    -- to use for the accelerator\'s static IPv4 address when you create an
+    -- accelerator.
     --
-    -- Only one IP address from each of your IP address ranges can be used for
-    -- each accelerator. If you specify only one IP address from your IP
-    -- address range, Global Accelerator assigns a second static IP address for
-    -- the accelerator from the AWS IP address pool.
+    -- After you bring an address range to Amazon Web Services, it appears in
+    -- your account as an address pool. When you create an accelerator, you can
+    -- assign one IPv4 address from your range to it. Global Accelerator
+    -- assigns you a second static IPv4 address from an Amazon IP address
+    -- range. If you bring two IPv4 address ranges to Amazon Web Services, you
+    -- can assign one IPv4 address from each range to your accelerator. This
+    -- restriction is because Global Accelerator assigns each address range to
+    -- a different network zone, for high availability.
+    --
+    -- You can specify one or two addresses, separated by a space. Do not
+    -- include the \/32 suffix.
     --
     -- Note that you can\'t update IP addresses for an existing accelerator. To
     -- change them, you must create a new accelerator with the new addresses.
     --
     -- For more information, see
-    -- <https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html Bring Your Own IP Addresses (BYOIP)>
-    -- in the /AWS Global Accelerator Developer Guide/.
+    -- <https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html Bring your own IP addresses (BYOIP)>
+    -- in the /Global Accelerator Developer Guide/.
     ipAddresses :: Prelude.Maybe [Prelude.Text],
-    -- | The name of an accelerator. The name can have a maximum of 32
-    -- characters, must contain only alphanumeric characters or hyphens (-),
-    -- and must not begin or end with a hyphen.
+    -- | Create tags for an accelerator.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/global-accelerator/latest/dg/tagging-in-global-accelerator.html Tagging in Global Accelerator>
+    -- in the /Global Accelerator Developer Guide/.
+    tags :: Prelude.Maybe [Tag],
+    -- | The name of the accelerator. The name can have a maximum of 64
+    -- characters, must contain only alphanumeric characters, periods (.), or
+    -- hyphens (-), and must not begin or end with a hyphen or period.
     name :: Prelude.Text,
     -- | A unique, case-sensitive identifier that you provide to ensure the
     -- idempotency—that is, the uniqueness—of an accelerator.
@@ -116,35 +125,42 @@ data CreateAccelerator = CreateAccelerator'
 -- If the value is set to true, an accelerator cannot be deleted. If set to
 -- false, the accelerator can be deleted.
 --
--- 'ipAddressType', 'createAccelerator_ipAddressType' - The value for the address type must be IPv4.
---
--- 'tags', 'createAccelerator_tags' - Create tags for an accelerator.
---
--- For more information, see
--- <https://docs.aws.amazon.com/global-accelerator/latest/dg/tagging-in-global-accelerator.html Tagging in AWS Global Accelerator>
--- in the /AWS Global Accelerator Developer Guide/.
+-- 'ipAddressType', 'createAccelerator_ipAddressType' - The IP address type that an accelerator supports. For a standard
+-- accelerator, the value can be IPV4 or DUAL_STACK.
 --
 -- 'ipAddresses', 'createAccelerator_ipAddresses' - Optionally, if you\'ve added your own IP address pool to Global
--- Accelerator (BYOIP), you can choose IP addresses from your own pool to
--- use for the accelerator\'s static IP addresses when you create an
--- accelerator. You can specify one or two addresses, separated by a space.
--- Do not include the \/32 suffix.
+-- Accelerator (BYOIP), you can choose an IPv4 address from your own pool
+-- to use for the accelerator\'s static IPv4 address when you create an
+-- accelerator.
 --
--- Only one IP address from each of your IP address ranges can be used for
--- each accelerator. If you specify only one IP address from your IP
--- address range, Global Accelerator assigns a second static IP address for
--- the accelerator from the AWS IP address pool.
+-- After you bring an address range to Amazon Web Services, it appears in
+-- your account as an address pool. When you create an accelerator, you can
+-- assign one IPv4 address from your range to it. Global Accelerator
+-- assigns you a second static IPv4 address from an Amazon IP address
+-- range. If you bring two IPv4 address ranges to Amazon Web Services, you
+-- can assign one IPv4 address from each range to your accelerator. This
+-- restriction is because Global Accelerator assigns each address range to
+-- a different network zone, for high availability.
+--
+-- You can specify one or two addresses, separated by a space. Do not
+-- include the \/32 suffix.
 --
 -- Note that you can\'t update IP addresses for an existing accelerator. To
 -- change them, you must create a new accelerator with the new addresses.
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html Bring Your Own IP Addresses (BYOIP)>
--- in the /AWS Global Accelerator Developer Guide/.
+-- <https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html Bring your own IP addresses (BYOIP)>
+-- in the /Global Accelerator Developer Guide/.
 --
--- 'name', 'createAccelerator_name' - The name of an accelerator. The name can have a maximum of 32
--- characters, must contain only alphanumeric characters or hyphens (-),
--- and must not begin or end with a hyphen.
+-- 'tags', 'createAccelerator_tags' - Create tags for an accelerator.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/global-accelerator/latest/dg/tagging-in-global-accelerator.html Tagging in Global Accelerator>
+-- in the /Global Accelerator Developer Guide/.
+--
+-- 'name', 'createAccelerator_name' - The name of the accelerator. The name can have a maximum of 64
+-- characters, must contain only alphanumeric characters, periods (.), or
+-- hyphens (-), and must not begin or end with a hyphen or period.
 --
 -- 'idempotencyToken', 'createAccelerator_idempotencyToken' - A unique, case-sensitive identifier that you provide to ensure the
 -- idempotency—that is, the uniqueness—of an accelerator.
@@ -158,8 +174,8 @@ newCreateAccelerator pName_ pIdempotencyToken_ =
   CreateAccelerator'
     { enabled = Prelude.Nothing,
       ipAddressType = Prelude.Nothing,
-      tags = Prelude.Nothing,
       ipAddresses = Prelude.Nothing,
+      tags = Prelude.Nothing,
       name = pName_,
       idempotencyToken = pIdempotencyToken_
     }
@@ -172,41 +188,48 @@ newCreateAccelerator pName_ pIdempotencyToken_ =
 createAccelerator_enabled :: Lens.Lens' CreateAccelerator (Prelude.Maybe Prelude.Bool)
 createAccelerator_enabled = Lens.lens (\CreateAccelerator' {enabled} -> enabled) (\s@CreateAccelerator' {} a -> s {enabled = a} :: CreateAccelerator)
 
--- | The value for the address type must be IPv4.
+-- | The IP address type that an accelerator supports. For a standard
+-- accelerator, the value can be IPV4 or DUAL_STACK.
 createAccelerator_ipAddressType :: Lens.Lens' CreateAccelerator (Prelude.Maybe IpAddressType)
 createAccelerator_ipAddressType = Lens.lens (\CreateAccelerator' {ipAddressType} -> ipAddressType) (\s@CreateAccelerator' {} a -> s {ipAddressType = a} :: CreateAccelerator)
 
--- | Create tags for an accelerator.
---
--- For more information, see
--- <https://docs.aws.amazon.com/global-accelerator/latest/dg/tagging-in-global-accelerator.html Tagging in AWS Global Accelerator>
--- in the /AWS Global Accelerator Developer Guide/.
-createAccelerator_tags :: Lens.Lens' CreateAccelerator (Prelude.Maybe [Tag])
-createAccelerator_tags = Lens.lens (\CreateAccelerator' {tags} -> tags) (\s@CreateAccelerator' {} a -> s {tags = a} :: CreateAccelerator) Prelude.. Lens.mapping Lens.coerced
-
 -- | Optionally, if you\'ve added your own IP address pool to Global
--- Accelerator (BYOIP), you can choose IP addresses from your own pool to
--- use for the accelerator\'s static IP addresses when you create an
--- accelerator. You can specify one or two addresses, separated by a space.
--- Do not include the \/32 suffix.
+-- Accelerator (BYOIP), you can choose an IPv4 address from your own pool
+-- to use for the accelerator\'s static IPv4 address when you create an
+-- accelerator.
 --
--- Only one IP address from each of your IP address ranges can be used for
--- each accelerator. If you specify only one IP address from your IP
--- address range, Global Accelerator assigns a second static IP address for
--- the accelerator from the AWS IP address pool.
+-- After you bring an address range to Amazon Web Services, it appears in
+-- your account as an address pool. When you create an accelerator, you can
+-- assign one IPv4 address from your range to it. Global Accelerator
+-- assigns you a second static IPv4 address from an Amazon IP address
+-- range. If you bring two IPv4 address ranges to Amazon Web Services, you
+-- can assign one IPv4 address from each range to your accelerator. This
+-- restriction is because Global Accelerator assigns each address range to
+-- a different network zone, for high availability.
+--
+-- You can specify one or two addresses, separated by a space. Do not
+-- include the \/32 suffix.
 --
 -- Note that you can\'t update IP addresses for an existing accelerator. To
 -- change them, you must create a new accelerator with the new addresses.
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html Bring Your Own IP Addresses (BYOIP)>
--- in the /AWS Global Accelerator Developer Guide/.
+-- <https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html Bring your own IP addresses (BYOIP)>
+-- in the /Global Accelerator Developer Guide/.
 createAccelerator_ipAddresses :: Lens.Lens' CreateAccelerator (Prelude.Maybe [Prelude.Text])
 createAccelerator_ipAddresses = Lens.lens (\CreateAccelerator' {ipAddresses} -> ipAddresses) (\s@CreateAccelerator' {} a -> s {ipAddresses = a} :: CreateAccelerator) Prelude.. Lens.mapping Lens.coerced
 
--- | The name of an accelerator. The name can have a maximum of 32
--- characters, must contain only alphanumeric characters or hyphens (-),
--- and must not begin or end with a hyphen.
+-- | Create tags for an accelerator.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/global-accelerator/latest/dg/tagging-in-global-accelerator.html Tagging in Global Accelerator>
+-- in the /Global Accelerator Developer Guide/.
+createAccelerator_tags :: Lens.Lens' CreateAccelerator (Prelude.Maybe [Tag])
+createAccelerator_tags = Lens.lens (\CreateAccelerator' {tags} -> tags) (\s@CreateAccelerator' {} a -> s {tags = a} :: CreateAccelerator) Prelude.. Lens.mapping Lens.coerced
+
+-- | The name of the accelerator. The name can have a maximum of 64
+-- characters, must contain only alphanumeric characters, periods (.), or
+-- hyphens (-), and must not begin or end with a hyphen or period.
 createAccelerator_name :: Lens.Lens' CreateAccelerator Prelude.Text
 createAccelerator_name = Lens.lens (\CreateAccelerator' {name} -> name) (\s@CreateAccelerator' {} a -> s {name = a} :: CreateAccelerator)
 
@@ -219,12 +242,13 @@ instance Core.AWSRequest CreateAccelerator where
   type
     AWSResponse CreateAccelerator =
       CreateAcceleratorResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateAcceleratorResponse'
-            Prelude.<$> (x Core..?> "Accelerator")
+            Prelude.<$> (x Data..?> "Accelerator")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -232,8 +256,8 @@ instance Prelude.Hashable CreateAccelerator where
   hashWithSalt _salt CreateAccelerator' {..} =
     _salt `Prelude.hashWithSalt` enabled
       `Prelude.hashWithSalt` ipAddressType
-      `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` ipAddresses
+      `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` idempotencyToken
 
@@ -241,44 +265,44 @@ instance Prelude.NFData CreateAccelerator where
   rnf CreateAccelerator' {..} =
     Prelude.rnf enabled
       `Prelude.seq` Prelude.rnf ipAddressType
-      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf ipAddresses
+      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf idempotencyToken
 
-instance Core.ToHeaders CreateAccelerator where
+instance Data.ToHeaders CreateAccelerator where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GlobalAccelerator_V20180706.CreateAccelerator" ::
+              Data.=# ( "GlobalAccelerator_V20180706.CreateAccelerator" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateAccelerator where
+instance Data.ToJSON CreateAccelerator where
   toJSON CreateAccelerator' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Enabled" Core..=) Prelude.<$> enabled,
-            ("IpAddressType" Core..=) Prelude.<$> ipAddressType,
-            ("Tags" Core..=) Prelude.<$> tags,
-            ("IpAddresses" Core..=) Prelude.<$> ipAddresses,
-            Prelude.Just ("Name" Core..= name),
+          [ ("Enabled" Data..=) Prelude.<$> enabled,
+            ("IpAddressType" Data..=) Prelude.<$> ipAddressType,
+            ("IpAddresses" Data..=) Prelude.<$> ipAddresses,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name),
             Prelude.Just
-              ("IdempotencyToken" Core..= idempotencyToken)
+              ("IdempotencyToken" Data..= idempotencyToken)
           ]
       )
 
-instance Core.ToPath CreateAccelerator where
+instance Data.ToPath CreateAccelerator where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateAccelerator where
+instance Data.ToQuery CreateAccelerator where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateAcceleratorResponse' smart constructor.

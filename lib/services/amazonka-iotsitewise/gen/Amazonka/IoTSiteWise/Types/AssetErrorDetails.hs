@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.AssetErrorDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTSiteWise.Types.AssetErrorDetails where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types.AssetErrorCode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains error details for the requested associate project asset action.
@@ -77,15 +78,15 @@ assetErrorDetails_code = Lens.lens (\AssetErrorDetails' {code} -> code) (\s@Asse
 assetErrorDetails_message :: Lens.Lens' AssetErrorDetails Prelude.Text
 assetErrorDetails_message = Lens.lens (\AssetErrorDetails' {message} -> message) (\s@AssetErrorDetails' {} a -> s {message = a} :: AssetErrorDetails)
 
-instance Core.FromJSON AssetErrorDetails where
+instance Data.FromJSON AssetErrorDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AssetErrorDetails"
       ( \x ->
           AssetErrorDetails'
-            Prelude.<$> (x Core..: "assetId")
-            Prelude.<*> (x Core..: "code")
-            Prelude.<*> (x Core..: "message")
+            Prelude.<$> (x Data..: "assetId")
+            Prelude.<*> (x Data..: "code")
+            Prelude.<*> (x Data..: "message")
       )
 
 instance Prelude.Hashable AssetErrorDetails where

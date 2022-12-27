@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.CalculatedColumn
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.CalculatedColumn where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A calculated column for a dataset.
@@ -35,9 +36,9 @@ data CalculatedColumn = CalculatedColumn'
     -- column.
     columnId :: Prelude.Text,
     -- | An expression that defines the calculated column.
-    expression :: Prelude.Text
+    expression :: Data.Sensitive Prelude.Text
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'CalculatedColumn' with all optional fields omitted.
@@ -70,7 +71,7 @@ newCalculatedColumn
     CalculatedColumn'
       { columnName = pColumnName_,
         columnId = pColumnId_,
-        expression = pExpression_
+        expression = Data._Sensitive Lens.# pExpression_
       }
 
 -- | Column name.
@@ -86,17 +87,17 @@ calculatedColumn_columnId = Lens.lens (\CalculatedColumn' {columnId} -> columnId
 
 -- | An expression that defines the calculated column.
 calculatedColumn_expression :: Lens.Lens' CalculatedColumn Prelude.Text
-calculatedColumn_expression = Lens.lens (\CalculatedColumn' {expression} -> expression) (\s@CalculatedColumn' {} a -> s {expression = a} :: CalculatedColumn)
+calculatedColumn_expression = Lens.lens (\CalculatedColumn' {expression} -> expression) (\s@CalculatedColumn' {} a -> s {expression = a} :: CalculatedColumn) Prelude.. Data._Sensitive
 
-instance Core.FromJSON CalculatedColumn where
+instance Data.FromJSON CalculatedColumn where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CalculatedColumn"
       ( \x ->
           CalculatedColumn'
-            Prelude.<$> (x Core..: "ColumnName")
-            Prelude.<*> (x Core..: "ColumnId")
-            Prelude.<*> (x Core..: "Expression")
+            Prelude.<$> (x Data..: "ColumnName")
+            Prelude.<*> (x Data..: "ColumnId")
+            Prelude.<*> (x Data..: "Expression")
       )
 
 instance Prelude.Hashable CalculatedColumn where
@@ -111,12 +112,12 @@ instance Prelude.NFData CalculatedColumn where
       `Prelude.seq` Prelude.rnf columnId
       `Prelude.seq` Prelude.rnf expression
 
-instance Core.ToJSON CalculatedColumn where
+instance Data.ToJSON CalculatedColumn where
   toJSON CalculatedColumn' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ColumnName" Core..= columnName),
-            Prelude.Just ("ColumnId" Core..= columnId),
-            Prelude.Just ("Expression" Core..= expression)
+          [ Prelude.Just ("ColumnName" Data..= columnName),
+            Prelude.Just ("ColumnId" Data..= columnId),
+            Prelude.Just ("Expression" Data..= expression)
           ]
       )

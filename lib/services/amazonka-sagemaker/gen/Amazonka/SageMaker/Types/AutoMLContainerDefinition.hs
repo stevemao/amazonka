@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.AutoMLContainerDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.AutoMLContainerDefinition where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A list of container definitions that describe the different containers
@@ -82,15 +83,15 @@ autoMLContainerDefinition_image = Lens.lens (\AutoMLContainerDefinition' {image}
 autoMLContainerDefinition_modelDataUrl :: Lens.Lens' AutoMLContainerDefinition Prelude.Text
 autoMLContainerDefinition_modelDataUrl = Lens.lens (\AutoMLContainerDefinition' {modelDataUrl} -> modelDataUrl) (\s@AutoMLContainerDefinition' {} a -> s {modelDataUrl = a} :: AutoMLContainerDefinition)
 
-instance Core.FromJSON AutoMLContainerDefinition where
+instance Data.FromJSON AutoMLContainerDefinition where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AutoMLContainerDefinition"
       ( \x ->
           AutoMLContainerDefinition'
-            Prelude.<$> (x Core..:? "Environment" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "Image")
-            Prelude.<*> (x Core..: "ModelDataUrl")
+            Prelude.<$> (x Data..:? "Environment" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "Image")
+            Prelude.<*> (x Data..: "ModelDataUrl")
       )
 
 instance Prelude.Hashable AutoMLContainerDefinition where

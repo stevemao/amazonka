@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.Types.OutputArtifact
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodePipeline.Types.OutputArtifact where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents information about the output of an action.
@@ -76,12 +77,12 @@ newOutputArtifact pName_ =
 outputArtifact_name :: Lens.Lens' OutputArtifact Prelude.Text
 outputArtifact_name = Lens.lens (\OutputArtifact' {name} -> name) (\s@OutputArtifact' {} a -> s {name = a} :: OutputArtifact)
 
-instance Core.FromJSON OutputArtifact where
+instance Data.FromJSON OutputArtifact where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OutputArtifact"
       ( \x ->
-          OutputArtifact' Prelude.<$> (x Core..: "name")
+          OutputArtifact' Prelude.<$> (x Data..: "name")
       )
 
 instance Prelude.Hashable OutputArtifact where
@@ -91,9 +92,9 @@ instance Prelude.Hashable OutputArtifact where
 instance Prelude.NFData OutputArtifact where
   rnf OutputArtifact' {..} = Prelude.rnf name
 
-instance Core.ToJSON OutputArtifact where
+instance Data.ToJSON OutputArtifact where
   toJSON OutputArtifact' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("name" Core..= name)]
+          [Prelude.Just ("name" Data..= name)]
       )

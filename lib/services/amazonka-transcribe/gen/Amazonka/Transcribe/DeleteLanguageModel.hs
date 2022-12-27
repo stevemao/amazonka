@@ -14,13 +14,15 @@
 
 -- |
 -- Module      : Amazonka.Transcribe.DeleteLanguageModel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a custom language model using its name.
+-- Deletes a custom language model. To use this operation, specify the name
+-- of the language model you want to delete using @ModelName@. custom
+-- language model names are case sensitive.
 module Amazonka.Transcribe.DeleteLanguageModel
   ( -- * Creating a Request
     DeleteLanguageModel (..),
@@ -36,7 +38,8 @@ module Amazonka.Transcribe.DeleteLanguageModel
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -44,7 +47,8 @@ import Amazonka.Transcribe.Types
 
 -- | /See:/ 'newDeleteLanguageModel' smart constructor.
 data DeleteLanguageModel = DeleteLanguageModel'
-  { -- | The name of the model you\'re choosing to delete.
+  { -- | The name of the custom language model you want to delete. Model names
+    -- are case sensitive.
     modelName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -57,7 +61,8 @@ data DeleteLanguageModel = DeleteLanguageModel'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'modelName', 'deleteLanguageModel_modelName' - The name of the model you\'re choosing to delete.
+-- 'modelName', 'deleteLanguageModel_modelName' - The name of the custom language model you want to delete. Model names
+-- are case sensitive.
 newDeleteLanguageModel ::
   -- | 'modelName'
   Prelude.Text ->
@@ -65,7 +70,8 @@ newDeleteLanguageModel ::
 newDeleteLanguageModel pModelName_ =
   DeleteLanguageModel' {modelName = pModelName_}
 
--- | The name of the model you\'re choosing to delete.
+-- | The name of the custom language model you want to delete. Model names
+-- are case sensitive.
 deleteLanguageModel_modelName :: Lens.Lens' DeleteLanguageModel Prelude.Text
 deleteLanguageModel_modelName = Lens.lens (\DeleteLanguageModel' {modelName} -> modelName) (\s@DeleteLanguageModel' {} a -> s {modelName = a} :: DeleteLanguageModel)
 
@@ -73,7 +79,8 @@ instance Core.AWSRequest DeleteLanguageModel where
   type
     AWSResponse DeleteLanguageModel =
       DeleteLanguageModelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteLanguageModelResponse'
 
@@ -84,32 +91,32 @@ instance Prelude.Hashable DeleteLanguageModel where
 instance Prelude.NFData DeleteLanguageModel where
   rnf DeleteLanguageModel' {..} = Prelude.rnf modelName
 
-instance Core.ToHeaders DeleteLanguageModel where
+instance Data.ToHeaders DeleteLanguageModel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Transcribe.DeleteLanguageModel" ::
+              Data.=# ( "Transcribe.DeleteLanguageModel" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteLanguageModel where
+instance Data.ToJSON DeleteLanguageModel where
   toJSON DeleteLanguageModel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ModelName" Core..= modelName)]
+          [Prelude.Just ("ModelName" Data..= modelName)]
       )
 
-instance Core.ToPath DeleteLanguageModel where
+instance Data.ToPath DeleteLanguageModel where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteLanguageModel where
+instance Data.ToQuery DeleteLanguageModel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteLanguageModelResponse' smart constructor.

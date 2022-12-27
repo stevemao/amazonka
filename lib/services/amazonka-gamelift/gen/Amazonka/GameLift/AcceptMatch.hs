@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.AcceptMatch
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,11 +39,11 @@
 -- If any player rejects the match, or if acceptances are not received
 -- before a specified timeout, the proposed match is dropped. The
 -- matchmaking tickets are then handled in one of two ways: For tickets
--- where one or more players rejected the match, the ticket status is
--- returned to @SEARCHING@ to find a new match. For tickets where one or
--- more players failed to respond, the ticket status is set to @CANCELLED@,
--- and processing is terminated. A new matchmaking request for these
--- players can be submitted as needed.
+-- where one or more players rejected the match or failed to respond, the
+-- ticket status is set to @CANCELLED@, and processing is terminated. For
+-- tickets where players have accepted or not yet responded, the ticket
+-- status is returned to @SEARCHING@ to find a new match. A new matchmaking
+-- request for these players can be submitted as needed.
 --
 -- __Learn more__
 --
@@ -51,12 +51,6 @@
 --
 -- <https://docs.aws.amazon.com/gamelift/latest/flexmatchguide/match-events.html FlexMatch events>
 -- (reference)
---
--- __Related actions__
---
--- StartMatchmaking | DescribeMatchmaking | StopMatchmaking | AcceptMatch |
--- StartMatchBackfill |
--- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.AcceptMatch
   ( -- * Creating a Request
     AcceptMatch (..),
@@ -77,15 +71,14 @@ module Amazonka.GameLift.AcceptMatch
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newAcceptMatch' smart constructor.
+-- | /See:/ 'newAcceptMatch' smart constructor.
 data AcceptMatch = AcceptMatch'
   { -- | A unique identifier for a matchmaking ticket. The ticket must be in
     -- status @REQUIRES_ACCEPTANCE@; otherwise this request will fail.
@@ -142,7 +135,8 @@ acceptMatch_acceptanceType = Lens.lens (\AcceptMatch' {acceptanceType} -> accept
 
 instance Core.AWSRequest AcceptMatch where
   type AWSResponse AcceptMatch = AcceptMatchResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -162,34 +156,34 @@ instance Prelude.NFData AcceptMatch where
       `Prelude.seq` Prelude.rnf playerIds
       `Prelude.seq` Prelude.rnf acceptanceType
 
-instance Core.ToHeaders AcceptMatch where
+instance Data.ToHeaders AcceptMatch where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("GameLift.AcceptMatch" :: Prelude.ByteString),
+              Data.=# ("GameLift.AcceptMatch" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AcceptMatch where
+instance Data.ToJSON AcceptMatch where
   toJSON AcceptMatch' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("TicketId" Core..= ticketId),
-            Prelude.Just ("PlayerIds" Core..= playerIds),
+          [ Prelude.Just ("TicketId" Data..= ticketId),
+            Prelude.Just ("PlayerIds" Data..= playerIds),
             Prelude.Just
-              ("AcceptanceType" Core..= acceptanceType)
+              ("AcceptanceType" Data..= acceptanceType)
           ]
       )
 
-instance Core.ToPath AcceptMatch where
+instance Data.ToPath AcceptMatch where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AcceptMatch where
+instance Data.ToQuery AcceptMatch where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAcceptMatchResponse' smart constructor.

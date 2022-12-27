@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.Textract
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,67 +27,91 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestDetectDocumentText $
---             newDetectDocumentText
---
---         , requestStartDocumentAnalysis $
---             newStartDocumentAnalysis
---
---         , requestAnalyzeDocument $
+--         [ requestAnalyzeDocument $
 --             newAnalyzeDocument
---
---         , requestGetDocumentTextDetection $
---             newGetDocumentTextDetection
 --
 --         , requestAnalyzeExpense $
 --             newAnalyzeExpense
 --
---         , requestStartDocumentTextDetection $
---             newStartDocumentTextDetection
+--         , requestAnalyzeID $
+--             newAnalyzeID
+--
+--         , requestDetectDocumentText $
+--             newDetectDocumentText
 --
 --         , requestGetDocumentAnalysis $
 --             newGetDocumentAnalysis
 --
+--         , requestGetDocumentTextDetection $
+--             newGetDocumentTextDetection
+--
+--         , requestGetExpenseAnalysis $
+--             newGetExpenseAnalysis
+--
+--         , requestGetLendingAnalysis $
+--             newGetLendingAnalysis
+--
+--         , requestGetLendingAnalysisSummary $
+--             newGetLendingAnalysisSummary
+--
+--         , requestStartDocumentAnalysis $
+--             newStartDocumentAnalysis
+--
+--         , requestStartDocumentTextDetection $
+--             newStartDocumentTextDetection
+--
+--         , requestStartExpenseAnalysis $
+--             newStartExpenseAnalysis
+--
+--         , requestStartLendingAnalysis $
+--             newStartLendingAnalysis
+--
 --           ]
 
 --     , testGroup "response"
---         [ responseDetectDocumentText $
---             newDetectDocumentTextResponse
---
---         , responseStartDocumentAnalysis $
---             newStartDocumentAnalysisResponse
---
---         , responseAnalyzeDocument $
+--         [ responseAnalyzeDocument $
 --             newAnalyzeDocumentResponse
---
---         , responseGetDocumentTextDetection $
---             newGetDocumentTextDetectionResponse
 --
 --         , responseAnalyzeExpense $
 --             newAnalyzeExpenseResponse
 --
---         , responseStartDocumentTextDetection $
---             newStartDocumentTextDetectionResponse
+--         , responseAnalyzeID $
+--             newAnalyzeIDResponse
+--
+--         , responseDetectDocumentText $
+--             newDetectDocumentTextResponse
 --
 --         , responseGetDocumentAnalysis $
 --             newGetDocumentAnalysisResponse
+--
+--         , responseGetDocumentTextDetection $
+--             newGetDocumentTextDetectionResponse
+--
+--         , responseGetExpenseAnalysis $
+--             newGetExpenseAnalysisResponse
+--
+--         , responseGetLendingAnalysis $
+--             newGetLendingAnalysisResponse
+--
+--         , responseGetLendingAnalysisSummary $
+--             newGetLendingAnalysisSummaryResponse
+--
+--         , responseStartDocumentAnalysis $
+--             newStartDocumentAnalysisResponse
+--
+--         , responseStartDocumentTextDetection $
+--             newStartDocumentTextDetectionResponse
+--
+--         , responseStartExpenseAnalysis $
+--             newStartExpenseAnalysisResponse
+--
+--         , responseStartLendingAnalysis $
+--             newStartLendingAnalysisResponse
 --
 --           ]
 --     ]
 
 -- Requests
-
-requestDetectDocumentText :: DetectDocumentText -> TestTree
-requestDetectDocumentText =
-  req
-    "DetectDocumentText"
-    "fixture/DetectDocumentText.yaml"
-
-requestStartDocumentAnalysis :: StartDocumentAnalysis -> TestTree
-requestStartDocumentAnalysis =
-  req
-    "StartDocumentAnalysis"
-    "fixture/StartDocumentAnalysis.yaml"
 
 requestAnalyzeDocument :: AnalyzeDocument -> TestTree
 requestAnalyzeDocument =
@@ -95,23 +119,23 @@ requestAnalyzeDocument =
     "AnalyzeDocument"
     "fixture/AnalyzeDocument.yaml"
 
-requestGetDocumentTextDetection :: GetDocumentTextDetection -> TestTree
-requestGetDocumentTextDetection =
-  req
-    "GetDocumentTextDetection"
-    "fixture/GetDocumentTextDetection.yaml"
-
 requestAnalyzeExpense :: AnalyzeExpense -> TestTree
 requestAnalyzeExpense =
   req
     "AnalyzeExpense"
     "fixture/AnalyzeExpense.yaml"
 
-requestStartDocumentTextDetection :: StartDocumentTextDetection -> TestTree
-requestStartDocumentTextDetection =
+requestAnalyzeID :: AnalyzeID -> TestTree
+requestAnalyzeID =
   req
-    "StartDocumentTextDetection"
-    "fixture/StartDocumentTextDetection.yaml"
+    "AnalyzeID"
+    "fixture/AnalyzeID.yaml"
+
+requestDetectDocumentText :: DetectDocumentText -> TestTree
+requestDetectDocumentText =
+  req
+    "DetectDocumentText"
+    "fixture/DetectDocumentText.yaml"
 
 requestGetDocumentAnalysis :: GetDocumentAnalysis -> TestTree
 requestGetDocumentAnalysis =
@@ -119,23 +143,55 @@ requestGetDocumentAnalysis =
     "GetDocumentAnalysis"
     "fixture/GetDocumentAnalysis.yaml"
 
+requestGetDocumentTextDetection :: GetDocumentTextDetection -> TestTree
+requestGetDocumentTextDetection =
+  req
+    "GetDocumentTextDetection"
+    "fixture/GetDocumentTextDetection.yaml"
+
+requestGetExpenseAnalysis :: GetExpenseAnalysis -> TestTree
+requestGetExpenseAnalysis =
+  req
+    "GetExpenseAnalysis"
+    "fixture/GetExpenseAnalysis.yaml"
+
+requestGetLendingAnalysis :: GetLendingAnalysis -> TestTree
+requestGetLendingAnalysis =
+  req
+    "GetLendingAnalysis"
+    "fixture/GetLendingAnalysis.yaml"
+
+requestGetLendingAnalysisSummary :: GetLendingAnalysisSummary -> TestTree
+requestGetLendingAnalysisSummary =
+  req
+    "GetLendingAnalysisSummary"
+    "fixture/GetLendingAnalysisSummary.yaml"
+
+requestStartDocumentAnalysis :: StartDocumentAnalysis -> TestTree
+requestStartDocumentAnalysis =
+  req
+    "StartDocumentAnalysis"
+    "fixture/StartDocumentAnalysis.yaml"
+
+requestStartDocumentTextDetection :: StartDocumentTextDetection -> TestTree
+requestStartDocumentTextDetection =
+  req
+    "StartDocumentTextDetection"
+    "fixture/StartDocumentTextDetection.yaml"
+
+requestStartExpenseAnalysis :: StartExpenseAnalysis -> TestTree
+requestStartExpenseAnalysis =
+  req
+    "StartExpenseAnalysis"
+    "fixture/StartExpenseAnalysis.yaml"
+
+requestStartLendingAnalysis :: StartLendingAnalysis -> TestTree
+requestStartLendingAnalysis =
+  req
+    "StartLendingAnalysis"
+    "fixture/StartLendingAnalysis.yaml"
+
 -- Responses
-
-responseDetectDocumentText :: DetectDocumentTextResponse -> TestTree
-responseDetectDocumentText =
-  res
-    "DetectDocumentTextResponse"
-    "fixture/DetectDocumentTextResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DetectDocumentText)
-
-responseStartDocumentAnalysis :: StartDocumentAnalysisResponse -> TestTree
-responseStartDocumentAnalysis =
-  res
-    "StartDocumentAnalysisResponse"
-    "fixture/StartDocumentAnalysisResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy StartDocumentAnalysis)
 
 responseAnalyzeDocument :: AnalyzeDocumentResponse -> TestTree
 responseAnalyzeDocument =
@@ -145,6 +201,38 @@ responseAnalyzeDocument =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy AnalyzeDocument)
 
+responseAnalyzeExpense :: AnalyzeExpenseResponse -> TestTree
+responseAnalyzeExpense =
+  res
+    "AnalyzeExpenseResponse"
+    "fixture/AnalyzeExpenseResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy AnalyzeExpense)
+
+responseAnalyzeID :: AnalyzeIDResponse -> TestTree
+responseAnalyzeID =
+  res
+    "AnalyzeIDResponse"
+    "fixture/AnalyzeIDResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy AnalyzeID)
+
+responseDetectDocumentText :: DetectDocumentTextResponse -> TestTree
+responseDetectDocumentText =
+  res
+    "DetectDocumentTextResponse"
+    "fixture/DetectDocumentTextResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DetectDocumentText)
+
+responseGetDocumentAnalysis :: GetDocumentAnalysisResponse -> TestTree
+responseGetDocumentAnalysis =
+  res
+    "GetDocumentAnalysisResponse"
+    "fixture/GetDocumentAnalysisResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetDocumentAnalysis)
+
 responseGetDocumentTextDetection :: GetDocumentTextDetectionResponse -> TestTree
 responseGetDocumentTextDetection =
   res
@@ -153,13 +241,37 @@ responseGetDocumentTextDetection =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy GetDocumentTextDetection)
 
-responseAnalyzeExpense :: AnalyzeExpenseResponse -> TestTree
-responseAnalyzeExpense =
+responseGetExpenseAnalysis :: GetExpenseAnalysisResponse -> TestTree
+responseGetExpenseAnalysis =
   res
-    "AnalyzeExpenseResponse"
-    "fixture/AnalyzeExpenseResponse.proto"
+    "GetExpenseAnalysisResponse"
+    "fixture/GetExpenseAnalysisResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy AnalyzeExpense)
+    (Proxy.Proxy :: Proxy.Proxy GetExpenseAnalysis)
+
+responseGetLendingAnalysis :: GetLendingAnalysisResponse -> TestTree
+responseGetLendingAnalysis =
+  res
+    "GetLendingAnalysisResponse"
+    "fixture/GetLendingAnalysisResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetLendingAnalysis)
+
+responseGetLendingAnalysisSummary :: GetLendingAnalysisSummaryResponse -> TestTree
+responseGetLendingAnalysisSummary =
+  res
+    "GetLendingAnalysisSummaryResponse"
+    "fixture/GetLendingAnalysisSummaryResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetLendingAnalysisSummary)
+
+responseStartDocumentAnalysis :: StartDocumentAnalysisResponse -> TestTree
+responseStartDocumentAnalysis =
+  res
+    "StartDocumentAnalysisResponse"
+    "fixture/StartDocumentAnalysisResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy StartDocumentAnalysis)
 
 responseStartDocumentTextDetection :: StartDocumentTextDetectionResponse -> TestTree
 responseStartDocumentTextDetection =
@@ -169,10 +281,18 @@ responseStartDocumentTextDetection =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy StartDocumentTextDetection)
 
-responseGetDocumentAnalysis :: GetDocumentAnalysisResponse -> TestTree
-responseGetDocumentAnalysis =
+responseStartExpenseAnalysis :: StartExpenseAnalysisResponse -> TestTree
+responseStartExpenseAnalysis =
   res
-    "GetDocumentAnalysisResponse"
-    "fixture/GetDocumentAnalysisResponse.proto"
+    "StartExpenseAnalysisResponse"
+    "fixture/StartExpenseAnalysisResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetDocumentAnalysis)
+    (Proxy.Proxy :: Proxy.Proxy StartExpenseAnalysis)
+
+responseStartLendingAnalysis :: StartLendingAnalysisResponse -> TestTree
+responseStartLendingAnalysis =
+  res
+    "StartLendingAnalysisResponse"
+    "fixture/StartLendingAnalysisResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy StartLendingAnalysis)

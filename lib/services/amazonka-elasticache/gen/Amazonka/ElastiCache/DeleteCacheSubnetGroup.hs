@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.DeleteCacheSubnetGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.ElastiCache.DeleteCacheSubnetGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,7 +91,8 @@ instance Core.AWSRequest DeleteCacheSubnetGroup where
   type
     AWSResponse DeleteCacheSubnetGroup =
       DeleteCacheSubnetGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       DeleteCacheSubnetGroupResponse'
@@ -103,20 +105,20 @@ instance Prelude.NFData DeleteCacheSubnetGroup where
   rnf DeleteCacheSubnetGroup' {..} =
     Prelude.rnf cacheSubnetGroupName
 
-instance Core.ToHeaders DeleteCacheSubnetGroup where
+instance Data.ToHeaders DeleteCacheSubnetGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteCacheSubnetGroup where
+instance Data.ToPath DeleteCacheSubnetGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteCacheSubnetGroup where
+instance Data.ToQuery DeleteCacheSubnetGroup where
   toQuery DeleteCacheSubnetGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteCacheSubnetGroup" :: Prelude.ByteString),
+          Data.=: ("DeleteCacheSubnetGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
-        "CacheSubnetGroupName" Core.=: cacheSubnetGroupName
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
+        "CacheSubnetGroupName" Data.=: cacheSubnetGroupName
       ]
 
 -- | /See:/ 'newDeleteCacheSubnetGroupResponse' smart constructor.

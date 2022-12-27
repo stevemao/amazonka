@@ -14,19 +14,25 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.DeleteEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an endpoint. Amazon SageMaker frees up all of the resources that
--- were deployed when the endpoint was created.
+-- Deletes an endpoint. SageMaker frees up all of the resources that were
+-- deployed when the endpoint was created.
 --
--- Amazon SageMaker retires any custom KMS key grants associated with the
+-- SageMaker retires any custom KMS key grants associated with the
 -- endpoint, meaning you don\'t need to use the
 -- <http://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html RevokeGrant>
 -- API call.
+--
+-- When you delete your endpoint, SageMaker asynchronously deletes
+-- associated endpoint resources such as KMS key grants. You might still
+-- see these resources in your account for a few minutes after deleting
+-- your endpoint. Do not delete or revoke the permissions for your
+-- @ ExecutionRoleArn @, otherwise SageMaker cannot delete these resources.
 module Amazonka.SageMaker.DeleteEndpoint
   ( -- * Creating a Request
     DeleteEndpoint (..),
@@ -42,7 +48,8 @@ module Amazonka.SageMaker.DeleteEndpoint
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,7 +86,8 @@ instance Core.AWSRequest DeleteEndpoint where
   type
     AWSResponse DeleteEndpoint =
       DeleteEndpointResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteEndpointResponse'
 
@@ -90,30 +98,30 @@ instance Prelude.Hashable DeleteEndpoint where
 instance Prelude.NFData DeleteEndpoint where
   rnf DeleteEndpoint' {..} = Prelude.rnf endpointName
 
-instance Core.ToHeaders DeleteEndpoint where
+instance Data.ToHeaders DeleteEndpoint where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.DeleteEndpoint" :: Prelude.ByteString),
+              Data.=# ("SageMaker.DeleteEndpoint" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteEndpoint where
+instance Data.ToJSON DeleteEndpoint where
   toJSON DeleteEndpoint' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("EndpointName" Core..= endpointName)]
+          [Prelude.Just ("EndpointName" Data..= endpointName)]
       )
 
-instance Core.ToPath DeleteEndpoint where
+instance Data.ToPath DeleteEndpoint where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteEndpoint where
+instance Data.ToQuery DeleteEndpoint where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteEndpointResponse' smart constructor.

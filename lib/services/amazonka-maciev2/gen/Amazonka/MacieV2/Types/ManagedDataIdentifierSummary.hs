@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.ManagedDataIdentifierSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.ManagedDataIdentifierSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types.SensitiveDataItemCategory
 import qualified Amazonka.Prelude as Prelude
 
@@ -33,9 +34,9 @@ import qualified Amazonka.Prelude as Prelude
 data ManagedDataIdentifierSummary = ManagedDataIdentifierSummary'
   { -- | The category of sensitive data that the managed data identifier detects:
     -- CREDENTIALS, for credentials data such as private keys or Amazon Web
-    -- Services secret keys; FINANCIAL_INFORMATION, for financial data such as
-    -- credit card numbers; or, PERSONAL_INFORMATION, for personal health
-    -- information, such as health insurance identification numbers, or
+    -- Services secret access keys; FINANCIAL_INFORMATION, for financial data
+    -- such as credit card numbers; or, PERSONAL_INFORMATION, for personal
+    -- health information, such as health insurance identification numbers, or
     -- personally identifiable information, such as passport numbers.
     category :: Prelude.Maybe SensitiveDataItemCategory,
     -- | The unique identifier for the managed data identifier. This is a string
@@ -57,9 +58,9 @@ data ManagedDataIdentifierSummary = ManagedDataIdentifierSummary'
 --
 -- 'category', 'managedDataIdentifierSummary_category' - The category of sensitive data that the managed data identifier detects:
 -- CREDENTIALS, for credentials data such as private keys or Amazon Web
--- Services secret keys; FINANCIAL_INFORMATION, for financial data such as
--- credit card numbers; or, PERSONAL_INFORMATION, for personal health
--- information, such as health insurance identification numbers, or
+-- Services secret access keys; FINANCIAL_INFORMATION, for financial data
+-- such as credit card numbers; or, PERSONAL_INFORMATION, for personal
+-- health information, such as health insurance identification numbers, or
 -- personally identifiable information, such as passport numbers.
 --
 -- 'id', 'managedDataIdentifierSummary_id' - The unique identifier for the managed data identifier. This is a string
@@ -78,9 +79,9 @@ newManagedDataIdentifierSummary =
 
 -- | The category of sensitive data that the managed data identifier detects:
 -- CREDENTIALS, for credentials data such as private keys or Amazon Web
--- Services secret keys; FINANCIAL_INFORMATION, for financial data such as
--- credit card numbers; or, PERSONAL_INFORMATION, for personal health
--- information, such as health insurance identification numbers, or
+-- Services secret access keys; FINANCIAL_INFORMATION, for financial data
+-- such as credit card numbers; or, PERSONAL_INFORMATION, for personal
+-- health information, such as health insurance identification numbers, or
 -- personally identifiable information, such as passport numbers.
 managedDataIdentifierSummary_category :: Lens.Lens' ManagedDataIdentifierSummary (Prelude.Maybe SensitiveDataItemCategory)
 managedDataIdentifierSummary_category = Lens.lens (\ManagedDataIdentifierSummary' {category} -> category) (\s@ManagedDataIdentifierSummary' {} a -> s {category = a} :: ManagedDataIdentifierSummary)
@@ -93,14 +94,14 @@ managedDataIdentifierSummary_category = Lens.lens (\ManagedDataIdentifierSummary
 managedDataIdentifierSummary_id :: Lens.Lens' ManagedDataIdentifierSummary (Prelude.Maybe Prelude.Text)
 managedDataIdentifierSummary_id = Lens.lens (\ManagedDataIdentifierSummary' {id} -> id) (\s@ManagedDataIdentifierSummary' {} a -> s {id = a} :: ManagedDataIdentifierSummary)
 
-instance Core.FromJSON ManagedDataIdentifierSummary where
+instance Data.FromJSON ManagedDataIdentifierSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ManagedDataIdentifierSummary"
       ( \x ->
           ManagedDataIdentifierSummary'
-            Prelude.<$> (x Core..:? "category")
-            Prelude.<*> (x Core..:? "id")
+            Prelude.<$> (x Data..:? "category")
+            Prelude.<*> (x Data..:? "id")
       )
 
 instance

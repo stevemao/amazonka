@@ -14,16 +14,16 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.ImportAsProvisionedProduct
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Requests the import of a resource as a Service Catalog provisioned
--- product that is associated to a Service Catalog product and provisioning
--- artifact. Once imported, all supported Service Catalog governance
--- actions are supported on the provisioned product.
+-- Requests the import of a resource as an Service Catalog provisioned
+-- product that is associated to an Service Catalog product and
+-- provisioning artifact. Once imported, all supported Service Catalog
+-- governance actions are supported on the provisioned product.
 --
 -- Resource import only supports CloudFormation stack ARNs. CloudFormation
 -- StackSets and non-root nested stacks are not supported.
@@ -63,7 +63,8 @@ module Amazonka.ServiceCatalog.ImportAsProvisionedProduct
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,8 +85,8 @@ data ImportAsProvisionedProduct = ImportAsProvisionedProduct'
     -- | The identifier of the provisioning artifact.
     provisioningArtifactId :: Prelude.Text,
     -- | The user-friendly name of the provisioned product. The value must be
-    -- unique for the AWS account. The name cannot be updated after the product
-    -- is provisioned.
+    -- unique for the Amazon Web Services account. The name cannot be updated
+    -- after the product is provisioned.
     provisionedProductName :: Prelude.Text,
     -- | The unique identifier of the resource to be imported. It only currently
     -- supports CloudFormation stack IDs.
@@ -118,8 +119,8 @@ data ImportAsProvisionedProduct = ImportAsProvisionedProduct'
 -- 'provisioningArtifactId', 'importAsProvisionedProduct_provisioningArtifactId' - The identifier of the provisioning artifact.
 --
 -- 'provisionedProductName', 'importAsProvisionedProduct_provisionedProductName' - The user-friendly name of the provisioned product. The value must be
--- unique for the AWS account. The name cannot be updated after the product
--- is provisioned.
+-- unique for the Amazon Web Services account. The name cannot be updated
+-- after the product is provisioned.
 --
 -- 'physicalId', 'importAsProvisionedProduct_physicalId' - The unique identifier of the resource to be imported. It only currently
 -- supports CloudFormation stack IDs.
@@ -176,8 +177,8 @@ importAsProvisionedProduct_provisioningArtifactId :: Lens.Lens' ImportAsProvisio
 importAsProvisionedProduct_provisioningArtifactId = Lens.lens (\ImportAsProvisionedProduct' {provisioningArtifactId} -> provisioningArtifactId) (\s@ImportAsProvisionedProduct' {} a -> s {provisioningArtifactId = a} :: ImportAsProvisionedProduct)
 
 -- | The user-friendly name of the provisioned product. The value must be
--- unique for the AWS account. The name cannot be updated after the product
--- is provisioned.
+-- unique for the Amazon Web Services account. The name cannot be updated
+-- after the product is provisioned.
 importAsProvisionedProduct_provisionedProductName :: Lens.Lens' ImportAsProvisionedProduct Prelude.Text
 importAsProvisionedProduct_provisionedProductName = Lens.lens (\ImportAsProvisionedProduct' {provisionedProductName} -> provisionedProductName) (\s@ImportAsProvisionedProduct' {} a -> s {provisionedProductName = a} :: ImportAsProvisionedProduct)
 
@@ -196,12 +197,13 @@ instance Core.AWSRequest ImportAsProvisionedProduct where
   type
     AWSResponse ImportAsProvisionedProduct =
       ImportAsProvisionedProductResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ImportAsProvisionedProductResponse'
-            Prelude.<$> (x Core..?> "RecordDetail")
+            Prelude.<$> (x Data..?> "RecordDetail")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -223,46 +225,46 @@ instance Prelude.NFData ImportAsProvisionedProduct where
       `Prelude.seq` Prelude.rnf physicalId
       `Prelude.seq` Prelude.rnf idempotencyToken
 
-instance Core.ToHeaders ImportAsProvisionedProduct where
+instance Data.ToHeaders ImportAsProvisionedProduct where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.ImportAsProvisionedProduct" ::
+              Data.=# ( "AWS242ServiceCatalogService.ImportAsProvisionedProduct" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ImportAsProvisionedProduct where
+instance Data.ToJSON ImportAsProvisionedProduct where
   toJSON ImportAsProvisionedProduct' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            Prelude.Just ("ProductId" Core..= productId),
+            Prelude.Just ("ProductId" Data..= productId),
             Prelude.Just
               ( "ProvisioningArtifactId"
-                  Core..= provisioningArtifactId
+                  Data..= provisioningArtifactId
               ),
             Prelude.Just
               ( "ProvisionedProductName"
-                  Core..= provisionedProductName
+                  Data..= provisionedProductName
               ),
-            Prelude.Just ("PhysicalId" Core..= physicalId),
+            Prelude.Just ("PhysicalId" Data..= physicalId),
             Prelude.Just
-              ("IdempotencyToken" Core..= idempotencyToken)
+              ("IdempotencyToken" Data..= idempotencyToken)
           ]
       )
 
-instance Core.ToPath ImportAsProvisionedProduct where
+instance Data.ToPath ImportAsProvisionedProduct where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ImportAsProvisionedProduct where
+instance Data.ToQuery ImportAsProvisionedProduct where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newImportAsProvisionedProductResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.DescribeSnapshotCopyGrants
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,25 +34,26 @@ module Amazonka.Redshift.DescribeSnapshotCopyGrants
     newDescribeSnapshotCopyGrants,
 
     -- * Request Lenses
-    describeSnapshotCopyGrants_tagValues,
-    describeSnapshotCopyGrants_tagKeys,
     describeSnapshotCopyGrants_marker,
     describeSnapshotCopyGrants_maxRecords,
     describeSnapshotCopyGrants_snapshotCopyGrantName,
+    describeSnapshotCopyGrants_tagKeys,
+    describeSnapshotCopyGrants_tagValues,
 
     -- * Destructuring the Response
     DescribeSnapshotCopyGrantsResponse (..),
     newDescribeSnapshotCopyGrantsResponse,
 
     -- * Response Lenses
-    describeSnapshotCopyGrantsResponse_snapshotCopyGrants,
     describeSnapshotCopyGrantsResponse_marker,
+    describeSnapshotCopyGrantsResponse_snapshotCopyGrants,
     describeSnapshotCopyGrantsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -62,21 +63,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeSnapshotCopyGrants' smart constructor.
 data DescribeSnapshotCopyGrants = DescribeSnapshotCopyGrants'
-  { -- | A tag value or values for which you want to return all matching
-    -- resources that are associated with the specified value or values. For
-    -- example, suppose that you have resources tagged with values called
-    -- @admin@ and @test@. If you specify both of these tag values in the
-    -- request, Amazon Redshift returns a response with all resources that have
-    -- either or both of these tag values associated with them.
-    tagValues :: Prelude.Maybe [Prelude.Text],
-    -- | A tag key or keys for which you want to return all matching resources
-    -- that are associated with the specified key or keys. For example, suppose
-    -- that you have resources tagged with keys called @owner@ and
-    -- @environment@. If you specify both of these tag keys in the request,
-    -- Amazon Redshift returns a response with all resources that have either
-    -- or both of these tag keys associated with them.
-    tagKeys :: Prelude.Maybe [Prelude.Text],
-    -- | An optional parameter that specifies the starting point to return a set
+  { -- | An optional parameter that specifies the starting point to return a set
     -- of response records. When the results of a @DescribeSnapshotCopyGrant@
     -- request exceed the value specified in @MaxRecords@, Amazon Web Services
     -- returns a value in the @Marker@ field of the response. You can retrieve
@@ -97,7 +84,21 @@ data DescribeSnapshotCopyGrants = DescribeSnapshotCopyGrants'
     -- Constraints: minimum 20, maximum 100.
     maxRecords :: Prelude.Maybe Prelude.Int,
     -- | The name of the snapshot copy grant.
-    snapshotCopyGrantName :: Prelude.Maybe Prelude.Text
+    snapshotCopyGrantName :: Prelude.Maybe Prelude.Text,
+    -- | A tag key or keys for which you want to return all matching resources
+    -- that are associated with the specified key or keys. For example, suppose
+    -- that you have resources tagged with keys called @owner@ and
+    -- @environment@. If you specify both of these tag keys in the request,
+    -- Amazon Redshift returns a response with all resources that have either
+    -- or both of these tag keys associated with them.
+    tagKeys :: Prelude.Maybe [Prelude.Text],
+    -- | A tag value or values for which you want to return all matching
+    -- resources that are associated with the specified value or values. For
+    -- example, suppose that you have resources tagged with values called
+    -- @admin@ and @test@. If you specify both of these tag values in the
+    -- request, Amazon Redshift returns a response with all resources that have
+    -- either or both of these tag values associated with them.
+    tagValues :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -108,20 +109,6 @@ data DescribeSnapshotCopyGrants = DescribeSnapshotCopyGrants'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'tagValues', 'describeSnapshotCopyGrants_tagValues' - A tag value or values for which you want to return all matching
--- resources that are associated with the specified value or values. For
--- example, suppose that you have resources tagged with values called
--- @admin@ and @test@. If you specify both of these tag values in the
--- request, Amazon Redshift returns a response with all resources that have
--- either or both of these tag values associated with them.
---
--- 'tagKeys', 'describeSnapshotCopyGrants_tagKeys' - A tag key or keys for which you want to return all matching resources
--- that are associated with the specified key or keys. For example, suppose
--- that you have resources tagged with keys called @owner@ and
--- @environment@. If you specify both of these tag keys in the request,
--- Amazon Redshift returns a response with all resources that have either
--- or both of these tag keys associated with them.
 --
 -- 'marker', 'describeSnapshotCopyGrants_marker' - An optional parameter that specifies the starting point to return a set
 -- of response records. When the results of a @DescribeSnapshotCopyGrant@
@@ -144,35 +131,31 @@ data DescribeSnapshotCopyGrants = DescribeSnapshotCopyGrants'
 -- Constraints: minimum 20, maximum 100.
 --
 -- 'snapshotCopyGrantName', 'describeSnapshotCopyGrants_snapshotCopyGrantName' - The name of the snapshot copy grant.
-newDescribeSnapshotCopyGrants ::
-  DescribeSnapshotCopyGrants
-newDescribeSnapshotCopyGrants =
-  DescribeSnapshotCopyGrants'
-    { tagValues =
-        Prelude.Nothing,
-      tagKeys = Prelude.Nothing,
-      marker = Prelude.Nothing,
-      maxRecords = Prelude.Nothing,
-      snapshotCopyGrantName = Prelude.Nothing
-    }
-
--- | A tag value or values for which you want to return all matching
--- resources that are associated with the specified value or values. For
--- example, suppose that you have resources tagged with values called
--- @admin@ and @test@. If you specify both of these tag values in the
--- request, Amazon Redshift returns a response with all resources that have
--- either or both of these tag values associated with them.
-describeSnapshotCopyGrants_tagValues :: Lens.Lens' DescribeSnapshotCopyGrants (Prelude.Maybe [Prelude.Text])
-describeSnapshotCopyGrants_tagValues = Lens.lens (\DescribeSnapshotCopyGrants' {tagValues} -> tagValues) (\s@DescribeSnapshotCopyGrants' {} a -> s {tagValues = a} :: DescribeSnapshotCopyGrants) Prelude.. Lens.mapping Lens.coerced
-
--- | A tag key or keys for which you want to return all matching resources
+--
+-- 'tagKeys', 'describeSnapshotCopyGrants_tagKeys' - A tag key or keys for which you want to return all matching resources
 -- that are associated with the specified key or keys. For example, suppose
 -- that you have resources tagged with keys called @owner@ and
 -- @environment@. If you specify both of these tag keys in the request,
 -- Amazon Redshift returns a response with all resources that have either
 -- or both of these tag keys associated with them.
-describeSnapshotCopyGrants_tagKeys :: Lens.Lens' DescribeSnapshotCopyGrants (Prelude.Maybe [Prelude.Text])
-describeSnapshotCopyGrants_tagKeys = Lens.lens (\DescribeSnapshotCopyGrants' {tagKeys} -> tagKeys) (\s@DescribeSnapshotCopyGrants' {} a -> s {tagKeys = a} :: DescribeSnapshotCopyGrants) Prelude.. Lens.mapping Lens.coerced
+--
+-- 'tagValues', 'describeSnapshotCopyGrants_tagValues' - A tag value or values for which you want to return all matching
+-- resources that are associated with the specified value or values. For
+-- example, suppose that you have resources tagged with values called
+-- @admin@ and @test@. If you specify both of these tag values in the
+-- request, Amazon Redshift returns a response with all resources that have
+-- either or both of these tag values associated with them.
+newDescribeSnapshotCopyGrants ::
+  DescribeSnapshotCopyGrants
+newDescribeSnapshotCopyGrants =
+  DescribeSnapshotCopyGrants'
+    { marker =
+        Prelude.Nothing,
+      maxRecords = Prelude.Nothing,
+      snapshotCopyGrantName = Prelude.Nothing,
+      tagKeys = Prelude.Nothing,
+      tagValues = Prelude.Nothing
+    }
 
 -- | An optional parameter that specifies the starting point to return a set
 -- of response records. When the results of a @DescribeSnapshotCopyGrant@
@@ -202,6 +185,24 @@ describeSnapshotCopyGrants_maxRecords = Lens.lens (\DescribeSnapshotCopyGrants' 
 describeSnapshotCopyGrants_snapshotCopyGrantName :: Lens.Lens' DescribeSnapshotCopyGrants (Prelude.Maybe Prelude.Text)
 describeSnapshotCopyGrants_snapshotCopyGrantName = Lens.lens (\DescribeSnapshotCopyGrants' {snapshotCopyGrantName} -> snapshotCopyGrantName) (\s@DescribeSnapshotCopyGrants' {} a -> s {snapshotCopyGrantName = a} :: DescribeSnapshotCopyGrants)
 
+-- | A tag key or keys for which you want to return all matching resources
+-- that are associated with the specified key or keys. For example, suppose
+-- that you have resources tagged with keys called @owner@ and
+-- @environment@. If you specify both of these tag keys in the request,
+-- Amazon Redshift returns a response with all resources that have either
+-- or both of these tag keys associated with them.
+describeSnapshotCopyGrants_tagKeys :: Lens.Lens' DescribeSnapshotCopyGrants (Prelude.Maybe [Prelude.Text])
+describeSnapshotCopyGrants_tagKeys = Lens.lens (\DescribeSnapshotCopyGrants' {tagKeys} -> tagKeys) (\s@DescribeSnapshotCopyGrants' {} a -> s {tagKeys = a} :: DescribeSnapshotCopyGrants) Prelude.. Lens.mapping Lens.coerced
+
+-- | A tag value or values for which you want to return all matching
+-- resources that are associated with the specified value or values. For
+-- example, suppose that you have resources tagged with values called
+-- @admin@ and @test@. If you specify both of these tag values in the
+-- request, Amazon Redshift returns a response with all resources that have
+-- either or both of these tag values associated with them.
+describeSnapshotCopyGrants_tagValues :: Lens.Lens' DescribeSnapshotCopyGrants (Prelude.Maybe [Prelude.Text])
+describeSnapshotCopyGrants_tagValues = Lens.lens (\DescribeSnapshotCopyGrants' {tagValues} -> tagValues) (\s@DescribeSnapshotCopyGrants' {} a -> s {tagValues = a} :: DescribeSnapshotCopyGrants) Prelude.. Lens.mapping Lens.coerced
+
 instance Core.AWSPager DescribeSnapshotCopyGrants where
   page rq rs
     | Core.stop
@@ -228,68 +229,67 @@ instance Core.AWSRequest DescribeSnapshotCopyGrants where
   type
     AWSResponse DescribeSnapshotCopyGrants =
       DescribeSnapshotCopyGrantsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeSnapshotCopyGrantsResult"
       ( \s h x ->
           DescribeSnapshotCopyGrantsResponse'
-            Prelude.<$> ( x Core..@? "SnapshotCopyGrants"
+            Prelude.<$> (x Data..@? "Marker")
+            Prelude.<*> ( x Data..@? "SnapshotCopyGrants"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "SnapshotCopyGrant")
+                            Prelude.>>= Core.may (Data.parseXMLList "SnapshotCopyGrant")
                         )
-            Prelude.<*> (x Core..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeSnapshotCopyGrants where
   hashWithSalt _salt DescribeSnapshotCopyGrants' {..} =
-    _salt `Prelude.hashWithSalt` tagValues
-      `Prelude.hashWithSalt` tagKeys
-      `Prelude.hashWithSalt` marker
+    _salt `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
       `Prelude.hashWithSalt` snapshotCopyGrantName
+      `Prelude.hashWithSalt` tagKeys
+      `Prelude.hashWithSalt` tagValues
 
 instance Prelude.NFData DescribeSnapshotCopyGrants where
   rnf DescribeSnapshotCopyGrants' {..} =
-    Prelude.rnf tagValues
-      `Prelude.seq` Prelude.rnf tagKeys
-      `Prelude.seq` Prelude.rnf marker
+    Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
       `Prelude.seq` Prelude.rnf snapshotCopyGrantName
+      `Prelude.seq` Prelude.rnf tagKeys
+      `Prelude.seq` Prelude.rnf tagValues
 
-instance Core.ToHeaders DescribeSnapshotCopyGrants where
+instance Data.ToHeaders DescribeSnapshotCopyGrants where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeSnapshotCopyGrants where
+instance Data.ToPath DescribeSnapshotCopyGrants where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeSnapshotCopyGrants where
+instance Data.ToQuery DescribeSnapshotCopyGrants where
   toQuery DescribeSnapshotCopyGrants' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeSnapshotCopyGrants" :: Prelude.ByteString),
+          Data.=: ("DescribeSnapshotCopyGrants" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "TagValues"
-          Core.=: Core.toQuery
-            (Core.toQueryList "TagValue" Prelude.<$> tagValues),
-        "TagKeys"
-          Core.=: Core.toQuery
-            (Core.toQueryList "TagKey" Prelude.<$> tagKeys),
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords,
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
         "SnapshotCopyGrantName"
-          Core.=: snapshotCopyGrantName
+          Data.=: snapshotCopyGrantName,
+        "TagKeys"
+          Data.=: Data.toQuery
+            (Data.toQueryList "TagKey" Prelude.<$> tagKeys),
+        "TagValues"
+          Data.=: Data.toQuery
+            (Data.toQueryList "TagValue" Prelude.<$> tagValues)
       ]
 
 -- |
 --
 -- /See:/ 'newDescribeSnapshotCopyGrantsResponse' smart constructor.
 data DescribeSnapshotCopyGrantsResponse = DescribeSnapshotCopyGrantsResponse'
-  { -- | The list of @SnapshotCopyGrant@ objects.
-    snapshotCopyGrants :: Prelude.Maybe [SnapshotCopyGrant],
-    -- | An optional parameter that specifies the starting point to return a set
+  { -- | An optional parameter that specifies the starting point to return a set
     -- of response records. When the results of a @DescribeSnapshotCopyGrant@
     -- request exceed the value specified in @MaxRecords@, Amazon Web Services
     -- returns a value in the @Marker@ field of the response. You can retrieve
@@ -299,6 +299,8 @@ data DescribeSnapshotCopyGrantsResponse = DescribeSnapshotCopyGrantsResponse'
     -- Constraints: You can specify either the __SnapshotCopyGrantName__
     -- parameter or the __Marker__ parameter, but not both.
     marker :: Prelude.Maybe Prelude.Text,
+    -- | The list of @SnapshotCopyGrant@ objects.
+    snapshotCopyGrants :: Prelude.Maybe [SnapshotCopyGrant],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -312,8 +314,6 @@ data DescribeSnapshotCopyGrantsResponse = DescribeSnapshotCopyGrantsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'snapshotCopyGrants', 'describeSnapshotCopyGrantsResponse_snapshotCopyGrants' - The list of @SnapshotCopyGrant@ objects.
---
 -- 'marker', 'describeSnapshotCopyGrantsResponse_marker' - An optional parameter that specifies the starting point to return a set
 -- of response records. When the results of a @DescribeSnapshotCopyGrant@
 -- request exceed the value specified in @MaxRecords@, Amazon Web Services
@@ -324,6 +324,8 @@ data DescribeSnapshotCopyGrantsResponse = DescribeSnapshotCopyGrantsResponse'
 -- Constraints: You can specify either the __SnapshotCopyGrantName__
 -- parameter or the __Marker__ parameter, but not both.
 --
+-- 'snapshotCopyGrants', 'describeSnapshotCopyGrantsResponse_snapshotCopyGrants' - The list of @SnapshotCopyGrant@ objects.
+--
 -- 'httpStatus', 'describeSnapshotCopyGrantsResponse_httpStatus' - The response's http status code.
 newDescribeSnapshotCopyGrantsResponse ::
   -- | 'httpStatus'
@@ -331,15 +333,11 @@ newDescribeSnapshotCopyGrantsResponse ::
   DescribeSnapshotCopyGrantsResponse
 newDescribeSnapshotCopyGrantsResponse pHttpStatus_ =
   DescribeSnapshotCopyGrantsResponse'
-    { snapshotCopyGrants =
+    { marker =
         Prelude.Nothing,
-      marker = Prelude.Nothing,
+      snapshotCopyGrants = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The list of @SnapshotCopyGrant@ objects.
-describeSnapshotCopyGrantsResponse_snapshotCopyGrants :: Lens.Lens' DescribeSnapshotCopyGrantsResponse (Prelude.Maybe [SnapshotCopyGrant])
-describeSnapshotCopyGrantsResponse_snapshotCopyGrants = Lens.lens (\DescribeSnapshotCopyGrantsResponse' {snapshotCopyGrants} -> snapshotCopyGrants) (\s@DescribeSnapshotCopyGrantsResponse' {} a -> s {snapshotCopyGrants = a} :: DescribeSnapshotCopyGrantsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | An optional parameter that specifies the starting point to return a set
 -- of response records. When the results of a @DescribeSnapshotCopyGrant@
@@ -353,6 +351,10 @@ describeSnapshotCopyGrantsResponse_snapshotCopyGrants = Lens.lens (\DescribeSnap
 describeSnapshotCopyGrantsResponse_marker :: Lens.Lens' DescribeSnapshotCopyGrantsResponse (Prelude.Maybe Prelude.Text)
 describeSnapshotCopyGrantsResponse_marker = Lens.lens (\DescribeSnapshotCopyGrantsResponse' {marker} -> marker) (\s@DescribeSnapshotCopyGrantsResponse' {} a -> s {marker = a} :: DescribeSnapshotCopyGrantsResponse)
 
+-- | The list of @SnapshotCopyGrant@ objects.
+describeSnapshotCopyGrantsResponse_snapshotCopyGrants :: Lens.Lens' DescribeSnapshotCopyGrantsResponse (Prelude.Maybe [SnapshotCopyGrant])
+describeSnapshotCopyGrantsResponse_snapshotCopyGrants = Lens.lens (\DescribeSnapshotCopyGrantsResponse' {snapshotCopyGrants} -> snapshotCopyGrants) (\s@DescribeSnapshotCopyGrantsResponse' {} a -> s {snapshotCopyGrants = a} :: DescribeSnapshotCopyGrantsResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The response's http status code.
 describeSnapshotCopyGrantsResponse_httpStatus :: Lens.Lens' DescribeSnapshotCopyGrantsResponse Prelude.Int
 describeSnapshotCopyGrantsResponse_httpStatus = Lens.lens (\DescribeSnapshotCopyGrantsResponse' {httpStatus} -> httpStatus) (\s@DescribeSnapshotCopyGrantsResponse' {} a -> s {httpStatus = a} :: DescribeSnapshotCopyGrantsResponse)
@@ -362,6 +364,6 @@ instance
     DescribeSnapshotCopyGrantsResponse
   where
   rnf DescribeSnapshotCopyGrantsResponse' {..} =
-    Prelude.rnf snapshotCopyGrants
-      `Prelude.seq` Prelude.rnf marker
+    Prelude.rnf marker
+      `Prelude.seq` Prelude.rnf snapshotCopyGrants
       `Prelude.seq` Prelude.rnf httpStatus

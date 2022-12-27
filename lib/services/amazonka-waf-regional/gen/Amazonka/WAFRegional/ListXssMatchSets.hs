@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.ListXssMatchSets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,22 +36,23 @@ module Amazonka.WAFRegional.ListXssMatchSets
     newListXssMatchSets,
 
     -- * Request Lenses
-    listXssMatchSets_nextMarker,
     listXssMatchSets_limit,
+    listXssMatchSets_nextMarker,
 
     -- * Destructuring the Response
     ListXssMatchSetsResponse (..),
     newListXssMatchSetsResponse,
 
     -- * Response Lenses
-    listXssMatchSetsResponse_xssMatchSets,
     listXssMatchSetsResponse_nextMarker,
+    listXssMatchSetsResponse_xssMatchSets,
     listXssMatchSetsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,18 +63,18 @@ import Amazonka.WAFRegional.Types
 --
 -- /See:/ 'newListXssMatchSets' smart constructor.
 data ListXssMatchSets = ListXssMatchSets'
-  { -- | If you specify a value for @Limit@ and you have more XssMatchSet objects
+  { -- | Specifies the number of XssMatchSet objects that you want AWS WAF to
+    -- return for this request. If you have more @XssMatchSet@ objects than the
+    -- number you specify for @Limit@, the response includes a @NextMarker@
+    -- value that you can use to get another batch of @Rules@.
+    limit :: Prelude.Maybe Prelude.Natural,
+    -- | If you specify a value for @Limit@ and you have more XssMatchSet objects
     -- than the value of @Limit@, AWS WAF returns a @NextMarker@ value in the
     -- response that allows you to list another group of @XssMatchSets@. For
     -- the second and subsequent @ListXssMatchSets@ requests, specify the value
     -- of @NextMarker@ from the previous response to get information about
     -- another batch of @XssMatchSets@.
-    nextMarker :: Prelude.Maybe Prelude.Text,
-    -- | Specifies the number of XssMatchSet objects that you want AWS WAF to
-    -- return for this request. If you have more @XssMatchSet@ objects than the
-    -- number you specify for @Limit@, the response includes a @NextMarker@
-    -- value that you can use to get another batch of @Rules@.
-    limit :: Prelude.Maybe Prelude.Natural
+    nextMarker :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -85,24 +86,31 @@ data ListXssMatchSets = ListXssMatchSets'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'limit', 'listXssMatchSets_limit' - Specifies the number of XssMatchSet objects that you want AWS WAF to
+-- return for this request. If you have more @XssMatchSet@ objects than the
+-- number you specify for @Limit@, the response includes a @NextMarker@
+-- value that you can use to get another batch of @Rules@.
+--
 -- 'nextMarker', 'listXssMatchSets_nextMarker' - If you specify a value for @Limit@ and you have more XssMatchSet objects
 -- than the value of @Limit@, AWS WAF returns a @NextMarker@ value in the
 -- response that allows you to list another group of @XssMatchSets@. For
 -- the second and subsequent @ListXssMatchSets@ requests, specify the value
 -- of @NextMarker@ from the previous response to get information about
 -- another batch of @XssMatchSets@.
---
--- 'limit', 'listXssMatchSets_limit' - Specifies the number of XssMatchSet objects that you want AWS WAF to
--- return for this request. If you have more @XssMatchSet@ objects than the
--- number you specify for @Limit@, the response includes a @NextMarker@
--- value that you can use to get another batch of @Rules@.
 newListXssMatchSets ::
   ListXssMatchSets
 newListXssMatchSets =
   ListXssMatchSets'
-    { nextMarker = Prelude.Nothing,
-      limit = Prelude.Nothing
+    { limit = Prelude.Nothing,
+      nextMarker = Prelude.Nothing
     }
+
+-- | Specifies the number of XssMatchSet objects that you want AWS WAF to
+-- return for this request. If you have more @XssMatchSet@ objects than the
+-- number you specify for @Limit@, the response includes a @NextMarker@
+-- value that you can use to get another batch of @Rules@.
+listXssMatchSets_limit :: Lens.Lens' ListXssMatchSets (Prelude.Maybe Prelude.Natural)
+listXssMatchSets_limit = Lens.lens (\ListXssMatchSets' {limit} -> limit) (\s@ListXssMatchSets' {} a -> s {limit = a} :: ListXssMatchSets)
 
 -- | If you specify a value for @Limit@ and you have more XssMatchSet objects
 -- than the value of @Limit@, AWS WAF returns a @NextMarker@ value in the
@@ -113,79 +121,73 @@ newListXssMatchSets =
 listXssMatchSets_nextMarker :: Lens.Lens' ListXssMatchSets (Prelude.Maybe Prelude.Text)
 listXssMatchSets_nextMarker = Lens.lens (\ListXssMatchSets' {nextMarker} -> nextMarker) (\s@ListXssMatchSets' {} a -> s {nextMarker = a} :: ListXssMatchSets)
 
--- | Specifies the number of XssMatchSet objects that you want AWS WAF to
--- return for this request. If you have more @XssMatchSet@ objects than the
--- number you specify for @Limit@, the response includes a @NextMarker@
--- value that you can use to get another batch of @Rules@.
-listXssMatchSets_limit :: Lens.Lens' ListXssMatchSets (Prelude.Maybe Prelude.Natural)
-listXssMatchSets_limit = Lens.lens (\ListXssMatchSets' {limit} -> limit) (\s@ListXssMatchSets' {} a -> s {limit = a} :: ListXssMatchSets)
-
 instance Core.AWSRequest ListXssMatchSets where
   type
     AWSResponse ListXssMatchSets =
       ListXssMatchSetsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListXssMatchSetsResponse'
-            Prelude.<$> (x Core..?> "XssMatchSets" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextMarker")
+            Prelude.<$> (x Data..?> "NextMarker")
+            Prelude.<*> (x Data..?> "XssMatchSets" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListXssMatchSets where
   hashWithSalt _salt ListXssMatchSets' {..} =
-    _salt `Prelude.hashWithSalt` nextMarker
-      `Prelude.hashWithSalt` limit
+    _salt `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` nextMarker
 
 instance Prelude.NFData ListXssMatchSets where
   rnf ListXssMatchSets' {..} =
-    Prelude.rnf nextMarker
-      `Prelude.seq` Prelude.rnf limit
+    Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nextMarker
 
-instance Core.ToHeaders ListXssMatchSets where
+instance Data.ToHeaders ListXssMatchSets where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_Regional_20161128.ListXssMatchSets" ::
+              Data.=# ( "AWSWAF_Regional_20161128.ListXssMatchSets" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListXssMatchSets where
+instance Data.ToJSON ListXssMatchSets where
   toJSON ListXssMatchSets' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextMarker" Core..=) Prelude.<$> nextMarker,
-            ("Limit" Core..=) Prelude.<$> limit
+          [ ("Limit" Data..=) Prelude.<$> limit,
+            ("NextMarker" Data..=) Prelude.<$> nextMarker
           ]
       )
 
-instance Core.ToPath ListXssMatchSets where
+instance Data.ToPath ListXssMatchSets where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListXssMatchSets where
+instance Data.ToQuery ListXssMatchSets where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The response to a ListXssMatchSets request.
 --
 -- /See:/ 'newListXssMatchSetsResponse' smart constructor.
 data ListXssMatchSetsResponse = ListXssMatchSetsResponse'
-  { -- | An array of XssMatchSetSummary objects.
-    xssMatchSets :: Prelude.Maybe [XssMatchSetSummary],
-    -- | If you have more XssMatchSet objects than the number that you specified
+  { -- | If you have more XssMatchSet objects than the number that you specified
     -- for @Limit@ in the request, the response includes a @NextMarker@ value.
     -- To list more @XssMatchSet@ objects, submit another @ListXssMatchSets@
     -- request, and specify the @NextMarker@ value from the response in the
     -- @NextMarker@ value in the next request.
     nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | An array of XssMatchSetSummary objects.
+    xssMatchSets :: Prelude.Maybe [XssMatchSetSummary],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -199,13 +201,13 @@ data ListXssMatchSetsResponse = ListXssMatchSetsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'xssMatchSets', 'listXssMatchSetsResponse_xssMatchSets' - An array of XssMatchSetSummary objects.
---
 -- 'nextMarker', 'listXssMatchSetsResponse_nextMarker' - If you have more XssMatchSet objects than the number that you specified
 -- for @Limit@ in the request, the response includes a @NextMarker@ value.
 -- To list more @XssMatchSet@ objects, submit another @ListXssMatchSets@
 -- request, and specify the @NextMarker@ value from the response in the
 -- @NextMarker@ value in the next request.
+--
+-- 'xssMatchSets', 'listXssMatchSetsResponse_xssMatchSets' - An array of XssMatchSetSummary objects.
 --
 -- 'httpStatus', 'listXssMatchSetsResponse_httpStatus' - The response's http status code.
 newListXssMatchSetsResponse ::
@@ -214,15 +216,11 @@ newListXssMatchSetsResponse ::
   ListXssMatchSetsResponse
 newListXssMatchSetsResponse pHttpStatus_ =
   ListXssMatchSetsResponse'
-    { xssMatchSets =
+    { nextMarker =
         Prelude.Nothing,
-      nextMarker = Prelude.Nothing,
+      xssMatchSets = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | An array of XssMatchSetSummary objects.
-listXssMatchSetsResponse_xssMatchSets :: Lens.Lens' ListXssMatchSetsResponse (Prelude.Maybe [XssMatchSetSummary])
-listXssMatchSetsResponse_xssMatchSets = Lens.lens (\ListXssMatchSetsResponse' {xssMatchSets} -> xssMatchSets) (\s@ListXssMatchSetsResponse' {} a -> s {xssMatchSets = a} :: ListXssMatchSetsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | If you have more XssMatchSet objects than the number that you specified
 -- for @Limit@ in the request, the response includes a @NextMarker@ value.
@@ -232,12 +230,16 @@ listXssMatchSetsResponse_xssMatchSets = Lens.lens (\ListXssMatchSetsResponse' {x
 listXssMatchSetsResponse_nextMarker :: Lens.Lens' ListXssMatchSetsResponse (Prelude.Maybe Prelude.Text)
 listXssMatchSetsResponse_nextMarker = Lens.lens (\ListXssMatchSetsResponse' {nextMarker} -> nextMarker) (\s@ListXssMatchSetsResponse' {} a -> s {nextMarker = a} :: ListXssMatchSetsResponse)
 
+-- | An array of XssMatchSetSummary objects.
+listXssMatchSetsResponse_xssMatchSets :: Lens.Lens' ListXssMatchSetsResponse (Prelude.Maybe [XssMatchSetSummary])
+listXssMatchSetsResponse_xssMatchSets = Lens.lens (\ListXssMatchSetsResponse' {xssMatchSets} -> xssMatchSets) (\s@ListXssMatchSetsResponse' {} a -> s {xssMatchSets = a} :: ListXssMatchSetsResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The response's http status code.
 listXssMatchSetsResponse_httpStatus :: Lens.Lens' ListXssMatchSetsResponse Prelude.Int
 listXssMatchSetsResponse_httpStatus = Lens.lens (\ListXssMatchSetsResponse' {httpStatus} -> httpStatus) (\s@ListXssMatchSetsResponse' {} a -> s {httpStatus = a} :: ListXssMatchSetsResponse)
 
 instance Prelude.NFData ListXssMatchSetsResponse where
   rnf ListXssMatchSetsResponse' {..} =
-    Prelude.rnf xssMatchSets
-      `Prelude.seq` Prelude.rnf nextMarker
+    Prelude.rnf nextMarker
+      `Prelude.seq` Prelude.rnf xssMatchSets
       `Prelude.seq` Prelude.rnf httpStatus

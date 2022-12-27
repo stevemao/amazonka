@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Location.DisassociateTrackerConsumer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.Location.DisassociateTrackerConsumer
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -113,7 +114,8 @@ instance Core.AWSRequest DisassociateTrackerConsumer where
   type
     AWSResponse DisassociateTrackerConsumer =
       DisassociateTrackerConsumerResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -131,27 +133,27 @@ instance Prelude.NFData DisassociateTrackerConsumer where
     Prelude.rnf consumerArn
       `Prelude.seq` Prelude.rnf trackerName
 
-instance Core.ToHeaders DisassociateTrackerConsumer where
+instance Data.ToHeaders DisassociateTrackerConsumer where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DisassociateTrackerConsumer where
+instance Data.ToPath DisassociateTrackerConsumer where
   toPath DisassociateTrackerConsumer' {..} =
     Prelude.mconcat
       [ "/tracking/v0/trackers/",
-        Core.toBS trackerName,
+        Data.toBS trackerName,
         "/consumers/",
-        Core.toBS consumerArn
+        Data.toBS consumerArn
       ]
 
-instance Core.ToQuery DisassociateTrackerConsumer where
+instance Data.ToQuery DisassociateTrackerConsumer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateTrackerConsumerResponse' smart constructor.

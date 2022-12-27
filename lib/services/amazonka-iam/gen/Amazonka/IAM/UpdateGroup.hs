@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.UpdateGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,8 +51,9 @@ module Amazonka.IAM.UpdateGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -166,7 +167,8 @@ updateGroup_groupName = Lens.lens (\UpdateGroup' {groupName} -> groupName) (\s@U
 
 instance Core.AWSRequest UpdateGroup where
   type AWSResponse UpdateGroup = UpdateGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response = Response.receiveNull UpdateGroupResponse'
 
 instance Prelude.Hashable UpdateGroup where
@@ -181,22 +183,22 @@ instance Prelude.NFData UpdateGroup where
       `Prelude.seq` Prelude.rnf newPath'
       `Prelude.seq` Prelude.rnf groupName
 
-instance Core.ToHeaders UpdateGroup where
+instance Data.ToHeaders UpdateGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath UpdateGroup where
+instance Data.ToPath UpdateGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateGroup where
+instance Data.ToQuery UpdateGroup where
   toQuery UpdateGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("UpdateGroup" :: Prelude.ByteString),
+          Data.=: ("UpdateGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "NewGroupName" Core.=: newGroupName',
-        "NewPath" Core.=: newPath',
-        "GroupName" Core.=: groupName
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "NewGroupName" Data.=: newGroupName',
+        "NewPath" Data.=: newPath',
+        "GroupName" Data.=: groupName
       ]
 
 -- | /See:/ 'newUpdateGroupResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SES.Types.ReputationOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SES.Types.ReputationOptions where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the reputation settings for a configuration
@@ -39,7 +40,7 @@ data ReputationOptions = ReputationOptions'
     --
     -- If email sending for the configuration set has never been disabled and
     -- later re-enabled, the value of this attribute is @null@.
-    lastFreshStart :: Prelude.Maybe Core.ISO8601,
+    lastFreshStart :: Prelude.Maybe Data.ISO8601,
     -- | Describes whether or not Amazon SES publishes reputation metrics for the
     -- configuration set, such as bounce and complaint rates, to Amazon
     -- CloudWatch.
@@ -114,7 +115,7 @@ newReputationOptions =
 -- If email sending for the configuration set has never been disabled and
 -- later re-enabled, the value of this attribute is @null@.
 reputationOptions_lastFreshStart :: Lens.Lens' ReputationOptions (Prelude.Maybe Prelude.UTCTime)
-reputationOptions_lastFreshStart = Lens.lens (\ReputationOptions' {lastFreshStart} -> lastFreshStart) (\s@ReputationOptions' {} a -> s {lastFreshStart = a} :: ReputationOptions) Prelude.. Lens.mapping Core._Time
+reputationOptions_lastFreshStart = Lens.lens (\ReputationOptions' {lastFreshStart} -> lastFreshStart) (\s@ReputationOptions' {} a -> s {lastFreshStart = a} :: ReputationOptions) Prelude.. Lens.mapping Data._Time
 
 -- | Describes whether or not Amazon SES publishes reputation metrics for the
 -- configuration set, such as bounce and complaint rates, to Amazon
@@ -135,12 +136,12 @@ reputationOptions_reputationMetricsEnabled = Lens.lens (\ReputationOptions' {rep
 reputationOptions_sendingEnabled :: Lens.Lens' ReputationOptions (Prelude.Maybe Prelude.Bool)
 reputationOptions_sendingEnabled = Lens.lens (\ReputationOptions' {sendingEnabled} -> sendingEnabled) (\s@ReputationOptions' {} a -> s {sendingEnabled = a} :: ReputationOptions)
 
-instance Core.FromXML ReputationOptions where
+instance Data.FromXML ReputationOptions where
   parseXML x =
     ReputationOptions'
-      Prelude.<$> (x Core..@? "LastFreshStart")
-      Prelude.<*> (x Core..@? "ReputationMetricsEnabled")
-      Prelude.<*> (x Core..@? "SendingEnabled")
+      Prelude.<$> (x Data..@? "LastFreshStart")
+      Prelude.<*> (x Data..@? "ReputationMetricsEnabled")
+      Prelude.<*> (x Data..@? "SendingEnabled")
 
 instance Prelude.Hashable ReputationOptions where
   hashWithSalt _salt ReputationOptions' {..} =

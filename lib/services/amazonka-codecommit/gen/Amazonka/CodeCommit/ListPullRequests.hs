@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.ListPullRequests
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,9 +31,9 @@ module Amazonka.CodeCommit.ListPullRequests
 
     -- * Request Lenses
     listPullRequests_authorArn,
+    listPullRequests_maxResults,
     listPullRequests_nextToken,
     listPullRequests_pullRequestStatus,
-    listPullRequests_maxResults,
     listPullRequests_repositoryName,
 
     -- * Destructuring the Response
@@ -49,7 +49,8 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,15 +61,15 @@ data ListPullRequests = ListPullRequests'
     -- pull request. If used, this filters the results to pull requests created
     -- by that user.
     authorArn :: Prelude.Maybe Prelude.Text,
+    -- | A non-zero, non-negative integer used to limit the number of returned
+    -- results.
+    maxResults :: Prelude.Maybe Prelude.Int,
     -- | An enumeration token that, when provided in a request, returns the next
     -- batch of the results.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | Optional. The status of the pull request. If used, this refines the
     -- results to the pull requests that match the specified status.
     pullRequestStatus :: Prelude.Maybe PullRequestStatusEnum,
-    -- | A non-zero, non-negative integer used to limit the number of returned
-    -- results.
-    maxResults :: Prelude.Maybe Prelude.Int,
     -- | The name of the repository for which you want to list pull requests.
     repositoryName :: Prelude.Text
   }
@@ -86,14 +87,14 @@ data ListPullRequests = ListPullRequests'
 -- pull request. If used, this filters the results to pull requests created
 -- by that user.
 --
+-- 'maxResults', 'listPullRequests_maxResults' - A non-zero, non-negative integer used to limit the number of returned
+-- results.
+--
 -- 'nextToken', 'listPullRequests_nextToken' - An enumeration token that, when provided in a request, returns the next
 -- batch of the results.
 --
 -- 'pullRequestStatus', 'listPullRequests_pullRequestStatus' - Optional. The status of the pull request. If used, this refines the
 -- results to the pull requests that match the specified status.
---
--- 'maxResults', 'listPullRequests_maxResults' - A non-zero, non-negative integer used to limit the number of returned
--- results.
 --
 -- 'repositoryName', 'listPullRequests_repositoryName' - The name of the repository for which you want to list pull requests.
 newListPullRequests ::
@@ -103,9 +104,9 @@ newListPullRequests ::
 newListPullRequests pRepositoryName_ =
   ListPullRequests'
     { authorArn = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
       pullRequestStatus = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
       repositoryName = pRepositoryName_
     }
 
@@ -114,6 +115,11 @@ newListPullRequests pRepositoryName_ =
 -- by that user.
 listPullRequests_authorArn :: Lens.Lens' ListPullRequests (Prelude.Maybe Prelude.Text)
 listPullRequests_authorArn = Lens.lens (\ListPullRequests' {authorArn} -> authorArn) (\s@ListPullRequests' {} a -> s {authorArn = a} :: ListPullRequests)
+
+-- | A non-zero, non-negative integer used to limit the number of returned
+-- results.
+listPullRequests_maxResults :: Lens.Lens' ListPullRequests (Prelude.Maybe Prelude.Int)
+listPullRequests_maxResults = Lens.lens (\ListPullRequests' {maxResults} -> maxResults) (\s@ListPullRequests' {} a -> s {maxResults = a} :: ListPullRequests)
 
 -- | An enumeration token that, when provided in a request, returns the next
 -- batch of the results.
@@ -124,11 +130,6 @@ listPullRequests_nextToken = Lens.lens (\ListPullRequests' {nextToken} -> nextTo
 -- results to the pull requests that match the specified status.
 listPullRequests_pullRequestStatus :: Lens.Lens' ListPullRequests (Prelude.Maybe PullRequestStatusEnum)
 listPullRequests_pullRequestStatus = Lens.lens (\ListPullRequests' {pullRequestStatus} -> pullRequestStatus) (\s@ListPullRequests' {} a -> s {pullRequestStatus = a} :: ListPullRequests)
-
--- | A non-zero, non-negative integer used to limit the number of returned
--- results.
-listPullRequests_maxResults :: Lens.Lens' ListPullRequests (Prelude.Maybe Prelude.Int)
-listPullRequests_maxResults = Lens.lens (\ListPullRequests' {maxResults} -> maxResults) (\s@ListPullRequests' {} a -> s {maxResults = a} :: ListPullRequests)
 
 -- | The name of the repository for which you want to list pull requests.
 listPullRequests_repositoryName :: Lens.Lens' ListPullRequests Prelude.Text
@@ -157,14 +158,15 @@ instance Core.AWSRequest ListPullRequests where
   type
     AWSResponse ListPullRequests =
       ListPullRequestsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPullRequestsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "pullRequestIds"
+            Prelude.<*> ( x Data..?> "pullRequestIds"
                             Core..!@ Prelude.mempty
                         )
       )
@@ -172,52 +174,52 @@ instance Core.AWSRequest ListPullRequests where
 instance Prelude.Hashable ListPullRequests where
   hashWithSalt _salt ListPullRequests' {..} =
     _salt `Prelude.hashWithSalt` authorArn
+      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` pullRequestStatus
-      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` repositoryName
 
 instance Prelude.NFData ListPullRequests where
   rnf ListPullRequests' {..} =
     Prelude.rnf authorArn
+      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf pullRequestStatus
-      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf repositoryName
 
-instance Core.ToHeaders ListPullRequests where
+instance Data.ToHeaders ListPullRequests where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.ListPullRequests" ::
+              Data.=# ( "CodeCommit_20150413.ListPullRequests" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListPullRequests where
+instance Data.ToJSON ListPullRequests where
   toJSON ListPullRequests' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("authorArn" Core..=) Prelude.<$> authorArn,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("pullRequestStatus" Core..=)
+          [ ("authorArn" Data..=) Prelude.<$> authorArn,
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            ("pullRequestStatus" Data..=)
               Prelude.<$> pullRequestStatus,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
             Prelude.Just
-              ("repositoryName" Core..= repositoryName)
+              ("repositoryName" Data..= repositoryName)
           ]
       )
 
-instance Core.ToPath ListPullRequests where
+instance Data.ToPath ListPullRequests where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListPullRequests where
+instance Data.ToQuery ListPullRequests where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListPullRequestsResponse' smart constructor.

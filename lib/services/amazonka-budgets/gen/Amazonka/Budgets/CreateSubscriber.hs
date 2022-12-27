@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Budgets.CreateSubscriber
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.Budgets.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -127,7 +128,8 @@ instance Core.AWSRequest CreateSubscriber where
   type
     AWSResponse CreateSubscriber =
       CreateSubscriberResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -149,36 +151,36 @@ instance Prelude.NFData CreateSubscriber where
       `Prelude.seq` Prelude.rnf notification
       `Prelude.seq` Prelude.rnf subscriber
 
-instance Core.ToHeaders CreateSubscriber where
+instance Data.ToHeaders CreateSubscriber where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSBudgetServiceGateway.CreateSubscriber" ::
+              Data.=# ( "AWSBudgetServiceGateway.CreateSubscriber" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateSubscriber where
+instance Data.ToJSON CreateSubscriber where
   toJSON CreateSubscriber' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("AccountId" Core..= accountId),
-            Prelude.Just ("BudgetName" Core..= budgetName),
-            Prelude.Just ("Notification" Core..= notification),
-            Prelude.Just ("Subscriber" Core..= subscriber)
+          [ Prelude.Just ("AccountId" Data..= accountId),
+            Prelude.Just ("BudgetName" Data..= budgetName),
+            Prelude.Just ("Notification" Data..= notification),
+            Prelude.Just ("Subscriber" Data..= subscriber)
           ]
       )
 
-instance Core.ToPath CreateSubscriber where
+instance Data.ToPath CreateSubscriber where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateSubscriber where
+instance Data.ToQuery CreateSubscriber where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Response of CreateSubscriber

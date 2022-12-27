@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.SheetStyle
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.SheetStyle where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types.TileLayoutStyle
 import Amazonka.QuickSight.Types.TileStyle
@@ -29,10 +30,10 @@ import Amazonka.QuickSight.Types.TileStyle
 --
 -- /See:/ 'newSheetStyle' smart constructor.
 data SheetStyle = SheetStyle'
-  { -- | The layout options for tiles.
-    tileLayout :: Prelude.Maybe TileLayoutStyle,
-    -- | The display options for tiles.
-    tile :: Prelude.Maybe TileStyle
+  { -- | The display options for tiles.
+    tile :: Prelude.Maybe TileStyle,
+    -- | The layout options for tiles.
+    tileLayout :: Prelude.Maybe TileLayoutStyle
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,50 +45,50 @@ data SheetStyle = SheetStyle'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tileLayout', 'sheetStyle_tileLayout' - The layout options for tiles.
---
 -- 'tile', 'sheetStyle_tile' - The display options for tiles.
+--
+-- 'tileLayout', 'sheetStyle_tileLayout' - The layout options for tiles.
 newSheetStyle ::
   SheetStyle
 newSheetStyle =
   SheetStyle'
-    { tileLayout = Prelude.Nothing,
-      tile = Prelude.Nothing
+    { tile = Prelude.Nothing,
+      tileLayout = Prelude.Nothing
     }
-
--- | The layout options for tiles.
-sheetStyle_tileLayout :: Lens.Lens' SheetStyle (Prelude.Maybe TileLayoutStyle)
-sheetStyle_tileLayout = Lens.lens (\SheetStyle' {tileLayout} -> tileLayout) (\s@SheetStyle' {} a -> s {tileLayout = a} :: SheetStyle)
 
 -- | The display options for tiles.
 sheetStyle_tile :: Lens.Lens' SheetStyle (Prelude.Maybe TileStyle)
 sheetStyle_tile = Lens.lens (\SheetStyle' {tile} -> tile) (\s@SheetStyle' {} a -> s {tile = a} :: SheetStyle)
 
-instance Core.FromJSON SheetStyle where
+-- | The layout options for tiles.
+sheetStyle_tileLayout :: Lens.Lens' SheetStyle (Prelude.Maybe TileLayoutStyle)
+sheetStyle_tileLayout = Lens.lens (\SheetStyle' {tileLayout} -> tileLayout) (\s@SheetStyle' {} a -> s {tileLayout = a} :: SheetStyle)
+
+instance Data.FromJSON SheetStyle where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SheetStyle"
       ( \x ->
           SheetStyle'
-            Prelude.<$> (x Core..:? "TileLayout")
-            Prelude.<*> (x Core..:? "Tile")
+            Prelude.<$> (x Data..:? "Tile")
+            Prelude.<*> (x Data..:? "TileLayout")
       )
 
 instance Prelude.Hashable SheetStyle where
   hashWithSalt _salt SheetStyle' {..} =
-    _salt `Prelude.hashWithSalt` tileLayout
-      `Prelude.hashWithSalt` tile
+    _salt `Prelude.hashWithSalt` tile
+      `Prelude.hashWithSalt` tileLayout
 
 instance Prelude.NFData SheetStyle where
   rnf SheetStyle' {..} =
-    Prelude.rnf tileLayout
-      `Prelude.seq` Prelude.rnf tile
+    Prelude.rnf tile
+      `Prelude.seq` Prelude.rnf tileLayout
 
-instance Core.ToJSON SheetStyle where
+instance Data.ToJSON SheetStyle where
   toJSON SheetStyle' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TileLayout" Core..=) Prelude.<$> tileLayout,
-            ("Tile" Core..=) Prelude.<$> tile
+          [ ("Tile" Data..=) Prelude.<$> tile,
+            ("TileLayout" Data..=) Prelude.<$> tileLayout
           ]
       )

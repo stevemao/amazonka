@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaPackage.Types.IngressAccessLogs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaPackage.Types.IngressAccessLogs where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configure ingress access logging.
@@ -50,13 +51,13 @@ newIngressAccessLogs =
 ingressAccessLogs_logGroupName :: Lens.Lens' IngressAccessLogs (Prelude.Maybe Prelude.Text)
 ingressAccessLogs_logGroupName = Lens.lens (\IngressAccessLogs' {logGroupName} -> logGroupName) (\s@IngressAccessLogs' {} a -> s {logGroupName = a} :: IngressAccessLogs)
 
-instance Core.FromJSON IngressAccessLogs where
+instance Data.FromJSON IngressAccessLogs where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IngressAccessLogs"
       ( \x ->
           IngressAccessLogs'
-            Prelude.<$> (x Core..:? "logGroupName")
+            Prelude.<$> (x Data..:? "logGroupName")
       )
 
 instance Prelude.Hashable IngressAccessLogs where
@@ -66,9 +67,9 @@ instance Prelude.Hashable IngressAccessLogs where
 instance Prelude.NFData IngressAccessLogs where
   rnf IngressAccessLogs' {..} = Prelude.rnf logGroupName
 
-instance Core.ToJSON IngressAccessLogs where
+instance Data.ToJSON IngressAccessLogs where
   toJSON IngressAccessLogs' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("logGroupName" Core..=) Prelude.<$> logGroupName]
+          [("logGroupName" Data..=) Prelude.<$> logGroupName]
       )

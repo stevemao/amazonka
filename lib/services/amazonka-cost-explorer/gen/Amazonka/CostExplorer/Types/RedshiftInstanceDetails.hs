@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.Types.RedshiftInstanceDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CostExplorer.Types.RedshiftInstanceDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details about the Amazon Redshift instances that Amazon Web Services
@@ -33,12 +34,12 @@ data RedshiftInstanceDetails = RedshiftInstanceDetails'
     currentGeneration :: Prelude.Maybe Prelude.Bool,
     -- | The instance family of the recommended reservation.
     family :: Prelude.Maybe Prelude.Text,
-    -- | Determines whether the recommended reservation is size flexible.
-    sizeFlexEligible :: Prelude.Maybe Prelude.Bool,
+    -- | The type of node that Amazon Web Services recommends.
+    nodeType :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Web Services Region of the recommended reservation.
     region :: Prelude.Maybe Prelude.Text,
-    -- | The type of node that Amazon Web Services recommends.
-    nodeType :: Prelude.Maybe Prelude.Text
+    -- | Determines whether the recommended reservation is size flexible.
+    sizeFlexEligible :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -55,11 +56,11 @@ data RedshiftInstanceDetails = RedshiftInstanceDetails'
 --
 -- 'family', 'redshiftInstanceDetails_family' - The instance family of the recommended reservation.
 --
--- 'sizeFlexEligible', 'redshiftInstanceDetails_sizeFlexEligible' - Determines whether the recommended reservation is size flexible.
+-- 'nodeType', 'redshiftInstanceDetails_nodeType' - The type of node that Amazon Web Services recommends.
 --
 -- 'region', 'redshiftInstanceDetails_region' - The Amazon Web Services Region of the recommended reservation.
 --
--- 'nodeType', 'redshiftInstanceDetails_nodeType' - The type of node that Amazon Web Services recommends.
+-- 'sizeFlexEligible', 'redshiftInstanceDetails_sizeFlexEligible' - Determines whether the recommended reservation is size flexible.
 newRedshiftInstanceDetails ::
   RedshiftInstanceDetails
 newRedshiftInstanceDetails =
@@ -67,9 +68,9 @@ newRedshiftInstanceDetails =
     { currentGeneration =
         Prelude.Nothing,
       family = Prelude.Nothing,
-      sizeFlexEligible = Prelude.Nothing,
+      nodeType = Prelude.Nothing,
       region = Prelude.Nothing,
-      nodeType = Prelude.Nothing
+      sizeFlexEligible = Prelude.Nothing
     }
 
 -- | Determines whether the recommendation is for a current-generation
@@ -81,43 +82,43 @@ redshiftInstanceDetails_currentGeneration = Lens.lens (\RedshiftInstanceDetails'
 redshiftInstanceDetails_family :: Lens.Lens' RedshiftInstanceDetails (Prelude.Maybe Prelude.Text)
 redshiftInstanceDetails_family = Lens.lens (\RedshiftInstanceDetails' {family} -> family) (\s@RedshiftInstanceDetails' {} a -> s {family = a} :: RedshiftInstanceDetails)
 
--- | Determines whether the recommended reservation is size flexible.
-redshiftInstanceDetails_sizeFlexEligible :: Lens.Lens' RedshiftInstanceDetails (Prelude.Maybe Prelude.Bool)
-redshiftInstanceDetails_sizeFlexEligible = Lens.lens (\RedshiftInstanceDetails' {sizeFlexEligible} -> sizeFlexEligible) (\s@RedshiftInstanceDetails' {} a -> s {sizeFlexEligible = a} :: RedshiftInstanceDetails)
+-- | The type of node that Amazon Web Services recommends.
+redshiftInstanceDetails_nodeType :: Lens.Lens' RedshiftInstanceDetails (Prelude.Maybe Prelude.Text)
+redshiftInstanceDetails_nodeType = Lens.lens (\RedshiftInstanceDetails' {nodeType} -> nodeType) (\s@RedshiftInstanceDetails' {} a -> s {nodeType = a} :: RedshiftInstanceDetails)
 
 -- | The Amazon Web Services Region of the recommended reservation.
 redshiftInstanceDetails_region :: Lens.Lens' RedshiftInstanceDetails (Prelude.Maybe Prelude.Text)
 redshiftInstanceDetails_region = Lens.lens (\RedshiftInstanceDetails' {region} -> region) (\s@RedshiftInstanceDetails' {} a -> s {region = a} :: RedshiftInstanceDetails)
 
--- | The type of node that Amazon Web Services recommends.
-redshiftInstanceDetails_nodeType :: Lens.Lens' RedshiftInstanceDetails (Prelude.Maybe Prelude.Text)
-redshiftInstanceDetails_nodeType = Lens.lens (\RedshiftInstanceDetails' {nodeType} -> nodeType) (\s@RedshiftInstanceDetails' {} a -> s {nodeType = a} :: RedshiftInstanceDetails)
+-- | Determines whether the recommended reservation is size flexible.
+redshiftInstanceDetails_sizeFlexEligible :: Lens.Lens' RedshiftInstanceDetails (Prelude.Maybe Prelude.Bool)
+redshiftInstanceDetails_sizeFlexEligible = Lens.lens (\RedshiftInstanceDetails' {sizeFlexEligible} -> sizeFlexEligible) (\s@RedshiftInstanceDetails' {} a -> s {sizeFlexEligible = a} :: RedshiftInstanceDetails)
 
-instance Core.FromJSON RedshiftInstanceDetails where
+instance Data.FromJSON RedshiftInstanceDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RedshiftInstanceDetails"
       ( \x ->
           RedshiftInstanceDetails'
-            Prelude.<$> (x Core..:? "CurrentGeneration")
-            Prelude.<*> (x Core..:? "Family")
-            Prelude.<*> (x Core..:? "SizeFlexEligible")
-            Prelude.<*> (x Core..:? "Region")
-            Prelude.<*> (x Core..:? "NodeType")
+            Prelude.<$> (x Data..:? "CurrentGeneration")
+            Prelude.<*> (x Data..:? "Family")
+            Prelude.<*> (x Data..:? "NodeType")
+            Prelude.<*> (x Data..:? "Region")
+            Prelude.<*> (x Data..:? "SizeFlexEligible")
       )
 
 instance Prelude.Hashable RedshiftInstanceDetails where
   hashWithSalt _salt RedshiftInstanceDetails' {..} =
     _salt `Prelude.hashWithSalt` currentGeneration
       `Prelude.hashWithSalt` family
-      `Prelude.hashWithSalt` sizeFlexEligible
-      `Prelude.hashWithSalt` region
       `Prelude.hashWithSalt` nodeType
+      `Prelude.hashWithSalt` region
+      `Prelude.hashWithSalt` sizeFlexEligible
 
 instance Prelude.NFData RedshiftInstanceDetails where
   rnf RedshiftInstanceDetails' {..} =
     Prelude.rnf currentGeneration
       `Prelude.seq` Prelude.rnf family
-      `Prelude.seq` Prelude.rnf sizeFlexEligible
-      `Prelude.seq` Prelude.rnf region
       `Prelude.seq` Prelude.rnf nodeType
+      `Prelude.seq` Prelude.rnf region
+      `Prelude.seq` Prelude.rnf sizeFlexEligible

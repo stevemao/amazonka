@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AmplifyBackend.CreateToken
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,17 +35,18 @@ module Amazonka.AmplifyBackend.CreateToken
     newCreateTokenResponse,
 
     -- * Response Lenses
-    createTokenResponse_ttl,
     createTokenResponse_appId,
-    createTokenResponse_sessionId,
     createTokenResponse_challengeCode,
+    createTokenResponse_sessionId,
+    createTokenResponse_ttl,
     createTokenResponse_httpStatus,
   )
 where
 
 import Amazonka.AmplifyBackend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,15 +80,16 @@ createToken_appId = Lens.lens (\CreateToken' {appId} -> appId) (\s@CreateToken' 
 
 instance Core.AWSRequest CreateToken where
   type AWSResponse CreateToken = CreateTokenResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateTokenResponse'
-            Prelude.<$> (x Core..?> "ttl")
-            Prelude.<*> (x Core..?> "appId")
-            Prelude.<*> (x Core..?> "sessionId")
-            Prelude.<*> (x Core..?> "challengeCode")
+            Prelude.<$> (x Data..?> "appId")
+            Prelude.<*> (x Data..?> "challengeCode")
+            Prelude.<*> (x Data..?> "sessionId")
+            Prelude.<*> (x Data..?> "ttl")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -98,38 +100,38 @@ instance Prelude.Hashable CreateToken where
 instance Prelude.NFData CreateToken where
   rnf CreateToken' {..} = Prelude.rnf appId
 
-instance Core.ToHeaders CreateToken where
+instance Data.ToHeaders CreateToken where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateToken where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON CreateToken where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath CreateToken where
+instance Data.ToPath CreateToken where
   toPath CreateToken' {..} =
     Prelude.mconcat
-      ["/backend/", Core.toBS appId, "/challenge"]
+      ["/backend/", Data.toBS appId, "/challenge"]
 
-instance Core.ToQuery CreateToken where
+instance Data.ToQuery CreateToken where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateTokenResponse' smart constructor.
 data CreateTokenResponse = CreateTokenResponse'
-  { -- | The expiry time for the one-time generated token code.
-    ttl :: Prelude.Maybe Prelude.Text,
-    -- | The app ID.
+  { -- | The app ID.
     appId :: Prelude.Maybe Prelude.Text,
-    -- | A unique ID provided when creating a new challenge token.
-    sessionId :: Prelude.Maybe Prelude.Text,
     -- | One-time challenge code for authenticating into the Amplify Admin UI.
     challengeCode :: Prelude.Maybe Prelude.Text,
+    -- | A unique ID provided when creating a new challenge token.
+    sessionId :: Prelude.Maybe Prelude.Text,
+    -- | The expiry time for the one-time generated token code.
+    ttl :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -143,13 +145,13 @@ data CreateTokenResponse = CreateTokenResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'ttl', 'createTokenResponse_ttl' - The expiry time for the one-time generated token code.
---
 -- 'appId', 'createTokenResponse_appId' - The app ID.
+--
+-- 'challengeCode', 'createTokenResponse_challengeCode' - One-time challenge code for authenticating into the Amplify Admin UI.
 --
 -- 'sessionId', 'createTokenResponse_sessionId' - A unique ID provided when creating a new challenge token.
 --
--- 'challengeCode', 'createTokenResponse_challengeCode' - One-time challenge code for authenticating into the Amplify Admin UI.
+-- 'ttl', 'createTokenResponse_ttl' - The expiry time for the one-time generated token code.
 --
 -- 'httpStatus', 'createTokenResponse_httpStatus' - The response's http status code.
 newCreateTokenResponse ::
@@ -158,28 +160,28 @@ newCreateTokenResponse ::
   CreateTokenResponse
 newCreateTokenResponse pHttpStatus_ =
   CreateTokenResponse'
-    { ttl = Prelude.Nothing,
-      appId = Prelude.Nothing,
-      sessionId = Prelude.Nothing,
+    { appId = Prelude.Nothing,
       challengeCode = Prelude.Nothing,
+      sessionId = Prelude.Nothing,
+      ttl = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The expiry time for the one-time generated token code.
-createTokenResponse_ttl :: Lens.Lens' CreateTokenResponse (Prelude.Maybe Prelude.Text)
-createTokenResponse_ttl = Lens.lens (\CreateTokenResponse' {ttl} -> ttl) (\s@CreateTokenResponse' {} a -> s {ttl = a} :: CreateTokenResponse)
 
 -- | The app ID.
 createTokenResponse_appId :: Lens.Lens' CreateTokenResponse (Prelude.Maybe Prelude.Text)
 createTokenResponse_appId = Lens.lens (\CreateTokenResponse' {appId} -> appId) (\s@CreateTokenResponse' {} a -> s {appId = a} :: CreateTokenResponse)
 
+-- | One-time challenge code for authenticating into the Amplify Admin UI.
+createTokenResponse_challengeCode :: Lens.Lens' CreateTokenResponse (Prelude.Maybe Prelude.Text)
+createTokenResponse_challengeCode = Lens.lens (\CreateTokenResponse' {challengeCode} -> challengeCode) (\s@CreateTokenResponse' {} a -> s {challengeCode = a} :: CreateTokenResponse)
+
 -- | A unique ID provided when creating a new challenge token.
 createTokenResponse_sessionId :: Lens.Lens' CreateTokenResponse (Prelude.Maybe Prelude.Text)
 createTokenResponse_sessionId = Lens.lens (\CreateTokenResponse' {sessionId} -> sessionId) (\s@CreateTokenResponse' {} a -> s {sessionId = a} :: CreateTokenResponse)
 
--- | One-time challenge code for authenticating into the Amplify Admin UI.
-createTokenResponse_challengeCode :: Lens.Lens' CreateTokenResponse (Prelude.Maybe Prelude.Text)
-createTokenResponse_challengeCode = Lens.lens (\CreateTokenResponse' {challengeCode} -> challengeCode) (\s@CreateTokenResponse' {} a -> s {challengeCode = a} :: CreateTokenResponse)
+-- | The expiry time for the one-time generated token code.
+createTokenResponse_ttl :: Lens.Lens' CreateTokenResponse (Prelude.Maybe Prelude.Text)
+createTokenResponse_ttl = Lens.lens (\CreateTokenResponse' {ttl} -> ttl) (\s@CreateTokenResponse' {} a -> s {ttl = a} :: CreateTokenResponse)
 
 -- | The response's http status code.
 createTokenResponse_httpStatus :: Lens.Lens' CreateTokenResponse Prelude.Int
@@ -187,8 +189,8 @@ createTokenResponse_httpStatus = Lens.lens (\CreateTokenResponse' {httpStatus} -
 
 instance Prelude.NFData CreateTokenResponse where
   rnf CreateTokenResponse' {..} =
-    Prelude.rnf ttl
-      `Prelude.seq` Prelude.rnf appId
-      `Prelude.seq` Prelude.rnf sessionId
+    Prelude.rnf appId
       `Prelude.seq` Prelude.rnf challengeCode
+      `Prelude.seq` Prelude.rnf sessionId
+      `Prelude.seq` Prelude.rnf ttl
       `Prelude.seq` Prelude.rnf httpStatus

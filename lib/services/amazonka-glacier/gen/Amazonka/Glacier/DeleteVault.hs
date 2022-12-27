@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glacier.DeleteVault
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -61,8 +61,9 @@ module Amazonka.Glacier.DeleteVault
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glacier.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -123,9 +124,9 @@ deleteVault_vaultName = Lens.lens (\DeleteVault' {vaultName} -> vaultName) (\s@D
 
 instance Core.AWSRequest DeleteVault where
   type AWSResponse DeleteVault = DeleteVaultResponse
-  request =
-    Request.glacierVersionHeader (Core._serviceVersion defaultService)
-      Prelude.. Request.delete defaultService
+  request overrides =
+    Request.glacierVersionHeader (Core.version defaultService)
+      Prelude.. Request.delete (overrides defaultService)
   response = Response.receiveNull DeleteVaultResponse'
 
 instance Prelude.Hashable DeleteVault where
@@ -138,19 +139,19 @@ instance Prelude.NFData DeleteVault where
     Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf vaultName
 
-instance Core.ToHeaders DeleteVault where
+instance Data.ToHeaders DeleteVault where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteVault where
+instance Data.ToPath DeleteVault where
   toPath DeleteVault' {..} =
     Prelude.mconcat
       [ "/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/vaults/",
-        Core.toBS vaultName
+        Data.toBS vaultName
       ]
 
-instance Core.ToQuery DeleteVault where
+instance Data.ToQuery DeleteVault where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteVaultResponse' smart constructor.

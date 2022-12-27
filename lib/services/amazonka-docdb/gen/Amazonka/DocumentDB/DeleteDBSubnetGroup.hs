@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DocumentDB.DeleteDBSubnetGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.DocumentDB.DeleteDBSubnetGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DocumentDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -105,7 +106,8 @@ instance Core.AWSRequest DeleteDBSubnetGroup where
   type
     AWSResponse DeleteDBSubnetGroup =
       DeleteDBSubnetGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull DeleteDBSubnetGroupResponse'
 
@@ -117,20 +119,20 @@ instance Prelude.NFData DeleteDBSubnetGroup where
   rnf DeleteDBSubnetGroup' {..} =
     Prelude.rnf dbSubnetGroupName
 
-instance Core.ToHeaders DeleteDBSubnetGroup where
+instance Data.ToHeaders DeleteDBSubnetGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteDBSubnetGroup where
+instance Data.ToPath DeleteDBSubnetGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDBSubnetGroup where
+instance Data.ToQuery DeleteDBSubnetGroup where
   toQuery DeleteDBSubnetGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteDBSubnetGroup" :: Prelude.ByteString),
+          Data.=: ("DeleteDBSubnetGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "DBSubnetGroupName" Core.=: dbSubnetGroupName
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBSubnetGroupName" Data.=: dbSubnetGroupName
       ]
 
 -- | /See:/ 'newDeleteDBSubnetGroupResponse' smart constructor.

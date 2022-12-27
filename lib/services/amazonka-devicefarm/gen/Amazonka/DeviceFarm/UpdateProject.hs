@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.UpdateProject
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,9 @@ module Amazonka.DeviceFarm.UpdateProject
     newUpdateProject,
 
     -- * Request Lenses
-    updateProject_name,
     updateProject_defaultJobTimeoutMinutes,
+    updateProject_name,
+    updateProject_vpcConfig,
     updateProject_arn,
 
     -- * Destructuring the Response
@@ -43,8 +44,9 @@ module Amazonka.DeviceFarm.UpdateProject
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,12 +55,14 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newUpdateProject' smart constructor.
 data UpdateProject = UpdateProject'
-  { -- | A string that represents the new name of the project that you are
-    -- updating.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The number of minutes a test run in the project executes before it times
+  { -- | The number of minutes a test run in the project executes before it times
     -- out.
     defaultJobTimeoutMinutes :: Prelude.Maybe Prelude.Int,
+    -- | A string that represents the new name of the project that you are
+    -- updating.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The VPC security groups and subnets that are attached to a project.
+    vpcConfig :: Prelude.Maybe VpcConfig,
     -- | The Amazon Resource Name (ARN) of the project whose name to update.
     arn :: Prelude.Text
   }
@@ -72,11 +76,13 @@ data UpdateProject = UpdateProject'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'defaultJobTimeoutMinutes', 'updateProject_defaultJobTimeoutMinutes' - The number of minutes a test run in the project executes before it times
+-- out.
+--
 -- 'name', 'updateProject_name' - A string that represents the new name of the project that you are
 -- updating.
 --
--- 'defaultJobTimeoutMinutes', 'updateProject_defaultJobTimeoutMinutes' - The number of minutes a test run in the project executes before it times
--- out.
+-- 'vpcConfig', 'updateProject_vpcConfig' - The VPC security groups and subnets that are attached to a project.
 --
 -- 'arn', 'updateProject_arn' - The Amazon Resource Name (ARN) of the project whose name to update.
 newUpdateProject ::
@@ -85,20 +91,26 @@ newUpdateProject ::
   UpdateProject
 newUpdateProject pArn_ =
   UpdateProject'
-    { name = Prelude.Nothing,
-      defaultJobTimeoutMinutes = Prelude.Nothing,
+    { defaultJobTimeoutMinutes =
+        Prelude.Nothing,
+      name = Prelude.Nothing,
+      vpcConfig = Prelude.Nothing,
       arn = pArn_
     }
+
+-- | The number of minutes a test run in the project executes before it times
+-- out.
+updateProject_defaultJobTimeoutMinutes :: Lens.Lens' UpdateProject (Prelude.Maybe Prelude.Int)
+updateProject_defaultJobTimeoutMinutes = Lens.lens (\UpdateProject' {defaultJobTimeoutMinutes} -> defaultJobTimeoutMinutes) (\s@UpdateProject' {} a -> s {defaultJobTimeoutMinutes = a} :: UpdateProject)
 
 -- | A string that represents the new name of the project that you are
 -- updating.
 updateProject_name :: Lens.Lens' UpdateProject (Prelude.Maybe Prelude.Text)
 updateProject_name = Lens.lens (\UpdateProject' {name} -> name) (\s@UpdateProject' {} a -> s {name = a} :: UpdateProject)
 
--- | The number of minutes a test run in the project executes before it times
--- out.
-updateProject_defaultJobTimeoutMinutes :: Lens.Lens' UpdateProject (Prelude.Maybe Prelude.Int)
-updateProject_defaultJobTimeoutMinutes = Lens.lens (\UpdateProject' {defaultJobTimeoutMinutes} -> defaultJobTimeoutMinutes) (\s@UpdateProject' {} a -> s {defaultJobTimeoutMinutes = a} :: UpdateProject)
+-- | The VPC security groups and subnets that are attached to a project.
+updateProject_vpcConfig :: Lens.Lens' UpdateProject (Prelude.Maybe VpcConfig)
+updateProject_vpcConfig = Lens.lens (\UpdateProject' {vpcConfig} -> vpcConfig) (\s@UpdateProject' {} a -> s {vpcConfig = a} :: UpdateProject)
 
 -- | The Amazon Resource Name (ARN) of the project whose name to update.
 updateProject_arn :: Lens.Lens' UpdateProject Prelude.Text
@@ -108,57 +120,62 @@ instance Core.AWSRequest UpdateProject where
   type
     AWSResponse UpdateProject =
       UpdateProjectResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateProjectResponse'
-            Prelude.<$> (x Core..?> "project")
+            Prelude.<$> (x Data..?> "project")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateProject where
   hashWithSalt _salt UpdateProject' {..} =
-    _salt `Prelude.hashWithSalt` name
+    _salt
       `Prelude.hashWithSalt` defaultJobTimeoutMinutes
+      `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` vpcConfig
       `Prelude.hashWithSalt` arn
 
 instance Prelude.NFData UpdateProject where
   rnf UpdateProject' {..} =
-    Prelude.rnf name
-      `Prelude.seq` Prelude.rnf defaultJobTimeoutMinutes
+    Prelude.rnf defaultJobTimeoutMinutes
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf vpcConfig
       `Prelude.seq` Prelude.rnf arn
 
-instance Core.ToHeaders UpdateProject where
+instance Data.ToHeaders UpdateProject where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.UpdateProject" ::
+              Data.=# ( "DeviceFarm_20150623.UpdateProject" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateProject where
+instance Data.ToJSON UpdateProject where
   toJSON UpdateProject' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("name" Core..=) Prelude.<$> name,
-            ("defaultJobTimeoutMinutes" Core..=)
+          [ ("defaultJobTimeoutMinutes" Data..=)
               Prelude.<$> defaultJobTimeoutMinutes,
-            Prelude.Just ("arn" Core..= arn)
+            ("name" Data..=) Prelude.<$> name,
+            ("vpcConfig" Data..=) Prelude.<$> vpcConfig,
+            Prelude.Just ("arn" Data..= arn)
           ]
       )
 
-instance Core.ToPath UpdateProject where
+instance Data.ToPath UpdateProject where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateProject where
+instance Data.ToQuery UpdateProject where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of an update project request.

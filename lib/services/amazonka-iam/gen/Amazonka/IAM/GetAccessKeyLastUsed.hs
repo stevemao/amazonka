@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.GetAccessKeyLastUsed
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,15 +37,16 @@ module Amazonka.IAM.GetAccessKeyLastUsed
     newGetAccessKeyLastUsedResponse,
 
     -- * Response Lenses
-    getAccessKeyLastUsedResponse_userName,
     getAccessKeyLastUsedResponse_accessKeyLastUsed,
+    getAccessKeyLastUsedResponse_userName,
     getAccessKeyLastUsedResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,14 +94,15 @@ instance Core.AWSRequest GetAccessKeyLastUsed where
   type
     AWSResponse GetAccessKeyLastUsed =
       GetAccessKeyLastUsedResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GetAccessKeyLastUsedResult"
       ( \s h x ->
           GetAccessKeyLastUsedResponse'
-            Prelude.<$> (x Core..@? "UserName")
-            Prelude.<*> (x Core..@? "AccessKeyLastUsed")
+            Prelude.<$> (x Data..@? "AccessKeyLastUsed")
+            Prelude.<*> (x Data..@? "UserName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -112,20 +114,20 @@ instance Prelude.NFData GetAccessKeyLastUsed where
   rnf GetAccessKeyLastUsed' {..} =
     Prelude.rnf accessKeyId
 
-instance Core.ToHeaders GetAccessKeyLastUsed where
+instance Data.ToHeaders GetAccessKeyLastUsed where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetAccessKeyLastUsed where
+instance Data.ToPath GetAccessKeyLastUsed where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetAccessKeyLastUsed where
+instance Data.ToQuery GetAccessKeyLastUsed where
   toQuery GetAccessKeyLastUsed' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("GetAccessKeyLastUsed" :: Prelude.ByteString),
+          Data.=: ("GetAccessKeyLastUsed" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "AccessKeyId" Core.=: accessKeyId
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "AccessKeyId" Data.=: accessKeyId
       ]
 
 -- | Contains the response to a successful GetAccessKeyLastUsed request. It
@@ -134,10 +136,10 @@ instance Core.ToQuery GetAccessKeyLastUsed where
 --
 -- /See:/ 'newGetAccessKeyLastUsedResponse' smart constructor.
 data GetAccessKeyLastUsedResponse = GetAccessKeyLastUsedResponse'
-  { -- | The name of the IAM user that owns this access key.
-    userName :: Prelude.Maybe Prelude.Text,
-    -- | Contains information about the last time the access key was used.
+  { -- | Contains information about the last time the access key was used.
     accessKeyLastUsed :: Prelude.Maybe AccessKeyLastUsed,
+    -- | The name of the IAM user that owns this access key.
+    userName :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -151,9 +153,9 @@ data GetAccessKeyLastUsedResponse = GetAccessKeyLastUsedResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'userName', 'getAccessKeyLastUsedResponse_userName' - The name of the IAM user that owns this access key.
---
 -- 'accessKeyLastUsed', 'getAccessKeyLastUsedResponse_accessKeyLastUsed' - Contains information about the last time the access key was used.
+--
+-- 'userName', 'getAccessKeyLastUsedResponse_userName' - The name of the IAM user that owns this access key.
 --
 -- 'httpStatus', 'getAccessKeyLastUsedResponse_httpStatus' - The response's http status code.
 newGetAccessKeyLastUsedResponse ::
@@ -162,19 +164,19 @@ newGetAccessKeyLastUsedResponse ::
   GetAccessKeyLastUsedResponse
 newGetAccessKeyLastUsedResponse pHttpStatus_ =
   GetAccessKeyLastUsedResponse'
-    { userName =
+    { accessKeyLastUsed =
         Prelude.Nothing,
-      accessKeyLastUsed = Prelude.Nothing,
+      userName = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The name of the IAM user that owns this access key.
-getAccessKeyLastUsedResponse_userName :: Lens.Lens' GetAccessKeyLastUsedResponse (Prelude.Maybe Prelude.Text)
-getAccessKeyLastUsedResponse_userName = Lens.lens (\GetAccessKeyLastUsedResponse' {userName} -> userName) (\s@GetAccessKeyLastUsedResponse' {} a -> s {userName = a} :: GetAccessKeyLastUsedResponse)
 
 -- | Contains information about the last time the access key was used.
 getAccessKeyLastUsedResponse_accessKeyLastUsed :: Lens.Lens' GetAccessKeyLastUsedResponse (Prelude.Maybe AccessKeyLastUsed)
 getAccessKeyLastUsedResponse_accessKeyLastUsed = Lens.lens (\GetAccessKeyLastUsedResponse' {accessKeyLastUsed} -> accessKeyLastUsed) (\s@GetAccessKeyLastUsedResponse' {} a -> s {accessKeyLastUsed = a} :: GetAccessKeyLastUsedResponse)
+
+-- | The name of the IAM user that owns this access key.
+getAccessKeyLastUsedResponse_userName :: Lens.Lens' GetAccessKeyLastUsedResponse (Prelude.Maybe Prelude.Text)
+getAccessKeyLastUsedResponse_userName = Lens.lens (\GetAccessKeyLastUsedResponse' {userName} -> userName) (\s@GetAccessKeyLastUsedResponse' {} a -> s {userName = a} :: GetAccessKeyLastUsedResponse)
 
 -- | The response's http status code.
 getAccessKeyLastUsedResponse_httpStatus :: Lens.Lens' GetAccessKeyLastUsedResponse Prelude.Int
@@ -182,6 +184,6 @@ getAccessKeyLastUsedResponse_httpStatus = Lens.lens (\GetAccessKeyLastUsedRespon
 
 instance Prelude.NFData GetAccessKeyLastUsedResponse where
   rnf GetAccessKeyLastUsedResponse' {..} =
-    Prelude.rnf userName
-      `Prelude.seq` Prelude.rnf accessKeyLastUsed
+    Prelude.rnf accessKeyLastUsed
+      `Prelude.seq` Prelude.rnf userName
       `Prelude.seq` Prelude.rnf httpStatus

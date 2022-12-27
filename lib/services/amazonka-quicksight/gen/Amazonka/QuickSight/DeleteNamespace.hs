@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.DeleteNamespace
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.QuickSight.DeleteNamespace
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -97,12 +98,13 @@ instance Core.AWSRequest DeleteNamespace where
   type
     AWSResponse DeleteNamespace =
       DeleteNamespaceResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteNamespaceResponse'
-            Prelude.<$> (x Core..?> "RequestId")
+            Prelude.<$> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,27 +118,27 @@ instance Prelude.NFData DeleteNamespace where
     Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf namespace
 
-instance Core.ToHeaders DeleteNamespace where
+instance Data.ToHeaders DeleteNamespace where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteNamespace where
+instance Data.ToPath DeleteNamespace where
   toPath DeleteNamespace' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/namespaces/",
-        Core.toBS namespace
+        Data.toBS namespace
       ]
 
-instance Core.ToQuery DeleteNamespace where
+instance Data.ToQuery DeleteNamespace where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteNamespaceResponse' smart constructor.

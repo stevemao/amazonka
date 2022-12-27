@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.PinpointEmail.Types.ReputationOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.PinpointEmail.Types.ReputationOptions where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Enable or disable collection of reputation metrics for emails that you
@@ -32,7 +33,7 @@ data ReputationOptions = ReputationOptions'
     -- given a fresh start. When your account is given a fresh start, your
     -- reputation metrics are calculated starting from the date of the fresh
     -- start.
-    lastFreshStart :: Prelude.Maybe Core.POSIX,
+    lastFreshStart :: Prelude.Maybe Data.POSIX,
     -- | If @true@, tracking of reputation metrics is enabled for the
     -- configuration set. If @false@, tracking of reputation metrics is
     -- disabled for the configuration set.
@@ -70,7 +71,7 @@ newReputationOptions =
 -- reputation metrics are calculated starting from the date of the fresh
 -- start.
 reputationOptions_lastFreshStart :: Lens.Lens' ReputationOptions (Prelude.Maybe Prelude.UTCTime)
-reputationOptions_lastFreshStart = Lens.lens (\ReputationOptions' {lastFreshStart} -> lastFreshStart) (\s@ReputationOptions' {} a -> s {lastFreshStart = a} :: ReputationOptions) Prelude.. Lens.mapping Core._Time
+reputationOptions_lastFreshStart = Lens.lens (\ReputationOptions' {lastFreshStart} -> lastFreshStart) (\s@ReputationOptions' {} a -> s {lastFreshStart = a} :: ReputationOptions) Prelude.. Lens.mapping Data._Time
 
 -- | If @true@, tracking of reputation metrics is enabled for the
 -- configuration set. If @false@, tracking of reputation metrics is
@@ -78,14 +79,14 @@ reputationOptions_lastFreshStart = Lens.lens (\ReputationOptions' {lastFreshStar
 reputationOptions_reputationMetricsEnabled :: Lens.Lens' ReputationOptions (Prelude.Maybe Prelude.Bool)
 reputationOptions_reputationMetricsEnabled = Lens.lens (\ReputationOptions' {reputationMetricsEnabled} -> reputationMetricsEnabled) (\s@ReputationOptions' {} a -> s {reputationMetricsEnabled = a} :: ReputationOptions)
 
-instance Core.FromJSON ReputationOptions where
+instance Data.FromJSON ReputationOptions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ReputationOptions"
       ( \x ->
           ReputationOptions'
-            Prelude.<$> (x Core..:? "LastFreshStart")
-            Prelude.<*> (x Core..:? "ReputationMetricsEnabled")
+            Prelude.<$> (x Data..:? "LastFreshStart")
+            Prelude.<*> (x Data..:? "ReputationMetricsEnabled")
       )
 
 instance Prelude.Hashable ReputationOptions where
@@ -98,13 +99,13 @@ instance Prelude.NFData ReputationOptions where
     Prelude.rnf lastFreshStart
       `Prelude.seq` Prelude.rnf reputationMetricsEnabled
 
-instance Core.ToJSON ReputationOptions where
+instance Data.ToJSON ReputationOptions where
   toJSON ReputationOptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("LastFreshStart" Core..=)
+          [ ("LastFreshStart" Data..=)
               Prelude.<$> lastFreshStart,
-            ("ReputationMetricsEnabled" Core..=)
+            ("ReputationMetricsEnabled" Data..=)
               Prelude.<$> reputationMetricsEnabled
           ]
       )

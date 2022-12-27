@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.AuthorizerSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.IoT.Types.AuthorizerSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The authorizer summary.
 --
 -- /See:/ 'newAuthorizerSummary' smart constructor.
 data AuthorizerSummary = AuthorizerSummary'
-  { -- | The authorizer name.
-    authorizerName :: Prelude.Maybe Prelude.Text,
-    -- | The authorizer ARN.
-    authorizerArn :: Prelude.Maybe Prelude.Text
+  { -- | The authorizer ARN.
+    authorizerArn :: Prelude.Maybe Prelude.Text,
+    -- | The authorizer name.
+    authorizerName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,42 +43,41 @@ data AuthorizerSummary = AuthorizerSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'authorizerName', 'authorizerSummary_authorizerName' - The authorizer name.
---
 -- 'authorizerArn', 'authorizerSummary_authorizerArn' - The authorizer ARN.
+--
+-- 'authorizerName', 'authorizerSummary_authorizerName' - The authorizer name.
 newAuthorizerSummary ::
   AuthorizerSummary
 newAuthorizerSummary =
   AuthorizerSummary'
-    { authorizerName =
-        Prelude.Nothing,
-      authorizerArn = Prelude.Nothing
+    { authorizerArn = Prelude.Nothing,
+      authorizerName = Prelude.Nothing
     }
-
--- | The authorizer name.
-authorizerSummary_authorizerName :: Lens.Lens' AuthorizerSummary (Prelude.Maybe Prelude.Text)
-authorizerSummary_authorizerName = Lens.lens (\AuthorizerSummary' {authorizerName} -> authorizerName) (\s@AuthorizerSummary' {} a -> s {authorizerName = a} :: AuthorizerSummary)
 
 -- | The authorizer ARN.
 authorizerSummary_authorizerArn :: Lens.Lens' AuthorizerSummary (Prelude.Maybe Prelude.Text)
 authorizerSummary_authorizerArn = Lens.lens (\AuthorizerSummary' {authorizerArn} -> authorizerArn) (\s@AuthorizerSummary' {} a -> s {authorizerArn = a} :: AuthorizerSummary)
 
-instance Core.FromJSON AuthorizerSummary where
+-- | The authorizer name.
+authorizerSummary_authorizerName :: Lens.Lens' AuthorizerSummary (Prelude.Maybe Prelude.Text)
+authorizerSummary_authorizerName = Lens.lens (\AuthorizerSummary' {authorizerName} -> authorizerName) (\s@AuthorizerSummary' {} a -> s {authorizerName = a} :: AuthorizerSummary)
+
+instance Data.FromJSON AuthorizerSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AuthorizerSummary"
       ( \x ->
           AuthorizerSummary'
-            Prelude.<$> (x Core..:? "authorizerName")
-            Prelude.<*> (x Core..:? "authorizerArn")
+            Prelude.<$> (x Data..:? "authorizerArn")
+            Prelude.<*> (x Data..:? "authorizerName")
       )
 
 instance Prelude.Hashable AuthorizerSummary where
   hashWithSalt _salt AuthorizerSummary' {..} =
-    _salt `Prelude.hashWithSalt` authorizerName
-      `Prelude.hashWithSalt` authorizerArn
+    _salt `Prelude.hashWithSalt` authorizerArn
+      `Prelude.hashWithSalt` authorizerName
 
 instance Prelude.NFData AuthorizerSummary where
   rnf AuthorizerSummary' {..} =
-    Prelude.rnf authorizerName
-      `Prelude.seq` Prelude.rnf authorizerArn
+    Prelude.rnf authorizerArn
+      `Prelude.seq` Prelude.rnf authorizerName

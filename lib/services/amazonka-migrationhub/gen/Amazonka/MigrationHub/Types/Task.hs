@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MigrationHub.Types.Task
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MigrationHub.Types.Task where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MigrationHub.Types.MigrationStatus
 import qualified Amazonka.Prelude as Prelude
 
@@ -79,15 +80,15 @@ task_statusDetail = Lens.lens (\Task' {statusDetail} -> statusDetail) (\s@Task' 
 task_status :: Lens.Lens' Task MigrationStatus
 task_status = Lens.lens (\Task' {status} -> status) (\s@Task' {} a -> s {status = a} :: Task)
 
-instance Core.FromJSON Task where
+instance Data.FromJSON Task where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Task"
       ( \x ->
           Task'
-            Prelude.<$> (x Core..:? "ProgressPercent")
-            Prelude.<*> (x Core..:? "StatusDetail")
-            Prelude.<*> (x Core..: "Status")
+            Prelude.<$> (x Data..:? "ProgressPercent")
+            Prelude.<*> (x Data..:? "StatusDetail")
+            Prelude.<*> (x Data..: "Status")
       )
 
 instance Prelude.Hashable Task where
@@ -102,13 +103,13 @@ instance Prelude.NFData Task where
       `Prelude.seq` Prelude.rnf statusDetail
       `Prelude.seq` Prelude.rnf status
 
-instance Core.ToJSON Task where
+instance Data.ToJSON Task where
   toJSON Task' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ProgressPercent" Core..=)
+          [ ("ProgressPercent" Data..=)
               Prelude.<$> progressPercent,
-            ("StatusDetail" Core..=) Prelude.<$> statusDetail,
-            Prelude.Just ("Status" Core..= status)
+            ("StatusDetail" Data..=) Prelude.<$> statusDetail,
+            Prelude.Just ("Status" Data..= status)
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ConnectContactLens.Types.IssueDetected
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.ConnectContactLens.Types.IssueDetected where
 
 import Amazonka.ConnectContactLens.Types.CharacterOffsets
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Potential issues that are detected based on an artificial intelligence
@@ -57,13 +58,13 @@ newIssueDetected pCharacterOffsets_ =
 issueDetected_characterOffsets :: Lens.Lens' IssueDetected CharacterOffsets
 issueDetected_characterOffsets = Lens.lens (\IssueDetected' {characterOffsets} -> characterOffsets) (\s@IssueDetected' {} a -> s {characterOffsets = a} :: IssueDetected)
 
-instance Core.FromJSON IssueDetected where
+instance Data.FromJSON IssueDetected where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IssueDetected"
       ( \x ->
           IssueDetected'
-            Prelude.<$> (x Core..: "CharacterOffsets")
+            Prelude.<$> (x Data..: "CharacterOffsets")
       )
 
 instance Prelude.Hashable IssueDetected where

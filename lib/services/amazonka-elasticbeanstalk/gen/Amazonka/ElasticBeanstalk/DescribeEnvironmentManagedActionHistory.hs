@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.DescribeEnvironmentManagedActionHistory
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,10 +29,10 @@ module Amazonka.ElasticBeanstalk.DescribeEnvironmentManagedActionHistory
     newDescribeEnvironmentManagedActionHistory,
 
     -- * Request Lenses
-    describeEnvironmentManagedActionHistory_nextToken,
+    describeEnvironmentManagedActionHistory_environmentId,
     describeEnvironmentManagedActionHistory_environmentName,
     describeEnvironmentManagedActionHistory_maxItems,
-    describeEnvironmentManagedActionHistory_environmentId,
+    describeEnvironmentManagedActionHistory_nextToken,
 
     -- * Destructuring the Response
     DescribeEnvironmentManagedActionHistoryResponse (..),
@@ -46,8 +46,9 @@ module Amazonka.ElasticBeanstalk.DescribeEnvironmentManagedActionHistory
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticBeanstalk.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,14 +57,14 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeEnvironmentManagedActionHistory' smart constructor.
 data DescribeEnvironmentManagedActionHistory = DescribeEnvironmentManagedActionHistory'
-  { -- | The pagination token returned by a previous request.
-    nextToken :: Prelude.Maybe Prelude.Text,
+  { -- | The environment ID of the target environment.
+    environmentId :: Prelude.Maybe Prelude.Text,
     -- | The name of the target environment.
     environmentName :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of items to return for a single request.
     maxItems :: Prelude.Maybe Prelude.Natural,
-    -- | The environment ID of the target environment.
-    environmentId :: Prelude.Maybe Prelude.Text
+    -- | The pagination token returned by a previous request.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -75,27 +76,27 @@ data DescribeEnvironmentManagedActionHistory = DescribeEnvironmentManagedActionH
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeEnvironmentManagedActionHistory_nextToken' - The pagination token returned by a previous request.
+-- 'environmentId', 'describeEnvironmentManagedActionHistory_environmentId' - The environment ID of the target environment.
 --
 -- 'environmentName', 'describeEnvironmentManagedActionHistory_environmentName' - The name of the target environment.
 --
 -- 'maxItems', 'describeEnvironmentManagedActionHistory_maxItems' - The maximum number of items to return for a single request.
 --
--- 'environmentId', 'describeEnvironmentManagedActionHistory_environmentId' - The environment ID of the target environment.
+-- 'nextToken', 'describeEnvironmentManagedActionHistory_nextToken' - The pagination token returned by a previous request.
 newDescribeEnvironmentManagedActionHistory ::
   DescribeEnvironmentManagedActionHistory
 newDescribeEnvironmentManagedActionHistory =
   DescribeEnvironmentManagedActionHistory'
-    { nextToken =
+    { environmentId =
         Prelude.Nothing,
       environmentName = Prelude.Nothing,
       maxItems = Prelude.Nothing,
-      environmentId = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
 
--- | The pagination token returned by a previous request.
-describeEnvironmentManagedActionHistory_nextToken :: Lens.Lens' DescribeEnvironmentManagedActionHistory (Prelude.Maybe Prelude.Text)
-describeEnvironmentManagedActionHistory_nextToken = Lens.lens (\DescribeEnvironmentManagedActionHistory' {nextToken} -> nextToken) (\s@DescribeEnvironmentManagedActionHistory' {} a -> s {nextToken = a} :: DescribeEnvironmentManagedActionHistory)
+-- | The environment ID of the target environment.
+describeEnvironmentManagedActionHistory_environmentId :: Lens.Lens' DescribeEnvironmentManagedActionHistory (Prelude.Maybe Prelude.Text)
+describeEnvironmentManagedActionHistory_environmentId = Lens.lens (\DescribeEnvironmentManagedActionHistory' {environmentId} -> environmentId) (\s@DescribeEnvironmentManagedActionHistory' {} a -> s {environmentId = a} :: DescribeEnvironmentManagedActionHistory)
 
 -- | The name of the target environment.
 describeEnvironmentManagedActionHistory_environmentName :: Lens.Lens' DescribeEnvironmentManagedActionHistory (Prelude.Maybe Prelude.Text)
@@ -105,9 +106,9 @@ describeEnvironmentManagedActionHistory_environmentName = Lens.lens (\DescribeEn
 describeEnvironmentManagedActionHistory_maxItems :: Lens.Lens' DescribeEnvironmentManagedActionHistory (Prelude.Maybe Prelude.Natural)
 describeEnvironmentManagedActionHistory_maxItems = Lens.lens (\DescribeEnvironmentManagedActionHistory' {maxItems} -> maxItems) (\s@DescribeEnvironmentManagedActionHistory' {} a -> s {maxItems = a} :: DescribeEnvironmentManagedActionHistory)
 
--- | The environment ID of the target environment.
-describeEnvironmentManagedActionHistory_environmentId :: Lens.Lens' DescribeEnvironmentManagedActionHistory (Prelude.Maybe Prelude.Text)
-describeEnvironmentManagedActionHistory_environmentId = Lens.lens (\DescribeEnvironmentManagedActionHistory' {environmentId} -> environmentId) (\s@DescribeEnvironmentManagedActionHistory' {} a -> s {environmentId = a} :: DescribeEnvironmentManagedActionHistory)
+-- | The pagination token returned by a previous request.
+describeEnvironmentManagedActionHistory_nextToken :: Lens.Lens' DescribeEnvironmentManagedActionHistory (Prelude.Maybe Prelude.Text)
+describeEnvironmentManagedActionHistory_nextToken = Lens.lens (\DescribeEnvironmentManagedActionHistory' {nextToken} -> nextToken) (\s@DescribeEnvironmentManagedActionHistory' {} a -> s {nextToken = a} :: DescribeEnvironmentManagedActionHistory)
 
 instance
   Core.AWSPager
@@ -143,17 +144,18 @@ instance
     AWSResponse
       DescribeEnvironmentManagedActionHistory =
       DescribeEnvironmentManagedActionHistoryResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeEnvironmentManagedActionHistoryResult"
       ( \s h x ->
           DescribeEnvironmentManagedActionHistoryResponse'
-            Prelude.<$> ( x Core..@? "ManagedActionHistoryItems"
+            Prelude.<$> ( x Data..@? "ManagedActionHistoryItems"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList1 "member")
+                            Prelude.>>= Core.may (Data.parseXMLList1 "member")
                         )
-              Prelude.<*> (x Core..@? "NextToken")
+              Prelude.<*> (x Data..@? "NextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -164,49 +166,49 @@ instance
   hashWithSalt
     _salt
     DescribeEnvironmentManagedActionHistory' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
+      _salt `Prelude.hashWithSalt` environmentId
         `Prelude.hashWithSalt` environmentName
         `Prelude.hashWithSalt` maxItems
-        `Prelude.hashWithSalt` environmentId
+        `Prelude.hashWithSalt` nextToken
 
 instance
   Prelude.NFData
     DescribeEnvironmentManagedActionHistory
   where
   rnf DescribeEnvironmentManagedActionHistory' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf environmentId
       `Prelude.seq` Prelude.rnf environmentName
       `Prelude.seq` Prelude.rnf maxItems
-      `Prelude.seq` Prelude.rnf environmentId
+      `Prelude.seq` Prelude.rnf nextToken
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeEnvironmentManagedActionHistory
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeEnvironmentManagedActionHistory
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeEnvironmentManagedActionHistory
   where
   toQuery DescribeEnvironmentManagedActionHistory' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeEnvironmentManagedActionHistory" ::
+          Data.=: ( "DescribeEnvironmentManagedActionHistory" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "NextToken" Core.=: nextToken,
-        "EnvironmentName" Core.=: environmentName,
-        "MaxItems" Core.=: maxItems,
-        "EnvironmentId" Core.=: environmentId
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "EnvironmentId" Data.=: environmentId,
+        "EnvironmentName" Data.=: environmentName,
+        "MaxItems" Data.=: maxItems,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | A result message containing a list of completed and failed managed

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.UpdateEmailTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.SESV2.UpdateEmailTemplate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -104,7 +105,8 @@ instance Core.AWSRequest UpdateEmailTemplate where
   type
     AWSResponse UpdateEmailTemplate =
       UpdateEmailTemplateResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -122,32 +124,32 @@ instance Prelude.NFData UpdateEmailTemplate where
     Prelude.rnf templateName
       `Prelude.seq` Prelude.rnf templateContent
 
-instance Core.ToHeaders UpdateEmailTemplate where
+instance Data.ToHeaders UpdateEmailTemplate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateEmailTemplate where
+instance Data.ToJSON UpdateEmailTemplate where
   toJSON UpdateEmailTemplate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("TemplateContent" Core..= templateContent)
+              ("TemplateContent" Data..= templateContent)
           ]
       )
 
-instance Core.ToPath UpdateEmailTemplate where
+instance Data.ToPath UpdateEmailTemplate where
   toPath UpdateEmailTemplate' {..} =
     Prelude.mconcat
-      ["/v2/email/templates/", Core.toBS templateName]
+      ["/v2/email/templates/", Data.toBS templateName]
 
-instance Core.ToQuery UpdateEmailTemplate where
+instance Data.ToQuery UpdateEmailTemplate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | If the action is successful, the service sends back an HTTP 200 response

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataPipeline.DeactivatePipeline
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.DataPipeline.DeactivatePipeline
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataPipeline.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -101,7 +102,8 @@ instance Core.AWSRequest DeactivatePipeline where
   type
     AWSResponse DeactivatePipeline =
       DeactivatePipelineResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -119,34 +121,34 @@ instance Prelude.NFData DeactivatePipeline where
     Prelude.rnf cancelActive
       `Prelude.seq` Prelude.rnf pipelineId
 
-instance Core.ToHeaders DeactivatePipeline where
+instance Data.ToHeaders DeactivatePipeline where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DataPipeline.DeactivatePipeline" ::
+              Data.=# ( "DataPipeline.DeactivatePipeline" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeactivatePipeline where
+instance Data.ToJSON DeactivatePipeline where
   toJSON DeactivatePipeline' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("cancelActive" Core..=) Prelude.<$> cancelActive,
-            Prelude.Just ("pipelineId" Core..= pipelineId)
+          [ ("cancelActive" Data..=) Prelude.<$> cancelActive,
+            Prelude.Just ("pipelineId" Data..= pipelineId)
           ]
       )
 
-instance Core.ToPath DeactivatePipeline where
+instance Data.ToPath DeactivatePipeline where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeactivatePipeline where
+instance Data.ToQuery DeactivatePipeline where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the output of DeactivatePipeline.

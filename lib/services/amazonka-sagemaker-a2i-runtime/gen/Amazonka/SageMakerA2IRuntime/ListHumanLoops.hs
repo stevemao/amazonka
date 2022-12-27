@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMakerA2IRuntime.ListHumanLoops
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,10 +31,10 @@ module Amazonka.SageMakerA2IRuntime.ListHumanLoops
 
     -- * Request Lenses
     listHumanLoops_creationTimeAfter,
-    listHumanLoops_nextToken,
-    listHumanLoops_sortOrder,
     listHumanLoops_creationTimeBefore,
     listHumanLoops_maxResults,
+    listHumanLoops_nextToken,
+    listHumanLoops_sortOrder,
     listHumanLoops_flowDefinitionArn,
 
     -- * Destructuring the Response
@@ -49,7 +49,8 @@ module Amazonka.SageMakerA2IRuntime.ListHumanLoops
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,20 +60,20 @@ import Amazonka.SageMakerA2IRuntime.Types
 data ListHumanLoops = ListHumanLoops'
   { -- | (Optional) The timestamp of the date when you want the human loops to
     -- begin in ISO 8601 format. For example, @2020-02-24@.
-    creationTimeAfter :: Prelude.Maybe Core.POSIX,
-    -- | A token to display the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Optional. The order for displaying results. Valid values: @Ascending@
-    -- and @Descending@.
-    sortOrder :: Prelude.Maybe SortOrder,
+    creationTimeAfter :: Prelude.Maybe Data.POSIX,
     -- | (Optional) The timestamp of the date before which you want the human
     -- loops to begin in ISO 8601 format. For example, @2020-02-24@.
-    creationTimeBefore :: Prelude.Maybe Core.POSIX,
+    creationTimeBefore :: Prelude.Maybe Data.POSIX,
     -- | The total number of items to return. If the total number of available
     -- items is more than the value specified in @MaxResults@, then a
     -- @NextToken@ is returned in the output. You can use this token to display
     -- the next page of results.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token to display the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Optional. The order for displaying results. Valid values: @Ascending@
+    -- and @Descending@.
+    sortOrder :: Prelude.Maybe SortOrder,
     -- | The Amazon Resource Name (ARN) of a flow definition.
     flowDefinitionArn :: Prelude.Text
   }
@@ -89,11 +90,6 @@ data ListHumanLoops = ListHumanLoops'
 -- 'creationTimeAfter', 'listHumanLoops_creationTimeAfter' - (Optional) The timestamp of the date when you want the human loops to
 -- begin in ISO 8601 format. For example, @2020-02-24@.
 --
--- 'nextToken', 'listHumanLoops_nextToken' - A token to display the next page of results.
---
--- 'sortOrder', 'listHumanLoops_sortOrder' - Optional. The order for displaying results. Valid values: @Ascending@
--- and @Descending@.
---
 -- 'creationTimeBefore', 'listHumanLoops_creationTimeBefore' - (Optional) The timestamp of the date before which you want the human
 -- loops to begin in ISO 8601 format. For example, @2020-02-24@.
 --
@@ -101,6 +97,11 @@ data ListHumanLoops = ListHumanLoops'
 -- items is more than the value specified in @MaxResults@, then a
 -- @NextToken@ is returned in the output. You can use this token to display
 -- the next page of results.
+--
+-- 'nextToken', 'listHumanLoops_nextToken' - A token to display the next page of results.
+--
+-- 'sortOrder', 'listHumanLoops_sortOrder' - Optional. The order for displaying results. Valid values: @Ascending@
+-- and @Descending@.
 --
 -- 'flowDefinitionArn', 'listHumanLoops_flowDefinitionArn' - The Amazon Resource Name (ARN) of a flow definition.
 newListHumanLoops ::
@@ -111,17 +112,29 @@ newListHumanLoops pFlowDefinitionArn_ =
   ListHumanLoops'
     { creationTimeAfter =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      sortOrder = Prelude.Nothing,
       creationTimeBefore = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      sortOrder = Prelude.Nothing,
       flowDefinitionArn = pFlowDefinitionArn_
     }
 
 -- | (Optional) The timestamp of the date when you want the human loops to
 -- begin in ISO 8601 format. For example, @2020-02-24@.
 listHumanLoops_creationTimeAfter :: Lens.Lens' ListHumanLoops (Prelude.Maybe Prelude.UTCTime)
-listHumanLoops_creationTimeAfter = Lens.lens (\ListHumanLoops' {creationTimeAfter} -> creationTimeAfter) (\s@ListHumanLoops' {} a -> s {creationTimeAfter = a} :: ListHumanLoops) Prelude.. Lens.mapping Core._Time
+listHumanLoops_creationTimeAfter = Lens.lens (\ListHumanLoops' {creationTimeAfter} -> creationTimeAfter) (\s@ListHumanLoops' {} a -> s {creationTimeAfter = a} :: ListHumanLoops) Prelude.. Lens.mapping Data._Time
+
+-- | (Optional) The timestamp of the date before which you want the human
+-- loops to begin in ISO 8601 format. For example, @2020-02-24@.
+listHumanLoops_creationTimeBefore :: Lens.Lens' ListHumanLoops (Prelude.Maybe Prelude.UTCTime)
+listHumanLoops_creationTimeBefore = Lens.lens (\ListHumanLoops' {creationTimeBefore} -> creationTimeBefore) (\s@ListHumanLoops' {} a -> s {creationTimeBefore = a} :: ListHumanLoops) Prelude.. Lens.mapping Data._Time
+
+-- | The total number of items to return. If the total number of available
+-- items is more than the value specified in @MaxResults@, then a
+-- @NextToken@ is returned in the output. You can use this token to display
+-- the next page of results.
+listHumanLoops_maxResults :: Lens.Lens' ListHumanLoops (Prelude.Maybe Prelude.Natural)
+listHumanLoops_maxResults = Lens.lens (\ListHumanLoops' {maxResults} -> maxResults) (\s@ListHumanLoops' {} a -> s {maxResults = a} :: ListHumanLoops)
 
 -- | A token to display the next page of results.
 listHumanLoops_nextToken :: Lens.Lens' ListHumanLoops (Prelude.Maybe Prelude.Text)
@@ -131,18 +144,6 @@ listHumanLoops_nextToken = Lens.lens (\ListHumanLoops' {nextToken} -> nextToken)
 -- and @Descending@.
 listHumanLoops_sortOrder :: Lens.Lens' ListHumanLoops (Prelude.Maybe SortOrder)
 listHumanLoops_sortOrder = Lens.lens (\ListHumanLoops' {sortOrder} -> sortOrder) (\s@ListHumanLoops' {} a -> s {sortOrder = a} :: ListHumanLoops)
-
--- | (Optional) The timestamp of the date before which you want the human
--- loops to begin in ISO 8601 format. For example, @2020-02-24@.
-listHumanLoops_creationTimeBefore :: Lens.Lens' ListHumanLoops (Prelude.Maybe Prelude.UTCTime)
-listHumanLoops_creationTimeBefore = Lens.lens (\ListHumanLoops' {creationTimeBefore} -> creationTimeBefore) (\s@ListHumanLoops' {} a -> s {creationTimeBefore = a} :: ListHumanLoops) Prelude.. Lens.mapping Core._Time
-
--- | The total number of items to return. If the total number of available
--- items is more than the value specified in @MaxResults@, then a
--- @NextToken@ is returned in the output. You can use this token to display
--- the next page of results.
-listHumanLoops_maxResults :: Lens.Lens' ListHumanLoops (Prelude.Maybe Prelude.Natural)
-listHumanLoops_maxResults = Lens.lens (\ListHumanLoops' {maxResults} -> maxResults) (\s@ListHumanLoops' {} a -> s {maxResults = a} :: ListHumanLoops)
 
 -- | The Amazon Resource Name (ARN) of a flow definition.
 listHumanLoops_flowDefinitionArn :: Lens.Lens' ListHumanLoops Prelude.Text
@@ -172,14 +173,15 @@ instance Core.AWSRequest ListHumanLoops where
   type
     AWSResponse ListHumanLoops =
       ListHumanLoopsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListHumanLoopsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "HumanLoopSummaries"
+            Prelude.<*> ( x Data..?> "HumanLoopSummaries"
                             Core..!@ Prelude.mempty
                         )
       )
@@ -187,44 +189,36 @@ instance Core.AWSRequest ListHumanLoops where
 instance Prelude.Hashable ListHumanLoops where
   hashWithSalt _salt ListHumanLoops' {..} =
     _salt `Prelude.hashWithSalt` creationTimeAfter
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` sortOrder
       `Prelude.hashWithSalt` creationTimeBefore
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` sortOrder
       `Prelude.hashWithSalt` flowDefinitionArn
 
 instance Prelude.NFData ListHumanLoops where
   rnf ListHumanLoops' {..} =
     Prelude.rnf creationTimeAfter
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf sortOrder
       `Prelude.seq` Prelude.rnf creationTimeBefore
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf sortOrder
       `Prelude.seq` Prelude.rnf flowDefinitionArn
 
-instance Core.ToHeaders ListHumanLoops where
-  toHeaders =
-    Prelude.const
-      ( Prelude.mconcat
-          [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
-                          Prelude.ByteString
-                      )
-          ]
-      )
+instance Data.ToHeaders ListHumanLoops where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListHumanLoops where
+instance Data.ToPath ListHumanLoops where
   toPath = Prelude.const "/human-loops"
 
-instance Core.ToQuery ListHumanLoops where
+instance Data.ToQuery ListHumanLoops where
   toQuery ListHumanLoops' {..} =
     Prelude.mconcat
-      [ "CreationTimeAfter" Core.=: creationTimeAfter,
-        "NextToken" Core.=: nextToken,
-        "SortOrder" Core.=: sortOrder,
-        "CreationTimeBefore" Core.=: creationTimeBefore,
-        "MaxResults" Core.=: maxResults,
-        "FlowDefinitionArn" Core.=: flowDefinitionArn
+      [ "CreationTimeAfter" Data.=: creationTimeAfter,
+        "CreationTimeBefore" Data.=: creationTimeBefore,
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
+        "SortOrder" Data.=: sortOrder,
+        "FlowDefinitionArn" Data.=: flowDefinitionArn
       ]
 
 -- | /See:/ 'newListHumanLoopsResponse' smart constructor.

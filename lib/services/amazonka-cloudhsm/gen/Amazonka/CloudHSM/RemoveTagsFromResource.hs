@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudHSM.RemoveTagsFromResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -59,7 +59,8 @@ where
 
 import Amazonka.CloudHSM.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -116,13 +117,14 @@ instance Core.AWSRequest RemoveTagsFromResource where
   type
     AWSResponse RemoveTagsFromResource =
       RemoveTagsFromResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RemoveTagsFromResourceResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Status")
+            Prelude.<*> (x Data..:> "Status")
       )
 
 instance Prelude.Hashable RemoveTagsFromResource where
@@ -135,34 +137,34 @@ instance Prelude.NFData RemoveTagsFromResource where
     Prelude.rnf resourceArn
       `Prelude.seq` Prelude.rnf tagKeyList
 
-instance Core.ToHeaders RemoveTagsFromResource where
+instance Data.ToHeaders RemoveTagsFromResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CloudHsmFrontendService.RemoveTagsFromResource" ::
+              Data.=# ( "CloudHsmFrontendService.RemoveTagsFromResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RemoveTagsFromResource where
+instance Data.ToJSON RemoveTagsFromResource where
   toJSON RemoveTagsFromResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ResourceArn" Core..= resourceArn),
-            Prelude.Just ("TagKeyList" Core..= tagKeyList)
+          [ Prelude.Just ("ResourceArn" Data..= resourceArn),
+            Prelude.Just ("TagKeyList" Data..= tagKeyList)
           ]
       )
 
-instance Core.ToPath RemoveTagsFromResource where
+instance Data.ToPath RemoveTagsFromResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RemoveTagsFromResource where
+instance Data.ToQuery RemoveTagsFromResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRemoveTagsFromResourceResponse' smart constructor.

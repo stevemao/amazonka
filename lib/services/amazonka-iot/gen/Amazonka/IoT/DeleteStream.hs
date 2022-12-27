@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DeleteStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.IoT.DeleteStream
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,7 +79,8 @@ deleteStream_streamId = Lens.lens (\DeleteStream' {streamId} -> streamId) (\s@De
 
 instance Core.AWSRequest DeleteStream where
   type AWSResponse DeleteStream = DeleteStreamResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -93,14 +95,14 @@ instance Prelude.Hashable DeleteStream where
 instance Prelude.NFData DeleteStream where
   rnf DeleteStream' {..} = Prelude.rnf streamId
 
-instance Core.ToHeaders DeleteStream where
+instance Data.ToHeaders DeleteStream where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteStream where
+instance Data.ToPath DeleteStream where
   toPath DeleteStream' {..} =
-    Prelude.mconcat ["/streams/", Core.toBS streamId]
+    Prelude.mconcat ["/streams/", Data.toBS streamId]
 
-instance Core.ToQuery DeleteStream where
+instance Data.ToQuery DeleteStream where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteStreamResponse' smart constructor.

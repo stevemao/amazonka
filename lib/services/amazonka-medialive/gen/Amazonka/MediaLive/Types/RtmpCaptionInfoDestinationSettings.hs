@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.RtmpCaptionInfoDestinationSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.RtmpCaptionInfoDestinationSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Rtmp Caption Info Destination Settings
@@ -41,11 +42,11 @@ newRtmpCaptionInfoDestinationSettings =
   RtmpCaptionInfoDestinationSettings'
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     RtmpCaptionInfoDestinationSettings
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RtmpCaptionInfoDestinationSettings"
       ( \x ->
           Prelude.pure RtmpCaptionInfoDestinationSettings'
@@ -65,7 +66,7 @@ instance
   rnf _ = ()
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     RtmpCaptionInfoDestinationSettings
   where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+  toJSON = Prelude.const (Data.Object Prelude.mempty)

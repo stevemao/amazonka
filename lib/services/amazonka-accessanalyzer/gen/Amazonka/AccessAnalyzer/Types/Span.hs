@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AccessAnalyzer.Types.Span
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AccessAnalyzer.Types.Span where
 
 import Amazonka.AccessAnalyzer.Types.Position
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A span in a policy. The span consists of a start position (inclusive)
@@ -29,10 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSpan' smart constructor.
 data Span = Span'
-  { -- | The end position of the span (exclusive).
-    end :: Position,
-    -- | The start position of the span (inclusive).
-    start :: Position
+  { -- | The start position of the span (inclusive).
+    start :: Position,
+    -- | The end position of the span (exclusive).
+    end :: Position
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,40 +45,40 @@ data Span = Span'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'end', 'span_end' - The end position of the span (exclusive).
---
 -- 'start', 'span_start' - The start position of the span (inclusive).
+--
+-- 'end', 'span_end' - The end position of the span (exclusive).
 newSpan ::
-  -- | 'end'
-  Position ->
   -- | 'start'
   Position ->
+  -- | 'end'
+  Position ->
   Span
-newSpan pEnd_ pStart_ =
-  Span' {end = pEnd_, start = pStart_}
-
--- | The end position of the span (exclusive).
-span_end :: Lens.Lens' Span Position
-span_end = Lens.lens (\Span' {end} -> end) (\s@Span' {} a -> s {end = a} :: Span)
+newSpan pStart_ pEnd_ =
+  Span' {start = pStart_, end = pEnd_}
 
 -- | The start position of the span (inclusive).
 span_start :: Lens.Lens' Span Position
 span_start = Lens.lens (\Span' {start} -> start) (\s@Span' {} a -> s {start = a} :: Span)
 
-instance Core.FromJSON Span where
+-- | The end position of the span (exclusive).
+span_end :: Lens.Lens' Span Position
+span_end = Lens.lens (\Span' {end} -> end) (\s@Span' {} a -> s {end = a} :: Span)
+
+instance Data.FromJSON Span where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Span"
       ( \x ->
           Span'
-            Prelude.<$> (x Core..: "end") Prelude.<*> (x Core..: "start")
+            Prelude.<$> (x Data..: "start") Prelude.<*> (x Data..: "end")
       )
 
 instance Prelude.Hashable Span where
   hashWithSalt _salt Span' {..} =
-    _salt `Prelude.hashWithSalt` end
-      `Prelude.hashWithSalt` start
+    _salt `Prelude.hashWithSalt` start
+      `Prelude.hashWithSalt` end
 
 instance Prelude.NFData Span where
   rnf Span' {..} =
-    Prelude.rnf end `Prelude.seq` Prelude.rnf start
+    Prelude.rnf start `Prelude.seq` Prelude.rnf end

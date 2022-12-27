@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.Types.RawString
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,12 +20,13 @@
 module Amazonka.CodeDeploy.Types.RawString where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | A revision for an AWS Lambda deployment that is a YAML-formatted or
--- JSON-formatted string. For AWS Lambda deployments, the revision is the
--- same as the AppSpec file.
+-- | A revision for an Lambda deployment that is a YAML-formatted or
+-- JSON-formatted string. For Lambda deployments, the revision is the same
+-- as the AppSpec file.
 --
 -- /See:/ 'newRawString' smart constructor.
 data RawString = RawString'
@@ -69,14 +70,14 @@ rawString_content = Lens.lens (\RawString' {content} -> content) (\s@RawString' 
 rawString_sha256 :: Lens.Lens' RawString (Prelude.Maybe Prelude.Text)
 rawString_sha256 = Lens.lens (\RawString' {sha256} -> sha256) (\s@RawString' {} a -> s {sha256 = a} :: RawString)
 
-instance Core.FromJSON RawString where
+instance Data.FromJSON RawString where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RawString"
       ( \x ->
           RawString'
-            Prelude.<$> (x Core..:? "content")
-            Prelude.<*> (x Core..:? "sha256")
+            Prelude.<$> (x Data..:? "content")
+            Prelude.<*> (x Data..:? "sha256")
       )
 
 instance Prelude.Hashable RawString where
@@ -89,11 +90,11 @@ instance Prelude.NFData RawString where
     Prelude.rnf content
       `Prelude.seq` Prelude.rnf sha256
 
-instance Core.ToJSON RawString where
+instance Data.ToJSON RawString where
   toJSON RawString' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("content" Core..=) Prelude.<$> content,
-            ("sha256" Core..=) Prelude.<$> sha256
+          [ ("content" Data..=) Prelude.<$> content,
+            ("sha256" Data..=) Prelude.<$> sha256
           ]
       )

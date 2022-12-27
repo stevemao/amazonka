@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SMS.DeleteReplicationJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,8 +23,9 @@
 -- Deletes the specified replication job.
 --
 -- After you delete a replication job, there are no further replication
--- runs. AWS deletes the contents of the Amazon S3 bucket used to store AWS
--- SMS artifacts. The AMIs created by the replication runs are not deleted.
+-- runs. Amazon Web Services deletes the contents of the Amazon S3 bucket
+-- used to store Server Migration Service artifacts. The AMIs created by
+-- the replication runs are not deleted.
 module Amazonka.SMS.DeleteReplicationJob
   ( -- * Creating a Request
     DeleteReplicationJob (..),
@@ -43,7 +44,8 @@ module Amazonka.SMS.DeleteReplicationJob
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,7 +85,8 @@ instance Core.AWSRequest DeleteReplicationJob where
   type
     AWSResponse DeleteReplicationJob =
       DeleteReplicationJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -99,34 +102,34 @@ instance Prelude.NFData DeleteReplicationJob where
   rnf DeleteReplicationJob' {..} =
     Prelude.rnf replicationJobId
 
-instance Core.ToHeaders DeleteReplicationJob where
+instance Data.ToHeaders DeleteReplicationJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSServerMigrationService_V2016_10_24.DeleteReplicationJob" ::
+              Data.=# ( "AWSServerMigrationService_V2016_10_24.DeleteReplicationJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteReplicationJob where
+instance Data.ToJSON DeleteReplicationJob where
   toJSON DeleteReplicationJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("replicationJobId" Core..= replicationJobId)
+              ("replicationJobId" Data..= replicationJobId)
           ]
       )
 
-instance Core.ToPath DeleteReplicationJob where
+instance Data.ToPath DeleteReplicationJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteReplicationJob where
+instance Data.ToQuery DeleteReplicationJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteReplicationJobResponse' smart constructor.

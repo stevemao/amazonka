@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LakeFormation.Types.LFTagKeyResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.LakeFormation.Types.LFTagKeyResource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | A structure containing a tag key and values for a resource.
+-- | A structure containing an LF-tag key and values for a resource.
 --
 -- /See:/ 'newLFTagKeyResource' smart constructor.
 data LFTagKeyResource = LFTagKeyResource'
   { -- | The identifier for the Data Catalog. By default, the account ID. The
     -- Data Catalog is the persistent metadata store. It contains database
     -- definitions, table definitions, and other control information to manage
-    -- your AWS Lake Formation environment.
+    -- your Lake Formation environment.
     catalogId :: Prelude.Maybe Prelude.Text,
-    -- | The key-name for the tag.
+    -- | The key-name for the LF-tag.
     tagKey :: Prelude.Text,
     -- | A list of possible values an attribute can take.
     tagValues :: Prelude.NonEmpty Prelude.Text
@@ -50,9 +51,9 @@ data LFTagKeyResource = LFTagKeyResource'
 -- 'catalogId', 'lFTagKeyResource_catalogId' - The identifier for the Data Catalog. By default, the account ID. The
 -- Data Catalog is the persistent metadata store. It contains database
 -- definitions, table definitions, and other control information to manage
--- your AWS Lake Formation environment.
+-- your Lake Formation environment.
 --
--- 'tagKey', 'lFTagKeyResource_tagKey' - The key-name for the tag.
+-- 'tagKey', 'lFTagKeyResource_tagKey' - The key-name for the LF-tag.
 --
 -- 'tagValues', 'lFTagKeyResource_tagValues' - A list of possible values an attribute can take.
 newLFTagKeyResource ::
@@ -71,11 +72,11 @@ newLFTagKeyResource pTagKey_ pTagValues_ =
 -- | The identifier for the Data Catalog. By default, the account ID. The
 -- Data Catalog is the persistent metadata store. It contains database
 -- definitions, table definitions, and other control information to manage
--- your AWS Lake Formation environment.
+-- your Lake Formation environment.
 lFTagKeyResource_catalogId :: Lens.Lens' LFTagKeyResource (Prelude.Maybe Prelude.Text)
 lFTagKeyResource_catalogId = Lens.lens (\LFTagKeyResource' {catalogId} -> catalogId) (\s@LFTagKeyResource' {} a -> s {catalogId = a} :: LFTagKeyResource)
 
--- | The key-name for the tag.
+-- | The key-name for the LF-tag.
 lFTagKeyResource_tagKey :: Lens.Lens' LFTagKeyResource Prelude.Text
 lFTagKeyResource_tagKey = Lens.lens (\LFTagKeyResource' {tagKey} -> tagKey) (\s@LFTagKeyResource' {} a -> s {tagKey = a} :: LFTagKeyResource)
 
@@ -83,15 +84,15 @@ lFTagKeyResource_tagKey = Lens.lens (\LFTagKeyResource' {tagKey} -> tagKey) (\s@
 lFTagKeyResource_tagValues :: Lens.Lens' LFTagKeyResource (Prelude.NonEmpty Prelude.Text)
 lFTagKeyResource_tagValues = Lens.lens (\LFTagKeyResource' {tagValues} -> tagValues) (\s@LFTagKeyResource' {} a -> s {tagValues = a} :: LFTagKeyResource) Prelude.. Lens.coerced
 
-instance Core.FromJSON LFTagKeyResource where
+instance Data.FromJSON LFTagKeyResource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LFTagKeyResource"
       ( \x ->
           LFTagKeyResource'
-            Prelude.<$> (x Core..:? "CatalogId")
-            Prelude.<*> (x Core..: "TagKey")
-            Prelude.<*> (x Core..: "TagValues")
+            Prelude.<$> (x Data..:? "CatalogId")
+            Prelude.<*> (x Data..: "TagKey")
+            Prelude.<*> (x Data..: "TagValues")
       )
 
 instance Prelude.Hashable LFTagKeyResource where
@@ -106,12 +107,12 @@ instance Prelude.NFData LFTagKeyResource where
       `Prelude.seq` Prelude.rnf tagKey
       `Prelude.seq` Prelude.rnf tagValues
 
-instance Core.ToJSON LFTagKeyResource where
+instance Data.ToJSON LFTagKeyResource where
   toJSON LFTagKeyResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            Prelude.Just ("TagKey" Core..= tagKey),
-            Prelude.Just ("TagValues" Core..= tagValues)
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            Prelude.Just ("TagKey" Data..= tagKey),
+            Prelude.Just ("TagValues" Data..= tagValues)
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.Types.ActionExecutionFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodePipeline.Types.ActionExecutionFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Filter values for the action execution.
@@ -61,11 +62,11 @@ instance Prelude.NFData ActionExecutionFilter where
   rnf ActionExecutionFilter' {..} =
     Prelude.rnf pipelineExecutionId
 
-instance Core.ToJSON ActionExecutionFilter where
+instance Data.ToJSON ActionExecutionFilter where
   toJSON ActionExecutionFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("pipelineExecutionId" Core..=)
+          [ ("pipelineExecutionId" Data..=)
               Prelude.<$> pipelineExecutionId
           ]
       )

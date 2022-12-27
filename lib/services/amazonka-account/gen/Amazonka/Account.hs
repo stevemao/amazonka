@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.Account
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -19,20 +19,20 @@ module Amazonka.Account
     -- * Errors
     -- $errors
 
-    -- ** ValidationException
-    _ValidationException,
-
     -- ** AccessDeniedException
     _AccessDeniedException,
-
-    -- ** TooManyRequestsException
-    _TooManyRequestsException,
 
     -- ** InternalServerException
     _InternalServerException,
 
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
+
+    -- ** TooManyRequestsException
+    _TooManyRequestsException,
+
+    -- ** ValidationException
+    _ValidationException,
 
     -- * Waiters
     -- $waiters
@@ -46,17 +46,29 @@ module Amazonka.Account
     DeleteAlternateContactResponse (DeleteAlternateContactResponse'),
     newDeleteAlternateContactResponse,
 
+    -- ** GetAlternateContact
+    GetAlternateContact (GetAlternateContact'),
+    newGetAlternateContact,
+    GetAlternateContactResponse (GetAlternateContactResponse'),
+    newGetAlternateContactResponse,
+
+    -- ** GetContactInformation
+    GetContactInformation (GetContactInformation'),
+    newGetContactInformation,
+    GetContactInformationResponse (GetContactInformationResponse'),
+    newGetContactInformationResponse,
+
     -- ** PutAlternateContact
     PutAlternateContact (PutAlternateContact'),
     newPutAlternateContact,
     PutAlternateContactResponse (PutAlternateContactResponse'),
     newPutAlternateContactResponse,
 
-    -- ** GetAlternateContact
-    GetAlternateContact (GetAlternateContact'),
-    newGetAlternateContact,
-    GetAlternateContactResponse (GetAlternateContactResponse'),
-    newGetAlternateContactResponse,
+    -- ** PutContactInformation
+    PutContactInformation (PutContactInformation'),
+    newPutContactInformation,
+    PutContactInformationResponse (PutContactInformationResponse'),
+    newPutContactInformationResponse,
 
     -- * Types
 
@@ -66,13 +78,19 @@ module Amazonka.Account
     -- ** AlternateContact
     AlternateContact (AlternateContact'),
     newAlternateContact,
+
+    -- ** ContactInformation
+    ContactInformation (ContactInformation'),
+    newContactInformation,
   )
 where
 
 import Amazonka.Account.DeleteAlternateContact
 import Amazonka.Account.GetAlternateContact
+import Amazonka.Account.GetContactInformation
 import Amazonka.Account.Lens
 import Amazonka.Account.PutAlternateContact
+import Amazonka.Account.PutContactInformation
 import Amazonka.Account.Types
 import Amazonka.Account.Waiters
 

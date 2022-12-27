@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.Types.TranscriptionConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.Chime.Types.TranscriptionConfiguration where
 import Amazonka.Chime.Types.EngineTranscribeMedicalSettings
 import Amazonka.Chime.Types.EngineTranscribeSettings
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configuration for the current transcription operation. Must contain
@@ -79,13 +80,13 @@ instance Prelude.NFData TranscriptionConfiguration where
     Prelude.rnf engineTranscribeMedicalSettings
       `Prelude.seq` Prelude.rnf engineTranscribeSettings
 
-instance Core.ToJSON TranscriptionConfiguration where
+instance Data.ToJSON TranscriptionConfiguration where
   toJSON TranscriptionConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EngineTranscribeMedicalSettings" Core..=)
+          [ ("EngineTranscribeMedicalSettings" Data..=)
               Prelude.<$> engineTranscribeMedicalSettings,
-            ("EngineTranscribeSettings" Core..=)
+            ("EngineTranscribeSettings" Data..=)
               Prelude.<$> engineTranscribeSettings
           ]
       )

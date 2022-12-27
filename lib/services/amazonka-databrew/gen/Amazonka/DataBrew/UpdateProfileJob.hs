@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataBrew.UpdateProfileJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,14 +27,15 @@ module Amazonka.DataBrew.UpdateProfileJob
     newUpdateProfileJob,
 
     -- * Request Lenses
-    updateProfileJob_encryptionMode,
-    updateProfileJob_logSubscription,
-    updateProfileJob_maxRetries,
-    updateProfileJob_encryptionKeyArn,
-    updateProfileJob_maxCapacity,
     updateProfileJob_configuration,
-    updateProfileJob_timeout,
+    updateProfileJob_encryptionKeyArn,
+    updateProfileJob_encryptionMode,
     updateProfileJob_jobSample,
+    updateProfileJob_logSubscription,
+    updateProfileJob_maxCapacity,
+    updateProfileJob_maxRetries,
+    updateProfileJob_timeout,
+    updateProfileJob_validationConfigurations,
     updateProfileJob_name,
     updateProfileJob_outputLocation,
     updateProfileJob_roleArn,
@@ -50,44 +51,47 @@ module Amazonka.DataBrew.UpdateProfileJob
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataBrew.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateProfileJob' smart constructor.
 data UpdateProfileJob = UpdateProfileJob'
-  { -- | The encryption mode for the job, which can be one of the following:
+  { -- | Configuration for profile jobs. Used to select columns, do evaluations,
+    -- and override default parameters of evaluations. When configuration is
+    -- null, the profile job will run with default settings.
+    configuration :: Prelude.Maybe ProfileConfiguration,
+    -- | The Amazon Resource Name (ARN) of an encryption key that is used to
+    -- protect the job.
+    encryptionKeyArn :: Prelude.Maybe Prelude.Text,
+    -- | The encryption mode for the job, which can be one of the following:
     --
     -- -   @SSE-KMS@ - Server-side encryption with keys managed by KMS.
     --
     -- -   @SSE-S3@ - Server-side encryption with keys managed by Amazon S3.
     encryptionMode :: Prelude.Maybe EncryptionMode,
-    -- | Enables or disables Amazon CloudWatch logging for the job. If logging is
-    -- enabled, CloudWatch writes one log stream for each job run.
-    logSubscription :: Prelude.Maybe LogSubscription,
-    -- | The maximum number of times to retry the job after a job run fails.
-    maxRetries :: Prelude.Maybe Prelude.Natural,
-    -- | The Amazon Resource Name (ARN) of an encryption key that is used to
-    -- protect the job.
-    encryptionKeyArn :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of compute nodes that DataBrew can use when the job
-    -- processes data.
-    maxCapacity :: Prelude.Maybe Prelude.Int,
-    -- | Configuration for profile jobs. Used to select columns, do evaluations,
-    -- and override default parameters of evaluations. When configuration is
-    -- null, the profile job will run with default settings.
-    configuration :: Prelude.Maybe ProfileConfiguration,
-    -- | The job\'s timeout in minutes. A job that attempts to run longer than
-    -- this timeout period ends with a status of @TIMEOUT@.
-    timeout :: Prelude.Maybe Prelude.Natural,
     -- | Sample configuration for Profile Jobs only. Determines the number of
     -- rows on which the Profile job will be executed. If a JobSample value is
     -- not provided for profile jobs, the default value will be used. The
     -- default value is CUSTOM_ROWS for the mode parameter and 20000 for the
     -- size parameter.
     jobSample :: Prelude.Maybe JobSample,
+    -- | Enables or disables Amazon CloudWatch logging for the job. If logging is
+    -- enabled, CloudWatch writes one log stream for each job run.
+    logSubscription :: Prelude.Maybe LogSubscription,
+    -- | The maximum number of compute nodes that DataBrew can use when the job
+    -- processes data.
+    maxCapacity :: Prelude.Maybe Prelude.Int,
+    -- | The maximum number of times to retry the job after a job run fails.
+    maxRetries :: Prelude.Maybe Prelude.Natural,
+    -- | The job\'s timeout in minutes. A job that attempts to run longer than
+    -- this timeout period ends with a status of @TIMEOUT@.
+    timeout :: Prelude.Maybe Prelude.Natural,
+    -- | List of validation configurations that are applied to the profile job.
+    validationConfigurations :: Prelude.Maybe (Prelude.NonEmpty ValidationConfiguration),
     -- | The name of the job to be updated.
     name :: Prelude.Text,
     outputLocation :: S3Location,
@@ -105,35 +109,37 @@ data UpdateProfileJob = UpdateProfileJob'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'configuration', 'updateProfileJob_configuration' - Configuration for profile jobs. Used to select columns, do evaluations,
+-- and override default parameters of evaluations. When configuration is
+-- null, the profile job will run with default settings.
+--
+-- 'encryptionKeyArn', 'updateProfileJob_encryptionKeyArn' - The Amazon Resource Name (ARN) of an encryption key that is used to
+-- protect the job.
+--
 -- 'encryptionMode', 'updateProfileJob_encryptionMode' - The encryption mode for the job, which can be one of the following:
 --
 -- -   @SSE-KMS@ - Server-side encryption with keys managed by KMS.
 --
 -- -   @SSE-S3@ - Server-side encryption with keys managed by Amazon S3.
 --
--- 'logSubscription', 'updateProfileJob_logSubscription' - Enables or disables Amazon CloudWatch logging for the job. If logging is
--- enabled, CloudWatch writes one log stream for each job run.
---
--- 'maxRetries', 'updateProfileJob_maxRetries' - The maximum number of times to retry the job after a job run fails.
---
--- 'encryptionKeyArn', 'updateProfileJob_encryptionKeyArn' - The Amazon Resource Name (ARN) of an encryption key that is used to
--- protect the job.
---
--- 'maxCapacity', 'updateProfileJob_maxCapacity' - The maximum number of compute nodes that DataBrew can use when the job
--- processes data.
---
--- 'configuration', 'updateProfileJob_configuration' - Configuration for profile jobs. Used to select columns, do evaluations,
--- and override default parameters of evaluations. When configuration is
--- null, the profile job will run with default settings.
---
--- 'timeout', 'updateProfileJob_timeout' - The job\'s timeout in minutes. A job that attempts to run longer than
--- this timeout period ends with a status of @TIMEOUT@.
---
 -- 'jobSample', 'updateProfileJob_jobSample' - Sample configuration for Profile Jobs only. Determines the number of
 -- rows on which the Profile job will be executed. If a JobSample value is
 -- not provided for profile jobs, the default value will be used. The
 -- default value is CUSTOM_ROWS for the mode parameter and 20000 for the
 -- size parameter.
+--
+-- 'logSubscription', 'updateProfileJob_logSubscription' - Enables or disables Amazon CloudWatch logging for the job. If logging is
+-- enabled, CloudWatch writes one log stream for each job run.
+--
+-- 'maxCapacity', 'updateProfileJob_maxCapacity' - The maximum number of compute nodes that DataBrew can use when the job
+-- processes data.
+--
+-- 'maxRetries', 'updateProfileJob_maxRetries' - The maximum number of times to retry the job after a job run fails.
+--
+-- 'timeout', 'updateProfileJob_timeout' - The job\'s timeout in minutes. A job that attempts to run longer than
+-- this timeout period ends with a status of @TIMEOUT@.
+--
+-- 'validationConfigurations', 'updateProfileJob_validationConfigurations' - List of validation configurations that are applied to the profile job.
 --
 -- 'name', 'updateProfileJob_name' - The name of the job to be updated.
 --
@@ -151,18 +157,30 @@ newUpdateProfileJob ::
   UpdateProfileJob
 newUpdateProfileJob pName_ pOutputLocation_ pRoleArn_ =
   UpdateProfileJob'
-    { encryptionMode = Prelude.Nothing,
-      logSubscription = Prelude.Nothing,
-      maxRetries = Prelude.Nothing,
+    { configuration = Prelude.Nothing,
       encryptionKeyArn = Prelude.Nothing,
-      maxCapacity = Prelude.Nothing,
-      configuration = Prelude.Nothing,
-      timeout = Prelude.Nothing,
+      encryptionMode = Prelude.Nothing,
       jobSample = Prelude.Nothing,
+      logSubscription = Prelude.Nothing,
+      maxCapacity = Prelude.Nothing,
+      maxRetries = Prelude.Nothing,
+      timeout = Prelude.Nothing,
+      validationConfigurations = Prelude.Nothing,
       name = pName_,
       outputLocation = pOutputLocation_,
       roleArn = pRoleArn_
     }
+
+-- | Configuration for profile jobs. Used to select columns, do evaluations,
+-- and override default parameters of evaluations. When configuration is
+-- null, the profile job will run with default settings.
+updateProfileJob_configuration :: Lens.Lens' UpdateProfileJob (Prelude.Maybe ProfileConfiguration)
+updateProfileJob_configuration = Lens.lens (\UpdateProfileJob' {configuration} -> configuration) (\s@UpdateProfileJob' {} a -> s {configuration = a} :: UpdateProfileJob)
+
+-- | The Amazon Resource Name (ARN) of an encryption key that is used to
+-- protect the job.
+updateProfileJob_encryptionKeyArn :: Lens.Lens' UpdateProfileJob (Prelude.Maybe Prelude.Text)
+updateProfileJob_encryptionKeyArn = Lens.lens (\UpdateProfileJob' {encryptionKeyArn} -> encryptionKeyArn) (\s@UpdateProfileJob' {} a -> s {encryptionKeyArn = a} :: UpdateProfileJob)
 
 -- | The encryption mode for the job, which can be one of the following:
 --
@@ -172,36 +190,6 @@ newUpdateProfileJob pName_ pOutputLocation_ pRoleArn_ =
 updateProfileJob_encryptionMode :: Lens.Lens' UpdateProfileJob (Prelude.Maybe EncryptionMode)
 updateProfileJob_encryptionMode = Lens.lens (\UpdateProfileJob' {encryptionMode} -> encryptionMode) (\s@UpdateProfileJob' {} a -> s {encryptionMode = a} :: UpdateProfileJob)
 
--- | Enables or disables Amazon CloudWatch logging for the job. If logging is
--- enabled, CloudWatch writes one log stream for each job run.
-updateProfileJob_logSubscription :: Lens.Lens' UpdateProfileJob (Prelude.Maybe LogSubscription)
-updateProfileJob_logSubscription = Lens.lens (\UpdateProfileJob' {logSubscription} -> logSubscription) (\s@UpdateProfileJob' {} a -> s {logSubscription = a} :: UpdateProfileJob)
-
--- | The maximum number of times to retry the job after a job run fails.
-updateProfileJob_maxRetries :: Lens.Lens' UpdateProfileJob (Prelude.Maybe Prelude.Natural)
-updateProfileJob_maxRetries = Lens.lens (\UpdateProfileJob' {maxRetries} -> maxRetries) (\s@UpdateProfileJob' {} a -> s {maxRetries = a} :: UpdateProfileJob)
-
--- | The Amazon Resource Name (ARN) of an encryption key that is used to
--- protect the job.
-updateProfileJob_encryptionKeyArn :: Lens.Lens' UpdateProfileJob (Prelude.Maybe Prelude.Text)
-updateProfileJob_encryptionKeyArn = Lens.lens (\UpdateProfileJob' {encryptionKeyArn} -> encryptionKeyArn) (\s@UpdateProfileJob' {} a -> s {encryptionKeyArn = a} :: UpdateProfileJob)
-
--- | The maximum number of compute nodes that DataBrew can use when the job
--- processes data.
-updateProfileJob_maxCapacity :: Lens.Lens' UpdateProfileJob (Prelude.Maybe Prelude.Int)
-updateProfileJob_maxCapacity = Lens.lens (\UpdateProfileJob' {maxCapacity} -> maxCapacity) (\s@UpdateProfileJob' {} a -> s {maxCapacity = a} :: UpdateProfileJob)
-
--- | Configuration for profile jobs. Used to select columns, do evaluations,
--- and override default parameters of evaluations. When configuration is
--- null, the profile job will run with default settings.
-updateProfileJob_configuration :: Lens.Lens' UpdateProfileJob (Prelude.Maybe ProfileConfiguration)
-updateProfileJob_configuration = Lens.lens (\UpdateProfileJob' {configuration} -> configuration) (\s@UpdateProfileJob' {} a -> s {configuration = a} :: UpdateProfileJob)
-
--- | The job\'s timeout in minutes. A job that attempts to run longer than
--- this timeout period ends with a status of @TIMEOUT@.
-updateProfileJob_timeout :: Lens.Lens' UpdateProfileJob (Prelude.Maybe Prelude.Natural)
-updateProfileJob_timeout = Lens.lens (\UpdateProfileJob' {timeout} -> timeout) (\s@UpdateProfileJob' {} a -> s {timeout = a} :: UpdateProfileJob)
-
 -- | Sample configuration for Profile Jobs only. Determines the number of
 -- rows on which the Profile job will be executed. If a JobSample value is
 -- not provided for profile jobs, the default value will be used. The
@@ -209,6 +197,29 @@ updateProfileJob_timeout = Lens.lens (\UpdateProfileJob' {timeout} -> timeout) (
 -- size parameter.
 updateProfileJob_jobSample :: Lens.Lens' UpdateProfileJob (Prelude.Maybe JobSample)
 updateProfileJob_jobSample = Lens.lens (\UpdateProfileJob' {jobSample} -> jobSample) (\s@UpdateProfileJob' {} a -> s {jobSample = a} :: UpdateProfileJob)
+
+-- | Enables or disables Amazon CloudWatch logging for the job. If logging is
+-- enabled, CloudWatch writes one log stream for each job run.
+updateProfileJob_logSubscription :: Lens.Lens' UpdateProfileJob (Prelude.Maybe LogSubscription)
+updateProfileJob_logSubscription = Lens.lens (\UpdateProfileJob' {logSubscription} -> logSubscription) (\s@UpdateProfileJob' {} a -> s {logSubscription = a} :: UpdateProfileJob)
+
+-- | The maximum number of compute nodes that DataBrew can use when the job
+-- processes data.
+updateProfileJob_maxCapacity :: Lens.Lens' UpdateProfileJob (Prelude.Maybe Prelude.Int)
+updateProfileJob_maxCapacity = Lens.lens (\UpdateProfileJob' {maxCapacity} -> maxCapacity) (\s@UpdateProfileJob' {} a -> s {maxCapacity = a} :: UpdateProfileJob)
+
+-- | The maximum number of times to retry the job after a job run fails.
+updateProfileJob_maxRetries :: Lens.Lens' UpdateProfileJob (Prelude.Maybe Prelude.Natural)
+updateProfileJob_maxRetries = Lens.lens (\UpdateProfileJob' {maxRetries} -> maxRetries) (\s@UpdateProfileJob' {} a -> s {maxRetries = a} :: UpdateProfileJob)
+
+-- | The job\'s timeout in minutes. A job that attempts to run longer than
+-- this timeout period ends with a status of @TIMEOUT@.
+updateProfileJob_timeout :: Lens.Lens' UpdateProfileJob (Prelude.Maybe Prelude.Natural)
+updateProfileJob_timeout = Lens.lens (\UpdateProfileJob' {timeout} -> timeout) (\s@UpdateProfileJob' {} a -> s {timeout = a} :: UpdateProfileJob)
+
+-- | List of validation configurations that are applied to the profile job.
+updateProfileJob_validationConfigurations :: Lens.Lens' UpdateProfileJob (Prelude.Maybe (Prelude.NonEmpty ValidationConfiguration))
+updateProfileJob_validationConfigurations = Lens.lens (\UpdateProfileJob' {validationConfigurations} -> validationConfigurations) (\s@UpdateProfileJob' {} a -> s {validationConfigurations = a} :: UpdateProfileJob) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the job to be updated.
 updateProfileJob_name :: Lens.Lens' UpdateProfileJob Prelude.Text
@@ -227,80 +238,85 @@ instance Core.AWSRequest UpdateProfileJob where
   type
     AWSResponse UpdateProfileJob =
       UpdateProfileJobResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateProfileJobResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Name")
+            Prelude.<*> (x Data..:> "Name")
       )
 
 instance Prelude.Hashable UpdateProfileJob where
   hashWithSalt _salt UpdateProfileJob' {..} =
-    _salt `Prelude.hashWithSalt` encryptionMode
-      `Prelude.hashWithSalt` logSubscription
-      `Prelude.hashWithSalt` maxRetries
+    _salt `Prelude.hashWithSalt` configuration
       `Prelude.hashWithSalt` encryptionKeyArn
-      `Prelude.hashWithSalt` maxCapacity
-      `Prelude.hashWithSalt` configuration
-      `Prelude.hashWithSalt` timeout
+      `Prelude.hashWithSalt` encryptionMode
       `Prelude.hashWithSalt` jobSample
+      `Prelude.hashWithSalt` logSubscription
+      `Prelude.hashWithSalt` maxCapacity
+      `Prelude.hashWithSalt` maxRetries
+      `Prelude.hashWithSalt` timeout
+      `Prelude.hashWithSalt` validationConfigurations
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` outputLocation
       `Prelude.hashWithSalt` roleArn
 
 instance Prelude.NFData UpdateProfileJob where
   rnf UpdateProfileJob' {..} =
-    Prelude.rnf encryptionMode
-      `Prelude.seq` Prelude.rnf logSubscription
-      `Prelude.seq` Prelude.rnf maxRetries
+    Prelude.rnf configuration
       `Prelude.seq` Prelude.rnf encryptionKeyArn
-      `Prelude.seq` Prelude.rnf maxCapacity
-      `Prelude.seq` Prelude.rnf configuration
-      `Prelude.seq` Prelude.rnf timeout
+      `Prelude.seq` Prelude.rnf encryptionMode
       `Prelude.seq` Prelude.rnf jobSample
+      `Prelude.seq` Prelude.rnf logSubscription
+      `Prelude.seq` Prelude.rnf maxCapacity
+      `Prelude.seq` Prelude.rnf maxRetries
+      `Prelude.seq` Prelude.rnf timeout
+      `Prelude.seq` Prelude.rnf validationConfigurations
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf outputLocation
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToHeaders UpdateProfileJob where
+instance Data.ToHeaders UpdateProfileJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateProfileJob where
+instance Data.ToJSON UpdateProfileJob where
   toJSON UpdateProfileJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EncryptionMode" Core..=)
-              Prelude.<$> encryptionMode,
-            ("LogSubscription" Core..=)
-              Prelude.<$> logSubscription,
-            ("MaxRetries" Core..=) Prelude.<$> maxRetries,
-            ("EncryptionKeyArn" Core..=)
+          [ ("Configuration" Data..=) Prelude.<$> configuration,
+            ("EncryptionKeyArn" Data..=)
               Prelude.<$> encryptionKeyArn,
-            ("MaxCapacity" Core..=) Prelude.<$> maxCapacity,
-            ("Configuration" Core..=) Prelude.<$> configuration,
-            ("Timeout" Core..=) Prelude.<$> timeout,
-            ("JobSample" Core..=) Prelude.<$> jobSample,
+            ("EncryptionMode" Data..=)
+              Prelude.<$> encryptionMode,
+            ("JobSample" Data..=) Prelude.<$> jobSample,
+            ("LogSubscription" Data..=)
+              Prelude.<$> logSubscription,
+            ("MaxCapacity" Data..=) Prelude.<$> maxCapacity,
+            ("MaxRetries" Data..=) Prelude.<$> maxRetries,
+            ("Timeout" Data..=) Prelude.<$> timeout,
+            ("ValidationConfigurations" Data..=)
+              Prelude.<$> validationConfigurations,
             Prelude.Just
-              ("OutputLocation" Core..= outputLocation),
-            Prelude.Just ("RoleArn" Core..= roleArn)
+              ("OutputLocation" Data..= outputLocation),
+            Prelude.Just ("RoleArn" Data..= roleArn)
           ]
       )
 
-instance Core.ToPath UpdateProfileJob where
+instance Data.ToPath UpdateProfileJob where
   toPath UpdateProfileJob' {..} =
-    Prelude.mconcat ["/profileJobs/", Core.toBS name]
+    Prelude.mconcat ["/profileJobs/", Data.toBS name]
 
-instance Core.ToQuery UpdateProfileJob where
+instance Data.ToQuery UpdateProfileJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateProfileJobResponse' smart constructor.

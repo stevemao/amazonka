@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.CreateConnection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,17 +39,18 @@ module Amazonka.CloudWatchEvents.CreateConnection
     newCreateConnectionResponse,
 
     -- * Response Lenses
-    createConnectionResponse_creationTime,
-    createConnectionResponse_lastModifiedTime,
     createConnectionResponse_connectionArn,
     createConnectionResponse_connectionState,
+    createConnectionResponse_creationTime,
+    createConnectionResponse_lastModifiedTime,
     createConnectionResponse_httpStatus,
   )
 where
 
 import Amazonka.CloudWatchEvents.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -124,15 +125,16 @@ instance Core.AWSRequest CreateConnection where
   type
     AWSResponse CreateConnection =
       CreateConnectionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateConnectionResponse'
-            Prelude.<$> (x Core..?> "CreationTime")
-            Prelude.<*> (x Core..?> "LastModifiedTime")
-            Prelude.<*> (x Core..?> "ConnectionArn")
-            Prelude.<*> (x Core..?> "ConnectionState")
+            Prelude.<$> (x Data..?> "ConnectionArn")
+            Prelude.<*> (x Data..?> "ConnectionState")
+            Prelude.<*> (x Data..?> "CreationTime")
+            Prelude.<*> (x Data..?> "LastModifiedTime")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -150,48 +152,48 @@ instance Prelude.NFData CreateConnection where
       `Prelude.seq` Prelude.rnf authorizationType
       `Prelude.seq` Prelude.rnf authParameters
 
-instance Core.ToHeaders CreateConnection where
+instance Data.ToHeaders CreateConnection where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSEvents.CreateConnection" :: Prelude.ByteString),
+              Data.=# ("AWSEvents.CreateConnection" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateConnection where
+instance Data.ToJSON CreateConnection where
   toJSON CreateConnection' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Description" Core..=) Prelude.<$> description,
-            Prelude.Just ("Name" Core..= name),
+          [ ("Description" Data..=) Prelude.<$> description,
+            Prelude.Just ("Name" Data..= name),
             Prelude.Just
-              ("AuthorizationType" Core..= authorizationType),
+              ("AuthorizationType" Data..= authorizationType),
             Prelude.Just
-              ("AuthParameters" Core..= authParameters)
+              ("AuthParameters" Data..= authParameters)
           ]
       )
 
-instance Core.ToPath CreateConnection where
+instance Data.ToPath CreateConnection where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateConnection where
+instance Data.ToQuery CreateConnection where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateConnectionResponse' smart constructor.
 data CreateConnectionResponse = CreateConnectionResponse'
-  { -- | A time stamp for the time that the connection was created.
-    creationTime :: Prelude.Maybe Core.POSIX,
-    -- | A time stamp for the time that the connection was last updated.
-    lastModifiedTime :: Prelude.Maybe Core.POSIX,
-    -- | The ARN of the connection that was created by the request.
+  { -- | The ARN of the connection that was created by the request.
     connectionArn :: Prelude.Maybe Prelude.Text,
     -- | The state of the connection that was created by the request.
     connectionState :: Prelude.Maybe ConnectionState,
+    -- | A time stamp for the time that the connection was created.
+    creationTime :: Prelude.Maybe Data.POSIX,
+    -- | A time stamp for the time that the connection was last updated.
+    lastModifiedTime :: Prelude.Maybe Data.POSIX,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -205,13 +207,13 @@ data CreateConnectionResponse = CreateConnectionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'creationTime', 'createConnectionResponse_creationTime' - A time stamp for the time that the connection was created.
---
--- 'lastModifiedTime', 'createConnectionResponse_lastModifiedTime' - A time stamp for the time that the connection was last updated.
---
 -- 'connectionArn', 'createConnectionResponse_connectionArn' - The ARN of the connection that was created by the request.
 --
 -- 'connectionState', 'createConnectionResponse_connectionState' - The state of the connection that was created by the request.
+--
+-- 'creationTime', 'createConnectionResponse_creationTime' - A time stamp for the time that the connection was created.
+--
+-- 'lastModifiedTime', 'createConnectionResponse_lastModifiedTime' - A time stamp for the time that the connection was last updated.
 --
 -- 'httpStatus', 'createConnectionResponse_httpStatus' - The response's http status code.
 newCreateConnectionResponse ::
@@ -220,21 +222,13 @@ newCreateConnectionResponse ::
   CreateConnectionResponse
 newCreateConnectionResponse pHttpStatus_ =
   CreateConnectionResponse'
-    { creationTime =
+    { connectionArn =
         Prelude.Nothing,
-      lastModifiedTime = Prelude.Nothing,
-      connectionArn = Prelude.Nothing,
       connectionState = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      lastModifiedTime = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A time stamp for the time that the connection was created.
-createConnectionResponse_creationTime :: Lens.Lens' CreateConnectionResponse (Prelude.Maybe Prelude.UTCTime)
-createConnectionResponse_creationTime = Lens.lens (\CreateConnectionResponse' {creationTime} -> creationTime) (\s@CreateConnectionResponse' {} a -> s {creationTime = a} :: CreateConnectionResponse) Prelude.. Lens.mapping Core._Time
-
--- | A time stamp for the time that the connection was last updated.
-createConnectionResponse_lastModifiedTime :: Lens.Lens' CreateConnectionResponse (Prelude.Maybe Prelude.UTCTime)
-createConnectionResponse_lastModifiedTime = Lens.lens (\CreateConnectionResponse' {lastModifiedTime} -> lastModifiedTime) (\s@CreateConnectionResponse' {} a -> s {lastModifiedTime = a} :: CreateConnectionResponse) Prelude.. Lens.mapping Core._Time
 
 -- | The ARN of the connection that was created by the request.
 createConnectionResponse_connectionArn :: Lens.Lens' CreateConnectionResponse (Prelude.Maybe Prelude.Text)
@@ -244,14 +238,22 @@ createConnectionResponse_connectionArn = Lens.lens (\CreateConnectionResponse' {
 createConnectionResponse_connectionState :: Lens.Lens' CreateConnectionResponse (Prelude.Maybe ConnectionState)
 createConnectionResponse_connectionState = Lens.lens (\CreateConnectionResponse' {connectionState} -> connectionState) (\s@CreateConnectionResponse' {} a -> s {connectionState = a} :: CreateConnectionResponse)
 
+-- | A time stamp for the time that the connection was created.
+createConnectionResponse_creationTime :: Lens.Lens' CreateConnectionResponse (Prelude.Maybe Prelude.UTCTime)
+createConnectionResponse_creationTime = Lens.lens (\CreateConnectionResponse' {creationTime} -> creationTime) (\s@CreateConnectionResponse' {} a -> s {creationTime = a} :: CreateConnectionResponse) Prelude.. Lens.mapping Data._Time
+
+-- | A time stamp for the time that the connection was last updated.
+createConnectionResponse_lastModifiedTime :: Lens.Lens' CreateConnectionResponse (Prelude.Maybe Prelude.UTCTime)
+createConnectionResponse_lastModifiedTime = Lens.lens (\CreateConnectionResponse' {lastModifiedTime} -> lastModifiedTime) (\s@CreateConnectionResponse' {} a -> s {lastModifiedTime = a} :: CreateConnectionResponse) Prelude.. Lens.mapping Data._Time
+
 -- | The response's http status code.
 createConnectionResponse_httpStatus :: Lens.Lens' CreateConnectionResponse Prelude.Int
 createConnectionResponse_httpStatus = Lens.lens (\CreateConnectionResponse' {httpStatus} -> httpStatus) (\s@CreateConnectionResponse' {} a -> s {httpStatus = a} :: CreateConnectionResponse)
 
 instance Prelude.NFData CreateConnectionResponse where
   rnf CreateConnectionResponse' {..} =
-    Prelude.rnf creationTime
-      `Prelude.seq` Prelude.rnf lastModifiedTime
-      `Prelude.seq` Prelude.rnf connectionArn
+    Prelude.rnf connectionArn
       `Prelude.seq` Prelude.rnf connectionState
+      `Prelude.seq` Prelude.rnf creationTime
+      `Prelude.seq` Prelude.rnf lastModifiedTime
       `Prelude.seq` Prelude.rnf httpStatus

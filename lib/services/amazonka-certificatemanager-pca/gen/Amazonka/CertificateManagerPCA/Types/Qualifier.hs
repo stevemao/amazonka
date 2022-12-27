@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.Types.Qualifier
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.CertificateManagerPCA.Types.Qualifier where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Defines a @PolicyInformation@ qualifier. ACM Private CA supports the
--- <https://tools.ietf.org/html/rfc5280#section-4.2.1.4 certification practice statement (CPS) qualifier>
+-- <https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.4 certification practice statement (CPS) qualifier>
 -- defined in RFC 5280.
 --
 -- /See:/ 'newQualifier' smart constructor.
@@ -63,9 +64,9 @@ instance Prelude.Hashable Qualifier where
 instance Prelude.NFData Qualifier where
   rnf Qualifier' {..} = Prelude.rnf cpsUri
 
-instance Core.ToJSON Qualifier where
+instance Data.ToJSON Qualifier where
   toJSON Qualifier' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("CpsUri" Core..= cpsUri)]
+          [Prelude.Just ("CpsUri" Data..= cpsUri)]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GlobalAccelerator.Types.CustomRoutingDestinationDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.GlobalAccelerator.Types.CustomRoutingDestinationDescription where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GlobalAccelerator.Types.Protocol
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | For a custom routing accelerator, describes the port range and protocol
@@ -84,17 +85,17 @@ customRoutingDestinationDescription_toPort :: Lens.Lens' CustomRoutingDestinatio
 customRoutingDestinationDescription_toPort = Lens.lens (\CustomRoutingDestinationDescription' {toPort} -> toPort) (\s@CustomRoutingDestinationDescription' {} a -> s {toPort = a} :: CustomRoutingDestinationDescription)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     CustomRoutingDestinationDescription
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CustomRoutingDestinationDescription"
       ( \x ->
           CustomRoutingDestinationDescription'
-            Prelude.<$> (x Core..:? "FromPort")
-            Prelude.<*> (x Core..:? "Protocols" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "ToPort")
+            Prelude.<$> (x Data..:? "FromPort")
+            Prelude.<*> (x Data..:? "Protocols" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "ToPort")
       )
 
 instance

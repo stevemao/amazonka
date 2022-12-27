@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsDynamoDbTableAttributeDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.SecurityHub.Types.AwsDynamoDbTableAttributeDefinition where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains a definition of an attribute for the table.
 --
 -- /See:/ 'newAwsDynamoDbTableAttributeDefinition' smart constructor.
 data AwsDynamoDbTableAttributeDefinition = AwsDynamoDbTableAttributeDefinition'
-  { -- | The type of the attribute.
-    attributeType :: Prelude.Maybe Prelude.Text,
-    -- | The name of the attribute.
-    attributeName :: Prelude.Maybe Prelude.Text
+  { -- | The name of the attribute.
+    attributeName :: Prelude.Maybe Prelude.Text,
+    -- | The type of the attribute.
+    attributeType :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,37 +43,37 @@ data AwsDynamoDbTableAttributeDefinition = AwsDynamoDbTableAttributeDefinition'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'attributeType', 'awsDynamoDbTableAttributeDefinition_attributeType' - The type of the attribute.
---
 -- 'attributeName', 'awsDynamoDbTableAttributeDefinition_attributeName' - The name of the attribute.
+--
+-- 'attributeType', 'awsDynamoDbTableAttributeDefinition_attributeType' - The type of the attribute.
 newAwsDynamoDbTableAttributeDefinition ::
   AwsDynamoDbTableAttributeDefinition
 newAwsDynamoDbTableAttributeDefinition =
   AwsDynamoDbTableAttributeDefinition'
-    { attributeType =
+    { attributeName =
         Prelude.Nothing,
-      attributeName = Prelude.Nothing
+      attributeType = Prelude.Nothing
     }
-
--- | The type of the attribute.
-awsDynamoDbTableAttributeDefinition_attributeType :: Lens.Lens' AwsDynamoDbTableAttributeDefinition (Prelude.Maybe Prelude.Text)
-awsDynamoDbTableAttributeDefinition_attributeType = Lens.lens (\AwsDynamoDbTableAttributeDefinition' {attributeType} -> attributeType) (\s@AwsDynamoDbTableAttributeDefinition' {} a -> s {attributeType = a} :: AwsDynamoDbTableAttributeDefinition)
 
 -- | The name of the attribute.
 awsDynamoDbTableAttributeDefinition_attributeName :: Lens.Lens' AwsDynamoDbTableAttributeDefinition (Prelude.Maybe Prelude.Text)
 awsDynamoDbTableAttributeDefinition_attributeName = Lens.lens (\AwsDynamoDbTableAttributeDefinition' {attributeName} -> attributeName) (\s@AwsDynamoDbTableAttributeDefinition' {} a -> s {attributeName = a} :: AwsDynamoDbTableAttributeDefinition)
 
+-- | The type of the attribute.
+awsDynamoDbTableAttributeDefinition_attributeType :: Lens.Lens' AwsDynamoDbTableAttributeDefinition (Prelude.Maybe Prelude.Text)
+awsDynamoDbTableAttributeDefinition_attributeType = Lens.lens (\AwsDynamoDbTableAttributeDefinition' {attributeType} -> attributeType) (\s@AwsDynamoDbTableAttributeDefinition' {} a -> s {attributeType = a} :: AwsDynamoDbTableAttributeDefinition)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsDynamoDbTableAttributeDefinition
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsDynamoDbTableAttributeDefinition"
       ( \x ->
           AwsDynamoDbTableAttributeDefinition'
-            Prelude.<$> (x Core..:? "AttributeType")
-            Prelude.<*> (x Core..:? "AttributeName")
+            Prelude.<$> (x Data..:? "AttributeName")
+            Prelude.<*> (x Data..:? "AttributeType")
       )
 
 instance
@@ -82,25 +83,25 @@ instance
   hashWithSalt
     _salt
     AwsDynamoDbTableAttributeDefinition' {..} =
-      _salt `Prelude.hashWithSalt` attributeType
-        `Prelude.hashWithSalt` attributeName
+      _salt `Prelude.hashWithSalt` attributeName
+        `Prelude.hashWithSalt` attributeType
 
 instance
   Prelude.NFData
     AwsDynamoDbTableAttributeDefinition
   where
   rnf AwsDynamoDbTableAttributeDefinition' {..} =
-    Prelude.rnf attributeType
-      `Prelude.seq` Prelude.rnf attributeName
+    Prelude.rnf attributeName
+      `Prelude.seq` Prelude.rnf attributeType
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsDynamoDbTableAttributeDefinition
   where
   toJSON AwsDynamoDbTableAttributeDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AttributeType" Core..=) Prelude.<$> attributeType,
-            ("AttributeName" Core..=) Prelude.<$> attributeName
+          [ ("AttributeName" Data..=) Prelude.<$> attributeName,
+            ("AttributeType" Data..=) Prelude.<$> attributeType
           ]
       )

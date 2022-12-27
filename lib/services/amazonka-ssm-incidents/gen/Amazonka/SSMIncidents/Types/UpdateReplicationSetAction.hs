@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSMIncidents.Types.UpdateReplicationSetAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSMIncidents.Types.UpdateReplicationSetAction where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSMIncidents.Types.AddRegionAction
 import Amazonka.SSMIncidents.Types.DeleteRegionAction
@@ -29,9 +30,11 @@ import Amazonka.SSMIncidents.Types.DeleteRegionAction
 --
 -- /See:/ 'newUpdateReplicationSetAction' smart constructor.
 data UpdateReplicationSetAction = UpdateReplicationSetAction'
-  { -- | Details about the Region that you\'re adding to the replication set.
+  { -- | Details about the Amazon Web Services Region that you\'re adding to the
+    -- replication set.
     addRegionAction :: Prelude.Maybe AddRegionAction,
-    -- | Details about the Region that you\'re deleting to the replication set.
+    -- | Details about the Amazon Web Services Region that you\'re deleting to
+    -- the replication set.
     deleteRegionAction :: Prelude.Maybe DeleteRegionAction
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -44,9 +47,11 @@ data UpdateReplicationSetAction = UpdateReplicationSetAction'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'addRegionAction', 'updateReplicationSetAction_addRegionAction' - Details about the Region that you\'re adding to the replication set.
+-- 'addRegionAction', 'updateReplicationSetAction_addRegionAction' - Details about the Amazon Web Services Region that you\'re adding to the
+-- replication set.
 --
--- 'deleteRegionAction', 'updateReplicationSetAction_deleteRegionAction' - Details about the Region that you\'re deleting to the replication set.
+-- 'deleteRegionAction', 'updateReplicationSetAction_deleteRegionAction' - Details about the Amazon Web Services Region that you\'re deleting to
+-- the replication set.
 newUpdateReplicationSetAction ::
   UpdateReplicationSetAction
 newUpdateReplicationSetAction =
@@ -56,11 +61,13 @@ newUpdateReplicationSetAction =
       deleteRegionAction = Prelude.Nothing
     }
 
--- | Details about the Region that you\'re adding to the replication set.
+-- | Details about the Amazon Web Services Region that you\'re adding to the
+-- replication set.
 updateReplicationSetAction_addRegionAction :: Lens.Lens' UpdateReplicationSetAction (Prelude.Maybe AddRegionAction)
 updateReplicationSetAction_addRegionAction = Lens.lens (\UpdateReplicationSetAction' {addRegionAction} -> addRegionAction) (\s@UpdateReplicationSetAction' {} a -> s {addRegionAction = a} :: UpdateReplicationSetAction)
 
--- | Details about the Region that you\'re deleting to the replication set.
+-- | Details about the Amazon Web Services Region that you\'re deleting to
+-- the replication set.
 updateReplicationSetAction_deleteRegionAction :: Lens.Lens' UpdateReplicationSetAction (Prelude.Maybe DeleteRegionAction)
 updateReplicationSetAction_deleteRegionAction = Lens.lens (\UpdateReplicationSetAction' {deleteRegionAction} -> deleteRegionAction) (\s@UpdateReplicationSetAction' {} a -> s {deleteRegionAction = a} :: UpdateReplicationSetAction)
 
@@ -74,13 +81,13 @@ instance Prelude.NFData UpdateReplicationSetAction where
     Prelude.rnf addRegionAction
       `Prelude.seq` Prelude.rnf deleteRegionAction
 
-instance Core.ToJSON UpdateReplicationSetAction where
+instance Data.ToJSON UpdateReplicationSetAction where
   toJSON UpdateReplicationSetAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("addRegionAction" Core..=)
+          [ ("addRegionAction" Data..=)
               Prelude.<$> addRegionAction,
-            ("deleteRegionAction" Core..=)
+            ("deleteRegionAction" Data..=)
               Prelude.<$> deleteRegionAction
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KMS.PutKeyPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -58,8 +58,9 @@ module Amazonka.KMS.PutKeyPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -121,10 +122,23 @@ data PutKeyPolicy = PutKeyPolicy'
     --     in the /Amazon Web Services Identity and Access Management User
     --     Guide/.
     --
-    -- The key policy cannot exceed 32 kilobytes (32768 bytes). For more
-    -- information, see
-    -- <https://docs.aws.amazon.com/kms/latest/developerguide/resource-limits.html Resource Quotas>
-    -- in the /Key Management Service Developer Guide/.
+    -- A key policy document can include only the following characters:
+    --
+    -- -   Printable ASCII characters from the space character (@\\u0020@)
+    --     through the end of the ASCII character range.
+    --
+    -- -   Printable characters in the Basic Latin and Latin-1 Supplement
+    --     character set (through @\\u00FF@).
+    --
+    -- -   The tab (@\\u0009@), line feed (@\\u000A@), and carriage return
+    --     (@\\u000D@) special characters
+    --
+    -- For information about key policies, see
+    -- <https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html Key policies in KMS>
+    -- in the /Key Management Service Developer Guide/.For help writing and
+    -- formatting a JSON policy document, see the
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html IAM JSON Policy Reference>
+    -- in the //Identity and Access Management User Guide// .
     policy :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -192,10 +206,23 @@ data PutKeyPolicy = PutKeyPolicy'
 --     in the /Amazon Web Services Identity and Access Management User
 --     Guide/.
 --
--- The key policy cannot exceed 32 kilobytes (32768 bytes). For more
--- information, see
--- <https://docs.aws.amazon.com/kms/latest/developerguide/resource-limits.html Resource Quotas>
--- in the /Key Management Service Developer Guide/.
+-- A key policy document can include only the following characters:
+--
+-- -   Printable ASCII characters from the space character (@\\u0020@)
+--     through the end of the ASCII character range.
+--
+-- -   Printable characters in the Basic Latin and Latin-1 Supplement
+--     character set (through @\\u00FF@).
+--
+-- -   The tab (@\\u0009@), line feed (@\\u000A@), and carriage return
+--     (@\\u000D@) special characters
+--
+-- For information about key policies, see
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html Key policies in KMS>
+-- in the /Key Management Service Developer Guide/.For help writing and
+-- formatting a JSON policy document, see the
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html IAM JSON Policy Reference>
+-- in the //Identity and Access Management User Guide// .
 newPutKeyPolicy ::
   -- | 'keyId'
   Prelude.Text ->
@@ -274,16 +301,30 @@ putKeyPolicy_policyName = Lens.lens (\PutKeyPolicy' {policyName} -> policyName) 
 --     in the /Amazon Web Services Identity and Access Management User
 --     Guide/.
 --
--- The key policy cannot exceed 32 kilobytes (32768 bytes). For more
--- information, see
--- <https://docs.aws.amazon.com/kms/latest/developerguide/resource-limits.html Resource Quotas>
--- in the /Key Management Service Developer Guide/.
+-- A key policy document can include only the following characters:
+--
+-- -   Printable ASCII characters from the space character (@\\u0020@)
+--     through the end of the ASCII character range.
+--
+-- -   Printable characters in the Basic Latin and Latin-1 Supplement
+--     character set (through @\\u00FF@).
+--
+-- -   The tab (@\\u0009@), line feed (@\\u000A@), and carriage return
+--     (@\\u000D@) special characters
+--
+-- For information about key policies, see
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html Key policies in KMS>
+-- in the /Key Management Service Developer Guide/.For help writing and
+-- formatting a JSON policy document, see the
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html IAM JSON Policy Reference>
+-- in the //Identity and Access Management User Guide// .
 putKeyPolicy_policy :: Lens.Lens' PutKeyPolicy Prelude.Text
 putKeyPolicy_policy = Lens.lens (\PutKeyPolicy' {policy} -> policy) (\s@PutKeyPolicy' {} a -> s {policy = a} :: PutKeyPolicy)
 
 instance Core.AWSRequest PutKeyPolicy where
   type AWSResponse PutKeyPolicy = PutKeyPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull PutKeyPolicyResponse'
 
 instance Prelude.Hashable PutKeyPolicy where
@@ -301,35 +342,35 @@ instance Prelude.NFData PutKeyPolicy where
       `Prelude.seq` Prelude.rnf policyName
       `Prelude.seq` Prelude.rnf policy
 
-instance Core.ToHeaders PutKeyPolicy where
+instance Data.ToHeaders PutKeyPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("TrentService.PutKeyPolicy" :: Prelude.ByteString),
+              Data.=# ("TrentService.PutKeyPolicy" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutKeyPolicy where
+instance Data.ToJSON PutKeyPolicy where
   toJSON PutKeyPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("BypassPolicyLockoutSafetyCheck" Core..=)
+          [ ("BypassPolicyLockoutSafetyCheck" Data..=)
               Prelude.<$> bypassPolicyLockoutSafetyCheck,
-            Prelude.Just ("KeyId" Core..= keyId),
-            Prelude.Just ("PolicyName" Core..= policyName),
-            Prelude.Just ("Policy" Core..= policy)
+            Prelude.Just ("KeyId" Data..= keyId),
+            Prelude.Just ("PolicyName" Data..= policyName),
+            Prelude.Just ("Policy" Data..= policy)
           ]
       )
 
-instance Core.ToPath PutKeyPolicy where
+instance Data.ToPath PutKeyPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutKeyPolicy where
+instance Data.ToQuery PutKeyPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutKeyPolicyResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.Types.QueueQuickConnectConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.Connect.Types.QueueQuickConnectConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Contains information about a queue for a quick connect. The contact flow
--- must be of type Transfer to Queue.
+-- | Contains information about a queue for a quick connect. The flow must be
+-- of type Transfer to Queue.
 --
 -- /See:/ 'newQueueQuickConnectConfig' smart constructor.
 data QueueQuickConnectConfig = QueueQuickConnectConfig'
   { -- | The identifier for the queue.
     queueId :: Prelude.Text,
-    -- | The identifier of the contact flow.
+    -- | The identifier of the flow.
     contactFlowId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -45,7 +46,7 @@ data QueueQuickConnectConfig = QueueQuickConnectConfig'
 --
 -- 'queueId', 'queueQuickConnectConfig_queueId' - The identifier for the queue.
 --
--- 'contactFlowId', 'queueQuickConnectConfig_contactFlowId' - The identifier of the contact flow.
+-- 'contactFlowId', 'queueQuickConnectConfig_contactFlowId' - The identifier of the flow.
 newQueueQuickConnectConfig ::
   -- | 'queueId'
   Prelude.Text ->
@@ -62,18 +63,18 @@ newQueueQuickConnectConfig pQueueId_ pContactFlowId_ =
 queueQuickConnectConfig_queueId :: Lens.Lens' QueueQuickConnectConfig Prelude.Text
 queueQuickConnectConfig_queueId = Lens.lens (\QueueQuickConnectConfig' {queueId} -> queueId) (\s@QueueQuickConnectConfig' {} a -> s {queueId = a} :: QueueQuickConnectConfig)
 
--- | The identifier of the contact flow.
+-- | The identifier of the flow.
 queueQuickConnectConfig_contactFlowId :: Lens.Lens' QueueQuickConnectConfig Prelude.Text
 queueQuickConnectConfig_contactFlowId = Lens.lens (\QueueQuickConnectConfig' {contactFlowId} -> contactFlowId) (\s@QueueQuickConnectConfig' {} a -> s {contactFlowId = a} :: QueueQuickConnectConfig)
 
-instance Core.FromJSON QueueQuickConnectConfig where
+instance Data.FromJSON QueueQuickConnectConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "QueueQuickConnectConfig"
       ( \x ->
           QueueQuickConnectConfig'
-            Prelude.<$> (x Core..: "QueueId")
-            Prelude.<*> (x Core..: "ContactFlowId")
+            Prelude.<$> (x Data..: "QueueId")
+            Prelude.<*> (x Data..: "ContactFlowId")
       )
 
 instance Prelude.Hashable QueueQuickConnectConfig where
@@ -86,12 +87,12 @@ instance Prelude.NFData QueueQuickConnectConfig where
     Prelude.rnf queueId
       `Prelude.seq` Prelude.rnf contactFlowId
 
-instance Core.ToJSON QueueQuickConnectConfig where
+instance Data.ToJSON QueueQuickConnectConfig where
   toJSON QueueQuickConnectConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("QueueId" Core..= queueId),
+          [ Prelude.Just ("QueueId" Data..= queueId),
             Prelude.Just
-              ("ContactFlowId" Core..= contactFlowId)
+              ("ContactFlowId" Data..= contactFlowId)
           ]
       )

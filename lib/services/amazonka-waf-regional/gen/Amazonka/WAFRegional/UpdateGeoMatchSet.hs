@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.UpdateGeoMatchSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -80,7 +80,8 @@ module Amazonka.WAFRegional.UpdateGeoMatchSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -180,12 +181,13 @@ instance Core.AWSRequest UpdateGeoMatchSet where
   type
     AWSResponse UpdateGeoMatchSet =
       UpdateGeoMatchSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateGeoMatchSetResponse'
-            Prelude.<$> (x Core..?> "ChangeToken")
+            Prelude.<$> (x Data..?> "ChangeToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -201,36 +203,36 @@ instance Prelude.NFData UpdateGeoMatchSet where
       `Prelude.seq` Prelude.rnf changeToken
       `Prelude.seq` Prelude.rnf updates
 
-instance Core.ToHeaders UpdateGeoMatchSet where
+instance Data.ToHeaders UpdateGeoMatchSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_Regional_20161128.UpdateGeoMatchSet" ::
+              Data.=# ( "AWSWAF_Regional_20161128.UpdateGeoMatchSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateGeoMatchSet where
+instance Data.ToJSON UpdateGeoMatchSet where
   toJSON UpdateGeoMatchSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("GeoMatchSetId" Core..= geoMatchSetId),
-            Prelude.Just ("ChangeToken" Core..= changeToken),
-            Prelude.Just ("Updates" Core..= updates)
+              ("GeoMatchSetId" Data..= geoMatchSetId),
+            Prelude.Just ("ChangeToken" Data..= changeToken),
+            Prelude.Just ("Updates" Data..= updates)
           ]
       )
 
-instance Core.ToPath UpdateGeoMatchSet where
+instance Data.ToPath UpdateGeoMatchSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateGeoMatchSet where
+instance Data.ToQuery UpdateGeoMatchSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateGeoMatchSetResponse' smart constructor.

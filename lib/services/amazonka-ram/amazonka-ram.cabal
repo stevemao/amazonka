@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -60,6 +60,7 @@ library
     Amazonka.RAM.Lens
     Amazonka.RAM.ListPendingInvitationResources
     Amazonka.RAM.ListPermissions
+    Amazonka.RAM.ListPermissionVersions
     Amazonka.RAM.ListPrincipals
     Amazonka.RAM.ListResources
     Amazonka.RAM.ListResourceSharePermissions
@@ -71,6 +72,8 @@ library
     Amazonka.RAM.Types.Principal
     Amazonka.RAM.Types.Resource
     Amazonka.RAM.Types.ResourceOwner
+    Amazonka.RAM.Types.ResourceRegionScope
+    Amazonka.RAM.Types.ResourceRegionScopeFilter
     Amazonka.RAM.Types.ResourceShare
     Amazonka.RAM.Types.ResourceShareAssociation
     Amazonka.RAM.Types.ResourceShareAssociationStatus
@@ -90,7 +93,7 @@ library
     Amazonka.RAM.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-ram-test
@@ -109,9 +112,9 @@ test-suite amazonka-ram-test
     Test.Amazonka.RAM.Internal
 
   build-depends:
-    , amazonka-core         ^>=2.0
+    , amazonka-core         >=2.0 && <2.1
     , amazonka-ram
-    , amazonka-test         ^>=2.0
+    , amazonka-test         >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Athena.UpdatePreparedStatement
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.Athena.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -116,7 +117,8 @@ instance Core.AWSRequest UpdatePreparedStatement where
   type
     AWSResponse UpdatePreparedStatement =
       UpdatePreparedStatementResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -138,37 +140,37 @@ instance Prelude.NFData UpdatePreparedStatement where
       `Prelude.seq` Prelude.rnf workGroup
       `Prelude.seq` Prelude.rnf queryStatement
 
-instance Core.ToHeaders UpdatePreparedStatement where
+instance Data.ToHeaders UpdatePreparedStatement where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonAthena.UpdatePreparedStatement" ::
+              Data.=# ( "AmazonAthena.UpdatePreparedStatement" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdatePreparedStatement where
+instance Data.ToJSON UpdatePreparedStatement where
   toJSON UpdatePreparedStatement' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Description" Core..=) Prelude.<$> description,
-            Prelude.Just ("StatementName" Core..= statementName),
-            Prelude.Just ("WorkGroup" Core..= workGroup),
+          [ ("Description" Data..=) Prelude.<$> description,
+            Prelude.Just ("StatementName" Data..= statementName),
+            Prelude.Just ("WorkGroup" Data..= workGroup),
             Prelude.Just
-              ("QueryStatement" Core..= queryStatement)
+              ("QueryStatement" Data..= queryStatement)
           ]
       )
 
-instance Core.ToPath UpdatePreparedStatement where
+instance Data.ToPath UpdatePreparedStatement where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdatePreparedStatement where
+instance Data.ToQuery UpdatePreparedStatement where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdatePreparedStatementResponse' smart constructor.

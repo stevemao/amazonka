@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.FMS
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,11 +39,11 @@ module Amazonka.FMS
     -- ** InvalidTypeException
     _InvalidTypeException,
 
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
-
     -- ** LimitExceededException
     _LimitExceededException,
+
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
 
     -- * Waiters
     -- $waiters
@@ -51,71 +51,35 @@ module Amazonka.FMS
     -- * Operations
     -- $operations
 
-    -- ** ListPolicies (Paginated)
-    ListPolicies (ListPolicies'),
-    newListPolicies,
-    ListPoliciesResponse (ListPoliciesResponse'),
-    newListPoliciesResponse,
+    -- ** AssociateAdminAccount
+    AssociateAdminAccount (AssociateAdminAccount'),
+    newAssociateAdminAccount,
+    AssociateAdminAccountResponse (AssociateAdminAccountResponse'),
+    newAssociateAdminAccountResponse,
 
-    -- ** GetComplianceDetail
-    GetComplianceDetail (GetComplianceDetail'),
-    newGetComplianceDetail,
-    GetComplianceDetailResponse (GetComplianceDetailResponse'),
-    newGetComplianceDetailResponse,
+    -- ** AssociateThirdPartyFirewall
+    AssociateThirdPartyFirewall (AssociateThirdPartyFirewall'),
+    newAssociateThirdPartyFirewall,
+    AssociateThirdPartyFirewallResponse (AssociateThirdPartyFirewallResponse'),
+    newAssociateThirdPartyFirewallResponse,
 
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
+    -- ** BatchAssociateResource
+    BatchAssociateResource (BatchAssociateResource'),
+    newBatchAssociateResource,
+    BatchAssociateResourceResponse (BatchAssociateResourceResponse'),
+    newBatchAssociateResourceResponse,
 
-    -- ** GetNotificationChannel
-    GetNotificationChannel (GetNotificationChannel'),
-    newGetNotificationChannel,
-    GetNotificationChannelResponse (GetNotificationChannelResponse'),
-    newGetNotificationChannelResponse,
+    -- ** BatchDisassociateResource
+    BatchDisassociateResource (BatchDisassociateResource'),
+    newBatchDisassociateResource,
+    BatchDisassociateResourceResponse (BatchDisassociateResourceResponse'),
+    newBatchDisassociateResourceResponse,
 
-    -- ** GetAdminAccount
-    GetAdminAccount (GetAdminAccount'),
-    newGetAdminAccount,
-    GetAdminAccountResponse (GetAdminAccountResponse'),
-    newGetAdminAccountResponse,
-
-    -- ** ListComplianceStatus (Paginated)
-    ListComplianceStatus (ListComplianceStatus'),
-    newListComplianceStatus,
-    ListComplianceStatusResponse (ListComplianceStatusResponse'),
-    newListComplianceStatusResponse,
-
-    -- ** GetAppsList
-    GetAppsList (GetAppsList'),
-    newGetAppsList,
-    GetAppsListResponse (GetAppsListResponse'),
-    newGetAppsListResponse,
-
-    -- ** PutPolicy
-    PutPolicy (PutPolicy'),
-    newPutPolicy,
-    PutPolicyResponse (PutPolicyResponse'),
-    newPutPolicyResponse,
-
-    -- ** DeletePolicy
-    DeletePolicy (DeletePolicy'),
-    newDeletePolicy,
-    DeletePolicyResponse (DeletePolicyResponse'),
-    newDeletePolicyResponse,
-
-    -- ** DisassociateAdminAccount
-    DisassociateAdminAccount (DisassociateAdminAccount'),
-    newDisassociateAdminAccount,
-    DisassociateAdminAccountResponse (DisassociateAdminAccountResponse'),
-    newDisassociateAdminAccountResponse,
-
-    -- ** PutNotificationChannel
-    PutNotificationChannel (PutNotificationChannel'),
-    newPutNotificationChannel,
-    PutNotificationChannelResponse (PutNotificationChannelResponse'),
-    newPutNotificationChannelResponse,
+    -- ** DeleteAppsList
+    DeleteAppsList (DeleteAppsList'),
+    newDeleteAppsList,
+    DeleteAppsListResponse (DeleteAppsListResponse'),
+    newDeleteAppsListResponse,
 
     -- ** DeleteNotificationChannel
     DeleteNotificationChannel (DeleteNotificationChannel'),
@@ -123,11 +87,89 @@ module Amazonka.FMS
     DeleteNotificationChannelResponse (DeleteNotificationChannelResponse'),
     newDeleteNotificationChannelResponse,
 
-    -- ** AssociateAdminAccount
-    AssociateAdminAccount (AssociateAdminAccount'),
-    newAssociateAdminAccount,
-    AssociateAdminAccountResponse (AssociateAdminAccountResponse'),
-    newAssociateAdminAccountResponse,
+    -- ** DeletePolicy
+    DeletePolicy (DeletePolicy'),
+    newDeletePolicy,
+    DeletePolicyResponse (DeletePolicyResponse'),
+    newDeletePolicyResponse,
+
+    -- ** DeleteProtocolsList
+    DeleteProtocolsList (DeleteProtocolsList'),
+    newDeleteProtocolsList,
+    DeleteProtocolsListResponse (DeleteProtocolsListResponse'),
+    newDeleteProtocolsListResponse,
+
+    -- ** DeleteResourceSet
+    DeleteResourceSet (DeleteResourceSet'),
+    newDeleteResourceSet,
+    DeleteResourceSetResponse (DeleteResourceSetResponse'),
+    newDeleteResourceSetResponse,
+
+    -- ** DisassociateAdminAccount
+    DisassociateAdminAccount (DisassociateAdminAccount'),
+    newDisassociateAdminAccount,
+    DisassociateAdminAccountResponse (DisassociateAdminAccountResponse'),
+    newDisassociateAdminAccountResponse,
+
+    -- ** DisassociateThirdPartyFirewall
+    DisassociateThirdPartyFirewall (DisassociateThirdPartyFirewall'),
+    newDisassociateThirdPartyFirewall,
+    DisassociateThirdPartyFirewallResponse (DisassociateThirdPartyFirewallResponse'),
+    newDisassociateThirdPartyFirewallResponse,
+
+    -- ** GetAdminAccount
+    GetAdminAccount (GetAdminAccount'),
+    newGetAdminAccount,
+    GetAdminAccountResponse (GetAdminAccountResponse'),
+    newGetAdminAccountResponse,
+
+    -- ** GetAppsList
+    GetAppsList (GetAppsList'),
+    newGetAppsList,
+    GetAppsListResponse (GetAppsListResponse'),
+    newGetAppsListResponse,
+
+    -- ** GetComplianceDetail
+    GetComplianceDetail (GetComplianceDetail'),
+    newGetComplianceDetail,
+    GetComplianceDetailResponse (GetComplianceDetailResponse'),
+    newGetComplianceDetailResponse,
+
+    -- ** GetNotificationChannel
+    GetNotificationChannel (GetNotificationChannel'),
+    newGetNotificationChannel,
+    GetNotificationChannelResponse (GetNotificationChannelResponse'),
+    newGetNotificationChannelResponse,
+
+    -- ** GetPolicy
+    GetPolicy (GetPolicy'),
+    newGetPolicy,
+    GetPolicyResponse (GetPolicyResponse'),
+    newGetPolicyResponse,
+
+    -- ** GetProtectionStatus
+    GetProtectionStatus (GetProtectionStatus'),
+    newGetProtectionStatus,
+    GetProtectionStatusResponse (GetProtectionStatusResponse'),
+    newGetProtectionStatusResponse,
+
+    -- ** GetProtocolsList
+    GetProtocolsList (GetProtocolsList'),
+    newGetProtocolsList,
+    GetProtocolsListResponse (GetProtocolsListResponse'),
+    newGetProtocolsListResponse,
+
+    -- ** GetResourceSet
+    GetResourceSet (GetResourceSet'),
+    newGetResourceSet,
+    GetResourceSetResponse (GetResourceSetResponse'),
+    newGetResourceSetResponse,
+
+    -- ** GetThirdPartyFirewallAssociationStatus
+    GetThirdPartyFirewallAssociationStatus (GetThirdPartyFirewallAssociationStatus'),
+    newGetThirdPartyFirewallAssociationStatus,
+    GetThirdPartyFirewallAssociationStatusResponse (GetThirdPartyFirewallAssociationStatusResponse'),
+    newGetThirdPartyFirewallAssociationStatusResponse,
 
     -- ** GetViolationDetails
     GetViolationDetails (GetViolationDetails'),
@@ -135,11 +177,95 @@ module Amazonka.FMS
     GetViolationDetailsResponse (GetViolationDetailsResponse'),
     newGetViolationDetailsResponse,
 
+    -- ** ListAppsLists (Paginated)
+    ListAppsLists (ListAppsLists'),
+    newListAppsLists,
+    ListAppsListsResponse (ListAppsListsResponse'),
+    newListAppsListsResponse,
+
+    -- ** ListComplianceStatus (Paginated)
+    ListComplianceStatus (ListComplianceStatus'),
+    newListComplianceStatus,
+    ListComplianceStatusResponse (ListComplianceStatusResponse'),
+    newListComplianceStatusResponse,
+
+    -- ** ListDiscoveredResources
+    ListDiscoveredResources (ListDiscoveredResources'),
+    newListDiscoveredResources,
+    ListDiscoveredResourcesResponse (ListDiscoveredResourcesResponse'),
+    newListDiscoveredResourcesResponse,
+
     -- ** ListMemberAccounts (Paginated)
     ListMemberAccounts (ListMemberAccounts'),
     newListMemberAccounts,
     ListMemberAccountsResponse (ListMemberAccountsResponse'),
     newListMemberAccountsResponse,
+
+    -- ** ListPolicies (Paginated)
+    ListPolicies (ListPolicies'),
+    newListPolicies,
+    ListPoliciesResponse (ListPoliciesResponse'),
+    newListPoliciesResponse,
+
+    -- ** ListProtocolsLists (Paginated)
+    ListProtocolsLists (ListProtocolsLists'),
+    newListProtocolsLists,
+    ListProtocolsListsResponse (ListProtocolsListsResponse'),
+    newListProtocolsListsResponse,
+
+    -- ** ListResourceSetResources
+    ListResourceSetResources (ListResourceSetResources'),
+    newListResourceSetResources,
+    ListResourceSetResourcesResponse (ListResourceSetResourcesResponse'),
+    newListResourceSetResourcesResponse,
+
+    -- ** ListResourceSets
+    ListResourceSets (ListResourceSets'),
+    newListResourceSets,
+    ListResourceSetsResponse (ListResourceSetsResponse'),
+    newListResourceSetsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** ListThirdPartyFirewallFirewallPolicies (Paginated)
+    ListThirdPartyFirewallFirewallPolicies (ListThirdPartyFirewallFirewallPolicies'),
+    newListThirdPartyFirewallFirewallPolicies,
+    ListThirdPartyFirewallFirewallPoliciesResponse (ListThirdPartyFirewallFirewallPoliciesResponse'),
+    newListThirdPartyFirewallFirewallPoliciesResponse,
+
+    -- ** PutAppsList
+    PutAppsList (PutAppsList'),
+    newPutAppsList,
+    PutAppsListResponse (PutAppsListResponse'),
+    newPutAppsListResponse,
+
+    -- ** PutNotificationChannel
+    PutNotificationChannel (PutNotificationChannel'),
+    newPutNotificationChannel,
+    PutNotificationChannelResponse (PutNotificationChannelResponse'),
+    newPutNotificationChannelResponse,
+
+    -- ** PutPolicy
+    PutPolicy (PutPolicy'),
+    newPutPolicy,
+    PutPolicyResponse (PutPolicyResponse'),
+    newPutPolicyResponse,
+
+    -- ** PutProtocolsList
+    PutProtocolsList (PutProtocolsList'),
+    newPutProtocolsList,
+    PutProtocolsListResponse (PutProtocolsListResponse'),
+    newPutProtocolsListResponse,
+
+    -- ** PutResourceSet
+    PutResourceSet (PutResourceSet'),
+    newPutResourceSet,
+    PutResourceSetResponse (PutResourceSetResponse'),
+    newPutResourceSetResponse,
 
     -- ** TagResource
     TagResource (TagResource'),
@@ -152,60 +278,6 @@ module Amazonka.FMS
     newUntagResource,
     UntagResourceResponse (UntagResourceResponse'),
     newUntagResourceResponse,
-
-    -- ** DeleteProtocolsList
-    DeleteProtocolsList (DeleteProtocolsList'),
-    newDeleteProtocolsList,
-    DeleteProtocolsListResponse (DeleteProtocolsListResponse'),
-    newDeleteProtocolsListResponse,
-
-    -- ** GetPolicy
-    GetPolicy (GetPolicy'),
-    newGetPolicy,
-    GetPolicyResponse (GetPolicyResponse'),
-    newGetPolicyResponse,
-
-    -- ** ListProtocolsLists (Paginated)
-    ListProtocolsLists (ListProtocolsLists'),
-    newListProtocolsLists,
-    ListProtocolsListsResponse (ListProtocolsListsResponse'),
-    newListProtocolsListsResponse,
-
-    -- ** PutProtocolsList
-    PutProtocolsList (PutProtocolsList'),
-    newPutProtocolsList,
-    PutProtocolsListResponse (PutProtocolsListResponse'),
-    newPutProtocolsListResponse,
-
-    -- ** PutAppsList
-    PutAppsList (PutAppsList'),
-    newPutAppsList,
-    PutAppsListResponse (PutAppsListResponse'),
-    newPutAppsListResponse,
-
-    -- ** DeleteAppsList
-    DeleteAppsList (DeleteAppsList'),
-    newDeleteAppsList,
-    DeleteAppsListResponse (DeleteAppsListResponse'),
-    newDeleteAppsListResponse,
-
-    -- ** ListAppsLists (Paginated)
-    ListAppsLists (ListAppsLists'),
-    newListAppsLists,
-    ListAppsListsResponse (ListAppsListsResponse'),
-    newListAppsListsResponse,
-
-    -- ** GetProtocolsList
-    GetProtocolsList (GetProtocolsList'),
-    newGetProtocolsList,
-    GetProtocolsListResponse (GetProtocolsListResponse'),
-    newGetProtocolsListResponse,
-
-    -- ** GetProtectionStatus
-    GetProtectionStatus (GetProtectionStatus'),
-    newGetProtectionStatus,
-    GetProtectionStatusResponse (GetProtectionStatusResponse'),
-    newGetProtectionStatusResponse,
 
     -- * Types
 
@@ -221,17 +293,38 @@ module Amazonka.FMS
     -- ** DestinationType
     DestinationType (..),
 
+    -- ** FailedItemReason
+    FailedItemReason (..),
+
+    -- ** FirewallDeploymentModel
+    FirewallDeploymentModel (..),
+
+    -- ** MarketplaceSubscriptionOnboardingStatus
+    MarketplaceSubscriptionOnboardingStatus (..),
+
+    -- ** NetworkFirewallOverrideAction
+    NetworkFirewallOverrideAction (..),
+
     -- ** PolicyComplianceStatusType
     PolicyComplianceStatusType (..),
 
     -- ** RemediationActionType
     RemediationActionType (..),
 
+    -- ** RuleOrder
+    RuleOrder (..),
+
     -- ** SecurityServiceType
     SecurityServiceType (..),
 
     -- ** TargetType
     TargetType (..),
+
+    -- ** ThirdPartyFirewall
+    ThirdPartyFirewall (..),
+
+    -- ** ThirdPartyFirewallAssociationStatus
+    ThirdPartyFirewallAssociationStatus (..),
 
     -- ** ViolationReason
     ViolationReason (..),
@@ -267,6 +360,10 @@ module Amazonka.FMS
     -- ** ComplianceViolator
     ComplianceViolator (ComplianceViolator'),
     newComplianceViolator,
+
+    -- ** DiscoveredResource
+    DiscoveredResource (DiscoveredResource'),
+    newDiscoveredResource,
 
     -- ** DnsDuplicateRuleGroupViolation
     DnsDuplicateRuleGroupViolation (DnsDuplicateRuleGroupViolation'),
@@ -316,6 +413,22 @@ module Amazonka.FMS
     ExpectedRoute (ExpectedRoute'),
     newExpectedRoute,
 
+    -- ** FMSPolicyUpdateFirewallCreationConfigAction
+    FMSPolicyUpdateFirewallCreationConfigAction (FMSPolicyUpdateFirewallCreationConfigAction'),
+    newFMSPolicyUpdateFirewallCreationConfigAction,
+
+    -- ** FailedItem
+    FailedItem (FailedItem'),
+    newFailedItem,
+
+    -- ** FirewallSubnetIsOutOfScopeViolation
+    FirewallSubnetIsOutOfScopeViolation (FirewallSubnetIsOutOfScopeViolation'),
+    newFirewallSubnetIsOutOfScopeViolation,
+
+    -- ** FirewallSubnetMissingVPCEndpointViolation
+    FirewallSubnetMissingVPCEndpointViolation (FirewallSubnetMissingVPCEndpointViolation'),
+    newFirewallSubnetMissingVPCEndpointViolation,
+
     -- ** NetworkFirewallBlackHoleRouteDetectedViolation
     NetworkFirewallBlackHoleRouteDetectedViolation (NetworkFirewallBlackHoleRouteDetectedViolation'),
     newNetworkFirewallBlackHoleRouteDetectedViolation,
@@ -344,6 +457,10 @@ module Amazonka.FMS
     NetworkFirewallMissingSubnetViolation (NetworkFirewallMissingSubnetViolation'),
     newNetworkFirewallMissingSubnetViolation,
 
+    -- ** NetworkFirewallPolicy
+    NetworkFirewallPolicy (NetworkFirewallPolicy'),
+    newNetworkFirewallPolicy,
+
     -- ** NetworkFirewallPolicyDescription
     NetworkFirewallPolicyDescription (NetworkFirewallPolicyDescription'),
     newNetworkFirewallPolicyDescription,
@@ -351,6 +468,10 @@ module Amazonka.FMS
     -- ** NetworkFirewallPolicyModifiedViolation
     NetworkFirewallPolicyModifiedViolation (NetworkFirewallPolicyModifiedViolation'),
     newNetworkFirewallPolicyModifiedViolation,
+
+    -- ** NetworkFirewallStatefulRuleGroupOverride
+    NetworkFirewallStatefulRuleGroupOverride (NetworkFirewallStatefulRuleGroupOverride'),
+    newNetworkFirewallStatefulRuleGroupOverride,
 
     -- ** NetworkFirewallUnexpectedFirewallRoutesViolation
     NetworkFirewallUnexpectedFirewallRoutesViolation (NetworkFirewallUnexpectedFirewallRoutesViolation'),
@@ -375,6 +496,10 @@ module Amazonka.FMS
     -- ** PolicyComplianceStatus
     PolicyComplianceStatus (PolicyComplianceStatus'),
     newPolicyComplianceStatus,
+
+    -- ** PolicyOption
+    PolicyOption (PolicyOption'),
+    newPolicyOption,
 
     -- ** PolicySummary
     PolicySummary (PolicySummary'),
@@ -404,6 +529,18 @@ module Amazonka.FMS
     RemediationActionWithOrder (RemediationActionWithOrder'),
     newRemediationActionWithOrder,
 
+    -- ** Resource
+    Resource (Resource'),
+    newResource,
+
+    -- ** ResourceSet
+    ResourceSet (ResourceSet'),
+    newResourceSet,
+
+    -- ** ResourceSetSummary
+    ResourceSetSummary (ResourceSetSummary'),
+    newResourceSetSummary,
+
     -- ** ResourceTag
     ResourceTag (ResourceTag'),
     newResourceTag,
@@ -415,6 +552,10 @@ module Amazonka.FMS
     -- ** Route
     Route (Route'),
     newRoute,
+
+    -- ** RouteHasOutOfScopeEndpointViolation
+    RouteHasOutOfScopeEndpointViolation (RouteHasOutOfScopeEndpointViolation'),
+    newRouteHasOutOfScopeEndpointViolation,
 
     -- ** SecurityGroupRemediationAction
     SecurityGroupRemediationAction (SecurityGroupRemediationAction'),
@@ -428,6 +569,10 @@ module Amazonka.FMS
     SecurityServicePolicyData (SecurityServicePolicyData'),
     newSecurityServicePolicyData,
 
+    -- ** StatefulEngineOptions
+    StatefulEngineOptions (StatefulEngineOptions'),
+    newStatefulEngineOptions,
+
     -- ** StatefulRuleGroup
     StatefulRuleGroup (StatefulRuleGroup'),
     newStatefulRuleGroup,
@@ -440,6 +585,26 @@ module Amazonka.FMS
     Tag (Tag'),
     newTag,
 
+    -- ** ThirdPartyFirewallFirewallPolicy
+    ThirdPartyFirewallFirewallPolicy (ThirdPartyFirewallFirewallPolicy'),
+    newThirdPartyFirewallFirewallPolicy,
+
+    -- ** ThirdPartyFirewallMissingExpectedRouteTableViolation
+    ThirdPartyFirewallMissingExpectedRouteTableViolation (ThirdPartyFirewallMissingExpectedRouteTableViolation'),
+    newThirdPartyFirewallMissingExpectedRouteTableViolation,
+
+    -- ** ThirdPartyFirewallMissingFirewallViolation
+    ThirdPartyFirewallMissingFirewallViolation (ThirdPartyFirewallMissingFirewallViolation'),
+    newThirdPartyFirewallMissingFirewallViolation,
+
+    -- ** ThirdPartyFirewallMissingSubnetViolation
+    ThirdPartyFirewallMissingSubnetViolation (ThirdPartyFirewallMissingSubnetViolation'),
+    newThirdPartyFirewallMissingSubnetViolation,
+
+    -- ** ThirdPartyFirewallPolicy
+    ThirdPartyFirewallPolicy (ThirdPartyFirewallPolicy'),
+    newThirdPartyFirewallPolicy,
+
     -- ** ViolationDetail
     ViolationDetail (ViolationDetail'),
     newViolationDetail,
@@ -447,11 +612,16 @@ module Amazonka.FMS
 where
 
 import Amazonka.FMS.AssociateAdminAccount
+import Amazonka.FMS.AssociateThirdPartyFirewall
+import Amazonka.FMS.BatchAssociateResource
+import Amazonka.FMS.BatchDisassociateResource
 import Amazonka.FMS.DeleteAppsList
 import Amazonka.FMS.DeleteNotificationChannel
 import Amazonka.FMS.DeletePolicy
 import Amazonka.FMS.DeleteProtocolsList
+import Amazonka.FMS.DeleteResourceSet
 import Amazonka.FMS.DisassociateAdminAccount
+import Amazonka.FMS.DisassociateThirdPartyFirewall
 import Amazonka.FMS.GetAdminAccount
 import Amazonka.FMS.GetAppsList
 import Amazonka.FMS.GetComplianceDetail
@@ -459,18 +629,25 @@ import Amazonka.FMS.GetNotificationChannel
 import Amazonka.FMS.GetPolicy
 import Amazonka.FMS.GetProtectionStatus
 import Amazonka.FMS.GetProtocolsList
+import Amazonka.FMS.GetResourceSet
+import Amazonka.FMS.GetThirdPartyFirewallAssociationStatus
 import Amazonka.FMS.GetViolationDetails
 import Amazonka.FMS.Lens
 import Amazonka.FMS.ListAppsLists
 import Amazonka.FMS.ListComplianceStatus
+import Amazonka.FMS.ListDiscoveredResources
 import Amazonka.FMS.ListMemberAccounts
 import Amazonka.FMS.ListPolicies
 import Amazonka.FMS.ListProtocolsLists
+import Amazonka.FMS.ListResourceSetResources
+import Amazonka.FMS.ListResourceSets
 import Amazonka.FMS.ListTagsForResource
+import Amazonka.FMS.ListThirdPartyFirewallFirewallPolicies
 import Amazonka.FMS.PutAppsList
 import Amazonka.FMS.PutNotificationChannel
 import Amazonka.FMS.PutPolicy
 import Amazonka.FMS.PutProtocolsList
+import Amazonka.FMS.PutResourceSet
 import Amazonka.FMS.TagResource
 import Amazonka.FMS.Types
 import Amazonka.FMS.UntagResource

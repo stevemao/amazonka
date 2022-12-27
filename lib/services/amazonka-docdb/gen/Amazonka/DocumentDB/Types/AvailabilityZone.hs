@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DocumentDB.Types.AvailabilityZone
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DocumentDB.Types.AvailabilityZone where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about an Availability Zone.
@@ -50,9 +51,9 @@ newAvailabilityZone =
 availabilityZone_name :: Lens.Lens' AvailabilityZone (Prelude.Maybe Prelude.Text)
 availabilityZone_name = Lens.lens (\AvailabilityZone' {name} -> name) (\s@AvailabilityZone' {} a -> s {name = a} :: AvailabilityZone)
 
-instance Core.FromXML AvailabilityZone where
+instance Data.FromXML AvailabilityZone where
   parseXML x =
-    AvailabilityZone' Prelude.<$> (x Core..@? "Name")
+    AvailabilityZone' Prelude.<$> (x Data..@? "Name")
 
 instance Prelude.Hashable AvailabilityZone where
   hashWithSalt _salt AvailabilityZone' {..} =

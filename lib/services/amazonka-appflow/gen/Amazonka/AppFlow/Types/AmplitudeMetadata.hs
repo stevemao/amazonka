@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.AmplitudeMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppFlow.Types.AmplitudeMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The connector metadata specific to Amplitude.
@@ -39,9 +40,9 @@ newAmplitudeMetadata ::
   AmplitudeMetadata
 newAmplitudeMetadata = AmplitudeMetadata'
 
-instance Core.FromJSON AmplitudeMetadata where
+instance Data.FromJSON AmplitudeMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AmplitudeMetadata"
       (\x -> Prelude.pure AmplitudeMetadata')
 

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudHSM.DeleteHapg
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -55,7 +55,8 @@ where
 
 import Amazonka.CloudHSM.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,13 +92,14 @@ deleteHapg_hapgArn = Lens.lens (\DeleteHapg' {hapgArn} -> hapgArn) (\s@DeleteHap
 
 instance Core.AWSRequest DeleteHapg where
   type AWSResponse DeleteHapg = DeleteHapgResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteHapgResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Status")
+            Prelude.<*> (x Data..:> "Status")
       )
 
 instance Prelude.Hashable DeleteHapg where
@@ -107,32 +109,32 @@ instance Prelude.Hashable DeleteHapg where
 instance Prelude.NFData DeleteHapg where
   rnf DeleteHapg' {..} = Prelude.rnf hapgArn
 
-instance Core.ToHeaders DeleteHapg where
+instance Data.ToHeaders DeleteHapg where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CloudHsmFrontendService.DeleteHapg" ::
+              Data.=# ( "CloudHsmFrontendService.DeleteHapg" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteHapg where
+instance Data.ToJSON DeleteHapg where
   toJSON DeleteHapg' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("HapgArn" Core..= hapgArn)]
+          [Prelude.Just ("HapgArn" Data..= hapgArn)]
       )
 
-instance Core.ToPath DeleteHapg where
+instance Data.ToPath DeleteHapg where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteHapg where
+instance Data.ToQuery DeleteHapg where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the output of the DeleteHapg action.

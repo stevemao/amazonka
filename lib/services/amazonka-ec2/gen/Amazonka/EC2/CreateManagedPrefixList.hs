@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.CreateManagedPrefixList
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,9 +30,9 @@ module Amazonka.EC2.CreateManagedPrefixList
 
     -- * Request Lenses
     createManagedPrefixList_clientToken,
+    createManagedPrefixList_dryRun,
     createManagedPrefixList_entries,
     createManagedPrefixList_tagSpecifications,
-    createManagedPrefixList_dryRun,
     createManagedPrefixList_prefixListName,
     createManagedPrefixList_maxEntries,
     createManagedPrefixList_addressFamily,
@@ -48,8 +48,9 @@ module Amazonka.EC2.CreateManagedPrefixList
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,15 +63,15 @@ data CreateManagedPrefixList = CreateManagedPrefixList'
     --
     -- Constraints: Up to 255 UTF-8 characters in length.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | One or more entries for the prefix list.
-    entries :: Prelude.Maybe [AddPrefixListEntry],
-    -- | The tags to apply to the prefix list during creation.
-    tagSpecifications :: Prelude.Maybe [TagSpecification],
     -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | One or more entries for the prefix list.
+    entries :: Prelude.Maybe [AddPrefixListEntry],
+    -- | The tags to apply to the prefix list during creation.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
     -- | A name for the prefix list.
     --
     -- Constraints: Up to 255 characters in length. The name cannot start with
@@ -99,14 +100,14 @@ data CreateManagedPrefixList = CreateManagedPrefixList'
 --
 -- Constraints: Up to 255 UTF-8 characters in length.
 --
--- 'entries', 'createManagedPrefixList_entries' - One or more entries for the prefix list.
---
--- 'tagSpecifications', 'createManagedPrefixList_tagSpecifications' - The tags to apply to the prefix list during creation.
---
 -- 'dryRun', 'createManagedPrefixList_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'entries', 'createManagedPrefixList_entries' - One or more entries for the prefix list.
+--
+-- 'tagSpecifications', 'createManagedPrefixList_tagSpecifications' - The tags to apply to the prefix list during creation.
 --
 -- 'prefixListName', 'createManagedPrefixList_prefixListName' - A name for the prefix list.
 --
@@ -133,9 +134,9 @@ newCreateManagedPrefixList
     CreateManagedPrefixList'
       { clientToken =
           Prelude.Nothing,
+        dryRun = Prelude.Nothing,
         entries = Prelude.Nothing,
         tagSpecifications = Prelude.Nothing,
-        dryRun = Prelude.Nothing,
         prefixListName = pPrefixListName_,
         maxEntries = pMaxEntries_,
         addressFamily = pAddressFamily_
@@ -149,6 +150,13 @@ newCreateManagedPrefixList
 createManagedPrefixList_clientToken :: Lens.Lens' CreateManagedPrefixList (Prelude.Maybe Prelude.Text)
 createManagedPrefixList_clientToken = Lens.lens (\CreateManagedPrefixList' {clientToken} -> clientToken) (\s@CreateManagedPrefixList' {} a -> s {clientToken = a} :: CreateManagedPrefixList)
 
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+createManagedPrefixList_dryRun :: Lens.Lens' CreateManagedPrefixList (Prelude.Maybe Prelude.Bool)
+createManagedPrefixList_dryRun = Lens.lens (\CreateManagedPrefixList' {dryRun} -> dryRun) (\s@CreateManagedPrefixList' {} a -> s {dryRun = a} :: CreateManagedPrefixList)
+
 -- | One or more entries for the prefix list.
 createManagedPrefixList_entries :: Lens.Lens' CreateManagedPrefixList (Prelude.Maybe [AddPrefixListEntry])
 createManagedPrefixList_entries = Lens.lens (\CreateManagedPrefixList' {entries} -> entries) (\s@CreateManagedPrefixList' {} a -> s {entries = a} :: CreateManagedPrefixList) Prelude.. Lens.mapping Lens.coerced
@@ -156,13 +164,6 @@ createManagedPrefixList_entries = Lens.lens (\CreateManagedPrefixList' {entries}
 -- | The tags to apply to the prefix list during creation.
 createManagedPrefixList_tagSpecifications :: Lens.Lens' CreateManagedPrefixList (Prelude.Maybe [TagSpecification])
 createManagedPrefixList_tagSpecifications = Lens.lens (\CreateManagedPrefixList' {tagSpecifications} -> tagSpecifications) (\s@CreateManagedPrefixList' {} a -> s {tagSpecifications = a} :: CreateManagedPrefixList) Prelude.. Lens.mapping Lens.coerced
-
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-createManagedPrefixList_dryRun :: Lens.Lens' CreateManagedPrefixList (Prelude.Maybe Prelude.Bool)
-createManagedPrefixList_dryRun = Lens.lens (\CreateManagedPrefixList' {dryRun} -> dryRun) (\s@CreateManagedPrefixList' {} a -> s {dryRun = a} :: CreateManagedPrefixList)
 
 -- | A name for the prefix list.
 --
@@ -185,21 +186,22 @@ instance Core.AWSRequest CreateManagedPrefixList where
   type
     AWSResponse CreateManagedPrefixList =
       CreateManagedPrefixListResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CreateManagedPrefixListResponse'
-            Prelude.<$> (x Core..@? "prefixList")
+            Prelude.<$> (x Data..@? "prefixList")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateManagedPrefixList where
   hashWithSalt _salt CreateManagedPrefixList' {..} =
     _salt `Prelude.hashWithSalt` clientToken
+      `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` entries
       `Prelude.hashWithSalt` tagSpecifications
-      `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` prefixListName
       `Prelude.hashWithSalt` maxEntries
       `Prelude.hashWithSalt` addressFamily
@@ -207,37 +209,37 @@ instance Prelude.Hashable CreateManagedPrefixList where
 instance Prelude.NFData CreateManagedPrefixList where
   rnf CreateManagedPrefixList' {..} =
     Prelude.rnf clientToken
+      `Prelude.seq` Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf entries
       `Prelude.seq` Prelude.rnf tagSpecifications
-      `Prelude.seq` Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf prefixListName
       `Prelude.seq` Prelude.rnf maxEntries
       `Prelude.seq` Prelude.rnf addressFamily
 
-instance Core.ToHeaders CreateManagedPrefixList where
+instance Data.ToHeaders CreateManagedPrefixList where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateManagedPrefixList where
+instance Data.ToPath CreateManagedPrefixList where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateManagedPrefixList where
+instance Data.ToQuery CreateManagedPrefixList where
   toQuery CreateManagedPrefixList' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateManagedPrefixList" :: Prelude.ByteString),
+          Data.=: ("CreateManagedPrefixList" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "ClientToken" Core.=: clientToken,
-        Core.toQuery
-          (Core.toQueryList "Entry" Prelude.<$> entries),
-        Core.toQuery
-          ( Core.toQueryList "TagSpecification"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "ClientToken" Data.=: clientToken,
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Entry" Prelude.<$> entries),
+        Data.toQuery
+          ( Data.toQueryList "TagSpecification"
               Prelude.<$> tagSpecifications
           ),
-        "DryRun" Core.=: dryRun,
-        "PrefixListName" Core.=: prefixListName,
-        "MaxEntries" Core.=: maxEntries,
-        "AddressFamily" Core.=: addressFamily
+        "PrefixListName" Data.=: prefixListName,
+        "MaxEntries" Data.=: maxEntries,
+        "AddressFamily" Data.=: addressFamily
       ]
 
 -- | /See:/ 'newCreateManagedPrefixListResponse' smart constructor.

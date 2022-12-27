@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetSdkTypes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- -- | Undocumented operation.
+-- Gets SDK types
 --
 -- This operation returns paginated results.
 module Amazonka.APIGateway.GetSdkTypes
@@ -45,7 +45,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -112,13 +113,14 @@ instance Core.AWSPager GetSdkTypes where
 
 instance Core.AWSRequest GetSdkTypes where
   type AWSResponse GetSdkTypes = GetSdkTypesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSdkTypesResponse'
-            Prelude.<$> (x Core..?> "item" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "position")
+            Prelude.<$> (x Data..?> "item" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "position")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -132,22 +134,22 @@ instance Prelude.NFData GetSdkTypes where
     Prelude.rnf limit
       `Prelude.seq` Prelude.rnf position
 
-instance Core.ToHeaders GetSdkTypes where
+instance Data.ToHeaders GetSdkTypes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetSdkTypes where
+instance Data.ToPath GetSdkTypes where
   toPath = Prelude.const "/sdktypes"
 
-instance Core.ToQuery GetSdkTypes where
+instance Data.ToQuery GetSdkTypes where
   toQuery GetSdkTypes' {..} =
     Prelude.mconcat
-      ["limit" Core.=: limit, "position" Core.=: position]
+      ["limit" Data.=: limit, "position" Data.=: position]
 
 -- | The collection of SdkType instances.
 --

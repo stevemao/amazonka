@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.RegistryId
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Glue.Types.RegistryId where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A wrapper structure that may contain the registry name and Amazon
@@ -28,12 +29,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newRegistryId' smart constructor.
 data RegistryId = RegistryId'
-  { -- | Name of the registry. Used only for lookup. One of @RegistryArn@ or
+  { -- | Arn of the registry to be updated. One of @RegistryArn@ or
     -- @RegistryName@ has to be provided.
-    registryName :: Prelude.Maybe Prelude.Text,
-    -- | Arn of the registry to be updated. One of @RegistryArn@ or
+    registryArn :: Prelude.Maybe Prelude.Text,
+    -- | Name of the registry. Used only for lookup. One of @RegistryArn@ or
     -- @RegistryName@ has to be provided.
-    registryArn :: Prelude.Maybe Prelude.Text
+    registryName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,44 +46,44 @@ data RegistryId = RegistryId'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'registryName', 'registryId_registryName' - Name of the registry. Used only for lookup. One of @RegistryArn@ or
+-- 'registryArn', 'registryId_registryArn' - Arn of the registry to be updated. One of @RegistryArn@ or
 -- @RegistryName@ has to be provided.
 --
--- 'registryArn', 'registryId_registryArn' - Arn of the registry to be updated. One of @RegistryArn@ or
+-- 'registryName', 'registryId_registryName' - Name of the registry. Used only for lookup. One of @RegistryArn@ or
 -- @RegistryName@ has to be provided.
 newRegistryId ::
   RegistryId
 newRegistryId =
   RegistryId'
-    { registryName = Prelude.Nothing,
-      registryArn = Prelude.Nothing
+    { registryArn = Prelude.Nothing,
+      registryName = Prelude.Nothing
     }
-
--- | Name of the registry. Used only for lookup. One of @RegistryArn@ or
--- @RegistryName@ has to be provided.
-registryId_registryName :: Lens.Lens' RegistryId (Prelude.Maybe Prelude.Text)
-registryId_registryName = Lens.lens (\RegistryId' {registryName} -> registryName) (\s@RegistryId' {} a -> s {registryName = a} :: RegistryId)
 
 -- | Arn of the registry to be updated. One of @RegistryArn@ or
 -- @RegistryName@ has to be provided.
 registryId_registryArn :: Lens.Lens' RegistryId (Prelude.Maybe Prelude.Text)
 registryId_registryArn = Lens.lens (\RegistryId' {registryArn} -> registryArn) (\s@RegistryId' {} a -> s {registryArn = a} :: RegistryId)
 
+-- | Name of the registry. Used only for lookup. One of @RegistryArn@ or
+-- @RegistryName@ has to be provided.
+registryId_registryName :: Lens.Lens' RegistryId (Prelude.Maybe Prelude.Text)
+registryId_registryName = Lens.lens (\RegistryId' {registryName} -> registryName) (\s@RegistryId' {} a -> s {registryName = a} :: RegistryId)
+
 instance Prelude.Hashable RegistryId where
   hashWithSalt _salt RegistryId' {..} =
-    _salt `Prelude.hashWithSalt` registryName
-      `Prelude.hashWithSalt` registryArn
+    _salt `Prelude.hashWithSalt` registryArn
+      `Prelude.hashWithSalt` registryName
 
 instance Prelude.NFData RegistryId where
   rnf RegistryId' {..} =
-    Prelude.rnf registryName
-      `Prelude.seq` Prelude.rnf registryArn
+    Prelude.rnf registryArn
+      `Prelude.seq` Prelude.rnf registryName
 
-instance Core.ToJSON RegistryId where
+instance Data.ToJSON RegistryId where
   toJSON RegistryId' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RegistryName" Core..=) Prelude.<$> registryName,
-            ("RegistryArn" Core..=) Prelude.<$> registryArn
+          [ ("RegistryArn" Data..=) Prelude.<$> registryArn,
+            ("RegistryName" Data..=) Prelude.<$> registryName
           ]
       )

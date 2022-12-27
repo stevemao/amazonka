@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.PutObjectTagging
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -78,10 +78,11 @@ module Amazonka.S3.PutObjectTagging
     newPutObjectTagging,
 
     -- * Request Lenses
-    putObjectTagging_versionId,
-    putObjectTagging_requestPayer,
+    putObjectTagging_checksumAlgorithm,
     putObjectTagging_contentMD5,
     putObjectTagging_expectedBucketOwner,
+    putObjectTagging_requestPayer,
+    putObjectTagging_versionId,
     putObjectTagging_bucket,
     putObjectTagging_key,
     putObjectTagging_tagging,
@@ -97,7 +98,8 @@ module Amazonka.S3.PutObjectTagging
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -105,9 +107,18 @@ import Amazonka.S3.Types
 
 -- | /See:/ 'newPutObjectTagging' smart constructor.
 data PutObjectTagging = PutObjectTagging'
-  { -- | The versionId of the object that the tag-set will be added to.
-    versionId :: Prelude.Maybe ObjectVersionId,
-    requestPayer :: Prelude.Maybe RequestPayer,
+  { -- | Indicates the algorithm used to create the checksum for the object when
+    -- using the SDK. This header will not provide any additional functionality
+    -- if not using the SDK. When sending this header, there must be a
+    -- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+    -- Otherwise, Amazon S3 fails the request with the HTTP status code
+    -- @400 Bad Request@. For more information, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+    -- in the /Amazon S3 User Guide/.
+    --
+    -- If you provide an individual checksum, Amazon S3 ignores any provided
+    -- @ChecksumAlgorithm@ parameter.
+    checksumAlgorithm :: Prelude.Maybe ChecksumAlgorithm,
     -- | The MD5 hash for the request body.
     --
     -- For requests made using the Amazon Web Services Command Line Interface
@@ -115,9 +126,12 @@ data PutObjectTagging = PutObjectTagging'
     -- automatically.
     contentMD5 :: Prelude.Maybe Prelude.Text,
     -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
+    requestPayer :: Prelude.Maybe RequestPayer,
+    -- | The versionId of the object that the tag-set will be added to.
+    versionId :: Prelude.Maybe ObjectVersionId,
     -- | The bucket name containing the object.
     --
     -- When using this action with an access point, you must direct requests to
@@ -132,11 +146,11 @@ data PutObjectTagging = PutObjectTagging'
     -- When using this action with Amazon S3 on Outposts, you must direct
     -- requests to the S3 on Outposts hostname. The S3 on Outposts hostname
     -- takes the form
-    -- /AccessPointName/-/AccountId/./outpostID/.s3-outposts./Region/.amazonaws.com.
-    -- When using this action using S3 on Outposts through the Amazon Web
+    -- @ AccessPointName-AccountId.outpostID.s3-outposts.Region.amazonaws.com@.
+    -- When using this action with S3 on Outposts through the Amazon Web
     -- Services SDKs, you provide the Outposts bucket ARN in place of the
     -- bucket name. For more information about S3 on Outposts ARNs, see
-    -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html Using S3 on Outposts>
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html Using Amazon S3 on Outposts>
     -- in the /Amazon S3 User Guide/.
     bucket :: BucketName,
     -- | Name of the object key.
@@ -154,9 +168,17 @@ data PutObjectTagging = PutObjectTagging'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'versionId', 'putObjectTagging_versionId' - The versionId of the object that the tag-set will be added to.
+-- 'checksumAlgorithm', 'putObjectTagging_checksumAlgorithm' - Indicates the algorithm used to create the checksum for the object when
+-- using the SDK. This header will not provide any additional functionality
+-- if not using the SDK. When sending this header, there must be a
+-- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+-- Otherwise, Amazon S3 fails the request with the HTTP status code
+-- @400 Bad Request@. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+-- in the /Amazon S3 User Guide/.
 --
--- 'requestPayer', 'putObjectTagging_requestPayer' - Undocumented member.
+-- If you provide an individual checksum, Amazon S3 ignores any provided
+-- @ChecksumAlgorithm@ parameter.
 --
 -- 'contentMD5', 'putObjectTagging_contentMD5' - The MD5 hash for the request body.
 --
@@ -165,8 +187,12 @@ data PutObjectTagging = PutObjectTagging'
 -- automatically.
 --
 -- 'expectedBucketOwner', 'putObjectTagging_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
+--
+-- 'requestPayer', 'putObjectTagging_requestPayer' - Undocumented member.
+--
+-- 'versionId', 'putObjectTagging_versionId' - The versionId of the object that the tag-set will be added to.
 --
 -- 'bucket', 'putObjectTagging_bucket' - The bucket name containing the object.
 --
@@ -182,11 +208,11 @@ data PutObjectTagging = PutObjectTagging'
 -- When using this action with Amazon S3 on Outposts, you must direct
 -- requests to the S3 on Outposts hostname. The S3 on Outposts hostname
 -- takes the form
--- /AccessPointName/-/AccountId/./outpostID/.s3-outposts./Region/.amazonaws.com.
--- When using this action using S3 on Outposts through the Amazon Web
+-- @ AccessPointName-AccountId.outpostID.s3-outposts.Region.amazonaws.com@.
+-- When using this action with S3 on Outposts through the Amazon Web
 -- Services SDKs, you provide the Outposts bucket ARN in place of the
 -- bucket name. For more information about S3 on Outposts ARNs, see
--- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html Using S3 on Outposts>
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html Using Amazon S3 on Outposts>
 -- in the /Amazon S3 User Guide/.
 --
 -- 'key', 'putObjectTagging_key' - Name of the object key.
@@ -202,22 +228,30 @@ newPutObjectTagging ::
   PutObjectTagging
 newPutObjectTagging pBucket_ pKey_ pTagging_ =
   PutObjectTagging'
-    { versionId = Prelude.Nothing,
-      requestPayer = Prelude.Nothing,
+    { checksumAlgorithm =
+        Prelude.Nothing,
       contentMD5 = Prelude.Nothing,
       expectedBucketOwner = Prelude.Nothing,
+      requestPayer = Prelude.Nothing,
+      versionId = Prelude.Nothing,
       bucket = pBucket_,
       key = pKey_,
       tagging = pTagging_
     }
 
--- | The versionId of the object that the tag-set will be added to.
-putObjectTagging_versionId :: Lens.Lens' PutObjectTagging (Prelude.Maybe ObjectVersionId)
-putObjectTagging_versionId = Lens.lens (\PutObjectTagging' {versionId} -> versionId) (\s@PutObjectTagging' {} a -> s {versionId = a} :: PutObjectTagging)
-
--- | Undocumented member.
-putObjectTagging_requestPayer :: Lens.Lens' PutObjectTagging (Prelude.Maybe RequestPayer)
-putObjectTagging_requestPayer = Lens.lens (\PutObjectTagging' {requestPayer} -> requestPayer) (\s@PutObjectTagging' {} a -> s {requestPayer = a} :: PutObjectTagging)
+-- | Indicates the algorithm used to create the checksum for the object when
+-- using the SDK. This header will not provide any additional functionality
+-- if not using the SDK. When sending this header, there must be a
+-- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+-- Otherwise, Amazon S3 fails the request with the HTTP status code
+-- @400 Bad Request@. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+-- in the /Amazon S3 User Guide/.
+--
+-- If you provide an individual checksum, Amazon S3 ignores any provided
+-- @ChecksumAlgorithm@ parameter.
+putObjectTagging_checksumAlgorithm :: Lens.Lens' PutObjectTagging (Prelude.Maybe ChecksumAlgorithm)
+putObjectTagging_checksumAlgorithm = Lens.lens (\PutObjectTagging' {checksumAlgorithm} -> checksumAlgorithm) (\s@PutObjectTagging' {} a -> s {checksumAlgorithm = a} :: PutObjectTagging)
 
 -- | The MD5 hash for the request body.
 --
@@ -228,10 +262,18 @@ putObjectTagging_contentMD5 :: Lens.Lens' PutObjectTagging (Prelude.Maybe Prelud
 putObjectTagging_contentMD5 = Lens.lens (\PutObjectTagging' {contentMD5} -> contentMD5) (\s@PutObjectTagging' {} a -> s {contentMD5 = a} :: PutObjectTagging)
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 putObjectTagging_expectedBucketOwner :: Lens.Lens' PutObjectTagging (Prelude.Maybe Prelude.Text)
 putObjectTagging_expectedBucketOwner = Lens.lens (\PutObjectTagging' {expectedBucketOwner} -> expectedBucketOwner) (\s@PutObjectTagging' {} a -> s {expectedBucketOwner = a} :: PutObjectTagging)
+
+-- | Undocumented member.
+putObjectTagging_requestPayer :: Lens.Lens' PutObjectTagging (Prelude.Maybe RequestPayer)
+putObjectTagging_requestPayer = Lens.lens (\PutObjectTagging' {requestPayer} -> requestPayer) (\s@PutObjectTagging' {} a -> s {requestPayer = a} :: PutObjectTagging)
+
+-- | The versionId of the object that the tag-set will be added to.
+putObjectTagging_versionId :: Lens.Lens' PutObjectTagging (Prelude.Maybe ObjectVersionId)
+putObjectTagging_versionId = Lens.lens (\PutObjectTagging' {versionId} -> versionId) (\s@PutObjectTagging' {} a -> s {versionId = a} :: PutObjectTagging)
 
 -- | The bucket name containing the object.
 --
@@ -247,11 +289,11 @@ putObjectTagging_expectedBucketOwner = Lens.lens (\PutObjectTagging' {expectedBu
 -- When using this action with Amazon S3 on Outposts, you must direct
 -- requests to the S3 on Outposts hostname. The S3 on Outposts hostname
 -- takes the form
--- /AccessPointName/-/AccountId/./outpostID/.s3-outposts./Region/.amazonaws.com.
--- When using this action using S3 on Outposts through the Amazon Web
+-- @ AccessPointName-AccountId.outpostID.s3-outposts.Region.amazonaws.com@.
+-- When using this action with S3 on Outposts through the Amazon Web
 -- Services SDKs, you provide the Outposts bucket ARN in place of the
 -- bucket name. For more information about S3 on Outposts ARNs, see
--- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html Using S3 on Outposts>
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html Using Amazon S3 on Outposts>
 -- in the /Amazon S3 User Guide/.
 putObjectTagging_bucket :: Lens.Lens' PutObjectTagging BucketName
 putObjectTagging_bucket = Lens.lens (\PutObjectTagging' {bucket} -> bucket) (\s@PutObjectTagging' {} a -> s {bucket = a} :: PutObjectTagging)
@@ -268,61 +310,65 @@ instance Core.AWSRequest PutObjectTagging where
   type
     AWSResponse PutObjectTagging =
       PutObjectTaggingResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.putXML defaultService
+      Prelude.. Request.putXML (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
           PutObjectTaggingResponse'
-            Prelude.<$> (h Core..#? "x-amz-version-id")
+            Prelude.<$> (h Data..#? "x-amz-version-id")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable PutObjectTagging where
   hashWithSalt _salt PutObjectTagging' {..} =
-    _salt `Prelude.hashWithSalt` versionId
-      `Prelude.hashWithSalt` requestPayer
+    _salt `Prelude.hashWithSalt` checksumAlgorithm
       `Prelude.hashWithSalt` contentMD5
       `Prelude.hashWithSalt` expectedBucketOwner
+      `Prelude.hashWithSalt` requestPayer
+      `Prelude.hashWithSalt` versionId
       `Prelude.hashWithSalt` bucket
       `Prelude.hashWithSalt` key
       `Prelude.hashWithSalt` tagging
 
 instance Prelude.NFData PutObjectTagging where
   rnf PutObjectTagging' {..} =
-    Prelude.rnf versionId
-      `Prelude.seq` Prelude.rnf requestPayer
+    Prelude.rnf checksumAlgorithm
       `Prelude.seq` Prelude.rnf contentMD5
       `Prelude.seq` Prelude.rnf expectedBucketOwner
+      `Prelude.seq` Prelude.rnf requestPayer
+      `Prelude.seq` Prelude.rnf versionId
       `Prelude.seq` Prelude.rnf bucket
       `Prelude.seq` Prelude.rnf key
       `Prelude.seq` Prelude.rnf tagging
 
-instance Core.ToElement PutObjectTagging where
+instance Data.ToElement PutObjectTagging where
   toElement PutObjectTagging' {..} =
-    Core.mkElement
+    Data.mkElement
       "{http://s3.amazonaws.com/doc/2006-03-01/}Tagging"
       tagging
 
-instance Core.ToHeaders PutObjectTagging where
+instance Data.ToHeaders PutObjectTagging where
   toHeaders PutObjectTagging' {..} =
     Prelude.mconcat
-      [ "x-amz-request-payer" Core.=# requestPayer,
-        "Content-MD5" Core.=# contentMD5,
+      [ "x-amz-sdk-checksum-algorithm"
+          Data.=# checksumAlgorithm,
+        "Content-MD5" Data.=# contentMD5,
         "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner,
+        "x-amz-request-payer" Data.=# requestPayer
       ]
 
-instance Core.ToPath PutObjectTagging where
+instance Data.ToPath PutObjectTagging where
   toPath PutObjectTagging' {..} =
     Prelude.mconcat
-      ["/", Core.toBS bucket, "/", Core.toBS key]
+      ["/", Data.toBS bucket, "/", Data.toBS key]
 
-instance Core.ToQuery PutObjectTagging where
+instance Data.ToQuery PutObjectTagging where
   toQuery PutObjectTagging' {..} =
     Prelude.mconcat
-      ["versionId" Core.=: versionId, "tagging"]
+      ["versionId" Data.=: versionId, "tagging"]
 
 -- | /See:/ 'newPutObjectTaggingResponse' smart constructor.
 data PutObjectTaggingResponse = PutObjectTaggingResponse'

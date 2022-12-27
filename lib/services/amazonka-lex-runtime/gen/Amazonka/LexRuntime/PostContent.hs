@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LexRuntime.PostContent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -98,30 +98,31 @@ module Amazonka.LexRuntime.PostContent
     newPostContentResponse,
 
     -- * Response Lenses
-    postContentResponse_sentimentResponse,
-    postContentResponse_nluIntentConfidence,
-    postContentResponse_slots,
-    postContentResponse_encodedInputTranscript,
-    postContentResponse_intentName,
-    postContentResponse_botVersion,
-    postContentResponse_encodedMessage,
-    postContentResponse_dialogState,
     postContentResponse_activeContexts,
     postContentResponse_alternativeIntents,
+    postContentResponse_botVersion,
+    postContentResponse_contentType,
+    postContentResponse_dialogState,
+    postContentResponse_encodedInputTranscript,
+    postContentResponse_encodedMessage,
     postContentResponse_inputTranscript,
-    postContentResponse_messageFormat,
+    postContentResponse_intentName,
     postContentResponse_message,
+    postContentResponse_messageFormat,
+    postContentResponse_nluIntentConfidence,
+    postContentResponse_sentimentResponse,
+    postContentResponse_sessionAttributes,
     postContentResponse_sessionId,
     postContentResponse_slotToElicit,
-    postContentResponse_contentType,
-    postContentResponse_sessionAttributes,
+    postContentResponse_slots,
     postContentResponse_httpStatus,
     postContentResponse_audioStream,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LexRuntime.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -165,7 +166,7 @@ data PostContent = PostContent'
     -- If you don\'t specify a list of contexts, Amazon Lex will use the
     -- current list of contexts for the session. If you specify an empty list,
     -- all contexts for the session are cleared.
-    activeContexts :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    activeContexts :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | You pass this value as the @x-amz-lex-request-attributes@ HTTP header.
     --
     -- Request-specific information passed between Amazon Lex and a client
@@ -178,7 +179,7 @@ data PostContent = PostContent'
     --
     -- For more information, see
     -- <https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-request-attribs Setting Request Attributes>.
-    requestAttributes :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    requestAttributes :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | You pass this value as the @x-amz-lex-session-attributes@ HTTP header.
     --
     -- Application-specific information passed between Amazon Lex and a client
@@ -188,7 +189,7 @@ data PostContent = PostContent'
     --
     -- For more information, see
     -- <https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-session-attribs Setting Session Attributes>.
-    sessionAttributes :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    sessionAttributes :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | Name of the Amazon Lex bot.
     botName :: Prelude.Text,
     -- | Alias of the Amazon Lex bot.
@@ -248,7 +249,7 @@ data PostContent = PostContent'
     -- that captures all of the audio data before sending. In general, you get
     -- better performance if you stream audio data rather than buffering the
     -- data locally.
-    inputStream :: Core.HashedBody
+    inputStream :: Data.HashedBody
   }
   deriving (Prelude.Show, Prelude.Generic)
 
@@ -389,7 +390,7 @@ newPostContent ::
   -- | 'contentType'
   Prelude.Text ->
   -- | 'inputStream'
-  Core.HashedBody ->
+  Data.HashedBody ->
   PostContent
 newPostContent
   pBotName_
@@ -448,7 +449,7 @@ postContent_accept = Lens.lens (\PostContent' {accept} -> accept) (\s@PostConten
 -- current list of contexts for the session. If you specify an empty list,
 -- all contexts for the session are cleared.
 postContent_activeContexts :: Lens.Lens' PostContent (Prelude.Maybe Prelude.Text)
-postContent_activeContexts = Lens.lens (\PostContent' {activeContexts} -> activeContexts) (\s@PostContent' {} a -> s {activeContexts = a} :: PostContent) Prelude.. Lens.mapping Core._Sensitive
+postContent_activeContexts = Lens.lens (\PostContent' {activeContexts} -> activeContexts) (\s@PostContent' {} a -> s {activeContexts = a} :: PostContent) Prelude.. Lens.mapping Data._Sensitive
 
 -- | You pass this value as the @x-amz-lex-request-attributes@ HTTP header.
 --
@@ -463,7 +464,7 @@ postContent_activeContexts = Lens.lens (\PostContent' {activeContexts} -> active
 -- For more information, see
 -- <https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-request-attribs Setting Request Attributes>.
 postContent_requestAttributes :: Lens.Lens' PostContent (Prelude.Maybe Prelude.Text)
-postContent_requestAttributes = Lens.lens (\PostContent' {requestAttributes} -> requestAttributes) (\s@PostContent' {} a -> s {requestAttributes = a} :: PostContent) Prelude.. Lens.mapping Core._Sensitive
+postContent_requestAttributes = Lens.lens (\PostContent' {requestAttributes} -> requestAttributes) (\s@PostContent' {} a -> s {requestAttributes = a} :: PostContent) Prelude.. Lens.mapping Data._Sensitive
 
 -- | You pass this value as the @x-amz-lex-session-attributes@ HTTP header.
 --
@@ -475,7 +476,7 @@ postContent_requestAttributes = Lens.lens (\PostContent' {requestAttributes} -> 
 -- For more information, see
 -- <https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-session-attribs Setting Session Attributes>.
 postContent_sessionAttributes :: Lens.Lens' PostContent (Prelude.Maybe Prelude.Text)
-postContent_sessionAttributes = Lens.lens (\PostContent' {sessionAttributes} -> sessionAttributes) (\s@PostContent' {} a -> s {sessionAttributes = a} :: PostContent) Prelude.. Lens.mapping Core._Sensitive
+postContent_sessionAttributes = Lens.lens (\PostContent' {sessionAttributes} -> sessionAttributes) (\s@PostContent' {} a -> s {sessionAttributes = a} :: PostContent) Prelude.. Lens.mapping Data._Sensitive
 
 -- | Name of the Amazon Lex bot.
 postContent_botName :: Lens.Lens' PostContent Prelude.Text
@@ -544,134 +545,90 @@ postContent_contentType = Lens.lens (\PostContent' {contentType} -> contentType)
 -- that captures all of the audio data before sending. In general, you get
 -- better performance if you stream audio data rather than buffering the
 -- data locally.
-postContent_inputStream :: Lens.Lens' PostContent Core.HashedBody
+postContent_inputStream :: Lens.Lens' PostContent Data.HashedBody
 postContent_inputStream = Lens.lens (\PostContent' {inputStream} -> inputStream) (\s@PostContent' {} a -> s {inputStream = a} :: PostContent)
 
 instance Core.AWSRequest PostContent where
   type AWSResponse PostContent = PostContentResponse
-  request = Request.postBody defaultService
+  request overrides =
+    Request.postBody (overrides defaultService)
   response =
     Response.receiveBody
       ( \s h x ->
           PostContentResponse'
-            Prelude.<$> (h Core..#? "x-amz-lex-sentiment")
-            Prelude.<*> (h Core..#? "x-amz-lex-nlu-intent-confidence")
-            Prelude.<*> (h Core..#? "x-amz-lex-slots")
-            Prelude.<*> (h Core..#? "x-amz-lex-encoded-input-transcript")
-            Prelude.<*> (h Core..#? "x-amz-lex-intent-name")
-            Prelude.<*> (h Core..#? "x-amz-lex-bot-version")
-            Prelude.<*> (h Core..#? "x-amz-lex-encoded-message")
-            Prelude.<*> (h Core..#? "x-amz-lex-dialog-state")
-            Prelude.<*> (h Core..#? "x-amz-lex-active-contexts")
-            Prelude.<*> (h Core..#? "x-amz-lex-alternative-intents")
-            Prelude.<*> (h Core..#? "x-amz-lex-input-transcript")
-            Prelude.<*> (h Core..#? "x-amz-lex-message-format")
-            Prelude.<*> (h Core..#? "x-amz-lex-message")
-            Prelude.<*> (h Core..#? "x-amz-lex-session-id")
-            Prelude.<*> (h Core..#? "x-amz-lex-slot-to-elicit")
-            Prelude.<*> (h Core..#? "Content-Type")
-            Prelude.<*> (h Core..#? "x-amz-lex-session-attributes")
+            Prelude.<$> (h Data..#? "x-amz-lex-active-contexts")
+            Prelude.<*> (h Data..#? "x-amz-lex-alternative-intents")
+            Prelude.<*> (h Data..#? "x-amz-lex-bot-version")
+            Prelude.<*> (h Data..#? "Content-Type")
+            Prelude.<*> (h Data..#? "x-amz-lex-dialog-state")
+            Prelude.<*> (h Data..#? "x-amz-lex-encoded-input-transcript")
+            Prelude.<*> (h Data..#? "x-amz-lex-encoded-message")
+            Prelude.<*> (h Data..#? "x-amz-lex-input-transcript")
+            Prelude.<*> (h Data..#? "x-amz-lex-intent-name")
+            Prelude.<*> (h Data..#? "x-amz-lex-message")
+            Prelude.<*> (h Data..#? "x-amz-lex-message-format")
+            Prelude.<*> (h Data..#? "x-amz-lex-nlu-intent-confidence")
+            Prelude.<*> (h Data..#? "x-amz-lex-sentiment")
+            Prelude.<*> (h Data..#? "x-amz-lex-session-attributes")
+            Prelude.<*> (h Data..#? "x-amz-lex-session-id")
+            Prelude.<*> (h Data..#? "x-amz-lex-slot-to-elicit")
+            Prelude.<*> (h Data..#? "x-amz-lex-slots")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
             Prelude.<*> (Prelude.pure x)
       )
 
-instance Core.ToBody PostContent where
-  toBody PostContent' {..} = Core.toBody inputStream
+instance Data.ToBody PostContent where
+  toBody PostContent' {..} = Data.toBody inputStream
 
-instance Core.ToHeaders PostContent where
+instance Data.ToHeaders PostContent where
   toHeaders PostContent' {..} =
     Prelude.mconcat
-      [ "Accept" Core.=# accept,
-        "x-amz-lex-active-contexts" Core.=# activeContexts,
+      [ "Accept" Data.=# accept,
+        "x-amz-lex-active-contexts" Data.=# activeContexts,
         "x-amz-lex-request-attributes"
-          Core.=# requestAttributes,
+          Data.=# requestAttributes,
         "x-amz-lex-session-attributes"
-          Core.=# sessionAttributes,
-        "Content-Type" Core.=# contentType
+          Data.=# sessionAttributes,
+        "Content-Type" Data.=# contentType
       ]
 
-instance Core.ToPath PostContent where
+instance Data.ToPath PostContent where
   toPath PostContent' {..} =
     Prelude.mconcat
       [ "/bot/",
-        Core.toBS botName,
+        Data.toBS botName,
         "/alias/",
-        Core.toBS botAlias,
+        Data.toBS botAlias,
         "/user/",
-        Core.toBS userId,
+        Data.toBS userId,
         "/content"
       ]
 
-instance Core.ToQuery PostContent where
+instance Data.ToQuery PostContent where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPostContentResponse' smart constructor.
 data PostContentResponse = PostContentResponse'
-  { -- | The sentiment expressed in an utterance.
+  { -- | A list of active contexts for the session. A context can be set when an
+    -- intent is fulfilled or by calling the @PostContent@, @PostText@, or
+    -- @PutSession@ operation.
     --
-    -- When the bot is configured to send utterances to Amazon Comprehend for
-    -- sentiment analysis, this field contains the result of the analysis.
-    sentimentResponse :: Prelude.Maybe Prelude.Text,
-    -- | Provides a score that indicates how confident Amazon Lex is that the
-    -- returned intent is the one that matches the user\'s intent. The score is
-    -- between 0.0 and 1.0.
+    -- You can use a context to control the intents that can follow up an
+    -- intent, or to modify the operation of your application.
+    activeContexts :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | One to four alternative intents that may be applicable to the user\'s
+    -- intent.
     --
-    -- The score is a relative score, not an absolute score. The score may
-    -- change based on improvements to Amazon Lex.
-    nluIntentConfidence :: Prelude.Maybe Prelude.Text,
-    -- | Map of zero or more intent slots (name\/value pairs) Amazon Lex detected
-    -- from the user input during the conversation. The field is base-64
-    -- encoded.
-    --
-    -- Amazon Lex creates a resolution list containing likely values for a
-    -- slot. The value that it returns is determined by the
-    -- @valueSelectionStrategy@ selected when the slot type was created or
-    -- updated. If @valueSelectionStrategy@ is set to @ORIGINAL_VALUE@, the
-    -- value provided by the user is returned, if the user value is similar to
-    -- the slot values. If @valueSelectionStrategy@ is set to @TOP_RESOLUTION@
-    -- Amazon Lex returns the first value in the resolution list or, if there
-    -- is no resolution list, null. If you don\'t specify a
-    -- @valueSelectionStrategy@, the default is @ORIGINAL_VALUE@.
-    slots :: Prelude.Maybe Prelude.Text,
-    -- | The text used to process the request.
-    --
-    -- If the input was an audio stream, the @encodedInputTranscript@ field
-    -- contains the text extracted from the audio stream. This is the text that
-    -- is actually processed to recognize intents and slot values. You can use
-    -- this information to determine if Amazon Lex is correctly processing the
-    -- audio that you send.
-    --
-    -- The @encodedInputTranscript@ field is base-64 encoded. You must decode
-    -- the field before you can use the value.
-    encodedInputTranscript :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | Current user intent that Amazon Lex is aware of.
-    intentName :: Prelude.Maybe Prelude.Text,
+    -- Each alternative includes a score that indicates how confident Amazon
+    -- Lex is that the intent matches the user\'s intent. The intents are
+    -- sorted by the confidence score.
+    alternativeIntents :: Prelude.Maybe Prelude.Text,
     -- | The version of the bot that responded to the conversation. You can use
     -- this information to help determine if one version of a bot is performing
     -- better than another version.
     botVersion :: Prelude.Maybe Prelude.Text,
-    -- | The message to convey to the user. The message can come from the bot\'s
-    -- configuration or from a Lambda function.
-    --
-    -- If the intent is not configured with a Lambda function, or if the Lambda
-    -- function returned @Delegate@ as the @dialogAction.type@ in its response,
-    -- Amazon Lex decides on the next course of action and selects an
-    -- appropriate message from the bot\'s configuration based on the current
-    -- interaction context. For example, if Amazon Lex isn\'t able to
-    -- understand user input, it uses a clarification prompt message.
-    --
-    -- When you create an intent you can assign messages to groups. When
-    -- messages are assigned to groups Amazon Lex returns one message from each
-    -- group in the response. The message field is an escaped JSON string
-    -- containing the messages. For more information about the structure of the
-    -- JSON string returned, see msg-prompts-formats.
-    --
-    -- If the Lambda function returns a message, Amazon Lex passes it to the
-    -- client in its response.
-    --
-    -- The @encodedMessage@ field is base-64 encoded. You must decode the field
-    -- before you can use the value.
-    encodedMessage :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    -- | Content type as specified in the @Accept@ HTTP header in the request.
+    contentType :: Prelude.Maybe Prelude.Text,
     -- | Identifies the current state of the user interaction. Amazon Lex returns
     -- one of the following values as @dialogState@. The client can optionally
     -- use this information to customize the user interface.
@@ -718,20 +675,39 @@ data PostContentResponse = PostContentResponse'
     --     specific information), or if the Lambda function fails to fulfill
     --     the intent.
     dialogState :: Prelude.Maybe DialogState,
-    -- | A list of active contexts for the session. A context can be set when an
-    -- intent is fulfilled or by calling the @PostContent@, @PostText@, or
-    -- @PutSession@ operation.
+    -- | The text used to process the request.
     --
-    -- You can use a context to control the intents that can follow up an
-    -- intent, or to modify the operation of your application.
-    activeContexts :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | One to four alternative intents that may be applicable to the user\'s
-    -- intent.
+    -- If the input was an audio stream, the @encodedInputTranscript@ field
+    -- contains the text extracted from the audio stream. This is the text that
+    -- is actually processed to recognize intents and slot values. You can use
+    -- this information to determine if Amazon Lex is correctly processing the
+    -- audio that you send.
     --
-    -- Each alternative includes a score that indicates how confident Amazon
-    -- Lex is that the intent matches the user\'s intent. The intents are
-    -- sorted by the confidence score.
-    alternativeIntents :: Prelude.Maybe Prelude.Text,
+    -- The @encodedInputTranscript@ field is base-64 encoded. You must decode
+    -- the field before you can use the value.
+    encodedInputTranscript :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | The message to convey to the user. The message can come from the bot\'s
+    -- configuration or from a Lambda function.
+    --
+    -- If the intent is not configured with a Lambda function, or if the Lambda
+    -- function returned @Delegate@ as the @dialogAction.type@ in its response,
+    -- Amazon Lex decides on the next course of action and selects an
+    -- appropriate message from the bot\'s configuration based on the current
+    -- interaction context. For example, if Amazon Lex isn\'t able to
+    -- understand user input, it uses a clarification prompt message.
+    --
+    -- When you create an intent you can assign messages to groups. When
+    -- messages are assigned to groups Amazon Lex returns one message from each
+    -- group in the response. The message field is an escaped JSON string
+    -- containing the messages. For more information about the structure of the
+    -- JSON string returned, see msg-prompts-formats.
+    --
+    -- If the Lambda function returns a message, Amazon Lex passes it to the
+    -- client in its response.
+    --
+    -- The @encodedMessage@ field is base-64 encoded. You must decode the field
+    -- before you can use the value.
+    encodedMessage :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The text used to process the request.
     --
     -- You can use this field only in the de-DE, en-AU, en-GB, en-US, es-419,
@@ -745,18 +721,8 @@ data PostContentResponse = PostContentResponse'
     -- this information to determine if Amazon Lex is correctly processing the
     -- audio that you send.
     inputTranscript :: Prelude.Maybe Prelude.Text,
-    -- | The format of the response message. One of the following values:
-    --
-    -- -   @PlainText@ - The message contains plain UTF-8 text.
-    --
-    -- -   @CustomPayload@ - The message is a custom format for the client.
-    --
-    -- -   @SSML@ - The message contains text formatted for voice output.
-    --
-    -- -   @Composite@ - The message contains an escaped JSON object containing
-    --     one or more messages from the groups that messages were assigned to
-    --     when the intent was created.
-    messageFormat :: Prelude.Maybe MessageFormatType,
+    -- | Current user intent that Amazon Lex is aware of.
+    intentName :: Prelude.Maybe Prelude.Text,
     -- | You can only use this field in the de-DE, en-AU, en-GB, en-US, es-419,
     -- es-ES, es-US, fr-CA, fr-FR, and it-IT locales. In all other locales, the
     -- @message@ field is null. You should use the @encodedMessage@ field
@@ -780,17 +746,53 @@ data PostContentResponse = PostContentResponse'
     --
     -- If the Lambda function returns a message, Amazon Lex passes it to the
     -- client in its response.
-    message :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    message :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | The format of the response message. One of the following values:
+    --
+    -- -   @PlainText@ - The message contains plain UTF-8 text.
+    --
+    -- -   @CustomPayload@ - The message is a custom format for the client.
+    --
+    -- -   @SSML@ - The message contains text formatted for voice output.
+    --
+    -- -   @Composite@ - The message contains an escaped JSON object containing
+    --     one or more messages from the groups that messages were assigned to
+    --     when the intent was created.
+    messageFormat :: Prelude.Maybe MessageFormatType,
+    -- | Provides a score that indicates how confident Amazon Lex is that the
+    -- returned intent is the one that matches the user\'s intent. The score is
+    -- between 0.0 and 1.0.
+    --
+    -- The score is a relative score, not an absolute score. The score may
+    -- change based on improvements to Amazon Lex.
+    nluIntentConfidence :: Prelude.Maybe Prelude.Text,
+    -- | The sentiment expressed in an utterance.
+    --
+    -- When the bot is configured to send utterances to Amazon Comprehend for
+    -- sentiment analysis, this field contains the result of the analysis.
+    sentimentResponse :: Prelude.Maybe Prelude.Text,
+    -- | Map of key\/value pairs representing the session-specific context
+    -- information.
+    sessionAttributes :: Prelude.Maybe Prelude.Text,
     -- | The unique identifier for the session.
     sessionId :: Prelude.Maybe Prelude.Text,
     -- | If the @dialogState@ value is @ElicitSlot@, returns the name of the slot
     -- for which Amazon Lex is eliciting a value.
     slotToElicit :: Prelude.Maybe Prelude.Text,
-    -- | Content type as specified in the @Accept@ HTTP header in the request.
-    contentType :: Prelude.Maybe Prelude.Text,
-    -- | Map of key\/value pairs representing the session-specific context
-    -- information.
-    sessionAttributes :: Prelude.Maybe Prelude.Text,
+    -- | Map of zero or more intent slots (name\/value pairs) Amazon Lex detected
+    -- from the user input during the conversation. The field is base-64
+    -- encoded.
+    --
+    -- Amazon Lex creates a resolution list containing likely values for a
+    -- slot. The value that it returns is determined by the
+    -- @valueSelectionStrategy@ selected when the slot type was created or
+    -- updated. If @valueSelectionStrategy@ is set to @ORIGINAL_VALUE@, the
+    -- value provided by the user is returned, if the user value is similar to
+    -- the slot values. If @valueSelectionStrategy@ is set to @TOP_RESOLUTION@
+    -- Amazon Lex returns the first value in the resolution list or, if there
+    -- is no resolution list, null. If you don\'t specify a
+    -- @valueSelectionStrategy@, the default is @ORIGINAL_VALUE@.
+    slots :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | The prompt (or statement) to convey to the user. This is based on the
@@ -801,7 +803,7 @@ data PostContentResponse = PostContentResponse'
     -- Another example: Suppose that the Lambda function successfully fulfilled
     -- the intent, and sent a message to convey to the user. Then Amazon Lex
     -- sends that message in the response.
-    audioStream :: Core.ResponseBody
+    audioStream :: Data.ResponseBody
   }
   deriving (Prelude.Show, Prelude.Generic)
 
@@ -813,70 +815,25 @@ data PostContentResponse = PostContentResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sentimentResponse', 'postContentResponse_sentimentResponse' - The sentiment expressed in an utterance.
+-- 'activeContexts', 'postContentResponse_activeContexts' - A list of active contexts for the session. A context can be set when an
+-- intent is fulfilled or by calling the @PostContent@, @PostText@, or
+-- @PutSession@ operation.
 --
--- When the bot is configured to send utterances to Amazon Comprehend for
--- sentiment analysis, this field contains the result of the analysis.
+-- You can use a context to control the intents that can follow up an
+-- intent, or to modify the operation of your application.
 --
--- 'nluIntentConfidence', 'postContentResponse_nluIntentConfidence' - Provides a score that indicates how confident Amazon Lex is that the
--- returned intent is the one that matches the user\'s intent. The score is
--- between 0.0 and 1.0.
+-- 'alternativeIntents', 'postContentResponse_alternativeIntents' - One to four alternative intents that may be applicable to the user\'s
+-- intent.
 --
--- The score is a relative score, not an absolute score. The score may
--- change based on improvements to Amazon Lex.
---
--- 'slots', 'postContentResponse_slots' - Map of zero or more intent slots (name\/value pairs) Amazon Lex detected
--- from the user input during the conversation. The field is base-64
--- encoded.
---
--- Amazon Lex creates a resolution list containing likely values for a
--- slot. The value that it returns is determined by the
--- @valueSelectionStrategy@ selected when the slot type was created or
--- updated. If @valueSelectionStrategy@ is set to @ORIGINAL_VALUE@, the
--- value provided by the user is returned, if the user value is similar to
--- the slot values. If @valueSelectionStrategy@ is set to @TOP_RESOLUTION@
--- Amazon Lex returns the first value in the resolution list or, if there
--- is no resolution list, null. If you don\'t specify a
--- @valueSelectionStrategy@, the default is @ORIGINAL_VALUE@.
---
--- 'encodedInputTranscript', 'postContentResponse_encodedInputTranscript' - The text used to process the request.
---
--- If the input was an audio stream, the @encodedInputTranscript@ field
--- contains the text extracted from the audio stream. This is the text that
--- is actually processed to recognize intents and slot values. You can use
--- this information to determine if Amazon Lex is correctly processing the
--- audio that you send.
---
--- The @encodedInputTranscript@ field is base-64 encoded. You must decode
--- the field before you can use the value.
---
--- 'intentName', 'postContentResponse_intentName' - Current user intent that Amazon Lex is aware of.
+-- Each alternative includes a score that indicates how confident Amazon
+-- Lex is that the intent matches the user\'s intent. The intents are
+-- sorted by the confidence score.
 --
 -- 'botVersion', 'postContentResponse_botVersion' - The version of the bot that responded to the conversation. You can use
 -- this information to help determine if one version of a bot is performing
 -- better than another version.
 --
--- 'encodedMessage', 'postContentResponse_encodedMessage' - The message to convey to the user. The message can come from the bot\'s
--- configuration or from a Lambda function.
---
--- If the intent is not configured with a Lambda function, or if the Lambda
--- function returned @Delegate@ as the @dialogAction.type@ in its response,
--- Amazon Lex decides on the next course of action and selects an
--- appropriate message from the bot\'s configuration based on the current
--- interaction context. For example, if Amazon Lex isn\'t able to
--- understand user input, it uses a clarification prompt message.
---
--- When you create an intent you can assign messages to groups. When
--- messages are assigned to groups Amazon Lex returns one message from each
--- group in the response. The message field is an escaped JSON string
--- containing the messages. For more information about the structure of the
--- JSON string returned, see msg-prompts-formats.
---
--- If the Lambda function returns a message, Amazon Lex passes it to the
--- client in its response.
---
--- The @encodedMessage@ field is base-64 encoded. You must decode the field
--- before you can use the value.
+-- 'contentType', 'postContentResponse_contentType' - Content type as specified in the @Accept@ HTTP header in the request.
 --
 -- 'dialogState', 'postContentResponse_dialogState' - Identifies the current state of the user interaction. Amazon Lex returns
 -- one of the following values as @dialogState@. The client can optionally
@@ -924,19 +881,38 @@ data PostContentResponse = PostContentResponse'
 --     specific information), or if the Lambda function fails to fulfill
 --     the intent.
 --
--- 'activeContexts', 'postContentResponse_activeContexts' - A list of active contexts for the session. A context can be set when an
--- intent is fulfilled or by calling the @PostContent@, @PostText@, or
--- @PutSession@ operation.
+-- 'encodedInputTranscript', 'postContentResponse_encodedInputTranscript' - The text used to process the request.
 --
--- You can use a context to control the intents that can follow up an
--- intent, or to modify the operation of your application.
+-- If the input was an audio stream, the @encodedInputTranscript@ field
+-- contains the text extracted from the audio stream. This is the text that
+-- is actually processed to recognize intents and slot values. You can use
+-- this information to determine if Amazon Lex is correctly processing the
+-- audio that you send.
 --
--- 'alternativeIntents', 'postContentResponse_alternativeIntents' - One to four alternative intents that may be applicable to the user\'s
--- intent.
+-- The @encodedInputTranscript@ field is base-64 encoded. You must decode
+-- the field before you can use the value.
 --
--- Each alternative includes a score that indicates how confident Amazon
--- Lex is that the intent matches the user\'s intent. The intents are
--- sorted by the confidence score.
+-- 'encodedMessage', 'postContentResponse_encodedMessage' - The message to convey to the user. The message can come from the bot\'s
+-- configuration or from a Lambda function.
+--
+-- If the intent is not configured with a Lambda function, or if the Lambda
+-- function returned @Delegate@ as the @dialogAction.type@ in its response,
+-- Amazon Lex decides on the next course of action and selects an
+-- appropriate message from the bot\'s configuration based on the current
+-- interaction context. For example, if Amazon Lex isn\'t able to
+-- understand user input, it uses a clarification prompt message.
+--
+-- When you create an intent you can assign messages to groups. When
+-- messages are assigned to groups Amazon Lex returns one message from each
+-- group in the response. The message field is an escaped JSON string
+-- containing the messages. For more information about the structure of the
+-- JSON string returned, see msg-prompts-formats.
+--
+-- If the Lambda function returns a message, Amazon Lex passes it to the
+-- client in its response.
+--
+-- The @encodedMessage@ field is base-64 encoded. You must decode the field
+-- before you can use the value.
 --
 -- 'inputTranscript', 'postContentResponse_inputTranscript' - The text used to process the request.
 --
@@ -951,17 +927,7 @@ data PostContentResponse = PostContentResponse'
 -- this information to determine if Amazon Lex is correctly processing the
 -- audio that you send.
 --
--- 'messageFormat', 'postContentResponse_messageFormat' - The format of the response message. One of the following values:
---
--- -   @PlainText@ - The message contains plain UTF-8 text.
---
--- -   @CustomPayload@ - The message is a custom format for the client.
---
--- -   @SSML@ - The message contains text formatted for voice output.
---
--- -   @Composite@ - The message contains an escaped JSON object containing
---     one or more messages from the groups that messages were assigned to
---     when the intent was created.
+-- 'intentName', 'postContentResponse_intentName' - Current user intent that Amazon Lex is aware of.
 --
 -- 'message', 'postContentResponse_message' - You can only use this field in the de-DE, en-AU, en-GB, en-US, es-419,
 -- es-ES, es-US, fr-CA, fr-FR, and it-IT locales. In all other locales, the
@@ -987,15 +953,51 @@ data PostContentResponse = PostContentResponse'
 -- If the Lambda function returns a message, Amazon Lex passes it to the
 -- client in its response.
 --
+-- 'messageFormat', 'postContentResponse_messageFormat' - The format of the response message. One of the following values:
+--
+-- -   @PlainText@ - The message contains plain UTF-8 text.
+--
+-- -   @CustomPayload@ - The message is a custom format for the client.
+--
+-- -   @SSML@ - The message contains text formatted for voice output.
+--
+-- -   @Composite@ - The message contains an escaped JSON object containing
+--     one or more messages from the groups that messages were assigned to
+--     when the intent was created.
+--
+-- 'nluIntentConfidence', 'postContentResponse_nluIntentConfidence' - Provides a score that indicates how confident Amazon Lex is that the
+-- returned intent is the one that matches the user\'s intent. The score is
+-- between 0.0 and 1.0.
+--
+-- The score is a relative score, not an absolute score. The score may
+-- change based on improvements to Amazon Lex.
+--
+-- 'sentimentResponse', 'postContentResponse_sentimentResponse' - The sentiment expressed in an utterance.
+--
+-- When the bot is configured to send utterances to Amazon Comprehend for
+-- sentiment analysis, this field contains the result of the analysis.
+--
+-- 'sessionAttributes', 'postContentResponse_sessionAttributes' - Map of key\/value pairs representing the session-specific context
+-- information.
+--
 -- 'sessionId', 'postContentResponse_sessionId' - The unique identifier for the session.
 --
 -- 'slotToElicit', 'postContentResponse_slotToElicit' - If the @dialogState@ value is @ElicitSlot@, returns the name of the slot
 -- for which Amazon Lex is eliciting a value.
 --
--- 'contentType', 'postContentResponse_contentType' - Content type as specified in the @Accept@ HTTP header in the request.
+-- 'slots', 'postContentResponse_slots' - Map of zero or more intent slots (name\/value pairs) Amazon Lex detected
+-- from the user input during the conversation. The field is base-64
+-- encoded.
 --
--- 'sessionAttributes', 'postContentResponse_sessionAttributes' - Map of key\/value pairs representing the session-specific context
--- information.
+-- Amazon Lex creates a resolution list containing likely values for a
+-- slot. The value that it returns is determined by the
+-- @valueSelectionStrategy@ selected when the slot type was created or
+-- updated. If @valueSelectionStrategy@ is set to @ORIGINAL_VALUE@, the
+-- value provided by the user is returned, if the user value is similar to
+-- the slot values. If @valueSelectionStrategy@ is set to @TOP_RESOLUTION@
+-- Amazon Lex returns the first value in the resolution list or, if there
+-- is no resolution list, null. If you don\'t specify a
+-- @valueSelectionStrategy@, the default is @ORIGINAL_VALUE@.
 --
 -- 'httpStatus', 'postContentResponse_httpStatus' - The response's http status code.
 --
@@ -1011,80 +1013,49 @@ newPostContentResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
   -- | 'audioStream'
-  Core.ResponseBody ->
+  Data.ResponseBody ->
   PostContentResponse
 newPostContentResponse pHttpStatus_ pAudioStream_ =
   PostContentResponse'
-    { sentimentResponse =
+    { activeContexts =
         Prelude.Nothing,
-      nluIntentConfidence = Prelude.Nothing,
-      slots = Prelude.Nothing,
-      encodedInputTranscript = Prelude.Nothing,
-      intentName = Prelude.Nothing,
-      botVersion = Prelude.Nothing,
-      encodedMessage = Prelude.Nothing,
-      dialogState = Prelude.Nothing,
-      activeContexts = Prelude.Nothing,
       alternativeIntents = Prelude.Nothing,
+      botVersion = Prelude.Nothing,
+      contentType = Prelude.Nothing,
+      dialogState = Prelude.Nothing,
+      encodedInputTranscript = Prelude.Nothing,
+      encodedMessage = Prelude.Nothing,
       inputTranscript = Prelude.Nothing,
-      messageFormat = Prelude.Nothing,
+      intentName = Prelude.Nothing,
       message = Prelude.Nothing,
+      messageFormat = Prelude.Nothing,
+      nluIntentConfidence = Prelude.Nothing,
+      sentimentResponse = Prelude.Nothing,
+      sessionAttributes = Prelude.Nothing,
       sessionId = Prelude.Nothing,
       slotToElicit = Prelude.Nothing,
-      contentType = Prelude.Nothing,
-      sessionAttributes = Prelude.Nothing,
+      slots = Prelude.Nothing,
       httpStatus = pHttpStatus_,
       audioStream = pAudioStream_
     }
 
--- | The sentiment expressed in an utterance.
+-- | A list of active contexts for the session. A context can be set when an
+-- intent is fulfilled or by calling the @PostContent@, @PostText@, or
+-- @PutSession@ operation.
 --
--- When the bot is configured to send utterances to Amazon Comprehend for
--- sentiment analysis, this field contains the result of the analysis.
-postContentResponse_sentimentResponse :: Lens.Lens' PostContentResponse (Prelude.Maybe Prelude.Text)
-postContentResponse_sentimentResponse = Lens.lens (\PostContentResponse' {sentimentResponse} -> sentimentResponse) (\s@PostContentResponse' {} a -> s {sentimentResponse = a} :: PostContentResponse)
+-- You can use a context to control the intents that can follow up an
+-- intent, or to modify the operation of your application.
+postContentResponse_activeContexts :: Lens.Lens' PostContentResponse (Prelude.Maybe Prelude.Text)
+postContentResponse_activeContexts = Lens.lens (\PostContentResponse' {activeContexts} -> activeContexts) (\s@PostContentResponse' {} a -> s {activeContexts = a} :: PostContentResponse) Prelude.. Lens.mapping Data._Sensitive
 
--- | Provides a score that indicates how confident Amazon Lex is that the
--- returned intent is the one that matches the user\'s intent. The score is
--- between 0.0 and 1.0.
+-- | One to four alternative intents that may be applicable to the user\'s
+-- intent.
 --
--- The score is a relative score, not an absolute score. The score may
--- change based on improvements to Amazon Lex.
-postContentResponse_nluIntentConfidence :: Lens.Lens' PostContentResponse (Prelude.Maybe Prelude.Text)
-postContentResponse_nluIntentConfidence = Lens.lens (\PostContentResponse' {nluIntentConfidence} -> nluIntentConfidence) (\s@PostContentResponse' {} a -> s {nluIntentConfidence = a} :: PostContentResponse)
-
--- | Map of zero or more intent slots (name\/value pairs) Amazon Lex detected
--- from the user input during the conversation. The field is base-64
--- encoded.
---
--- Amazon Lex creates a resolution list containing likely values for a
--- slot. The value that it returns is determined by the
--- @valueSelectionStrategy@ selected when the slot type was created or
--- updated. If @valueSelectionStrategy@ is set to @ORIGINAL_VALUE@, the
--- value provided by the user is returned, if the user value is similar to
--- the slot values. If @valueSelectionStrategy@ is set to @TOP_RESOLUTION@
--- Amazon Lex returns the first value in the resolution list or, if there
--- is no resolution list, null. If you don\'t specify a
--- @valueSelectionStrategy@, the default is @ORIGINAL_VALUE@.
-postContentResponse_slots :: Lens.Lens' PostContentResponse (Prelude.Maybe Prelude.Text)
-postContentResponse_slots = Lens.lens (\PostContentResponse' {slots} -> slots) (\s@PostContentResponse' {} a -> s {slots = a} :: PostContentResponse)
-
--- | The text used to process the request.
---
--- If the input was an audio stream, the @encodedInputTranscript@ field
--- contains the text extracted from the audio stream. This is the text that
--- is actually processed to recognize intents and slot values. You can use
--- this information to determine if Amazon Lex is correctly processing the
--- audio that you send.
---
--- The @encodedInputTranscript@ field is base-64 encoded. You must decode
--- the field before you can use the value.
-postContentResponse_encodedInputTranscript :: Lens.Lens' PostContentResponse (Prelude.Maybe Prelude.Text)
-postContentResponse_encodedInputTranscript = Lens.lens (\PostContentResponse' {encodedInputTranscript} -> encodedInputTranscript) (\s@PostContentResponse' {} a -> s {encodedInputTranscript = a} :: PostContentResponse) Prelude.. Lens.mapping Core._Sensitive
-
--- | Current user intent that Amazon Lex is aware of.
-postContentResponse_intentName :: Lens.Lens' PostContentResponse (Prelude.Maybe Prelude.Text)
-postContentResponse_intentName = Lens.lens (\PostContentResponse' {intentName} -> intentName) (\s@PostContentResponse' {} a -> s {intentName = a} :: PostContentResponse)
+-- Each alternative includes a score that indicates how confident Amazon
+-- Lex is that the intent matches the user\'s intent. The intents are
+-- sorted by the confidence score.
+postContentResponse_alternativeIntents :: Lens.Lens' PostContentResponse (Prelude.Maybe Prelude.Text)
+postContentResponse_alternativeIntents = Lens.lens (\PostContentResponse' {alternativeIntents} -> alternativeIntents) (\s@PostContentResponse' {} a -> s {alternativeIntents = a} :: PostContentResponse)
 
 -- | The version of the bot that responded to the conversation. You can use
 -- this information to help determine if one version of a bot is performing
@@ -1092,29 +1063,9 @@ postContentResponse_intentName = Lens.lens (\PostContentResponse' {intentName} -
 postContentResponse_botVersion :: Lens.Lens' PostContentResponse (Prelude.Maybe Prelude.Text)
 postContentResponse_botVersion = Lens.lens (\PostContentResponse' {botVersion} -> botVersion) (\s@PostContentResponse' {} a -> s {botVersion = a} :: PostContentResponse)
 
--- | The message to convey to the user. The message can come from the bot\'s
--- configuration or from a Lambda function.
---
--- If the intent is not configured with a Lambda function, or if the Lambda
--- function returned @Delegate@ as the @dialogAction.type@ in its response,
--- Amazon Lex decides on the next course of action and selects an
--- appropriate message from the bot\'s configuration based on the current
--- interaction context. For example, if Amazon Lex isn\'t able to
--- understand user input, it uses a clarification prompt message.
---
--- When you create an intent you can assign messages to groups. When
--- messages are assigned to groups Amazon Lex returns one message from each
--- group in the response. The message field is an escaped JSON string
--- containing the messages. For more information about the structure of the
--- JSON string returned, see msg-prompts-formats.
---
--- If the Lambda function returns a message, Amazon Lex passes it to the
--- client in its response.
---
--- The @encodedMessage@ field is base-64 encoded. You must decode the field
--- before you can use the value.
-postContentResponse_encodedMessage :: Lens.Lens' PostContentResponse (Prelude.Maybe Prelude.Text)
-postContentResponse_encodedMessage = Lens.lens (\PostContentResponse' {encodedMessage} -> encodedMessage) (\s@PostContentResponse' {} a -> s {encodedMessage = a} :: PostContentResponse) Prelude.. Lens.mapping Core._Sensitive
+-- | Content type as specified in the @Accept@ HTTP header in the request.
+postContentResponse_contentType :: Lens.Lens' PostContentResponse (Prelude.Maybe Prelude.Text)
+postContentResponse_contentType = Lens.lens (\PostContentResponse' {contentType} -> contentType) (\s@PostContentResponse' {} a -> s {contentType = a} :: PostContentResponse)
 
 -- | Identifies the current state of the user interaction. Amazon Lex returns
 -- one of the following values as @dialogState@. The client can optionally
@@ -1164,23 +1115,42 @@ postContentResponse_encodedMessage = Lens.lens (\PostContentResponse' {encodedMe
 postContentResponse_dialogState :: Lens.Lens' PostContentResponse (Prelude.Maybe DialogState)
 postContentResponse_dialogState = Lens.lens (\PostContentResponse' {dialogState} -> dialogState) (\s@PostContentResponse' {} a -> s {dialogState = a} :: PostContentResponse)
 
--- | A list of active contexts for the session. A context can be set when an
--- intent is fulfilled or by calling the @PostContent@, @PostText@, or
--- @PutSession@ operation.
+-- | The text used to process the request.
 --
--- You can use a context to control the intents that can follow up an
--- intent, or to modify the operation of your application.
-postContentResponse_activeContexts :: Lens.Lens' PostContentResponse (Prelude.Maybe Prelude.Text)
-postContentResponse_activeContexts = Lens.lens (\PostContentResponse' {activeContexts} -> activeContexts) (\s@PostContentResponse' {} a -> s {activeContexts = a} :: PostContentResponse) Prelude.. Lens.mapping Core._Sensitive
+-- If the input was an audio stream, the @encodedInputTranscript@ field
+-- contains the text extracted from the audio stream. This is the text that
+-- is actually processed to recognize intents and slot values. You can use
+-- this information to determine if Amazon Lex is correctly processing the
+-- audio that you send.
+--
+-- The @encodedInputTranscript@ field is base-64 encoded. You must decode
+-- the field before you can use the value.
+postContentResponse_encodedInputTranscript :: Lens.Lens' PostContentResponse (Prelude.Maybe Prelude.Text)
+postContentResponse_encodedInputTranscript = Lens.lens (\PostContentResponse' {encodedInputTranscript} -> encodedInputTranscript) (\s@PostContentResponse' {} a -> s {encodedInputTranscript = a} :: PostContentResponse) Prelude.. Lens.mapping Data._Sensitive
 
--- | One to four alternative intents that may be applicable to the user\'s
--- intent.
+-- | The message to convey to the user. The message can come from the bot\'s
+-- configuration or from a Lambda function.
 --
--- Each alternative includes a score that indicates how confident Amazon
--- Lex is that the intent matches the user\'s intent. The intents are
--- sorted by the confidence score.
-postContentResponse_alternativeIntents :: Lens.Lens' PostContentResponse (Prelude.Maybe Prelude.Text)
-postContentResponse_alternativeIntents = Lens.lens (\PostContentResponse' {alternativeIntents} -> alternativeIntents) (\s@PostContentResponse' {} a -> s {alternativeIntents = a} :: PostContentResponse)
+-- If the intent is not configured with a Lambda function, or if the Lambda
+-- function returned @Delegate@ as the @dialogAction.type@ in its response,
+-- Amazon Lex decides on the next course of action and selects an
+-- appropriate message from the bot\'s configuration based on the current
+-- interaction context. For example, if Amazon Lex isn\'t able to
+-- understand user input, it uses a clarification prompt message.
+--
+-- When you create an intent you can assign messages to groups. When
+-- messages are assigned to groups Amazon Lex returns one message from each
+-- group in the response. The message field is an escaped JSON string
+-- containing the messages. For more information about the structure of the
+-- JSON string returned, see msg-prompts-formats.
+--
+-- If the Lambda function returns a message, Amazon Lex passes it to the
+-- client in its response.
+--
+-- The @encodedMessage@ field is base-64 encoded. You must decode the field
+-- before you can use the value.
+postContentResponse_encodedMessage :: Lens.Lens' PostContentResponse (Prelude.Maybe Prelude.Text)
+postContentResponse_encodedMessage = Lens.lens (\PostContentResponse' {encodedMessage} -> encodedMessage) (\s@PostContentResponse' {} a -> s {encodedMessage = a} :: PostContentResponse) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The text used to process the request.
 --
@@ -1197,19 +1167,9 @@ postContentResponse_alternativeIntents = Lens.lens (\PostContentResponse' {alter
 postContentResponse_inputTranscript :: Lens.Lens' PostContentResponse (Prelude.Maybe Prelude.Text)
 postContentResponse_inputTranscript = Lens.lens (\PostContentResponse' {inputTranscript} -> inputTranscript) (\s@PostContentResponse' {} a -> s {inputTranscript = a} :: PostContentResponse)
 
--- | The format of the response message. One of the following values:
---
--- -   @PlainText@ - The message contains plain UTF-8 text.
---
--- -   @CustomPayload@ - The message is a custom format for the client.
---
--- -   @SSML@ - The message contains text formatted for voice output.
---
--- -   @Composite@ - The message contains an escaped JSON object containing
---     one or more messages from the groups that messages were assigned to
---     when the intent was created.
-postContentResponse_messageFormat :: Lens.Lens' PostContentResponse (Prelude.Maybe MessageFormatType)
-postContentResponse_messageFormat = Lens.lens (\PostContentResponse' {messageFormat} -> messageFormat) (\s@PostContentResponse' {} a -> s {messageFormat = a} :: PostContentResponse)
+-- | Current user intent that Amazon Lex is aware of.
+postContentResponse_intentName :: Lens.Lens' PostContentResponse (Prelude.Maybe Prelude.Text)
+postContentResponse_intentName = Lens.lens (\PostContentResponse' {intentName} -> intentName) (\s@PostContentResponse' {} a -> s {intentName = a} :: PostContentResponse)
 
 -- | You can only use this field in the de-DE, en-AU, en-GB, en-US, es-419,
 -- es-ES, es-US, fr-CA, fr-FR, and it-IT locales. In all other locales, the
@@ -1235,7 +1195,42 @@ postContentResponse_messageFormat = Lens.lens (\PostContentResponse' {messageFor
 -- If the Lambda function returns a message, Amazon Lex passes it to the
 -- client in its response.
 postContentResponse_message :: Lens.Lens' PostContentResponse (Prelude.Maybe Prelude.Text)
-postContentResponse_message = Lens.lens (\PostContentResponse' {message} -> message) (\s@PostContentResponse' {} a -> s {message = a} :: PostContentResponse) Prelude.. Lens.mapping Core._Sensitive
+postContentResponse_message = Lens.lens (\PostContentResponse' {message} -> message) (\s@PostContentResponse' {} a -> s {message = a} :: PostContentResponse) Prelude.. Lens.mapping Data._Sensitive
+
+-- | The format of the response message. One of the following values:
+--
+-- -   @PlainText@ - The message contains plain UTF-8 text.
+--
+-- -   @CustomPayload@ - The message is a custom format for the client.
+--
+-- -   @SSML@ - The message contains text formatted for voice output.
+--
+-- -   @Composite@ - The message contains an escaped JSON object containing
+--     one or more messages from the groups that messages were assigned to
+--     when the intent was created.
+postContentResponse_messageFormat :: Lens.Lens' PostContentResponse (Prelude.Maybe MessageFormatType)
+postContentResponse_messageFormat = Lens.lens (\PostContentResponse' {messageFormat} -> messageFormat) (\s@PostContentResponse' {} a -> s {messageFormat = a} :: PostContentResponse)
+
+-- | Provides a score that indicates how confident Amazon Lex is that the
+-- returned intent is the one that matches the user\'s intent. The score is
+-- between 0.0 and 1.0.
+--
+-- The score is a relative score, not an absolute score. The score may
+-- change based on improvements to Amazon Lex.
+postContentResponse_nluIntentConfidence :: Lens.Lens' PostContentResponse (Prelude.Maybe Prelude.Text)
+postContentResponse_nluIntentConfidence = Lens.lens (\PostContentResponse' {nluIntentConfidence} -> nluIntentConfidence) (\s@PostContentResponse' {} a -> s {nluIntentConfidence = a} :: PostContentResponse)
+
+-- | The sentiment expressed in an utterance.
+--
+-- When the bot is configured to send utterances to Amazon Comprehend for
+-- sentiment analysis, this field contains the result of the analysis.
+postContentResponse_sentimentResponse :: Lens.Lens' PostContentResponse (Prelude.Maybe Prelude.Text)
+postContentResponse_sentimentResponse = Lens.lens (\PostContentResponse' {sentimentResponse} -> sentimentResponse) (\s@PostContentResponse' {} a -> s {sentimentResponse = a} :: PostContentResponse)
+
+-- | Map of key\/value pairs representing the session-specific context
+-- information.
+postContentResponse_sessionAttributes :: Lens.Lens' PostContentResponse (Prelude.Maybe Prelude.Text)
+postContentResponse_sessionAttributes = Lens.lens (\PostContentResponse' {sessionAttributes} -> sessionAttributes) (\s@PostContentResponse' {} a -> s {sessionAttributes = a} :: PostContentResponse)
 
 -- | The unique identifier for the session.
 postContentResponse_sessionId :: Lens.Lens' PostContentResponse (Prelude.Maybe Prelude.Text)
@@ -1246,14 +1241,21 @@ postContentResponse_sessionId = Lens.lens (\PostContentResponse' {sessionId} -> 
 postContentResponse_slotToElicit :: Lens.Lens' PostContentResponse (Prelude.Maybe Prelude.Text)
 postContentResponse_slotToElicit = Lens.lens (\PostContentResponse' {slotToElicit} -> slotToElicit) (\s@PostContentResponse' {} a -> s {slotToElicit = a} :: PostContentResponse)
 
--- | Content type as specified in the @Accept@ HTTP header in the request.
-postContentResponse_contentType :: Lens.Lens' PostContentResponse (Prelude.Maybe Prelude.Text)
-postContentResponse_contentType = Lens.lens (\PostContentResponse' {contentType} -> contentType) (\s@PostContentResponse' {} a -> s {contentType = a} :: PostContentResponse)
-
--- | Map of key\/value pairs representing the session-specific context
--- information.
-postContentResponse_sessionAttributes :: Lens.Lens' PostContentResponse (Prelude.Maybe Prelude.Text)
-postContentResponse_sessionAttributes = Lens.lens (\PostContentResponse' {sessionAttributes} -> sessionAttributes) (\s@PostContentResponse' {} a -> s {sessionAttributes = a} :: PostContentResponse)
+-- | Map of zero or more intent slots (name\/value pairs) Amazon Lex detected
+-- from the user input during the conversation. The field is base-64
+-- encoded.
+--
+-- Amazon Lex creates a resolution list containing likely values for a
+-- slot. The value that it returns is determined by the
+-- @valueSelectionStrategy@ selected when the slot type was created or
+-- updated. If @valueSelectionStrategy@ is set to @ORIGINAL_VALUE@, the
+-- value provided by the user is returned, if the user value is similar to
+-- the slot values. If @valueSelectionStrategy@ is set to @TOP_RESOLUTION@
+-- Amazon Lex returns the first value in the resolution list or, if there
+-- is no resolution list, null. If you don\'t specify a
+-- @valueSelectionStrategy@, the default is @ORIGINAL_VALUE@.
+postContentResponse_slots :: Lens.Lens' PostContentResponse (Prelude.Maybe Prelude.Text)
+postContentResponse_slots = Lens.lens (\PostContentResponse' {slots} -> slots) (\s@PostContentResponse' {} a -> s {slots = a} :: PostContentResponse)
 
 -- | The response's http status code.
 postContentResponse_httpStatus :: Lens.Lens' PostContentResponse Prelude.Int
@@ -1267,5 +1269,5 @@ postContentResponse_httpStatus = Lens.lens (\PostContentResponse' {httpStatus} -
 -- Another example: Suppose that the Lambda function successfully fulfilled
 -- the intent, and sent a message to convey to the user. Then Amazon Lex
 -- sends that message in the response.
-postContentResponse_audioStream :: Lens.Lens' PostContentResponse Core.ResponseBody
+postContentResponse_audioStream :: Lens.Lens' PostContentResponse Data.ResponseBody
 postContentResponse_audioStream = Lens.lens (\PostContentResponse' {audioStream} -> audioStream) (\s@PostContentResponse' {} a -> s {audioStream = a} :: PostContentResponse)

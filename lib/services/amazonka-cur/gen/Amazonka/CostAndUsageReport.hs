@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.CostAndUsageReport
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,17 +32,17 @@ module Amazonka.CostAndUsageReport
     -- * Errors
     -- $errors
 
-    -- ** ValidationException
-    _ValidationException,
+    -- ** DuplicateReportNameException
+    _DuplicateReportNameException,
 
     -- ** InternalErrorException
     _InternalErrorException,
 
-    -- ** DuplicateReportNameException
-    _DuplicateReportNameException,
-
     -- ** ReportLimitReachedException
     _ReportLimitReachedException,
+
+    -- ** ValidationException
+    _ValidationException,
 
     -- * Waiters
     -- $waiters
@@ -50,17 +50,17 @@ module Amazonka.CostAndUsageReport
     -- * Operations
     -- $operations
 
-    -- ** PutReportDefinition
-    PutReportDefinition (PutReportDefinition'),
-    newPutReportDefinition,
-    PutReportDefinitionResponse (PutReportDefinitionResponse'),
-    newPutReportDefinitionResponse,
-
     -- ** DeleteReportDefinition
     DeleteReportDefinition (DeleteReportDefinition'),
     newDeleteReportDefinition,
     DeleteReportDefinitionResponse (DeleteReportDefinitionResponse'),
     newDeleteReportDefinitionResponse,
+
+    -- ** DescribeReportDefinitions (Paginated)
+    DescribeReportDefinitions (DescribeReportDefinitions'),
+    newDescribeReportDefinitions,
+    DescribeReportDefinitionsResponse (DescribeReportDefinitionsResponse'),
+    newDescribeReportDefinitionsResponse,
 
     -- ** ModifyReportDefinition
     ModifyReportDefinition (ModifyReportDefinition'),
@@ -68,11 +68,11 @@ module Amazonka.CostAndUsageReport
     ModifyReportDefinitionResponse (ModifyReportDefinitionResponse'),
     newModifyReportDefinitionResponse,
 
-    -- ** DescribeReportDefinitions (Paginated)
-    DescribeReportDefinitions (DescribeReportDefinitions'),
-    newDescribeReportDefinitions,
-    DescribeReportDefinitionsResponse (DescribeReportDefinitionsResponse'),
-    newDescribeReportDefinitionsResponse,
+    -- ** PutReportDefinition
+    PutReportDefinition (PutReportDefinition'),
+    newPutReportDefinition,
+    PutReportDefinitionResponse (PutReportDefinitionResponse'),
+    newPutReportDefinitionResponse,
 
     -- * Types
 

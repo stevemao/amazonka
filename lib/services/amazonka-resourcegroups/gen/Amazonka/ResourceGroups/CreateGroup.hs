@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ResourceGroups.CreateGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,9 +38,9 @@ module Amazonka.ResourceGroups.CreateGroup
     newCreateGroup,
 
     -- * Request Lenses
-    createGroup_resourceQuery,
     createGroup_configuration,
     createGroup_description,
+    createGroup_resourceQuery,
     createGroup_tags,
     createGroup_name,
 
@@ -58,7 +58,8 @@ module Amazonka.ResourceGroups.CreateGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import Amazonka.ResourceGroups.Types
@@ -66,14 +67,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateGroup' smart constructor.
 data CreateGroup = CreateGroup'
-  { -- | The resource query that determines which AWS resources are members of
-    -- this group. For more information about resource queries, see
-    -- <https://docs.aws.amazon.com/ARG/latest/userguide/gettingstarted-query.html#gettingstarted-query-cli-tag Create a tag-based group in Resource Groups>.
-    --
-    -- A resource group can contain either a @ResourceQuery@ or a
-    -- @Configuration@, but not both.
-    resourceQuery :: Prelude.Maybe ResourceQuery,
-    -- | A configuration associates the resource group with an AWS service and
+  { -- | A configuration associates the resource group with an AWS service and
     -- specifies how the service can interact with the resources in the group.
     -- A configuration is an array of GroupConfigurationItem elements. For
     -- details about the syntax of service configurations, see
@@ -85,6 +79,13 @@ data CreateGroup = CreateGroup'
     -- | The description of the resource group. Descriptions can consist of
     -- letters, numbers, hyphens, underscores, periods, and spaces.
     description :: Prelude.Maybe Prelude.Text,
+    -- | The resource query that determines which AWS resources are members of
+    -- this group. For more information about resource queries, see
+    -- <https://docs.aws.amazon.com/ARG/latest/userguide/gettingstarted-query.html#gettingstarted-query-cli-tag Create a tag-based group in Resource Groups>.
+    --
+    -- A resource group can contain either a @ResourceQuery@ or a
+    -- @Configuration@, but not both.
+    resourceQuery :: Prelude.Maybe ResourceQuery,
     -- | The tags to add to the group. A tag is key-value pair string.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The name of the group, which is the identifier of the group in other
@@ -105,13 +106,6 @@ data CreateGroup = CreateGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceQuery', 'createGroup_resourceQuery' - The resource query that determines which AWS resources are members of
--- this group. For more information about resource queries, see
--- <https://docs.aws.amazon.com/ARG/latest/userguide/gettingstarted-query.html#gettingstarted-query-cli-tag Create a tag-based group in Resource Groups>.
---
--- A resource group can contain either a @ResourceQuery@ or a
--- @Configuration@, but not both.
---
 -- 'configuration', 'createGroup_configuration' - A configuration associates the resource group with an AWS service and
 -- specifies how the service can interact with the resources in the group.
 -- A configuration is an array of GroupConfigurationItem elements. For
@@ -123,6 +117,13 @@ data CreateGroup = CreateGroup'
 --
 -- 'description', 'createGroup_description' - The description of the resource group. Descriptions can consist of
 -- letters, numbers, hyphens, underscores, periods, and spaces.
+--
+-- 'resourceQuery', 'createGroup_resourceQuery' - The resource query that determines which AWS resources are members of
+-- this group. For more information about resource queries, see
+-- <https://docs.aws.amazon.com/ARG/latest/userguide/gettingstarted-query.html#gettingstarted-query-cli-tag Create a tag-based group in Resource Groups>.
+--
+-- A resource group can contain either a @ResourceQuery@ or a
+-- @Configuration@, but not both.
 --
 -- 'tags', 'createGroup_tags' - The tags to add to the group. A tag is key-value pair string.
 --
@@ -138,21 +139,12 @@ newCreateGroup ::
   CreateGroup
 newCreateGroup pName_ =
   CreateGroup'
-    { resourceQuery = Prelude.Nothing,
-      configuration = Prelude.Nothing,
+    { configuration = Prelude.Nothing,
       description = Prelude.Nothing,
+      resourceQuery = Prelude.Nothing,
       tags = Prelude.Nothing,
       name = pName_
     }
-
--- | The resource query that determines which AWS resources are members of
--- this group. For more information about resource queries, see
--- <https://docs.aws.amazon.com/ARG/latest/userguide/gettingstarted-query.html#gettingstarted-query-cli-tag Create a tag-based group in Resource Groups>.
---
--- A resource group can contain either a @ResourceQuery@ or a
--- @Configuration@, but not both.
-createGroup_resourceQuery :: Lens.Lens' CreateGroup (Prelude.Maybe ResourceQuery)
-createGroup_resourceQuery = Lens.lens (\CreateGroup' {resourceQuery} -> resourceQuery) (\s@CreateGroup' {} a -> s {resourceQuery = a} :: CreateGroup)
 
 -- | A configuration associates the resource group with an AWS service and
 -- specifies how the service can interact with the resources in the group.
@@ -170,6 +162,15 @@ createGroup_configuration = Lens.lens (\CreateGroup' {configuration} -> configur
 createGroup_description :: Lens.Lens' CreateGroup (Prelude.Maybe Prelude.Text)
 createGroup_description = Lens.lens (\CreateGroup' {description} -> description) (\s@CreateGroup' {} a -> s {description = a} :: CreateGroup)
 
+-- | The resource query that determines which AWS resources are members of
+-- this group. For more information about resource queries, see
+-- <https://docs.aws.amazon.com/ARG/latest/userguide/gettingstarted-query.html#gettingstarted-query-cli-tag Create a tag-based group in Resource Groups>.
+--
+-- A resource group can contain either a @ResourceQuery@ or a
+-- @Configuration@, but not both.
+createGroup_resourceQuery :: Lens.Lens' CreateGroup (Prelude.Maybe ResourceQuery)
+createGroup_resourceQuery = Lens.lens (\CreateGroup' {resourceQuery} -> resourceQuery) (\s@CreateGroup' {} a -> s {resourceQuery = a} :: CreateGroup)
+
 -- | The tags to add to the group. A tag is key-value pair string.
 createGroup_tags :: Lens.Lens' CreateGroup (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createGroup_tags = Lens.lens (\CreateGroup' {tags} -> tags) (\s@CreateGroup' {} a -> s {tags = a} :: CreateGroup) Prelude.. Lens.mapping Lens.coerced
@@ -185,53 +186,54 @@ createGroup_name = Lens.lens (\CreateGroup' {name} -> name) (\s@CreateGroup' {} 
 
 instance Core.AWSRequest CreateGroup where
   type AWSResponse CreateGroup = CreateGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateGroupResponse'
-            Prelude.<$> (x Core..?> "Group")
-            Prelude.<*> (x Core..?> "GroupConfiguration")
-            Prelude.<*> (x Core..?> "ResourceQuery")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Group")
+            Prelude.<*> (x Data..?> "GroupConfiguration")
+            Prelude.<*> (x Data..?> "ResourceQuery")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateGroup where
   hashWithSalt _salt CreateGroup' {..} =
-    _salt `Prelude.hashWithSalt` resourceQuery
-      `Prelude.hashWithSalt` configuration
+    _salt `Prelude.hashWithSalt` configuration
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` resourceQuery
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData CreateGroup where
   rnf CreateGroup' {..} =
-    Prelude.rnf resourceQuery
-      `Prelude.seq` Prelude.rnf configuration
+    Prelude.rnf configuration
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf resourceQuery
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreateGroup where
+instance Data.ToHeaders CreateGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateGroup where
+instance Data.ToJSON CreateGroup where
   toJSON CreateGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ResourceQuery" Core..=) Prelude.<$> resourceQuery,
-            ("Configuration" Core..=) Prelude.<$> configuration,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name)
+          [ ("Configuration" Data..=) Prelude.<$> configuration,
+            ("Description" Data..=) Prelude.<$> description,
+            ("ResourceQuery" Data..=) Prelude.<$> resourceQuery,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateGroup where
+instance Data.ToPath CreateGroup where
   toPath = Prelude.const "/groups"
 
-instance Core.ToQuery CreateGroup where
+instance Data.ToQuery CreateGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateGroupResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DescribeEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.IoT.DescribeEndpoint
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -121,12 +122,13 @@ instance Core.AWSRequest DescribeEndpoint where
   type
     AWSResponse DescribeEndpoint =
       DescribeEndpointResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeEndpointResponse'
-            Prelude.<$> (x Core..?> "endpointAddress")
+            Prelude.<$> (x Data..?> "endpointAddress")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -137,16 +139,16 @@ instance Prelude.Hashable DescribeEndpoint where
 instance Prelude.NFData DescribeEndpoint where
   rnf DescribeEndpoint' {..} = Prelude.rnf endpointType
 
-instance Core.ToHeaders DescribeEndpoint where
+instance Data.ToHeaders DescribeEndpoint where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeEndpoint where
+instance Data.ToPath DescribeEndpoint where
   toPath = Prelude.const "/endpoint"
 
-instance Core.ToQuery DescribeEndpoint where
+instance Data.ToQuery DescribeEndpoint where
   toQuery DescribeEndpoint' {..} =
     Prelude.mconcat
-      ["endpointType" Core.=: endpointType]
+      ["endpointType" Data.=: endpointType]
 
 -- | The output from the DescribeEndpoint operation.
 --

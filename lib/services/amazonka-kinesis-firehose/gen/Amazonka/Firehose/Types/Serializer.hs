@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Firehose.Types.Serializer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.Firehose.Types.Serializer where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Firehose.Types.OrcSerDe
 import Amazonka.Firehose.Types.ParquetSerDe
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The serializer that you want Kinesis Data Firehose to use to convert
@@ -80,14 +81,14 @@ serializer_orcSerDe = Lens.lens (\Serializer' {orcSerDe} -> orcSerDe) (\s@Serial
 serializer_parquetSerDe :: Lens.Lens' Serializer (Prelude.Maybe ParquetSerDe)
 serializer_parquetSerDe = Lens.lens (\Serializer' {parquetSerDe} -> parquetSerDe) (\s@Serializer' {} a -> s {parquetSerDe = a} :: Serializer)
 
-instance Core.FromJSON Serializer where
+instance Data.FromJSON Serializer where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Serializer"
       ( \x ->
           Serializer'
-            Prelude.<$> (x Core..:? "OrcSerDe")
-            Prelude.<*> (x Core..:? "ParquetSerDe")
+            Prelude.<$> (x Data..:? "OrcSerDe")
+            Prelude.<*> (x Data..:? "ParquetSerDe")
       )
 
 instance Prelude.Hashable Serializer where
@@ -100,11 +101,11 @@ instance Prelude.NFData Serializer where
     Prelude.rnf orcSerDe
       `Prelude.seq` Prelude.rnf parquetSerDe
 
-instance Core.ToJSON Serializer where
+instance Data.ToJSON Serializer where
   toJSON Serializer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("OrcSerDe" Core..=) Prelude.<$> orcSerDe,
-            ("ParquetSerDe" Core..=) Prelude.<$> parquetSerDe
+          [ ("OrcSerDe" Data..=) Prelude.<$> orcSerDe,
+            ("ParquetSerDe" Data..=) Prelude.<$> parquetSerDe
           ]
       )

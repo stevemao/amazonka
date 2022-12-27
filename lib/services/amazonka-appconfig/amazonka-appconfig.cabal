@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -48,18 +48,23 @@ library
     Amazonka.AppConfig.CreateConfigurationProfile
     Amazonka.AppConfig.CreateDeploymentStrategy
     Amazonka.AppConfig.CreateEnvironment
+    Amazonka.AppConfig.CreateExtension
+    Amazonka.AppConfig.CreateExtensionAssociation
     Amazonka.AppConfig.CreateHostedConfigurationVersion
     Amazonka.AppConfig.DeleteApplication
     Amazonka.AppConfig.DeleteConfigurationProfile
     Amazonka.AppConfig.DeleteDeploymentStrategy
     Amazonka.AppConfig.DeleteEnvironment
+    Amazonka.AppConfig.DeleteExtension
+    Amazonka.AppConfig.DeleteExtensionAssociation
     Amazonka.AppConfig.DeleteHostedConfigurationVersion
     Amazonka.AppConfig.GetApplication
-    Amazonka.AppConfig.GetConfiguration
     Amazonka.AppConfig.GetConfigurationProfile
     Amazonka.AppConfig.GetDeployment
     Amazonka.AppConfig.GetDeploymentStrategy
     Amazonka.AppConfig.GetEnvironment
+    Amazonka.AppConfig.GetExtension
+    Amazonka.AppConfig.GetExtensionAssociation
     Amazonka.AppConfig.GetHostedConfigurationVersion
     Amazonka.AppConfig.Lens
     Amazonka.AppConfig.ListApplications
@@ -67,13 +72,19 @@ library
     Amazonka.AppConfig.ListDeployments
     Amazonka.AppConfig.ListDeploymentStrategies
     Amazonka.AppConfig.ListEnvironments
+    Amazonka.AppConfig.ListExtensionAssociations
+    Amazonka.AppConfig.ListExtensions
     Amazonka.AppConfig.ListHostedConfigurationVersions
     Amazonka.AppConfig.ListTagsForResource
     Amazonka.AppConfig.StartDeployment
     Amazonka.AppConfig.StopDeployment
     Amazonka.AppConfig.TagResource
     Amazonka.AppConfig.Types
+    Amazonka.AppConfig.Types.Action
+    Amazonka.AppConfig.Types.ActionInvocation
+    Amazonka.AppConfig.Types.ActionPoint
     Amazonka.AppConfig.Types.Application
+    Amazonka.AppConfig.Types.AppliedExtension
     Amazonka.AppConfig.Types.ConfigurationProfile
     Amazonka.AppConfig.Types.ConfigurationProfileSummary
     Amazonka.AppConfig.Types.Deployment
@@ -84,10 +95,15 @@ library
     Amazonka.AppConfig.Types.DeploymentSummary
     Amazonka.AppConfig.Types.Environment
     Amazonka.AppConfig.Types.EnvironmentState
+    Amazonka.AppConfig.Types.Extension
+    Amazonka.AppConfig.Types.ExtensionAssociation
+    Amazonka.AppConfig.Types.ExtensionAssociationSummary
+    Amazonka.AppConfig.Types.ExtensionSummary
     Amazonka.AppConfig.Types.GrowthType
     Amazonka.AppConfig.Types.HostedConfigurationVersion
     Amazonka.AppConfig.Types.HostedConfigurationVersionSummary
     Amazonka.AppConfig.Types.Monitor
+    Amazonka.AppConfig.Types.Parameter
     Amazonka.AppConfig.Types.ReplicateTo
     Amazonka.AppConfig.Types.TriggeredBy
     Amazonka.AppConfig.Types.Validator
@@ -97,11 +113,13 @@ library
     Amazonka.AppConfig.UpdateConfigurationProfile
     Amazonka.AppConfig.UpdateDeploymentStrategy
     Amazonka.AppConfig.UpdateEnvironment
+    Amazonka.AppConfig.UpdateExtension
+    Amazonka.AppConfig.UpdateExtensionAssociation
     Amazonka.AppConfig.ValidateConfiguration
     Amazonka.AppConfig.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-appconfig-test
@@ -121,8 +139,8 @@ test-suite amazonka-appconfig-test
 
   build-depends:
     , amazonka-appconfig
-    , amazonka-core         ^>=2.0
-    , amazonka-test         ^>=2.0
+    , amazonka-core         >=2.0 && <2.1
+    , amazonka-test         >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

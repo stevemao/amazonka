@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.Personalize
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,301 +27,409 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestListDatasetGroups $
---             newListDatasetGroups
---
---         , requestCreateBatchInferenceJob $
+--         [ requestCreateBatchInferenceJob $
 --             newCreateBatchInferenceJob
 --
---         , requestCreateFilter $
---             newCreateFilter
---
---         , requestCreateDatasetImportJob $
---             newCreateDatasetImportJob
---
---         , requestDescribeSolution $
---             newDescribeSolution
---
---         , requestDescribeDatasetExportJob $
---             newDescribeDatasetExportJob
---
---         , requestDeleteCampaign $
---             newDeleteCampaign
---
---         , requestUpdateCampaign $
---             newUpdateCampaign
---
---         , requestListCampaigns $
---             newListCampaigns
---
---         , requestDescribeDataset $
---             newDescribeDataset
---
---         , requestCreateSolutionVersion $
---             newCreateSolutionVersion
---
---         , requestStopSolutionVersionCreation $
---             newStopSolutionVersionCreation
+--         , requestCreateBatchSegmentJob $
+--             newCreateBatchSegmentJob
 --
 --         , requestCreateCampaign $
 --             newCreateCampaign
 --
---         , requestDescribeFilter $
---             newDescribeFilter
---
---         , requestListEventTrackers $
---             newListEventTrackers
+--         , requestCreateDataset $
+--             newCreateDataset
 --
 --         , requestCreateDatasetExportJob $
 --             newCreateDatasetExportJob
 --
---         , requestCreateSolution $
---             newCreateSolution
+--         , requestCreateDatasetGroup $
+--             newCreateDatasetGroup
 --
---         , requestDeleteEventTracker $
---             newDeleteEventTracker
---
---         , requestDescribeDatasetImportJob $
---             newDescribeDatasetImportJob
---
---         , requestListSchemas $
---             newListSchemas
+--         , requestCreateDatasetImportJob $
+--             newCreateDatasetImportJob
 --
 --         , requestCreateEventTracker $
 --             newCreateEventTracker
 --
---         , requestDeleteSolution $
---             newDeleteSolution
+--         , requestCreateFilter $
+--             newCreateFilter
 --
---         , requestDescribeCampaign $
---             newDescribeCampaign
+--         , requestCreateMetricAttribution $
+--             newCreateMetricAttribution
 --
---         , requestDeleteDataset $
---             newDeleteDataset
---
---         , requestCreateDataset $
---             newCreateDataset
---
---         , requestDescribeSolutionVersion $
---             newDescribeSolutionVersion
---
---         , requestDescribeEventTracker $
---             newDescribeEventTracker
---
---         , requestListDatasetImportJobs $
---             newListDatasetImportJobs
---
---         , requestDeleteFilter $
---             newDeleteFilter
---
---         , requestListBatchInferenceJobs $
---             newListBatchInferenceJobs
---
---         , requestListFilters $
---             newListFilters
---
---         , requestDeleteDatasetGroup $
---             newDeleteDatasetGroup
---
---         , requestDescribeSchema $
---             newDescribeSchema
---
---         , requestDescribeAlgorithm $
---             newDescribeAlgorithm
---
---         , requestListSolutionVersions $
---             newListSolutionVersions
---
---         , requestDescribeBatchInferenceJob $
---             newDescribeBatchInferenceJob
+--         , requestCreateRecommender $
+--             newCreateRecommender
 --
 --         , requestCreateSchema $
 --             newCreateSchema
 --
---         , requestDescribeRecipe $
---             newDescribeRecipe
+--         , requestCreateSolution $
+--             newCreateSolution
 --
---         , requestListSolutions $
---             newListSolutions
+--         , requestCreateSolutionVersion $
+--             newCreateSolutionVersion
 --
---         , requestListDatasetExportJobs $
---             newListDatasetExportJobs
+--         , requestDeleteCampaign $
+--             newDeleteCampaign
 --
---         , requestDescribeDatasetGroup $
---             newDescribeDatasetGroup
+--         , requestDeleteDataset $
+--             newDeleteDataset
 --
---         , requestDescribeFeatureTransformation $
---             newDescribeFeatureTransformation
+--         , requestDeleteDatasetGroup $
+--             newDeleteDatasetGroup
 --
---         , requestGetSolutionMetrics $
---             newGetSolutionMetrics
+--         , requestDeleteEventTracker $
+--             newDeleteEventTracker
+--
+--         , requestDeleteFilter $
+--             newDeleteFilter
+--
+--         , requestDeleteMetricAttribution $
+--             newDeleteMetricAttribution
+--
+--         , requestDeleteRecommender $
+--             newDeleteRecommender
 --
 --         , requestDeleteSchema $
 --             newDeleteSchema
 --
+--         , requestDeleteSolution $
+--             newDeleteSolution
+--
+--         , requestDescribeAlgorithm $
+--             newDescribeAlgorithm
+--
+--         , requestDescribeBatchInferenceJob $
+--             newDescribeBatchInferenceJob
+--
+--         , requestDescribeBatchSegmentJob $
+--             newDescribeBatchSegmentJob
+--
+--         , requestDescribeCampaign $
+--             newDescribeCampaign
+--
+--         , requestDescribeDataset $
+--             newDescribeDataset
+--
+--         , requestDescribeDatasetExportJob $
+--             newDescribeDatasetExportJob
+--
+--         , requestDescribeDatasetGroup $
+--             newDescribeDatasetGroup
+--
+--         , requestDescribeDatasetImportJob $
+--             newDescribeDatasetImportJob
+--
+--         , requestDescribeEventTracker $
+--             newDescribeEventTracker
+--
+--         , requestDescribeFeatureTransformation $
+--             newDescribeFeatureTransformation
+--
+--         , requestDescribeFilter $
+--             newDescribeFilter
+--
+--         , requestDescribeMetricAttribution $
+--             newDescribeMetricAttribution
+--
+--         , requestDescribeRecipe $
+--             newDescribeRecipe
+--
+--         , requestDescribeRecommender $
+--             newDescribeRecommender
+--
+--         , requestDescribeSchema $
+--             newDescribeSchema
+--
+--         , requestDescribeSolution $
+--             newDescribeSolution
+--
+--         , requestDescribeSolutionVersion $
+--             newDescribeSolutionVersion
+--
+--         , requestGetSolutionMetrics $
+--             newGetSolutionMetrics
+--
+--         , requestListBatchInferenceJobs $
+--             newListBatchInferenceJobs
+--
+--         , requestListBatchSegmentJobs $
+--             newListBatchSegmentJobs
+--
+--         , requestListCampaigns $
+--             newListCampaigns
+--
+--         , requestListDatasetExportJobs $
+--             newListDatasetExportJobs
+--
+--         , requestListDatasetGroups $
+--             newListDatasetGroups
+--
+--         , requestListDatasetImportJobs $
+--             newListDatasetImportJobs
+--
 --         , requestListDatasets $
 --             newListDatasets
 --
---         , requestCreateDatasetGroup $
---             newCreateDatasetGroup
+--         , requestListEventTrackers $
+--             newListEventTrackers
+--
+--         , requestListFilters $
+--             newListFilters
+--
+--         , requestListMetricAttributionMetrics $
+--             newListMetricAttributionMetrics
+--
+--         , requestListMetricAttributions $
+--             newListMetricAttributions
 --
 --         , requestListRecipes $
 --             newListRecipes
 --
+--         , requestListRecommenders $
+--             newListRecommenders
+--
+--         , requestListSchemas $
+--             newListSchemas
+--
+--         , requestListSolutionVersions $
+--             newListSolutionVersions
+--
+--         , requestListSolutions $
+--             newListSolutions
+--
+--         , requestListTagsForResource $
+--             newListTagsForResource
+--
+--         , requestStartRecommender $
+--             newStartRecommender
+--
+--         , requestStopRecommender $
+--             newStopRecommender
+--
+--         , requestStopSolutionVersionCreation $
+--             newStopSolutionVersionCreation
+--
+--         , requestTagResource $
+--             newTagResource
+--
+--         , requestUntagResource $
+--             newUntagResource
+--
+--         , requestUpdateCampaign $
+--             newUpdateCampaign
+--
+--         , requestUpdateMetricAttribution $
+--             newUpdateMetricAttribution
+--
+--         , requestUpdateRecommender $
+--             newUpdateRecommender
+--
 --           ]
 
 --     , testGroup "response"
---         [ responseListDatasetGroups $
---             newListDatasetGroupsResponse
---
---         , responseCreateBatchInferenceJob $
+--         [ responseCreateBatchInferenceJob $
 --             newCreateBatchInferenceJobResponse
 --
---         , responseCreateFilter $
---             newCreateFilterResponse
---
---         , responseCreateDatasetImportJob $
---             newCreateDatasetImportJobResponse
---
---         , responseDescribeSolution $
---             newDescribeSolutionResponse
---
---         , responseDescribeDatasetExportJob $
---             newDescribeDatasetExportJobResponse
---
---         , responseDeleteCampaign $
---             newDeleteCampaignResponse
---
---         , responseUpdateCampaign $
---             newUpdateCampaignResponse
---
---         , responseListCampaigns $
---             newListCampaignsResponse
---
---         , responseDescribeDataset $
---             newDescribeDatasetResponse
---
---         , responseCreateSolutionVersion $
---             newCreateSolutionVersionResponse
---
---         , responseStopSolutionVersionCreation $
---             newStopSolutionVersionCreationResponse
+--         , responseCreateBatchSegmentJob $
+--             newCreateBatchSegmentJobResponse
 --
 --         , responseCreateCampaign $
 --             newCreateCampaignResponse
 --
---         , responseDescribeFilter $
---             newDescribeFilterResponse
---
---         , responseListEventTrackers $
---             newListEventTrackersResponse
+--         , responseCreateDataset $
+--             newCreateDatasetResponse
 --
 --         , responseCreateDatasetExportJob $
 --             newCreateDatasetExportJobResponse
 --
---         , responseCreateSolution $
---             newCreateSolutionResponse
+--         , responseCreateDatasetGroup $
+--             newCreateDatasetGroupResponse
 --
---         , responseDeleteEventTracker $
---             newDeleteEventTrackerResponse
---
---         , responseDescribeDatasetImportJob $
---             newDescribeDatasetImportJobResponse
---
---         , responseListSchemas $
---             newListSchemasResponse
+--         , responseCreateDatasetImportJob $
+--             newCreateDatasetImportJobResponse
 --
 --         , responseCreateEventTracker $
 --             newCreateEventTrackerResponse
 --
---         , responseDeleteSolution $
---             newDeleteSolutionResponse
+--         , responseCreateFilter $
+--             newCreateFilterResponse
 --
---         , responseDescribeCampaign $
---             newDescribeCampaignResponse
+--         , responseCreateMetricAttribution $
+--             newCreateMetricAttributionResponse
 --
---         , responseDeleteDataset $
---             newDeleteDatasetResponse
---
---         , responseCreateDataset $
---             newCreateDatasetResponse
---
---         , responseDescribeSolutionVersion $
---             newDescribeSolutionVersionResponse
---
---         , responseDescribeEventTracker $
---             newDescribeEventTrackerResponse
---
---         , responseListDatasetImportJobs $
---             newListDatasetImportJobsResponse
---
---         , responseDeleteFilter $
---             newDeleteFilterResponse
---
---         , responseListBatchInferenceJobs $
---             newListBatchInferenceJobsResponse
---
---         , responseListFilters $
---             newListFiltersResponse
---
---         , responseDeleteDatasetGroup $
---             newDeleteDatasetGroupResponse
---
---         , responseDescribeSchema $
---             newDescribeSchemaResponse
---
---         , responseDescribeAlgorithm $
---             newDescribeAlgorithmResponse
---
---         , responseListSolutionVersions $
---             newListSolutionVersionsResponse
---
---         , responseDescribeBatchInferenceJob $
---             newDescribeBatchInferenceJobResponse
+--         , responseCreateRecommender $
+--             newCreateRecommenderResponse
 --
 --         , responseCreateSchema $
 --             newCreateSchemaResponse
 --
---         , responseDescribeRecipe $
---             newDescribeRecipeResponse
+--         , responseCreateSolution $
+--             newCreateSolutionResponse
 --
---         , responseListSolutions $
---             newListSolutionsResponse
+--         , responseCreateSolutionVersion $
+--             newCreateSolutionVersionResponse
 --
---         , responseListDatasetExportJobs $
---             newListDatasetExportJobsResponse
+--         , responseDeleteCampaign $
+--             newDeleteCampaignResponse
 --
---         , responseDescribeDatasetGroup $
---             newDescribeDatasetGroupResponse
+--         , responseDeleteDataset $
+--             newDeleteDatasetResponse
 --
---         , responseDescribeFeatureTransformation $
---             newDescribeFeatureTransformationResponse
+--         , responseDeleteDatasetGroup $
+--             newDeleteDatasetGroupResponse
 --
---         , responseGetSolutionMetrics $
---             newGetSolutionMetricsResponse
+--         , responseDeleteEventTracker $
+--             newDeleteEventTrackerResponse
+--
+--         , responseDeleteFilter $
+--             newDeleteFilterResponse
+--
+--         , responseDeleteMetricAttribution $
+--             newDeleteMetricAttributionResponse
+--
+--         , responseDeleteRecommender $
+--             newDeleteRecommenderResponse
 --
 --         , responseDeleteSchema $
 --             newDeleteSchemaResponse
 --
+--         , responseDeleteSolution $
+--             newDeleteSolutionResponse
+--
+--         , responseDescribeAlgorithm $
+--             newDescribeAlgorithmResponse
+--
+--         , responseDescribeBatchInferenceJob $
+--             newDescribeBatchInferenceJobResponse
+--
+--         , responseDescribeBatchSegmentJob $
+--             newDescribeBatchSegmentJobResponse
+--
+--         , responseDescribeCampaign $
+--             newDescribeCampaignResponse
+--
+--         , responseDescribeDataset $
+--             newDescribeDatasetResponse
+--
+--         , responseDescribeDatasetExportJob $
+--             newDescribeDatasetExportJobResponse
+--
+--         , responseDescribeDatasetGroup $
+--             newDescribeDatasetGroupResponse
+--
+--         , responseDescribeDatasetImportJob $
+--             newDescribeDatasetImportJobResponse
+--
+--         , responseDescribeEventTracker $
+--             newDescribeEventTrackerResponse
+--
+--         , responseDescribeFeatureTransformation $
+--             newDescribeFeatureTransformationResponse
+--
+--         , responseDescribeFilter $
+--             newDescribeFilterResponse
+--
+--         , responseDescribeMetricAttribution $
+--             newDescribeMetricAttributionResponse
+--
+--         , responseDescribeRecipe $
+--             newDescribeRecipeResponse
+--
+--         , responseDescribeRecommender $
+--             newDescribeRecommenderResponse
+--
+--         , responseDescribeSchema $
+--             newDescribeSchemaResponse
+--
+--         , responseDescribeSolution $
+--             newDescribeSolutionResponse
+--
+--         , responseDescribeSolutionVersion $
+--             newDescribeSolutionVersionResponse
+--
+--         , responseGetSolutionMetrics $
+--             newGetSolutionMetricsResponse
+--
+--         , responseListBatchInferenceJobs $
+--             newListBatchInferenceJobsResponse
+--
+--         , responseListBatchSegmentJobs $
+--             newListBatchSegmentJobsResponse
+--
+--         , responseListCampaigns $
+--             newListCampaignsResponse
+--
+--         , responseListDatasetExportJobs $
+--             newListDatasetExportJobsResponse
+--
+--         , responseListDatasetGroups $
+--             newListDatasetGroupsResponse
+--
+--         , responseListDatasetImportJobs $
+--             newListDatasetImportJobsResponse
+--
 --         , responseListDatasets $
 --             newListDatasetsResponse
 --
---         , responseCreateDatasetGroup $
---             newCreateDatasetGroupResponse
+--         , responseListEventTrackers $
+--             newListEventTrackersResponse
+--
+--         , responseListFilters $
+--             newListFiltersResponse
+--
+--         , responseListMetricAttributionMetrics $
+--             newListMetricAttributionMetricsResponse
+--
+--         , responseListMetricAttributions $
+--             newListMetricAttributionsResponse
 --
 --         , responseListRecipes $
 --             newListRecipesResponse
+--
+--         , responseListRecommenders $
+--             newListRecommendersResponse
+--
+--         , responseListSchemas $
+--             newListSchemasResponse
+--
+--         , responseListSolutionVersions $
+--             newListSolutionVersionsResponse
+--
+--         , responseListSolutions $
+--             newListSolutionsResponse
+--
+--         , responseListTagsForResource $
+--             newListTagsForResourceResponse
+--
+--         , responseStartRecommender $
+--             newStartRecommenderResponse
+--
+--         , responseStopRecommender $
+--             newStopRecommenderResponse
+--
+--         , responseStopSolutionVersionCreation $
+--             newStopSolutionVersionCreationResponse
+--
+--         , responseTagResource $
+--             newTagResourceResponse
+--
+--         , responseUntagResource $
+--             newUntagResourceResponse
+--
+--         , responseUpdateCampaign $
+--             newUpdateCampaignResponse
+--
+--         , responseUpdateMetricAttribution $
+--             newUpdateMetricAttributionResponse
+--
+--         , responseUpdateRecommender $
+--             newUpdateRecommenderResponse
 --
 --           ]
 --     ]
 
 -- Requests
-
-requestListDatasetGroups :: ListDatasetGroups -> TestTree
-requestListDatasetGroups =
-  req
-    "ListDatasetGroups"
-    "fixture/ListDatasetGroups.yaml"
 
 requestCreateBatchInferenceJob :: CreateBatchInferenceJob -> TestTree
 requestCreateBatchInferenceJob =
@@ -329,65 +437,11 @@ requestCreateBatchInferenceJob =
     "CreateBatchInferenceJob"
     "fixture/CreateBatchInferenceJob.yaml"
 
-requestCreateFilter :: CreateFilter -> TestTree
-requestCreateFilter =
+requestCreateBatchSegmentJob :: CreateBatchSegmentJob -> TestTree
+requestCreateBatchSegmentJob =
   req
-    "CreateFilter"
-    "fixture/CreateFilter.yaml"
-
-requestCreateDatasetImportJob :: CreateDatasetImportJob -> TestTree
-requestCreateDatasetImportJob =
-  req
-    "CreateDatasetImportJob"
-    "fixture/CreateDatasetImportJob.yaml"
-
-requestDescribeSolution :: DescribeSolution -> TestTree
-requestDescribeSolution =
-  req
-    "DescribeSolution"
-    "fixture/DescribeSolution.yaml"
-
-requestDescribeDatasetExportJob :: DescribeDatasetExportJob -> TestTree
-requestDescribeDatasetExportJob =
-  req
-    "DescribeDatasetExportJob"
-    "fixture/DescribeDatasetExportJob.yaml"
-
-requestDeleteCampaign :: DeleteCampaign -> TestTree
-requestDeleteCampaign =
-  req
-    "DeleteCampaign"
-    "fixture/DeleteCampaign.yaml"
-
-requestUpdateCampaign :: UpdateCampaign -> TestTree
-requestUpdateCampaign =
-  req
-    "UpdateCampaign"
-    "fixture/UpdateCampaign.yaml"
-
-requestListCampaigns :: ListCampaigns -> TestTree
-requestListCampaigns =
-  req
-    "ListCampaigns"
-    "fixture/ListCampaigns.yaml"
-
-requestDescribeDataset :: DescribeDataset -> TestTree
-requestDescribeDataset =
-  req
-    "DescribeDataset"
-    "fixture/DescribeDataset.yaml"
-
-requestCreateSolutionVersion :: CreateSolutionVersion -> TestTree
-requestCreateSolutionVersion =
-  req
-    "CreateSolutionVersion"
-    "fixture/CreateSolutionVersion.yaml"
-
-requestStopSolutionVersionCreation :: StopSolutionVersionCreation -> TestTree
-requestStopSolutionVersionCreation =
-  req
-    "StopSolutionVersionCreation"
-    "fixture/StopSolutionVersionCreation.yaml"
+    "CreateBatchSegmentJob"
+    "fixture/CreateBatchSegmentJob.yaml"
 
 requestCreateCampaign :: CreateCampaign -> TestTree
 requestCreateCampaign =
@@ -395,17 +449,11 @@ requestCreateCampaign =
     "CreateCampaign"
     "fixture/CreateCampaign.yaml"
 
-requestDescribeFilter :: DescribeFilter -> TestTree
-requestDescribeFilter =
+requestCreateDataset :: CreateDataset -> TestTree
+requestCreateDataset =
   req
-    "DescribeFilter"
-    "fixture/DescribeFilter.yaml"
-
-requestListEventTrackers :: ListEventTrackers -> TestTree
-requestListEventTrackers =
-  req
-    "ListEventTrackers"
-    "fixture/ListEventTrackers.yaml"
+    "CreateDataset"
+    "fixture/CreateDataset.yaml"
 
 requestCreateDatasetExportJob :: CreateDatasetExportJob -> TestTree
 requestCreateDatasetExportJob =
@@ -413,29 +461,17 @@ requestCreateDatasetExportJob =
     "CreateDatasetExportJob"
     "fixture/CreateDatasetExportJob.yaml"
 
-requestCreateSolution :: CreateSolution -> TestTree
-requestCreateSolution =
+requestCreateDatasetGroup :: CreateDatasetGroup -> TestTree
+requestCreateDatasetGroup =
   req
-    "CreateSolution"
-    "fixture/CreateSolution.yaml"
+    "CreateDatasetGroup"
+    "fixture/CreateDatasetGroup.yaml"
 
-requestDeleteEventTracker :: DeleteEventTracker -> TestTree
-requestDeleteEventTracker =
+requestCreateDatasetImportJob :: CreateDatasetImportJob -> TestTree
+requestCreateDatasetImportJob =
   req
-    "DeleteEventTracker"
-    "fixture/DeleteEventTracker.yaml"
-
-requestDescribeDatasetImportJob :: DescribeDatasetImportJob -> TestTree
-requestDescribeDatasetImportJob =
-  req
-    "DescribeDatasetImportJob"
-    "fixture/DescribeDatasetImportJob.yaml"
-
-requestListSchemas :: ListSchemas -> TestTree
-requestListSchemas =
-  req
-    "ListSchemas"
-    "fixture/ListSchemas.yaml"
+    "CreateDatasetImportJob"
+    "fixture/CreateDatasetImportJob.yaml"
 
 requestCreateEventTracker :: CreateEventTracker -> TestTree
 requestCreateEventTracker =
@@ -443,95 +479,23 @@ requestCreateEventTracker =
     "CreateEventTracker"
     "fixture/CreateEventTracker.yaml"
 
-requestDeleteSolution :: DeleteSolution -> TestTree
-requestDeleteSolution =
+requestCreateFilter :: CreateFilter -> TestTree
+requestCreateFilter =
   req
-    "DeleteSolution"
-    "fixture/DeleteSolution.yaml"
+    "CreateFilter"
+    "fixture/CreateFilter.yaml"
 
-requestDescribeCampaign :: DescribeCampaign -> TestTree
-requestDescribeCampaign =
+requestCreateMetricAttribution :: CreateMetricAttribution -> TestTree
+requestCreateMetricAttribution =
   req
-    "DescribeCampaign"
-    "fixture/DescribeCampaign.yaml"
+    "CreateMetricAttribution"
+    "fixture/CreateMetricAttribution.yaml"
 
-requestDeleteDataset :: DeleteDataset -> TestTree
-requestDeleteDataset =
+requestCreateRecommender :: CreateRecommender -> TestTree
+requestCreateRecommender =
   req
-    "DeleteDataset"
-    "fixture/DeleteDataset.yaml"
-
-requestCreateDataset :: CreateDataset -> TestTree
-requestCreateDataset =
-  req
-    "CreateDataset"
-    "fixture/CreateDataset.yaml"
-
-requestDescribeSolutionVersion :: DescribeSolutionVersion -> TestTree
-requestDescribeSolutionVersion =
-  req
-    "DescribeSolutionVersion"
-    "fixture/DescribeSolutionVersion.yaml"
-
-requestDescribeEventTracker :: DescribeEventTracker -> TestTree
-requestDescribeEventTracker =
-  req
-    "DescribeEventTracker"
-    "fixture/DescribeEventTracker.yaml"
-
-requestListDatasetImportJobs :: ListDatasetImportJobs -> TestTree
-requestListDatasetImportJobs =
-  req
-    "ListDatasetImportJobs"
-    "fixture/ListDatasetImportJobs.yaml"
-
-requestDeleteFilter :: DeleteFilter -> TestTree
-requestDeleteFilter =
-  req
-    "DeleteFilter"
-    "fixture/DeleteFilter.yaml"
-
-requestListBatchInferenceJobs :: ListBatchInferenceJobs -> TestTree
-requestListBatchInferenceJobs =
-  req
-    "ListBatchInferenceJobs"
-    "fixture/ListBatchInferenceJobs.yaml"
-
-requestListFilters :: ListFilters -> TestTree
-requestListFilters =
-  req
-    "ListFilters"
-    "fixture/ListFilters.yaml"
-
-requestDeleteDatasetGroup :: DeleteDatasetGroup -> TestTree
-requestDeleteDatasetGroup =
-  req
-    "DeleteDatasetGroup"
-    "fixture/DeleteDatasetGroup.yaml"
-
-requestDescribeSchema :: DescribeSchema -> TestTree
-requestDescribeSchema =
-  req
-    "DescribeSchema"
-    "fixture/DescribeSchema.yaml"
-
-requestDescribeAlgorithm :: DescribeAlgorithm -> TestTree
-requestDescribeAlgorithm =
-  req
-    "DescribeAlgorithm"
-    "fixture/DescribeAlgorithm.yaml"
-
-requestListSolutionVersions :: ListSolutionVersions -> TestTree
-requestListSolutionVersions =
-  req
-    "ListSolutionVersions"
-    "fixture/ListSolutionVersions.yaml"
-
-requestDescribeBatchInferenceJob :: DescribeBatchInferenceJob -> TestTree
-requestDescribeBatchInferenceJob =
-  req
-    "DescribeBatchInferenceJob"
-    "fixture/DescribeBatchInferenceJob.yaml"
+    "CreateRecommender"
+    "fixture/CreateRecommender.yaml"
 
 requestCreateSchema :: CreateSchema -> TestTree
 requestCreateSchema =
@@ -539,41 +503,59 @@ requestCreateSchema =
     "CreateSchema"
     "fixture/CreateSchema.yaml"
 
-requestDescribeRecipe :: DescribeRecipe -> TestTree
-requestDescribeRecipe =
+requestCreateSolution :: CreateSolution -> TestTree
+requestCreateSolution =
   req
-    "DescribeRecipe"
-    "fixture/DescribeRecipe.yaml"
+    "CreateSolution"
+    "fixture/CreateSolution.yaml"
 
-requestListSolutions :: ListSolutions -> TestTree
-requestListSolutions =
+requestCreateSolutionVersion :: CreateSolutionVersion -> TestTree
+requestCreateSolutionVersion =
   req
-    "ListSolutions"
-    "fixture/ListSolutions.yaml"
+    "CreateSolutionVersion"
+    "fixture/CreateSolutionVersion.yaml"
 
-requestListDatasetExportJobs :: ListDatasetExportJobs -> TestTree
-requestListDatasetExportJobs =
+requestDeleteCampaign :: DeleteCampaign -> TestTree
+requestDeleteCampaign =
   req
-    "ListDatasetExportJobs"
-    "fixture/ListDatasetExportJobs.yaml"
+    "DeleteCampaign"
+    "fixture/DeleteCampaign.yaml"
 
-requestDescribeDatasetGroup :: DescribeDatasetGroup -> TestTree
-requestDescribeDatasetGroup =
+requestDeleteDataset :: DeleteDataset -> TestTree
+requestDeleteDataset =
   req
-    "DescribeDatasetGroup"
-    "fixture/DescribeDatasetGroup.yaml"
+    "DeleteDataset"
+    "fixture/DeleteDataset.yaml"
 
-requestDescribeFeatureTransformation :: DescribeFeatureTransformation -> TestTree
-requestDescribeFeatureTransformation =
+requestDeleteDatasetGroup :: DeleteDatasetGroup -> TestTree
+requestDeleteDatasetGroup =
   req
-    "DescribeFeatureTransformation"
-    "fixture/DescribeFeatureTransformation.yaml"
+    "DeleteDatasetGroup"
+    "fixture/DeleteDatasetGroup.yaml"
 
-requestGetSolutionMetrics :: GetSolutionMetrics -> TestTree
-requestGetSolutionMetrics =
+requestDeleteEventTracker :: DeleteEventTracker -> TestTree
+requestDeleteEventTracker =
   req
-    "GetSolutionMetrics"
-    "fixture/GetSolutionMetrics.yaml"
+    "DeleteEventTracker"
+    "fixture/DeleteEventTracker.yaml"
+
+requestDeleteFilter :: DeleteFilter -> TestTree
+requestDeleteFilter =
+  req
+    "DeleteFilter"
+    "fixture/DeleteFilter.yaml"
+
+requestDeleteMetricAttribution :: DeleteMetricAttribution -> TestTree
+requestDeleteMetricAttribution =
+  req
+    "DeleteMetricAttribution"
+    "fixture/DeleteMetricAttribution.yaml"
+
+requestDeleteRecommender :: DeleteRecommender -> TestTree
+requestDeleteRecommender =
+  req
+    "DeleteRecommender"
+    "fixture/DeleteRecommender.yaml"
 
 requestDeleteSchema :: DeleteSchema -> TestTree
 requestDeleteSchema =
@@ -581,17 +563,185 @@ requestDeleteSchema =
     "DeleteSchema"
     "fixture/DeleteSchema.yaml"
 
+requestDeleteSolution :: DeleteSolution -> TestTree
+requestDeleteSolution =
+  req
+    "DeleteSolution"
+    "fixture/DeleteSolution.yaml"
+
+requestDescribeAlgorithm :: DescribeAlgorithm -> TestTree
+requestDescribeAlgorithm =
+  req
+    "DescribeAlgorithm"
+    "fixture/DescribeAlgorithm.yaml"
+
+requestDescribeBatchInferenceJob :: DescribeBatchInferenceJob -> TestTree
+requestDescribeBatchInferenceJob =
+  req
+    "DescribeBatchInferenceJob"
+    "fixture/DescribeBatchInferenceJob.yaml"
+
+requestDescribeBatchSegmentJob :: DescribeBatchSegmentJob -> TestTree
+requestDescribeBatchSegmentJob =
+  req
+    "DescribeBatchSegmentJob"
+    "fixture/DescribeBatchSegmentJob.yaml"
+
+requestDescribeCampaign :: DescribeCampaign -> TestTree
+requestDescribeCampaign =
+  req
+    "DescribeCampaign"
+    "fixture/DescribeCampaign.yaml"
+
+requestDescribeDataset :: DescribeDataset -> TestTree
+requestDescribeDataset =
+  req
+    "DescribeDataset"
+    "fixture/DescribeDataset.yaml"
+
+requestDescribeDatasetExportJob :: DescribeDatasetExportJob -> TestTree
+requestDescribeDatasetExportJob =
+  req
+    "DescribeDatasetExportJob"
+    "fixture/DescribeDatasetExportJob.yaml"
+
+requestDescribeDatasetGroup :: DescribeDatasetGroup -> TestTree
+requestDescribeDatasetGroup =
+  req
+    "DescribeDatasetGroup"
+    "fixture/DescribeDatasetGroup.yaml"
+
+requestDescribeDatasetImportJob :: DescribeDatasetImportJob -> TestTree
+requestDescribeDatasetImportJob =
+  req
+    "DescribeDatasetImportJob"
+    "fixture/DescribeDatasetImportJob.yaml"
+
+requestDescribeEventTracker :: DescribeEventTracker -> TestTree
+requestDescribeEventTracker =
+  req
+    "DescribeEventTracker"
+    "fixture/DescribeEventTracker.yaml"
+
+requestDescribeFeatureTransformation :: DescribeFeatureTransformation -> TestTree
+requestDescribeFeatureTransformation =
+  req
+    "DescribeFeatureTransformation"
+    "fixture/DescribeFeatureTransformation.yaml"
+
+requestDescribeFilter :: DescribeFilter -> TestTree
+requestDescribeFilter =
+  req
+    "DescribeFilter"
+    "fixture/DescribeFilter.yaml"
+
+requestDescribeMetricAttribution :: DescribeMetricAttribution -> TestTree
+requestDescribeMetricAttribution =
+  req
+    "DescribeMetricAttribution"
+    "fixture/DescribeMetricAttribution.yaml"
+
+requestDescribeRecipe :: DescribeRecipe -> TestTree
+requestDescribeRecipe =
+  req
+    "DescribeRecipe"
+    "fixture/DescribeRecipe.yaml"
+
+requestDescribeRecommender :: DescribeRecommender -> TestTree
+requestDescribeRecommender =
+  req
+    "DescribeRecommender"
+    "fixture/DescribeRecommender.yaml"
+
+requestDescribeSchema :: DescribeSchema -> TestTree
+requestDescribeSchema =
+  req
+    "DescribeSchema"
+    "fixture/DescribeSchema.yaml"
+
+requestDescribeSolution :: DescribeSolution -> TestTree
+requestDescribeSolution =
+  req
+    "DescribeSolution"
+    "fixture/DescribeSolution.yaml"
+
+requestDescribeSolutionVersion :: DescribeSolutionVersion -> TestTree
+requestDescribeSolutionVersion =
+  req
+    "DescribeSolutionVersion"
+    "fixture/DescribeSolutionVersion.yaml"
+
+requestGetSolutionMetrics :: GetSolutionMetrics -> TestTree
+requestGetSolutionMetrics =
+  req
+    "GetSolutionMetrics"
+    "fixture/GetSolutionMetrics.yaml"
+
+requestListBatchInferenceJobs :: ListBatchInferenceJobs -> TestTree
+requestListBatchInferenceJobs =
+  req
+    "ListBatchInferenceJobs"
+    "fixture/ListBatchInferenceJobs.yaml"
+
+requestListBatchSegmentJobs :: ListBatchSegmentJobs -> TestTree
+requestListBatchSegmentJobs =
+  req
+    "ListBatchSegmentJobs"
+    "fixture/ListBatchSegmentJobs.yaml"
+
+requestListCampaigns :: ListCampaigns -> TestTree
+requestListCampaigns =
+  req
+    "ListCampaigns"
+    "fixture/ListCampaigns.yaml"
+
+requestListDatasetExportJobs :: ListDatasetExportJobs -> TestTree
+requestListDatasetExportJobs =
+  req
+    "ListDatasetExportJobs"
+    "fixture/ListDatasetExportJobs.yaml"
+
+requestListDatasetGroups :: ListDatasetGroups -> TestTree
+requestListDatasetGroups =
+  req
+    "ListDatasetGroups"
+    "fixture/ListDatasetGroups.yaml"
+
+requestListDatasetImportJobs :: ListDatasetImportJobs -> TestTree
+requestListDatasetImportJobs =
+  req
+    "ListDatasetImportJobs"
+    "fixture/ListDatasetImportJobs.yaml"
+
 requestListDatasets :: ListDatasets -> TestTree
 requestListDatasets =
   req
     "ListDatasets"
     "fixture/ListDatasets.yaml"
 
-requestCreateDatasetGroup :: CreateDatasetGroup -> TestTree
-requestCreateDatasetGroup =
+requestListEventTrackers :: ListEventTrackers -> TestTree
+requestListEventTrackers =
   req
-    "CreateDatasetGroup"
-    "fixture/CreateDatasetGroup.yaml"
+    "ListEventTrackers"
+    "fixture/ListEventTrackers.yaml"
+
+requestListFilters :: ListFilters -> TestTree
+requestListFilters =
+  req
+    "ListFilters"
+    "fixture/ListFilters.yaml"
+
+requestListMetricAttributionMetrics :: ListMetricAttributionMetrics -> TestTree
+requestListMetricAttributionMetrics =
+  req
+    "ListMetricAttributionMetrics"
+    "fixture/ListMetricAttributionMetrics.yaml"
+
+requestListMetricAttributions :: ListMetricAttributions -> TestTree
+requestListMetricAttributions =
+  req
+    "ListMetricAttributions"
+    "fixture/ListMetricAttributions.yaml"
 
 requestListRecipes :: ListRecipes -> TestTree
 requestListRecipes =
@@ -599,15 +749,85 @@ requestListRecipes =
     "ListRecipes"
     "fixture/ListRecipes.yaml"
 
--- Responses
+requestListRecommenders :: ListRecommenders -> TestTree
+requestListRecommenders =
+  req
+    "ListRecommenders"
+    "fixture/ListRecommenders.yaml"
 
-responseListDatasetGroups :: ListDatasetGroupsResponse -> TestTree
-responseListDatasetGroups =
-  res
-    "ListDatasetGroupsResponse"
-    "fixture/ListDatasetGroupsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListDatasetGroups)
+requestListSchemas :: ListSchemas -> TestTree
+requestListSchemas =
+  req
+    "ListSchemas"
+    "fixture/ListSchemas.yaml"
+
+requestListSolutionVersions :: ListSolutionVersions -> TestTree
+requestListSolutionVersions =
+  req
+    "ListSolutionVersions"
+    "fixture/ListSolutionVersions.yaml"
+
+requestListSolutions :: ListSolutions -> TestTree
+requestListSolutions =
+  req
+    "ListSolutions"
+    "fixture/ListSolutions.yaml"
+
+requestListTagsForResource :: ListTagsForResource -> TestTree
+requestListTagsForResource =
+  req
+    "ListTagsForResource"
+    "fixture/ListTagsForResource.yaml"
+
+requestStartRecommender :: StartRecommender -> TestTree
+requestStartRecommender =
+  req
+    "StartRecommender"
+    "fixture/StartRecommender.yaml"
+
+requestStopRecommender :: StopRecommender -> TestTree
+requestStopRecommender =
+  req
+    "StopRecommender"
+    "fixture/StopRecommender.yaml"
+
+requestStopSolutionVersionCreation :: StopSolutionVersionCreation -> TestTree
+requestStopSolutionVersionCreation =
+  req
+    "StopSolutionVersionCreation"
+    "fixture/StopSolutionVersionCreation.yaml"
+
+requestTagResource :: TagResource -> TestTree
+requestTagResource =
+  req
+    "TagResource"
+    "fixture/TagResource.yaml"
+
+requestUntagResource :: UntagResource -> TestTree
+requestUntagResource =
+  req
+    "UntagResource"
+    "fixture/UntagResource.yaml"
+
+requestUpdateCampaign :: UpdateCampaign -> TestTree
+requestUpdateCampaign =
+  req
+    "UpdateCampaign"
+    "fixture/UpdateCampaign.yaml"
+
+requestUpdateMetricAttribution :: UpdateMetricAttribution -> TestTree
+requestUpdateMetricAttribution =
+  req
+    "UpdateMetricAttribution"
+    "fixture/UpdateMetricAttribution.yaml"
+
+requestUpdateRecommender :: UpdateRecommender -> TestTree
+requestUpdateRecommender =
+  req
+    "UpdateRecommender"
+    "fixture/UpdateRecommender.yaml"
+
+-- Responses
 
 responseCreateBatchInferenceJob :: CreateBatchInferenceJobResponse -> TestTree
 responseCreateBatchInferenceJob =
@@ -617,85 +837,13 @@ responseCreateBatchInferenceJob =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CreateBatchInferenceJob)
 
-responseCreateFilter :: CreateFilterResponse -> TestTree
-responseCreateFilter =
+responseCreateBatchSegmentJob :: CreateBatchSegmentJobResponse -> TestTree
+responseCreateBatchSegmentJob =
   res
-    "CreateFilterResponse"
-    "fixture/CreateFilterResponse.proto"
+    "CreateBatchSegmentJobResponse"
+    "fixture/CreateBatchSegmentJobResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateFilter)
-
-responseCreateDatasetImportJob :: CreateDatasetImportJobResponse -> TestTree
-responseCreateDatasetImportJob =
-  res
-    "CreateDatasetImportJobResponse"
-    "fixture/CreateDatasetImportJobResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateDatasetImportJob)
-
-responseDescribeSolution :: DescribeSolutionResponse -> TestTree
-responseDescribeSolution =
-  res
-    "DescribeSolutionResponse"
-    "fixture/DescribeSolutionResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeSolution)
-
-responseDescribeDatasetExportJob :: DescribeDatasetExportJobResponse -> TestTree
-responseDescribeDatasetExportJob =
-  res
-    "DescribeDatasetExportJobResponse"
-    "fixture/DescribeDatasetExportJobResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeDatasetExportJob)
-
-responseDeleteCampaign :: DeleteCampaignResponse -> TestTree
-responseDeleteCampaign =
-  res
-    "DeleteCampaignResponse"
-    "fixture/DeleteCampaignResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteCampaign)
-
-responseUpdateCampaign :: UpdateCampaignResponse -> TestTree
-responseUpdateCampaign =
-  res
-    "UpdateCampaignResponse"
-    "fixture/UpdateCampaignResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateCampaign)
-
-responseListCampaigns :: ListCampaignsResponse -> TestTree
-responseListCampaigns =
-  res
-    "ListCampaignsResponse"
-    "fixture/ListCampaignsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListCampaigns)
-
-responseDescribeDataset :: DescribeDatasetResponse -> TestTree
-responseDescribeDataset =
-  res
-    "DescribeDatasetResponse"
-    "fixture/DescribeDatasetResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeDataset)
-
-responseCreateSolutionVersion :: CreateSolutionVersionResponse -> TestTree
-responseCreateSolutionVersion =
-  res
-    "CreateSolutionVersionResponse"
-    "fixture/CreateSolutionVersionResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateSolutionVersion)
-
-responseStopSolutionVersionCreation :: StopSolutionVersionCreationResponse -> TestTree
-responseStopSolutionVersionCreation =
-  res
-    "StopSolutionVersionCreationResponse"
-    "fixture/StopSolutionVersionCreationResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy StopSolutionVersionCreation)
+    (Proxy.Proxy :: Proxy.Proxy CreateBatchSegmentJob)
 
 responseCreateCampaign :: CreateCampaignResponse -> TestTree
 responseCreateCampaign =
@@ -705,21 +853,13 @@ responseCreateCampaign =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CreateCampaign)
 
-responseDescribeFilter :: DescribeFilterResponse -> TestTree
-responseDescribeFilter =
+responseCreateDataset :: CreateDatasetResponse -> TestTree
+responseCreateDataset =
   res
-    "DescribeFilterResponse"
-    "fixture/DescribeFilterResponse.proto"
+    "CreateDatasetResponse"
+    "fixture/CreateDatasetResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeFilter)
-
-responseListEventTrackers :: ListEventTrackersResponse -> TestTree
-responseListEventTrackers =
-  res
-    "ListEventTrackersResponse"
-    "fixture/ListEventTrackersResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListEventTrackers)
+    (Proxy.Proxy :: Proxy.Proxy CreateDataset)
 
 responseCreateDatasetExportJob :: CreateDatasetExportJobResponse -> TestTree
 responseCreateDatasetExportJob =
@@ -729,37 +869,21 @@ responseCreateDatasetExportJob =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CreateDatasetExportJob)
 
-responseCreateSolution :: CreateSolutionResponse -> TestTree
-responseCreateSolution =
+responseCreateDatasetGroup :: CreateDatasetGroupResponse -> TestTree
+responseCreateDatasetGroup =
   res
-    "CreateSolutionResponse"
-    "fixture/CreateSolutionResponse.proto"
+    "CreateDatasetGroupResponse"
+    "fixture/CreateDatasetGroupResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateSolution)
+    (Proxy.Proxy :: Proxy.Proxy CreateDatasetGroup)
 
-responseDeleteEventTracker :: DeleteEventTrackerResponse -> TestTree
-responseDeleteEventTracker =
+responseCreateDatasetImportJob :: CreateDatasetImportJobResponse -> TestTree
+responseCreateDatasetImportJob =
   res
-    "DeleteEventTrackerResponse"
-    "fixture/DeleteEventTrackerResponse.proto"
+    "CreateDatasetImportJobResponse"
+    "fixture/CreateDatasetImportJobResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteEventTracker)
-
-responseDescribeDatasetImportJob :: DescribeDatasetImportJobResponse -> TestTree
-responseDescribeDatasetImportJob =
-  res
-    "DescribeDatasetImportJobResponse"
-    "fixture/DescribeDatasetImportJobResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeDatasetImportJob)
-
-responseListSchemas :: ListSchemasResponse -> TestTree
-responseListSchemas =
-  res
-    "ListSchemasResponse"
-    "fixture/ListSchemasResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListSchemas)
+    (Proxy.Proxy :: Proxy.Proxy CreateDatasetImportJob)
 
 responseCreateEventTracker :: CreateEventTrackerResponse -> TestTree
 responseCreateEventTracker =
@@ -769,125 +893,29 @@ responseCreateEventTracker =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CreateEventTracker)
 
-responseDeleteSolution :: DeleteSolutionResponse -> TestTree
-responseDeleteSolution =
+responseCreateFilter :: CreateFilterResponse -> TestTree
+responseCreateFilter =
   res
-    "DeleteSolutionResponse"
-    "fixture/DeleteSolutionResponse.proto"
+    "CreateFilterResponse"
+    "fixture/CreateFilterResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteSolution)
+    (Proxy.Proxy :: Proxy.Proxy CreateFilter)
 
-responseDescribeCampaign :: DescribeCampaignResponse -> TestTree
-responseDescribeCampaign =
+responseCreateMetricAttribution :: CreateMetricAttributionResponse -> TestTree
+responseCreateMetricAttribution =
   res
-    "DescribeCampaignResponse"
-    "fixture/DescribeCampaignResponse.proto"
+    "CreateMetricAttributionResponse"
+    "fixture/CreateMetricAttributionResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeCampaign)
+    (Proxy.Proxy :: Proxy.Proxy CreateMetricAttribution)
 
-responseDeleteDataset :: DeleteDatasetResponse -> TestTree
-responseDeleteDataset =
+responseCreateRecommender :: CreateRecommenderResponse -> TestTree
+responseCreateRecommender =
   res
-    "DeleteDatasetResponse"
-    "fixture/DeleteDatasetResponse.proto"
+    "CreateRecommenderResponse"
+    "fixture/CreateRecommenderResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteDataset)
-
-responseCreateDataset :: CreateDatasetResponse -> TestTree
-responseCreateDataset =
-  res
-    "CreateDatasetResponse"
-    "fixture/CreateDatasetResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateDataset)
-
-responseDescribeSolutionVersion :: DescribeSolutionVersionResponse -> TestTree
-responseDescribeSolutionVersion =
-  res
-    "DescribeSolutionVersionResponse"
-    "fixture/DescribeSolutionVersionResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeSolutionVersion)
-
-responseDescribeEventTracker :: DescribeEventTrackerResponse -> TestTree
-responseDescribeEventTracker =
-  res
-    "DescribeEventTrackerResponse"
-    "fixture/DescribeEventTrackerResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeEventTracker)
-
-responseListDatasetImportJobs :: ListDatasetImportJobsResponse -> TestTree
-responseListDatasetImportJobs =
-  res
-    "ListDatasetImportJobsResponse"
-    "fixture/ListDatasetImportJobsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListDatasetImportJobs)
-
-responseDeleteFilter :: DeleteFilterResponse -> TestTree
-responseDeleteFilter =
-  res
-    "DeleteFilterResponse"
-    "fixture/DeleteFilterResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteFilter)
-
-responseListBatchInferenceJobs :: ListBatchInferenceJobsResponse -> TestTree
-responseListBatchInferenceJobs =
-  res
-    "ListBatchInferenceJobsResponse"
-    "fixture/ListBatchInferenceJobsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListBatchInferenceJobs)
-
-responseListFilters :: ListFiltersResponse -> TestTree
-responseListFilters =
-  res
-    "ListFiltersResponse"
-    "fixture/ListFiltersResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListFilters)
-
-responseDeleteDatasetGroup :: DeleteDatasetGroupResponse -> TestTree
-responseDeleteDatasetGroup =
-  res
-    "DeleteDatasetGroupResponse"
-    "fixture/DeleteDatasetGroupResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteDatasetGroup)
-
-responseDescribeSchema :: DescribeSchemaResponse -> TestTree
-responseDescribeSchema =
-  res
-    "DescribeSchemaResponse"
-    "fixture/DescribeSchemaResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeSchema)
-
-responseDescribeAlgorithm :: DescribeAlgorithmResponse -> TestTree
-responseDescribeAlgorithm =
-  res
-    "DescribeAlgorithmResponse"
-    "fixture/DescribeAlgorithmResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeAlgorithm)
-
-responseListSolutionVersions :: ListSolutionVersionsResponse -> TestTree
-responseListSolutionVersions =
-  res
-    "ListSolutionVersionsResponse"
-    "fixture/ListSolutionVersionsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListSolutionVersions)
-
-responseDescribeBatchInferenceJob :: DescribeBatchInferenceJobResponse -> TestTree
-responseDescribeBatchInferenceJob =
-  res
-    "DescribeBatchInferenceJobResponse"
-    "fixture/DescribeBatchInferenceJobResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeBatchInferenceJob)
+    (Proxy.Proxy :: Proxy.Proxy CreateRecommender)
 
 responseCreateSchema :: CreateSchemaResponse -> TestTree
 responseCreateSchema =
@@ -897,53 +925,77 @@ responseCreateSchema =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CreateSchema)
 
-responseDescribeRecipe :: DescribeRecipeResponse -> TestTree
-responseDescribeRecipe =
+responseCreateSolution :: CreateSolutionResponse -> TestTree
+responseCreateSolution =
   res
-    "DescribeRecipeResponse"
-    "fixture/DescribeRecipeResponse.proto"
+    "CreateSolutionResponse"
+    "fixture/CreateSolutionResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeRecipe)
+    (Proxy.Proxy :: Proxy.Proxy CreateSolution)
 
-responseListSolutions :: ListSolutionsResponse -> TestTree
-responseListSolutions =
+responseCreateSolutionVersion :: CreateSolutionVersionResponse -> TestTree
+responseCreateSolutionVersion =
   res
-    "ListSolutionsResponse"
-    "fixture/ListSolutionsResponse.proto"
+    "CreateSolutionVersionResponse"
+    "fixture/CreateSolutionVersionResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListSolutions)
+    (Proxy.Proxy :: Proxy.Proxy CreateSolutionVersion)
 
-responseListDatasetExportJobs :: ListDatasetExportJobsResponse -> TestTree
-responseListDatasetExportJobs =
+responseDeleteCampaign :: DeleteCampaignResponse -> TestTree
+responseDeleteCampaign =
   res
-    "ListDatasetExportJobsResponse"
-    "fixture/ListDatasetExportJobsResponse.proto"
+    "DeleteCampaignResponse"
+    "fixture/DeleteCampaignResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListDatasetExportJobs)
+    (Proxy.Proxy :: Proxy.Proxy DeleteCampaign)
 
-responseDescribeDatasetGroup :: DescribeDatasetGroupResponse -> TestTree
-responseDescribeDatasetGroup =
+responseDeleteDataset :: DeleteDatasetResponse -> TestTree
+responseDeleteDataset =
   res
-    "DescribeDatasetGroupResponse"
-    "fixture/DescribeDatasetGroupResponse.proto"
+    "DeleteDatasetResponse"
+    "fixture/DeleteDatasetResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeDatasetGroup)
+    (Proxy.Proxy :: Proxy.Proxy DeleteDataset)
 
-responseDescribeFeatureTransformation :: DescribeFeatureTransformationResponse -> TestTree
-responseDescribeFeatureTransformation =
+responseDeleteDatasetGroup :: DeleteDatasetGroupResponse -> TestTree
+responseDeleteDatasetGroup =
   res
-    "DescribeFeatureTransformationResponse"
-    "fixture/DescribeFeatureTransformationResponse.proto"
+    "DeleteDatasetGroupResponse"
+    "fixture/DeleteDatasetGroupResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeFeatureTransformation)
+    (Proxy.Proxy :: Proxy.Proxy DeleteDatasetGroup)
 
-responseGetSolutionMetrics :: GetSolutionMetricsResponse -> TestTree
-responseGetSolutionMetrics =
+responseDeleteEventTracker :: DeleteEventTrackerResponse -> TestTree
+responseDeleteEventTracker =
   res
-    "GetSolutionMetricsResponse"
-    "fixture/GetSolutionMetricsResponse.proto"
+    "DeleteEventTrackerResponse"
+    "fixture/DeleteEventTrackerResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetSolutionMetrics)
+    (Proxy.Proxy :: Proxy.Proxy DeleteEventTracker)
+
+responseDeleteFilter :: DeleteFilterResponse -> TestTree
+responseDeleteFilter =
+  res
+    "DeleteFilterResponse"
+    "fixture/DeleteFilterResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeleteFilter)
+
+responseDeleteMetricAttribution :: DeleteMetricAttributionResponse -> TestTree
+responseDeleteMetricAttribution =
+  res
+    "DeleteMetricAttributionResponse"
+    "fixture/DeleteMetricAttributionResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeleteMetricAttribution)
+
+responseDeleteRecommender :: DeleteRecommenderResponse -> TestTree
+responseDeleteRecommender =
+  res
+    "DeleteRecommenderResponse"
+    "fixture/DeleteRecommenderResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeleteRecommender)
 
 responseDeleteSchema :: DeleteSchemaResponse -> TestTree
 responseDeleteSchema =
@@ -953,6 +1005,206 @@ responseDeleteSchema =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy DeleteSchema)
 
+responseDeleteSolution :: DeleteSolutionResponse -> TestTree
+responseDeleteSolution =
+  res
+    "DeleteSolutionResponse"
+    "fixture/DeleteSolutionResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeleteSolution)
+
+responseDescribeAlgorithm :: DescribeAlgorithmResponse -> TestTree
+responseDescribeAlgorithm =
+  res
+    "DescribeAlgorithmResponse"
+    "fixture/DescribeAlgorithmResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeAlgorithm)
+
+responseDescribeBatchInferenceJob :: DescribeBatchInferenceJobResponse -> TestTree
+responseDescribeBatchInferenceJob =
+  res
+    "DescribeBatchInferenceJobResponse"
+    "fixture/DescribeBatchInferenceJobResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeBatchInferenceJob)
+
+responseDescribeBatchSegmentJob :: DescribeBatchSegmentJobResponse -> TestTree
+responseDescribeBatchSegmentJob =
+  res
+    "DescribeBatchSegmentJobResponse"
+    "fixture/DescribeBatchSegmentJobResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeBatchSegmentJob)
+
+responseDescribeCampaign :: DescribeCampaignResponse -> TestTree
+responseDescribeCampaign =
+  res
+    "DescribeCampaignResponse"
+    "fixture/DescribeCampaignResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeCampaign)
+
+responseDescribeDataset :: DescribeDatasetResponse -> TestTree
+responseDescribeDataset =
+  res
+    "DescribeDatasetResponse"
+    "fixture/DescribeDatasetResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeDataset)
+
+responseDescribeDatasetExportJob :: DescribeDatasetExportJobResponse -> TestTree
+responseDescribeDatasetExportJob =
+  res
+    "DescribeDatasetExportJobResponse"
+    "fixture/DescribeDatasetExportJobResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeDatasetExportJob)
+
+responseDescribeDatasetGroup :: DescribeDatasetGroupResponse -> TestTree
+responseDescribeDatasetGroup =
+  res
+    "DescribeDatasetGroupResponse"
+    "fixture/DescribeDatasetGroupResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeDatasetGroup)
+
+responseDescribeDatasetImportJob :: DescribeDatasetImportJobResponse -> TestTree
+responseDescribeDatasetImportJob =
+  res
+    "DescribeDatasetImportJobResponse"
+    "fixture/DescribeDatasetImportJobResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeDatasetImportJob)
+
+responseDescribeEventTracker :: DescribeEventTrackerResponse -> TestTree
+responseDescribeEventTracker =
+  res
+    "DescribeEventTrackerResponse"
+    "fixture/DescribeEventTrackerResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeEventTracker)
+
+responseDescribeFeatureTransformation :: DescribeFeatureTransformationResponse -> TestTree
+responseDescribeFeatureTransformation =
+  res
+    "DescribeFeatureTransformationResponse"
+    "fixture/DescribeFeatureTransformationResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeFeatureTransformation)
+
+responseDescribeFilter :: DescribeFilterResponse -> TestTree
+responseDescribeFilter =
+  res
+    "DescribeFilterResponse"
+    "fixture/DescribeFilterResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeFilter)
+
+responseDescribeMetricAttribution :: DescribeMetricAttributionResponse -> TestTree
+responseDescribeMetricAttribution =
+  res
+    "DescribeMetricAttributionResponse"
+    "fixture/DescribeMetricAttributionResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeMetricAttribution)
+
+responseDescribeRecipe :: DescribeRecipeResponse -> TestTree
+responseDescribeRecipe =
+  res
+    "DescribeRecipeResponse"
+    "fixture/DescribeRecipeResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeRecipe)
+
+responseDescribeRecommender :: DescribeRecommenderResponse -> TestTree
+responseDescribeRecommender =
+  res
+    "DescribeRecommenderResponse"
+    "fixture/DescribeRecommenderResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeRecommender)
+
+responseDescribeSchema :: DescribeSchemaResponse -> TestTree
+responseDescribeSchema =
+  res
+    "DescribeSchemaResponse"
+    "fixture/DescribeSchemaResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeSchema)
+
+responseDescribeSolution :: DescribeSolutionResponse -> TestTree
+responseDescribeSolution =
+  res
+    "DescribeSolutionResponse"
+    "fixture/DescribeSolutionResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeSolution)
+
+responseDescribeSolutionVersion :: DescribeSolutionVersionResponse -> TestTree
+responseDescribeSolutionVersion =
+  res
+    "DescribeSolutionVersionResponse"
+    "fixture/DescribeSolutionVersionResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeSolutionVersion)
+
+responseGetSolutionMetrics :: GetSolutionMetricsResponse -> TestTree
+responseGetSolutionMetrics =
+  res
+    "GetSolutionMetricsResponse"
+    "fixture/GetSolutionMetricsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetSolutionMetrics)
+
+responseListBatchInferenceJobs :: ListBatchInferenceJobsResponse -> TestTree
+responseListBatchInferenceJobs =
+  res
+    "ListBatchInferenceJobsResponse"
+    "fixture/ListBatchInferenceJobsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListBatchInferenceJobs)
+
+responseListBatchSegmentJobs :: ListBatchSegmentJobsResponse -> TestTree
+responseListBatchSegmentJobs =
+  res
+    "ListBatchSegmentJobsResponse"
+    "fixture/ListBatchSegmentJobsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListBatchSegmentJobs)
+
+responseListCampaigns :: ListCampaignsResponse -> TestTree
+responseListCampaigns =
+  res
+    "ListCampaignsResponse"
+    "fixture/ListCampaignsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListCampaigns)
+
+responseListDatasetExportJobs :: ListDatasetExportJobsResponse -> TestTree
+responseListDatasetExportJobs =
+  res
+    "ListDatasetExportJobsResponse"
+    "fixture/ListDatasetExportJobsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListDatasetExportJobs)
+
+responseListDatasetGroups :: ListDatasetGroupsResponse -> TestTree
+responseListDatasetGroups =
+  res
+    "ListDatasetGroupsResponse"
+    "fixture/ListDatasetGroupsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListDatasetGroups)
+
+responseListDatasetImportJobs :: ListDatasetImportJobsResponse -> TestTree
+responseListDatasetImportJobs =
+  res
+    "ListDatasetImportJobsResponse"
+    "fixture/ListDatasetImportJobsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListDatasetImportJobs)
+
 responseListDatasets :: ListDatasetsResponse -> TestTree
 responseListDatasets =
   res
@@ -961,13 +1213,37 @@ responseListDatasets =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy ListDatasets)
 
-responseCreateDatasetGroup :: CreateDatasetGroupResponse -> TestTree
-responseCreateDatasetGroup =
+responseListEventTrackers :: ListEventTrackersResponse -> TestTree
+responseListEventTrackers =
   res
-    "CreateDatasetGroupResponse"
-    "fixture/CreateDatasetGroupResponse.proto"
+    "ListEventTrackersResponse"
+    "fixture/ListEventTrackersResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateDatasetGroup)
+    (Proxy.Proxy :: Proxy.Proxy ListEventTrackers)
+
+responseListFilters :: ListFiltersResponse -> TestTree
+responseListFilters =
+  res
+    "ListFiltersResponse"
+    "fixture/ListFiltersResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListFilters)
+
+responseListMetricAttributionMetrics :: ListMetricAttributionMetricsResponse -> TestTree
+responseListMetricAttributionMetrics =
+  res
+    "ListMetricAttributionMetricsResponse"
+    "fixture/ListMetricAttributionMetricsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListMetricAttributionMetrics)
+
+responseListMetricAttributions :: ListMetricAttributionsResponse -> TestTree
+responseListMetricAttributions =
+  res
+    "ListMetricAttributionsResponse"
+    "fixture/ListMetricAttributionsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListMetricAttributions)
 
 responseListRecipes :: ListRecipesResponse -> TestTree
 responseListRecipes =
@@ -976,3 +1252,107 @@ responseListRecipes =
     "fixture/ListRecipesResponse.proto"
     defaultService
     (Proxy.Proxy :: Proxy.Proxy ListRecipes)
+
+responseListRecommenders :: ListRecommendersResponse -> TestTree
+responseListRecommenders =
+  res
+    "ListRecommendersResponse"
+    "fixture/ListRecommendersResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListRecommenders)
+
+responseListSchemas :: ListSchemasResponse -> TestTree
+responseListSchemas =
+  res
+    "ListSchemasResponse"
+    "fixture/ListSchemasResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListSchemas)
+
+responseListSolutionVersions :: ListSolutionVersionsResponse -> TestTree
+responseListSolutionVersions =
+  res
+    "ListSolutionVersionsResponse"
+    "fixture/ListSolutionVersionsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListSolutionVersions)
+
+responseListSolutions :: ListSolutionsResponse -> TestTree
+responseListSolutions =
+  res
+    "ListSolutionsResponse"
+    "fixture/ListSolutionsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListSolutions)
+
+responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
+responseListTagsForResource =
+  res
+    "ListTagsForResourceResponse"
+    "fixture/ListTagsForResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
+
+responseStartRecommender :: StartRecommenderResponse -> TestTree
+responseStartRecommender =
+  res
+    "StartRecommenderResponse"
+    "fixture/StartRecommenderResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy StartRecommender)
+
+responseStopRecommender :: StopRecommenderResponse -> TestTree
+responseStopRecommender =
+  res
+    "StopRecommenderResponse"
+    "fixture/StopRecommenderResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy StopRecommender)
+
+responseStopSolutionVersionCreation :: StopSolutionVersionCreationResponse -> TestTree
+responseStopSolutionVersionCreation =
+  res
+    "StopSolutionVersionCreationResponse"
+    "fixture/StopSolutionVersionCreationResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy StopSolutionVersionCreation)
+
+responseTagResource :: TagResourceResponse -> TestTree
+responseTagResource =
+  res
+    "TagResourceResponse"
+    "fixture/TagResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy TagResource)
+
+responseUntagResource :: UntagResourceResponse -> TestTree
+responseUntagResource =
+  res
+    "UntagResourceResponse"
+    "fixture/UntagResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UntagResource)
+
+responseUpdateCampaign :: UpdateCampaignResponse -> TestTree
+responseUpdateCampaign =
+  res
+    "UpdateCampaignResponse"
+    "fixture/UpdateCampaignResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateCampaign)
+
+responseUpdateMetricAttribution :: UpdateMetricAttributionResponse -> TestTree
+responseUpdateMetricAttribution =
+  res
+    "UpdateMetricAttributionResponse"
+    "fixture/UpdateMetricAttributionResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateMetricAttribution)
+
+responseUpdateRecommender :: UpdateRecommenderResponse -> TestTree
+responseUpdateRecommender =
+  res
+    "UpdateRecommenderResponse"
+    "fixture/UpdateRecommenderResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateRecommender)

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.UpdatePullRequestStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -103,13 +104,14 @@ instance Core.AWSRequest UpdatePullRequestStatus where
   type
     AWSResponse UpdatePullRequestStatus =
       UpdatePullRequestStatusResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdatePullRequestStatusResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "pullRequest")
+            Prelude.<*> (x Data..:> "pullRequest")
       )
 
 instance Prelude.Hashable UpdatePullRequestStatus where
@@ -122,36 +124,36 @@ instance Prelude.NFData UpdatePullRequestStatus where
     Prelude.rnf pullRequestId
       `Prelude.seq` Prelude.rnf pullRequestStatus
 
-instance Core.ToHeaders UpdatePullRequestStatus where
+instance Data.ToHeaders UpdatePullRequestStatus where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.UpdatePullRequestStatus" ::
+              Data.=# ( "CodeCommit_20150413.UpdatePullRequestStatus" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdatePullRequestStatus where
+instance Data.ToJSON UpdatePullRequestStatus where
   toJSON UpdatePullRequestStatus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("pullRequestId" Core..= pullRequestId),
+              ("pullRequestId" Data..= pullRequestId),
             Prelude.Just
-              ("pullRequestStatus" Core..= pullRequestStatus)
+              ("pullRequestStatus" Data..= pullRequestStatus)
           ]
       )
 
-instance Core.ToPath UpdatePullRequestStatus where
+instance Data.ToPath UpdatePullRequestStatus where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdatePullRequestStatus where
+instance Data.ToQuery UpdatePullRequestStatus where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdatePullRequestStatusResponse' smart constructor.

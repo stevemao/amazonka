@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.Proton.GetServiceTemplateVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- View detail data for a major or minor version of a service template.
+-- Get detailed data for a major or minor version of a service template.
 module Amazonka.Proton.GetServiceTemplateVersion
   ( -- * Creating a Request
     GetServiceTemplateVersion (..),
@@ -42,7 +42,8 @@ module Amazonka.Proton.GetServiceTemplateVersion
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types
 import qualified Amazonka.Request as Request
@@ -50,13 +51,14 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetServiceTemplateVersion' smart constructor.
 data GetServiceTemplateVersion = GetServiceTemplateVersion'
-  { -- | To view service template major version detail data, include
-    -- @majorVersion@.
+  { -- | To get service template major version detail data, include
+    -- @major Version@.
     majorVersion :: Prelude.Text,
-    -- | To view service template minor version detail data, include
+    -- | To get service template minor version detail data, include
     -- @minorVersion@.
     minorVersion :: Prelude.Text,
-    -- | The name of the service template.
+    -- | The name of the service template a version of which you want to get
+    -- detailed data for.
     templateName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -69,13 +71,14 @@ data GetServiceTemplateVersion = GetServiceTemplateVersion'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'majorVersion', 'getServiceTemplateVersion_majorVersion' - To view service template major version detail data, include
--- @majorVersion@.
+-- 'majorVersion', 'getServiceTemplateVersion_majorVersion' - To get service template major version detail data, include
+-- @major Version@.
 --
--- 'minorVersion', 'getServiceTemplateVersion_minorVersion' - To view service template minor version detail data, include
+-- 'minorVersion', 'getServiceTemplateVersion_minorVersion' - To get service template minor version detail data, include
 -- @minorVersion@.
 --
--- 'templateName', 'getServiceTemplateVersion_templateName' - The name of the service template.
+-- 'templateName', 'getServiceTemplateVersion_templateName' - The name of the service template a version of which you want to get
+-- detailed data for.
 newGetServiceTemplateVersion ::
   -- | 'majorVersion'
   Prelude.Text ->
@@ -95,17 +98,18 @@ newGetServiceTemplateVersion
         templateName = pTemplateName_
       }
 
--- | To view service template major version detail data, include
--- @majorVersion@.
+-- | To get service template major version detail data, include
+-- @major Version@.
 getServiceTemplateVersion_majorVersion :: Lens.Lens' GetServiceTemplateVersion Prelude.Text
 getServiceTemplateVersion_majorVersion = Lens.lens (\GetServiceTemplateVersion' {majorVersion} -> majorVersion) (\s@GetServiceTemplateVersion' {} a -> s {majorVersion = a} :: GetServiceTemplateVersion)
 
--- | To view service template minor version detail data, include
+-- | To get service template minor version detail data, include
 -- @minorVersion@.
 getServiceTemplateVersion_minorVersion :: Lens.Lens' GetServiceTemplateVersion Prelude.Text
 getServiceTemplateVersion_minorVersion = Lens.lens (\GetServiceTemplateVersion' {minorVersion} -> minorVersion) (\s@GetServiceTemplateVersion' {} a -> s {minorVersion = a} :: GetServiceTemplateVersion)
 
--- | The name of the service template.
+-- | The name of the service template a version of which you want to get
+-- detailed data for.
 getServiceTemplateVersion_templateName :: Lens.Lens' GetServiceTemplateVersion Prelude.Text
 getServiceTemplateVersion_templateName = Lens.lens (\GetServiceTemplateVersion' {templateName} -> templateName) (\s@GetServiceTemplateVersion' {} a -> s {templateName = a} :: GetServiceTemplateVersion)
 
@@ -113,13 +117,14 @@ instance Core.AWSRequest GetServiceTemplateVersion where
   type
     AWSResponse GetServiceTemplateVersion =
       GetServiceTemplateVersionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetServiceTemplateVersionResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "serviceTemplateVersion")
+            Prelude.<*> (x Data..:> "serviceTemplateVersion")
       )
 
 instance Prelude.Hashable GetServiceTemplateVersion where
@@ -134,42 +139,42 @@ instance Prelude.NFData GetServiceTemplateVersion where
       `Prelude.seq` Prelude.rnf minorVersion
       `Prelude.seq` Prelude.rnf templateName
 
-instance Core.ToHeaders GetServiceTemplateVersion where
+instance Data.ToHeaders GetServiceTemplateVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AwsProton20200720.GetServiceTemplateVersion" ::
+              Data.=# ( "AwsProton20200720.GetServiceTemplateVersion" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetServiceTemplateVersion where
+instance Data.ToJSON GetServiceTemplateVersion where
   toJSON GetServiceTemplateVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("majorVersion" Core..= majorVersion),
-            Prelude.Just ("minorVersion" Core..= minorVersion),
-            Prelude.Just ("templateName" Core..= templateName)
+          [ Prelude.Just ("majorVersion" Data..= majorVersion),
+            Prelude.Just ("minorVersion" Data..= minorVersion),
+            Prelude.Just ("templateName" Data..= templateName)
           ]
       )
 
-instance Core.ToPath GetServiceTemplateVersion where
+instance Data.ToPath GetServiceTemplateVersion where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetServiceTemplateVersion where
+instance Data.ToQuery GetServiceTemplateVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetServiceTemplateVersionResponse' smart constructor.
 data GetServiceTemplateVersionResponse = GetServiceTemplateVersionResponse'
   { -- | The response's http status code.
     httpStatus :: Prelude.Int,
-    -- | The service template version detail data that\'s returned by AWS Proton.
+    -- | The detailed data of the requested service template version.
     serviceTemplateVersion :: ServiceTemplateVersion
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
@@ -184,7 +189,7 @@ data GetServiceTemplateVersionResponse = GetServiceTemplateVersionResponse'
 --
 -- 'httpStatus', 'getServiceTemplateVersionResponse_httpStatus' - The response's http status code.
 --
--- 'serviceTemplateVersion', 'getServiceTemplateVersionResponse_serviceTemplateVersion' - The service template version detail data that\'s returned by AWS Proton.
+-- 'serviceTemplateVersion', 'getServiceTemplateVersionResponse_serviceTemplateVersion' - The detailed data of the requested service template version.
 newGetServiceTemplateVersionResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
@@ -205,7 +210,7 @@ newGetServiceTemplateVersionResponse
 getServiceTemplateVersionResponse_httpStatus :: Lens.Lens' GetServiceTemplateVersionResponse Prelude.Int
 getServiceTemplateVersionResponse_httpStatus = Lens.lens (\GetServiceTemplateVersionResponse' {httpStatus} -> httpStatus) (\s@GetServiceTemplateVersionResponse' {} a -> s {httpStatus = a} :: GetServiceTemplateVersionResponse)
 
--- | The service template version detail data that\'s returned by AWS Proton.
+-- | The detailed data of the requested service template version.
 getServiceTemplateVersionResponse_serviceTemplateVersion :: Lens.Lens' GetServiceTemplateVersionResponse ServiceTemplateVersion
 getServiceTemplateVersionResponse_serviceTemplateVersion = Lens.lens (\GetServiceTemplateVersionResponse' {serviceTemplateVersion} -> serviceTemplateVersion) (\s@GetServiceTemplateVersionResponse' {} a -> s {serviceTemplateVersion = a} :: GetServiceTemplateVersionResponse)
 

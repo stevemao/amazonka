@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SMS.Types.ServerReplicationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SMS.Types.ServerReplicationConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SMS.Types.Server
 import Amazonka.SMS.Types.ServerReplicationParameters
@@ -29,11 +30,11 @@ import Amazonka.SMS.Types.ServerReplicationParameters
 --
 -- /See:/ 'newServerReplicationConfiguration' smart constructor.
 data ServerReplicationConfiguration = ServerReplicationConfiguration'
-  { -- | The parameters for replicating the server.
-    serverReplicationParameters :: Prelude.Maybe ServerReplicationParameters,
-    -- | The ID of the server with which this replication configuration is
+  { -- | The ID of the server with which this replication configuration is
     -- associated.
-    server :: Prelude.Maybe Server
+    server :: Prelude.Maybe Server,
+    -- | The parameters for replicating the server.
+    serverReplicationParameters :: Prelude.Maybe ServerReplicationParameters
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,36 +46,37 @@ data ServerReplicationConfiguration = ServerReplicationConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'serverReplicationParameters', 'serverReplicationConfiguration_serverReplicationParameters' - The parameters for replicating the server.
---
 -- 'server', 'serverReplicationConfiguration_server' - The ID of the server with which this replication configuration is
 -- associated.
+--
+-- 'serverReplicationParameters', 'serverReplicationConfiguration_serverReplicationParameters' - The parameters for replicating the server.
 newServerReplicationConfiguration ::
   ServerReplicationConfiguration
 newServerReplicationConfiguration =
   ServerReplicationConfiguration'
-    { serverReplicationParameters =
+    { server =
         Prelude.Nothing,
-      server = Prelude.Nothing
+      serverReplicationParameters =
+        Prelude.Nothing
     }
-
--- | The parameters for replicating the server.
-serverReplicationConfiguration_serverReplicationParameters :: Lens.Lens' ServerReplicationConfiguration (Prelude.Maybe ServerReplicationParameters)
-serverReplicationConfiguration_serverReplicationParameters = Lens.lens (\ServerReplicationConfiguration' {serverReplicationParameters} -> serverReplicationParameters) (\s@ServerReplicationConfiguration' {} a -> s {serverReplicationParameters = a} :: ServerReplicationConfiguration)
 
 -- | The ID of the server with which this replication configuration is
 -- associated.
 serverReplicationConfiguration_server :: Lens.Lens' ServerReplicationConfiguration (Prelude.Maybe Server)
 serverReplicationConfiguration_server = Lens.lens (\ServerReplicationConfiguration' {server} -> server) (\s@ServerReplicationConfiguration' {} a -> s {server = a} :: ServerReplicationConfiguration)
 
-instance Core.FromJSON ServerReplicationConfiguration where
+-- | The parameters for replicating the server.
+serverReplicationConfiguration_serverReplicationParameters :: Lens.Lens' ServerReplicationConfiguration (Prelude.Maybe ServerReplicationParameters)
+serverReplicationConfiguration_serverReplicationParameters = Lens.lens (\ServerReplicationConfiguration' {serverReplicationParameters} -> serverReplicationParameters) (\s@ServerReplicationConfiguration' {} a -> s {serverReplicationParameters = a} :: ServerReplicationConfiguration)
+
+instance Data.FromJSON ServerReplicationConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ServerReplicationConfiguration"
       ( \x ->
           ServerReplicationConfiguration'
-            Prelude.<$> (x Core..:? "serverReplicationParameters")
-            Prelude.<*> (x Core..:? "server")
+            Prelude.<$> (x Data..:? "server")
+            Prelude.<*> (x Data..:? "serverReplicationParameters")
       )
 
 instance
@@ -84,24 +86,23 @@ instance
   hashWithSalt
     _salt
     ServerReplicationConfiguration' {..} =
-      _salt
+      _salt `Prelude.hashWithSalt` server
         `Prelude.hashWithSalt` serverReplicationParameters
-        `Prelude.hashWithSalt` server
 
 instance
   Prelude.NFData
     ServerReplicationConfiguration
   where
   rnf ServerReplicationConfiguration' {..} =
-    Prelude.rnf serverReplicationParameters
-      `Prelude.seq` Prelude.rnf server
+    Prelude.rnf server
+      `Prelude.seq` Prelude.rnf serverReplicationParameters
 
-instance Core.ToJSON ServerReplicationConfiguration where
+instance Data.ToJSON ServerReplicationConfiguration where
   toJSON ServerReplicationConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("serverReplicationParameters" Core..=)
-              Prelude.<$> serverReplicationParameters,
-            ("server" Core..=) Prelude.<$> server
+          [ ("server" Data..=) Prelude.<$> server,
+            ("serverReplicationParameters" Data..=)
+              Prelude.<$> serverReplicationParameters
           ]
       )

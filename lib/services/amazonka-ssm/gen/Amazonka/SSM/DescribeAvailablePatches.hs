@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.DescribeAvailablePatches
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,22 +30,23 @@ module Amazonka.SSM.DescribeAvailablePatches
 
     -- * Request Lenses
     describeAvailablePatches_filters,
-    describeAvailablePatches_nextToken,
     describeAvailablePatches_maxResults,
+    describeAvailablePatches_nextToken,
 
     -- * Destructuring the Response
     DescribeAvailablePatchesResponse (..),
     newDescribeAvailablePatchesResponse,
 
     -- * Response Lenses
-    describeAvailablePatchesResponse_patches,
     describeAvailablePatchesResponse_nextToken,
+    describeAvailablePatchesResponse_patches,
     describeAvailablePatchesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,7 +58,7 @@ data DescribeAvailablePatches = DescribeAvailablePatches'
     --
     -- __Windows Server__
     --
-    -- Supported keys for Windows Server instance patches include the
+    -- Supported keys for Windows Server managed node patches include the
     -- following:
     --
     -- -   __@PATCH_SET@__
@@ -98,7 +99,7 @@ data DescribeAvailablePatches = DescribeAvailablePatches'
     --
     -- @aws ssm describe-available-patches --filters Key=PRODUCT,Values=AmazonLinux2018.03 Key=CVE_ID,Values=CVE-2018-3615@
     --
-    -- Supported keys for Linux instance patches include the following:
+    -- Supported keys for Linux managed node patches include the following:
     --
     -- -   __@PRODUCT@__
     --
@@ -144,11 +145,11 @@ data DescribeAvailablePatches = DescribeAvailablePatches'
     --
     --     Sample values: @1463241@
     filters :: Prelude.Maybe [PatchOrchestratorFilter],
+    -- | The maximum number of patches to return (per page).
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The token for the next set of items to return. (You received this token
     -- from a previous call.)
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of patches to return (per page).
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -164,7 +165,7 @@ data DescribeAvailablePatches = DescribeAvailablePatches'
 --
 -- __Windows Server__
 --
--- Supported keys for Windows Server instance patches include the
+-- Supported keys for Windows Server managed node patches include the
 -- following:
 --
 -- -   __@PATCH_SET@__
@@ -205,7 +206,7 @@ data DescribeAvailablePatches = DescribeAvailablePatches'
 --
 -- @aws ssm describe-available-patches --filters Key=PRODUCT,Values=AmazonLinux2018.03 Key=CVE_ID,Values=CVE-2018-3615@
 --
--- Supported keys for Linux instance patches include the following:
+-- Supported keys for Linux managed node patches include the following:
 --
 -- -   __@PRODUCT@__
 --
@@ -251,25 +252,25 @@ data DescribeAvailablePatches = DescribeAvailablePatches'
 --
 --     Sample values: @1463241@
 --
+-- 'maxResults', 'describeAvailablePatches_maxResults' - The maximum number of patches to return (per page).
+--
 -- 'nextToken', 'describeAvailablePatches_nextToken' - The token for the next set of items to return. (You received this token
 -- from a previous call.)
---
--- 'maxResults', 'describeAvailablePatches_maxResults' - The maximum number of patches to return (per page).
 newDescribeAvailablePatches ::
   DescribeAvailablePatches
 newDescribeAvailablePatches =
   DescribeAvailablePatches'
     { filters =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | Each element in the array is a structure containing a key-value pair.
 --
 -- __Windows Server__
 --
--- Supported keys for Windows Server instance patches include the
+-- Supported keys for Windows Server managed node patches include the
 -- following:
 --
 -- -   __@PATCH_SET@__
@@ -310,7 +311,7 @@ newDescribeAvailablePatches =
 --
 -- @aws ssm describe-available-patches --filters Key=PRODUCT,Values=AmazonLinux2018.03 Key=CVE_ID,Values=CVE-2018-3615@
 --
--- Supported keys for Linux instance patches include the following:
+-- Supported keys for Linux managed node patches include the following:
 --
 -- -   __@PRODUCT@__
 --
@@ -358,14 +359,14 @@ newDescribeAvailablePatches =
 describeAvailablePatches_filters :: Lens.Lens' DescribeAvailablePatches (Prelude.Maybe [PatchOrchestratorFilter])
 describeAvailablePatches_filters = Lens.lens (\DescribeAvailablePatches' {filters} -> filters) (\s@DescribeAvailablePatches' {} a -> s {filters = a} :: DescribeAvailablePatches) Prelude.. Lens.mapping Lens.coerced
 
+-- | The maximum number of patches to return (per page).
+describeAvailablePatches_maxResults :: Lens.Lens' DescribeAvailablePatches (Prelude.Maybe Prelude.Natural)
+describeAvailablePatches_maxResults = Lens.lens (\DescribeAvailablePatches' {maxResults} -> maxResults) (\s@DescribeAvailablePatches' {} a -> s {maxResults = a} :: DescribeAvailablePatches)
+
 -- | The token for the next set of items to return. (You received this token
 -- from a previous call.)
 describeAvailablePatches_nextToken :: Lens.Lens' DescribeAvailablePatches (Prelude.Maybe Prelude.Text)
 describeAvailablePatches_nextToken = Lens.lens (\DescribeAvailablePatches' {nextToken} -> nextToken) (\s@DescribeAvailablePatches' {} a -> s {nextToken = a} :: DescribeAvailablePatches)
-
--- | The maximum number of patches to return (per page).
-describeAvailablePatches_maxResults :: Lens.Lens' DescribeAvailablePatches (Prelude.Maybe Prelude.Natural)
-describeAvailablePatches_maxResults = Lens.lens (\DescribeAvailablePatches' {maxResults} -> maxResults) (\s@DescribeAvailablePatches' {} a -> s {maxResults = a} :: DescribeAvailablePatches)
 
 instance Core.AWSPager DescribeAvailablePatches where
   page rq rs
@@ -393,66 +394,67 @@ instance Core.AWSRequest DescribeAvailablePatches where
   type
     AWSResponse DescribeAvailablePatches =
       DescribeAvailablePatchesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAvailablePatchesResponse'
-            Prelude.<$> (x Core..?> "Patches" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Patches" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeAvailablePatches where
   hashWithSalt _salt DescribeAvailablePatches' {..} =
     _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeAvailablePatches where
   rnf DescribeAvailablePatches' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeAvailablePatches where
+instance Data.ToHeaders DescribeAvailablePatches where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.DescribeAvailablePatches" ::
+              Data.=# ( "AmazonSSM.DescribeAvailablePatches" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeAvailablePatches where
+instance Data.ToJSON DescribeAvailablePatches where
   toJSON DescribeAvailablePatches' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath DescribeAvailablePatches where
+instance Data.ToPath DescribeAvailablePatches where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeAvailablePatches where
+instance Data.ToQuery DescribeAvailablePatches where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeAvailablePatchesResponse' smart constructor.
 data DescribeAvailablePatchesResponse = DescribeAvailablePatchesResponse'
-  { -- | An array of patches. Each entry in the array is a patch structure.
-    patches :: Prelude.Maybe [Patch],
-    -- | The token to use when requesting the next set of items. If there are no
+  { -- | The token to use when requesting the next set of items. If there are no
     -- additional items to return, the string is empty.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of patches. Each entry in the array is a patch structure.
+    patches :: Prelude.Maybe [Patch],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -466,10 +468,10 @@ data DescribeAvailablePatchesResponse = DescribeAvailablePatchesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'patches', 'describeAvailablePatchesResponse_patches' - An array of patches. Each entry in the array is a patch structure.
---
 -- 'nextToken', 'describeAvailablePatchesResponse_nextToken' - The token to use when requesting the next set of items. If there are no
 -- additional items to return, the string is empty.
+--
+-- 'patches', 'describeAvailablePatchesResponse_patches' - An array of patches. Each entry in the array is a patch structure.
 --
 -- 'httpStatus', 'describeAvailablePatchesResponse_httpStatus' - The response's http status code.
 newDescribeAvailablePatchesResponse ::
@@ -478,20 +480,20 @@ newDescribeAvailablePatchesResponse ::
   DescribeAvailablePatchesResponse
 newDescribeAvailablePatchesResponse pHttpStatus_ =
   DescribeAvailablePatchesResponse'
-    { patches =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      patches = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | An array of patches. Each entry in the array is a patch structure.
-describeAvailablePatchesResponse_patches :: Lens.Lens' DescribeAvailablePatchesResponse (Prelude.Maybe [Patch])
-describeAvailablePatchesResponse_patches = Lens.lens (\DescribeAvailablePatchesResponse' {patches} -> patches) (\s@DescribeAvailablePatchesResponse' {} a -> s {patches = a} :: DescribeAvailablePatchesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token to use when requesting the next set of items. If there are no
 -- additional items to return, the string is empty.
 describeAvailablePatchesResponse_nextToken :: Lens.Lens' DescribeAvailablePatchesResponse (Prelude.Maybe Prelude.Text)
 describeAvailablePatchesResponse_nextToken = Lens.lens (\DescribeAvailablePatchesResponse' {nextToken} -> nextToken) (\s@DescribeAvailablePatchesResponse' {} a -> s {nextToken = a} :: DescribeAvailablePatchesResponse)
+
+-- | An array of patches. Each entry in the array is a patch structure.
+describeAvailablePatchesResponse_patches :: Lens.Lens' DescribeAvailablePatchesResponse (Prelude.Maybe [Patch])
+describeAvailablePatchesResponse_patches = Lens.lens (\DescribeAvailablePatchesResponse' {patches} -> patches) (\s@DescribeAvailablePatchesResponse' {} a -> s {patches = a} :: DescribeAvailablePatchesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeAvailablePatchesResponse_httpStatus :: Lens.Lens' DescribeAvailablePatchesResponse Prelude.Int
@@ -502,6 +504,6 @@ instance
     DescribeAvailablePatchesResponse
   where
   rnf DescribeAvailablePatchesResponse' {..} =
-    Prelude.rnf patches
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf patches
       `Prelude.seq` Prelude.rnf httpStatus

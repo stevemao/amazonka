@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApiGatewayV2.GetStages
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.ApiGatewayV2.GetStages
     newGetStages,
 
     -- * Request Lenses
-    getStages_nextToken,
     getStages_maxResults,
+    getStages_nextToken,
     getStages_apiId,
 
     -- * Destructuring the Response
@@ -46,18 +46,19 @@ where
 
 import Amazonka.ApiGatewayV2.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetStages' smart constructor.
 data GetStages = GetStages'
-  { -- | The next page of elements from this collection. Not valid for the last
+  { -- | The maximum number of elements to be returned for this resource.
+    maxResults :: Prelude.Maybe Prelude.Text,
+    -- | The next page of elements from this collection. Not valid for the last
     -- element of the collection.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of elements to be returned for this resource.
-    maxResults :: Prelude.Maybe Prelude.Text,
     -- | The API identifier.
     apiId :: Prelude.Text
   }
@@ -71,10 +72,10 @@ data GetStages = GetStages'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'getStages_maxResults' - The maximum number of elements to be returned for this resource.
+--
 -- 'nextToken', 'getStages_nextToken' - The next page of elements from this collection. Not valid for the last
 -- element of the collection.
---
--- 'maxResults', 'getStages_maxResults' - The maximum number of elements to be returned for this resource.
 --
 -- 'apiId', 'getStages_apiId' - The API identifier.
 newGetStages ::
@@ -83,19 +84,19 @@ newGetStages ::
   GetStages
 newGetStages pApiId_ =
   GetStages'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       apiId = pApiId_
     }
+
+-- | The maximum number of elements to be returned for this resource.
+getStages_maxResults :: Lens.Lens' GetStages (Prelude.Maybe Prelude.Text)
+getStages_maxResults = Lens.lens (\GetStages' {maxResults} -> maxResults) (\s@GetStages' {} a -> s {maxResults = a} :: GetStages)
 
 -- | The next page of elements from this collection. Not valid for the last
 -- element of the collection.
 getStages_nextToken :: Lens.Lens' GetStages (Prelude.Maybe Prelude.Text)
 getStages_nextToken = Lens.lens (\GetStages' {nextToken} -> nextToken) (\s@GetStages' {} a -> s {nextToken = a} :: GetStages)
-
--- | The maximum number of elements to be returned for this resource.
-getStages_maxResults :: Lens.Lens' GetStages (Prelude.Maybe Prelude.Text)
-getStages_maxResults = Lens.lens (\GetStages' {maxResults} -> maxResults) (\s@GetStages' {} a -> s {maxResults = a} :: GetStages)
 
 -- | The API identifier.
 getStages_apiId :: Lens.Lens' GetStages Prelude.Text
@@ -122,49 +123,50 @@ instance Core.AWSPager GetStages where
 
 instance Core.AWSRequest GetStages where
   type AWSResponse GetStages = GetStagesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetStagesResponse'
-            Prelude.<$> (x Core..?> "items" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "items" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetStages where
   hashWithSalt _salt GetStages' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` apiId
 
 instance Prelude.NFData GetStages where
   rnf GetStages' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf apiId
 
-instance Core.ToHeaders GetStages where
+instance Data.ToHeaders GetStages where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetStages where
+instance Data.ToPath GetStages where
   toPath GetStages' {..} =
     Prelude.mconcat
-      ["/v2/apis/", Core.toBS apiId, "/stages"]
+      ["/v2/apis/", Data.toBS apiId, "/stages"]
 
-instance Core.ToQuery GetStages where
+instance Data.ToQuery GetStages where
   toQuery GetStages' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newGetStagesResponse' smart constructor.

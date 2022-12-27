@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.ListDistributionsByWebACLId
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -127,12 +128,13 @@ instance Core.AWSRequest ListDistributionsByWebACLId where
   type
     AWSResponse ListDistributionsByWebACLId =
       ListDistributionsByWebACLIdResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ListDistributionsByWebACLIdResponse'
-            Prelude.<$> (Core.parseXML x)
+            Prelude.<$> (Data.parseXML x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -148,21 +150,21 @@ instance Prelude.NFData ListDistributionsByWebACLId where
       `Prelude.seq` Prelude.rnf maxItems
       `Prelude.seq` Prelude.rnf webACLId
 
-instance Core.ToHeaders ListDistributionsByWebACLId where
+instance Data.ToHeaders ListDistributionsByWebACLId where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListDistributionsByWebACLId where
+instance Data.ToPath ListDistributionsByWebACLId where
   toPath ListDistributionsByWebACLId' {..} =
     Prelude.mconcat
       [ "/2020-05-31/distributionsByWebACLId/",
-        Core.toBS webACLId
+        Data.toBS webACLId
       ]
 
-instance Core.ToQuery ListDistributionsByWebACLId where
+instance Data.ToQuery ListDistributionsByWebACLId where
   toQuery ListDistributionsByWebACLId' {..} =
     Prelude.mconcat
-      [ "Marker" Core.=: marker,
-        "MaxItems" Core.=: maxItems
+      [ "Marker" Data.=: marker,
+        "MaxItems" Data.=: maxItems
       ]
 
 -- | The response to a request to list the distributions that are associated
@@ -175,7 +177,7 @@ data ListDistributionsByWebACLIdResponse = ListDistributionsByWebACLIdResponse'
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'ListDistributionsByWebACLIdResponse' with all optional fields omitted.

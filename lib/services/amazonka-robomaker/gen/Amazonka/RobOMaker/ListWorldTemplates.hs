@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RobOMaker.ListWorldTemplates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,22 +29,23 @@ module Amazonka.RobOMaker.ListWorldTemplates
     newListWorldTemplates,
 
     -- * Request Lenses
-    listWorldTemplates_nextToken,
     listWorldTemplates_maxResults,
+    listWorldTemplates_nextToken,
 
     -- * Destructuring the Response
     ListWorldTemplatesResponse (..),
     newListWorldTemplatesResponse,
 
     -- * Response Lenses
-    listWorldTemplatesResponse_templateSummaries,
     listWorldTemplatesResponse_nextToken,
+    listWorldTemplatesResponse_templateSummaries,
     listWorldTemplatesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,21 +53,21 @@ import Amazonka.RobOMaker.Types
 
 -- | /See:/ 'newListWorldTemplates' smart constructor.
 data ListWorldTemplates = ListWorldTemplates'
-  { -- | If the previous paginated request did not return all of the remaining
-    -- results, the response object\'s @nextToken@ parameter value is set to a
-    -- token. To retrieve the next set of results, call @ListWorldTemplates@
-    -- again and assign that token to the request object\'s @nextToken@
-    -- parameter. If there are no remaining results, the previous response
-    -- object\'s NextToken parameter is set to null.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | When this parameter is used, @ListWorldTemplates@ only returns
+  { -- | When this parameter is used, @ListWorldTemplates@ only returns
     -- @maxResults@ results in a single page along with a @nextToken@ response
     -- element. The remaining results of the initial request can be seen by
     -- sending another @ListWorldTemplates@ request with the returned
     -- @nextToken@ value. This value can be between 1 and 100. If this
     -- parameter is not used, then @ListWorldTemplates@ returns up to 100
     -- results and a @nextToken@ value if applicable.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | If the previous paginated request did not return all of the remaining
+    -- results, the response object\'s @nextToken@ parameter value is set to a
+    -- token. To retrieve the next set of results, call @ListWorldTemplates@
+    -- again and assign that token to the request object\'s @nextToken@
+    -- parameter. If there are no remaining results, the previous response
+    -- object\'s NextToken parameter is set to null.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -78,13 +79,6 @@ data ListWorldTemplates = ListWorldTemplates'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listWorldTemplates_nextToken' - If the previous paginated request did not return all of the remaining
--- results, the response object\'s @nextToken@ parameter value is set to a
--- token. To retrieve the next set of results, call @ListWorldTemplates@
--- again and assign that token to the request object\'s @nextToken@
--- parameter. If there are no remaining results, the previous response
--- object\'s NextToken parameter is set to null.
---
 -- 'maxResults', 'listWorldTemplates_maxResults' - When this parameter is used, @ListWorldTemplates@ only returns
 -- @maxResults@ results in a single page along with a @nextToken@ response
 -- element. The remaining results of the initial request can be seen by
@@ -92,22 +86,20 @@ data ListWorldTemplates = ListWorldTemplates'
 -- @nextToken@ value. This value can be between 1 and 100. If this
 -- parameter is not used, then @ListWorldTemplates@ returns up to 100
 -- results and a @nextToken@ value if applicable.
-newListWorldTemplates ::
-  ListWorldTemplates
-newListWorldTemplates =
-  ListWorldTemplates'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
-    }
-
--- | If the previous paginated request did not return all of the remaining
+--
+-- 'nextToken', 'listWorldTemplates_nextToken' - If the previous paginated request did not return all of the remaining
 -- results, the response object\'s @nextToken@ parameter value is set to a
 -- token. To retrieve the next set of results, call @ListWorldTemplates@
 -- again and assign that token to the request object\'s @nextToken@
 -- parameter. If there are no remaining results, the previous response
 -- object\'s NextToken parameter is set to null.
-listWorldTemplates_nextToken :: Lens.Lens' ListWorldTemplates (Prelude.Maybe Prelude.Text)
-listWorldTemplates_nextToken = Lens.lens (\ListWorldTemplates' {nextToken} -> nextToken) (\s@ListWorldTemplates' {} a -> s {nextToken = a} :: ListWorldTemplates)
+newListWorldTemplates ::
+  ListWorldTemplates
+newListWorldTemplates =
+  ListWorldTemplates'
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
+    }
 
 -- | When this parameter is used, @ListWorldTemplates@ only returns
 -- @maxResults@ results in a single page along with a @nextToken@ response
@@ -118,6 +110,15 @@ listWorldTemplates_nextToken = Lens.lens (\ListWorldTemplates' {nextToken} -> ne
 -- results and a @nextToken@ value if applicable.
 listWorldTemplates_maxResults :: Lens.Lens' ListWorldTemplates (Prelude.Maybe Prelude.Int)
 listWorldTemplates_maxResults = Lens.lens (\ListWorldTemplates' {maxResults} -> maxResults) (\s@ListWorldTemplates' {} a -> s {maxResults = a} :: ListWorldTemplates)
+
+-- | If the previous paginated request did not return all of the remaining
+-- results, the response object\'s @nextToken@ parameter value is set to a
+-- token. To retrieve the next set of results, call @ListWorldTemplates@
+-- again and assign that token to the request object\'s @nextToken@
+-- parameter. If there are no remaining results, the previous response
+-- object\'s NextToken parameter is set to null.
+listWorldTemplates_nextToken :: Lens.Lens' ListWorldTemplates (Prelude.Maybe Prelude.Text)
+listWorldTemplates_nextToken = Lens.lens (\ListWorldTemplates' {nextToken} -> nextToken) (\s@ListWorldTemplates' {} a -> s {nextToken = a} :: ListWorldTemplates)
 
 instance Core.AWSPager ListWorldTemplates where
   page rq rs
@@ -145,65 +146,66 @@ instance Core.AWSRequest ListWorldTemplates where
   type
     AWSResponse ListWorldTemplates =
       ListWorldTemplatesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListWorldTemplatesResponse'
-            Prelude.<$> ( x Core..?> "templateSummaries"
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> ( x Data..?> "templateSummaries"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListWorldTemplates where
   hashWithSalt _salt ListWorldTemplates' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListWorldTemplates where
   rnf ListWorldTemplates' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListWorldTemplates where
+instance Data.ToHeaders ListWorldTemplates where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListWorldTemplates where
+instance Data.ToJSON ListWorldTemplates where
   toJSON ListWorldTemplates' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListWorldTemplates where
+instance Data.ToPath ListWorldTemplates where
   toPath = Prelude.const "/listWorldTemplates"
 
-instance Core.ToQuery ListWorldTemplates where
+instance Data.ToQuery ListWorldTemplates where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListWorldTemplatesResponse' smart constructor.
 data ListWorldTemplatesResponse = ListWorldTemplatesResponse'
-  { -- | Summary information for templates.
-    templateSummaries :: Prelude.Maybe [TemplateSummary],
-    -- | If the previous paginated request did not return all of the remaining
+  { -- | If the previous paginated request did not return all of the remaining
     -- results, the response object\'s @nextToken@ parameter value is set to a
     -- token. To retrieve the next set of results, call @ListWorldTemplates@
     -- again and assign that token to the request object\'s @nextToken@
     -- parameter. If there are no remaining results, the previous response
     -- object\'s NextToken parameter is set to null.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Summary information for templates.
+    templateSummaries :: Prelude.Maybe [TemplateSummary],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -217,14 +219,14 @@ data ListWorldTemplatesResponse = ListWorldTemplatesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'templateSummaries', 'listWorldTemplatesResponse_templateSummaries' - Summary information for templates.
---
 -- 'nextToken', 'listWorldTemplatesResponse_nextToken' - If the previous paginated request did not return all of the remaining
 -- results, the response object\'s @nextToken@ parameter value is set to a
 -- token. To retrieve the next set of results, call @ListWorldTemplates@
 -- again and assign that token to the request object\'s @nextToken@
 -- parameter. If there are no remaining results, the previous response
 -- object\'s NextToken parameter is set to null.
+--
+-- 'templateSummaries', 'listWorldTemplatesResponse_templateSummaries' - Summary information for templates.
 --
 -- 'httpStatus', 'listWorldTemplatesResponse_httpStatus' - The response's http status code.
 newListWorldTemplatesResponse ::
@@ -233,15 +235,11 @@ newListWorldTemplatesResponse ::
   ListWorldTemplatesResponse
 newListWorldTemplatesResponse pHttpStatus_ =
   ListWorldTemplatesResponse'
-    { templateSummaries =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      templateSummaries = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Summary information for templates.
-listWorldTemplatesResponse_templateSummaries :: Lens.Lens' ListWorldTemplatesResponse (Prelude.Maybe [TemplateSummary])
-listWorldTemplatesResponse_templateSummaries = Lens.lens (\ListWorldTemplatesResponse' {templateSummaries} -> templateSummaries) (\s@ListWorldTemplatesResponse' {} a -> s {templateSummaries = a} :: ListWorldTemplatesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | If the previous paginated request did not return all of the remaining
 -- results, the response object\'s @nextToken@ parameter value is set to a
@@ -252,12 +250,16 @@ listWorldTemplatesResponse_templateSummaries = Lens.lens (\ListWorldTemplatesRes
 listWorldTemplatesResponse_nextToken :: Lens.Lens' ListWorldTemplatesResponse (Prelude.Maybe Prelude.Text)
 listWorldTemplatesResponse_nextToken = Lens.lens (\ListWorldTemplatesResponse' {nextToken} -> nextToken) (\s@ListWorldTemplatesResponse' {} a -> s {nextToken = a} :: ListWorldTemplatesResponse)
 
+-- | Summary information for templates.
+listWorldTemplatesResponse_templateSummaries :: Lens.Lens' ListWorldTemplatesResponse (Prelude.Maybe [TemplateSummary])
+listWorldTemplatesResponse_templateSummaries = Lens.lens (\ListWorldTemplatesResponse' {templateSummaries} -> templateSummaries) (\s@ListWorldTemplatesResponse' {} a -> s {templateSummaries = a} :: ListWorldTemplatesResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The response's http status code.
 listWorldTemplatesResponse_httpStatus :: Lens.Lens' ListWorldTemplatesResponse Prelude.Int
 listWorldTemplatesResponse_httpStatus = Lens.lens (\ListWorldTemplatesResponse' {httpStatus} -> httpStatus) (\s@ListWorldTemplatesResponse' {} a -> s {httpStatus = a} :: ListWorldTemplatesResponse)
 
 instance Prelude.NFData ListWorldTemplatesResponse where
   rnf ListWorldTemplatesResponse' {..} =
-    Prelude.rnf templateSummaries
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf templateSummaries
       `Prelude.seq` Prelude.rnf httpStatus

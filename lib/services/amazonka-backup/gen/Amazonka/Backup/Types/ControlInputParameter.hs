@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Backup.Types.ControlInputParameter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Backup.Types.ControlInputParameter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A list of parameters for a control. A control can have zero, one, or
@@ -31,10 +32,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newControlInputParameter' smart constructor.
 data ControlInputParameter = ControlInputParameter'
-  { -- | The value of parameter, for example, @hourly@.
-    parameterValue :: Prelude.Maybe Prelude.Text,
-    -- | The name of a parameter, for example, @BackupPlanFrequency@.
-    parameterName :: Prelude.Maybe Prelude.Text
+  { -- | The name of a parameter, for example, @BackupPlanFrequency@.
+    parameterName :: Prelude.Maybe Prelude.Text,
+    -- | The value of parameter, for example, @hourly@.
+    parameterValue :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,52 +47,52 @@ data ControlInputParameter = ControlInputParameter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'parameterValue', 'controlInputParameter_parameterValue' - The value of parameter, for example, @hourly@.
---
 -- 'parameterName', 'controlInputParameter_parameterName' - The name of a parameter, for example, @BackupPlanFrequency@.
+--
+-- 'parameterValue', 'controlInputParameter_parameterValue' - The value of parameter, for example, @hourly@.
 newControlInputParameter ::
   ControlInputParameter
 newControlInputParameter =
   ControlInputParameter'
-    { parameterValue =
+    { parameterName =
         Prelude.Nothing,
-      parameterName = Prelude.Nothing
+      parameterValue = Prelude.Nothing
     }
-
--- | The value of parameter, for example, @hourly@.
-controlInputParameter_parameterValue :: Lens.Lens' ControlInputParameter (Prelude.Maybe Prelude.Text)
-controlInputParameter_parameterValue = Lens.lens (\ControlInputParameter' {parameterValue} -> parameterValue) (\s@ControlInputParameter' {} a -> s {parameterValue = a} :: ControlInputParameter)
 
 -- | The name of a parameter, for example, @BackupPlanFrequency@.
 controlInputParameter_parameterName :: Lens.Lens' ControlInputParameter (Prelude.Maybe Prelude.Text)
 controlInputParameter_parameterName = Lens.lens (\ControlInputParameter' {parameterName} -> parameterName) (\s@ControlInputParameter' {} a -> s {parameterName = a} :: ControlInputParameter)
 
-instance Core.FromJSON ControlInputParameter where
+-- | The value of parameter, for example, @hourly@.
+controlInputParameter_parameterValue :: Lens.Lens' ControlInputParameter (Prelude.Maybe Prelude.Text)
+controlInputParameter_parameterValue = Lens.lens (\ControlInputParameter' {parameterValue} -> parameterValue) (\s@ControlInputParameter' {} a -> s {parameterValue = a} :: ControlInputParameter)
+
+instance Data.FromJSON ControlInputParameter where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ControlInputParameter"
       ( \x ->
           ControlInputParameter'
-            Prelude.<$> (x Core..:? "ParameterValue")
-            Prelude.<*> (x Core..:? "ParameterName")
+            Prelude.<$> (x Data..:? "ParameterName")
+            Prelude.<*> (x Data..:? "ParameterValue")
       )
 
 instance Prelude.Hashable ControlInputParameter where
   hashWithSalt _salt ControlInputParameter' {..} =
-    _salt `Prelude.hashWithSalt` parameterValue
-      `Prelude.hashWithSalt` parameterName
+    _salt `Prelude.hashWithSalt` parameterName
+      `Prelude.hashWithSalt` parameterValue
 
 instance Prelude.NFData ControlInputParameter where
   rnf ControlInputParameter' {..} =
-    Prelude.rnf parameterValue
-      `Prelude.seq` Prelude.rnf parameterName
+    Prelude.rnf parameterName
+      `Prelude.seq` Prelude.rnf parameterValue
 
-instance Core.ToJSON ControlInputParameter where
+instance Data.ToJSON ControlInputParameter where
   toJSON ControlInputParameter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ParameterValue" Core..=)
-              Prelude.<$> parameterValue,
-            ("ParameterName" Core..=) Prelude.<$> parameterName
+          [ ("ParameterName" Data..=) Prelude.<$> parameterName,
+            ("ParameterValue" Data..=)
+              Prelude.<$> parameterValue
           ]
       )

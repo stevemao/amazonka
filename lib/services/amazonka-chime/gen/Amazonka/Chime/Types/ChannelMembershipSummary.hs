@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.Types.ChannelMembershipSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Chime.Types.ChannelMembershipSummary where
 
 import Amazonka.Chime.Types.Identity
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Summary of the details of a @ChannelMembership@.
@@ -51,13 +52,13 @@ newChannelMembershipSummary =
 channelMembershipSummary_member :: Lens.Lens' ChannelMembershipSummary (Prelude.Maybe Identity)
 channelMembershipSummary_member = Lens.lens (\ChannelMembershipSummary' {member} -> member) (\s@ChannelMembershipSummary' {} a -> s {member = a} :: ChannelMembershipSummary)
 
-instance Core.FromJSON ChannelMembershipSummary where
+instance Data.FromJSON ChannelMembershipSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ChannelMembershipSummary"
       ( \x ->
           ChannelMembershipSummary'
-            Prelude.<$> (x Core..:? "Member")
+            Prelude.<$> (x Data..:? "Member")
       )
 
 instance Prelude.Hashable ChannelMembershipSummary where

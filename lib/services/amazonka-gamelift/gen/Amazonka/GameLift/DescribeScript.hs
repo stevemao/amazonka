@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.DescribeScript
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,6 @@
 --
 -- __Related actions__
 --
--- CreateScript | ListScripts | DescribeScript | UpdateScript |
--- DeleteScript |
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.DescribeScript
   ( -- * Creating a Request
@@ -53,8 +51,9 @@ module Amazonka.GameLift.DescribeScript
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,12 +92,13 @@ instance Core.AWSRequest DescribeScript where
   type
     AWSResponse DescribeScript =
       DescribeScriptResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeScriptResponse'
-            Prelude.<$> (x Core..?> "Script")
+            Prelude.<$> (x Data..?> "Script")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -109,30 +109,30 @@ instance Prelude.Hashable DescribeScript where
 instance Prelude.NFData DescribeScript where
   rnf DescribeScript' {..} = Prelude.rnf scriptId
 
-instance Core.ToHeaders DescribeScript where
+instance Data.ToHeaders DescribeScript where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("GameLift.DescribeScript" :: Prelude.ByteString),
+              Data.=# ("GameLift.DescribeScript" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeScript where
+instance Data.ToJSON DescribeScript where
   toJSON DescribeScript' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ScriptId" Core..= scriptId)]
+          [Prelude.Just ("ScriptId" Data..= scriptId)]
       )
 
-instance Core.ToPath DescribeScript where
+instance Data.ToPath DescribeScript where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeScript where
+instance Data.ToQuery DescribeScript where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeScriptResponse' smart constructor.

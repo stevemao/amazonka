@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IVS.ImportPlaybackKeyPair
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.IVS.ImportPlaybackKeyPair
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IVS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,7 +59,11 @@ data ImportPlaybackKeyPair = ImportPlaybackKeyPair'
   { -- | Playback-key-pair name. The value does not need to be unique.
     name :: Prelude.Maybe Prelude.Text,
     -- | Any tags provided with the request are added to the playback key pair
-    -- tags.
+    -- tags. See
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+    -- for more information, including restrictions that apply to tags and
+    -- \"Tag naming limits and requirements\"; Amazon IVS has no
+    -- service-specific constraints beyond what is documented there.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The public portion of a customer-generated key pair.
     publicKeyMaterial :: Prelude.Text
@@ -76,7 +81,11 @@ data ImportPlaybackKeyPair = ImportPlaybackKeyPair'
 -- 'name', 'importPlaybackKeyPair_name' - Playback-key-pair name. The value does not need to be unique.
 --
 -- 'tags', 'importPlaybackKeyPair_tags' - Any tags provided with the request are added to the playback key pair
--- tags.
+-- tags. See
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+-- for more information, including restrictions that apply to tags and
+-- \"Tag naming limits and requirements\"; Amazon IVS has no
+-- service-specific constraints beyond what is documented there.
 --
 -- 'publicKeyMaterial', 'importPlaybackKeyPair_publicKeyMaterial' - The public portion of a customer-generated key pair.
 newImportPlaybackKeyPair ::
@@ -95,7 +104,11 @@ importPlaybackKeyPair_name :: Lens.Lens' ImportPlaybackKeyPair (Prelude.Maybe Pr
 importPlaybackKeyPair_name = Lens.lens (\ImportPlaybackKeyPair' {name} -> name) (\s@ImportPlaybackKeyPair' {} a -> s {name = a} :: ImportPlaybackKeyPair)
 
 -- | Any tags provided with the request are added to the playback key pair
--- tags.
+-- tags. See
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+-- for more information, including restrictions that apply to tags and
+-- \"Tag naming limits and requirements\"; Amazon IVS has no
+-- service-specific constraints beyond what is documented there.
 importPlaybackKeyPair_tags :: Lens.Lens' ImportPlaybackKeyPair (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 importPlaybackKeyPair_tags = Lens.lens (\ImportPlaybackKeyPair' {tags} -> tags) (\s@ImportPlaybackKeyPair' {} a -> s {tags = a} :: ImportPlaybackKeyPair) Prelude.. Lens.mapping Lens.coerced
 
@@ -107,12 +120,13 @@ instance Core.AWSRequest ImportPlaybackKeyPair where
   type
     AWSResponse ImportPlaybackKeyPair =
       ImportPlaybackKeyPairResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ImportPlaybackKeyPairResponse'
-            Prelude.<$> (x Core..?> "keyPair")
+            Prelude.<$> (x Data..?> "keyPair")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -128,32 +142,32 @@ instance Prelude.NFData ImportPlaybackKeyPair where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf publicKeyMaterial
 
-instance Core.ToHeaders ImportPlaybackKeyPair where
+instance Data.ToHeaders ImportPlaybackKeyPair where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ImportPlaybackKeyPair where
+instance Data.ToJSON ImportPlaybackKeyPair where
   toJSON ImportPlaybackKeyPair' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("name" Core..=) Prelude.<$> name,
-            ("tags" Core..=) Prelude.<$> tags,
+          [ ("name" Data..=) Prelude.<$> name,
+            ("tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("publicKeyMaterial" Core..= publicKeyMaterial)
+              ("publicKeyMaterial" Data..= publicKeyMaterial)
           ]
       )
 
-instance Core.ToPath ImportPlaybackKeyPair where
+instance Data.ToPath ImportPlaybackKeyPair where
   toPath = Prelude.const "/ImportPlaybackKeyPair"
 
-instance Core.ToQuery ImportPlaybackKeyPair where
+instance Data.ToQuery ImportPlaybackKeyPair where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newImportPlaybackKeyPairResponse' smart constructor.

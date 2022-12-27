@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.DeleteService
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,7 @@
 --
 -- Deletes a specified service within a cluster. You can delete a service
 -- if you have no running tasks in it and the desired task count is zero.
--- If the service is actively maintaining tasks, you cannot delete it, and
+-- If the service is actively maintaining tasks, you can\'t delete it, and
 -- you must update the service to a desired task count of zero. For more
 -- information, see UpdateService.
 --
@@ -60,8 +60,9 @@ module Amazonka.ECS.DeleteService
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -72,9 +73,9 @@ data DeleteService = DeleteService'
     -- hosts the service to delete. If you do not specify a cluster, the
     -- default cluster is assumed.
     cluster :: Prelude.Maybe Prelude.Text,
-    -- | If @true@, allows you to delete a service even if it has not been scaled
-    -- down to zero tasks. It is only necessary to use this if the service is
-    -- using the @REPLICA@ scheduling strategy.
+    -- | If @true@, allows you to delete a service even if it wasn\'t scaled down
+    -- to zero tasks. It\'s only necessary to use this if the service uses the
+    -- @REPLICA@ scheduling strategy.
     force :: Prelude.Maybe Prelude.Bool,
     -- | The name of the service to delete.
     service :: Prelude.Text
@@ -93,9 +94,9 @@ data DeleteService = DeleteService'
 -- hosts the service to delete. If you do not specify a cluster, the
 -- default cluster is assumed.
 --
--- 'force', 'deleteService_force' - If @true@, allows you to delete a service even if it has not been scaled
--- down to zero tasks. It is only necessary to use this if the service is
--- using the @REPLICA@ scheduling strategy.
+-- 'force', 'deleteService_force' - If @true@, allows you to delete a service even if it wasn\'t scaled down
+-- to zero tasks. It\'s only necessary to use this if the service uses the
+-- @REPLICA@ scheduling strategy.
 --
 -- 'service', 'deleteService_service' - The name of the service to delete.
 newDeleteService ::
@@ -115,9 +116,9 @@ newDeleteService pService_ =
 deleteService_cluster :: Lens.Lens' DeleteService (Prelude.Maybe Prelude.Text)
 deleteService_cluster = Lens.lens (\DeleteService' {cluster} -> cluster) (\s@DeleteService' {} a -> s {cluster = a} :: DeleteService)
 
--- | If @true@, allows you to delete a service even if it has not been scaled
--- down to zero tasks. It is only necessary to use this if the service is
--- using the @REPLICA@ scheduling strategy.
+-- | If @true@, allows you to delete a service even if it wasn\'t scaled down
+-- to zero tasks. It\'s only necessary to use this if the service uses the
+-- @REPLICA@ scheduling strategy.
 deleteService_force :: Lens.Lens' DeleteService (Prelude.Maybe Prelude.Bool)
 deleteService_force = Lens.lens (\DeleteService' {force} -> force) (\s@DeleteService' {} a -> s {force = a} :: DeleteService)
 
@@ -129,12 +130,13 @@ instance Core.AWSRequest DeleteService where
   type
     AWSResponse DeleteService =
       DeleteServiceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteServiceResponse'
-            Prelude.<$> (x Core..?> "service")
+            Prelude.<$> (x Data..?> "service")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -150,35 +152,35 @@ instance Prelude.NFData DeleteService where
       `Prelude.seq` Prelude.rnf force
       `Prelude.seq` Prelude.rnf service
 
-instance Core.ToHeaders DeleteService where
+instance Data.ToHeaders DeleteService where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerServiceV20141113.DeleteService" ::
+              Data.=# ( "AmazonEC2ContainerServiceV20141113.DeleteService" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteService where
+instance Data.ToJSON DeleteService where
   toJSON DeleteService' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("cluster" Core..=) Prelude.<$> cluster,
-            ("force" Core..=) Prelude.<$> force,
-            Prelude.Just ("service" Core..= service)
+          [ ("cluster" Data..=) Prelude.<$> cluster,
+            ("force" Data..=) Prelude.<$> force,
+            Prelude.Just ("service" Data..= service)
           ]
       )
 
-instance Core.ToPath DeleteService where
+instance Data.ToPath DeleteService where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteService where
+instance Data.ToQuery DeleteService where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteServiceResponse' smart constructor.

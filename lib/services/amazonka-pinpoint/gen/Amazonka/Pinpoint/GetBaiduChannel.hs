@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.GetBaiduChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Pinpoint.GetBaiduChannel
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -81,13 +82,14 @@ instance Core.AWSRequest GetBaiduChannel where
   type
     AWSResponse GetBaiduChannel =
       GetBaiduChannelResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetBaiduChannelResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable GetBaiduChannel where
@@ -97,26 +99,26 @@ instance Prelude.Hashable GetBaiduChannel where
 instance Prelude.NFData GetBaiduChannel where
   rnf GetBaiduChannel' {..} = Prelude.rnf applicationId
 
-instance Core.ToHeaders GetBaiduChannel where
+instance Data.ToHeaders GetBaiduChannel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetBaiduChannel where
+instance Data.ToPath GetBaiduChannel where
   toPath GetBaiduChannel' {..} =
     Prelude.mconcat
       [ "/v1/apps/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/channels/baidu"
       ]
 
-instance Core.ToQuery GetBaiduChannel where
+instance Data.ToQuery GetBaiduChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetBaiduChannelResponse' smart constructor.

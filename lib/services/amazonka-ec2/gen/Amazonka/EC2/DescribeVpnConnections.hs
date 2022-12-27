@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeVpnConnections
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,9 +31,9 @@ module Amazonka.EC2.DescribeVpnConnections
     newDescribeVpnConnections,
 
     -- * Request Lenses
+    describeVpnConnections_dryRun,
     describeVpnConnections_filters,
     describeVpnConnections_vpnConnectionIds,
-    describeVpnConnections_dryRun,
 
     -- * Destructuring the Response
     DescribeVpnConnectionsResponse (..),
@@ -46,8 +46,9 @@ module Amazonka.EC2.DescribeVpnConnections
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,7 +57,12 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeVpnConnections' smart constructor.
 data DescribeVpnConnections = DescribeVpnConnections'
-  { -- | One or more filters.
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | One or more filters.
     --
     -- -   @customer-gateway-configuration@ - The configuration information for
     --     the customer gateway.
@@ -101,12 +107,7 @@ data DescribeVpnConnections = DescribeVpnConnections'
     -- | One or more VPN connection IDs.
     --
     -- Default: Describes your VPN connections.
-    vpnConnectionIds :: Prelude.Maybe [Prelude.Text],
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool
+    vpnConnectionIds :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -117,6 +118,11 @@ data DescribeVpnConnections = DescribeVpnConnections'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'dryRun', 'describeVpnConnections_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'filters', 'describeVpnConnections_filters' - One or more filters.
 --
@@ -163,19 +169,21 @@ data DescribeVpnConnections = DescribeVpnConnections'
 -- 'vpnConnectionIds', 'describeVpnConnections_vpnConnectionIds' - One or more VPN connection IDs.
 --
 -- Default: Describes your VPN connections.
---
--- 'dryRun', 'describeVpnConnections_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
 newDescribeVpnConnections ::
   DescribeVpnConnections
 newDescribeVpnConnections =
   DescribeVpnConnections'
-    { filters = Prelude.Nothing,
-      vpnConnectionIds = Prelude.Nothing,
-      dryRun = Prelude.Nothing
+    { dryRun = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      vpnConnectionIds = Prelude.Nothing
     }
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeVpnConnections_dryRun :: Lens.Lens' DescribeVpnConnections (Prelude.Maybe Prelude.Bool)
+describeVpnConnections_dryRun = Lens.lens (\DescribeVpnConnections' {dryRun} -> dryRun) (\s@DescribeVpnConnections' {} a -> s {dryRun = a} :: DescribeVpnConnections)
 
 -- | One or more filters.
 --
@@ -227,61 +235,55 @@ describeVpnConnections_filters = Lens.lens (\DescribeVpnConnections' {filters} -
 describeVpnConnections_vpnConnectionIds :: Lens.Lens' DescribeVpnConnections (Prelude.Maybe [Prelude.Text])
 describeVpnConnections_vpnConnectionIds = Lens.lens (\DescribeVpnConnections' {vpnConnectionIds} -> vpnConnectionIds) (\s@DescribeVpnConnections' {} a -> s {vpnConnectionIds = a} :: DescribeVpnConnections) Prelude.. Lens.mapping Lens.coerced
 
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describeVpnConnections_dryRun :: Lens.Lens' DescribeVpnConnections (Prelude.Maybe Prelude.Bool)
-describeVpnConnections_dryRun = Lens.lens (\DescribeVpnConnections' {dryRun} -> dryRun) (\s@DescribeVpnConnections' {} a -> s {dryRun = a} :: DescribeVpnConnections)
-
 instance Core.AWSRequest DescribeVpnConnections where
   type
     AWSResponse DescribeVpnConnections =
       DescribeVpnConnectionsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeVpnConnectionsResponse'
-            Prelude.<$> ( x Core..@? "vpnConnectionSet"
+            Prelude.<$> ( x Data..@? "vpnConnectionSet"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeVpnConnections where
   hashWithSalt _salt DescribeVpnConnections' {..} =
-    _salt `Prelude.hashWithSalt` filters
+    _salt `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` vpnConnectionIds
-      `Prelude.hashWithSalt` dryRun
 
 instance Prelude.NFData DescribeVpnConnections where
   rnf DescribeVpnConnections' {..} =
-    Prelude.rnf filters
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf vpnConnectionIds
-      `Prelude.seq` Prelude.rnf dryRun
 
-instance Core.ToHeaders DescribeVpnConnections where
+instance Data.ToHeaders DescribeVpnConnections where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeVpnConnections where
+instance Data.ToPath DescribeVpnConnections where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeVpnConnections where
+instance Data.ToQuery DescribeVpnConnections where
   toQuery DescribeVpnConnections' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeVpnConnections" :: Prelude.ByteString),
+          Data.=: ("DescribeVpnConnections" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        Core.toQuery
-          ( Core.toQueryList "VpnConnectionId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        Data.toQuery
+          ( Data.toQueryList "VpnConnectionId"
               Prelude.<$> vpnConnectionIds
-          ),
-        "DryRun" Core.=: dryRun
+          )
       ]
 
 -- | Contains the output of DescribeVpnConnections.

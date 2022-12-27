@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IVS.Types.StreamKeySummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IVS.Types.StreamKeySummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Summary information about a stream key.
@@ -31,7 +32,11 @@ data StreamKeySummary = StreamKeySummary'
     arn :: Prelude.Maybe Prelude.Text,
     -- | Channel ARN for the stream.
     channelArn :: Prelude.Maybe Prelude.Text,
-    -- | Array of 1-50 maps, each of the form @string:string (key:value)@.
+    -- | Array of 1-50 maps, each of the form @string:string (key:value)@. See
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+    -- for more information, including restrictions that apply to tags and
+    -- \"Tag naming limits and requirements\"; Amazon IVS has no
+    -- service-specific constraints beyond what is documented there.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -48,7 +53,11 @@ data StreamKeySummary = StreamKeySummary'
 --
 -- 'channelArn', 'streamKeySummary_channelArn' - Channel ARN for the stream.
 --
--- 'tags', 'streamKeySummary_tags' - Array of 1-50 maps, each of the form @string:string (key:value)@.
+-- 'tags', 'streamKeySummary_tags' - Array of 1-50 maps, each of the form @string:string (key:value)@. See
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+-- for more information, including restrictions that apply to tags and
+-- \"Tag naming limits and requirements\"; Amazon IVS has no
+-- service-specific constraints beyond what is documented there.
 newStreamKeySummary ::
   StreamKeySummary
 newStreamKeySummary =
@@ -66,19 +75,23 @@ streamKeySummary_arn = Lens.lens (\StreamKeySummary' {arn} -> arn) (\s@StreamKey
 streamKeySummary_channelArn :: Lens.Lens' StreamKeySummary (Prelude.Maybe Prelude.Text)
 streamKeySummary_channelArn = Lens.lens (\StreamKeySummary' {channelArn} -> channelArn) (\s@StreamKeySummary' {} a -> s {channelArn = a} :: StreamKeySummary)
 
--- | Array of 1-50 maps, each of the form @string:string (key:value)@.
+-- | Array of 1-50 maps, each of the form @string:string (key:value)@. See
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+-- for more information, including restrictions that apply to tags and
+-- \"Tag naming limits and requirements\"; Amazon IVS has no
+-- service-specific constraints beyond what is documented there.
 streamKeySummary_tags :: Lens.Lens' StreamKeySummary (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 streamKeySummary_tags = Lens.lens (\StreamKeySummary' {tags} -> tags) (\s@StreamKeySummary' {} a -> s {tags = a} :: StreamKeySummary) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON StreamKeySummary where
+instance Data.FromJSON StreamKeySummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StreamKeySummary"
       ( \x ->
           StreamKeySummary'
-            Prelude.<$> (x Core..:? "arn")
-            Prelude.<*> (x Core..:? "channelArn")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "arn")
+            Prelude.<*> (x Data..:? "channelArn")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable StreamKeySummary where

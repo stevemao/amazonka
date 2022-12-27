@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.MarketplaceMetering
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,45 +20,45 @@
 -- usage dimensions.
 --
 -- For information on the permissions you need to use this API, see
--- <https://docs.aws.amazon.com/marketplace/latest/userguide/iam-user-policy-for-aws-marketplace-actions.html AWS Marketing metering and entitlement API permissions>
+-- <https://docs.aws.amazon.com/marketplace/latest/userguide/iam-user-policy-for-aws-marketplace-actions.html AWS Marketplace metering and entitlement API permissions>
 -- in the /AWS Marketplace Seller Guide./
 --
 -- __Submitting Metering Records__
 --
--- -   /MeterUsage/- Submits the metering record for a Marketplace product.
---     MeterUsage is called from an EC2 instance or a container running on
---     EKS or ECS.
+-- -   /MeterUsage/ - Submits the metering record for an AWS Marketplace
+--     product. @MeterUsage@ is called from an EC2 instance or a container
+--     running on EKS or ECS.
 --
--- -   /BatchMeterUsage/- Submits the metering record for a set of
---     customers. BatchMeterUsage is called from a software-as-a-service
+-- -   /BatchMeterUsage/ - Submits the metering record for a set of
+--     customers. @BatchMeterUsage@ is called from a software-as-a-service
 --     (SaaS) application.
 --
 -- __Accepting New Customers__
 --
--- -   /ResolveCustomer/- Called by a SaaS application during the
+-- -   /ResolveCustomer/ - Called by a SaaS application during the
 --     registration process. When a buyer visits your website during the
 --     registration process, the buyer submits a Registration Token through
 --     the browser. The Registration Token is resolved through this API to
---     obtain a CustomerIdentifier and Product Code.
+--     obtain a @CustomerIdentifier@ along with the @CustomerAWSAccountId@
+--     and @ProductCode@.
 --
 -- __Entitlement and Metering for Paid Container Products__
 --
 -- -   Paid container software products sold through AWS Marketplace must
 --     integrate with the AWS Marketplace Metering Service and call the
---     RegisterUsage operation for software entitlement and metering. Free
---     and BYOL products for Amazon ECS or Amazon EKS aren\'t required to
---     call RegisterUsage, but you can do so if you want to receive usage
---     data in your seller reports. For more information on using the
---     RegisterUsage operation, see
+--     @RegisterUsage@ operation for software entitlement and metering.
+--     Free and BYOL products for Amazon ECS or Amazon EKS aren\'t required
+--     to call @RegisterUsage@, but you can do so if you want to receive
+--     usage data in your seller reports. For more information on using the
+--     @RegisterUsage@ operation, see
 --     <https://docs.aws.amazon.com/marketplace/latest/userguide/container-based-products.html Container-Based Products>.
 --
--- BatchMeterUsage API calls are captured by AWS CloudTrail. You can use
+-- @BatchMeterUsage@ API calls are captured by AWS CloudTrail. You can use
 -- Cloudtrail to verify that the SaaS metering records that you sent are
--- accurate by searching for records with the eventName of BatchMeterUsage.
--- You can also use CloudTrail to audit records over time. For more
--- information, see the
--- /<http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-concepts.html AWS CloudTrail User Guide>/
--- .
+-- accurate by searching for records with the @eventName@ of
+-- @BatchMeterUsage@. You can also use CloudTrail to audit records over
+-- time. For more information, see the
+-- /<http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-concepts.html AWS CloudTrail User Guide>./
 module Amazonka.MarketplaceMetering
   ( -- * Service Configuration
     defaultService,
@@ -66,8 +66,23 @@ module Amazonka.MarketplaceMetering
     -- * Errors
     -- $errors
 
-    -- ** InvalidTagException
-    _InvalidTagException,
+    -- ** CustomerNotEntitledException
+    _CustomerNotEntitledException,
+
+    -- ** DisabledApiException
+    _DisabledApiException,
+
+    -- ** DuplicateRequestException
+    _DuplicateRequestException,
+
+    -- ** ExpiredTokenException
+    _ExpiredTokenException,
+
+    -- ** InternalServiceErrorException
+    _InternalServiceErrorException,
+
+    -- ** InvalidCustomerIdentifierException
+    _InvalidCustomerIdentifierException,
 
     -- ** InvalidEndpointRegionException
     _InvalidEndpointRegionException,
@@ -75,32 +90,14 @@ module Amazonka.MarketplaceMetering
     -- ** InvalidProductCodeException
     _InvalidProductCodeException,
 
-    -- ** InvalidUsageDimensionException
-    _InvalidUsageDimensionException,
-
-    -- ** PlatformNotSupportedException
-    _PlatformNotSupportedException,
-
-    -- ** CustomerNotEntitledException
-    _CustomerNotEntitledException,
-
-    -- ** DuplicateRequestException
-    _DuplicateRequestException,
-
-    -- ** DisabledApiException
-    _DisabledApiException,
-
-    -- ** TimestampOutOfBoundsException
-    _TimestampOutOfBoundsException,
-
-    -- ** ThrottlingException
-    _ThrottlingException,
-
     -- ** InvalidPublicKeyVersionException
     _InvalidPublicKeyVersionException,
 
-    -- ** InternalServiceErrorException
-    _InternalServiceErrorException,
+    -- ** InvalidRegionException
+    _InvalidRegionException,
+
+    -- ** InvalidTagException
+    _InvalidTagException,
 
     -- ** InvalidTokenException
     _InvalidTokenException,
@@ -108,14 +105,17 @@ module Amazonka.MarketplaceMetering
     -- ** InvalidUsageAllocationsException
     _InvalidUsageAllocationsException,
 
-    -- ** ExpiredTokenException
-    _ExpiredTokenException,
+    -- ** InvalidUsageDimensionException
+    _InvalidUsageDimensionException,
 
-    -- ** InvalidRegionException
-    _InvalidRegionException,
+    -- ** PlatformNotSupportedException
+    _PlatformNotSupportedException,
 
-    -- ** InvalidCustomerIdentifierException
-    _InvalidCustomerIdentifierException,
+    -- ** ThrottlingException
+    _ThrottlingException,
+
+    -- ** TimestampOutOfBoundsException
+    _TimestampOutOfBoundsException,
 
     -- * Waiters
     -- $waiters
@@ -123,29 +123,29 @@ module Amazonka.MarketplaceMetering
     -- * Operations
     -- $operations
 
-    -- ** RegisterUsage
-    RegisterUsage (RegisterUsage'),
-    newRegisterUsage,
-    RegisterUsageResponse (RegisterUsageResponse'),
-    newRegisterUsageResponse,
-
     -- ** BatchMeterUsage
     BatchMeterUsage (BatchMeterUsage'),
     newBatchMeterUsage,
     BatchMeterUsageResponse (BatchMeterUsageResponse'),
     newBatchMeterUsageResponse,
 
-    -- ** ResolveCustomer
-    ResolveCustomer (ResolveCustomer'),
-    newResolveCustomer,
-    ResolveCustomerResponse (ResolveCustomerResponse'),
-    newResolveCustomerResponse,
-
     -- ** MeterUsage
     MeterUsage (MeterUsage'),
     newMeterUsage,
     MeterUsageResponse (MeterUsageResponse'),
     newMeterUsageResponse,
+
+    -- ** RegisterUsage
+    RegisterUsage (RegisterUsage'),
+    newRegisterUsage,
+    RegisterUsageResponse (RegisterUsageResponse'),
+    newRegisterUsageResponse,
+
+    -- ** ResolveCustomer
+    ResolveCustomer (ResolveCustomer'),
+    newResolveCustomer,
+    ResolveCustomerResponse (ResolveCustomerResponse'),
+    newResolveCustomerResponse,
 
     -- * Types
 

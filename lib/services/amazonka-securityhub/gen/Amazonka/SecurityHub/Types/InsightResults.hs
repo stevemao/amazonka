@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.InsightResults
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.InsightResults where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.InsightResultValue
 
@@ -84,15 +85,15 @@ insightResults_groupByAttribute = Lens.lens (\InsightResults' {groupByAttribute}
 insightResults_resultValues :: Lens.Lens' InsightResults [InsightResultValue]
 insightResults_resultValues = Lens.lens (\InsightResults' {resultValues} -> resultValues) (\s@InsightResults' {} a -> s {resultValues = a} :: InsightResults) Prelude.. Lens.coerced
 
-instance Core.FromJSON InsightResults where
+instance Data.FromJSON InsightResults where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InsightResults"
       ( \x ->
           InsightResults'
-            Prelude.<$> (x Core..: "InsightArn")
-            Prelude.<*> (x Core..: "GroupByAttribute")
-            Prelude.<*> (x Core..:? "ResultValues" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..: "InsightArn")
+            Prelude.<*> (x Data..: "GroupByAttribute")
+            Prelude.<*> (x Data..:? "ResultValues" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable InsightResults where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.Types.EmailRecipients
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTEvents.Types.EmailRecipients where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types.RecipientDetail
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the information of one or more recipients who receive the
@@ -55,12 +56,12 @@ newEmailRecipients =
 emailRecipients_to :: Lens.Lens' EmailRecipients (Prelude.Maybe (Prelude.NonEmpty RecipientDetail))
 emailRecipients_to = Lens.lens (\EmailRecipients' {to} -> to) (\s@EmailRecipients' {} a -> s {to = a} :: EmailRecipients) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON EmailRecipients where
+instance Data.FromJSON EmailRecipients where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EmailRecipients"
       ( \x ->
-          EmailRecipients' Prelude.<$> (x Core..:? "to")
+          EmailRecipients' Prelude.<$> (x Data..:? "to")
       )
 
 instance Prelude.Hashable EmailRecipients where
@@ -70,7 +71,7 @@ instance Prelude.Hashable EmailRecipients where
 instance Prelude.NFData EmailRecipients where
   rnf EmailRecipients' {..} = Prelude.rnf to
 
-instance Core.ToJSON EmailRecipients where
+instance Data.ToJSON EmailRecipients where
   toJSON EmailRecipients' {..} =
-    Core.object
-      (Prelude.catMaybes [("to" Core..=) Prelude.<$> to])
+    Data.object
+      (Prelude.catMaybes [("to" Data..=) Prelude.<$> to])

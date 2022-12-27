@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.Types.RecommendationRelatedEventResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.DevOpsGuru.Types.RecommendationRelatedEventResource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Information about an AWS resource that emitted and event that is related
--- to a recommendation in an insight.
+-- | Information about an Amazon Web Services resource that emitted and event
+-- that is related to a recommendation in an insight.
 --
 -- /See:/ 'newRecommendationRelatedEventResource' smart constructor.
 data RecommendationRelatedEventResource = RecommendationRelatedEventResource'
@@ -70,15 +71,15 @@ recommendationRelatedEventResource_type :: Lens.Lens' RecommendationRelatedEvent
 recommendationRelatedEventResource_type = Lens.lens (\RecommendationRelatedEventResource' {type'} -> type') (\s@RecommendationRelatedEventResource' {} a -> s {type' = a} :: RecommendationRelatedEventResource)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     RecommendationRelatedEventResource
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RecommendationRelatedEventResource"
       ( \x ->
           RecommendationRelatedEventResource'
-            Prelude.<$> (x Core..:? "Name") Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "Name") Prelude.<*> (x Data..:? "Type")
       )
 
 instance

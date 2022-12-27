@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.TransitGatewayConnectOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.TransitGatewayConnectOptions where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.ProtocolValue
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the Connect attachment options.
@@ -55,10 +56,10 @@ newTransitGatewayConnectOptions =
 transitGatewayConnectOptions_protocol :: Lens.Lens' TransitGatewayConnectOptions (Prelude.Maybe ProtocolValue)
 transitGatewayConnectOptions_protocol = Lens.lens (\TransitGatewayConnectOptions' {protocol} -> protocol) (\s@TransitGatewayConnectOptions' {} a -> s {protocol = a} :: TransitGatewayConnectOptions)
 
-instance Core.FromXML TransitGatewayConnectOptions where
+instance Data.FromXML TransitGatewayConnectOptions where
   parseXML x =
     TransitGatewayConnectOptions'
-      Prelude.<$> (x Core..@? "protocol")
+      Prelude.<$> (x Data..@? "protocol")
 
 instance
   Prelude.Hashable

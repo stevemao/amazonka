@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.CreateSnapshotFromVolumeRecoveryPoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -58,15 +58,16 @@ module Amazonka.StorageGateway.CreateSnapshotFromVolumeRecoveryPoint
     newCreateSnapshotFromVolumeRecoveryPointResponse,
 
     -- * Response Lenses
-    createSnapshotFromVolumeRecoveryPointResponse_volumeRecoveryPointTime,
-    createSnapshotFromVolumeRecoveryPointResponse_volumeARN,
     createSnapshotFromVolumeRecoveryPointResponse_snapshotId,
+    createSnapshotFromVolumeRecoveryPointResponse_volumeARN,
+    createSnapshotFromVolumeRecoveryPointResponse_volumeRecoveryPointTime,
     createSnapshotFromVolumeRecoveryPointResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -166,14 +167,15 @@ instance
     AWSResponse
       CreateSnapshotFromVolumeRecoveryPoint =
       CreateSnapshotFromVolumeRecoveryPointResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateSnapshotFromVolumeRecoveryPointResponse'
-            Prelude.<$> (x Core..?> "VolumeRecoveryPointTime")
-              Prelude.<*> (x Core..?> "VolumeARN")
-              Prelude.<*> (x Core..?> "SnapshotId")
+            Prelude.<$> (x Data..?> "SnapshotId")
+              Prelude.<*> (x Data..?> "VolumeARN")
+              Prelude.<*> (x Data..?> "VolumeRecoveryPointTime")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -198,59 +200,59 @@ instance
       `Prelude.seq` Prelude.rnf snapshotDescription
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CreateSnapshotFromVolumeRecoveryPoint
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.CreateSnapshotFromVolumeRecoveryPoint" ::
+              Data.=# ( "StorageGateway_20130630.CreateSnapshotFromVolumeRecoveryPoint" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     CreateSnapshotFromVolumeRecoveryPoint
   where
   toJSON CreateSnapshotFromVolumeRecoveryPoint' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("VolumeARN" Core..= volumeARN),
+          [ ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("VolumeARN" Data..= volumeARN),
             Prelude.Just
-              ("SnapshotDescription" Core..= snapshotDescription)
+              ("SnapshotDescription" Data..= snapshotDescription)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     CreateSnapshotFromVolumeRecoveryPoint
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     CreateSnapshotFromVolumeRecoveryPoint
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateSnapshotFromVolumeRecoveryPointResponse' smart constructor.
 data CreateSnapshotFromVolumeRecoveryPointResponse = CreateSnapshotFromVolumeRecoveryPointResponse'
-  { -- | The time the volume was created from the recovery point.
-    volumeRecoveryPointTime :: Prelude.Maybe Prelude.Text,
+  { -- | The ID of the snapshot.
+    snapshotId :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the iSCSI volume target. Use the
     -- DescribeStorediSCSIVolumes operation to return to retrieve the TargetARN
     -- for specified VolumeARN.
     volumeARN :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the snapshot.
-    snapshotId :: Prelude.Maybe Prelude.Text,
+    -- | The time the volume was created from the recovery point.
+    volumeRecoveryPointTime :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -264,13 +266,13 @@ data CreateSnapshotFromVolumeRecoveryPointResponse = CreateSnapshotFromVolumeRec
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'volumeRecoveryPointTime', 'createSnapshotFromVolumeRecoveryPointResponse_volumeRecoveryPointTime' - The time the volume was created from the recovery point.
+-- 'snapshotId', 'createSnapshotFromVolumeRecoveryPointResponse_snapshotId' - The ID of the snapshot.
 --
 -- 'volumeARN', 'createSnapshotFromVolumeRecoveryPointResponse_volumeARN' - The Amazon Resource Name (ARN) of the iSCSI volume target. Use the
 -- DescribeStorediSCSIVolumes operation to return to retrieve the TargetARN
 -- for specified VolumeARN.
 --
--- 'snapshotId', 'createSnapshotFromVolumeRecoveryPointResponse_snapshotId' - The ID of the snapshot.
+-- 'volumeRecoveryPointTime', 'createSnapshotFromVolumeRecoveryPointResponse_volumeRecoveryPointTime' - The time the volume was created from the recovery point.
 --
 -- 'httpStatus', 'createSnapshotFromVolumeRecoveryPointResponse_httpStatus' - The response's http status code.
 newCreateSnapshotFromVolumeRecoveryPointResponse ::
@@ -280,16 +282,17 @@ newCreateSnapshotFromVolumeRecoveryPointResponse ::
 newCreateSnapshotFromVolumeRecoveryPointResponse
   pHttpStatus_ =
     CreateSnapshotFromVolumeRecoveryPointResponse'
-      { volumeRecoveryPointTime =
+      { snapshotId =
           Prelude.Nothing,
         volumeARN = Prelude.Nothing,
-        snapshotId = Prelude.Nothing,
+        volumeRecoveryPointTime =
+          Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
 
--- | The time the volume was created from the recovery point.
-createSnapshotFromVolumeRecoveryPointResponse_volumeRecoveryPointTime :: Lens.Lens' CreateSnapshotFromVolumeRecoveryPointResponse (Prelude.Maybe Prelude.Text)
-createSnapshotFromVolumeRecoveryPointResponse_volumeRecoveryPointTime = Lens.lens (\CreateSnapshotFromVolumeRecoveryPointResponse' {volumeRecoveryPointTime} -> volumeRecoveryPointTime) (\s@CreateSnapshotFromVolumeRecoveryPointResponse' {} a -> s {volumeRecoveryPointTime = a} :: CreateSnapshotFromVolumeRecoveryPointResponse)
+-- | The ID of the snapshot.
+createSnapshotFromVolumeRecoveryPointResponse_snapshotId :: Lens.Lens' CreateSnapshotFromVolumeRecoveryPointResponse (Prelude.Maybe Prelude.Text)
+createSnapshotFromVolumeRecoveryPointResponse_snapshotId = Lens.lens (\CreateSnapshotFromVolumeRecoveryPointResponse' {snapshotId} -> snapshotId) (\s@CreateSnapshotFromVolumeRecoveryPointResponse' {} a -> s {snapshotId = a} :: CreateSnapshotFromVolumeRecoveryPointResponse)
 
 -- | The Amazon Resource Name (ARN) of the iSCSI volume target. Use the
 -- DescribeStorediSCSIVolumes operation to return to retrieve the TargetARN
@@ -297,9 +300,9 @@ createSnapshotFromVolumeRecoveryPointResponse_volumeRecoveryPointTime = Lens.len
 createSnapshotFromVolumeRecoveryPointResponse_volumeARN :: Lens.Lens' CreateSnapshotFromVolumeRecoveryPointResponse (Prelude.Maybe Prelude.Text)
 createSnapshotFromVolumeRecoveryPointResponse_volumeARN = Lens.lens (\CreateSnapshotFromVolumeRecoveryPointResponse' {volumeARN} -> volumeARN) (\s@CreateSnapshotFromVolumeRecoveryPointResponse' {} a -> s {volumeARN = a} :: CreateSnapshotFromVolumeRecoveryPointResponse)
 
--- | The ID of the snapshot.
-createSnapshotFromVolumeRecoveryPointResponse_snapshotId :: Lens.Lens' CreateSnapshotFromVolumeRecoveryPointResponse (Prelude.Maybe Prelude.Text)
-createSnapshotFromVolumeRecoveryPointResponse_snapshotId = Lens.lens (\CreateSnapshotFromVolumeRecoveryPointResponse' {snapshotId} -> snapshotId) (\s@CreateSnapshotFromVolumeRecoveryPointResponse' {} a -> s {snapshotId = a} :: CreateSnapshotFromVolumeRecoveryPointResponse)
+-- | The time the volume was created from the recovery point.
+createSnapshotFromVolumeRecoveryPointResponse_volumeRecoveryPointTime :: Lens.Lens' CreateSnapshotFromVolumeRecoveryPointResponse (Prelude.Maybe Prelude.Text)
+createSnapshotFromVolumeRecoveryPointResponse_volumeRecoveryPointTime = Lens.lens (\CreateSnapshotFromVolumeRecoveryPointResponse' {volumeRecoveryPointTime} -> volumeRecoveryPointTime) (\s@CreateSnapshotFromVolumeRecoveryPointResponse' {} a -> s {volumeRecoveryPointTime = a} :: CreateSnapshotFromVolumeRecoveryPointResponse)
 
 -- | The response's http status code.
 createSnapshotFromVolumeRecoveryPointResponse_httpStatus :: Lens.Lens' CreateSnapshotFromVolumeRecoveryPointResponse Prelude.Int
@@ -311,7 +314,7 @@ instance
   where
   rnf
     CreateSnapshotFromVolumeRecoveryPointResponse' {..} =
-      Prelude.rnf volumeRecoveryPointTime
+      Prelude.rnf snapshotId
         `Prelude.seq` Prelude.rnf volumeARN
-        `Prelude.seq` Prelude.rnf snapshotId
+        `Prelude.seq` Prelude.rnf volumeRecoveryPointTime
         `Prelude.seq` Prelude.rnf httpStatus

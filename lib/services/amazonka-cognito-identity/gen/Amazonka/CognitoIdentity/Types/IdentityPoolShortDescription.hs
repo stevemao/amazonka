@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentity.Types.IdentityPoolShortDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CognitoIdentity.Types.IdentityPoolShortDescription where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A description of the identity pool.
@@ -62,14 +63,14 @@ identityPoolShortDescription_identityPoolId = Lens.lens (\IdentityPoolShortDescr
 identityPoolShortDescription_identityPoolName :: Lens.Lens' IdentityPoolShortDescription (Prelude.Maybe Prelude.Text)
 identityPoolShortDescription_identityPoolName = Lens.lens (\IdentityPoolShortDescription' {identityPoolName} -> identityPoolName) (\s@IdentityPoolShortDescription' {} a -> s {identityPoolName = a} :: IdentityPoolShortDescription)
 
-instance Core.FromJSON IdentityPoolShortDescription where
+instance Data.FromJSON IdentityPoolShortDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IdentityPoolShortDescription"
       ( \x ->
           IdentityPoolShortDescription'
-            Prelude.<$> (x Core..:? "IdentityPoolId")
-            Prelude.<*> (x Core..:? "IdentityPoolName")
+            Prelude.<$> (x Data..:? "IdentityPoolId")
+            Prelude.<*> (x Data..:? "IdentityPoolName")
       )
 
 instance

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.CreateGrant
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,15 +40,16 @@ module Amazonka.LicenseManager.CreateGrant
     newCreateGrantResponse,
 
     -- * Response Lenses
+    createGrantResponse_grantArn,
     createGrantResponse_status,
     createGrantResponse_version,
-    createGrantResponse_grantArn,
     createGrantResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LicenseManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -63,7 +64,8 @@ data CreateGrant = CreateGrant'
     grantName :: Prelude.Text,
     -- | Amazon Resource Name (ARN) of the license.
     licenseArn :: Prelude.Text,
-    -- | The grant principals.
+    -- | The grant principals. This value should be specified as an Amazon
+    -- Resource Name (ARN).
     principals :: Prelude.NonEmpty Prelude.Text,
     -- | Home Region of the grant.
     homeRegion :: Prelude.Text,
@@ -87,7 +89,8 @@ data CreateGrant = CreateGrant'
 --
 -- 'licenseArn', 'createGrant_licenseArn' - Amazon Resource Name (ARN) of the license.
 --
--- 'principals', 'createGrant_principals' - The grant principals.
+-- 'principals', 'createGrant_principals' - The grant principals. This value should be specified as an Amazon
+-- Resource Name (ARN).
 --
 -- 'homeRegion', 'createGrant_homeRegion' - Home Region of the grant.
 --
@@ -136,7 +139,8 @@ createGrant_grantName = Lens.lens (\CreateGrant' {grantName} -> grantName) (\s@C
 createGrant_licenseArn :: Lens.Lens' CreateGrant Prelude.Text
 createGrant_licenseArn = Lens.lens (\CreateGrant' {licenseArn} -> licenseArn) (\s@CreateGrant' {} a -> s {licenseArn = a} :: CreateGrant)
 
--- | The grant principals.
+-- | The grant principals. This value should be specified as an Amazon
+-- Resource Name (ARN).
 createGrant_principals :: Lens.Lens' CreateGrant (Prelude.NonEmpty Prelude.Text)
 createGrant_principals = Lens.lens (\CreateGrant' {principals} -> principals) (\s@CreateGrant' {} a -> s {principals = a} :: CreateGrant) Prelude.. Lens.coerced
 
@@ -150,14 +154,15 @@ createGrant_allowedOperations = Lens.lens (\CreateGrant' {allowedOperations} -> 
 
 instance Core.AWSRequest CreateGrant where
   type AWSResponse CreateGrant = CreateGrantResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateGrantResponse'
-            Prelude.<$> (x Core..?> "Status")
-            Prelude.<*> (x Core..?> "Version")
-            Prelude.<*> (x Core..?> "GrantArn")
+            Prelude.<$> (x Data..?> "GrantArn")
+            Prelude.<*> (x Data..?> "Status")
+            Prelude.<*> (x Data..?> "Version")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -179,49 +184,49 @@ instance Prelude.NFData CreateGrant where
       `Prelude.seq` Prelude.rnf homeRegion
       `Prelude.seq` Prelude.rnf allowedOperations
 
-instance Core.ToHeaders CreateGrant where
+instance Data.ToHeaders CreateGrant where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSLicenseManager.CreateGrant" ::
+              Data.=# ( "AWSLicenseManager.CreateGrant" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateGrant where
+instance Data.ToJSON CreateGrant where
   toJSON CreateGrant' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ClientToken" Core..= clientToken),
-            Prelude.Just ("GrantName" Core..= grantName),
-            Prelude.Just ("LicenseArn" Core..= licenseArn),
-            Prelude.Just ("Principals" Core..= principals),
-            Prelude.Just ("HomeRegion" Core..= homeRegion),
+          [ Prelude.Just ("ClientToken" Data..= clientToken),
+            Prelude.Just ("GrantName" Data..= grantName),
+            Prelude.Just ("LicenseArn" Data..= licenseArn),
+            Prelude.Just ("Principals" Data..= principals),
+            Prelude.Just ("HomeRegion" Data..= homeRegion),
             Prelude.Just
-              ("AllowedOperations" Core..= allowedOperations)
+              ("AllowedOperations" Data..= allowedOperations)
           ]
       )
 
-instance Core.ToPath CreateGrant where
+instance Data.ToPath CreateGrant where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateGrant where
+instance Data.ToQuery CreateGrant where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateGrantResponse' smart constructor.
 data CreateGrantResponse = CreateGrantResponse'
-  { -- | Grant status.
+  { -- | Grant ARN.
+    grantArn :: Prelude.Maybe Prelude.Text,
+    -- | Grant status.
     status :: Prelude.Maybe GrantStatus,
     -- | Grant version.
     version :: Prelude.Maybe Prelude.Text,
-    -- | Grant ARN.
-    grantArn :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -235,11 +240,11 @@ data CreateGrantResponse = CreateGrantResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'grantArn', 'createGrantResponse_grantArn' - Grant ARN.
+--
 -- 'status', 'createGrantResponse_status' - Grant status.
 --
 -- 'version', 'createGrantResponse_version' - Grant version.
---
--- 'grantArn', 'createGrantResponse_grantArn' - Grant ARN.
 --
 -- 'httpStatus', 'createGrantResponse_httpStatus' - The response's http status code.
 newCreateGrantResponse ::
@@ -248,11 +253,15 @@ newCreateGrantResponse ::
   CreateGrantResponse
 newCreateGrantResponse pHttpStatus_ =
   CreateGrantResponse'
-    { status = Prelude.Nothing,
+    { grantArn = Prelude.Nothing,
+      status = Prelude.Nothing,
       version = Prelude.Nothing,
-      grantArn = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | Grant ARN.
+createGrantResponse_grantArn :: Lens.Lens' CreateGrantResponse (Prelude.Maybe Prelude.Text)
+createGrantResponse_grantArn = Lens.lens (\CreateGrantResponse' {grantArn} -> grantArn) (\s@CreateGrantResponse' {} a -> s {grantArn = a} :: CreateGrantResponse)
 
 -- | Grant status.
 createGrantResponse_status :: Lens.Lens' CreateGrantResponse (Prelude.Maybe GrantStatus)
@@ -262,17 +271,13 @@ createGrantResponse_status = Lens.lens (\CreateGrantResponse' {status} -> status
 createGrantResponse_version :: Lens.Lens' CreateGrantResponse (Prelude.Maybe Prelude.Text)
 createGrantResponse_version = Lens.lens (\CreateGrantResponse' {version} -> version) (\s@CreateGrantResponse' {} a -> s {version = a} :: CreateGrantResponse)
 
--- | Grant ARN.
-createGrantResponse_grantArn :: Lens.Lens' CreateGrantResponse (Prelude.Maybe Prelude.Text)
-createGrantResponse_grantArn = Lens.lens (\CreateGrantResponse' {grantArn} -> grantArn) (\s@CreateGrantResponse' {} a -> s {grantArn = a} :: CreateGrantResponse)
-
 -- | The response's http status code.
 createGrantResponse_httpStatus :: Lens.Lens' CreateGrantResponse Prelude.Int
 createGrantResponse_httpStatus = Lens.lens (\CreateGrantResponse' {httpStatus} -> httpStatus) (\s@CreateGrantResponse' {} a -> s {httpStatus = a} :: CreateGrantResponse)
 
 instance Prelude.NFData CreateGrantResponse where
   rnf CreateGrantResponse' {..} =
-    Prelude.rnf status
+    Prelude.rnf grantArn
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf version
-      `Prelude.seq` Prelude.rnf grantArn
       `Prelude.seq` Prelude.rnf httpStatus

@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalytics
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,35 +28,17 @@ module Amazonka.KinesisAnalytics
     -- * Errors
     -- $errors
 
-    -- ** InvalidApplicationConfigurationException
-    _InvalidApplicationConfigurationException,
-
-    -- ** ResourceProvisionedThroughputExceededException
-    _ResourceProvisionedThroughputExceededException,
-
-    -- ** UnsupportedOperationException
-    _UnsupportedOperationException,
-
-    -- ** InvalidArgumentException
-    _InvalidArgumentException,
-
-    -- ** TooManyTagsException
-    _TooManyTagsException,
-
     -- ** CodeValidationException
     _CodeValidationException,
 
     -- ** ConcurrentModificationException
     _ConcurrentModificationException,
 
-    -- ** ServiceUnavailableException
-    _ServiceUnavailableException,
+    -- ** InvalidApplicationConfigurationException
+    _InvalidApplicationConfigurationException,
 
-    -- ** UnableToDetectSchemaException
-    _UnableToDetectSchemaException,
-
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
+    -- ** InvalidArgumentException
+    _InvalidArgumentException,
 
     -- ** LimitExceededException
     _LimitExceededException,
@@ -64,107 +46,29 @@ module Amazonka.KinesisAnalytics
     -- ** ResourceInUseException
     _ResourceInUseException,
 
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
+
+    -- ** ResourceProvisionedThroughputExceededException
+    _ResourceProvisionedThroughputExceededException,
+
+    -- ** ServiceUnavailableException
+    _ServiceUnavailableException,
+
+    -- ** TooManyTagsException
+    _TooManyTagsException,
+
+    -- ** UnableToDetectSchemaException
+    _UnableToDetectSchemaException,
+
+    -- ** UnsupportedOperationException
+    _UnsupportedOperationException,
+
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
-
-    -- ** AddApplicationOutput
-    AddApplicationOutput (AddApplicationOutput'),
-    newAddApplicationOutput,
-    AddApplicationOutputResponse (AddApplicationOutputResponse'),
-    newAddApplicationOutputResponse,
-
-    -- ** DiscoverInputSchema
-    DiscoverInputSchema (DiscoverInputSchema'),
-    newDiscoverInputSchema,
-    DiscoverInputSchemaResponse (DiscoverInputSchemaResponse'),
-    newDiscoverInputSchemaResponse,
-
-    -- ** DescribeApplication
-    DescribeApplication (DescribeApplication'),
-    newDescribeApplication,
-    DescribeApplicationResponse (DescribeApplicationResponse'),
-    newDescribeApplicationResponse,
-
-    -- ** StartApplication
-    StartApplication (StartApplication'),
-    newStartApplication,
-    StartApplicationResponse (StartApplicationResponse'),
-    newStartApplicationResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** DeleteApplicationReferenceDataSource
-    DeleteApplicationReferenceDataSource (DeleteApplicationReferenceDataSource'),
-    newDeleteApplicationReferenceDataSource,
-    DeleteApplicationReferenceDataSourceResponse (DeleteApplicationReferenceDataSourceResponse'),
-    newDeleteApplicationReferenceDataSourceResponse,
-
-    -- ** DeleteApplication
-    DeleteApplication (DeleteApplication'),
-    newDeleteApplication,
-    DeleteApplicationResponse (DeleteApplicationResponse'),
-    newDeleteApplicationResponse,
-
-    -- ** UpdateApplication
-    UpdateApplication (UpdateApplication'),
-    newUpdateApplication,
-    UpdateApplicationResponse (UpdateApplicationResponse'),
-    newUpdateApplicationResponse,
-
-    -- ** DeleteApplicationCloudWatchLoggingOption
-    DeleteApplicationCloudWatchLoggingOption (DeleteApplicationCloudWatchLoggingOption'),
-    newDeleteApplicationCloudWatchLoggingOption,
-    DeleteApplicationCloudWatchLoggingOptionResponse (DeleteApplicationCloudWatchLoggingOptionResponse'),
-    newDeleteApplicationCloudWatchLoggingOptionResponse,
-
-    -- ** AddApplicationInputProcessingConfiguration
-    AddApplicationInputProcessingConfiguration (AddApplicationInputProcessingConfiguration'),
-    newAddApplicationInputProcessingConfiguration,
-    AddApplicationInputProcessingConfigurationResponse (AddApplicationInputProcessingConfigurationResponse'),
-    newAddApplicationInputProcessingConfigurationResponse,
-
-    -- ** CreateApplication
-    CreateApplication (CreateApplication'),
-    newCreateApplication,
-    CreateApplicationResponse (CreateApplicationResponse'),
-    newCreateApplicationResponse,
-
-    -- ** DeleteApplicationOutput
-    DeleteApplicationOutput (DeleteApplicationOutput'),
-    newDeleteApplicationOutput,
-    DeleteApplicationOutputResponse (DeleteApplicationOutputResponse'),
-    newDeleteApplicationOutputResponse,
-
-    -- ** StopApplication
-    StopApplication (StopApplication'),
-    newStopApplication,
-    StopApplicationResponse (StopApplicationResponse'),
-    newStopApplicationResponse,
-
-    -- ** AddApplicationReferenceDataSource
-    AddApplicationReferenceDataSource (AddApplicationReferenceDataSource'),
-    newAddApplicationReferenceDataSource,
-    AddApplicationReferenceDataSourceResponse (AddApplicationReferenceDataSourceResponse'),
-    newAddApplicationReferenceDataSourceResponse,
-
-    -- ** AddApplicationInput
-    AddApplicationInput (AddApplicationInput'),
-    newAddApplicationInput,
-    AddApplicationInputResponse (AddApplicationInputResponse'),
-    newAddApplicationInputResponse,
-
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
 
     -- ** AddApplicationCloudWatchLoggingOption
     AddApplicationCloudWatchLoggingOption (AddApplicationCloudWatchLoggingOption'),
@@ -172,11 +76,107 @@ module Amazonka.KinesisAnalytics
     AddApplicationCloudWatchLoggingOptionResponse (AddApplicationCloudWatchLoggingOptionResponse'),
     newAddApplicationCloudWatchLoggingOptionResponse,
 
+    -- ** AddApplicationInput
+    AddApplicationInput (AddApplicationInput'),
+    newAddApplicationInput,
+    AddApplicationInputResponse (AddApplicationInputResponse'),
+    newAddApplicationInputResponse,
+
+    -- ** AddApplicationInputProcessingConfiguration
+    AddApplicationInputProcessingConfiguration (AddApplicationInputProcessingConfiguration'),
+    newAddApplicationInputProcessingConfiguration,
+    AddApplicationInputProcessingConfigurationResponse (AddApplicationInputProcessingConfigurationResponse'),
+    newAddApplicationInputProcessingConfigurationResponse,
+
+    -- ** AddApplicationOutput
+    AddApplicationOutput (AddApplicationOutput'),
+    newAddApplicationOutput,
+    AddApplicationOutputResponse (AddApplicationOutputResponse'),
+    newAddApplicationOutputResponse,
+
+    -- ** AddApplicationReferenceDataSource
+    AddApplicationReferenceDataSource (AddApplicationReferenceDataSource'),
+    newAddApplicationReferenceDataSource,
+    AddApplicationReferenceDataSourceResponse (AddApplicationReferenceDataSourceResponse'),
+    newAddApplicationReferenceDataSourceResponse,
+
+    -- ** CreateApplication
+    CreateApplication (CreateApplication'),
+    newCreateApplication,
+    CreateApplicationResponse (CreateApplicationResponse'),
+    newCreateApplicationResponse,
+
+    -- ** DeleteApplication
+    DeleteApplication (DeleteApplication'),
+    newDeleteApplication,
+    DeleteApplicationResponse (DeleteApplicationResponse'),
+    newDeleteApplicationResponse,
+
+    -- ** DeleteApplicationCloudWatchLoggingOption
+    DeleteApplicationCloudWatchLoggingOption (DeleteApplicationCloudWatchLoggingOption'),
+    newDeleteApplicationCloudWatchLoggingOption,
+    DeleteApplicationCloudWatchLoggingOptionResponse (DeleteApplicationCloudWatchLoggingOptionResponse'),
+    newDeleteApplicationCloudWatchLoggingOptionResponse,
+
+    -- ** DeleteApplicationInputProcessingConfiguration
+    DeleteApplicationInputProcessingConfiguration (DeleteApplicationInputProcessingConfiguration'),
+    newDeleteApplicationInputProcessingConfiguration,
+    DeleteApplicationInputProcessingConfigurationResponse (DeleteApplicationInputProcessingConfigurationResponse'),
+    newDeleteApplicationInputProcessingConfigurationResponse,
+
+    -- ** DeleteApplicationOutput
+    DeleteApplicationOutput (DeleteApplicationOutput'),
+    newDeleteApplicationOutput,
+    DeleteApplicationOutputResponse (DeleteApplicationOutputResponse'),
+    newDeleteApplicationOutputResponse,
+
+    -- ** DeleteApplicationReferenceDataSource
+    DeleteApplicationReferenceDataSource (DeleteApplicationReferenceDataSource'),
+    newDeleteApplicationReferenceDataSource,
+    DeleteApplicationReferenceDataSourceResponse (DeleteApplicationReferenceDataSourceResponse'),
+    newDeleteApplicationReferenceDataSourceResponse,
+
+    -- ** DescribeApplication
+    DescribeApplication (DescribeApplication'),
+    newDescribeApplication,
+    DescribeApplicationResponse (DescribeApplicationResponse'),
+    newDescribeApplicationResponse,
+
+    -- ** DiscoverInputSchema
+    DiscoverInputSchema (DiscoverInputSchema'),
+    newDiscoverInputSchema,
+    DiscoverInputSchemaResponse (DiscoverInputSchemaResponse'),
+    newDiscoverInputSchemaResponse,
+
     -- ** ListApplications
     ListApplications (ListApplications'),
     newListApplications,
     ListApplicationsResponse (ListApplicationsResponse'),
     newListApplicationsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** StartApplication
+    StartApplication (StartApplication'),
+    newStartApplication,
+    StartApplicationResponse (StartApplicationResponse'),
+    newStartApplicationResponse,
+
+    -- ** StopApplication
+    StopApplication (StopApplication'),
+    newStopApplication,
+    StopApplicationResponse (StopApplicationResponse'),
+    newStopApplicationResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** UntagResource
     UntagResource (UntagResource'),
@@ -184,11 +184,11 @@ module Amazonka.KinesisAnalytics
     UntagResourceResponse (UntagResourceResponse'),
     newUntagResourceResponse,
 
-    -- ** DeleteApplicationInputProcessingConfiguration
-    DeleteApplicationInputProcessingConfiguration (DeleteApplicationInputProcessingConfiguration'),
-    newDeleteApplicationInputProcessingConfiguration,
-    DeleteApplicationInputProcessingConfigurationResponse (DeleteApplicationInputProcessingConfigurationResponse'),
-    newDeleteApplicationInputProcessingConfigurationResponse,
+    -- ** UpdateApplication
+    UpdateApplication (UpdateApplication'),
+    newUpdateApplication,
+    UpdateApplicationResponse (UpdateApplicationResponse'),
+    newUpdateApplicationResponse,
 
     -- * Types
 

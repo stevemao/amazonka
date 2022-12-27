@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ModifyInstanceEventStartTime
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.EC2.ModifyInstanceEventStartTime
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,7 +62,7 @@ data ModifyInstanceEventStartTime = ModifyInstanceEventStartTime'
     -- | The ID of the event whose date and time you are modifying.
     instanceEventId :: Prelude.Text,
     -- | The new date and time when the event will take place.
-    notBefore :: Core.ISO8601
+    notBefore :: Data.ISO8601
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -100,7 +101,7 @@ newModifyInstanceEventStartTime
           Prelude.Nothing,
         instanceId = pInstanceId_,
         instanceEventId = pInstanceEventId_,
-        notBefore = Core._Time Lens.# pNotBefore_
+        notBefore = Data._Time Lens.# pNotBefore_
       }
 
 -- | Checks whether you have the required permissions for the action, without
@@ -120,18 +121,19 @@ modifyInstanceEventStartTime_instanceEventId = Lens.lens (\ModifyInstanceEventSt
 
 -- | The new date and time when the event will take place.
 modifyInstanceEventStartTime_notBefore :: Lens.Lens' ModifyInstanceEventStartTime Prelude.UTCTime
-modifyInstanceEventStartTime_notBefore = Lens.lens (\ModifyInstanceEventStartTime' {notBefore} -> notBefore) (\s@ModifyInstanceEventStartTime' {} a -> s {notBefore = a} :: ModifyInstanceEventStartTime) Prelude.. Core._Time
+modifyInstanceEventStartTime_notBefore = Lens.lens (\ModifyInstanceEventStartTime' {notBefore} -> notBefore) (\s@ModifyInstanceEventStartTime' {} a -> s {notBefore = a} :: ModifyInstanceEventStartTime) Prelude.. Data._Time
 
 instance Core.AWSRequest ModifyInstanceEventStartTime where
   type
     AWSResponse ModifyInstanceEventStartTime =
       ModifyInstanceEventStartTimeResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ModifyInstanceEventStartTimeResponse'
-            Prelude.<$> (x Core..@? "event")
+            Prelude.<$> (x Data..@? "event")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -152,30 +154,31 @@ instance Prelude.NFData ModifyInstanceEventStartTime where
       `Prelude.seq` Prelude.rnf instanceEventId
       `Prelude.seq` Prelude.rnf notBefore
 
-instance Core.ToHeaders ModifyInstanceEventStartTime where
+instance Data.ToHeaders ModifyInstanceEventStartTime where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyInstanceEventStartTime where
+instance Data.ToPath ModifyInstanceEventStartTime where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyInstanceEventStartTime where
+instance Data.ToQuery ModifyInstanceEventStartTime where
   toQuery ModifyInstanceEventStartTime' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "ModifyInstanceEventStartTime" ::
+          Data.=: ( "ModifyInstanceEventStartTime" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "InstanceId" Core.=: instanceId,
-        "InstanceEventId" Core.=: instanceEventId,
-        "NotBefore" Core.=: notBefore
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "InstanceId" Data.=: instanceId,
+        "InstanceEventId" Data.=: instanceEventId,
+        "NotBefore" Data.=: notBefore
       ]
 
 -- | /See:/ 'newModifyInstanceEventStartTimeResponse' smart constructor.
 data ModifyInstanceEventStartTimeResponse = ModifyInstanceEventStartTimeResponse'
-  { event :: Prelude.Maybe InstanceStatusEvent,
+  { -- | Information about the event.
+    event :: Prelude.Maybe InstanceStatusEvent,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -189,7 +192,7 @@ data ModifyInstanceEventStartTimeResponse = ModifyInstanceEventStartTimeResponse
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'event', 'modifyInstanceEventStartTimeResponse_event' - Undocumented member.
+-- 'event', 'modifyInstanceEventStartTimeResponse_event' - Information about the event.
 --
 -- 'httpStatus', 'modifyInstanceEventStartTimeResponse_httpStatus' - The response's http status code.
 newModifyInstanceEventStartTimeResponse ::
@@ -203,7 +206,7 @@ newModifyInstanceEventStartTimeResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | Undocumented member.
+-- | Information about the event.
 modifyInstanceEventStartTimeResponse_event :: Lens.Lens' ModifyInstanceEventStartTimeResponse (Prelude.Maybe InstanceStatusEvent)
 modifyInstanceEventStartTimeResponse_event = Lens.lens (\ModifyInstanceEventStartTimeResponse' {event} -> event) (\s@ModifyInstanceEventStartTimeResponse' {} a -> s {event = a} :: ModifyInstanceEventStartTimeResponse)
 

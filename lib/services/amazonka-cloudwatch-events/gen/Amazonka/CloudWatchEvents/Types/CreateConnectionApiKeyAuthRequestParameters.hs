@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.Types.CreateConnectionApiKeyAuthRequestParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudWatchEvents.Types.CreateConnectionApiKeyAuthRequestParameters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the API key authorization parameters for the connection.
@@ -87,14 +88,14 @@ instance
       `Prelude.seq` Prelude.rnf apiKeyValue
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     CreateConnectionApiKeyAuthRequestParameters
   where
   toJSON
     CreateConnectionApiKeyAuthRequestParameters' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ Prelude.Just ("ApiKeyName" Core..= apiKeyName),
-              Prelude.Just ("ApiKeyValue" Core..= apiKeyValue)
+            [ Prelude.Just ("ApiKeyName" Data..= apiKeyName),
+              Prelude.Just ("ApiKeyValue" Data..= apiKeyValue)
             ]
         )

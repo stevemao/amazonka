@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DeleteFleets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,7 @@
 --     @instant@ fleets.
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-ec2-fleet.html#delete-fleet Deleting an EC2 Fleet>
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-ec2-fleet.html#delete-fleet Delete an EC2 Fleet>
 -- in the /Amazon EC2 User Guide/.
 module Amazonka.EC2.DeleteFleets
   ( -- * Creating a Request
@@ -69,8 +69,9 @@ module Amazonka.EC2.DeleteFleets
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -157,18 +158,19 @@ deleteFleets_terminateInstances = Lens.lens (\DeleteFleets' {terminateInstances}
 
 instance Core.AWSRequest DeleteFleets where
   type AWSResponse DeleteFleets = DeleteFleetsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DeleteFleetsResponse'
-            Prelude.<$> ( x Core..@? "successfulFleetDeletionSet"
+            Prelude.<$> ( x Data..@? "successfulFleetDeletionSet"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
-            Prelude.<*> ( x Core..@? "unsuccessfulFleetDeletionSet"
+            Prelude.<*> ( x Data..@? "unsuccessfulFleetDeletionSet"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -185,22 +187,22 @@ instance Prelude.NFData DeleteFleets where
       `Prelude.seq` Prelude.rnf fleetIds
       `Prelude.seq` Prelude.rnf terminateInstances
 
-instance Core.ToHeaders DeleteFleets where
+instance Data.ToHeaders DeleteFleets where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteFleets where
+instance Data.ToPath DeleteFleets where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteFleets where
+instance Data.ToQuery DeleteFleets where
   toQuery DeleteFleets' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteFleets" :: Prelude.ByteString),
+          Data.=: ("DeleteFleets" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        Core.toQueryList "FleetId" fleetIds,
-        "TerminateInstances" Core.=: terminateInstances
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQueryList "FleetId" fleetIds,
+        "TerminateInstances" Data.=: terminateInstances
       ]
 
 -- | /See:/ 'newDeleteFleetsResponse' smart constructor.

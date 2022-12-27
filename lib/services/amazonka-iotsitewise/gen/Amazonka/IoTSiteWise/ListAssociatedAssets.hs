@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.ListAssociatedAssets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,9 +37,9 @@ module Amazonka.IoTSiteWise.ListAssociatedAssets
 
     -- * Request Lenses
     listAssociatedAssets_hierarchyId,
-    listAssociatedAssets_traversalDirection,
-    listAssociatedAssets_nextToken,
     listAssociatedAssets_maxResults,
+    listAssociatedAssets_nextToken,
+    listAssociatedAssets_traversalDirection,
     listAssociatedAssets_assetId,
 
     -- * Destructuring the Response
@@ -54,8 +54,9 @@ module Amazonka.IoTSiteWise.ListAssociatedAssets
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -74,6 +75,12 @@ data ListAssociatedAssets = ListAssociatedAssets'
     -- <https://docs.aws.amazon.com/iot-sitewise/latest/userguide/asset-hierarchies.html Asset hierarchies>
     -- in the /IoT SiteWise User Guide/.
     hierarchyId :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return for each paginated request.
+    --
+    -- Default: 50
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to be used for the next set of paginated results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The direction to list associated assets. Choose one of the following
     -- options:
     --
@@ -85,12 +92,6 @@ data ListAssociatedAssets = ListAssociatedAssets'
     --
     -- Default: @CHILD@
     traversalDirection :: Prelude.Maybe TraversalDirection,
-    -- | The token to be used for the next set of paginated results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return for each paginated request.
-    --
-    -- Default: 50
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The ID of the asset to query.
     assetId :: Prelude.Text
   }
@@ -116,6 +117,12 @@ data ListAssociatedAssets = ListAssociatedAssets'
 -- <https://docs.aws.amazon.com/iot-sitewise/latest/userguide/asset-hierarchies.html Asset hierarchies>
 -- in the /IoT SiteWise User Guide/.
 --
+-- 'maxResults', 'listAssociatedAssets_maxResults' - The maximum number of results to return for each paginated request.
+--
+-- Default: 50
+--
+-- 'nextToken', 'listAssociatedAssets_nextToken' - The token to be used for the next set of paginated results.
+--
 -- 'traversalDirection', 'listAssociatedAssets_traversalDirection' - The direction to list associated assets. Choose one of the following
 -- options:
 --
@@ -127,12 +134,6 @@ data ListAssociatedAssets = ListAssociatedAssets'
 --
 -- Default: @CHILD@
 --
--- 'nextToken', 'listAssociatedAssets_nextToken' - The token to be used for the next set of paginated results.
---
--- 'maxResults', 'listAssociatedAssets_maxResults' - The maximum number of results to return for each paginated request.
---
--- Default: 50
---
 -- 'assetId', 'listAssociatedAssets_assetId' - The ID of the asset to query.
 newListAssociatedAssets ::
   -- | 'assetId'
@@ -142,9 +143,9 @@ newListAssociatedAssets pAssetId_ =
   ListAssociatedAssets'
     { hierarchyId =
         Prelude.Nothing,
-      traversalDirection = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      traversalDirection = Prelude.Nothing,
       assetId = pAssetId_
     }
 
@@ -162,6 +163,16 @@ newListAssociatedAssets pAssetId_ =
 listAssociatedAssets_hierarchyId :: Lens.Lens' ListAssociatedAssets (Prelude.Maybe Prelude.Text)
 listAssociatedAssets_hierarchyId = Lens.lens (\ListAssociatedAssets' {hierarchyId} -> hierarchyId) (\s@ListAssociatedAssets' {} a -> s {hierarchyId = a} :: ListAssociatedAssets)
 
+-- | The maximum number of results to return for each paginated request.
+--
+-- Default: 50
+listAssociatedAssets_maxResults :: Lens.Lens' ListAssociatedAssets (Prelude.Maybe Prelude.Natural)
+listAssociatedAssets_maxResults = Lens.lens (\ListAssociatedAssets' {maxResults} -> maxResults) (\s@ListAssociatedAssets' {} a -> s {maxResults = a} :: ListAssociatedAssets)
+
+-- | The token to be used for the next set of paginated results.
+listAssociatedAssets_nextToken :: Lens.Lens' ListAssociatedAssets (Prelude.Maybe Prelude.Text)
+listAssociatedAssets_nextToken = Lens.lens (\ListAssociatedAssets' {nextToken} -> nextToken) (\s@ListAssociatedAssets' {} a -> s {nextToken = a} :: ListAssociatedAssets)
+
 -- | The direction to list associated assets. Choose one of the following
 -- options:
 --
@@ -174,16 +185,6 @@ listAssociatedAssets_hierarchyId = Lens.lens (\ListAssociatedAssets' {hierarchyI
 -- Default: @CHILD@
 listAssociatedAssets_traversalDirection :: Lens.Lens' ListAssociatedAssets (Prelude.Maybe TraversalDirection)
 listAssociatedAssets_traversalDirection = Lens.lens (\ListAssociatedAssets' {traversalDirection} -> traversalDirection) (\s@ListAssociatedAssets' {} a -> s {traversalDirection = a} :: ListAssociatedAssets)
-
--- | The token to be used for the next set of paginated results.
-listAssociatedAssets_nextToken :: Lens.Lens' ListAssociatedAssets (Prelude.Maybe Prelude.Text)
-listAssociatedAssets_nextToken = Lens.lens (\ListAssociatedAssets' {nextToken} -> nextToken) (\s@ListAssociatedAssets' {} a -> s {nextToken = a} :: ListAssociatedAssets)
-
--- | The maximum number of results to return for each paginated request.
---
--- Default: 50
-listAssociatedAssets_maxResults :: Lens.Lens' ListAssociatedAssets (Prelude.Maybe Prelude.Natural)
-listAssociatedAssets_maxResults = Lens.lens (\ListAssociatedAssets' {maxResults} -> maxResults) (\s@ListAssociatedAssets' {} a -> s {maxResults = a} :: ListAssociatedAssets)
 
 -- | The ID of the asset to query.
 listAssociatedAssets_assetId :: Lens.Lens' ListAssociatedAssets Prelude.Text
@@ -214,14 +215,15 @@ instance Core.AWSRequest ListAssociatedAssets where
   type
     AWSResponse ListAssociatedAssets =
       ListAssociatedAssetsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAssociatedAssetsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "assetSummaries"
+            Prelude.<*> ( x Data..?> "assetSummaries"
                             Core..!@ Prelude.mempty
                         )
       )
@@ -229,42 +231,42 @@ instance Core.AWSRequest ListAssociatedAssets where
 instance Prelude.Hashable ListAssociatedAssets where
   hashWithSalt _salt ListAssociatedAssets' {..} =
     _salt `Prelude.hashWithSalt` hierarchyId
-      `Prelude.hashWithSalt` traversalDirection
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` traversalDirection
       `Prelude.hashWithSalt` assetId
 
 instance Prelude.NFData ListAssociatedAssets where
   rnf ListAssociatedAssets' {..} =
     Prelude.rnf hierarchyId
-      `Prelude.seq` Prelude.rnf traversalDirection
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf traversalDirection
       `Prelude.seq` Prelude.rnf assetId
 
-instance Core.ToHeaders ListAssociatedAssets where
+instance Data.ToHeaders ListAssociatedAssets where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListAssociatedAssets where
+instance Data.ToPath ListAssociatedAssets where
   toPath ListAssociatedAssets' {..} =
     Prelude.mconcat
-      ["/assets/", Core.toBS assetId, "/hierarchies"]
+      ["/assets/", Data.toBS assetId, "/hierarchies"]
 
-instance Core.ToQuery ListAssociatedAssets where
+instance Data.ToQuery ListAssociatedAssets where
   toQuery ListAssociatedAssets' {..} =
     Prelude.mconcat
-      [ "hierarchyId" Core.=: hierarchyId,
-        "traversalDirection" Core.=: traversalDirection,
-        "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "hierarchyId" Data.=: hierarchyId,
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "traversalDirection" Data.=: traversalDirection
       ]
 
 -- | /See:/ 'newListAssociatedAssetsResponse' smart constructor.

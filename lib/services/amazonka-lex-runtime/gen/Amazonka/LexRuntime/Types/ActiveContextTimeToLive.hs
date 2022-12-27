@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LexRuntime.Types.ActiveContextTimeToLive
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,21 +20,22 @@
 module Amazonka.LexRuntime.Types.ActiveContextTimeToLive where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The length of time or number of turns that a context remains active.
 --
 -- /See:/ 'newActiveContextTimeToLive' smart constructor.
 data ActiveContextTimeToLive = ActiveContextTimeToLive'
-  { -- | The number of conversation turns that the context should be active. A
-    -- conversation turn is one @PostContent@ or @PostText@ request and the
-    -- corresponding response from Amazon Lex.
-    turnsToLive :: Prelude.Maybe Prelude.Natural,
-    -- | The number of seconds that the context should be active after it is
+  { -- | The number of seconds that the context should be active after it is
     -- first sent in a @PostContent@ or @PostText@ response. You can set the
     -- value between 5 and 86,400 seconds (24 hours).
-    timeToLiveInSeconds :: Prelude.Maybe Prelude.Natural
+    timeToLiveInSeconds :: Prelude.Maybe Prelude.Natural,
+    -- | The number of conversation turns that the context should be active. A
+    -- conversation turn is one @PostContent@ or @PostText@ request and the
+    -- corresponding response from Amazon Lex.
+    turnsToLive :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,27 +47,21 @@ data ActiveContextTimeToLive = ActiveContextTimeToLive'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'turnsToLive', 'activeContextTimeToLive_turnsToLive' - The number of conversation turns that the context should be active. A
--- conversation turn is one @PostContent@ or @PostText@ request and the
--- corresponding response from Amazon Lex.
---
 -- 'timeToLiveInSeconds', 'activeContextTimeToLive_timeToLiveInSeconds' - The number of seconds that the context should be active after it is
 -- first sent in a @PostContent@ or @PostText@ response. You can set the
 -- value between 5 and 86,400 seconds (24 hours).
+--
+-- 'turnsToLive', 'activeContextTimeToLive_turnsToLive' - The number of conversation turns that the context should be active. A
+-- conversation turn is one @PostContent@ or @PostText@ request and the
+-- corresponding response from Amazon Lex.
 newActiveContextTimeToLive ::
   ActiveContextTimeToLive
 newActiveContextTimeToLive =
   ActiveContextTimeToLive'
-    { turnsToLive =
+    { timeToLiveInSeconds =
         Prelude.Nothing,
-      timeToLiveInSeconds = Prelude.Nothing
+      turnsToLive = Prelude.Nothing
     }
-
--- | The number of conversation turns that the context should be active. A
--- conversation turn is one @PostContent@ or @PostText@ request and the
--- corresponding response from Amazon Lex.
-activeContextTimeToLive_turnsToLive :: Lens.Lens' ActiveContextTimeToLive (Prelude.Maybe Prelude.Natural)
-activeContextTimeToLive_turnsToLive = Lens.lens (\ActiveContextTimeToLive' {turnsToLive} -> turnsToLive) (\s@ActiveContextTimeToLive' {} a -> s {turnsToLive = a} :: ActiveContextTimeToLive)
 
 -- | The number of seconds that the context should be active after it is
 -- first sent in a @PostContent@ or @PostText@ response. You can set the
@@ -74,32 +69,38 @@ activeContextTimeToLive_turnsToLive = Lens.lens (\ActiveContextTimeToLive' {turn
 activeContextTimeToLive_timeToLiveInSeconds :: Lens.Lens' ActiveContextTimeToLive (Prelude.Maybe Prelude.Natural)
 activeContextTimeToLive_timeToLiveInSeconds = Lens.lens (\ActiveContextTimeToLive' {timeToLiveInSeconds} -> timeToLiveInSeconds) (\s@ActiveContextTimeToLive' {} a -> s {timeToLiveInSeconds = a} :: ActiveContextTimeToLive)
 
-instance Core.FromJSON ActiveContextTimeToLive where
+-- | The number of conversation turns that the context should be active. A
+-- conversation turn is one @PostContent@ or @PostText@ request and the
+-- corresponding response from Amazon Lex.
+activeContextTimeToLive_turnsToLive :: Lens.Lens' ActiveContextTimeToLive (Prelude.Maybe Prelude.Natural)
+activeContextTimeToLive_turnsToLive = Lens.lens (\ActiveContextTimeToLive' {turnsToLive} -> turnsToLive) (\s@ActiveContextTimeToLive' {} a -> s {turnsToLive = a} :: ActiveContextTimeToLive)
+
+instance Data.FromJSON ActiveContextTimeToLive where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ActiveContextTimeToLive"
       ( \x ->
           ActiveContextTimeToLive'
-            Prelude.<$> (x Core..:? "turnsToLive")
-            Prelude.<*> (x Core..:? "timeToLiveInSeconds")
+            Prelude.<$> (x Data..:? "timeToLiveInSeconds")
+            Prelude.<*> (x Data..:? "turnsToLive")
       )
 
 instance Prelude.Hashable ActiveContextTimeToLive where
   hashWithSalt _salt ActiveContextTimeToLive' {..} =
-    _salt `Prelude.hashWithSalt` turnsToLive
-      `Prelude.hashWithSalt` timeToLiveInSeconds
+    _salt `Prelude.hashWithSalt` timeToLiveInSeconds
+      `Prelude.hashWithSalt` turnsToLive
 
 instance Prelude.NFData ActiveContextTimeToLive where
   rnf ActiveContextTimeToLive' {..} =
-    Prelude.rnf turnsToLive
-      `Prelude.seq` Prelude.rnf timeToLiveInSeconds
+    Prelude.rnf timeToLiveInSeconds
+      `Prelude.seq` Prelude.rnf turnsToLive
 
-instance Core.ToJSON ActiveContextTimeToLive where
+instance Data.ToJSON ActiveContextTimeToLive where
   toJSON ActiveContextTimeToLive' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("turnsToLive" Core..=) Prelude.<$> turnsToLive,
-            ("timeToLiveInSeconds" Core..=)
-              Prelude.<$> timeToLiveInSeconds
+          [ ("timeToLiveInSeconds" Data..=)
+              Prelude.<$> timeToLiveInSeconds,
+            ("turnsToLive" Data..=) Prelude.<$> turnsToLive
           ]
       )

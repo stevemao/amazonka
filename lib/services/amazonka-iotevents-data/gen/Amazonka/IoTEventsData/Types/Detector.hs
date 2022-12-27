@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEventsData.Types.Detector
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,27 +20,28 @@
 module Amazonka.IoTEventsData.Types.Detector where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEventsData.Types.DetectorState
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the detector (instance).
 --
 -- /See:/ 'newDetector' smart constructor.
 data Detector = Detector'
-  { -- | The value of the key (identifying the device or system) that caused the
-    -- creation of this detector (instance).
-    keyValue :: Prelude.Maybe Prelude.Text,
-    -- | The time the detector (instance) was created.
-    creationTime :: Prelude.Maybe Core.POSIX,
-    -- | The current state of the detector (instance).
-    state :: Prelude.Maybe DetectorState,
+  { -- | The time the detector (instance) was created.
+    creationTime :: Prelude.Maybe Data.POSIX,
     -- | The name of the detector model that created this detector (instance).
     detectorModelName :: Prelude.Maybe Prelude.Text,
     -- | The version of the detector model that created this detector (instance).
     detectorModelVersion :: Prelude.Maybe Prelude.Text,
+    -- | The value of the key (identifying the device or system) that caused the
+    -- creation of this detector (instance).
+    keyValue :: Prelude.Maybe Prelude.Text,
     -- | The time the detector (instance) was last updated.
-    lastUpdateTime :: Prelude.Maybe Core.POSIX
+    lastUpdateTime :: Prelude.Maybe Data.POSIX,
+    -- | The current state of the detector (instance).
+    state :: Prelude.Maybe DetectorState
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -52,42 +53,33 @@ data Detector = Detector'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'keyValue', 'detector_keyValue' - The value of the key (identifying the device or system) that caused the
--- creation of this detector (instance).
---
 -- 'creationTime', 'detector_creationTime' - The time the detector (instance) was created.
---
--- 'state', 'detector_state' - The current state of the detector (instance).
 --
 -- 'detectorModelName', 'detector_detectorModelName' - The name of the detector model that created this detector (instance).
 --
 -- 'detectorModelVersion', 'detector_detectorModelVersion' - The version of the detector model that created this detector (instance).
 --
+-- 'keyValue', 'detector_keyValue' - The value of the key (identifying the device or system) that caused the
+-- creation of this detector (instance).
+--
 -- 'lastUpdateTime', 'detector_lastUpdateTime' - The time the detector (instance) was last updated.
+--
+-- 'state', 'detector_state' - The current state of the detector (instance).
 newDetector ::
   Detector
 newDetector =
   Detector'
-    { keyValue = Prelude.Nothing,
-      creationTime = Prelude.Nothing,
-      state = Prelude.Nothing,
+    { creationTime = Prelude.Nothing,
       detectorModelName = Prelude.Nothing,
       detectorModelVersion = Prelude.Nothing,
-      lastUpdateTime = Prelude.Nothing
+      keyValue = Prelude.Nothing,
+      lastUpdateTime = Prelude.Nothing,
+      state = Prelude.Nothing
     }
-
--- | The value of the key (identifying the device or system) that caused the
--- creation of this detector (instance).
-detector_keyValue :: Lens.Lens' Detector (Prelude.Maybe Prelude.Text)
-detector_keyValue = Lens.lens (\Detector' {keyValue} -> keyValue) (\s@Detector' {} a -> s {keyValue = a} :: Detector)
 
 -- | The time the detector (instance) was created.
 detector_creationTime :: Lens.Lens' Detector (Prelude.Maybe Prelude.UTCTime)
-detector_creationTime = Lens.lens (\Detector' {creationTime} -> creationTime) (\s@Detector' {} a -> s {creationTime = a} :: Detector) Prelude.. Lens.mapping Core._Time
-
--- | The current state of the detector (instance).
-detector_state :: Lens.Lens' Detector (Prelude.Maybe DetectorState)
-detector_state = Lens.lens (\Detector' {state} -> state) (\s@Detector' {} a -> s {state = a} :: Detector)
+detector_creationTime = Lens.lens (\Detector' {creationTime} -> creationTime) (\s@Detector' {} a -> s {creationTime = a} :: Detector) Prelude.. Lens.mapping Data._Time
 
 -- | The name of the detector model that created this detector (instance).
 detector_detectorModelName :: Lens.Lens' Detector (Prelude.Maybe Prelude.Text)
@@ -97,38 +89,47 @@ detector_detectorModelName = Lens.lens (\Detector' {detectorModelName} -> detect
 detector_detectorModelVersion :: Lens.Lens' Detector (Prelude.Maybe Prelude.Text)
 detector_detectorModelVersion = Lens.lens (\Detector' {detectorModelVersion} -> detectorModelVersion) (\s@Detector' {} a -> s {detectorModelVersion = a} :: Detector)
 
+-- | The value of the key (identifying the device or system) that caused the
+-- creation of this detector (instance).
+detector_keyValue :: Lens.Lens' Detector (Prelude.Maybe Prelude.Text)
+detector_keyValue = Lens.lens (\Detector' {keyValue} -> keyValue) (\s@Detector' {} a -> s {keyValue = a} :: Detector)
+
 -- | The time the detector (instance) was last updated.
 detector_lastUpdateTime :: Lens.Lens' Detector (Prelude.Maybe Prelude.UTCTime)
-detector_lastUpdateTime = Lens.lens (\Detector' {lastUpdateTime} -> lastUpdateTime) (\s@Detector' {} a -> s {lastUpdateTime = a} :: Detector) Prelude.. Lens.mapping Core._Time
+detector_lastUpdateTime = Lens.lens (\Detector' {lastUpdateTime} -> lastUpdateTime) (\s@Detector' {} a -> s {lastUpdateTime = a} :: Detector) Prelude.. Lens.mapping Data._Time
 
-instance Core.FromJSON Detector where
+-- | The current state of the detector (instance).
+detector_state :: Lens.Lens' Detector (Prelude.Maybe DetectorState)
+detector_state = Lens.lens (\Detector' {state} -> state) (\s@Detector' {} a -> s {state = a} :: Detector)
+
+instance Data.FromJSON Detector where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Detector"
       ( \x ->
           Detector'
-            Prelude.<$> (x Core..:? "keyValue")
-            Prelude.<*> (x Core..:? "creationTime")
-            Prelude.<*> (x Core..:? "state")
-            Prelude.<*> (x Core..:? "detectorModelName")
-            Prelude.<*> (x Core..:? "detectorModelVersion")
-            Prelude.<*> (x Core..:? "lastUpdateTime")
+            Prelude.<$> (x Data..:? "creationTime")
+            Prelude.<*> (x Data..:? "detectorModelName")
+            Prelude.<*> (x Data..:? "detectorModelVersion")
+            Prelude.<*> (x Data..:? "keyValue")
+            Prelude.<*> (x Data..:? "lastUpdateTime")
+            Prelude.<*> (x Data..:? "state")
       )
 
 instance Prelude.Hashable Detector where
   hashWithSalt _salt Detector' {..} =
-    _salt `Prelude.hashWithSalt` keyValue
-      `Prelude.hashWithSalt` creationTime
-      `Prelude.hashWithSalt` state
+    _salt `Prelude.hashWithSalt` creationTime
       `Prelude.hashWithSalt` detectorModelName
       `Prelude.hashWithSalt` detectorModelVersion
+      `Prelude.hashWithSalt` keyValue
       `Prelude.hashWithSalt` lastUpdateTime
+      `Prelude.hashWithSalt` state
 
 instance Prelude.NFData Detector where
   rnf Detector' {..} =
-    Prelude.rnf keyValue
-      `Prelude.seq` Prelude.rnf creationTime
-      `Prelude.seq` Prelude.rnf state
+    Prelude.rnf creationTime
       `Prelude.seq` Prelude.rnf detectorModelName
       `Prelude.seq` Prelude.rnf detectorModelVersion
+      `Prelude.seq` Prelude.rnf keyValue
       `Prelude.seq` Prelude.rnf lastUpdateTime
+      `Prelude.seq` Prelude.rnf state

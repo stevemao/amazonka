@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.Types.DeviceSecretVerifierConfigType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,17 @@
 module Amazonka.CognitoIdentityProvider.Types.DeviceSecretVerifierConfigType where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The device verifier against which it will be authenticated.
+-- | The device verifier against which it is authenticated.
 --
 -- /See:/ 'newDeviceSecretVerifierConfigType' smart constructor.
 data DeviceSecretVerifierConfigType = DeviceSecretVerifierConfigType'
   { -- | The password verifier.
     passwordVerifier :: Prelude.Maybe Prelude.Text,
-    -- | The salt.
+    -- | The <https://en.wikipedia.org/wiki/Salt_(cryptography) salt>
     salt :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -44,7 +45,7 @@ data DeviceSecretVerifierConfigType = DeviceSecretVerifierConfigType'
 --
 -- 'passwordVerifier', 'deviceSecretVerifierConfigType_passwordVerifier' - The password verifier.
 --
--- 'salt', 'deviceSecretVerifierConfigType_salt' - The salt.
+-- 'salt', 'deviceSecretVerifierConfigType_salt' - The <https://en.wikipedia.org/wiki/Salt_(cryptography) salt>
 newDeviceSecretVerifierConfigType ::
   DeviceSecretVerifierConfigType
 newDeviceSecretVerifierConfigType =
@@ -58,7 +59,7 @@ newDeviceSecretVerifierConfigType =
 deviceSecretVerifierConfigType_passwordVerifier :: Lens.Lens' DeviceSecretVerifierConfigType (Prelude.Maybe Prelude.Text)
 deviceSecretVerifierConfigType_passwordVerifier = Lens.lens (\DeviceSecretVerifierConfigType' {passwordVerifier} -> passwordVerifier) (\s@DeviceSecretVerifierConfigType' {} a -> s {passwordVerifier = a} :: DeviceSecretVerifierConfigType)
 
--- | The salt.
+-- | The <https://en.wikipedia.org/wiki/Salt_(cryptography) salt>
 deviceSecretVerifierConfigType_salt :: Lens.Lens' DeviceSecretVerifierConfigType (Prelude.Maybe Prelude.Text)
 deviceSecretVerifierConfigType_salt = Lens.lens (\DeviceSecretVerifierConfigType' {salt} -> salt) (\s@DeviceSecretVerifierConfigType' {} a -> s {salt = a} :: DeviceSecretVerifierConfigType)
 
@@ -80,12 +81,12 @@ instance
     Prelude.rnf passwordVerifier
       `Prelude.seq` Prelude.rnf salt
 
-instance Core.ToJSON DeviceSecretVerifierConfigType where
+instance Data.ToJSON DeviceSecretVerifierConfigType where
   toJSON DeviceSecretVerifierConfigType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PasswordVerifier" Core..=)
+          [ ("PasswordVerifier" Data..=)
               Prelude.<$> passwordVerifier,
-            ("Salt" Core..=) Prelude.<$> salt
+            ("Salt" Data..=) Prelude.<$> salt
           ]
       )

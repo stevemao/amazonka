@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.UpdateEventConfigurations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.IoT.UpdateEventConfigurations
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,7 +82,8 @@ instance Core.AWSRequest UpdateEventConfigurations where
   type
     AWSResponse UpdateEventConfigurations =
       UpdateEventConfigurationsResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -97,22 +99,22 @@ instance Prelude.NFData UpdateEventConfigurations where
   rnf UpdateEventConfigurations' {..} =
     Prelude.rnf eventConfigurations
 
-instance Core.ToHeaders UpdateEventConfigurations where
+instance Data.ToHeaders UpdateEventConfigurations where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateEventConfigurations where
+instance Data.ToJSON UpdateEventConfigurations where
   toJSON UpdateEventConfigurations' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("eventConfigurations" Core..=)
+          [ ("eventConfigurations" Data..=)
               Prelude.<$> eventConfigurations
           ]
       )
 
-instance Core.ToPath UpdateEventConfigurations where
+instance Data.ToPath UpdateEventConfigurations where
   toPath = Prelude.const "/event-configurations"
 
-instance Core.ToQuery UpdateEventConfigurations where
+instance Data.ToQuery UpdateEventConfigurations where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateEventConfigurationsResponse' smart constructor.

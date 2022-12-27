@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.StartPipelineExecution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,9 +27,10 @@ module Amazonka.SageMaker.StartPipelineExecution
     newStartPipelineExecution,
 
     -- * Request Lenses
-    startPipelineExecution_pipelineParameters,
-    startPipelineExecution_pipelineExecutionDisplayName,
+    startPipelineExecution_parallelismConfiguration,
     startPipelineExecution_pipelineExecutionDescription,
+    startPipelineExecution_pipelineExecutionDisplayName,
+    startPipelineExecution_pipelineParameters,
     startPipelineExecution_pipelineName,
     startPipelineExecution_clientRequestToken,
 
@@ -44,7 +45,8 @@ module Amazonka.SageMaker.StartPipelineExecution
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,12 +54,15 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newStartPipelineExecution' smart constructor.
 data StartPipelineExecution = StartPipelineExecution'
-  { -- | Contains a list of pipeline parameters. This list can be empty.
-    pipelineParameters :: Prelude.Maybe [Parameter],
-    -- | The display name of the pipeline execution.
-    pipelineExecutionDisplayName :: Prelude.Maybe Prelude.Text,
+  { -- | This configuration, if specified, overrides the parallelism
+    -- configuration of the parent pipeline for this specific run.
+    parallelismConfiguration :: Prelude.Maybe ParallelismConfiguration,
     -- | The description of the pipeline execution.
     pipelineExecutionDescription :: Prelude.Maybe Prelude.Text,
+    -- | The display name of the pipeline execution.
+    pipelineExecutionDisplayName :: Prelude.Maybe Prelude.Text,
+    -- | Contains a list of pipeline parameters. This list can be empty.
+    pipelineParameters :: Prelude.Maybe [Parameter],
     -- | The name of the pipeline.
     pipelineName :: Prelude.Text,
     -- | A unique, case-sensitive identifier that you provide to ensure the
@@ -75,11 +80,14 @@ data StartPipelineExecution = StartPipelineExecution'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'pipelineParameters', 'startPipelineExecution_pipelineParameters' - Contains a list of pipeline parameters. This list can be empty.
+-- 'parallelismConfiguration', 'startPipelineExecution_parallelismConfiguration' - This configuration, if specified, overrides the parallelism
+-- configuration of the parent pipeline for this specific run.
+--
+-- 'pipelineExecutionDescription', 'startPipelineExecution_pipelineExecutionDescription' - The description of the pipeline execution.
 --
 -- 'pipelineExecutionDisplayName', 'startPipelineExecution_pipelineExecutionDisplayName' - The display name of the pipeline execution.
 --
--- 'pipelineExecutionDescription', 'startPipelineExecution_pipelineExecutionDescription' - The description of the pipeline execution.
+-- 'pipelineParameters', 'startPipelineExecution_pipelineParameters' - Contains a list of pipeline parameters. This list can be empty.
 --
 -- 'pipelineName', 'startPipelineExecution_pipelineName' - The name of the pipeline.
 --
@@ -96,25 +104,31 @@ newStartPipelineExecution
   pPipelineName_
   pClientRequestToken_ =
     StartPipelineExecution'
-      { pipelineParameters =
+      { parallelismConfiguration =
           Prelude.Nothing,
-        pipelineExecutionDisplayName = Prelude.Nothing,
         pipelineExecutionDescription = Prelude.Nothing,
+        pipelineExecutionDisplayName = Prelude.Nothing,
+        pipelineParameters = Prelude.Nothing,
         pipelineName = pPipelineName_,
         clientRequestToken = pClientRequestToken_
       }
 
--- | Contains a list of pipeline parameters. This list can be empty.
-startPipelineExecution_pipelineParameters :: Lens.Lens' StartPipelineExecution (Prelude.Maybe [Parameter])
-startPipelineExecution_pipelineParameters = Lens.lens (\StartPipelineExecution' {pipelineParameters} -> pipelineParameters) (\s@StartPipelineExecution' {} a -> s {pipelineParameters = a} :: StartPipelineExecution) Prelude.. Lens.mapping Lens.coerced
+-- | This configuration, if specified, overrides the parallelism
+-- configuration of the parent pipeline for this specific run.
+startPipelineExecution_parallelismConfiguration :: Lens.Lens' StartPipelineExecution (Prelude.Maybe ParallelismConfiguration)
+startPipelineExecution_parallelismConfiguration = Lens.lens (\StartPipelineExecution' {parallelismConfiguration} -> parallelismConfiguration) (\s@StartPipelineExecution' {} a -> s {parallelismConfiguration = a} :: StartPipelineExecution)
+
+-- | The description of the pipeline execution.
+startPipelineExecution_pipelineExecutionDescription :: Lens.Lens' StartPipelineExecution (Prelude.Maybe Prelude.Text)
+startPipelineExecution_pipelineExecutionDescription = Lens.lens (\StartPipelineExecution' {pipelineExecutionDescription} -> pipelineExecutionDescription) (\s@StartPipelineExecution' {} a -> s {pipelineExecutionDescription = a} :: StartPipelineExecution)
 
 -- | The display name of the pipeline execution.
 startPipelineExecution_pipelineExecutionDisplayName :: Lens.Lens' StartPipelineExecution (Prelude.Maybe Prelude.Text)
 startPipelineExecution_pipelineExecutionDisplayName = Lens.lens (\StartPipelineExecution' {pipelineExecutionDisplayName} -> pipelineExecutionDisplayName) (\s@StartPipelineExecution' {} a -> s {pipelineExecutionDisplayName = a} :: StartPipelineExecution)
 
--- | The description of the pipeline execution.
-startPipelineExecution_pipelineExecutionDescription :: Lens.Lens' StartPipelineExecution (Prelude.Maybe Prelude.Text)
-startPipelineExecution_pipelineExecutionDescription = Lens.lens (\StartPipelineExecution' {pipelineExecutionDescription} -> pipelineExecutionDescription) (\s@StartPipelineExecution' {} a -> s {pipelineExecutionDescription = a} :: StartPipelineExecution)
+-- | Contains a list of pipeline parameters. This list can be empty.
+startPipelineExecution_pipelineParameters :: Lens.Lens' StartPipelineExecution (Prelude.Maybe [Parameter])
+startPipelineExecution_pipelineParameters = Lens.lens (\StartPipelineExecution' {pipelineParameters} -> pipelineParameters) (\s@StartPipelineExecution' {} a -> s {pipelineParameters = a} :: StartPipelineExecution) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the pipeline.
 startPipelineExecution_pipelineName :: Lens.Lens' StartPipelineExecution Prelude.Text
@@ -130,66 +144,72 @@ instance Core.AWSRequest StartPipelineExecution where
   type
     AWSResponse StartPipelineExecution =
       StartPipelineExecutionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartPipelineExecutionResponse'
-            Prelude.<$> (x Core..?> "PipelineExecutionArn")
+            Prelude.<$> (x Data..?> "PipelineExecutionArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable StartPipelineExecution where
   hashWithSalt _salt StartPipelineExecution' {..} =
-    _salt `Prelude.hashWithSalt` pipelineParameters
-      `Prelude.hashWithSalt` pipelineExecutionDisplayName
+    _salt
+      `Prelude.hashWithSalt` parallelismConfiguration
       `Prelude.hashWithSalt` pipelineExecutionDescription
+      `Prelude.hashWithSalt` pipelineExecutionDisplayName
+      `Prelude.hashWithSalt` pipelineParameters
       `Prelude.hashWithSalt` pipelineName
       `Prelude.hashWithSalt` clientRequestToken
 
 instance Prelude.NFData StartPipelineExecution where
   rnf StartPipelineExecution' {..} =
-    Prelude.rnf pipelineParameters
-      `Prelude.seq` Prelude.rnf pipelineExecutionDisplayName
+    Prelude.rnf parallelismConfiguration
       `Prelude.seq` Prelude.rnf pipelineExecutionDescription
+      `Prelude.seq` Prelude.rnf pipelineExecutionDisplayName
+      `Prelude.seq` Prelude.rnf pipelineParameters
       `Prelude.seq` Prelude.rnf pipelineName
       `Prelude.seq` Prelude.rnf clientRequestToken
 
-instance Core.ToHeaders StartPipelineExecution where
+instance Data.ToHeaders StartPipelineExecution where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.StartPipelineExecution" ::
+              Data.=# ( "SageMaker.StartPipelineExecution" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartPipelineExecution where
+instance Data.ToJSON StartPipelineExecution where
   toJSON StartPipelineExecution' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PipelineParameters" Core..=)
-              Prelude.<$> pipelineParameters,
-            ("PipelineExecutionDisplayName" Core..=)
-              Prelude.<$> pipelineExecutionDisplayName,
-            ("PipelineExecutionDescription" Core..=)
+          [ ("ParallelismConfiguration" Data..=)
+              Prelude.<$> parallelismConfiguration,
+            ("PipelineExecutionDescription" Data..=)
               Prelude.<$> pipelineExecutionDescription,
-            Prelude.Just ("PipelineName" Core..= pipelineName),
+            ("PipelineExecutionDisplayName" Data..=)
+              Prelude.<$> pipelineExecutionDisplayName,
+            ("PipelineParameters" Data..=)
+              Prelude.<$> pipelineParameters,
+            Prelude.Just ("PipelineName" Data..= pipelineName),
             Prelude.Just
-              ("ClientRequestToken" Core..= clientRequestToken)
+              ("ClientRequestToken" Data..= clientRequestToken)
           ]
       )
 
-instance Core.ToPath StartPipelineExecution where
+instance Data.ToPath StartPipelineExecution where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartPipelineExecution where
+instance Data.ToQuery StartPipelineExecution where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartPipelineExecutionResponse' smart constructor.

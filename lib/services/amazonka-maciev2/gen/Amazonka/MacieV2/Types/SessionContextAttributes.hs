@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.SessionContextAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.SessionContextAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides information about the context in which temporary security
@@ -30,7 +31,7 @@ import qualified Amazonka.Prelude as Prelude
 data SessionContextAttributes = SessionContextAttributes'
   { -- | The date and time, in UTC and ISO 8601 format, when the credentials were
     -- issued.
-    creationDate :: Prelude.Maybe Core.POSIX,
+    creationDate :: Prelude.Maybe Data.POSIX,
     -- | Specifies whether the credentials were authenticated with a multi-factor
     -- authentication (MFA) device.
     mfaAuthenticated :: Prelude.Maybe Prelude.Bool
@@ -62,21 +63,21 @@ newSessionContextAttributes =
 -- | The date and time, in UTC and ISO 8601 format, when the credentials were
 -- issued.
 sessionContextAttributes_creationDate :: Lens.Lens' SessionContextAttributes (Prelude.Maybe Prelude.UTCTime)
-sessionContextAttributes_creationDate = Lens.lens (\SessionContextAttributes' {creationDate} -> creationDate) (\s@SessionContextAttributes' {} a -> s {creationDate = a} :: SessionContextAttributes) Prelude.. Lens.mapping Core._Time
+sessionContextAttributes_creationDate = Lens.lens (\SessionContextAttributes' {creationDate} -> creationDate) (\s@SessionContextAttributes' {} a -> s {creationDate = a} :: SessionContextAttributes) Prelude.. Lens.mapping Data._Time
 
 -- | Specifies whether the credentials were authenticated with a multi-factor
 -- authentication (MFA) device.
 sessionContextAttributes_mfaAuthenticated :: Lens.Lens' SessionContextAttributes (Prelude.Maybe Prelude.Bool)
 sessionContextAttributes_mfaAuthenticated = Lens.lens (\SessionContextAttributes' {mfaAuthenticated} -> mfaAuthenticated) (\s@SessionContextAttributes' {} a -> s {mfaAuthenticated = a} :: SessionContextAttributes)
 
-instance Core.FromJSON SessionContextAttributes where
+instance Data.FromJSON SessionContextAttributes where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SessionContextAttributes"
       ( \x ->
           SessionContextAttributes'
-            Prelude.<$> (x Core..:? "creationDate")
-            Prelude.<*> (x Core..:? "mfaAuthenticated")
+            Prelude.<$> (x Data..:? "creationDate")
+            Prelude.<*> (x Data..:? "mfaAuthenticated")
       )
 
 instance Prelude.Hashable SessionContextAttributes where

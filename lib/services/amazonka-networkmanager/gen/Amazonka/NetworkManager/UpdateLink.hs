@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkManager.UpdateLink
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.NetworkManager.UpdateLink
 
     -- * Request Lenses
     updateLink_bandwidth,
-    updateLink_type,
     updateLink_description,
     updateLink_provider,
+    updateLink_type,
     updateLink_globalNetworkId,
     updateLink_linkId,
 
@@ -46,7 +46,8 @@ module Amazonka.NetworkManager.UpdateLink
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -56,18 +57,18 @@ import qualified Amazonka.Response as Response
 data UpdateLink = UpdateLink'
   { -- | The upload and download speed in Mbps.
     bandwidth :: Prelude.Maybe Bandwidth,
-    -- | The type of the link.
-    --
-    -- Length Constraints: Maximum length of 128 characters.
-    type' :: Prelude.Maybe Prelude.Text,
     -- | A description of the link.
     --
-    -- Length Constraints: Maximum length of 256 characters.
+    -- Constraints: Maximum length of 256 characters.
     description :: Prelude.Maybe Prelude.Text,
     -- | The provider of the link.
     --
-    -- Length Constraints: Maximum length of 128 characters.
+    -- Constraints: Maximum length of 128 characters.
     provider :: Prelude.Maybe Prelude.Text,
+    -- | The type of the link.
+    --
+    -- Constraints: Maximum length of 128 characters.
+    type' :: Prelude.Maybe Prelude.Text,
     -- | The ID of the global network.
     globalNetworkId :: Prelude.Text,
     -- | The ID of the link.
@@ -85,17 +86,17 @@ data UpdateLink = UpdateLink'
 --
 -- 'bandwidth', 'updateLink_bandwidth' - The upload and download speed in Mbps.
 --
--- 'type'', 'updateLink_type' - The type of the link.
---
--- Length Constraints: Maximum length of 128 characters.
---
 -- 'description', 'updateLink_description' - A description of the link.
 --
--- Length Constraints: Maximum length of 256 characters.
+-- Constraints: Maximum length of 256 characters.
 --
 -- 'provider', 'updateLink_provider' - The provider of the link.
 --
--- Length Constraints: Maximum length of 128 characters.
+-- Constraints: Maximum length of 128 characters.
+--
+-- 'type'', 'updateLink_type' - The type of the link.
+--
+-- Constraints: Maximum length of 128 characters.
 --
 -- 'globalNetworkId', 'updateLink_globalNetworkId' - The ID of the global network.
 --
@@ -109,9 +110,9 @@ newUpdateLink ::
 newUpdateLink pGlobalNetworkId_ pLinkId_ =
   UpdateLink'
     { bandwidth = Prelude.Nothing,
-      type' = Prelude.Nothing,
       description = Prelude.Nothing,
       provider = Prelude.Nothing,
+      type' = Prelude.Nothing,
       globalNetworkId = pGlobalNetworkId_,
       linkId = pLinkId_
     }
@@ -120,23 +121,23 @@ newUpdateLink pGlobalNetworkId_ pLinkId_ =
 updateLink_bandwidth :: Lens.Lens' UpdateLink (Prelude.Maybe Bandwidth)
 updateLink_bandwidth = Lens.lens (\UpdateLink' {bandwidth} -> bandwidth) (\s@UpdateLink' {} a -> s {bandwidth = a} :: UpdateLink)
 
--- | The type of the link.
---
--- Length Constraints: Maximum length of 128 characters.
-updateLink_type :: Lens.Lens' UpdateLink (Prelude.Maybe Prelude.Text)
-updateLink_type = Lens.lens (\UpdateLink' {type'} -> type') (\s@UpdateLink' {} a -> s {type' = a} :: UpdateLink)
-
 -- | A description of the link.
 --
--- Length Constraints: Maximum length of 256 characters.
+-- Constraints: Maximum length of 256 characters.
 updateLink_description :: Lens.Lens' UpdateLink (Prelude.Maybe Prelude.Text)
 updateLink_description = Lens.lens (\UpdateLink' {description} -> description) (\s@UpdateLink' {} a -> s {description = a} :: UpdateLink)
 
 -- | The provider of the link.
 --
--- Length Constraints: Maximum length of 128 characters.
+-- Constraints: Maximum length of 128 characters.
 updateLink_provider :: Lens.Lens' UpdateLink (Prelude.Maybe Prelude.Text)
 updateLink_provider = Lens.lens (\UpdateLink' {provider} -> provider) (\s@UpdateLink' {} a -> s {provider = a} :: UpdateLink)
+
+-- | The type of the link.
+--
+-- Constraints: Maximum length of 128 characters.
+updateLink_type :: Lens.Lens' UpdateLink (Prelude.Maybe Prelude.Text)
+updateLink_type = Lens.lens (\UpdateLink' {type'} -> type') (\s@UpdateLink' {} a -> s {type' = a} :: UpdateLink)
 
 -- | The ID of the global network.
 updateLink_globalNetworkId :: Lens.Lens' UpdateLink Prelude.Text
@@ -148,65 +149,66 @@ updateLink_linkId = Lens.lens (\UpdateLink' {linkId} -> linkId) (\s@UpdateLink' 
 
 instance Core.AWSRequest UpdateLink where
   type AWSResponse UpdateLink = UpdateLinkResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateLinkResponse'
-            Prelude.<$> (x Core..?> "Link")
+            Prelude.<$> (x Data..?> "Link")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateLink where
   hashWithSalt _salt UpdateLink' {..} =
     _salt `Prelude.hashWithSalt` bandwidth
-      `Prelude.hashWithSalt` type'
       `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` provider
+      `Prelude.hashWithSalt` type'
       `Prelude.hashWithSalt` globalNetworkId
       `Prelude.hashWithSalt` linkId
 
 instance Prelude.NFData UpdateLink where
   rnf UpdateLink' {..} =
     Prelude.rnf bandwidth
-      `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf provider
+      `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf globalNetworkId
       `Prelude.seq` Prelude.rnf linkId
 
-instance Core.ToHeaders UpdateLink where
+instance Data.ToHeaders UpdateLink where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateLink where
+instance Data.ToJSON UpdateLink where
   toJSON UpdateLink' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Bandwidth" Core..=) Prelude.<$> bandwidth,
-            ("Type" Core..=) Prelude.<$> type',
-            ("Description" Core..=) Prelude.<$> description,
-            ("Provider" Core..=) Prelude.<$> provider
+          [ ("Bandwidth" Data..=) Prelude.<$> bandwidth,
+            ("Description" Data..=) Prelude.<$> description,
+            ("Provider" Data..=) Prelude.<$> provider,
+            ("Type" Data..=) Prelude.<$> type'
           ]
       )
 
-instance Core.ToPath UpdateLink where
+instance Data.ToPath UpdateLink where
   toPath UpdateLink' {..} =
     Prelude.mconcat
       [ "/global-networks/",
-        Core.toBS globalNetworkId,
+        Data.toBS globalNetworkId,
         "/links/",
-        Core.toBS linkId
+        Data.toBS linkId
       ]
 
-instance Core.ToQuery UpdateLink where
+instance Data.ToQuery UpdateLink where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateLinkResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ELB.CreateAppCookieStickinessPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -57,8 +57,9 @@ module Amazonka.ELB.CreateAppCookieStickinessPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -133,7 +134,8 @@ instance
   type
     AWSResponse CreateAppCookieStickinessPolicy =
       CreateAppCookieStickinessPolicyResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateAppCookieStickinessPolicyResult"
@@ -163,26 +165,26 @@ instance
       `Prelude.seq` Prelude.rnf cookieName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CreateAppCookieStickinessPolicy
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateAppCookieStickinessPolicy where
+instance Data.ToPath CreateAppCookieStickinessPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateAppCookieStickinessPolicy where
+instance Data.ToQuery CreateAppCookieStickinessPolicy where
   toQuery CreateAppCookieStickinessPolicy' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "CreateAppCookieStickinessPolicy" ::
+          Data.=: ( "CreateAppCookieStickinessPolicy" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2012-06-01" :: Prelude.ByteString),
-        "LoadBalancerName" Core.=: loadBalancerName,
-        "PolicyName" Core.=: policyName,
-        "CookieName" Core.=: cookieName
+          Data.=: ("2012-06-01" :: Prelude.ByteString),
+        "LoadBalancerName" Data.=: loadBalancerName,
+        "PolicyName" Data.=: policyName,
+        "CookieName" Data.=: cookieName
       ]
 
 -- | Contains the output for CreateAppCookieStickinessPolicy.

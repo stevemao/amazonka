@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SNS.GetEndpointAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.SNS.GetEndpointAttributes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,14 +83,15 @@ instance Core.AWSRequest GetEndpointAttributes where
   type
     AWSResponse GetEndpointAttributes =
       GetEndpointAttributesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GetEndpointAttributesResult"
       ( \s h x ->
           GetEndpointAttributesResponse'
-            Prelude.<$> ( x Core..@? "Attributes" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLMap "entry" "key" "value")
+            Prelude.<$> ( x Data..@? "Attributes" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLMap "entry" "key" "value")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -102,20 +104,20 @@ instance Prelude.NFData GetEndpointAttributes where
   rnf GetEndpointAttributes' {..} =
     Prelude.rnf endpointArn
 
-instance Core.ToHeaders GetEndpointAttributes where
+instance Data.ToHeaders GetEndpointAttributes where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetEndpointAttributes where
+instance Data.ToPath GetEndpointAttributes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetEndpointAttributes where
+instance Data.ToQuery GetEndpointAttributes where
   toQuery GetEndpointAttributes' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("GetEndpointAttributes" :: Prelude.ByteString),
+          Data.=: ("GetEndpointAttributes" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-03-31" :: Prelude.ByteString),
-        "EndpointArn" Core.=: endpointArn
+          Data.=: ("2010-03-31" :: Prelude.ByteString),
+        "EndpointArn" Data.=: endpointArn
       ]
 
 -- | Response from GetEndpointAttributes of the EndpointArn.

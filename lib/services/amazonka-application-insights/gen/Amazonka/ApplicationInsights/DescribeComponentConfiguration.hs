@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApplicationInsights.DescribeComponentConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.ApplicationInsights.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,14 +100,15 @@ instance
   type
     AWSResponse DescribeComponentConfiguration =
       DescribeComponentConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeComponentConfigurationResponse'
-            Prelude.<$> (x Core..?> "ComponentConfiguration")
-            Prelude.<*> (x Core..?> "Monitor")
-            Prelude.<*> (x Core..?> "Tier")
+            Prelude.<$> (x Data..?> "ComponentConfiguration")
+            Prelude.<*> (x Data..?> "Monitor")
+            Prelude.<*> (x Data..?> "Tier")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -129,38 +131,38 @@ instance
       `Prelude.seq` Prelude.rnf componentName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeComponentConfiguration
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "EC2WindowsBarleyService.DescribeComponentConfiguration" ::
+              Data.=# ( "EC2WindowsBarleyService.DescribeComponentConfiguration" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeComponentConfiguration where
+instance Data.ToJSON DescribeComponentConfiguration where
   toJSON DescribeComponentConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ResourceGroupName" Core..= resourceGroupName),
+              ("ResourceGroupName" Data..= resourceGroupName),
             Prelude.Just
-              ("ComponentName" Core..= componentName)
+              ("ComponentName" Data..= componentName)
           ]
       )
 
-instance Core.ToPath DescribeComponentConfiguration where
+instance Data.ToPath DescribeComponentConfiguration where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeComponentConfiguration where
+instance Data.ToQuery DescribeComponentConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeComponentConfigurationResponse' smart constructor.

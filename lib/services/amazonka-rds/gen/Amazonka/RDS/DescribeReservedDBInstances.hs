@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.DescribeReservedDBInstances
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,31 +30,32 @@ module Amazonka.RDS.DescribeReservedDBInstances
     newDescribeReservedDBInstances,
 
     -- * Request Lenses
-    describeReservedDBInstances_productDescription,
+    describeReservedDBInstances_dbInstanceClass,
+    describeReservedDBInstances_duration,
     describeReservedDBInstances_filters,
     describeReservedDBInstances_leaseId,
-    describeReservedDBInstances_reservedDBInstanceId,
-    describeReservedDBInstances_dbInstanceClass,
     describeReservedDBInstances_marker,
     describeReservedDBInstances_maxRecords,
     describeReservedDBInstances_multiAZ,
-    describeReservedDBInstances_reservedDBInstancesOfferingId,
     describeReservedDBInstances_offeringType,
-    describeReservedDBInstances_duration,
+    describeReservedDBInstances_productDescription,
+    describeReservedDBInstances_reservedDBInstanceId,
+    describeReservedDBInstances_reservedDBInstancesOfferingId,
 
     -- * Destructuring the Response
     DescribeReservedDBInstancesResponse (..),
     newDescribeReservedDBInstancesResponse,
 
     -- * Response Lenses
-    describeReservedDBInstancesResponse_reservedDBInstances,
     describeReservedDBInstancesResponse_marker,
+    describeReservedDBInstancesResponse_reservedDBInstances,
     describeReservedDBInstancesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -64,9 +65,14 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeReservedDBInstances' smart constructor.
 data DescribeReservedDBInstances = DescribeReservedDBInstances'
-  { -- | The product description filter value. Specify this parameter to show
-    -- only those reservations matching the specified product description.
-    productDescription :: Prelude.Maybe Prelude.Text,
+  { -- | The DB instance class filter value. Specify this parameter to show only
+    -- those reservations matching the specified DB instances class.
+    dbInstanceClass :: Prelude.Maybe Prelude.Text,
+    -- | The duration filter value, specified in years or seconds. Specify this
+    -- parameter to show only reservations for this duration.
+    --
+    -- Valid Values: @1 | 3 | 31536000 | 94608000@
+    duration :: Prelude.Maybe Prelude.Text,
     -- | This parameter isn\'t currently supported.
     filters :: Prelude.Maybe [Filter],
     -- | The lease identifier filter value. Specify this parameter to show only
@@ -75,12 +81,6 @@ data DescribeReservedDBInstances = DescribeReservedDBInstances'
     -- Amazon Web Services Support might request the lease ID for an issue
     -- related to a reserved DB instance.
     leaseId :: Prelude.Maybe Prelude.Text,
-    -- | The reserved DB instance identifier filter value. Specify this parameter
-    -- to show only the reservation that matches the specified reservation ID.
-    reservedDBInstanceId :: Prelude.Maybe Prelude.Text,
-    -- | The DB instance class filter value. Specify this parameter to show only
-    -- those reservations matching the specified DB instances class.
-    dbInstanceClass :: Prelude.Maybe Prelude.Text,
     -- | An optional pagination token provided by a previous request. If this
     -- parameter is specified, the response includes only records beyond the
     -- marker, up to the value specified by @MaxRecords@.
@@ -96,19 +96,20 @@ data DescribeReservedDBInstances = DescribeReservedDBInstances'
     -- | A value that indicates whether to show only those reservations that
     -- support Multi-AZ.
     multiAZ :: Prelude.Maybe Prelude.Bool,
-    -- | The offering identifier filter value. Specify this parameter to show
-    -- only purchased reservations matching the specified offering identifier.
-    reservedDBInstancesOfferingId :: Prelude.Maybe Prelude.Text,
     -- | The offering type filter value. Specify this parameter to show only the
     -- available offerings matching the specified offering type.
     --
     -- Valid Values: @\"Partial Upfront\" | \"All Upfront\" | \"No Upfront\" @
     offeringType :: Prelude.Maybe Prelude.Text,
-    -- | The duration filter value, specified in years or seconds. Specify this
-    -- parameter to show only reservations for this duration.
-    --
-    -- Valid Values: @1 | 3 | 31536000 | 94608000@
-    duration :: Prelude.Maybe Prelude.Text
+    -- | The product description filter value. Specify this parameter to show
+    -- only those reservations matching the specified product description.
+    productDescription :: Prelude.Maybe Prelude.Text,
+    -- | The reserved DB instance identifier filter value. Specify this parameter
+    -- to show only the reservation that matches the specified reservation ID.
+    reservedDBInstanceId :: Prelude.Maybe Prelude.Text,
+    -- | The offering identifier filter value. Specify this parameter to show
+    -- only purchased reservations matching the specified offering identifier.
+    reservedDBInstancesOfferingId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -120,8 +121,13 @@ data DescribeReservedDBInstances = DescribeReservedDBInstances'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'productDescription', 'describeReservedDBInstances_productDescription' - The product description filter value. Specify this parameter to show
--- only those reservations matching the specified product description.
+-- 'dbInstanceClass', 'describeReservedDBInstances_dbInstanceClass' - The DB instance class filter value. Specify this parameter to show only
+-- those reservations matching the specified DB instances class.
+--
+-- 'duration', 'describeReservedDBInstances_duration' - The duration filter value, specified in years or seconds. Specify this
+-- parameter to show only reservations for this duration.
+--
+-- Valid Values: @1 | 3 | 31536000 | 94608000@
 --
 -- 'filters', 'describeReservedDBInstances_filters' - This parameter isn\'t currently supported.
 --
@@ -130,12 +136,6 @@ data DescribeReservedDBInstances = DescribeReservedDBInstances'
 --
 -- Amazon Web Services Support might request the lease ID for an issue
 -- related to a reserved DB instance.
---
--- 'reservedDBInstanceId', 'describeReservedDBInstances_reservedDBInstanceId' - The reserved DB instance identifier filter value. Specify this parameter
--- to show only the reservation that matches the specified reservation ID.
---
--- 'dbInstanceClass', 'describeReservedDBInstances_dbInstanceClass' - The DB instance class filter value. Specify this parameter to show only
--- those reservations matching the specified DB instances class.
 --
 -- 'marker', 'describeReservedDBInstances_marker' - An optional pagination token provided by a previous request. If this
 -- parameter is specified, the response includes only records beyond the
@@ -152,41 +152,49 @@ data DescribeReservedDBInstances = DescribeReservedDBInstances'
 -- 'multiAZ', 'describeReservedDBInstances_multiAZ' - A value that indicates whether to show only those reservations that
 -- support Multi-AZ.
 --
--- 'reservedDBInstancesOfferingId', 'describeReservedDBInstances_reservedDBInstancesOfferingId' - The offering identifier filter value. Specify this parameter to show
--- only purchased reservations matching the specified offering identifier.
---
 -- 'offeringType', 'describeReservedDBInstances_offeringType' - The offering type filter value. Specify this parameter to show only the
 -- available offerings matching the specified offering type.
 --
 -- Valid Values: @\"Partial Upfront\" | \"All Upfront\" | \"No Upfront\" @
 --
--- 'duration', 'describeReservedDBInstances_duration' - The duration filter value, specified in years or seconds. Specify this
--- parameter to show only reservations for this duration.
+-- 'productDescription', 'describeReservedDBInstances_productDescription' - The product description filter value. Specify this parameter to show
+-- only those reservations matching the specified product description.
 --
--- Valid Values: @1 | 3 | 31536000 | 94608000@
+-- 'reservedDBInstanceId', 'describeReservedDBInstances_reservedDBInstanceId' - The reserved DB instance identifier filter value. Specify this parameter
+-- to show only the reservation that matches the specified reservation ID.
+--
+-- 'reservedDBInstancesOfferingId', 'describeReservedDBInstances_reservedDBInstancesOfferingId' - The offering identifier filter value. Specify this parameter to show
+-- only purchased reservations matching the specified offering identifier.
 newDescribeReservedDBInstances ::
   DescribeReservedDBInstances
 newDescribeReservedDBInstances =
   DescribeReservedDBInstances'
-    { productDescription =
+    { dbInstanceClass =
         Prelude.Nothing,
+      duration = Prelude.Nothing,
       filters = Prelude.Nothing,
       leaseId = Prelude.Nothing,
-      reservedDBInstanceId = Prelude.Nothing,
-      dbInstanceClass = Prelude.Nothing,
       marker = Prelude.Nothing,
       maxRecords = Prelude.Nothing,
       multiAZ = Prelude.Nothing,
-      reservedDBInstancesOfferingId =
-        Prelude.Nothing,
       offeringType = Prelude.Nothing,
-      duration = Prelude.Nothing
+      productDescription = Prelude.Nothing,
+      reservedDBInstanceId = Prelude.Nothing,
+      reservedDBInstancesOfferingId =
+        Prelude.Nothing
     }
 
--- | The product description filter value. Specify this parameter to show
--- only those reservations matching the specified product description.
-describeReservedDBInstances_productDescription :: Lens.Lens' DescribeReservedDBInstances (Prelude.Maybe Prelude.Text)
-describeReservedDBInstances_productDescription = Lens.lens (\DescribeReservedDBInstances' {productDescription} -> productDescription) (\s@DescribeReservedDBInstances' {} a -> s {productDescription = a} :: DescribeReservedDBInstances)
+-- | The DB instance class filter value. Specify this parameter to show only
+-- those reservations matching the specified DB instances class.
+describeReservedDBInstances_dbInstanceClass :: Lens.Lens' DescribeReservedDBInstances (Prelude.Maybe Prelude.Text)
+describeReservedDBInstances_dbInstanceClass = Lens.lens (\DescribeReservedDBInstances' {dbInstanceClass} -> dbInstanceClass) (\s@DescribeReservedDBInstances' {} a -> s {dbInstanceClass = a} :: DescribeReservedDBInstances)
+
+-- | The duration filter value, specified in years or seconds. Specify this
+-- parameter to show only reservations for this duration.
+--
+-- Valid Values: @1 | 3 | 31536000 | 94608000@
+describeReservedDBInstances_duration :: Lens.Lens' DescribeReservedDBInstances (Prelude.Maybe Prelude.Text)
+describeReservedDBInstances_duration = Lens.lens (\DescribeReservedDBInstances' {duration} -> duration) (\s@DescribeReservedDBInstances' {} a -> s {duration = a} :: DescribeReservedDBInstances)
 
 -- | This parameter isn\'t currently supported.
 describeReservedDBInstances_filters :: Lens.Lens' DescribeReservedDBInstances (Prelude.Maybe [Filter])
@@ -199,16 +207,6 @@ describeReservedDBInstances_filters = Lens.lens (\DescribeReservedDBInstances' {
 -- related to a reserved DB instance.
 describeReservedDBInstances_leaseId :: Lens.Lens' DescribeReservedDBInstances (Prelude.Maybe Prelude.Text)
 describeReservedDBInstances_leaseId = Lens.lens (\DescribeReservedDBInstances' {leaseId} -> leaseId) (\s@DescribeReservedDBInstances' {} a -> s {leaseId = a} :: DescribeReservedDBInstances)
-
--- | The reserved DB instance identifier filter value. Specify this parameter
--- to show only the reservation that matches the specified reservation ID.
-describeReservedDBInstances_reservedDBInstanceId :: Lens.Lens' DescribeReservedDBInstances (Prelude.Maybe Prelude.Text)
-describeReservedDBInstances_reservedDBInstanceId = Lens.lens (\DescribeReservedDBInstances' {reservedDBInstanceId} -> reservedDBInstanceId) (\s@DescribeReservedDBInstances' {} a -> s {reservedDBInstanceId = a} :: DescribeReservedDBInstances)
-
--- | The DB instance class filter value. Specify this parameter to show only
--- those reservations matching the specified DB instances class.
-describeReservedDBInstances_dbInstanceClass :: Lens.Lens' DescribeReservedDBInstances (Prelude.Maybe Prelude.Text)
-describeReservedDBInstances_dbInstanceClass = Lens.lens (\DescribeReservedDBInstances' {dbInstanceClass} -> dbInstanceClass) (\s@DescribeReservedDBInstances' {} a -> s {dbInstanceClass = a} :: DescribeReservedDBInstances)
 
 -- | An optional pagination token provided by a previous request. If this
 -- parameter is specified, the response includes only records beyond the
@@ -231,11 +229,6 @@ describeReservedDBInstances_maxRecords = Lens.lens (\DescribeReservedDBInstances
 describeReservedDBInstances_multiAZ :: Lens.Lens' DescribeReservedDBInstances (Prelude.Maybe Prelude.Bool)
 describeReservedDBInstances_multiAZ = Lens.lens (\DescribeReservedDBInstances' {multiAZ} -> multiAZ) (\s@DescribeReservedDBInstances' {} a -> s {multiAZ = a} :: DescribeReservedDBInstances)
 
--- | The offering identifier filter value. Specify this parameter to show
--- only purchased reservations matching the specified offering identifier.
-describeReservedDBInstances_reservedDBInstancesOfferingId :: Lens.Lens' DescribeReservedDBInstances (Prelude.Maybe Prelude.Text)
-describeReservedDBInstances_reservedDBInstancesOfferingId = Lens.lens (\DescribeReservedDBInstances' {reservedDBInstancesOfferingId} -> reservedDBInstancesOfferingId) (\s@DescribeReservedDBInstances' {} a -> s {reservedDBInstancesOfferingId = a} :: DescribeReservedDBInstances)
-
 -- | The offering type filter value. Specify this parameter to show only the
 -- available offerings matching the specified offering type.
 --
@@ -243,12 +236,20 @@ describeReservedDBInstances_reservedDBInstancesOfferingId = Lens.lens (\Describe
 describeReservedDBInstances_offeringType :: Lens.Lens' DescribeReservedDBInstances (Prelude.Maybe Prelude.Text)
 describeReservedDBInstances_offeringType = Lens.lens (\DescribeReservedDBInstances' {offeringType} -> offeringType) (\s@DescribeReservedDBInstances' {} a -> s {offeringType = a} :: DescribeReservedDBInstances)
 
--- | The duration filter value, specified in years or seconds. Specify this
--- parameter to show only reservations for this duration.
---
--- Valid Values: @1 | 3 | 31536000 | 94608000@
-describeReservedDBInstances_duration :: Lens.Lens' DescribeReservedDBInstances (Prelude.Maybe Prelude.Text)
-describeReservedDBInstances_duration = Lens.lens (\DescribeReservedDBInstances' {duration} -> duration) (\s@DescribeReservedDBInstances' {} a -> s {duration = a} :: DescribeReservedDBInstances)
+-- | The product description filter value. Specify this parameter to show
+-- only those reservations matching the specified product description.
+describeReservedDBInstances_productDescription :: Lens.Lens' DescribeReservedDBInstances (Prelude.Maybe Prelude.Text)
+describeReservedDBInstances_productDescription = Lens.lens (\DescribeReservedDBInstances' {productDescription} -> productDescription) (\s@DescribeReservedDBInstances' {} a -> s {productDescription = a} :: DescribeReservedDBInstances)
+
+-- | The reserved DB instance identifier filter value. Specify this parameter
+-- to show only the reservation that matches the specified reservation ID.
+describeReservedDBInstances_reservedDBInstanceId :: Lens.Lens' DescribeReservedDBInstances (Prelude.Maybe Prelude.Text)
+describeReservedDBInstances_reservedDBInstanceId = Lens.lens (\DescribeReservedDBInstances' {reservedDBInstanceId} -> reservedDBInstanceId) (\s@DescribeReservedDBInstances' {} a -> s {reservedDBInstanceId = a} :: DescribeReservedDBInstances)
+
+-- | The offering identifier filter value. Specify this parameter to show
+-- only purchased reservations matching the specified offering identifier.
+describeReservedDBInstances_reservedDBInstancesOfferingId :: Lens.Lens' DescribeReservedDBInstances (Prelude.Maybe Prelude.Text)
+describeReservedDBInstances_reservedDBInstancesOfferingId = Lens.lens (\DescribeReservedDBInstances' {reservedDBInstancesOfferingId} -> reservedDBInstancesOfferingId) (\s@DescribeReservedDBInstances' {} a -> s {reservedDBInstancesOfferingId = a} :: DescribeReservedDBInstances)
 
 instance Core.AWSPager DescribeReservedDBInstances where
   page rq rs
@@ -276,77 +277,78 @@ instance Core.AWSRequest DescribeReservedDBInstances where
   type
     AWSResponse DescribeReservedDBInstances =
       DescribeReservedDBInstancesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeReservedDBInstancesResult"
       ( \s h x ->
           DescribeReservedDBInstancesResponse'
-            Prelude.<$> ( x Core..@? "ReservedDBInstances"
+            Prelude.<$> (x Data..@? "Marker")
+            Prelude.<*> ( x Data..@? "ReservedDBInstances"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "ReservedDBInstance")
+                            Prelude.>>= Core.may (Data.parseXMLList "ReservedDBInstance")
                         )
-            Prelude.<*> (x Core..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeReservedDBInstances where
   hashWithSalt _salt DescribeReservedDBInstances' {..} =
-    _salt `Prelude.hashWithSalt` productDescription
+    _salt `Prelude.hashWithSalt` dbInstanceClass
+      `Prelude.hashWithSalt` duration
       `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` leaseId
-      `Prelude.hashWithSalt` reservedDBInstanceId
-      `Prelude.hashWithSalt` dbInstanceClass
       `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
       `Prelude.hashWithSalt` multiAZ
-      `Prelude.hashWithSalt` reservedDBInstancesOfferingId
       `Prelude.hashWithSalt` offeringType
-      `Prelude.hashWithSalt` duration
+      `Prelude.hashWithSalt` productDescription
+      `Prelude.hashWithSalt` reservedDBInstanceId
+      `Prelude.hashWithSalt` reservedDBInstancesOfferingId
 
 instance Prelude.NFData DescribeReservedDBInstances where
   rnf DescribeReservedDBInstances' {..} =
-    Prelude.rnf productDescription
+    Prelude.rnf dbInstanceClass
+      `Prelude.seq` Prelude.rnf duration
       `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf leaseId
-      `Prelude.seq` Prelude.rnf reservedDBInstanceId
-      `Prelude.seq` Prelude.rnf dbInstanceClass
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
       `Prelude.seq` Prelude.rnf multiAZ
-      `Prelude.seq` Prelude.rnf reservedDBInstancesOfferingId
       `Prelude.seq` Prelude.rnf offeringType
-      `Prelude.seq` Prelude.rnf duration
+      `Prelude.seq` Prelude.rnf productDescription
+      `Prelude.seq` Prelude.rnf reservedDBInstanceId
+      `Prelude.seq` Prelude.rnf reservedDBInstancesOfferingId
 
-instance Core.ToHeaders DescribeReservedDBInstances where
+instance Data.ToHeaders DescribeReservedDBInstances where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeReservedDBInstances where
+instance Data.ToPath DescribeReservedDBInstances where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeReservedDBInstances where
+instance Data.ToQuery DescribeReservedDBInstances where
   toQuery DescribeReservedDBInstances' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeReservedDBInstances" ::
+          Data.=: ( "DescribeReservedDBInstances" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "ProductDescription" Core.=: productDescription,
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBInstanceClass" Data.=: dbInstanceClass,
+        "Duration" Data.=: duration,
         "Filters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Filter" Prelude.<$> filters),
-        "LeaseId" Core.=: leaseId,
-        "ReservedDBInstanceId" Core.=: reservedDBInstanceId,
-        "DBInstanceClass" Core.=: dbInstanceClass,
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords,
-        "MultiAZ" Core.=: multiAZ,
+          Data.=: Data.toQuery
+            (Data.toQueryList "Filter" Prelude.<$> filters),
+        "LeaseId" Data.=: leaseId,
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
+        "MultiAZ" Data.=: multiAZ,
+        "OfferingType" Data.=: offeringType,
+        "ProductDescription" Data.=: productDescription,
+        "ReservedDBInstanceId" Data.=: reservedDBInstanceId,
         "ReservedDBInstancesOfferingId"
-          Core.=: reservedDBInstancesOfferingId,
-        "OfferingType" Core.=: offeringType,
-        "Duration" Core.=: duration
+          Data.=: reservedDBInstancesOfferingId
       ]
 
 -- | Contains the result of a successful invocation of the
@@ -354,12 +356,12 @@ instance Core.ToQuery DescribeReservedDBInstances where
 --
 -- /See:/ 'newDescribeReservedDBInstancesResponse' smart constructor.
 data DescribeReservedDBInstancesResponse = DescribeReservedDBInstancesResponse'
-  { -- | A list of reserved DB instances.
-    reservedDBInstances :: Prelude.Maybe [ReservedDBInstance],
-    -- | An optional pagination token provided by a previous request. If this
+  { -- | An optional pagination token provided by a previous request. If this
     -- parameter is specified, the response includes only records beyond the
     -- marker, up to the value specified by @MaxRecords@.
     marker :: Prelude.Maybe Prelude.Text,
+    -- | A list of reserved DB instances.
+    reservedDBInstances :: Prelude.Maybe [ReservedDBInstance],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -373,11 +375,11 @@ data DescribeReservedDBInstancesResponse = DescribeReservedDBInstancesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'reservedDBInstances', 'describeReservedDBInstancesResponse_reservedDBInstances' - A list of reserved DB instances.
---
 -- 'marker', 'describeReservedDBInstancesResponse_marker' - An optional pagination token provided by a previous request. If this
 -- parameter is specified, the response includes only records beyond the
 -- marker, up to the value specified by @MaxRecords@.
+--
+-- 'reservedDBInstances', 'describeReservedDBInstancesResponse_reservedDBInstances' - A list of reserved DB instances.
 --
 -- 'httpStatus', 'describeReservedDBInstancesResponse_httpStatus' - The response's http status code.
 newDescribeReservedDBInstancesResponse ::
@@ -386,21 +388,21 @@ newDescribeReservedDBInstancesResponse ::
   DescribeReservedDBInstancesResponse
 newDescribeReservedDBInstancesResponse pHttpStatus_ =
   DescribeReservedDBInstancesResponse'
-    { reservedDBInstances =
+    { marker =
         Prelude.Nothing,
-      marker = Prelude.Nothing,
+      reservedDBInstances = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A list of reserved DB instances.
-describeReservedDBInstancesResponse_reservedDBInstances :: Lens.Lens' DescribeReservedDBInstancesResponse (Prelude.Maybe [ReservedDBInstance])
-describeReservedDBInstancesResponse_reservedDBInstances = Lens.lens (\DescribeReservedDBInstancesResponse' {reservedDBInstances} -> reservedDBInstances) (\s@DescribeReservedDBInstancesResponse' {} a -> s {reservedDBInstances = a} :: DescribeReservedDBInstancesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | An optional pagination token provided by a previous request. If this
 -- parameter is specified, the response includes only records beyond the
 -- marker, up to the value specified by @MaxRecords@.
 describeReservedDBInstancesResponse_marker :: Lens.Lens' DescribeReservedDBInstancesResponse (Prelude.Maybe Prelude.Text)
 describeReservedDBInstancesResponse_marker = Lens.lens (\DescribeReservedDBInstancesResponse' {marker} -> marker) (\s@DescribeReservedDBInstancesResponse' {} a -> s {marker = a} :: DescribeReservedDBInstancesResponse)
+
+-- | A list of reserved DB instances.
+describeReservedDBInstancesResponse_reservedDBInstances :: Lens.Lens' DescribeReservedDBInstancesResponse (Prelude.Maybe [ReservedDBInstance])
+describeReservedDBInstancesResponse_reservedDBInstances = Lens.lens (\DescribeReservedDBInstancesResponse' {reservedDBInstances} -> reservedDBInstances) (\s@DescribeReservedDBInstancesResponse' {} a -> s {reservedDBInstances = a} :: DescribeReservedDBInstancesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeReservedDBInstancesResponse_httpStatus :: Lens.Lens' DescribeReservedDBInstancesResponse Prelude.Int
@@ -411,6 +413,6 @@ instance
     DescribeReservedDBInstancesResponse
   where
   rnf DescribeReservedDBInstancesResponse' {..} =
-    Prelude.rnf reservedDBInstances
-      `Prelude.seq` Prelude.rnf marker
+    Prelude.rnf marker
+      `Prelude.seq` Prelude.rnf reservedDBInstances
       `Prelude.seq` Prelude.rnf httpStatus

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.CacheHitResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.CacheHitResult where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details on the cache hit of a pipeline execution step.
@@ -53,13 +54,13 @@ newCacheHitResult =
 cacheHitResult_sourcePipelineExecutionArn :: Lens.Lens' CacheHitResult (Prelude.Maybe Prelude.Text)
 cacheHitResult_sourcePipelineExecutionArn = Lens.lens (\CacheHitResult' {sourcePipelineExecutionArn} -> sourcePipelineExecutionArn) (\s@CacheHitResult' {} a -> s {sourcePipelineExecutionArn = a} :: CacheHitResult)
 
-instance Core.FromJSON CacheHitResult where
+instance Data.FromJSON CacheHitResult where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CacheHitResult"
       ( \x ->
           CacheHitResult'
-            Prelude.<$> (x Core..:? "SourcePipelineExecutionArn")
+            Prelude.<$> (x Data..:? "SourcePipelineExecutionArn")
       )
 
 instance Prelude.Hashable CacheHitResult where

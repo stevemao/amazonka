@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.BatchCreateVariable
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.FraudDetector.BatchCreateVariable
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,12 +91,13 @@ instance Core.AWSRequest BatchCreateVariable where
   type
     AWSResponse BatchCreateVariable =
       BatchCreateVariableResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchCreateVariableResponse'
-            Prelude.<$> (x Core..?> "errors" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "errors" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -109,35 +111,35 @@ instance Prelude.NFData BatchCreateVariable where
     Prelude.rnf tags
       `Prelude.seq` Prelude.rnf variableEntries
 
-instance Core.ToHeaders BatchCreateVariable where
+instance Data.ToHeaders BatchCreateVariable where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.BatchCreateVariable" ::
+              Data.=# ( "AWSHawksNestServiceFacade.BatchCreateVariable" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchCreateVariable where
+instance Data.ToJSON BatchCreateVariable where
   toJSON BatchCreateVariable' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("tags" Core..=) Prelude.<$> tags,
+          [ ("tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("variableEntries" Core..= variableEntries)
+              ("variableEntries" Data..= variableEntries)
           ]
       )
 
-instance Core.ToPath BatchCreateVariable where
+instance Data.ToPath BatchCreateVariable where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery BatchCreateVariable where
+instance Data.ToQuery BatchCreateVariable where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchCreateVariableResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.CreateCustomVerificationEmailTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,7 @@
 -- Creates a new custom verification email template.
 --
 -- For more information about custom verification email templates, see
--- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-verify-address-custom.html Using Custom Verification Email Templates>
+-- <https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html#send-email-verify-address-custom Using custom verification email templates>
 -- in the /Amazon SES Developer Guide/.
 --
 -- You can execute this operation no more than once per second.
@@ -50,7 +50,8 @@ module Amazonka.SESV2.CreateCustomVerificationEmailTemplate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -69,7 +70,7 @@ data CreateCustomVerificationEmailTemplate = CreateCustomVerificationEmailTempla
     -- | The content of the custom verification email. The total size of the
     -- email must be less than 10 MB. The message body may contain HTML, with
     -- some limitations. For more information, see
-    -- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-verify-address-custom.html#custom-verification-emails-faq Custom Verification Email Frequently Asked Questions>
+    -- <https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html#send-email-verify-address-custom-faq Custom verification email frequently asked questions>
     -- in the /Amazon SES Developer Guide/.
     templateContent :: Prelude.Text,
     -- | The URL that the recipient of the verification email is sent to if his
@@ -98,7 +99,7 @@ data CreateCustomVerificationEmailTemplate = CreateCustomVerificationEmailTempla
 -- 'templateContent', 'createCustomVerificationEmailTemplate_templateContent' - The content of the custom verification email. The total size of the
 -- email must be less than 10 MB. The message body may contain HTML, with
 -- some limitations. For more information, see
--- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-verify-address-custom.html#custom-verification-emails-faq Custom Verification Email Frequently Asked Questions>
+-- <https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html#send-email-verify-address-custom-faq Custom verification email frequently asked questions>
 -- in the /Amazon SES Developer Guide/.
 --
 -- 'successRedirectionURL', 'createCustomVerificationEmailTemplate_successRedirectionURL' - The URL that the recipient of the verification email is sent to if his
@@ -155,7 +156,7 @@ createCustomVerificationEmailTemplate_templateSubject = Lens.lens (\CreateCustom
 -- | The content of the custom verification email. The total size of the
 -- email must be less than 10 MB. The message body may contain HTML, with
 -- some limitations. For more information, see
--- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-verify-address-custom.html#custom-verification-emails-faq Custom Verification Email Frequently Asked Questions>
+-- <https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html#send-email-verify-address-custom-faq Custom verification email frequently asked questions>
 -- in the /Amazon SES Developer Guide/.
 createCustomVerificationEmailTemplate_templateContent :: Lens.Lens' CreateCustomVerificationEmailTemplate Prelude.Text
 createCustomVerificationEmailTemplate_templateContent = Lens.lens (\CreateCustomVerificationEmailTemplate' {templateContent} -> templateContent) (\s@CreateCustomVerificationEmailTemplate' {} a -> s {templateContent = a} :: CreateCustomVerificationEmailTemplate)
@@ -178,7 +179,8 @@ instance
     AWSResponse
       CreateCustomVerificationEmailTemplate =
       CreateCustomVerificationEmailTemplateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -213,46 +215,46 @@ instance
       `Prelude.seq` Prelude.rnf failureRedirectionURL
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CreateCustomVerificationEmailTemplate
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     CreateCustomVerificationEmailTemplate
   where
   toJSON CreateCustomVerificationEmailTemplate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("TemplateName" Core..= templateName),
+          [ Prelude.Just ("TemplateName" Data..= templateName),
             Prelude.Just
-              ("FromEmailAddress" Core..= fromEmailAddress),
+              ("FromEmailAddress" Data..= fromEmailAddress),
             Prelude.Just
-              ("TemplateSubject" Core..= templateSubject),
+              ("TemplateSubject" Data..= templateSubject),
             Prelude.Just
-              ("TemplateContent" Core..= templateContent),
+              ("TemplateContent" Data..= templateContent),
             Prelude.Just
               ( "SuccessRedirectionURL"
-                  Core..= successRedirectionURL
+                  Data..= successRedirectionURL
               ),
             Prelude.Just
               ( "FailureRedirectionURL"
-                  Core..= failureRedirectionURL
+                  Data..= failureRedirectionURL
               )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     CreateCustomVerificationEmailTemplate
   where
   toPath =
@@ -260,7 +262,7 @@ instance
       "/v2/email/custom-verification-email-templates"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     CreateCustomVerificationEmailTemplate
   where
   toQuery = Prelude.const Prelude.mempty

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.VoiceId.UpdateDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.VoiceId.UpdateDomain
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,17 +54,19 @@ import Amazonka.VoiceId.Types
 
 -- | /See:/ 'newUpdateDomain' smart constructor.
 data UpdateDomain = UpdateDomain'
-  { -- | A brief description about this domain.
-    description :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+  { -- | A brief description of the domain.
+    description :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The identifier of the domain to be updated.
     domainId :: Prelude.Text,
     -- | The name of the domain.
-    name :: Core.Sensitive Prelude.Text,
-    -- | The configuration, containing the KMS Key Identifier, to be used by
-    -- Voice ID for the server-side encryption of your data. Note that all the
-    -- existing data in the domain are still encrypted using the existing key,
-    -- only the data added to domain after updating the key is encrypted using
-    -- the new key.
+    name :: Data.Sensitive Prelude.Text,
+    -- | The configuration, containing the KMS key identifier, to be used by
+    -- Voice ID for the server-side encryption of your data. Changing the
+    -- domain\'s associated KMS key immediately triggers an asynchronous
+    -- process to remove dependency on the old KMS key, such that the domain\'s
+    -- data can only be accessed using the new KMS key. The domain\'s
+    -- @ServerSideEncryptionUpdateDetails@ contains the details for this
+    -- process.
     serverSideEncryptionConfiguration :: ServerSideEncryptionConfiguration
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
@@ -76,17 +79,19 @@ data UpdateDomain = UpdateDomain'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'description', 'updateDomain_description' - A brief description about this domain.
+-- 'description', 'updateDomain_description' - A brief description of the domain.
 --
 -- 'domainId', 'updateDomain_domainId' - The identifier of the domain to be updated.
 --
 -- 'name', 'updateDomain_name' - The name of the domain.
 --
--- 'serverSideEncryptionConfiguration', 'updateDomain_serverSideEncryptionConfiguration' - The configuration, containing the KMS Key Identifier, to be used by
--- Voice ID for the server-side encryption of your data. Note that all the
--- existing data in the domain are still encrypted using the existing key,
--- only the data added to domain after updating the key is encrypted using
--- the new key.
+-- 'serverSideEncryptionConfiguration', 'updateDomain_serverSideEncryptionConfiguration' - The configuration, containing the KMS key identifier, to be used by
+-- Voice ID for the server-side encryption of your data. Changing the
+-- domain\'s associated KMS key immediately triggers an asynchronous
+-- process to remove dependency on the old KMS key, such that the domain\'s
+-- data can only be accessed using the new KMS key. The domain\'s
+-- @ServerSideEncryptionUpdateDetails@ contains the details for this
+-- process.
 newUpdateDomain ::
   -- | 'domainId'
   Prelude.Text ->
@@ -102,14 +107,14 @@ newUpdateDomain
     UpdateDomain'
       { description = Prelude.Nothing,
         domainId = pDomainId_,
-        name = Core._Sensitive Lens.# pName_,
+        name = Data._Sensitive Lens.# pName_,
         serverSideEncryptionConfiguration =
           pServerSideEncryptionConfiguration_
       }
 
--- | A brief description about this domain.
+-- | A brief description of the domain.
 updateDomain_description :: Lens.Lens' UpdateDomain (Prelude.Maybe Prelude.Text)
-updateDomain_description = Lens.lens (\UpdateDomain' {description} -> description) (\s@UpdateDomain' {} a -> s {description = a} :: UpdateDomain) Prelude.. Lens.mapping Core._Sensitive
+updateDomain_description = Lens.lens (\UpdateDomain' {description} -> description) (\s@UpdateDomain' {} a -> s {description = a} :: UpdateDomain) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The identifier of the domain to be updated.
 updateDomain_domainId :: Lens.Lens' UpdateDomain Prelude.Text
@@ -117,24 +122,27 @@ updateDomain_domainId = Lens.lens (\UpdateDomain' {domainId} -> domainId) (\s@Up
 
 -- | The name of the domain.
 updateDomain_name :: Lens.Lens' UpdateDomain Prelude.Text
-updateDomain_name = Lens.lens (\UpdateDomain' {name} -> name) (\s@UpdateDomain' {} a -> s {name = a} :: UpdateDomain) Prelude.. Core._Sensitive
+updateDomain_name = Lens.lens (\UpdateDomain' {name} -> name) (\s@UpdateDomain' {} a -> s {name = a} :: UpdateDomain) Prelude.. Data._Sensitive
 
--- | The configuration, containing the KMS Key Identifier, to be used by
--- Voice ID for the server-side encryption of your data. Note that all the
--- existing data in the domain are still encrypted using the existing key,
--- only the data added to domain after updating the key is encrypted using
--- the new key.
+-- | The configuration, containing the KMS key identifier, to be used by
+-- Voice ID for the server-side encryption of your data. Changing the
+-- domain\'s associated KMS key immediately triggers an asynchronous
+-- process to remove dependency on the old KMS key, such that the domain\'s
+-- data can only be accessed using the new KMS key. The domain\'s
+-- @ServerSideEncryptionUpdateDetails@ contains the details for this
+-- process.
 updateDomain_serverSideEncryptionConfiguration :: Lens.Lens' UpdateDomain ServerSideEncryptionConfiguration
 updateDomain_serverSideEncryptionConfiguration = Lens.lens (\UpdateDomain' {serverSideEncryptionConfiguration} -> serverSideEncryptionConfiguration) (\s@UpdateDomain' {} a -> s {serverSideEncryptionConfiguration = a} :: UpdateDomain)
 
 instance Core.AWSRequest UpdateDomain where
   type AWSResponse UpdateDomain = UpdateDomainResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateDomainResponse'
-            Prelude.<$> (x Core..?> "Domain")
+            Prelude.<$> (x Data..?> "Domain")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -152,37 +160,37 @@ instance Prelude.NFData UpdateDomain where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf serverSideEncryptionConfiguration
 
-instance Core.ToHeaders UpdateDomain where
+instance Data.ToHeaders UpdateDomain where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("VoiceID.UpdateDomain" :: Prelude.ByteString),
+              Data.=# ("VoiceID.UpdateDomain" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateDomain where
+instance Data.ToJSON UpdateDomain where
   toJSON UpdateDomain' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Description" Core..=) Prelude.<$> description,
-            Prelude.Just ("DomainId" Core..= domainId),
-            Prelude.Just ("Name" Core..= name),
+          [ ("Description" Data..=) Prelude.<$> description,
+            Prelude.Just ("DomainId" Data..= domainId),
+            Prelude.Just ("Name" Data..= name),
             Prelude.Just
               ( "ServerSideEncryptionConfiguration"
-                  Core..= serverSideEncryptionConfiguration
+                  Data..= serverSideEncryptionConfiguration
               )
           ]
       )
 
-instance Core.ToPath UpdateDomain where
+instance Data.ToPath UpdateDomain where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateDomain where
+instance Data.ToQuery UpdateDomain where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateDomainResponse' smart constructor.

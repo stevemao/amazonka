@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MechanicalTurk.CreateHIT
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,17 +50,17 @@ module Amazonka.MechanicalTurk.CreateHIT
     newCreateHIT,
 
     -- * Request Lenses
-    createHIT_hITReviewPolicy,
-    createHIT_uniqueRequestToken,
+    createHIT_assignmentReviewPolicy,
     createHIT_autoApprovalDelayInSeconds,
-    createHIT_requesterAnnotation,
-    createHIT_maxAssignments,
-    createHIT_keywords,
     createHIT_hITLayoutId,
     createHIT_hITLayoutParameters,
+    createHIT_hITReviewPolicy,
+    createHIT_keywords,
+    createHIT_maxAssignments,
     createHIT_qualificationRequirements,
     createHIT_question,
-    createHIT_assignmentReviewPolicy,
+    createHIT_requesterAnnotation,
+    createHIT_uniqueRequestToken,
     createHIT_lifetimeInSeconds,
     createHIT_assignmentDurationInSeconds,
     createHIT_reward,
@@ -78,7 +78,8 @@ module Amazonka.MechanicalTurk.CreateHIT
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MechanicalTurk.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -86,44 +87,14 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateHIT' smart constructor.
 data CreateHIT = CreateHIT'
-  { -- | The HIT-level Review Policy applies to the HIT. You can specify for
-    -- Mechanical Turk to take various actions based on the policy.
-    hITReviewPolicy :: Prelude.Maybe ReviewPolicy,
-    -- | A unique identifier for this request which allows you to retry the call
-    -- on error without creating duplicate HITs. This is useful in cases such
-    -- as network timeouts where it is unclear whether or not the call
-    -- succeeded on the server. If the HIT already exists in the system from a
-    -- previous call using the same UniqueRequestToken, subsequent calls will
-    -- return a AWS.MechanicalTurk.HitAlreadyExists error with a message
-    -- containing the HITId.
-    --
-    -- Note: It is your responsibility to ensure uniqueness of the token. The
-    -- unique token expires after 24 hours. Subsequent calls using the same
-    -- UniqueRequestToken made after the 24 hour limit could create duplicate
-    -- HITs.
-    uniqueRequestToken :: Prelude.Maybe Prelude.Text,
+  { -- | The Assignment-level Review Policy applies to the assignments under the
+    -- HIT. You can specify for Mechanical Turk to take various actions based
+    -- on the policy.
+    assignmentReviewPolicy :: Prelude.Maybe ReviewPolicy,
     -- | The number of seconds after an assignment for the HIT has been
     -- submitted, after which the assignment is considered Approved
     -- automatically unless the Requester explicitly rejects it.
     autoApprovalDelayInSeconds :: Prelude.Maybe Prelude.Integer,
-    -- | An arbitrary data field. The RequesterAnnotation parameter lets your
-    -- application attach arbitrary data to the HIT for tracking purposes. For
-    -- example, this parameter could be an identifier internal to the
-    -- Requester\'s application that corresponds with the HIT.
-    --
-    -- The RequesterAnnotation parameter for a HIT is only visible to the
-    -- Requester who created the HIT. It is not shown to the Worker, or any
-    -- other Requester.
-    --
-    -- The RequesterAnnotation parameter may be different for each HIT you
-    -- submit. It does not affect how your HITs are grouped.
-    requesterAnnotation :: Prelude.Maybe Prelude.Text,
-    -- | The number of times the HIT can be accepted and completed before the HIT
-    -- becomes unavailable.
-    maxAssignments :: Prelude.Maybe Prelude.Int,
-    -- | One or more words or phrases that describe the HIT, separated by commas.
-    -- These words are used in searches to find HITs.
-    keywords :: Prelude.Maybe Prelude.Text,
     -- | The HITLayoutId allows you to use a pre-existing HIT design with
     -- placeholder values and create an additional HIT by providing those
     -- values as HITLayoutParameters.
@@ -135,6 +106,15 @@ data CreateHIT = CreateHIT'
     -- with values using the HITLayoutParameter structure. For more
     -- information, see HITLayout.
     hITLayoutParameters :: Prelude.Maybe [HITLayoutParameter],
+    -- | The HIT-level Review Policy applies to the HIT. You can specify for
+    -- Mechanical Turk to take various actions based on the policy.
+    hITReviewPolicy :: Prelude.Maybe ReviewPolicy,
+    -- | One or more words or phrases that describe the HIT, separated by commas.
+    -- These words are used in searches to find HITs.
+    keywords :: Prelude.Maybe Prelude.Text,
+    -- | The number of times the HIT can be accepted and completed before the HIT
+    -- becomes unavailable.
+    maxAssignments :: Prelude.Maybe Prelude.Int,
     -- | Conditions that a Worker\'s Qualifications must meet in order to accept
     -- the HIT. A HIT can have between zero and ten Qualification requirements.
     -- All requirements must be met in order for a Worker to accept the HIT.
@@ -150,10 +130,31 @@ data CreateHIT = CreateHIT'
     --
     -- Either a Question parameter or a HITLayoutId parameter must be provided.
     question :: Prelude.Maybe Prelude.Text,
-    -- | The Assignment-level Review Policy applies to the assignments under the
-    -- HIT. You can specify for Mechanical Turk to take various actions based
-    -- on the policy.
-    assignmentReviewPolicy :: Prelude.Maybe ReviewPolicy,
+    -- | An arbitrary data field. The RequesterAnnotation parameter lets your
+    -- application attach arbitrary data to the HIT for tracking purposes. For
+    -- example, this parameter could be an identifier internal to the
+    -- Requester\'s application that corresponds with the HIT.
+    --
+    -- The RequesterAnnotation parameter for a HIT is only visible to the
+    -- Requester who created the HIT. It is not shown to the Worker, or any
+    -- other Requester.
+    --
+    -- The RequesterAnnotation parameter may be different for each HIT you
+    -- submit. It does not affect how your HITs are grouped.
+    requesterAnnotation :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for this request which allows you to retry the call
+    -- on error without creating duplicate HITs. This is useful in cases such
+    -- as network timeouts where it is unclear whether or not the call
+    -- succeeded on the server. If the HIT already exists in the system from a
+    -- previous call using the same UniqueRequestToken, subsequent calls will
+    -- return a AWS.MechanicalTurk.HitAlreadyExists error with a message
+    -- containing the HITId.
+    --
+    -- Note: It is your responsibility to ensure uniqueness of the token. The
+    -- unique token expires after 24 hours. Subsequent calls using the same
+    -- UniqueRequestToken made after the 24 hour limit could create duplicate
+    -- HITs.
+    uniqueRequestToken :: Prelude.Maybe Prelude.Text,
     -- | An amount of time, in seconds, after which the HIT is no longer
     -- available for users to accept. After the lifetime of the HIT elapses,
     -- the HIT no longer appears in HIT searches, even if not all of the
@@ -191,43 +192,13 @@ data CreateHIT = CreateHIT'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'hITReviewPolicy', 'createHIT_hITReviewPolicy' - The HIT-level Review Policy applies to the HIT. You can specify for
--- Mechanical Turk to take various actions based on the policy.
---
--- 'uniqueRequestToken', 'createHIT_uniqueRequestToken' - A unique identifier for this request which allows you to retry the call
--- on error without creating duplicate HITs. This is useful in cases such
--- as network timeouts where it is unclear whether or not the call
--- succeeded on the server. If the HIT already exists in the system from a
--- previous call using the same UniqueRequestToken, subsequent calls will
--- return a AWS.MechanicalTurk.HitAlreadyExists error with a message
--- containing the HITId.
---
--- Note: It is your responsibility to ensure uniqueness of the token. The
--- unique token expires after 24 hours. Subsequent calls using the same
--- UniqueRequestToken made after the 24 hour limit could create duplicate
--- HITs.
+-- 'assignmentReviewPolicy', 'createHIT_assignmentReviewPolicy' - The Assignment-level Review Policy applies to the assignments under the
+-- HIT. You can specify for Mechanical Turk to take various actions based
+-- on the policy.
 --
 -- 'autoApprovalDelayInSeconds', 'createHIT_autoApprovalDelayInSeconds' - The number of seconds after an assignment for the HIT has been
 -- submitted, after which the assignment is considered Approved
 -- automatically unless the Requester explicitly rejects it.
---
--- 'requesterAnnotation', 'createHIT_requesterAnnotation' - An arbitrary data field. The RequesterAnnotation parameter lets your
--- application attach arbitrary data to the HIT for tracking purposes. For
--- example, this parameter could be an identifier internal to the
--- Requester\'s application that corresponds with the HIT.
---
--- The RequesterAnnotation parameter for a HIT is only visible to the
--- Requester who created the HIT. It is not shown to the Worker, or any
--- other Requester.
---
--- The RequesterAnnotation parameter may be different for each HIT you
--- submit. It does not affect how your HITs are grouped.
---
--- 'maxAssignments', 'createHIT_maxAssignments' - The number of times the HIT can be accepted and completed before the HIT
--- becomes unavailable.
---
--- 'keywords', 'createHIT_keywords' - One or more words or phrases that describe the HIT, separated by commas.
--- These words are used in searches to find HITs.
 --
 -- 'hITLayoutId', 'createHIT_hITLayoutId' - The HITLayoutId allows you to use a pre-existing HIT design with
 -- placeholder values and create an additional HIT by providing those
@@ -239,6 +210,15 @@ data CreateHIT = CreateHIT'
 -- 'hITLayoutParameters', 'createHIT_hITLayoutParameters' - If the HITLayoutId is provided, any placeholder values must be filled in
 -- with values using the HITLayoutParameter structure. For more
 -- information, see HITLayout.
+--
+-- 'hITReviewPolicy', 'createHIT_hITReviewPolicy' - The HIT-level Review Policy applies to the HIT. You can specify for
+-- Mechanical Turk to take various actions based on the policy.
+--
+-- 'keywords', 'createHIT_keywords' - One or more words or phrases that describe the HIT, separated by commas.
+-- These words are used in searches to find HITs.
+--
+-- 'maxAssignments', 'createHIT_maxAssignments' - The number of times the HIT can be accepted and completed before the HIT
+-- becomes unavailable.
 --
 -- 'qualificationRequirements', 'createHIT_qualificationRequirements' - Conditions that a Worker\'s Qualifications must meet in order to accept
 -- the HIT. A HIT can have between zero and ten Qualification requirements.
@@ -255,9 +235,30 @@ data CreateHIT = CreateHIT'
 --
 -- Either a Question parameter or a HITLayoutId parameter must be provided.
 --
--- 'assignmentReviewPolicy', 'createHIT_assignmentReviewPolicy' - The Assignment-level Review Policy applies to the assignments under the
--- HIT. You can specify for Mechanical Turk to take various actions based
--- on the policy.
+-- 'requesterAnnotation', 'createHIT_requesterAnnotation' - An arbitrary data field. The RequesterAnnotation parameter lets your
+-- application attach arbitrary data to the HIT for tracking purposes. For
+-- example, this parameter could be an identifier internal to the
+-- Requester\'s application that corresponds with the HIT.
+--
+-- The RequesterAnnotation parameter for a HIT is only visible to the
+-- Requester who created the HIT. It is not shown to the Worker, or any
+-- other Requester.
+--
+-- The RequesterAnnotation parameter may be different for each HIT you
+-- submit. It does not affect how your HITs are grouped.
+--
+-- 'uniqueRequestToken', 'createHIT_uniqueRequestToken' - A unique identifier for this request which allows you to retry the call
+-- on error without creating duplicate HITs. This is useful in cases such
+-- as network timeouts where it is unclear whether or not the call
+-- succeeded on the server. If the HIT already exists in the system from a
+-- previous call using the same UniqueRequestToken, subsequent calls will
+-- return a AWS.MechanicalTurk.HitAlreadyExists error with a message
+-- containing the HITId.
+--
+-- Note: It is your responsibility to ensure uniqueness of the token. The
+-- unique token expires after 24 hours. Subsequent calls using the same
+-- UniqueRequestToken made after the 24 hour limit could create duplicate
+-- HITs.
 --
 -- 'lifetimeInSeconds', 'createHIT_lifetimeInSeconds' - An amount of time, in seconds, after which the HIT is no longer
 -- available for users to accept. After the lifetime of the HIT elapses,
@@ -303,17 +304,18 @@ newCreateHIT
   pTitle_
   pDescription_ =
     CreateHIT'
-      { hITReviewPolicy = Prelude.Nothing,
-        uniqueRequestToken = Prelude.Nothing,
+      { assignmentReviewPolicy =
+          Prelude.Nothing,
         autoApprovalDelayInSeconds = Prelude.Nothing,
-        requesterAnnotation = Prelude.Nothing,
-        maxAssignments = Prelude.Nothing,
-        keywords = Prelude.Nothing,
         hITLayoutId = Prelude.Nothing,
         hITLayoutParameters = Prelude.Nothing,
+        hITReviewPolicy = Prelude.Nothing,
+        keywords = Prelude.Nothing,
+        maxAssignments = Prelude.Nothing,
         qualificationRequirements = Prelude.Nothing,
         question = Prelude.Nothing,
-        assignmentReviewPolicy = Prelude.Nothing,
+        requesterAnnotation = Prelude.Nothing,
+        uniqueRequestToken = Prelude.Nothing,
         lifetimeInSeconds = pLifetimeInSeconds_,
         assignmentDurationInSeconds =
           pAssignmentDurationInSeconds_,
@@ -322,55 +324,17 @@ newCreateHIT
         description = pDescription_
       }
 
--- | The HIT-level Review Policy applies to the HIT. You can specify for
--- Mechanical Turk to take various actions based on the policy.
-createHIT_hITReviewPolicy :: Lens.Lens' CreateHIT (Prelude.Maybe ReviewPolicy)
-createHIT_hITReviewPolicy = Lens.lens (\CreateHIT' {hITReviewPolicy} -> hITReviewPolicy) (\s@CreateHIT' {} a -> s {hITReviewPolicy = a} :: CreateHIT)
-
--- | A unique identifier for this request which allows you to retry the call
--- on error without creating duplicate HITs. This is useful in cases such
--- as network timeouts where it is unclear whether or not the call
--- succeeded on the server. If the HIT already exists in the system from a
--- previous call using the same UniqueRequestToken, subsequent calls will
--- return a AWS.MechanicalTurk.HitAlreadyExists error with a message
--- containing the HITId.
---
--- Note: It is your responsibility to ensure uniqueness of the token. The
--- unique token expires after 24 hours. Subsequent calls using the same
--- UniqueRequestToken made after the 24 hour limit could create duplicate
--- HITs.
-createHIT_uniqueRequestToken :: Lens.Lens' CreateHIT (Prelude.Maybe Prelude.Text)
-createHIT_uniqueRequestToken = Lens.lens (\CreateHIT' {uniqueRequestToken} -> uniqueRequestToken) (\s@CreateHIT' {} a -> s {uniqueRequestToken = a} :: CreateHIT)
+-- | The Assignment-level Review Policy applies to the assignments under the
+-- HIT. You can specify for Mechanical Turk to take various actions based
+-- on the policy.
+createHIT_assignmentReviewPolicy :: Lens.Lens' CreateHIT (Prelude.Maybe ReviewPolicy)
+createHIT_assignmentReviewPolicy = Lens.lens (\CreateHIT' {assignmentReviewPolicy} -> assignmentReviewPolicy) (\s@CreateHIT' {} a -> s {assignmentReviewPolicy = a} :: CreateHIT)
 
 -- | The number of seconds after an assignment for the HIT has been
 -- submitted, after which the assignment is considered Approved
 -- automatically unless the Requester explicitly rejects it.
 createHIT_autoApprovalDelayInSeconds :: Lens.Lens' CreateHIT (Prelude.Maybe Prelude.Integer)
 createHIT_autoApprovalDelayInSeconds = Lens.lens (\CreateHIT' {autoApprovalDelayInSeconds} -> autoApprovalDelayInSeconds) (\s@CreateHIT' {} a -> s {autoApprovalDelayInSeconds = a} :: CreateHIT)
-
--- | An arbitrary data field. The RequesterAnnotation parameter lets your
--- application attach arbitrary data to the HIT for tracking purposes. For
--- example, this parameter could be an identifier internal to the
--- Requester\'s application that corresponds with the HIT.
---
--- The RequesterAnnotation parameter for a HIT is only visible to the
--- Requester who created the HIT. It is not shown to the Worker, or any
--- other Requester.
---
--- The RequesterAnnotation parameter may be different for each HIT you
--- submit. It does not affect how your HITs are grouped.
-createHIT_requesterAnnotation :: Lens.Lens' CreateHIT (Prelude.Maybe Prelude.Text)
-createHIT_requesterAnnotation = Lens.lens (\CreateHIT' {requesterAnnotation} -> requesterAnnotation) (\s@CreateHIT' {} a -> s {requesterAnnotation = a} :: CreateHIT)
-
--- | The number of times the HIT can be accepted and completed before the HIT
--- becomes unavailable.
-createHIT_maxAssignments :: Lens.Lens' CreateHIT (Prelude.Maybe Prelude.Int)
-createHIT_maxAssignments = Lens.lens (\CreateHIT' {maxAssignments} -> maxAssignments) (\s@CreateHIT' {} a -> s {maxAssignments = a} :: CreateHIT)
-
--- | One or more words or phrases that describe the HIT, separated by commas.
--- These words are used in searches to find HITs.
-createHIT_keywords :: Lens.Lens' CreateHIT (Prelude.Maybe Prelude.Text)
-createHIT_keywords = Lens.lens (\CreateHIT' {keywords} -> keywords) (\s@CreateHIT' {} a -> s {keywords = a} :: CreateHIT)
 
 -- | The HITLayoutId allows you to use a pre-existing HIT design with
 -- placeholder values and create an additional HIT by providing those
@@ -386,6 +350,21 @@ createHIT_hITLayoutId = Lens.lens (\CreateHIT' {hITLayoutId} -> hITLayoutId) (\s
 -- information, see HITLayout.
 createHIT_hITLayoutParameters :: Lens.Lens' CreateHIT (Prelude.Maybe [HITLayoutParameter])
 createHIT_hITLayoutParameters = Lens.lens (\CreateHIT' {hITLayoutParameters} -> hITLayoutParameters) (\s@CreateHIT' {} a -> s {hITLayoutParameters = a} :: CreateHIT) Prelude.. Lens.mapping Lens.coerced
+
+-- | The HIT-level Review Policy applies to the HIT. You can specify for
+-- Mechanical Turk to take various actions based on the policy.
+createHIT_hITReviewPolicy :: Lens.Lens' CreateHIT (Prelude.Maybe ReviewPolicy)
+createHIT_hITReviewPolicy = Lens.lens (\CreateHIT' {hITReviewPolicy} -> hITReviewPolicy) (\s@CreateHIT' {} a -> s {hITReviewPolicy = a} :: CreateHIT)
+
+-- | One or more words or phrases that describe the HIT, separated by commas.
+-- These words are used in searches to find HITs.
+createHIT_keywords :: Lens.Lens' CreateHIT (Prelude.Maybe Prelude.Text)
+createHIT_keywords = Lens.lens (\CreateHIT' {keywords} -> keywords) (\s@CreateHIT' {} a -> s {keywords = a} :: CreateHIT)
+
+-- | The number of times the HIT can be accepted and completed before the HIT
+-- becomes unavailable.
+createHIT_maxAssignments :: Lens.Lens' CreateHIT (Prelude.Maybe Prelude.Int)
+createHIT_maxAssignments = Lens.lens (\CreateHIT' {maxAssignments} -> maxAssignments) (\s@CreateHIT' {} a -> s {maxAssignments = a} :: CreateHIT)
 
 -- | Conditions that a Worker\'s Qualifications must meet in order to accept
 -- the HIT. A HIT can have between zero and ten Qualification requirements.
@@ -406,11 +385,34 @@ createHIT_qualificationRequirements = Lens.lens (\CreateHIT' {qualificationRequi
 createHIT_question :: Lens.Lens' CreateHIT (Prelude.Maybe Prelude.Text)
 createHIT_question = Lens.lens (\CreateHIT' {question} -> question) (\s@CreateHIT' {} a -> s {question = a} :: CreateHIT)
 
--- | The Assignment-level Review Policy applies to the assignments under the
--- HIT. You can specify for Mechanical Turk to take various actions based
--- on the policy.
-createHIT_assignmentReviewPolicy :: Lens.Lens' CreateHIT (Prelude.Maybe ReviewPolicy)
-createHIT_assignmentReviewPolicy = Lens.lens (\CreateHIT' {assignmentReviewPolicy} -> assignmentReviewPolicy) (\s@CreateHIT' {} a -> s {assignmentReviewPolicy = a} :: CreateHIT)
+-- | An arbitrary data field. The RequesterAnnotation parameter lets your
+-- application attach arbitrary data to the HIT for tracking purposes. For
+-- example, this parameter could be an identifier internal to the
+-- Requester\'s application that corresponds with the HIT.
+--
+-- The RequesterAnnotation parameter for a HIT is only visible to the
+-- Requester who created the HIT. It is not shown to the Worker, or any
+-- other Requester.
+--
+-- The RequesterAnnotation parameter may be different for each HIT you
+-- submit. It does not affect how your HITs are grouped.
+createHIT_requesterAnnotation :: Lens.Lens' CreateHIT (Prelude.Maybe Prelude.Text)
+createHIT_requesterAnnotation = Lens.lens (\CreateHIT' {requesterAnnotation} -> requesterAnnotation) (\s@CreateHIT' {} a -> s {requesterAnnotation = a} :: CreateHIT)
+
+-- | A unique identifier for this request which allows you to retry the call
+-- on error without creating duplicate HITs. This is useful in cases such
+-- as network timeouts where it is unclear whether or not the call
+-- succeeded on the server. If the HIT already exists in the system from a
+-- previous call using the same UniqueRequestToken, subsequent calls will
+-- return a AWS.MechanicalTurk.HitAlreadyExists error with a message
+-- containing the HITId.
+--
+-- Note: It is your responsibility to ensure uniqueness of the token. The
+-- unique token expires after 24 hours. Subsequent calls using the same
+-- UniqueRequestToken made after the 24 hour limit could create duplicate
+-- HITs.
+createHIT_uniqueRequestToken :: Lens.Lens' CreateHIT (Prelude.Maybe Prelude.Text)
+createHIT_uniqueRequestToken = Lens.lens (\CreateHIT' {uniqueRequestToken} -> uniqueRequestToken) (\s@CreateHIT' {} a -> s {uniqueRequestToken = a} :: CreateHIT)
 
 -- | An amount of time, in seconds, after which the HIT is no longer
 -- available for users to accept. After the lifetime of the HIT elapses,
@@ -450,28 +452,29 @@ createHIT_description = Lens.lens (\CreateHIT' {description} -> description) (\s
 
 instance Core.AWSRequest CreateHIT where
   type AWSResponse CreateHIT = CreateHITResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateHITResponse'
-            Prelude.<$> (x Core..?> "HIT")
+            Prelude.<$> (x Data..?> "HIT")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateHIT where
   hashWithSalt _salt CreateHIT' {..} =
-    _salt `Prelude.hashWithSalt` hITReviewPolicy
-      `Prelude.hashWithSalt` uniqueRequestToken
+    _salt `Prelude.hashWithSalt` assignmentReviewPolicy
       `Prelude.hashWithSalt` autoApprovalDelayInSeconds
-      `Prelude.hashWithSalt` requesterAnnotation
-      `Prelude.hashWithSalt` maxAssignments
-      `Prelude.hashWithSalt` keywords
       `Prelude.hashWithSalt` hITLayoutId
       `Prelude.hashWithSalt` hITLayoutParameters
+      `Prelude.hashWithSalt` hITReviewPolicy
+      `Prelude.hashWithSalt` keywords
+      `Prelude.hashWithSalt` maxAssignments
       `Prelude.hashWithSalt` qualificationRequirements
       `Prelude.hashWithSalt` question
-      `Prelude.hashWithSalt` assignmentReviewPolicy
+      `Prelude.hashWithSalt` requesterAnnotation
+      `Prelude.hashWithSalt` uniqueRequestToken
       `Prelude.hashWithSalt` lifetimeInSeconds
       `Prelude.hashWithSalt` assignmentDurationInSeconds
       `Prelude.hashWithSalt` reward
@@ -480,77 +483,77 @@ instance Prelude.Hashable CreateHIT where
 
 instance Prelude.NFData CreateHIT where
   rnf CreateHIT' {..} =
-    Prelude.rnf hITReviewPolicy
-      `Prelude.seq` Prelude.rnf uniqueRequestToken
+    Prelude.rnf assignmentReviewPolicy
       `Prelude.seq` Prelude.rnf autoApprovalDelayInSeconds
-      `Prelude.seq` Prelude.rnf requesterAnnotation
-      `Prelude.seq` Prelude.rnf maxAssignments
-      `Prelude.seq` Prelude.rnf keywords
       `Prelude.seq` Prelude.rnf hITLayoutId
       `Prelude.seq` Prelude.rnf hITLayoutParameters
+      `Prelude.seq` Prelude.rnf hITReviewPolicy
+      `Prelude.seq` Prelude.rnf keywords
+      `Prelude.seq` Prelude.rnf maxAssignments
       `Prelude.seq` Prelude.rnf qualificationRequirements
       `Prelude.seq` Prelude.rnf question
-      `Prelude.seq` Prelude.rnf assignmentReviewPolicy
+      `Prelude.seq` Prelude.rnf requesterAnnotation
+      `Prelude.seq` Prelude.rnf uniqueRequestToken
       `Prelude.seq` Prelude.rnf lifetimeInSeconds
       `Prelude.seq` Prelude.rnf assignmentDurationInSeconds
       `Prelude.seq` Prelude.rnf reward
       `Prelude.seq` Prelude.rnf title
       `Prelude.seq` Prelude.rnf description
 
-instance Core.ToHeaders CreateHIT where
+instance Data.ToHeaders CreateHIT where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "MTurkRequesterServiceV20170117.CreateHIT" ::
+              Data.=# ( "MTurkRequesterServiceV20170117.CreateHIT" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateHIT where
+instance Data.ToJSON CreateHIT where
   toJSON CreateHIT' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("HITReviewPolicy" Core..=)
-              Prelude.<$> hITReviewPolicy,
-            ("UniqueRequestToken" Core..=)
-              Prelude.<$> uniqueRequestToken,
-            ("AutoApprovalDelayInSeconds" Core..=)
-              Prelude.<$> autoApprovalDelayInSeconds,
-            ("RequesterAnnotation" Core..=)
-              Prelude.<$> requesterAnnotation,
-            ("MaxAssignments" Core..=)
-              Prelude.<$> maxAssignments,
-            ("Keywords" Core..=) Prelude.<$> keywords,
-            ("HITLayoutId" Core..=) Prelude.<$> hITLayoutId,
-            ("HITLayoutParameters" Core..=)
-              Prelude.<$> hITLayoutParameters,
-            ("QualificationRequirements" Core..=)
-              Prelude.<$> qualificationRequirements,
-            ("Question" Core..=) Prelude.<$> question,
-            ("AssignmentReviewPolicy" Core..=)
+          [ ("AssignmentReviewPolicy" Data..=)
               Prelude.<$> assignmentReviewPolicy,
+            ("AutoApprovalDelayInSeconds" Data..=)
+              Prelude.<$> autoApprovalDelayInSeconds,
+            ("HITLayoutId" Data..=) Prelude.<$> hITLayoutId,
+            ("HITLayoutParameters" Data..=)
+              Prelude.<$> hITLayoutParameters,
+            ("HITReviewPolicy" Data..=)
+              Prelude.<$> hITReviewPolicy,
+            ("Keywords" Data..=) Prelude.<$> keywords,
+            ("MaxAssignments" Data..=)
+              Prelude.<$> maxAssignments,
+            ("QualificationRequirements" Data..=)
+              Prelude.<$> qualificationRequirements,
+            ("Question" Data..=) Prelude.<$> question,
+            ("RequesterAnnotation" Data..=)
+              Prelude.<$> requesterAnnotation,
+            ("UniqueRequestToken" Data..=)
+              Prelude.<$> uniqueRequestToken,
             Prelude.Just
-              ("LifetimeInSeconds" Core..= lifetimeInSeconds),
+              ("LifetimeInSeconds" Data..= lifetimeInSeconds),
             Prelude.Just
               ( "AssignmentDurationInSeconds"
-                  Core..= assignmentDurationInSeconds
+                  Data..= assignmentDurationInSeconds
               ),
-            Prelude.Just ("Reward" Core..= reward),
-            Prelude.Just ("Title" Core..= title),
-            Prelude.Just ("Description" Core..= description)
+            Prelude.Just ("Reward" Data..= reward),
+            Prelude.Just ("Title" Data..= title),
+            Prelude.Just ("Description" Data..= description)
           ]
       )
 
-instance Core.ToPath CreateHIT where
+instance Data.ToPath CreateHIT where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateHIT where
+instance Data.ToQuery CreateHIT where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateHITResponse' smart constructor.

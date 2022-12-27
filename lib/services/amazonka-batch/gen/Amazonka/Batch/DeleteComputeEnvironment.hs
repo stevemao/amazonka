@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Batch.DeleteComputeEnvironment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ where
 
 import Amazonka.Batch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,7 +93,8 @@ instance Core.AWSRequest DeleteComputeEnvironment where
   type
     AWSResponse DeleteComputeEnvironment =
       DeleteComputeEnvironmentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -108,30 +110,30 @@ instance Prelude.NFData DeleteComputeEnvironment where
   rnf DeleteComputeEnvironment' {..} =
     Prelude.rnf computeEnvironment
 
-instance Core.ToHeaders DeleteComputeEnvironment where
+instance Data.ToHeaders DeleteComputeEnvironment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteComputeEnvironment where
+instance Data.ToJSON DeleteComputeEnvironment where
   toJSON DeleteComputeEnvironment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("computeEnvironment" Core..= computeEnvironment)
+              ("computeEnvironment" Data..= computeEnvironment)
           ]
       )
 
-instance Core.ToPath DeleteComputeEnvironment where
+instance Data.ToPath DeleteComputeEnvironment where
   toPath = Prelude.const "/v1/deletecomputeenvironment"
 
-instance Core.ToQuery DeleteComputeEnvironment where
+instance Data.ToQuery DeleteComputeEnvironment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteComputeEnvironmentResponse' smart constructor.

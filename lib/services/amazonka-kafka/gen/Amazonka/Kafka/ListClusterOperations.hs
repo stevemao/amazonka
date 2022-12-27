@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.ListClusterOperations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.Kafka.ListClusterOperations
     newListClusterOperations,
 
     -- * Request Lenses
-    listClusterOperations_nextToken,
     listClusterOperations_maxResults,
+    listClusterOperations_nextToken,
     listClusterOperations_clusterArn,
 
     -- * Destructuring the Response
@@ -46,21 +46,22 @@ module Amazonka.Kafka.ListClusterOperations
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kafka.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListClusterOperations' smart constructor.
 data ListClusterOperations = ListClusterOperations'
-  { -- | The paginated results marker. When the result of the operation is
+  { -- | The maximum number of results to return in the response. If there are
+    -- more results, the response includes a NextToken parameter.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The paginated results marker. When the result of the operation is
     -- truncated, the call returns NextToken in the response. To get the next
     -- batch, provide this token in your next request.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in the response. If there are
-    -- more results, the response includes a NextToken parameter.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The Amazon Resource Name (ARN) that uniquely identifies the cluster.
     clusterArn :: Prelude.Text
   }
@@ -74,12 +75,12 @@ data ListClusterOperations = ListClusterOperations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listClusterOperations_maxResults' - The maximum number of results to return in the response. If there are
+-- more results, the response includes a NextToken parameter.
+--
 -- 'nextToken', 'listClusterOperations_nextToken' - The paginated results marker. When the result of the operation is
 -- truncated, the call returns NextToken in the response. To get the next
 -- batch, provide this token in your next request.
---
--- 'maxResults', 'listClusterOperations_maxResults' - The maximum number of results to return in the response. If there are
--- more results, the response includes a NextToken parameter.
 --
 -- 'clusterArn', 'listClusterOperations_clusterArn' - The Amazon Resource Name (ARN) that uniquely identifies the cluster.
 newListClusterOperations ::
@@ -88,21 +89,22 @@ newListClusterOperations ::
   ListClusterOperations
 newListClusterOperations pClusterArn_ =
   ListClusterOperations'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       clusterArn = pClusterArn_
     }
+
+-- | The maximum number of results to return in the response. If there are
+-- more results, the response includes a NextToken parameter.
+listClusterOperations_maxResults :: Lens.Lens' ListClusterOperations (Prelude.Maybe Prelude.Natural)
+listClusterOperations_maxResults = Lens.lens (\ListClusterOperations' {maxResults} -> maxResults) (\s@ListClusterOperations' {} a -> s {maxResults = a} :: ListClusterOperations)
 
 -- | The paginated results marker. When the result of the operation is
 -- truncated, the call returns NextToken in the response. To get the next
 -- batch, provide this token in your next request.
 listClusterOperations_nextToken :: Lens.Lens' ListClusterOperations (Prelude.Maybe Prelude.Text)
 listClusterOperations_nextToken = Lens.lens (\ListClusterOperations' {nextToken} -> nextToken) (\s@ListClusterOperations' {} a -> s {nextToken = a} :: ListClusterOperations)
-
--- | The maximum number of results to return in the response. If there are
--- more results, the response includes a NextToken parameter.
-listClusterOperations_maxResults :: Lens.Lens' ListClusterOperations (Prelude.Maybe Prelude.Natural)
-listClusterOperations_maxResults = Lens.lens (\ListClusterOperations' {maxResults} -> maxResults) (\s@ListClusterOperations' {} a -> s {maxResults = a} :: ListClusterOperations)
 
 -- | The Amazon Resource Name (ARN) that uniquely identifies the cluster.
 listClusterOperations_clusterArn :: Lens.Lens' ListClusterOperations Prelude.Text
@@ -134,54 +136,55 @@ instance Core.AWSRequest ListClusterOperations where
   type
     AWSResponse ListClusterOperations =
       ListClusterOperationsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListClusterOperationsResponse'
-            Prelude.<$> ( x Core..?> "clusterOperationInfoList"
+            Prelude.<$> ( x Data..?> "clusterOperationInfoList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListClusterOperations where
   hashWithSalt _salt ListClusterOperations' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` clusterArn
 
 instance Prelude.NFData ListClusterOperations where
   rnf ListClusterOperations' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf clusterArn
 
-instance Core.ToHeaders ListClusterOperations where
+instance Data.ToHeaders ListClusterOperations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListClusterOperations where
+instance Data.ToPath ListClusterOperations where
   toPath ListClusterOperations' {..} =
     Prelude.mconcat
       [ "/v1/clusters/",
-        Core.toBS clusterArn,
+        Data.toBS clusterArn,
         "/operations"
       ]
 
-instance Core.ToQuery ListClusterOperations where
+instance Data.ToQuery ListClusterOperations where
   toQuery ListClusterOperations' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListClusterOperationsResponse' smart constructor.

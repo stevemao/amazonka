@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.DescribeStackSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ module Amazonka.OpsWorks.DescribeStackSummary
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -84,12 +85,13 @@ instance Core.AWSRequest DescribeStackSummary where
   type
     AWSResponse DescribeStackSummary =
       DescribeStackSummaryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeStackSummaryResponse'
-            Prelude.<$> (x Core..?> "StackSummary")
+            Prelude.<$> (x Data..?> "StackSummary")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -100,32 +102,32 @@ instance Prelude.Hashable DescribeStackSummary where
 instance Prelude.NFData DescribeStackSummary where
   rnf DescribeStackSummary' {..} = Prelude.rnf stackId
 
-instance Core.ToHeaders DescribeStackSummary where
+instance Data.ToHeaders DescribeStackSummary where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.DescribeStackSummary" ::
+              Data.=# ( "OpsWorks_20130218.DescribeStackSummary" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeStackSummary where
+instance Data.ToJSON DescribeStackSummary where
   toJSON DescribeStackSummary' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("StackId" Core..= stackId)]
+          [Prelude.Just ("StackId" Data..= stackId)]
       )
 
-instance Core.ToPath DescribeStackSummary where
+instance Data.ToPath DescribeStackSummary where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeStackSummary where
+instance Data.ToQuery DescribeStackSummary where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the response to a @DescribeStackSummary@ request.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.HumanLoopConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.HumanLoopConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types.HumanLoopDataAttributes
 
@@ -103,14 +104,14 @@ instance Prelude.NFData HumanLoopConfig where
       `Prelude.seq` Prelude.rnf humanLoopName
       `Prelude.seq` Prelude.rnf flowDefinitionArn
 
-instance Core.ToJSON HumanLoopConfig where
+instance Data.ToJSON HumanLoopConfig where
   toJSON HumanLoopConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DataAttributes" Core..=)
+          [ ("DataAttributes" Data..=)
               Prelude.<$> dataAttributes,
-            Prelude.Just ("HumanLoopName" Core..= humanLoopName),
+            Prelude.Just ("HumanLoopName" Data..= humanLoopName),
             Prelude.Just
-              ("FlowDefinitionArn" Core..= flowDefinitionArn)
+              ("FlowDefinitionArn" Data..= flowDefinitionArn)
           ]
       )

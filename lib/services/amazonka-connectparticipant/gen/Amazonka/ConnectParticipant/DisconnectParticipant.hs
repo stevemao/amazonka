@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ConnectParticipant.DisconnectParticipant
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.ConnectParticipant.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,7 +97,8 @@ instance Core.AWSRequest DisconnectParticipant where
   type
     AWSResponse DisconnectParticipant =
       DisconnectParticipantResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -114,25 +116,25 @@ instance Prelude.NFData DisconnectParticipant where
     Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf connectionToken
 
-instance Core.ToHeaders DisconnectParticipant where
+instance Data.ToHeaders DisconnectParticipant where
   toHeaders DisconnectParticipant' {..} =
     Prelude.mconcat
-      [ "X-Amz-Bearer" Core.=# connectionToken,
+      [ "X-Amz-Bearer" Data.=# connectionToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToJSON DisconnectParticipant where
+instance Data.ToJSON DisconnectParticipant where
   toJSON DisconnectParticipant' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("ClientToken" Core..=) Prelude.<$> clientToken]
+          [("ClientToken" Data..=) Prelude.<$> clientToken]
       )
 
-instance Core.ToPath DisconnectParticipant where
+instance Data.ToPath DisconnectParticipant where
   toPath = Prelude.const "/participant/disconnect"
 
-instance Core.ToQuery DisconnectParticipant where
+instance Data.ToQuery DisconnectParticipant where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisconnectParticipantResponse' smart constructor.

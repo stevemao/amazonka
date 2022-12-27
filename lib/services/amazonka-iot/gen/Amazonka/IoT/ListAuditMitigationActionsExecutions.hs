@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.ListAuditMitigationActionsExecutions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,9 +33,9 @@ module Amazonka.IoT.ListAuditMitigationActionsExecutions
     newListAuditMitigationActionsExecutions,
 
     -- * Request Lenses
-    listAuditMitigationActionsExecutions_nextToken,
     listAuditMitigationActionsExecutions_actionStatus,
     listAuditMitigationActionsExecutions_maxResults,
+    listAuditMitigationActionsExecutions_nextToken,
     listAuditMitigationActionsExecutions_taskId,
     listAuditMitigationActionsExecutions_findingId,
 
@@ -51,20 +51,21 @@ module Amazonka.IoT.ListAuditMitigationActionsExecutions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListAuditMitigationActionsExecutions' smart constructor.
 data ListAuditMitigationActionsExecutions = ListAuditMitigationActionsExecutions'
-  { -- | The token for the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Specify this filter to limit results to those with a specific status.
+  { -- | Specify this filter to limit results to those with a specific status.
     actionStatus :: Prelude.Maybe AuditMitigationActionsExecutionStatus,
     -- | The maximum number of results to return at one time. The default is 25.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | Specify this filter to limit results to actions for a specific audit
     -- mitigation actions task.
     taskId :: Prelude.Text,
@@ -82,11 +83,11 @@ data ListAuditMitigationActionsExecutions = ListAuditMitigationActionsExecutions
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listAuditMitigationActionsExecutions_nextToken' - The token for the next set of results.
---
 -- 'actionStatus', 'listAuditMitigationActionsExecutions_actionStatus' - Specify this filter to limit results to those with a specific status.
 --
 -- 'maxResults', 'listAuditMitigationActionsExecutions_maxResults' - The maximum number of results to return at one time. The default is 25.
+--
+-- 'nextToken', 'listAuditMitigationActionsExecutions_nextToken' - The token for the next set of results.
 --
 -- 'taskId', 'listAuditMitigationActionsExecutions_taskId' - Specify this filter to limit results to actions for a specific audit
 -- mitigation actions task.
@@ -103,17 +104,13 @@ newListAuditMitigationActionsExecutions
   pTaskId_
   pFindingId_ =
     ListAuditMitigationActionsExecutions'
-      { nextToken =
+      { actionStatus =
           Prelude.Nothing,
-        actionStatus = Prelude.Nothing,
         maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         taskId = pTaskId_,
         findingId = pFindingId_
       }
-
--- | The token for the next set of results.
-listAuditMitigationActionsExecutions_nextToken :: Lens.Lens' ListAuditMitigationActionsExecutions (Prelude.Maybe Prelude.Text)
-listAuditMitigationActionsExecutions_nextToken = Lens.lens (\ListAuditMitigationActionsExecutions' {nextToken} -> nextToken) (\s@ListAuditMitigationActionsExecutions' {} a -> s {nextToken = a} :: ListAuditMitigationActionsExecutions)
 
 -- | Specify this filter to limit results to those with a specific status.
 listAuditMitigationActionsExecutions_actionStatus :: Lens.Lens' ListAuditMitigationActionsExecutions (Prelude.Maybe AuditMitigationActionsExecutionStatus)
@@ -122,6 +119,10 @@ listAuditMitigationActionsExecutions_actionStatus = Lens.lens (\ListAuditMitigat
 -- | The maximum number of results to return at one time. The default is 25.
 listAuditMitigationActionsExecutions_maxResults :: Lens.Lens' ListAuditMitigationActionsExecutions (Prelude.Maybe Prelude.Natural)
 listAuditMitigationActionsExecutions_maxResults = Lens.lens (\ListAuditMitigationActionsExecutions' {maxResults} -> maxResults) (\s@ListAuditMitigationActionsExecutions' {} a -> s {maxResults = a} :: ListAuditMitigationActionsExecutions)
+
+-- | The token for the next set of results.
+listAuditMitigationActionsExecutions_nextToken :: Lens.Lens' ListAuditMitigationActionsExecutions (Prelude.Maybe Prelude.Text)
+listAuditMitigationActionsExecutions_nextToken = Lens.lens (\ListAuditMitigationActionsExecutions' {nextToken} -> nextToken) (\s@ListAuditMitigationActionsExecutions' {} a -> s {nextToken = a} :: ListAuditMitigationActionsExecutions)
 
 -- | Specify this filter to limit results to actions for a specific audit
 -- mitigation actions task.
@@ -165,15 +166,16 @@ instance
   type
     AWSResponse ListAuditMitigationActionsExecutions =
       ListAuditMitigationActionsExecutionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAuditMitigationActionsExecutionsResponse'
-            Prelude.<$> ( x Core..?> "actionsExecutions"
+            Prelude.<$> ( x Data..?> "actionsExecutions"
                             Core..!@ Prelude.mempty
                         )
-              Prelude.<*> (x Core..?> "nextToken")
+              Prelude.<*> (x Data..?> "nextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -184,9 +186,9 @@ instance
   hashWithSalt
     _salt
     ListAuditMitigationActionsExecutions' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` actionStatus
+      _salt `Prelude.hashWithSalt` actionStatus
         `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` taskId
         `Prelude.hashWithSalt` findingId
 
@@ -195,36 +197,36 @@ instance
     ListAuditMitigationActionsExecutions
   where
   rnf ListAuditMitigationActionsExecutions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf actionStatus
+    Prelude.rnf actionStatus
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf taskId
       `Prelude.seq` Prelude.rnf findingId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListAuditMitigationActionsExecutions
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     ListAuditMitigationActionsExecutions
   where
   toPath =
     Prelude.const "/audit/mitigationactions/executions"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ListAuditMitigationActionsExecutions
   where
   toQuery ListAuditMitigationActionsExecutions' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "actionStatus" Core.=: actionStatus,
-        "maxResults" Core.=: maxResults,
-        "taskId" Core.=: taskId,
-        "findingId" Core.=: findingId
+      [ "actionStatus" Data.=: actionStatus,
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "taskId" Data.=: taskId,
+        "findingId" Data.=: findingId
       ]
 
 -- | /See:/ 'newListAuditMitigationActionsExecutionsResponse' smart constructor.

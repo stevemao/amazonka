@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.DescribeInstancesHealth
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,10 +29,10 @@ module Amazonka.ElasticBeanstalk.DescribeInstancesHealth
     newDescribeInstancesHealth,
 
     -- * Request Lenses
-    describeInstancesHealth_nextToken,
-    describeInstancesHealth_environmentName,
     describeInstancesHealth_attributeNames,
     describeInstancesHealth_environmentId,
+    describeInstancesHealth_environmentName,
+    describeInstancesHealth_nextToken,
 
     -- * Destructuring the Response
     DescribeInstancesHealthResponse (..),
@@ -47,8 +47,9 @@ module Amazonka.ElasticBeanstalk.DescribeInstancesHealth
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticBeanstalk.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,16 +58,16 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeInstancesHealth' smart constructor.
 data DescribeInstancesHealth = DescribeInstancesHealth'
-  { -- | Specify the pagination token returned by a previous call.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Specify the AWS Elastic Beanstalk environment by name.
-    environmentName :: Prelude.Maybe Prelude.Text,
-    -- | Specifies the response elements you wish to receive. To retrieve all
+  { -- | Specifies the response elements you wish to receive. To retrieve all
     -- attributes, set to @All@. If no attribute names are specified, returns a
     -- list of instances.
     attributeNames :: Prelude.Maybe [InstancesHealthAttribute],
     -- | Specify the AWS Elastic Beanstalk environment by ID.
-    environmentId :: Prelude.Maybe Prelude.Text
+    environmentId :: Prelude.Maybe Prelude.Text,
+    -- | Specify the AWS Elastic Beanstalk environment by name.
+    environmentName :: Prelude.Maybe Prelude.Text,
+    -- | Specify the pagination token returned by a previous call.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -78,33 +79,25 @@ data DescribeInstancesHealth = DescribeInstancesHealth'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeInstancesHealth_nextToken' - Specify the pagination token returned by a previous call.
---
--- 'environmentName', 'describeInstancesHealth_environmentName' - Specify the AWS Elastic Beanstalk environment by name.
---
 -- 'attributeNames', 'describeInstancesHealth_attributeNames' - Specifies the response elements you wish to receive. To retrieve all
 -- attributes, set to @All@. If no attribute names are specified, returns a
 -- list of instances.
 --
 -- 'environmentId', 'describeInstancesHealth_environmentId' - Specify the AWS Elastic Beanstalk environment by ID.
+--
+-- 'environmentName', 'describeInstancesHealth_environmentName' - Specify the AWS Elastic Beanstalk environment by name.
+--
+-- 'nextToken', 'describeInstancesHealth_nextToken' - Specify the pagination token returned by a previous call.
 newDescribeInstancesHealth ::
   DescribeInstancesHealth
 newDescribeInstancesHealth =
   DescribeInstancesHealth'
-    { nextToken =
+    { attributeNames =
         Prelude.Nothing,
+      environmentId = Prelude.Nothing,
       environmentName = Prelude.Nothing,
-      attributeNames = Prelude.Nothing,
-      environmentId = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
-
--- | Specify the pagination token returned by a previous call.
-describeInstancesHealth_nextToken :: Lens.Lens' DescribeInstancesHealth (Prelude.Maybe Prelude.Text)
-describeInstancesHealth_nextToken = Lens.lens (\DescribeInstancesHealth' {nextToken} -> nextToken) (\s@DescribeInstancesHealth' {} a -> s {nextToken = a} :: DescribeInstancesHealth)
-
--- | Specify the AWS Elastic Beanstalk environment by name.
-describeInstancesHealth_environmentName :: Lens.Lens' DescribeInstancesHealth (Prelude.Maybe Prelude.Text)
-describeInstancesHealth_environmentName = Lens.lens (\DescribeInstancesHealth' {environmentName} -> environmentName) (\s@DescribeInstancesHealth' {} a -> s {environmentName = a} :: DescribeInstancesHealth)
 
 -- | Specifies the response elements you wish to receive. To retrieve all
 -- attributes, set to @All@. If no attribute names are specified, returns a
@@ -116,60 +109,69 @@ describeInstancesHealth_attributeNames = Lens.lens (\DescribeInstancesHealth' {a
 describeInstancesHealth_environmentId :: Lens.Lens' DescribeInstancesHealth (Prelude.Maybe Prelude.Text)
 describeInstancesHealth_environmentId = Lens.lens (\DescribeInstancesHealth' {environmentId} -> environmentId) (\s@DescribeInstancesHealth' {} a -> s {environmentId = a} :: DescribeInstancesHealth)
 
+-- | Specify the AWS Elastic Beanstalk environment by name.
+describeInstancesHealth_environmentName :: Lens.Lens' DescribeInstancesHealth (Prelude.Maybe Prelude.Text)
+describeInstancesHealth_environmentName = Lens.lens (\DescribeInstancesHealth' {environmentName} -> environmentName) (\s@DescribeInstancesHealth' {} a -> s {environmentName = a} :: DescribeInstancesHealth)
+
+-- | Specify the pagination token returned by a previous call.
+describeInstancesHealth_nextToken :: Lens.Lens' DescribeInstancesHealth (Prelude.Maybe Prelude.Text)
+describeInstancesHealth_nextToken = Lens.lens (\DescribeInstancesHealth' {nextToken} -> nextToken) (\s@DescribeInstancesHealth' {} a -> s {nextToken = a} :: DescribeInstancesHealth)
+
 instance Core.AWSRequest DescribeInstancesHealth where
   type
     AWSResponse DescribeInstancesHealth =
       DescribeInstancesHealthResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeInstancesHealthResult"
       ( \s h x ->
           DescribeInstancesHealthResponse'
-            Prelude.<$> ( x Core..@? "InstanceHealthList"
+            Prelude.<$> ( x Data..@? "InstanceHealthList"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> (x Core..@? "NextToken")
-            Prelude.<*> (x Core..@? "RefreshedAt")
+            Prelude.<*> (x Data..@? "NextToken")
+            Prelude.<*> (x Data..@? "RefreshedAt")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeInstancesHealth where
   hashWithSalt _salt DescribeInstancesHealth' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` environmentName
-      `Prelude.hashWithSalt` attributeNames
+    _salt `Prelude.hashWithSalt` attributeNames
       `Prelude.hashWithSalt` environmentId
+      `Prelude.hashWithSalt` environmentName
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeInstancesHealth where
   rnf DescribeInstancesHealth' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf environmentName
-      `Prelude.seq` Prelude.rnf attributeNames
+    Prelude.rnf attributeNames
       `Prelude.seq` Prelude.rnf environmentId
+      `Prelude.seq` Prelude.rnf environmentName
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeInstancesHealth where
+instance Data.ToHeaders DescribeInstancesHealth where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeInstancesHealth where
+instance Data.ToPath DescribeInstancesHealth where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeInstancesHealth where
+instance Data.ToQuery DescribeInstancesHealth where
   toQuery DescribeInstancesHealth' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeInstancesHealth" :: Prelude.ByteString),
+          Data.=: ("DescribeInstancesHealth" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "NextToken" Core.=: nextToken,
-        "EnvironmentName" Core.=: environmentName,
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
         "AttributeNames"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> attributeNames
             ),
-        "EnvironmentId" Core.=: environmentId
+        "EnvironmentId" Data.=: environmentId,
+        "EnvironmentName" Data.=: environmentName,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | Detailed health information about the Amazon EC2 instances in an AWS
@@ -186,7 +188,7 @@ data DescribeInstancesHealthResponse = DescribeInstancesHealthResponse'
     -- | Pagination token for the next page of results, if available.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The date and time that the health information was retrieved.
-    refreshedAt :: Prelude.Maybe Core.ISO8601,
+    refreshedAt :: Prelude.Maybe Data.ISO8601,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -238,7 +240,7 @@ describeInstancesHealthResponse_nextToken = Lens.lens (\DescribeInstancesHealthR
 
 -- | The date and time that the health information was retrieved.
 describeInstancesHealthResponse_refreshedAt :: Lens.Lens' DescribeInstancesHealthResponse (Prelude.Maybe Prelude.UTCTime)
-describeInstancesHealthResponse_refreshedAt = Lens.lens (\DescribeInstancesHealthResponse' {refreshedAt} -> refreshedAt) (\s@DescribeInstancesHealthResponse' {} a -> s {refreshedAt = a} :: DescribeInstancesHealthResponse) Prelude.. Lens.mapping Core._Time
+describeInstancesHealthResponse_refreshedAt = Lens.lens (\DescribeInstancesHealthResponse' {refreshedAt} -> refreshedAt) (\s@DescribeInstancesHealthResponse' {} a -> s {refreshedAt = a} :: DescribeInstancesHealthResponse) Prelude.. Lens.mapping Data._Time
 
 -- | The response's http status code.
 describeInstancesHealthResponse_httpStatus :: Lens.Lens' DescribeInstancesHealthResponse Prelude.Int

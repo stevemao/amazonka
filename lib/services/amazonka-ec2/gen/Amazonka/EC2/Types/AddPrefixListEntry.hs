@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.AddPrefixListEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.AddPrefixListEntry where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An entry for a prefix list.
@@ -80,9 +81,9 @@ instance Prelude.NFData AddPrefixListEntry where
     Prelude.rnf description
       `Prelude.seq` Prelude.rnf cidr
 
-instance Core.ToQuery AddPrefixListEntry where
+instance Data.ToQuery AddPrefixListEntry where
   toQuery AddPrefixListEntry' {..} =
     Prelude.mconcat
-      [ "Description" Core.=: description,
-        "Cidr" Core.=: cidr
+      [ "Description" Data.=: description,
+        "Cidr" Data.=: cidr
       ]

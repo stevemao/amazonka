@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DisableVpcClassicLinkDnsSupport
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,6 +28,11 @@
 -- in the /Amazon Elastic Compute Cloud User Guide/.
 --
 -- You must specify a VPC ID in the request.
+--
+-- We are retiring EC2-Classic. We recommend that you migrate from
+-- EC2-Classic to a VPC. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html Migrate from EC2-Classic to a VPC>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
 module Amazonka.EC2.DisableVpcClassicLinkDnsSupport
   ( -- * Creating a Request
     DisableVpcClassicLinkDnsSupport (..),
@@ -47,8 +52,9 @@ module Amazonka.EC2.DisableVpcClassicLinkDnsSupport
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,12 +94,13 @@ instance
   type
     AWSResponse DisableVpcClassicLinkDnsSupport =
       DisableVpcClassicLinkDnsSupportResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DisableVpcClassicLinkDnsSupportResponse'
-            Prelude.<$> (x Core..@? "return")
+            Prelude.<$> (x Data..@? "return")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -114,24 +121,24 @@ instance
     Prelude.rnf vpcId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DisableVpcClassicLinkDnsSupport
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DisableVpcClassicLinkDnsSupport where
+instance Data.ToPath DisableVpcClassicLinkDnsSupport where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisableVpcClassicLinkDnsSupport where
+instance Data.ToQuery DisableVpcClassicLinkDnsSupport where
   toQuery DisableVpcClassicLinkDnsSupport' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DisableVpcClassicLinkDnsSupport" ::
+          Data.=: ( "DisableVpcClassicLinkDnsSupport" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "VpcId" Core.=: vpcId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "VpcId" Data.=: vpcId
       ]
 
 -- | /See:/ 'newDisableVpcClassicLinkDnsSupportResponse' smart constructor.

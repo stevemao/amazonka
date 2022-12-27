@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.DescribeTapes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,8 +32,8 @@ module Amazonka.StorageGateway.DescribeTapes
     newDescribeTapes,
 
     -- * Request Lenses
-    describeTapes_marker,
     describeTapes_limit,
+    describeTapes_marker,
     describeTapes_tapeARNs,
     describeTapes_gatewayARN,
 
@@ -49,7 +49,8 @@ module Amazonka.StorageGateway.DescribeTapes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,16 +60,16 @@ import Amazonka.StorageGateway.Types
 --
 -- /See:/ 'newDescribeTapes' smart constructor.
 data DescribeTapes = DescribeTapes'
-  { -- | A marker value, obtained in a previous call to @DescribeTapes@. This
-    -- marker indicates which page of results to retrieve.
-    --
-    -- If not specified, the first page of results is retrieved.
-    marker :: Prelude.Maybe Prelude.Text,
-    -- | Specifies that the number of virtual tapes described be limited to the
+  { -- | Specifies that the number of virtual tapes described be limited to the
     -- specified number.
     --
     -- Amazon Web Services may impose its own limit, if this field is not set.
     limit :: Prelude.Maybe Prelude.Natural,
+    -- | A marker value, obtained in a previous call to @DescribeTapes@. This
+    -- marker indicates which page of results to retrieve.
+    --
+    -- If not specified, the first page of results is retrieved.
+    marker :: Prelude.Maybe Prelude.Text,
     -- | Specifies one or more unique Amazon Resource Names (ARNs) that represent
     -- the virtual tapes you want to describe. If this parameter is not
     -- specified, Tape gateway returns a description of all virtual tapes
@@ -86,15 +87,15 @@ data DescribeTapes = DescribeTapes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'marker', 'describeTapes_marker' - A marker value, obtained in a previous call to @DescribeTapes@. This
--- marker indicates which page of results to retrieve.
---
--- If not specified, the first page of results is retrieved.
---
 -- 'limit', 'describeTapes_limit' - Specifies that the number of virtual tapes described be limited to the
 -- specified number.
 --
 -- Amazon Web Services may impose its own limit, if this field is not set.
+--
+-- 'marker', 'describeTapes_marker' - A marker value, obtained in a previous call to @DescribeTapes@. This
+-- marker indicates which page of results to retrieve.
+--
+-- If not specified, the first page of results is retrieved.
 --
 -- 'tapeARNs', 'describeTapes_tapeARNs' - Specifies one or more unique Amazon Resource Names (ARNs) that represent
 -- the virtual tapes you want to describe. If this parameter is not
@@ -108,18 +109,11 @@ newDescribeTapes ::
   DescribeTapes
 newDescribeTapes pGatewayARN_ =
   DescribeTapes'
-    { marker = Prelude.Nothing,
-      limit = Prelude.Nothing,
+    { limit = Prelude.Nothing,
+      marker = Prelude.Nothing,
       tapeARNs = Prelude.Nothing,
       gatewayARN = pGatewayARN_
     }
-
--- | A marker value, obtained in a previous call to @DescribeTapes@. This
--- marker indicates which page of results to retrieve.
---
--- If not specified, the first page of results is retrieved.
-describeTapes_marker :: Lens.Lens' DescribeTapes (Prelude.Maybe Prelude.Text)
-describeTapes_marker = Lens.lens (\DescribeTapes' {marker} -> marker) (\s@DescribeTapes' {} a -> s {marker = a} :: DescribeTapes)
 
 -- | Specifies that the number of virtual tapes described be limited to the
 -- specified number.
@@ -127,6 +121,13 @@ describeTapes_marker = Lens.lens (\DescribeTapes' {marker} -> marker) (\s@Descri
 -- Amazon Web Services may impose its own limit, if this field is not set.
 describeTapes_limit :: Lens.Lens' DescribeTapes (Prelude.Maybe Prelude.Natural)
 describeTapes_limit = Lens.lens (\DescribeTapes' {limit} -> limit) (\s@DescribeTapes' {} a -> s {limit = a} :: DescribeTapes)
+
+-- | A marker value, obtained in a previous call to @DescribeTapes@. This
+-- marker indicates which page of results to retrieve.
+--
+-- If not specified, the first page of results is retrieved.
+describeTapes_marker :: Lens.Lens' DescribeTapes (Prelude.Maybe Prelude.Text)
+describeTapes_marker = Lens.lens (\DescribeTapes' {marker} -> marker) (\s@DescribeTapes' {} a -> s {marker = a} :: DescribeTapes)
 
 -- | Specifies one or more unique Amazon Resource Names (ARNs) that represent
 -- the virtual tapes you want to describe. If this parameter is not
@@ -162,60 +163,61 @@ instance Core.AWSRequest DescribeTapes where
   type
     AWSResponse DescribeTapes =
       DescribeTapesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeTapesResponse'
-            Prelude.<$> (x Core..?> "Marker")
-            Prelude.<*> (x Core..?> "Tapes" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Marker")
+            Prelude.<*> (x Data..?> "Tapes" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeTapes where
   hashWithSalt _salt DescribeTapes' {..} =
-    _salt `Prelude.hashWithSalt` marker
-      `Prelude.hashWithSalt` limit
+    _salt `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` tapeARNs
       `Prelude.hashWithSalt` gatewayARN
 
 instance Prelude.NFData DescribeTapes where
   rnf DescribeTapes' {..} =
-    Prelude.rnf marker
-      `Prelude.seq` Prelude.rnf limit
+    Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf tapeARNs
       `Prelude.seq` Prelude.rnf gatewayARN
 
-instance Core.ToHeaders DescribeTapes where
+instance Data.ToHeaders DescribeTapes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.DescribeTapes" ::
+              Data.=# ( "StorageGateway_20130630.DescribeTapes" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeTapes where
+instance Data.ToJSON DescribeTapes where
   toJSON DescribeTapes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Marker" Core..=) Prelude.<$> marker,
-            ("Limit" Core..=) Prelude.<$> limit,
-            ("TapeARNs" Core..=) Prelude.<$> tapeARNs,
-            Prelude.Just ("GatewayARN" Core..= gatewayARN)
+          [ ("Limit" Data..=) Prelude.<$> limit,
+            ("Marker" Data..=) Prelude.<$> marker,
+            ("TapeARNs" Data..=) Prelude.<$> tapeARNs,
+            Prelude.Just ("GatewayARN" Data..= gatewayARN)
           ]
       )
 
-instance Core.ToPath DescribeTapes where
+instance Data.ToPath DescribeTapes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeTapes where
+instance Data.ToQuery DescribeTapes where
   toQuery = Prelude.const Prelude.mempty
 
 -- | DescribeTapesOutput

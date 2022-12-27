@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MachineLearning.UpdateDataSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.MachineLearning.UpdateDataSource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MachineLearning.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -97,12 +98,13 @@ instance Core.AWSRequest UpdateDataSource where
   type
     AWSResponse UpdateDataSource =
       UpdateDataSourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateDataSourceResponse'
-            Prelude.<$> (x Core..?> "DataSourceId")
+            Prelude.<$> (x Data..?> "DataSourceId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,35 +118,35 @@ instance Prelude.NFData UpdateDataSource where
     Prelude.rnf dataSourceId
       `Prelude.seq` Prelude.rnf dataSourceName
 
-instance Core.ToHeaders UpdateDataSource where
+instance Data.ToHeaders UpdateDataSource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonML_20141212.UpdateDataSource" ::
+              Data.=# ( "AmazonML_20141212.UpdateDataSource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateDataSource where
+instance Data.ToJSON UpdateDataSource where
   toJSON UpdateDataSource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("DataSourceId" Core..= dataSourceId),
+          [ Prelude.Just ("DataSourceId" Data..= dataSourceId),
             Prelude.Just
-              ("DataSourceName" Core..= dataSourceName)
+              ("DataSourceName" Data..= dataSourceName)
           ]
       )
 
-instance Core.ToPath UpdateDataSource where
+instance Data.ToPath UpdateDataSource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateDataSource where
+instance Data.ToQuery UpdateDataSource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of an @UpdateDataSource@ operation.

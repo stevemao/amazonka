@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.ListPrompts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.Connect.ListPrompts
     newListPrompts,
 
     -- * Request Lenses
-    listPrompts_nextToken,
     listPrompts_maxResults,
+    listPrompts_nextToken,
     listPrompts_instanceId,
 
     -- * Destructuring the Response
@@ -39,27 +39,29 @@ module Amazonka.Connect.ListPrompts
     newListPromptsResponse,
 
     -- * Response Lenses
-    listPromptsResponse_promptSummaryList,
     listPromptsResponse_nextToken,
+    listPromptsResponse_promptSummaryList,
     listPromptsResponse_httpStatus,
   )
 where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListPrompts' smart constructor.
 data ListPrompts = ListPrompts'
-  { -- | The token for the next set of results. Use the value returned in the
+  { -- | The maximum number of results to return per page. The default MaxResult
+    -- size is 100.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results. Use the value returned in the
     -- previous response in the next request to retrieve the next set of
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return per page.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The identifier of the Amazon Connect instance.
     instanceId :: Prelude.Text
   }
@@ -73,11 +75,12 @@ data ListPrompts = ListPrompts'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listPrompts_maxResults' - The maximum number of results to return per page. The default MaxResult
+-- size is 100.
+--
 -- 'nextToken', 'listPrompts_nextToken' - The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
---
--- 'maxResults', 'listPrompts_maxResults' - The maximum number of results to return per page.
 --
 -- 'instanceId', 'listPrompts_instanceId' - The identifier of the Amazon Connect instance.
 newListPrompts ::
@@ -86,20 +89,21 @@ newListPrompts ::
   ListPrompts
 newListPrompts pInstanceId_ =
   ListPrompts'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       instanceId = pInstanceId_
     }
+
+-- | The maximum number of results to return per page. The default MaxResult
+-- size is 100.
+listPrompts_maxResults :: Lens.Lens' ListPrompts (Prelude.Maybe Prelude.Natural)
+listPrompts_maxResults = Lens.lens (\ListPrompts' {maxResults} -> maxResults) (\s@ListPrompts' {} a -> s {maxResults = a} :: ListPrompts)
 
 -- | The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
 listPrompts_nextToken :: Lens.Lens' ListPrompts (Prelude.Maybe Prelude.Text)
 listPrompts_nextToken = Lens.lens (\ListPrompts' {nextToken} -> nextToken) (\s@ListPrompts' {} a -> s {nextToken = a} :: ListPrompts)
-
--- | The maximum number of results to return per page.
-listPrompts_maxResults :: Lens.Lens' ListPrompts (Prelude.Maybe Prelude.Natural)
-listPrompts_maxResults = Lens.lens (\ListPrompts' {maxResults} -> maxResults) (\s@ListPrompts' {} a -> s {maxResults = a} :: ListPrompts)
 
 -- | The identifier of the Amazon Connect instance.
 listPrompts_instanceId :: Lens.Lens' ListPrompts Prelude.Text
@@ -127,60 +131,61 @@ instance Core.AWSPager ListPrompts where
 
 instance Core.AWSRequest ListPrompts where
   type AWSResponse ListPrompts = ListPromptsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPromptsResponse'
-            Prelude.<$> ( x Core..?> "PromptSummaryList"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "PromptSummaryList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListPrompts where
   hashWithSalt _salt ListPrompts' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` instanceId
 
 instance Prelude.NFData ListPrompts where
   rnf ListPrompts' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf instanceId
 
-instance Core.ToHeaders ListPrompts where
+instance Data.ToHeaders ListPrompts where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListPrompts where
+instance Data.ToPath ListPrompts where
   toPath ListPrompts' {..} =
     Prelude.mconcat
-      ["/prompts-summary/", Core.toBS instanceId]
+      ["/prompts-summary/", Data.toBS instanceId]
 
-instance Core.ToQuery ListPrompts where
+instance Data.ToQuery ListPrompts where
   toQuery ListPrompts' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListPromptsResponse' smart constructor.
 data ListPromptsResponse = ListPromptsResponse'
-  { -- | Information about the prompts.
-    promptSummaryList :: Prelude.Maybe [PromptSummary],
-    -- | If there are additional results, this is the token for the next set of
+  { -- | If there are additional results, this is the token for the next set of
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the prompts.
+    promptSummaryList :: Prelude.Maybe [PromptSummary],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -194,10 +199,10 @@ data ListPromptsResponse = ListPromptsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'promptSummaryList', 'listPromptsResponse_promptSummaryList' - Information about the prompts.
---
 -- 'nextToken', 'listPromptsResponse_nextToken' - If there are additional results, this is the token for the next set of
 -- results.
+--
+-- 'promptSummaryList', 'listPromptsResponse_promptSummaryList' - Information about the prompts.
 --
 -- 'httpStatus', 'listPromptsResponse_httpStatus' - The response's http status code.
 newListPromptsResponse ::
@@ -206,20 +211,19 @@ newListPromptsResponse ::
   ListPromptsResponse
 newListPromptsResponse pHttpStatus_ =
   ListPromptsResponse'
-    { promptSummaryList =
-        Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { nextToken = Prelude.Nothing,
+      promptSummaryList = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Information about the prompts.
-listPromptsResponse_promptSummaryList :: Lens.Lens' ListPromptsResponse (Prelude.Maybe [PromptSummary])
-listPromptsResponse_promptSummaryList = Lens.lens (\ListPromptsResponse' {promptSummaryList} -> promptSummaryList) (\s@ListPromptsResponse' {} a -> s {promptSummaryList = a} :: ListPromptsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | If there are additional results, this is the token for the next set of
 -- results.
 listPromptsResponse_nextToken :: Lens.Lens' ListPromptsResponse (Prelude.Maybe Prelude.Text)
 listPromptsResponse_nextToken = Lens.lens (\ListPromptsResponse' {nextToken} -> nextToken) (\s@ListPromptsResponse' {} a -> s {nextToken = a} :: ListPromptsResponse)
+
+-- | Information about the prompts.
+listPromptsResponse_promptSummaryList :: Lens.Lens' ListPromptsResponse (Prelude.Maybe [PromptSummary])
+listPromptsResponse_promptSummaryList = Lens.lens (\ListPromptsResponse' {promptSummaryList} -> promptSummaryList) (\s@ListPromptsResponse' {} a -> s {promptSummaryList = a} :: ListPromptsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listPromptsResponse_httpStatus :: Lens.Lens' ListPromptsResponse Prelude.Int
@@ -227,6 +231,6 @@ listPromptsResponse_httpStatus = Lens.lens (\ListPromptsResponse' {httpStatus} -
 
 instance Prelude.NFData ListPromptsResponse where
   rnf ListPromptsResponse' {..} =
-    Prelude.rnf promptSummaryList
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf promptSummaryList
       `Prelude.seq` Prelude.rnf httpStatus

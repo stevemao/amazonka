@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.GetEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.Pinpoint.GetEndpoint
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -93,13 +94,14 @@ getEndpoint_endpointId = Lens.lens (\GetEndpoint' {endpointId} -> endpointId) (\
 
 instance Core.AWSRequest GetEndpoint where
   type AWSResponse GetEndpoint = GetEndpointResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetEndpointResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable GetEndpoint where
@@ -112,27 +114,27 @@ instance Prelude.NFData GetEndpoint where
     Prelude.rnf applicationId
       `Prelude.seq` Prelude.rnf endpointId
 
-instance Core.ToHeaders GetEndpoint where
+instance Data.ToHeaders GetEndpoint where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetEndpoint where
+instance Data.ToPath GetEndpoint where
   toPath GetEndpoint' {..} =
     Prelude.mconcat
       [ "/v1/apps/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/endpoints/",
-        Core.toBS endpointId
+        Data.toBS endpointId
       ]
 
-instance Core.ToQuery GetEndpoint where
+instance Data.ToQuery GetEndpoint where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetEndpointResponse' smart constructor.

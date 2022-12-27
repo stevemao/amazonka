@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Discovery.DeleteTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.Discovery.DeleteTags
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Discovery.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,7 +98,8 @@ deleteTags_configurationIds = Lens.lens (\DeleteTags' {configurationIds} -> conf
 
 instance Core.AWSRequest DeleteTags where
   type AWSResponse DeleteTags = DeleteTagsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -115,35 +117,35 @@ instance Prelude.NFData DeleteTags where
     Prelude.rnf tags
       `Prelude.seq` Prelude.rnf configurationIds
 
-instance Core.ToHeaders DeleteTags where
+instance Data.ToHeaders DeleteTags where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSPoseidonService_V2015_11_01.DeleteTags" ::
+              Data.=# ( "AWSPoseidonService_V2015_11_01.DeleteTags" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteTags where
+instance Data.ToJSON DeleteTags where
   toJSON DeleteTags' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("tags" Core..=) Prelude.<$> tags,
+          [ ("tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("configurationIds" Core..= configurationIds)
+              ("configurationIds" Data..= configurationIds)
           ]
       )
 
-instance Core.ToPath DeleteTags where
+instance Data.ToPath DeleteTags where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteTags where
+instance Data.ToQuery DeleteTags where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteTagsResponse' smart constructor.

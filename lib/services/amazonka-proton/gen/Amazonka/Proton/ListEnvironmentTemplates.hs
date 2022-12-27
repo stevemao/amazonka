@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Proton.ListEnvironmentTemplates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Proton.ListEnvironmentTemplates
     newListEnvironmentTemplates,
 
     -- * Request Lenses
-    listEnvironmentTemplates_nextToken,
     listEnvironmentTemplates_maxResults,
+    listEnvironmentTemplates_nextToken,
 
     -- * Destructuring the Response
     ListEnvironmentTemplatesResponse (..),
@@ -44,7 +44,8 @@ module Amazonka.Proton.ListEnvironmentTemplates
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types
 import qualified Amazonka.Request as Request
@@ -52,12 +53,12 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListEnvironmentTemplates' smart constructor.
 data ListEnvironmentTemplates = ListEnvironmentTemplates'
-  { -- | A token to indicate the location of the next environment template in the
-    -- array of environment templates, after the list of environment templates
-    -- that was previously requested.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of environment templates to list.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | The maximum number of environment templates to list.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token that indicates the location of the next environment template in
+    -- the array of environment templates, after the list of environment
+    -- templates that was previously requested.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -69,29 +70,29 @@ data ListEnvironmentTemplates = ListEnvironmentTemplates'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listEnvironmentTemplates_nextToken' - A token to indicate the location of the next environment template in the
--- array of environment templates, after the list of environment templates
--- that was previously requested.
---
 -- 'maxResults', 'listEnvironmentTemplates_maxResults' - The maximum number of environment templates to list.
+--
+-- 'nextToken', 'listEnvironmentTemplates_nextToken' - A token that indicates the location of the next environment template in
+-- the array of environment templates, after the list of environment
+-- templates that was previously requested.
 newListEnvironmentTemplates ::
   ListEnvironmentTemplates
 newListEnvironmentTemplates =
   ListEnvironmentTemplates'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
-
--- | A token to indicate the location of the next environment template in the
--- array of environment templates, after the list of environment templates
--- that was previously requested.
-listEnvironmentTemplates_nextToken :: Lens.Lens' ListEnvironmentTemplates (Prelude.Maybe Prelude.Text)
-listEnvironmentTemplates_nextToken = Lens.lens (\ListEnvironmentTemplates' {nextToken} -> nextToken) (\s@ListEnvironmentTemplates' {} a -> s {nextToken = a} :: ListEnvironmentTemplates)
 
 -- | The maximum number of environment templates to list.
 listEnvironmentTemplates_maxResults :: Lens.Lens' ListEnvironmentTemplates (Prelude.Maybe Prelude.Natural)
 listEnvironmentTemplates_maxResults = Lens.lens (\ListEnvironmentTemplates' {maxResults} -> maxResults) (\s@ListEnvironmentTemplates' {} a -> s {maxResults = a} :: ListEnvironmentTemplates)
+
+-- | A token that indicates the location of the next environment template in
+-- the array of environment templates, after the list of environment
+-- templates that was previously requested.
+listEnvironmentTemplates_nextToken :: Lens.Lens' ListEnvironmentTemplates (Prelude.Maybe Prelude.Text)
+listEnvironmentTemplates_nextToken = Lens.lens (\ListEnvironmentTemplates' {nextToken} -> nextToken) (\s@ListEnvironmentTemplates' {} a -> s {nextToken = a} :: ListEnvironmentTemplates)
 
 instance Core.AWSPager ListEnvironmentTemplates where
   page rq rs
@@ -118,60 +119,61 @@ instance Core.AWSRequest ListEnvironmentTemplates where
   type
     AWSResponse ListEnvironmentTemplates =
       ListEnvironmentTemplatesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListEnvironmentTemplatesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "templates" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "templates" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListEnvironmentTemplates where
   hashWithSalt _salt ListEnvironmentTemplates' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListEnvironmentTemplates where
   rnf ListEnvironmentTemplates' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListEnvironmentTemplates where
+instance Data.ToHeaders ListEnvironmentTemplates where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AwsProton20200720.ListEnvironmentTemplates" ::
+              Data.=# ( "AwsProton20200720.ListEnvironmentTemplates" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListEnvironmentTemplates where
+instance Data.ToJSON ListEnvironmentTemplates where
   toJSON ListEnvironmentTemplates' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListEnvironmentTemplates where
+instance Data.ToPath ListEnvironmentTemplates where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListEnvironmentTemplates where
+instance Data.ToQuery ListEnvironmentTemplates where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListEnvironmentTemplatesResponse' smart constructor.
 data ListEnvironmentTemplatesResponse = ListEnvironmentTemplatesResponse'
-  { -- | A token to indicate the location of the next environment template in the
-    -- array of environment templates, after the current requested list of
+  { -- | A token that indicates the location of the next environment template in
+    -- the array of environment templates, after the current requested list of
     -- environment templates.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
@@ -189,8 +191,8 @@ data ListEnvironmentTemplatesResponse = ListEnvironmentTemplatesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listEnvironmentTemplatesResponse_nextToken' - A token to indicate the location of the next environment template in the
--- array of environment templates, after the current requested list of
+-- 'nextToken', 'listEnvironmentTemplatesResponse_nextToken' - A token that indicates the location of the next environment template in
+-- the array of environment templates, after the current requested list of
 -- environment templates.
 --
 -- 'httpStatus', 'listEnvironmentTemplatesResponse_httpStatus' - The response's http status code.
@@ -208,8 +210,8 @@ newListEnvironmentTemplatesResponse pHttpStatus_ =
       templates = Prelude.mempty
     }
 
--- | A token to indicate the location of the next environment template in the
--- array of environment templates, after the current requested list of
+-- | A token that indicates the location of the next environment template in
+-- the array of environment templates, after the current requested list of
 -- environment templates.
 listEnvironmentTemplatesResponse_nextToken :: Lens.Lens' ListEnvironmentTemplatesResponse (Prelude.Maybe Prelude.Text)
 listEnvironmentTemplatesResponse_nextToken = Lens.lens (\ListEnvironmentTemplatesResponse' {nextToken} -> nextToken) (\s@ListEnvironmentTemplatesResponse' {} a -> s {nextToken = a} :: ListEnvironmentTemplatesResponse)

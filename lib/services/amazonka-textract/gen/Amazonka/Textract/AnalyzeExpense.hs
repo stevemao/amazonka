@@ -14,16 +14,16 @@
 
 -- |
 -- Module      : Amazonka.Textract.AnalyzeExpense
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Analyzes an input document for financially related relationships between
--- text.
+-- @AnalyzeExpense@ synchronously analyzes an input document for
+-- financially related relationships between text.
 --
--- Information is returned as @ExpenseDocuments@ and seperated as follows.
+-- Information is returned as @ExpenseDocuments@ and seperated as follows:
 --
 -- -   @LineItemGroups@- A data set containing @LineItems@ which store
 --     information about the lines of text, such as an item purchased and
@@ -51,7 +51,8 @@ module Amazonka.Textract.AnalyzeExpense
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -87,13 +88,14 @@ instance Core.AWSRequest AnalyzeExpense where
   type
     AWSResponse AnalyzeExpense =
       AnalyzeExpenseResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AnalyzeExpenseResponse'
-            Prelude.<$> (x Core..?> "DocumentMetadata")
-            Prelude.<*> ( x Core..?> "ExpenseDocuments"
+            Prelude.<$> (x Data..?> "DocumentMetadata")
+            Prelude.<*> ( x Data..?> "ExpenseDocuments"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -106,30 +108,30 @@ instance Prelude.Hashable AnalyzeExpense where
 instance Prelude.NFData AnalyzeExpense where
   rnf AnalyzeExpense' {..} = Prelude.rnf document
 
-instance Core.ToHeaders AnalyzeExpense where
+instance Data.ToHeaders AnalyzeExpense where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("Textract.AnalyzeExpense" :: Prelude.ByteString),
+              Data.=# ("Textract.AnalyzeExpense" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AnalyzeExpense where
+instance Data.ToJSON AnalyzeExpense where
   toJSON AnalyzeExpense' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Document" Core..= document)]
+          [Prelude.Just ("Document" Data..= document)]
       )
 
-instance Core.ToPath AnalyzeExpense where
+instance Data.ToPath AnalyzeExpense where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AnalyzeExpense where
+instance Data.ToQuery AnalyzeExpense where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAnalyzeExpenseResponse' smart constructor.

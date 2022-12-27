@@ -14,83 +14,39 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.UpdateDistribution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the configuration for a web distribution.
---
--- When you update a distribution, there are more required fields than when
--- you create a distribution. When you update your distribution by using
--- this API action, follow the steps here to get the current configuration
--- and then make your updates, to make sure that you include all of the
--- required fields. To view a summary, see
--- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-overview-required-fields.html Required Fields for Create Distribution and Update Distribution>
--- in the /Amazon CloudFront Developer Guide/.
+-- Updates the configuration for a CloudFront distribution.
 --
 -- The update process includes getting the current distribution
--- configuration, updating the XML document that is returned to make your
--- changes, and then submitting an @UpdateDistribution@ request to make the
--- updates.
---
--- For information about updating a distribution using the CloudFront
--- console instead, see
--- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-creating-console.html Creating a Distribution>
--- in the /Amazon CloudFront Developer Guide/.
+-- configuration, updating it to make your changes, and then submitting an
+-- @UpdateDistribution@ request to make the updates.
 --
 -- __To update a web distribution using the CloudFront API__
 --
--- 1.  Submit a
---     <https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetDistributionConfig.html GetDistributionConfig>
---     request to get the current configuration and an @Etag@ header for
---     the distribution.
+-- 1.  Use @GetDistributionConfig@ to get the current configuration,
+--     including the version identifier (@ETag@).
 --
---     If you update the distribution again, you must get a new @Etag@
---     header.
+-- 2.  Update the distribution configuration that was returned in the
+--     response. Note the following important requirements and
+--     restrictions:
 --
--- 2.  Update the XML document that was returned in the response to your
---     @GetDistributionConfig@ request to include your changes.
+--     -   You must rename the @ETag@ field to @IfMatch@, leaving the value
+--         unchanged. (Set the value of @IfMatch@ to the value of @ETag@,
+--         then remove the @ETag@ field.)
 --
---     When you edit the XML file, be aware of the following:
+--     -   You can’t change the value of @CallerReference@.
 --
---     -   You must strip out the ETag parameter that is returned.
---
---     -   Additional fields are required when you update a distribution.
---         There may be fields included in the XML file for features that
---         you haven\'t configured for your distribution. This is expected
---         and required to successfully update the distribution.
---
---     -   You can\'t change the value of @CallerReference@. If you try to
---         change this value, CloudFront returns an @IllegalUpdate@ error.
---
---     -   The new configuration replaces the existing configuration; the
---         values that you specify in an @UpdateDistribution@ request are
---         not merged into your existing configuration. When you add,
---         delete, or replace values in an element that allows multiple
---         values (for example, @CNAME@), you must specify all of the
---         values that you want to appear in the updated distribution. In
---         addition, you must update the corresponding @Quantity@ element.
---
--- 3.  Submit an @UpdateDistribution@ request to update the configuration
---     for your distribution:
---
---     -   In the request body, include the XML document that you updated
---         in Step 2. The request body must include an XML document with a
---         @DistributionConfig@ element.
---
---     -   Set the value of the HTTP @If-Match@ header to the value of the
---         @ETag@ header that CloudFront returned when you submitted the
---         @GetDistributionConfig@ request in Step 1.
---
--- 4.  Review the response to the @UpdateDistribution@ request to confirm
---     that the configuration was successfully updated.
---
--- 5.  Optional: Submit a
---     <https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetDistribution.html GetDistribution>
---     request to confirm that your changes have propagated. When
---     propagation is complete, the value of @Status@ is @Deployed@.
+-- 3.  Submit an @UpdateDistribution@ request, providing the distribution
+--     configuration. The new configuration replaces the existing
+--     configuration. The values that you specify in an
+--     @UpdateDistribution@ request are not merged into your existing
+--     configuration. Make sure to include all fields: the ones that you
+--     modified and also the ones that you didn’t.
 module Amazonka.CloudFront.UpdateDistribution
   ( -- * Creating a Request
     UpdateDistribution (..),
@@ -106,15 +62,16 @@ module Amazonka.CloudFront.UpdateDistribution
     newUpdateDistributionResponse,
 
     -- * Response Lenses
-    updateDistributionResponse_eTag,
     updateDistributionResponse_distribution,
+    updateDistributionResponse_eTag,
     updateDistributionResponse_httpStatus,
   )
 where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -177,13 +134,14 @@ instance Core.AWSRequest UpdateDistribution where
   type
     AWSResponse UpdateDistribution =
       UpdateDistributionResponse
-  request = Request.putXML defaultService
+  request overrides =
+    Request.putXML (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           UpdateDistributionResponse'
-            Prelude.<$> (h Core..#? "ETag")
-            Prelude.<*> (Core.parseXML x)
+            Prelude.<$> (Data.parseXML x)
+            Prelude.<*> (h Data..#? "ETag")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -199,35 +157,35 @@ instance Prelude.NFData UpdateDistribution where
       `Prelude.seq` Prelude.rnf distributionConfig
       `Prelude.seq` Prelude.rnf id
 
-instance Core.ToElement UpdateDistribution where
+instance Data.ToElement UpdateDistribution where
   toElement UpdateDistribution' {..} =
-    Core.mkElement
+    Data.mkElement
       "{http://cloudfront.amazonaws.com/doc/2020-05-31/}DistributionConfig"
       distributionConfig
 
-instance Core.ToHeaders UpdateDistribution where
+instance Data.ToHeaders UpdateDistribution where
   toHeaders UpdateDistribution' {..} =
-    Prelude.mconcat ["If-Match" Core.=# ifMatch]
+    Prelude.mconcat ["If-Match" Data.=# ifMatch]
 
-instance Core.ToPath UpdateDistribution where
+instance Data.ToPath UpdateDistribution where
   toPath UpdateDistribution' {..} =
     Prelude.mconcat
       [ "/2020-05-31/distribution/",
-        Core.toBS id,
+        Data.toBS id,
         "/config"
       ]
 
-instance Core.ToQuery UpdateDistribution where
+instance Data.ToQuery UpdateDistribution where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The returned result of the corresponding request.
 --
 -- /See:/ 'newUpdateDistributionResponse' smart constructor.
 data UpdateDistributionResponse = UpdateDistributionResponse'
-  { -- | The current version of the configuration. For example: @E2QWRUHAPOMQZL@.
-    eTag :: Prelude.Maybe Prelude.Text,
-    -- | The distribution\'s information.
+  { -- | The distribution\'s information.
     distribution :: Prelude.Maybe Distribution,
+    -- | The current version of the configuration. For example: @E2QWRUHAPOMQZL@.
+    eTag :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -241,9 +199,9 @@ data UpdateDistributionResponse = UpdateDistributionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'eTag', 'updateDistributionResponse_eTag' - The current version of the configuration. For example: @E2QWRUHAPOMQZL@.
---
 -- 'distribution', 'updateDistributionResponse_distribution' - The distribution\'s information.
+--
+-- 'eTag', 'updateDistributionResponse_eTag' - The current version of the configuration. For example: @E2QWRUHAPOMQZL@.
 --
 -- 'httpStatus', 'updateDistributionResponse_httpStatus' - The response's http status code.
 newUpdateDistributionResponse ::
@@ -252,18 +210,19 @@ newUpdateDistributionResponse ::
   UpdateDistributionResponse
 newUpdateDistributionResponse pHttpStatus_ =
   UpdateDistributionResponse'
-    { eTag = Prelude.Nothing,
-      distribution = Prelude.Nothing,
+    { distribution =
+        Prelude.Nothing,
+      eTag = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The current version of the configuration. For example: @E2QWRUHAPOMQZL@.
-updateDistributionResponse_eTag :: Lens.Lens' UpdateDistributionResponse (Prelude.Maybe Prelude.Text)
-updateDistributionResponse_eTag = Lens.lens (\UpdateDistributionResponse' {eTag} -> eTag) (\s@UpdateDistributionResponse' {} a -> s {eTag = a} :: UpdateDistributionResponse)
 
 -- | The distribution\'s information.
 updateDistributionResponse_distribution :: Lens.Lens' UpdateDistributionResponse (Prelude.Maybe Distribution)
 updateDistributionResponse_distribution = Lens.lens (\UpdateDistributionResponse' {distribution} -> distribution) (\s@UpdateDistributionResponse' {} a -> s {distribution = a} :: UpdateDistributionResponse)
+
+-- | The current version of the configuration. For example: @E2QWRUHAPOMQZL@.
+updateDistributionResponse_eTag :: Lens.Lens' UpdateDistributionResponse (Prelude.Maybe Prelude.Text)
+updateDistributionResponse_eTag = Lens.lens (\UpdateDistributionResponse' {eTag} -> eTag) (\s@UpdateDistributionResponse' {} a -> s {eTag = a} :: UpdateDistributionResponse)
 
 -- | The response's http status code.
 updateDistributionResponse_httpStatus :: Lens.Lens' UpdateDistributionResponse Prelude.Int
@@ -271,6 +230,6 @@ updateDistributionResponse_httpStatus = Lens.lens (\UpdateDistributionResponse' 
 
 instance Prelude.NFData UpdateDistributionResponse where
   rnf UpdateDistributionResponse' {..} =
-    Prelude.rnf eTag
-      `Prelude.seq` Prelude.rnf distribution
+    Prelude.rnf distribution
+      `Prelude.seq` Prelude.rnf eTag
       `Prelude.seq` Prelude.rnf httpStatus

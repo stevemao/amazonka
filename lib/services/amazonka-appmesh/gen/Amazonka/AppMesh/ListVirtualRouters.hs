@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.ListVirtualRouters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.AppMesh.ListVirtualRouters
     newListVirtualRouters,
 
     -- * Request Lenses
+    listVirtualRouters_limit,
     listVirtualRouters_meshOwner,
     listVirtualRouters_nextToken,
-    listVirtualRouters_limit,
     listVirtualRouters_meshName,
 
     -- * Destructuring the Response
@@ -47,7 +47,8 @@ where
 
 import Amazonka.AppMesh.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,17 +57,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListVirtualRouters' smart constructor.
 data ListVirtualRouters = ListVirtualRouters'
-  { -- | The AWS IAM account ID of the service mesh owner. If the account ID is
-    -- not your own, then it\'s the ID of the account that shared the mesh with
-    -- your account. For more information about mesh sharing, see
-    -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
-    meshOwner :: Prelude.Maybe Prelude.Text,
-    -- | The @nextToken@ value returned from a previous paginated
-    -- @ListVirtualRouters@ request where @limit@ was used and the results
-    -- exceeded the value of that parameter. Pagination continues from the end
-    -- of the previous results that returned the @nextToken@ value.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results returned by @ListVirtualRouters@ in
+  { -- | The maximum number of results returned by @ListVirtualRouters@ in
     -- paginated output. When you use this parameter, @ListVirtualRouters@
     -- returns only @limit@ results in a single page along with a @nextToken@
     -- response element. You can see the remaining results of the initial
@@ -75,6 +66,16 @@ data ListVirtualRouters = ListVirtualRouters'
     -- don\'t use this parameter, @ListVirtualRouters@ returns up to 100
     -- results and a @nextToken@ value if applicable.
     limit :: Prelude.Maybe Prelude.Natural,
+    -- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+    -- account ID is not your own, then it\'s the ID of the account that shared
+    -- the mesh with your account. For more information about mesh sharing, see
+    -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
+    meshOwner :: Prelude.Maybe Prelude.Text,
+    -- | The @nextToken@ value returned from a previous paginated
+    -- @ListVirtualRouters@ request where @limit@ was used and the results
+    -- exceeded the value of that parameter. Pagination continues from the end
+    -- of the previous results that returned the @nextToken@ value.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the service mesh to list virtual routers in.
     meshName :: Prelude.Text
   }
@@ -88,16 +89,6 @@ data ListVirtualRouters = ListVirtualRouters'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'meshOwner', 'listVirtualRouters_meshOwner' - The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
--- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
---
--- 'nextToken', 'listVirtualRouters_nextToken' - The @nextToken@ value returned from a previous paginated
--- @ListVirtualRouters@ request where @limit@ was used and the results
--- exceeded the value of that parameter. Pagination continues from the end
--- of the previous results that returned the @nextToken@ value.
---
 -- 'limit', 'listVirtualRouters_limit' - The maximum number of results returned by @ListVirtualRouters@ in
 -- paginated output. When you use this parameter, @ListVirtualRouters@
 -- returns only @limit@ results in a single page along with a @nextToken@
@@ -107,6 +98,16 @@ data ListVirtualRouters = ListVirtualRouters'
 -- don\'t use this parameter, @ListVirtualRouters@ returns up to 100
 -- results and a @nextToken@ value if applicable.
 --
+-- 'meshOwner', 'listVirtualRouters_meshOwner' - The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
+-- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
+--
+-- 'nextToken', 'listVirtualRouters_nextToken' - The @nextToken@ value returned from a previous paginated
+-- @ListVirtualRouters@ request where @limit@ was used and the results
+-- exceeded the value of that parameter. Pagination continues from the end
+-- of the previous results that returned the @nextToken@ value.
+--
 -- 'meshName', 'listVirtualRouters_meshName' - The name of the service mesh to list virtual routers in.
 newListVirtualRouters ::
   -- | 'meshName'
@@ -114,25 +115,11 @@ newListVirtualRouters ::
   ListVirtualRouters
 newListVirtualRouters pMeshName_ =
   ListVirtualRouters'
-    { meshOwner = Prelude.Nothing,
+    { limit = Prelude.Nothing,
+      meshOwner = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      limit = Prelude.Nothing,
       meshName = pMeshName_
     }
-
--- | The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
--- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
-listVirtualRouters_meshOwner :: Lens.Lens' ListVirtualRouters (Prelude.Maybe Prelude.Text)
-listVirtualRouters_meshOwner = Lens.lens (\ListVirtualRouters' {meshOwner} -> meshOwner) (\s@ListVirtualRouters' {} a -> s {meshOwner = a} :: ListVirtualRouters)
-
--- | The @nextToken@ value returned from a previous paginated
--- @ListVirtualRouters@ request where @limit@ was used and the results
--- exceeded the value of that parameter. Pagination continues from the end
--- of the previous results that returned the @nextToken@ value.
-listVirtualRouters_nextToken :: Lens.Lens' ListVirtualRouters (Prelude.Maybe Prelude.Text)
-listVirtualRouters_nextToken = Lens.lens (\ListVirtualRouters' {nextToken} -> nextToken) (\s@ListVirtualRouters' {} a -> s {nextToken = a} :: ListVirtualRouters)
 
 -- | The maximum number of results returned by @ListVirtualRouters@ in
 -- paginated output. When you use this parameter, @ListVirtualRouters@
@@ -144,6 +131,20 @@ listVirtualRouters_nextToken = Lens.lens (\ListVirtualRouters' {nextToken} -> ne
 -- results and a @nextToken@ value if applicable.
 listVirtualRouters_limit :: Lens.Lens' ListVirtualRouters (Prelude.Maybe Prelude.Natural)
 listVirtualRouters_limit = Lens.lens (\ListVirtualRouters' {limit} -> limit) (\s@ListVirtualRouters' {} a -> s {limit = a} :: ListVirtualRouters)
+
+-- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
+-- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
+listVirtualRouters_meshOwner :: Lens.Lens' ListVirtualRouters (Prelude.Maybe Prelude.Text)
+listVirtualRouters_meshOwner = Lens.lens (\ListVirtualRouters' {meshOwner} -> meshOwner) (\s@ListVirtualRouters' {} a -> s {meshOwner = a} :: ListVirtualRouters)
+
+-- | The @nextToken@ value returned from a previous paginated
+-- @ListVirtualRouters@ request where @limit@ was used and the results
+-- exceeded the value of that parameter. Pagination continues from the end
+-- of the previous results that returned the @nextToken@ value.
+listVirtualRouters_nextToken :: Lens.Lens' ListVirtualRouters (Prelude.Maybe Prelude.Text)
+listVirtualRouters_nextToken = Lens.lens (\ListVirtualRouters' {nextToken} -> nextToken) (\s@ListVirtualRouters' {} a -> s {nextToken = a} :: ListVirtualRouters)
 
 -- | The name of the service mesh to list virtual routers in.
 listVirtualRouters_meshName :: Lens.Lens' ListVirtualRouters Prelude.Text
@@ -174,57 +175,58 @@ instance Core.AWSRequest ListVirtualRouters where
   type
     AWSResponse ListVirtualRouters =
       ListVirtualRoutersResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListVirtualRoutersResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "virtualRouters"
+            Prelude.<*> ( x Data..?> "virtualRouters"
                             Core..!@ Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable ListVirtualRouters where
   hashWithSalt _salt ListVirtualRouters' {..} =
-    _salt `Prelude.hashWithSalt` meshOwner
+    _salt `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` meshOwner
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` limit
       `Prelude.hashWithSalt` meshName
 
 instance Prelude.NFData ListVirtualRouters where
   rnf ListVirtualRouters' {..} =
-    Prelude.rnf meshOwner
+    Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf meshOwner
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf limit
       `Prelude.seq` Prelude.rnf meshName
 
-instance Core.ToHeaders ListVirtualRouters where
+instance Data.ToHeaders ListVirtualRouters where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListVirtualRouters where
+instance Data.ToPath ListVirtualRouters where
   toPath ListVirtualRouters' {..} =
     Prelude.mconcat
       [ "/v20190125/meshes/",
-        Core.toBS meshName,
+        Data.toBS meshName,
         "/virtualRouters"
       ]
 
-instance Core.ToQuery ListVirtualRouters where
+instance Data.ToQuery ListVirtualRouters where
   toQuery ListVirtualRouters' {..} =
     Prelude.mconcat
-      [ "meshOwner" Core.=: meshOwner,
-        "nextToken" Core.=: nextToken,
-        "limit" Core.=: limit
+      [ "limit" Data.=: limit,
+        "meshOwner" Data.=: meshOwner,
+        "nextToken" Data.=: nextToken
       ]
 
 -- |

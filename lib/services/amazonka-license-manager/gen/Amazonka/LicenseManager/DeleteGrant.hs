@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.DeleteGrant
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,15 +36,16 @@ module Amazonka.LicenseManager.DeleteGrant
     newDeleteGrantResponse,
 
     -- * Response Lenses
+    deleteGrantResponse_grantArn,
     deleteGrantResponse_status,
     deleteGrantResponse_version,
-    deleteGrantResponse_grantArn,
     deleteGrantResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LicenseManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -101,14 +102,15 @@ deleteGrant_version = Lens.lens (\DeleteGrant' {version} -> version) (\s@DeleteG
 
 instance Core.AWSRequest DeleteGrant where
   type AWSResponse DeleteGrant = DeleteGrantResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteGrantResponse'
-            Prelude.<$> (x Core..?> "Status")
-            Prelude.<*> (x Core..?> "Version")
-            Prelude.<*> (x Core..?> "GrantArn")
+            Prelude.<$> (x Data..?> "GrantArn")
+            Prelude.<*> (x Data..?> "Status")
+            Prelude.<*> (x Data..?> "Version")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -124,45 +126,45 @@ instance Prelude.NFData DeleteGrant where
       `Prelude.seq` Prelude.rnf grantArn
       `Prelude.seq` Prelude.rnf version
 
-instance Core.ToHeaders DeleteGrant where
+instance Data.ToHeaders DeleteGrant where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSLicenseManager.DeleteGrant" ::
+              Data.=# ( "AWSLicenseManager.DeleteGrant" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteGrant where
+instance Data.ToJSON DeleteGrant where
   toJSON DeleteGrant' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("StatusReason" Core..=) Prelude.<$> statusReason,
-            Prelude.Just ("GrantArn" Core..= grantArn),
-            Prelude.Just ("Version" Core..= version)
+          [ ("StatusReason" Data..=) Prelude.<$> statusReason,
+            Prelude.Just ("GrantArn" Data..= grantArn),
+            Prelude.Just ("Version" Data..= version)
           ]
       )
 
-instance Core.ToPath DeleteGrant where
+instance Data.ToPath DeleteGrant where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteGrant where
+instance Data.ToQuery DeleteGrant where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteGrantResponse' smart constructor.
 data DeleteGrantResponse = DeleteGrantResponse'
-  { -- | Grant status.
+  { -- | Grant ARN.
+    grantArn :: Prelude.Maybe Prelude.Text,
+    -- | Grant status.
     status :: Prelude.Maybe GrantStatus,
     -- | Grant version.
     version :: Prelude.Maybe Prelude.Text,
-    -- | Grant ARN.
-    grantArn :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -176,11 +178,11 @@ data DeleteGrantResponse = DeleteGrantResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'grantArn', 'deleteGrantResponse_grantArn' - Grant ARN.
+--
 -- 'status', 'deleteGrantResponse_status' - Grant status.
 --
 -- 'version', 'deleteGrantResponse_version' - Grant version.
---
--- 'grantArn', 'deleteGrantResponse_grantArn' - Grant ARN.
 --
 -- 'httpStatus', 'deleteGrantResponse_httpStatus' - The response's http status code.
 newDeleteGrantResponse ::
@@ -189,11 +191,15 @@ newDeleteGrantResponse ::
   DeleteGrantResponse
 newDeleteGrantResponse pHttpStatus_ =
   DeleteGrantResponse'
-    { status = Prelude.Nothing,
+    { grantArn = Prelude.Nothing,
+      status = Prelude.Nothing,
       version = Prelude.Nothing,
-      grantArn = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | Grant ARN.
+deleteGrantResponse_grantArn :: Lens.Lens' DeleteGrantResponse (Prelude.Maybe Prelude.Text)
+deleteGrantResponse_grantArn = Lens.lens (\DeleteGrantResponse' {grantArn} -> grantArn) (\s@DeleteGrantResponse' {} a -> s {grantArn = a} :: DeleteGrantResponse)
 
 -- | Grant status.
 deleteGrantResponse_status :: Lens.Lens' DeleteGrantResponse (Prelude.Maybe GrantStatus)
@@ -203,17 +209,13 @@ deleteGrantResponse_status = Lens.lens (\DeleteGrantResponse' {status} -> status
 deleteGrantResponse_version :: Lens.Lens' DeleteGrantResponse (Prelude.Maybe Prelude.Text)
 deleteGrantResponse_version = Lens.lens (\DeleteGrantResponse' {version} -> version) (\s@DeleteGrantResponse' {} a -> s {version = a} :: DeleteGrantResponse)
 
--- | Grant ARN.
-deleteGrantResponse_grantArn :: Lens.Lens' DeleteGrantResponse (Prelude.Maybe Prelude.Text)
-deleteGrantResponse_grantArn = Lens.lens (\DeleteGrantResponse' {grantArn} -> grantArn) (\s@DeleteGrantResponse' {} a -> s {grantArn = a} :: DeleteGrantResponse)
-
 -- | The response's http status code.
 deleteGrantResponse_httpStatus :: Lens.Lens' DeleteGrantResponse Prelude.Int
 deleteGrantResponse_httpStatus = Lens.lens (\DeleteGrantResponse' {httpStatus} -> httpStatus) (\s@DeleteGrantResponse' {} a -> s {httpStatus = a} :: DeleteGrantResponse)
 
 instance Prelude.NFData DeleteGrantResponse where
   rnf DeleteGrantResponse' {..} =
-    Prelude.rnf status
+    Prelude.rnf grantArn
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf version
-      `Prelude.seq` Prelude.rnf grantArn
       `Prelude.seq` Prelude.rnf httpStatus

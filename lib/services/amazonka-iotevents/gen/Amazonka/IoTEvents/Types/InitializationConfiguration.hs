@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.Types.InitializationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTEvents.Types.InitializationConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the default alarm state. The configuration applies to all
@@ -63,13 +64,13 @@ newInitializationConfiguration
 initializationConfiguration_disabledOnInitialization :: Lens.Lens' InitializationConfiguration Prelude.Bool
 initializationConfiguration_disabledOnInitialization = Lens.lens (\InitializationConfiguration' {disabledOnInitialization} -> disabledOnInitialization) (\s@InitializationConfiguration' {} a -> s {disabledOnInitialization = a} :: InitializationConfiguration)
 
-instance Core.FromJSON InitializationConfiguration where
+instance Data.FromJSON InitializationConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InitializationConfiguration"
       ( \x ->
           InitializationConfiguration'
-            Prelude.<$> (x Core..: "disabledOnInitialization")
+            Prelude.<$> (x Data..: "disabledOnInitialization")
       )
 
 instance Prelude.Hashable InitializationConfiguration where
@@ -81,13 +82,13 @@ instance Prelude.NFData InitializationConfiguration where
   rnf InitializationConfiguration' {..} =
     Prelude.rnf disabledOnInitialization
 
-instance Core.ToJSON InitializationConfiguration where
+instance Data.ToJSON InitializationConfiguration where
   toJSON InitializationConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "disabledOnInitialization"
-                  Core..= disabledOnInitialization
+                  Data..= disabledOnInitialization
               )
           ]
       )

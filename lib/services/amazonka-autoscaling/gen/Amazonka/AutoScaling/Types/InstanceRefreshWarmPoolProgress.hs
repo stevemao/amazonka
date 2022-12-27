@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.Types.InstanceRefreshWarmPoolProgress
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AutoScaling.Types.InstanceRefreshWarmPoolProgress where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Reports the progress of an instance refresh on instances that are in the
@@ -75,11 +76,11 @@ instanceRefreshWarmPoolProgress_instancesToUpdate = Lens.lens (\InstanceRefreshW
 instanceRefreshWarmPoolProgress_percentageComplete :: Lens.Lens' InstanceRefreshWarmPoolProgress (Prelude.Maybe Prelude.Natural)
 instanceRefreshWarmPoolProgress_percentageComplete = Lens.lens (\InstanceRefreshWarmPoolProgress' {percentageComplete} -> percentageComplete) (\s@InstanceRefreshWarmPoolProgress' {} a -> s {percentageComplete = a} :: InstanceRefreshWarmPoolProgress)
 
-instance Core.FromXML InstanceRefreshWarmPoolProgress where
+instance Data.FromXML InstanceRefreshWarmPoolProgress where
   parseXML x =
     InstanceRefreshWarmPoolProgress'
-      Prelude.<$> (x Core..@? "InstancesToUpdate")
-      Prelude.<*> (x Core..@? "PercentageComplete")
+      Prelude.<$> (x Data..@? "InstancesToUpdate")
+      Prelude.<*> (x Data..@? "PercentageComplete")
 
 instance
   Prelude.Hashable

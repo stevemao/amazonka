@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.SSOAdmin.ListAccountAssignments
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the assignee of the specified Amazon Web Services account with the
--- specified permission set.
+-- Lists the assignee of the specified AWS account with the specified
+-- permission set.
 --
 -- This operation returns paginated results.
 module Amazonka.SSOAdmin.ListAccountAssignments
@@ -30,8 +30,8 @@ module Amazonka.SSOAdmin.ListAccountAssignments
     newListAccountAssignments,
 
     -- * Request Lenses
-    listAccountAssignments_nextToken,
     listAccountAssignments_maxResults,
+    listAccountAssignments_nextToken,
     listAccountAssignments_instanceArn,
     listAccountAssignments_accountId,
     listAccountAssignments_permissionSetArn,
@@ -48,7 +48,8 @@ module Amazonka.SSOAdmin.ListAccountAssignments
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,18 +57,17 @@ import Amazonka.SSOAdmin.Types
 
 -- | /See:/ 'newListAccountAssignments' smart constructor.
 data ListAccountAssignments = ListAccountAssignments'
-  { -- | The pagination token for the list API. Initially the value is null. Use
+  { -- | The maximum number of results to display for the assignment.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token for the list API. Initially the value is null. Use
     -- the output of previous API calls to make subsequent calls.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to display for the assignment.
-    maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | The ARN of the SSO instance under which the operation will be executed.
-    -- For more information about ARNs, see
-    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
-    -- in the /Amazon Web Services General Reference/.
+    -- | The ARN of the IAM Identity Center instance under which the operation
+    -- will be executed. For more information about ARNs, see
+    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+    -- in the /AWS General Reference/.
     instanceArn :: Prelude.Text,
-    -- | The identifier of the Amazon Web Services account from which to list the
-    -- assignments.
+    -- | The identifier of the AWS account from which to list the assignments.
     accountId :: Prelude.Text,
     -- | The ARN of the permission set from which to list assignments.
     permissionSetArn :: Prelude.Text
@@ -82,18 +82,17 @@ data ListAccountAssignments = ListAccountAssignments'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listAccountAssignments_maxResults' - The maximum number of results to display for the assignment.
+--
 -- 'nextToken', 'listAccountAssignments_nextToken' - The pagination token for the list API. Initially the value is null. Use
 -- the output of previous API calls to make subsequent calls.
 --
--- 'maxResults', 'listAccountAssignments_maxResults' - The maximum number of results to display for the assignment.
+-- 'instanceArn', 'listAccountAssignments_instanceArn' - The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 --
--- 'instanceArn', 'listAccountAssignments_instanceArn' - The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
---
--- 'accountId', 'listAccountAssignments_accountId' - The identifier of the Amazon Web Services account from which to list the
--- assignments.
+-- 'accountId', 'listAccountAssignments_accountId' - The identifier of the AWS account from which to list the assignments.
 --
 -- 'permissionSetArn', 'listAccountAssignments_permissionSetArn' - The ARN of the permission set from which to list assignments.
 newListAccountAssignments ::
@@ -109,32 +108,31 @@ newListAccountAssignments
   pAccountId_
   pPermissionSetArn_ =
     ListAccountAssignments'
-      { nextToken =
+      { maxResults =
           Prelude.Nothing,
-        maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         instanceArn = pInstanceArn_,
         accountId = pAccountId_,
         permissionSetArn = pPermissionSetArn_
       }
+
+-- | The maximum number of results to display for the assignment.
+listAccountAssignments_maxResults :: Lens.Lens' ListAccountAssignments (Prelude.Maybe Prelude.Natural)
+listAccountAssignments_maxResults = Lens.lens (\ListAccountAssignments' {maxResults} -> maxResults) (\s@ListAccountAssignments' {} a -> s {maxResults = a} :: ListAccountAssignments)
 
 -- | The pagination token for the list API. Initially the value is null. Use
 -- the output of previous API calls to make subsequent calls.
 listAccountAssignments_nextToken :: Lens.Lens' ListAccountAssignments (Prelude.Maybe Prelude.Text)
 listAccountAssignments_nextToken = Lens.lens (\ListAccountAssignments' {nextToken} -> nextToken) (\s@ListAccountAssignments' {} a -> s {nextToken = a} :: ListAccountAssignments)
 
--- | The maximum number of results to display for the assignment.
-listAccountAssignments_maxResults :: Lens.Lens' ListAccountAssignments (Prelude.Maybe Prelude.Natural)
-listAccountAssignments_maxResults = Lens.lens (\ListAccountAssignments' {maxResults} -> maxResults) (\s@ListAccountAssignments' {} a -> s {maxResults = a} :: ListAccountAssignments)
-
--- | The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- | The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 listAccountAssignments_instanceArn :: Lens.Lens' ListAccountAssignments Prelude.Text
 listAccountAssignments_instanceArn = Lens.lens (\ListAccountAssignments' {instanceArn} -> instanceArn) (\s@ListAccountAssignments' {} a -> s {instanceArn = a} :: ListAccountAssignments)
 
--- | The identifier of the Amazon Web Services account from which to list the
--- assignments.
+-- | The identifier of the AWS account from which to list the assignments.
 listAccountAssignments_accountId :: Lens.Lens' ListAccountAssignments Prelude.Text
 listAccountAssignments_accountId = Lens.lens (\ListAccountAssignments' {accountId} -> accountId) (\s@ListAccountAssignments' {} a -> s {accountId = a} :: ListAccountAssignments)
 
@@ -168,72 +166,73 @@ instance Core.AWSRequest ListAccountAssignments where
   type
     AWSResponse ListAccountAssignments =
       ListAccountAssignmentsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAccountAssignmentsResponse'
-            Prelude.<$> ( x Core..?> "AccountAssignments"
+            Prelude.<$> ( x Data..?> "AccountAssignments"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListAccountAssignments where
   hashWithSalt _salt ListAccountAssignments' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` instanceArn
       `Prelude.hashWithSalt` accountId
       `Prelude.hashWithSalt` permissionSetArn
 
 instance Prelude.NFData ListAccountAssignments where
   rnf ListAccountAssignments' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf instanceArn
       `Prelude.seq` Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf permissionSetArn
 
-instance Core.ToHeaders ListAccountAssignments where
+instance Data.ToHeaders ListAccountAssignments where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SWBExternalService.ListAccountAssignments" ::
+              Data.=# ( "SWBExternalService.ListAccountAssignments" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListAccountAssignments where
+instance Data.ToJSON ListAccountAssignments where
   toJSON ListAccountAssignments' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("InstanceArn" Core..= instanceArn),
-            Prelude.Just ("AccountId" Core..= accountId),
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("InstanceArn" Data..= instanceArn),
+            Prelude.Just ("AccountId" Data..= accountId),
             Prelude.Just
-              ("PermissionSetArn" Core..= permissionSetArn)
+              ("PermissionSetArn" Data..= permissionSetArn)
           ]
       )
 
-instance Core.ToPath ListAccountAssignments where
+instance Data.ToPath ListAccountAssignments where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListAccountAssignments where
+instance Data.ToQuery ListAccountAssignments where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListAccountAssignmentsResponse' smart constructor.
 data ListAccountAssignmentsResponse = ListAccountAssignmentsResponse'
-  { -- | The list of assignments that match the input Amazon Web Services account
-    -- and permission set.
+  { -- | The list of assignments that match the input AWS account and permission
+    -- set.
     accountAssignments :: Prelude.Maybe [AccountAssignment],
     -- | The pagination token for the list API. Initially the value is null. Use
     -- the output of previous API calls to make subsequent calls.
@@ -251,8 +250,8 @@ data ListAccountAssignmentsResponse = ListAccountAssignmentsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'accountAssignments', 'listAccountAssignmentsResponse_accountAssignments' - The list of assignments that match the input Amazon Web Services account
--- and permission set.
+-- 'accountAssignments', 'listAccountAssignmentsResponse_accountAssignments' - The list of assignments that match the input AWS account and permission
+-- set.
 --
 -- 'nextToken', 'listAccountAssignmentsResponse_nextToken' - The pagination token for the list API. Initially the value is null. Use
 -- the output of previous API calls to make subsequent calls.
@@ -270,8 +269,8 @@ newListAccountAssignmentsResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The list of assignments that match the input Amazon Web Services account
--- and permission set.
+-- | The list of assignments that match the input AWS account and permission
+-- set.
 listAccountAssignmentsResponse_accountAssignments :: Lens.Lens' ListAccountAssignmentsResponse (Prelude.Maybe [AccountAssignment])
 listAccountAssignmentsResponse_accountAssignments = Lens.lens (\ListAccountAssignmentsResponse' {accountAssignments} -> accountAssignments) (\s@ListAccountAssignmentsResponse' {} a -> s {accountAssignments = a} :: ListAccountAssignmentsResponse) Prelude.. Lens.mapping Lens.coerced
 

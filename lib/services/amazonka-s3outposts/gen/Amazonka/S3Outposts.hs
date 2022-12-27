@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.S3Outposts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -19,9 +19,6 @@ module Amazonka.S3Outposts
     -- * Errors
     -- $errors
 
-    -- ** ValidationException
-    _ValidationException,
-
     -- ** AccessDeniedException
     _AccessDeniedException,
 
@@ -33,6 +30,9 @@ module Amazonka.S3Outposts
 
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
+
+    -- ** ValidationException
+    _ValidationException,
 
     -- * Waiters
     -- $waiters
@@ -58,6 +58,12 @@ module Amazonka.S3Outposts
     ListEndpointsResponse (ListEndpointsResponse'),
     newListEndpointsResponse,
 
+    -- ** ListSharedEndpoints (Paginated)
+    ListSharedEndpoints (ListSharedEndpoints'),
+    newListSharedEndpoints,
+    ListSharedEndpointsResponse (ListSharedEndpointsResponse'),
+    newListSharedEndpointsResponse,
+
     -- * Types
 
     -- ** EndpointAccessType
@@ -80,6 +86,7 @@ import Amazonka.S3Outposts.CreateEndpoint
 import Amazonka.S3Outposts.DeleteEndpoint
 import Amazonka.S3Outposts.Lens
 import Amazonka.S3Outposts.ListEndpoints
+import Amazonka.S3Outposts.ListSharedEndpoints
 import Amazonka.S3Outposts.Types
 import Amazonka.S3Outposts.Waiters
 

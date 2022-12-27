@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.TcpTimeout
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppMesh.Types.TcpTimeout where
 
 import Amazonka.AppMesh.Types.Duration
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents types of timeouts.
@@ -53,11 +54,11 @@ newTcpTimeout = TcpTimeout' {idle = Prelude.Nothing}
 tcpTimeout_idle :: Lens.Lens' TcpTimeout (Prelude.Maybe Duration)
 tcpTimeout_idle = Lens.lens (\TcpTimeout' {idle} -> idle) (\s@TcpTimeout' {} a -> s {idle = a} :: TcpTimeout)
 
-instance Core.FromJSON TcpTimeout where
+instance Data.FromJSON TcpTimeout where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TcpTimeout"
-      (\x -> TcpTimeout' Prelude.<$> (x Core..:? "idle"))
+      (\x -> TcpTimeout' Prelude.<$> (x Data..:? "idle"))
 
 instance Prelude.Hashable TcpTimeout where
   hashWithSalt _salt TcpTimeout' {..} =
@@ -66,9 +67,9 @@ instance Prelude.Hashable TcpTimeout where
 instance Prelude.NFData TcpTimeout where
   rnf TcpTimeout' {..} = Prelude.rnf idle
 
-instance Core.ToJSON TcpTimeout where
+instance Data.ToJSON TcpTimeout where
   toJSON TcpTimeout' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("idle" Core..=) Prelude.<$> idle]
+          [("idle" Data..=) Prelude.<$> idle]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.AssociateDeviceWithRoom
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,7 +91,8 @@ instance Core.AWSRequest AssociateDeviceWithRoom where
   type
     AWSResponse AssociateDeviceWithRoom =
       AssociateDeviceWithRoomResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -108,34 +110,34 @@ instance Prelude.NFData AssociateDeviceWithRoom where
     Prelude.rnf deviceArn
       `Prelude.seq` Prelude.rnf roomArn
 
-instance Core.ToHeaders AssociateDeviceWithRoom where
+instance Data.ToHeaders AssociateDeviceWithRoom where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.AssociateDeviceWithRoom" ::
+              Data.=# ( "AlexaForBusiness.AssociateDeviceWithRoom" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateDeviceWithRoom where
+instance Data.ToJSON AssociateDeviceWithRoom where
   toJSON AssociateDeviceWithRoom' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DeviceArn" Core..=) Prelude.<$> deviceArn,
-            ("RoomArn" Core..=) Prelude.<$> roomArn
+          [ ("DeviceArn" Data..=) Prelude.<$> deviceArn,
+            ("RoomArn" Data..=) Prelude.<$> roomArn
           ]
       )
 
-instance Core.ToPath AssociateDeviceWithRoom where
+instance Data.ToPath AssociateDeviceWithRoom where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AssociateDeviceWithRoom where
+instance Data.ToQuery AssociateDeviceWithRoom where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateDeviceWithRoomResponse' smart constructor.

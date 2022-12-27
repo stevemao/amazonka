@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53AutoNaming.Types.PrivateDnsNamespaceProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53AutoNaming.Types.PrivateDnsNamespaceProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53AutoNaming.Types.PrivateDnsPropertiesMutable
 
@@ -67,11 +68,11 @@ instance Prelude.NFData PrivateDnsNamespaceProperties where
   rnf PrivateDnsNamespaceProperties' {..} =
     Prelude.rnf dnsProperties
 
-instance Core.ToJSON PrivateDnsNamespaceProperties where
+instance Data.ToJSON PrivateDnsNamespaceProperties where
   toJSON PrivateDnsNamespaceProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("DnsProperties" Core..= dnsProperties)
+              ("DnsProperties" Data..= dnsProperties)
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsRdsDbInstanceEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.SecurityHub.Types.AwsRdsDbInstanceEndpoint where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the connection endpoint.
 --
 -- /See:/ 'newAwsRdsDbInstanceEndpoint' smart constructor.
 data AwsRdsDbInstanceEndpoint = AwsRdsDbInstanceEndpoint'
-  { -- | Specifies the ID that Amazon Route 53 assigns when you create a hosted
+  { -- | Specifies the DNS address of the DB instance.
+    address :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the ID that Amazon Route 53 assigns when you create a hosted
     -- zone.
     hostedZoneId :: Prelude.Maybe Prelude.Text,
-    -- | Specifies the DNS address of the DB instance.
-    address :: Prelude.Maybe Prelude.Text,
     -- | Specifies the port that the database engine is listening on.
     port :: Prelude.Maybe Prelude.Int
   }
@@ -45,64 +46,64 @@ data AwsRdsDbInstanceEndpoint = AwsRdsDbInstanceEndpoint'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'address', 'awsRdsDbInstanceEndpoint_address' - Specifies the DNS address of the DB instance.
+--
 -- 'hostedZoneId', 'awsRdsDbInstanceEndpoint_hostedZoneId' - Specifies the ID that Amazon Route 53 assigns when you create a hosted
 -- zone.
---
--- 'address', 'awsRdsDbInstanceEndpoint_address' - Specifies the DNS address of the DB instance.
 --
 -- 'port', 'awsRdsDbInstanceEndpoint_port' - Specifies the port that the database engine is listening on.
 newAwsRdsDbInstanceEndpoint ::
   AwsRdsDbInstanceEndpoint
 newAwsRdsDbInstanceEndpoint =
   AwsRdsDbInstanceEndpoint'
-    { hostedZoneId =
+    { address =
         Prelude.Nothing,
-      address = Prelude.Nothing,
+      hostedZoneId = Prelude.Nothing,
       port = Prelude.Nothing
     }
+
+-- | Specifies the DNS address of the DB instance.
+awsRdsDbInstanceEndpoint_address :: Lens.Lens' AwsRdsDbInstanceEndpoint (Prelude.Maybe Prelude.Text)
+awsRdsDbInstanceEndpoint_address = Lens.lens (\AwsRdsDbInstanceEndpoint' {address} -> address) (\s@AwsRdsDbInstanceEndpoint' {} a -> s {address = a} :: AwsRdsDbInstanceEndpoint)
 
 -- | Specifies the ID that Amazon Route 53 assigns when you create a hosted
 -- zone.
 awsRdsDbInstanceEndpoint_hostedZoneId :: Lens.Lens' AwsRdsDbInstanceEndpoint (Prelude.Maybe Prelude.Text)
 awsRdsDbInstanceEndpoint_hostedZoneId = Lens.lens (\AwsRdsDbInstanceEndpoint' {hostedZoneId} -> hostedZoneId) (\s@AwsRdsDbInstanceEndpoint' {} a -> s {hostedZoneId = a} :: AwsRdsDbInstanceEndpoint)
 
--- | Specifies the DNS address of the DB instance.
-awsRdsDbInstanceEndpoint_address :: Lens.Lens' AwsRdsDbInstanceEndpoint (Prelude.Maybe Prelude.Text)
-awsRdsDbInstanceEndpoint_address = Lens.lens (\AwsRdsDbInstanceEndpoint' {address} -> address) (\s@AwsRdsDbInstanceEndpoint' {} a -> s {address = a} :: AwsRdsDbInstanceEndpoint)
-
 -- | Specifies the port that the database engine is listening on.
 awsRdsDbInstanceEndpoint_port :: Lens.Lens' AwsRdsDbInstanceEndpoint (Prelude.Maybe Prelude.Int)
 awsRdsDbInstanceEndpoint_port = Lens.lens (\AwsRdsDbInstanceEndpoint' {port} -> port) (\s@AwsRdsDbInstanceEndpoint' {} a -> s {port = a} :: AwsRdsDbInstanceEndpoint)
 
-instance Core.FromJSON AwsRdsDbInstanceEndpoint where
+instance Data.FromJSON AwsRdsDbInstanceEndpoint where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsRdsDbInstanceEndpoint"
       ( \x ->
           AwsRdsDbInstanceEndpoint'
-            Prelude.<$> (x Core..:? "HostedZoneId")
-            Prelude.<*> (x Core..:? "Address")
-            Prelude.<*> (x Core..:? "Port")
+            Prelude.<$> (x Data..:? "Address")
+            Prelude.<*> (x Data..:? "HostedZoneId")
+            Prelude.<*> (x Data..:? "Port")
       )
 
 instance Prelude.Hashable AwsRdsDbInstanceEndpoint where
   hashWithSalt _salt AwsRdsDbInstanceEndpoint' {..} =
-    _salt `Prelude.hashWithSalt` hostedZoneId
-      `Prelude.hashWithSalt` address
+    _salt `Prelude.hashWithSalt` address
+      `Prelude.hashWithSalt` hostedZoneId
       `Prelude.hashWithSalt` port
 
 instance Prelude.NFData AwsRdsDbInstanceEndpoint where
   rnf AwsRdsDbInstanceEndpoint' {..} =
-    Prelude.rnf hostedZoneId
-      `Prelude.seq` Prelude.rnf address
+    Prelude.rnf address
+      `Prelude.seq` Prelude.rnf hostedZoneId
       `Prelude.seq` Prelude.rnf port
 
-instance Core.ToJSON AwsRdsDbInstanceEndpoint where
+instance Data.ToJSON AwsRdsDbInstanceEndpoint where
   toJSON AwsRdsDbInstanceEndpoint' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("HostedZoneId" Core..=) Prelude.<$> hostedZoneId,
-            ("Address" Core..=) Prelude.<$> address,
-            ("Port" Core..=) Prelude.<$> port
+          [ ("Address" Data..=) Prelude.<$> address,
+            ("HostedZoneId" Data..=) Prelude.<$> hostedZoneId,
+            ("Port" Data..=) Prelude.<$> port
           ]
       )

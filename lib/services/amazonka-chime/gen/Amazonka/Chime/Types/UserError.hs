@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.Types.UserError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Chime.Types.UserError where
 
 import Amazonka.Chime.Types.ErrorCode
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The list of errors returned when errors are encountered during the
@@ -30,12 +31,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newUserError' smart constructor.
 data UserError = UserError'
-  { -- | The user ID for which the action failed.
-    userId :: Prelude.Maybe Prelude.Text,
-    -- | The error code.
+  { -- | The error code.
     errorCode :: Prelude.Maybe ErrorCode,
     -- | The error message.
-    errorMessage :: Prelude.Maybe Prelude.Text
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The user ID for which the action failed.
+    userId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,23 +48,19 @@ data UserError = UserError'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'userId', 'userError_userId' - The user ID for which the action failed.
---
 -- 'errorCode', 'userError_errorCode' - The error code.
 --
 -- 'errorMessage', 'userError_errorMessage' - The error message.
+--
+-- 'userId', 'userError_userId' - The user ID for which the action failed.
 newUserError ::
   UserError
 newUserError =
   UserError'
-    { userId = Prelude.Nothing,
-      errorCode = Prelude.Nothing,
-      errorMessage = Prelude.Nothing
+    { errorCode = Prelude.Nothing,
+      errorMessage = Prelude.Nothing,
+      userId = Prelude.Nothing
     }
-
--- | The user ID for which the action failed.
-userError_userId :: Lens.Lens' UserError (Prelude.Maybe Prelude.Text)
-userError_userId = Lens.lens (\UserError' {userId} -> userId) (\s@UserError' {} a -> s {userId = a} :: UserError)
 
 -- | The error code.
 userError_errorCode :: Lens.Lens' UserError (Prelude.Maybe ErrorCode)
@@ -73,25 +70,29 @@ userError_errorCode = Lens.lens (\UserError' {errorCode} -> errorCode) (\s@UserE
 userError_errorMessage :: Lens.Lens' UserError (Prelude.Maybe Prelude.Text)
 userError_errorMessage = Lens.lens (\UserError' {errorMessage} -> errorMessage) (\s@UserError' {} a -> s {errorMessage = a} :: UserError)
 
-instance Core.FromJSON UserError where
+-- | The user ID for which the action failed.
+userError_userId :: Lens.Lens' UserError (Prelude.Maybe Prelude.Text)
+userError_userId = Lens.lens (\UserError' {userId} -> userId) (\s@UserError' {} a -> s {userId = a} :: UserError)
+
+instance Data.FromJSON UserError where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UserError"
       ( \x ->
           UserError'
-            Prelude.<$> (x Core..:? "UserId")
-            Prelude.<*> (x Core..:? "ErrorCode")
-            Prelude.<*> (x Core..:? "ErrorMessage")
+            Prelude.<$> (x Data..:? "ErrorCode")
+            Prelude.<*> (x Data..:? "ErrorMessage")
+            Prelude.<*> (x Data..:? "UserId")
       )
 
 instance Prelude.Hashable UserError where
   hashWithSalt _salt UserError' {..} =
-    _salt `Prelude.hashWithSalt` userId
-      `Prelude.hashWithSalt` errorCode
+    _salt `Prelude.hashWithSalt` errorCode
       `Prelude.hashWithSalt` errorMessage
+      `Prelude.hashWithSalt` userId
 
 instance Prelude.NFData UserError where
   rnf UserError' {..} =
-    Prelude.rnf userId
-      `Prelude.seq` Prelude.rnf errorCode
+    Prelude.rnf errorCode
       `Prelude.seq` Prelude.rnf errorMessage
+      `Prelude.seq` Prelude.rnf userId

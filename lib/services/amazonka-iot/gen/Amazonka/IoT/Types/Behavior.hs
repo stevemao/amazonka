@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.Behavior
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,27 +20,28 @@
 module Amazonka.IoT.Types.Behavior where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.BehaviorCriteria
 import Amazonka.IoT.Types.MetricDimension
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A Device Defender security profile behavior.
 --
 -- /See:/ 'newBehavior' smart constructor.
 data Behavior = Behavior'
-  { -- | Suppresses alerts.
-    suppressAlerts :: Prelude.Maybe Prelude.Bool,
+  { -- | The criteria that determine if a device is behaving normally in regard
+    -- to the @metric@.
+    criteria :: Prelude.Maybe BehaviorCriteria,
+    -- | What is measured by the behavior.
+    metric :: Prelude.Maybe Prelude.Text,
     -- | The dimension for a metric in your behavior. For example, using a
     -- @TOPIC_FILTER@ dimension, you can narrow down the scope of the metric to
     -- only MQTT topics where the name matches the pattern specified in the
     -- dimension. This can\'t be used with custom metrics.
     metricDimension :: Prelude.Maybe MetricDimension,
-    -- | What is measured by the behavior.
-    metric :: Prelude.Maybe Prelude.Text,
-    -- | The criteria that determine if a device is behaving normally in regard
-    -- to the @metric@.
-    criteria :: Prelude.Maybe BehaviorCriteria,
+    -- | Suppresses alerts.
+    suppressAlerts :: Prelude.Maybe Prelude.Bool,
     -- | The name you\'ve given to the behavior.
     name :: Prelude.Text
   }
@@ -54,17 +55,17 @@ data Behavior = Behavior'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'suppressAlerts', 'behavior_suppressAlerts' - Suppresses alerts.
+-- 'criteria', 'behavior_criteria' - The criteria that determine if a device is behaving normally in regard
+-- to the @metric@.
+--
+-- 'metric', 'behavior_metric' - What is measured by the behavior.
 --
 -- 'metricDimension', 'behavior_metricDimension' - The dimension for a metric in your behavior. For example, using a
 -- @TOPIC_FILTER@ dimension, you can narrow down the scope of the metric to
 -- only MQTT topics where the name matches the pattern specified in the
 -- dimension. This can\'t be used with custom metrics.
 --
--- 'metric', 'behavior_metric' - What is measured by the behavior.
---
--- 'criteria', 'behavior_criteria' - The criteria that determine if a device is behaving normally in regard
--- to the @metric@.
+-- 'suppressAlerts', 'behavior_suppressAlerts' - Suppresses alerts.
 --
 -- 'name', 'behavior_name' - The name you\'ve given to the behavior.
 newBehavior ::
@@ -73,16 +74,21 @@ newBehavior ::
   Behavior
 newBehavior pName_ =
   Behavior'
-    { suppressAlerts = Prelude.Nothing,
-      metricDimension = Prelude.Nothing,
+    { criteria = Prelude.Nothing,
       metric = Prelude.Nothing,
-      criteria = Prelude.Nothing,
+      metricDimension = Prelude.Nothing,
+      suppressAlerts = Prelude.Nothing,
       name = pName_
     }
 
--- | Suppresses alerts.
-behavior_suppressAlerts :: Lens.Lens' Behavior (Prelude.Maybe Prelude.Bool)
-behavior_suppressAlerts = Lens.lens (\Behavior' {suppressAlerts} -> suppressAlerts) (\s@Behavior' {} a -> s {suppressAlerts = a} :: Behavior)
+-- | The criteria that determine if a device is behaving normally in regard
+-- to the @metric@.
+behavior_criteria :: Lens.Lens' Behavior (Prelude.Maybe BehaviorCriteria)
+behavior_criteria = Lens.lens (\Behavior' {criteria} -> criteria) (\s@Behavior' {} a -> s {criteria = a} :: Behavior)
+
+-- | What is measured by the behavior.
+behavior_metric :: Lens.Lens' Behavior (Prelude.Maybe Prelude.Text)
+behavior_metric = Lens.lens (\Behavior' {metric} -> metric) (\s@Behavior' {} a -> s {metric = a} :: Behavior)
 
 -- | The dimension for a metric in your behavior. For example, using a
 -- @TOPIC_FILTER@ dimension, you can narrow down the scope of the metric to
@@ -91,58 +97,53 @@ behavior_suppressAlerts = Lens.lens (\Behavior' {suppressAlerts} -> suppressAler
 behavior_metricDimension :: Lens.Lens' Behavior (Prelude.Maybe MetricDimension)
 behavior_metricDimension = Lens.lens (\Behavior' {metricDimension} -> metricDimension) (\s@Behavior' {} a -> s {metricDimension = a} :: Behavior)
 
--- | What is measured by the behavior.
-behavior_metric :: Lens.Lens' Behavior (Prelude.Maybe Prelude.Text)
-behavior_metric = Lens.lens (\Behavior' {metric} -> metric) (\s@Behavior' {} a -> s {metric = a} :: Behavior)
-
--- | The criteria that determine if a device is behaving normally in regard
--- to the @metric@.
-behavior_criteria :: Lens.Lens' Behavior (Prelude.Maybe BehaviorCriteria)
-behavior_criteria = Lens.lens (\Behavior' {criteria} -> criteria) (\s@Behavior' {} a -> s {criteria = a} :: Behavior)
+-- | Suppresses alerts.
+behavior_suppressAlerts :: Lens.Lens' Behavior (Prelude.Maybe Prelude.Bool)
+behavior_suppressAlerts = Lens.lens (\Behavior' {suppressAlerts} -> suppressAlerts) (\s@Behavior' {} a -> s {suppressAlerts = a} :: Behavior)
 
 -- | The name you\'ve given to the behavior.
 behavior_name :: Lens.Lens' Behavior Prelude.Text
 behavior_name = Lens.lens (\Behavior' {name} -> name) (\s@Behavior' {} a -> s {name = a} :: Behavior)
 
-instance Core.FromJSON Behavior where
+instance Data.FromJSON Behavior where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Behavior"
       ( \x ->
           Behavior'
-            Prelude.<$> (x Core..:? "suppressAlerts")
-            Prelude.<*> (x Core..:? "metricDimension")
-            Prelude.<*> (x Core..:? "metric")
-            Prelude.<*> (x Core..:? "criteria")
-            Prelude.<*> (x Core..: "name")
+            Prelude.<$> (x Data..:? "criteria")
+            Prelude.<*> (x Data..:? "metric")
+            Prelude.<*> (x Data..:? "metricDimension")
+            Prelude.<*> (x Data..:? "suppressAlerts")
+            Prelude.<*> (x Data..: "name")
       )
 
 instance Prelude.Hashable Behavior where
   hashWithSalt _salt Behavior' {..} =
-    _salt `Prelude.hashWithSalt` suppressAlerts
-      `Prelude.hashWithSalt` metricDimension
+    _salt `Prelude.hashWithSalt` criteria
       `Prelude.hashWithSalt` metric
-      `Prelude.hashWithSalt` criteria
+      `Prelude.hashWithSalt` metricDimension
+      `Prelude.hashWithSalt` suppressAlerts
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData Behavior where
   rnf Behavior' {..} =
-    Prelude.rnf suppressAlerts
-      `Prelude.seq` Prelude.rnf metricDimension
+    Prelude.rnf criteria
       `Prelude.seq` Prelude.rnf metric
-      `Prelude.seq` Prelude.rnf criteria
+      `Prelude.seq` Prelude.rnf metricDimension
+      `Prelude.seq` Prelude.rnf suppressAlerts
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToJSON Behavior where
+instance Data.ToJSON Behavior where
   toJSON Behavior' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("suppressAlerts" Core..=)
-              Prelude.<$> suppressAlerts,
-            ("metricDimension" Core..=)
+          [ ("criteria" Data..=) Prelude.<$> criteria,
+            ("metric" Data..=) Prelude.<$> metric,
+            ("metricDimension" Data..=)
               Prelude.<$> metricDimension,
-            ("metric" Core..=) Prelude.<$> metric,
-            ("criteria" Core..=) Prelude.<$> criteria,
-            Prelude.Just ("name" Core..= name)
+            ("suppressAlerts" Data..=)
+              Prelude.<$> suppressAlerts,
+            Prelude.Just ("name" Data..= name)
           ]
       )

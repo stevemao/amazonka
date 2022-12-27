@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Athena.GetWorkGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.Athena.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -75,12 +76,13 @@ getWorkGroup_workGroup = Lens.lens (\GetWorkGroup' {workGroup} -> workGroup) (\s
 
 instance Core.AWSRequest GetWorkGroup where
   type AWSResponse GetWorkGroup = GetWorkGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetWorkGroupResponse'
-            Prelude.<$> (x Core..?> "WorkGroup")
+            Prelude.<$> (x Data..?> "WorkGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -91,30 +93,30 @@ instance Prelude.Hashable GetWorkGroup where
 instance Prelude.NFData GetWorkGroup where
   rnf GetWorkGroup' {..} = Prelude.rnf workGroup
 
-instance Core.ToHeaders GetWorkGroup where
+instance Data.ToHeaders GetWorkGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AmazonAthena.GetWorkGroup" :: Prelude.ByteString),
+              Data.=# ("AmazonAthena.GetWorkGroup" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetWorkGroup where
+instance Data.ToJSON GetWorkGroup where
   toJSON GetWorkGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("WorkGroup" Core..= workGroup)]
+          [Prelude.Just ("WorkGroup" Data..= workGroup)]
       )
 
-instance Core.ToPath GetWorkGroup where
+instance Data.ToPath GetWorkGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetWorkGroup where
+instance Data.ToQuery GetWorkGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetWorkGroupResponse' smart constructor.

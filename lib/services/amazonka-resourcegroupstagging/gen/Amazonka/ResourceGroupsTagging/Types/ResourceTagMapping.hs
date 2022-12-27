@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ResourceGroupsTagging.Types.ResourceTagMapping
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ResourceGroupsTagging.Types.ResourceTagMapping where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.ResourceGroupsTagging.Types.ComplianceDetails
 import Amazonka.ResourceGroupsTagging.Types.Tag
@@ -35,7 +36,8 @@ data ResourceTagMapping = ResourceTagMapping'
     complianceDetails :: Prelude.Maybe ComplianceDetails,
     -- | The ARN of the resource.
     resourceARN :: Prelude.Maybe Prelude.Text,
-    -- | The tags that have been applied to one or more AWS resources.
+    -- | The tags that have been applied to one or more Amazon Web Services
+    -- resources.
     tags :: Prelude.Maybe [Tag]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -53,7 +55,8 @@ data ResourceTagMapping = ResourceTagMapping'
 --
 -- 'resourceARN', 'resourceTagMapping_resourceARN' - The ARN of the resource.
 --
--- 'tags', 'resourceTagMapping_tags' - The tags that have been applied to one or more AWS resources.
+-- 'tags', 'resourceTagMapping_tags' - The tags that have been applied to one or more Amazon Web Services
+-- resources.
 newResourceTagMapping ::
   ResourceTagMapping
 newResourceTagMapping =
@@ -73,19 +76,20 @@ resourceTagMapping_complianceDetails = Lens.lens (\ResourceTagMapping' {complian
 resourceTagMapping_resourceARN :: Lens.Lens' ResourceTagMapping (Prelude.Maybe Prelude.Text)
 resourceTagMapping_resourceARN = Lens.lens (\ResourceTagMapping' {resourceARN} -> resourceARN) (\s@ResourceTagMapping' {} a -> s {resourceARN = a} :: ResourceTagMapping)
 
--- | The tags that have been applied to one or more AWS resources.
+-- | The tags that have been applied to one or more Amazon Web Services
+-- resources.
 resourceTagMapping_tags :: Lens.Lens' ResourceTagMapping (Prelude.Maybe [Tag])
 resourceTagMapping_tags = Lens.lens (\ResourceTagMapping' {tags} -> tags) (\s@ResourceTagMapping' {} a -> s {tags = a} :: ResourceTagMapping) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON ResourceTagMapping where
+instance Data.FromJSON ResourceTagMapping where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResourceTagMapping"
       ( \x ->
           ResourceTagMapping'
-            Prelude.<$> (x Core..:? "ComplianceDetails")
-            Prelude.<*> (x Core..:? "ResourceARN")
-            Prelude.<*> (x Core..:? "Tags" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "ComplianceDetails")
+            Prelude.<*> (x Data..:? "ResourceARN")
+            Prelude.<*> (x Data..:? "Tags" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable ResourceTagMapping where

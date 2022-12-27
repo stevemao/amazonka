@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalytics.Types.InputConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KinesisAnalytics.Types.InputConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalytics.Types.InputStartingPositionConfiguration
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | When you start your application, you provide this configuration, which
@@ -90,14 +91,14 @@ instance Prelude.NFData InputConfiguration where
     Prelude.rnf id
       `Prelude.seq` Prelude.rnf inputStartingPositionConfiguration
 
-instance Core.ToJSON InputConfiguration where
+instance Data.ToJSON InputConfiguration where
   toJSON InputConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Id" Core..= id),
+          [ Prelude.Just ("Id" Data..= id),
             Prelude.Just
               ( "InputStartingPositionConfiguration"
-                  Core..= inputStartingPositionConfiguration
+                  Data..= inputStartingPositionConfiguration
               )
           ]
       )

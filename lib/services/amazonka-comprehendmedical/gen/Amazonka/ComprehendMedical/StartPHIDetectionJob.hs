@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ComprehendMedical.StartPHIDetectionJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.ComprehendMedical.StartPHIDetectionJob
     newStartPHIDetectionJob,
 
     -- * Request Lenses
-    startPHIDetectionJob_kmsKey,
-    startPHIDetectionJob_jobName,
     startPHIDetectionJob_clientRequestToken,
+    startPHIDetectionJob_jobName,
+    startPHIDetectionJob_kmsKey,
     startPHIDetectionJob_inputDataConfig,
     startPHIDetectionJob_outputDataConfig,
     startPHIDetectionJob_dataAccessRoleArn,
@@ -49,28 +49,29 @@ where
 
 import Amazonka.ComprehendMedical.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newStartPHIDetectionJob' smart constructor.
 data StartPHIDetectionJob = StartPHIDetectionJob'
-  { -- | An AWS Key Management Service key to encrypt your output files. If you
-    -- do not specify a key, the files are written in plain text.
-    kmsKey :: Prelude.Maybe Prelude.Text,
+  { -- | A unique identifier for the request. If you don\'t set the client
+    -- request token, Comprehend Medical; generates one.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
     -- | The identifier of the job.
     jobName :: Prelude.Maybe Prelude.Text,
-    -- | A unique identifier for the request. If you don\'t set the client
-    -- request token, Amazon Comprehend Medical generates one.
-    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | An AWS Key Management Service key to encrypt your output files. If you
+    -- do not specify a key, the files are written in plain text.
+    kmsKey :: Prelude.Maybe Prelude.Text,
     -- | Specifies the format and location of the input data for the job.
     inputDataConfig :: InputDataConfig,
     -- | Specifies where to send the output files.
     outputDataConfig :: OutputDataConfig,
     -- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management
-    -- (IAM) role that grants Amazon Comprehend Medical read access to your
-    -- input data. For more information, see
+    -- (IAM) role that grants Comprehend Medical; read access to your input
+    -- data. For more information, see
     -- <https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions-med.html#auth-role-permissions-med Role-Based Permissions Required for Asynchronous Operations>.
     dataAccessRoleArn :: Prelude.Text,
     -- | The language of the input documents. All documents must be in the same
@@ -87,21 +88,21 @@ data StartPHIDetectionJob = StartPHIDetectionJob'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'kmsKey', 'startPHIDetectionJob_kmsKey' - An AWS Key Management Service key to encrypt your output files. If you
--- do not specify a key, the files are written in plain text.
+-- 'clientRequestToken', 'startPHIDetectionJob_clientRequestToken' - A unique identifier for the request. If you don\'t set the client
+-- request token, Comprehend Medical; generates one.
 --
 -- 'jobName', 'startPHIDetectionJob_jobName' - The identifier of the job.
 --
--- 'clientRequestToken', 'startPHIDetectionJob_clientRequestToken' - A unique identifier for the request. If you don\'t set the client
--- request token, Amazon Comprehend Medical generates one.
+-- 'kmsKey', 'startPHIDetectionJob_kmsKey' - An AWS Key Management Service key to encrypt your output files. If you
+-- do not specify a key, the files are written in plain text.
 --
 -- 'inputDataConfig', 'startPHIDetectionJob_inputDataConfig' - Specifies the format and location of the input data for the job.
 --
 -- 'outputDataConfig', 'startPHIDetectionJob_outputDataConfig' - Specifies where to send the output files.
 --
 -- 'dataAccessRoleArn', 'startPHIDetectionJob_dataAccessRoleArn' - The Amazon Resource Name (ARN) of the AWS Identity and Access Management
--- (IAM) role that grants Amazon Comprehend Medical read access to your
--- input data. For more information, see
+-- (IAM) role that grants Comprehend Medical; read access to your input
+-- data. For more information, see
 -- <https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions-med.html#auth-role-permissions-med Role-Based Permissions Required for Asynchronous Operations>.
 --
 -- 'languageCode', 'startPHIDetectionJob_languageCode' - The language of the input documents. All documents must be in the same
@@ -122,28 +123,29 @@ newStartPHIDetectionJob
   pDataAccessRoleArn_
   pLanguageCode_ =
     StartPHIDetectionJob'
-      { kmsKey = Prelude.Nothing,
+      { clientRequestToken =
+          Prelude.Nothing,
         jobName = Prelude.Nothing,
-        clientRequestToken = Prelude.Nothing,
+        kmsKey = Prelude.Nothing,
         inputDataConfig = pInputDataConfig_,
         outputDataConfig = pOutputDataConfig_,
         dataAccessRoleArn = pDataAccessRoleArn_,
         languageCode = pLanguageCode_
       }
 
--- | An AWS Key Management Service key to encrypt your output files. If you
--- do not specify a key, the files are written in plain text.
-startPHIDetectionJob_kmsKey :: Lens.Lens' StartPHIDetectionJob (Prelude.Maybe Prelude.Text)
-startPHIDetectionJob_kmsKey = Lens.lens (\StartPHIDetectionJob' {kmsKey} -> kmsKey) (\s@StartPHIDetectionJob' {} a -> s {kmsKey = a} :: StartPHIDetectionJob)
+-- | A unique identifier for the request. If you don\'t set the client
+-- request token, Comprehend Medical; generates one.
+startPHIDetectionJob_clientRequestToken :: Lens.Lens' StartPHIDetectionJob (Prelude.Maybe Prelude.Text)
+startPHIDetectionJob_clientRequestToken = Lens.lens (\StartPHIDetectionJob' {clientRequestToken} -> clientRequestToken) (\s@StartPHIDetectionJob' {} a -> s {clientRequestToken = a} :: StartPHIDetectionJob)
 
 -- | The identifier of the job.
 startPHIDetectionJob_jobName :: Lens.Lens' StartPHIDetectionJob (Prelude.Maybe Prelude.Text)
 startPHIDetectionJob_jobName = Lens.lens (\StartPHIDetectionJob' {jobName} -> jobName) (\s@StartPHIDetectionJob' {} a -> s {jobName = a} :: StartPHIDetectionJob)
 
--- | A unique identifier for the request. If you don\'t set the client
--- request token, Amazon Comprehend Medical generates one.
-startPHIDetectionJob_clientRequestToken :: Lens.Lens' StartPHIDetectionJob (Prelude.Maybe Prelude.Text)
-startPHIDetectionJob_clientRequestToken = Lens.lens (\StartPHIDetectionJob' {clientRequestToken} -> clientRequestToken) (\s@StartPHIDetectionJob' {} a -> s {clientRequestToken = a} :: StartPHIDetectionJob)
+-- | An AWS Key Management Service key to encrypt your output files. If you
+-- do not specify a key, the files are written in plain text.
+startPHIDetectionJob_kmsKey :: Lens.Lens' StartPHIDetectionJob (Prelude.Maybe Prelude.Text)
+startPHIDetectionJob_kmsKey = Lens.lens (\StartPHIDetectionJob' {kmsKey} -> kmsKey) (\s@StartPHIDetectionJob' {} a -> s {kmsKey = a} :: StartPHIDetectionJob)
 
 -- | Specifies the format and location of the input data for the job.
 startPHIDetectionJob_inputDataConfig :: Lens.Lens' StartPHIDetectionJob InputDataConfig
@@ -154,8 +156,8 @@ startPHIDetectionJob_outputDataConfig :: Lens.Lens' StartPHIDetectionJob OutputD
 startPHIDetectionJob_outputDataConfig = Lens.lens (\StartPHIDetectionJob' {outputDataConfig} -> outputDataConfig) (\s@StartPHIDetectionJob' {} a -> s {outputDataConfig = a} :: StartPHIDetectionJob)
 
 -- | The Amazon Resource Name (ARN) of the AWS Identity and Access Management
--- (IAM) role that grants Amazon Comprehend Medical read access to your
--- input data. For more information, see
+-- (IAM) role that grants Comprehend Medical; read access to your input
+-- data. For more information, see
 -- <https://docs.aws.amazon.com/comprehend/latest/dg/access-control-managing-permissions-med.html#auth-role-permissions-med Role-Based Permissions Required for Asynchronous Operations>.
 startPHIDetectionJob_dataAccessRoleArn :: Lens.Lens' StartPHIDetectionJob Prelude.Text
 startPHIDetectionJob_dataAccessRoleArn = Lens.lens (\StartPHIDetectionJob' {dataAccessRoleArn} -> dataAccessRoleArn) (\s@StartPHIDetectionJob' {} a -> s {dataAccessRoleArn = a} :: StartPHIDetectionJob)
@@ -169,20 +171,21 @@ instance Core.AWSRequest StartPHIDetectionJob where
   type
     AWSResponse StartPHIDetectionJob =
       StartPHIDetectionJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartPHIDetectionJobResponse'
-            Prelude.<$> (x Core..?> "JobId")
+            Prelude.<$> (x Data..?> "JobId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable StartPHIDetectionJob where
   hashWithSalt _salt StartPHIDetectionJob' {..} =
-    _salt `Prelude.hashWithSalt` kmsKey
+    _salt `Prelude.hashWithSalt` clientRequestToken
       `Prelude.hashWithSalt` jobName
-      `Prelude.hashWithSalt` clientRequestToken
+      `Prelude.hashWithSalt` kmsKey
       `Prelude.hashWithSalt` inputDataConfig
       `Prelude.hashWithSalt` outputDataConfig
       `Prelude.hashWithSalt` dataAccessRoleArn
@@ -190,51 +193,51 @@ instance Prelude.Hashable StartPHIDetectionJob where
 
 instance Prelude.NFData StartPHIDetectionJob where
   rnf StartPHIDetectionJob' {..} =
-    Prelude.rnf kmsKey
+    Prelude.rnf clientRequestToken
       `Prelude.seq` Prelude.rnf jobName
-      `Prelude.seq` Prelude.rnf clientRequestToken
+      `Prelude.seq` Prelude.rnf kmsKey
       `Prelude.seq` Prelude.rnf inputDataConfig
       `Prelude.seq` Prelude.rnf outputDataConfig
       `Prelude.seq` Prelude.rnf dataAccessRoleArn
       `Prelude.seq` Prelude.rnf languageCode
 
-instance Core.ToHeaders StartPHIDetectionJob where
+instance Data.ToHeaders StartPHIDetectionJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ComprehendMedical_20181030.StartPHIDetectionJob" ::
+              Data.=# ( "ComprehendMedical_20181030.StartPHIDetectionJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartPHIDetectionJob where
+instance Data.ToJSON StartPHIDetectionJob where
   toJSON StartPHIDetectionJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("KMSKey" Core..=) Prelude.<$> kmsKey,
-            ("JobName" Core..=) Prelude.<$> jobName,
-            ("ClientRequestToken" Core..=)
+          [ ("ClientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
+            ("JobName" Data..=) Prelude.<$> jobName,
+            ("KMSKey" Data..=) Prelude.<$> kmsKey,
             Prelude.Just
-              ("InputDataConfig" Core..= inputDataConfig),
+              ("InputDataConfig" Data..= inputDataConfig),
             Prelude.Just
-              ("OutputDataConfig" Core..= outputDataConfig),
+              ("OutputDataConfig" Data..= outputDataConfig),
             Prelude.Just
-              ("DataAccessRoleArn" Core..= dataAccessRoleArn),
-            Prelude.Just ("LanguageCode" Core..= languageCode)
+              ("DataAccessRoleArn" Data..= dataAccessRoleArn),
+            Prelude.Just ("LanguageCode" Data..= languageCode)
           ]
       )
 
-instance Core.ToPath StartPHIDetectionJob where
+instance Data.ToPath StartPHIDetectionJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartPHIDetectionJob where
+instance Data.ToQuery StartPHIDetectionJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartPHIDetectionJobResponse' smart constructor.

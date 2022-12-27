@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DMS.DescribeReplicationTaskAssessmentResults
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,8 +26,7 @@
 --
 -- For more information about DMS task assessments, see
 -- <https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.AssessmentReport.html Creating a task assessment report>
--- in the
--- <https://docs.aws.amazon.com/https:/docs.aws.amazon.com/dms/latest/userguide/Welcome.html Database Migration Service User Guide>.
+-- in the /Database Migration Service User Guide/.
 --
 -- This operation returns paginated results.
 module Amazonka.DMS.DescribeReplicationTaskAssessmentResults
@@ -36,9 +35,9 @@ module Amazonka.DMS.DescribeReplicationTaskAssessmentResults
     newDescribeReplicationTaskAssessmentResults,
 
     -- * Request Lenses
-    describeReplicationTaskAssessmentResults_replicationTaskArn,
     describeReplicationTaskAssessmentResults_marker,
     describeReplicationTaskAssessmentResults_maxRecords,
+    describeReplicationTaskAssessmentResults_replicationTaskArn,
 
     -- * Destructuring the Response
     DescribeReplicationTaskAssessmentResultsResponse (..),
@@ -53,8 +52,9 @@ module Amazonka.DMS.DescribeReplicationTaskAssessmentResults
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DMS.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -63,11 +63,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeReplicationTaskAssessmentResults' smart constructor.
 data DescribeReplicationTaskAssessmentResults = DescribeReplicationTaskAssessmentResults'
-  { -- | The Amazon Resource Name (ARN) string that uniquely identifies the task.
-    -- When this input parameter is specified, the API returns only one result
-    -- and ignore the values of the @MaxRecords@ and @Marker@ parameters.
-    replicationTaskArn :: Prelude.Maybe Prelude.Text,
-    -- | An optional pagination token provided by a previous request. If this
+  { -- | An optional pagination token provided by a previous request. If this
     -- parameter is specified, the response includes only records beyond the
     -- marker, up to the value specified by @MaxRecords@.
     marker :: Prelude.Maybe Prelude.Text,
@@ -79,7 +75,11 @@ data DescribeReplicationTaskAssessmentResults = DescribeReplicationTaskAssessmen
     -- Default: 100
     --
     -- Constraints: Minimum 20, maximum 100.
-    maxRecords :: Prelude.Maybe Prelude.Int
+    maxRecords :: Prelude.Maybe Prelude.Int,
+    -- | The Amazon Resource Name (ARN) string that uniquely identifies the task.
+    -- When this input parameter is specified, the API returns only one result
+    -- and ignore the values of the @MaxRecords@ and @Marker@ parameters.
+    replicationTaskArn :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -90,10 +90,6 @@ data DescribeReplicationTaskAssessmentResults = DescribeReplicationTaskAssessmen
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'replicationTaskArn', 'describeReplicationTaskAssessmentResults_replicationTaskArn' - The Amazon Resource Name (ARN) string that uniquely identifies the task.
--- When this input parameter is specified, the API returns only one result
--- and ignore the values of the @MaxRecords@ and @Marker@ parameters.
 --
 -- 'marker', 'describeReplicationTaskAssessmentResults_marker' - An optional pagination token provided by a previous request. If this
 -- parameter is specified, the response includes only records beyond the
@@ -107,21 +103,20 @@ data DescribeReplicationTaskAssessmentResults = DescribeReplicationTaskAssessmen
 -- Default: 100
 --
 -- Constraints: Minimum 20, maximum 100.
+--
+-- 'replicationTaskArn', 'describeReplicationTaskAssessmentResults_replicationTaskArn' - The Amazon Resource Name (ARN) string that uniquely identifies the task.
+-- When this input parameter is specified, the API returns only one result
+-- and ignore the values of the @MaxRecords@ and @Marker@ parameters.
 newDescribeReplicationTaskAssessmentResults ::
   DescribeReplicationTaskAssessmentResults
 newDescribeReplicationTaskAssessmentResults =
   DescribeReplicationTaskAssessmentResults'
-    { replicationTaskArn =
+    { marker =
         Prelude.Nothing,
-      marker = Prelude.Nothing,
-      maxRecords = Prelude.Nothing
+      maxRecords = Prelude.Nothing,
+      replicationTaskArn =
+        Prelude.Nothing
     }
-
--- | The Amazon Resource Name (ARN) string that uniquely identifies the task.
--- When this input parameter is specified, the API returns only one result
--- and ignore the values of the @MaxRecords@ and @Marker@ parameters.
-describeReplicationTaskAssessmentResults_replicationTaskArn :: Lens.Lens' DescribeReplicationTaskAssessmentResults (Prelude.Maybe Prelude.Text)
-describeReplicationTaskAssessmentResults_replicationTaskArn = Lens.lens (\DescribeReplicationTaskAssessmentResults' {replicationTaskArn} -> replicationTaskArn) (\s@DescribeReplicationTaskAssessmentResults' {} a -> s {replicationTaskArn = a} :: DescribeReplicationTaskAssessmentResults)
 
 -- | An optional pagination token provided by a previous request. If this
 -- parameter is specified, the response includes only records beyond the
@@ -139,6 +134,12 @@ describeReplicationTaskAssessmentResults_marker = Lens.lens (\DescribeReplicatio
 -- Constraints: Minimum 20, maximum 100.
 describeReplicationTaskAssessmentResults_maxRecords :: Lens.Lens' DescribeReplicationTaskAssessmentResults (Prelude.Maybe Prelude.Int)
 describeReplicationTaskAssessmentResults_maxRecords = Lens.lens (\DescribeReplicationTaskAssessmentResults' {maxRecords} -> maxRecords) (\s@DescribeReplicationTaskAssessmentResults' {} a -> s {maxRecords = a} :: DescribeReplicationTaskAssessmentResults)
+
+-- | The Amazon Resource Name (ARN) string that uniquely identifies the task.
+-- When this input parameter is specified, the API returns only one result
+-- and ignore the values of the @MaxRecords@ and @Marker@ parameters.
+describeReplicationTaskAssessmentResults_replicationTaskArn :: Lens.Lens' DescribeReplicationTaskAssessmentResults (Prelude.Maybe Prelude.Text)
+describeReplicationTaskAssessmentResults_replicationTaskArn = Lens.lens (\DescribeReplicationTaskAssessmentResults' {replicationTaskArn} -> replicationTaskArn) (\s@DescribeReplicationTaskAssessmentResults' {} a -> s {replicationTaskArn = a} :: DescribeReplicationTaskAssessmentResults)
 
 instance
   Core.AWSPager
@@ -173,14 +174,15 @@ instance
     AWSResponse
       DescribeReplicationTaskAssessmentResults =
       DescribeReplicationTaskAssessmentResultsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeReplicationTaskAssessmentResultsResponse'
-            Prelude.<$> (x Core..?> "BucketName")
-              Prelude.<*> (x Core..?> "Marker")
-              Prelude.<*> ( x Core..?> "ReplicationTaskAssessmentResults"
+            Prelude.<$> (x Data..?> "BucketName")
+              Prelude.<*> (x Data..?> "Marker")
+              Prelude.<*> ( x Data..?> "ReplicationTaskAssessmentResults"
                               Core..!@ Prelude.mempty
                           )
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -193,59 +195,59 @@ instance
   hashWithSalt
     _salt
     DescribeReplicationTaskAssessmentResults' {..} =
-      _salt `Prelude.hashWithSalt` replicationTaskArn
-        `Prelude.hashWithSalt` marker
+      _salt `Prelude.hashWithSalt` marker
         `Prelude.hashWithSalt` maxRecords
+        `Prelude.hashWithSalt` replicationTaskArn
 
 instance
   Prelude.NFData
     DescribeReplicationTaskAssessmentResults
   where
   rnf DescribeReplicationTaskAssessmentResults' {..} =
-    Prelude.rnf replicationTaskArn
-      `Prelude.seq` Prelude.rnf marker
+    Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
+      `Prelude.seq` Prelude.rnf replicationTaskArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeReplicationTaskAssessmentResults
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonDMSv20160101.DescribeReplicationTaskAssessmentResults" ::
+              Data.=# ( "AmazonDMSv20160101.DescribeReplicationTaskAssessmentResults" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DescribeReplicationTaskAssessmentResults
   where
   toJSON DescribeReplicationTaskAssessmentResults' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ReplicationTaskArn" Core..=)
-              Prelude.<$> replicationTaskArn,
-            ("Marker" Core..=) Prelude.<$> marker,
-            ("MaxRecords" Core..=) Prelude.<$> maxRecords
+          [ ("Marker" Data..=) Prelude.<$> marker,
+            ("MaxRecords" Data..=) Prelude.<$> maxRecords,
+            ("ReplicationTaskArn" Data..=)
+              Prelude.<$> replicationTaskArn
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeReplicationTaskAssessmentResults
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeReplicationTaskAssessmentResults
   where
   toQuery = Prelude.const Prelude.mempty

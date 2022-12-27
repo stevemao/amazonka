@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.VirtualGatewayData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,8 @@ import Amazonka.AppMesh.Types.ResourceMetadata
 import Amazonka.AppMesh.Types.VirtualGatewaySpec
 import Amazonka.AppMesh.Types.VirtualGatewayStatus
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents a virtual gateway returned by a describe
@@ -106,17 +107,17 @@ virtualGatewayData_status = Lens.lens (\VirtualGatewayData' {status} -> status) 
 virtualGatewayData_virtualGatewayName :: Lens.Lens' VirtualGatewayData Prelude.Text
 virtualGatewayData_virtualGatewayName = Lens.lens (\VirtualGatewayData' {virtualGatewayName} -> virtualGatewayName) (\s@VirtualGatewayData' {} a -> s {virtualGatewayName = a} :: VirtualGatewayData)
 
-instance Core.FromJSON VirtualGatewayData where
+instance Data.FromJSON VirtualGatewayData where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VirtualGatewayData"
       ( \x ->
           VirtualGatewayData'
-            Prelude.<$> (x Core..: "meshName")
-            Prelude.<*> (x Core..: "metadata")
-            Prelude.<*> (x Core..: "spec")
-            Prelude.<*> (x Core..: "status")
-            Prelude.<*> (x Core..: "virtualGatewayName")
+            Prelude.<$> (x Data..: "meshName")
+            Prelude.<*> (x Data..: "metadata")
+            Prelude.<*> (x Data..: "spec")
+            Prelude.<*> (x Data..: "status")
+            Prelude.<*> (x Data..: "virtualGatewayName")
       )
 
 instance Prelude.Hashable VirtualGatewayData where

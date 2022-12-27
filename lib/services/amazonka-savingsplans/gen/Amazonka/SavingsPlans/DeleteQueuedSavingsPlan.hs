@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SavingsPlans.DeleteQueuedSavingsPlan
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.SavingsPlans.DeleteQueuedSavingsPlan
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,7 +80,8 @@ instance Core.AWSRequest DeleteQueuedSavingsPlan where
   type
     AWSResponse DeleteQueuedSavingsPlan =
       DeleteQueuedSavingsPlanResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -95,30 +97,30 @@ instance Prelude.NFData DeleteQueuedSavingsPlan where
   rnf DeleteQueuedSavingsPlan' {..} =
     Prelude.rnf savingsPlanId
 
-instance Core.ToHeaders DeleteQueuedSavingsPlan where
+instance Data.ToHeaders DeleteQueuedSavingsPlan where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteQueuedSavingsPlan where
+instance Data.ToJSON DeleteQueuedSavingsPlan where
   toJSON DeleteQueuedSavingsPlan' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("savingsPlanId" Core..= savingsPlanId)
+              ("savingsPlanId" Data..= savingsPlanId)
           ]
       )
 
-instance Core.ToPath DeleteQueuedSavingsPlan where
+instance Data.ToPath DeleteQueuedSavingsPlan where
   toPath = Prelude.const "/DeleteQueuedSavingsPlan"
 
-instance Core.ToQuery DeleteQueuedSavingsPlan where
+instance Data.ToQuery DeleteQueuedSavingsPlan where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteQueuedSavingsPlanResponse' smart constructor.

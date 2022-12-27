@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.SavingsPlans.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,63 +14,78 @@
 module Amazonka.SavingsPlans.Lens
   ( -- * Operations
 
-    -- ** ListTagsForResource
-    listTagsForResource_resourceArn,
-    listTagsForResourceResponse_tags,
-    listTagsForResourceResponse_httpStatus,
-
-    -- ** DescribeSavingsPlanRates
-    describeSavingsPlanRates_filters,
-    describeSavingsPlanRates_nextToken,
-    describeSavingsPlanRates_maxResults,
-    describeSavingsPlanRates_savingsPlanId,
-    describeSavingsPlanRatesResponse_searchResults,
-    describeSavingsPlanRatesResponse_savingsPlanId,
-    describeSavingsPlanRatesResponse_nextToken,
-    describeSavingsPlanRatesResponse_httpStatus,
-
-    -- ** DeleteQueuedSavingsPlan
-    deleteQueuedSavingsPlan_savingsPlanId,
-    deleteQueuedSavingsPlanResponse_httpStatus,
-
     -- ** CreateSavingsPlan
     createSavingsPlan_clientToken,
     createSavingsPlan_purchaseTime,
-    createSavingsPlan_upfrontPaymentAmount,
     createSavingsPlan_tags,
+    createSavingsPlan_upfrontPaymentAmount,
     createSavingsPlan_savingsPlanOfferingId,
     createSavingsPlan_commitment,
     createSavingsPlanResponse_savingsPlanId,
     createSavingsPlanResponse_httpStatus,
 
-    -- ** DescribeSavingsPlansOfferings
-    describeSavingsPlansOfferings_serviceCodes,
-    describeSavingsPlansOfferings_productType,
-    describeSavingsPlansOfferings_filters,
-    describeSavingsPlansOfferings_offeringIds,
-    describeSavingsPlansOfferings_currencies,
-    describeSavingsPlansOfferings_nextToken,
-    describeSavingsPlansOfferings_paymentOptions,
-    describeSavingsPlansOfferings_descriptions,
-    describeSavingsPlansOfferings_durations,
-    describeSavingsPlansOfferings_planTypes,
-    describeSavingsPlansOfferings_usageTypes,
-    describeSavingsPlansOfferings_operations,
-    describeSavingsPlansOfferings_maxResults,
-    describeSavingsPlansOfferingsResponse_searchResults,
-    describeSavingsPlansOfferingsResponse_nextToken,
-    describeSavingsPlansOfferingsResponse_httpStatus,
+    -- ** DeleteQueuedSavingsPlan
+    deleteQueuedSavingsPlan_savingsPlanId,
+    deleteQueuedSavingsPlanResponse_httpStatus,
+
+    -- ** DescribeSavingsPlanRates
+    describeSavingsPlanRates_filters,
+    describeSavingsPlanRates_maxResults,
+    describeSavingsPlanRates_nextToken,
+    describeSavingsPlanRates_savingsPlanId,
+    describeSavingsPlanRatesResponse_nextToken,
+    describeSavingsPlanRatesResponse_savingsPlanId,
+    describeSavingsPlanRatesResponse_searchResults,
+    describeSavingsPlanRatesResponse_httpStatus,
 
     -- ** DescribeSavingsPlans
-    describeSavingsPlans_states,
-    describeSavingsPlans_savingsPlanIds,
     describeSavingsPlans_filters,
+    describeSavingsPlans_maxResults,
     describeSavingsPlans_nextToken,
     describeSavingsPlans_savingsPlanArns,
-    describeSavingsPlans_maxResults,
-    describeSavingsPlansResponse_savingsPlans,
+    describeSavingsPlans_savingsPlanIds,
+    describeSavingsPlans_states,
     describeSavingsPlansResponse_nextToken,
+    describeSavingsPlansResponse_savingsPlans,
     describeSavingsPlansResponse_httpStatus,
+
+    -- ** DescribeSavingsPlansOfferingRates
+    describeSavingsPlansOfferingRates_filters,
+    describeSavingsPlansOfferingRates_maxResults,
+    describeSavingsPlansOfferingRates_nextToken,
+    describeSavingsPlansOfferingRates_operations,
+    describeSavingsPlansOfferingRates_products,
+    describeSavingsPlansOfferingRates_savingsPlanOfferingIds,
+    describeSavingsPlansOfferingRates_savingsPlanPaymentOptions,
+    describeSavingsPlansOfferingRates_savingsPlanTypes,
+    describeSavingsPlansOfferingRates_serviceCodes,
+    describeSavingsPlansOfferingRates_usageTypes,
+    describeSavingsPlansOfferingRatesResponse_nextToken,
+    describeSavingsPlansOfferingRatesResponse_searchResults,
+    describeSavingsPlansOfferingRatesResponse_httpStatus,
+
+    -- ** DescribeSavingsPlansOfferings
+    describeSavingsPlansOfferings_currencies,
+    describeSavingsPlansOfferings_descriptions,
+    describeSavingsPlansOfferings_durations,
+    describeSavingsPlansOfferings_filters,
+    describeSavingsPlansOfferings_maxResults,
+    describeSavingsPlansOfferings_nextToken,
+    describeSavingsPlansOfferings_offeringIds,
+    describeSavingsPlansOfferings_operations,
+    describeSavingsPlansOfferings_paymentOptions,
+    describeSavingsPlansOfferings_planTypes,
+    describeSavingsPlansOfferings_productType,
+    describeSavingsPlansOfferings_serviceCodes,
+    describeSavingsPlansOfferings_usageTypes,
+    describeSavingsPlansOfferingsResponse_nextToken,
+    describeSavingsPlansOfferingsResponse_searchResults,
+    describeSavingsPlansOfferingsResponse_httpStatus,
+
+    -- ** ListTagsForResource
+    listTagsForResource_resourceArn,
+    listTagsForResourceResponse_tags,
+    listTagsForResourceResponse_httpStatus,
 
     -- ** TagResource
     tagResource_resourceArn,
@@ -82,111 +97,96 @@ module Amazonka.SavingsPlans.Lens
     untagResource_tagKeys,
     untagResourceResponse_httpStatus,
 
-    -- ** DescribeSavingsPlansOfferingRates
-    describeSavingsPlansOfferingRates_savingsPlanOfferingIds,
-    describeSavingsPlansOfferingRates_serviceCodes,
-    describeSavingsPlansOfferingRates_filters,
-    describeSavingsPlansOfferingRates_nextToken,
-    describeSavingsPlansOfferingRates_savingsPlanTypes,
-    describeSavingsPlansOfferingRates_products,
-    describeSavingsPlansOfferingRates_savingsPlanPaymentOptions,
-    describeSavingsPlansOfferingRates_usageTypes,
-    describeSavingsPlansOfferingRates_operations,
-    describeSavingsPlansOfferingRates_maxResults,
-    describeSavingsPlansOfferingRatesResponse_searchResults,
-    describeSavingsPlansOfferingRatesResponse_nextToken,
-    describeSavingsPlansOfferingRatesResponse_httpStatus,
-
     -- * Types
 
     -- ** ParentSavingsPlanOffering
     parentSavingsPlanOffering_currency,
     parentSavingsPlanOffering_durationSeconds,
     parentSavingsPlanOffering_offeringId,
+    parentSavingsPlanOffering_paymentOption,
     parentSavingsPlanOffering_planDescription,
     parentSavingsPlanOffering_planType,
-    parentSavingsPlanOffering_paymentOption,
 
     -- ** SavingsPlan
-    savingsPlan_termDurationInSeconds,
-    savingsPlan_savingsPlanType,
-    savingsPlan_state,
-    savingsPlan_productTypes,
-    savingsPlan_start,
-    savingsPlan_ec2InstanceFamily,
-    savingsPlan_savingsPlanId,
-    savingsPlan_recurringPaymentAmount,
-    savingsPlan_currency,
-    savingsPlan_end,
-    savingsPlan_upfrontPaymentAmount,
-    savingsPlan_offeringId,
-    savingsPlan_region,
     savingsPlan_commitment,
+    savingsPlan_currency,
     savingsPlan_description,
+    savingsPlan_ec2InstanceFamily,
+    savingsPlan_end,
+    savingsPlan_offeringId,
     savingsPlan_paymentOption,
+    savingsPlan_productTypes,
+    savingsPlan_recurringPaymentAmount,
+    savingsPlan_region,
     savingsPlan_savingsPlanArn,
+    savingsPlan_savingsPlanId,
+    savingsPlan_savingsPlanType,
+    savingsPlan_start,
+    savingsPlan_state,
     savingsPlan_tags,
+    savingsPlan_termDurationInSeconds,
+    savingsPlan_upfrontPaymentAmount,
 
     -- ** SavingsPlanFilter
-    savingsPlanFilter_values,
     savingsPlanFilter_name,
+    savingsPlanFilter_values,
 
     -- ** SavingsPlanOffering
-    savingsPlanOffering_operation,
-    savingsPlanOffering_usageType,
-    savingsPlanOffering_productTypes,
     savingsPlanOffering_currency,
+    savingsPlanOffering_description,
     savingsPlanOffering_durationSeconds,
     savingsPlanOffering_offeringId,
-    savingsPlanOffering_serviceCode,
-    savingsPlanOffering_planType,
-    savingsPlanOffering_description,
+    savingsPlanOffering_operation,
     savingsPlanOffering_paymentOption,
+    savingsPlanOffering_planType,
+    savingsPlanOffering_productTypes,
     savingsPlanOffering_properties,
+    savingsPlanOffering_serviceCode,
+    savingsPlanOffering_usageType,
 
     -- ** SavingsPlanOfferingFilterElement
-    savingsPlanOfferingFilterElement_values,
     savingsPlanOfferingFilterElement_name,
+    savingsPlanOfferingFilterElement_values,
 
     -- ** SavingsPlanOfferingProperty
-    savingsPlanOfferingProperty_value,
     savingsPlanOfferingProperty_name,
+    savingsPlanOfferingProperty_value,
 
     -- ** SavingsPlanOfferingRate
     savingsPlanOfferingRate_operation,
-    savingsPlanOfferingRate_usageType,
     savingsPlanOfferingRate_productType,
-    savingsPlanOfferingRate_savingsPlanOffering,
+    savingsPlanOfferingRate_properties,
     savingsPlanOfferingRate_rate,
+    savingsPlanOfferingRate_savingsPlanOffering,
     savingsPlanOfferingRate_serviceCode,
     savingsPlanOfferingRate_unit,
-    savingsPlanOfferingRate_properties,
+    savingsPlanOfferingRate_usageType,
 
     -- ** SavingsPlanOfferingRateFilterElement
-    savingsPlanOfferingRateFilterElement_values,
     savingsPlanOfferingRateFilterElement_name,
+    savingsPlanOfferingRateFilterElement_values,
 
     -- ** SavingsPlanOfferingRateProperty
-    savingsPlanOfferingRateProperty_value,
     savingsPlanOfferingRateProperty_name,
+    savingsPlanOfferingRateProperty_value,
 
     -- ** SavingsPlanRate
-    savingsPlanRate_operation,
-    savingsPlanRate_usageType,
-    savingsPlanRate_productType,
     savingsPlanRate_currency,
+    savingsPlanRate_operation,
+    savingsPlanRate_productType,
+    savingsPlanRate_properties,
     savingsPlanRate_rate,
     savingsPlanRate_serviceCode,
     savingsPlanRate_unit,
-    savingsPlanRate_properties,
+    savingsPlanRate_usageType,
 
     -- ** SavingsPlanRateFilter
-    savingsPlanRateFilter_values,
     savingsPlanRateFilter_name,
+    savingsPlanRateFilter_values,
 
     -- ** SavingsPlanRateProperty
-    savingsPlanRateProperty_value,
     savingsPlanRateProperty_name,
+    savingsPlanRateProperty_value,
   )
 where
 

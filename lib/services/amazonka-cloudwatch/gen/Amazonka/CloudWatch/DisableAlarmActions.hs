@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatch.DisableAlarmActions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ where
 
 import Amazonka.CloudWatch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -73,7 +74,8 @@ instance Core.AWSRequest DisableAlarmActions where
   type
     AWSResponse DisableAlarmActions =
       DisableAlarmActionsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull DisableAlarmActionsResponse'
 
@@ -84,21 +86,21 @@ instance Prelude.Hashable DisableAlarmActions where
 instance Prelude.NFData DisableAlarmActions where
   rnf DisableAlarmActions' {..} = Prelude.rnf alarmNames
 
-instance Core.ToHeaders DisableAlarmActions where
+instance Data.ToHeaders DisableAlarmActions where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DisableAlarmActions where
+instance Data.ToPath DisableAlarmActions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisableAlarmActions where
+instance Data.ToQuery DisableAlarmActions where
   toQuery DisableAlarmActions' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DisableAlarmActions" :: Prelude.ByteString),
+          Data.=: ("DisableAlarmActions" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-08-01" :: Prelude.ByteString),
+          Data.=: ("2010-08-01" :: Prelude.ByteString),
         "AlarmNames"
-          Core.=: Core.toQueryList "member" alarmNames
+          Data.=: Data.toQueryList "member" alarmNames
       ]
 
 -- | /See:/ 'newDisableAlarmActionsResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.GetVoiceTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.Pinpoint.GetVoiceTemplate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -162,13 +163,14 @@ instance Core.AWSRequest GetVoiceTemplate where
   type
     AWSResponse GetVoiceTemplate =
       GetVoiceTemplateResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetVoiceTemplateResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable GetVoiceTemplate where
@@ -181,25 +183,25 @@ instance Prelude.NFData GetVoiceTemplate where
     Prelude.rnf version
       `Prelude.seq` Prelude.rnf templateName
 
-instance Core.ToHeaders GetVoiceTemplate where
+instance Data.ToHeaders GetVoiceTemplate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetVoiceTemplate where
+instance Data.ToPath GetVoiceTemplate where
   toPath GetVoiceTemplate' {..} =
     Prelude.mconcat
-      ["/v1/templates/", Core.toBS templateName, "/voice"]
+      ["/v1/templates/", Data.toBS templateName, "/voice"]
 
-instance Core.ToQuery GetVoiceTemplate where
+instance Data.ToQuery GetVoiceTemplate where
   toQuery GetVoiceTemplate' {..} =
-    Prelude.mconcat ["version" Core.=: version]
+    Prelude.mconcat ["version" Data.=: version]
 
 -- | /See:/ 'newGetVoiceTemplateResponse' smart constructor.
 data GetVoiceTemplateResponse = GetVoiceTemplateResponse'

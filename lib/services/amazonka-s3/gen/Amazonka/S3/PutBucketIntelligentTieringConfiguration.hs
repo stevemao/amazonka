@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.PutBucketIntelligentTieringConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,17 +26,18 @@
 -- The S3 Intelligent-Tiering storage class is designed to optimize storage
 -- costs by automatically moving data to the most cost-effective storage
 -- access tier, without performance impact or operational overhead. S3
--- Intelligent-Tiering delivers automatic cost savings in two low latency
--- and high throughput access tiers. For data that can be accessed
--- asynchronously, you can choose to activate automatic archiving
--- capabilities within the S3 Intelligent-Tiering storage class.
+-- Intelligent-Tiering delivers automatic cost savings in three low latency
+-- and high throughput access tiers. To get the lowest storage cost on data
+-- that can be accessed in minutes to hours, you can choose to activate
+-- additional archiving capabilities.
 --
 -- The S3 Intelligent-Tiering storage class is the ideal storage class for
 -- data with unknown, changing, or unpredictable access patterns,
 -- independent of object size or retention period. If the size of an object
--- is less than 128 KB, it is not eligible for auto-tiering. Smaller
--- objects can be stored, but they are always charged at the Frequent
--- Access tier rates in the S3 Intelligent-Tiering storage class.
+-- is less than 128 KB, it is not monitored and not eligible for
+-- auto-tiering. Smaller objects can be stored, but they are always charged
+-- at the Frequent Access tier rates in the S3 Intelligent-Tiering storage
+-- class.
 --
 -- For more information, see
 -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html#sc-dynamic-data-access Storage class for automatically optimizing frequently and infrequently accessed objects>.
@@ -93,7 +94,8 @@ module Amazonka.S3.PutBucketIntelligentTieringConfiguration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -166,9 +168,9 @@ instance
     AWSResponse
       PutBucketIntelligentTieringConfiguration =
       PutBucketIntelligentTieringConfigurationResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.putXML defaultService
+      Prelude.. Request.putXML (overrides defaultService)
   response =
     Response.receiveNull
       PutBucketIntelligentTieringConfigurationResponse'
@@ -194,35 +196,35 @@ instance
       `Prelude.seq` Prelude.rnf intelligentTieringConfiguration
 
 instance
-  Core.ToElement
+  Data.ToElement
     PutBucketIntelligentTieringConfiguration
   where
   toElement
     PutBucketIntelligentTieringConfiguration' {..} =
-      Core.mkElement
+      Data.mkElement
         "{http://s3.amazonaws.com/doc/2006-03-01/}IntelligentTieringConfiguration"
         intelligentTieringConfiguration
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     PutBucketIntelligentTieringConfiguration
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     PutBucketIntelligentTieringConfiguration
   where
   toPath PutBucketIntelligentTieringConfiguration' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     PutBucketIntelligentTieringConfiguration
   where
   toQuery PutBucketIntelligentTieringConfiguration' {..} =
     Prelude.mconcat
-      ["id" Core.=: id, "intelligent-tiering"]
+      ["id" Data.=: id, "intelligent-tiering"]
 
 -- | /See:/ 'newPutBucketIntelligentTieringConfigurationResponse' smart constructor.
 data PutBucketIntelligentTieringConfigurationResponse = PutBucketIntelligentTieringConfigurationResponse'

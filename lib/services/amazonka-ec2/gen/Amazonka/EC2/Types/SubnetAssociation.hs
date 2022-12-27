@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.SubnetAssociation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.SubnetAssociation where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.TransitGatewayMulitcastDomainAssociationState
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the subnet association with the transit gateway multicast
@@ -64,11 +65,11 @@ subnetAssociation_state = Lens.lens (\SubnetAssociation' {state} -> state) (\s@S
 subnetAssociation_subnetId :: Lens.Lens' SubnetAssociation (Prelude.Maybe Prelude.Text)
 subnetAssociation_subnetId = Lens.lens (\SubnetAssociation' {subnetId} -> subnetId) (\s@SubnetAssociation' {} a -> s {subnetId = a} :: SubnetAssociation)
 
-instance Core.FromXML SubnetAssociation where
+instance Data.FromXML SubnetAssociation where
   parseXML x =
     SubnetAssociation'
-      Prelude.<$> (x Core..@? "state")
-      Prelude.<*> (x Core..@? "subnetId")
+      Prelude.<$> (x Data..@? "state")
+      Prelude.<*> (x Data..@? "subnetId")
 
 instance Prelude.Hashable SubnetAssociation where
   hashWithSalt _salt SubnetAssociation' {..} =

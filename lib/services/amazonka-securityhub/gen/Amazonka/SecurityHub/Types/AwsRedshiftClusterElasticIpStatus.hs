@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsRedshiftClusterElasticIpStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsRedshiftClusterElasticIpStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The status of the elastic IP (EIP) address for an Amazon Redshift
@@ -28,10 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAwsRedshiftClusterElasticIpStatus' smart constructor.
 data AwsRedshiftClusterElasticIpStatus = AwsRedshiftClusterElasticIpStatus'
-  { -- | The status of the elastic IP address.
-    status :: Prelude.Maybe Prelude.Text,
-    -- | The elastic IP address for the cluster.
-    elasticIp :: Prelude.Maybe Prelude.Text
+  { -- | The elastic IP address for the cluster.
+    elasticIp :: Prelude.Maybe Prelude.Text,
+    -- | The status of the elastic IP address.
+    status :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,37 +44,37 @@ data AwsRedshiftClusterElasticIpStatus = AwsRedshiftClusterElasticIpStatus'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'awsRedshiftClusterElasticIpStatus_status' - The status of the elastic IP address.
---
 -- 'elasticIp', 'awsRedshiftClusterElasticIpStatus_elasticIp' - The elastic IP address for the cluster.
+--
+-- 'status', 'awsRedshiftClusterElasticIpStatus_status' - The status of the elastic IP address.
 newAwsRedshiftClusterElasticIpStatus ::
   AwsRedshiftClusterElasticIpStatus
 newAwsRedshiftClusterElasticIpStatus =
   AwsRedshiftClusterElasticIpStatus'
-    { status =
+    { elasticIp =
         Prelude.Nothing,
-      elasticIp = Prelude.Nothing
+      status = Prelude.Nothing
     }
-
--- | The status of the elastic IP address.
-awsRedshiftClusterElasticIpStatus_status :: Lens.Lens' AwsRedshiftClusterElasticIpStatus (Prelude.Maybe Prelude.Text)
-awsRedshiftClusterElasticIpStatus_status = Lens.lens (\AwsRedshiftClusterElasticIpStatus' {status} -> status) (\s@AwsRedshiftClusterElasticIpStatus' {} a -> s {status = a} :: AwsRedshiftClusterElasticIpStatus)
 
 -- | The elastic IP address for the cluster.
 awsRedshiftClusterElasticIpStatus_elasticIp :: Lens.Lens' AwsRedshiftClusterElasticIpStatus (Prelude.Maybe Prelude.Text)
 awsRedshiftClusterElasticIpStatus_elasticIp = Lens.lens (\AwsRedshiftClusterElasticIpStatus' {elasticIp} -> elasticIp) (\s@AwsRedshiftClusterElasticIpStatus' {} a -> s {elasticIp = a} :: AwsRedshiftClusterElasticIpStatus)
 
+-- | The status of the elastic IP address.
+awsRedshiftClusterElasticIpStatus_status :: Lens.Lens' AwsRedshiftClusterElasticIpStatus (Prelude.Maybe Prelude.Text)
+awsRedshiftClusterElasticIpStatus_status = Lens.lens (\AwsRedshiftClusterElasticIpStatus' {status} -> status) (\s@AwsRedshiftClusterElasticIpStatus' {} a -> s {status = a} :: AwsRedshiftClusterElasticIpStatus)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsRedshiftClusterElasticIpStatus
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsRedshiftClusterElasticIpStatus"
       ( \x ->
           AwsRedshiftClusterElasticIpStatus'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "ElasticIp")
+            Prelude.<$> (x Data..:? "ElasticIp")
+            Prelude.<*> (x Data..:? "Status")
       )
 
 instance
@@ -83,25 +84,25 @@ instance
   hashWithSalt
     _salt
     AwsRedshiftClusterElasticIpStatus' {..} =
-      _salt `Prelude.hashWithSalt` status
-        `Prelude.hashWithSalt` elasticIp
+      _salt `Prelude.hashWithSalt` elasticIp
+        `Prelude.hashWithSalt` status
 
 instance
   Prelude.NFData
     AwsRedshiftClusterElasticIpStatus
   where
   rnf AwsRedshiftClusterElasticIpStatus' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf elasticIp
+    Prelude.rnf elasticIp
+      `Prelude.seq` Prelude.rnf status
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsRedshiftClusterElasticIpStatus
   where
   toJSON AwsRedshiftClusterElasticIpStatus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Status" Core..=) Prelude.<$> status,
-            ("ElasticIp" Core..=) Prelude.<$> elasticIp
+          [ ("ElasticIp" Data..=) Prelude.<$> elasticIp,
+            ("Status" Data..=) Prelude.<$> status
           ]
       )

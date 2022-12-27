@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DeleteVpnGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.EC2.DeleteVpnGateway
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,7 +100,8 @@ instance Core.AWSRequest DeleteVpnGateway where
   type
     AWSResponse DeleteVpnGateway =
       DeleteVpnGatewayResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull DeleteVpnGatewayResponse'
 
@@ -113,21 +115,21 @@ instance Prelude.NFData DeleteVpnGateway where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf vpnGatewayId
 
-instance Core.ToHeaders DeleteVpnGateway where
+instance Data.ToHeaders DeleteVpnGateway where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteVpnGateway where
+instance Data.ToPath DeleteVpnGateway where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteVpnGateway where
+instance Data.ToQuery DeleteVpnGateway where
   toQuery DeleteVpnGateway' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteVpnGateway" :: Prelude.ByteString),
+          Data.=: ("DeleteVpnGateway" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "VpnGatewayId" Core.=: vpnGatewayId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "VpnGatewayId" Data.=: vpnGatewayId
       ]
 
 -- | /See:/ 'newDeleteVpnGatewayResponse' smart constructor.

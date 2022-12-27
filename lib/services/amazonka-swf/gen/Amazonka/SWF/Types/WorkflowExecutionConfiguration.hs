@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.Types.WorkflowExecutionConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SWF.Types.WorkflowExecutionConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SWF.Types.ChildPolicy
 import Amazonka.SWF.Types.TaskList
@@ -204,18 +205,18 @@ workflowExecutionConfiguration_taskList = Lens.lens (\WorkflowExecutionConfigura
 workflowExecutionConfiguration_childPolicy :: Lens.Lens' WorkflowExecutionConfiguration ChildPolicy
 workflowExecutionConfiguration_childPolicy = Lens.lens (\WorkflowExecutionConfiguration' {childPolicy} -> childPolicy) (\s@WorkflowExecutionConfiguration' {} a -> s {childPolicy = a} :: WorkflowExecutionConfiguration)
 
-instance Core.FromJSON WorkflowExecutionConfiguration where
+instance Data.FromJSON WorkflowExecutionConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "WorkflowExecutionConfiguration"
       ( \x ->
           WorkflowExecutionConfiguration'
-            Prelude.<$> (x Core..:? "lambdaRole")
-            Prelude.<*> (x Core..:? "taskPriority")
-            Prelude.<*> (x Core..: "taskStartToCloseTimeout")
-            Prelude.<*> (x Core..: "executionStartToCloseTimeout")
-            Prelude.<*> (x Core..: "taskList")
-            Prelude.<*> (x Core..: "childPolicy")
+            Prelude.<$> (x Data..:? "lambdaRole")
+            Prelude.<*> (x Data..:? "taskPriority")
+            Prelude.<*> (x Data..: "taskStartToCloseTimeout")
+            Prelude.<*> (x Data..: "executionStartToCloseTimeout")
+            Prelude.<*> (x Data..: "taskList")
+            Prelude.<*> (x Data..: "childPolicy")
       )
 
 instance

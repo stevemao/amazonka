@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.Types.DestinationDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.ElastiCache.Types.DestinationDetails where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types.CloudWatchLogsDestinationDetails
 import Amazonka.ElastiCache.Types.KinesisFirehoseDestinationDetails
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration details of either a CloudWatch Logs destination or Kinesis
@@ -65,11 +66,11 @@ destinationDetails_cloudWatchLogsDetails = Lens.lens (\DestinationDetails' {clou
 destinationDetails_kinesisFirehoseDetails :: Lens.Lens' DestinationDetails (Prelude.Maybe KinesisFirehoseDestinationDetails)
 destinationDetails_kinesisFirehoseDetails = Lens.lens (\DestinationDetails' {kinesisFirehoseDetails} -> kinesisFirehoseDetails) (\s@DestinationDetails' {} a -> s {kinesisFirehoseDetails = a} :: DestinationDetails)
 
-instance Core.FromXML DestinationDetails where
+instance Data.FromXML DestinationDetails where
   parseXML x =
     DestinationDetails'
-      Prelude.<$> (x Core..@? "CloudWatchLogsDetails")
-      Prelude.<*> (x Core..@? "KinesisFirehoseDetails")
+      Prelude.<$> (x Data..@? "CloudWatchLogsDetails")
+      Prelude.<*> (x Data..@? "KinesisFirehoseDetails")
 
 instance Prelude.Hashable DestinationDetails where
   hashWithSalt _salt DestinationDetails' {..} =
@@ -81,11 +82,11 @@ instance Prelude.NFData DestinationDetails where
     Prelude.rnf cloudWatchLogsDetails
       `Prelude.seq` Prelude.rnf kinesisFirehoseDetails
 
-instance Core.ToQuery DestinationDetails where
+instance Data.ToQuery DestinationDetails where
   toQuery DestinationDetails' {..} =
     Prelude.mconcat
       [ "CloudWatchLogsDetails"
-          Core.=: cloudWatchLogsDetails,
+          Data.=: cloudWatchLogsDetails,
         "KinesisFirehoseDetails"
-          Core.=: kinesisFirehoseDetails
+          Data.=: kinesisFirehoseDetails
       ]

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudSearch.DefineAnalysisScheme
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.CloudSearch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,14 +98,15 @@ instance Core.AWSRequest DefineAnalysisScheme where
   type
     AWSResponse DefineAnalysisScheme =
       DefineAnalysisSchemeResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DefineAnalysisSchemeResult"
       ( \s h x ->
           DefineAnalysisSchemeResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "AnalysisScheme")
+            Prelude.<*> (x Data..@ "AnalysisScheme")
       )
 
 instance Prelude.Hashable DefineAnalysisScheme where
@@ -117,21 +119,21 @@ instance Prelude.NFData DefineAnalysisScheme where
     Prelude.rnf domainName
       `Prelude.seq` Prelude.rnf analysisScheme
 
-instance Core.ToHeaders DefineAnalysisScheme where
+instance Data.ToHeaders DefineAnalysisScheme where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DefineAnalysisScheme where
+instance Data.ToPath DefineAnalysisScheme where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DefineAnalysisScheme where
+instance Data.ToQuery DefineAnalysisScheme where
   toQuery DefineAnalysisScheme' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DefineAnalysisScheme" :: Prelude.ByteString),
+          Data.=: ("DefineAnalysisScheme" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2013-01-01" :: Prelude.ByteString),
-        "DomainName" Core.=: domainName,
-        "AnalysisScheme" Core.=: analysisScheme
+          Data.=: ("2013-01-01" :: Prelude.ByteString),
+        "DomainName" Data.=: domainName,
+        "AnalysisScheme" Data.=: analysisScheme
       ]
 
 -- | The result of a @DefineAnalysisScheme@ request. Contains the status of

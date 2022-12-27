@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.DeleteProject
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.CodeBuild.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,7 +78,8 @@ instance Core.AWSRequest DeleteProject where
   type
     AWSResponse DeleteProject =
       DeleteProjectResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -92,32 +94,32 @@ instance Prelude.Hashable DeleteProject where
 instance Prelude.NFData DeleteProject where
   rnf DeleteProject' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DeleteProject where
+instance Data.ToHeaders DeleteProject where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeBuild_20161006.DeleteProject" ::
+              Data.=# ( "CodeBuild_20161006.DeleteProject" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteProject where
+instance Data.ToJSON DeleteProject where
   toJSON DeleteProject' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("name" Core..= name)]
+          [Prelude.Just ("name" Data..= name)]
       )
 
-instance Core.ToPath DeleteProject where
+instance Data.ToPath DeleteProject where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteProject where
+instance Data.ToQuery DeleteProject where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteProjectResponse' smart constructor.

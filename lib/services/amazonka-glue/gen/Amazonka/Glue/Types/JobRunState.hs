@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.JobRunState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,23 +20,26 @@
 module Amazonka.Glue.Types.JobRunState
   ( JobRunState
       ( ..,
+        JobRunState_ERROR,
         JobRunState_FAILED,
         JobRunState_RUNNING,
         JobRunState_STARTING,
         JobRunState_STOPPED,
         JobRunState_STOPPING,
         JobRunState_SUCCEEDED,
-        JobRunState_TIMEOUT
+        JobRunState_TIMEOUT,
+        JobRunState_WAITING
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype JobRunState = JobRunState'
   { fromJobRunState ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -48,19 +51,22 @@ newtype JobRunState = JobRunState'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
+
+pattern JobRunState_ERROR :: JobRunState
+pattern JobRunState_ERROR = JobRunState' "ERROR"
 
 pattern JobRunState_FAILED :: JobRunState
 pattern JobRunState_FAILED = JobRunState' "FAILED"
@@ -83,7 +89,11 @@ pattern JobRunState_SUCCEEDED = JobRunState' "SUCCEEDED"
 pattern JobRunState_TIMEOUT :: JobRunState
 pattern JobRunState_TIMEOUT = JobRunState' "TIMEOUT"
 
+pattern JobRunState_WAITING :: JobRunState
+pattern JobRunState_WAITING = JobRunState' "WAITING"
+
 {-# COMPLETE
+  JobRunState_ERROR,
   JobRunState_FAILED,
   JobRunState_RUNNING,
   JobRunState_STARTING,
@@ -91,5 +101,6 @@ pattern JobRunState_TIMEOUT = JobRunState' "TIMEOUT"
   JobRunState_STOPPING,
   JobRunState_SUCCEEDED,
   JobRunState_TIMEOUT,
+  JobRunState_WAITING,
   JobRunState'
   #-}

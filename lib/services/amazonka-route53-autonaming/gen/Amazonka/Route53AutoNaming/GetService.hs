@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53AutoNaming.GetService
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.Route53AutoNaming.GetService
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -74,12 +75,13 @@ getService_id = Lens.lens (\GetService' {id} -> id) (\s@GetService' {} a -> s {i
 
 instance Core.AWSRequest GetService where
   type AWSResponse GetService = GetServiceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetServiceResponse'
-            Prelude.<$> (x Core..?> "Service")
+            Prelude.<$> (x Data..?> "Service")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -90,30 +92,30 @@ instance Prelude.Hashable GetService where
 instance Prelude.NFData GetService where
   rnf GetService' {..} = Prelude.rnf id
 
-instance Core.ToHeaders GetService where
+instance Data.ToHeaders GetService where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53AutoNaming_v20170314.GetService" ::
+              Data.=# ( "Route53AutoNaming_v20170314.GetService" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetService where
+instance Data.ToJSON GetService where
   toJSON GetService' {..} =
-    Core.object
-      (Prelude.catMaybes [Prelude.Just ("Id" Core..= id)])
+    Data.object
+      (Prelude.catMaybes [Prelude.Just ("Id" Data..= id)])
 
-instance Core.ToPath GetService where
+instance Data.ToPath GetService where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetService where
+instance Data.ToQuery GetService where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetServiceResponse' smart constructor.

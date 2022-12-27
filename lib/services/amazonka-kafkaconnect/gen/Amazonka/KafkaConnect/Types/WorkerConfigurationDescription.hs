@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.Types.WorkerConfigurationDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.KafkaConnect.Types.WorkerConfigurationDescription where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The description of the worker configuration.
 --
 -- /See:/ 'newWorkerConfigurationDescription' smart constructor.
 data WorkerConfigurationDescription = WorkerConfigurationDescription'
-  { -- | The Amazon Resource Name (ARN) of the worker configuration.
-    workerConfigurationArn :: Prelude.Maybe Prelude.Text,
-    -- | The revision of the worker configuration.
-    revision :: Prelude.Maybe Prelude.Integer
+  { -- | The revision of the worker configuration.
+    revision :: Prelude.Maybe Prelude.Integer,
+    -- | The Amazon Resource Name (ARN) of the worker configuration.
+    workerConfigurationArn :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,34 +43,34 @@ data WorkerConfigurationDescription = WorkerConfigurationDescription'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'workerConfigurationArn', 'workerConfigurationDescription_workerConfigurationArn' - The Amazon Resource Name (ARN) of the worker configuration.
---
 -- 'revision', 'workerConfigurationDescription_revision' - The revision of the worker configuration.
+--
+-- 'workerConfigurationArn', 'workerConfigurationDescription_workerConfigurationArn' - The Amazon Resource Name (ARN) of the worker configuration.
 newWorkerConfigurationDescription ::
   WorkerConfigurationDescription
 newWorkerConfigurationDescription =
   WorkerConfigurationDescription'
-    { workerConfigurationArn =
+    { revision =
         Prelude.Nothing,
-      revision = Prelude.Nothing
+      workerConfigurationArn = Prelude.Nothing
     }
-
--- | The Amazon Resource Name (ARN) of the worker configuration.
-workerConfigurationDescription_workerConfigurationArn :: Lens.Lens' WorkerConfigurationDescription (Prelude.Maybe Prelude.Text)
-workerConfigurationDescription_workerConfigurationArn = Lens.lens (\WorkerConfigurationDescription' {workerConfigurationArn} -> workerConfigurationArn) (\s@WorkerConfigurationDescription' {} a -> s {workerConfigurationArn = a} :: WorkerConfigurationDescription)
 
 -- | The revision of the worker configuration.
 workerConfigurationDescription_revision :: Lens.Lens' WorkerConfigurationDescription (Prelude.Maybe Prelude.Integer)
 workerConfigurationDescription_revision = Lens.lens (\WorkerConfigurationDescription' {revision} -> revision) (\s@WorkerConfigurationDescription' {} a -> s {revision = a} :: WorkerConfigurationDescription)
 
-instance Core.FromJSON WorkerConfigurationDescription where
+-- | The Amazon Resource Name (ARN) of the worker configuration.
+workerConfigurationDescription_workerConfigurationArn :: Lens.Lens' WorkerConfigurationDescription (Prelude.Maybe Prelude.Text)
+workerConfigurationDescription_workerConfigurationArn = Lens.lens (\WorkerConfigurationDescription' {workerConfigurationArn} -> workerConfigurationArn) (\s@WorkerConfigurationDescription' {} a -> s {workerConfigurationArn = a} :: WorkerConfigurationDescription)
+
+instance Data.FromJSON WorkerConfigurationDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "WorkerConfigurationDescription"
       ( \x ->
           WorkerConfigurationDescription'
-            Prelude.<$> (x Core..:? "workerConfigurationArn")
-            Prelude.<*> (x Core..:? "revision")
+            Prelude.<$> (x Data..:? "revision")
+            Prelude.<*> (x Data..:? "workerConfigurationArn")
       )
 
 instance
@@ -79,13 +80,13 @@ instance
   hashWithSalt
     _salt
     WorkerConfigurationDescription' {..} =
-      _salt `Prelude.hashWithSalt` workerConfigurationArn
-        `Prelude.hashWithSalt` revision
+      _salt `Prelude.hashWithSalt` revision
+        `Prelude.hashWithSalt` workerConfigurationArn
 
 instance
   Prelude.NFData
     WorkerConfigurationDescription
   where
   rnf WorkerConfigurationDescription' {..} =
-    Prelude.rnf workerConfigurationArn
-      `Prelude.seq` Prelude.rnf revision
+    Prelude.rnf revision
+      `Prelude.seq` Prelude.rnf workerConfigurationArn

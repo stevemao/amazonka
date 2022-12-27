@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.AppConfig.DeleteHostedConfigurationVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Delete a version of a configuration from the AppConfig configuration
--- store.
+-- Deletes a version of a configuration from the AppConfig hosted
+-- configuration store.
 module Amazonka.AppConfig.DeleteHostedConfigurationVersion
   ( -- * Creating a Request
     DeleteHostedConfigurationVersion (..),
@@ -40,7 +40,8 @@ where
 
 import Amazonka.AppConfig.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -108,7 +109,8 @@ instance
   type
     AWSResponse DeleteHostedConfigurationVersion =
       DeleteHostedConfigurationVersionResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteHostedConfigurationVersionResponse'
@@ -134,32 +136,32 @@ instance
       `Prelude.seq` Prelude.rnf versionNumber
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteHostedConfigurationVersion
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteHostedConfigurationVersion where
+instance Data.ToPath DeleteHostedConfigurationVersion where
   toPath DeleteHostedConfigurationVersion' {..} =
     Prelude.mconcat
       [ "/applications/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/configurationprofiles/",
-        Core.toBS configurationProfileId,
+        Data.toBS configurationProfileId,
         "/hostedconfigurationversions/",
-        Core.toBS versionNumber
+        Data.toBS versionNumber
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DeleteHostedConfigurationVersion
   where
   toQuery = Prelude.const Prelude.mempty

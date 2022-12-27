@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.UpdateVirtualGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.AppMesh.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,9 +57,9 @@ data UpdateVirtualGateway = UpdateVirtualGateway'
     -- idempotency of the request. Up to 36 letters, numbers, hyphens, and
     -- underscores are allowed.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | The AWS IAM account ID of the service mesh owner. If the account ID is
-    -- not your own, then it\'s the ID of the account that shared the mesh with
-    -- your account. For more information about mesh sharing, see
+    -- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+    -- account ID is not your own, then it\'s the ID of the account that shared
+    -- the mesh with your account. For more information about mesh sharing, see
     -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
     meshOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the service mesh that the virtual gateway resides in.
@@ -83,9 +84,9 @@ data UpdateVirtualGateway = UpdateVirtualGateway'
 -- idempotency of the request. Up to 36 letters, numbers, hyphens, and
 -- underscores are allowed.
 --
--- 'meshOwner', 'updateVirtualGateway_meshOwner' - The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
+-- 'meshOwner', 'updateVirtualGateway_meshOwner' - The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 --
 -- 'meshName', 'updateVirtualGateway_meshName' - The name of the service mesh that the virtual gateway resides in.
@@ -121,9 +122,9 @@ newUpdateVirtualGateway
 updateVirtualGateway_clientToken :: Lens.Lens' UpdateVirtualGateway (Prelude.Maybe Prelude.Text)
 updateVirtualGateway_clientToken = Lens.lens (\UpdateVirtualGateway' {clientToken} -> clientToken) (\s@UpdateVirtualGateway' {} a -> s {clientToken = a} :: UpdateVirtualGateway)
 
--- | The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
+-- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 updateVirtualGateway_meshOwner :: Lens.Lens' UpdateVirtualGateway (Prelude.Maybe Prelude.Text)
 updateVirtualGateway_meshOwner = Lens.lens (\UpdateVirtualGateway' {meshOwner} -> meshOwner) (\s@UpdateVirtualGateway' {} a -> s {meshOwner = a} :: UpdateVirtualGateway)
@@ -145,13 +146,14 @@ instance Core.AWSRequest UpdateVirtualGateway where
   type
     AWSResponse UpdateVirtualGateway =
       UpdateVirtualGatewayResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateVirtualGatewayResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable UpdateVirtualGateway where
@@ -170,38 +172,38 @@ instance Prelude.NFData UpdateVirtualGateway where
       `Prelude.seq` Prelude.rnf spec
       `Prelude.seq` Prelude.rnf virtualGatewayName
 
-instance Core.ToHeaders UpdateVirtualGateway where
+instance Data.ToHeaders UpdateVirtualGateway where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateVirtualGateway where
+instance Data.ToJSON UpdateVirtualGateway where
   toJSON UpdateVirtualGateway' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            Prelude.Just ("spec" Core..= spec)
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            Prelude.Just ("spec" Data..= spec)
           ]
       )
 
-instance Core.ToPath UpdateVirtualGateway where
+instance Data.ToPath UpdateVirtualGateway where
   toPath UpdateVirtualGateway' {..} =
     Prelude.mconcat
       [ "/v20190125/meshes/",
-        Core.toBS meshName,
+        Data.toBS meshName,
         "/virtualGateways/",
-        Core.toBS virtualGatewayName
+        Data.toBS virtualGatewayName
       ]
 
-instance Core.ToQuery UpdateVirtualGateway where
+instance Data.ToQuery UpdateVirtualGateway where
   toQuery UpdateVirtualGateway' {..} =
-    Prelude.mconcat ["meshOwner" Core.=: meshOwner]
+    Prelude.mconcat ["meshOwner" Data.=: meshOwner]
 
 -- | /See:/ 'newUpdateVirtualGatewayResponse' smart constructor.
 data UpdateVirtualGatewayResponse = UpdateVirtualGatewayResponse'

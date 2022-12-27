@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.PutPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,8 +22,8 @@
 --
 -- Attaches a resource-based policy to a private CA.
 --
--- A policy can also be applied by sharing a private CA through AWS
--- Resource Access Manager (RAM). For more information, see
+-- A policy can also be applied by sharing a private CA through Amazon Web
+-- Services Resource Access Manager (RAM). For more information, see
 -- <https://docs.aws.amazon.com/acm-pca/latest/userguide/pca-ram.html Attach a Policy for Cross-Account Access>.
 --
 -- The policy can be displayed with
@@ -33,13 +33,14 @@
 --
 -- __About Policies__
 --
--- -   A policy grants access on a private CA to an AWS customer account,
---     to AWS Organizations, or to an AWS Organizations unit. Policies are
---     under the control of a CA administrator. For more information, see
+-- -   A policy grants access on a private CA to an Amazon Web Services
+--     customer account, to Amazon Web Services Organizations, or to an
+--     Amazon Web Services Organizations unit. Policies are under the
+--     control of a CA administrator. For more information, see
 --     <https://docs.aws.amazon.com/acm-pca/latest/userguide/pca-rbp.html Using a Resource Based Policy with ACM Private CA>.
 --
--- -   A policy permits a user of AWS Certificate Manager (ACM) to issue
---     ACM certificates signed by a CA in another account.
+-- -   A policy permits a user of Certificate Manager (ACM) to issue ACM
+--     certificates signed by a CA in another account.
 --
 -- -   For ACM to manage automatic renewal of these certificates, the ACM
 --     user must configure a Service Linked Role (SLR). The SLR allows the
@@ -48,8 +49,8 @@
 --     information, see
 --     <https://docs.aws.amazon.com/acm/latest/userguide/acm-slr.html Using a Service Linked Role with ACM>.
 --
--- -   Updates made in AWS Resource Manager (RAM) are reflected in
---     policies. For more information, see
+-- -   Updates made in Amazon Web Services Resource Manager (RAM) are
+--     reflected in policies. For more information, see
 --     <https://docs.aws.amazon.com/acm-pca/latest/userguide/pca-ram.html Attach a Policy for Cross-Account Access>.
 module Amazonka.CertificateManagerPCA.PutPolicy
   ( -- * Creating a Request
@@ -68,7 +69,8 @@ where
 
 import Amazonka.CertificateManagerPCA.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -139,7 +141,8 @@ putPolicy_policy = Lens.lens (\PutPolicy' {policy} -> policy) (\s@PutPolicy' {} 
 
 instance Core.AWSRequest PutPolicy where
   type AWSResponse PutPolicy = PutPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull PutPolicyResponse'
 
 instance Prelude.Hashable PutPolicy where
@@ -152,32 +155,32 @@ instance Prelude.NFData PutPolicy where
     Prelude.rnf resourceArn
       `Prelude.seq` Prelude.rnf policy
 
-instance Core.ToHeaders PutPolicy where
+instance Data.ToHeaders PutPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("ACMPrivateCA.PutPolicy" :: Prelude.ByteString),
+              Data.=# ("ACMPrivateCA.PutPolicy" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutPolicy where
+instance Data.ToJSON PutPolicy where
   toJSON PutPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ResourceArn" Core..= resourceArn),
-            Prelude.Just ("Policy" Core..= policy)
+          [ Prelude.Just ("ResourceArn" Data..= resourceArn),
+            Prelude.Just ("Policy" Data..= policy)
           ]
       )
 
-instance Core.ToPath PutPolicy where
+instance Data.ToPath PutPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutPolicy where
+instance Data.ToQuery PutPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutPolicyResponse' smart constructor.

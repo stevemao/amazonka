@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.GetOpsItem
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,6 +38,7 @@ module Amazonka.SSM.GetOpsItem
     newGetOpsItem,
 
     -- * Request Lenses
+    getOpsItem_opsItemArn,
     getOpsItem_opsItemId,
 
     -- * Destructuring the Response
@@ -51,7 +52,8 @@ module Amazonka.SSM.GetOpsItem
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,7 +61,9 @@ import Amazonka.SSM.Types
 
 -- | /See:/ 'newGetOpsItem' smart constructor.
 data GetOpsItem = GetOpsItem'
-  { -- | The ID of the OpsItem that you want to get.
+  { -- | The OpsItem Amazon Resource Name (ARN).
+    opsItemArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the OpsItem that you want to get.
     opsItemId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -72,13 +76,22 @@ data GetOpsItem = GetOpsItem'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'opsItemArn', 'getOpsItem_opsItemArn' - The OpsItem Amazon Resource Name (ARN).
+--
 -- 'opsItemId', 'getOpsItem_opsItemId' - The ID of the OpsItem that you want to get.
 newGetOpsItem ::
   -- | 'opsItemId'
   Prelude.Text ->
   GetOpsItem
 newGetOpsItem pOpsItemId_ =
-  GetOpsItem' {opsItemId = pOpsItemId_}
+  GetOpsItem'
+    { opsItemArn = Prelude.Nothing,
+      opsItemId = pOpsItemId_
+    }
+
+-- | The OpsItem Amazon Resource Name (ARN).
+getOpsItem_opsItemArn :: Lens.Lens' GetOpsItem (Prelude.Maybe Prelude.Text)
+getOpsItem_opsItemArn = Lens.lens (\GetOpsItem' {opsItemArn} -> opsItemArn) (\s@GetOpsItem' {} a -> s {opsItemArn = a} :: GetOpsItem)
 
 -- | The ID of the OpsItem that you want to get.
 getOpsItem_opsItemId :: Lens.Lens' GetOpsItem Prelude.Text
@@ -86,46 +99,52 @@ getOpsItem_opsItemId = Lens.lens (\GetOpsItem' {opsItemId} -> opsItemId) (\s@Get
 
 instance Core.AWSRequest GetOpsItem where
   type AWSResponse GetOpsItem = GetOpsItemResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetOpsItemResponse'
-            Prelude.<$> (x Core..?> "OpsItem")
+            Prelude.<$> (x Data..?> "OpsItem")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetOpsItem where
   hashWithSalt _salt GetOpsItem' {..} =
-    _salt `Prelude.hashWithSalt` opsItemId
+    _salt `Prelude.hashWithSalt` opsItemArn
+      `Prelude.hashWithSalt` opsItemId
 
 instance Prelude.NFData GetOpsItem where
-  rnf GetOpsItem' {..} = Prelude.rnf opsItemId
+  rnf GetOpsItem' {..} =
+    Prelude.rnf opsItemArn
+      `Prelude.seq` Prelude.rnf opsItemId
 
-instance Core.ToHeaders GetOpsItem where
+instance Data.ToHeaders GetOpsItem where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AmazonSSM.GetOpsItem" :: Prelude.ByteString),
+              Data.=# ("AmazonSSM.GetOpsItem" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetOpsItem where
+instance Data.ToJSON GetOpsItem where
   toJSON GetOpsItem' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("OpsItemId" Core..= opsItemId)]
+          [ ("OpsItemArn" Data..=) Prelude.<$> opsItemArn,
+            Prelude.Just ("OpsItemId" Data..= opsItemId)
+          ]
       )
 
-instance Core.ToPath GetOpsItem where
+instance Data.ToPath GetOpsItem where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetOpsItem where
+instance Data.ToQuery GetOpsItem where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetOpsItemResponse' smart constructor.

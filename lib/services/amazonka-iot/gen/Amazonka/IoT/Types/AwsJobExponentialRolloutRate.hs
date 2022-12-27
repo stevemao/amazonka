@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.AwsJobExponentialRolloutRate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoT.Types.AwsJobExponentialRolloutRate where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.AwsJobRateIncreaseCriteria
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The rate of increase for a job rollout. This parameter allows you to
@@ -100,15 +101,15 @@ awsJobExponentialRolloutRate_incrementFactor = Lens.lens (\AwsJobExponentialRoll
 awsJobExponentialRolloutRate_rateIncreaseCriteria :: Lens.Lens' AwsJobExponentialRolloutRate AwsJobRateIncreaseCriteria
 awsJobExponentialRolloutRate_rateIncreaseCriteria = Lens.lens (\AwsJobExponentialRolloutRate' {rateIncreaseCriteria} -> rateIncreaseCriteria) (\s@AwsJobExponentialRolloutRate' {} a -> s {rateIncreaseCriteria = a} :: AwsJobExponentialRolloutRate)
 
-instance Core.FromJSON AwsJobExponentialRolloutRate where
+instance Data.FromJSON AwsJobExponentialRolloutRate where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsJobExponentialRolloutRate"
       ( \x ->
           AwsJobExponentialRolloutRate'
-            Prelude.<$> (x Core..: "baseRatePerMinute")
-            Prelude.<*> (x Core..: "incrementFactor")
-            Prelude.<*> (x Core..: "rateIncreaseCriteria")
+            Prelude.<$> (x Data..: "baseRatePerMinute")
+            Prelude.<*> (x Data..: "incrementFactor")
+            Prelude.<*> (x Data..: "rateIncreaseCriteria")
       )
 
 instance
@@ -126,17 +127,17 @@ instance Prelude.NFData AwsJobExponentialRolloutRate where
       `Prelude.seq` Prelude.rnf incrementFactor
       `Prelude.seq` Prelude.rnf rateIncreaseCriteria
 
-instance Core.ToJSON AwsJobExponentialRolloutRate where
+instance Data.ToJSON AwsJobExponentialRolloutRate where
   toJSON AwsJobExponentialRolloutRate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("baseRatePerMinute" Core..= baseRatePerMinute),
+              ("baseRatePerMinute" Data..= baseRatePerMinute),
             Prelude.Just
-              ("incrementFactor" Core..= incrementFactor),
+              ("incrementFactor" Data..= incrementFactor),
             Prelude.Just
               ( "rateIncreaseCriteria"
-                  Core..= rateIncreaseCriteria
+                  Data..= rateIncreaseCriteria
               )
           ]
       )

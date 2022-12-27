@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.RemoveFacetFromObject
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,7 +107,8 @@ instance Core.AWSRequest RemoveFacetFromObject where
   type
     AWSResponse RemoveFacetFromObject =
       RemoveFacetFromObjectResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -126,27 +128,27 @@ instance Prelude.NFData RemoveFacetFromObject where
       `Prelude.seq` Prelude.rnf schemaFacet
       `Prelude.seq` Prelude.rnf objectReference
 
-instance Core.ToHeaders RemoveFacetFromObject where
+instance Data.ToHeaders RemoveFacetFromObject where
   toHeaders RemoveFacetFromObject' {..} =
     Prelude.mconcat
-      ["x-amz-data-partition" Core.=# directoryArn]
+      ["x-amz-data-partition" Data.=# directoryArn]
 
-instance Core.ToJSON RemoveFacetFromObject where
+instance Data.ToJSON RemoveFacetFromObject where
   toJSON RemoveFacetFromObject' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("SchemaFacet" Core..= schemaFacet),
+          [ Prelude.Just ("SchemaFacet" Data..= schemaFacet),
             Prelude.Just
-              ("ObjectReference" Core..= objectReference)
+              ("ObjectReference" Data..= objectReference)
           ]
       )
 
-instance Core.ToPath RemoveFacetFromObject where
+instance Data.ToPath RemoveFacetFromObject where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/object/facets/delete"
 
-instance Core.ToQuery RemoveFacetFromObject where
+instance Data.ToQuery RemoveFacetFromObject where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRemoveFacetFromObjectResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.StartMigration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.ElastiCache.StartMigration
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,13 +94,14 @@ instance Core.AWSRequest StartMigration where
   type
     AWSResponse StartMigration =
       StartMigrationResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "StartMigrationResult"
       ( \s h x ->
           StartMigrationResponse'
-            Prelude.<$> (x Core..@? "ReplicationGroup")
+            Prelude.<$> (x Data..@? "ReplicationGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -113,22 +115,22 @@ instance Prelude.NFData StartMigration where
     Prelude.rnf replicationGroupId
       `Prelude.seq` Prelude.rnf customerNodeEndpointList
 
-instance Core.ToHeaders StartMigration where
+instance Data.ToHeaders StartMigration where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath StartMigration where
+instance Data.ToPath StartMigration where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartMigration where
+instance Data.ToQuery StartMigration where
   toQuery StartMigration' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("StartMigration" :: Prelude.ByteString),
+          Data.=: ("StartMigration" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
-        "ReplicationGroupId" Core.=: replicationGroupId,
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
+        "ReplicationGroupId" Data.=: replicationGroupId,
         "CustomerNodeEndpointList"
-          Core.=: Core.toQueryList "member" customerNodeEndpointList
+          Data.=: Data.toQueryList "member" customerNodeEndpointList
       ]
 
 -- | /See:/ 'newStartMigrationResponse' smart constructor.

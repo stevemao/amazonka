@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkSpaces.ModifyWorkspaceState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.WorkSpaces.ModifyWorkspaceState
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,7 +99,8 @@ instance Core.AWSRequest ModifyWorkspaceState where
   type
     AWSResponse ModifyWorkspaceState =
       ModifyWorkspaceStateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -116,35 +118,35 @@ instance Prelude.NFData ModifyWorkspaceState where
     Prelude.rnf workspaceId
       `Prelude.seq` Prelude.rnf workspaceState
 
-instance Core.ToHeaders ModifyWorkspaceState where
+instance Data.ToHeaders ModifyWorkspaceState where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkspacesService.ModifyWorkspaceState" ::
+              Data.=# ( "WorkspacesService.ModifyWorkspaceState" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ModifyWorkspaceState where
+instance Data.ToJSON ModifyWorkspaceState where
   toJSON ModifyWorkspaceState' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("WorkspaceId" Core..= workspaceId),
+          [ Prelude.Just ("WorkspaceId" Data..= workspaceId),
             Prelude.Just
-              ("WorkspaceState" Core..= workspaceState)
+              ("WorkspaceState" Data..= workspaceState)
           ]
       )
 
-instance Core.ToPath ModifyWorkspaceState where
+instance Data.ToPath ModifyWorkspaceState where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyWorkspaceState where
+instance Data.ToQuery ModifyWorkspaceState where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newModifyWorkspaceStateResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ComprehendMedical.Types.Trait
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,18 +21,19 @@ module Amazonka.ComprehendMedical.Types.Trait where
 
 import Amazonka.ComprehendMedical.Types.AttributeName
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides contextual information about the extracted entity.
 --
 -- /See:/ 'newTrait' smart constructor.
 data Trait = Trait'
-  { -- | The level of confidence that Amazon Comprehend Medical has in the
-    -- accuracy of this trait.
-    score :: Prelude.Maybe Prelude.Double,
-    -- | Provides a name or contextual description about the trait.
-    name :: Prelude.Maybe AttributeName
+  { -- | Provides a name or contextual description about the trait.
+    name :: Prelude.Maybe AttributeName,
+    -- | The level of confidence that Comprehend Medical; has in the accuracy of
+    -- this trait.
+    score :: Prelude.Maybe Prelude.Double
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,41 +45,41 @@ data Trait = Trait'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'score', 'trait_score' - The level of confidence that Amazon Comprehend Medical has in the
--- accuracy of this trait.
---
 -- 'name', 'trait_name' - Provides a name or contextual description about the trait.
+--
+-- 'score', 'trait_score' - The level of confidence that Comprehend Medical; has in the accuracy of
+-- this trait.
 newTrait ::
   Trait
 newTrait =
   Trait'
-    { score = Prelude.Nothing,
-      name = Prelude.Nothing
+    { name = Prelude.Nothing,
+      score = Prelude.Nothing
     }
-
--- | The level of confidence that Amazon Comprehend Medical has in the
--- accuracy of this trait.
-trait_score :: Lens.Lens' Trait (Prelude.Maybe Prelude.Double)
-trait_score = Lens.lens (\Trait' {score} -> score) (\s@Trait' {} a -> s {score = a} :: Trait)
 
 -- | Provides a name or contextual description about the trait.
 trait_name :: Lens.Lens' Trait (Prelude.Maybe AttributeName)
 trait_name = Lens.lens (\Trait' {name} -> name) (\s@Trait' {} a -> s {name = a} :: Trait)
 
-instance Core.FromJSON Trait where
+-- | The level of confidence that Comprehend Medical; has in the accuracy of
+-- this trait.
+trait_score :: Lens.Lens' Trait (Prelude.Maybe Prelude.Double)
+trait_score = Lens.lens (\Trait' {score} -> score) (\s@Trait' {} a -> s {score = a} :: Trait)
+
+instance Data.FromJSON Trait where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Trait"
       ( \x ->
           Trait'
-            Prelude.<$> (x Core..:? "Score") Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Name") Prelude.<*> (x Data..:? "Score")
       )
 
 instance Prelude.Hashable Trait where
   hashWithSalt _salt Trait' {..} =
-    _salt `Prelude.hashWithSalt` score
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` score
 
 instance Prelude.NFData Trait where
   rnf Trait' {..} =
-    Prelude.rnf score `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name `Prelude.seq` Prelude.rnf score

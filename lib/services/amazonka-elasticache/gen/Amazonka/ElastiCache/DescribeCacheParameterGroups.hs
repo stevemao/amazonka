@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.DescribeCacheParameterGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.ElastiCache.DescribeCacheParameterGroups
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -154,17 +155,18 @@ instance Core.AWSRequest DescribeCacheParameterGroups where
   type
     AWSResponse DescribeCacheParameterGroups =
       DescribeCacheParameterGroupsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeCacheParameterGroupsResult"
       ( \s h x ->
           DescribeCacheParameterGroupsResponse'
-            Prelude.<$> ( x Core..@? "CacheParameterGroups"
+            Prelude.<$> ( x Data..@? "CacheParameterGroups"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "CacheParameterGroup")
+                            Prelude.>>= Core.may (Data.parseXMLList "CacheParameterGroup")
                         )
-            Prelude.<*> (x Core..@? "Marker")
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -184,25 +186,25 @@ instance Prelude.NFData DescribeCacheParameterGroups where
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
 
-instance Core.ToHeaders DescribeCacheParameterGroups where
+instance Data.ToHeaders DescribeCacheParameterGroups where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeCacheParameterGroups where
+instance Data.ToPath DescribeCacheParameterGroups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeCacheParameterGroups where
+instance Data.ToQuery DescribeCacheParameterGroups where
   toQuery DescribeCacheParameterGroups' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeCacheParameterGroups" ::
+          Data.=: ( "DescribeCacheParameterGroups" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
         "CacheParameterGroupName"
-          Core.=: cacheParameterGroupName,
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords
+          Data.=: cacheParameterGroupName,
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords
       ]
 
 -- | Represents the output of a @DescribeCacheParameterGroups@ operation.

@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,18 +18,18 @@ module Amazonka.DeviceFarm.Types
     defaultService,
 
     -- * Errors
-    _NotEligibleException,
+    _ArgumentException,
     _CannotDeleteException,
     _IdempotencyException,
-    _TooManyTagsException,
-    _ArgumentException,
-    _NotFoundException,
     _InternalServiceException,
-    _TagPolicyException,
-    _TagOperationException,
-    _ServiceAccountException,
     _InvalidOperationException,
     _LimitExceededException,
+    _NotEligibleException,
+    _NotFoundException,
+    _ServiceAccountException,
+    _TagOperationException,
+    _TagPolicyException,
+    _TooManyTagsException,
 
     -- * ArtifactCategory
     ArtifactCategory (..),
@@ -117,41 +118,41 @@ module Amazonka.DeviceFarm.Types
     -- * AccountSettings
     AccountSettings (..),
     newAccountSettings,
-    accountSettings_skipAppResign,
     accountSettings_awsAccountNumber,
+    accountSettings_defaultJobTimeoutMinutes,
     accountSettings_maxJobTimeoutMinutes,
     accountSettings_maxSlots,
+    accountSettings_skipAppResign,
     accountSettings_trialMinutes,
     accountSettings_unmeteredDevices,
     accountSettings_unmeteredRemoteAccessDevices,
-    accountSettings_defaultJobTimeoutMinutes,
 
     -- * Artifact
     Artifact (..),
     newArtifact,
     artifact_arn,
-    artifact_url,
     artifact_extension,
     artifact_name,
     artifact_type,
+    artifact_url,
 
     -- * CPU
     CPU (..),
     newCPU,
-    cpu_frequency,
-    cpu_clock,
     cpu_architecture,
+    cpu_clock,
+    cpu_frequency,
 
     -- * Counters
     Counters (..),
     newCounters,
+    counters_errored,
+    counters_failed,
     counters_passed,
     counters_skipped,
-    counters_warned,
     counters_stopped,
     counters_total,
-    counters_failed,
-    counters_errored,
+    counters_warned,
 
     -- * CreateRemoteAccessSessionConfiguration
     CreateRemoteAccessSessionConfiguration (..),
@@ -169,27 +170,27 @@ module Amazonka.DeviceFarm.Types
     -- * Device
     Device (..),
     newDevice,
-    device_carrier,
-    device_image,
-    device_manufacturer,
-    device_platform,
-    device_modelId,
-    device_remoteAccessEnabled,
     device_arn,
-    device_formFactor,
-    device_fleetType,
-    device_resolution,
     device_availability,
-    device_memory,
-    device_radio,
-    device_os,
-    device_name,
-    device_model,
-    device_instances,
-    device_remoteDebugEnabled,
+    device_carrier,
     device_cpu,
-    device_heapSize,
     device_fleetName,
+    device_fleetType,
+    device_formFactor,
+    device_heapSize,
+    device_image,
+    device_instances,
+    device_manufacturer,
+    device_memory,
+    device_model,
+    device_modelId,
+    device_name,
+    device_os,
+    device_platform,
+    device_radio,
+    device_remoteAccessEnabled,
+    device_remoteDebugEnabled,
+    device_resolution,
 
     -- * DeviceFilter
     DeviceFilter (..),
@@ -201,12 +202,12 @@ module Amazonka.DeviceFarm.Types
     -- * DeviceInstance
     DeviceInstance (..),
     newDeviceInstance,
-    deviceInstance_status,
-    deviceInstance_udid,
-    deviceInstance_instanceProfile,
     deviceInstance_arn,
     deviceInstance_deviceArn,
+    deviceInstance_instanceProfile,
     deviceInstance_labels,
+    deviceInstance_status,
+    deviceInstance_udid,
 
     -- * DeviceMinutes
     DeviceMinutes (..),
@@ -219,17 +220,17 @@ module Amazonka.DeviceFarm.Types
     DevicePool (..),
     newDevicePool,
     devicePool_arn,
-    devicePool_rules,
-    devicePool_name,
-    devicePool_maxDevices,
-    devicePool_type,
     devicePool_description,
+    devicePool_maxDevices,
+    devicePool_name,
+    devicePool_rules,
+    devicePool_type,
 
     -- * DevicePoolCompatibilityResult
     DevicePoolCompatibilityResult (..),
     newDevicePoolCompatibilityResult,
-    devicePoolCompatibilityResult_device,
     devicePoolCompatibilityResult_compatible,
+    devicePoolCompatibilityResult_device,
     devicePoolCompatibilityResult_incompatibilityMessages,
 
     -- * DeviceSelectionConfiguration
@@ -241,53 +242,53 @@ module Amazonka.DeviceFarm.Types
     -- * DeviceSelectionResult
     DeviceSelectionResult (..),
     newDeviceSelectionResult,
-    deviceSelectionResult_matchedDevicesCount,
     deviceSelectionResult_filters,
+    deviceSelectionResult_matchedDevicesCount,
     deviceSelectionResult_maxDevices,
 
     -- * ExecutionConfiguration
     ExecutionConfiguration (..),
     newExecutionConfiguration,
-    executionConfiguration_skipAppResign,
     executionConfiguration_accountsCleanup,
     executionConfiguration_appPackagesCleanup,
     executionConfiguration_jobTimeoutMinutes,
+    executionConfiguration_skipAppResign,
     executionConfiguration_videoCapture,
 
     -- * IncompatibilityMessage
     IncompatibilityMessage (..),
     newIncompatibilityMessage,
-    incompatibilityMessage_type,
     incompatibilityMessage_message,
+    incompatibilityMessage_type,
 
     -- * InstanceProfile
     InstanceProfile (..),
     newInstanceProfile,
     instanceProfile_arn,
-    instanceProfile_rebootAfterUse,
+    instanceProfile_description,
+    instanceProfile_excludeAppPackagesFromCleanup,
     instanceProfile_name,
     instanceProfile_packageCleanup,
-    instanceProfile_excludeAppPackagesFromCleanup,
-    instanceProfile_description,
+    instanceProfile_rebootAfterUse,
 
     -- * Job
     Job (..),
     newJob,
-    job_instanceArn,
-    job_status,
-    job_counters,
     job_arn,
+    job_counters,
     job_created,
     job_device,
-    job_stopped,
-    job_result,
-    job_name,
-    job_videoEndpoint,
     job_deviceMinutes,
-    job_videoCapture,
-    job_type,
+    job_instanceArn,
     job_message,
+    job_name,
+    job_result,
     job_started,
+    job_status,
+    job_stopped,
+    job_type,
+    job_videoCapture,
+    job_videoEndpoint,
 
     -- * Location
     Location (..),
@@ -304,33 +305,33 @@ module Amazonka.DeviceFarm.Types
     -- * NetworkProfile
     NetworkProfile (..),
     newNetworkProfile,
-    networkProfile_uplinkJitterMs,
     networkProfile_arn,
-    networkProfile_uplinkLossPercent,
-    networkProfile_downlinkJitterMs,
-    networkProfile_name,
-    networkProfile_downlinkLossPercent,
-    networkProfile_type,
-    networkProfile_uplinkDelayMs,
-    networkProfile_uplinkBandwidthBits,
     networkProfile_description,
-    networkProfile_downlinkDelayMs,
     networkProfile_downlinkBandwidthBits,
+    networkProfile_downlinkDelayMs,
+    networkProfile_downlinkJitterMs,
+    networkProfile_downlinkLossPercent,
+    networkProfile_name,
+    networkProfile_type,
+    networkProfile_uplinkBandwidthBits,
+    networkProfile_uplinkDelayMs,
+    networkProfile_uplinkJitterMs,
+    networkProfile_uplinkLossPercent,
 
     -- * Offering
     Offering (..),
     newOffering,
-    offering_platform,
+    offering_description,
     offering_id,
+    offering_platform,
     offering_recurringCharges,
     offering_type,
-    offering_description,
 
     -- * OfferingPromotion
     OfferingPromotion (..),
     newOfferingPromotion,
-    offeringPromotion_id,
     offeringPromotion_description,
+    offeringPromotion_id,
 
     -- * OfferingStatus
     OfferingStatus (..),
@@ -343,22 +344,22 @@ module Amazonka.DeviceFarm.Types
     -- * OfferingTransaction
     OfferingTransaction (..),
     newOfferingTransaction,
-    offeringTransaction_offeringStatus,
     offeringTransaction_cost,
-    offeringTransaction_transactionId,
-    offeringTransaction_offeringPromotionId,
     offeringTransaction_createdOn,
+    offeringTransaction_offeringPromotionId,
+    offeringTransaction_offeringStatus,
+    offeringTransaction_transactionId,
 
     -- * Problem
     Problem (..),
     newProblem,
     problem_device,
-    problem_test,
-    problem_result,
-    problem_run,
     problem_job,
     problem_message,
+    problem_result,
+    problem_run,
     problem_suite,
+    problem_test,
 
     -- * ProblemDetail
     ProblemDetail (..),
@@ -371,47 +372,49 @@ module Amazonka.DeviceFarm.Types
     newProject,
     project_arn,
     project_created,
-    project_name,
     project_defaultJobTimeoutMinutes,
+    project_name,
+    project_vpcConfig,
 
     -- * Radios
     Radios (..),
     newRadios,
-    radios_nfc,
-    radios_gps,
     radios_bluetooth,
+    radios_gps,
+    radios_nfc,
     radios_wifi,
 
     -- * RecurringCharge
     RecurringCharge (..),
     newRecurringCharge,
-    recurringCharge_frequency,
     recurringCharge_cost,
+    recurringCharge_frequency,
 
     -- * RemoteAccessSession
     RemoteAccessSession (..),
     newRemoteAccessSession,
+    remoteAccessSession_arn,
     remoteAccessSession_billingMethod,
     remoteAccessSession_clientId,
-    remoteAccessSession_deviceUdid,
-    remoteAccessSession_skipAppResign,
-    remoteAccessSession_instanceArn,
-    remoteAccessSession_status,
-    remoteAccessSession_remoteRecordEnabled,
-    remoteAccessSession_arn,
-    remoteAccessSession_remoteRecordAppArn,
     remoteAccessSession_created,
     remoteAccessSession_device,
-    remoteAccessSession_stopped,
-    remoteAccessSession_result,
-    remoteAccessSession_name,
     remoteAccessSession_deviceMinutes,
-    remoteAccessSession_remoteDebugEnabled,
+    remoteAccessSession_deviceUdid,
     remoteAccessSession_endpoint,
-    remoteAccessSession_message,
     remoteAccessSession_hostAddress,
+    remoteAccessSession_instanceArn,
     remoteAccessSession_interactionMode,
+    remoteAccessSession_message,
+    remoteAccessSession_name,
+    remoteAccessSession_remoteDebugEnabled,
+    remoteAccessSession_remoteRecordAppArn,
+    remoteAccessSession_remoteRecordEnabled,
+    remoteAccessSession_result,
+    remoteAccessSession_skipAppResign,
     remoteAccessSession_started,
+    remoteAccessSession_status,
+    remoteAccessSession_stopped,
+    remoteAccessSession_vpcConfig,
 
     -- * Resolution
     Resolution (..),
@@ -429,81 +432,82 @@ module Amazonka.DeviceFarm.Types
     -- * Run
     Run (..),
     newRun,
-    run_billingMethod,
-    run_skipAppResign,
-    run_status,
-    run_customerArtifactPaths,
-    run_eventCount,
-    run_counters,
-    run_platform,
-    run_seed,
-    run_radios,
-    run_arn,
-    run_location,
-    run_created,
-    run_locale,
-    run_testSpecArn,
-    run_stopped,
-    run_result,
-    run_jobTimeoutMinutes,
-    run_completedJobs,
-    run_resultCode,
-    run_name,
     run_appUpload,
-    run_parsingResultUrl,
-    run_networkProfile,
+    run_arn,
+    run_billingMethod,
+    run_completedJobs,
+    run_counters,
+    run_created,
+    run_customerArtifactPaths,
     run_deviceMinutes,
-    run_type,
-    run_message,
-    run_webUrl,
-    run_totalJobs,
     run_devicePoolArn,
-    run_started,
     run_deviceSelectionResult,
+    run_eventCount,
+    run_jobTimeoutMinutes,
+    run_locale,
+    run_location,
+    run_message,
+    run_name,
+    run_networkProfile,
+    run_parsingResultUrl,
+    run_platform,
+    run_radios,
+    run_result,
+    run_resultCode,
+    run_seed,
+    run_skipAppResign,
+    run_started,
+    run_status,
+    run_stopped,
+    run_testSpecArn,
+    run_totalJobs,
+    run_type,
+    run_vpcConfig,
+    run_webUrl,
 
     -- * Sample
     Sample (..),
     newSample,
     sample_arn,
-    sample_url,
     sample_type,
+    sample_url,
 
     -- * ScheduleRunConfiguration
     ScheduleRunConfiguration (..),
     newScheduleRunConfiguration,
+    scheduleRunConfiguration_auxiliaryApps,
     scheduleRunConfiguration_billingMethod,
     scheduleRunConfiguration_customerArtifactPaths,
-    scheduleRunConfiguration_radios,
-    scheduleRunConfiguration_location,
-    scheduleRunConfiguration_locale,
-    scheduleRunConfiguration_networkProfileArn,
     scheduleRunConfiguration_extraDataPackageArn,
-    scheduleRunConfiguration_auxiliaryApps,
+    scheduleRunConfiguration_locale,
+    scheduleRunConfiguration_location,
+    scheduleRunConfiguration_networkProfileArn,
+    scheduleRunConfiguration_radios,
     scheduleRunConfiguration_vpceConfigurationArns,
 
     -- * ScheduleRunTest
     ScheduleRunTest (..),
     newScheduleRunTest,
-    scheduleRunTest_testSpecArn,
-    scheduleRunTest_testPackageArn,
-    scheduleRunTest_parameters,
     scheduleRunTest_filter,
+    scheduleRunTest_parameters,
+    scheduleRunTest_testPackageArn,
+    scheduleRunTest_testSpecArn,
     scheduleRunTest_type,
 
     -- * Suite
     Suite (..),
     newSuite,
-    suite_status,
-    suite_counters,
     suite_arn,
+    suite_counters,
     suite_created,
-    suite_stopped,
-    suite_result,
-    suite_name,
     suite_deviceMinutes,
-    suite_type,
     suite_message,
+    suite_name,
+    suite_result,
     suite_started,
+    suite_status,
+    suite_stopped,
+    suite_type,
 
     -- * Tag
     Tag (..),
@@ -514,36 +518,36 @@ module Amazonka.DeviceFarm.Types
     -- * Test
     Test (..),
     newTest,
-    test_status,
-    test_counters,
     test_arn,
+    test_counters,
     test_created,
-    test_stopped,
-    test_result,
-    test_name,
     test_deviceMinutes,
-    test_type,
     test_message,
+    test_name,
+    test_result,
     test_started,
+    test_status,
+    test_stopped,
+    test_type,
 
     -- * TestGridProject
     TestGridProject (..),
     newTestGridProject,
     testGridProject_arn,
     testGridProject_created,
+    testGridProject_description,
     testGridProject_name,
     testGridProject_vpcConfig,
-    testGridProject_description,
 
     -- * TestGridSession
     TestGridSession (..),
     newTestGridSession,
-    testGridSession_status,
     testGridSession_arn,
-    testGridSession_created,
     testGridSession_billingMinutes,
+    testGridSession_created,
     testGridSession_ended,
     testGridSession_seleniumProperties,
+    testGridSession_status,
 
     -- * TestGridSessionAction
     TestGridSessionAction (..),
@@ -557,9 +561,9 @@ module Amazonka.DeviceFarm.Types
     -- * TestGridSessionArtifact
     TestGridSessionArtifact (..),
     newTestGridSessionArtifact,
-    testGridSessionArtifact_url,
-    testGridSessionArtifact_type,
     testGridSessionArtifact_filename,
+    testGridSessionArtifact_type,
+    testGridSessionArtifact_url,
 
     -- * TestGridVpcConfig
     TestGridVpcConfig (..),
@@ -577,35 +581,43 @@ module Amazonka.DeviceFarm.Types
     -- * UniqueProblem
     UniqueProblem (..),
     newUniqueProblem,
-    uniqueProblem_problems,
     uniqueProblem_message,
+    uniqueProblem_problems,
 
     -- * Upload
     Upload (..),
     newUpload,
-    upload_status,
     upload_arn,
-    upload_created,
     upload_category,
-    upload_url,
-    upload_name,
-    upload_metadata,
-    upload_type,
-    upload_message,
     upload_contentType,
+    upload_created,
+    upload_message,
+    upload_metadata,
+    upload_name,
+    upload_status,
+    upload_type,
+    upload_url,
 
     -- * VPCEConfiguration
     VPCEConfiguration (..),
     newVPCEConfiguration,
-    vPCEConfiguration_vpceServiceName,
     vPCEConfiguration_arn,
-    vPCEConfiguration_vpceConfigurationName,
     vPCEConfiguration_serviceDnsName,
     vPCEConfiguration_vpceConfigurationDescription,
+    vPCEConfiguration_vpceConfigurationName,
+    vPCEConfiguration_vpceServiceName,
+
+    -- * VpcConfig
+    VpcConfig (..),
+    newVpcConfig,
+    vpcConfig_securityGroupIds,
+    vpcConfig_subnetIds,
+    vpcConfig_vpcId,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DeviceFarm.Types.AccountSettings
 import Amazonka.DeviceFarm.Types.Artifact
 import Amazonka.DeviceFarm.Types.ArtifactCategory
@@ -683,7 +695,7 @@ import Amazonka.DeviceFarm.Types.UploadCategory
 import Amazonka.DeviceFarm.Types.UploadStatus
 import Amazonka.DeviceFarm.Types.UploadType
 import Amazonka.DeviceFarm.Types.VPCEConfiguration
-import qualified Amazonka.Lens as Lens
+import Amazonka.DeviceFarm.Types.VpcConfig
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 
@@ -691,42 +703,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "DeviceFarm",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "devicefarm",
-      Core._serviceSigningName = "devicefarm",
-      Core._serviceVersion = "2015-06-23",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
-        Core.parseJSONError "DeviceFarm",
-      Core._serviceRetry = retry
+    { Core.abbrev = "DeviceFarm",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "devicefarm",
+      Core.signingName = "devicefarm",
+      Core.version = "2015-06-23",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "DeviceFarm",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -734,37 +753,28 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
 
--- | Exception gets thrown when a user is not eligible to perform the
--- specified transaction.
-_NotEligibleException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_NotEligibleException =
+-- | An invalid argument was specified.
+_ArgumentException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ArgumentException =
   Core._MatchServiceError
     defaultService
-    "NotEligibleException"
+    "ArgumentException"
 
 -- | The requested object could not be deleted.
 _CannotDeleteException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -780,28 +790,6 @@ _IdempotencyException =
     defaultService
     "IdempotencyException"
 
--- | The list of tags on the repository is over the limit. The maximum number
--- of tags that can be applied to a repository is 50.
-_TooManyTagsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TooManyTagsException =
-  Core._MatchServiceError
-    defaultService
-    "TooManyTagsException"
-
--- | An invalid argument was specified.
-_ArgumentException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ArgumentException =
-  Core._MatchServiceError
-    defaultService
-    "ArgumentException"
-
--- | The specified entity was not found.
-_NotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_NotFoundException =
-  Core._MatchServiceError
-    defaultService
-    "NotFoundException"
-
 -- | An internal exception was raised in the service. Contact
 -- <mailto:aws-devicefarm-support@amazon.com aws-devicefarm-support\@amazon.com>
 -- if you see this error.
@@ -810,28 +798,6 @@ _InternalServiceException =
   Core._MatchServiceError
     defaultService
     "InternalServiceException"
-
--- | The request doesn\'t comply with the AWS Identity and Access Management
--- (IAM) tag policy. Correct your request and then retry it.
-_TagPolicyException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TagPolicyException =
-  Core._MatchServiceError
-    defaultService
-    "TagPolicyException"
-
--- | The operation was not successful. Try again.
-_TagOperationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TagOperationException =
-  Core._MatchServiceError
-    defaultService
-    "TagOperationException"
-
--- | There was a problem with the service account.
-_ServiceAccountException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ServiceAccountException =
-  Core._MatchServiceError
-    defaultService
-    "ServiceAccountException"
 
 -- | There was an error with the update request, or you do not have
 -- sufficient permissions to update this VPC endpoint configuration.
@@ -847,3 +813,48 @@ _LimitExceededException =
   Core._MatchServiceError
     defaultService
     "LimitExceededException"
+
+-- | Exception gets thrown when a user is not eligible to perform the
+-- specified transaction.
+_NotEligibleException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_NotEligibleException =
+  Core._MatchServiceError
+    defaultService
+    "NotEligibleException"
+
+-- | The specified entity was not found.
+_NotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_NotFoundException =
+  Core._MatchServiceError
+    defaultService
+    "NotFoundException"
+
+-- | There was a problem with the service account.
+_ServiceAccountException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ServiceAccountException =
+  Core._MatchServiceError
+    defaultService
+    "ServiceAccountException"
+
+-- | The operation was not successful. Try again.
+_TagOperationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TagOperationException =
+  Core._MatchServiceError
+    defaultService
+    "TagOperationException"
+
+-- | The request doesn\'t comply with the AWS Identity and Access Management
+-- (IAM) tag policy. Correct your request and then retry it.
+_TagPolicyException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TagPolicyException =
+  Core._MatchServiceError
+    defaultService
+    "TagPolicyException"
+
+-- | The list of tags on the repository is over the limit. The maximum number
+-- of tags that can be applied to a repository is 50.
+_TooManyTagsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TooManyTagsException =
+  Core._MatchServiceError
+    defaultService
+    "TooManyTagsException"

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MQ.Types.UserSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MQ.Types.UserSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MQ.Types.ChangeType
 import qualified Amazonka.Prelude as Prelude
 
@@ -70,14 +71,14 @@ userSummary_pendingChange = Lens.lens (\UserSummary' {pendingChange} -> pendingC
 userSummary_username :: Lens.Lens' UserSummary Prelude.Text
 userSummary_username = Lens.lens (\UserSummary' {username} -> username) (\s@UserSummary' {} a -> s {username = a} :: UserSummary)
 
-instance Core.FromJSON UserSummary where
+instance Data.FromJSON UserSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UserSummary"
       ( \x ->
           UserSummary'
-            Prelude.<$> (x Core..:? "pendingChange")
-            Prelude.<*> (x Core..: "username")
+            Prelude.<$> (x Data..:? "pendingChange")
+            Prelude.<*> (x Data..: "username")
       )
 
 instance Prelude.Hashable UserSummary where

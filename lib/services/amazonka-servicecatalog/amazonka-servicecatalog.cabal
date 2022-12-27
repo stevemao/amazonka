@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -130,6 +130,7 @@ library
     Amazonka.ServiceCatalog.Types.BudgetDetail
     Amazonka.ServiceCatalog.Types.ChangeAction
     Amazonka.ServiceCatalog.Types.CloudWatchDashboard
+    Amazonka.ServiceCatalog.Types.CodeStarParameters
     Amazonka.ServiceCatalog.Types.ConstraintDetail
     Amazonka.ServiceCatalog.Types.ConstraintSummary
     Amazonka.ServiceCatalog.Types.CopyOption
@@ -138,6 +139,8 @@ library
     Amazonka.ServiceCatalog.Types.EvaluationType
     Amazonka.ServiceCatalog.Types.ExecutionParameter
     Amazonka.ServiceCatalog.Types.FailedServiceActionAssociation
+    Amazonka.ServiceCatalog.Types.LastSync
+    Amazonka.ServiceCatalog.Types.LastSyncStatus
     Amazonka.ServiceCatalog.Types.LaunchPath
     Amazonka.ServiceCatalog.Types.LaunchPathSummary
     Amazonka.ServiceCatalog.Types.ListRecordHistorySearchFilter
@@ -202,6 +205,10 @@ library
     Amazonka.ServiceCatalog.Types.ShareError
     Amazonka.ServiceCatalog.Types.ShareStatus
     Amazonka.ServiceCatalog.Types.SortOrder
+    Amazonka.ServiceCatalog.Types.SourceConnection
+    Amazonka.ServiceCatalog.Types.SourceConnectionDetail
+    Amazonka.ServiceCatalog.Types.SourceConnectionParameters
+    Amazonka.ServiceCatalog.Types.SourceType
     Amazonka.ServiceCatalog.Types.StackInstance
     Amazonka.ServiceCatalog.Types.StackInstanceStatus
     Amazonka.ServiceCatalog.Types.StackSetOperationType
@@ -223,7 +230,7 @@ library
     Amazonka.ServiceCatalog.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-servicecatalog-test
@@ -242,9 +249,9 @@ test-suite amazonka-servicecatalog-test
     Test.Amazonka.ServiceCatalog.Internal
 
   build-depends:
-    , amazonka-core            ^>=2.0
+    , amazonka-core            >=2.0 && <2.1
     , amazonka-servicecatalog
-    , amazonka-test            ^>=2.0
+    , amazonka-test            >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

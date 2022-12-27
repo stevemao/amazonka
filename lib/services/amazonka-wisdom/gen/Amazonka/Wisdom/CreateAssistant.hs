@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.CreateAssistant
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.Wisdom.CreateAssistant
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -134,12 +135,13 @@ instance Core.AWSRequest CreateAssistant where
   type
     AWSResponse CreateAssistant =
       CreateAssistantResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateAssistantResponse'
-            Prelude.<$> (x Core..?> "assistant")
+            Prelude.<$> (x Data..?> "assistant")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -161,35 +163,35 @@ instance Prelude.NFData CreateAssistant where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToHeaders CreateAssistant where
+instance Data.ToHeaders CreateAssistant where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateAssistant where
+instance Data.ToJSON CreateAssistant where
   toJSON CreateAssistant' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("description" Core..=) Prelude.<$> description,
-            ("serverSideEncryptionConfiguration" Core..=)
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("description" Data..=) Prelude.<$> description,
+            ("serverSideEncryptionConfiguration" Data..=)
               Prelude.<$> serverSideEncryptionConfiguration,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("name" Core..= name),
-            Prelude.Just ("type" Core..= type')
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("name" Data..= name),
+            Prelude.Just ("type" Data..= type')
           ]
       )
 
-instance Core.ToPath CreateAssistant where
+instance Data.ToPath CreateAssistant where
   toPath = Prelude.const "/assistants"
 
-instance Core.ToQuery CreateAssistant where
+instance Data.ToQuery CreateAssistant where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateAssistantResponse' smart constructor.

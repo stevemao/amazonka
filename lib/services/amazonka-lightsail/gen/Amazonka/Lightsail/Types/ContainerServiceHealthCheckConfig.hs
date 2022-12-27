@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.ContainerServiceHealthCheckConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.ContainerServiceHealthCheckConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the health check configuration of an Amazon Lightsail
@@ -31,6 +32,10 @@ data ContainerServiceHealthCheckConfig = ContainerServiceHealthCheckConfig'
   { -- | The number of consecutive health checks successes required before moving
     -- the container to the @Healthy@ state. The default value is @2@.
     healthyThreshold :: Prelude.Maybe Prelude.Int,
+    -- | The approximate interval, in seconds, between health checks of an
+    -- individual container. You can specify between 5 and 300 seconds. The
+    -- default value is @5@.
+    intervalSeconds :: Prelude.Maybe Prelude.Int,
     -- | The path on the container on which to perform the health check. The
     -- default value is @\/@.
     path :: Prelude.Maybe Prelude.Text,
@@ -39,10 +44,6 @@ data ContainerServiceHealthCheckConfig = ContainerServiceHealthCheckConfig'
     -- specify multiple values (for example, @200,202@) or a range of values
     -- (for example, @200-299@).
     successCodes :: Prelude.Maybe Prelude.Text,
-    -- | The approximate interval, in seconds, between health checks of an
-    -- individual container. You can specify between 5 and 300 seconds. The
-    -- default value is @5@.
-    intervalSeconds :: Prelude.Maybe Prelude.Int,
     -- | The amount of time, in seconds, during which no response means a failed
     -- health check. You can specify between 2 and 60 seconds. The default
     -- value is @2@.
@@ -64,6 +65,10 @@ data ContainerServiceHealthCheckConfig = ContainerServiceHealthCheckConfig'
 -- 'healthyThreshold', 'containerServiceHealthCheckConfig_healthyThreshold' - The number of consecutive health checks successes required before moving
 -- the container to the @Healthy@ state. The default value is @2@.
 --
+-- 'intervalSeconds', 'containerServiceHealthCheckConfig_intervalSeconds' - The approximate interval, in seconds, between health checks of an
+-- individual container. You can specify between 5 and 300 seconds. The
+-- default value is @5@.
+--
 -- 'path', 'containerServiceHealthCheckConfig_path' - The path on the container on which to perform the health check. The
 -- default value is @\/@.
 --
@@ -71,10 +76,6 @@ data ContainerServiceHealthCheckConfig = ContainerServiceHealthCheckConfig'
 -- container. You can specify values between @200@ and @499@. You can
 -- specify multiple values (for example, @200,202@) or a range of values
 -- (for example, @200-299@).
---
--- 'intervalSeconds', 'containerServiceHealthCheckConfig_intervalSeconds' - The approximate interval, in seconds, between health checks of an
--- individual container. You can specify between 5 and 300 seconds. The
--- default value is @5@.
 --
 -- 'timeoutSeconds', 'containerServiceHealthCheckConfig_timeoutSeconds' - The amount of time, in seconds, during which no response means a failed
 -- health check. You can specify between 2 and 60 seconds. The default
@@ -88,9 +89,9 @@ newContainerServiceHealthCheckConfig =
   ContainerServiceHealthCheckConfig'
     { healthyThreshold =
         Prelude.Nothing,
+      intervalSeconds = Prelude.Nothing,
       path = Prelude.Nothing,
       successCodes = Prelude.Nothing,
-      intervalSeconds = Prelude.Nothing,
       timeoutSeconds = Prelude.Nothing,
       unhealthyThreshold = Prelude.Nothing
     }
@@ -99,6 +100,12 @@ newContainerServiceHealthCheckConfig =
 -- the container to the @Healthy@ state. The default value is @2@.
 containerServiceHealthCheckConfig_healthyThreshold :: Lens.Lens' ContainerServiceHealthCheckConfig (Prelude.Maybe Prelude.Int)
 containerServiceHealthCheckConfig_healthyThreshold = Lens.lens (\ContainerServiceHealthCheckConfig' {healthyThreshold} -> healthyThreshold) (\s@ContainerServiceHealthCheckConfig' {} a -> s {healthyThreshold = a} :: ContainerServiceHealthCheckConfig)
+
+-- | The approximate interval, in seconds, between health checks of an
+-- individual container. You can specify between 5 and 300 seconds. The
+-- default value is @5@.
+containerServiceHealthCheckConfig_intervalSeconds :: Lens.Lens' ContainerServiceHealthCheckConfig (Prelude.Maybe Prelude.Int)
+containerServiceHealthCheckConfig_intervalSeconds = Lens.lens (\ContainerServiceHealthCheckConfig' {intervalSeconds} -> intervalSeconds) (\s@ContainerServiceHealthCheckConfig' {} a -> s {intervalSeconds = a} :: ContainerServiceHealthCheckConfig)
 
 -- | The path on the container on which to perform the health check. The
 -- default value is @\/@.
@@ -112,12 +119,6 @@ containerServiceHealthCheckConfig_path = Lens.lens (\ContainerServiceHealthCheck
 containerServiceHealthCheckConfig_successCodes :: Lens.Lens' ContainerServiceHealthCheckConfig (Prelude.Maybe Prelude.Text)
 containerServiceHealthCheckConfig_successCodes = Lens.lens (\ContainerServiceHealthCheckConfig' {successCodes} -> successCodes) (\s@ContainerServiceHealthCheckConfig' {} a -> s {successCodes = a} :: ContainerServiceHealthCheckConfig)
 
--- | The approximate interval, in seconds, between health checks of an
--- individual container. You can specify between 5 and 300 seconds. The
--- default value is @5@.
-containerServiceHealthCheckConfig_intervalSeconds :: Lens.Lens' ContainerServiceHealthCheckConfig (Prelude.Maybe Prelude.Int)
-containerServiceHealthCheckConfig_intervalSeconds = Lens.lens (\ContainerServiceHealthCheckConfig' {intervalSeconds} -> intervalSeconds) (\s@ContainerServiceHealthCheckConfig' {} a -> s {intervalSeconds = a} :: ContainerServiceHealthCheckConfig)
-
 -- | The amount of time, in seconds, during which no response means a failed
 -- health check. You can specify between 2 and 60 seconds. The default
 -- value is @2@.
@@ -130,20 +131,20 @@ containerServiceHealthCheckConfig_unhealthyThreshold :: Lens.Lens' ContainerServ
 containerServiceHealthCheckConfig_unhealthyThreshold = Lens.lens (\ContainerServiceHealthCheckConfig' {unhealthyThreshold} -> unhealthyThreshold) (\s@ContainerServiceHealthCheckConfig' {} a -> s {unhealthyThreshold = a} :: ContainerServiceHealthCheckConfig)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ContainerServiceHealthCheckConfig
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ContainerServiceHealthCheckConfig"
       ( \x ->
           ContainerServiceHealthCheckConfig'
-            Prelude.<$> (x Core..:? "healthyThreshold")
-            Prelude.<*> (x Core..:? "path")
-            Prelude.<*> (x Core..:? "successCodes")
-            Prelude.<*> (x Core..:? "intervalSeconds")
-            Prelude.<*> (x Core..:? "timeoutSeconds")
-            Prelude.<*> (x Core..:? "unhealthyThreshold")
+            Prelude.<$> (x Data..:? "healthyThreshold")
+            Prelude.<*> (x Data..:? "intervalSeconds")
+            Prelude.<*> (x Data..:? "path")
+            Prelude.<*> (x Data..:? "successCodes")
+            Prelude.<*> (x Data..:? "timeoutSeconds")
+            Prelude.<*> (x Data..:? "unhealthyThreshold")
       )
 
 instance
@@ -154,9 +155,9 @@ instance
     _salt
     ContainerServiceHealthCheckConfig' {..} =
       _salt `Prelude.hashWithSalt` healthyThreshold
+        `Prelude.hashWithSalt` intervalSeconds
         `Prelude.hashWithSalt` path
         `Prelude.hashWithSalt` successCodes
-        `Prelude.hashWithSalt` intervalSeconds
         `Prelude.hashWithSalt` timeoutSeconds
         `Prelude.hashWithSalt` unhealthyThreshold
 
@@ -166,28 +167,28 @@ instance
   where
   rnf ContainerServiceHealthCheckConfig' {..} =
     Prelude.rnf healthyThreshold
+      `Prelude.seq` Prelude.rnf intervalSeconds
       `Prelude.seq` Prelude.rnf path
       `Prelude.seq` Prelude.rnf successCodes
-      `Prelude.seq` Prelude.rnf intervalSeconds
       `Prelude.seq` Prelude.rnf timeoutSeconds
       `Prelude.seq` Prelude.rnf unhealthyThreshold
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ContainerServiceHealthCheckConfig
   where
   toJSON ContainerServiceHealthCheckConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("healthyThreshold" Core..=)
+          [ ("healthyThreshold" Data..=)
               Prelude.<$> healthyThreshold,
-            ("path" Core..=) Prelude.<$> path,
-            ("successCodes" Core..=) Prelude.<$> successCodes,
-            ("intervalSeconds" Core..=)
+            ("intervalSeconds" Data..=)
               Prelude.<$> intervalSeconds,
-            ("timeoutSeconds" Core..=)
+            ("path" Data..=) Prelude.<$> path,
+            ("successCodes" Data..=) Prelude.<$> successCodes,
+            ("timeoutSeconds" Data..=)
               Prelude.<$> timeoutSeconds,
-            ("unhealthyThreshold" Core..=)
+            ("unhealthyThreshold" Data..=)
               Prelude.<$> unhealthyThreshold
           ]
       )

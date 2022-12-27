@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.Types.S3Location
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodePipeline.Types.S3Location where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The Amazon S3 artifact location for an action\'s artifacts.
@@ -61,13 +62,13 @@ s3Location_bucket = Lens.lens (\S3Location' {bucket} -> bucket) (\s@S3Location' 
 s3Location_key :: Lens.Lens' S3Location (Prelude.Maybe Prelude.Text)
 s3Location_key = Lens.lens (\S3Location' {key} -> key) (\s@S3Location' {} a -> s {key = a} :: S3Location)
 
-instance Core.FromJSON S3Location where
+instance Data.FromJSON S3Location where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "S3Location"
       ( \x ->
           S3Location'
-            Prelude.<$> (x Core..:? "bucket") Prelude.<*> (x Core..:? "key")
+            Prelude.<$> (x Data..:? "bucket") Prelude.<*> (x Data..:? "key")
       )
 
 instance Prelude.Hashable S3Location where

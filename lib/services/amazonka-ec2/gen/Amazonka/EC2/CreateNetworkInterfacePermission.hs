@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.CreateNetworkInterfacePermission
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,8 +48,9 @@ module Amazonka.EC2.CreateNetworkInterfacePermission
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -142,12 +143,13 @@ instance
   type
     AWSResponse CreateNetworkInterfacePermission =
       CreateNetworkInterfacePermissionResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CreateNetworkInterfacePermissionResponse'
-            Prelude.<$> (x Core..@? "interfacePermission")
+            Prelude.<$> (x Data..@? "interfacePermission")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -176,31 +178,31 @@ instance
       `Prelude.seq` Prelude.rnf permission
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CreateNetworkInterfacePermission
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateNetworkInterfacePermission where
+instance Data.ToPath CreateNetworkInterfacePermission where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     CreateNetworkInterfacePermission
   where
   toQuery CreateNetworkInterfacePermission' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "CreateNetworkInterfacePermission" ::
+          Data.=: ( "CreateNetworkInterfacePermission" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "AwsAccountId" Core.=: awsAccountId,
-        "AwsService" Core.=: awsService,
-        "DryRun" Core.=: dryRun,
-        "NetworkInterfaceId" Core.=: networkInterfaceId,
-        "Permission" Core.=: permission
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "AwsAccountId" Data.=: awsAccountId,
+        "AwsService" Data.=: awsService,
+        "DryRun" Data.=: dryRun,
+        "NetworkInterfaceId" Data.=: networkInterfaceId,
+        "Permission" Data.=: permission
       ]
 
 -- | Contains the output of CreateNetworkInterfacePermission.

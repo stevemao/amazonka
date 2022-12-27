@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.Types.StackInstanceComprehensiveStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudFormation.Types.StackInstanceComprehensiveStatus where
 
 import Amazonka.CloudFormation.Types.StackInstanceDetailedStatus
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The detailed status of the stack instance.
@@ -29,7 +30,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newStackInstanceComprehensiveStatus' smart constructor.
 data StackInstanceComprehensiveStatus = StackInstanceComprehensiveStatus'
   { -- | -   @CANCELLED@: The operation in the specified account and Region has
-    --     been cancelled. This is either because a user has stopped the stack
+    --     been canceled. This is either because a user has stopped the stack
     --     set operation, or because the failure tolerance of the stack set
     --     operation has been exceeded.
     --
@@ -66,7 +67,7 @@ data StackInstanceComprehensiveStatus = StackInstanceComprehensiveStatus'
 -- for backwards compatibility:
 --
 -- 'detailedStatus', 'stackInstanceComprehensiveStatus_detailedStatus' - -   @CANCELLED@: The operation in the specified account and Region has
---     been cancelled. This is either because a user has stopped the stack
+--     been canceled. This is either because a user has stopped the stack
 --     set operation, or because the failure tolerance of the stack set
 --     operation has been exceeded.
 --
@@ -99,7 +100,7 @@ newStackInstanceComprehensiveStatus =
     }
 
 -- | -   @CANCELLED@: The operation in the specified account and Region has
---     been cancelled. This is either because a user has stopped the stack
+--     been canceled. This is either because a user has stopped the stack
 --     set operation, or because the failure tolerance of the stack set
 --     operation has been exceeded.
 --
@@ -127,12 +128,12 @@ stackInstanceComprehensiveStatus_detailedStatus :: Lens.Lens' StackInstanceCompr
 stackInstanceComprehensiveStatus_detailedStatus = Lens.lens (\StackInstanceComprehensiveStatus' {detailedStatus} -> detailedStatus) (\s@StackInstanceComprehensiveStatus' {} a -> s {detailedStatus = a} :: StackInstanceComprehensiveStatus)
 
 instance
-  Core.FromXML
+  Data.FromXML
     StackInstanceComprehensiveStatus
   where
   parseXML x =
     StackInstanceComprehensiveStatus'
-      Prelude.<$> (x Core..@? "DetailedStatus")
+      Prelude.<$> (x Data..@? "DetailedStatus")
 
 instance
   Prelude.Hashable

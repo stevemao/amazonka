@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Config.Types.RemediationExceptionResourceKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Config.Types.RemediationExceptionResourceKey where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The details that identify a resource within Config, including the
@@ -64,16 +65,16 @@ remediationExceptionResourceKey_resourceType :: Lens.Lens' RemediationExceptionR
 remediationExceptionResourceKey_resourceType = Lens.lens (\RemediationExceptionResourceKey' {resourceType} -> resourceType) (\s@RemediationExceptionResourceKey' {} a -> s {resourceType = a} :: RemediationExceptionResourceKey)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     RemediationExceptionResourceKey
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RemediationExceptionResourceKey"
       ( \x ->
           RemediationExceptionResourceKey'
-            Prelude.<$> (x Core..:? "ResourceId")
-            Prelude.<*> (x Core..:? "ResourceType")
+            Prelude.<$> (x Data..:? "ResourceId")
+            Prelude.<*> (x Data..:? "ResourceType")
       )
 
 instance
@@ -94,11 +95,11 @@ instance
     Prelude.rnf resourceId
       `Prelude.seq` Prelude.rnf resourceType
 
-instance Core.ToJSON RemediationExceptionResourceKey where
+instance Data.ToJSON RemediationExceptionResourceKey where
   toJSON RemediationExceptionResourceKey' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ResourceId" Core..=) Prelude.<$> resourceId,
-            ("ResourceType" Core..=) Prelude.<$> resourceType
+          [ ("ResourceId" Data..=) Prelude.<$> resourceId,
+            ("ResourceType" Data..=) Prelude.<$> resourceType
           ]
       )

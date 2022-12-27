@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.Configuration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.EMR.Types.Configuration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Amazon EMR releases 4.x or later.
@@ -36,11 +37,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newConfiguration' smart constructor.
 data Configuration = Configuration'
-  { -- | A list of additional configurations to apply within a configuration
+  { -- | The classification within a configuration.
+    classification :: Prelude.Maybe Prelude.Text,
+    -- | A list of additional configurations to apply within a configuration
     -- object.
     configurations :: Prelude.Maybe [Configuration],
-    -- | The classification within a configuration.
-    classification :: Prelude.Maybe Prelude.Text,
     -- | A set of properties specified within a configuration classification.
     properties :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text)
   }
@@ -54,65 +55,65 @@ data Configuration = Configuration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'classification', 'configuration_classification' - The classification within a configuration.
+--
 -- 'configurations', 'configuration_configurations' - A list of additional configurations to apply within a configuration
 -- object.
---
--- 'classification', 'configuration_classification' - The classification within a configuration.
 --
 -- 'properties', 'configuration_properties' - A set of properties specified within a configuration classification.
 newConfiguration ::
   Configuration
 newConfiguration =
   Configuration'
-    { configurations = Prelude.Nothing,
-      classification = Prelude.Nothing,
+    { classification = Prelude.Nothing,
+      configurations = Prelude.Nothing,
       properties = Prelude.Nothing
     }
+
+-- | The classification within a configuration.
+configuration_classification :: Lens.Lens' Configuration (Prelude.Maybe Prelude.Text)
+configuration_classification = Lens.lens (\Configuration' {classification} -> classification) (\s@Configuration' {} a -> s {classification = a} :: Configuration)
 
 -- | A list of additional configurations to apply within a configuration
 -- object.
 configuration_configurations :: Lens.Lens' Configuration (Prelude.Maybe [Configuration])
 configuration_configurations = Lens.lens (\Configuration' {configurations} -> configurations) (\s@Configuration' {} a -> s {configurations = a} :: Configuration) Prelude.. Lens.mapping Lens.coerced
 
--- | The classification within a configuration.
-configuration_classification :: Lens.Lens' Configuration (Prelude.Maybe Prelude.Text)
-configuration_classification = Lens.lens (\Configuration' {classification} -> classification) (\s@Configuration' {} a -> s {classification = a} :: Configuration)
-
 -- | A set of properties specified within a configuration classification.
 configuration_properties :: Lens.Lens' Configuration (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 configuration_properties = Lens.lens (\Configuration' {properties} -> properties) (\s@Configuration' {} a -> s {properties = a} :: Configuration) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON Configuration where
+instance Data.FromJSON Configuration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Configuration"
       ( \x ->
           Configuration'
-            Prelude.<$> (x Core..:? "Configurations" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Classification")
-            Prelude.<*> (x Core..:? "Properties" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Classification")
+            Prelude.<*> (x Data..:? "Configurations" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Properties" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable Configuration where
   hashWithSalt _salt Configuration' {..} =
-    _salt `Prelude.hashWithSalt` configurations
-      `Prelude.hashWithSalt` classification
+    _salt `Prelude.hashWithSalt` classification
+      `Prelude.hashWithSalt` configurations
       `Prelude.hashWithSalt` properties
 
 instance Prelude.NFData Configuration where
   rnf Configuration' {..} =
-    Prelude.rnf configurations
-      `Prelude.seq` Prelude.rnf classification
+    Prelude.rnf classification
+      `Prelude.seq` Prelude.rnf configurations
       `Prelude.seq` Prelude.rnf properties
 
-instance Core.ToJSON Configuration where
+instance Data.ToJSON Configuration where
   toJSON Configuration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Configurations" Core..=)
-              Prelude.<$> configurations,
-            ("Classification" Core..=)
+          [ ("Classification" Data..=)
               Prelude.<$> classification,
-            ("Properties" Core..=) Prelude.<$> properties
+            ("Configurations" Data..=)
+              Prelude.<$> configurations,
+            ("Properties" Data..=) Prelude.<$> properties
           ]
       )

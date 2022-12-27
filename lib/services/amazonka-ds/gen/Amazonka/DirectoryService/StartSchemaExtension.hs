@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.StartSchemaExtension
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.DirectoryService.StartSchemaExtension
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -135,12 +136,13 @@ instance Core.AWSRequest StartSchemaExtension where
   type
     AWSResponse StartSchemaExtension =
       StartSchemaExtensionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartSchemaExtensionResponse'
-            Prelude.<$> (x Core..?> "SchemaExtensionId")
+            Prelude.<$> (x Data..?> "SchemaExtensionId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -158,39 +160,39 @@ instance Prelude.NFData StartSchemaExtension where
       `Prelude.seq` Prelude.rnf ldifContent
       `Prelude.seq` Prelude.rnf description
 
-instance Core.ToHeaders StartSchemaExtension where
+instance Data.ToHeaders StartSchemaExtension where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.StartSchemaExtension" ::
+              Data.=# ( "DirectoryService_20150416.StartSchemaExtension" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartSchemaExtension where
+instance Data.ToJSON StartSchemaExtension where
   toJSON StartSchemaExtension' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("DirectoryId" Core..= directoryId),
+          [ Prelude.Just ("DirectoryId" Data..= directoryId),
             Prelude.Just
               ( "CreateSnapshotBeforeSchemaExtension"
-                  Core..= createSnapshotBeforeSchemaExtension
+                  Data..= createSnapshotBeforeSchemaExtension
               ),
-            Prelude.Just ("LdifContent" Core..= ldifContent),
-            Prelude.Just ("Description" Core..= description)
+            Prelude.Just ("LdifContent" Data..= ldifContent),
+            Prelude.Just ("Description" Data..= description)
           ]
       )
 
-instance Core.ToPath StartSchemaExtension where
+instance Data.ToPath StartSchemaExtension where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartSchemaExtension where
+instance Data.ToQuery StartSchemaExtension where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartSchemaExtensionResponse' smart constructor.

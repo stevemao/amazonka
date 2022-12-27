@@ -17,16 +17,16 @@ import Data.Generics.Labels ()
 import System.IO
 
 instanceOverview :: Region -> IO ()
-instanceOverview r = do
+instanceOverview reg = do
   lgr <- newLogger Info stdout
-  env <- newEnv discover <&> set #envLogger lgr . within r
+  env <- newEnv discover <&> set #logger lgr . set #region reg
 
   let pp x =
         mconcat
           [ "[instance:" <> build (x ^. #instanceId) <> "] {",
             "\n  public-dns = " <> build (x ^. #publicDnsName),
             "\n  tags       = " <> build (x ^. #tags . to show),
-            "\n  state      = " <> build (x ^. #state . #name . to toBS),
+            "\n  state      = " <> build (x ^. #state . #name . to fromInstanceStateName),
             "\n}\n"
           ]
 

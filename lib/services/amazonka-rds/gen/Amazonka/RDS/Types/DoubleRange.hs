@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.Types.DoubleRange
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.RDS.Types.DoubleRange where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A range of double values.
 --
 -- /See:/ 'newDoubleRange' smart constructor.
 data DoubleRange = DoubleRange'
-  { -- | The maximum value in the range.
-    to :: Prelude.Maybe Prelude.Double,
-    -- | The minimum value in the range.
-    from :: Prelude.Maybe Prelude.Double
+  { -- | The minimum value in the range.
+    from :: Prelude.Maybe Prelude.Double,
+    -- | The maximum value in the range.
+    to :: Prelude.Maybe Prelude.Double
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,35 +43,35 @@ data DoubleRange = DoubleRange'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'to', 'doubleRange_to' - The maximum value in the range.
---
 -- 'from', 'doubleRange_from' - The minimum value in the range.
+--
+-- 'to', 'doubleRange_to' - The maximum value in the range.
 newDoubleRange ::
   DoubleRange
 newDoubleRange =
   DoubleRange'
-    { to = Prelude.Nothing,
-      from = Prelude.Nothing
+    { from = Prelude.Nothing,
+      to = Prelude.Nothing
     }
-
--- | The maximum value in the range.
-doubleRange_to :: Lens.Lens' DoubleRange (Prelude.Maybe Prelude.Double)
-doubleRange_to = Lens.lens (\DoubleRange' {to} -> to) (\s@DoubleRange' {} a -> s {to = a} :: DoubleRange)
 
 -- | The minimum value in the range.
 doubleRange_from :: Lens.Lens' DoubleRange (Prelude.Maybe Prelude.Double)
 doubleRange_from = Lens.lens (\DoubleRange' {from} -> from) (\s@DoubleRange' {} a -> s {from = a} :: DoubleRange)
 
-instance Core.FromXML DoubleRange where
+-- | The maximum value in the range.
+doubleRange_to :: Lens.Lens' DoubleRange (Prelude.Maybe Prelude.Double)
+doubleRange_to = Lens.lens (\DoubleRange' {to} -> to) (\s@DoubleRange' {} a -> s {to = a} :: DoubleRange)
+
+instance Data.FromXML DoubleRange where
   parseXML x =
     DoubleRange'
-      Prelude.<$> (x Core..@? "To") Prelude.<*> (x Core..@? "From")
+      Prelude.<$> (x Data..@? "From") Prelude.<*> (x Data..@? "To")
 
 instance Prelude.Hashable DoubleRange where
   hashWithSalt _salt DoubleRange' {..} =
-    _salt `Prelude.hashWithSalt` to
-      `Prelude.hashWithSalt` from
+    _salt `Prelude.hashWithSalt` from
+      `Prelude.hashWithSalt` to
 
 instance Prelude.NFData DoubleRange where
   rnf DoubleRange' {..} =
-    Prelude.rnf to `Prelude.seq` Prelude.rnf from
+    Prelude.rnf from `Prelude.seq` Prelude.rnf to

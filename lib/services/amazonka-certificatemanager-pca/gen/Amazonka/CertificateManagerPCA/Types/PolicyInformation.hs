@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.Types.PolicyInformation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CertificateManagerPCA.Types.PolicyInformation where
 
 import Amazonka.CertificateManagerPCA.Types.PolicyQualifierInfo
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Defines the X.509 @CertificatePolicies@ extension.
@@ -87,12 +88,12 @@ instance Prelude.NFData PolicyInformation where
     Prelude.rnf policyQualifiers
       `Prelude.seq` Prelude.rnf certPolicyId
 
-instance Core.ToJSON PolicyInformation where
+instance Data.ToJSON PolicyInformation where
   toJSON PolicyInformation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PolicyQualifiers" Core..=)
+          [ ("PolicyQualifiers" Data..=)
               Prelude.<$> policyQualifiers,
-            Prelude.Just ("CertPolicyId" Core..= certPolicyId)
+            Prelude.Just ("CertPolicyId" Data..= certPolicyId)
           ]
       )

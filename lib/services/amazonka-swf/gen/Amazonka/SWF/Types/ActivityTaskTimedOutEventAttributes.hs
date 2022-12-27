@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.Types.ActivityTaskTimedOutEventAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SWF.Types.ActivityTaskTimedOutEventAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SWF.Types.ActivityTaskTimeoutType
 
@@ -109,18 +110,18 @@ activityTaskTimedOutEventAttributes_startedEventId :: Lens.Lens' ActivityTaskTim
 activityTaskTimedOutEventAttributes_startedEventId = Lens.lens (\ActivityTaskTimedOutEventAttributes' {startedEventId} -> startedEventId) (\s@ActivityTaskTimedOutEventAttributes' {} a -> s {startedEventId = a} :: ActivityTaskTimedOutEventAttributes)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ActivityTaskTimedOutEventAttributes
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ActivityTaskTimedOutEventAttributes"
       ( \x ->
           ActivityTaskTimedOutEventAttributes'
-            Prelude.<$> (x Core..:? "details")
-            Prelude.<*> (x Core..: "timeoutType")
-            Prelude.<*> (x Core..: "scheduledEventId")
-            Prelude.<*> (x Core..: "startedEventId")
+            Prelude.<$> (x Data..:? "details")
+            Prelude.<*> (x Data..: "timeoutType")
+            Prelude.<*> (x Data..: "scheduledEventId")
+            Prelude.<*> (x Data..: "startedEventId")
       )
 
 instance

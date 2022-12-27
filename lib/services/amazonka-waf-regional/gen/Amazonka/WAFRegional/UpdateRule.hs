@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.UpdateRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -88,7 +88,8 @@ module Amazonka.WAFRegional.UpdateRule
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -169,12 +170,13 @@ updateRule_updates = Lens.lens (\UpdateRule' {updates} -> updates) (\s@UpdateRul
 
 instance Core.AWSRequest UpdateRule where
   type AWSResponse UpdateRule = UpdateRuleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateRuleResponse'
-            Prelude.<$> (x Core..?> "ChangeToken")
+            Prelude.<$> (x Data..?> "ChangeToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -190,35 +192,35 @@ instance Prelude.NFData UpdateRule where
       `Prelude.seq` Prelude.rnf changeToken
       `Prelude.seq` Prelude.rnf updates
 
-instance Core.ToHeaders UpdateRule where
+instance Data.ToHeaders UpdateRule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_Regional_20161128.UpdateRule" ::
+              Data.=# ( "AWSWAF_Regional_20161128.UpdateRule" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateRule where
+instance Data.ToJSON UpdateRule where
   toJSON UpdateRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("RuleId" Core..= ruleId),
-            Prelude.Just ("ChangeToken" Core..= changeToken),
-            Prelude.Just ("Updates" Core..= updates)
+          [ Prelude.Just ("RuleId" Data..= ruleId),
+            Prelude.Just ("ChangeToken" Data..= changeToken),
+            Prelude.Just ("Updates" Data..= updates)
           ]
       )
 
-instance Core.ToPath UpdateRule where
+instance Data.ToPath UpdateRule where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateRule where
+instance Data.ToQuery UpdateRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateRuleResponse' smart constructor.

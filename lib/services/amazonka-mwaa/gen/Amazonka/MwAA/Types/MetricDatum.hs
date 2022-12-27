@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MwAA.Types.MetricDatum
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,27 +20,31 @@
 module Amazonka.MwAA.Types.MetricDatum where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MwAA.Types.Dimension
 import Amazonka.MwAA.Types.StatisticSet
 import Amazonka.MwAA.Types.Unit
 import qualified Amazonka.Prelude as Prelude
 
--- | Internal only API.
+-- | __Internal only__. Collects Apache Airflow metrics. To learn more about
+-- the metrics published to Amazon CloudWatch, see
+-- <https://docs.aws.amazon.com/mwaa/latest/userguide/cw-metrics.html Amazon MWAA performance metrics in Amazon CloudWatch>.
 --
 -- /See:/ 'newMetricDatum' smart constructor.
 data MetricDatum = MetricDatum'
-  { -- | Internal only API.
-    value :: Prelude.Maybe Prelude.Double,
-    -- | Internal only API.
+  { -- | __Internal only__. The dimensions associated with the metric.
     dimensions :: Prelude.Maybe [Dimension],
-    unit :: Prelude.Maybe Unit,
-    -- | Internal only API.
+    -- | __Internal only__. The statistical values for the metric.
     statisticValues :: Prelude.Maybe StatisticSet,
-    -- | Internal only API.
+    -- | __Internal only__. The unit used to store the metric.
+    unit :: Prelude.Maybe Unit,
+    -- | __Internal only__. The value for the metric.
+    value :: Prelude.Maybe Prelude.Double,
+    -- | __Internal only__. The name of the metric.
     metricName :: Prelude.Text,
-    -- | Internal only API.
-    timestamp :: Core.POSIX
+    -- | __Internal only__. The time the metric data was received.
+    timestamp :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -52,17 +56,17 @@ data MetricDatum = MetricDatum'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'metricDatum_value' - Internal only API.
+-- 'dimensions', 'metricDatum_dimensions' - __Internal only__. The dimensions associated with the metric.
 --
--- 'dimensions', 'metricDatum_dimensions' - Internal only API.
+-- 'statisticValues', 'metricDatum_statisticValues' - __Internal only__. The statistical values for the metric.
 --
--- 'unit', 'metricDatum_unit' - Undocumented member.
+-- 'unit', 'metricDatum_unit' - __Internal only__. The unit used to store the metric.
 --
--- 'statisticValues', 'metricDatum_statisticValues' - Internal only API.
+-- 'value', 'metricDatum_value' - __Internal only__. The value for the metric.
 --
--- 'metricName', 'metricDatum_metricName' - Internal only API.
+-- 'metricName', 'metricDatum_metricName' - __Internal only__. The name of the metric.
 --
--- 'timestamp', 'metricDatum_timestamp' - Internal only API.
+-- 'timestamp', 'metricDatum_timestamp' - __Internal only__. The time the metric data was received.
 newMetricDatum ::
   -- | 'metricName'
   Prelude.Text ->
@@ -71,66 +75,66 @@ newMetricDatum ::
   MetricDatum
 newMetricDatum pMetricName_ pTimestamp_ =
   MetricDatum'
-    { value = Prelude.Nothing,
-      dimensions = Prelude.Nothing,
-      unit = Prelude.Nothing,
+    { dimensions = Prelude.Nothing,
       statisticValues = Prelude.Nothing,
+      unit = Prelude.Nothing,
+      value = Prelude.Nothing,
       metricName = pMetricName_,
-      timestamp = Core._Time Lens.# pTimestamp_
+      timestamp = Data._Time Lens.# pTimestamp_
     }
 
--- | Internal only API.
-metricDatum_value :: Lens.Lens' MetricDatum (Prelude.Maybe Prelude.Double)
-metricDatum_value = Lens.lens (\MetricDatum' {value} -> value) (\s@MetricDatum' {} a -> s {value = a} :: MetricDatum)
-
--- | Internal only API.
+-- | __Internal only__. The dimensions associated with the metric.
 metricDatum_dimensions :: Lens.Lens' MetricDatum (Prelude.Maybe [Dimension])
 metricDatum_dimensions = Lens.lens (\MetricDatum' {dimensions} -> dimensions) (\s@MetricDatum' {} a -> s {dimensions = a} :: MetricDatum) Prelude.. Lens.mapping Lens.coerced
 
--- | Undocumented member.
-metricDatum_unit :: Lens.Lens' MetricDatum (Prelude.Maybe Unit)
-metricDatum_unit = Lens.lens (\MetricDatum' {unit} -> unit) (\s@MetricDatum' {} a -> s {unit = a} :: MetricDatum)
-
--- | Internal only API.
+-- | __Internal only__. The statistical values for the metric.
 metricDatum_statisticValues :: Lens.Lens' MetricDatum (Prelude.Maybe StatisticSet)
 metricDatum_statisticValues = Lens.lens (\MetricDatum' {statisticValues} -> statisticValues) (\s@MetricDatum' {} a -> s {statisticValues = a} :: MetricDatum)
 
--- | Internal only API.
+-- | __Internal only__. The unit used to store the metric.
+metricDatum_unit :: Lens.Lens' MetricDatum (Prelude.Maybe Unit)
+metricDatum_unit = Lens.lens (\MetricDatum' {unit} -> unit) (\s@MetricDatum' {} a -> s {unit = a} :: MetricDatum)
+
+-- | __Internal only__. The value for the metric.
+metricDatum_value :: Lens.Lens' MetricDatum (Prelude.Maybe Prelude.Double)
+metricDatum_value = Lens.lens (\MetricDatum' {value} -> value) (\s@MetricDatum' {} a -> s {value = a} :: MetricDatum)
+
+-- | __Internal only__. The name of the metric.
 metricDatum_metricName :: Lens.Lens' MetricDatum Prelude.Text
 metricDatum_metricName = Lens.lens (\MetricDatum' {metricName} -> metricName) (\s@MetricDatum' {} a -> s {metricName = a} :: MetricDatum)
 
--- | Internal only API.
+-- | __Internal only__. The time the metric data was received.
 metricDatum_timestamp :: Lens.Lens' MetricDatum Prelude.UTCTime
-metricDatum_timestamp = Lens.lens (\MetricDatum' {timestamp} -> timestamp) (\s@MetricDatum' {} a -> s {timestamp = a} :: MetricDatum) Prelude.. Core._Time
+metricDatum_timestamp = Lens.lens (\MetricDatum' {timestamp} -> timestamp) (\s@MetricDatum' {} a -> s {timestamp = a} :: MetricDatum) Prelude.. Data._Time
 
 instance Prelude.Hashable MetricDatum where
   hashWithSalt _salt MetricDatum' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` dimensions
-      `Prelude.hashWithSalt` unit
+    _salt `Prelude.hashWithSalt` dimensions
       `Prelude.hashWithSalt` statisticValues
+      `Prelude.hashWithSalt` unit
+      `Prelude.hashWithSalt` value
       `Prelude.hashWithSalt` metricName
       `Prelude.hashWithSalt` timestamp
 
 instance Prelude.NFData MetricDatum where
   rnf MetricDatum' {..} =
-    Prelude.rnf value
-      `Prelude.seq` Prelude.rnf dimensions
-      `Prelude.seq` Prelude.rnf unit
+    Prelude.rnf dimensions
       `Prelude.seq` Prelude.rnf statisticValues
+      `Prelude.seq` Prelude.rnf unit
+      `Prelude.seq` Prelude.rnf value
       `Prelude.seq` Prelude.rnf metricName
       `Prelude.seq` Prelude.rnf timestamp
 
-instance Core.ToJSON MetricDatum where
+instance Data.ToJSON MetricDatum where
   toJSON MetricDatum' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Value" Core..=) Prelude.<$> value,
-            ("Dimensions" Core..=) Prelude.<$> dimensions,
-            ("Unit" Core..=) Prelude.<$> unit,
-            ("StatisticValues" Core..=)
+          [ ("Dimensions" Data..=) Prelude.<$> dimensions,
+            ("StatisticValues" Data..=)
               Prelude.<$> statisticValues,
-            Prelude.Just ("MetricName" Core..= metricName),
-            Prelude.Just ("Timestamp" Core..= timestamp)
+            ("Unit" Data..=) Prelude.<$> unit,
+            ("Value" Data..=) Prelude.<$> value,
+            Prelude.Just ("MetricName" Data..= metricName),
+            Prelude.Just ("Timestamp" Data..= timestamp)
           ]
       )

@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -19,11 +19,17 @@ module Amazonka.MediaConvert
     -- * Errors
     -- $errors
 
+    -- ** BadRequestException
+    _BadRequestException,
+
     -- ** ConflictException
     _ConflictException,
 
     -- ** ForbiddenException
     _ForbiddenException,
+
+    -- ** InternalServerErrorException
+    _InternalServerErrorException,
 
     -- ** NotFoundException
     _NotFoundException,
@@ -31,173 +37,11 @@ module Amazonka.MediaConvert
     -- ** TooManyRequestsException
     _TooManyRequestsException,
 
-    -- ** InternalServerErrorException
-    _InternalServerErrorException,
-
-    -- ** BadRequestException
-    _BadRequestException,
-
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
-
-    -- ** DeletePreset
-    DeletePreset (DeletePreset'),
-    newDeletePreset,
-    DeletePresetResponse (DeletePresetResponse'),
-    newDeletePresetResponse,
-
-    -- ** UpdatePreset
-    UpdatePreset (UpdatePreset'),
-    newUpdatePreset,
-    UpdatePresetResponse (UpdatePresetResponse'),
-    newUpdatePresetResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** ListQueues (Paginated)
-    ListQueues (ListQueues'),
-    newListQueues,
-    ListQueuesResponse (ListQueuesResponse'),
-    newListQueuesResponse,
-
-    -- ** DeleteQueue
-    DeleteQueue (DeleteQueue'),
-    newDeleteQueue,
-    DeleteQueueResponse (DeleteQueueResponse'),
-    newDeleteQueueResponse,
-
-    -- ** UpdateQueue
-    UpdateQueue (UpdateQueue'),
-    newUpdateQueue,
-    UpdateQueueResponse (UpdateQueueResponse'),
-    newUpdateQueueResponse,
-
-    -- ** GetPreset
-    GetPreset (GetPreset'),
-    newGetPreset,
-    GetPresetResponse (GetPresetResponse'),
-    newGetPresetResponse,
-
-    -- ** CreateJob
-    CreateJob (CreateJob'),
-    newCreateJob,
-    CreateJobResponse (CreateJobResponse'),
-    newCreateJobResponse,
-
-    -- ** ListJobs (Paginated)
-    ListJobs (ListJobs'),
-    newListJobs,
-    ListJobsResponse (ListJobsResponse'),
-    newListJobsResponse,
-
-    -- ** PutPolicy
-    PutPolicy (PutPolicy'),
-    newPutPolicy,
-    PutPolicyResponse (PutPolicyResponse'),
-    newPutPolicyResponse,
-
-    -- ** GetJob
-    GetJob (GetJob'),
-    newGetJob,
-    GetJobResponse (GetJobResponse'),
-    newGetJobResponse,
-
-    -- ** DeletePolicy
-    DeletePolicy (DeletePolicy'),
-    newDeletePolicy,
-    DeletePolicyResponse (DeletePolicyResponse'),
-    newDeletePolicyResponse,
-
-    -- ** CreatePreset
-    CreatePreset (CreatePreset'),
-    newCreatePreset,
-    CreatePresetResponse (CreatePresetResponse'),
-    newCreatePresetResponse,
-
-    -- ** ListPresets (Paginated)
-    ListPresets (ListPresets'),
-    newListPresets,
-    ListPresetsResponse (ListPresetsResponse'),
-    newListPresetsResponse,
-
-    -- ** DisassociateCertificate
-    DisassociateCertificate (DisassociateCertificate'),
-    newDisassociateCertificate,
-    DisassociateCertificateResponse (DisassociateCertificateResponse'),
-    newDisassociateCertificateResponse,
-
-    -- ** GetQueue
-    GetQueue (GetQueue'),
-    newGetQueue,
-    GetQueueResponse (GetQueueResponse'),
-    newGetQueueResponse,
-
-    -- ** DescribeEndpoints (Paginated)
-    DescribeEndpoints (DescribeEndpoints'),
-    newDescribeEndpoints,
-    DescribeEndpointsResponse (DescribeEndpointsResponse'),
-    newDescribeEndpointsResponse,
-
-    -- ** CreateQueue
-    CreateQueue (CreateQueue'),
-    newCreateQueue,
-    CreateQueueResponse (CreateQueueResponse'),
-    newCreateQueueResponse,
-
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
-
-    -- ** CreateJobTemplate
-    CreateJobTemplate (CreateJobTemplate'),
-    newCreateJobTemplate,
-    CreateJobTemplateResponse (CreateJobTemplateResponse'),
-    newCreateJobTemplateResponse,
-
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
-
-    -- ** DeleteJobTemplate
-    DeleteJobTemplate (DeleteJobTemplate'),
-    newDeleteJobTemplate,
-    DeleteJobTemplateResponse (DeleteJobTemplateResponse'),
-    newDeleteJobTemplateResponse,
-
-    -- ** UpdateJobTemplate
-    UpdateJobTemplate (UpdateJobTemplate'),
-    newUpdateJobTemplate,
-    UpdateJobTemplateResponse (UpdateJobTemplateResponse'),
-    newUpdateJobTemplateResponse,
-
-    -- ** GetPolicy
-    GetPolicy (GetPolicy'),
-    newGetPolicy,
-    GetPolicyResponse (GetPolicyResponse'),
-    newGetPolicyResponse,
-
-    -- ** ListJobTemplates (Paginated)
-    ListJobTemplates (ListJobTemplates'),
-    newListJobTemplates,
-    ListJobTemplatesResponse (ListJobTemplatesResponse'),
-    newListJobTemplatesResponse,
-
-    -- ** GetJobTemplate
-    GetJobTemplate (GetJobTemplate'),
-    newGetJobTemplate,
-    GetJobTemplateResponse (GetJobTemplateResponse'),
-    newGetJobTemplateResponse,
 
     -- ** AssociateCertificate
     AssociateCertificate (AssociateCertificate'),
@@ -210,6 +54,162 @@ module Amazonka.MediaConvert
     newCancelJob,
     CancelJobResponse (CancelJobResponse'),
     newCancelJobResponse,
+
+    -- ** CreateJob
+    CreateJob (CreateJob'),
+    newCreateJob,
+    CreateJobResponse (CreateJobResponse'),
+    newCreateJobResponse,
+
+    -- ** CreateJobTemplate
+    CreateJobTemplate (CreateJobTemplate'),
+    newCreateJobTemplate,
+    CreateJobTemplateResponse (CreateJobTemplateResponse'),
+    newCreateJobTemplateResponse,
+
+    -- ** CreatePreset
+    CreatePreset (CreatePreset'),
+    newCreatePreset,
+    CreatePresetResponse (CreatePresetResponse'),
+    newCreatePresetResponse,
+
+    -- ** CreateQueue
+    CreateQueue (CreateQueue'),
+    newCreateQueue,
+    CreateQueueResponse (CreateQueueResponse'),
+    newCreateQueueResponse,
+
+    -- ** DeleteJobTemplate
+    DeleteJobTemplate (DeleteJobTemplate'),
+    newDeleteJobTemplate,
+    DeleteJobTemplateResponse (DeleteJobTemplateResponse'),
+    newDeleteJobTemplateResponse,
+
+    -- ** DeletePolicy
+    DeletePolicy (DeletePolicy'),
+    newDeletePolicy,
+    DeletePolicyResponse (DeletePolicyResponse'),
+    newDeletePolicyResponse,
+
+    -- ** DeletePreset
+    DeletePreset (DeletePreset'),
+    newDeletePreset,
+    DeletePresetResponse (DeletePresetResponse'),
+    newDeletePresetResponse,
+
+    -- ** DeleteQueue
+    DeleteQueue (DeleteQueue'),
+    newDeleteQueue,
+    DeleteQueueResponse (DeleteQueueResponse'),
+    newDeleteQueueResponse,
+
+    -- ** DescribeEndpoints (Paginated)
+    DescribeEndpoints (DescribeEndpoints'),
+    newDescribeEndpoints,
+    DescribeEndpointsResponse (DescribeEndpointsResponse'),
+    newDescribeEndpointsResponse,
+
+    -- ** DisassociateCertificate
+    DisassociateCertificate (DisassociateCertificate'),
+    newDisassociateCertificate,
+    DisassociateCertificateResponse (DisassociateCertificateResponse'),
+    newDisassociateCertificateResponse,
+
+    -- ** GetJob
+    GetJob (GetJob'),
+    newGetJob,
+    GetJobResponse (GetJobResponse'),
+    newGetJobResponse,
+
+    -- ** GetJobTemplate
+    GetJobTemplate (GetJobTemplate'),
+    newGetJobTemplate,
+    GetJobTemplateResponse (GetJobTemplateResponse'),
+    newGetJobTemplateResponse,
+
+    -- ** GetPolicy
+    GetPolicy (GetPolicy'),
+    newGetPolicy,
+    GetPolicyResponse (GetPolicyResponse'),
+    newGetPolicyResponse,
+
+    -- ** GetPreset
+    GetPreset (GetPreset'),
+    newGetPreset,
+    GetPresetResponse (GetPresetResponse'),
+    newGetPresetResponse,
+
+    -- ** GetQueue
+    GetQueue (GetQueue'),
+    newGetQueue,
+    GetQueueResponse (GetQueueResponse'),
+    newGetQueueResponse,
+
+    -- ** ListJobTemplates (Paginated)
+    ListJobTemplates (ListJobTemplates'),
+    newListJobTemplates,
+    ListJobTemplatesResponse (ListJobTemplatesResponse'),
+    newListJobTemplatesResponse,
+
+    -- ** ListJobs (Paginated)
+    ListJobs (ListJobs'),
+    newListJobs,
+    ListJobsResponse (ListJobsResponse'),
+    newListJobsResponse,
+
+    -- ** ListPresets (Paginated)
+    ListPresets (ListPresets'),
+    newListPresets,
+    ListPresetsResponse (ListPresetsResponse'),
+    newListPresetsResponse,
+
+    -- ** ListQueues (Paginated)
+    ListQueues (ListQueues'),
+    newListQueues,
+    ListQueuesResponse (ListQueuesResponse'),
+    newListQueuesResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** PutPolicy
+    PutPolicy (PutPolicy'),
+    newPutPolicy,
+    PutPolicyResponse (PutPolicyResponse'),
+    newPutPolicyResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UpdateJobTemplate
+    UpdateJobTemplate (UpdateJobTemplate'),
+    newUpdateJobTemplate,
+    UpdateJobTemplateResponse (UpdateJobTemplateResponse'),
+    newUpdateJobTemplateResponse,
+
+    -- ** UpdatePreset
+    UpdatePreset (UpdatePreset'),
+    newUpdatePreset,
+    UpdatePresetResponse (UpdatePresetResponse'),
+    newUpdatePresetResponse,
+
+    -- ** UpdateQueue
+    UpdateQueue (UpdateQueue'),
+    newUpdateQueue,
+    UpdateQueueResponse (UpdateQueueResponse'),
+    newUpdateQueueResponse,
 
     -- * Types
 
@@ -285,6 +285,9 @@ module Amazonka.MediaConvert
     -- ** AudioDefaultSelection
     AudioDefaultSelection (..),
 
+    -- ** AudioDurationCorrection
+    AudioDurationCorrection (..),
+
     -- ** AudioLanguageCodeControl
     AudioLanguageCodeControl (..),
 
@@ -308,6 +311,9 @@ module Amazonka.MediaConvert
 
     -- ** Av1AdaptiveQuantization
     Av1AdaptiveQuantization (..),
+
+    -- ** Av1BitDepth
+    Av1BitDepth (..),
 
     -- ** Av1FramerateControl
     Av1FramerateControl (..),
@@ -408,6 +414,9 @@ module Amazonka.MediaConvert
     -- ** CmafManifestDurationFormat
     CmafManifestDurationFormat (..),
 
+    -- ** CmafMpdManifestBandwidthType
+    CmafMpdManifestBandwidthType (..),
+
     -- ** CmafMpdProfile
     CmafMpdProfile (..),
 
@@ -425,6 +434,9 @@ module Amazonka.MediaConvert
 
     -- ** CmafTargetDurationCompatibilityMode
     CmafTargetDurationCompatibilityMode (..),
+
+    -- ** CmafVideoCompositionOffsets
+    CmafVideoCompositionOffsets (..),
 
     -- ** CmafWriteDASHManifest
     CmafWriteDASHManifest (..),
@@ -447,11 +459,23 @@ module Amazonka.MediaConvert
     -- ** CmfcIFrameOnlyManifest
     CmfcIFrameOnlyManifest (..),
 
+    -- ** CmfcKlvMetadata
+    CmfcKlvMetadata (..),
+
+    -- ** CmfcManifestMetadataSignaling
+    CmfcManifestMetadataSignaling (..),
+
     -- ** CmfcScte35Esam
     CmfcScte35Esam (..),
 
     -- ** CmfcScte35Source
     CmfcScte35Source (..),
+
+    -- ** CmfcTimedMetadata
+    CmfcTimedMetadata (..),
+
+    -- ** CmfcTimedMetadataBoxVersion
+    CmfcTimedMetadataBoxVersion (..),
 
     -- ** ColorMetadata
     ColorMetadata (..),
@@ -486,6 +510,9 @@ module Amazonka.MediaConvert
     -- ** DashIsoIntervalCadence
     DashIsoIntervalCadence (..),
 
+    -- ** DashIsoMpdManifestBandwidthType
+    DashIsoMpdManifestBandwidthType (..),
+
     -- ** DashIsoMpdProfile
     DashIsoMpdProfile (..),
 
@@ -500,6 +527,9 @@ module Amazonka.MediaConvert
 
     -- ** DashIsoSegmentLengthControl
     DashIsoSegmentLengthControl (..),
+
+    -- ** DashIsoVideoCompositionOffsets
+    DashIsoVideoCompositionOffsets (..),
 
     -- ** DashIsoWriteSegmentTimelineInRepresentation
     DashIsoWriteSegmentTimelineInRepresentation (..),
@@ -521,6 +551,9 @@ module Amazonka.MediaConvert
 
     -- ** DolbyVisionLevel6Mode
     DolbyVisionLevel6Mode (..),
+
+    -- ** DolbyVisionMapping
+    DolbyVisionMapping (..),
 
     -- ** DolbyVisionProfile
     DolbyVisionProfile (..),
@@ -638,6 +671,9 @@ module Amazonka.MediaConvert
 
     -- ** EmbeddedTerminateCaptions
     EmbeddedTerminateCaptions (..),
+
+    -- ** EmbeddedTimecodeOverride
+    EmbeddedTimecodeOverride (..),
 
     -- ** F4vMoovPlacement
     F4vMoovPlacement (..),
@@ -813,6 +849,9 @@ module Amazonka.MediaConvert
     -- ** HlsCaptionLanguageSetting
     HlsCaptionLanguageSetting (..),
 
+    -- ** HlsCaptionSegmentLengthControl
+    HlsCaptionSegmentLengthControl (..),
+
     -- ** HlsClientCache
     HlsClientCache (..),
 
@@ -872,6 +911,9 @@ module Amazonka.MediaConvert
 
     -- ** HlsTimedMetadataId3Frame
     HlsTimedMetadataId3Frame (..),
+
+    -- ** ImscAccessibilitySubs
+    ImscAccessibilitySubs (..),
 
     -- ** ImscStylePassthrough
     ImscStylePassthrough (..),
@@ -938,6 +980,9 @@ module Amazonka.MediaConvert
 
     -- ** M2tsForceTsVideoEbpOrder
     M2tsForceTsVideoEbpOrder (..),
+
+    -- ** M2tsKlvMetadata
+    M2tsKlvMetadata (..),
 
     -- ** M2tsNielsenId3
     M2tsNielsenId3 (..),
@@ -1014,11 +1059,23 @@ module Amazonka.MediaConvert
     -- ** MpdCaptionContainerType
     MpdCaptionContainerType (..),
 
+    -- ** MpdKlvMetadata
+    MpdKlvMetadata (..),
+
+    -- ** MpdManifestMetadataSignaling
+    MpdManifestMetadataSignaling (..),
+
     -- ** MpdScte35Esam
     MpdScte35Esam (..),
 
     -- ** MpdScte35Source
     MpdScte35Source (..),
+
+    -- ** MpdTimedMetadata
+    MpdTimedMetadata (..),
+
+    -- ** MpdTimedMetadataBoxVersion
+    MpdTimedMetadataBoxVersion (..),
 
     -- ** Mpeg2AdaptiveQuantization
     Mpeg2AdaptiveQuantization (..),
@@ -1107,6 +1164,9 @@ module Amazonka.MediaConvert
     -- ** NoiseFilterPostTemporalSharpening
     NoiseFilterPostTemporalSharpening (..),
 
+    -- ** NoiseFilterPostTemporalSharpeningStrength
+    NoiseFilterPostTemporalSharpeningStrength (..),
+
     -- ** NoiseReducerFilter
     NoiseReducerFilter (..),
 
@@ -1118,6 +1178,9 @@ module Amazonka.MediaConvert
 
     -- ** OutputSdt
     OutputSdt (..),
+
+    -- ** PadVideo
+    PadVideo (..),
 
     -- ** PresetListBy
     PresetListBy (..),
@@ -1161,11 +1224,17 @@ module Amazonka.MediaConvert
     -- ** RenewalType
     RenewalType (..),
 
+    -- ** RequiredFlag
+    RequiredFlag (..),
+
     -- ** ReservationPlanStatus
     ReservationPlanStatus (..),
 
     -- ** RespondToAfd
     RespondToAfd (..),
+
+    -- ** RuleType
+    RuleType (..),
 
     -- ** S3ObjectCannedAcl
     S3ObjectCannedAcl (..),
@@ -1275,6 +1344,9 @@ module Amazonka.MediaConvert
     -- ** WavFormat
     WavFormat (..),
 
+    -- ** WebvttAccessibilitySubs
+    WebvttAccessibilitySubs (..),
+
     -- ** WebvttStylePassthrough
     WebvttStylePassthrough (..),
 
@@ -1354,6 +1426,10 @@ module Amazonka.MediaConvert
     AiffSettings (AiffSettings'),
     newAiffSettings,
 
+    -- ** AllowedRenditionSize
+    AllowedRenditionSize (AllowedRenditionSize'),
+    newAllowedRenditionSize,
+
     -- ** AncillarySourceSettings
     AncillarySourceSettings (AncillarySourceSettings'),
     newAncillarySourceSettings,
@@ -1381,6 +1457,10 @@ module Amazonka.MediaConvert
     -- ** AudioSelectorGroup
     AudioSelectorGroup (AudioSelectorGroup'),
     newAudioSelectorGroup,
+
+    -- ** AutomatedAbrRule
+    AutomatedAbrRule (AutomatedAbrRule'),
+    newAutomatedAbrRule,
 
     -- ** AutomatedAbrSettings
     AutomatedAbrSettings (AutomatedAbrSettings'),
@@ -1570,6 +1650,10 @@ module Amazonka.MediaConvert
     FileSourceSettings (FileSourceSettings'),
     newFileSourceSettings,
 
+    -- ** ForceIncludeRenditionSize
+    ForceIncludeRenditionSize (ForceIncludeRenditionSize'),
+    newForceIncludeRenditionSize,
+
     -- ** FrameCaptureSettings
     FrameCaptureSettings (FrameCaptureSettings'),
     newFrameCaptureSettings,
@@ -1658,6 +1742,10 @@ module Amazonka.MediaConvert
     InputTemplate (InputTemplate'),
     newInputTemplate,
 
+    -- ** InputVideoGenerator
+    InputVideoGenerator (InputVideoGenerator'),
+    newInputVideoGenerator,
+
     -- ** InsertableImage
     InsertableImage (InsertableImage'),
     newInsertableImage,
@@ -1697,6 +1785,14 @@ module Amazonka.MediaConvert
     -- ** M3u8Settings
     M3u8Settings (M3u8Settings'),
     newM3u8Settings,
+
+    -- ** MinBottomRenditionSize
+    MinBottomRenditionSize (MinBottomRenditionSize'),
+    newMinBottomRenditionSize,
+
+    -- ** MinTopRenditionSize
+    MinTopRenditionSize (MinTopRenditionSize'),
+    newMinTopRenditionSize,
 
     -- ** MotionImageInserter
     MotionImageInserter (MotionImageInserter'),

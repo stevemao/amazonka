@@ -32,14 +32,110 @@ Released: **?**, Compare: [2.0.0-rc1](https://github.com/brendanhay/amazonka/com
 
   - The `Amazonka.Auth.runCredentialChain` function allows you to build your own custom credential chains.
 
+- Select parts of `amazonka-core:Amazonka.Data` are now re-exported from `amazonka-core:Amazonka.Core` (and by extension, `amazonka:Amazonka`), instead of the entire module. [\#851](https://github.com/brendanhay/amazonka/pull/851).
+
+  - In particular, serialisation classes and helpers are no longer exported, and service bindings import `Amazonka.Data` directly.
+  - Most library users should see little difference, but the `ToText` and `ToByteString` classes are no longer exported by default.
+
+- Records within the `amazonka-core` and `amazonka` libraries no longer have (inconsistent) leading underscores or prefixes [\#844](https://github.com/brendanhay/amazonka/pull/844). A few other functions were renamed/removed for consistency or to avoid name clashes:
+
+  - `Amazonka.Env.envAuthMaybe` -> `Amazonka.authMaybe` (and its re-export from `Amazonka`)
+  - `Amazonka.Env.configure` -> `Amazonka.Env.configureService` (and its re-export from `Amazonka`)
+  - `Amazonka.Env.override` -> `Amazonka.Env.overrideService` (and its re-export from `Amazonka`)
+  - `Amazonka.Env.timeout` -> `Amazonka.Env.globalTimeout` (and its re-export from `Amazonka`)
+  - `Amazonka.Env.within`: removed; it was merely a record update
+  - `Amazonka.Body._Body`: removed.
+
+  As with record fields in generated bindings, you should use record updates, generic lenses/optics, or `-XOverloadedRecordDot`. However, if you prefer explicit lenses, prefixed lenses are available where the records are defined, and are colleced in the `Amazonka.Core.Lens` and `Amazonka.Lens` modules (`Amazonka.Lens` re-exports `Amazonka.Core.Lens`).
+
+### New libraries
+
+- `amazonka-appconfigdata`: The data plane APIs your application uses to retrieve configuration data. [Overview](https://docs.aws.amazon.com/appconfig/2019-10-09/APIReference/Welcome.html#Welcome_AWS_AppConfig_Data)
+- `amazonka-amplifyuibuilder`: A programmatic interface for creating and configuring user interface (UI) component libraries and themes for use in your Amplify applications. [Overview](https://docs.aws.amazon.com/amplifyuibuilder/latest/APIReference/Welcome.html)
+- `amazonka-arc-zonal-shift`: Zonal shift is a function within the Amazon Route 53 Application Recovery Controller (Route 53 ARC). With zonal shifting, you can shift your load balancer resources away from an impaired Availability Zone with a single action. [Overview](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/zonal-shift.html)
+- `amazonka-backupgateway`: Backup gateway is downloadable AWS Backup software that you deploy to your VMware infrastructure to connect your VMware VMs to AWS Backup.
+- `amazonka-backup-storage`
+- `amazonka-billingconductor`: The AWS Billing Conductor is a customizable billing service, allowing you to customize your billing data to match your desired business structure. [Overview](https://aws.amazon.com/aws-cost-management/aws-billing-conductor/)
+- `amazonka-chime-sdk-media-pipelines`: Create Amazon Chime SDK media pipelines and capture audio, video, events, and data messages from Amazon Chime SDK meetings. [Overview](https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_Operations_Amazon_Chime_SDK_Media_Pipelines.html)
+- `amazonka-chime-sdk-meetings`: Create Amazon Chime SDK meetings, set the AWS Regions for meetings, create and manage users, and send and receive meeting notifications. [Overview](https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_Operations_Amazon_Chime_SDK_Meetings.html)
+- `amazonka-chime-sdk-voice`: Add telephony capabilities to custom communication solutions, including SIP infrastructure and Amazon Chime SDK Voice Connectors. [Overview](https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_Operations_Amazon_Chime_SDK_Voice.html)
+- `amazonka-connectcampaigns`: Create high-volume outbound campaigns. For example, you may want to use this functionality for appointment reminders, telemarketing, subscription renewals, or debt collection. [Overview](https://docs.aws.amazon.com/connect-outbound/latest/APIReference/Welcome.html)
+- `amazonka-connectcases`: Track and manage customer issues that require multiple interactions, follow-up tasks, and teams in your contact center. [Overview](https://aws.amazon.com/connect/cases/)
+- `amazonka-controltower`: Apply the AWS library of pre-defined controls to your organizational units, programmatically. [Overview](https://docs.aws.amazon.com/controltower/latest/APIReference/Welcome.html)
+- `amazonka-docdb-elastic`: Elastic Clusters enables you to elastically scale your document database to handle virtually any number of writes and reads, with petabytes of storage capacity. [Overview](https://docs.aws.amazon.com/documentdb/latest/developerguide/docdb-using-elastic-clusters.html)
+- `amazonka-drs`: AWS Elastic Disaster Recovery (AWS DRS) minimizes downtime and data loss with fast, reliable recovery of on-premises and cloud-based applications using affordable storage, minimal compute, and point-in-time recovery. [Overview](https://aws.amazon.com/disaster-recovery/)
+- `amazonka-emr-serverless`: Amazon EMR Serverless is a serverless option in Amazon EMR that makes it easy for data analysts and engineers to run open-source big data analytics frameworks without configuring, managing, and scaling clusters or servers. [Overview](https://aws.amazon.com/emr/serverless/)
+- `amazonka-evidently`: Amazon CloudWatch Evidently lets application developers conduct experiments and identify unintended consequences of new features before rolling them out for general use, thereby reducing risk related to new feature roll-out. [Overview](https://docs.aws.amazon.com/cloudwatchevidently/latest/APIReference/Welcome.html)
+- `amazonka-fsx`: Launch, run, and scale feature-rich, high-performance file systems in the cloud. [Overview](https://aws.amazon.com/fsx/)
+- `amazonka-gamesparks`: Build game backends without worrying about server infrastructure. [Overview](https://aws.amazon.com/gamesparks/)
+- `amazonka-inspector2`: Amazon Inspector is an automated vulnerability management service that continually scans AWS workloads for software vulnerabilities and unintended network exposure. [Overview](https://aws.amazon.com/inspector/)
+- `amazonka-iot-roborunner`: Infrastructure for integrating robot systems from multiple vendors and building fleet management applications. [Overview](https://aws.amazon.com/roborunner/)
+- `amazonka-iottwinmaker`: AWS IoT TwinMaker makes it easier for developers to create digital twins of real-world systems such as buildings, factories, industrial equipment, and production lines. [Overview](https://aws.amazon.com/iot-twinmaker/)
+- `amazonka-ivschat`: Amazon IVS Chat is a scalable stream chat feature with a built-in moderation option designed to accompany live streaming video. [Overview](https://aws.amazon.com/ivs/features/chat/)
+- `amazonka-kendra`: An intelligent search service powered by machine learning (ML) for your websites and applications. [Overview](https://aws.amazon.com/kendra/)
+- `amazonka-keyspaces`: Amazon Keyspaces (for Apache Cassandra) is a scalable, highly available, and managed Apache Cassandra–compatible database service. [Overview](https://aws.amazon.com/keyspaces/)
+- `amazonka-lexv2-models`: Amazon Lex V2 is an AWS service for building conversational interfaces for applications using voice and text. This is the model building API. [Overview](https://docs.aws.amazon.com/lexv2/latest/dg/API_Types_Amazon_Lex_Model_Building_V2.html)
+- `amazonka-license-manager-user-subscriptions`: With License Manager, you can create user-based subscriptions to utilize licensed software with a per user subscription fee on Amazon EC2 instances. [Overview](https://docs.aws.amazon.com/license-manager/latest/userguide/user-based-subscriptions.html)
+- `amazonka-m2`: AWS Mainframe Modernization is a set of managed tools providing infrastructure and software for migrating, modernizing, and running mainframe applications. [Overview](https://aws.amazon.com/mainframe-modernization/)
+- `amazonka-migration-hub-refactor-spaces`: AWS Migration Hub Refactor Spaces is the starting point for incremental application refactoring to microservices. [Overview](https://docs.aws.amazon.com/migrationhub-refactor-spaces/latest/userguide/what-is-mhub-refactor-spaces.html)
+- `amazonka-migrationhuborchestrator`: AWS Migration Hub Orchestrator simplifies and automates the migration of servers and enterprise applications to AWS. It provides a single location to run and track your migrations. [Overview](https://docs.aws.amazon.com/migrationhub-orchestrator/latest/userguide/what-is-migrationhub-orchestrator.html)
+- `amazonka-migrationhubstrategy`: Migration Hub Strategy Recommendations helps you plan migration and modernization initiatives by offering migration and modernization strategy recommendations for viable transformation paths for your applications. [Overview](https://docs.aws.amazon.com/migrationhub-strategy/latest/userguide/what-is-mhub-strategy.html)
+- `amazonka-oam`: Create and manage links between source accounts and monitoring accounts by using CloudWatch cross-account observability. [Overview](https://docs.aws.amazon.com/OAM/latest/APIReference/Welcome.html)
+- `amazonka-omics`: Helps healthcare and life science organizations store, query, and analyze genomic, transcriptomic, and other omics data and then generate insights from that data to improve health and advance scientific discoveries. [Overview](https://aws.amazon.com/omics/)
+- `amazonka-opensearchserverless`: An on-demand auto scaling configuration for Amazon OpenSearch Service. [Overview](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless.html)
+- `amazonka-pinpoint-sms-voice-v2`: Amazon Pinpoint is an AWS service that you can use to engage with your recipients across multiple messaging channels. The Amazon Pinpoint SMS and Voice, version 2 API provides programmatic access to options that are unique to the SMS and voice channels and supplements the resources provided by the Amazon Pinpoint API. [Overview](https://docs.aws.amazon.com/pinpoint/latest/apireference_smsvoicev2/Welcome.html)
+- `amazonka-pipes`: Amazon EventBridge Pipes helps you create point-to-point integrations between event producers and consumers with optional transform, filter and enrich steps. [Overview](https://aws.amazon.com/eventbridge/pipes/)
+- `amazonka-privatenetworks`:  AWS Private 5G is a managed service that makes it easier to deploy, operate, and scale your own private mobile network, with all required hardware and software provided by AWS. [Overview](https://aws.amazon.com/private5g/)
+- `amazonka-rbin`: Recycle Bin is a data recovery feature that enables you to restore accidentally deleted Amazon EBS snapshots and EBS-backed AMIs. When using Recycle Bin, if your resources are deleted, they are retained in the Recycle Bin for a time period that you specify before being permanently deleted. [Overview](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/recycle-bin.html)
+- `amazonka-redshift-serverless`: Amazon Redshift Serverless makes it easier to run and scale analytics without having to manage your data warehouse infrastructure. [Overview](https://aws.amazon.com/redshift/redshift-serverless/)
+- `amazonka-resiliencehub`: AWS Resilience Hub provides a central place to define, validate, and track the resilience of your applications on AWS. [Overview](https://aws.amazon.com/resilience-hub/)
+- `amazonka-resource-explorer-v2`: Search for and discover relevant resources across AWS. [Overview](https://aws.amazon.com/resourceexplorer/)
+- `amazonka-rolesanywhere`: You can use AWS Identity and Access Management Roles Anywhere to obtain temporary security credentials in IAM for workloads such as servers, containers, and applications that run outside of AWS. [Overview](https://docs.aws.amazon.com/rolesanywhere/latest/userguide/introduction.html)
+- `amazonka-rum`: With CloudWatch RUM (Real User Monitoring), you can perform real user monitoring to collect and view client-side data about your web application performance from actual user sessions in near real time. [Overview](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-RUM.html)
+- `amazonka-sagemaker-geospatial`: Build, train, and deploy ML models using geospatial data. [Overview](https://aws.amazon.com/sagemaker/geospatial/)
+- `amazonka-scheduler`: Amazon EventBridge Scheduler is a serverless scheduler that allows you to create, run, and manage tasks from one central, managed service. [Overview](https://docs.aws.amazon.com/scheduler/latest/UserGuide/what-is-scheduler.html)
+- `amazonka-securitylake`: Amazon Security Lake automatically centralizes security data from cloud, on-premises, and custom sources into a purpose-built data lake stored in your account. [Overview](https://aws.amazon.com/security-lake/)
+- `amazonka-simspaceweaver`: A managed service that lets you create expansive simulation worlds at increased levels of complexity and scale. [Overview](https://aws.amazon.com/simspaceweaver/)
+- `amazonka-sms-voice`: Looks like an alternate binding to the Pinpoint SMS and Voice API. Maybe stick with `amazonka-pinpoint-sms-voice-v2`? [Overview](https://docs.aws.amazon.com/pinpoint-sms-voice/latest/APIReference/welcome.html)
+- `amazonka-ssm-sap`: Actions and data types for AWS Systems Manager for SAP.
+- `amazonka-support-app`: You can use the AWS Support App to manage your AWS support cases in Slack. You can invite your team members to chat channels, respond to case updates, and chat directly with support agents. [Overview](https://docs.aws.amazon.com/awssupport/latest/user/aws-support-app-for-slack.html)
+- `amazonka-timestream-query`: Amazon Timestream is a fast, scalable, and serverless time series database service for IoT and operational applications. (Write API) [Overview](https://aws.amazon.com/timestream/)
+- `amazonka-timestream-write`: Amazon Timestream is a fast, scalable, and serverless time series database service for IoT and operational applications. (Write API) [Overview](https://aws.amazon.com/timestream/)
+- `amazonka-wafv2`: AWS WAF is a web application firewall that helps protect your web applications or APIs against common web exploits and bots that may affect availability, compromise security, or consume excessive resources (V2 API). [Overview](https://aws.amazon.com/waf/)
+- `amazonka-workspaces-web`: Amazon WorkSpaces Web is a low-cost, fully managed workspace built specifically to facilitate secure access to internal websites and software-as-a-service (SaaS) applications from existing web browsers. [Overview](https://aws.amazon.com/workspaces/web/)
+
 ### Changed
 
+- `amazonka-ec2`, `amazonka-route53`, `amazonka-s3`: Provide handwritten `Iso'`s and `Lens'`s for manually-written types, that match the new generator's conventions
+[\#859](https://github.com/brendanhay/amazonka/pull/859)
+- `amazonka-redshift`: Deprecate `getAccountId` as Redshift uses service-principal credentials to deliver logs to S3. Also provide `getCloudTrailAccountId`
+[\#858](https://github.com/brendanhay/amazonka/pull/858)
+- `amazonka-route53`: Return Hosted Zone ID for S3 websites in all regions
+[\#858](https://github.com/brendanhay/amazonka/pull/858)
+- `amazonka-s3`: Correctly return dotted S3 website hostnames in those regions
+[\#858](https://github.com/brendanhay/amazonka/pull/858)
+- `amazonka-core`: Add regions: `Hyderabad` (`ap-south-2`), `Jakarta` (`ap-southeast-3`), `Spain` (`eu-south-2`), `Zurich` (`eu-central-2`), and `UAE` (`me-central-1`)
+[\#858](https://github.com/brendanhay/amazonka/pull/858)
+- `amazonka`: Update EC2 metadata keys based on [instance metadata categories](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-categories.html)
+[\#837](https://github.com/brendanhay/amazonka/pull/837)
+- `amazonka-dynamodb`: Provide a sum type for `WriteRequest`
+[\#799](https://github.com/brendanhay/amazonka/pull/799)
+- `amazonka-sso`: replace `SessionTokenType` with `Core.SessionToken`
+[\#792](https://github.com/brendanhay/amazonka/pull/792)
+- `amazonka-sso`: Use `amazonka-core` types in `GetRoleCredentials` response
+[\#791](https://github.com/brendanhay/amazonka/pull/791)
+- `amazonka-sts`: Mark `Credentials` as required in `AssumeRole*` responses
+[\#791](https://github.com/brendanhay/amazonka/pull/791)
+- `amazonka-sso`: Mark `RoleCredentials_{accessKeyId,secretAccessKey}` as required
+[\#789](https://github.com/brendanhay/amazonka/pull/789)
 - `amazonka-core`: urldecode query string parts when parsing to `QueryString`
 [\#780](https://github.com/brendanhay/amazonka/pull/769)
 - `amazonka-dynamodb`, `amazonka-dynamodb-streams`: Fix deserialisation of booleans
 [\#775](https://github.com/brendanhay/amazonka/pull/775)
 - `amazonka`: Add a public interface to send unsigned requests. Sending functions are now defined in `Amazonka.Send`, but are re-exported from `Amazonka`.
 [\#769](https://github.com/brendanhay/amazonka/pull/769)
+- `amazonka-sso`: Mark `GetRoleCredentialsResponse_roleCredentials` as required
+[\#759](https://github.com/brendanhay/amazonka/pull/759)
 - `amazonka-dynamodb`: Mark various fields as required
 [\#724](https://github.com/brendanhay/amazonka/pull/724)
 - `amazonka-dynamodb`: Provide a sum type for `AttributeValue`
@@ -48,9 +144,26 @@ Released: **?**, Compare: [2.0.0-rc1](https://github.com/brendanhay/amazonka/com
 [\#724](https://github.com/brendanhay/amazonka/pull/724)
 - `amazonka`: SSO authentication support (thanks @pbrisbin)
 [\#757](https://github.com/brendanhay/amazonka/pull/757)
+- `amazonka`: Use IMDSv2 for metadata requests on EC2 (thanks @pbrisbin)
+[\#831](https://github.com/brendanhay/amazonka/pull/831)
 
 ### Fixed
 
+- `amazonka-core`: Only consider 2xx and 304 responses as successful
+[\#835](https://github.com/brendanhay/amazonka/pull/835)
+- `amazonka-core`: Allow customisation of S3 addressing styles like Boto 3 can (thanks @basvandijk, @ivb-supercede)
+[\#832](https://github.com/brendanhay/amazonka/pull/832)
+- `amazonka-core`: Correctly split error-codes-in-headers at the first colon
+[\#830](https://github.com/brendanhay/amazonka/pull/830)
+- `amazonka-core`: Correctly double-url-encode request paths when computing V4 signatures
+[\#812](https://github.com/brendanhay/amazonka/pull/812)
+- `amazonka-core`: Correctly compute body length for `hashedFileRange`
+[\#794](https://github.com/brendanhay/amazonka/pull/794)
+- Generator: Correctly generate `ToJSON` instances for requests which set a `"payload":` field in `"type": "structure"` definitions.
+[\#790](https://github.com/brendanhay/amazonka/pull/790)
+  - Fixes some API calls in `amazonka-glacier` and `amazonka-pinpoint`
+- Background credential refresh now waits until five minutes before token expiry (or halfway to expiry if it expires sooner than that) to avoid the risk of expired credentials.
+[\#747](https://github.com/brendanhay/amazonka/pull/783)
 - Presigning URLs that are not for S3
 [\#767](https://github.com/brendanhay/amazonka/pull/767)
 - `amazonka-s3`/`amazonka-glacier`: treat upload IDs are a mandatory part of the `CreateMultipartUpload`/`InitiateMultipartUpload` responses.
@@ -59,6 +172,8 @@ Released: **?**, Compare: [2.0.0-rc1](https://github.com/brendanhay/amazonka/com
 [\#723](https://github.com/brendanhay/amazonka/pull/723)
 - `amazonka-ssm`: Various fields that are always available are no longer Maybe's.
 [\#741](https://github.com/brendanhay/amazonka/pull/741)
+- `amazonka-core`: to be compatible with mtl-2.3, avoid `Alternative (Either String)`
+[\#779](https://github.com/brendanhay/amazonka/pull/779)
 
 ## [2.0.0 RC1](https://github.com/brendanhay/amazonka/tree/2.0.0-rc1)
 Released: **28nd November, 2021**, Compare: [1.6.1](https://github.com/brendanhay/amazonka/compare/1.6.1...2.0.0-rc1)
@@ -243,6 +358,7 @@ perl -pi -e 's/Network\.AWS/Amazonka/g' `find . -type f -name '*.hs'`
 - `amazonka-iotevents-data`: Send inputs to detectors, list detectors, and view or update a detector's status. [Overview](https://docs.aws.amazon.com/iotevents/latest/apireference/Welcome.html)
 - `amazonka-iotevents`: Easily detect and respond to events from IoT sensors and applications. [Overview](https://aws.amazon.com/iot-events/)
 - `amazonka-iotfleethub`: Build standalone web applications for monitoring the health of your device fleets. [Overview](https://docs.aws.amazon.com/iot/latest/fleethubuserguide/what-is-aws-iot-monitor.html)
+- `amazonka-iotfleetwise`: Collect, transform, and transfer vehicle data to the cloud in near real time. [Overview](https://aws.amazon.com/iot-fleetwise/)
 - `amazonka-iotsecuretunneling`: Establish bidirectional communication to remote devices over a secure connection that is managed by AWS IoT. [Overview](https://docs.aws.amazon.com/iot/latest/developerguide/secure-tunneling.html)
 - `amazonka-iotsitewise`: Collect, organize, and analyze data from industrial equipment at scale. [Overview](https://aws.amazon.com/iot-sitewise/)
 - `amazonka-iotthingsgraph`: Visually develop IoT applications. [Overview](https://aws.amazon.com/iot-things-graph/)

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.CreatePlatformVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.ElasticBeanstalk.CreatePlatformVersion
     newCreatePlatformVersion,
 
     -- * Request Lenses
-    createPlatformVersion_optionSettings,
     createPlatformVersion_environmentName,
+    createPlatformVersion_optionSettings,
     createPlatformVersion_tags,
     createPlatformVersion_platformName,
     createPlatformVersion_platformVersion,
@@ -46,8 +46,9 @@ module Amazonka.ElasticBeanstalk.CreatePlatformVersion
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticBeanstalk.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,10 +57,10 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCreatePlatformVersion' smart constructor.
 data CreatePlatformVersion = CreatePlatformVersion'
-  { -- | The configuration option settings to apply to the builder environment.
-    optionSettings :: Prelude.Maybe [ConfigurationOptionSetting],
-    -- | The name of the builder environment.
+  { -- | The name of the builder environment.
     environmentName :: Prelude.Maybe Prelude.Text,
+    -- | The configuration option settings to apply to the builder environment.
+    optionSettings :: Prelude.Maybe [ConfigurationOptionSetting],
     -- | Specifies the tags applied to the new platform version.
     --
     -- Elastic Beanstalk applies these tags only to the platform version.
@@ -83,9 +84,9 @@ data CreatePlatformVersion = CreatePlatformVersion'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'optionSettings', 'createPlatformVersion_optionSettings' - The configuration option settings to apply to the builder environment.
---
 -- 'environmentName', 'createPlatformVersion_environmentName' - The name of the builder environment.
+--
+-- 'optionSettings', 'createPlatformVersion_optionSettings' - The configuration option settings to apply to the builder environment.
 --
 -- 'tags', 'createPlatformVersion_tags' - Specifies the tags applied to the new platform version.
 --
@@ -111,9 +112,9 @@ newCreatePlatformVersion
   pPlatformVersion_
   pPlatformDefinitionBundle_ =
     CreatePlatformVersion'
-      { optionSettings =
+      { environmentName =
           Prelude.Nothing,
-        environmentName = Prelude.Nothing,
+        optionSettings = Prelude.Nothing,
         tags = Prelude.Nothing,
         platformName = pPlatformName_,
         platformVersion = pPlatformVersion_,
@@ -121,13 +122,13 @@ newCreatePlatformVersion
           pPlatformDefinitionBundle_
       }
 
--- | The configuration option settings to apply to the builder environment.
-createPlatformVersion_optionSettings :: Lens.Lens' CreatePlatformVersion (Prelude.Maybe [ConfigurationOptionSetting])
-createPlatformVersion_optionSettings = Lens.lens (\CreatePlatformVersion' {optionSettings} -> optionSettings) (\s@CreatePlatformVersion' {} a -> s {optionSettings = a} :: CreatePlatformVersion) Prelude.. Lens.mapping Lens.coerced
-
 -- | The name of the builder environment.
 createPlatformVersion_environmentName :: Lens.Lens' CreatePlatformVersion (Prelude.Maybe Prelude.Text)
 createPlatformVersion_environmentName = Lens.lens (\CreatePlatformVersion' {environmentName} -> environmentName) (\s@CreatePlatformVersion' {} a -> s {environmentName = a} :: CreatePlatformVersion)
+
+-- | The configuration option settings to apply to the builder environment.
+createPlatformVersion_optionSettings :: Lens.Lens' CreatePlatformVersion (Prelude.Maybe [ConfigurationOptionSetting])
+createPlatformVersion_optionSettings = Lens.lens (\CreatePlatformVersion' {optionSettings} -> optionSettings) (\s@CreatePlatformVersion' {} a -> s {optionSettings = a} :: CreatePlatformVersion) Prelude.. Lens.mapping Lens.coerced
 
 -- | Specifies the tags applied to the new platform version.
 --
@@ -153,21 +154,22 @@ instance Core.AWSRequest CreatePlatformVersion where
   type
     AWSResponse CreatePlatformVersion =
       CreatePlatformVersionResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreatePlatformVersionResult"
       ( \s h x ->
           CreatePlatformVersionResponse'
-            Prelude.<$> (x Core..@? "Builder")
-            Prelude.<*> (x Core..@? "PlatformSummary")
+            Prelude.<$> (x Data..@? "Builder")
+            Prelude.<*> (x Data..@? "PlatformSummary")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreatePlatformVersion where
   hashWithSalt _salt CreatePlatformVersion' {..} =
-    _salt `Prelude.hashWithSalt` optionSettings
-      `Prelude.hashWithSalt` environmentName
+    _salt `Prelude.hashWithSalt` environmentName
+      `Prelude.hashWithSalt` optionSettings
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` platformName
       `Prelude.hashWithSalt` platformVersion
@@ -175,39 +177,39 @@ instance Prelude.Hashable CreatePlatformVersion where
 
 instance Prelude.NFData CreatePlatformVersion where
   rnf CreatePlatformVersion' {..} =
-    Prelude.rnf optionSettings
-      `Prelude.seq` Prelude.rnf environmentName
+    Prelude.rnf environmentName
+      `Prelude.seq` Prelude.rnf optionSettings
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf platformName
       `Prelude.seq` Prelude.rnf platformVersion
       `Prelude.seq` Prelude.rnf platformDefinitionBundle
 
-instance Core.ToHeaders CreatePlatformVersion where
+instance Data.ToHeaders CreatePlatformVersion where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreatePlatformVersion where
+instance Data.ToPath CreatePlatformVersion where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreatePlatformVersion where
+instance Data.ToQuery CreatePlatformVersion where
   toQuery CreatePlatformVersion' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreatePlatformVersion" :: Prelude.ByteString),
+          Data.=: ("CreatePlatformVersion" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "EnvironmentName" Data.=: environmentName,
         "OptionSettings"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> optionSettings
             ),
-        "EnvironmentName" Core.=: environmentName,
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> tags),
-        "PlatformName" Core.=: platformName,
-        "PlatformVersion" Core.=: platformVersion,
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> tags),
+        "PlatformName" Data.=: platformName,
+        "PlatformVersion" Data.=: platformVersion,
         "PlatformDefinitionBundle"
-          Core.=: platformDefinitionBundle
+          Data.=: platformDefinitionBundle
       ]
 
 -- | /See:/ 'newCreatePlatformVersionResponse' smart constructor.

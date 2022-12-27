@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.Types.AppIntegrationsConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Wisdom.Types.AppIntegrationsConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration information for Amazon AppIntegrations to automatically
@@ -44,8 +45,8 @@ data AppIntegrationsConfiguration = AppIntegrationsConfiguration'
     --     you must include at least @number@, @short_description@,
     --     @sys_mod_count@, @workflow_state@, and @active@.
     --
-    -- Make sure to include additional field(s); these are indexed and used to
-    -- source recommendations.
+    -- Make sure to include additional fields. These fields are indexed and
+    -- used to source recommendations.
     objectFields :: Prelude.NonEmpty Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -74,8 +75,8 @@ data AppIntegrationsConfiguration = AppIntegrationsConfiguration'
 --     you must include at least @number@, @short_description@,
 --     @sys_mod_count@, @workflow_state@, and @active@.
 --
--- Make sure to include additional field(s); these are indexed and used to
--- source recommendations.
+-- Make sure to include additional fields. These fields are indexed and
+-- used to source recommendations.
 newAppIntegrationsConfiguration ::
   -- | 'appIntegrationArn'
   Prelude.Text ->
@@ -110,19 +111,19 @@ appIntegrationsConfiguration_appIntegrationArn = Lens.lens (\AppIntegrationsConf
 --     you must include at least @number@, @short_description@,
 --     @sys_mod_count@, @workflow_state@, and @active@.
 --
--- Make sure to include additional field(s); these are indexed and used to
--- source recommendations.
+-- Make sure to include additional fields. These fields are indexed and
+-- used to source recommendations.
 appIntegrationsConfiguration_objectFields :: Lens.Lens' AppIntegrationsConfiguration (Prelude.NonEmpty Prelude.Text)
 appIntegrationsConfiguration_objectFields = Lens.lens (\AppIntegrationsConfiguration' {objectFields} -> objectFields) (\s@AppIntegrationsConfiguration' {} a -> s {objectFields = a} :: AppIntegrationsConfiguration) Prelude.. Lens.coerced
 
-instance Core.FromJSON AppIntegrationsConfiguration where
+instance Data.FromJSON AppIntegrationsConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AppIntegrationsConfiguration"
       ( \x ->
           AppIntegrationsConfiguration'
-            Prelude.<$> (x Core..: "appIntegrationArn")
-            Prelude.<*> (x Core..: "objectFields")
+            Prelude.<$> (x Data..: "appIntegrationArn")
+            Prelude.<*> (x Data..: "objectFields")
       )
 
 instance
@@ -138,12 +139,12 @@ instance Prelude.NFData AppIntegrationsConfiguration where
     Prelude.rnf appIntegrationArn
       `Prelude.seq` Prelude.rnf objectFields
 
-instance Core.ToJSON AppIntegrationsConfiguration where
+instance Data.ToJSON AppIntegrationsConfiguration where
   toJSON AppIntegrationsConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("appIntegrationArn" Core..= appIntegrationArn),
-            Prelude.Just ("objectFields" Core..= objectFields)
+              ("appIntegrationArn" Data..= appIntegrationArn),
+            Prelude.Just ("objectFields" Data..= objectFields)
           ]
       )

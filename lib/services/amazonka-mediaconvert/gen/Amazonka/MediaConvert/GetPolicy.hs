@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.GetPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,7 +37,8 @@ module Amazonka.MediaConvert.GetPolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -59,12 +60,13 @@ newGetPolicy = GetPolicy'
 
 instance Core.AWSRequest GetPolicy where
   type AWSResponse GetPolicy = GetPolicyResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetPolicyResponse'
-            Prelude.<$> (x Core..?> "policy")
+            Prelude.<$> (x Data..?> "policy")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -75,21 +77,21 @@ instance Prelude.Hashable GetPolicy where
 instance Prelude.NFData GetPolicy where
   rnf _ = ()
 
-instance Core.ToHeaders GetPolicy where
+instance Data.ToHeaders GetPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetPolicy where
+instance Data.ToPath GetPolicy where
   toPath = Prelude.const "/2017-08-29/policy"
 
-instance Core.ToQuery GetPolicy where
+instance Data.ToQuery GetPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetPolicyResponse' smart constructor.

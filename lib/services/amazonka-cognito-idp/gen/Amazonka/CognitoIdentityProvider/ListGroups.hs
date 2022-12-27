@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.ListGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.CognitoIdentityProvider.ListGroups
     newListGroups,
 
     -- * Request Lenses
-    listGroups_nextToken,
     listGroups_limit,
+    listGroups_nextToken,
     listGroups_userPoolId,
 
     -- * Destructuring the Response
@@ -48,19 +48,20 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListGroups' smart constructor.
 data ListGroups = ListGroups'
-  { -- | An identifier that was returned from the previous call to this
+  { -- | The limit of the request to list groups.
+    limit :: Prelude.Maybe Prelude.Natural,
+    -- | An identifier that was returned from the previous call to this
     -- operation, which can be used to return the next set of items in the
     -- list.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The limit of the request to list groups.
-    limit :: Prelude.Maybe Prelude.Natural,
     -- | The user pool ID for the user pool.
     userPoolId :: Prelude.Text
   }
@@ -74,11 +75,11 @@ data ListGroups = ListGroups'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'limit', 'listGroups_limit' - The limit of the request to list groups.
+--
 -- 'nextToken', 'listGroups_nextToken' - An identifier that was returned from the previous call to this
 -- operation, which can be used to return the next set of items in the
 -- list.
---
--- 'limit', 'listGroups_limit' - The limit of the request to list groups.
 --
 -- 'userPoolId', 'listGroups_userPoolId' - The user pool ID for the user pool.
 newListGroups ::
@@ -87,20 +88,20 @@ newListGroups ::
   ListGroups
 newListGroups pUserPoolId_ =
   ListGroups'
-    { nextToken = Prelude.Nothing,
-      limit = Prelude.Nothing,
+    { limit = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       userPoolId = pUserPoolId_
     }
+
+-- | The limit of the request to list groups.
+listGroups_limit :: Lens.Lens' ListGroups (Prelude.Maybe Prelude.Natural)
+listGroups_limit = Lens.lens (\ListGroups' {limit} -> limit) (\s@ListGroups' {} a -> s {limit = a} :: ListGroups)
 
 -- | An identifier that was returned from the previous call to this
 -- operation, which can be used to return the next set of items in the
 -- list.
 listGroups_nextToken :: Lens.Lens' ListGroups (Prelude.Maybe Prelude.Text)
 listGroups_nextToken = Lens.lens (\ListGroups' {nextToken} -> nextToken) (\s@ListGroups' {} a -> s {nextToken = a} :: ListGroups)
-
--- | The limit of the request to list groups.
-listGroups_limit :: Lens.Lens' ListGroups (Prelude.Maybe Prelude.Natural)
-listGroups_limit = Lens.lens (\ListGroups' {limit} -> limit) (\s@ListGroups' {} a -> s {limit = a} :: ListGroups)
 
 -- | The user pool ID for the user pool.
 listGroups_userPoolId :: Lens.Lens' ListGroups Prelude.Text
@@ -127,57 +128,58 @@ instance Core.AWSPager ListGroups where
 
 instance Core.AWSRequest ListGroups where
   type AWSResponse ListGroups = ListGroupsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListGroupsResponse'
-            Prelude.<$> (x Core..?> "Groups" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Groups" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListGroups where
   hashWithSalt _salt ListGroups' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` limit
+    _salt `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` userPoolId
 
 instance Prelude.NFData ListGroups where
   rnf ListGroups' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf limit
+    Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf userPoolId
 
-instance Core.ToHeaders ListGroups where
+instance Data.ToHeaders ListGroups where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.ListGroups" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.ListGroups" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListGroups where
+instance Data.ToJSON ListGroups where
   toJSON ListGroups' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Limit" Core..=) Prelude.<$> limit,
-            Prelude.Just ("UserPoolId" Core..= userPoolId)
+          [ ("Limit" Data..=) Prelude.<$> limit,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("UserPoolId" Data..= userPoolId)
           ]
       )
 
-instance Core.ToPath ListGroups where
+instance Data.ToPath ListGroups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListGroups where
+instance Data.ToQuery ListGroups where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListGroupsResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsLambdaFunctionDeadLetterConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsLambdaFunctionDeadLetterConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The dead-letter queue for failed asynchronous invocations.
@@ -54,15 +55,15 @@ awsLambdaFunctionDeadLetterConfig_targetArn :: Lens.Lens' AwsLambdaFunctionDeadL
 awsLambdaFunctionDeadLetterConfig_targetArn = Lens.lens (\AwsLambdaFunctionDeadLetterConfig' {targetArn} -> targetArn) (\s@AwsLambdaFunctionDeadLetterConfig' {} a -> s {targetArn = a} :: AwsLambdaFunctionDeadLetterConfig)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsLambdaFunctionDeadLetterConfig
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsLambdaFunctionDeadLetterConfig"
       ( \x ->
           AwsLambdaFunctionDeadLetterConfig'
-            Prelude.<$> (x Core..:? "TargetArn")
+            Prelude.<$> (x Data..:? "TargetArn")
       )
 
 instance
@@ -82,11 +83,11 @@ instance
     Prelude.rnf targetArn
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsLambdaFunctionDeadLetterConfig
   where
   toJSON AwsLambdaFunctionDeadLetterConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("TargetArn" Core..=) Prelude.<$> targetArn]
+          [("TargetArn" Data..=) Prelude.<$> targetArn]
       )

@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -45,8 +45,10 @@ library
   exposed-modules:
     Amazonka.CloudFront
     Amazonka.CloudFront.AssociateAlias
+    Amazonka.CloudFront.CopyDistribution
     Amazonka.CloudFront.CreateCachePolicy
     Amazonka.CloudFront.CreateCloudFrontOriginAccessIdentity
+    Amazonka.CloudFront.CreateContinuousDeploymentPolicy
     Amazonka.CloudFront.CreateDistribution
     Amazonka.CloudFront.CreateDistributionWithTags
     Amazonka.CloudFront.CreateFieldLevelEncryptionConfig
@@ -55,28 +57,35 @@ library
     Amazonka.CloudFront.CreateInvalidation
     Amazonka.CloudFront.CreateKeyGroup
     Amazonka.CloudFront.CreateMonitoringSubscription
+    Amazonka.CloudFront.CreateOriginAccessControl
     Amazonka.CloudFront.CreateOriginRequestPolicy
     Amazonka.CloudFront.CreatePublicKey
     Amazonka.CloudFront.CreateRealtimeLogConfig
+    Amazonka.CloudFront.CreateResponseHeadersPolicy
     Amazonka.CloudFront.CreateStreamingDistribution
     Amazonka.CloudFront.CreateStreamingDistributionWithTags
     Amazonka.CloudFront.DeleteCachePolicy
     Amazonka.CloudFront.DeleteCloudFrontOriginAccessIdentity
+    Amazonka.CloudFront.DeleteContinuousDeploymentPolicy
     Amazonka.CloudFront.DeleteDistribution
     Amazonka.CloudFront.DeleteFieldLevelEncryptionConfig
     Amazonka.CloudFront.DeleteFieldLevelEncryptionProfile
     Amazonka.CloudFront.DeleteFunction
     Amazonka.CloudFront.DeleteKeyGroup
     Amazonka.CloudFront.DeleteMonitoringSubscription
+    Amazonka.CloudFront.DeleteOriginAccessControl
     Amazonka.CloudFront.DeleteOriginRequestPolicy
     Amazonka.CloudFront.DeletePublicKey
     Amazonka.CloudFront.DeleteRealtimeLogConfig
+    Amazonka.CloudFront.DeleteResponseHeadersPolicy
     Amazonka.CloudFront.DeleteStreamingDistribution
     Amazonka.CloudFront.DescribeFunction
     Amazonka.CloudFront.GetCachePolicy
     Amazonka.CloudFront.GetCachePolicyConfig
     Amazonka.CloudFront.GetCloudFrontOriginAccessIdentity
     Amazonka.CloudFront.GetCloudFrontOriginAccessIdentityConfig
+    Amazonka.CloudFront.GetContinuousDeploymentPolicy
+    Amazonka.CloudFront.GetContinuousDeploymentPolicyConfig
     Amazonka.CloudFront.GetDistribution
     Amazonka.CloudFront.GetDistributionConfig
     Amazonka.CloudFront.GetFieldLevelEncryption
@@ -88,31 +97,39 @@ library
     Amazonka.CloudFront.GetKeyGroup
     Amazonka.CloudFront.GetKeyGroupConfig
     Amazonka.CloudFront.GetMonitoringSubscription
+    Amazonka.CloudFront.GetOriginAccessControl
+    Amazonka.CloudFront.GetOriginAccessControlConfig
     Amazonka.CloudFront.GetOriginRequestPolicy
     Amazonka.CloudFront.GetOriginRequestPolicyConfig
     Amazonka.CloudFront.GetPublicKey
     Amazonka.CloudFront.GetPublicKeyConfig
     Amazonka.CloudFront.GetRealtimeLogConfig
+    Amazonka.CloudFront.GetResponseHeadersPolicy
+    Amazonka.CloudFront.GetResponseHeadersPolicyConfig
     Amazonka.CloudFront.GetStreamingDistribution
     Amazonka.CloudFront.GetStreamingDistributionConfig
     Amazonka.CloudFront.Lens
     Amazonka.CloudFront.ListCachePolicies
     Amazonka.CloudFront.ListCloudFrontOriginAccessIdentities
     Amazonka.CloudFront.ListConflictingAliases
+    Amazonka.CloudFront.ListContinuousDeploymentPolicies
     Amazonka.CloudFront.ListDistributions
     Amazonka.CloudFront.ListDistributionsByCachePolicyId
     Amazonka.CloudFront.ListDistributionsByKeyGroup
     Amazonka.CloudFront.ListDistributionsByOriginRequestPolicyId
     Amazonka.CloudFront.ListDistributionsByRealtimeLogConfig
+    Amazonka.CloudFront.ListDistributionsByResponseHeadersPolicyId
     Amazonka.CloudFront.ListDistributionsByWebACLId
     Amazonka.CloudFront.ListFieldLevelEncryptionConfigs
     Amazonka.CloudFront.ListFieldLevelEncryptionProfiles
     Amazonka.CloudFront.ListFunctions
     Amazonka.CloudFront.ListInvalidations
     Amazonka.CloudFront.ListKeyGroups
+    Amazonka.CloudFront.ListOriginAccessControls
     Amazonka.CloudFront.ListOriginRequestPolicies
     Amazonka.CloudFront.ListPublicKeys
     Amazonka.CloudFront.ListRealtimeLogConfigs
+    Amazonka.CloudFront.ListResponseHeadersPolicies
     Amazonka.CloudFront.ListStreamingDistributions
     Amazonka.CloudFront.ListTagsForResource
     Amazonka.CloudFront.PublishFunction
@@ -148,6 +165,13 @@ library
     Amazonka.CloudFront.Types.ContentTypeProfile
     Amazonka.CloudFront.Types.ContentTypeProfileConfig
     Amazonka.CloudFront.Types.ContentTypeProfiles
+    Amazonka.CloudFront.Types.ContinuousDeploymentPolicy
+    Amazonka.CloudFront.Types.ContinuousDeploymentPolicyConfig
+    Amazonka.CloudFront.Types.ContinuousDeploymentPolicyList
+    Amazonka.CloudFront.Types.ContinuousDeploymentPolicySummary
+    Amazonka.CloudFront.Types.ContinuousDeploymentPolicyType
+    Amazonka.CloudFront.Types.ContinuousDeploymentSingleHeaderConfig
+    Amazonka.CloudFront.Types.ContinuousDeploymentSingleWeightConfig
     Amazonka.CloudFront.Types.CookieNames
     Amazonka.CloudFront.Types.CookiePreference
     Amazonka.CloudFront.Types.CustomErrorResponse
@@ -176,6 +200,7 @@ library
     Amazonka.CloudFront.Types.FieldPatterns
     Amazonka.CloudFront.Types.Format
     Amazonka.CloudFront.Types.ForwardedValues
+    Amazonka.CloudFront.Types.FrameOptionsList
     Amazonka.CloudFront.Types.FunctionAssociation
     Amazonka.CloudFront.Types.FunctionAssociations
     Amazonka.CloudFront.Types.FunctionConfig
@@ -208,6 +233,13 @@ library
     Amazonka.CloudFront.Types.MinimumProtocolVersion
     Amazonka.CloudFront.Types.MonitoringSubscription
     Amazonka.CloudFront.Types.Origin
+    Amazonka.CloudFront.Types.OriginAccessControl
+    Amazonka.CloudFront.Types.OriginAccessControlConfig
+    Amazonka.CloudFront.Types.OriginAccessControlList
+    Amazonka.CloudFront.Types.OriginAccessControlOriginTypes
+    Amazonka.CloudFront.Types.OriginAccessControlSigningBehaviors
+    Amazonka.CloudFront.Types.OriginAccessControlSigningProtocols
+    Amazonka.CloudFront.Types.OriginAccessControlSummary
     Amazonka.CloudFront.Types.OriginCustomHeader
     Amazonka.CloudFront.Types.OriginGroup
     Amazonka.CloudFront.Types.OriginGroupFailoverCriteria
@@ -245,12 +277,36 @@ library
     Amazonka.CloudFront.Types.RealtimeLogConfigs
     Amazonka.CloudFront.Types.RealtimeMetricsSubscriptionConfig
     Amazonka.CloudFront.Types.RealtimeMetricsSubscriptionStatus
+    Amazonka.CloudFront.Types.ReferrerPolicyList
+    Amazonka.CloudFront.Types.ResponseHeadersPolicy
+    Amazonka.CloudFront.Types.ResponseHeadersPolicyAccessControlAllowHeaders
+    Amazonka.CloudFront.Types.ResponseHeadersPolicyAccessControlAllowMethods
+    Amazonka.CloudFront.Types.ResponseHeadersPolicyAccessControlAllowMethodsValues
+    Amazonka.CloudFront.Types.ResponseHeadersPolicyAccessControlAllowOrigins
+    Amazonka.CloudFront.Types.ResponseHeadersPolicyAccessControlExposeHeaders
+    Amazonka.CloudFront.Types.ResponseHeadersPolicyConfig
+    Amazonka.CloudFront.Types.ResponseHeadersPolicyContentSecurityPolicy
+    Amazonka.CloudFront.Types.ResponseHeadersPolicyContentTypeOptions
+    Amazonka.CloudFront.Types.ResponseHeadersPolicyCorsConfig
+    Amazonka.CloudFront.Types.ResponseHeadersPolicyCustomHeader
+    Amazonka.CloudFront.Types.ResponseHeadersPolicyCustomHeadersConfig
+    Amazonka.CloudFront.Types.ResponseHeadersPolicyFrameOptions
+    Amazonka.CloudFront.Types.ResponseHeadersPolicyList
+    Amazonka.CloudFront.Types.ResponseHeadersPolicyReferrerPolicy
+    Amazonka.CloudFront.Types.ResponseHeadersPolicySecurityHeadersConfig
+    Amazonka.CloudFront.Types.ResponseHeadersPolicyServerTimingHeadersConfig
+    Amazonka.CloudFront.Types.ResponseHeadersPolicyStrictTransportSecurity
+    Amazonka.CloudFront.Types.ResponseHeadersPolicySummary
+    Amazonka.CloudFront.Types.ResponseHeadersPolicyType
+    Amazonka.CloudFront.Types.ResponseHeadersPolicyXSSProtection
     Amazonka.CloudFront.Types.Restrictions
     Amazonka.CloudFront.Types.S3Origin
     Amazonka.CloudFront.Types.S3OriginConfig
+    Amazonka.CloudFront.Types.SessionStickinessConfig
     Amazonka.CloudFront.Types.Signer
     Amazonka.CloudFront.Types.SslProtocol
     Amazonka.CloudFront.Types.SSLSupportMethod
+    Amazonka.CloudFront.Types.StagingDistributionDnsNames
     Amazonka.CloudFront.Types.StatusCodes
     Amazonka.CloudFront.Types.StreamingDistribution
     Amazonka.CloudFront.Types.StreamingDistributionConfig
@@ -262,6 +318,7 @@ library
     Amazonka.CloudFront.Types.TagKeys
     Amazonka.CloudFront.Types.Tags
     Amazonka.CloudFront.Types.TestResult
+    Amazonka.CloudFront.Types.TrafficConfig
     Amazonka.CloudFront.Types.TrustedKeyGroups
     Amazonka.CloudFront.Types.TrustedSigners
     Amazonka.CloudFront.Types.ViewerCertificate
@@ -269,19 +326,23 @@ library
     Amazonka.CloudFront.UntagResource
     Amazonka.CloudFront.UpdateCachePolicy
     Amazonka.CloudFront.UpdateCloudFrontOriginAccessIdentity
+    Amazonka.CloudFront.UpdateContinuousDeploymentPolicy
     Amazonka.CloudFront.UpdateDistribution
+    Amazonka.CloudFront.UpdateDistributionWithStagingConfig
     Amazonka.CloudFront.UpdateFieldLevelEncryptionConfig
     Amazonka.CloudFront.UpdateFieldLevelEncryptionProfile
     Amazonka.CloudFront.UpdateFunction
     Amazonka.CloudFront.UpdateKeyGroup
+    Amazonka.CloudFront.UpdateOriginAccessControl
     Amazonka.CloudFront.UpdateOriginRequestPolicy
     Amazonka.CloudFront.UpdatePublicKey
     Amazonka.CloudFront.UpdateRealtimeLogConfig
+    Amazonka.CloudFront.UpdateResponseHeadersPolicy
     Amazonka.CloudFront.UpdateStreamingDistribution
     Amazonka.CloudFront.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-cloudfront-test
@@ -301,8 +362,8 @@ test-suite amazonka-cloudfront-test
 
   build-depends:
     , amazonka-cloudfront
-    , amazonka-core         ^>=2.0
-    , amazonka-test         ^>=2.0
+    , amazonka-core         >=2.0 && <2.1
+    , amazonka-test         >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.CpuOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.CpuOptions where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The CPU options for the instance.
@@ -62,11 +63,11 @@ cpuOptions_coreCount = Lens.lens (\CpuOptions' {coreCount} -> coreCount) (\s@Cpu
 cpuOptions_threadsPerCore :: Lens.Lens' CpuOptions (Prelude.Maybe Prelude.Int)
 cpuOptions_threadsPerCore = Lens.lens (\CpuOptions' {threadsPerCore} -> threadsPerCore) (\s@CpuOptions' {} a -> s {threadsPerCore = a} :: CpuOptions)
 
-instance Core.FromXML CpuOptions where
+instance Data.FromXML CpuOptions where
   parseXML x =
     CpuOptions'
-      Prelude.<$> (x Core..@? "coreCount")
-      Prelude.<*> (x Core..@? "threadsPerCore")
+      Prelude.<$> (x Data..@? "coreCount")
+      Prelude.<*> (x Data..@? "threadsPerCore")
 
 instance Prelude.Hashable CpuOptions where
   hashWithSalt _salt CpuOptions' {..} =

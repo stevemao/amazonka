@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.RegisterTargetWithMaintenanceWindow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,9 +28,9 @@ module Amazonka.SSM.RegisterTargetWithMaintenanceWindow
 
     -- * Request Lenses
     registerTargetWithMaintenanceWindow_clientToken,
-    registerTargetWithMaintenanceWindow_ownerInformation,
-    registerTargetWithMaintenanceWindow_name,
     registerTargetWithMaintenanceWindow_description,
+    registerTargetWithMaintenanceWindow_name,
+    registerTargetWithMaintenanceWindow_ownerInformation,
     registerTargetWithMaintenanceWindow_windowId,
     registerTargetWithMaintenanceWindow_resourceType,
     registerTargetWithMaintenanceWindow_targets,
@@ -46,7 +46,8 @@ module Amazonka.SSM.RegisterTargetWithMaintenanceWindow
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,53 +57,53 @@ import Amazonka.SSM.Types
 data RegisterTargetWithMaintenanceWindow = RegisterTargetWithMaintenanceWindow'
   { -- | User-provided idempotency token.
     clientToken :: Prelude.Maybe Prelude.Text,
+    -- | An optional description for the target.
+    description :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | An optional name for the target.
+    name :: Prelude.Maybe Prelude.Text,
     -- | User-provided value that will be included in any Amazon CloudWatch
     -- Events events raised while running tasks for these targets in this
     -- maintenance window.
-    ownerInformation :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | An optional name for the target.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | An optional description for the target.
-    description :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    ownerInformation :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The ID of the maintenance window the target should be registered with.
     windowId :: Prelude.Text,
     -- | The type of target being registered with the maintenance window.
     resourceType :: MaintenanceWindowResourceType,
     -- | The targets to register with the maintenance window. In other words, the
-    -- instances to run commands on when the maintenance window runs.
+    -- managed nodes to run commands on when the maintenance window runs.
     --
     -- If a single maintenance window task is registered with multiple targets,
     -- its task invocations occur sequentially and not in parallel. If your
     -- task must run on multiple targets at the same time, register a task for
     -- each target individually and assign each task the same priority level.
     --
-    -- You can specify targets using instance IDs, resource group names, or
-    -- tags that have been applied to instances.
+    -- You can specify targets using managed node IDs, resource group names, or
+    -- tags that have been applied to managed nodes.
     --
-    -- __Example 1__: Specify instance IDs
+    -- __Example 1__: Specify managed node IDs
     --
-    -- @Key=InstanceIds,Values=instance-id-1,instance-id-2,instance-id-3 @
+    -- @Key=InstanceIds,Values=\<instance-id-1>,\<instance-id-2>,\<instance-id-3>@
     --
-    -- __Example 2__: Use tag key-pairs applied to instances
+    -- __Example 2__: Use tag key-pairs applied to managed nodes
     --
-    -- @Key=tag:my-tag-key,Values=my-tag-value-1,my-tag-value-2 @
+    -- @Key=tag:\<my-tag-key>,Values=\<my-tag-value-1>,\<my-tag-value-2>@
     --
-    -- __Example 3__: Use tag-keys applied to instances
+    -- __Example 3__: Use tag-keys applied to managed nodes
     --
-    -- @Key=tag-key,Values=my-tag-key-1,my-tag-key-2 @
+    -- @Key=tag-key,Values=\<my-tag-key-1>,\<my-tag-key-2>@
     --
     -- __Example 4__: Use resource group names
     --
-    -- @Key=resource-groups:Name,Values=resource-group-name @
+    -- @Key=resource-groups:Name,Values=\<resource-group-name>@
     --
     -- __Example 5__: Use filters for resource group types
     --
-    -- @Key=resource-groups:ResourceTypeFilters,Values=resource-type-1,resource-type-2 @
+    -- @Key=resource-groups:ResourceTypeFilters,Values=\<resource-type-1>,\<resource-type-2>@
     --
     -- For @Key=resource-groups:ResourceTypeFilters@, specify resource types in
     -- the following format
     --
-    -- @Key=resource-groups:ResourceTypeFilters,Values=AWS::EC2::INSTANCE,AWS::EC2::VPC @
+    -- @Key=resource-groups:ResourceTypeFilters,Values=AWS::EC2::INSTANCE,AWS::EC2::VPC@
     --
     -- For more information about these examples formats, including the best
     -- use case for each one, see
@@ -122,53 +123,53 @@ data RegisterTargetWithMaintenanceWindow = RegisterTargetWithMaintenanceWindow'
 --
 -- 'clientToken', 'registerTargetWithMaintenanceWindow_clientToken' - User-provided idempotency token.
 --
--- 'ownerInformation', 'registerTargetWithMaintenanceWindow_ownerInformation' - User-provided value that will be included in any Amazon CloudWatch
--- Events events raised while running tasks for these targets in this
--- maintenance window.
+-- 'description', 'registerTargetWithMaintenanceWindow_description' - An optional description for the target.
 --
 -- 'name', 'registerTargetWithMaintenanceWindow_name' - An optional name for the target.
 --
--- 'description', 'registerTargetWithMaintenanceWindow_description' - An optional description for the target.
+-- 'ownerInformation', 'registerTargetWithMaintenanceWindow_ownerInformation' - User-provided value that will be included in any Amazon CloudWatch
+-- Events events raised while running tasks for these targets in this
+-- maintenance window.
 --
 -- 'windowId', 'registerTargetWithMaintenanceWindow_windowId' - The ID of the maintenance window the target should be registered with.
 --
 -- 'resourceType', 'registerTargetWithMaintenanceWindow_resourceType' - The type of target being registered with the maintenance window.
 --
 -- 'targets', 'registerTargetWithMaintenanceWindow_targets' - The targets to register with the maintenance window. In other words, the
--- instances to run commands on when the maintenance window runs.
+-- managed nodes to run commands on when the maintenance window runs.
 --
 -- If a single maintenance window task is registered with multiple targets,
 -- its task invocations occur sequentially and not in parallel. If your
 -- task must run on multiple targets at the same time, register a task for
 -- each target individually and assign each task the same priority level.
 --
--- You can specify targets using instance IDs, resource group names, or
--- tags that have been applied to instances.
+-- You can specify targets using managed node IDs, resource group names, or
+-- tags that have been applied to managed nodes.
 --
--- __Example 1__: Specify instance IDs
+-- __Example 1__: Specify managed node IDs
 --
--- @Key=InstanceIds,Values=instance-id-1,instance-id-2,instance-id-3 @
+-- @Key=InstanceIds,Values=\<instance-id-1>,\<instance-id-2>,\<instance-id-3>@
 --
--- __Example 2__: Use tag key-pairs applied to instances
+-- __Example 2__: Use tag key-pairs applied to managed nodes
 --
--- @Key=tag:my-tag-key,Values=my-tag-value-1,my-tag-value-2 @
+-- @Key=tag:\<my-tag-key>,Values=\<my-tag-value-1>,\<my-tag-value-2>@
 --
--- __Example 3__: Use tag-keys applied to instances
+-- __Example 3__: Use tag-keys applied to managed nodes
 --
--- @Key=tag-key,Values=my-tag-key-1,my-tag-key-2 @
+-- @Key=tag-key,Values=\<my-tag-key-1>,\<my-tag-key-2>@
 --
 -- __Example 4__: Use resource group names
 --
--- @Key=resource-groups:Name,Values=resource-group-name @
+-- @Key=resource-groups:Name,Values=\<resource-group-name>@
 --
 -- __Example 5__: Use filters for resource group types
 --
--- @Key=resource-groups:ResourceTypeFilters,Values=resource-type-1,resource-type-2 @
+-- @Key=resource-groups:ResourceTypeFilters,Values=\<resource-type-1>,\<resource-type-2>@
 --
 -- For @Key=resource-groups:ResourceTypeFilters@, specify resource types in
 -- the following format
 --
--- @Key=resource-groups:ResourceTypeFilters,Values=AWS::EC2::INSTANCE,AWS::EC2::VPC @
+-- @Key=resource-groups:ResourceTypeFilters,Values=AWS::EC2::INSTANCE,AWS::EC2::VPC@
 --
 -- For more information about these examples formats, including the best
 -- use case for each one, see
@@ -186,9 +187,9 @@ newRegisterTargetWithMaintenanceWindow
     RegisterTargetWithMaintenanceWindow'
       { clientToken =
           Prelude.Nothing,
-        ownerInformation = Prelude.Nothing,
-        name = Prelude.Nothing,
         description = Prelude.Nothing,
+        name = Prelude.Nothing,
+        ownerInformation = Prelude.Nothing,
         windowId = pWindowId_,
         resourceType = pResourceType_,
         targets = Prelude.mempty
@@ -198,19 +199,19 @@ newRegisterTargetWithMaintenanceWindow
 registerTargetWithMaintenanceWindow_clientToken :: Lens.Lens' RegisterTargetWithMaintenanceWindow (Prelude.Maybe Prelude.Text)
 registerTargetWithMaintenanceWindow_clientToken = Lens.lens (\RegisterTargetWithMaintenanceWindow' {clientToken} -> clientToken) (\s@RegisterTargetWithMaintenanceWindow' {} a -> s {clientToken = a} :: RegisterTargetWithMaintenanceWindow)
 
--- | User-provided value that will be included in any Amazon CloudWatch
--- Events events raised while running tasks for these targets in this
--- maintenance window.
-registerTargetWithMaintenanceWindow_ownerInformation :: Lens.Lens' RegisterTargetWithMaintenanceWindow (Prelude.Maybe Prelude.Text)
-registerTargetWithMaintenanceWindow_ownerInformation = Lens.lens (\RegisterTargetWithMaintenanceWindow' {ownerInformation} -> ownerInformation) (\s@RegisterTargetWithMaintenanceWindow' {} a -> s {ownerInformation = a} :: RegisterTargetWithMaintenanceWindow) Prelude.. Lens.mapping Core._Sensitive
+-- | An optional description for the target.
+registerTargetWithMaintenanceWindow_description :: Lens.Lens' RegisterTargetWithMaintenanceWindow (Prelude.Maybe Prelude.Text)
+registerTargetWithMaintenanceWindow_description = Lens.lens (\RegisterTargetWithMaintenanceWindow' {description} -> description) (\s@RegisterTargetWithMaintenanceWindow' {} a -> s {description = a} :: RegisterTargetWithMaintenanceWindow) Prelude.. Lens.mapping Data._Sensitive
 
 -- | An optional name for the target.
 registerTargetWithMaintenanceWindow_name :: Lens.Lens' RegisterTargetWithMaintenanceWindow (Prelude.Maybe Prelude.Text)
 registerTargetWithMaintenanceWindow_name = Lens.lens (\RegisterTargetWithMaintenanceWindow' {name} -> name) (\s@RegisterTargetWithMaintenanceWindow' {} a -> s {name = a} :: RegisterTargetWithMaintenanceWindow)
 
--- | An optional description for the target.
-registerTargetWithMaintenanceWindow_description :: Lens.Lens' RegisterTargetWithMaintenanceWindow (Prelude.Maybe Prelude.Text)
-registerTargetWithMaintenanceWindow_description = Lens.lens (\RegisterTargetWithMaintenanceWindow' {description} -> description) (\s@RegisterTargetWithMaintenanceWindow' {} a -> s {description = a} :: RegisterTargetWithMaintenanceWindow) Prelude.. Lens.mapping Core._Sensitive
+-- | User-provided value that will be included in any Amazon CloudWatch
+-- Events events raised while running tasks for these targets in this
+-- maintenance window.
+registerTargetWithMaintenanceWindow_ownerInformation :: Lens.Lens' RegisterTargetWithMaintenanceWindow (Prelude.Maybe Prelude.Text)
+registerTargetWithMaintenanceWindow_ownerInformation = Lens.lens (\RegisterTargetWithMaintenanceWindow' {ownerInformation} -> ownerInformation) (\s@RegisterTargetWithMaintenanceWindow' {} a -> s {ownerInformation = a} :: RegisterTargetWithMaintenanceWindow) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The ID of the maintenance window the target should be registered with.
 registerTargetWithMaintenanceWindow_windowId :: Lens.Lens' RegisterTargetWithMaintenanceWindow Prelude.Text
@@ -221,40 +222,40 @@ registerTargetWithMaintenanceWindow_resourceType :: Lens.Lens' RegisterTargetWit
 registerTargetWithMaintenanceWindow_resourceType = Lens.lens (\RegisterTargetWithMaintenanceWindow' {resourceType} -> resourceType) (\s@RegisterTargetWithMaintenanceWindow' {} a -> s {resourceType = a} :: RegisterTargetWithMaintenanceWindow)
 
 -- | The targets to register with the maintenance window. In other words, the
--- instances to run commands on when the maintenance window runs.
+-- managed nodes to run commands on when the maintenance window runs.
 --
 -- If a single maintenance window task is registered with multiple targets,
 -- its task invocations occur sequentially and not in parallel. If your
 -- task must run on multiple targets at the same time, register a task for
 -- each target individually and assign each task the same priority level.
 --
--- You can specify targets using instance IDs, resource group names, or
--- tags that have been applied to instances.
+-- You can specify targets using managed node IDs, resource group names, or
+-- tags that have been applied to managed nodes.
 --
--- __Example 1__: Specify instance IDs
+-- __Example 1__: Specify managed node IDs
 --
--- @Key=InstanceIds,Values=instance-id-1,instance-id-2,instance-id-3 @
+-- @Key=InstanceIds,Values=\<instance-id-1>,\<instance-id-2>,\<instance-id-3>@
 --
--- __Example 2__: Use tag key-pairs applied to instances
+-- __Example 2__: Use tag key-pairs applied to managed nodes
 --
--- @Key=tag:my-tag-key,Values=my-tag-value-1,my-tag-value-2 @
+-- @Key=tag:\<my-tag-key>,Values=\<my-tag-value-1>,\<my-tag-value-2>@
 --
--- __Example 3__: Use tag-keys applied to instances
+-- __Example 3__: Use tag-keys applied to managed nodes
 --
--- @Key=tag-key,Values=my-tag-key-1,my-tag-key-2 @
+-- @Key=tag-key,Values=\<my-tag-key-1>,\<my-tag-key-2>@
 --
 -- __Example 4__: Use resource group names
 --
--- @Key=resource-groups:Name,Values=resource-group-name @
+-- @Key=resource-groups:Name,Values=\<resource-group-name>@
 --
 -- __Example 5__: Use filters for resource group types
 --
--- @Key=resource-groups:ResourceTypeFilters,Values=resource-type-1,resource-type-2 @
+-- @Key=resource-groups:ResourceTypeFilters,Values=\<resource-type-1>,\<resource-type-2>@
 --
 -- For @Key=resource-groups:ResourceTypeFilters@, specify resource types in
 -- the following format
 --
--- @Key=resource-groups:ResourceTypeFilters,Values=AWS::EC2::INSTANCE,AWS::EC2::VPC @
+-- @Key=resource-groups:ResourceTypeFilters,Values=AWS::EC2::INSTANCE,AWS::EC2::VPC@
 --
 -- For more information about these examples formats, including the best
 -- use case for each one, see
@@ -270,12 +271,13 @@ instance
   type
     AWSResponse RegisterTargetWithMaintenanceWindow =
       RegisterTargetWithMaintenanceWindowResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RegisterTargetWithMaintenanceWindowResponse'
-            Prelude.<$> (x Core..?> "WindowTargetId")
+            Prelude.<$> (x Data..?> "WindowTargetId")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -287,9 +289,9 @@ instance
     _salt
     RegisterTargetWithMaintenanceWindow' {..} =
       _salt `Prelude.hashWithSalt` clientToken
-        `Prelude.hashWithSalt` ownerInformation
-        `Prelude.hashWithSalt` name
         `Prelude.hashWithSalt` description
+        `Prelude.hashWithSalt` name
+        `Prelude.hashWithSalt` ownerInformation
         `Prelude.hashWithSalt` windowId
         `Prelude.hashWithSalt` resourceType
         `Prelude.hashWithSalt` targets
@@ -300,57 +302,57 @@ instance
   where
   rnf RegisterTargetWithMaintenanceWindow' {..} =
     Prelude.rnf clientToken
-      `Prelude.seq` Prelude.rnf ownerInformation
-      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf ownerInformation
       `Prelude.seq` Prelude.rnf windowId
       `Prelude.seq` Prelude.rnf resourceType
       `Prelude.seq` Prelude.rnf targets
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     RegisterTargetWithMaintenanceWindow
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.RegisterTargetWithMaintenanceWindow" ::
+              Data.=# ( "AmazonSSM.RegisterTargetWithMaintenanceWindow" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     RegisterTargetWithMaintenanceWindow
   where
   toJSON RegisterTargetWithMaintenanceWindow' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ClientToken" Core..=) Prelude.<$> clientToken,
-            ("OwnerInformation" Core..=)
+          [ ("ClientToken" Data..=) Prelude.<$> clientToken,
+            ("Description" Data..=) Prelude.<$> description,
+            ("Name" Data..=) Prelude.<$> name,
+            ("OwnerInformation" Data..=)
               Prelude.<$> ownerInformation,
-            ("Name" Core..=) Prelude.<$> name,
-            ("Description" Core..=) Prelude.<$> description,
-            Prelude.Just ("WindowId" Core..= windowId),
-            Prelude.Just ("ResourceType" Core..= resourceType),
-            Prelude.Just ("Targets" Core..= targets)
+            Prelude.Just ("WindowId" Data..= windowId),
+            Prelude.Just ("ResourceType" Data..= resourceType),
+            Prelude.Just ("Targets" Data..= targets)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     RegisterTargetWithMaintenanceWindow
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     RegisterTargetWithMaintenanceWindow
   where
   toQuery = Prelude.const Prelude.mempty

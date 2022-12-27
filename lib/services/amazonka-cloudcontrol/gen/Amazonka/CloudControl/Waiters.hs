@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -8,7 +9,7 @@
 
 -- |
 -- Module      : Amazonka.CloudControl.Waiters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -19,18 +20,18 @@ import Amazonka.CloudControl.GetResourceRequestStatus
 import Amazonka.CloudControl.Lens
 import Amazonka.CloudControl.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Polls 'Amazonka.CloudControl.GetResourceRequestStatus' every 5 seconds until a successful state is reached. An error is returned after 720 failed checks.
+-- | Polls 'Amazonka.CloudControl.GetResourceRequestStatus' every 5 seconds until a successful state is reached. An error is returned after 24 failed checks.
 newResourceRequestSuccess :: Core.Wait GetResourceRequestStatus
 newResourceRequestSuccess =
   Core.Wait
-    { Core._waitName =
-        "ResourceRequestSuccess",
-      Core._waitAttempts = 720,
-      Core._waitDelay = 5,
-      Core._waitAcceptors =
+    { Core.name = "ResourceRequestSuccess",
+      Core.attempts = 24,
+      Core.delay = 5,
+      Core.acceptors =
         [ Core.matchAll
             "SUCCESS"
             Core.AcceptSuccess
@@ -38,7 +39,7 @@ newResourceRequestSuccess =
                 Prelude.. Lens._Just
                 Prelude.. progressEvent_operationStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAll
             "FAILED"
@@ -47,7 +48,7 @@ newResourceRequestSuccess =
                 Prelude.. Lens._Just
                 Prelude.. progressEvent_operationStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAll
             "CANCEL_COMPLETE"
@@ -56,7 +57,7 @@ newResourceRequestSuccess =
                 Prelude.. Lens._Just
                 Prelude.. progressEvent_operationStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }

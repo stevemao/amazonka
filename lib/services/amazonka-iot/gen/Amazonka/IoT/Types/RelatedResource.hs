@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.RelatedResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.IoT.Types.RelatedResource where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.ResourceIdentifier
 import Amazonka.IoT.Types.ResourceType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a related resource.
@@ -31,10 +32,10 @@ import qualified Amazonka.Prelude as Prelude
 data RelatedResource = RelatedResource'
   { -- | Other information about the resource.
     additionalInfo :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | The type of resource.
-    resourceType :: Prelude.Maybe ResourceType,
     -- | Information that identifies the resource.
-    resourceIdentifier :: Prelude.Maybe ResourceIdentifier
+    resourceIdentifier :: Prelude.Maybe ResourceIdentifier,
+    -- | The type of resource.
+    resourceType :: Prelude.Maybe ResourceType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,49 +49,49 @@ data RelatedResource = RelatedResource'
 --
 -- 'additionalInfo', 'relatedResource_additionalInfo' - Other information about the resource.
 --
--- 'resourceType', 'relatedResource_resourceType' - The type of resource.
---
 -- 'resourceIdentifier', 'relatedResource_resourceIdentifier' - Information that identifies the resource.
+--
+-- 'resourceType', 'relatedResource_resourceType' - The type of resource.
 newRelatedResource ::
   RelatedResource
 newRelatedResource =
   RelatedResource'
     { additionalInfo = Prelude.Nothing,
-      resourceType = Prelude.Nothing,
-      resourceIdentifier = Prelude.Nothing
+      resourceIdentifier = Prelude.Nothing,
+      resourceType = Prelude.Nothing
     }
 
 -- | Other information about the resource.
 relatedResource_additionalInfo :: Lens.Lens' RelatedResource (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 relatedResource_additionalInfo = Lens.lens (\RelatedResource' {additionalInfo} -> additionalInfo) (\s@RelatedResource' {} a -> s {additionalInfo = a} :: RelatedResource) Prelude.. Lens.mapping Lens.coerced
 
--- | The type of resource.
-relatedResource_resourceType :: Lens.Lens' RelatedResource (Prelude.Maybe ResourceType)
-relatedResource_resourceType = Lens.lens (\RelatedResource' {resourceType} -> resourceType) (\s@RelatedResource' {} a -> s {resourceType = a} :: RelatedResource)
-
 -- | Information that identifies the resource.
 relatedResource_resourceIdentifier :: Lens.Lens' RelatedResource (Prelude.Maybe ResourceIdentifier)
 relatedResource_resourceIdentifier = Lens.lens (\RelatedResource' {resourceIdentifier} -> resourceIdentifier) (\s@RelatedResource' {} a -> s {resourceIdentifier = a} :: RelatedResource)
 
-instance Core.FromJSON RelatedResource where
+-- | The type of resource.
+relatedResource_resourceType :: Lens.Lens' RelatedResource (Prelude.Maybe ResourceType)
+relatedResource_resourceType = Lens.lens (\RelatedResource' {resourceType} -> resourceType) (\s@RelatedResource' {} a -> s {resourceType = a} :: RelatedResource)
+
+instance Data.FromJSON RelatedResource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RelatedResource"
       ( \x ->
           RelatedResource'
-            Prelude.<$> (x Core..:? "additionalInfo" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "resourceType")
-            Prelude.<*> (x Core..:? "resourceIdentifier")
+            Prelude.<$> (x Data..:? "additionalInfo" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "resourceIdentifier")
+            Prelude.<*> (x Data..:? "resourceType")
       )
 
 instance Prelude.Hashable RelatedResource where
   hashWithSalt _salt RelatedResource' {..} =
     _salt `Prelude.hashWithSalt` additionalInfo
-      `Prelude.hashWithSalt` resourceType
       `Prelude.hashWithSalt` resourceIdentifier
+      `Prelude.hashWithSalt` resourceType
 
 instance Prelude.NFData RelatedResource where
   rnf RelatedResource' {..} =
     Prelude.rnf additionalInfo
-      `Prelude.seq` Prelude.rnf resourceType
       `Prelude.seq` Prelude.rnf resourceIdentifier
+      `Prelude.seq` Prelude.rnf resourceType

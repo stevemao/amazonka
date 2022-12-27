@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.EC2InstanceConnect.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -15,10 +15,10 @@ module Amazonka.EC2InstanceConnect.Lens
   ( -- * Operations
 
     -- ** SendSSHPublicKey
+    sendSSHPublicKey_availabilityZone,
     sendSSHPublicKey_instanceId,
     sendSSHPublicKey_instanceOSUser,
     sendSSHPublicKey_sSHPublicKey,
-    sendSSHPublicKey_availabilityZone,
     sendSSHPublicKeyResponse_requestId,
     sendSSHPublicKeyResponse_success,
     sendSSHPublicKeyResponse_httpStatus,

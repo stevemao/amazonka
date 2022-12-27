@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.Types.Vpc
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KafkaConnect.Types.Vpc where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the VPC in which the connector resides.
@@ -71,12 +72,12 @@ instance Prelude.NFData Vpc where
     Prelude.rnf securityGroups
       `Prelude.seq` Prelude.rnf subnets
 
-instance Core.ToJSON Vpc where
+instance Data.ToJSON Vpc where
   toJSON Vpc' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("securityGroups" Core..=)
+          [ ("securityGroups" Data..=)
               Prelude.<$> securityGroups,
-            Prelude.Just ("subnets" Core..= subnets)
+            Prelude.Just ("subnets" Data..= subnets)
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SES.Types.MessageTag
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SES.Types.MessageTag where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the name and value of a tag that you can provide to @SendEmail@
@@ -107,7 +108,7 @@ instance Prelude.NFData MessageTag where
   rnf MessageTag' {..} =
     Prelude.rnf name `Prelude.seq` Prelude.rnf value
 
-instance Core.ToQuery MessageTag where
+instance Data.ToQuery MessageTag where
   toQuery MessageTag' {..} =
     Prelude.mconcat
-      ["Name" Core.=: name, "Value" Core.=: value]
+      ["Name" Data.=: name, "Value" Data.=: value]

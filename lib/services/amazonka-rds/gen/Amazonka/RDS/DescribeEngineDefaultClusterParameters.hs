@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.DescribeEngineDefaultClusterParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,8 +24,8 @@
 -- cluster database engine.
 --
 -- For more information on Amazon Aurora, see
--- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What Is Amazon Aurora?>
--- in the /Amazon Aurora User Guide./
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What is Amazon Aurora?>
+-- in the /Amazon Aurora User Guide/.
 --
 -- This operation returns paginated results.
 module Amazonka.RDS.DescribeEngineDefaultClusterParameters
@@ -50,7 +50,8 @@ module Amazonka.RDS.DescribeEngineDefaultClusterParameters
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -189,13 +190,14 @@ instance
     AWSResponse
       DescribeEngineDefaultClusterParameters =
       DescribeEngineDefaultClusterParametersResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeEngineDefaultClusterParametersResult"
       ( \s h x ->
           DescribeEngineDefaultClusterParametersResponse'
-            Prelude.<$> (x Core..@? "EngineDefaults")
+            Prelude.<$> (x Data..@? "EngineDefaults")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -222,36 +224,36 @@ instance
       `Prelude.seq` Prelude.rnf dbParameterGroupFamily
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeEngineDefaultClusterParameters
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeEngineDefaultClusterParameters
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeEngineDefaultClusterParameters
   where
   toQuery DescribeEngineDefaultClusterParameters' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeEngineDefaultClusterParameters" ::
+          Data.=: ( "DescribeEngineDefaultClusterParameters" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "Filters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Filter" Prelude.<$> filters),
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords,
+          Data.=: Data.toQuery
+            (Data.toQueryList "Filter" Prelude.<$> filters),
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
         "DBParameterGroupFamily"
-          Core.=: dbParameterGroupFamily
+          Data.=: dbParameterGroupFamily
       ]
 
 -- | /See:/ 'newDescribeEngineDefaultClusterParametersResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.MarketoSourceProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppFlow.Types.MarketoSourceProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The properties that are applied when Marketo is being used as a source.
@@ -52,13 +53,13 @@ newMarketoSourceProperties pObject_ =
 marketoSourceProperties_object :: Lens.Lens' MarketoSourceProperties Prelude.Text
 marketoSourceProperties_object = Lens.lens (\MarketoSourceProperties' {object'} -> object') (\s@MarketoSourceProperties' {} a -> s {object' = a} :: MarketoSourceProperties)
 
-instance Core.FromJSON MarketoSourceProperties where
+instance Data.FromJSON MarketoSourceProperties where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MarketoSourceProperties"
       ( \x ->
           MarketoSourceProperties'
-            Prelude.<$> (x Core..: "object")
+            Prelude.<$> (x Data..: "object")
       )
 
 instance Prelude.Hashable MarketoSourceProperties where
@@ -69,9 +70,9 @@ instance Prelude.NFData MarketoSourceProperties where
   rnf MarketoSourceProperties' {..} =
     Prelude.rnf object'
 
-instance Core.ToJSON MarketoSourceProperties where
+instance Data.ToJSON MarketoSourceProperties where
   toJSON MarketoSourceProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("object" Core..= object')]
+          [Prelude.Just ("object" Data..= object')]
       )

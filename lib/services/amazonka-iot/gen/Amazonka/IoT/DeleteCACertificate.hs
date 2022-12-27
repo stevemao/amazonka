@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DeleteCACertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.IoT.DeleteCACertificate
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,7 +89,8 @@ instance Core.AWSRequest DeleteCACertificate where
   type
     AWSResponse DeleteCACertificate =
       DeleteCACertificateResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -104,15 +106,15 @@ instance Prelude.NFData DeleteCACertificate where
   rnf DeleteCACertificate' {..} =
     Prelude.rnf certificateId
 
-instance Core.ToHeaders DeleteCACertificate where
+instance Data.ToHeaders DeleteCACertificate where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteCACertificate where
+instance Data.ToPath DeleteCACertificate where
   toPath DeleteCACertificate' {..} =
     Prelude.mconcat
-      ["/cacertificate/", Core.toBS certificateId]
+      ["/cacertificate/", Data.toBS certificateId]
 
-instance Core.ToQuery DeleteCACertificate where
+instance Data.ToQuery DeleteCACertificate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The output for the DeleteCACertificate operation.

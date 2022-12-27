@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ComprehendMedical.Types.OutputDataConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,17 @@
 module Amazonka.ComprehendMedical.Types.OutputDataConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The output properties for a detection job.
 --
 -- /See:/ 'newOutputDataConfig' smart constructor.
 data OutputDataConfig = OutputDataConfig'
-  { -- | The path to the output data files in the S3 bucket. Amazon Comprehend
-    -- Medical creates an output directory using the job ID so that the output
-    -- from one job does not overwrite the output of another.
+  { -- | The path to the output data files in the S3 bucket. Comprehend Medical;
+    -- creates an output directory using the job ID so that the output from one
+    -- job does not overwrite the output of another.
     s3Key :: Prelude.Maybe Prelude.Text,
     -- | When you use the @OutputDataConfig@ object with asynchronous operations,
     -- you specify the Amazon S3 location where you want to write the output
@@ -48,9 +49,9 @@ data OutputDataConfig = OutputDataConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 's3Key', 'outputDataConfig_s3Key' - The path to the output data files in the S3 bucket. Amazon Comprehend
--- Medical creates an output directory using the job ID so that the output
--- from one job does not overwrite the output of another.
+-- 's3Key', 'outputDataConfig_s3Key' - The path to the output data files in the S3 bucket. Comprehend Medical;
+-- creates an output directory using the job ID so that the output from one
+-- job does not overwrite the output of another.
 --
 -- 's3Bucket', 'outputDataConfig_s3Bucket' - When you use the @OutputDataConfig@ object with asynchronous operations,
 -- you specify the Amazon S3 location where you want to write the output
@@ -67,9 +68,9 @@ newOutputDataConfig pS3Bucket_ =
       s3Bucket = pS3Bucket_
     }
 
--- | The path to the output data files in the S3 bucket. Amazon Comprehend
--- Medical creates an output directory using the job ID so that the output
--- from one job does not overwrite the output of another.
+-- | The path to the output data files in the S3 bucket. Comprehend Medical;
+-- creates an output directory using the job ID so that the output from one
+-- job does not overwrite the output of another.
 outputDataConfig_s3Key :: Lens.Lens' OutputDataConfig (Prelude.Maybe Prelude.Text)
 outputDataConfig_s3Key = Lens.lens (\OutputDataConfig' {s3Key} -> s3Key) (\s@OutputDataConfig' {} a -> s {s3Key = a} :: OutputDataConfig)
 
@@ -81,14 +82,14 @@ outputDataConfig_s3Key = Lens.lens (\OutputDataConfig' {s3Key} -> s3Key) (\s@Out
 outputDataConfig_s3Bucket :: Lens.Lens' OutputDataConfig Prelude.Text
 outputDataConfig_s3Bucket = Lens.lens (\OutputDataConfig' {s3Bucket} -> s3Bucket) (\s@OutputDataConfig' {} a -> s {s3Bucket = a} :: OutputDataConfig)
 
-instance Core.FromJSON OutputDataConfig where
+instance Data.FromJSON OutputDataConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OutputDataConfig"
       ( \x ->
           OutputDataConfig'
-            Prelude.<$> (x Core..:? "S3Key")
-            Prelude.<*> (x Core..: "S3Bucket")
+            Prelude.<$> (x Data..:? "S3Key")
+            Prelude.<*> (x Data..: "S3Bucket")
       )
 
 instance Prelude.Hashable OutputDataConfig where
@@ -101,11 +102,11 @@ instance Prelude.NFData OutputDataConfig where
     Prelude.rnf s3Key
       `Prelude.seq` Prelude.rnf s3Bucket
 
-instance Core.ToJSON OutputDataConfig where
+instance Data.ToJSON OutputDataConfig where
   toJSON OutputDataConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("S3Key" Core..=) Prelude.<$> s3Key,
-            Prelude.Just ("S3Bucket" Core..= s3Bucket)
+          [ ("S3Key" Data..=) Prelude.<$> s3Key,
+            Prelude.Just ("S3Bucket" Data..= s3Bucket)
           ]
       )

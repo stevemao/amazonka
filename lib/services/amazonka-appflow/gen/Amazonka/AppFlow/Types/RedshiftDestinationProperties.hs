@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.RedshiftDestinationProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppFlow.Types.RedshiftDestinationProperties where
 
 import Amazonka.AppFlow.Types.ErrorHandlingConfig
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The properties that are applied when Amazon Redshift is being used as a
@@ -110,16 +111,16 @@ redshiftDestinationProperties_object = Lens.lens (\RedshiftDestinationProperties
 redshiftDestinationProperties_intermediateBucketName :: Lens.Lens' RedshiftDestinationProperties Prelude.Text
 redshiftDestinationProperties_intermediateBucketName = Lens.lens (\RedshiftDestinationProperties' {intermediateBucketName} -> intermediateBucketName) (\s@RedshiftDestinationProperties' {} a -> s {intermediateBucketName = a} :: RedshiftDestinationProperties)
 
-instance Core.FromJSON RedshiftDestinationProperties where
+instance Data.FromJSON RedshiftDestinationProperties where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RedshiftDestinationProperties"
       ( \x ->
           RedshiftDestinationProperties'
-            Prelude.<$> (x Core..:? "bucketPrefix")
-            Prelude.<*> (x Core..:? "errorHandlingConfig")
-            Prelude.<*> (x Core..: "object")
-            Prelude.<*> (x Core..: "intermediateBucketName")
+            Prelude.<$> (x Data..:? "bucketPrefix")
+            Prelude.<*> (x Data..:? "errorHandlingConfig")
+            Prelude.<*> (x Data..: "object")
+            Prelude.<*> (x Data..: "intermediateBucketName")
       )
 
 instance
@@ -139,17 +140,17 @@ instance Prelude.NFData RedshiftDestinationProperties where
       `Prelude.seq` Prelude.rnf object'
       `Prelude.seq` Prelude.rnf intermediateBucketName
 
-instance Core.ToJSON RedshiftDestinationProperties where
+instance Data.ToJSON RedshiftDestinationProperties where
   toJSON RedshiftDestinationProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("bucketPrefix" Core..=) Prelude.<$> bucketPrefix,
-            ("errorHandlingConfig" Core..=)
+          [ ("bucketPrefix" Data..=) Prelude.<$> bucketPrefix,
+            ("errorHandlingConfig" Data..=)
               Prelude.<$> errorHandlingConfig,
-            Prelude.Just ("object" Core..= object'),
+            Prelude.Just ("object" Data..= object'),
             Prelude.Just
               ( "intermediateBucketName"
-                  Core..= intermediateBucketName
+                  Data..= intermediateBucketName
               )
           ]
       )

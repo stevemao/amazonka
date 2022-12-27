@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.GetEmailTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.Pinpoint.GetEmailTemplate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -162,13 +163,14 @@ instance Core.AWSRequest GetEmailTemplate where
   type
     AWSResponse GetEmailTemplate =
       GetEmailTemplateResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetEmailTemplateResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable GetEmailTemplate where
@@ -181,25 +183,25 @@ instance Prelude.NFData GetEmailTemplate where
     Prelude.rnf version
       `Prelude.seq` Prelude.rnf templateName
 
-instance Core.ToHeaders GetEmailTemplate where
+instance Data.ToHeaders GetEmailTemplate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetEmailTemplate where
+instance Data.ToPath GetEmailTemplate where
   toPath GetEmailTemplate' {..} =
     Prelude.mconcat
-      ["/v1/templates/", Core.toBS templateName, "/email"]
+      ["/v1/templates/", Data.toBS templateName, "/email"]
 
-instance Core.ToQuery GetEmailTemplate where
+instance Data.ToQuery GetEmailTemplate where
   toQuery GetEmailTemplate' {..} =
-    Prelude.mconcat ["version" Core.=: version]
+    Prelude.mconcat ["version" Data.=: version]
 
 -- | /See:/ 'newGetEmailTemplateResponse' smart constructor.
 data GetEmailTemplateResponse = GetEmailTemplateResponse'

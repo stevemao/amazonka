@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.ListEntityRecognizerSummaries
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,34 +28,35 @@ module Amazonka.Comprehend.ListEntityRecognizerSummaries
     newListEntityRecognizerSummaries,
 
     -- * Request Lenses
-    listEntityRecognizerSummaries_nextToken,
     listEntityRecognizerSummaries_maxResults,
+    listEntityRecognizerSummaries_nextToken,
 
     -- * Destructuring the Response
     ListEntityRecognizerSummariesResponse (..),
     newListEntityRecognizerSummariesResponse,
 
     -- * Response Lenses
-    listEntityRecognizerSummariesResponse_nextToken,
     listEntityRecognizerSummariesResponse_entityRecognizerSummariesList,
+    listEntityRecognizerSummariesResponse_nextToken,
     listEntityRecognizerSummariesResponse_httpStatus,
   )
 where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListEntityRecognizerSummaries' smart constructor.
 data ListEntityRecognizerSummaries = ListEntityRecognizerSummaries'
-  { -- | Identifies the next page of results to return.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return on each page. The default is
+  { -- | The maximum number of results to return on each page. The default is
     -- 100.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Identifies the next page of results to return.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,27 +68,27 @@ data ListEntityRecognizerSummaries = ListEntityRecognizerSummaries'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listEntityRecognizerSummaries_nextToken' - Identifies the next page of results to return.
---
 -- 'maxResults', 'listEntityRecognizerSummaries_maxResults' - The maximum number of results to return on each page. The default is
 -- 100.
+--
+-- 'nextToken', 'listEntityRecognizerSummaries_nextToken' - Identifies the next page of results to return.
 newListEntityRecognizerSummaries ::
   ListEntityRecognizerSummaries
 newListEntityRecognizerSummaries =
   ListEntityRecognizerSummaries'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
-
--- | Identifies the next page of results to return.
-listEntityRecognizerSummaries_nextToken :: Lens.Lens' ListEntityRecognizerSummaries (Prelude.Maybe Prelude.Text)
-listEntityRecognizerSummaries_nextToken = Lens.lens (\ListEntityRecognizerSummaries' {nextToken} -> nextToken) (\s@ListEntityRecognizerSummaries' {} a -> s {nextToken = a} :: ListEntityRecognizerSummaries)
 
 -- | The maximum number of results to return on each page. The default is
 -- 100.
 listEntityRecognizerSummaries_maxResults :: Lens.Lens' ListEntityRecognizerSummaries (Prelude.Maybe Prelude.Natural)
 listEntityRecognizerSummaries_maxResults = Lens.lens (\ListEntityRecognizerSummaries' {maxResults} -> maxResults) (\s@ListEntityRecognizerSummaries' {} a -> s {maxResults = a} :: ListEntityRecognizerSummaries)
+
+-- | Identifies the next page of results to return.
+listEntityRecognizerSummaries_nextToken :: Lens.Lens' ListEntityRecognizerSummaries (Prelude.Maybe Prelude.Text)
+listEntityRecognizerSummaries_nextToken = Lens.lens (\ListEntityRecognizerSummaries' {nextToken} -> nextToken) (\s@ListEntityRecognizerSummaries' {} a -> s {nextToken = a} :: ListEntityRecognizerSummaries)
 
 instance
   Core.AWSRequest
@@ -96,15 +97,16 @@ instance
   type
     AWSResponse ListEntityRecognizerSummaries =
       ListEntityRecognizerSummariesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListEntityRecognizerSummariesResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "EntityRecognizerSummariesList"
+            Prelude.<$> ( x Data..?> "EntityRecognizerSummariesList"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -113,50 +115,50 @@ instance
     ListEntityRecognizerSummaries
   where
   hashWithSalt _salt ListEntityRecognizerSummaries' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListEntityRecognizerSummaries where
   rnf ListEntityRecognizerSummaries' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListEntityRecognizerSummaries where
+instance Data.ToHeaders ListEntityRecognizerSummaries where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.ListEntityRecognizerSummaries" ::
+              Data.=# ( "Comprehend_20171127.ListEntityRecognizerSummaries" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListEntityRecognizerSummaries where
+instance Data.ToJSON ListEntityRecognizerSummaries where
   toJSON ListEntityRecognizerSummaries' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListEntityRecognizerSummaries where
+instance Data.ToPath ListEntityRecognizerSummaries where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListEntityRecognizerSummaries where
+instance Data.ToQuery ListEntityRecognizerSummaries where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListEntityRecognizerSummariesResponse' smart constructor.
 data ListEntityRecognizerSummariesResponse = ListEntityRecognizerSummariesResponse'
   { -- | The list entity recognizer summaries.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The list entity recognizer summaries.
     entityRecognizerSummariesList :: Prelude.Maybe [EntityRecognizerSummary],
+    -- | The list entity recognizer summaries.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -170,9 +172,9 @@ data ListEntityRecognizerSummariesResponse = ListEntityRecognizerSummariesRespon
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listEntityRecognizerSummariesResponse_nextToken' - The list entity recognizer summaries.
---
 -- 'entityRecognizerSummariesList', 'listEntityRecognizerSummariesResponse_entityRecognizerSummariesList' - The list entity recognizer summaries.
+--
+-- 'nextToken', 'listEntityRecognizerSummariesResponse_nextToken' - The list entity recognizer summaries.
 --
 -- 'httpStatus', 'listEntityRecognizerSummariesResponse_httpStatus' - The response's http status code.
 newListEntityRecognizerSummariesResponse ::
@@ -181,20 +183,19 @@ newListEntityRecognizerSummariesResponse ::
   ListEntityRecognizerSummariesResponse
 newListEntityRecognizerSummariesResponse pHttpStatus_ =
   ListEntityRecognizerSummariesResponse'
-    { nextToken =
+    { entityRecognizerSummariesList =
         Prelude.Nothing,
-      entityRecognizerSummariesList =
-        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
 -- | The list entity recognizer summaries.
-listEntityRecognizerSummariesResponse_nextToken :: Lens.Lens' ListEntityRecognizerSummariesResponse (Prelude.Maybe Prelude.Text)
-listEntityRecognizerSummariesResponse_nextToken = Lens.lens (\ListEntityRecognizerSummariesResponse' {nextToken} -> nextToken) (\s@ListEntityRecognizerSummariesResponse' {} a -> s {nextToken = a} :: ListEntityRecognizerSummariesResponse)
-
--- | The list entity recognizer summaries.
 listEntityRecognizerSummariesResponse_entityRecognizerSummariesList :: Lens.Lens' ListEntityRecognizerSummariesResponse (Prelude.Maybe [EntityRecognizerSummary])
 listEntityRecognizerSummariesResponse_entityRecognizerSummariesList = Lens.lens (\ListEntityRecognizerSummariesResponse' {entityRecognizerSummariesList} -> entityRecognizerSummariesList) (\s@ListEntityRecognizerSummariesResponse' {} a -> s {entityRecognizerSummariesList = a} :: ListEntityRecognizerSummariesResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The list entity recognizer summaries.
+listEntityRecognizerSummariesResponse_nextToken :: Lens.Lens' ListEntityRecognizerSummariesResponse (Prelude.Maybe Prelude.Text)
+listEntityRecognizerSummariesResponse_nextToken = Lens.lens (\ListEntityRecognizerSummariesResponse' {nextToken} -> nextToken) (\s@ListEntityRecognizerSummariesResponse' {} a -> s {nextToken = a} :: ListEntityRecognizerSummariesResponse)
 
 -- | The response's http status code.
 listEntityRecognizerSummariesResponse_httpStatus :: Lens.Lens' ListEntityRecognizerSummariesResponse Prelude.Int
@@ -205,6 +206,6 @@ instance
     ListEntityRecognizerSummariesResponse
   where
   rnf ListEntityRecognizerSummariesResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf entityRecognizerSummariesList
+    Prelude.rnf entityRecognizerSummariesList
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

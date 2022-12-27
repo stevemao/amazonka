@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -12,24 +12,27 @@
 -- Derived from API version @2017-11-28@ of the AWS service descriptions, licensed under Apache 2.0.
 --
 -- Amazon GuardDuty is a continuous security monitoring service that
--- analyzes and processes the following data sources: VPC Flow Logs, AWS
--- CloudTrail event logs, and DNS logs. It uses threat intelligence feeds
+-- analyzes and processes the following data sources: VPC flow logs, Amazon
+-- Web Services CloudTrail management event logs, CloudTrail S3 data event
+-- logs, EKS audit logs, and DNS logs. It uses threat intelligence feeds
 -- (such as lists of malicious IPs and domains) and machine learning to
 -- identify unexpected, potentially unauthorized, and malicious activity
--- within your AWS environment. This can include issues like escalations of
--- privileges, uses of exposed credentials, or communication with malicious
--- IPs, URLs, or domains. For example, GuardDuty can detect compromised EC2
--- instances that serve malware or mine bitcoin.
+-- within your Amazon Web Services environment. This can include issues
+-- like escalations of privileges, uses of exposed credentials, or
+-- communication with malicious IPs, URLs, or domains. For example,
+-- GuardDuty can detect compromised EC2 instances that serve malware or
+-- mine bitcoin.
 --
--- GuardDuty also monitors AWS account access behavior for signs of
--- compromise. Some examples of this are unauthorized infrastructure
--- deployments such as EC2 instances deployed in a Region that has never
--- been used, or unusual API calls like a password policy change to reduce
--- password strength.
+-- GuardDuty also monitors Amazon Web Services account access behavior for
+-- signs of compromise. Some examples of this are unauthorized
+-- infrastructure deployments such as EC2 instances deployed in a Region
+-- that has never been used, or unusual API calls like a password policy
+-- change to reduce password strength.
 --
--- GuardDuty informs you of the status of your AWS environment by producing
--- security findings that you can view in the GuardDuty console or through
--- Amazon CloudWatch events. For more information, see the
+-- GuardDuty informs you of the status of your Amazon Web Services
+-- environment by producing security findings that you can view in the
+-- GuardDuty console or through Amazon CloudWatch events. For more
+-- information, see the
 -- /<https://docs.aws.amazon.com/guardduty/latest/ug/what-is-guardduty.html Amazon GuardDuty User Guide>/
 -- .
 module Amazonka.GuardDuty
@@ -39,11 +42,11 @@ module Amazonka.GuardDuty
     -- * Errors
     -- $errors
 
-    -- ** InternalServerErrorException
-    _InternalServerErrorException,
-
     -- ** BadRequestException
     _BadRequestException,
+
+    -- ** InternalServerErrorException
+    _InternalServerErrorException,
 
     -- * Waiters
     -- $waiters
@@ -51,29 +54,29 @@ module Amazonka.GuardDuty
     -- * Operations
     -- $operations
 
+    -- ** AcceptAdministratorInvitation
+    AcceptAdministratorInvitation (AcceptAdministratorInvitation'),
+    newAcceptAdministratorInvitation,
+    AcceptAdministratorInvitationResponse (AcceptAdministratorInvitationResponse'),
+    newAcceptAdministratorInvitationResponse,
+
+    -- ** ArchiveFindings
+    ArchiveFindings (ArchiveFindings'),
+    newArchiveFindings,
+    ArchiveFindingsResponse (ArchiveFindingsResponse'),
+    newArchiveFindingsResponse,
+
+    -- ** CreateDetector
+    CreateDetector (CreateDetector'),
+    newCreateDetector,
+    CreateDetectorResponse (CreateDetectorResponse'),
+    newCreateDetectorResponse,
+
     -- ** CreateFilter
     CreateFilter (CreateFilter'),
     newCreateFilter,
     CreateFilterResponse (CreateFilterResponse'),
     newCreateFilterResponse,
-
-    -- ** EnableOrganizationAdminAccount
-    EnableOrganizationAdminAccount (EnableOrganizationAdminAccount'),
-    newEnableOrganizationAdminAccount,
-    EnableOrganizationAdminAccountResponse (EnableOrganizationAdminAccountResponse'),
-    newEnableOrganizationAdminAccountResponse,
-
-    -- ** ListFindings (Paginated)
-    ListFindings (ListFindings'),
-    newListFindings,
-    ListFindingsResponse (ListFindingsResponse'),
-    newListFindingsResponse,
-
-    -- ** ListOrganizationAdminAccounts (Paginated)
-    ListOrganizationAdminAccounts (ListOrganizationAdminAccounts'),
-    newListOrganizationAdminAccounts,
-    ListOrganizationAdminAccountsResponse (ListOrganizationAdminAccountsResponse'),
-    newListOrganizationAdminAccountsResponse,
 
     -- ** CreateIPSet
     CreateIPSet (CreateIPSet'),
@@ -81,29 +84,23 @@ module Amazonka.GuardDuty
     CreateIPSetResponse (CreateIPSetResponse'),
     newCreateIPSetResponse,
 
-    -- ** DeleteThreatIntelSet
-    DeleteThreatIntelSet (DeleteThreatIntelSet'),
-    newDeleteThreatIntelSet,
-    DeleteThreatIntelSetResponse (DeleteThreatIntelSetResponse'),
-    newDeleteThreatIntelSetResponse,
+    -- ** CreateMembers
+    CreateMembers (CreateMembers'),
+    newCreateMembers,
+    CreateMembersResponse (CreateMembersResponse'),
+    newCreateMembersResponse,
 
-    -- ** UpdateThreatIntelSet
-    UpdateThreatIntelSet (UpdateThreatIntelSet'),
-    newUpdateThreatIntelSet,
-    UpdateThreatIntelSetResponse (UpdateThreatIntelSetResponse'),
-    newUpdateThreatIntelSetResponse,
+    -- ** CreatePublishingDestination
+    CreatePublishingDestination (CreatePublishingDestination'),
+    newCreatePublishingDestination,
+    CreatePublishingDestinationResponse (CreatePublishingDestinationResponse'),
+    newCreatePublishingDestinationResponse,
 
-    -- ** StopMonitoringMembers
-    StopMonitoringMembers (StopMonitoringMembers'),
-    newStopMonitoringMembers,
-    StopMonitoringMembersResponse (StopMonitoringMembersResponse'),
-    newStopMonitoringMembersResponse,
-
-    -- ** ListThreatIntelSets (Paginated)
-    ListThreatIntelSets (ListThreatIntelSets'),
-    newListThreatIntelSets,
-    ListThreatIntelSetsResponse (ListThreatIntelSetsResponse'),
-    newListThreatIntelSetsResponse,
+    -- ** CreateSampleFindings
+    CreateSampleFindings (CreateSampleFindings'),
+    newCreateSampleFindings,
+    CreateSampleFindingsResponse (CreateSampleFindingsResponse'),
+    newCreateSampleFindingsResponse,
 
     -- ** CreateThreatIntelSet
     CreateThreatIntelSet (CreateThreatIntelSet'),
@@ -111,17 +108,119 @@ module Amazonka.GuardDuty
     CreateThreatIntelSetResponse (CreateThreatIntelSetResponse'),
     newCreateThreatIntelSetResponse,
 
+    -- ** DeclineInvitations
+    DeclineInvitations (DeclineInvitations'),
+    newDeclineInvitations,
+    DeclineInvitationsResponse (DeclineInvitationsResponse'),
+    newDeclineInvitationsResponse,
+
+    -- ** DeleteDetector
+    DeleteDetector (DeleteDetector'),
+    newDeleteDetector,
+    DeleteDetectorResponse (DeleteDetectorResponse'),
+    newDeleteDetectorResponse,
+
+    -- ** DeleteFilter
+    DeleteFilter (DeleteFilter'),
+    newDeleteFilter,
+    DeleteFilterResponse (DeleteFilterResponse'),
+    newDeleteFilterResponse,
+
+    -- ** DeleteIPSet
+    DeleteIPSet (DeleteIPSet'),
+    newDeleteIPSet,
+    DeleteIPSetResponse (DeleteIPSetResponse'),
+    newDeleteIPSetResponse,
+
+    -- ** DeleteInvitations
+    DeleteInvitations (DeleteInvitations'),
+    newDeleteInvitations,
+    DeleteInvitationsResponse (DeleteInvitationsResponse'),
+    newDeleteInvitationsResponse,
+
     -- ** DeleteMembers
     DeleteMembers (DeleteMembers'),
     newDeleteMembers,
     DeleteMembersResponse (DeleteMembersResponse'),
     newDeleteMembersResponse,
 
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
+    -- ** DeletePublishingDestination
+    DeletePublishingDestination (DeletePublishingDestination'),
+    newDeletePublishingDestination,
+    DeletePublishingDestinationResponse (DeletePublishingDestinationResponse'),
+    newDeletePublishingDestinationResponse,
+
+    -- ** DeleteThreatIntelSet
+    DeleteThreatIntelSet (DeleteThreatIntelSet'),
+    newDeleteThreatIntelSet,
+    DeleteThreatIntelSetResponse (DeleteThreatIntelSetResponse'),
+    newDeleteThreatIntelSetResponse,
+
+    -- ** DescribeMalwareScans (Paginated)
+    DescribeMalwareScans (DescribeMalwareScans'),
+    newDescribeMalwareScans,
+    DescribeMalwareScansResponse (DescribeMalwareScansResponse'),
+    newDescribeMalwareScansResponse,
+
+    -- ** DescribeOrganizationConfiguration
+    DescribeOrganizationConfiguration (DescribeOrganizationConfiguration'),
+    newDescribeOrganizationConfiguration,
+    DescribeOrganizationConfigurationResponse (DescribeOrganizationConfigurationResponse'),
+    newDescribeOrganizationConfigurationResponse,
+
+    -- ** DescribePublishingDestination
+    DescribePublishingDestination (DescribePublishingDestination'),
+    newDescribePublishingDestination,
+    DescribePublishingDestinationResponse (DescribePublishingDestinationResponse'),
+    newDescribePublishingDestinationResponse,
+
+    -- ** DisableOrganizationAdminAccount
+    DisableOrganizationAdminAccount (DisableOrganizationAdminAccount'),
+    newDisableOrganizationAdminAccount,
+    DisableOrganizationAdminAccountResponse (DisableOrganizationAdminAccountResponse'),
+    newDisableOrganizationAdminAccountResponse,
+
+    -- ** DisassociateFromAdministratorAccount
+    DisassociateFromAdministratorAccount (DisassociateFromAdministratorAccount'),
+    newDisassociateFromAdministratorAccount,
+    DisassociateFromAdministratorAccountResponse (DisassociateFromAdministratorAccountResponse'),
+    newDisassociateFromAdministratorAccountResponse,
+
+    -- ** DisassociateMembers
+    DisassociateMembers (DisassociateMembers'),
+    newDisassociateMembers,
+    DisassociateMembersResponse (DisassociateMembersResponse'),
+    newDisassociateMembersResponse,
+
+    -- ** EnableOrganizationAdminAccount
+    EnableOrganizationAdminAccount (EnableOrganizationAdminAccount'),
+    newEnableOrganizationAdminAccount,
+    EnableOrganizationAdminAccountResponse (EnableOrganizationAdminAccountResponse'),
+    newEnableOrganizationAdminAccountResponse,
+
+    -- ** GetAdministratorAccount
+    GetAdministratorAccount (GetAdministratorAccount'),
+    newGetAdministratorAccount,
+    GetAdministratorAccountResponse (GetAdministratorAccountResponse'),
+    newGetAdministratorAccountResponse,
+
+    -- ** GetDetector
+    GetDetector (GetDetector'),
+    newGetDetector,
+    GetDetectorResponse (GetDetectorResponse'),
+    newGetDetectorResponse,
+
+    -- ** GetFilter
+    GetFilter (GetFilter'),
+    newGetFilter,
+    GetFilterResponse (GetFilterResponse'),
+    newGetFilterResponse,
+
+    -- ** GetFindings
+    GetFindings (GetFindings'),
+    newGetFindings,
+    GetFindingsResponse (GetFindingsResponse'),
+    newGetFindingsResponse,
 
     -- ** GetFindingsStatistics
     GetFindingsStatistics (GetFindingsStatistics'),
@@ -135,155 +234,17 @@ module Amazonka.GuardDuty
     GetIPSetResponse (GetIPSetResponse'),
     newGetIPSetResponse,
 
-    -- ** ListInvitations (Paginated)
-    ListInvitations (ListInvitations'),
-    newListInvitations,
-    ListInvitationsResponse (ListInvitationsResponse'),
-    newListInvitationsResponse,
+    -- ** GetInvitationsCount
+    GetInvitationsCount (GetInvitationsCount'),
+    newGetInvitationsCount,
+    GetInvitationsCountResponse (GetInvitationsCountResponse'),
+    newGetInvitationsCountResponse,
 
-    -- ** UpdateMemberDetectors
-    UpdateMemberDetectors (UpdateMemberDetectors'),
-    newUpdateMemberDetectors,
-    UpdateMemberDetectorsResponse (UpdateMemberDetectorsResponse'),
-    newUpdateMemberDetectorsResponse,
-
-    -- ** GetThreatIntelSet
-    GetThreatIntelSet (GetThreatIntelSet'),
-    newGetThreatIntelSet,
-    GetThreatIntelSetResponse (GetThreatIntelSetResponse'),
-    newGetThreatIntelSetResponse,
-
-    -- ** DeleteInvitations
-    DeleteInvitations (DeleteInvitations'),
-    newDeleteInvitations,
-    DeleteInvitationsResponse (DeleteInvitationsResponse'),
-    newDeleteInvitationsResponse,
-
-    -- ** GetMasterAccount
-    GetMasterAccount (GetMasterAccount'),
-    newGetMasterAccount,
-    GetMasterAccountResponse (GetMasterAccountResponse'),
-    newGetMasterAccountResponse,
-
-    -- ** GetUsageStatistics
-    GetUsageStatistics (GetUsageStatistics'),
-    newGetUsageStatistics,
-    GetUsageStatisticsResponse (GetUsageStatisticsResponse'),
-    newGetUsageStatisticsResponse,
-
-    -- ** CreateDetector
-    CreateDetector (CreateDetector'),
-    newCreateDetector,
-    CreateDetectorResponse (CreateDetectorResponse'),
-    newCreateDetectorResponse,
-
-    -- ** DeclineInvitations
-    DeclineInvitations (DeclineInvitations'),
-    newDeclineInvitations,
-    DeclineInvitationsResponse (DeclineInvitationsResponse'),
-    newDeclineInvitationsResponse,
-
-    -- ** DescribeOrganizationConfiguration
-    DescribeOrganizationConfiguration (DescribeOrganizationConfiguration'),
-    newDescribeOrganizationConfiguration,
-    DescribeOrganizationConfigurationResponse (DescribeOrganizationConfigurationResponse'),
-    newDescribeOrganizationConfigurationResponse,
-
-    -- ** CreatePublishingDestination
-    CreatePublishingDestination (CreatePublishingDestination'),
-    newCreatePublishingDestination,
-    CreatePublishingDestinationResponse (CreatePublishingDestinationResponse'),
-    newCreatePublishingDestinationResponse,
-
-    -- ** UpdateFilter
-    UpdateFilter (UpdateFilter'),
-    newUpdateFilter,
-    UpdateFilterResponse (UpdateFilterResponse'),
-    newUpdateFilterResponse,
-
-    -- ** DeleteFilter
-    DeleteFilter (DeleteFilter'),
-    newDeleteFilter,
-    DeleteFilterResponse (DeleteFilterResponse'),
-    newDeleteFilterResponse,
-
-    -- ** DisassociateMembers
-    DisassociateMembers (DisassociateMembers'),
-    newDisassociateMembers,
-    DisassociateMembersResponse (DisassociateMembersResponse'),
-    newDisassociateMembersResponse,
-
-    -- ** DisassociateFromMasterAccount
-    DisassociateFromMasterAccount (DisassociateFromMasterAccount'),
-    newDisassociateFromMasterAccount,
-    DisassociateFromMasterAccountResponse (DisassociateFromMasterAccountResponse'),
-    newDisassociateFromMasterAccountResponse,
-
-    -- ** AcceptInvitation
-    AcceptInvitation (AcceptInvitation'),
-    newAcceptInvitation,
-    AcceptInvitationResponse (AcceptInvitationResponse'),
-    newAcceptInvitationResponse,
-
-    -- ** ListFilters (Paginated)
-    ListFilters (ListFilters'),
-    newListFilters,
-    ListFiltersResponse (ListFiltersResponse'),
-    newListFiltersResponse,
-
-    -- ** ListMembers (Paginated)
-    ListMembers (ListMembers'),
-    newListMembers,
-    ListMembersResponse (ListMembersResponse'),
-    newListMembersResponse,
-
-    -- ** ListPublishingDestinations
-    ListPublishingDestinations (ListPublishingDestinations'),
-    newListPublishingDestinations,
-    ListPublishingDestinationsResponse (ListPublishingDestinationsResponse'),
-    newListPublishingDestinationsResponse,
-
-    -- ** DeletePublishingDestination
-    DeletePublishingDestination (DeletePublishingDestination'),
-    newDeletePublishingDestination,
-    DeletePublishingDestinationResponse (DeletePublishingDestinationResponse'),
-    newDeletePublishingDestinationResponse,
-
-    -- ** UpdatePublishingDestination
-    UpdatePublishingDestination (UpdatePublishingDestination'),
-    newUpdatePublishingDestination,
-    UpdatePublishingDestinationResponse (UpdatePublishingDestinationResponse'),
-    newUpdatePublishingDestinationResponse,
-
-    -- ** GetDetector
-    GetDetector (GetDetector'),
-    newGetDetector,
-    GetDetectorResponse (GetDetectorResponse'),
-    newGetDetectorResponse,
-
-    -- ** CreateSampleFindings
-    CreateSampleFindings (CreateSampleFindings'),
-    newCreateSampleFindings,
-    CreateSampleFindingsResponse (CreateSampleFindingsResponse'),
-    newCreateSampleFindingsResponse,
-
-    -- ** ArchiveFindings
-    ArchiveFindings (ArchiveFindings'),
-    newArchiveFindings,
-    ArchiveFindingsResponse (ArchiveFindingsResponse'),
-    newArchiveFindingsResponse,
-
-    -- ** CreateMembers
-    CreateMembers (CreateMembers'),
-    newCreateMembers,
-    CreateMembersResponse (CreateMembersResponse'),
-    newCreateMembersResponse,
-
-    -- ** UnarchiveFindings
-    UnarchiveFindings (UnarchiveFindings'),
-    newUnarchiveFindings,
-    UnarchiveFindingsResponse (UnarchiveFindingsResponse'),
-    newUnarchiveFindingsResponse,
+    -- ** GetMalwareScanSettings
+    GetMalwareScanSettings (GetMalwareScanSettings'),
+    newGetMalwareScanSettings,
+    GetMalwareScanSettingsResponse (GetMalwareScanSettingsResponse'),
+    newGetMalwareScanSettingsResponse,
 
     -- ** GetMemberDetectors
     GetMemberDetectors (GetMemberDetectors'),
@@ -291,23 +252,29 @@ module Amazonka.GuardDuty
     GetMemberDetectorsResponse (GetMemberDetectorsResponse'),
     newGetMemberDetectorsResponse,
 
-    -- ** GetInvitationsCount
-    GetInvitationsCount (GetInvitationsCount'),
-    newGetInvitationsCount,
-    GetInvitationsCountResponse (GetInvitationsCountResponse'),
-    newGetInvitationsCountResponse,
+    -- ** GetMembers
+    GetMembers (GetMembers'),
+    newGetMembers,
+    GetMembersResponse (GetMembersResponse'),
+    newGetMembersResponse,
 
-    -- ** StartMonitoringMembers
-    StartMonitoringMembers (StartMonitoringMembers'),
-    newStartMonitoringMembers,
-    StartMonitoringMembersResponse (StartMonitoringMembersResponse'),
-    newStartMonitoringMembersResponse,
+    -- ** GetRemainingFreeTrialDays
+    GetRemainingFreeTrialDays (GetRemainingFreeTrialDays'),
+    newGetRemainingFreeTrialDays,
+    GetRemainingFreeTrialDaysResponse (GetRemainingFreeTrialDaysResponse'),
+    newGetRemainingFreeTrialDaysResponse,
 
-    -- ** UpdateOrganizationConfiguration
-    UpdateOrganizationConfiguration (UpdateOrganizationConfiguration'),
-    newUpdateOrganizationConfiguration,
-    UpdateOrganizationConfigurationResponse (UpdateOrganizationConfigurationResponse'),
-    newUpdateOrganizationConfigurationResponse,
+    -- ** GetThreatIntelSet
+    GetThreatIntelSet (GetThreatIntelSet'),
+    newGetThreatIntelSet,
+    GetThreatIntelSetResponse (GetThreatIntelSetResponse'),
+    newGetThreatIntelSetResponse,
+
+    -- ** GetUsageStatistics
+    GetUsageStatistics (GetUsageStatistics'),
+    newGetUsageStatistics,
+    GetUsageStatisticsResponse (GetUsageStatisticsResponse'),
+    newGetUsageStatisticsResponse,
 
     -- ** InviteMembers
     InviteMembers (InviteMembers'),
@@ -315,17 +282,23 @@ module Amazonka.GuardDuty
     InviteMembersResponse (InviteMembersResponse'),
     newInviteMembersResponse,
 
-    -- ** DeleteIPSet
-    DeleteIPSet (DeleteIPSet'),
-    newDeleteIPSet,
-    DeleteIPSetResponse (DeleteIPSetResponse'),
-    newDeleteIPSetResponse,
+    -- ** ListDetectors (Paginated)
+    ListDetectors (ListDetectors'),
+    newListDetectors,
+    ListDetectorsResponse (ListDetectorsResponse'),
+    newListDetectorsResponse,
 
-    -- ** UpdateIPSet
-    UpdateIPSet (UpdateIPSet'),
-    newUpdateIPSet,
-    UpdateIPSetResponse (UpdateIPSetResponse'),
-    newUpdateIPSetResponse,
+    -- ** ListFilters (Paginated)
+    ListFilters (ListFilters'),
+    newListFilters,
+    ListFiltersResponse (ListFiltersResponse'),
+    newListFiltersResponse,
+
+    -- ** ListFindings (Paginated)
+    ListFindings (ListFindings'),
+    newListFindings,
+    ListFindingsResponse (ListFindingsResponse'),
+    newListFindingsResponse,
 
     -- ** ListIPSets (Paginated)
     ListIPSets (ListIPSets'),
@@ -333,17 +306,53 @@ module Amazonka.GuardDuty
     ListIPSetsResponse (ListIPSetsResponse'),
     newListIPSetsResponse,
 
-    -- ** GetMembers
-    GetMembers (GetMembers'),
-    newGetMembers,
-    GetMembersResponse (GetMembersResponse'),
-    newGetMembersResponse,
+    -- ** ListInvitations (Paginated)
+    ListInvitations (ListInvitations'),
+    newListInvitations,
+    ListInvitationsResponse (ListInvitationsResponse'),
+    newListInvitationsResponse,
 
-    -- ** DescribePublishingDestination
-    DescribePublishingDestination (DescribePublishingDestination'),
-    newDescribePublishingDestination,
-    DescribePublishingDestinationResponse (DescribePublishingDestinationResponse'),
-    newDescribePublishingDestinationResponse,
+    -- ** ListMembers (Paginated)
+    ListMembers (ListMembers'),
+    newListMembers,
+    ListMembersResponse (ListMembersResponse'),
+    newListMembersResponse,
+
+    -- ** ListOrganizationAdminAccounts (Paginated)
+    ListOrganizationAdminAccounts (ListOrganizationAdminAccounts'),
+    newListOrganizationAdminAccounts,
+    ListOrganizationAdminAccountsResponse (ListOrganizationAdminAccountsResponse'),
+    newListOrganizationAdminAccountsResponse,
+
+    -- ** ListPublishingDestinations
+    ListPublishingDestinations (ListPublishingDestinations'),
+    newListPublishingDestinations,
+    ListPublishingDestinationsResponse (ListPublishingDestinationsResponse'),
+    newListPublishingDestinationsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** ListThreatIntelSets (Paginated)
+    ListThreatIntelSets (ListThreatIntelSets'),
+    newListThreatIntelSets,
+    ListThreatIntelSetsResponse (ListThreatIntelSetsResponse'),
+    newListThreatIntelSetsResponse,
+
+    -- ** StartMonitoringMembers
+    StartMonitoringMembers (StartMonitoringMembers'),
+    newStartMonitoringMembers,
+    StartMonitoringMembersResponse (StartMonitoringMembersResponse'),
+    newStartMonitoringMembersResponse,
+
+    -- ** StopMonitoringMembers
+    StopMonitoringMembers (StopMonitoringMembers'),
+    newStopMonitoringMembers,
+    StopMonitoringMembersResponse (StopMonitoringMembersResponse'),
+    newStopMonitoringMembersResponse,
 
     -- ** TagResource
     TagResource (TagResource'),
@@ -351,17 +360,11 @@ module Amazonka.GuardDuty
     TagResourceResponse (TagResourceResponse'),
     newTagResourceResponse,
 
-    -- ** GetFindings
-    GetFindings (GetFindings'),
-    newGetFindings,
-    GetFindingsResponse (GetFindingsResponse'),
-    newGetFindingsResponse,
-
-    -- ** ListDetectors (Paginated)
-    ListDetectors (ListDetectors'),
-    newListDetectors,
-    ListDetectorsResponse (ListDetectorsResponse'),
-    newListDetectorsResponse,
+    -- ** UnarchiveFindings
+    UnarchiveFindings (UnarchiveFindings'),
+    newUnarchiveFindings,
+    UnarchiveFindingsResponse (UnarchiveFindingsResponse'),
+    newUnarchiveFindingsResponse,
 
     -- ** UntagResource
     UntagResource (UntagResource'),
@@ -375,11 +378,11 @@ module Amazonka.GuardDuty
     UpdateDetectorResponse (UpdateDetectorResponse'),
     newUpdateDetectorResponse,
 
-    -- ** DeleteDetector
-    DeleteDetector (DeleteDetector'),
-    newDeleteDetector,
-    DeleteDetectorResponse (DeleteDetectorResponse'),
-    newDeleteDetectorResponse,
+    -- ** UpdateFilter
+    UpdateFilter (UpdateFilter'),
+    newUpdateFilter,
+    UpdateFilterResponse (UpdateFilterResponse'),
+    newUpdateFilterResponse,
 
     -- ** UpdateFindingsFeedback
     UpdateFindingsFeedback (UpdateFindingsFeedback'),
@@ -387,22 +390,49 @@ module Amazonka.GuardDuty
     UpdateFindingsFeedbackResponse (UpdateFindingsFeedbackResponse'),
     newUpdateFindingsFeedbackResponse,
 
-    -- ** GetFilter
-    GetFilter (GetFilter'),
-    newGetFilter,
-    GetFilterResponse (GetFilterResponse'),
-    newGetFilterResponse,
+    -- ** UpdateIPSet
+    UpdateIPSet (UpdateIPSet'),
+    newUpdateIPSet,
+    UpdateIPSetResponse (UpdateIPSetResponse'),
+    newUpdateIPSetResponse,
 
-    -- ** DisableOrganizationAdminAccount
-    DisableOrganizationAdminAccount (DisableOrganizationAdminAccount'),
-    newDisableOrganizationAdminAccount,
-    DisableOrganizationAdminAccountResponse (DisableOrganizationAdminAccountResponse'),
-    newDisableOrganizationAdminAccountResponse,
+    -- ** UpdateMalwareScanSettings
+    UpdateMalwareScanSettings (UpdateMalwareScanSettings'),
+    newUpdateMalwareScanSettings,
+    UpdateMalwareScanSettingsResponse (UpdateMalwareScanSettingsResponse'),
+    newUpdateMalwareScanSettingsResponse,
+
+    -- ** UpdateMemberDetectors
+    UpdateMemberDetectors (UpdateMemberDetectors'),
+    newUpdateMemberDetectors,
+    UpdateMemberDetectorsResponse (UpdateMemberDetectorsResponse'),
+    newUpdateMemberDetectorsResponse,
+
+    -- ** UpdateOrganizationConfiguration
+    UpdateOrganizationConfiguration (UpdateOrganizationConfiguration'),
+    newUpdateOrganizationConfiguration,
+    UpdateOrganizationConfigurationResponse (UpdateOrganizationConfigurationResponse'),
+    newUpdateOrganizationConfigurationResponse,
+
+    -- ** UpdatePublishingDestination
+    UpdatePublishingDestination (UpdatePublishingDestination'),
+    newUpdatePublishingDestination,
+    UpdatePublishingDestinationResponse (UpdatePublishingDestinationResponse'),
+    newUpdatePublishingDestinationResponse,
+
+    -- ** UpdateThreatIntelSet
+    UpdateThreatIntelSet (UpdateThreatIntelSet'),
+    newUpdateThreatIntelSet,
+    UpdateThreatIntelSetResponse (UpdateThreatIntelSetResponse'),
+    newUpdateThreatIntelSetResponse,
 
     -- * Types
 
     -- ** AdminStatus
     AdminStatus (..),
+
+    -- ** CriterionKey
+    CriterionKey (..),
 
     -- ** DataSource
     DataSource (..),
@@ -415,6 +445,9 @@ module Amazonka.GuardDuty
 
     -- ** DetectorStatus
     DetectorStatus (..),
+
+    -- ** EbsSnapshotPreservation
+    EbsSnapshotPreservation (..),
 
     -- ** Feedback
     Feedback (..),
@@ -440,6 +473,15 @@ module Amazonka.GuardDuty
     -- ** PublishingStatus
     PublishingStatus (..),
 
+    -- ** ScanCriterionKey
+    ScanCriterionKey (..),
+
+    -- ** ScanResult
+    ScanResult (..),
+
+    -- ** ScanStatus
+    ScanStatus (..),
+
     -- ** ThreatIntelSetFormat
     ThreatIntelSetFormat (..),
 
@@ -461,6 +503,10 @@ module Amazonka.GuardDuty
     AccountDetail (AccountDetail'),
     newAccountDetail,
 
+    -- ** AccountFreeTrialInfo
+    AccountFreeTrialInfo (AccountFreeTrialInfo'),
+    newAccountFreeTrialInfo,
+
     -- ** AccountLevelPermissions
     AccountLevelPermissions (AccountLevelPermissions'),
     newAccountLevelPermissions,
@@ -472,6 +518,10 @@ module Amazonka.GuardDuty
     -- ** AdminAccount
     AdminAccount (AdminAccount'),
     newAdminAccount,
+
+    -- ** Administrator
+    Administrator (Administrator'),
+    newAdministrator,
 
     -- ** AwsApiCallAction
     AwsApiCallAction (AwsApiCallAction'),
@@ -501,6 +551,10 @@ module Amazonka.GuardDuty
     Condition (Condition'),
     newCondition,
 
+    -- ** Container
+    Container (Container'),
+    newContainer,
+
     -- ** Country
     Country (Country'),
     newCountry,
@@ -516,6 +570,14 @@ module Amazonka.GuardDuty
     -- ** DataSourceConfigurationsResult
     DataSourceConfigurationsResult (DataSourceConfigurationsResult'),
     newDataSourceConfigurationsResult,
+
+    -- ** DataSourceFreeTrial
+    DataSourceFreeTrial (DataSourceFreeTrial'),
+    newDataSourceFreeTrial,
+
+    -- ** DataSourcesFreeTrial
+    DataSourcesFreeTrial (DataSourcesFreeTrial'),
+    newDataSourcesFreeTrial,
 
     -- ** DefaultServerSideEncryption
     DefaultServerSideEncryption (DefaultServerSideEncryption'),
@@ -537,9 +599,45 @@ module Amazonka.GuardDuty
     DomainDetails (DomainDetails'),
     newDomainDetails,
 
+    -- ** EbsVolumeDetails
+    EbsVolumeDetails (EbsVolumeDetails'),
+    newEbsVolumeDetails,
+
+    -- ** EbsVolumeScanDetails
+    EbsVolumeScanDetails (EbsVolumeScanDetails'),
+    newEbsVolumeScanDetails,
+
+    -- ** EbsVolumesResult
+    EbsVolumesResult (EbsVolumesResult'),
+    newEbsVolumesResult,
+
+    -- ** EcsClusterDetails
+    EcsClusterDetails (EcsClusterDetails'),
+    newEcsClusterDetails,
+
+    -- ** EcsTaskDetails
+    EcsTaskDetails (EcsTaskDetails'),
+    newEcsTaskDetails,
+
+    -- ** EksClusterDetails
+    EksClusterDetails (EksClusterDetails'),
+    newEksClusterDetails,
+
     -- ** Evidence
     Evidence (Evidence'),
     newEvidence,
+
+    -- ** FilterCondition
+    FilterCondition (FilterCondition'),
+    newFilterCondition,
+
+    -- ** FilterCriteria
+    FilterCriteria (FilterCriteria'),
+    newFilterCriteria,
+
+    -- ** FilterCriterion
+    FilterCriterion (FilterCriterion'),
+    newFilterCriterion,
 
     -- ** Finding
     Finding (Finding'),
@@ -561,6 +659,14 @@ module Amazonka.GuardDuty
     GeoLocation (GeoLocation'),
     newGeoLocation,
 
+    -- ** HighestSeverityThreatDetails
+    HighestSeverityThreatDetails (HighestSeverityThreatDetails'),
+    newHighestSeverityThreatDetails,
+
+    -- ** HostPath
+    HostPath (HostPath'),
+    newHostPath,
+
     -- ** IamInstanceProfile
     IamInstanceProfile (IamInstanceProfile'),
     newIamInstanceProfile,
@@ -573,6 +679,42 @@ module Amazonka.GuardDuty
     Invitation (Invitation'),
     newInvitation,
 
+    -- ** KubernetesApiCallAction
+    KubernetesApiCallAction (KubernetesApiCallAction'),
+    newKubernetesApiCallAction,
+
+    -- ** KubernetesAuditLogsConfiguration
+    KubernetesAuditLogsConfiguration (KubernetesAuditLogsConfiguration'),
+    newKubernetesAuditLogsConfiguration,
+
+    -- ** KubernetesAuditLogsConfigurationResult
+    KubernetesAuditLogsConfigurationResult (KubernetesAuditLogsConfigurationResult'),
+    newKubernetesAuditLogsConfigurationResult,
+
+    -- ** KubernetesConfiguration
+    KubernetesConfiguration (KubernetesConfiguration'),
+    newKubernetesConfiguration,
+
+    -- ** KubernetesConfigurationResult
+    KubernetesConfigurationResult (KubernetesConfigurationResult'),
+    newKubernetesConfigurationResult,
+
+    -- ** KubernetesDataSourceFreeTrial
+    KubernetesDataSourceFreeTrial (KubernetesDataSourceFreeTrial'),
+    newKubernetesDataSourceFreeTrial,
+
+    -- ** KubernetesDetails
+    KubernetesDetails (KubernetesDetails'),
+    newKubernetesDetails,
+
+    -- ** KubernetesUserDetails
+    KubernetesUserDetails (KubernetesUserDetails'),
+    newKubernetesUserDetails,
+
+    -- ** KubernetesWorkloadDetails
+    KubernetesWorkloadDetails (KubernetesWorkloadDetails'),
+    newKubernetesWorkloadDetails,
+
     -- ** LocalIpDetails
     LocalIpDetails (LocalIpDetails'),
     newLocalIpDetails,
@@ -581,9 +723,17 @@ module Amazonka.GuardDuty
     LocalPortDetails (LocalPortDetails'),
     newLocalPortDetails,
 
-    -- ** Master
-    Master (Master'),
-    newMaster,
+    -- ** MalwareProtectionConfiguration
+    MalwareProtectionConfiguration (MalwareProtectionConfiguration'),
+    newMalwareProtectionConfiguration,
+
+    -- ** MalwareProtectionConfigurationResult
+    MalwareProtectionConfigurationResult (MalwareProtectionConfigurationResult'),
+    newMalwareProtectionConfigurationResult,
+
+    -- ** MalwareProtectionDataSourceFreeTrial
+    MalwareProtectionDataSourceFreeTrial (MalwareProtectionDataSourceFreeTrial'),
+    newMalwareProtectionDataSourceFreeTrial,
 
     -- ** Member
     Member (Member'),
@@ -613,6 +763,38 @@ module Amazonka.GuardDuty
     OrganizationDataSourceConfigurationsResult (OrganizationDataSourceConfigurationsResult'),
     newOrganizationDataSourceConfigurationsResult,
 
+    -- ** OrganizationEbsVolumes
+    OrganizationEbsVolumes (OrganizationEbsVolumes'),
+    newOrganizationEbsVolumes,
+
+    -- ** OrganizationEbsVolumesResult
+    OrganizationEbsVolumesResult (OrganizationEbsVolumesResult'),
+    newOrganizationEbsVolumesResult,
+
+    -- ** OrganizationKubernetesAuditLogsConfiguration
+    OrganizationKubernetesAuditLogsConfiguration (OrganizationKubernetesAuditLogsConfiguration'),
+    newOrganizationKubernetesAuditLogsConfiguration,
+
+    -- ** OrganizationKubernetesAuditLogsConfigurationResult
+    OrganizationKubernetesAuditLogsConfigurationResult (OrganizationKubernetesAuditLogsConfigurationResult'),
+    newOrganizationKubernetesAuditLogsConfigurationResult,
+
+    -- ** OrganizationKubernetesConfiguration
+    OrganizationKubernetesConfiguration (OrganizationKubernetesConfiguration'),
+    newOrganizationKubernetesConfiguration,
+
+    -- ** OrganizationKubernetesConfigurationResult
+    OrganizationKubernetesConfigurationResult (OrganizationKubernetesConfigurationResult'),
+    newOrganizationKubernetesConfigurationResult,
+
+    -- ** OrganizationMalwareProtectionConfiguration
+    OrganizationMalwareProtectionConfiguration (OrganizationMalwareProtectionConfiguration'),
+    newOrganizationMalwareProtectionConfiguration,
+
+    -- ** OrganizationMalwareProtectionConfigurationResult
+    OrganizationMalwareProtectionConfigurationResult (OrganizationMalwareProtectionConfigurationResult'),
+    newOrganizationMalwareProtectionConfigurationResult,
+
     -- ** OrganizationS3LogsConfiguration
     OrganizationS3LogsConfiguration (OrganizationS3LogsConfiguration'),
     newOrganizationS3LogsConfiguration,
@@ -620,6 +802,14 @@ module Amazonka.GuardDuty
     -- ** OrganizationS3LogsConfigurationResult
     OrganizationS3LogsConfigurationResult (OrganizationS3LogsConfigurationResult'),
     newOrganizationS3LogsConfigurationResult,
+
+    -- ** OrganizationScanEc2InstanceWithFindings
+    OrganizationScanEc2InstanceWithFindings (OrganizationScanEc2InstanceWithFindings'),
+    newOrganizationScanEc2InstanceWithFindings,
+
+    -- ** OrganizationScanEc2InstanceWithFindingsResult
+    OrganizationScanEc2InstanceWithFindingsResult (OrganizationScanEc2InstanceWithFindingsResult'),
+    newOrganizationScanEc2InstanceWithFindingsResult,
 
     -- ** Owner
     Owner (Owner'),
@@ -649,6 +839,10 @@ module Amazonka.GuardDuty
     PublicAccess (PublicAccess'),
     newPublicAccess,
 
+    -- ** RemoteAccountDetails
+    RemoteAccountDetails (RemoteAccountDetails'),
+    newRemoteAccountDetails,
+
     -- ** RemoteIpDetails
     RemoteIpDetails (RemoteIpDetails'),
     newRemoteIpDetails,
@@ -660,6 +854,10 @@ module Amazonka.GuardDuty
     -- ** Resource
     Resource (Resource'),
     newResource,
+
+    -- ** ResourceDetails
+    ResourceDetails (ResourceDetails'),
+    newResourceDetails,
 
     -- ** S3BucketDetail
     S3BucketDetail (S3BucketDetail'),
@@ -673,9 +871,61 @@ module Amazonka.GuardDuty
     S3LogsConfigurationResult (S3LogsConfigurationResult'),
     newS3LogsConfigurationResult,
 
+    -- ** Scan
+    Scan (Scan'),
+    newScan,
+
+    -- ** ScanCondition
+    ScanCondition (ScanCondition'),
+    newScanCondition,
+
+    -- ** ScanConditionPair
+    ScanConditionPair (ScanConditionPair'),
+    newScanConditionPair,
+
+    -- ** ScanDetections
+    ScanDetections (ScanDetections'),
+    newScanDetections,
+
+    -- ** ScanEc2InstanceWithFindings
+    ScanEc2InstanceWithFindings (ScanEc2InstanceWithFindings'),
+    newScanEc2InstanceWithFindings,
+
+    -- ** ScanEc2InstanceWithFindingsResult
+    ScanEc2InstanceWithFindingsResult (ScanEc2InstanceWithFindingsResult'),
+    newScanEc2InstanceWithFindingsResult,
+
+    -- ** ScanFilePath
+    ScanFilePath (ScanFilePath'),
+    newScanFilePath,
+
+    -- ** ScanResourceCriteria
+    ScanResourceCriteria (ScanResourceCriteria'),
+    newScanResourceCriteria,
+
+    -- ** ScanResultDetails
+    ScanResultDetails (ScanResultDetails'),
+    newScanResultDetails,
+
+    -- ** ScanThreatName
+    ScanThreatName (ScanThreatName'),
+    newScanThreatName,
+
+    -- ** ScannedItemCount
+    ScannedItemCount (ScannedItemCount'),
+    newScannedItemCount,
+
+    -- ** SecurityContext
+    SecurityContext (SecurityContext'),
+    newSecurityContext,
+
     -- ** SecurityGroup
     SecurityGroup (SecurityGroup'),
     newSecurityGroup,
+
+    -- ** ServiceAdditionalInfo
+    ServiceAdditionalInfo (ServiceAdditionalInfo'),
+    newServiceAdditionalInfo,
 
     -- ** ServiceInfo
     ServiceInfo (ServiceInfo'),
@@ -689,17 +939,33 @@ module Amazonka.GuardDuty
     Tag (Tag'),
     newTag,
 
+    -- ** ThreatDetectedByName
+    ThreatDetectedByName (ThreatDetectedByName'),
+    newThreatDetectedByName,
+
     -- ** ThreatIntelligenceDetail
     ThreatIntelligenceDetail (ThreatIntelligenceDetail'),
     newThreatIntelligenceDetail,
+
+    -- ** ThreatsDetectedItemCount
+    ThreatsDetectedItemCount (ThreatsDetectedItemCount'),
+    newThreatsDetectedItemCount,
 
     -- ** Total
     Total (Total'),
     newTotal,
 
+    -- ** TriggerDetails
+    TriggerDetails (TriggerDetails'),
+    newTriggerDetails,
+
     -- ** UnprocessedAccount
     UnprocessedAccount (UnprocessedAccount'),
     newUnprocessedAccount,
+
+    -- ** UnprocessedDataSourcesResult
+    UnprocessedDataSourcesResult (UnprocessedDataSourcesResult'),
+    newUnprocessedDataSourcesResult,
 
     -- ** UsageAccountResult
     UsageAccountResult (UsageAccountResult'),
@@ -720,10 +986,22 @@ module Amazonka.GuardDuty
     -- ** UsageStatistics
     UsageStatistics (UsageStatistics'),
     newUsageStatistics,
+
+    -- ** Volume
+    Volume (Volume'),
+    newVolume,
+
+    -- ** VolumeDetail
+    VolumeDetail (VolumeDetail'),
+    newVolumeDetail,
+
+    -- ** VolumeMount
+    VolumeMount (VolumeMount'),
+    newVolumeMount,
   )
 where
 
-import Amazonka.GuardDuty.AcceptInvitation
+import Amazonka.GuardDuty.AcceptAdministratorInvitation
 import Amazonka.GuardDuty.ArchiveFindings
 import Amazonka.GuardDuty.CreateDetector
 import Amazonka.GuardDuty.CreateFilter
@@ -740,21 +1018,24 @@ import Amazonka.GuardDuty.DeleteInvitations
 import Amazonka.GuardDuty.DeleteMembers
 import Amazonka.GuardDuty.DeletePublishingDestination
 import Amazonka.GuardDuty.DeleteThreatIntelSet
+import Amazonka.GuardDuty.DescribeMalwareScans
 import Amazonka.GuardDuty.DescribeOrganizationConfiguration
 import Amazonka.GuardDuty.DescribePublishingDestination
 import Amazonka.GuardDuty.DisableOrganizationAdminAccount
-import Amazonka.GuardDuty.DisassociateFromMasterAccount
+import Amazonka.GuardDuty.DisassociateFromAdministratorAccount
 import Amazonka.GuardDuty.DisassociateMembers
 import Amazonka.GuardDuty.EnableOrganizationAdminAccount
+import Amazonka.GuardDuty.GetAdministratorAccount
 import Amazonka.GuardDuty.GetDetector
 import Amazonka.GuardDuty.GetFilter
 import Amazonka.GuardDuty.GetFindings
 import Amazonka.GuardDuty.GetFindingsStatistics
 import Amazonka.GuardDuty.GetIPSet
 import Amazonka.GuardDuty.GetInvitationsCount
-import Amazonka.GuardDuty.GetMasterAccount
+import Amazonka.GuardDuty.GetMalwareScanSettings
 import Amazonka.GuardDuty.GetMemberDetectors
 import Amazonka.GuardDuty.GetMembers
+import Amazonka.GuardDuty.GetRemainingFreeTrialDays
 import Amazonka.GuardDuty.GetThreatIntelSet
 import Amazonka.GuardDuty.GetUsageStatistics
 import Amazonka.GuardDuty.InviteMembers
@@ -779,6 +1060,7 @@ import Amazonka.GuardDuty.UpdateDetector
 import Amazonka.GuardDuty.UpdateFilter
 import Amazonka.GuardDuty.UpdateFindingsFeedback
 import Amazonka.GuardDuty.UpdateIPSet
+import Amazonka.GuardDuty.UpdateMalwareScanSettings
 import Amazonka.GuardDuty.UpdateMemberDetectors
 import Amazonka.GuardDuty.UpdateOrganizationConfiguration
 import Amazonka.GuardDuty.UpdatePublishingDestination

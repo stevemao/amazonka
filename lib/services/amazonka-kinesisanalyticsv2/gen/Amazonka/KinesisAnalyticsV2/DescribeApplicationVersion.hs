@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.DescribeApplicationVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.KinesisAnalyticsV2.DescribeApplicationVersion
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -105,12 +106,13 @@ instance Core.AWSRequest DescribeApplicationVersion where
   type
     AWSResponse DescribeApplicationVersion =
       DescribeApplicationVersionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeApplicationVersionResponse'
-            Prelude.<$> (x Core..?> "ApplicationVersionDetail")
+            Prelude.<$> (x Data..?> "ApplicationVersionDetail")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -124,38 +126,38 @@ instance Prelude.NFData DescribeApplicationVersion where
     Prelude.rnf applicationName
       `Prelude.seq` Prelude.rnf applicationVersionId
 
-instance Core.ToHeaders DescribeApplicationVersion where
+instance Data.ToHeaders DescribeApplicationVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "KinesisAnalytics_20180523.DescribeApplicationVersion" ::
+              Data.=# ( "KinesisAnalytics_20180523.DescribeApplicationVersion" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeApplicationVersion where
+instance Data.ToJSON DescribeApplicationVersion where
   toJSON DescribeApplicationVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ApplicationName" Core..= applicationName),
+              ("ApplicationName" Data..= applicationName),
             Prelude.Just
               ( "ApplicationVersionId"
-                  Core..= applicationVersionId
+                  Data..= applicationVersionId
               )
           ]
       )
 
-instance Core.ToPath DescribeApplicationVersion where
+instance Data.ToPath DescribeApplicationVersion where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeApplicationVersion where
+instance Data.ToQuery DescribeApplicationVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeApplicationVersionResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.AnalysisSourceTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.AnalysisSourceTemplate where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types.DataSetReference
 
@@ -77,12 +78,12 @@ instance Prelude.NFData AnalysisSourceTemplate where
     Prelude.rnf dataSetReferences
       `Prelude.seq` Prelude.rnf arn
 
-instance Core.ToJSON AnalysisSourceTemplate where
+instance Data.ToJSON AnalysisSourceTemplate where
   toJSON AnalysisSourceTemplate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("DataSetReferences" Core..= dataSetReferences),
-            Prelude.Just ("Arn" Core..= arn)
+              ("DataSetReferences" Data..= dataSetReferences),
+            Prelude.Just ("Arn" Data..= arn)
           ]
       )

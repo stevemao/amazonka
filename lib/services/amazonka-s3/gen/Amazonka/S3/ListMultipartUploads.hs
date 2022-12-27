@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.ListMultipartUploads
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -66,13 +66,13 @@ module Amazonka.S3.ListMultipartUploads
     newListMultipartUploads,
 
     -- * Request Lenses
-    listMultipartUploads_keyMarker,
-    listMultipartUploads_prefix,
-    listMultipartUploads_encodingType,
-    listMultipartUploads_uploadIdMarker,
-    listMultipartUploads_maxUploads,
     listMultipartUploads_delimiter,
+    listMultipartUploads_encodingType,
     listMultipartUploads_expectedBucketOwner,
+    listMultipartUploads_keyMarker,
+    listMultipartUploads_maxUploads,
+    listMultipartUploads_prefix,
+    listMultipartUploads_uploadIdMarker,
     listMultipartUploads_bucket,
 
     -- * Destructuring the Response
@@ -80,24 +80,25 @@ module Amazonka.S3.ListMultipartUploads
     newListMultipartUploadsResponse,
 
     -- * Response Lenses
-    listMultipartUploadsResponse_keyMarker,
-    listMultipartUploadsResponse_prefix,
-    listMultipartUploadsResponse_commonPrefixes,
-    listMultipartUploadsResponse_encodingType,
     listMultipartUploadsResponse_bucket,
-    listMultipartUploadsResponse_uploadIdMarker,
+    listMultipartUploadsResponse_commonPrefixes,
+    listMultipartUploadsResponse_delimiter,
+    listMultipartUploadsResponse_encodingType,
+    listMultipartUploadsResponse_isTruncated,
+    listMultipartUploadsResponse_keyMarker,
     listMultipartUploadsResponse_maxUploads,
     listMultipartUploadsResponse_nextKeyMarker,
-    listMultipartUploadsResponse_uploads,
-    listMultipartUploadsResponse_isTruncated,
     listMultipartUploadsResponse_nextUploadIdMarker,
-    listMultipartUploadsResponse_delimiter,
+    listMultipartUploadsResponse_prefix,
+    listMultipartUploadsResponse_uploadIdMarker,
+    listMultipartUploadsResponse_uploads,
     listMultipartUploadsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -105,7 +106,21 @@ import Amazonka.S3.Types
 
 -- | /See:/ 'newListMultipartUploads' smart constructor.
 data ListMultipartUploads = ListMultipartUploads'
-  { -- | Together with upload-id-marker, this parameter specifies the multipart
+  { -- | Character you use to group keys.
+    --
+    -- All keys that contain the same string between the prefix, if specified,
+    -- and the first occurrence of the delimiter after the prefix are grouped
+    -- under a single result element, @CommonPrefixes@. If you don\'t specify
+    -- the prefix parameter, then the substring starts at the beginning of the
+    -- key. The keys that are grouped under @CommonPrefixes@ result element are
+    -- not returned elsewhere in the response.
+    delimiter :: Prelude.Maybe Delimiter,
+    encodingType :: Prelude.Maybe EncodingType,
+    -- | The account ID of the expected bucket owner. If the bucket is owned by a
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
+    expectedBucketOwner :: Prelude.Maybe Prelude.Text,
+    -- | Together with upload-id-marker, this parameter specifies the multipart
     -- upload after which listing should begin.
     --
     -- If @upload-id-marker@ is not specified, only the keys lexicographically
@@ -116,12 +131,15 @@ data ListMultipartUploads = ListMultipartUploads'
     -- multipart uploads have upload IDs lexicographically greater than the
     -- specified @upload-id-marker@.
     keyMarker :: Prelude.Maybe Prelude.Text,
+    -- | Sets the maximum number of multipart uploads, from 1 to 1,000, to return
+    -- in the response body. 1,000 is the maximum number of uploads that can be
+    -- returned in a response.
+    maxUploads :: Prelude.Maybe Prelude.Int,
     -- | Lists in-progress uploads only for those keys that begin with the
     -- specified prefix. You can use prefixes to separate a bucket into
     -- different grouping of keys. (You can think of using prefix to make
     -- groups in the same way you\'d use a folder in a file system.)
     prefix :: Prelude.Maybe Prelude.Text,
-    encodingType :: Prelude.Maybe EncodingType,
     -- | Together with key-marker, specifies the multipart upload after which
     -- listing should begin. If key-marker is not specified, the
     -- upload-id-marker parameter is ignored. Otherwise, any multipart uploads
@@ -129,23 +147,6 @@ data ListMultipartUploads = ListMultipartUploads'
     -- they have an upload ID lexicographically greater than the specified
     -- @upload-id-marker@.
     uploadIdMarker :: Prelude.Maybe Prelude.Text,
-    -- | Sets the maximum number of multipart uploads, from 1 to 1,000, to return
-    -- in the response body. 1,000 is the maximum number of uploads that can be
-    -- returned in a response.
-    maxUploads :: Prelude.Maybe Prelude.Int,
-    -- | Character you use to group keys.
-    --
-    -- All keys that contain the same string between the prefix, if specified,
-    -- and the first occurrence of the delimiter after the prefix are grouped
-    -- under a single result element, @CommonPrefixes@. If you don\'t specify
-    -- the prefix parameter, then the substring starts at the beginning of the
-    -- key. The keys that are grouped under @CommonPrefixes@ result element are
-    -- not returned elsewhere in the response.
-    delimiter :: Prelude.Maybe Delimiter,
-    -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
-    expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the bucket to which the multipart upload was initiated.
     --
     -- When using this action with an access point, you must direct requests to
@@ -160,11 +161,11 @@ data ListMultipartUploads = ListMultipartUploads'
     -- When using this action with Amazon S3 on Outposts, you must direct
     -- requests to the S3 on Outposts hostname. The S3 on Outposts hostname
     -- takes the form
-    -- /AccessPointName/-/AccountId/./outpostID/.s3-outposts./Region/.amazonaws.com.
-    -- When using this action using S3 on Outposts through the Amazon Web
+    -- @ AccessPointName-AccountId.outpostID.s3-outposts.Region.amazonaws.com@.
+    -- When using this action with S3 on Outposts through the Amazon Web
     -- Services SDKs, you provide the Outposts bucket ARN in place of the
     -- bucket name. For more information about S3 on Outposts ARNs, see
-    -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html Using S3 on Outposts>
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html Using Amazon S3 on Outposts>
     -- in the /Amazon S3 User Guide/.
     bucket :: BucketName
   }
@@ -178,6 +179,21 @@ data ListMultipartUploads = ListMultipartUploads'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'delimiter', 'listMultipartUploads_delimiter' - Character you use to group keys.
+--
+-- All keys that contain the same string between the prefix, if specified,
+-- and the first occurrence of the delimiter after the prefix are grouped
+-- under a single result element, @CommonPrefixes@. If you don\'t specify
+-- the prefix parameter, then the substring starts at the beginning of the
+-- key. The keys that are grouped under @CommonPrefixes@ result element are
+-- not returned elsewhere in the response.
+--
+-- 'encodingType', 'listMultipartUploads_encodingType' - Undocumented member.
+--
+-- 'expectedBucketOwner', 'listMultipartUploads_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
+--
 -- 'keyMarker', 'listMultipartUploads_keyMarker' - Together with upload-id-marker, this parameter specifies the multipart
 -- upload after which listing should begin.
 --
@@ -189,12 +205,14 @@ data ListMultipartUploads = ListMultipartUploads'
 -- multipart uploads have upload IDs lexicographically greater than the
 -- specified @upload-id-marker@.
 --
+-- 'maxUploads', 'listMultipartUploads_maxUploads' - Sets the maximum number of multipart uploads, from 1 to 1,000, to return
+-- in the response body. 1,000 is the maximum number of uploads that can be
+-- returned in a response.
+--
 -- 'prefix', 'listMultipartUploads_prefix' - Lists in-progress uploads only for those keys that begin with the
 -- specified prefix. You can use prefixes to separate a bucket into
 -- different grouping of keys. (You can think of using prefix to make
 -- groups in the same way you\'d use a folder in a file system.)
---
--- 'encodingType', 'listMultipartUploads_encodingType' - Undocumented member.
 --
 -- 'uploadIdMarker', 'listMultipartUploads_uploadIdMarker' - Together with key-marker, specifies the multipart upload after which
 -- listing should begin. If key-marker is not specified, the
@@ -202,23 +220,6 @@ data ListMultipartUploads = ListMultipartUploads'
 -- for a key equal to the key-marker might be included in the list only if
 -- they have an upload ID lexicographically greater than the specified
 -- @upload-id-marker@.
---
--- 'maxUploads', 'listMultipartUploads_maxUploads' - Sets the maximum number of multipart uploads, from 1 to 1,000, to return
--- in the response body. 1,000 is the maximum number of uploads that can be
--- returned in a response.
---
--- 'delimiter', 'listMultipartUploads_delimiter' - Character you use to group keys.
---
--- All keys that contain the same string between the prefix, if specified,
--- and the first occurrence of the delimiter after the prefix are grouped
--- under a single result element, @CommonPrefixes@. If you don\'t specify
--- the prefix parameter, then the substring starts at the beginning of the
--- key. The keys that are grouped under @CommonPrefixes@ result element are
--- not returned elsewhere in the response.
---
--- 'expectedBucketOwner', 'listMultipartUploads_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
 --
 -- 'bucket', 'listMultipartUploads_bucket' - The name of the bucket to which the multipart upload was initiated.
 --
@@ -234,11 +235,11 @@ data ListMultipartUploads = ListMultipartUploads'
 -- When using this action with Amazon S3 on Outposts, you must direct
 -- requests to the S3 on Outposts hostname. The S3 on Outposts hostname
 -- takes the form
--- /AccessPointName/-/AccountId/./outpostID/.s3-outposts./Region/.amazonaws.com.
--- When using this action using S3 on Outposts through the Amazon Web
+-- @ AccessPointName-AccountId.outpostID.s3-outposts.Region.amazonaws.com@.
+-- When using this action with S3 on Outposts through the Amazon Web
 -- Services SDKs, you provide the Outposts bucket ARN in place of the
 -- bucket name. For more information about S3 on Outposts ARNs, see
--- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html Using S3 on Outposts>
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html Using Amazon S3 on Outposts>
 -- in the /Amazon S3 User Guide/.
 newListMultipartUploads ::
   -- | 'bucket'
@@ -246,15 +247,36 @@ newListMultipartUploads ::
   ListMultipartUploads
 newListMultipartUploads pBucket_ =
   ListMultipartUploads'
-    { keyMarker = Prelude.Nothing,
-      prefix = Prelude.Nothing,
+    { delimiter = Prelude.Nothing,
       encodingType = Prelude.Nothing,
-      uploadIdMarker = Prelude.Nothing,
-      maxUploads = Prelude.Nothing,
-      delimiter = Prelude.Nothing,
       expectedBucketOwner = Prelude.Nothing,
+      keyMarker = Prelude.Nothing,
+      maxUploads = Prelude.Nothing,
+      prefix = Prelude.Nothing,
+      uploadIdMarker = Prelude.Nothing,
       bucket = pBucket_
     }
+
+-- | Character you use to group keys.
+--
+-- All keys that contain the same string between the prefix, if specified,
+-- and the first occurrence of the delimiter after the prefix are grouped
+-- under a single result element, @CommonPrefixes@. If you don\'t specify
+-- the prefix parameter, then the substring starts at the beginning of the
+-- key. The keys that are grouped under @CommonPrefixes@ result element are
+-- not returned elsewhere in the response.
+listMultipartUploads_delimiter :: Lens.Lens' ListMultipartUploads (Prelude.Maybe Delimiter)
+listMultipartUploads_delimiter = Lens.lens (\ListMultipartUploads' {delimiter} -> delimiter) (\s@ListMultipartUploads' {} a -> s {delimiter = a} :: ListMultipartUploads)
+
+-- | Undocumented member.
+listMultipartUploads_encodingType :: Lens.Lens' ListMultipartUploads (Prelude.Maybe EncodingType)
+listMultipartUploads_encodingType = Lens.lens (\ListMultipartUploads' {encodingType} -> encodingType) (\s@ListMultipartUploads' {} a -> s {encodingType = a} :: ListMultipartUploads)
+
+-- | The account ID of the expected bucket owner. If the bucket is owned by a
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
+listMultipartUploads_expectedBucketOwner :: Lens.Lens' ListMultipartUploads (Prelude.Maybe Prelude.Text)
+listMultipartUploads_expectedBucketOwner = Lens.lens (\ListMultipartUploads' {expectedBucketOwner} -> expectedBucketOwner) (\s@ListMultipartUploads' {} a -> s {expectedBucketOwner = a} :: ListMultipartUploads)
 
 -- | Together with upload-id-marker, this parameter specifies the multipart
 -- upload after which listing should begin.
@@ -269,16 +291,18 @@ newListMultipartUploads pBucket_ =
 listMultipartUploads_keyMarker :: Lens.Lens' ListMultipartUploads (Prelude.Maybe Prelude.Text)
 listMultipartUploads_keyMarker = Lens.lens (\ListMultipartUploads' {keyMarker} -> keyMarker) (\s@ListMultipartUploads' {} a -> s {keyMarker = a} :: ListMultipartUploads)
 
+-- | Sets the maximum number of multipart uploads, from 1 to 1,000, to return
+-- in the response body. 1,000 is the maximum number of uploads that can be
+-- returned in a response.
+listMultipartUploads_maxUploads :: Lens.Lens' ListMultipartUploads (Prelude.Maybe Prelude.Int)
+listMultipartUploads_maxUploads = Lens.lens (\ListMultipartUploads' {maxUploads} -> maxUploads) (\s@ListMultipartUploads' {} a -> s {maxUploads = a} :: ListMultipartUploads)
+
 -- | Lists in-progress uploads only for those keys that begin with the
 -- specified prefix. You can use prefixes to separate a bucket into
 -- different grouping of keys. (You can think of using prefix to make
 -- groups in the same way you\'d use a folder in a file system.)
 listMultipartUploads_prefix :: Lens.Lens' ListMultipartUploads (Prelude.Maybe Prelude.Text)
 listMultipartUploads_prefix = Lens.lens (\ListMultipartUploads' {prefix} -> prefix) (\s@ListMultipartUploads' {} a -> s {prefix = a} :: ListMultipartUploads)
-
--- | Undocumented member.
-listMultipartUploads_encodingType :: Lens.Lens' ListMultipartUploads (Prelude.Maybe EncodingType)
-listMultipartUploads_encodingType = Lens.lens (\ListMultipartUploads' {encodingType} -> encodingType) (\s@ListMultipartUploads' {} a -> s {encodingType = a} :: ListMultipartUploads)
 
 -- | Together with key-marker, specifies the multipart upload after which
 -- listing should begin. If key-marker is not specified, the
@@ -288,29 +312,6 @@ listMultipartUploads_encodingType = Lens.lens (\ListMultipartUploads' {encodingT
 -- @upload-id-marker@.
 listMultipartUploads_uploadIdMarker :: Lens.Lens' ListMultipartUploads (Prelude.Maybe Prelude.Text)
 listMultipartUploads_uploadIdMarker = Lens.lens (\ListMultipartUploads' {uploadIdMarker} -> uploadIdMarker) (\s@ListMultipartUploads' {} a -> s {uploadIdMarker = a} :: ListMultipartUploads)
-
--- | Sets the maximum number of multipart uploads, from 1 to 1,000, to return
--- in the response body. 1,000 is the maximum number of uploads that can be
--- returned in a response.
-listMultipartUploads_maxUploads :: Lens.Lens' ListMultipartUploads (Prelude.Maybe Prelude.Int)
-listMultipartUploads_maxUploads = Lens.lens (\ListMultipartUploads' {maxUploads} -> maxUploads) (\s@ListMultipartUploads' {} a -> s {maxUploads = a} :: ListMultipartUploads)
-
--- | Character you use to group keys.
---
--- All keys that contain the same string between the prefix, if specified,
--- and the first occurrence of the delimiter after the prefix are grouped
--- under a single result element, @CommonPrefixes@. If you don\'t specify
--- the prefix parameter, then the substring starts at the beginning of the
--- key. The keys that are grouped under @CommonPrefixes@ result element are
--- not returned elsewhere in the response.
-listMultipartUploads_delimiter :: Lens.Lens' ListMultipartUploads (Prelude.Maybe Delimiter)
-listMultipartUploads_delimiter = Lens.lens (\ListMultipartUploads' {delimiter} -> delimiter) (\s@ListMultipartUploads' {} a -> s {delimiter = a} :: ListMultipartUploads)
-
--- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
-listMultipartUploads_expectedBucketOwner :: Lens.Lens' ListMultipartUploads (Prelude.Maybe Prelude.Text)
-listMultipartUploads_expectedBucketOwner = Lens.lens (\ListMultipartUploads' {expectedBucketOwner} -> expectedBucketOwner) (\s@ListMultipartUploads' {} a -> s {expectedBucketOwner = a} :: ListMultipartUploads)
 
 -- | The name of the bucket to which the multipart upload was initiated.
 --
@@ -326,11 +327,11 @@ listMultipartUploads_expectedBucketOwner = Lens.lens (\ListMultipartUploads' {ex
 -- When using this action with Amazon S3 on Outposts, you must direct
 -- requests to the S3 on Outposts hostname. The S3 on Outposts hostname
 -- takes the form
--- /AccessPointName/-/AccountId/./outpostID/.s3-outposts./Region/.amazonaws.com.
--- When using this action using S3 on Outposts through the Amazon Web
+-- @ AccessPointName-AccountId.outpostID.s3-outposts.Region.amazonaws.com@.
+-- When using this action with S3 on Outposts through the Amazon Web
 -- Services SDKs, you provide the Outposts bucket ARN in place of the
 -- bucket name. For more information about S3 on Outposts ARNs, see
--- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html Using S3 on Outposts>
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html Using Amazon S3 on Outposts>
 -- in the /Amazon S3 User Guide/.
 listMultipartUploads_bucket :: Lens.Lens' ListMultipartUploads BucketName
 listMultipartUploads_bucket = Lens.lens (\ListMultipartUploads' {bucket} -> bucket) (\s@ListMultipartUploads' {} a -> s {bucket = a} :: ListMultipartUploads)
@@ -370,86 +371,87 @@ instance Core.AWSRequest ListMultipartUploads where
   type
     AWSResponse ListMultipartUploads =
       ListMultipartUploadsResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.get defaultService
+      Prelude.. Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ListMultipartUploadsResponse'
-            Prelude.<$> (x Core..@? "KeyMarker")
-            Prelude.<*> (x Core..@? "Prefix")
-            Prelude.<*> (Core.may (Core.parseXMLList "CommonPrefixes") x)
-            Prelude.<*> (x Core..@? "EncodingType")
-            Prelude.<*> (x Core..@? "Bucket")
-            Prelude.<*> (x Core..@? "UploadIdMarker")
-            Prelude.<*> (x Core..@? "MaxUploads")
-            Prelude.<*> (x Core..@? "NextKeyMarker")
-            Prelude.<*> (Core.may (Core.parseXMLList "Upload") x)
-            Prelude.<*> (x Core..@? "IsTruncated")
-            Prelude.<*> (x Core..@? "NextUploadIdMarker")
-            Prelude.<*> (x Core..@? "Delimiter")
+            Prelude.<$> (x Data..@? "Bucket")
+            Prelude.<*> (Core.may (Data.parseXMLList "CommonPrefixes") x)
+            Prelude.<*> (x Data..@? "Delimiter")
+            Prelude.<*> (x Data..@? "EncodingType")
+            Prelude.<*> (x Data..@? "IsTruncated")
+            Prelude.<*> (x Data..@? "KeyMarker")
+            Prelude.<*> (x Data..@? "MaxUploads")
+            Prelude.<*> (x Data..@? "NextKeyMarker")
+            Prelude.<*> (x Data..@? "NextUploadIdMarker")
+            Prelude.<*> (x Data..@? "Prefix")
+            Prelude.<*> (x Data..@? "UploadIdMarker")
+            Prelude.<*> (Core.may (Data.parseXMLList "Upload") x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListMultipartUploads where
   hashWithSalt _salt ListMultipartUploads' {..} =
-    _salt `Prelude.hashWithSalt` keyMarker
-      `Prelude.hashWithSalt` prefix
+    _salt `Prelude.hashWithSalt` delimiter
       `Prelude.hashWithSalt` encodingType
-      `Prelude.hashWithSalt` uploadIdMarker
-      `Prelude.hashWithSalt` maxUploads
-      `Prelude.hashWithSalt` delimiter
       `Prelude.hashWithSalt` expectedBucketOwner
+      `Prelude.hashWithSalt` keyMarker
+      `Prelude.hashWithSalt` maxUploads
+      `Prelude.hashWithSalt` prefix
+      `Prelude.hashWithSalt` uploadIdMarker
       `Prelude.hashWithSalt` bucket
 
 instance Prelude.NFData ListMultipartUploads where
   rnf ListMultipartUploads' {..} =
-    Prelude.rnf keyMarker
-      `Prelude.seq` Prelude.rnf prefix
+    Prelude.rnf delimiter
       `Prelude.seq` Prelude.rnf encodingType
-      `Prelude.seq` Prelude.rnf uploadIdMarker
-      `Prelude.seq` Prelude.rnf maxUploads
-      `Prelude.seq` Prelude.rnf delimiter
       `Prelude.seq` Prelude.rnf expectedBucketOwner
+      `Prelude.seq` Prelude.rnf keyMarker
+      `Prelude.seq` Prelude.rnf maxUploads
+      `Prelude.seq` Prelude.rnf prefix
+      `Prelude.seq` Prelude.rnf uploadIdMarker
       `Prelude.seq` Prelude.rnf bucket
 
-instance Core.ToHeaders ListMultipartUploads where
+instance Data.ToHeaders ListMultipartUploads where
   toHeaders ListMultipartUploads' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath ListMultipartUploads where
+instance Data.ToPath ListMultipartUploads where
   toPath ListMultipartUploads' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery ListMultipartUploads where
+instance Data.ToQuery ListMultipartUploads where
   toQuery ListMultipartUploads' {..} =
     Prelude.mconcat
-      [ "key-marker" Core.=: keyMarker,
-        "prefix" Core.=: prefix,
-        "encoding-type" Core.=: encodingType,
-        "upload-id-marker" Core.=: uploadIdMarker,
-        "max-uploads" Core.=: maxUploads,
-        "delimiter" Core.=: delimiter,
+      [ "delimiter" Data.=: delimiter,
+        "encoding-type" Data.=: encodingType,
+        "key-marker" Data.=: keyMarker,
+        "max-uploads" Data.=: maxUploads,
+        "prefix" Data.=: prefix,
+        "upload-id-marker" Data.=: uploadIdMarker,
         "uploads"
       ]
 
 -- | /See:/ 'newListMultipartUploadsResponse' smart constructor.
 data ListMultipartUploadsResponse = ListMultipartUploadsResponse'
-  { -- | The key at or after which the listing began.
-    keyMarker :: Prelude.Maybe Prelude.Text,
-    -- | When a prefix is provided in the request, this field contains the
-    -- specified prefix. The result contains only keys starting with the
-    -- specified prefix.
-    prefix :: Prelude.Maybe Prelude.Text,
+  { -- | The name of the bucket to which the multipart upload was initiated. Does
+    -- not return the access point ARN or access point alias if used.
+    bucket :: Prelude.Maybe BucketName,
     -- | If you specify a delimiter in the request, then the result returns each
     -- distinct key prefix containing the delimiter in a @CommonPrefixes@
     -- element. The distinct key prefixes are returned in the @Prefix@ child
     -- element.
     commonPrefixes :: Prelude.Maybe [CommonPrefix],
+    -- | Contains the delimiter you specified in the request. If you don\'t
+    -- specify a delimiter in your request, this element is absent from the
+    -- response.
+    delimiter :: Prelude.Maybe Delimiter,
     -- | Encoding type used by Amazon S3 to encode object keys in the response.
     --
     -- If you specify @encoding-type@ request parameter, Amazon S3 includes
@@ -458,33 +460,32 @@ data ListMultipartUploadsResponse = ListMultipartUploadsResponse'
     --
     -- @Delimiter@, @KeyMarker@, @Prefix@, @NextKeyMarker@, @Key@.
     encodingType :: Prelude.Maybe EncodingType,
-    -- | The name of the bucket to which the multipart upload was initiated. Does
-    -- not return the access point ARN or access point alias if used.
-    bucket :: Prelude.Maybe BucketName,
-    -- | Upload ID after which listing began.
-    uploadIdMarker :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether the returned list of multipart uploads is truncated. A
+    -- value of true indicates that the list was truncated. The list can be
+    -- truncated if the number of multipart uploads exceeds the limit allowed
+    -- or specified by max uploads.
+    isTruncated :: Prelude.Maybe Prelude.Bool,
+    -- | The key at or after which the listing began.
+    keyMarker :: Prelude.Maybe Prelude.Text,
     -- | Maximum number of multipart uploads that could have been included in the
     -- response.
     maxUploads :: Prelude.Maybe Prelude.Int,
     -- | When a list is truncated, this element specifies the value that should
     -- be used for the key-marker request parameter in a subsequent request.
     nextKeyMarker :: Prelude.Maybe Prelude.Text,
-    -- | Container for elements related to a particular multipart upload. A
-    -- response can contain zero or more @Upload@ elements.
-    uploads :: Prelude.Maybe [MultipartUpload],
-    -- | Indicates whether the returned list of multipart uploads is truncated. A
-    -- value of true indicates that the list was truncated. The list can be
-    -- truncated if the number of multipart uploads exceeds the limit allowed
-    -- or specified by max uploads.
-    isTruncated :: Prelude.Maybe Prelude.Bool,
     -- | When a list is truncated, this element specifies the value that should
     -- be used for the @upload-id-marker@ request parameter in a subsequent
     -- request.
     nextUploadIdMarker :: Prelude.Maybe Prelude.Text,
-    -- | Contains the delimiter you specified in the request. If you don\'t
-    -- specify a delimiter in your request, this element is absent from the
-    -- response.
-    delimiter :: Prelude.Maybe Delimiter,
+    -- | When a prefix is provided in the request, this field contains the
+    -- specified prefix. The result contains only keys starting with the
+    -- specified prefix.
+    prefix :: Prelude.Maybe Prelude.Text,
+    -- | Upload ID after which listing began.
+    uploadIdMarker :: Prelude.Maybe Prelude.Text,
+    -- | Container for elements related to a particular multipart upload. A
+    -- response can contain zero or more @Upload@ elements.
+    uploads :: Prelude.Maybe [MultipartUpload],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -498,16 +499,17 @@ data ListMultipartUploadsResponse = ListMultipartUploadsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'keyMarker', 'listMultipartUploadsResponse_keyMarker' - The key at or after which the listing began.
---
--- 'prefix', 'listMultipartUploadsResponse_prefix' - When a prefix is provided in the request, this field contains the
--- specified prefix. The result contains only keys starting with the
--- specified prefix.
+-- 'bucket', 'listMultipartUploadsResponse_bucket' - The name of the bucket to which the multipart upload was initiated. Does
+-- not return the access point ARN or access point alias if used.
 --
 -- 'commonPrefixes', 'listMultipartUploadsResponse_commonPrefixes' - If you specify a delimiter in the request, then the result returns each
 -- distinct key prefix containing the delimiter in a @CommonPrefixes@
 -- element. The distinct key prefixes are returned in the @Prefix@ child
 -- element.
+--
+-- 'delimiter', 'listMultipartUploadsResponse_delimiter' - Contains the delimiter you specified in the request. If you don\'t
+-- specify a delimiter in your request, this element is absent from the
+-- response.
 --
 -- 'encodingType', 'listMultipartUploadsResponse_encodingType' - Encoding type used by Amazon S3 to encode object keys in the response.
 --
@@ -517,10 +519,12 @@ data ListMultipartUploadsResponse = ListMultipartUploadsResponse'
 --
 -- @Delimiter@, @KeyMarker@, @Prefix@, @NextKeyMarker@, @Key@.
 --
--- 'bucket', 'listMultipartUploadsResponse_bucket' - The name of the bucket to which the multipart upload was initiated. Does
--- not return the access point ARN or access point alias if used.
+-- 'isTruncated', 'listMultipartUploadsResponse_isTruncated' - Indicates whether the returned list of multipart uploads is truncated. A
+-- value of true indicates that the list was truncated. The list can be
+-- truncated if the number of multipart uploads exceeds the limit allowed
+-- or specified by max uploads.
 --
--- 'uploadIdMarker', 'listMultipartUploadsResponse_uploadIdMarker' - Upload ID after which listing began.
+-- 'keyMarker', 'listMultipartUploadsResponse_keyMarker' - The key at or after which the listing began.
 --
 -- 'maxUploads', 'listMultipartUploadsResponse_maxUploads' - Maximum number of multipart uploads that could have been included in the
 -- response.
@@ -528,21 +532,18 @@ data ListMultipartUploadsResponse = ListMultipartUploadsResponse'
 -- 'nextKeyMarker', 'listMultipartUploadsResponse_nextKeyMarker' - When a list is truncated, this element specifies the value that should
 -- be used for the key-marker request parameter in a subsequent request.
 --
--- 'uploads', 'listMultipartUploadsResponse_uploads' - Container for elements related to a particular multipart upload. A
--- response can contain zero or more @Upload@ elements.
---
--- 'isTruncated', 'listMultipartUploadsResponse_isTruncated' - Indicates whether the returned list of multipart uploads is truncated. A
--- value of true indicates that the list was truncated. The list can be
--- truncated if the number of multipart uploads exceeds the limit allowed
--- or specified by max uploads.
---
 -- 'nextUploadIdMarker', 'listMultipartUploadsResponse_nextUploadIdMarker' - When a list is truncated, this element specifies the value that should
 -- be used for the @upload-id-marker@ request parameter in a subsequent
 -- request.
 --
--- 'delimiter', 'listMultipartUploadsResponse_delimiter' - Contains the delimiter you specified in the request. If you don\'t
--- specify a delimiter in your request, this element is absent from the
--- response.
+-- 'prefix', 'listMultipartUploadsResponse_prefix' - When a prefix is provided in the request, this field contains the
+-- specified prefix. The result contains only keys starting with the
+-- specified prefix.
+--
+-- 'uploadIdMarker', 'listMultipartUploadsResponse_uploadIdMarker' - Upload ID after which listing began.
+--
+-- 'uploads', 'listMultipartUploadsResponse_uploads' - Container for elements related to a particular multipart upload. A
+-- response can contain zero or more @Upload@ elements.
 --
 -- 'httpStatus', 'listMultipartUploadsResponse_httpStatus' - The response's http status code.
 newListMultipartUploadsResponse ::
@@ -551,31 +552,26 @@ newListMultipartUploadsResponse ::
   ListMultipartUploadsResponse
 newListMultipartUploadsResponse pHttpStatus_ =
   ListMultipartUploadsResponse'
-    { keyMarker =
+    { bucket =
         Prelude.Nothing,
-      prefix = Prelude.Nothing,
       commonPrefixes = Prelude.Nothing,
+      delimiter = Prelude.Nothing,
       encodingType = Prelude.Nothing,
-      bucket = Prelude.Nothing,
-      uploadIdMarker = Prelude.Nothing,
+      isTruncated = Prelude.Nothing,
+      keyMarker = Prelude.Nothing,
       maxUploads = Prelude.Nothing,
       nextKeyMarker = Prelude.Nothing,
-      uploads = Prelude.Nothing,
-      isTruncated = Prelude.Nothing,
       nextUploadIdMarker = Prelude.Nothing,
-      delimiter = Prelude.Nothing,
+      prefix = Prelude.Nothing,
+      uploadIdMarker = Prelude.Nothing,
+      uploads = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The key at or after which the listing began.
-listMultipartUploadsResponse_keyMarker :: Lens.Lens' ListMultipartUploadsResponse (Prelude.Maybe Prelude.Text)
-listMultipartUploadsResponse_keyMarker = Lens.lens (\ListMultipartUploadsResponse' {keyMarker} -> keyMarker) (\s@ListMultipartUploadsResponse' {} a -> s {keyMarker = a} :: ListMultipartUploadsResponse)
-
--- | When a prefix is provided in the request, this field contains the
--- specified prefix. The result contains only keys starting with the
--- specified prefix.
-listMultipartUploadsResponse_prefix :: Lens.Lens' ListMultipartUploadsResponse (Prelude.Maybe Prelude.Text)
-listMultipartUploadsResponse_prefix = Lens.lens (\ListMultipartUploadsResponse' {prefix} -> prefix) (\s@ListMultipartUploadsResponse' {} a -> s {prefix = a} :: ListMultipartUploadsResponse)
+-- | The name of the bucket to which the multipart upload was initiated. Does
+-- not return the access point ARN or access point alias if used.
+listMultipartUploadsResponse_bucket :: Lens.Lens' ListMultipartUploadsResponse (Prelude.Maybe BucketName)
+listMultipartUploadsResponse_bucket = Lens.lens (\ListMultipartUploadsResponse' {bucket} -> bucket) (\s@ListMultipartUploadsResponse' {} a -> s {bucket = a} :: ListMultipartUploadsResponse)
 
 -- | If you specify a delimiter in the request, then the result returns each
 -- distinct key prefix containing the delimiter in a @CommonPrefixes@
@@ -583,6 +579,12 @@ listMultipartUploadsResponse_prefix = Lens.lens (\ListMultipartUploadsResponse' 
 -- element.
 listMultipartUploadsResponse_commonPrefixes :: Lens.Lens' ListMultipartUploadsResponse (Prelude.Maybe [CommonPrefix])
 listMultipartUploadsResponse_commonPrefixes = Lens.lens (\ListMultipartUploadsResponse' {commonPrefixes} -> commonPrefixes) (\s@ListMultipartUploadsResponse' {} a -> s {commonPrefixes = a} :: ListMultipartUploadsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | Contains the delimiter you specified in the request. If you don\'t
+-- specify a delimiter in your request, this element is absent from the
+-- response.
+listMultipartUploadsResponse_delimiter :: Lens.Lens' ListMultipartUploadsResponse (Prelude.Maybe Delimiter)
+listMultipartUploadsResponse_delimiter = Lens.lens (\ListMultipartUploadsResponse' {delimiter} -> delimiter) (\s@ListMultipartUploadsResponse' {} a -> s {delimiter = a} :: ListMultipartUploadsResponse)
 
 -- | Encoding type used by Amazon S3 to encode object keys in the response.
 --
@@ -594,14 +596,16 @@ listMultipartUploadsResponse_commonPrefixes = Lens.lens (\ListMultipartUploadsRe
 listMultipartUploadsResponse_encodingType :: Lens.Lens' ListMultipartUploadsResponse (Prelude.Maybe EncodingType)
 listMultipartUploadsResponse_encodingType = Lens.lens (\ListMultipartUploadsResponse' {encodingType} -> encodingType) (\s@ListMultipartUploadsResponse' {} a -> s {encodingType = a} :: ListMultipartUploadsResponse)
 
--- | The name of the bucket to which the multipart upload was initiated. Does
--- not return the access point ARN or access point alias if used.
-listMultipartUploadsResponse_bucket :: Lens.Lens' ListMultipartUploadsResponse (Prelude.Maybe BucketName)
-listMultipartUploadsResponse_bucket = Lens.lens (\ListMultipartUploadsResponse' {bucket} -> bucket) (\s@ListMultipartUploadsResponse' {} a -> s {bucket = a} :: ListMultipartUploadsResponse)
+-- | Indicates whether the returned list of multipart uploads is truncated. A
+-- value of true indicates that the list was truncated. The list can be
+-- truncated if the number of multipart uploads exceeds the limit allowed
+-- or specified by max uploads.
+listMultipartUploadsResponse_isTruncated :: Lens.Lens' ListMultipartUploadsResponse (Prelude.Maybe Prelude.Bool)
+listMultipartUploadsResponse_isTruncated = Lens.lens (\ListMultipartUploadsResponse' {isTruncated} -> isTruncated) (\s@ListMultipartUploadsResponse' {} a -> s {isTruncated = a} :: ListMultipartUploadsResponse)
 
--- | Upload ID after which listing began.
-listMultipartUploadsResponse_uploadIdMarker :: Lens.Lens' ListMultipartUploadsResponse (Prelude.Maybe Prelude.Text)
-listMultipartUploadsResponse_uploadIdMarker = Lens.lens (\ListMultipartUploadsResponse' {uploadIdMarker} -> uploadIdMarker) (\s@ListMultipartUploadsResponse' {} a -> s {uploadIdMarker = a} :: ListMultipartUploadsResponse)
+-- | The key at or after which the listing began.
+listMultipartUploadsResponse_keyMarker :: Lens.Lens' ListMultipartUploadsResponse (Prelude.Maybe Prelude.Text)
+listMultipartUploadsResponse_keyMarker = Lens.lens (\ListMultipartUploadsResponse' {keyMarker} -> keyMarker) (\s@ListMultipartUploadsResponse' {} a -> s {keyMarker = a} :: ListMultipartUploadsResponse)
 
 -- | Maximum number of multipart uploads that could have been included in the
 -- response.
@@ -613,29 +617,26 @@ listMultipartUploadsResponse_maxUploads = Lens.lens (\ListMultipartUploadsRespon
 listMultipartUploadsResponse_nextKeyMarker :: Lens.Lens' ListMultipartUploadsResponse (Prelude.Maybe Prelude.Text)
 listMultipartUploadsResponse_nextKeyMarker = Lens.lens (\ListMultipartUploadsResponse' {nextKeyMarker} -> nextKeyMarker) (\s@ListMultipartUploadsResponse' {} a -> s {nextKeyMarker = a} :: ListMultipartUploadsResponse)
 
--- | Container for elements related to a particular multipart upload. A
--- response can contain zero or more @Upload@ elements.
-listMultipartUploadsResponse_uploads :: Lens.Lens' ListMultipartUploadsResponse (Prelude.Maybe [MultipartUpload])
-listMultipartUploadsResponse_uploads = Lens.lens (\ListMultipartUploadsResponse' {uploads} -> uploads) (\s@ListMultipartUploadsResponse' {} a -> s {uploads = a} :: ListMultipartUploadsResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | Indicates whether the returned list of multipart uploads is truncated. A
--- value of true indicates that the list was truncated. The list can be
--- truncated if the number of multipart uploads exceeds the limit allowed
--- or specified by max uploads.
-listMultipartUploadsResponse_isTruncated :: Lens.Lens' ListMultipartUploadsResponse (Prelude.Maybe Prelude.Bool)
-listMultipartUploadsResponse_isTruncated = Lens.lens (\ListMultipartUploadsResponse' {isTruncated} -> isTruncated) (\s@ListMultipartUploadsResponse' {} a -> s {isTruncated = a} :: ListMultipartUploadsResponse)
-
 -- | When a list is truncated, this element specifies the value that should
 -- be used for the @upload-id-marker@ request parameter in a subsequent
 -- request.
 listMultipartUploadsResponse_nextUploadIdMarker :: Lens.Lens' ListMultipartUploadsResponse (Prelude.Maybe Prelude.Text)
 listMultipartUploadsResponse_nextUploadIdMarker = Lens.lens (\ListMultipartUploadsResponse' {nextUploadIdMarker} -> nextUploadIdMarker) (\s@ListMultipartUploadsResponse' {} a -> s {nextUploadIdMarker = a} :: ListMultipartUploadsResponse)
 
--- | Contains the delimiter you specified in the request. If you don\'t
--- specify a delimiter in your request, this element is absent from the
--- response.
-listMultipartUploadsResponse_delimiter :: Lens.Lens' ListMultipartUploadsResponse (Prelude.Maybe Delimiter)
-listMultipartUploadsResponse_delimiter = Lens.lens (\ListMultipartUploadsResponse' {delimiter} -> delimiter) (\s@ListMultipartUploadsResponse' {} a -> s {delimiter = a} :: ListMultipartUploadsResponse)
+-- | When a prefix is provided in the request, this field contains the
+-- specified prefix. The result contains only keys starting with the
+-- specified prefix.
+listMultipartUploadsResponse_prefix :: Lens.Lens' ListMultipartUploadsResponse (Prelude.Maybe Prelude.Text)
+listMultipartUploadsResponse_prefix = Lens.lens (\ListMultipartUploadsResponse' {prefix} -> prefix) (\s@ListMultipartUploadsResponse' {} a -> s {prefix = a} :: ListMultipartUploadsResponse)
+
+-- | Upload ID after which listing began.
+listMultipartUploadsResponse_uploadIdMarker :: Lens.Lens' ListMultipartUploadsResponse (Prelude.Maybe Prelude.Text)
+listMultipartUploadsResponse_uploadIdMarker = Lens.lens (\ListMultipartUploadsResponse' {uploadIdMarker} -> uploadIdMarker) (\s@ListMultipartUploadsResponse' {} a -> s {uploadIdMarker = a} :: ListMultipartUploadsResponse)
+
+-- | Container for elements related to a particular multipart upload. A
+-- response can contain zero or more @Upload@ elements.
+listMultipartUploadsResponse_uploads :: Lens.Lens' ListMultipartUploadsResponse (Prelude.Maybe [MultipartUpload])
+listMultipartUploadsResponse_uploads = Lens.lens (\ListMultipartUploadsResponse' {uploads} -> uploads) (\s@ListMultipartUploadsResponse' {} a -> s {uploads = a} :: ListMultipartUploadsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listMultipartUploadsResponse_httpStatus :: Lens.Lens' ListMultipartUploadsResponse Prelude.Int
@@ -643,16 +644,16 @@ listMultipartUploadsResponse_httpStatus = Lens.lens (\ListMultipartUploadsRespon
 
 instance Prelude.NFData ListMultipartUploadsResponse where
   rnf ListMultipartUploadsResponse' {..} =
-    Prelude.rnf keyMarker
-      `Prelude.seq` Prelude.rnf prefix
+    Prelude.rnf bucket
       `Prelude.seq` Prelude.rnf commonPrefixes
+      `Prelude.seq` Prelude.rnf delimiter
       `Prelude.seq` Prelude.rnf encodingType
-      `Prelude.seq` Prelude.rnf bucket
-      `Prelude.seq` Prelude.rnf uploadIdMarker
+      `Prelude.seq` Prelude.rnf isTruncated
+      `Prelude.seq` Prelude.rnf keyMarker
       `Prelude.seq` Prelude.rnf maxUploads
       `Prelude.seq` Prelude.rnf nextKeyMarker
-      `Prelude.seq` Prelude.rnf uploads
-      `Prelude.seq` Prelude.rnf isTruncated
       `Prelude.seq` Prelude.rnf nextUploadIdMarker
-      `Prelude.seq` Prelude.rnf delimiter
+      `Prelude.seq` Prelude.rnf prefix
+      `Prelude.seq` Prelude.rnf uploadIdMarker
+      `Prelude.seq` Prelude.rnf uploads
       `Prelude.seq` Prelude.rnf httpStatus

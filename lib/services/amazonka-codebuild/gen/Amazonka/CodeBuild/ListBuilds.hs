@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.ListBuilds
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.CodeBuild.ListBuilds
     newListBuilds,
 
     -- * Request Lenses
-    listBuilds_sortOrder,
     listBuilds_nextToken,
+    listBuilds_sortOrder,
 
     -- * Destructuring the Response
     ListBuildsResponse (..),
@@ -46,26 +46,27 @@ where
 
 import Amazonka.CodeBuild.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListBuilds' smart constructor.
 data ListBuilds = ListBuilds'
-  { -- | The order to list build IDs. Valid values include:
-    --
-    -- -   @ASCENDING@: List the build IDs in ascending order by build ID.
-    --
-    -- -   @DESCENDING@: List the build IDs in descending order by build ID.
-    sortOrder :: Prelude.Maybe SortOrderType,
-    -- | During a previous call, if there are more than 100 items in the list,
+  { -- | During a previous call, if there are more than 100 items in the list,
     -- only the first 100 items are returned, along with a unique string called
     -- a /nextToken/. To get the next batch of items in the list, call this
     -- operation again, adding the next token to the call. To get all of the
     -- items in the list, keep calling this operation with each subsequent next
     -- token that is returned, until no more next tokens are returned.
-    nextToken :: Prelude.Maybe Prelude.Text
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The order to list build IDs. Valid values include:
+    --
+    -- -   @ASCENDING@: List the build IDs in ascending order by build ID.
+    --
+    -- -   @DESCENDING@: List the build IDs in descending order by build ID.
+    sortOrder :: Prelude.Maybe SortOrderType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -77,33 +78,25 @@ data ListBuilds = ListBuilds'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sortOrder', 'listBuilds_sortOrder' - The order to list build IDs. Valid values include:
---
--- -   @ASCENDING@: List the build IDs in ascending order by build ID.
---
--- -   @DESCENDING@: List the build IDs in descending order by build ID.
---
 -- 'nextToken', 'listBuilds_nextToken' - During a previous call, if there are more than 100 items in the list,
 -- only the first 100 items are returned, along with a unique string called
 -- a /nextToken/. To get the next batch of items in the list, call this
 -- operation again, adding the next token to the call. To get all of the
 -- items in the list, keep calling this operation with each subsequent next
 -- token that is returned, until no more next tokens are returned.
-newListBuilds ::
-  ListBuilds
-newListBuilds =
-  ListBuilds'
-    { sortOrder = Prelude.Nothing,
-      nextToken = Prelude.Nothing
-    }
-
--- | The order to list build IDs. Valid values include:
+--
+-- 'sortOrder', 'listBuilds_sortOrder' - The order to list build IDs. Valid values include:
 --
 -- -   @ASCENDING@: List the build IDs in ascending order by build ID.
 --
 -- -   @DESCENDING@: List the build IDs in descending order by build ID.
-listBuilds_sortOrder :: Lens.Lens' ListBuilds (Prelude.Maybe SortOrderType)
-listBuilds_sortOrder = Lens.lens (\ListBuilds' {sortOrder} -> sortOrder) (\s@ListBuilds' {} a -> s {sortOrder = a} :: ListBuilds)
+newListBuilds ::
+  ListBuilds
+newListBuilds =
+  ListBuilds'
+    { nextToken = Prelude.Nothing,
+      sortOrder = Prelude.Nothing
+    }
 
 -- | During a previous call, if there are more than 100 items in the list,
 -- only the first 100 items are returned, along with a unique string called
@@ -113,6 +106,14 @@ listBuilds_sortOrder = Lens.lens (\ListBuilds' {sortOrder} -> sortOrder) (\s@Lis
 -- token that is returned, until no more next tokens are returned.
 listBuilds_nextToken :: Lens.Lens' ListBuilds (Prelude.Maybe Prelude.Text)
 listBuilds_nextToken = Lens.lens (\ListBuilds' {nextToken} -> nextToken) (\s@ListBuilds' {} a -> s {nextToken = a} :: ListBuilds)
+
+-- | The order to list build IDs. Valid values include:
+--
+-- -   @ASCENDING@: List the build IDs in ascending order by build ID.
+--
+-- -   @DESCENDING@: List the build IDs in descending order by build ID.
+listBuilds_sortOrder :: Lens.Lens' ListBuilds (Prelude.Maybe SortOrderType)
+listBuilds_sortOrder = Lens.lens (\ListBuilds' {sortOrder} -> sortOrder) (\s@ListBuilds' {} a -> s {sortOrder = a} :: ListBuilds)
 
 instance Core.AWSPager ListBuilds where
   page rq rs
@@ -136,54 +137,55 @@ instance Core.AWSPager ListBuilds where
 
 instance Core.AWSRequest ListBuilds where
   type AWSResponse ListBuilds = ListBuildsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListBuildsResponse'
-            Prelude.<$> (x Core..?> "ids")
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "ids")
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListBuilds where
   hashWithSalt _salt ListBuilds' {..} =
-    _salt `Prelude.hashWithSalt` sortOrder
-      `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` sortOrder
 
 instance Prelude.NFData ListBuilds where
   rnf ListBuilds' {..} =
-    Prelude.rnf sortOrder
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf sortOrder
 
-instance Core.ToHeaders ListBuilds where
+instance Data.ToHeaders ListBuilds where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeBuild_20161006.ListBuilds" ::
+              Data.=# ( "CodeBuild_20161006.ListBuilds" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListBuilds where
+instance Data.ToJSON ListBuilds where
   toJSON ListBuilds' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("sortOrder" Core..=) Prelude.<$> sortOrder,
-            ("nextToken" Core..=) Prelude.<$> nextToken
+          [ ("nextToken" Data..=) Prelude.<$> nextToken,
+            ("sortOrder" Data..=) Prelude.<$> sortOrder
           ]
       )
 
-instance Core.ToPath ListBuilds where
+instance Data.ToPath ListBuilds where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListBuilds where
+instance Data.ToQuery ListBuilds where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListBuildsResponse' smart constructor.

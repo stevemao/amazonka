@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GlobalAccelerator.Types.CustomRoutingEndpointDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.GlobalAccelerator.Types.CustomRoutingEndpointDescription where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A complex type for an endpoint for a custom routing accelerator. Each
@@ -59,15 +60,15 @@ customRoutingEndpointDescription_endpointId :: Lens.Lens' CustomRoutingEndpointD
 customRoutingEndpointDescription_endpointId = Lens.lens (\CustomRoutingEndpointDescription' {endpointId} -> endpointId) (\s@CustomRoutingEndpointDescription' {} a -> s {endpointId = a} :: CustomRoutingEndpointDescription)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     CustomRoutingEndpointDescription
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CustomRoutingEndpointDescription"
       ( \x ->
           CustomRoutingEndpointDescription'
-            Prelude.<$> (x Core..:? "EndpointId")
+            Prelude.<$> (x Data..:? "EndpointId")
       )
 
 instance

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.CapacityReservationSpecification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.EC2.Types.CapacityReservationSpecification where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.CapacityReservationPreference
 import Amazonka.EC2.Types.CapacityReservationTarget
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an instance\'s Capacity Reservation targeting option. You can
@@ -40,10 +41,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newCapacityReservationSpecification' smart constructor.
 data CapacityReservationSpecification = CapacityReservationSpecification'
-  { -- | Information about the target Capacity Reservation or Capacity
-    -- Reservation group.
-    capacityReservationTarget :: Prelude.Maybe CapacityReservationTarget,
-    -- | Indicates the instance\'s Capacity Reservation preferences. Possible
+  { -- | Indicates the instance\'s Capacity Reservation preferences. Possible
     -- preferences include:
     --
     -- -   @open@ - The instance can run in any @open@ Capacity Reservation
@@ -52,7 +50,10 @@ data CapacityReservationSpecification = CapacityReservationSpecification'
     --
     -- -   @none@ - The instance avoids running in a Capacity Reservation even
     --     if one is available. The instance runs as an On-Demand Instance.
-    capacityReservationPreference :: Prelude.Maybe CapacityReservationPreference
+    capacityReservationPreference :: Prelude.Maybe CapacityReservationPreference,
+    -- | Information about the target Capacity Reservation or Capacity
+    -- Reservation group.
+    capacityReservationTarget :: Prelude.Maybe CapacityReservationTarget
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -64,9 +65,6 @@ data CapacityReservationSpecification = CapacityReservationSpecification'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'capacityReservationTarget', 'capacityReservationSpecification_capacityReservationTarget' - Information about the target Capacity Reservation or Capacity
--- Reservation group.
---
 -- 'capacityReservationPreference', 'capacityReservationSpecification_capacityReservationPreference' - Indicates the instance\'s Capacity Reservation preferences. Possible
 -- preferences include:
 --
@@ -76,20 +74,18 @@ data CapacityReservationSpecification = CapacityReservationSpecification'
 --
 -- -   @none@ - The instance avoids running in a Capacity Reservation even
 --     if one is available. The instance runs as an On-Demand Instance.
+--
+-- 'capacityReservationTarget', 'capacityReservationSpecification_capacityReservationTarget' - Information about the target Capacity Reservation or Capacity
+-- Reservation group.
 newCapacityReservationSpecification ::
   CapacityReservationSpecification
 newCapacityReservationSpecification =
   CapacityReservationSpecification'
-    { capacityReservationTarget =
+    { capacityReservationPreference =
         Prelude.Nothing,
-      capacityReservationPreference =
+      capacityReservationTarget =
         Prelude.Nothing
     }
-
--- | Information about the target Capacity Reservation or Capacity
--- Reservation group.
-capacityReservationSpecification_capacityReservationTarget :: Lens.Lens' CapacityReservationSpecification (Prelude.Maybe CapacityReservationTarget)
-capacityReservationSpecification_capacityReservationTarget = Lens.lens (\CapacityReservationSpecification' {capacityReservationTarget} -> capacityReservationTarget) (\s@CapacityReservationSpecification' {} a -> s {capacityReservationTarget = a} :: CapacityReservationSpecification)
 
 -- | Indicates the instance\'s Capacity Reservation preferences. Possible
 -- preferences include:
@@ -103,6 +99,11 @@ capacityReservationSpecification_capacityReservationTarget = Lens.lens (\Capacit
 capacityReservationSpecification_capacityReservationPreference :: Lens.Lens' CapacityReservationSpecification (Prelude.Maybe CapacityReservationPreference)
 capacityReservationSpecification_capacityReservationPreference = Lens.lens (\CapacityReservationSpecification' {capacityReservationPreference} -> capacityReservationPreference) (\s@CapacityReservationSpecification' {} a -> s {capacityReservationPreference = a} :: CapacityReservationSpecification)
 
+-- | Information about the target Capacity Reservation or Capacity
+-- Reservation group.
+capacityReservationSpecification_capacityReservationTarget :: Lens.Lens' CapacityReservationSpecification (Prelude.Maybe CapacityReservationTarget)
+capacityReservationSpecification_capacityReservationTarget = Lens.lens (\CapacityReservationSpecification' {capacityReservationTarget} -> capacityReservationTarget) (\s@CapacityReservationSpecification' {} a -> s {capacityReservationTarget = a} :: CapacityReservationSpecification)
+
 instance
   Prelude.Hashable
     CapacityReservationSpecification
@@ -111,25 +112,25 @@ instance
     _salt
     CapacityReservationSpecification' {..} =
       _salt
-        `Prelude.hashWithSalt` capacityReservationTarget
         `Prelude.hashWithSalt` capacityReservationPreference
+        `Prelude.hashWithSalt` capacityReservationTarget
 
 instance
   Prelude.NFData
     CapacityReservationSpecification
   where
   rnf CapacityReservationSpecification' {..} =
-    Prelude.rnf capacityReservationTarget
-      `Prelude.seq` Prelude.rnf capacityReservationPreference
+    Prelude.rnf capacityReservationPreference
+      `Prelude.seq` Prelude.rnf capacityReservationTarget
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     CapacityReservationSpecification
   where
   toQuery CapacityReservationSpecification' {..} =
     Prelude.mconcat
-      [ "CapacityReservationTarget"
-          Core.=: capacityReservationTarget,
-        "CapacityReservationPreference"
-          Core.=: capacityReservationPreference
+      [ "CapacityReservationPreference"
+          Data.=: capacityReservationPreference,
+        "CapacityReservationTarget"
+          Data.=: capacityReservationTarget
       ]

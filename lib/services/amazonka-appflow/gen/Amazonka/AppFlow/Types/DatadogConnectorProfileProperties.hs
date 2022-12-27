@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.DatadogConnectorProfileProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppFlow.Types.DatadogConnectorProfileProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The connector-specific profile properties required by Datadog.
@@ -56,15 +57,15 @@ datadogConnectorProfileProperties_instanceUrl :: Lens.Lens' DatadogConnectorProf
 datadogConnectorProfileProperties_instanceUrl = Lens.lens (\DatadogConnectorProfileProperties' {instanceUrl} -> instanceUrl) (\s@DatadogConnectorProfileProperties' {} a -> s {instanceUrl = a} :: DatadogConnectorProfileProperties)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     DatadogConnectorProfileProperties
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DatadogConnectorProfileProperties"
       ( \x ->
           DatadogConnectorProfileProperties'
-            Prelude.<$> (x Core..: "instanceUrl")
+            Prelude.<$> (x Data..: "instanceUrl")
       )
 
 instance
@@ -84,11 +85,11 @@ instance
     Prelude.rnf instanceUrl
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DatadogConnectorProfileProperties
   where
   toJSON DatadogConnectorProfileProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("instanceUrl" Core..= instanceUrl)]
+          [Prelude.Just ("instanceUrl" Data..= instanceUrl)]
       )

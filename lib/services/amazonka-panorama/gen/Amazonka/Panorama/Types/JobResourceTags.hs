@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Panorama.Types.JobResourceTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Panorama.Types.JobResourceTags where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Panorama.Types.JobResourceType
 import qualified Amazonka.Prelude as Prelude
 
@@ -64,14 +65,14 @@ jobResourceTags_resourceType = Lens.lens (\JobResourceTags' {resourceType} -> re
 jobResourceTags_tags :: Lens.Lens' JobResourceTags (Prelude.HashMap Prelude.Text Prelude.Text)
 jobResourceTags_tags = Lens.lens (\JobResourceTags' {tags} -> tags) (\s@JobResourceTags' {} a -> s {tags = a} :: JobResourceTags) Prelude.. Lens.coerced
 
-instance Core.FromJSON JobResourceTags where
+instance Data.FromJSON JobResourceTags where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "JobResourceTags"
       ( \x ->
           JobResourceTags'
-            Prelude.<$> (x Core..: "ResourceType")
-            Prelude.<*> (x Core..:? "Tags" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..: "ResourceType")
+            Prelude.<*> (x Data..:? "Tags" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable JobResourceTags where
@@ -84,11 +85,11 @@ instance Prelude.NFData JobResourceTags where
     Prelude.rnf resourceType
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToJSON JobResourceTags where
+instance Data.ToJSON JobResourceTags where
   toJSON JobResourceTags' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ResourceType" Core..= resourceType),
-            Prelude.Just ("Tags" Core..= tags)
+          [ Prelude.Just ("ResourceType" Data..= resourceType),
+            Prelude.Just ("Tags" Data..= tags)
           ]
       )

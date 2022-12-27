@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -44,6 +44,7 @@ library
 
   exposed-modules:
     Amazonka.SESV2
+    Amazonka.SESV2.BatchGetMetricData
     Amazonka.SESV2.CreateConfigurationSet
     Amazonka.SESV2.CreateConfigurationSetEventDestination
     Amazonka.SESV2.CreateContact
@@ -73,6 +74,7 @@ library
     Amazonka.SESV2.GetContactList
     Amazonka.SESV2.GetCustomVerificationEmailTemplate
     Amazonka.SESV2.GetDedicatedIp
+    Amazonka.SESV2.GetDedicatedIpPool
     Amazonka.SESV2.GetDedicatedIps
     Amazonka.SESV2.GetDeliverabilityDashboardOptions
     Amazonka.SESV2.GetDeliverabilityTestReport
@@ -94,17 +96,20 @@ library
     Amazonka.SESV2.ListEmailIdentities
     Amazonka.SESV2.ListEmailTemplates
     Amazonka.SESV2.ListImportJobs
+    Amazonka.SESV2.ListRecommendations
     Amazonka.SESV2.ListSuppressedDestinations
     Amazonka.SESV2.ListTagsForResource
     Amazonka.SESV2.PutAccountDedicatedIpWarmupAttributes
     Amazonka.SESV2.PutAccountDetails
     Amazonka.SESV2.PutAccountSendingAttributes
     Amazonka.SESV2.PutAccountSuppressionAttributes
+    Amazonka.SESV2.PutAccountVdmAttributes
     Amazonka.SESV2.PutConfigurationSetDeliveryOptions
     Amazonka.SESV2.PutConfigurationSetReputationOptions
     Amazonka.SESV2.PutConfigurationSetSendingOptions
     Amazonka.SESV2.PutConfigurationSetSuppressionOptions
     Amazonka.SESV2.PutConfigurationSetTrackingOptions
+    Amazonka.SESV2.PutConfigurationSetVdmOptions
     Amazonka.SESV2.PutDedicatedIpInPool
     Amazonka.SESV2.PutDedicatedIpWarmupAttributes
     Amazonka.SESV2.PutDeliverabilityDashboardOption
@@ -121,6 +126,7 @@ library
     Amazonka.SESV2.TestRenderEmailTemplate
     Amazonka.SESV2.Types
     Amazonka.SESV2.Types.AccountDetails
+    Amazonka.SESV2.Types.BatchGetMetricDataQuery
     Amazonka.SESV2.Types.BehaviorOnMxFailure
     Amazonka.SESV2.Types.BlacklistEntry
     Amazonka.SESV2.Types.Body
@@ -138,8 +144,11 @@ library
     Amazonka.SESV2.Types.Content
     Amazonka.SESV2.Types.CustomVerificationEmailTemplateMetadata
     Amazonka.SESV2.Types.DailyVolume
+    Amazonka.SESV2.Types.DashboardAttributes
+    Amazonka.SESV2.Types.DashboardOptions
     Amazonka.SESV2.Types.DataFormat
     Amazonka.SESV2.Types.DedicatedIp
+    Amazonka.SESV2.Types.DedicatedIpPool
     Amazonka.SESV2.Types.DeliverabilityDashboardAccountStatus
     Amazonka.SESV2.Types.DeliverabilityTestReport
     Amazonka.SESV2.Types.DeliverabilityTestStatus
@@ -161,6 +170,9 @@ library
     Amazonka.SESV2.Types.EventDestinationDefinition
     Amazonka.SESV2.Types.EventType
     Amazonka.SESV2.Types.FailureInfo
+    Amazonka.SESV2.Types.FeatureStatus
+    Amazonka.SESV2.Types.GuardianAttributes
+    Amazonka.SESV2.Types.GuardianOptions
     Amazonka.SESV2.Types.IdentityInfo
     Amazonka.SESV2.Types.IdentityType
     Amazonka.SESV2.Types.ImportDataSource
@@ -173,20 +185,32 @@ library
     Amazonka.SESV2.Types.KinesisFirehoseDestination
     Amazonka.SESV2.Types.ListContactsFilter
     Amazonka.SESV2.Types.ListManagementOptions
+    Amazonka.SESV2.Types.ListRecommendationsFilterKey
     Amazonka.SESV2.Types.MailFromAttributes
     Amazonka.SESV2.Types.MailFromDomainStatus
     Amazonka.SESV2.Types.MailType
     Amazonka.SESV2.Types.Message
     Amazonka.SESV2.Types.MessageTag
+    Amazonka.SESV2.Types.Metric
+    Amazonka.SESV2.Types.MetricDataError
+    Amazonka.SESV2.Types.MetricDataResult
+    Amazonka.SESV2.Types.MetricDimensionName
+    Amazonka.SESV2.Types.MetricNamespace
     Amazonka.SESV2.Types.OverallVolume
     Amazonka.SESV2.Types.PinpointDestination
     Amazonka.SESV2.Types.PlacementStatistics
+    Amazonka.SESV2.Types.QueryErrorCode
     Amazonka.SESV2.Types.RawMessage
+    Amazonka.SESV2.Types.Recommendation
+    Amazonka.SESV2.Types.RecommendationImpact
+    Amazonka.SESV2.Types.RecommendationStatus
+    Amazonka.SESV2.Types.RecommendationType
     Amazonka.SESV2.Types.ReplacementEmailContent
     Amazonka.SESV2.Types.ReplacementTemplate
     Amazonka.SESV2.Types.ReputationOptions
     Amazonka.SESV2.Types.ReviewDetails
     Amazonka.SESV2.Types.ReviewStatus
+    Amazonka.SESV2.Types.ScalingMode
     Amazonka.SESV2.Types.SendingOptions
     Amazonka.SESV2.Types.SendQuota
     Amazonka.SESV2.Types.SnsDestination
@@ -206,6 +230,9 @@ library
     Amazonka.SESV2.Types.TopicFilter
     Amazonka.SESV2.Types.TopicPreference
     Amazonka.SESV2.Types.TrackingOptions
+    Amazonka.SESV2.Types.VdmAttributes
+    Amazonka.SESV2.Types.VdmOptions
+    Amazonka.SESV2.Types.VerificationStatus
     Amazonka.SESV2.Types.VolumeStatistics
     Amazonka.SESV2.Types.WarmupStatus
     Amazonka.SESV2.UntagResource
@@ -218,7 +245,7 @@ library
     Amazonka.SESV2.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-sesv2-test
@@ -237,9 +264,9 @@ test-suite amazonka-sesv2-test
     Test.Amazonka.SESV2.Internal
 
   build-depends:
-    , amazonka-core         ^>=2.0
+    , amazonka-core         >=2.0 && <2.1
     , amazonka-sesv2
-    , amazonka-test         ^>=2.0
+    , amazonka-test         >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApplicationCostProfiler.GetReportDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ where
 
 import Amazonka.ApplicationCostProfiler.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,19 +85,20 @@ instance Core.AWSRequest GetReportDefinition where
   type
     AWSResponse GetReportDefinition =
       GetReportDefinitionResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetReportDefinitionResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "reportId")
-            Prelude.<*> (x Core..:> "reportDescription")
-            Prelude.<*> (x Core..:> "reportFrequency")
-            Prelude.<*> (x Core..:> "format")
-            Prelude.<*> (x Core..:> "destinationS3Location")
-            Prelude.<*> (x Core..:> "createdAt")
-            Prelude.<*> (x Core..:> "lastUpdated")
+            Prelude.<*> (x Data..:> "reportId")
+            Prelude.<*> (x Data..:> "reportDescription")
+            Prelude.<*> (x Data..:> "reportFrequency")
+            Prelude.<*> (x Data..:> "format")
+            Prelude.<*> (x Data..:> "destinationS3Location")
+            Prelude.<*> (x Data..:> "createdAt")
+            Prelude.<*> (x Data..:> "lastUpdated")
       )
 
 instance Prelude.Hashable GetReportDefinition where
@@ -106,23 +108,23 @@ instance Prelude.Hashable GetReportDefinition where
 instance Prelude.NFData GetReportDefinition where
   rnf GetReportDefinition' {..} = Prelude.rnf reportId
 
-instance Core.ToHeaders GetReportDefinition where
+instance Data.ToHeaders GetReportDefinition where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetReportDefinition where
+instance Data.ToPath GetReportDefinition where
   toPath GetReportDefinition' {..} =
     Prelude.mconcat
-      ["/reportDefinition/", Core.toBS reportId]
+      ["/reportDefinition/", Data.toBS reportId]
 
-instance Core.ToQuery GetReportDefinition where
+instance Data.ToQuery GetReportDefinition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetReportDefinitionResponse' smart constructor.
@@ -141,9 +143,9 @@ data GetReportDefinitionResponse = GetReportDefinitionResponse'
     -- uploaded.
     destinationS3Location :: S3Location,
     -- | Timestamp (milliseconds) when this report definition was created.
-    createdAt :: Core.POSIX,
+    createdAt :: Data.POSIX,
     -- | Timestamp (milliseconds) when this report definition was last updated.
-    lastUpdated :: Core.POSIX
+    lastUpdated :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -207,8 +209,8 @@ newGetReportDefinitionResponse
         format = pFormat_,
         destinationS3Location =
           pDestinationS3Location_,
-        createdAt = Core._Time Lens.# pCreatedAt_,
-        lastUpdated = Core._Time Lens.# pLastUpdated_
+        createdAt = Data._Time Lens.# pCreatedAt_,
+        lastUpdated = Data._Time Lens.# pLastUpdated_
       }
 
 -- | The response's http status code.
@@ -238,11 +240,11 @@ getReportDefinitionResponse_destinationS3Location = Lens.lens (\GetReportDefinit
 
 -- | Timestamp (milliseconds) when this report definition was created.
 getReportDefinitionResponse_createdAt :: Lens.Lens' GetReportDefinitionResponse Prelude.UTCTime
-getReportDefinitionResponse_createdAt = Lens.lens (\GetReportDefinitionResponse' {createdAt} -> createdAt) (\s@GetReportDefinitionResponse' {} a -> s {createdAt = a} :: GetReportDefinitionResponse) Prelude.. Core._Time
+getReportDefinitionResponse_createdAt = Lens.lens (\GetReportDefinitionResponse' {createdAt} -> createdAt) (\s@GetReportDefinitionResponse' {} a -> s {createdAt = a} :: GetReportDefinitionResponse) Prelude.. Data._Time
 
 -- | Timestamp (milliseconds) when this report definition was last updated.
 getReportDefinitionResponse_lastUpdated :: Lens.Lens' GetReportDefinitionResponse Prelude.UTCTime
-getReportDefinitionResponse_lastUpdated = Lens.lens (\GetReportDefinitionResponse' {lastUpdated} -> lastUpdated) (\s@GetReportDefinitionResponse' {} a -> s {lastUpdated = a} :: GetReportDefinitionResponse) Prelude.. Core._Time
+getReportDefinitionResponse_lastUpdated = Lens.lens (\GetReportDefinitionResponse' {lastUpdated} -> lastUpdated) (\s@GetReportDefinitionResponse' {} a -> s {lastUpdated = a} :: GetReportDefinitionResponse) Prelude.. Data._Time
 
 instance Prelude.NFData GetReportDefinitionResponse where
   rnf GetReportDefinitionResponse' {..} =

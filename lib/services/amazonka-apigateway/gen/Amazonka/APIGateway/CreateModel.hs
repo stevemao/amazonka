@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.CreateModel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.APIGateway.CreateModel
     newCreateModel,
 
     -- * Request Lenses
-    createModel_schema,
     createModel_description,
+    createModel_schema,
     createModel_restApiId,
     createModel_name,
     createModel_contentType,
@@ -38,17 +38,18 @@ module Amazonka.APIGateway.CreateModel
     newModel,
 
     -- * Response Lenses
-    model_schema,
-    model_name,
-    model_id,
-    model_description,
     model_contentType,
+    model_description,
+    model_id,
+    model_name,
+    model_schema,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,17 +58,16 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCreateModel' smart constructor.
 data CreateModel = CreateModel'
-  { -- | The schema for the model. For @application\/json@ models, this should be
-    -- <https://tools.ietf.org/html/draft-zyp-json-schema-04 JSON schema draft 4>
-    -- model.
-    schema :: Prelude.Maybe Prelude.Text,
-    -- | The description of the model.
+  { -- | The description of the model.
     description :: Prelude.Maybe Prelude.Text,
-    -- | [Required] The RestApi identifier under which the Model will be created.
+    -- | The schema for the model. For @application\/json@ models, this should be
+    -- JSON schema draft 4 model.
+    schema :: Prelude.Maybe Prelude.Text,
+    -- | The RestApi identifier under which the Model will be created.
     restApiId :: Prelude.Text,
-    -- | [Required] The name of the model. Must be alphanumeric.
+    -- | The name of the model. Must be alphanumeric.
     name :: Prelude.Text,
-    -- | [Required] The content-type for the model.
+    -- | The content-type for the model.
     contentType :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -80,17 +80,16 @@ data CreateModel = CreateModel'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'schema', 'createModel_schema' - The schema for the model. For @application\/json@ models, this should be
--- <https://tools.ietf.org/html/draft-zyp-json-schema-04 JSON schema draft 4>
--- model.
---
 -- 'description', 'createModel_description' - The description of the model.
 --
--- 'restApiId', 'createModel_restApiId' - [Required] The RestApi identifier under which the Model will be created.
+-- 'schema', 'createModel_schema' - The schema for the model. For @application\/json@ models, this should be
+-- JSON schema draft 4 model.
 --
--- 'name', 'createModel_name' - [Required] The name of the model. Must be alphanumeric.
+-- 'restApiId', 'createModel_restApiId' - The RestApi identifier under which the Model will be created.
 --
--- 'contentType', 'createModel_contentType' - [Required] The content-type for the model.
+-- 'name', 'createModel_name' - The name of the model. Must be alphanumeric.
+--
+-- 'contentType', 'createModel_contentType' - The content-type for the model.
 newCreateModel ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -101,82 +100,82 @@ newCreateModel ::
   CreateModel
 newCreateModel pRestApiId_ pName_ pContentType_ =
   CreateModel'
-    { schema = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      schema = Prelude.Nothing,
       restApiId = pRestApiId_,
       name = pName_,
       contentType = pContentType_
     }
 
--- | The schema for the model. For @application\/json@ models, this should be
--- <https://tools.ietf.org/html/draft-zyp-json-schema-04 JSON schema draft 4>
--- model.
-createModel_schema :: Lens.Lens' CreateModel (Prelude.Maybe Prelude.Text)
-createModel_schema = Lens.lens (\CreateModel' {schema} -> schema) (\s@CreateModel' {} a -> s {schema = a} :: CreateModel)
-
 -- | The description of the model.
 createModel_description :: Lens.Lens' CreateModel (Prelude.Maybe Prelude.Text)
 createModel_description = Lens.lens (\CreateModel' {description} -> description) (\s@CreateModel' {} a -> s {description = a} :: CreateModel)
 
--- | [Required] The RestApi identifier under which the Model will be created.
+-- | The schema for the model. For @application\/json@ models, this should be
+-- JSON schema draft 4 model.
+createModel_schema :: Lens.Lens' CreateModel (Prelude.Maybe Prelude.Text)
+createModel_schema = Lens.lens (\CreateModel' {schema} -> schema) (\s@CreateModel' {} a -> s {schema = a} :: CreateModel)
+
+-- | The RestApi identifier under which the Model will be created.
 createModel_restApiId :: Lens.Lens' CreateModel Prelude.Text
 createModel_restApiId = Lens.lens (\CreateModel' {restApiId} -> restApiId) (\s@CreateModel' {} a -> s {restApiId = a} :: CreateModel)
 
--- | [Required] The name of the model. Must be alphanumeric.
+-- | The name of the model. Must be alphanumeric.
 createModel_name :: Lens.Lens' CreateModel Prelude.Text
 createModel_name = Lens.lens (\CreateModel' {name} -> name) (\s@CreateModel' {} a -> s {name = a} :: CreateModel)
 
--- | [Required] The content-type for the model.
+-- | The content-type for the model.
 createModel_contentType :: Lens.Lens' CreateModel Prelude.Text
 createModel_contentType = Lens.lens (\CreateModel' {contentType} -> contentType) (\s@CreateModel' {} a -> s {contentType = a} :: CreateModel)
 
 instance Core.AWSRequest CreateModel where
   type AWSResponse CreateModel = Model
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable CreateModel where
   hashWithSalt _salt CreateModel' {..} =
-    _salt `Prelude.hashWithSalt` schema
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` schema
       `Prelude.hashWithSalt` restApiId
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` contentType
 
 instance Prelude.NFData CreateModel where
   rnf CreateModel' {..} =
-    Prelude.rnf schema
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf schema
       `Prelude.seq` Prelude.rnf restApiId
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf contentType
 
-instance Core.ToHeaders CreateModel where
+instance Data.ToHeaders CreateModel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToJSON CreateModel where
+instance Data.ToJSON CreateModel where
   toJSON CreateModel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("schema" Core..=) Prelude.<$> schema,
-            ("description" Core..=) Prelude.<$> description,
-            Prelude.Just ("name" Core..= name),
-            Prelude.Just ("contentType" Core..= contentType)
+          [ ("description" Data..=) Prelude.<$> description,
+            ("schema" Data..=) Prelude.<$> schema,
+            Prelude.Just ("name" Data..= name),
+            Prelude.Just ("contentType" Data..= contentType)
           ]
       )
 
-instance Core.ToPath CreateModel where
+instance Data.ToPath CreateModel where
   toPath CreateModel' {..} =
     Prelude.mconcat
-      ["/restapis/", Core.toBS restApiId, "/models"]
+      ["/restapis/", Data.toBS restApiId, "/models"]
 
-instance Core.ToQuery CreateModel where
+instance Data.ToQuery CreateModel where
   toQuery = Prelude.const Prelude.mempty

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QLDB.DescribeJournalS3Export
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,7 +54,8 @@ module Amazonka.QLDB.DescribeJournalS3Export
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QLDB.Types
 import qualified Amazonka.Request as Request
@@ -107,13 +108,14 @@ instance Core.AWSRequest DescribeJournalS3Export where
   type
     AWSResponse DescribeJournalS3Export =
       DescribeJournalS3ExportResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeJournalS3ExportResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "ExportDescription")
+            Prelude.<*> (x Data..:> "ExportDescription")
       )
 
 instance Prelude.Hashable DescribeJournalS3Export where
@@ -125,27 +127,27 @@ instance Prelude.NFData DescribeJournalS3Export where
   rnf DescribeJournalS3Export' {..} =
     Prelude.rnf name `Prelude.seq` Prelude.rnf exportId
 
-instance Core.ToHeaders DescribeJournalS3Export where
+instance Data.ToHeaders DescribeJournalS3Export where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeJournalS3Export where
+instance Data.ToPath DescribeJournalS3Export where
   toPath DescribeJournalS3Export' {..} =
     Prelude.mconcat
       [ "/ledgers/",
-        Core.toBS name,
+        Data.toBS name,
         "/journal-s3-exports/",
-        Core.toBS exportId
+        Data.toBS exportId
       ]
 
-instance Core.ToQuery DescribeJournalS3Export where
+instance Data.ToQuery DescribeJournalS3Export where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeJournalS3ExportResponse' smart constructor.

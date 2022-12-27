@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Textract.StartDocumentTextDetection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,9 +24,9 @@
 -- can detect lines of text and the words that make up a line of text.
 --
 -- @StartDocumentTextDetection@ can analyze text in documents that are in
--- JPEG, PNG, and PDF format. The documents are stored in an Amazon S3
--- bucket. Use DocumentLocation to specify the bucket name and file name of
--- the document.
+-- JPEG, PNG, TIFF, and PDF format. The documents are stored in an Amazon
+-- S3 bucket. Use DocumentLocation to specify the bucket name and file name
+-- of the document.
 --
 -- @StartTextDetection@ returns a job identifier (@JobId@) that you use to
 -- get the results of the operation. When text detection is finished,
@@ -46,11 +46,11 @@ module Amazonka.Textract.StartDocumentTextDetection
     newStartDocumentTextDetection,
 
     -- * Request Lenses
-    startDocumentTextDetection_jobTag,
-    startDocumentTextDetection_notificationChannel,
-    startDocumentTextDetection_kmsKeyId,
-    startDocumentTextDetection_outputConfig,
     startDocumentTextDetection_clientRequestToken,
+    startDocumentTextDetection_jobTag,
+    startDocumentTextDetection_kmsKeyId,
+    startDocumentTextDetection_notificationChannel,
+    startDocumentTextDetection_outputConfig,
     startDocumentTextDetection_documentLocation,
 
     -- * Destructuring the Response
@@ -64,7 +64,8 @@ module Amazonka.Textract.StartDocumentTextDetection
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -72,31 +73,31 @@ import Amazonka.Textract.Types
 
 -- | /See:/ 'newStartDocumentTextDetection' smart constructor.
 data StartDocumentTextDetection = StartDocumentTextDetection'
-  { -- | An identifier that you specify that\'s included in the completion
-    -- notification published to the Amazon SNS topic. For example, you can use
-    -- @JobTag@ to identify the type of document that the completion
-    -- notification corresponds to (such as a tax form or a receipt).
-    jobTag :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon SNS topic ARN that you want Amazon Textract to publish the
-    -- completion status of the operation to.
-    notificationChannel :: Prelude.Maybe NotificationChannel,
-    -- | The KMS key used to encrypt the inference results. This can be in either
-    -- Key ID or Key Alias format. When a KMS key is provided, the KMS key will
-    -- be used for server-side encryption of the objects in the customer
-    -- bucket. When this parameter is not enabled, the result will be encrypted
-    -- server side,using SSE-S3.
-    kmsKeyId :: Prelude.Maybe Prelude.Text,
-    -- | Sets if the output will go to a customer defined bucket. By default
-    -- Amazon Textract will save the results internally to be accessed with the
-    -- GetDocumentTextDetection operation.
-    outputConfig :: Prelude.Maybe OutputConfig,
-    -- | The idempotent token that\'s used to identify the start request. If you
+  { -- | The idempotent token that\'s used to identify the start request. If you
     -- use the same token with multiple @StartDocumentTextDetection@ requests,
     -- the same @JobId@ is returned. Use @ClientRequestToken@ to prevent the
     -- same job from being accidentally started more than once. For more
     -- information, see
     -- <https://docs.aws.amazon.com/textract/latest/dg/api-async.html Calling Amazon Textract Asynchronous Operations>.
     clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | An identifier that you specify that\'s included in the completion
+    -- notification published to the Amazon SNS topic. For example, you can use
+    -- @JobTag@ to identify the type of document that the completion
+    -- notification corresponds to (such as a tax form or a receipt).
+    jobTag :: Prelude.Maybe Prelude.Text,
+    -- | The KMS key used to encrypt the inference results. This can be in either
+    -- Key ID or Key Alias format. When a KMS key is provided, the KMS key will
+    -- be used for server-side encryption of the objects in the customer
+    -- bucket. When this parameter is not enabled, the result will be encrypted
+    -- server side,using SSE-S3.
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon SNS topic ARN that you want Amazon Textract to publish the
+    -- completion status of the operation to.
+    notificationChannel :: Prelude.Maybe NotificationChannel,
+    -- | Sets if the output will go to a customer defined bucket. By default
+    -- Amazon Textract will save the results internally to be accessed with the
+    -- GetDocumentTextDetection operation.
+    outputConfig :: Prelude.Maybe OutputConfig,
     -- | The location of the document to be processed.
     documentLocation :: DocumentLocation
   }
@@ -110,13 +111,17 @@ data StartDocumentTextDetection = StartDocumentTextDetection'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'clientRequestToken', 'startDocumentTextDetection_clientRequestToken' - The idempotent token that\'s used to identify the start request. If you
+-- use the same token with multiple @StartDocumentTextDetection@ requests,
+-- the same @JobId@ is returned. Use @ClientRequestToken@ to prevent the
+-- same job from being accidentally started more than once. For more
+-- information, see
+-- <https://docs.aws.amazon.com/textract/latest/dg/api-async.html Calling Amazon Textract Asynchronous Operations>.
+--
 -- 'jobTag', 'startDocumentTextDetection_jobTag' - An identifier that you specify that\'s included in the completion
 -- notification published to the Amazon SNS topic. For example, you can use
 -- @JobTag@ to identify the type of document that the completion
 -- notification corresponds to (such as a tax form or a receipt).
---
--- 'notificationChannel', 'startDocumentTextDetection_notificationChannel' - The Amazon SNS topic ARN that you want Amazon Textract to publish the
--- completion status of the operation to.
 --
 -- 'kmsKeyId', 'startDocumentTextDetection_kmsKeyId' - The KMS key used to encrypt the inference results. This can be in either
 -- Key ID or Key Alias format. When a KMS key is provided, the KMS key will
@@ -124,16 +129,12 @@ data StartDocumentTextDetection = StartDocumentTextDetection'
 -- bucket. When this parameter is not enabled, the result will be encrypted
 -- server side,using SSE-S3.
 --
+-- 'notificationChannel', 'startDocumentTextDetection_notificationChannel' - The Amazon SNS topic ARN that you want Amazon Textract to publish the
+-- completion status of the operation to.
+--
 -- 'outputConfig', 'startDocumentTextDetection_outputConfig' - Sets if the output will go to a customer defined bucket. By default
 -- Amazon Textract will save the results internally to be accessed with the
 -- GetDocumentTextDetection operation.
---
--- 'clientRequestToken', 'startDocumentTextDetection_clientRequestToken' - The idempotent token that\'s used to identify the start request. If you
--- use the same token with multiple @StartDocumentTextDetection@ requests,
--- the same @JobId@ is returned. Use @ClientRequestToken@ to prevent the
--- same job from being accidentally started more than once. For more
--- information, see
--- <https://docs.aws.amazon.com/textract/latest/dg/api-async.html Calling Amazon Textract Asynchronous Operations>.
 --
 -- 'documentLocation', 'startDocumentTextDetection_documentLocation' - The location of the document to be processed.
 newStartDocumentTextDetection ::
@@ -142,40 +143,14 @@ newStartDocumentTextDetection ::
   StartDocumentTextDetection
 newStartDocumentTextDetection pDocumentLocation_ =
   StartDocumentTextDetection'
-    { jobTag =
+    { clientRequestToken =
         Prelude.Nothing,
-      notificationChannel = Prelude.Nothing,
+      jobTag = Prelude.Nothing,
       kmsKeyId = Prelude.Nothing,
+      notificationChannel = Prelude.Nothing,
       outputConfig = Prelude.Nothing,
-      clientRequestToken = Prelude.Nothing,
       documentLocation = pDocumentLocation_
     }
-
--- | An identifier that you specify that\'s included in the completion
--- notification published to the Amazon SNS topic. For example, you can use
--- @JobTag@ to identify the type of document that the completion
--- notification corresponds to (such as a tax form or a receipt).
-startDocumentTextDetection_jobTag :: Lens.Lens' StartDocumentTextDetection (Prelude.Maybe Prelude.Text)
-startDocumentTextDetection_jobTag = Lens.lens (\StartDocumentTextDetection' {jobTag} -> jobTag) (\s@StartDocumentTextDetection' {} a -> s {jobTag = a} :: StartDocumentTextDetection)
-
--- | The Amazon SNS topic ARN that you want Amazon Textract to publish the
--- completion status of the operation to.
-startDocumentTextDetection_notificationChannel :: Lens.Lens' StartDocumentTextDetection (Prelude.Maybe NotificationChannel)
-startDocumentTextDetection_notificationChannel = Lens.lens (\StartDocumentTextDetection' {notificationChannel} -> notificationChannel) (\s@StartDocumentTextDetection' {} a -> s {notificationChannel = a} :: StartDocumentTextDetection)
-
--- | The KMS key used to encrypt the inference results. This can be in either
--- Key ID or Key Alias format. When a KMS key is provided, the KMS key will
--- be used for server-side encryption of the objects in the customer
--- bucket. When this parameter is not enabled, the result will be encrypted
--- server side,using SSE-S3.
-startDocumentTextDetection_kmsKeyId :: Lens.Lens' StartDocumentTextDetection (Prelude.Maybe Prelude.Text)
-startDocumentTextDetection_kmsKeyId = Lens.lens (\StartDocumentTextDetection' {kmsKeyId} -> kmsKeyId) (\s@StartDocumentTextDetection' {} a -> s {kmsKeyId = a} :: StartDocumentTextDetection)
-
--- | Sets if the output will go to a customer defined bucket. By default
--- Amazon Textract will save the results internally to be accessed with the
--- GetDocumentTextDetection operation.
-startDocumentTextDetection_outputConfig :: Lens.Lens' StartDocumentTextDetection (Prelude.Maybe OutputConfig)
-startDocumentTextDetection_outputConfig = Lens.lens (\StartDocumentTextDetection' {outputConfig} -> outputConfig) (\s@StartDocumentTextDetection' {} a -> s {outputConfig = a} :: StartDocumentTextDetection)
 
 -- | The idempotent token that\'s used to identify the start request. If you
 -- use the same token with multiple @StartDocumentTextDetection@ requests,
@@ -186,6 +161,32 @@ startDocumentTextDetection_outputConfig = Lens.lens (\StartDocumentTextDetection
 startDocumentTextDetection_clientRequestToken :: Lens.Lens' StartDocumentTextDetection (Prelude.Maybe Prelude.Text)
 startDocumentTextDetection_clientRequestToken = Lens.lens (\StartDocumentTextDetection' {clientRequestToken} -> clientRequestToken) (\s@StartDocumentTextDetection' {} a -> s {clientRequestToken = a} :: StartDocumentTextDetection)
 
+-- | An identifier that you specify that\'s included in the completion
+-- notification published to the Amazon SNS topic. For example, you can use
+-- @JobTag@ to identify the type of document that the completion
+-- notification corresponds to (such as a tax form or a receipt).
+startDocumentTextDetection_jobTag :: Lens.Lens' StartDocumentTextDetection (Prelude.Maybe Prelude.Text)
+startDocumentTextDetection_jobTag = Lens.lens (\StartDocumentTextDetection' {jobTag} -> jobTag) (\s@StartDocumentTextDetection' {} a -> s {jobTag = a} :: StartDocumentTextDetection)
+
+-- | The KMS key used to encrypt the inference results. This can be in either
+-- Key ID or Key Alias format. When a KMS key is provided, the KMS key will
+-- be used for server-side encryption of the objects in the customer
+-- bucket. When this parameter is not enabled, the result will be encrypted
+-- server side,using SSE-S3.
+startDocumentTextDetection_kmsKeyId :: Lens.Lens' StartDocumentTextDetection (Prelude.Maybe Prelude.Text)
+startDocumentTextDetection_kmsKeyId = Lens.lens (\StartDocumentTextDetection' {kmsKeyId} -> kmsKeyId) (\s@StartDocumentTextDetection' {} a -> s {kmsKeyId = a} :: StartDocumentTextDetection)
+
+-- | The Amazon SNS topic ARN that you want Amazon Textract to publish the
+-- completion status of the operation to.
+startDocumentTextDetection_notificationChannel :: Lens.Lens' StartDocumentTextDetection (Prelude.Maybe NotificationChannel)
+startDocumentTextDetection_notificationChannel = Lens.lens (\StartDocumentTextDetection' {notificationChannel} -> notificationChannel) (\s@StartDocumentTextDetection' {} a -> s {notificationChannel = a} :: StartDocumentTextDetection)
+
+-- | Sets if the output will go to a customer defined bucket. By default
+-- Amazon Textract will save the results internally to be accessed with the
+-- GetDocumentTextDetection operation.
+startDocumentTextDetection_outputConfig :: Lens.Lens' StartDocumentTextDetection (Prelude.Maybe OutputConfig)
+startDocumentTextDetection_outputConfig = Lens.lens (\StartDocumentTextDetection' {outputConfig} -> outputConfig) (\s@StartDocumentTextDetection' {} a -> s {outputConfig = a} :: StartDocumentTextDetection)
+
 -- | The location of the document to be processed.
 startDocumentTextDetection_documentLocation :: Lens.Lens' StartDocumentTextDetection DocumentLocation
 startDocumentTextDetection_documentLocation = Lens.lens (\StartDocumentTextDetection' {documentLocation} -> documentLocation) (\s@StartDocumentTextDetection' {} a -> s {documentLocation = a} :: StartDocumentTextDetection)
@@ -194,68 +195,69 @@ instance Core.AWSRequest StartDocumentTextDetection where
   type
     AWSResponse StartDocumentTextDetection =
       StartDocumentTextDetectionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartDocumentTextDetectionResponse'
-            Prelude.<$> (x Core..?> "JobId")
+            Prelude.<$> (x Data..?> "JobId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable StartDocumentTextDetection where
   hashWithSalt _salt StartDocumentTextDetection' {..} =
-    _salt `Prelude.hashWithSalt` jobTag
-      `Prelude.hashWithSalt` notificationChannel
+    _salt `Prelude.hashWithSalt` clientRequestToken
+      `Prelude.hashWithSalt` jobTag
       `Prelude.hashWithSalt` kmsKeyId
+      `Prelude.hashWithSalt` notificationChannel
       `Prelude.hashWithSalt` outputConfig
-      `Prelude.hashWithSalt` clientRequestToken
       `Prelude.hashWithSalt` documentLocation
 
 instance Prelude.NFData StartDocumentTextDetection where
   rnf StartDocumentTextDetection' {..} =
-    Prelude.rnf jobTag
-      `Prelude.seq` Prelude.rnf notificationChannel
+    Prelude.rnf clientRequestToken
+      `Prelude.seq` Prelude.rnf jobTag
       `Prelude.seq` Prelude.rnf kmsKeyId
+      `Prelude.seq` Prelude.rnf notificationChannel
       `Prelude.seq` Prelude.rnf outputConfig
-      `Prelude.seq` Prelude.rnf clientRequestToken
       `Prelude.seq` Prelude.rnf documentLocation
 
-instance Core.ToHeaders StartDocumentTextDetection where
+instance Data.ToHeaders StartDocumentTextDetection where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Textract.StartDocumentTextDetection" ::
+              Data.=# ( "Textract.StartDocumentTextDetection" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartDocumentTextDetection where
+instance Data.ToJSON StartDocumentTextDetection where
   toJSON StartDocumentTextDetection' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("JobTag" Core..=) Prelude.<$> jobTag,
-            ("NotificationChannel" Core..=)
-              Prelude.<$> notificationChannel,
-            ("KMSKeyId" Core..=) Prelude.<$> kmsKeyId,
-            ("OutputConfig" Core..=) Prelude.<$> outputConfig,
-            ("ClientRequestToken" Core..=)
+          [ ("ClientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
+            ("JobTag" Data..=) Prelude.<$> jobTag,
+            ("KMSKeyId" Data..=) Prelude.<$> kmsKeyId,
+            ("NotificationChannel" Data..=)
+              Prelude.<$> notificationChannel,
+            ("OutputConfig" Data..=) Prelude.<$> outputConfig,
             Prelude.Just
-              ("DocumentLocation" Core..= documentLocation)
+              ("DocumentLocation" Data..= documentLocation)
           ]
       )
 
-instance Core.ToPath StartDocumentTextDetection where
+instance Data.ToPath StartDocumentTextDetection where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartDocumentTextDetection where
+instance Data.ToQuery StartDocumentTextDetection where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartDocumentTextDetectionResponse' smart constructor.

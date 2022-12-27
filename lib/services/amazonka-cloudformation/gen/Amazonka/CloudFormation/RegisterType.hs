@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.RegisterType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,15 +24,15 @@
 -- extension makes it available for use in CloudFormation templates in your
 -- Amazon Web Services account, and includes:
 --
--- -   Validating the extension schema
+-- -   Validating the extension schema.
 --
 -- -   Determining which handlers, if any, have been specified for the
---     extension
+--     extension.
 --
--- -   Making the extension available for use in your account
+-- -   Making the extension available for use in your account.
 --
--- For more information on how to develop extensions and ready them for
--- registeration, see
+-- For more information about how to develop extensions and ready them for
+-- registration, see
 -- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-types.html Creating Resource Providers>
 -- in the /CloudFormation CLI User Guide/.
 --
@@ -58,10 +58,10 @@ module Amazonka.CloudFormation.RegisterType
     newRegisterType,
 
     -- * Request Lenses
-    registerType_executionRoleArn,
-    registerType_type,
     registerType_clientRequestToken,
+    registerType_executionRoleArn,
     registerType_loggingConfig,
+    registerType_type,
     registerType_typeName,
     registerType_schemaHandlerPackage,
 
@@ -77,19 +77,26 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newRegisterType' smart constructor.
 data RegisterType = RegisterType'
-  { -- | The Amazon Resource Name (ARN) of the IAM role for CloudFormation to
+  { -- | A unique identifier that acts as an idempotency key for this
+    -- registration request. Specifying a client request token prevents
+    -- CloudFormation from generating more than one version of an extension
+    -- from the same registration request, even if the request is submitted
+    -- multiple times.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the IAM role for CloudFormation to
     -- assume when invoking the extension.
     --
     -- For CloudFormation to assume the specified execution role, the role must
     -- contain a trust relationship with the CloudFormation service principle
-    -- (@resources.cloudformation.amazonaws.com@). For more information on
+    -- (@resources.cloudformation.amazonaws.com@). For more information about
     -- adding trust relationships, see
     -- <IAM/latest/UserGuide/roles-managingrole-editing-console.html#roles-managingrole_edit-trust-policy Modifying a role trust policy>
     -- in the /Identity and Access Management User Guide/.
@@ -104,25 +111,21 @@ data RegisterType = RegisterType'
     -- it then passes to the resource type handler, thereby supplying your
     -- resource type with the appropriate credentials.
     executionRoleArn :: Prelude.Maybe Prelude.Text,
-    -- | The kind of extension.
-    type' :: Prelude.Maybe RegistryType,
-    -- | A unique identifier that acts as an idempotency key for this
-    -- registration request. Specifying a client request token prevents
-    -- CloudFormation from generating more than one version of an extension
-    -- from the same registeration request, even if the request is submitted
-    -- multiple times.
-    clientRequestToken :: Prelude.Maybe Prelude.Text,
     -- | Specifies logging configuration information for an extension.
     loggingConfig :: Prelude.Maybe LoggingConfig,
+    -- | The kind of extension.
+    type' :: Prelude.Maybe RegistryType,
     -- | The name of the extension being registered.
     --
-    -- We recommend that extension names adhere to the following patterns:
+    -- We suggest that extension names adhere to the following patterns:
     --
     -- -   For resource types, /company_or_organization/::/service/::/type/.
     --
     -- -   For modules, /company_or_organization/::/service/::/type/::MODULE.
     --
-    -- The following organization namespaces are reserved and cannot be used in
+    -- -   For hooks, /MyCompany/::/Testing/::/MyTestHook/.
+    --
+    -- The following organization namespaces are reserved and can\'t be used in
     -- your extension names:
     --
     -- -   @Alexa@
@@ -137,16 +140,16 @@ data RegisterType = RegisterType'
     --
     -- -   @Dev@
     typeName :: Prelude.Text,
-    -- | A url to the S3 bucket containing the extension project package that
-    -- contains the neccessary files for the extension you want to register.
+    -- | A URL to the S3 bucket containing the extension project package that
+    -- contains the necessary files for the extension you want to register.
     --
-    -- For information on generating a schema handler package for the extension
-    -- you want to register, see
+    -- For information about generating a schema handler package for the
+    -- extension you want to register, see
     -- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-cli-submit.html submit>
     -- in the /CloudFormation CLI User Guide/.
     --
     -- The user registering the extension must be able to access the package in
-    -- the S3 bucket. That is, the user needs to have
+    -- the S3 bucket. That\'s, the user needs to have
     -- <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html GetObject>
     -- permissions for the schema handler package. For more information, see
     -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazons3.html Actions, Resources, and Condition Keys for Amazon S3>
@@ -163,12 +166,18 @@ data RegisterType = RegisterType'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'clientRequestToken', 'registerType_clientRequestToken' - A unique identifier that acts as an idempotency key for this
+-- registration request. Specifying a client request token prevents
+-- CloudFormation from generating more than one version of an extension
+-- from the same registration request, even if the request is submitted
+-- multiple times.
+--
 -- 'executionRoleArn', 'registerType_executionRoleArn' - The Amazon Resource Name (ARN) of the IAM role for CloudFormation to
 -- assume when invoking the extension.
 --
 -- For CloudFormation to assume the specified execution role, the role must
 -- contain a trust relationship with the CloudFormation service principle
--- (@resources.cloudformation.amazonaws.com@). For more information on
+-- (@resources.cloudformation.amazonaws.com@). For more information about
 -- adding trust relationships, see
 -- <IAM/latest/UserGuide/roles-managingrole-editing-console.html#roles-managingrole_edit-trust-policy Modifying a role trust policy>
 -- in the /Identity and Access Management User Guide/.
@@ -183,25 +192,21 @@ data RegisterType = RegisterType'
 -- it then passes to the resource type handler, thereby supplying your
 -- resource type with the appropriate credentials.
 --
--- 'type'', 'registerType_type' - The kind of extension.
---
--- 'clientRequestToken', 'registerType_clientRequestToken' - A unique identifier that acts as an idempotency key for this
--- registration request. Specifying a client request token prevents
--- CloudFormation from generating more than one version of an extension
--- from the same registeration request, even if the request is submitted
--- multiple times.
---
 -- 'loggingConfig', 'registerType_loggingConfig' - Specifies logging configuration information for an extension.
+--
+-- 'type'', 'registerType_type' - The kind of extension.
 --
 -- 'typeName', 'registerType_typeName' - The name of the extension being registered.
 --
--- We recommend that extension names adhere to the following patterns:
+-- We suggest that extension names adhere to the following patterns:
 --
 -- -   For resource types, /company_or_organization/::/service/::/type/.
 --
 -- -   For modules, /company_or_organization/::/service/::/type/::MODULE.
 --
--- The following organization namespaces are reserved and cannot be used in
+-- -   For hooks, /MyCompany/::/Testing/::/MyTestHook/.
+--
+-- The following organization namespaces are reserved and can\'t be used in
 -- your extension names:
 --
 -- -   @Alexa@
@@ -216,16 +221,16 @@ data RegisterType = RegisterType'
 --
 -- -   @Dev@
 --
--- 'schemaHandlerPackage', 'registerType_schemaHandlerPackage' - A url to the S3 bucket containing the extension project package that
--- contains the neccessary files for the extension you want to register.
+-- 'schemaHandlerPackage', 'registerType_schemaHandlerPackage' - A URL to the S3 bucket containing the extension project package that
+-- contains the necessary files for the extension you want to register.
 --
--- For information on generating a schema handler package for the extension
--- you want to register, see
+-- For information about generating a schema handler package for the
+-- extension you want to register, see
 -- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-cli-submit.html submit>
 -- in the /CloudFormation CLI User Guide/.
 --
 -- The user registering the extension must be able to access the package in
--- the S3 bucket. That is, the user needs to have
+-- the S3 bucket. That\'s, the user needs to have
 -- <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html GetObject>
 -- permissions for the schema handler package. For more information, see
 -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazons3.html Actions, Resources, and Condition Keys for Amazon S3>
@@ -238,20 +243,28 @@ newRegisterType ::
   RegisterType
 newRegisterType pTypeName_ pSchemaHandlerPackage_ =
   RegisterType'
-    { executionRoleArn = Prelude.Nothing,
-      type' = Prelude.Nothing,
-      clientRequestToken = Prelude.Nothing,
+    { clientRequestToken = Prelude.Nothing,
+      executionRoleArn = Prelude.Nothing,
       loggingConfig = Prelude.Nothing,
+      type' = Prelude.Nothing,
       typeName = pTypeName_,
       schemaHandlerPackage = pSchemaHandlerPackage_
     }
+
+-- | A unique identifier that acts as an idempotency key for this
+-- registration request. Specifying a client request token prevents
+-- CloudFormation from generating more than one version of an extension
+-- from the same registration request, even if the request is submitted
+-- multiple times.
+registerType_clientRequestToken :: Lens.Lens' RegisterType (Prelude.Maybe Prelude.Text)
+registerType_clientRequestToken = Lens.lens (\RegisterType' {clientRequestToken} -> clientRequestToken) (\s@RegisterType' {} a -> s {clientRequestToken = a} :: RegisterType)
 
 -- | The Amazon Resource Name (ARN) of the IAM role for CloudFormation to
 -- assume when invoking the extension.
 --
 -- For CloudFormation to assume the specified execution role, the role must
 -- contain a trust relationship with the CloudFormation service principle
--- (@resources.cloudformation.amazonaws.com@). For more information on
+-- (@resources.cloudformation.amazonaws.com@). For more information about
 -- adding trust relationships, see
 -- <IAM/latest/UserGuide/roles-managingrole-editing-console.html#roles-managingrole_edit-trust-policy Modifying a role trust policy>
 -- in the /Identity and Access Management User Guide/.
@@ -268,31 +281,25 @@ newRegisterType pTypeName_ pSchemaHandlerPackage_ =
 registerType_executionRoleArn :: Lens.Lens' RegisterType (Prelude.Maybe Prelude.Text)
 registerType_executionRoleArn = Lens.lens (\RegisterType' {executionRoleArn} -> executionRoleArn) (\s@RegisterType' {} a -> s {executionRoleArn = a} :: RegisterType)
 
--- | The kind of extension.
-registerType_type :: Lens.Lens' RegisterType (Prelude.Maybe RegistryType)
-registerType_type = Lens.lens (\RegisterType' {type'} -> type') (\s@RegisterType' {} a -> s {type' = a} :: RegisterType)
-
--- | A unique identifier that acts as an idempotency key for this
--- registration request. Specifying a client request token prevents
--- CloudFormation from generating more than one version of an extension
--- from the same registeration request, even if the request is submitted
--- multiple times.
-registerType_clientRequestToken :: Lens.Lens' RegisterType (Prelude.Maybe Prelude.Text)
-registerType_clientRequestToken = Lens.lens (\RegisterType' {clientRequestToken} -> clientRequestToken) (\s@RegisterType' {} a -> s {clientRequestToken = a} :: RegisterType)
-
 -- | Specifies logging configuration information for an extension.
 registerType_loggingConfig :: Lens.Lens' RegisterType (Prelude.Maybe LoggingConfig)
 registerType_loggingConfig = Lens.lens (\RegisterType' {loggingConfig} -> loggingConfig) (\s@RegisterType' {} a -> s {loggingConfig = a} :: RegisterType)
 
+-- | The kind of extension.
+registerType_type :: Lens.Lens' RegisterType (Prelude.Maybe RegistryType)
+registerType_type = Lens.lens (\RegisterType' {type'} -> type') (\s@RegisterType' {} a -> s {type' = a} :: RegisterType)
+
 -- | The name of the extension being registered.
 --
--- We recommend that extension names adhere to the following patterns:
+-- We suggest that extension names adhere to the following patterns:
 --
 -- -   For resource types, /company_or_organization/::/service/::/type/.
 --
 -- -   For modules, /company_or_organization/::/service/::/type/::MODULE.
 --
--- The following organization namespaces are reserved and cannot be used in
+-- -   For hooks, /MyCompany/::/Testing/::/MyTestHook/.
+--
+-- The following organization namespaces are reserved and can\'t be used in
 -- your extension names:
 --
 -- -   @Alexa@
@@ -309,16 +316,16 @@ registerType_loggingConfig = Lens.lens (\RegisterType' {loggingConfig} -> loggin
 registerType_typeName :: Lens.Lens' RegisterType Prelude.Text
 registerType_typeName = Lens.lens (\RegisterType' {typeName} -> typeName) (\s@RegisterType' {} a -> s {typeName = a} :: RegisterType)
 
--- | A url to the S3 bucket containing the extension project package that
--- contains the neccessary files for the extension you want to register.
+-- | A URL to the S3 bucket containing the extension project package that
+-- contains the necessary files for the extension you want to register.
 --
--- For information on generating a schema handler package for the extension
--- you want to register, see
+-- For information about generating a schema handler package for the
+-- extension you want to register, see
 -- <https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-cli-submit.html submit>
 -- in the /CloudFormation CLI User Guide/.
 --
 -- The user registering the extension must be able to access the package in
--- the S3 bucket. That is, the user needs to have
+-- the S3 bucket. That\'s, the user needs to have
 -- <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html GetObject>
 -- permissions for the schema handler package. For more information, see
 -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazons3.html Actions, Resources, and Condition Keys for Amazon S3>
@@ -328,53 +335,54 @@ registerType_schemaHandlerPackage = Lens.lens (\RegisterType' {schemaHandlerPack
 
 instance Core.AWSRequest RegisterType where
   type AWSResponse RegisterType = RegisterTypeResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "RegisterTypeResult"
       ( \s h x ->
           RegisterTypeResponse'
-            Prelude.<$> (x Core..@? "RegistrationToken")
+            Prelude.<$> (x Data..@? "RegistrationToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable RegisterType where
   hashWithSalt _salt RegisterType' {..} =
-    _salt `Prelude.hashWithSalt` executionRoleArn
-      `Prelude.hashWithSalt` type'
-      `Prelude.hashWithSalt` clientRequestToken
+    _salt `Prelude.hashWithSalt` clientRequestToken
+      `Prelude.hashWithSalt` executionRoleArn
       `Prelude.hashWithSalt` loggingConfig
+      `Prelude.hashWithSalt` type'
       `Prelude.hashWithSalt` typeName
       `Prelude.hashWithSalt` schemaHandlerPackage
 
 instance Prelude.NFData RegisterType where
   rnf RegisterType' {..} =
-    Prelude.rnf executionRoleArn
-      `Prelude.seq` Prelude.rnf type'
-      `Prelude.seq` Prelude.rnf clientRequestToken
+    Prelude.rnf clientRequestToken
+      `Prelude.seq` Prelude.rnf executionRoleArn
       `Prelude.seq` Prelude.rnf loggingConfig
+      `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf typeName
       `Prelude.seq` Prelude.rnf schemaHandlerPackage
 
-instance Core.ToHeaders RegisterType where
+instance Data.ToHeaders RegisterType where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath RegisterType where
+instance Data.ToPath RegisterType where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RegisterType where
+instance Data.ToQuery RegisterType where
   toQuery RegisterType' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("RegisterType" :: Prelude.ByteString),
+          Data.=: ("RegisterType" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
-        "ExecutionRoleArn" Core.=: executionRoleArn,
-        "Type" Core.=: type',
-        "ClientRequestToken" Core.=: clientRequestToken,
-        "LoggingConfig" Core.=: loggingConfig,
-        "TypeName" Core.=: typeName,
-        "SchemaHandlerPackage" Core.=: schemaHandlerPackage
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "ClientRequestToken" Data.=: clientRequestToken,
+        "ExecutionRoleArn" Data.=: executionRoleArn,
+        "LoggingConfig" Data.=: loggingConfig,
+        "Type" Data.=: type',
+        "TypeName" Data.=: typeName,
+        "SchemaHandlerPackage" Data.=: schemaHandlerPackage
       ]
 
 -- | /See:/ 'newRegisterTypeResponse' smart constructor.

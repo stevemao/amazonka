@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SMS.Types.LaunchDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.SMS.Types.LaunchDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details about the latest launch of an application.
 --
 -- /See:/ 'newLaunchDetails' smart constructor.
 data LaunchDetails = LaunchDetails'
-  { -- | The ID of the latest stack launched for this application.
+  { -- | The latest time that this application was launched successfully.
+    latestLaunchTime :: Prelude.Maybe Data.POSIX,
+    -- | The ID of the latest stack launched for this application.
     stackId :: Prelude.Maybe Prelude.Text,
-    -- | The latest time that this application was launched successfully.
-    latestLaunchTime :: Prelude.Maybe Core.POSIX,
     -- | The name of the latest stack launched for this application.
     stackName :: Prelude.Maybe Prelude.Text
   }
@@ -44,51 +45,51 @@ data LaunchDetails = LaunchDetails'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'stackId', 'launchDetails_stackId' - The ID of the latest stack launched for this application.
---
 -- 'latestLaunchTime', 'launchDetails_latestLaunchTime' - The latest time that this application was launched successfully.
+--
+-- 'stackId', 'launchDetails_stackId' - The ID of the latest stack launched for this application.
 --
 -- 'stackName', 'launchDetails_stackName' - The name of the latest stack launched for this application.
 newLaunchDetails ::
   LaunchDetails
 newLaunchDetails =
   LaunchDetails'
-    { stackId = Prelude.Nothing,
-      latestLaunchTime = Prelude.Nothing,
+    { latestLaunchTime = Prelude.Nothing,
+      stackId = Prelude.Nothing,
       stackName = Prelude.Nothing
     }
+
+-- | The latest time that this application was launched successfully.
+launchDetails_latestLaunchTime :: Lens.Lens' LaunchDetails (Prelude.Maybe Prelude.UTCTime)
+launchDetails_latestLaunchTime = Lens.lens (\LaunchDetails' {latestLaunchTime} -> latestLaunchTime) (\s@LaunchDetails' {} a -> s {latestLaunchTime = a} :: LaunchDetails) Prelude.. Lens.mapping Data._Time
 
 -- | The ID of the latest stack launched for this application.
 launchDetails_stackId :: Lens.Lens' LaunchDetails (Prelude.Maybe Prelude.Text)
 launchDetails_stackId = Lens.lens (\LaunchDetails' {stackId} -> stackId) (\s@LaunchDetails' {} a -> s {stackId = a} :: LaunchDetails)
 
--- | The latest time that this application was launched successfully.
-launchDetails_latestLaunchTime :: Lens.Lens' LaunchDetails (Prelude.Maybe Prelude.UTCTime)
-launchDetails_latestLaunchTime = Lens.lens (\LaunchDetails' {latestLaunchTime} -> latestLaunchTime) (\s@LaunchDetails' {} a -> s {latestLaunchTime = a} :: LaunchDetails) Prelude.. Lens.mapping Core._Time
-
 -- | The name of the latest stack launched for this application.
 launchDetails_stackName :: Lens.Lens' LaunchDetails (Prelude.Maybe Prelude.Text)
 launchDetails_stackName = Lens.lens (\LaunchDetails' {stackName} -> stackName) (\s@LaunchDetails' {} a -> s {stackName = a} :: LaunchDetails)
 
-instance Core.FromJSON LaunchDetails where
+instance Data.FromJSON LaunchDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LaunchDetails"
       ( \x ->
           LaunchDetails'
-            Prelude.<$> (x Core..:? "stackId")
-            Prelude.<*> (x Core..:? "latestLaunchTime")
-            Prelude.<*> (x Core..:? "stackName")
+            Prelude.<$> (x Data..:? "latestLaunchTime")
+            Prelude.<*> (x Data..:? "stackId")
+            Prelude.<*> (x Data..:? "stackName")
       )
 
 instance Prelude.Hashable LaunchDetails where
   hashWithSalt _salt LaunchDetails' {..} =
-    _salt `Prelude.hashWithSalt` stackId
-      `Prelude.hashWithSalt` latestLaunchTime
+    _salt `Prelude.hashWithSalt` latestLaunchTime
+      `Prelude.hashWithSalt` stackId
       `Prelude.hashWithSalt` stackName
 
 instance Prelude.NFData LaunchDetails where
   rnf LaunchDetails' {..} =
-    Prelude.rnf stackId
-      `Prelude.seq` Prelude.rnf latestLaunchTime
+    Prelude.rnf latestLaunchTime
+      `Prelude.seq` Prelude.rnf stackId
       `Prelude.seq` Prelude.rnf stackName

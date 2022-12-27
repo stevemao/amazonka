@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.AuditCheckConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoT.Types.AuditCheckConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Which audit checks are enabled and disabled for this account.
@@ -50,13 +51,13 @@ newAuditCheckConfiguration =
 auditCheckConfiguration_enabled :: Lens.Lens' AuditCheckConfiguration (Prelude.Maybe Prelude.Bool)
 auditCheckConfiguration_enabled = Lens.lens (\AuditCheckConfiguration' {enabled} -> enabled) (\s@AuditCheckConfiguration' {} a -> s {enabled = a} :: AuditCheckConfiguration)
 
-instance Core.FromJSON AuditCheckConfiguration where
+instance Data.FromJSON AuditCheckConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AuditCheckConfiguration"
       ( \x ->
           AuditCheckConfiguration'
-            Prelude.<$> (x Core..:? "enabled")
+            Prelude.<$> (x Data..:? "enabled")
       )
 
 instance Prelude.Hashable AuditCheckConfiguration where
@@ -67,9 +68,9 @@ instance Prelude.NFData AuditCheckConfiguration where
   rnf AuditCheckConfiguration' {..} =
     Prelude.rnf enabled
 
-instance Core.ToJSON AuditCheckConfiguration where
+instance Data.ToJSON AuditCheckConfiguration where
   toJSON AuditCheckConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("enabled" Core..=) Prelude.<$> enabled]
+          [("enabled" Data..=) Prelude.<$> enabled]
       )

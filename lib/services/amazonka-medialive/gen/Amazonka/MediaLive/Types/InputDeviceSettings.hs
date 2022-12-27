@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.InputDeviceSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.InputDeviceSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Settings for an input device.
@@ -50,12 +51,12 @@ newInputDeviceSettings =
 inputDeviceSettings_id :: Lens.Lens' InputDeviceSettings (Prelude.Maybe Prelude.Text)
 inputDeviceSettings_id = Lens.lens (\InputDeviceSettings' {id} -> id) (\s@InputDeviceSettings' {} a -> s {id = a} :: InputDeviceSettings)
 
-instance Core.FromJSON InputDeviceSettings where
+instance Data.FromJSON InputDeviceSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InputDeviceSettings"
       ( \x ->
-          InputDeviceSettings' Prelude.<$> (x Core..:? "id")
+          InputDeviceSettings' Prelude.<$> (x Data..:? "id")
       )
 
 instance Prelude.Hashable InputDeviceSettings where
@@ -65,7 +66,7 @@ instance Prelude.Hashable InputDeviceSettings where
 instance Prelude.NFData InputDeviceSettings where
   rnf InputDeviceSettings' {..} = Prelude.rnf id
 
-instance Core.ToJSON InputDeviceSettings where
+instance Data.ToJSON InputDeviceSettings where
   toJSON InputDeviceSettings' {..} =
-    Core.object
-      (Prelude.catMaybes [("id" Core..=) Prelude.<$> id])
+    Data.object
+      (Prelude.catMaybes [("id" Data..=) Prelude.<$> id])

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppSync.Types.LogConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,10 +21,11 @@ module Amazonka.AppSync.Types.LogConfig where
 
 import Amazonka.AppSync.Types.FieldLogLevel
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The CloudWatch Logs configuration.
+-- | The Amazon CloudWatch Logs configuration.
 --
 -- /See:/ 'newLogConfig' smart constructor.
 data LogConfig = LogConfig'
@@ -54,8 +55,8 @@ data LogConfig = LogConfig'
     --     -   The generated request\/response functions that got resolved for
     --         each field.
     fieldLogLevel :: FieldLogLevel,
-    -- | The service role that AppSync will assume to publish to Amazon
-    -- CloudWatch logs in your account.
+    -- | The service role that AppSync assumes to publish to CloudWatch logs in
+    -- your account.
     cloudWatchLogsRoleArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -94,8 +95,8 @@ data LogConfig = LogConfig'
 --     -   The generated request\/response functions that got resolved for
 --         each field.
 --
--- 'cloudWatchLogsRoleArn', 'logConfig_cloudWatchLogsRoleArn' - The service role that AppSync will assume to publish to Amazon
--- CloudWatch logs in your account.
+-- 'cloudWatchLogsRoleArn', 'logConfig_cloudWatchLogsRoleArn' - The service role that AppSync assumes to publish to CloudWatch logs in
+-- your account.
 newLogConfig ::
   -- | 'fieldLogLevel'
   FieldLogLevel ->
@@ -139,20 +140,20 @@ logConfig_excludeVerboseContent = Lens.lens (\LogConfig' {excludeVerboseContent}
 logConfig_fieldLogLevel :: Lens.Lens' LogConfig FieldLogLevel
 logConfig_fieldLogLevel = Lens.lens (\LogConfig' {fieldLogLevel} -> fieldLogLevel) (\s@LogConfig' {} a -> s {fieldLogLevel = a} :: LogConfig)
 
--- | The service role that AppSync will assume to publish to Amazon
--- CloudWatch logs in your account.
+-- | The service role that AppSync assumes to publish to CloudWatch logs in
+-- your account.
 logConfig_cloudWatchLogsRoleArn :: Lens.Lens' LogConfig Prelude.Text
 logConfig_cloudWatchLogsRoleArn = Lens.lens (\LogConfig' {cloudWatchLogsRoleArn} -> cloudWatchLogsRoleArn) (\s@LogConfig' {} a -> s {cloudWatchLogsRoleArn = a} :: LogConfig)
 
-instance Core.FromJSON LogConfig where
+instance Data.FromJSON LogConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LogConfig"
       ( \x ->
           LogConfig'
-            Prelude.<$> (x Core..:? "excludeVerboseContent")
-            Prelude.<*> (x Core..: "fieldLogLevel")
-            Prelude.<*> (x Core..: "cloudWatchLogsRoleArn")
+            Prelude.<$> (x Data..:? "excludeVerboseContent")
+            Prelude.<*> (x Data..: "fieldLogLevel")
+            Prelude.<*> (x Data..: "cloudWatchLogsRoleArn")
       )
 
 instance Prelude.Hashable LogConfig where
@@ -167,16 +168,16 @@ instance Prelude.NFData LogConfig where
       `Prelude.seq` Prelude.rnf fieldLogLevel
       `Prelude.seq` Prelude.rnf cloudWatchLogsRoleArn
 
-instance Core.ToJSON LogConfig where
+instance Data.ToJSON LogConfig where
   toJSON LogConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("excludeVerboseContent" Core..=)
+          [ ("excludeVerboseContent" Data..=)
               Prelude.<$> excludeVerboseContent,
-            Prelude.Just ("fieldLogLevel" Core..= fieldLogLevel),
+            Prelude.Just ("fieldLogLevel" Data..= fieldLogLevel),
             Prelude.Just
               ( "cloudWatchLogsRoleArn"
-                  Core..= cloudWatchLogsRoleArn
+                  Data..= cloudWatchLogsRoleArn
               )
           ]
       )

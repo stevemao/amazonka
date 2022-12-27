@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.Types.Recipe
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,30 +20,32 @@
 module Amazonka.Personalize.Types.Recipe where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides information about a recipe. Each recipe provides an algorithm
 -- that Amazon Personalize uses in model training when you use the
--- CreateSolution operation.
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolution.html CreateSolution>
+-- operation.
 --
 -- /See:/ 'newRecipe' smart constructor.
 data Recipe = Recipe'
-  { -- | The status of the recipe.
-    status :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the algorithm that Amazon Personalize
+  { -- | The Amazon Resource Name (ARN) of the algorithm that Amazon Personalize
     -- uses to train the model.
     algorithmArn :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the recipe.
-    recipeArn :: Prelude.Maybe Prelude.Text,
+    -- | The date and time (in Unix format) that the recipe was created.
+    creationDateTime :: Prelude.Maybe Data.POSIX,
+    -- | The description of the recipe.
+    description :: Prelude.Maybe Prelude.Text,
     -- | The ARN of the FeatureTransformation object.
     featureTransformationArn :: Prelude.Maybe Prelude.Text,
     -- | The date and time (in Unix format) that the recipe was last updated.
-    lastUpdatedDateTime :: Prelude.Maybe Core.POSIX,
+    lastUpdatedDateTime :: Prelude.Maybe Data.POSIX,
     -- | The name of the recipe.
     name :: Prelude.Maybe Prelude.Text,
-    -- | The date and time (in Unix format) that the recipe was created.
-    creationDateTime :: Prelude.Maybe Core.POSIX,
+    -- | The Amazon Resource Name (ARN) of the recipe.
+    recipeArn :: Prelude.Maybe Prelude.Text,
     -- | One of the following values:
     --
     -- -   PERSONALIZED_RANKING
@@ -52,8 +54,8 @@ data Recipe = Recipe'
     --
     -- -   USER_PERSONALIZATION
     recipeType :: Prelude.Maybe Prelude.Text,
-    -- | The description of the recipe.
-    description :: Prelude.Maybe Prelude.Text
+    -- | The status of the recipe.
+    status :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -65,12 +67,12 @@ data Recipe = Recipe'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'recipe_status' - The status of the recipe.
---
 -- 'algorithmArn', 'recipe_algorithmArn' - The Amazon Resource Name (ARN) of the algorithm that Amazon Personalize
 -- uses to train the model.
 --
--- 'recipeArn', 'recipe_recipeArn' - The Amazon Resource Name (ARN) of the recipe.
+-- 'creationDateTime', 'recipe_creationDateTime' - The date and time (in Unix format) that the recipe was created.
+--
+-- 'description', 'recipe_description' - The description of the recipe.
 --
 -- 'featureTransformationArn', 'recipe_featureTransformationArn' - The ARN of the FeatureTransformation object.
 --
@@ -78,7 +80,7 @@ data Recipe = Recipe'
 --
 -- 'name', 'recipe_name' - The name of the recipe.
 --
--- 'creationDateTime', 'recipe_creationDateTime' - The date and time (in Unix format) that the recipe was created.
+-- 'recipeArn', 'recipe_recipeArn' - The Amazon Resource Name (ARN) of the recipe.
 --
 -- 'recipeType', 'recipe_recipeType' - One of the following values:
 --
@@ -88,34 +90,34 @@ data Recipe = Recipe'
 --
 -- -   USER_PERSONALIZATION
 --
--- 'description', 'recipe_description' - The description of the recipe.
+-- 'status', 'recipe_status' - The status of the recipe.
 newRecipe ::
   Recipe
 newRecipe =
   Recipe'
-    { status = Prelude.Nothing,
-      algorithmArn = Prelude.Nothing,
-      recipeArn = Prelude.Nothing,
+    { algorithmArn = Prelude.Nothing,
+      creationDateTime = Prelude.Nothing,
+      description = Prelude.Nothing,
       featureTransformationArn = Prelude.Nothing,
       lastUpdatedDateTime = Prelude.Nothing,
       name = Prelude.Nothing,
-      creationDateTime = Prelude.Nothing,
+      recipeArn = Prelude.Nothing,
       recipeType = Prelude.Nothing,
-      description = Prelude.Nothing
+      status = Prelude.Nothing
     }
-
--- | The status of the recipe.
-recipe_status :: Lens.Lens' Recipe (Prelude.Maybe Prelude.Text)
-recipe_status = Lens.lens (\Recipe' {status} -> status) (\s@Recipe' {} a -> s {status = a} :: Recipe)
 
 -- | The Amazon Resource Name (ARN) of the algorithm that Amazon Personalize
 -- uses to train the model.
 recipe_algorithmArn :: Lens.Lens' Recipe (Prelude.Maybe Prelude.Text)
 recipe_algorithmArn = Lens.lens (\Recipe' {algorithmArn} -> algorithmArn) (\s@Recipe' {} a -> s {algorithmArn = a} :: Recipe)
 
--- | The Amazon Resource Name (ARN) of the recipe.
-recipe_recipeArn :: Lens.Lens' Recipe (Prelude.Maybe Prelude.Text)
-recipe_recipeArn = Lens.lens (\Recipe' {recipeArn} -> recipeArn) (\s@Recipe' {} a -> s {recipeArn = a} :: Recipe)
+-- | The date and time (in Unix format) that the recipe was created.
+recipe_creationDateTime :: Lens.Lens' Recipe (Prelude.Maybe Prelude.UTCTime)
+recipe_creationDateTime = Lens.lens (\Recipe' {creationDateTime} -> creationDateTime) (\s@Recipe' {} a -> s {creationDateTime = a} :: Recipe) Prelude.. Lens.mapping Data._Time
+
+-- | The description of the recipe.
+recipe_description :: Lens.Lens' Recipe (Prelude.Maybe Prelude.Text)
+recipe_description = Lens.lens (\Recipe' {description} -> description) (\s@Recipe' {} a -> s {description = a} :: Recipe)
 
 -- | The ARN of the FeatureTransformation object.
 recipe_featureTransformationArn :: Lens.Lens' Recipe (Prelude.Maybe Prelude.Text)
@@ -123,15 +125,15 @@ recipe_featureTransformationArn = Lens.lens (\Recipe' {featureTransformationArn}
 
 -- | The date and time (in Unix format) that the recipe was last updated.
 recipe_lastUpdatedDateTime :: Lens.Lens' Recipe (Prelude.Maybe Prelude.UTCTime)
-recipe_lastUpdatedDateTime = Lens.lens (\Recipe' {lastUpdatedDateTime} -> lastUpdatedDateTime) (\s@Recipe' {} a -> s {lastUpdatedDateTime = a} :: Recipe) Prelude.. Lens.mapping Core._Time
+recipe_lastUpdatedDateTime = Lens.lens (\Recipe' {lastUpdatedDateTime} -> lastUpdatedDateTime) (\s@Recipe' {} a -> s {lastUpdatedDateTime = a} :: Recipe) Prelude.. Lens.mapping Data._Time
 
 -- | The name of the recipe.
 recipe_name :: Lens.Lens' Recipe (Prelude.Maybe Prelude.Text)
 recipe_name = Lens.lens (\Recipe' {name} -> name) (\s@Recipe' {} a -> s {name = a} :: Recipe)
 
--- | The date and time (in Unix format) that the recipe was created.
-recipe_creationDateTime :: Lens.Lens' Recipe (Prelude.Maybe Prelude.UTCTime)
-recipe_creationDateTime = Lens.lens (\Recipe' {creationDateTime} -> creationDateTime) (\s@Recipe' {} a -> s {creationDateTime = a} :: Recipe) Prelude.. Lens.mapping Core._Time
+-- | The Amazon Resource Name (ARN) of the recipe.
+recipe_recipeArn :: Lens.Lens' Recipe (Prelude.Maybe Prelude.Text)
+recipe_recipeArn = Lens.lens (\Recipe' {recipeArn} -> recipeArn) (\s@Recipe' {} a -> s {recipeArn = a} :: Recipe)
 
 -- | One of the following values:
 --
@@ -143,47 +145,47 @@ recipe_creationDateTime = Lens.lens (\Recipe' {creationDateTime} -> creationDate
 recipe_recipeType :: Lens.Lens' Recipe (Prelude.Maybe Prelude.Text)
 recipe_recipeType = Lens.lens (\Recipe' {recipeType} -> recipeType) (\s@Recipe' {} a -> s {recipeType = a} :: Recipe)
 
--- | The description of the recipe.
-recipe_description :: Lens.Lens' Recipe (Prelude.Maybe Prelude.Text)
-recipe_description = Lens.lens (\Recipe' {description} -> description) (\s@Recipe' {} a -> s {description = a} :: Recipe)
+-- | The status of the recipe.
+recipe_status :: Lens.Lens' Recipe (Prelude.Maybe Prelude.Text)
+recipe_status = Lens.lens (\Recipe' {status} -> status) (\s@Recipe' {} a -> s {status = a} :: Recipe)
 
-instance Core.FromJSON Recipe where
+instance Data.FromJSON Recipe where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Recipe"
       ( \x ->
           Recipe'
-            Prelude.<$> (x Core..:? "status")
-            Prelude.<*> (x Core..:? "algorithmArn")
-            Prelude.<*> (x Core..:? "recipeArn")
-            Prelude.<*> (x Core..:? "featureTransformationArn")
-            Prelude.<*> (x Core..:? "lastUpdatedDateTime")
-            Prelude.<*> (x Core..:? "name")
-            Prelude.<*> (x Core..:? "creationDateTime")
-            Prelude.<*> (x Core..:? "recipeType")
-            Prelude.<*> (x Core..:? "description")
+            Prelude.<$> (x Data..:? "algorithmArn")
+            Prelude.<*> (x Data..:? "creationDateTime")
+            Prelude.<*> (x Data..:? "description")
+            Prelude.<*> (x Data..:? "featureTransformationArn")
+            Prelude.<*> (x Data..:? "lastUpdatedDateTime")
+            Prelude.<*> (x Data..:? "name")
+            Prelude.<*> (x Data..:? "recipeArn")
+            Prelude.<*> (x Data..:? "recipeType")
+            Prelude.<*> (x Data..:? "status")
       )
 
 instance Prelude.Hashable Recipe where
   hashWithSalt _salt Recipe' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` algorithmArn
-      `Prelude.hashWithSalt` recipeArn
+    _salt `Prelude.hashWithSalt` algorithmArn
+      `Prelude.hashWithSalt` creationDateTime
+      `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` featureTransformationArn
       `Prelude.hashWithSalt` lastUpdatedDateTime
       `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` creationDateTime
+      `Prelude.hashWithSalt` recipeArn
       `Prelude.hashWithSalt` recipeType
-      `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData Recipe where
   rnf Recipe' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf algorithmArn
-      `Prelude.seq` Prelude.rnf recipeArn
+    Prelude.rnf algorithmArn
+      `Prelude.seq` Prelude.rnf creationDateTime
+      `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf featureTransformationArn
       `Prelude.seq` Prelude.rnf lastUpdatedDateTime
       `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf creationDateTime
+      `Prelude.seq` Prelude.rnf recipeArn
       `Prelude.seq` Prelude.rnf recipeType
-      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf status

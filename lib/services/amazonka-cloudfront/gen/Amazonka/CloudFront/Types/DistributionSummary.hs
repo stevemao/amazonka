@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.DistributionSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,17 +31,15 @@ import Amazonka.CloudFront.Types.PriceClass
 import Amazonka.CloudFront.Types.Restrictions
 import Amazonka.CloudFront.Types.ViewerCertificate
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A summary of the information about a CloudFront distribution.
 --
 -- /See:/ 'newDistributionSummary' smart constructor.
 data DistributionSummary = DistributionSummary'
-  { -- | A complex type that contains information about origin groups for this
-    -- distribution.
-    originGroups :: Prelude.Maybe OriginGroups,
-    -- | Amazon Web Services services in China customers must file for an
+  { -- | Amazon Web Services services in China customers must file for an
     -- Internet Content Provider (ICP) recordal if they want to serve content
     -- publicly on an alternate domain name, also known as a CNAME, that
     -- they\'ve added to CloudFront. AliasICPRecordal provides the ICP recordal
@@ -51,18 +49,21 @@ data DistributionSummary = DistributionSummary'
     -- <https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html Signup, Accounts, and Credentials>
     -- in /Getting Started with Amazon Web Services services in China/.
     aliasICPRecordals :: Prelude.Maybe [AliasICPRecordal],
+    -- | A complex type that contains information about origin groups for this
+    -- distribution.
+    originGroups :: Prelude.Maybe OriginGroups,
     -- | The identifier for the distribution. For example: @EDFDVBD632BHDS5@.
     id :: Prelude.Text,
     -- | The ARN (Amazon Resource Name) for the distribution. For example:
     -- @arn:aws:cloudfront::123456789012:distribution\/EDFDVBD632BHDS5@, where
-    -- @123456789012@ is your account ID.
+    -- @123456789012@ is your Amazon Web Services account ID.
     arn :: Prelude.Text,
     -- | The current status of the distribution. When the status is @Deployed@,
     -- the distribution\'s information is propagated to all CloudFront edge
     -- locations.
     status :: Prelude.Text,
     -- | The date and time the distribution was last modified.
-    lastModifiedTime :: Core.ISO8601,
+    lastModifiedTime :: Data.ISO8601,
     -- | The domain name that corresponds to the distribution, for example,
     -- @d111111abcdef8.cloudfront.net@.
     domainName :: Prelude.Text,
@@ -104,9 +105,11 @@ data DistributionSummary = DistributionSummary'
     httpVersion :: HttpVersion,
     -- | Whether CloudFront responds to IPv6 DNS requests with an IPv6 address
     -- for your distribution.
-    isIPV6Enabled :: Prelude.Bool
+    isIPV6Enabled :: Prelude.Bool,
+    -- | Whether the primary distribution has a staging distribution enabled.
+    staging :: Prelude.Bool
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'DistributionSummary' with all optional fields omitted.
@@ -115,9 +118,6 @@ data DistributionSummary = DistributionSummary'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'originGroups', 'distributionSummary_originGroups' - A complex type that contains information about origin groups for this
--- distribution.
 --
 -- 'aliasICPRecordals', 'distributionSummary_aliasICPRecordals' - Amazon Web Services services in China customers must file for an
 -- Internet Content Provider (ICP) recordal if they want to serve content
@@ -129,11 +129,14 @@ data DistributionSummary = DistributionSummary'
 -- <https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html Signup, Accounts, and Credentials>
 -- in /Getting Started with Amazon Web Services services in China/.
 --
+-- 'originGroups', 'distributionSummary_originGroups' - A complex type that contains information about origin groups for this
+-- distribution.
+--
 -- 'id', 'distributionSummary_id' - The identifier for the distribution. For example: @EDFDVBD632BHDS5@.
 --
 -- 'arn', 'distributionSummary_arn' - The ARN (Amazon Resource Name) for the distribution. For example:
 -- @arn:aws:cloudfront::123456789012:distribution\/EDFDVBD632BHDS5@, where
--- @123456789012@ is your account ID.
+-- @123456789012@ is your Amazon Web Services account ID.
 --
 -- 'status', 'distributionSummary_status' - The current status of the distribution. When the status is @Deployed@,
 -- the distribution\'s information is propagated to all CloudFront edge
@@ -182,6 +185,8 @@ data DistributionSummary = DistributionSummary'
 --
 -- 'isIPV6Enabled', 'distributionSummary_isIPV6Enabled' - Whether CloudFront responds to IPv6 DNS requests with an IPv6 address
 -- for your distribution.
+--
+-- 'staging', 'distributionSummary_staging' - Whether the primary distribution has a staging distribution enabled.
 newDistributionSummary ::
   -- | 'id'
   Prelude.Text ->
@@ -219,6 +224,8 @@ newDistributionSummary ::
   HttpVersion ->
   -- | 'isIPV6Enabled'
   Prelude.Bool ->
+  -- | 'staging'
+  Prelude.Bool ->
   DistributionSummary
 newDistributionSummary
   pId_
@@ -238,16 +245,17 @@ newDistributionSummary
   pRestrictions_
   pWebACLId_
   pHttpVersion_
-  pIsIPV6Enabled_ =
+  pIsIPV6Enabled_
+  pStaging_ =
     DistributionSummary'
-      { originGroups =
+      { aliasICPRecordals =
           Prelude.Nothing,
-        aliasICPRecordals = Prelude.Nothing,
+        originGroups = Prelude.Nothing,
         id = pId_,
         arn = pARN_,
         status = pStatus_,
         lastModifiedTime =
-          Core._Time Lens.# pLastModifiedTime_,
+          Data._Time Lens.# pLastModifiedTime_,
         domainName = pDomainName_,
         aliases = pAliases_,
         origins = pOrigins_,
@@ -261,13 +269,9 @@ newDistributionSummary
         restrictions = pRestrictions_,
         webACLId = pWebACLId_,
         httpVersion = pHttpVersion_,
-        isIPV6Enabled = pIsIPV6Enabled_
+        isIPV6Enabled = pIsIPV6Enabled_,
+        staging = pStaging_
       }
-
--- | A complex type that contains information about origin groups for this
--- distribution.
-distributionSummary_originGroups :: Lens.Lens' DistributionSummary (Prelude.Maybe OriginGroups)
-distributionSummary_originGroups = Lens.lens (\DistributionSummary' {originGroups} -> originGroups) (\s@DistributionSummary' {} a -> s {originGroups = a} :: DistributionSummary)
 
 -- | Amazon Web Services services in China customers must file for an
 -- Internet Content Provider (ICP) recordal if they want to serve content
@@ -281,13 +285,18 @@ distributionSummary_originGroups = Lens.lens (\DistributionSummary' {originGroup
 distributionSummary_aliasICPRecordals :: Lens.Lens' DistributionSummary (Prelude.Maybe [AliasICPRecordal])
 distributionSummary_aliasICPRecordals = Lens.lens (\DistributionSummary' {aliasICPRecordals} -> aliasICPRecordals) (\s@DistributionSummary' {} a -> s {aliasICPRecordals = a} :: DistributionSummary) Prelude.. Lens.mapping Lens.coerced
 
+-- | A complex type that contains information about origin groups for this
+-- distribution.
+distributionSummary_originGroups :: Lens.Lens' DistributionSummary (Prelude.Maybe OriginGroups)
+distributionSummary_originGroups = Lens.lens (\DistributionSummary' {originGroups} -> originGroups) (\s@DistributionSummary' {} a -> s {originGroups = a} :: DistributionSummary)
+
 -- | The identifier for the distribution. For example: @EDFDVBD632BHDS5@.
 distributionSummary_id :: Lens.Lens' DistributionSummary Prelude.Text
 distributionSummary_id = Lens.lens (\DistributionSummary' {id} -> id) (\s@DistributionSummary' {} a -> s {id = a} :: DistributionSummary)
 
 -- | The ARN (Amazon Resource Name) for the distribution. For example:
 -- @arn:aws:cloudfront::123456789012:distribution\/EDFDVBD632BHDS5@, where
--- @123456789012@ is your account ID.
+-- @123456789012@ is your Amazon Web Services account ID.
 distributionSummary_arn :: Lens.Lens' DistributionSummary Prelude.Text
 distributionSummary_arn = Lens.lens (\DistributionSummary' {arn} -> arn) (\s@DistributionSummary' {} a -> s {arn = a} :: DistributionSummary)
 
@@ -299,7 +308,7 @@ distributionSummary_status = Lens.lens (\DistributionSummary' {status} -> status
 
 -- | The date and time the distribution was last modified.
 distributionSummary_lastModifiedTime :: Lens.Lens' DistributionSummary Prelude.UTCTime
-distributionSummary_lastModifiedTime = Lens.lens (\DistributionSummary' {lastModifiedTime} -> lastModifiedTime) (\s@DistributionSummary' {} a -> s {lastModifiedTime = a} :: DistributionSummary) Prelude.. Core._Time
+distributionSummary_lastModifiedTime = Lens.lens (\DistributionSummary' {lastModifiedTime} -> lastModifiedTime) (\s@DistributionSummary' {} a -> s {lastModifiedTime = a} :: DistributionSummary) Prelude.. Data._Time
 
 -- | The domain name that corresponds to the distribution, for example,
 -- @d111111abcdef8.cloudfront.net@.
@@ -371,37 +380,42 @@ distributionSummary_httpVersion = Lens.lens (\DistributionSummary' {httpVersion}
 distributionSummary_isIPV6Enabled :: Lens.Lens' DistributionSummary Prelude.Bool
 distributionSummary_isIPV6Enabled = Lens.lens (\DistributionSummary' {isIPV6Enabled} -> isIPV6Enabled) (\s@DistributionSummary' {} a -> s {isIPV6Enabled = a} :: DistributionSummary)
 
-instance Core.FromXML DistributionSummary where
+-- | Whether the primary distribution has a staging distribution enabled.
+distributionSummary_staging :: Lens.Lens' DistributionSummary Prelude.Bool
+distributionSummary_staging = Lens.lens (\DistributionSummary' {staging} -> staging) (\s@DistributionSummary' {} a -> s {staging = a} :: DistributionSummary)
+
+instance Data.FromXML DistributionSummary where
   parseXML x =
     DistributionSummary'
-      Prelude.<$> (x Core..@? "OriginGroups")
-      Prelude.<*> ( x Core..@? "AliasICPRecordals"
+      Prelude.<$> ( x Data..@? "AliasICPRecordals"
                       Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "AliasICPRecordal")
+                      Prelude.>>= Core.may (Data.parseXMLList "AliasICPRecordal")
                   )
-      Prelude.<*> (x Core..@ "Id")
-      Prelude.<*> (x Core..@ "ARN")
-      Prelude.<*> (x Core..@ "Status")
-      Prelude.<*> (x Core..@ "LastModifiedTime")
-      Prelude.<*> (x Core..@ "DomainName")
-      Prelude.<*> (x Core..@ "Aliases")
-      Prelude.<*> (x Core..@ "Origins")
-      Prelude.<*> (x Core..@ "DefaultCacheBehavior")
-      Prelude.<*> (x Core..@ "CacheBehaviors")
-      Prelude.<*> (x Core..@ "CustomErrorResponses")
-      Prelude.<*> (x Core..@ "Comment")
-      Prelude.<*> (x Core..@ "PriceClass")
-      Prelude.<*> (x Core..@ "Enabled")
-      Prelude.<*> (x Core..@ "ViewerCertificate")
-      Prelude.<*> (x Core..@ "Restrictions")
-      Prelude.<*> (x Core..@ "WebACLId")
-      Prelude.<*> (x Core..@ "HttpVersion")
-      Prelude.<*> (x Core..@ "IsIPV6Enabled")
+      Prelude.<*> (x Data..@? "OriginGroups")
+      Prelude.<*> (x Data..@ "Id")
+      Prelude.<*> (x Data..@ "ARN")
+      Prelude.<*> (x Data..@ "Status")
+      Prelude.<*> (x Data..@ "LastModifiedTime")
+      Prelude.<*> (x Data..@ "DomainName")
+      Prelude.<*> (x Data..@ "Aliases")
+      Prelude.<*> (x Data..@ "Origins")
+      Prelude.<*> (x Data..@ "DefaultCacheBehavior")
+      Prelude.<*> (x Data..@ "CacheBehaviors")
+      Prelude.<*> (x Data..@ "CustomErrorResponses")
+      Prelude.<*> (x Data..@ "Comment")
+      Prelude.<*> (x Data..@ "PriceClass")
+      Prelude.<*> (x Data..@ "Enabled")
+      Prelude.<*> (x Data..@ "ViewerCertificate")
+      Prelude.<*> (x Data..@ "Restrictions")
+      Prelude.<*> (x Data..@ "WebACLId")
+      Prelude.<*> (x Data..@ "HttpVersion")
+      Prelude.<*> (x Data..@ "IsIPV6Enabled")
+      Prelude.<*> (x Data..@ "Staging")
 
 instance Prelude.Hashable DistributionSummary where
   hashWithSalt _salt DistributionSummary' {..} =
-    _salt `Prelude.hashWithSalt` originGroups
-      `Prelude.hashWithSalt` aliasICPRecordals
+    _salt `Prelude.hashWithSalt` aliasICPRecordals
+      `Prelude.hashWithSalt` originGroups
       `Prelude.hashWithSalt` id
       `Prelude.hashWithSalt` arn
       `Prelude.hashWithSalt` status
@@ -420,11 +434,12 @@ instance Prelude.Hashable DistributionSummary where
       `Prelude.hashWithSalt` webACLId
       `Prelude.hashWithSalt` httpVersion
       `Prelude.hashWithSalt` isIPV6Enabled
+      `Prelude.hashWithSalt` staging
 
 instance Prelude.NFData DistributionSummary where
   rnf DistributionSummary' {..} =
-    Prelude.rnf originGroups
-      `Prelude.seq` Prelude.rnf aliasICPRecordals
+    Prelude.rnf aliasICPRecordals
+      `Prelude.seq` Prelude.rnf originGroups
       `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf arn
       `Prelude.seq` Prelude.rnf status
@@ -443,3 +458,4 @@ instance Prelude.NFData DistributionSummary where
       `Prelude.seq` Prelude.rnf webACLId
       `Prelude.seq` Prelude.rnf httpVersion
       `Prelude.seq` Prelude.rnf isIPV6Enabled
+      `Prelude.seq` Prelude.rnf staging

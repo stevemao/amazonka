@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.Types.DataSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,18 +22,21 @@ module Amazonka.GuardDuty.Types.DataSource
       ( ..,
         DataSource_CLOUD_TRAIL,
         DataSource_DNS_LOGS,
+        DataSource_EC2_MALWARE_SCAN,
         DataSource_FLOW_LOGS,
+        DataSource_KUBERNETES_AUDIT_LOGS,
         DataSource_S3_LOGS
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype DataSource = DataSource'
   { fromDataSource ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -45,18 +48,18 @@ newtype DataSource = DataSource'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern DataSource_CLOUD_TRAIL :: DataSource
@@ -65,8 +68,14 @@ pattern DataSource_CLOUD_TRAIL = DataSource' "CLOUD_TRAIL"
 pattern DataSource_DNS_LOGS :: DataSource
 pattern DataSource_DNS_LOGS = DataSource' "DNS_LOGS"
 
+pattern DataSource_EC2_MALWARE_SCAN :: DataSource
+pattern DataSource_EC2_MALWARE_SCAN = DataSource' "EC2_MALWARE_SCAN"
+
 pattern DataSource_FLOW_LOGS :: DataSource
 pattern DataSource_FLOW_LOGS = DataSource' "FLOW_LOGS"
+
+pattern DataSource_KUBERNETES_AUDIT_LOGS :: DataSource
+pattern DataSource_KUBERNETES_AUDIT_LOGS = DataSource' "KUBERNETES_AUDIT_LOGS"
 
 pattern DataSource_S3_LOGS :: DataSource
 pattern DataSource_S3_LOGS = DataSource' "S3_LOGS"
@@ -74,7 +83,9 @@ pattern DataSource_S3_LOGS = DataSource' "S3_LOGS"
 {-# COMPLETE
   DataSource_CLOUD_TRAIL,
   DataSource_DNS_LOGS,
+  DataSource_EC2_MALWARE_SCAN,
   DataSource_FLOW_LOGS,
+  DataSource_KUBERNETES_AUDIT_LOGS,
   DataSource_S3_LOGS,
   DataSource'
   #-}

@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.NetworkManager
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,14 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestGetLinkAssociations $
---             newGetLinkAssociations
+--         [ requestAcceptAttachment $
+--             newAcceptAttachment
+--
+--         , requestAssociateConnectPeer $
+--             newAssociateConnectPeer
+--
+--         , requestAssociateCustomerGateway $
+--             newAssociateCustomerGateway
 --
 --         , requestAssociateLink $
 --             newAssociateLink
@@ -36,50 +42,20 @@ import Test.Tasty
 --         , requestAssociateTransitGatewayConnectPeer $
 --             newAssociateTransitGatewayConnectPeer
 --
---         , requestCreateSite $
---             newCreateSite
+--         , requestCreateConnectAttachment $
+--             newCreateConnectAttachment
 --
---         , requestDeleteConnection $
---             newDeleteConnection
---
---         , requestUpdateConnection $
---             newUpdateConnection
---
---         , requestDeregisterTransitGateway $
---             newDeregisterTransitGateway
---
---         , requestGetTransitGatewayConnectPeerAssociations $
---             newGetTransitGatewayConnectPeerAssociations
---
---         , requestUpdateSite $
---             newUpdateSite
---
---         , requestDeleteSite $
---             newDeleteSite
---
---         , requestListTagsForResource $
---             newListTagsForResource
---
---         , requestDisassociateLink $
---             newDisassociateLink
+--         , requestCreateConnectPeer $
+--             newCreateConnectPeer
 --
 --         , requestCreateConnection $
 --             newCreateConnection
 --
---         , requestGetDevices $
---             newGetDevices
+--         , requestCreateCoreNetwork $
+--             newCreateCoreNetwork
 --
---         , requestGetLinks $
---             newGetLinks
---
---         , requestDescribeGlobalNetworks $
---             newDescribeGlobalNetworks
---
---         , requestDisassociateCustomerGateway $
---             newDisassociateCustomerGateway
---
---         , requestDisassociateTransitGatewayConnectPeer $
---             newDisassociateTransitGatewayConnectPeer
+--         , requestCreateDevice $
+--             newCreateDevice
 --
 --         , requestCreateGlobalNetwork $
 --             newCreateGlobalNetwork
@@ -87,56 +63,236 @@ import Test.Tasty
 --         , requestCreateLink $
 --             newCreateLink
 --
---         , requestDeleteGlobalNetwork $
---             newDeleteGlobalNetwork
+--         , requestCreateSite $
+--             newCreateSite
 --
---         , requestUpdateGlobalNetwork $
---             newUpdateGlobalNetwork
+--         , requestCreateSiteToSiteVpnAttachment $
+--             newCreateSiteToSiteVpnAttachment
 --
---         , requestCreateDevice $
---             newCreateDevice
+--         , requestCreateTransitGatewayPeering $
+--             newCreateTransitGatewayPeering
 --
---         , requestAssociateCustomerGateway $
---             newAssociateCustomerGateway
+--         , requestCreateTransitGatewayRouteTableAttachment $
+--             newCreateTransitGatewayRouteTableAttachment
 --
---         , requestTagResource $
---             newTagResource
+--         , requestCreateVpcAttachment $
+--             newCreateVpcAttachment
 --
---         , requestGetCustomerGatewayAssociations $
---             newGetCustomerGatewayAssociations
+--         , requestDeleteAttachment $
+--             newDeleteAttachment
 --
---         , requestGetTransitGatewayRegistrations $
---             newGetTransitGatewayRegistrations
+--         , requestDeleteConnectPeer $
+--             newDeleteConnectPeer
 --
---         , requestGetConnections $
---             newGetConnections
+--         , requestDeleteConnection $
+--             newDeleteConnection
 --
---         , requestUntagResource $
---             newUntagResource
+--         , requestDeleteCoreNetwork $
+--             newDeleteCoreNetwork
 --
---         , requestGetSites $
---             newGetSites
---
---         , requestRegisterTransitGateway $
---             newRegisterTransitGateway
+--         , requestDeleteCoreNetworkPolicyVersion $
+--             newDeleteCoreNetworkPolicyVersion
 --
 --         , requestDeleteDevice $
 --             newDeleteDevice
 --
---         , requestUpdateDevice $
---             newUpdateDevice
+--         , requestDeleteGlobalNetwork $
+--             newDeleteGlobalNetwork
 --
 --         , requestDeleteLink $
 --             newDeleteLink
 --
+--         , requestDeletePeering $
+--             newDeletePeering
+--
+--         , requestDeleteResourcePolicy $
+--             newDeleteResourcePolicy
+--
+--         , requestDeleteSite $
+--             newDeleteSite
+--
+--         , requestDeregisterTransitGateway $
+--             newDeregisterTransitGateway
+--
+--         , requestDescribeGlobalNetworks $
+--             newDescribeGlobalNetworks
+--
+--         , requestDisassociateConnectPeer $
+--             newDisassociateConnectPeer
+--
+--         , requestDisassociateCustomerGateway $
+--             newDisassociateCustomerGateway
+--
+--         , requestDisassociateLink $
+--             newDisassociateLink
+--
+--         , requestDisassociateTransitGatewayConnectPeer $
+--             newDisassociateTransitGatewayConnectPeer
+--
+--         , requestExecuteCoreNetworkChangeSet $
+--             newExecuteCoreNetworkChangeSet
+--
+--         , requestGetConnectAttachment $
+--             newGetConnectAttachment
+--
+--         , requestGetConnectPeer $
+--             newGetConnectPeer
+--
+--         , requestGetConnectPeerAssociations $
+--             newGetConnectPeerAssociations
+--
+--         , requestGetConnections $
+--             newGetConnections
+--
+--         , requestGetCoreNetwork $
+--             newGetCoreNetwork
+--
+--         , requestGetCoreNetworkChangeEvents $
+--             newGetCoreNetworkChangeEvents
+--
+--         , requestGetCoreNetworkChangeSet $
+--             newGetCoreNetworkChangeSet
+--
+--         , requestGetCoreNetworkPolicy $
+--             newGetCoreNetworkPolicy
+--
+--         , requestGetCustomerGatewayAssociations $
+--             newGetCustomerGatewayAssociations
+--
+--         , requestGetDevices $
+--             newGetDevices
+--
+--         , requestGetLinkAssociations $
+--             newGetLinkAssociations
+--
+--         , requestGetLinks $
+--             newGetLinks
+--
+--         , requestGetNetworkResourceCounts $
+--             newGetNetworkResourceCounts
+--
+--         , requestGetNetworkResourceRelationships $
+--             newGetNetworkResourceRelationships
+--
+--         , requestGetNetworkResources $
+--             newGetNetworkResources
+--
+--         , requestGetNetworkRoutes $
+--             newGetNetworkRoutes
+--
+--         , requestGetNetworkTelemetry $
+--             newGetNetworkTelemetry
+--
+--         , requestGetResourcePolicy $
+--             newGetResourcePolicy
+--
+--         , requestGetRouteAnalysis $
+--             newGetRouteAnalysis
+--
+--         , requestGetSiteToSiteVpnAttachment $
+--             newGetSiteToSiteVpnAttachment
+--
+--         , requestGetSites $
+--             newGetSites
+--
+--         , requestGetTransitGatewayConnectPeerAssociations $
+--             newGetTransitGatewayConnectPeerAssociations
+--
+--         , requestGetTransitGatewayPeering $
+--             newGetTransitGatewayPeering
+--
+--         , requestGetTransitGatewayRegistrations $
+--             newGetTransitGatewayRegistrations
+--
+--         , requestGetTransitGatewayRouteTableAttachment $
+--             newGetTransitGatewayRouteTableAttachment
+--
+--         , requestGetVpcAttachment $
+--             newGetVpcAttachment
+--
+--         , requestListAttachments $
+--             newListAttachments
+--
+--         , requestListConnectPeers $
+--             newListConnectPeers
+--
+--         , requestListCoreNetworkPolicyVersions $
+--             newListCoreNetworkPolicyVersions
+--
+--         , requestListCoreNetworks $
+--             newListCoreNetworks
+--
+--         , requestListOrganizationServiceAccessStatus $
+--             newListOrganizationServiceAccessStatus
+--
+--         , requestListPeerings $
+--             newListPeerings
+--
+--         , requestListTagsForResource $
+--             newListTagsForResource
+--
+--         , requestPutCoreNetworkPolicy $
+--             newPutCoreNetworkPolicy
+--
+--         , requestPutResourcePolicy $
+--             newPutResourcePolicy
+--
+--         , requestRegisterTransitGateway $
+--             newRegisterTransitGateway
+--
+--         , requestRejectAttachment $
+--             newRejectAttachment
+--
+--         , requestRestoreCoreNetworkPolicyVersion $
+--             newRestoreCoreNetworkPolicyVersion
+--
+--         , requestStartOrganizationServiceAccessUpdate $
+--             newStartOrganizationServiceAccessUpdate
+--
+--         , requestStartRouteAnalysis $
+--             newStartRouteAnalysis
+--
+--         , requestTagResource $
+--             newTagResource
+--
+--         , requestUntagResource $
+--             newUntagResource
+--
+--         , requestUpdateConnection $
+--             newUpdateConnection
+--
+--         , requestUpdateCoreNetwork $
+--             newUpdateCoreNetwork
+--
+--         , requestUpdateDevice $
+--             newUpdateDevice
+--
+--         , requestUpdateGlobalNetwork $
+--             newUpdateGlobalNetwork
+--
 --         , requestUpdateLink $
 --             newUpdateLink
+--
+--         , requestUpdateNetworkResourceMetadata $
+--             newUpdateNetworkResourceMetadata
+--
+--         , requestUpdateSite $
+--             newUpdateSite
+--
+--         , requestUpdateVpcAttachment $
+--             newUpdateVpcAttachment
 --
 --           ]
 
 --     , testGroup "response"
---         [ responseGetLinkAssociations $
---             newGetLinkAssociationsResponse
+--         [ responseAcceptAttachment $
+--             newAcceptAttachmentResponse
+--
+--         , responseAssociateConnectPeer $
+--             newAssociateConnectPeerResponse
+--
+--         , responseAssociateCustomerGateway $
+--             newAssociateCustomerGatewayResponse
 --
 --         , responseAssociateLink $
 --             newAssociateLinkResponse
@@ -144,50 +300,20 @@ import Test.Tasty
 --         , responseAssociateTransitGatewayConnectPeer $
 --             newAssociateTransitGatewayConnectPeerResponse
 --
---         , responseCreateSite $
---             newCreateSiteResponse
+--         , responseCreateConnectAttachment $
+--             newCreateConnectAttachmentResponse
 --
---         , responseDeleteConnection $
---             newDeleteConnectionResponse
---
---         , responseUpdateConnection $
---             newUpdateConnectionResponse
---
---         , responseDeregisterTransitGateway $
---             newDeregisterTransitGatewayResponse
---
---         , responseGetTransitGatewayConnectPeerAssociations $
---             newGetTransitGatewayConnectPeerAssociationsResponse
---
---         , responseUpdateSite $
---             newUpdateSiteResponse
---
---         , responseDeleteSite $
---             newDeleteSiteResponse
---
---         , responseListTagsForResource $
---             newListTagsForResourceResponse
---
---         , responseDisassociateLink $
---             newDisassociateLinkResponse
+--         , responseCreateConnectPeer $
+--             newCreateConnectPeerResponse
 --
 --         , responseCreateConnection $
 --             newCreateConnectionResponse
 --
---         , responseGetDevices $
---             newGetDevicesResponse
+--         , responseCreateCoreNetwork $
+--             newCreateCoreNetworkResponse
 --
---         , responseGetLinks $
---             newGetLinksResponse
---
---         , responseDescribeGlobalNetworks $
---             newDescribeGlobalNetworksResponse
---
---         , responseDisassociateCustomerGateway $
---             newDisassociateCustomerGatewayResponse
---
---         , responseDisassociateTransitGatewayConnectPeer $
---             newDisassociateTransitGatewayConnectPeerResponse
+--         , responseCreateDevice $
+--             newCreateDeviceResponse
 --
 --         , responseCreateGlobalNetwork $
 --             newCreateGlobalNetworkResponse
@@ -195,61 +321,247 @@ import Test.Tasty
 --         , responseCreateLink $
 --             newCreateLinkResponse
 --
---         , responseDeleteGlobalNetwork $
---             newDeleteGlobalNetworkResponse
+--         , responseCreateSite $
+--             newCreateSiteResponse
 --
---         , responseUpdateGlobalNetwork $
---             newUpdateGlobalNetworkResponse
+--         , responseCreateSiteToSiteVpnAttachment $
+--             newCreateSiteToSiteVpnAttachmentResponse
 --
---         , responseCreateDevice $
---             newCreateDeviceResponse
+--         , responseCreateTransitGatewayPeering $
+--             newCreateTransitGatewayPeeringResponse
 --
---         , responseAssociateCustomerGateway $
---             newAssociateCustomerGatewayResponse
+--         , responseCreateTransitGatewayRouteTableAttachment $
+--             newCreateTransitGatewayRouteTableAttachmentResponse
 --
---         , responseTagResource $
---             newTagResourceResponse
+--         , responseCreateVpcAttachment $
+--             newCreateVpcAttachmentResponse
 --
---         , responseGetCustomerGatewayAssociations $
---             newGetCustomerGatewayAssociationsResponse
+--         , responseDeleteAttachment $
+--             newDeleteAttachmentResponse
 --
---         , responseGetTransitGatewayRegistrations $
---             newGetTransitGatewayRegistrationsResponse
+--         , responseDeleteConnectPeer $
+--             newDeleteConnectPeerResponse
 --
---         , responseGetConnections $
---             newGetConnectionsResponse
+--         , responseDeleteConnection $
+--             newDeleteConnectionResponse
 --
---         , responseUntagResource $
---             newUntagResourceResponse
+--         , responseDeleteCoreNetwork $
+--             newDeleteCoreNetworkResponse
 --
---         , responseGetSites $
---             newGetSitesResponse
---
---         , responseRegisterTransitGateway $
---             newRegisterTransitGatewayResponse
+--         , responseDeleteCoreNetworkPolicyVersion $
+--             newDeleteCoreNetworkPolicyVersionResponse
 --
 --         , responseDeleteDevice $
 --             newDeleteDeviceResponse
 --
---         , responseUpdateDevice $
---             newUpdateDeviceResponse
+--         , responseDeleteGlobalNetwork $
+--             newDeleteGlobalNetworkResponse
 --
 --         , responseDeleteLink $
 --             newDeleteLinkResponse
 --
+--         , responseDeletePeering $
+--             newDeletePeeringResponse
+--
+--         , responseDeleteResourcePolicy $
+--             newDeleteResourcePolicyResponse
+--
+--         , responseDeleteSite $
+--             newDeleteSiteResponse
+--
+--         , responseDeregisterTransitGateway $
+--             newDeregisterTransitGatewayResponse
+--
+--         , responseDescribeGlobalNetworks $
+--             newDescribeGlobalNetworksResponse
+--
+--         , responseDisassociateConnectPeer $
+--             newDisassociateConnectPeerResponse
+--
+--         , responseDisassociateCustomerGateway $
+--             newDisassociateCustomerGatewayResponse
+--
+--         , responseDisassociateLink $
+--             newDisassociateLinkResponse
+--
+--         , responseDisassociateTransitGatewayConnectPeer $
+--             newDisassociateTransitGatewayConnectPeerResponse
+--
+--         , responseExecuteCoreNetworkChangeSet $
+--             newExecuteCoreNetworkChangeSetResponse
+--
+--         , responseGetConnectAttachment $
+--             newGetConnectAttachmentResponse
+--
+--         , responseGetConnectPeer $
+--             newGetConnectPeerResponse
+--
+--         , responseGetConnectPeerAssociations $
+--             newGetConnectPeerAssociationsResponse
+--
+--         , responseGetConnections $
+--             newGetConnectionsResponse
+--
+--         , responseGetCoreNetwork $
+--             newGetCoreNetworkResponse
+--
+--         , responseGetCoreNetworkChangeEvents $
+--             newGetCoreNetworkChangeEventsResponse
+--
+--         , responseGetCoreNetworkChangeSet $
+--             newGetCoreNetworkChangeSetResponse
+--
+--         , responseGetCoreNetworkPolicy $
+--             newGetCoreNetworkPolicyResponse
+--
+--         , responseGetCustomerGatewayAssociations $
+--             newGetCustomerGatewayAssociationsResponse
+--
+--         , responseGetDevices $
+--             newGetDevicesResponse
+--
+--         , responseGetLinkAssociations $
+--             newGetLinkAssociationsResponse
+--
+--         , responseGetLinks $
+--             newGetLinksResponse
+--
+--         , responseGetNetworkResourceCounts $
+--             newGetNetworkResourceCountsResponse
+--
+--         , responseGetNetworkResourceRelationships $
+--             newGetNetworkResourceRelationshipsResponse
+--
+--         , responseGetNetworkResources $
+--             newGetNetworkResourcesResponse
+--
+--         , responseGetNetworkRoutes $
+--             newGetNetworkRoutesResponse
+--
+--         , responseGetNetworkTelemetry $
+--             newGetNetworkTelemetryResponse
+--
+--         , responseGetResourcePolicy $
+--             newGetResourcePolicyResponse
+--
+--         , responseGetRouteAnalysis $
+--             newGetRouteAnalysisResponse
+--
+--         , responseGetSiteToSiteVpnAttachment $
+--             newGetSiteToSiteVpnAttachmentResponse
+--
+--         , responseGetSites $
+--             newGetSitesResponse
+--
+--         , responseGetTransitGatewayConnectPeerAssociations $
+--             newGetTransitGatewayConnectPeerAssociationsResponse
+--
+--         , responseGetTransitGatewayPeering $
+--             newGetTransitGatewayPeeringResponse
+--
+--         , responseGetTransitGatewayRegistrations $
+--             newGetTransitGatewayRegistrationsResponse
+--
+--         , responseGetTransitGatewayRouteTableAttachment $
+--             newGetTransitGatewayRouteTableAttachmentResponse
+--
+--         , responseGetVpcAttachment $
+--             newGetVpcAttachmentResponse
+--
+--         , responseListAttachments $
+--             newListAttachmentsResponse
+--
+--         , responseListConnectPeers $
+--             newListConnectPeersResponse
+--
+--         , responseListCoreNetworkPolicyVersions $
+--             newListCoreNetworkPolicyVersionsResponse
+--
+--         , responseListCoreNetworks $
+--             newListCoreNetworksResponse
+--
+--         , responseListOrganizationServiceAccessStatus $
+--             newListOrganizationServiceAccessStatusResponse
+--
+--         , responseListPeerings $
+--             newListPeeringsResponse
+--
+--         , responseListTagsForResource $
+--             newListTagsForResourceResponse
+--
+--         , responsePutCoreNetworkPolicy $
+--             newPutCoreNetworkPolicyResponse
+--
+--         , responsePutResourcePolicy $
+--             newPutResourcePolicyResponse
+--
+--         , responseRegisterTransitGateway $
+--             newRegisterTransitGatewayResponse
+--
+--         , responseRejectAttachment $
+--             newRejectAttachmentResponse
+--
+--         , responseRestoreCoreNetworkPolicyVersion $
+--             newRestoreCoreNetworkPolicyVersionResponse
+--
+--         , responseStartOrganizationServiceAccessUpdate $
+--             newStartOrganizationServiceAccessUpdateResponse
+--
+--         , responseStartRouteAnalysis $
+--             newStartRouteAnalysisResponse
+--
+--         , responseTagResource $
+--             newTagResourceResponse
+--
+--         , responseUntagResource $
+--             newUntagResourceResponse
+--
+--         , responseUpdateConnection $
+--             newUpdateConnectionResponse
+--
+--         , responseUpdateCoreNetwork $
+--             newUpdateCoreNetworkResponse
+--
+--         , responseUpdateDevice $
+--             newUpdateDeviceResponse
+--
+--         , responseUpdateGlobalNetwork $
+--             newUpdateGlobalNetworkResponse
+--
 --         , responseUpdateLink $
 --             newUpdateLinkResponse
+--
+--         , responseUpdateNetworkResourceMetadata $
+--             newUpdateNetworkResourceMetadataResponse
+--
+--         , responseUpdateSite $
+--             newUpdateSiteResponse
+--
+--         , responseUpdateVpcAttachment $
+--             newUpdateVpcAttachmentResponse
 --
 --           ]
 --     ]
 
 -- Requests
 
-requestGetLinkAssociations :: GetLinkAssociations -> TestTree
-requestGetLinkAssociations =
+requestAcceptAttachment :: AcceptAttachment -> TestTree
+requestAcceptAttachment =
   req
-    "GetLinkAssociations"
-    "fixture/GetLinkAssociations.yaml"
+    "AcceptAttachment"
+    "fixture/AcceptAttachment.yaml"
+
+requestAssociateConnectPeer :: AssociateConnectPeer -> TestTree
+requestAssociateConnectPeer =
+  req
+    "AssociateConnectPeer"
+    "fixture/AssociateConnectPeer.yaml"
+
+requestAssociateCustomerGateway :: AssociateCustomerGateway -> TestTree
+requestAssociateCustomerGateway =
+  req
+    "AssociateCustomerGateway"
+    "fixture/AssociateCustomerGateway.yaml"
 
 requestAssociateLink :: AssociateLink -> TestTree
 requestAssociateLink =
@@ -263,59 +575,17 @@ requestAssociateTransitGatewayConnectPeer =
     "AssociateTransitGatewayConnectPeer"
     "fixture/AssociateTransitGatewayConnectPeer.yaml"
 
-requestCreateSite :: CreateSite -> TestTree
-requestCreateSite =
+requestCreateConnectAttachment :: CreateConnectAttachment -> TestTree
+requestCreateConnectAttachment =
   req
-    "CreateSite"
-    "fixture/CreateSite.yaml"
+    "CreateConnectAttachment"
+    "fixture/CreateConnectAttachment.yaml"
 
-requestDeleteConnection :: DeleteConnection -> TestTree
-requestDeleteConnection =
+requestCreateConnectPeer :: CreateConnectPeer -> TestTree
+requestCreateConnectPeer =
   req
-    "DeleteConnection"
-    "fixture/DeleteConnection.yaml"
-
-requestUpdateConnection :: UpdateConnection -> TestTree
-requestUpdateConnection =
-  req
-    "UpdateConnection"
-    "fixture/UpdateConnection.yaml"
-
-requestDeregisterTransitGateway :: DeregisterTransitGateway -> TestTree
-requestDeregisterTransitGateway =
-  req
-    "DeregisterTransitGateway"
-    "fixture/DeregisterTransitGateway.yaml"
-
-requestGetTransitGatewayConnectPeerAssociations :: GetTransitGatewayConnectPeerAssociations -> TestTree
-requestGetTransitGatewayConnectPeerAssociations =
-  req
-    "GetTransitGatewayConnectPeerAssociations"
-    "fixture/GetTransitGatewayConnectPeerAssociations.yaml"
-
-requestUpdateSite :: UpdateSite -> TestTree
-requestUpdateSite =
-  req
-    "UpdateSite"
-    "fixture/UpdateSite.yaml"
-
-requestDeleteSite :: DeleteSite -> TestTree
-requestDeleteSite =
-  req
-    "DeleteSite"
-    "fixture/DeleteSite.yaml"
-
-requestListTagsForResource :: ListTagsForResource -> TestTree
-requestListTagsForResource =
-  req
-    "ListTagsForResource"
-    "fixture/ListTagsForResource.yaml"
-
-requestDisassociateLink :: DisassociateLink -> TestTree
-requestDisassociateLink =
-  req
-    "DisassociateLink"
-    "fixture/DisassociateLink.yaml"
+    "CreateConnectPeer"
+    "fixture/CreateConnectPeer.yaml"
 
 requestCreateConnection :: CreateConnection -> TestTree
 requestCreateConnection =
@@ -323,35 +593,17 @@ requestCreateConnection =
     "CreateConnection"
     "fixture/CreateConnection.yaml"
 
-requestGetDevices :: GetDevices -> TestTree
-requestGetDevices =
+requestCreateCoreNetwork :: CreateCoreNetwork -> TestTree
+requestCreateCoreNetwork =
   req
-    "GetDevices"
-    "fixture/GetDevices.yaml"
+    "CreateCoreNetwork"
+    "fixture/CreateCoreNetwork.yaml"
 
-requestGetLinks :: GetLinks -> TestTree
-requestGetLinks =
+requestCreateDevice :: CreateDevice -> TestTree
+requestCreateDevice =
   req
-    "GetLinks"
-    "fixture/GetLinks.yaml"
-
-requestDescribeGlobalNetworks :: DescribeGlobalNetworks -> TestTree
-requestDescribeGlobalNetworks =
-  req
-    "DescribeGlobalNetworks"
-    "fixture/DescribeGlobalNetworks.yaml"
-
-requestDisassociateCustomerGateway :: DisassociateCustomerGateway -> TestTree
-requestDisassociateCustomerGateway =
-  req
-    "DisassociateCustomerGateway"
-    "fixture/DisassociateCustomerGateway.yaml"
-
-requestDisassociateTransitGatewayConnectPeer :: DisassociateTransitGatewayConnectPeer -> TestTree
-requestDisassociateTransitGatewayConnectPeer =
-  req
-    "DisassociateTransitGatewayConnectPeer"
-    "fixture/DisassociateTransitGatewayConnectPeer.yaml"
+    "CreateDevice"
+    "fixture/CreateDevice.yaml"
 
 requestCreateGlobalNetwork :: CreateGlobalNetwork -> TestTree
 requestCreateGlobalNetwork =
@@ -365,71 +617,65 @@ requestCreateLink =
     "CreateLink"
     "fixture/CreateLink.yaml"
 
-requestDeleteGlobalNetwork :: DeleteGlobalNetwork -> TestTree
-requestDeleteGlobalNetwork =
+requestCreateSite :: CreateSite -> TestTree
+requestCreateSite =
   req
-    "DeleteGlobalNetwork"
-    "fixture/DeleteGlobalNetwork.yaml"
+    "CreateSite"
+    "fixture/CreateSite.yaml"
 
-requestUpdateGlobalNetwork :: UpdateGlobalNetwork -> TestTree
-requestUpdateGlobalNetwork =
+requestCreateSiteToSiteVpnAttachment :: CreateSiteToSiteVpnAttachment -> TestTree
+requestCreateSiteToSiteVpnAttachment =
   req
-    "UpdateGlobalNetwork"
-    "fixture/UpdateGlobalNetwork.yaml"
+    "CreateSiteToSiteVpnAttachment"
+    "fixture/CreateSiteToSiteVpnAttachment.yaml"
 
-requestCreateDevice :: CreateDevice -> TestTree
-requestCreateDevice =
+requestCreateTransitGatewayPeering :: CreateTransitGatewayPeering -> TestTree
+requestCreateTransitGatewayPeering =
   req
-    "CreateDevice"
-    "fixture/CreateDevice.yaml"
+    "CreateTransitGatewayPeering"
+    "fixture/CreateTransitGatewayPeering.yaml"
 
-requestAssociateCustomerGateway :: AssociateCustomerGateway -> TestTree
-requestAssociateCustomerGateway =
+requestCreateTransitGatewayRouteTableAttachment :: CreateTransitGatewayRouteTableAttachment -> TestTree
+requestCreateTransitGatewayRouteTableAttachment =
   req
-    "AssociateCustomerGateway"
-    "fixture/AssociateCustomerGateway.yaml"
+    "CreateTransitGatewayRouteTableAttachment"
+    "fixture/CreateTransitGatewayRouteTableAttachment.yaml"
 
-requestTagResource :: TagResource -> TestTree
-requestTagResource =
+requestCreateVpcAttachment :: CreateVpcAttachment -> TestTree
+requestCreateVpcAttachment =
   req
-    "TagResource"
-    "fixture/TagResource.yaml"
+    "CreateVpcAttachment"
+    "fixture/CreateVpcAttachment.yaml"
 
-requestGetCustomerGatewayAssociations :: GetCustomerGatewayAssociations -> TestTree
-requestGetCustomerGatewayAssociations =
+requestDeleteAttachment :: DeleteAttachment -> TestTree
+requestDeleteAttachment =
   req
-    "GetCustomerGatewayAssociations"
-    "fixture/GetCustomerGatewayAssociations.yaml"
+    "DeleteAttachment"
+    "fixture/DeleteAttachment.yaml"
 
-requestGetTransitGatewayRegistrations :: GetTransitGatewayRegistrations -> TestTree
-requestGetTransitGatewayRegistrations =
+requestDeleteConnectPeer :: DeleteConnectPeer -> TestTree
+requestDeleteConnectPeer =
   req
-    "GetTransitGatewayRegistrations"
-    "fixture/GetTransitGatewayRegistrations.yaml"
+    "DeleteConnectPeer"
+    "fixture/DeleteConnectPeer.yaml"
 
-requestGetConnections :: GetConnections -> TestTree
-requestGetConnections =
+requestDeleteConnection :: DeleteConnection -> TestTree
+requestDeleteConnection =
   req
-    "GetConnections"
-    "fixture/GetConnections.yaml"
+    "DeleteConnection"
+    "fixture/DeleteConnection.yaml"
 
-requestUntagResource :: UntagResource -> TestTree
-requestUntagResource =
+requestDeleteCoreNetwork :: DeleteCoreNetwork -> TestTree
+requestDeleteCoreNetwork =
   req
-    "UntagResource"
-    "fixture/UntagResource.yaml"
+    "DeleteCoreNetwork"
+    "fixture/DeleteCoreNetwork.yaml"
 
-requestGetSites :: GetSites -> TestTree
-requestGetSites =
+requestDeleteCoreNetworkPolicyVersion :: DeleteCoreNetworkPolicyVersion -> TestTree
+requestDeleteCoreNetworkPolicyVersion =
   req
-    "GetSites"
-    "fixture/GetSites.yaml"
-
-requestRegisterTransitGateway :: RegisterTransitGateway -> TestTree
-requestRegisterTransitGateway =
-  req
-    "RegisterTransitGateway"
-    "fixture/RegisterTransitGateway.yaml"
+    "DeleteCoreNetworkPolicyVersion"
+    "fixture/DeleteCoreNetworkPolicyVersion.yaml"
 
 requestDeleteDevice :: DeleteDevice -> TestTree
 requestDeleteDevice =
@@ -437,11 +683,11 @@ requestDeleteDevice =
     "DeleteDevice"
     "fixture/DeleteDevice.yaml"
 
-requestUpdateDevice :: UpdateDevice -> TestTree
-requestUpdateDevice =
+requestDeleteGlobalNetwork :: DeleteGlobalNetwork -> TestTree
+requestDeleteGlobalNetwork =
   req
-    "UpdateDevice"
-    "fixture/UpdateDevice.yaml"
+    "DeleteGlobalNetwork"
+    "fixture/DeleteGlobalNetwork.yaml"
 
 requestDeleteLink :: DeleteLink -> TestTree
 requestDeleteLink =
@@ -449,21 +695,391 @@ requestDeleteLink =
     "DeleteLink"
     "fixture/DeleteLink.yaml"
 
+requestDeletePeering :: DeletePeering -> TestTree
+requestDeletePeering =
+  req
+    "DeletePeering"
+    "fixture/DeletePeering.yaml"
+
+requestDeleteResourcePolicy :: DeleteResourcePolicy -> TestTree
+requestDeleteResourcePolicy =
+  req
+    "DeleteResourcePolicy"
+    "fixture/DeleteResourcePolicy.yaml"
+
+requestDeleteSite :: DeleteSite -> TestTree
+requestDeleteSite =
+  req
+    "DeleteSite"
+    "fixture/DeleteSite.yaml"
+
+requestDeregisterTransitGateway :: DeregisterTransitGateway -> TestTree
+requestDeregisterTransitGateway =
+  req
+    "DeregisterTransitGateway"
+    "fixture/DeregisterTransitGateway.yaml"
+
+requestDescribeGlobalNetworks :: DescribeGlobalNetworks -> TestTree
+requestDescribeGlobalNetworks =
+  req
+    "DescribeGlobalNetworks"
+    "fixture/DescribeGlobalNetworks.yaml"
+
+requestDisassociateConnectPeer :: DisassociateConnectPeer -> TestTree
+requestDisassociateConnectPeer =
+  req
+    "DisassociateConnectPeer"
+    "fixture/DisassociateConnectPeer.yaml"
+
+requestDisassociateCustomerGateway :: DisassociateCustomerGateway -> TestTree
+requestDisassociateCustomerGateway =
+  req
+    "DisassociateCustomerGateway"
+    "fixture/DisassociateCustomerGateway.yaml"
+
+requestDisassociateLink :: DisassociateLink -> TestTree
+requestDisassociateLink =
+  req
+    "DisassociateLink"
+    "fixture/DisassociateLink.yaml"
+
+requestDisassociateTransitGatewayConnectPeer :: DisassociateTransitGatewayConnectPeer -> TestTree
+requestDisassociateTransitGatewayConnectPeer =
+  req
+    "DisassociateTransitGatewayConnectPeer"
+    "fixture/DisassociateTransitGatewayConnectPeer.yaml"
+
+requestExecuteCoreNetworkChangeSet :: ExecuteCoreNetworkChangeSet -> TestTree
+requestExecuteCoreNetworkChangeSet =
+  req
+    "ExecuteCoreNetworkChangeSet"
+    "fixture/ExecuteCoreNetworkChangeSet.yaml"
+
+requestGetConnectAttachment :: GetConnectAttachment -> TestTree
+requestGetConnectAttachment =
+  req
+    "GetConnectAttachment"
+    "fixture/GetConnectAttachment.yaml"
+
+requestGetConnectPeer :: GetConnectPeer -> TestTree
+requestGetConnectPeer =
+  req
+    "GetConnectPeer"
+    "fixture/GetConnectPeer.yaml"
+
+requestGetConnectPeerAssociations :: GetConnectPeerAssociations -> TestTree
+requestGetConnectPeerAssociations =
+  req
+    "GetConnectPeerAssociations"
+    "fixture/GetConnectPeerAssociations.yaml"
+
+requestGetConnections :: GetConnections -> TestTree
+requestGetConnections =
+  req
+    "GetConnections"
+    "fixture/GetConnections.yaml"
+
+requestGetCoreNetwork :: GetCoreNetwork -> TestTree
+requestGetCoreNetwork =
+  req
+    "GetCoreNetwork"
+    "fixture/GetCoreNetwork.yaml"
+
+requestGetCoreNetworkChangeEvents :: GetCoreNetworkChangeEvents -> TestTree
+requestGetCoreNetworkChangeEvents =
+  req
+    "GetCoreNetworkChangeEvents"
+    "fixture/GetCoreNetworkChangeEvents.yaml"
+
+requestGetCoreNetworkChangeSet :: GetCoreNetworkChangeSet -> TestTree
+requestGetCoreNetworkChangeSet =
+  req
+    "GetCoreNetworkChangeSet"
+    "fixture/GetCoreNetworkChangeSet.yaml"
+
+requestGetCoreNetworkPolicy :: GetCoreNetworkPolicy -> TestTree
+requestGetCoreNetworkPolicy =
+  req
+    "GetCoreNetworkPolicy"
+    "fixture/GetCoreNetworkPolicy.yaml"
+
+requestGetCustomerGatewayAssociations :: GetCustomerGatewayAssociations -> TestTree
+requestGetCustomerGatewayAssociations =
+  req
+    "GetCustomerGatewayAssociations"
+    "fixture/GetCustomerGatewayAssociations.yaml"
+
+requestGetDevices :: GetDevices -> TestTree
+requestGetDevices =
+  req
+    "GetDevices"
+    "fixture/GetDevices.yaml"
+
+requestGetLinkAssociations :: GetLinkAssociations -> TestTree
+requestGetLinkAssociations =
+  req
+    "GetLinkAssociations"
+    "fixture/GetLinkAssociations.yaml"
+
+requestGetLinks :: GetLinks -> TestTree
+requestGetLinks =
+  req
+    "GetLinks"
+    "fixture/GetLinks.yaml"
+
+requestGetNetworkResourceCounts :: GetNetworkResourceCounts -> TestTree
+requestGetNetworkResourceCounts =
+  req
+    "GetNetworkResourceCounts"
+    "fixture/GetNetworkResourceCounts.yaml"
+
+requestGetNetworkResourceRelationships :: GetNetworkResourceRelationships -> TestTree
+requestGetNetworkResourceRelationships =
+  req
+    "GetNetworkResourceRelationships"
+    "fixture/GetNetworkResourceRelationships.yaml"
+
+requestGetNetworkResources :: GetNetworkResources -> TestTree
+requestGetNetworkResources =
+  req
+    "GetNetworkResources"
+    "fixture/GetNetworkResources.yaml"
+
+requestGetNetworkRoutes :: GetNetworkRoutes -> TestTree
+requestGetNetworkRoutes =
+  req
+    "GetNetworkRoutes"
+    "fixture/GetNetworkRoutes.yaml"
+
+requestGetNetworkTelemetry :: GetNetworkTelemetry -> TestTree
+requestGetNetworkTelemetry =
+  req
+    "GetNetworkTelemetry"
+    "fixture/GetNetworkTelemetry.yaml"
+
+requestGetResourcePolicy :: GetResourcePolicy -> TestTree
+requestGetResourcePolicy =
+  req
+    "GetResourcePolicy"
+    "fixture/GetResourcePolicy.yaml"
+
+requestGetRouteAnalysis :: GetRouteAnalysis -> TestTree
+requestGetRouteAnalysis =
+  req
+    "GetRouteAnalysis"
+    "fixture/GetRouteAnalysis.yaml"
+
+requestGetSiteToSiteVpnAttachment :: GetSiteToSiteVpnAttachment -> TestTree
+requestGetSiteToSiteVpnAttachment =
+  req
+    "GetSiteToSiteVpnAttachment"
+    "fixture/GetSiteToSiteVpnAttachment.yaml"
+
+requestGetSites :: GetSites -> TestTree
+requestGetSites =
+  req
+    "GetSites"
+    "fixture/GetSites.yaml"
+
+requestGetTransitGatewayConnectPeerAssociations :: GetTransitGatewayConnectPeerAssociations -> TestTree
+requestGetTransitGatewayConnectPeerAssociations =
+  req
+    "GetTransitGatewayConnectPeerAssociations"
+    "fixture/GetTransitGatewayConnectPeerAssociations.yaml"
+
+requestGetTransitGatewayPeering :: GetTransitGatewayPeering -> TestTree
+requestGetTransitGatewayPeering =
+  req
+    "GetTransitGatewayPeering"
+    "fixture/GetTransitGatewayPeering.yaml"
+
+requestGetTransitGatewayRegistrations :: GetTransitGatewayRegistrations -> TestTree
+requestGetTransitGatewayRegistrations =
+  req
+    "GetTransitGatewayRegistrations"
+    "fixture/GetTransitGatewayRegistrations.yaml"
+
+requestGetTransitGatewayRouteTableAttachment :: GetTransitGatewayRouteTableAttachment -> TestTree
+requestGetTransitGatewayRouteTableAttachment =
+  req
+    "GetTransitGatewayRouteTableAttachment"
+    "fixture/GetTransitGatewayRouteTableAttachment.yaml"
+
+requestGetVpcAttachment :: GetVpcAttachment -> TestTree
+requestGetVpcAttachment =
+  req
+    "GetVpcAttachment"
+    "fixture/GetVpcAttachment.yaml"
+
+requestListAttachments :: ListAttachments -> TestTree
+requestListAttachments =
+  req
+    "ListAttachments"
+    "fixture/ListAttachments.yaml"
+
+requestListConnectPeers :: ListConnectPeers -> TestTree
+requestListConnectPeers =
+  req
+    "ListConnectPeers"
+    "fixture/ListConnectPeers.yaml"
+
+requestListCoreNetworkPolicyVersions :: ListCoreNetworkPolicyVersions -> TestTree
+requestListCoreNetworkPolicyVersions =
+  req
+    "ListCoreNetworkPolicyVersions"
+    "fixture/ListCoreNetworkPolicyVersions.yaml"
+
+requestListCoreNetworks :: ListCoreNetworks -> TestTree
+requestListCoreNetworks =
+  req
+    "ListCoreNetworks"
+    "fixture/ListCoreNetworks.yaml"
+
+requestListOrganizationServiceAccessStatus :: ListOrganizationServiceAccessStatus -> TestTree
+requestListOrganizationServiceAccessStatus =
+  req
+    "ListOrganizationServiceAccessStatus"
+    "fixture/ListOrganizationServiceAccessStatus.yaml"
+
+requestListPeerings :: ListPeerings -> TestTree
+requestListPeerings =
+  req
+    "ListPeerings"
+    "fixture/ListPeerings.yaml"
+
+requestListTagsForResource :: ListTagsForResource -> TestTree
+requestListTagsForResource =
+  req
+    "ListTagsForResource"
+    "fixture/ListTagsForResource.yaml"
+
+requestPutCoreNetworkPolicy :: PutCoreNetworkPolicy -> TestTree
+requestPutCoreNetworkPolicy =
+  req
+    "PutCoreNetworkPolicy"
+    "fixture/PutCoreNetworkPolicy.yaml"
+
+requestPutResourcePolicy :: PutResourcePolicy -> TestTree
+requestPutResourcePolicy =
+  req
+    "PutResourcePolicy"
+    "fixture/PutResourcePolicy.yaml"
+
+requestRegisterTransitGateway :: RegisterTransitGateway -> TestTree
+requestRegisterTransitGateway =
+  req
+    "RegisterTransitGateway"
+    "fixture/RegisterTransitGateway.yaml"
+
+requestRejectAttachment :: RejectAttachment -> TestTree
+requestRejectAttachment =
+  req
+    "RejectAttachment"
+    "fixture/RejectAttachment.yaml"
+
+requestRestoreCoreNetworkPolicyVersion :: RestoreCoreNetworkPolicyVersion -> TestTree
+requestRestoreCoreNetworkPolicyVersion =
+  req
+    "RestoreCoreNetworkPolicyVersion"
+    "fixture/RestoreCoreNetworkPolicyVersion.yaml"
+
+requestStartOrganizationServiceAccessUpdate :: StartOrganizationServiceAccessUpdate -> TestTree
+requestStartOrganizationServiceAccessUpdate =
+  req
+    "StartOrganizationServiceAccessUpdate"
+    "fixture/StartOrganizationServiceAccessUpdate.yaml"
+
+requestStartRouteAnalysis :: StartRouteAnalysis -> TestTree
+requestStartRouteAnalysis =
+  req
+    "StartRouteAnalysis"
+    "fixture/StartRouteAnalysis.yaml"
+
+requestTagResource :: TagResource -> TestTree
+requestTagResource =
+  req
+    "TagResource"
+    "fixture/TagResource.yaml"
+
+requestUntagResource :: UntagResource -> TestTree
+requestUntagResource =
+  req
+    "UntagResource"
+    "fixture/UntagResource.yaml"
+
+requestUpdateConnection :: UpdateConnection -> TestTree
+requestUpdateConnection =
+  req
+    "UpdateConnection"
+    "fixture/UpdateConnection.yaml"
+
+requestUpdateCoreNetwork :: UpdateCoreNetwork -> TestTree
+requestUpdateCoreNetwork =
+  req
+    "UpdateCoreNetwork"
+    "fixture/UpdateCoreNetwork.yaml"
+
+requestUpdateDevice :: UpdateDevice -> TestTree
+requestUpdateDevice =
+  req
+    "UpdateDevice"
+    "fixture/UpdateDevice.yaml"
+
+requestUpdateGlobalNetwork :: UpdateGlobalNetwork -> TestTree
+requestUpdateGlobalNetwork =
+  req
+    "UpdateGlobalNetwork"
+    "fixture/UpdateGlobalNetwork.yaml"
+
 requestUpdateLink :: UpdateLink -> TestTree
 requestUpdateLink =
   req
     "UpdateLink"
     "fixture/UpdateLink.yaml"
 
+requestUpdateNetworkResourceMetadata :: UpdateNetworkResourceMetadata -> TestTree
+requestUpdateNetworkResourceMetadata =
+  req
+    "UpdateNetworkResourceMetadata"
+    "fixture/UpdateNetworkResourceMetadata.yaml"
+
+requestUpdateSite :: UpdateSite -> TestTree
+requestUpdateSite =
+  req
+    "UpdateSite"
+    "fixture/UpdateSite.yaml"
+
+requestUpdateVpcAttachment :: UpdateVpcAttachment -> TestTree
+requestUpdateVpcAttachment =
+  req
+    "UpdateVpcAttachment"
+    "fixture/UpdateVpcAttachment.yaml"
+
 -- Responses
 
-responseGetLinkAssociations :: GetLinkAssociationsResponse -> TestTree
-responseGetLinkAssociations =
+responseAcceptAttachment :: AcceptAttachmentResponse -> TestTree
+responseAcceptAttachment =
   res
-    "GetLinkAssociationsResponse"
-    "fixture/GetLinkAssociationsResponse.proto"
+    "AcceptAttachmentResponse"
+    "fixture/AcceptAttachmentResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetLinkAssociations)
+    (Proxy.Proxy :: Proxy.Proxy AcceptAttachment)
+
+responseAssociateConnectPeer :: AssociateConnectPeerResponse -> TestTree
+responseAssociateConnectPeer =
+  res
+    "AssociateConnectPeerResponse"
+    "fixture/AssociateConnectPeerResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy AssociateConnectPeer)
+
+responseAssociateCustomerGateway :: AssociateCustomerGatewayResponse -> TestTree
+responseAssociateCustomerGateway =
+  res
+    "AssociateCustomerGatewayResponse"
+    "fixture/AssociateCustomerGatewayResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy AssociateCustomerGateway)
 
 responseAssociateLink :: AssociateLinkResponse -> TestTree
 responseAssociateLink =
@@ -481,77 +1097,21 @@ responseAssociateTransitGatewayConnectPeer =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy AssociateTransitGatewayConnectPeer)
 
-responseCreateSite :: CreateSiteResponse -> TestTree
-responseCreateSite =
+responseCreateConnectAttachment :: CreateConnectAttachmentResponse -> TestTree
+responseCreateConnectAttachment =
   res
-    "CreateSiteResponse"
-    "fixture/CreateSiteResponse.proto"
+    "CreateConnectAttachmentResponse"
+    "fixture/CreateConnectAttachmentResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateSite)
+    (Proxy.Proxy :: Proxy.Proxy CreateConnectAttachment)
 
-responseDeleteConnection :: DeleteConnectionResponse -> TestTree
-responseDeleteConnection =
+responseCreateConnectPeer :: CreateConnectPeerResponse -> TestTree
+responseCreateConnectPeer =
   res
-    "DeleteConnectionResponse"
-    "fixture/DeleteConnectionResponse.proto"
+    "CreateConnectPeerResponse"
+    "fixture/CreateConnectPeerResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteConnection)
-
-responseUpdateConnection :: UpdateConnectionResponse -> TestTree
-responseUpdateConnection =
-  res
-    "UpdateConnectionResponse"
-    "fixture/UpdateConnectionResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateConnection)
-
-responseDeregisterTransitGateway :: DeregisterTransitGatewayResponse -> TestTree
-responseDeregisterTransitGateway =
-  res
-    "DeregisterTransitGatewayResponse"
-    "fixture/DeregisterTransitGatewayResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeregisterTransitGateway)
-
-responseGetTransitGatewayConnectPeerAssociations :: GetTransitGatewayConnectPeerAssociationsResponse -> TestTree
-responseGetTransitGatewayConnectPeerAssociations =
-  res
-    "GetTransitGatewayConnectPeerAssociationsResponse"
-    "fixture/GetTransitGatewayConnectPeerAssociationsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetTransitGatewayConnectPeerAssociations)
-
-responseUpdateSite :: UpdateSiteResponse -> TestTree
-responseUpdateSite =
-  res
-    "UpdateSiteResponse"
-    "fixture/UpdateSiteResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateSite)
-
-responseDeleteSite :: DeleteSiteResponse -> TestTree
-responseDeleteSite =
-  res
-    "DeleteSiteResponse"
-    "fixture/DeleteSiteResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteSite)
-
-responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
-responseListTagsForResource =
-  res
-    "ListTagsForResourceResponse"
-    "fixture/ListTagsForResourceResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
-
-responseDisassociateLink :: DisassociateLinkResponse -> TestTree
-responseDisassociateLink =
-  res
-    "DisassociateLinkResponse"
-    "fixture/DisassociateLinkResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DisassociateLink)
+    (Proxy.Proxy :: Proxy.Proxy CreateConnectPeer)
 
 responseCreateConnection :: CreateConnectionResponse -> TestTree
 responseCreateConnection =
@@ -561,45 +1121,21 @@ responseCreateConnection =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CreateConnection)
 
-responseGetDevices :: GetDevicesResponse -> TestTree
-responseGetDevices =
+responseCreateCoreNetwork :: CreateCoreNetworkResponse -> TestTree
+responseCreateCoreNetwork =
   res
-    "GetDevicesResponse"
-    "fixture/GetDevicesResponse.proto"
+    "CreateCoreNetworkResponse"
+    "fixture/CreateCoreNetworkResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetDevices)
+    (Proxy.Proxy :: Proxy.Proxy CreateCoreNetwork)
 
-responseGetLinks :: GetLinksResponse -> TestTree
-responseGetLinks =
+responseCreateDevice :: CreateDeviceResponse -> TestTree
+responseCreateDevice =
   res
-    "GetLinksResponse"
-    "fixture/GetLinksResponse.proto"
+    "CreateDeviceResponse"
+    "fixture/CreateDeviceResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetLinks)
-
-responseDescribeGlobalNetworks :: DescribeGlobalNetworksResponse -> TestTree
-responseDescribeGlobalNetworks =
-  res
-    "DescribeGlobalNetworksResponse"
-    "fixture/DescribeGlobalNetworksResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeGlobalNetworks)
-
-responseDisassociateCustomerGateway :: DisassociateCustomerGatewayResponse -> TestTree
-responseDisassociateCustomerGateway =
-  res
-    "DisassociateCustomerGatewayResponse"
-    "fixture/DisassociateCustomerGatewayResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DisassociateCustomerGateway)
-
-responseDisassociateTransitGatewayConnectPeer :: DisassociateTransitGatewayConnectPeerResponse -> TestTree
-responseDisassociateTransitGatewayConnectPeer =
-  res
-    "DisassociateTransitGatewayConnectPeerResponse"
-    "fixture/DisassociateTransitGatewayConnectPeerResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DisassociateTransitGatewayConnectPeer)
+    (Proxy.Proxy :: Proxy.Proxy CreateDevice)
 
 responseCreateGlobalNetwork :: CreateGlobalNetworkResponse -> TestTree
 responseCreateGlobalNetwork =
@@ -617,93 +1153,85 @@ responseCreateLink =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CreateLink)
 
-responseDeleteGlobalNetwork :: DeleteGlobalNetworkResponse -> TestTree
-responseDeleteGlobalNetwork =
+responseCreateSite :: CreateSiteResponse -> TestTree
+responseCreateSite =
   res
-    "DeleteGlobalNetworkResponse"
-    "fixture/DeleteGlobalNetworkResponse.proto"
+    "CreateSiteResponse"
+    "fixture/CreateSiteResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteGlobalNetwork)
+    (Proxy.Proxy :: Proxy.Proxy CreateSite)
 
-responseUpdateGlobalNetwork :: UpdateGlobalNetworkResponse -> TestTree
-responseUpdateGlobalNetwork =
+responseCreateSiteToSiteVpnAttachment :: CreateSiteToSiteVpnAttachmentResponse -> TestTree
+responseCreateSiteToSiteVpnAttachment =
   res
-    "UpdateGlobalNetworkResponse"
-    "fixture/UpdateGlobalNetworkResponse.proto"
+    "CreateSiteToSiteVpnAttachmentResponse"
+    "fixture/CreateSiteToSiteVpnAttachmentResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateGlobalNetwork)
+    (Proxy.Proxy :: Proxy.Proxy CreateSiteToSiteVpnAttachment)
 
-responseCreateDevice :: CreateDeviceResponse -> TestTree
-responseCreateDevice =
+responseCreateTransitGatewayPeering :: CreateTransitGatewayPeeringResponse -> TestTree
+responseCreateTransitGatewayPeering =
   res
-    "CreateDeviceResponse"
-    "fixture/CreateDeviceResponse.proto"
+    "CreateTransitGatewayPeeringResponse"
+    "fixture/CreateTransitGatewayPeeringResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateDevice)
+    (Proxy.Proxy :: Proxy.Proxy CreateTransitGatewayPeering)
 
-responseAssociateCustomerGateway :: AssociateCustomerGatewayResponse -> TestTree
-responseAssociateCustomerGateway =
+responseCreateTransitGatewayRouteTableAttachment :: CreateTransitGatewayRouteTableAttachmentResponse -> TestTree
+responseCreateTransitGatewayRouteTableAttachment =
   res
-    "AssociateCustomerGatewayResponse"
-    "fixture/AssociateCustomerGatewayResponse.proto"
+    "CreateTransitGatewayRouteTableAttachmentResponse"
+    "fixture/CreateTransitGatewayRouteTableAttachmentResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy AssociateCustomerGateway)
+    (Proxy.Proxy :: Proxy.Proxy CreateTransitGatewayRouteTableAttachment)
 
-responseTagResource :: TagResourceResponse -> TestTree
-responseTagResource =
+responseCreateVpcAttachment :: CreateVpcAttachmentResponse -> TestTree
+responseCreateVpcAttachment =
   res
-    "TagResourceResponse"
-    "fixture/TagResourceResponse.proto"
+    "CreateVpcAttachmentResponse"
+    "fixture/CreateVpcAttachmentResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy TagResource)
+    (Proxy.Proxy :: Proxy.Proxy CreateVpcAttachment)
 
-responseGetCustomerGatewayAssociations :: GetCustomerGatewayAssociationsResponse -> TestTree
-responseGetCustomerGatewayAssociations =
+responseDeleteAttachment :: DeleteAttachmentResponse -> TestTree
+responseDeleteAttachment =
   res
-    "GetCustomerGatewayAssociationsResponse"
-    "fixture/GetCustomerGatewayAssociationsResponse.proto"
+    "DeleteAttachmentResponse"
+    "fixture/DeleteAttachmentResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetCustomerGatewayAssociations)
+    (Proxy.Proxy :: Proxy.Proxy DeleteAttachment)
 
-responseGetTransitGatewayRegistrations :: GetTransitGatewayRegistrationsResponse -> TestTree
-responseGetTransitGatewayRegistrations =
+responseDeleteConnectPeer :: DeleteConnectPeerResponse -> TestTree
+responseDeleteConnectPeer =
   res
-    "GetTransitGatewayRegistrationsResponse"
-    "fixture/GetTransitGatewayRegistrationsResponse.proto"
+    "DeleteConnectPeerResponse"
+    "fixture/DeleteConnectPeerResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetTransitGatewayRegistrations)
+    (Proxy.Proxy :: Proxy.Proxy DeleteConnectPeer)
 
-responseGetConnections :: GetConnectionsResponse -> TestTree
-responseGetConnections =
+responseDeleteConnection :: DeleteConnectionResponse -> TestTree
+responseDeleteConnection =
   res
-    "GetConnectionsResponse"
-    "fixture/GetConnectionsResponse.proto"
+    "DeleteConnectionResponse"
+    "fixture/DeleteConnectionResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetConnections)
+    (Proxy.Proxy :: Proxy.Proxy DeleteConnection)
 
-responseUntagResource :: UntagResourceResponse -> TestTree
-responseUntagResource =
+responseDeleteCoreNetwork :: DeleteCoreNetworkResponse -> TestTree
+responseDeleteCoreNetwork =
   res
-    "UntagResourceResponse"
-    "fixture/UntagResourceResponse.proto"
+    "DeleteCoreNetworkResponse"
+    "fixture/DeleteCoreNetworkResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy UntagResource)
+    (Proxy.Proxy :: Proxy.Proxy DeleteCoreNetwork)
 
-responseGetSites :: GetSitesResponse -> TestTree
-responseGetSites =
+responseDeleteCoreNetworkPolicyVersion :: DeleteCoreNetworkPolicyVersionResponse -> TestTree
+responseDeleteCoreNetworkPolicyVersion =
   res
-    "GetSitesResponse"
-    "fixture/GetSitesResponse.proto"
+    "DeleteCoreNetworkPolicyVersionResponse"
+    "fixture/DeleteCoreNetworkPolicyVersionResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetSites)
-
-responseRegisterTransitGateway :: RegisterTransitGatewayResponse -> TestTree
-responseRegisterTransitGateway =
-  res
-    "RegisterTransitGatewayResponse"
-    "fixture/RegisterTransitGatewayResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy RegisterTransitGateway)
+    (Proxy.Proxy :: Proxy.Proxy DeleteCoreNetworkPolicyVersion)
 
 responseDeleteDevice :: DeleteDeviceResponse -> TestTree
 responseDeleteDevice =
@@ -713,13 +1241,13 @@ responseDeleteDevice =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy DeleteDevice)
 
-responseUpdateDevice :: UpdateDeviceResponse -> TestTree
-responseUpdateDevice =
+responseDeleteGlobalNetwork :: DeleteGlobalNetworkResponse -> TestTree
+responseDeleteGlobalNetwork =
   res
-    "UpdateDeviceResponse"
-    "fixture/UpdateDeviceResponse.proto"
+    "DeleteGlobalNetworkResponse"
+    "fixture/DeleteGlobalNetworkResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateDevice)
+    (Proxy.Proxy :: Proxy.Proxy DeleteGlobalNetwork)
 
 responseDeleteLink :: DeleteLinkResponse -> TestTree
 responseDeleteLink =
@@ -729,6 +1257,454 @@ responseDeleteLink =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy DeleteLink)
 
+responseDeletePeering :: DeletePeeringResponse -> TestTree
+responseDeletePeering =
+  res
+    "DeletePeeringResponse"
+    "fixture/DeletePeeringResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeletePeering)
+
+responseDeleteResourcePolicy :: DeleteResourcePolicyResponse -> TestTree
+responseDeleteResourcePolicy =
+  res
+    "DeleteResourcePolicyResponse"
+    "fixture/DeleteResourcePolicyResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeleteResourcePolicy)
+
+responseDeleteSite :: DeleteSiteResponse -> TestTree
+responseDeleteSite =
+  res
+    "DeleteSiteResponse"
+    "fixture/DeleteSiteResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeleteSite)
+
+responseDeregisterTransitGateway :: DeregisterTransitGatewayResponse -> TestTree
+responseDeregisterTransitGateway =
+  res
+    "DeregisterTransitGatewayResponse"
+    "fixture/DeregisterTransitGatewayResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeregisterTransitGateway)
+
+responseDescribeGlobalNetworks :: DescribeGlobalNetworksResponse -> TestTree
+responseDescribeGlobalNetworks =
+  res
+    "DescribeGlobalNetworksResponse"
+    "fixture/DescribeGlobalNetworksResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeGlobalNetworks)
+
+responseDisassociateConnectPeer :: DisassociateConnectPeerResponse -> TestTree
+responseDisassociateConnectPeer =
+  res
+    "DisassociateConnectPeerResponse"
+    "fixture/DisassociateConnectPeerResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DisassociateConnectPeer)
+
+responseDisassociateCustomerGateway :: DisassociateCustomerGatewayResponse -> TestTree
+responseDisassociateCustomerGateway =
+  res
+    "DisassociateCustomerGatewayResponse"
+    "fixture/DisassociateCustomerGatewayResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DisassociateCustomerGateway)
+
+responseDisassociateLink :: DisassociateLinkResponse -> TestTree
+responseDisassociateLink =
+  res
+    "DisassociateLinkResponse"
+    "fixture/DisassociateLinkResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DisassociateLink)
+
+responseDisassociateTransitGatewayConnectPeer :: DisassociateTransitGatewayConnectPeerResponse -> TestTree
+responseDisassociateTransitGatewayConnectPeer =
+  res
+    "DisassociateTransitGatewayConnectPeerResponse"
+    "fixture/DisassociateTransitGatewayConnectPeerResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DisassociateTransitGatewayConnectPeer)
+
+responseExecuteCoreNetworkChangeSet :: ExecuteCoreNetworkChangeSetResponse -> TestTree
+responseExecuteCoreNetworkChangeSet =
+  res
+    "ExecuteCoreNetworkChangeSetResponse"
+    "fixture/ExecuteCoreNetworkChangeSetResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ExecuteCoreNetworkChangeSet)
+
+responseGetConnectAttachment :: GetConnectAttachmentResponse -> TestTree
+responseGetConnectAttachment =
+  res
+    "GetConnectAttachmentResponse"
+    "fixture/GetConnectAttachmentResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetConnectAttachment)
+
+responseGetConnectPeer :: GetConnectPeerResponse -> TestTree
+responseGetConnectPeer =
+  res
+    "GetConnectPeerResponse"
+    "fixture/GetConnectPeerResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetConnectPeer)
+
+responseGetConnectPeerAssociations :: GetConnectPeerAssociationsResponse -> TestTree
+responseGetConnectPeerAssociations =
+  res
+    "GetConnectPeerAssociationsResponse"
+    "fixture/GetConnectPeerAssociationsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetConnectPeerAssociations)
+
+responseGetConnections :: GetConnectionsResponse -> TestTree
+responseGetConnections =
+  res
+    "GetConnectionsResponse"
+    "fixture/GetConnectionsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetConnections)
+
+responseGetCoreNetwork :: GetCoreNetworkResponse -> TestTree
+responseGetCoreNetwork =
+  res
+    "GetCoreNetworkResponse"
+    "fixture/GetCoreNetworkResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetCoreNetwork)
+
+responseGetCoreNetworkChangeEvents :: GetCoreNetworkChangeEventsResponse -> TestTree
+responseGetCoreNetworkChangeEvents =
+  res
+    "GetCoreNetworkChangeEventsResponse"
+    "fixture/GetCoreNetworkChangeEventsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetCoreNetworkChangeEvents)
+
+responseGetCoreNetworkChangeSet :: GetCoreNetworkChangeSetResponse -> TestTree
+responseGetCoreNetworkChangeSet =
+  res
+    "GetCoreNetworkChangeSetResponse"
+    "fixture/GetCoreNetworkChangeSetResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetCoreNetworkChangeSet)
+
+responseGetCoreNetworkPolicy :: GetCoreNetworkPolicyResponse -> TestTree
+responseGetCoreNetworkPolicy =
+  res
+    "GetCoreNetworkPolicyResponse"
+    "fixture/GetCoreNetworkPolicyResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetCoreNetworkPolicy)
+
+responseGetCustomerGatewayAssociations :: GetCustomerGatewayAssociationsResponse -> TestTree
+responseGetCustomerGatewayAssociations =
+  res
+    "GetCustomerGatewayAssociationsResponse"
+    "fixture/GetCustomerGatewayAssociationsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetCustomerGatewayAssociations)
+
+responseGetDevices :: GetDevicesResponse -> TestTree
+responseGetDevices =
+  res
+    "GetDevicesResponse"
+    "fixture/GetDevicesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetDevices)
+
+responseGetLinkAssociations :: GetLinkAssociationsResponse -> TestTree
+responseGetLinkAssociations =
+  res
+    "GetLinkAssociationsResponse"
+    "fixture/GetLinkAssociationsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetLinkAssociations)
+
+responseGetLinks :: GetLinksResponse -> TestTree
+responseGetLinks =
+  res
+    "GetLinksResponse"
+    "fixture/GetLinksResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetLinks)
+
+responseGetNetworkResourceCounts :: GetNetworkResourceCountsResponse -> TestTree
+responseGetNetworkResourceCounts =
+  res
+    "GetNetworkResourceCountsResponse"
+    "fixture/GetNetworkResourceCountsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetNetworkResourceCounts)
+
+responseGetNetworkResourceRelationships :: GetNetworkResourceRelationshipsResponse -> TestTree
+responseGetNetworkResourceRelationships =
+  res
+    "GetNetworkResourceRelationshipsResponse"
+    "fixture/GetNetworkResourceRelationshipsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetNetworkResourceRelationships)
+
+responseGetNetworkResources :: GetNetworkResourcesResponse -> TestTree
+responseGetNetworkResources =
+  res
+    "GetNetworkResourcesResponse"
+    "fixture/GetNetworkResourcesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetNetworkResources)
+
+responseGetNetworkRoutes :: GetNetworkRoutesResponse -> TestTree
+responseGetNetworkRoutes =
+  res
+    "GetNetworkRoutesResponse"
+    "fixture/GetNetworkRoutesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetNetworkRoutes)
+
+responseGetNetworkTelemetry :: GetNetworkTelemetryResponse -> TestTree
+responseGetNetworkTelemetry =
+  res
+    "GetNetworkTelemetryResponse"
+    "fixture/GetNetworkTelemetryResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetNetworkTelemetry)
+
+responseGetResourcePolicy :: GetResourcePolicyResponse -> TestTree
+responseGetResourcePolicy =
+  res
+    "GetResourcePolicyResponse"
+    "fixture/GetResourcePolicyResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetResourcePolicy)
+
+responseGetRouteAnalysis :: GetRouteAnalysisResponse -> TestTree
+responseGetRouteAnalysis =
+  res
+    "GetRouteAnalysisResponse"
+    "fixture/GetRouteAnalysisResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetRouteAnalysis)
+
+responseGetSiteToSiteVpnAttachment :: GetSiteToSiteVpnAttachmentResponse -> TestTree
+responseGetSiteToSiteVpnAttachment =
+  res
+    "GetSiteToSiteVpnAttachmentResponse"
+    "fixture/GetSiteToSiteVpnAttachmentResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetSiteToSiteVpnAttachment)
+
+responseGetSites :: GetSitesResponse -> TestTree
+responseGetSites =
+  res
+    "GetSitesResponse"
+    "fixture/GetSitesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetSites)
+
+responseGetTransitGatewayConnectPeerAssociations :: GetTransitGatewayConnectPeerAssociationsResponse -> TestTree
+responseGetTransitGatewayConnectPeerAssociations =
+  res
+    "GetTransitGatewayConnectPeerAssociationsResponse"
+    "fixture/GetTransitGatewayConnectPeerAssociationsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetTransitGatewayConnectPeerAssociations)
+
+responseGetTransitGatewayPeering :: GetTransitGatewayPeeringResponse -> TestTree
+responseGetTransitGatewayPeering =
+  res
+    "GetTransitGatewayPeeringResponse"
+    "fixture/GetTransitGatewayPeeringResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetTransitGatewayPeering)
+
+responseGetTransitGatewayRegistrations :: GetTransitGatewayRegistrationsResponse -> TestTree
+responseGetTransitGatewayRegistrations =
+  res
+    "GetTransitGatewayRegistrationsResponse"
+    "fixture/GetTransitGatewayRegistrationsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetTransitGatewayRegistrations)
+
+responseGetTransitGatewayRouteTableAttachment :: GetTransitGatewayRouteTableAttachmentResponse -> TestTree
+responseGetTransitGatewayRouteTableAttachment =
+  res
+    "GetTransitGatewayRouteTableAttachmentResponse"
+    "fixture/GetTransitGatewayRouteTableAttachmentResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetTransitGatewayRouteTableAttachment)
+
+responseGetVpcAttachment :: GetVpcAttachmentResponse -> TestTree
+responseGetVpcAttachment =
+  res
+    "GetVpcAttachmentResponse"
+    "fixture/GetVpcAttachmentResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetVpcAttachment)
+
+responseListAttachments :: ListAttachmentsResponse -> TestTree
+responseListAttachments =
+  res
+    "ListAttachmentsResponse"
+    "fixture/ListAttachmentsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListAttachments)
+
+responseListConnectPeers :: ListConnectPeersResponse -> TestTree
+responseListConnectPeers =
+  res
+    "ListConnectPeersResponse"
+    "fixture/ListConnectPeersResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListConnectPeers)
+
+responseListCoreNetworkPolicyVersions :: ListCoreNetworkPolicyVersionsResponse -> TestTree
+responseListCoreNetworkPolicyVersions =
+  res
+    "ListCoreNetworkPolicyVersionsResponse"
+    "fixture/ListCoreNetworkPolicyVersionsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListCoreNetworkPolicyVersions)
+
+responseListCoreNetworks :: ListCoreNetworksResponse -> TestTree
+responseListCoreNetworks =
+  res
+    "ListCoreNetworksResponse"
+    "fixture/ListCoreNetworksResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListCoreNetworks)
+
+responseListOrganizationServiceAccessStatus :: ListOrganizationServiceAccessStatusResponse -> TestTree
+responseListOrganizationServiceAccessStatus =
+  res
+    "ListOrganizationServiceAccessStatusResponse"
+    "fixture/ListOrganizationServiceAccessStatusResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListOrganizationServiceAccessStatus)
+
+responseListPeerings :: ListPeeringsResponse -> TestTree
+responseListPeerings =
+  res
+    "ListPeeringsResponse"
+    "fixture/ListPeeringsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListPeerings)
+
+responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
+responseListTagsForResource =
+  res
+    "ListTagsForResourceResponse"
+    "fixture/ListTagsForResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
+
+responsePutCoreNetworkPolicy :: PutCoreNetworkPolicyResponse -> TestTree
+responsePutCoreNetworkPolicy =
+  res
+    "PutCoreNetworkPolicyResponse"
+    "fixture/PutCoreNetworkPolicyResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy PutCoreNetworkPolicy)
+
+responsePutResourcePolicy :: PutResourcePolicyResponse -> TestTree
+responsePutResourcePolicy =
+  res
+    "PutResourcePolicyResponse"
+    "fixture/PutResourcePolicyResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy PutResourcePolicy)
+
+responseRegisterTransitGateway :: RegisterTransitGatewayResponse -> TestTree
+responseRegisterTransitGateway =
+  res
+    "RegisterTransitGatewayResponse"
+    "fixture/RegisterTransitGatewayResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy RegisterTransitGateway)
+
+responseRejectAttachment :: RejectAttachmentResponse -> TestTree
+responseRejectAttachment =
+  res
+    "RejectAttachmentResponse"
+    "fixture/RejectAttachmentResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy RejectAttachment)
+
+responseRestoreCoreNetworkPolicyVersion :: RestoreCoreNetworkPolicyVersionResponse -> TestTree
+responseRestoreCoreNetworkPolicyVersion =
+  res
+    "RestoreCoreNetworkPolicyVersionResponse"
+    "fixture/RestoreCoreNetworkPolicyVersionResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy RestoreCoreNetworkPolicyVersion)
+
+responseStartOrganizationServiceAccessUpdate :: StartOrganizationServiceAccessUpdateResponse -> TestTree
+responseStartOrganizationServiceAccessUpdate =
+  res
+    "StartOrganizationServiceAccessUpdateResponse"
+    "fixture/StartOrganizationServiceAccessUpdateResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy StartOrganizationServiceAccessUpdate)
+
+responseStartRouteAnalysis :: StartRouteAnalysisResponse -> TestTree
+responseStartRouteAnalysis =
+  res
+    "StartRouteAnalysisResponse"
+    "fixture/StartRouteAnalysisResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy StartRouteAnalysis)
+
+responseTagResource :: TagResourceResponse -> TestTree
+responseTagResource =
+  res
+    "TagResourceResponse"
+    "fixture/TagResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy TagResource)
+
+responseUntagResource :: UntagResourceResponse -> TestTree
+responseUntagResource =
+  res
+    "UntagResourceResponse"
+    "fixture/UntagResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UntagResource)
+
+responseUpdateConnection :: UpdateConnectionResponse -> TestTree
+responseUpdateConnection =
+  res
+    "UpdateConnectionResponse"
+    "fixture/UpdateConnectionResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateConnection)
+
+responseUpdateCoreNetwork :: UpdateCoreNetworkResponse -> TestTree
+responseUpdateCoreNetwork =
+  res
+    "UpdateCoreNetworkResponse"
+    "fixture/UpdateCoreNetworkResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateCoreNetwork)
+
+responseUpdateDevice :: UpdateDeviceResponse -> TestTree
+responseUpdateDevice =
+  res
+    "UpdateDeviceResponse"
+    "fixture/UpdateDeviceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateDevice)
+
+responseUpdateGlobalNetwork :: UpdateGlobalNetworkResponse -> TestTree
+responseUpdateGlobalNetwork =
+  res
+    "UpdateGlobalNetworkResponse"
+    "fixture/UpdateGlobalNetworkResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateGlobalNetwork)
+
 responseUpdateLink :: UpdateLinkResponse -> TestTree
 responseUpdateLink =
   res
@@ -736,3 +1712,27 @@ responseUpdateLink =
     "fixture/UpdateLinkResponse.proto"
     defaultService
     (Proxy.Proxy :: Proxy.Proxy UpdateLink)
+
+responseUpdateNetworkResourceMetadata :: UpdateNetworkResourceMetadataResponse -> TestTree
+responseUpdateNetworkResourceMetadata =
+  res
+    "UpdateNetworkResourceMetadataResponse"
+    "fixture/UpdateNetworkResourceMetadataResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateNetworkResourceMetadata)
+
+responseUpdateSite :: UpdateSiteResponse -> TestTree
+responseUpdateSite =
+  res
+    "UpdateSiteResponse"
+    "fixture/UpdateSiteResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateSite)
+
+responseUpdateVpcAttachment :: UpdateVpcAttachmentResponse -> TestTree
+responseUpdateVpcAttachment =
+  res
+    "UpdateVpcAttachmentResponse"
+    "fixture/UpdateVpcAttachmentResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateVpcAttachment)

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.DeleteCapacityProvider
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,7 @@
 -- Deletes the specified capacity provider.
 --
 -- The @FARGATE@ and @FARGATE_SPOT@ capacity providers are reserved and
--- cannot be deleted. You can disassociate them from a cluster using either
+-- can\'t be deleted. You can disassociate them from a cluster using either
 -- the PutClusterCapacityProviders API or by deleting the cluster.
 --
 -- Prior to a capacity provider being deleted, the capacity provider must
@@ -33,7 +33,7 @@
 -- @forceNewDeployment@ option can be used to ensure that any tasks using
 -- the Amazon EC2 instance capacity provided by the capacity provider are
 -- transitioned to use the capacity from the remaining capacity providers.
--- Only capacity providers that are not associated with a cluster can be
+-- Only capacity providers that aren\'t associated with a cluster can be
 -- deleted. To remove a capacity provider from a cluster, you can either
 -- use PutClusterCapacityProviders or delete the cluster.
 module Amazonka.ECS.DeleteCapacityProvider
@@ -55,8 +55,9 @@ module Amazonka.ECS.DeleteCapacityProvider
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,12 +99,13 @@ instance Core.AWSRequest DeleteCapacityProvider where
   type
     AWSResponse DeleteCapacityProvider =
       DeleteCapacityProviderResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteCapacityProviderResponse'
-            Prelude.<$> (x Core..?> "capacityProvider")
+            Prelude.<$> (x Data..?> "capacityProvider")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -115,34 +117,34 @@ instance Prelude.NFData DeleteCapacityProvider where
   rnf DeleteCapacityProvider' {..} =
     Prelude.rnf capacityProvider
 
-instance Core.ToHeaders DeleteCapacityProvider where
+instance Data.ToHeaders DeleteCapacityProvider where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerServiceV20141113.DeleteCapacityProvider" ::
+              Data.=# ( "AmazonEC2ContainerServiceV20141113.DeleteCapacityProvider" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteCapacityProvider where
+instance Data.ToJSON DeleteCapacityProvider where
   toJSON DeleteCapacityProvider' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("capacityProvider" Core..= capacityProvider)
+              ("capacityProvider" Data..= capacityProvider)
           ]
       )
 
-instance Core.ToPath DeleteCapacityProvider where
+instance Data.ToPath DeleteCapacityProvider where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteCapacityProvider where
+instance Data.ToQuery DeleteCapacityProvider where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteCapacityProviderResponse' smart constructor.

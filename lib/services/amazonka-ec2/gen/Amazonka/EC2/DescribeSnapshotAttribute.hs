@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeSnapshotAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,8 +49,9 @@ module Amazonka.EC2.DescribeSnapshotAttribute
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -118,19 +119,20 @@ instance Core.AWSRequest DescribeSnapshotAttribute where
   type
     AWSResponse DescribeSnapshotAttribute =
       DescribeSnapshotAttributeResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeSnapshotAttributeResponse'
-            Prelude.<$> ( x Core..@? "createVolumePermission"
+            Prelude.<$> ( x Data..@? "createVolumePermission"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
-            Prelude.<*> ( x Core..@? "productCodes" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<*> ( x Data..@? "productCodes" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
-            Prelude.<*> (x Core..@? "snapshotId")
+            Prelude.<*> (x Data..@? "snapshotId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -146,22 +148,22 @@ instance Prelude.NFData DescribeSnapshotAttribute where
       `Prelude.seq` Prelude.rnf attribute
       `Prelude.seq` Prelude.rnf snapshotId
 
-instance Core.ToHeaders DescribeSnapshotAttribute where
+instance Data.ToHeaders DescribeSnapshotAttribute where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeSnapshotAttribute where
+instance Data.ToPath DescribeSnapshotAttribute where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeSnapshotAttribute where
+instance Data.ToQuery DescribeSnapshotAttribute where
   toQuery DescribeSnapshotAttribute' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeSnapshotAttribute" :: Prelude.ByteString),
+          Data.=: ("DescribeSnapshotAttribute" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "Attribute" Core.=: attribute,
-        "SnapshotId" Core.=: snapshotId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "Attribute" Data.=: attribute,
+        "SnapshotId" Data.=: snapshotId
       ]
 
 -- | /See:/ 'newDescribeSnapshotAttributeResponse' smart constructor.

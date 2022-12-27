@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RedshiftData.CancelStatement
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.RedshiftData.CancelStatement
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RedshiftData.Types
 import qualified Amazonka.Request as Request
@@ -85,12 +86,13 @@ instance Core.AWSRequest CancelStatement where
   type
     AWSResponse CancelStatement =
       CancelStatementResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CancelStatementResponse'
-            Prelude.<$> (x Core..?> "Status")
+            Prelude.<$> (x Data..?> "Status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -101,30 +103,30 @@ instance Prelude.Hashable CancelStatement where
 instance Prelude.NFData CancelStatement where
   rnf CancelStatement' {..} = Prelude.rnf id
 
-instance Core.ToHeaders CancelStatement where
+instance Data.ToHeaders CancelStatement where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "RedshiftData.CancelStatement" ::
+              Data.=# ( "RedshiftData.CancelStatement" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CancelStatement where
+instance Data.ToJSON CancelStatement where
   toJSON CancelStatement' {..} =
-    Core.object
-      (Prelude.catMaybes [Prelude.Just ("Id" Core..= id)])
+    Data.object
+      (Prelude.catMaybes [Prelude.Just ("Id" Data..= id)])
 
-instance Core.ToPath CancelStatement where
+instance Data.ToPath CancelStatement where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CancelStatement where
+instance Data.ToQuery CancelStatement where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCancelStatementResponse' smart constructor.

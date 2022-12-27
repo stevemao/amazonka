@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.PutConfigurationSetTrackingOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.SESV2.PutConfigurationSetTrackingOptions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,7 +99,8 @@ instance
   type
     AWSResponse PutConfigurationSetTrackingOptions =
       PutConfigurationSetTrackingOptionsResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -125,44 +127,44 @@ instance
       `Prelude.seq` Prelude.rnf configurationSetName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     PutConfigurationSetTrackingOptions
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     PutConfigurationSetTrackingOptions
   where
   toJSON PutConfigurationSetTrackingOptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CustomRedirectDomain" Core..=)
+          [ ("CustomRedirectDomain" Data..=)
               Prelude.<$> customRedirectDomain
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     PutConfigurationSetTrackingOptions
   where
   toPath PutConfigurationSetTrackingOptions' {..} =
     Prelude.mconcat
       [ "/v2/email/configuration-sets/",
-        Core.toBS configurationSetName,
+        Data.toBS configurationSetName,
         "/tracking-options"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     PutConfigurationSetTrackingOptions
   where
   toQuery = Prelude.const Prelude.mempty

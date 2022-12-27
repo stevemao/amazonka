@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Forecast.ListTagsForResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.Forecast.ListTagsForResource
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Forecast.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,9 +50,7 @@ import qualified Amazonka.Response as Response
 -- | /See:/ 'newListTagsForResource' smart constructor.
 data ListTagsForResource = ListTagsForResource'
   { -- | The Amazon Resource Name (ARN) that identifies the resource for which to
-    -- list the tags. Currently, the supported resources are Forecast dataset
-    -- groups, datasets, dataset import jobs, predictors, forecasts, and
-    -- forecast export jobs.
+    -- list the tags.
     resourceArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -65,9 +64,7 @@ data ListTagsForResource = ListTagsForResource'
 -- for backwards compatibility:
 --
 -- 'resourceArn', 'listTagsForResource_resourceArn' - The Amazon Resource Name (ARN) that identifies the resource for which to
--- list the tags. Currently, the supported resources are Forecast dataset
--- groups, datasets, dataset import jobs, predictors, forecasts, and
--- forecast export jobs.
+-- list the tags.
 newListTagsForResource ::
   -- | 'resourceArn'
   Prelude.Text ->
@@ -76,9 +73,7 @@ newListTagsForResource pResourceArn_ =
   ListTagsForResource' {resourceArn = pResourceArn_}
 
 -- | The Amazon Resource Name (ARN) that identifies the resource for which to
--- list the tags. Currently, the supported resources are Forecast dataset
--- groups, datasets, dataset import jobs, predictors, forecasts, and
--- forecast export jobs.
+-- list the tags.
 listTagsForResource_resourceArn :: Lens.Lens' ListTagsForResource Prelude.Text
 listTagsForResource_resourceArn = Lens.lens (\ListTagsForResource' {resourceArn} -> resourceArn) (\s@ListTagsForResource' {} a -> s {resourceArn = a} :: ListTagsForResource)
 
@@ -86,12 +81,13 @@ instance Core.AWSRequest ListTagsForResource where
   type
     AWSResponse ListTagsForResource =
       ListTagsForResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTagsForResourceResponse'
-            Prelude.<$> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -103,32 +99,32 @@ instance Prelude.NFData ListTagsForResource where
   rnf ListTagsForResource' {..} =
     Prelude.rnf resourceArn
 
-instance Core.ToHeaders ListTagsForResource where
+instance Data.ToHeaders ListTagsForResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonForecast.ListTagsForResource" ::
+              Data.=# ( "AmazonForecast.ListTagsForResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTagsForResource where
+instance Data.ToJSON ListTagsForResource where
   toJSON ListTagsForResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ResourceArn" Core..= resourceArn)]
+          [Prelude.Just ("ResourceArn" Data..= resourceArn)]
       )
 
-instance Core.ToPath ListTagsForResource where
+instance Data.ToPath ListTagsForResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTagsForResource where
+instance Data.ToQuery ListTagsForResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTagsForResourceResponse' smart constructor.

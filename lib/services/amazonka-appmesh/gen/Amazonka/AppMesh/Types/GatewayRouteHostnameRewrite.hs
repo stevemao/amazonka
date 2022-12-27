@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.GatewayRouteHostnameRewrite
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppMesh.Types.GatewayRouteHostnameRewrite where
 
 import Amazonka.AppMesh.Types.DefaultGatewayRouteRewrite
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object representing the gateway route host name to rewrite.
@@ -54,13 +55,13 @@ newGatewayRouteHostnameRewrite =
 gatewayRouteHostnameRewrite_defaultTargetHostname :: Lens.Lens' GatewayRouteHostnameRewrite (Prelude.Maybe DefaultGatewayRouteRewrite)
 gatewayRouteHostnameRewrite_defaultTargetHostname = Lens.lens (\GatewayRouteHostnameRewrite' {defaultTargetHostname} -> defaultTargetHostname) (\s@GatewayRouteHostnameRewrite' {} a -> s {defaultTargetHostname = a} :: GatewayRouteHostnameRewrite)
 
-instance Core.FromJSON GatewayRouteHostnameRewrite where
+instance Data.FromJSON GatewayRouteHostnameRewrite where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GatewayRouteHostnameRewrite"
       ( \x ->
           GatewayRouteHostnameRewrite'
-            Prelude.<$> (x Core..:? "defaultTargetHostname")
+            Prelude.<$> (x Data..:? "defaultTargetHostname")
       )
 
 instance Prelude.Hashable GatewayRouteHostnameRewrite where
@@ -71,11 +72,11 @@ instance Prelude.NFData GatewayRouteHostnameRewrite where
   rnf GatewayRouteHostnameRewrite' {..} =
     Prelude.rnf defaultTargetHostname
 
-instance Core.ToJSON GatewayRouteHostnameRewrite where
+instance Data.ToJSON GatewayRouteHostnameRewrite where
   toJSON GatewayRouteHostnameRewrite' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("defaultTargetHostname" Core..=)
+          [ ("defaultTargetHostname" Data..=)
               Prelude.<$> defaultTargetHostname
           ]
       )

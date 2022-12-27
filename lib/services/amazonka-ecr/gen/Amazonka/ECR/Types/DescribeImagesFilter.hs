@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECR.Types.DescribeImagesFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ECR.Types.DescribeImagesFilter where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECR.Types.TagStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object representing a filter on a DescribeImages operation.
@@ -61,9 +62,9 @@ instance Prelude.Hashable DescribeImagesFilter where
 instance Prelude.NFData DescribeImagesFilter where
   rnf DescribeImagesFilter' {..} = Prelude.rnf tagStatus
 
-instance Core.ToJSON DescribeImagesFilter where
+instance Data.ToJSON DescribeImagesFilter where
   toJSON DescribeImagesFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("tagStatus" Core..=) Prelude.<$> tagStatus]
+          [("tagStatus" Data..=) Prelude.<$> tagStatus]
       )
